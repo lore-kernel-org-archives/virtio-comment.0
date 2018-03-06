@@ -1,138 +1,208 @@
-Return-Path: virtio-dev-return-2645-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-dev-return-3427-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-dev@lists.oasis-open.org>
 List-Post: <mailto:virtio-dev@lists.oasis-open.org>
 List-Help: <mailto:virtio-dev-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-dev-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-dev-subscribe@lists.oasis-open.org>
-Date: Wed, 1 Nov 2017 19:35:11 +0200
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20171101190219-mutt-send-email-mst@kernel.org>
-References: <20171029125225.lx4ezpkbvjjsjv3x@localhost.localdomain>
- <20171101162357-mutt-send-email-mst@kernel.org>
- <AM4PR0501MB2723D56ED113A7B98D3785F0D45F0@AM4PR0501MB2723.eurprd05.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AM4PR0501MB2723D56ED113A7B98D3785F0D45F0@AM4PR0501MB2723.eurprd05.prod.outlook.com>
-Subject: [virtio-dev] Re: Virtio BoF minutes from KVM Forum 2017
-To: Ilya Lesokhin <ilyal@mellanox.com>
-Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "virtualization@lists.linux-foundation.org" <virtualization@lists.linux-foundation.org>, Jens Freimann <jfreimann@redhat.com>
+From: Changpeng Liu <changpeng.liu@intel.com>
+Date: Tue,  6 Mar 2018 10:50:20 +0800
+Message-Id: <1520304620-10753-1-git-send-email-changpeng.liu@intel.com>
+Subject: [virtio-dev] [PATCH v3] virtio-blk: add discard and write zeroes features to specification
+To: virtio-dev@lists.oasis-open.org
+Cc: virtio-comment@lists.oasis-open.org, changpeng.liu@intel.com, cavery@redhat.com, stefanha@redhat.com, pbonzini@redhat.com, pawelx.wodkowski@intel.com, james.r.harris@intel.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Nov 01, 2017 at 03:52:12PM +0000, Ilya Lesokhin wrote:
-> On Wednesday, November 01, 2017 4:59 PM, Michael S. Tsirkin wrote:
-> 
-> > On Sun, Oct 29, 2017 at 01:52:25PM +0100, Jens Freimann wrote:
-> > > Ilya: - you might have more completions than descriptors available
-> > > - partial descriptor chains are a problem for hardware because you
-> > > might have  to read a bunch of conscriptors twice - how would you do
-> > > deal with a big buffer that cointains a large number of  small packets
-> > > with respect to completions?
-> > > - is one bit for completion enough? right now it means descriptor was
-> > > actually  used. how to we signal when it was completed?
-> > 
-> > I am not sure I understand the difference. Under virtio, driver makes a
-> > descriptor available, then device reads/writes memory depending on descriptor
-> > type, then marks it as used.
-> > 
-> > What does completed mean?
-> > 
-> 
-> During the BOF, someone raised the point that there is no indication that the HW has
-> Read the descriptor. I think after some discussion we've agreed that it's not a useful indication.
-> 
-> My issues with the current completion or used notifications are as follows:
-> 1. There is no room for extra metadata such as checksum or flow tag.
-> You could put that in the descriptor payload but it's somewhat inconvenient.
-> You have to either use and additional descriptor for metadata per chain.
-> Or putting it in one of the buffers and forcing the lifetime of the metadata and data to be the same.
+Existing virtio-blk protocol doesn't have DISCARD/WRITE ZEROES support,
+this will impact the performance when using SSD backend over file systems.
 
-That's true. It would be easy to make descriptors e.g. 32 bytes each, so
-you can add extra data in there. Or if we can live with wasting some
-bytes per descriptor, we could add a descriptor flag that marks the
-address field as meta-data. You could then chain it with a regular
-descriptor for data. However all in all the simplest option is probably
-in the virtio header which can be linear with the packet.
+Here is the proposal to extend existing virtio-blk protocol to support
+DISCARD/WRITE ZEROES commands.
 
-> 2. Current format assumes 1-1 corresponds between descriptors and completions.
-> You did offer a skipping optimization for many descriptors -> 1 completion.
+Basic idea here is using 16 Bytes payload to support 1 descriptor, users
+can put several segments together with 1 DISCARD/WRITE ZEROES command.
 
-Yes - that's because the claim was that if using descriptors in-order,
-device is doing many unnecessary writes.
+struct virtio_blk_discard_write_zeroes {
+       le64 sector;
+       le32 num_sectors;
+       struct {
+               le32 unmap:1;
+               le32 reserved:31;
+       } flags;
+};
 
-> But it is somewhat inefficient.
+For the purpose to support such feature, we need to introduce 2 new feature
+flags: VIRTIO_BLK_F_DISCARD/VIRTIO_BLK_F_WRITE_ZEROES, and 2 new command
+types: VIRTIO_BLK_T_DISCARD/VIRTIO_BLK_T_WRITE_ZEROES. Also we introduce
+several new parameters in the configuration space of virtio-blk:
+max_discard_sectors/max_discard_seg/max_write_zeroes_sectors.
+These parameters will tell the OS what's the granularity when
+issuing such commands.
 
-It seems to outperform other options on a micro-benchmark but sure,
-what do you propose?
+If both DISCARD and WRITE ZEROES are supported, unmap flag bit maybe used
+for WRITE ZEROES command with DISCARD bit enabled.
 
-> And you didn't offer a solution for 1 descriptor -> multiple completions.
-> Mellanox has a feature called striding RQ where you post a large buffer and
-> The NIC fills it with multiple back to back packets with padding.
-> Each packet generates its own completion.
+Signed-off-by: Changpeng Liu <changpeng.liu@intel.com>
+---
+ content.tex | 84 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 81 insertions(+), 3 deletions(-)
 
-I suspect a good way to do this would be to just pass offsets within the
-buffer back and forth. I agree sticking such small messages in a
-separate buffer is not ideal. How about an option of replacing PA
-with this data?
+diff --git a/content.tex b/content.tex
+index c7ef7fd..c4b3190 100644
+--- a/content.tex
++++ b/content.tex
+@@ -4127,6 +4127,14 @@ device except where noted.
+ 
+ \item[VIRTIO_BLK_F_CONFIG_WCE (11)] Device can toggle its cache between writeback
+     and writethrough modes.
++
++\item[VIRTIO_BLK_F_DISCARD (13)] Device can support discard command, maximum
++    discard sectors size in \field{max_discard_sectors} and maximum discard
++    segment number in \field{max_discard_seg}.
++
++\item[VIRTIO_BLK_F_WRITE_ZEROES (14)] Device can support write zeroes command,
++     maximum write zeroes sectors size in \field{max_write_zeroes_sectors} and
++     maximum write zeroes segment number in \field{max_write_zeroes_seg}.
+ \end{description}
+ 
+ \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Block Device / Feature bits / Legacy Interface: Feature bits}
+@@ -4148,6 +4156,12 @@ The \field{capacity} of the device (expressed in 512-byte sectors) is always
+ present. The availability of the others all depend on various feature
+ bits as indicated above.
+ 
++The parameters in the configuration space of the device \field{max_discard_sectors}
++\field{discard_sector_alignment} are expressed in 512-bytes sectors if the
++VIRTIO_BLK_F_DISCARD feature bit is negotiated. The \field{max_write_zeroes_sectors}
++is expressed in 512-byte sectors if the VIRTIO_BLK_F_WRITE_ZEROES feature
++bit is negotiated.
++
+ \begin{lstlisting}
+ struct virtio_blk_config {
+         le64 capacity;
+@@ -4170,6 +4184,14 @@ struct virtio_blk_config {
+                 le32 opt_io_size;
+         } topology;
+         u8 writeback;
++        u8 unused0[3];
++        le32 max_discard_sectors;
++        le32 max_discard_seg;
++        le32 discard_sector_alignment;
++        le32 max_write_zeroes_sectors;
++        le32 max_write_zeroes_seg;
++        u8 write_zeroes_may_unmap;
++        u8 unused1[3];
+ };
+ \end{lstlisting}
+ 
+@@ -4211,6 +4233,17 @@ according to the native endian of the guest rather than
+   after reset can be either writeback or writethrough.  The actual
+   mode can be determined by reading \field{writeback} after feature
+   negotiation.
++
++\item If the VIRTIO_BLK_F_DISCARD feature is negotiated,
++    \field{max_discard_sectors} and \field{max_discard_seg} can be read
++    to determine the maximum discard sectors and maximum number of discard
++    segments for the block driver to use. \field{discard_sector_alignment}
++    can be used by OS when splitting a request based on alignment.
++
++\item if the VIRTIO_BLK_F_WRITE_ZEROES feature is negotiated,
++    \field{max_write_zeroes_sectors} and \field{max_write_zeroes_seg} can
++    be read to determine the maximum write zeroes sectors and maximum
++    number of write zeroes segments for the block driver to use.
+ \end{enumerate}
+ 
+ \drivernormative{\subsubsection}{Device Initialization}{Device Types / Block Device / Device Initialization}
+@@ -4234,6 +4267,9 @@ if they offer VIRTIO_BLK_F_CONFIG_WCE.
+ If VIRTIO_BLK_F_CONFIG_WCE is negotiated but VIRTIO_BLK_F_FLUSH
+ is not, the device MUST initialize \field{writeback} to 0.
+ 
++The device MUST initialize padding bytes \field{unused0} and
++\field{unused1} to 0.
++
+ \subsubsection{Legacy Interface: Device Initialization}\label{sec:Device Types / Block Device / Device Initialization / Legacy Interface: Device Initialization}
+ 
+ Because legacy devices do not have FEATURES_OK, transitional devices
+@@ -4270,20 +4306,38 @@ struct virtio_blk_req {
+         u8 data[][512];
+         u8 status;
+ };
++
++struct virtio_blk_discard_write_zeroes {
++       le64 sector;
++       le32 num_sectors;
++       struct {
++               le32 unmap:1;
++               le32 reserved:31;
++       } flags;
++};
+ \end{lstlisting}
+ 
+ The type of the request is either a read (VIRTIO_BLK_T_IN), a write
+-(VIRTIO_BLK_T_OUT), or a flush (VIRTIO_BLK_T_FLUSH).
++(VIRTIO_BLK_T_OUT), a discard (VIRTIO_BLK_T_DISCARD), a write zeroes
++(VIRTIO_BLK_T_WRITE_ZEROES) or a flush (VIRTIO_BLK_T_FLUSH).
+ 
+ \begin{lstlisting}
+ #define VIRTIO_BLK_T_IN           0
+ #define VIRTIO_BLK_T_OUT          1
+ #define VIRTIO_BLK_T_FLUSH        4
++#define VIRTIO_BLK_T_DISCARD      11
++#define VIRTIO_BLK_T_WRITE_ZEROES 13
+ \end{lstlisting}
+ 
+ The \field{sector} number indicates the offset (multiplied by 512) where
+-the read or write is to occur. This field is unused and set to 0
+-for scsi packet commands and for flush commands.
++the read or write is to occur. This field is unused and set to 0 for
++commands other than read or write.
++
++The \field{data} used for discard or write zeroes command is described
++by one or more virtio_blk_discard_write_zeroes structs. \field{sector}
++indicates the starting offset (multiplied by 512) of the segment, while
++\field{num_sectors} indicates the number of sectors in each discarded
++range. \field{unmap} is only used for write zeroes command.
+ 
+ The final \field{status} byte is written by the device: either
+ VIRTIO_BLK_S_OK for success, VIRTIO_BLK_S_IOERR for device or driver
+@@ -4311,12 +4365,36 @@ switch to writethrough or writeback mode by writing respectively 0 and
+ the driver MUST NOT assume that any volatile writes have been committed
+ to persistent device backend storage.
+ 
++The \field{unmap} bit MUST be zero for discard commands.  The driver
++MUST NOT assume anything about the data returned by read requests after
++a range of sectors has been discarded.
++
+ \devicenormative{\subsubsection}{Device Operation}{Device Types / Block Device / Device Operation}
+ 
+ A device MUST set the \field{status} byte to VIRTIO_BLK_S_IOERR
+ for a write request if the VIRTIO_BLK_F_RO feature if offered, and MUST NOT
+ write any data.
+ 
++The device MUST set the \field{status} byte to VIRTIO_BLK_S_UNSUPP for
++discard and write zeroes commands if any unknown flag is set.
++Furthermore, the device MUST set the \field{status} byte to
++VIRTIO_BLK_S_UNSUPP for discard commands if the \field{unmap} flag is set.
++
++For discard commands, the device MAY deallocate the specified range of
++sectors in the device backend storage.
++
++For write zeroes commands, if the \field{unmap} is set, the device MAY
++deallocate the specified range of sectors in the device backend storage,
++as if the DISCARD command had been sent.  After a write zeroes command
++is completed, reads of the specified ranges of sectors MUST return
++zeroes.  This is true independent of whether \field{unmap} was set or clear.
++
++The device SHOULD clear the \field{write_zeroes_may_unmap} field of the
++virtio configuration space if and only if a write zeroes request cannot
++result in deallocating one or more sectors.  The device MAY change the
++content of the field during operation of the device; when this happens,
++the device SHOULD trigger a configuration change interrupt.
++
+ A write is considered volatile when it is submitted; the contents of
+ sectors covered by a volatile write are undefined in persistent device
+ backend storage until the write becomes stable.  A write becomes stable
+-- 
+1.9.3
 
-
-
-> 3. There is a usage model where you have multiple produce rings
-> And a single completion ring.
-
-What good is it though? It seems to perform worse than combining
-producer and consumer in my testing.
-
-
-> You could implement the completion ring using an additional virtio ring,  but 
-> The current model will require an extra indirection as it force you to write into 
-> The buffers the descriptor in the completion ring point to. Rather than writing the
-> Completion into the ring itself.
-> Additionally the device is still required to write to the original producer ring 
-> in addition to the completion ring.
-> 
-> I think the best and most flexible design is to have variable size descriptor that
-> start with a dword header.
-> The dword header will include - an ownership bit, an opcode and descriptor length.
-> The opcode and the "length" dwords following the header will be device specific.
-
-This means that device needs to do two reads just to decode the
-descriptor fully. This conflicts with feedback Intel has been giving on
-list which is to try and reduce number of reads. With header linear with
-the packet, you need two reads to start transmitting the packet.
-
-
-> The owner bit meaning changes on each ring wrap around so the device doesn't
-> Need to update.
-
-Seems to look like the avail bit in the kvm forum presentation.
-
-> Each device (or device class) can choose whether completions are reported directly inside 
-> the descriptors in that ring or in a separate completion ring. 
-> 
-> completions rings can be implemented in an efficient manner with this design.
-> The driver will initialize a dedicated completion ring with empty completion sized descriptors.
-> And the device will write the completions directly into the ring.
-
-I assume when you say completion you mean used entries, if I'm wrong
-please correct me.  In fact with the proposal in the kvm forum
-presentation it is possible to write used entries in a separate address
-as opposed to overlapping the available entries.  If you are going to
-support skipping writing back some used descriptors then accounting
-would have to change slightly since driver won't be able to reset used
-flags then.  But in the past in all tests I've written this separate
-ring underperforms a shared ring.
-
-
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> 
 
 ---------------------------------------------------------------------
 To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
