@@ -1,108 +1,92 @@
-Return-Path: virtio-comment-return-568-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-569-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8D1389842C2
-	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Nov 2018 14:03:48 +0000 (UTC)
-Date: Mon, 26 Nov 2018 14:03:38 +0000
-From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
-Message-ID: <20181126140338.GC2547@work-vm>
+	by lists.oasis-open.org (Postfix) with ESMTP id 1B5CF985B91
+	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Nov 2018 09:27:49 +0000 (UTC)
+Date: Tue, 27 Nov 2018 09:27:34 +0000
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20181127092734.GB9360@stefanha-x1.localdomain>
 References: <20180921095459.GA2842@work-vm>
  <20181126111612.GG15869@stefanha-x1.localdomain>
  <20181126135245.v4lklw6qwa2ggv4t@sirius.home.kraxel.org>
+ <20181126140338.GC2547@work-vm>
+ <20181126145145.cbuzccf3qo4z2nau@sirius.home.kraxel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="uQr8t48UFsdbeI+V"
 Content-Disposition: inline
-In-Reply-To: <20181126135245.v4lklw6qwa2ggv4t@sirius.home.kraxel.org>
+In-Reply-To: <20181126145145.cbuzccf3qo4z2nau@sirius.home.kraxel.org>
 Subject: [virtio-comment] Re: PCI cap for larger offsets/lengths
 To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "Dr. David Alan Gilbert" <dgilbert@redhat.com>, virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-* Gerd Hoffmann (kraxel@redhat.com) wrote:
-> On Mon, Nov 26, 2018 at 11:16:12AM +0000, Stefan Hajnoczi wrote:
-> > On Fri, Sep 21, 2018 at 10:54:59AM +0100, Dr. David Alan Gilbert wrote:
-> > > Hi,
-> > >   We've got an experimental virtio device (using vhost-user) we're playing with
-> > > that would like to share multiple large mappings from the client back to qemu.
-> > 
-> > CCing Michael Tsirkin and Gerd Hoffman.  Gerd could use this for
-> > virtio-gpu where some memory must be owned by the host.
-> 
-> Yep.  For virtio-gpu I want be able to map host gpu resources (which
-> must be allocated by the host gpu driver) into the guest address space.
-> 
-> > > 'virtio_pci_cap' only has 32bit offset and length fields and so
-> > > I've got a different capability to express larger regions:
-> > > 
-> > > 
-> > > /* Additional shared memory capability */
-> > > #define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
-> > > 
-> > > struct virtio_pci_shm_cap {
-> > >        struct virtio_pci_cap cap;
-> > >        le32 offset_hi;             /* Most sig 32 bits of offset */
-> > >        le32 length_hi;             /* Most sig 32 bits of length */
-> > >        u8   id;                    /* To distinguish shm chunks */
-> > > };
-> > > 
-> > > One oddity is that I'm allowing multiple instances of this capability
-> > > on one device, distinguished by their 'id' field which I've made device
-> > > type specific, e.g.:
-> > > 
-> > > #define VIRTIO_MYDEV_PCI_SHMCAP_ID_CACHE   0
-> > > #define VIRTIO_MYDEV_PCI_SHMCAP_ID_JOURNAL 1
-> 
-> For my experimental virtio-gpu code I use one pci bar to reserve address
-> space.  It is a separate pci bar.  First, because it is a 64bit bar.
-> Second, because it is declared as prefetchable (unlike the mmio bar
-> which is not).  I also simply use the whole bar, so no offset/length is
-> needed.
-> 
-> gpu resources are sub-regions within that pci bar, and they are managed
-> using device-specific commands.
-> 
-> So, I'm wondering whenever it makes sense to just do the same for your
-> device.  Just use one pci bar as shared memory umbrella, specify that
-> one using the virtio vendor cap, then have sub-regions within that bar
-> for the various regions you have.  Manage them dynamically (using
-> device-specific virtio commands) or just have a static configuration (in
-> device-specific config space).
+--uQr8t48UFsdbeI+V
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Ours are static subdivisions; so it felt easier to declare them; it's a
-shame to make that device specific.
+On Mon, Nov 26, 2018 at 03:51:45PM +0100, Gerd Hoffmann wrote:
+>   Hi,
+>=20
+> > > So, I'm wondering whenever it makes sense to just do the same for your
+> > > device.  Just use one pci bar as shared memory umbrella, specify that
+> > > one using the virtio vendor cap, then have sub-regions within that bar
+> > > for the various regions you have.  Manage them dynamically (using
+> > > device-specific virtio commands) or just have a static configuration =
+(in
+> > > device-specific config space).
+> >=20
+> > Ours are static subdivisions; so it felt easier to declare them; it's a
+> > shame to make that device specific.
+>=20
+> Shared memory handling is device specific anyway, so I fail to see why
+> this is a problem.  Or do you want place virtio queues there (which
+> could be common ground for multiple device types) ?
+>=20
+> > > That avoids the problem with multiple capabilities of the same kind, =
+and
+> > > it also avoids exhausting the cap IDs quicky if every device defines
+> > > their own VIRTIO_FOO_DEVICE_PCI_SHMCAP_ID_BAR_REGION.
+> >=20
+> > Is having multiple capabilities of the same type actually a problem, or
+> > is it just historical in the defitinition of virtio?
+>=20
+> I think the reason is that you can in theory have the same region twice,
+> once in an IO bar and once in an MMIO bar, and then the guest could
+> prefer the IO bar if possible and use the MMIO bar otherwise (PCIe slot
+> without IO address window for example).  I think that was never actually
+> done in practice, and for (prefetchable) memory bars it doesn't make
+> sense at all.  So that would unlikely be a problem in practice.
+>=20
+> Running out of capability IDs could become a real problem though.
 
-> That avoids the problem with multiple capabilities of the same kind, and
-> it also avoids exhausting the cap IDs quicky if every device defines
-> their own VIRTIO_FOO_DEVICE_PCI_SHMCAP_ID_BAR_REGION.
+If we use a dedicated prefetchable MMIO BAR for shared memory resources,
+then that BAR is unavailable.  For example, if the virtio-pci transport
+itself ever wants to use a prefetchable MMIO BAR too.
 
-Is having multiple capabilities of the same type actually a problem, or
-is it just historical in the defitinition of virtio?
+I would keep the indirection offered by PCI capabilities so that devices
+retain the ability to decide how exactly BARs are used without requiring
+spec or driver changes.
 
-Dave
+Stefan
 
-> cheers,
->   Gerd
-> 
---
-Dr. David Alan Gilbert / dgilbert@redhat.com / Manchester, UK
+--uQr8t48UFsdbeI+V
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+-----BEGIN PGP SIGNATURE-----
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+iQEcBAEBAgAGBQJb/Q4GAAoJEJykq7OBq3PIbGEH/jHmSL/JBKF6ComwKTLqPf9Q
+GeIipsy+3Ljih/6loApsi1CQ56U96UyrwqzjPwlwY20mqjtFI5GHt7do16XuVQ7A
+sYsCs8QHfKc8Dl0RY4VBEk9kSFqkp8urSYIPL7jfx7boT89dgLMCJEzK8mcwodvy
+lfYSelyLSeQ3DVzG/NBwd6c4UGO13/fBxdfVECa/trWJ+AMsFX1FTpNuR41epNWD
+bQGfUc5tVbdpm4pPyL0cjik7OFcOia2D9+Uah0/gnVZzNkj/0YWu/jsfqmmxrs+t
+RTWqzSsSjY9j2aBAroRHDhCdd21pDq8x4ceL4G0n+L1N2X08HJb20dE555zymRQ=
+=olG0
+-----END PGP SIGNATURE-----
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
-
+--uQr8t48UFsdbeI+V--
