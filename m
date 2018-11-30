@@ -1,58 +1,76 @@
-Return-Path: virtio-dev-return-3512-cohuck=redhat.com@lists.oasis-open.org
-Sender: <virtio-dev@lists.oasis-open.org>
-List-Post: <mailto:virtio-dev@lists.oasis-open.org>
-List-Help: <mailto:virtio-dev-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-dev-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-dev-subscribe@lists.oasis-open.org>
-References: <1520304620-10753-1-git-send-email-changpeng.liu@intel.com>
- <bc8d88a4-3069-188a-99aa-c1c75a6e13b2@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <f52ee0f7-9eff-e5a0-70de-ece56d9d9b2d@redhat.com>
-Date: Mon, 12 Mar 2018 17:28:50 +0100
+Return-Path: virtio-comment-return-574-cohuck=redhat.com@lists.oasis-open.org
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 23E5F985DED
+	for <virtio-comment@lists.oasis-open.org>; Fri, 30 Nov 2018 20:10:08 +0000 (UTC)
+Date: Fri, 30 Nov 2018 15:10:02 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20181130150810-mutt-send-email-mst@kernel.org>
+References: <20181015094130.244529-1-yuri.benditovich@daynix.com>
 MIME-Version: 1.0
-In-Reply-To: <bc8d88a4-3069-188a-99aa-c1c75a6e13b2@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-dev] Re: [virtio-comment] [PATCH v3] virtio-blk: add discard and write
- zeroes features to specification
-To: Laszlo Ersek <lersek@redhat.com>, Changpeng Liu <changpeng.liu@intel.com>
-Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, cavery@redhat.com, stefanha@redhat.com, pawelx.wodkowski@intel.com, james.r.harris@intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181015094130.244529-1-yuri.benditovich@daynix.com>
+Subject: Re: [virtio-comment] content: RSC extension support for virtio-net
+To: Yuri Benditovich <yuri.benditovich@daynix.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 12/03/2018 17:19, Laszlo Ersek wrote:
-> virtio-scsi already supports discard and write zeroes, and virtio-scsi
-> can be backed by SSDs. Can you please describe the use case in the
-> commit message (in a few words) that needs discard / write zeroes but is
-> ill-served by virtio-scsi?
+On Mon, Oct 15, 2018 at 12:41:30PM +0300, Yuri Benditovich wrote:
+> Allocates feature bit for extended RSC (receive
+> side coalescing) support. If the device supports
+> this feature, it is able to process duplicated
+> ACKs and report number of coalesced TCP segments
+> amd number of received duplicated ACKs.
 > 
-> I believe the spec (and implementations) should be conservative about
-> feature duplication unless there's a good reason for it. I don't doubt
-> you have a good reason; can you please name it in the commit message?
-> I'm not questioning your motives, I'd just like to see them documented
-> in the commit log.
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/20
+> 
+> Signed-off-by: Yuri Benditovich <yuri.benditovich@daynix.com>
+> ---
+>  content.tex | 39 ++++++++++++++++++++++++++++++---------
+>  1 file changed, 30 insertions(+), 9 deletions(-)
+> 
+> diff --git a/content.tex b/content.tex
+> index be18234..17d83af 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -2525,6 +2525,10 @@ features.
+>  
+>  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+>      channel.
+> +
+> +\item[VIRTIO_NET_F_RSC_EXT(38)] Device can process duplicated ACKs
+> +    and report number of coalesced segments and duplicated ACKs
+> +
+>  \end{description}
+>  
+>  \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
 
-Hi Laszlo, the basic reason is that virtio-scsi is slower than
-virtio-blk. :)
+So I went to apply this and I noticed that other devices started
+growing from bit 64 downward. So e.g. VIRTIO_NET_F_STANDBY is bit 62
+now. Is it to late to tweak this bit to match? E.g. to use bit 61?
+Or was some driver with this feature already get released?
 
-Indeed DISCARD/WRITE ZEROES was a reason to use virtio-scsi instead of
-virtio-blk back when it was created, but at the time DISCARD was
-considered a thin provisioning feature; that is, the idea was that
-guests could cooperate with the host to save host disk space and to
-speed up maintenance operation such as live disk migration.
+-- 
+MST
 
-Nowadays, DISCARD has evolved into a basic disk maintenance operation
-and IMO it fits within the scope of virtio-blk, as the backend of choice
-for high performance I/O devices.  (Though I wouldn't be surprised
-however if, in a few years, virtio-blk has become obsolete and we'll
-just use NVMe.  Recent versions of the NVMe spec have taken some
-inspiration from Xen and virtio ring buffers, and perform great as
-virtual devices; this is a similar "convergence" to what's happening in
-virtio for the new packed ring format, just in the opposite direction).
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-Paolo
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
----------------------------------------------------------------------
-To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
