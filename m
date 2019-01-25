@@ -1,101 +1,140 @@
-Return-Path: virtio-comment-return-582-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-595-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6F808985DC7
-	for <virtio-comment@lists.oasis-open.org>; Fri, 11 Jan 2019 11:42:11 +0000 (UTC)
-From: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
-Date: Fri, 11 Jan 2019 11:42:00 +0000
-Message-Id: <20190111114200.10026-4-dgilbert@redhat.com>
-In-Reply-To: <20190111114200.10026-1-dgilbert@redhat.com>
-References: <20190111114200.10026-1-dgilbert@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 2944E985F67
+	for <virtio-comment@lists.oasis-open.org>; Fri, 25 Jan 2019 19:17:07 +0000 (UTC)
+Date: Fri, 25 Jan 2019 14:17:01 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20190125141502-mutt-send-email-mst@kernel.org>
+References: <20190124172323.230296-1-sgarzare@redhat.com>
+ <20190124172323.230296-3-sgarzare@redhat.com>
+ <5b3c3076-8f0e-c6a2-b6d1-707db2ae3a66@redhat.com>
+ <962ebaff-23ce-57ff-3387-9017c2ccd14a@redhat.com>
+ <20190125081615.2cevf7cy7bcnxqwh@steredhat>
+ <d4aa8b25-f0ad-1444-587c-3d90a8ddc74a@redhat.com>
+ <20190125151245.GD28305@stefanha-x1.localdomain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH 3/3] shared memory: Define mmio registers
-To: virtio-comment@lists.oasis-open.org
-Cc: stefanha@redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190125151245.GD28305@stefanha-x1.localdomain>
+Subject: [virtio-comment] Re: [Qemu-devel] [PATCH RFC 2/2] tests/virtio-blk: add test for
+ WRITE_ZEROES command
+To: Stefan Hajnoczi <stefanha@gmail.com>
+Cc: Thomas Huth <thuth@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, Changpeng Liu <changpeng.liu@intel.com>, Laurent Vivier <lvivier@redhat.com>, Kevin Wolf <kwolf@redhat.com>, qemu-block@nongnu.org, qemu-devel@nongnu.org, Max Reitz <mreitz@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+On Fri, Jan 25, 2019 at 03:12:45PM +0000, Stefan Hajnoczi wrote:
+> On Fri, Jan 25, 2019 at 09:49:03AM +0100, Thomas Huth wrote:
+> > On 2019-01-25 09:16, Stefano Garzarella wrote:
+> > > On Fri, Jan 25, 2019 at 07:07:35AM +0100, Thomas Huth wrote:
+> > >> On 2019-01-25 07:01, Thomas Huth wrote:
+> > >>> On 2019-01-24 18:23, Stefano Garzarella wrote:
+> > >>>> If the WRITE_ZEROES feature is enabled, we check this
+> > >>>> command in the test_basic().
+> > >>>>
+> > >>>> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+> > >>>> ---
+> > >>>>  tests/virtio-blk-test.c | 63 +++++++++++++++++++++++++++++++++++++++++
+> > >>>>  1 file changed, 63 insertions(+)
+> > >>>>
+> > >>>> diff --git a/tests/virtio-blk-test.c b/tests/virtio-blk-test.c
+> > >>>> index 04c608764b..8cabbcb85a 100644
+> > >>>> --- a/tests/virtio-blk-test.c
+> > >>>> +++ b/tests/virtio-blk-test.c
+> > >>>> @@ -231,6 +231,69 @@ static void test_basic(QVirtioDevice *dev, QGuestAllocator *alloc,
+> > >>>>  
+> > >>>>      guest_free(alloc, req_addr);
+> > >>>>  
+> > >>>> +    if (features & (1u << VIRTIO_BLK_F_WRITE_ZEROES)) {
+> > >>>> +        struct virtio_blk_discard_write_zeroes *dwz_hdr;
+> > >>>> +        void *expected;
+> > >>>> +
+> > >>>> +        /*
+> > >>>> +         * WRITE_ZEROES request on the same sector of previous test where
+> > >>>> +         * we wrote "TEST".
+> > >>>> +         */
+> > >>>> +        req.type = VIRTIO_BLK_T_WRITE_ZEROES;
+> > >>>> +        req.data = g_malloc0(512);
+> > >>>
+> > >>> Wouldn't it be more interesting to do a memset(req.data, 0xaa, 512) or
+> > >>> something similar here, to see whether zeroes or 0xaa is written?
+> > >>
+> > >> Ah, never mind, I thought req.data would be a sector buffer here, but
+> > >> looking at the lines below, it apparently is something different.
+> > >>
+> > >> Why do you allocate 512 bytes here? I'd rather expect
+> > >> g_malloc0(sizeof(struct virtio_blk_discard_write_zeroes)) here. ... and
+> > >> then you could also use a local "struct virtio_blk_discard_write_zeroes
+> > >> dwz_hdr" variable instead of a pointer, and drop the g_malloc0() completely?
+> > >>
+> > > 
+> > > Hi Thomas,
+> > > it was my initial implementation, but on the first test I discovered
+> > > that virtio_blk_request() has an assert on the data_size and it requires
+> > > a multiple of 512 bytes.
+> > > Then I looked at the virtio-spec #1, and it seems that data should be
+> > > multiple of 512 bytes also if it contains the struct
+> > > virtio_blk_discard_write_zeroes. (I'm not sure)
+> > > 
+> > > Anyway I tried to allocate only the space for that struct, commented the
+> > > assert and the test works well.
+> > > 
+> > > How do you suggest to proceed?
+> > 
+> > Wow, that's a tough question. Looking at the virtio spec, I agree with
+> > you, it looks like struct virtio_blk_discard_write_zeroes should be
+> > padded to 512 bytes here. But when I look at the Linux sources
+> > (drivers/block/virtio_blk.c), I fail to see that they are doing the
+> > padding there (but maybe I'm just too blind).
+> 
+> The only evidence for "pad to 512 bytes" interpretation that I see in
+> the spec is "u8 data[][512];".  Or have I missed something more
+> explicit?
 
-Define an MMIO interface to enumerate and map shared
-memory regions.
+That's it. But if it doesn't mean "any number of 512 byte chunks"
+then what does it mean?
 
-Note: This hasn't been implemented, I also worrying it's using
-too much of the register address space.
+> Based on the Linux guest driver code and the lack of more evidence in
+> the spec, I'm pretty sure data[] doesn't need to be padded to 512 bytes
+> for discard/write zero requests.
 
-Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
----
- content.tex | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+OK. Must devices support such padding?
 
-diff --git a/content.tex b/content.tex
-index 776162a..e2435ff 100644
---- a/content.tex
-+++ b/content.tex
-@@ -1641,6 +1641,33 @@ All register values are organized as Little Endian.
-     selected by writing to \field{QueueSel}.
-   }
-   \hline 
-+  \mmioreg{SHMSel}{Shared memory region select}{0x0b0}{W}{%
-+    Writing to this register selects the shared memory region \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions}
-+    following operations on \field{SHMId}, \field{SHMLenLow}, \field{SHMLenHigh},
-+    \field{SHMBaseLow} and \field{SHMBaseHigh} apply to. The index
-+    number of the first region is zero (0x0); note that it is a
-+    simple index that does not correspond to the \field{id}.
-+  }
-+  \hline 
-+  \mmioreg{SHMId}{Shared memory id}{0x0b4}{R}{%
-+    This register returns the id value of the selected shared
-+    memory region.
-+  }
-+  \hline 
-+  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b8}{0x0xbc}{R}{%
-+    These registers return the length of the shared memory
-+    region, as defined by the device for the region selected by
-+    the \field{SHMSel} register.  Reading from a non-existent
-+    region (i.e. a too large \field{SHMSel} value) results in a
-+    length of -1.  This should be used to enumerate the list of
-+    regions.
-+  }
-+  \hline 
-+  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0c0}{0x0xc4}{W}{%
-+    The driver writes these registers to indicate where it wishes
-+    the device to map the shared memory region currently selected.
-+  }
-+  \hline 
-   \mmioreg{ConfigGeneration}{Configuration atomicity value}{0x0fc}{R}{
-     Reading from this register returns a value describing a version of the device-specific configuration space (see \field{Config}).
-     The driver can then access the configuration space and, when finished, read \field{ConfigGeneration} again.
-@@ -1676,6 +1703,9 @@ driver seeing an inconsistent configuration state.
- 
- The device MUST NOT access virtual queue contents when \field{QueueReady} is zero (0x0).
- 
-+The device MUST NOT respond to SHM Base writes for none-existent
-+shared memory regions.
-+
- \drivernormative{\subsubsection}{MMIO Device Register Layout}{Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}
- The driver MUST NOT access memory locations not described in the
- table \ref{tab:Virtio Trasport Options / Virtio Over MMIO / MMIO Device Register Layout}
-@@ -1730,6 +1760,13 @@ If both values are valid, it MUST read \field{DeviceID}
- and if its value is zero (0x0) MUST abort initialization and
- MUST NOT access any other register.
- 
-+Devices expecting shared memory regions MUST enumerate the
-+regions by selecting each region in tern and checking that the
-+length is not -1.
-+
-+Devices not expecting shared memory MUST NOT use the shared
-+memory registers.
-+
- Further initialization MUST follow the procedure described in
- \ref{sec:General Initialization And Device Operation / Device Initialization}~\nameref{sec:General Initialization And Device Operation / Device Initialization}.
- 
--- 
-2.20.1
+> > Looking at the QEMU sources, it seems like it can deal with both and
+> > always sets the status right behind the last byte:
+> > 
+> >     req->in = (void *)in_iov[in_num - 1].iov_base
+> >               + in_iov[in_num - 1].iov_len
+> >               - sizeof(struct virtio_blk_inhdr);
+> > 
+> > Anyway, I think the virtio spec should be clearer here to avoid bad
+> > implementations in the future, so maybe Changpeng or Michael could
+> > update the spec here a little bit?
+> 
+> Yep, good point.  VIRTIO 1.1 is available for public comments, so I've
+> CCed the list.
+> 
+> Stefan
+
+Thanks!
+Care creating a github issue? And maybe proposing a spec patch.
+
+> >  Thomas
+> > 
+> > 
+> > > [1](https://github.com/oasis-tcs/virtio-spec/blob/master/content.tex#L3944)
+> > > 
+> > > 
+> > > Thanks,
+> > > Stefano
+> > > 
+> > 
+> > 
+
 
 
 This publicly archived list offers a means to provide input to the
