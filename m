@@ -1,227 +1,143 @@
-Return-Path: virtio-comment-return-658-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-604-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5D648985B92
-	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Feb 2019 07:54:38 +0000 (UTC)
-From: Wei Wang <wei.w.wang@intel.com>
-Date: Tue, 26 Feb 2019 15:18:05 +0800
-Message-Id: <1551165485-23817-1-git-send-email-wei.w.wang@intel.com>
-Subject: [virtio-comment] [PATCH v2] content/virtio-balloon: VIRTIO_BALLOON_F_FREE_PAGE_HINT
-To: virtio-comment@lists.oasis-open.org, mst@redhat.com
-Cc: dgilbert@redhat.com
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 94EDD985CAF
+	for <virtio-comment@lists.oasis-open.org>; Mon, 11 Feb 2019 21:52:37 +0000 (UTC)
+Date: Mon, 11 Feb 2019 22:52:25 +0100
+From: Cornelia Huck <cohuck@redhat.com>
+Message-ID: <20190211225225.7c39154d.cohuck@redhat.com>
+In-Reply-To: <20190116200625.GG2351@work-vm>
+References: <20190111114200.10026-1-dgilbert@redhat.com>
+	<20190111114200.10026-2-dgilbert@redhat.com>
+	<20190111131540.12a8abca.cohuck@redhat.com>
+	<20190111122654.GE2738@work-vm>
+	<20190115111038.6769d292.cohuck@redhat.com>
+	<20190115112303.GB2135@work-vm>
+	<20190116115638.152d6797.cohuck@redhat.com>
+	<20190116200625.GG2351@work-vm>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] [PATCH 1/3] shared memory: Define shared
+ memory regions
+To: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, stefanha@redhat.com, Halil Pasic <pasic@linux.ibm.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-The VIRTIO_BALLOON_F_FREE_PAGE_HINT feature supports driver reporting
-free memory hints to the device. The VIRTIO_BALLOON_F_PAGE_POISON feature
-supports guest to report the memory poison value to host.
+On Wed, 16 Jan 2019 20:06:25 +0000
+"Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
 
-Live migration can use the virtio-balloon device to get the guest free
-memory hints, and avoid sending those free pages. It is not concerned that
-the memory pages are used (e.g. guest reclaimed some of them due to memory
-pressure) after they are given to the device as hints of free pages,
-because they will be tracked by the hypervisor and transferred in the
-subsequent round if they are used and written.
+> So these are all moving this 1/3 forward - has anyone got comments on
+> the transport specific implementations?
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/33
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-Signed-off-by: Wei Wang <wei.w.wang@intel.com>
----
- content.tex | 121 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 115 insertions(+), 6 deletions(-)
+No comment on pci or mmio, but I've hacked something together for ccw.
+Basically, one sense-type ccw for discovery and a control-type ccw for
+activation of the regions (no idea if we really need the latter), both
+available with ccw revision 3.
+
+No idea whether this will work this way, though...
 
 diff --git a/content.tex b/content.tex
-index 836ee52..21b2339 100644
+index 836ee5236939..7f379bca932e 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -4493,9 +4493,9 @@ The traditional virtio memory balloon device is a primitive device for
- managing guest memory: the device asks for a certain amount of
- memory, and the driver supplies it (or withdraws it, if the device
- has more than it asks for). This allows the guest to adapt to
--changes in allowance of underlying physical memory. If the
--feature is negotiated, the device can also be used to communicate
--guest memory statistics to the host.
-+changes in allowance of underlying physical memory. The device can
-+also be used to communicate guest memory statistics and guest free
-+memory to the host when the related features are negotiated.
- 
- \subsection{Device ID}\label{sec:Device Types / Memory Balloon Device / Device ID}
-   5
-@@ -4504,11 +4504,14 @@ guest memory statistics to the host.
- \begin{description}
- \item[0] inflateq
- \item[1] deflateq
--\item[2] statsq.
-+\item[2] statsq
-+\item[3] freememq.
- \end{description}
- 
-   Virtqueue 2 only exists if VIRTIO_BALLON_F_STATS_VQ set.
- 
-+  Virtqueue 3 only exists if VIRTIO_BALLON_F_FREE_PAGE_HINT set.
-+
- \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Feature bits}
- \begin{description}
- \item[VIRTIO_BALLOON_F_MUST_TELL_HOST (0)] Host has to be told before
-@@ -4518,6 +4521,10 @@ guest memory statistics to the host.
-     memory statistics is present.
- \item[VIRTIO_BALLOON_F_DEFLATE_ON_OOM (2) ] Deflate balloon on
-     guest out of memory condition.
-+\item[VIRTIO_BALLOON_F_FREE_PAGE_HINT(3) ] Guest reports free memory
-+    to host.
-+\item[VIRTIO_BALLOON_F_PAGE_POISON(4) ] Guest uses memory poisoning
-+    and reports the memory poisoning value to host.
- 
- \end{description}
- 
-@@ -4525,6 +4532,14 @@ guest memory statistics to the host.
- The driver SHOULD accept the VIRTIO_BALLOON_F_MUST_TELL_HOST
- feature if offered by the device.
- 
-+If the device offers VIRTIO_BALLOON_F_PAGE_POISON, then
-+\begin{description}
-+\item the driver MUST NOT accept it if the guest is not using memory
-+    poisoning.
-+\item the driver SHOULD accept it if the guest is using memory
-+    poisoning.
-+\end{description}
-+
- \devicenormative{\subsubsection}{Feature bits}{Device Types / Memory Balloon Device / Feature bits}
- If the device offers the VIRTIO_BALLOON_F_MUST_TELL_HOST feature
- bit, and if the driver did not accept this feature bit, the
-@@ -4541,16 +4556,44 @@ allow guest to use memory before notifying host if
- VIRTIO_BALLOON_F_MUST_TELL_HOST is not negotiated.
- 
- \subsection{Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device configuration layout}
--  Both fields of this configuration
--  are always available.
-+
-+\begin{lstlisting}
-+#define VIRTIO_BALLOON_CMD_ID_MIN 0x80000000
-+#define VIRTIO_BALLOON_CMD_ID_MAX 0xFFFFFFFF
-+#define VIRTIO_BALLOON_CMD_ID_STOP 0x0
-+#define VIRTIO_BALLOON_CMD_ID_DONE 0x1
-+\end{lstlisting}
- 
- \begin{lstlisting}
- struct virtio_balloon_config {
-         le32 num_pages;
-         le32 actual;
-+        le32 free_page_report_cmd_id;
-+        le32 poison_val;
- };
+@@ -2078,6 +2078,8 @@ virtio:
+ #define CCW_CMD_READ_VQ_CONF 0x32
+ #define CCW_CMD_SET_VIRTIO_REV 0x83
+ #define CCW_CMD_READ_STATUS 0x72
++#define CCW_CMD_GET_REGIONS 0x14
++#define CCW_CMD_MAP_REGIONS 0x93
  \end{lstlisting}
  
-+\field{num_pages} and \field{actual} are always available.
-+
-+\field{free_page_report_cmd_id} is available if
-+VIRTIO_BALLON_F_FREE_PAGE_HINT negotiated.
-+
-+\field{poison_val} is available if VIRTIO_BALLOON_F_PAGE_POISON
-+negotiated.
-+
-+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Traditional Memory Balloon Device / Device configuration layout}
-+
-+The device MUST set a legal value to \field{free_page_report_cmd_id}:
-+a value between \field{VIRTIO_BALLOON_CMD_ID_MIN} and
-+\field{VIRTIO_BALLOON_CMD_ID_MAX} inclusive,
-+\field{VIRTIO_BALLOON_CMD_ID_STOP}, or
-+\field{VIRTIO_BALLOON_CMD_ID_DONE}.
-+
-+\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Traditional Memory Balloon Device / Device configuration layout}
-+
-+The driver MUST write the guest used poison value to
-+\field{poison_val} if VIRTIO_BALLOON_F_PAGE_POISON negotiated.
-+
- \subparagraph{Legacy Interface: Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device
- configuration layout / Legacy Interface: Device configuration layout}
- When using the legacy interface, transitional devices and drivers
-@@ -4574,6 +4617,17 @@ The device initialization process is outlined below:
-   \item DRIVER_OK is set: device operation begins.
-   \item Notify the device about the stats virtqueue buffer.
-   \end{enumerate}
-+
-+\item If the VIRTIO_BALLOON_F_FREE_PAGE_HINT feature bit is
-+  negotiated:
-+  \begin{enumerate}
-+  \item Identify the free memory virtqueue.
-+  \item Set \field{free_page_report_cmd_id} to
-+    \field{VIRTIO_BALLOON_CMD_ID_STOP}.
-+  \end{enumerate}
-+
-+\item If the VIRTIO_BALLOON_F_PAGE_POISON feature bit is negotiated,
-+  write the guest used poison value to \field{poison_val}.
- \end{enumerate}
+ \subsubsection{Notifications}\label{sec:Virtio Transport Options / Virtio
+@@ -2170,7 +2172,9 @@ The following values are supported:
+ \hline
+ 2        & 0      & <empty>   & CCW_CMD_READ_STATUS support \\
+ \hline
+-3-n      &        &           & reserved for later revisions \\
++3        & 0      & <empty>   & CCW_CMD_GET_REGIONS and CCW_CMD_MAP_REGIONS support \\
++\hline
++4-n      &        &           & reserved for later revisions \\
+ \hline
+ \end{tabular}
  
- \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / Device Operation}
-@@ -4844,6 +4898,61 @@ first buffer.
-   allocations in the guest.
- \end{description}
+@@ -2449,6 +2453,72 @@ command. Some legacy devices will support two-stage queue indicators, though,
+ and a driver will be able to successfully use CCW_CMD_SET_IND_ADAPTER to set
+ them up.
  
-+\subsubsection{Free Memory Reporting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Memory Reporting}
++\subsubsection{Handling Shared Memory Regions}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Initialization / Handling Shared Memory Regions}
 +
-+The free memory reporting is driven by the device. The device MAY
-+request the driver to start or stop the free memory reporting.
++The CCW_CMD_GET_REGIONS command allows the driver to discover shared memory
++regions provided by the device, if any.
 +
-+A request to start the free memory reporting proceeds as follows:
++The driver provides a pointer to a 4096 byte buffer that is filled out by
++the device:
 +
-+\begin{enumerate}
-+\item The device updates \field{free_page_report_cmd_id}: if it has
-+  reached \field{VIRTIO_BALLOON_CMD_ID_MAX}, resets it to
-+  \field{VIRTIO_BALLOON_CMD_ID_MIN}. Otherwise, increments it by 1.
-+\item The device sends a configuration change notification to the
-+  driver.
-+\item The driver reads \field{free_page_report_cmd_id}: if it is not
-+  \field{VIRTIO_BALLOON_CMD_ID_STOP},
-+  \field{VIRTIO_BALLOON_CMD_ID_DONE}, and different from the value it
-+  read last time, start free memory reporting as follows:
-+  \begin{enumerate}
-+  \item Write the received \field{free_page_report_cmd_id} to a
-+    buffer from the free memory virtqueue.
-+  \item Write addresses of guest free memory to buffers from the free
-+    page virtqueue.
-+  \item Write \field{VIRTIO_BALLOON_CMD_ID_STOP} to a buffer from the
-+    free memory virtqueue, which signifies that the guest free memory
-+    reporting is complete.
-+  \end{enumerate}
-+    A driver to device notification is sent in the above steps after
-+    writing a buffer from the free memory virtqueue if the notification
-+    is not suppressed.
-+\item The device processes available buffers from the virtqueue and
-+  stops the processing after it reads a buffer which stores
-+  \field{VIRTIO_BALLOON_CMD_ID_STOP}.
-+\end{enumerate}
++\begin{lstlisting}
++  struct shared_regions_info {
++    be64 num_regions;
++    struct shared_region_desc regions[];
++  };
++\end{lstlisting}
 +
-+A request to actively stop the free memory reporting proceeds as
-+follows:
++The buffer contains 0 or more shared region descriptors, as specified
++by \field{num_regions}. If the devices does not provide shared regions,
++\field{num_regions} is 0. Otherwise, the shared region descriptors have
++the following format:
 +
-+\begin{enumerate}
-+\item The device sets \field{free_page_report_cmd_id} to
-+  \field{VIRTIO_BALLOON_CMD_ID_STOP}, followed by a configuration
-+  change notification to the driver if not suppressed.
-+\item The driver reads \field{free_page_report_cmd_id} and identifies
-+  that it is \field{VIRTIO_BALLOON_CMD_ID_STOP}, then it stops
-+  adding buffers to the free memory virtqueue.
-+\item The driver writes \field{VIRTIO_BALLOON_CMD_ID_STOP} into a
-+  buffer from virtqueue.
-+\item The device stops processing the available buffers from the
-+  virtqueue after receiving the buffer that stores
-+  \field{VIRTIO_BALLOON_CMD_ID_STOP}.
-+\end{enumerate}
++\begin{lstlisting}
++struct shared_region_desc {
++        be64 addr;
++        be64 len;
++        u8 id;
++        u8 pad[3];
++}
++\end{lstlisting}
 +
-+The device can end the free memory reporting by setting
-+\field{free_page_report_cmd_id} to \field{VIRTIO_BALLOON_CMD_ID_DONE},
-+followed by a configuration notification to the driver.
++\field{addr} is the guest-physical address of the region with a length of
++\field{len}, identified by \field{id}. The contents of \field{pad} are
++unpredictable, although it is recommended that the device fills in zeroes.
 +
- \section{SCSI Host Device}\label{sec:Device Types / SCSI Host Device}
++To activate or deactivate a shared memory region, the device uses the
++CCW_CMD_MAP_REGIONS command. It takes the following payload:
++
++\begin{lstlisting}
++struct shared_region_ctrl {
++        u8 id;
++        u8 activate;
++        u8 pad[2];
++}
++\end{lstlisting}
++
++\field{id} denotes the shared memory region that is the target of the command,
++while \field{activate} specifies whether the region should be activated (if 1)
++or deactivated (if 0). When activated, the device makes the guest-physical
++address of the region available as a shared memory region.
++
++\devicenormative{\paragraph}{Handling Shared Memory Regions}{Virtio Transport Options / Virtio over channel I/O / Device Initialization / Handling Shared Memory Regions}
++
++The device MUST reject the CCW_CMD_GET_REGIONS and CCW_CMD_MAP_REGIONS
++commands if not at least revision 3 has been negotiated.
++
++The device MUST NOT read from or write to the region before it has been
++activated by the driver or after it has been deactivated by the driver.
++
++If the driver reads from or writes to an address specified to a region that is
++not activated by the driver, it MUST treat this read or write as a normal
++read or write operation.
++
++\drivernormative{\paragraph}{Handling Shared Memory Regions}{Virtio Transport Options / Virtio over channel I/O / Device Initialization / Handling Shared Memory Regions}
++
++The driver MUST NOT treat the guest-physical address of a region as a shared
++memory region before it has activated it or after it has deactivated it.
++
+ \subsection{Device Operation}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Operation}
  
- The virtio SCSI host device groups together one or more virtual
--- 
-2.7.4
-
+ \subsubsection{Host->Guest Notification}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Operation / Host->Guest Notification}
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
