@@ -1,111 +1,105 @@
-Return-Path: virtio-comment-return-664-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-602-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C9D6E985DC6
-	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Feb 2019 20:32:04 +0000 (UTC)
-Date: Tue, 26 Feb 2019 15:32:00 -0500
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 3375F985BE2
+	for <virtio-comment@lists.oasis-open.org>; Mon, 11 Feb 2019 06:58:14 +0000 (UTC)
+Date: Mon, 11 Feb 2019 01:58:09 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20190226153141-mutt-send-email-mst@kernel.org>
-References: <20190125200222.19945-1-jean-philippe.brucker@arm.com>
+Message-ID: <20190211014709-mutt-send-email-mst@kernel.org>
+References: <54DB94AE64EDA14BAB6A1E9641A26B011AC3CFFB@hasmsx109.ger.corp.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20190125200222.19945-1-jean-philippe.brucker@arm.com>
-Subject: Re: [virtio-comment] [PATCH 0/1] Add virtio-iommu device
- specification
-To: Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
-Cc: virtio-comment@lists.oasis-open.org, joro@8bytes.org, eric.auger@redhat.com, tnowicki@caviumnetworks.com, kevin.tian@intel.com, Lorenzo.Pieralisi@arm.com, bharat.bhushan@nxp.com, Will.Deacon@arm.com, Robin.Murphy@arm.com, Marc.Zyngier@arm.com
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <54DB94AE64EDA14BAB6A1E9641A26B011AC3CFFB@hasmsx109.ger.corp.intel.com>
+Subject: Re: [virtio-comment] VirtIO spec issue - Available Buffer
+ Notification Suppression
+To: "Savir, Gil" <gil.savir@intel.com>
+Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "Elmaleh, Liron" <liron.elmaleh@intel.com>, cunming.liang@intel.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, Jan 25, 2019 at 08:02:21PM +0000, Jean-Philippe Brucker wrote:
-> From: Jean-Philippe Brucker <jphilippe.brucker@gmail.com>
+On Thu, Jan 31, 2019 at 01:16:29PM +0000, Savir, Gil wrote:
+> Hi,
 > 
-> [Re-sending from the right address using the right gitconfig, sorry for
->  the mix-up...]
+>  
 > 
-> This is the virtio-iommu specification draft, applied onto the current
-> virtio-spec (tag virtio-v1.1-csd01). To make the review easier I uploaded
-> a PDF version at [1]. I'd like to start the review and (eventually) voting
-> process. Should I also open a github issue?
+> If VIRTIO_F_EVENT_IDX feature bit is negotiated, then Available Buffer
+> Notification Suppression mechanism used is avail event (not flags).
+> 
+> The spec (both v1.0 / v1.1-draft) states that the device MAY use this mechanism
+> (Paragraph 2.4.9.2 / 2.6.10.2 respectively).
+> 
+> This statement implies that the device may choose not to use this suppression
+> mechanism (even if VIRTIO_F_EVENT_IDX was negotiated).
+> 
+>  
+> 
+> However – there’s no way for the device to inform the driver that he is not
+> using avail_event.
+> 
+> As consequence, since there will be a default value in avail_event (probably
+> 0x0), then the driver will always assume that it has to send notify “once-per
+> ring”.
 
-A github issue would be required for voting to occur, yes.
 
-> ---
+No I think this part is wrong, pls see below.
+
+
+> This will render performance futile, or force the device to actively update
+> avail_event.
 > 
-> For those familiar with the standalone virtio-iommu draft, patch 1/1
-> corresponds to Section 2. For 0.10 I also added a precision about MAP
-> conflicts ("If a mapping already exists in the requested range, the device
-> SHOULD set the request status to VIRTIO_IOMMU_S_INVAL and SHOULD NOT
-> change any mapping.") which is already done by the QEMU device. There were
-> a few more wording issues and typos; see the v0.9-v0.10 diff [2] for the
-> complete changes in this version.
+>  
 > 
-> ---
+> Is there a way for the device to inform the driver that he is not using
+> avail_event (and I missed it)?
 > 
-> A short description of virtio-iommu and why we're doing this:
+>  
 > 
-> The virtio-iommu device allows a guest to manage DMA mappings for
-> physical, emulated and paravirtualized endpoints. It is designed to be
-> portable and is currently compatible with at least x86 and Arm IOMMU
-> architectures. The MAP/UNMAP mode introduced here is architecture-
-> agnostic.
+> If yes, than my apologies for wasting your time.
 > 
-> However some platforms will benefit from this device more than others in
-> the short term. For example the Arm SMMU doesn't currently include a
-> paravirtualized mode that would allow it to shadow a single translation
-> stage into a physical SMMU. On Arm the only way to assign devices to guest
-> userspace requires nesting translation, which isn't supported by all
-> SMMUs, or using virtio-iommu.
+> If no, then I suggest one of the following:
 > 
-> On the other hand, Power platforms already describe a paravirtualized
-> IOMMU interface (TCE) in PAPR, and are unlikely to benefit from
-> virtio-iommu for the moment.
+> ·         Either, to change the “MAY” (referred above) to “MUST”,
 > 
-> The Intel IOMMU also provides such paravirtualized mode (Caching Mode),
-> but x86 platforms might still benefit from virtio-iommu to accelerate some
-> aspects of the IOMMU - for example in-kernel processing of MAP/UNMAP, and
-> in future extensions, reducing the invalidation and page fault bottlenecks
-> when sharing virtual memory between process and endpoints.
+
+Thanks for the feedback!
+
+So we are talking about split queues.
+
+If avail_event is never set and remains 0, driver will send
+notifications every time index wraps around to 0, which
+would be every 2^16.
+
+This is I think expected since the spec says:
+
+The device MUST handle spurious notifications from the driver.
+
+2^16 does not seem excessive so I don't think it will render performance
+futile.
+
+> ·        Or, to add way for the device to inform the driver that he is not
+> using avail_event (flag /certain reserved value in avail_event /other
+> mechanism).
 > 
-> Reference implementations for device and driver have been posted and
-> reviewed on the list [3][4].
+>  
 > 
-> [1] http://jpbrucker.net/virtio-iommu/spec/virtio-v1.1-wd01-iommu-0.10-draft.pdf
-> [2] http://jpbrucker.net/virtio-iommu/spec/diffs/
-> [3] https://lists.linuxfoundation.org/pipermail/iommu/2019-January/032677.html
-> [4] http://lists.gnu.org/archive/html/qemu-arm/2018-11/msg00680.html
+> Thanks,
 > 
-> Jean-Philippe Brucker (1):
->   Add virtio-iommu device specification
+> Gil Savir
 > 
->  content.tex      |   1 +
->  virtio-iommu.tex | 849 +++++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 850 insertions(+)
->  create mode 100644 virtio-iommu.tex
-> 
-> -- 
-> 2.19.1
-> 
-> 
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
-> 
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
-> 
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+> Intel Corporation
+
+It might be a good addition to spec, probably along the lines
+of an option to send notifications on
+even suppression changes (which was proposed in the past, but
+was not included due to lack of time).
+
+-- 
+MST
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
