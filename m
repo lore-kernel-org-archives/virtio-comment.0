@@ -1,94 +1,106 @@
-Return-Path: virtio-comment-return-624-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-605-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5946C9860B2
-	for <virtio-comment@lists.oasis-open.org>; Fri, 15 Feb 2019 13:33:19 +0000 (UTC)
-Date: Fri, 15 Feb 2019 14:33:10 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20190215143310.197da7a8.cohuck@redhat.com>
-In-Reply-To: <20190215135134.1945200c@oc2783563651>
+	by lists.oasis-open.org (Postfix) with ESMTP id 3485B985E0B
+	for <virtio-comment@lists.oasis-open.org>; Wed, 13 Feb 2019 02:25:53 +0000 (UTC)
+Date: Wed, 13 Feb 2019 10:25:49 +0800
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20190213022549.GB14307@stefanha-x1.localdomain>
 References: <20190111114200.10026-1-dgilbert@redhat.com>
-	<20190111114200.10026-2-dgilbert@redhat.com>
-	<20190111131540.12a8abca.cohuck@redhat.com>
-	<20190111122654.GE2738@work-vm>
-	<20190115111038.6769d292.cohuck@redhat.com>
-	<20190115112303.GB2135@work-vm>
-	<20190116115638.152d6797.cohuck@redhat.com>
-	<20190116200625.GG2351@work-vm>
-	<20190211225225.7c39154d.cohuck@redhat.com>
-	<20190213183755.GF2601@work-vm>
-	<20190214115807.2bab4efb.cohuck@redhat.com>
-	<20190215135134.1945200c@oc2783563651>
+ <20190111114200.10026-2-dgilbert@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] [PATCH 1/3] shared memory: Define shared
- memory regions
-To: Halil Pasic <pasic@linux.ibm.com>
-Cc: "Dr. David Alan Gilbert" <dgilbert@redhat.com>, virtio-comment@lists.oasis-open.org, stefanha@redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="O5XBE6gyVG5Rl6Rj"
+Content-Disposition: inline
+In-Reply-To: <20190111114200.10026-2-dgilbert@redhat.com>
+Subject: [virtio-comment] Re: [PATCH 1/3] shared memory: Define shared memory regions
+To: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, 15 Feb 2019 13:51:34 +0100
-Halil Pasic <pasic@linux.ibm.com> wrote:
+--O5XBE6gyVG5Rl6Rj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On Thu, 14 Feb 2019 11:58:07 +0100
-> Cornelia Huck <cohuck@redhat.com> wrote:
-> 
-> > Tags: inv, virtio 
-> > From: Cornelia Huck <cohuck@redhat.com>
-> > To: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
-> > Cc: virtio-comment@lists.oasis-open.org, stefanha@redhat.com, Halil Pasic <pasic@linux.ibm.com>
-> > Subject: Re: [virtio-comment] [PATCH 1/3] shared memory: Define shared memory regions
-> > Date: Thu, 14 Feb 2019 11:58:07 +0100
-> > Sender: <virtio-comment@lists.oasis-open.org>
-> > Organization: Red Hat GmbH
-> > 
-> > On Wed, 13 Feb 2019 18:37:56 +0000
-> > "Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
-> >   
-> > > * Cornelia Huck (cohuck@redhat.com) wrote:    
-> > > > On Wed, 16 Jan 2019 20:06:25 +0000
-> > > > "Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
-> > > >       
-> > > > > So these are all moving this 1/3 forward - has anyone got comments on
-> > > > > the transport specific implementations?      
-> > > > 
-> > > > No comment on pci or mmio, but I've hacked something together for ccw.
-> > > > Basically, one sense-type ccw for discovery and a control-type ccw for
-> > > > activation of the regions (no idea if we really need the latter), both
-> > > > available with ccw revision 3.
-> > > > 
-> > > > No idea whether this will work this way, though...      
-> > > 
-> > > That sounds (from a shm perspective) reasonable; can I ask why the
-> > > 'activate' is needed?    
-> > 
-> > The activate interface is actually what I'm most unsure about; maybe
-> > Halil can chime in.  
-> 
-> Sorry, I unfortunately kept deferring looking into this. Will have to do
-> some more thinking. I promise to give you my feedback by Monday end of
-> day if not sooner. Does that work with you?
+On Fri, Jan 11, 2019 at 11:41:58AM +0000, Dr. David Alan Gilbert (git) wrot=
+e:
+> From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+>=20
+> Define the requirements and idea behind shared memory regions.
+>=20
+> Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+> ---
+>  content.tex    |  3 +++
+>  shared-mem.tex | 25 +++++++++++++++++++++++++
+>  2 files changed, 28 insertions(+)
+>  create mode 100644 shared-mem.tex
+>=20
+> diff --git a/content.tex b/content.tex
+> index b101d1b..321a2f4 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -331,6 +331,9 @@ Virtqueue format, or both.
+>  \input{split-ring.tex}
+> =20
+>  \input{packed-ring.tex}
+> +
+> +\input{shared-mem.tex}
+> +
+>  \chapter{General Initialization And Device Operation}\label{sec:General =
+Initialization And Device Operation}
+> =20
+>  We start with an overview of device initialization, then expand on the
+> diff --git a/shared-mem.tex b/shared-mem.tex
+> new file mode 100644
+> index 0000000..6da249c
+> --- /dev/null
+> +++ b/shared-mem.tex
+> @@ -0,0 +1,25 @@
+> +\section{Shared Memory Regions}\label{sec:Basic Facilities of a Virtio D=
+evice / Shared Memory Regions}
+> +
+> +Shared memory regions are an additional facility
+> +available to devices that need a region of memory that's
+> +continuously shared between the host and the guest, rather
+> +than passed between them in the way virtqueue elements are.
+> +
+> +Example uses include shared caches and version pools for versioned
+> +data structures.
 
-Sure; please also take a look at DavidH's proposal.
+Another motivation for shared memory regions is to accommodate memory
+resources that must be allocated by the device rather than the driver.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+For example, some GPU hardware restrictions make it impossible for the
+driver to select a suitable RAM region.
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+> +
+> +Shared memory regions MUST NOT be used to control the operation
+> +of the device, nor to stream data; those should still be performed
+> +using virtqueues.
+> +
+> +A device may have multiple shared memory regions associated with
+> +it.  Each region has a \field{shmid} to identify it, the meaning
+> +of which is device specific.
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+s/device specific/device-specific/
 
+--O5XBE6gyVG5Rl6Rj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEcBAEBAgAGBQJcY4AtAAoJEJykq7OBq3PIuDMIAKbsQvtBQvX4lgJef8xFrwEb
+8kuOMkig63b6wxiBk9opfrU1AOu++RopqzKVVveeAszgWIp2FDKcXtKwvLNZBNcC
+0AI4Pn7Q9RkO2I39ZO3r+d47HPgnTImsQXIoPL3Oon2bcQ50WE4iPBz00ksWftV6
+UBLpvsKJ3fxjuoSaYKAA2t3lVI+/nZmzZBpMlO0ykLbDPeMxAG5gBy5fhm4IPabb
+nN5rEYDAdBS7B5UKSTNtshRECbwpIa0D3+MFbttIJtlxKoLOlnrNjcVkhgQ5Tq3C
+S0K0YLEQiRornRwtODESR24XwBG+vW30ofHR4L3CjYM0E8KYSwHPwZKLRynAAsE=
+=MhHZ
+-----END PGP SIGNATURE-----
+
+--O5XBE6gyVG5Rl6Rj--
