@@ -1,15 +1,16 @@
-Return-Path: virtio-comment-return-622-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-624-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B0F0F9860B3
-	for <virtio-comment@lists.oasis-open.org>; Fri, 15 Feb 2019 12:51:43 +0000 (UTC)
-Date: Fri, 15 Feb 2019 13:51:34 +0100
-From: Halil Pasic <pasic@linux.ibm.com>
-In-Reply-To: <20190214115807.2bab4efb.cohuck@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 5946C9860B2
+	for <virtio-comment@lists.oasis-open.org>; Fri, 15 Feb 2019 13:33:19 +0000 (UTC)
+Date: Fri, 15 Feb 2019 14:33:10 +0100
+From: Cornelia Huck <cohuck@redhat.com>
+Message-ID: <20190215143310.197da7a8.cohuck@redhat.com>
+In-Reply-To: <20190215135134.1945200c@oc2783563651>
 References: <20190111114200.10026-1-dgilbert@redhat.com>
 	<20190111114200.10026-2-dgilbert@redhat.com>
 	<20190111131540.12a8abca.cohuck@redhat.com>
@@ -21,58 +22,59 @@ References: <20190111114200.10026-1-dgilbert@redhat.com>
 	<20190211225225.7c39154d.cohuck@redhat.com>
 	<20190213183755.GF2601@work-vm>
 	<20190214115807.2bab4efb.cohuck@redhat.com>
+	<20190215135134.1945200c@oc2783563651>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20190215135134.1945200c@oc2783563651>
 Subject: Re: [virtio-comment] [PATCH 1/3] shared memory: Define shared
  memory regions
-To: Cornelia Huck <cohuck@redhat.com>
+To: Halil Pasic <pasic@linux.ibm.com>
 Cc: "Dr. David Alan Gilbert" <dgilbert@redhat.com>, virtio-comment@lists.oasis-open.org, stefanha@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 14 Feb 2019 11:58:07 +0100
-Cornelia Huck <cohuck@redhat.com> wrote:
+On Fri, 15 Feb 2019 13:51:34 +0100
+Halil Pasic <pasic@linux.ibm.com> wrote:
 
-> Tags: inv, virtio 
-> From: Cornelia Huck <cohuck@redhat.com>
-> To: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
-> Cc: virtio-comment@lists.oasis-open.org, stefanha@redhat.com, Halil Pasic <pasic@linux.ibm.com>
-> Subject: Re: [virtio-comment] [PATCH 1/3] shared memory: Define shared memory regions
-> Date: Thu, 14 Feb 2019 11:58:07 +0100
-> Sender: <virtio-comment@lists.oasis-open.org>
-> Organization: Red Hat GmbH
+> On Thu, 14 Feb 2019 11:58:07 +0100
+> Cornelia Huck <cohuck@redhat.com> wrote:
 > 
-> On Wed, 13 Feb 2019 18:37:56 +0000
-> "Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
-> 
-> > * Cornelia Huck (cohuck@redhat.com) wrote:  
-> > > On Wed, 16 Jan 2019 20:06:25 +0000
-> > > "Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
-> > >     
-> > > > So these are all moving this 1/3 forward - has anyone got comments on
-> > > > the transport specific implementations?    
-> > > 
-> > > No comment on pci or mmio, but I've hacked something together for ccw.
-> > > Basically, one sense-type ccw for discovery and a control-type ccw for
-> > > activation of the regions (no idea if we really need the latter), both
-> > > available with ccw revision 3.
-> > > 
-> > > No idea whether this will work this way, though...    
+> > Tags: inv, virtio 
+> > From: Cornelia Huck <cohuck@redhat.com>
+> > To: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+> > Cc: virtio-comment@lists.oasis-open.org, stefanha@redhat.com, Halil Pasic <pasic@linux.ibm.com>
+> > Subject: Re: [virtio-comment] [PATCH 1/3] shared memory: Define shared memory regions
+> > Date: Thu, 14 Feb 2019 11:58:07 +0100
+> > Sender: <virtio-comment@lists.oasis-open.org>
+> > Organization: Red Hat GmbH
 > > 
-> > That sounds (from a shm perspective) reasonable; can I ask why the
-> > 'activate' is needed?  
+> > On Wed, 13 Feb 2019 18:37:56 +0000
+> > "Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
+> >   
+> > > * Cornelia Huck (cohuck@redhat.com) wrote:    
+> > > > On Wed, 16 Jan 2019 20:06:25 +0000
+> > > > "Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
+> > > >       
+> > > > > So these are all moving this 1/3 forward - has anyone got comments on
+> > > > > the transport specific implementations?      
+> > > > 
+> > > > No comment on pci or mmio, but I've hacked something together for ccw.
+> > > > Basically, one sense-type ccw for discovery and a control-type ccw for
+> > > > activation of the regions (no idea if we really need the latter), both
+> > > > available with ccw revision 3.
+> > > > 
+> > > > No idea whether this will work this way, though...      
+> > > 
+> > > That sounds (from a shm perspective) reasonable; can I ask why the
+> > > 'activate' is needed?    
+> > 
+> > The activate interface is actually what I'm most unsure about; maybe
+> > Halil can chime in.  
 > 
-> The activate interface is actually what I'm most unsure about; maybe
-> Halil can chime in.
+> Sorry, I unfortunately kept deferring looking into this. Will have to do
+> some more thinking. I promise to give you my feedback by Monday end of
+> day if not sooner. Does that work with you?
 
-Sorry, I unfortunately kept deferring looking into this. Will have to do
-some more thinking. I promise to give you my feedback by Monday end of
-day if not sooner. Does that work with you?
-
-Regards,
-Halil
-
+Sure; please also take a look at DavidH's proposal.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
