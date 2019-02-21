@@ -1,40 +1,46 @@
-Return-Path: virtio-comment-return-634-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-635-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D3FC8985D1F
-	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Feb 2019 15:29:18 +0000 (UTC)
-From: Don Wallwork <don.wallwork@broadcom.com>
-Message-ID: <3230056b-f78b-9671-8705-b3e508201d49@broadcom.com>
-Date: Thu, 21 Feb 2019 10:29:14 -0500
+	by lists.oasis-open.org (Postfix) with ESMTP id 2BDFF985D1F
+	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Feb 2019 15:47:37 +0000 (UTC)
+Date: Thu, 21 Feb 2019 16:47:32 +0100
+From: Cornelia Huck <cohuck@redhat.com>
+Message-ID: <20190221164732.7ad8d7e6.cohuck@redhat.com>
+In-Reply-To: <3230056b-f78b-9671-8705-b3e508201d49@broadcom.com>
+References: <3230056b-f78b-9671-8705-b3e508201d49@broadcom.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Subject: [virtio-comment] virtio 1.1 features question
-To: virtio-comment@lists.oasis-open.org
+Subject: Re: [virtio-comment] virtio 1.1 features question
+To: Don Wallwork <don.wallwork@broadcom.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Is there an expectation that feature names in the spec would match 
-implementation in code?
-I presume not, since features like VIRTIO_F_EVENT_IDX and 
-VIRTIO_F_INDIRECT_DESC do not
-appear in Linux kernel or QEMU code; VIRTIO_RING_F_EVENT_IDX and 
-VIRTIO_RING_F_INDIRECT_DESC
-are used instead.
+On Thu, 21 Feb 2019 10:29:14 -0500
+Don Wallwork <don.wallwork@broadcom.com> wrote:
 
-Also noticed that there seems to be an inconsistency in the spec in that 
-VIRTIO_F_EVENT_IDX is
-used in some places and VIRTIO_F_RING_EVENT_IDX is used in others.. Is 
-this intended?
+> Is there an expectation that feature names in the spec would match 
+> implementation in code?
+> I presume not, since features like VIRTIO_F_EVENT_IDX and 
+> VIRTIO_F_INDIRECT_DESC do not
+> appear in Linux kernel or QEMU code; VIRTIO_RING_F_EVENT_IDX and 
+> VIRTIO_RING_F_INDIRECT_DESC
+> are used instead.
 
-Thanks,
+I'd say matching the names is nice, but not required.
 
-Don
+> 
+> Also noticed that there seems to be an inconsistency in the spec in that 
+> VIRTIO_F_EVENT_IDX is
+> used in some places and VIRTIO_F_RING_EVENT_IDX is used in others.. Is 
+> this intended?
 
+This looks like a bug... the same things should use the same names.
+Might be a good idea to switch both to the name used in Linux/QEMU?
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
