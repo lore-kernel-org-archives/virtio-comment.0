@@ -1,46 +1,59 @@
-Return-Path: virtio-comment-return-635-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-638-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2BDFF985D1F
-	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Feb 2019 15:47:37 +0000 (UTC)
-Date: Thu, 21 Feb 2019 16:47:32 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20190221164732.7ad8d7e6.cohuck@redhat.com>
-In-Reply-To: <3230056b-f78b-9671-8705-b3e508201d49@broadcom.com>
-References: <3230056b-f78b-9671-8705-b3e508201d49@broadcom.com>
+From: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
+Date: Fri, 22 Feb 2019 11:54:30 +0000
+Message-Id: <20190222115433.7160-1-dgilbert@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] virtio 1.1 features question
-To: Don Wallwork <don.wallwork@broadcom.com>
-Cc: virtio-comment@lists.oasis-open.org
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v2 0/3] Large shared memory regions
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: stefanha@redhat.com, cohuck@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 21 Feb 2019 10:29:14 -0500
-Don Wallwork <don.wallwork@broadcom.com> wrote:
+From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
 
-> Is there an expectation that feature names in the spec would match 
-> implementation in code?
-> I presume not, since features like VIRTIO_F_EVENT_IDX and 
-> VIRTIO_F_INDIRECT_DESC do not
-> appear in Linux kernel or QEMU code; VIRTIO_RING_F_EVENT_IDX and 
-> VIRTIO_RING_F_INDIRECT_DESC
-> are used instead.
+Hi,
+  This series formalises the idea of shared memory regions I'd
+previously discussed and is intended for use with virtio-fs.
 
-I'd say matching the names is nice, but not required.
+I've split it into three parts:
 
-> 
-> Also noticed that there seems to be an inconsistency in the spec in that 
-> VIRTIO_F_EVENT_IDX is
-> used in some places and VIRTIO_F_RING_EVENT_IDX is used in others.. Is 
-> this intended?
+  a) A general definition of the idea
 
-This looks like a bug... the same things should use the same names.
-Might be a good idea to switch both to the name used in Linux/QEMU?
+  b) A definition on virtio-pci using the layout previously
+discussed; this still uses the list of capabilities.
+
+  c) A definition on virtio-mmio; this is untested
+however I thought best to include it since it shows that
+it isn't tied to PCI.
+
+
+This v2 addresses (hopefully all) comments from the initial posting,
+except for CCW and the GPU/dynamic usage currently being
+discussed by Frank.  Cornelia has a suggested approach for CCW
+that is being discussed, so it looks like we're getting there on
+that.  The GPU usage being discussed by Frank is diverging to a
+very different usage.
+
+Dave
+
+Dr. David Alan Gilbert (3):
+  shared memory: Define shared memory regions
+  shared memory: Define PCI capability
+  shared memory: Define mmio registers
+
+ content.tex    | 71 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ shared-mem.tex | 33 +++++++++++++++++++++++
+ 2 files changed, 104 insertions(+)
+ create mode 100644 shared-mem.tex
+
+-- 
+2.20.1
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
