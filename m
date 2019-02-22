@@ -1,119 +1,194 @@
-Return-Path: virtio-comment-return-633-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-637-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4425C9860BA
-	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Feb 2019 08:57:22 +0000 (UTC)
-From: "Savir, Gil" <gil.savir@intel.com>
-Date: Thu, 21 Feb 2019 08:57:15 +0000
-Message-ID: <54DB94AE64EDA14BAB6A1E9641A26B011AC5E9BD@hasmsx109.ger.corp.intel.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 7407D9860E5
+	for <virtio-comment@lists.oasis-open.org>; Fri, 22 Feb 2019 01:28:38 +0000 (UTC)
+Date: Thu, 21 Feb 2019 20:28:33 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20190221202507-mutt-send-email-mst@kernel.org>
 References: <54DB94AE64EDA14BAB6A1E9641A26B011AC3CFFB@hasmsx109.ger.corp.intel.com>
  <20190211014709-mutt-send-email-mst@kernel.org>
  <20190211015836-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20190211015836-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
+ <54DB94AE64EDA14BAB6A1E9641A26B011AC5E9BD@hasmsx109.ger.corp.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Subject: RE: [virtio-comment] VirtIO spec issue - Available Buffer
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <54DB94AE64EDA14BAB6A1E9641A26B011AC5E9BD@hasmsx109.ger.corp.intel.com>
+Subject: Re: [virtio-comment] VirtIO spec issue - Available Buffer
  Notification Suppression
-To: "Michael S. Tsirkin" <mst@redhat.com>
+To: "Savir, Gil" <gil.savir@intel.com>
 Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "Elmaleh, Liron" <liron.elmaleh@intel.com>, "Liang, Cunming" <cunming.liang@intel.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogdmlydGlvLWNvbW1lbnRA
-bGlzdHMub2FzaXMtb3Blbi5vcmcgW21haWx0bzp2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy0N
-Cj4gb3Blbi5vcmddIE9uIEJlaGFsZiBPZiBNaWNoYWVsIFMuIFRzaXJraW4NCj4gU2VudDogTW9u
-ZGF5LCAxMSBGZWJydWFyeSwgMjAxOSAwOTowMw0KPiBUbzogU2F2aXIsIEdpbCA8Z2lsLnNhdmly
-QGludGVsLmNvbT4NCj4gQ2M6IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnOyBF
-bG1hbGVoLCBMaXJvbg0KPiA8bGlyb24uZWxtYWxlaEBpbnRlbC5jb20+OyBMaWFuZywgQ3VubWlu
-ZyA8Y3VubWluZy5saWFuZ0BpbnRlbC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbdmlydGlvLWNvbW1l
-bnRdIFZpcnRJTyBzcGVjIGlzc3VlIC0gQXZhaWxhYmxlIEJ1ZmZlciBOb3RpZmljYXRpb24NCj4g
-U3VwcHJlc3Npb24NCj4gDQo+IE9uIE1vbiwgRmViIDExLCAyMDE5IGF0IDAxOjU4OjA5QU0gLTA1
-MDAsIE1pY2hhZWwgUy4gVHNpcmtpbiB3cm90ZToNCj4gPiBPbiBUaHUsIEphbiAzMSwgMjAxOSBh
-dCAwMToxNjoyOVBNICswMDAwLCBTYXZpciwgR2lsIHdyb3RlOg0KPiA+ID4gSGksDQo+ID4gPg0K
-PiA+ID4NCj4gPiA+DQo+ID4gPiBJZiBWSVJUSU9fRl9FVkVOVF9JRFggZmVhdHVyZSBiaXQgaXMg
-bmVnb3RpYXRlZCwgdGhlbiBBdmFpbGFibGUNCj4gPiA+IEJ1ZmZlciBOb3RpZmljYXRpb24gU3Vw
-cHJlc3Npb24gbWVjaGFuaXNtIHVzZWQgaXMgYXZhaWwgZXZlbnQgKG5vdCBmbGFncykuDQo+ID4g
-Pg0KPiA+ID4gVGhlIHNwZWMgKGJvdGggdjEuMCAvIHYxLjEtZHJhZnQpIHN0YXRlcyB0aGF0IHRo
-ZSBkZXZpY2UgTUFZIHVzZQ0KPiA+ID4gdGhpcyBtZWNoYW5pc20gKFBhcmFncmFwaCAyLjQuOS4y
-IC8gMi42LjEwLjIgcmVzcGVjdGl2ZWx5KS4NCj4gPiA+DQo+ID4gPiBUaGlzIHN0YXRlbWVudCBp
-bXBsaWVzIHRoYXQgdGhlIGRldmljZSBtYXkgY2hvb3NlIG5vdCB0byB1c2UgdGhpcw0KPiA+ID4g
-c3VwcHJlc3Npb24gbWVjaGFuaXNtIChldmVuIGlmIFZJUlRJT19GX0VWRU5UX0lEWCB3YXMgbmVn
-b3RpYXRlZCkuDQo+ID4gPg0KPiA+ID4NCj4gPiA+DQo+ID4gPiBIb3dldmVyIOKAkyB0aGVyZeKA
-mXMgbm8gd2F5IGZvciB0aGUgZGV2aWNlIHRvIGluZm9ybSB0aGUgZHJpdmVyIHRoYXQgaGUNCj4g
-PiA+IGlzIG5vdCB1c2luZyBhdmFpbF9ldmVudC4NCj4gPiA+DQo+ID4gPiBBcyBjb25zZXF1ZW5j
-ZSwgc2luY2UgdGhlcmUgd2lsbCBiZSBhIGRlZmF1bHQgdmFsdWUgaW4gYXZhaWxfZXZlbnQNCj4g
-PiA+IChwcm9iYWJseSAweDApLCB0aGVuIHRoZSBkcml2ZXIgd2lsbCBhbHdheXMgYXNzdW1lIHRo
-YXQgaXQgaGFzIHRvDQo+ID4gPiBzZW5kIG5vdGlmeSDigJxvbmNlLXBlciByaW5n4oCdLg0KPiA+
-DQo+ID4NCj4gPiBObyBJIHRoaW5rIHRoaXMgcGFydCBpcyB3cm9uZywgcGxzIHNlZSBiZWxvdy4N
-Cj4gPg0KPiA+DQo+ID4gPiBUaGlzIHdpbGwgcmVuZGVyIHBlcmZvcm1hbmNlIGZ1dGlsZSwgb3Ig
-Zm9yY2UgdGhlIGRldmljZSB0byBhY3RpdmVseQ0KPiA+ID4gdXBkYXRlIGF2YWlsX2V2ZW50Lg0K
-PiA+ID4NCj4gPiA+DQo+ID4gPg0KPiA+ID4gSXMgdGhlcmUgYSB3YXkgZm9yIHRoZSBkZXZpY2Ug
-dG8gaW5mb3JtIHRoZSBkcml2ZXIgdGhhdCBoZSBpcyBub3QNCj4gPiA+IHVzaW5nIGF2YWlsX2V2
-ZW50IChhbmQgSSBtaXNzZWQgaXQpPw0KPiA+ID4NCj4gPiA+DQo+ID4gPg0KPiA+ID4gSWYgeWVz
-LCB0aGFuIG15IGFwb2xvZ2llcyBmb3Igd2FzdGluZyB5b3VyIHRpbWUuDQo+ID4gPg0KPiA+ID4g
-SWYgbm8sIHRoZW4gSSBzdWdnZXN0IG9uZSBvZiB0aGUgZm9sbG93aW5nOg0KPiA+ID4NCj4gPiA+
-IMK3ICAgICAgICAgRWl0aGVyLCB0byBjaGFuZ2UgdGhlIOKAnE1BWeKAnSAocmVmZXJyZWQgYWJv
-dmUpIHRvIOKAnE1VU1TigJ0sDQo+ID4gPg0KPiA+DQo+ID4gVGhhbmtzIGZvciB0aGUgZmVlZGJh
-Y2shDQo+ID4NCj4gPiBTbyB3ZSBhcmUgdGFsa2luZyBhYm91dCBzcGxpdCBxdWV1ZXMuDQo+ID4N
-Cj4gPiBJZiBhdmFpbF9ldmVudCBpcyBuZXZlciBzZXQgYW5kIHJlbWFpbnMgMCwgZHJpdmVyIHdp
-bGwgc2VuZA0KPiA+IG5vdGlmaWNhdGlvbnMgZXZlcnkgdGltZSBpbmRleCB3cmFwcyBhcm91bmQg
-dG8gMCwgd2hpY2ggd291bGQgYmUgZXZlcnkNCj4gPiAyXjE2Lg0KPiA+DQo+ID4gVGhpcyBpcyBJ
-IHRoaW5rIGV4cGVjdGVkIHNpbmNlIHRoZSBzcGVjIHNheXM6DQo+ID4NCj4gPiBUaGUgZGV2aWNl
-IE1VU1QgaGFuZGxlIHNwdXJpb3VzIG5vdGlmaWNhdGlvbnMgZnJvbSB0aGUgZHJpdmVyLg0KPiA+
-DQo+ID4gMl4xNiBkb2VzIG5vdCBzZWVtIGV4Y2Vzc2l2ZSBzbyBJIGRvbid0IHRoaW5rIGl0IHdp
-bGwgcmVuZGVyDQo+ID4gcGVyZm9ybWFuY2UgZnV0aWxlLg0KDQpQZXJmb3JtYW5jZSBkZWdyYWRh
-dGlvbiBpcyBub3QgY2F1c2VkIGR1ZSB0byB0aGUgYW1vdW50IG9mIHBhY2tldHMgc2VydmVkIGVh
-Y2ggbm90aWZpY2F0aW9uLg0KDQpMZXQncyB0YWtlLCBmb3IgZXhhbXBsZSwgbmV0LWRldmljZSBy
-eCB2aXJ0cXVldWUuDQpUaGlzIHNjZW5hcmlvIGxlYWRzIHRvIHNpdHVhdGlvbiB3aGVyZSBvbmx5
-IG9uY2UgcGVyIHJpbmcgKG5vIG1hdHRlciBpdHMgbmVnb3RpYXRlZCBzaXplKSwgdGhlIGRldmlj
-ZSB3aWxsIGhhbmQtb3ZlciBBTEwgcmluZyBidWZmZXJzIHRvIHRoZSBkcml2ZXIsIGFuZCB3aWxs
-IGhhdmUgbm8gYnVmZmVycyBhdmFpbGFibGUgZm9yIGluY29taW5nIHJ4LXBhY2tldHMuIA0KRnJv
-bSB0aGlzIG1vbWVudCAoaW4gSFcgaW1wbGVtZW50YXRpb24sIGVhcmxpZXIsIGR1ZSB0byBwaXBl
-bGluaW5nIG5hdHVyZSksIHVudGlsIHRoZSBkcml2ZXIgZmluaXNoIHRvIHByb2Nlc3Mgc29tZSBw
-YWNrZXRzLCBhbmQgcmVhbGxvY2F0ZSBlbXB0eSBidWZmZXJzIGJhY2sgdG8gdGhlIGRldmljZSwg
-dGhlIGRldmljZSBzdGFuZHMgc3RpbGwsIGFuZCBjYW5ub3Qgc2VydmUgaW5jb21pbmcgcngtcGFj
-a2V0cy4NCkluIGxvc3N5LW5ldHdvcmtzLCB0aGUgZGV2aWNlIHdpbGwgaGF2ZSB0byBkcm9wIGlu
-Y29taW5nIHBhY2tldHMgZHVyaW5nIHRoaXMgdGltZS4NCkluIGxvc3NsZXNzLW5ldHdvcmtzLCB0
-aGUgZGV2aWNlIHdpbGwgaGF2ZSB0byBiYWNrcHJlc3N1cmUgKHNlbmQgcGF1c2UpLg0KDQpJbiBi
-b3RoIGNhc2VzLCB0aGUgcmVzdWx0IGlzIHVuZGVycGVyZm9ybWFuY2UuDQoNClNpbWlsYXIgaXNz
-dWUgb2NjdXJzIHdpdGggdGhlIGNvdW50ZXJwYXJ0IC0gdXNlZF9ldmVudCBzdXBwcmVzc2lvbiBt
-ZWNoYW5pc20sIG9uIHRoZSB0eC12aXJ0cXVldWUuDQoNCg0KSSBzdWdnZXN0IHRvIHNwbGl0IFZJ
-UlRJT19GX0VWRU5UX0lEWCBpbnRvIChzYXkpIFZJUlRJT19GX0dVRVNUX0VWRU5UX0lEWCwgVklS
-VElPX0ZfSE9TVF9FVkVOVF9JRFgsIHN1Y2ggdGhhdCB1c2VkX2V2ZW50IGFuZCBhdmFpbF9ldmVu
-dCB1c2FnZSB3aWxsIGJlIGluZGVwZW5kZW50Lg0KU3VjaCBzZXBhcmF0aW9uIG1ha2VzIHNlbnNl
-LCBzaW5jZSB0aGUgZHJpdmVyIGlzIHJlc3BvbnNpYmxlIGZvciB1c2VkX2V2ZW50IG1lY2hhbmlz
-bSwgYW5kIHRoZSBkZXZpY2UgZm9yIGF2YWlsX2V2ZW50IG1lY2hhbmlzbS4JDQoNCj4gDQo+IA0K
-PiBUbyBhZGQgdG8gdGhhdCwgYWJvdmUgaXMgYmFzZWQgb24NCj4gDQo+IDIuNi4xMC4xDQo+IERy
-aXZlciBSZXF1aXJlbWVudHM6IEF2YWlsYWJsZSBCdWZmZXIgTm90aWZpY2F0aW9uIFN1cHByZXNz
-aW9uDQo+IA0KPiB3aGljaCBzdGF0ZXM6DQo+IA0KPiBBZnRlciB0aGUgZHJpdmVyIHdyaXRlcyBh
-IGRlc2NyaXB0b3IgaW5kZXggaW50byB0aGUgYXZhaWxhYmxlIHJpbmc6DQo+IOKAkyBJZiB0aGUg
-aWR4IGZpZWxkIGluIHRoZSBhdmFpbGFibGUgcmluZyAod2hpY2ggZGV0ZXJtaW5lZCB3aGVyZSB0
-aGF0IGRlc2NyaXB0b3INCj4gaW5kZXggd2FzIHBsYWNlZCkgd2FzIGVxdWFsIHRvIGF2YWlsX2V2
-ZW50LCB0aGUgZHJpdmVyIE1VU1Qgc2VuZCBhIG5vdGlmaWNhdGlvbi4NCj4g4oCTIE90aGVyd2lz
-ZSB0aGUgZHJpdmVyIFNIT1VMRCBOT1Qgc2VuZCBhIG5vdGlmaWNhdGlvbi4NCj4gDQo+IA0KPiAN
-Cj4gUGxzIGxldCB0aGUgVEMga25vdyB3aGV0aGVyIHRha2luZyB0aGUgYWJvdmUgaW50byBhY2Nv
-dW50IHlvdSB0aGluayBmdXJ0aGVyDQo+IGNsYXJpZmljYXRpb24gaW4gdGhlIHNwZWMgaXMgbmVj
-ZXNzYXJ5Lg0KPiANCj4gVGhhbmtzIQ0KPiANCj4gDQo+ID4gPiDCtyAgICAgICAgT3IsIHRvIGFk
-ZCB3YXkgZm9yIHRoZSBkZXZpY2UgdG8gaW5mb3JtIHRoZSBkcml2ZXIgdGhhdCBoZSBpcyBub3QN
-Cj4gPiA+IHVzaW5nIGF2YWlsX2V2ZW50IChmbGFnIC9jZXJ0YWluIHJlc2VydmVkIHZhbHVlIGlu
-IGF2YWlsX2V2ZW50DQo+ID4gPiAvb3RoZXIgbWVjaGFuaXNtKS4NCj4gPiA+DQo+ID4gPg0KPiA+
-ID4NCj4gPiA+IFRoYW5rcywNCj4gPiA+DQo+ID4gPiBHaWwgU2F2aXINCj4gPiA+DQo+ID4gPiBJ
-bnRlbCBDb3Jwb3JhdGlvbg0KPiA+DQo+ID4gSXQgbWlnaHQgYmUgYSBnb29kIGFkZGl0aW9uIHRv
-IHNwZWMsIHByb2JhYmx5IGFsb25nIHRoZSBsaW5lcyBvZiBhbg0KPiA+IG9wdGlvbiB0byBzZW5k
-IG5vdGlmaWNhdGlvbnMgb24gZXZlbiBzdXBwcmVzc2lvbiBjaGFuZ2VzICh3aGljaCB3YXMNCj4g
-PiBwcm9wb3NlZCBpbiB0aGUgcGFzdCwgYnV0IHdhcyBub3QgaW5jbHVkZWQgZHVlIHRvIGxhY2sg
-b2YgdGltZSkuDQo+ID4NCj4gPiAtLQ0KPiA+IE1TVA0KPiANCg0KR2lsIFNhdmlyDQotLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0KSW50ZWwgSXNyYWVsICg3NCkgTGltaXRlZAoKVGhpcyBlLW1haWwgYW5kIGFueSBhdHRh
-Y2htZW50cyBtYXkgY29udGFpbiBjb25maWRlbnRpYWwgbWF0ZXJpYWwgZm9yCnRoZSBzb2xlIHVz
-ZSBvZiB0aGUgaW50ZW5kZWQgcmVjaXBpZW50KHMpLiBBbnkgcmV2aWV3IG9yIGRpc3RyaWJ1dGlv
-bgpieSBvdGhlcnMgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4gSWYgeW91IGFyZSBub3QgdGhlIGlu
-dGVuZGVkCnJlY2lwaWVudCwgcGxlYXNlIGNvbnRhY3QgdGhlIHNlbmRlciBhbmQgZGVsZXRlIGFs
-bCBjb3BpZXMuCg==
+On Thu, Feb 21, 2019 at 08:57:15AM +0000, Savir, Gil wrote:
+> 
+> 
+> > -----Original Message-----
+> > From: virtio-comment@lists.oasis-open.org [mailto:virtio-comment@lists.oasis-
+> > open.org] On Behalf Of Michael S. Tsirkin
+> > Sent: Monday, 11 February, 2019 09:03
+> > To: Savir, Gil <gil.savir@intel.com>
+> > Cc: virtio-comment@lists.oasis-open.org; Elmaleh, Liron
+> > <liron.elmaleh@intel.com>; Liang, Cunming <cunming.liang@intel.com>
+> > Subject: Re: [virtio-comment] VirtIO spec issue - Available Buffer Notification
+> > Suppression
+> > 
+> > On Mon, Feb 11, 2019 at 01:58:09AM -0500, Michael S. Tsirkin wrote:
+> > > On Thu, Jan 31, 2019 at 01:16:29PM +0000, Savir, Gil wrote:
+> > > > Hi,
+> > > >
+> > > >
+> > > >
+> > > > If VIRTIO_F_EVENT_IDX feature bit is negotiated, then Available
+> > > > Buffer Notification Suppression mechanism used is avail event (not flags).
+> > > >
+> > > > The spec (both v1.0 / v1.1-draft) states that the device MAY use
+> > > > this mechanism (Paragraph 2.4.9.2 / 2.6.10.2 respectively).
+> > > >
+> > > > This statement implies that the device may choose not to use this
+> > > > suppression mechanism (even if VIRTIO_F_EVENT_IDX was negotiated).
+> > > >
+> > > >
+> > > >
+> > > > However – there’s no way for the device to inform the driver that he
+> > > > is not using avail_event.
+> > > >
+> > > > As consequence, since there will be a default value in avail_event
+> > > > (probably 0x0), then the driver will always assume that it has to
+> > > > send notify “once-per ring”.
+> > >
+> > >
+> > > No I think this part is wrong, pls see below.
+> > >
+> > >
+> > > > This will render performance futile, or force the device to actively
+> > > > update avail_event.
+> > > >
+> > > >
+> > > >
+> > > > Is there a way for the device to inform the driver that he is not
+> > > > using avail_event (and I missed it)?
+> > > >
+> > > >
+> > > >
+> > > > If yes, than my apologies for wasting your time.
+> > > >
+> > > > If no, then I suggest one of the following:
+> > > >
+> > > > ·         Either, to change the “MAY” (referred above) to “MUST”,
+> > > >
+> > >
+> > > Thanks for the feedback!
+> > >
+> > > So we are talking about split queues.
+> > >
+> > > If avail_event is never set and remains 0, driver will send
+> > > notifications every time index wraps around to 0, which would be every
+> > > 2^16.
+> > >
+> > > This is I think expected since the spec says:
+> > >
+> > > The device MUST handle spurious notifications from the driver.
+> > >
+> > > 2^16 does not seem excessive so I don't think it will render
+> > > performance futile.
+> 
+> Performance degradation is not caused due to the amount of packets served each notification.
+> 
+> Let's take, for example, net-device rx virtqueue.
+> This scenario leads to situation where only once per ring (no matter its negotiated size), the device will hand-over ALL ring buffers to the driver, and will have no buffers available for incoming rx-packets. 
+> From this moment (in HW implementation, earlier, due to pipelining nature), until the driver finish to process some packets, and reallocate empty buffers back to the device, the device stands still, and cannot serve incoming rx-packets.
+> In lossy-networks, the device will have to drop incoming packets during this time.
+> In lossless-networks, the device will have to backpressure (send pause).
+> 
+> In both cases, the result is underperformance.
+> 
+> Similar issue occurs with the counterpart - used_event suppression mechanism, on the tx-virtqueue.
+> 
+> 
+> I suggest to split VIRTIO_F_EVENT_IDX into (say) VIRTIO_F_GUEST_EVENT_IDX, VIRTIO_F_HOST_EVENT_IDX, such that used_event and avail_event usage will be independent.
+> Such separation makes sense, since the driver is responsible for used_event mechanism, and the device for avail_event mechanism.	
 
+This sounds like a reasonable feature to add.
+
+However I wonder: when packed ring is used, it is possible for the
+device to enable notifications unconditionally even when EVENT_IDX has
+been negotiated.
+
+Would that be enough?
+
+
+
+
+> > 
+> > 
+> > To add to that, above is based on
+> > 
+> > 2.6.10.1
+> > Driver Requirements: Available Buffer Notification Suppression
+> > 
+> > which states:
+> > 
+> > After the driver writes a descriptor index into the available ring:
+> > – If the idx field in the available ring (which determined where that descriptor
+> > index was placed) was equal to avail_event, the driver MUST send a notification.
+> > – Otherwise the driver SHOULD NOT send a notification.
+> > 
+> > 
+> > 
+> > Pls let the TC know whether taking the above into account you think further
+> > clarification in the spec is necessary.
+> > 
+> > Thanks!
+> > 
+> > 
+> > > > ·        Or, to add way for the device to inform the driver that he is not
+> > > > using avail_event (flag /certain reserved value in avail_event
+> > > > /other mechanism).
+> > > >
+> > > >
+> > > >
+> > > > Thanks,
+> > > >
+> > > > Gil Savir
+> > > >
+> > > > Intel Corporation
+> > >
+> > > It might be a good addition to spec, probably along the lines of an
+> > > option to send notifications on even suppression changes (which was
+> > > proposed in the past, but was not included due to lack of time).
+> > >
+> > > --
+> > > MST
+> > 
+> 
+> Gil Savir
+> ---------------------------------------------------------------------
+> Intel Israel (74) Limited
+> 
+> This e-mail and any attachments may contain confidential material for
+> the sole use of the intended recipient(s). Any review or distribution
+> by others is strictly prohibited. If you are not the intended
+> recipient, please contact the sender and delete all copies.
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
