@@ -1,147 +1,41 @@
-Return-Path: alexander.duyck@gmail.com
-Subject: [PATCH RFC 3/3] content: Document balloon feature free page reporting
-From: Alexander Duyck <alexander.duyck@gmail.com>
-Date: Wed, 29 Apr 2020 10:27:36 -0700
-Message-ID: <20200429172736.457.45826.stgit@localhost.localdomain>
-In-Reply-To: <20200429172634.457.40167.stgit@localhost.localdomain>
-References: <20200429172634.457.40167.stgit@localhost.localdomain>
+Return-Path: rkir@google.com
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-To: cohuck@redhat.com, david@redhat.com, mst@redhat.com
-Cc: virtio-dev@lists.oasis-open.or, virtio-comment@lists.oasis-open.org
+References: <CAEkmjvW06XheSPNS6YtjoZzAsmOeSPSbwFwNr_1S1F=Mmy-+qw@mail.gmail.com>
+In-Reply-To: <CAEkmjvW06XheSPNS6YtjoZzAsmOeSPSbwFwNr_1S1F=Mmy-+qw@mail.gmail.com>
+From: Roman Kiryanov <rkir@google.com>
+Date: Sun, 24 Feb 2019 21:15:36 -0800
+Message-ID: <CAOGAQer6H1TX6x7GEtUgPBm5oip5teAR0seruqjDOzfTUrVVuA@mail.gmail.com>
+Subject: Re: RFC: virtio-hostmem (+ Continuation of discussion from [virtio-dev]
+ Memory sharing device)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+To: Frank Yang <lfy@google.com>
+Cc: virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> Michael: OK so who allocates memory out of the PCI region?
+> Response:
+>
+> Allocation will be split by guest address space versus host address space=
+=2E
+>
+> Guest address space: The guest driver determines the offset into the BAR =
+in which to allocate the new region. The implementation of the allocator it=
+self may live on the host (while guest triggers such allocations via the co=
+nfig virtqueue messages), but the ownership of region offsets and sizes wil=
+l be in the guest. This allows for the easy use of existing guest ref-count=
+ing mechanisms such as last close() calling release() to clean up the memor=
+y regions in the guest.
+>
+> Host address space: The backing of such memory regions is considered comp=
+letely optional. The host may service a guest region with a memory of its c=
+hoice that depends on the usage of the device. The time this servicing happ=
+ens may be any time after the guest communicates the message to create a me=
+mory region, but before the guest destroys the memory region. In the meanti=
+me, some examples of how the host may respond to the allocation request:
 
-Free page reporting is a feature that allows the guest to proactively
-report unused pages to the host. By making use of this feature is is
-possible to reduce the overall memory footprint of the guest in cases where
-some significant portion of the memory is idle. Add documentation for the
-free page reporting feature describing the functionality and requirements.
+Should we note here what happens if a guest releases (a user process
+dies) the region without asking the host to un-back it?
 
-Signed-off-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
----
- content.tex |   74 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
-
-diff --git a/content.tex b/content.tex
-index c98b8ea9526a..52955c8ff007 100644
---- a/content.tex
-+++ b/content.tex
-@@ -5007,12 +5007,15 @@ \subsection{Virtqueues}\label{sec:Device Types / Memory Balloon Device / Virtque
- \item[1] deflateq
- \item[2] statsq.
- \item[3] free_page_vq.
-+\item[4] reporting_vq.
- \end{description}
- 
-   statsq only exists if VIRTIO_BALLOON_F_STATS_VQ set.
- 
-   free_page_vq only exists if VIRTIO_BALLOON_F_FREE_PAGE_HINT set.
- 
-+  reporting_vq only exists if VIRTIO_BALLOON_F_PAGE_REPORTING set.
-+
- \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Feature bits}
- \begin{description}
- \item[VIRTIO_BALLOON_F_MUST_TELL_HOST (0)] Host has to be told before
-@@ -5029,6 +5032,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
- \item[ VIRTIO_BALLOON_F_PAGE_POISON(4) ] Host has to be notified if guest
-     is expecting reported pages to contain a certain value when returned.
-     Configuration field poison_val is valid.
-+\item[ VIRTIO_BALLOON_F_PAGE_REPORTING(5) ] Device has support for free
-+    page reporting. A virtqueue for reporting free guest memory is present.
- 
- \end{description}
- 
-@@ -5039,6 +5044,10 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
- The driver SHOULD clear the VIRTIO_BALLOON_F_PAGE_POISON flag if it is not
- expecting any specific value to be stored in the page.
- 
-+The driver MUST NOT accept VIRTIO_BALLOON_F_PAGE_REPORTING if it is expecting
-+the pages to retain some initialized value and it has not negotiated
-+VIRTIO_BALLOON_F_PAGE_POISON as a feature.
-+
- \devicenormative{\subsubsection}{Feature bits}{Device Types / Memory Balloon Device / Feature bits}
- If the device offers the VIRTIO_BALLOON_F_MUST_TELL_HOST feature
- bit, and if the driver did not accept this feature bit, the
-@@ -5097,6 +5106,13 @@ \subsection{Device Initialization}\label{sec:Device Types / Memory Balloon Devic
- 
- \item If the VIRTIO_BALLOON_F_PAGE_POISON feature bit is negotiated then
-   the driver MUST update the poison_val configuration field.
-+
-+\item If the VIRTIO_BALLOON_F_PAGE_REPORTING feature bit is negotiated:
-+  \begin{enumerate}
-+  \item Identify the reporting virtqueue.
-+  \item DRIVER_OK is set: device operation begins.
-+  \item Begin reporting free pages to device.
-+  \end{enumerate}
- \end{enumerate}
- 
- \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / Device Operation}
-@@ -5497,6 +5513,64 @@ \subsubsection{Page Poison}\label{sec:Device Types / Memory Balloon Device / Dev
- free page hinting as this feature did not exist prior to those features being
- added.
- 
-+\subsubsection{Free Page Reporting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
-+
-+Free Page Reporting provides a mechanism similar to balloon inflation,
-+however it does not provide a deflation queue. The expectation is that the
-+device will have a means by which it can detect the guest page access and
-+fault in such pages with some initial value, likely a zero page.
-+
-+The driver will respond to to memory conditions and begin reporting free
-+pages when some number of pages are available.
-+
-+\begin{enumerate}
-+
-+\item The driver determines it has enough pages available to begin
-+  reporting pages.
-+
-+\item The driver gathers pages into a scatter-gather list and adds them to
-+  the reporting_vq.
-+
-+\item The device acknowledges the reporting request.
-+
-+\item Once the device has acknowledged the report, the pages can be
-+  returned to the location from which they were pulled.
-+
-+\item The driver can then continue to gather and report pages until it
-+  has determined it has reported a suffcient quantity of pages.
-+
-+\end{enumerate}
-+
-+\drivernormative{\paragraph}{Free Page Reporting}{Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
-+
-+Normative statements in this section apply if and only if  the
-+VIRTIO_BALLOON_F_PAGE_REPORTING feature has been negotiated.
-+
-+If the guest is expecting the free page to contain some initial value it
-+MUST make use of the VIRTIO_BALLOON_F_PAGE_POISON feature to notify the
-+device of this expectation via \field{poison_val}.
-+
-+The driver MUST NOT use the reported pages until the device has
-+acknowledged the reporting request.
-+
-+The driver MAY report free pages any time after DRIVER_OK is set.
-+
-+It is RECOMMENDED that the driver avoid unecessary reads or writes to the
-+page contents as this could reduce the performance for free page reporting.
-+
-+\devicenormative{\paragraph}{Free Page Reporting}{Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
-+
-+Normative statements in this section apply if and only if  the
-+VIRTIO_BALLOON_F_PAGE_REPORTING feature has been negotiated.
-+
-+The device MAY modify the contents of a page in the report after detecting
-+its physical number in an report request and before acknowledging the
-+reporting request by using the reporting_vq descriptor.
-+
-+If the VIRTIO_BALLOON_F_PAGE_POISON feature is negotiated, the device
-+SHALL NOT modify the the page if this will result in the page containing a
-+value other than \field{poison_val}.
-+
- \section{SCSI Host Device}\label{sec:Device Types / SCSI Host Device}
- 
- The virtio SCSI host device groups together one or more virtual
-
+Regards,
+Roman.
