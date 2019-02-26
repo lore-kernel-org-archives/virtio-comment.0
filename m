@@ -1,317 +1,209 @@
-Return-Path: virtio-comment-return-636-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-665-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-From: Patrick Durusau <patrick@durusau.net>
-Message-ID: <9bdf3096-734f-a921-d570-f8dfb9300868@durusau.net>
-Date: Thu, 21 Feb 2019 17:36:51 -0500
+Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id ADBD7985DC6
+	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Feb 2019 20:58:12 +0000 (UTC)
+Date: Tue, 26 Feb 2019 15:58:05 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20190226154841-mutt-send-email-mst@kernel.org>
+References: <9bdf3096-734f-a921-d570-f8dfb9300868@durusau.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="MxwJsBg5llFDjen9ZWw3iznGo9VLSAk5Z"
-Subject: [virtio-comment] TAB comments on Virtual I/O Device (VIRTIO) Version 1.1
-To: virtio-comment@lists.oasis-open.org
-Cc: OASIS TAB <tab@lists.oasis-open.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9bdf3096-734f-a921-d570-f8dfb9300868@durusau.net>
+Subject: Re: [virtio-comment] TAB comments on Virtual I/O Device (VIRTIO)
+ Version 1.1
+To: Patrick Durusau <patrick@durusau.net>
+Cc: virtio-comment@lists.oasis-open.org, OASIS TAB <tab@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---MxwJsBg5llFDjen9ZWw3iznGo9VLSAk5Z
-Content-Type: multipart/mixed; boundary="04eRsYs0lCbFjaUBHnYbrgY3G2MResPKb";
- protected-headers="v1"
-From: Patrick Durusau <patrick@durusau.net>
-To: virtio-comment@lists.oasis-open.org
-Cc: OASIS TAB <tab@lists.oasis-open.org>
-Message-ID: <9bdf3096-734f-a921-d570-f8dfb9300868@durusau.net>
-Subject: TAB comments on Virtual I/O Device (VIRTIO) Version 1.1
-
---04eRsYs0lCbFjaUBHnYbrgY3G2MResPKb
-Content-Type: multipart/mixed;
- boundary="------------81AC74EB718C011ADE09FBC7"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------81AC74EB718C011ADE09FBC7
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Greetings!
-
-Members of the Technical Advisory Board endeavor to comment on all 30 day=
- public review drafts.
-
-Comments on: Virtual I/O Device (VIRTIO) Version 1.1 CS01 PRD01 are attac=
-hed.
-
-It isn't necessary to acknowledge each comment separately. A single email=
- acknowledging this email will be sufficient.
-
-When the TC has acted on these issues, I would appreciate a pointer to th=
-e TCs resolution as the TAB is tracking the resolution of comments from T=
-AB members.
-
-Hope everyone is having a great week!
-
-Patrick
-
---=20
-Patrick Durusau
-patrick@durusau.net
-Technical Advisory Board, OASIS (TAB)
-Editor, OpenDocument Format TC (OASIS), Project Editor ISO/IEC 26300
-Co-Editor, ISO/IEC 13250-1, 13250-5 (Topic Maps)
-
-Another Word For It (blog): http://tm.durusau.net
-Homepage: http://www.durusau.net
-Twitter: patrickDurusau=20
+On Thu, Feb 21, 2019 at 05:36:51PM -0500, Patrick Durusau wrote:
+> Greetings!
+> 
+> Members of the Technical Advisory Board endeavor to comment on all 30 day public review drafts.
+> 
+> Comments on: Virtual I/O Device (VIRTIO) Version 1.1 CS01 PRD01 are attached.
+> 
+> It isn't necessary to acknowledge each comment separately. A single email acknowledging this email will be sufficient.
+> 
+> When the TC has acted on these issues, I would appreciate a pointer to the TCs resolution as the TAB is tracking the resolution of comments from TAB members.
+> 
+> Hope everyone is having a great week!
+> 
+> Patrick
 
 
---------------81AC74EB718C011ADE09FBC7
-Content-Type: text/csv;
- name="virtio-v1.1-21Feb2019.csv"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
- filename="virtio-v1.1-21Feb2019.csv"
+Thanks a lot for the comments!
+I will try to split this CSV up and create github issues
+so it is easier to address individual comments.
 
-SXNzdWUga2V5LElzc3VlIGlkLEFmZmVjdHMgVmVyc2lvbi9zLElzc3VlIFR5cGUsQ3VzdG9t
-IGZpZWxkIChQcm9wb3NhbCksRGVzY3JpcHRpb24KVEFCLTE2NzQsNDc3MTgsVmlydHVhbCBJ
-L08gRGV2aWNlIChWSVJUSU8pIFZlcnNpb24gMS4xLEJ1ZyxDaGFuZ2UgYnVsbGV0ZWQgbGlz
-dHMgaW50byBudW1iZXJlZCBsaXN0cyBhbmQgKmFsd2F5cyogaW50cm9kdWNlIGEgbGlzdCB3
-aXRoIHRoZSBudW1iZXIgb2YgaXRlbXMgdG8gZm9sbG93LiwiVW5kZXJzdGFuZGluZyBhbmQg
-bmF2aWdhdGlvbiBvZiBjb250ZW50IGlzIGltcGFpcmVkIGJ5IHRoZSB1c2Ugb2YgYnVsbGV0
-ZWQgbGlzdHMuIENvbXBhcmUgZm9yIGV4YW1wbGUsIDIuNy4yMS4xLCBiZWluZyByZWFkIGFs
-b3VkIGFuZCBiZWluZyBhYmxlIHRvIGFuc3dlci9maW5kLCB3aGVyZSBpcyB5b3VyIHBsYWNl
-IGluIHRoaXMgbGlzdCwgYXMgb3Bwb3NlZCB0byB0aGUgc2Vjb25kIGJ1bGxldGVkIGxpc3Qg
-aW4gMi43IFBhY2tlZCBWaXJ0cXVldWVzLCBvciBlaXRoZXIgb2YgdGhlIGxpc3RzL3N1Yi1s
-aXN0cyBpbiAyLjYuMTAuMS4iClRBQi0xNjczLDQ3NzE3LFZpcnR1YWwgSS9PIERldmljZSAo
-VklSVElPKSBWZXJzaW9uIDEuMSxCdWcsRGV2aXNlIGFuZCBpbnNlcnQgdW5pZm9ybSBzdGFy
-dCBhbmQgZW5kIG1hcmtlcnMgZm9yIGV4YW1wbGVzLiwiTW9zdCBvZiB0aGUgZXhhbXBsZXMg
-b2YgbWVtb3J5IHN0cnVjdHVyZXMgYmVpbmcgd2l0aCBzdHJ1Y3QgYnV0IG5vdCBhbGwuIE1v
-cmVvdmVyLCBtb3N0IGV4YW1wbGVzIGVuZCB3aXRoIH07IGJ1dCBub3QgYWxsLCBmb3IgZXhh
-bXBsZSwgdW5kZXIgMi43LjIxLjMuDQoNCk15IHVzdWFsIGFjY2Vzc2liaWxpdHkgY2hlY2tl
-ciBpcyBvZmZsaW5lIGJ1dCBpZiB5b3Ugd2VyZSByZWFkaW5nIHRoZSB0ZXh0IGFsb3VkLCBp
-ZiB0aGUgc3RhcnQgYW5kIGVuZCBvZiBleGFtcGxlcyBpcyBub3QgdW5pZm9ybWx5IHNpZ25h
-bGVkIHRvIHNvbWVvbmUgaGVhcmluZyB0aGUgdGV4dCwgdGhlIGV4YW1wbGVzIHdvdWxkIGJl
-IG11Y2ggaGFyZGVyIHRvIGNvbnRyYXN0IHdpdGggdGhlIHN1cnJvdW5kaW5nIG5vcm1hdGl2
-ZSB0ZXh0Lg0KDQpBbiBhY2Nlc3NpYmlsaXR5IGlzc3VlwqAgaW4gZ2VuZXJhbCBidXQgYWxz
-byBhIHBlcnNvbmFsIG9uZSBiZWNhdXNlIGFmdGVyIG5lYXJseSAzMCB5ZWFycyBhcyBhIGRp
-YWJldGljIG15IHZpc2lvbiByZW1haW5zIG5vcm1hbCwgYnV0IHRoZXkgY2FuJ3QgcHJvbWlz
-ZSBob3cgbXVjaCBsb25nZXIgdGhhdCB3aWxsIGJlIHRoZSBjYXNlLiBBZGRpbmcgdW5pZm9y
-bSBzdGFydCBhbmQgZW5kIG1hcmtlcnMgd29uJ3QgaW5jb252ZW5pZW5jZSBzaWdodGVkIHJl
-YWRlcnMgYW5kIHdpbGwgZW5oYW5jZSBhY2Nlc3MgdG8geW91ciB3b3JrIGZvciB0aG9zZSB1
-c2luZyBhc3Npc3RpdmUgdGVjaG5vbG9naWVzLiIKVEFCLTE2NzIsNDc3MTYsVmlydHVhbCBJ
-L08gRGV2aWNlIChWSVJUSU8pIFZlcnNpb24gMS4xLEJ1ZywsIldlIHJlYWQgaW4gNy40Og0K
-DQoiIkEgbm9uLXRyYW5zaXRpb25hbCBpbXBsZW1lbnRhdGlvbiBjb25mb3JtcyB0byB0aGlz
-IHNwZWNpZmljYXRpb24gaWYgaXQgc2F0aXNmaWVzIGFsbCBvZiB0aGUgTVVTVCBvciBSRVFV
-SVJFRCBsZXZlbCByZXF1aXJlbWVudHMgZGVmaW5lZCBhYm92ZS4gIiINCg0KSXMgdGhhdCB0
-cnVlPyBBTEwgdGhlICIiTVVTVCIiIGluIGFsbCBwcmV2aW91cyBzZWN0aW9ucz8gUHJvYmFi
-bHkgbm90LiBPciBtYXliZSBpdCBpcyAiImJlbG93IiIgYW5kIG5vdCAiImFib3ZlIiIuIChh
-bHdheXMgZXhwbGljaXRseSByZWZlciB0byByZXF1aXJlbWVudHMgc2V0cyBieSB1c2luZyBh
-IHN1Yi1zZWN0aW9uIG51bWJlciAmIG5hbWUpDQoNCkkgc3VnZ2VzdCB0byBtYWtlICIidHJh
-bnNpdGlvbmFsIiIganVzdCBhIHZhcmlhYmxlIChpLmUuIGEgcGFyYW1ldGVyKSBpbiBwcmV2
-aW91cyB0b3AtbGV2ZWwgY29uZiBjbGF1c2VzLiAoc2VlIFRBQiBjb25mb3JtYW5jZSBndWlk
-ZWxpbmUgW2h0dHA6Ly9kb2NzLm9hc2lzLW9wZW4ub3JnL3RlbXBsYXRlcy9UQ0hhbmRib29r
-L0NvbmZvcm1hbmNlR3VpZGVsaW5lcy5odG1sLCBzZWN0aW9uIDUuNSnCoHxodHRwOi8vZG9j
-cy5vYXNpcy1vcGVuLm9yZy90ZW1wbGF0ZXMvVENIYW5kYm9vay9Db25mb3JtYW5jZUd1aWRl
-bGluZXMuaHRtbCldRS5nLiBzb21lb25lIGNsYWltaW5nIGNvbmZvcm1hbmNlIGFzICIiUENJ
-IGRyaXZlciIiIHNob3VsZCBhbHdheXMgY2xhcmlmeTogIiJ0cmFuc2l0aW9uYWwgUENJIGRy
-aXZlciIiIG9yICIibm9uLXRyYW5zaXRpb25hbCBQQ0kgZHJpdmVyIiIiClRBQi0xNjcxLDQ3
-NzE1LFZpcnR1YWwgSS9PIERldmljZSAoVklSVElPKSBWZXJzaW9uIDEuMSxCdWcsLCJFYWNo
-IGNvbmZvcm1hbmNlIGNsYXVzZSBzdWItc2VjdGlvbiBzdGFydHMgd2l0aCBzb21ldGhpbmcg
-dGhhdCBsb29rcyBsaWtlIGEgbWFuZGF0b3J5IHJlcXVpcmVtZW50Og0KDQplLmcuOg0KDQoi
-IkEgbmV0d29yayBkZXZpY2UgTVVTVCBjb25mb3JtIHRvIHRoZSBmb2xsb3dpbmcgbm9ybWF0
-aXZlIHN0YXRlbWVudHM6IiINCg0KQnV0IG1hbnkgb2YgdGhlIGZvbGxvd2luZyBzdGF0ZW1l
-bnRzIGFyZSBvcHRpb25hbCAoU0hPVUxEKSBpbiB0aGUgc3BlY2lmaWNhdGlvbiBib2R5LiBT
-byBpdCBpcyB0aGVuIGNvbmZ1c2luZyB0byBzYXkgIiIuLi4gTVVTVCBjb25mb3JtIHRvIGEg
-U0hPVUxEIHN0YXRlbWVudC4uLi4iIg0KDQpUaGF0IGlzIHdoeSBpdCBpcyBOT1QgcmVjb21t
-ZW5kZWQgdG8gdXNlIG5vcm1hdGl2ZSBsYW5ndWFnZSBsaWtlIE1VU1QgKGFuZCBldmVuIGxl
-c3MgU0hPVUxEKSBpbiBhIGNvbmZvcm1hbmNlIGNsYXVzZS4gQSBjb25mIGNsYXVzZSBpcyBu
-b3QgdGhlcmUgdG8gdGVsbCB5b3Ugd2hhdCB0byBkbyBvciBub3QgZG8gKE1VU1QuLi4uKSwg
-YnV0IG9ubHkgdG8gc3RhdGUgdW5kZXIgd2hpY2ggY29uZGl0aW9ucyB5b3UgY2FuIGNsYWlt
-IGNvbmZvcm1hbmNlIHRvIFhZWi4NCg0KSXQgaXMgYmV0dGVyIHRvIHNheToNCg0KIiJhbiBp
-bXBsZW1lbnRhdGlvbiB0aGF0IHNhdGlzZmllcyBhbGwgbWFuZGF0b3J5IChNVVNUKSByZXF1
-aXJlbWVudHMgaW4gNS4xLjQuMSwgNS4xLjYuMi4uLi4gcXVhbGlmaWVzIChvciBtYXkgY2xh
-aW0gY29uZm9ybWFuY2UpIGFzIGEgVklSVElPMS4xIG5ldHdvcmsgZGV2aWNlIiINCg0KT3Ig
-aW4gc29tZSBjb25mb3JtYW5jZSBwcm9maWxlcywgeW91IGNhbiBvdmVycmlkZSBhIFNIT1VM
-RCBpbiB0aGUgc3BlYyBib2R5IGFuZCBtYWtlIGl0IG1hbmRhdG9yeS4iClRBQi0xNjcwLDQ3
-NzE0LFZpcnR1YWwgSS9PIERldmljZSAoVklSVElPKSBWZXJzaW9uIDEuMSxCdWcsLCJTZWN0
-aW9ucyA3LjIuMTAgYW5kIDcuMi4xMSBhcmUgbmV2ZXIgcmVmZXJyZWQgdG8sIGJ5IGFueSBj
-b25mb3JtYW5jZSBjbGF1c2UuIFNhbWUgZm9yIDcuMy4xMCBhbmQgNy4zLjExLg0KDQpUaGF0
-IHNlZW1zIGxpa2UgYW4gb21pc3Npb24/IFRoZXkgc2hvdWxkIGJlIHVzZWQgaW4gYXQgbGVh
-c3Qgb25lIGNvbmZvcm1hbmNlIHByb2ZpbGUgZWFjaC4gT3IgZWxzZSwgdGhlc2Ugc2VjdGlv
-bnMgc2hvdWxkIG5vdCBiZSBub3JtYXRpdmUuIgpUQUItMTY2OSw0NzcxMyxWaXJ0dWFsIEkv
-TyBEZXZpY2UgKFZJUlRJTykgVmVyc2lvbiAxLjEsQnVnLCwiT3ZlcmFsbCwgd2VsbC1mb3Jt
-ZWQgY29uZm9ybWFuY2Ugc2VjdGlvbiAob25lIG9mIHRoZSBiZXN0IHdlwqAgVEFCIHJldmll
-d2VycyBoYXZlIHNlZW4hKSBUaGUgbWFpbiBjb25mb3JtYW5jZSB0YXJnZXRzIC0gZHJpdmVy
-cywgZGV2aWNlcyAtIGFyZSB3ZWxsIGlkZW50aWZpZWQuIFRoZSBzcGVjaWZpY2F0aW9uIGlz
-IGNsZWFybHkgYXR0cmlidXRpbmcgbm9ybWF0aXZlIHJlcXVpcmVtZW50cyB0byBlaXRoZXIg
-ZHJpdmVyLCBvciBkZXZpY2UuDQoNClNvbWUgY29uZm9ybWFuY2UgYXNwZWN0cyBjb3VsZCBz
-dGlsbCBiZSBjbGFyaWZpZWQ6DQogKiBBbGwgdGhlIHN1YnNlY3Rpb25zIHVuZGVyIDcuMiBv
-ciA3LjMgYXJlIG5hbWVkICIiY2xhdXNlcyIiIGluIDcuMS4gU28gdGhlaXIgdGl0bGVzIHNo
-b3VsZCBiZSAiIkNsYXVzZSBYWVoiIi4gT3IgZWxzZSBpZiB3ZSB3YW50IHRvIGtlZXAgIiJD
-TGF1c2UiIiB0byBvbmx5IHRoZSB0b3AtbGV2ZWwgc2V0IG9mIHJlcXVpcmVtZW50cyAtIHRo
-ZW4gZGVmaW5lIGp1c3QgYSBjb3VwbGUgb2YgY2xhdXNlcyBpbiA3LjEsIGUuZy4gIiJDb25m
-b3JtYW5jZSBDbGF1c2UgZm9yIFZJUlRJTzEuMSBkcml2ZXJzIiIuIFRoZW4gYWxsIHRoZWUg
-Zm9sbG93aW5nIHN1YnNlY3Rpb25zIHNob3VsZCBqdXN0IGJlIHRpdGxlZCAiIkNvbmZvcm1h
-bmNlIHJlcXVpcmVtZW50cyBzZXRzIiIgZS5nLiAiIkNPbmZvcm1hbmNlIHJlcXVpcmVtZW50
-cyBmb3IgUENJIGRyaXZlcnMiIiksIGFuZCBwcmVmZXJhYmx5IG5vdCAiImNsYXVzZSIiIChr
-ZWVwaW5nICIiY2xhdXNlIiIgZm9yIG9ubHnCoCB0aGUgZnVsbCBzZXQgb2YgcmVxdWlyZW1l
-bnRzIHRoYXQgYSBwcm9kdWN0IGNhbiBjbGFpbSBmb3IgY29uZm9ybWFuY2UpLg0KICogSW4g
-YW55IGNhc2UsIGl0IGlzIGdvb2QgdG8gYXNzb2NpYXRlIGEgY2xlYXIgbmFtZSB0byBlYWNo
-IGNvbmZvcm1hbmNlIGxldmVsL3Byb2ZpbGUgdGhhdCBjYW4gYmUgY2xhaW1lZC4gRm9yIGV4
-YW1wbGUsICIiUENJIG5ldHdvcmsgZHJpdmVyIiIgKGlmIHNhdGlzZnlpbmcgNy4yICsgNy4y
-LjEgKyA3LjIuNC4gSXMgdGhhdCBhIG1lYW5pbmdmdWwgY29tYmluYXRpb24/IGlydCBzZWVt
-cyBzbyBhY2NvcmRpbmcgdG8gNy4xKS4gU28gdGhhdCB0aGVyZSBpcyBubyBhbWJpZ3VpdHkg
-b2Ygd2hhdCBhcmUgdGhlIHZhbGlkwqAgY29uZm9ybWFuY2UgcHJvZmlsZXMuIFNvbWUgcGFy
-YW1ldGVyaXphdGlvbiBvZiBhIGNsYXVzZSBjYW4gYmUgdXNlZDogTG9vayBpbiBUQUIgZ3Vp
-ZGVsaW5lIDogW2h0dHA6Ly9kb2NzLm9hc2lzLW9wZW4ub3JnL3RlbXBsYXRlcy9UQ0hhbmRi
-b29rL0NvbmZvcm1hbmNlR3VpZGVsaW5lcy5odG1sXSBmb3IgIiJ2YXJpYWJsZSBjb25mb3Jt
-YW5jZSBjbGF1c2VzIiIgKHNlY3Rpb24gNS41KS4gSW4gb3RoZXIgd29yZHM6IGRlZmluZSB0
-aGUgcHJlY2lzZSBzdGF0ZW1lbnQgdGhhdCBzb21lb25lIHNob3VsZCB1c2Ugd2hlbiBjbGFp
-bWluZyBhIGNvbmZvcm1hbmNlIHByb2ZpbGUuDQoNCsKgIgpUQUItMTY2OCw0NzcwNyxWaXJ0
-dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVmVyc2lvbiAxLjEsQnVnLCJUaGUgYWNjZXNzaWJp
-bGl0eSBzaXRlIHRoYXQgSSBjb21tb25seSB1c2UsIFtodHRwczovL2FjaGVja2VyLmNhL2No
-ZWNrZXIvaW5kZXgucGhwLF0gaXMgZG93biB0b25pZ2h0IGJ1dCB1c2UgaXQgdG8gY2hlY2sg
-eW91ciB1c2FnZSBmb3Igb3RoZXIgcHJvYmxlbXMuIA0KDQrCoCIsIkluIHRlcm1zIG9mIGFj
-Y2Vzc2liaWxpdHksICIid2hhdCBmb2xsb3dzLCIiICIiYmVsb3csIiIgYW5kICIiZm9sbG93
-cyIiIGFsbCBpbmhpYml0IHRoZSB1c2Ugb2YgVklSVElPIGJ5IHVzZXJzIGFzc2lzdGVkIGJ5
-IHJlYWRpbmcgc29mdHdhcmUuDQoNClRha2UgMi4yIEZlYXR1cmUgQml0cyBhcyBhbiBleGFt
-cGxlOg0KDQoiIkZlYXR1cmUgYml0cyBhcmUgYWxsb2NhdGVkIGFzIGZvbGxvd3M6DQoNCjAg
-dG8gMjMgRmVhdHVyZSBiaXRzIGZvciB0aGUgc3BlY2lmaWMgZGV2aWNlIHR5cGUNCg0KMjQg
-dG8gMzcgRmVhdHVyZSBiaXRzIHJlc2VydmVkIGZvciBleHRlbnNpb25zIHRvIHRoZSBxdWV1
-ZSBhbmQgZmVhdHVyZSBuZWdvdGlhdGlvbiBtZWNoYW5pc21zDQoNCjM4IGFuZCBhYm92ZSBG
-ZWF0dXJlIGJpdHMgcmVzZXJ2ZWQgZm9yIGZ1dHVyZSBleHRlbnNpb25zLiIiDQoNCkEgc2ln
-aHRlZCByZWFkZXIgaXMgY2x1ZWQgaW4gdGhhdCAzIGVudHJpZXMgZm9sbG93LCBidXQgcmVh
-ZGluZyBzb2Z0d2FyZSBkb2VzIG5vdCBvZmZlciwgaW4gdGhpcyBmb3JtLCB0aGUgc2FtZSBj
-bHVlLg0KDQpDb21wYXJlOg0KDQoiIkZlYXR1cmUgYml0cyBhcmUgYWxsb2NhdGVkIGluIHRo
-cmVlIHdheXM6DQoNCjEuIDAgdG8gMjMgRmVhdHVyZSBiaXRzIGZvciB0aGUgc3BlY2lmaWMg
-ZGV2aWNlIHR5cGUNCg0KMi4gMjQgdG8gMzcgRmVhdHVyZSBiaXRzIHJlc2VydmVkIGZvciBl
-eHRlbnNpb25zIHRvIHRoZSBxdWV1ZSBhbmQgZmVhdHVyZSBuZWdvdGlhdGlvbiBtZWNoYW5p
-c21zDQoNCjMuIDM4IGFuZCBhYm92ZSBGZWF0dXJlIGJpdHMgcmVzZXJ2ZWQgZm9yIGZ1dHVy
-ZSBleHRlbnNpb25zLiIiDQoNClNhbWUgdGV4dCBidXQgbm93IGJvdGggc2lnaHRlZCBhcyB3
-ZWxsIGFzIGFzc2lzdGVkIHJlYWRlcnMga25vdyB0aGVyZSBhcmUgMyB3YXlzIHRvIGFsbG9j
-YXRlIGZlYXR1cmUgYml0cyBhbmQgZWFjaCBvZiB0aG9zZSB3YXlzIGlzIG51bWJlcmVkIGFu
-ZCByZWNpdGVkIHRvIHRoZSByZWFkZXIuDQoNCsKgDQoNCsKgDQoNCsKgIgpUQUItMTY2Nyw0
-NzcwNixWaXJ0dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVmVyc2lvbiAxLjEsQnVnLFVwZGF0
-ZSB0aGUgSUVFRSA4MDIgbGluayBhbmQgcmUtY2hlY2sgd2l0aCBbaHR0cDovL3ZhbGlkYXRv
-ci53My5vcmcvY2hlY2tsaW5rXSwifFtJRUVFIDgwMl0gfElFRUUgU3RhbmRhcmQgZm9yIExv
-Y2FsIGFuZCBNZXRyb3BvbGl0YW4gQXJlYSBOZXR3b3JrczogT3ZlcnZpZXcgYW5kIEFyY2hp
-dGVjdHVyZSwgDQpbaHR0cDovL3N0YW5kYXJkcy5pZWVlLm9yZy9hYm91dC9nZXQvODAyLzgw
-Mi5odG1sXSwgSUVFRXwNCg0KcmVwb3J0cyBhIDQwNC4NCg0KRGlkIHlvdSBtZWFuOiBbaHR0
-cHM6Ly9zdGFuZGFyZHMuaWVlZS5vcmcvc3RhbmRhcmQvODAyLTIwMDEuaHRtbF3CoCA/PyIK
-VEFCLTE2NjYsNDc3MDUsVmlydHVhbCBJL08gRGV2aWNlIChWSVJUSU8pIFZlcnNpb24gMS4x
-LEJ1ZyxVcGRhdGUgdGhlIGxpbmtzIGluZGljYXRlZCBhbmQgcmUtY2hlY2sgd2l0aCBodHRw
-Oi8vdmFsaWRhdG9yLnczLm9yZy9jaGVja2xpbmssIlRoZSBsaW5rIGNoZWNrZXIgYXQgW2h0
-dHA6Ly92YWxpZGF0b3IudzMub3JnL2NoZWNrbGlua10gcmVwb3J0cyB0aGUgZm9sbG93aW5n
-IHJlZGlyZWN0czoNCg0KIWh0dHA6Ly92YWxpZGF0b3IudzMub3JnL2NoZWNrbGluay9pbWFn
-ZXMvaW5mb19pY29ucy93YXJuaW5nLnBuZyEgTGluZTogNjg3NSBbaHR0cDovL3d3dy5wY2lz
-aWcuY29tL10gcmVkaXJlY3RlZCB0byBbaHR0cDovL3BjaXNpZy5jb20vXSAqU3RhdHVzKjog
-MzAxIC0+IDIwMCBPSw0KDQpUaGlzIGlzIGEgcGVybWFuZW50IHJlZGlyZWN0LiBUaGUgbGlu
-ayBzaG91bGQgYmUgdXBkYXRlZC4NCg0KIWh0dHA6Ly92YWxpZGF0b3IudzMub3JnL2NoZWNr
-bGluay9pbWFnZXMvaW5mb19pY29ucy93YXJuaW5nLnBuZyEgTGluZXM6IDU1LCA2MCwgNjMg
-W2h0dHA6Ly93d3cucmVkaGF0LmNvbS9dIHJlZGlyZWN0ZWQgdG8gW2h0dHBzOi8vd3d3LnJl
-ZGhhdC5jb20vZW5dICpTdGF0dXMqOiAzMDEgLT4gMjAwIE9LDQoNClRoaXMgaXMgYSBwZXJt
-YW5lbnQgcmVkaXJlY3QuIFRoZSBsaW5rIHNob3VsZCBiZSB1cGRhdGVkLg0KDQohaHR0cDov
-L3ZhbGlkYXRvci53My5vcmcvY2hlY2tsaW5rL2ltYWdlcy9pbmZvX2ljb25zL3dhcm5pbmcu
-cG5nISBMaW5lOiAyMTI1MCBbaHR0cDovL2dpdC5xZW11LXByb2plY3Qub3JnLz9wPXFlbXUu
-Z2l0O2E9YmxvYjtmPWRvY3Mvc3BlY3Mvc3RhbmRhcmQtdmdhLnR4dDtoYj1IRUFEXSByZWRp
-cmVjdGVkIHRvIFtodHRwczovL2dpdC5xZW11Lm9yZy8/cD1xZW11LmdpdDthPWJsb2I7Zj1k
-b2NzL3NwZWNzL3N0YW5kYXJkLXZnYS50eHQ7aGI9SEVBRF0gKlN0YXR1cyo6IDMwMSAtPiAy
-MDAgT0sNCg0KVGhpcyBpcyBhIHBlcm1hbmVudCByZWRpcmVjdC4gVGhlIGxpbmsgc2hvdWxk
-IGJlIHVwZGF0ZWQuDQoNCiFodHRwOi8vdmFsaWRhdG9yLnczLm9yZy9jaGVja2xpbmsvaW1h
-Z2VzL2luZm9faWNvbnMvd2FybmluZy5wbmchIExpbmU6IDc2OCBbaHR0cDovL3d3dy5wY2lz
-aWcuY29tL3NwZWNpZmljYXRpb25zL3BjaWV4cHJlc3MvXSByZWRpcmVjdGVkIHRvIFtodHRw
-Oi8vcGNpc2lnLmNvbS9zcGVjaWZpY2F0aW9ucy9wY2lleHByZXNzL10gKlN0YXR1cyo6IDMw
-MSAtPiAyMDAgT0sNCg0KVGhpcyBpcyBhIHBlcm1hbmVudCByZWRpcmVjdC4gVGhlIGxpbmsg
-c2hvdWxkIGJlIHVwZGF0ZWQuDQoNCiFodHRwOi8vdmFsaWRhdG9yLnczLm9yZy9jaGVja2xp
-bmsvaW1hZ2VzL2luZm9faWNvbnMvd2FybmluZy5wbmchIExpbmU6ICBbaHR0cHM6Ly93d3cu
-b2FzaXMtb3Blbi5vcmcvcG9saWNpZXMtZ3VpZGVsaW5lcy90Yy1wcm9jZXNzXSByZWRpcmVj
-dGVkIHRvIFtodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9wb2xpY2llcy1ndWlkZWxpbmVz
-L3RjLXByb2Nlc3MtMjAxNy0wNS0yNl0gKlN0YXR1cyo6IDMwMSAtPiAyMDAgT0sNCg0KVGhp
-cyBpcyBhIHBlcm1hbmVudCByZWRpcmVjdC4gVGhlIGxpbmsgc2hvdWxkIGJlIHVwZGF0ZWQu
-DQoNCiFodHRwOi8vdmFsaWRhdG9yLnczLm9yZy9jaGVja2xpbmsvaW1hZ2VzL2luZm9faWNv
-bnMvd2FybmluZy5wbmchIExpbmU6IDc1OSBbaHR0cDovL3d3dy5wY2lzaWcuY29tL3NwZWNp
-ZmljYXRpb25zL2NvbnZlbnRpb25hbC9dIHJlZGlyZWN0ZWQgdG8gW2h0dHA6Ly9wY2lzaWcu
-Y29tL3NwZWNpZmljYXRpb25zL2NvbnZlbnRpb25hbC9dICpTdGF0dXMqOiAzMDEgLT4gMjAw
-IE9LDQoNClRoaXMgaXMgYSBwZXJtYW5lbnQgcmVkaXJlY3QuIFRoZSBsaW5rIHNob3VsZCBi
-ZSB1cGRhdGVkLiIKVEFCLTE2NjUsNDc3MDQsVmlydHVhbCBJL08gRGV2aWNlIChWSVJUSU8p
-IFZlcnNpb24gMS4xLEJ1ZyxOdW1iZXIgYW5kIGxhYmVsIHRoZSBpbi1tZW1vcnkgc3RydWN0
-dXJlIGlsbHVzdHJhdGlvbnMgYW5kIGFkZCBhbmNob3JzIHRvIGVuYWJsZSByZW1vdGUgcG9p
-bnRpbmcgdG8gcGFydGljdWxhciBpbGx1c3RyYXRpb25zLiwiV2hpbGUgSSBhcHByZWNpYXRl
-IHRoYXQgdGhlIHVzZSBvZiBDIHN0cnVjdCBzeW50YXggaXMgaWxsdXN0cmF0aXZlIG9ubHks
-IHRoZSBpbi1tZW1vcnkgc3RydWN0dXJlcyBpdCBkb2N1bWVudHMgYXJlIG5vcm1hdGl2ZS4N
-Cg0KQW5kIGluIGEgbnVtYmVyIG9mIGNhc2VzLCB0aG9zZSBpbi1tZW1vcnkgc3RydWN0dXJl
-cyBvY2N1ciBpbiB0aGUgc2FtZSBudW1iZXJlZCBzZWN0aW9uLCBtYWtpbmcgcmVmZXJlbmNl
-IHRvIGFueSBzcGVjaWZpZWQgaW4tbWVtb3J5IHN0cnVjdHVyZSB1bmNlcnRhaW4uDQoNCkxh
-YmVsaW5nIGFuZCBudW1iZXJpbmcgdGhlIGluLW1lbW9yeSBzdHJ1Y3R1cmVzICh0byBzYXkg
-bm90aGluZyBvZiBhZGRpbmcgYW5jaG9ycyBmb3IgcmVtb3RlIHBvaW50aW5nKSwgd291bGQg
-Z3JlYXRseSBpbXByb3ZlIHRoZSB1c2VmdWxuZXNzIG9mIHRoaXMgZG9jdW1lbnQuDQoNCsKg
-IgpUQUItMTY2NCw0NzcwMyxWaXJ0dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVmVyc2lvbiAx
-LjEsQnVnLCJGb3IgY29uc2lzdGVuY3kgb2YgcHJlc2VudGF0aW9uLCB0aGUgIiJkZXZpY2Ug
-YW5kIGRyaXZlciBpbi1tZW1vcnkgc3RydWN0dXJlIGxheW91dHMiIiBzaG91bGQgYWx3YXlz
-IGZvbGxvdyBkZXNjcmlwdGl2ZSBwcm9zZSBpbiBlYWNoIHNlY3Rpb24uIiwiSW4gMi42LjYs
-IDIuNi44LCA1LjEuNi41LjYuMSwgNS43LjQgKG5vIHByb3NlIGF0IGFsbCksIDUuNy42Ljcs
-IDUuOS41LCBhbmQgNS4xMC40LCB0aGUgIiJkZXZpY2UgYW5kIGRyaXZlciBpbi1tZW1vcnkg
-c3RydWN0dXJlIGxheW91dHMiIiBhcHBlYXIgcHJpb3IgdG8gYW55IHByb3NlLCB3aGljaCBp
-cyBkaWZmZXJlbnQgZnJvbSB0aGUgb3RoZXIgc2VjdGlvbnMuIFdhcyB0aGlzIGEgcHJvZHVj
-dGlvbiwgZWRpdG9yaWFsIG9yIG90aGVyIHR5cGUgb2YgZXJyb3IiClRBQi0xNjYzLDQ3NzAy
-LFZpcnR1YWwgSS9PIERldmljZSAoVklSVElPKSBWZXJzaW9uIDEuMSxCdWcsUmVjYXN0IHRo
-ZSBzZW50ZW5jZXMgaW4gcXVlc3Rpb24gdG8gcmVtb3ZlIHRoZSBoeXBoZW5zIGFuZCBlbHNl
-d2hlcmUgd2hlbiBpbXByb3Blcmx5IHVzZWQgaW4gc2VudGVuY2VzLiwiSW4gMi41IFZpcnRx
-dWV1ZXMsIHRoZSAiIi0iIiBoeXBoZW4gYXBwZWFycyB0byBiZSBhIGNvbW1vbiBwcmVjdXJz
-b3IgdG8gIiJpLmUuIiIgYW5kIGVsc2V3aGVyZSBpbiB0aGUgc2Vjb25kIHNlbnRlbmNlIG9m
-IHRoYXQgc2VjdGlvbi4gQnkgY291bnQgdGhlcmUgYXJlIG9ubHkgc2V2ZW4gKDcpIGNhc2Vz
-IG9mIC0gaS5lLg0KDQpHaXZlbiB0aGUgY2FyZSB0YWtlbiBwcm9kdWNlIHRoaXMgd29yaywg
-aXQgc2hvdWxkIG5vdCBiZSBtYXJyZWQgYnkgbm9uLXN0YW5kYXJkIEVuZ2xpc2ggdXNhZ2Ug
-c3VjaCBhcyB0aGlzLiIKVEFCLTE2NjIsNDc3MDEsVmlydHVhbCBJL08gRGV2aWNlIChWSVJU
-SU8pIFZlcnNpb24gMS4xLEJ1ZywiIiJEZXZpY2UgYW5kIGRyaXZlciBpbi1tZW1vcnkgc3Ry
-dWN0dXJlIGxheW91dHMgYXJlIGRvY3VtZW50ZWQgdXNpbmcgdGhlIEMgc3RydWN0IHN5bnRh
-eC4iIiIsIjEuNCBTdHJ1Y3R1cmUgU3BlY2lmaWNhdGlvbnMgYmVnaW5zIHdpdGg6ICIiTWFu
-eSBkZXZpY2UgYW5kIGRyaXZlciBpbi1tZW1vcnkgc3RydWN0dXJlIGxheW91dHMgYXJlIGRv
-Y3VtZW50ZWQgdXNpbmcgdGhlIEMgc3RydWN0IHN5bnRheC4iIg0KDQpNYW55PyBOb3QgYWxs
-PyBNYW55IGxlYXZlIGl0IGRvdWJ0ZnVsIHRoYXQgc29tZSBhcmUgZGVmaW5lZC4NCg0KV2h5
-IG5vdDogIiJEZXZpY2UgYW5kIGRyaXZlciBpbi1tZW1vcnkgc3RydWN0dXJlIGxheW91dHMg
-YXJlIGRvY3VtZW50ZWQgdXNpbmcgdGhlIEMgc3RydWN0IHN5bnRheC4iIg0KDQpJZiB5b3Ug
-YXJlIG1pc3NpbmcgYW55LCBhZGQgdGhlbS4iClRBQi0xNjYxLDQ3NzAwLFZpcnR1YWwgSS9P
-IERldmljZSAoVklSVElPKSBWZXJzaW9uIDEuMSxCdWcsIkRlZmluZSBtYXJraW5nIG9mIG5v
-bi1ub3JtYXRpdmUgdGV4dCBhbmQgdXNlIGl0LCBxdWl0ZSBwb3NzaWJseSBkZWNsYXJlIGFs
-bCBub3RlcyBub24tbm9ybWF0aXZlIChidXQgY2hlY2sgYWxsIG9mIHRoZSBub3RlcyBmaXJz
-dCkuIiwiSSdtIGFzc3VtaW5nIHRoYXQgMSBJbnRyb2R1Y3Rpb24sIHlvdXIgIiJmb3IgZXhh
-bXBsZSIiIHVuZGVyIDEuNCBTdHJ1Y3R1cmUgU3BlY2lmaWNhdGlvbnMsIGFuZCBhdCBsZWFz
-dCBzb21lIG9mIHRoZSA2MiBOb3RlczogYXJlIG5vbi1ub3JtYXRpdmUsIGJ1dCBoYXZlIG5v
-dCBiZWVuIHNvIG1hcmtlZCBvciBkZXNjcmliZWQuIFRoYXQgaXMgeW91IGNhbiB1c2Ugbm9u
-LW5vcm1hdGl2ZSBvbiBhIHNlY3Rpb24gaGVhZGluZyBhbmQvb3Igc2F5OiBBbGwgbm90ZXMg
-YXJlIG5vbi1ub3JtYXRpdmUuDQoNCkluIHBhcnRpY3VsYXIgSSBoYXZlIGluIG1pbmQgbm90
-ZXMgbGlrZTogNC4xLjUuMS4yLjENCg0KIiJOb3RlOiBGb3IgZXhhbXBsZSwgYSBkZXZpY2Ug
-d2hpY2ggZG9lcyBub3QgZXhwZWN0IHRvIHNlbmQgaW50ZXJydXB0cyBhdCBhIGhpZ2ggcmF0
-ZSBtaWdodCBvbmx5IHNwZWNpZnkgMiBNU0ktWCB2ZWN0b3JzLiIiDQoNCkluIHRlcm1zIG9m
-IGNvbmZvcm1hbmNlIHRvIHRoaXMgc3BlY2lmaWNhdGlvbiwgY2xlYXJseSBub24tbm9ybWF0
-aXZlIGxhbmd1YWdlLiBBcyBhcmUgbWFueSBvZiB0aGUgcmVtYWluaW5nIDYxIHVzZXMgb2Yg
-bm90ZS4NCg0KwqAiCg==
---------------81AC74EB718C011ADE09FBC7--
 
---04eRsYs0lCbFjaUBHnYbrgY3G2MResPKb--
 
---MxwJsBg5llFDjen9ZWw3iznGo9VLSAk5Z
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> -- 
+> Patrick Durusau
+> patrick@durusau.net
+> Technical Advisory Board, OASIS (TAB)
+> Editor, OpenDocument Format TC (OASIS), Project Editor ISO/IEC 26300
+> Co-Editor, ISO/IEC 13250-1, 13250-5 (Topic Maps)
+> 
+> Another Word For It (blog): http://tm.durusau.net
+> Homepage: http://www.durusau.net
+> Twitter: patrickDurusau 
+> 
 
-iQIzBAEBCAAdFiEEtRkOMt7ClSedU93TU8ayCLcyDJwFAlxvKAMACgkQU8ayCLcy
-DJzmXRAAkXaxyejV2dKD2SUQM/0vv8ZEQJNQ1Tx37YeWDjqRnN6cKQrhKZiWLYla
-KIkjW58fQPRC6g6qV6rOgyWqGot9IcrPtA72GtAqVqx2EaXwTvsINbtHjcVgC6hd
-3ugmoN24P7nlQEd9Ppj0PV3tLV/aerZx7cUVRoLaveDDhj4xMta0fwjh9PbRekT/
-z66gy4Nf3/yMJGs/KvzvXR7O4Znq0qdMr+RXmRgrtWmZTNuBXH4g+0dqPhrTyI7V
-QgUf5so9zoQ0qp/dnwzmdJRwNSW3xcaE0bskIa1jgMRRN5oySkPc06GqCTn0zC4H
-DfSPCb0FRaq7Qd+blTWoVmMhxKCPpi1AokFY027vCIdaYE3MuZvMc3/i1vW8mobD
-I+bvUy5OZbENR/lB70fz9SNKpZXy9esslXO+kfAjyKwrAC0qrmE2rCCgbkZJva7d
-KpjQW3Cgeh7Qsnq6Dyf6FoMzATXYqibwBocnqUF5vV80AjcEEaFkMtEZK6wgMLjA
-F8khFjVAuWnSGoJ+PcUygyA3cGNibioX5hoKfmF9EiELLFzS7HCiJqel3yn4hs5r
-cOhY0HhSLTzP1G0N+YfY4qCHISUgGIV6AZf1lrGGgMX/pBJqYlnopqr8J1uQUtxr
-H66NCX7hEp1q6atjGpC52U0s/VbD1y6fk/rbNfVJjgCRtTT8EVo=
-=DN5y
------END PGP SIGNATURE-----
+> Issue key,Issue id,Affects Version/s,Issue Type,Custom field (Proposal),Description
+> TAB-1674,47718,Virtual I/O Device (VIRTIO) Version 1.1,Bug,Change bulleted lists into numbered lists and *always* introduce a list with the number of items to follow.,"Understanding and navigation of content is impaired by the use of bulleted lists. Compare for example, 2.7.21.1, being read aloud and being able to answer/find, where is your place in this list, as opposed to the second bulleted list in 2.7 Packed Virtqueues, or either of the lists/sub-lists in 2.6.10.1."
+> TAB-1673,47717,Virtual I/O Device (VIRTIO) Version 1.1,Bug,Devise and insert uniform start and end markers for examples.,"Most of the examples of memory structures being with struct but not all. Moreover, most examples end with }; but not all, for example, under 2.7.21.3.
+> 
+> My usual accessibility checker is offline but if you were reading the text aloud, if the start and end of examples is not uniformly signaled to someone hearing the text, the examples would be much harder to contrast with the surrounding normative text.
+> 
+> An accessibility issue?? in general but also a personal one because after nearly 30 years as a diabetic my vision remains normal, but they can't promise how much longer that will be the case. Adding uniform start and end markers won't inconvenience sighted readers and will enhance access to your work for those using assistive technologies."
+> TAB-1672,47716,Virtual I/O Device (VIRTIO) Version 1.1,Bug,,"We read in 7.4:
+> 
+> ""A non-transitional implementation conforms to this specification if it satisfies all of the MUST or REQUIRED level requirements defined above. ""
+> 
+> Is that true? ALL the ""MUST"" in all previous sections? Probably not. Or maybe it is ""below"" and not ""above"". (always explicitly refer to requirements sets by using a sub-section number & name)
+> 
+> I suggest to make ""transitional"" just a variable (i.e. a parameter) in previous top-level conf clauses. (see TAB conformance guideline [http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html, section 5.5)??|http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html)]E.g. someone claiming conformance as ""PCI driver"" should always clarify: ""transitional PCI driver"" or ""non-transitional PCI driver"""
+> TAB-1671,47715,Virtual I/O Device (VIRTIO) Version 1.1,Bug,,"Each conformance clause sub-section starts with something that looks like a mandatory requirement:
+> 
+> e.g.:
+> 
+> ""A network device MUST conform to the following normative statements:""
+> 
+> But many of the following statements are optional (SHOULD) in the specification body. So it is then confusing to say ""... MUST conform to a SHOULD statement....""
+> 
+> That is why it is NOT recommended to use normative language like MUST (and even less SHOULD) in a conformance clause. A conf clause is not there to tell you what to do or not do (MUST....), but only to state under which conditions you can claim conformance to XYZ.
+> 
+> It is better to say:
+> 
+> ""an implementation that satisfies all mandatory (MUST) requirements in 5.1.4.1, 5.1.6.2.... qualifies (or may claim conformance) as a VIRTIO1.1 network device""
+> 
+> Or in some conformance profiles, you can override a SHOULD in the spec body and make it mandatory."
+> TAB-1670,47714,Virtual I/O Device (VIRTIO) Version 1.1,Bug,,"Sections 7.2.10 and 7.2.11 are never referred to, by any conformance clause. Same for 7.3.10 and 7.3.11.
+> 
+> That seems like an omission? They should be used in at least one conformance profile each. Or else, these sections should not be normative."
+> TAB-1669,47713,Virtual I/O Device (VIRTIO) Version 1.1,Bug,,"Overall, well-formed conformance section (one of the best we?? TAB reviewers have seen!) The main conformance targets - drivers, devices - are well identified. The specification is clearly attributing normative requirements to either driver, or device.
+> 
+> Some conformance aspects could still be clarified:
+>  * All the subsections under 7.2 or 7.3 are named ""clauses"" in 7.1. So their titles should be ""Clause XYZ"". Or else if we want to keep ""CLause"" to only the top-level set of requirements - then define just a couple of clauses in 7.1, e.g. ""Conformance Clause for VIRTIO1.1 drivers"". Then all thee following subsections should just be titled ""Conformance requirements sets"" e.g. ""COnformance requirements for PCI drivers""), and preferably not ""clause"" (keeping ""clause"" for only?? the full set of requirements that a product can claim for conformance).
+>  * In any case, it is good to associate a clear name to each conformance level/profile that can be claimed. For example, ""PCI network driver"" (if satisfying 7.2 + 7.2.1 + 7.2.4. Is that a meaningful combination? irt seems so according to 7.1). So that there is no ambiguity of what are the valid?? conformance profiles. Some parameterization of a clause can be used: Look in TAB guideline : [http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html] for ""variable conformance clauses"" (section 5.5). In other words: define the precise statement that someone should use when claiming a conformance profile.
+> 
+> ??"
+> TAB-1668,47707,Virtual I/O Device (VIRTIO) Version 1.1,Bug,"The accessibility site that I commonly use, [https://achecker.ca/checker/index.php,] is down tonight but use it to check your usage for other problems. 
+> 
+> ??","In terms of accessibility, ""what follows,"" ""below,"" and ""follows"" all inhibit the use of VIRTIO by users assisted by reading software.
+> 
+> Take 2.2 Feature Bits as an example:
+> 
+> ""Feature bits are allocated as follows:
+> 
+> 0 to 23 Feature bits for the specific device type
+> 
+> 24 to 37 Feature bits reserved for extensions to the queue and feature negotiation mechanisms
+> 
+> 38 and above Feature bits reserved for future extensions.""
+> 
+> A sighted reader is clued in that 3 entries follow, but reading software does not offer, in this form, the same clue.
+> 
+> Compare:
+> 
+> ""Feature bits are allocated in three ways:
+> 
+> 1. 0 to 23 Feature bits for the specific device type
+> 
+> 2. 24 to 37 Feature bits reserved for extensions to the queue and feature negotiation mechanisms
+> 
+> 3. 38 and above Feature bits reserved for future extensions.""
+> 
+> Same text but now both sighted as well as assisted readers know there are 3 ways to allocate feature bits and each of those ways is numbered and recited to the reader.
+> 
+> ??
+> 
+> ??
+> 
+> ??"
+> TAB-1667,47706,Virtual I/O Device (VIRTIO) Version 1.1,Bug,Update the IEEE 802 link and re-check with [http://validator.w3.org/checklink],"|[IEEE 802] |IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture, 
+> [http://standards.ieee.org/about/get/802/802.html], IEEE|
+> 
+> reports a 404.
+> 
+> Did you mean: [https://standards.ieee.org/standard/802-2001.html]?? ??"
+> TAB-1666,47705,Virtual I/O Device (VIRTIO) Version 1.1,Bug,Update the links indicated and re-check with http://validator.w3.org/checklink,"The link checker at [http://validator.w3.org/checklink] reports the following redirects:
+> 
+> !http://validator.w3.org/checklink/images/info_icons/warning.png! Line: 6875 [http://www.pcisig.com/] redirected to [http://pcisig.com/] *Status*: 301 -> 200 OK
+> 
+> This is a permanent redirect. The link should be updated.
+> 
+> !http://validator.w3.org/checklink/images/info_icons/warning.png! Lines: 55, 60, 63 [http://www.redhat.com/] redirected to [https://www.redhat.com/en] *Status*: 301 -> 200 OK
+> 
+> This is a permanent redirect. The link should be updated.
+> 
+> !http://validator.w3.org/checklink/images/info_icons/warning.png! Line: 21250 [http://git.qemu-project.org/?p=qemu.git;a=blob;f=docs/specs/standard-vga.txt;hb=HEAD] redirected to [https://git.qemu.org/?p=qemu.git;a=blob;f=docs/specs/standard-vga.txt;hb=HEAD] *Status*: 301 -> 200 OK
+> 
+> This is a permanent redirect. The link should be updated.
+> 
+> !http://validator.w3.org/checklink/images/info_icons/warning.png! Line: 768 [http://www.pcisig.com/specifications/pciexpress/] redirected to [http://pcisig.com/specifications/pciexpress/] *Status*: 301 -> 200 OK
+> 
+> This is a permanent redirect. The link should be updated.
+> 
+> !http://validator.w3.org/checklink/images/info_icons/warning.png! Line:  [https://www.oasis-open.org/policies-guidelines/tc-process] redirected to [https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26] *Status*: 301 -> 200 OK
+> 
+> This is a permanent redirect. The link should be updated.
+> 
+> !http://validator.w3.org/checklink/images/info_icons/warning.png! Line: 759 [http://www.pcisig.com/specifications/conventional/] redirected to [http://pcisig.com/specifications/conventional/] *Status*: 301 -> 200 OK
+> 
+> This is a permanent redirect. The link should be updated."
+> TAB-1665,47704,Virtual I/O Device (VIRTIO) Version 1.1,Bug,Number and label the in-memory structure illustrations and add anchors to enable remote pointing to particular illustrations.,"While I appreciate that the use of C struct syntax is illustrative only, the in-memory structures it documents are normative.
+> 
+> And in a number of cases, those in-memory structures occur in the same numbered section, making reference to any specified in-memory structure uncertain.
+> 
+> Labeling and numbering the in-memory structures (to say nothing of adding anchors for remote pointing), would greatly improve the usefulness of this document.
+> 
+> ??"
+> TAB-1664,47703,Virtual I/O Device (VIRTIO) Version 1.1,Bug,"For consistency of presentation, the ""device and driver in-memory structure layouts"" should always follow descriptive prose in each section.","In 2.6.6, 2.6.8, 5.1.6.5.6.1, 5.7.4 (no prose at all), 5.7.6.7, 5.9.5, and 5.10.4, the ""device and driver in-memory structure layouts"" appear prior to any prose, which is different from the other sections. Was this a production, editorial or other type of error"
+> TAB-1663,47702,Virtual I/O Device (VIRTIO) Version 1.1,Bug,Recast the sentences in question to remove the hyphens and elsewhere when improperly used in sentences.,"In 2.5 Virtqueues, the ""-"" hyphen appears to be a common precursor to ""i.e."" and elsewhere in the second sentence of that section. By count there are only seven (7) cases of - i.e.
+> 
+> Given the care taken produce this work, it should not be marred by non-standard English usage such as this."
+> TAB-1662,47701,Virtual I/O Device (VIRTIO) Version 1.1,Bug,"""Device and driver in-memory structure layouts are documented using the C struct syntax.""","1.4 Structure Specifications begins with: ""Many device and driver in-memory structure layouts are documented using the C struct syntax.""
+> 
+> Many? Not all? Many leave it doubtful that some are defined.
+> 
+> Why not: ""Device and driver in-memory structure layouts are documented using the C struct syntax.""
+> 
+> If you are missing any, add them."
+> TAB-1661,47700,Virtual I/O Device (VIRTIO) Version 1.1,Bug,"Define marking of non-normative text and use it, quite possibly declare all notes non-normative (but check all of the notes first).","I'm assuming that 1 Introduction, your ""for example"" under 1.4 Structure Specifications, and at least some of the 62 Notes: are non-normative, but have not been so marked or described. That is you can use non-normative on a section heading and/or say: All notes are non-normative.
+> 
+> In particular I have in mind notes like: 4.1.5.1.2.1
+> 
+> ""Note: For example, a device which does not expect to send interrupts at a high rate might only specify 2 MSI-X vectors.""
+> 
+> In terms of conformance to this specification, clearly non-normative language. As are many of the remaining 61 uses of note.
+> 
+> ??"
 
---MxwJsBg5llFDjen9ZWw3iznGo9VLSAk5Z--
+
+
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
+
