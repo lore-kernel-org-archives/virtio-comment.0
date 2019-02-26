@@ -1,106 +1,125 @@
-Return-Path: virtio-comment-return-681-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-664-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-References: <9bdf3096-734f-a921-d570-f8dfb9300868@durusau.net>
- <20190226194416-mutt-send-email-mst@kernel.org>
-From: Patrick Durusau <patrick@durusau.net>
-Message-ID: <9b2ddacc-e1ba-2d8a-37af-835c42e6af61@durusau.net>
-Date: Wed, 27 Feb 2019 15:49:47 -0500
+Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id C9D6E985DC6
+	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Feb 2019 20:32:04 +0000 (UTC)
+Date: Tue, 26 Feb 2019 15:32:00 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20190226153141-mutt-send-email-mst@kernel.org>
+References: <20190125200222.19945-1-jean-philippe.brucker@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <20190226194416-mutt-send-email-mst@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="qHG2J9cxIDkLB7D7Q54lewwiu7mETkMwB"
-Subject: Re: [virtio-comment] TAB comments on Virtual I/O Device (VIRTIO)
- Version 1.1
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, OASIS TAB <tab@lists.oasis-open.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190125200222.19945-1-jean-philippe.brucker@arm.com>
+Subject: Re: [virtio-comment] [PATCH 0/1] Add virtio-iommu device
+ specification
+To: Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
+Cc: virtio-comment@lists.oasis-open.org, joro@8bytes.org, eric.auger@redhat.com, tnowicki@caviumnetworks.com, kevin.tian@intel.com, Lorenzo.Pieralisi@arm.com, bharat.bhushan@nxp.com, Will.Deacon@arm.com, Robin.Murphy@arm.com, Marc.Zyngier@arm.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---qHG2J9cxIDkLB7D7Q54lewwiu7mETkMwB
-Content-Type: multipart/mixed; boundary="dUv9jQjhOYD7qQILGQJ96MeDhJaOgdlwa";
- protected-headers="v1"
-From: Patrick Durusau <patrick@durusau.net>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, OASIS TAB <tab@lists.oasis-open.org>
-Message-ID: <9b2ddacc-e1ba-2d8a-37af-835c42e6af61@durusau.net>
-Subject: Re: [virtio-comment] TAB comments on Virtual I/O Device (VIRTIO)
- Version 1.1
-References: <9bdf3096-734f-a921-d570-f8dfb9300868@durusau.net>
- <20190226194416-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20190226194416-mutt-send-email-mst@kernel.org>
+On Fri, Jan 25, 2019 at 08:02:21PM +0000, Jean-Philippe Brucker wrote:
+> From: Jean-Philippe Brucker <jphilippe.brucker@gmail.com>
+> 
+> [Re-sending from the right address using the right gitconfig, sorry for
+>  the mix-up...]
+> 
+> This is the virtio-iommu specification draft, applied onto the current
+> virtio-spec (tag virtio-v1.1-csd01). To make the review easier I uploaded
+> a PDF version at [1]. I'd like to start the review and (eventually) voting
+> process. Should I also open a github issue?
 
---dUv9jQjhOYD7qQILGQJ96MeDhJaOgdlwa
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
+A github issue would be required for voting to occur, yes.
 
-Michael,
+> ---
+> 
+> For those familiar with the standalone virtio-iommu draft, patch 1/1
+> corresponds to Section 2. For 0.10 I also added a precision about MAP
+> conflicts ("If a mapping already exists in the requested range, the device
+> SHOULD set the request status to VIRTIO_IOMMU_S_INVAL and SHOULD NOT
+> change any mapping.") which is already done by the QEMU device. There were
+> a few more wording issues and typos; see the v0.9-v0.10 diff [2] for the
+> complete changes in this version.
+> 
+> ---
+> 
+> A short description of virtio-iommu and why we're doing this:
+> 
+> The virtio-iommu device allows a guest to manage DMA mappings for
+> physical, emulated and paravirtualized endpoints. It is designed to be
+> portable and is currently compatible with at least x86 and Arm IOMMU
+> architectures. The MAP/UNMAP mode introduced here is architecture-
+> agnostic.
+> 
+> However some platforms will benefit from this device more than others in
+> the short term. For example the Arm SMMU doesn't currently include a
+> paravirtualized mode that would allow it to shadow a single translation
+> stage into a physical SMMU. On Arm the only way to assign devices to guest
+> userspace requires nesting translation, which isn't supported by all
+> SMMUs, or using virtio-iommu.
+> 
+> On the other hand, Power platforms already describe a paravirtualized
+> IOMMU interface (TCE) in PAPR, and are unlikely to benefit from
+> virtio-iommu for the moment.
+> 
+> The Intel IOMMU also provides such paravirtualized mode (Caching Mode),
+> but x86 platforms might still benefit from virtio-iommu to accelerate some
+> aspects of the IOMMU - for example in-kernel processing of MAP/UNMAP, and
+> in future extensions, reducing the invalidation and page fault bottlenecks
+> when sharing virtual memory between process and endpoints.
+> 
+> Reference implementations for device and driver have been posted and
+> reviewed on the list [3][4].
+> 
+> [1] http://jpbrucker.net/virtio-iommu/spec/virtio-v1.1-wd01-iommu-0.10-draft.pdf
+> [2] http://jpbrucker.net/virtio-iommu/spec/diffs/
+> [3] https://lists.linuxfoundation.org/pipermail/iommu/2019-January/032677.html
+> [4] http://lists.gnu.org/archive/html/qemu-arm/2018-11/msg00680.html
+> 
+> Jean-Philippe Brucker (1):
+>   Add virtio-iommu device specification
+> 
+>  content.tex      |   1 +
+>  virtio-iommu.tex | 849 +++++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 850 insertions(+)
+>  create mode 100644 virtio-iommu.tex
+> 
+> -- 
+> 2.19.1
+> 
+> 
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+> 
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+> 
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
-I can't connect to its parent site at the moment but will keep trying.
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-In the meantime, apologies but as a former sysadmin, you could try
-cutting the file in half, replicate your header on the second half and
-test it that way.
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-Crude I know but gets you results more quickly than I am likely to from
-the authors.
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
-Hope you are having a great week!
-
-Patrick
-
-
-On 2/27/19 10:50 AM, Michael S. Tsirkin wrote:
-> Thanks for the comments!
-> I would appreciate an advice on the following:
->
-> On Thu, Feb 21, 2019 at 05:36:51PM -0500, Patrick Durusau wrote:
->> TAB-1668,47707,Virtual I/O Device (VIRTIO) Version 1.1,Bug,"The access=
-ibility site that I commonly use, [https://achecker.ca/checker/index.php,=
-] is down tonight but use it to check your usage for other problems.=20
-> When I attempt to upload the spec to this tool, I receive
-> a response that the document is too large.
-> Is there an offline version we could use?
->
---=20
-Patrick Durusau
-patrick@durusau.net
-Technical Advisory Board, OASIS (TAB)
-Editor, OpenDocument Format TC (OASIS), Project Editor ISO/IEC 26300
-Co-Editor, ISO/IEC 13250-1, 13250-5 (Topic Maps)
-
-Another Word For It (blog): http://tm.durusau.net
-Homepage: http://www.durusau.net
-Twitter: patrickDurusau=20
-
-
-
---dUv9jQjhOYD7qQILGQJ96MeDhJaOgdlwa--
-
---qHG2J9cxIDkLB7D7Q54lewwiu7mETkMwB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEtRkOMt7ClSedU93TU8ayCLcyDJwFAlx29+sACgkQU8ayCLcy
-DJysvg/9H4Ku8FpYKND//JPa4U0foL7gQf8rShaulXhrhxeoKouG34xx/OVrX1uv
-mr9WBF73sj7S6SNmVTbIlEeh/GY1fBAJUL7tuTZAX4ZKwHVkyLkV/xvYrR3AAloq
-VlBXfi7p0N4b6FxtJ7yEJwrvtdKnPUIexSfUwA+ihOSAxla+V7nXTNa4Q2hv6POZ
-+vSdJ2ptAmgtdZAQ8SpS59/8uZhyXFXhHtWE+cPi+TG/DEli0sWt8fkLeQ5xUiJe
-onTklWRjaXrjPQ1oxKk7WG/tCcYb0s1KYlb4XwNlttViZ9SsIR7q1b/nmNAUAoqT
-HfrjD1azTgp1Npq0VWfhe5x5lOcipkumfpUX/0aic6DknmjMr1T4Mv4aSDVlmCAm
-eVFdK+V+fihxwUP4NYJUu7ZwgSPbvYqmt0ViDmyVupQNE2Rn2C6AIIo95dJOntyB
-/6VoLS24jszb5uwdFbib23U9aS0PZ6AL113HqWVvVq3gmT0xr3P17HQ+gS0kN6BW
-ZfrvGkRB9EGLFbtNOXV1Q011I9N4sY/0JNXtJASe8wDsjOxwzR5CctF8zstOSGLF
-ZvopCaE7NGopyRYqHazpFsnj1jDNtwcTpVwArQ7pHWUy6GlFfFff49QhP4429sK+
-7lZncfMBalgfs3/BebGb3RK6z+M2DjH4PzTEnCaATSzY8SDJLSA=
-=RiFo
------END PGP SIGNATURE-----
-
---qHG2J9cxIDkLB7D7Q54lewwiu7mETkMwB--
