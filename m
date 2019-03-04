@@ -1,83 +1,175 @@
-Return-Path: virtio-comment-return-711-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-682-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-From: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
-Date: Wed, 20 Mar 2019 12:07:40 +0000
-Message-Id: <20190320120740.8514-4-dgilbert@redhat.com>
-In-Reply-To: <20190320120740.8514-1-dgilbert@redhat.com>
-References: <20190320120740.8514-1-dgilbert@redhat.com>
+Date: Mon, 4 Mar 2019 12:46:20 +0000
+From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+Message-ID: <20190304124619.GA2596@work-vm>
+References: <20190222115433.7160-1-dgilbert@redhat.com>
+ <20190222115433.7160-2-dgilbert@redhat.com>
+ <20190222134839.7e0ef3e7.cohuck@redhat.com>
+ <20190226151133.GI2721@work-vm>
+ <20190226164347.617e80c5.cohuck@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v4 3/3] shared memory: Define mmio registers
-To: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
-Cc: stefanha@redha.com, cohuck@redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190226164347.617e80c5.cohuck@redhat.com>
+Subject: [virtio-comment] Re: [virtio-dev] Re: [PATCH v2 1/3] shared memory: Define shared
+ memory regions
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, stefanha@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+* Cornelia Huck (cohuck@redhat.com) wrote:
+> On Tue, 26 Feb 2019 15:11:34 +0000
+> "Dr. David Alan Gilbert" <dgilbert@redhat.com> wrote:
+> 
+> > * Cornelia Huck (cohuck@redhat.com) wrote:
+> > > On Fri, 22 Feb 2019 11:54:31 +0000
+> > > "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com> wrote:
+> > >   
+> > > > From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+> > > > 
+> > > > Define the requirements and idea behind shared memory regions.
+> > > > 
+> > > > Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+> > > > ---
+> > > >  content.tex    |  2 ++
+> > > >  shared-mem.tex | 33 +++++++++++++++++++++++++++++++++
+> > > >  2 files changed, 35 insertions(+)
+> > > >  create mode 100644 shared-mem.tex
+> > > > 
+> > > > diff --git a/content.tex b/content.tex
+> > > > index 836ee52..3dd504c 100644
+> > > > --- a/content.tex
+> > > > +++ b/content.tex
+> > > > @@ -371,6 +371,8 @@ making any more buffers available. When VIRTIO_F_NOTIFICATION_DATA
+> > > >  has been negotiated, these notifications would then have
+> > > >  identical \field{next_off} and \field{next_wrap} values.
+> > > >  
+> > > > +\input{shared-mem.tex}
+> > > > +
+> > > >  \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+> > > >  
+> > > >  We start with an overview of device initialization, then expand on the
+> > > > diff --git a/shared-mem.tex b/shared-mem.tex
+> > > > new file mode 100644
+> > > > index 0000000..85b0c55
+> > > > --- /dev/null
+> > > > +++ b/shared-mem.tex
+> > > > @@ -0,0 +1,33 @@
+> > > > +\section{Shared Memory Regions}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions}
+> > > > +
+> > > > +Shared memory regions are an additional facility
+> > > > +available to devices that need a region of memory that's
+> > > > +continuously shared between the host and the guest, rather
+> > > > +than passed between them in the way virtqueue elements are.
+> > > > +
+> > > > +Example uses include shared caches and version pools for versioned
+> > > > +data structures.
+> > > > +
+> > > > +The region is chosen by the host and presented to the guest, as
+> > > > +such it is useful in situations where the memory is accessed on
+> > > > +the host by other libraries that can't safely access guest RAM.  
+> > > 
+> > > This explanation looks good to me.
+> > >   
+> > > > +
+> > > > +Shared memory regions MUST NOT be used to control the operation
+> > > > +of the device, nor to stream data; those should still be performed
+> > > > +using virtqueues.  
+> > > 
+> > > The 'MUST NOT' makes it look like a normative statement; however, this
+> > > is more like design advice?  
+> > 
+> > Hmm I'm not sure - the intention of this line is to try and stop people
+> > using it as a hack to avoid standardising protocol for no good reason.
+> 
+> I've looked through the spec again and it seems the best place for this
+> would indeed be a device-normative section for shared regions; it would
+> imply that a device needs to comply with this statement, or it is not
+> conformant.
+> 
+> It would need some tweaking, however. Perhaps something like the
+> following:
+> 
+> "The device MUST NOT expose shared memory regions which are used to
+> control the operation of the device, or to stream data."
 
-Define an MMIO interface to discover and map shared
-memory regions.
+> Not sure where to put the pointer to use virtqueues for that.
 
-Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
----
- content.tex | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Thanks I've turned that into a device normative section and dropped the
+explicit mention of virtqueues.
 
-diff --git a/content.tex b/content.tex
-index ddbf949..f2195be 100644
---- a/content.tex
-+++ b/content.tex
-@@ -1726,6 +1726,33 @@ All register values are organized as Little Endian.
-     selected by writing to \field{QueueSel}.
-   }
-   \hline 
-+  \mmioreg{SHMSel}{Shared memory id}{0x0ac}{W}{%
-+    Writing to this register selects the shared memory region \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions}
-+    following operations on \field{SHMLenLow}, \field{SHMLenHigh},
-+    \field{SHMBaseLow} and \field{SHMBaseHigh} apply to.
-+  }
-+  \hline 
-+  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b0}{0x0xb4}{R}{%
-+    These registers return the length of the shared memory
-+    region in bytes, as defined by the device for the region selected by
-+    the \field{SHMSel} register.  The lower 32 bits of the length
-+    are read from \field{SHMLenLow} and the higher 32 bits from
-+    \field{SHMLenHigh}.  Reading from a non-existent
-+    region (i.e. where the ID written to \field{SHMSel} is unused)
-+    results in a length of -1.
-+  }
-+  \hline 
-+  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0b8}{0x0xbc}{R}{%
-+    The driver reads these registers to discover the base address
-+    of the region in physical address space.  This address is
-+    chosen by the device (or other part of the VMM).
-+    The lower 32 bits of the address are read from \field{SHMBaseLow}
-+    with the higher 32 bits from \field{SHMBaseHigh}.  Reading
-+    from a non-existent region (i.e. where the ID written to
-+    \field{SHMSel} is unused) results in a base address of
-+    0xffffffffffffffff.
-+  }
-+  \hline 
-   \mmioreg{ConfigGeneration}{Configuration atomicity value}{0x0fc}{R}{
-     Reading from this register returns a value describing a version of the device-specific configuration space (see \field{Config}).
-     The driver can then access the configuration space and, when finished, read \field{ConfigGeneration} again.
-@@ -1815,6 +1842,9 @@ If both values are valid, it MUST read \field{DeviceID}
- and if its value is zero (0x0) MUST abort initialization and
- MUST NOT access any other register.
- 
-+Drivers not expecting shared memory MUST NOT use the shared
-+memory registers.
-+
- Further initialization MUST follow the procedure described in
- \ref{sec:General Initialization And Device Operation / Device Initialization}~\nameref{sec:General Initialization And Device Operation / Device Initialization}.
- 
--- 
-2.20.1
+> 
+> > 
+> > > > +
+> > > > +A device may have multiple shared memory regions associated with
+> > > > +it.  Each region has a \field{shmid} to identify it, the meaning
+> > > > +of which is device-specific.
+> > > > +
+> > > > +Enumeration and location of shared memory regions is performed
+> > > > +using a transport-specific data structure and mechanism.
+> > > > +
+> > > > +Memory consistency rules vary depending on the region and the
+> > > > +device.  Devices MUST define the required behaviour for each
+> > > > +region.  
+> > > 
+> > > Same here.  
+> > 
+> > OK, so should I reword this?
+> 
+> Maybe put into the device normative section:
+> 
+> "A device MUST define the required behaviour for each region."
+> 
+> But I'm not sure whether this is a good normative statement... it's
+> more that the regions have specific requirements, which both the device
+> and the driver need to fulfill, and those requirements obviously need
+> to be put down somewhere.
+> 
+> > 
+> > > > +
+> > > > +The guest physical address and the host virtual address MUST NOT
+> > > > +be used to identify structures within the memory regions; all
+> > > > +addressing MUST be relative to the start of a particular region.
+> > > > +  
+> > > 
+> > > For that high-level overview, I'm not sure if any normative statements
+> > > are needed/wanted, or whether those should be confined to the individual
+> > > transport or device type definitions...  
+> > 
+> > I think this one is stronger than the previous two; if people start
+> > passing GPA/HVA in the underlying structures things are going to get
+> > messy.
+> 
+> What about
+> 
+> "The device MUST handle any access to the memory region as addressed
+> relatively to the beginning of the region, regardless whether it
+> accesses the region itself or the driver does so."
+> 
+> "The driver MUST address any particular region relatively to the start
+> of that region."
+> 
+> for device and driver normative statements, respectively. Better
+> wordings welcome.
 
+What I've done here is turn this into just a subsection describing
+how it should work and stopped using the magic MUST.
+It's not really a requirement on the device - it's more an indication
+of how to design a device.
+
+Dave
+
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+> 
+--
+Dr. David Alan Gilbert / dgilbert@redhat.com / Manchester, UK
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
