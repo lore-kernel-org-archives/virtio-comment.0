@@ -1,58 +1,50 @@
-Return-Path: virtio-comment-return-609-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-709-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1E41C985B66
-	for <virtio-comment@lists.oasis-open.org>; Wed, 13 Feb 2019 16:52:47 +0000 (UTC)
-Date: Wed, 13 Feb 2019 16:52:30 +0000
-From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
-Message-ID: <20190213165230.GE2601@work-vm>
-References: <20190111114200.10026-1-dgilbert@redhat.com>
- <20190111114200.10026-4-dgilbert@redhat.com>
- <20190213023352.GD14307@stefanha-x1.localdomain>
+From: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
+Date: Wed, 20 Mar 2019 12:07:37 +0000
+Message-Id: <20190320120740.8514-1-dgilbert@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190213023352.GD14307@stefanha-x1.localdomain>
-Subject: Re: [virtio-comment] Re: [PATCH 3/3] shared memory: Define mmio
- registers
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v4 0/3] Large shared memory regions
+To: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+Cc: stefanha@redha.com, cohuck@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-* Stefan Hajnoczi (stefanha@redhat.com) wrote:
-> On Fri, Jan 11, 2019 at 11:42:00AM +0000, Dr. David Alan Gilbert (git) wrote:
-> > diff --git a/content.tex b/content.tex
-> > index 776162a..e2435ff 100644
-> > --- a/content.tex
-> > +++ b/content.tex
-> > @@ -1641,6 +1641,33 @@ All register values are organized as Little Endian.
-> >      selected by writing to \field{QueueSel}.
-> >    }
-> >    \hline 
-> > +  \mmioreg{SHMSel}{Shared memory region select}{0x0b0}{W}{%
-> > +    Writing to this register selects the shared memory region \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions}
-> > +    following operations on \field{SHMId}, \field{SHMLenLow}, \field{SHMLenHigh},
-> > +    \field{SHMBaseLow} and \field{SHMBaseHigh} apply to. The index
-> > +    number of the first region is zero (0x0); note that it is a
-> > +    simple index that does not correspond to the \field{id}.
-> 
-> Why use a separate virtio-mmio index instead of the shared memory ID?
-> The driver would map those IDs it knows about, so I'm not sure if
-> enumerating them via a separate index is useful.  Plus using the ID lets
-> you drop one register from the interface.
+From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
 
-Yes, I think if we don't need enumeration that's right; we just shange
-SHMId to be the writeable register and drop the SHMSel register.
+  This series formalises the idea of shared memory regions I'd
+previously discussed and is intended for use with virtio-fs.
 
-Dave
+I've split it into three parts:
 
+  a) A general definition of the idea
 
---
-Dr. David Alan Gilbert / dgilbert@redhat.com / Manchester, UK
+  b) A definition on virtio-pci using the layout previously
+discussed; this still uses the list of capabilities.
+
+  c) A definition on virtio-mmio.
+
+This v4 has one small tweak to the addressing comment in
+patch 1, based partially on Stefan's feedback to v3.
+
+Dr. David Alan Gilbert (3):
+  shared memory: Define shared memory regions
+  shared memory: Define PCI capability
+  shared memory: Define mmio registers
+
+ conformance.tex |  1 +
+ content.tex     | 69 +++++++++++++++++++++++++++++++++++++++++++++++++
+ shared-mem.tex  | 40 ++++++++++++++++++++++++++++
+ 3 files changed, 110 insertions(+)
+ create mode 100644 shared-mem.tex
+
+-- 
+2.20.1
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
