@@ -1,86 +1,158 @@
-Return-Path: virtio-comment-return-716-cohuck=redhat.com@lists.oasis-open.org
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B1DA4985BAA
-	for <virtio-comment@lists.oasis-open.org>; Tue, 30 Apr 2019 12:40:22 +0000 (UTC)
-Date: Tue, 30 Apr 2019 08:40:17 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20190430083952-mutt-send-email-mst@kernel.org>
-References: <20190314153253.50945-1-jean-philippe.brucker@arm.com>
- <9ff6957a-b7bc-27e8-a7d1-cf9e3c956aa1@arm.com>
+Return-Path: virtio-return-3374-cohuck=redhat.com@lists.oasis-open.org
+Sender: <virtio@lists.oasis-open.org>
+List-Post: <mailto:virtio@lists.oasis-open.org>
+List-Help: <mailto:virtio-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9ff6957a-b7bc-27e8-a7d1-cf9e3c956aa1@arm.com>
-Subject: Re: [virtio-comment] Re: [virtio-dev] [PATCH v2] Add virtio-iommu
- device specification
-To: Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, joro@8bytes.org, tnowicki@caviumnetworks.com, eric.auger@redhat.com, kevin.tian@intel.com, lorenzo.pieralisi@arm.com, bharat.bhushan@nxp.com, bauerman@linux.ibm.com
+From: Paul Knight <paul.knight@oasis-open.org>
+Date: Wed, 17 Apr 2019 17:20:20 -0400
+Message-ID: <CADgeAH-UeJ1d=PRVuCHg2eJLN__KnbaBYQnV=9vSTbFd9_sL0A@mail.gmail.com>
+Content-Type: multipart/alternative; boundary="0000000000009618840586c07422"
+Subject: [virtio] Virtual I/O Device (VIRTIO) Version 1.1 from VIRTIO TC approved as a
+ Committee Specification
+To: tc-announce@lists.oasis-open.org, members@lists.oasis-open.org, virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Apr 23, 2019 at 12:15:59PM +0100, Jean-Philippe Brucker wrote:
-> Hi,
-> 
-> On 14/03/2019 15:32, Jean-Philippe Brucker wrote:
-> > The IOMMU device allows a guest to manage DMA mappings for physical,
-> > emulated and paravirtualized endpoints. Add device description for the
-> > virtio-iommu device and driver. Introduce PROBE, ATTACH, DETACH, MAP and
-> > UNMAP requests, as well as translation error reporting.
-> > 
-> > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/37
-> > Signed-off-by: Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
-> 
-> If there aren't any more comments on this version, could I request a
-> vote?
+--0000000000009618840586c07422
+Content-Type: text/plain; charset="UTF-8"
 
-Ballot created: https://www.oasis-open.org/committees/ballot.php?id=3386
+OASIS Members and other interested parties,
 
+OASIS is pleased to announce that Virtual I/O Device (VIRTIO) Version 1.1
+from the OASIS Virtual I/O Device (VIRTIO) TC [1] has been approved as an
+OASIS Committee Specification.
 
+This document describes the specifications of the "virtio" family of
+devices. These devices are found in virtual environments, yet by design
+they look like physical devices to the guest within the virtual machine -
+and this document treats them as such. This similarity allows the guest to
+use standard drivers and discovery mechanisms. The purpose of virtio and
+this specification is that virtual environments and guests should have a
+straightforward, efficient, standard and extensible mechanism for virtual
+devices, rather than boutique per-environment or per-OS mechanisms.
 
+This Committee Specification is an OASIS deliverable, completed and
+approved by the TC and fully ready for testing and implementation.
 
-> The virtio-iommu spec has been reviewed on the virtio-dev list by
-> several of the people on Cc. The Linux driver has been in good shape for
-> a while, but Joerg would like to see progress on this specification
-> before merging it upstream. It's too late in the release cycle for Linux
-> v5.2, but I'm hoping to get something in v5.3. I think the QEMU device
-> will follow the Linux driver since it depends on API headers.
-> 
-> Thanks,
-> Jean
-> 
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
-> 
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
-> 
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+The prose specifications and related files are available here:
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+Virtual I/O Device (VIRTIO) Version 1.1
+Committee Specification 01
+11 April 2019
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+Editable source (Authoritative):
+https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/tex/
+HTML:
+https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/virtio-v1.1-cs01.html
+PDF:
+https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/virtio-v1.1-cs01.pdf
+Example driver listing:
+https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/listings/
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+Distribution ZIP file
+For your convenience, OASIS provides a complete package of the prose
+specification and related files in a ZIP distribution file. You can
+download the ZIP file here:
+https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/virtio-v1.1-cs01.zip
 
+Members of the VIRTIO TC [1] approved this specification by Special
+Majority Vote. The specification had been released for public review as
+required by the TC Process [2]. The vote to approve as a Committee
+Specification passed [3], and the document is now available online in the
+OASIS Library as referenced above.
+
+Our congratulations to the TC on achieving this milestone and our thanks to
+the reviewers who provided feedback on the specification drafts to help
+improve the quality of the work.
+
+========== Additional references:
+[1] OASIS Virtual I/O Device (VIRTIO) TC
+https://www.oasis-open.org/committees/virtio/
+
+[2] Public review:
+* 30-day public review, 22 January 2019:
+https://lists.oasis-open.org/archives/members/201901/msg00006.html
+- Comment resolution log:
+https://docs.oasis-open.org/virtio/virtio/v1.1/csprd01/virtio-v1.1-csprd01-comment-resolution-log.xls
+
+[3] Approval ballot:
+https://www.oasis-open.org/committees/ballot.php?id=3380
+-- 
+Paul Knight <paul.knight@oasis-open.org>....Document Process Analyst
+<https://www.oasis-open.org/people/staff/paul-knight>...mobile: +1
+781-883-1783
+OASIS <https://www.oasis-open.org/> - Advancing open standards for the
+information society
+
+--0000000000009618840586c07422
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div>OASIS Members and other interested p=
+arties,</div><div><br></div><div>OASIS is pleased to announce that Virtual =
+I/O Device (VIRTIO) Version 1.1 from the OASIS Virtual I/O Device (VIRTIO) =
+TC [1] has been approved as an OASIS Committee Specification.</div><div><br=
+></div><div>This document describes the specifications of the &quot;virtio&=
+quot; family of devices. These devices are found in virtual environments, y=
+et by design they look like physical devices to the guest within the virtua=
+l machine - and this document treats them as such. This similarity allows t=
+he guest to use standard drivers and discovery mechanisms. The purpose of v=
+irtio and this specification is that virtual environments and guests should=
+ have a straightforward, efficient, standard and extensible mechanism for v=
+irtual devices, rather than boutique per-environment or per-OS mechanisms.<=
+/div><div><br></div><div>This Committee Specification is an OASIS deliverab=
+le, completed and approved by the TC and fully ready for testing and implem=
+entation.</div><div><br></div><div>The prose specifications and related fil=
+es are available here:</div><div><br></div><div>Virtual I/O Device (VIRTIO)=
+ Version 1.1</div><div>Committee Specification 01</div><div>11 April 2019</=
+div><div><br></div><div>Editable source (Authoritative):</div><div><a href=
+=3D"https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/tex/">https://docs.=
+oasis-open.org/virtio/virtio/v1.1/cs01/tex/</a></div><div>HTML:</div><div><=
+a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/virtio-v1.1-c=
+s01.html">https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/virtio-v1.1-c=
+s01.html</a></div><div>PDF:</div><div><a href=3D"https://docs.oasis-open.or=
+g/virtio/virtio/v1.1/cs01/virtio-v1.1-cs01.pdf">https://docs.oasis-open.org=
+/virtio/virtio/v1.1/cs01/virtio-v1.1-cs01.pdf</a></div><div>Example driver =
+listing:</div><div><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.=
+1/cs01/listings/">https://docs.oasis-open.org/virtio/virtio/v1.1/cs01/listi=
+ngs/</a></div><div><br></div><div>Distribution ZIP file</div><div>For your =
+convenience, OASIS provides a complete package of the prose specification a=
+nd related files in a ZIP distribution file. You can download the ZIP file =
+here:</div><div><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.1/c=
+s01/virtio-v1.1-cs01.zip">https://docs.oasis-open.org/virtio/virtio/v1.1/cs=
+01/virtio-v1.1-cs01.zip</a></div><div><br></div><div>Members of the VIRTIO =
+TC [1] approved this specification by Special Majority Vote. The specificat=
+ion had been released for public review as required by the TC Process [2]. =
+The vote to approve as a Committee Specification passed [3], and the docume=
+nt is now available online in the OASIS Library as referenced above.</div><=
+div><br></div><div>Our congratulations to the TC on achieving this mileston=
+e and our thanks to the reviewers who provided feedback on the specificatio=
+n drafts to help improve the quality of the work.</div><div><br></div><div>=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D Additional references:</div><div>[1] OASIS V=
+irtual I/O Device (VIRTIO) TC</div><div><a href=3D"https://www.oasis-open.o=
+rg/committees/virtio/">https://www.oasis-open.org/committees/virtio/</a></d=
+iv><div><br></div><div>[2] Public review:</div><div>* 30-day public review,=
+ 22 January 2019:</div><div><a href=3D"https://lists.oasis-open.org/archive=
+s/members/201901/msg00006.html">https://lists.oasis-open.org/archives/membe=
+rs/201901/msg00006.html</a></div><div>- Comment resolution log:</div><div><=
+a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.1/csprd01/virtio-v1.=
+1-csprd01-comment-resolution-log.xls">https://docs.oasis-open.org/virtio/vi=
+rtio/v1.1/csprd01/virtio-v1.1-csprd01-comment-resolution-log.xls</a></div><=
+div><br></div><div>[3] Approval ballot:=C2=A0</div><div><a href=3D"https://=
+www.oasis-open.org/committees/ballot.php?id=3D3380">https://www.oasis-open.=
+org/committees/ballot.php?id=3D3380</a></div>-- <br><div dir=3D"ltr" class=
+=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=
+=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div dir=3D"ltr"><div =
+dir=3D"ltr"><font style=3D"color:rgb(0,0,0);background-color:rgb(255,255,25=
+5)" color=3D"#888888"><a href=3D"mailto:paul.knight@oasis-open.org" target=
+=3D"_blank">Paul Knight</a>...</font><span style=3D"color:rgb(0,0,0)">.</sp=
+an><a href=3D"https://www.oasis-open.org/people/staff/paul-knight" target=
+=3D"_blank">Document Process Analyst</a>...<span style=3D"color:rgb(0,0,0)"=
+>mobile: +1 781-883-1783</span></div><div dir=3D"ltr"><font style=3D"color:=
+rgb(0,0,0);background-color:rgb(255,255,255)" color=3D"#888888"><a href=3D"=
+https://www.oasis-open.org/" target=3D"_blank">OASIS</a> - Advancing open s=
+tandards for the information society</font></div></div></div></div></div></=
+div></div></div></div></div></div></div></div></div>
+
+--0000000000009618840586c07422--
