@@ -1,15 +1,15 @@
-Return-Path: virtio-comment-return-742-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-743-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5D98D9840F6
-	for <virtio-comment@lists.oasis-open.org>; Sun, 16 Jun 2019 19:12:36 +0000 (UTC)
-Date: Sun, 16 Jun 2019 15:12:29 -0400
+	by lists.oasis-open.org (Postfix) with ESMTP id 56609984341
+	for <virtio-comment@lists.oasis-open.org>; Mon, 17 Jun 2019 02:37:10 +0000 (UTC)
+Date: Sun, 16 Jun 2019 22:37:05 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20190616144510-mutt-send-email-mst@kernel.org>
+Message-ID: <20190616222843-mutt-send-email-mst@kernel.org>
 References: <20190616120137.7835-1-ybettan@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -54,16 +54,17 @@ On Sun, Jun 16, 2019 at 03:01:37PM +0300, Yoni Bettan wrote:
 >         * it can be found at https://howtovms.wordpress.com
 > 
 > Signed-off-by: Yoni Bettan <ybettan@redhat.com>
-
-
-
 > ---
 > 
 > 
 > Here are some questions I would like to here your opinion on:
 > 
 >     * do you think such device should be included in the virtio-specification ?
-> 
+
+Not necessarily. But I think it's a good excercise and lessons
+learned can be added to a spec section explaining how to do this
+and what are the common mistakes to avoid.
+
 >     * do you think the documentation for the whole process (spec->device->driver)
 >       should be blog (current state) or a github repository so others can
 >       contribute to it ?
@@ -76,26 +77,16 @@ On Sun, Jun 16, 2019 at 03:01:37PM +0300, Yoni Bettan wrote:
 >             # under "what device number":
 >               "Meanwhile for experimental drivers, use 65535 and work backwards"
 >         - those conditions doesn't fit together
-
-That's a good question.
-This has been inherited from the original virtio pci spec
-which placed the virtio ID in the subsystem ID.
-
-Looking beyond 107f, ivshmem has stolen 0x1110.
-
-Anyone else knows of any devices using vendor id 1af4 and
-device id outside the virtio range?
-
-Should we reserve say 0xef00 to 0xefbf so the pci id works out to
-up to 65535? Or come up with an entirely new range?
-
+> 
 > 
 >  conformance.tex          | 16 +++++++++++
 >  content.tex              |  1 +
 >  virtio-increment-edu.tex | 62 ++++++++++++++++++++++++++++++++++++++++
 >  3 files changed, 79 insertions(+)
 >  create mode 100644 virtio-increment-edu.tex
-> 
+
+
+
 > diff --git a/conformance.tex b/conformance.tex
 > index 42f702a..66f401a 100644
 > --- a/conformance.tex
@@ -187,8 +178,24 @@ up to 65535? Or come up with an entirely new range?
 > +The first element is used as an input for the device and contain a 4 bytes
 > +integer, and the second is given for the device to fill the result in it as a
 > +4 bytes integer indeed.
+
+So this is a problem. Elements are phys contigious chunks. Devices
+normally should not make raming requirements thus should not
+discuss elements at all.
+Saying it's a single element requires 4 bytes a contigious.
+
+What you should say is that driver makes a buffer available.
+Buffer consists of 4 device-readable bytes followed by 4
+device-writeable bytes.
+
+
+
+
 > +
 > +Both the input and the output are in little-endian bytes order.
+
+I'd use a struct to describe the format.
+
 > +
 > +The device is increasing this integer by 1, meaning the LSB will be
 > +increased by 1 and if needed the carry will be carried to the next byte.
@@ -209,9 +216,19 @@ up to 65535? Or come up with an entirely new range?
 > +
 > +The device MUST place the result inside the output element allocated by the
 > +driver.
+
+
+I would describe the behaviour, overflow and such here.
+
 > +
 > -- 
 > 2.21.0
+
+
+so as described this can be used by driver to test hypervisor
+latency I guess? Can we tweak this so hypervisor can test
+guest latency too? That would be a bit more useful ...
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
