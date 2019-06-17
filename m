@@ -1,104 +1,166 @@
-Return-Path: virtio-comment-return-776-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-744-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 038BB985C55
-	for <virtio-comment@lists.oasis-open.org>; Fri, 28 Jun 2019 15:57:06 +0000 (UTC)
-Date: Fri, 28 Jun 2019 16:56:57 +0100
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <20190628155657.GB8800@stefanha-x1.localdomain>
-References: <20190616120137.7835-1-ybettan@redhat.com>
- <20190616222843-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 940F3985357
+	for <virtio-comment@lists.oasis-open.org>; Mon, 17 Jun 2019 18:30:37 +0000 (UTC)
+Date: Mon, 17 Jun 2019 14:30:27 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20190617142554-mutt-send-email-mst@kernel.org>
+References: <20190320120740.8514-1-dgilbert@redhat.com>
+ <20190320120740.8514-2-dgilbert@redhat.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="wzJLGUyc3ArbnUjN"
-Content-Disposition: inline
-In-Reply-To: <20190616222843-mutt-send-email-mst@kernel.org>
-Subject: Re: [virtio-comment] Re: [PATCH] Introducing virtio-increment-edu.
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Yoni Bettan <ybettan@redhat.com>, virtio-comment@lists.oasis-open.org, ehabkost@redhat.com, ailan@redhat.com, aadam@redhat.com
-List-ID: <virtio-comment.lists.oasis-open.org>
-
---wzJLGUyc3ArbnUjN
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20190320120740.8514-2-dgilbert@redhat.com>
+Subject: Re: [virtio-comment] [PATCH v4 1/3] shared memory: Define shared
+ memory regions
+To: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
+Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, stefanha@redha.com, cohuck@redhat.com
+List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Sun, Jun 16, 2019 at 10:37:05PM -0400, Michael S. Tsirkin wrote:
-> On Sun, Jun 16, 2019 at 03:01:37PM +0300, Yoni Bettan wrote:
-> > The main goal is to create an educational example to be used as templat=
-e or
-> > guideline for contributors when they wish to create a new virtio
-> > device and to document "the right way" to do so.
-> >=20
-> > The device functionality is simple as possible so contributors can have
-> > their focus on the virtio protocol rather on the device functionality to
-> > give them an "easy start".
-> >=20
-> > It consists of several parts:
-> >=20
-> >     1. The device specification
-> >         * this patch content
-> >=20
-> >     2. The device implementation for Qemu-KVM hypervisor
-> >         * it will hopefully be added to the Qemu project
-> >         * for now it can be found at https://github.com/ybettan/qemu/bl=
-ob/\
-> >                 virtio/hw/virtio/virtio-example.c
-> >=20
-> >     3. The device driver for linux
-> >         * it will hopefully be added to linux
-> >         * for now it can be found at https://github.com/ybettan/\
-> >                 QemuDeviceDrivers/blob/master/virtio/virtio_example_dri=
-ver.c
-> >=20
-> >     4. A blog on virtio
-> >         * introducing the virtio concept
-> >         * gives some motivation for virtio-devices to be used
-> >         * bring extra documentation on "how to write":
-> >             - device specification
-> >             - device implementation
-> >             - device driver for linux
-> >         * it can be found at https://howtovms.wordpress.com
-> >=20
-> > Signed-off-by: Yoni Bettan <ybettan@redhat.com>
-> > ---
-> >=20
-> >=20
-> > Here are some questions I would like to here your opinion on:
-> >=20
-> >     * do you think such device should be included in the virtio-specifi=
-cation ?
->=20
-> Not necessarily. But I think it's a good excercise and lessons
-> learned can be added to a spec section explaining how to do this
-> and what are the common mistakes to avoid.
+On Wed, Mar 20, 2019 at 12:07:38PM +0000, Dr. David Alan Gilbert (git) wrote:
+> From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+> 
+> Define the requirements and idea behind shared memory regions.
+> 
+> Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+> ---
+>  conformance.tex |  1 +
+>  content.tex     |  2 ++
+>  shared-mem.tex  | 40 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 43 insertions(+)
+>  create mode 100644 shared-mem.tex
+> 
+> diff --git a/conformance.tex b/conformance.tex
+> index ad7e82e..f6c0d50 100644
+> --- a/conformance.tex
+> +++ b/conformance.tex
+> @@ -195,6 +195,7 @@ A device MUST conform to the following normative statements:
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer Notification Suppression}
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Used Ring}
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / Available Buffer Notification Suppression}
+> +\item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
+>  \item \ref{devicenormative:Reserved Feature Bits}
+>  \end{itemize}
+>  
+> diff --git a/content.tex b/content.tex
+> index ede0ef6..8cd1a38 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -371,6 +371,8 @@ making any more buffers available. When VIRTIO_F_NOTIFICATION_DATA
+>  has been negotiated, these notifications would then have
+>  identical \field{next_off} and \field{next_wrap} values.
+>  
+> +\input{shared-mem.tex}
+> +
+>  \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+>  
+>  We start with an overview of device initialization, then expand on the
+> diff --git a/shared-mem.tex b/shared-mem.tex
+> new file mode 100644
+> index 0000000..6dc506a
+> --- /dev/null
+> +++ b/shared-mem.tex
+> @@ -0,0 +1,40 @@
+> +\section{Shared Memory Regions}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions}
+> +
+> +Shared memory regions are an additional facility
+> +available to devices that need a region of memory that's
+> +continuously shared between the host and the guest, rather
+> +than passed between them in the way virtqueue elements are.
 
-I agree.  The ./newdevice.tex file can be extended based on lessons from
-this device.
+Please rewrite host->device, guest->driver
 
-I think a virtio-net code commentary would be valuable, too.  It's a
-real-world device with non-trivial features.  Anyone who spends some
-time on that will be equipped to design new devices.
+> +
+> +Example uses include shared caches and version pools for versioned
+> +data structures.
+> +
+> +The region is chosen by the host and presented to the guest, as
+> +such it is useful in situations where the memory is accessed on
+> +the host by other libraries that can't safely access guest RAM.
 
-Stefan
+I'm not sure what does above mean in context of virtio.
+Is this an example?
+So maybe:
+	For example, with device being part of a
+	hypervisor and driver being part of a VM guest
+	etc etc
 
---wzJLGUyc3ArbnUjN
-Content-Type: application/pgp-signature; name="signature.asc"
+> +
+> +A device may have multiple shared memory regions associated with
+> +it.  Each region has a \field{shmid} to identify it, the meaning
+> +of which is device-specific.
+> +
+> +Enumeration and location of shared memory regions is performed
+> +using a transport-specific data structure and mechanism.
 
------BEGIN PGP SIGNATURE-----
+Let's just say in a transport-specific way.
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl0WOMkACgkQnKSrs4Gr
-c8iu3Qf8DJtAwOVEOWB5EDw6m3O21zmj7D9hiyOrbaW2PMVQAuDULpqvZudeJvjP
-SZiXPlHa4EtM5xbOAtvwNfnGL2Bv/5VetIydn+H3TlPhhE55EsueMjJTHit3xGfY
-iaM+fi7GWebdP0wqXRQGBSE5KjsWxMcr2WGZYvl3w65QEdi3AXy5zJlixlWIhbRc
-j54u1gNbF5+wjfYXLH6HL1CfdIcxveKG5eEHoNEFxR30HypRrVjHFNVc6KmskuiR
-dcDTKFn4iF404bfDqX8ELAXy+UEMS9aGWayUhkVKfkWXedf/G/nepZRKhgiVC2oa
-5rWI3QSC9l0zU5xyMDS94nrQB3Zl3A==
-=qvY1
------END PGP SIGNATURE-----
+> +
+> +Memory consistency rules vary depending on the region and the
+> +device and they will be specified as required by each device.
+> +
+> +\subsection{Addressing within regions}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Addressing within regions }
+> +
+> +References into shared memory regions are represented as offsets from
+> +the beginning of the region instead of absolute memory addresses.
+> +Offsets are used both for references between structures stored
+> +within shared memory and for requests placed in virtqueues that
+> +refer to shared memory.
+> +The \field{shmid} may be explicit or may be inferred from the
+> +context of the reference.
+> +
+> +\devicenormative{\subsection}{Shared Memory Regions}{Basic Facilities of a Virtio
+> +Device / Shared Memory Regions}
+> +Shared memory regions MUST NOT expose shared memory regions which
+> +are used to control the operation of the device, nor to stream
+> +data.
 
---wzJLGUyc3ArbnUjN--
+regions must not expose regions. confused.
+typo?
+
+Also, what does stream data mean?
+
+
+> +
+> -- 
+> 2.20.1
+> 
+> 
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+> 
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+> 
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
+
