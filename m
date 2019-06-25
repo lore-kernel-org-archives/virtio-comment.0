@@ -1,157 +1,79 @@
-Return-Path: virtio-comment-return-758-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-762-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3DAD3985D20
-	for <virtio-comment@lists.oasis-open.org>; Fri, 21 Jun 2019 20:39:23 +0000 (UTC)
-Date: Fri, 21 Jun 2019 16:39:18 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20190621163834-mutt-send-email-mst@kernel.org>
-References: <20190320120740.8514-1-dgilbert@redhat.com>
- <20190320120740.8514-3-dgilbert@redhat.com>
- <20190617143100-mutt-send-email-mst@kernel.org>
- <20190619171045.GE2844@work-vm>
+	by lists.oasis-open.org (Postfix) with ESMTP id CF012985A41
+	for <virtio-comment@lists.oasis-open.org>; Tue, 25 Jun 2019 07:33:56 +0000 (UTC)
+From: Yoni Bettan <ybettan@redhat.com>
+Date: Tue, 25 Jun 2019 10:33:36 +0300
+Message-Id: <20190625073336.7813-1-ybettan@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190619171045.GE2844@work-vm>
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH v4 2/3] shared memory: Define PCI capability
-To: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
-Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, stefanha@redha.com, cohuck@redhat.com
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH V2] Added building instruction to README.md.
+To: virtio-comment@lists.oasis-open.org
+Cc: ehabkost@redhat.com, ailan@redhat.com, mst@redhat.com, Yoni Bettan <ybettan@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Jun 19, 2019 at 06:10:45PM +0100, Dr. David Alan Gilbert wrote:
-> * Michael S. Tsirkin (mst@redhat.com) wrote:
-> > On Wed, Mar 20, 2019 at 12:07:39PM +0000, Dr. David Alan Gilbert (git) wrote:
-> > > From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
-> > > 
-> > > Define the PCI capability used for enumerating shared memory regions.
-> > > 
-> > > Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-> > > Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-> > > Reviewed-by: Cornelia Huck <cohuck@redhat.com>
-> > > ---
-> > >  content.tex | 37 +++++++++++++++++++++++++++++++++++++
-> > >  1 file changed, 37 insertions(+)
-> > > 
-> > > diff --git a/content.tex b/content.tex
-> > > index 8cd1a38..ddbf949 100644
-> > > --- a/content.tex
-> > > +++ b/content.tex
-> > > @@ -688,6 +688,8 @@ The fields are interpreted as follows:
-> > >  #define VIRTIO_PCI_CAP_DEVICE_CFG        4
-> > >  /* PCI configuration access */
-> > >  #define VIRTIO_PCI_CAP_PCI_CFG           5
-> > > +/* Shared memory region */
-> > > +#define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
-> > >  \end{lstlisting}
-> > >  
-> > >          Any other value is reserved for future use.
-> > > @@ -1052,6 +1054,41 @@ any device type which has a device-specific configuration.
-> > >  
-> > >  The \field{offset} for the device-specific configuration MUST be 4-byte aligned.
-> > >  
-> > > +\subsubsection{Shared memory capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Shared memory capability}
-> > > +
-> > > +Shared memory regions \ref{sec:Basic Facilities of a Virtio
-> > > +Device / Shared Memory Regions} are enumerated on the PCI transport
-> > > +as a sequence of VIRTIO_PCI_CAP_SHARED_MEMORY_CFG capabilities, one per region.
-> > > +
-> > > +The capability is immediately followed by an additional field like so:
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_pci_shm_cap {
-> > > +        struct virtio_pci_cap cap;
-> > > +        u32 offset_hi;
-> > > +        u32 length_hi;
-> > > +        u8  id;
-> > 
-> > Pls pad, pci capabilities must be a multiple of 4 bytes.
-> > BTW virtio_pci_cap has 3 bytes of padding.
-> > We can stick the id there maybe?
-> 
-> Do you mean changing the def of virtio_pci_cap to: ?
-> struct virtio_pci_cap {
->         __u8 cap_vndr;          /* Generic PCI field: PCI_CAP_ID_VNDR */
->         __u8 cap_next;          /* Generic PCI field: next ptr. */
->         __u8 cap_len;           /* Generic PCI field: capability length */
->         __u8 cfg_type;          /* Identifies the structure. */
->         __u8 bar;               /* Where to find it. */
->         __u8 id;                /* Unique ID for this region */
->         __u8 padding[2];        /* Pad to full dword. */
->         __le32 offset;          /* Offset within bar. */
->         __le32 length;          /* Length of the structure, in bytes. */
-> };
-> 
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +Given that the \field{cap.length} and \field{cap.offset} fields
-> > > +are only 32 bit, the additional \field{offset_hi} and \field {length_hi}
-> > > +fields provide the most significant 32 bits of a total 64 bit offset and
-> > > +length within the bar specified by \field{cap.bar}.  \field{id}
-> > > +uniquely identifies the given shared memory region using a device
-> > > +specific identifier.
-> > 
-> > I didn't realize we will ever need so much space.  I think I prefer
-> > moving offset_hi/length_hi to a general virtio_pci_cap64 that others can
-> > reuse.
-> 
-> Would we then just rename virtio_pci_shm_cap to virtio_pci_cap64 after
-> moving the id to virito_pci_cap?
+Signed-off-by: Yoni Bettan <ybettan@redhat.com>
+---
+ README.md | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-yes. and for simplicity we can for now specify that only shmem can be 64 bit.
+diff --git a/README.md b/README.md
+index 3de0c1e..fc33c9f 100644
+--- a/README.md
++++ b/README.md
+@@ -29,6 +29,40 @@
+ <div>
+ 
+ <h3>Further Description of this Repository</h3>
++<h4>Building Instructions</h4>
++<p>In order to build the spec you will need <a href="https://www.tug.org/texlive/">Tex-Live</a>.
++Installing it can be done via:<br>
++Fedora:
++<code>
++sudo dnf install texlive-scheme-full
++</code><br>
++Ubuntu:
++<code>
++sudo apt-get install texlive-full
++</code><br></p>
++<p>The building proccess is done with
++<code>
++./makeall.sh
++</code>
++and it contains 3 main parts:
++<code>
++makezip.sh
++</code>,
++<code>
++makehtml.sh
++</code>,
++<code>
++makepdf.sh
++</code>.
++Using
++<code>
++./makehtml.sh
++</code>
++should be enought if you just want to test your changes since
++<code>
++makepdf.sh
++</code>
++may required some font packages.</p>
+ <h4>Providing Feedback</h4>
+ Feedback must be provided the <strong>virtio-comment</strong> mailing list,
+ and archived in the mailing list archives.
+-- 
 
-> > 
-> > 
-> > > +
-> > > +While most capabilities can not be repeated,
-> > 
-> > I'd drop this part.
-> 
-> Done.
-> 
-> > > multiple
-> > > +VIRTIO_PCI_CAP_SHARED_MEMORY_CFG capabilities are allowed as long
-> > > +as the \field{id} is unique.
-> > > +
-> > > +\devicenormative{\paragraph}{Device-specific configuration}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Shared memory capability}
-> > > +
-> > > +The region defined by the combination of the offsets and length
-> > > +fields 
-> > 
-> > let's do \field{cap.length} \field{cap.offset} etc.
-> 
-> I've done that as:
-> The region defined by the combination of the \field {cap.offset},  
-> \field {cap.offset_hi}, and \field {cap.length}, \field
-> {cap.length_hi} fields MUST be contained within the declared bar.
-> 
-> is that right, but the base and hi are in separate structures.
-> 
-> > >MUST be contained within the declared bar.
-> > > +
-> > > +The \field{id} MUST be unique for any one device instance.
-> > > +
-> > >  \subsubsection{PCI configuration access capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PCI configuration access capability}
-> > >  
-> > >  The VIRTIO_PCI_CAP_PCI_CFG capability
-> > > -- 
-> > > 2.20.1
-> > > 
-> > > 
-> > > ---------------------------------------------------------------------
-> > > To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> > > For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
-> --
-> Dr. David Alan Gilbert / dgilbert@redhat.com / Manchester, UK
-> 
-> ---------------------------------------------------------------------
-> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+V1 -> V2:
+    * Added building instructions
+
+2.21.0
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
