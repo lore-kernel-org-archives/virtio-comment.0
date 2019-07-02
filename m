@@ -1,85 +1,122 @@
-Return-Path: virtio-comment-return-787-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-777-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4AD30985D6F
-	for <virtio-comment@lists.oasis-open.org>; Wed, 10 Jul 2019 05:48:50 +0000 (UTC)
-Date: Wed, 10 Jul 2019 07:48:02 +0200
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <20190710054802.GD3836@stefanha-x1.localdomain>
-References: <54DB94AE64EDA14BAB6A1E9641A26B011AE25713@hasmsx109.ger.corp.intel.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 521B0985E14
+	for <virtio-comment@lists.oasis-open.org>; Tue,  2 Jul 2019 08:57:19 +0000 (UTC)
+From: "Savir, Gil" <gil.savir@intel.com>
+Date: Tue, 2 Jul 2019 08:56:49 +0000
+Message-ID: <54DB94AE64EDA14BAB6A1E9641A26B011AE0AF0B@hasmsx109.ger.corp.intel.com>
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_54DB94AE64EDA14BAB6A1E9641A26B011AE0AF0Bhasmsx109gercor_"
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="3Gf/FFewwPeBMqCJ"
-Content-Disposition: inline
-In-Reply-To: <54DB94AE64EDA14BAB6A1E9641A26B011AE25713@hasmsx109.ger.corp.intel.com>
-Subject: Re: [virtio-comment] RE: VIRTIO_NET_F_MRG_RXBUF number of descriptors
-To: "Savir, Gil" <gil.savir@intel.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Subject: [virtio-comment] Missing net feature definition - VIRTIO_NET_F_CTRL_RX_EXTRA
+To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---3Gf/FFewwPeBMqCJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--_000_54DB94AE64EDA14BAB6A1E9641A26B011AE0AF0Bhasmsx109gercor_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 09, 2019 at 08:33:16AM +0000, Savir, Gil wrote:
-> In addition I suggest, Section 5.1.6.4 (Processing of Incoming Packets) s=
-hould be changed from:
-> "
-> 1. num_buffers indicates how many descriptors this packet is spread over =
-(including this one): this will always be 1 if VIRTIO_NET_F_MRG_RXBUF was n=
-ot negotiated. This allows receipt of large packets without having to alloc=
-ate large buffers: a packet that does not fit in a single buffer can flow o=
-ver to the next buffer, and so on. In this case, there will be at least num=
-_buffers used buffers in the virtqueue, and the device chains them together=
- to form a single packet in a way similar to how it would store it in a sin=
-gle buffer spread over multiple descriptors. The other buffers will not beg=
-in with a struct virtio_net_hdr.
-> 2. If num_buffers is one, then the entire packet will be contained within=
- this buffer, immediately following the struct virtio_net_hdr.
-> "
->=20
-> to
->=20
-> "
-> 1. num_buffers indicates how many descriptor-chains this packet is spread=
- over (including this one): this will always be 1 if VIRTIO_NET_F_MRG_RXBUF=
- was not negotiated. This allows receipt of large packets without having to=
- allocate large buffers: a packet that does not fit in a single buffer can =
-flow over to the next buffer, and so on. In this case, there will be at lea=
-st num_buffers used buffers in the virtqueue, and the device merge them tog=
-ether to form a single packet. The other buffers will not begin with a stru=
-ct virtio_net_hdr.
-> 2. If num_buffers is one, then the entire packet will be contained within=
- this descriptors-chain, immediately following the struct virtio_net_hdr.
-> "
->=20
-> This, in order to prevent more confusion, caused by the use of the word "=
-descriptor" interchanging as between descriptor and descriptor-chain.
+Hi,
 
-Please change it to "used buffers" instead of "descriptor-chains" for
-consistency with the rest of the specification.
+Net-device feature VIRTIO_NET_F_CTRL_RX_EXTRA is mentioned few times in the=
+ spec (both v1.0, v1.1).
+However, it's definition is missing from Section 5.1.3 Feature bits<https:/=
+/docs.oasis-open.org/virtio/virtio/v1.1/cs01/virtio-v1.1-cs01.html#x1-19700=
+03> .
 
 Thanks,
-Stefan
+Gil
 
---3Gf/FFewwPeBMqCJ
-Content-Type: application/pgp-signature; name="signature.asc"
+---------------------------------------------------------------------
+Intel Israel (74) Limited
 
------BEGIN PGP SIGNATURE-----
+This e-mail and any attachments may contain confidential material for
+the sole use of the intended recipient(s). Any review or distribution
+by others is strictly prohibited. If you are not the intended
+recipient, please contact the sender and delete all copies.
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl0lfBIACgkQnKSrs4Gr
-c8i21gf/dy6wCMCX1NLd8jgY2JEW1/IUP5TaCff0xD0NR6Up74WQjo9A7zVx5d4j
-OFpb53LF/0CapAFk0gY3ygYg8IheZmQ7FwPEU0HXObxu7GSMi9v3x9Pei68ID7Dm
-V/XzipnpmQz6Jq01mscejWPsC6YeZISM2lbKougXzfWRd3X2xKjgGWLoAiADzt4y
-Yfzj1Hgc2eyZEsQ0wWP+P/fBp9rXrcb9IEA8jiqOvW2lQmD2Ee0S+lWgc9PD1d+G
-Huz4hG2u4osLRrHNp5WzK+KPZp1w3Q/Tvc3iY8dKgNURyEFN4xujt/AKXkv7cilQ
-VywfJt/PCv9ZiWEffRD5bsFYbFf4Ww==
-=5lnV
------END PGP SIGNATURE-----
+--_000_54DB94AE64EDA14BAB6A1E9641A26B011AE0AF0Bhasmsx109gercor_
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
---3Gf/FFewwPeBMqCJ--
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
+hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
+html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Net-device feature VIRTIO_NET_F_CTRL_RX_EXTRA is men=
+tioned few times in the spec (both v1.0, v1.1).<o:p></o:p></p>
+<p class=3D"MsoNormal">However, it&#8217;s definition is missing from Secti=
+on 5.1.3&nbsp;<a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.1/cs0=
+1/virtio-v1.1-cs01.html#x1-1970003">Feature bits</a>&nbsp;.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Gil<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<p>---------------------------------------------------------------------<br>
+Intel Israel (74) Limited</p>
+
+<p>This e-mail and any attachments may contain confidential material for<br>
+the sole use of the intended recipient(s). Any review or distribution<br>
+by others is strictly prohibited. If you are not the intended<br>
+recipient, please contact the sender and delete all copies.</p></body>
+</html>
+
+--_000_54DB94AE64EDA14BAB6A1E9641A26B011AE0AF0Bhasmsx109gercor_--
+
