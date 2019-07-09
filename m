@@ -1,70 +1,76 @@
-Return-Path: virtio-comment-return-783-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-785-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5A5CF984D9D
-	for <virtio-comment@lists.oasis-open.org>; Tue,  9 Jul 2019 06:35:20 +0000 (UTC)
-From: "Savir, Gil" <gil.savir@intel.com>
-Date: Tue, 9 Jul 2019 06:35:13 +0000
-Message-ID: <54DB94AE64EDA14BAB6A1E9641A26B011AE253DE@hasmsx109.ger.corp.intel.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+	by lists.oasis-open.org (Postfix) with ESMTP id 909A8985D40
+	for <virtio-comment@lists.oasis-open.org>; Tue,  9 Jul 2019 10:15:08 +0000 (UTC)
+Date: Tue, 9 Jul 2019 12:15:02 +0200
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20190709101502.GA345@stefanha-x1.localdomain>
+References: <54DB94AE64EDA14BAB6A1E9641A26B011AE253DE@hasmsx109.ger.corp.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] VIRTIO_NET_F_MRG_RXBUF number of descriptors
-To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="azLHFNyN32YCQGCU"
+Content-Disposition: inline
+In-Reply-To: <54DB94AE64EDA14BAB6A1E9641A26B011AE253DE@hasmsx109.ger.corp.intel.com>
+Subject: Re: [virtio-comment] VIRTIO_NET_F_MRG_RXBUF number of descriptors
+To: "Savir, Gil" <gil.savir@intel.com>
+Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hi,
+--azLHFNyN32YCQGCU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-v1.1 states at Section 5.1.6.3.2 (Device Requirements: Setting Up Receive B=
-uffers): =
+On Tue, Jul 09, 2019 at 06:35:13AM +0000, Savir, Gil wrote:
+> Hi,
+>=20
+> v1.1 states at Section 5.1.6.3.2 (Device Requirements: Setting Up Receive=
+ Buffers):=20
+> 	"The device MUST use only a single descriptor if VIRTIO_NET_F_MRG_RXBUF =
+was not negotiated."=20
+> That's a mistake, since the device can, and should be able to use multipl=
+e descriptors, pertaining to the same descriptors chain.
+>=20
+> Therefore I suggest to change it to:=20
+> 	" The device MUST use only a single descriptor-chain if VIRTIO_NET_F_MRG=
+_RXBUF was not negotiated."
+>=20
+> BTW, as result of this wrongly formulated sentence, I came across many pe=
+ople (including my-past-self) that confuse MRG_RXBUF feature with descripto=
+rs-chain support.
+> Fixing it will help avoiding this confusion.=20
 
-	"The device MUST use only a single descriptor if VIRTIO_NET_F_MRG_RXBUF wa=
-s not negotiated." =
+Hi Gil,
+Perhaps the clearest way of phrasing this is:
 
-That's a mistake, since the device can, and should be able to use multiple =
-descriptors, pertaining to the same descriptors chain.
+  "The device MUST use only a single used buffer if
+  VIRTIO_NET_F_MRG_RXBUF was not negotiated."
 
-Therefore I suggest to change it to: =
+The "used buffer" terminology comes and is consistent with 2.5
+Virtqueues.
 
-	" The device MUST use only a single descriptor-chain if VIRTIO_NET_F_MRG_R=
-XBUF was not negotiated."
+Do you agree and would you like to send a patch?
 
-BTW, as result of this wrongly formulated sentence, I came across many peop=
-le (including my-past-self) that confuse MRG_RXBUF feature with descriptors=
--chain support.
-Fixing it will help avoiding this confusion. =
+Stefan
 
+--azLHFNyN32YCQGCU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Gil
+-----BEGIN PGP SIGNATURE-----
 
----------------------------------------------------------------------
-Intel Israel (74) Limited
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl0kaSYACgkQnKSrs4Gr
+c8hGbAgAgylGq1aGDaAZyOS9ALe0r8NSLIJ38TuPkq6gpCvDd7fJ1v6eaT2mD5Id
+XP6MkwU2jqKGrcUdjhd8DcDzOu5Jpqznh0zbyaMX9V+f8cmPhiLt6rTtDB9SxMlp
+eqfzPAMt4utFLFM+CY+AV6F+ql4eHnqWTnAa7HySiXIkrXBuB0MykUPuDJjEjrLy
+F4HySKkpSrAdXgzderVSqEZ91TBjuiQ/HW3UknrMSEzLlcAhxT7G31fAeX1VS1AP
+F/KhxSQ+qLzR8F5VLJ+nkpI0DZ8TlPYYjn2WP1rjaNIdB/bnwESImdUhoSyQj6F1
+kXLAef7Gyg+AcuslJTbpUMX4oLPopw==
+=iMJ+
+-----END PGP SIGNATURE-----
 
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
-
+--azLHFNyN32YCQGCU--
