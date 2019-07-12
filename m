@@ -1,52 +1,71 @@
-Return-Path: virtio-comment-return-823-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-799-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-From: "Huang, Yang" <yang.huang@intel.com>
-Date: Tue, 30 Jul 2019 00:33:17 +0000
-Message-ID: <0B92A36466FABC4D99BAF0BDB1FA8BBC4157221D@shsmsx102.ccr.corp.intel.com>
-References: <1564386494-2296-1-git-send-email-yang.huang@intel.com>
- <4ecbc7e5-4539-d1f7-eabd-240f5ddd38c5@redhat.com>
-In-Reply-To: <4ecbc7e5-4539-d1f7-eabd-240f5ddd38c5@redhat.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
+Date: Fri, 12 Jul 2019 13:19:57 +0100
+Message-Id: <20190712122002.10793-1-dgilbert@redhat.com>
 MIME-Version: 1.0
-Subject: RE: [virtio-comment] [PATCH] Add virtio rpmb device specification
-To: Paolo Bonzini <pbonzini@redhat.com>, "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>, "Zhu, Bing" <bing.zhu@intel.com>, "Winkler, Tomas" <tomas.winkler@intel.com>
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v7 0/5] Large shared memory regions
+To: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, stefanha@redhat.com, cohuck@redhat.com
+Cc: vgoyal@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogdmlydGlvLWNvbW1lbnRA
-bGlzdHMub2FzaXMtb3Blbi5vcmcgW21haWx0bzp2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy0N
-Cj4gb3Blbi5vcmddIE9uIEJlaGFsZiBPZiBQYW9sbyBCb256aW5pDQo+IFNlbnQ6IE1vbmRheSwg
-SnVseSAyOSwgMjAxOSAxNzoxOQ0KPiBUbzogSHVhbmcsIFlhbmcgPHlhbmcuaHVhbmdAaW50ZWwu
-Y29tPjsgdmlydGlvLWRldkBsaXN0cy5vYXNpcy1vcGVuLm9yZw0KPiBDYzogdmlydGlvLWNvbW1l
-bnRAbGlzdHMub2FzaXMtb3Blbi5vcmc7IG1zdEByZWRoYXQuY29tOyBaaHUsIEJpbmcNCj4gPGJp
-bmcuemh1QGludGVsLmNvbT47IFdpbmtsZXIsIFRvbWFzIDx0b21hcy53aW5rbGVyQGludGVsLmNv
-bT4NCj4gU3ViamVjdDogUmU6IFt2aXJ0aW8tY29tbWVudF0gW1BBVENIXSBBZGQgdmlydGlvIHJw
-bWIgZGV2aWNlIHNwZWNpZmljYXRpb24NCj4gDQo+IE9uIDI5LzA3LzE5IDA5OjQ4LCBIdWFuZyBZ
-YW5nIHdyb3RlOg0KPiA+DQo+ID4gQnV0IHZpcnR1YWxpemF0aW9uIHNvZnR3YXJlIGxpa2UgUWVt
-dSBkb2Vzbid0IHByb3ZpZGUgZU1NQy9VRlMvTlZNZQ0KPiA+IFJQTUIgZW11bGF0aW9uLiBJdCBi
-bG9ja3MgdGhlIE9TIGxpa2UgVHJ1c3R5IG9yIE9QLVRFRSBydW5uaW5nIGluIGENCj4gPiB2aXJ0
-dWFsaXphdGlvbiBlbnZpcm9ubWVudC4gRm9yIGluc3RhbmNlLCBHb29nbGUgcmlnaHQgbm93IHVz
-ZXMNCj4gPiBhbm90aGVyIHdheSB0byB3b3JrIGFyb3VuZCBSUE1CIGVtdWxhdGlvbiBpc3N1ZSB3
-aGVuIHJ1bm5pbmcgVHJ1c3R5IGluDQo+IEFSTSBRZW11Og0KPiA+IGh0dHBzOi8vYW5kcm9pZC5n
-b29nbGVzb3VyY2UuY29tL3RydXN0eS9leHRlcm5hbC90cnVzdHkvKy9yZWZzL2hlYWRzL20NCj4g
-PiBhc3Rlci90ZXN0LXJ1bm5lci8NCj4gPg0KPiA+IFZpcnRpbyBSUE1CIHN0YW5kYXJkaXphdGlv
-biB3aWxsIGRlZmluaXRlbHkgYmVuZWZpdCBPUC1URUUsIEdvb2dsZQ0KPiA+IFRydXN0eSBURUUs
-IFFlbXUsIE9WTUYgb3Igb3RoZXIgbW9kdWxlcyB0byBkZXZlbG9wIHRoZSBSUE1CIGJhc2VkDQo+
-ID4gc2VjdXJlIHN0b3JhZ2UgaW4gdmlydHVhbGl6YXRpb24uDQo+ID4NCj4gDQo+IElzIHRoZXJl
-IGFueSByZWFzb24gdG8gdXNlIGEgbmV3IHZpcnRpby1ibGsgZGV2aWNlLCBhbmQgbm90IGFkZCB0
-aGlzIGZ1bmN0aW9uYWxpdHkNCj4gdG8gdmlydGlvLWJsaz8NCj4gDQo+IFBhb2xvDQoNClJQTUIg
-ZG9lcyBub3QgYmVoYXZlIGFzIGEgYmxrIGRldmljZS4gSXQgZG9lc24ndCBoYXZlIGJsb2NrIGRl
-dmljZSBBUElzLg0KQ3VycmVudCB2aXJ0aW8gYmxrIGZlYXR1cmVzIG9yIGRlZmluaXRpb25zIGlu
-IHNwZWMgYXJlIG1vc3RseSB1c2VsZXNzIG9yIGluYXBwbGljYWJsZSB0byB2aXJ0aW8gcnBtYi4N
-Ckl0IHBlcmZvcm1zIGEgZGlmZmVyZW50IGJlaGF2aW9ycyBmcm9tIHRoZSBvcGVyYXRpb25zIG9u
-IGEgYmxrIGRldmljZS4gDQpLZXksIHdyaXRlciBjb3VudGVyIG9yIG5vbmNlIGFyZSByZXF1aXJl
-ZCB0byByZWFkL3dyaXRlIG9uIGl0Lg0KSWYgYWRkIGl0IHRvIGJsayBkZXZpY2UsIGl0IHdpbGwg
-bm90IG9ubHkgY2F1c2UgdG8gYSBoaWdoZXIgY29tcGxleGl0eSwgYnV0IGFsc28gY2F1c2UgdG8g
-dHdvIGRpZmZlcmVudCBiZWhhdmlvcnMgb24gYSBzYW1lIGRldmljZS4NCg0K
+From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+
+  This series formalises the idea of shared memory regions I'd
+previously discussed and is intended for use with virtio-fs.
+ 
+I've split it into five parts:
+ 
+  a) A general definition of the idea
+ 
+  b) An addition of an 'id' field to allow multiple distinct
+     capabilities of the same type.
+ 
+  c) An addition of a 64bit capability type.
+ 
+  d) A definition on virtio-pci using the layout previously
+discussed.
+ 
+  e) A definition on virtio-mmio.
+ 
+v7:
+  Conformance reference from Cornelia's review
+
+Dr. David Alan Gilbert (5):
+  shared memory: Define shared memory regions
+  pci: Define id field
+  pci: Define virtio_pci_cap64
+  shared memory: Define PCI capability
+  shared memory: Define mmio registers
+
+ conformance.tex |  2 ++
+ content.tex     | 83 +++++++++++++++++++++++++++++++++++++++++++++++--
+ shared-mem.tex  | 42 +++++++++++++++++++++++++
+ 3 files changed, 125 insertions(+), 2 deletions(-)
+ create mode 100644 shared-mem.tex
+
+-- 
+2.21.0
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
