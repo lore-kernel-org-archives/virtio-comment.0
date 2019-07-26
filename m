@@ -1,55 +1,61 @@
-Return-Path: virtio-comment-return-815-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-817-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AA97A985D90
-	for <virtio-comment@lists.oasis-open.org>; Thu, 25 Jul 2019 16:01:18 +0000 (UTC)
-From: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
-Date: Thu, 25 Jul 2019 17:01:14 +0100
-Message-Id: <20190725160114.25763-1-dgilbert@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 1D4CA985E3D
+	for <virtio-comment@lists.oasis-open.org>; Fri, 26 Jul 2019 07:49:49 +0000 (UTC)
+Date: Fri, 26 Jul 2019 09:49:45 +0200
+From: Cornelia Huck <cohuck@redhat.com>
+Message-ID: <20190726094945.463b9728.cohuck@redhat.com>
+In-Reply-To: <20190725160114.25763-1-dgilbert@redhat.com>
+References: <20190725160114.25763-1-dgilbert@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH] shared memory: Typo fix
-To: virtio-comment@lists.oasis-open.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] [PATCH] shared memory: Typo fix
+To: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+On Thu, 25 Jul 2019 17:01:14 +0100
+"Dr. David Alan Gilbert (git)" <dgilbert@redhat.com> wrote:
 
-Fix double hex in SHM*High defs.
+> From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+> 
+> Fix double hex in SHM*High defs.
+> 
+> Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+> ---
+>  content.tex | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/content.tex b/content.tex
+> index ee0d7c9..ba80ee1 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -1742,7 +1742,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+>      \field{SHMBaseLow} and \field{SHMBaseHigh} apply to.
+>    }
+>    \hline 
+> -  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b0}{0x0xb4}{R}{%
+> +  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b0}{0x0b4}{R}{%
+>      These registers return the length of the shared memory
+>      region in bytes, as defined by the device for the region selected by
+>      the \field{SHMSel} register.  The lower 32 bits of the length
+> @@ -1752,7 +1752,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+>      results in a length of -1.
+>    }
+>    \hline 
+> -  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0b8}{0x0xbc}{R}{%
+> +  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0b8}{0x0bc}{R}{%
+>      The driver reads these registers to discover the base address
+>      of the region in physical address space.  This address is
+>      chosen by the device (or other part of the VMM).
 
-Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
----
- content.tex | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/content.tex b/content.tex
-index ee0d7c9..ba80ee1 100644
---- a/content.tex
-+++ b/content.tex
-@@ -1742,7 +1742,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
-     \field{SHMBaseLow} and \field{SHMBaseHigh} apply to.
-   }
-   \hline 
--  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b0}{0x0xb4}{R}{%
-+  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b0}{0x0b4}{R}{%
-     These registers return the length of the shared memory
-     region in bytes, as defined by the device for the region selected by
-     the \field{SHMSel} register.  The lower 32 bits of the length
-@@ -1752,7 +1752,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
-     results in a length of -1.
-   }
-   \hline 
--  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0b8}{0x0xbc}{R}{%
-+  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0b8}{0x0bc}{R}{%
-     The driver reads these registers to discover the base address
-     of the region in physical address space.  This address is
-     chosen by the device (or other part of the VMM).
--- 
-2.21.0
-
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
