@@ -1,61 +1,75 @@
-Return-Path: virtio-comment-return-817-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-819-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1D4CA985E3D
-	for <virtio-comment@lists.oasis-open.org>; Fri, 26 Jul 2019 07:49:49 +0000 (UTC)
-Date: Fri, 26 Jul 2019 09:49:45 +0200
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20190726094945.463b9728.cohuck@redhat.com>
-In-Reply-To: <20190725160114.25763-1-dgilbert@redhat.com>
-References: <20190725160114.25763-1-dgilbert@redhat.com>
+From: Huang Yang <yang.huang@intel.com>
+Date: Mon, 29 Jul 2019 15:48:13 +0800
+Message-Id: <1564386494-2296-1-git-send-email-yang.huang@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] [PATCH] shared memory: Typo fix
-To: "Dr. David Alan Gilbert (git)" <dgilbert@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH] Add virtio rpmb device specification
+To: virtio-dev@lists.oasis-open.org
+Cc: virtio-comment@lists.oasis-open.org, mst@redhat.com, bing.zhu@intel.com, tomas.winkler@intel.com, Huang Yang <yang.huang@intel.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 25 Jul 2019 17:01:14 +0100
-"Dr. David Alan Gilbert (git)" <dgilbert@redhat.com> wrote:
+This is the virtio-rpmb specification draft, applied to the current
+virtio-spec.
+ 
+Below is a short description of RPMB and why we are doing this:
+RPMB (Replay Protected Memory Block) is a physical partition in
+eMMC, UFS or NVMe.
+ 
+Different from the traditional user partition, RPMB requires
+an RPMB authentication key and a monotonic write counter to access it.
+Every access to RPMB is in an authenticated and replay protected manner.
+ 
+RPMB access is authenticated by the Message Authentication Code (MAC),
+which is a hash value generated based on RPMB authentication key
+and the message using HMAC-SHA. The authentication key is programmed
+in a secure environment before any access to RPMB. Writer counter is
+the total number of successful authenticated data write on RPMB.
+It is added by one automatically by RPMB controller after each
+successful write operation. It is a required factor in messageto be
+MACed together.
+ 
+RPMB is widely used as a tamper-resistant and anti-replay storage.
+For example, it’s used in these open source projects:
+Google Trusty (https://source.android.com/security/trusty),
+ACRN (https://projectacrn.org/),
+OP-TEE (https://www.op-tee.org/) and so on.
+ 
+But virtualization software like Qemu doesn't provide eMMC/UFS/NVMe
+RPMB emulation. It blocks the OS like Trusty or OP-TEE running in a
+virtualization environment. For instance, Google right now uses another
+way to work around RPMB emulation issue when running Trusty in ARM Qemu:
+https://android.googlesource.com/trusty/external/trusty/+/refs/heads/master/test-runner/
 
-> From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
-> 
-> Fix double hex in SHM*High defs.
-> 
-> Signed-off-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-> ---
->  content.tex | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/content.tex b/content.tex
-> index ee0d7c9..ba80ee1 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -1742,7 +1742,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
->      \field{SHMBaseLow} and \field{SHMBaseHigh} apply to.
->    }
->    \hline 
-> -  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b0}{0x0xb4}{R}{%
-> +  \mmiodreg{SHMLenLow}{SHMLenHigh}{Shared memory region 64 bit long length}{0x0b0}{0x0b4}{R}{%
->      These registers return the length of the shared memory
->      region in bytes, as defined by the device for the region selected by
->      the \field{SHMSel} register.  The lower 32 bits of the length
-> @@ -1752,7 +1752,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
->      results in a length of -1.
->    }
->    \hline 
-> -  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0b8}{0x0xbc}{R}{%
-> +  \mmiodreg{SHMBaseLow}{SHMBaseHigh}{Shared memory region 64 bit long physical address}{0x0b8}{0x0bc}{R}{%
->      The driver reads these registers to discover the base address
->      of the region in physical address space.  This address is
->      chosen by the device (or other part of the VMM).
+Virtio RPMB standardization will definitely benefit OP-TEE,
+Google Trusty TEE, Qemu, OVMF or other modules to develop the RPMB
+based secure storage in virtualization.
+ 
+Virtio RPMB has been implemented in ACRN (https://projectacrn.org/).
+Virtio RPMB device in ACRN devicemodel:
+https://github.com/projectacrn/acrn-hypervisor/blob/master/devicemodel/hw/pci/virtio/virtio_rpmb.c
+Virtio RPMB frontend driver in kernel:
+https://github.com/projectacrn/acrn-kernel/blob/master/drivers/char/rpmb/virtio_rpmb.c
 
-Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+
+Huang Yang (1):
+  Add virtio rpmb device specification
+
+ conformance.tex | 18 +++++++++++-
+ content.tex     |  3 ++
+ virtio-rpmb.tex | 88 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 108 insertions(+), 1 deletion(-)
+ create mode 100644 virtio-rpmb.tex
+
+-- 
+2.7.4
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
