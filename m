@@ -1,136 +1,57 @@
-Return-Path: virtio-comment-return-839-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-840-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DBC1E985E4A
-	for <virtio-comment@lists.oasis-open.org>; Tue, 13 Aug 2019 11:11:21 +0000 (UTC)
-Date: Tue, 13 Aug 2019 07:11:14 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20190813070450-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 26EF5985E56
+	for <virtio-comment@lists.oasis-open.org>; Tue, 13 Aug 2019 15:21:44 +0000 (UTC)
 References: <20190813091618.4433-1-ybettan@redhat.com>
  <20190813091618.4433-2-ybettan@redhat.com>
+ <20190813070450-mutt-send-email-mst@kernel.org>
+ <CAJSP0QU8yR+TekJLyqrTS-ukSjGMJ0zmi7W3yT_tYGOO5opknA@mail.gmail.com>
+From: Yoni Bettan <ybettan@redhat.com>
+Message-ID: <3222daf4-7f1a-ff19-a572-1d1b82be6499@redhat.com>
+Date: Tue, 13 Aug 2019 18:21:38 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190813091618.4433-2-ybettan@redhat.com>
+In-Reply-To: <CAJSP0QU8yR+TekJLyqrTS-ukSjGMJ0zmi7W3yT_tYGOO5opknA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 Subject: [virtio-comment] Re: [PATCH V3 1/2] Changed fonts to fonts available with tex-live.
-To: Yoni Bettan <ybettan@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, stefanha@gmail.com, ehabkost@redhat.com, ailan@redhat.com, chet.ensign@oasis-open.org
+To: Stefan Hajnoczi <stefanha@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, Eduardo Habkost <ehabkost@redhat.com>, Amnon Ilan <ailan@redhat.com>, chet.ensign@oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Chet, please see below.
 
-Documents from
-http://docs.oasis-open.org/templates/OASISSpecificationTemplateGuidelinesV4.0.html
-all use microsoft fonts such as Arial.
+On 8/13/19 3:43 PM, Stefan Hajnoczi wrote:
+> On Tue, Aug 13, 2019 at 12:11 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+>> Chet, please see below.
+>>
+>> Documents from
+>> http://docs.oasis-open.org/templates/OASISSpecificationTemplateGuidelinesV4.0.html
+>> all use microsoft fonts such as Arial.
+>>
+>> E.g. this can be seen in the PDFs on that site.
+>>
+>> How important is the use of the specific fonts for consistency?
+> If the fonts cannot be changed in the official release of the spec,
+> can we automatically detect their availability at build time so
+> Liberation Sans fonts are used on machines without Microsoft fonts
+> installed?  This way local builds use free fonts and the official
+> releases continue to use the Microsoft fonts.
 
-E.g. this can be seen in the PDFs on that site.
 
-How important is the use of the specific fonts for consistency?
+I think this is possible, this will required to change makeall.sh to 
+determine if the machine runs Linux or other OS and according to it 
+updates the fonts locally for Linux machines.
 
-Thanks!
 
+I will try it and send another version for this patch.
 
-On Tue, Aug 13, 2019 at 12:16:17PM +0300, Yoni Bettan wrote:
-> Arial -> Liberation Sans
-> Courier New -> Liberation Mono
-> 
-> There small visual difference but 'Arial' and 'Courier New' are not installed
-> in TeX Live therefore this change eliminates the errors created while compiling
-> the project using 'makeall.sh'.
-> 
-> Signed-off-by: Yoni Bettan <ybettan@redhat.com>
-
-Yep, you need to get these fonts separately.
-But I don't think we can change the fonts, these are
-recommended OASIS fonts, see
-http://docs.oasis-open.org/templates/OASISSpecificationTemplateGuidelinesV4.0.html
-
-> ---
->  commands-pdf.tex | 12 ++++++------
->  virtio.tex       |  6 +++---
->  2 files changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/commands-pdf.tex b/commands-pdf.tex
-> index ae7a186..d0612e8 100644
-> --- a/commands-pdf.tex
-> +++ b/commands-pdf.tex
-> @@ -20,7 +20,7 @@
->  \newcommand{\oasistitle}[1]
->  {
->  \begin{spacing}{1.5}
-> -\fontspec[Color=446CAA]{Arial}
-> +\fontspec[Color=446CAA]{Liberation Sans}
->  \fontsize{24}{24}
->  \textbf{\noindent#1}
->  \end{spacing}
-> @@ -29,7 +29,7 @@
->  \newcommand{\oasisstagelabel}[1]
->  {
->  \begin{spacing}{1.1}
-> -\fontspec[Color=446CAA]{Arial}
-> +\fontspec[Color=446CAA]{Liberation Sans}
->  \fontsize{18}{18}
->  \textbf{\noindent#1}
->  \end{spacing}
-> @@ -38,7 +38,7 @@
->  \newcommand{\oasisdate}[1]
->  {
->  \begin{spacing}{1.1}
-> -\fontspec[Color=446CAA]{Arial}
-> +\fontspec[Color=446CAA]{Liberation Sans}
->  \fontsize{18}{18}
->  \textbf{\noindent#1}
->  \end{spacing}
-> @@ -47,7 +47,7 @@
->  \newcommand{\oasisnoticelabel}[1]
->  {
->  \begin{spacing}{1.5}
-> -\fontspec[Color=446CAA]{Arial}
-> +\fontspec[Color=446CAA]{Liberation Sans}
->  \fontsize{18}{18}
->  \textbf{\noindent#1}
->  \end{spacing}
-> @@ -56,7 +56,7 @@
->  \newcommand{\oasisspecificationuris}[1]
->  {
->  {
-> -\fontspec[Color=446CAA]{Arial}
-> +\fontspec[Color=446CAA]{Liberation Sans}
->  \fontsize{12}{12}
->  \textbf{\noindent#1}
->  }
-> @@ -65,7 +65,7 @@
->  \newenvironment{oasistitlesection}[1]
->  {
->  \setlength{\tabcolsep}{0in}\begin{tabular}{p{0in}p{5.8in}}
-> -\multicolumn{2}{l}{\fontspec[Color=446CAA]{Arial}\fontsize{10}{10}\textbf{#1:}}\\[-0.05in]
-> +\multicolumn{2}{l}{\fontspec[Color=446CAA]{Liberation Sans}\fontsize{10}{10}\textbf{#1:}}\\[-0.05in]
->  &\setlength{\topsep}{0in}\setlength{\parsep}{0in}\setlength{\partopsep}{0in}   }
->  {
->  \end{tabular}
-> diff --git a/virtio.tex b/virtio.tex
-> index ef2d3fe..e7c7b53 100644
-> --- a/virtio.tex
-> +++ b/virtio.tex
-> @@ -52,9 +52,9 @@
->  %\def_{\_}
->  % Don't hyphenate acronyms
->  %\uchyph=0
-> -\setmainfont[Mapping=tex-text]{Arial}
-> -%\setromanfont{Arial}
-> -\setmonofont{Courier New}
-> +\setmainfont[Mapping=tex-text]{Liberation Sans}
-> +%\setromanfont{Liberation Sans}
-> +\setmonofont{Liberation Mono}
->  
->  \urlstyle{rm}
->  
-> -- 
-> 2.21.0
+>
+> Stefan
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
