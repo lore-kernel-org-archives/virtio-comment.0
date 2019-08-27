@@ -1,71 +1,50 @@
-Return-Path: virtio-comment-return-843-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-844-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 81FEF985B2F
-	for <virtio-comment@lists.oasis-open.org>; Tue, 20 Aug 2019 12:02:00 +0000 (UTC)
-From: Yoni Bettan <ybettan@redhat.com>
-Date: Tue, 20 Aug 2019 15:01:44 +0300
-Message-Id: <20190820120144.108598-3-ybettan@redhat.com>
-In-Reply-To: <20190820120144.108598-1-ybettan@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id CA301985A4B
+	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Aug 2019 19:37:53 +0000 (UTC)
+Date: Tue, 27 Aug 2019 16:37:47 -0300
+From: Eduardo Habkost <ehabkost@redhat.com>
+Message-ID: <20190827193747.GA7077@habkost.net>
 References: <20190820120144.108598-1-ybettan@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH V4 2/2] README.md: Added building instructions.
-To: virtio-comment@lists.oasis-open.org
-Cc: mst@redhat.com, stefanha@gmail.com, ehabkost@redhat.com, ailan@redhat.com, Yoni Bettan <ybettan@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190820120144.108598-1-ybettan@redhat.com>
+Subject: [virtio-comment] Re: [PATCH V4 0/2] Added building instructions to README.md
+To: Yoni Bettan <ybettan@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, mst@redhat.com, stefanha@gmail.com, ailan@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Signed-off-by: Yoni Bettan <ybettan@redhat.com>
----
- README.md | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+On Tue, Aug 20, 2019 at 03:01:42PM +0300, Yoni Bettan wrote:
+> V3 -> V4:
+> 
+>     - Changed the fonts to liberation fonts only if 'Arial' and 'Courier
+>       New' fonts are not available otherwise stick with the original fonts.
+> 
+> V2 -> V3:
+> 
+>     - Changed the fonts to liberation fonts
+>     - Added building instruction for OSX user
+> 
+> V1 -> V2:
+> 
+>     - Added building instructions to README.md
+> 
+> Yoni Bettan (2):
+>   Changed fonts to freely-available fonts when built locally.
+>   README.md: Added building instructions.
 
-diff --git a/README.md b/README.md
-index 4747824..5ac84f9 100644
---- a/README.md
-+++ b/README.md
-@@ -29,6 +29,34 @@
- <div>
- 
- <h3>Further Description of this Repository</h3>
-+<h4>Building Instructions</h4>
-+<p>In order to build the spec you will need <a href="https://www.tug.org/texlive/">Tex-Live</a>.
-+Installing it can be done via:<br>
-+Fedora:
-+<code>
-+sudo dnf install texlive-scheme-full
-+</code><br>
-+Ubuntu:
-+<code>
-+sudo apt-get install texlive-full
-+</code><br></p>
-+<p>OSX users don't need to install Tex-Live because they already have
-+<a href="http://www.tug.org/mactex/">MacTex</a> installed.
-+
-+<p>The building proccess is done with
-+<code>
-+./makeall.sh
-+</code>
-+and it contains 3 main parts:
-+<code>
-+makezip.sh
-+</code>,
-+<code>
-+makehtml.sh
-+</code>,
-+<code>
-+makepdf.sh
-+</code>.
- <h4>Providing Feedback</h4>
- Feedback must be provided the <strong>virtio-comment</strong> mailing list,
- and archived in the mailing list archives.
+Series:
+
+Reviewed-by: Eduardo Habkost <ehabkost@redhat.com>
+
 -- 
-2.21.0
-
+Eduardo
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
