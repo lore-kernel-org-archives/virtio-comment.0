@@ -1,19 +1,19 @@
-Return-Path: virtio-comment-return-849-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-846-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 956B3985A54
-	for <virtio-comment@lists.oasis-open.org>; Mon, 23 Sep 2019 16:14:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3777C985DC1
+	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Sep 2019 07:18:16 +0000 (UTC)
 From: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Date: Mon, 23 Sep 2019 18:14:14 +0200
-Message-Id: <20190923161414.9129-1-eperezma@redhat.com>
+Date: Tue, 17 Sep 2019 09:18:12 +0200
+Message-Id: <20190917071812.529-1-eperezma@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v2] block: Add multiqueue
+Subject: [virtio-comment] [PATCH] block: Add multiqueue
 To: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
@@ -22,15 +22,13 @@ The spec miss that field. Add the field, some description around.
 I've followed the network device's multiqueue mentions, and copied /
 adapted when needed.
 
-v2: Delete implementation detail about CPUs used.
-
 Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
 ---
- content.tex | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ content.tex | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
 diff --git a/content.tex b/content.tex
-index 37a2190..da53922 100644
+index 37a2190..85e500b 100644
 --- a/content.tex
 +++ b/content.tex
 @@ -3822,7 +3822,7 @@ \section{Block Device}\label{sec:Device Types / Block Device}
@@ -87,18 +85,19 @@ index 37a2190..da53922 100644
          le32 max_discard_sectors;
          le32 max_discard_seg;
          le32 discard_sector_alignment;
-@@ -3973,6 +3984,10 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
+@@ -3973,6 +3984,11 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
      \field{max_write_zeroes_sectors} and \field{max_write_zeroes_seg} can
      be read to determine the maximum write zeroes sectors and maximum
      number of write zeroes segments for the block driver to use.
 +
 +\item If the VIRTIO_BLK_F_MQ feature is negotiated, \field{num_queues} field
-+    can be read to determine the number of queues.
++    can be read to determine the number of queues. The driver does not use more
++    queues than guest's number of CPUs.
 +
  \end{enumerate}
  
  \drivernormative{\subsubsection}{Device Initialization}{Device Types / Block Device / Device Initialization}
-@@ -4024,7 +4039,7 @@ \subsubsection{Legacy Interface: Device Initialization}\label{sec:Device Types /
+@@ -4024,7 +4040,7 @@ \subsubsection{Legacy Interface: Device Initialization}\label{sec:Device Types /
  
  \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Operation}
  
