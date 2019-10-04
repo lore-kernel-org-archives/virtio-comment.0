@@ -1,191 +1,84 @@
-Return-Path: virtio-comment-return-896-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-856-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4A6BB9860EF
-	for <virtio-comment@lists.oasis-open.org>; Thu, 31 Oct 2019 11:46:19 +0000 (UTC)
-Date: Thu, 31 Oct 2019 07:46:12 -0400 (EDT)
-From: Yuri Benditovich <ybendito@redhat.com>
-Message-ID: <1245123532.7410928.1572522372642.JavaMail.zimbra@redhat.com>
-In-Reply-To: <BN6PR1801MB2067AECC513B4700FB118541C5630@BN6PR1801MB2067.namprd18.prod.outlook.com>
-References: <BN6PR1801MB2067AECC513B4700FB118541C5630@BN6PR1801MB2067.namprd18.prod.outlook.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 765D6985FFF
+	for <virtio-comment@lists.oasis-open.org>; Fri,  4 Oct 2019 12:46:19 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [PATCH] virtio-net: Add equal-sized receive
- buffers feature
-To: Vitaly Mireyno <vmireyno@marvell.com>
-Cc: virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>
+From: Morgan Lombard <morgan.lombard@netronome.com>
+Date: Fri, 4 Oct 2019 14:46:05 +0200
+Message-ID: <CAH3CmKB3BV7opPzfLnNv91geTOeUf+oKcWee4X-ytdK0jC_D_g@mail.gmail.com>
+Content-Type: multipart/mixed; boundary="000000000000969cc10594151662"
+Subject: [virtio-comment] Add missing Feature bit VIRTIO_NET_F_CTRL_RX_EXTRA (20)
+To: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
------ Original Message -----=20
+--000000000000969cc10594151662
+Content-Type: multipart/alternative; boundary="000000000000969cbf0594151660"
 
-> From: "Vitaly Mireyno" <vmireyno@marvell.com>
-> To: virtio-comment@lists.oasis-open.org
-> Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Jason Wang" <jasowang@redhat.=
-com>
-> Sent: Thursday, October 31, 2019 11:23:52 AM
-> Subject: [virtio-comment] [PATCH] virtio-net: Add equal-sized receive buf=
-fers
-> feature
+--000000000000969cbf0594151660
+Content-Type: text/plain; charset="UTF-8"
 
-> Some devices benefit from working with receive buffers of a predefined
-> constant length.
-> Add a feature for drivers that allocate equal-sized receive buffers, and
-> devices that benefit from predefined receive buffers length.
+Add missing Feature bit VIRTIO_NET_F_CTRL_RX_EXTRA (20)
 
-> Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
-> ---
-> content.tex | 29 +++++++++++++++++++++++++++--
-> 1 file changed, 27 insertions(+), 2 deletions(-)
+Morgan Lombard
+morgan.lombard@netronome.com
 
-> diff --git a/content.tex b/content.tex
-> index b1ea9b9..c9e67c8 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -2811,6 +2811,10 @@ \subsection{Feature bits}\label{sec:Device Types /
-> Network Device / Feature bits
-> \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-> channel.
+--000000000000969cbf0594151660
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +\item[VIRTIO_NET_F_CONST_RXBUF_LEN(58)] Driver allocates all receive buf=
-fers
-> + of the same constant length. Device benefits from working with
-> + receive buffers of equal length.
-> +
-> \item[VIRTIO_NET_F_RSC_EXT(61)] Device can process duplicated ACKs
-> and report number of coalesced segments and duplicated ACKs
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:monospac=
+e,monospace">Add missing Feature bit VIRTIO_NET_F_CTRL_RX_EXTRA (20)</div><=
+div class=3D"gmail_default" style=3D"font-family:monospace,monospace"><br><=
+/div><div class=3D"gmail_default" style=3D"font-family:monospace,monospace"=
+>Morgan Lombard</div><div class=3D"gmail_default" style=3D"font-family:mono=
+space,monospace"><a href=3D"mailto:morgan.lombard@netronome.com">morgan.lom=
+bard@netronome.com</a><br></div></div>
 
-> @@ -2854,8 +2858,8 @@ \subsubsection{Legacy Interface: Feature
-> bits}\label{sec:Device Types / Network
-> \subsection{Device configuration layout}\label{sec:Device Types / Network
-> Device / Device configuration layout}
-> \label{sec:Device Types / Block Device / Feature bits / Device configurat=
-ion
-> layout}
+--000000000000969cbf0594151660--
 
-> -Three driver-read-only configuration fields are currently defined. The
-> \field{mac} address field
-> -always exists (though is only valid if VIRTIO_NET_F_MAC is set), and
-> +The driver-read-only \field{mac} address field always exists
-> +(though is only valid if VIRTIO_NET_F_MAC is set), and
-> \field{status} only exists if VIRTIO_NET_F_STATUS is set. Two
-> read-only bits (for the driver) are currently defined for the status fiel=
-d:
-> VIRTIO_NET_S_LINK_UP and VIRTIO_NET_S_ANNOUNCE.
-> @@ -2875,12 +2879,17 @@ \subsection{Device configuration
-> layout}\label{sec:Device Types / Network Device
-> VIRTIO_NET_F_MTU is set. This field specifies the maximum MTU for the dri=
-ver
-> to
-> use.
+--000000000000969cc10594151662
+Content-Type: application/x-compressed-tar; name="proposal1.tgz"
+Content-Disposition: attachment; filename="proposal1.tgz"
+Content-Transfer-Encoding: base64
+Content-ID: <f_k1c4dwgx0>
+X-Attachment-Id: f_k1c4dwgx0
 
-> +The device-read-only field \field{rx_buf_len} only exists if
-> +VIRTIO_NET_F_CONST_RXBUF_LEN is negotiated. This field specifies the rec=
-eive
-> +buffers length.
-> +
-> \begin{lstlisting}
-> struct virtio_net_config {
-> u8 mac[6];
-> le16 status;
-> le16 max_virtqueue_pairs;
-> le16 mtu;
-> + le32 rx_buf_len;
-> };
-> \end{lstlisting}
+H4sIAFw+l10AA+2UbW/aMBSF+ZxfcT9ShQTHCQmgaSriZatE6RpohdQilBeHZiVx5piuVbf/PgdY
+B1spW6dumuZHCMs2Ob4555qM0Yzm3tyoll4MJHCcWjEaTg1tjl8pGWbNqtmm7Zi4hAzTcHAJai9X
+0jcWOfcYQCmZ08T3WLjrd/v2/1Gyh/yLVLRWGGpJnOdxOtN6xOMLRjQ/5tr5kTs6OpkOuqNpb9oe
+uf2pO552xyO3pWE983hw9cQZRcC2be3KH1vI3M4f1yyMSoD+hAH/ef49RhOoo9Dw7UZEghChENds
+3wvEty1mjchDBopM4nhmA45pCkOSgeEAQs3lB7BIUylkmmKbzbwU+iun4FWynOtr5w5TwhlNaUL0
+gCavlY7HSRN6LK6ABScBF0pGAwyraTpNC4OKhLIyXPjvScCbcPGuNWq/nYDoUFh3KKw7FESHwu4O
+hTJGB4oyjGcpCTUaRZp/96u1apqmQEBTTlKuc3ILn8AEVVUVMCCK5wSCKy+dkbAiluM0J4zHNM3L
+qjg3jKMING0mavSqmxL+5kyJ01Cs2U7DbBhE17G4A74j7BBXx7KK87efVsTh3ykcHoKG6whXbFCX
+Yx3E0mW+8HPhoKjnfsOv/PPl3PPJ/F7sNTvkJg4IjO4ykkMVBoR/pOwa1svVTZ9zBRS4jDlJLn50
+/LzfGkDZaBxMoC0KY3S+9CUlc1huCac4YSI5Xaiou1S2cptA95YzD9wxJDQkywwK3XyRZZRxXVEf
+LefNWXc4mrYGg5OzQbtbxoYQ6rD4hjAIROo5SUOYMfFWMacL8U4FmRdcE54Xta2sNO2VlWa94jxY
++aibwMiHRcxIIrL4eWefstIdT8BdieaP9Pb5qf50DHuf3mv/s87f9v1ZEsenz3/z41Z72up03L0K
+4jopWMdINxTlb/8FSyQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUTy23wB8qEQcAAoAAA=
 
-Please see=20
-https://github.com/torvalds/linux/blob/master/include/uapi/linux/virtio_net=
-.h
-Note that there are already 2 additional fields not covered by the spec at =
-the moment.
-
-> @@ -2933,6 +2942,13 @@ \subsection{Device configuration
-> layout}\label{sec:Device Types / Network Device
-
-> A driver SHOULD negotiate the VIRTIO_NET_F_STANDBY feature if the device
-> offers it.
-
-> +A driver SHOULD accept the VIRTIO_NET_F_CONST_RXBUF_LEN feature if offer=
-ed.
-> +
-> +If VIRTIO_NET_F_CONST_RXBUF_LEN feature has been negotiated, the driver =
-MUST
-> +set \field{rx_buf_len}.
-> +
-> +A driver MUST NOT modify \field{rx_buf_len} once it has been set.
-> +
-> \subsubsection{Legacy Interface: Device configuration
-> layout}\label{sec:Device Types / Network Device / Device configuration
-> layout / Legacy Interface: Device configuration layout}
-> \label{sec:Device Types / Block Device / Feature bits / Device configurat=
-ion
-> layout / Legacy Interface: Device configuration layout}
-> When using the legacy interface, transitional devices and drivers
-> @@ -3241,6 +3257,11 @@ \subsubsection{Setting Up Receive
-> Buffers}\label{sec:Device Types / Network Devi
-> If VIRTIO_NET_F_MQ is negotiated, each of receiveq1\ldots receiveqN
-> that will be used SHOULD be populated with receive buffers.
-
-> +If VIRTIO_NET_F_CONST_RXBUF_LEN feature has been negotiated, the driver
-> +MUST initialize all receive virtqueue descriptors \field{len} field with
-> +the value configured in \field{rx_buf_len} device configuration field,
-> +and allocate receive buffers accordingly.
-> +
-> \devicenormative{\paragraph}{Setting Up Receive Buffers}{Device Types /
-> Network Device / Device Operation / Setting Up Receive Buffers}
-
-> The device MUST set \field{num_buffers} to the number of descriptors used=
- to
-> @@ -3396,6 +3417,10 @@ \subsubsection{Processing of Incoming
-> Packets}\label{sec:Device Types / Network
-> checksum (in case of multiple encapsulated protocols, one level
-> of checksums is validated).
-
-> +If VIRTIO_NET_F_CONST_RXBUF_LEN has been negotiated, the device MAY
-> +use \field{rx_buf_len} as a buffer length (instead of reading it from
-> +virtqueue descriptor \field{len} field).
-> +
-> \drivernormative{\paragraph}{Processing of Incoming
-> Packets}{Device Types / Network Device / Device Operation /
-> Processing of Incoming Packets}
-> --
-
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
-
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
-
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+--000000000000969cc10594151662
+Content-Type: text/plain; charset=us-ascii
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
-
+--000000000000969cc10594151662--
