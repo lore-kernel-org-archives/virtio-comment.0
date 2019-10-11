@@ -1,64 +1,79 @@
-Return-Path: virtio-comment-return-858-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-859-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4827A985D55
-	for <virtio-comment@lists.oasis-open.org>; Thu, 10 Oct 2019 08:28:59 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8F2F2985DBE
+	for <virtio-comment@lists.oasis-open.org>; Fri, 11 Oct 2019 08:19:35 +0000 (UTC)
+Date: Fri, 11 Oct 2019 09:19:29 +0100
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20191011081929.GB12360@stefanha-x1.localdomain>
+References: <20190923161414.9129-1-eperezma@redhat.com>
+ <20191009172920.GE13568@stefanha-x1.localdomain>
+ <CAJaqyWehqbkk+jBc_SdauJEUOEHHxcapFeVWHxDqe7zc1wCUvQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20190923161414.9129-1-eperezma@redhat.com> <20191009172920.GE13568@stefanha-x1.localdomain>
-In-Reply-To: <20191009172920.GE13568@stefanha-x1.localdomain>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Thu, 10 Oct 2019 10:28:20 +0200
-Message-ID: <CAJaqyWehqbkk+jBc_SdauJEUOEHHxcapFeVWHxDqe7zc1wCUvQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="O5XBE6gyVG5Rl6Rj"
+Content-Disposition: inline
+In-Reply-To: <CAJaqyWehqbkk+jBc_SdauJEUOEHHxcapFeVWHxDqe7zc1wCUvQ@mail.gmail.com>
 Subject: Re: [virtio-comment] [PATCH v2] block: Add multiqueue
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+To: Eugenio Perez Martin <eperezma@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Github issue created:
+--O5XBE6gyVG5Rl6Rj
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-https://github.com/oasis-tcs/virtio-spec/issues/50
+On Thu, Oct 10, 2019 at 10:28:20AM +0200, Eugenio Perez Martin wrote:
+> Github issue created:
+>=20
+> https://github.com/oasis-tcs/virtio-spec/issues/50
 
-Thanks!
+Michael: I think this issue is ready for a ballot.
 
-On Wed, Oct 9, 2019 at 7:29 PM Stefan Hajnoczi <stefanha@redhat.com> wrote:
->
-> On Mon, Sep 23, 2019 at 06:14:14PM +0200, Eugenio P=C3=A9rez wrote:
-> > The spec miss that field. Add the field, some description around.
+Stefan
+
+>=20
+> Thanks!
+>=20
+> On Wed, Oct 9, 2019 at 7:29 PM Stefan Hajnoczi <stefanha@redhat.com> wrot=
+e:
 > >
-> > I've followed the network device's multiqueue mentions, and copied /
-> > adapted when needed.
+> > On Mon, Sep 23, 2019 at 06:14:14PM +0200, Eugenio P=E9rez wrote:
+> > > The spec miss that field. Add the field, some description around.
+> > >
+> > > I've followed the network device's multiqueue mentions, and copied /
+> > > adapted when needed.
+> > >
+> > > v2: Delete implementation detail about CPUs used.
+> > >
+> > > Signed-off-by: Eugenio P=E9rez <eperezma@redhat.com>
+> > > ---
+> > >  content.tex | 23 +++++++++++++++++++----
+> > >  1 file changed, 19 insertions(+), 4 deletions(-)
 > >
-> > v2: Delete implementation detail about CPUs used.
+> > Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 > >
-> > Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
-> > ---
-> >  content.tex | 23 +++++++++++++++++++----
-> >  1 file changed, 19 insertions(+), 4 deletions(-)
->
-> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
->
-> Please create a GitHub Issue proposing a vote for this patch:
-> https://github.com/oasis-tcs/virtio-spec/issues/
+> > Please create a GitHub Issue proposing a vote for this patch:
+> > https://github.com/oasis-tcs/virtio-spec/issues/
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+--O5XBE6gyVG5Rl6Rj
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl2gOxEACgkQnKSrs4Gr
+c8j4cgf/Q9V8Lwa9Zsul2iuWc3Y9oCkR1do6o+AI1y61GTiSXibSbZYI1DoHDPVh
+KehYC5cHRZ4WBiZmRF0WSFWuHi71Q9SuZfX42OG/AMuK3MC5tdxHUYbAvGRb/urk
+0f36HraTbb8Ov5HshmW3++RAX/nfva8fMdHMZ2RYtb1fG0T0RIdSPDGR3b//XaiB
+E+roaMAVs2L29tNaZ+vyAS6KFP3wugNDthmBpGIMTX96DrpCYNYBari0Q9dwejY5
+MFyRp3TOj+j0iQjUcJK/18uyTgYe8RnGVBBuNExcEA8H3NKdXwdJj4VXbWerAERA
+CHZm+AwuEoYZAqSV1zrlirHrBtoHMw==
+=E+UH
+-----END PGP SIGNATURE-----
+
+--O5XBE6gyVG5Rl6Rj--
