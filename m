@@ -1,54 +1,56 @@
-Return-Path: virtio-comment-return-873-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-866-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8DA38985DE8
-	for <virtio-comment@lists.oasis-open.org>; Wed, 23 Oct 2019 10:49:11 +0000 (UTC)
-References: <20191023104541.35925-1-ybettan@redhat.com>
-From: Yoni Bettan <ybettan@redhat.com>
-Message-ID: <77e6dc22-ba14-55db-5805-50fbcd81e6d0@redhat.com>
-Date: Wed, 23 Oct 2019 13:49:06 +0300
+	by lists.oasis-open.org (Postfix) with ESMTP id 87EBD984325
+	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Oct 2019 07:50:34 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20191023104541.35925-1-ybettan@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Subject: [virtio-comment] Re: [PATCH + RFC-PATCH 0/2] Expanding documentation
-To: virtio-comment@lists.oasis-open.org
-Cc: ehabkost@redhat.com, mst@redhat.com
+References: <20190917071803.446-1-eperezma@redhat.com> <20190918102229.GG26027@stefanha-x1.localdomain>
+In-Reply-To: <20190918102229.GG26027@stefanha-x1.localdomain>
+From: Eugenio Perez Martin <eperezma@redhat.com>
+Date: Mon, 14 Oct 2019 09:49:56 +0200
+Message-ID: <CAJaqyWedMZfs3w2VOUg_vHmjUuCXw_js2UOtzq=2EZC_M6b9CQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] [PATCH] virtio-blk: typo: Capitalization in
+ Device Initialization item
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-please ignore, the patches themselves are missing, I will resend it 
-correctly.
+Hi there.
 
-On 10/23/19 1:45 PM, Yoni Bettan wrote:
-> patch #1 is a regular patch
-> patch #2 is an rfc-patch
+Is there any further action needed to merge this?
+
+Thanks!
+
+On Wed, Sep 18, 2019 at 12:22 PM Stefan Hajnoczi <stefanha@redhat.com> wrot=
+e:
 >
-> Yoni Bettan (2):
->    Rearranged the "Providing Feedback" section of README.md
->    Added a guide for adding a new virtio device
+> On Tue, Sep 17, 2019 at 09:18:03AM +0200, Eugenio P=C3=A9rez wrote:
+> > Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+> > ---
+> >  content.tex | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
->   README.md | 90 +++++++++++++++++++++++++++++++++++++++++++------------
->   1 file changed, 71 insertions(+), 19 deletions(-)
->
+> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
