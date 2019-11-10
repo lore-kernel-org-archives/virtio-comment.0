@@ -1,58 +1,78 @@
-Return-Path: virtio-comment-return-903-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-905-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9742D985D79
-	for <virtio-comment@lists.oasis-open.org>; Sun, 10 Nov 2019 14:33:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 30C3C985D79
+	for <virtio-comment@lists.oasis-open.org>; Sun, 10 Nov 2019 16:25:02 +0000 (UTC)
+References: <CA+dKekBHdNgwJJoqvLq5MdVG1ZHWMbyCKfOG8wFODqCW3t5Hkg@mail.gmail.com>
+From: Matti Moell <Matti.Moell@opensynergy.com>
+Message-ID: <8bf6f15e-71e7-cfb7-78ca-2240a06dc32b@opensynergy.com>
+Date: Sun, 10 Nov 2019 17:24:53 +0100
 MIME-Version: 1.0
-From: Matias Vara <matiasevara@gmail.com>
-Date: Sun, 10 Nov 2019 15:33:20 +0100
-Message-ID: <CA+dKekBHdNgwJJoqvLq5MdVG1ZHWMbyCKfOG8wFODqCW3t5Hkg@mail.gmail.com>
-Subject: [virtio-comment] Formal specification of virtIO
-Content-Type: multipart/alternative; boundary="00000000000046d3f60596fee6cf"
-To: virtio-comment@lists.oasis-open.org
+In-Reply-To: <CA+dKekBHdNgwJJoqvLq5MdVG1ZHWMbyCKfOG8wFODqCW3t5Hkg@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [virtio-comment] Formal specification of virtIO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+To: Matias Vara <matiasevara@gmail.com>, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---00000000000046d3f60596fee6cf
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Hi Matias,
 
-Hello everyone,
+I think that would be a great idea! It would have the added benefit that=20
+the protocol data types and structures could be used to generate header=20
+files so we could all have a true single information source for them=20
+(thinking of virtio_gen from crosvm/firecracker here).
 
-I have started to think of the formalization of the virtIO specification.
-Roughly speaking, I could use a formal language to "code" the virtIO spec.
-As far as I can think, this has three benefits:
-1. You can validate any implementation.
-2. You can generate the implementation for a given target. For example, you
-could be able to generate the implementation of a virtIO device in VHDL.
-3. You can provide simulation and verification before any implementation.
-In automotive, this is interesting because you ease the certification so
-formalization pays off.
+Making a formal model part of the specification could allow generating=20
+some parts of the spec or at least validating the LaTeX itself against=20
+the model. On the other hand it might also raise the barrier to add new=20
+devices.
 
-Do you think this may be interesting work to do to become the virtIO
-specification more robust?
+All in all, I'd be very interested to have a formal specification.
 
-Regards, Matias.
+Cheers,
 
---00000000000046d3f60596fee6cf
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+=09=09Matti
 
-<div dir=3D"ltr">Hello everyone,<div><br></div><div>I have started to think=
- of the formalization of the virtIO specification. Roughly speaking, I coul=
-d use a formal language to &quot;code&quot; the virtIO spec. As far as I ca=
-n think, this has three benefits:=C2=A0</div><div>1. You can validate any i=
-mplementation.</div><div>2. You can generate the implementation for a given=
- target. For example, you could be able to generate the implementation of a=
- virtIO device in VHDL.=C2=A0</div><div>3. You can provide simulation and v=
-erification before any implementation. In automotive, this is interesting b=
-ecause you ease the certification so formalization pays off.=C2=A0</div><di=
-v><br></div><div>Do you think this may be interesting work to do to become =
-the virtIO specification more robust?=C2=A0</div><div><br></div><div>Regard=
-s, Matias.=C2=A0 =C2=A0 =C2=A0 =C2=A0<br></div></div>
+On 10.11.19 15:33, Matias Vara wrote:
+> Hello everyone,
+>=20
+> I have started to think of the formalization of the virtIO specification.
+> Roughly speaking, I could use a formal language to "code" the virtIO spec=
+.
+> As far as I can think, this has three benefits:
+> 1. You can validate any implementation.
+> 2. You can generate the implementation for a given target. For example, y=
+ou
+> could be able to generate the implementation of a virtIO device in VHDL.
+> 3. You can provide simulation and verification before any implementation.
+> In automotive, this is interesting because you ease the certification so
+> formalization pays off.
+>=20
+> Do you think this may be interesting work to do to become the virtIO
+> specification more robust?
+>=20
+> Regards, Matias.
+>=20
 
---00000000000046d3f60596fee6cf--
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
