@@ -1,50 +1,67 @@
-Return-Path: virtio-comment-return-928-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-932-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A2C80985E92
-	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Nov 2019 13:40:33 +0000 (UTC)
-Date: Thu, 21 Nov 2019 08:40:29 -0500 (EST)
-From: Yuri Benditovich <ybendito@redhat.com>
-Message-ID: <1094048041.10853770.1574343629558.JavaMail.zimbra@redhat.com>
-In-Reply-To: <2082409902.10853513.1574343487818.JavaMail.zimbra@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 06B87985A54
+	for <virtio-comment@lists.oasis-open.org>; Sun, 24 Nov 2019 12:17:55 +0000 (UTC)
+Date: Sun, 24 Nov 2019 07:17:02 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20191124071528-mutt-send-email-mst@kernel.org>
+References: <2082409902.10853513.1574343487818.JavaMail.zimbra@redhat.com>
+ <1094048041.10853770.1574343629558.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] Question regarding packed ring Virtio 1.1 feature
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_10853769_999762367.1574343629558"
-To: virtio-comment@lists.oasis-open.org
+In-Reply-To: <1094048041.10853770.1574343629558.JavaMail.zimbra@redhat.com>
+Subject: Re: [virtio-comment] Question regarding packed ring Virtio 1.1
+ feature
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+To: Yuri Benditovich <ybendito@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-------=_Part_10853769_999762367.1574343629558
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Thu, Nov 21, 2019 at 08:40:29AM -0500, Yuri Benditovich wrote:
+> Hi,
+>=20
+> From the spec it looks like the device must maintain backward compatibili=
+ty
+> with Virt 1.0 split queue implementation and use the packed one only when
+> negotiated.
+> What is the rational of such limitation, especially in case of true hardw=
+are
+> device?
+>=20
+> Thanks,
+> Yuri Benditovich
 
-Hi,=20
 
-From the spec it looks like the device must maintain backward compatibility=
- with Virt 1.0 split queue implementation and use the packed one only when =
-negotiated.=20
-What is the rational of such limitation, especially in case of true hardwar=
-e device?=20
+I don't think that's intentional. Any device without a split queue
+implementation will fail negotiation if PACKED_RING has not been
+negotiated. It's more of a SHOULD since split ring support
+allows backwards compatibility with deployed software.
 
-Thanks,=20
-Yuri Benditovich=20
+--=20
+MST
 
 
-------=_Part_10853769_999762367.1574343629558
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><body><div style=3D"font-family: courier new,courier,monaco,monospace=
-,sans-serif; font-size: 12pt; color: #000000"><div>Hi,<br></div><div><br></=
-div><div>From the spec it looks like the device must maintain backward comp=
-atibility with Virt 1.0 split queue implementation and use the packed one o=
-nly when negotiated.</div><div>What is the rational of such limitation, esp=
-ecially in case of true hardware device?<br></div><div><br></div><div>Thank=
-s,<br></div><div>Yuri Benditovich<br></div><div> <br></div></div></body></h=
-tml>
-------=_Part_10853769_999762367.1574343629558--
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
