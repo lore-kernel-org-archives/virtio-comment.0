@@ -1,65 +1,69 @@
-Return-Path: virtio-dev-return-6393-cohuck=redhat.com@lists.oasis-open.org
-Sender: <virtio-dev@lists.oasis-open.org>
-List-Post: <mailto:virtio-dev@lists.oasis-open.org>
-List-Help: <mailto:virtio-dev-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-dev-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-dev-subscribe@lists.oasis-open.org>
-Date: Mon, 25 Nov 2019 02:36:32 -0500 (EST)
-From: Pankaj Gupta <pagupta@redhat.com>
-Message-ID: <928289982.36200800.1574667392106.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191124124344.262655-1-mst@redhat.com>
-References: <20191124124344.262655-1-mst@redhat.com>
+Return-Path: virtio-return-3399-cohuck=redhat.com@lists.oasis-open.org
+Sender: <virtio@lists.oasis-open.org>
+List-Post: <mailto:virtio@lists.oasis-open.org>
+List-Help: <mailto:virtio-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
+Date: Sun, 24 Nov 2019 07:29:45 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20191124072923-mutt-send-email-mst@kernel.org>
+References: <20191028161240.24806-1-mst@redhat.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-dev] [PATCH] virtio-rng: fix device/driver confusion
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org
+In-Reply-To: <20191028161240.24806-1-mst@redhat.com>
+Subject: Re: [virtio] [PATCH] pci: strengthen requirement of the correct
+ subsystem id
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: virtio@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-
-> 
-> The point of rng is to give data to driver so of course
-> all buffers are driver readable. What shouldn't be there
-> is device readable buffers - this matches our terminology
-> elsewhere too (read/write-ability is from POV of device).
-> 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/55
+On Mon, Oct 28, 2019 at 12:12:49PM -0400, Michael S. Tsirkin wrote:
+> If a hardware implementation of virtio does not have
+> the correct subsystem id, then drivers can't report
+> ir properly, or detect and work around bugs.
+> Change the requirement from MAY to SHOULD.
+>=20
+> We can't make it a MUST since we did not require this
+> historically.
+>=20
 > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 
-Reviewed-by: Pankaj Gupta <pagupta@redhat.com>
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/61
 
 > ---
 >  content.tex | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+>=20
 > diff --git a/content.tex b/content.tex
-> index 678afbe..72e832e 100644
+> index 4bcb728..8f1518c 100644
 > --- a/content.tex
 > +++ b/content.tex
-> @@ -4721,7 +4721,7 @@ \subsection{Device Operation}\label{sec:Device Types /
-> Entropy Device / Device O
->  
->  \drivernormative{\subsubsection}{Device Operation}{Device Types / Entropy
->  Device / Device Operation}
->  
-> -The driver MUST NOT place driver-readable buffers into the queue.
-> +The driver MUST NOT place device-readable buffers into the queue.
->  
->  The driver MUST examine the length written by the device to determine
->  how many random bytes were received.
-> --
+> @@ -562,7 +562,7 @@ \subsection{PCI Device Discovery}\label{sec:Virtio Tr=
+ansport Options / Virtio Ov
+>  For example, the network card device with the Virtio Device ID 1
+>  has the PCI Device ID 0x1041 or the Transitional PCI Device ID 0x1000.
+> =20
+> -The PCI Subsystem Vendor ID and the PCI Subsystem Device ID MAY reflect
+> +The PCI Subsystem Vendor ID and the PCI Subsystem Device ID SHOULD refle=
+ct
+>  the PCI Vendor and Device ID of the environment (for informational purpo=
+ses by the driver).
+> =20
+>  Non-transitional devices SHOULD have a PCI Device ID in the range
+> --=20
 > MST
-> 
-> 
+>=20
+>=20
 > ---------------------------------------------------------------------
-> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
-> 
-> 
+> To unsubscribe from this mail list, you must leave the OASIS TC that
+> generates this mail.  Follow this link to all your TCs in OASIS at:
+> https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php
 
 
 ---------------------------------------------------------------------
-To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+To unsubscribe from this mail list, you must leave the OASIS TC that=20
+generates this mail.  Follow this link to all your TCs in OASIS at:
+https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php=20
 
