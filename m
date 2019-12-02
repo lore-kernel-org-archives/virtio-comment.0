@@ -1,15 +1,15 @@
-Return-Path: virtio-comment-return-970-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-971-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A6A30985BD6
-	for <virtio-comment@lists.oasis-open.org>; Mon,  2 Dec 2019 15:23:38 +0000 (UTC)
-Date: Mon, 2 Dec 2019 10:23:29 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20191202101627-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 70AC3985C08
+	for <virtio-comment@lists.oasis-open.org>; Mon,  2 Dec 2019 16:16:51 +0000 (UTC)
+From: Vitaly Mireyno <vmireyno@marvell.com>
+Date: Mon, 2 Dec 2019 16:16:46 +0000
+Message-ID: <BN6PR1801MB20671CCFC812042D5E24D3BCC5430@BN6PR1801MB2067.namprd18.prod.outlook.com>
 References: <BN6PR1801MB2067E36E09AC56EB5D3C29A2C5710@BN6PR1801MB2067.namprd18.prod.outlook.com>
  <20191120081531-mutt-send-email-mst@kernel.org>
  <BN6PR1801MB20673345E995560006031996C54B0@BN6PR1801MB2067.namprd18.prod.outlook.com>
@@ -20,517 +20,431 @@ References: <BN6PR1801MB2067E36E09AC56EB5D3C29A2C5710@BN6PR1801MB2067.namprd18.p
  <20191201074825-mutt-send-email-mst@kernel.org>
  <20191201164128-mutt-send-email-mst@kernel.org>
  <BN6PR1801MB2067B5D14AF2415576326BB9C5430@BN6PR1801MB2067.namprd18.prod.outlook.com>
+ <20191202101627-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20191202101627-mutt-send-email-mst@kernel.org>
+Content-Language: en-US
 MIME-Version: 1.0
-In-Reply-To: <BN6PR1801MB2067B5D14AF2415576326BB9C5430@BN6PR1801MB2067.namprd18.prod.outlook.com>
-Subject: Re: [virtio-comment] Re: [EXT] Re: [virtio-comment] Re: [PATCH]
+Subject: RE: [virtio-comment] Re: [EXT] Re: [virtio-comment] Re: [PATCH]
  virtio-net: Add equal-sized receive buffers feature
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
-To: Vitaly Mireyno <vmireyno@marvell.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, Dec 02, 2019 at 03:09:14PM +0000, Vitaly Mireyno wrote:
->=20
->=20
-> >-----Original Message-----
-> >From: Michael S. Tsirkin <mst@redhat.com>
-> >Sent: Sunday, 1 December, 2019 23:44
-> >To: Vitaly Mireyno <vmireyno@marvell.com>
-> >Cc: Jason Wang <jasowang@redhat.com>; virtio-comment@lists.oasis-
-> >open.org
-> >Subject: Re: [virtio-comment] Re: [EXT] Re: [virtio-comment] Re: [PATCH]
-> >virtio-net: Add equal-sized receive buffers feature
-> >
-> >On Sun, Dec 01, 2019 at 08:07:55AM -0500, Michael S. Tsirkin wrote:
-> >> On Sun, Dec 01, 2019 at 10:22:17AM +0000, Vitaly Mireyno wrote:
-> >> >
-> >> >
-> >> > >-----Original Message-----
-> >> > >From: Michael S. Tsirkin <mst@redhat.com>
-> >> > >Sent: Wednesday, 27 November, 2019 15:51
-> >> > >To: Vitaly Mireyno <vmireyno@marvell.com>
-> >> > >Cc: Jason Wang <jasowang@redhat.com>; virtio-comment@lists.oasis-
-> >> > >open.org
-> >> > >Subject: Re: [virtio-comment] Re: [EXT] Re: [virtio-comment] Re:
-> >> > >[PATCH]
-> >> > >virtio-net: Add equal-sized receive buffers feature
-> >> > >
-> >> > >On Tue, Nov 26, 2019 at 05:27:31PM +0000, Vitaly Mireyno wrote:
-> >> > >>
-> >> > >>
-> >> > >> >-----Original Message-----
-> >> > >> >From: virtio-comment@lists.oasis-open.org
-> >> > >> ><virtio-comment@lists.oasis- open.org> On Behalf Of Michael S.
-> >> > >> >Tsirkin
-> >> > >> >Sent: Sunday, 24 November, 2019 17:30
-> >> > >> >To: Vitaly Mireyno <vmireyno@marvell.com>
-> >> > >> >Cc: Jason Wang <jasowang@redhat.com>;
-> >> > >> >virtio-comment@lists.oasis- open.org
-> >> > >> >Subject: [virtio-comment] Re: [EXT] Re: [virtio-comment] Re:
-> >> > >> >[PATCH]
-> >> > >> >virtio-
-> >> > >> >net: Add equal-sized receive buffers feature
-> >> > >> >
-> >> > >> >On Sun, Nov 24, 2019 at 03:02:05PM +0000, Vitaly Mireyno wrote:
-> >> > >> >>
-> >> > >> >>
-> >> > >> >> >-----Original Message-----
-> >> > >> >> >From: Michael S. Tsirkin <mst@redhat.com>
-> >> > >> >> >Sent: Wednesday, 20 November, 2019 15:23
-> >> > >> >> >To: Vitaly Mireyno <vmireyno@marvell.com>
-> >> > >> >> >Cc: Jason Wang <jasowang@redhat.com>;
-> >> > >> >> >virtio-comment@lists.oasis- open.org
-> >> > >> >> >Subject: Re: [EXT] Re: [virtio-comment] Re: [PATCH] virtio-ne=
-t:
-> >> > >> >> >Add
-> >> > >> >> >equal- sized receive buffers feature
-> >> > >> >> >
-> >> > >> >> >On Thu, Nov 14, 2019 at 03:49:59PM +0000, Vitaly Mireyno wrot=
-e:
-> >> > >> >> >>
-> >> > >> >> >>
-> >> > >> >> >> >-----Original Message-----
-> >> > >> >> >> >From: Michael S. Tsirkin <mst@redhat.com>
-> >> > >> >> >> >Sent: Monday, 11 November, 2019 17:05
-> >> > >> >> >> >To: Vitaly Mireyno <vmireyno@marvell.com>
-> >> > >> >> >> >Cc: Jason Wang <jasowang@redhat.com>;
-> >> > >> >> >> >virtio-comment@lists.oasis- open.org
-> >> > >> >> >> >Subject: Re: [EXT] Re: [virtio-comment] Re: [PATCH] virtio=
--net:
-> >> > >> >> >> >Add
-> >> > >> >> >> >equal- sized receive buffers feature
-> >> > >> >> >> >
-> >> > >> >> >> >On Mon, Nov 11, 2019 at 01:58:51PM +0000, Vitaly Mireyno
-> >wrote:
-> >> > >> >> >> >>
-> >> > >> >> >> >>
-> >> > >> >> >> >> >-----Original Message-----
-> >> > >> >> >> >> >From: Michael S. Tsirkin <mst@redhat.com>
-> >> > >> >> >> >> >Sent: Sunday, 10 November, 2019 17:35
-> >> > >> >> >> >> >To: Vitaly Mireyno <vmireyno@marvell.com>
-> >> > >> >> >> >> >Cc: Jason Wang <jasowang@redhat.com>;
-> >> > >> >> >> >> >virtio-comment@lists.oasis- open.org
-> >> > >> >> >> >> >Subject: Re: [EXT] Re: [virtio-comment] Re: [PATCH] vir=
-tio-
-> >net:
-> >> > >> >> >> >> >Add
-> >> > >> >> >> >> >equal- sized receive buffers feature
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >On Sun, Nov 10, 2019 at 02:13:14PM +0000, Vitaly Mireyn=
-o
-> >wrote:
-> >> > >> >> >> >> >>
-> >> > >> >> >> >> >> >-----Original Message-----
-> >> > >> >> >> >> >> >From: virtio-comment@lists.oasis-open.org
-> >> > >> >> >> >> >> ><virtio-comment@lists.oasis- open.org> On Behalf Of
-> >> > >> >> >> >> >> >Michael
-> >> > >S.
-> >> > >> >> >> >> >> >Tsirkin
-> >> > >> >> >> >> >> >Sent: Tuesday, 5 November, 2019 20:52
-> >> > >> >> >> >> >> >To: Jason Wang <jasowang@redhat.com>
-> >> > >> >> >> >> >> >Cc: Vitaly Mireyno <vmireyno@marvell.com>;
-> >> > >> >> >> >> >> >virtio-comment@lists.oasis- open.org
-> >> > >> >> >> >> >> >Subject: [EXT] Re: [virtio-comment] Re: [PATCH] virt=
-io-
-> >net:
-> >> > >> >> >> >> >> >Add equal-sized receive buffers feature
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> >External Email
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> >----------------------------------------------------
-> >> > >> >> >> >> >> >-----
-> >> > >> >> >> >> >> >---
-> >> > >> >> >> >> >> >---
-> >> > >> >> >> >> >> >---
-> >> > >> >> >> >> >> >---
-> >> > >> >> >> >> >> >- On Fri, Nov 01, 2019 at 03:22:26PM +0800, Jason Wa=
-ng
-> >wrote:
-> >> > >> >> >> >> >> >>
-> >> > >> >> >> >> >> >> On 2019/11/1 =E4=B8=8B=E5=8D=8812:09, Michael S. T=
-sirkin wrote:
-> >> > >> >> >> >> >> >> > On Thu, Oct 31, 2019 at 10:46:55AM +0000, Vitaly
-> >> > >> >> >> >> >> >> > Mireyno
-> >> > >> >wrote:
-> >> > >> >> >> >> >> >> > > The feature is limited to receive buffers only=
-.
-> >> > >> >> >> >> >> >> > > A driver decides on receive buffer length. The
-> >> > >> >> >> >> >> >> > > only limitation is that this
-> >> > >> >> >> >> >> >length has to be the same for all receive virtqueue
-> >buffers.
-> >> > >> >> >> >> >> >> > > The driver configures receive buffer length to
-> >> > >> >> >> >> >> >> > > the device during device
-> >> > >> >> >> >> >> >initialization, and the device reads it and may use
-> >> > >> >> >> >> >> >it for optimal
-> >> > >> >> >> >operation.
-> >> > >> >> >> >> >> >> > > No changes for transmit buffers.
-> >> > >> >> >> >> >> >> > >
-> >> > >> >> >> >> >> >> > > -----Original Message-----
-> >> > >> >> >> >> >> >> > > From: virtio-comment@lists.oasis-open.org
-> >> > >> >> >> >> >> >> > > <virtio-comment@lists.oasis-open.org> On
-> >> > >> >> >> >> >> >> > > Behalf Of Jason Wang
-> >> > >> >> >> >> >> >> > > Sent: Thursday, 31 October, 2019 12:15
-> >> > >> >> >> >> >> >> > > To: Vitaly Mireyno <vmireyno@marvell.com>;
-> >> > >> >> >> >> >> >> > > virtio-comment@lists.oasis-open.org
-> >> > >> >> >> >> >> >> > > Cc: Michael S. Tsirkin <mst@redhat.com>
-> >> > >> >> >> >> >> >> > > Subject: [virtio-comment] Re: [PATCH] virtio-n=
-et:
-> >> > >> >> >> >> >> >> > > Add equal-sized receive buffers feature
-> >> > >> >> >> >> >> >> > >
-> >> > >> >> >> >> >> >> > >
-> >> > >> >> >> >> >> >> > > On 2019/10/31 =E4=B8=8B=E5=8D=885:23, Vitaly M=
-ireyno wrote:
-> >> > >> >> >> >> >> >> > > > Some devices benefit from working with
-> >> > >> >> >> >> >> >> > > > receive buffers of a
-> >> > >> >> >> >> >> >predefined constant length.
-> >> > >> >> >> >> >> >> > > > Add a feature for drivers that allocate
-> >> > >> >> >> >> >> >> > > > equal-sized receive buffers, and
-> >> > >> >> >> >> >> >devices that benefit from predefined receive buffers
-> >length.
-> >> > >> >> >> >> >> >> > > >
-> >> > >> >> >> >> >> >> > > > Signed-off-by: Vitaly Mireyno
-> >> > >> >> >> >> >> >> > > > <vmireyno@marvell.com>
-> >> > >> >> >> >> >> >> > > > ---
-> >> > >> >> >> >> >> >> > > >    content.tex | 29
-> >+++++++++++++++++++++++++++--
-> >> > >> >> >> >> >> >> > > >    1 file changed, 27 insertions(+), 2
-> >> > >> >> >> >> >> >> > > > deletions(-)
-> >> > >> >> >> >> >> >> > >
-> >> > >> >> >> >> >> >> > > Is there any other networking device that has
-> >> > >> >> >> >> >> >> > > this
-> >> > >feature?
-> >> > >> >> >> >> >> >> > >
-> >> > >> >> >> >> >> >> > >
-> >> > >> >> >> >> >> >> > > > diff --git a/content.tex b/content.tex index
-> >> > >> >> >> >> >> >> > > > b1ea9b9..c9e67c8
-> >> > >> >> >> >> >> >> > > > 100644
-> >> > >> >> >> >> >> >> > > > --- a/content.tex
-> >> > >> >> >> >> >> >> > > > +++ b/content.tex
-> >> > >> >> >> >> >> >> > > > @@ -2811,6 +2811,10 @@ \subsection{Feature
-> >> > >> >> >> >> >> >> > > > bits}\label{sec:Device
-> >> > >> >> >> >> >> >Types / Network Device / Feature bits
-> >> > >> >> >> >> >> >> > > >    \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set
-> >> > >MAC
-> >> > >> >> >> >> >> >> > > > address
-> >> > >> >> >> >> >> >through control
-> >> > >> >> >> >> >> >> > > >        channel.
-> >> > >> >> >> >> >> >> > > > +\item[VIRTIO_NET_F_CONST_RXBUF_LEN(58)]
-> >> > >> >> >> >> >> >> > > > +Driver allocates all
-> >> > >> >> >> >> >> >receive buffers
-> >> > >> >> >> >> >> >> > > > +    of the same constant length. Device
-> >> > >> >> >> >> >> >> > > > + benefits from working
-> >> > >> >> >> >with
-> >> > >> >> >> >> >> >> > > > +    receive buffers of equal length.
-> >> > >> >> >> >> >> >> > > > +
-> >> > >> >> >> >> >> >> > Problem is, I don't think linux will use this
-> >> > >> >> >> >> >> >> > for skbs since it breaks buffer accounting. This
-> >> > >> >> >> >> >> >> > is because it is important to make skbs as small
-> >> > >> >> >> >> >> >> > as you can. So even if you see "device would
-> >> > >> >> >> >benefit"
-> >> > >> >> >> >> >> >> > there is no way to balance this with the benefit=
- to
-> >linux.
-> >> > >> >> >> >> >> >> > How do you know which benefit is bigger?
-> >> > >> >> >> >> >> >>
-> >> > >> >> >> >> >> >>
-> >> > >> >> >> >> >> >> I guess the idea is e.g for Linux driver, it can
-> >> > >> >> >> >> >> >> refuse this
-> >> > >feature.
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> >Okay. What uses it?
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> >>
-> >> > >> >> >> >> >> >> >
-> >> > >> >> >> >> >> >> > You also never explained how does device
-> >> > >> >> >> >> >> >> > benefit. My guess is this allows device to
-> >> > >> >> >> >> >> >> > calculate the # of descriptors to fetch that are=
- needed
-> >for a packet. Right?
-> >> > >> >> >> >> >> >> > Assuming this, I think a rough estimate should b=
-e
-> >enough.
-> >> > >> >> >> >> >> >> > If device fetches too much it can discard extra,
-> >> > >> >> >> >> >> >> > if it does not fetch enough it can fetch extra.
-> >> > >> >> >> >> >> >> >
-> >> > >> >> >> >> >> >> > Let us not forget that express packets are 256
-> >> > >> >> >> >> >> >> > bytes so up to
-> >> > >> >> >> >> >> >> > 16 descriptors fit in a packet, there is no
-> >> > >> >> >> >> >> >> > benefit most of the time in knowing whether e.g.
-> >> > >> >> >> >> >> >> > 1 or 2 descriptors are
-> >> > >> >needed.
-> >> > >> >> >> >> >> >> >
-> >> > >> >> >> >> >> >> >
-> >> > >> >> >> >> >> >> > Let us not forget these are buffers, not descrip=
-tors.
-> >> > >> >> >> >> >> >>
-> >> > >> >> >> >> >> >>
-> >> > >> >> >> >> >> >> I guess maybe the initial motivation is constant
-> >> > >> >> >> >> >> >> descriptor
-> >> > >> >length.
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> >That conflicts with requirement framing is up to dri=
-ver.
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> >
-> >> > >> >> >> >> >> I was using the wrong terminology. The feature is
-> >> > >> >> >> >> >> about constant
-> >> > >> >> >> >> >*descriptor* length. In other words, the value that
-> >> > >> >> >> >> >driver puts in Packed Virtqueue "Element Length" field =
-(or
-> >'len'
-> >> > >> >> >> >> >field in the
-> >> > >> >> >'pvirtq_desc'
-> >> > >> >> >> >struct).
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >OK so this conflicts with "2.6.4 Message Framing" which
-> >> > >> >> >> >> >requires that drivers can split buffers into as many
-> >> > >> >> >> >> >descriptors as
-> >> > >> >they like.
-> >> > >> >> >> >> >Right?
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >> Does it make more sense now, or you still see an
-> >> > >> >> >> >> >> issue with Linux
-> >> > >> >> >driver?
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >I think there's an issue with the flexible framing
-> >> > >> >> >> >> >requirements and there's an issue with Linux driver.
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >> The motivation is to allow the device to calculate
-> >> > >> >> >> >> >> the exact number of
-> >> > >> >> >> >> >descriptors to consume, before fetching the descriptors=
-.
-> >> > >> >> >> >> >This is beneficial for devices for which overconsuming
-> >> > >> >> >> >> >or underconsuming descriptors come at a high cost.
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >So I guess we can agree getting the # of descriptors
-> >> > >> >> >> >> >*exactly* right isn't all that important. Right? My
-> >> > >> >> >> >> >question is how does the driver balance the device vers=
-us
-> >Linux needs?
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >One idea is if we assume this is best effort, does not
-> >> > >> >> >> >> >have to be exact, then how about just having the device
-> >> > >> >> >> >> >assume descriptor sizes stay more or less constant and
-> >> > >> >> >> >> >use that to estimate the amount? If it under/over
-> >> > >> >> >> >> >estimates, things just go a bit
-> >> > >> >slower.
-> >> > >> >> >> >> >This way driver can adjust the sizes and device will
-> >> > >> >> >> >> >react automatically, with time.
-> >> > >> >> >> >> >
-> >> > >> >> >> >> >
-> >> > >> >> >> >>
-> >> > >> >> >> >> I see that "2.6.4 Message Framing" allows a full
-> >> > >> >> >> >> flexibility of descriptor lengths, and I presume it's
-> >> > >> >> >> >> applicable to Packet Virtqueues as well, though defined
-> >> > >> >> >> >> under Split Virtqueues
-> >> > >section.
-> >> > >> >> >> >
-> >> > >> >> >> >That's a good point. Probably makes sense to move it out
-> >> > >> >> >> >to a common section, right?
-> >> > >> >> >> >
-> >> > >> >> >> >> The example
-> >> > >> >> >> >> talks about transmit virtqueue, and it makes perfect sen=
-se.
-> >> > >> >> >> >> However, wouldn't a typical driver place equal-sized
-> >> > >> >> >> >> *receive* descriptors
-> >> > >> >> >> >anyway? So if a device can benefit from it, the driver
-> >> > >> >> >> >might as well negotiate this new feature.
-> >> > >> >> >> >
-> >> > >> >> >> >Having buffer size jump around wildly doesn't seem too
-> >> > >> >> >> >useful, I
-> >> > >agree.
-> >> > >> >> >> >OTOH being able to adjust it gradually has been in the
-> >> > >> >> >> >past demontrated to help performance measureably.
-> >> > >> >> >> >
-> >> > >> >> >> >> This could be especially relevant for devices, for which
-> >> > >> >> >> >> adjusting the number
-> >> > >> >> >> >of used descriptors is impractical after descriptors have
-> >> > >> >> >> >already been
-> >> > >> >> >fetched.
-> >> > >> >> >> >> I agree that if this requirement conflicts with specific
-> >> > >> >> >> >> driver needs, it will not
-> >> > >> >> >> >be negotiated, and the device will either underperform in
-> >> > >> >> >> >certain scenarios, or will not come up at all.
-> >> > >> >> >> >
-> >> > >> >> >> >Right so that makes it a challenge. Device says it prefers
-> >> > >> >> >> >fixed buffers. Is that preference more or less important
-> >> > >> >> >> >than ability to efficiently support workloads such as TCP =
-small
-> >queues?
-> >> > >> >> >> >Driver has no idea and I suspect neither does the device.
-> >> > >> >> >> >So I don't see how will a Linux driver know that it should
-> >> > >> >> >> >enable this, neither how will device know it's okay to
-> >> > >> >> >> >just refuse
-> >> > >features_ok.
-> >> > >> >> >> >
-> >> > >> >> >> >
-> >> > >> >> >> >On the other hand, current drivers already have logic that
-> >> > >> >> >> >tries to change buffer sizes in a smooth way.  So simply
-> >> > >> >> >> >caching the last buffer size and assuming all the others
-> >> > >> >> >> >will be exactly the same will go a long way towards
-> >> > >> >> >> >limiting how much does device need to
-> >> > >> >fetch.
-> >> > >> >> >> >This does imply extra logic on the device to recover if
-> >> > >> >> >> >things change and the first read did not fetch enough
-> >> > >> >> >> >buffers, but then it would be required anyway if as you
-> >> > >> >> >> >say above the failure is not
-> >> > >> >catastrophic.
-> >> > >> >> >> >
-> >> > >> >> >> >
-> >> > >> >> >> >The feature thus only seems useful for small,
-> >> > >> >> >> >feature-restrained devices
-> >> > >> >> >> >- which are prepared to sacrifice some performance to cut
-> >> > >> >> >> >costs, and which can't recover at all. Is this what you ar=
-e trying
-> >to do?
-> >> > >> >> >> >
-> >> > >> >> >>
-> >> > >> >> >> The intention is to enable devices with this specific
-> >> > >> >> >> limitation to offer virtio offload.  The feature can be
-> >> > >> >> >> redefined such that it would only be offered by devices
-> >> > >> >> >> that are unable to handle dynamically changing descriptor
-> >lengths. How does that sound?
-> >> > >> >> >
-> >> > >> >> >So it makes more sense when mergeable buffers are disabled
-> >> > >> >> >(since then buffers are practically all same size).
-> >> > >> >> >
-> >> > >> >>
-> >> > >> >> Actually, mergeable buffers are not a problem. They could be
-> >> > >> >> enabled, as long as each descriptor is the same length. So
-> >> > >> >> implementations that prefer optimizing memory utilization over
-> >> > >> >> jumbo frame performance can negotiate
-> >VIRTIO_NET_F_MRG_RXBUF
-> >> > >and allocate smaller buffers.
-> >> > >> >
-> >> > >> >So my point was, without VIRTIO_NET_F_MRG_RXBUF, all buffers are
-> >> > >same
-> >> > >> >length anyway. So if we are talking about cheap simple hardware,
-> >> > >> >I guess it can just not have VIRTIO_NET_F_MRG_RXBUF and be done
-> >> > >> >with
-> >> > >it?
-> >> > >> >If device does care about memory utilization then I think it
-> >> > >> >needs to give driver the flexibility it needs/uses.
-> >> > >> >No?
-> >> > >> >
-> >> > >>
-> >> > >> It's not a matter of device complexity, but a HW architecture,
-> >> > >> which could be
-> >> > >complex, but have this specific limitation.
-> >> > >
-> >> > >So - don't do it then?
-> >> > >
-> >> > >> I see at least two reasons to support and negotiate
-> >> > >VIRTIO_NET_F_MRG_RXBUF, while keeping equal-sized descriptor
-> >limitation:
-> >> > >>  * GRO
-> >> > >
-> >> > >You mean LRO?
-> >> > >
-> >> > >>  * With jumbo packets, if the throughput is capped by the port
-> >> > >> bandwidth,
-> >> > >and not by the device/driver per-packet performance, it makes sense
-> >> > >to optimize memory utilization by allocating small buffers, without
-> >> > >sacrificing throughput performance.
-> >> > >
-> >> > >So we are back to square one, if driver cares about memory
-> >> > >utilization with 1K packets vs 9K buffers, why not with 100byte
-> >> > >packets vs 1K buffers? Looks like exactly the same tradeoff.
-> >> > >
-> >> > >
-> >> > >>
-> >> > >> >Again I can see how we might want to disallow crazy setups with =
-e.g.
-> >> > >> >1 byte per buffer. That's just abuse, no guest does that anyway.
-> >> > >> >So asking e.g. for a minimal buffer size sounds very reasonable.
-> >> > >> >But an option that disables functionality that a popular guest
-> >> > >> >uses needs a lot of documentation to help device writers figure
-> >> > >> >out whether they want that option or not, and I'd worry that
-> >> > >> >even with documentation will
-> >> > >be misunderstood even if we write it.
-> >> > >> >When do you enable this?
-> >> > >> >When you don't care about performance? When you don't care about
-> >> > >Linux?
-> >> > >> >
-> >> > >>
-> >> > >> I understand that there are guest-side optimizations that require
-> >> > >> flexibility
-> >> > >in descriptors length. I can propose the following simple logic:
-> >> > >> Device - advertise "equal-sized descriptor" feature only if the
-> >> > >> device is
-> >> > >absolutely unable to operate otherwise. The device will not set
-> >> > >FEATURES_OK unless the driver negotiates this feature.
-> >> > >> Driver - if device advertises "equal-sized descriptor" feature -
-> >> > >> if possible,
-> >> > >give up on the flexible descriptors length optimizations. If not -
-> >> > >give up on the device.
-> >> > >
-> >> > >Yes, that's possible. Looks like a rather limited feature, and i'd
-> >> > >rather we focused on something more widely applicable, but with
-> >> > >enough disclamers that devices SHOULD NOT set this bit we can maybe
-> >do that.
-> >> > >
-> >> >
-> >> > I agree that this feature is more of a limitation declaration, rathe=
-r than an
-> >enhancement, but let me emphasize that its only purpose is to make more
-> >*existing* HW devices be virtio compatible.
-> >> > This feature will allow such HW devices to offer virtio offload with
-> >VIRTIO_NET_F_MRG_RXBUF capability for GRO/LRO offload.
-> >> > New device designs should definitely avoid employing this feature.
-> >>
-> >> I understand, my question is: can you find a way to make this more
-> >> generally useful? Something along the lines of the min buffer size
-> >> suggestion which would avoid creating a special case in the driver?
-> >> Any idea?
-> >
-> >as an example of a vague idea, exposing max rx s/g, min buffer + max buf=
-fer
-> >will allow device to force this from device side.
-> >
-> >Is that good? If not, how does driver decide on a good fixed buffer size=
-?
-> >
->=20
-> Setting max=3Dmin=3Dfixed_size by the device will work, but this seems to=
-o restrictive, as we still may want to enable the driver to select its buff=
-er size.
-> I guess driver can select the fixed buffer size based on the MTU.
-
-
-Would that be based on max MTU field then?
-I note that that's read-only, so just starting with that
-and sending it back to the device doesn't change much ...
-
-> What if device will request max/min buffer size ratio, and driver will se=
-t min buffer size? This can solve the fixed size issue, without forcing a s=
-pecific size.
-> Along with the max s/g, maybe it can also help avoiding rx buffer size ab=
-use by the driver (i.e. setting it too low).
-
-That sounds reasonably generic, too.
-
---=20
-MST
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IE1pY2hhZWwgUy4gVHNpcmtp
+biA8bXN0QHJlZGhhdC5jb20+DQo+U2VudDogTW9uZGF5LCAyIERlY2VtYmVyLCAyMDE5IDE3OjIz
+DQo+VG86IFZpdGFseSBNaXJleW5vIDx2bWlyZXlub0BtYXJ2ZWxsLmNvbT4NCj5DYzogSmFzb24g
+V2FuZyA8amFzb3dhbmdAcmVkaGF0LmNvbT47IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLQ0K
+Pm9wZW4ub3JnDQo+U3ViamVjdDogUmU6IFt2aXJ0aW8tY29tbWVudF0gUmU6IFtFWFRdIFJlOiBb
+dmlydGlvLWNvbW1lbnRdIFJlOiBbUEFUQ0hdDQo+dmlydGlvLW5ldDogQWRkIGVxdWFsLXNpemVk
+IHJlY2VpdmUgYnVmZmVycyBmZWF0dXJlDQo+DQo+T24gTW9uLCBEZWMgMDIsIDIwMTkgYXQgMDM6
+MDk6MTRQTSArMDAwMCwgVml0YWx5IE1pcmV5bm8gd3JvdGU6DQo+Pg0KPj4NCj4+ID4tLS0tLU9y
+aWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4gPkZyb206IE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJl
+ZGhhdC5jb20+DQo+PiA+U2VudDogU3VuZGF5LCAxIERlY2VtYmVyLCAyMDE5IDIzOjQ0DQo+PiA+
+VG86IFZpdGFseSBNaXJleW5vIDx2bWlyZXlub0BtYXJ2ZWxsLmNvbT4NCj4+ID5DYzogSmFzb24g
+V2FuZyA8amFzb3dhbmdAcmVkaGF0LmNvbT47IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLQ0K
+Pj4gPm9wZW4ub3JnDQo+PiA+U3ViamVjdDogUmU6IFt2aXJ0aW8tY29tbWVudF0gUmU6IFtFWFRd
+IFJlOiBbdmlydGlvLWNvbW1lbnRdIFJlOg0KPj4gPltQQVRDSF0NCj4+ID52aXJ0aW8tbmV0OiBB
+ZGQgZXF1YWwtc2l6ZWQgcmVjZWl2ZSBidWZmZXJzIGZlYXR1cmUNCj4+ID4NCj4+ID5PbiBTdW4s
+IERlYyAwMSwgMjAxOSBhdCAwODowNzo1NUFNIC0wNTAwLCBNaWNoYWVsIFMuIFRzaXJraW4gd3Jv
+dGU6DQo+PiA+PiBPbiBTdW4sIERlYyAwMSwgMjAxOSBhdCAxMDoyMjoxN0FNICswMDAwLCBWaXRh
+bHkgTWlyZXlubyB3cm90ZToNCj4+ID4+ID4NCj4+ID4+ID4NCj4+ID4+ID4gPi0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tDQo+PiA+PiA+ID5Gcm9tOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEBy
+ZWRoYXQuY29tPg0KPj4gPj4gPiA+U2VudDogV2VkbmVzZGF5LCAyNyBOb3ZlbWJlciwgMjAxOSAx
+NTo1MQ0KPj4gPj4gPiA+VG86IFZpdGFseSBNaXJleW5vIDx2bWlyZXlub0BtYXJ2ZWxsLmNvbT4N
+Cj4+ID4+ID4gPkNjOiBKYXNvbiBXYW5nIDxqYXNvd2FuZ0ByZWRoYXQuY29tPjsNCj4+ID4+ID4g
+PnZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLSBvcGVuLm9yZw0KPj4gPj4gPiA+U3ViamVjdDog
+UmU6IFt2aXJ0aW8tY29tbWVudF0gUmU6IFtFWFRdIFJlOiBbdmlydGlvLWNvbW1lbnRdIFJlOg0K
+Pj4gPj4gPiA+W1BBVENIXQ0KPj4gPj4gPiA+dmlydGlvLW5ldDogQWRkIGVxdWFsLXNpemVkIHJl
+Y2VpdmUgYnVmZmVycyBmZWF0dXJlDQo+PiA+PiA+ID4NCj4+ID4+ID4gPk9uIFR1ZSwgTm92IDI2
+LCAyMDE5IGF0IDA1OjI3OjMxUE0gKzAwMDAsIFZpdGFseSBNaXJleW5vIHdyb3RlOg0KPj4gPj4g
+PiA+Pg0KPj4gPj4gPiA+Pg0KPj4gPj4gPiA+PiA+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
+Cj4+ID4+ID4gPj4gPkZyb206IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnDQo+
+PiA+PiA+ID4+ID48dmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtIG9wZW4ub3JnPiBPbiBCZWhh
+bGYgT2YgTWljaGFlbCBTLg0KPj4gPj4gPiA+PiA+VHNpcmtpbg0KPj4gPj4gPiA+PiA+U2VudDog
+U3VuZGF5LCAyNCBOb3ZlbWJlciwgMjAxOSAxNzozMA0KPj4gPj4gPiA+PiA+VG86IFZpdGFseSBN
+aXJleW5vIDx2bWlyZXlub0BtYXJ2ZWxsLmNvbT4NCj4+ID4+ID4gPj4gPkNjOiBKYXNvbiBXYW5n
+IDxqYXNvd2FuZ0ByZWRoYXQuY29tPjsNCj4+ID4+ID4gPj4gPnZpcnRpby1jb21tZW50QGxpc3Rz
+Lm9hc2lzLSBvcGVuLm9yZw0KPj4gPj4gPiA+PiA+U3ViamVjdDogW3ZpcnRpby1jb21tZW50XSBS
+ZTogW0VYVF0gUmU6IFt2aXJ0aW8tY29tbWVudF0gUmU6DQo+PiA+PiA+ID4+ID5bUEFUQ0hdDQo+
+PiA+PiA+ID4+ID52aXJ0aW8tDQo+PiA+PiA+ID4+ID5uZXQ6IEFkZCBlcXVhbC1zaXplZCByZWNl
+aXZlIGJ1ZmZlcnMgZmVhdHVyZQ0KPj4gPj4gPiA+PiA+DQo+PiA+PiA+ID4+ID5PbiBTdW4sIE5v
+diAyNCwgMjAxOSBhdCAwMzowMjowNVBNICswMDAwLCBWaXRhbHkgTWlyZXlubyB3cm90ZToNCj4+
+ID4+ID4gPj4gPj4NCj4+ID4+ID4gPj4gPj4NCj4+ID4+ID4gPj4gPj4gPi0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQo+PiA+PiA+ID4+ID4+ID5Gcm9tOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1z
+dEByZWRoYXQuY29tPg0KPj4gPj4gPiA+PiA+PiA+U2VudDogV2VkbmVzZGF5LCAyMCBOb3ZlbWJl
+ciwgMjAxOSAxNToyMw0KPj4gPj4gPiA+PiA+PiA+VG86IFZpdGFseSBNaXJleW5vIDx2bWlyZXlu
+b0BtYXJ2ZWxsLmNvbT4NCj4+ID4+ID4gPj4gPj4gPkNjOiBKYXNvbiBXYW5nIDxqYXNvd2FuZ0By
+ZWRoYXQuY29tPjsNCj4+ID4+ID4gPj4gPj4gPnZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLSBv
+cGVuLm9yZw0KPj4gPj4gPiA+PiA+PiA+U3ViamVjdDogUmU6IFtFWFRdIFJlOiBbdmlydGlvLWNv
+bW1lbnRdIFJlOiBbUEFUQ0hdIHZpcnRpby1uZXQ6DQo+PiA+PiA+ID4+ID4+ID5BZGQNCj4+ID4+
+ID4gPj4gPj4gPmVxdWFsLSBzaXplZCByZWNlaXZlIGJ1ZmZlcnMgZmVhdHVyZQ0KPj4gPj4gPiA+
+PiA+PiA+DQo+PiA+PiA+ID4+ID4+ID5PbiBUaHUsIE5vdiAxNCwgMjAxOSBhdCAwMzo0OTo1OVBN
+ICswMDAwLCBWaXRhbHkgTWlyZXlubw0KPndyb3RlOg0KPj4gPj4gPiA+PiA+PiA+Pg0KPj4gPj4g
+PiA+PiA+PiA+Pg0KPj4gPj4gPiA+PiA+PiA+PiA+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
+Cj4+ID4+ID4gPj4gPj4gPj4gPkZyb206IE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5j
+b20+DQo+PiA+PiA+ID4+ID4+ID4+ID5TZW50OiBNb25kYXksIDExIE5vdmVtYmVyLCAyMDE5IDE3
+OjA1DQo+PiA+PiA+ID4+ID4+ID4+ID5UbzogVml0YWx5IE1pcmV5bm8gPHZtaXJleW5vQG1hcnZl
+bGwuY29tPg0KPj4gPj4gPiA+PiA+PiA+PiA+Q2M6IEphc29uIFdhbmcgPGphc293YW5nQHJlZGhh
+dC5jb20+Ow0KPj4gPj4gPiA+PiA+PiA+PiA+dmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtIG9w
+ZW4ub3JnDQo+PiA+PiA+ID4+ID4+ID4+ID5TdWJqZWN0OiBSZTogW0VYVF0gUmU6IFt2aXJ0aW8t
+Y29tbWVudF0gUmU6IFtQQVRDSF0gdmlydGlvLQ0KPm5ldDoNCj4+ID4+ID4gPj4gPj4gPj4gPkFk
+ZA0KPj4gPj4gPiA+PiA+PiA+PiA+ZXF1YWwtIHNpemVkIHJlY2VpdmUgYnVmZmVycyBmZWF0dXJl
+DQo+PiA+PiA+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPk9uIE1vbiwgTm92IDExLCAy
+MDE5IGF0IDAxOjU4OjUxUE0gKzAwMDAsIFZpdGFseQ0KPj4gPj4gPiA+PiA+PiA+PiA+TWlyZXlu
+bw0KPj4gPndyb3RlOg0KPj4gPj4gPiA+PiA+PiA+PiA+Pg0KPj4gPj4gPiA+PiA+PiA+PiA+Pg0K
+Pj4gPj4gPiA+PiA+PiA+PiA+PiA+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+ID4+ID4g
+Pj4gPj4gPj4gPj4gPkZyb206IE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5jb20+DQo+
+PiA+PiA+ID4+ID4+ID4+ID4+ID5TZW50OiBTdW5kYXksIDEwIE5vdmVtYmVyLCAyMDE5IDE3OjM1
+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5UbzogVml0YWx5IE1pcmV5bm8gPHZtaXJleW5vQG1hcnZl
+bGwuY29tPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+Q2M6IEphc29uIFdhbmcgPGphc293YW5nQHJl
+ZGhhdC5jb20+Ow0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+dmlydGlvLWNvbW1lbnRAbGlzdHMub2Fz
+aXMtIG9wZW4ub3JnDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5TdWJqZWN0OiBSZTogW0VYVF0gUmU6
+IFt2aXJ0aW8tY29tbWVudF0gUmU6IFtQQVRDSF0NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPnZpcnRp
+by0NCj4+ID5uZXQ6DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5BZGQNCj4+ID4+ID4gPj4gPj4gPj4g
+Pj4gPmVxdWFsLSBzaXplZCByZWNlaXZlIGJ1ZmZlcnMgZmVhdHVyZQ0KPj4gPj4gPiA+PiA+PiA+
+PiA+PiA+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5PbiBTdW4sIE5vdiAxMCwgMjAxOSBhdCAwMjox
+MzoxNFBNICswMDAwLCBWaXRhbHkNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPk1pcmV5bm8NCj4+ID53
+cm90ZToNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPi0t
+LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID5Gcm9tOiB2
+aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+
+PiA+PHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLSBvcGVuLm9yZz4gT24gQmVoYWxmDQo+PiA+
+PiA+ID4+ID4+ID4+ID4+ID4+ID5PZiBNaWNoYWVsDQo+PiA+PiA+ID5TLg0KPj4gPj4gPiA+PiA+
+PiA+PiA+PiA+PiA+VHNpcmtpbg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+U2VudDogVHVlc2Rh
+eSwgNSBOb3ZlbWJlciwgMjAxOSAyMDo1Mg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+VG86IEph
+c29uIFdhbmcgPGphc293YW5nQHJlZGhhdC5jb20+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID5D
+YzogVml0YWx5IE1pcmV5bm8gPHZtaXJleW5vQG1hcnZlbGwuY29tPjsNCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gPj4gPnZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLSBvcGVuLm9yZw0KPj4gPj4gPiA+
+PiA+PiA+PiA+PiA+PiA+U3ViamVjdDogW0VYVF0gUmU6IFt2aXJ0aW8tY29tbWVudF0gUmU6IFtQ
+QVRDSF0NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPnZpcnRpby0NCj4+ID5uZXQ6DQo+PiA+PiA+
+ID4+ID4+ID4+ID4+ID4+ID5BZGQgZXF1YWwtc2l6ZWQgcmVjZWl2ZSBidWZmZXJzIGZlYXR1cmUN
+Cj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+RXh0ZXJu
+YWwgRW1haWwNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+
+PiA+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPj4g
+Pj4gPiA+PiA+PiA+PiA+PiA+PiA+LS0tDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4tLS0tLQ0K
+Pj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+LS0tDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4tLS0N
+Cj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPi0tLQ0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+LS0t
+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4tIE9uIEZyaSwgTm92IDAxLCAyMDE5IGF0IDAzOjIy
+OjI2UE0gKzA4MDAsIEphc29uDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID5XYW5nDQo+PiA+d3Jv
+dGU6DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+
+IE9uIDIwMTkvMTEvMSDkuIvljYgxMjowOSwgTWljaGFlbCBTLiBUc2lya2luIHdyb3RlOg0KPj4g
+Pj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+IE9uIFRodSwgT2N0IDMxLCAyMDE5IGF0IDEwOjQ2OjU1
+QU0gKzAwMDAsDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gVml0YWx5IE1pcmV5bm8NCj4+
+ID4+ID4gPj4gPndyb3RlOg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gVGhlIGZlYXR1
+cmUgaXMgbGltaXRlZCB0byByZWNlaXZlIGJ1ZmZlcnMgb25seS4NCj4+ID4+ID4gPj4gPj4gPj4g
+Pj4gPj4gPj4gPiA+IEEgZHJpdmVyIGRlY2lkZXMgb24gcmVjZWl2ZSBidWZmZXIgbGVuZ3RoLg0K
+Pj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gVGhlIG9ubHkgbGltaXRhdGlvbiBpcyB0aGF0
+IHRoaXMNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPmxlbmd0aCBoYXMgdG8gYmUgdGhlIHNhbWUg
+Zm9yIGFsbCByZWNlaXZlDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID52aXJ0cXVldWUNCj4+ID5i
+dWZmZXJzLg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gVGhlIGRyaXZlciBjb25maWd1
+cmVzIHJlY2VpdmUgYnVmZmVyIGxlbmd0aA0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4g
+dG8gdGhlIGRldmljZSBkdXJpbmcgZGV2aWNlDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID5pbml0
+aWFsaXphdGlvbiwgYW5kIHRoZSBkZXZpY2UgcmVhZHMgaXQgYW5kIG1heQ0KPj4gPj4gPiA+PiA+
+PiA+PiA+PiA+PiA+dXNlIGl0IGZvciBvcHRpbWFsDQo+PiA+PiA+ID4+ID4+ID4+ID5vcGVyYXRp
+b24uDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiBObyBjaGFuZ2VzIGZvciB0cmFuc21p
+dCBidWZmZXJzLg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4NCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gPj4gPj4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+PiA+PiA+ID4+ID4+
+ID4+ID4+ID4+ID4+ID4gPiBGcm9tOiB2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9y
+Zw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gPHZpcnRpby1jb21tZW50QGxpc3RzLm9h
+c2lzLW9wZW4ub3JnPiBPbg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gQmVoYWxmIE9m
+IEphc29uIFdhbmcNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+IFNlbnQ6IFRodXJzZGF5
+LCAzMSBPY3RvYmVyLCAyMDE5IDEyOjE1DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiBU
+bzogVml0YWx5IE1pcmV5bm8gPHZtaXJleW5vQG1hcnZlbGwuY29tPjsNCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gPj4gPj4gPiA+IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnDQo+PiA+
+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiBDYzogTWljaGFlbCBTLiBUc2lya2luIDxtc3RAcmVk
+aGF0LmNvbT4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+IFN1YmplY3Q6IFt2aXJ0aW8t
+Y29tbWVudF0gUmU6IFtQQVRDSF0gdmlydGlvLW5ldDoNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4g
+Pj4gPiA+IEFkZCBlcXVhbC1zaXplZCByZWNlaXZlIGJ1ZmZlcnMgZmVhdHVyZQ0KPj4gPj4gPiA+
+PiA+PiA+PiA+PiA+PiA+PiA+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+DQo+PiA+
+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiBPbiAyMDE5LzEwLzMxIOS4i+WNiDU6MjMsIFZpdGFs
+eSBNaXJleW5vIHdyb3RlOg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gPiBTb21lIGRl
+dmljZXMgYmVuZWZpdCBmcm9tIHdvcmtpbmcgd2l0aA0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+
+PiA+ID4gPiByZWNlaXZlIGJ1ZmZlcnMgb2YgYQ0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+cHJl
+ZGVmaW5lZCBjb25zdGFudCBsZW5ndGguDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiA+
+IEFkZCBhIGZlYXR1cmUgZm9yIGRyaXZlcnMgdGhhdCBhbGxvY2F0ZQ0KPj4gPj4gPiA+PiA+PiA+
+PiA+PiA+PiA+PiA+ID4gPiBlcXVhbC1zaXplZCByZWNlaXZlIGJ1ZmZlcnMsIGFuZA0KPj4gPj4g
+PiA+PiA+PiA+PiA+PiA+PiA+ZGV2aWNlcyB0aGF0IGJlbmVmaXQgZnJvbSBwcmVkZWZpbmVkIHJl
+Y2VpdmUNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPmJ1ZmZlcnMNCj4+ID5sZW5ndGguDQo+PiA+
+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiA+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4g
+PiA+IFNpZ25lZC1vZmYtYnk6IFZpdGFseSBNaXJleW5vDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+
+ID4+ID4gPiA+IDx2bWlyZXlub0BtYXJ2ZWxsLmNvbT4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4g
+Pj4gPiA+ID4gLS0tDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiA+ICAgIGNvbnRlbnQu
+dGV4IHwgMjkNCj4+ID4rKysrKysrKysrKysrKysrKysrKysrKysrKystLQ0KPj4gPj4gPiA+PiA+
+PiA+PiA+PiA+PiA+PiA+ID4gPiAgICAxIGZpbGUgY2hhbmdlZCwgMjcgaW5zZXJ0aW9ucygrKSwg
+Mg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gPiBkZWxldGlvbnMoLSkNCj4+ID4+ID4g
+Pj4gPj4gPj4gPj4gPj4gPj4gPiA+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiBJcyB0
+aGVyZSBhbnkgb3RoZXIgbmV0d29ya2luZyBkZXZpY2UgdGhhdA0KPj4gPj4gPiA+PiA+PiA+PiA+
+PiA+PiA+PiA+ID4gaGFzIHRoaXMNCj4+ID4+ID4gPmZlYXR1cmU/DQo+PiA+PiA+ID4+ID4+ID4+
+ID4+ID4+ID4+ID4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4NCj4+ID4+ID4gPj4g
+Pj4gPj4gPj4gPj4gPj4gPiA+ID4gZGlmZiAtLWdpdCBhL2NvbnRlbnQudGV4IGIvY29udGVudC50
+ZXgNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+ID4gaW5kZXgNCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gPj4gPj4gPiA+ID4gYjFlYTliOS4uYzllNjdjOA0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+
+PiA+PiA+ID4gPiAxMDA2NDQNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+ID4gLS0tIGEv
+Y29udGVudC50ZXgNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+ID4gKysrIGIvY29udGVu
+dC50ZXgNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+ID4gQEAgLTI4MTEsNiArMjgxMSwx
+MCBAQA0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gPiBcc3Vic2VjdGlvbntGZWF0dXJl
+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiA+IGJpdHN9XGxhYmVse3NlYzpEZXZpY2UN
+Cj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPlR5cGVzIC8gTmV0d29yayBEZXZpY2UgLyBGZWF0dXJl
+IGJpdHMNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiA+ID4gICAgXGl0ZW1bVklSVElPX05F
+VF9GX0NUUkxfTUFDX0FERFIoMjMpXQ0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gPiBT
+ZXQNCj4+ID4+ID4gPk1BQw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gPiBhZGRyZXNz
+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID50aHJvdWdoIGNvbnRyb2wNCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gPj4gPj4gPiA+ID4gICAgICAgIGNoYW5uZWwuDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+
+ID4+ID4gPiA+DQo+K1xpdGVtW1ZJUlRJT19ORVRfRl9DT05TVF9SWEJVRl9MRU4oNTgpXQ0KPj4g
+Pj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ID4gPiArRHJpdmVyIGFsbG9jYXRlcyBhbGwNCj4+ID4+
+ID4gPj4gPj4gPj4gPj4gPj4gPnJlY2VpdmUgYnVmZmVycw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+
+PiA+PiA+ID4gPiArICAgIG9mIHRoZSBzYW1lIGNvbnN0YW50IGxlbmd0aC4gRGV2aWNlDQo+PiA+
+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiA+ICsgYmVuZWZpdHMgZnJvbSB3b3JraW5nDQo+PiA+
+PiA+ID4+ID4+ID4+ID53aXRoDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gPiA+ICsgICAg
+cmVjZWl2ZSBidWZmZXJzIG9mIGVxdWFsIGxlbmd0aC4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4g
+Pj4gPiA+ID4gKw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+IFByb2JsZW0gaXMsIEkgZG9u
+J3QgdGhpbmsgbGludXggd2lsbCB1c2UgdGhpcw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+
+IGZvciBza2JzIHNpbmNlIGl0IGJyZWFrcyBidWZmZXIgYWNjb3VudGluZy4NCj4+ID4+ID4gPj4g
+Pj4gPj4gPj4gPj4gPj4gPiBUaGlzIGlzIGJlY2F1c2UgaXQgaXMgaW1wb3J0YW50IHRvIG1ha2Ug
+c2ticw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+IGFzIHNtYWxsIGFzIHlvdSBjYW4uIFNv
+IGV2ZW4gaWYgeW91IHNlZQ0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+ICJkZXZpY2Ugd291
+bGQNCj4+ID4+ID4gPj4gPj4gPj4gPmJlbmVmaXQiDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+
+ID4gdGhlcmUgaXMgbm8gd2F5IHRvIGJhbGFuY2UgdGhpcyB3aXRoIHRoZQ0KPj4gPj4gPiA+PiA+
+PiA+PiA+PiA+PiA+PiA+IGJlbmVmaXQgdG8NCj4+ID5saW51eC4NCj4+ID4+ID4gPj4gPj4gPj4g
+Pj4gPj4gPj4gPiBIb3cgZG8geW91IGtub3cgd2hpY2ggYmVuZWZpdCBpcyBiaWdnZXI/DQo+PiA+
+PiA+ID4+ID4+ID4+ID4+ID4+ID4+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+DQo+PiA+PiA+
+ID4+ID4+ID4+ID4+ID4+ID4+IEkgZ3Vlc3MgdGhlIGlkZWEgaXMgZS5nIGZvciBMaW51eCBkcml2
+ZXIsIGl0DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+IGNhbiByZWZ1c2UgdGhpcw0KPj4gPj4g
+PiA+ZmVhdHVyZS4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+
+PiA+PiA+T2theS4gV2hhdCB1c2VzIGl0Pw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+DQo+PiA+
+PiA+ID4+ID4+ID4+ID4+ID4+ID4+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4NCj4+ID4+
+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiBZb3UgYWxzbyBuZXZlciBleHBsYWluZWQgaG93IGRvZXMg
+ZGV2aWNlDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gYmVuZWZpdC4gTXkgZ3Vlc3MgaXMg
+dGhpcyBhbGxvd3MgZGV2aWNlIHRvDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gY2FsY3Vs
+YXRlIHRoZSAjIG9mIGRlc2NyaXB0b3JzIHRvIGZldGNoIHRoYXQNCj4+ID4+ID4gPj4gPj4gPj4g
+Pj4gPj4gPj4gPiBhcmUgbmVlZGVkDQo+PiA+Zm9yIGEgcGFja2V0LiBSaWdodD8NCj4+ID4+ID4g
+Pj4gPj4gPj4gPj4gPj4gPj4gPiBBc3N1bWluZyB0aGlzLCBJIHRoaW5rIGEgcm91Z2ggZXN0aW1h
+dGUNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiBzaG91bGQgYmUNCj4+ID5lbm91Z2guDQo+
+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4gSWYgZGV2aWNlIGZldGNoZXMgdG9vIG11Y2ggaXQg
+Y2FuIGRpc2NhcmQNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiBleHRyYSwgaWYgaXQgZG9l
+cyBub3QgZmV0Y2ggZW5vdWdoIGl0IGNhbiBmZXRjaCBleHRyYS4NCj4+ID4+ID4gPj4gPj4gPj4g
+Pj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+IExldCB1cyBub3QgZm9yZ2V0
+IHRoYXQgZXhwcmVzcyBwYWNrZXRzIGFyZQ0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+IDI1
+NiBieXRlcyBzbyB1cCB0bw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+IDE2IGRlc2NyaXB0
+b3JzIGZpdCBpbiBhIHBhY2tldCwgdGhlcmUgaXMgbm8NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4g
+Pj4gPiBiZW5lZml0IG1vc3Qgb2YgdGhlIHRpbWUgaW4ga25vd2luZyB3aGV0aGVyIGUuZy4NCj4+
+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4gPiAxIG9yIDIgZGVzY3JpcHRvcnMgYXJlDQo+PiA+PiA+
+ID4+ID5uZWVkZWQuDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+PiA+IExldCB1cyBub3QgZm9y
+Z2V0IHRoZXNlIGFyZSBidWZmZXJzLCBub3QNCj5kZXNjcmlwdG9ycy4NCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gPj4gPj4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPj4NCj4+ID4+ID4gPj4gPj4gPj4g
+Pj4gPj4gPj4gSSBndWVzcyBtYXliZSB0aGUgaW5pdGlhbCBtb3RpdmF0aW9uIGlzDQo+PiA+PiA+
+ID4+ID4+ID4+ID4+ID4+ID4+IGNvbnN0YW50IGRlc2NyaXB0b3INCj4+ID4+ID4gPj4gPmxlbmd0
+aC4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+DQo+
+PiA+PiA+ID4+ID4+ID4+ID4+ID4+ID5UaGF0IGNvbmZsaWN0cyB3aXRoIHJlcXVpcmVtZW50IGZy
+YW1pbmcgaXMgdXAgdG8gZHJpdmVyLg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiA+DQo+PiA+PiA+
+ID4+ID4+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4gSSB3YXMgdXNpbmcgdGhl
+IHdyb25nIHRlcm1pbm9sb2d5LiBUaGUgZmVhdHVyZSBpcw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+
+PiBhYm91dCBjb25zdGFudA0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+KmRlc2NyaXB0b3IqIGxlbmd0
+aC4gSW4gb3RoZXIgd29yZHMsIHRoZSB2YWx1ZSB0aGF0DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5k
+cml2ZXIgcHV0cyBpbiBQYWNrZWQgVmlydHF1ZXVlICJFbGVtZW50IExlbmd0aCINCj4+ID4+ID4g
+Pj4gPj4gPj4gPj4gPmZpZWxkIChvcg0KPj4gPidsZW4nDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5m
+aWVsZCBpbiB0aGUNCj4+ID4+ID4gPj4gPj4gPidwdmlydHFfZGVzYycNCj4+ID4+ID4gPj4gPj4g
+Pj4gPnN0cnVjdCkuDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPj4g
+Pk9LIHNvIHRoaXMgY29uZmxpY3RzIHdpdGggIjIuNi40IE1lc3NhZ2UgRnJhbWluZyINCj4+ID4+
+ID4gPj4gPj4gPj4gPj4gPndoaWNoIHJlcXVpcmVzIHRoYXQgZHJpdmVycyBjYW4gc3BsaXQgYnVm
+ZmVycyBpbnRvDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5hcyBtYW55IGRlc2NyaXB0b3JzIGFzDQo+
+PiA+PiA+ID4+ID50aGV5IGxpa2UuDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5SaWdodD8NCj4+ID4+
+ID4gPj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+PiBEb2VzIGl0IG1ha2UgbW9y
+ZSBzZW5zZSBub3csIG9yIHlvdSBzdGlsbCBzZWUgYW4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPj4g
+aXNzdWUgd2l0aCBMaW51eA0KPj4gPj4gPiA+PiA+PiA+ZHJpdmVyPw0KPj4gPj4gPiA+PiA+PiA+
+PiA+PiA+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5JIHRoaW5rIHRoZXJlJ3MgYW4gaXNzdWUgd2l0
+aCB0aGUgZmxleGlibGUgZnJhbWluZw0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+cmVxdWlyZW1lbnRz
+IGFuZCB0aGVyZSdzIGFuIGlzc3VlIHdpdGggTGludXggZHJpdmVyLg0KPj4gPj4gPiA+PiA+PiA+
+PiA+PiA+DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+IFRoZSBtb3RpdmF0aW9uIGlzIHRvIGFsbG93
+IHRoZSBkZXZpY2UgdG8gY2FsY3VsYXRlDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4+IHRoZSBleGFj
+dCBudW1iZXIgb2YNCj4+ID4+ID4gPj4gPj4gPj4gPj4gPmRlc2NyaXB0b3JzIHRvIGNvbnN1bWUs
+IGJlZm9yZSBmZXRjaGluZyB0aGUgZGVzY3JpcHRvcnMuDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5U
+aGlzIGlzIGJlbmVmaWNpYWwgZm9yIGRldmljZXMgZm9yIHdoaWNoDQo+PiA+PiA+ID4+ID4+ID4+
+ID4+ID5vdmVyY29uc3VtaW5nIG9yIHVuZGVyY29uc3VtaW5nIGRlc2NyaXB0b3JzIGNvbWUgYXQg
+YQ0KPmhpZ2ggY29zdC4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+
+PiA+U28gSSBndWVzcyB3ZSBjYW4gYWdyZWUgZ2V0dGluZyB0aGUgIyBvZiBkZXNjcmlwdG9ycw0K
+Pj4gPj4gPiA+PiA+PiA+PiA+PiA+KmV4YWN0bHkqIHJpZ2h0IGlzbid0IGFsbCB0aGF0IGltcG9y
+dGFudC4gUmlnaHQ/IE15DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5xdWVzdGlvbiBpcyBob3cgZG9l
+cyB0aGUgZHJpdmVyIGJhbGFuY2UgdGhlIGRldmljZQ0KPj4gPj4gPiA+PiA+PiA+PiA+PiA+dmVy
+c3VzDQo+PiA+TGludXggbmVlZHM/DQo+PiA+PiA+ID4+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4g
+Pj4gPj4gPj4gPk9uZSBpZGVhIGlzIGlmIHdlIGFzc3VtZSB0aGlzIGlzIGJlc3QgZWZmb3J0LCBk
+b2VzDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5ub3QgaGF2ZSB0byBiZSBleGFjdCwgdGhlbiBob3cg
+YWJvdXQganVzdCBoYXZpbmcgdGhlDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5kZXZpY2UgYXNzdW1l
+IGRlc2NyaXB0b3Igc2l6ZXMgc3RheSBtb3JlIG9yIGxlc3MNCj4+ID4+ID4gPj4gPj4gPj4gPj4g
+PmNvbnN0YW50IGFuZCB1c2UgdGhhdCB0byBlc3RpbWF0ZSB0aGUgYW1vdW50PyBJZiBpdA0KPj4g
+Pj4gPiA+PiA+PiA+PiA+PiA+dW5kZXIvb3ZlciBlc3RpbWF0ZXMsIHRoaW5ncyBqdXN0IGdvIGEg
+Yml0DQo+PiA+PiA+ID4+ID5zbG93ZXIuDQo+PiA+PiA+ID4+ID4+ID4+ID4+ID5UaGlzIHdheSBk
+cml2ZXIgY2FuIGFkanVzdCB0aGUgc2l6ZXMgYW5kIGRldmljZSB3aWxsDQo+PiA+PiA+ID4+ID4+
+ID4+ID4+ID5yZWFjdCBhdXRvbWF0aWNhbGx5LCB3aXRoIHRpbWUuDQo+PiA+PiA+ID4+ID4+ID4+
+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+Pg0KPj4gPj4g
+PiA+PiA+PiA+PiA+PiBJIHNlZSB0aGF0ICIyLjYuNCBNZXNzYWdlIEZyYW1pbmciIGFsbG93cyBh
+IGZ1bGwNCj4+ID4+ID4gPj4gPj4gPj4gPj4gZmxleGliaWxpdHkgb2YgZGVzY3JpcHRvciBsZW5n
+dGhzLCBhbmQgSSBwcmVzdW1lIGl0J3MNCj4+ID4+ID4gPj4gPj4gPj4gPj4gYXBwbGljYWJsZSB0
+byBQYWNrZXQgVmlydHF1ZXVlcyBhcyB3ZWxsLCB0aG91Z2gNCj4+ID4+ID4gPj4gPj4gPj4gPj4g
+ZGVmaW5lZCB1bmRlciBTcGxpdCBWaXJ0cXVldWVzDQo+PiA+PiA+ID5zZWN0aW9uLg0KPj4gPj4g
+PiA+PiA+PiA+PiA+DQo+PiA+PiA+ID4+ID4+ID4+ID5UaGF0J3MgYSBnb29kIHBvaW50LiBQcm9i
+YWJseSBtYWtlcyBzZW5zZSB0byBtb3ZlIGl0DQo+PiA+PiA+ID4+ID4+ID4+ID5vdXQgdG8gYSBj
+b21tb24gc2VjdGlvbiwgcmlnaHQ/DQo+PiA+PiA+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gVGhlIGV4YW1wbGUNCj4+ID4+ID4gPj4gPj4gPj4gPj4gdGFsa3MgYWJvdXQgdHJhbnNt
+aXQgdmlydHF1ZXVlLCBhbmQgaXQgbWFrZXMgcGVyZmVjdCBzZW5zZS4NCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gSG93ZXZlciwgd291bGRuJ3QgYSB0eXBpY2FsIGRyaXZlciBwbGFjZSBlcXVhbC1zaXpl
+ZA0KPj4gPj4gPiA+PiA+PiA+PiA+PiAqcmVjZWl2ZSogZGVzY3JpcHRvcnMNCj4+ID4+ID4gPj4g
+Pj4gPj4gPmFueXdheT8gU28gaWYgYSBkZXZpY2UgY2FuIGJlbmVmaXQgZnJvbSBpdCwgdGhlIGRy
+aXZlcg0KPj4gPj4gPiA+PiA+PiA+PiA+bWlnaHQgYXMgd2VsbCBuZWdvdGlhdGUgdGhpcyBuZXcg
+ZmVhdHVyZS4NCj4+ID4+ID4gPj4gPj4gPj4gPg0KPj4gPj4gPiA+PiA+PiA+PiA+SGF2aW5nIGJ1
+ZmZlciBzaXplIGp1bXAgYXJvdW5kIHdpbGRseSBkb2Vzbid0IHNlZW0gdG9vDQo+PiA+PiA+ID4+
+ID4+ID4+ID51c2VmdWwsIEkNCj4+ID4+ID4gPmFncmVlLg0KPj4gPj4gPiA+PiA+PiA+PiA+T1RP
+SCBiZWluZyBhYmxlIHRvIGFkanVzdCBpdCBncmFkdWFsbHkgaGFzIGJlZW4gaW4gdGhlDQo+PiA+
+PiA+ID4+ID4+ID4+ID5wYXN0IGRlbW9udHJhdGVkIHRvIGhlbHAgcGVyZm9ybWFuY2UgbWVhc3Vy
+ZWFibHkuDQo+PiA+PiA+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPj4gVGhpcyBjb3Vs
+ZCBiZSBlc3BlY2lhbGx5IHJlbGV2YW50IGZvciBkZXZpY2VzLCBmb3INCj4+ID4+ID4gPj4gPj4g
+Pj4gPj4gd2hpY2ggYWRqdXN0aW5nIHRoZSBudW1iZXINCj4+ID4+ID4gPj4gPj4gPj4gPm9mIHVz
+ZWQgZGVzY3JpcHRvcnMgaXMgaW1wcmFjdGljYWwgYWZ0ZXIgZGVzY3JpcHRvcnMNCj4+ID4+ID4g
+Pj4gPj4gPj4gPmhhdmUgYWxyZWFkeSBiZWVuDQo+PiA+PiA+ID4+ID4+ID5mZXRjaGVkLg0KPj4g
+Pj4gPiA+PiA+PiA+PiA+PiBJIGFncmVlIHRoYXQgaWYgdGhpcyByZXF1aXJlbWVudCBjb25mbGlj
+dHMgd2l0aA0KPj4gPj4gPiA+PiA+PiA+PiA+PiBzcGVjaWZpYyBkcml2ZXIgbmVlZHMsIGl0IHdp
+bGwgbm90DQo+PiA+PiA+ID4+ID4+ID4+ID5iZSBuZWdvdGlhdGVkLCBhbmQgdGhlIGRldmljZSB3
+aWxsIGVpdGhlciB1bmRlcnBlcmZvcm0NCj4+ID4+ID4gPj4gPj4gPj4gPmluIGNlcnRhaW4gc2Nl
+bmFyaW9zLCBvciB3aWxsIG5vdCBjb21lIHVwIGF0IGFsbC4NCj4+ID4+ID4gPj4gPj4gPj4gPg0K
+Pj4gPj4gPiA+PiA+PiA+PiA+UmlnaHQgc28gdGhhdCBtYWtlcyBpdCBhIGNoYWxsZW5nZS4gRGV2
+aWNlIHNheXMgaXQNCj4+ID4+ID4gPj4gPj4gPj4gPnByZWZlcnMgZml4ZWQgYnVmZmVycy4gSXMg
+dGhhdCBwcmVmZXJlbmNlIG1vcmUgb3IgbGVzcw0KPj4gPj4gPiA+PiA+PiA+PiA+aW1wb3J0YW50
+IHRoYW4gYWJpbGl0eSB0byBlZmZpY2llbnRseSBzdXBwb3J0IHdvcmtsb2Fkcw0KPj4gPj4gPiA+
+PiA+PiA+PiA+c3VjaCBhcyBUQ1Agc21hbGwNCj4+ID5xdWV1ZXM/DQo+PiA+PiA+ID4+ID4+ID4+
+ID5Ecml2ZXIgaGFzIG5vIGlkZWEgYW5kIEkgc3VzcGVjdCBuZWl0aGVyIGRvZXMgdGhlIGRldmlj
+ZS4NCj4+ID4+ID4gPj4gPj4gPj4gPlNvIEkgZG9uJ3Qgc2VlIGhvdyB3aWxsIGEgTGludXggZHJp
+dmVyIGtub3cgdGhhdCBpdA0KPj4gPj4gPiA+PiA+PiA+PiA+c2hvdWxkIGVuYWJsZSB0aGlzLCBu
+ZWl0aGVyIGhvdyB3aWxsIGRldmljZSBrbm93IGl0J3MNCj4+ID4+ID4gPj4gPj4gPj4gPm9rYXkg
+dG8ganVzdCByZWZ1c2UNCj4+ID4+ID4gPmZlYXR1cmVzX29rLg0KPj4gPj4gPiA+PiA+PiA+PiA+
+DQo+PiA+PiA+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPk9uIHRoZSBvdGhlciBoYW5k
+LCBjdXJyZW50IGRyaXZlcnMgYWxyZWFkeSBoYXZlIGxvZ2ljDQo+PiA+PiA+ID4+ID4+ID4+ID50
+aGF0IHRyaWVzIHRvIGNoYW5nZSBidWZmZXIgc2l6ZXMgaW4gYSBzbW9vdGggd2F5LiAgU28NCj4+
+ID4+ID4gPj4gPj4gPj4gPnNpbXBseSBjYWNoaW5nIHRoZSBsYXN0IGJ1ZmZlciBzaXplIGFuZCBh
+c3N1bWluZyBhbGwNCj4+ID4+ID4gPj4gPj4gPj4gPnRoZSBvdGhlcnMgd2lsbCBiZSBleGFjdGx5
+IHRoZSBzYW1lIHdpbGwgZ28gYSBsb25nIHdheQ0KPj4gPj4gPiA+PiA+PiA+PiA+dG93YXJkcyBs
+aW1pdGluZyBob3cgbXVjaCBkb2VzIGRldmljZSBuZWVkIHRvDQo+PiA+PiA+ID4+ID5mZXRjaC4N
+Cj4+ID4+ID4gPj4gPj4gPj4gPlRoaXMgZG9lcyBpbXBseSBleHRyYSBsb2dpYyBvbiB0aGUgZGV2
+aWNlIHRvIHJlY292ZXIgaWYNCj4+ID4+ID4gPj4gPj4gPj4gPnRoaW5ncyBjaGFuZ2UgYW5kIHRo
+ZSBmaXJzdCByZWFkIGRpZCBub3QgZmV0Y2ggZW5vdWdoDQo+PiA+PiA+ID4+ID4+ID4+ID5idWZm
+ZXJzLCBidXQgdGhlbiBpdCB3b3VsZCBiZSByZXF1aXJlZCBhbnl3YXkgaWYgYXMgeW91DQo+PiA+
+PiA+ID4+ID4+ID4+ID5zYXkgYWJvdmUgdGhlIGZhaWx1cmUgaXMgbm90DQo+PiA+PiA+ID4+ID5j
+YXRhc3Ryb3BoaWMuDQo+PiA+PiA+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4gPg0KPj4g
+Pj4gPiA+PiA+PiA+PiA+VGhlIGZlYXR1cmUgdGh1cyBvbmx5IHNlZW1zIHVzZWZ1bCBmb3Igc21h
+bGwsDQo+PiA+PiA+ID4+ID4+ID4+ID5mZWF0dXJlLXJlc3RyYWluZWQgZGV2aWNlcw0KPj4gPj4g
+PiA+PiA+PiA+PiA+LSB3aGljaCBhcmUgcHJlcGFyZWQgdG8gc2FjcmlmaWNlIHNvbWUgcGVyZm9y
+bWFuY2UgdG8NCj4+ID4+ID4gPj4gPj4gPj4gPmN1dCBjb3N0cywgYW5kIHdoaWNoIGNhbid0IHJl
+Y292ZXIgYXQgYWxsLiBJcyB0aGlzIHdoYXQNCj4+ID4+ID4gPj4gPj4gPj4gPnlvdSBhcmUgdHJ5
+aW5nDQo+PiA+dG8gZG8/DQo+PiA+PiA+ID4+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPj4NCj4+
+ID4+ID4gPj4gPj4gPj4gVGhlIGludGVudGlvbiBpcyB0byBlbmFibGUgZGV2aWNlcyB3aXRoIHRo
+aXMgc3BlY2lmaWMNCj4+ID4+ID4gPj4gPj4gPj4gbGltaXRhdGlvbiB0byBvZmZlciB2aXJ0aW8g
+b2ZmbG9hZC4gIFRoZSBmZWF0dXJlIGNhbiBiZQ0KPj4gPj4gPiA+PiA+PiA+PiByZWRlZmluZWQg
+c3VjaCB0aGF0IGl0IHdvdWxkIG9ubHkgYmUgb2ZmZXJlZCBieSBkZXZpY2VzDQo+PiA+PiA+ID4+
+ID4+ID4+IHRoYXQgYXJlIHVuYWJsZSB0byBoYW5kbGUgZHluYW1pY2FsbHkgY2hhbmdpbmcNCj4+
+ID4+ID4gPj4gPj4gPj4gZGVzY3JpcHRvcg0KPj4gPmxlbmd0aHMuIEhvdyBkb2VzIHRoYXQgc291
+bmQ/DQo+PiA+PiA+ID4+ID4+ID4NCj4+ID4+ID4gPj4gPj4gPlNvIGl0IG1ha2VzIG1vcmUgc2Vu
+c2Ugd2hlbiBtZXJnZWFibGUgYnVmZmVycyBhcmUgZGlzYWJsZWQNCj4+ID4+ID4gPj4gPj4gPihz
+aW5jZSB0aGVuIGJ1ZmZlcnMgYXJlIHByYWN0aWNhbGx5IGFsbCBzYW1lIHNpemUpLg0KPj4gPj4g
+PiA+PiA+PiA+DQo+PiA+PiA+ID4+ID4+DQo+PiA+PiA+ID4+ID4+IEFjdHVhbGx5LCBtZXJnZWFi
+bGUgYnVmZmVycyBhcmUgbm90IGEgcHJvYmxlbS4gVGhleSBjb3VsZA0KPj4gPj4gPiA+PiA+PiBi
+ZSBlbmFibGVkLCBhcyBsb25nIGFzIGVhY2ggZGVzY3JpcHRvciBpcyB0aGUgc2FtZSBsZW5ndGgu
+DQo+PiA+PiA+ID4+ID4+IFNvIGltcGxlbWVudGF0aW9ucyB0aGF0IHByZWZlciBvcHRpbWl6aW5n
+IG1lbW9yeQ0KPj4gPj4gPiA+PiA+PiB1dGlsaXphdGlvbiBvdmVyIGp1bWJvIGZyYW1lIHBlcmZv
+cm1hbmNlIGNhbiBuZWdvdGlhdGUNCj4+ID5WSVJUSU9fTkVUX0ZfTVJHX1JYQlVGDQo+PiA+PiA+
+ID5hbmQgYWxsb2NhdGUgc21hbGxlciBidWZmZXJzLg0KPj4gPj4gPiA+PiA+DQo+PiA+PiA+ID4+
+ID5TbyBteSBwb2ludCB3YXMsIHdpdGhvdXQgVklSVElPX05FVF9GX01SR19SWEJVRiwgYWxsIGJ1
+ZmZlcnMNCj4+ID4+ID4gPj4gPmFyZQ0KPj4gPj4gPiA+c2FtZQ0KPj4gPj4gPiA+PiA+bGVuZ3Ro
+IGFueXdheS4gU28gaWYgd2UgYXJlIHRhbGtpbmcgYWJvdXQgY2hlYXAgc2ltcGxlDQo+PiA+PiA+
+ID4+ID5oYXJkd2FyZSwgSSBndWVzcyBpdCBjYW4ganVzdCBub3QgaGF2ZSBWSVJUSU9fTkVUX0Zf
+TVJHX1JYQlVGDQo+PiA+PiA+ID4+ID5hbmQgYmUgZG9uZSB3aXRoDQo+PiA+PiA+ID5pdD8NCj4+
+ID4+ID4gPj4gPklmIGRldmljZSBkb2VzIGNhcmUgYWJvdXQgbWVtb3J5IHV0aWxpemF0aW9uIHRo
+ZW4gSSB0aGluayBpdA0KPj4gPj4gPiA+PiA+bmVlZHMgdG8gZ2l2ZSBkcml2ZXIgdGhlIGZsZXhp
+YmlsaXR5IGl0IG5lZWRzL3VzZXMuDQo+PiA+PiA+ID4+ID5Obz8NCj4+ID4+ID4gPj4gPg0KPj4g
+Pj4gPiA+Pg0KPj4gPj4gPiA+PiBJdCdzIG5vdCBhIG1hdHRlciBvZiBkZXZpY2UgY29tcGxleGl0
+eSwgYnV0IGEgSFcgYXJjaGl0ZWN0dXJlLA0KPj4gPj4gPiA+PiB3aGljaCBjb3VsZCBiZQ0KPj4g
+Pj4gPiA+Y29tcGxleCwgYnV0IGhhdmUgdGhpcyBzcGVjaWZpYyBsaW1pdGF0aW9uLg0KPj4gPj4g
+PiA+DQo+PiA+PiA+ID5TbyAtIGRvbid0IGRvIGl0IHRoZW4/DQo+PiA+PiA+ID4NCj4+ID4+ID4g
+Pj4gSSBzZWUgYXQgbGVhc3QgdHdvIHJlYXNvbnMgdG8gc3VwcG9ydCBhbmQgbmVnb3RpYXRlDQo+
+PiA+PiA+ID5WSVJUSU9fTkVUX0ZfTVJHX1JYQlVGLCB3aGlsZSBrZWVwaW5nIGVxdWFsLXNpemVk
+IGRlc2NyaXB0b3INCj4+ID5saW1pdGF0aW9uOg0KPj4gPj4gPiA+PiAgKiBHUk8NCj4+ID4+ID4g
+Pg0KPj4gPj4gPiA+WW91IG1lYW4gTFJPPw0KPj4gPj4gPiA+DQo+PiA+PiA+ID4+ICAqIFdpdGgg
+anVtYm8gcGFja2V0cywgaWYgdGhlIHRocm91Z2hwdXQgaXMgY2FwcGVkIGJ5IHRoZSBwb3J0DQo+
+PiA+PiA+ID4+IGJhbmR3aWR0aCwNCj4+ID4+ID4gPmFuZCBub3QgYnkgdGhlIGRldmljZS9kcml2
+ZXIgcGVyLXBhY2tldCBwZXJmb3JtYW5jZSwgaXQgbWFrZXMNCj4+ID4+ID4gPnNlbnNlIHRvIG9w
+dGltaXplIG1lbW9yeSB1dGlsaXphdGlvbiBieSBhbGxvY2F0aW5nIHNtYWxsDQo+PiA+PiA+ID5i
+dWZmZXJzLCB3aXRob3V0IHNhY3JpZmljaW5nIHRocm91Z2hwdXQgcGVyZm9ybWFuY2UuDQo+PiA+
+PiA+ID4NCj4+ID4+ID4gPlNvIHdlIGFyZSBiYWNrIHRvIHNxdWFyZSBvbmUsIGlmIGRyaXZlciBj
+YXJlcyBhYm91dCBtZW1vcnkNCj4+ID4+ID4gPnV0aWxpemF0aW9uIHdpdGggMUsgcGFja2V0cyB2
+cyA5SyBidWZmZXJzLCB3aHkgbm90IHdpdGggMTAwYnl0ZQ0KPj4gPj4gPiA+cGFja2V0cyB2cyAx
+SyBidWZmZXJzPyBMb29rcyBsaWtlIGV4YWN0bHkgdGhlIHNhbWUgdHJhZGVvZmYuDQo+PiA+PiA+
+ID4NCj4+ID4+ID4gPg0KPj4gPj4gPiA+Pg0KPj4gPj4gPiA+PiA+QWdhaW4gSSBjYW4gc2VlIGhv
+dyB3ZSBtaWdodCB3YW50IHRvIGRpc2FsbG93IGNyYXp5IHNldHVwcyB3aXRoDQo+ZS5nLg0KPj4g
+Pj4gPiA+PiA+MSBieXRlIHBlciBidWZmZXIuIFRoYXQncyBqdXN0IGFidXNlLCBubyBndWVzdCBk
+b2VzIHRoYXQgYW55d2F5Lg0KPj4gPj4gPiA+PiA+U28gYXNraW5nIGUuZy4gZm9yIGEgbWluaW1h
+bCBidWZmZXIgc2l6ZSBzb3VuZHMgdmVyeSByZWFzb25hYmxlLg0KPj4gPj4gPiA+PiA+QnV0IGFu
+IG9wdGlvbiB0aGF0IGRpc2FibGVzIGZ1bmN0aW9uYWxpdHkgdGhhdCBhIHBvcHVsYXINCj4+ID4+
+ID4gPj4gPmd1ZXN0IHVzZXMgbmVlZHMgYSBsb3Qgb2YgZG9jdW1lbnRhdGlvbiB0byBoZWxwIGRl
+dmljZQ0KPj4gPj4gPiA+PiA+d3JpdGVycyBmaWd1cmUgb3V0IHdoZXRoZXIgdGhleSB3YW50IHRo
+YXQgb3B0aW9uIG9yIG5vdCwgYW5kDQo+PiA+PiA+ID4+ID5JJ2Qgd29ycnkgdGhhdCBldmVuIHdp
+dGggZG9jdW1lbnRhdGlvbiB3aWxsDQo+PiA+PiA+ID5iZSBtaXN1bmRlcnN0b29kIGV2ZW4gaWYg
+d2Ugd3JpdGUgaXQuDQo+PiA+PiA+ID4+ID5XaGVuIGRvIHlvdSBlbmFibGUgdGhpcz8NCj4+ID4+
+ID4gPj4gPldoZW4geW91IGRvbid0IGNhcmUgYWJvdXQgcGVyZm9ybWFuY2U/IFdoZW4geW91IGRv
+bid0IGNhcmUNCj4+ID4+ID4gPj4gPmFib3V0DQo+PiA+PiA+ID5MaW51eD8NCj4+ID4+ID4gPj4g
+Pg0KPj4gPj4gPiA+Pg0KPj4gPj4gPiA+PiBJIHVuZGVyc3RhbmQgdGhhdCB0aGVyZSBhcmUgZ3Vl
+c3Qtc2lkZSBvcHRpbWl6YXRpb25zIHRoYXQNCj4+ID4+ID4gPj4gcmVxdWlyZSBmbGV4aWJpbGl0
+eQ0KPj4gPj4gPiA+aW4gZGVzY3JpcHRvcnMgbGVuZ3RoLiBJIGNhbiBwcm9wb3NlIHRoZSBmb2xs
+b3dpbmcgc2ltcGxlIGxvZ2ljOg0KPj4gPj4gPiA+PiBEZXZpY2UgLSBhZHZlcnRpc2UgImVxdWFs
+LXNpemVkIGRlc2NyaXB0b3IiIGZlYXR1cmUgb25seSBpZg0KPj4gPj4gPiA+PiB0aGUgZGV2aWNl
+IGlzDQo+PiA+PiA+ID5hYnNvbHV0ZWx5IHVuYWJsZSB0byBvcGVyYXRlIG90aGVyd2lzZS4gVGhl
+IGRldmljZSB3aWxsIG5vdCBzZXQNCj4+ID4+ID4gPkZFQVRVUkVTX09LIHVubGVzcyB0aGUgZHJp
+dmVyIG5lZ290aWF0ZXMgdGhpcyBmZWF0dXJlLg0KPj4gPj4gPiA+PiBEcml2ZXIgLSBpZiBkZXZp
+Y2UgYWR2ZXJ0aXNlcyAiZXF1YWwtc2l6ZWQgZGVzY3JpcHRvciIgZmVhdHVyZQ0KPj4gPj4gPiA+
+PiAtIGlmIHBvc3NpYmxlLA0KPj4gPj4gPiA+Z2l2ZSB1cCBvbiB0aGUgZmxleGlibGUgZGVzY3Jp
+cHRvcnMgbGVuZ3RoIG9wdGltaXphdGlvbnMuIElmIG5vdA0KPj4gPj4gPiA+LSBnaXZlIHVwIG9u
+IHRoZSBkZXZpY2UuDQo+PiA+PiA+ID4NCj4+ID4+ID4gPlllcywgdGhhdCdzIHBvc3NpYmxlLiBM
+b29rcyBsaWtlIGEgcmF0aGVyIGxpbWl0ZWQgZmVhdHVyZSwgYW5kDQo+PiA+PiA+ID5pJ2QgcmF0
+aGVyIHdlIGZvY3VzZWQgb24gc29tZXRoaW5nIG1vcmUgd2lkZWx5IGFwcGxpY2FibGUsIGJ1dA0K
+Pj4gPj4gPiA+d2l0aCBlbm91Z2ggZGlzY2xhbWVycyB0aGF0IGRldmljZXMgU0hPVUxEIE5PVCBz
+ZXQgdGhpcyBiaXQgd2UNCj4+ID4+ID4gPmNhbiBtYXliZQ0KPj4gPmRvIHRoYXQuDQo+PiA+PiA+
+ID4NCj4+ID4+ID4NCj4+ID4+ID4gSSBhZ3JlZSB0aGF0IHRoaXMgZmVhdHVyZSBpcyBtb3JlIG9m
+IGEgbGltaXRhdGlvbiBkZWNsYXJhdGlvbiwNCj4+ID4+ID4gcmF0aGVyIHRoYW4gYW4NCj4+ID5l
+bmhhbmNlbWVudCwgYnV0IGxldCBtZSBlbXBoYXNpemUgdGhhdCBpdHMgb25seSBwdXJwb3NlIGlz
+IHRvIG1ha2UNCj4+ID5tb3JlDQo+PiA+KmV4aXN0aW5nKiBIVyBkZXZpY2VzIGJlIHZpcnRpbyBj
+b21wYXRpYmxlLg0KPj4gPj4gPiBUaGlzIGZlYXR1cmUgd2lsbCBhbGxvdyBzdWNoIEhXIGRldmlj
+ZXMgdG8gb2ZmZXIgdmlydGlvIG9mZmxvYWQNCj4+ID4+ID4gd2l0aA0KPj4gPlZJUlRJT19ORVRf
+Rl9NUkdfUlhCVUYgY2FwYWJpbGl0eSBmb3IgR1JPL0xSTyBvZmZsb2FkLg0KPj4gPj4gPiBOZXcg
+ZGV2aWNlIGRlc2lnbnMgc2hvdWxkIGRlZmluaXRlbHkgYXZvaWQgZW1wbG95aW5nIHRoaXMgZmVh
+dHVyZS4NCj4+ID4+DQo+PiA+PiBJIHVuZGVyc3RhbmQsIG15IHF1ZXN0aW9uIGlzOiBjYW4geW91
+IGZpbmQgYSB3YXkgdG8gbWFrZSB0aGlzIG1vcmUNCj4+ID4+IGdlbmVyYWxseSB1c2VmdWw/IFNv
+bWV0aGluZyBhbG9uZyB0aGUgbGluZXMgb2YgdGhlIG1pbiBidWZmZXIgc2l6ZQ0KPj4gPj4gc3Vn
+Z2VzdGlvbiB3aGljaCB3b3VsZCBhdm9pZCBjcmVhdGluZyBhIHNwZWNpYWwgY2FzZSBpbiB0aGUg
+ZHJpdmVyPw0KPj4gPj4gQW55IGlkZWE/DQo+PiA+DQo+PiA+YXMgYW4gZXhhbXBsZSBvZiBhIHZh
+Z3VlIGlkZWEsIGV4cG9zaW5nIG1heCByeCBzL2csIG1pbiBidWZmZXIgKyBtYXgNCj4+ID5idWZm
+ZXIgd2lsbCBhbGxvdyBkZXZpY2UgdG8gZm9yY2UgdGhpcyBmcm9tIGRldmljZSBzaWRlLg0KPj4g
+Pg0KPj4gPklzIHRoYXQgZ29vZD8gSWYgbm90LCBob3cgZG9lcyBkcml2ZXIgZGVjaWRlIG9uIGEg
+Z29vZCBmaXhlZCBidWZmZXIgc2l6ZT8NCj4+ID4NCj4+DQo+PiBTZXR0aW5nIG1heD1taW49Zml4
+ZWRfc2l6ZSBieSB0aGUgZGV2aWNlIHdpbGwgd29yaywgYnV0IHRoaXMgc2VlbXMgdG9vDQo+cmVz
+dHJpY3RpdmUsIGFzIHdlIHN0aWxsIG1heSB3YW50IHRvIGVuYWJsZSB0aGUgZHJpdmVyIHRvIHNl
+bGVjdCBpdHMgYnVmZmVyIHNpemUuDQo+PiBJIGd1ZXNzIGRyaXZlciBjYW4gc2VsZWN0IHRoZSBm
+aXhlZCBidWZmZXIgc2l6ZSBiYXNlZCBvbiB0aGUgTVRVLg0KPg0KPg0KPldvdWxkIHRoYXQgYmUg
+YmFzZWQgb24gbWF4IE1UVSBmaWVsZCB0aGVuPw0KPkkgbm90ZSB0aGF0IHRoYXQncyByZWFkLW9u
+bHksIHNvIGp1c3Qgc3RhcnRpbmcgd2l0aCB0aGF0IGFuZCBzZW5kaW5nIGl0IGJhY2sgdG8gdGhl
+DQo+ZGV2aWNlIGRvZXNuJ3QgY2hhbmdlIG11Y2ggLi4uDQo+DQoNCkkgaGFkIGluIG1pbmQgdGhl
+IGFjdHVhbCBpbnRlcmZhY2UgTVRVLCBhbmQgbm90IHRoZSBtYXhpbXVtIHN1cHBvcnRlZCBNVFUg
+KGdpdmVuIHRoZSBkZXZpY2UgcHJvdmlkZWQgb25lKS4NClBlcmhhcHMgaXQncyBhIGRpZmZlcmVu
+dCBkaXNjdXNzaW9uLCBidXQgaW4gdGhpcyBzZW5zZSBJIGZpbmQgdGhlICdtdHUnIGZpZWxkIGEg
+Yml0IGNvbmZ1c2luZy4gRGV2aWNlIGFkdmVydGlzZXMgaXRzIG1heGltdW0gc3VwcG9ydGVkIE1U
+VSwgYnV0IHRoZW4gaXQncyBiZWluZyB1c2VkIGFzIGFuIGFjdHVhbCBNVFUgKHdoaWNoIGNhbiBi
+ZSBtdWNoIHNtYWxsZXIpLiBTaG91bGRuJ3QgZGV2aWNlIGVuZm9yY2UgdGhlIGFjdHVhbCBNVFUg
+b24gVFggYW5kIFJYIHBhY2tldHM/DQpJIGFsc28gbm90aWNlZCB0aGF0IHRoZSBzcGVjIG1lbnRp
+b25zIHRoZSBtYXhpbXVtIFJYIHBhY2tldCBzaXplIGlzIHN0cmljdGx5IDE1MTQgYnl0ZXMgKHcv
+byBUU08pLg0KDQo+PiBXaGF0IGlmIGRldmljZSB3aWxsIHJlcXVlc3QgbWF4L21pbiBidWZmZXIg
+c2l6ZSByYXRpbywgYW5kIGRyaXZlciB3aWxsIHNldCBtaW4NCj5idWZmZXIgc2l6ZT8gVGhpcyBj
+YW4gc29sdmUgdGhlIGZpeGVkIHNpemUgaXNzdWUsIHdpdGhvdXQgZm9yY2luZyBhIHNwZWNpZmlj
+IHNpemUuDQo+PiBBbG9uZyB3aXRoIHRoZSBtYXggcy9nLCBtYXliZSBpdCBjYW4gYWxzbyBoZWxw
+IGF2b2lkaW5nIHJ4IGJ1ZmZlciBzaXplIGFidXNlDQo+YnkgdGhlIGRyaXZlciAoaS5lLiBzZXR0
+aW5nIGl0IHRvbyBsb3cpLg0KPg0KPlRoYXQgc291bmRzIHJlYXNvbmFibHkgZ2VuZXJpYywgdG9v
+Lg0KPg0KDQpPaywgSSB3aWxsIGZvcm11bGF0ZSBhIG5ldyBwYXRjaC4NCg0KPi0tDQo+TVNUDQoN
+Cg==
 
