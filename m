@@ -1,43 +1,66 @@
-Return-Path: virtio-return-3424-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-return-3422-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio@lists.oasis-open.org>
 List-Post: <mailto:virtio@lists.oasis-open.org>
 List-Help: <mailto:virtio-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
-Date: Tue, 3 Dec 2019 11:01:52 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20191203110152.38e7f3af.cohuck@redhat.com>
-In-Reply-To: <20191127130727.20971-1-mst@redhat.com>
-References: <20191127130727.20971-1-mst@redhat.com>
+Date: Tue, 3 Dec 2019 00:42:53 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20191203054156.421246-1-mst@redhat.com>
 MIME-Version: 1.0
-Subject: Re: [virtio] [PATCH] content: document speed, duplex
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org
+Subject: [virtio] [PATCH v2] README.md: document use of virtio-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: virtio@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, 27 Nov 2019 08:07:47 -0500
-"Michael S. Tsirkin" <mst@redhat.com> wrote:
+People still seem to be confused which list is for what.
+Add a bit more text.
 
-> Document as used by Linux.
-> 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/59
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> Reviewed-by: Cornelia Huck <cohuck@redhat.com>
-> ---
->  content.tex | 33 +++++++++++++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
-> 
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
 
-> +\field{speed} contains the device speed, in units of 1 MByte, 0
-> +to 0x7ffffffff, or 0xfffffffff for unknown speed.
+Changes from v1:
+=09- wording changes to address Cornelia's comments
+=09- move to near virtio-comment description
 
-As noted by Stefan on the ballot, this needs to be MBit, not MByte.
+ README.md | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/README.md b/README.md
+index ffafb9b..2bdf485 100644
+--- a/README.md
++++ b/README.md
+@@ -115,6 +115,17 @@ in <A
+ HREF=3D"https://github.com/oasis-tcs/virtio-admin">https://github.com/oasi=
+s-tcs/virtio-admin</A>.
+=20
+ </div>
++<h4>Implementation discussion</h4>
++Implementation discussion should take place on the <strong>virtio-dev</str=
+ong> mailing list,
++and be archived in the mailing list archives.
++<p>See <A
++HREF=3D"https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=3Dvirt=
+io#feedback">
++https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=3Dvirtio#feedb=
+ack</A>
++<p>This is the correct list to copy on Linux virtio UAPI change proposals.
++<p>Note that only the plain text part of the message is archived, and all
++attachments are stripped. Accordingly, messages sent to the
++mailing list should use text/plain encoding and not
++have any attachments.
+ <h4>Use of github issues</h4>
+ Note: according to the virtio TC rules, all official TC communication
+ is taking place on one of the TC mailing lists.
+--=20
+MST
 
 
 ---------------------------------------------------------------------
-To unsubscribe from this mail list, you must leave the OASIS TC that 
+To unsubscribe from this mail list, you must leave the OASIS TC that=20
 generates this mail.  Follow this link to all your TCs in OASIS at:
-https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
+https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php=20
 
