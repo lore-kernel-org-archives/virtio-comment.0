@@ -1,64 +1,61 @@
-Return-Path: virtio-comment-return-986-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-984-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C652C985DCE
-	for <virtio-comment@lists.oasis-open.org>; Wed, 11 Dec 2019 15:33:46 +0000 (UTC)
-Date: Wed, 11 Dec 2019 10:33:38 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20191211101541-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 1FE42986097
+	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Dec 2019 12:20:19 +0000 (UTC)
+From: Keiichi Watanabe <keiichiw@chromium.org>
+Date: Fri,  6 Dec 2019 21:20:04 +0900
+Message-Id: <20191206122004.64374-1-keiichiw@chromium.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] thoughts on: virtio: skipping used buffers without IN_ORDER
-Content-Type: text/plain; charset=us-ascii
+Subject: [virtio-comment] [PATCH] content: Reserve device ID for video device
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
 To: virtio-comment@lists.oasis-open.org
+Cc: kraxel@redhat.com, tfiga@chromium.org, keiichiw@chromium.org, posciak@chromium.org, stevensd@chromium.org, dmitry.sepp@opensynergy.com, egranata@google.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hello!
-At the moment, if a device uses multiple buffers, it has
-to write out a descriptor per buffer. The only exception is
-with IN_ORDER where device can skip buffers, with driver
-keeping track of IDs.
+Reserve device ID 30 for virtio-video device.
 
-IN_ORDER is however quite limited in what it can do.  It's not a good
-fit for storage, and probably not for RX networking.
+Signed-off-by: Keiichi Watanabe <keiichiw@chromium.org>
+---
+ content.tex | 2 ++
+ 1 file changed, 2 insertions(+)
 
-It's not hard to extend IN_ORDER so it doesn't apply to specific rings.
-A harder question is still writing a single descriptor in this case. One
-somewhat easy fix it just to allow descriptors to include multiple IDs.
-E.g. address is ignored in used descriptors, we can fit 4 extra IDs in
-there. For descriptors where we don't care about the length,
-we can stick a couple more IDs on top of that.
-
-I can't say it's all very elegant. Also, is that enough of a win?
-We can still end up with multiple descriptors.
-
-More thoughts?
-
-Thanks,
+diff --git a/content.tex b/content.tex
+index d68cfaf..3183db5 100644
+--- a/content.tex
++++ b/content.tex
+@@ -2721,6 +2721,8 @@ \chapter{Device Types}\label{sec:Device Types}
+ \hline
+ 28         &   RPMB device \\
+ \hline
++30         &   Video device \\
++\hline
+ \end{tabular}
+=20
+ Some of the devices above are unspecified by this document,
 --=20
-MST
+2.24.0.393.g34dc348eaf-goog
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
