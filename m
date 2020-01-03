@@ -1,105 +1,66 @@
-Return-Path: virtio-comment-return-1028-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1002-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A68C4984354
-	for <virtio-comment@lists.oasis-open.org>; Sun, 26 Jan 2020 08:21:30 +0000 (UTC)
-From: Vitaly Mireyno <vmireyno@marvell.com>
-Date: Sun, 26 Jan 2020 08:21:21 +0000
-Message-ID: <BN6PR1801MB2067E994A099D142C35D6631C5080@BN6PR1801MB2067.namprd18.prod.outlook.com>
-Content-Language: en-US
+	by lists.oasis-open.org (Postfix) with ESMTP id 1D1FC985CB1
+	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Jan 2020 15:22:55 +0000 (UTC)
+Date: Fri, 3 Jan 2020 15:22:44 +0000
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20200103152244.GF277936@stefanha-x1.localdomain>
+References: <BN6PR1801MB2067B366EB434CD282F6589BC5270@BN6PR1801MB2067.namprd18.prod.outlook.com>
 MIME-Version: 1.0
+In-Reply-To: <BN6PR1801MB2067B366EB434CD282F6589BC5270@BN6PR1801MB2067.namprd18.prod.outlook.com>
 Subject: Re: [virtio-comment] [PATCH] virtio-net: Add an optional device
  control over the receive buffers length
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-To: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="uTRFFR9qmiCqR05s"
+Content-Disposition: inline
+To: Vitaly Mireyno <vmireyno@marvell.com>
+Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-DQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IEphc29uIFdhbmcgPGphc293
-YW5nQHJlZGhhdC5jb20+DQo+U2VudDogVGh1cnNkYXksIDIzIEphbnVhcnksIDIwMjAgOToxMQ0K
-PlRvOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQuY29tPjsgVml0YWx5IE1pcmV5bm8N
-Cj48dm1pcmV5bm9AbWFydmVsbC5jb20+DQo+Q2M6IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lz
-LW9wZW4ub3JnDQo+U3ViamVjdDogUmU6IFtFWFRdIFJlOiBbdmlydGlvLWNvbW1lbnRdIFtQQVRD
-SF0gdmlydGlvLW5ldDogQWRkIGFuIG9wdGlvbmFsDQo+ZGV2aWNlIGNvbnRyb2wgb3ZlciB0aGUg
-cmVjZWl2ZSBidWZmZXJzIGxlbmd0aA0KPg0KPg0KPk9uIDIwMjAvMS8yMyDkuIvljYgyOjU1LCBN
-aWNoYWVsIFMuIFRzaXJraW4gd3JvdGU6DQo+PiBPbiBXZWQsIEphbiAyMiwgMjAyMCBhdCAwNDow
-NjozMFBNICswMDAwLCBWaXRhbHkgTWlyZXlubyB3cm90ZToNCj4+Pg0KPj4+PiAtLS0tLU9yaWdp
-bmFsIE1lc3NhZ2UtLS0tLQ0KPj4+PiBGcm9tOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEByZWRo
-YXQuY29tPg0KPj4+PiBTZW50OiBNb25kYXksIDIwIEphbnVhcnksIDIwMjAgMTg6MjUNCj4+Pj4g
-VG86IFZpdGFseSBNaXJleW5vIDx2bWlyZXlub0BtYXJ2ZWxsLmNvbT4NCj4+Pj4gQ2M6IHZpcnRp
-by1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnOyBKYXNvbiBXYW5nDQo+Pj4+IDxqYXNvd2Fu
-Z0ByZWRoYXQuY29tPg0KPj4+PiBTdWJqZWN0OiBbRVhUXSBSZTogW3ZpcnRpby1jb21tZW50XSBb
-UEFUQ0hdIHZpcnRpby1uZXQ6IEFkZCBhbg0KPj4+PiBvcHRpb25hbCBkZXZpY2UgY29udHJvbCBv
-dmVyIHRoZSByZWNlaXZlIGJ1ZmZlcnMgbGVuZ3RoDQo+Pj4+DQo+Pj4+IC0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+
-Pj4+IC0tIE9uIE1vbiwgRGVjIDMwLCAyMDE5IGF0IDAxOjU5OjE3UE0gKzAwMDAsIFZpdGFseSBN
-aXJleW5vIHdyb3RlOg0KPj4+Pj4gVGhpcyBwYXRjaCBnaXZlcyBkZXZpY2VzIHNvbWUgbGV2ZWwg
-b2YgY29udHJvbCBvdmVyIHRoZSByZWNlaXZlDQo+Pj4+PiBidWZmZXJzDQo+Pj4+IGxlbmd0aC4N
-Cj4+Pj4+IFRoZSBkcml2ZXIgZGVjbGFyZXMgdGhlIG1pbmltdW0gcmVjZWl2ZSBidWZmZXIgbGVu
-Z3RoLCBhbmQgdGhlDQo+Pj4+PiBkZXZpY2UNCj4+Pj4gcmVxdWVzdHMgbWF4L21pbiBidWZmZXIg
-bGVuZ3RoIHJhdGlvLg0KPj4+Pj4gVGhpcyBpcyBhIGZvbGxvdy11cCB0byB0aGUgIltQQVRDSF0g
-dmlydGlvLW5ldDogQWRkIGVxdWFsLXNpemVkDQo+Pj4+PiByZWNlaXZlIGJ1ZmZlcnMgZmVhdHVy
-ZSIgZGlzY3Vzc2lvbjoNCj4+Pj4+IGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92
-Mi91cmw/dT1odHRwcy0zQV9fbGlzdHMub2FzaXMtMkQNCj4+Pj4+IG9wZQ0KPj4+Pj4gbi5vcmdf
-YXJjaGl2ZXNfdmlydGlvLQ0KPj4+PiAyRGNvbW1lbnRfMjAxOTEyX21zZzAwMDA3Lmh0bWwmZD1E
-d0lGQWcmYz1uS2pXZWMNCj4+Pj4NCj4yYjZSMG1PeVBhejd4dGZRJnI9bERISjJGVzUyb0ozbHFx
-c0FyZ0ZSZGNldnEwMXRiTFFBdzRBX05PN3hnSSYNCj4+Pj4gbT1qclFnWg0KPj4+Pj4gLQ0KPj4+
-Pg0KPmlOM1FudkZxeFFRa29QVG16dEpSVE5DWFRGMmR6NjhURVYwY0Emcz1wRHRJU01KcHcxTjlv
-aG90OWZsdW8xTg0KPj4+PiBqMVgyczENCj4+Pj4+IEpfc0VWSkdnMnV3a1prJmU9DQo+Pj4+Pg0K
-Pj4+Pj4NCj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFZpdGFseSBNaXJleW5vIDx2bWlyZXlub0BtYXJ2
-ZWxsLmNvbT4NCj4+Pj4+IC0tLQ0KPj4+Pj4gICBjb250ZW50LnRleCB8IDQxICsrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tDQo+Pj4+PiAgIDEgZmlsZSBjaGFuZ2VkLCAz
-OSBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPj4+Pj4NCj4+Pj4+IGRpZmYgLS1naXQg
-YS9jb250ZW50LnRleCBiL2NvbnRlbnQudGV4IGluZGV4IGQ2OGNmYWYuLjBhNGNmYmENCj4+Pj4+
-IDEwMDY0NA0KPj4+Pj4gLS0tIGEvY29udGVudC50ZXgNCj4+Pj4+ICsrKyBiL2NvbnRlbnQudGV4
-DQo+Pj4+PiBAQCAtMjgxNSw2ICsyODE1LDEzIEBAIFxzdWJzZWN0aW9ue0ZlYXR1cmUgYml0c31c
-bGFiZWx7c2VjOkRldmljZQ0KPj4+Pj4gVHlwZXMgLyBOZXR3b3JrIERldmljZSAvIEZlYXR1cmUg
-Yml0cw0KPj4+PiBcaXRlbVtWSVJUSU9fTkVUX0ZfQ1RSTF9NQUNfQUREUigyMyldIFNldCBNQUMg
-YWRkcmVzcyB0aHJvdWdoDQo+Pj4+IGNvbnRyb2wNCj4+Pj4+ICAgICAgIGNoYW5uZWwuDQo+Pj4+
-Pg0KPj4+Pj4gK1xpdGVtW1ZJUlRJT19ORVRfRl9SWEJVRl9MRU5fUkFUSU8oNTcpXSBEZXZpY2Ug
-cmVxdWVzdHMgdG8gbGltaXQNCj50aGUNCj4+Pj4+ICsgICAgbWF4aW11bS9taW5pbXVtIHJlY2Vp
-dmUgYnVmZmVycyBsZW5ndGggcmF0aW8uDQo+Pj4+PiArDQo+Pj4+PiArXGl0ZW1bVklSVElPX05F
-VF9GX1JYQlVGX01JTl9MRU4oNTgpXSBEZXZpY2UgcmVxdWVzdHMgdG8ga25vdw0KPnRoZQ0KPj4+
-PiBtaW5pbXVtDQo+Pj4+PiArICAgIHJlY2VpdmUgYnVmZmVycyBsZW5ndGguIERyaXZlciBkZWNs
-YXJlcyB0aGUgbWluaW11bSByZWNlaXZlIGJ1ZmZlcnMNCj4+Pj4+ICsgICAgbGVuZ3RoLg0KPj4+
-Pj4gKw0KPj4+Pj4gICBcaXRlbVtWSVJUSU9fTkVUX0ZfR1VFU1RfSERSTEVOKDU5KV0gRHJpdmVy
-IGNhbiBwcm92aWRlIHRoZQ0KPmV4YWN0DQo+Pj4+IFxmaWVsZHtoZHJfbGVufQ0KPj4+Pj4gICAg
-ICAgdmFsdWUuIERldmljZSBiZW5lZml0cyBmcm9tIGtub3dpbmcgdGhlIGV4YWN0IGhlYWRlciBs
-ZW5ndGguDQo+Pj4+Pg0KPj4+PiBTbyBJIGFtIHdvbmRlcmluZywgd2hlbiB3ZSBhcmUgc3dpdGNo
-aW5nIGZyb20gcmVndWxhciBza2JzIHRvIFhEUCwNCj4+Pj4gYWxsIGJ1ZmZlcnMgYmVjb21lIDRL
-LiBXaGVuIHdlIHN3aXRjaCBiYWNrLCB3ZSBnZXQgdmFyaWFiaWxpdHkgYWdhaW4uDQo+Pj4+IEFs
-bCB0aGUgd2hpbGUgc29tZSBvbGQgYnVmZmVycyBjYW4gYmUgb3V0c3RhbmRpbmcuDQo+Pj4+DQo+
-Pj4+IEhvdyB3aWxsIHdlIGhhbmRsZSB0aGlzPw0KPj4+Pg0KPj4+IFRoZSBmZWF0dXJlIGxpbWl0
-cyB0aGUgZmxleGliaWxpdHkgb2YgdGhlIGRyaXZlciB0byBzZXQgdGhlIGRlc2NyaXB0b3JzIGxl
-bmd0aC4NCj4+PiBJdCBkb2Vzbid0IGxpbWl0IHRoZSBhY3R1YWwgYnVmZmVyIGFsbG9jYXRpb24g
-c2l6ZS4gU28gaWYgWERQIHJlcXVpcmVzIGEgbGFyZ2VyDQo+aGVhZHJvb20sIEkgZG9uJ3Qgc2Vl
-IGEgcHJvYmxlbS4gUGxlYXNlIGV4Y3VzZSBteSBpZ25vcmFuY2UsIGJ1dCB3aGF0IGRvDQo+eW91
-IG1lYW4gYnkgImFsbCBidWZmZXJzIGJlY29tZSA0SyI/DQo+PiBTbyBsaW51eCBjYW4gc3dpdGNo
-IGJldHdlZW4gc2tiIGFuZCBYRFAgbW9kZS4gSW4gc2tiIG1vZGUgYnVmZmVyIHNpemUNCj4+IHZh
-cmllcywgaXQgd29ya3MgYnkgbWVyZ2luZyBtdWx0aXBsZSBidWZmZXJzLiBJbiBYRFAgYSBzaW5n
-bGUgYnVmZmVyDQo+PiBpcyBtYWRlIGJpZyBlbm91Z2ggdG8gaG9sZCB0aGUgd2hvbGUgcGFja2V0
-LiBMZW5ndGggaXMgZml4ZWQuDQo+Pg0KPj4gSWYgd2UgYXJlIGluIFhEUCBtb2RlIGJ1dCBidWZm
-ZXIgd2FzIGFkZGVkIHdoaWxlIGluIHNrYiBtb2RlLCBvciB2aWNlDQo+PiB2ZXJzYSwgd2UgcmVj
-b3ZlciBnZW5lcmFsbHkgYnkgY29weWluZyBkYXRhIHRvIHRoZSBjb3JyZWN0IGJ1ZmZlci4NCj4+
-IFRoaXMgaXMgYSB0ZW1wb3Jhcnkgc2xvd2Rvd24gLSBiZXR0ZXIgdGhhbiBkcm9wcGluZyBwYWNr
-ZXRzLg0KPj4NCj4+IFNvIGxldCdzIGFzc3VtZSB0aGUgZGV2aWNlIHJhdGlvIGlzIDEuDQo+PiBJ
-IGd1ZXNzIHdoaWxlIGluIFhEUCBtb2RlLCB3ZSdsbCB3cml0ZSBYRFAgYnVmZmVyIGxlbmd0aCBp
-bnRvIHRoaXMNCj4+IGZpZWxkLiBCdXQgaW4gc2tiIG1vZGUsIHdlIGNhbiBtYWtlIHRoZSBidWZm
-ZXIgc21hbGxlci4NCj4+IFRoaXMgaW1wbGllcyBkcml2ZXIgbmVlZHMgdG8gY2hhbmdlIHRoZSBt
-aW5fcnhfYnVmX2xlbj8NCj4NCj4NCj5JJ20gbm90IHN1cmUgSSBnZXQgaGVyZS4gVGhlIGhlYWRl
-ciByb29tIHNob3VsZCBiZSBpbnZpc2libGUgZnJvbSBkZXZpY2UgcG9pbnQNCj5vZiB2aWV3IEkg
-dGhpbmsuDQo+DQo+VGhhbmtzDQo+DQoNCldoZW4gdGhlIGRldmljZSByYXRpbyBpcyAxIChtZWFu
-aW5nIHRoYXQgdGhlIGRldmljZSByZXF1ZXN0cyBjb25zdGFudCBzaXplIGRlc2NyaXB0b3JzIGxl
-bmd0aCksIEknZCBzdWdnZXN0IHRoYXQgdGhlIGRyaXZlciBzZXQgYWxsIGRlc2NyaXB0b3JzIGxl
-bmd0aCB0byB0aGUgTVRVLWJhc2VkIHNpemUsIHN1Y2ggdGhhdCBhIHNpbmdsZSBkZXNjcmlwdG9y
-IGNvdWxkIGJlIGVub3VnaCB0byBob2xkIGFueSByZWNlaXZlZCBwYWNrZXQsIGFuZCB0aGlzIGlz
-IHJlZ2FyZGxlc3Mgb2YgU0tCIG9yIFhEUCBtb2RlLg0KQSBidWZmZXIgaGVhZHJvb20gaXMgaW5k
-ZWVkIGludmlzaWJsZSB0byB0aGUgZGV2aWNlLCBhbmQgdGhlIGRyaXZlciBpcyBmcmVlIHRvIGFs
-bG9jYXRlIGFueSBidWZmZXIgc2l6ZS4gT25seSB0aGUgZGVzY3JpcHRvcnMgbGVuZ3RoIGlzIHJl
-c3RyaWN0ZWQgaW4gdGhpcyBtb2RlLg0KRG9lcyB0aGlzIG1ha2Ugc2Vuc2U/DQoNCg==
+--uTRFFR9qmiCqR05s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Dec 30, 2019 at 01:59:17PM +0000, Vitaly Mireyno wrote:
+> @@ -2916,6 +2933,15 @@ \subsection{Device configuration layout}\label{sec=
+:Device Types / Network Device
+>  If the driver negotiates the VIRTIO_NET_F_STANDBY feature, the device MA=
+Y act
+>  as a standby device for a primary device with the same MAC address.
+> =20
+> +A driver SHOULD accept the VIRTIO_NET_F_RXBUF_MIN_LEN feature if offered=
+.
+> +
+> +If VIRTIO_NET_F_RXBUF_MIN_LEN feature has been negotiated, the driver MU=
+ST
+> +set \field{min_rx_buf_len}.
+> +
+> +A driver MUST NOT modify \field{min_rx_buf_len} once it has been set.
+
+When must the driver set the fields?  I guess it makes no sense to set
+this field after starting rx (i.e. populating the rx virtqueue)...  The
+spec should be explicit about this.
+
+--uTRFFR9qmiCqR05s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl4PXEQACgkQnKSrs4Gr
+c8iZkwf/ciDfQ3kDHxz1FRG5GV4tAgOE7Fp2MPRahPOuZ9kL1B7U2cJfITkw08T4
+tzB9tW6L4QOhKisdNUafuo7xwQ2+DzOKlYaIZsvW07XyXPhogp/mEW83OI55fr28
+CkOQKeXJPAtIjWjS7RphZvaprfFhsgx6LrO/Jj8JhY6ocgaErgbS4S4AlQPAByh6
+gLzQVKN+LDSMXoXssjgyNUDMXPoEuME+o/BrJZjgu/azpAgjDwP7+wtxdfPPd3T3
+UQRTbGYJp4OZnZCbGvhETYIHhv8q7mGhLpLB0kwy3TbrhNBtLGd/3w6fppkyFR/R
+lJGI1q7uHCPikMh2PukXhKMFN2V5EA==
+=M+vi
+-----END PGP SIGNATURE-----
+
+--uTRFFR9qmiCqR05s--
 
