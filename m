@@ -1,175 +1,105 @@
-Return-Path: virtio-comment-return-1026-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1007-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 91CEE986037
-	for <virtio-comment@lists.oasis-open.org>; Thu, 23 Jan 2020 11:08:34 +0000 (UTC)
-From: Damir Shaikhutdinov <Damir.Shaikhutdinov@opensynergy.com>
-Date: Thu, 23 Jan 2020 11:08:27 +0000
-Message-ID: <21D64D2457144C4AA23D071E2F6A51EC01592FAF68@MXS02.open-synergy.com>
-References: <21D64D2457144C4AA23D071E2F6A51EC01592F5BFC@MXS01.open-synergy.com>
- <20200120111648-mutt-send-email-mst@kernel.org>
- <20200121160818.GE641751@stefanha-x1.localdomain>
- <20200122005225-mutt-send-email-mst@kernel.org>,<20200122101214.GA655761@stefanha-x1.localdomain>
-In-Reply-To: <20200122101214.GA655761@stefanha-x1.localdomain>
-Content-Language: en-US
+	by lists.oasis-open.org (Postfix) with ESMTP id 558FE985D9D
+	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Jan 2020 14:09:08 +0000 (UTC)
 MIME-Version: 1.0
-Subject: RE: [virtio-comment] Block Device VIRTIO_BLK_F_RO clarification
- needed.
-Content-Type: text/plain; charset=WINDOWS-1252
+References: <20191218131151.177694-1-keiichiw@chromium.org>
+ <20191218134246.up6nwpgfjouhehig@sirius.home.kraxel.org> <CAD90VcbA0oGsV4gwNKTCtfnowrXEvc+PwiTwXyK3LNq6vU8NQw@mail.gmail.com>
+ <20191218101823-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20191218101823-mutt-send-email-mst@kernel.org>
+From: Keiichi Watanabe <keiichiw@chromium.org>
+Date: Tue, 7 Jan 2020 23:08:55 +0900
+Message-ID: <CAD90VcacfF57H+1nKcpo3S_0gT60bwCoqssg5OZbDwmFUUk8fg@mail.gmail.com>
+Subject: Re: [virtio-comment] Re: [PATCH v2] content: Reserve device ID for
+ video encoder and decoder device
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-To: Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>, virtio-comment@lists.oasis-open.org, Alexandre Courbot <acourbot@chromium.org>, Alex Lau <alexlau@chromium.org>, Dmitry Sepp <dmitry.sepp@opensynergy.com>, Enrico Granata <egranata@google.com>, Pawel Osciak <posciak@chromium.org>, David Stevens <stevensd@chromium.org>, Tomasz Figa <tfiga@chromium.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hi Stefan and Michael!
-
-I have time to prepare the spec patch and will work on it.
-
-Damir Shaikhutdinov
-Senior Software Engineer
-
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
-
-Phone: +49 30 60 98 54 0.
-Fax:      +49 30 60 98 54 0 -99
-EMail:   damir.shaikhutdinov@opensynergy.com
-
-www.opensynergy.com
-
-Handelsregister/Commercial Registry: Amtsgericht Charlottenburg, HRB 108616=
-B
-Gesch=E4ftsf=FChrer/Managing Director: Regis Adjamah
-
-________________________________________
-From: Stefan Hajnoczi [stefanha@redhat.com]
-Sent: Wednesday, January 22, 2020 11:12 AM
-To: Michael S. Tsirkin
-Cc: Damir Shaikhutdinov; virtio-comment@lists.oasis-open.org
-Subject: Re: [virtio-comment] Block Device VIRTIO_BLK_F_RO clarification ne=
-eded.
-
-On Wed, Jan 22, 2020 at 12:53:37AM -0500, Michael S. Tsirkin wrote:
-> On Tue, Jan 21, 2020 at 04:08:18PM +0000, Stefan Hajnoczi wrote:
-> > On Mon, Jan 20, 2020 at 11:21:36AM -0500, Michael S. Tsirkin wrote:
-> > > On Mon, Jan 20, 2020 at 11:45:05AM +0000, Damir Shaikhutdinov wrote:
-> > > > Hello!
-> > > >
-> > > > While reading section 5.2 of the spec, I found that VIRTIO_BLK_F_RO=
- feature could use
-> > > > some additional clarification regarding handling requests when it w=
-as offered.
-> > > >
-> > > > This RO feature is described as "Device is read only" (Section 5.2.=
-3). There are some explicit requirements for this feature, but they only de=
-scribe a "write request".
-> > > >
-> > > > 5.2.5 p3 says "If the VIRTIO_BLK_F_RO feature is set by the device,=
- any write requests will fail."
-> > > >
-> > > > 5.2.6 says "The type of the request is either a read (VIRTIO_BLK_T_=
-IN), a write (VIRTIO_BLK_T_OUT) ...", so "write request" mentioned in 5.2.5=
- p3 is VIRTIO_BLK_T_OUT.
-> > > >
-> > > > 5.2.6.2 says "A device MUST set the status byte to VIRTIO_BLK_S_IOE=
-RR for a write request if the VIRTIO_BLK_F_RO
-> > > > feature if offered, and MUST NOT write any data."
-> > > >
-> > > > What is missing here is a requirement for features and other types =
-of requests in case of VIRTIO_BLK_F_RO:
-> > > >
-> > > > * config.writeback field (guarded by VIRTIO_BLK_F_CONFIG_WCE featur=
-e)
-> > > > * VIRTIO_BLK_T_ FLUSH (guarded by VIRTIO_BLK_F_FLUSH feature)
-> > > > * VIRTIO_BLK_T_DISCARD (guarded by VIRTIO_BLK_F_DISCARD feature)
-> > > > * VIRTIO_BLK_T_WRITE_ZEROES (guarded by VIRTIO_BLK_F_WRITE_ZEROES f=
-eature)
-> > > >
-> > > > Configuration field, requests and features described above make no =
-sense in presence of VIRTIO_BLK_F_RO.
-> > > >
-> > > > This can be clarified in several ways, for example:
-> > > >
-> > > > 1. Device should not offer CONFIG_WCE, FLUSH, DISCARD and WRITE_ZER=
-OES features if it offers RO feature (partially contradicts 5.2.5.2 "Device=
- SHOULD always offer VIRTIO_BLK_F_FLUSH")
-> > > > 2. Device must set the status byte to IOERR for FLUSH, DISCARD and =
-WRITE_ZEROES requests if it offers RO feature.
-> > > >
-> > > >
-> > > > What do you think about that?
-> > >
-> > > I guess flush can even be allowed, it's harmless if nothing is writte=
-n,
-> > > right?
-> >
-> > I agree.  There seems to be no benefit in failing it and there's a smal=
-l
-> > chance that some drivers could get upset if it fails (typically when a
-> > common code path submits a flush request and expects it to succeed).
-> >
-> > > I agree DISCARD and WRITE_ZEROES must fail. And set VIRTIO_BLK_S_IOER=
-R
-> > > I guess?
-> >
-> > Yes.
-> >
-> > > It's too late to disallow configurations such as a combination of VIR=
-TIO_BLK_F_CONFIG_WCE
-> > > and VIRTIO_BLK_F_RO, devices out there might be setting this combinat=
-ion.
-> >
-> > Yes.
-> >
-> > Stefan
+On Thu, Dec 19, 2019 at 12:18 AM Michael S. Tsirkin <mst@redhat.com> wrote:
 >
-> Thanks! Stefan do you have the time to work on a spec patch to fix this?
-> Damir do you?
+> On Wed, Dec 18, 2019 at 11:08:26PM +0900, Keiichi Watanabe wrote:
+> > On Wed, Dec 18, 2019 at 10:42 PM Gerd Hoffmann <kraxel@redhat.com> wrot=
+e:
+> > >
+> > > On Wed, Dec 18, 2019 at 10:11:51PM +0900, Keiichi Watanabe wrote:
+> > > > Reserve device ID 30 for video encoder device and 31 for video deco=
+der device.
+> > >
+> > > Hint: https://github.com/oasis-tcs/virtio-spec/blob/master/.github/PU=
+LL_REQUEST_TEMPLATE.md
+>
+> > Thanks for the info. I didn't understand the approval process.
+> > I created https://github.com/oasis-tcs/virtio-spec/issues/67
+> >
+> > Best,
+> > Keiichi
+>
+> And in particular:
+> https://github.com/oasis-tcs/virtio-spec/blob/master/README.md#use-of-git=
+hub-issues
+>
 
-Damir, you can find instructions for contributing to the virtio
-specification here:
+Hi, thank you for the information. I edited the issue description to
+make it contain the link to my proposal in the ML.
+Since a voting request for
+https://github.com/oasis-tcs/virtio-spec/issues/68, on which my issue
+#67 depends, was submitted today, I'll wait for the voting is
+finished.
 
-https://github.com/oasis-tcs/virtio-spec/
+Best regards,
+Keiichi
 
-If you don't have time to write a patch please let me know.
+> >
+> > >
+> > > > +30         &   Video encoder device \\
+> > > > +\hline
+> > > > +31         &   Video decoder device \\
+> > > > +\hline
+> > >
+> > > Acked-by: Gerd Hoffmann <kraxel@redhat.com>
+> > >
+> >
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> >
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> >
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.p=
+df
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing=
+-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
+>
 
-Stefan
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-Please mind our privacy notice<https://www.opensynergy.com/datenschutzerkla=
-erung/privacy-notice-for-business-partners-pursuant-to-article-13-of-the-ge=
-neral-data-protection-regulation-gdpr/> pursuant to Art. 13 GDPR. // Unsere=
- Hinweise zum Datenschutz gem. Art. 13 DSGVO finden Sie hier.<https://www.o=
-pensynergy.com/de/datenschutzerklaerung/datenschutzhinweise-fuer-geschaefts=
-partner-gem-art-13-dsgvo/>
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-
-[tech_days_munchen]
-
-OpenSynergy TechDay M=FCnchen
-
-am 11. Februar 2020, ab 12:00Uhr, im Studio Balan, Moosacherstr. 86.
-
-Anmeldung bitte hier<mailto:sabine.mutumba@opensynergy.com>
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
