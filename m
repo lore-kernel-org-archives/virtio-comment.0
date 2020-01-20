@@ -1,20 +1,20 @@
-Return-Path: virtio-comment-return-1004-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1011-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A25F89841DA
-	for <virtio-comment@lists.oasis-open.org>; Sun,  5 Jan 2020 10:35:09 +0000 (UTC)
-Date: Sun, 5 Jan 2020 05:35:00 -0500
+	by lists.oasis-open.org (Postfix) with ESMTP id 9B4FA985EA2
+	for <virtio-comment@lists.oasis-open.org>; Mon, 20 Jan 2020 16:25:06 +0000 (UTC)
+Date: Mon, 20 Jan 2020 11:24:50 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20200105052836-mutt-send-email-mst@kernel.org>
+Message-ID: <20200120112311-mutt-send-email-mst@kernel.org>
 References: <BN6PR1801MB2067B366EB434CD282F6589BC5270@BN6PR1801MB2067.namprd18.prod.outlook.com>
 MIME-Version: 1.0
 In-Reply-To: <BN6PR1801MB2067B366EB434CD282F6589BC5270@BN6PR1801MB2067.namprd18.prod.outlook.com>
-Subject: [virtio-comment] Re: [PATCH] virtio-net: Add an optional device control over the
- receive buffers length
+Subject: Re: [virtio-comment] [PATCH] virtio-net: Add an optional device
+ control over the receive buffers length
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: inline
@@ -49,11 +49,6 @@ mment/201912/msg00007.html
 > +\item[VIRTIO_NET_F_RXBUF_LEN_RATIO(57)] Device requests to limit the
 > +    maximum/minimum receive buffers length ratio.
 > +
-
-So VIRTIO_NET_F_RXBUF_LEN_RATIO only makes sense with
-VIRTIO_NET_F_RXBUF_MIN_LEN, right?  I think we can just use a single
-feature bit then, and just set ratio to 0 to mean "infinity".
-
 > +\item[VIRTIO_NET_F_RXBUF_MIN_LEN(58)] Device requests to know the minimu=
 m
 > +    receive buffers length. Driver declares the minimum receive buffers
@@ -63,6 +58,14 @@ m
 {hdr_len}
 >      value. Device benefits from knowing the exact header length.
 > =20
+
+So I am wondering, when we are switching from regular skbs to XDP,
+all buffers become 4K. When we switch back, we get variability again.
+All the while some old buffers can be outstanding.
+
+How will we handle this?
+
+
 > @@ -2861,8 +2868,8 @@ \subsubsection{Legacy Interface: Feature bits}\labe=
 l{sec:Device Types / Network
 >  \subsection{Device configuration layout}\label{sec:Device Types / Networ=
@@ -94,10 +97,6 @@ ive
 > +VIRTIO_NET_F_RXBUF_LEN_RATIO is set. This field specifies the maximum/mi=
 nimum receive
 > +buffers length ratio.
-
-Actually shouldn't all of these always exist and only be valid
-if a flag is set? I think existing text should be fixed too.
-
 > +
 >  \begin{lstlisting}
 >  struct virtio_net_config {
@@ -142,14 +141,7 @@ ec:Device Types / Network Devi
 > +the value greater than or equal to the value configured in the
 > +\field{min_rx_buf_len} device configuration field, and allocate receive
 > +buffers accordingly.
-
-I think above should talk about buffer length, discussion about
-descriptors doesn't belong in devices, it's a way to describe buffers.
-
-If we want to limit descriptors per rx buffer, I think it's a
-separate feature similar to max_sg for blk/scsi.
-
-
+> +
 > +If VIRTIO_NET_F_RXBUF_LEN_RATIO feature has been negotiated, the driver
 > +MUST initialize all receive virtqueue descriptors \field{len} field with
 > +the value less than or equal to (\field{min_rx_buf_len} * \field{rx_buf_=
@@ -162,6 +154,23 @@ Network Device / Device Operation / Setting Up Receive Buffers}
 >  The device MUST set \field{num_buffers} to the number of descriptors use=
 d to
 > --
+>=20
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>=20
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>=20
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
+ists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
 
 This publicly archived list offers a means to provide input to the=0D
