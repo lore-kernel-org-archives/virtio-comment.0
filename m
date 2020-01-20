@@ -1,119 +1,108 @@
-Return-Path: virtio-comment-return-1016-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1009-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 026C9985F08
-	for <virtio-comment@lists.oasis-open.org>; Tue, 21 Jan 2020 09:08:19 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 91091985EA0
+	for <virtio-comment@lists.oasis-open.org>; Mon, 20 Jan 2020 16:14:49 +0000 (UTC)
+Date: Mon, 20 Jan 2020 11:14:37 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20200120111335-mutt-send-email-mst@kernel.org>
+References: <471210655.12237442.1575436801606.JavaMail.zimbra@redhat.com>
+ <20191211113112-mutt-send-email-mst@kernel.org>
+ <CAOEp5OdzmRTrZoC78kSoWS4g=XP2DNW-q0Y8jAsAWUDw9_u6Ew@mail.gmail.com>
+ <20191211130633-mutt-send-email-mst@kernel.org>
+ <CAOEp5OcxWEHr5d0TkxBv4-W=EGC2tfuWA6QObkA=NL56SzQZOg@mail.gmail.com>
+ <20191212023645-mutt-send-email-mst@kernel.org>
+ <CAOEp5OdcjrC01OOB1c0uCJdBTM8G=5CgtvXg+5urKCH0knwHCQ@mail.gmail.com>
+ <20191213021253-mutt-send-email-mst@kernel.org>
+ <CAOEp5OekYCJt6=2=AordSpx5ZhM-nAe_f_KRgLjaj_T4LNDNXA@mail.gmail.com>
+ <20191213033744-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-References: <20191218131151.177694-1-keiichiw@chromium.org>
- <20191218134246.up6nwpgfjouhehig@sirius.home.kraxel.org> <CAD90VcbA0oGsV4gwNKTCtfnowrXEvc+PwiTwXyK3LNq6vU8NQw@mail.gmail.com>
- <20191218101823-mutt-send-email-mst@kernel.org> <CAD90VcacfF57H+1nKcpo3S_0gT60bwCoqssg5OZbDwmFUUk8fg@mail.gmail.com>
-In-Reply-To: <CAD90VcacfF57H+1nKcpo3S_0gT60bwCoqssg5OZbDwmFUUk8fg@mail.gmail.com>
-From: Keiichi Watanabe <keiichiw@chromium.org>
-Date: Tue, 21 Jan 2020 18:08:03 +0900
-Message-ID: <CAD90VcY3O6H1ihdkLkgSwCyt7FpC-BuXgDUQYWdP7yHRHtSBzw@mail.gmail.com>
-Subject: Re: [virtio-comment] Re: [PATCH v2] content: Reserve device ID for
- video encoder and decoder device
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20191213033744-mutt-send-email-mst@kernel.org>
+Subject: Re: [virtio-comment] Re: [PATCH] virtio-net: define feature of
+ per-packet RSS hash delivery
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, virtio-comment@lists.oasis-open.org, Alexandre Courbot <acourbot@chromium.org>, Alex Lau <alexlau@chromium.org>, Dmitry Sepp <dmitry.sepp@opensynergy.com>, Enrico Granata <egranata@google.com>, Pawel Osciak <posciak@chromium.org>, David Stevens <stevensd@chromium.org>, Tomasz Figa <tfiga@chromium.org>
+Content-Disposition: inline
+To: Yuri Benditovich <yuri.benditovich@daynix.com>
+Cc: Yuri Benditovich <ybendito@redhat.com>, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hi TC members,
-
-Would you mind having a TC vote for this issue?
-
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/67
-
-Best regards,
-Keiichi
-
-
-On Tue, Jan 7, 2020 at 11:08 PM Keiichi Watanabe <keiichiw@chromium.org> wr=
-ote:
->
-> On Thu, Dec 19, 2019 at 12:18 AM Michael S. Tsirkin <mst@redhat.com> wrot=
-e:
-> >
-> > On Wed, Dec 18, 2019 at 11:08:26PM +0900, Keiichi Watanabe wrote:
-> > > On Wed, Dec 18, 2019 at 10:42 PM Gerd Hoffmann <kraxel@redhat.com> wr=
-ote:
-> > > >
-> > > > On Wed, Dec 18, 2019 at 10:11:51PM +0900, Keiichi Watanabe wrote:
-> > > > > Reserve device ID 30 for video encoder device and 31 for video de=
-coder device.
-> > > >
-> > > > Hint: https://github.com/oasis-tcs/virtio-spec/blob/master/.github/=
-PULL_REQUEST_TEMPLATE.md
-> >
-> > > Thanks for the info. I didn't understand the approval process.
-> > > I created https://github.com/oasis-tcs/virtio-spec/issues/67
+On Fri, Dec 13, 2019 at 03:38:11AM -0500, Michael S. Tsirkin wrote:
+> On Fri, Dec 13, 2019 at 10:21:53AM +0200, Yuri Benditovich wrote:
+> > On Fri, Dec 13, 2019 at 9:16 AM Michael S. Tsirkin <mst@redhat.com> wro=
+te:
 > > >
-> > > Best,
-> > > Keiichi
-> >
-> > And in particular:
-> > https://github.com/oasis-tcs/virtio-spec/blob/master/README.md#use-of-g=
-ithub-issues
-> >
->
-> Hi, thank you for the information. I edited the issue description to
-> make it contain the link to my proposal in the ML.
-> Since a voting request for
-> https://github.com/oasis-tcs/virtio-spec/issues/68, on which my issue
-> #67 depends, was submitted today, I'll wait for the voting is
-> finished.
->
-> Best regards,
-> Keiichi
->
-> > >
+> > > On Fri, Dec 13, 2019 at 06:34:39AM +0200, Yuri Benditovich wrote:
 > > > >
-> > > > > +30         &   Video encoder device \\
-> > > > > +\hline
-> > > > > +31         &   Video decoder device \\
-> > > > > +\hline
+> > > > So there are 2 possible profiles of devices that 'do not have RSS' =
+but
+> > > > deliver hash:
+> > > > 1. The device is in general can do RSS, but has only one pair of
+> > > > queues and does only hash calculation
+> > > > 2. The device has multiple queues but is configured to do auto
+> > > > steering and we want also hash from it.
 > > > >
-> > > > Acked-by: Gerd Hoffmann <kraxel@redhat.com>
-> > > >
+> > > > My impression is that case 2 is rather academic one (at least looki=
+ng forward).
+> > > > Do you agree?
 > > >
-> > > This publicly archived list offers a means to provide input to the
-> > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > I am not sure I agree. auto mq is much easier to configure than RSS
+> > > so I image it's useful even if one wants hash.
+> >=20
+> > With RSS and hash delivery we're mainly targeting virtio-net in hardwar=
+e.
+> > Auto mq is much more complicated, correct?
+>=20
+> Hardware implementing it exists, it's not too hard, just some tables
+> to maintain.
+
+So what is the resolution here? To me it seems easier to just allow
+this than worry whether it's useful. And devices that do not
+want to support some combinations, don't have to, right?
+
 > > >
-> > > In order to verify user consent to the Feedback License terms and
-> > > to minimize spam in the list archive, subscription is required
-> > > before posting.
+> > > --
+> > > MST
 > > >
-> > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > List help: virtio-comment-help@lists.oasis-open.org
-> > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license=
-.pdf
-> > > List Guidelines: https://www.oasis-open.org/policies-guidelines/maili=
-ng-lists
-> > > Committee: https://www.oasis-open.org/committees/virtio/
-> > > Join OASIS: https://www.oasis-open.org/join/
-> >
+>=20
+>=20
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>=20
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>=20
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
+ists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
