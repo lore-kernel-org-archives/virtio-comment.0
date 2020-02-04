@@ -1,127 +1,144 @@
-Return-Path: virtio-comment-return-1051-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1048-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 69AF99860E4
-	for <virtio-comment@lists.oasis-open.org>; Wed,  5 Feb 2020 10:31:15 +0000 (UTC)
-Date: Wed, 5 Feb 2020 05:30:53 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20200205052829-mutt-send-email-mst@kernel.org>
-References: <20200201100107.20281-1-yuri.benditovich@daynix.com>
- <20200203045508-mutt-send-email-mst@kernel.org>
- <926049155.4815995.1580735457487.JavaMail.zimbra@redhat.com>
- <20200203081229-mutt-send-email-mst@kernel.org>
- <2095927751.5096893.1580895162284.JavaMail.zimbra@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id E49849860D8
+	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Feb 2020 16:13:43 +0000 (UTC)
+From: Vitaly Mireyno <vmireyno@marvell.com>
+Date: Tue, 4 Feb 2020 16:13:36 +0000
+Message-ID: <CY4PR1801MB207265CCA387276A48C20207C5030@CY4PR1801MB2072.namprd18.prod.outlook.com>
+Content-Language: en-US
 MIME-Version: 1.0
-In-Reply-To: <2095927751.5096893.1580895162284.JavaMail.zimbra@redhat.com>
-Subject: Re: [virtio-comment] [PATCH v2] virtio-net: Define per-packet hash
- reporting feature
-Content-Type: text/plain; charset=us-ascii
+Subject: [virtio-comment] [PATCH v2] virtio-net: Add an optional device control over the
+ receive buffers length
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
-To: Yuri Benditovich <ybendito@redhat.com>
-Cc: Yuri Benditovich <yuri.benditovich@daynix.com>, virtio-comment@lists.oasis-open.org
+To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, Ariel Elior <aelior@marvell.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Feb 05, 2020 at 04:32:42AM -0500, Yuri Benditovich wrote:
-> ----- Original Message -----=20
->=20
-> > From: "Michael S. Tsirkin" <mst@redhat.com>
-> > To: "Yuri Benditovich" <ybendito@redhat.com>
-> > Cc: "Yuri Benditovich" <yuri.benditovich@daynix.com>,
-> > virtio-comment@lists.oasis-open.org
-> > Sent: Monday, February 3, 2020 3:20:56 PM
-> > Subject: Re: [virtio-comment] [PATCH v2] virtio-net: Define per-packet =
-hash
-> > reporting feature
->=20
-> > On Mon, Feb 03, 2020 at 08:10:57AM -0500, Yuri Benditovich wrote:
-> > > > > +\item The device uses \field{hash_key_data} of the
-> > > > > virtio_net_rss_config
-> > > > > structure.
-> > > > > +\end{itemize}
-> > > > > +See the definition of virtio_net_rss_config structure in
-> > > > > \ref{sec:Device
-> > > > > Types / Network Device / Device Operation / Control Virtqueue /
-> > > > > Receive-side scaling (RSS) / Setting RSS parameters}
-> > > > > +
-> > > > > +If the feature VIRTIO_NET_F_RSS was not negotiated, the device u=
-ses
-> > > > > internal configuration
-> > > > > +of enabled hash types and a key used for hash calculation.
-> > >
-> > > > I don't understand this last paragraph. Could you clarify?
-> > >
-> > > In order to calculate a hash the device shall have 2 things:
-> > > a key for hash calculation
-> > > a bitmask which hash types are enabled
-> > >
-> > > In case the device supportes RSS command (even with single queue), it=
- can
-> > > take them from current RSS configuration.
-> > > If only VIRTIO_NET_F_HASH_REPORT is negotiated, the device uses inter=
-nal
-> > > preset of both parameters.
-> > >
-> > > Do you suggest something different?
->=20
-> > Hmm control over key/mask would be nice to have.
-> > I guess we could add a command along the lines of:
->=20
-> > struct virtio_net_hash_config {
-> > le32 hash_types;
-> > le16 reserved[4];
-> > u8 hash_key_length;
-> > u8 hash_key_data[hash_key_length];
-> > };
->=20
-> > This needs some thought: we don't want to request that devices have
-> > double the machinery so the command should not be there if RSS is
-> > enabled ...
->=20
-> > Maybe the command is only valid if HASH is set but RSS is clear?
->=20
-> No problem.
-> To avoid further ping-pongs:
-> What is this reserved[4] needed for?
+This patch gives devices some level of control over the receive buffers len=
+gth.
+The driver declares the minimum receive buffer length, and the device reque=
+sts max/min buffer length ratio.
 
-It makes the layout match the RSS config command exactly, so
-we don't need to duplicate code.
-In fact we can instead just say that this command
-uses the same structure, with rss fields are zeroed out.
+v2 incorporates v1 comments.
 
-> Please confirm:
-> - this is an additional command under VIRTIO_NET_CTRL_MQ
-> - should be supported when HASH_REPORT is negotiated, with or without MQ,=
- not needed if RSS supported
-> - Initially all hashes are disabled
+Changes from v1:
+ * min_rx_buf_len must be set before FEATURES_OK
+ * Use a single feature bit VIRTIO_NET_F_RXBUF_LEN_CTRL for both, the min s=
+ize and the ratio
+ * min_rx_buf_len is defined as write-only for driver
 
-This is what I would do, yes.
 
-> > --
-> > MST
->=20
-> > This publicly archived list offers a means to provide input to the
-> > OASIS Virtual I/O Device (VIRTIO) TC.
->=20
-> > In order to verify user consent to the Feedback License terms and
-> > to minimize spam in the list archive, subscription is required
-> > before posting.
->=20
-> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > List help: virtio-comment-help@lists.oasis-open.org
-> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.p=
-df
-> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing=
--lists
-> > Committee: https://www.oasis-open.org/committees/virtio/
-> > Join OASIS: https://www.oasis-open.org/join/
+Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
+---
+ content.tex | 32 ++++++++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
+diff --git a/content.tex b/content.tex
+index d68cfaf..ab0d193 100644
+--- a/content.tex
++++ b/content.tex
+@@ -2815,6 +2815,10 @@ \subsection{Feature bits}\label{sec:Device Types / N=
+etwork Device / Feature bits
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+     channel.
+=20
++\item[VIRTIO_NET_F_RXBUF_LEN_CTRL(58)] Device requests to know the minimum
++    receive buffers length, and requests to limit the maximum/minimum rece=
+ive
++    buffers length ratio. Driver declares the minimum receive buffers leng=
+th.
++
+ \item[VIRTIO_NET_F_GUEST_HDRLEN(59)] Driver can provide the exact \field{h=
+dr_len}
+     value. Device benefits from knowing the exact header length.
+=20
+@@ -2861,8 +2865,8 @@ \subsubsection{Legacy Interface: Feature bits}\label{=
+sec:Device Types / Network
+ \subsection{Device configuration layout}\label{sec:Device Types / Network =
+Device / Device configuration layout}
+ \label{sec:Device Types / Block Device / Feature bits / Device configurati=
+on layout}
+=20
+-Three driver-read-only configuration fields are currently defined. The \fi=
+eld{mac} address field
+-always exists (though is only valid if VIRTIO_NET_F_MAC is set), and
++The driver-read-only \field{mac} address field always exists
++(though is only valid if VIRTIO_NET_F_MAC is set), and
+ \field{status} only exists if VIRTIO_NET_F_STATUS is set. Two
+ read-only bits (for the driver) are currently defined for the status field=
+:
+ VIRTIO_NET_S_LINK_UP and VIRTIO_NET_S_ANNOUNCE.
+@@ -2882,12 +2886,22 @@ \subsection{Device configuration layout}\label{sec:=
+Device Types / Network Device
+ VIRTIO_NET_F_MTU is set. This field specifies the maximum MTU for the driv=
+er to
+ use.
+=20
++The write-only for driver field \field{min_rx_buf_len} only exists if
++VIRTIO_NET_F_RXBUF_LEN_CTRL is set. This field specifies the minimum recei=
+ve
++buffers length.
++
++The driver-read-only field \field{rx_buf_len_ratio} only exists if
++VIRTIO_NET_F_RXBUF_LEN_CTRL is set. This field specifies the maximum/minim=
+um receive
++buffers length ratio. The value '0' indicates unrestricted ratio.
++
+ \begin{lstlisting}
+ struct virtio_net_config {
+         u8 mac[6];
+         le16 status;
+         le16 max_virtqueue_pairs;
+         le16 mtu;
++        le32 min_rx_buf_len;
++        le16 rx_buf_len_ratio;
+ };
+ \end{lstlisting}
+=20
+@@ -2916,6 +2930,13 @@ \subsection{Device configuration layout}\label{sec:D=
+evice Types / Network Device
+ If the driver negotiates the VIRTIO_NET_F_STANDBY feature, the device MAY =
+act
+ as a standby device for a primary device with the same MAC address.
+=20
++A driver SHOULD accept the VIRTIO_NET_F_RXBUF_LEN_CTRL feature if offered.
++
++If VIRTIO_NET_F_RXBUF_LEN_CTRL feature has been negotiated, the driver MUS=
+T
++set \field{min_rx_buf_len} before setting the FEATURES_OK status bit.
++
++A driver MUST NOT modify \field{min_rx_buf_len} once it has been set.
++
+ \drivernormative{\subsubsection}{Device configuration layout}{Device Types=
+ / Network Device / Device configuration layout}
+=20
+ A driver SHOULD negotiate VIRTIO_NET_F_MAC if the device offers it.
+@@ -3281,6 +3302,13 @@ \subsubsection{Setting Up Receive Buffers}\label{sec=
+:Device Types / Network Devi
+ If VIRTIO_NET_F_MQ is negotiated, each of receiveq1\ldots receiveqN
+ that will be used SHOULD be populated with receive buffers.
+=20
++If VIRTIO_NET_F_RXBUF_LEN_CTRL feature has been negotiated, the driver
++MUST initialize all receive virtqueue descriptors \field{len} field with
++the value greater than or equal to the value configured in the
++\field{min_rx_buf_len} device configuration field, and allocate receive
++buffers accordingly. If \field{rx_buf_len_ratio} > 0, then the \field{len}=
+ value
++must also be less than or equal to (\field{min_rx_buf_len} * \field{rx_buf=
+_len_ratio}).
++
+ \devicenormative{\paragraph}{Setting Up Receive Buffers}{Device Types / Ne=
+twork Device / Device Operation / Setting Up Receive Buffers}
+=20
+ The device MUST set \field{num_buffers} to the number of descriptors used =
+to
+--
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
