@@ -1,15 +1,15 @@
-Return-Path: virtio-comment-return-1082-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1083-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9E562985EF2
-	for <virtio-comment@lists.oasis-open.org>; Thu, 20 Feb 2020 08:18:39 +0000 (UTC)
-Date: Thu, 20 Feb 2020 03:18:30 -0500
+	by lists.oasis-open.org (Postfix) with ESMTP id B1DAC985EF3
+	for <virtio-comment@lists.oasis-open.org>; Thu, 20 Feb 2020 08:19:15 +0000 (UTC)
+Date: Thu, 20 Feb 2020 03:19:04 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20200220031723-mutt-send-email-mst@kernel.org>
+Message-ID: <20200220031844-mutt-send-email-mst@kernel.org>
 References: <20200219075337.23191-1-yuri.benditovich@daynix.com>
  <20200219075337.23191-2-yuri.benditovich@daynix.com>
  <86420fd1-cbb4-0105-4114-ca2d6cb3b8ff@redhat.com>
@@ -94,14 +94,7 @@ TIO_NET_F_HASH_REPORT
 > header?
 >=20
 > Stable offset is simpler but may waste space.
-
-So we have:
-                dev->needed_headroom =3D vi->hdr_len;
-
-simply put we are going to waste space on the max header size anyway.
-Dynamically sizing the header for each packet is pointless,
-won't save memory.
-
+>=20
 >=20
 > > So any self-descriptive layout seems good but in practice not so usable=
 ,
@@ -115,6 +108,11 @@ won't save memory.
 > VIRTIO_NET_F_FEAUTER_INFORMATION ? 4 : 0
 >=20
 > Thanks
+
+For sure that's basically what this proposal amounts to, anyway.
+
+--=20
+MST
 
 
 This publicly archived list offers a means to provide input to the=0D
