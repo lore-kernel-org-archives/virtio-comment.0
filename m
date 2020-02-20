@@ -1,15 +1,15 @@
-Return-Path: virtio-comment-return-1078-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1081-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A189B985EF2
-	for <virtio-comment@lists.oasis-open.org>; Thu, 20 Feb 2020 08:00:52 +0000 (UTC)
-Date: Thu, 20 Feb 2020 03:00:35 -0500
+	by lists.oasis-open.org (Postfix) with ESMTP id ADC39985EF2
+	for <virtio-comment@lists.oasis-open.org>; Thu, 20 Feb 2020 08:12:03 +0000 (UTC)
+Date: Thu, 20 Feb 2020 03:11:50 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20200220025801-mutt-send-email-mst@kernel.org>
+Message-ID: <20200220030256-mutt-send-email-mst@kernel.org>
 References: <BN6PR1801MB2067F10E2D69ABBC2E22A2F2C56A0@BN6PR1801MB2067.namprd18.prod.outlook.com>
 MIME-Version: 1.0
 In-Reply-To: <BN6PR1801MB2067F10E2D69ABBC2E22A2F2C56A0@BN6PR1801MB2067.namprd18.prod.outlook.com>
@@ -30,8 +30,18 @@ eader length for TSO packets.
 >=20
 > Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
 
-Actually I was wondering about that. How important is this in practice?
-Reason is I am looking to drop fields from the header.
+So I looked at implementing this and maybe this was not such a good idea
+after all.
+
+How would we implement this in Linux?
+Current code just puts skb_headlen there which is
+# of bytes in the linear buffer.
+Which I guess it often the header, but not at all always.
+
+Should this have been limited to TSO packets?
+
+I also could not figure out how this is useful for the host.
+Could you enlighten me pls?
 
 > ---
 >  content.tex | 49 +++++++++++++++++++++++++++++++++++++++----------
