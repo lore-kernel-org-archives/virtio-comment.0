@@ -1,223 +1,293 @@
-Return-Path: virtio-comment-return-1088-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1084-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 039E7985F65
-	for <virtio-comment@lists.oasis-open.org>; Thu, 20 Feb 2020 20:06:50 +0000 (UTC)
-Date: Thu, 20 Feb 2020 15:06:40 -0500 (EST)
-From: Yuri Benditovich <ybendito@redhat.com>
-Message-ID: <1218680489.7485583.1582229200015.JavaMail.zimbra@redhat.com>
-In-Reply-To: <a97a13c4-f82d-a4bf-af0e-6a0bfbbea8e1@redhat.com>
-References: <20200219075337.23191-1-yuri.benditovich@daynix.com> <20200219075337.23191-2-yuri.benditovich@daynix.com> <86420fd1-cbb4-0105-4114-ca2d6cb3b8ff@redhat.com> <20200219092244-mutt-send-email-mst@kernel.org> <623f76be-bf87-c473-350e-87fe53b41261@redhat.com> <893990295.7352578.1582184463424.JavaMail.zimbra@redhat.com> <a97a13c4-f82d-a4bf-af0e-6a0bfbbea8e1@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 545DB985EF4
+	for <virtio-comment@lists.oasis-open.org>; Thu, 20 Feb 2020 09:51:29 +0000 (UTC)
+From: Vitaly Mireyno <vmireyno@marvell.com>
+Date: Thu, 20 Feb 2020 09:51:17 +0000
+Message-ID: <CY4PR1801MB20725E48C52AA4BB57F26B7EC5130@CY4PR1801MB2072.namprd18.prod.outlook.com>
+Content-Language: en-US
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH v4 1/1] virtio-net: Define per-packet
- hash reporting feature
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_7485582_875957582.1582229200014"
-To: Jason Wang <jasowang@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Yuri Benditovich <yuri.benditovich@daynix.com>, virtio-comment@lists.oasis-open.org
+Subject: Re: [virtio-comment] [PATCH] virtio-net: Add support for correct
+ hdr_len field.
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "jasowang@redhat.com" <jasowang@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-------=_Part_7485582_875957582.1582229200014
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
------ Original Message -----
+>-----Original Message-----
+>From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-open=
+.org> On Behalf Of
+>Michael S. Tsirkin
+>Sent: Thursday, 20 February, 2020 10:12
+>To: Vitaly Mireyno <vmireyno@marvell.com>
+>Cc: virtio-comment@lists.oasis-open.org; jasowang@redhat.com
+>Subject: Re: [virtio-comment] [PATCH] virtio-net: Add support for correct =
+hdr_len field.
+>
+>----------------------------------------------------------------------
+>On Thu, Oct 24, 2019 at 03:24:43PM +0000, Vitaly Mireyno wrote:
+>> Some devices benefit from the knowledge of the exact header length for T=
+SO processing.
+>> Add a feature bit for a driver that is capable of providing the correct =
+header length for TSO packets.
+>>
+>> Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
+>
+>So I looked at implementing this and maybe this was not such a good idea a=
+fter all.
+>
+>How would we implement this in Linux?
+>Current code just puts skb_headlen there which is # of bytes in the linear=
+ buffer.
+>Which I guess it often the header, but not at all always.
+>
+>Should this have been limited to TSO packets?
+>
+>I also could not figure out how this is useful for the host.
+>Could you enlighten me pls?
 
-> From: "Jason Wang" <jasowang@redhat.com>
-> To: "Yuri Benditovich" <ybendito@redhat.com>
-> Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Yuri Benditovich"
-> <yuri.benditovich@daynix.com>, virtio-comment@lists.oasis-open.org
-> Sent: Thursday, February 20, 2020 10:11:51 AM
-> Subject: Re: [virtio-comment] [PATCH v4 1/1] virtio-net: Define per-packe=
+As see it, header length is essential for TSO, and maybe not so useful for =
+non-TSO.
+To calculate the header length, I suppose a Linux driver could do something=
+ like:
+skb_transport_header(skb) + tcp_hdrlen(skb) - skb->data
+
+
+>
+>> ---
+>>  content.tex | 49 +++++++++++++++++++++++++++++++++++++++----------
+>>  1 file changed, 39 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/content.tex b/content.tex index 679391e..dac6921 100644
+>> --- a/content.tex
+>> +++ b/content.tex
+>> @@ -2811,6 +2811,9 @@ \subsection{Feature bits}\label{sec:Device Types
+>> / Network Device / Feature bits  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] S=
+et MAC address
+>through control
+>>      channel.
+>>
+>> +\item[VIRTIO_NET_F_GUEST_HDRLEN(59)] Driver can provide the exact \fiel=
+d{hdr_len}
+>> +    value.
+>> +
+>>  \item[VIRTIO_NET_F_RSC_EXT(61)] Device can process duplicated ACKs
+>>      and report number of coalesced segments and duplicated ACKs
+>>
+>> @@ -2840,6 +2843,7 @@ \subsubsection{Feature bit
+>> requirements}\label{sec:Device Types / Network Device  \item[VIRTIO_NET_=
+F_MQ] Requires
+>VIRTIO_NET_F_CTRL_VQ.
+>>  \item[VIRTIO_NET_F_CTRL_MAC_ADDR] Requires VIRTIO_NET_F_CTRL_VQ.
+>>  \item[VIRTIO_NET_F_RSC_EXT] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_N=
+ET_F_HOST_TSO6.
+>> +\item[VIRTIO_NET_F_GUEST_HDRLEN] Requires VIRTIO_NET_F_HOST_TSO4 or
+>VIRTIO_NET_F_HOST_TSO6 or VIRTIO_NET_F_HOST_UFO.
+>>  \end{description}
+>>
+>>  \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types
+>> / Network Device / Feature bits / Legacy Interface: Feature bits} @@ -30=
+95,12 +3099,21 @@
+>\subsubsection{Packet Transmission}\label{sec:Device Types / Network Devic=
+e / De
+>>    into smaller packets. The other gso fields are set:
+>>
+>>    \begin{itemize}
+>> -  \item \field{hdr_len} is a hint to the device as to how much of the
+>> header
+>> +  \item If the VIRTIO_NET_F_GUEST_HDRLEN feature has been negotiated,
+>> +    \field{hdr_len} indicates the header length that needs to be replic=
+ated
+>> +    for each packet. It's a number of bytes from beginning of the packe=
 t
-> hash reporting feature
+>> +    to beginning of the transport payload.
+>> +    Otherwise, if the VIRTIO_NET_F_GUEST_HDRLEN feature has not been ne=
+gotiated,
+>> +    \field{hdr_len} is a hint to the device as to how much of the
+>> + header
+>>      needs to be kept to copy into each packet, usually set to the
+>>      length of the headers, including the transport
+>> header\footnote{Due to various bugs in implementations, this field is no=
+t useful  as a guarantee of
+>the transport header size.
+>>  }.
+>>
+>> +  \begin{note}
+>> +  Some devices benefit from the knowledge of the exact header length, f=
+or TSO processing.
+>> +  \end{note}
+>> +
+>>    \item \field{gso_size} is the maximum size of each packet beyond that
+>>      header (ie. MSS).
+>>
+>> @@ -3173,9 +3186,17 @@ \subsubsection{Packet
+>> Transmission}\label{sec:Device Types / Network Device / De  desired MSS.
+>>
+>>  If one of the VIRTIO_NET_F_HOST_TSO4, TSO6 or UFO options have -been
+>> negotiated, the driver SHOULD set \field{hdr_len} to a value -not less
+>> than the length of the headers, including the transport -header.
+>> +been negotiated:
+>> +\begin{itemize}
+>> +\item If the VIRTIO_NET_F_GUEST_HDRLEN feature has been negotiated,
+>> +=09the driver MUST set \field{hdr_len} to a value equal to the length
+>> +=09of the headers, including the transport header.
+>> +
+>> +\item If the VIRTIO_NET_F_GUEST_HDRLEN feature has not been negotiated,
+>> +=09the driver SHOULD set \field{hdr_len} to a value
+>> +=09not less than the length of the headers, including the transport
+>> +=09header.
+>> +\end{itemize}
+>>
+>>  The driver MUST NOT set the VIRTIO_NET_HDR_F_DATA_VALID and
+>> VIRTIO_NET_HDR_F_RSC_INFO bits in \field{flags}.
+>> @@ -3187,12 +3208,20 @@ \subsubsection{Packet
+>> Transmission}\label{sec:Device Types / Network Device / De  device MUST =
+NOT use the
+>\field{csum_start} and \field{csum_offset}.
+>>
+>>  If one of the VIRTIO_NET_F_HOST_TSO4, TSO6 or UFO options have -been
+>> negotiated, the device MAY use \field{hdr_len} only as a hint about
+>> the -transport header size.
+>> -The device MUST NOT rely on \field{hdr_len} to be correct.
+>> -\begin{note}
+>> -This is due to various bugs in implementations.
+>> -\end{note}
+>> +been negotiated:
+>> +\begin{itemize}
+>> +\item If the VIRTIO_NET_F_GUEST_HDRLEN feature has been negotiated,
+>> +=09the device MAY use \field{hdr_len} as the transport header size.
+>> +
+>> +\item If the VIRTIO_NET_F_GUEST_HDRLEN feature has not been negotiated,
+>> +=09the device MAY use \field{hdr_len} only as a hint about the
+>> +=09transport header size.
+>> +=09The device MUST NOT rely on \field{hdr_len} to be correct.
+>> +
+>> +=09\begin{note}
+>> +=09This is due to various bugs in implementations.
+>> +=09\end{note}
+>> +\end{itemize}
+>>
+>>  If VIRTIO_NET_HDR_F_NEEDS_CSUM is not set, the device MUST NOT  rely
+>> on the packet checksum being correct.
+>> --
+>>
+>>
+>> This publicly archived list offers a means to provide input to the
+>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>
+>> In order to verify user consent to the Feedback License terms and to
+>> minimize spam in the list archive, subscription is required before
+>> posting.
+>>
+>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>> List help: virtio-comment-help@lists.oasis-open.org
+>> List archive:
+>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lists.oasis-2Dope
+>> n.org_archives_virtio-2Dcomment_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=
+=3Dl
+>> DHJ2FW52oJ3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-
+>> mREeI_KYFcLA9Idzwo&s=3Dnlr22vvxamnoP6GTBunPiIQXatfR1jEpMVWo3QWjgkU&e=3D
+>> Feedback License:
+>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dopen.
+>> org_who_ipr_feedback-5Flicense.pdf&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ=
+&r
+>> =3DlDHJ2FW52oJ3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915=
+En
+>> u-mREeI_KYFcLA9Idzwo&s=3DfLR52kyo8ob2sRKD-YqfBkcFpc4N8CjVyoGB8l9jiDY&e=
+=3D
+>> List Guidelines:
+>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dopen.
+>> org_policies-2Dguidelines_mailing-2Dlists&d=3DDwIFAg&c=3DnKjWec2b6R0mOyP=
+az
+>> 7xtfQ&r=3DlDHJ2FW52oJ3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3DBJCwxFbolHCRz9=
+kL
+>> fj915Enu-mREeI_KYFcLA9Idzwo&s=3DT4qEUr9UYy6-wRGkVEQCwR6bmlDDnJHJMSR3cDx2
+>> jow&e=3D
+>> Committee:
+>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dopen.
+>> org_committees_virtio_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW=
+52oJ
+>> 3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-mREeI_KYFc
+>> LA9Idzwo&s=3DFvN-HcjlfOBLxKBa3aCs7Q8oLFjlwi9b0VEfabOQ-yc&e=3D
+>> Join OASIS:
+>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dopen.
+>> org_join_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsArgF=
+Rdce
+>> vq01tbLQAw4A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-mREeI_KYFcLA9Idzwo&s=3D=
+x-
+>> xmnzrTYOlr2UQIHWAbcuM9xWt0IXCPnEFjNNdC2sA&e=3D
+>
+>
+>This publicly archived list offers a means to provide input to the OASIS V=
+irtual I/O Device (VIRTIO) TC.
+>
+>In order to verify user consent to the Feedback License terms and to minim=
+ize spam in the list archive,
+>subscription is required before posting.
+>
+>Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>List help: virtio-comment-help@lists.oasis-open.org
+>List archive: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lists=
+.oasis-
+>2Dopen.org_archives_virtio-
+>2Dcomment_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsArgFR=
+dcevq01tbLQAw4
+>A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-
+>mREeI_KYFcLA9Idzwo&s=3Dnlr22vvxamnoP6GTBunPiIQXatfR1jEpMVWo3QWjgkU&e=3D
+>Feedback License: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__w=
+ww.oasis-
+>2Dopen.org_who_ipr_feedback-
+>5Flicense.pdf&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsAr=
+gFRdcevq01tbLQAw4
+>A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-mREeI_KYFcLA9Idzwo&s=3DfLR52kyo8ob2s=
+RKD-
+>YqfBkcFpc4N8CjVyoGB8l9jiDY&e=3D
+>List Guidelines: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__ww=
+w.oasis-
+>2Dopen.org_policies-2Dguidelines_mailing-
+>2Dlists&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsArgFRdce=
+vq01tbLQAw4A_NO7
+>xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-mREeI_KYFcLA9Idzwo&s=3DT4qEUr9UYy6-
+>wRGkVEQCwR6bmlDDnJHJMSR3cDx2jow&e=3D
+>Committee: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasi=
+s-
+>2Dopen.org_committees_virtio_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlD=
+HJ2FW52oJ3lqqsArgF
+>Rdcevq01tbLQAw4A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-mREeI_KYFcLA9Idzwo&s=
+=3DFvN-
+>HcjlfOBLxKBa3aCs7Q8oLFjlwi9b0VEfabOQ-yc&e=3D
+>Join OASIS: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oas=
+is-
+>2Dopen.org_join_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqq=
+sArgFRdcevq01tbLQ
+>Aw4A_NO7xgI&m=3DBJCwxFbolHCRz9kLfj915Enu-mREeI_KYFcLA9Idzwo&s=3Dx-
+>xmnzrTYOlr2UQIHWAbcuM9xWt0IXCPnEFjNNdC2sA&e=3D
 
-> On 2020/2/20 =E4=B8=8B=E5=8D=883:41, Yuri Benditovich wrote:
-> >
-> >
-> > -----------------------------------------------------------------------=
--
-> >
-> > *From: *"Jason Wang" <jasowang@redhat.com>
-> > *To: *"Michael S. Tsirkin" <mst@redhat.com>
-> > *Cc: *"Yuri Benditovich" <yuri.benditovich@daynix.com>,
-> > virtio-comment@lists.oasis-open.org
-> > *Sent: *Thursday, February 20, 2020 8:38:50 AM
-> > *Subject: *Re: [virtio-comment] [PATCH v4 1/1] virtio-net: Define
-> > per-packet hash reporting feature
-> >
-> >
-> > On 2020/2/19 =E4=B8=8B=E5=8D=8810:23, Michael S. Tsirkin wrote:
-> > > On Wed, Feb 19, 2020 at 08:27:10PM +0800, Jason Wang wrote:
-> > >> On 2020/2/19 =E4=B8=8B=E5=8D=883:53, Yuri Benditovich wrote:
-> > >>> The device MUST set
-> > \field{rss_max_indirection_table_length} to at least 128, if it offers
-> > >>> VIRTIO_NET_F_RSS.
-> > >>> @@ -3195,6 +3180,8 @@ \subsection{Device
-> > Operation}\label{sec:Device Types / Network Device / Device O
-> > >>> le16 csum_start;
-> > >>> le16 csum_offset;
-> > >>> le16 num_buffers;
-> > >>> + le32 hash_value; (Only if VIRTIO_NET_F_HASH_REPORT
-> > negotiated)
-> > >>> + le16 hash_type; (Only if VIRTIO_NET_F_HASH_REPORT
-> > negotiated)
-> > >>> };
-> > >>> \end{lstlisting}
-> > >> A question here:
-> > >>
-> > >> Consider we introduce VIRTIO_NET_F_FEATURE_INFORMATION in the
-> > future:
-> > >>
-> > >> le32 hash_type; // VIRTIO_NET_F_HASH_REPORT
-> > >> le32 feature_information; // VIRTIO_NET_F_FEATURE_INFORMATION
-> > >>
-> > >> What happens if HASH_REPORT is not negotiated, I believe we
-> > expect a stable
-> > >> ABI(offset) here for feature_information?
-> > >>
-> > >> Thanks
-> > >>
-> > > We'll have to decide at that point ... any better ideas?
-> >
-> >
-> > Not sure but something that is self descriptive? (which could be an
-> > overkill for fields that only need few bytes).
-> >
-> > The problem is that the driver typically wants to know the header size
-> > from the beginning to configure SG table.
 
-> Yes, so still the above example. Consider a driver only support
-> VIRTIO_NET_F_FEATURE_INFORMATION, how to determine the size of the vnet
-> header?
-
-> Stable offset is simpler but may waste space.
-
-> > So any self-descriptive layout seems good but in practice not so
-> > usable, IMO.
-
-> I think then it can calculate the header length based on the feature
-> negotiated.
-
-> hdr_len =3D sizeof(vnet_hdr) + VIRTIO_NET_F_HASH_REPORT ? 4 : 0 +
-> VIRTIO_NET_F_FEAUTER_INFORMATION ? 4 : 0
-
-Also possible.=20
-We'll need to define it as soon as we define in the spec the second feature=
- affecting packet size.=20
-There is also another point raised by Michael some time ago: different pack=
-et layouts for TX and RX.=20
-
-> Thanks
-
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
-
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
-
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
-
-------=_Part_7485582_875957582.1582229200014
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><body><div style=3D"font-family: courier new,courier,monaco,monospace=
-,sans-serif; font-size: 12pt; color: #000000"><div><br></div><div><br></div=
-><hr id=3D"zwchr"><blockquote style=3D"border-left:2px solid #1010FF;margin=
--left:5px;padding-left:5px;color:#000;font-weight:normal;font-style:normal;=
-text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:12pt;=
-"><b>From: </b>"Jason Wang" &lt;jasowang@redhat.com&gt;<br><b>To: </b>"Yuri=
- Benditovich" &lt;ybendito@redhat.com&gt;<br><b>Cc: </b>"Michael S. Tsirkin=
-" &lt;mst@redhat.com&gt;, "Yuri Benditovich" &lt;yuri.benditovich@daynix.co=
-m&gt;, virtio-comment@lists.oasis-open.org<br><b>Sent: </b>Thursday, Februa=
-ry 20, 2020 10:11:51 AM<br><b>Subject: </b>Re: [virtio-comment] [PATCH v4 1=
-/1] virtio-net: Define per-packet hash reporting feature<br><div><br></div>=
-<br>On 2020/2/20 =E4=B8=8B=E5=8D=883:41, Yuri Benditovich wrote:<br>&gt;<br=
->&gt;<br>&gt; -------------------------------------------------------------=
------------<br>&gt;<br>&gt; &nbsp; &nbsp; *From: *"Jason Wang" &lt;jasowang=
-@redhat.com&gt;<br>&gt; &nbsp; &nbsp; *To: *"Michael S. Tsirkin" &lt;mst@re=
-dhat.com&gt;<br>&gt; &nbsp; &nbsp; *Cc: *"Yuri Benditovich" &lt;yuri.bendit=
-ovich@daynix.com&gt;,<br>&gt; &nbsp; &nbsp; virtio-comment@lists.oasis-open=
-.org<br>&gt; &nbsp; &nbsp; *Sent: *Thursday, February 20, 2020 8:38:50 AM<b=
-r>&gt; &nbsp; &nbsp; *Subject: *Re: [virtio-comment] [PATCH v4 1/1] virtio-=
-net: Define<br>&gt; &nbsp; &nbsp; per-packet hash reporting feature<br>&gt;=
-<br>&gt;<br>&gt; &nbsp; &nbsp; On 2020/2/19 =E4=B8=8B=E5=8D=8810:23, Michae=
-l S. Tsirkin wrote:<br>&gt; &nbsp; &nbsp; &gt; On Wed, Feb 19, 2020 at 08:2=
-7:10PM +0800, Jason Wang wrote:<br>&gt; &nbsp; &nbsp; &gt;&gt; On 2020/2/19=
- =E4=B8=8B=E5=8D=883:53, Yuri Benditovich wrote:<br>&gt; &nbsp; &nbsp; &gt;=
-&gt;&gt; &nbsp; &nbsp;The device MUST set<br>&gt; &nbsp; &nbsp; \field{rss_=
-max_indirection_table_length} to at least 128, if it offers<br>&gt; &nbsp; =
-&nbsp; &gt;&gt;&gt; &nbsp; &nbsp;VIRTIO_NET_F_RSS.<br>&gt; &nbsp; &nbsp; &g=
-t;&gt;&gt; @@ -3195,6 +3180,8 @@ \subsection{Device<br>&gt; &nbsp; &nbsp; O=
-peration}\label{sec:Device Types / Network Device / Device O<br>&gt; &nbsp;=
- &nbsp; &gt;&gt;&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;le16 csum_sta=
-rt;<br>&gt; &nbsp; &nbsp; &gt;&gt;&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp;le16 csum_offset;<br>&gt; &nbsp; &nbsp; &gt;&gt;&gt; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp;le16 num_buffers;<br>&gt; &nbsp; &nbsp; &gt;&gt;&gt=
-; + &nbsp; &nbsp; &nbsp; &nbsp;le32 hash_value; (Only if VIRTIO_NET_F_HASH_=
-REPORT<br>&gt; &nbsp; &nbsp; negotiated)<br>&gt; &nbsp; &nbsp; &gt;&gt;&gt;=
- + &nbsp; &nbsp; &nbsp; &nbsp;le16 hash_type; &nbsp;(Only if VIRTIO_NET_F_H=
-ASH_REPORT<br>&gt; &nbsp; &nbsp; negotiated)<br>&gt; &nbsp; &nbsp; &gt;&gt;=
-&gt; &nbsp; &nbsp;};<br>&gt; &nbsp; &nbsp; &gt;&gt;&gt; &nbsp; &nbsp;\end{l=
-stlisting}<br>&gt; &nbsp; &nbsp; &gt;&gt; A question here:<br>&gt; &nbsp; &=
-nbsp; &gt;&gt;<br>&gt; &nbsp; &nbsp; &gt;&gt; Consider we introduce VIRTIO_=
-NET_F_FEATURE_INFORMATION in the<br>&gt; &nbsp; &nbsp; future:<br>&gt; &nbs=
-p; &nbsp; &gt;&gt;<br>&gt; &nbsp; &nbsp; &gt;&gt; le32 hash_type; // VIRTIO=
-_NET_F_HASH_REPORT<br>&gt; &nbsp; &nbsp; &gt;&gt; le32 feature_information;=
- // VIRTIO_NET_F_FEATURE_INFORMATION<br>&gt; &nbsp; &nbsp; &gt;&gt;<br>&gt;=
- &nbsp; &nbsp; &gt;&gt; What happens if HASH_REPORT is not negotiated, I be=
-lieve we<br>&gt; &nbsp; &nbsp; expect a stable<br>&gt; &nbsp; &nbsp; &gt;&g=
-t; ABI(offset) here for feature_information?<br>&gt; &nbsp; &nbsp; &gt;&gt;=
-<br>&gt; &nbsp; &nbsp; &gt;&gt; Thanks<br>&gt; &nbsp; &nbsp; &gt;&gt;<br>&g=
-t; &nbsp; &nbsp; &gt; We'll have to decide at that point ... any better ide=
-as?<br>&gt;<br>&gt;<br>&gt; &nbsp; &nbsp; Not sure but something that is se=
-lf descriptive? (which could be an<br>&gt; &nbsp; &nbsp; overkill for field=
-s that only need few bytes).<br>&gt;<br>&gt; The problem is that the driver=
- typically wants to know the header size <br>&gt; from the beginning to con=
-figure SG table.<br><div><br></div><br>Yes, so still the above example. Con=
-sider a driver only support <br>VIRTIO_NET_F_FEATURE_INFORMATION, how to de=
-termine the size of the vnet <br>header?<br><div><br></div>Stable offset is=
- simpler but may waste space.<br><div><br></div><br>&gt; So any self-descri=
-ptive layout seems good but in practice not so <br>&gt; usable, IMO.<br><di=
-v><br></div><br>I think then it can calculate the header length based on th=
-e feature <br>negotiated.<br><div><br></div>hdr_len =3D sizeof(vnet_hdr) + =
-VIRTIO_NET_F_HASH_REPORT ? 4 : 0 + <br>VIRTIO_NET_F_FEAUTER_INFORMATION ? 4=
- : 0<br></blockquote><div>Also possible.</div><div> We'll need to define it=
- as soon as we define in the spec the second feature affecting packet size.=
-<br></div><div>There is also another point raised by Michael some time ago:=
- different packet layouts for TX and RX.<br></div><div><br></div><blockquot=
-e style=3D"border-left:2px solid #1010FF;margin-left:5px;padding-left:5px;c=
-olor:#000;font-weight:normal;font-style:normal;text-decoration:none;font-fa=
-mily:Helvetica,Arial,sans-serif;font-size:12pt;">Thanks<br><div><br></div><=
-br>This publicly archived list offers a means to provide input to the
-<br>OASIS Virtual I/O Device (VIRTIO) TC.
-<br><br>In order to verify user consent to the Feedback License terms and
-<br>to minimize spam in the list archive, subscription is required
-<br>before posting.
-<br><br>Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-<br>Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-<br>List help: virtio-comment-help@lists.oasis-open.org
-<br>List archive: https://lists.oasis-open.org/archives/virtio-comment/
-<br>Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.p=
-df
-<br>List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing=
--lists
-<br>Committee: https://www.oasis-open.org/committees/virtio/
-<br>Join OASIS: https://www.oasis-open.org/join/<br><div><br></div></blockq=
-uote><div><br></div></div></body></html>
-------=_Part_7485582_875957582.1582229200014--
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
