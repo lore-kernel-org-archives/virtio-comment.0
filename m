@@ -1,167 +1,270 @@
-Return-Path: virtio-comment-return-1103-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1104-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B4F44985E00
-	for <virtio-comment@lists.oasis-open.org>; Wed, 26 Feb 2020 14:54:42 +0000 (UTC)
-From: Vitaly Mireyno <vmireyno@marvell.com>
-Date: Wed, 26 Feb 2020 14:54:36 +0000
-Message-ID: <BN6PR1801MB20670FFA71429EEB721E8053C5EA0@BN6PR1801MB2067.namprd18.prod.outlook.com>
-Content-Language: en-US
+	by lists.oasis-open.org (Postfix) with ESMTP id 33D82985E00
+	for <virtio-comment@lists.oasis-open.org>; Wed, 26 Feb 2020 17:10:45 +0000 (UTC)
+Date: Wed, 26 Feb 2020 12:10:34 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20200226120948-mutt-send-email-mst@kernel.org>
+References: <BN6PR1801MB20670FFA71429EEB721E8053C5EA0@BN6PR1801MB2067.namprd18.prod.outlook.com>
 MIME-Version: 1.0
+In-Reply-To: <BN6PR1801MB20670FFA71429EEB721E8053C5EA0@BN6PR1801MB2067.namprd18.prod.outlook.com>
 Subject: Re: [virtio-comment] [PATCH v3] virtio-net: Add support for the
  flexible driver notification structure
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-To: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Ariel Elior <aelior@marvell.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+To: Vitaly Mireyno <vmireyno@marvell.com>
+Cc: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Ariel Elior <aelior@marvell.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-DQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBKYXNvbiBXYW5nIDxqYXNvd2Fu
-Z0ByZWRoYXQuY29tPg0KPlNlbnQ6IFdlZG5lc2RheSwgMjYgRmVicnVhcnksIDIwMjAgNToxMw0K
-PlRvOiBWaXRhbHkgTWlyZXlubyA8dm1pcmV5bm9AbWFydmVsbC5jb20+OyB2aXJ0aW8tY29tbWVu
-dEBsaXN0cy5vYXNpcy1vcGVuLm9yZw0KPkNjOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEByZWRo
-YXQuY29tPjsgQXJpZWwgRWxpb3IgPGFlbGlvckBtYXJ2ZWxsLmNvbT4NCj5TdWJqZWN0OiBbRVhU
-XSBSZTogW3ZpcnRpby1jb21tZW50XSBbUEFUQ0ggdjNdIHZpcnRpby1uZXQ6IEFkZCBzdXBwb3J0
-IGZvciB0aGUgZmxleGlibGUgZHJpdmVyDQo+bm90aWZpY2F0aW9uIHN0cnVjdHVyZQ0KPg0KPi0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0NCj4NCj5PbiAyMDIwLzIvMjYg5LiK5Y2IMTI6MzAsIFZpdGFseSBNaXJleW5v
-IHdyb3RlOg0KPj4gQ3VycmVudGx5LCB0aGUgZHJpdmVyIG5vdGlmaWNhdGlvbiAoYXZhaWxhYmxl
-IGJ1ZmZlciBub3RpZmljYXRpb24pIGhhcyBhIGZpeGVkIHN0cnVjdHVyZS4NCj4+IElmIFZJUlRJ
-T19GX05PVElGSUNBVElPTl9EQVRBIGhhcyBiZWVuIG5lZ290aWF0ZWQsIGl0IGluY2x1ZGVzOiB2
-cW4sIG5leHRfb2ZmIGFuZCBuZXh0X3dyYXAuDQo+PiBJZiBub3RpZnlfb2ZmX211bHRpcGxpZXIg
-PiAwLCB0aGUgVlEgbnVtYmVyIGNhbiBiZSBkZXJpdmVkIGJ5IHRoZSBkZXZpY2UgZnJvbSB0aGUg
-UXVldWUgTm90aWZ5DQo+YWRkcmVzcywgc28gdnFuIG1heSBiZSByZWR1bmRhbnQuDQo+Pg0KPj4g
-U29tZSBkZXZpY2VzIGJlbmVmaXQgZnJvbSByZWNlaXZpbmcgYW4gYWRkaXRpb25hbCBkYXRhIHdp
-dGggZHJpdmVyIG5vdGlmaWNhdGlvbnMuIFRoaXMgZGF0YSBjYW4NCj5vcHRpb25hbGx5IHJlcGxh
-Y2UgdGhlIHZxbiBmaWVsZCBpbiB0aGUgZHJpdmVyIG5vdGlmaWNhdGlvbiBzdHJ1Y3R1cmUuDQo+
-PiBJbiBpdHMgc2ltcGxlc3QgZm9ybSwgaXQgd291bGQgYmUgc3VmZmljaWVudCBmb3IgdGhpcyBk
-YXRhIHRvIGJlIGEgcGVyLWRldmljZSBjb25zdGFudCB2YWx1ZS4NCj4+DQo+PiBDaGFuZ2VzIGZy
-b20gdjIgLSBEZWZpbmVkIGEgbmV3IGZlYXR1cmUgZmxhZyBpbnN0ZWFkIG9mIGEgUENJLXNwZWNp
-ZmljIGZsYWcuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogVml0YWx5IE1pcmV5bm8gPHZtaXJleW5v
-QG1hcnZlbGwuY29tPg0KPj4gLS0tDQo+PiAgIGNvbnRlbnQudGV4IHwgMzQgKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKw0KPj4gICAxIGZpbGUgY2hhbmdlZCwgMzQgaW5zZXJ0aW9u
-cygrKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9jb250ZW50LnRleCBiL2NvbnRlbnQudGV4IGluZGV4
-IGI5MWExMzIuLjUyMjNkNWMgMTAwNjQ0DQo+PiAtLS0gYS9jb250ZW50LnRleA0KPj4gKysrIGIv
-Y29udGVudC50ZXgNCj4+IEBAIC05NjUsNiArOTY1LDggQEAgXHN1YnN1YnNlY3Rpb257Tm90aWZp
-Y2F0aW9uIHN0cnVjdHVyZSBsYXlvdXR9XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0DQo+T3B0
-aW9ucw0KPj4gICBzdHJ1Y3QgdmlydGlvX3BjaV9ub3RpZnlfY2FwIHsNCj4+ICAgICAgICAgICBz
-dHJ1Y3QgdmlydGlvX3BjaV9jYXAgY2FwOw0KPj4gICAgICAgICAgIGxlMzIgbm90aWZ5X29mZl9t
-dWx0aXBsaWVyOyAvKiBNdWx0aXBsaWVyIGZvcg0KPj4gcXVldWVfbm90aWZ5X29mZi4gKi8NCj4+
-ICsgICAgICAgIGxlMTYgbm90aWZ5X2RhdGE7IC8qIERhdGEgdG8gYmUgcGxhY2VkIGluIHRoZSB2
-cW4gZmllbGQgKi8NCj4+ICsgICAgICAgIGxlMTYgcGFkZGluZzsgLyogUGFkIHRvIGEgZHdvcmQg
-Ki8NCj4+ICAgfTsNCj4+ICAgXGVuZHtsc3RsaXN0aW5nfQ0KPj4NCj4+IEBAIC05ODQsNiArOTg2
-LDIxIEBAIFxzdWJzdWJzZWN0aW9ue05vdGlmaWNhdGlvbiBzdHJ1Y3R1cmUgbGF5b3V0fVxsYWJl
-bHtzZWM6VmlydGlvIFRyYW5zcG9ydA0KPk9wdGlvbnMNCj4+ICAgdGhlIHNhbWUgUXVldWUgTm90
-aWZ5IGFkZHJlc3MgZm9yIGFsbCBxdWV1ZXMuDQo+PiAgIFxlbmR7bm90ZX0NCj4+DQo+PiArXGZp
-ZWxke25vdGlmeV9kYXRhfSBpcyB0aGUgZGF0YSB0aGF0IHRoZSBkcml2ZXIgd2lsbCBzZXQgaW4g
-dGhlDQo+PiArXGZpZWxke3Zxbn0gZmllbGQgaW4gdGhlIGF2YWlsYWJsZSBidWZmZXIgbm90aWZp
-Y2F0aW9uLCBpZg0KPj4gK1ZJUlRJT19ORVRfRl9OT1RJRl9FWFRSQV9EQVRBIGhhcyBiZWVuIG5l
-Z290aWF0ZWQuDQo+PiArDQo+PiArXGJlZ2lue25vdGV9DQo+PiArSWYgXGZpZWxke25vdGlmeV9v
-ZmZfbXVsdGlwbGllcn0gPiAwLCB0aGUgdmlydHF1ZXVlIG51bWJlciBjYW4NCj4+ICtwb3RlbnRp
-YWxseSBiZSBkZXJpdmVkIGJ5IHRoZSBkZXZpY2UgZnJvbSB0aGUgUXVldWUgTm90aWZ5IGFkZHJl
-c3MsDQo+PiArc28gXGZpZWxke3Zxbn0gbWF5IGJlIHJlZHVuZGFudC4gU29tZSBkZXZpY2VzIGJl
-bmVmaXQgZnJvbSByZWNlaXZpbmcNCj4+ICt0aGUgYWRkaXRpb25hbCBkYXRhIHdpdGggZHJpdmVy
-IG5vdGlmaWNhdGlvbnMuIEFuIGV4YW1wbGUgY291bGQgYmUgYQ0KPj4gK2hhcmR3YXJlIGRldmlj
-ZSBpbXBsZW1lbnRpbmcgbXVsdGlwbGUgcHJvdG9jb2xzICh3aXRoIHZpcnRpbyBiZWluZw0KPj4g
-K29uZSBvZiB0aGVtKSwgc28gZXh0cmEgbm90aWZpY2F0aW9uIGRhdGEgY291bGQgc2VydmUgYXMg
-YSBub3RpZmljYXRpb24gdHlwZSBpbmRpY2F0aW9uIG9yIGEgcHJvdG9jb2wNCj5pbmRpY2F0aW9u
-Lg0KPj4gK0Fub3RoZXIgZXhhbXBsZSBjb3VsZCBiZSB1c2luZyBzaGFyZWQgaGFyZHdhcmUgbWVt
-b3J5IHNwYWNlIGZvcg0KPj4gK2RyaXZlciBub3RpZmljYXRpb25zIGZvciBtdWx0aXBsZSB2aXJ0
-aW8gZGV2aWNlcyBpbiBhIHRydXN0ZWQgZW52aXJvbm1lbnQuDQo+PiArXGVuZHtub3RlfQ0KPj4g
-Kw0KPj4gICBcZGV2aWNlbm9ybWF0aXZle1xwYXJhZ3JhcGh9e05vdGlmaWNhdGlvbiBjYXBhYmls
-aXR5fXtWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBQQ0kgQnVzDQo+LyBQ
-Q0kgRGV2aWNlIExheW91dCAvIE5vdGlmaWNhdGlvbiBjYXBhYmlsaXR5fQ0KPj4gICBUaGUgZGV2
-aWNlIE1VU1QgcHJlc2VudCBhdCBsZWFzdCBvbmUgbm90aWZpY2F0aW9uIGNhcGFiaWxpdHkuDQo+
-Pg0KPj4gQEAgLTEwMjAsNiArMTAzNywxMCBAQCBcc3Vic3Vic2VjdGlvbntOb3RpZmljYXRpb24g
-c3RydWN0dXJlIGxheW91dH1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQNCj5PcHRpb25zDQo+
-PiAgIGNhcC5sZW5ndGggPj0gcXVldWVfbm90aWZ5X29mZiAqIG5vdGlmeV9vZmZfbXVsdGlwbGll
-ciArIDQNCj4+ICAgXGVuZHtsc3RsaXN0aW5nfQ0KPj4NCj4+ICtJZiBWSVJUSU9fTkVUX0ZfTk9U
-SUZfRVhUUkFfREFUQSBoYXMgYmVlbiBuZWdvdGlhdGVkLCB0aGUgZGV2aWNlIE1VU1QNCj4+ICtz
-ZXQgXGZpZWxke25vdGlmeV9kYXRhfSB0byBhIHZhbGlkIHZhbHVlLCBhbmQgU0hPVUxEIHNldA0K
-Pj4gK1xmaWVsZHtub3RpZnlfb2ZmX211bHRpcGxpZXJ9ID4gMC4NCj4+ICsNCj4+ICAgXHN1YnN1
-YnNlY3Rpb257SVNSIHN0YXR1cyBjYXBhYmlsaXR5fVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9y
-dA0KPj4gT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBDSSBCdXMgLyBQQ0kgRGV2aWNlIExheW91dCAv
-IElTUiBzdGF0dXMNCj4+IGNhcGFiaWxpdHl9DQo+Pg0KPj4gICBUaGUgVklSVElPX1BDSV9DQVBf
-SVNSX0NGRyBjYXBhYmlsaXR5IEBAIC0xNTE5LDYgKzE1NDAsMTQgQEANCj4+IFxzdWJzdWJzZWN0
-aW9ue0F2YWlsYWJsZSBCdWZmZXIgTm90aWZpY2F0aW9uc31cbGFiZWx7c2VjOlZpcnRpbyBUcmFu
-c3BvcnQgT3B0aW9uDQo+PiAgIFNlZSBccmVme3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMg
-LyBWaXJ0aW8gT3ZlciBQQ0kgQnVzIC8gUENJIERldmljZSBMYXlvdXQgLyBOb3RpZmljYXRpb24N
-Cj5jYXBhYmlsaXR5fQ0KPj4gICBmb3IgaG93IHRvIGNhbGN1bGF0ZSB0aGUgUXVldWUgTm90aWZ5
-IGFkZHJlc3MuDQo+Pg0KPj4gK1xkcml2ZXJub3JtYXRpdmV7XHBhcmFncmFwaH17QXZhaWxhYmxl
-IEJ1ZmZlciBOb3RpZmljYXRpb25zfXtWaXJ0aW8NCj4+ICtUcmFuc3BvcnQgT3B0aW9ucyAvIFZp
-cnRpbyBPdmVyIFBDSSBCdXMgLyBQQ0ktc3BlY2lmaWMgSW5pdGlhbGl6YXRpb24NCj4+ICtBbmQg
-RGV2aWNlIE9wZXJhdGlvbiAvIEF2YWlsYWJsZSBCdWZmZXIgTm90aWZpY2F0aW9uc30gVGhlIGRy
-aXZlciBTSE9VTEQgYWNjZXB0IHRoZQ0KPlZJUlRJT19ORVRfRl9OT1RJRl9FWFRSQV9EQVRBIGZl
-YXR1cmUgaWYgaXQgaGFzIGJlZW4gb2ZmZXJlZC4NCj4NCj4NCj5JIHRoaW5rIHdlIG5lZWQgdXNl
-ICJNVVNUIiBoZXJlPw0KPg0KDQpXb3VsZG7igJl0IGl0IGJyZWFrIHRoZSBleGlzdGluZyBkcml2
-ZXJzIHRoZW4/DQoNCg0KPk90aGVyIGxvb2tzIGdvb2QgdG8gbWUuDQo+DQo+VGhhbmtzDQo+DQo+
-DQo+PiArDQo+PiArSWYgVklSVElPX05FVF9GX05PVElGX0VYVFJBX0RBVEEgaGFzIGJlZW4gbmVn
-b3RpYXRlZCwgdGhlIGRyaXZlciBNVVNUDQo+PiArc2V0IHRoZSBcZmllbGR7dnFufSBmaWVsZCBv
-ZiB0aGUgYXZhaWxhYmxlIGJ1ZmZlciBub3RpZmljYXRpb24NCj4+ICtzdHJ1Y3R1cmUgdG8gdGhl
-IFxmaWVsZHtub3RpZnlfZGF0YX0gdmFsdWUuDQo+PiArDQo+PiAgIFxzdWJzdWJzZWN0aW9ue1Vz
-ZWQgQnVmZmVyIE5vdGlmaWNhdGlvbnN9XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0DQo+PiBP
-cHRpb25zIC8gVmlydGlvIE92ZXIgUENJIEJ1cyAvIFBDSS1zcGVjaWZpYyBJbml0aWFsaXphdGlv
-biBBbmQgRGV2aWNlDQo+PiBPcGVyYXRpb24gLyBVc2VkIEJ1ZmZlciBOb3RpZmljYXRpb25zfQ0K
-Pj4NCj4+ICAgSWYgYSB1c2VkIGJ1ZmZlciBub3RpZmljYXRpb24gaXMgbmVjZXNzYXJ5IGZvciBh
-IHZpcnRxdWV1ZSwgdGhlIGRldmljZSB3b3VsZCB0eXBpY2FsbHkgYWN0IGFzIGZvbGxvd3M6DQo+
-PiBAQCAtMjg5NSw2ICsyOTI0LDEwIEBAIFxzdWJzZWN0aW9ue0ZlYXR1cmUgYml0c31cbGFiZWx7
-c2VjOkRldmljZSBUeXBlcyAvIE5ldHdvcmsgRGV2aWNlIC8NCj5GZWF0dXJlIGJpdHMNCj4+ICAg
-XGl0ZW1bVklSVElPX05FVF9GX0NUUkxfTUFDX0FERFIoMjMpXSBTZXQgTUFDIGFkZHJlc3MgdGhy
-b3VnaCBjb250cm9sDQo+PiAgICAgICBjaGFubmVsLg0KPj4NCj4+ICtcaXRlbVtWSVJUSU9fTkVU
-X0ZfTk9USUZfRVhUUkFfREFUQSg1NyldIERyaXZlciBwcm92aWRlcyBhbiBleHRyYSBkYXRhIHdp
-dGgNCj4+ICsgICAgYXZhaWxhYmxlIGJ1ZmZlciBub3RpZmljYXRpb25zLCB0byBhaWQgaW4gbm90
-aWZpY2F0aW9uIHByb2Nlc3NpbmcgYnkgdGhlDQo+PiArICAgIGRldmljZS4NCj4+ICsNCj4+ICAg
-XGl0ZW1bVklSVElPX05FVF9GX0dVRVNUX0hEUkxFTig1OSldIERyaXZlciBjYW4gcHJvdmlkZSB0
-aGUgZXhhY3QgXGZpZWxke2hkcl9sZW59DQo+PiAgICAgICB2YWx1ZS4gRGV2aWNlIGJlbmVmaXRz
-IGZyb20ga25vd2luZyB0aGUgZXhhY3QgaGVhZGVyIGxlbmd0aC4NCj4+DQo+PiBAQCAtMjkzNCw2
-ICsyOTY3LDcgQEAgXHN1YnN1YnNlY3Rpb257RmVhdHVyZSBiaXQgcmVxdWlyZW1lbnRzfVxsYWJl
-bHtzZWM6RGV2aWNlIFR5cGVzIC8NCj5OZXR3b3JrIERldmljZQ0KPj4gICBcaXRlbVtWSVJUSU9f
-TkVUX0ZfQ1RSTF9NQUNfQUREUl0gUmVxdWlyZXMgVklSVElPX05FVF9GX0NUUkxfVlEuDQo+PiAg
-IFxpdGVtW1ZJUlRJT19ORVRfRl9SU0NfRVhUXSBSZXF1aXJlcyBWSVJUSU9fTkVUX0ZfSE9TVF9U
-U080IG9yDQo+VklSVElPX05FVF9GX0hPU1RfVFNPNi4NCj4+ICAgXGl0ZW1bVklSVElPX05FVF9G
-X1JTU10gUmVxdWlyZXMgVklSVElPX05FVF9GX0NUUkxfVlEuDQo+PiArXGl0ZW1bVklSVElPX05F
-VF9GX05PVElGX0VYVFJBX0RBVEFdIFJlcXVpcmVzIFZJUlRJT19GX05PVElGSUNBVElPTl9EQVRB
-Lg0KPj4gICBcZW5ke2Rlc2NyaXB0aW9ufQ0KPj4NCj4+ICAgXHN1YnN1YnNlY3Rpb257TGVnYWN5
-IEludGVyZmFjZTogRmVhdHVyZSBiaXRzfVxsYWJlbHtzZWM6RGV2aWNlDQo+PiBUeXBlcyAvIE5l
-dHdvcmsgRGV2aWNlIC8gRmVhdHVyZSBiaXRzIC8gTGVnYWN5IEludGVyZmFjZTogRmVhdHVyZQ0K
-Pj4gYml0c30NCj4+IC0tDQo+Pg0KPj4gVGhpcyBwdWJsaWNseSBhcmNoaXZlZCBsaXN0IG9mZmVy
-cyBhIG1lYW5zIHRvIHByb3ZpZGUgaW5wdXQgdG8gdGhlDQo+PiBPQVNJUyBWaXJ0dWFsIEkvTyBE
-ZXZpY2UgKFZJUlRJTykgVEMuDQo+Pg0KPj4gSW4gb3JkZXIgdG8gdmVyaWZ5IHVzZXIgY29uc2Vu
-dCB0byB0aGUgRmVlZGJhY2sgTGljZW5zZSB0ZXJtcyBhbmQgdG8NCj4+IG1pbmltaXplIHNwYW0g
-aW4gdGhlIGxpc3QgYXJjaGl2ZSwgc3Vic2NyaXB0aW9uIGlzIHJlcXVpcmVkIGJlZm9yZQ0KPj4g
-cG9zdGluZy4NCj4+DQo+PiBTdWJzY3JpYmU6IHZpcnRpby1jb21tZW50LXN1YnNjcmliZUBsaXN0
-cy5vYXNpcy1vcGVuLm9yZw0KPj4gVW5zdWJzY3JpYmU6IHZpcnRpby1jb21tZW50LXVuc3Vic2Ny
-aWJlQGxpc3RzLm9hc2lzLW9wZW4ub3JnDQo+PiBMaXN0IGhlbHA6IHZpcnRpby1jb21tZW50LWhl
-bHBAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4+IExpc3QgYXJjaGl2ZToNCj4+IGh0dHBzOi8vdXJs
-ZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fbGlzdHMub2FzaXMtMkRv
-cGUNCj4+IG4ub3JnX2FyY2hpdmVzX3ZpcnRpby0yRGNvbW1lbnRfJmQ9RHdJRmFRJmM9bktqV2Vj
-MmI2UjBtT3lQYXo3eHRmUSZyPWwNCj4+IERISjJGVzUyb0ozbHFxc0FyZ0ZSZGNldnEwMXRiTFFB
-dzRBX05PN3hnSSZtPTk0QlJ2eXFJQVJxVkoteXlkc0lxRzI1X3oNCj4+IEFVSGplRU53dy1OeGVN
-c19zOCZzPWZzcEtTNHVBX0N5TS1TNEhyUjZHZEpidnR0amtYNWlDeWdadmN5YmVfcXMmZT0NCj4+
-IEZlZWRiYWNrIExpY2Vuc2U6DQo+PiBodHRwczovL3VybGRlZmVuc2UucHJvb2Zwb2ludC5jb20v
-djIvdXJsP3U9aHR0cHMtM0FfX3d3dy5vYXNpcy0yRG9wZW4uDQo+PiBvcmdfd2hvX2lwcl9mZWVk
-YmFjay01RmxpY2Vuc2UucGRmJmQ9RHdJRmFRJmM9bktqV2VjMmI2UjBtT3lQYXo3eHRmUSZyDQo+
-PiA9bERISjJGVzUyb0ozbHFxc0FyZ0ZSZGNldnEwMXRiTFFBdzRBX05PN3hnSSZtPTk0QlJ2eXFJ
-QVJxVkoteXlkc0lxRzI1DQo+PiBfekFVSGplRU53dy1OeGVNc19zOCZzPXNza1ZfUTBuVjZvZG11
-OXRiM19RTzRzSmd4UVFmQTdTRE5rRGJoQ1BnWjAmZT0NCj4+IExpc3QgR3VpZGVsaW5lczoNCj4+
-IGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fd3d3
-Lm9hc2lzLTJEb3Blbi4NCj4+IG9yZ19wb2xpY2llcy0yRGd1aWRlbGluZXNfbWFpbGluZy0yRGxp
-c3RzJmQ9RHdJRmFRJmM9bktqV2VjMmI2UjBtT3lQYXoNCj4+IDd4dGZRJnI9bERISjJGVzUyb0oz
-bHFxc0FyZ0ZSZGNldnEwMXRiTFFBdzRBX05PN3hnSSZtPTk0QlJ2eXFJQVJxVkoteXkNCj4+IGRz
-SXFHMjVfekFVSGplRU53dy1OeGVNc19zOCZzPTBGRHVvUFVTaXJMZ0V3QmY3QVRreVZNYWFsRmVC
-Nk4wLXZocE9ua0INCj4+IHZXWSZlPQ0KPj4gQ29tbWl0dGVlOg0KPj4gaHR0cHM6Ly91cmxkZWZl
-bnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX193d3cub2FzaXMtMkRvcGVuLg0K
-Pj4gb3JnX2NvbW1pdHRlZXNfdmlydGlvXyZkPUR3SUZhUSZjPW5LaldlYzJiNlIwbU95UGF6N3h0
-ZlEmcj1sREhKMkZXNTJvSg0KPj4gM2xxcXNBcmdGUmRjZXZxMDF0YkxRQXc0QV9OTzd4Z0kmbT05
-NEJSdnlxSUFScVZKLXl5ZHNJcUcyNV96QVVIamVFTnd3LQ0KPj4gTnhlTXNfczgmcz1yYUMxNXla
-TW5yOXk5SXY1X3dvb3JQN0JxMk9RaU8tdXliUGhncXpOdGxFJmU9DQo+PiBKb2luIE9BU0lTOg0K
-Pj4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX193
-d3cub2FzaXMtMkRvcGVuLg0KPj4gb3JnX2pvaW5fJmQ9RHdJRmFRJmM9bktqV2VjMmI2UjBtT3lQ
-YXo3eHRmUSZyPWxESEoyRlc1Mm9KM2xxcXNBcmdGUmRjZQ0KPj4gdnEwMXRiTFFBdzRBX05PN3hn
-SSZtPTk0QlJ2eXFJQVJxVkoteXlkc0lxRzI1X3pBVUhqZUVOd3ctTnhlTXNfczgmcz1Hdw0KPj4g
-VllXTndOWnI3TUZiNWpKN2FjTFVMSm5pMXVNbHdMZ1dCZ2lUU3JwNzQmZT0NCj4+DQoNCg==
+On Wed, Feb 26, 2020 at 02:54:36PM +0000, Vitaly Mireyno wrote:
+>=20
+> >-----Original Message-----
+> >From: Jason Wang <jasowang@redhat.com>
+> >Sent: Wednesday, 26 February, 2020 5:13
+> >To: Vitaly Mireyno <vmireyno@marvell.com>; virtio-comment@lists.oasis-op=
+en.org
+> >Cc: Michael S. Tsirkin <mst@redhat.com>; Ariel Elior <aelior@marvell.com=
+>
+> >Subject: [EXT] Re: [virtio-comment] [PATCH v3] virtio-net: Add support f=
+or the flexible driver
+> >notification structure
+> >
+> >----------------------------------------------------------------------
+> >
+> >On 2020/2/26 =E4=B8=8A=E5=8D=8812:30, Vitaly Mireyno wrote:
+> >> Currently, the driver notification (available buffer notification) has=
+ a fixed structure.
+> >> If VIRTIO_F_NOTIFICATION_DATA has been negotiated, it includes: vqn, n=
+ext_off and next_wrap.
+> >> If notify_off_multiplier > 0, the VQ number can be derived by the devi=
+ce from the Queue Notify
+> >address, so vqn may be redundant.
+> >>
+> >> Some devices benefit from receiving an additional data with driver not=
+ifications. This data can
+> >optionally replace the vqn field in the driver notification structure.
+> >> In its simplest form, it would be sufficient for this data to be a per=
+-device constant value.
+> >>
+> >> Changes from v2 - Defined a new feature flag instead of a PCI-specific=
+ flag.
+> >>
+> >> Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
+> >> ---
+> >>   content.tex | 34 ++++++++++++++++++++++++++++++++++
+> >>   1 file changed, 34 insertions(+)
+> >>
+> >> diff --git a/content.tex b/content.tex index b91a132..5223d5c 100644
+> >> --- a/content.tex
+> >> +++ b/content.tex
+> >> @@ -965,6 +965,8 @@ \subsubsection{Notification structure layout}\labe=
+l{sec:Virtio Transport
+> >Options
+> >>   struct virtio_pci_notify_cap {
+> >>           struct virtio_pci_cap cap;
+> >>           le32 notify_off_multiplier; /* Multiplier for
+> >> queue_notify_off. */
+> >> +        le16 notify_data; /* Data to be placed in the vqn field */
+> >> +        le16 padding; /* Pad to a dword */
+> >>   };
+> >>   \end{lstlisting}
+> >>
+> >> @@ -984,6 +986,21 @@ \subsubsection{Notification structure layout}\lab=
+el{sec:Virtio Transport
+> >Options
+> >>   the same Queue Notify address for all queues.
+> >>   \end{note}
+> >>
+> >> +\field{notify_data} is the data that the driver will set in the
+> >> +\field{vqn} field in the available buffer notification, if
+> >> +VIRTIO_NET_F_NOTIF_EXTRA_DATA has been negotiated.
+> >> +
+> >> +\begin{note}
+> >> +If \field{notify_off_multiplier} > 0, the virtqueue number can
+> >> +potentially be derived by the device from the Queue Notify address,
+> >> +so \field{vqn} may be redundant. Some devices benefit from receiving
+> >> +the additional data with driver notifications. An example could be a
+> >> +hardware device implementing multiple protocols (with virtio being
+> >> +one of them), so extra notification data could serve as a notificatio=
+n type indication or a protocol
+> >indication.
+> >> +Another example could be using shared hardware memory space for
+> >> +driver notifications for multiple virtio devices in a trusted environ=
+ment.
+> >> +\end{note}
+> >> +
+> >>   \devicenormative{\paragraph}{Notification capability}{Virtio Transpo=
+rt Options / Virtio Over PCI Bus
+> >/ PCI Device Layout / Notification capability}
+> >>   The device MUST present at least one notification capability.
+> >>
+> >> @@ -1020,6 +1037,10 @@ \subsubsection{Notification structure layout}\l=
+abel{sec:Virtio Transport
+> >Options
+> >>   cap.length >=3D queue_notify_off * notify_off_multiplier + 4
+> >>   \end{lstlisting}
+> >>
+> >> +If VIRTIO_NET_F_NOTIF_EXTRA_DATA has been negotiated, the device MUST
+> >> +set \field{notify_data} to a valid value, and SHOULD set
+> >> +\field{notify_off_multiplier} > 0.
+> >> +
+> >>   \subsubsection{ISR status capability}\label{sec:Virtio Transport
+> >> Options / Virtio Over PCI Bus / PCI Device Layout / ISR status
+> >> capability}
+> >>
+> >>   The VIRTIO_PCI_CAP_ISR_CFG capability @@ -1519,6 +1540,14 @@
+> >> \subsubsection{Available Buffer Notifications}\label{sec:Virtio Transp=
+ort Option
+> >>   See \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI De=
+vice Layout / Notification
+> >capability}
+> >>   for how to calculate the Queue Notify address.
+> >>
+> >> +\drivernormative{\paragraph}{Available Buffer Notifications}{Virtio
+> >> +Transport Options / Virtio Over PCI Bus / PCI-specific Initialization
+> >> +And Device Operation / Available Buffer Notifications} The driver SHO=
+ULD accept the
+> >VIRTIO_NET_F_NOTIF_EXTRA_DATA feature if it has been offered.
+> >
+> >
+> >I think we need use "MUST" here?
+> >
+>=20
+> Wouldn=E2=80=99t it break the existing drivers then?
+
+I agree, we can't declare existing drivers non-conformant by fiat.
+Certainly not for a boutique feature like this.
+
+
+>=20
+> >Other looks good to me.
+> >
+> >Thanks
+> >
+> >
+> >> +
+> >> +If VIRTIO_NET_F_NOTIF_EXTRA_DATA has been negotiated, the driver MUST
+> >> +set the \field{vqn} field of the available buffer notification
+> >> +structure to the \field{notify_data} value.
+> >> +
+> >>   \subsubsection{Used Buffer Notifications}\label{sec:Virtio Transport
+> >> Options / Virtio Over PCI Bus / PCI-specific Initialization And Device
+> >> Operation / Used Buffer Notifications}
+> >>
+> >>   If a used buffer notification is necessary for a virtqueue, the devi=
+ce would typically act as follows:
+> >> @@ -2895,6 +2924,10 @@ \subsection{Feature bits}\label{sec:Device Type=
+s / Network Device /
+> >Feature bits
+> >>   \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through contro=
+l
+> >>       channel.
+> >>
+> >> +\item[VIRTIO_NET_F_NOTIF_EXTRA_DATA(57)] Driver provides an extra dat=
+a with
+> >> +    available buffer notifications, to aid in notification processing=
+ by the
+> >> +    device.
+> >> +
+> >>   \item[VIRTIO_NET_F_GUEST_HDRLEN(59)] Driver can provide the exact \f=
+ield{hdr_len}
+> >>       value. Device benefits from knowing the exact header length.
+> >>
+> >> @@ -2934,6 +2967,7 @@ \subsubsection{Feature bit requirements}\label{s=
+ec:Device Types /
+> >Network Device
+> >>   \item[VIRTIO_NET_F_CTRL_MAC_ADDR] Requires VIRTIO_NET_F_CTRL_VQ.
+> >>   \item[VIRTIO_NET_F_RSC_EXT] Requires VIRTIO_NET_F_HOST_TSO4 or
+> >VIRTIO_NET_F_HOST_TSO6.
+> >>   \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
+> >> +\item[VIRTIO_NET_F_NOTIF_EXTRA_DATA] Requires VIRTIO_F_NOTIFICATION_D=
+ATA.
+> >>   \end{description}
+> >>
+> >>   \subsubsection{Legacy Interface: Feature bits}\label{sec:Device
+> >> Types / Network Device / Feature bits / Legacy Interface: Feature
+> >> bits}
+> >> --
+> >>
+> >> This publicly archived list offers a means to provide input to the
+> >> OASIS Virtual I/O Device (VIRTIO) TC.
+> >>
+> >> In order to verify user consent to the Feedback License terms and to
+> >> minimize spam in the list archive, subscription is required before
+> >> posting.
+> >>
+> >> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> >> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> >> List help: virtio-comment-help@lists.oasis-open.org
+> >> List archive:
+> >> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lists.oasis-2Do=
+pe
+> >> n.org_archives_virtio-2Dcomment_&d=3DDwIFaQ&c=3DnKjWec2b6R0mOyPaz7xtfQ=
+&r=3Dl
+> >> DHJ2FW52oJ3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3D94BRvyqIARqVJ-yydsIqG25=
+_z
+> >> AUHjeENww-NxeMs_s8&s=3DfspKS4uA_CyM-S4HrR6GdJbvttjkX5iCygZvcybe_qs&e=
+=3D
+> >> Feedback License:
+> >> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dope=
+n.
+> >> org_who_ipr_feedback-5Flicense.pdf&d=3DDwIFaQ&c=3DnKjWec2b6R0mOyPaz7xt=
+fQ&r
+> >> =3DlDHJ2FW52oJ3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3D94BRvyqIARqVJ-yydsI=
+qG25
+> >> _zAUHjeENww-NxeMs_s8&s=3DsskV_Q0nV6odmu9tb3_QO4sJgxQQfA7SDNkDbhCPgZ0&e=
+=3D
+> >> List Guidelines:
+> >> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dope=
+n.
+> >> org_policies-2Dguidelines_mailing-2Dlists&d=3DDwIFaQ&c=3DnKjWec2b6R0mO=
+yPaz
+> >> 7xtfQ&r=3DlDHJ2FW52oJ3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3D94BRvyqIARqV=
+J-yy
+> >> dsIqG25_zAUHjeENww-NxeMs_s8&s=3D0FDuoPUSirLgEwBf7ATkyVMaalFeB6N0-vhpOn=
+kB
+> >> vWY&e=3D
+> >> Committee:
+> >> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dope=
+n.
+> >> org_committees_virtio_&d=3DDwIFaQ&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2=
+FW52oJ
+> >> 3lqqsArgFRdcevq01tbLQAw4A_NO7xgI&m=3D94BRvyqIARqVJ-yydsIqG25_zAUHjeENw=
+w-
+> >> NxeMs_s8&s=3DraC15yZMnr9y9Iv5_woorP7Bq2OQiO-uybPhgqzNtlE&e=3D
+> >> Join OASIS:
+> >> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasis-2Dope=
+n.
+> >> org_join_&d=3DDwIFaQ&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsAr=
+gFRdce
+> >> vq01tbLQAw4A_NO7xgI&m=3D94BRvyqIARqVJ-yydsIqG25_zAUHjeENww-NxeMs_s8&s=
+=3DGw
+> >> VYWNwNZr7MFb5jJ7acLULJni1uMlwLgWBgiTSrp74&e=3D
+> >>
+>=20
+
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
