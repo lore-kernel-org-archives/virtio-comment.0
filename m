@@ -1,198 +1,634 @@
-Return-Path: virtio-comment-return-1122-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1117-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5EBD1985F48
-	for <virtio-comment@lists.oasis-open.org>; Thu,  5 Mar 2020 19:58:58 +0000 (UTC)
-Date: Thu, 5 Mar 2020 14:58:49 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20200305145232-mutt-send-email-mst@kernel.org>
-References: <BN6PR1801MB20678805065085E44D173C74C5ED0@BN6PR1801MB2067.namprd18.prod.outlook.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id DC0F6985DDF
+	for <virtio-comment@lists.oasis-open.org>; Wed,  4 Mar 2020 16:25:43 +0000 (UTC)
+References: <0B92A36466FABC4D99BAF0BDB1FA8BBC415B5941@shsmsx102.ccr.corp.intel.com>
+From: Mikhail Golubev <mikhail.golubev@opensynergy.com>
+Message-ID: <b0dbd5f5-e625-331f-17f3-ac8d430dfabc@opensynergy.com>
+Date: Wed, 4 Mar 2020 17:25:33 +0100
 MIME-Version: 1.0
-In-Reply-To: <BN6PR1801MB20678805065085E44D173C74C5ED0@BN6PR1801MB2067.namprd18.prod.outlook.com>
-Subject: [virtio-comment] Re: [PATCH v3] virtio-net: Add support for the flexible driver
- notification structure
-Content-Type: text/plain; charset=us-ascii
+In-Reply-To: <0B92A36466FABC4D99BAF0BDB1FA8BBC415B5941@shsmsx102.ccr.corp.intel.com>
+Content-Language: en-US
+Subject: Re: [virtio-comment] Request vote for the patch: Add virtio rpmb
+ device specification
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
-To: Vitaly Mireyno <vmireyno@marvell.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Jason Wang <jasowang@redhat.com>, Ariel Elior <aelior@marvell.com>
+To: "Huang, Yang" <yang.huang@intel.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, "Zhu, Bing" <bing.zhu@intel.com>, "Winkler, Tomas" <tomas.winkler@intel.com>, "Fang, Peter" <peter.fang@intel.com>, "Wang, Kai Z" <kai.z.wang@intel.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Feb 25, 2020 at 04:30:56PM +0000, Vitaly Mireyno wrote:
-> Currently, the driver notification (available buffer notification) has a =
-fixed structure.
-> If VIRTIO_F_NOTIFICATION_DATA has been negotiated, it includes: vqn, next=
-_off and next_wrap.
-> If notify_off_multiplier > 0, the VQ number can be derived by the device =
-from the Queue Notify address, so vqn may be redundant.
+Hi Yang!
+
+I was going through the latest rpmb device specification revision v6 and th=
+e=20
+source code of the virtio rpmb device in the acrn-hypervsor github repo and=
+ of=20
+the virtio rpmb driver in the acrn-kernel github repo. And I wonder, do you=
+ have=20
+any plans to align the code with the latest specification version?
+
+BR,
+Mikhail.
+
+On 10/31/19 3:36 AM, Huang, Yang wrote:
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/53
 >=20
-> Some devices benefit from receiving an additional data with driver notifi=
-cations. This data can optionally replace the vqn field in the driver notif=
-ication structure.
-> In its simplest form, it would be sufficient for this data to be a per-de=
-vice constant value.
+> Request vote at this time.
 >=20
-> Changes from v2 - Defined a new feature flag instead of a PCI-specific fl=
-ag.
 >=20
-> Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
-> ---
->  content.tex | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
->=20
-> diff --git a/content.tex b/content.tex
-> index b91a132..5223d5c 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -965,6 +965,8 @@ \subsubsection{Notification structure layout}\label{s=
-ec:Virtio Transport Options
->  struct virtio_pci_notify_cap {
->          struct virtio_pci_cap cap;
->          le32 notify_off_multiplier; /* Multiplier for queue_notify_off. =
-*/
-> +        le16 notify_data; /* Data to be placed in the vqn field */
-> +        le16 padding; /* Pad to a dword */
->  };
->  \end{lstlisting}
-> =20
-> @@ -984,6 +986,21 @@ \subsubsection{Notification structure layout}\label{=
-sec:Virtio Transport Options
->  the same Queue Notify address for all queues.
->  \end{note}
-> =20
-> +\field{notify_data} is the data that the driver will set in the \field{v=
-qn}
-> +field in the available buffer notification, if
-> +VIRTIO_NET_F_NOTIF_EXTRA_DATA has been negotiated.
-> +
-> +\begin{note}
-> +If \field{notify_off_multiplier} > 0, the virtqueue number can potential=
-ly be
-> +derived by the device from the Queue Notify address, so \field{vqn} may =
-be
-> +redundant. Some devices benefit from receiving the additional data with =
-driver
-> +notifications. An example could be a hardware device implementing multip=
-le
-> +protocols (with virtio being one of them), so extra notification data co=
-uld
-> +serve as a notification type indication or a protocol indication.
-> +Another example could be using shared hardware memory space for driver
-> +notifications for multiple virtio devices in a trusted environment.
-> +\end{note}
-> +
->  \devicenormative{\paragraph}{Notification capability}{Virtio Transport O=
-ptions / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
->  The device MUST present at least one notification capability.
-> =20
-> @@ -1020,6 +1037,10 @@ \subsubsection{Notification structure layout}\labe=
-l{sec:Virtio Transport Options
->  cap.length >=3D queue_notify_off * notify_off_multiplier + 4
->  \end{lstlisting}
-> =20
-> +If VIRTIO_NET_F_NOTIF_EXTRA_DATA has been negotiated, the device MUST se=
-t
-> +\field{notify_data} to a valid value,
+>> -----Original Message-----
+>> From: Michael S. Tsirkin <mst@redhat.com>
+>> Sent: Sunday, October 27, 2019 19:48
+>> To: Huang, Yang <yang.huang@intel.com>
+>> Cc: virtio-dev@lists.oasis-open.org; cohuck@redhat.com; Zhu, Bing
+>> <bing.zhu@intel.com>; Winkler, Tomas <tomas.winkler@intel.com>; Fang,
+>> Peter <peter.fang@intel.com>
+>> Subject: Re: [virtio-dev] [PATCH v6] Add virtio rpmb device specificatio=
+n
+>>
+>> On Wed, Oct 09, 2019 at 10:36:51AM +0800, Huang Yang wrote:
+>>> It is a virtio based RPMB (Replay Protected Memory Block) device.
+>>>
+>>> Signed-off-by: Yang Huang <yang.huang@intel.com>
+>>> Reviewed-by: Bing Zhu <bing.zhu@intel.com>
+>>> Reviewed-by: Tomas Winkler <tomas.winkler@intel.com>
+>>>
+>>> v5 -> v6:
+>>> 1. Remove UFS reference, keep eMMC as the only one.
+>>> 2. Update eMMC reference link to a free version.
+>>> 3. Typo fixes.
+>>> 4. Copy normative statements to the normative sections,
+>>>     and rewrite text to Device Operation section.
+>>> 5. Update conformance.
+>>
+>> Looks reasonable at this point. Feel free to create a github issue and r=
+equest a
+>> vote as documented here:
+>> https://github.com/oasis-tcs/virtio-spec/README.md
+>> see section "use of github issues".
+>>
+>>> ---
+>>>   conformance.tex  |  24 ++++-
+>>>   content.tex      |   1 +
+>>>   introduction.tex |   3 +
+>>>   virtio-rpmb.tex  | 289
+>>> +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>>>   4 files changed, 316 insertions(+), 1 deletion(-)  create mode 100644
+>>> virtio-rpmb.tex
+>>>
+>>> diff --git a/conformance.tex b/conformance.tex index 0ac58aa..50969e5
+>>> 100644
+>>> --- a/conformance.tex
+>>> +++ b/conformance.tex
+>>> @@ -22,7 +22,7 @@ \section{Conformance Targets}\label{sec:Conformance
+>> / Conformance Targets}
+>>>     \begin{itemize}
+>>>       \item Clause \ref{sec:Conformance / Device Conformance}.
+>>>       \item One of clauses \ref{sec:Conformance / Device Conformance / =
+PCI
+>> Device Conformance}, \ref{sec:Conformance / Device Conformance / MMIO
+>> Device Conformance} or \ref{sec:Conformance / Device Conformance / Chann=
+el
+>> I/O Device Conformance}.
+>>> -    \item One of clauses \ref{sec:Conformance / Device Conformance /
+>> Network Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Block Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Console Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Entropy Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Traditional Memory Balloon Device Conformance}, \ref{sec:Conformance /
+>> Device Conformance / SCSI Host Device Conformance}, \ref{sec:Conformance=
+ /
+>> Device Conformance / Input Device Conformance}, \ref{sec:Conformance /
+>> Device Conformance / Crypto Device Conformance} or \ref{sec:Conformance =
+/
+>> Device Conformance / Socket Device Conformance}.
+>>> +    \item One of clauses \ref{sec:Conformance / Device Conformance /
+>> Network Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Block Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Console Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Entropy Device Conformance}, \ref{sec:Conformance / Device Conformance /
+>> Traditional Memory Balloon Device Conformance}, \ref{sec:Conformance /
+>> Device Conformance / SCSI Host Device Conformance}, \ref{sec:Conformance=
+ /
+>> Device Conformance / Input Device Conformance}, \ref{sec:Conformance /
+>> Device Conformance / Crypto Device Conformance}, \ref{sec:Conformance /
+>> Device Conformance / Socket Device Conformance} or \ref{sec:Conformance =
+/
+>> Device Conformance / RPMB Device Conformance}.
+>>>       \item Clause \ref{sec:Conformance / Legacy Interface: Transitiona=
+l Device
+>> and Transitional Driver Conformance}.
+>>>     \end{itemize}
+>>>   \end{description}
+>>> @@ -183,6 +183,14 @@ \section{Conformance
+>>> Targets}\label{sec:Conformance / Conformance Targets}  \item
+>>> \ref{drivernormative:Device Types / Socket Device / Device Operation /
+>>> Device Events}  \end{itemize}
+>>>
+>>> +\conformance{\subsection}{RPMB Driver
+>>> +Conformance}\label{sec:Conformance / Driver Conformance / RPMB Driver
+>>> +Conformance}
+>>> +
+>>> +A RPMB driver MUST conform to the following normative statements:
+>>> +
+>>> +\begin{itemize}
+>>> +\item \ref{drivernormative:Device Types / RPMB Device / Device
+>>> +Operation} \end{itemize}
+>>> +
+>>>   \conformance{\section}{Device Conformance}\label{sec:Conformance /
+>>> Device Conformance}
+>>>
+>>>   A device MUST conform to the following normative statements:
+>>> @@ -338,6 +346,20 @@ \section{Conformance
+>>> Targets}\label{sec:Conformance / Conformance Targets}  \item
+>>> \ref{devicenormative:Device Types / Socket Device / Device Operation /
+>>> Receive and Transmit}  \end{itemize}
+>>>
+>>> +\conformance{\subsection}{RPMB Device
+>>> +Conformance}\label{sec:Conformance / Device Conformance / RPMB Device
+>>> +Conformance}
+>>> +
+>>> +An RPMB device MUST conform to the following normative statements:
+>>> +
+>>> +\begin{itemize}
+>>> +\item \ref{devicenormative:Device Types / RPMB Device / Device
+>>> +Initialization} \item \ref{devicenormative:Device Types / RPMB Device
+>>> +/ Device Operation / Device Operation: Program Key} \item
+>>> +\ref{devicenormative:Device Types / RPMB Device / Device Operation /
+>>> +Device Operation: Get Write Counter} \item
+>>> +\ref{devicenormative:Device Types / RPMB Device / Device Operation /
+>>> +Device Operation: Data Write} \item \ref{devicenormative:Device Types
+>>> +/ RPMB Device / Device Operation / Device Operation: Data Read} \item
+>>> +\ref{devicenormative:Device Types / RPMB Device / Device Operation /
+>>> +Device Operation: Result Read} \item \ref{devicenormative:Device
+>>> +Types / RPMB Device / Device Operation} \end{itemize}
+>>> +
+>>>   \conformance{\section}{Legacy Interface: Transitional Device and
+>>> Transitional Driver Conformance}\label{sec:Conformance / Legacy
+>>> Interface: Transitional Device and Transitional Driver Conformance}  A
+>>> conformant implementation MUST be either transitional or
+>>> non-transitional, see \ref{intro:Legacy diff --git a/content.tex
+>>> b/content.tex index ee0d7c9..2573bd5 100644
+>>> --- a/content.tex
+>>> +++ b/content.tex
+>>> @@ -5677,6 +5677,7 @@ \subsubsection{Legacy Interface: Framing
+>>> Requirements}\label{sec:Device  \input{virtio-input.tex}
+>>> \input{virtio-crypto.tex}  \input{virtio-vsock.tex}
+>>> +\input{virtio-rpmb.tex}
+>>>
+>>>   \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>>>
+>>> diff --git a/introduction.tex b/introduction.tex index
+>>> c96acf9..3453657 100644
+>>> --- a/introduction.tex
+>>> +++ b/introduction.tex
+>>> @@ -60,6 +60,9 @@ \section{Normative References}\label{sec:Normative
+>> References}
+>>>   =09\phantomsection\label{intro:SCSI MMC}\textbf{[SCSI MMC]} &
+>>>           SCSI Multimedia Commands,
+>>>
+>>> \newline\url{http://www.t10.org/cgi-bin/ac.pl?t=3Df&f=3Dmmc6r00.pdf}\\
+>>> +        \phantomsection\label{intro:eMMC}\textbf{[eMMC]} &
+>>> +        eMMC Electrical Standard (5.1), JESD84-B51,
+>>> +
+>>> + \newline\url{http://www.jedec.org/sites/default/files/docs/JESD84-B5
+>>> + 1.pdf}\\
+>>>
+>>>   \end{longtable}
+>>>
+>>> diff --git a/virtio-rpmb.tex b/virtio-rpmb.tex new file mode 100644
+>>> index 0000000..9aa8c68
+>>> --- /dev/null
+>>> +++ b/virtio-rpmb.tex
+>>> @@ -0,0 +1,289 @@
+>>> +\section{RPMB Device}\label{sec:Device Types / RPMB Device}
+>>> +
+>>> +virtio-rpmb is a virtio based RPMB (Replay Protected Memory Block)
+>>> +device. It is used as a tamper-resistant and anti-replay storage.
+>>> +The device is driven via requests including read, write, get write
+>>> +counter and program key, which are submitted via a request queue.
+>>> +This section relies on definitions from paragraph 6.6.22 of
+>>> +\hyperref[intro:eMMC]{eMMC}.
+>>> +\subsection{Device ID}\label{sec:Device Types / RPMB Device / Device
+>>> +ID}
+>>> +
+>>> +28
+>>> +
+>>> +\subsection{Virtqueues}\label{sec:Device Types / RPMB Device /
+>>> +Virtqueues}
+>>> +
+>>> +\begin{description}
+>>> +\item[0] requestq
+>>> +\end{description}
+>>> +
+>>> +\subsection{Feature bits}\label{sec:Device Types / RPMB Device /
+>>> +Feature bits}
+>>> +
+>>> +None.
+>>> +
+>>> +\subsection{Device configuration layout}\label{sec:Device Types /
+>>> +RPMB Device / Device configuration layout}
+>>> +
+>>> +All fields of this configuration are always available and read-only fo=
+r the
+>> driver.
+>>> +
+>>> +\begin{lstlisting}
+>>> +struct virtio_rpmb_config {
+>>> +        u8 capacity;
+>>> +        u8 max_wr_cnt;
+>>> +        u8 max_rd_cnt;
+>>> +}
+>>> +\end{lstlisting}
+>>> +
+>>> +\begin{description}
+>>> +\item[\field{capacity}] is the capacity of the device (expressed in 12=
+8KB units).
+>>> +   The values MUST range between 0x00 and 0x80 inclusive.
+>>> +\item[\field{max_wr_cnt and max_rd_cnt}] are the maximum numbers of
+>> RPMB
+>>> +   block count (256B) that can be performed to device in one request. =
+0
+>> implies
+>>> +   no limitation.
+>>> +\end{description}
+>>> +
+>>> +\devicenormative{\subsection}{Device Initialization}{Device Types /
+>>> +RPMB Device / Device Initialization}
+>>> +
+>>> +\begin{enumerate}
+>>> +\item The virtqueue is initialized.
+>>> +\item The device capacity MUST be initialized to a multiple of 128Kbyt=
+es and
+>> up to
+>>> +   16Mbytes.
+>>> +\end{enumerate}
+>>> +
+>>> +\subsection{Device Operation}\label{sec:Device Types / RPMB Device /
+>>> +Device Operation}
+>>> +
+>>> +The operation of a virtio RPMB device is driven by the requests placed=
+ on the
+>> virtqueue.
+>>> +  The type of request can be program key
+>>> +(VIRTIO_RPMB_REQ_PROGRAM_KEY),
+>>> +  get write counter (VIRTIO_RPMB_REQ_GET_WRITE_COUNTER),
+>>> +  write (VIRTIO_RPMB_REQ_DATA_WRITE), and read
+>> (VIRTIO_RPMB_REQ_DATA_READ).
+>>> +  A program key or write request can also combine with a
+>>> +  result read (VIRTIO_RPMB_REQ_RESULT_READ) for a returned result.
+>>> +
+>>> +\begin{lstlisting}
+>>> +/* RPMB Request Types */
+>>> +#define VIRTIO_RPMB_REQ_PROGRAM_KEY        0x0001
+>>> +#define VIRTIO_RPMB_REQ_GET_WRITE_COUNTER  0x0002
+>>> +#define VIRTIO_RPMB_REQ_DATA_WRITE         0x0003
+>>> +#define VIRTIO_RPMB_REQ_DATA_READ          0x0004
+>>> +#define VIRTIO_RPMB_REQ_RESULT_READ        0x0005
+>>> +
+>>> +/* RPMB Response Types */
+>>> +#define VIRTIO_RPMB_RESP_PROGRAM_KEY       0x0100
+>>> +#define VIRTIO_RPMB_RESP_GET_COUNTER       0x0200
+>>> +#define VIRTIO_RPMB_RESP_DATA_WRITE        0x0300
+>>> +#define VIRTIO_RPMB_RESP_DATA_READ         0x0400
+>>> +\end{lstlisting}
+>>> +
+>>> +\begin{description}
+>>> +\item[\field{VIRTIO_RPMB_REQ_PROGRAM_KEY}] requests for
+>> authentication key programming.
+>>> +  If VIRTIO_RPMB_REQ_RESULT_READ is requested, the device returns the
+>>> +RPMB frame with
+>>> +  the response (VIRTIO_RPMB_RESP_PROGRAM_KEY), the calculated MAC
+>> and the result.
+>>> +
+>>> +\item[\field{VIRTIO_RPMB_REQ_GET_WRITE_COUNTER}] requests for
+>> reading the write counter.
+>>> +   The device returns the RPMB frame with the response
+>> (VIRTIO_RPMB_RESP_GET_COUNTER),
+>>> +   the writer counter, a copy of the nonce received in the request, th=
+e
+>> calculated
+>>> +   MAC and the result.
+>>> +
+>>> +\item[\field{VIRTIO_RPMB_REQ_DATA_WRITE}] requests for authenticated
+>> data write.
+>>> +   If VIRTIO_RPMB_REQ_RESULT_READ is requested, the device returns the
+>> RPMB data
+>>> +   frame with the response (VIRTIO_RPMB_RESP_DATA_WRITE), the
+>> incremented counter value,
+>>> +   the data address, the calculated MAC and the result.
+>>> +
+>>> +\item[\field{VIRTIO_RPMB_REQ_DATA_READ}] requests for authenticated
+>> data read.
+>>> +   The device returns the RPMB frame with the response
+>> (VIRTIO_RPMB_RESP_DATA_READ),
+>>> +   the block count, a copy of the nonce received in the request, the a=
+ddress,
+>>> +   the data, the calculated MAC and the result.
+>>> +
+>>> +\item[\field{VIRTIO_RPMB_REQ_RESULT_READ}] requests for a returned
+>> result.
+>>> +   It is used following with VIRTIO_RPMB_REQ_PROGRAM_KEY or
+>> VIRTIO_RPMB_REQ_DATA_WRITE
+>>> +   request types for a returned result in one or multiple RPMB frames.=
+ If it's
+>> not
+>>> +   requested, the device will not return result frame to the driver.
+>>> +\end{description}
+>>> +
+>>> +
+>>> +\subsubsection{Device Operation: Request Queue}\label{sec:Device
+>>> +Types / RPMB Device / Device Operation / Device Operation: Request
+>>> +Queue}
+>>> +
+>>> +The request information is delivered in RPMB frame.
+>>> +The frame is in size of 512B.
+>>> +
+>>> +\begin{lstlisting}
+>>> +struct virtio_rpmb_frame {
+>>> +        u8 stuff[196];
+>>> +        u8 key_mac[32];
+>>> +        u8 data[256];
+>>> +        u8 nonce[16];
+>>> +        be32 write_counter;
+>>> +        be16 address;
+>>> +        be16 block_count;
+>>> +        be16 result;
+>>> +        be16 req_resp;
+>>> +};
+>>> +
+>>> +/* RPMB Operation Results */
+>>> +#define VIRTIO_RPMB_RES_OK                     0x0000
+>>> +#define VIRTIO_RPMB_RES_GENERAL_FAILURE        0x0001
+>>> +#define VIRTIO_RPMB_RES_AUTH_FAILURE           0x0002
+>>> +#define VIRTIO_RPMB_RES_COUNT_FAILURE          0x0003
+>>> +#define VIRTIO_RPMB_RES_ADDR_FAILURE           0x0004
+>>> +#define VIRTIO_RPMB_RES_WRITE_FAILURE          0x0005
+>>> +#define VIRTIO_RPMB_RES_READ_FAILURE           0x0006
+>>> +#define VIRTIO_RPMB_RES_NO_AUTH_KEY            0x0007
+>>> +#define VIRTIO_RPMB_RES_WRITE_COUNTER_EXPIRED  0x0080
+>>> +\end{lstlisting}
+>>> +
+>>> +\begin{description}
+>>> +\item[\field{stuff}] Padding for the frame.
+>>> +
+>>> +\item[\field{key_mac}] is the authentication key or the message
+>>> +   authentication code (MAC) depending on the request/response type.
+>>> +   If the request is VIRTIO_RPMB_REQ_PROGRAM_KEY, it's used as an
+>>> +   authentication key. Otherwise, it's used as MAC. The MAC is calcula=
+ted
+>>> +   using HMAC SHA-256. It takes as input a key and a message. The key
+>>> +   used for the MAC calculation is always the 256-bit RPMB authenticat=
+ion
+>>> +   key. The message used as input to the MAC calculation is the
+>>> +   concatenation of the fields in the RPMB frames excluding stuff byte=
+s
+>>> +   and the MAC itself.
+>>> +
+>>> +\item[\field{data}] is used to be written or read via authenticated
+>>> +   read/write access. It's fixed 256B.
+>>> +
+>>> +\item[\field{nonce}] is a random number generated by the user for the =
+read
+>>> +   or get write counter requests and copied to the response by the dev=
+ice.
+>>> +   It's used for anti-replay protection.
+>>> +
+>>> +\item[\field{writer_counter}] is the counter value for the total amoun=
+t of
+>>> +   the successful authenticated data write requests.
+>>> +
+>>> +\item[\field{address}] is the address of the data to be written to or =
+read
+>>> +   from the RPMB virtio device. It is the number of the accessed
+>>> +   half sector (256B).
+>>> +
+>>> +\item[\field{block_count}] is the number of blocks (256B) requested to=
+ be
+>>> +   read/written. It's limited by \field{max_wr_cnt} or \field{max_rd_c=
+nt}.
+>>> +   For RPMB read request, one virtio buffer including request command =
+and
+>>> +   the subsequent [\field{block_count}] virtio buffers for response da=
+ta
+>>> +   are placed in the queue.
+>>> +   For RPMB write request, [\field{block_count}] virtio buffers includ=
+ing
+>>> +   request command and data are placed in the queue.
+>>> +
+>>> +\item[\field{result}] includes information about the status of access =
+made
+>>> +   to the device. It is written by the device.
+>>> +
+>>> +\item[\field{req_resp}] is the type of request or response, to/from th=
+e device.
+>>> +\end{description}
+>>> +
+>>> +\devicenormative{\paragraph}{Device Operation: Program Key}{Device
+>>> +Types / RPMB Device / Device Operation / Device Operation: Program
+>>> +Key}
+>>> +
+>>> +If VIRTIO_RPMB_REQ_RESULT_READ is requested, the device SHOULD return
+>>> +the RPMB frame with the response, the calculated MAC and the result:
+>>> +
+>>> +\begin{enumerate}
+>>> +\item If the \field{block_count} is not set to 1 then
+>>> +   VIRTIO_RPMB_RES_GENERAL_FAILURE SHOULD be responded as
+>> \field{result}.
+>>> +
+>>> +\item If the programming of authentication key fails,
+>>> +   then VIRTIO_RPMB_RES_WRITE_FAILURE SHOULD be responded as
+>> \field{result}.
+>>> +
+>>> +\item If some other error occurs then returned result
+>>> +   VIRTIO_RPMB_RES_GENERAL_FAILURE SHOULD be responded as
+>> \field{result}.
+>>> +
+>>> +\item The \field{req_resp} value VIRTIO_RPMB_RESP_PROGRAM_KEY
+>> SHOULD be responded.
+>>> +\end{enumerate}
+>>> +
+>>> +\devicenormative{\paragraph}{Device Operation: Get Write
+>>> +Counter}{Device Types / RPMB Device / Device Operation / Device
+>>> +Operation: Get Write Counter}
+>>> +
+>>> +If the authentication key is not yet programmed then
+>>> +VIRTIO_RPMB_RES_NO_AUTH_KEY SHOULD be returned in \field{result}.
+>>> +
+>>> +If block count has not been set to 1 then
+>>> +VIRTIO_RPMB_RES_GENERAL_FAILURE SHOULD be responded as
+>> \field{result}.
+>>> +
+>>> +The \field{req_resp} value VIRTIO_RPMB_RESP_GET_COUNTER SHOULD be
+>> responded.
+>>> +
+>>> +\devicenormative{\paragraph}{Device Operation: Data Write}{Device
+>>> +Types / RPMB Device / Device Operation / Device Operation: Data
+>>> +Write}
+>>> +
+>>> +If VIRTIO_RPMB_REQ_RESULT_READ is requested, the device SHOULD return
+>>> +the RPMB data frame with the response VIRTIO_RPMB_RESP_DATA_WRITE,
+>>> +the incremented counter value, the data address, the calculated MAC an=
+d the
+>> result:
+>>> +
+>>> +\begin{enumerate}
+>>> +\item If the authentication key is not yet programmed,
+>>> +   then VIRTIO_RPMB_RES_NO_AUTH_KEY SHOULD be returned in
+>> \field{result}.
+>>> +
+>>> +\item If block count is zero or greater than \field{max_wr_cnt} then
+>>> +   VIRTIO_RPMB_RES_GENERAL_FAILURE SHOULD be responded.
+>>> +
+>>> +\item The device MUST check whether the write counter has expired.
+>>> +  If the write counter is expired then the \field{result} SHOULD be
+>>> +set to
+>>> +  VIRTIO_RPMB_RES_WRITE_COUNTER_EXPIRED.
+>>> +
+>>> +\item If there is an error in the address (out of range) then the
+>>> +\field{result}
+>>> +  SHOULD be set to VIRTIO_RPMB_RES_ADDR_FAILURE.
+>>> +
+>>> +\item The device MUST calculate the MAC taking authentication key and
+>>> +frame as input,
+>>> +  and compare this with the MAC in the request. If the two MAC=E2=80=
+=99s are
+>>> +different
+>>> +  then VIRTIO_RPMB_RES_AUTH_FAILURE SHOULD be returned in
+>> \field{result}.
+>>> +
+>>> +\item If the writer counter in the request is different from the one m=
+aintained
+>>> +   by the device then VIRTIO_RPMB_RES_COUNT_FAILURE SHOULD  be
+>> returned in \field{result}.
+>>> +
+>>> +\item If the MAC and write counter comparisons are matched then the wr=
+ite
+>> request
+>>> +   is considered to be authenticated. The data from the request SHOULD=
+ be
+>> written to the
+>>> +   address indicated in the request and the write counter SHOULD be
+>> incremented by 1.
+>>> +
+>>> +\item If the write fails then the \field{result} SHOULD be
+>> VIRTIO_RPMB_RES_WRITE_FAILURE.
+>>> +
+>>> +\item If some other error occurs during the writing procedure then the
+>> \field{result}
+>>> +   SHOULD be VIRTIO_RPMB_RES_GENERAL_FAILURE.
+>>> +
+>>> +\item The \field{req_resp} value VIRTIO_RPMB_RESP_DATA_WRITE SHOULD
+>> be responded.
+>>> +\end{enumerate}
+>>> +
+>>> +\devicenormative{\paragraph}{Device Operation: Data Read}{Device
+>>> +Types / RPMB Device / Device Operation / Device Operation: Data Read}
+>>> +
+>>> +If the authentication key is not yet programmed then
+>>> +VIRTIO_RPMB_RES_NO_AUTH_KEY SHOULD be returned in \field{result}.
+>>> +
+>>> +If block count has not been set to 1 then
+>>> +VIRTIO_RPMB_RES_GENERAL_FAILURE SHOULD be responded as
+>> \field{result}.
+>>> +
+>>> +If there is an error in the address (out of range) then the
+>>> +\field{result} SHOULD be set to VIRTIO_RPMB_RES_ADDR_FAILURE.
+>>> +
+>>> +If data fetch from addressed location inside the device fails then
+>>> +the \field{result} SHOULD be VIRTIO_RPMB_RES_READ_FAILURE.
+>>> +
+>>> +If some other error occurs during the read procedure then the
+>>> +\field{result} SHOULD be VIRTIO_RPMB_RES_GENERAL_FAILURE.
+>>> +
+>>> +The \field{req_resp} value VIRTIO_RPMB_RESP_DATA_READ SHOULD be
+>> responded.
+>>> +
+>>> +\devicenormative{\paragraph}{Device Operation: Result Read}{Device
+>>> +Types / RPMB Device / Device Operation / Device Operation: Result
+>>> +Read}
+>>> +
+>>> +If the \field{block_count} has not been set to 1 of
+>>> +VIRTIO_RPMB_REQ_RESULT_READ request then
+>> VIRTIO_RPMB_RES_GENERAL_FAILURE SHOULD be responded as \field{result}.
+>>> +
+>>> +\drivernormative{\subsubsection}{Device Operation}{Device Types /
+>>> +RPMB Device / Device Operation}
+>>> +
+>>> +The RPMB frames MUST not be packed by the driver.
+>>> +The driver MUST configure, initialize and format virtqueue for the RPM=
+B
+>> requests received from its caller then send it to the device.
+>>> +
+>>> +\devicenormative{\subsubsection}{Device Operation}{Device Types /
+>>> +RPMB Device / Device Operation}
+>>> +
+>>> +The virtio-rpmb device could be backed in a number of ways. It SHOULD
+>>> +   keep consistent behaviors with hardware as described in paragraph
+>>> +   6.6.22 of \hyperref[intro:eMMC]{eMMC}.
+>>> +   Some elements are maintained by the device:
+>>> +\begin{enumerate}
+>>> +\item The device MUST maintain a one-time programmable authentication
+>> key.
+>>> +   It cannot be overwritten, erased or read. The key is used to
+>>> +   authenticate the accesses when MAC is calculated. This key MUST be
+>>> +   kept regardless of device reset or reboot.
+>>> +\item The device MUST maintain a read-only monotonic write counter.
+>>> +It
+>>> +  MUST be initialized to zero and added by one automatically along wit=
+h
+>>> +   successful write operation. The value cannot be reset. After
+>>> +   the counter has reached its maximum value 0xFFFF FFFF, it will
+>>> +   not be incremented anymore. This counter MUST be kept regardless
+>>> +   of device reset or reboot.
+>>> +\item The device MUST maintain the data for read/write via authenticat=
+ed
+>>> +   access.
+>>> +\end{enumerate}
+>>> +
+>>> --
+>>> 2.7.4
+>>>
+>>>
+>>> ---------------------------------------------------------------------
+>>> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+>>> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 
-I'm not sure what would a valid value mean. Does this requirement
-add any value (pun intended :) )?
+--=20
+Mikhail Golubev
+Senior Software Engineer
 
-> and SHOULD set
-> +\field{notify_off_multiplier} > 0.
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
 
-So I have a concern here. There could be multiple capabilities.
-What if some have notify_off_multiplier and some aren't?
-This is SHOULD so it seems to be legal.
+Telefon: +49 (30) 60 98 54 0 - 903
+EMail:   mikhail.golubev@opensynergy.com
 
-Then below ...
+www.opensynergy.com
 
-> +
->  \subsubsection{ISR status capability}\label{sec:Virtio Transport Options=
- / Virtio Over PCI Bus / PCI Device Layout / ISR status capability}
-> =20
->  The VIRTIO_PCI_CAP_ISR_CFG capability
-> @@ -1519,6 +1540,14 @@ \subsubsection{Available Buffer Notifications}\lab=
-el{sec:Virtio Transport Option
->  See \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device=
- Layout / Notification capability}
->  for how to calculate the Queue Notify address.
-> =20
-> +\drivernormative{\paragraph}{Available Buffer Notifications}{Virtio Tran=
-sport Options / Virtio Over PCI Bus / PCI-specific Initialization And Devic=
-e Operation / Available Buffer Notifications}
-> +The driver SHOULD accept the VIRTIO_NET_F_NOTIF_EXTRA_DATA feature if it=
- has
-> +been offered.
-> +
-> +If VIRTIO_NET_F_NOTIF_EXTRA_DATA has been negotiated, the driver MUST se=
-t the
-> +\field{vqn} field of the available buffer notification structure to the
-> +\field{notify_data} value.
-> +
+Handelsregister/Commercial Registry: Amtsgericht Charlottenburg, HRB 108616=
+B
+Gesch=C3=A4ftsf=C3=BChrer/Managing Director: Regis Adjamah
 
-So if notify_off_multiplier for a given capability is actually 0,
-when using this specific capability,
-I think we need to keep vqn there as previously.
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-How about listing this behaviour out explicitly?
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-
-
->  \subsubsection{Used Buffer Notifications}\label{sec:Virtio Transport Opt=
-ions / Virtio Over PCI Bus / PCI-specific Initialization And Device Operati=
-on / Used Buffer Notifications}
-> =20
->  If a used buffer notification is necessary for a virtqueue, the device w=
-ould typically act as follows:
-> @@ -2895,6 +2924,10 @@ \subsection{Feature bits}\label{sec:Device Types /=
- Network Device / Feature bits
->  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
->      channel.
-> =20
-> +\item[VIRTIO_NET_F_NOTIF_EXTRA_DATA(57)] Driver provides an extra data w=
-ith
-> +    available buffer notifications, to aid in notification processing by=
- the
-> +    device.
-> +
->  \item[VIRTIO_NET_F_GUEST_HDRLEN(59)] Driver can provide the exact \field=
-{hdr_len}
->      value. Device benefits from knowing the exact header length.
-> =20
-> @@ -2934,6 +2967,7 @@ \subsubsection{Feature bit requirements}\label{sec:=
-Device Types / Network Device
->  \item[VIRTIO_NET_F_CTRL_MAC_ADDR] Requires VIRTIO_NET_F_CTRL_VQ.
->  \item[VIRTIO_NET_F_RSC_EXT] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NE=
-T_F_HOST_TSO6.
->  \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
-> +\item[VIRTIO_NET_F_NOTIF_EXTRA_DATA] Requires VIRTIO_F_NOTIFICATION_DATA=
-.
->  \end{description}
-> =20
->  \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / =
-Network Device / Feature bits / Legacy Interface: Feature bits}
-> --
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
