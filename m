@@ -1,52 +1,44 @@
-Return-Path: virtio-comment-return-1151-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1124-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8C04D98432E
-	for <virtio-comment@lists.oasis-open.org>; Mon, 23 Mar 2020 01:52:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D8D5D985FBD
+	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Mar 2020 17:01:46 +0000 (UTC)
+From: Peter Hilber <peter.hilber@opensynergy.com>
+Date: Fri, 6 Mar 2020 18:00:32 +0100
+Message-ID: <20200306170032.13651-1-peter.hilber@opensynergy.com>
 MIME-Version: 1.0
-References: <20200319021823.57219-1-stevensd@chromium.org> <20200320064143.4b2kyskr5clxsczs@sirius.home.kraxel.org>
-In-Reply-To: <20200320064143.4b2kyskr5clxsczs@sirius.home.kraxel.org>
-From: David Stevens <stevensd@chromium.org>
-Date: Mon, 23 Mar 2020 10:52:09 +0900
-Message-ID: <CAD=HUj4j7gEkHjQPt3aMy_X_m7pZ8CboDTjZtsO1RcfgN0JT5A@mail.gmail.com>
-Subject: [virtio-comment] Re: [PATCH v4 0/2] Cross-device resource sharing
-Content-Type: text/plain; charset=UTF-8
+Subject: [virtio-comment] [PATCH] Reserve device ID 32 for SCMI device
+Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Dylan Reid <dgreid@chromium.org>, Tomasz Figa <tfiga@chromium.org>, Zach Reizner <zachr@chromium.org>, Keiichi Watanabe <keiichiw@chromium.org>, Alexandre Courbot <acourbot@chromium.org>, Alex Lau <alexlau@chromium.org>, =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>, Pawel Osciak <posciak@chromium.org>, Gurchetan Singh <gurchetansingh@chromium.org>, Stefan Hajnoczi <stefanha@gmail.com>, qemu-devel <qemu-devel@nongnu.org>, Linux Media Mailing List <linux-media@vger.kernel.org>
+To: virtio-comment@lists.oasis-open.org
+Cc: Peter Hilber <peter.hilber@opensynergy.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Thanks for taking a look at this. I've opened a github issue.
+Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
+---
+ content.tex | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/76
+diff --git a/content.tex b/content.tex
+index b91a132..937689b 100644
+--- a/content.tex
++++ b/content.tex
+@@ -2801,6 +2801,8 @@ \chapter{Device Types}\label{sec:Device Types}
+ \hline
+ 31         &   Video decoder device \\
+ \hline
++32         &   SCMI device \\
++\hline
+ \end{tabular}
+=20
+ Some of the devices above are unspecified by this document,
+--=20
+2.20.1
 
-Thanks,
-David
-
-On Fri, Mar 20, 2020 at 3:41 PM Gerd Hoffmann <kraxel@redhat.com> wrote:
->
-> On Thu, Mar 19, 2020 at 11:18:21AM +0900, David Stevens wrote:
-> > Hi all,
-> >
-> > This is the next iteration of patches for adding support for sharing
-> > resources between different virtio devices. The corresponding Linux
-> > implementation is [1].
-> >
-> > In addition to these patches, the most recent virtio-video patchset
-> > includes a patch for importing objects into that device [2].
->
-> Looks good to me.
->
-> So, open a github issue to kick the TC vote process and get this merged?
-> (see virtio-spec/.github/PULL_REQUEST_TEMPLATE.md).
->
-> cheers,
->   Gerd
->
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
