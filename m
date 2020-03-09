@@ -1,59 +1,52 @@
-Return-Path: virtio-comment-return-1124-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1129-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D8D5D985FBD
-	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Mar 2020 17:01:46 +0000 (UTC)
-From: Peter Hilber <peter.hilber@opensynergy.com>
-Date: Fri, 6 Mar 2020 18:00:32 +0100
-Message-ID: <20200306170032.13651-1-peter.hilber@opensynergy.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 02B389848B9
+	for <virtio-comment@lists.oasis-open.org>; Mon,  9 Mar 2020 11:27:55 +0000 (UTC)
+Date: Mon, 9 Mar 2020 11:27:49 +0000
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20200309112749.GH7668@stefanha-x1.localdomain>
+References: <20200306170032.13651-1-peter.hilber@opensynergy.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH] Reserve device ID 32 for SCMI device
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
-To: virtio-comment@lists.oasis-open.org
-Cc: Peter Hilber <peter.hilber@opensynergy.com>
+In-Reply-To: <20200306170032.13651-1-peter.hilber@opensynergy.com>
+Subject: Re: [virtio-comment] [PATCH] Reserve device ID 32 for SCMI device
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bpVaumkpfGNUagdU"
+Content-Disposition: inline
+To: Peter Hilber <peter.hilber@opensynergy.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
----
- content.tex | 2 ++
- 1 file changed, 2 insertions(+)
+--bpVaumkpfGNUagdU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/content.tex b/content.tex
-index b91a132..937689b 100644
---- a/content.tex
-+++ b/content.tex
-@@ -2801,6 +2801,8 @@ \chapter{Device Types}\label{sec:Device Types}
- \hline
- 31         &   Video decoder device \\
- \hline
-+32         &   SCMI device \\
-+\hline
- \end{tabular}
-=20
- Some of the devices above are unspecified by this document,
---=20
-2.20.1
+On Fri, Mar 06, 2020 at 06:00:32PM +0100, Peter Hilber wrote:
+> Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
+> ---
+>  content.tex | 2 ++
+>  1 file changed, 2 insertions(+)
 
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+--bpVaumkpfGNUagdU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+-----BEGIN PGP SIGNATURE-----
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl5mKDUACgkQnKSrs4Gr
+c8hjawf/e5+5i9TJLfciSCtIKz/X0hF8V+qMLbd1AI8GqjpIcynxqOzUD6YTw0Q7
+5eJ5sqfOJLxbHA8opK26OXY3yfS8Qe2pCij4Uv/YdvbYAdmihNQyg4svY+5sUQX+
+nktBU2H04dNWXbYuHPu39h02Zrinrqmq5lnhHu9Wkci9335ogzkX73TO2coBqFMd
+tkpMdzNjsHlUS1ELJgJaE0tORLs9atrGiNRkyo9mWj5fLJIJHm1ZR0Eh54r3urJi
+caLT4eyntSMqChgxOv8/rkuRRmqVVgfilx+WeSzdSRyXBPNmfei2D9M5d1pvdb43
+t0954BGZTg3YSBVOU14UkiZvGKcpMg==
+=D2sh
+-----END PGP SIGNATURE-----
+
+--bpVaumkpfGNUagdU--
 
