@@ -1,82 +1,67 @@
-Return-Path: virtio-comment-return-1170-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1147-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 93708986069
-	for <virtio-comment@lists.oasis-open.org>; Fri, 27 Mar 2020 11:58:07 +0000 (UTC)
-References: <20200327103803.10460-1-alex.bennee@linaro.org>
- <20200327115338.57a79ac4.cohuck@redhat.com>
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-In-reply-to: <20200327115338.57a79ac4.cohuck@redhat.com>
-Date: Fri, 27 Mar 2020 11:58:02 +0000
-Message-ID: <87pncym2lx.fsf@linaro.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id F2987985DC1
+	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Mar 2020 02:18:35 +0000 (UTC)
+From: David Stevens <stevensd@chromium.org>
+Date: Thu, 19 Mar 2020 11:18:21 +0900
+Message-Id: <20200319021823.57219-1-stevensd@chromium.org>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [RFC PATCH  0/8] some tweaks to the document
- build process
-Content-Type: text/plain; charset=utf-8
+Subject: [virtio-comment] [PATCH v4 0/2] Cross-device resource sharing
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+To: virtio-comment@lists.oasis-open.org
+Cc: Gerd Hoffmann <kraxel@redhat.com>, Dylan Reid <dgreid@chromium.org>, Tomasz Figa <tfiga@chromium.org>, Zach Reizner <zachr@chromium.org>, Keiichi Watanabe <keiichiw@chromium.org>, Alexandre Courbot <acourbot@chromium.org>, Alex Lau <alexlau@chromium.org>, =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@chromium.org>, Pawel Osciak <posciak@chromium.org>, Gurchetan Singh <gurchetansingh@chromium.org>, Stefan Hajnoczi <stefanha@gmail.com>, qemu-devel <qemu-devel@nongnu.org>, Linux Media Mailing List <linux-media@vger.kernel.org>, David Stevens <stevensd@chromium.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+Hi all,
 
-Cornelia Huck <cohuck@redhat.com> writes:
+This is the next iteration of patches for adding support for sharing
+resources between different virtio devices. The corresponding Linux
+implementation is [1].
 
-> On Fri, 27 Mar 2020 10:37:55 +0000
-> Alex Benn=C3=A9e <alex.bennee@linaro.org> wrote:
->
->> Hi,
->>=20
->> I was reviewing someones virtio-spec and realised that I wasn't quite
->> sure what it had been built from. Seeing as the standard is hosted in
->> git I've tried to clean up some of the automation to make it clearer
->> what a particular rendering was built from. Going forward it would be
->> nice to use signed annotated tags for the final build version but I
->> don't know how much of the boilerplate is down to OASIS requirements.
->
-> OASIS requirements are my concern here as well.
+In addition to these patches, the most recent virtio-video patchset
+includes a patch for importing objects into that device [2].
 
-I've tried to do some digging although the Oasis website has a lot of
-policy documents. I think the most relevant one is:
+[1] https://markmail.org/thread/bfy6uk4q4v4cus7h
+[2] https://markmail.org/message/wxdne5re7aaugbjg
 
-  https://docs.oasis-open.org/specGuidelines/ndr/namingDirectives.html
+Changes v3 -> v4:
+ - Add virtio-gpu feature bit
+ - Move virtio-gpu assign uuid command into 2d command group
+ - Rename virtio-gpu uuid response
 
-which as far as I can make out is mostly concerned that the final work
-product meets the naming standard by version and stage. Although ZIP
-files are mentioned a couple of times it is in the context of a file
-containing work products for local use. My personal interpretation is
-that if the final work products are correctly named and have the version
-information in them the rest is just ephemera. However I could be wrong
-so defer to anyone more familiar with the policies.
+David Stevens (2):
+  content: define what an exported object is
+  virtio-gpu: add the ability to export resources
 
-An random sampling of ZIP files on https://www.oasis-open.org/standards
-has shown them all to just contain the individual work products without
-any extraneous REVISION/REVISION-DATE files.
-
-Anyway I defer to those with more experience of the process and I'll
-leave the question of tex vs rst for another day ;-)
+ content.tex      | 12 ++++++++++++
+ introduction.tex |  4 ++++
+ virtio-gpu.tex   | 29 +++++++++++++++++++++++++++++
+ 3 files changed, 45 insertions(+)
 
 --=20
-Alex Benn=C3=A9e
+2.25.1.481.gfbce0eb801-goog
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
