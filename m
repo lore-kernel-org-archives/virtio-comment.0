@@ -1,103 +1,78 @@
-Return-Path: virtio-comment-return-1157-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1153-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2F2C998601F
-	for <virtio-comment@lists.oasis-open.org>; Thu, 26 Mar 2020 11:52:50 +0000 (UTC)
-Date: Thu, 26 Mar 2020 12:52:36 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20200326125236.4bf0c5aa.cohuck@redhat.com>
-In-Reply-To: <20200326071301-mutt-send-email-mst@kernel.org>
-References: <BN6PR1801MB206759357571FC19A34A1673C5F70@BN6PR1801MB2067.namprd18.prod.outlook.com>
-	<20200326104320.24f49d5a.cohuck@redhat.com>
-	<20200326071301-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 5A71B985E7D
+	for <virtio-comment@lists.oasis-open.org>; Tue, 24 Mar 2020 18:28:45 +0000 (UTC)
+From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Date: Tue, 24 Mar 2020 18:28:33 +0000
+Message-Id: <20200324182841.21223-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [PATCH v7] virtio-net: Add support for the flexible driver
- notification structure.
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Vitaly Mireyno <vmireyno@marvell.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Jason Wang <jasowang@redhat.com>, Ariel Elior <aelior@marvell.com>
+Subject: [virtio-comment] [RFC PATCH  0/8] some tweaks to the document build process
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 26 Mar 2020 07:26:16 -0400
-"Michael S. Tsirkin" <mst@redhat.com> wrote:
+Hi,
 
-> On Thu, Mar 26, 2020 at 10:43:20AM +0100, Cornelia Huck wrote:
-> > On Wed, 18 Mar 2020 18:29:19 +0000
-> > Vitaly Mireyno <vmireyno@marvell.com> wrote:
+I was reviewing someones virtio-spec and realised that I wasn't quite
+sure what it had been built from. Seeing as the standard is hosted in
+git I've tried to clean up some of the automation to make it clearer
+what a particular rendering was built from. Going forward it would be
+nice to use signed annotated tags for the final build version but I
+don't know how much of the boilerplate is down to OASIS requirements.
 
-> > > +
-> > > +\begin{note}
-> > > +If \field{notify_off_multiplier} > 0, the virtqueue number can potentially be
-> > > +derived by the device from the Queue Notify address, so \field{vqn} may be
-> > > +redundant.  
-> 
-> I feel this is confusing the reader more than it explains.
-> the field is always there. It's either the virtqueue number or
-> whatever we get from the device.
+What do people think? Is this worth improving on?
 
-"the virtqueue number can potentially be derived by the device from the
-Queue Notify address, so obtaining the virtqueue number from
-\field{vqn} is not needed"
+Alex Benn=C3=A9e (8):
+  README.md: convert html to proper Markdown format
+  CONTRIBUTING.md: convert to proper MarkDown
+  LICENSE.md: convert html to proper MarkDown
+  makeall.sh: add explicit shebang to script
+  Cleanup old changelog files
+  Remove all mentioned of subversion
+  make*: remove reliance on REVISION-DATE and use git
+  Makefile: add simple make automation with clean target
 
-?
+ CONTRIBUTING.md         |   22 +-
+ LICENSE.md              |    9 +-
+ Makefile                |   17 +
+ README.md               |  258 ++++------
+ REVISION-DATE           |    1 -
+ cl-cs01.tex             |   86 ----
+ cl-cs02.tex             |   52 --
+ cl-cs03.tex             |  328 ------------
+ cl-cs04.tex             |  134 -----
+ cl-csprd02.tex          | 1043 ---------------------------------------
+ cl-csprd03.tex          |  400 ---------------
+ getchangelog.pl         |  114 -----
+ git-svn.txt             |   34 --
+ make-setup-generated.sh |   54 +-
+ makeall.sh              |    3 +-
+ makediff.sh             |    1 -
+ makediffall.sh          |    1 -
+ makediffwithbase.sh     |    1 -
+ maketex.sh              |    1 -
+ makezip.sh              |   11 +-
+ 20 files changed, 169 insertions(+), 2401 deletions(-)
+ create mode 100644 Makefile
+ delete mode 100644 REVISION-DATE
+ delete mode 100644 cl-cs01.tex
+ delete mode 100644 cl-cs02.tex
+ delete mode 100644 cl-cs03.tex
+ delete mode 100644 cl-cs04.tex
+ delete mode 100644 cl-csprd02.tex
+ delete mode 100644 cl-csprd03.tex
+ delete mode 100755 getchangelog.pl
+ delete mode 100644 git-svn.txt
 
-> 
-> > > +\end{note}
-> > > +
-(...)
-> > > @@ -4180,6 +4205,33 @@ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
-> > >  See \ref{sec:Basic
-> > >  Facilities of a Virtio Device / Virtqueues / Message Framing}.
-> > >  
-> > > +\subsubsection{Driver Notifications}\label{sec:Device Types / Network Device / Device Operation / Driver Notifications}
-> > > +As mentioned in section \ref{sec:Virtqueues / Driver notifications}, when the
-> > > +driver is required to send an available buffer notification to the device, it
-> > > +always sends the virtqueue number to be notified. The method of delivering
-> > > +notifications is transport specific. With the PCI transport, the device can
-> > > +optionally provide a distinct per-virtqueue address for driver notifications
-> > > +(Queue Notify address). In this case, the virtqueue number can potentially be
-> > > +derived by the device from the Queue Notify address. For devices, that provide
-> > > +per-virtqueue Queue Notify addresses and are able to derive the virtqueue number
-> > > +from that address, the virtqueue number in the notification data is redundant.  
-> > 
-> > I would keep the remark that the queue number might be redundant with
-> > the PCI transport.  
-> 
-> I feel redundant is too strong a word. If anything sending data we just
-> read from device back to it is definitely redundant.
-> Spec says send it so we send it.
-> Maybe say it can be ignored by the device?
-
-Maybe "not needed"?
-
-(see above)
-
-> 
-> > > +On the other hand, some devices can benefit from receiving additional data with
-> > > +driver notifications. An example could be a hardware device implementing multiple
-> > > +protocols (with virtio being one of them), so the extra notification data could
-> > > +serve as a notification type indication or a protocol indication.  
-> > 
-> > Hm... what about replacing the whole text above with
-> > 
-> > "Driver notifications (\ref{sec:Virtqueues / Driver notifications})
-> > always contain at least the virtqueue number for which buffers are
-> > available. Some devices can benefit from receiving additional data with
-> > driver notifications. For example, a hardware device implementing
-> > multiple protocols (with virtio being one of them) could benefit from a
-> > notification type indication or a protocol indication."  
-> 
-> 
-> My problem with both versions is that it talks about
-> "additional information" while in fact it's information that
-> comes from the device itself.
-
-"per-device information", maybe?
+--=20
+2.20.1
 
 
 This publicly archived list offers a means to provide input to the
@@ -112,7 +87,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
