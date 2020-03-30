@@ -1,131 +1,210 @@
-Return-Path: virtio-comment-return-1158-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1173-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BF5CB98601F
-	for <virtio-comment@lists.oasis-open.org>; Thu, 26 Mar 2020 12:19:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8C190984312
+	for <virtio-comment@lists.oasis-open.org>; Mon, 30 Mar 2020 12:59:22 +0000 (UTC)
 From: Vitaly Mireyno <vmireyno@marvell.com>
-Date: Thu, 26 Mar 2020 12:19:04 +0000
-Message-ID: <BN6PR1801MB2067FF56ACB319D1840540DCC5CF0@BN6PR1801MB2067.namprd18.prod.outlook.com>
+Date: Mon, 30 Mar 2020 12:59:13 +0000
+Message-ID: <BN6PR1801MB2067A0AD5B210A287360E225C5CB0@BN6PR1801MB2067.namprd18.prod.outlook.com>
+References: <BN6PR1801MB2067FF56ACB319D1840540DCC5CF0@BN6PR1801MB2067.namprd18.prod.outlook.com>
+In-Reply-To: <BN6PR1801MB2067FF56ACB319D1840540DCC5CF0@BN6PR1801MB2067.namprd18.prod.outlook.com>
 Content-Language: en-US
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [PATCH v7] virtio-net: Add support for the flexible driver
+Subject: [virtio-comment] RE: [PATCH v7] virtio-net: Add support for the flexible driver
  notification structure.
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-To: Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
 Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Jason Wang <jasowang@redhat.com>, Ariel Elior <aelior@marvell.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-I can suggest changing the feature definition such that the value, that the=
- driver sets in the vqn field, will be per-virtqueue (instead of per-device=
-).
-The device can provide a per-virtqueue value to the driver in the PCI Commo=
-n configuration structure (virtio_pci_common_cfg).
-This will probably make the feature more generic. It will also simplify the=
- feature, as it will not depend on notify_off_multiplier anymore.
+I can fix the patch according to Cornelia's and Michael's comments, or rede=
+fine the feature altogether (as I've mentioned below).
 
-Would it make more sense?
+What do you think?
+Does the new definition make more sense?
 
+Thanks,
+Vitaly
 
 >-----Original Message-----
->From: Cornelia Huck <cohuck@redhat.com>
->Sent: Thursday, 26 March, 2020 13:53
->To: Michael S. Tsirkin <mst@redhat.com>
->Cc: Vitaly Mireyno <vmireyno@marvell.com>; virtio-comment@lists.oasis-open=
-.org; Jason Wang
-><jasowang@redhat.com>; Ariel Elior <aelior@marvell.com>
->Subject: [EXT] Re: [PATCH v7] virtio-net: Add support for the flexible dri=
-ver notification structure.
+>From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-open=
+.org> On Behalf Of Vitaly
+>Mireyno
+>Sent: Thursday, 26 March, 2020 14:19
+>To: Cornelia Huck <cohuck@redhat.com>; Michael S. Tsirkin <mst@redhat.com>
+>Cc: virtio-comment@lists.oasis-open.org; Jason Wang <jasowang@redhat.com>;=
+ Ariel Elior
+><aelior@marvell.com>
+>Subject: [EXT] [virtio-comment] Re: [PATCH v7] virtio-net: Add support for=
+ the flexible driver
+>notification structure.
 >
 >External Email
 >
 >----------------------------------------------------------------------
->On Thu, 26 Mar 2020 07:26:16 -0400
->"Michael S. Tsirkin" <mst@redhat.com> wrote:
+>I can suggest changing the feature definition such that the value, that th=
+e driver sets in the vqn field,
+>will be per-virtqueue (instead of per-device).
+>The device can provide a per-virtqueue value to the driver in the PCI Comm=
+on configuration structure
+>(virtio_pci_common_cfg).
+>This will probably make the feature more generic. It will also simplify th=
+e feature, as it will not depend
+>on notify_off_multiplier anymore.
 >
->> On Thu, Mar 26, 2020 at 10:43:20AM +0100, Cornelia Huck wrote:
->> > On Wed, 18 Mar 2020 18:29:19 +0000
->> > Vitaly Mireyno <vmireyno@marvell.com> wrote:
+>Would it make more sense?
 >
->> > > +
->> > > +\begin{note}
->> > > +If \field{notify_off_multiplier} > 0, the virtqueue number can
->> > > +potentially be derived by the device from the Queue Notify
->> > > +address, so \field{vqn} may be redundant.
+>
+>>-----Original Message-----
+>>From: Cornelia Huck <cohuck@redhat.com>
+>>Sent: Thursday, 26 March, 2020 13:53
+>>To: Michael S. Tsirkin <mst@redhat.com>
+>>Cc: Vitaly Mireyno <vmireyno@marvell.com>;
+>>virtio-comment@lists.oasis-open.org; Jason Wang <jasowang@redhat.com>;
+>>Ariel Elior <aelior@marvell.com>
+>>Subject: [EXT] Re: [PATCH v7] virtio-net: Add support for the flexible dr=
+iver notification structure.
 >>
->> I feel this is confusing the reader more than it explains.
->> the field is always there. It's either the virtqueue number or
->> whatever we get from the device.
->
->"the virtqueue number can potentially be derived by the device from the Qu=
-eue Notify address, so
->obtaining the virtqueue number from \field{vqn} is not needed"
->
->?
->
+>>External Email
 >>
->> > > +\end{note}
->> > > +
->(...)
->> > > @@ -4180,6 +4205,33 @@ \subsubsection{Legacy Interface: Framing
->> > > Requirements}\label{sec:Device  See \ref{sec:Basic  Facilities of
->> > > a Virtio Device / Virtqueues / Message Framing}.
->> > >
->> > > +\subsubsection{Driver Notifications}\label{sec:Device Types /
->> > > +Network Device / Device Operation / Driver Notifications} As
->> > > +mentioned in section \ref{sec:Virtqueues / Driver notifications},
->> > > +when the driver is required to send an available buffer
->> > > +notification to the device, it always sends the virtqueue number
->> > > +to be notified. The method of delivering notifications is
->> > > +transport specific. With the PCI transport, the device can
->> > > +optionally provide a distinct per-virtqueue address for driver
->> > > +notifications (Queue Notify address). In this case, the virtqueue
->> > > +number can potentially be derived by the device from the Queue Noti=
-fy address. For devices,
->that provide per-virtqueue Queue Notify addresses and are able to derive t=
-he virtqueue number from
->that address, the virtqueue number in the notification data is redundant.
->> >
->> > I would keep the remark that the queue number might be redundant
->> > with the PCI transport.
+>>----------------------------------------------------------------------
+>>On Thu, 26 Mar 2020 07:26:16 -0400
+>>"Michael S. Tsirkin" <mst@redhat.com> wrote:
 >>
->> I feel redundant is too strong a word. If anything sending data we
->> just read from device back to it is definitely redundant.
->> Spec says send it so we send it.
->> Maybe say it can be ignored by the device?
->
->Maybe "not needed"?
->
->(see above)
->
+>>> On Thu, Mar 26, 2020 at 10:43:20AM +0100, Cornelia Huck wrote:
+>>> > On Wed, 18 Mar 2020 18:29:19 +0000
+>>> > Vitaly Mireyno <vmireyno@marvell.com> wrote:
 >>
->> > > +On the other hand, some devices can benefit from receiving
->> > > +additional data with driver notifications. An example could be a
->> > > +hardware device implementing multiple protocols (with virtio
->> > > +being one of them), so the extra notification data could serve as a=
- notification type indication or
->a protocol indication.
->> >
->> > Hm... what about replacing the whole text above with
->> >
->> > "Driver notifications (\ref{sec:Virtqueues / Driver notifications})
->> > always contain at least the virtqueue number for which buffers are
->> > available. Some devices can benefit from receiving additional data
->> > with driver notifications. For example, a hardware device
->> > implementing multiple protocols (with virtio being one of them)
->> > could benefit from a notification type indication or a protocol indica=
-tion."
+>>> > > +
+>>> > > +\begin{note}
+>>> > > +If \field{notify_off_multiplier} > 0, the virtqueue number can
+>>> > > +potentially be derived by the device from the Queue Notify
+>>> > > +address, so \field{vqn} may be redundant.
+>>>
+>>> I feel this is confusing the reader more than it explains.
+>>> the field is always there. It's either the virtqueue number or
+>>> whatever we get from the device.
 >>
+>>"the virtqueue number can potentially be derived by the device from the
+>>Queue Notify address, so obtaining the virtqueue number from \field{vqn} =
+is not needed"
 >>
->> My problem with both versions is that it talks about "additional
->> information" while in fact it's information that comes from the device
->> itself.
+>>?
+>>
+>>>
+>>> > > +\end{note}
+>>> > > +
+>>(...)
+>>> > > @@ -4180,6 +4205,33 @@ \subsubsection{Legacy Interface: Framing
+>>> > > Requirements}\label{sec:Device  See \ref{sec:Basic  Facilities of
+>>> > > a Virtio Device / Virtqueues / Message Framing}.
+>>> > >
+>>> > > +\subsubsection{Driver Notifications}\label{sec:Device Types /
+>>> > > +Network Device / Device Operation / Driver Notifications} As
+>>> > > +mentioned in section \ref{sec:Virtqueues / Driver
+>>> > > +notifications}, when the driver is required to send an available
+>>> > > +buffer notification to the device, it always sends the virtqueue
+>>> > > +number to be notified. The method of delivering notifications is
+>>> > > +transport specific. With the PCI transport, the device can
+>>> > > +optionally provide a distinct per-virtqueue address for driver
+>>> > > +notifications (Queue Notify address). In this case, the
+>>> > > +virtqueue number can potentially be derived by the device from
+>>> > > +the Queue Notify address. For devices,
+>>that provide per-virtqueue Queue Notify addresses and are able to
+>>derive the virtqueue number from that address, the virtqueue number in th=
+e notification data is
+>redundant.
+>>> >
+>>> > I would keep the remark that the queue number might be redundant
+>>> > with the PCI transport.
+>>>
+>>> I feel redundant is too strong a word. If anything sending data we
+>>> just read from device back to it is definitely redundant.
+>>> Spec says send it so we send it.
+>>> Maybe say it can be ignored by the device?
+>>
+>>Maybe "not needed"?
+>>
+>>(see above)
+>>
+>>>
+>>> > > +On the other hand, some devices can benefit from receiving
+>>> > > +additional data with driver notifications. An example could be a
+>>> > > +hardware device implementing multiple protocols (with virtio
+>>> > > +being one of them), so the extra notification data could serve
+>>> > > +as a notification type indication or
+>>a protocol indication.
+>>> >
+>>> > Hm... what about replacing the whole text above with
+>>> >
+>>> > "Driver notifications (\ref{sec:Virtqueues / Driver notifications})
+>>> > always contain at least the virtqueue number for which buffers are
+>>> > available. Some devices can benefit from receiving additional data
+>>> > with driver notifications. For example, a hardware device
+>>> > implementing multiple protocols (with virtio being one of them)
+>>> > could benefit from a notification type indication or a protocol indic=
+ation."
+>>>
+>>>
+>>> My problem with both versions is that it talks about "additional
+>>> information" while in fact it's information that comes from the
+>>> device itself.
+>>
+>>"per-device information", maybe?
 >
->"per-device information", maybe?
+>
+>This publicly archived list offers a means to provide input to the OASIS V=
+irtual I/O Device (VIRTIO) TC.
+>
+>In order to verify user consent to the Feedback License terms and to minim=
+ize spam in the list archive,
+>subscription is required before posting.
+>
+>Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>List help: virtio-comment-help@lists.oasis-open.org
+>List archive: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lists=
+.oasis-
+>2Dopen.org_archives_virtio-
+>2Dcomment_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsArgFR=
+dcevq01tbLQAw4
+>A_NO7xgI&m=3DMD86W4SuL1LKe3rClaL0wwbDeAMforqLdcHFG42nHKg&s=3DNiLuajtoil7R-=
+-
+>84VFef7ASGYAffizU84DMvw7_6ujg&e=3D
+>Feedback License: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__w=
+ww.oasis-
+>2Dopen.org_who_ipr_feedback-
+>5Flicense.pdf&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsAr=
+gFRdcevq01tbLQAw4
+>A_NO7xgI&m=3DMD86W4SuL1LKe3rClaL0wwbDeAMforqLdcHFG42nHKg&s=3D4wiTwfb7zEeWn=
+G0yCAja-
+>VdZOJkEsFUdbSXjy468z5U&e=3D
+>List Guidelines: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__ww=
+w.oasis-
+>2Dopen.org_policies-2Dguidelines_mailing-
+>2Dlists&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqqsArgFRdce=
+vq01tbLQAw4A_NO7
+>xgI&m=3DMD86W4SuL1LKe3rClaL0wwbDeAMforqLdcHFG42nHKg&s=3DOt4-
+>d18NHluOvcC44go3ADsiXSLJpl_fQerACfadEWw&e=3D
+>Committee: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oasi=
+s-
+>2Dopen.org_committees_virtio_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlD=
+HJ2FW52oJ3lqqsArgF
+>Rdcevq01tbLQAw4A_NO7xgI&m=3DMD86W4SuL1LKe3rClaL0wwbDeAMforqLdcHFG42nHKg&s=
+=3DFf6uQ9iA-
+>ntoanvVz2XIv6ybDxlM0Qfhj2_RhUrhWWU&e=3D
+>Join OASIS: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__www.oas=
+is-
+>2Dopen.org_join_&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DlDHJ2FW52oJ3lqq=
+sArgFRdcevq01tbLQ
+>Aw4A_NO7xgI&m=3DMD86W4SuL1LKe3rClaL0wwbDeAMforqLdcHFG42nHKg&s=3DWI26Krgtm4=
+TiaX1ov9fU
+>naZd4rcqApzJz-CmuZJ81SM&e=3D
 
 
 This publicly archived list offers a means to provide input to the=0D
