@@ -1,60 +1,107 @@
-Return-Path: virtio-comment-return-1113-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1176-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 28BB9985D83
-	for <virtio-comment@lists.oasis-open.org>; Tue,  3 Mar 2020 08:01:33 +0000 (UTC)
-Date: Tue, 3 Mar 2020 08:01:24 +0000
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <20200303080124.GA687444@stefanha-x1.localdomain>
-References: <20200301085437.804801-1-mst@redhat.com>
+From: Peter Hilber <peter.hilber@opensynergy.com>
+References: <20200227113735.23605-1-peter.hilber@opensynergy.com>
+ <20200317192053.15665-1-peter.hilber@opensynergy.com>
+ <87369tn2a4.fsf@linaro.org>
+Message-ID: <f07872a9-d35f-307c-49ad-31b396fcc7d9@opensynergy.com>
+Date: Thu, 9 Apr 2020 10:01:28 +0200
 MIME-Version: 1.0
-In-Reply-To: <20200301085437.804801-1-mst@redhat.com>
-Subject: Re: [virtio-comment] [PATCH] virtio-net/rss: maximal -> maximum
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="17pEHd4RhPHOinZp"
-Content-Disposition: inline
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Yuri Benditovich <yuri.benditovich@daynix.com>
+In-Reply-To: <87369tn2a4.fsf@linaro.org>
+Content-Language: en-US
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v3] Add virtio SCMI device specification
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+Cc: virtio-comment@lists.oasis-open.org, linux-arm-kernel@lists.infradead.org, Souvik.Chakravarty@arm.com, Sudeep.Holla@arm.com, virtio-dev@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---17pEHd4RhPHOinZp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Sun, Mar 01, 2020 at 03:55:18AM -0500, Michael S. Tsirkin wrote:
-> Maximal can mean "local as opposed to a global maximum".  Rest of the
-> spec says maximum everywhere.  Let's be consistent.
+apologies for my slow reply. Please find my answers below.
+
+On 27.03.20 18:19, Alex Benn=C3=A9e wrote:
+> <snip>
+>> +
+>> +\subsubsection{Shared Memory Operation}
+>> +
+>> +Various SCMI protocols define statistics shared memory regions (for
+>> +statistics and sensor values).
+>> +
+>> +\devicenormative{\paragraph}{Shared Memory Operation}{Device Types / SC=
+MI Device / Device Operation / Shared Memory Operation}
+>> +
+>> +If VIRTIO_SCMI_F_SHARED_MEMORY was negotiated, the device MAY implement
+>> +an SCMI statistics shared memory region using a virtio shared memory
+>> +region.
 >=20
-> Cc: Yuri Benditovich <yuri.benditovich@daynix.com>
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> ---
+> AFAICT this is the first usage of shmid in the virtio spec so I have
+> some questions. The spec says:
+
+The File System Device, which has been added to the virtio-spec master
+at least, also uses shared memory for the DAX Window already.[1]
+
 >=20
-> Going to apply this under the minor cleanups rule.
+>   Memory consistency rules vary depending on the region and the device
+>   and they will be specified as required by each device.
 >=20
->  content.tex | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> So what are the rules for memory consistency for these regions:
+>=20
+>   - are they read-only w.r.t the guest? (maybe this is implicit?)
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+The Arm SCMI spec[2] (DEN0056B) only lists "statistics" shared memory
+(SHM) fields which are read-only to the guest (SCMI agent), although
+this is not stated explicitly. I think the virtio spec should not
+specify more about this.
 
---17pEHd4RhPHOinZp
-Content-Type: application/pgp-signature; name="signature.asc"
+>   - how does the guest know when they have been updated?
 
------BEGIN PGP SIGNATURE-----
+SCMI provides notification messages for some events. DEN0056B does not
+specify any generic SHM update detection mechanism or SHM access
+synchronization mechanism, so I would again say the virtio spec
+should not specify anything about this.
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl5eDtMACgkQnKSrs4Gr
-c8hDjwf/cHAg3jmKYdoTdWu6PCJd2e263zJq6smgkj1n0v+ThE9WLC8U53foFozI
-uMrgo7jZLzEYI8do1bKRAy9zx/F3IASrV338uLJONXY7dHDvBvnSkivUDRnyYFw8
-+sr+Vib9leD7OYxladGOq2lgqHcMAwtv2hcU+ca1DQ4DdhjRYbDJsPXw77PrKE37
-5qx5hlB6NiOjx6pxrzPzJj5MVw0tLsXoylfXrMGqlBa1ZPOjRzKuABR4l+5be4vr
-v9ObwWQBd5qMtTC+1XQbzbiRWVWejzldjvVScLKQVC42p5tgJ4QbakMpEX7U9sFD
-uPFr44KdozrXWOkXfKbhQ+EvjmZOTw==
-=T8Jn
------END PGP SIGNATURE-----
+>   - how goes the guest know it hasn't read a value mid-update?
 
---17pEHd4RhPHOinZp--
+I would add the following requirements (paraphrased) to the next virtio
+SCMI device spec patch:
+
+- All SHM elements MUST be naturally aligned.
+- Read and write accesses to scalar elements in the SHM MUST be atomic.
+
+Apart from this, I think DEN0056B imposes no further memory consistency
+rules which the virtio SCMI device spec needs to address.
+
+Best regards,
+
+Peter
+
+
+[1]
+https://github.com/oasis-tcs/virtio-spec/blob/0c0dd715152cbbdc1d87e8d193d4c=
+56d2b0bb5fe/virtio-fs.tex#L182
+[2]
+https://static.docs.arm.com/den0056/b/DEN0056B_System_Control_and_Managemen=
+t_Interface_v2_0.pdf
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
