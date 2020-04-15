@@ -1,124 +1,140 @@
-Return-Path: virtio-comment-return-1180-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1181-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 833D2985F3D
-	for <virtio-comment@lists.oasis-open.org>; Tue, 14 Apr 2020 10:50:40 +0000 (UTC)
-Date: Tue, 14 Apr 2020 11:50:31 +0100
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <20200414105031.GC127149@stefanha-x1.localdomain>
+	by lists.oasis-open.org (Postfix) with ESMTP id 88ACE985F90
+	for <virtio-comment@lists.oasis-open.org>; Wed, 15 Apr 2020 11:24:00 +0000 (UTC)
 References: <6774E3D0-4DA4-4CAA-B4D8-370982260E62@amazon.com>
  <20200410100922.wynrrzmbagjsaxd6@steredhat>
+ <20200414105031.GC127149@stefanha-x1.localdomain>
+From: "Eftime, Petre" <epetre@amazon.com>
+Message-ID: <696c2be6-6a7a-cfe5-91d6-f75d2e74299f@amazon.com>
+Date: Wed, 15 Apr 2020 14:23:48 +0300
 MIME-Version: 1.0
-In-Reply-To: <20200410100922.wynrrzmbagjsaxd6@steredhat>
+In-Reply-To: <20200414105031.GC127149@stefanha-x1.localdomain>
+Content-Language: en-US
 Subject: Re: [virtio-comment] Seeking guidance for custom virtIO device
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yVhtmJPUSI46BTXb"
-Content-Disposition: inline
-To: "Eftime, Petre" <epetre@amazon.com>
-Cc: sgarzare@redhat.com, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: sgarzare@redhat.com, graf@amazon.de, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---yVhtmJPUSI46BTXb
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Apr 10, 2020 at 12:09:22PM +0200, Stefano Garzarella wrote:
-> Hi,
->=20
-> On Fri, Apr 10, 2020 at 09:36:58AM +0000, Eftime, Petre wrote:
-> > Hi all,
-> >=20
-> > I am looking for guidance on how to proceed with regards to either rese=
-rving a virtio device ID for a specific device for a particular usecase  or=
- for formalizing a device type that could be potentially used by others.
-> >=20
-> > We have developed a virtio device that acts as a transport for API call=
-s between a guest userspace library and a backend server in the host system=
-.
-> > Our requirements are:
-> > * multiple clients in the guest (multiple servers is not required)
-> > * provide an in-order, reliable datagram transport mechanism
-> > * datagram size should be either negotiable or large (16k-64k?)
-> > * performance is not a big concern for our usecase
->=20
-> It looks really close to vsock.
->=20
-> >=20
-> > The reason why we used a special device and not something else is the f=
-ollowing:
-> > * vsock spec does not contain a datagram specification (eg. SOCK_DGRAM,=
- SOCK_SEQPACKET) and the effort of updating the Linux driver and other impl=
-ementations for this particular purpose=A0=A0seemed relatively high. The pa=
-th to approach this problem wasn't clear. Vsock today only works in SOCK_ST=
-REAM mode and this is not ideal: the receiver must implement additional sta=
-te and buffer incoming data,=A0=A0adding complexity and host resource usage=
-.
->=20
-> AF_VSOCK itself supports SOCK_DGRAM, but virtio-vsock doesn't provide
-> this feature. (vmci provides SOCK_DGRAM support)
->=20
-> The changes should not be too intrusive in the virtio-vsock specs and
-> implementation, we already have the "type" field in the packet header
-> to address this new feature.
->=20
-> We also have the credit-mechanism to provide in-order and reliable
-> packets delivery.
->=20
-> Maybe the hardest part could be change something in the core to handle
-> multiple transports that provide SOCK_DGRAM, for nested VMs.
-> We already did for stream sockets, but we didn't handle the datagram
-> socket for now.
->=20
-> I am not sure how convenient it is to have two very similar devices...
->=20
-> If you decide to give virtio-vsock a chance to get SOCK_DGRAM, I can try =
-to
-> give you a more complete list of changes to make. :-)
-
-I although think this sounds exactly like adding SOCK_DGRAM support to
-virtio-vsock.
-
-The reason why the SOCK_DGRAM code was dropped from early virtio-vsock
-patches is that the prototocol design didn't ensure reliable delivery
-semantics.  At that time there were no real users for SOCK_DGRAM so it
-was left as a feature to be added later.
-
-The challenge with reusing the SOCK_STREAM credit mechanism for
-SOCK_DGRAM is that datagrams are connectionless.  The credit mechanism
-consists per-connection state.  Maybe it can be extended to cover
-SOCK_DGRAM too.
-
-I would urge you to add SOCK_DGRAM to virtio-vsock instead of trying to
-create another device that does basically what is within the scope of
-virtio-vsock.  It took quite a bit of time and effort to get AF_VSOCK
-support into various software components, and doing that again for
-another device is more effort than one would think.
-
-If you don't want to modify the Linux guest driver, then let's just
-discuss the device spec and protocol.  Someone else could make the Linux
-driver changes.
-
-Stefan
-
---yVhtmJPUSI46BTXb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl6VlXcACgkQnKSrs4Gr
-c8iDeggAvgzLFz2NGpQfUzuXB+yJ5c6G+S0pIfy28wn2R5EqiVofIbsXrQ4wN0hi
-iuKSVApB4orkYV23WBwFRahauK6S6498KwTXEWral/c4uHncrrQKKO4bJcW7kLOd
-TzrR4gnPArsqFd2h0FmaQnZC0gkGS8Trqnelv2W5j2x93yIHORg+hPoYq1iWWbPA
-937qDUfsCi505pA7WNcZm6GnE0ctgooPoGnVufgMPFEiOdnQZvEiV9p2gV9TGLU/
-nOT1y+OEd8e+mz1xDJ4j0MSfyjx2p3lSL77q6lGVSti31Nh2BqYf2bWOS0Wy8qIH
-SY0pdSWN6CQvOV2Hv4KeaSor7YmPpg==
-=xZUi
------END PGP SIGNATURE-----
-
---yVhtmJPUSI46BTXb--
+Ck9uIDIwMjAtMDQtMTQgMTM6NTAsIFN0ZWZhbiBIYWpub2N6aSB3cm90ZToKPiBPbiBGcmksIEFw
+ciAxMCwgMjAyMCBhdCAxMjowOToyMlBNICswMjAwLCBTdGVmYW5vIEdhcnphcmVsbGEgd3JvdGU6
+Cj4+IEhpLAo+Pgo+PiBPbiBGcmksIEFwciAxMCwgMjAyMCBhdCAwOTozNjo1OEFNICswMDAwLCBF
+ZnRpbWUsIFBldHJlIHdyb3RlOgo+Pj4gSGkgYWxsLAo+Pj4KPj4+IEkgYW0gbG9va2luZyBmb3Ig
+Z3VpZGFuY2Ugb24gaG93IHRvIHByb2NlZWQgd2l0aCByZWdhcmRzIHRvIGVpdGhlciByZXNlcnZp
+bmcgYSB2aXJ0aW8gZGV2aWNlIElEIGZvciBhIHNwZWNpZmljIGRldmljZSBmb3IgYSBwYXJ0aWN1
+bGFyIHVzZWNhc2UgIG9yIGZvciBmb3JtYWxpemluZyBhIGRldmljZSB0eXBlIHRoYXQgY291bGQg
+YmUgcG90ZW50aWFsbHkgdXNlZCBieSBvdGhlcnMuCj4+Pgo+Pj4gV2UgaGF2ZSBkZXZlbG9wZWQg
+YSB2aXJ0aW8gZGV2aWNlIHRoYXQgYWN0cyBhcyBhIHRyYW5zcG9ydCBmb3IgQVBJIGNhbGxzIGJl
+dHdlZW4gYSBndWVzdCB1c2Vyc3BhY2UgbGlicmFyeSBhbmQgYSBiYWNrZW5kIHNlcnZlciBpbiB0
+aGUgaG9zdCBzeXN0ZW0uCj4+PiBPdXIgcmVxdWlyZW1lbnRzIGFyZToKPj4+ICogbXVsdGlwbGUg
+Y2xpZW50cyBpbiB0aGUgZ3Vlc3QgKG11bHRpcGxlIHNlcnZlcnMgaXMgbm90IHJlcXVpcmVkKQo+
+Pj4gKiBwcm92aWRlIGFuIGluLW9yZGVyLCByZWxpYWJsZSBkYXRhZ3JhbSB0cmFuc3BvcnQgbWVj
+aGFuaXNtCj4+PiAqIGRhdGFncmFtIHNpemUgc2hvdWxkIGJlIGVpdGhlciBuZWdvdGlhYmxlIG9y
+IGxhcmdlICgxNmstNjRrPykKPj4+ICogcGVyZm9ybWFuY2UgaXMgbm90IGEgYmlnIGNvbmNlcm4g
+Zm9yIG91ciB1c2VjYXNlCj4+IEl0IGxvb2tzIHJlYWxseSBjbG9zZSB0byB2c29jay4KPj4KPj4+
+IFRoZSByZWFzb24gd2h5IHdlIHVzZWQgYSBzcGVjaWFsIGRldmljZSBhbmQgbm90IHNvbWV0aGlu
+ZyBlbHNlIGlzIHRoZSBmb2xsb3dpbmc6Cj4+PiAqIHZzb2NrIHNwZWMgZG9lcyBub3QgY29udGFp
+biBhIGRhdGFncmFtIHNwZWNpZmljYXRpb24gKGVnLiBTT0NLX0RHUkFNLCBTT0NLX1NFUVBBQ0tF
+VCkgYW5kIHRoZSBlZmZvcnQgb2YgdXBkYXRpbmcgdGhlIExpbnV4IGRyaXZlciBhbmQgb3RoZXIg
+aW1wbGVtZW50YXRpb25zIGZvciB0aGlzIHBhcnRpY3VsYXIgcHVycG9zZcKgwqBzZWVtZWQgcmVs
+YXRpdmVseSBoaWdoLiBUaGUgcGF0aCB0byBhcHByb2FjaCB0aGlzIHByb2JsZW0gd2Fzbid0IGNs
+ZWFyLiBWc29jayB0b2RheSBvbmx5IHdvcmtzIGluIFNPQ0tfU1RSRUFNIG1vZGUgYW5kIHRoaXMg
+aXMgbm90IGlkZWFsOiB0aGUgcmVjZWl2ZXIgbXVzdCBpbXBsZW1lbnQgYWRkaXRpb25hbCBzdGF0
+ZSBhbmQgYnVmZmVyIGluY29taW5nIGRhdGEswqDCoGFkZGluZyBjb21wbGV4aXR5IGFuZCBob3N0
+IHJlc291cmNlIHVzYWdlLgo+PiBBRl9WU09DSyBpdHNlbGYgc3VwcG9ydHMgU09DS19ER1JBTSwg
+YnV0IHZpcnRpby12c29jayBkb2Vzbid0IHByb3ZpZGUKPj4gdGhpcyBmZWF0dXJlLiAodm1jaSBw
+cm92aWRlcyBTT0NLX0RHUkFNIHN1cHBvcnQpCj4+Cj4+IFRoZSBjaGFuZ2VzIHNob3VsZCBub3Qg
+YmUgdG9vIGludHJ1c2l2ZSBpbiB0aGUgdmlydGlvLXZzb2NrIHNwZWNzIGFuZAo+PiBpbXBsZW1l
+bnRhdGlvbiwgd2UgYWxyZWFkeSBoYXZlIHRoZSAidHlwZSIgZmllbGQgaW4gdGhlIHBhY2tldCBo
+ZWFkZXIKPj4gdG8gYWRkcmVzcyB0aGlzIG5ldyBmZWF0dXJlLgo+Pgo+PiBXZSBhbHNvIGhhdmUg
+dGhlIGNyZWRpdC1tZWNoYW5pc20gdG8gcHJvdmlkZSBpbi1vcmRlciBhbmQgcmVsaWFibGUKPj4g
+cGFja2V0cyBkZWxpdmVyeS4KPj4KPj4gTWF5YmUgdGhlIGhhcmRlc3QgcGFydCBjb3VsZCBiZSBj
+aGFuZ2Ugc29tZXRoaW5nIGluIHRoZSBjb3JlIHRvIGhhbmRsZQo+PiBtdWx0aXBsZSB0cmFuc3Bv
+cnRzIHRoYXQgcHJvdmlkZSBTT0NLX0RHUkFNLCBmb3IgbmVzdGVkIFZNcy4KPj4gV2UgYWxyZWFk
+eSBkaWQgZm9yIHN0cmVhbSBzb2NrZXRzLCBidXQgd2UgZGlkbid0IGhhbmRsZSB0aGUgZGF0YWdy
+YW0KPj4gc29ja2V0IGZvciBub3cuCj4+Cj4+IEkgYW0gbm90IHN1cmUgaG93IGNvbnZlbmllbnQg
+aXQgaXMgdG8gaGF2ZSB0d28gdmVyeSBzaW1pbGFyIGRldmljZXMuLi4KPj4KPj4gSWYgeW91IGRl
+Y2lkZSB0byBnaXZlIHZpcnRpby12c29jayBhIGNoYW5jZSB0byBnZXQgU09DS19ER1JBTSwgSSBj
+YW4gdHJ5IHRvCj4+IGdpdmUgeW91IGEgbW9yZSBjb21wbGV0ZSBsaXN0IG9mIGNoYW5nZXMgdG8g
+bWFrZS4gOi0pCj4gSSBhbHRob3VnaCB0aGluayB0aGlzIHNvdW5kcyBleGFjdGx5IGxpa2UgYWRk
+aW5nIFNPQ0tfREdSQU0gc3VwcG9ydCB0bwo+IHZpcnRpby12c29jay4KPgo+IFRoZSByZWFzb24g
+d2h5IHRoZSBTT0NLX0RHUkFNIGNvZGUgd2FzIGRyb3BwZWQgZnJvbSBlYXJseSB2aXJ0aW8tdnNv
+Y2sKPiBwYXRjaGVzIGlzIHRoYXQgdGhlIHByb3RvdG9jb2wgZGVzaWduIGRpZG4ndCBlbnN1cmUg
+cmVsaWFibGUgZGVsaXZlcnkKPiBzZW1hbnRpY3MuICBBdCB0aGF0IHRpbWUgdGhlcmUgd2VyZSBu
+byByZWFsIHVzZXJzIGZvciBTT0NLX0RHUkFNIHNvIGl0Cj4gd2FzIGxlZnQgYXMgYSBmZWF0dXJl
+IHRvIGJlIGFkZGVkIGxhdGVyLgo+Cj4gVGhlIGNoYWxsZW5nZSB3aXRoIHJldXNpbmcgdGhlIFNP
+Q0tfU1RSRUFNIGNyZWRpdCBtZWNoYW5pc20gZm9yCj4gU09DS19ER1JBTSBpcyB0aGF0IGRhdGFn
+cmFtcyBhcmUgY29ubmVjdGlvbmxlc3MuICBUaGUgY3JlZGl0IG1lY2hhbmlzbQo+IGNvbnNpc3Rz
+IHBlci1jb25uZWN0aW9uIHN0YXRlLiAgTWF5YmUgaXQgY2FuIGJlIGV4dGVuZGVkIHRvIGNvdmVy
+Cj4gU09DS19ER1JBTSB0b28uCj4KPiBJIHdvdWxkIHVyZ2UgeW91IHRvIGFkZCBTT0NLX0RHUkFN
+IHRvIHZpcnRpby12c29jayBpbnN0ZWFkIG9mIHRyeWluZyB0bwo+IGNyZWF0ZSBhbm90aGVyIGRl
+dmljZSB0aGF0IGRvZXMgYmFzaWNhbGx5IHdoYXQgaXMgd2l0aGluIHRoZSBzY29wZSBvZgo+IHZp
+cnRpby12c29jay4gIEl0IHRvb2sgcXVpdGUgYSBiaXQgb2YgdGltZSBhbmQgZWZmb3J0IHRvIGdl
+dCBBRl9WU09DSwo+IHN1cHBvcnQgaW50byB2YXJpb3VzIHNvZnR3YXJlIGNvbXBvbmVudHMsIGFu
+ZCBkb2luZyB0aGF0IGFnYWluIGZvcgo+IGFub3RoZXIgZGV2aWNlIGlzIG1vcmUgZWZmb3J0IHRo
+YW4gb25lIHdvdWxkIHRoaW5rLgo+Cj4gSWYgeW91IGRvbid0IHdhbnQgdG8gbW9kaWZ5IHRoZSBM
+aW51eCBndWVzdCBkcml2ZXIsIHRoZW4gbGV0J3MganVzdAo+IGRpc2N1c3MgdGhlIGRldmljZSBz
+cGVjIGFuZCBwcm90b2NvbC4gIFNvbWVvbmUgZWxzZSBjb3VsZCBtYWtlIHRoZSBMaW51eAo+IGRy
+aXZlciBjaGFuZ2VzLgo+Cj4gU3RlZmFuCgoKSSB0aGluayBpdCB3b3VsZCBiZSBncmVhdCBpZiB3
+ZSBjb3VsZCBnZXQgdGhlIHZpcnRpby12c29jayBkcml2ZXIgdG8gCnN1cHBvcnQgU09DS19ER1JB
+TS9TT0NLX1NFUVBBQ0tFVCBhcyBpdCB3b3VsZCBtYWtlIGEgbG90IG9mIHNlbnNlLgoKCkJ1dCBv
+bmUgb2YgdGhlIHJlYXNvbnMgdGhhdCBJIGRvbid0IHJlYWxseSBsaWtlIHZpcnRpby12c29jayBh
+dCB0aGUgCm1vbWVudCBmb3IgbXkgdXNlLWNhc2UgaW4gcGFydGljdWxhciBpcyB0aGF0IGl0IGRv
+ZXNuJ3Qgc2VlbSB3ZWxsIGZpdHRlZCAKdG8gc3VwcG9ydCBub24tY29vcGVyYXRpbmcgbGl2ZS1t
+aWdyYXRlYWJsZSBWTXMgYWxsIHRoYXQgd2VsbC7CoCBPbmUgCnByb2JsZW0gaXMgdGhhdCB0byBh
+dm9pZCBndWVzdC12aXNpYmxlIGRpc2Nvbm5lY3Rpb25zIHRvIGFueSBzZXJ2aWNlIAp3aGlsZSBk
+b2luZyBhIGxpdmUgbWlncmF0aW9uIHRoZXJlIG1pZ2h0IGJlIHBlcmZvcm1hbmNlIGltcGFjdCBp
+ZiB1c2luZyAKdnNvY2sgZm9yIGFueSBvdGhlciByZWFzb25zLgoKSSdsbCB0cnkgdG8gZXhlbXBs
+aWZ5IHdoYXQgSSBtZWFuIHdpdGggdGhpcyBzZXR1cDoKCiDCoMKgwqAgKiB3b3JrbG9hZCAxIHNl
+bmRzIGRhdGEgY29uc3RhbnRseSB2aWEgYW4gQUZfVlNPQ0sgU09DS19TVFJFQU0KCiDCoMKgwqAg
+KiB3b3JrbG9hZCAyIHNlbmRzIGNvbW1hbmRzIC8gZ2V0cyByZXBsaWVzIG9uY2UgaW4gYSB3aGls
+ZSB2aWEgYW4gCkFGX1ZTT0NLIFNPQ0tfU0VRUEFDS0VULgoKQXNzdW1lIHRoZSBWTSBuZWVkcyB0
+byBiZSBtaWdyYXRlZDoKCiDCoMKgwqAgwqDCoMKgIDEpIElmIHdvcmtsb2FkIDIgY3VycmVudGx5
+IG5vdCBwcm9jZXNzaW5nIGFueXRoaW5nLCBldmVuIGlmIAp0aGVyZSBhcmUgc29tZSBjb21tYW5k
+cyBmb3IgaXQgcXVldWVkIHVwLCBldmVyeXRoaW5nIGlzIGZpbmUsIFZNTSBjYW4gCnBhdXNlIHRo
+ZSBndWVzdCBhbmQgc2VyaWFsaXplLgoKIMKgwqDCoMKgwqDCoMKgIDIpIElmIHRoZXJlJ3MgYW4g
+b3V0c3RhbmRpbmcgY29tbWFuZCB0aGUgVk1NIG5lZWRzIHRvIHdhaXQgZm9yIAppdCB0byBmaW5p
+c2ggYW5kIHdhaXQgZm9yIHRoZSByZWNlaXZlIHF1ZXVlIG9mIHRoZSByZXF1ZXN0IHRvIGhhdmUg
+CmVub3VnaCBjYXBhY2l0eSBmb3IgdGhlIHJlcGx5LCBidXQgc2luY2UgdGhpcyBjYXBhY2l0eSBp
+cyBndWVzdCBkcml2ZW4sIAp0aGlzIHNlY29uZCBwYXJ0IGNhbiB0YWtlIGEgd2hpbGUgLyBmb3Jl
+dmVyLiBUaGlzIGlzIGRlZmluaXRlbHkgbm90IGlkZWFsLgoKClRvIGZpeCB0aGlzIGlzc3VlLCB0
+aGUgVk1NIGNhbiBrZWVwIGFueSBub24tZmluaXNoYWJsZSBjb21tYW5kIGluIHF1ZXVlIAp1bnRp
+bCBpdCBjYW4gYWN0dWFsbHkgcHJvcGVybHkgZmluaXNoIHRoZW0sIHRoYXQgaXMsIGl0IHdvbid0
+IHJlbW92ZSB0aGUgCmNvbW1hbmQgZnJvbSB0aGUgcXVldWUgdW50aWwgaXQgY2FuIHB1c2ggdGhl
+IHJlcGx5IGJhY2sgYXMgd2VsbCwgaWYgaXQgCm5lZWRzIHRvIG1pZ3JhdGUsIGl0IGNhbiByZXN0
+YXJ0IHNlcnZpY2luZyB0aGUgY29tbWFuZHMgZnJvbSBxdWV1ZS4gQnV0IAp0aGlzIGhhcyBhIGJp
+ZyBpbXBhY3Qgb24gd29ya2xvYWQgMSwgd2hpY2ggY2FuIGdldCBibG9ja2VkIGJ5IHdvcmtsb2Fk
+IDIgCmZyb20gbWVhbmluZ2Z1bCBwcm9ncmVzcy4KCkkgY291bGQgcG90ZW50aWFsbHkgc29sdmUg
+c29tZSBvZiB0aGUgaXNzdWVzIGFib3ZlIGJ5IHBsYXlpbmcgYXJvdW5kIAp3aXRoIHRoZSBjcmVk
+aXRzIHN5c3RlbSwgYnV0IGl0IHNlZW1zIGxpa2UgaXQgY291bGQgYmUgY2hhbGxlbmdpbmcgdG8g
+ZG8gCndlbGw6IGlmIHRoZSBkZXZpY2UgYWR2ZXJ0aXNlcyAzMmsgb2YgYnVmZmVyIHNwYWNlLCB0
+aGUgZ3Vlc3QgY291bGQgCnBsYWNlIDIgMTZrIGNvbW1hbmRzIGJlZm9yZSB0aGUgZGV2aWNlIGNh
+biBhY3R1YWxseSB0ZWxsIGl0IHRoYXQgaXQncyAKYWN0dWFsbHkgMGsgc3BhY2Ugbm93LiBUaGlz
+IGFsc28gZG9lc24ndCBzY2FsZSBhbGwgdGhhdCB3ZWxsLCBjcmVkaXRzIAphcmUgcGVyIHN0cmVh
+bSwgc28gb25jZSB0aGUgZGV2aWNlIGdldHMgMSBjb21tYW5kIGZyb20gMSBzdHJlYW0sIGl0IApu
+ZWVkcyB0byB0ZWxsIGFsbCB0aGUgb3RoZXIgc3RyZWFtcyB0byBiYWNrIG9mZiwgYW5kIHdoZW4g
+aXQgY2FuIGhhbmRsZSAKYW5vdGhlciBjb21tYW5kLCBpdCB3b3VsZCBuZWVkIHRvIGFkdmVydGlz
+ZSBiYWNrIHRvIGFsbCBvZiB0aGVtIHRoYXQgCmV2ZXJ5dGhpbmcgaXMgZmluZSwgY29uc3VtaW5n
+IGF2YWlsYWJsZSBjYXBhY2l0eS4KCgpJIHNob3J0LCBJIHRoaW5rIHdvcmtsb2FkIDIgbmVlZHMg
+dG8gYmUgaW4gY29udHJvbCBvZiBpdHMgb3duIHF1ZXVlcyBmb3IgCnRoaXMgdG8gd29yayByZWFz
+b25hYmx5IHdlbGwsIEkgZG9uJ3Qga25vdyBpZiBzaGFyaW5nIG93bmVyc2hpcCBvZiAKcXVldWVz
+IGNhbiB3b3JrLiBUaGUgZGV2aWNlIHdlIGRlZmluZWQgZG9lc24ndCBoYXZlIHRoaXMgcHJvYmxl
+bTogZmlyc3QgCm9mIGFsbCwgaXQncyBvbiBhIHNlcGFyYXRlIHF1ZXVlLCBzbyB3b3JrbG9hZCAx
+IG5ldmVyIGNvbXBldGVzIGluIGFueSAKd2F5IHdpdGggd29ya2xvYWQgMiwgYW5kIHdvcmtsb2Fk
+IDIgYWx3YXlzIGhhcyB3aGVyZSB0byBwbGFjZSByZXBsaWVzLCAKc2luY2UgaXQgaGFzIGFuIGF0
+dGFjaGVkIHJlcGx5IGJ1ZmZlciBieSBkZXNpZ24uCgoKUGVyaGFwcyBhIGdvb2QgY29tcHJvbWlz
+ZSB3b3VsZCBiZSB0byBoYXZlIGEgbXVsdGktcXVldWUgdmlydGlvLXZzb2NrIG9yIAphbGxvdyBB
+Rl9WU09DSyB0byBiZSBiYWNrZWQgbXkgbW9yZSB0aGFuIDEgZGV2aWNlIGFuZCBhbGxvdyBzb21l
+IAptaW5pbWFsaXN0IHJvdXRpbmcgb24gYSBwZXItZGVzdGluYXRpb24gYmFzaXM/CgoKQmVzdCwK
+ClBldHJlIEVmdGltZQoKCgoKQW1hem9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5S
+LkwuIHJlZ2lzdGVyZWQgb2ZmaWNlOiAyN0EgU2YuIExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3Ig
+MiwgSWFzaSwgSWFzaSBDb3VudHksIDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0ZXJlZCBpbiBSb21h
+bmlhLiBSZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuCg==
 
