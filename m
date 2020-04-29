@@ -1,15 +1,15 @@
-Return-Path: virtio-comment-return-1195-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1196-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 46F2D985E7F
-	for <virtio-comment@lists.oasis-open.org>; Wed, 29 Apr 2020 09:54:02 +0000 (UTC)
-Date: Wed, 29 Apr 2020 10:53:53 +0100
+	by lists.oasis-open.org (Postfix) with ESMTP id A3719985E7F
+	for <virtio-comment@lists.oasis-open.org>; Wed, 29 Apr 2020 10:06:39 +0000 (UTC)
+Date: Wed, 29 Apr 2020 11:06:32 +0100
 From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <20200429095353.GF122432@stefanha-x1.localdomain>
+Message-ID: <20200429100632.GA124407@stefanha-x1.localdomain>
 References: <6774E3D0-4DA4-4CAA-B4D8-370982260E62@amazon.com>
  <20200410100922.wynrrzmbagjsaxd6@steredhat>
  <20200414105031.GC127149@stefanha-x1.localdomain>
@@ -20,23 +20,20 @@ MIME-Version: 1.0
 In-Reply-To: <15906829-2e85-ed4c-7b06-431d6e856ae9@amazon.de>
 Subject: Re: [virtio-comment] Seeking guidance for custom virtIO device
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="sDKAb4OeUBrWWL6P"
+	protocol="application/pgp-signature"; boundary="dDRMvlgZJXvWKvBx"
 Content-Disposition: inline
 To: Alexander Graf <graf@amazon.de>
 Cc: "Eftime, Petre" <epetre@amazon.com>, sgarzare@redhat.com, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---sDKAb4OeUBrWWL6P
+--dDRMvlgZJXvWKvBx
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, Apr 17, 2020 at 01:09:16PM +0200, Alexander Graf wrote:
->=20
->=20
 > On 17.04.20 12:33, Stefan Hajnoczi wrote:
 > > On Wed, Apr 15, 2020 at 02:23:48PM +0300, Eftime, Petre wrote:
-> > >=20
 > > > On 2020-04-14 13:50, Stefan Hajnoczi wrote:
 > > > > On Fri, Apr 10, 2020 at 12:09:22PM +0200, Stefano Garzarella wrote:
 > > > > > Hi,
@@ -258,33 +255,34 @@ the
 >=20
 > In that case, it's impossible to share the one queue we have, no?
 
-Do you see any relation to the SOCK_SEQPACKET semantics discussion?
-That seems like a completely separate issue to me.
+By the way, "dedicated virtqueues" could be interesting as a separate
+feature.
 
-Even if you introduce multiple virtqueues for other reasons, it's
-advantageous to keep virtio-vsock flow control credit mechanism so that
-multiple connections can use a single virtqueue.
+I just think that SOCK_SEQPACKET should be implemented with flow control
+like SOCK_STREAM.
 
-Initially the requirement might only be for one vsock connection but who
-knows when that requirement changes and you need a dynamic number of
-connections?  Virtqueues cannot be hotplugged.
+Then, as a separate feature, the device could advertise dedicated
+virtqueues allowing SOCK_STREAM and SOCK_SEQPACKET communication
+directly in the virtqueue.  The dedicated virtqueue approach should be
+faster since it eliminates the need for a memcpy to socket receive
+buffers.
 
 Stefan
 
---sDKAb4OeUBrWWL6P
+--dDRMvlgZJXvWKvBx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl6pTrAACgkQnKSrs4Gr
-c8i7Lwf/VyaLHsODb6cCQFtSh2aAsQr+zx9s1JSuK6ynNSiC4bIoxpesot3r87Vg
-YCyuWn4kK2n8PqHA1VBYRQoqY5pQB2B866qqZeSzlp3Jlgt27ivdAnDrIqVBXtQj
-SoV476Hr7Xjy7uNvYSXqeqlu7fVqjAO4vx9Me68nMuu/NTTBQAcWlnlYrqWCUKdy
-+cdpWl3c6AAZQAK6rlt8/3ny1ChqAXW/NgJfJoHGYQ0o0VS4JyAOrSGfXZ9HVrXj
-3t09D/vOXAMNbKYSj9+kAjaWU9oOGgtcOLh9ACdxdwe90G6zKVxKUtElQmZBnHH7
-e+GGd089eQq6KMF4L35vBa1Oi5DY6g==
-=WBpj
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl6pUagACgkQnKSrs4Gr
+c8jjKAf/bwM9cZDolCKK0kTkUG0Hz2XrTRIw2okQ2eD2tZq5FJpTFjvDzO8Hrtm2
+MFe4I45maRHbOYdAQrfh3HnuwyLvaEYgxcU9+vqvmYVn5yJvmFCg7d0XN11vJWdD
+O2q84b6KxHDAABuZqKyacCP8J5AseGsWeDxH6ovGhPb2nZB+SloW3TA0RTdq+tpQ
+DTnmED1+Te4R5F/UyGt0X+w93Sw1Nze85oqLnnOQ/NUs1C//jTav9pPdHidsXA/a
+jNAjdObPoZuSXh+lmmGF45kwrOLNxqcqj6F46ZthLqeHKVXK/EMfxZrEz2C7ceVT
+GPN9EAyBsDLQMYRLKXbZV7nJQlkrBQ==
+=oYj2
 -----END PGP SIGNATURE-----
 
---sDKAb4OeUBrWWL6P--
+--dDRMvlgZJXvWKvBx--
 
