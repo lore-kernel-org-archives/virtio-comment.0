@@ -1,44 +1,41 @@
-Return-Path: andriy.shevchenko@linux.intel.com
-Date: Wed, 25 Nov 2020 14:52:38 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v5] virtio-i2c: add the device specification
-Message-ID: <20201125125238.GT4077@smile.fi.intel.com>
-References: <1ea117ebe46d105eda21544acf85a5c7dbe2d8ec.1606283457.git.jie.deng@intel.com>
+Return-Path: alexander.duyck@gmail.com
+Subject: [PATCH RFC 0/3] virtio-spec: Add documentation for recently added
+ balloon features
+From: Alexander Duyck <alexander.duyck@gmail.com>
+Date: Wed, 29 Apr 2020 10:27:15 -0700
+Message-ID: <20200429172634.457.40167.stgit@localhost.localdomain>
 MIME-Version: 1.0
-In-Reply-To: <1ea117ebe46d105eda21544acf85a5c7dbe2d8ec.1606283457.git.jie.deng@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-To: Jie Deng <jie.deng@intel.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, mst@redhat.com, cohuck@redhat.com, pbonzini@redhat.com, kraxel@redhat.com, wsa+renesas@sang-engineering.com, conghui.chen@intel.com, yu1.wang@intel.com, shuo.a.liu@intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+To: cohuck@redhat.com, david@redhat.com, mst@redhat.com
+Cc: virtio-dev@lists.oasis-open.or, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Nov 25, 2020 at 01:55:18PM +0800, Jie Deng wrote:
-> virtio-i2c is a virtual I2C adapter device. It provides a way
-> to ﬂexibly communicate with the host I2C slave devices from
-> the guest.
-> 
-> This patch adds the specification for this device.
+This patch set is meant to add documentation for balloon features that have
+been recently added to the Linux kernel[1,2] and that we are currently
+working on adding to QEMU[3].
 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/88
+I am submitting them as an RFC as it has been a while since I have written
+any requirements or specification documents, so my wording on things will
+likely need some updates. In addition I have not before submitted
+virtio-spec updates. As such I would appreciate information on if this is
+the correct process for updating the document, or if I need to take some
+other/additional steps.
 
-Hmm... Is it used like this here, in this tree?
-I would rather expect BugLink:.
+[1]: https://lore.kernel.org/lkml/20200211224416.29318.44077.stgit@localhost.localdomain/
+[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b0c504f154718904ae49349147e3b7e6ae91ffdc
+[3]: https://lists.oasis-open.org/archives/virtio-dev/202004/msg00180.html
 
-> Signed-off-by: Jie Deng <jie.deng@intel.com>
+---
 
-...
+Alexander Duyck (3):
+      content: Document balloon feature free page hints
+      content: Document balloon feature page poison
+      content: Document balloon feature free page reporting
 
-> +virtio-i2c is a virtual I2C adapter device. It provides a way to flexibly
-> +organize and use the host I2C slave devices from the guest. By attaching
-> +the host ACPI I2C slave nodes to the virtual I2C adapter device, the guest can
-> +communicate with them without changing or adding extra drivers for these
-> +slave I2C devices. 
 
-Trailing white space.
+ content.tex |  232 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 229 insertions(+), 3 deletions(-)
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+--
 
