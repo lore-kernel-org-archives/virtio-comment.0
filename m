@@ -1,39 +1,48 @@
-Return-Path: virtio-comment-return-1207-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1205-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 65F61985AFD
-	for <virtio-comment@lists.oasis-open.org>; Thu, 30 Apr 2020 08:59:42 +0000 (UTC)
-Date: Thu, 30 Apr 2020 10:59:34 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-Message-ID: <20200430085934.3sfpqmstkfg3obtm@steredhat>
+	by lists.oasis-open.org (Postfix) with ESMTP id 4ECFB985AFD
+	for <virtio-comment@lists.oasis-open.org>; Thu, 30 Apr 2020 08:43:11 +0000 (UTC)
+Date: Thu, 30 Apr 2020 09:43:04 +0100
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20200430084304.GC160930@stefanha-x1.localdomain>
 References: <6774E3D0-4DA4-4CAA-B4D8-370982260E62@amazon.com>
  <20200410100922.wynrrzmbagjsaxd6@steredhat>
  <20200414105031.GC127149@stefanha-x1.localdomain>
  <696c2be6-6a7a-cfe5-91d6-f75d2e74299f@amazon.com>
  <20200417103327.GE9261@stefanha-x1.localdomain>
  <15906829-2e85-ed4c-7b06-431d6e856ae9@amazon.de>
- <20200429100632.GA124407@stefanha-x1.localdomain>
- <0684ffcd-eb0c-b45e-e6ff-74625d376992@amazon.com>
+ <20200429095353.GF122432@stefanha-x1.localdomain>
+ <fe4a003d-3705-1337-0349-c1c4a0e94125@amazon.de>
 MIME-Version: 1.0
-In-Reply-To: <0684ffcd-eb0c-b45e-e6ff-74625d376992@amazon.com>
+In-Reply-To: <fe4a003d-3705-1337-0349-c1c4a0e94125@amazon.de>
 Subject: Re: [virtio-comment] Seeking guidance for custom virtIO device
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="B4IIlcmfBL/1gGOG"
 Content-Disposition: inline
-To: "Eftime, Petre" <epetre@amazon.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, Alexander Graf <graf@amazon.de>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+To: Alexander Graf <graf@amazon.de>
+Cc: "Eftime, Petre" <epetre@amazon.com>, sgarzare@redhat.com, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Apr 30, 2020 at 11:44:59AM +0300, Eftime, Petre wrote:
+--B4IIlcmfBL/1gGOG
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Apr 29, 2020 at 01:47:16PM +0200, Alexander Graf wrote:
 >=20
-> On 2020-04-29 13:06, Stefan Hajnoczi wrote:
+>=20
+> On 29.04.20 11:53, Stefan Hajnoczi wrote:
 > > On Fri, Apr 17, 2020 at 01:09:16PM +0200, Alexander Graf wrote:
+> > >=20
+> > >=20
 > > > On 17.04.20 12:33, Stefan Hajnoczi wrote:
 > > > > On Wed, Apr 15, 2020 at 02:23:48PM +0300, Eftime, Petre wrote:
+> > > > >=20
 > > > > > On 2020-04-14 13:50, Stefan Hajnoczi wrote:
 > > > > > > On Fri, Apr 10, 2020 at 12:09:22PM +0200, Stefano Garzarella wr=
 ote:
@@ -134,6 +143,7 @@ the Linux
 > > > > > >=20
 > > > > > > Stefan
 > > > > >=20
+> > > > >=20
 > > > > > I think it would be great if we could get the virtio-vsock driver=
  to support
 > > > > > SOCK_DGRAM/SOCK_SEQPACKET as it would make a lot of sense.
@@ -159,6 +169,7 @@ CK_STREAM
 > > > > >   =A0=A0=A0 * workload 2 sends commands / gets replies once in a =
 while via an
 > > > > > AF_VSOCK SOCK_SEQPACKET.
+> > > >=20
 > > > > af_vsock.ko doesn't support SOCK_SEQPACKET.  Is this what you are
 > > > > considering adding?
 > > > >=20
@@ -171,6 +182,7 @@ ch
 nism
 > > > > used for SOCK_STREAM should just work for SOCK_SEQPACKET.
 > > > >=20
+> > > > >=20
 > > > > > Assume the VM needs to be migrated:
 > > > > >=20
 > > > > >   =A0=A0=A0 =A0=A0=A0 1) If workload 2 currently not processing a=
@@ -186,6 +198,7 @@ gh capacity
 > > > > > for the reply, but since this capacity is guest driven, this seco=
 nd part can
 > > > > > take a while / forever. This is definitely not ideal.
+> > > >=20
 > > > > I think you're describing how to reserve space for control packets =
 so
 > > > > that the device never has to wait on the driver.
@@ -209,6 +222,7 @@ of all,
 > > > > > workload 2, and workload 2 always has where to place replies, sin=
 ce it has
 > > > > > an attached reply buffer by design.
+> > > >=20
 > > > > Flow control in vsock works like this:
 > > > >=20
 > > > > 1. Data packets are accounted against per-socket buffers and remove=
@@ -245,6 +259,7 @@ ed or
 > > > >=20
 > > > > > Perhaps a good compromise would be to have a multi-queue virtio-v=
 sock or
+> > > >=20
 > > > > That would mean we've reached the conclusion that it's impossible t=
 o
 > > > > have bi-directional communication with guaranteed delivery over a s=
@@ -254,6 +269,7 @@ hared
 > > > > virtio-serial did this to avoid having to come up with a scheme to =
 avoid
 > > > > starvation.
+> > >=20
 > > > Let me throw in one more problem:
 > > >=20
 > > > Imagine that we want to have virtio-vsock communication terminated in
@@ -270,88 +286,67 @@ nd
 .
 > > >=20
 > > > In that case, it's impossible to share the one queue we have, no?
-> > By the way, "dedicated virtqueues" could be interesting as a separate
-> > feature.
 > >=20
-> > I just think that SOCK_SEQPACKET should be implemented with flow contro=
-l
-> > like SOCK_STREAM.
-> >=20
-> > Then, as a separate feature, the device could advertise dedicated
-> > virtqueues allowing SOCK_STREAM and SOCK_SEQPACKET communication
-> > directly in the virtqueue.  The dedicated virtqueue approach should be
-> > faster since it eliminates the need for a memcpy to socket receive
-> > buffers.
-> >=20
-> > Stefan
+> > Do you see any relation to the SOCK_SEQPACKET semantics discussion?
+> > That seems like a completely separate issue to me.
 >=20
-> Yes, SOCK_SEQPACKET seems relatively easy to implement.
-
-SOCK_SEQPACKET requires some changes also in af_vsock.c, but should be
-feasible.
-
+> It's a very different issue, yes :).
 >=20
-> Would devices need to add a feature flag to advertise the fact that they
-> support SOCK_SEQPACKET? Not sure I understand all the backwards
-> compatibility issues adding this might introduce, but I think it would be
-> required since the idea is that if you write a message on a SOCK_SEQPACKE=
-T
-> socket it can't be split into multiple messages to the receiver, and both
-> the driver and the device would need to know that.
-
-In the virtio-vsock packet header (struct virtio_vsock_hdr) we have the
-'type' field, and now the only one supported is VIRTIO_VSOCK_TYPE_STREAM.
-
-We can add a new VIRTIO_VSOCK_TYPE_SEQPACKET to handle SOCK_SEQPACKET
-packets.
-
-I did a rapid check and we should discard packets with a different type
-and we send a VIRTIO_VSOCK_OP_RST back, but I never tried...
-
-If it works, maybe we don't need a feature flag.
-
+> > Even if you introduce multiple virtqueues for other reasons, it's
+> > advantageous to keep virtio-vsock flow control credit mechanism so that
+> > multiple connections can use a single virtqueue.
 >=20
-> A marker in the header should denote that there is more data to come in t=
-he
-> same packet, in the next descriptor, so that message boundaries can be
-> preserved, even if the driver doesn't place large enough descriptors in t=
-he
-> RX queue. The device would split and mark messages accordingly and then t=
-he
-> driver would re-assemble them before sending them to af_vsock.
-
-The 'flags' field in the packet header should help in this case.
-
+> Absolutely, yes!
 >=20
-> Otherwise, minimal descriptor sizes should be part of the specification s=
-uch
-> that you can rely on some specific message size rather than what the driv=
-er
-> decides to place in the queue, which so far is implementation defined. Th=
-e
-> first option seems more flexible to me.
+> > Initially the requirement might only be for one vsock connection but wh=
+o
+> > knows when that requirement changes and you need a dynamic number of
+> > connections?  Virtqueues cannot be hotplugged.
+>=20
+> The way I was thinking of this was that the identifier on which queue to
+> take is 100% driven by CID. So what I was depicting above is just that it=
+'d
+> be good to have support for:
+>=20
+>   * multiple queues (same host virtio implementation)
+>   * multiple PCIe devices (different host virtio implementations per CID)
+>=20
+> Whether to use Queue 0 of device 0 or Queue 1 of device 1 purely depends =
+on
+> the CID. However, each connection to/from a target CID should still go
+> through the same queue, with the same flow control as today, no?
+>=20
+> It's a bit like a poor man's switch with the CID as the MAC address I gue=
+ss.
 
-Me too.
+I see value in all of these:
 
-Thanks,
-Stefano
+ * multiqueue vsock for SMP scalability
+ * per-CID multiqueue vsock for guest<->guest communication in software
+ * per-CID multidevice vsock for hardware/vfio
+ * per-connection multiqueue for performance (eliminates memcpy socket
+   buffer and credit update packets)
 
+They are all independent features.  I'm not sure if someone wants to
+work on each one, but I think they all make sense and fit within the
+scope of virtio-vsock.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+Stefan
+
+--B4IIlcmfBL/1gGOG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl6qj5gACgkQnKSrs4Gr
+c8juuggAwpU4l3kyIh9pJ9go16oJFOd2WjJJryoYQdrwk8XDfz8sJQoCDmuet+zt
+eiMo+48klB5rgy9J5nZuLsKZC1I46NoXXsa/xhHuBtKwGb8RdC1iVxguRNOcFKLv
+B94RHPdr9MAtwIOvHOveLNx1l5ozF6lqZLrf+Q7Co4IKPtIzolArtnKX5tKZXBeK
+u/8s28dLkJXe69GAQH9porWMsOnw9OsXdWwrrs5oyocO9vZpPYqWm1tWjf4ElN/N
+8rmep8W32HQtPXOSwr8ESTO1uyzclU30QR5+e2m+LsgJDHiiQ/up8a01nxzjVlla
+c8kbtBPqTOYoXuw6rTprj0XynVrMJg==
+=3ehU
+-----END PGP SIGNATURE-----
+
+--B4IIlcmfBL/1gGOG--
 
