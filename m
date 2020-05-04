@@ -1,147 +1,224 @@
-Return-Path: virtio-comment-return-1219-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1208-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3442F985E96
-	for <virtio-comment@lists.oasis-open.org>; Thu,  7 May 2020 23:36:11 +0000 (UTC)
-MIME-Version: 1.0
+	by lists.oasis-open.org (Postfix) with ESMTP id 09B819848B9
+	for <virtio-comment@lists.oasis-open.org>; Mon,  4 May 2020 14:38:44 +0000 (UTC)
+Date: Mon, 4 May 2020 10:38:21 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20200504103806-mutt-send-email-mst@kernel.org>
 References: <20200422005531.15085-1-gurchetansingh@chromium.org>
- <20200422005531.15085-2-gurchetansingh@chromium.org> <20200428102922.ptoppskbs7xhube7@sirius.home.kraxel.org>
- <CAAfnVBneVgQQkGu6H_B6NGkUrEC7QD0o91vzUDTQ1=kyS_tKbw@mail.gmail.com>
- <20200429092830.3p6qc4nsscbz44xu@sirius.home.kraxel.org> <CAAfnVBn4WsyLvhMS8mGOJE0gOgYwPCW_r3JBHrtQOQTggrsuiQ@mail.gmail.com>
- <20200506071442.4s24rvkjt2j56wfz@sirius.home.kraxel.org>
-In-Reply-To: <20200506071442.4s24rvkjt2j56wfz@sirius.home.kraxel.org>
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Thu, 7 May 2020 16:35:54 -0700
-Message-ID: <CAAfnVBnYLpHBUiPQpkQdPC3riSric9Ey7fG0nMkE=QckuHd_Gw@mail.gmail.com>
-Subject: [virtio-comment] Re: [PATCH 1/2] virtio-gpu: add resource create blob
-Content-Type: multipart/alternative; boundary="00000000000039fa1f05a5175836"
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Chia-I Wu <olvaffe@gmail.com>, =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>
+ <20200422005531.15085-2-gurchetansingh@chromium.org>
+MIME-Version: 1.0
+In-Reply-To: <20200422005531.15085-2-gurchetansingh@chromium.org>
+Subject: Re: [virtio-comment] [PATCH 1/2] virtio-gpu: add resource create blob
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+To: Gurchetan Singh <gurchetansingh@chromium.org>
+Cc: virtio-comment@lists.oasis-open.org, kraxel@redhat.com, olvaffe@gmail.com, marcheu@chromium.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---00000000000039fa1f05a5175836
-Content-Type: text/plain; charset="UTF-8"
+On Tue, Apr 21, 2020 at 05:55:30PM -0700, Gurchetan Singh wrote:
+> Blob resources are size-based containers for host, guest, or
+> host+guest allocations.  These resources are designed with
+> mulit-process 3D support in mind, but also usable in virtio-gpu 2d
+> with system memory allocation (also known as dumb allocation, but
+> since that's reserved in a DRM/KMS world, went with system).
+>=20
+> Many hypercalls are reused, since a image view into the blob resource
+> is possible.
+>=20
+> Blob resources are both forward and backward looking.
+>=20
+> Co-authored-by: Gerd Hoffman <kraxel@redhat.com>
+> Co-authored-by: Chia-I-Wu <olvaffe@gmail.com>
 
-On Wed, May 6, 2020 at 12:14 AM Gerd Hoffmann <kraxel@redhat.com> wrote:
-
->   Hi,
->
-> > > > The reasoning is since there's no RESOURCE_CREATE_BLOB2D
-> > > > or RESOURCE_CREATE_BLOB3D, the separation captures that difference
-> in an
-> > > > explicit API level.  That way, the blob id is only allowed with
-> HOST3D.
-> > >
-> > > I think we can also simply define "blob id is only allowed virgl=on",
-> no
-> > > need for a separate command.
-> > >
-> >
-> > Ack.  Chia's suggestion to possibly only allow GUEST for dumb blobs is
-> also
-> > reasonable (i.e, no host allocations -- RESOURCE_{MAP, UNMAP}_BLOB are 3D
-> > only).
->
-> Yes, that works too.
->
-> > What do you prefer?
->
-> I don't mind much.
->
-> > > > Ack.  I definitely see the logic behind
-> VIRTIO_GPU_CMD_SET_SCANOUT_BLOB,
-> > > > but current display integration (dpy_gl_scanout_texture(..) in QEMU)
-> > > > assumes the presence of a GL texture (which can be created from a
-> blob
-> > > > resource).
-> > >
-> > > I have a qemu VIRTIO_GPU_CMD_SET_SCANOUT_BLOB implementation for
-> > > virgl=off only, covering dumb bo / fbdev as outlined above.
-> >
-> > Will add VIRTIO_GPU_CMD_SET_SCANOUT_BLOB in v2.  Do you also want
-> > SCANOUT_FLUSH too?
->
-> I think we need that, RESOURCE_FLUSH isn't going to work for resources
-> without an format attached.
->
-
-Okay, added.  SCANOUT_BLOB is based on QemuDmaBuf, but left out the
-modifier since that can be queried from virglrenderer.  LMK if anything
-else is needed...
+Pls just use standard Signed-off-by.
 
 
-> take care,
->   Gerd
->
->
+> Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
+> ---
+>  virtio-gpu.tex | 101 +++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 101 insertions(+)
+>=20
+> diff --git a/virtio-gpu.tex b/virtio-gpu.tex
+> index e70532f..6f374bd 100644
+> --- a/virtio-gpu.tex
+> +++ b/virtio-gpu.tex
+> @@ -36,6 +36,7 @@ \subsection{Feature bits}\label{sec:Device Types / GPU =
+Device / Feature bits}
+>  \item[VIRTIO_GPU_F_VIRGL (0)] virgl 3D mode is supported.
+>  \item[VIRTIO_GPU_F_EDID  (1)] EDID is supported.
+>  \item[VIRTIO_GPU_F_RESOURCE_UUID (2)] assigning resources UUIDs for expo=
+rt to other virtio devices is supported.
+> +\item[VIRTIO_GPU_F_RESOURCE_BLOB (3)] creating size-based blob resources=
+ is supported.
+>  \end{description}
+> =20
+>  \subsection{Device configuration layout}\label{sec:Device Types / GPU De=
+vice / Device configuration layout}
+> @@ -188,6 +189,7 @@ \subsubsection{Device Operation: Request header}\labe=
+l{sec:Device Types / GPU De
+>          VIRTIO_GPU_CMD_GET_CAPSET,
+>          VIRTIO_GPU_CMD_GET_EDID,
+>          VIRTIO_GPU_CMD_RESOURCE_ASSIGN_UUID,
+> +        VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB,
+> =20
+>          /* 3d commands (OpenGL) */
+>          VIRTIO_GPU_CMD_CTX_CREATE =3D 0x0200,
+> @@ -498,6 +500,105 @@ \subsubsection{Device Operation: controlq}\label{se=
+c:Device Types / GPU Device /
+>  other devices are not visible in the attached backing until they are tra=
+nsferred
+>  into the backing.
+> =20
+> +\item[VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB] Creates a virtio-gpu blob
+> +  resource. Request data is \field{struct
+> +  virtio_gpu_resource_create_blob}, followed by \field{struct
+> +  virtio_gpu_mem_entry} entries. Response type is
+> +  VIRTIO_GPU_RESP_OK_NODATA. Support is optional and negotiated
+> +  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_GPU_BLOB_MEM_GUEST             0x0001
+> +#define VIRTIO_GPU_BLOB_MEM_HOST3D            0x0002
+> +#define VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST      0x0003
+> +#define VIRTIO_GPU_BLOB_MEM_HOSTSYS           0x0004
+> +#define VIRTIO_GPU_BLOB_MEM_HOSTSYS_GUEST     0x0005
+> +
+> +#define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
+> +#define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
+> +#define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
+> +
+> +struct virtio_gpu_resource_create_blob {
+> +       struct virtio_gpu_ctrl_hdr hdr;
+> +       le32 resource_id;
+> +       le32 blob_mem;
+> +       le32 blob_flags;
+> +       le32 nr_entries;
+> +       le64 blob_id;
+> +       le64 size;
+> +};
+> +
+> +\end{lstlisting}
+> +
+> +A blob resource is a container for:
+> +
+> +  \begin{itemize*}
+> +  \item a guest memory allocation (referred to as a
+> +  "guest-only blob resource").
+> +  \item a host memory allocation (referred to as a
+> +  "host-only blob resource").
+> +  \item a guest memory and host memory allocation (referred
+> +  to as a "default blob resource").
+> +  \end{itemize*}
+> +
+> +The memory properties of the blob resource MUST be described by
+> +\field{blob_mem}, which MUST be non-zero.
+> +
+> +For default and guest-only blob resources, \field{nents} guest
+> +system pages are assigned to the resource.  For default blob
+> +resources, these guest pages are used for transfer operations.
+> +
+> +Host allocations depend on whether VIRTIO_GPU_F_VIRGL is supported.
+> +If VIRTIO_GPU_F_VIRGL is not supported, then:
+> +
+> +  \begin{itemize*}
+> +  \item \field{blob_mem} MUST be VIRTIO_GPU_BLOB_MEM_HOSTSYS for host-on=
+ly
+> +  blob resources
+> +  \item \field{blob_mem} MUST be VIRTIO_GPU_BLOB_MEM_HOSTSYS_GUEST for
+> +  default blob resources
+> +  \end{itemize*}
+> +
+> +For the above above cases, host system memory is allocated by the device=
+.
+> +
+> +If VIRTIO_GPU_F_VIRGL is supported, then:
+> +
+> +  \begin{itemize*}
+> +  \item \field{blob_mem} MUST be VIRTIO_GPU_BLOB_MEM_HOST3D for host-onl=
+y
+> +  blob resources
+> +  \item \field{blob_mem} MUST be VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST for
+> +  default resources
+> +  \end{itemize*}
+> +
+> +For the above cases, the virtio-gpu resource MUST be created from the
+> +rendering context local object identified by the \field{blob_id}. The
+> +actual allocation is done via VIRTIO_GPU_CMD_SUBMIT_3D.
+> +
+> +VIRTIO_GPU_BLOB_MEM_GUEST is valid regardless whether VIRTIO_GPU_F_VIRGL
+> +is supported or not.
+> +
+> +The driver MUST inform the device if the blob resource is used for
+> +memory access, sharing between driver instances and/or sharing with
+> +other devices. This is done via the \field{blob_flags} field.
+> +
+> +If VIRTIO_GPU_F_VIRGL is set, both VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D
+> +and VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D may be used to update the
+> +resource. There is no restriction on the image/buffer view the driver
+> +has on the blob resource.
+> +
+> +VIRTIO_GPU_CMD_TRANSFER_TO_HOST_2D, VIRTIO_GPU_CMD_SET_SCANOUT and
+> +VIRTIO_GPU_CMD_RESOURCE_FLUSH MAY be used with blob resources as well,
+> +subject to the following restrictions:
+> +
+> +  \begin{itemize*}
+> +  \item the driver MUST have a 4-byte per pixel 2D image view of the
+> +        blob resource.
+> +  \item the device MUST have a 4-byte per pixel 2D image view of the
+> +        blob resource, or create one if does not exist.
+> +  \end{itemize*}
+> +
+> +For host-only blob resources, transfer operations MAY synchronize
+> +caches.
+> +
+>  \end{description}
+> =20
+>  \subsubsection{Device Operation: controlq (3d)}\label{sec:Device Types /=
+ GPU Device / Device Operation / Device Operation: controlq (3d)}
+> --=20
+> 2.24.1
+>=20
+>=20
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>=20
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>=20
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
+ists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
---00000000000039fa1f05a5175836
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 6, 2020 at 12:14 AM Gerd =
-Hoffmann &lt;<a href=3D"mailto:kraxel@redhat.com" target=3D"_blank">kraxel@=
-redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">=C2=A0 Hi,<br>
-<br>
-&gt; &gt; &gt; The reasoning is since there&#39;s no RESOURCE_CREATE_BLOB2D=
-<br>
-&gt; &gt; &gt; or RESOURCE_CREATE_BLOB3D, the separation captures that diff=
-erence in an<br>
-&gt; &gt; &gt; explicit API level.=C2=A0 That way, the blob id is only allo=
-wed with HOST3D.<br>
-&gt; &gt;<br>
-&gt; &gt; I think we can also simply define &quot;blob id is only allowed v=
-irgl=3Don&quot;, no<br>
-&gt; &gt; need for a separate command.<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; Ack.=C2=A0 Chia&#39;s suggestion to possibly only allow GUEST for dumb=
- blobs is also<br>
-&gt; reasonable (i.e, no host allocations -- RESOURCE_{MAP, UNMAP}_BLOB are=
- 3D<br>
-&gt; only).<br>
-<br>
-Yes, that works too.<br>
-<br>
-&gt; What do you prefer?<br>
-<br>
-I don&#39;t mind much.<br>
-<br>
-&gt; &gt; &gt; Ack.=C2=A0 I definitely see the logic behind VIRTIO_GPU_CMD_=
-SET_SCANOUT_BLOB,<br>
-&gt; &gt; &gt; but current display integration (dpy_gl_scanout_texture(..) =
-in QEMU)<br>
-&gt; &gt; &gt; assumes the presence of a GL texture (which can be created f=
-rom a blob<br>
-&gt; &gt; &gt; resource).<br>
-&gt; &gt;<br>
-&gt; &gt; I have a qemu VIRTIO_GPU_CMD_SET_SCANOUT_BLOB implementation for<=
-br>
-&gt; &gt; virgl=3Doff only, covering dumb bo / fbdev as outlined above.<br>
-&gt; <br>
-&gt; Will add VIRTIO_GPU_CMD_SET_SCANOUT_BLOB in v2.=C2=A0 Do you also want=
-<br>
-&gt; SCANOUT_FLUSH too?<br>
-<br>
-I think we need that, RESOURCE_FLUSH isn&#39;t going to work for resources<=
-br>
-without an format attached.<br></blockquote><div><br></div><div>Okay, added=
-.=C2=A0 SCANOUT_BLOB is based on QemuDmaBuf, but left out the modifier sinc=
-e that can be queried from virglrenderer.=C2=A0 LMK if anything else is nee=
-ded...</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">
-take care,<br>
-=C2=A0 Gerd<br>
-<br>
-</blockquote></div></div>
-
---00000000000039fa1f05a5175836--
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
