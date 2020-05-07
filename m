@@ -1,653 +1,222 @@
-Return-Path: virtio-comment-return-1248-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1217-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D6731986053
-	for <virtio-comment@lists.oasis-open.org>; Fri, 15 May 2020 13:28:06 +0000 (UTC)
-From: David Hildenbrand <david@redhat.com>
-Date: Fri, 15 May 2020 15:27:51 +0200
-Message-Id: <20200515132751.62332-4-david@redhat.com>
-In-Reply-To: <20200515132751.62332-1-david@redhat.com>
-References: <20200515132751.62332-1-david@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 44B22985E96
+	for <virtio-comment@lists.oasis-open.org>; Thu,  7 May 2020 23:24:41 +0000 (UTC)
+From: Gurchetan Singh <gurchetansingh@chromium.org>
+Date: Thu,  7 May 2020 16:24:35 -0700
+Message-Id: <20200507232436.1540-1-gurchetansingh@chromium.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH 3/3] Add virtio-mem device specification
+Subject: [virtio-comment] [RFC PATCH v2 1/2] virtio-gpu: add resource create blob
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
-Cc: David Hildenbrand <david@redhat.com>, teawater <teawaterz@linux.alibaba.com>
+Cc: kraxel@redhat.com, olvaffe@gmail.com, marcheu@chromium.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-The virtio memory device provides and manages a memory region in guest
-physical address space. This memory region is partitioned into memory
-blocks of fixed size that can either be in the state plugged or unplugged.
+Blob resources are size-based containers for host, guest, or
+host+guest allocations.  These resources are designed with
+mulit-process 3D support in mind, but also usable in virtio-gpu 2d
+with guest memory.
 
-Specify the device configuration, initialization, and operation.
-Introduce PLUG, UNPLUG, UNPLUG ALL and STATE requests.
+Many hypercalls are reused, since a image view into the blob resource
+is possible.
 
-Cc: teawater <teawaterz@linux.alibaba.com>
-Signed-off-by: David Hildenbrand <david@redhat.com>
+Blob resources are both forward and backward looking.
+
+v2: Add TRANSFER_BLOB, SET_SCANOUT_BLOB, SCANOUT_FLUSH
+
+Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
 ---
- conformance.tex |  38 +++-
- content.tex     |   1 +
- virtio-mem.tex  | 452 ++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 487 insertions(+), 4 deletions(-)
- create mode 100644 virtio-mem.tex
+ virtio-gpu.tex | 143 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 143 insertions(+)
 
-diff --git a/conformance.tex b/conformance.tex
-index ea48d2d..0715da1 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -25,8 +25,9 @@ \section{Conformance Targets}\label{sec:Conformance / Con=
-formance Targets}
- \ref{sec:Conformance / Driver Conformance / Input Driver Conformance},
- \ref{sec:Conformance / Driver Conformance / Crypto Driver Conformance},
- \ref{sec:Conformance / Driver Conformance / Socket Driver Conformance},
--\ref{sec:Conformance / Driver Conformance / RPMB Driver Conformance} or
--\ref{sec:Conformance / Driver Conformance / IOMMU Driver Conformance}.
-+\ref{sec:Conformance / Driver Conformance / RPMB Driver Conformance},
-+\ref{sec:Conformance / Driver Conformance / IOMMU Driver Conformance} or
-+\ref{sec:Conformance / Driver Conformance / Memory Driver Conformance}.
-     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Dev=
-ice and Transitional Driver Conformance}.
-   \end{itemize}
- \item[Device] A device MUST conform to four conformance clauses:
-@@ -43,8 +44,9 @@ \section{Conformance Targets}\label{sec:Conformance / Con=
-formance Targets}
- \ref{sec:Conformance / Device Conformance / Input Device Conformance},=20
- \ref{sec:Conformance / Device Conformance / Crypto Device Conformance},=20
- \ref{sec:Conformance / Device Conformance / Socket Device Conformance},=20
--\ref{sec:Conformance / Device Conformance / RPMB Device Conformance} or=20
--\ref{sec:Conformance / Device Conformance / IOMMU Device Conformance}.
-+\ref{sec:Conformance / Device Conformance / RPMB Device Conformance},
-+\ref{sec:Conformance / Device Conformance / IOMMU Device Conformance}, or
-+\ref{sec:Conformance / Device Conformance / Memory Device Conformance}.
-     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Dev=
-ice and Transitional Driver Conformance}.
-   \end{itemize}
+diff --git a/virtio-gpu.tex b/virtio-gpu.tex
+index e70532f..754d5a8 100644
+--- a/virtio-gpu.tex
++++ b/virtio-gpu.tex
+@@ -36,6 +36,7 @@ \subsection{Feature bits}\label{sec:Device Types / GPU De=
+vice / Feature bits}
+ \item[VIRTIO_GPU_F_VIRGL (0)] virgl 3D mode is supported.
+ \item[VIRTIO_GPU_F_EDID  (1)] EDID is supported.
+ \item[VIRTIO_GPU_F_RESOURCE_UUID (2)] assigning resources UUIDs for export=
+ to other virtio devices is supported.
++\item[VIRTIO_GPU_F_RESOURCE_BLOB (3)] creating and using size-based blob r=
+esources is supported.
  \end{description}
-@@ -231,6 +233,20 @@ \section{Conformance Targets}\label{sec:Conformance / =
-Conformance Targets}
- \item \ref{drivernormative:Device Types / IOMMU Device / Device operations=
- / Fault reporting}
- \end{itemize}
 =20
-+\conformance{\subsection}{Memory Driver Conformance}\label{sec:Conformance=
- / Driver Conformance / Memory Driver Conformance}
-+
-+A memory driver MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{drivernormative:Device Types / Memory Device / Device configura=
-tion layout}
-+\item \ref{drivernormative:Device Types / Memory Device / Device Initializ=
-ation}
-+\item \ref{drivernormative:Device Types / Memory Device / Device Operation=
-}
-+\item \ref{drivernormative:Device Types / Memory Device / Device Operation=
- / PLUG request}
-+\item \ref{drivernormative:Device Types / Memory Device / Device Operation=
- / UNPLUG request}
-+\item \ref{drivernormative:Device Types / Memory Device / Device Operation=
- / UNPLUG ALL request}
-+\item \ref{drivernormative:Device Types / Memory Device / Device Operation=
- / STATE request}
-+\end{itemize}
-+
- \conformance{\section}{Device Conformance}\label{sec:Conformance / Device =
-Conformance}
+ \subsection{Device configuration layout}\label{sec:Device Types / GPU Devi=
+ce / Device configuration layout}
+@@ -188,6 +189,10 @@ \subsubsection{Device Operation: Request header}\label=
+{sec:Device Types / GPU De
+         VIRTIO_GPU_CMD_GET_CAPSET,
+         VIRTIO_GPU_CMD_GET_EDID,
+         VIRTIO_GPU_CMD_RESOURCE_ASSIGN_UUID,
++        VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB,
++        VIRTIO_GPU_CMD_TRANSFER_BLOB,
++        VIRTIO_GPU_CMD_SCANOUT_BLOB,
++        VIRTIO_GPU_CMD_SCANOUT_FLUSH,
 =20
- A device MUST conform to the following normative statements:
-@@ -419,6 +435,20 @@ \section{Conformance Targets}\label{sec:Conformance / =
-Conformance Targets}
- \item \ref{devicenormative:Device Types / IOMMU Device / Device operations=
- / Fault reporting}
- \end{itemize}
+         /* 3d commands (OpenGL) */
+         VIRTIO_GPU_CMD_CTX_CREATE =3D 0x0200,
+@@ -498,6 +503,144 @@ \subsubsection{Device Operation: controlq}\label{sec:=
+Device Types / GPU Device /
+ other devices are not visible in the attached backing until they are trans=
+ferred
+ into the backing.
 =20
-+\conformance{\subsection}{Memory Device Conformance}\label{sec:Conformance=
- / Device Conformance / Memory Device Conformance}
-+
-+A memory device MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{devicenormative:Device Types / Memory Device / Device configura=
-tion layout}
-+\item \ref{devicenormative:Device Types / Memory Device / Device Initializ=
-ation}
-+\item \ref{devicenormative:Device Types / Memory Device / Device Operation=
-}
-+\item \ref{devicenormative:Device Types / Memory Device / Device Operation=
- / PLUG request}
-+\item \ref{devicenormative:Device Types / Memory Device / Device Operation=
- / UNPLUG request}
-+\item \ref{devicenormative:Device Types / Memory Device / Device Operation=
- / UNPLUG ALL request}
-+\item \ref{devicenormative:Device Types / Memory Device / Device Operation=
- / STATE request}
-+\end{itemize}
-+
- \conformance{\section}{Legacy Interface: Transitional Device and Transitio=
-nal Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitio=
-nal Device and Transitional Driver Conformance}
- A conformant implementation MUST be either transitional or
- non-transitional, see \ref{intro:Legacy
-diff --git a/content.tex b/content.tex
-index 91735e3..0a0f3a8 100644
---- a/content.tex
-+++ b/content.tex
-@@ -6062,6 +6062,7 @@ \subsubsection{Legacy Interface: Framing Requirements=
-}\label{sec:Device
- \input{virtio-fs.tex}
- \input{virtio-rpmb.tex}
- \input{virtio-iommu.tex}
-+\input{virtio-mem.tex}
-=20
- \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-=20
-diff --git a/virtio-mem.tex b/virtio-mem.tex
-new file mode 100644
-index 0000000..4f12e31
---- /dev/null
-+++ b/virtio-mem.tex
-@@ -0,0 +1,452 @@
-+\section{Memory Device}\label{sec:Device Types / Memory Device}
-+
-+The virtio memory device provides and manages a memory region in guest
-+physical address space.  This memory region is partitioned into memory
-+blocks of fixed size that can either be in the state plugged or unplugged.=
-=20
-+Once plugged, a memory block can be used like ordinary RAM.  The driver
-+selects memory blocks to (un)plug and requests the device to perform the
-+(un)plug.
-+
-+The device requests the driver to plug a certain amount of memory, by
-+setting the \field{requested_size} in the device configuration, which can
-+change at runtime.  It is up to the device driver to fulfill this request
-+by (un)plugging memory blocks.  Once the \field{plugged_size} is greater o=
-r
-+equal to the \field{requested_size}, requests to plug memory blocks will b=
-e
-+rejected by the device.
-+
-+The device-managed memory region is split into two parts, the usable regio=
-n
-+and the unusable region.  All memory blocks in the unusable region are
-+unplugged and requests to plug them will be rejected.  The device will gro=
-w
-+the usable region to fit the \field{requested_size}.  Usually, the usable
-+region is bigger than the \field{requested_size} of the device, to give th=
-e
-+driver some flexibility when selecting memory blocks to plug.
-+
-+On initial start, and after a system reset, all memory blocks are
-+unplugged.  In corner cases, memory blocks might still be plugged after a
-+system reset, and the driver usually requests to unplug all memory while
-+initializing, before starting to select memory blocks to plug.
-+
-+The device-managed memory region is not exposed as RAM via other firmware
-+/ hw interfaces (e.g., e820 on x86).  The driver is responsible for
-+deciding how plugged memory blocks will be used.  A common use case is to
-+expose plugged memory blocks to the operating system as system RAM,
-+available for the page allocator.
-+
-+\subsection{Device ID}\label{sec:Device Types / Memory Device / Device ID}
-+24
-+
-+\subsection{Virtqueues}\label{sec:Device Types / Memory Device / Virtqueue=
-s}
-+
-+\begin{description}
-+\item[0] guest-request
-+\end{description}
-+
-+\subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature=
- bits}
-+
-+\begin{description}
-+\item[VIRTIO_MEM_F_ACPI_PXM (0)] The field \field{node_id} in the device
-+configuration is valid and corresponds to an ACPI PXM.
-+\end{description}
-+
-+\subsection{Device configuration layout}\label{sec:Device Types / Memory D=
-evice / Device configuration layout}
-+
-+All fields of this configuration are always available and read-only for th=
-e
-+driver.
++\item[VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB] Creates a virtio-gpu blob
++  resource. Request data is \field{struct
++  virtio_gpu_resource_create_blob}, followed by \field{struct
++  virtio_gpu_mem_entry} entries. Response type is
++  VIRTIO_GPU_RESP_OK_NODATA. Support is optional and negotiated
++  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag.
 +
 +\begin{lstlisting}
-+struct virtio_mem_config {
-+  le32 block_size;
-+  le16 node_id;
-+  le16 padding;
-+  le64 addr;
-+  le64 region_size;
-+  le64 usable_region_size;
-+  le64 plugged_size;
-+  le64 requested_size;
++#define VIRTIO_GPU_BLOB_MEM_GUEST             0x0001
++#define VIRTIO_GPU_BLOB_MEM_HOST3D            0x0002
++#define VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST      0x0003
++
++#define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
++#define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
++#define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
++
++struct virtio_gpu_resource_create_blob {
++       struct virtio_gpu_ctrl_hdr hdr;
++       le32 resource_id;
++       le32 blob_mem;
++       le32 blob_flags;
++       le32 nr_entries;
++       le64 blob_id;
++       le64 size;
 +};
++
 +\end{lstlisting}
 +
-+\begin{description}
-+\item[\field{block_size}] is the size and the alignment in bytes of a
-+memory block.  Cannot change.
-+\item[\field{node_id}] has no meaning without VIRTIO_MEM_F_ACPI_PXM.  With
-+VIRTIO_MEM_F_ACPI_PXM, this field is valid and corresponds to an ACPI PXM.
-+Cannot change.
-+\item[\field{padding}] has no meaning and is reserved for future use.
-+\item[\field{addr}] is the guest physical address of the start of the
-+device-managed memory region in bytes.  Cannot change.
-+\item[\field{region_size}] is the size of device-managed memory region in
-+bytes.  Cannot change.
-+\item[\field{usable_region_size}] is the size of the usable device-managed
-+memory region.  Can grow up to \field{region_size}.  Can only shrink due t=
-o
-+VIRTIO_MEM_REQ_UNPLUG_ALL requests.
-+\item[\field{plugged_size}] is the amount of plugged memory in bytes withi=
-n
-+the usable device-managed memory region.
-+\item[\field{requested_size}] is the requested amount of plugged memory
-+within the usable device-managed memory region.
-+\end{description}
++A blob resource is a container for:
 +
-+\drivernormative{\subsubsection}{Device configuration layout}{Device Types=
- / Memory Device / Device configuration layout}
++  \begin{itemize*}
++  \item a guest memory allocation (referred to as a
++  "guest-only blob resource").
++  \item a host memory allocation (referred to as a
++  "host-only blob resource").
++  \item a guest memory and host memory allocation (referred
++  to as a "default blob resource").
++  \end{itemize*}
 +
-+The driver MUST NOT write to device configuration fields.
++The memory properties of the blob resource MUST be described by
++\field{blob_mem}, which MUST be non-zero.
 +
-+The driver MUST ignore the value of \field{padding}.
++For default and guest-only blob resources, \field{nents} guest
++system pages are assigned to the resource.  For default blob resources
++(i.e, when \field{blob_mem} is VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST), these
++guest pages are used as a shadow buffer for the host memory.
 +
-+The driver MUST ignore the value of \field{node_id} without
-+VIRTIO_MEM_F_ACPI_PXM.
++\field{blob_mem} can only be VIRTIO_GPU_BLOB_MEM_HOST3D and
++VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST if VIRTIO_GPU_F_VIRGL is supported.
++VIRTIO_GPU_BLOB_MEM_GUEST is valid regardless whether VIRTIO_GPU_F_VIRGL
++is supported or not.
 +
-+\devicenormative{\subsubsection}{Device configuration layout}{Device Types=
- / Memory Device / Device configuration layout}
-+
-+The device MAY change \field{usable_region_size} and
-+\field{requested_size}.
-+
-+The device MUST NOT change \field{block_size}, \field{node_id},
-+\field{addr}, and \field{region_size}, except during a system reset.
-+
-+The device MUST change \field{plugged_size} to reflect the size of plugged
-+memory blocks.
-+
-+The device MUST set \field{usable_region_size} to \field{requested_size} o=
-r
-+greater.
-+
-+The device MUST set \field{block_size} to a power of two.
-+
-+The device MUST set \field{addr}, \field{region_size},
-+\field{usable_region_size}, \field{plugged_size}, \field{requested_size} t=
-o
-+multiples of \field{block_size}.
-+
-+The device MUST set \field{region_size} to 0 or greater.
-+
-+The device MUST NOT shrink \field{usable_region_size}, except when
-+processing an UNPLUG ALL request, or during a system reset.
-+
-+The device MUST send a configuration update notification when changing
-+\field{usable_region_size} or \field{requested_size}, except when
-+processing an UNPLUG ALL request.
-+
-+The device SHOULD NOT send a configuration update notification when
-+changing \field{plugged_size}.
-+
-+The device MAY send a configuration update notification even if nothing
-+changed.
-+
-+\subsection{Device Initialization}\label{Device Types / Memory Device / De=
-vice Initialization}
-+
-+On initialization, the driver first discovers the device's virtqueues.  It
-+then reads the device configuration.
-+
-+In case the driver detects that the device still has memory plugged
-+(\field{plugged_size} in the device configuration is greater than 0), the
-+driver will either try to re-initialize by issuing STATE requests, or try
-+to unplug all memory before continuing.  Special handling might be
-+necessary in case some plugged memory might still be relevant (e.g., syste=
-m
-+dump, memory still in use after unloading the driver).
-+
-+\drivernormative{\subsubsection}{Device Initialization}{Device Types / Mem=
-ory Device / Device Initialization}
-+
-+The driver SHOULD issue UNPLUG ALL requests until successful if the device
-+still has memory plugged and the plugged memory is not in use.
-+
-+\devicenormative{\subsubsection}{Device Initialization}{Device Types / Mem=
-ory Device / Device Initialization}
-+
-+The device MUST NOT change the state of memory blocks during device reset.
-+
-+The device MUST NOT change the content of plugged memory blocks during
-+device reset.
-+
-+\subsection{Device Operation}\label{sec:Device Types / Memory Device / Dev=
-ice Operation}
-+
-+The device notifies the driver about the amount of memory the device wants
-+the driver to consume via the device.  These resize requests from the
-+device are communciated via the \field{requested_size} in the device
-+configuration.  The driver will react by requesting to (un)plug specific
-+memory blocks, to make the \field{plugged_size} match the
-+\field{requested_size} as close as possible.
-+
-+The driver sends requests to the device on the guest-request virtqueue,
-+notifies the device, and waits for the device to respond.  Requests have a
-+common header, defining the request type, followed by request-specific
-+data.  All requests are 24 bytes long and have the layout:
-+
-+\begin{lstlisting}
-+struct virtio_mem_req {
-+  le16 type;
-+  le16 padding[3];
-+
-+  union {
-+    struct virtio_mem_req_plug plug;
-+    struct virtio_mem_req_unplug unplug;
-+    struct virtio_mem_req_state state;
-+  } u;
-+}
-+\end{lstlisting}
-+
-+Possible request types are:
-+
-+\begin{lstlisting}
-+#define VIRTIO_MEM_REQ_PLUG            0
-+#define VIRTIO_MEM_REQ_UNPLUG          1
-+#define VIRTIO_MEM_REQ_UNPLUG_ALL      2
-+#define VIRTIO_MEM_REQ_STATE           3
-+\end{lstlisting}
-+
-+Responses have a common header, defining the response type, followed by
-+request-specific data.  All responses are 10 bytes long and have the layou=
-t:
-+
-+\begin{lstlisting}
-+struct virtio_mem_resp {
-+  le16 type;
-+  le16 padding[3];
-+
-+  union {
-+    struct virtio_mem_resp_state state;
-+  } u;
-+}
-+\end{lstlisting}
-+
-+Possible response types, in general, are:
-+
-+\begin{lstlisting}
-+#define VIRTIO_MEM_RESP_ACK            0
-+#define VIRTIO_MEM_RESP_NACK           1
-+#define VIRTIO_MEM_RESP_BUSY           2
-+#define VIRTIO_MEM_RESP_ERROR          3
-+\end{lstlisting}
-+
-+\drivernormative{\subsubsection}{Device Operation}{Device Types / Memory D=
-evice / Device Operation}
-+
-+The driver MUST NOT write to unplugged memory blocks.
-+
-+The driver MUST NOT read from unplugged memory blocks outside
-+\field{usable_region_size}.
-+
-+The driver SHOULD NOT read from unplugged memory blocks inside
-+\field{usable_region_size}.
-+
-+The driver MUST NOT request to unplug memory blocks while the memory is
-+still in use.
-+
-+The driver SHOULD initialize memory blocks after plugging them, the conten=
++For VIRTIO_GPU_BLOB_MEM_HOST3D and VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST, the
++virtio-gpu resource MUST be created from the rendering context local objec=
 t
-+is undefined.
++identified by the \field{blob_id}. The actual allocation is done via
++VIRTIO_GPU_CMD_SUBMIT_3D.
 +
-+The driver SHOULD react to resize requests from the device
-+(\field{requested_size} in the device configuration changed) by
-+(un)plugging memory blocks.
++The driver MUST inform the device if the blob resource is used for
++memory access, sharing between driver instances and/or sharing with
++other devices. This is done via the \field{blob_flags} field.
 +
-+The driver SHOULD only plug memory blocks it can actually use.
++If VIRTIO_GPU_F_VIRGL is set, both VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D
++and VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D may be used to update the
++resource. There is no restriction on the image/buffer view the driver
++has on the blob resource.  VIRTIO_GPU_CMD_TRANSFER_BLOB (described below)
++may also be used.
 +
-+The driver MAY not reach the requested size (\field{requested_size} in the
-+device configuration), for example, because it cannot free up any plugged
-+memory blocks to unplug them, or it would not be able to make use of any
-+unplugged memory block after plugging them.
-+
-+\devicenormative{\subsubsection}{Device Operation}{Device Types / Memory D=
-evice / Device Operation}
-+
-+The device MAY change the content of unplugged memory blocks at any time.
-+
-+The device MUST NOT change the content of plugged memory blocks.
-+
-+The device MUST allow to read from unplugged memory blocks inside
-+the usable device-managed region.
-+
-+The device MAY allow to read from unplugged memory blocks outside
-+the usable device-managed region.
-+
-+The device MAY allow to write to unplugged memory blocks inside
-+the usable device-managed region.
-+
-+The device MAY allow to write to unplugged memory blocks outside
-+the usable device-managed region.
-+
-+The device MAY change the state of memory blocks during system resets.
-+
-+The device SHOULD unplug all memory blocks during system resets.
-+
-+\subsubsection{PLUG request}\label{sec:Device Types / Memory Device / Devi=
-ce Operation / PLUG request}
-+
-+Request to plug consecutive memory blocks that are currently unplugged.
-+
-+The request-specific data in a PLUG request has the format:
++\item[VIRTIO_GPU_CMD_TRANSFER_BLOB] synchronizes a blob resource. Request
++  data is \field{struct virtio_gpu_resource_transfer_blob}, followed by
++  \field{struct virtio_gpu_blob_range} entries. Response type is
++  VIRTIO_GPU_RESP_OK_NODATA. Support is optional and negotiated
++  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag.
 +
 +\begin{lstlisting}
-+struct virtio_mem_req_plug {
-+  le64 addr;
-+  le16 nb_blocks;
-+  le16 padding[3];
-+}
-+\end{lstlisting}
++#define VIRTIO_GPU_TRANSFER_BLOB_TO_HOST   0x0001
++#define VIRTIO_GPU_TRANSFER_BLOB_FROM_HOST 0x0002
 +
-+\field{addr} is the guest physical address of the first memory block.
-+\field{nb_blocks} is the number of consecutive memory blocks
++struct virtio_gpu_blob_range {
++       le64 offset;
++       le64 size;
++};
 +
-+Responses don't have request-specific data defined.
-+
-+\drivernormative{\paragraph}{PLUG request}{Device Types / Memory Device / =
-Device Operation / PLUG request}
-+
-+The driver MUST ignore anything except the response type in a response.
-+
-+\devicenormative{\paragraph}{PLUG request}{Device Types / Memory Device / =
-Device Operation / PLUG request}
-+
-+The device MUST ignore anything except the request type and the
-+request-specific data in a request.
-+
-+The device MUST ignore the \field{padding} in the request-specific data in
-+a request.
-+
-+The device MUST reject requests with VIRTIO_MEM_RESP_ERROR if \field{addr}
-+is not aligned to the \field{block_size} in the device configuration, if
-+\field{nb_blocks} is not greater than 0, or if any memory block outside of
-+the usable device-managed memory region is covered by the request.
-+
-+The device MUST reject requests with VIRTIO_MEM_RESP_ERROR if any memory
-+block covered by the request is already plugged.
-+
-+The device MAY reject requests with VIRTIO_MEM_RESP_BUSY if the request ca=
-n
-+currently not be processed.
-+
-+The device MUST acknowledge requests with VIRTIO_MEM_RESP_ACK in case all
-+memory blocks were successfully plugged.  The device MUST reflect the
-+change in the device configuration \field{plugged_size}.
-+
-+\subsubsection{UNPLUG request}\label{sec:Device Types / Memory Device / De=
-vice Operation / UNPLUG request}
-+
-+Request to unplug consecutive memory blocks that are currently plugged.
-+
-+The request-specific data in an UNPLUG request has the format:
-+
-+\begin{lstlisting}
-+struct virtio_mem_req_unplug {
-+  le64 addr;
-+  le16 nb_blocks;
-+  le16 padding[3];
-+}
-+\end{lstlisting}
-+
-+\field{addr} is the guest physical address of the first memory block.
-+\field{nb_blocks} is the number of consecutive memory blocks
-+
-+Responses don't have request-specific data defined.
-+
-+\drivernormative{\paragraph}{UNPLUG request}{Device Types / Memory Device =
-/ Device Operation / UNPLUG request}
-+
-+The driver MUST ignore anything except the response type in a response.
-+
-+\devicenormative{\paragraph}{UNPLUG request}{Device Types / Memory Device =
-/ Device Operation / UNPLUG request}
-+
-+The device MUST ignore anything except the request type and the
-+request-specific data in a request.
-+
-+The device MUST ignore the \field{padding} in the request-specific data in
-+a request.
-+
-+The device MUST reject requests with VIRTIO_MEM_RESP_ERROR if \field{addr}
-+is not aligned to the \field{block_size} in the device configuration, if
-+\field{nb_blocks} is not greater than 0, or if any memory block outside of
-+the usable device-managed memory region is covered by the request.
-+
-+The device MUST reject requests with VIRTIO_MEM_RESP_ERROR if any memory
-+block covered by the request is already unplugged.
-+
-+The device MAY reject requests with VIRTIO_MEM_RESP_BUSY if the request ca=
-n
-+currently not be processed.
-+
-+The device MUST acknowledge requests with VIRTIO_MEM_RESP_ACK in case all
-+memory blocks were successfully unplugged.  The device MUST reflect the
-+change in the device configuration \field{plugged_size}.
-+
-+\subsubsection{UNPLUG ALL request}\label{sec:Device Types / Memory Device =
-/ Device Operation / UNPLUG ALL request}
-+
-+Request to unplug all memory blocks the device has currently plugged.  If
-+successful, the \field{plugged_size} in the device configuration will be 0
-+and \field{usable_region_size} might have changed.
-+
-+Requests don't have request-specific data defined, only the request type i=
-s
-+relevant.  Responses don't have request-specific data defined, only the
-+response type is relevant.
-+
-+\drivernormative{\paragraph}{UNPLUG request}{Device Types / Memory Device =
-/ Device Operation / UNPLUG ALL request}
-+
-+The driver MUST ignore any data in a response except the response type.
-+
-+\devicenormative{\paragraph}{UNPLUG request}{Device Types / Memory Device =
-/ Device Operation / UNPLUG ALL request}
-+
-+The device MUST ignore any data in a request except the request type.
-+
-+The device MUST ignore the \field{padding} in the request-specific data in
-+a request.
-+
-+The device MAY reject requests with VIRTIO_MEM_RESP_BUSY if the request ca=
-n
-+currently not be processed.
-+
-+The device MUST acknowledge requests with VIRTIO_MEM_RESP_ACK in case all
-+memory blocks were successfully unplugged.
-+
-+The device MUST set \field{plugged_size} to 0 in case the request is
-+acknowledged with VIRTIO_MEM_RESP_ACK.
-+
-+The device MAY modify \field{usable_region_size} before responding with
-+VIRTIO_MEM_RESP_ACK.
-+
-+\subsubsection{STATE request}\label{sec:Device Types / Memory Device / Dev=
-ice Operation / STATE request}
-+
-+Request the state (plugged, unplugged, mixed) of consecutive memory blocks=
-.
-+
-+The request-specific data in a STATE request has the format:
-+
-+\begin{lstlisting}
-+struct virtio_mem_req_state {
-+  le64 addr;
-+  le16 nb_blocks;
-+  le16 padding[3];
++struct virtio_gpu_resource_transfer_blob {
++       struct virtio_gpu_ctrl_hdr hdr;
++       le32 resource_id;
++       le32 flags;
++       le32 nr_ranges;
++       le32 pad;
 +};
 +\end{lstlisting}
 +
-+\field{addr} is the guest physical address of the first memory block.
-+\field{nb_blocks} is the number of consecutive memory blocks.
++The default blob resources, transfer operations transfer operations
++copy the contents of the guest pages to or from the host.
++For host-only blob resources, transfer operations MAY synchronize caches.
 +
-+The request-specific data in a STATE response has the format:
++\item[VIRTIO_GPU_CMD_SET_SCANOUT_BLOB] sets scanout parameters for a
++   blob resource. Request data is
++  \field{struct virtio_gpu_set_scanout_blob}. Response type is
++  VIRTIO_GPU_RESP_OK_NODATA. Support is optional and negotiated
++  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag.
 +
 +\begin{lstlisting}
-+struct virtio_mem_resp_state {
-+  le16 type;
++struct virtio_gpu_set_scanout_blob {
++       struct virtio_gpu_ctrl_hdr hdr;
++       struct virtio_gpu_rect r;
++       le32 scanout_id;
++       le32 resource_id;
++       le32 width;
++       le32 height;
++       le32 format;
++       le32 padding;
++       le32 strides[4];
++       le32 offsets[4];
 +};
 +\end{lstlisting}
 +
-+Whereby \field{type} defines one of three different state types:
++The rectangle \field{r} represents the portion of the blob resource being
++displayed. The rest is the metadata associated with the blob resource. The
++format MUST be one of \field{enum virtio_gpu_formats}.
++
++\item[VIRTIO_GPU_CMD_SCANOUT_FLUSH] flushes a portion of the scanout surfa=
+ce
++to the display. The request data is \field{struct virtio_gpu_scanout_flush=
+}.
++
++Support is optional and negotiated using the VIRTIO_GPU_F_RESOURCE_BLOB
++feature flag.
 +
 +\begin{lstlisting}
-+#define VIRTIO_MEM_STATE_PLUGGED        0
-+#define VIRTIO_MEM_STATE_UNPLUGGED      1
-+#define VIRTIO_MEM_STATE_MIXED          2
++struct virtio_gpu_scanout_flush {
++      struct virtio_gpu_ctrl_hdr hdr;
++      struct virtio_gpu_rect r;
++      le32 scanout_id;
++      le32 padding;
++};
 +\end{lstlisting}
 +
-+\drivernormative{\paragraph}{STATE request}{Device Types / Memory Device /=
- Device Operation / STATE request}
++The rectangle \field{r} represents the portion of the scanout surface that=
+ has
++damage and needs to be updated.
 +
-+The driver MUST ignore anything except the response type and the
-+request-specific data in a response.
-+
-+The driver MUST ignore the request-specific data in a response in case the
-+response type is not VIRTIO_MEM_RESP_ACK.
-+
-+\devicenormative{\paragraph}{STATE request}{Device Types / Memory Device /=
- Device Operation / STATE request}
-+
-+The device MUST ignore anything except the request type and the
-+request-specific data in a request.
-+
-+The device MUST ignore the \field{padding} in the request-specific data in
-+a request.
-+
-+The device MUST reject requests with VIRTIO_MEM_RESP_ERROR if \field{addr}
-+is not aligned to the \field{block_size} in the device configuration, if
-+\field{nb_blocks} is not greater than 0, or if any memory block outside of
-+the usable device-managed memory region is covered by the request.
-+
-+The device MUST acknowledge requests with VIRTIO_MEM_RESP_ACK, supplying
-+the state of the memory blocks.
-+
-+The device MUST set the state type in the response to
-+VIRTIO_MEM_STATE_PLUGGED if all requested memory blocks are plugged.  The
-+device MUST set the state type in the response to
-+VIRTIO_MEM_STATE_UNPLUGGED if all requested memory blocks are unplugged.
-+Otherwise, the device MUST set state type in the response to
-+VIRTIO_MEM_STATE_MIXED.
+ \end{description}
+=20
+ \subsubsection{Device Operation: controlq (3d)}\label{sec:Device Types / G=
+PU Device / Device Operation / Device Operation: controlq (3d)}
 --=20
-2.25.4
+2.24.1
 
 
 This publicly archived list offers a means to provide input to the
