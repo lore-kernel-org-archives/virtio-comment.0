@@ -1,47 +1,46 @@
-Return-Path: virtio-comment-return-1258-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1220-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 67A9698605F
-	for <virtio-comment@lists.oasis-open.org>; Fri, 15 May 2020 22:13:00 +0000 (UTC)
+From: Alexander Duyck <alexander.duyck@gmail.com>
+Date: Fri, 08 May 2020 10:16:14 -0700
+Message-ID: <158895811782.529821.115832709184722087.stgit@ahduyck-workstation>
 MIME-Version: 1.0
-References: <20200513231319.1169-1-gurchetansingh@chromium.org> <20200515104250.zvt3it4bgqp3avdh@sirius.home.kraxel.org>
-In-Reply-To: <20200515104250.zvt3it4bgqp3avdh@sirius.home.kraxel.org>
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Fri, 15 May 2020 15:12:43 -0700
-Message-ID: <CAAfnVBkZqp0eH=RVHbt4RL=dChKVBaDX3YVPAFDituS0=Ch6kA@mail.gmail.com>
-Subject: [virtio-comment] Re: [RFC PATCH v3 1/2] virtio-gpu: add resource create blob
-Content-Type: text/plain; charset="UTF-8"
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Chia-I Wu <olvaffe@gmail.com>, =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>
+Subject: [virtio-comment] [PATCH 0/3] virtio-spec: Add documentation for recently added balloon
+ features
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: virtio-comment@lists.oasis-open.org, mst@redhat.com, david@redhat.com, cohuck@redhat.com
+Cc: virtio-dev@lists.oasis-open.org, wei.w.wang@intel.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, May 15, 2020 at 3:42 AM Gerd Hoffmann <kraxel@redhat.com> wrote:
->
->   Hi,
->
-> > +\field{blob_mem} can only be VIRTIO_GPU_BLOB_MEM_HOST3D and
-> > +VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST if VIRTIO_GPU_F_VIRGL is supported.
-> > +VIRTIO_GPU_BLOB_MEM_GUEST is valid regardless whether VIRTIO_GPU_F_VIRGL
-> > +is supported or not.
->
-> Would it be useful to explicitly announce which VIRTIO_GPU_BLOB_MEM*
-> variants are supported instead of having implicit rules?  Using a
-> config space field for example?
+This patch set is meant to add documentation for balloon features that have
+been recently added to the Linux kernel[1,2] and that we are currently
+working on adding to QEMU[3].
 
-In 2D mode, I don't think anybody is going to advertise support
-VIRTIO_GPU_BLOB_MEM_HOST3D / VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST.  I'm
-thinking we can just have various checks in the kernel and write in
-the spec, like the current model.
+Changes since RFC:
+Incorporated suggestions from Cornelia Huck
+Fixed a few additional spelling errors
 
-https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/virtio/virtgpu_ioctl.c#L238
+[1]: https://lore.kernel.org/lkml/20200211224416.29318.44077.stgit@localhost.localdomain/
+[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b0c504f154718904ae49349147e3b7e6ae91ffdc
+[3]: https://lists.oasis-open.org/archives/virtio-dev/202004/msg00180.html
 
-> cheers,
->   Gerd
->
+---
+
+Alexander Duyck (3):
+      content: Document balloon feature free page hints
+      content: Document balloon feature page poison
+      content: Document balloon feature free page reporting
+
+
+ content.tex |  248 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 242 insertions(+), 6 deletions(-)
+
+--
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
