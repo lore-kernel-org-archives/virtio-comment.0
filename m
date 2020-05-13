@@ -1,82 +1,59 @@
-Return-Path: virtio-comment-return-1250-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1237-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3F10C98605D
-	for <virtio-comment@lists.oasis-open.org>; Fri, 15 May 2020 17:08:19 +0000 (UTC)
-References: <158895811782.529821.115832709184722087.stgit@ahduyck-workstation>
- <20200511143823.14d7398e.cohuck@redhat.com>
- <3f1e5c3e-03ce-bb32-e5a7-4be381477754@redhat.com>
- <CAKgT0Ucozsxkuuf5EujKciNh7BiFNxSpc7LcYC-+f-dNuJM5jg@mail.gmail.com>
-From: David Hildenbrand <david@redhat.com>
-Message-ID: <9e9bebc9-634b-9f86-4724-536c9587feff@redhat.com>
-Date: Fri, 15 May 2020 19:08:06 +0200
+References: <20200317192053.15665-1-peter.hilber@opensynergy.com>
+ <20200424085114.9129-1-peter.hilber@opensynergy.com>
+From: Peter Hilber <peter.hilber@opensynergy.com>
+Message-ID: <d0034b91-8f8a-3316-b67f-4e5abde73629@opensynergy.com>
+Date: Wed, 13 May 2020 12:48:20 +0200
 MIME-Version: 1.0
-In-Reply-To: <CAKgT0Ucozsxkuuf5EujKciNh7BiFNxSpc7LcYC-+f-dNuJM5jg@mail.gmail.com>
+In-Reply-To: <20200424085114.9129-1-peter.hilber@opensynergy.com>
 Content-Language: en-US
-Subject: [virtio-comment] Re: [PATCH 0/3] virtio-spec: Add documentation for recently added
- balloon features
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-To: Alexander Duyck <alexander.duyck@gmail.com>
-Cc: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>, virtio-dev@lists.oasis-open.org, "Wang, Wei W" <wei.w.wang@intel.com>
+Subject: [virtio-comment] Re: [PATCH v4] Add virtio SCMI device specification
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
+Cc: linux-arm-kernel@lists.infradead.org, Souvik.Chakravarty@arm.com, Sudeep.Holla@arm.com, virtio-dev@lists.oasis-open.org, alex.bennee@linaro.org, jean-philippe@linaro.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 15.05.20 19:06, Alexander Duyck wrote:
-> On Mon, May 11, 2020 at 5:44 AM David Hildenbrand <david@redhat.com> wrote:
->>
->> On 11.05.20 14:38, Cornelia Huck wrote:
->>> On Fri, 08 May 2020 10:16:14 -0700
->>> Alexander Duyck <alexander.duyck@gmail.com> wrote:
->>>
->>>> This patch set is meant to add documentation for balloon features that have
->>>> been recently added to the Linux kernel[1,2] and that we are currently
->>>> working on adding to QEMU[3].
->>>>
->>>> Changes since RFC:
->>>> Incorporated suggestions from Cornelia Huck
->>>> Fixed a few additional spelling errors
->>>>
->>>> [1]: https://lore.kernel.org/lkml/20200211224416.29318.44077.stgit@localhost.localdomain/
->>>> [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b0c504f154718904ae49349147e3b7e6ae91ffdc
->>>> [3]: https://lists.oasis-open.org/archives/virtio-dev/202004/msg00180.html
->>>>
->>>> ---
->>>>
->>>> Alexander Duyck (3):
->>>>       content: Document balloon feature free page hints
->>>>       content: Document balloon feature page poison
->>>>       content: Document balloon feature free page reporting
->>>>
->>>>
->>>>  content.tex |  248 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
->>>>  1 file changed, 242 insertions(+), 6 deletions(-)
->>>>
->>>> --
->>>>
->>>
->>> I think this has moved a lot into the right direction; but the patches
->>> would really benefit from review by someone more familiar with the
->>> balloon than me.
->>
->> On my list, will have a look this week.
-> 
-> Any ETA on when you might be able to get to that review? I'm just
-> considering if I should submit v2 with your tweak and the suggestions
-> from Cornelia or if I should wait for your feedback.
+On 24.04.20 10:51, Peter Hilber wrote:
+> This patch proposes a new virtio device for the Arm SCMI protocol.
+>=20
+> The device provides a simple transport for the Arm SCMI protocol[1]. The
+> *S*ystem *C*ontrol and *M*anagement *I*nterface protocol allows speaking
+> to system controllers that allow orchestrating things like power
+> management, system state management and sensor access. The SCMI protocol
+> is used on SoCs where multiple cores and co-processors need access to
+> these resources.
+>=20
+> The virtio transport allows making use of this protocol in virtualized
+> systems.
+>=20
+> [1] https://developer.arm.com/docs/den0056/b
+>=20
+> Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
+> ---
+>=20
+> Notes:
+>     Changes for v4:
+>    =20
+>     - Add more requirements on shared memory regions after feedback from
+>       Alex Benn=C3=A9e.
 
-I wanted to do it today but got distracted by other stuff :(
+I had an off-list discussion about concurrent access to SCMI shared
+memory regions with the Arm SCMI spec[1] maintainer yesterday. An
+upcoming new version of the Arm SCMI spec will provide a generic, more
+powerful way to handle concurrent access to shared memory.
 
-Please send a v2, high prio for early next week, thanks!
+Therefore, I plan to again drop the requirements introduced in v4 in the
+upcoming virtio SCMI spec patch v5.
 
--- 
-Thanks,
+Best regards,
 
-David / dhildenb
-
+Peter
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -90,7 +67,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
