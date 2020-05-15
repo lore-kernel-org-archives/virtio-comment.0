@@ -1,110 +1,95 @@
-Return-Path: virtio-comment-return-1242-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1243-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D5A62986036
-	for <virtio-comment@lists.oasis-open.org>; Thu, 14 May 2020 22:41:32 +0000 (UTC)
-MIME-Version: 1.0
+	by lists.oasis-open.org (Postfix) with ESMTP id 22F51986048
+	for <virtio-comment@lists.oasis-open.org>; Fri, 15 May 2020 10:38:55 +0000 (UTC)
+Date: Fri, 15 May 2020 12:38:48 +0200
+From: Gerd Hoffmann <kraxel@redhat.com>
+Message-ID: <20200515103848.cabaudxhbjxbxbsg@sirius.home.kraxel.org>
 References: <20200507232436.1540-1-gurchetansingh@chromium.org>
- <20200512122220.znxa47meycvkc6j5@sirius.home.kraxel.org> <CAAfnVBkMS-_zQ8Cv5Di71z1bQtT54JUNPYMAyPm8d=G969=MUw@mail.gmail.com>
- <20200513070344.lygzol7xohxzb4y3@sirius.home.kraxel.org> <CAAfnVBkYTDPJMpuX8KrvdJ-FSEwWXpN3J_UjZYjS076fjyk8dg@mail.gmail.com>
+ <20200512122220.znxa47meycvkc6j5@sirius.home.kraxel.org>
+ <CAAfnVBkMS-_zQ8Cv5Di71z1bQtT54JUNPYMAyPm8d=G969=MUw@mail.gmail.com>
+ <20200513070344.lygzol7xohxzb4y3@sirius.home.kraxel.org>
+ <CAAfnVBkYTDPJMpuX8KrvdJ-FSEwWXpN3J_UjZYjS076fjyk8dg@mail.gmail.com>
  <20200514082449.gg2u6ltixbvmtplp@sirius.home.kraxel.org>
-In-Reply-To: <20200514082449.gg2u6ltixbvmtplp@sirius.home.kraxel.org>
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Thu, 14 May 2020 15:41:17 -0700
-Message-ID: <CAAfnVB=XaPrHzONdGY2KEvDSXNHBxSJevmGDVmU8btJgOJjruQ@mail.gmail.com>
+ <CAAfnVB=XaPrHzONdGY2KEvDSXNHBxSJevmGDVmU8btJgOJjruQ@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAAfnVB=XaPrHzONdGY2KEvDSXNHBxSJevmGDVmU8btJgOJjruQ@mail.gmail.com>
 Subject: [virtio-comment] Re: [RFC PATCH v2 1/2] virtio-gpu: add resource create blob
-Content-Type: text/plain; charset="UTF-8"
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Chia-I Wu <olvaffe@gmail.com>, =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Gurchetan Singh <gurchetansingh@chromium.org>
+Cc: virtio-comment@lists.oasis-open.org, Chia-I Wu <olvaffe@gmail.com>, =?utf-8?B?U3TDqXBoYW5l?= Marchesin <marcheu@chromium.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, May 14, 2020 at 1:24 AM Gerd Hoffmann <kraxel@redhat.com> wrote:
->
->   Hi,
->
-> > Cool.  I left out SCANOUT_FLUSH in v3 since AFAICT we'll only have one
-> > blob resource per scanout, and that blob resource will encompass the
-> > entire window (since we set_scanout when display parameters change).
-> > And to update the scanout blob resource, we can just call
-> > RESOURCE_FLUSH.
->
-> Hmm, right, using the SET_SCANOUT parameters in case of BLOB resources
-> should work.
+> v3 only allows VIRTIO_GPU_BLOB_MEM_GUEST for dumb blob resources,
+> which implies we won't really use TRANSFER_BLOB.
+> 
+> Currently, the path seems to be:
+> 
+> SET_SCANOUT
+> TRANSFER_TO_HOST_2D --> copies from iovecs to host private resource
+> RESOURCE_FLUSH_BLOB --> copies from host private resource to framebuffer
 
-Ok, so removing SCANOUT_FLUSH makes sense.
+Yes.
 
->
-> > Though SCANOUT_FLUSH does make sense if you want multiple blob
-> > resources per scanout surface, so if there's a desire for some
-> > additional functionality, LMK.
->
-> Other way around: one big framebuffer/resource backing multiple
-> scanouts.
->
-> xorg used to handle multihead setups that way, but these days it is
-> rather uncommon.  Typically userspace creates one drm framebuffer
-> per drm crtc.  So, yes, I guess we don't have to worry much.
->
-> > Also, TRANSFER_BLOB is also another maintenance vs. future proofing
-> > tradeoff -- for example, emulated coherent memory[1] (for platforms
-> > without the host-visible region or external memory extensions or
-> > shared guest) may benefit from such an API.  However, the
-> > implementation of that doesn't exist and may not for a while (focusing
-> > on true zero copy for now), and the virglrenderer impl of the
-> > hypercall will likely just be a stub for now.  So if that's
-> > undesirable, LMK.
->
-> Implies the linux kernel can't use blob resources for dumb BOs in
-> case shared memory isn't available,
+> A theoretical display update path would be for dumb BOs without shared
+> mappings would be:
+> 
+> SET_SCANOUT_BLOB
+> RESOURCE_FLUSH_BLOB --> copies from iovecs to framebuffer
+> 
+> That should work with crosvm, you might want to verify if it's doable with QEMU.
 
-v3 only allows VIRTIO_GPU_BLOB_MEM_GUEST for dumb blob resources,
-which implies we won't really use TRANSFER_BLOB.
+I think qemu can handle it.  With udmabuf qemu can simply mmap() the
+resource, create a pixman image, then run with it.  Without udmabuf
+it'll be a bit more complicated because we can't offload most work to
+pixman then, but should still be doable.  Qemu could also choose to
+allow blob resources only in case udmabuf is available to avoid handling
+that.  So no blockers here.
 
-Currently, the path seems to be:
+> One possiblity is to only use dumb blob resources in virtio-gpu kms
+> when shared guest is available rather than refactoring that code,
 
-SET_SCANOUT
-TRANSFER_TO_HOST_2D --> copies from iovecs to host private resource
-RESOURCE_FLUSH_BLOB --> copies from host private resource to framebuffer
+I think this makes sense.
 
-A theoretical display update path would be for dumb BOs without shared
-mappings would be:
+> > same goes for dma-buf imports (inside the guest).
+> 
+> dma-buf import from another virtio driver is very interesting, but
+> we'll probably need a some import UUID hypercall for that?
 
-SET_SCANOUT_BLOB
-RESOURCE_FLUSH_BLOB --> copies from iovecs to framebuffer
+No, just dma-buf import from somewhere, say a gpu passed to the guest
+via pci pass-through does the rendering to a dma-buf and that dmabuf
+gets imported into virtio-gpu for display in a host window.
 
-That should work with crosvm, you might want to verify if it's doable with QEMU.
+That'll requires BLOB resources to work, because we have to create a
+guest bo (and virtio resource) without knowning what format the guest
+wants to use to scanout the thing.
 
-QEMU seems to have multiple dumb display paths --
-qemu_spice_display_update, sdl2_2d_update.  One possiblity is to only
-use dumb blob resources in virtio-gpu kms when shared guest is
-available rather than refactoring that code, or maybe you have
-something else in mind?
+We may likewise allow that only in case shared guest is available.
 
-> same goes for dma-buf imports (inside the guest).
+> Though TRANSFER_BLOB can be useful.  I can see the following use cases:
+> 
+> - implementing guest kernel dma-buf mmap and synchronization
+> (begin_cpu_access/end_cpu_access).  Currently, it doesn't work but no
+> guest user-space relies on it, so no one has noticed/complained.
+> - emulated coherent memory
+> 
+> It sounds like you think TRANSFER_BLOB is worth the maintenance vs.
+> future proofing tradeoff, which is fair.
 
-dma-buf import from another virtio driver is very interesting, but
-we'll probably need a some import UUID hypercall for that?  Maybe a
-bit too expansive for F_RESOURCE_BLOB at this point.
+We can leave it out for now and see if we'll need it at some point in
+the future.  One point of adding blob resources is to allow shared
+mappings, so maybe it wouldn't be used. There is also the option to
+fallback to traditional resources ...
 
-Though TRANSFER_BLOB can be useful.  I can see the following use cases:
+cheers,
+  Gerd
 
-- implementing guest kernel dma-buf mmap and synchronization
-(begin_cpu_access/end_cpu_access).  Currently, it doesn't work but no
-guest user-space relies on it, so no one has noticed/complained.
-- emulated coherent memory
-
-It sounds like you think TRANSFER_BLOB is worth the maintenance vs.
-future proofing tradeoff, which is fair.  I just want to make sure
-we're all on the same page in terms of use cases.
-
->
-> cheers,
->   Gerd
->
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
