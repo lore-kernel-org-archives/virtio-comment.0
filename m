@@ -1,245 +1,173 @@
-Return-Path: virtio-comment-return-1298-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1262-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-From: Alexander Duyck <alexander.duyck@gmail.com>
-Date: Tue, 26 May 2020 21:07:02 -0700
-Message-ID: 
- <159055242270.209072.15091766786309829161.stgit@ahduyck-workstation>
-In-Reply-To: 
- <159055235065.209072.12017445428967301686.stgit@ahduyck-workstation>
-References: 
- <159055235065.209072.12017445428967301686.stgit@ahduyck-workstation>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 6385F985F3B
+	for <virtio-comment@lists.oasis-open.org>; Mon, 18 May 2020 18:46:34 +0000 (UTC)
+From: Gurchetan Singh <gurchetansingh@chromium.org>
+Date: Mon, 18 May 2020 11:46:28 -0700
+Message-Id: <20200518184629.684-1-gurchetansingh@chromium.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH v4 3/3] content: Document balloon feature free page hints
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-To: mst@redhat.com, david@redhat.com, cohuck@redhat.com
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, wei.w.wang@intel.com
+Subject: [virtio-comment] [RFC PATCH v4 1/2] virtio-gpu: add resource create blob
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
+Cc: kraxel@redhat.com, olvaffe@gmail.com, marcheu@chromium.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+Blob resources are size-based containers for host, guest, or
+host+guest allocations.  These resources are designed with
+mulit-process 3D support in mind, but also usable in virtio-gpu 2d
+with guest memory.
 
-Free page hints allow the balloon driver to provide information on what
-pages are not currently in use so that we can avoid the cost of copying
-them in migration scenarios. Add a feature description for free page hints
-describing basic functioning and requirements.
+Many hypercalls are reused, since a image view into the blob resource
+is possible.
 
-In working on this the specification as pointed out certain issues with the
-Linux driver and QEMU device implementation. The issues include:
-1. The Linux driver does not re-initialize pages when it reuses them
-before receiving the "DONE" command, as such this can lead to possible data
-corruption.
-2. The QEMU device is not returning the "DONE" command if a migration
-fails. This results in the guest holding onto pages until forced out by the
-shrinker.
+Blob resources are both forward and backward looking.
 
-There are also additional issues that have been found not related to the
-specification.
+v2: Add TRANSFER_BLOB, SET_SCANOUT_BLOB, SCANOUT_FLUSH
+v3: Remove SCANOUT_FLUSH and add notes
+v4: Remove TRANSFER_BLOB for now.
 
-There is currently discussion on if the feature should be removed so this
-patch is a place-holder for if we decide to keep the feature and fix the
-issues. Otherwise this patch can be dropped and we can work on a patch to
-document the need to avoid the feature.
-
-Signed-off-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
 ---
- conformance.tex |    2 +
- content.tex     |  125 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 127 insertions(+)
+ virtio-gpu.tex | 95 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 95 insertions(+)
 
-diff --git a/conformance.tex b/conformance.tex
-index 18a5a94a72aa..5496a25e93ef 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -149,6 +149,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{drivernormative:Device Types / Memory Balloon Device / Feature bits}
- \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation}
- \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Memory Statistics}
-+\item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
- \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Page Poison}
- \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
- \end{itemize}
-@@ -333,6 +334,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{devicenormative:Device Types / Memory Balloon Device / Feature bits}
- \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation}
- \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Memory Statistics}
-+\item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
- \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Page Poison}
- \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
- \end{itemize}
-diff --git a/content.tex b/content.tex
-index 403651d1413b..a3a9c13516fd 100644
---- a/content.tex
-+++ b/content.tex
-@@ -5006,11 +5006,14 @@ \subsection{Virtqueues}\label{sec:Device Types / Memory Balloon Device / Virtque
- \item[0] inflateq
- \item[1] deflateq
- \item[2] statsq
-+\item[3] free_page_vq
- \item[4] reporting_vq
+diff --git a/virtio-gpu.tex b/virtio-gpu.tex
+index e70532f..97f7865 100644
+--- a/virtio-gpu.tex
++++ b/virtio-gpu.tex
+@@ -36,6 +36,7 @@ \subsection{Feature bits}\label{sec:Device Types / GPU De=
+vice / Feature bits}
+ \item[VIRTIO_GPU_F_VIRGL (0)] virgl 3D mode is supported.
+ \item[VIRTIO_GPU_F_EDID  (1)] EDID is supported.
+ \item[VIRTIO_GPU_F_RESOURCE_UUID (2)] assigning resources UUIDs for export=
+ to other virtio devices is supported.
++\item[VIRTIO_GPU_F_RESOURCE_BLOB (3)] creating and using size-based blob r=
+esources is supported.
  \end{description}
- 
-   statsq only exists if VIRTIO_BALLOON_F_STATS_VQ is set.
- 
-+  free_page_vq only exists if VIRTIO_BALLOON_F_FREE_PAGE_HINT is set.
+=20
+ \subsection{Device configuration layout}\label{sec:Device Types / GPU Devi=
+ce / Device configuration layout}
+@@ -188,6 +189,8 @@ \subsubsection{Device Operation: Request header}\label{=
+sec:Device Types / GPU De
+         VIRTIO_GPU_CMD_GET_CAPSET,
+         VIRTIO_GPU_CMD_GET_EDID,
+         VIRTIO_GPU_CMD_RESOURCE_ASSIGN_UUID,
++        VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB,
++        VIRTIO_GPU_CMD_SET_SCANOUT_BLOB,
+=20
+         /* 3d commands (OpenGL) */
+         VIRTIO_GPU_CMD_CTX_CREATE =3D 0x0200,
+@@ -498,6 +501,98 @@ \subsubsection{Device Operation: controlq}\label{sec:D=
+evice Types / GPU Device /
+ other devices are not visible in the attached backing until they are trans=
+ferred
+ into the backing.
+=20
++\item[VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB] Creates a virtio-gpu blob
++  resource. Request data is \field{struct
++  virtio_gpu_resource_create_blob}, followed by \field{struct
++  virtio_gpu_mem_entry} entries. Response type is
++  VIRTIO_GPU_RESP_OK_NODATA. Support is optional and negotiated
++  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag.
 +
-   reporting_vq only exists if VIRTIO_BALLOON_F_PAGE_REPORTING is set.
- 
- \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Feature bits}
-@@ -5022,6 +5025,10 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
-     memory statistics is present.
- \item[VIRTIO_BALLOON_F_DEFLATE_ON_OOM (2) ] Deflate balloon on
-     guest out of memory condition.
-+\item[ VIRTIO_BALLOON_F_FREE_PAGE_HINT(3) ] The device has support for free
-+    page hinting. A virtqueue for providing hints as to what memory is
-+    currently free is present. Configuration field \field{free_page_hint_cmd_id}
-+    is valid.
- \item[ VIRTIO_BALLOON_F_PAGE_POISON(4) ] A hint to the device, that the driver
-     will immediately write \field{poison_val} to pages after deflating them.
-     Configuration field \field{poison_val} is valid.
-@@ -5060,6 +5067,10 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
- \subsection{Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device configuration layout}
-   \field{num_pages} and \field{actual} are always available.
- 
-+  \field{free_page_hint_cmd_id} is available if
-+    VIRTIO_BALLOON_F_FREE_PAGE_HINT has been negotiated and is read-only by
-+    the driver.
++\begin{lstlisting}
++#define VIRTIO_GPU_BLOB_MEM_GUEST             0x0001
++#define VIRTIO_GPU_BLOB_MEM_HOST3D            0x0002
++#define VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST      0x0003
 +
-   \field{poison_val} is available if VIRTIO_BALLOON_F_PAGE_POISON has been
-     negotiated.
- 
-@@ -5094,6 +5105,9 @@ \subsection{Device Initialization}\label{sec:Device Types / Memory Balloon Devic
-   \item Add one empty buffer to the stats virtqueue.
-   \end{enumerate}
- 
-+\item If the VIRTIO_BALLOON_F_FREE_PAGE_HINT feature bit is negotiated, the
-+  free_page_vq is identified.
++#define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
++#define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
++#define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
 +
- \item If the VIRTIO_BALLOON_F_PAGE_POISON feature bit is negotiated, the
-   driver updates the \field{poison_val} configuration field.
- 
-@@ -5377,6 +5391,117 @@ \subsubsection{Memory Statistics Tags}\label{sec:Device Types / Memory Balloon D
-   allocations in the guest.
++struct virtio_gpu_resource_create_blob {
++       struct virtio_gpu_ctrl_hdr hdr;
++       le32 resource_id;
++       le32 blob_mem;
++       le32 blob_flags;
++       le32 nr_entries;
++       le64 blob_id;
++       le64 size;
++};
++
++\end{lstlisting}
++
++A blob resource is a container for:
++
++  \begin{itemize*}
++  \item a guest memory allocation (referred to as a
++  "guest-only blob resource").
++  \item a host memory allocation (referred to as a
++  "host-only blob resource").
++  \item a guest memory and host memory allocation (referred
++  to as a "default blob resource").
++  \end{itemize*}
++
++The memory properties of the blob resource MUST be described by
++\field{blob_mem}, which MUST be non-zero.
++
++For default and guest-only blob resources, \field{nents} guest
++system pages are assigned to the resource.  For default blob resources
++(i.e, when \field{blob_mem} is VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST), these
++guest pages are used as a shadow buffer for the host memory.
++
++\field{blob_mem} can only be VIRTIO_GPU_BLOB_MEM_HOST3D and
++VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST if VIRTIO_GPU_F_VIRGL is supported.
++VIRTIO_GPU_BLOB_MEM_GUEST is valid regardless whether VIRTIO_GPU_F_VIRGL
++is supported or not.
++
++For VIRTIO_GPU_BLOB_MEM_HOST3D and VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST, the
++virtio-gpu resource MUST be created from the rendering context local objec=
+t
++identified by the \field{blob_id}. The actual allocation is done via
++VIRTIO_GPU_CMD_SUBMIT_3D.
++
++The driver MUST inform the device if the blob resource is used for
++memory access, sharing between driver instances and/or sharing with
++other devices. This is done via the \field{blob_flags} field.
++
++If VIRTIO_GPU_F_VIRGL is set, both VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D
++and VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D may be used to update the
++resource. There is no restriction on the image/buffer view the driver
++has on the blob resource.
++
++\item[VIRTIO_GPU_CMD_SET_SCANOUT_BLOB] sets scanout parameters for a
++   blob resource. Request data is
++  \field{struct virtio_gpu_set_scanout_blob}. Response type is
++  VIRTIO_GPU_RESP_OK_NODATA. Support is optional and negotiated
++  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag.
++
++\begin{lstlisting}
++struct virtio_gpu_set_scanout_blob {
++       struct virtio_gpu_ctrl_hdr hdr;
++       struct virtio_gpu_rect r;
++       le32 scanout_id;
++       le32 resource_id;
++       le32 width;
++       le32 height;
++       le32 format;
++       le32 padding;
++       le32 strides[4];
++       le32 offsets[4];
++};
++\end{lstlisting}
++
++The rectangle \field{r} represents the portion of the blob resource being
++displayed. The rest is the metadata associated with the blob resource. The
++format MUST be one of \field{enum virtio_gpu_formats}.  The format MAY be
++compressed with header and data planes.
++
  \end{description}
- 
-+\subsubsection{Free Page Hinting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
-+
-+Free page hinting is designed to be used during migration to determine what
-+pages within the guest are currently unused so that they can be skipped over
-+while migrating the guest. The device will indicate that it is ready to start
-+performing hinting by setting the \field{free_page_hint_cmd_id} to one of the
-+non-reserved values that can be used as a command ID. The following values
-+are reserved:
-+
-+\begin{description}
-+\item[VIRTIO_BALLOON_CMD_ID_STOP (0)] Any command ID previously supplied by
-+  the device is invalid. The driver should stop hinting free pages until a
-+  new command ID is supplied, but should not release any hinted pages for
-+  use by the guest.
-+
-+\item[VIRTIO_BALLOON_CMD_ID_DONE (1)] Any command ID previously supplied by
-+  the device is invalid. The driver should stop hinting free pages, and
-+  should release all hinted pages for use by the guest.
-+\end{description}
-+
-+A request for free page hinting proceeds as follows:
-+
-+\begin{enumerate}
-+
-+\item The driver examines the \field{free_page_hint_cmd_id} configuration field.
-+  If it contains a non-reserved value then free page hinting will begin.
-+
-+\item To supply free page hints:
-+  \begin{enumerate}
-+  \item The driver constructs an output descriptor containing the new value
-+    from the \field{free_page_hint_cmd_id} configuration field and adds it to
-+    the free_page_hint_vq.
-+  \item The driver maps a series of pages and adds them to the
-+    free_page_hint_vq as individual scatter-gather input descriptor entries.
-+  \item When the driver is no longer able to fetch additional pages to add
-+    to the free_page_hint_vq, it will construct an output descriptor
-+    containing the command ID VIRTIO_BALLOON_CMD_ID_STOP.
-+  \end{enumerate}
-+
-+\item A round of hinting ends either when the driver is no longer able to
-+  supply more pages for hinting as described above, or when the device
-+  updates \field{free_page_hint_cmd_id} configuration field to contain either
-+  VIRTIO_BALLOON_CMD_ID_STOP or VIRTIO_BALLOON_CMD_ID_DONE.
-+
-+\item The device may follow VIRTIO_BALLOON_CMD_ID_STOP with a new
-+  non-reserved value for the \field{free_page_hint_cmd_id} configuration
-+  field in which case it will resume supplying free page hints.
-+
-+\item Otherwise, if the device provides VIRTIO_BALLOON_CMD_ID_DONE then
-+  hinting is complete and the driver may release all previously hinted
-+  pages for use by the guest.
-+
-+\end{enumerate}
-+
-+\drivernormative{\paragraph}{Free Page Hinting}{Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
-+
-+Normative statements in this section apply if the
-+VIRTIO_BALLOON_F_FREE_PAGE_HINT feature has been negotiated.
-+
-+The driver SHOULD supply pages to the free page hints when
-+\field{free_page_hint_cmd_id} reports a value of 2 or greater.
-+
-+The driver MUST start hinting by providing an output descriptor
-+containing the current command ID for the given block of pages.
-+
-+The driver SHOULD stop supplying pages for hinting when
-+\field{free_page_hint_cmd_id} reports a value of VIRTIO_BALLOON_CMD_ID_STOP.
-+
-+If the driver is unable to supply pages, it MUST complete hinting by adding
-+an output descriptor containing the command ID VIRTIO_BALLOON_CMD_ID_STOP.
-+
-+The driver MAY release hinted pages for use by the guest including when the
-+device has not yet used the descriptor containing the hinting request.
-+
-+The driver MUST treat the content of all hinted pages as uninitialized
-+memory.
-+
-+The driver MUST initialize the contents of any previously hinted page
-+released before \field{free_page_hint_cmd_id} reports a value of
-+VIRTIO_BALLOON_CMD_ID_DONE.
-+
-+The driver SHOULD release all previously hinted pages for use by the guest
-+once \field{free_page_hint_cmd_id} reports a value of
-+VIRTIO_BALLOON_CMD_ID_DONE.
-+
-+\devicenormative{\paragraph}{Free Page Hinting}{Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
-+
-+Normative statements in this section apply if the
-+VIRTIO_BALLOON_F_FREE_PAGE_HINT feature has been negotiated.
-+
-+The device MUST set \field{free_page_hint_cmd_id} to
-+VIRTIO_BALLOON_CMD_ID_STOP any time that the dirty pages for the given
-+guest are being recorded.
-+
-+The device MUST NOT reuse a command ID until it has received an output
-+descriptor containing VIRTIO_BALLOON_CMD_ID_STOP from the driver.
-+
-+The device MUST ignore pages that are provided with a command ID that does
-+not match the current value in \field{free_page_hint_cmd_id}.
-+
-+If the content of a previously hinted page has not been modified by the
-+guest since the device issued the \field{free_page_hint_cmd_id} associated
-+with the hint, the device MAY modify the contents of the page.
-+
-+The device MUST NOT modify the content of a previously hinted page after
-+\field{free_page_hint_cmd_id} is set to VIRTIO_BALLOON_CMD_ID_DONE.
-+
-+The device MUST report a value of VIRTIO_BALLOON_CMD_ID_DONE in
-+\field{free_page_hint_cmd_id} when it no longer has need for the
-+previously hinted pages.
-+
- \subsubsection{Page Poison}\label{sec:Device Types / Memory Balloon Device / Device Operation / Page Poison}
- 
- Page Poison provides a way to notify the host that the guest is initializing
-
+=20
+ \subsubsection{Device Operation: controlq (3d)}\label{sec:Device Types / G=
+PU Device / Device Operation / Device Operation: controlq (3d)}
+--=20
+2.26.2.761.g0e0b3e54be-goog
 
 
 This publicly archived list offers a means to provide input to the
@@ -254,7 +182,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
