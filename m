@@ -1,58 +1,70 @@
-Return-Path: virtio-comment-return-1315-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1310-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DB35A98611F
-	for <virtio-comment@lists.oasis-open.org>; Fri, 12 Jun 2020 15:59:46 +0000 (UTC)
-From: "Huang, Yang" <yang.huang@intel.com>
-Date: Fri, 12 Jun 2020 15:59:40 +0000
-Message-ID: <CY4PR11MB189407E123EE20F8610D7BBF85810@CY4PR11MB1894.namprd11.prod.outlook.com>
-References: <87sgf0nvga.fsf@linaro.org>
-In-Reply-To: <87sgf0nvga.fsf@linaro.org>
-Content-Language: en-US
+	by lists.oasis-open.org (Postfix) with ESMTP id 066B0985E91
+	for <virtio-comment@lists.oasis-open.org>; Fri,  5 Jun 2020 21:43:00 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [virtio-comment] RE: Clarifying the language of VIRTIO_RPMB_REQ_PROGRAM_KEY
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-To: =?utf-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Cc: "Zhu, Bing" <bing.zhu@intel.com>, "Winkler, Tomas" <tomas.winkler@intel.com>
+References: <20200518184629.684-1-gurchetansingh@chromium.org> <20200528083421.lj5bmrrf2vtcxaac@sirius.home.kraxel.org>
+In-Reply-To: <20200528083421.lj5bmrrf2vtcxaac@sirius.home.kraxel.org>
+From: Gurchetan Singh <gurchetansingh@chromium.org>
+Date: Fri, 5 Jun 2020 14:42:44 -0700
+Message-ID: <CAAfnVBn9terg_qDt76_QKaofUvPHuS6N1S3Q4MyEzS0U+X9Uug@mail.gmail.com>
+Subject: [virtio-comment] Re: [RFC PATCH v4 1/2] virtio-gpu: add resource create blob
+Content-Type: text/plain; charset="UTF-8"
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, Chia-I Wu <olvaffe@gmail.com>, =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-PiAgIEEgcHJvZ3JhbSBrZXkgb3Igd3JpdGUgcmVxdWVzdCBjYW4gYmUgZm9sbG93ZWQgYnkgYSBy
-ZXN1bHQgcmVhZA0KPiAoVklSVElPX1JQTUJfUkVRX1JFU1VMVF9SRUFEKSBmb3IgYSByZXR1cm5l
-ZCByZXN1bHQuDQo+IA0KPiBJcyB0aGF0IGlzIHdoYXQgaXMgaW50ZW5kZWQ/DQoNClllcy4NCg0K
-UlBNQiBSZWFkL0dldCBXcml0ZSBDb3VudGVyIGltcGxpY2l0bHkgcmVxdWVzdHMgZm9yIGEgcmVz
-dWx0LCBzbyB0aGF0IFZJUlRJT19SUE1CX1JFUV9SRVNVTFRfUkVBRCBpcyBub3QgcmVxdWlyZWQu
-DQpBY3R1YWxseSwgaXQncyBhbGlnbmVkIHdpdGggdGhlIEpFREVDIHNwZWMuDQoNCg0KPiAtLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IEJlbm7DqWUgPGFsZXguYmVubmVl
-QGxpbmFyby5vcmc+DQo+IFNlbnQ6IEZyaWRheSwgSnVuZSAxMiwgMjAyMCAxMTo0MSBQTQ0KPiBU
-bzogdmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gQ2M6IEh1YW5nLCBZYW5n
-IDx5YW5nLmh1YW5nQGludGVsLmNvbT47IFpodSwgQmluZyA8YmluZy56aHVAaW50ZWwuY29tPjsN
-Cj4gV2lua2xlciwgVG9tYXMgPHRvbWFzLndpbmtsZXJAaW50ZWwuY29tPg0KPiBTdWJqZWN0OiBD
-bGFyaWZ5aW5nIHRoZSBsYW5ndWFnZSBvZiBWSVJUSU9fUlBNQl9SRVFfUFJPR1JBTV9LRVkNCj4g
-DQo+IA0KPiBIaSwNCj4gDQo+IEluIHRoZSB2aXJ0aW8tcnBtYiBwYXJ0IG9mIHRoZSBzcGVjIGl0
-IHNheXM6DQo+IA0KPiAgIFRoZSBvcGVyYXRpb24gb2YgYSB2aXJ0aW8gUlBNQiBkZXZpY2UgaXMg
-ZHJpdmVuIGJ5IHRoZSByZXF1ZXN0cyBwbGFjZWQgb24gdGhlDQo+IHZpcnRxdWV1ZS4NCj4gICAg
-IFRoZSB0eXBlIG9mIHJlcXVlc3QgY2FuIGJlIHByb2dyYW0ga2V5IChWSVJUSU9fUlBNQl9SRVFf
-UFJPR1JBTV9LRVkpLA0KPiAgICAgZ2V0IHdyaXRlIGNvdW50ZXIgKFZJUlRJT19SUE1CX1JFUV9H
-RVRfV1JJVEVfQ09VTlRFUiksDQo+ICAgICB3cml0ZSAoVklSVElPX1JQTUJfUkVRX0RBVEFfV1JJ
-VEUpLCBhbmQgcmVhZA0KPiAoVklSVElPX1JQTUJfUkVRX0RBVEFfUkVBRCkuDQo+ICAgICBBIHBy
-b2dyYW0ga2V5IG9yIHdyaXRlIHJlcXVlc3QgY2FuIGFsc28gY29tYmluZSB3aXRoIGENCj4gICAg
-IHJlc3VsdCByZWFkIChWSVJUSU9fUlBNQl9SRVFfUkVTVUxUX1JFQUQpIGZvciBhIHJldHVybmVk
-IHJlc3VsdC4NCj4gDQo+IGJ1dCBsYXRlciBvbjoNCj4gDQo+ICAgVklSVElPX1JQTUJfUkVRX1JF
-U1VMVF9SRUFEDQo+ICAgICAgcmVxdWVzdHMgZm9yIGEgcmV0dXJuZWQgcmVzdWx0LiBJdCBpcyB1
-c2VkIGZvbGxvd2luZyB3aXRoDQo+IFZJUlRJT19SUE1CX1JFUV9QUk9HUkFNX0tFWSBvciBWSVJU
-SU9fUlBNQl9SRVFfREFUQV9XUklURQ0KPiByZXF1ZXN0IHR5cGVzIGZvciBhIHJldHVybmVkIHJl
-c3VsdCBpbiBvbmUgb3IgbXVsdGlwbGUgUlBNQiBmcmFtZXMuIElmIGl04oCZcyBub3QNCj4gcmVx
-dWVzdGVkLCB0aGUgZGV2aWNlIHdpbGwgbm90IHJldHVybiByZXN1bHQgZnJhbWUgdG8gdGhlIGRy
-aXZlci4NCj4gDQo+IFNvIHdoaWNoIGlzIGl0PyBJIGNhbid0IHF1aXRlIHNlZSBob3cgYSBWSVJU
-SU9fUlBNQl9SRVFfUkVTVUxUX1JFQUQgY2FuIGJlDQo+IGNvbWJpbmVkIHdpdGggdGhlIG90aGVy
-IHJlcXVlc3RzIGJlY2F1c2UgdGhleSBhcmUgbm90IG92ZXJsYXBwaW5nIGJpdHMgc28NCj4gbWF5
-YmUgdGhlIHdvcmtpbmcgc2hvdWxkIGJlOg0KPiANCj4gICBBIHByb2dyYW0ga2V5IG9yIHdyaXRl
-IHJlcXVlc3QgY2FuIGJlIGZvbGxvd2VkIGJ5IGEgcmVzdWx0IHJlYWQNCj4gKFZJUlRJT19SUE1C
-X1JFUV9SRVNVTFRfUkVBRCkgZm9yIGEgcmV0dXJuZWQgcmVzdWx0Lg0KPiANCj4gSXMgdGhhdCBp
-cyB3aGF0IGlzIGludGVuZGVkPw0KPiANCj4gLS0NCj4gQWxleCBCZW5uw6llDQo=
+On Thu, May 28, 2020 at 1:34 AM Gerd Hoffmann <kraxel@redhat.com> wrote:
+>
+> On Mon, May 18, 2020 at 11:46:28AM -0700, Gurchetan Singh wrote:
+> > Blob resources are size-based containers for host, guest, or
+> > host+guest allocations.  These resources are designed with
+> > mulit-process 3D support in mind, but also usable in virtio-gpu 2d
+> > with guest memory.
+> >
+> > Many hypercalls are reused, since a image view into the blob resource
+> > is possible.
+> >
+> > Blob resources are both forward and backward looking.
+> >
+> > v2: Add TRANSFER_BLOB, SET_SCANOUT_BLOB, SCANOUT_FLUSH
+> > v3: Remove SCANOUT_FLUSH and add notes
+> > v4: Remove TRANSFER_BLOB for now.
+> >
+> > Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
+>
+> Both patches look good to me.
+>
+> Acked-by: Gerd Hoffmann <kraxel@redhat.com>
+>
+> See .github/PULL_REQUEST_TEMPLATE.md (in the virtio-spec repo) for the
+> merge process.
+
+Thanks, will do after UUID patches land in virtio-spec / drm-misc-next!
+
+>
+> take care,
+>   Gerd
+>
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
