@@ -1,72 +1,145 @@
-Return-Path: virtio-comment-return-1324-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1311-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 346CF986131
-	for <virtio-comment@lists.oasis-open.org>; Fri, 19 Jun 2020 20:41:59 +0000 (UTC)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Fri, 19 Jun 2020 21:41:49 +0100
-Message-Id: <20200619204154.4585-1-alex.bennee@linaro.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id D0131985A3B
+	for <virtio-comment@lists.oasis-open.org>; Wed, 10 Jun 2020 01:12:18 +0000 (UTC)
+From: David Legault <dlegault@blackberry.com>
+Date: Wed, 10 Jun 2020 01:12:16 +0000
+Message-ID: <90CF2DB9-763A-44A7-917F-049C58C80947@blackberry.com>
+Content-Language: en-US
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH  v2 0/5] some tweaks to the document build process
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-To: virtio-comment@lists.oasis-open.org
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [virtio-comment] virtio-rpmb - Support NVMe frame specification
+Content-Type: multipart/alternative;
+	boundary="_000_90CF2DB9763A44A7917F049C58C80947blackberrycom_"
+To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hi,
+--_000_90CF2DB9763A44A7917F049C58C80947blackberrycom_
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"
 
-So this is a re-spin of the series I sent earlier this year. I cut out
-all the radical trimming of changelogs and automation of the version
-stuff. You can still do a local build which will annotate the files
-with some version data which will hopefully help with draft copies.
+SGVsbG8sDQoNClRoZSB2aXJ0aW8tcnBtYiBzcGVjaWZpY2F0aW9uIHNob3VsZCBwZXJoYXBzIGJl
+IGFtZW5kZWQgdG8gaW5jbHVkZSB0aGUgTlZNZSBSUE1CIGZyYW1lIGZvcm1hdCB3aGljaCBpcyBj
+b21wbGV0ZWx5IGRpZmZlcmVudCB0aGFuIHRoZSBlTU1DL1VGUyBmb3JtYXQuIFRoaXMgbWF5IGxl
+YWQgdG8gdGhlIHNwZWMgcmVxdWlyaW5nIHNvbWUgZmxhZ3MgdG8gc2lnbmFsIHdoYXQgdHlwZSBv
+ZiBSUE1CIGRldmljZSB0aGUgaG9zdCBpcyBwcm92aWRpbmcgc3VjaCB0aGF0IHRoZSBndWVzdHMg
+bWF5IGJlIGFibGUgdG8gYnVpbGQgZnJhbWVzIGluIHRoZSBhcHByb3ByaWF0ZSBmb3JtYXQgZm9y
+IHRoZSBkZXZpY2UuDQoNCmh0dHBzOi8vbnZtZXhwcmVzcy5vcmcvZGV2ZWxvcGVycy9udm1lLXNw
+ZWNpZmljYXRpb24vDQoNClNlZSBmaWd1cmUgNDY5IG9mIHRoZSAxLjRhIHNwZWMgZm91bmQgaW4g
+dGhlIGxpbmsgYWJvdmUuDQoNClRoZSBjb250cm9sIGZyYW1lIGlzIGEgc2luZ2xlIGVudGl0eSAy
+NTYgYnl0ZXMgbG9uZyB3aXRoIG9wdGlvbmFsIGRhdGEgKHJlYWQvd3JpdGUpIGNvbWluZyBpbiA1
+MTIgYnl0ZSBzZWN0b3JzIChlTU1DL1VGUyA9IDI1NiBieXRlcykuIEFsbCBmaWVsZHMgYXJlIGFs
+c28gTGl0dGxlIEVuZGlhbiBhbmQgaW4gYSBkaWZmZXJlbnQgb3JkZXIuDQoNCmVNTUMvVUZTIHVz
+ZSA1MTIgYnl0ZSBmcmFtZXMgKHdpdGggaW5saW5lIGRhdGEpIHdpdGggQmlnIEVuZGlhbiBmaWVs
+ZHMuDQoNClJlZ2FyZHMsDQoNCkRhdmlkDQoNCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tClRoaXMgdHJhbnNtaXNz
+aW9uIChpbmNsdWRpbmcgYW55IGF0dGFjaG1lbnRzKSBtYXkgY29udGFpbiBjb25maWRlbnRpYWwg
+aW5mb3JtYXRpb24sIHByaXZpbGVnZWQgbWF0ZXJpYWwgKGluY2x1ZGluZyBtYXRlcmlhbCBwcm90
+ZWN0ZWQgYnkgdGhlIHNvbGljaXRvci1jbGllbnQgb3Igb3RoZXIgYXBwbGljYWJsZSBwcml2aWxl
+Z2VzKSwgb3IgY29uc3RpdHV0ZSBub24tcHVibGljIGluZm9ybWF0aW9uLiBBbnkgdXNlIG9mIHRo
+aXMgaW5mb3JtYXRpb24gYnkgYW55b25lIG90aGVyIHRoYW4gdGhlIGludGVuZGVkIHJlY2lwaWVu
+dCBpcyBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIHRyYW5zbWlzc2lvbiBp
+biBlcnJvciwgcGxlYXNlIGltbWVkaWF0ZWx5IHJlcGx5IHRvIHRoZSBzZW5kZXIgYW5kIGRlbGV0
+ZSB0aGlzIGluZm9ybWF0aW9uIGZyb20geW91ciBzeXN0ZW0uIFVzZSwgZGlzc2VtaW5hdGlvbiwg
+ZGlzdHJpYnV0aW9uLCBvciByZXByb2R1Y3Rpb24gb2YgdGhpcyB0cmFuc21pc3Npb24gYnkgdW5p
+bnRlbmRlZCByZWNpcGllbnRzIGlzIG5vdCBhdXRob3JpemVkIGFuZCBtYXkgYmUgdW5sYXdmdWwu
+Cg==
+--_000_90CF2DB9763A44A7917F049C58C80947blackberrycom_
+Content-ID: <083785DC2550144AB4491FB37E2D43F5@rim.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset="utf-8"
 
-I've converted more of the htmlised markdown boilerplate into pure
-markdown. The text itself is unchanged.
-
-The makefile automation is mainly for my benefit - it just makes it
-easier to hit C-c c in emacs and trigger the compile-command. I
-realise this isn't useful for everyone so feel free to drop if it is
-an over imposition.
-
-Alex Benn=C3=A9e (5):
-  README.md: convert html to proper Markdown format
-  CONTRIBUTING.md: convert html to proper MarkDown
-  LICENSE.md: convert html to proper MarkDown
-  Makefile: add some simple make automations
-  make-setup-generated: optionally add GIT metadata
-
- CONTRIBUTING.md         |  22 ++--
- LICENSE.md              |   9 +-
- Makefile                |  26 ++++
- README.md               | 258 ++++++++++++++++------------------------
- make-setup-generated.sh |  34 +++++-
- makehtml.sh             |   2 +-
- 6 files changed, 168 insertions(+), 183 deletions(-)
- create mode 100644 Makefile
-
---=20
-2.20.1
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseTpIZWx2ZXRpY2E7DQoJcGFub3NlLTE6MCAwIDAgMCAwIDAgMCAwIDAg
+MDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJDYW1icmlhIE1hdGgiOw0KCXBhbm9zZS0x
+OjIgNCA1IDMgNSA0IDYgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJp
+Ow0KCXBhbm9zZS0xOjIgMTUgNSAyIDIgMiA0IDMgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25z
+ICovDQpwLk1zb05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjow
+Y207DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1m
+YW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0K
+CXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6IzA1NjNDMTsNCgl0ZXh0LWRlY29yYXRp
+b246dW5kZXJsaW5lO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNv
+bmFsLWNvbXBvc2U7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6
+d2luZG93dGV4dDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25s
+eTsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlm
+O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjYxMi4wcHQgNzkyLjBwdDsNCgltYXJnaW46
+NzIuMHB0IDcyLjBwdCA3Mi4wcHQgNzIuMHB0O30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpX
+b3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLUNBIiBs
+aW5rPSIjMDU2M0MxIiB2bGluaz0iIzk1NEY3MiI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEi
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPkhl
+bGxvLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOjEyLjBw
+dDtiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZh
+bWlseTpIZWx2ZXRpY2E7Y29sb3I6IzI0MjkyRSI+VGhlIHZpcnRpby1ycG1iIHNwZWNpZmljYXRp
+b24gc2hvdWxkIHBlcmhhcHMgYmUgYW1lbmRlZCB0byBpbmNsdWRlIHRoZSBOVk1lIFJQTUIgZnJh
+bWUgZm9ybWF0IHdoaWNoIGlzIGNvbXBsZXRlbHkgZGlmZmVyZW50IHRoYW4gdGhlIGVNTUMvVUZT
+DQogZm9ybWF0LiBUaGlzIG1heSBsZWFkIHRvIHRoZSBzcGVjIHJlcXVpcmluZyBzb21lIGZsYWdz
+IHRvIHNpZ25hbCB3aGF0IHR5cGUgb2YgUlBNQiBkZXZpY2UgdGhlIGhvc3QgaXMgcHJvdmlkaW5n
+IHN1Y2ggdGhhdCB0aGUgZ3Vlc3RzIG1heSBiZSBhYmxlIHRvIGJ1aWxkIGZyYW1lcyBpbiB0aGUg
+YXBwcm9wcmlhdGUgZm9ybWF0IGZvciB0aGUgZGV2aWNlLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
+CjxwIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6MGNtO21hcmdpbi1yaWdodDowY207bWFyZ2lu
+LWJvdHRvbToxMi4wcHQ7bWFyZ2luLWxlZnQ6MGNtO2JhY2tncm91bmQ6d2hpdGU7Ym94LXNpemlu
+ZzogYm9yZGVyLWJveDtmb250LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7Zm9udC12YXJpYW50
+LWNhcHM6IG5vcm1hbDtvcnBoYW5zOiAyO3RleHQtYWxpZ246c3RhcnQ7d2lkb3dzOiAyOy13ZWJr
+aXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDt0ZXh0LWRlY29yYXRpb24tc3R5bGU6IGluaXRpYWw7
+dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiBpbml0aWFsO3dvcmQtc3BhY2luZzowcHgiPg0KPHNwYW4g
+c3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6SGVsdmV0aWNhO2NvbG9yOiMyNDI5
+MkUiPjxhIGhyZWY9Imh0dHBzOi8vbnZtZXhwcmVzcy5vcmcvZGV2ZWxvcGVycy9udm1lLXNwZWNp
+ZmljYXRpb24vIj48c3BhbiBzdHlsZT0iY29sb3I6IzAzNjZENiI+aHR0cHM6Ly9udm1leHByZXNz
+Lm9yZy9kZXZlbG9wZXJzL252bWUtc3BlY2lmaWNhdGlvbi88L3NwYW4+PC9hPjxvOnA+PC9vOnA+
+PC9zcGFuPjwvcD4NCjxwIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6MGNtO21hcmdpbi1yaWdo
+dDowY207bWFyZ2luLWJvdHRvbToxMi4wcHQ7bWFyZ2luLWxlZnQ6MGNtO2JhY2tncm91bmQ6d2hp
+dGU7Ym94LXNpemluZzogYm9yZGVyLWJveDtmb250LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7
+Zm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDtvcnBoYW5zOiAyO3RleHQtYWxpZ246c3RhcnQ7d2lk
+b3dzOiAyOy13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDt0ZXh0LWRlY29yYXRpb24tc3R5
+bGU6IGluaXRpYWw7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiBpbml0aWFsO3dvcmQtc3BhY2luZzow
+cHgiPg0KPHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6SGVsdmV0aWNh
+O2NvbG9yOiMyNDI5MkUiPlNlZSBmaWd1cmUgNDY5IG9mIHRoZSAxLjRhIHNwZWMgZm91bmQgaW4g
+dGhlIGxpbmsgYWJvdmUuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgc3R5bGU9Im1zby1tYXJn
+aW4tdG9wLWFsdDowY207bWFyZ2luLXJpZ2h0OjBjbTttYXJnaW4tYm90dG9tOjEyLjBwdDttYXJn
+aW4tbGVmdDowY207YmFja2dyb3VuZDp3aGl0ZTtib3gtc2l6aW5nOiBib3JkZXItYm94O2ZvbnQt
+dmFyaWFudC1saWdhdHVyZXM6IG5vcm1hbDtmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsO29ycGhh
+bnM6IDI7dGV4dC1hbGlnbjpzdGFydDt3aWRvd3M6IDI7LXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0
+aDogMHB4O3RleHQtZGVjb3JhdGlvbi1zdHlsZTogaW5pdGlhbDt0ZXh0LWRlY29yYXRpb24tY29s
+b3I6IGluaXRpYWw7d29yZC1zcGFjaW5nOjBweCI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEw
+LjVwdDtmb250LWZhbWlseTpIZWx2ZXRpY2E7Y29sb3I6IzI0MjkyRSI+VGhlIGNvbnRyb2wgZnJh
+bWUgaXMgYSBzaW5nbGUgZW50aXR5IDI1NiBieXRlcyBsb25nIHdpdGggb3B0aW9uYWwgZGF0YSAo
+cmVhZC93cml0ZSkgY29taW5nIGluIDUxMiBieXRlIHNlY3RvcnMgKGVNTUMvVUZTID0gMjU2IGJ5
+dGVzKS4gQWxsIGZpZWxkcyBhcmUgYWxzbyBMaXR0bGUgRW5kaWFuIGFuZCBpbiBhIGRpZmZlcmVu
+dCBvcmRlci48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBzdHlsZT0ibWFyZ2luLXRvcDowY207
+YmFja2dyb3VuZDp3aGl0ZTtib3gtc2l6aW5nOiBib3JkZXItYm94O2ZvbnQtdmFyaWFudC1saWdh
+dHVyZXM6IG5vcm1hbDtmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsO29ycGhhbnM6IDI7dGV4dC1h
+bGlnbjpzdGFydDt3aWRvd3M6IDI7LXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4O3RleHQt
+ZGVjb3JhdGlvbi1zdHlsZTogaW5pdGlhbDt0ZXh0LWRlY29yYXRpb24tY29sb3I6IGluaXRpYWw7
+d29yZC1zcGFjaW5nOjBweCI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZh
+bWlseTpIZWx2ZXRpY2E7Y29sb3I6IzI0MjkyRSI+ZU1NQy9VRlMgdXNlIDUxMiBieXRlIGZyYW1l
+cyAod2l0aCBpbmxpbmUgZGF0YSkgd2l0aCBCaWcgRW5kaWFuIGZpZWxkcy48bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBzdHlsZT0ibWFyZ2luLXRvcDowY207YmFja2dyb3VuZDp3aGl0ZSI+PHNw
+YW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6SGVsdmV0aWNhO2NvbG9yOiMy
+NDI5MkUiPlJlZ2FyZHMsPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgc3R5bGU9Im1hcmdpbi10
+b3A6MGNtO2JhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2Zv
+bnQtZmFtaWx5OkhlbHZldGljYTtjb2xvcjojMjQyOTJFIj5EYXZpZDxvOnA+PC9vOnA+PC9zcGFu
+PjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0
+Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCgo8SFI+VGhpcyB0cmFuc21p
+c3Npb24gKGluY2x1ZGluZyBhbnkgYXR0YWNobWVudHMpIG1heSBjb250YWluIGNvbmZpZGVudGlh
+bCBpbmZvcm1hdGlvbiwgcHJpdmlsZWdlZCBtYXRlcmlhbCAoaW5jbHVkaW5nIG1hdGVyaWFsIHBy
+b3RlY3RlZCBieSB0aGUgc29saWNpdG9yLWNsaWVudCBvciBvdGhlciBhcHBsaWNhYmxlIHByaXZp
+bGVnZXMpLCBvciBjb25zdGl0dXRlIG5vbi1wdWJsaWMgaW5mb3JtYXRpb24uIEFueSB1c2Ugb2Yg
+dGhpcyBpbmZvcm1hdGlvbiBieSBhbnlvbmUgb3RoZXIgdGhhbiB0aGUgaW50ZW5kZWQgcmVjaXBp
+ZW50IGlzIHByb2hpYml0ZWQuIElmIHlvdSBoYXZlIHJlY2VpdmVkIHRoaXMgdHJhbnNtaXNzaW9u
+IGluIGVycm9yLCBwbGVhc2UgaW1tZWRpYXRlbHkgcmVwbHkgdG8gdGhlIHNlbmRlciBhbmQgZGVs
+ZXRlIHRoaXMgaW5mb3JtYXRpb24gZnJvbSB5b3VyIHN5c3RlbS4gVXNlLCBkaXNzZW1pbmF0aW9u
+LCBkaXN0cmlidXRpb24sIG9yIHJlcHJvZHVjdGlvbiBvZiB0aGlzIHRyYW5zbWlzc2lvbiBieSB1
+bmludGVuZGVkIHJlY2lwaWVudHMgaXMgbm90IGF1dGhvcml6ZWQgYW5kIG1heSBiZSB1bmxhd2Z1
+bC48QlI+CjwvYm9keT4NCjwvaHRtbD4NCg==
+--_000_90CF2DB9763A44A7917F049C58C80947blackberrycom_--
 
