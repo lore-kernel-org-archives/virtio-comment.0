@@ -1,214 +1,122 @@
-Return-Path: virtio-comment-return-1216-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1312-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 4C8639860F4
+	for <virtio-comment@lists.oasis-open.org>; Wed, 10 Jun 2020 13:17:35 +0000 (UTC)
+References: <20200527090707.75747-1-epetre@amazon.com>
+From: "Eftime, Petre" <epetre@amazon.com>
+Message-ID: <dbca5c9e-8809-f121-1e08-441b4800ab09@amazon.com>
+Date: Wed, 10 Jun 2020 16:17:25 +0300
 MIME-Version: 1.0
-References: <20200429184122.1248.4817.stgit@localhost.localdomain>
- <20200429185757.1248.69725.stgit@localhost.localdomain> <20200507175848.26cb20bf.cohuck@redhat.com>
-In-Reply-To: <20200507175848.26cb20bf.cohuck@redhat.com>
-From: Alexander Duyck <alexander.duyck@gmail.com>
-Date: Thu, 7 May 2020 13:35:53 -0700
-Message-ID: <CAKgT0UegZDYd7Jjv+jYo-WU_=BZQ3aXPoSzNPgEzidNn8TdrEA@mail.gmail.com>
-Subject: Re: [virtio-comment] Re: [PATCH RFC 3/3] content: Document balloon
- feature free page reporting
-Content-Type: text/plain; charset="UTF-8"
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: David Hildenbrand <david@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+In-Reply-To: <20200527090707.75747-1-epetre@amazon.com>
+Content-Language: en-US
+Subject: [virtio-comment] Re: [PATCH v2] content: Reserve virtio-nsm device ID
+Content-Type: multipart/alternative;
+	boundary="------------878D98E23D7A5E6BD9CF5FD2"
+To: virtio-comment@lists.oasis-open.org
+Cc: graf@amazon.de
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, May 7, 2020 at 8:59 AM Cornelia Huck <cohuck@redhat.com> wrote:
->
-> On Wed, 29 Apr 2020 11:57:57 -0700
-> Alexander Duyck <alexander.duyck@gmail.com> wrote:
->
-> > From: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-> >
-> > Free page reporting is a feature that allows the guest to proactively
-> > report unused pages to the host. By making use of this feature is is
-> > possible to reduce the overall memory footprint of the guest in cases where
-> > some significant portion of the memory is idle. Add documentation for the
-> > free page reporting feature describing the functionality and requirements.
-> >
-> > Signed-off-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-> > ---
-> >  content.tex |   74 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 74 insertions(+)
-> >
-> > diff --git a/content.tex b/content.tex
-> > index c98b8ea9526a..52955c8ff007 100644
-> > --- a/content.tex
-> > +++ b/content.tex
-> > @@ -5007,12 +5007,15 @@ \subsection{Virtqueues}\label{sec:Device Types / Memory Balloon Device / Virtque
-> >  \item[1] deflateq
-> >  \item[2] statsq.
-> >  \item[3] free_page_vq.
-> > +\item[4] reporting_vq.
->
-> Also lose the trailing period here.
->
-> >  \end{description}
-> >
-> >    statsq only exists if VIRTIO_BALLOON_F_STATS_VQ set.
-> >
-> >    free_page_vq only exists if VIRTIO_BALLOON_F_FREE_PAGE_HINT set.
-> >
-> > +  reporting_vq only exists if VIRTIO_BALLOON_F_PAGE_REPORTING set.
->
-> s/set/is set/
->
-> > +
-> >  \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Feature bits}
-> >  \begin{description}
-> >  \item[VIRTIO_BALLOON_F_MUST_TELL_HOST (0)] Host has to be told before
-> > @@ -5029,6 +5032,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
-> >  \item[ VIRTIO_BALLOON_F_PAGE_POISON(4) ] Host has to be notified if guest
-> >      is expecting reported pages to contain a certain value when returned.
-> >      Configuration field poison_val is valid.
-> > +\item[ VIRTIO_BALLOON_F_PAGE_REPORTING(5) ] Device has support for free
-> > +    page reporting. A virtqueue for reporting free guest memory is present.
-> >
-> >  \end{description}
-> >
-> > @@ -5039,6 +5044,10 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
-> >  The driver SHOULD clear the VIRTIO_BALLOON_F_PAGE_POISON flag if it is not
-> >  expecting any specific value to be stored in the page.
-> >
-> > +The driver MUST NOT accept VIRTIO_BALLOON_F_PAGE_REPORTING if it is expecting
-> > +the pages to retain some initialized value and it has not negotiated
-> > +VIRTIO_BALLOON_F_PAGE_POISON as a feature.
-> > +
-> >  \devicenormative{\subsubsection}{Feature bits}{Device Types / Memory Balloon Device / Feature bits}
-> >  If the device offers the VIRTIO_BALLOON_F_MUST_TELL_HOST feature
-> >  bit, and if the driver did not accept this feature bit, the
-> > @@ -5097,6 +5106,13 @@ \subsection{Device Initialization}\label{sec:Device Types / Memory Balloon Devic
-> >
-> >  \item If the VIRTIO_BALLOON_F_PAGE_POISON feature bit is negotiated then
-> >    the driver MUST update the poison_val configuration field.
-> > +
-> > +\item If the VIRTIO_BALLOON_F_PAGE_REPORTING feature bit is negotiated:
-> > +  \begin{enumerate}
-> > +  \item Identify the reporting virtqueue.
-> > +  \item DRIVER_OK is set: device operation begins.
-> > +  \item Begin reporting free pages to device.
-> > +  \end{enumerate}
-> >  \end{enumerate}
->
-> See my previous comments regarding reordering this.
+--------------878D98E23D7A5E6BD9CF5FD2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-I'll work on restructuring all this. With things being split up I can
-drop some of the enumerated lists.
+T24gMjAyMC0wNS0yNyAxMjowNywgUGV0cmUgRWZ0aW1lIHdyb3RlOgo+IFRoZSBOaXRyb1NlY3Vy
+ZU1vZHVsZSBpcyBhIGRldmljZSB3aXRoIGEgdmVyeSBzdHJpcHBlZCBkb3duCj4gVHJ1c3RlZCBQ
+bGF0Zm9ybSBNb2R1bGUgZnVuY3Rpb25hbGl0eSwgd2hpY2ggaXMgdXNlZCBpbiB0aGUKPiBjb250
+ZXh0IG9mIGEgTml0cm8gRW5jbGF2ZSAoc2VlIGh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDIwLzQv
+MjEvMTAyMCkKPiB0byBwcm92aWRlIGJvb3QgdGltZSBtZWFzdXJlbWVudCBhbmQgYXR0ZXN0YXRp
+b24uCj4KPiBTaW5jZSB0aGlzIGRldmljZSBwcm92aWRlcyBzb21lIGNyaXRpY2FsIGNyeXB0b2dy
+YXBoaWMgb3BlcmF0aW9ucywKPiB0aGVyZSBhcmUgYSBzZXJpZXMgb2Ygb3BlcmF0aW9ucyB3aGlj
+aCBhcmUgcmVxdWlyZWQgdG8gaGF2ZSBndWFyYW50ZWVzCj4gb2YgYXRvbWljaXR5LCBvcmRlcmlu
+ZyBhbmQgY29uc2lzdGVuY3k6IG9wZXJhdGlvbnMgZnVsbHkgc3VjY2VlZCBvciBmdWxseQo+IGZh
+aWwsIGluY2x1ZGluZyB3aGVuIHNvbWUgZXh0ZXJuYWwgZXZlbnRzIG1pZ2h0IGludGVyZmVyZSBp
+biB0aGUKPiBwcm9jZXNzOiBsaXZlIG1pZ3JhdGlvbiwgY3Jhc2hlcywgZXRjOyBhbnkgZmFpbHVy
+ZSBpbiB0aGUgY3JpdGljYWwKPiBzZWN0aW9uIHJlcXVpcmVzIHRlcm1pbmF0aW9uIG9mIHRoZSBl
+bmNsYXZlIGl0IGlzIGF0dGFjaGVkIHRvLCBzbwo+IHRoZSBkZXZpY2UgbmVlZHMgdG8gYmUgYXMg
+cmVzaWxpZW50IGFzIHBvc3NpYmxlLCBzaW1wbGljaXR5IGlzCj4gc3Ryb25nbHkgZGVzaXJlZC4K
+Pgo+IFRvIGFjY291bnQgZm9yIHRoYXQsIHRoZSBkZXZpY2UgYW5kIGRyaXZlciBhcmUgbWFkZSB0
+byBoYXZlIHZlcnkgZmV3Cj4gZXJyb3IgY2FzZXMgaW4gdGhlIGNyaXRpY2FsIHBhdGggYW5kIHRo
+ZSBvcGVyYXRpb25zIHRoZW1zZWx2ZXMgY2FuIGJlCj4gcm9sbGVkIGJhY2sgYW5kIHJldHJpZWQg
+aWYgZXZlbnRzIGhhcHBlbiBvdXRzaWRlIHRoZSBjcml0aWNhbAo+IGFyZWEsIHdoaWxlIHByb2Nl
+c3NpbmcgYSByZXF1ZXN0LiBUaGUgZHJpdmVyIGl0c2VsZiBjYW4gYmUgbWFkZSB2ZXJ5Cj4gc2lt
+cGxlIGFuZCB0aHVzIGlzIGVhc2lseSBwb3J0YWJsZS4KPgo+IFNpbmNlIHRoZSByZXF1ZXN0cyBj
+YW4gYmUgaGFuZGxlZCBkaXJlY3RseSBpbiB0aGUgdmlydGlvIHF1ZXVlLCBzZXJ2aW5nCj4gbW9z
+dCByZXF1ZXN0cyByZXF1aXJlcyBubyBhZGRpdGlvbmFsIGJ1ZmZlcmluZyBvciBtZW1vcnkgYWxs
+b2NhdGlvbnMKPiBvbiB0aGUgaG9zdCBzaWRlLgo+Cj4gU2lnbmVkLW9mZi1ieTogUGV0cmUgRWZ0
+aW1lIDxlcGV0cmVAYW1hem9uLmNvbT4KPiAtLS0KPiAgIGNvbnRlbnQudGV4IHwgMiArKwo+ICAg
+MSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2NvbnRlbnQu
+dGV4IGIvY29udGVudC50ZXgKPiBpbmRleCA5MTczNWUzLi42NmM4ZjJiIDEwMDY0NAo+IC0tLSBh
+L2NvbnRlbnQudGV4Cj4gKysrIGIvY29udGVudC50ZXgKPiBAQCAtMjgwMSw2ICsyODAxLDggQEAg
+XGNoYXB0ZXJ7RGV2aWNlIFR5cGVzfVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzfQo+ICAgXGhsaW5l
+Cj4gICAzMSAgICAgICAgICYgICBWaWRlbyBkZWNvZGVyIGRldmljZSBcXAo+ICAgXGhsaW5lCj4g
+KzMzICAgICAgICAgJiAgIE5pdHJvU2VjdXJlTW9kdWxlIFxcCj4gK1xobGluZQo+ICAgXGVuZHt0
+YWJ1bGFyfQo+ICAgCj4gICBTb21lIG9mIHRoZSBkZXZpY2VzIGFib3ZlIGFyZSB1bnNwZWNpZmll
+ZCBieSB0aGlzIGRvY3VtZW50LAoKSGkgYWxsLAoKSSd2ZSBvcGVuZWQgYSBjb3JyZXNwb25kaW5n
+IGlzc3VlIG9uIEdpdGh1Yi4KCnxGaXhlczogaHR0cHM6Ly9naXRodWIuY29tL29hc2lzLXRjcy92
+aXJ0aW8tc3BlYy9pc3N1ZXMvODF8Cgp8VGhhbmsgeW91LHwKfFBldHJlIEVmdGltZQp8CgoKCkFt
+YXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmlj
+ZTogMjdBIFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5
+LCA3MDAwNDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51
+bWJlciBKMjIvMjYyMS8yMDA1Lgo=
+--------------878D98E23D7A5E6BD9CF5FD2
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 
-> >
-> >  \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / Device Operation}
-> > @@ -5497,6 +5513,64 @@ \subsubsection{Page Poison}\label{sec:Device Types / Memory Balloon Device / Dev
-> >  free page hinting as this feature did not exist prior to those features being
-> >  added.
-> >
-> > +\subsubsection{Free Page Reporting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
-> > +
-> > +Free Page Reporting provides a mechanism similar to balloon inflation,
-> > +however it does not provide a deflation queue. The expectation is that the
-> > +device will have a means by which it can detect the guest page access and
-> > +fault in such pages with some initial value, likely a zero page.
-> > +
-> > +The driver will respond to to memory conditions and begin reporting free
-> > +pages when some number of pages are available.
-> > +
-> > +\begin{enumerate}
-> > +
-> > +\item The driver determines it has enough pages available to begin
-> > +  reporting pages.
-> > +
-> > +\item The driver gathers pages into a scatter-gather list and adds them to
-> > +  the reporting_vq.
-> > +
-> > +\item The device acknowledges the reporting request.
->
-> How?
-
-I will update this. Basically it is acknowledged by "using the the
-reporting_vq descriptor".
-
-> > +
-> > +\item Once the device has acknowledged the report, the pages can be
-> > +  returned to the location from which they were pulled.
-> > +
-> > +\item The driver can then continue to gather and report pages until it
-> > +  has determined it has reported a suffcient quantity of pages.
-> > +
-> > +\end{enumerate}
-> > +
-> > +\drivernormative{\paragraph}{Free Page Reporting}{Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
-> > +
-> > +Normative statements in this section apply if and only if  the
-> > +VIRTIO_BALLOON_F_PAGE_REPORTING feature has been negotiated.
->
-> "If the VIRTIO_BALLOON_F_PAGE_REPORTING feature has been negotiated:"
->
-> > +
-> > +If the guest is expecting the free page to contain some initial value it
->
-> s/guest/driver/
->
-> > +MUST make use of the VIRTIO_BALLOON_F_PAGE_POISON feature to notify the
-> > +device of this expectation via \field{poison_val}.
->
-> "..., it MUST NOT negotiate this feature without negotiating the
-> VIRTIO_BALLOON_F_PAGE_POISON feature as well and supply this value via
-> \field{poison_val}."
->
-> > +
-> > +The driver MUST NOT use the reported pages until the device has
-> > +acknowledged the reporting request.
-> > +
-> > +The driver MAY report free pages any time after DRIVER_OK is set.
-> > +
-> > +It is RECOMMENDED that the driver avoid unecessary reads or writes to the
-> > +page contents as this could reduce the performance for free page reporting.
-> > +
-> > +\devicenormative{\paragraph}{Free Page Reporting}{Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
-> > +
-> > +Normative statements in this section apply if and only if  the
-> > +VIRTIO_BALLOON_F_PAGE_REPORTING feature has been negotiated.
->
-> "If the VIRTIO_BALLOON_F_PAGE_REPORTING feature has been negotiated:"
->
-> > +
-> > +The device MAY modify the contents of a page in the report after detecting
-> > +its physical number in an report request and before acknowledging the
->
-> What is a 'physical number'?
-
-I assume here it is referring to the physical page number, aka PFN. I
-had done some copy/paste from the balloon description since the start
-would be the same for when the page should be inaccessible. I could
-probably reword this to be from the time the device is notified of the
-descriptor containing the page physical address and size.
-
-> > +reporting request by using the reporting_vq descriptor.
->
-> What is the 'reporting_vq descriptor'?
-
-So which piece of this do I need to define? I believe I called out the
-reporting_vq in the section above. The descriptor on the reporting_vq
-is used to describe the scatterlist to the devices as multiple inbuf
-on a single vring descriptor.
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
+bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
+diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiAyMDIwLTA1LTI3IDEyOjA3LCBQZXRyZSBFZnRp
+bWUKICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRl
+IgogICAgICBjaXRlPSJtaWQ6MjAyMDA1MjcwOTA3MDcuNzU3NDctMS1lcGV0cmVAYW1hem9uLmNv
+bSI+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+VGhlIE5pdHJvU2Vj
+dXJlTW9kdWxlIGlzIGEgZGV2aWNlIHdpdGggYSB2ZXJ5IHN0cmlwcGVkIGRvd24KVHJ1c3RlZCBQ
+bGF0Zm9ybSBNb2R1bGUgZnVuY3Rpb25hbGl0eSwgd2hpY2ggaXMgdXNlZCBpbiB0aGUKY29udGV4
+dCBvZiBhIE5pdHJvIEVuY2xhdmUgKHNlZSA8YSBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0
+IiBocmVmPSJodHRwczovL2xrbWwub3JnL2xrbWwvMjAyMC80LzIxLzEwMjAiPmh0dHBzOi8vbGtt
+bC5vcmcvbGttbC8yMDIwLzQvMjEvMTAyMDwvYT4pCnRvIHByb3ZpZGUgYm9vdCB0aW1lIG1lYXN1
+cmVtZW50IGFuZCBhdHRlc3RhdGlvbi4KClNpbmNlIHRoaXMgZGV2aWNlIHByb3ZpZGVzIHNvbWUg
+Y3JpdGljYWwgY3J5cHRvZ3JhcGhpYyBvcGVyYXRpb25zLAp0aGVyZSBhcmUgYSBzZXJpZXMgb2Yg
+b3BlcmF0aW9ucyB3aGljaCBhcmUgcmVxdWlyZWQgdG8gaGF2ZSBndWFyYW50ZWVzCm9mIGF0b21p
+Y2l0eSwgb3JkZXJpbmcgYW5kIGNvbnNpc3RlbmN5OiBvcGVyYXRpb25zIGZ1bGx5IHN1Y2NlZWQg
+b3IgZnVsbHkKZmFpbCwgaW5jbHVkaW5nIHdoZW4gc29tZSBleHRlcm5hbCBldmVudHMgbWlnaHQg
+aW50ZXJmZXJlIGluIHRoZQpwcm9jZXNzOiBsaXZlIG1pZ3JhdGlvbiwgY3Jhc2hlcywgZXRjOyBh
+bnkgZmFpbHVyZSBpbiB0aGUgY3JpdGljYWwKc2VjdGlvbiByZXF1aXJlcyB0ZXJtaW5hdGlvbiBv
+ZiB0aGUgZW5jbGF2ZSBpdCBpcyBhdHRhY2hlZCB0bywgc28KdGhlIGRldmljZSBuZWVkcyB0byBi
+ZSBhcyByZXNpbGllbnQgYXMgcG9zc2libGUsIHNpbXBsaWNpdHkgaXMKc3Ryb25nbHkgZGVzaXJl
+ZC4KClRvIGFjY291bnQgZm9yIHRoYXQsIHRoZSBkZXZpY2UgYW5kIGRyaXZlciBhcmUgbWFkZSB0
+byBoYXZlIHZlcnkgZmV3CmVycm9yIGNhc2VzIGluIHRoZSBjcml0aWNhbCBwYXRoIGFuZCB0aGUg
+b3BlcmF0aW9ucyB0aGVtc2VsdmVzIGNhbiBiZQpyb2xsZWQgYmFjayBhbmQgcmV0cmllZCBpZiBl
+dmVudHMgaGFwcGVuIG91dHNpZGUgdGhlIGNyaXRpY2FsCmFyZWEsIHdoaWxlIHByb2Nlc3Npbmcg
+YSByZXF1ZXN0LiBUaGUgZHJpdmVyIGl0c2VsZiBjYW4gYmUgbWFkZSB2ZXJ5CnNpbXBsZSBhbmQg
+dGh1cyBpcyBlYXNpbHkgcG9ydGFibGUuCgpTaW5jZSB0aGUgcmVxdWVzdHMgY2FuIGJlIGhhbmRs
+ZWQgZGlyZWN0bHkgaW4gdGhlIHZpcnRpbyBxdWV1ZSwgc2VydmluZwptb3N0IHJlcXVlc3RzIHJl
+cXVpcmVzIG5vIGFkZGl0aW9uYWwgYnVmZmVyaW5nIG9yIG1lbW9yeSBhbGxvY2F0aW9ucwpvbiB0
+aGUgaG9zdCBzaWRlLgoKU2lnbmVkLW9mZi1ieTogUGV0cmUgRWZ0aW1lIDxhIGNsYXNzPSJtb3ot
+dHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzplcGV0cmVAYW1hem9uLmNvbSI+Jmx0O2Vw
+ZXRyZUBhbWF6b24uY29tJmd0OzwvYT4KLS0tCiBjb250ZW50LnRleCB8IDIgKysKIDEgZmlsZSBj
+aGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9jb250ZW50LnRleCBiL2NvbnRl
+bnQudGV4CmluZGV4IDkxNzM1ZTMuLjY2YzhmMmIgMTAwNjQ0Ci0tLSBhL2NvbnRlbnQudGV4Cisr
+KyBiL2NvbnRlbnQudGV4CkBAIC0yODAxLDYgKzI4MDEsOCBAQCBcY2hhcHRlcntEZXZpY2UgVHlw
+ZXN9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXN9CiBcaGxpbmUKIDMxICAgICAgICAgJmFtcDsgICBW
+aWRlbyBkZWNvZGVyIGRldmljZSBcXAogXGhsaW5lCiszMyAgICAgICAgICZhbXA7ICAgTml0cm9T
+ZWN1cmVNb2R1bGUgXFwKK1xobGluZQogXGVuZHt0YWJ1bGFyfQogCiBTb21lIG9mIHRoZSBkZXZp
+Y2VzIGFib3ZlIGFyZSB1bnNwZWNpZmllZCBieSB0aGlzIGRvY3VtZW50LAo8L3ByZT4KICAgIDwv
+YmxvY2txdW90ZT4KICAgIDxwPjx0dD5IaSBhbGwsPC90dD48L3A+CiAgICA8cD48dHQ+SSd2ZSBv
+cGVuZWQgYSBjb3JyZXNwb25kaW5nIGlzc3VlIG9uIEdpdGh1Yi48YnI+CiAgICAgIDwvdHQ+PC9w
+PgogICAgPGNvZGU+Rml4ZXM6IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJlZXRleHQiIGhyZWY9
+Imh0dHBzOi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlvLXNwZWMvaXNzdWVzLzgxIj5odHRw
+czovL2dpdGh1Yi5jb20vb2FzaXMtdGNzL3ZpcnRpby1zcGVjL2lzc3Vlcy84MTwvYT48L2NvZGU+
+PGJyPgogICAgPGJyPgogICAgPGNvZGU+VGhhbmsgeW91LDwvY29kZT48YnI+CiAgICA8Y29kZT5Q
+ZXRyZSBFZnRpbWU8YnI+CiAgICA8L2NvZGU+CiAgPHA+PC9wPgoKPHA+PGJyPgpBbWF6b24gRGV2
+ZWxvcG1lbnQgQ2VudGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBT
+Zi4gTGF6YXIgU3RyZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1
+LCBSb21hbmlhLiBSZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIy
+LzI2MjEvMjAwNS48L3A+CjwvYm9keT4KPC9odG1sPgo=
+--------------878D98E23D7A5E6BD9CF5FD2--
 
