@@ -1,72 +1,58 @@
-Return-Path: virtio-comment-return-1314-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1315-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4E09998611F
-	for <virtio-comment@lists.oasis-open.org>; Fri, 12 Jun 2020 15:40:57 +0000 (UTC)
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Fri, 12 Jun 2020 16:40:53 +0100
-Message-ID: <87sgf0nvga.fsf@linaro.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id DB35A98611F
+	for <virtio-comment@lists.oasis-open.org>; Fri, 12 Jun 2020 15:59:46 +0000 (UTC)
+From: "Huang, Yang" <yang.huang@intel.com>
+Date: Fri, 12 Jun 2020 15:59:40 +0000
+Message-ID: <CY4PR11MB189407E123EE20F8610D7BBF85810@CY4PR11MB1894.namprd11.prod.outlook.com>
+References: <87sgf0nvga.fsf@linaro.org>
+In-Reply-To: <87sgf0nvga.fsf@linaro.org>
+Content-Language: en-US
 MIME-Version: 1.0
-Subject: [virtio-comment] Clarifying the language of VIRTIO_RPMB_REQ_PROGRAM_KEY
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-To: virtio-comment@lists.oasis-open.org
-Cc: Yang Huang <yang.huang@intel.com>, Bing Zhu <bing.zhu@intel.com>, Tomas Winkler <tomas.winkler@intel.com>
+Subject: [virtio-comment] RE: Clarifying the language of VIRTIO_RPMB_REQ_PROGRAM_KEY
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+To: =?utf-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Cc: "Zhu, Bing" <bing.zhu@intel.com>, "Winkler, Tomas" <tomas.winkler@intel.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-
-Hi,
-
-In the virtio-rpmb part of the spec it says:
-
-  The operation of a virtio RPMB device is driven by the requests placed on=
- the virtqueue.
-    The type of request can be program key (VIRTIO_RPMB_REQ_PROGRAM_KEY),
-    get write counter (VIRTIO_RPMB_REQ_GET_WRITE_COUNTER),
-    write (VIRTIO_RPMB_REQ_DATA_WRITE), and read (VIRTIO_RPMB_REQ_DATA_READ=
-).
-    A program key or write request can also combine with a
-    result read (VIRTIO_RPMB_REQ_RESULT_READ) for a returned result.
-
-but later on:
-
-  VIRTIO_RPMB_REQ_RESULT_READ
-     requests for a returned result. It is used following with VIRTIO_RPMB_=
-REQ_PROGRAM_KEY or VIRTIO_RPMB_REQ_DATA_WRITE request types for a returned =
-result in one or multiple RPMB frames. If it=E2=80=99s not requested, the d=
-evice will not return result frame to the driver.
-
-So which is it? I can't quite see how a VIRTIO_RPMB_REQ_RESULT_READ can
-be combined with the other requests because they are not overlapping
-bits so maybe the working should be:
-
-  A program key or write request can be followed by a result read (VIRTIO_R=
-PMB_REQ_RESULT_READ) for a returned result.
-
-Is that is what is intended?
-
---=20
-Alex Benn=C3=A9e
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+PiAgIEEgcHJvZ3JhbSBrZXkgb3Igd3JpdGUgcmVxdWVzdCBjYW4gYmUgZm9sbG93ZWQgYnkgYSBy
+ZXN1bHQgcmVhZA0KPiAoVklSVElPX1JQTUJfUkVRX1JFU1VMVF9SRUFEKSBmb3IgYSByZXR1cm5l
+ZCByZXN1bHQuDQo+IA0KPiBJcyB0aGF0IGlzIHdoYXQgaXMgaW50ZW5kZWQ/DQoNClllcy4NCg0K
+UlBNQiBSZWFkL0dldCBXcml0ZSBDb3VudGVyIGltcGxpY2l0bHkgcmVxdWVzdHMgZm9yIGEgcmVz
+dWx0LCBzbyB0aGF0IFZJUlRJT19SUE1CX1JFUV9SRVNVTFRfUkVBRCBpcyBub3QgcmVxdWlyZWQu
+DQpBY3R1YWxseSwgaXQncyBhbGlnbmVkIHdpdGggdGhlIEpFREVDIHNwZWMuDQoNCg0KPiAtLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IEJlbm7DqWUgPGFsZXguYmVubmVl
+QGxpbmFyby5vcmc+DQo+IFNlbnQ6IEZyaWRheSwgSnVuZSAxMiwgMjAyMCAxMTo0MSBQTQ0KPiBU
+bzogdmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gQ2M6IEh1YW5nLCBZYW5n
+IDx5YW5nLmh1YW5nQGludGVsLmNvbT47IFpodSwgQmluZyA8YmluZy56aHVAaW50ZWwuY29tPjsN
+Cj4gV2lua2xlciwgVG9tYXMgPHRvbWFzLndpbmtsZXJAaW50ZWwuY29tPg0KPiBTdWJqZWN0OiBD
+bGFyaWZ5aW5nIHRoZSBsYW5ndWFnZSBvZiBWSVJUSU9fUlBNQl9SRVFfUFJPR1JBTV9LRVkNCj4g
+DQo+IA0KPiBIaSwNCj4gDQo+IEluIHRoZSB2aXJ0aW8tcnBtYiBwYXJ0IG9mIHRoZSBzcGVjIGl0
+IHNheXM6DQo+IA0KPiAgIFRoZSBvcGVyYXRpb24gb2YgYSB2aXJ0aW8gUlBNQiBkZXZpY2UgaXMg
+ZHJpdmVuIGJ5IHRoZSByZXF1ZXN0cyBwbGFjZWQgb24gdGhlDQo+IHZpcnRxdWV1ZS4NCj4gICAg
+IFRoZSB0eXBlIG9mIHJlcXVlc3QgY2FuIGJlIHByb2dyYW0ga2V5IChWSVJUSU9fUlBNQl9SRVFf
+UFJPR1JBTV9LRVkpLA0KPiAgICAgZ2V0IHdyaXRlIGNvdW50ZXIgKFZJUlRJT19SUE1CX1JFUV9H
+RVRfV1JJVEVfQ09VTlRFUiksDQo+ICAgICB3cml0ZSAoVklSVElPX1JQTUJfUkVRX0RBVEFfV1JJ
+VEUpLCBhbmQgcmVhZA0KPiAoVklSVElPX1JQTUJfUkVRX0RBVEFfUkVBRCkuDQo+ICAgICBBIHBy
+b2dyYW0ga2V5IG9yIHdyaXRlIHJlcXVlc3QgY2FuIGFsc28gY29tYmluZSB3aXRoIGENCj4gICAg
+IHJlc3VsdCByZWFkIChWSVJUSU9fUlBNQl9SRVFfUkVTVUxUX1JFQUQpIGZvciBhIHJldHVybmVk
+IHJlc3VsdC4NCj4gDQo+IGJ1dCBsYXRlciBvbjoNCj4gDQo+ICAgVklSVElPX1JQTUJfUkVRX1JF
+U1VMVF9SRUFEDQo+ICAgICAgcmVxdWVzdHMgZm9yIGEgcmV0dXJuZWQgcmVzdWx0LiBJdCBpcyB1
+c2VkIGZvbGxvd2luZyB3aXRoDQo+IFZJUlRJT19SUE1CX1JFUV9QUk9HUkFNX0tFWSBvciBWSVJU
+SU9fUlBNQl9SRVFfREFUQV9XUklURQ0KPiByZXF1ZXN0IHR5cGVzIGZvciBhIHJldHVybmVkIHJl
+c3VsdCBpbiBvbmUgb3IgbXVsdGlwbGUgUlBNQiBmcmFtZXMuIElmIGl04oCZcyBub3QNCj4gcmVx
+dWVzdGVkLCB0aGUgZGV2aWNlIHdpbGwgbm90IHJldHVybiByZXN1bHQgZnJhbWUgdG8gdGhlIGRy
+aXZlci4NCj4gDQo+IFNvIHdoaWNoIGlzIGl0PyBJIGNhbid0IHF1aXRlIHNlZSBob3cgYSBWSVJU
+SU9fUlBNQl9SRVFfUkVTVUxUX1JFQUQgY2FuIGJlDQo+IGNvbWJpbmVkIHdpdGggdGhlIG90aGVy
+IHJlcXVlc3RzIGJlY2F1c2UgdGhleSBhcmUgbm90IG92ZXJsYXBwaW5nIGJpdHMgc28NCj4gbWF5
+YmUgdGhlIHdvcmtpbmcgc2hvdWxkIGJlOg0KPiANCj4gICBBIHByb2dyYW0ga2V5IG9yIHdyaXRl
+IHJlcXVlc3QgY2FuIGJlIGZvbGxvd2VkIGJ5IGEgcmVzdWx0IHJlYWQNCj4gKFZJUlRJT19SUE1C
+X1JFUV9SRVNVTFRfUkVBRCkgZm9yIGEgcmV0dXJuZWQgcmVzdWx0Lg0KPiANCj4gSXMgdGhhdCBp
+cyB3aGF0IGlzIGludGVuZGVkPw0KPiANCj4gLS0NCj4gQWxleCBCZW5uw6llDQo=
 
