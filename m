@@ -1,102 +1,85 @@
-Return-Path: virtio-comment-return-1329-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1330-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5D1F6986136
-	for <virtio-comment@lists.oasis-open.org>; Fri, 19 Jun 2020 20:50:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C1478986136
+	for <virtio-comment@lists.oasis-open.org>; Fri, 19 Jun 2020 20:50:10 +0000 (UTC)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Fri, 19 Jun 2020 21:49:57 +0100
-Message-Id: <20200619204959.7877-4-alex.bennee@linaro.org>
+Date: Fri, 19 Jun 2020 21:49:58 +0100
+Message-Id: <20200619204959.7877-5-alex.bennee@linaro.org>
 In-Reply-To: <20200619204959.7877-1-alex.bennee@linaro.org>
 References: <20200619204959.7877-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH  v2 3/5] LICENSE.md: convert html to proper MarkDown
+Subject: [virtio-comment] [PATCH  v2 4/5] Makefile: add some simple make automations
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>, Robin Cover <robin@oasis-open.org>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-There is no point embedding HTML inside the markdown document. It just
-makes it messy to edit. The boilerplate text is maintained.
+This is just a helpful shortcut, especially when editing the documents
+within an IDE which will offer up make targets to build the documents.
 
 Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
-Cc: Robin Cover <robin@oasis-open.org>
 ---
- LICENSE.md | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ Makefile | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+ create mode 100644 Makefile
 
-diff --git a/LICENSE.md b/LICENSE.md
-index ef558ec..600b966 100644
---- a/LICENSE.md
-+++ b/LICENSE.md
-@@ -1,7 +1,6 @@
--<div>
--<h2>License Terms</h2>
-+License Terms
-+-------------
-=20
--<p>Content in this GitHub code repository has been <a href=3D"https://www.=
-oasis-open.org/policies-guidelines/ipr#def-contribution">contributed</a> by=
- OASIS TC Members, and is governed by the OASIS policies, including the <a =
-href=3D"https://www.oasis-open.org/policies-guidelines/ipr">Intellectual Pr=
-operty Rights (IPR) Policy</a>, the <a href=3D"https://www.oasis-open.org/p=
-olicies-guidelines/tc-process">Technical Committee (TC) Process</a>, <a hre=
-f=3D"https://www.oasis-open.org/policies-guidelines/bylaws">Bylaws</a>, and=
- the Technical Committee's choice of <a href=3D"https://www.oasis-open.org/=
-policies-guidelines/ipr#def-ipr-mode">IPR Mode</a> (<i>viz</i>, <a href=3D"=
-https://www.oasis-open.org/policies-guidelines/ipr#Non-Assertion-Mode">Non-=
-Assertion Mode</a>), including any applicable <a href=3D"https://www.oasis-=
-open.org/committees/virtio/ipr.php">declarations</a>. Feedback from non-TC =
-members, if any, is governed by the terms of the <a href=3D"https://www.oas=
-is-open.org/policies-guidelines/ipr#appendixa">OASIS Feedback License</a>.<=
-/p>
-+Content in this GitHub code repository has been [contributed](https://www.=
-oasis-open.org/policies-guidelines/ipr#def-contribution) by OASIS TC Member=
-s, and is governed by the OASIS policies, including the [Intellectual Prope=
-rty Rights (IPR) Policy](https://www.oasis-open.org/policies-guidelines/ipr=
-), the [Technical Committee (TC) Process](https://www.oasis-open.org/polici=
-es-guidelines/tc-process), [Bylaws](https://www.oasis-open.org/policies-gui=
-delines/bylaws), and the Technical Committee's choice of [IPR Mode](https:/=
-/www.oasis-open.org/policies-guidelines/ipr#def-ipr-mode) (_viz_, [Non-Asse=
-rtion Mode](https://www.oasis-open.org/policies-guidelines/ipr#Non-Assertio=
-n-Mode)), including any applicable [declarations](https://www.oasis-open.or=
-g/committees/virtio/ipr.php). Feedback from non-TC members, if any, is gove=
-rned by the terms of the [OASIS Feedback License](https://www.oasis-open.or=
-g/policies-guidelines/ipr#appendixa).
-=20
--<p>Description of this repository is presented in the <a href=3D"https://g=
-ithub.com/oasis-tcs/virtio-spec/blob/master/README.md">README</a> file, and=
- guidelines for contribution/participation are given in the <a href=3D"http=
-s://github.com/oasis-tcs/virtio-spec/blob/master/CONTRIBUTING.md">CONTRIBUT=
-ING</a> file.</p>
--</div>
-+Description of this repository is presented in the [README](https://github=
-.com/oasis-tcs/virtio-spec/blob/master/README.md) file, and guidelines for =
-contribution/participation are given in the [CONTRIBUTING](https://github.c=
-om/oasis-tcs/virtio-spec/blob/master/CONTRIBUTING.md) file.
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..c426a3c
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,27 @@
++# -*- Mode: makefile -*-
++#
++# Basic Makefile to aid automation of document building
++#
++
++
++
++.PHONY: all
++all:
++=09./makeall.sh
++
++html:
++=09./makehtml.sh local
++
++.PHONY: clean
++clean:
++=09git clean -fd
++
++.PHONY: help
++help:
++=09@echo "Build the VIRTIO specification documents."
++=09@echo ""
++=09@echo "Possible operations are:"
++=09@echo
++=09@echo " $(MAKE)         Build everything"
++=09@echo " $(MAKE) html    Build local html"
++=09@echo " $(MAKE) clean   Remove all intermediate files"
 --=20
 2.20.1
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
