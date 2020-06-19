@@ -1,15 +1,15 @@
-Return-Path: virtio-comment-return-1326-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1325-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C6BC6986132
-	for <virtio-comment@lists.oasis-open.org>; Fri, 19 Jun 2020 20:44:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 699C4986131
+	for <virtio-comment@lists.oasis-open.org>; Fri, 19 Jun 2020 20:43:14 +0000 (UTC)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Fri, 19 Jun 2020 21:43:57 +0100
-Message-Id: <20200619204402.5313-1-alex.bennee@linaro.org>
+Date: Fri, 19 Jun 2020 21:43:04 +0100
+Message-Id: <20200619204309.4961-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Subject: [virtio-comment] [PATCH  v2 0/5] some tweaks to the document build process
 Content-Type: text/plain; charset=UTF-8
