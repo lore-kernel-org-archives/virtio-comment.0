@@ -1,73 +1,63 @@
-Return-Path: virtio-comment-return-1352-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1349-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3930E98431B
-	for <virtio-comment@lists.oasis-open.org>; Mon, 20 Jul 2020 09:17:17 +0000 (UTC)
-References: <20200618082150.17476-1-david@redhat.com>
-From: David Hildenbrand <david@redhat.com>
-Message-ID: <41366689-ddc1-893c-3ff9-2a45ecdd5866@redhat.com>
-Date: Mon, 20 Jul 2020 11:17:07 +0200
+	by lists.oasis-open.org (Postfix) with ESMTP id EFB13985E55
+	for <virtio-comment@lists.oasis-open.org>; Tue, 14 Jul 2020 21:16:05 +0000 (UTC)
+References: <20200619204959.7877-1-alex.bennee@linaro.org>
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+In-reply-to: <20200619204959.7877-1-alex.bennee@linaro.org>
+Date: Tue, 14 Jul 2020 21:27:21 +0100
+Message-ID: <87v9ipyh92.fsf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20200618082150.17476-1-david@redhat.com>
-Content-Language: en-US
-Subject: [virtio-comment] Re: [PATCH v2 0/3] virtio-spec: Add virtio-mem device specification
+Subject: [virtio-comment] Re: [PATCH  v2 0/5] some tweaks to the document build process
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
+Cc: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 18.06.20 10:21, David Hildenbrand wrote:
-> Add the specification for virtio-mem devices. The Linux driver is part
-> of v5.8-rc1. The latest QEMU implementation (v4) can be found at [1].
-> 
-> [1] https://lkml.kernel.org/r/20200610115419.51688-1-david@redhat.com
-> 
-> v1 -> v2:
-> - Adapt to configuration layout change (block_size is now 64 bit)
-> - Some minor rephrasings
-> 
-> David Hildenbrand (3):
->   conformance: make driver conformance list easier to read and maintain
->   conformance: Reference RPMB Driver Conformance
->   Add virtio-mem device specification
-> 
->  conformance.tex |  47 ++++-
->  content.tex     |   1 +
->  virtio-mem.tex  | 448 ++++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 493 insertions(+), 3 deletions(-)
->  create mode 100644 virtio-mem.tex
-> 
 
-Okay, v2 has been around for more than a month without comments
-requesting a change. If there are no further comments, I request voting
-for inclusion.
+Alex Benn=C3=A9e <alex.bennee@linaro.org> writes:
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/82
+> Hi,
+>
+> So this is a re-spin of the series I sent earlier this year. I cut out
+> all the radical trimming of changelogs and automation of the version
+> stuff. You can still do a local build which will annotate the files
+> with some version data which will hopefully help with draft copies.
+>
+> I've converted more of the htmlised markdown boilerplate into pure
+> markdown. The text itself is unchanged.
+>
+> The makefile automation is mainly for my benefit - it just makes it
+> easier to hit C-c c in emacs and trigger the compile-command. I
+> realise this isn't useful for everyone so feel free to drop if it is
+> an over imposition.
 
--- 
-Thanks,
+Ping? No interest?
 
-David / dhildenb
+--=20
+Alex Benn=C3=A9e
 
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
