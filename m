@@ -1,121 +1,77 @@
-Return-Path: virtio-comment-return-1368-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1366-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A7D32985E7C
-	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Jul 2020 15:43:18 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 256C998600C
+	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Jul 2020 15:43:13 +0000 (UTC)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Fri, 24 Jul 2020 16:42:49 +0100
-Message-Id: <20200724154251.12546-6-alex.bennee@linaro.org>
+Date: Fri, 24 Jul 2020 16:42:50 +0100
+Message-Id: <20200724154251.12546-7-alex.bennee@linaro.org>
 In-Reply-To: <20200724154251.12546-1-alex.bennee@linaro.org>
 References: <20200724154251.12546-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH  v2 5/7] make-setup-generated: optionally add GIT metadata
+Subject: [virtio-comment] [PATCH  v2 6/7] introduction.tex: introduce a glossary of terms
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>, Nikos Dragazis <ndragazis@arrikto.com>, Stefan Hajnoczi <stefanha@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This isn't a full conversion to git based metadata but it allows for
-local builds to add git commit and tree status to the final built
-product. The normal formal build process is unaffected and uses
-manually updated VERSION, REVISION and REVISION-DATE metadata.
+It is useful to have a glossary of common terms at the front of the
+document to define common terms we are going to use throughout the
+specification.
 
+Cc: Nikos Dragazis <ndragazis@arrikto.com>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
----
- Makefile                |  2 +-
- make-setup-generated.sh | 34 ++++++++++++++++++++++++++++++----
- makehtml.sh             |  2 +-
- 3 files changed, 32 insertions(+), 6 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 4c7dc66..1698557 100644
---- a/Makefile
-+++ b/Makefile
-@@ -9,7 +9,7 @@ all:
+---
+v2
+  - drop host/guest terminology
+  - clarify Device/Driver
+  - add Transport
+---
+ introduction.tex | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/introduction.tex b/introduction.tex
+index 33da3ec..292b78c 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -81,6 +81,27 @@ \section{Terminology}\label{Terminology}
 =20
- .PHONY: html
- html:
--=09./makehtml.sh
-+=09./makehtml.sh local
+ The key words ``MUST'', ``MUST NOT'', ``REQUIRED'', ``SHALL'', ``SHALL NOT=
+'', ``SHOULD'', ``SHOULD NOT'', ``RECOMMENDED'', ``MAY'', and ``OPTIONAL'' =
+in this document are to be interpreted as described in \hyperref[intro:rfc2=
+119]{[RFC2119]}.
 =20
- .PHONY: clean
- clean:
-diff --git a/make-setup-generated.sh b/make-setup-generated.sh
-index f15d148..be63bb7 100755
---- a/make-setup-generated.sh
-+++ b/make-setup-generated.sh
-@@ -1,17 +1,34 @@
- #! /bin/sh
-+#
-+# Generate version and metadata preamble for the document
-+#
-=20
-+# By default we base the version on the directory metadata
- VERSION=3D1.1
- DATESTR=3D${DATESTR:-`cat REVISION-DATE 2>/dev/null`}
--if [ x"$DATESTR" =3D x ]; then
--    ISODATE=3D`git show --format=3Dformat:'%cd' --date=3Diso | head -n 1`
--    DATESTR=3D`date -d "$DATE" +'%d %B %Y'`
++\subsection{Glossary}\label{intro:Glossary}
 +
++The following are definitions of common terms used throughout the specific=
+ation.
 +
-+# If a second argument is passed we extract what we can from git
-+# metadata (closest lightweight tag) and local tree status. This
-+# allows locally generated copies to be tagged appropriately.
-+#
-+# The formal build process skips this.
-+if ! test -z "$2"; then
-+    TAG=3D$(git describe --dirty --tags)
-+    # base date on now
-+    DATESTR=3D$(date +'%d %B %Y')
-+    COMMIT=3D$(git rev-parse --short HEAD)
++\begin{description}
++\item[Device] The series of configuration, control and operation
++  mechanisms that make a Virtio device. The implementation details of
++  the device should be transparent to the Driver.
++\item[Driver] The software (usually part of a kernel) which accesses
++  the device interface.
++\item[Notification] An asynchronous signal sent to either the Device
++  or the Driver to indicate an event has occurred. For Device to
++  Driver notifications this is typically an device interrupt although
++  the details are a function of the transport.
++\item[Doorbell] A mechanism for the Driver to trigger a notification
++  to the device. The mechanism is a function of the transport but it
++  is typically an MMIO register.
++\item[Transport] The bus level abstraction that the Driver and Device
++  interface with.
++\end{description}
 +
-+    # Finally check if we have un-committed changes in the tree
-+    if ! git diff-index --quiet HEAD -- ; then
-+        COMMIT=3D"$COMMIT with local changes"
-+    fi
- fi
-=20
- case "$1" in
-     *-wd*)
- =09STAGE=3Dwd
- =09STAGENAME=3D"Working Draft"
--=09WORKINGDRAFT=3D`basename "$1" | sed 's/.*-wd//'`
- =09;;
-     *-os*)
- =09STAGE=3Dos
-@@ -40,6 +57,15 @@ case "$1" in
- =09exit 1
- esac
-=20
-+#
-+# Finally if we are building a local draft copy append the commit
-+# details to the end of the working draft
-+#
-+if ! test -z "$COMMIT" ; then
-+    STAGEEXTRATITLE=3D"$STAGEEXTRATITLE (@ git $COMMIT)"
-+fi
-+
-+
- #Prepend OASIS unless already there
- case "$STAGENAME" in
- =09OASIS*)
-diff --git a/makehtml.sh b/makehtml.sh
-index e18c350..099746c 100755
---- a/makehtml.sh
-+++ b/makehtml.sh
-@@ -1,7 +1,7 @@
- #!/bin/sh
-=20
- SPECDOC=3D${SPECDOC:-`cat REVISION`}
--./make-setup-generated.sh "$SPECDOC"
-+./make-setup-generated.sh "$SPECDOC" $1
-=20
- cp virtio-html.tex $SPECDOC.tex
+ \subsection{Legacy Interface: Terminology}\label{intro:Legacy
+ Interface: Terminology}
 =20
 --=20
 2.20.1
