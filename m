@@ -1,78 +1,53 @@
-Return-Path: virtio-comment-return-1366-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1364-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 256C998600C
-	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Jul 2020 15:43:13 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5D77C9860ED
+	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Jul 2020 15:43:12 +0000 (UTC)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Fri, 24 Jul 2020 16:42:50 +0100
-Message-Id: <20200724154251.12546-7-alex.bennee@linaro.org>
+Date: Fri, 24 Jul 2020 16:42:51 +0100
+Message-Id: <20200724154251.12546-8-alex.bennee@linaro.org>
 In-Reply-To: <20200724154251.12546-1-alex.bennee@linaro.org>
 References: <20200724154251.12546-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH  v2 6/7] introduction.tex: introduce a glossary of terms
+Subject: [virtio-comment] [PATCH  v2 7/7] content.tex: tighten up the definition of notification.
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>, Nikos Dragazis <ndragazis@arrikto.com>, Stefan Hajnoczi <stefanha@redhat.com>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>, Nikos Dragazis <ndragazis@arrikto.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-It is useful to have a glossary of common terms at the front of the
-document to define common terms we are going to use throughout the
-specification.
+Repeat the language from the Terminology section and slightly reword
+the remaining section of the paragraph.
 
-Cc: Nikos Dragazis <ndragazis@arrikto.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>
+Suggested-by: Nikos Dragazis <ndragazis@arrikto.com>
 Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
-
 ---
-v2
-  - drop host/guest terminology
-  - clarify Device/Driver
-  - add Transport
----
- introduction.tex | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ content.tex | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/introduction.tex b/introduction.tex
-index 33da3ec..292b78c 100644
---- a/introduction.tex
-+++ b/introduction.tex
-@@ -81,6 +81,27 @@ \section{Terminology}\label{Terminology}
+diff --git a/content.tex b/content.tex
+index 91735e3..d2c9a48 100644
+--- a/content.tex
++++ b/content.tex
+@@ -161,9 +161,11 @@ \subsection{Legacy Interface: A Note on Feature
+ \section{Notifications}\label{sec:Basic Facilities of a Virtio Device
+ / Notifications}
 =20
- The key words ``MUST'', ``MUST NOT'', ``REQUIRED'', ``SHALL'', ``SHALL NOT=
-'', ``SHOULD'', ``SHOULD NOT'', ``RECOMMENDED'', ``MAY'', and ``OPTIONAL'' =
-in this document are to be interpreted as described in \hyperref[intro:rfc2=
-119]{[RFC2119]}.
+-The notion of sending a notification (driver to device or device
+-to driver) plays an important role in this specification. The
+-modus operandi of the notifications is transport specific.
++A notification is a asynchronous signal sent to either the Device or
++the Driver to indicate an event has occurred. The mechanism of how a
++notification is triggered (from driver to device or from device to
++driver) is transport specific. Notifications play an important role in
++this specification.
 =20
-+\subsection{Glossary}\label{intro:Glossary}
-+
-+The following are definitions of common terms used throughout the specific=
-ation.
-+
-+\begin{description}
-+\item[Device] The series of configuration, control and operation
-+  mechanisms that make a Virtio device. The implementation details of
-+  the device should be transparent to the Driver.
-+\item[Driver] The software (usually part of a kernel) which accesses
-+  the device interface.
-+\item[Notification] An asynchronous signal sent to either the Device
-+  or the Driver to indicate an event has occurred. For Device to
-+  Driver notifications this is typically an device interrupt although
-+  the details are a function of the transport.
-+\item[Doorbell] A mechanism for the Driver to trigger a notification
-+  to the device. The mechanism is a function of the transport but it
-+  is typically an MMIO register.
-+\item[Transport] The bus level abstraction that the Driver and Device
-+  interface with.
-+\end{description}
-+
- \subsection{Legacy Interface: Terminology}\label{intro:Legacy
- Interface: Terminology}
-=20
+ There are three types of notifications:=20
+ \begin{itemize}
 --=20
 2.20.1
 
