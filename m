@@ -1,74 +1,54 @@
-Return-Path: virtio-comment-return-1385-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1384-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B7EC9985E71
-	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Aug 2020 13:18:55 +0000 (UTC)
-Date: Fri, 7 Aug 2020 14:18:48 +0100
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <20200807131848.GC609387@stefanha-x1.localdomain>
+	by lists.oasis-open.org (Postfix) with ESMTP id 18862985EB5
+	for <virtio-comment@lists.oasis-open.org>; Wed,  5 Aug 2020 13:57:16 +0000 (UTC)
 References: <20200724154251.12546-1-alex.bennee@linaro.org>
- <20200724154251.12546-7-alex.bennee@linaro.org>
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+In-reply-to: <20200724154251.12546-1-alex.bennee@linaro.org>
+Date: Wed, 05 Aug 2020 14:57:11 +0100
+Message-ID: <87y2mtkxfs.fsf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20200724154251.12546-7-alex.bennee@linaro.org>
-Subject: [virtio-comment] Re: [PATCH  v2 6/7] introduction.tex: introduce a glossary of terms
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zCKi3GIZzVBPywwA"
-Content-Disposition: inline
-To: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
-Cc: virtio-comment@lists.oasis-open.org, Nikos Dragazis <ndragazis@arrikto.com>
+Subject: [virtio-comment] Re: [PATCH  v2 0/7] doc build updates and terminology definitions
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
+Cc: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---zCKi3GIZzVBPywwA
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 24, 2020 at 04:42:50PM +0100, Alex Benn=E9e wrote:
-> +\subsection{Glossary}\label{intro:Glossary}
-> +
-> +The following are definitions of common terms used throughout the specif=
-ication.
-> +
-> +\begin{description}
-> +\item[Device] The series of configuration, control and operation
-> +  mechanisms that make a Virtio device. The implementation details of
+Alex Benn=C3=A9e <alex.bennee@linaro.org> writes:
 
-This definition is self-referential.
+> Hi,
+>
+> This contains both my previously posted build system tweaks and an
+> updated revision of the terminology patch I posted last week with a
+> further patch to tighten up the language in the Notifications section.
 
-How about:
+Ping?
 
-  The embodiment of a device type consisting of configuration space,
-  virtqueues, and a transport.
+--=20
+Alex Benn=C3=A9e
 
-This also requires defining "device type":
-
-  A set of configuration space and virtqueue structure definitions that
-  offer I/O functionality.
-
-> +  the device should be transparent to the Driver.
-
-I'm not sure about this "should" statement. Maybe this concept can be
-worked into the first sentence or dropped. "May", "can", "should",
-"must" are only used in the normative spec sections.
-
---zCKi3GIZzVBPywwA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl8tVLgACgkQnKSrs4Gr
-c8gGxQf+IPX8OTCNOzUGex/3JumyL3p8Bswdi/8kPk5Kpzsdf4Td6V3dANWW1m57
-Jd/BaKzQBg0u68pqstvMZU0JSyFhaxbrb4sHspLapGe5Kb/DsNrw8APPD6RZwy15
-Fhd45zDIzX2iLAjBI/8Ai9Z6IQLbqWNgCIXCp+cxisU2sYmNw49TO4y/VsTguf1X
-P3qLiMxYilm2sc+mz9PYvsjiLDqtSLNN/czlYcRTHKdEaz6XCUG1NE+eqO27ovWI
-vawpaxVYDlzQwxNJ/9Y/dtSb5IgDqBnKCaFTMcuornyBeYFi2BOmg7GzTxprFDpO
-6sXn20o8Vacda6/YEZlXJkH+v/TmRw==
-=L6Ty
------END PGP SIGNATURE-----
-
---zCKi3GIZzVBPywwA--
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
