@@ -1,52 +1,57 @@
-Return-Path: virtio-comment-return-1386-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1387-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C3527985E71
-	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Aug 2020 13:20:37 +0000 (UTC)
-Date: Fri, 7 Aug 2020 14:20:30 +0100
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <20200807132030.GD609387@stefanha-x1.localdomain>
+	by lists.oasis-open.org (Postfix) with ESMTP id 8A157985E71
+	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Aug 2020 15:20:54 +0000 (UTC)
 References: <20200724154251.12546-1-alex.bennee@linaro.org>
+ <20200807132030.GD609387@stefanha-x1.localdomain>
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+In-reply-to: <20200807132030.GD609387@stefanha-x1.localdomain>
+Date: Fri, 07 Aug 2020 16:20:49 +0100
+Message-ID: <87h7tejxda.fsf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20200724154251.12546-1-alex.bennee@linaro.org>
 Subject: Re: [virtio-comment] [PATCH  v2 0/7] doc build updates and
  terminology definitions
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ylS2wUBXLOxYXZFQ"
-Content-Disposition: inline
-To: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+To: Stefan Hajnoczi <stefanha@redhat.com>
 Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---ylS2wUBXLOxYXZFQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-The HTML -> Markdown conversion is hard to review.
+Stefan Hajnoczi <stefanha@redhat.com> writes:
 
-Can you share a command-line that reviewers can run to verify that the
-text is unchanged?
+> The HTML -> Markdown conversion is hard to review.
+>
+> Can you share a command-line that reviewers can run to verify that the
+> text is unchanged?
 
-Stefan
+Hmm not sure - I just eyeballed the two in githubs web-ui. That said
+I've just noticed some of the example code formatting is a little messed
+up so I should tweak that.
 
---ylS2wUBXLOxYXZFQ
-Content-Type: application/pgp-signature; name="signature.asc"
+--=20
+Alex Benn=C3=A9e
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl8tVR4ACgkQnKSrs4Gr
-c8iSeQgApZ68EPmN6Z4sOQVy5lWqJOSsjJ5qMgPA35Vd2aYSXPhNX/f6AkAhaoJL
-CQL5/D4p+qqMn1GLquoWA6CgJnS7MUcA+Qmnil75x3p4wienfBvTulPi6KDKid4J
-+Mqwox8hJmtiqEurJHDFHVDlKtsSrdaDw1vHImAwJ81ZySJkQmNwfs7vTq0sao1w
-Iwcu3SQ4d6Z1bsABXSqmNLeyfGs0RPIJfWsfg/06fPZwU25IE8A0YpgoL3jdJagA
-U/JBuYm6v6SsDF0BvqVEj3Asa89D9KNEdCC3apn2Hoh9+2Hr9GwxOgbSTEBumsdT
-GmwhC+UkQfcqCEKSFUcOCx0rL/6rKw==
-=ClKf
------END PGP SIGNATURE-----
-
---ylS2wUBXLOxYXZFQ--
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
