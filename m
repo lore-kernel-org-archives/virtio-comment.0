@@ -1,66 +1,154 @@
-Return-Path: virtio-comment-return-1417-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1405-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AD07E985D39
-	for <virtio-comment@lists.oasis-open.org>; Wed, 19 Aug 2020 19:23:48 +0000 (UTC)
-MIME-Version: 1.0
+	by lists.oasis-open.org (Postfix) with ESMTP id 0DCAF985DAE
+	for <virtio-comment@lists.oasis-open.org>; Fri, 14 Aug 2020 01:54:54 +0000 (UTC)
+From: Gurchetan Singh <gurchetansingh@chromium.org>
+Date: Thu, 13 Aug 2020 18:54:47 -0700
+Message-Id: <20200814015447.1151-3-gurchetansingh@chromium.org>
+In-Reply-To: <20200814015447.1151-1-gurchetansingh@chromium.org>
 References: <20200814015447.1151-1-gurchetansingh@chromium.org>
- <20200814015447.1151-2-gurchetansingh@chromium.org> <20200819070003.j3pzvcdxhv2zs3pm@sirius.home.kraxel.org>
-In-Reply-To: <20200819070003.j3pzvcdxhv2zs3pm@sirius.home.kraxel.org>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Wed, 19 Aug 2020 12:23:35 -0700
-Message-ID: <CAPaKu7RSFPcU1Mzs2CgXu+7Cj7-bnAOATaaF5LZ3Ycp3_xF1=A@mail.gmail.com>
-Subject: Re: [virtio-comment] Re: [PATCH 1/2] virtio-gpu: add resource create blob
-Content-Type: text/plain; charset="UTF-8"
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>, virtio-comment@lists.oasis-open.org
+MIME-Version: 1.0
+Subject: [virtio-comment] [PATCH 2/2] virtio-gpu: add support for mapping/unmapping blob resources
+Content-Type: text/plain; charset=y
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
+Cc: kraxel@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Aug 19, 2020 at 12:00 AM Gerd Hoffmann <kraxel@redhat.com> wrote:
->
->   Hi,
->
-> > +For VIRTIO_GPU_BLOB_MEM_HOST3D and VIRTIO_GPU_BLOB_MEM_HOST3D_GUEST, the
-> > +virtio-gpu resource MUST be created from the rendering context local object
-> > +identified by the \field{blob_id}. The actual allocation is done via
-> > +VIRTIO_GPU_CMD_SUBMIT_3D.
->
-> Speaking of VIRTIO_GPU_CMD_SUBMIT_3D:  IIRC I saw the suggestion to
-> separate out the submit_3d protocol headers somewhere (don't remember
-> where, so I'm kind of replying here).  I think this is a very good idea
-> to move them to a separate git repo / project, then have everyone use
-> that.  The project will be a natural place for the protocol spec and we
-> also can add a reference to it to the virtio specs.
-Yes!  I think that is a prerequisite to spec the 3D mode.  Not just
-the protocol header (virgl_protocol.h), but also virgl_hw.h that can
-be referenced by VIRTIO_GPU_CMD_RESOURCE_CREATE_3D and
-VIRTIO_GPU_CMD_GET_CAPSET.
+This defines a virtgpu shared memory region, with the possibilty
+of more in the future.  This is required to implement VK/GL coherent
+memory semantics, among other things.
 
->
-> take care,
->   Gerd
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->
+Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
+Acked-by: Gerd Hoffmann <kraxel@redhat.com>
+---
+ virtio-gpu.tex | 71 +++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 67 insertions(+), 4 deletions(-)
+
+diff --git a/virtio-gpu.tex b/virtio-gpu.tex
+index 1c435cb..50dfa1e 100644
+--- a/virtio-gpu.tex
++++ b/virtio-gpu.tex
+@@ -88,13 +88,31 @@ \subsubsection{Events}
+ information is available or all displays are disabled the driver MAY
+ choose to use a fallback, such as 1024x768 at display 0.
+=20
++The driver SHOULD query all shared memory regions supported by the device.
++If the device supports shared memory, the \field{shmid} of a region MUST
++(see \ref{sec:Basic Facilities of a Virtio Device /
++Shared Memory Regions}~\nameref{sec:Basic Facilities of a Virtio Device /
++Shared Memory Regions}) be one of the following:
++
++\begin{lstlisting}
++enum virtio_gpu_shm_id {
++        VIRTIO_GPU_SHM_ID_UNDEFINED =3D 0,
++        VIRTIO_GPU_SHM_ID_HOST_VISIBLE =3D 1,
++};
++\end{lstlisting}
++
++The shared memory region with VIRTIO_GPU_SHM_ID_HOST_VISIBLE is referred a=
+s
++the "host visible memory region".  The device MUST support the
++VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB and VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB
++if the host visible memory region is available.
++
+ \subsection{Device Operation}\label{sec:Device Types / GPU Device / Device=
+ Operation}
+=20
+ The virtio-gpu is based around the concept of resources private to the
+-host, the guest must DMA transfer into these resources. This is a
+-design requirement in order to interface with future 3D rendering. In
+-the unaccelerated 2D mode there is no support for DMA transfers from
+-resources, just to them.
++host.  The guest must DMA transfer into these resources, unless shared mem=
+ory
++regions are supported. This is a design requirement in order to interface =
+with
++future 3D rendering. In the unaccelerated 2D mode there is no support for =
+DMA
++transfers from resources, just to them.
+=20
+ Resources are initially simple 2D resources, consisting of a width,
+ height and format along with an identifier. The guest must then attach
+@@ -201,6 +219,8 @@ \subsubsection{Device Operation: Request header}\label{=
+sec:Device Types / GPU De
+         VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D,
+         VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D,
+         VIRTIO_GPU_CMD_SUBMIT_3D,
++        VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB,
++        VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB,
+=20
+         /* cursor commands */
+         VIRTIO_GPU_CMD_UPDATE_CURSOR =3D 0x0300,
+@@ -213,6 +233,7 @@ \subsubsection{Device Operation: Request header}\label{=
+sec:Device Types / GPU De
+         VIRTIO_GPU_RESP_OK_CAPSET,
+         VIRTIO_GPU_RESP_OK_EDID,
+         VIRTIO_GPU_RESP_OK_RESOURCE_UUID,
++        VIRTIO_GPU_RESP_OK_MAP_INFO,
+=20
+         /* error responses */
+         VIRTIO_GPU_RESP_ERR_UNSPEC =3D 0x1200,
+@@ -621,6 +642,48 @@ \subsubsection{Device Operation: controlq (3d)}\label{=
+sec:Device Types / GPU Dev
+ \item[VIRTIO_GPU_CMD_SUBMIT_3D]
+   Submit rendering commands (mesa gallium command stream).
+=20
++\item[VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB] maps a host-only
++  blob resource into an offset in the host visible memory region. Request
++  data is \field{struct virtio_gpu_resource_map_blob}.  Response type
++  is VIRTIO_GPU_RESP_OK_MAP_INFO. Support is optional and negotiated
++  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag and checking for
++  the presence of the host visible memory region.
++
++\begin{lstlisting}
++struct virtio_gpu_resource_map_blob {
++        struct virtio_gpu_ctrl_hdr hdr;
++        le32 resource_id;
++        le32 padding;
++        le64 offset;
++};
++
++#define VIRTIO_GPU_MAP_CACHE_MASK =C2=A0 =C2=A0 =C2=A00x0f
++#define VIRTIO_GPU_MAP_CACHE_NONE      0x00
++#define VIRTIO_GPU_MAP_CACHE_CACHED =C2=A0 =C2=A00x01
++#define VIRTIO_GPU_MAP_CACHE_UNCACHED =C2=A00x02
++#define VIRTIO_GPU_MAP_CACHE_WC =C2=A0 =C2=A0 =C2=A0 =C2=A00x03
++struct virtio_gpu_resp_map_info {
++        struct virtio_gpu_ctrl_hdr hdr;
++        u32 map_info;
++        u32 padding;
++};
++\end{lstlisting}
++
++\item[VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB] unmaps a
++  host-only blob resource from the host visible memory region. Request dat=
+a
++  is \field{struct virtio_gpu_resource_unmap_blob}.  Response type is
++  VIRTIO_GPU_RESP_OK_NODATA.  Support is optional and negotiated
++  using the VIRTIO_GPU_F_RESOURCE_BLOB feature flag and checking for
++  the presence of the host visible memory region.
++
++\begin{lstlisting}
++struct virtio_gpu_resource_unmap_blob {
++        struct virtio_gpu_ctrl_hdr hdr;
++        le32 resource_id;
++        le32 padding;
++};
++\end{lstlisting}
++
+ \end{description}
+=20
+ \subsubsection{Device Operation: cursorq}\label{sec:Device Types / GPU Dev=
+ice / Device Operation / Device Operation: cursorq}
+--=20
+2.24.1
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -74,7 +162,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
