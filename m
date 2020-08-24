@@ -1,43 +1,84 @@
-Return-Path: virtio-comment-return-1416-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1423-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 13DF0985D39
-	for <virtio-comment@lists.oasis-open.org>; Wed, 19 Aug 2020 07:12:11 +0000 (UTC)
-Date: Wed, 19 Aug 2020 09:12:05 +0200
-From: Gerd Hoffmann <kraxel@redhat.com>
-Message-ID: <20200819071205.cqw4n3622hi5bltv@sirius.home.kraxel.org>
-References: <20200814015447.1151-1-gurchetansingh@chromium.org>
+From: Alexander Duyck <alexander.duyck@gmail.com>
+Date: Mon, 24 Aug 2020 07:10:14 -0700
+Message-ID: 
+ <159827814858.192353.8993077724330545555.stgit@ahduyck-workstation>
 MIME-Version: 1.0
-In-Reply-To: <20200814015447.1151-1-gurchetansingh@chromium.org>
-Subject: [virtio-comment] Re: [PATCH 0/2] Blob resources v5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Gurchetan Singh <gurchetansingh@chromium.org>
-Cc: virtio-comment@lists.oasis-open.org
+Subject: [virtio-comment] [PATCH v7 0/3] virtio-spec: Add documentation for recently added
+ balloon features
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: mst@redhat.com, david@redhat.com, cohuck@redhat.com
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, wei.w.wang@intel.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Aug 13, 2020 at 06:54:45PM -0700, Gurchetan Singh wrote:
-> New additions to the blob spec.  This is to preserve the possibility
-> of a swapper in the kernel.  Based on UUID the patches.
-> 
-> This doesn't require ATTACH_BACKING / DETACH_BACKING since we're probably
-> not going to swap-in/swap-out zero-copy guest memory (especially if comes
-> from a guest dedicated heap, which is best for 3D/video apps) in the
-> event we do write a swapper.
-> 
-> Implementation should be on virtio-dev/dri-devel shortly.
+This patch set is meant to add documentation for balloon features that have
+been recently added to the Linux kernel[1,2] and that were recently added
+to QEMU[3].
 
-Looks good overall, some minor nits (see individual patch replies).
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/84
 
-I'll try to get to the code patches ASAP.  Didn't pay much attention to
-dri-devel due to -ENOTIME, now busy playing catch-up ...
+Changes since RFC:
+Incorporated suggestions from Cornelia Huck
+Fixed a few additional spelling errors
 
-take care,
-  Gerd
+Changes since v1:
+Incorporated additional suggestions from Cornelia Huck
+Dropped documentation referring to free page reporting from page poison patch
+
+Changes since v2:
+Rewrote multiple statements based on input from David Hildenbrand
+  Dropped use of balloon and deflate from page hinting description
+  Dropped use of free page reporting from page poison description
+  Cleaned up several spots that didn't match RFC2119 style comments
+  Added conformance links.
+  Various other clean-ups.
+Updated balloon command IDs based on input from Cornelia Huck
+
+Changes since v3:
+Reordered patches to place free page hinting at end of patch set
+  Moved contents out of patch to poison and free page reporting patches
+  Updated patch description to document some known issues with feature
+Further clean-ups based on input from David Hildenbrand
+
+Changes since v4:
+Further clean-ups for page hinting based on input from David Hildenbrand
+
+Changes since v5:
+Reverted patcher order changes from v3 placing hinting as first patch
+Addressed comments and added Reviewed-by from Cornelia Huck
+Addressed further items I found in free page hinting
+  Added requirement that output buffers be 4 bytes in size
+  Replaced reference to descriptor with buffer
+  Replaced references to free_page_hint_vq with free_page_vq
+
+Changes since v6:
+Fixed line that was left over from a merge conflict
+Added Reviewed-by from David Hildenbrand
+Created issue and added "Fixes" to cover page
+
+[1]: https://lore.kernel.org/lkml/20200211224416.29318.44077.stgit@localhost.localdomain/
+[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b0c504f154718904ae49349147e3b7e6ae91ffdc
+[3]: https://lists.oasis-open.org/archives/virtio-dev/202004/msg00180.html
+
+---
+
+Alexander Duyck (3):
+      content: Document balloon feature free page hints
+      content: Document balloon feature page poison
+      content: Document balloon feature free page reporting
+
+
+ conformance.tex |    6 +
+ content.tex     |  286 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 286 insertions(+), 6 deletions(-)
+
+--
 
 
 This publicly archived list offers a means to provide input to the
