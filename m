@@ -1,144 +1,113 @@
-Return-Path: virtio-comment-return-1379-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1444-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D51AE98455A
-	for <virtio-comment@lists.oasis-open.org>; Mon,  3 Aug 2020 15:49:02 +0000 (UTC)
-Date: Mon, 3 Aug 2020 17:48:53 +0200
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20200803174853.1f361b17.cohuck@redhat.com>
-In-Reply-To: <31432886-aa75-231d-59a1-1badd5048860@redhat.com>
-References: <20200803132431.139149-1-lvivier@redhat.com>
-	<20200803155729.4d30fb01.cohuck@redhat.com>
-	<31432886-aa75-231d-59a1-1badd5048860@redhat.com>
+References: <159836664741.231431.2775539890399592989.stgit@ahduyck-workstation>
+ <159836670239.231431.14835898822569373567.stgit@ahduyck-workstation>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <fd8d3fed-a92a-4356-7a3d-fb773b04880a@siemens.com>
+Date: Fri, 4 Sep 2020 17:19:58 +0200
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH] virtio-rng: add a control queue
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <159836670239.231431.14835898822569373567.stgit@ahduyck-workstation>
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v8 1/3] content: Document balloon feature
+ free page hints
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-To: Laurent Vivier <lvivier@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, "Michael S . Tsirkin" <mst@redhat.com>, Stefan Hajnoczi <stefanha@gmail.com>, Amit Shah <amit@kernel.org>
+Content-Language: en-US
+To: Alexander Duyck <alexander.duyck@gmail.com>, mst@redhat.com, david@redhat.com, cohuck@redhat.com
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, wei.w.wang@intel.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, 3 Aug 2020 17:00:34 +0200
-Laurent Vivier <lvivier@redhat.com> wrote:
+On 25.08.20 16:45, Alexander Duyck wrote:
+> From: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> 
+> Free page hints allow the balloon driver to provide information on what
+> pages are not currently in use so that we can avoid the cost of copying
+> them in migration scenarios. Add a feature description for free page hints
+> describing basic functioning and requirements.
+> 
+> Acked-by: Cornelia Huck <cohuck@redhat.com>
+> Reviewed-by: David Hildenbrand <david@redhat.com>
+> Signed-off-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> ---
+>  conformance.tex |    2 +
+>  content.tex     |  161 +++++++++++++++++++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 157 insertions(+), 6 deletions(-)
+> 
+> diff --git a/conformance.tex b/conformance.tex
+> index b6fdec090383..a14e26edfcb2 100644
+> --- a/conformance.tex
+> +++ b/conformance.tex
+> @@ -149,6 +149,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  \item \ref{drivernormative:Device Types / Memory Balloon Device / Feature bits}
+>  \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation}
+>  \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Memory Statistics}
+> +\item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
+>  \end{itemize}
+>  
+>  \conformance{\subsection}{SCSI Host Driver Conformance}\label{sec:Conformance / Driver Conformance / SCSI Host Driver Conformance}
+> @@ -331,6 +332,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  \item \ref{devicenormative:Device Types / Memory Balloon Device / Feature bits}
+>  \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation}
+>  \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Memory Statistics}
+> +\item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
+>  \end{itemize}
+>  
+>  \conformance{\subsection}{SCSI Host Device Conformance}\label{sec:Conformance / Device Conformance / SCSI Host Device Conformance}
+> diff --git a/content.tex b/content.tex
+> index 91735e3eb018..76dfce919b97 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -5005,10 +5005,13 @@ \subsection{Virtqueues}\label{sec:Device Types / Memory Balloon Device / Virtque
+>  \begin{description}
+>  \item[0] inflateq
+>  \item[1] deflateq
+> -\item[2] statsq.
+> +\item[2] statsq
+> +\item[3] free_page_vq
+>  \end{description}
+>  
+> -  Virtqueue 2 only exists if VIRTIO_BALLOON_F_STATS_VQ set.
+> +  statsq only exists if VIRTIO_BALLOON_F_STATS_VQ is set.
+> +
+> +  free_page_vq only exists if VIRTIO_BALLOON_F_FREE_PAGE_HINT is set.
+>  
+>  \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Feature bits}
+>  \begin{description}
+> @@ -5019,6 +5022,10 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
+>      memory statistics is present.
+>  \item[VIRTIO_BALLOON_F_DEFLATE_ON_OOM (2) ] Deflate balloon on
+>      guest out of memory condition.
+> +\item[ VIRTIO_BALLOON_F_FREE_PAGE_HINT(3) ] The device has support for free
+> +    page hinting. A virtqueue for providing hints as to what memory is
+> +    currently free is present. Configuration field \field{free_page_hint_cmd_id}
+> +    is valid.
+>  
+>  \end{description}
+>  
+> @@ -5042,13 +5049,17 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
+>  VIRTIO_BALLOON_F_MUST_TELL_HOST is not negotiated.
+>  
+>  \subsection{Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device configuration layout}
+> -  Both fields of this configuration
+> -  are always available.
+> +  \field{num_pages} and \field{actual} are always available.
+> +
+> +  \field{free_page_hint_cmd_id} is available if
+> +    VIRTIO_BALLOON_F_FREE_PAGE_HINT has been negotiated and is read-only by
+> +    the driver.
 
-> On 03/08/2020 15:57, Cornelia Huck wrote:
-> > On Mon,  3 Aug 2020 15:24:31 +0200
-> > Laurent Vivier <lvivier@redhat.com> wrote:
-> >   
-> >> A control queue is needed to send command to ask the device to
-> >> release the request buffers if it cannot provide data.
-> >>
-> >> Changes:
-> >>
-> >>   5.4.2 Virtqueues
-> >>   0 requestq
-> >>   1 controlq
-> >>   controlq only exists if VIRTIO_RNG_F_CTRL_VQ set.
-> >>
-> >>   5.4.3 Feature bits
-> >>   VIRTIO_RNG_F_CTRL_VQ (0)
-> >>   Device has a control queue
-> >>
-> >>   5.4.5 Device Initialization
-> >>   Identify and initialize the request virtqueue.
-> >>   If the VIRTIO_RNG_F_CTRL_VQ feature bit is negotiated,
-> >>   identify the control virtqueue.
-> >>
-> >>   5.4.6.3 Control Virtqueue
-> >>   The driver uses the control virtqueue (if VIRTIO_RNG_F_CTRL_VQ is negotiated)
-> >>   to send commands to control the device.
-> >>   All commands are of the following form:
-> >>   struct virtio_rng_ctrl_hdr {
-> >>          u8 cmd;
-> >>   };
-> >>
-> >>   5.4.6.3.1 Request Virtqueue Flushing
-> >>   When the device is not able to provide enough entropy to the driver,
-> >>   the driver can be stuck. And for instance, it cannot be removed from the
-> >>   system to switch to another one. The flush command allows the driver to ask
-> >>   the device to release all the buffers sent to the device and to unlock the
-> >>   driver.
-> >>   #define VIRTIO_RNG_CMD_FLUSH 0
-> >>
-> >> Bug-Link: https://github.com/oasis-tcs/virtio-spec/issues/83
-> >> Signed-off-by: Laurent Vivier <lvivier@redhat.com>
-> >> ---
-> >>  content.tex | 38 ++++++++++++++++++++++++++++++++++++--
-> >>  1 file changed, 36 insertions(+), 2 deletions(-)  
-> > 
-> > (...)
-> >   
-> >> +\paragraph{Request Virtqueue Flushing}\label{sec:Device Types / Entropy Device / Device Operation / Control Virtqueue / Request Virtqueue Flushing}
-> >> +
-> >> +When the device is not able to provide enough entropy to the driver, the driver can be stuck.
-> >> +And for instance, it cannot be removed from the system to switch to another one.  
-> > 
-> > Maybe
-> > 
-> > "...the driver may be stuck waiting for the device returning buffers,
-> > and cannot be removed..." ?  
-> 
-> ok
-> 
-> >   
-> >> +The flush command allows the driver to ask the device to release all the buffers sent to the
-> >> +device and to unlock the driver.  
-> > 
-> > What does "unlock the driver" mean?  
-> 
-> In fact, this is very implementation specific: in current linux
-> implementation the driver is waiting on the data with read mutex locked.
-> And with this mutex locked you can't do anything else in the driver...
-> 
-> I will replace this by:
-> "This allows the driver to release resources allocated to receive data
-> from the device."
+This reads at least to me like "...if VIRTIO_BALLOON_F_FREE_PAGE_HINT
+... is read-only by the driver". I suspect you rather meant
+"free_page_hint_cmd_id is read-only...". Maybe split up into two sentences?
 
-Sounds good.
+Jan
 
-> 
-> > 
-> > You'll probably also want a device normative statement for that, something like
-> > 
-> > "When the driver sends a flush request, the device MUST release all
-> > outstanding buffers."
-> >   
-> >> +
-> >> +\begin{lstlisting}
-> >> +#define VIRTIO_RNG_CMD_FLUSH 0
-> >> +\end{lstlisting}  
-> > 
-> > As we (currently) have only that one command, I think we need to
-> > specify that (a) negotiation of the CTRL_VQ feature implies that the
-> > flush command is available, and that (b) any other value of cmd should
-> > (must?) be ignored by the device. (I'd assume that new commands would
-> > require new feature bits.)  
-> 
-> I will add:
-> 
-> "The negociation of the CTRL_VQ feature implies that the flush command
-> is available."
-
-"If VIRTIO_RNG_F_CTRL_VQ is negotiated, the device MUST implement the
-flush command." ?
-
-> "Any other value of cmd MUST be ignored by the device."
-> 
-> But where? In this section?
-
-I think you want a devicenormative paragraph in the control vq
-subsection (also for the MUST statement above.) This needs to be
-referenced by the conformance part of the spec.
-
-> 
-> Thanks,
-> Laurent
-> 
-
+-- 
+Siemens AG, Corporate Technology, CT RDA IOT SES-DE
+Corporate Competence Center Embedded Linux
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
