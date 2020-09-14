@@ -1,229 +1,168 @@
-Return-Path: virtio-comment-return-1443-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1453-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5BDBB985ED7
-	for <virtio-comment@lists.oasis-open.org>; Fri,  4 Sep 2020 04:19:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 95897984482
+	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Sep 2020 15:45:55 +0000 (UTC)
+From: Vitaly Mireyno <vmireyno@marvell.com>
+Date: Mon, 14 Sep 2020 15:45:49 +0000
+Message-ID: <BN6PR1801MB20674293D815A142A4E3F581C5230@BN6PR1801MB2067.namprd18.prod.outlook.com>
 References: <BN6PR1801MB20673C85E4585FCB53C17927C5500@BN6PR1801MB2067.namprd18.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Message-ID: <0d675bfe-0f94-9c81-5dd3-b5a0406c1d97@redhat.com>
-Date: Fri, 4 Sep 2020 12:19:18 +0800
+ <0d675bfe-0f94-9c81-5dd3-b5a0406c1d97@redhat.com>
+In-Reply-To: <0d675bfe-0f94-9c81-5dd3-b5a0406c1d97@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <BN6PR1801MB20673C85E4585FCB53C17927C5500@BN6PR1801MB2067.namprd18.prod.outlook.com>
-Subject: [virtio-comment] Re: [PATCH v8] virtio-net: Add support for the flexible driver
- notification structure.
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] RE: [EXT] Re: [PATCH v8] virtio-net: Add support for the flexible
+ driver notification structure.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Content-Language: en-US
-To: Vitaly Mireyno <vmireyno@marvell.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+To: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, Ariel Elior <aelior@marvell.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-
-On 2020/8/31 =E4=B8=8A=E5=8D=885:16, Vitaly Mireyno wrote:
-> When the driver is required to send an available buffer notification to t=
-he device, it sends the virtqueue number to be notified.
-> With this new feature, the device can optionally provide a per-virtqueue =
-value for the driver to use in driver notifications, instead of the virtque=
-ue number.
-> Some devices may benefit from this flexibility by providing, for example,=
- an internal virtqueue identifier, or an internal offset related to the vir=
-tqueue number.
->
-> Changes from v6:
->   * Changed the feature definition such that the value, that the driver s=
-ets in the vqn field, is per-virtqueue
->
-> Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
-> ---
->   content.tex | 45 ++++++++++++++++++++++++++++++++++++++++++++-
->   1 file changed, 44 insertions(+), 1 deletion(-)
->
-> diff --git a/content.tex b/content.tex
-> index 91735e3..09043e6 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -824,6 +824,8 @@ \subsubsection{Common configuration structure layout}=
-\label{sec:Virtio Transport
->           le64 queue_desc;                /* read-write */
->           le64 queue_driver;              /* read-write */
->           le64 queue_device;              /* read-write */
-> +        le16 queue_notify_data;         /* read-only for driver */
-
-
-Do we need to mention this field only exists when=20
-VIRTIO_NET_F_NOTIF_CONFIG_DATA is negotiated?
-
-
-> +        le16 padding;
-
-
-Any reason for intruding the padding here?
-
-
->   };
->   \end{lstlisting}
->  =20
-> @@ -890,6 +892,18 @@ \subsubsection{Common configuration structure layout=
-}\label{sec:Virtio Transport
->  =20
->   \item[\field{queue_device}]
->           The driver writes the physical address of Device Area here.  Se=
-e section \ref{sec:Basic Facilities of a Virtio Device / Virtqueues}.
-> +
-> +\item[\field{queue_notify_data}]
-> +        If VIRTIO_NET_F_NOTIF_CONFIG_DATA has been negotiated, the drive=
-r will use this value
-
-
-The feature should work for other types of devices, so there's probably=20
-no need for "NET" prefix.
-
-
-> +        to put it in the 'virtqueue number' field in the available buffe=
-r notification structure.
-> +        See section \ref{sec:Virtio Transport Options / Virtio Over PCI =
-Bus / PCI-specific Initialization And Device Operation / Available Buffer N=
-otifications}.
-> +        \begin{note}
-> +        This field provides the device with flexibility to determine how=
- virtqueues
-> +        will be referred to in available buffer notifications.
-> +        In a trivial case the device can set \field{queue_notify_data}=
-=3Dvqn. Some devices
-> +        may benefit from providing another value, for example an interna=
-l virtqueue
-> +        identifier, or an internal offset related to the virtqueue numbe=
-r.
-> +        \end{note}
->   \end{description}
->  =20
->   \devicenormative{\paragraph}{Common configuration structure layout}{Vir=
-tio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common co=
-nfiguration structure layout}
-> @@ -940,7 +954,7 @@ \subsubsection{Common configuration structure layout}=
-\label{sec:Virtio Transport
->  =20
->   \drivernormative{\paragraph}{Common configuration structure layout}{Vir=
-tio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common co=
-nfiguration structure layout}
->  =20
-> -The driver MUST NOT write to \field{device_feature}, \field{num_queues},=
- \field{config_generation} or \field{queue_notify_off}.
-> +The driver MUST NOT write to \field{device_feature}, \field{num_queues},=
- \field{config_generation}, \field{queue_notify_off} or \field{queue_notify=
-_data}.
->  =20
->   If VIRTIO_F_RING_PACKED has been negotiated,
->   the driver MUST NOT write the value 0 to \field{queue_size}.
-> @@ -1519,6 +1533,10 @@ \subsubsection{Available Buffer Notifications}\lab=
-el{sec:Virtio Transport Option
->   See \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Devic=
-e Layout / Notification capability}
->   for how to calculate the Queue Notify address.
->  =20
-> +\drivernormative{\paragraph}{Available Buffer Notifications}{Virtio Tran=
-sport Options / Virtio Over PCI Bus / PCI-specific Initialization And Devic=
-e Operation / Available Buffer Notifications}
-> +If VIRTIO_NET_F_NOTIF_CONFIG_DATA has been negotiated, the driver MUST s=
-et the 'virtqueue number'
-> +field of the available buffer notification structure to the \field{queue=
-_notify_data} value.
-> +
->   \subsubsection{Used Buffer Notifications}\label{sec:Virtio Transport Op=
-tions / Virtio Over PCI Bus / PCI-specific Initialization And Device Operat=
-ion / Used Buffer Notifications}
->  =20
->   If a used buffer notification is necessary for a virtqueue, the device =
-would typically act as follows:
-> @@ -2895,6 +2913,9 @@ \subsection{Feature bits}\label{sec:Device Types / =
-Network Device / Feature bits
->   \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
->       channel.
->  =20
-> +\item[VIRTIO_NET_F_NOTIF_CONFIG_DATA(57)] Driver uses the data provided =
-by the
-> +    device as a virtqueue identifier in available buffer notifications.
-> +
->   \item[VIRTIO_NET_F_GUEST_HDRLEN(59)] Driver can provide the exact \fiel=
-d{hdr_len}
->       value. Device benefits from knowing the exact header length.
->  =20
-> @@ -4180,6 +4201,28 @@ \subsubsection{Legacy Interface: Framing Requireme=
-nts}\label{sec:Device
->   See \ref{sec:Basic
->   Facilities of a Virtio Device / Virtqueues / Message Framing}.
->  =20
-> +\subsubsection{Driver Notifications}\label{sec:Device Types / Network De=
-vice / Device Operation / Driver Notifications}
-> +As mentioned in section \ref{sec:Virtqueues / Driver notifications}, whe=
-n the
-> +driver is required to send an available buffer notification to the devic=
-e, it
-> +sends the virtqueue number to be notified. The method of delivering noti=
-fications
-> +is transport specific.
-> +With the PCI transport, the device can optionally provide a per-virtqueu=
-e value
-> +for the driver to use in driver notifications, instead of the virtqueue =
-number.
-> +Some devices may benefit from this flexibility by providing, for example=
-,
-> +an internal virtqueue identifier, or an internal offset related to the v=
-irtqueue number.
-> +
-> +The VIRTIO_NET_F_NOTIF_CONFIG_DATA feature indicates the availability of=
- such value.
-> +The definition of the data to be provided by the driver in driver notifi=
-cation and
-> +the method for delivering it is transport specific.
-> +
-> +For more details about driver notifications over PCI see \ref{sec:Virtio=
- Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And =
-Device Operation / Available Buffer Notifications}.
-> +
-> +\drivernormative{\paragraph}{Driver Notifications}{Device Types / Networ=
-k Device / Device Operation / Driver Notifications}
-> +The driver SHOULD accept the VIRTIO_NET_F_NOTIF_CONFIG_DATA feature if i=
-t has
-> +been offered.
-> +
-> +If the VIRTIO_NET_F_NOTIF_CONFIG_DATA feature has been negotiated, the d=
-river MUST provide the transport-specific value for the virtqueue number wi=
-th driver notifications.
-> +
-
-
-Do we need to clarify that the NOTIFICATION_DATA and NOTIF_CONFIG_DATA=20
-is mutually exclusive?
-
-Thanks
-
-
->   \section{Block Device}\label{sec:Device Types / Block Device}
->  =20
->   The virtio block device is a simple virtual block device (ie.
-> --
->
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+Pg0KPk9uIDIwMjAvOC8zMSDkuIrljYg1OjE2LCBWaXRhbHkgTWlyZXlubyB3cm90ZToNCj4+IFdo
+ZW4gdGhlIGRyaXZlciBpcyByZXF1aXJlZCB0byBzZW5kIGFuIGF2YWlsYWJsZSBidWZmZXIgbm90
+aWZpY2F0aW9uIHRvIHRoZSBkZXZpY2UsIGl0IHNlbmRzIHRoZQ0KPnZpcnRxdWV1ZSBudW1iZXIg
+dG8gYmUgbm90aWZpZWQuDQo+PiBXaXRoIHRoaXMgbmV3IGZlYXR1cmUsIHRoZSBkZXZpY2UgY2Fu
+IG9wdGlvbmFsbHkgcHJvdmlkZSBhIHBlci12aXJ0cXVldWUgdmFsdWUgZm9yIHRoZSBkcml2ZXIg
+dG8gdXNlIGluDQo+ZHJpdmVyIG5vdGlmaWNhdGlvbnMsIGluc3RlYWQgb2YgdGhlIHZpcnRxdWV1
+ZSBudW1iZXIuDQo+PiBTb21lIGRldmljZXMgbWF5IGJlbmVmaXQgZnJvbSB0aGlzIGZsZXhpYmls
+aXR5IGJ5IHByb3ZpZGluZywgZm9yIGV4YW1wbGUsIGFuIGludGVybmFsIHZpcnRxdWV1ZQ0KPmlk
+ZW50aWZpZXIsIG9yIGFuIGludGVybmFsIG9mZnNldCByZWxhdGVkIHRvIHRoZSB2aXJ0cXVldWUg
+bnVtYmVyLg0KPj4NCj4+IENoYW5nZXMgZnJvbSB2NjoNCj4+ICAgKiBDaGFuZ2VkIHRoZSBmZWF0
+dXJlIGRlZmluaXRpb24gc3VjaCB0aGF0IHRoZSB2YWx1ZSwgdGhhdCB0aGUNCj4+IGRyaXZlciBz
+ZXRzIGluIHRoZSB2cW4gZmllbGQsIGlzIHBlci12aXJ0cXVldWUNCj4+DQo+PiBTaWduZWQtb2Zm
+LWJ5OiBWaXRhbHkgTWlyZXlubyA8dm1pcmV5bm9AbWFydmVsbC5jb20+DQo+PiAtLS0NCj4+ICAg
+Y29udGVudC50ZXggfCA0NSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKy0NCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDQ0IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
+LSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvY29udGVudC50ZXggYi9jb250ZW50LnRleCBpbmRleCA5
+MTczNWUzLi4wOTA0M2U2IDEwMDY0NA0KPj4gLS0tIGEvY29udGVudC50ZXgNCj4+ICsrKyBiL2Nv
+bnRlbnQudGV4DQo+PiBAQCAtODI0LDYgKzgyNCw4IEBAIFxzdWJzdWJzZWN0aW9ue0NvbW1vbiBj
+b25maWd1cmF0aW9uIHN0cnVjdHVyZSBsYXlvdXR9XGxhYmVse3NlYzpWaXJ0aW8NCj5UcmFuc3Bv
+cnQNCj4+ICAgICAgICAgICBsZTY0IHF1ZXVlX2Rlc2M7ICAgICAgICAgICAgICAgIC8qIHJlYWQt
+d3JpdGUgKi8NCj4+ICAgICAgICAgICBsZTY0IHF1ZXVlX2RyaXZlcjsgICAgICAgICAgICAgIC8q
+IHJlYWQtd3JpdGUgKi8NCj4+ICAgICAgICAgICBsZTY0IHF1ZXVlX2RldmljZTsgICAgICAgICAg
+ICAgIC8qIHJlYWQtd3JpdGUgKi8NCj4+ICsgICAgICAgIGxlMTYgcXVldWVfbm90aWZ5X2RhdGE7
+ICAgICAgICAgLyogcmVhZC1vbmx5IGZvciBkcml2ZXIgKi8NCj4NCj4NCj5EbyB3ZSBuZWVkIHRv
+IG1lbnRpb24gdGhpcyBmaWVsZCBvbmx5IGV4aXN0cyB3aGVuIFZJUlRJT19ORVRfRl9OT1RJRl9D
+T05GSUdfREFUQSBpcw0KPm5lZ290aWF0ZWQ/DQo+DQoNCldpbGwgYWRkLg0KDQo+DQo+PiArICAg
+ICAgICBsZTE2IHBhZGRpbmc7DQo+DQo+DQo+QW55IHJlYXNvbiBmb3IgaW50cnVkaW5nIHRoZSBw
+YWRkaW5nIGhlcmU/DQo+DQoNCkkgdGhvdWdodCBvZiBhIGR3b3JkIGFsaWdubWVudCwgYnV0IHJl
+YWRpbmcgYWdhaW4gdGhlIHNwZWMgc2VlbXMgdGhhdCBpdCdzIG5vdCByZXF1aXJlZC4gV2lsbCBy
+ZW1vdmUuDQoNCj4NCj4+ICAgfTsNCj4+ICAgXGVuZHtsc3RsaXN0aW5nfQ0KPj4NCj4+IEBAIC04
+OTAsNiArODkyLDE4IEBAIFxzdWJzdWJzZWN0aW9ue0NvbW1vbiBjb25maWd1cmF0aW9uIHN0cnVj
+dHVyZSBsYXlvdXR9XGxhYmVse3NlYzpWaXJ0aW8NCj5UcmFuc3BvcnQNCj4+DQo+PiAgIFxpdGVt
+W1xmaWVsZHtxdWV1ZV9kZXZpY2V9XQ0KPj4gICAgICAgICAgIFRoZSBkcml2ZXIgd3JpdGVzIHRo
+ZSBwaHlzaWNhbCBhZGRyZXNzIG9mIERldmljZSBBcmVhIGhlcmUuICBTZWUgc2VjdGlvbiBccmVm
+e3NlYzpCYXNpYyBGYWNpbGl0aWVzDQo+b2YgYSBWaXJ0aW8gRGV2aWNlIC8gVmlydHF1ZXVlc30u
+DQo+PiArDQo+PiArXGl0ZW1bXGZpZWxke3F1ZXVlX25vdGlmeV9kYXRhfV0NCj4+ICsgICAgICAg
+IElmIFZJUlRJT19ORVRfRl9OT1RJRl9DT05GSUdfREFUQSBoYXMgYmVlbiBuZWdvdGlhdGVkLCB0
+aGUgZHJpdmVyIHdpbGwgdXNlIHRoaXMgdmFsdWUNCj4NCj4NCj5UaGUgZmVhdHVyZSBzaG91bGQg
+d29yayBmb3Igb3RoZXIgdHlwZXMgb2YgZGV2aWNlcywgc28gdGhlcmUncyBwcm9iYWJseQ0KPm5v
+IG5lZWQgZm9yICJORVQiIHByZWZpeC4NCj4NCg0KT2suIFdpbGwgbW92ZSBpdCB0byB0aGUgZGV2
+aWNlIGluZGVwZW5kZW50IGZlYXR1cmVzIHNlY3Rpb24gKCI2IFJlc2VydmVkIEZlYXR1cmUgQml0
+cyIpDQoNCj4NCj4+ICsgICAgICAgIHRvIHB1dCBpdCBpbiB0aGUgJ3ZpcnRxdWV1ZSBudW1iZXIn
+IGZpZWxkIGluIHRoZSBhdmFpbGFibGUgYnVmZmVyIG5vdGlmaWNhdGlvbiBzdHJ1Y3R1cmUuDQo+
+PiArICAgICAgICBTZWUgc2VjdGlvbiBccmVme3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMg
+LyBWaXJ0aW8gT3ZlciBQQ0kgQnVzIC8gUENJLXNwZWNpZmljIEluaXRpYWxpemF0aW9uIEFuZA0K
+PkRldmljZSBPcGVyYXRpb24gLyBBdmFpbGFibGUgQnVmZmVyIE5vdGlmaWNhdGlvbnN9Lg0KPj4g
+KyAgICAgICAgXGJlZ2lue25vdGV9DQo+PiArICAgICAgICBUaGlzIGZpZWxkIHByb3ZpZGVzIHRo
+ZSBkZXZpY2Ugd2l0aCBmbGV4aWJpbGl0eSB0byBkZXRlcm1pbmUgaG93IHZpcnRxdWV1ZXMNCj4+
+ICsgICAgICAgIHdpbGwgYmUgcmVmZXJyZWQgdG8gaW4gYXZhaWxhYmxlIGJ1ZmZlciBub3RpZmlj
+YXRpb25zLg0KPj4gKyAgICAgICAgSW4gYSB0cml2aWFsIGNhc2UgdGhlIGRldmljZSBjYW4gc2V0
+IFxmaWVsZHtxdWV1ZV9ub3RpZnlfZGF0YX09dnFuLiBTb21lIGRldmljZXMNCj4+ICsgICAgICAg
+IG1heSBiZW5lZml0IGZyb20gcHJvdmlkaW5nIGFub3RoZXIgdmFsdWUsIGZvciBleGFtcGxlIGFu
+IGludGVybmFsIHZpcnRxdWV1ZQ0KPj4gKyAgICAgICAgaWRlbnRpZmllciwgb3IgYW4gaW50ZXJu
+YWwgb2Zmc2V0IHJlbGF0ZWQgdG8gdGhlIHZpcnRxdWV1ZSBudW1iZXIuDQo+PiArICAgICAgICBc
+ZW5ke25vdGV9DQo+PiAgIFxlbmR7ZGVzY3JpcHRpb259DQo+Pg0KPj4gICBcZGV2aWNlbm9ybWF0
+aXZle1xwYXJhZ3JhcGh9e0NvbW1vbiBjb25maWd1cmF0aW9uIHN0cnVjdHVyZSBsYXlvdXR9e1Zp
+cnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvDQo+VmlydGlvIE92ZXIgUENJIEJ1cyAvIFBDSSBEZXZp
+Y2UgTGF5b3V0IC8gQ29tbW9uIGNvbmZpZ3VyYXRpb24gc3RydWN0dXJlIGxheW91dH0NCj4+IEBA
+IC05NDAsNyArOTU0LDcgQEAgXHN1YnN1YnNlY3Rpb257Q29tbW9uIGNvbmZpZ3VyYXRpb24gc3Ry
+dWN0dXJlIGxheW91dH1cbGFiZWx7c2VjOlZpcnRpbw0KPlRyYW5zcG9ydA0KPj4NCj4+ICAgXGRy
+aXZlcm5vcm1hdGl2ZXtccGFyYWdyYXBofXtDb21tb24gY29uZmlndXJhdGlvbiBzdHJ1Y3R1cmUg
+bGF5b3V0fXtWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLw0KPlZpcnRpbyBPdmVyIFBDSSBCdXMg
+LyBQQ0kgRGV2aWNlIExheW91dCAvIENvbW1vbiBjb25maWd1cmF0aW9uIHN0cnVjdHVyZSBsYXlv
+dXR9DQo+Pg0KPj4gLVRoZSBkcml2ZXIgTVVTVCBOT1Qgd3JpdGUgdG8gXGZpZWxke2RldmljZV9m
+ZWF0dXJlfSwgXGZpZWxke251bV9xdWV1ZXN9LA0KPlxmaWVsZHtjb25maWdfZ2VuZXJhdGlvbn0g
+b3IgXGZpZWxke3F1ZXVlX25vdGlmeV9vZmZ9Lg0KPj4gK1RoZSBkcml2ZXIgTVVTVCBOT1Qgd3Jp
+dGUgdG8gXGZpZWxke2RldmljZV9mZWF0dXJlfSwgXGZpZWxke251bV9xdWV1ZXN9LA0KPlxmaWVs
+ZHtjb25maWdfZ2VuZXJhdGlvbn0sIFxmaWVsZHtxdWV1ZV9ub3RpZnlfb2ZmfSBvciBcZmllbGR7
+cXVldWVfbm90aWZ5X2RhdGF9Lg0KPj4NCj4+ICAgSWYgVklSVElPX0ZfUklOR19QQUNLRUQgaGFz
+IGJlZW4gbmVnb3RpYXRlZCwNCj4+ICAgdGhlIGRyaXZlciBNVVNUIE5PVCB3cml0ZSB0aGUgdmFs
+dWUgMCB0byBcZmllbGR7cXVldWVfc2l6ZX0uDQo+PiBAQCAtMTUxOSw2ICsxNTMzLDEwIEBAIFxz
+dWJzdWJzZWN0aW9ue0F2YWlsYWJsZSBCdWZmZXIgTm90aWZpY2F0aW9uc31cbGFiZWx7c2VjOlZp
+cnRpbyBUcmFuc3BvcnQNCj5PcHRpb24NCj4+ICAgU2VlIFxyZWZ7c2VjOlZpcnRpbyBUcmFuc3Bv
+cnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBDSSBCdXMgLyBQQ0kgRGV2aWNlIExheW91dCAvIE5v
+dGlmaWNhdGlvbg0KPmNhcGFiaWxpdHl9DQo+PiAgIGZvciBob3cgdG8gY2FsY3VsYXRlIHRoZSBR
+dWV1ZSBOb3RpZnkgYWRkcmVzcy4NCj4+DQo+PiArXGRyaXZlcm5vcm1hdGl2ZXtccGFyYWdyYXBo
+fXtBdmFpbGFibGUgQnVmZmVyIE5vdGlmaWNhdGlvbnN9e1ZpcnRpbyBUcmFuc3BvcnQgT3B0aW9u
+cyAvIFZpcnRpbyBPdmVyDQo+UENJIEJ1cyAvIFBDSS1zcGVjaWZpYyBJbml0aWFsaXphdGlvbiBB
+bmQgRGV2aWNlIE9wZXJhdGlvbiAvIEF2YWlsYWJsZSBCdWZmZXIgTm90aWZpY2F0aW9uc30NCj4+
+ICtJZiBWSVJUSU9fTkVUX0ZfTk9USUZfQ09ORklHX0RBVEEgaGFzIGJlZW4gbmVnb3RpYXRlZCwg
+dGhlIGRyaXZlciBNVVNUIHNldCB0aGUgJ3ZpcnRxdWV1ZQ0KPm51bWJlcicNCj4+ICtmaWVsZCBv
+ZiB0aGUgYXZhaWxhYmxlIGJ1ZmZlciBub3RpZmljYXRpb24gc3RydWN0dXJlIHRvIHRoZSBcZmll
+bGR7cXVldWVfbm90aWZ5X2RhdGF9IHZhbHVlLg0KPj4gKw0KPj4gICBcc3Vic3Vic2VjdGlvbntV
+c2VkIEJ1ZmZlciBOb3RpZmljYXRpb25zfVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRp
+b25zIC8gVmlydGlvIE92ZXIgUENJIEJ1cyAvDQo+UENJLXNwZWNpZmljIEluaXRpYWxpemF0aW9u
+IEFuZCBEZXZpY2UgT3BlcmF0aW9uIC8gVXNlZCBCdWZmZXIgTm90aWZpY2F0aW9uc30NCj4+DQo+
+PiAgIElmIGEgdXNlZCBidWZmZXIgbm90aWZpY2F0aW9uIGlzIG5lY2Vzc2FyeSBmb3IgYSB2aXJ0
+cXVldWUsIHRoZSBkZXZpY2Ugd291bGQgdHlwaWNhbGx5IGFjdCBhcyBmb2xsb3dzOg0KPj4gQEAg
+LTI4OTUsNiArMjkxMyw5IEBAIFxzdWJzZWN0aW9ue0ZlYXR1cmUgYml0c31cbGFiZWx7c2VjOkRl
+dmljZSBUeXBlcyAvIE5ldHdvcmsgRGV2aWNlIC8NCj5GZWF0dXJlIGJpdHMNCj4+ICAgXGl0ZW1b
+VklSVElPX05FVF9GX0NUUkxfTUFDX0FERFIoMjMpXSBTZXQgTUFDIGFkZHJlc3MgdGhyb3VnaCBj
+b250cm9sDQo+PiAgICAgICBjaGFubmVsLg0KPj4NCj4+ICtcaXRlbVtWSVJUSU9fTkVUX0ZfTk9U
+SUZfQ09ORklHX0RBVEEoNTcpXSBEcml2ZXIgdXNlcyB0aGUgZGF0YSBwcm92aWRlZCBieSB0aGUN
+Cj4+ICsgICAgZGV2aWNlIGFzIGEgdmlydHF1ZXVlIGlkZW50aWZpZXIgaW4gYXZhaWxhYmxlIGJ1
+ZmZlciBub3RpZmljYXRpb25zLg0KPj4gKw0KPj4gICBcaXRlbVtWSVJUSU9fTkVUX0ZfR1VFU1Rf
+SERSTEVOKDU5KV0gRHJpdmVyIGNhbiBwcm92aWRlIHRoZSBleGFjdCBcZmllbGR7aGRyX2xlbn0N
+Cj4+ICAgICAgIHZhbHVlLiBEZXZpY2UgYmVuZWZpdHMgZnJvbSBrbm93aW5nIHRoZSBleGFjdCBo
+ZWFkZXIgbGVuZ3RoLg0KPj4NCj4+IEBAIC00MTgwLDYgKzQyMDEsMjggQEAgXHN1YnN1YnNlY3Rp
+b257TGVnYWN5IEludGVyZmFjZTogRnJhbWluZyBSZXF1aXJlbWVudHN9XGxhYmVse3NlYzpEZXZp
+Y2UNCj4+ICAgU2VlIFxyZWZ7c2VjOkJhc2ljDQo+PiAgIEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8g
+RGV2aWNlIC8gVmlydHF1ZXVlcyAvIE1lc3NhZ2UgRnJhbWluZ30uDQo+Pg0KPj4gK1xzdWJzdWJz
+ZWN0aW9ue0RyaXZlciBOb3RpZmljYXRpb25zfVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gTmV0
+d29yayBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9uIC8NCj5Ecml2ZXIgTm90aWZpY2F0aW9uc30N
+Cj4+ICtBcyBtZW50aW9uZWQgaW4gc2VjdGlvbiBccmVme3NlYzpWaXJ0cXVldWVzIC8gRHJpdmVy
+IG5vdGlmaWNhdGlvbnN9LCB3aGVuIHRoZQ0KPj4gK2RyaXZlciBpcyByZXF1aXJlZCB0byBzZW5k
+IGFuIGF2YWlsYWJsZSBidWZmZXIgbm90aWZpY2F0aW9uIHRvIHRoZSBkZXZpY2UsIGl0DQo+PiAr
+c2VuZHMgdGhlIHZpcnRxdWV1ZSBudW1iZXIgdG8gYmUgbm90aWZpZWQuIFRoZSBtZXRob2Qgb2Yg
+ZGVsaXZlcmluZyBub3RpZmljYXRpb25zDQo+PiAraXMgdHJhbnNwb3J0IHNwZWNpZmljLg0KPj4g
+K1dpdGggdGhlIFBDSSB0cmFuc3BvcnQsIHRoZSBkZXZpY2UgY2FuIG9wdGlvbmFsbHkgcHJvdmlk
+ZSBhIHBlci12aXJ0cXVldWUgdmFsdWUNCj4+ICtmb3IgdGhlIGRyaXZlciB0byB1c2UgaW4gZHJp
+dmVyIG5vdGlmaWNhdGlvbnMsIGluc3RlYWQgb2YgdGhlIHZpcnRxdWV1ZSBudW1iZXIuDQo+PiAr
+U29tZSBkZXZpY2VzIG1heSBiZW5lZml0IGZyb20gdGhpcyBmbGV4aWJpbGl0eSBieSBwcm92aWRp
+bmcsIGZvciBleGFtcGxlLA0KPj4gK2FuIGludGVybmFsIHZpcnRxdWV1ZSBpZGVudGlmaWVyLCBv
+ciBhbiBpbnRlcm5hbCBvZmZzZXQgcmVsYXRlZCB0byB0aGUgdmlydHF1ZXVlIG51bWJlci4NCj4+
+ICsNCj4+ICtUaGUgVklSVElPX05FVF9GX05PVElGX0NPTkZJR19EQVRBIGZlYXR1cmUgaW5kaWNh
+dGVzIHRoZSBhdmFpbGFiaWxpdHkgb2Ygc3VjaCB2YWx1ZS4NCj4+ICtUaGUgZGVmaW5pdGlvbiBv
+ZiB0aGUgZGF0YSB0byBiZSBwcm92aWRlZCBieSB0aGUgZHJpdmVyIGluIGRyaXZlciBub3RpZmlj
+YXRpb24gYW5kDQo+PiArdGhlIG1ldGhvZCBmb3IgZGVsaXZlcmluZyBpdCBpcyB0cmFuc3BvcnQg
+c3BlY2lmaWMuDQo+PiArDQo+PiArRm9yIG1vcmUgZGV0YWlscyBhYm91dCBkcml2ZXIgbm90aWZp
+Y2F0aW9ucyBvdmVyIFBDSSBzZWUgXHJlZntzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8g
+VmlydGlvDQo+T3ZlciBQQ0kgQnVzIC8gUENJLXNwZWNpZmljIEluaXRpYWxpemF0aW9uIEFuZCBE
+ZXZpY2UgT3BlcmF0aW9uIC8gQXZhaWxhYmxlIEJ1ZmZlciBOb3RpZmljYXRpb25zfS4NCj4+ICsN
+Cj4+ICtcZHJpdmVybm9ybWF0aXZle1xwYXJhZ3JhcGh9e0RyaXZlciBOb3RpZmljYXRpb25zfXtE
+ZXZpY2UgVHlwZXMgLyBOZXR3b3JrIERldmljZSAvIERldmljZQ0KPk9wZXJhdGlvbiAvIERyaXZl
+ciBOb3RpZmljYXRpb25zfQ0KPj4gK1RoZSBkcml2ZXIgU0hPVUxEIGFjY2VwdCB0aGUgVklSVElP
+X05FVF9GX05PVElGX0NPTkZJR19EQVRBIGZlYXR1cmUgaWYgaXQgaGFzDQo+PiArYmVlbiBvZmZl
+cmVkLg0KPj4gKw0KPj4gK0lmIHRoZSBWSVJUSU9fTkVUX0ZfTk9USUZfQ09ORklHX0RBVEEgZmVh
+dHVyZSBoYXMgYmVlbiBuZWdvdGlhdGVkLCB0aGUgZHJpdmVyIE1VU1QgcHJvdmlkZQ0KPnRoZSB0
+cmFuc3BvcnQtc3BlY2lmaWMgdmFsdWUgZm9yIHRoZSB2aXJ0cXVldWUgbnVtYmVyIHdpdGggZHJp
+dmVyIG5vdGlmaWNhdGlvbnMuDQo+PiArDQo+DQo+DQo+RG8gd2UgbmVlZCB0byBjbGFyaWZ5IHRo
+YXQgdGhlIE5PVElGSUNBVElPTl9EQVRBIGFuZCBOT1RJRl9DT05GSUdfREFUQQ0KPmlzIG11dHVh
+bGx5IGV4Y2x1c2l2ZT8NCj4NCg0KSSBkb27igJl0IHNlZSB0aGVtIGFzIG11dHVhbGx5IGV4Y2x1
+c2l2ZS4NCk5PVElGX0NPTkZJR19EQVRBIG1lYW5zIHRoYXQgaW5zdGVhZCBvZiB0aGUgdnEgbnVt
+YmVyLCB0aGUgZHJpdmVyIHdpbGwgdXNlIG90aGVyIHBlci12cSB2YWx1ZSBpbiBkcml2ZXIgbm90
+aWZpY2F0aW9ucy4NCklmIE5PVElGSUNBVElPTl9EQVRBIGhhcyBub3QgYmVlbiBuZWdvdGlhdGVk
+LCAgaXQgd2lsbCBiZSBqdXN0IHRoYXQgdmFsdWUuDQpJZiBOT1RJRklDQVRJT05fREFUQSBoYXMg
+YmVlbiBuZWdvdGlhdGVkLCBpdCB3aWxsIGJlIHZxbiBmaWVsZCBpbiB0aGUgbm90aWZpY2F0aW9u
+IHN0cnVjdC4NCihhY2NvcmRpbmcgdG8gIjQuMS41LjIgQXZhaWxhYmxlIEJ1ZmZlciBOb3RpZmlj
+YXRpb25zIikNCkRvZXMgdGhpcyBtYWtlIHNlbnNlPw0KDQo+VGhhbmtzDQo+DQo+DQo+PiAgIFxz
+ZWN0aW9ue0Jsb2NrIERldmljZX1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIEJsb2NrIERldmlj
+ZX0NCj4+DQo+PiAgIFRoZSB2aXJ0aW8gYmxvY2sgZGV2aWNlIGlzIGEgc2ltcGxlIHZpcnR1YWwg
+YmxvY2sgZGV2aWNlIChpZS4NCj4+IC0tDQo+Pg0KDQo=
 
