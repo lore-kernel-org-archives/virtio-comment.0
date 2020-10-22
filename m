@@ -1,64 +1,66 @@
-Return-Path: virtio-comment-return-1462-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1465-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 66C82986111
-	for <virtio-comment@lists.oasis-open.org>; Wed, 21 Oct 2020 13:59:00 +0000 (UTC)
-From: Rob Bradford <robert.bradford@intel.com>
-Date: Wed, 21 Oct 2020 14:58:47 +0100
-Message-Id: <20201021135847.15236-1-robert.bradford@intel.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 90635986139
+	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Oct 2020 15:09:57 +0000 (UTC)
+References: <20201021135847.15236-1-robert.bradford@intel.com>
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+In-reply-to: <20201021135847.15236-1-robert.bradford@intel.com>
+Date: Thu, 22 Oct 2020 16:09:53 +0100
+Message-ID: <874kmmuwji.fsf@linaro.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH] content: Reserve virtio-watchog device ID
+Subject: Re: [virtio-comment] [PATCH] content: Reserve virtio-watchog device ID
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"
-To: virtio-comment@lists.oasis-open.org
-Cc: Rob Bradford <robert.bradford@intel.com>
+To: Rob Bradford <robert.bradford@intel.com>
+Cc: virtio-comment@lists.oasis-open.org, Stratos-dev <stratos-dev@op-lists.linaro.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Reserve an ID for a watchdog device which may be used to ensure that the
-guest is responsive. This is equivalent of a hardware watchdog device
-and will trigger the reboot of the guest if the the host does not
-periodic ping from the the guest.
 
-Signed-off-by: Rob Bradford <robert.bradford@intel.com>
----
- content.tex | 2 ++
- 1 file changed, 2 insertions(+)
+Rob Bradford <robert.bradford@intel.com> writes:
 
-diff --git a/content.tex b/content.tex
-index bc26674..6f8ec8f 100644
---- a/content.tex
-+++ b/content.tex
-@@ -2819,6 +2819,8 @@ \chapter{Device Types}\label{sec:Device Types}
- \hline
- 33         &   NitroSecureModule \\
- \hline
-+35         &   Watchdog \\
-+\hline
- \end{tabular}
-=20
- Some of the devices above are unspecified by this document,
+> Reserve an ID for a watchdog device which may be used to ensure that the
+> guest is responsive. This is equivalent of a hardware watchdog device
+> and will trigger the reboot of the guest if the the host does not
+> periodic ping from the the guest.
+
+Out of interest is your watchdog device also going to allow for straight
+power/reset control?
+
+The use case I'm thinking of is QEMU's -m virt machine which is a purely
+virtual machine which is a target for a number of firmware/bootcode
+projects. QEMU provides a firmware emulation that will do the right
+thing if you issue PSCI supervisor calls and you have directly loaded a
+kernel. However if you are testing firmware - for example EDK2 or Arm
+Trusted Firmware it is expected to make the final hw appropriate twiddle
+to reboot the machine and of course that is undefined for -m virt.
+
+> Signed-off-by: Rob Bradford <robert.bradford@intel.com>
+
+Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+
 --=20
-2.26.2
+Alex Benn=C3=A9e
 
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
