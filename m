@@ -1,66 +1,59 @@
-Return-Path: virtio-comment-return-1465-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1468-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 90635986139
-	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Oct 2020 15:09:57 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 02789986125
+	for <virtio-comment@lists.oasis-open.org>; Fri, 23 Oct 2020 13:48:57 +0000 (UTC)
+Date: Fri, 23 Oct 2020 14:48:43 +0100
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20201023134843.GC812157@stefanha-x1.localdomain>
 References: <20201021135847.15236-1-robert.bradford@intel.com>
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-In-reply-to: <20201021135847.15236-1-robert.bradford@intel.com>
-Date: Thu, 22 Oct 2020 16:09:53 +0100
-Message-ID: <874kmmuwji.fsf@linaro.org>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH] content: Reserve virtio-watchog device ID
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20201021135847.15236-1-robert.bradford@intel.com>
+Subject: Re: [virtio-comment] [PATCH] content: Reserve virtio-watchog device
+ ID
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="2/5bycvrmDh4d1IB"
+Content-Disposition: inline
 To: Rob Bradford <robert.bradford@intel.com>
-Cc: virtio-comment@lists.oasis-open.org, Stratos-dev <stratos-dev@op-lists.linaro.org>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+--2/5bycvrmDh4d1IB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Rob Bradford <robert.bradford@intel.com> writes:
-
+On Wed, Oct 21, 2020 at 02:58:47PM +0100, Rob Bradford wrote:
 > Reserve an ID for a watchdog device which may be used to ensure that the
 > guest is responsive. This is equivalent of a hardware watchdog device
 > and will trigger the reboot of the guest if the the host does not
 > periodic ping from the the guest.
-
-Out of interest is your watchdog device also going to allow for straight
-power/reset control?
-
-The use case I'm thinking of is QEMU's -m virt machine which is a purely
-virtual machine which is a target for a number of firmware/bootcode
-projects. QEMU provides a firmware emulation that will do the right
-thing if you issue PSCI supervisor calls and you have directly loaded a
-kernel. However if you are testing firmware - for example EDK2 or Arm
-Trusted Firmware it is expected to make the final hw appropriate twiddle
-to reboot the machine and of course that is undefined for -m virt.
-
+>=20
 > Signed-off-by: Rob Bradford <robert.bradford@intel.com>
+> ---
+>  content.tex | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 
---=20
-Alex Benn=C3=A9e
+--2/5bycvrmDh4d1IB
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl+S3zsACgkQnKSrs4Gr
+c8g72wf7B9madyo/V3M5hs3/wLFtxyOplH1Y04HKI4Lwhm3RCCMeTKEk1gPB9k30
++kofIq+pOY8i8drLyQM8V2obPYcUPq0EUicPOJCk0hckw+fEPtNKRfDVKxL+Vc2s
+uL9OSAxfLn4554oHbqgG4rtjrQIj4sNIfW+/Fg1pN+f8SylStdp0GGRV8jXCZ3Qq
+32Q8K6NIZtc0TOnF0oK44eN4D2tPiFfHfKQ74yYApCOjkMFyXd/2NLxYRvYomkTt
+GJI6DHwy+t/auVJed6QNveuovaRj8dmWpTgUTxsPgPN+us1DnRyTqSPJBJbaN30e
+J+FK080E//R8RrsltcsdBsYjxnP2kQ==
+=KeDm
+-----END PGP SIGNATURE-----
+
+--2/5bycvrmDh4d1IB--
 
