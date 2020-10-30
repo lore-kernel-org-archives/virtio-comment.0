@@ -1,63 +1,45 @@
-Return-Path: virtio-return-3444-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-return-3445-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio@lists.oasis-open.org>
 List-Post: <mailto:virtio@lists.oasis-open.org>
 List-Help: <mailto:virtio-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
+Date: Fri, 30 Oct 2020 14:38:57 +0000
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20201030143857.GF330921@stefanha-x1.localdomain>
 References: <20201030061222-mutt-send-email-mst@kernel.org>
  <20201030102339.GB3046@work-vm>
  <2b6a81de-089d-aaad-7c74-78b6f534164e@siemens.com>
  <20201030131645.3f1ce61e.cohuck@redhat.com>
-From: Mihai Carabas <mihai.carabas@oracle.com>
-Message-ID: <04685a95-e27c-1280-02dd-15cb91d80f98@oracle.com>
-Date: Fri, 30 Oct 2020 15:51:21 +0200
 MIME-Version: 1.0
 In-Reply-To: <20201030131645.3f1ce61e.cohuck@redhat.com>
-Subject: Re: [virtio] Re: [virtio-comment] allocating device IDs without a
- vote
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-To: Cornelia Huck <cohuck@redhat.com>, Jan Kiszka <jan.kiszka@siemens.com>
-Cc: "Dr. David Alan Gilbert" <dgilbert@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+Subject: [virtio] Re: [virtio-comment] allocating device IDs without a vote
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="5CUMAwwhRxlRszMD"
+Content-Disposition: inline
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: Jan Kiszka <jan.kiszka@siemens.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 10/30/2020 2:16 PM, Cornelia Huck wrote:
-> On Fri, 30 Oct 2020 11:30:09 +0100
-> Jan Kiszka <jan.kiszka@siemens.com> wrote:
-> 
->> On 30.10.20 11:23, Dr. David Alan Gilbert wrote:
->>> * Michael S. Tsirkin (mst@redhat.com) wrote:
->>>> At the Virtio BoF at the virtual KVM forum, 2020, a recurring theme was
->>>> the difficulty contributors face in obtaining device IDs for new
->>>> devices. As allocating a new ID is a technicality, and can not break
->>>> existing devices, it does not sound too bad to skip a voting step in
->>>> that process.
->>>
->>> It would seem reasonable to define what the expectations, if any are,
->>> about the use of those IDs:
->>>
->>> Is it expected that the allocator of such an ID would eventually
->>> end a request to merge a spec for the device, or are they free
->>> not to?
->>>
->>> If merging is expected, then is it acceptable to recycle IDs that have
->>> not been defined after n-Years.
->>>    
->>
->> Lowering the barrier for grabbing IDs too much and not establishing a
->> garbage collection mechanism can eventually shoot back, IMHO.
-> 
-> Maybe we really need two things:
-> 
-> - a "private" range, that anyone can use for playing etc.
-> - an easy way to request an ID, combined with some kind of garbage
->    collection
-> 
-> We currently do have some IDs without a spec, but we really need to
-> keep some of them reserved, as there are already (sometimes legacy)
-> devices out there.
-> 
+--5CUMAwwhRxlRszMD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Oct 30, 2020 at 01:16:45PM +0100, Cornelia Huck wrote:
+
+Let's clarify whether it is acceptable to keep the device without a spec
+indefinitely.
+
+I am starting to get the feeling people would like to define one-off
+VIRTIO devices that are unlikely to be implemented elsewhere.
+
+As VIRTIO expands we may find it acceptable to allow these use cases,
+but expectations should be clear:
+1. VIRTIO spec features won't be added for out-of-tree devices. The user
+   needs to be in the spec so that the design can be reviewed.
+2. Out-of-tree devices that violate the VIRTIO device model may cease to
+   work or be impossible to implement as the VIRTIO spec evolves.
+
 > Perhaps there needs to be some kind of annotation? If you reserve an ID
 > via the quick mechanism, it gets a "reserved until YYYY-MM-DD", and
 > that tag gets removed when a proper spec is merged? For
@@ -65,13 +47,26 @@ On 10/30/2020 2:16 PM, Cornelia Huck wrote:
 > default should be to have a proper spec if you want something outside
 > of the private namespace.
 
-I agree with Cornelia and Jan.
+I'm not sure revoking an ID is realistic in the case where the owner
+refuses to upstream a spec but is shipping devices. The upstream device
+that reused the ID will suffer when collisions occur.
 
-Thank you,
-Mihai Carabas
+Stefan
 
----------------------------------------------------------------------
-To unsubscribe from this mail list, you must leave the OASIS TC that 
-generates this mail.  Follow this link to all your TCs in OASIS at:
-https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
+--5CUMAwwhRxlRszMD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl+cJYEACgkQnKSrs4Gr
+c8gfhgf/TYXKLXWj9k+VWx34upB7D4OYTYCmqX+kusdTNoHmDZbZPDWubQjfjcYb
+32Ono9/OHOodLAjIHuWGyMmva8qLqN7DQ3d2SnNxqdnVsJkx6//RYMWYVX0L0GRJ
+n1FD5U/q4Z3KkcQ8vYZRCgytMt5siI5jkteFF6PaBaUTmceWma1RFG0q61K00iCO
+7glgfwZN/PVuUdwByV+gSdOKMm4zk6CqEJKeqFlmzyxV4+7+xBFSTK1KZ2+5vO2N
+Q/I/o/6xVg3j8VPweZG2t56GYdW4eZHey5s7RynYYwDmuiy3rtJa+9GB5GGelyR1
+pyDwpTUBbmYpyUeXYwth/uNvtHaB0A==
+=bg6X
+-----END PGP SIGNATURE-----
+
+--5CUMAwwhRxlRszMD--
 
