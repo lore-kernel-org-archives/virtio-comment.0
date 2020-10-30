@@ -1,68 +1,40 @@
-Return-Path: virtio-comment-return-1493-cohuck=redhat.com@lists.oasis-open.org
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E403998615D
-	for <virtio-comment@lists.oasis-open.org>; Fri, 30 Oct 2020 16:34:36 +0000 (UTC)
-From: Rob Bradford <robert.bradford@intel.com>
-Date: Fri, 30 Oct 2020 16:34:15 +0000
-Message-Id: <20201030163415.7339-1-robert.bradford@intel.com>
-In-Reply-To: <20201029063557-mutt-send-email-mst@kernel.org>
-References: <20201029063557-mutt-send-email-mst@kernel.org>
+Return-Path: virtio-return-3440-cohuck=redhat.com@lists.oasis-open.org
+Sender: <virtio@lists.oasis-open.org>
+List-Post: <mailto:virtio@lists.oasis-open.org>
+List-Help: <mailto:virtio-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
+Date: Fri, 30 Oct 2020 06:15:49 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20201030061222-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH] content: Reserve virtio-watchdog device ID
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"
-To: virtio-comment@lists.oasis-open.org
-Cc: Rob Bradford <robert.bradford@intel.com>
+Subject: [virtio] allocating device IDs without a vote
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: virtio@lists.oasis-open.org
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Reserve an ID for a watchdog device which may be used to ensure that the
-guest is responsive. This is equivalent of a hardware watchdog device
-and will trigger the reboot of the guest if the the host does not
-periodic ping from the the guest.
+At the Virtio BoF at the virtual KVM forum, 2020, a recurring theme was
+the difficulty contributors face in obtaining device IDs for new
+devices. As allocating a new ID is a technicality, and can not break
+existing devices, it does not sound too bad to skip a voting step in
+that process.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/87
+I'd like to hear TC's take on such an idea.
 
-Signed-off-by: Rob Bradford <robert.bradford@intel.com>
----
- content.tex | 2 ++
- 1 file changed, 2 insertions(+)
+This would be similar to the existing standing rule:
 
-diff --git a/content.tex b/content.tex
-index bc26674..6f8ec8f 100644
---- a/content.tex
-+++ b/content.tex
-@@ -2819,6 +2819,8 @@ \chapter{Device Types}\label{sec:Device Types}
- \hline
- 33         &   NitroSecureModule \\
- \hline
-+35         &   Watchdog \\
-+\hline
- \end{tabular}
-=20
- Some of the devices above are unspecified by this document,
---=20
-2.26.2
+	Minor cleanups, including editorial formatting changes, spelling
+	and typo fixes can be committed directly into git for approval as part
+	of the next specification approval ballot.
+
+-- 
+MST
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+---------------------------------------------------------------------
+To unsubscribe from this mail list, you must leave the OASIS TC that 
+generates this mail.  Follow this link to all your TCs in OASIS at:
+https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
 
