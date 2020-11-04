@@ -1,150 +1,85 @@
-Return-Path: virtio-comment-return-1502-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1497-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9A8C5985A9D
-	for <virtio-comment@lists.oasis-open.org>; Tue, 10 Nov 2020 07:51:38 +0000 (UTC)
+References: <5d3d8a27893734be954ebbe560f638fbafb3429c.1603778046.git.jie.deng@intel.com>
+ <f0a25b9d-c1e7-21e8-0944-9fa5796adfca@redhat.com>
+From: Jie Deng <jie.deng@intel.com>
+Message-ID: <a1497eb0-91c0-551f-37e2-041b91c68e4b@intel.com>
+Date: Wed, 4 Nov 2020 16:05:50 +0800
 MIME-Version: 1.0
-References: <61930337391bdfd23ed164288d998c04177bc839.1603435652.git.jie.deng@intel.com>
- <20201023115932-mutt-send-email-mst@kernel.org> <a4a8ee83-d3e6-df1f-c0ac-f608d563522e@intel.com>
- <20201027071957-mutt-send-email-mst@kernel.org> <d0a26ef6-09a7-9cb3-73d3-b68a22cfee28@redhat.com>
- <a7c27a1d-eca7-f0a6-0bcc-4fdbb9d7a001@intel.com>
-In-Reply-To: <a7c27a1d-eca7-f0a6-0bcc-4fdbb9d7a001@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 10 Nov 2020 08:51:22 +0100
-Message-ID: <CABgObfaMG8y-_yv+-f3Qsf=i17VCgxABaveHo7bq6vHPDPtd2g@mail.gmail.com>
-Subject: [virtio-comment] Re: [virtio-dev] Re: [PATCH v2] virtio-i2c: add the device specification
-Content-Type: multipart/alternative; boundary="00000000000093302205b3bbf2c2"
-To: Jie Deng <jie.deng@intel.com>
-Cc: virtio-comment@lists.oasis-open.org, Virtio-Dev <virtio-dev@lists.oasis-open.org>, stefanha@redhat.com, Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+In-Reply-To: <f0a25b9d-c1e7-21e8-0944-9fa5796adfca@redhat.com>
+Subject: Re: [virtio-comment] [PATCH v3] virtio-i2c: add the device
+ specification
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+To: Paolo Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---00000000000093302205b3bbf2c2
-Content-Type: text/plain; charset="UTF-8"
 
-It'd always be a write followed by a read. Usually the write provides the
-number of a register to be read.
-
-The opposite order does not make much sense.
-
-Paolo
-
-Il gio 5 nov 2020, 07:35 Jie Deng <jie.deng@intel.com> ha scritto:
-
+On 2020/10/29 4:10, Paolo Bonzini wrote:
+> On 27/10/20 07:00, Jie Deng wrote:
+>> +The driver queues requests to the virtqueue, and they are used by the
+>> +device. The request is the representation of one segment of an I2C
+>> +transaction. Each request is of form:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_i2c_req {
+>> +        le16 addr;
+>> +        le16 flags;
+>> +        le16 len;
+>> +        u8 buf[];
+>> +        u8 status;
+>> +};
+>> +\end{lstlisting}
+> Hi,
 >
-> On 2020/10/31 21:58, Paolo Bonzini wrote:
+> one extremely common two-segment I2C transaction is not reproducible
+> with virtio-i2c.  This is when a write is followed by a read: the master
+> starts off the transmission with a write, then sends a second START,
+> then continues with a read from the same address.
 >
-> On 27/10/20 12:20, Michael S. Tsirkin wrote:
+> Would it make sense to define the request like
 >
-> The I2C doesn't support segments numbering and sorting.
-> So if one creates a multi-segment transaction, then he/she should keep the
-> segments in order.
+> struct virtio_i2c_req {
+> 	le16 addr;
+> 	le16 written;
+> 	le16 read;
+> 	u8 bufwrite[];
+> 	u8 status;
+> 	u8 bufread[];
+> };
 >
-> Thanks.
+> instead?
 >
-> Fine, but I see no flags to signal start/end of such a transaction.
->
->
->
-> In theory there's no difference between one multi-segment transaction
-> and many single-segment transactions _in a single-master scenario_.
->
-> However, it is a plausible configuration to have multiple guests sharing
-> an I2C host device as if they were multiple master.
->
-> For this reason, I would prefer to have at least support for
-> transactions with 1 write and 1 read segment to the same address (see my
-> other message).
+> Thanks,
 >
 > Paolo
->
-> Then how to distinguish the order of the two segments if they are in one
-> request ?
-> We don't know this is a write followed by a read or a read followed by a
-> write in this case.
->
-> However, if the request is the representation of only one segment of an
-> I2C transaction,
-> we can simply judge by the order of the requests in the virtqueue.
->
-> Thanks
->
->
 
---00000000000093302205b3bbf2c2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-<div dir=3D"auto">It&#39;d always be a write followed by a read. Usually th=
-e write provides the number of a register to be read.<div dir=3D"auto"><br>=
-</div><div dir=3D"auto">The opposite order does not make much sense.<div di=
-r=3D"auto"><br></div><div dir=3D"auto">Paolo</div></div></div><br><div clas=
-s=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Il gio 5 nov 2020, =
-07:35 Jie Deng &lt;<a href=3D"mailto:jie.deng@intel.com">jie.deng@intel.com=
-</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div>
-    <p><br>
-    </p>
-    <div>On 2020/10/31 21:58, Paolo Bonzini
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-      <pre>On 27/10/20 12:20, Michael S. Tsirkin wrote:
-</pre>
-      <blockquote type=3D"cite">
-        <blockquote type=3D"cite">
-          <pre>The I2C doesn&#39;t support segments numbering and sorting.
-So if one creates a multi-segment transaction, then he/she should keep the
-segments in order.
+Do you have any comments on Paolo's proposal ?
 
 Thanks.
-</pre>
-        </blockquote>
-        <pre>Fine, but I see no flags to signal start/end of such a transac=
-tion.
 
-</pre>
-      </blockquote>
-      <pre>
-In theory there&#39;s no difference between one multi-segment transaction
-and many single-segment transactions _in a single-master scenario_.
 
-However, it is a plausible configuration to have multiple guests sharing
-an I2C host device as if they were multiple master.
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-For this reason, I would prefer to have at least support for
-transactions with 1 write and 1 read segment to the same address (see my
-other message).
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-Paolo
-</pre>
-    </blockquote>
-    Then how to distinguish the order of the two segments if they are in
-    one request ?<br>
-    We don&#39;t know this is a write followed by a read or a read followed
-    by a write in this case.<br>
-    <span></span><br>
-    <span>However, if the request is the
-      representation of only one segment of an I2C transaction,</span><br>
-    <span>we can simply judge by the order of the
-      requests in the virtqueue.</span>
-    <p><span>Thanks<br>
-      </span></p>
-    <p><span></span></p>
-    <blockquote type=3D"cite">
-      <pre>
-</pre>
-    </blockquote>
-  </div>
-
-</blockquote></div>
-
---00000000000093302205b3bbf2c2--
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
