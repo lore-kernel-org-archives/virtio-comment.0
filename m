@@ -1,121 +1,129 @@
-Return-Path: virtio-comment-return-1512-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1498-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+References: <61930337391bdfd23ed164288d998c04177bc839.1603435652.git.jie.deng@intel.com>
+ <20201023115932-mutt-send-email-mst@kernel.org>
+ <a4a8ee83-d3e6-df1f-c0ac-f608d563522e@intel.com>
+ <20201027071957-mutt-send-email-mst@kernel.org>
+ <d0a26ef6-09a7-9cb3-73d3-b68a22cfee28@redhat.com>
+From: Jie Deng <jie.deng@intel.com>
+Message-ID: <a7c27a1d-eca7-f0a6-0bcc-4fdbb9d7a001@intel.com>
+Date: Thu, 5 Nov 2020 14:35:08 +0800
 MIME-Version: 1.0
-References: <159836664741.231431.2775539890399592989.stgit@ahduyck-workstation>
- <159836670239.231431.14835898822569373567.stgit@ahduyck-workstation>
- <fd8d3fed-a92a-4356-7a3d-fb773b04880a@siemens.com> <CAKgT0Ud7XfcEVL8jy-6kNQ=BDUJqh-xp94MZ7F2+Vf+mv1vj3Q@mail.gmail.com>
- <2faa1a86-fc9c-f325-00f0-99df49b2421d@siemens.com> <CAKgT0UercLR43iY1PQ7LOvEnqt-c2mds7Mv7XS=77Uju-Qdz=g@mail.gmail.com>
- <20200914081355.71f0d3f7.cohuck@redhat.com> <20200916092827-mutt-send-email-mst@kernel.org>
- <20201111190337.1bf64e7a.cohuck@redhat.com> <CAKgT0UfT1Ubw1V6vTDmBsoVthH-oKhSe7+VxFmFifD3KM_mgAg@mail.gmail.com>
- <20201112084501.491f3d6b.cohuck@redhat.com>
-In-Reply-To: <20201112084501.491f3d6b.cohuck@redhat.com>
-From: Alexander Duyck <alexander.duyck@gmail.com>
-Date: Thu, 12 Nov 2020 14:58:59 -0800
-Message-ID: <CAKgT0Uc=W+uKcGM2C6DzJTHmuL6fbSSXYC6a+D-4QC1GkCeMrQ@mail.gmail.com>
-Subject: Re: [virtio-comment] Re: [virtio-dev] [PATCH v8 1/3] content:
- Document balloon feature free page hints
-Content-Type: text/plain; charset="UTF-8"
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jan Kiszka <jan.kiszka@siemens.com>, David Hildenbrand <david@redhat.com>, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, "Wang, Wei W" <wei.w.wang@intel.com>
+In-Reply-To: <d0a26ef6-09a7-9cb3-73d3-b68a22cfee28@redhat.com>
+Subject: [virtio-comment] Re: [virtio-dev] Re: [PATCH v2] virtio-i2c: add the device
+ specification
+Content-Type: multipart/alternative;
+ boundary="------------A9E8011E07C5A01F1817F4DD"
+Content-Language: en-US
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, stefanha@redhat.com, Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Nov 11, 2020 at 11:45 PM Cornelia Huck <cohuck@redhat.com> wrote:
->
-> On Wed, 11 Nov 2020 14:09:23 -0800
-> Alexander Duyck <alexander.duyck@gmail.com> wrote:
->
-> > On Wed, Nov 11, 2020 at 10:03 AM Cornelia Huck <cohuck@redhat.com> wrote:
-> > >
-> > > On Wed, 16 Sep 2020 09:28:34 -0400
-> > > "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> > >
-> > > > On Mon, Sep 14, 2020 at 08:13:55AM +0200, Cornelia Huck wrote:
-> > > > > On Fri, 11 Sep 2020 08:11:15 -0700
-> > > > > Alexander Duyck <alexander.duyck@gmail.com> wrote:
-> > > > >
-> > > > > > On Thu, Sep 10, 2020 at 10:28 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
-> > > > > > >
-> > > > > > > On 04.09.20 18:56, Alexander Duyck wrote:
-> > > > > > > > On Fri, Sep 4, 2020 at 8:20 AM Jan Kiszka <jan.kiszka@siemens.com> wrote:
-> > > > > > > >>
-> > > > > > > >> On 25.08.20 16:45, Alexander Duyck wrote:
-> > > > >
-> > > > > > > >>> @@ -5042,13 +5049,17 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
-> > > > > > > >>>  VIRTIO_BALLOON_F_MUST_TELL_HOST is not negotiated.
-> > > > > > > >>>
-> > > > > > > >>>  \subsection{Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device configuration layout}
-> > > > > > > >>> -  Both fields of this configuration
-> > > > > > > >>> -  are always available.
-> > > > > > > >>> +  \field{num_pages} and \field{actual} are always available.
-> > > > > > > >>> +
-> > > > > > > >>> +  \field{free_page_hint_cmd_id} is available if
-> > > > > > > >>> +    VIRTIO_BALLOON_F_FREE_PAGE_HINT has been negotiated and is read-only by
-> > > > > > > >>> +    the driver.
-> > > > > > > >>
-> > > > > > > >> This reads at least to me like "...if VIRTIO_BALLOON_F_FREE_PAGE_HINT
-> > > > > > > >> ... is read-only by the driver". I suspect you rather meant
-> > > > > > > >> "free_page_hint_cmd_id is read-only...". Maybe split up into two sentences?
-> > > > > > > >
-> > > > > > > > Yes, the intention is:
-> > > > > > > > 1. free_page_hint_cmd_id is only available if
-> > > > > > > > VIRTIO_BALLOON_F_FREE_PAGE_HINT has been negotiated
-> > > > > > > > 2. free_page_hint_cmd_id is read only by the driver
-> > > > > > > >
-> > > > > > > > If needed I suppose we could break it up by splitting it into two
-> > > > > > > > sentences, or adding "the field" after the "and".
-> > > > > > > >
-> > > > > > >
-> > > > > > > I'm fine with both options but please adjust this - on top (Michael just
-> > > > > > > opened the voting for this version again due to the formal typo in round 1).
-> > > > > > >
-> > > > > > > Jan
-> > > > > >
-> > > > > > Since the patch set is being voted on is there a preferred method for
-> > > > > > making this sort of update? I'm just wondering if I should do an
-> > > > > > additional incremental patch, just submit a replacement for this
-> > > > > > patch, or make the change and resubmit the entire patch set?
-> > > > >
-> > > > > I think doing an additional patch on top and then doing another vote on
-> > > > > that is the best way to handle this. (Or maybe it is minor enough to
-> > > > > simply merge the incremental patch?)
-> > > >
-> > > > yes, this sounds good to me
-> > >
-> > > Which one of the options, actually? I'd be happy to merge a proper
-> > > patch on top (which I'd consider a trivial fix.)
-> >
-> > I had submitted a 4/3 for this set that was meant to fix it, but
-> > looking it over I don't think it would apply cleanly as I think I had
-> > only applied the patch it fixed and didn't have the poison patch
-> > applied when I generated it. If you need I can resubmit that patch as
-> > a trivial fix since it is only a 2 line change.
->
-> Thanks, that would be great.
+--------------A9E8011E07C5A01F1817F4DD
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-No problem. I just submitted it as a standalone patch and added the
-Reviewed-by you had added when I submitted before.
+
+On 2020/10/31 21:58, Paolo Bonzini wrote:
+> On 27/10/20 12:20, Michael S. Tsirkin wrote:
+>>> The I2C doesn't support segments numbering and sorting.
+>>> So if one creates a multi-segment transaction, then he/she should keep the
+>>> segments in order.
+>>>
+>>> Thanks.
+>> Fine, but I see no flags to signal start/end of such a transaction.
+>>
+> In theory there's no difference between one multi-segment transaction
+> and many single-segment transactions _in a single-master scenario_.
+>
+> However, it is a plausible configuration to have multiple guests sharing
+> an I2C host device as if they were multiple master.
+>
+> For this reason, I would prefer to have at least support for
+> transactions with 1 write and 1 read segment to the same address (see my
+> other message).
+>
+> Paolo
+Then how to distinguish the order of the two segments if they are in one 
+request ?
+We don't know this is a write followed by a read or a read followed by a 
+write in this case.
+
+However, if the request is the representation of only one segment of an 
+I2C transaction,
+we can simply judge by the order of the requests in the virtqueue.
+
+Thanks
+
+
+--------------A9E8011E07C5A01F1817F4DD
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2020/10/31 21:58, Paolo Bonzini
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:d0a26ef6-09a7-9cb3-73d3-b68a22cfee28@redhat.com">
+      <pre class="moz-quote-pre" wrap="">On 27/10/20 12:20, Michael S. Tsirkin wrote:
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">The I2C doesn't support segments numbering and sorting.
+So if one creates a multi-segment transaction, then he/she should keep the
+segments in order.
 
 Thanks.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">Fine, but I see no flags to signal start/end of such a transaction.
 
-- Alex
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+In theory there's no difference between one multi-segment transaction
+and many single-segment transactions _in a single-master scenario_.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+However, it is a plausible configuration to have multiple guests sharing
+an I2C host device as if they were multiple master.
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+For this reason, I would prefer to have at least support for
+transactions with 1 write and 1 read segment to the same address (see my
+other message).
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+Paolo
+</pre>
+    </blockquote>
+    Then how to distinguish the order of the two segments if they are in
+    one request ?<br>
+    We don't know this is a write followed by a read or a read followed
+    by a write in this case.<br>
+    <span class="fontstyle0"></span><br>
+    <span class="fontstyle0">However, if the request is the
+      representation of only one segment of an I2C transaction,</span><br>
+    <span class="fontstyle0">we can simply judge by the order of the
+      requests in the virtqueue.</span>
+    <p><span class="fontstyle0">Thanks<br>
+      </span></p>
+    <p><span class="fontstyle0"></span></p>
+    <blockquote type="cite"
+      cite="mid:d0a26ef6-09a7-9cb3-73d3-b68a22cfee28@redhat.com">
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------A9E8011E07C5A01F1817F4DD--
 
