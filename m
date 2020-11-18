@@ -1,72 +1,26 @@
-Return-Path: virtio-comment-return-1541-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1525-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2BB229863C8
-	for <virtio-comment@lists.oasis-open.org>; Fri, 27 Nov 2020 11:02:46 +0000 (UTC)
-Date: Fri, 27 Nov 2020 12:02:26 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20201127120226.100f112a.cohuck@redhat.com>
-In-Reply-To: <97ef1bc6-3c6d-b2d2-8d26-4fcb69cafc1b@redhat.com>
-References: <20201116191629.47661-1-david@redhat.com>
-	<20201120161330.740d694e.cohuck@redhat.com>
-	<97ef1bc6-3c6d-b2d2-8d26-4fcb69cafc1b@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id E1B839860C4
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Nov 2020 12:45:25 +0000 (UTC)
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] Re: [PATCH v1] virtio-mem: minor clarification
- regarding read-access to unplugged blocks
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-To: David Hildenbrand <david@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, teawater <teawaterz@linux.alibaba.com>, Marek Kedzierski <mkedzier@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>
+From: Olivier Delande <olivier.delande@gmail.com>
+Date: Wed, 18 Nov 2020 13:45:13 +0100
+Message-ID: <CANkLV9gRR_EkrCK4czwWiH6toffKN12vSd6M9FFrtvQwU3bmHQ@mail.gmail.com>
+Subject: [virtio-comment] Writes to the Device Status field race with DEVICE_NEEDS_RESET
+Content-Type: text/plain; charset="UTF-8"
+To: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, 27 Nov 2020 11:39:50 +0100
-David Hildenbrand <david@redhat.com> wrote:
-
-> On 20.11.20 16:13, Cornelia Huck wrote:
-> > On Mon, 16 Nov 2020 20:16:29 +0100
-> > David Hildenbrand <david@redhat.com> wrote:
-> >   
-> >> Let's clarify that we don't expect all DMA to work with unplugged blocks.
-> >> We really only give guarantees when reading from unplugged memory blocks
-> >> via the CPU, e.g., as done by Linux when creating a system dump via
-> >> kdump: the new kernel will copy the content of the old (crashed) kernel
-> >> via the CPU to user space, from where it will find its final destination
-> >> inside the dump file. Note that dumping via makedumpfile under Linux will
-> >> avoid reading unplugged blocks completely.
-> >>
-> >> This is a preparation for device passthrough to VMs, whereby such
-> >> dedicated devices might not be able to read from unplugged memory blocks.
-> >>
-> >> Let's document that this scenario is possible, and why this handling is
-> >> in place at all.
-> >>
-> >> Cc: teawater <teawaterz@linux.alibaba.com>
-> >> Cc: Marek Kedzierski <mkedzier@redhat.com>
-> >> Cc: Michael S. Tsirkin <mst@redhat.com>
-> >> Cc: Cornelia Huck <cohuck@redhat.com>
-> >> Signed-off-by: David Hildenbrand <david@redhat.com>
-> >> ---
-> >>  virtio-mem.tex | 9 +++++++--
-> >>  1 file changed, 7 insertions(+), 2 deletions(-)  
-> > 
-> > Looks reasonable to me.
-> > 
-> > Acked-by: Cornelia Huck <cohuck@redhat.com>  
-> 
-> Thanks!
-> 
-> I assume I'll need a github issue etc. to get this in, right?
-> 
-
-Yes; just open the issue, point to this patch in the archives, and
-reply with the issue here.
-
-(I don't think this is trivial enough to push without voting.)
-
+As far as I understand the Virtio 1.1 spec, a driver must not clear
+any bit in the Device Status field when it writes a non-zero value.
+How can it comply with this requirement, when the device may be
+concurrently setting DEVICE_NEEDS_RESET? There does not seem to be any
+facility to atomically set some bits and leave the others unchanged.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
