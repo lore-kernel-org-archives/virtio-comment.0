@@ -1,50 +1,62 @@
-Return-Path: virtio-comment-return-1538-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1530-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6A3319862D9
-	for <virtio-comment@lists.oasis-open.org>; Wed, 25 Nov 2020 11:48:28 +0000 (UTC)
-Date: Wed, 25 Nov 2020 06:48:20 -0500
+	by lists.oasis-open.org (Postfix) with ESMTP id 9F0BA98619A
+	for <virtio-comment@lists.oasis-open.org>; Fri, 20 Nov 2020 15:01:52 +0000 (UTC)
+Date: Fri, 20 Nov 2020 10:01:41 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20201125045623-mutt-send-email-mst@kernel.org>
-References: <CANkLV9gRR_EkrCK4czwWiH6toffKN12vSd6M9FFrtvQwU3bmHQ@mail.gmail.com>
+Message-ID: <20201120100114-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CANkLV9gRR_EkrCK4czwWiH6toffKN12vSd6M9FFrtvQwU3bmHQ@mail.gmail.com>
-Subject: Re: [virtio-comment] Writes to the Device Status field race with
- DEVICE_NEEDS_RESET
+Subject: [virtio-comment] [felipe@nutanix.com: [PATCH] content: Fix driver/device wording on
+ ISR bits]
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-To: Olivier Delande <olivier.delande@gmail.com>
-Cc: virtio-comment@lists.oasis-open.org
+To: virtio-comment@lists.oasis-open.org
+Cc: Cornelia Huck <cohuck@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Nov 18, 2020 at 01:45:13PM +0100, Olivier Delande wrote:
-> As far as I understand the Virtio 1.1 spec, a driver must not clear
-> any bit in the Device Status field when it writes a non-zero value.
-> How can it comply with this requirement, when the device may be
-> concurrently setting DEVICE_NEEDS_RESET? There does not seem to be any
-> facility to atomically set some bits and leave the others unchanged.
+Some kind of technical problem seems to prevent this patch from
+getting to list. Forwarding.
 
-Good point! I guess one way to actually make it race-free is for
-the device to have the DEVICE_NEEDS_RESET bit read-only, that is
-unaffected by driver writes.
+----- Forwarded message from Felipe Franciosi <felipe@nutanix.com> -----
 
-We can't make it a MUST since there are lots of devices out there
-but we can make it a SHOULD. Luckily it is unusual for drivers to
-change status after initialization and unusual for devices to
-fail during initialization.
+Date: Mon, 09 Nov 2020 14:13:18 +0000 (UTC)
+From: Felipe Franciosi <felipe@nutanix.com>
+To: virtio-comment@lists.oasis-open.org
+Cc: mst@redhat.com, Felipe Franciosi <felipe@nutanix.com>
+Subject: [PATCH] content: Fix driver/device wording on ISR bits
+Message-Id: <20201109141256.152571-1-felipe@nutanix.com>
 
-One other thing we should probably suggest is that devices that set NEED_RESET before
-FEATURES_OK is set, also fail setting of FEATURES_OK.
-This way at least drivers will detect the failure.
-That seems like a good idea even irrespective of the races,
-since lots of drivers don't handle NEED_RESET.
+Section "ISR status capability" incorrectly worded that the bits part of
+the register allows the device to distinguish between interrupt types.
+It is the driver that needs access to that distinction, not the device.
 
+Signed-off-by: Felipe Franciosi <felipe@nutanix.com>
+---
+ content.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/content.tex b/content.tex
+index bc26674..3e8effe 100644
+--- a/content.tex
++++ b/content.tex
+@@ -1040,7 +1040,7 @@ \subsubsection{ISR status capability}\label{sec:Virtio Transport Options / Virti
+ 
+ The \field{offset} for the \field{ISR status} has no alignment requirements.
+ 
+-The ISR bits allow the device to distinguish between device-specific configuration
++The ISR bits allow the driver to distinguish between device-specific configuration
+ change interrupts and normal virtqueue interrupts:
+ 
+ \begin{tabular}{ |l||l|l|l| }
 -- 
-MST
+2.18.4
+
+----- End forwarded message -----
 
 
 This publicly archived list offers a means to provide input to the
