@@ -1,84 +1,81 @@
-Return-Path: virtio-comment-return-1544-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1545-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DA80B9865B9
-	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Dec 2020 10:15:39 +0000 (UTC)
-Date: Wed, 2 Dec 2020 11:15:23 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20201202111523.5f2c62c4.cohuck@redhat.com>
-In-Reply-To: <7c3b2adb-492b-7aec-d4cc-8ca218889eba@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id BCA499865B9
+	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Dec 2020 10:30:14 +0000 (UTC)
 References: <20201116191629.47661-1-david@redhat.com>
-	<20201120161330.740d694e.cohuck@redhat.com>
-	<97ef1bc6-3c6d-b2d2-8d26-4fcb69cafc1b@redhat.com>
-	<20201127120226.100f112a.cohuck@redhat.com>
-	<7c3b2adb-492b-7aec-d4cc-8ca218889eba@redhat.com>
+From: David Hildenbrand <david@redhat.com>
+Message-ID: <6eaadef2-de94-36da-75e8-0802c5d55121@redhat.com>
+Date: Wed, 2 Dec 2020 11:30:02 +0100
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] Re: [PATCH v1] virtio-mem: minor clarification
+In-Reply-To: <20201116191629.47661-1-david@redhat.com>
+Subject: Re: [virtio-comment] [PATCH v1] virtio-mem: minor clarification
  regarding read-access to unplugged blocks
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-To: David Hildenbrand <david@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, teawater <teawaterz@linux.alibaba.com>, Marek Kedzierski <mkedzier@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>
+To: virtio-comment@lists.oasis-open.org
+Cc: teawater <teawaterz@linux.alibaba.com>, Marek Kedzierski <mkedzier@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, 2 Dec 2020 10:25:16 +0100
-David Hildenbrand <david@redhat.com> wrote:
-
-> On 27.11.20 12:02, Cornelia Huck wrote:
-> > On Fri, 27 Nov 2020 11:39:50 +0100
-> > David Hildenbrand <david@redhat.com> wrote:
-> >   
-> >> On 20.11.20 16:13, Cornelia Huck wrote:  
-> >>> On Mon, 16 Nov 2020 20:16:29 +0100
-> >>> David Hildenbrand <david@redhat.com> wrote:
-> >>>     
-> >>>> Let's clarify that we don't expect all DMA to work with unplugged blocks.
-> >>>> We really only give guarantees when reading from unplugged memory blocks
-> >>>> via the CPU, e.g., as done by Linux when creating a system dump via
-> >>>> kdump: the new kernel will copy the content of the old (crashed) kernel
-> >>>> via the CPU to user space, from where it will find its final destination
-> >>>> inside the dump file. Note that dumping via makedumpfile under Linux will
-> >>>> avoid reading unplugged blocks completely.
-> >>>>
-> >>>> This is a preparation for device passthrough to VMs, whereby such
-> >>>> dedicated devices might not be able to read from unplugged memory blocks.
-> >>>>
-> >>>> Let's document that this scenario is possible, and why this handling is
-> >>>> in place at all.
-> >>>>
-> >>>> Cc: teawater <teawaterz@linux.alibaba.com>
-> >>>> Cc: Marek Kedzierski <mkedzier@redhat.com>
-> >>>> Cc: Michael S. Tsirkin <mst@redhat.com>
-> >>>> Cc: Cornelia Huck <cohuck@redhat.com>
-> >>>> Signed-off-by: David Hildenbrand <david@redhat.com>
-> >>>> ---
-> >>>>  virtio-mem.tex | 9 +++++++--
-> >>>>  1 file changed, 7 insertions(+), 2 deletions(-)    
-> >>>
-> >>> Looks reasonable to me.
-> >>>
-> >>> Acked-by: Cornelia Huck <cohuck@redhat.com>    
-> >>
-> >> Thanks!
-> >>
-> >> I assume I'll need a github issue etc. to get this in, right?
-> >>  
-> > 
-> > Yes; just open the issue, point to this patch in the archives, and
-> > reply with the issue here.
-> > 
-> > (I don't think this is trivial enough to push without voting.)
-> >   
+On 16.11.20 20:16, David Hildenbrand wrote:
+> Let's clarify that we don't expect all DMA to work with unplugged blocks.
+> We really only give guarantees when reading from unplugged memory blocks
+> via the CPU, e.g., as done by Linux when creating a system dump via
+> kdump: the new kernel will copy the content of the old (crashed) kernel
+> via the CPU to user space, from where it will find its final destination
+> inside the dump file. Note that dumping via makedumpfile under Linux will
+> avoid reading unplugged blocks completely.
 > 
-> Makes sense. I'll wait a bit more. Thanks!
+> This is a preparation for device passthrough to VMs, whereby such
+> dedicated devices might not be able to read from unplugged memory blocks.
+> 
+> Let's document that this scenario is possible, and why this handling is
+> in place at all.
+> 
+> Cc: teawater <teawaterz@linux.alibaba.com>
+> Cc: Marek Kedzierski <mkedzier@redhat.com>
+> Cc: Michael S. Tsirkin <mst@redhat.com>
+> Cc: Cornelia Huck <cohuck@redhat.com>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
+> ---
+>  virtio-mem.tex | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/virtio-mem.tex b/virtio-mem.tex
+> index 85cfb61..62a1d02 100644
+> --- a/virtio-mem.tex
+> +++ b/virtio-mem.tex
+> @@ -246,8 +246,13 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+>  
+>  The device MUST NOT change the content of plugged memory blocks.
+>  
+> -The device MUST allow to read from unplugged memory blocks inside
+> -the usable device-managed region.
+> +The device MUST allow the CPU to read from unplugged memory blocks inside
+> +the usable device-managed region. \footnote{To allow for simplified dumping of
+> +memory. The CPU is expected to copy such memory to another location before
+> +starting DMA.}
+> +
+> +The device MAY allow to read from unplugged memory blocks inside the
+> +usable device-managed region via DMA.
+>  
+>  The device MAY allow to read from unplugged memory blocks outside
+>  the usable device-managed region.
 > 
 
-I think you can just go ahead and request a vote... no need to wait
-further IMHO.
+Requesting a vote, thanks!
+
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/91
+
+-- 
+Thanks,
+
+David / dhildenb
 
 
 This publicly archived list offers a means to provide input to the
