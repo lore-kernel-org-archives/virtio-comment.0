@@ -1,205 +1,143 @@
-Return-Path: virtio-comment-return-1553-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1548-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C14729865DD
-	for <virtio-comment@lists.oasis-open.org>; Wed,  9 Dec 2020 14:27:03 +0000 (UTC)
-From: Vitaly Mireyno <vmireyno@marvell.com>
-Date: Wed, 9 Dec 2020 14:26:56 +0000
-Message-ID: <BN6PR1801MB2067218BCAAEF334BC47BBD7C5CC0@BN6PR1801MB2067.namprd18.prod.outlook.com>
-References: <BN6PR1801MB20670DDDBD0D873920276E1CC5CC0@BN6PR1801MB2067.namprd18.prod.outlook.com>
- <20201209081031-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20201209081031-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id A1771985E74
+	for <virtio-comment@lists.oasis-open.org>; Mon,  7 Dec 2020 14:06:36 +0000 (UTC)
+Date: Mon, 7 Dec 2020 09:06:26 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20201207090602-mutt-send-email-mst@kernel.org>
+References: <BN6PR1801MB20674853EEEB69E982B02C8BC5EE0@BN6PR1801MB2067.namprd18.prod.outlook.com>
+ <20201123171642.2da4abfa.pasic@linux.ibm.com>
+ <20201124111907.4e6fea45.cohuck@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] RE: [EXT] Re: [PATCH] virtio-net: fix Driver Notification description
- related to VIRTIO_F_NOTIF_CONFIG_DATA
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Ariel Elior <aelior@marvell.com>, Halil Pasic <pasic@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>
+In-Reply-To: <20201124111907.4e6fea45.cohuck@redhat.com>
+Subject: Re: [virtio-comment] [PATCH v9] virtio-net: Add support for the
+ flexible driver notification structure.
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: Halil Pasic <pasic@linux.ibm.com>, Vitaly Mireyno <vmireyno@marvell.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Jason Wang <jasowang@redhat.com>, Ariel Elior <aelior@marvell.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+On Tue, Nov 24, 2020 at 11:19:07AM +0100, Cornelia Huck wrote:
+> On Mon, 23 Nov 2020 17:16:42 +0100
+> Halil Pasic <pasic@linux.ibm.com> wrote:
+> 
+> > On Thu, 5 Nov 2020 22:41:42 +0000
+> > Vitaly Mireyno <vmireyno@marvell.com> wrote:
+> > 
+> > > When the driver is required to send an available buffer notification to the device, it sends the virtqueue number to be notified.
+> > > With this new feature, the device can optionally provide a per-virtqueue value for the driver to use in driver notifications, instead of the virtqueue number.
+> > > Some devices may benefit from this flexibility by providing, for example, an internal virtqueue identifier, or an internal offset related to the virtqueue number.
+> > > 
+> > > Changes from v8:
+> > >  * Incorporated comments for v8:
+> > >      - moved the feature from a network device to a global section
+> > >      - few minor changes
+> > > 
+> > > Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
+> > > ---
+> > >  content.tex | 46 +++++++++++++++++++++++++++++++++++++++++++++-
+> > >  1 file changed, 45 insertions(+), 1 deletion(-)
+> 
+> > 
+> > Whith your patch applied on top of current master I get something like this
+> > 
+> > """
+> > \subsubsection{Available Buffer Notifications}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}
+> > 
+> > When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,
+> > the driver sends an available buffer notification to the device by writing
+> > the 16-bit virtqueue index
+> > of this virtqueue to the Queue Notify address.
+> > 
+> > When VIRTIO_F_NOTIFICATION_DATA has been negotiated,
+> > the driver sends an available buffer notification to the device by writing
+> > the following 32-bit value to the Queue Notify address:
+> > \lstinputlisting{notifications-le.c}
+> > 
+> > See \ref{sec:Virtqueues / Driver notifications}~\nameref{sec:Virtqueues / Driver notifications}
+> > for the definition of the components.
+> > 
+> > See \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
+> > for how to calculate the Queue Notify address.
+> > 
+> > \drivernormative{\paragraph}{Available Buffer Notifications}{Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}
+> > If VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated:
+> > \begin{itemize}
+> > \item If VIRTIO_F_NOTIFICATION_DATA has not been negotiated, the driver MUST use the
+> > \field{queue_notify_data} value instead of the virtqueue index.
+> > \item If VIRTIO_F_NOTIFICATION_DATA has been negotiated, the driver MUST set the
+> > \field{vqn} field to the \field{queue_notify_data} value.
+> > \end{itemize}
+> > 
+> > \subsubsection{Used Buffer Notifications}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Used Buffer Notifications}
+> > """
+> > 
+> > The device normative section and the preceding text are IMHO in
+> > contradiction. The former says  the driver sends a 16-bit virtqueue
+> > index unconditionally, the later says if if VIRTIO_F_NOTIFICATION_DATA
+> > has been negotiated then use queue_notify_data, instead (thus
+> > referencing the non-normative content).
+> > 
+> 
+> I'd probably reword the paragraph above to
+> 
+> "When VIRTIO_F_NOTIFICATION_DATA has not been negotiated, the driver
+> sends an available buffer notification to the device by writing either
+> the 16-bit virtqueue index of this virtqueue or, if
+> VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated, the 16-bit queue
+> notification data to the Queue Notify address."
+> 
+> > IMHO we need a normative section that fully describes all the available
+> > cases.
+> > 
+> > I think we can do this on top.
+> 
+> Agreed.
 
->-----Original Message-----
->From: Michael S. Tsirkin <mst@redhat.com>
->Sent: Wednesday, 9 December, 2020 15:17
->To: Vitaly Mireyno <vmireyno@marvell.com>
->Cc: virtio-comment@lists.oasis-open.org; Ariel Elior <aelior@marvell.com>;=
- Halil Pasic
-><pasic@linux.ibm.com>; Cornelia Huck <cohuck@redhat.com>
->Subject: [EXT] Re: [PATCH] virtio-net: fix Driver Notification description=
- related to
->VIRTIO_F_NOTIF_CONFIG_DATA
->
->External Email
->
->----------------------------------------------------------------------
->On Wed, Dec 09, 2020 at 12:57:08PM +0000, Vitaly Mireyno wrote:
->> Incorporated comments for the "[PATCH v9] virtio-net: Add support for th=
-e flexible driver notification
->structure".
->> Made Driver Notifications description more consistent throughout the doc=
-ument wrt
->VIRTIO_F_NOTIF_CONFIG_DATA.
->>
->> Signed-off-by: Vitaly Mireyno <vmireyno@marvell.com>
->
->
->This is a bit repetitive.
->
->How about we replace "vqn" with "vqid", call it "virt queue identifier"
->and explain that it is either hardcoded to the virt queue index or read fr=
-om config space.
->
->In config space replace queue_notify_data with queue_identifier.
->
->And maybe VIRTIO_F_NOTIF_CONFIG_DATA -> VIRTIO_F_NOTIF_CONFIG_QUEUE_ID
->
-
-I think such definition is a little more restrictive as it suggests that th=
-e notification data is necessarily queue identifier, whereas the current de=
-finition allows a broader interpretation.
-
-How about rephrasing "Driver Notifications" and "Available Buffer Notificat=
-ions" sections to avoid repetitions? Something like:
-
-@@ -337,9 +337,12 @@ \section{Driver Notifications} \label{sec:Virtqueues /=
- Driver notifications}
- notification to the device.
-=20
- When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,
--this notification involves sending to the device either the virtqueue numb=
-er
--or, if VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated,
--the queue notification data (method depending on the transport).
-+this notification involves sending to the device the vqn
-+(method depending on the transport).
-+\begin{description}
-+\item [vqn] Either the virtqueue number to be notified or, if VIRTIO_F_NOT=
-IF_CONFIG_DATA
-+      has been negotiated, the queue notification data.
-+\end{description}
-=20
- However, some devices benefit from the ability to find out the
- amount of available data in the queue without accessing the virtqueue in m=
-emory:
-@@ -350,8 +353,7 @@ \section{Driver Notifications} \label{sec:Virtqueues / =
-Driver notifications}
- the following information:
-=20
- \begin{description}
--\item [vqn] Either the virtqueue number to be notified or, if VIRTIO_F_NOT=
-IF_CONFIG_DATA
--      has been negotiated, the queue notification data.
-+\item [vqn]
- \item [next_off] Offset
-       within the ring where the next available ring entry
-       will be written.
-@@ -1533,8 +1535,7 @@ \subsubsection{Available Buffer Notifications}\label{=
-sec:Virtio Transport Option
-=20
- When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,
- the driver sends an available buffer notification to the device by writing
--either the 16-bit virtqueue index of this virtqueue or, if VIRTIO_F_NOTIF_=
-CONFIG_DATA
--has been negotiated, the 16-bit queue notification data to the Queue Notif=
-y address.
-+the 16-bit vqn to the Queue Notify address.
-=20
- When VIRTIO_F_NOTIFICATION_DATA has been negotiated,
- the driver sends an available buffer notification to the device by writing
+Vitaly can you please propose a patch addressing all these comments?
 
 
->> ---
->>  content.tex | 21 +++++++++------------
->>  1 file changed, 9 insertions(+), 12 deletions(-)
->>
->> diff --git a/content.tex b/content.tex index 00bc050..9514b2d 100644
->> --- a/content.tex
->> +++ b/content.tex
->> @@ -337,8 +337,9 @@ \section{Driver Notifications}
->> \label{sec:Virtqueues / Driver notifications}  notification to the devic=
-e.
->>
->>  When VIRTIO_F_NOTIFICATION_DATA has not been negotiated, -this
->> notification involves sending the -virtqueue number to the device
->> (method depending on the transport).
->> +this notification involves sending to the device either the virtqueue
->> +number or, if VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated, the
->> +queue notification data (method depending on the transport).
->>
->>  However, some devices benefit from the ability to find out the
->> amount of available data in the queue without accessing the virtqueue in=
- memory:
->> @@ -349,7 +350,8 @@ \section{Driver Notifications}
->> \label{sec:Virtqueues / Driver notifications}  the following information=
-:
->>
->>  \begin{description}
->> -\item [vqn] VQ number to be notified.
->> +\item [vqn] Either the virtqueue number to be notified or, if VIRTIO_F_=
-NOTIF_CONFIG_DATA
->> +      has been negotiated, the queue notification data.
->>  \item [next_off] Offset
->>        within the ring where the next available ring entry
->>        will be written.
->> @@ -1531,8 +1533,8 @@ \subsubsection{Available Buffer
->> Notifications}\label{sec:Virtio Transport Option
->>
->>  When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,  the driver
->> sends an available buffer notification to the device by writing -the
->> 16-bit virtqueue index -of this virtqueue to the Queue Notify address.
->> +either the 16-bit virtqueue index of this virtqueue or, if
->> +VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated, the 16-bit queue notifi=
-cation data to the
->Queue Notify address.
->>
->>  When VIRTIO_F_NOTIFICATION_DATA has been negotiated,  the driver
->> sends an available buffer notification to the device by writing @@
->> -1546,13 +1548,8 @@ \subsubsection{Available Buffer
->> Notifications}\label{sec:Virtio Transport Option  for how to calculate t=
-he Queue Notify address.
->>
->>  \drivernormative{\paragraph}{Available Buffer Notifications}{Virtio
->> Transport Options / Virtio Over PCI Bus / PCI-specific Initialization An=
-d Device Operation / Available
->Buffer Notifications} -If VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated:
->> -\begin{itemize}
->> -\item If VIRTIO_F_NOTIFICATION_DATA has not been negotiated, the
->> driver MUST use the -\field{queue_notify_data} value instead of the virt=
-queue index.
->> -\item If VIRTIO_F_NOTIFICATION_DATA has been negotiated, the driver
->> MUST set the -\field{vqn} field to the \field{queue_notify_data} value.
->> -\end{itemize}
->> +If VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated, the driver MUST
->> +use the \field{queue_notify_data} value as a queue notification data.
->>
->>  \subsubsection{Used Buffer Notifications}\label{sec:Virtio Transport
->> Options / Virtio Over PCI Bus / PCI-specific Initialization And Device
->> Operation / Used Buffer Notifications}
->>
->> --
+> > 
+> > Regards,
+> > Halil
+> > 
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> > 
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> > 
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
+> > 
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
