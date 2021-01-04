@@ -1,272 +1,94 @@
-Return-Path: virtio-comment-return-1635-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1618-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BBB71986142
-	for <virtio-comment@lists.oasis-open.org>; Wed, 13 Jan 2021 12:10:26 +0000 (UTC)
-Content-Type: multipart/mixed; boundary="===============5641906774781885314=="
+References: <ff3ec9f5cb7f480a52913790f698ad45c66edcc2.1608796685.git.jie.deng@intel.com>
+ <20201229110934.GA55616@stefanha-x1.localdomain>
+ <b6267b12-4026-ec9b-5bec-155246b1cc00@intel.com>
+ <20201230102037.GA87700@stefanha-x1.localdomain>
+ <e5b8e645-083f-638a-69cc-f1b01c7a4dd0@intel.com>
+ <20201231124242.GA134901@stefanha-x1.localdomain>
+From: Jie Deng <jie.deng@intel.com>
+Message-ID: <f1cb44e5-d952-1d6c-f78c-875b9eb58809@intel.com>
+Date: Mon, 4 Jan 2021 10:31:48 +0800
 MIME-Version: 1.0
-References: <20210112091611.19469-1-lauralg@amazon.com>
- <20210113113511.GG250553@stefanha-x1.localdomain>
-From: Laura Loghin <lauralg@amazon.com>
-Message-ID: <f32fb092-76a9-237b-3994-4d2e6363d6e6@amazon.com>
-Date: Wed, 13 Jan 2021 14:10:10 +0200
-MIME-Version: 1.0
-In-Reply-To: <20210113113511.GG250553@stefanha-x1.localdomain>
-Subject: Re: [virtio-comment] [PATCH] virtio-blk: clarify descriptor-segment relation
+In-Reply-To: <20201231124242.GA134901@stefanha-x1.localdomain>
+Subject: Re: [virtio-comment] [PATCH v6] virtio-i2c: add the device
+ specification
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, mst@redhat.com, cohuck@redhat.com, pbonzini@redhat.com, kraxel@redhat.com, wsa+renesas@sang-engineering.com, andriy.shevchenko@linux.intel.com, conghui.chen@intel.com, yu1.wang@intel.com, shuo.a.liu@intel.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---===============5641906774781885314==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature";
-	boundary="BlOlurGDtQ0jaIfWQ8nl7CRmXwTkTsY9m"
 
---BlOlurGDtQ0jaIfWQ8nl7CRmXwTkTsY9m
-Content-Type: multipart/mixed; boundary="kAkwnUqr39pmMMGQVHrILeoxGRGJBjNGI"
-
---kAkwnUqr39pmMMGQVHrILeoxGRGJBjNGI
-Content-Type: multipart/alternative;
- boundary="------------C794355A22BCB49127320B5C"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------C794355A22BCB49127320B5C
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: quoted-printable
-
-On 1/13/21 1:35 PM, Stefan Hajnoczi wrote:
-> On Tue, Jan 12, 2021 at 11:16:11AM +0200, Laura Loghin wrote:
->> Regarding the relation between data descriptors and segments, the
->> commit that added discard and write zeroes to the spec, stated that
->> the idea is "using 16 Bytes payload to support 1 descriptor" (not, for=
-
->> example, 32 bytes). There wasn't any mention in the spec about one dat=
-a
->> descriptor corresponding to exactly one segment. Added this constraint=
-
->> to block documentation.
->>
->> Signed-off-by: Laura Loghin <lauralg@amazon.com>
->> ---
->>  content.tex | 5 +++--
->>  1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/content.tex b/content.tex
->> index 620c0e2..6393b68 100644
->> --- a/content.tex
->> +++ b/content.tex
->> @@ -4599,8 +4599,9 @@ \subsection{Device Operation}\label{sec:Device T=
-ypes / Block Device / Device Ope
->>  of 512 bytes).
->> =20
->>  The \field{data} used for discard or write zeroes commands consists o=
-f one or
->> -more segments.  The maximum number of segments is \field{max_discard_=
-seg} for
->> -discard commands and \field{max_write_zeroes_seg} for write zeroes co=
-mmands.
->> +more segments, and one data descriptor corresponds to exactly one suc=
-h segment.
->> +The maximum number of segments is \field{max_discard_seg} for discard=
- commands
->> +and \field{max_write_zeroes_seg} for write zeroes commands.
->>  Each segment is of form:
-> I'm not sure what this means, could you clarify?
+On 2020/12/31 20:42, Stefan Hajnoczi wrote:
 >
-> There is no concept of "descriptor" in virtio-blk write zeroes/discard.=
+>>> This approach causes a bottleneck when there are multiple I2C devices.
+>>> It requires exclusive access to the virtqueue and virtual I2C bus,
+>>> slowing down applications that are accessing separate I2C devices.
+>>>
+>>> This is inefficient, especially if the I2C devices are emulated or on
+>>> separate physical I2C busses where request concurrent processing is
+>>> possible.
+>>>
+>>> This also creates starvation/denial-of-service problems in the driver
+>>> because an application can submit many requests and needs exclusive
+>>> access to the virtqueue until all requests have completed.
+>>>
+>>> I suggest defining a VIRTIO_I2C_FLAGS_CONTINUATION bit in struct
+>>> virtio_i2c_out_hdr::flags. When a request fails and this flag is set
+>>> then the device fails all later requests until it reaches a request
+>>> where the flag is zero. This allows the driver to enqueue a sequence of
+>>> requests that fail as a group without waiting for an empty virtqueue.
+>> The flags is designed to be a "driver->device" field for extensibility. =
+It
+>> is read-only=EF=BF=BD to the device.
+>> So when a request fails, the device can't set this read-only field.
+> Sorry, "and this flag is set" means "and this flag was set by the
+> driver". My intention was that the driver marks a request so the device
+> knows that it needs to fail the next request too when this request
+> fails.
+No. A device doesn't need to be told by a driver if it needs to fail the=20
+next request.
+Actually just the opposite, a driver may need to be notified. A driver=20
+can't know which
+one is the "next" because only a device know which request is the first=20
+failed one.
 
-> There is only the "segment" (struct virtio_blk_discard_write_zeroes).
+Once a device fails to handle a request, it shall fail the existing=20
+remaining requests
+since these requests needs to be handled in order.
+> Thinking about it again, VIRTIO_I2C_FLAGS_FAIL_NEXT would be a clearer
+> name for this flag.
 >
-> If you are referring to vring descriptors, then there is no relationshi=
-p
-> between struct virtio_blk_req::data[] and vring descriptors. The driver=
+>> We just need to make sure that once the driver adds some requests to the
+>> virtqueue,
+>> it should complete them (either success or fail) before adding new reque=
+sts.
+>> I think this
+>> is a behavior of physical I2C adapter drivers and we can follow.
+> Existing VIRTIO devices do not have special empty queue semantics and I
+> don't think virtio-i2c should introduce a special case here. The
+> VIRTIO_I2C_FLAGS_FAIL_NEXT flag is simple to implement, allows drivers
+> more freedom to enqueue requests, and eliminates the race condition with
+> polled device implementations (they could complete failed request #1
+> before request #2 is enqueued and then request #2 would not be
+> automatically failed).
+The I2C core is using a synchronization semantics. It means once a I2C=20
+bus driver send
+some messages, it should wait for the device to complete them (either=20
+success or fail)
+before sending new messages. The virtio-i2c driver also have to follow=20
+this to register it into
+I2C subsystem. So the freedom is already limited by the I2C core, and as=20
+a result, we don't have
+such race conditions.
 
-> may choose any vring descriptor framing/layout (see 2.6.4 Message
-> Framing).
->
 > Stefan
-
-Basically what I was trying to understand is if the specification enforce=
-s/should enforce that
-`len` field from a vring descriptor that is pointing to data that belongs=
- to a discard/write zeroes
-command is always 16 bytes. So what you are saying is that something like=
-:
-
-struct virtq_desc {=20
-=A0=A0=A0=A0=A0=A0=A0 /* Address (guest-physical). */=20
-=A0=A0=A0=A0=A0=A0=A0 le64 addr;=20
-=A0=A0=A0=A0=A0=A0=A0 /* Length. */=20
-=A0=A0=A0=A0=A0=A0=A0 le32 32;=20
-=A0=A0=A0=A0 ...
-};
-
-is totally legit for a virtq descriptor that belongs to a (large) discard=
-/write zeroes request?
-So this descriptor will point to a memory region where you have two virti=
-o_blk_discard_write_zeroes
-segments, one at `addr` address from above and the other one at `addr + 1=
-6`.
-
-Thanks!
-Laura=20
-
-
---------------C794355A22BCB49127320B5C
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html;
-      charset=3Dwindows-1252">
-  </head>
-  <body>
-    <div class=3D"moz-cite-prefix">On 1/13/21 1:35 PM, Stefan Hajnoczi
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite"
-      cite=3D"mid:20210113113511.GG250553@stefanha-x1.localdomain">
-      <pre class=3D"moz-quote-pre" wrap=3D"">On Tue, Jan 12, 2021 at 11:1=
-6:11AM +0200, Laura Loghin wrote:
-</pre>
-      <blockquote type=3D"cite">
-        <pre class=3D"moz-quote-pre" wrap=3D"">Regarding the relation bet=
-ween data descriptors and segments, the
-commit that added discard and write zeroes to the spec, stated that
-the idea is "using 16 Bytes payload to support 1 descriptor" (not, for
-example, 32 bytes). There wasn't any mention in the spec about one data
-descriptor corresponding to exactly one segment. Added this constraint
-to block documentation.
-
-Signed-off-by: Laura Loghin <a class=3D"moz-txt-link-rfc2396E" href=3D"ma=
-ilto:lauralg@amazon.com">&lt;lauralg@amazon.com&gt;</a>
----
- content.tex | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/content.tex b/content.tex
-index 620c0e2..6393b68 100644
---- a/content.tex
-+++ b/content.tex
-@@ -4599,8 +4599,9 @@ \subsection{Device Operation}\label{sec:Device Type=
-s / Block Device / Device Ope
- of 512 bytes).
-=20
- The \field{data} used for discard or write zeroes commands consists of o=
-ne or
--more segments.  The maximum number of segments is \field{max_discard_seg=
-} for
--discard commands and \field{max_write_zeroes_seg} for write zeroes comma=
-nds.
-+more segments, and one data descriptor corresponds to exactly one such s=
-egment.
-+The maximum number of segments is \field{max_discard_seg} for discard co=
-mmands
-+and \field{max_write_zeroes_seg} for write zeroes commands.
- Each segment is of form:
-</pre>
-      </blockquote>
-      <pre class=3D"moz-quote-pre" wrap=3D"">
-I'm not sure what this means, could you clarify?
-
-There is no concept of "descriptor" in virtio-blk write zeroes/discard.
-There is only the "segment" (struct virtio_blk_discard_write_zeroes).
-
-If you are referring to vring descriptors, then there is no relationship
-between struct virtio_blk_req::data[] and vring descriptors. The driver
-may choose any vring descriptor framing/layout (see 2.6.4 Message
-Framing).
-
-Stefan
-</pre>
-    </blockquote>
-    <pre>Basically what I was trying to understand is if the specificatio=
-n enforces/should enforce that
-`len` field from a vring descriptor that is pointing to data that belongs=
- to a discard/write zeroes
-command is always 16 bytes. So what you are saying is that something like=
-:
-
-struct virtq_desc {=20
-=A0=A0=A0=A0=A0=A0=A0 /* Address (guest-physical). */=20
-=A0=A0=A0=A0=A0=A0=A0 le64 addr;=20
-=A0=A0=A0=A0=A0=A0=A0 /* Length. */=20
-=A0=A0=A0=A0=A0=A0=A0 le32 32;=20
-=A0=A0=A0=A0 ...
-};
-
-is totally legit for a virtq descriptor that belongs to a (large) discard=
-/write zeroes request?
-So this descriptor will point to a memory region where you have two virti=
-o_blk_discard_write_zeroes
-segments, one at `addr` address from above and the other one at `addr + 1=
-6`.
-
-Thanks!
-Laura=20
-</pre>
-  </body>
-</html>
-
---------------C794355A22BCB49127320B5C--
-
---kAkwnUqr39pmMMGQVHrILeoxGRGJBjNGI--
-
---BlOlurGDtQ0jaIfWQ8nl7CRmXwTkTsY9m
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYIAB0WIQT7PPbkts+VacElquqr/JMIF4+ZggUCX/7jIgAKCRCr/JMIF4+Z
-gq9jAQCJ5z7O8pu7NrVrmbeiU+SRUHrbBHv7wRKz0EVf27sK7gEA77QHkgvCafTM
-XLHwdAzAU4U5dzYtzfiDYMINCHApSwg=
-=KrpN
------END PGP SIGNATURE-----
-
---BlOlurGDtQ0jaIfWQ8nl7CRmXwTkTsY9m--
-
---===============5641906774781885314==
-Content-Type: multipart/alternative; boundary="===============1859529536466192350=="
-MIME-Version: 1.0
-Content-Disposition: inline
-
---===============1859529536466192350==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-
-
-
-Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar=
- Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in R=
-omania. Registration number J22/2621/2005.
-
---===============1859529536466192350==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-<p></p>
-
-<p><br>
-Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar=
- Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in R=
-omania. Registration number J22/2621/2005.</p>
-
---===============1859529536466192350==--
-
---===============5641906774781885314==
-Content-Type: text/plain; charset=us-ascii
-
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -280,8 +102,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
---===============5641906774781885314==--
 
