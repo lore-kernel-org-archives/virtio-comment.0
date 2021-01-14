@@ -1,201 +1,57 @@
-Return-Path: virtio-comment-return-1692-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1640-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CB1F898657E
-	for <virtio-comment@lists.oasis-open.org>; Thu, 28 Jan 2021 13:06:06 +0000 (UTC)
-Date: Thu, 28 Jan 2021 14:05:53 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20210128140553.55352767.cohuck@redhat.com>
-In-Reply-To: <20210128090632.67221e13.pasic@linux.ibm.com>
-References: <20210125110823.591104-1-cohuck@redhat.com>
-	<20210127101904.326d5295.pasic@linux.ibm.com>
-	<20210127124403.71e5e4e1.cohuck@redhat.com>
-	<20210127144857.45f2b337.pasic@linux.ibm.com>
-	<20210127181411.15046e12.cohuck@redhat.com>
-	<20210128090632.67221e13.pasic@linux.ibm.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 2FD949864DD
+	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Jan 2021 21:21:12 +0000 (UTC)
+From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Date: Thu, 14 Jan 2021 21:20:59 +0000
+Message-Id: <20210114212059.3822-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [PATCH v3] clarify device reset
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-To: Halil Pasic <pasic@linux.ibm.com>
-Cc: virtio-comment@lists.oasis-open.org, Jason Wang <jasowang@redhat.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+Subject: [virtio-comment] [PATCH] virtio-gpu.tex: fix some UTF-8 damage
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 28 Jan 2021 09:06:32 +0100
-Halil Pasic <pasic@linux.ibm.com> wrote:
+While building I got a warning about:
 
-> On Wed, 27 Jan 2021 18:14:11 +0100
-> Cornelia Huck <cohuck@redhat.com> wrote:
-> 
-> > On Wed, 27 Jan 2021 14:48:57 +0100
-> > Halil Pasic <pasic@linux.ibm.com> wrote:
-> >   
-> > > On Wed, 27 Jan 2021 12:44:03 +0100
-> > > Cornelia Huck <cohuck@redhat.com> wrote:
-> > >     
-> > > > On Wed, 27 Jan 2021 10:19:04 +0100
-> > > > Halil Pasic <pasic@linux.ibm.com> wrote:
-> > > >       
-> > > > > On Mon, 25 Jan 2021 12:08:23 +0100
-> > > > > Cornelia Huck <cohuck@redhat.com> wrote:    
-> >   
-> > > > > > +\section{Device
-> > > > > > Reset}\label{sec:Basic Facilities of a Virtio Device / Device
-> > > > > > Reset} + +The driver may initiate a device reset at various times;
-> > > > > > notably, during +device initialization and device cleanup.          
-> > > > > 
-> > > > > Are there times the driver may not initiate a device reset? What are
-> > > > > we trying to tell with this sentence?        
-> > > > 
-> > > > s/may initiate/may want to initiate/      
-> > > 
-> > > Definitively better. I would still prefer avoiding the discussion
-> > > on when the driver may want to reset the device. But I can live
-> > > with this.    
-> > 
-> > The driver is free to reset the device whenever it wants to, even if it
-> > does not make sense. Device initialization and cleanup are examples for
-> > when it definitely will do so.
-> >   
-> 
-> For device initialization and for cleanup is actually a MUST,
-> and not a simple may want to. And that is properly specified in 3.1.1
-> and 3.3.1 respectively.
-> 
-> I would actually advice against resetting the device when device status
-> is still 0, and especially if we expect it to change to ACKNOWLEDGE,
-> because we just asked the device to set that bit. Why? Because I assume
-> we could read the old 0 and assume the reset was performed.
+  ! Package utf8x Error: MalformedUTF-8sequence.
 
-I don't think we need to point out every little questionable thing a
-driver might do.
+Fixes: 87fa6b5 ("virtio-gpu: add support for mapping/unmapping blob resourc=
+es")
+Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+---
+ virtio-gpu.tex | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
->  
-> 
-> > >     
-> > > >       
-> > > > > 
-> > > > > If we are just looking for an introductionary sentence, I would
-> > > > > probably go with something like "A device reset be either initiated
-> > > > > by the      
-> > > 
-> > > s/be/can be/
-> > >     
-> > > > > driver, or by a system reset, or other external controls."        
-> > > > 
-> > > > It was mostly supposed to be a lead-in.
-> > > > 
-> > > > I'm not sure we want to spell out things like system resets. They are
-> > > > platform-specific, and virtio devices are basically just a device
-> > > > there.      
-> > > 
-> > > Hm. AFAIR the only way to make the device non-live, i.e. illegal for it 
-> > > to e.g. access a queue, which is in guest memory is device reset. Now if
-> > > I want to perform a reboot, I do want to stop the devices from poking
-> > > such memory. But I think, in linux we don't reset the device form the
-> > > driver, before reboot, and I believe we don't have to because we are
-> > > guaranteed that the device will get reset. Or is my memory failing me?
-> > > 
-> > > I think it is of value to clarify that a virtio reset can possibly be
-> > > initiated by other means than explicitly specified by the virtio spec,
-> > > and that when a 'proxy-device' is reset, the 'virtio-device' is to be
-> > > reset as well. We do mention system reset once, in a normative section
-> > > at that (2.2.2).    
-> > 
-> > That section looks a bit questionable (what is 'resuming from suspend'?).
-> >   
-> 
-> I have no problems with that sections, and I think it is very
-> reasonable. You can think of 'resuming form suspend' like 'resuming from
-> suspend-to-disk' or from 'virsh save'. I.e. a situation where the device
-> has (probably) lost power and thus needs a (complete) re-initialization,
-> but we are supposed to preserve some continuity (e.g. if ACCESS_PLATFORM
-> was negotiable, it should still be negotiable).
-
-Maybe leave that for a different discussion?
-
-> 
-> > Platforms may have different definitions of what a system reset does
-> > (and even different types of reset). I think it is reasonable to assume
-> > that any platform/system reset that brings devices into some kind of
-> > initial state also brings virtio devices into that initial state (and
-> > especially that bringing the proxy device into an initial state also
-> > covers the virtio-specific parts.)
-> >   
-> 
-> In an ideal world, after reading the spec, one should have to ponder if
-> something is reasonable to assume or not.
-> 
-> I agree, platforms (e.g. s390, ppc) may have different definitions and
-> different flavors of resets, and the situation is similar for the
-> transports (e.g. PCI, CCW). And the very same device may be used on
-> different platforms. 
-> 
-> For PCIe there is something called a Function Level Reset. 
-> 
-> The relationship between the different resets ain't trivial to me. E.g.
-> when we say 'reset the device' we actually mean 'reset the virtio
-> aspect of the device', and not the 'entire device'. E.g.
-> CCW_CMD_VDEV_RESET does not reset the ccw-device.
-
-This spec is dealing with virtio and the proxy devices. Attempting to
-use a virtio mechanism to reset a generic pci or ccw entity is not
-something I'd extract from the spec. Resetting the virtio and proxy
-device parts by resetting the generic device is something that does not
-look any different from any other device type, so I really consider it
-out of scope. IOW, I'd rather not go down that rabbit hole.
-
-> 
-> [..]
-> 
-> > > > > 
-> > > > > Maybe it is wiser to tie this restriction to the current status value
-> > > > > (without any after or before), and do it where the notifications are
-> > > > > described. 
-> > > > > 
-> > > > > Also a device that has status 0 may not poke the virtqueues. If we
-> > > > > are explicit about the notifications, we should be explicit about
-> > > > > the virtqueues as well.        
-> > > > 
-> > > > What about
-> > > > 
-> > > > "A device MUST NOT send notifications or process queue buffers after
-> > > > indication completion of the reset by reinitializing the device status    
-> > 
-> > s/indication/indicating/
-> >   
-> > > > to 0, until the driver re-initializes the device."
-> > > > 
-> > > > ?      
-> > > 
-> > > Getting better, but IMHO not perfect. Process queue buffers is a bit
-> > > vague IMHO. Even examining (reading) the ring(s) is taboo in my opinion,
-> > > and I'm not sure that is unambiguously covered by 'process queue
-> > > buffers'. In my opinion after a successful reset, the driver is
-> > > entitled to even hot-unplug the ram that used to host the queues,
-> > > notifier bits, etc.    
-> > 
-> > "interact with the queues", maybe?
-> >  
-> 
-> Yes even better. Another thing to consider is behavior during the reset.
-> I think it could be beneficial to say that.
-> 
-> The device SHOULD NOT interact with the queues while performing the
-> reset.
-> 
-> If I'm not wrong there was some problem with secure execution, but I
-> don't remember what did we do about it. What I remember is that
-> virtio-blk interacted with the queue during the reset, which happened,
-> after the protection/encryption status of the memory backing the queues
-> changed.
-
-I don't think we should actually specify that: we never specified it
-before, so the driver cannot make a fair assumption anyway.
+diff --git a/virtio-gpu.tex b/virtio-gpu.tex
+index 8225db6..a6afeda 100644
+--- a/virtio-gpu.tex
++++ b/virtio-gpu.tex
+@@ -660,11 +660,11 @@ \subsubsection{Device Operation: controlq (3d)}\label=
+{sec:Device Types / GPU Dev
+         le64 offset;
+ };
+=20
+-#define VIRTIO_GPU_MAP_CACHE_MASK =C2=A0 =C2=A0 =C2=A00x0f
++#define VIRTIO_GPU_MAP_CACHE_MASK      0x0f
+ #define VIRTIO_GPU_MAP_CACHE_NONE      0x00
+-#define VIRTIO_GPU_MAP_CACHE_CACHED =C2=A0 =C2=A00x01
+-#define VIRTIO_GPU_MAP_CACHE_UNCACHED =C2=A00x02
+-#define VIRTIO_GPU_MAP_CACHE_WC =C2=A0 =C2=A0 =C2=A0 =C2=A00x03
++#define VIRTIO_GPU_MAP_CACHE_CACHED    0x01
++#define VIRTIO_GPU_MAP_CACHE_UNCACHED  0x02
++#define VIRTIO_GPU_MAP_CACHE_WC        0x03
+ struct virtio_gpu_resp_map_info {
+         struct virtio_gpu_ctrl_hdr hdr;
+         u32 map_info;
+--=20
+2.20.1
 
 
 This publicly archived list offers a means to provide input to the
@@ -210,7 +66,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
