@@ -1,57 +1,61 @@
-Return-Path: virtio-comment-return-1677-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1658-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AA74998626D
-	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Jan 2021 17:07:09 +0000 (UTC)
-Date: Tue, 26 Jan 2021 18:07:03 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20210126180703.5fb6e0be.cohuck@redhat.com>
-In-Reply-To: <20210114212059.3822-1-alex.bennee@linaro.org>
-References: <20210114212059.3822-1-alex.bennee@linaro.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 54682986560
+	for <virtio-comment@lists.oasis-open.org>; Fri, 22 Jan 2021 10:25:13 +0000 (UTC)
+From: Felipe Franciosi <felipe@nutanix.com>
+Date: Fri, 22 Jan 2021 10:25:02 +0000
+Message-Id: <20210122102502.90036-1-felipe@nutanix.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH] virtio-gpu.tex: fix some UTF-8 damage
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-To: Alex =?UTF-8?B?QmVubsOpZQ==?= <alex.bennee@linaro.org>
-Cc: virtio-comment@lists.oasis-open.org
+Subject: [virtio-comment] [PATCH] content: Fix driver/device wording on ISR bits
+Content-Type: text/plain
+To: virtio-comment@lists.oasis-open.org
+Cc: mst@redhat.com, Felipe Franciosi <felipe@nutanix.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 14 Jan 2021 21:20:59 +0000
-Alex Benn=C3=A9e <alex.bennee@linaro.org> wrote:
+Section "ISR status capability" incorrectly worded that the bits part of
+the register allows the device to distinguish between interrupt types.
+It is the driver that needs access to that distinction, not the device.
 
-> While building I got a warning about:
->=20
->   ! Package utf8x Error: MalformedUTF-8sequence.
->=20
-> Fixes: 87fa6b5 ("virtio-gpu: add support for mapping/unmapping blob resou=
-rces")
-> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
-> ---
->  virtio-gpu.tex | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+Signed-off-by: Felipe Franciosi <felipe@nutanix.com>
+---
+ content.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks, pushed out as a minor edit.
+diff --git a/content.tex b/content.tex
+index 620c0e2..17f0540 100644
+--- a/content.tex
++++ b/content.tex
+@@ -1054,7 +1054,7 @@ \subsubsection{ISR status capability}\label{sec:Virtio Transport Options / Virti
+ 
+ The \field{offset} for the \field{ISR status} has no alignment requirements.
+ 
+-The ISR bits allow the device to distinguish between device-specific configuration
++The ISR bits allow the driver to distinguish between device-specific configuration
+ change interrupts and normal virtqueue interrupts:
+ 
+ \begin{tabular}{ |l||l|l|l| }
+-- 
+2.18.4
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
