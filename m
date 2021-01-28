@@ -1,81 +1,146 @@
-Return-Path: virtio-comment-return-1545-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1693-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BCA499865B9
-	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Dec 2020 10:30:14 +0000 (UTC)
-References: <20201116191629.47661-1-david@redhat.com>
-From: David Hildenbrand <david@redhat.com>
-Message-ID: <6eaadef2-de94-36da-75e8-0802c5d55121@redhat.com>
-Date: Wed, 2 Dec 2020 11:30:02 +0100
+	by lists.oasis-open.org (Postfix) with ESMTP id 717B798657E
+	for <virtio-comment@lists.oasis-open.org>; Thu, 28 Jan 2021 13:53:01 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+Date: Thu, 28 Jan 2021 14:52:35 +0100
+Message-Id: <20210128135235.679402-1-cohuck@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20201116191629.47661-1-david@redhat.com>
-Subject: Re: [virtio-comment] [PATCH v1] virtio-mem: minor clarification
- regarding read-access to unplugged blocks
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [virtio-comment] [PATCH v4] clarify device reset
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
-Cc: teawater <teawaterz@linux.alibaba.com>, Marek Kedzierski <mkedzier@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
+Cc: Jason Wang <jasowang@redhat.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Stefan Hajnoczi <stefanha@redhat.com>, Cornelia Huck <cohuck@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 16.11.20 20:16, David Hildenbrand wrote:
-> Let's clarify that we don't expect all DMA to work with unplugged blocks.
-> We really only give guarantees when reading from unplugged memory blocks
-> via the CPU, e.g., as done by Linux when creating a system dump via
-> kdump: the new kernel will copy the content of the old (crashed) kernel
-> via the CPU to user space, from where it will find its final destination
-> inside the dump file. Note that dumping via makedumpfile under Linux will
-> avoid reading unplugged blocks completely.
-> 
-> This is a preparation for device passthrough to VMs, whereby such
-> dedicated devices might not be able to read from unplugged memory blocks.
-> 
-> Let's document that this scenario is possible, and why this handling is
-> in place at all.
-> 
-> Cc: teawater <teawaterz@linux.alibaba.com>
-> Cc: Marek Kedzierski <mkedzier@redhat.com>
-> Cc: Michael S. Tsirkin <mst@redhat.com>
-> Cc: Cornelia Huck <cohuck@redhat.com>
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
->  virtio-mem.tex | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/virtio-mem.tex b/virtio-mem.tex
-> index 85cfb61..62a1d02 100644
-> --- a/virtio-mem.tex
-> +++ b/virtio-mem.tex
-> @@ -246,8 +246,13 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
->  
->  The device MUST NOT change the content of plugged memory blocks.
->  
-> -The device MUST allow to read from unplugged memory blocks inside
-> -the usable device-managed region.
-> +The device MUST allow the CPU to read from unplugged memory blocks inside
-> +the usable device-managed region. \footnote{To allow for simplified dumping of
-> +memory. The CPU is expected to copy such memory to another location before
-> +starting DMA.}
-> +
-> +The device MAY allow to read from unplugged memory blocks inside the
-> +usable device-managed region via DMA.
->  
->  The device MAY allow to read from unplugged memory blocks outside
->  the usable device-managed region.
-> 
+Properly specify that the method for the driver to request a
+device reset is transport specific, and some action the device
+has to take.
 
-Requesting a vote, thanks!
+Signed-off-by: Cornelia Huck <cohuck@redhat.com>
+---
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/91
+Stefan, Halil: I did not apply your R-b due to the amount of changes.
 
--- 
-Thanks,
+v3 -> v4:
+  - moved device status 're-initialize to 0' clause that is now duplicated
+    to an informal description
+  - more clarifications on when reset may be used and device requirements
+  - use \field{device status} consistently
+RFC v2 -> v3:
+  - re-worded the "must not send notifications" clause to avoid guessing
+  - added a driver conformance clause on how a driver should find out
+    when reset is complete
+RFC -> RFC v2:
+  - moved reset spec to basic facilities
 
-David / dhildenb
+---
+ conformance.tex |  2 ++
+ content.tex     | 24 +++++++++++++++++++++++-
+ 2 files changed, 25 insertions(+), 1 deletion(-)
+
+diff --git a/conformance.tex b/conformance.tex
+index e78adfdbd283..17c390d249db 100644
+--- a/conformance.tex
++++ b/conformance.tex
+@@ -64,6 +64,7 @@ \section{Conformance Targets}\label{sec:Conformance / Con=
+formance Targets}
+ \begin{itemize}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device St=
+atus Field}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Feature B=
+its}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / Device Re=
+set}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device Co=
+nfiguration Space}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueue=
+s}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Message F=
+raming}
+@@ -283,6 +284,7 @@ \section{Conformance Targets}\label{sec:Conformance / C=
+onformance Targets}
+ \begin{itemize}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device St=
+atus Field}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Feature B=
+its}
++\item \ref{devicenormative:Basic Facilities of a Virtio Device / Device Re=
+set}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device Co=
+nfiguration Space}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Message F=
+raming}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueue=
+s / The Virtqueue Descriptor Table}
+diff --git a/content.tex b/content.tex
+index 1ca24c13f2d0..47239b877c6c 100644
+--- a/content.tex
++++ b/content.tex
+@@ -51,6 +51,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Fac=
+ilities of a Virtio Dev
+   an error from which it can't recover.
+ \end{description}
+=20
++The \field{device status} field starts out as 0, and is reinitialized to 0=
+ by
++the device during reset.
++
+ \drivernormative{\subsection}{Device Status Field}{Basic Facilities of a V=
+irtio Device / Device Status Field}
+ The driver MUST update \field{device status},
+ setting bits to indicate the completed steps of the driver
+@@ -71,7 +74,6 @@ \section{\field{Device Status} Field}\label{sec:Basic Fac=
+ilities of a Virtio Dev
+ \end{note}
+=20
+ \devicenormative{\subsection}{Device Status Field}{Basic Facilities of a V=
+irtio Device / Device Status Field}
+-The device MUST initialize \field{device status} to 0 upon reset.
+=20
+ The device MUST NOT consume buffers or send any used buffer
+ notifications to the driver before DRIVER_OK.
+@@ -193,6 +195,26 @@ \section{Notifications}\label{sec:Basic Facilities of =
+a Virtio Device
+ terminology. Occasionally, the term event is used to refer to
+ a notification or a receipt of a notification.
+=20
++\section{Device Reset}\label{sec:Basic Facilities of a Virtio Device / Dev=
+ice Reset}
++
++The driver may want to initiate a device reset at various times; notably,
++it is required to do so during device initialization and device cleanup.
++
++The mechanism used by the driver to initiate the reset is transport specif=
+ic.
++
++\devicenormative{\subsection}{Device Reset}{Basic Facilities of a Virtio D=
+evice / Device Reset}
++
++A device MUST reinitialize \field{device status} to 0 after receiving a re=
+set.
++
++A device MUST NOT send notifications or interact with the queues after
++indicating completion of the reset by reinitializing \field{device status}
++to 0, until the driver re-initializes the device.
++
++\drivernormative{\subsection}{Device Reset}{Basic Facilities of a Virtio D=
+evice / Device Reset}
++
++The driver SHOULD consider a driver-initiated reset complete when it
++reads \field{device status} as 0.
++
+ \section{Device Configuration Space}\label{sec:Basic Facilities of a Virti=
+o Device / Device Configuration Space}
+=20
+ Device configuration space is generally used for rarely-changing or
+--=20
+2.26.2
 
 
 This publicly archived list offers a means to provide input to the
@@ -90,7 +155,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
