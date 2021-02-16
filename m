@@ -1,57 +1,44 @@
-Return-Path: virtio-comment-return-1718-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1719-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B1259986087
-	for <virtio-comment@lists.oasis-open.org>; Tue, 16 Feb 2021 10:47:36 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-Date: Tue, 16 Feb 2021 11:47:28 +0100
-Message-Id: <20210216104728.1086055-1-cohuck@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id B71369860DD
+	for <virtio-comment@lists.oasis-open.org>; Tue, 16 Feb 2021 14:42:16 +0000 (UTC)
+Date: Tue, 16 Feb 2021 15:42:04 +0100
+From: Halil Pasic <pasic@linux.ibm.com>
+Message-ID: <20210216154204.29ef3376.pasic@linux.ibm.com>
+In-Reply-To: <20210216104728.1086055-1-cohuck@redhat.com>
+References: <20210216104728.1086055-1-cohuck@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH] virtio-ccw: relax device requirement for revision-specific command rejection
-Content-Type: text/plain; charset="US-ASCII"
+Subject: [virtio-comment] Re: [PATCH] virtio-ccw: relax device requirement for
+ revision-specific command rejection
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-To: virtio-comment@lists.oasis-open.org
-Cc: Halil Pasic <pasic@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-The device is currently required to reject any command that is
-not contained in the negotiated revision. Some implementations
-did not actively check for the revision when processing a command;
-retroactively changing these implementations can break existing
-drivers.
+On Tue, 16 Feb 2021 11:47:28 +0100
+Cornelia Huck <cohuck@redhat.com> wrote:
 
-Relaxing the rejection requirement to SHOULD makes these existing
-device implementations compliant, and will not have any effect on
-drivers that did not send any commands for wrong revisions.
+> The device is currently required to reject any command that is
+> not contained in the negotiated revision. Some implementations
+> did not actively check for the revision when processing a command;
+> retroactively changing these implementations can break existing
+> drivers.
+>=20
+> Relaxing the rejection requirement to SHOULD makes these existing
+> device implementations compliant, and will not have any effect on
+> drivers that did not send any commands for wrong revisions.
+>=20
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/96
+>=20
+> Signed-off-by: Cornelia Huck <cohuck@redhat.com>
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/96
-
-Signed-off-by: Cornelia Huck <cohuck@redhat.com>
----
- content.tex | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/content.tex b/content.tex
-index 835f1ea5ebaa..b72bad0dddaa 100644
---- a/content.tex
-+++ b/content.tex
-@@ -2396,7 +2396,7 @@ \subsubsection{Setting the Virtio Revision}\label{sec=
-:Virtio Transport Options /
- and \field{data}, it MUST post a unit check with command reject as well. A
- non-transitional device MUST reject revision id 0.
-=20
--A device MUST answer with command reject to any virtio-ccw specific
-+A device SHOULD answer with command reject to any virtio-ccw specific
- channel command that is not contained in the revision selected by the
- driver.
-=20
---=20
-2.26.2
-
+Reviewed-by: Halil Pasic <pasic@linux.ibm.com>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
