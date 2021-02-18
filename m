@@ -1,12 +1,12 @@
 Return-Path: arseny.krasnov@kaspersky.com
 From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
 Subject: [RFC PATCH v1 0/1] virtio-vsock: introduce SEQPACKET description
-Date: Thu, 18 Feb 2021 08:58:35 +0300
-Message-ID: <20210218055838.1073358-1-arseny.krasnov@kaspersky.com>
+Date: Thu, 18 Feb 2021 08:52:08 +0300
+Message-ID: <20210218055211.1071722-1-arseny.krasnov@kaspersky.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
-To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Andra Paraschiv <andraprs@amazon.com>, Colin Ian King <colin.king@canonical.com>
+To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>, Andra Paraschiv <andraprs@amazon.com>
 Cc: virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
