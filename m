@@ -1,68 +1,53 @@
-Return-Path: virtio-comment-return-1623-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1724-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-References: <ff3ec9f5cb7f480a52913790f698ad45c66edcc2.1608796685.git.jie.deng@intel.com>
- <20210106181158.GC133350@stefanha-x1.localdomain>
-From: Jie Deng <jie.deng@intel.com>
-Message-ID: <fe9f61aa-f5e3-6a18-ae1d-e2e7eec7692c@intel.com>
-Date: Thu, 7 Jan 2021 09:19:55 +0800
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 79E649864B3
+	for <virtio-comment@lists.oasis-open.org>; Thu, 18 Feb 2021 06:08:31 +0000 (UTC)
+From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+Date: Thu, 18 Feb 2021 09:07:12 +0300
+Message-ID: <20210218060715.1075547-1-arseny.krasnov@kaspersky.com>
 MIME-Version: 1.0
-In-Reply-To: <20210106181158.GC133350@stefanha-x1.localdomain>
-Subject: Re: [virtio-comment] [PATCH v6] virtio-i2c: add the device
- specification
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, mst@redhat.com, cohuck@redhat.com, pbonzini@redhat.com, kraxel@redhat.com, wsa+renesas@sang-engineering.com, andriy.shevchenko@linux.intel.com, conghui.chen@intel.com, yu1.wang@intel.com, shuo.a.liu@intel.com
+Subject: [virtio-comment] [RFC PATCH v1 0/1] virtio-vsock: introduce SEQPACKET description
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>, Andra Paraschiv <andraprs@amazon.com>
+Cc: virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+This patchset adds description of SOCK_SEQPACKET socket's type
+of virtio vsock.
 
-On 2021/1/7 2:11, Stefan Hajnoczi wrote:
-> On Thu, Dec 24, 2020 at 04:10:43PM +0800, Jie Deng wrote:
->> +\begin{lstlisting}
->> +struct virtio_i2c_out_hdr {
->> +        le16 addr;
->> +        le16 padding;
->> +        le32 flags;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{lstlisting}
->> +struct virtio_i2c_in_hdr {
->> +        u8 status;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{lstlisting}
->> +struct virtio_i2c_req {
->> +        struct virtio_i2c_out_hdr out_hdr;
->> +        u8 write_buf[];
->> +        u8 read_buf[];
->> +        struct virtio_i2c_in_hdr in_hdr;
->> +};
->> +\end{lstlisting}
-> I didn't notice that the written and read fields were removed. Does this
-> mean that struct virtio_i2c_req can either be read or write, but not
-> read+write?
+Here is implementation:
+https://lkml.org/lkml/2021/2/18/24
 
-It can be read, write or read+write.
+ Arseny Krasnov(1):
+  virtio-vsock: add SOCK_SEQPACKET description
 
-written/read are removed according to Michael's suggest. He preferred to 
-directly use the read/write flags in descriptors.
+ virtio-vsock.tex | 40 +++++++++++++++++++++++++++++++++++++---
+ 1 files changed, 37 insertions(+), 3 deletions(-)
 
-Please refer to 
-https://lists.oasis-open.org/archives/virtio-comment/202012/msg00045.html
+TODO:
+- for messages identification I use header's field called 'msg_cnt'.
+  May be it is better to call it 'msg_id' or 'msg_num', because it
+  is used as ID, but implemented as counter.
 
-> This makes sense if virtqueue buffers can be grouped together so
-> bi-directional transfers can be described using multiple buffers. Just
-> wanted to check if I understand this correctly.
->
-> Thanks,
-> Stefan
+- in current version of specification, some values of headers' fields
+  still unnamed, for example type of socket (stream or seqpacket), then
+  shutdown flags. Spec says that for stream socket value of 'type'
+  must be 1. For receive shutdown bit 0 is set in 'flags', for send
+  shutdown bit 1 is set in 'flags'. But in Linux these unnamed ones and
+  zeroes are implemented as enums, so may be it will be ok to add such
+  enums in specification (as 'enum virtio_vsock_event_id').
+
+Signed-off-by: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+
+--=20
+2.25.1
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -76,7 +61,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
