@@ -1,530 +1,404 @@
-Return-Path: virtio-comment-return-1736-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1733-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-References: <20210212095920.249768-1-peter.hilber@opensynergy.com>
-From: Peter Hilber <peter.hilber@opensynergy.com>
-Message-ID: <182c86c3-730b-12e2-1a9a-347d5e8e25af@opensynergy.com>
-Date: Thu, 11 Mar 2021 18:19:23 +0100
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id CBF419864D0
+	for <virtio-comment@lists.oasis-open.org>; Thu,  4 Mar 2021 18:36:53 +0000 (UTC)
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Message-ID: <caf0c3e3-5959-10d2-6b87-5128b0e2c30e@opensynergy.com>
+Date: Thu, 4 Mar 2021 19:36:48 +0100
 MIME-Version: 1.0
-In-Reply-To: <20210212095920.249768-1-peter.hilber@opensynergy.com>
-Subject: [virtio-comment] Re: [PATCH v6] Add virtio SCMI device specification
-Content-Type: text/plain; charset="utf-8"
+Subject: [virtio-comment] virtio-snd: Adding support for audio controls
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 To: virtio-comment@lists.oasis-open.org
-Cc: linux-arm-kernel@lists.infradead.org, Souvik.Chakravarty@arm.com, Sudeep.Holla@arm.com, virtio-dev@lists.oasis-open.org, alex.bennee@linaro.org, jean-philippe@linaro.org, cristian.marussi@arm.com
+Cc: Gerd Hoffmann <kraxel@redhat.com>, liam.r.girdwood@linux.intel.com, Takashi Iwai <tiwai@suse.de>, broonie@kernel.org, maz@kernel.org, james.morse@arm.com, julien.thierry.kdev@gmail.com, suzuki.poulose@arm.com, cdupontd@redhat.com, jean-philippe@linaro.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 12.02.21 10:59, Peter Hilber wrote:
-> This patch proposes a new virtio device for the Arm SCMI protocol.
->=20
-> The device provides a simple transport for the Arm SCMI protocol[1]. The
-> *S*ystem *C*ontrol and *M*anagement *I*nterface protocol allows speaking
-> to system controllers that allow orchestrating things like power
-> management, system state management and sensor access. The SCMI protocol
-> is used on SoCs where multiple cores and co-processors need access to
-> these resources.
->=20
-> The virtio transport allows making use of this protocol in virtualized
-> systems.
->=20
-> [1] https://developer.arm.com/docs/den0056/c
->=20
-> Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
-> ---
->=20
-> Notes:
->=20
->     Since sending out v5 in May 2020, there has been no additional
->     feedback w.r.t. the spec. An RfC patch series for the driver is now
->     available at [1]. OpenSynergy also has a proprietary implementation
->     of the device (without the VIRTIO_SCMI_F_SHARED_MEMORY feature so
->     far).
->=20
->     So I would like to request a vote on adding the device in a few weeks=
-.
->    =20
+Hello everyone,
 
-I would like to request a vote on adding the virtio SCMI device to the spec=
-.
+The virtio sound device lacks audio controls, which are a needed
+feature. Audio controls can be used to set the volume level, mute/unmute
+the audio signal, switch different modes/states of the virtual sound
+device, etc. At the same time, it would be desirable also to be able to
+para-virtualize ALSA controls on top of the device. As they are feature
+rich, flexible and allow many useful scenarios to be implemented in
+a Linux-based virtual guests (and potentially in guests without ALSA).
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/100
+This email contains just a description of possible extension to the spec
+and a rough idea of how this could work and have been implemented. Any
+comments and suggestions are very welcome!
 
-Best regards,
+The same ALSA control design can be used as a basis. It allow us to
+implement the necessary logic for volume control, muting, etc for both
+Linux-based systems and systems where there is no ALSA (for example,
+Windows). For this reason, all structure declarations are derived from
+ALSA structures, and most constants are just ALSA constants (if
+everything goes well, we'll just rename everything and assign numbers).
 
-Peter
+It's necessary to add a new feature bit, and extend the device
+configuration space with a field containing the number of provided
+controls:
 
->     The PDF output is available at [2].
->    =20
->     [1] https://lore.kernel.org/linux-arm-kernel/20201105212116.411422-1-=
-peter.hilber@opensynergy.com/
->     [2] https://share.mailbox.org/ajax/share/056076e70571144f50c4ca757114=
-4b319a1d7236dda1cd3b/1/8/MzQ/MzQvMQ
->=20
->     Changes for v6:
->=20
->     - Refer to new SCMI spec version 3.0 (DEN0056C), which has a
->       provision for SHM race conditions.
->=20
->     - Resolve conflicts with other added device documentation.
->=20
->     Changes for v5:
->    =20
->     - Remove requirements on shared memory added in v4, since an upcoming
->     new version of the Arm SCMI spec[1] will provide a generic, more
->     powerful way to handle concurrent access to shared memory.
->    =20
->     Changes for v4:
->    =20
->     - Add more requirements on shared memory regions after feedback from
->       Alex Benn=C3=A9e.
->    =20
->     Changes for v3:
->    =20
->     - Add tentative device ID 32 in device section.
->    =20
->     - Remove redundant 'len' fields. The length of the payload fields can
->       already be deduced from the generic virtqueue 'len' fields. Therefo=
-re,
->       remove the redundant device-specific 'len' fields.
->    =20
->     - Reword requirement that driver must not put too small buffers into
->       eventq.
->    =20
->     Changes for v2:
->    =20
->     - CC virtio-dev list.
->     - Define size of erroneous delayed/not delayed responses.
->     - Use correct long name for SCMI.
->     - Remove restriction to `embedded' in commit message.
->     - Add motivation for conceptual per-message-channels.
->     - Device may now just drop notification if no buffers are available.
->    =20
->=20
->  conformance.tex  |  34 ++++--
->  content.tex      |   1 +
->  introduction.tex |   3 +
->  virtio-scmi.tex  | 271 +++++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 303 insertions(+), 6 deletions(-)
->  create mode 100644 virtio-scmi.tex
->=20
-> diff --git a/conformance.tex b/conformance.tex
-> index 17c390d..a164cbb 100644
-> --- a/conformance.tex
-> +++ b/conformance.tex
-> @@ -27,9 +27,10 @@ \section{Conformance Targets}\label{sec:Conformance / =
-Conformance Targets}
->  \ref{sec:Conformance / Driver Conformance / Socket Driver Conformance},
->  \ref{sec:Conformance / Driver Conformance / RPMB Driver Conformance},
->  \ref{sec:Conformance / Driver Conformance / IOMMU Driver Conformance},
-> -\ref{sec:Conformance / Driver Conformance / Sound Driver Conformance}
-> -\ref{sec:Conformance / Driver Conformance / Memory Driver Conformance} o=
-r
-> -\ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conforman=
-ce}.
-> +\ref{sec:Conformance / Driver Conformance / Sound Driver Conformance},
-> +\ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
-> +\ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conforman=
-ce} or
-> +\ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance}.
-> =20
->      \item Clause \ref{sec:Conformance / Legacy Interface: Transitional D=
-evice and Transitional Driver Conformance}.
->    \end{itemize}
-> @@ -49,9 +50,10 @@ \section{Conformance Targets}\label{sec:Conformance / =
-Conformance Targets}
->  \ref{sec:Conformance / Device Conformance / Socket Device Conformance},=
-=20
->  \ref{sec:Conformance / Device Conformance / RPMB Device Conformance},
->  \ref{sec:Conformance / Device Conformance / IOMMU Device Conformance},
-> -\ref{sec:Conformance / Device Conformance / Sound Device Conformance}
-> -\ref{sec:Conformance / Device Conformance / Memory Device Conformance} o=
-r
-> -\ref{sec:Conformance / Device Conformance / I2C Adapter Device Conforman=
-ce}.
-> +\ref{sec:Conformance / Device Conformance / Sound Device Conformance},
-> +\ref{sec:Conformance / Device Conformance / Memory Device Conformance},
-> +\ref{sec:Conformance / Device Conformance / I2C Adapter Device Conforman=
-ce} or
-> +\ref{sec:Conformance / Device Conformance / SCMI Device Conformance}.
-> =20
->      \item Clause \ref{sec:Conformance / Legacy Interface: Transitional D=
-evice and Transitional Driver Conformance}.
->    \end{itemize}
-> @@ -277,6 +279,15 @@ \section{Conformance Targets}\label{sec:Conformance =
-/ Conformance Targets}
->  \item \ref{drivernormative:Device Types / I2C Adapter Device / Device Op=
-eration}
->  \end{itemize}
-> =20
-> +\conformance{\subsection}{SCMI Driver Conformance}\label{sec:Conformance=
- / Driver Conformance / SCMI Driver Conformance}
-> +
-> +An SCMI driver MUST conform to the following normative statements:
-> +
-> +\begin{itemize}
-> +\item \ref{drivernormative:Device Types / SCMI Device / Device Operation=
- / cmdq Operation}
-> +\item \ref{drivernormative:Device Types / SCMI Device / Device Operation=
- / Setting Up eventq Buffers}
-> +\end{itemize}
-> +
->  \conformance{\section}{Device Conformance}\label{sec:Conformance / Devic=
-e Conformance}
-> =20
->  A device MUST conform to the following normative statements:
-> @@ -505,6 +516,17 @@ \section{Conformance Targets}\label{sec:Conformance =
-/ Conformance Targets}
->  \item \ref{devicenormative:Device Types / I2C Adapter Device / Device Op=
-eration}
->  \end{itemize}
-> =20
-> +\conformance{\subsection}{SCMI Device Conformance}\label{sec:Conformance=
- / Device Conformance / SCMI Device Conformance}
-> +
-> +An SCMI device MUST conform to the following normative statements:
-> +
-> +\begin{itemize}
-> +\item \ref{devicenormative:Device Types / SCMI Device / Feature bits}
-> +\item \ref{devicenormative:Device Types / SCMI Device / Device Operation=
- / cmdq Operation}
-> +\item \ref{devicenormative:Device Types / SCMI Device / Device Operation=
- / eventq Operation}
-> +\item \ref{devicenormative:Device Types / SCMI Device / Device Operation=
- / Shared Memory Operation}
-> +\end{itemize}
-> +
->  \conformance{\section}{Legacy Interface: Transitional Device and Transit=
-ional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transit=
-ional Device and Transitional Driver Conformance}
->  A conformant implementation MUST be either transitional or
->  non-transitional, see \ref{intro:Legacy
-> diff --git a/content.tex b/content.tex
-> index 835f1ea..40ab30a 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -6532,6 +6532,7 @@ \subsubsection{Legacy Interface: Framing Requiremen=
-ts}\label{sec:Device
->  \input{virtio-sound.tex}
->  \input{virtio-mem.tex}
->  \input{virtio-i2c.tex}
-> +\input{virtio-scmi.tex}
-> =20
->  \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-> =20
-> diff --git a/introduction.tex b/introduction.tex
-> index bc0217f..7204b24 100644
-> --- a/introduction.tex
-> +++ b/introduction.tex
-> @@ -76,6 +76,9 @@ \section{Normative References}\label{sec:Normative Refe=
-rences}
->  =09\phantomsection\label{intro:I2C}\textbf{[I2C]} &
->  =09I2C-bus specification and user manual,
->  =09\newline\url{https://www.nxp.com/docs/en/user-guide/UM10204.pdf}\\
-> +=09\phantomsection\label{intro:SCMI}\textbf{[SCMI]} &
-> +=09Arm System Control and Management Interface, DEN0056,
-> +=09\newline\url{https://developer.arm.com/docs/den0056/c}, version C and=
- any future revisions\\
-> =20
->  \end{longtable}
-> =20
-> diff --git a/virtio-scmi.tex b/virtio-scmi.tex
-> new file mode 100644
-> index 0000000..c4b8dd0
-> --- /dev/null
-> +++ b/virtio-scmi.tex
-> @@ -0,0 +1,271 @@
-> +\section{SCMI Device}\label{sec:Device Types / SCMI Device}
-> +
-> +An SCMI device implements the Arm System Control and Management
-> +Interface (SCMI). SCMI can be used for sensors, power state management,
-> +clock management and performance management among other things.
-> +
-> +This section relies on definitions from the \hyperref[intro:SCMI]{SCMI
-> +specification}.
-> +
-> +Virtio SCMI device and driver are mapped to SCMI platform and agent
-> +respectively. The device is visible to a particular SCMI agent. The
-> +device allows a guest to communicate as an SCMI agent using one or more
-> +SCMI protocols. The default SCMI protocols are defined in the
-> +\hyperref[intro:SCMI]{SCMI specification}. Virtio provides a transport
-> +medium for exchanging SCMI messages between the SCMI agent and platform.
-> +The virtio SCMI transport allows the queueing of multiple messages and
-> +responses.
-> +
-> +SCMI FastChannels are not supported.
-> +
-> +\subsection{Device ID}\label{sec:Device Types / SCMI Device / Device ID}
-> +
-> +32
-> +
-> +\subsection{Virtqueues}\label{sec:Device Types / SCMI Device / Virtqueue=
-s}
-> +
-> +\begin{description}
-> +\item[0] cmdq
-> +\item[1] eventq
-> +\end{description}
-> +
-> +The cmdq is used by the driver to send commands to the device. The
-> +device replies with responses (not delayed responses) over the cmdq.
-> +
-> +The eventq is used by the device to send notifications and delayed
-> +responses. The eventq only exists if VIRTIO_SCMI_F_P2A_CHANNELS was
-> +negotiated.
-> +
-> +\subsection{Feature bits}\label{sec:Device Types / SCMI Device / Feature=
- bits}
-> +
-> +\begin{description}
-> +\item[VIRTIO_SCMI_F_P2A_CHANNELS (0)] Device implements some SCMI
-> +notifications, or delayed responses.
-> +\item[VIRTIO_SCMI_F_SHARED_MEMORY (1)] Device implements any SCMI
-> +statistics shared memory region.
-> +\end{description}
-> +
-> +VIRTIO_SCMI_F_P2A_CHANNELS is used to determine the existence of the
-> +eventq. The eventq is required for SCMI notifications and delayed
-> +responses.
-> +
-> +VIRTIO_SCMI_F_SHARED_MEMORY is used to determine whether the device
-> +provides any SCMI statistics shared memory region. SCMI statistics
-> +shared memory regions are defined by some SCMI protocols.
-> +
-> +The SCMI protocols provide the PROTOCOL_MESSAGE_ATTRIBUTES commands to
-> +inquire about the particular SCMI notifications and delayed responses
-> +implemented by the device. The SCMI protocols provide additional
-> +commands to detect other features implemented by the device.
-> +
-> +\devicenormative{\subsubsection}{Feature bits}{Device Types / SCMI Devic=
-e / Feature bits}
-> +
-> +The device MUST offer VIRTIO_SCMI_F_P2A_CHANNELS if the device can
-> +implement at least one SCMI notification, or delayed response.
-> +
-> +The device MUST offer VIRTIO_SCMI_F_SHARED_MEMORY if the device can
-> +implement at least one SCMI statistics shared memory region.
-> +
-> +\subsection{Device configuration layout}\label{sec:Device Types / SCMI D=
-evice / Device configuration layout}
-> +
-> +There is no configuration data for the device.
-> +
-> +\subsection{Device Initialization}\label{sec:Device Types / SCMI Device =
-/ Device Initialization}
-> +
-> +The
-> +\hyperref[sec:General Initialization And Device Operation / Device Initi=
-alization]{general
-> +requirements on device initialization} apply.
-> +
-> +\subsection{Device Operation}\label{sec:Device Types / SCMI Device / Dev=
-ice Operation}
-> +
-> +The SCMI transport used for the device puts each SCMI message into a
-> +dedicated virtio buffer. The driver uses the cmdq for transmitting SCMI
-> +commands and receiving the corresponding SCMI responses. The device uses
-> +the eventq for transmitting SCMI notifications and delayed responses.
-> +Each message includes an SCMI protocol header and payload, as defined by
-> +the \hyperref[intro:SCMI]{SCMI specification}.
-> +
-> +\subsubsection{cmdq Operation}\label{sec:Device Types / SCMI Device / De=
-vice Operation / cmdq Operation}
-> +
-> +Each buffer in the cmdq holds a single SCMI command once the buffer has
-> +been made available. When the buffer has been marked as used, it
-> +contains the SCMI response. An arbitrary number of such SCMI messages
-> +can be in transit at the same time. Conceptually, each SCMI message in
-> +the cmdq uses its own SCMI A2P (agent to platform) channel.
-> +
-> +The SCMI response is in the same virtio buffer as the corresponding SCMI
-> +command. The response contains the return values which SCMI specifies
-> +for each command, whether synchronous or asynchronous. Delayed responses
-> +are distinct SCMI messages transmitted over the eventq.
-> +
-> +Buffers in the cmdq contain both the request and the response. A request
-> +has the following layout:
-> +
-> +\begin{lstlisting}
-> +struct virtio_scmi_request {
-> +        le32 hdr;
-> +        u8 params[<actual parameters size>];
-> +};
-> +\end{lstlisting}
-> +
-> +The virtio_scmi_request fields are interpreted as follows:
-> +
-> +\begin{description}
-> +\item[\field{hdr}] (device-readable) contains the SCMI message header
-> +\item[\field{params}] (device-readable) comprises the SCMI message
-> +parameters
-> +\end{description}
-> +
-> +A cmdq response has the following layout:
-> +
-> +\begin{lstlisting}
-> +struct virtio_scmi_response {
-> +        le32 hdr;
-> +        u8 ret_values[<actual return values size>];
-> +};
-> +\end{lstlisting}
-> +
-> +The virtio_scmi_response fields are interpreted as follows:
-> +
-> +\begin{description}
-> +\item[\field{hdr}] (device-writable) contains the SCMI message header
-> +\item[\field{ret_values}] (device-writable) comprises the SCMI message
-> +return values
-> +\end{description}
-> +
-> +If VIRTIO_SCMI_F_P2A_CHANNELS was not negotiated, the device responds to
-> +SCMI commands as if no SCMI notifications or delayed responses were
-> +implemented.
-> +
-> +\devicenormative{\paragraph}{cmdq Operation}{Device Types / SCMI Device =
-/ Device Operation / cmdq Operation}
-> +
-> +The device MAY process available commands out of order and in parallel.
-> +
-> +The device MUST process all available commands eventually, even in the
-> +case of bursts of multiple command messages.
-> +
-> +If the \field{status} field in the \field{virtio_scmi_response}
-> +\field{ret_values} has a value other than SUCCESS, the device MUST set
-> +the size of \field{ret_values} to the size of the \field{status} field.
-> +
-> +If the driver requests an SCMI notification or a delayed response and
-> +there are currently NOT enough available buffers in the eventq, the
-> +device SHOULD still return SCMI status code SUCCESS.
-> +
-> +If VIRTIO_SCMI_F_P2A_CHANNELS was not negotiated, the device MUST deny
-> +any request for an SCMI notification or a delayed response by returning
-> +SCMI status code NOT_SUPPORTED.
-> +
-> +If VIRTIO_SCMI_F_P2A_CHANNELS was not negotiated, the device MUST NOT
-> +indicate in the PROTOCOL_MESSAGE_ATTRIBUTES return values that any SCMI
-> +notification, or delayed response, is implemented.
-> +
-> +\drivernormative{\paragraph}{cmdq Operation}{Device Types / SCMI Device =
-/ Device Operation / cmdq Operation}
-> +
-> +Before sending a command, the driver MUST wait for responses to all
-> +commands whose completion the driver considers prerequisites to
-> +executing the command.
-> +
-> +With every command message, the driver MUST provide enough
-> +device-writable memory to enable the device to return corresponding
-> +return values.
-> +
-> +If VIRTIO_SCMI_F_P2A_CHANNELS was not negotiated, the driver MUST NOT
-> +request any SCMI notification, nor any delayed response.
-> +
-> +\subsubsection{Setting Up eventq Buffers}
-> +
-> +The driver has to populate the eventq before the device can use it.
-> +
-> +\drivernormative{\paragraph}{Setting Up eventq Buffers}{Device Types / S=
-CMI Device / Device Operation / Setting Up eventq Buffers}
-> +
-> +If VIRTIO_SCMI_F_P2A_CHANNELS was negotiated, the driver SHOULD populate
-> +the eventq with buffers.
-> +
-> +The driver MUST NOT put device-readable descriptors into the eventq.
-> +
-> +The driver MUST NOT put into the eventq any buffer which is smaller than
-> +the largest SCMI P2A (platform to agent) message which the driver will
-> +request.
-> +
-> +\subsubsection{eventq Operation}
-> +
-> +Each buffer in the eventq holds (once the buffer is marked as used)
-> +either a single SCMI notification, or a single SCMI delayed response. An
-> +arbitrary number of such SCMI messages can be in transit at the same
-> +time. Conceptually, each SCMI message transmitted over the eventq uses
-> +its own SCMI P2A (platform to agent) channel. Buffers in the eventq have
-> +the following layout:
-> +
-> +\begin{lstlisting}
-> +struct virtio_scmi_event_msg {
-> +        /* start of device-writable data */
-> +        le32 hdr;
-> +        u8 payload[<actual payload size>];
-> +};
-> +\end{lstlisting}
-> +
-> +\begin{description}
-> +\item[\field{hdr}] (device-writable) contains the SCMI message header
-> +\item[\field{payload}] (device-writable) comprises the SCMI message
-> +payload
-> +\end{description}
-> +
-> +\devicenormative{\paragraph}{eventq Operation}{Device Types / SCMI Devic=
-e / Device Operation / eventq Operation}
-> +
-> +If the device intends to send a notification and there are no available
-> +buffers in the eventq, the device MAY drop the notification, or send a
-> +corresponding notification later, once enough buffers become available.
-> +
-> +The device MAY send the notification later if the events which cause the
-> +notification take place in quick succession.
-> +
-> +If the device sends the notification later, the device MAY send the
-> +notification with updated data, unless the specific SCMI protocol
-> +disallows this.
-> +
-> +If the device intends to send a notification and there are available
-> +buffers, but one of the buffers is too small to fit the notification,
-> +the device MAY omit the notification.
-> +
-> +If the device intends to send a delayed response and there are no
-> +available buffers in the eventq, the device MUST send the corresponding
-> +delayed response once enough buffers become available.
-> +
-> +If the \field{status} field in a delayed response \field{payload} has a
-> +value other than SUCCESS, the device MUST set the size of
-> +\field{payload} to the size of the \field{status} field.
-> +
-> +\subsubsection{Shared Memory Operation}
-> +
-> +Various SCMI protocols define statistics shared memory regions (for
-> +statistics and sensor values).
-> +
-> +\devicenormative{\paragraph}{Shared Memory Operation}{Device Types / SCM=
-I Device / Device Operation / Shared Memory Operation}
-> +
-> +If VIRTIO_SCMI_F_SHARED_MEMORY was negotiated, the device MAY implement
-> +an SCMI statistics shared memory region using a virtio shared memory
-> +region.
-> +
-> +If the device implements a shared memory region, the device MUST assign
-> +the corresponding shmid as per the following table:
-> +
-> +\begin{tabular}{|l|l|}
-> +\hline
-> +SCMI statistics shared memory region & Virtio shmid \\
-> +\hline \hline
-> +Reserved (invalid) & 0 \\
-> +\hline
-> +Power state statistics shared memory region & 1 \\
-> +\hline
-> +Performance domain statistics shared memory region & 2 \\
-> +\hline
-> +Sensor Values Shared Memory & 3 \\
-> +\hline
-> +Reserved for future use & 4 to 0x7F \\
-> +\hline
-> +Vendor-specific statistics shared memory regions & 0x80 to 0xFF \\
-> +\hline
-> +Reserved for future use & 0x100 and greater \\
-> +\hline
-> +\end{tabular}
->=20
-> base-commit: f5fd3fca7e4006108b3f9ba91c0b76c5eb6c0726
->=20
+struct virtio_snd_config {
+     ...
+     /* # of available audio controls */
+     le32 controls;
+};
 
+After that, the driver will be able to send a request to obtain
+information about each of the available controls:
+
+struct virtio_snd_ctl_info {
+     struct virtio_snd_info hdr;
+     le32 iface;         /* interface (SNDRV_CTL_ELEM_IFACE_XXX) */
+     le32 type;          /* value type (SNDRV_CTL_ELEM_TYPE_XXX) */
+     le32 access;    /* access rights (1 << SNDRV_CTL_ELEM_ACCESS_XXX) */
+     le32 count;         /* count of same elements */
+     le32 subdevice;     /* subdevice (substream) number */
+     le32 index;         /* index of element */
+     u8 name[44];        /* ASCII name of element (0-terminated) */
+     union {
+         struct {
+             le32 min;   /* minimum value */
+             le32 max;   /* maximum value */
+             le32 step;  /* step (0 variable) */
+         } integer;
+         struct {
+             le64 min;   /* minimum value */
+             le64 max;   /* maximum value */
+             le64 step;  /* step (0 variable) */
+         } integer64;
+         struct {
+             le32 items; /* number of items */
+         } enumerated;
+     } value;
+};
+
+ALSA control is assigned to a specific interface (kind of a "scope"),
+and the `iface` field contains the interface identifier for this
+specific control. Of all the existing interface types, the virtual sound
+device can support the following:
+
+SNDRV_CTL_ELEM_IFACE_CARD
+   Global controls that are not logically part of the mixer.
+SNDRV_CTL_ELEM_IFACE_MIXER
+   Virtual mixer controls. Most of the controls (volume controls, mute
+   switches, etc.) belong to this interface.
+SNDRV_CTL_ELEM_IFACE_PCM
+   Controls that are bound to a specific PCM devices.
+
+The `type` field contains the value type for this specific control.
+Controls can have the following value types:
+
+SNDRV_CTL_ELEM_TYPE_BOOLEAN
+   This is a special case of the INTEGER type, which can take only two
+   values: off (0) and on (1). Basically, it is the value type for the
+   switch control.
+SNDRV_CTL_ELEM_TYPE_INTEGER
+   32-bit integer values.
+SNDRV_CTL_ELEM_TYPE_INTEGER64
+   64-bit integer values.
+SNDRV_CTL_ELEM_TYPE_ENUMERATED
+   The values are represented by an array of ASCII strings.
+SNDRV_CTL_ELEM_TYPE_BYTES
+   The value of the control is an array of (up to 512) bytes.
+SNDRV_CTL_ELEM_TYPE_IEC958
+   This control is connected to the digital audio interface. The value is
+   in the form of:
+
+     struct snd_aes_iec958 {
+         u8 status[24];      /* AES/IEC958 channel status bits */
+         u8 subcode[147];    /* AES/IEC958 subcode bits */
+         u8 pad;             /* nothing */
+         u8 dig_subframe[4]; /* AES/IEC958 subframe bits */
+     };
+
+The `access` field contains a bit mask describing access rights to the
+control:
+
+SNDRV_CTL_ELEM_ACCESS_READ
+   The driver can read the value of the control.
+SNDRV_CTL_ELEM_ACCESS_WRITE
+   The driver can write (change) the value of the control.
+SNDRV_CTL_ELEM_ACCESS_VOLATILE
+   Control value may be changed without a notification. (Applications
+   should poll such a control constantly.)
+SNDRV_CTL_ELEM_ACCESS_INACTIVE
+   Control does actually nothing, but may be updated. (For example, the
+   control can be used for some specific auxiliary functions.)
+
+If the control supports metadata (more on this below), then the
+following access rights may also be present:
+
+SNDRV_CTL_ELEM_ACCESS_TLV_READ
+   The driver can read metadata in TLV format.
+SNDRV_CTL_ELEM_ACCESS_TLV_WRITE
+   The driver can write (change) metadata in TLV format.
+SNDRV_CTL_ELEM_ACCESS_TLV_COMMAND
+   The driver can execute a command for metadata expressed in TLV format.
+
+The `count` field contains amount of the same elements (up to 64 for
+INTEGER64, and up to 128 for BOOLEAN, INTEGER and ENUMERATED types).
+That is, if this value is >1, then the control has a kind of
+"subcontrols". For example, for volume control this value may be equal
+to the number of channels supported. And this allows to change the
+volume of each channel separately.
+
+If the control is bound to the PCM device (iface=PCM), then it also
+can be bound to a particular PCM substream (if this PCM device has more
+than one substream). In this case, the `subdevice` field contains
+the ID of the virtio PCM stream. Also, in this case it is necessary to
+know the ID of the PCM device itself. This information can be derived
+from the ID of the function group to which the control belongs. If for
+a given control iface=PCM, but it is not bound to a specific substream,
+we can put -1 here.
+
+The `name` field contains the name identifier string (up to 44 bytes
+including the terminating 0). ALSA classifies the role of a control by
+its name. This can be problematic for systems without ALSA. On the other
+hand, such systems usually require only standard volume controls, mute
+switches, and the like. So as a possible solution to the problem, we
+could explicitly write in the specification that for these purposes the
+driver should look for controls with the following fields:
+
+Playback volume control (search in the specified order):
+iface=MIXER,name="Master Playback Volume"|"Playback Volume"
+
+Playback mute switch (search in the specified order):
+iface=MIXER,name="Master Playback Switch"|"Playback Switch"
+
+Capture volume control (search in the specified order):
+iface=MIXER,name="Master Capture Volume"|"Capture Volume"
+
+Capture mute switch (search in the specified order):
+iface=MIXER,name="Master Capture Switch"|"Capture Switch"
+
+Mic boost
+iface=MIXER,name="Mic Boost Volume"|"Mic Boost"
+
+(Maybe some some other typical roles...)
+
+...and just ignore all other controls. It also gives instructions to the
+device which names to choose for controls for a given role. And of
+course, it is always possible for the driver to parse the names of
+controls on its own in accordance with the ALSA rules (if really
+necessary).
+
+Since control's role is classified from its name, the name must be
+unique for that particular sound device. If it's really required to
+provide several controls with the same name, then they can be
+distinguished by the `index` field value.
+
+And finally the `values` field contains additional information about the
+value for certain types of controls:
+
+type=INTEGER -> value.integer:
+type=INTEGER64 -> value.integer64:
+     `min`
+         Contains minimum control value.
+     `max`
+         Contains maximum control value.
+     `step`
+         Contains a fixed step size for changing the control value between
+         minimum and maximum values. The special value 0 means that the
+         step has variable size.
+
+type=ENUMERATED -> value.enumerated:
+     `items`
+         Contains the number of items from which the control value can be
+         selected (more on this below).
+
+Everything described above relates to the initialization of controls in
+the driver. To manipulate controls, we need to define a control request
+header, additional control request and event types.
+
+enum {
+     ...
+     VIRTIO_SND_R_CTL_INFO,
+     VIRTIO_SND_R_CTL_ENUM_VALUES,
+     VIRTIO_SND_R_CTL_READ,
+     VIRTIO_SND_R_CTL_WRITE,
+     VIRTIO_SND_R_CTL_TLV_READ,
+     VIRTIO_SND_R_CTL_TLV_WRITE,
+     VIRTIO_SND_R_CTL_TLV_COMMAND,
+     ...
+     VIRTIO_SND_EVT_CTL_NOTIFY
+};
+
+struct virtio_snd_ctl_hdr {
+     /* VIRTIO_SND_R_CTL_XXX */
+     struct virtio_snd_hdr hdr;
+     /* 0 ... virtio_snd_config::controls - 1 */
+     le16 control_id;
+     /* 0 ... virtio_snd_ctl_info::count - 1 */
+     le16 subcontrol_id;
+};
+
+VIRTIO_SND_R_CTL_INFO
+     Get virtio_snd_ctl_info for the control with the specified ID.
+
+VIRTIO_SND_R_CTL_ENUM_VALUES
+     Controls with enumeration type are intended for user-friendly
+     configuration of some device feature. The values themselves are
+     ASCII strings, each up to 64 bytes (including the terminating 0).
+
+     Example:
+       name="Auto-Mute Mode"
+       type=ENUMERATED
+       items=[ "Disabled", "Enabled" ]
+
+     Since the array with the enumeration values has a variable length,
+     we cannot add it to the control information structure. But since we
+     know the number of values, each of which has a fixed maximum size,
+     we can get them in one go.
+
+     A request part of message consists of virtio_snd_ctl_hdr, and
+     a response part consists of virtio_snd_hdr followed by
+     virtio_snd_ctl_info::value.items of the following structures:
+
+     struct virtio_snd_ctl_enum_value {
+         u8 name[64];
+     };
+
+VIRTIO_SND_R_CTL_READ
+VIRTIO_SND_R_CTL_WRITE
+     The following structure is used to represent the value of the control
+     for read and write operations:
+
+     struct virtio_snd_ctl_value {
+         union {
+             le32 integer[128];              /* type=BOOLEAN|INTEGER */
+             le64 integer64[64];             /* type=INTEGER64 */
+             le32 enumerated[128];           /* type=ENUMERATED */
+             u8 bytes[512];                  /* type=BYTES */
+             struct snd_aes_iec958 iec958;   /* type=IEC958 */
+         } value;
+     };
+
+     Since the control has the `count` field, the value of which can be >1,
+     the arrays for the BOOLEAN, INTEGER[64] and ENUMERATED types contain
+     `count` values (one for each "subcontrol"). For ENUMERATED type,
+     this value is the index of the selected item.
+
+     A request part of the READ message consists of virtio_snd_ctl_hdr,
+     and a response part consists of virtio_snd_hdr followed by
+     virtio_snd_ctl_value.
+
+     A request part of the WRITE message consists of virtio_snd_ctl_hdr
+     followed by virtio_snd_ctl_value, and a response part consists of
+     virtio_snd_hdr.
+
+     It remains an open question whether to use the le{32,64} types and
+     do endianess conversions, or just use the u{32,64} types.
+
+VIRTIO_SND_R_CTL_TLV_READ
+VIRTIO_SND_R_CTL_TLV_WRITE
+VIRTIO_SND_R_CTL_TLV_COMMAND
+     If the control supports metadata, the driver can use these requests
+     for metadata. Metadata can be used to provide additional (arbitrary)
+     information about the control, presented in the form of TLV.
+
+     For example, for volume or mic boost controls, ALSA can also provide
+     information about the dB values. This information can be obtained
+     and used also in systems without ALSA.
+
+     Data are presented in TLV (Type-Length-Value) format:
+
+         struct virtio_snd_ctl_tlv {
+             le32 type;      /* SNDRV_CTL_TLVT_XXX */
+             le32 length;    /* value length in bytes aligned to 4 */
+             le32 value[];
+         };
+
+     The `type` field contains value type. ALSA defines several standard
+     types:
+
+         SNDRV_CTL_TLVT_CONTAINER (0)
+             A container that contains a set of nested virtio_snd_ctl_tlv
+             structures in the `value` field.
+         SNDRV_CTL_TLVT_DB_SCALE (1)
+             The `value` field contains information about a mixer control
+             where each step in the control's value changes the dB value
+             by a constant dB amount.
+         SNDRV_CTL_TLVT_DB_LINEAR (2)
+             The `value` field contains information about a mixer control
+             where the control's value affects the output linearly.
+         SNDRV_CTL_TLVT_DB_RANGE (3)
+             A container that contains a set of nested dB ranges in the
+             `value` field.
+         SNDRV_CTL_TLVT_DB_MINMAX (4)
+             The `value` field contains information about a mixer control
+             where dB scale specified with min/max values instead of
+             step.
+         SNDRV_CTL_TLVT_DB_MINMAX_MUTE (5)
+             The `value` field contains information about a mixer control
+             where dB scale specified with min/max values with mute
+             instead of step.
+
+     Since this information is useful, we can add descriptions of the
+     `value` field layout for each of these types to support non-ALSA
+     systems. ALSA also defines several more types. But since they are
+     not suitable for the case of para-virtualization, we do not
+     mention them here.
+
+     Also, the device implementation can define its own custom value
+     types that can be retrieved and parsed by the application on the
+     guest side. I think we need to define some kind of base ID for such
+     types so as not to clash with ALSA (especially since the type has a
+     32-bit value, there should be enough space).
+
+     In general, the data size can be arbitrary, but ALSA limits it to
+     65536 bytes, so we apply the same limit to virtio_snd_ctl_tlv.
+
+     A request part of the TLV_READ message consists of
+     virtio_snd_ctl_hdr, and a response part consists of virtio_snd_hdr
+     followed by virtio_snd_ctl_tlv.
+
+     A request part of the TLV_WRITE and TLV_COMMAND messages consists of
+     virtio_snd_ctl_hdr followed by virtio_snd_ctl_tlv, and a response
+     part consists of virtio_snd_hdr.
+
+     It remains an open question whether to use the le32 type and do
+     endianess conversions, or just use the u32 type.
+
+The only thing left to describe is the events for control. The event is
+represented by the following structure:
+
+     struct virtio_snd_ctl_event {
+         /* VIRTIO_SND_EVT_CTL_NOTIFY */
+         struct virtio_snd_hdr hdr;
+         /* 0 ... virtio_snd_config::controls - 1 */
+         le16 control_id;
+         /* event mask (1 << SNDRV_CTL_EVENT_MASK_XXX) */
+         le16 mask;
+     };
+
+ALSA defines a bit mask describing the reason for sending an event. We 
+are interested in the following three bit values:
+
+     SNDRV_CTL_EVENT_MASK_VALUE
+         Element value was changed.
+     SNDRV_CTL_EVENT_MASK_INFO
+         Element info was changed.
+     SNDRV_CTL_EVENT_MASK_TLV
+         Element TLV tree was changed.
+
+
+
+That's it. Any comments and suggestions are very welcome. Thanks!
+
+
+-- 
+Anton Yakovlev
+Senior Software Engineer
+
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
 
 
 This publicly archived list offers a means to provide input to the
@@ -539,8 +413,7 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
