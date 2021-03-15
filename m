@@ -1,78 +1,172 @@
-Return-Path: virtio-comment-return-1761-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1737-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6122498655A
-	for <virtio-comment@lists.oasis-open.org>; Wed, 17 Mar 2021 17:59:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 30C39985F19
+	for <virtio-comment@lists.oasis-open.org>; Mon, 15 Mar 2021 02:59:13 +0000 (UTC)
+From: Jason Wang <jasowang@redhat.com>
+Date: Mon, 15 Mar 2021 10:58:46 +0800
+Message-Id: <20210315025846.6539-1-jasowang@redhat.com>
 MIME-Version: 1.0
-References: <20210316211311.154117-1-mst@redhat.com>
-In-Reply-To: <20210316211311.154117-1-mst@redhat.com>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Wed, 17 Mar 2021 18:59:15 +0100
-Message-ID: <CAJaqyWcXxHvFo2saNDkr+pj-wzUzVEvGy2GyewOzpAbXW2ZDqw@mail.gmail.com>
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH] introduction: document #define syntax
-Content-Type: text/plain; charset="UTF-8"
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Virtio-Dev <virtio-dev@lists.oasis-open.org>, virtio@lists.oasis-open.org
+Subject: [virtio-comment] [PATCH] virtio-pci: introduce VIRITO_F_QUEUE_STATE
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: quoted-printable
+To: mst@redhat.com, virtio-comment@lists.oasis-open.org
+Cc: eperezma@redhat.com, lulu@redhat.com, rob.miller@broadcom.com, stefanha@redhat.com, pasic@linux.ibm.com, sgarzare@redhat.com, cohuck@redhat.com, Jason Wang <jasowang@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Mar 16, 2021 at 10:13 PM Michael S. Tsirkin <mst@redhat.com> wrote:
->
-> We use the C #define syntax to refer to numeric values.
-> Let's document that.
->
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> ---
->  introduction.tex | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
->
-> diff --git a/introduction.tex b/introduction.tex
-> index cc38e29..4febed2 100644
-> --- a/introduction.tex
-> +++ b/introduction.tex
-> @@ -210,6 +210,27 @@ \section{Structure Specifications}
->  \begin{lstlisting}
->  CPU_TO_BE16(B << 15 | A)
->  \end{lstlisting}
-> +\section{Constant Specifications}
-> +
-> +In many cases, numberic values used in the interface between the device
-> +and the driver are documented using the C #define and /* */
-> +comment syntax. Multiple related values are grouped together with
-> +a common name as a prefix, using _ as a separator.
-> +Using _XXX as a suffix refers to all values in a group.
-> +For example:
-> +
-> +\begin{lstlisting}
-> +/* Value A description */
-> +#define VIRTIO_VALUE_A        (1 << 0)
-> +/* Value B description */
-> +#define VIRTIO_VALUE_B        (1 << 1)
-> +\end{lstlisting}
-> +documents two numeric values: 1 meaning Value A and 2 meaning
-> +Value B.  Note that $<<$ refers to the shift-left operation.
+This patch adds the ability to save and restore virtqueue state via a
+new field in the common configuration infrastructure.
 
-I'm not sure if somebody can be confused about this, but maybe
-s/shift-left operation/shift-left bitwise operation/ is more clear?
+To simply the implementation, no new device status is introduced. For
+device, the requirements is not to forget the queue state after
+virtio reset and clear the virtqueue state upon ACKNOWLEDGE. For
+driver, it must set the virtqueue state before setting DRIVER_OK.
 
-> +
-> +Further, in this case VIRTIO_VALUE_A and VIRTIO_VALUE_B
-> +refer to 1 and 2 respectively. Further, VIRTIO_VALUE_XXX refers to
-> +either VIRTIO_VALUE_A or VIRTIO_VALUE_B.
->
->  \newpage
->
-> --
-> MST
->
->
-> ---------------------------------------------------------------------
-> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
->
+To save a virtqueue state, the driver then need:
+
+1) reset device
+2) read virtqueue statue
+
+To restore a virtqueue state, the driver need:
+
+1) reset device
+2) perform necessary setups (e.g features negotiation)
+3) write virtqueue state
+4) set DRIVER_OK
+
+The main user should be live migration.
+
+Signed-off-by: Jason Wang <jasowang@redhat.com>
+---
+ content.tex                 | 38 +++++++++++++++++++++++++++++++++++++
+ virtqueue-state-packed-le.c |  7 +++++++
+ virtqueue-state-split-le.c  |  4 ++++
+ 3 files changed, 49 insertions(+)
+ create mode 100644 virtqueue-state-packed-le.c
+ create mode 100644 virtqueue-state-split-le.c
+
+diff --git a/content.tex b/content.tex
+index 620c0e2..d7bff25 100644
+--- a/content.tex
++++ b/content.tex
+@@ -837,6 +837,7 @@ \subsubsection{Common configuration structure layout}\l=
+abel{sec:Virtio Transport
+         le64 queue_driver;              /* read-write */
+         le64 queue_device;              /* read-write */
+         le16 queue_notify_data;         /* read-only for driver */
++        le64 queue_state;               /* read-write */
+ };
+ \end{lstlisting}
+=20
+@@ -916,6 +917,29 @@ \subsubsection{Common configuration structure layout}\=
+label{sec:Virtio Transport
+         may benefit from providing another value, for example an internal =
+virtqueue
+         identifier, or an internal offset related to the virtqueue number.
+         \end{note}
++
++\item[\field{queue_state}]
++        This field exists only if VIRTIO_F_QUEUE_STATE has been
++        negotiated. The driver will use this field to get or set the
++        virtqueue state by reading or writing the 64bit from the
++        field.
++        When VIRTIO_F_RING_PACKED has not been negotiated, the driver
++        can set and get the following states:
++        \lstinputlisting{virtqueue-state-split-le.c}
++        The field \field{last_avail_idx} is the location where the
++        device read for next index from the available ring.
++        When VIRTIO_F_RING_PACKED has been negotiated, the driver can
++        set and get the following states:
++        \lstinputlisting{virtqueue-state-packed-le.c}
++        The field \field{last_avail_idx} is the next location where
++        device read for the next descriptor from the descriptor
++        ring. The field \field{last_avail_wrap_counter} is the last
++        driver ring wrap counter that is observed by the device. The
++        field \field{used_idx} is the next location where device write
++        used descriptor do descriptor ring. The field
++        \field{used_wrap_counter} is the wrap counter that is used by
++        the device. See also \ref{sec:Packed Virtqueues / Driver and Devic=
+e Ring Wrap Counters}.
++
+ \end{description}
+=20
+ \devicenormative{\paragraph}{Common configuration structure layout}{Virtio=
+ Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common confi=
+guration structure layout}
+@@ -964,6 +988,10 @@ \subsubsection{Common configuration structure layout}\=
+label{sec:Virtio Transport
+ present either a value of 0 or a power of 2 in
+ \field{queue_size}.
+=20
++If VIRTIO_F_QUEUE_STATE has been negotiated, a device MUST NOT clear
++the queue state upon reset and MUST reset the queue state when
++ACKNOWLEDGE has been set through \field{device status} bit.
++
+ \drivernormative{\paragraph}{Common configuration structure layout}{Virtio=
+ Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common confi=
+guration structure layout}
+=20
+ The driver MUST NOT write to \field{device_feature}, \field{num_queues}, \=
+field{config_generation}, \field{queue_notify_off} or \field{queue_notify_d=
+ata}.
+@@ -981,6 +1009,13 @@ \subsubsection{Common configuration structure layout}=
+\label{sec:Virtio Transport
+=20
+ The driver MUST NOT write a 0 to \field{queue_enable}.
+=20
++If VIRTIO_F_QUEUE_STATE has been negotiated, a driver SHOULD set the
++state of each virtqueue through \field{queue_state} before setting the
++DRIVER_OK \field{device status} bit and SHOULD NOT write to
++\field{queue_state} after setting the DRIVER_OK \field{device status}
++bit. If a driver want to get the virtqueue state, it MUST first reset
++the device then read state from \field{queue_state}.
++
+ \subsubsection{Notification structure layout}\label{sec:Virtio Transport O=
+ptions / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
+=20
+ The notification location is found using the VIRTIO_PCI_CAP_NOTIFY_CFG
+@@ -6596,6 +6631,9 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Fe=
+ature Bits}
+   transport specific.
+   For more details about driver notifications over PCI see \ref{sec:Virtio=
+ Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And =
+Device Operation / Available Buffer Notifications}.
+=20
++\item[VIRTIO_F_QUEUE_STATE(40)] This feature indicates that the driver
++  can set and get the virtqueue state.
++
+ \end{description}
+=20
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+diff --git a/virtqueue-state-packed-le.c b/virtqueue-state-packed-le.c
+new file mode 100644
+index 0000000..f21f9c2
+--- /dev/null
++++ b/virtqueue-state-packed-le.c
+@@ -0,0 +1,7 @@
++le64 {
++=09last_avail_idx : 15;
++=09last_avail_wrap_counter : 1;
++=09used_idx : 15;
++=09used_wrap_counter : 1;
++=09reserved : 32;
++};
+diff --git a/virtqueue-state-split-le.c b/virtqueue-state-split-le.c
+new file mode 100644
+index 0000000..daeb4a3
+--- /dev/null
++++ b/virtqueue-state-split-le.c
+@@ -0,0 +1,4 @@
++le64 {
++=09last_avail_idx : 16;
++=09reserved: 48;
++};
+--=20
+2.24.3 (Apple Git-128)
 
 
 This publicly archived list offers a means to provide input to the
@@ -87,7 +181,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
