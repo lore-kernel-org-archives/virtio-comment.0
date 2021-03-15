@@ -1,78 +1,86 @@
-Return-Path: virtio-comment-return-1754-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1738-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7B7D59864A9
-	for <virtio-comment@lists.oasis-open.org>; Tue, 16 Mar 2021 14:08:42 +0000 (UTC)
-Date: Tue, 16 Mar 2021 15:08:22 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-Message-ID: <20210316140822.gvdtqci22tlmh3x6@steredhat>
-References: <20210218060715.1075547-1-arseny.krasnov@kaspersky.com>
- <20210222101654.63tz75jzspiwt4tc@steredhat>
- <20210316095002-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 51ECA986101
+	for <virtio-comment@lists.oasis-open.org>; Mon, 15 Mar 2021 08:36:27 +0000 (UTC)
+From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+Date: Mon, 15 Mar 2021 11:35:41 +0300
+Message-ID: <20210315083547.2283420-1-arseny.krasnov@kaspersky.com>
 MIME-Version: 1.0
-In-Reply-To: <20210316095002-mutt-send-email-mst@kernel.org>
-Subject: Re: [virtio-comment] Re: [RFC PATCH v1 0/1] virtio-vsock: introduce
- SEQPACKET description
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Arseny Krasnov <arseny.krasnov@kaspersky.com>, cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>, Andra Paraschiv <andraprs@amazon.com>, virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
+Subject: [virtio-comment] [RFC PATCH v1] virtio-vsock: use enums instead of hardcoded constants
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>, Andra Paraschiv <andraprs@amazon.com>
+Cc: virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Mar 16, 2021 at 09:50:48AM -0400, Michael S. Tsirkin wrote:
->On Mon, Feb 22, 2021 at 11:16:54AM +0100, Stefano Garzarella wrote:
->> On Thu, Feb 18, 2021 at 09:07:12AM +0300, Arseny Krasnov wrote:
->> > This patchset adds description of SOCK_SEQPACKET socket's type
->> > of virtio vsock.
->> >
->> > Here is implementation:
->> > https://lkml.org/lkml/2021/2/18/24
->> >
->> > Arseny Krasnov(1):
->> >  virtio-vsock: add SOCK_SEQPACKET description
->> >
->> > virtio-vsock.tex | 40 +++++++++++++++++++++++++++++++++++++---
->> > 1 files changed, 37 insertions(+), 3 deletions(-)
->> >
->> > TODO:
->> > - for messages identification I use header's field called 'msg_cnt'.
->> >  May be it is better to call it 'msg_id' or 'msg_num', because it
->> >  is used as ID, but implemented as counter.
->>
->> If we use it only as an identifier, I think 'msg_id' is preferable and we
->> shouldn't mention in the specs that it's a counter, since it's just a
->> possible implementation.
->> Instead if we use the counter for some control, for example if we lost a
->> packet, then maybe msg_cnt is better.
->> But since the channel shouldn't lose packets, I don't think this is the
->> case.
->>
->> >
->> > - in current version of specification, some values of headers' fields
->> >  still unnamed, for example type of socket (stream or seqpacket), then
->> >  shutdown flags. Spec says that for stream socket value of 'type'
->> >  must be 1. For receive shutdown bit 0 is set in 'flags', for send
->> >  shutdown bit 1 is set in 'flags'. But in Linux these unnamed ones and
->> >  zeroes are implemented as enums, so may be it will be ok to add such
->> >  enums in specification (as 'enum virtio_vsock_event_id').
->>
->> Since we have an enumerate for VIRTIO_VSOCK_OP_* values, I think we can add
->> enums for socket type and maybe 'flags'.
->
->We really need to switch enums to defines, for consistency.
+This replaces constants defined in "bit X set to Y" manner
+with enums from Linux kernel uapi headers.
+---
+ virtio-vsock.tex | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
-I fully agree, indeed at least in the virtio-vsock part, we use the 
-enumerate as they were many defines, always redefining the assigned 
-value.
-Using defines, we are forced to always define the value and I think 
-that's fair!
-
-Thanks,
-Stefano
+diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+index da7e641..a97a81e 100644
+--- a/virtio-vsock.tex
++++ b/virtio-vsock.tex
+@@ -140,8 +140,14 @@ \subsubsection{Addressing}\label{sec:Device Types / So=
+cket Device / Device Opera
+ consists of a (cid, port number) tuple. The header fields used for this ar=
+e
+ \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+=20
+-Currently only stream sockets are supported. \field{type} is 1 for stream
+-socket types.
++Currently only stream sockets are supported. \field{type} is one of the
++following constants:
++
++\begin{lstlisting}
++enum virtio_vsock_type {
++=09VIRTIO_VSOCK_TYPE_STREAM =3D 1,
++};
++\end{lstlisting}
+=20
+ Stream sockets provide in-order, guaranteed, connection-oriented delivery
+ without message boundaries.
+@@ -221,11 +227,20 @@ \subsubsection{Stream Sockets}\label{sec:Device Types=
+ / Socket Device / Device O
+ a listening socket does not exist on the destination or the destination ha=
+s
+ insufficient resources to establish the connection.
+=20
+-When a connected socket receives VIRTIO_VSOCK_OP_SHUTDOWN the header
+-\field{flags} field bit 0 indicates that the peer will not receive any mor=
+e
+-data and bit 1 indicates that the peer will not send any more data.  These
+-hints are permanent once sent and successive packets with bits clear do no=
+t
+-reset them.
++When a connected socket receives VIRTIO_VSOCK_OP_SHUTDOWN, header \field{f=
+lags}
++field is one of the following constants:
++
++\begin{lstlisting}
++enum virtio_vsock_shutdown {
++=09VIRTIO_VSOCK_SHUTDOWN_RCV =3D 1,
++=09VIRTIO_VSOCK_SHUTDOWN_SEND =3D 2,
++};
++\end{lstlisting}
++
++VIRTIO_VSOCK_SHUTDOWN_RCV indicates that the peer will not receive any mor=
+e
++data and VIRTIO_VSOCK_SHUTDOWN_SEND indicates that the peer will not send
++any more data.  These hints are permanent once sent and successive packets
++with bits clear do not reset them.
+=20
+ The VIRTIO_VSOCK_OP_RST packet aborts the connection process or forcibly
+ disconnects a connected socket.
+--=20
+2.25.1
 
 
 This publicly archived list offers a means to provide input to the
@@ -87,7 +95,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
