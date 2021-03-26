@@ -1,83 +1,64 @@
-Return-Path: virtio-return-3538-cohuck=redhat.com@lists.oasis-open.org
-Sender: <virtio@lists.oasis-open.org>
-List-Post: <mailto:virtio@lists.oasis-open.org>
-List-Help: <mailto:virtio-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
-Date: Fri, 19 Mar 2021 13:30:08 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20210319133008.78402ffb.cohuck@redhat.com>
-In-Reply-To: <20210318182314.163060-1-mst@redhat.com>
-References: <20210318182314.163060-1-mst@redhat.com>
+Return-Path: virtio-comment-return-1798-cohuck=redhat.com@lists.oasis-open.org
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id DF6ED9865E0
+	for <virtio-comment@lists.oasis-open.org>; Fri, 26 Mar 2021 09:02:06 +0000 (UTC)
+From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+Date: Fri, 26 Mar 2021 12:01:50 +0300
+Message-ID: <20210326090154.1144100-1-arseny.krasnov@kaspersky.com>
 MIME-Version: 1.0
-Subject: Re: [virtio] [PATCH v2] introduction: document #define syntax
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org
+Subject: [virtio-comment] [RFC PATCH v4 0/2] virtio-vsock: introduce SOCK_SEQPACKET description
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Jorgen Hansen <jhansen@vmware.com>, Colin Ian King <colin.king@canonical.com>, Norbert Slusarek <nslusarek@gmx.net>, Andra Paraschiv <andraprs@amazon.com>, Jeff Vander Stoep <jeffv@google.com>, Alexander Popov <alex.popov@linux.com>
+Cc: virtualization@lists.linux-foundation.org, arseny.krasnov@kaspersky.com, oxffffaa@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 18 Mar 2021 14:23:33 -0400
-"Michael S. Tsirkin" <mst@redhat.com> wrote:
+This adds description of SOCK_SEQPACKET type for virtio-vsock.
+Basic idea is to add special ops along with VIRITIO_VSOCK_OP_RW,
+which mark begin and end of each message. So two new operations
+were added: VIRTIO_VSOCK_OP_SEQ_BEGIN and VIRTIO_VSOCK_OP_SEQ_END.
+Both have special payload, which provides length and id of message,
+to check integrity of every message by receiver.
 
-> We use the C #define syntax to refer to numeric values.
-> Let's document that.
-> 
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> ---
-> 
-> changes from v1:
-> address Cornelia's comments
-> 
-> 
->  introduction.tex | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
-> diff --git a/introduction.tex b/introduction.tex
-> index cc38e29..47bebf5 100644
-> --- a/introduction.tex
-> +++ b/introduction.tex
-> @@ -210,6 +210,29 @@ \section{Structure Specifications}
->  \begin{lstlisting}
->  CPU_TO_BE16(B << 15 | A)
->  \end{lstlisting}
-> +\section{Constant Specifications}
-> +
-> +In many cases, numeric values used in the interface between the device
-> +and the driver are documented using the C #define and /* */
-> +comment syntax. Multiple related values are grouped together with
-> +a common name as a prefix, using _ as a separator.
-> +Using _XXX as a suffix refers to all values in a group.
-> +For example:
-> +
-> +\begin{lstlisting}
-> +/* Field Fld value A description */
-> +#define VIRTIO_FLD_A        (1 << 0)
-> +/* Field Fld value B description */
-> +#define VIRTIO_FLD_B        (1 << 1)
-> +\end{lstlisting}
-> +documents two numeric values for a field \field{Fld}, with
-> +\field{Fld} having value 1 referring to \field{A} and \field{Fld}
-> +having value 2 referring to \field{B}.
+Here is latest RFC implementation for Linux, with more details:
 
-The reader may infer a general Fld <-> FLD matching requirement here;
-but OTOH, this is only an example. I don't have an idea how to make
-that more explicit without being overly verbose, anyway.
+https://lkml.org/lkml/2021/3/23/580
 
-> +Note that $<<$ refers to the shift-left operation.
-> +
-> +Further, in this case VIRTIO_FLD_A and VIRTIO_FLD_B
-> +refer to values 1 and 2 of Fld respectively. Further, VIRTIO_FLD_XXX refers to
-> +either VIRTIO_FLD_A or VIRTIO_FLD_B.
->  
->  \newpage
->  
+Also this patchset has patch which replaces enums to defines in
+virtio-vsock part of spec. SOCK_SEQPACKET patch is based on it.
 
-Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+ Arseny Krasnov(2):
+  virtio-vsock: use C style defines for constants
+  virtio-vsock: SOCK_SEQPACKET description
+
+ virtio-vsock.tex | 65 +++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 59 insertions(+), 6 deletions(-)
+
+Signed-off-by: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+
+--=20
+2.25.1
 
 
----------------------------------------------------------------------
-To unsubscribe from this mail list, you must leave the OASIS TC that 
-generates this mail.  Follow this link to all your TCs in OASIS at:
-https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
