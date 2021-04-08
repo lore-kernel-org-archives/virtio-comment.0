@@ -1,148 +1,92 @@
-Return-Path: virtio-comment-return-1832-cohuck=redhat.com@lists.oasis-open.org
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E1ED49864B0
-	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Apr 2021 09:45:06 +0000 (UTC)
-References: <20210413125217.3416876-1-arseny.krasnov@kaspersky.com>
- <20210413125333.3419315-1-arseny.krasnov@kaspersky.com>
- <20210413090642-mutt-send-email-mst@kernel.org>
- <92a6b268-a36a-5f1b-2d67-02accfde70ce@kaspersky.com>
- <20210413155316-mutt-send-email-mst@kernel.org>
- <783d12e5-50b6-2363-f953-bc95d4b59d72@kaspersky.com>
- <20210421074523.s7wna25hsy65vc75@steredhat>
- <20210421042335-mutt-send-email-mst@kernel.org>
- <20210421095425.3bkixnasl34g3t5p@steredhat>
- <acd87b8c-f030-f757-130e-edab0e460cce@kaspersky.com>
- <20210422090005.krhgunvunfu2er5u@steredhat>
-From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
-Message-ID: <e61c40f3-bdfd-86ce-2949-02dde1ff44a0@kaspersky.com>
-Date: Thu, 22 Apr 2021 12:45:01 +0300
+Return-Path: virtio-return-3580-cohuck=redhat.com@lists.oasis-open.org
+Sender: <virtio@lists.oasis-open.org>
+List-Post: <mailto:virtio@lists.oasis-open.org>
+List-Help: <mailto:virtio-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
+Date: Thu, 8 Apr 2021 22:18:13 +0200
+From: Halil Pasic <pasic@linux.ibm.com>
+Message-ID: <20210408221813.7796697c.pasic@linux.ibm.com>
+In-Reply-To: <20210318182314.163060-1-mst@redhat.com>
+References: <20210318182314.163060-1-mst@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210422090005.krhgunvunfu2er5u@steredhat>
-Subject: Re: [virtio-comment] Re: [RFC PATCH v5 2/2] virtio-vsock:
- SOCK_SEQPACKET description
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Language: en-US
+Subject: [virtio] Re: [virtio-comment] [PATCH v2] introduction: document #define
+ syntax
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Stefan Hajnoczi <stefanha@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Jorgen Hansen <jhansen@vmware.com>, Colin Ian King <colin.king@canonical.com>, Norbert Slusarek <nslusarek@gmx.net>, Andra Paraschiv <andraprs@amazon.com>, Jeff Vander Stoep <jeffv@google.com>, Alexander Popov <alex.popov@linux.com>, "virtualization@lists.linux-foundation.org" <virtualization@lists.linux-foundation.org>, "oxffffaa@gmail.com" <oxffffaa@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+On Thu, 18 Mar 2021 14:23:33 -0400
+"Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-On 22.04.2021 12:00, Stefano Garzarella wrote:
-> On Wed, Apr 21, 2021 at 06:09:21PM +0300, Arseny Krasnov wrote:
->> On 21.04.2021 12:54, Stefano Garzarella wrote:
->>> On Wed, Apr 21, 2021 at 04:24:36AM -0400, Michael S. Tsirkin wrote:
->>>> On Wed, Apr 21, 2021 at 09:45:23AM +0200, Stefano Garzarella wrote:
->>>>> On Wed, Apr 14, 2021 at 09:04:47AM +0300, Arseny Krasnov wrote:
->>>>>> On 13.04.2021 22:55, Michael S. Tsirkin wrote:
->>>>>>> On Tue, Apr 13, 2021 at 05:22:44PM +0300, Arseny Krasnov wrote:
->>>>>>>> On 13.04.2021 16:10, Michael S. Tsirkin wrote:
->>>>>>>>> On Tue, Apr 13, 2021 at 03:53:29PM +0300, Arseny Krasnov wrote:
->>>>>>>>>> This adds description of SOCK_SEQPACKET socket type
->>>>>>>>>> support for virtio-vsock.
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Arseny Krasnov <arseny.krasnov@kaspersky.com>
->>>>>>>>>> ---
->>>>>>>>>>  virtio-vsock.tex | 26 +++++++++++++++++++++-----
->>>>>>>>>>  1 file changed, 21 insertions(+), 5 deletions(-)
->>>>>>>>>>
->>>>>>>>>> diff --git a/virtio-vsock.tex b/virtio-vsock.tex
->>>>>>>>>> index ad57f9d..00e59cc 100644
->>>>>>>>>> --- a/virtio-vsock.tex
->>>>>>>>>> +++ b/virtio-vsock.tex
->>>>>>>>>> @@ -16,7 +16,10 @@ \subsection{Virtqueues}\label{sec:Device Type=
-s / Socket Device / Virtqueues}
->>>>>>>>>>
->>>>>>>>>>  \subsection{Feature bits}\label{sec:Device Types / Socket Devic=
-e / Feature bits}
->>>>>>>>>>
->>>>>>>>>> -There are currently no feature bits defined for this device.
->>>>>>>>>> +\begin{description}
->>>>>>>>>> +\item VIRTIO_VSOCK_F_SEQPACKET (0) SOCK_SEQPACKET socket type i=
-s
->>>>>>>>>> +    supported.
->>>>>>>>> Does it make sense to only support seqpacket and not stream?
->>>>>>>>> I am guessing not since seqpacket is more or less
->>>>>>>>> a superset ...
->>>>>>>> You mean, this sentence must be "Both SOCK_SEQPACKET and SOCK_STRE=
-AM types
->>>>>>>>
->>>>>>>> are supported"?
->>>>>>> No. I am asking whether we want a feature bit for SOCK_STREAM too?
->>>>>> I think=A0 there is no practical sense in SOCK_STREAM bit, because S=
-OCK_SEQPACKET
->>>>>>
->>>>>> is stream + message boundaries and potential DGRAM is completely dif=
-ferent
->>>>>>
->>>>>> thing. Of course i can implement it in my patches and also add it to=
- spec patch, but=A0 i see only
->>>>>>
->>>>>> esthetic in this: all three socket types have own feature bits.
->>>>>>
->>>>> I agree that it may make sense to have a bit for SOCK_STREAM. For exa=
-mple we
->>>>> may have devices in the future that want to implement only DGRAM for
->>>>> simplicity.
->>>>>
->>>>> I'm just worried about backwards compatibility with current devices w=
-here we
->>>>> don't have any feature bit.
->>>>>
->>>>> Should we add a negative feature flag? (e.g. VIRTIO_VSOCK_F_NO_STREAM=
-)
->>>>> I don't like it much, but I can't think of anything better.
->>>>>
->>>>> Thanks,
->>>>> Stefano
->>>> We can simply specify that if there are no feature bits at all then
->>>> stream is assumed supported.
->>>>
->>> oh yeah, that sounds like a good idea!
->> So it is not necessary for my SEQPACKET patchset to support STREAM in bo=
-th
->> kernel and spec?
->>
-> I don't think it's necessary for SEQPACKET, but I would reserve bit 0 to=
-=20
-> stream.
->
-> We could add a patch to this series that adds the bit for stream and=20
-> explains that if there is no feature bit set, then only stream is=20
-> supported.
->
-> Or I can send it separately if you don't want to include it in the=20
-> series.
+> We use the C #define syntax to refer to numeric values.
+> Let's document that.
+>=20
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
+>=20
+> changes from v1:
+> address Cornelia's comments
+>=20
+>=20
+>  introduction.tex | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>=20
+> diff --git a/introduction.tex b/introduction.tex
+> index cc38e29..47bebf5 100644
+> --- a/introduction.tex
+> +++ b/introduction.tex
+> @@ -210,6 +210,29 @@ \section{Structure Specifications}
+>  \begin{lstlisting}
+>  CPU_TO_BE16(B << 15 | A)
+>  \end{lstlisting}
+> +\section{Constant Specifications}
+> +
+> +In many cases, numeric values used in the interface between the device
+> +and the driver are documented using the C #define and /* */
+> +comment syntax. Multiple related values are grouped together with
+> +a common name as a prefix, using _ as a separator.
+> +Using _XXX as a suffix refers to all values in a group.
+> +For example:
+> +
+> +\begin{lstlisting}
+> +/* Field Fld value A description */
+> +#define VIRTIO_FLD_A        (1 << 0)
+> +/* Field Fld value B description */
+> +#define VIRTIO_FLD_B        (1 << 1)
+> +\end{lstlisting}
+> +documents two numeric values for a field \field{Fld}, with
+> +\field{Fld} having value 1 referring to \field{A} and \field{Fld}
+> +having value 2 referring to \field{B}.
+> +Note that $<<$ refers to the shift-left operation.
+> +
+> +Further, in this case VIRTIO_FLD_A and VIRTIO_FLD_B
+> +refer to values 1 and 2 of Fld respectively. Further, VIRTIO_FLD_XXX ref=
+ers to
+> +either VIRTIO_FLD_A or VIRTIO_FLD_B.
 
-I can use bit 1 for SEQPACKET, keeping bit 0 free for STREAM, but
+IMHO we also use the define stuff to do flags, and that does not match
+nicely with the above sentence, since VIRTIO_FLD_F_A does not mean that
+the FLD_F field has value A if we are trying to specify a flag or a
+feature bit. And the left-shift is actually most common in these cases.
 
-i'd like to exclude this from patchset, to make it smaller
+I'm not opposed to this change. In the virtio spec we tend to not be
+very rigorous about formalism, and I came to accept that as a given.
+Just wanted to point it out.
 
->
-> Thanks,
-> Stefano
->
->
+Sorry for not commenting on this sooner.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+Regards,
+Halil
+> =20
+>  \newpage
+> =20
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+---------------------------------------------------------------------
+To unsubscribe from this mail list, you must leave the OASIS TC that=20
+generates this mail.  Follow this link to all your TCs in OASIS at:
+https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php=20
 
