@@ -1,133 +1,78 @@
-Return-Path: virtio-comment-return-1837-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1839-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 44E9E986587
-	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Apr 2021 06:35:23 +0000 (UTC)
-From: Yuri Benditovich <yuri.benditovich@daynix.com>
-Date: Wed, 28 Apr 2021 09:35:11 +0300
-Message-Id: <20210428063511.4638-3-yuri.benditovich@daynix.com>
-In-Reply-To: <20210428063511.4638-1-yuri.benditovich@daynix.com>
-References: <20210428063511.4638-1-yuri.benditovich@daynix.com>
-Subject: [virtio-comment] [PATCH v2 2/2] virtio-net: define USO feature
+	by lists.oasis-open.org (Postfix) with ESMTP id 9C899986295
+	for <virtio-comment@lists.oasis-open.org>; Thu, 29 Apr 2021 23:10:27 +0000 (UTC)
+From: Joel Nider <joel@nider.org>
+Date: Thu, 29 Apr 2021 16:10:16 -0700
+Message-Id: <20210429231016.561553-1-joel@nider.org>
+MIME-Version: 1.0
+Subject: [virtio-comment] [PATCH] Update VIRTIO_F_EVENT_IDX throughout
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
 To: virtio-comment@lists.oasis-open.org
-Cc: yan@daynix.com
+Cc: Joel Nider <joel@nider.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/104
+This flag has been called by many names in the past
+(VIRTIO_RING_F_EVENT_IDX, VIRTIO_F_RING_EVENT_IDX) and there are
+just a few stragglers left to clean up.
 
-Unlike UFO (fragmenting the packet) the USO splits large UDP packet
-to several segments when each of these smaller packets has UDP
-header. In Linux see SKB_GSO_UDP_L4.
-
-Signed-off-by: Yuri Benditovich <yuri.benditovich@daynix.com>
+Signed-off-by: Joel Nider <joel@nider.org>
 ---
- content.tex | 31 +++++++++++++++++++++----------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+ content.tex     | 2 +-
+ packed-ring.tex | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/content.tex b/content.tex
-index 63a5c52..8822f17 100644
+index 9232d5c..5a803dc 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -2964,6 +2964,10 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-     channel.
- 
-+\item[VIRTIO_NET_F_HOST_USO (56)] Device can receive USO packets. Unlike UFO
-+ (fragmenting the packet) the USO splits large UDP packet
-+ to several segments when each of these smaller packets has UDP header.
-+
- \item[VIRTIO_NET_F_HASH_REPORT(57)] Device can report per-packet hash
-     value and a type of calculated hash.
- 
-@@ -2998,6 +3002,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_ECN] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NET_F_HOST_TSO6.
- \item[VIRTIO_NET_F_HOST_UFO] Requires VIRTIO_NET_F_CSUM.
-+\item[VIRTIO_NET_F_HOST_USO] Requires VIRTIO_NET_F_CSUM.
- 
- \item[VIRTIO_NET_F_CTRL_RX] Requires VIRTIO_NET_F_CTRL_VQ.
- \item[VIRTIO_NET_F_CTRL_VLAN] Requires VIRTIO_NET_F_CTRL_VQ.
-@@ -3200,10 +3205,10 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
- \item A performant driver would indicate that it will generate checksumless
-   packets by negotating the VIRTIO_NET_F_CSUM feature.
- 
--\item If that feature is negotiated, a driver can use TCP or UDP
--  segmentation offload by negotiating the VIRTIO_NET_F_HOST_TSO4 (IPv4
--  TCP), VIRTIO_NET_F_HOST_TSO6 (IPv6 TCP) and VIRTIO_NET_F_HOST_UFO
--  (UDP fragmentation) features.
-+\item If that feature is negotiated, a driver can use TCP segmentation or UDP
-+  segmentation/fragmentation offload by negotiating the VIRTIO_NET_F_HOST_TSO4 (IPv4
-+  TCP), VIRTIO_NET_F_HOST_TSO6 (IPv6 TCP), VIRTIO_NET_F_HOST_UFO
-+  (UDP fragmentation) and VIRTIO_NET_F_HOST_USO (UDP segmentation) features.
- 
- \item The converse features are also available: a driver can save
-   the virtual device some work by negotiating these features.\note{For example, a network packet transported between two guests on
-@@ -3242,6 +3247,7 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
- #define VIRTIO_NET_HDR_GSO_TCPV4       1
- #define VIRTIO_NET_HDR_GSO_UDP         3
- #define VIRTIO_NET_HDR_GSO_TCPV6       4
-+#define VIRTIO_NET_HDR_GSO_UDP_L4      5
- #define VIRTIO_NET_HDR_GSO_ECN      0x80
-         u8 gso_type;
-         le16 hdr_len;
-@@ -3312,9 +3318,9 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- \end{note}
- 
- \item If the driver negotiated
--  VIRTIO_NET_F_HOST_TSO4, TSO6 or UFO, and the packet requires
--  TCP segmentation or UDP fragmentation, then \field{gso_type}
--  is set to VIRTIO_NET_HDR_GSO_TCPV4, TCPV6 or UDP.
-+  VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO, and the packet requires
-+  TCP segmentation, UDP segmentation or fragmentation, then \field{gso_type}
-+  is set to VIRTIO_NET_HDR_GSO_TCPV4, TCPV6, UDP_L4 or UDP.
-   (Otherwise, it is set to VIRTIO_NET_HDR_GSO_NONE). In this
-   case, packets larger than 1514 bytes can be transmitted: the
-   metadata indicates how to replicate the packet header to cut it
-@@ -3375,6 +3381,11 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- fragmentation, otherwise the driver MUST NOT set
- \field{gso_type} to VIRTIO_NET_HDR_GSO_UDP.
- 
-+If VIRTIO_NET_F_HOST_USO is negotiated, the driver MAY set
-+\field{gso_type} to VIRTIO_NET_HDR_GSO_UDP_L4 to request UDP
-+segmentation, otherwise the driver MUST NOT set
-+\field{gso_type} to VIRTIO_NET_HDR_GSO_UDP_L4.
-+
- The driver SHOULD NOT send to the device TCP packets requiring segmentation offload
- which have the Explicit Congestion Notification bit set, unless the
- VIRTIO_NET_F_HOST_ECN feature is negotiated, in which case the
-@@ -3398,7 +3409,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- 	packet;
- \end{enumerate}
- 
--If none of the VIRTIO_NET_F_HOST_TSO4, TSO6 or UFO options have
-+If none of the VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO options have
- been negotiated, the driver MUST set \field{gso_type} to
- VIRTIO_NET_HDR_GSO_NONE.
- 
-@@ -3407,7 +3418,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- \field{flags} and MUST set \field{gso_size} to indicate the
- desired MSS.
- 
--If one of the VIRTIO_NET_F_HOST_TSO4, TSO6 or UFO options have
-+If one of the VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO options have
- been negotiated:
- \begin{itemize}
- \item If the VIRTIO_NET_F_GUEST_HDRLEN feature has been negotiated,
-@@ -3434,7 +3445,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- If VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} is not set, the
- device MUST NOT use the \field{csum_start} and \field{csum_offset}.
- 
--If one of the VIRTIO_NET_F_HOST_TSO4, TSO6 or UFO options have
-+If one of the VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO options have
- been negotiated:
- \begin{itemize}
- \item If the VIRTIO_NET_F_GUEST_HDRLEN feature has been negotiated,
--- 
+@@ -6581,7 +6581,7 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Fe=
+ature Bits}
+ Descriptors}~\nameref{sec:Basic Facilities of a Virtio Device /
+ Virtqueues / The Virtqueue Descriptor Table / Indirect
+ Descriptors} and \ref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gathe=
+r Support}~\nameref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather S=
+upport}.
+-  \item[VIRTIO_F_RING_EVENT_IDX(29)] This feature enables the \field{used_=
+event}
++  \item[VIRTIO_F_EVENT_IDX(29)] This feature enables the \field{used_event=
+}
+   and the \field{avail_event} fields as described in
+ \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer No=
+tification Suppression}, \ref{sec:Basic Facilities of a Virtio Device / Vir=
+tqueues / The Virtqueue Used Ring} and \ref{sec:Packed Virtqueues / Driver =
+and Device Event Suppression}.
+=20
+diff --git a/packed-ring.tex b/packed-ring.tex
+index ea92543..a9e6c16 100644
+--- a/packed-ring.tex
++++ b/packed-ring.tex
+@@ -336,7 +336,7 @@ \subsection{Driver and Device Event Suppression}
+ /*
+  * Enable events for a specific descriptor
+  * (as specified by Descriptor Ring Change Event Offset/Wrap Counter).
+- * Only valid if VIRTIO_F_RING_EVENT_IDX has been negotiated.
++ * Only valid if VIRTIO_F_EVENT_IDX has been negotiated.
+  */
+ #define RING_EVENT_FLAGS_DESC 0x2
+ /* The value 0x3 is reserved */
+@@ -597,7 +597,7 @@ \subsubsection{Implementation Example}\label{sec:Basic =
+Facilities of a Virtio De
+=20
+ Below is a driver code example. It does not attempt to reduce
+ the number of available buffer notifications, neither does it support
+-the VIRTIO_F_RING_EVENT_IDX feature.
++the VIRTIO_F_EVENT_IDX feature.
+=20
+ \begin{lstlisting}
+ /* Note: vq->avail_wrap_count is initialized to 1 */
+--=20
 2.25.1
 
 
@@ -143,7 +88,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
