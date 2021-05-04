@@ -1,53 +1,47 @@
-Return-Path: virtio-comment-return-1865-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1844-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DA70F9865EB
-	for <virtio-comment@lists.oasis-open.org>; Thu, 27 May 2021 13:16:01 +0000 (UTC)
-Date: Thu, 27 May 2021 15:15:49 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-Message-ID: <20210527131549.qs4z4re7yxsb37f5@steredhat>
-References: <20210524183232.2513690-1-arseny.krasnov@kaspersky.com>
-MIME-Version: 1.0
-In-Reply-To: <20210524183232.2513690-1-arseny.krasnov@kaspersky.com>
-Subject: Re: [virtio-comment] [PATCH v6 0/2] virtio-vsock: introduce
- SOCK_SEQPACKET description
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-To: Arseny Krasnov <arseny.krasnov@kaspersky.com>
-Cc: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>, Andra Paraschiv <andraprs@amazon.com>, virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
+	by lists.oasis-open.org (Postfix) with ESMTP id C16929863BD
+	for <virtio-comment@lists.oasis-open.org>; Tue,  4 May 2021 18:13:17 +0000 (UTC)
+From: Jiang Wang <jiang.wang@bytedance.com>
+Date: Tue,  4 May 2021 18:13:07 +0000
+Message-Id: <20210504181307.2820901-1-jiang.wang@bytedance.com>
+Subject: [virtio-comment] [PATCH] virtio-net: fix a display for num_buffers
+Content-Type: text/plain; charset="US-ASCII"
+To: virtio-comment@lists.oasis-open.org
+Cc: Jiang Wang <jiang.wang@bytedance.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, May 24, 2021 at 09:32:29PM +0300, Arseny Krasnov wrote:
->This adds description of SOCK_SEQPACKET type for virtio-vsock.
->
->Here is latest RFC implementation for Linux, with more details:
->
->https://lkml.org/lkml/2021/5/20/2386
->
->Also this patchset has patch which replaces enums to defines in
->virtio-vsock part of spec. SOCK_SEQPACKET patch is based on it.
->
-> Arseny Krasnov(2):
->  virtio-vsock: use C style defines for constants
->  virtio-vsock: SOCK_SEQPACKET description
->
-> virtio-vsock.tex | 74 ++++++++++++++++++++++++++++------------------
-> 1 file changed, 46 insertions(+), 28 deletions(-)
->
+One of num_buffers does not display correctly in
+the html. The _b becomes a subscript b. This will
+prevent it to be searched by using keyword num_buffers.
 
-The series LGTM!
+Fix it by add an escape character.
 
-Let's wait for other comments.
+Signed-off-by: Jiang Wang <jiang.wang@bytedance.com>
+---
+ content.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I'll send a follow up patch next week about feature bit for stream 
-socket (bit 0).
-
-Thanks,
-Stefano
+diff --git a/content.tex b/content.tex
+index b72bad0..21fb4c4 100644
+--- a/content.tex
++++ b/content.tex
+@@ -3595,7 +3595,7 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+ the packet (including the header) is spread over.
+ 
+ If a receive packet is spread over multiple buffers, the device
+-MUST use all buffers but the last (i.e. the first $num_buffers -
++MUST use all buffers but the last (i.e. the first $num\_buffers -
+ 1$ buffers) completely up to the full length of each buffer
+ supplied by the driver.
+ 
+-- 
+2.11.0
 
 
 This publicly archived list offers a means to provide input to the
