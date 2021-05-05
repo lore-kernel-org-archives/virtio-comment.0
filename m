@@ -1,168 +1,49 @@
-Return-Path: virtio-comment-return-1852-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1847-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 986829865A1
-	for <virtio-comment@lists.oasis-open.org>; Thu,  6 May 2021 07:26:37 +0000 (UTC)
-References: <20201218042302.8884-1-jasowang@redhat.com>
- <20210505090731-mutt-send-email-mst@kernel.org>
-From: Jason Wang <jasowang@redhat.com>
-Message-ID: <9f8ddb4d-f00a-647d-2784-e4d7f8b39699@redhat.com>
-Date: Thu, 6 May 2021 15:26:21 +0800
+	by lists.oasis-open.org (Postfix) with ESMTP id 66FBD9864D6
+	for <virtio-comment@lists.oasis-open.org>; Wed,  5 May 2021 11:00:10 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210505090731-mutt-send-email-mst@kernel.org>
-Subject: [virtio-comment] Re: [PATCH RFC] virtio: introduce VIRTIO_F_DEVICE_STOP
-Content-Type: text/plain; charset=gbk; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: stefanha@redhat.com, virtio-comment@lists.oasis-open.org, eperezma@redhat.com, sgarzare@redhat.com
+References: <20210428063511.4638-1-yuri.benditovich@daynix.com>
+In-Reply-To: <20210428063511.4638-1-yuri.benditovich@daynix.com>
+From: Yuri Benditovich <yuri.benditovich@daynix.com>
+Date: Wed, 5 May 2021 13:59:57 +0300
+Message-ID: <CAOEp5OdGmDEGJL8xGhMzxkWgecxNqQ+_uutWQNDBM25xXRVGaw@mail.gmail.com>
+Subject: [virtio-comment] Re: [PATCH v2 0/2] define USO feature
+Content-Type: text/plain; charset="UTF-8"
+To: "Michael S . Tsirkin" <mst@redhat.com>
+Cc: Yan Vugenfirer <yan@daynix.com>, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+Hi Michael,
+If there are no more comments, can you please initiate the ballot?
 
-=D4=DA 2021/5/5 =CF=C2=CE=E79:16, Michael S. Tsirkin =D0=B4=B5=C0:
-> On Fri, Dec 18, 2020 at 12:23:02PM +0800, Jason Wang wrote:
->> This patch introduces a new status bit DEVICE_STOPPED. This will be
->> used by the driver to stop and resume a device. The main user will be
->> live migration support for virtio device.
->>
->> Signed-off-by: Jason Wang <jasowang@redhat.com>
-> I have been thinking about this whole approach.
+Thanks,
+Yuri Benditovich
+
+
+
+On Wed, Apr 28, 2021 at 9:35 AM Yuri Benditovich
+<yuri.benditovich@daynix.com> wrote:
 >
-> While yes it's possible to have the hypervisor poke
-> at the device while device is not reset, e.g. by
-> blocking guest access to device, while device can
-> still DMA into guest memory, this is at least unusual
-> and seems somewhat fragile.
-
-
-So in the context of stop, I wonder if we can just forbid the DMA in=20
-this case?
-
-
+> changes v1->v2:
+> Added separate patch fixing mistake in UFO definition
+> Added USO feature explanation
 >
-> I think normally live migration would belong in a PF as opposed to the VF=
-.
+> Yuri Benditovich (2):
+>   virtio-net: fix mistake: segmentation -> fragmentation
+>   virtio-net: define USO feature
 >
-> As such, how about for starters we prototype this
-> as part of a vendor specific capability of a PF?
-
-
-Just to make sure I understand the proposal. Except for the differnt=20
-control path, I don't see any other differences:
-
-Consider we use vendor specific capability, we still need to define the=20
-semantics like the VIRTIO_F_DEVICE_STOP in this case. E.g as you said,=20
-quiescence the DMA and other stuffs.
-
-
-> This will also show-case how to add vendor specific capabilities
-> to devices.
+>  content.tex | 33 ++++++++++++++++++++++-----------
+>  1 file changed, 22 insertions(+), 11 deletions(-)
 >
+> --
+> 2.25.1
 >
-> Longer term it would be nice to come up with all kind of PF
-> related functionality in the spec too, but I think that should
-> be part of a more comprehensive/extensible approach
-> since it's not limited to live migration concerns.
-> For example the way qemu handles control vq of a nic
-> in software creates problems, couldn't we inject
-> the relevant commands through PF somehow?
-
-
-Yes, as we discussed in the past, I plan to send a RFC to introduce the=20
-admin virtqueue for PF. It could be used for such extensions.
-
-Thanks
-
-
->
->
->> ---
->>   content.tex | 26 ++++++++++++++++++++++++--
->>   1 file changed, 24 insertions(+), 2 deletions(-)
->>
->> diff --git a/content.tex b/content.tex
->> index 61eab41..4392b60 100644
->> --- a/content.tex
->> +++ b/content.tex
->> @@ -47,6 +47,9 @@ \section{\field{Device Status} Field}\label{sec:Basic =
-Facilities of a Virtio Dev
->>   \item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
->>     drive the device.
->>  =20
->> +\item[DEVICE_STOPPED (32)] When VIRTIO_F_DEVICE_STOPPED is negotiated,
->> +  indicates that the device has been stopped by the driver.
->> +
->>   \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienc=
-ed
->>     an error from which it can't recover.
->>   \end{description}
->> @@ -58,8 +61,9 @@ \section{\field{Device Status} Field}\label{sec:Basic =
-Facilities of a Virtio Dev
->>   \ref{sec:General Initialization And Device Operation / Device
->>   Initialization}.
->>   The driver MUST NOT clear a
->> -\field{device status} bit.  If the driver sets the FAILED bit,
->> -the driver MUST later reset the device before attempting to re-initiali=
-ze.
->> +\field{device status} bit other than DEVICE_STOPPED.  If the
->> +driver sets the FAILED bit, the driver MUST later reset the device
->> +before attempting to re-initialize.
->>  =20
->>   The driver SHOULD NOT rely on completion of operations of a
->>   device if DEVICE_NEEDS_RESET is set.
->> @@ -70,12 +74,28 @@ \section{\field{Device Status} Field}\label{sec:Basi=
-c Facilities of a Virtio Dev
->>   recover by issuing a reset.
->>   \end{note}
->>  =20
->> +The driver MUST NOT set or clear DEVICE_STOPPED when DRIVER_OK is not
->> +set. In order to stop the device, the driver MUST set DEVICE_STOPPED
->> +first and re-read status to check whether DEVICE_STOPPED is set by the
->> +device. In order to resume the device, the driver MUST clear
->> +DEVICE_STOPPED first and read status to ensure whether DEVICE_STOPPED
->> +is cleared by the device.
->> +
->>   \devicenormative{\subsection}{Device Status Field}{Basic Facilities of=
- a Virtio Device / Device Status Field}
->>   The device MUST initialize \field{device status} to 0 upon reset.
->>  =20
->>   The device MUST NOT consume buffers or send any used buffer
->>   notifications to the driver before DRIVER_OK.
->>  =20
->> +The device MUST ignore DEVICE_STOPPED when DRIVER_OK is not set.
->> +
->> +When driver is trying to set DEVICE_STOPPED, the device MUST not
->> +process new avail requests and MUST complete all requests that is
->> +currently processing before setting DEVICE_STOPPED.
->> +
->> +The device MUST keep the config space unchanged when DEVICE_STOPPED is
->> +set.
->> +
->>   \label{sec:Basic Facilities of a Virtio Device / Device Status Field /=
- DEVICENEEDSRESET}The device SHOULD set DEVICE_NEEDS_RESET when it enters a=
-n error state
->>   that a reset is needed.  If DRIVER_OK is set, after it sets DEVICE_NEE=
-DS_RESET, the device
->>   MUST send a device configuration change notification to the driver.
->> @@ -6553,6 +6573,8 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved=
- Feature Bits}
->>     \item[VIRTIO_F_NOTIFICATION_DATA(38)] This feature indicates
->>     that the driver passes extra data (besides identifying the virtqueue=
-)
->>     in its device notifications.
->> +  \item[VIRTIO_F_DEVICE_STOP(39)] This feature indicates that the
->> +  driver can stop and resume the device.
->>     See \ref{sec:Virtqueues / Driver notifications}~\nameref{sec:Virtque=
-ues / Driver notifications}.
->>   \end{description}
->>  =20
->> --=20
->> 2.25.1
-
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -176,8 +57,7 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
