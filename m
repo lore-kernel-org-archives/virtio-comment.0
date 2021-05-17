@@ -1,88 +1,58 @@
-Return-Path: virtio-comment-return-1855-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1856-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 04ABE986479
-	for <virtio-comment@lists.oasis-open.org>; Fri, 14 May 2021 01:22:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B9EF1985DDD
+	for <virtio-comment@lists.oasis-open.org>; Mon, 17 May 2021 10:17:20 +0000 (UTC)
+Date: Mon, 17 May 2021 12:17:12 +0200
+From: Cornelia Huck <cohuck@redhat.com>
+Message-ID: <20210517121712.465e6741.cohuck@redhat.com>
+In-Reply-To: <78c9a32a-551d-87cf-008a-beb13ed38a2f@nider.org>
 References: <20210504182134.736631-1-joel@nider.org>
-From: Joel Nider <joel@nider.org>
-Message-ID: <78c9a32a-551d-87cf-008a-beb13ed38a2f@nider.org>
-Date: Thu, 13 May 2021 18:22:23 -0700
+	<78c9a32a-551d-87cf-008a-beb13ed38a2f@nider.org>
 MIME-Version: 1.0
-In-Reply-To: <20210504182134.736631-1-joel@nider.org>
 Subject: Re: [virtio-comment] [PATCH] Make global flag names consistent
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-To: virtio-comment@lists.oasis-open.org
+To: Joel Nider <joel@nider.org>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hi Cornelia,
+On Thu, 13 May 2021 18:22:23 -0700
+Joel Nider <joel@nider.org> wrote:
 
-Could you please comment on this patch - is this what you were expecting?
+> Hi Cornelia,
+> 
+> Could you please comment on this patch - is this what you were expecting?
 
-Thanks,
+Sorry for being late; being cc:ed usually brings stuff like this to my
+attention sooner.
 
-Joel
+> 
+> Thanks,
+> 
+> Joel
+> 
+> On 2021-05-04 11:21 a.m., Joel Nider wrote:
+> > The global flags VIRTIO_F_EVENT_IDX and VIRTIO_F_INDIRECT_DESC
+> > have inconsistent naming throughout the document. This change
+> > removes the _RING designation from the flag names to make the
+> > usage consistent.
+> >
+> > Signed-off-by: Joel Nider <joel@nider.org>
+> > ---
+> >   content.tex     | 4 ++--
+> >   packed-ring.tex | 4 ++--
+> >   2 files changed, 4 insertions(+), 4 deletions(-)
 
-On 2021-05-04 11:21 a.m., Joel Nider wrote:
-> The global flags VIRTIO_F_EVENT_IDX and VIRTIO_F_INDIRECT_DESC
-> have inconsistent naming throughout the document. This change
-> removes the _RING designation from the flag names to make the
-> usage consistent.
->
-> Signed-off-by: Joel Nider <joel@nider.org>
-> ---
->   content.tex     | 4 ++--
->   packed-ring.tex | 4 ++--
->   2 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/content.tex b/content.tex
-> index 9232d5c..c869cf4 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -6574,14 +6574,14 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
->   Currently these device-independent feature bits defined:
->   
->   \begin{description}
-> -  \item[VIRTIO_F_RING_INDIRECT_DESC (28)] Negotiating this feature indicates
-> +  \item[VIRTIO_F_INDIRECT_DESC (28)] Negotiating this feature indicates
->     that the driver can use descriptors with the VIRTQ_DESC_F_INDIRECT
->     flag set, as described in \ref{sec:Basic Facilities of a Virtio
->   Device / Virtqueues / The Virtqueue Descriptor Table / Indirect
->   Descriptors}~\nameref{sec:Basic Facilities of a Virtio Device /
->   Virtqueues / The Virtqueue Descriptor Table / Indirect
->   Descriptors} and \ref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}~\nameref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}.
-> -  \item[VIRTIO_F_RING_EVENT_IDX(29)] This feature enables the \field{used_event}
-> +  \item[VIRTIO_F_EVENT_IDX(29)] This feature enables the \field{used_event}
->     and the \field{avail_event} fields as described in
->   \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer Notification Suppression}, \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Used Ring} and \ref{sec:Packed Virtqueues / Driver and Device Event Suppression}.
->   
-> diff --git a/packed-ring.tex b/packed-ring.tex
-> index ea92543..a9e6c16 100644
-> --- a/packed-ring.tex
-> +++ b/packed-ring.tex
-> @@ -336,7 +336,7 @@ \subsection{Driver and Device Event Suppression}
->   /*
->    * Enable events for a specific descriptor
->    * (as specified by Descriptor Ring Change Event Offset/Wrap Counter).
-> - * Only valid if VIRTIO_F_RING_EVENT_IDX has been negotiated.
-> + * Only valid if VIRTIO_F_EVENT_IDX has been negotiated.
->    */
->   #define RING_EVENT_FLAGS_DESC 0x2
->   /* The value 0x3 is reserved */
-> @@ -597,7 +597,7 @@ \subsubsection{Implementation Example}\label{sec:Basic Facilities of a Virtio De
->   
->   Below is a driver code example. It does not attempt to reduce
->   the number of available buffer notifications, neither does it support
-> -the VIRTIO_F_RING_EVENT_IDX feature.
-> +the VIRTIO_F_EVENT_IDX feature.
->   
->   \begin{lstlisting}
->   /* Note: vq->avail_wrap_count is initialized to 1 */
+Change looks good to me.
+
+In order to request a vote, please follow
+https://github.com/oasis-tcs/virtio-spec#use-of-github-issues
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
