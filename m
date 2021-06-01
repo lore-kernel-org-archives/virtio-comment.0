@@ -1,47 +1,57 @@
-Return-Path: virtio-comment-return-1880-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1869-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 49605986575
-	for <virtio-comment@lists.oasis-open.org>; Fri,  4 Jun 2021 08:10:58 +0000 (UTC)
-Date: Fri, 4 Jun 2021 13:40:54 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20210604081054.usxmxr5rjxgtgp4s@vireshk-i7>
-References: <5672086c33948b7f765abb92de3f6846c8e1351f.1622724078.git.viresh.kumar@linaro.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 790DD98628D
+	for <virtio-comment@lists.oasis-open.org>; Tue,  1 Jun 2021 11:47:39 +0000 (UTC)
+Date: Tue, 1 Jun 2021 13:47:31 +0200
+From: Cornelia Huck <cohuck@redhat.com>
+Message-ID: <20210601134731.0b73d7b1.cohuck@redhat.com>
+In-Reply-To: <20210504181307.2820901-1-jiang.wang@bytedance.com>
+References: <20210504181307.2820901-1-jiang.wang@bytedance.com>
 MIME-Version: 1.0
-In-Reply-To: <5672086c33948b7f765abb92de3f6846c8e1351f.1622724078.git.viresh.kumar@linaro.org>
-Subject: [virtio-comment] Re: [PATCH] virtio-gpio: add the device specification
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: virtio-comment@lists.oasis-open.org
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, Bill Mills <bill.mills@linaro.org>, Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>, "Enrico Weigelt, metux IT consult" <info@metux.net>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>, Jason Wang <jasowang@redhat.com>
+Subject: Re: [virtio-comment] [PATCH] virtio-net: fix a display for
+ num_buffers
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+To: Jiang Wang <jiang.wang@bytedance.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 03-06-21, 18:13, Viresh Kumar wrote:
-> virtio-gpio is a virtual GPIO controller. It provides a way to flexibly
-> communicate with the host GPIO controllers from the guest.
+On Tue,  4 May 2021 18:13:07 +0000
+Jiang Wang <jiang.wang@bytedance.com> wrote:
+
+> One of num_buffers does not display correctly in
+> the html. The _b becomes a subscript b. This will
+> prevent it to be searched by using keyword num_buffers.
 > 
-> This patch adds the specification for it.
+> Fix it by add an escape character.
 > 
-> Based on the initial work done by:
-> "Enrico Weigelt, metux IT consult" <lkml@metux.net>.
-> 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> Signed-off-by: Jiang Wang <jiang.wang@bytedance.com>
 > ---
->  conformance.tex |  26 ++++-
->  content.tex     |   1 +
->  virtio-gpio.tex | 256 ++++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 279 insertions(+), 4 deletions(-)
->  create mode 100644 virtio-gpio.tex
+>  content.tex | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/content.tex b/content.tex
+> index b72bad0..21fb4c4 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -3595,7 +3595,7 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>  the packet (including the header) is spread over.
+>  
+>  If a receive packet is spread over multiple buffers, the device
+> -MUST use all buffers but the last (i.e. the first $num_buffers -
+> +MUST use all buffers but the last (i.e. the first $num\_buffers -
+>  1$ buffers) completely up to the full length of each buffer
+>  supplied by the driver.
+>  
 
-I missed adding the request type field and had to bump up the version.
-Please see V2. Have simplified few more things.
+This looks a bit better in the output, but I'm wondering whether using
+"\field{num_buffers} - 1" would be a more consistent way.
 
--- 
-viresh
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
