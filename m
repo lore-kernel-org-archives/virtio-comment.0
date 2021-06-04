@@ -1,15 +1,15 @@
-Return-Path: virtio-comment-return-1876-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1880-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A099B98656E
-	for <virtio-comment@lists.oasis-open.org>; Thu,  3 Jun 2021 12:46:10 +0000 (UTC)
-Date: Thu, 3 Jun 2021 18:16:05 +0530
+	by lists.oasis-open.org (Postfix) with ESMTP id 49605986575
+	for <virtio-comment@lists.oasis-open.org>; Fri,  4 Jun 2021 08:10:58 +0000 (UTC)
+Date: Fri, 4 Jun 2021 13:40:54 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20210603124605.zfsxatqwrefuhq2v@vireshk-i7>
+Message-ID: <20210604081054.usxmxr5rjxgtgp4s@vireshk-i7>
 References: <5672086c33948b7f765abb92de3f6846c8e1351f.1622724078.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 In-Reply-To: <5672086c33948b7f765abb92de3f6846c8e1351f.1622724078.git.viresh.kumar@linaro.org>
@@ -37,9 +37,8 @@ On 03-06-21, 18:13, Viresh Kumar wrote:
 >  3 files changed, 279 insertions(+), 4 deletions(-)
 >  create mode 100644 virtio-gpio.tex
 
-And here is the new issue for the same.
-
-https://github.com/oasis-tcs/virtio-spec/issues/110
+I missed adding the request type field and had to bump up the version.
+Please see V2. Have simplified few more things.
 
 -- 
 viresh
