@@ -1,80 +1,52 @@
-Return-Path: virtio-comment-return-1884-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1885-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2EAAF9862E4
-	for <virtio-comment@lists.oasis-open.org>; Mon,  7 Jun 2021 05:25:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1E1DD9862E4
+	for <virtio-comment@lists.oasis-open.org>; Mon,  7 Jun 2021 05:43:02 +0000 (UTC)
+Date: Mon, 7 Jun 2021 11:12:57 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20210607054257.corogdevyxi3clt6@vireshk-i7>
 References: <e687cd6bdafe1ad13205d99989163299649e20c9.1622794175.git.viresh.kumar@linaro.org>
  <db7ad3b4-36b5-1988-8f9a-b50a7e820150@metux.net>
  <CAKohpomU=0nO+yyywniZmLegvWSz9WdSf4jVwR=Z2J_XXoh8iA@mail.gmail.com>
-From: Jason Wang <jasowang@redhat.com>
-Message-ID: <66c30d89-c7ed-fc1a-fd0c-6ff188f675cb@redhat.com>
-Date: Mon, 7 Jun 2021 13:25:14 +0800
+ <66c30d89-c7ed-fc1a-fd0c-6ff188f675cb@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAKohpomU=0nO+yyywniZmLegvWSz9WdSf4jVwR=Z2J_XXoh8iA@mail.gmail.com>
+In-Reply-To: <66c30d89-c7ed-fc1a-fd0c-6ff188f675cb@redhat.com>
 Subject: Re: [virtio-comment] [PATCH V2] virtio-gpio: add the device
  specification
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-To: Viresh Kumar <viresh.kumar@linaro.org>, "Enrico Weigelt, metux IT consult" <lkml@metux.net>
-Cc: virtio-comment@lists.oasis-open.org, Vincent Guittot <vincent.guittot@linaro.org>, Bill Mills <bill.mills@linaro.org>, =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, "Enrico Weigelt, metux IT consult" <info@metux.net>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Jason Wang <jasowang@redhat.com>
+Cc: "Enrico Weigelt, metux IT consult" <lkml@metux.net>, virtio-comment@lists.oasis-open.org, Vincent Guittot <vincent.guittot@linaro.org>, Bill Mills <bill.mills@linaro.org>, Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>, "Enrico Weigelt, metux IT consult" <info@metux.net>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+On 07-06-21, 13:25, Jason Wang wrote:
+> The spec define some general features and it also allow device to implement
+> its own features.
+> 
+> I guess in this case, it might be just a feature like VIRTIO_GPIO_F_BULK?
 
-=E5=9C=A8 2021/6/4 =E4=B8=8B=E5=8D=888:58, Viresh Kumar =E5=86=99=E9=81=93:
-> On Fri, 4 Jun 2021 at 17:55, Enrico Weigelt, metux IT consult
-> <lkml@metux.net>  wrote:
->> On 04.06.21 10:09, Viresh Kumar wrote:
-> \\> > +\begin{lstlisting}
->>> +struct virtio_gpio_config {
->>> +    char name[32];
->>> +    u16 ngpio;
->>> +    u16 padding;
->>> +    u32 gpio_names_size;
->>> +    char gpio_names[0];
->>> +} __attribute__((packed));
->>> +\end{lstlisting}
->> oh no, please don't change the structs. the original one was:
->>
->> struct virtio_gpio_config {
->>           __u8    version;
->>           __u8    reserved0;
->>           __u16   num_gpios;
->>           __u32   names_size;
->>           __u8    reserved1[24];
->>           __u8    name[32];
->> };
->>
->> The version is vital - we need an upgrade path for future extensions.
->> (eg. bulk operations)
-> I did wonder about how versioning works in general for virtio and couldn'=
-t find
-> much for any device specification there.
->
-> Does anyone know how we handle different versions of the spec? Or is it l=
-eft
-> for the individual protocols, GPIO in this case ?
+Oh yes, it makes sense. So we don't really need a _version_ here, but
+can just keep on adding more and more features.
 
+> I'm not familiar with GPIO, but a question is, consider we have virtqueue,
+> so actually bulking is already supported?
 
-The spec define some general features and it also allow device to=20
-implement its own features.
+Virtqueue is there yes, but we don't have operations here yet (in this
+version of the spec) which support setting 10 GPIO pins in output mode
+with a single request from driver to device.
 
-I guess in this case, it might be just a feature like VIRTIO_GPIO_F_BULK?
+I think Enrico was looking to have a way to add provision for such
+operations later on if required.
 
-I'm not familiar with GPIO, but a question is, consider we have=20
-virtqueue, so actually bulking is already supported?
+And the features will make that work. Thanks Jason.
 
-Thanks
-
-
->
-> Sure I will add it back, just wanted to get this disucussion going.
->
-
+-- 
+viresh
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -88,8 +60,7 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
