@@ -1,21 +1,21 @@
-Return-Path: virtio-comment-return-1902-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1891-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 99C989862CC
-	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Jun 2021 12:09:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 233CD986586
+	for <virtio-comment@lists.oasis-open.org>; Tue,  8 Jun 2021 11:32:31 +0000 (UTC)
 From: Viresh Kumar <viresh.kumar@linaro.org>
-Date: Mon, 14 Jun 2021 17:38:50 +0530
-Message-Id: <67df37af4826e4b5fdffbea9679a446bfd941f5f.1623672186.git.viresh.kumar@linaro.org>
+Date: Tue,  8 Jun 2021 17:02:24 +0530
+Message-Id: <111a00fa282a181c391f5566fd674dc59abb55b5.1623151932.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH V4] virtio-gpio: Add the device specification
+Subject: [virtio-comment] [PATCH V3] virtio-gpio: Add the device specification
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
 To: virtio-comment@lists.oasis-open.org
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, Vincent Guittot <vincent.guittot@linaro.org>, Bill Mills <bill.mills@linaro.org>, =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>, Jason Wang <jasowang@redhat.com>, stratos-dev@op-lists.linaro.org, "Enrico Weigelt, metux IT consult" <info@metux.net>, Jean-Philippe Brucker <jean-philippe@linaro.org>, Arnd Bergmann <arnd@linaro.org>, Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, Vincent Guittot <vincent.guittot@linaro.org>, Bill Mills <bill.mills@linaro.org>, =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>, "Enrico Weigelt, metux IT consult" <info@metux.net>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>, Jason Wang <jasowang@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
 virtio-gpio is a virtual GPIO controller. It provides a way to flexibly
@@ -29,13 +29,6 @@ Based on the initial work done by:
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/110
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
-V3 -> V4:
-- The GPIO line names must be unique within a device.
-- The gpio_names[0] field is dropped and gpio_names_offset field is
-  added in place of the 2 bytes of padding.
-- New interrupts must not be initiated by the device, without a response
-  for the previous one.
-
 V2 -> V3:
 - Unused char in name string should be marked 0 now.
 - s/host/device/ and s/guest/driver/
@@ -52,10 +45,10 @@ V1 -> V2:
 - Dropped to _nodata request/responses to simplify a bit, updated
   related text.
 ---
- conformance.tex |  26 +++-
+ conformance.tex |  26 ++++-
  content.tex     |   1 +
- virtio-gpio.tex | 309 ++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 332 insertions(+), 4 deletions(-)
+ virtio-gpio.tex | 287 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 310 insertions(+), 4 deletions(-)
  create mode 100644 virtio-gpio.tex
 
 diff --git a/conformance.tex b/conformance.tex
@@ -148,10 +141,10 @@ index d9913d056317..e572ac3bb6c0 100644
 =20
 diff --git a/virtio-gpio.tex b/virtio-gpio.tex
 new file mode 100644
-index 000000000000..7582993f3fd9
+index 000000000000..5ac17764c2e4
 --- /dev/null
 +++ b/virtio-gpio.tex
-@@ -0,0 +1,309 @@
+@@ -0,0 +1,287 @@
 +\section{GPIO Device}\label{sec:Device Types / GPIO Device}
 +
 +virtio-gpio is a virtual general purpose IO controller device. It provides=
@@ -196,8 +189,9 @@ r the driver.
 +struct virtio_gpio_config {
 +    char name[32];
 +    u16 ngpio;
-+    u16 gpio_names_offset;
++    u16 padding;
 +    u32 gpio_names_size;
++    char gpio_names[0];
 +} __attribute__((packed));
 +\end{lstlisting}
 +
@@ -207,40 +201,14 @@ f the
 +    GPIO controller. The unused characters in the string must be initializ=
 ed to
 +    zero by the device.
-+
 +\item[\field{ngpio}] is the total number of GPIO lines provided by the
 +    controller.
-+
-+\item[\field{gpio_names_offset}] is the offset of the "gpio_names" memory =
-block
-+    from the base of the \field{struct virtio_gpio_config}. The "gpio name=
-s"
-+    block contains a stream of \field{ngpio} null-terminated strings. Each=
- and
-+    every GPIO line name MUST be unique within a GPIO Device and the name =
-MUST
-+    not be NULL for any of the GPIO line, unless the \field{gpio_names_siz=
-e} is
-+    set to zero and this feature isn't used by the device.
-+
-+    The \field{gpio_names_offset} field can only be used if the
-+    \field{gpio_names_size} is set to a non-zero value. When used, its val=
-ue
-+    must be greater than or equal to the size of the \field{struct
-+    virtio_gpio_config} (which is 40 bytes in the current version of the s=
-pec).
-+
-+    This field is added, instead of fixing the offset of the "gpio_names" =
-block
-+    to the end of the structure, in order to allow the configuration struc=
-ture
-+    to be extended in future if need arises to add more fields to it.
-+
-+\item[\field{gpio_names_size}] is the size of the "gpio_names" memory bloc=
-k.
-+    This field must be set to 0, if the "gpio_names" block is not used by =
-the
-+    device.
++\item[\field{gpio_names_size}] is the size of the \field{gpio_names} strin=
+g.
++    This field must be set to 0, if the \field(gpio_names) is not used.
++\item[\field{gpio_names}] is a stream of \field{ngpio} null-terminated str=
+ings,
++    where each string corresponds to a GPIO line.
 +\end{description}
 +
 +
@@ -492,13 +460,7 @@ ruct
 rupt}
 +virtqueue, while all other requests use the \field{command} virtqueue. Nei=
 ther
-+the request, nor the response uses the \field{data} field. The device shou=
-ldn't
-+initiate a new \field{VIRTIO_GPIO_IRQ_EVENT} request on the \field{interru=
-pt}
-+virtqueue until the time it has received a response from the driver for th=
-e
-+previous \field{VIRTIO_GPIO_IRQ_EVENT} request.
++the request, nor the response uses the \field{data} field.
 +
 +This request is only supported if the \field{VIRTIO_GPIO_F_IRQ} feature is
 +supported by the device.
@@ -546,18 +508,13 @@ ice / Device Operation}
 has
 +set the \field{status} field to \field{VIRTIO_GPIO_STATUS_ERR}.
 +
-+A device MUST add a unique and valid string in the \field{gpio_names} fiel=
-d of
-+the \field{struct virtio_gpio_config} for every supported GPIO line, if th=
++A device MUST add a valid string in the \field{gpio_names} field of the
++\field{struct virtio_gpio_config} for every supported GPIO line, if the th=
 e
-+\field{gpio_names_size} is set to a non-zero value.
++\field{gpio_names_size} is not set to 0.
 +
 +A device MUST NOT send a request on the \field{interrupt} virtqueue if the
 +\field{VIRTIO_GPIO_F_IRQ} feature is not supported by it.
-+
-+A device MUST NOT send a new request on the \field{interrupt} virtqueue if=
- the
-+previous request is not responded to yet, by the driver.
 --=20
 2.31.1.272.g89b43f80a514
 
