@@ -1,54 +1,64 @@
-Return-Path: virtio-comment-return-1910-cohuck=redhat.com@lists.oasis-open.org
+Return-Path: virtio-comment-return-1903-cohuck=redhat.com@lists.oasis-open.org
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 70AF0986692
-	for <virtio-comment@lists.oasis-open.org>; Fri, 18 Jun 2021 14:50:00 +0000 (UTC)
-Date: Fri, 18 Jun 2021 16:49:51 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-Message-ID: <20210618144951.dr23qqfuy6qrd2ne@steredhat.lan>
+	by lists.oasis-open.org (Postfix) with ESMTP id C06E09865A0
+	for <virtio-comment@lists.oasis-open.org>; Tue, 15 Jun 2021 03:59:42 +0000 (UTC)
 References: <20210524183232.2513690-1-arseny.krasnov@kaspersky.com>
- <20210524183420.2514296-1-arseny.krasnov@kaspersky.com>
+ <20210527131549.qs4z4re7yxsb37f5@steredhat>
+From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+Message-ID: <52d232ac-128d-45e3-b8cd-467b6c14da33@kaspersky.com>
+Date: Tue, 15 Jun 2021 06:59:38 +0300
 MIME-Version: 1.0
-In-Reply-To: <20210524183420.2514296-1-arseny.krasnov@kaspersky.com>
-Subject: [virtio-comment] Re: [PATCH v6 2/2] virtio-vsock: SOCK_SEQPACKET description
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-To: Arseny Krasnov <arseny.krasnov@kaspersky.com>
-Cc: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Andra Paraschiv <andraprs@amazon.com>, Colin Ian King <colin.king@canonical.com>, virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
+In-Reply-To: <20210527131549.qs4z4re7yxsb37f5@steredhat>
+Subject: Re: [virtio-comment] [PATCH v6 0/2] virtio-vsock: introduce
+ SOCK_SEQPACKET description
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: "cohuck@redhat.com" <cohuck@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Jorgen Hansen <jhansen@vmware.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>, Andra Paraschiv <andraprs@amazon.com>, "virtualization@lists.linux-foundation.org" <virtualization@lists.linux-foundation.org>, "oxffffaa@gmail.com" <oxffffaa@gmail.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, May 24, 2021 at 09:34:15PM +0300, Arseny Krasnov wrote:
->This adds description of SOCK_SEQPACKET socket type
->support for virtio-vsock.
->
->Signed-off-by: Arseny Krasnov <arseny.krasnov@kaspersky.com>
->---
-> virtio-vsock.tex | 26 +++++++++++++++++++++-----
-> 1 file changed, 21 insertions(+), 5 deletions(-)
->
->diff --git a/virtio-vsock.tex b/virtio-vsock.tex
->index ad57f9d..9ef2b0e 100644
->--- a/virtio-vsock.tex
->+++ b/virtio-vsock.tex
->@@ -16,7 +16,10 @@ \subsection{Virtqueues}\label{sec:Device Types / Socket Device / Virtqueues}
->
-> \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
->
->-There are currently no feature bits defined for this device.
->+\begin{description}
->+\item VIRTIO_VSOCK_F_SEQPACKET (1) SOCK_SEQPACKET socket type is
->+    supported.
->+\end{description}
 
-The VIRTIO_VSOCK_F_STREAM is described in the datagram series by Jiang,
-so this patch should be fine:
+On 27.05.2021 16:15, Stefano Garzarella wrote:
+> On Mon, May 24, 2021 at 09:32:29PM +0300, Arseny Krasnov wrote:
+>> This adds description of SOCK_SEQPACKET type for virtio-vsock.
+>>
+>> Here is latest RFC implementation for Linux, with more details:
+>>
+>> https://lkml.org/lkml/2021/5/20/2386
+>>
+>> Also this patchset has patch which replaces enums to defines in
+>> virtio-vsock part of spec. SOCK_SEQPACKET patch is based on it.
+>>
+>> Arseny Krasnov(2):
+>>  virtio-vsock: use C style defines for constants
+>>  virtio-vsock: SOCK_SEQPACKET description
+>>
+>> virtio-vsock.tex | 74 ++++++++++++++++++++++++++++------------------
+>> 1 file changed, 46 insertions(+), 28 deletions(-)
+>>
+> The series LGTM!
+>
+> Let's wait for other comments.
 
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+Ping, Linux kernel patches are already merged to net-next
 
+
+Thank You
+
+>
+> I'll send a follow up patch next week about feature bit for stream 
+> socket (bit 0).
+>
+> Thanks,
+> Stefano
+>
+>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
