@@ -1,71 +1,39 @@
-Return-Path: <virtio-comment-return-1916-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-References: <20210617094122.1627-1-info@metux.net>
- <20210617094122.1627-2-info@metux.net>
- <20210617113310.6oo74e5htvmm4afr@vireshk-i7>
- <20210630035816.4chjlo5la4d2hphp@vireshk-i7>
-From: "Enrico Weigelt, metux IT consult" <lkml@metux.net>
-Message-ID: <d18a82c8-77de-4ee5-c820-72254e449595@metux.net>
-Date: Wed, 30 Jun 2021 13:14:08 +0200
+Return-Path: mgurtovoy@nvidia.com
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Subject: [RFC PATCH 0/1] Live migration for VIRTIO
+Date: Thu, 24 Jun 2021 11:08:24 +0300
+Message-ID: <20210624080825.43478-1-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20210630035816.4chjlo5la4d2hphp@vireshk-i7>
-Subject: Re: [virtio-comment] Re: [virtio-dev] [PATCH] virtio-gpio: add formal
- specification
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: tl
-Content-Transfer-Encoding: quoted-printable
-To: Viresh Kumar <viresh.kumar@linaro.org>, "Enrico Weigelt, metux IT consult" <info@metux.net>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, Vincent Guittot <vincent.guittot@linaro.org>, Bill Mills <bill.mills@linaro.org>, =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>, Jason Wang <jasowang@redhat.com>, Jean-Philippe Brucker <jean-philippe@linaro.org>, Arnd Bergmann <arnd@linaro.org>, Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain
+To: virtio-comment@lists.oasis-open.org, mst@redhat.com, jasowang@redhat.com, cohuck@redhat.com
+Cc: eperezma@redhat.com, aadam@redhat.com, oren@nvidia.com, shahafs@nvidia.com, parav@nvidia.com, bodong@nvidia.com, amikheev@nvidia.com, stefanha@redhat.com, Max Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 30.06.21 05:58, Viresh Kumar wrote:
-> Hi Enrico,
->=20
-> It has been two weeks since the previous post, since no one else
-> replied yet, I think it is good time now for the next version to be
-> posted. :)
+Hi all,
+This patch will describe the needed updates to the virtio specification for
+adding live migration support for various devices. Live migration is one of
+the most important features of virtualization and virtio devices are oftenly
+found in virtual environments so setting a standard mechanism for this feature
+will allow virtio providers to develop compliant devices that will use standard
+drivers for that matter.
 
-yeah, I'll do that in a few minutes .. had been busy w/ other stuff :o
+In this solution, that is aimed for VIRTIO PCI devices, the PF is the
+management entity for migrating its VFs. The communication channel between the
+migration software, that is running on the host, and the PF controller is the
+admin control queue. Using this virtq, the migration software will be able to
+manage the migration process (e.g. track dirty pages, change operational
+states, save/restore internal context, and more).
 
-And I've still been struggling with the build error you've reported.
-It only happens when on html build (which I hadn't tested yet).
-Seems that htlatex has problems with underscores in labels. Fixed that
-now by using - instead of _ in the label.
+This initial draft describes the entire solution and later on we'll be able to
+divide it to smaller pieces and incrementally patch the .tex files.
 
-I'm now doing some more typographic fixes before sending v2.
+Max Gurtovoy (1):
+  live_migration: initial support for migrating virtio devices
 
+ virtio-live-migration.md | 399 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 399 insertions(+)
+ create mode 100644 virtio-live-migration.md
 
---mtx
-
---=20
----
-Hinweis: unverschl=C3=BCsselte E-Mails k=C3=B6nnen leicht abgeh=C3=B6rt und=
- manipuliert
-werden ! F=C3=BCr eine vertrauliche Kommunikation senden Sie bitte ihren
-GPG/PGP-Schl=C3=BCssel zu.
----
-Enrico Weigelt, metux IT consult
-Free software and Linux embedded engineering
-info@metux.net -- +49-151-27565287
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+-- 
+2.21.0
 
