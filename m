@@ -1,562 +1,468 @@
-Return-Path: <virtio-comment-return-1914-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-1917-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4B959986070
-	for <virtio-comment@lists.oasis-open.org>; Mon, 28 Jun 2021 15:22:22 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20210624082032.44186-2-mgurtovoy@nvidia.com>
-References: <20210624082032.44186-1-mgurtovoy@nvidia.com>
- <20210624082032.44186-2-mgurtovoy@nvidia.com>
-Date: Mon, 28 Jun 2021 17:22:03 +0200
-Message-ID: <8735t2m2uc.fsf@redhat.com>
+From: "Enrico Weigelt, metux IT consult" <info@metux.net>
+Date: Wed, 30 Jun 2021 13:58:37 +0200
+Message-Id: <20210630115837.12182-1-info@metux.net>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH 1/1] live_migration: initial support
- for migrating virtio devices
-Content-Type: text/plain
-To: Max Gurtovoy <mgurtovoy@nvidia.com>, virtio-comment@lists.oasis-open.org, mst@redhat.com, jasowang@redhat.com
-Cc: eperezma@redhat.com, aadam@redhat.com, oren@nvidia.com, shahafs@nvidia.com, parav@nvidia.com, bodong@nvidia.com, amikheev@nvidia.com, stefanha@redhat.com, Max Gurtovoy <mgurtovoy@nvidia.com>
+Subject: [virtio-comment] [PATCH v2] virtio-gpio: add formal specification
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Jun 24 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
+This patch adds specification for attaching general purpose IO (gpio) devic=
+es
+via virtio. The protocol is specifically designed to be easily implemented =
+in
+software (e.g. hypervisors) as well as low end hardware (eg. silicon, FPGA,
+tiny MCUs) and allows future extensions while retaining full backwards
+compatibility.
 
-> Describe the needed updates to the virtio specification for adding live
-> migration support for various devices. Live migration is one of the most
-> important features of virtualization and virtio devices are oftenly
-> found in virtual environments so setting a standard mechanism for this
-> feature will allow virtio providers to develop compliant devices that
-> will use standard drivers for that matter.
->
-> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
-> ---
->  virtio-live-migration.md | 399 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 399 insertions(+)
->  create mode 100644 virtio-live-migration.md
+Implementations for driver (Linux kernel) and device (Qemu) are publically
+available and field tested since late 2020. Hardware implementations also
+exist (but proprietary, cannot be published yet).
 
-What is the context of this file, and where is it supposed to live?
+Device type ID 41 has been allocated by TC vote #3632.
 
->
-> diff --git a/virtio-live-migration.md b/virtio-live-migration.md
-> new file mode 100644
-> index 0000000..8655375
-> --- /dev/null
-> +++ b/virtio-live-migration.md
-> @@ -0,0 +1,399 @@
-> +[VER]
-> +
-> +[DATE]
-> +
-> +# Overview
-> +
-> +This document will describe the needed updates to the virtio
-> specification for adding live migration support for various
-> devices. Live migration is one of the most important features of
-> virtualization and virtio devices are oftenly found in virtual
-> environments so setting a standard mechanism for this feature will
-> allow virtio providers to develop compliant devices that will use
-> standard drivers for that matter.
+Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 
-Is this supposed to happen on the device side? Do drivers need to get
-involved, or is it transparent to them?
+---
 
-> +
-> +In order to fulfil the Live migration requirements for virtual
-> functions, each physical function controller must implement basic
-> migration operations. Using these operations, it will be able to
-> master the migration process for the virtual function
-> controllers. Each capable physical function controller actually has a
-> supervisor permissions to change the virtual function operational
-> states, save/restore its internal state and start/stop dirty pages
-> tracking.
+changes v2: * fixed htlatex build error with underscores in labels
+            * using code listings for structs and define's
+            * fixed mixed-up device/driver wording
+---
+ conformance.tex |  28 +++++-
+ content.tex     |   3 +-
+ virtio-gpio.tex | 257 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 283 insertions(+), 5 deletions(-)
+ create mode 100644 virtio-gpio.tex
 
-Virtual/physical function sounds very PCI specific. Is this supposed to
-be generic (with PCI being an example), or is this really about PCI
-migration?
-
-> +
-> +Although the migration operations API is common, each controller has
-> it's own internal implementation. For example, internal device state
-> structure is different between the different types of
-> controllers/providers.
-
-What is a "controller" in this context?
-
-> +
-> +The readers of this document are assumed to have a basic understanding in virtio, virtualization and migration process.
-> +
-> +## Terms
-> +
-> +| Name | Description       |
-> +| ---- | ----------------- |
-> +| PF   | Physical function |
-> +| VF   | Virtual function  |
-> +| VM   | Virtual machine   |
-> +| FW   | Firmware          |
-> +| HW   | Hardware          |
-> +| SW   | Software          |
-> +
-> +# Scope
-> +
-> +This document will describe the following:
-> +
-> +1. Generic virtio device extensions
-> +2. virtio block device extensions
-> +3. virtio net device extensions
-> +4. virtio fs device extensions - TBD
-> +
-> +# General
-> +
-> +## Dirty page tracking
-> +
-> +During live migration process the system memory pages that are
-> modified in the "pre-copy" stage are called dirty pages. These pages
-> must be retransmitted to the destination migration SW to update the
-> memory content that was initially sent by the source migration SW. For
-> some devices (e.g. storage controllers), it's vital that the migration
-> SW will transfer these pages during "pre-copy" stage to reduce the
-> downtime for the VM. This is important since storage devices might
-> dirty a huge amount of pages at any time. For that reason, dirty page
-> tracking while running is highly recommended feature for migration
-> capable devices and especially for storage devices.
-
-Is this designed to be similar to how vfio migration works?
-
-> +
-> +When device is quiesced it is no longer capable of dirtying additional pages (e.g. in "stop-and-copy" and "resuming" stages). During the downtime of the VM, the migration SW will transfer the rest of the dirty pages to the destination.
-> +
-> +### Push tracking mode
-> +
-> +In this mode of operation, the device will get a pointer to a dedicated memory space that represents a dirty_page_map. The granularity of the map is negotiated during initialization and might be bit_per_page or byte_per_page. For each page that is dirtied by the device, it will mark the corresponding bit/byte in the dirty_page_map. The migration SW, will be responsible for managing this map and clear the relevant dirty page marks during the migration process in atomic way (e.g. using compare and swap).
-> +
-> +### Pull tracking mode
-> +
-> +In this mode of operation, the device will be asked to track and internally save a dirty_page_map. The granularity of the map is negotiated during initialization and might be bit_per_page or byte_per_page. For each page that is dirtied by the device, it will mark the corresponding bit/byte in the dirty_page_map. During the migration process, the migration SW, will ask the device to report the size of the dirty_page_map and copy the content of it to host memory.
-> +
-> +# Reserved Feature Bits
-> +
-> +According to the specification, these bits are device-independent feature bits.
-> +
-> +## VIRTIO_F_GENERIC_CTRL_VQ_VER_1
-> +
-> +Add a new feature bit to the specification:
-> `VIRTIO_F_GENERIC_CTRL_VQ_VER_1 (39) Device supports a generic form
-> version_1 for all commands that are isseud using the control virtq.`
-
-What is the 'control virtq' in this context? Some devices already have a
-control virtqueue, so I assume this is supposed to be something new?
-
-> +
-> +The commands of the generic version_1 control format are as follows:
-> +
-> +```c
-> +struct virtio_generic_v1_ctrl {
-> +	// Device-readable part
-> +	u8 class;
-> +	u8 command;
-> +	u8 command-specific-data[];
-> +	// Device-writable part
-> +	u8 command-specific-result[];
-> +	u8 ack;
-> +};
-> +
-> +/* ack values */
-> +#define VIRTIO_CTRL_OK 0
-> +#define VIRTIO_CTRL_ERR 1
-> +```
-> +
-> +The class, command and command-specific-data are set by the driver,
-> and the device sets the ack byte and command-specific-result, if
-> needed.
-
-Do we need a way to specify the length of the data and result areas
-(i.e. a built-in variable length specification vs a per-command one?) Is
-the device required to ack all buffers that it consumes? Do we need a
-way for the driver to discover which commands the device actually
-supports?
-
-> +
-> +Note: feature bit 39 was chosen until it will be standardized by the virtio specification working group (This is the first free bit in the "Reserved Feature Bits").
-> +
-> +## VIRTIO_F_VF_MIGRATION
-> +
-> +Add a new feature bit to the specification: `VIRTIO_F_VF_MIGRATION
-> (40) Device can control live migration operation for its virtual
-> functions`. This feature indicates that the device can manage the live
-> migration process of its virtual functions. This feature is currently
-> supported only for physical virtio PCI based functions. Thus, the
-> device should offer `VIRTIO_F_VF_MIGRATION` feature bit if
-> `VIRTIO_F_SR_IOV` feature bit to be offered as well for the specific
-> device. Otherwise, it must not offer `VIRTIO_F_VF_MIGRATION`.
-
-This feels overly restrictive. If a generic migration feature makes
-sense, it should possibly be available to other implementations as
-well.
-
-Also, is this 'support migration' or 'support dirty page reporting' (or
-something like that?) The latter might be potentially useful for other
-cases, and should probably not be tied to a 'migration' concept.
-
-> +
-> +The driver will use the control virtq to communicate migration
-> commands to the device. Thus, the device should offer a control virtq
-> feature. Otherwise, it must not offer `VIRTIO_F_VF_MIGRATION`. The
-> driver should negotiate the generic format of the commands that will
-> be supported. Currently only the generic version_1 control format (see
-> section 5) is supported. For that, the
-> `VIRTIO_F_GENERIC_CTRL_VQ_VER_1` feature bit should be offered by the
-> device and negotiated.
-
-I'm not sure how much sense a generic control queue interface makes for
-this feature. Do we expect to run different classes of control commands
-via that queue? If not, would a concrete migration/dirty page tracking
-control queue make more sense?
-
-> +
-> +A PF driver must complete `VIRTIO_F_VF_MIGRATION` negotiation before starting live migration process for any virtual function that is related to that PF.
-> +
-> +Note: feature bit 40 was chosen until it will be standardized by the virtio specification working group (This is the first free bit in the "Reserved Feature Bits").
-> +
-> +#  Reserved Control Commands
-> +
-> +Currently only 1 generic control format was defined (see section 4.1).
-> +
-> +For supporting devices the following command classes are reserved for specific device types:
-> +
-> +```c
-> +/* class values that are device specific */
-> +#define VIRTIO_GENERIC_V1_DEVICE_SPECIFIC_CTRL_CLASS_F_START 0
-> +#define VIRTIO_GENERIC_V1_DEVICE_SPECIFIC_CTRL_CLASS_F_END 127
-> +```
-> +
-> +For supporting devices the following command classes are common and device-independent:
-> +
-> +```c
-> +/* class values that are device independent */
-> +#define VIRTIO_GENERIC_V1_DEVICE_COMMON_CTRL_CLASS_F_START 128
-> +#define VIRTIO_GENERIC_V1_DEVICE_COMMON_CTRL_CLASS_F_END 255
-> +```
-
-I'm not sure whether splitting the commands is better than defining
-distinct control queues for distinct purposes. How do different commands
-on a queue interact with each other? Say one buffer contains some kind
-of migration command, the next one a device-specific command that
-triggers a long-running action, and the next one another migration
-command. Is it acceptable for that long-running command to hold up the
-migration?
-
-> +
-> +## VF Live Migration control commands
-> +
-> +if `VIRTIO_F_VF_MIGRATION` feature is negotiated, the driver can send control commands for performing live migration operation for a virtual function that is related to the physical virtio controller. These commands will be issued using the control virtqueue with the generic version_1 control format that was negotiated via `VIRTIO_F_GENERIC_CTRL_VQ_VER_1` feature bit.
-> +
-> +Supported commands (are part of the class values that are device independent) :
-> +
-> +```c
-> +#define VIRTIO_GENERIC_V1_CTRL_VF_MIGRATION 128 //This is the class (bellow are the commands)
-> + #define VIRTIO_CTRL_VF_MIGRATION_IDENTIFY 0
-> + #define VIRTIO_CTRL_VF_MIGRATION_START_DIRTY_PAGE_TRACK 1 //choose reporting mode
-> + #define VIRTIO_CTRL_VF_MIGRATION_STOP_DIRTY_PAGE_TRACK 2
-> + #define VIRTIO_CTRL_VF_MIGRATION_GET_DIRTY_REPORT_SIZE 3 //valid for pull modes only
-> + #define VIRTIO_CTRL_VF_MIGRATION_REPORT_DIRTY_PAGES 4 //valid for pull modes only
-> + #define VIRTIO_CTRL_VF_MIGRATION_SET_STATE 5
-> + #define VIRTIO_CTRL_VF_MIGRATION_GET_STATE_ATTRS 6
-> + #define VIRTIO_CTRL_VF_MIGRATION_SAVE_STATE 7
-> + #define VIRTIO_CTRL_VF_MIGRATION_RESTORE_STATE 8
-> +```
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_IDENTIFY (0)
-> +
-> +This command has no command specific data set by the driver.
-> +
-> +The following is the command specific result that the device should return upon successful operation:
-> +
-> +```c
-> +enum virtio_dirty_page_track_mode_caps {
-> +    VIRTIO_ID_DIRTY_TRACK_PUSH_BITMAP = 1 << 0, /* push mode with bit granularity */
-> +    VIRTIO_ID_DIRTY_TRACK_PUSH_BYTEMAP = 1 << 1, /* push mode with byte granularity */
-> +    VIRTIO_ID_DIRTY_TRACK_PULL_BITMAP = 1 << 2, /* pull mode with bit granularity */
-> +    VIRTIO_ID_DIRTY_TRACK_PULL_BYTEMAP = 1 << 3, /* pull mode with byte granularity */
-> +};
-> +
-> +struct virtio_ctrl_vf_mig_get_identify_result {
-> +	__virtio16 mjr_ver;
-> +	__virtio16 mnr_ver;
-> +	__virtio16 ter_ver;
-> +
-> +    /* bitmap of enum virtio_dirty_page_track_mode_caps */
-> +	__virtio16 dirty_page_track_modes;
-> +    /* number of pages the device can track per vf in pull bitmap mode (log) */
-> +	__virtio16 log_max_pages_track_pull_bitmap_mode;
-> +    /* number of pages the device can track per vf in pull bytemap mode (log) */
-> +	__virtio16 log_max_pages_track_pull_bytemap_mode;
-> +	__virtio32 reserved;
-> +};
-
-These should all be little-endian (as this will not be available to
-legacy devices.)
-
-> +```
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_START_DIRTY_PAGE_TRACK (1)
-> +
-> +The following is the command specific data that the driver should send:
-> +
-> +```c
-> +enum virtio_dirty_track_mode {
-> +    VIRTIO_M_DIRTY_TRACK_PUSH_BITMAP = 1, /* Use push mode with bit granularity */
-> +    VIRTIO_M_DIRTY_TRACK_PUSH_BYTEMAP = 2, /* Use push mode with byte granularity */
-> +	VIRTIO_M_DIRTY_TRACK_PULL_BITMAP = 3, /* Use pull mode with bit granularity */
-> +    VIRTIO_M_DIRTY_TRACK_PULL_BYTEMAP = 4, /* Use pull mode with byte granularity */
-> +};
-> +struct virtio_ctrl_vf_mig_start_dirty_page_track {
-> +	__virtio16 func_id;
-> +	__virtio16 mode;
-> +	u8 reserved;
-> +	u8 data[]; /* push mode only */
-> +};
-> +```
-> +
-> +This command has no command specific result set by the device.
-> +
-> +Note_1: In *push* mode, the posted data descriptors will set `VIRTQ_DESC_F_INDIRECT` flag. These descriptors will point to a table of descriptors anywhere in the memory. The memory pointed by the indirect descriptor table will be used by the device until `VIRTIO_CTRL_VF_MIGRATION_STOP_DIRTY_PAGE_TRACK` command will finish successfully. The driver can't free this memory before that, with the exception of device reset.
-> +
-> +Note_2: `push` mode should be supported only for devices that support `VIRTIO_F_INDIRECT_DESC` feature.
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_STOP_DIRTY_PAGE_TRACK (2)
-> +
-> +The following is the command specific data that the driver should send:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_stop_dirty_page_track {
-> +	__virtio16 func_id;
-> +};
-> +```
-> +
-> +This command has no command specific result set by the device.
-> +
-> +Note: In *push* mode, the memory pointed by the indirect descriptors that were provided during `VIRTIO_CTRL_VF_MIGRATION_START_DIRTY_PAGE_TRACK` command will become available to the driver upon successful completion. The device is not allowed to access this memory anymore and the driver may free this memory.
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_GET_DIRTY_REPORT_SIZE (3)
-> +
-> +The following is the command specific data that the driver should send:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_get_dirty_report_size {
-> +	__virtio16 func_id;
-> +};
-> +```
-> +
-> +The following is the command specific result that the device should return upon successful operation:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_get_dirty_report_size_result {
-> +	__virtio32 len;
-> +};
-> +```
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_REPORT_DIRTY_PAGES (4)
-> +
-> +The following is the command data that the driver should send:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_report_dirty_pages {
-> +	__virtio16 func_id;
-> +	__virtio16 reserved;
-> +	__virtio32 offset; /* Offset in the device internal report (in case we want to copy in portions) */
-> +};
-> +```
-> +
-> +The following is the command specific result that the device should return upon successful operation:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_report_dirty_pages_result {
-> +	u8 data[];
-> +};
-> +```
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_SET_STATE (5)
-> +
-> +The following is the command specific data that the driver should send:
-> +
-> +```c
-> +enum virtio_internal_state {
-> +    /* Reset occured. The device is in initial state. aka FLR state */
-> +    VIRTIO_S_INIT = 0,
-> +    /* The device is running (unquiesced and unfreezed) */
-> +    VIRTIO_S_RUNNING = 1,
-> +    /*
-> +     * The device has been quiesced (Internal state can be changed.
-> +     * Can't master transactions)
-> +     */
-> +    VIRTIO_S_QUIESCED = 2,
-> +    /*
-> +     * The device has been freezed (Internal state can't be changed.
-> +     * Can't master transactions. SAVE_STATE and RESTORE_STATE are allowed.)
-> +     */
-> +    VIRTIO_S_FREEZED = 3,
-> +};
-
-What are 'transactions'?
-
-> +
-> +struct virtio_ctrl_vf_mig_set_state {
-> +	__virtio16 func_id;
-> +	__virtio16 state; /* value from enum virtio_internal_state */
-> +};
-> +```
-> +
-> +This command has no command specific result set by the device.
-> +
-> +Bellow the state machine definition:
-> +
-> +```
-> +                                    +-----------------------------+
-> +                                    |                             +<--------QUIESCE ("UNFREEZE")
-> +              +---QUIESCE----------->      QUIESCED               |                        |
-> +              |                     |                             +----FREEZE--+           |
-> +              |      +--------------+                             |            |           |
-> +              |      |              +---------^------+------------+            |           |
-> +              |      |                        |      |                         |           |
-> +              | RUN ("UNQUIESCE")             |      |                         |           |
-> +              |      |                        |     FLR                        |           |
-> ++-------------+------v--------+               |      |                  +------v-----------+----------+
-> +|                             |               |      |                  |                             |
-> +|        RUNNING              +---FLR-----+   |      |    +---FLR-------+     FREEZED                 |
-> +|                             |           |   |      |    |             |                             |
-> +|                             |           | QUIESCE  |    |             |                             |
-> ++-------------^---------------+           |   |      |    |             +----------^------------------+
-> +              |                           |   |      |    |                        |
-> +              |                           |   |      |    |                        |
-> +              |                           |   |      |    |                        |
-> +              |                      +----v---+------v----v--------+               |
-> +              |                      |                             |               |
-> +              |                      |         INIT                |               |
-> +              +-----RUN--------------+                             +-----FREEZE----+
-> +                                     |                             |
-> +                                     +-----------------------------+
-> +
-> +```
-> +
-> +Note: The device can implicitly move to "INIT" state (from any other state) in case of FLR detection and implicitly move to "RUNNING" (only from "INIT" state) in case of driver detection.
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_GET_STATE_ATTR (6)
-> +
-> +The following is the command specific data that the driver should send:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_get_state_attr {
-> +	__virtio16 func_id;
-> +};
-> +```
-> +
-> +The following is the command specific result that the device should return upon successful operation:
-> +
-> +```c
-> +enum virtio_internal_state {
-> +    /* Reset occured. The device is in initial state. aka FLR state */
-> +    VIRTIO_S_INIT = 0,
-> +    /* The device is running (unquiesced and unfreezed) */
-> +    VIRTIO_S_RUNNING = 1,
-> +    /*
-> +     * The device has been quiesced (Internal state can be changed.
-> +     * Can't master transactions)
-> +     */
-> +    VIRTIO_S_QUIESCED = 2,
-> +    /*
-> +     * The device has been freezed (Internal state can't be changed.
-> +     * Can't master transactions. SAVE_STATE and RESTORE_STATE are allowed.)
-> +     */
-> +    VIRTIO_S_FREEZED = 3,
-> +};
-> +
-> +struct virtio_ctrl_vf_mig_get_state_attr_result {
-> +	__virtio32 len;
-> +	__virtio16 state; /* value from enum virtio_internal_state */
-> +};
-> +```
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_SAVE_STATE (7)
-> +
-> +The following is the command data that the driver should send:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_save_state {
-> +	__virtio16 func_id;
-> +	__virtio16 reserved;
-> +	__virtio32 offset; /* offset in the device internal state (in case we want to copy state in portions) */
-> +};
-> +```
-> +
-> +The following is the command specific result that the device should return upon successful operation:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_save_state_result {
-> +	u8 data[];
-> +};
-> +```
-> +
-> +### VIRTIO_CTRL_VF_MIGRATION_RESTORE_STATE (8)
-> +
-> +The following is the command data that the driver should send:
-> +
-> +```c
-> +struct virtio_ctrl_vf_mig_restore_state {
-> +	__virtio16 func_id;
-> +	__virtio16 reserved;
-> +	__virtio32 offset; /* offset in the device internal state (in case we want to restore state in portions) */
-> +	u8 data[];
-> +};
-> +```
-> +
-> +This command has no command specific result set by the device.
-> +
-> +# VIRTIO BLK
-> +
-> +## Feature bits
-> +
-> +Add a new feature bit to virtio Block device specification: `VIRTIO_BLK_F_CTRL_VQ (15) Control channel is available.` The controlq exists only if VIRTIO_BLK_F_CTRL_VQ set by the controller. The controlq is another virtq in the device virtq list. Thus, for backward compatibility, the `VIRTIO_BLK_F_CTRL_VQ` feature bit requires `VIRTIO_BLK_F_MQ` feature bit to be set. The controlq is used to administer the device (not to confuse with the already defined "device features" VIRTIO_BLK_F_*).
-> +
-> +Note: feature bit 15 was chosen until it will be standardized by the virtio specification working group (This is the first free bit in the virtio block "Feature bits").
-> +
-> +## Control Virtqueue
-> +
-> +The driver uses the control virtqueue (if VIRTIO_BLK_F_CTRL_VQ is negotiated) to send commands to manipulate various features of the device which would not easily map into the configuration space (similar to virtio net control queue). Live migration is one of these features.
-> +
-> +The control virtq will the (N + 1) queue while N is set by virtio_blk_config.num_queues (that will imply on the maximal number of request queues). This is similar to VIRTIO Crypto device controlq numbering logic.
-> +
-> +Note: We can fix the BLK spec bug and change the controlq to be the N queue.
-> +
-> +If the `VIRTIO_F_GENERIC_CTRL_VQ_VER_1` feature was negotiated, all the commands that will be issued using this controlq will use the generic version_1 control format (section 4.1).
-> +
-> +# VIRTIO NET
-> +
-> +## Feature bits
-> +
-> +VIRTIO_NET_F_CTRL_VQ feature already exist in the specification.
-> +
-> +## Control Virtqueue
-> +
-> +The driver uses the control virtqueue (if VIRTIO_NET_F_CTRL_VQ is negotiated) to send commands to manipulate the live migration process.
-> +
-> +If the `VIRTIO_F_GENERIC_CTRL_VQ_VER_1` feature was negotiated, all
-> the commands that will be issued using this controlq will use the
-> generic version_1 control format (section 4.1).
-
-This is overloading the existing control queue definition; that feels
-wrong to me.
-
-> +
-> +# VIRTIO FS
-
-All in all, I'm not quite sure where this is supposed to be going. What
-are the concrete problems that this dirty page tracking interface is
-supposed to solve?
-
-If we need an interface like that, I'd vote for a separate virtqueue for
-that purpose, which could in theory be negotiated for every device.
+diff --git a/conformance.tex b/conformance.tex
+index a164cbb..e5956f4 100644
+--- a/conformance.tex
++++ b/conformance.tex
+@@ -29,8 +29,9 @@ \section{Conformance Targets}\label{sec:Conformance / Con=
+formance Targets}
+ \ref{sec:Conformance / Driver Conformance / IOMMU Driver Conformance},
+ \ref{sec:Conformance / Driver Conformance / Sound Driver Conformance},
+ \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
+-\ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance=
+} or
+-\ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance}.
++\ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance=
+},
++\ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance} or
++\ref{sec:Conformance / Driver Conformance / General Purpose IO Driver Conf=
+ormance}.
+=20
+     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Dev=
+ice and Transitional Driver Conformance}.
+   \end{itemize}
+@@ -52,8 +53,9 @@ \section{Conformance Targets}\label{sec:Conformance / Con=
+formance Targets}
+ \ref{sec:Conformance / Device Conformance / IOMMU Device Conformance},
+ \ref{sec:Conformance / Device Conformance / Sound Device Conformance},
+ \ref{sec:Conformance / Device Conformance / Memory Device Conformance},
+-\ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance=
+} or
+-\ref{sec:Conformance / Device Conformance / SCMI Device Conformance}.
++\ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance=
+},
++\ref{sec:Conformance / Device Conformance / SCMI Device Conformance} or
++\ref{sec:Conformance / Device Conformance / General Purpose IO Device Conf=
+ormance}.
+=20
+     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Dev=
+ice and Transitional Driver Conformance}.
+   \end{itemize}
+@@ -288,6 +290,15 @@ \section{Conformance Targets}\label{sec:Conformance / =
+Conformance Targets}
+ \item \ref{drivernormative:Device Types / SCMI Device / Device Operation /=
+ Setting Up eventq Buffers}
+ \end{itemize}
+=20
++\conformance{\subsection}{General Purpose IO Driver Conformance}\label{sec=
+:Conformance / Driver Conformance / General Purpose IO Driver Conformance}
++
++An General Purpose IO driver MUST conform to the following normative state=
+ments:
++
++\begin{itemize}
++\item \ref{devicenormative:Device Types / General Purpose IO / Virtqueues}
++\item \ref{devicenormative:Device Types / General Purpose IO / Data flow}
++\end{itemize}
++
+ \conformance{\section}{Device Conformance}\label{sec:Conformance / Device =
+Conformance}
+=20
+ A device MUST conform to the following normative statements:
+@@ -527,6 +538,15 @@ \section{Conformance Targets}\label{sec:Conformance / =
+Conformance Targets}
+ \item \ref{devicenormative:Device Types / SCMI Device / Device Operation /=
+ Shared Memory Operation}
+ \end{itemize}
+=20
++\conformance{\subsection}{General Purpose IO Device Conformance}\label{sec=
+:Conformance / Device Conformance / General Purpose IO Device Conformance}
++
++An General Purpose IO device MUST conform to the following normative state=
+ments:
++
++\begin{itemize}
++\item \ref{devicenormative:Device Types / General Purpose IO / Virtqueues}
++\item \ref{devicenormative:Device Types / General Purpose IO / Data flow}
++\end{itemize}
++
+ \conformance{\section}{Legacy Interface: Transitional Device and Transitio=
+nal Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitio=
+nal Device and Transitional Driver Conformance}
+ A conformant implementation MUST be either transitional or
+ non-transitional, see \ref{intro:Legacy
+diff --git a/content.tex b/content.tex
+index 5c70a3c..3e9d1a1 100644
+--- a/content.tex
++++ b/content.tex
+@@ -2876,7 +2876,7 @@ \chapter{Device Types}\label{sec:Device Types}
+ \hline
+ 40         &   Bluetooth device \\
+ \hline
+-41         &   GPIO device \\
++41         &   General Purpose IO device \\
+ \hline
+ \end{tabular}
+=20
+@@ -6583,6 +6583,7 @@ \subsubsection{Legacy Interface: Framing Requirements=
+}\label{sec:Device
+ \input{virtio-mem.tex}
+ \input{virtio-i2c.tex}
+ \input{virtio-scmi.tex}
++\input{virtio-gpio.tex}
+=20
+ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+=20
+diff --git a/virtio-gpio.tex b/virtio-gpio.tex
+new file mode 100644
+index 0000000..92dfa19
+--- /dev/null
++++ b/virtio-gpio.tex
+@@ -0,0 +1,257 @@
++\section{General Purpose IO Device}\label{sec:Device Types / General Purpo=
+se IO}
++
++The virtio gpio device is a general purpose IO device that supports a vari=
+able
++number of named IO lines that may be switched either as input or output an=
+d
++in logical level 0 or 1.
++
++\subsection{Device ID}\label{sec:Device Types / General Purpose IO / Devic=
+e ID}
++  41
++
++\subsection{Version}\label{sec:Device Types / General Purpose IO / Version=
+}
++  1
++
++\subsection{Device configuration layout}\label{sec:Device Types / General =
+Purpose IO / Device configuration layout}
++
++General purpose IO configuration uses the following layout structure:
++
++\begin{lstlisting}
++struct virtio_gpio_config {
++    __u8    version;
++    __u8    reserved0;
++    __u16   num_gpios;
++    __u32   names_size;
++    __u8    reserved1[24];
++    __u8    name[32];
++    __u8    line_names[];
++};
++\end{lstlisting}
++
++\begin{itemize}
++    \item for \field{version} field currently only value 1 supported.
++    \item the \field{line names block} holds a stream of zero-terminated s=
+trings,
++        containing the individual line names in ASCII. line names must uni=
+que.
++    \item unspecified fields are reserved for future use and should be zer=
+o.
++    \item future versions may extend this configuration space by additiona=
+l fields.
++\end{itemize}
++
++\subsection{Virtqueues}\label{sec:Device Types / General Purpose IO / Virt=
+queues}
++\begin{description}
++\item[0] rx (device to CPU)
++\item[1] tx (CPU to device)
++\end{description}
++
++The virtqueues transport messages of the type struct virtio_gpio_msg from =
+device to CPU or CPU to device.
++
++\subsubsection{Virtqueues}\label{sec:Device Types / General Purpose IO / V=
+irtqueues / Message format}
++
++The queues transport messages of the struct virtio_gpio_msg:
++
++\begin{lstlisting}
++struct virtio_gpio_msg {
++    __le16  type;
++    __le16  pin;
++    __le32  value;
++};
++\end{lstlisting}
++
++\subsubsection{Message types}\label{sec:Device Types / General Purpose IO =
+/ Virtqueues / Message types}
++
++\begin{lstlisting}
++/* messages types: driver -> device */
++#define VIRTIO_GPIO_MSG_CPU_REQUEST             0x0001
++#define VIRTIO_GPIO_MSG_CPU_DIRECTION_INPUT     0x0002
++#define VIRTIO_GPIO_MSG_CPU_DIRECTION_OUTPUT    0x0003
++#define VIRTIO_GPIO_MSG_CPU_GET_DIRECTION       0x0004
++#define VIRTIO_GPIO_MSG_CPU_GET_LEVEL           0x0005
++#define VIRTIO_GPIO_MSG_CPU_SET_LEVEL           0x0006
++
++/* message types: device -> driver */
++#define VIRTIO_GPIO_MSG_DEVICE_LEVEL            0x0011
++
++/* reply mask: device sets this bit on replies (along with request's messa=
+ge type)
++#define VIRTIO_GPIO_MSG_REPLY                   0x8000
++\end{lstlisting}
++
++\devicenormative{\subsubsection}{Virtqueues}{Device Types / General Purpos=
+e IO / Virtqueues}
++
++The device MUST read from the tx queue and write to rx queue.
++
++The device MUST NOT write to the tx queue.
++
++\drivernormative{\subsubsection}{Virtqueues}{Device Types / General Purpos=
+e IO / Virtqueues}
++
++The device MUST read from the rx queue and write to tx queue.
++
++The device MUST NOT write to the rx queue.
++
++\subsection{Data flow}\label{sec:Device Types / General Purpose IO / Data =
+flow}
++
++\begin{itemize}
++    \item all operations, except \field{VIRTIO_GPIO_MSG_DEVICE_LEVEL}, are=
+ initiated by CPU (tx queue)
++    \item device replies with the orinal \field{type} value OR'ed with \fi=
+eld{VIRTIO_GPIO_MSG_REPLY} (rx queue)
++    \item requests are processed and replied in the they had been sent
++    \item async notifications by the device may be interleaved with reques=
+t responses
++    \item VIRTIO_GPIO_MSG_DEVICE_LEVEL is only sent asynchronously from de=
+vice to CPU
++    \item in replies, a negative \field{value} field denotes an Unix-style=
+ / POSIX errno code
++    \item the actual error values \textit{(despite being negative or not)}=
+ is only of informational
++          nature -- a device or vm host \textit{may} report more detailed =
+error cause but is not required to.
++    \item valid direction values are: 0 =3D output, 1 =3D input
++    \item valid line level values are: 0 =3D inactive, 1 =3D active
++    \item CPU should not send messages with unspecified \field{type} value
++    \item CPU should ignore ignore messages with unspecified \field{type} =
+value
++\end{itemize}
++
++
++\subsubsection{VIRTIO_GPIO_MSG_CPU_REQUEST}\label{sec:Device Types / Gener=
+al Purpose IO / Data flow / VIRTIO-GPIO-MSG-CPU-REQUEST}
++
++Notify the device that given line number is going to be used.
++
++\begin{tabular}{ll}
++    \hline
++    \textbf{request:} & \\
++    \hline
++    \field{line}  field: & logical line number \\
++    \field{value} field: & unused (should be zero) \\
++    \textbf{reply:} & \\
++    \hline
++    \field{value} field: & POSIX errno code (0 =3D success, non-zero =3D e=
+rror) \\
++    \hline
++\end{tabular}
++
++\subsubsection{VIRTIO_GPIO_MSG_CPU_DIRECTION_INPUT}\label{sec:Device Types=
+ / General Purpose IO / Data flow / VIRTIO-GPIO-MSG-CPU-DIRECTION-INPUT}
++
++Set line line direction to input.
++
++\begin{tabular}{ll}
++    \hline
++    \textbf{request:} \\
++    \hline
++    \field{line}  field: & logical line number \\
++    \field{value} field: & unused (should be zero) \\
++    \hline
++    \textbf{reply:} & \\
++    \hline
++    \field{value} field: & POSIX errno code (0 =3D success, non-zero =3D e=
+rror) \\
++    \hline
++\end{tabular}
++
++\subsubsection{VIRTIO_GPIO_MSG_CPU_DIRECTION_OUTPUT}\label{sec:Device Type=
+s / General Purpose IO / Data flow / VIRTIO-GPIO-MSG-CPU-DIRECTION-OUTPUT}
++
++Set line direction to output and given line level.
++
++\begin{tabular}{ll}
++    \hline
++    \textbf{request:} \\
++    \hline
++    \field{line}  field: & logical line number \\
++    \field{value} field: & output level (0=3Dinactive, 1=3Dactive) \\
++    \hline
++    \textbf{reply:} & \\
++    \hline
++    \field{value} field: & POSIX errno code (0 =3D success, non-zero =3D e=
+rror) \\
++    \hline
++\end{tabular}
++
++\subsubsection{VIRTIO_GPIO_MSG_CPU_GET_DIRECTION}\label{sec:Device Types /=
+ General Purpose IO / Data flow / VIRTIO-GPIO-MSG-CPU-GET-DIRECTION}
++
++Retrieve line direction.
++
++\begin{tabular}{ll}
++    \hline
++    \textbf{request:} & \\
++    \hline
++    \field{line}  field: & logical line number \\
++    \field{value} field: & unused (should be zero) \\
++    \hline
++    \textbf{reply:} & \\
++    \hline
++    \field{value} field: & direction (0=3Doutput, 1=3Dinput) or POSIX errn=
+o code \\
++    \hline
++\end{tabular}
++
++\subsubsection{VIRTIO_GPIO_MSG_CPU_GET_LEVEL}\label{sec:Device Types / Gen=
+eral Purpose IO / Data flow / VIRTIO-GPIO-MSG-CPU-GET-LEVEL}
++
++Retrieve line level.
++
++\begin{tabular}{ll}
++    \hline
++    \textbf{request:} & \\
++    \hline
++    \field{line}  field: & logical line number \\
++    \field{value} field: & unused (should be zero) \\
++    \hline
++    \textbf{reply:} & \\
++    \hline
++    \field{value} field: & line level (0=3Dinactive, 1=3Dactive) or errno =
+code \\
++    \hline
++\end{tabular}
++
++\subsubsection{VIRTIO_GPIO_MSG_CPU_SET_LEVEL}\label{sec:Device Types / Gen=
+eral Purpose IO / Data flow / VIRTIO-GPIO-MSG-CPU-SET-LEVEL}
++
++Set line level (output only)
++
++\begin{tabular}{ll}
++    \hline
++    \textbf{request:} & \\
++    \hline
++    \field{line}  field: & logical line number \\
++    \field{value} field: & line level (0=3Dinactive, 1=3Dactive) \\
++    \hline
++    \textbf{reply:} & \\
++    \hline
++    \field{value} field: & new line level or (negative) POSIX errno code \=
+\
++    \hline
++\end{tabular}
++
++\subsubsection{VIRTIO_GPIO_MSG_DEVICE_LEVEL}\label{sec:Device Types / Gene=
+ral Purpose IO / Data flow / VIRTIO-GPIO-MSG-DEVICE-LEVEL}
++
++Async notification from device to CPU: line level changed
++
++\begin{tabular}{ll}
++    \hline
++    \textbf{request:} & \\
++    \hline
++    \field{line}  field: & logical line number \\
++    \field{value} field: & unused (should be zero) \\
++    \hline
++    \textbf{reply:} & \\
++    \field{value} field: & line level (0=3Dinactive, 1=3Dactive) \\
++    \hline
++\end{tabular}
++
++\devicenormative{\subsubsection}{Data flow}{Device Types / General Purpose=
+ IO / Data flow}
++
++The device MUST reply to all driver requests in they had been sent.
++
++The device MUST copy the \field{line} field from the request to its reply.
++
++Except for async notification, the device MUST reply the orignal message t=
+ype, but with the highest bit set
++(or'ed with VIRTIO_GPIO_MSG_REPLY)
++
++In case of error the device MUST fill an negative value into the \field{va=
+lue} field, it SHOULD use
++an fitting POSIX / Unix errno value when applicable.
++
++On switching to output, the device SHOULD set internal output level before=
+ switching the line to output.
++
++The device SHOULD send VIRTIO_GPIO_MSG_DEVICE_LEVEL message for a particul=
+ar line when it is in input
++direction and line level changes.
++
++\drivernormative{\subsubsection}{Data flow}{Device Types / General Purpose=
+ IO / Data flow}
++
++The driver MUST NOT send VIRTIO_GPIO_MSG_DEVICE_LEVEL and MUST NOT set the=
+ highest bit in the message type.
++
++The driver MUST NOT send messages with types not defined in this specifica=
+tion.
++
++\subsection{Future versions}\label{sec:Device Types / General Purpose IO /=
+ Future versions}
++
++\begin{itemize}
++    \item future versions must increment the ``version`` value
++    \item the basic data structures (config space, message format) should =
+remain
++          backwards compatible, but may increased in size or use reserved =
+fields
++    \item device needs to support commands in older versions
++    \item CPU should not send commands of newer versions that the device d=
+oesn't support
++\end{itemize}
++
++\subsection{Feature bits}\label{sec:Device Types / General Purpose IO / Fe=
+ature bits}
++
++There are currently no feature bits defined for this device, but may be ad=
+ded in future versions.
+--=20
+2.20.1
 
 
 This publicly archived list offers a means to provide input to the
@@ -571,7 +477,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
