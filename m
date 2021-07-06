@@ -1,53 +1,64 @@
-Return-Path: <virtio-comment-return-2038-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D6EC5986312
-	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Jul 2021 10:20:57 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20210721124530.37225-1-mgurtovoy@nvidia.com>
-References: <20210721124530.37225-1-mgurtovoy@nvidia.com>
-Date: Thu, 22 Jul 2021 12:20:49 +0200
-Message-ID: <87sg067ipq.fsf@redhat.com>
+Return-Path: <jasowang@redhat.com>
+From: Jason Wang <jasowang@redhat.com>
+Subject: [PATCH V2 0/2] Vitqueue State Synchronization
+Date: Tue,  6 Jul 2021 12:33:32 +0800
+Message-Id: <20210706043334.36359-1-jasowang@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [PATCH 1/1] virtio-blk: fix virtqueues accounting
-Content-Type: text/plain
-To: Max Gurtovoy <mgurtovoy@nvidia.com>, mst@redhat.com, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
-Cc: oren@nvidia.com, Max Gurtovoy <mgurtovoy@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+To: mst@redhat.com, jasowang@redhat.com, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: stefanha@redhat.com, mgurtovoy@nvidia.com, cohuck@redhat.com, eperezma@redhat.com, oren@nvidia.com, shahafs@nvidia.com, parav@nvidia.com, bodong@nvidia.com, amikheev@nvidia.com, pasic@linux.ibm.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Jul 21 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
+Hi All:
 
-> Virtqueue index is zero based, thus virtqueue (N-1) refers to requestqN.
->
-> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
-> ---
->  content.tex | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+This is an updated version to implement virtqueue state
+synchronization which is a must for the migration support.
 
-Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+The first patch introduces virtqueue states as a new basic facility of
+the virtio device. This is used by the driver to save and restore
+virtqueue state. The states were split into available state and used
+state to ease the transport specific implementation. It is also
+allowed for the device to have its own device specific way to save and
+resotre extra virtqueue states like in flight request.
 
-We had an issue for a similar fix for virtio-net, so do we want to use
-issue+voting here as well, or would that be overkill? I'm inclined to do
-this as an editorial update.
+The second patch introduce a new status bit STOP. This bit is used for
+the driver to stop the device. The major difference from reset is that
+STOP must preserve all the virtqueue state plus the device state.
 
+A driver can then:
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+- Get the virtqueue state if STOP status bit is set
+- Set the virtqueue state after FEATURE_OK but before DRIVER_OK
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+Device specific state synchronization could be built on top.
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+Please review.
+
+Thanks
+
+Changes from V1:
+
+- introduce used_idx for synchronize used state for split virtqueue,
+  this is needed since the used ring is read only by the driver.
+- stick to the uni-directional state machine, this means driver is
+  forbidden to clear STOP, the only way to 'resume' the device is to
+  reset and re-initialization the device. This simplify the
+  implementation and make it works more like a vhost device.
+- mandate the virtqueue state setting during device initialization
+- clarify the steps that are required for saving the virtqueue state
+- allow the device to have its specifc way to save and restore extra
+  virtqueue state
+- rename DEVICE_STOPPED to STOP
+- various other tweaks
+
+Jason Wang (2):
+  virtio: introduce virtqueue state as basic facility
+  virtio: introduce STOP status bit
+
+ content.tex | 180 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 180 insertions(+)
+
+-- 
+2.25.1
 
