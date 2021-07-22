@@ -1,100 +1,67 @@
-Return-Path: <tstark@linux.microsoft.com>
-Date: Mon, 26 Jul 2021 21:21:37 -0700
-From: Taylor Stark <tstark@linux.microsoft.com>
-Subject: Re: [virtio-comment] [PATCH 1/1] virtio-pmem: Support PCI
- BAR-relative addresses
-Message-ID: <20210727042137.GA18493@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+Return-Path: <virtio-comment-return-2042-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 2786F986312
+	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Jul 2021 11:14:50 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+In-Reply-To: <20210721205939.20746-1-tstark@linux.microsoft.com>
 References: <20210721205939.20746-1-tstark@linux.microsoft.com>
- <20210721205939.20746-2-tstark@linux.microsoft.com>
- <87k0li7fry.fsf@redhat.com>
- <20210722232626.GA32055@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <30dd175a-e9da-0f18-0f45-3317bd7f0b8f@redhat.com>
- <20210723183826.GA11436@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <fcd76b6e-f6e5-c0e9-7d0d-e7d84c5553f9@redhat.com>
+Date: Thu, 22 Jul 2021 13:14:40 +0200
+Message-ID: <87mtqe7g7z.fsf@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <fcd76b6e-f6e5-c0e9-7d0d-e7d84c5553f9@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: David Hildenbrand <david@redhat.com>, Cornelia Huck <cohuck@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, grahamwo@microsoft.com, benhill@microsoft.com, mst@redhat.com, pankaj.gupta@ionos.com, Taylor Stark <tstark@microsoft.com>
+Subject: Re: [virtio-comment] [PATCH 0/1] virtio-pmem: Support PCI
+ BAR-relative addresses
+Content-Type: text/plain
+To: tstark@linux.microsoft.com, virtio-comment@lists.oasis-open.org
+Cc: grahamwo@microsoft.com, benhill@microsoft.com, mst@redhat.com, pankaj.gupta@ionos.com, Taylor Stark <tstark@microsoft.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, Jul 23, 2021 at 09:18:21PM +0200, David Hildenbrand wrote:
-> On 23.07.21 20:38, Taylor Stark wrote:
-> >On Fri, Jul 23, 2021 at 09:01:48AM +0200, David Hildenbrand wrote:
-> >>On 23.07.21 01:26, Taylor Stark wrote:
-> >>>On Thu, Jul 22, 2021 at 01:24:17PM +0200, Cornelia Huck wrote:
-> >>>>On Wed, Jul 21 2021, tstark@linux.microsoft.com wrote:
-> >>>>
-> >>>>>From: Taylor Stark <tstark@microsoft.com>
-> >>>>>
-> >>>>>Update the virtio-pmem RFC spec to add support for describing the pmem region
-> >>>>>via PCI BARs. Shared memory windows are used to accomplish this, similar to
-> >>>>>virtio-fs and virtio-gpu. This is required to support virtio-pmem in Hyper-V,
-> >>>>>since Hyper-V only allows PCI devices to operate on memory ranges defined via
-> >>>>>BARs.
-> >>>>
-> >>>>Given that we already have pmem support out there (even though the spec
-> >>>>has not been included yet, should this get a feature?
-> >>>
-> >>>I wasn't sure if we needed to handle backwards compatibility given that pmem
-> >>>hasn't been merged into the spec yet. If we do, then yes I think it makes sense
-> >>>to add a feature bit. How about VIRTIO_PMEM_F_SHMEM_REGION?
-> >>
-> >>The implementations that are upstream win, and usually we get a spec
-> >>after the implementation is mature. The spec merely documents what
-> >>the existing implementations are doing. Of course, one can plan
-> >>ahead and propose additions to the spec that won't break existing
-> >>setups.
-> >>
-> >>The feature seems to be glued to PCI BARs, right? Maybe that should
-> >>be part of the feature name.
-> >>
-> >>-- 
-> >>Thanks,
-> >>
-> >>David / dhildenb
-> >
-> >I had to do a bit of research to develop an opinion on including BAR in
-> >the name. Using BARs is the implementation for the PCI transport, but there
-> >are other transports that have support for shared memory regions but don't
-> >use BARs (e.g. mmio - see vm_get_shm_region). Using shared memory regions
-> >was initially a convenient way to use PCI BARs, but I think it could be
-> >valuable for other transports as well (it adds similarity with other virtio
-> >devices). So I think it makes sense to leave BAR out of the name, since
-> >that's transport specific. Maybe I should retitle the patch? Let me know
-> >your thoughts (especially since I'm learning on the fly).
-> 
-> Ah, the content doesn't actually talk about PCI BARs, that's my
-> source of confusion :)
-> 
-> I know that virtio-fs also uses BARs in DAX mode, but I have no idea
-> how they named features (if any?) or how they described it in their
-> spec. Might be worth exploring.
-> 
-> 
-> -- 
-> Thanks,
-> 
-> David / dhildenb
+On Wed, Jul 21 2021, tstark@linux.microsoft.com wrote:
 
-After doing the research from my previous mail, I agree including BARs
-in the name is confusing. I think I'll update the patch to just refer to
-shared memory regions.
+> From: Taylor Stark <tstark@microsoft.com>
+>
+> This patch updates the virtio-pmem spec to add support for describing the pmem
+> region via PCI BARs. This is required to support virtio-pmem in Hyper-V, since
+> Hyper-V only allows PCI devices to operate on memory ranges defined via BARs.
+>
+> As virtio-pmem hasn't been added to the virtio spec yet (see this issue [1]),
+> this patch is based off the RFC spec [2]. The linux driver implementation has
+> been posted at [3].
 
-virtio-fs is actually how we landed on adding shared memory region support
-to virtio-pmem. We got virtio-fs working in Hyper-V, then tried virtio-pmem,
-ran into the guest absolute address problem, then went "well virtio-fs
-works, what does that do?", and here we are :)
+What's the general status of the pmem spec? I had pinged in the issue,
+but I have not seen any progress.
 
-virtio-fs doesn't have any relevant features. The presence of the shared
-memory region indicates to the driver that additional functionality is
-available, if desired. I initially did the same thing with this update to
-virtio-pmem, instead of using a feature. But a feature makes more sense
-for preserving backwards compatibility. And it's actually useful for
-Hyper-V as well, since we need to reject any drivers that don't support
-the feature since we have no way to configure them.
+>
+> [1] https://github.com/oasis-tcs/virtio-spec/issues/78
+> [2] https://lists.oasis-open.org/archives/virtio-dev/201903/msg00083.html
+> [3] https://lore.kernel.org/nvdimm/20210715223505.GA29329@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
+>
+> <Apologies for the resend - forgot to subscribe to virtio-comment so my original mail bounced>
+>
+> Taylor Stark (1):
+>   virtio_pmem: Support PCI BAR-relative addresses
+>
+>  virtio-pmem.tex | 22 +++++++++++++++++-----
+>  1 file changed, 17 insertions(+), 5 deletions(-)
 
-Thanks,
-Taylor
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
