@@ -1,47 +1,157 @@
-Return-Path: <virtio-comment-return-2044-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2046-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E647A98635A
-	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Jul 2021 11:41:32 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <CALzYo309tuJLLhVGdGc6RxOgQr5Y_ZtEsS=xG9Uu8G5_b42S7Q@mail.gmail.com>
-References: <20210721205939.20746-1-tstark@linux.microsoft.com>
- <87mtqe7g7z.fsf@redhat.com>
- <CALzYo309tuJLLhVGdGc6RxOgQr5Y_ZtEsS=xG9Uu8G5_b42S7Q@mail.gmail.com>
-Date: Thu, 22 Jul 2021 13:41:21 +0200
-Message-ID: <87h7gm7ezi.fsf@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id E800D98635A
+	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Jul 2021 16:23:43 +0000 (UTC)
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Date: Thu, 22 Jul 2021 19:23:36 +0300
+Message-ID: <20210722162336.23990-1-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH 0/1] virtio-pmem: Support PCI
- BAR-relative addresses
+Subject: [virtio-comment] [RFC PATCH 1/1] Add virtio Admin Virtqueue specification
 Content-Type: text/plain
-To: Pankaj Gupta <pankaj.gupta@ionos.com>
-Cc: Taylor Stark <tstark@linux.microsoft.com>, virtio-comment@lists.oasis-open.org, grahamwo@microsoft.com, benhill@microsoft.com, "Michael S . Tsirkin" <mst@redhat.com>, Taylor Stark <tstark@microsoft.com>
+To: virtio-comment@lists.oasis-open.org, mst@redhat.com, jasowang@redhat.com, cohuck@redhat.com, stefanha@redhat.com
+Cc: oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, eperezma@redhat.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com, Max Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Jul 22 2021, Pankaj Gupta <pankaj.gupta@ionos.com> wrote:
+Admin virtqueues will be used to send administrative commands to
+manipulate various features of the device which would not easily map
+into the configuration space.
 
-> Hi Cornelia,
->
->> > This patch updates the virtio-pmem spec to add support for describing the pmem
->> > region via PCI BARs. This is required to support virtio-pmem in Hyper-V, since
->> > Hyper-V only allows PCI devices to operate on memory ranges defined via BARs.
->> >
->> > As virtio-pmem hasn't been added to the virtio spec yet (see this issue [1]),
->> > this patch is based off the RFC spec [2]. The linux driver implementation has
->> > been posted at [3].
->>
->> What's the general status of the pmem spec? I had pinged in the issue,
->> but I have not seen any progress.
->
-> Appologies for missing your ping (As I was down for some time). I will
-> try to post the
-> virtio-pmem spec new version in coming week.
+The same Admin command format will be used for all virtio devices. The
+Admin command set will include 4 types of command classes:
+1. The generic common class
+2. The transport specific class
+3. The device specific class
+4. The vendor specific class
 
-Thanks, that's good news!
+The above mechanism will enable adding various features to the virtio
+specification, e.g.:
+1. Format virtio-blk devices in various configurations (512B block size,
+   512B + 8B T10-DIF, 4K block size, 4k + 8B T10-DIF, etc..).
+2. Live migration management.
+3. Encrypt/Decrypt descriptors.
+4. Virtualization management.
+5. Get device error logs.
+6. Implement advanced vendor/device/transport specific features.
+7. Run device health test.
+8. More.
+
+As virtio evolves beyond the para-virt/sw-emulated world, it's mandatory
+for the specification to become flexible and allow a wider feature set.
+The corrent ctrl virtq that is defined for some of the virtio devices is
+device specific and wasn't designed to be a generic virtq for
+admininistration.
+
+Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+---
+ admin-virtq.tex | 69 +++++++++++++++++++++++++++++++++++++++++++++++++
+ content.tex     |  4 +++
+ 2 files changed, 73 insertions(+)
+ create mode 100644 admin-virtq.tex
+
+diff --git a/admin-virtq.tex b/admin-virtq.tex
+new file mode 100644
+index 0000000..dc1d2cd
+--- /dev/null
++++ b/admin-virtq.tex
+@@ -0,0 +1,69 @@
++\section{Admin Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues}
++
++Admin virtqueues are used to send administrative commands to manipulate
++various features of the device which would not easily map into the
++configuration space. Admin virtqueues are also used to get advance
++device properties.
++
++Use of Admin virtqueues is negotiated by the VIRTIO_F_ADMIN_VQ
++feature bit.
++
++Admin virtqueue index may vary among different device types.
++
++All commands are of the following form:
++
++\begin{lstlisting}
++struct virtio_admin_cmd {
++        /* Device-readable part */
++        u8 class;
++        u8 command;
++        u8 command-specific-data[];
++
++        /* Device-writable part */
++        u8 command-specific-result[];
++        u8 status_type : 4;
++        u8 reserved : 4;
++        u8 status;
++};
++
++/* Status type values */
++#define VIRTIO_ADMIN_STATUS_TYPE_GENERIC               0
++#define VIRTIO_ADMIN_STATUS_TYPE_CLASS_SPECIFIC        1
++#define VIRTIO_ADMIN_STATUS_TYPE_COMMAND_SPECIFIC      2
++#define VIRTIO_ADMIN_STATUS_TYPE_TRANSPORT_SPECIFIC    3
++#define VIRTIO_ADMIN_STATUS_TYPE_DEVICE_SPECIFIC       4
++#define VIRTIO_ADMIN_STATUS_TYPE_VENDOR_SPECIFIC       5
++
++/* Generic status values */
++#define VIRTIO_ADMIN_STATUS_GENERIC_OK                     0
++#define VIRTIO_ADMIN_STATUS_GENERIC_ERR                    1
++#define VIRTIO_ADMIN_STATUS_GENERIC_INVALID_CLASS          2
++#define VIRTIO_ADMIN_STATUS_GENERIC_INVALID_COMMAND        3
++#define VIRTIO_ADMIN_STATUS_GENERIC_DATA_TRANSFER_ERR      4
++#define VIRTIO_ADMIN_STATUS_GENERIC_DEVICE_INTERNAL_ERR    5
++\end{lstlisting}
++
++The \field{class}, \field{command} and \field{command-specific-data} are
++set by the driver, and the device sets the \field{status_type}, the
++\field{status} and  the \field{command-specific-result}, if needed.
++
++The virtio Admin command class codes are divided in the following form:
++
++\begin{lstlisting}
++/* class values that are transport, device and vendor independent */
++#define VIRTIO_ADMIN_COMMON_CLASS_START    0
++#define VIRTIO_ADMIN_COMMON_CLASS_END      63
++
++/* class values that are transport specific */
++#define VIRTIO_ADMIN_TRANSPORT_CLASS_START  64
++#define VIRTIO_ADMIN_TRANSPORT_CLASS_END    127
++
++/* class values that are device specific */
++#define VIRTIO_ADMIN_DEVICE_CLASS_START     128
++#define VIRTIO_ADMIN_DEVICE_CLASS_END       191
++
++/* class values that are vendor specific */
++#define VIRTIO_ADMIN_VENDOR_CLASS_START     192
++#define VIRTIO_ADMIN_VENDOR_CLASS_END       255
++\end{lstlisting}
++
+diff --git a/content.tex b/content.tex
+index c266fd5..d350175 100644
+--- a/content.tex
++++ b/content.tex
+@@ -407,6 +407,8 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
+ types. It is RECOMMENDED that devices generate version 4
+ UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+ 
++\input{admin-virtq.tex}
++
+ \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+ 
+ We start with an overview of device initialization, then expand on the
+@@ -6671,6 +6673,8 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+   data to be provided in driver notification and the delivery method is
+   transport specific.
+   For more details about driver notifications over PCI see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}.
++  \item[VIRTIO_F_ADMIN_VQ(40)] This feature indicates that
++  the device supports administration virtqueue negotiation.
+ 
+ \end{description}
+ 
+-- 
+2.21.0
 
 
 This publicly archived list offers a means to provide input to the
