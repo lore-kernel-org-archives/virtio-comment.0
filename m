@@ -1,45 +1,67 @@
-Return-Path: <virtio-comment-return-2062-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2063-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 20AA5986402
+	by lists.oasis-open.org (Postfix) with ESMTP id 2017F9863F9
 	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jul 2021 16:39:06 +0000 (UTC)
 From: Gaetan Harter <gaetan.harter@opensynergy.com>
-Date: Mon, 26 Jul 2021 18:38:49 +0200
-Message-Id: <20210726163850.201851-3-gaetan.harter@opensynergy.com>
+Date: Mon, 26 Jul 2021 18:38:50 +0200
+Message-Id: <20210726163850.201851-4-gaetan.harter@opensynergy.com>
 In-Reply-To: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
 References: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH 2/3] virtio-gpu: fix a typo
+Subject: [virtio-comment] [PATCH 3/3] virtio-crypto: fix missing verb
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain
 To: virtio-comment@lists.oasis-open.org
 Cc: Gaetan Harter <gaetan.harter@opensynergy.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+The condition was incomplete "guarantee the size IS within the max_len".
+
 Signed-off-by: Gaetan Harter <gaetan.harter@opensynergy.com>
 ---
- virtio-gpu.tex | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ virtio-crypto.tex | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/virtio-gpu.tex b/virtio-gpu.tex
-index a6afeda..7bfb8dd 100644
---- a/virtio-gpu.tex
-+++ b/virtio-gpu.tex
-@@ -27,7 +27,7 @@ \subsection{Virtqueues}\label{sec:Device Types / GPU Devi=
-ce / Virtqueues}
- a fixed header, followed by command specific data fields.  The
- separate cursor queue is the "fast track" for cursor commands
- (VIRTIO_GPU_CMD_UPDATE_CURSOR and VIRTIO_GPU_CMD_MOVE_CURSOR), so they
--go though without being delayed by time-consuming commands in the
-+go through without being delayed by time-consuming commands in the
- control queue.
+diff --git a/virtio-crypto.tex b/virtio-crypto.tex
+index 4a15e14..0d1d832 100644
+--- a/virtio-crypto.tex
++++ b/virtio-crypto.tex
+@@ -275,13 +275,13 @@ \subsection{Device configuration layout}\label{sec:De=
+vice Types / Crypto Device
+ \item The driver MUST read the detailed algorithms fields based on \field{=
+crypto_services} field.
+ \item The driver SHOULD read \field{max_size} to discover the maximum size=
+ of the variable-length
+     parameters of data operation of the crypto request's content the devic=
+e supports and MUST
+-    guarantee the size of each crypto request's content within the \field{=
+max_size}, otherwise
++    guarantee the size of each crypto request's content is within the \fie=
+ld{max_size}, otherwise
+     the request will fail and the driver MUST reset the device.
+ \item The driver SHOULD read \field{max_cipher_key_len} to discover the ma=
+ximum length of cipher key
+-    the device supports and MUST guarantee the \field{key_len} (CIPHER ser=
+vice or AEAD service) within
++    the device supports and MUST guarantee the \field{key_len} (CIPHER ser=
+vice or AEAD service) is within
+     the \field{max_cipher_key_len} of the device configuration, otherwise =
+the request will fail.
+ \item The driver SHOULD read \field{max_auth_key_len} to discover the maxi=
+mum length of authenticated
+-    key the device supports and MUST guarantee the \field{auth_key_len} (M=
+AC service) within the
++    key the device supports and MUST guarantee the \field{auth_key_len} (M=
+AC service) is within the
+     \field{max_auth_key_len} of the device configuration, otherwise the re=
+quest will fail.
+ \end{itemize*}
 
- \subsection{Feature bits}\label{sec:Device Types / GPU Device / Feature bi=
-ts}
 --
 2.25.1
 
