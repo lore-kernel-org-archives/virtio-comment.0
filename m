@@ -1,19 +1,19 @@
-Return-Path: <virtio-comment-return-2061-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2062-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9E703985F1F
-	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jul 2021 16:39:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 20AA5986402
+	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jul 2021 16:39:06 +0000 (UTC)
 From: Gaetan Harter <gaetan.harter@opensynergy.com>
-Date: Mon, 26 Jul 2021 18:38:48 +0200
-Message-Id: <20210726163850.201851-2-gaetan.harter@opensynergy.com>
+Date: Mon, 26 Jul 2021 18:38:49 +0200
+Message-Id: <20210726163850.201851-3-gaetan.harter@opensynergy.com>
 In-Reply-To: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
 References: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH 1/3] content: fix a typo
+Subject: [virtio-comment] [PATCH 2/3] virtio-gpu: fix a typo
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain
 To: virtio-comment@lists.oasis-open.org
@@ -22,25 +22,24 @@ List-ID: <virtio-comment.lists.oasis-open.org>
 
 Signed-off-by: Gaetan Harter <gaetan.harter@opensynergy.com>
 ---
- content.tex | 2 +-
+ virtio-gpu.tex | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/content.tex b/content.tex
-index ceb2562..31b02e1 100644
---- a/content.tex
-+++ b/content.tex
-@@ -4338,7 +4338,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Ty=
-pes / Network Device / Devi
+diff --git a/virtio-gpu.tex b/virtio-gpu.tex
+index a6afeda..7bfb8dd 100644
+--- a/virtio-gpu.tex
++++ b/virtio-gpu.tex
+@@ -27,7 +27,7 @@ \subsection{Virtqueues}\label{sec:Device Types / GPU Devi=
+ce / Virtqueues}
+ a fixed header, followed by command specific data fields.  The
+ separate cursor queue is the "fast track" for cursor commands
+ (VIRTIO_GPU_CMD_UPDATE_CURSOR and VIRTIO_GPU_CMD_MOVE_CURSOR), so they
+-go though without being delayed by time-consuming commands in the
++go through without being delayed by time-consuming commands in the
+ control queue.
 
- There is a corresponding device feature for each offload. Upon feature
- negotiation corresponding offload gets enabled to preserve backward
--compartibility.
-+compatibility.
-
- \drivernormative{\subparagraph}{Setting Offloads State}{Device Types / Net=
-work Device / Device Operation / Control Virtqueue / Offloads State Configu=
-ration / Setting Offloads State}
-
+ \subsection{Feature bits}\label{sec:Device Types / GPU Device / Feature bi=
+ts}
 --
 2.25.1
 
