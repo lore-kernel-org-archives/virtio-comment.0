@@ -1,37 +1,48 @@
-Return-Path: <virtio-comment-return-2060-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2061-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 965FC985EF0
-	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jul 2021 16:39:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9E703985F1F
+	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jul 2021 16:39:05 +0000 (UTC)
 From: Gaetan Harter <gaetan.harter@opensynergy.com>
-Date: Mon, 26 Jul 2021 18:38:47 +0200
-Message-Id: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
+Date: Mon, 26 Jul 2021 18:38:48 +0200
+Message-Id: <20210726163850.201851-2-gaetan.harter@opensynergy.com>
+In-Reply-To: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
+References: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH 0/3] Fix missing verb and typos
-Content-Type: text/plain; charset=UTF-8
+Subject: [virtio-comment] [PATCH 1/3] content: fix a typo
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 To: virtio-comment@lists.oasis-open.org
+Cc: Gaetan Harter <gaetan.harter@opensynergy.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hi all,
+Signed-off-by: Gaetan Harter <gaetan.harter@opensynergy.com>
+---
+ content.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-this patchset fixes some missing verb and typos find while reading the spec=
-.
+diff --git a/content.tex b/content.tex
+index ceb2562..31b02e1 100644
+--- a/content.tex
++++ b/content.tex
+@@ -4338,7 +4338,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Ty=
+pes / Network Device / Devi
 
-It is a patchset but patches are indenendant.
+ There is a corresponding device feature for each offload. Upon feature
+ negotiation corresponding offload gets enabled to preserve backward
+-compartibility.
++compatibility.
 
-Best regard,
-Ga=C3=ABtan
+ \drivernormative{\subparagraph}{Setting Offloads State}{Device Types / Net=
+work Device / Device Operation / Control Virtqueue / Offloads State Configu=
+ration / Setting Offloads State}
 
-From: Gaetan Harter <gaetan.harter@opensynergy.com>
-Reply-To:
-Subject: [PATCH 0/3] Fix missing verb and typos
-In-Reply-To:
-
+--
+2.25.1
 
 
 Please mind our privacy notice<https://www.opensynergy.com/datenschutzerkla=
