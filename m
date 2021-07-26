@@ -1,72 +1,61 @@
-Return-Path: <tstark@linux.microsoft.com>
-Date: Wed, 28 Jul 2021 22:04:12 -0700
-From: Taylor Stark <tstark@linux.microsoft.com>
-Subject: Re: [PATCH v2 1/1] virtio-pmem: Support describing pmem as shared
- memory region
-Message-ID: <20210729050412.GA9892@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20210727042907.24315-1-tstark@linux.microsoft.com>
- <20210727042907.24315-2-tstark@linux.microsoft.com>
- <87fsvz4wzg.fsf@redhat.com>
+Return-Path: <virtio-comment-return-2060-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 965FC985EF0
+	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jul 2021 16:39:03 +0000 (UTC)
+From: Gaetan Harter <gaetan.harter@opensynergy.com>
+Date: Mon, 26 Jul 2021 18:38:47 +0200
+Message-Id: <20210726163850.201851-1-gaetan.harter@opensynergy.com>
 MIME-Version: 1.0
-In-Reply-To: <87fsvz4wzg.fsf@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, grahamwo@microsoft.com, benhill@microsoft.com, mst@redhat.com, pankaj.gupta@ionos.com, tstark@microsoft.com, david@redhat.com
+Subject: [virtio-comment] [PATCH 0/3] Fix missing verb and typos
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Jul 27, 2021 at 05:06:43PM +0200, Cornelia Huck wrote:
-> On Mon, Jul 26 2021, tstark@linux.microsoft.com wrote:
-> 
-> > @@ -50,12 +53,29 @@ \subsection{Device Initialization}\label{sec:Device Types / PMEM Device / Device
-> >  File backed memory SHOULD be memory mapped to guest address space with SHARED
-> >  memory mapping.
-> >  
-> > +If VIRTIO_PMEM_F_SHMEM_REGION has been negotiated, the device MUST indicate the
-> > +guest physical address as a shared memory region. The device MUST use shared
-> > +memory region ID 0. The device SHOULD set \field{start} and \field{size} to zero.
-> > +
-> > +If VIRTIO_PMEM_F_SHMEM_REGION has not been negotiated, the device MUST indicate
-> > +the guest physical address as a guest absolute address. The device MUST set
-> > +\field{start} to the absolute address and \field{size} to the size of the
-> > +address range, in bytes.
-> > +
-> >  \subsection{Driver Initialization}\label{sec:Device Types / PMEM Driver / Driver Initialization}
-> >  
-> >  Driver hotplugs the physical memory and registers associated
-> >  region with the pmem API. Also, configures a flush callback
-> >  function with the corresponding region.
-> >  
-> > +\drivernormative{\subsubsection}{Driver Initialization}{Device Types / PMEM Driver / Driver Initialization}
-> > +
-> > +The driver SHOULD query the physical address ranges where the pmem was mapped.
-> 
-> Isn't the driver quite useless if it doesn't discover where the pmem can
-> be found? I'm not sure we need that sentence.
+Hi all,
 
-It's about as useful as a paperweight if it doesn't discover where the pmem
-was mapped :) Agreed, this isn't necessary.
- 
-> > +If VIRTIO_PMEM_F_SHMEM_REGION has been negotiated, the driver SHOULD query
-> > +shared memory ID 0 for the physical address ranges and MUST NOT use \field{start}
-> > +or \field{size}. Else, the driver SHOULD read the physical address ranges from
-> > +\field{start} and \field{size}.
-> 
-> 'SHOULD' is probably not the right way to specify this. What about the
-> following:
-> 
-> "In order to discover the physical address ranges where the pmem was
-> mapped:
-> 
-> If VIRTIO_PMEM_F_SHMEM_REGION has been negotiated, the driver MUST query
-> shared memory ID 0 for the physical address ranges, and MUST NOT use
-> \field{start} or \field{stop}.
-> 
-> If VIRTIO_PMEM_F_SHMEM_REGION has not been negotiated, the driver MUST
-> read the physical address ranges from \field{start} and \field{stop}."
+this patchset fixes some missing verb and typos find while reading the spec=
+.
 
-Sounds great to me. Will update in v3. Thanks again for the advice.
+It is a patchset but patches are indenendant.
 
-Thanks,
-Taylor
+Best regard,
+Ga=C3=ABtan
+
+From: Gaetan Harter <gaetan.harter@opensynergy.com>
+Reply-To:
+Subject: [PATCH 0/3] Fix missing verb and typos
+In-Reply-To:
+
+
+
+Please mind our privacy notice<https://www.opensynergy.com/datenschutzerkla=
+erung/privacy-notice-for-business-partners-pursuant-to-article-13-of-the-ge=
+neral-data-protection-regulation-gdpr/> pursuant to Art. 13 GDPR. // Unsere=
+ Hinweise zum Datenschutz gem. Art. 13 DSGVO finden Sie hier.<https://www.o=
+pensynergy.com/de/datenschutzerklaerung/datenschutzhinweise-fuer-geschaefts=
+partner-gem-art-13-dsgvo/>
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
