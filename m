@@ -1,52 +1,66 @@
-Return-Path: <virtio-comment-return-2094-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 455CC986476
-	for <virtio-comment@lists.oasis-open.org>; Thu, 29 Jul 2021 09:31:15 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20210727151238.93100-2-gaetan.harter@opensynergy.com>
-References: <20210727151238.93100-1-gaetan.harter@opensynergy.com>
- <20210727151238.93100-2-gaetan.harter@opensynergy.com>
-Date: Thu, 29 Jul 2021 11:31:09 +0200
-Message-ID: <87k0l931r6.fsf@redhat.com>
+Return-Path: <tstark@linux.microsoft.com>
+From: tstark@linux.microsoft.com
+Subject: [PATCH v2 0/1] virtio-pmem: Support describing pmem as shared memory region
+Date: Mon, 26 Jul 2021 21:29:06 -0700
+Message-Id: <20210727042907.24315-1-tstark@linux.microsoft.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH v2 1/1] virtio-crypto: fix missing
- conjunction and verb
-Content-Type: text/plain
-To: Gaetan Harter <gaetan.harter@opensynergy.com>, virtio-comment@lists.oasis-open.org
-Cc: Gaetan Harter <gaetan.harter@opensynergy.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
+To: virtio-comment@lists.oasis-open.org
+Cc: grahamwo@microsoft.com, benhill@microsoft.com, mst@redhat.com, pankaj.gupta@ionos.com, tstark@microsoft.com, david@redhat.com, cohuck@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Jul 27 2021, Gaetan Harter <gaetan.harter@opensynergy.com> wrote:
+From: Taylor Stark <tstark@microsoft.com>
 
-> The condition sentences were incomplete:
-> "guarantee THAT the size IS within the max_len".
->
-> Signed-off-by: Gaetan Harter <gaetan.harter@opensynergy.com>
-> ---
->  virtio-crypto.tex | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+Changes from v1 [1]:
+ - Added in a feature bit (VIRTIO_PMEM_F_SHMEM_REGION) for controlling how =
+the
+   device indicates the guest physical address ranges to the driver. This f=
+eature
+   directly affects control flow of the driver, since it seemed weird to ha=
+ve
+   the driver indicate support for shared memory regions, and then needing
+   to include an enum (or similar) informing the driver how the device
+   indicated guest physical address ranges. If devices want to indicate the
+   ranges as guest absolute addresses, they can skip negotiating the featur=
+e.
+ - The linux driver implementation has been updated and tested, but I'm hol=
+ding
+   off on posting the patches to get some feedback on the new approach.
+ - Moved some changes to proper subsections (normative subsections).
 
-Thanks, pushed as an editorial update.
+[1] https://lists.oasis-open.org/archives/virtio-comment/202107/msg00111.ht=
+ml
 
+---
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+This patch updates the virtio-pmem spec to add support for describing the p=
+mem
+region as a shared memory region. This is required to support virtio-pmem i=
+n
+Hyper-V, since Hyper-V only allows PCI devices to operate on memory ranges
+defined via BARs. When using the virtio PCI transport, shared memory region=
+s
+are described via PCI BARs.
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+As virtio-pmem hasn't been added to the virtio spec yet (see this issue [1]=
+),
+this patch is based off the RFC spec [2]. The linux driver implementation h=
+as
+been posted at [3].
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+[1] https://github.com/oasis-tcs/virtio-spec/issues/78
+[2] https://lists.oasis-open.org/archives/virtio-dev/201903/msg00083.html
+[3] https://lore.kernel.org/nvdimm/20210715223505.GA29329@linuxonhyperv3.gu=
+j3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
+
+Taylor Stark (1):
+  virtio-pmem: Support describing pmem as shared memory region
+
+ conformance.tex |  1 +
+ virtio-pmem.tex | 30 +++++++++++++++++++++++++-----
+ 2 files changed, 26 insertions(+), 5 deletions(-)
+
+--=20
+2.32.0
 
