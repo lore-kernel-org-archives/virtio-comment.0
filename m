@@ -1,90 +1,57 @@
-Return-Path: <virtio-comment-return-2099-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2077-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0CA6498647B
-	for <virtio-comment@lists.oasis-open.org>; Fri, 30 Jul 2021 11:28:11 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20210729050922.5933-1-tstark@linux.microsoft.com>
-References: <20210729050922.5933-1-tstark@linux.microsoft.com>
-Date: Fri, 30 Jul 2021 13:27:55 +0200
-Message-ID: <87tukc11ok.fsf@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 2D5D49863B2
+	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Jul 2021 15:12:51 +0000 (UTC)
+From: Gaetan Harter <gaetan.harter@opensynergy.com>
+Date: Tue, 27 Jul 2021 17:12:37 +0200
+Message-Id: <20210727151238.93100-1-gaetan.harter@opensynergy.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH v3 0/1] virtio-pmem: Support describing
- pmem as shared memory region
-Content-Type: text/plain
-To: tstark@linux.microsoft.com, virtio-comment@lists.oasis-open.org
-Cc: grahamwo@microsoft.com, benhill@microsoft.com, mst@redhat.com, pankaj.gupta@ionos.com, tstark@microsoft.com, david@redhat.com
+Subject: [virtio-comment] [PATCH v2 0/1] Fix missing verb and typos
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Jul 28 2021, tstark@linux.microsoft.com wrote:
+From: Gaetan Harter <gaetan.harter@opensynergy.com>
 
-> From: Taylor Stark <tstark@microsoft.com>
->
-> Changes from v2 [1]:
->  - Incorporated suggestions from Cornelia Huck on rewording driver initialization.
->
-> Changes from v1:
->  - Added in a feature bit (VIRTIO_PMEM_F_SHMEM_REGION) for controlling how the
->    device indicates the guest physical address ranges to the driver. This feature
->    directly affects control flow of the driver, since it seemed weird to have
->    the driver indicate support for shared memory regions, and then needing
->    to include an enum (or similar) informing the driver how the device
->    indicated guest physical address ranges. If devices want to indicate the
->    ranges as guest absolute addresses, they can skip negotiating the feature.
->  - The linux driver implementation has been updated and tested, but I'm holding
->    off on posting the patches to get some feedback on the new approach.
->  - Moved some changes to proper subsections (normative subsections).
->
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202107/msg00145.html
->
-> ---
->
-> This patch updates the virtio-pmem spec to add support for describing the pmem
-> region as a shared memory region. This is required to support virtio-pmem in
-> Hyper-V, since Hyper-V only allows PCI devices to operate on memory ranges
-> defined via BARs. When using the virtio PCI transport, shared memory regions
-> are described via PCI BARs.
->
-> As virtio-pmem hasn't been added to the virtio spec yet (see this issue [1]),
-> this patch is based off the RFC spec [2]. The linux driver implementation has
-> been posted at [3].
->
-> [1] https://github.com/oasis-tcs/virtio-spec/issues/78
-> [2] https://lists.oasis-open.org/archives/virtio-dev/201903/msg00083.html
-> [3] https://lore.kernel.org/nvdimm/20210715223505.GA29329@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
->
-> Taylor Stark (1):
->   virtio-pmem: Support describing pmem as shared memory region
->
->  conformance.tex |  1 +
->  virtio-pmem.tex | 34 +++++++++++++++++++++++++++++-----
->  2 files changed, 30 insertions(+), 5 deletions(-)
->
+Changes from v1:
+ - Added suggested "that"
+ - Updated commit message to mention "conjunction" and be plural.
 
-Looks good to me now, but I'd also like a comment from someone who has
-actually done some work in the area.
+Ga=C3=ABtan Harter(1):
+  virtio-crypto: fix missing conjunction and verb
 
-The main issue is to get the actual (base) pmem spec merged, but I see
-that a patch has been posted, so we should be able to go from there.
+ virtio-crypto.tex | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+Please mind our privacy notice<https://www.opensynergy.com/datenschutzerkla=
+erung/privacy-notice-for-business-partners-pursuant-to-article-13-of-the-ge=
+neral-data-protection-regulation-gdpr/> pursuant to Art. 13 GDPR. // Unsere=
+ Hinweise zum Datenschutz gem. Art. 13 DSGVO finden Sie hier.<https://www.o=
+pensynergy.com/de/datenschutzerklaerung/datenschutzhinweise-fuer-geschaefts=
+partner-gem-art-13-dsgvo/>
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
