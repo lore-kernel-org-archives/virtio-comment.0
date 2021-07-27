@@ -1,33 +1,70 @@
-Return-Path: <virtio-comment-return-2077-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2078-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2D5D49863B2
-	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Jul 2021 15:12:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7699F9863B2
+	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Jul 2021 15:13:19 +0000 (UTC)
 From: Gaetan Harter <gaetan.harter@opensynergy.com>
-Date: Tue, 27 Jul 2021 17:12:37 +0200
-Message-Id: <20210727151238.93100-1-gaetan.harter@opensynergy.com>
+Date: Tue, 27 Jul 2021 17:12:39 +0200
+Message-Id: <20210727151238.93100-2-gaetan.harter@opensynergy.com>
+In-Reply-To: <20210727151238.93100-1-gaetan.harter@opensynergy.com>
+References: <20210727151238.93100-1-gaetan.harter@opensynergy.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH v2 0/1] Fix missing verb and typos
-Content-Type: text/plain; charset=UTF-8
+Subject: [virtio-comment] [PATCH v2 1/1] virtio-crypto: fix missing conjunction and verb
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 To: virtio-comment@lists.oasis-open.org
+Cc: Gaetan Harter <gaetan.harter@opensynergy.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: Gaetan Harter <gaetan.harter@opensynergy.com>
+The condition sentences were incomplete:
+"guarantee THAT the size IS within the max_len".
 
-Changes from v1:
- - Added suggested "that"
- - Updated commit message to mention "conjunction" and be plural.
-
-Ga=C3=ABtan Harter(1):
-  virtio-crypto: fix missing conjunction and verb
-
+Signed-off-by: Gaetan Harter <gaetan.harter@opensynergy.com>
+---
  virtio-crypto.tex | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/virtio-crypto.tex b/virtio-crypto.tex
+index 4a15e14..74746f9 100644
+--- a/virtio-crypto.tex
++++ b/virtio-crypto.tex
+@@ -275,13 +275,13 @@ \subsection{Device configuration layout}\label{sec:De=
+vice Types / Crypto Device
+ \item The driver MUST read the detailed algorithms fields based on \field{=
+crypto_services} field.
+ \item The driver SHOULD read \field{max_size} to discover the maximum size=
+ of the variable-length
+     parameters of data operation of the crypto request's content the devic=
+e supports and MUST
+-    guarantee the size of each crypto request's content within the \field{=
+max_size}, otherwise
++    guarantee that the size of each crypto request's content is within the=
+ \field{max_size}, otherwise
+     the request will fail and the driver MUST reset the device.
+ \item The driver SHOULD read \field{max_cipher_key_len} to discover the ma=
+ximum length of cipher key
+-    the device supports and MUST guarantee the \field{key_len} (CIPHER ser=
+vice or AEAD service) within
++    the device supports and MUST guarantee that the \field{key_len} (CIPHE=
+R service or AEAD service) is within
+     the \field{max_cipher_key_len} of the device configuration, otherwise =
+the request will fail.
+ \item The driver SHOULD read \field{max_auth_key_len} to discover the maxi=
+mum length of authenticated
+-    key the device supports and MUST guarantee the \field{auth_key_len} (M=
+AC service) within the
++    key the device supports and MUST guarantee that the \field{auth_key_le=
+n} (MAC service) is within the
+     \field{max_auth_key_len} of the device configuration, otherwise the re=
+quest will fail.
+ \end{itemize*}
+
+--
+2.25.1
 
 
 Please mind our privacy notice<https://www.opensynergy.com/datenschutzerkla=
