@@ -1,173 +1,450 @@
-Return-Path: <mgurtovoy@nvidia.com>
+Return-Path: <mst@redhat.com>
+Date: Fri, 30 Jul 2021 03:36:41 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
 Subject: Re: [RFC PATCH v2 1/2] Add virtio Admin Virtqueue specification
+Message-ID: <20210730032625-mutt-send-email-mst@kernel.org>
 References: <20210726165254.8529-1-mgurtovoy@nvidia.com>
  <20210728083306-mutt-send-email-mst@kernel.org>
- <f79c6f8f-04c7-3ca7-432a-b23e6eb09ce8@nvidia.com> <87zgu41dt4.fsf@redhat.com>
- <6b01d0aa-005b-06fc-aa07-70f26ed98c4c@nvidia.com>
- <20210731181746-mutt-send-email-mst@kernel.org>
-From: Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <6828669b-4d05-e4bf-99c8-e14481b99358@nvidia.com>
-Date: Sun, 1 Aug 2021 01:53:10 +0300
+ <f79c6f8f-04c7-3ca7-432a-b23e6eb09ce8@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20210731181746-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org, jasowang@redhat.com, stefanha@redhat.com, oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, eperezma@redhat.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com
+In-Reply-To: <f79c6f8f-04c7-3ca7-432a-b23e6eb09ce8@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Max Gurtovoy <mgurtovoy@nvidia.com>
+Cc: virtio-comment@lists.oasis-open.org, jasowang@redhat.com, cohuck@redhat.com, stefanha@redhat.com, oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, eperezma@redhat.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+On Thu, Jul 29, 2021 at 05:51:07PM +0300, Max Gurtovoy wrote:
+> 
+> On 7/28/2021 3:48 PM, Michael S. Tsirkin wrote:
+> > On Mon, Jul 26, 2021 at 07:52:53PM +0300, Max Gurtovoy wrote:
+> > > Admin virtqueues will be used to send administrative commands to
+> > > manipulate various features of the device which would not easily map
+> > > into the configuration space.
+> > > 
+> > > The same Admin command format will be used for all virtio devices. The
+> > > Admin command set will include 4 types of command classes:
+> > > 1. The generic common class
+> > > 2. The transport specific class
+> > > 3. The device specific class
+> > > 4. The vendor specific class
+> > > 
+> > > The above mechanism will enable adding various features to the virtio
+> > > specification, e.g.:
+> > > 1. Format virtio-blk devices in various configurations (512B block size,
+> > >     512B + 8B T10-DIF, 4K block size, 4k + 8B T10-DIF, etc..).
+> > > 2. Live migration management.
+> > > 3. Encrypt/Decrypt descriptors.
+> > > 4. Virtualization management.
+> > > 5. Get device error logs.
+> > > 6. Implement advanced vendor/device/transport specific features.
+> > > 7. Run device health test.
+> > > 8. More.
+> > > 
+> > > As virtio evolves beyond the para-virt/sw-emulated world, it's mandatory
+> > > for the specification to become flexible and allow a wider feature set.
+> > > The corrent ctrl virtq that is defined for some of the virtio devices is
+> > > device specific and wasn't designed to be a generic virtq for
+> > > admininistration.
+> > > 
+> > > Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+> > Lots of things on this list seem to make sense when
+> > done from PF and affecting a VF.
+> > I think from this POV the generic structure should include
+> > a way to address one device from another.
+> 
+> This will be defined per command.
+> 
+> For example, funcion_id will be given as command data.
 
-On 8/1/2021 1:26 AM, Michael S. Tsirkin wrote:
-> On Sat, Jul 31, 2021 at 02:34:25PM +0300, Max Gurtovoy wrote:
->> On 7/30/2021 10:05 AM, Cornelia Huck wrote:
->>> On Thu, Jul 29 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
->>>
->>>> On 7/28/2021 3:48 PM, Michael S. Tsirkin wrote:
->>>>> On Mon, Jul 26, 2021 at 07:52:53PM +0300, Max Gurtovoy wrote:
->>>>>> +\subsubsection{Vendor specific command set}\label{sec:Basic Facilit=
-ies of a Virtio Device / Admin Virtqueues / Admin command set / Vendor spec=
-ific command set}
->>>>>> +
->>>>>> +The Vendor specific command set is a group of classes and commands
->>>>>> +within each of these classes which are vendor specific. Refer to
->>>>>> +each vendor specification for more information on the supported
->>>>>> +commands.
->>>>> Here's another example.
->>>>> It's important that there is a way to make a device completely
->>>>> generic without vendor specific expensions.
->>>>> Would be hard to do here.
->>>>>
->>>>> That's a generic comment.
->>>>>
->>>>> but specifically I am very reluctant to add vendor specific stuff lik=
-e
->>>>> this directly in the spec. We already have VIRTIO_PCI_CAP_VENDOR_CFG
->>>>> and if that is not sufficient I would like to know why
->>>>> before we add more vendor specific stuff.
->>>> We are adding an option to add vendor specific commands. We're not
->>>> adding it to the spec since each vendor will have its own manual for
->>>> that.
->>> IMHO, that way madness lies. I want to be able to look at the spec and
->>> be able to implement a compliant device or a compliant driver. If a
->>> vendor has some special feature they want to support, put it in the
->>> spec, so that it is possible to actually implement it.
->> You can implement a compliant device and a compliant. why do you think y=
-ou
->> can't ?
->>
->> Some features are vendor/sub-vendor specific.
->>
->> And as mentioned, you already added it to=C2=A0 the spec so I guess it w=
-as for a
->> reason.
-> Well we basically just reserved a capability ID so if people add their
-> vendor specific ones they don't conflict with each other or capabilities
-> we'll add in the future.
-
-it shouldn't bother you as a driver maintainer. I don't think vendor=20
-specific code should go to Linux kernel.
-
-No conflict will happen.
-
-There is no harm in having a virtio-cli tool that will pass-through=20
-commands from command line to the device using the admin queue.
-
-All the HW devices I know have sw tool that can access it and virtio=20
-shouldn't be different.
-
-Also, I can develop my own vendor specific user space driver for=20
-virtio-blk for example (lets say in SPDK framework). And this driver=20
-will be aware of this vendor specific capabilities.
+Why? Sounds like a generic thing to me.
 
 
-> And such a capability can prove useful for things like
-> identifying the device to enable workarounds, etc.
->
-> That is a far cry from a fat interface which generic drivers will need to
-> support and who's sole purpose is vendor specific extensions.
+> 
+> > 
+> > > ---
+> > >   admin-virtq.tex | 241 ++++++++++++++++++++++++++++++++++++++++++++++++
+> > >   content.tex     |   4 +
+> > >   2 files changed, 245 insertions(+)
+> > >   create mode 100644 admin-virtq.tex
+> > > 
+> > > diff --git a/admin-virtq.tex b/admin-virtq.tex
+> > > new file mode 100644
+> > > index 0000000..ccec2ca
+> > > --- /dev/null
+> > > +++ b/admin-virtq.tex
+> > > @@ -0,0 +1,241 @@
+> > > +\section{Admin Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues}
+> > > +
+> > > +Admin virtqueues are used to send administrative commands to manipulate
+> > > +various features of the device which would not easily map into the
+> > > +configuration space.
+> > > +
+> > > +Use of Admin virtqueues is negotiated by the VIRTIO_F_ADMIN_VQ
+> > > +feature bit.
+> > > +
+> > > +Admin virtqueue index may vary among different device types.
+> > > +
+> > > +All commands are of the following form:
+> > > +
+> > > +\begin{lstlisting}
+> > > +struct virtio_admin_cmd {
+> > > +        /* Device-readable part */
+> > > +        u8 class;
+> > > +        u8 command;
+> > > +        u8 command-specific-data[];
+> > > +
+> > > +        /* Device-writable part */
+> > > +        u8 command-specific-result[];
+> > > +        u8 status_type : 4;
+> > > +        u8 reserved : 4;
+> > > +        u8 status;
+> > > +};
+> > > +
+> > > +/* Status type values */
+> > > +#define VIRTIO_ADMIN_STATUS_TYPE_GENERIC               0
+> > > +#define VIRTIO_ADMIN_STATUS_TYPE_CLASS_SPECIFIC        1
+> > > +#define VIRTIO_ADMIN_STATUS_TYPE_COMMAND_SPECIFIC      2
+> > > +#define VIRTIO_ADMIN_STATUS_TYPE_TRANSPORT_SPECIFIC    3
+> > > +#define VIRTIO_ADMIN_STATUS_TYPE_DEVICE_SPECIFIC       4
+> > > +#define VIRTIO_ADMIN_STATUS_TYPE_VENDOR_SPECIFIC       5
+> > > +
+> > > +/* Generic status values */
+> > > +#define VIRTIO_ADMIN_STATUS_GENERIC_OK                     0
+> > > +#define VIRTIO_ADMIN_STATUS_GENERIC_ERR                    1
+> > > +#define VIRTIO_ADMIN_STATUS_GENERIC_INVALID_CLASS          2
+> > > +#define VIRTIO_ADMIN_STATUS_GENERIC_INVALID_COMMAND        3
+> > > +#define VIRTIO_ADMIN_STATUS_GENERIC_DATA_TRANSFER_ERR      4
+> > > +#define VIRTIO_ADMIN_STATUS_GENERIC_DEVICE_INTERNAL_ERR    5
+> > > +\end{lstlisting}
+> > > +
+> > > +The \field{class}, \field{command} and \field{command-specific-data} are
+> > > +set by the driver, and the device sets the \field{status_type}, the
+> > > +\field{status} and  the \field{command-specific-result}, if needed.
+> > > +
+> > > +The virtio Admin command class codes are divided in the following form:
+> > > +
+> > > +\begin{lstlisting}
+> > > +/* class values that are transport, device and vendor independent */
+> > > +#define VIRTIO_ADMIN_COMMON_CLASS_START    0
+> > > +#define VIRTIO_ADMIN_COMMON_CLASS_END      63
+> > > +
+> > > +/* class values that are transport specific */
+> > > +#define VIRTIO_ADMIN_TRANSPORT_CLASS_START  64
+> > > +#define VIRTIO_ADMIN_TRANSPORT_CLASS_END    127
+> > > +
+> > > +/* class values that are device specific */
+> > > +#define VIRTIO_ADMIN_DEVICE_CLASS_START     128
+> > > +#define VIRTIO_ADMIN_DEVICE_CLASS_END       191
+> > > +
+> > > +/* class values that are vendor specific */
+> > > +#define VIRTIO_ADMIN_VENDOR_CLASS_START     192
+> > > +#define VIRTIO_ADMIN_VENDOR_CLASS_END       255
+> > > +\end{lstlisting}
+> > > +
+> > > +\subsection{Admin command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set}
+> > > +
+> > > +Each virtio device that advertise VIRTIO_F_ADMIN_VQ feature, MUST
+> > > +support all the mandatory admin commands. A device MAY support also
+> > > +one or more optional admin commands.
+> > > +
+> > > +\subsubsection{Common command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set}
+> > > +
+> > > +The Common command set is a group of classes and commands within each
+> > > +of these classes which are transport, device and vendor independent.
+> > > +A mandatory class is a class that has at least one mandatory command.
+> > > +The Common command set is summarized in following table:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Class  & Description    & M/O \\
+> > > +\hline \hline
+> > > +0  & VIRTIO_ADMIN_DISCOVER_DEVICE    & M \\
+> > > +\hline
+> > > +1  & VIRTIO_ADMIN_DISCOVER_DEVICE_CLASS_COMMANDS    & M \\
+> > > +\hline
+> > > +2-63  & reserved    & - \\
+> > > +\hline
+> > > +\end{tabular}
+> > > +
+> > > +\paragraph{Discover device class}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Discover device class}
+> > > +
+> > > +This class (opcode: 0) of commands is used to query generic device
+> > > +information. The following table describes the commands supported for
+> > > +this class:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Command  & Description    & M/O \\
+> > > +\hline \hline
+> > > +0  & VIRTIO_ADMIN_DISCOVER_DEVICE_IDENTITY    & M \\
+> > > +\hline
+> > > +1  & VIRTIO_ADMIN_DISCOVER_DEVICE_SUPPORTED_CLASSES    & M \\
+> > > +\hline
+> > > +2-255  & reserved    & - \\
+> > > +\hline
+> > > +\end{tabular}
+> > So there are several problems with this approach.
+> > One is that there is no two way negotiation.
+> 
+> you negotiate the adminq feature.
+> 
+> then you can send admin commands and discover the supported commands.
+> 
+> > No way for device to know what will driver use in the end.
+> 
+> device will be designed to support mandatory admin commands and some
+> optional.
+> 
+> It doesn't need to care whether the driver will use it or not.
 
-No vendor specific commands will be added to generic driver. I never=20
-said this.
+> > This breaks things like e.g. accelerating some configurations
+> > but not others.
+> 
+> I don't understand what it breaks exactly.
 
-I'll enable the option to create devices that support vendor specific=20
-commands.
+Long practice taught us that it is good for device to know
+what is driver going to use.
+For example, some features can be implemented in hardware
+and some in hypervisor software. If driver is going to use software
+features then you need to switch to a slower software
+implementation. Doing that dynamically at time of use is
+often much harder that up-front at negotiation time.
 
+> 
+> > 
+> > Another is that everything is going through the admin vq.
+> > Hard for hypervisor to intervene and change just some aspects
+> > of the device.
+> 
+> we'll develop virtio-cli tool.
 
->
-> And yes, it also allows you to unload the generic driver and load
-> a vendor driver. Which can then go wild if it wants to - nothing
-> we can or want to do about it.
+will that be part of the spec somehow then?
+I'm not sure it can be ...
 
-I don't get your point.
+> I don't know what should be changed in the device by the hypervisor.
 
-If someone would like to do crazy stuff, you can't stop him.
-
-
->
->
->> If someone would like to add its special souse to virtio device and we h=
-ave
->> a flexible admin queue to manage it with a spec compliant manner, why no=
-t ?
->>
->> The feature might not get support by the working group so do you really =
-want
->> to limit vendor from implementing features that are not agreed here on t=
-he
->> mailing list ?
->>
->> Adding a vendor specific command set is trivial.
-> Supporting all this mess leter isn't. So we better make sure just how
-> is all this vendor stuff going to be limited.
-
-You define a range of commands for vendors and that's it.
-
-I don't see a scenario to add some vendor code to virtio generic drivers.
+Look at vdpa as an example, guest device can be different from
+host device.
 
 
->
->>>> For example, we can use virtio-cli to pass command from command line t=
-o
->>>> device in pass-through manner without changing driver.
->>> Things like that are part of the driver as in the spec sense. The spec
->>> does not care how you actually split the implementation, or what
->>> controls you are giving to whom. We need a defined interface.
->> We have an interface. Its the admin queue.
->>
->> Virtio-cli will be a user space tool to send commands via this admin que=
-ue
->> and configure the device.
->>
->> The driver will just open a char dev to supply a channel to this admin q=
-ueue
->> from user space.
->>
->> Examples:
->>
->> 1. format a virtio-blk device to add data integrity checks (T-10)
->>
->> 2. set 5 msix to VF_1, 12 msix to VF_2 and 2 msix to VF_3 before enablin=
-g
->> SRIOV
->>
->> 3. Get telemetry log
->>
->> 4. Get error log
->>
->> 5. Get vendor specific HW health report
->>
->> 6. Get generic virtio device health report
->>
->> 7. set 5 queues to VF_1, 12 queues to VF_2 and 2 queues to VF_3 before
->> enabling SRIOV
->>
->>
->> This knowledge is needed for the sys-admin and not the driver. The drive=
-r
->> will provide the channel to enable this configuration by an
->> orchestrator/admin.
->>
->>
->>
+> 
+> > 
+> > This is also a problem for validation, tricky
+> > to find out during probe what does device support and whether
+> > driver can work with it.
+> 
+> device will support admin q with mandatory commands.
+> 
+> Old driver shouldn't care and it won't negotiate this feature.
+> 
+> New drivers will adjust and will be extended.
+
+Does not sound like I got the issue across.
+
+Operating VQs just to know whether to bind to device is
+problematic since there's an assumption that once
+DRIVER_OK is set driver is happy. Before DRIVER_OK
+device will not consume buffers.
+
+
+
+> 
+> > 
+> > 
+> > Can't we map this stuff into memory instead?
+> > Maybe have an admin config structure
+> > that is separate from regular config?
+> > Only issue we can't then make it too big.
+> > But so far I don't see a lot of info used, most is reserved.
+> 
+> This is initial commit to add infrastructure. I can't add 255 commands at
+> once.
+> 
+> We need to add it incrementally.
+
+How about a list of future extensions?
+
+
+> > 
+> > 
+> > 
+> > > +
+> > > +\subparagraph{Device identity command}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Discover device class / Device identity command}
+> > > +
+> > > +This mandatory command should return device identity in the following
+> > > +structure:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Bytes  & Description    & M/O \\
+> > > +\hline \hline
+> > > +03:00  & VIRTIO DEVICE ID    & M \\
+> > > +\hline
+> > > +05:04  & VIRTIO TRANSPORT ID    & M \\
+> > > +\hline
+> > > +4095:06  & reserved    & - \\
+> > > + \hline
+> > > +\end{tabular}
+> > > +
+> > > +\subparagraph{Device supported classes command}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Discover device class / Device supported classes command}
+> > > +
+> > > +This mandatory command should return device identity in the following
+> > > +structure:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Bytes  & Description    & M/O \\
+> > > +\hline \hline
+> > > +03:00  & VIRTIO_ADMIN_CLASS_0_PROPERTIES    & M \\
+> > > +\hline
+> > > +07:04  & VIRTIO_ADMIN_CLASS_1_PROPERTIES    & M \\
+> > > + \hline
+> > > +11:08  & VIRTIO_ADMIN_CLASS_2_PROPERTIES    & M \\
+> > > +\hline
+> > > +...  & ...    & M \\
+> > > +\hline
+> > > +1023:1020  & VIRTIO_ADMIN_CLASS_255_PROPERTIES    & M \\
+> > > +\hline
+> > > +4095:1024  & reserved    & - \\
+> > > +\hline
+> > > +\end{tabular}
+> > > +
+> > > +The above structure is divided to 256 sections of 4B each, that will
+> > > +describe whether a device supports a certain class code. The
+> > > +following 3072B are reserved. each of the non-reserved 4B sections will
+> > > +follow the following data structure:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Bits  & Description    & M/O \\
+> > > +\hline \hline
+> > > +0  & SUPPORTED (1: yes, 0:no)    & M \\
+> > > +\hline
+> > > +31:01  & reserved    & - \\
+> > > + \hline
+> > > +\end{tabular}
+> > > +
+> > > +\paragraph{Discover device class commands class}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Discover device class commands class}
+> > > +
+> > > +This class (opcode: 1) of commands is used to query supported commands
+> > > +for each supported device class.
+> > > The following table describes the commands
+> > > +supported for this class:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Command  & Description    & M/O \\
+> > > +\hline \hline
+> > > +0  & VIRTIO_ADMIN_CLASS_0_COMMANDS_IDENTITY    & M \\
+> > > +\hline
+> > > +1  & VIRTIO_ADMIN_CLASS_1_COMMANDS_IDENTITY    & M \\
+> > > +\hline
+> > > +2  & VIRTIO_ADMIN_CLASS_2_COMMANDS_IDENTITY    & M \\
+> > > +\hline
+> > > +...  & ...    & M \\
+> > > +\hline
+> > > +255  & VIRTIO_ADMIN_CLASS_255_COMMANDS_IDENTITY    & M \\
+> > > +\hline
+> > > +\end{tabular}
+> > > +
+> > > +Each command in this class, will return class identity in the following structure:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Bytes  & Description    & M/O \\
+> > > +\hline \hline
+> > > +03:00  & VIRTIO_ADMIN_COMMAND_0_PROPERTIES    & M \\
+> > > +\hline
+> > > +07:04  & VIRTIO_ADMIN_COMMAND_1_PROPERTIES    & M \\
+> > > + \hline
+> > > +11:08  & VIRTIO_ADMIN_COMMAND_2_PROPERTIES    & M \\
+> > > +\hline
+> > > +...  & ...    & M \\
+> > > +\hline
+> > > +1023:1020  & VIRTIO_ADMIN_COMMAND_255_PROPERTIES    & M \\
+> > > +\hline
+> > > +4095:1024  & reserved    & - \\
+> > > +\hline
+> > > +\end{tabular}
+> > > +
+> > > +The above structure is divided to 256 sections of 4B each, that will
+> > > +describe whether a class supports a certain command code. The
+> > > +following 3072B are reserved. each of the non-reserved 4B sections will
+> > > +follow the following data structure:
+> > > +
+> > > +\begin{tabular}{|l|l|l|}
+> > > +\hline
+> > > +Bits  & Description    & M/O \\
+> > > +\hline \hline
+> > > +0  & SUPPORTED (1: yes, 0:no)    & M \\
+> > > +\hline
+> > > +31:01  & reserved    & - \\
+> > > + \hline
+> > > +\end{tabular}
+> > > +
+> > > +\subsubsection{Transport command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Transport command set}
+> > > +
+> > > +The Transport command set is a group of classes and commands within
+> > > +each of these classes which are transport specific. Refer to each
+> > > +transport section for more information on the supported commands.
+> > > +
+> > > +\subsubsection{Device command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Device command set}
+> > > +
+> > > +The Device command set is a group of classes and commands within
+> > > +each of these classes which are device specific. Refer to each
+> > > +device section for more information on the supported commands.
+> > > +
+> > > +\subsubsection{Vendor specific command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Vendor specific command set}
+> > > +
+> > > +The Vendor specific command set is a group of classes and commands
+> > > +within each of these classes which are vendor specific. Refer to
+> > > +each vendor specification for more information on the supported
+> > > +commands.
+> > Here's another example.
+> > It's important that there is a way to make a device completely
+> > generic without vendor specific expensions.
+> > Would be hard to do here.
+> > 
+> > That's a generic comment.
+> > 
+> > but specifically I am very reluctant to add vendor specific stuff like
+> > this directly in the spec. We already have VIRTIO_PCI_CAP_VENDOR_CFG
+> > and if that is not sufficient I would like to know why
+> > before we add more vendor specific stuff.
+> 
+> We are adding an option to add vendor specific commands. We're not adding it
+> to the spec since each vendor will have its own manual for that.
+
+You didn't actually answer the question though.
+
+> For example, we can use virtio-cli to pass command from command line to
+> device in pass-through manner without changing driver.
+> 
+
+Opaque strings passed all the way from guest userspace to host device?
+Not sure why is that a good idea.
+
+> > 
+> > 
+> > > diff --git a/content.tex b/content.tex
+> > > index c266fd5..d350175 100644
+> > > --- a/content.tex
+> > > +++ b/content.tex
+> > > @@ -407,6 +407,8 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
+> > >   types. It is RECOMMENDED that devices generate version 4
+> > >   UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+> > > +\input{admin-virtq.tex}
+> > > +
+> > >   \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+> > >   We start with an overview of device initialization, then expand on the
+> > > @@ -6671,6 +6673,8 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+> > >     data to be provided in driver notification and the delivery method is
+> > >     transport specific.
+> > >     For more details about driver notifications over PCI see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}.
+> > > +  \item[VIRTIO_F_ADMIN_VQ(40)] This feature indicates that
+> > > +  the device supports administration virtqueue negotiation.
+> > >   \end{description}
+> > > -- 
+> > > 2.21.0
 
