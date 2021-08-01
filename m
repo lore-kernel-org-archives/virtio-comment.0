@@ -1,61 +1,96 @@
-Return-Path: <alex.bennee@linaro.org>
-References: <20210722110903.8769-1-alex.bennee@linaro.org>
- <87czr34v66.fsf@redhat.com> <87y29kgw3i.fsf@linaro.org>
- <87czqw1cf2.fsf@redhat.com>
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: Re: [virtio-comment] [PATCH] virtio-rpmb: fix the description for
- multi-block reads
-Date: Tue, 03 Aug 2021 16:38:39 +0100
-In-reply-to: <87czqw1cf2.fsf@redhat.com>
-Message-ID: <87wnp2fshe.fsf@linaro.org>
+Return-Path: <virtio-comment-return-2108-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id B61BA98404C
+	for <virtio-comment@lists.oasis-open.org>; Sun,  1 Aug 2021 10:46:13 +0000 (UTC)
+References: <20210726165254.8529-1-mgurtovoy@nvidia.com>
+ <YP/ffFbeJpDJ3sTG@stefanha-x1.localdomain> <87im0v4yrj.fsf@redhat.com>
+ <3657bbc8-3299-97a5-b45a-04030da35c51@nvidia.com>
+ <YQEa1b2QfW05e0iZ@stefanha-x1.localdomain>
+ <8c0b3927-0c10-e688-33f4-f9fa99f57f02@nvidia.com>
+ <YQFev1vXVFLlvW0w@stefanha-x1.localdomain>
+ <eedd595d-77b9-2921-bbcc-ced2618bccc9@nvidia.com>
+ <YQJrewVjjoSQeHWm@stefanha-x1.localdomain>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Message-ID: <ba991097-3028-6608-779f-a4e405bf9410@nvidia.com>
+Date: Sun, 1 Aug 2021 13:46:03 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, maxim.uvarov@linaro.org, joakim.bech@linaro.org, ulf.hansson@linaro.org, ilias.apalodimas@linaro.org, arnd@linaro.org, ruchika.gupta@linaro.org, tomas.winkler@intel.com, yang.huang@intel.com, bing.zhu@intel.com, Matti.Moell@opensynergy.com, hmo@opensynergy.com
+In-Reply-To: <YQJrewVjjoSQeHWm@stefanha-x1.localdomain>
+Subject: [virtio-comment] Re: [RFC PATCH v2 1/2] Add virtio Admin Virtqueue specification
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org, mst@redhat.com, jasowang@redhat.com, oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, eperezma@redhat.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
 
-Cornelia Huck <cohuck@redhat.com> writes:
-
-> On Mon, Aug 02 2021, Alex Benn=C3=A9e <alex.bennee@linaro.org> wrote:
->
->> Cornelia Huck <cohuck@redhat.com> writes:
->>
->>> On Thu, Jul 22 2021, Alex Benn=C3=A9e <alex.bennee@linaro.org> wrote:
+On 7/29/2021 11:48 AM, Stefan Hajnoczi wrote:
+> On Wed, Jul 28, 2021 at 05:20:29PM +0300, Max Gurtovoy wrote:
+>> On 7/28/2021 4:42 PM, Stefan Hajnoczi wrote:
+>>> On Wed, Jul 28, 2021 at 01:59:26PM +0300, Max Gurtovoy wrote:
+>>>> On 7/28/2021 11:52 AM, Stefan Hajnoczi wrote:
+>>>>> On Tue, Jul 27, 2021 at 06:29:49PM +0300, Max Gurtovoy wrote:
+>>>>>> On 7/27/2021 5:28 PM, Cornelia Huck wrote:
+>>>>>>> On Tue, Jul 27 2021, Stefan Hajnoczi <stefanha@redhat.com> wrote:
+>>>>>>>> On Mon, Jul 26, 2021 at 07:52:53PM +0300, Max Gurtovoy wrote:
+>>>>>>> How many different (groups of) commands can we reasonably expect? Do we
+>>>>>>> need a generic discovery command, or can we get away with a feature bit
+>>>>>>> covering each new group of commands?
+>>>>>> I can't predict the future but IMO we need a discovery command.
+>>>>>>
+>>>>>> We have many devices and more can be added in the future.
+>>>>> A <u8 class, u8 command> space is 65536 bits or 8KB. I think admin
+>>>>> commands would not be included in VIRTIO Feature Bits but instead
+>>>>> reported via a separate admin command that returns up to 8KB of data:
+>>>>>
+>>>>>      struct virtio_admin_report_cmds {
+>>>>>          /* Bitmap of available admin commands [Device->Driver]
+>>>>>           * bool command_present =
+>>>>>           *        command_bits[class * 32 + command / 8] & (command % 8);
+>>>>>           */
+>>>>>          u8 command_bits[8192];
+>>>>>      };
+>>>> Yes, I divided it to multiple commands per class to cover the case we will
+>>>> need more than 1 bit to describe a command.
+>>>>
+>>>> But I guess we can add it later on.
+>>>>
+>>>> I think the above should be:
+>>>>
+>>>> bool command_present = command_bits[class * 32 + command / 8] & (1 << (command % 8));
+>>>>
+>>>> isn't it ?
+>>> You're right. I forgot to shift the bit :D.
 >>>
->>>> Previously the text said we fail if block count is set to 1 despite
->>>> language elsewhere in the text referring to:
->>>>
->>>>   "For RPMB read request, one virtio buffer including request command
->>>>   and the subsequent [block_count] virtio buffers for response data
->>>>   are placed in the queue."
->>>>
->>>> and the existence of both max_wr_cnt and max_rd_cnt configuration
->>>> variables certainly implying devices should be able to handle
->>>> multi-block reads just like writes.
->>>>
->>>> Fix the description as well as format the steps as an enumerated list
->>>> to match the style of the previous section describing write handling.
->>>>
->>>> Reported-by: Ruchika Gupta <ruchika.gupta@linaro.org>
->>>> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
->>>> ---
->>>>  virtio-rpmb.tex | 24 +++++++++++++-----------
->>>>  1 file changed, 13 insertions(+), 11 deletions(-)
->>>
->>> Do you want to request a vote for this?
->>
->> Sure - I think it's a clarification rather than a "new" feature but
->> whatever is needed to get it merged ;-)
+>>>> Also what do you think about renaming <class, command> to <opcode, opmod> ?
+>>> I need to understand how opcode and opmod values are used. I'm not sure.
+>> Same as class and command just with different naming.
+> Is opcode the same as command? What does opmod do?
+
+no. opcode == class and opmod == command.
+
+
 >
-> Yes, I think it is slightly over the line of things I would merge as an
-> editorial update, so please open a github issue.
+> Stefan
 
-Done:
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-  https://github.com/oasis-tcs/virtio-spec/issues/113
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
---=20
-Alex Benn=C3=A9e
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
