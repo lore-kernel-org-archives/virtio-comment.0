@@ -1,257 +1,469 @@
-Return-Path: <jasowang@redhat.com>
+Return-Path: <mgurtovoy@nvidia.com>
 Subject: Re: [RFC PATCH v2 1/2] Add virtio Admin Virtqueue specification
 References: <20210726165254.8529-1-mgurtovoy@nvidia.com>
  <20210728083306-mutt-send-email-mst@kernel.org>
-From: Jason Wang <jasowang@redhat.com>
-Message-ID: <6de5eb17-1d0d-45d5-b1fa-e21989341b4f@redhat.com>
-Date: Mon, 2 Aug 2021 10:25:33 +0800
+ <6de5eb17-1d0d-45d5-b1fa-e21989341b4f@redhat.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Message-ID: <29acb062-e541-3359-cbdb-b777249c222c@nvidia.com>
+Date: Mon, 2 Aug 2021 12:51:30 +0300
 MIME-Version: 1.0
-In-Reply-To: <20210728083306-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset="gbk"; format="flowed"
-Content-Transfer-Encoding: base64
+In-Reply-To: <6de5eb17-1d0d-45d5-b1fa-e21989341b4f@redhat.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
 Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>, Max Gurtovoy <mgurtovoy@nvidia.com>
+To: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
 Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com, stefanha@redhat.com, oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, eperezma@redhat.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-CtTaIDIwMjEvNy8yOCDPws7nODo0OCwgTWljaGFlbCBTLiBUc2lya2luINC0tcA6Cj4gT24gTW9u
-LCBKdWwgMjYsIDIwMjEgYXQgMDc6NTI6NTNQTSArMDMwMCwgTWF4IEd1cnRvdm95IHdyb3RlOgo+
-PiBBZG1pbiB2aXJ0cXVldWVzIHdpbGwgYmUgdXNlZCB0byBzZW5kIGFkbWluaXN0cmF0aXZlIGNv
-bW1hbmRzIHRvCj4+IG1hbmlwdWxhdGUgdmFyaW91cyBmZWF0dXJlcyBvZiB0aGUgZGV2aWNlIHdo
-aWNoIHdvdWxkIG5vdCBlYXNpbHkgbWFwCj4+IGludG8gdGhlIGNvbmZpZ3VyYXRpb24gc3BhY2Uu
-Cj4+Cj4+IFRoZSBzYW1lIEFkbWluIGNvbW1hbmQgZm9ybWF0IHdpbGwgYmUgdXNlZCBmb3IgYWxs
-IHZpcnRpbyBkZXZpY2VzLiBUaGUKPj4gQWRtaW4gY29tbWFuZCBzZXQgd2lsbCBpbmNsdWRlIDQg
-dHlwZXMgb2YgY29tbWFuZCBjbGFzc2VzOgo+PiAxLiBUaGUgZ2VuZXJpYyBjb21tb24gY2xhc3MK
-Pj4gMi4gVGhlIHRyYW5zcG9ydCBzcGVjaWZpYyBjbGFzcwo+PiAzLiBUaGUgZGV2aWNlIHNwZWNp
-ZmljIGNsYXNzCj4+IDQuIFRoZSB2ZW5kb3Igc3BlY2lmaWMgY2xhc3MKPj4KPj4gVGhlIGFib3Zl
-IG1lY2hhbmlzbSB3aWxsIGVuYWJsZSBhZGRpbmcgdmFyaW91cyBmZWF0dXJlcyB0byB0aGUgdmly
-dGlvCj4+IHNwZWNpZmljYXRpb24sIGUuZy46Cj4+IDEuIEZvcm1hdCB2aXJ0aW8tYmxrIGRldmlj
-ZXMgaW4gdmFyaW91cyBjb25maWd1cmF0aW9ucyAoNTEyQiBibG9jayBzaXplLAo+PiAgICAgNTEy
-QiArIDhCIFQxMC1ESUYsIDRLIGJsb2NrIHNpemUsIDRrICsgOEIgVDEwLURJRiwgZXRjLi4pLgo+
-PiAyLiBMaXZlIG1pZ3JhdGlvbiBtYW5hZ2VtZW50Lgo+PiAzLiBFbmNyeXB0L0RlY3J5cHQgZGVz
-Y3JpcHRvcnMuCj4+IDQuIFZpcnR1YWxpemF0aW9uIG1hbmFnZW1lbnQuCj4+IDUuIEdldCBkZXZp
-Y2UgZXJyb3IgbG9ncy4KPj4gNi4gSW1wbGVtZW50IGFkdmFuY2VkIHZlbmRvci9kZXZpY2UvdHJh
-bnNwb3J0IHNwZWNpZmljIGZlYXR1cmVzLgo+PiA3LiBSdW4gZGV2aWNlIGhlYWx0aCB0ZXN0Lgo+
-PiA4LiBNb3JlLgo+Pgo+PiBBcyB2aXJ0aW8gZXZvbHZlcyBiZXlvbmQgdGhlIHBhcmEtdmlydC9z
-dy1lbXVsYXRlZCB3b3JsZCwgaXQncyBtYW5kYXRvcnkKPj4gZm9yIHRoZSBzcGVjaWZpY2F0aW9u
-IHRvIGJlY29tZSBmbGV4aWJsZSBhbmQgYWxsb3cgYSB3aWRlciBmZWF0dXJlIHNldC4KPj4gVGhl
-IGNvcnJlbnQgY3RybCB2aXJ0cSB0aGF0IGlzIGRlZmluZWQgZm9yIHNvbWUgb2YgdGhlIHZpcnRp
-byBkZXZpY2VzIGlzCj4+IGRldmljZSBzcGVjaWZpYyBhbmQgd2Fzbid0IGRlc2lnbmVkIHRvIGJl
-IGEgZ2VuZXJpYyB2aXJ0cSBmb3IKPj4gYWRtaW5pbmlzdHJhdGlvbi4KPj4KPj4gU2lnbmVkLW9m
-Zi1ieTogTWF4IEd1cnRvdm95IDxtZ3VydG92b3lAbnZpZGlhLmNvbT4KPiBMb3RzIG9mIHRoaW5n
-cyBvbiB0aGlzIGxpc3Qgc2VlbSB0byBtYWtlIHNlbnNlIHdoZW4KPiBkb25lIGZyb20gUEYgYW5k
-IGFmZmVjdGluZyBhIFZGLgo+IEkgdGhpbmsgZnJvbSB0aGlzIFBPViB0aGUgZ2VuZXJpYyBzdHJ1
-Y3R1cmUgc2hvdWxkIGluY2x1ZGUKPiBhIHdheSB0byBhZGRyZXNzIG9uZSBkZXZpY2UgZnJvbSBh
-bm90aGVyLgo+Cj4KPj4gLS0tCj4+ICAgYWRtaW4tdmlydHEudGV4IHwgMjQxICsrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+PiAgIGNvbnRlbnQudGV4ICAg
-ICB8ICAgNCArCj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCAyNDUgaW5zZXJ0aW9ucygrKQo+PiAgIGNy
-ZWF0ZSBtb2RlIDEwMDY0NCBhZG1pbi12aXJ0cS50ZXgKPj4KPj4gZGlmZiAtLWdpdCBhL2FkbWlu
-LXZpcnRxLnRleCBiL2FkbWluLXZpcnRxLnRleAo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+PiBp
-bmRleCAwMDAwMDAwLi5jY2VjMmNhCj4+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvYWRtaW4tdmly
-dHEudGV4Cj4+IEBAIC0wLDAgKzEsMjQxIEBACj4+ICtcc2VjdGlvbntBZG1pbiBWaXJ0cXVldWVz
-fVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbyBEZXZpY2UgLyBBZG1pbiBW
-aXJ0cXVldWVzfQo+PiArCj4+ICtBZG1pbiB2aXJ0cXVldWVzIGFyZSB1c2VkIHRvIHNlbmQgYWRt
-aW5pc3RyYXRpdmUgY29tbWFuZHMgdG8gbWFuaXB1bGF0ZQo+PiArdmFyaW91cyBmZWF0dXJlcyBv
-ZiB0aGUgZGV2aWNlIHdoaWNoIHdvdWxkIG5vdCBlYXNpbHkgbWFwIGludG8gdGhlCj4+ICtjb25m
-aWd1cmF0aW9uIHNwYWNlLgo+PiArCj4+ICtVc2Ugb2YgQWRtaW4gdmlydHF1ZXVlcyBpcyBuZWdv
-dGlhdGVkIGJ5IHRoZSBWSVJUSU9fRl9BRE1JTl9WUQo+PiArZmVhdHVyZSBiaXQuCj4+ICsKPj4g
-K0FkbWluIHZpcnRxdWV1ZSBpbmRleCBtYXkgdmFyeSBhbW9uZyBkaWZmZXJlbnQgZGV2aWNlIHR5
-cGVzLgo+PiArCj4+ICtBbGwgY29tbWFuZHMgYXJlIG9mIHRoZSBmb2xsb3dpbmcgZm9ybToKPj4g
-Kwo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9Cj4+ICtzdHJ1Y3QgdmlydGlvX2FkbWluX2NtZCB7Cj4+
-ICsgICAgICAgIC8qIERldmljZS1yZWFkYWJsZSBwYXJ0ICovCj4+ICsgICAgICAgIHU4IGNsYXNz
-Owo+PiArICAgICAgICB1OCBjb21tYW5kOwo+PiArICAgICAgICB1OCBjb21tYW5kLXNwZWNpZmlj
-LWRhdGFbXTsKPj4gKwo+PiArICAgICAgICAvKiBEZXZpY2Utd3JpdGFibGUgcGFydCAqLwo+PiAr
-ICAgICAgICB1OCBjb21tYW5kLXNwZWNpZmljLXJlc3VsdFtdOwo+PiArICAgICAgICB1OCBzdGF0
-dXNfdHlwZSA6IDQ7Cj4+ICsgICAgICAgIHU4IHJlc2VydmVkIDogNDsKPj4gKyAgICAgICAgdTgg
-c3RhdHVzOwo+PiArfTsKPj4gKwo+PiArLyogU3RhdHVzIHR5cGUgdmFsdWVzICovCj4+ICsjZGVm
-aW5lIFZJUlRJT19BRE1JTl9TVEFUVVNfVFlQRV9HRU5FUklDICAgICAgICAgICAgICAgMAo+PiAr
-I2RlZmluZSBWSVJUSU9fQURNSU5fU1RBVFVTX1RZUEVfQ0xBU1NfU1BFQ0lGSUMgICAgICAgIDEK
-Pj4gKyNkZWZpbmUgVklSVElPX0FETUlOX1NUQVRVU19UWVBFX0NPTU1BTkRfU1BFQ0lGSUMgICAg
-ICAyCj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9TVEFUVVNfVFlQRV9UUkFOU1BPUlRfU1BFQ0lG
-SUMgICAgMwo+PiArI2RlZmluZSBWSVJUSU9fQURNSU5fU1RBVFVTX1RZUEVfREVWSUNFX1NQRUNJ
-RklDICAgICAgIDQKPj4gKyNkZWZpbmUgVklSVElPX0FETUlOX1NUQVRVU19UWVBFX1ZFTkRPUl9T
-UEVDSUZJQyAgICAgICA1Cj4+ICsKPj4gKy8qIEdlbmVyaWMgc3RhdHVzIHZhbHVlcyAqLwo+PiAr
-I2RlZmluZSBWSVJUSU9fQURNSU5fU1RBVFVTX0dFTkVSSUNfT0sgICAgICAgICAgICAgICAgICAg
-ICAwCj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9TVEFUVVNfR0VORVJJQ19FUlIgICAgICAgICAg
-ICAgICAgICAgIDEKPj4gKyNkZWZpbmUgVklSVElPX0FETUlOX1NUQVRVU19HRU5FUklDX0lOVkFM
-SURfQ0xBU1MgICAgICAgICAgMgo+PiArI2RlZmluZSBWSVJUSU9fQURNSU5fU1RBVFVTX0dFTkVS
-SUNfSU5WQUxJRF9DT01NQU5EICAgICAgICAzCj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9TVEFU
-VVNfR0VORVJJQ19EQVRBX1RSQU5TRkVSX0VSUiAgICAgIDQKPj4gKyNkZWZpbmUgVklSVElPX0FE
-TUlOX1NUQVRVU19HRU5FUklDX0RFVklDRV9JTlRFUk5BTF9FUlIgICAgNQo+PiArXGVuZHtsc3Rs
-aXN0aW5nfQo+PiArCj4+ICtUaGUgXGZpZWxke2NsYXNzfSwgXGZpZWxke2NvbW1hbmR9IGFuZCBc
-ZmllbGR7Y29tbWFuZC1zcGVjaWZpYy1kYXRhfSBhcmUKPj4gK3NldCBieSB0aGUgZHJpdmVyLCBh
-bmQgdGhlIGRldmljZSBzZXRzIHRoZSBcZmllbGR7c3RhdHVzX3R5cGV9LCB0aGUKPj4gK1xmaWVs
-ZHtzdGF0dXN9IGFuZCAgdGhlIFxmaWVsZHtjb21tYW5kLXNwZWNpZmljLXJlc3VsdH0sIGlmIG5l
-ZWRlZC4KPj4gKwo+PiArVGhlIHZpcnRpbyBBZG1pbiBjb21tYW5kIGNsYXNzIGNvZGVzIGFyZSBk
-aXZpZGVkIGluIHRoZSBmb2xsb3dpbmcgZm9ybToKPj4gKwo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9
-Cj4+ICsvKiBjbGFzcyB2YWx1ZXMgdGhhdCBhcmUgdHJhbnNwb3J0LCBkZXZpY2UgYW5kIHZlbmRv
-ciBpbmRlcGVuZGVudCAqLwo+PiArI2RlZmluZSBWSVJUSU9fQURNSU5fQ09NTU9OX0NMQVNTX1NU
-QVJUICAgIDAKPj4gKyNkZWZpbmUgVklSVElPX0FETUlOX0NPTU1PTl9DTEFTU19FTkQgICAgICA2
-Mwo+PiArCj4+ICsvKiBjbGFzcyB2YWx1ZXMgdGhhdCBhcmUgdHJhbnNwb3J0IHNwZWNpZmljICov
-Cj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9UUkFOU1BPUlRfQ0xBU1NfU1RBUlQgIDY0Cj4+ICsj
-ZGVmaW5lIFZJUlRJT19BRE1JTl9UUkFOU1BPUlRfQ0xBU1NfRU5EICAgIDEyNwo+PiArCj4+ICsv
-KiBjbGFzcyB2YWx1ZXMgdGhhdCBhcmUgZGV2aWNlIHNwZWNpZmljICovCj4+ICsjZGVmaW5lIFZJ
-UlRJT19BRE1JTl9ERVZJQ0VfQ0xBU1NfU1RBUlQgICAgIDEyOAo+PiArI2RlZmluZSBWSVJUSU9f
-QURNSU5fREVWSUNFX0NMQVNTX0VORCAgICAgICAxOTEKPj4gKwo+PiArLyogY2xhc3MgdmFsdWVz
-IHRoYXQgYXJlIHZlbmRvciBzcGVjaWZpYyAqLwo+PiArI2RlZmluZSBWSVJUSU9fQURNSU5fVkVO
-RE9SX0NMQVNTX1NUQVJUICAgICAxOTIKPj4gKyNkZWZpbmUgVklSVElPX0FETUlOX1ZFTkRPUl9D
-TEFTU19FTkQgICAgICAgMjU1Cj4+ICtcZW5ke2xzdGxpc3Rpbmd9Cj4+ICsKPj4gK1xzdWJzZWN0
-aW9ue0FkbWluIGNvbW1hbmQgc2V0fVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZp
-cnRpbyBEZXZpY2UgLyBBZG1pbiBWaXJ0cXVldWVzIC8gQWRtaW4gY29tbWFuZCBzZXR9Cj4+ICsK
-Pj4gK0VhY2ggdmlydGlvIGRldmljZSB0aGF0IGFkdmVydGlzZSBWSVJUSU9fRl9BRE1JTl9WUSBm
-ZWF0dXJlLCBNVVNUCj4+ICtzdXBwb3J0IGFsbCB0aGUgbWFuZGF0b3J5IGFkbWluIGNvbW1hbmRz
-LiBBIGRldmljZSBNQVkgc3VwcG9ydCBhbHNvCj4+ICtvbmUgb3IgbW9yZSBvcHRpb25hbCBhZG1p
-biBjb21tYW5kcy4KPj4gKwo+PiArXHN1YnN1YnNlY3Rpb257Q29tbW9uIGNvbW1hbmQgc2V0fVxs
-YWJlbHtzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbyBEZXZpY2UgLyBBZG1pbiBWaXJ0
-cXVldWVzIC8gQWRtaW4gY29tbWFuZCBzZXQgLyBDb21tb24gY29tbWFuZCBzZXR9Cj4+ICsKPj4g
-K1RoZSBDb21tb24gY29tbWFuZCBzZXQgaXMgYSBncm91cCBvZiBjbGFzc2VzIGFuZCBjb21tYW5k
-cyB3aXRoaW4gZWFjaAo+PiArb2YgdGhlc2UgY2xhc3NlcyB3aGljaCBhcmUgdHJhbnNwb3J0LCBk
-ZXZpY2UgYW5kIHZlbmRvciBpbmRlcGVuZGVudC4KPj4gK0EgbWFuZGF0b3J5IGNsYXNzIGlzIGEg
-Y2xhc3MgdGhhdCBoYXMgYXQgbGVhc3Qgb25lIG1hbmRhdG9yeSBjb21tYW5kLgo+PiArVGhlIENv
-bW1vbiBjb21tYW5kIHNldCBpcyBzdW1tYXJpemVkIGluIGZvbGxvd2luZyB0YWJsZToKPj4gKwo+
-PiArXGJlZ2lue3RhYnVsYXJ9e3xsfGx8bHx9Cj4+ICtcaGxpbmUKPj4gK0NsYXNzICAmIERlc2Ny
-aXB0aW9uICAgICYgTS9PIFxcCj4+ICtcaGxpbmUgXGhsaW5lCj4+ICswICAmIFZJUlRJT19BRE1J
-Tl9ESVNDT1ZFUl9ERVZJQ0UgICAgJiBNIFxcCj4+ICtcaGxpbmUKPj4gKzEgICYgVklSVElPX0FE
-TUlOX0RJU0NPVkVSX0RFVklDRV9DTEFTU19DT01NQU5EUyAgICAmIE0gXFwKPj4gK1xobGluZQo+
-PiArMi02MyAgJiByZXNlcnZlZCAgICAmIC0gXFwKPj4gK1xobGluZQo+PiArXGVuZHt0YWJ1bGFy
-fQo+PiArCj4+ICtccGFyYWdyYXBoe0Rpc2NvdmVyIGRldmljZSBjbGFzc31cbGFiZWx7c2VjOkJh
-c2ljIEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2aWNlIC8gQWRtaW4gVmlydHF1ZXVlcyAvIEFk
-bWluIGNvbW1hbmQgc2V0IC8gQ29tbW9uIGNvbW1hbmQgc2V0IC8gRGlzY292ZXIgZGV2aWNlIGNs
-YXNzfQo+PiArCj4+ICtUaGlzIGNsYXNzIChvcGNvZGU6IDApIG9mIGNvbW1hbmRzIGlzIHVzZWQg
-dG8gcXVlcnkgZ2VuZXJpYyBkZXZpY2UKPj4gK2luZm9ybWF0aW9uLiBUaGUgZm9sbG93aW5nIHRh
-YmxlIGRlc2NyaWJlcyB0aGUgY29tbWFuZHMgc3VwcG9ydGVkIGZvcgo+PiArdGhpcyBjbGFzczoK
-Pj4gKwo+PiArXGJlZ2lue3RhYnVsYXJ9e3xsfGx8bHx9Cj4+ICtcaGxpbmUKPj4gK0NvbW1hbmQg
-ICYgRGVzY3JpcHRpb24gICAgJiBNL08gXFwKPj4gK1xobGluZSBcaGxpbmUKPj4gKzAgICYgVklS
-VElPX0FETUlOX0RJU0NPVkVSX0RFVklDRV9JREVOVElUWSAgICAmIE0gXFwKPj4gK1xobGluZQo+
-PiArMSAgJiBWSVJUSU9fQURNSU5fRElTQ09WRVJfREVWSUNFX1NVUFBPUlRFRF9DTEFTU0VTICAg
-ICYgTSBcXAo+PiArXGhsaW5lCj4+ICsyLTI1NSAgJiByZXNlcnZlZCAgICAmIC0gXFwKPj4gK1xo
-bGluZQo+PiArXGVuZHt0YWJ1bGFyfQo+IFNvIHRoZXJlIGFyZSBzZXZlcmFsIHByb2JsZW1zIHdp
-dGggdGhpcyBhcHByb2FjaC4KPiBPbmUgaXMgdGhhdCB0aGVyZSBpcyBubyB0d28gd2F5IG5lZ290
-aWF0aW9uLgo+IE5vIHdheSBmb3IgZGV2aWNlIHRvIGtub3cgd2hhdCB3aWxsIGRyaXZlciB1c2Ug
-aW4gdGhlIGVuZC4KPiBUaGlzIGJyZWFrcyB0aGluZ3MgbGlrZSBlLmcuIGFjY2VsZXJhdGluZyBz
-b21lIGNvbmZpZ3VyYXRpb25zCj4gYnV0IG5vdCBvdGhlcnMuCj4KPiBBbm90aGVyIGlzIHRoYXQg
-ZXZlcnl0aGluZyBpcyBnb2luZyB0aHJvdWdoIHRoZSBhZG1pbiB2cS4KPiBIYXJkIGZvciBoeXBl
-cnZpc29yIHRvIGludGVydmVuZSBhbmQgY2hhbmdlIGp1c3Qgc29tZSBhc3BlY3RzCj4gb2YgdGhl
-IGRldmljZS4KPgo+IFRoaXMgaXMgYWxzbyBhIHByb2JsZW0gZm9yIHZhbGlkYXRpb24sIHRyaWNr
-eQo+IHRvIGZpbmQgb3V0IGR1cmluZyBwcm9iZSB3aGF0IGRvZXMgZGV2aWNlIHN1cHBvcnQgYW5k
-IHdoZXRoZXIKPiBkcml2ZXIgY2FuIHdvcmsgd2l0aCBpdC4KCgpZZXMsIHNvIEkgdGhpbmsgaXQg
-bWFrZXMgc2Vuc2UgdG8gbWFrZSB0aGUgYWRtaW4gdmlydHF1ZXVlIGFzIGEgCnRyYW5zcG9ydCBh
-bmQgdGhlbiBidWlsZCBvdGhlciBzdHVmZnMgb24gdG9wLgoKCj4KPgo+IENhbid0IHdlIG1hcCB0
-aGlzIHN0dWZmIGludG8gbWVtb3J5IGluc3RlYWQ/Cj4gTWF5YmUgaGF2ZSBhbiBhZG1pbiBjb25m
-aWcgc3RydWN0dXJlCj4gdGhhdCBpcyBzZXBhcmF0ZSBmcm9tIHJlZ3VsYXIgY29uZmlnPwo+IE9u
-bHkgaXNzdWUgd2UgY2FuJ3QgdGhlbiBtYWtlIGl0IHRvbyBiaWcuCj4gQnV0IHNvIGZhciBJIGRv
-bid0IHNlZSBhIGxvdCBvZiBpbmZvIHVzZWQsIG1vc3QgaXMgcmVzZXJ2ZWQuCgoKSXQgc2hvdWxk
-IHdvcmsgKGVzcGVjaWFsbHkgZm9yIFBDSSkuCgpUaGFua3MKCgo+Cj4KPgo+PiArCj4+ICtcc3Vi
-cGFyYWdyYXBoe0RldmljZSBpZGVudGl0eSBjb21tYW5kfVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxp
-dGllcyBvZiBhIFZpcnRpbyBEZXZpY2UgLyBBZG1pbiBWaXJ0cXVldWVzIC8gQWRtaW4gY29tbWFu
-ZCBzZXQgLyBDb21tb24gY29tbWFuZCBzZXQgLyBEaXNjb3ZlciBkZXZpY2UgY2xhc3MgLyBEZXZp
-Y2UgaWRlbnRpdHkgY29tbWFuZH0KPj4gKwo+PiArVGhpcyBtYW5kYXRvcnkgY29tbWFuZCBzaG91
-bGQgcmV0dXJuIGRldmljZSBpZGVudGl0eSBpbiB0aGUgZm9sbG93aW5nCj4+ICtzdHJ1Y3R1cmU6
-Cj4+ICsKPj4gK1xiZWdpbnt0YWJ1bGFyfXt8bHxsfGx8fQo+PiArXGhsaW5lCj4+ICtCeXRlcyAg
-JiBEZXNjcmlwdGlvbiAgICAmIE0vTyBcXAo+PiArXGhsaW5lIFxobGluZQo+PiArMDM6MDAgICYg
-VklSVElPIERFVklDRSBJRCAgICAmIE0gXFwKPj4gK1xobGluZQo+PiArMDU6MDQgICYgVklSVElP
-IFRSQU5TUE9SVCBJRCAgICAmIE0gXFwKPj4gK1xobGluZQo+PiArNDA5NTowNiAgJiByZXNlcnZl
-ZCAgICAmIC0gXFwKPj4gKyBcaGxpbmUKPj4gK1xlbmR7dGFidWxhcn0KPj4gKwo+PiArXHN1YnBh
-cmFncmFwaHtEZXZpY2Ugc3VwcG9ydGVkIGNsYXNzZXMgY29tbWFuZH1cbGFiZWx7c2VjOkJhc2lj
-IEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2aWNlIC8gQWRtaW4gVmlydHF1ZXVlcyAvIEFkbWlu
-IGNvbW1hbmQgc2V0IC8gQ29tbW9uIGNvbW1hbmQgc2V0IC8gRGlzY292ZXIgZGV2aWNlIGNsYXNz
-IC8gRGV2aWNlIHN1cHBvcnRlZCBjbGFzc2VzIGNvbW1hbmR9Cj4+ICsKPj4gK1RoaXMgbWFuZGF0
-b3J5IGNvbW1hbmQgc2hvdWxkIHJldHVybiBkZXZpY2UgaWRlbnRpdHkgaW4gdGhlIGZvbGxvd2lu
-Zwo+PiArc3RydWN0dXJlOgo+PiArCj4+ICtcYmVnaW57dGFidWxhcn17fGx8bHxsfH0KPj4gK1xo
-bGluZQo+PiArQnl0ZXMgICYgRGVzY3JpcHRpb24gICAgJiBNL08gXFwKPj4gK1xobGluZSBcaGxp
-bmUKPj4gKzAzOjAwICAmIFZJUlRJT19BRE1JTl9DTEFTU18wX1BST1BFUlRJRVMgICAgJiBNIFxc
-Cj4+ICtcaGxpbmUKPj4gKzA3OjA0ICAmIFZJUlRJT19BRE1JTl9DTEFTU18xX1BST1BFUlRJRVMg
-ICAgJiBNIFxcCj4+ICsgXGhsaW5lCj4+ICsxMTowOCAgJiBWSVJUSU9fQURNSU5fQ0xBU1NfMl9Q
-Uk9QRVJUSUVTICAgICYgTSBcXAo+PiArXGhsaW5lCj4+ICsuLi4gICYgLi4uICAgICYgTSBcXAo+
-PiArXGhsaW5lCj4+ICsxMDIzOjEwMjAgICYgVklSVElPX0FETUlOX0NMQVNTXzI1NV9QUk9QRVJU
-SUVTICAgICYgTSBcXAo+PiArXGhsaW5lCj4+ICs0MDk1OjEwMjQgICYgcmVzZXJ2ZWQgICAgJiAt
-IFxcCj4+ICtcaGxpbmUKPj4gK1xlbmR7dGFidWxhcn0KPj4gKwo+PiArVGhlIGFib3ZlIHN0cnVj
-dHVyZSBpcyBkaXZpZGVkIHRvIDI1NiBzZWN0aW9ucyBvZiA0QiBlYWNoLCB0aGF0IHdpbGwKPj4g
-K2Rlc2NyaWJlIHdoZXRoZXIgYSBkZXZpY2Ugc3VwcG9ydHMgYSBjZXJ0YWluIGNsYXNzIGNvZGUu
-IFRoZQo+PiArZm9sbG93aW5nIDMwNzJCIGFyZSByZXNlcnZlZC4gZWFjaCBvZiB0aGUgbm9uLXJl
-c2VydmVkIDRCIHNlY3Rpb25zIHdpbGwKPj4gK2ZvbGxvdyB0aGUgZm9sbG93aW5nIGRhdGEgc3Ry
-dWN0dXJlOgo+PiArCj4+ICtcYmVnaW57dGFidWxhcn17fGx8bHxsfH0KPj4gK1xobGluZQo+PiAr
-Qml0cyAgJiBEZXNjcmlwdGlvbiAgICAmIE0vTyBcXAo+PiArXGhsaW5lIFxobGluZQo+PiArMCAg
-JiBTVVBQT1JURUQgKDE6IHllcywgMDpubykgICAgJiBNIFxcCj4+ICtcaGxpbmUKPj4gKzMxOjAx
-ICAmIHJlc2VydmVkICAgICYgLSBcXAo+PiArIFxobGluZQo+PiArXGVuZHt0YWJ1bGFyfQo+PiAr
-Cj4+ICtccGFyYWdyYXBoe0Rpc2NvdmVyIGRldmljZSBjbGFzcyBjb21tYW5kcyBjbGFzc31cbGFi
-ZWx7c2VjOkJhc2ljIEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2aWNlIC8gQWRtaW4gVmlydHF1
-ZXVlcyAvIEFkbWluIGNvbW1hbmQgc2V0IC8gQ29tbW9uIGNvbW1hbmQgc2V0IC8gRGlzY292ZXIg
-ZGV2aWNlIGNsYXNzIGNvbW1hbmRzIGNsYXNzfQo+PiArCj4+ICtUaGlzIGNsYXNzIChvcGNvZGU6
-IDEpIG9mIGNvbW1hbmRzIGlzIHVzZWQgdG8gcXVlcnkgc3VwcG9ydGVkIGNvbW1hbmRzCj4+ICtm
-b3IgZWFjaCBzdXBwb3J0ZWQgZGV2aWNlIGNsYXNzLgo+PiBUaGUgZm9sbG93aW5nIHRhYmxlIGRl
-c2NyaWJlcyB0aGUgY29tbWFuZHMKPj4gK3N1cHBvcnRlZCBmb3IgdGhpcyBjbGFzczoKPj4gKwo+
-PiArXGJlZ2lue3RhYnVsYXJ9e3xsfGx8bHx9Cj4+ICtcaGxpbmUKPj4gK0NvbW1hbmQgICYgRGVz
-Y3JpcHRpb24gICAgJiBNL08gXFwKPj4gK1xobGluZSBcaGxpbmUKPj4gKzAgICYgVklSVElPX0FE
-TUlOX0NMQVNTXzBfQ09NTUFORFNfSURFTlRJVFkgICAgJiBNIFxcCj4+ICtcaGxpbmUKPj4gKzEg
-ICYgVklSVElPX0FETUlOX0NMQVNTXzFfQ09NTUFORFNfSURFTlRJVFkgICAgJiBNIFxcCj4+ICtc
-aGxpbmUKPj4gKzIgICYgVklSVElPX0FETUlOX0NMQVNTXzJfQ09NTUFORFNfSURFTlRJVFkgICAg
-JiBNIFxcCj4+ICtcaGxpbmUKPj4gKy4uLiAgJiAuLi4gICAgJiBNIFxcCj4+ICtcaGxpbmUKPj4g
-KzI1NSAgJiBWSVJUSU9fQURNSU5fQ0xBU1NfMjU1X0NPTU1BTkRTX0lERU5USVRZICAgICYgTSBc
-XAo+PiArXGhsaW5lCj4+ICtcZW5ke3RhYnVsYXJ9Cj4+ICsKPj4gK0VhY2ggY29tbWFuZCBpbiB0
-aGlzIGNsYXNzLCB3aWxsIHJldHVybiBjbGFzcyBpZGVudGl0eSBpbiB0aGUgZm9sbG93aW5nIHN0
-cnVjdHVyZToKPj4gKwo+PiArXGJlZ2lue3RhYnVsYXJ9e3xsfGx8bHx9Cj4+ICtcaGxpbmUKPj4g
-K0J5dGVzICAmIERlc2NyaXB0aW9uICAgICYgTS9PIFxcCj4+ICtcaGxpbmUgXGhsaW5lCj4+ICsw
-MzowMCAgJiBWSVJUSU9fQURNSU5fQ09NTUFORF8wX1BST1BFUlRJRVMgICAgJiBNIFxcCj4+ICtc
-aGxpbmUKPj4gKzA3OjA0ICAmIFZJUlRJT19BRE1JTl9DT01NQU5EXzFfUFJPUEVSVElFUyAgICAm
-IE0gXFwKPj4gKyBcaGxpbmUKPj4gKzExOjA4ICAmIFZJUlRJT19BRE1JTl9DT01NQU5EXzJfUFJP
-UEVSVElFUyAgICAmIE0gXFwKPj4gK1xobGluZQo+PiArLi4uICAmIC4uLiAgICAmIE0gXFwKPj4g
-K1xobGluZQo+PiArMTAyMzoxMDIwICAmIFZJUlRJT19BRE1JTl9DT01NQU5EXzI1NV9QUk9QRVJU
-SUVTICAgICYgTSBcXAo+PiArXGhsaW5lCj4+ICs0MDk1OjEwMjQgICYgcmVzZXJ2ZWQgICAgJiAt
-IFxcCj4+ICtcaGxpbmUKPj4gK1xlbmR7dGFidWxhcn0KPj4gKwo+PiArVGhlIGFib3ZlIHN0cnVj
-dHVyZSBpcyBkaXZpZGVkIHRvIDI1NiBzZWN0aW9ucyBvZiA0QiBlYWNoLCB0aGF0IHdpbGwKPj4g
-K2Rlc2NyaWJlIHdoZXRoZXIgYSBjbGFzcyBzdXBwb3J0cyBhIGNlcnRhaW4gY29tbWFuZCBjb2Rl
-LiBUaGUKPj4gK2ZvbGxvd2luZyAzMDcyQiBhcmUgcmVzZXJ2ZWQuIGVhY2ggb2YgdGhlIG5vbi1y
-ZXNlcnZlZCA0QiBzZWN0aW9ucyB3aWxsCj4+ICtmb2xsb3cgdGhlIGZvbGxvd2luZyBkYXRhIHN0
-cnVjdHVyZToKPj4gKwo+PiArXGJlZ2lue3RhYnVsYXJ9e3xsfGx8bHx9Cj4+ICtcaGxpbmUKPj4g
-K0JpdHMgICYgRGVzY3JpcHRpb24gICAgJiBNL08gXFwKPj4gK1xobGluZSBcaGxpbmUKPj4gKzAg
-ICYgU1VQUE9SVEVEICgxOiB5ZXMsIDA6bm8pICAgICYgTSBcXAo+PiArXGhsaW5lCj4+ICszMTow
-MSAgJiByZXNlcnZlZCAgICAmIC0gXFwKPj4gKyBcaGxpbmUKPj4gK1xlbmR7dGFidWxhcn0KPj4g
-Kwo+PiArXHN1YnN1YnNlY3Rpb257VHJhbnNwb3J0IGNvbW1hbmQgc2V0fVxsYWJlbHtzZWM6QmFz
-aWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbyBEZXZpY2UgLyBBZG1pbiBWaXJ0cXVldWVzIC8gQWRt
-aW4gY29tbWFuZCBzZXQgLyBUcmFuc3BvcnQgY29tbWFuZCBzZXR9Cj4+ICsKPj4gK1RoZSBUcmFu
-c3BvcnQgY29tbWFuZCBzZXQgaXMgYSBncm91cCBvZiBjbGFzc2VzIGFuZCBjb21tYW5kcyB3aXRo
-aW4KPj4gK2VhY2ggb2YgdGhlc2UgY2xhc3NlcyB3aGljaCBhcmUgdHJhbnNwb3J0IHNwZWNpZmlj
-LiBSZWZlciB0byBlYWNoCj4+ICt0cmFuc3BvcnQgc2VjdGlvbiBmb3IgbW9yZSBpbmZvcm1hdGlv
-biBvbiB0aGUgc3VwcG9ydGVkIGNvbW1hbmRzLgo+PiArCj4+ICtcc3Vic3Vic2VjdGlvbntEZXZp
-Y2UgY29tbWFuZCBzZXR9XGxhYmVse3NlYzpCYXNpYyBGYWNpbGl0aWVzIG9mIGEgVmlydGlvIERl
-dmljZSAvIEFkbWluIFZpcnRxdWV1ZXMgLyBBZG1pbiBjb21tYW5kIHNldCAvIERldmljZSBjb21t
-YW5kIHNldH0KPj4gKwo+PiArVGhlIERldmljZSBjb21tYW5kIHNldCBpcyBhIGdyb3VwIG9mIGNs
-YXNzZXMgYW5kIGNvbW1hbmRzIHdpdGhpbgo+PiArZWFjaCBvZiB0aGVzZSBjbGFzc2VzIHdoaWNo
-IGFyZSBkZXZpY2Ugc3BlY2lmaWMuIFJlZmVyIHRvIGVhY2gKPj4gK2RldmljZSBzZWN0aW9uIGZv
-ciBtb3JlIGluZm9ybWF0aW9uIG9uIHRoZSBzdXBwb3J0ZWQgY29tbWFuZHMuCj4+ICsKPj4gK1xz
-dWJzdWJzZWN0aW9ue1ZlbmRvciBzcGVjaWZpYyBjb21tYW5kIHNldH1cbGFiZWx7c2VjOkJhc2lj
-IEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2aWNlIC8gQWRtaW4gVmlydHF1ZXVlcyAvIEFkbWlu
-IGNvbW1hbmQgc2V0IC8gVmVuZG9yIHNwZWNpZmljIGNvbW1hbmQgc2V0fQo+PiArCj4+ICtUaGUg
-VmVuZG9yIHNwZWNpZmljIGNvbW1hbmQgc2V0IGlzIGEgZ3JvdXAgb2YgY2xhc3NlcyBhbmQgY29t
-bWFuZHMKPj4gK3dpdGhpbiBlYWNoIG9mIHRoZXNlIGNsYXNzZXMgd2hpY2ggYXJlIHZlbmRvciBz
-cGVjaWZpYy4gUmVmZXIgdG8KPj4gK2VhY2ggdmVuZG9yIHNwZWNpZmljYXRpb24gZm9yIG1vcmUg
-aW5mb3JtYXRpb24gb24gdGhlIHN1cHBvcnRlZAo+PiArY29tbWFuZHMuCj4gSGVyZSdzIGFub3Ro
-ZXIgZXhhbXBsZS4KPiBJdCdzIGltcG9ydGFudCB0aGF0IHRoZXJlIGlzIGEgd2F5IHRvIG1ha2Ug
-YSBkZXZpY2UgY29tcGxldGVseQo+IGdlbmVyaWMgd2l0aG91dCB2ZW5kb3Igc3BlY2lmaWMgZXhw
-ZW5zaW9ucy4KPiBXb3VsZCBiZSBoYXJkIHRvIGRvIGhlcmUuCj4KPiBUaGF0J3MgYSBnZW5lcmlj
-IGNvbW1lbnQuCj4KPiBidXQgc3BlY2lmaWNhbGx5IEkgYW0gdmVyeSByZWx1Y3RhbnQgdG8gYWRk
-IHZlbmRvciBzcGVjaWZpYyBzdHVmZiBsaWtlCj4gdGhpcyBkaXJlY3RseSBpbiB0aGUgc3BlYy4g
-V2UgYWxyZWFkeSBoYXZlIFZJUlRJT19QQ0lfQ0FQX1ZFTkRPUl9DRkcKPiBhbmQgaWYgdGhhdCBp
-cyBub3Qgc3VmZmljaWVudCBJIHdvdWxkIGxpa2UgdG8ga25vdyB3aHkKPiBiZWZvcmUgd2UgYWRk
-IG1vcmUgdmVuZG9yIHNwZWNpZmljIHN0dWZmLgo+Cj4KPj4gZGlmZiAtLWdpdCBhL2NvbnRlbnQu
-dGV4IGIvY29udGVudC50ZXgKPj4gaW5kZXggYzI2NmZkNS4uZDM1MDE3NSAxMDA2NDQKPj4gLS0t
-IGEvY29udGVudC50ZXgKPj4gKysrIGIvY29udGVudC50ZXgKPj4gQEAgLTQwNyw2ICs0MDcsOCBA
-QCBcc2VjdGlvbntFeHBvcnRpbmcgT2JqZWN0c31cbGFiZWx7c2VjOkJhc2ljIEZhY2lsaXRpZXMg
-b2YgYSBWaXJ0aW8gRGV2aWNlIC8gRXhwbwo+PiAgIHR5cGVzLiBJdCBpcyBSRUNPTU1FTkRFRCB0
-aGF0IGRldmljZXMgZ2VuZXJhdGUgdmVyc2lvbiA0Cj4+ICAgVVVJRHMgYXMgc3BlY2lmaWVkIGJ5
-IFxoeXBlcnJlZltpbnRybzpyZmM0MTIyXXtbUkZDNDEyMl19Lgo+PiAgIAo+PiArXGlucHV0e2Fk
-bWluLXZpcnRxLnRleH0KPj4gKwo+PiAgIFxjaGFwdGVye0dlbmVyYWwgSW5pdGlhbGl6YXRpb24g
-QW5kIERldmljZSBPcGVyYXRpb259XGxhYmVse3NlYzpHZW5lcmFsIEluaXRpYWxpemF0aW9uIEFu
-ZCBEZXZpY2UgT3BlcmF0aW9ufQo+PiAgIAo+PiAgIFdlIHN0YXJ0IHdpdGggYW4gb3ZlcnZpZXcg
-b2YgZGV2aWNlIGluaXRpYWxpemF0aW9uLCB0aGVuIGV4cGFuZCBvbiB0aGUKPj4gQEAgLTY2NzEs
-NiArNjY3Myw4IEBAIFxjaGFwdGVye1Jlc2VydmVkIEZlYXR1cmUgQml0c31cbGFiZWx7c2VjOlJl
-c2VydmVkIEZlYXR1cmUgQml0c30KPj4gICAgIGRhdGEgdG8gYmUgcHJvdmlkZWQgaW4gZHJpdmVy
-IG5vdGlmaWNhdGlvbiBhbmQgdGhlIGRlbGl2ZXJ5IG1ldGhvZCBpcwo+PiAgICAgdHJhbnNwb3J0
-IHNwZWNpZmljLgo+PiAgICAgRm9yIG1vcmUgZGV0YWlscyBhYm91dCBkcml2ZXIgbm90aWZpY2F0
-aW9ucyBvdmVyIFBDSSBzZWUgXHJlZntzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmly
-dGlvIE92ZXIgUENJIEJ1cyAvIFBDSS1zcGVjaWZpYyBJbml0aWFsaXphdGlvbiBBbmQgRGV2aWNl
-IE9wZXJhdGlvbiAvIEF2YWlsYWJsZSBCdWZmZXIgTm90aWZpY2F0aW9uc30uCj4+ICsgIFxpdGVt
-W1ZJUlRJT19GX0FETUlOX1ZRKDQwKV0gVGhpcyBmZWF0dXJlIGluZGljYXRlcyB0aGF0Cj4+ICsg
-IHRoZSBkZXZpY2Ugc3VwcG9ydHMgYWRtaW5pc3RyYXRpb24gdmlydHF1ZXVlIG5lZ290aWF0aW9u
-Lgo+PiAgIAo+PiAgIFxlbmR7ZGVzY3JpcHRpb259Cj4+ICAgCj4+IC0tIAo+PiAyLjIxLjAKCg==
+
+On 8/2/2021 5:25 AM, Jason Wang wrote:
+>
+> =E5=9C=A8 2021/7/28 =E4=B8=8B=E5=8D=888:48, Michael S. Tsirkin =E5=86=99=
+=E9=81=93:
+>> On Mon, Jul 26, 2021 at 07:52:53PM +0300, Max Gurtovoy wrote:
+>>> Admin virtqueues will be used to send administrative commands to
+>>> manipulate various features of the device which would not easily map
+>>> into the configuration space.
+>>>
+>>> The same Admin command format will be used for all virtio devices. The
+>>> Admin command set will include 4 types of command classes:
+>>> 1. The generic common class
+>>> 2. The transport specific class
+>>> 3. The device specific class
+>>> 4. The vendor specific class
+>>>
+>>> The above mechanism will enable adding various features to the virtio
+>>> specification, e.g.:
+>>> 1. Format virtio-blk devices in various configurations (512B block=20
+>>> size,
+>>> =C2=A0=C2=A0=C2=A0 512B + 8B T10-DIF, 4K block size, 4k + 8B T10-DIF, e=
+tc..).
+>>> 2. Live migration management.
+>>> 3. Encrypt/Decrypt descriptors.
+>>> 4. Virtualization management.
+>>> 5. Get device error logs.
+>>> 6. Implement advanced vendor/device/transport specific features.
+>>> 7. Run device health test.
+>>> 8. More.
+>>>
+>>> As virtio evolves beyond the para-virt/sw-emulated world, it's=20
+>>> mandatory
+>>> for the specification to become flexible and allow a wider feature set.
+>>> The corrent ctrl virtq that is defined for some of the virtio=20
+>>> devices is
+>>> device specific and wasn't designed to be a generic virtq for
+>>> admininistration.
+>>>
+>>> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+>> Lots of things on this list seem to make sense when
+>> done from PF and affecting a VF.
+>> I think from this POV the generic structure should include
+>> a way to address one device from another.
+>>
+>>
+>>> ---
+>>> =C2=A0 admin-virtq.tex | 241=20
+>>> ++++++++++++++++++++++++++++++++++++++++++++++++
+>>> =C2=A0 content.tex=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +
+>>> =C2=A0 2 files changed, 245 insertions(+)
+>>> =C2=A0 create mode 100644 admin-virtq.tex
+>>>
+>>> diff --git a/admin-virtq.tex b/admin-virtq.tex
+>>> new file mode 100644
+>>> index 0000000..ccec2ca
+>>> --- /dev/null
+>>> +++ b/admin-virtq.tex
+>>> @@ -0,0 +1,241 @@
+>>> +\section{Admin Virtqueues}\label{sec:Basic Facilities of a Virtio=20
+>>> Device / Admin Virtqueues}
+>>> +
+>>> +Admin virtqueues are used to send administrative commands to=20
+>>> manipulate
+>>> +various features of the device which would not easily map into the
+>>> +configuration space.
+>>> +
+>>> +Use of Admin virtqueues is negotiated by the VIRTIO_F_ADMIN_VQ
+>>> +feature bit.
+>>> +
+>>> +Admin virtqueue index may vary among different device types.
+>>> +
+>>> +All commands are of the following form:
+>>> +
+>>> +\begin{lstlisting}
+>>> +struct virtio_admin_cmd {
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Device-readable part */
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 class;
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 command;
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 command-specific-data[];
+>>> +
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Device-writable part */
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 command-specific-result[=
+];
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 status_type : 4;
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 reserved : 4;
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 status;
+>>> +};
+>>> +
+>>> +/* Status type values */
+>>> +#define VIRTIO_ADMIN_STATUS_TYPE_GENERIC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0
+>>> +#define VIRTIO_ADMIN_STATUS_TYPE_CLASS_SPECIFIC=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 1
+>>> +#define VIRTIO_ADMIN_STATUS_TYPE_COMMAND_SPECIFIC=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 2
+>>> +#define VIRTIO_ADMIN_STATUS_TYPE_TRANSPORT_SPECIFIC=C2=A0=C2=A0=C2=A0 =
+3
+>>> +#define VIRTIO_ADMIN_STATUS_TYPE_DEVICE_SPECIFIC=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 4
+>>> +#define VIRTIO_ADMIN_STATUS_TYPE_VENDOR_SPECIFIC=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 5
+>>> +
+>>> +/* Generic status values */
+>>> +#define VIRTIO_ADMIN_STATUS_GENERIC_OK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 0
+>>> +#define VIRTIO_ADMIN_STATUS_GENERIC_ERR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 1
+>>> +#define VIRTIO_ADMIN_STATUS_GENERIC_INVALID_CLASS=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
+>>> +#define VIRTIO_ADMIN_STATUS_GENERIC_INVALID_COMMAND=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 3
+>>> +#define VIRTIO_ADMIN_STATUS_GENERIC_DATA_TRANSFER_ERR=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 4
+>>> +#define VIRTIO_ADMIN_STATUS_GENERIC_DEVICE_INTERNAL_ERR=C2=A0=C2=A0=C2=
+=A0 5
+>>> +\end{lstlisting}
+>>> +
+>>> +The \field{class}, \field{command} and=20
+>>> \field{command-specific-data} are
+>>> +set by the driver, and the device sets the \field{status_type}, the
+>>> +\field{status} and=C2=A0 the \field{command-specific-result}, if neede=
+d.
+>>> +
+>>> +The virtio Admin command class codes are divided in the following=20
+>>> form:
+>>> +
+>>> +\begin{lstlisting}
+>>> +/* class values that are transport, device and vendor independent */
+>>> +#define VIRTIO_ADMIN_COMMON_CLASS_START=C2=A0=C2=A0=C2=A0 0
+>>> +#define VIRTIO_ADMIN_COMMON_CLASS_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 63
+>>> +
+>>> +/* class values that are transport specific */
+>>> +#define VIRTIO_ADMIN_TRANSPORT_CLASS_START=C2=A0 64
+>>> +#define VIRTIO_ADMIN_TRANSPORT_CLASS_END=C2=A0=C2=A0=C2=A0 127
+>>> +
+>>> +/* class values that are device specific */
+>>> +#define VIRTIO_ADMIN_DEVICE_CLASS_START=C2=A0=C2=A0=C2=A0=C2=A0 128
+>>> +#define VIRTIO_ADMIN_DEVICE_CLASS_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 191
+>>> +
+>>> +/* class values that are vendor specific */
+>>> +#define VIRTIO_ADMIN_VENDOR_CLASS_START=C2=A0=C2=A0=C2=A0=C2=A0 192
+>>> +#define VIRTIO_ADMIN_VENDOR_CLASS_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 255
+>>> +\end{lstlisting}
+>>> +
+>>> +\subsection{Admin command set}\label{sec:Basic Facilities of a=20
+>>> Virtio Device / Admin Virtqueues / Admin command set}
+>>> +
+>>> +Each virtio device that advertise VIRTIO_F_ADMIN_VQ feature, MUST
+>>> +support all the mandatory admin commands. A device MAY support also
+>>> +one or more optional admin commands.
+>>> +
+>>> +\subsubsection{Common command set}\label{sec:Basic Facilities of a=20
+>>> Virtio Device / Admin Virtqueues / Admin command set / Common=20
+>>> command set}
+>>> +
+>>> +The Common command set is a group of classes and commands within each
+>>> +of these classes which are transport, device and vendor independent.
+>>> +A mandatory class is a class that has at least one mandatory command.
+>>> +The Common command set is summarized in following table:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Class=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +0=C2=A0 & VIRTIO_ADMIN_DISCOVER_DEVICE=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +1=C2=A0 & VIRTIO_ADMIN_DISCOVER_DEVICE_CLASS_COMMANDS=C2=A0=C2=A0=C2=
+=A0 & M \\
+>>> +\hline
+>>> +2-63=C2=A0 & reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>> +\hline
+>>> +\end{tabular}
+>>> +
+>>> +\paragraph{Discover device class}\label{sec:Basic Facilities of a=20
+>>> Virtio Device / Admin Virtqueues / Admin command set / Common=20
+>>> command set / Discover device class}
+>>> +
+>>> +This class (opcode: 0) of commands is used to query generic device
+>>> +information. The following table describes the commands supported for
+>>> +this class:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Command=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +0=C2=A0 & VIRTIO_ADMIN_DISCOVER_DEVICE_IDENTITY=C2=A0=C2=A0=C2=A0 & M =
+\\
+>>> +\hline
+>>> +1=C2=A0 & VIRTIO_ADMIN_DISCOVER_DEVICE_SUPPORTED_CLASSES & M \\
+>>> +\hline
+>>> +2-255=C2=A0 & reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>> +\hline
+>>> +\end{tabular}
+>> So there are several problems with this approach.
+>> One is that there is no two way negotiation.
+>> No way for device to know what will driver use in the end.
+>> This breaks things like e.g. accelerating some configurations
+>> but not others.
+>>
+>> Another is that everything is going through the admin vq.
+>> Hard for hypervisor to intervene and change just some aspects
+>> of the device.
+>>
+>> This is also a problem for validation, tricky
+>> to find out during probe what does device support and whether
+>> driver can work with it.
+>
+>
+> Yes, so I think it makes sense to make the admin virtqueue as a=20
+> transport and then build other stuffs on top.
+
+
+what transport exactly ?
+
+it should be a virtq for devices to open.
+
+
+>
+>
+>>
+>>
+>> Can't we map this stuff into memory instead?
+>> Maybe have an admin config structure
+>> that is separate from regular config?
+>> Only issue we can't then make it too big.
+>> But so far I don't see a lot of info used, most is reserved.
+>
+>
+> It should work (especially for PCI).
+
+you're trying to invent some mechanism that is not flexible and non trivial=
+.
+
+You have already a virtq - so lets use it.
+
+
+
+>
+> Thanks
+>
+>
+>>
+>>
+>>
+>>> +
+>>> +\subparagraph{Device identity command}\label{sec:Basic Facilities=20
+>>> of a Virtio Device / Admin Virtqueues / Admin command set / Common=20
+>>> command set / Discover device class / Device identity command}
+>>> +
+>>> +This mandatory command should return device identity in the following
+>>> +structure:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Bytes=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +03:00=C2=A0 & VIRTIO DEVICE ID=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +05:04=C2=A0 & VIRTIO TRANSPORT ID=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +4095:06=C2=A0 & reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>> + \hline
+>>> +\end{tabular}
+>>> +
+>>> +\subparagraph{Device supported classes command}\label{sec:Basic=20
+>>> Facilities of a Virtio Device / Admin Virtqueues / Admin command set=20
+>>> / Common command set / Discover device class / Device supported=20
+>>> classes command}
+>>> +
+>>> +This mandatory command should return device identity in the following
+>>> +structure:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Bytes=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +03:00=C2=A0 & VIRTIO_ADMIN_CLASS_0_PROPERTIES=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +07:04=C2=A0 & VIRTIO_ADMIN_CLASS_1_PROPERTIES=C2=A0=C2=A0=C2=A0 & M \\
+>>> + \hline
+>>> +11:08=C2=A0 & VIRTIO_ADMIN_CLASS_2_PROPERTIES=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +...=C2=A0 & ...=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +1023:1020=C2=A0 & VIRTIO_ADMIN_CLASS_255_PROPERTIES=C2=A0=C2=A0=C2=A0 =
+& M \\
+>>> +\hline
+>>> +4095:1024=C2=A0 & reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>> +\hline
+>>> +\end{tabular}
+>>> +
+>>> +The above structure is divided to 256 sections of 4B each, that will
+>>> +describe whether a device supports a certain class code. The
+>>> +following 3072B are reserved. each of the non-reserved 4B sections=20
+>>> will
+>>> +follow the following data structure:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Bits=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +0=C2=A0 & SUPPORTED (1: yes, 0:no)=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +31:01=C2=A0 & reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>> + \hline
+>>> +\end{tabular}
+>>> +
+>>> +\paragraph{Discover device class commands class}\label{sec:Basic=20
+>>> Facilities of a Virtio Device / Admin Virtqueues / Admin command set=20
+>>> / Common command set / Discover device class commands class}
+>>> +
+>>> +This class (opcode: 1) of commands is used to query supported commands
+>>> +for each supported device class.
+>>> The following table describes the commands
+>>> +supported for this class:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Command=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +0=C2=A0 & VIRTIO_ADMIN_CLASS_0_COMMANDS_IDENTITY=C2=A0=C2=A0=C2=A0 & M=
+ \\
+>>> +\hline
+>>> +1=C2=A0 & VIRTIO_ADMIN_CLASS_1_COMMANDS_IDENTITY=C2=A0=C2=A0=C2=A0 & M=
+ \\
+>>> +\hline
+>>> +2=C2=A0 & VIRTIO_ADMIN_CLASS_2_COMMANDS_IDENTITY=C2=A0=C2=A0=C2=A0 & M=
+ \\
+>>> +\hline
+>>> +...=C2=A0 & ...=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +255=C2=A0 & VIRTIO_ADMIN_CLASS_255_COMMANDS_IDENTITY=C2=A0=C2=A0=C2=A0=
+ & M \\
+>>> +\hline
+>>> +\end{tabular}
+>>> +
+>>> +Each command in this class, will return class identity in the=20
+>>> following structure:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Bytes=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +03:00=C2=A0 & VIRTIO_ADMIN_COMMAND_0_PROPERTIES=C2=A0=C2=A0=C2=A0 & M =
+\\
+>>> +\hline
+>>> +07:04=C2=A0 & VIRTIO_ADMIN_COMMAND_1_PROPERTIES=C2=A0=C2=A0=C2=A0 & M =
+\\
+>>> + \hline
+>>> +11:08=C2=A0 & VIRTIO_ADMIN_COMMAND_2_PROPERTIES=C2=A0=C2=A0=C2=A0 & M =
+\\
+>>> +\hline
+>>> +...=C2=A0 & ...=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +1023:1020=C2=A0 & VIRTIO_ADMIN_COMMAND_255_PROPERTIES=C2=A0=C2=A0=C2=
+=A0 & M \\
+>>> +\hline
+>>> +4095:1024=C2=A0 & reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>> +\hline
+>>> +\end{tabular}
+>>> +
+>>> +The above structure is divided to 256 sections of 4B each, that will
+>>> +describe whether a class supports a certain command code. The
+>>> +following 3072B are reserved. each of the non-reserved 4B sections=20
+>>> will
+>>> +follow the following data structure:
+>>> +
+>>> +\begin{tabular}{|l|l|l|}
+>>> +\hline
+>>> +Bits=C2=A0 & Description=C2=A0=C2=A0=C2=A0 & M/O \\
+>>> +\hline \hline
+>>> +0=C2=A0 & SUPPORTED (1: yes, 0:no)=C2=A0=C2=A0=C2=A0 & M \\
+>>> +\hline
+>>> +31:01=C2=A0 & reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>> + \hline
+>>> +\end{tabular}
+>>> +
+>>> +\subsubsection{Transport command set}\label{sec:Basic Facilities of=20
+>>> a Virtio Device / Admin Virtqueues / Admin command set / Transport=20
+>>> command set}
+>>> +
+>>> +The Transport command set is a group of classes and commands within
+>>> +each of these classes which are transport specific. Refer to each
+>>> +transport section for more information on the supported commands.
+>>> +
+>>> +\subsubsection{Device command set}\label{sec:Basic Facilities of a=20
+>>> Virtio Device / Admin Virtqueues / Admin command set / Device=20
+>>> command set}
+>>> +
+>>> +The Device command set is a group of classes and commands within
+>>> +each of these classes which are device specific. Refer to each
+>>> +device section for more information on the supported commands.
+>>> +
+>>> +\subsubsection{Vendor specific command set}\label{sec:Basic=20
+>>> Facilities of a Virtio Device / Admin Virtqueues / Admin command set=20
+>>> / Vendor specific command set}
+>>> +
+>>> +The Vendor specific command set is a group of classes and commands
+>>> +within each of these classes which are vendor specific. Refer to
+>>> +each vendor specification for more information on the supported
+>>> +commands.
+>> Here's another example.
+>> It's important that there is a way to make a device completely
+>> generic without vendor specific expensions.
+>> Would be hard to do here.
+>>
+>> That's a generic comment.
+>>
+>> but specifically I am very reluctant to add vendor specific stuff like
+>> this directly in the spec. We already have VIRTIO_PCI_CAP_VENDOR_CFG
+>> and if that is not sufficient I would like to know why
+>> before we add more vendor specific stuff.
+>>
+>>
+>>> diff --git a/content.tex b/content.tex
+>>> index c266fd5..d350175 100644
+>>> --- a/content.tex
+>>> +++ b/content.tex
+>>> @@ -407,6 +407,8 @@ \section{Exporting Objects}\label{sec:Basic=20
+>>> Facilities of a Virtio Device / Expo
+>>> =C2=A0 types. It is RECOMMENDED that devices generate version 4
+>>> =C2=A0 UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+>>> =C2=A0 +\input{admin-virtq.tex}
+>>> +
+>>> =C2=A0 \chapter{General Initialization And Device=20
+>>> Operation}\label{sec:General Initialization And Device Operation}
+>>> =C2=A0 =C2=A0 We start with an overview of device initialization, then =
+expand=20
+>>> on the
+>>> @@ -6671,6 +6673,8 @@ \chapter{Reserved Feature=20
+>>> Bits}\label{sec:Reserved Feature Bits}
+>>> =C2=A0=C2=A0=C2=A0 data to be provided in driver notification and the d=
+elivery=20
+>>> method is
+>>> =C2=A0=C2=A0=C2=A0 transport specific.
+>>> =C2=A0=C2=A0=C2=A0 For more details about driver notifications over PCI=
+ see=20
+>>> \ref{sec:Virtio Transport Options / Virtio Over PCI Bus /=20
+>>> PCI-specific Initialization And Device Operation / Available Buffer=20
+>>> Notifications}.
+>>> +=C2=A0 \item[VIRTIO_F_ADMIN_VQ(40)] This feature indicates that
+>>> +=C2=A0 the device supports administration virtqueue negotiation.
+>>> =C2=A0 =C2=A0 \end{description}
+>>> =C2=A0 --
+>>> 2.21.0
+>
+
