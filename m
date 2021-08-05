@@ -1,764 +1,611 @@
-Return-Path: <mst@redhat.com>
-Date: Wed, 4 Aug 2021 09:36:09 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
+Return-Path: <jasowang@redhat.com>
 Subject: Re: [RFC PATCH] Introduce admin virtqueue as a new transport
-Message-ID: <20210804091916-mutt-send-email-mst@kernel.org>
 References: <20210803032006.48881-1-jasowang@redhat.com>
+ <20210804091916-mutt-send-email-mst@kernel.org>
+From: Jason Wang <jasowang@redhat.com>
+Message-ID: <3744d9f5-70bc-ec49-d2f2-4f93496333a3@redhat.com>
+Date: Thu, 5 Aug 2021 10:07:20 +0800
 MIME-Version: 1.0
-In-Reply-To: <20210803032006.48881-1-jasowang@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Jason Wang <jasowang@redhat.com>
+In-Reply-To: <20210804091916-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset="gbk"; format="flowed"
+Content-Transfer-Encoding: base64
+Content-Language: en-US
+To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com, stefanha@redhat.com, mgurtovoy@nvidia.com, eperezma@redhat.com, lulu@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Aug 03, 2021 at 11:20:06AM +0800, Jason Wang wrote:
-> This patch introduces a new transport - the admin virtqueue. This
-> transport is useful for implementing virtual devices with a limited
-> transport specific resources or presenting the virtual device in a
-> transport independent way.
-> 
-> This means, all the basic device facilities are provided solely via
-> the the admin virtqueue. Additionally, the admin virtqueue is also in
-> charge of the creating and destroying of the virtual device.
-> 
-> To be self-contained and not depend on the platform specific
-> feature. Device MMU is also introduced for providing the DMA isolation
-> among virtual devices.
-> 
-> With the help of the admin virtqueue, the presenting of the virtual
-> device is done via the co-operation between the management device and
-> its driver.
-> 
-> This is just a draft for demonstrating the basic ideas. Some possible
-> enhancements:
-> 
-> - admin event virtqueue for reporting events like interrupts (on the
->   platform withouth MSI) and MMU translation failure
-> - hardware friendly MMU translation table (e.g in the memory instead
->   of using control virtqueue commands)
-> - command to kick the virtqueue
-> 
-> Comments are more than welcomed.
-> 
-> Signed-off-by: Jason Wang <jasowang@redhat.com>
-> ---
->  content.tex | 639 ++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 639 insertions(+)
-> 
-> diff --git a/content.tex b/content.tex
-> index 620c0e2..1f66d42 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -47,6 +47,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
->  \item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
->    drive the device.
->  
-> +\item[DEVICE_MMU_FAIL (32)] Indicates that the device MMU has
-> +  experienced an error from which it can't recover.
-> +
->  \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
->    an error from which it can't recover.
->  \end{description}
-> @@ -515,6 +518,642 @@ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
->  Virtio can use various different buses, thus the standard is split
->  into virtio general and bus-specific sections.
->  
-> +\section{Virtio Over Admin Virtqueue}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue}
-> +
-> +Sometimes it's hard to implement the device in a transport specific
-> +method. One example is that a physical device may try to present
-> +multiple virtual devices with a limited transport specific
-> +resources. Another example is to implement virtual devices which is
-> +transport independent. In those cases, the admin virtqueue provided by
-> +the management device could be used to replace the transport specific
-> +method to implement the virtual device.
-
-terminology here needs clarification. Especially talking about
-virtual devices is confusing. I propose management device and
-managed device. Other options exist. Also pls give examples
-such as PF/VF.
-
-
-> Then the presenting of the
-> +virtual device is done through the cooperation between the admin
-> +virtqueue and the driver.
-
-A natural question to ask is why is this a VQ and not a device?
-Is this because people want to implement a VQ as part
-of an arbitrary device?
-
-
-
-> +\subsection{Basic Concepts}\label{sec:Virtio Transport Options / Virtio over Admin Virtqueue / Basic Concepts}
-> +
-> +The device that offers the admin virtqueue (via feature
-> +VIRTIO_F_ADMIN_VQ) is the management device of the virtual
-> +devices.
-
-Don't we need a way to specify how many such VQs are there and what
-their numbers are? Doing this in a device specific way seems a bit
-annoying ...
-
-
-
-> All commands are of the following form:
-> +
-> +\begin{lstlisting}
-> +struct virtio_admin_ctrl {
-> +        u64 device_id;
-> +        u16 class;
-> +        u16 command;
-> +        u8 command-out-data[];
-> +        u8 ack;
-> +        u8 command-in-data[]
-> +};
-> +
-> +/* ack values */
-> +#define VIRTIO_ADMIN_OK     0
-> +#define VIRTIO_ADMIN_ERR    1
-> +\end{lstlisting}
-> +
-> +The device_id, class, command and command-out-data are set by
-> +the driver, and the device sets the ack and command-in-data. 0 is used
-> +for identify the management device itself.
-> +
-> +\devicenormative{\subsubsection}{Basic Concepts}{Virtio Transport Options / Virtio Over Admin Virtqueue / Basic Concepts}
-> +
-> +The virtual device MUST not offer VIRTIO_F_ADMIN_VQ feature.
-> +
-> +\drivernormative{\subsubsection}{Basic Concepts}{Virtio Transport Options / Virtio Over Admin Virtqueue / Basic Concepts}
-> +
-> +The driver SHOULD negotiate VIRTIO_F_ADMIN_VQ if the device offers it.
-> +
-> +\subsection{Virtual Device Discovery}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtual Device Discovery}
-> +
-> +The management device is discovered through a transport and device
-> +specific method. Virtual devices is created and discovered via the
-> +admin virtqueue.
-> +
-> +\subsection{Admin Virtqueue Capabilities}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Admin Virtqueue Capabilities}
-> +
-> +The capabilites that are supported by the admin virtqueue could be
-> +fetched through the following commands:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_CAP    0
-> + #define VIRTIO_ADMIN_CTRL_CAP_GET        0
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_CAP_GET is used to get the capabilites that are
-> +supported by the admin virtqueue through a u64 which is a bit mask of
-> +the capabilies in command-in-data. There's no command-out-data.
-> +
-> +The capabilies that is currently supported are:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_F_CAP_VDEV    1
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_F_CAP_VDEV capability demonstrates that the virtual
-> +devices is created, configured and destroyed through admin
-> +virtqueue. That means the admin virtqueue is the transport for the
-> +virtual devices.
-
-How about using a feature bit for this? Or having this in the config space.
-This might call for a generic config space feature, but it's not
-the first time we want that, maybe it's time.
-
-
-> +\devicenormative{Admin Virtqueue Capabilities}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Admin Virtqueue Capabilities}
-> +
-> +The management device MUST support VIRTIO_ADMIN_CTRL_CAP class when
-> +VIRTIO_F_ADMIN_VQ is offered.
-> +
-> +The management device MUST fail VIRTIO_ADMIN_CTRL_CAP class when the
-> +\field{device_id} is not zero.
-> +
-> +\drivernormative{Admin Virtqueue Capabilities}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Admin Virtqueue Capabilities}
-> +
-> +The driver MUST use 0 as \field{device_id} for VIRTIO_ADMIN_CTRL_CAP
-> +class.
-> +
-> +\subsection{Device Management}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Management}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_CAP_VDEV capibility,
-> +virtual devices must be created and discovered through the admin
-> +virtqueue.
-> +
-> +\begin{lstlisting}
-> +struct virtio_admin_ctrl_vdev_attribute {
-> +       u32 device_id;
-> +       u8 config[];
-> +};
-> +
-> +#define VIRTIO_ADMIN_CTRL_VDEV    2
-> + #define VIRTIO_ADMIN_CTRL_VDEV_CREATE        0
-> + #define VIRTIO_ADMIN_CTRL_VDEV_DESTROY        1
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_VDEV_CREAT command is used to create a virtual
-> +device. The command-out-data for VIRTIO_ADMIN_CTRL_CREATE is the
-> +virtio device id (\field{device_id}) and device specific configuration
-> +(\field{config}) for creating the virtual device. When succeed, the
-> +device returns a u64 as a unique identifier of the created virtual
-> +device in command-in-data.
-
-So how are we going to specify config? Per device type?
-
-
-> +The VIRTIO_ADMIN_CTRL_VDEV_DESTROY command is used to destroy a
-> +virtual device which is identified by its 64bit identifier
-> +\field{virtual_device_id}. There's no command-in-data for
-> +VIRTIO_ADMIN_CTRL_DESTROY command.
-
-So I am confused here. Rest of the spec seems to map driver
-actions to commands on the admin VQ. However where do the create and
-destroy commands coming from? If they have a separate source
-from driver commands, why do they share the same VQ?
-
-
-> +\devicenormative{Device Management}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Management}
-> +
-> +The management device MUST fail the VIRTIO_ADMIN_CTRL_VDEV_CREATE if
-> +\field{device_id} is not 0.
-> +
-> +The management device MUST fail the VIRTIO_ADMIN_CTRL_VDEV_DESTROY if
-> +\field{device_id} is 0.
-> +
-> +All virtual devices MUST be created via admin virtqueue if the admin
-> +virtqueue offers VIRTIO_F_CTRL_VDEV.
-> +
-> +The management device MAY map implement the virtual device in a
-> +transport specific way.
-
-
-I'm not sure what does this mean.
-
-> +\drivernormative{Driver Management}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Management}
-> +
-> +The management driver MUST use 0 as \field{device_id} for
-> +VIRTIO_ADMIN_CTRL_VDEV_CREATE command.
-> +
-> +The management driver SHOULD make sure the virtual device is not used
-> +by any driver before trying to destroy it.
-
-Device drivers are within guests. Not sure how this can be
-accomplished.
-
-> +
-> +\subsection{Features Negotiation}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Features Negotiation}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_CAP_VDEV capability,
-> +the feature negotiation of virtual devices could be done by the
-> +following commands:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_FEAT    3
-> + #define VIRTIO_ADMIN_CTRL_FEAT_DEVICE_GET        0
-> + #define VIRTIO_ADMIN_CTRL_FEAT_DRIVER_SET        1
-> + #define VIRTIO_ADMIN_CTRL_FEAT_DRIVER_GET        2
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_FEAT_DEVICE_GET is to get the features offered
-> +by a virtual device.
-> +
-> +The VIRTIO_ADMIN_CTRL_FEAT_DRIVER_SET is for driver to accept feature
-> +bits offered by the virtual device.
-> +
-> +The VIRTIO_ADMIN_CTRL_FEAT_DRIVER_GET is to get the features accepted
-> +by both the virtual driver and the device.
-
-So there's a lot of text here to basically pass config read/writes
-over a VQ. How about specifying admin VQ in terms of e.g. virtio PCI
-transport? Thus basically supply read/write commands and that's it?
-
-
-> +The features is 64 bits mask of the virtio features bit. For
-> +VIRTIO_ADMIN_CTRL_DRIVER_SET, the feature is passed to the device
-> +through command-out-data. For VIRTIO_ADMIN_CTRL_FEAT_DEVICE_GET and
-> +VIRTIO_ADMIN_CTRL_DRIVER_GET the feature is returned for the device
-> +through command-in-data.
-> +
-> +\devicenormative{Features Negotiation}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Features Negotiation}
-> +
-> +The management device MUST fail VIRTIO_ADMIN_F_CTRL_FEAT class for the
-> +command that use 0 as its \field{virtual_device_id}.
-> +
-> +\drivernormative{Features Negotiation}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Features Negotiation}
-> +
-> +The management driver MAY mediate between the feature negotiation
-> +request of the virtual devices and the admin virtqueue. E.g when
-> +offering features to the virtual device, the management driver MAY
-> +exclude some features in order to limit the behaviour of the virtual
-> +device.
-> +
-> +\subsection{Device Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Status}
-> +
-> +When the admin virtqueue offers VIRTIO_ADNIN_F_CAP_VDEV capability,
-> +the status of virtual device could be accessed by the following
-> +commands:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_STATUS    4
-> + #define VIRTIO_ADMIN_CTRL_STATUS_SET        0
-> + #define VIRTIO_ADMIN_CTRL_STATUS_GET        1
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_STATUS_SET is used to set the device status of
-> +the virtual device here. The command-out-data is the one byte status
-> +to set to the device. There's no command-in-data for this command.
-> +
-> +The VIRTIO_ADMIN_CTRL_STATUS_GET is used to get the device status of
-> +the virtual device. The command-in-data is the one byte status
-> +returned from the device. There's no command-out-data for this
-> +command.
-> +
-> +\devicenormative{Device Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Status}
-> +
-> +The management device MUST start the reset of a virtual device when 0
-> +is written via VIRTIO_ADMIN_CTRL_STATUS_SET, the success of this
-> +command demonstrate the success of the reset.
-> +
-> +The management device MUST present 0 through
-> +VIRTIO_ADMIN_CTRL_STATUS_GET once the reset is done.
-> +
-> +The management device MUST fail the device status access if
-> +\field{device_id} is zero.
-> +
-> +\drivernormative{Device Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Status}
-> +
-> +After writing 0 via VIRTIO_ADMIN_CTRL_STATUS_SET, the driver MUST wait
-> +for the success of the command before re-initializing the device.
-> +
-> +\subsection{Device Generation}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Genreation}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_CAP_VDEV capability,
-> +the device generation could be read from the following commands:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_GENERATION    5
-> + #define VIRTIO_ADMIN_CTRL_GENERATION_GET        0
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_GENERATION_GET is used to get the device generation
-> +of the virtual device. The command-in-data is the u32 device
-> +generation returned from the device. There's no command-out-data for
-> +this command.
-> +
-> +\devicenormative{Device Generation}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Generation}
-> +
-> +The device MUST present a changed config_generation after the driver
-> +has read a device-specific configuration value which has changed since
-> +any part of the device-specific configuration was last read.
-> +
-> +The device MUST fail the device generation access if \field{device_id} is zero.
-> +
-> +\subsection{Device Specific Configuration}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Specific Configuration}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_CAP_VDEV, the
-> +config space of a virtual device could be accessed from
-> +VIRTIO_ADMIN_CTRL_CONFIG_GET and VIRTIO_ADMIN_CTRL_CONFIG_SET.
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_CONFIG    6
-> +  #define VIRTIO_ADMIN_CTRL_CONFIG_GET        0
-> +  #define VIRTIO_ADMIN_CTRL_CONFIG_SET        1
-> +
-> +struct virtio_admin_ctrl_vdev_config_get {
-> +       u32 offset;
-> +       u32 size;
-> +};
-> +
-> +struct virtio_admin_ctrl_vdev_config_set {
-> +       u32 offset;
-> +       u32 size;
-> +       u8  data[];
-> +};
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_CONFIG_GET is used to read data from the
-> +device configuration space. As described in struct
-> +virtio_admin_ctrl_vdev_config_get, The command-out-data is the offset
-> +since the start of the config space and the size of the data. The
-> +command-in-data is the array of u8 data that read from the config
-> +space.
-> +
-> +The VIRTIO_ADMIN_CTRL_CONFIG_SET is used to write data to the device
-> +configuration space. As described in struct
-> +virtio_admin_ctrl_vdev_config_set, the command-out-data contains the
-> +offset since the start of the config space, the size of the data and
-> +the data that will be wrote. There's no command-in-data for this
-> +command.
-> +
-> +\devicenormative{Device Specific Configuration}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device Specific Configuration}
-> +
-> +The management device MUST fail the device configuration space access
-> +if the driver want to access the range which is out of the config
-> +space.
-> +
-> +The management device MUST fail the device configuration space access
-> +if \field{device_id} is zero.
-> +
-> +\subsection{MSI Configuration}label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / MSI Configuration}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_VDEV, the MSI entry
-> +for a specific virtqueue could be set through following command:
->
-
-I think this is a bit problematic. E.g. for PCI MSI is programmed through
-standard registers. Specifying address is data is insufficient, neither
-is masking and enabling through device specific registers.
-Referring to a vector seems more correct.
-Further, need to think about how will all this be generalized
-outside of PCI.
-
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_MSI    7
-> + #define VIRTIO_ADMIN_CTRL_MSI_VQ_SET        0
-> + #define VIRTIO_ADMIN_CTRL_MSI_VQ_ENABLE     1
-> + #define VIRTIO_ADMIN_CTRL_MSI_VQ_MASK       2
-> + #define VIRTIO_ADMIN_CTRL_MSI_CONFIG_SET    3
-> + #define VIRTIO_ADMIN_CTRL_MSI_CONFIG_ENABLE 4
-> + #define VIRTIO_ADMIN_CTRL_MSI_CONFIG_MASK   5
-> +
-> +struct virtio_admin_ctrl_vdev_msi_vq_set {
-> +       u16 queue_index;
-> +       u64 addr;
-> +       u32 data;
-> +};
-> +
-> +struct virtio_admin_ctrl_vdev_msi_vq_enable {
-> +       u16 queue_index;
-> +       u8 enable;
-> +};
-> +
-> +struct virtio_admin_ctrl_vdev_msi_vq_mask {
-> +       u16 queue_index;
-> +       u8 mask;
-> +};
-> +
-> +struct virtio_admin_ctrl_vdev_msi_config {
-> +       u64 addr;
-> +       u32 data;
-> +};
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_MSI_VQ_SET is used to set the MSI entry for a
-> +specific virtqueue. The command-out-data is the virtqueue index and
-> +the MSI address and data (as described in struct
-> +virtio_admin_ctrl_vdev_msix_vq_set).
-> +
-> +The VIRTIO_ADMIN_CTRL_MSI_VQ_ENABLE and is used to enable or disable
-> +MSI interrupt for a specific virtqueue. The command-out-data is the
-> +virtqueue index and whether to enable the MSI: 0 means to enable and 1
-> +means to disable (as described in struct
-> +virtio_admin_ctrl_vdev_msi_vq_enable).
-> +
-> +The VIRTIO_ADMIN_CTRL_MSI_VQ_MASK and is used to mask or unmask MSI
-> +interrupt for a specific virtqueue. The command-out-data is the
-> +virtqueue index and the mask status: 0 means unmak and 1 means mask
-> +(as described in struct virtio_admin_ctrl_vdev_msi_vq_mask).
-> +
-> +The VIRTIO_ADMIN_CTRL_MSI_CONFIG_SET is used to set the MSI entry
-> +for the config interrupt. The command-out-data is the MSI address and
-> +data (as described in struct virtio_admin_ctrl_vdev_msix_config).
-> +
-> +The VIRTIO_ADMIN_CTRL_MSI_CONFIG_ENABLE is used to enable and disable
-> +MSI for config space. The command-out-data is an u8: 0 means to
-> +disable and 1 means to enable.
-> +
-> +The VIRTIO_ADMIN_CTRL_MSI_CONFIG_MASK is used to mask and unmask MSI
-> +interrupt for config space. The command-out-data is an u8: 0 means to
-> +mask and 1 means to unmask.
-> +
-> +There's no command-in-data for all the above MSI commands.
-> +
-> +\devicenormative{MSI Configuration}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / MSI Configuration}
-> +
-> +The virtual device MUST record the pending MSI interrupt and
-> +generate the MSI interrupt is it was pending after unmasking.
-> +
-> +The virtual MUST disable the MSI for both virtqueue and config space
-> +upon reset.
-> +
-> +\drivernormative{MSI Configuration}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / MSI Configuration}
-> +
-> +The driver MUST allocate transport or platform specific MSI entries
-> +for both virtqueue and config space if it wants to use interrupt.
-> +
-> +The driver MAY choose disable the MSI if polling is used.
-> +
-> +\subsection{Virtqueue Address}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Address}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_CAP_VDEV, the address of
-> +a specific virtqueue could be done through the following command:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_VQ_ADDR    9
-> + #define VIRTIO_ADMIN_CTRL_VQ_ADDR_SET        0
-> +
-> +struct virtio_admin_ctrl_vdev_vq_addr {
-> +       u16 queue_index;
-> +       u64 device_area;
-> +       u64 descriptor_area;
-> +       u64 driver_area;
-> +};
-> +\end{lstlisting}
-> +
-> +The command-out-data is the queue index, the addresses of device area,
-> +descriptor area and driver area (as described in struct
-> +virtio_admin_ctrl_vdev_vq_addr); There's no command-in-data.
-> +
-> +\devicenormative{Virtqueue Address}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueeu Address}
-> +
-> +The management device MUST fail the commands of class
-> +VIRTIO_ADMIN_CTRL_VQ_ADDR if \field{device_id} is zero.
-> +
-> +\subsection{Virtqueue Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Status}
-> +
-> +When the admin virtqueue offers VIRTIO_F_ADMIN_F_CAP_VDEV, virtqueue
-> +status could be set and get through the following command:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_VQ_ENABLE    10
-> + #define VIRTIO_ADMIN_CTRL_VQ_ENABLE_SET       0
-> + #define VIRTIO_ADMIN_CTRL_VQ_ENABLE_GET       1
-> +
-> +struct virtio_admin_ctrl_vq_status_set {
-> +  u16 queue_index;
-> +  u8 status;
-> +};
-> +
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_VQ_ENABLE_SET is used to set the status to a
-> +specific virtqueue. The command-out-data is the queue index, the
-> +status that is set to the virtqueue (0 disabled, 1 enabled); There's
-> +no command-in-data.
-> +
-> +The VIRTIO_ADMIN_CTRL_VQ_ENABLE_GET is used to get the status of a
-> +specific virtqueue. The command-out-data is the u16 of queue
-> +index. The command-in-data is the virtqueue status (0 disalbed, 1
-> +enabled).
-> +
-> +\devicenormative{Virtqueue Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Status}
-> +
-> +When disabled, the virtual device MUST stop processing requests from
-> +this virtqueue.
-> +
-> +The management device MUST present a 0 via
-> +VIRTIO_ADMIN_CTRL_VQ_ENABLE_GET on reset of the virtual device.
-> +
-> +The management device MUST fail the virtqueue status access if
-> +\field{device_id} is zero.
-> +
-> +\devicenormative{Virtqueue Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Status}
-> +
-> +The driver MUST configure the other virtqueue fields before enabling
-> +the virtqueue with VIRTIO_ADMIN_CTRL_VQ_ENABLE_SET.
-> +
-> +\subsection{Virtqueue Size}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Size}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_VDEV, virtqueue size
-> +could be accessed through the following command:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_VQ_SIZE    11
-> + #define VIRTIO_ADMIN_CTRL_VQ_SIZE_SET       0
-> + #define VIRTIO_ADMIN_CTRL_VQ_SIZE_GET       1
-> +
-> +struct virtio_admin_ctrl_vdev_vq_size_set {
-> +       u16 queue_index;
-> +       u16 size;
-> +};
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_VQ_SIZE_SET command is used to set the virtqueue
-> +size. The command-out-data is the queue index and the size of the
-> +virtqueue (as described in struct
-> +virtio_admin_ctrl_vdev_vq_size_set). There's no command-in-data.
-> +
-> +The VIRTIO_ADMIN_CTRL_VQ_SIZE_GET command is used to get the virtqueue
-> +size. On reset, the maximum queue size supported by the device is
-> +returned. The command-out-data is the u16 of the virtqueue index. The
-> +command-in-data is the u16 of queue size for the virtqueue.
-> +
-> +\devicenormative{Virtqueue Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Size}
-> +
-> +The management device MUST fail the virtqueue size access if
-> +\field{device_id} is zero.
-> +
-> +\subsection{Virtqueue Notification}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Notification}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_VDEV, the virtqueue
-> +notification could be done through the following commands:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_CTRL_VQ_NOTIFY    12
-> + #define VIRTIO_ADMIN_CTRL_VQ_NOTIFY_GET          1
-> +
-> +struct virtio_admin_ctrl_vdev_vq_notification_area {
-> +       le64 addr
-> +       le64 size;
-> +};
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_CTRL_VQ_NOTIFY_GET is used to get the transport
-> +specific address area that can be used to notify a virtqueue. The
-> +command-out-data is a u16 of the virtqueue index. The command-in-data
-> +contains the address and the size of the notification area (as
-> +described in struct virtio_admin_ctrl_vdev_vq_notification_area).
-> +
-> +\devicenormative{Virtqueue Notification}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Notification}
-> +
-> +The management device MUST fail the VIRTIO_ADMIN_CTRL_VQ_NOTIFY_GET if
-> +there's no transport specific notification address for a virtqueue of
-> +its virtual device.
-> +
-> +The management device MUST fail the virtqueue notification access if
-> +\field{device_id} is zero.
-> +
-> +The management device MUST forbid the notification area of a specific
-> +virtual device to be accessed from another virtual device.
-> +
-> +\drivernormative{Virtqueue Notification}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Virtqueue Notification}
-> +
-> +The driver MAY choose to notify the virtqueue by writing the queue
-> +index at address \field{addr} which is fetched from the
-> +VIRTIO_ADMIN_CTRL_VQ_NOTIFY_GET command.
-> +
-> +\subsection{Virtqueue Notification}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device MMU}
-> +
-> +When the admin virtqueue offers VIRTIO_ADMIN_F_VDEV, management device
-> +offers a device MMU for a secure DMA context for each virtual
-> +device. The device MMU will translate I/O Virtual Address to transport
-> +specific DMA address before using a transport specific way for DMA:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_ADMIN_VQ_CTRL_MMU    13
-> + #define VIRTIO_ADMIN_VQ_CTRL_MMU_ENABLE       1
-> + #define VIRTIO_ADMIN_VQ_CTRL_MMU_ASID_SET     2
-> + #define VIRTIO_ADMIN_VQ_CTRL_MMU_MAP          3
-> + #define VIRTIO_ADMIN_VQ_CTRL_MMU_UNMAP        4
-> + #define VIRTIO_ADMIN_VQ_CTRL_MMU_ERR_GET      5
-> +
-> +struct virtio_admin_ctrl_vdev_mmu_asid_set {
-> +  le16 queue_index;
-> +  le64 asid;
-> +};
-> +
-> +struct virtio_admin_ctrl_vdev_mmu_map {
-> +  le64 iova_start;
-> +  le64 iova_end;
-> +  le64 dma_start;
-> +  le32 flags;
-> +};
-> +
-> +/* Read access is allowed */
-> +#define VIRTIO_ADMIN_VQ_MAP_F_READ   (1 << 0)
-> +/* Write access is allowed */
-> +#define VIRTIO_IOMMU_VQ_MAP_F_WRITE  (1 << 1)
-> +
-> +struct virtio_admin_ctrl_vdev_mmu_err {
-> +  le32 reason;
-> +  le16 queue_index;
-> +  le64 asid;
-> +  le64 iova_start;
-> +  le64 iova_end;
-> +  le32 flags;
-> +};
-> +
-> +/* Mapping does not exist */
-> +#define VIRTIO_ADMIN_VQ_MAP_ERR_NON_EXIST (1 << 0)
-> +/* Access violates the permission */
-> +#define VIRTIO_ADMIN_VQ_MAP_ERR_ACC_VIOLATION (1 << 1)
-> +
-> +\end{lstlisting}
-> +
-> +The VIRTIO_ADMIN_VQ_CTRL_MMU_ENABLE is used to enable or disable
-> +device MMU for a specific virtual device. The command-out-data is a u8
-> +for telling whether device MMU is enabled for the virtual device: 0
-> +means to enable and 1 means to disable.
-> +
-> +The VIRTIO_ADMIN_VQ_CTRL_MMU_ASID_SET is used to assign a device
-> +address space id to a virtqueue. The command-out-data is the queue
-> +index (\field{queue_index}) and the address space ID (\field{asid})
-> +assigned to it (as described in struct virtio_admin_ctrl_vdev_mmu_asid_set).
-> +
-> +The VIRTIO_ADMIN_VQ_CTRL_MMU_MAP is used to map the I/O Virtual
-> +Address range [\field{iova_start}, \field{iova_end}] to transport
-> +specific DMA address range [\field{dma_start}, \field{dma_start} +
-> + \field{iova_end} - \field{iova_start} + 1]. \field{flags} is used to
-> +specify the device access permission.
-> +
-> +The VIRTIO_ADMIN_VQ_CTRL_MMU_UNMAP is used to unmap all the mapped I/O
-> +Virtual Address ranges that are intersected with the range
-> +[\field{iova_start}, \field{iova_end}].
-> +
-> +There's no command-in-data for all the above four commands.
-> +
-> +The VIRTIO_ADMIN_VQ_CTRL_MMU_ERR_GET is used to get the error
-> +information of the device MMU. There's no command-out-data, the
-> +command-in-date is the queue index and its asid, the iova range and
-> +the access of the operation (as described in struct
-> +virtio_admin_ctrl_vdev_mmu_err).
-> +
-> +\devicenormative{Virtqueue Status}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Device MMU}
-> +
-> +The management device MUST fail the device MMU command if \field{device_id} is
-> +zero.
-> +
-> +The management device MUST fail the VIRTIO_ADMIN_VQ_CTRL_MMU_MAP
-> +command if the iova range is intersected with a existing range.
-> +
-> +The management device MUST set both DEVICE_NEEDS_RESET and
-> +DEVICE_MMU_FAIL when the device MMU fails to do the translation for a
-> +virtual device.
-> +
-> +The device MMU for the virtual device MUST be disabled upon its reset.
-> +
-> +Upon reset, the virtual device must reset the Address Space ID for
-> +each virtqueue to 0.
-> +
-> +\drivernormative{Virtqueue Status}\label{sec:Virtio Transport Options
-> +  / Virtio Over Admin Virtqueue / Device MMU}
-> +
-> +The driver MAY choose to disable the device MMU but it MUST make sure
-> +the transport specific method could be used to provide a secure DMA
-> +context for each virtual device.
-> +
-> +The driver MAY query the error of device MMU after DEVICE_MMU_FAIL is set.
-> +
-> +\subsection{Presenting Virtual Device}\label{sec:Virtio Transport Options / Virtio Over Admin Virtqueue / Presenting Virtual Device}
-> +
-> +If VIRTIO_ADMIN_F_VDEV is offered by the device. The presenting of
-> +the virtual device requires co-operation between the management
-> +driver and the admin virtqueue. This means, from the view of the
-> +virtual device driver, the transport is done via the communication
-> +with the management device driver. It's up to the software to decide
-> +what kind of method that is needed be used for those communications.
-> +
-> +The management driver typically do the following steps for creating a
-> +virtual device:
-> +
-> +\begin{enumerate}
-> +\item Determine the virtio id and device specific configuration.
-> +\item Create the virtual devices using VIRTIO_ADMIN_CTRL_VDEV_CREATE
-> +command.
-> +\item Optionally, configure the MSI.
-> +\item Optionally, enable and initialize the device MMU.
-> +\item Setup the necessary communication methods with virtual device driver.
-> +\item Perform device specific setups.
-> +\item Let the virtual device to be probed by the virtual device
-> +driver. The management driver will then use the admin virtqueue to
-> +implement the requests of basic facility from the virtual device
-> +driver.
-> +\end{enumerate}
-> +
->  \section{Virtio Over PCI Bus}\label{sec:Virtio Transport Options / Virtio Over PCI Bus}
->  
->  Virtio devices are commonly implemented as PCI devices.
-> -- 
-> 2.24.3 (Apple Git-128)
-
+CtTaIDIwMjEvOC80IM/Czuc5OjM2LCBNaWNoYWVsIFMuIFRzaXJraW4g0LS1wDoKPiBPbiBUdWUs
+IEF1ZyAwMywgMjAyMSBhdCAxMToyMDowNkFNICswODAwLCBKYXNvbiBXYW5nIHdyb3RlOgo+PiBU
+aGlzIHBhdGNoIGludHJvZHVjZXMgYSBuZXcgdHJhbnNwb3J0IC0gdGhlIGFkbWluIHZpcnRxdWV1
+ZS4gVGhpcwo+PiB0cmFuc3BvcnQgaXMgdXNlZnVsIGZvciBpbXBsZW1lbnRpbmcgdmlydHVhbCBk
+ZXZpY2VzIHdpdGggYSBsaW1pdGVkCj4+IHRyYW5zcG9ydCBzcGVjaWZpYyByZXNvdXJjZXMgb3Ig
+cHJlc2VudGluZyB0aGUgdmlydHVhbCBkZXZpY2UgaW4gYQo+PiB0cmFuc3BvcnQgaW5kZXBlbmRl
+bnQgd2F5Lgo+Pgo+PiBUaGlzIG1lYW5zLCBhbGwgdGhlIGJhc2ljIGRldmljZSBmYWNpbGl0aWVz
+IGFyZSBwcm92aWRlZCBzb2xlbHkgdmlhCj4+IHRoZSB0aGUgYWRtaW4gdmlydHF1ZXVlLiBBZGRp
+dGlvbmFsbHksIHRoZSBhZG1pbiB2aXJ0cXVldWUgaXMgYWxzbyBpbgo+PiBjaGFyZ2Ugb2YgdGhl
+IGNyZWF0aW5nIGFuZCBkZXN0cm95aW5nIG9mIHRoZSB2aXJ0dWFsIGRldmljZS4KPj4KPj4gVG8g
+YmUgc2VsZi1jb250YWluZWQgYW5kIG5vdCBkZXBlbmQgb24gdGhlIHBsYXRmb3JtIHNwZWNpZmlj
+Cj4+IGZlYXR1cmUuIERldmljZSBNTVUgaXMgYWxzbyBpbnRyb2R1Y2VkIGZvciBwcm92aWRpbmcg
+dGhlIERNQSBpc29sYXRpb24KPj4gYW1vbmcgdmlydHVhbCBkZXZpY2VzLgo+Pgo+PiBXaXRoIHRo
+ZSBoZWxwIG9mIHRoZSBhZG1pbiB2aXJ0cXVldWUsIHRoZSBwcmVzZW50aW5nIG9mIHRoZSB2aXJ0
+dWFsCj4+IGRldmljZSBpcyBkb25lIHZpYSB0aGUgY28tb3BlcmF0aW9uIGJldHdlZW4gdGhlIG1h
+bmFnZW1lbnQgZGV2aWNlIGFuZAo+PiBpdHMgZHJpdmVyLgo+Pgo+PiBUaGlzIGlzIGp1c3QgYSBk
+cmFmdCBmb3IgZGVtb25zdHJhdGluZyB0aGUgYmFzaWMgaWRlYXMuIFNvbWUgcG9zc2libGUKPj4g
+ZW5oYW5jZW1lbnRzOgo+Pgo+PiAtIGFkbWluIGV2ZW50IHZpcnRxdWV1ZSBmb3IgcmVwb3J0aW5n
+IGV2ZW50cyBsaWtlIGludGVycnVwdHMgKG9uIHRoZQo+PiAgICBwbGF0Zm9ybSB3aXRob3V0aCBN
+U0kpIGFuZCBNTVUgdHJhbnNsYXRpb24gZmFpbHVyZQo+PiAtIGhhcmR3YXJlIGZyaWVuZGx5IE1N
+VSB0cmFuc2xhdGlvbiB0YWJsZSAoZS5nIGluIHRoZSBtZW1vcnkgaW5zdGVhZAo+PiAgICBvZiB1
+c2luZyBjb250cm9sIHZpcnRxdWV1ZSBjb21tYW5kcykKPj4gLSBjb21tYW5kIHRvIGtpY2sgdGhl
+IHZpcnRxdWV1ZQo+Pgo+PiBDb21tZW50cyBhcmUgbW9yZSB0aGFuIHdlbGNvbWVkLgo+Pgo+PiBT
+aWduZWQtb2ZmLWJ5OiBKYXNvbiBXYW5nIDxqYXNvd2FuZ0ByZWRoYXQuY29tPgo+PiAtLS0KPj4g
+ICBjb250ZW50LnRleCB8IDYzOSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDYzOSBpbnNlcnRpb25zKCspCj4+
+Cj4+IGRpZmYgLS1naXQgYS9jb250ZW50LnRleCBiL2NvbnRlbnQudGV4Cj4+IGluZGV4IDYyMGMw
+ZTIuLjFmNjZkNDIgMTAwNjQ0Cj4+IC0tLSBhL2NvbnRlbnQudGV4Cj4+ICsrKyBiL2NvbnRlbnQu
+dGV4Cj4+IEBAIC00Nyw2ICs0Nyw5IEBAIFxzZWN0aW9ue1xmaWVsZHtEZXZpY2UgU3RhdHVzfSBG
+aWVsZH1cbGFiZWx7c2VjOkJhc2ljIEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2Cj4+ICAgXGl0
+ZW1bRFJJVkVSX09LICg0KV0gSW5kaWNhdGVzIHRoYXQgdGhlIGRyaXZlciBpcyBzZXQgdXAgYW5k
+IHJlYWR5IHRvCj4+ICAgICBkcml2ZSB0aGUgZGV2aWNlLgo+PiAgIAo+PiArXGl0ZW1bREVWSUNF
+X01NVV9GQUlMICgzMildIEluZGljYXRlcyB0aGF0IHRoZSBkZXZpY2UgTU1VIGhhcwo+PiArICBl
+eHBlcmllbmNlZCBhbiBlcnJvciBmcm9tIHdoaWNoIGl0IGNhbid0IHJlY292ZXIuCj4+ICsKPj4g
+ICBcaXRlbVtERVZJQ0VfTkVFRFNfUkVTRVQgKDY0KV0gSW5kaWNhdGVzIHRoYXQgdGhlIGRldmlj
+ZSBoYXMgZXhwZXJpZW5jZWQKPj4gICAgIGFuIGVycm9yIGZyb20gd2hpY2ggaXQgY2FuJ3QgcmVj
+b3Zlci4KPj4gICBcZW5ke2Rlc2NyaXB0aW9ufQo+PiBAQCAtNTE1LDYgKzUxOCw2NDIgQEAgXGNo
+YXB0ZXJ7VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zfVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9y
+dCBPcHRpb25zfQo+PiAgIFZpcnRpbyBjYW4gdXNlIHZhcmlvdXMgZGlmZmVyZW50IGJ1c2VzLCB0
+aHVzIHRoZSBzdGFuZGFyZCBpcyBzcGxpdAo+PiAgIGludG8gdmlydGlvIGdlbmVyYWwgYW5kIGJ1
+cy1zcGVjaWZpYyBzZWN0aW9ucy4KPj4gICAKPj4gK1xzZWN0aW9ue1ZpcnRpbyBPdmVyIEFkbWlu
+IFZpcnRxdWV1ZX1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBP
+dmVyIEFkbWluIFZpcnRxdWV1ZX0KPj4gKwo+PiArU29tZXRpbWVzIGl0J3MgaGFyZCB0byBpbXBs
+ZW1lbnQgdGhlIGRldmljZSBpbiBhIHRyYW5zcG9ydCBzcGVjaWZpYwo+PiArbWV0aG9kLiBPbmUg
+ZXhhbXBsZSBpcyB0aGF0IGEgcGh5c2ljYWwgZGV2aWNlIG1heSB0cnkgdG8gcHJlc2VudAo+PiAr
+bXVsdGlwbGUgdmlydHVhbCBkZXZpY2VzIHdpdGggYSBsaW1pdGVkIHRyYW5zcG9ydCBzcGVjaWZp
+Ywo+PiArcmVzb3VyY2VzLiBBbm90aGVyIGV4YW1wbGUgaXMgdG8gaW1wbGVtZW50IHZpcnR1YWwg
+ZGV2aWNlcyB3aGljaCBpcwo+PiArdHJhbnNwb3J0IGluZGVwZW5kZW50LiBJbiB0aG9zZSBjYXNl
+cywgdGhlIGFkbWluIHZpcnRxdWV1ZSBwcm92aWRlZCBieQo+PiArdGhlIG1hbmFnZW1lbnQgZGV2
+aWNlIGNvdWxkIGJlIHVzZWQgdG8gcmVwbGFjZSB0aGUgdHJhbnNwb3J0IHNwZWNpZmljCj4+ICtt
+ZXRob2QgdG8gaW1wbGVtZW50IHRoZSB2aXJ0dWFsIGRldmljZS4KPiB0ZXJtaW5vbG9neSBoZXJl
+IG5lZWRzIGNsYXJpZmljYXRpb24uIEVzcGVjaWFsbHkgdGFsa2luZyBhYm91dAo+IHZpcnR1YWwg
+ZGV2aWNlcyBpcyBjb25mdXNpbmcuIEkgcHJvcG9zZSBtYW5hZ2VtZW50IGRldmljZSBhbmQKPiBt
+YW5hZ2VkIGRldmljZS4gT3RoZXIgb3B0aW9ucyBleGlzdC4KCgpTdXJlLCB3aWxsIGRvLgoKCj4g
+ICBBbHNvIHBscyBnaXZlIGV4YW1wbGVzCj4gc3VjaCBhcyBQRi9WRi4KCgpPay4KCgo+Cj4KPj4g
+VGhlbiB0aGUgcHJlc2VudGluZyBvZiB0aGUKPj4gK3ZpcnR1YWwgZGV2aWNlIGlzIGRvbmUgdGhy
+b3VnaCB0aGUgY29vcGVyYXRpb24gYmV0d2VlbiB0aGUgYWRtaW4KPj4gK3ZpcnRxdWV1ZSBhbmQg
+dGhlIGRyaXZlci4KPiBBIG5hdHVyYWwgcXVlc3Rpb24gdG8gYXNrIGlzIHdoeSBpcyB0aGlzIGEg
+VlEgYW5kIG5vdCBhIGRldmljZT8KPiBJcyB0aGlzIGJlY2F1c2UgcGVvcGxlIHdhbnQgdG8gaW1w
+bGVtZW50IGEgVlEgYXMgcGFydAo+IG9mIGFuIGFyYml0cmFyeSBkZXZpY2U/CgoKWWVzLCBhbmQg
+YWN0dWFsbHksIEkgZG9uJ3Qgd2FudCB0byBleGNsdWRlIHRoZSBwb3NzaWJpbGl0eSBvZiBoYXZp
+bmcgYSAKZGVkaWNhdGVkIG1hbmFnZW1lbnQgZGV2aWNlLgoKQnV0IHVzaW5nIGFuIGFyYml0cmFy
+eSBkZXZpY2UgbWF5IGhhdmUgYWR2YW50YWdlcyAoZS5nIGZvciBuZXQgaXQgaGF2ZSAKdGhlIGlu
+dGVyZmFjZSBmb3IgcmVtb3RlIG1hbmFnZW1lbnQpLgoKQW5kIGJhc2VkIG9uIHRoZSBkaXNjdXNz
+aW9uIHdpdGggU3RlZmFuLCBJIHRoaW5rIHdlIGNhbiBhZGQgdGhlIApmb2xsb3dpbmcgdGV4dDoK
+CiIKVGhlIG1hbmFnZW1lbnQgZGV2aWNlIE1VU1Qgb2ZmZXIgdGhlIGFkbWluIHZpcnRxdWV1ZSBp
+biBhIGRldmljZSAKc3BlY2lmaWMgdmlydHF1ZXVlCiIKCgo+Cj4KPgo+PiArXHN1YnNlY3Rpb257
+QmFzaWMgQ29uY2VwdHN9XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0
+aW8gb3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBCYXNpYyBDb25jZXB0c30KPj4gKwo+PiArVGhlIGRl
+dmljZSB0aGF0IG9mZmVycyB0aGUgYWRtaW4gdmlydHF1ZXVlICh2aWEgZmVhdHVyZQo+PiArVklS
+VElPX0ZfQURNSU5fVlEpIGlzIHRoZSBtYW5hZ2VtZW50IGRldmljZSBvZiB0aGUgdmlydHVhbAo+
+PiArZGV2aWNlcy4KPiBEb24ndCB3ZSBuZWVkIGEgd2F5IHRvIHNwZWNpZnkgaG93IG1hbnkgc3Vj
+aCBWUXMgYXJlIHRoZXJlIGFuZCB3aGF0Cj4gdGhlaXIgbnVtYmVycyBhcmU/CgoKWWVzLgoKCj4g
+ICBEb2luZyB0aGlzIGluIGEgZGV2aWNlIHNwZWNpZmljIHdheSBzZWVtcyBhIGJpdAo+IGFubm95
+aW5nIC4uLgo+CgpJJ20gbm90IHN1cmUgSSBnZXQgdGhlIGNvbW1lbnQgaGVyZSwgdGhlIGFib3Zl
+IHRleHQgaXMgdGhlIGRlZmluaXRpb24gb2YgCnRoZSBtYW5hZ2VtZW50IGRldmljZS4KCgo+Cj4+
+IEFsbCBjb21tYW5kcyBhcmUgb2YgdGhlIGZvbGxvd2luZyBmb3JtOgo+PiArCj4+ICtcYmVnaW57
+bHN0bGlzdGluZ30KPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybCB7Cj4+ICsgICAgICAgIHU2
+NCBkZXZpY2VfaWQ7Cj4+ICsgICAgICAgIHUxNiBjbGFzczsKPj4gKyAgICAgICAgdTE2IGNvbW1h
+bmQ7Cj4+ICsgICAgICAgIHU4IGNvbW1hbmQtb3V0LWRhdGFbXTsKPj4gKyAgICAgICAgdTggYWNr
+Owo+PiArICAgICAgICB1OCBjb21tYW5kLWluLWRhdGFbXQo+PiArfTsKPj4gKwo+PiArLyogYWNr
+IHZhbHVlcyAqLwo+PiArI2RlZmluZSBWSVJUSU9fQURNSU5fT0sgICAgIDAKPj4gKyNkZWZpbmUg
+VklSVElPX0FETUlOX0VSUiAgICAxCj4+ICtcZW5ke2xzdGxpc3Rpbmd9Cj4+ICsKPj4gK1RoZSBk
+ZXZpY2VfaWQsIGNsYXNzLCBjb21tYW5kIGFuZCBjb21tYW5kLW91dC1kYXRhIGFyZSBzZXQgYnkK
+Pj4gK3RoZSBkcml2ZXIsIGFuZCB0aGUgZGV2aWNlIHNldHMgdGhlIGFjayBhbmQgY29tbWFuZC1p
+bi1kYXRhLiAwIGlzIHVzZWQKPj4gK2ZvciBpZGVudGlmeSB0aGUgbWFuYWdlbWVudCBkZXZpY2Ug
+aXRzZWxmLgo+PiArCj4+ICtcZGV2aWNlbm9ybWF0aXZle1xzdWJzdWJzZWN0aW9ufXtCYXNpYyBD
+b25jZXB0c317VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmly
+dHF1ZXVlIC8gQmFzaWMgQ29uY2VwdHN9Cj4+ICsKPj4gK1RoZSB2aXJ0dWFsIGRldmljZSBNVVNU
+IG5vdCBvZmZlciBWSVJUSU9fRl9BRE1JTl9WUSBmZWF0dXJlLgo+PiArCj4+ICtcZHJpdmVybm9y
+bWF0aXZle1xzdWJzdWJzZWN0aW9ufXtCYXNpYyBDb25jZXB0c317VmlydGlvIFRyYW5zcG9ydCBP
+cHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gQmFzaWMgQ29uY2VwdHN9Cj4+
+ICsKPj4gK1RoZSBkcml2ZXIgU0hPVUxEIG5lZ290aWF0ZSBWSVJUSU9fRl9BRE1JTl9WUSBpZiB0
+aGUgZGV2aWNlIG9mZmVycyBpdC4KPj4gKwo+PiArXHN1YnNlY3Rpb257VmlydHVhbCBEZXZpY2Ug
+RGlzY292ZXJ5fVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92
+ZXIgQWRtaW4gVmlydHF1ZXVlIC8gVmlydHVhbCBEZXZpY2UgRGlzY292ZXJ5fQo+PiArCj4+ICtU
+aGUgbWFuYWdlbWVudCBkZXZpY2UgaXMgZGlzY292ZXJlZCB0aHJvdWdoIGEgdHJhbnNwb3J0IGFu
+ZCBkZXZpY2UKPj4gK3NwZWNpZmljIG1ldGhvZC4gVmlydHVhbCBkZXZpY2VzIGlzIGNyZWF0ZWQg
+YW5kIGRpc2NvdmVyZWQgdmlhIHRoZQo+PiArYWRtaW4gdmlydHF1ZXVlLgo+PiArCj4+ICtcc3Vi
+c2VjdGlvbntBZG1pbiBWaXJ0cXVldWUgQ2FwYWJpbGl0aWVzfVxsYWJlbHtzZWM6VmlydGlvIFRy
+YW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gQWRtaW4gVmly
+dHF1ZXVlIENhcGFiaWxpdGllc30KPj4gKwo+PiArVGhlIGNhcGFiaWxpdGVzIHRoYXQgYXJlIHN1
+cHBvcnRlZCBieSB0aGUgYWRtaW4gdmlydHF1ZXVlIGNvdWxkIGJlCj4+ICtmZXRjaGVkIHRocm91
+Z2ggdGhlIGZvbGxvd2luZyBjb21tYW5kczoKPj4gKwo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9Cj4+
+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX0NBUCAgICAwCj4+ICsgI2RlZmluZSBWSVJUSU9f
+QURNSU5fQ1RSTF9DQVBfR0VUICAgICAgICAwCj4+ICtcZW5ke2xzdGxpc3Rpbmd9Cj4+ICsKPj4g
+K1RoZSBWSVJUSU9fQURNSU5fQ1RSTF9DQVBfR0VUIGlzIHVzZWQgdG8gZ2V0IHRoZSBjYXBhYmls
+aXRlcyB0aGF0IGFyZQo+PiArc3VwcG9ydGVkIGJ5IHRoZSBhZG1pbiB2aXJ0cXVldWUgdGhyb3Vn
+aCBhIHU2NCB3aGljaCBpcyBhIGJpdCBtYXNrIG9mCj4+ICt0aGUgY2FwYWJpbGllcyBpbiBjb21t
+YW5kLWluLWRhdGEuIFRoZXJlJ3Mgbm8gY29tbWFuZC1vdXQtZGF0YS4KPj4gKwo+PiArVGhlIGNh
+cGFiaWxpZXMgdGhhdCBpcyBjdXJyZW50bHkgc3VwcG9ydGVkIGFyZToKPj4gKwo+PiArXGJlZ2lu
+e2xzdGxpc3Rpbmd9Cj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9GX0NBUF9WREVWICAgIDEKPj4g
+K1xlbmR7bHN0bGlzdGluZ30KPj4gKwo+PiArVGhlIFZJUlRJT19BRE1JTl9GX0NBUF9WREVWIGNh
+cGFiaWxpdHkgZGVtb25zdHJhdGVzIHRoYXQgdGhlIHZpcnR1YWwKPj4gK2RldmljZXMgaXMgY3Jl
+YXRlZCwgY29uZmlndXJlZCBhbmQgZGVzdHJveWVkIHRocm91Z2ggYWRtaW4KPj4gK3ZpcnRxdWV1
+ZS4gVGhhdCBtZWFucyB0aGUgYWRtaW4gdmlydHF1ZXVlIGlzIHRoZSB0cmFuc3BvcnQgZm9yIHRo
+ZQo+PiArdmlydHVhbCBkZXZpY2VzLgo+IEhvdyBhYm91dCB1c2luZyBhIGZlYXR1cmUgYml0IGZv
+ciB0aGlzPyBPciBoYXZpbmcgdGhpcyBpbiB0aGUgY29uZmlnIHNwYWNlLgo+IFRoaXMgbWlnaHQg
+Y2FsbCBmb3IgYSBnZW5lcmljIGNvbmZpZyBzcGFjZSBmZWF0dXJlLCBidXQgaXQncyBub3QKPiB0
+aGUgZmlyc3QgdGltZSB3ZSB3YW50IHRoYXQsIG1heWJlIGl0J3MgdGltZS4KCgpGZWF0dXJlIGJp
+dCB3b3JrcyBhbmQgc2VlbXMgYmV0dGVyIHRoYW4gdGhlIGNvbmZpZyBzcGFjZS4gSSBjYW4gY2hh
+bmdlLgoKCj4KPgo+PiArXGRldmljZW5vcm1hdGl2ZXtBZG1pbiBWaXJ0cXVldWUgQ2FwYWJpbGl0
+aWVzfVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRt
+aW4gVmlydHF1ZXVlIC8gQWRtaW4gVmlydHF1ZXVlIENhcGFiaWxpdGllc30KPj4gKwo+PiArVGhl
+IG1hbmFnZW1lbnQgZGV2aWNlIE1VU1Qgc3VwcG9ydCBWSVJUSU9fQURNSU5fQ1RSTF9DQVAgY2xh
+c3Mgd2hlbgo+PiArVklSVElPX0ZfQURNSU5fVlEgaXMgb2ZmZXJlZC4KPj4gKwo+PiArVGhlIG1h
+bmFnZW1lbnQgZGV2aWNlIE1VU1QgZmFpbCBWSVJUSU9fQURNSU5fQ1RSTF9DQVAgY2xhc3Mgd2hl
+biB0aGUKPj4gK1xmaWVsZHtkZXZpY2VfaWR9IGlzIG5vdCB6ZXJvLgo+PiArCj4+ICtcZHJpdmVy
+bm9ybWF0aXZle0FkbWluIFZpcnRxdWV1ZSBDYXBhYmlsaXRpZXN9XGxhYmVse3NlYzpWaXJ0aW8g
+VHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBBZG1pbiBW
+aXJ0cXVldWUgQ2FwYWJpbGl0aWVzfQo+PiArCj4+ICtUaGUgZHJpdmVyIE1VU1QgdXNlIDAgYXMg
+XGZpZWxke2RldmljZV9pZH0gZm9yIFZJUlRJT19BRE1JTl9DVFJMX0NBUAo+PiArY2xhc3MuCj4+
+ICsKPj4gK1xzdWJzZWN0aW9ue0RldmljZSBNYW5hZ2VtZW50fVxsYWJlbHtzZWM6VmlydGlvIFRy
+YW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gRGV2aWNlIE1h
+bmFnZW1lbnR9Cj4+ICsKPj4gK1doZW4gdGhlIGFkbWluIHZpcnRxdWV1ZSBvZmZlcnMgVklSVElP
+X0FETUlOX0ZfQ0FQX1ZERVYgY2FwaWJpbGl0eSwKPj4gK3ZpcnR1YWwgZGV2aWNlcyBtdXN0IGJl
+IGNyZWF0ZWQgYW5kIGRpc2NvdmVyZWQgdGhyb3VnaCB0aGUgYWRtaW4KPj4gK3ZpcnRxdWV1ZS4K
+Pj4gKwo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9Cj4+ICtzdHJ1Y3QgdmlydGlvX2FkbWluX2N0cmxf
+dmRldl9hdHRyaWJ1dGUgewo+PiArICAgICAgIHUzMiBkZXZpY2VfaWQ7Cj4+ICsgICAgICAgdTgg
+Y29uZmlnW107Cj4+ICt9Owo+PiArCj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX1ZERVYg
+ICAgMgo+PiArICNkZWZpbmUgVklSVElPX0FETUlOX0NUUkxfVkRFVl9DUkVBVEUgICAgICAgIDAK
+Pj4gKyAjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX1ZERVZfREVTVFJPWSAgICAgICAgMQo+PiAr
+XGVuZHtsc3RsaXN0aW5nfQo+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX0NUUkxfVkRFVl9DUkVB
+VCBjb21tYW5kIGlzIHVzZWQgdG8gY3JlYXRlIGEgdmlydHVhbAo+PiArZGV2aWNlLiBUaGUgY29t
+bWFuZC1vdXQtZGF0YSBmb3IgVklSVElPX0FETUlOX0NUUkxfQ1JFQVRFIGlzIHRoZQo+PiArdmly
+dGlvIGRldmljZSBpZCAoXGZpZWxke2RldmljZV9pZH0pIGFuZCBkZXZpY2Ugc3BlY2lmaWMgY29u
+ZmlndXJhdGlvbgo+PiArKFxmaWVsZHtjb25maWd9KSBmb3IgY3JlYXRpbmcgdGhlIHZpcnR1YWwg
+ZGV2aWNlLiBXaGVuIHN1Y2NlZWQsIHRoZQo+PiArZGV2aWNlIHJldHVybnMgYSB1NjQgYXMgYSB1
+bmlxdWUgaWRlbnRpZmllciBvZiB0aGUgY3JlYXRlZCB2aXJ0dWFsCj4+ICtkZXZpY2UgaW4gY29t
+bWFuZC1pbi1kYXRhLgo+IFNvIGhvdyBhcmUgd2UgZ29pbmcgdG8gc3BlY2lmeSBjb25maWc/IFBl
+ciBkZXZpY2UgdHlwZT8KCgpZZXMsIHRoZSBjb25maWcgZm9ybWF0IGlzIGRldmljZSBzcGVjaWZp
+Yy4gSSB3aWxsIGFkZCBzb21lIHRleHQgZm9yIHRoaXMuCgoKPgo+Cj4+ICtUaGUgVklSVElPX0FE
+TUlOX0NUUkxfVkRFVl9ERVNUUk9ZIGNvbW1hbmQgaXMgdXNlZCB0byBkZXN0cm95IGEKPj4gK3Zp
+cnR1YWwgZGV2aWNlIHdoaWNoIGlzIGlkZW50aWZpZWQgYnkgaXRzIDY0Yml0IGlkZW50aWZpZXIK
+Pj4gK1xmaWVsZHt2aXJ0dWFsX2RldmljZV9pZH0uIFRoZXJlJ3Mgbm8gY29tbWFuZC1pbi1kYXRh
+IGZvcgo+PiArVklSVElPX0FETUlOX0NUUkxfREVTVFJPWSBjb21tYW5kLgo+IFNvIEkgYW0gY29u
+ZnVzZWQgaGVyZS4gUmVzdCBvZiB0aGUgc3BlYyBzZWVtcyB0byBtYXAgZHJpdmVyCj4gYWN0aW9u
+cyB0byBjb21tYW5kcyBvbiB0aGUgYWRtaW4gVlEuIEhvd2V2ZXIgd2hlcmUgZG8gdGhlIGNyZWF0
+ZSBhbmQKPiBkZXN0cm95IGNvbW1hbmRzIGNvbWluZyBmcm9tPyBJZiB0aGV5IGhhdmUgYSBzZXBh
+cmF0ZSBzb3VyY2UKPiBmcm9tIGRyaXZlciBjb21tYW5kcywgd2h5IGRvIHRoZXkgc2hhcmUgdGhl
+IHNhbWUgVlE/CgoKSXQgbWVhbnMgdGhlIHZpcnR1YWwvbWFuYWdlZCBkZXZpY2VzIGFyZSBwcm92
+aXNpb25lZCBkeW5hbWljYWxseS4gVGhhdCAKaXMgdGhlIGhhcmR3YXJlIGNhbiBzdHJ1Y3R1cmUg
+dGhlIHJlc291cmNlcyBvZiB2aXJ0dWFsL21hbmFnZWQgZGV2aWNlIApiYXNlZCBvbiB0aGUgcmVx
+dWVzdHMgZnJvbSB0aGUgdXNlci4KCkUuZyB3aGVuIHVzZXIgaXMgYXNraW5nIHRvIGNyZWF0ZSBh
+IG5ldHdvcmtpbmcgZGV2aWNlIHdpdGggNCBxdWV1ZSAKcGFpcnMuIFRoZSBoYXJkd2FyZSBidWls
+ZCB1cCB0aGUgcmVzb3VyY2VzIGR5bmFtaWNhbGx5IGR1cmluZyBWREVWX0NSRUFUIAphbmQgdGhl
+IHJlc291cmNlcyBhcmUgZnJlZWQgZHVyaW5nIFZERVZfREVTVFJPWS4KCkkgdGhpbmsgd2UgY2Fu
+IGFkZCB0aGUgc3VwcG9ydCBmb3Igc3RhdGljYWxseSBwcmUtYWxsb2NhdGVkIAp2aXJ0dWFsL21h
+bmFnZWQgZGV2aWNlLgoKCj4KPgo+PiArXGRldmljZW5vcm1hdGl2ZXtEZXZpY2UgTWFuYWdlbWVu
+dH1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIEFkbWlu
+IFZpcnRxdWV1ZSAvIERldmljZSBNYW5hZ2VtZW50fQo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBk
+ZXZpY2UgTVVTVCBmYWlsIHRoZSBWSVJUSU9fQURNSU5fQ1RSTF9WREVWX0NSRUFURSBpZgo+PiAr
+XGZpZWxke2RldmljZV9pZH0gaXMgbm90IDAuCj4+ICsKPj4gK1RoZSBtYW5hZ2VtZW50IGRldmlj
+ZSBNVVNUIGZhaWwgdGhlIFZJUlRJT19BRE1JTl9DVFJMX1ZERVZfREVTVFJPWSBpZgo+PiArXGZp
+ZWxke2RldmljZV9pZH0gaXMgMC4KPj4gKwo+PiArQWxsIHZpcnR1YWwgZGV2aWNlcyBNVVNUIGJl
+IGNyZWF0ZWQgdmlhIGFkbWluIHZpcnRxdWV1ZSBpZiB0aGUgYWRtaW4KPj4gK3ZpcnRxdWV1ZSBv
+ZmZlcnMgVklSVElPX0ZfQ1RSTF9WREVWLgo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBkZXZpY2Ug
+TUFZIG1hcCBpbXBsZW1lbnQgdGhlIHZpcnR1YWwgZGV2aWNlIGluIGEKPj4gK3RyYW5zcG9ydCBz
+cGVjaWZpYyB3YXkuCj4KPiBJJ20gbm90IHN1cmUgd2hhdCBkb2VzIHRoaXMgbWVhbi4KCgpZZXMs
+IHdpbGwgcmVtb3ZlLgoKCj4KPj4gK1xkcml2ZXJub3JtYXRpdmV7RHJpdmVyIE1hbmFnZW1lbnR9
+XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBW
+aXJ0cXVldWUgLyBEZXZpY2UgTWFuYWdlbWVudH0KPj4gKwo+PiArVGhlIG1hbmFnZW1lbnQgZHJp
+dmVyIE1VU1QgdXNlIDAgYXMgXGZpZWxke2RldmljZV9pZH0gZm9yCj4+ICtWSVJUSU9fQURNSU5f
+Q1RSTF9WREVWX0NSRUFURSBjb21tYW5kLgo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBkcml2ZXIg
+U0hPVUxEIG1ha2Ugc3VyZSB0aGUgdmlydHVhbCBkZXZpY2UgaXMgbm90IHVzZWQKPj4gK2J5IGFu
+eSBkcml2ZXIgYmVmb3JlIHRyeWluZyB0byBkZXN0cm95IGl0Lgo+IERldmljZSBkcml2ZXJzIGFy
+ZSB3aXRoaW4gZ3Vlc3RzLiBOb3Qgc3VyZSBob3cgdGhpcyBjYW4gYmUKPiBhY2NvbXBsaXNoZWQu
+CgoKSSBjYW4gcmVtb3ZlIHRoaXMuIEJ1dCBldmVuIGlmIGRyaXZlcnMgYXJlIHdpdGhpbiBndWVz
+dHMsIGZvcm0gdGhlIGhvc3QgCml0J3Mgc3RpbGwgYm91bmQgdG8gYSBkcml2ZXIuCgoKPgo+PiAr
+Cj4+ICtcc3Vic2VjdGlvbntGZWF0dXJlcyBOZWdvdGlhdGlvbn1cbGFiZWx7c2VjOlZpcnRpbyBU
+cmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIEFkbWluIFZpcnRxdWV1ZSAvIEZlYXR1cmVz
+IE5lZ290aWF0aW9ufQo+PiArCj4+ICtXaGVuIHRoZSBhZG1pbiB2aXJ0cXVldWUgb2ZmZXJzIFZJ
+UlRJT19BRE1JTl9GX0NBUF9WREVWIGNhcGFiaWxpdHksCj4+ICt0aGUgZmVhdHVyZSBuZWdvdGlh
+dGlvbiBvZiB2aXJ0dWFsIGRldmljZXMgY291bGQgYmUgZG9uZSBieSB0aGUKPj4gK2ZvbGxvd2lu
+ZyBjb21tYW5kczoKPj4gKwo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9Cj4+ICsjZGVmaW5lIFZJUlRJ
+T19BRE1JTl9DVFJMX0ZFQVQgICAgMwo+PiArICNkZWZpbmUgVklSVElPX0FETUlOX0NUUkxfRkVB
+VF9ERVZJQ0VfR0VUICAgICAgICAwCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9GRUFU
+X0RSSVZFUl9TRVQgICAgICAgIDEKPj4gKyAjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX0ZFQVRf
+RFJJVkVSX0dFVCAgICAgICAgMgo+PiArXGVuZHtsc3RsaXN0aW5nfQo+PiArCj4+ICtUaGUgVklS
+VElPX0FETUlOX0NUUkxfRkVBVF9ERVZJQ0VfR0VUIGlzIHRvIGdldCB0aGUgZmVhdHVyZXMgb2Zm
+ZXJlZAo+PiArYnkgYSB2aXJ0dWFsIGRldmljZS4KPj4gKwo+PiArVGhlIFZJUlRJT19BRE1JTl9D
+VFJMX0ZFQVRfRFJJVkVSX1NFVCBpcyBmb3IgZHJpdmVyIHRvIGFjY2VwdCBmZWF0dXJlCj4+ICti
+aXRzIG9mZmVyZWQgYnkgdGhlIHZpcnR1YWwgZGV2aWNlLgo+PiArCj4+ICtUaGUgVklSVElPX0FE
+TUlOX0NUUkxfRkVBVF9EUklWRVJfR0VUIGlzIHRvIGdldCB0aGUgZmVhdHVyZXMgYWNjZXB0ZWQK
+Pj4gK2J5IGJvdGggdGhlIHZpcnR1YWwgZHJpdmVyIGFuZCB0aGUgZGV2aWNlLgo+IFNvIHRoZXJl
+J3MgYSBsb3Qgb2YgdGV4dCBoZXJlIHRvIGJhc2ljYWxseSBwYXNzIGNvbmZpZyByZWFkL3dyaXRl
+cwo+IG92ZXIgYSBWUS4gSG93IGFib3V0IHNwZWNpZnlpbmcgYWRtaW4gVlEgaW4gdGVybXMgb2Yg
+ZS5nLiB2aXJ0aW8gUENJCj4gdHJhbnNwb3J0PyBUaHVzIGJhc2ljYWxseSBzdXBwbHkgcmVhZC93
+cml0ZSBjb21tYW5kcyBhbmQgdGhhdCdzIGl0PwoKCkkganVzdCBzaW1wbHkgZHVwbGljYXRlIHRo
+ZSBmdW5jdGlvbnMgb2YgUENJIHRyYW5zcG9ydC4gTWF5YmUgeW91IGNhbiAKZ2l2ZSBhbiBleGFt
+cGxlIG9mIHlvdXIgaWRlYT8gSXMgaXQgc29tZXRoaW5nIGxpa2UgcmVhZCBhbmQgd3JpdGUgd2l0
+aCAKYW4gb2Zmc2V0IGFuZCBkZWZpbmUgdGhlIGNvbW1hbmRzIGFzIHRoZSBvZmZzZXQ/CgoKPgo+
+Cj4+ICtUaGUgZmVhdHVyZXMgaXMgNjQgYml0cyBtYXNrIG9mIHRoZSB2aXJ0aW8gZmVhdHVyZXMg
+Yml0LiBGb3IKPj4gK1ZJUlRJT19BRE1JTl9DVFJMX0RSSVZFUl9TRVQsIHRoZSBmZWF0dXJlIGlz
+IHBhc3NlZCB0byB0aGUgZGV2aWNlCj4+ICt0aHJvdWdoIGNvbW1hbmQtb3V0LWRhdGEuIEZvciBW
+SVJUSU9fQURNSU5fQ1RSTF9GRUFUX0RFVklDRV9HRVQgYW5kCj4+ICtWSVJUSU9fQURNSU5fQ1RS
+TF9EUklWRVJfR0VUIHRoZSBmZWF0dXJlIGlzIHJldHVybmVkIGZvciB0aGUgZGV2aWNlCj4+ICt0
+aHJvdWdoIGNvbW1hbmQtaW4tZGF0YS4KPj4gKwo+PiArXGRldmljZW5vcm1hdGl2ZXtGZWF0dXJl
+cyBOZWdvdGlhdGlvbn1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRp
+byBPdmVyIEFkbWluIFZpcnRxdWV1ZSAvIEZlYXR1cmVzIE5lZ290aWF0aW9ufQo+PiArCj4+ICtU
+aGUgbWFuYWdlbWVudCBkZXZpY2UgTVVTVCBmYWlsIFZJUlRJT19BRE1JTl9GX0NUUkxfRkVBVCBj
+bGFzcyBmb3IgdGhlCj4+ICtjb21tYW5kIHRoYXQgdXNlIDAgYXMgaXRzIFxmaWVsZHt2aXJ0dWFs
+X2RldmljZV9pZH0uCj4+ICsKPj4gK1xkcml2ZXJub3JtYXRpdmV7RmVhdHVyZXMgTmVnb3RpYXRp
+b259XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1p
+biBWaXJ0cXVldWUgLyBGZWF0dXJlcyBOZWdvdGlhdGlvbn0KPj4gKwo+PiArVGhlIG1hbmFnZW1l
+bnQgZHJpdmVyIE1BWSBtZWRpYXRlIGJldHdlZW4gdGhlIGZlYXR1cmUgbmVnb3RpYXRpb24KPj4g
+K3JlcXVlc3Qgb2YgdGhlIHZpcnR1YWwgZGV2aWNlcyBhbmQgdGhlIGFkbWluIHZpcnRxdWV1ZS4g
+RS5nIHdoZW4KPj4gK29mZmVyaW5nIGZlYXR1cmVzIHRvIHRoZSB2aXJ0dWFsIGRldmljZSwgdGhl
+IG1hbmFnZW1lbnQgZHJpdmVyIE1BWQo+PiArZXhjbHVkZSBzb21lIGZlYXR1cmVzIGluIG9yZGVy
+IHRvIGxpbWl0IHRoZSBiZWhhdmlvdXIgb2YgdGhlIHZpcnR1YWwKPj4gK2RldmljZS4KPj4gKwo+
+PiArXHN1YnNlY3Rpb257RGV2aWNlIFN0YXR1c31cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQg
+T3B0aW9ucyAvIFZpcnRpbyBPdmVyIEFkbWluIFZpcnRxdWV1ZSAvIERldmljZSBTdGF0dXN9Cj4+
+ICsKPj4gK1doZW4gdGhlIGFkbWluIHZpcnRxdWV1ZSBvZmZlcnMgVklSVElPX0FETklOX0ZfQ0FQ
+X1ZERVYgY2FwYWJpbGl0eSwKPj4gK3RoZSBzdGF0dXMgb2YgdmlydHVhbCBkZXZpY2UgY291bGQg
+YmUgYWNjZXNzZWQgYnkgdGhlIGZvbGxvd2luZwo+PiArY29tbWFuZHM6Cj4+ICsKPj4gK1xiZWdp
+bntsc3RsaXN0aW5nfQo+PiArI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9TVEFUVVMgICAgNAo+
+PiArICNkZWZpbmUgVklSVElPX0FETUlOX0NUUkxfU1RBVFVTX1NFVCAgICAgICAgMAo+PiArICNk
+ZWZpbmUgVklSVElPX0FETUlOX0NUUkxfU1RBVFVTX0dFVCAgICAgICAgMQo+PiArXGVuZHtsc3Rs
+aXN0aW5nfQo+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX0NUUkxfU1RBVFVTX1NFVCBpcyB1c2Vk
+IHRvIHNldCB0aGUgZGV2aWNlIHN0YXR1cyBvZgo+PiArdGhlIHZpcnR1YWwgZGV2aWNlIGhlcmUu
+IFRoZSBjb21tYW5kLW91dC1kYXRhIGlzIHRoZSBvbmUgYnl0ZSBzdGF0dXMKPj4gK3RvIHNldCB0
+byB0aGUgZGV2aWNlLiBUaGVyZSdzIG5vIGNvbW1hbmQtaW4tZGF0YSBmb3IgdGhpcyBjb21tYW5k
+Lgo+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX0NUUkxfU1RBVFVTX0dFVCBpcyB1c2VkIHRvIGdl
+dCB0aGUgZGV2aWNlIHN0YXR1cyBvZgo+PiArdGhlIHZpcnR1YWwgZGV2aWNlLiBUaGUgY29tbWFu
+ZC1pbi1kYXRhIGlzIHRoZSBvbmUgYnl0ZSBzdGF0dXMKPj4gK3JldHVybmVkIGZyb20gdGhlIGRl
+dmljZS4gVGhlcmUncyBubyBjb21tYW5kLW91dC1kYXRhIGZvciB0aGlzCj4+ICtjb21tYW5kLgo+
+PiArCj4+ICtcZGV2aWNlbm9ybWF0aXZle0RldmljZSBTdGF0dXN9XGxhYmVse3NlYzpWaXJ0aW8g
+VHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBEZXZpY2Ug
+U3RhdHVzfQo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBkZXZpY2UgTVVTVCBzdGFydCB0aGUgcmVz
+ZXQgb2YgYSB2aXJ0dWFsIGRldmljZSB3aGVuIDAKPj4gK2lzIHdyaXR0ZW4gdmlhIFZJUlRJT19B
+RE1JTl9DVFJMX1NUQVRVU19TRVQsIHRoZSBzdWNjZXNzIG9mIHRoaXMKPj4gK2NvbW1hbmQgZGVt
+b25zdHJhdGUgdGhlIHN1Y2Nlc3Mgb2YgdGhlIHJlc2V0Lgo+PiArCj4+ICtUaGUgbWFuYWdlbWVu
+dCBkZXZpY2UgTVVTVCBwcmVzZW50IDAgdGhyb3VnaAo+PiArVklSVElPX0FETUlOX0NUUkxfU1RB
+VFVTX0dFVCBvbmNlIHRoZSByZXNldCBpcyBkb25lLgo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBk
+ZXZpY2UgTVVTVCBmYWlsIHRoZSBkZXZpY2Ugc3RhdHVzIGFjY2VzcyBpZgo+PiArXGZpZWxke2Rl
+dmljZV9pZH0gaXMgemVyby4KPj4gKwo+PiArXGRyaXZlcm5vcm1hdGl2ZXtEZXZpY2UgU3RhdHVz
+fVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4g
+VmlydHF1ZXVlIC8gRGV2aWNlIFN0YXR1c30KPj4gKwo+PiArQWZ0ZXIgd3JpdGluZyAwIHZpYSBW
+SVJUSU9fQURNSU5fQ1RSTF9TVEFUVVNfU0VULCB0aGUgZHJpdmVyIE1VU1Qgd2FpdAo+PiArZm9y
+IHRoZSBzdWNjZXNzIG9mIHRoZSBjb21tYW5kIGJlZm9yZSByZS1pbml0aWFsaXppbmcgdGhlIGRl
+dmljZS4KPj4gKwo+PiArXHN1YnNlY3Rpb257RGV2aWNlIEdlbmVyYXRpb259XGxhYmVse3NlYzpW
+aXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBE
+ZXZpY2UgR2VucmVhdGlvbn0KPj4gKwo+PiArV2hlbiB0aGUgYWRtaW4gdmlydHF1ZXVlIG9mZmVy
+cyBWSVJUSU9fQURNSU5fRl9DQVBfVkRFViBjYXBhYmlsaXR5LAo+PiArdGhlIGRldmljZSBnZW5l
+cmF0aW9uIGNvdWxkIGJlIHJlYWQgZnJvbSB0aGUgZm9sbG93aW5nIGNvbW1hbmRzOgo+PiArCj4+
+ICtcYmVnaW57bHN0bGlzdGluZ30KPj4gKyNkZWZpbmUgVklSVElPX0FETUlOX0NUUkxfR0VORVJB
+VElPTiAgICA1Cj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9HRU5FUkFUSU9OX0dFVCAg
+ICAgICAgMAo+PiArXGVuZHtsc3RsaXN0aW5nfQo+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX0NU
+UkxfR0VORVJBVElPTl9HRVQgaXMgdXNlZCB0byBnZXQgdGhlIGRldmljZSBnZW5lcmF0aW9uCj4+
+ICtvZiB0aGUgdmlydHVhbCBkZXZpY2UuIFRoZSBjb21tYW5kLWluLWRhdGEgaXMgdGhlIHUzMiBk
+ZXZpY2UKPj4gK2dlbmVyYXRpb24gcmV0dXJuZWQgZnJvbSB0aGUgZGV2aWNlLiBUaGVyZSdzIG5v
+IGNvbW1hbmQtb3V0LWRhdGEgZm9yCj4+ICt0aGlzIGNvbW1hbmQuCj4+ICsKPj4gK1xkZXZpY2Vu
+b3JtYXRpdmV7RGV2aWNlIEdlbmVyYXRpb259XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9w
+dGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBEZXZpY2UgR2VuZXJhdGlvbn0K
+Pj4gKwo+PiArVGhlIGRldmljZSBNVVNUIHByZXNlbnQgYSBjaGFuZ2VkIGNvbmZpZ19nZW5lcmF0
+aW9uIGFmdGVyIHRoZSBkcml2ZXIKPj4gK2hhcyByZWFkIGEgZGV2aWNlLXNwZWNpZmljIGNvbmZp
+Z3VyYXRpb24gdmFsdWUgd2hpY2ggaGFzIGNoYW5nZWQgc2luY2UKPj4gK2FueSBwYXJ0IG9mIHRo
+ZSBkZXZpY2Utc3BlY2lmaWMgY29uZmlndXJhdGlvbiB3YXMgbGFzdCByZWFkLgo+PiArCj4+ICtU
+aGUgZGV2aWNlIE1VU1QgZmFpbCB0aGUgZGV2aWNlIGdlbmVyYXRpb24gYWNjZXNzIGlmIFxmaWVs
+ZHtkZXZpY2VfaWR9IGlzIHplcm8uCj4+ICsKPj4gK1xzdWJzZWN0aW9ue0RldmljZSBTcGVjaWZp
+YyBDb25maWd1cmF0aW9ufVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmly
+dGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gRGV2aWNlIFNwZWNpZmljIENvbmZpZ3VyYXRpb259
+Cj4+ICsKPj4gK1doZW4gdGhlIGFkbWluIHZpcnRxdWV1ZSBvZmZlcnMgVklSVElPX0FETUlOX0Zf
+Q0FQX1ZERVYsIHRoZQo+PiArY29uZmlnIHNwYWNlIG9mIGEgdmlydHVhbCBkZXZpY2UgY291bGQg
+YmUgYWNjZXNzZWQgZnJvbQo+PiArVklSVElPX0FETUlOX0NUUkxfQ09ORklHX0dFVCBhbmQgVklS
+VElPX0FETUlOX0NUUkxfQ09ORklHX1NFVC4KPj4gKwo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9Cj4+
+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX0NPTkZJRyAgICA2Cj4+ICsgICNkZWZpbmUgVklS
+VElPX0FETUlOX0NUUkxfQ09ORklHX0dFVCAgICAgICAgMAo+PiArICAjZGVmaW5lIFZJUlRJT19B
+RE1JTl9DVFJMX0NPTkZJR19TRVQgICAgICAgIDEKPj4gKwo+PiArc3RydWN0IHZpcnRpb19hZG1p
+bl9jdHJsX3ZkZXZfY29uZmlnX2dldCB7Cj4+ICsgICAgICAgdTMyIG9mZnNldDsKPj4gKyAgICAg
+ICB1MzIgc2l6ZTsKPj4gK307Cj4+ICsKPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2
+X2NvbmZpZ19zZXQgewo+PiArICAgICAgIHUzMiBvZmZzZXQ7Cj4+ICsgICAgICAgdTMyIHNpemU7
+Cj4+ICsgICAgICAgdTggIGRhdGFbXTsKPj4gK307Cj4+ICtcZW5ke2xzdGxpc3Rpbmd9Cj4+ICsK
+Pj4gK1RoZSBWSVJUSU9fQURNSU5fQ1RSTF9DT05GSUdfR0VUIGlzIHVzZWQgdG8gcmVhZCBkYXRh
+IGZyb20gdGhlCj4+ICtkZXZpY2UgY29uZmlndXJhdGlvbiBzcGFjZS4gQXMgZGVzY3JpYmVkIGlu
+IHN0cnVjdAo+PiArdmlydGlvX2FkbWluX2N0cmxfdmRldl9jb25maWdfZ2V0LCBUaGUgY29tbWFu
+ZC1vdXQtZGF0YSBpcyB0aGUgb2Zmc2V0Cj4+ICtzaW5jZSB0aGUgc3RhcnQgb2YgdGhlIGNvbmZp
+ZyBzcGFjZSBhbmQgdGhlIHNpemUgb2YgdGhlIGRhdGEuIFRoZQo+PiArY29tbWFuZC1pbi1kYXRh
+IGlzIHRoZSBhcnJheSBvZiB1OCBkYXRhIHRoYXQgcmVhZCBmcm9tIHRoZSBjb25maWcKPj4gK3Nw
+YWNlLgo+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX0NUUkxfQ09ORklHX1NFVCBpcyB1c2VkIHRv
+IHdyaXRlIGRhdGEgdG8gdGhlIGRldmljZQo+PiArY29uZmlndXJhdGlvbiBzcGFjZS4gQXMgZGVz
+Y3JpYmVkIGluIHN0cnVjdAo+PiArdmlydGlvX2FkbWluX2N0cmxfdmRldl9jb25maWdfc2V0LCB0
+aGUgY29tbWFuZC1vdXQtZGF0YSBjb250YWlucyB0aGUKPj4gK29mZnNldCBzaW5jZSB0aGUgc3Rh
+cnQgb2YgdGhlIGNvbmZpZyBzcGFjZSwgdGhlIHNpemUgb2YgdGhlIGRhdGEgYW5kCj4+ICt0aGUg
+ZGF0YSB0aGF0IHdpbGwgYmUgd3JvdGUuIFRoZXJlJ3Mgbm8gY29tbWFuZC1pbi1kYXRhIGZvciB0
+aGlzCj4+ICtjb21tYW5kLgo+PiArCj4+ICtcZGV2aWNlbm9ybWF0aXZle0RldmljZSBTcGVjaWZp
+YyBDb25maWd1cmF0aW9ufVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmly
+dGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gRGV2aWNlIFNwZWNpZmljIENvbmZpZ3VyYXRpb259
+Cj4+ICsKPj4gK1RoZSBtYW5hZ2VtZW50IGRldmljZSBNVVNUIGZhaWwgdGhlIGRldmljZSBjb25m
+aWd1cmF0aW9uIHNwYWNlIGFjY2Vzcwo+PiAraWYgdGhlIGRyaXZlciB3YW50IHRvIGFjY2VzcyB0
+aGUgcmFuZ2Ugd2hpY2ggaXMgb3V0IG9mIHRoZSBjb25maWcKPj4gK3NwYWNlLgo+PiArCj4+ICtU
+aGUgbWFuYWdlbWVudCBkZXZpY2UgTVVTVCBmYWlsIHRoZSBkZXZpY2UgY29uZmlndXJhdGlvbiBz
+cGFjZSBhY2Nlc3MKPj4gK2lmIFxmaWVsZHtkZXZpY2VfaWR9IGlzIHplcm8uCj4+ICsKPj4gK1xz
+dWJzZWN0aW9ue01TSSBDb25maWd1cmF0aW9ufWxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9w
+dGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBNU0kgQ29uZmlndXJhdGlvbn0K
+Pj4gKwo+PiArV2hlbiB0aGUgYWRtaW4gdmlydHF1ZXVlIG9mZmVycyBWSVJUSU9fQURNSU5fRl9W
+REVWLCB0aGUgTVNJIGVudHJ5Cj4+ICtmb3IgYSBzcGVjaWZpYyB2aXJ0cXVldWUgY291bGQgYmUg
+c2V0IHRocm91Z2ggZm9sbG93aW5nIGNvbW1hbmQ6Cj4+Cj4gSSB0aGluayB0aGlzIGlzIGEgYml0
+IHByb2JsZW1hdGljLiBFLmcuIGZvciBQQ0kgTVNJIGlzIHByb2dyYW1tZWQgdGhyb3VnaAo+IHN0
+YW5kYXJkIHJlZ2lzdGVycy4KCgpUaGF0J3Mgbm90IGNvbmZsaWN0IEFGQUlLLgoKRS5nIGlmIHRo
+ZSBtYW5hZ2VtZW50IGRldmljZSBpcyBQQ0ksIHRoZSBzdGFuZGFyZCByZWdpc3RlcnMgd2lsbCBz
+dGlsbCB3b3JrLgoKQnV0IHRoZSB2aXJ0dWFsL21hbmFnZWQgZGV2aWNlIGlzIG5vdCBhIFBDSSBk
+ZXZpY2UsIHdlIG5lZWQgYW5vdGhlciB3YXkgCnRvIGFzc29jaWF0ZSBNU0kgdG8gdGhlbQoKQW5v
+dGhlciBpbXBvcnRhbnQgcmVhc29uIGlzIHRoYXQsIHdlIHdhbnQgdG8gc2NhbGUgYmV0dGVyIHRo
+YW4gdGhlIFBDSSAKc3RhbmRhcmQgcmVnaXN0ZXJzIHdoaWNoIG9ubHkgc3VwcG9ydCBhYm91dCAy
+MDQ4IE1TSSB2ZWN0b3JzLgoKCj4gU3BlY2lmeWluZyBhZGRyZXNzIGlzIGRhdGEgaXMgaW5zdWZm
+aWNpZW50LAoKCldlIGhhdmUgYm90aCBhZGRyIGFuZCBkYXRhIGFuZCBhc3NvY2lhdGUgaXQgd2l0
+aCBhIHNwZWNpZmljIHZpcnRxdWV1ZS4gSSAKdGhpbmsgaXQgY2FuIHdvcmsgb3IgYW55dGhpbmcg
+SSBtaXNzZWQ/CgoKPiAgIG5laXRoZXIKPiBpcyBtYXNraW5nIGFuZCBlbmFibGluZyB0aHJvdWdo
+IGRldmljZSBzcGVjaWZpYyByZWdpc3RlcnMuCj4gUmVmZXJyaW5nIHRvIGEgdmVjdG9yIHNlZW1z
+IG1vcmUgY29ycmVjdC4KCgpTZWUgYWJvdmUsIHdlIHdhbnQgdG8gc2NhbGUgbW9yZSB0aGFuIDIw
+NDgsIGFuZCB0aGUgbWFza2luZyBpcyBwZXIgdnEgCm5vdCBwZXIgdmVjdG9yLgoKT3IgdGVjaG5p
+Y2FsbHkgd2UgY2FuIHVzZSB2ZWN0b3IgaWYgeW91IHdpc2gsIGUuZyBoYXZlIE1TSS1YIHRhYmxl
+IHBlciAKdmlydHVhbCBkZXZpY2UuCgoKPiBGdXJ0aGVyLCBuZWVkIHRvIHRoaW5rIGFib3V0IGhv
+dyB3aWxsIGFsbCB0aGlzIGJlIGdlbmVyYWxpemVkCj4gb3V0c2lkZSBvZiBQQ0kuCgoKQUZBSUss
+IE1TSSBpcyBhbHJlYWR5IHVzZWQgYmV5b25kIHRoZSBzY29wZSBvZiBQQ0ksIHRoZSBleGFtcGxl
+cyBhcmUgCnNvbWUgcGxhdGZvcm0gZGV2aWNlIGFuZCBldmVuIHRoZSBBUElDIGludGVycnVwdC4g
+RS5nIGluIHg4NiBhIGRlZGljYXRlZCAKcmFuZ2Ugb2YgYWRkcmVzcyBzcGFjZSBpcyB1c2VkIGZv
+ciBNU0kgaW50ZXJydXB0LgoKVGhhbmtzCgoKPgo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9Cj4+ICsj
+ZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX01TSSAgICA3Cj4+ICsgI2RlZmluZSBWSVJUSU9fQURN
+SU5fQ1RSTF9NU0lfVlFfU0VUICAgICAgICAwCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RS
+TF9NU0lfVlFfRU5BQkxFICAgICAxCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9NU0lf
+VlFfTUFTSyAgICAgICAyCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9NU0lfQ09ORklH
+X1NFVCAgICAzCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9NU0lfQ09ORklHX0VOQUJM
+RSA0Cj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9NU0lfQ09ORklHX01BU0sgICA1Cj4+
+ICsKPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2X21zaV92cV9zZXQgewo+PiArICAg
+ICAgIHUxNiBxdWV1ZV9pbmRleDsKPj4gKyAgICAgICB1NjQgYWRkcjsKPj4gKyAgICAgICB1MzIg
+ZGF0YTsKPj4gK307Cj4+ICsKPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2X21zaV92
+cV9lbmFibGUgewo+PiArICAgICAgIHUxNiBxdWV1ZV9pbmRleDsKPj4gKyAgICAgICB1OCBlbmFi
+bGU7Cj4+ICt9Owo+PiArCj4+ICtzdHJ1Y3QgdmlydGlvX2FkbWluX2N0cmxfdmRldl9tc2lfdnFf
+bWFzayB7Cj4+ICsgICAgICAgdTE2IHF1ZXVlX2luZGV4Owo+PiArICAgICAgIHU4IG1hc2s7Cj4+
+ICt9Owo+PiArCj4+ICtzdHJ1Y3QgdmlydGlvX2FkbWluX2N0cmxfdmRldl9tc2lfY29uZmlnIHsK
+Pj4gKyAgICAgICB1NjQgYWRkcjsKPj4gKyAgICAgICB1MzIgZGF0YTsKPj4gK307Cj4+ICtcZW5k
+e2xzdGxpc3Rpbmd9Cj4+ICsKPj4gK1RoZSBWSVJUSU9fQURNSU5fQ1RSTF9NU0lfVlFfU0VUIGlz
+IHVzZWQgdG8gc2V0IHRoZSBNU0kgZW50cnkgZm9yIGEKPj4gK3NwZWNpZmljIHZpcnRxdWV1ZS4g
+VGhlIGNvbW1hbmQtb3V0LWRhdGEgaXMgdGhlIHZpcnRxdWV1ZSBpbmRleCBhbmQKPj4gK3RoZSBN
+U0kgYWRkcmVzcyBhbmQgZGF0YSAoYXMgZGVzY3JpYmVkIGluIHN0cnVjdAo+PiArdmlydGlvX2Fk
+bWluX2N0cmxfdmRldl9tc2l4X3ZxX3NldCkuCj4+ICsKPj4gK1RoZSBWSVJUSU9fQURNSU5fQ1RS
+TF9NU0lfVlFfRU5BQkxFIGFuZCBpcyB1c2VkIHRvIGVuYWJsZSBvciBkaXNhYmxlCj4+ICtNU0kg
+aW50ZXJydXB0IGZvciBhIHNwZWNpZmljIHZpcnRxdWV1ZS4gVGhlIGNvbW1hbmQtb3V0LWRhdGEg
+aXMgdGhlCj4+ICt2aXJ0cXVldWUgaW5kZXggYW5kIHdoZXRoZXIgdG8gZW5hYmxlIHRoZSBNU0k6
+IDAgbWVhbnMgdG8gZW5hYmxlIGFuZCAxCj4+ICttZWFucyB0byBkaXNhYmxlIChhcyBkZXNjcmli
+ZWQgaW4gc3RydWN0Cj4+ICt2aXJ0aW9fYWRtaW5fY3RybF92ZGV2X21zaV92cV9lbmFibGUpLgo+
+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX0NUUkxfTVNJX1ZRX01BU0sgYW5kIGlzIHVzZWQgdG8g
+bWFzayBvciB1bm1hc2sgTVNJCj4+ICtpbnRlcnJ1cHQgZm9yIGEgc3BlY2lmaWMgdmlydHF1ZXVl
+LiBUaGUgY29tbWFuZC1vdXQtZGF0YSBpcyB0aGUKPj4gK3ZpcnRxdWV1ZSBpbmRleCBhbmQgdGhl
+IG1hc2sgc3RhdHVzOiAwIG1lYW5zIHVubWFrIGFuZCAxIG1lYW5zIG1hc2sKPj4gKyhhcyBkZXNj
+cmliZWQgaW4gc3RydWN0IHZpcnRpb19hZG1pbl9jdHJsX3ZkZXZfbXNpX3ZxX21hc2spLgo+PiAr
+Cj4+ICtUaGUgVklSVElPX0FETUlOX0NUUkxfTVNJX0NPTkZJR19TRVQgaXMgdXNlZCB0byBzZXQg
+dGhlIE1TSSBlbnRyeQo+PiArZm9yIHRoZSBjb25maWcgaW50ZXJydXB0LiBUaGUgY29tbWFuZC1v
+dXQtZGF0YSBpcyB0aGUgTVNJIGFkZHJlc3MgYW5kCj4+ICtkYXRhIChhcyBkZXNjcmliZWQgaW4g
+c3RydWN0IHZpcnRpb19hZG1pbl9jdHJsX3ZkZXZfbXNpeF9jb25maWcpLgo+PiArCj4+ICtUaGUg
+VklSVElPX0FETUlOX0NUUkxfTVNJX0NPTkZJR19FTkFCTEUgaXMgdXNlZCB0byBlbmFibGUgYW5k
+IGRpc2FibGUKPj4gK01TSSBmb3IgY29uZmlnIHNwYWNlLiBUaGUgY29tbWFuZC1vdXQtZGF0YSBp
+cyBhbiB1ODogMCBtZWFucyB0bwo+PiArZGlzYWJsZSBhbmQgMSBtZWFucyB0byBlbmFibGUuCj4+
+ICsKPj4gK1RoZSBWSVJUSU9fQURNSU5fQ1RSTF9NU0lfQ09ORklHX01BU0sgaXMgdXNlZCB0byBt
+YXNrIGFuZCB1bm1hc2sgTVNJCj4+ICtpbnRlcnJ1cHQgZm9yIGNvbmZpZyBzcGFjZS4gVGhlIGNv
+bW1hbmQtb3V0LWRhdGEgaXMgYW4gdTg6IDAgbWVhbnMgdG8KPj4gK21hc2sgYW5kIDEgbWVhbnMg
+dG8gdW5tYXNrLgo+PiArCj4+ICtUaGVyZSdzIG5vIGNvbW1hbmQtaW4tZGF0YSBmb3IgYWxsIHRo
+ZSBhYm92ZSBNU0kgY29tbWFuZHMuCj4+ICsKPj4gK1xkZXZpY2Vub3JtYXRpdmV7TVNJIENvbmZp
+Z3VyYXRpb259XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3Zl
+ciBBZG1pbiBWaXJ0cXVldWUgLyBNU0kgQ29uZmlndXJhdGlvbn0KPj4gKwo+PiArVGhlIHZpcnR1
+YWwgZGV2aWNlIE1VU1QgcmVjb3JkIHRoZSBwZW5kaW5nIE1TSSBpbnRlcnJ1cHQgYW5kCj4+ICtn
+ZW5lcmF0ZSB0aGUgTVNJIGludGVycnVwdCBpcyBpdCB3YXMgcGVuZGluZyBhZnRlciB1bm1hc2tp
+bmcuCj4+ICsKPj4gK1RoZSB2aXJ0dWFsIE1VU1QgZGlzYWJsZSB0aGUgTVNJIGZvciBib3RoIHZp
+cnRxdWV1ZSBhbmQgY29uZmlnIHNwYWNlCj4+ICt1cG9uIHJlc2V0Lgo+PiArCj4+ICtcZHJpdmVy
+bm9ybWF0aXZle01TSSBDb25maWd1cmF0aW9ufVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBP
+cHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gTVNJIENvbmZpZ3VyYXRpb259
+Cj4+ICsKPj4gK1RoZSBkcml2ZXIgTVVTVCBhbGxvY2F0ZSB0cmFuc3BvcnQgb3IgcGxhdGZvcm0g
+c3BlY2lmaWMgTVNJIGVudHJpZXMKPj4gK2ZvciBib3RoIHZpcnRxdWV1ZSBhbmQgY29uZmlnIHNw
+YWNlIGlmIGl0IHdhbnRzIHRvIHVzZSBpbnRlcnJ1cHQuCj4+ICsKPj4gK1RoZSBkcml2ZXIgTUFZ
+IGNob29zZSBkaXNhYmxlIHRoZSBNU0kgaWYgcG9sbGluZyBpcyB1c2VkLgo+PiArCj4+ICtcc3Vi
+c2VjdGlvbntWaXJ0cXVldWUgQWRkcmVzc31cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0
+aW9ucyAvIFZpcnRpbyBPdmVyIEFkbWluIFZpcnRxdWV1ZSAvIFZpcnRxdWV1ZSBBZGRyZXNzfQo+
+PiArCj4+ICtXaGVuIHRoZSBhZG1pbiB2aXJ0cXVldWUgb2ZmZXJzIFZJUlRJT19BRE1JTl9GX0NB
+UF9WREVWLCB0aGUgYWRkcmVzcyBvZgo+PiArYSBzcGVjaWZpYyB2aXJ0cXVldWUgY291bGQgYmUg
+ZG9uZSB0aHJvdWdoIHRoZSBmb2xsb3dpbmcgY29tbWFuZDoKPj4gKwo+PiArXGJlZ2lue2xzdGxp
+c3Rpbmd9Cj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX1ZRX0FERFIgICAgOQo+PiArICNk
+ZWZpbmUgVklSVElPX0FETUlOX0NUUkxfVlFfQUREUl9TRVQgICAgICAgIDAKPj4gKwo+PiArc3Ry
+dWN0IHZpcnRpb19hZG1pbl9jdHJsX3ZkZXZfdnFfYWRkciB7Cj4+ICsgICAgICAgdTE2IHF1ZXVl
+X2luZGV4Owo+PiArICAgICAgIHU2NCBkZXZpY2VfYXJlYTsKPj4gKyAgICAgICB1NjQgZGVzY3Jp
+cHRvcl9hcmVhOwo+PiArICAgICAgIHU2NCBkcml2ZXJfYXJlYTsKPj4gK307Cj4+ICtcZW5ke2xz
+dGxpc3Rpbmd9Cj4+ICsKPj4gK1RoZSBjb21tYW5kLW91dC1kYXRhIGlzIHRoZSBxdWV1ZSBpbmRl
+eCwgdGhlIGFkZHJlc3NlcyBvZiBkZXZpY2UgYXJlYSwKPj4gK2Rlc2NyaXB0b3IgYXJlYSBhbmQg
+ZHJpdmVyIGFyZWEgKGFzIGRlc2NyaWJlZCBpbiBzdHJ1Y3QKPj4gK3ZpcnRpb19hZG1pbl9jdHJs
+X3ZkZXZfdnFfYWRkcik7IFRoZXJlJ3Mgbm8gY29tbWFuZC1pbi1kYXRhLgo+PiArCj4+ICtcZGV2
+aWNlbm9ybWF0aXZle1ZpcnRxdWV1ZSBBZGRyZXNzfVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9y
+dCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gVmlydHF1ZWV1IEFkZHJl
+c3N9Cj4+ICsKPj4gK1RoZSBtYW5hZ2VtZW50IGRldmljZSBNVVNUIGZhaWwgdGhlIGNvbW1hbmRz
+IG9mIGNsYXNzCj4+ICtWSVJUSU9fQURNSU5fQ1RSTF9WUV9BRERSIGlmIFxmaWVsZHtkZXZpY2Vf
+aWR9IGlzIHplcm8uCj4+ICsKPj4gK1xzdWJzZWN0aW9ue1ZpcnRxdWV1ZSBTdGF0dXN9XGxhYmVs
+e3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0cXVl
+dWUgLyBWaXJ0cXVldWUgU3RhdHVzfQo+PiArCj4+ICtXaGVuIHRoZSBhZG1pbiB2aXJ0cXVldWUg
+b2ZmZXJzIFZJUlRJT19GX0FETUlOX0ZfQ0FQX1ZERVYsIHZpcnRxdWV1ZQo+PiArc3RhdHVzIGNv
+dWxkIGJlIHNldCBhbmQgZ2V0IHRocm91Z2ggdGhlIGZvbGxvd2luZyBjb21tYW5kOgo+PiArCj4+
+ICtcYmVnaW57bHN0bGlzdGluZ30KPj4gKyNkZWZpbmUgVklSVElPX0FETUlOX0NUUkxfVlFfRU5B
+QkxFICAgIDEwCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9WUV9FTkFCTEVfU0VUICAg
+ICAgIDAKPj4gKyAjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJMX1ZRX0VOQUJMRV9HRVQgICAgICAg
+MQo+PiArCj4+ICtzdHJ1Y3QgdmlydGlvX2FkbWluX2N0cmxfdnFfc3RhdHVzX3NldCB7Cj4+ICsg
+IHUxNiBxdWV1ZV9pbmRleDsKPj4gKyAgdTggc3RhdHVzOwo+PiArfTsKPj4gKwo+PiArXGVuZHts
+c3RsaXN0aW5nfQo+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX0NUUkxfVlFfRU5BQkxFX1NFVCBp
+cyB1c2VkIHRvIHNldCB0aGUgc3RhdHVzIHRvIGEKPj4gK3NwZWNpZmljIHZpcnRxdWV1ZS4gVGhl
+IGNvbW1hbmQtb3V0LWRhdGEgaXMgdGhlIHF1ZXVlIGluZGV4LCB0aGUKPj4gK3N0YXR1cyB0aGF0
+IGlzIHNldCB0byB0aGUgdmlydHF1ZXVlICgwIGRpc2FibGVkLCAxIGVuYWJsZWQpOyBUaGVyZSdz
+Cj4+ICtubyBjb21tYW5kLWluLWRhdGEuCj4+ICsKPj4gK1RoZSBWSVJUSU9fQURNSU5fQ1RSTF9W
+UV9FTkFCTEVfR0VUIGlzIHVzZWQgdG8gZ2V0IHRoZSBzdGF0dXMgb2YgYQo+PiArc3BlY2lmaWMg
+dmlydHF1ZXVlLiBUaGUgY29tbWFuZC1vdXQtZGF0YSBpcyB0aGUgdTE2IG9mIHF1ZXVlCj4+ICtp
+bmRleC4gVGhlIGNvbW1hbmQtaW4tZGF0YSBpcyB0aGUgdmlydHF1ZXVlIHN0YXR1cyAoMCBkaXNh
+bGJlZCwgMQo+PiArZW5hYmxlZCkuCj4+ICsKPj4gK1xkZXZpY2Vub3JtYXRpdmV7VmlydHF1ZXVl
+IFN0YXR1c31cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVy
+IEFkbWluIFZpcnRxdWV1ZSAvIFZpcnRxdWV1ZSBTdGF0dXN9Cj4+ICsKPj4gK1doZW4gZGlzYWJs
+ZWQsIHRoZSB2aXJ0dWFsIGRldmljZSBNVVNUIHN0b3AgcHJvY2Vzc2luZyByZXF1ZXN0cyBmcm9t
+Cj4+ICt0aGlzIHZpcnRxdWV1ZS4KPj4gKwo+PiArVGhlIG1hbmFnZW1lbnQgZGV2aWNlIE1VU1Qg
+cHJlc2VudCBhIDAgdmlhCj4+ICtWSVJUSU9fQURNSU5fQ1RSTF9WUV9FTkFCTEVfR0VUIG9uIHJl
+c2V0IG9mIHRoZSB2aXJ0dWFsIGRldmljZS4KPj4gKwo+PiArVGhlIG1hbmFnZW1lbnQgZGV2aWNl
+IE1VU1QgZmFpbCB0aGUgdmlydHF1ZXVlIHN0YXR1cyBhY2Nlc3MgaWYKPj4gK1xmaWVsZHtkZXZp
+Y2VfaWR9IGlzIHplcm8uCj4+ICsKPj4gK1xkZXZpY2Vub3JtYXRpdmV7VmlydHF1ZXVlIFN0YXR1
+c31cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIEFkbWlu
+IFZpcnRxdWV1ZSAvIFZpcnRxdWV1ZSBTdGF0dXN9Cj4+ICsKPj4gK1RoZSBkcml2ZXIgTVVTVCBj
+b25maWd1cmUgdGhlIG90aGVyIHZpcnRxdWV1ZSBmaWVsZHMgYmVmb3JlIGVuYWJsaW5nCj4+ICt0
+aGUgdmlydHF1ZXVlIHdpdGggVklSVElPX0FETUlOX0NUUkxfVlFfRU5BQkxFX1NFVC4KPj4gKwo+
+PiArXHN1YnNlY3Rpb257VmlydHF1ZXVlIFNpemV9XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0
+IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBWaXJ0cXVldWUgU2l6ZX0K
+Pj4gKwo+PiArV2hlbiB0aGUgYWRtaW4gdmlydHF1ZXVlIG9mZmVycyBWSVJUSU9fQURNSU5fRl9W
+REVWLCB2aXJ0cXVldWUgc2l6ZQo+PiArY291bGQgYmUgYWNjZXNzZWQgdGhyb3VnaCB0aGUgZm9s
+bG93aW5nIGNvbW1hbmQ6Cj4+ICsKPj4gK1xiZWdpbntsc3RsaXN0aW5nfQo+PiArI2RlZmluZSBW
+SVJUSU9fQURNSU5fQ1RSTF9WUV9TSVpFICAgIDExCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5f
+Q1RSTF9WUV9TSVpFX1NFVCAgICAgICAwCj4+ICsgI2RlZmluZSBWSVJUSU9fQURNSU5fQ1RSTF9W
+UV9TSVpFX0dFVCAgICAgICAxCj4+ICsKPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2
+X3ZxX3NpemVfc2V0IHsKPj4gKyAgICAgICB1MTYgcXVldWVfaW5kZXg7Cj4+ICsgICAgICAgdTE2
+IHNpemU7Cj4+ICt9Owo+PiArXGVuZHtsc3RsaXN0aW5nfQo+PiArCj4+ICtUaGUgVklSVElPX0FE
+TUlOX0NUUkxfVlFfU0laRV9TRVQgY29tbWFuZCBpcyB1c2VkIHRvIHNldCB0aGUgdmlydHF1ZXVl
+Cj4+ICtzaXplLiBUaGUgY29tbWFuZC1vdXQtZGF0YSBpcyB0aGUgcXVldWUgaW5kZXggYW5kIHRo
+ZSBzaXplIG9mIHRoZQo+PiArdmlydHF1ZXVlIChhcyBkZXNjcmliZWQgaW4gc3RydWN0Cj4+ICt2
+aXJ0aW9fYWRtaW5fY3RybF92ZGV2X3ZxX3NpemVfc2V0KS4gVGhlcmUncyBubyBjb21tYW5kLWlu
+LWRhdGEuCj4+ICsKPj4gK1RoZSBWSVJUSU9fQURNSU5fQ1RSTF9WUV9TSVpFX0dFVCBjb21tYW5k
+IGlzIHVzZWQgdG8gZ2V0IHRoZSB2aXJ0cXVldWUKPj4gK3NpemUuIE9uIHJlc2V0LCB0aGUgbWF4
+aW11bSBxdWV1ZSBzaXplIHN1cHBvcnRlZCBieSB0aGUgZGV2aWNlIGlzCj4+ICtyZXR1cm5lZC4g
+VGhlIGNvbW1hbmQtb3V0LWRhdGEgaXMgdGhlIHUxNiBvZiB0aGUgdmlydHF1ZXVlIGluZGV4LiBU
+aGUKPj4gK2NvbW1hbmQtaW4tZGF0YSBpcyB0aGUgdTE2IG9mIHF1ZXVlIHNpemUgZm9yIHRoZSB2
+aXJ0cXVldWUuCj4+ICsKPj4gK1xkZXZpY2Vub3JtYXRpdmV7VmlydHF1ZXVlIFN0YXR1c31cbGFi
+ZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIEFkbWluIFZpcnRx
+dWV1ZSAvIFZpcnRxdWV1ZSBTaXplfQo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBkZXZpY2UgTVVT
+VCBmYWlsIHRoZSB2aXJ0cXVldWUgc2l6ZSBhY2Nlc3MgaWYKPj4gK1xmaWVsZHtkZXZpY2VfaWR9
+IGlzIHplcm8uCj4+ICsKPj4gK1xzdWJzZWN0aW9ue1ZpcnRxdWV1ZSBOb3RpZmljYXRpb259XGxh
+YmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBBZG1pbiBWaXJ0
+cXVldWUgLyBWaXJ0cXVldWUgTm90aWZpY2F0aW9ufQo+PiArCj4+ICtXaGVuIHRoZSBhZG1pbiB2
+aXJ0cXVldWUgb2ZmZXJzIFZJUlRJT19BRE1JTl9GX1ZERVYsIHRoZSB2aXJ0cXVldWUKPj4gK25v
+dGlmaWNhdGlvbiBjb3VsZCBiZSBkb25lIHRocm91Z2ggdGhlIGZvbGxvd2luZyBjb21tYW5kczoK
+Pj4gKwo+PiArXGJlZ2lue2xzdGxpc3Rpbmd9Cj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9DVFJM
+X1ZRX05PVElGWSAgICAxMgo+PiArICNkZWZpbmUgVklSVElPX0FETUlOX0NUUkxfVlFfTk9USUZZ
+X0dFVCAgICAgICAgICAxCj4+ICsKPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2X3Zx
+X25vdGlmaWNhdGlvbl9hcmVhIHsKPj4gKyAgICAgICBsZTY0IGFkZHIKPj4gKyAgICAgICBsZTY0
+IHNpemU7Cj4+ICt9Owo+PiArXGVuZHtsc3RsaXN0aW5nfQo+PiArCj4+ICtUaGUgVklSVElPX0FE
+TUlOX0NUUkxfVlFfTk9USUZZX0dFVCBpcyB1c2VkIHRvIGdldCB0aGUgdHJhbnNwb3J0Cj4+ICtz
+cGVjaWZpYyBhZGRyZXNzIGFyZWEgdGhhdCBjYW4gYmUgdXNlZCB0byBub3RpZnkgYSB2aXJ0cXVl
+dWUuIFRoZQo+PiArY29tbWFuZC1vdXQtZGF0YSBpcyBhIHUxNiBvZiB0aGUgdmlydHF1ZXVlIGlu
+ZGV4LiBUaGUgY29tbWFuZC1pbi1kYXRhCj4+ICtjb250YWlucyB0aGUgYWRkcmVzcyBhbmQgdGhl
+IHNpemUgb2YgdGhlIG5vdGlmaWNhdGlvbiBhcmVhIChhcwo+PiArZGVzY3JpYmVkIGluIHN0cnVj
+dCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2X3ZxX25vdGlmaWNhdGlvbl9hcmVhKS4KPj4gKwo+PiAr
+XGRldmljZW5vcm1hdGl2ZXtWaXJ0cXVldWUgTm90aWZpY2F0aW9ufVxsYWJlbHtzZWM6VmlydGlv
+IFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gVmlydHF1
+ZXVlIE5vdGlmaWNhdGlvbn0KPj4gKwo+PiArVGhlIG1hbmFnZW1lbnQgZGV2aWNlIE1VU1QgZmFp
+bCB0aGUgVklSVElPX0FETUlOX0NUUkxfVlFfTk9USUZZX0dFVCBpZgo+PiArdGhlcmUncyBubyB0
+cmFuc3BvcnQgc3BlY2lmaWMgbm90aWZpY2F0aW9uIGFkZHJlc3MgZm9yIGEgdmlydHF1ZXVlIG9m
+Cj4+ICtpdHMgdmlydHVhbCBkZXZpY2UuCj4+ICsKPj4gK1RoZSBtYW5hZ2VtZW50IGRldmljZSBN
+VVNUIGZhaWwgdGhlIHZpcnRxdWV1ZSBub3RpZmljYXRpb24gYWNjZXNzIGlmCj4+ICtcZmllbGR7
+ZGV2aWNlX2lkfSBpcyB6ZXJvLgo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBkZXZpY2UgTVVTVCBm
+b3JiaWQgdGhlIG5vdGlmaWNhdGlvbiBhcmVhIG9mIGEgc3BlY2lmaWMKPj4gK3ZpcnR1YWwgZGV2
+aWNlIHRvIGJlIGFjY2Vzc2VkIGZyb20gYW5vdGhlciB2aXJ0dWFsIGRldmljZS4KPj4gKwo+PiAr
+XGRyaXZlcm5vcm1hdGl2ZXtWaXJ0cXVldWUgTm90aWZpY2F0aW9ufVxsYWJlbHtzZWM6VmlydGlv
+IFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgQWRtaW4gVmlydHF1ZXVlIC8gVmlydHF1
+ZXVlIE5vdGlmaWNhdGlvbn0KPj4gKwo+PiArVGhlIGRyaXZlciBNQVkgY2hvb3NlIHRvIG5vdGlm
+eSB0aGUgdmlydHF1ZXVlIGJ5IHdyaXRpbmcgdGhlIHF1ZXVlCj4+ICtpbmRleCBhdCBhZGRyZXNz
+IFxmaWVsZHthZGRyfSB3aGljaCBpcyBmZXRjaGVkIGZyb20gdGhlCj4+ICtWSVJUSU9fQURNSU5f
+Q1RSTF9WUV9OT1RJRllfR0VUIGNvbW1hbmQuCj4+ICsKPj4gK1xzdWJzZWN0aW9ue1ZpcnRxdWV1
+ZSBOb3RpZmljYXRpb259XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0
+aW8gT3ZlciBBZG1pbiBWaXJ0cXVldWUgLyBEZXZpY2UgTU1VfQo+PiArCj4+ICtXaGVuIHRoZSBh
+ZG1pbiB2aXJ0cXVldWUgb2ZmZXJzIFZJUlRJT19BRE1JTl9GX1ZERVYsIG1hbmFnZW1lbnQgZGV2
+aWNlCj4+ICtvZmZlcnMgYSBkZXZpY2UgTU1VIGZvciBhIHNlY3VyZSBETUEgY29udGV4dCBmb3Ig
+ZWFjaCB2aXJ0dWFsCj4+ICtkZXZpY2UuIFRoZSBkZXZpY2UgTU1VIHdpbGwgdHJhbnNsYXRlIEkv
+TyBWaXJ0dWFsIEFkZHJlc3MgdG8gdHJhbnNwb3J0Cj4+ICtzcGVjaWZpYyBETUEgYWRkcmVzcyBi
+ZWZvcmUgdXNpbmcgYSB0cmFuc3BvcnQgc3BlY2lmaWMgd2F5IGZvciBETUE6Cj4+ICsKPj4gK1xi
+ZWdpbntsc3RsaXN0aW5nfQo+PiArI2RlZmluZSBWSVJUSU9fQURNSU5fVlFfQ1RSTF9NTVUgICAg
+MTMKPj4gKyAjZGVmaW5lIFZJUlRJT19BRE1JTl9WUV9DVFJMX01NVV9FTkFCTEUgICAgICAgMQo+
+PiArICNkZWZpbmUgVklSVElPX0FETUlOX1ZRX0NUUkxfTU1VX0FTSURfU0VUICAgICAyCj4+ICsg
+I2RlZmluZSBWSVJUSU9fQURNSU5fVlFfQ1RSTF9NTVVfTUFQICAgICAgICAgIDMKPj4gKyAjZGVm
+aW5lIFZJUlRJT19BRE1JTl9WUV9DVFJMX01NVV9VTk1BUCAgICAgICAgNAo+PiArICNkZWZpbmUg
+VklSVElPX0FETUlOX1ZRX0NUUkxfTU1VX0VSUl9HRVQgICAgICA1Cj4+ICsKPj4gK3N0cnVjdCB2
+aXJ0aW9fYWRtaW5fY3RybF92ZGV2X21tdV9hc2lkX3NldCB7Cj4+ICsgIGxlMTYgcXVldWVfaW5k
+ZXg7Cj4+ICsgIGxlNjQgYXNpZDsKPj4gK307Cj4+ICsKPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5f
+Y3RybF92ZGV2X21tdV9tYXAgewo+PiArICBsZTY0IGlvdmFfc3RhcnQ7Cj4+ICsgIGxlNjQgaW92
+YV9lbmQ7Cj4+ICsgIGxlNjQgZG1hX3N0YXJ0Owo+PiArICBsZTMyIGZsYWdzOwo+PiArfTsKPj4g
+Kwo+PiArLyogUmVhZCBhY2Nlc3MgaXMgYWxsb3dlZCAqLwo+PiArI2RlZmluZSBWSVJUSU9fQURN
+SU5fVlFfTUFQX0ZfUkVBRCAgICgxIDw8IDApCj4+ICsvKiBXcml0ZSBhY2Nlc3MgaXMgYWxsb3dl
+ZCAqLwo+PiArI2RlZmluZSBWSVJUSU9fSU9NTVVfVlFfTUFQX0ZfV1JJVEUgICgxIDw8IDEpCj4+
+ICsKPj4gK3N0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2X21tdV9lcnIgewo+PiArICBsZTMy
+IHJlYXNvbjsKPj4gKyAgbGUxNiBxdWV1ZV9pbmRleDsKPj4gKyAgbGU2NCBhc2lkOwo+PiArICBs
+ZTY0IGlvdmFfc3RhcnQ7Cj4+ICsgIGxlNjQgaW92YV9lbmQ7Cj4+ICsgIGxlMzIgZmxhZ3M7Cj4+
+ICt9Owo+PiArCj4+ICsvKiBNYXBwaW5nIGRvZXMgbm90IGV4aXN0ICovCj4+ICsjZGVmaW5lIFZJ
+UlRJT19BRE1JTl9WUV9NQVBfRVJSX05PTl9FWElTVCAoMSA8PCAwKQo+PiArLyogQWNjZXNzIHZp
+b2xhdGVzIHRoZSBwZXJtaXNzaW9uICovCj4+ICsjZGVmaW5lIFZJUlRJT19BRE1JTl9WUV9NQVBf
+RVJSX0FDQ19WSU9MQVRJT04gKDEgPDwgMSkKPj4gKwo+PiArXGVuZHtsc3RsaXN0aW5nfQo+PiAr
+Cj4+ICtUaGUgVklSVElPX0FETUlOX1ZRX0NUUkxfTU1VX0VOQUJMRSBpcyB1c2VkIHRvIGVuYWJs
+ZSBvciBkaXNhYmxlCj4+ICtkZXZpY2UgTU1VIGZvciBhIHNwZWNpZmljIHZpcnR1YWwgZGV2aWNl
+LiBUaGUgY29tbWFuZC1vdXQtZGF0YSBpcyBhIHU4Cj4+ICtmb3IgdGVsbGluZyB3aGV0aGVyIGRl
+dmljZSBNTVUgaXMgZW5hYmxlZCBmb3IgdGhlIHZpcnR1YWwgZGV2aWNlOiAwCj4+ICttZWFucyB0
+byBlbmFibGUgYW5kIDEgbWVhbnMgdG8gZGlzYWJsZS4KPj4gKwo+PiArVGhlIFZJUlRJT19BRE1J
+Tl9WUV9DVFJMX01NVV9BU0lEX1NFVCBpcyB1c2VkIHRvIGFzc2lnbiBhIGRldmljZQo+PiArYWRk
+cmVzcyBzcGFjZSBpZCB0byBhIHZpcnRxdWV1ZS4gVGhlIGNvbW1hbmQtb3V0LWRhdGEgaXMgdGhl
+IHF1ZXVlCj4+ICtpbmRleCAoXGZpZWxke3F1ZXVlX2luZGV4fSkgYW5kIHRoZSBhZGRyZXNzIHNw
+YWNlIElEIChcZmllbGR7YXNpZH0pCj4+ICthc3NpZ25lZCB0byBpdCAoYXMgZGVzY3JpYmVkIGlu
+IHN0cnVjdCB2aXJ0aW9fYWRtaW5fY3RybF92ZGV2X21tdV9hc2lkX3NldCkuCj4+ICsKPj4gK1Ro
+ZSBWSVJUSU9fQURNSU5fVlFfQ1RSTF9NTVVfTUFQIGlzIHVzZWQgdG8gbWFwIHRoZSBJL08gVmly
+dHVhbAo+PiArQWRkcmVzcyByYW5nZSBbXGZpZWxke2lvdmFfc3RhcnR9LCBcZmllbGR7aW92YV9l
+bmR9XSB0byB0cmFuc3BvcnQKPj4gK3NwZWNpZmljIERNQSBhZGRyZXNzIHJhbmdlIFtcZmllbGR7
+ZG1hX3N0YXJ0fSwgXGZpZWxke2RtYV9zdGFydH0gKwo+PiArIFxmaWVsZHtpb3ZhX2VuZH0gLSBc
+ZmllbGR7aW92YV9zdGFydH0gKyAxXS4gXGZpZWxke2ZsYWdzfSBpcyB1c2VkIHRvCj4+ICtzcGVj
+aWZ5IHRoZSBkZXZpY2UgYWNjZXNzIHBlcm1pc3Npb24uCj4+ICsKPj4gK1RoZSBWSVJUSU9fQURN
+SU5fVlFfQ1RSTF9NTVVfVU5NQVAgaXMgdXNlZCB0byB1bm1hcCBhbGwgdGhlIG1hcHBlZCBJL08K
+Pj4gK1ZpcnR1YWwgQWRkcmVzcyByYW5nZXMgdGhhdCBhcmUgaW50ZXJzZWN0ZWQgd2l0aCB0aGUg
+cmFuZ2UKPj4gK1tcZmllbGR7aW92YV9zdGFydH0sIFxmaWVsZHtpb3ZhX2VuZH1dLgo+PiArCj4+
+ICtUaGVyZSdzIG5vIGNvbW1hbmQtaW4tZGF0YSBmb3IgYWxsIHRoZSBhYm92ZSBmb3VyIGNvbW1h
+bmRzLgo+PiArCj4+ICtUaGUgVklSVElPX0FETUlOX1ZRX0NUUkxfTU1VX0VSUl9HRVQgaXMgdXNl
+ZCB0byBnZXQgdGhlIGVycm9yCj4+ICtpbmZvcm1hdGlvbiBvZiB0aGUgZGV2aWNlIE1NVS4gVGhl
+cmUncyBubyBjb21tYW5kLW91dC1kYXRhLCB0aGUKPj4gK2NvbW1hbmQtaW4tZGF0ZSBpcyB0aGUg
+cXVldWUgaW5kZXggYW5kIGl0cyBhc2lkLCB0aGUgaW92YSByYW5nZSBhbmQKPj4gK3RoZSBhY2Nl
+c3Mgb2YgdGhlIG9wZXJhdGlvbiAoYXMgZGVzY3JpYmVkIGluIHN0cnVjdAo+PiArdmlydGlvX2Fk
+bWluX2N0cmxfdmRldl9tbXVfZXJyKS4KPj4gKwo+PiArXGRldmljZW5vcm1hdGl2ZXtWaXJ0cXVl
+dWUgU3RhdHVzfVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92
+ZXIgQWRtaW4gVmlydHF1ZXVlIC8gRGV2aWNlIE1NVX0KPj4gKwo+PiArVGhlIG1hbmFnZW1lbnQg
+ZGV2aWNlIE1VU1QgZmFpbCB0aGUgZGV2aWNlIE1NVSBjb21tYW5kIGlmIFxmaWVsZHtkZXZpY2Vf
+aWR9IGlzCj4+ICt6ZXJvLgo+PiArCj4+ICtUaGUgbWFuYWdlbWVudCBkZXZpY2UgTVVTVCBmYWls
+IHRoZSBWSVJUSU9fQURNSU5fVlFfQ1RSTF9NTVVfTUFQCj4+ICtjb21tYW5kIGlmIHRoZSBpb3Zh
+IHJhbmdlIGlzIGludGVyc2VjdGVkIHdpdGggYSBleGlzdGluZyByYW5nZS4KPj4gKwo+PiArVGhl
+IG1hbmFnZW1lbnQgZGV2aWNlIE1VU1Qgc2V0IGJvdGggREVWSUNFX05FRURTX1JFU0VUIGFuZAo+
+PiArREVWSUNFX01NVV9GQUlMIHdoZW4gdGhlIGRldmljZSBNTVUgZmFpbHMgdG8gZG8gdGhlIHRy
+YW5zbGF0aW9uIGZvciBhCj4+ICt2aXJ0dWFsIGRldmljZS4KPj4gKwo+PiArVGhlIGRldmljZSBN
+TVUgZm9yIHRoZSB2aXJ0dWFsIGRldmljZSBNVVNUIGJlIGRpc2FibGVkIHVwb24gaXRzIHJlc2V0
+Lgo+PiArCj4+ICtVcG9uIHJlc2V0LCB0aGUgdmlydHVhbCBkZXZpY2UgbXVzdCByZXNldCB0aGUg
+QWRkcmVzcyBTcGFjZSBJRCBmb3IKPj4gK2VhY2ggdmlydHF1ZXVlIHRvIDAuCj4+ICsKPj4gK1xk
+cml2ZXJub3JtYXRpdmV7VmlydHF1ZXVlIFN0YXR1c31cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3Bv
+cnQgT3B0aW9ucwo+PiArICAvIFZpcnRpbyBPdmVyIEFkbWluIFZpcnRxdWV1ZSAvIERldmljZSBN
+TVV9Cj4+ICsKPj4gK1RoZSBkcml2ZXIgTUFZIGNob29zZSB0byBkaXNhYmxlIHRoZSBkZXZpY2Ug
+TU1VIGJ1dCBpdCBNVVNUIG1ha2Ugc3VyZQo+PiArdGhlIHRyYW5zcG9ydCBzcGVjaWZpYyBtZXRo
+b2QgY291bGQgYmUgdXNlZCB0byBwcm92aWRlIGEgc2VjdXJlIERNQQo+PiArY29udGV4dCBmb3Ig
+ZWFjaCB2aXJ0dWFsIGRldmljZS4KPj4gKwo+PiArVGhlIGRyaXZlciBNQVkgcXVlcnkgdGhlIGVy
+cm9yIG9mIGRldmljZSBNTVUgYWZ0ZXIgREVWSUNFX01NVV9GQUlMIGlzIHNldC4KPj4gKwo+PiAr
+XHN1YnNlY3Rpb257UHJlc2VudGluZyBWaXJ0dWFsIERldmljZX1cbGFiZWx7c2VjOlZpcnRpbyBU
+cmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIEFkbWluIFZpcnRxdWV1ZSAvIFByZXNlbnRp
+bmcgVmlydHVhbCBEZXZpY2V9Cj4+ICsKPj4gK0lmIFZJUlRJT19BRE1JTl9GX1ZERVYgaXMgb2Zm
+ZXJlZCBieSB0aGUgZGV2aWNlLiBUaGUgcHJlc2VudGluZyBvZgo+PiArdGhlIHZpcnR1YWwgZGV2
+aWNlIHJlcXVpcmVzIGNvLW9wZXJhdGlvbiBiZXR3ZWVuIHRoZSBtYW5hZ2VtZW50Cj4+ICtkcml2
+ZXIgYW5kIHRoZSBhZG1pbiB2aXJ0cXVldWUuIFRoaXMgbWVhbnMsIGZyb20gdGhlIHZpZXcgb2Yg
+dGhlCj4+ICt2aXJ0dWFsIGRldmljZSBkcml2ZXIsIHRoZSB0cmFuc3BvcnQgaXMgZG9uZSB2aWEg
+dGhlIGNvbW11bmljYXRpb24KPj4gK3dpdGggdGhlIG1hbmFnZW1lbnQgZGV2aWNlIGRyaXZlci4g
+SXQncyB1cCB0byB0aGUgc29mdHdhcmUgdG8gZGVjaWRlCj4+ICt3aGF0IGtpbmQgb2YgbWV0aG9k
+IHRoYXQgaXMgbmVlZGVkIGJlIHVzZWQgZm9yIHRob3NlIGNvbW11bmljYXRpb25zLgo+PiArCj4+
+ICtUaGUgbWFuYWdlbWVudCBkcml2ZXIgdHlwaWNhbGx5IGRvIHRoZSBmb2xsb3dpbmcgc3RlcHMg
+Zm9yIGNyZWF0aW5nIGEKPj4gK3ZpcnR1YWwgZGV2aWNlOgo+PiArCj4+ICtcYmVnaW57ZW51bWVy
+YXRlfQo+PiArXGl0ZW0gRGV0ZXJtaW5lIHRoZSB2aXJ0aW8gaWQgYW5kIGRldmljZSBzcGVjaWZp
+YyBjb25maWd1cmF0aW9uLgo+PiArXGl0ZW0gQ3JlYXRlIHRoZSB2aXJ0dWFsIGRldmljZXMgdXNp
+bmcgVklSVElPX0FETUlOX0NUUkxfVkRFVl9DUkVBVEUKPj4gK2NvbW1hbmQuCj4+ICtcaXRlbSBP
+cHRpb25hbGx5LCBjb25maWd1cmUgdGhlIE1TSS4KPj4gK1xpdGVtIE9wdGlvbmFsbHksIGVuYWJs
+ZSBhbmQgaW5pdGlhbGl6ZSB0aGUgZGV2aWNlIE1NVS4KPj4gK1xpdGVtIFNldHVwIHRoZSBuZWNl
+c3NhcnkgY29tbXVuaWNhdGlvbiBtZXRob2RzIHdpdGggdmlydHVhbCBkZXZpY2UgZHJpdmVyLgo+
+PiArXGl0ZW0gUGVyZm9ybSBkZXZpY2Ugc3BlY2lmaWMgc2V0dXBzLgo+PiArXGl0ZW0gTGV0IHRo
+ZSB2aXJ0dWFsIGRldmljZSB0byBiZSBwcm9iZWQgYnkgdGhlIHZpcnR1YWwgZGV2aWNlCj4+ICtk
+cml2ZXIuIFRoZSBtYW5hZ2VtZW50IGRyaXZlciB3aWxsIHRoZW4gdXNlIHRoZSBhZG1pbiB2aXJ0
+cXVldWUgdG8KPj4gK2ltcGxlbWVudCB0aGUgcmVxdWVzdHMgb2YgYmFzaWMgZmFjaWxpdHkgZnJv
+bSB0aGUgdmlydHVhbCBkZXZpY2UKPj4gK2RyaXZlci4KPj4gK1xlbmR7ZW51bWVyYXRlfQo+PiAr
+Cj4+ICAgXHNlY3Rpb257VmlydGlvIE92ZXIgUENJIEJ1c31cbGFiZWx7c2VjOlZpcnRpbyBUcmFu
+c3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBDSSBCdXN9Cj4+ICAgCj4+ICAgVmlydGlvIGRl
+dmljZXMgYXJlIGNvbW1vbmx5IGltcGxlbWVudGVkIGFzIFBDSSBkZXZpY2VzLgo+PiAtLSAKPj4g
+Mi4yNC4zIChBcHBsZSBHaXQtMTI4KQoK
