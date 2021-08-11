@@ -1,128 +1,56 @@
-Return-Path: <david@redhat.com>
-Subject: Re: [virtio-comment] [PATCH v1 2/2] virtio-mem: describe interaction
- with memory properties
-References: <20210812133150.36146-1-david@redhat.com>
- <20210812133150.36146-3-david@redhat.com> <87k0kktpfs.fsf@redhat.com>
- <f4bf611f-c35f-8b22-5382-5a8ea87bfd31@redhat.com> <878s10tlm2.fsf@redhat.com>
- <e186d1a9-45b0-d34f-2f04-bbd8492b9698@redhat.com> <875yw4td7d.fsf@redhat.com>
-From: David Hildenbrand <david@redhat.com>
-Message-ID: <5a7fec34-5dba-da84-723b-3cb4769e6404@redhat.com>
-Date: Tue, 17 Aug 2021 15:27:46 +0200
+Return-Path: <mgurtovoy@nvidia.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Subject: [RFC PATCH v3 0/4] Admin virtq infrastructure
+Date: Wed, 11 Aug 2021 14:43:05 +0300
+Message-ID: <20210811114309.7941-1-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <875yw4td7d.fsf@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-To: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org
+Content-Type: text/plain
+To: virtio-comment@lists.oasis-open.org, jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com
+Cc: parav@nvidia.com, shahafs@nvidia.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com, nitzanc@nvidia.com, jgg@nvidia.com, stefanha@redhat.com, eperezma@redhat.com, oren@nvidia.com, Max Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 17.08.21 15:25, Cornelia Huck wrote:
-> On Tue, Aug 17 2021, David Hildenbrand <david@redhat.com> wrote:
-> 
->> On 17.08.21 12:24, Cornelia Huck wrote:
->>> On Tue, Aug 17 2021, David Hildenbrand <david@redhat.com> wrote:
->>>
->>>>>> -The driver MUST NOT request to unplug memory blocks while the memory is
->>>>>> -still in use.
->>>>>> +The driver MUST NOT request unplug of memory blocks while corresponding memory
->>>>>> +or memory properties are still in use.
->>>>>>     
->>>>>>     The driver SHOULD initialize memory blocks after plugging them, the content
->>>>>>     is undefined.
->>>>>>     
->>>>>> +The driver SHOULD initialize memory properties of memory blocks after plugging
->>>>>> +them if it cannot deal with either the default settings or the previous
->>>>>> +setting.
->>>>>
->>>>> This would imply that any memory properties need to allow modification
->>>>> by the driver, right? It's clear what you want to introduce this for,
->>>>> but do we need to tighten the definition of what kind of memory
->>>>> properties we are talking about?
->>>>
->>>> Right, we actually want to have:
->>>>
->>>> "The device MUST allow to read and write memory and querying and
->>>> modifying memory properties of plugged memory blocks."
->>>>
->>>
->>> "...must allow the driver to..."
->>
->> Right, although we used something like "the device MUST allow the CPU
->> to" ... and "The device MAY allow to read from unplugged memory blocks
->> inside the region via DMA."
->>
->> I guess if we want to cleanup, that would be e.g., "the device MUST
->> allow the driver .. via the CPU".
-> 
-> Hm, maybe. Need to think about that.
+Hi all,
+This series introduce a new virtio queue type for administration. This
+queue will hold a generic command form and can be supported by all the
+virtio device types. This infrastructure will allow adding various
+features which would not easily map into the configuration space. These
+features might be generic accross various device types and using this
+mechanism will allow us to define the generic features once instead of
+defining it per device type.
 
-Something like this:
+The Admin virtqueue index may vary among different device types and this
+series include definition for blk and net devices for adminq index.
 
+One of the features than can be added in the future is creating an admin
+command to create/destroy virtual devices with limited resources that
+will be managed by the "creator"/"parent" device. This is similar to
+Virtual Function in PCI world and can be an extension for it in a sense
+of Scalable Function.
 
-commit 2afa0c5e00889e2030189d843bc6df7bf2ee10c7 (HEAD)
-Author: David Hildenbrand <david@redhat.com>
-Date:   Tue Aug 17 14:24:18 2021 +0200
+The first major feature that will probably use the adminq infrastructure
+is Live Migration.
 
-     virtio-mem: simplify statements that express unexpected behavior on memory access
-     
-     Some statements express that the device MAY allow access to memory insided
-     unplugged memory blocks, although it's really just unexpected behavior and
-     conforming drivers MUST NOT perform such access.
-     
-     Clarify that, and move the special CPU vs. DMA handling for some
-     unplugged memory blocks to the driver section instead.
-     
-     While at it, start rephrasing our statements to clarify and prepare for
-     further changes.
-     
-     Signed-off-by: David Hildenbrand <david@redhat.com>
+Changes from v2:
+ - removed vendor specific status codes (make them reserved)
+ - removed vendor specific class codes (make them reserved)
+ - added VIRTIO_ADMIN_CTRL_FEATURES opcode for feature negotiation
+ - added more device information in VIRTIO_ADMIN_DISCOVER_DEVICE_IDENTITY
+   command response (e.g. virtio_vdev_id, virtio_serial_id, etc..).
+ - added adminq index for virtio-net device
 
-diff --git a/virtio-mem.tex b/virtio-mem.tex
-index 62a1d02..f0c5970 100644
---- a/virtio-mem.tex
-+++ b/virtio-mem.tex
-@@ -220,8 +220,11 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
-  The driver MUST NOT read from unplugged memory blocks outside
-  \field{usable_region_size}.
-  
--The driver SHOULD NOT read from unplugged memory blocks inside
--\field{usable_region_size}.
-+The driver MUST NOT read memory of unplugged memory blocks inside
-+\field{usable_region_size} via DMA.
-+
-+The driver SHOULD NOT read memory of unplugged memory blocks inside
-+\field{usable_region_size} via the CPU.
-  
-  The driver MUST NOT request to unplug memory blocks while the memory is
-  still in use.
-@@ -246,18 +249,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
-  
-  The device MUST NOT change the content of plugged memory blocks.
-  
--The device MUST allow the CPU to read from unplugged memory blocks inside
--the usable device-managed region. \footnote{To allow for simplified dumping of
--memory. The CPU is expected to copy such memory to another location before
--starting DMA.}
--
--The device MAY allow to read from unplugged memory blocks inside the
--usable device-managed region via DMA.
--
--The device MAY allow to read from unplugged memory blocks outside
--the usable device-managed region.
--
--The device MAY allow to write to unplugged memory blocks.
-+The device MUST allow the driver to read memory of unplugged memory blocks
-+inside \field{usable_region_size} via the CPU. \footnote{To allow for simplified
-+dumping of memory. The CPU is expected to copy such memory to another location
-+before starting DMA.}
-  
-  The device MAY change the state of memory blocks during system resets.
-  
+Max Gurtovoy (4):
+  Add virtio Admin Virtqueue specification
+  Introduce VIRTIO_F_ADMIN_VQ_INDIRECT_DESC/VIRTIO_F_ADMIN_VQ_IN_ORDER
+  virtio-blk: add support for VIRTIO_F_ADMIN_VQ
+  virtio-net: add support for VIRTIO_F_ADMIN_VQ
 
-
+ admin-virtq.tex | 300 ++++++++++++++++++++++++++++++++++++++++++++++++
+ content.tex     |  65 +++++++++--
+ packed-ring.tex |  26 ++---
+ split-ring.tex  |  33 ++++--
+ 4 files changed, 390 insertions(+), 34 deletions(-)
+ create mode 100644 admin-virtq.tex
 
 -- 
-Thanks,
-
-David / dhildenb
+2.21.0
 
