@@ -1,8 +1,8 @@
 Return-Path: <mgurtovoy@nvidia.com>
 From: Max Gurtovoy <mgurtovoy@nvidia.com>
-Subject: [RFC PATCH v3 1/4] Add virtio Admin Virtqueue specification
-Date: Wed, 11 Aug 2021 14:43:06 +0300
-Message-ID: <20210811114309.7941-2-mgurtovoy@nvidia.com>
+Subject: [RFC PATCH v3 2/4] Introduce VIRTIO_F_ADMIN_VQ_INDIRECT_DESC/VIRTIO_F_ADMIN_VQ_IN_ORDER
+Date: Wed, 11 Aug 2021 14:43:07 +0300
+Message-ID: <20210811114309.7941-3-mgurtovoy@nvidia.com>
 In-Reply-To: <20210811114309.7941-1-mgurtovoy@nvidia.com>
 References: <20210811114309.7941-1-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
@@ -11,382 +11,242 @@ To: virtio-comment@lists.oasis-open.org, jasowang@redhat.com, mst@redhat.com, co
 Cc: parav@nvidia.com, shahafs@nvidia.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com, nitzanc@nvidia.com, jgg@nvidia.com, stefanha@redhat.com, eperezma@redhat.com, oren@nvidia.com, Max Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Admin virtqueues will be used to send administrative commands to
-manipulate various features of the device which would not easily map
-into the configuration space.
-
-The same Admin command format will be used for all virtio devices. The
-Admin command set will include 3 types of command classes:
-1. The generic common class
-2. The transport specific class
-3. The device specific class
-
-The above mechanism will enable adding various features to the virtio
-specification, e.g.:
-1. Format virtio-blk devices in various configurations (512B block size,
-   512B + 8B T10-DIF, 4K block size, 4k + 8B T10-DIF, etc..).
-2. Live migration management.
-3. Encrypt/Decrypt data.
-4. Virtualization management.
-5. Get device error logs.
-6. Implement advanced device/transport specific features.
-7. Run device health test.
-8. More.
-
-As virtio evolves beyond the para-virt/sw-emulated world, it's mandatory
-for the specification to become flexible and allow a wider feature set.
-The corrent ctrl virtq that is defined for some of the virtio devices is
-device specific and wasn't designed to be a generic virtq for
-admininistration.
+These new features are parallel to VIRTIO_F_INDIRECT_DESC and
+VIRTIO_F_IN_ORDER. Some devices might support these features only for
+admin virt queues and some might support them for both admin virt queues
+and request virt queues or only for non-admin virtqueues. Some
+optimization can be made for each type of virt queue, thus we separate
+these feature for the different virtq types.
 
 Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
 ---
- admin-virtq.tex | 300 ++++++++++++++++++++++++++++++++++++++++++++++++
- content.tex     |   8 +-
- 2 files changed, 306 insertions(+), 2 deletions(-)
- create mode 100644 admin-virtq.tex
+ content.tex     | 43 ++++++++++++++++++++++++++++++++++++-------
+ packed-ring.tex | 26 +++++++++++++-------------
+ split-ring.tex  | 33 +++++++++++++++++++++------------
+ 3 files changed, 70 insertions(+), 32 deletions(-)
 
-diff --git a/admin-virtq.tex b/admin-virtq.tex
-new file mode 100644
-index 0000000..d2b8ac0
---- /dev/null
-+++ b/admin-virtq.tex
-@@ -0,0 +1,300 @@
-+\section{Admin Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues}
-+
-+Admin virtqueues are used to send administrative commands to manipulate
-+various features of the device which would not easily map into the
-+configuration space.
-+
-+Use of Admin virtqueues is negotiated by the VIRTIO_F_ADMIN_VQ
-+feature bit.
-+
-+Admin virtqueue index may vary among different device types.
-+
-+All commands are of the following form:
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd {
-+        /* Device-readable part */
-+        u8 class;
-+        u8 command;
-+        u8 command-specific-data[];
-+
-+        /* Device-writable part */
-+        u8 command-specific-result[];
-+        u8 status;
-+};
-+
-+/* status values that are transport, device and vendor independent */
-+#define VIRTIO_ADMIN_STATUS_COMMON_START     0
-+#define VIRTIO_ADMIN_STATUS_COMMON_END       63
-+
-+/* status values that are transport specific */
-+#define VIRTIO_ADMIN_STATUS_TRANSPORT_START  64
-+#define VIRTIO_ADMIN_STATUS_TRANSPORT_END    127
-+
-+/* status values that are device specific */
-+#define VIRTIO_ADMIN_STATUS_DEVICE_START     128
-+#define VIRTIO_ADMIN_STATUS_DEVICE_END       191
-+
-+/* status values that are reserved */
-+#define VIRTIO_ADMIN_STATUS_RESERVED_START     192
-+#define VIRTIO_ADMIN_STATUS_RESERVED_END       255
-+
-+/* Common status values */
-+#define VIRTIO_ADMIN_STATUS_COMMON_OK                      0
-+#define VIRTIO_ADMIN_STATUS_COMMON_ERR                     1
-+#define VIRTIO_ADMIN_STATUS_COMMON_INVALID_CLASS           2
-+#define VIRTIO_ADMIN_STATUS_COMMON_INVALID_COMMAND         3
-+#define VIRTIO_ADMIN_STATUS_COMMON_DATA_TRANSFER_ERR       4
-+#define VIRTIO_ADMIN_STATUS_COMMON_DEVICE_INTERNAL_ERR     5
-+\end{lstlisting}
-+
-+The \field{class}, \field{command} and \field{command-specific-data} are
-+set by the driver, and the device sets the \field{status} and the
-+\field{command-specific-result}, if needed.
-+
-+The virtio Admin command class codes are divided in the following form:
-+
-+\begin{lstlisting}
-+/* class values that are transport, device and vendor independent */
-+#define VIRTIO_ADMIN_COMMON_CLASS_START    0
-+#define VIRTIO_ADMIN_COMMON_CLASS_END      63
-+
-+/* class values that are transport specific */
-+#define VIRTIO_ADMIN_TRANSPORT_CLASS_START  64
-+#define VIRTIO_ADMIN_TRANSPORT_CLASS_END    127
-+
-+/* class values that are device specific */
-+#define VIRTIO_ADMIN_DEVICE_CLASS_START     128
-+#define VIRTIO_ADMIN_DEVICE_CLASS_END       191
-+
-+/* class values that are reserved */
-+#define VIRTIO_ADMIN_RESERVED_CLASS_START     192
-+#define VIRTIO_ADMIN_RESERVED_CLASS_END       255
-+\end{lstlisting}
-+
-+\subsection{Admin command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set}
-+
-+Each virtio device that advertises the VIRTIO_F_ADMIN_VQ feature, MUST
-+support all the mandatory admin commands. A device MAY support also
-+one or more optional admin commands.
-+
-+\subsubsection{Common command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set}
-+
-+The Common command set is a group of classes and commands within each
-+of these classes which are transport, device and vendor independent.
-+A mandatory class is a class that has at least one mandatory command.
-+The Common command set is summarized in following table:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Class  & Description    & M/O \\
-+\hline \hline
-+0  & VIRTIO_ADMIN_DISCOVER_DEVICE    & M \\
-+\hline
-+1  & VIRTIO_ADMIN_CTRL_FEATURES      & M \\
-+\hline
-+2-63  & reserved    & - \\
-+\hline
-+\end{tabular}
-+
-+\paragraph{Discover device class}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Discover device class}
-+
-+This class (opcode: 0) of commands is used to query generic device
-+information. The following table describes the commands supported for
-+this class:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Command  & Description    & M/O \\
-+\hline \hline
-+0  & VIRTIO_ADMIN_DISCOVER_DEVICE_IDENTITY    & M \\
-+\hline
-+1-255  & reserved    & - \\
-+\hline
-+\end{tabular}
-+
-+\subparagraph{Device identity command}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Discover device class / Device identity command}
-+
-+This mandatory command should return device identity in the following
-+structure:
-+
-+\begin{tabular}{|l|l|l|l|}
-+\hline
-+Bytes  & Name    & Description    & M/O \\
-+\hline \hline
-+03:00 & VIRTIO DEVICE ID & The device type identification according to the specification  & M \\
-+\hline
-+07:04 & VIRTIO VDEV ID & The virtual device identification & M \\
-+\hline
-+09:08 & VIRTIO TRANSPORT ID & The transport type identification (0 - PCI, 1 - MMIO, 2 - CHANNEL_IO) & M \\
-+\hline
-+137:10 & VIRTIO SERIAL ID & A unique identifier as an ASCII string assigned by the vendor & M \\
-+\hline
-+265:138 & VIRTIO MODEL ID & A model identifier as an ASCII string assigned by the vendor & M \\
-+\hline
-+4095:266 & reserved    & - & - \\
-+ \hline
-+\end{tabular}
-+
-+\paragraph{Ctrl features class}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Ctrl features class}
-+
-+This class (opcode: 1) of commands is used to negotiate admin queue
-+features. The following table describes the commands supported for
-+this class:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Command  & Description    & M/O \\
-+\hline \hline
-+0  & VIRTIO_ADMIN_CTRL_FEATURES_DEVICE_GET    & M \\
-+\hline
-+1  & VIRTIO_ADMIN_CTRL_FEATURES_DRIVER_SET    & M \\
-+\hline
-+2  & VIRTIO_ADMIN_CTRL_FEATURES_DRIVER_GET    & M \\
-+\hline
-+3-255  & reserved    & - \\
-+\hline
-+\end{tabular}
-+
-+\subparagraph{Ctrl features device get command}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Ctrl features class / Ctrl features device get command}
-+
-+This mandatory command should return the admin features offered
-+by the device in the following structure:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bytes  & Description    & M/O \\
-+\hline \hline
-+31:00  & VIRTIO_ADMIN_CLASS_0_COMMANDS_SUPPORTED_BITMAP    & M \\
-+\hline
-+63:32  & VIRTIO_ADMIN_CLASS_1_COMMANDS_SUPPORTED_BITMAP    & M \\
-+ \hline
-+95:64  & VIRTIO_ADMIN_CLASS_2_COMMANDS_SUPPORTED_BITMAP    & M \\
-+\hline
-+...  & ...    & M \\
-+\hline
-+8191:8160  & VIRTIO_ADMIN_CLASS_255_COMMANDS_SUPPORTED_BITMAP    & M \\
-+\hline
-+\end{tabular}
-+
-+The above structure is divided to 256 sections of 32B each, that will
-+describe whether a device supports a certain command in a class code. A
-+class is supported if one of its command is supported. Each of the 32B
-+sections will follow the following data structure:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bits  & Description    & M/O \\
-+\hline \hline
-+0  & COMMAND_0_SUPPORTED (1: yes, 0:no)    & M \\
-+\hline
-+1  & COMMAND_1_SUPPORTED (1: yes, 0:no)    & M \\
-+\hline
-+2  & COMMAND_2_SUPPORTED (1: yes, 0:no)    & M \\
-+\hline
-+...  & ...    & M \\
-+\hline
-+254  & COMMAND_254_SUPPORTED (1: yes, 0:no)    & M \\
-+ \hline
-+255  & COMMAND_255_SUPPORTED (1: yes, 0:no)    & M \\
-+\hline
-+\end{tabular}
-+
-+\subparagraph{Ctrl features driver set command}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Ctrl features class / Ctrl features driver set command}
-+
-+This mandatory command should provide the admin features accepted
-+by the driver in the following structure:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bytes  & Description    & M/O \\
-+\hline \hline
-+31:00  & VIRTIO_ADMIN_CLASS_0_COMMANDS_ACCEPTED_BITMAP    & M \\
-+\hline
-+63:32  & VIRTIO_ADMIN_CLASS_1_COMMANDS_ACCEPTED_BITMAP    & M \\
-+ \hline
-+95:64  & VIRTIO_ADMIN_CLASS_2_COMMANDS_ACCEPTED_BITMAP    & M \\
-+\hline
-+...  & ...    & M \\
-+\hline
-+8191:8160  & VIRTIO_ADMIN_CLASS_255_COMMANDS_ACCEPTED_BITMAP    & M \\
-+\hline
-+\end{tabular}
-+
-+The above structure is divided to 256 sections of 32B each, that will
-+describe whether a driver accepts a certain command in a class code.
-+Each of the 32B sections will follow the following data structure:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bits  & Description    & M/O \\
-+\hline \hline
-+0  & COMMAND_0_ACCEPTED (1: yes, 0:no)    & M \\
-+\hline
-+1  & COMMAND_1_ACCEPTED (1: yes, 0:no)    & M \\
-+\hline
-+2  & COMMAND_2_ACCEPTED (1: yes, 0:no)    & M \\
-+\hline
-+...  & ...    & M \\
-+\hline
-+254  & COMMAND_254_ACCEPTED (1: yes, 0:no)    & M \\
-+ \hline
-+255  & COMMAND_255_ACCEPTED (1: yes, 0:no)    & M \\
-+\hline
-+\end{tabular}
-+
-+\subparagraph{Ctrl features driver get command}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Common command set / Ctrl features class / Ctrl features driver set command}
-+
-+This mandatory command should return the admin features accepted
-+by both the device and the driver in the following structure:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bytes  & Description    & M/O \\
-+\hline \hline
-+31:00  & VIRTIO_ADMIN_CLASS_0_COMMANDS_NEGOTIATED_BITMAP    & M \\
-+\hline
-+63:32  & VIRTIO_ADMIN_CLASS_1_COMMANDS_NEGOTIATED_BITMAP    & M \\
-+ \hline
-+95:64  & VIRTIO_ADMIN_CLASS_2_COMMANDS_NEGOTIATED_BITMAP    & M \\
-+\hline
-+...  & ...    & M \\
-+\hline
-+8191:8160  & VIRTIO_ADMIN_CLASS_255_COMMANDS_NEGOTIATED_BITMAP    & M \\
-+\hline
-+\end{tabular}
-+
-+The above structure is divided to 256 sections of 32B each, that will
-+describe whether the device and the driver accepted a certain command
-+in a class code. Each of the 32B sections will follow the following data structure:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bits  & Description    & M/O \\
-+\hline \hline
-+0  & COMMAND_0_NEGOTIATED (1: yes, 0:no)    & M \\
-+\hline
-+1  & COMMAND_1_NEGOTIATED (1: yes, 0:no)    & M \\
-+\hline
-+2  & COMMAND_2_NEGOTIATED (1: yes, 0:no)    & M \\
-+\hline
-+...  & ...    & M \\
-+\hline
-+254  & COMMAND_254_NEGOTIATED (1: yes, 0:no)    & M \\
-+ \hline
-+255  & COMMAND_255_NEGOTIATED (1: yes, 0:no)    & M \\
-+\hline
-+\end{tabular}
-+
-+\subsubsection{Transport command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Transport command set}
-+
-+The Transport command set is a group of classes and commands within
-+each of these classes which are transport specific. Refer to each
-+transport section for more information on the supported commands.
-+
-+\subsubsection{Device command set}\label{sec:Basic Facilities of a Virtio Device / Admin Virtqueues / Admin command set / Device command set}
-+
-+The Device command set is a group of classes and commands within
-+each of these classes which are device specific. Refer to each
-+device section for more information on the supported commands.
-+
 diff --git a/content.tex b/content.tex
-index e1f05bc..72f2802 100644
+index 72f2802..bc4c01d 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
- \begin{description}
- \item[0 to 23] Feature bits for the specific device type
+@@ -318,8 +318,9 @@ \section{Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Virtqueues}
  
--\item[24 to 39] Feature bits reserved for extensions to the queue and
-+\item[24 to 40] Feature bits reserved for extensions to the queue and
-   feature negotiation mechanisms
+ Some devices always use descriptors in the same order in which
+ they have been made available. These devices can offer the
+-VIRTIO_F_IN_ORDER feature. If negotiated, this knowledge
+-might allow optimizations or simplify driver and/or device code.
++VIRTIO_F_IN_ORDER and/or VIRTIO_F_ADMIN_VQ_IN_ORDER features.
++If negotiated, this knowledge might allow optimizations or
++simplify driver and/or device code.
  
--\item[40 and above] Feature bits reserved for future extensions.
-+\item[41 and above] Feature bits reserved for future extensions.
- \end{description}
- 
- \begin{note}
-@@ -407,6 +407,8 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
- types. It is RECOMMENDED that devices generate version 4
- UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
- 
-+\input{admin-virtq.tex}
-+
- \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
- 
- We start with an overview of device initialization, then expand on the
-@@ -6671,6 +6673,8 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-   data to be provided in driver notification and the delivery method is
-   transport specific.
+ Each virtqueue can consist of up to 3 parts:
+ \begin{itemize}
+@@ -6597,7 +6598,7 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ Device / Virtqueues / The Virtqueue Descriptor Table / Indirect
+ Descriptors}~\nameref{sec:Basic Facilities of a Virtio Device /
+ Virtqueues / The Virtqueue Descriptor Table / Indirect
+-Descriptors} and \ref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}~\nameref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}.
++Descriptors} and \ref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}~\nameref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}. This excluding the descriptors sent via the admin virtq.
+   \item[VIRTIO_F_EVENT_IDX(29)] This feature enables the \field{used_event}
+   and the \field{avail_event} fields as described in
+ \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer Notification Suppression}, \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Used Ring} and \ref{sec:Packed Virtqueues / Driver and Device Event Suppression}.
+@@ -6629,8 +6630,9 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+   support for the packed virtqueue layout as described in
+   \ref{sec:Basic Facilities of a Virtio Device / Packed Virtqueues}~\nameref{sec:Basic Facilities of a Virtio Device / Packed Virtqueues}.
+   \item[VIRTIO_F_IN_ORDER(35)] This feature indicates
+-  that all buffers are used by the device in the same
+-  order in which they have been made available.
++  that all buffers are used by the device, excluding buffers used by
++  the admin virtq, in the same order in which they have been made
++  available.
+   \item[VIRTIO_F_ORDER_PLATFORM(36)] This feature indicates
+   that memory accesses by the driver and the device are ordered
+   in a way described by the platform.
+@@ -6675,7 +6677,17 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
    For more details about driver notifications over PCI see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}.
-+  \item[VIRTIO_F_ADMIN_VQ(40)] This feature indicates that
-+  the device supports administration virtqueue negotiation.
- 
+   \item[VIRTIO_F_ADMIN_VQ(40)] This feature indicates that
+   the device supports administration virtqueue negotiation.
+-
++  \item[VIRTIO_F_ADMIN_VQ_INDIRECT_DESC (41)] Negotiating this feature
++  indicates that the driver can use descriptors with the VIRTQ_DESC_F_INDIRECT
++  flag set, as described in \ref{sec:Basic Facilities of a Virtio
++Device / Virtqueues / The Virtqueue Descriptor Table / Indirect
++Descriptors}~\nameref{sec:Basic Facilities of a Virtio Device /
++Virtqueues / The Virtqueue Descriptor Table / Indirect
++Descriptors} and \ref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}~\nameref{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}. This refers to descriptors sent via the admin
++  virtq and excluding the descriptors that sent via other virtqs.
++  \item[VIRTIO_F_ADMIN_VQ_IN_ORDER(42)] This feature indicates
++  that all buffers are used by the admin virtq of the device in
++  the same order in which they have been made available.
  \end{description}
  
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+@@ -6712,6 +6724,12 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ 
+ A driver SHOULD accept VIRTIO_F_NOTIF_CONFIG_DATA if it is offered.
+ 
++A driver MAY accept VIRTIO_F_ADMIN_VQ_INDIRECT_DESC only if it accepts
++VIRTIO_F_ADMIN_VQ.
++
++A driver MAY accept VIRTIO_F_ADMIN_VQ_IN_ORDER only if it accepts
++VIRTIO_F_ADMIN_VQ.
++
+ \devicenormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+ 
+ A device MUST offer VIRTIO_F_VERSION_1.  A device MAY fail to operate further
+@@ -6726,7 +6744,12 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ accepted.
+ 
+ If VIRTIO_F_IN_ORDER has been negotiated, a device MUST use
+-buffers in the same order in which they have been available.
++buffers in the same order in which they have been available. This refers
++to buffers that are used by virtq that is not the admin virtq.
++
++If VIRTIO_F_ADMIN_VQ_IN_ORDER has been negotiated, a device MUST use
++buffers in the same order in which they have been available. This refers
++only for buffers that are used by the admin virtq.
+ 
+ A device MAY fail to operate further if
+ VIRTIO_F_ORDER_PLATFORM is offered but not accepted.
+@@ -6741,6 +6764,12 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ and presents a PCI SR-IOV capability structure, otherwise
+ it MUST NOT offer VIRTIO_F_SR_IOV.
+ 
++A device MAY offer VIRTIO_F_ADMIN_VQ_INDIRECT_DESC only if it offers
++VIRTIO_F_ADMIN_VQ.
++
++A device MAY offer VIRTIO_F_ADMIN_VQ_IN_ORDER only if it offers
++VIRTIO_F_ADMIN_VQ.
++
+ \section{Legacy Interface: Reserved Feature Bits}\label{sec:Reserved Feature Bits / Legacy Interface: Reserved Feature Bits}
+ 
+ Transitional devices MAY offer the following:
+diff --git a/packed-ring.tex b/packed-ring.tex
+index a9e6c16..9adfefe 100644
+--- a/packed-ring.tex
++++ b/packed-ring.tex
+@@ -240,13 +240,12 @@ \subsection{Indirect Flag: Scatter-Gather Support}
+ \label{sec:Packed Virtqueues / Indirect Flag: Scatter-Gather Support}
+ 
+ Some devices benefit by concurrently dispatching a large number
+-of large requests. The VIRTIO_F_INDIRECT_DESC feature allows this. To increase
+-ring capacity the driver can store a (read-only by the device) table of indirect
+-descriptors anywhere in memory, and insert a descriptor in the main
+-virtqueue (with \field{Flags} bit VIRTQ_DESC_F_INDIRECT on) that refers to
+-a buffer element
+-containing this indirect descriptor table; \field{addr} and \field{len}
+-refer to the indirect table address and length in bytes,
++of large requests. The VIRTIO_F_INDIRECT_DESC and VIRTIO_F_ADMIN_VQ_INDIRECT_DESC
++features allows this. To increase ring capacity the driver can store a (read-only
++by the device) table of indirect descriptors anywhere in memory, and insert a
++descriptor in the main virtqueue (with \field{Flags} bit VIRTQ_DESC_F_INDIRECT on)
++that refers to a buffer element containing this indirect descriptor table;
++\field{addr} and \field{len} refer to the indirect table address and length in bytes,
+ respectively.
+ \begin{lstlisting}
+ /* This means the element contains a table of descriptors. */
+@@ -279,10 +278,11 @@ \subsection{In-order use of descriptors}
+ 
+ Some devices always use descriptors in the same order in which
+ they have been made available. These devices can offer the
+-VIRTIO_F_IN_ORDER feature. If negotiated, this knowledge allows
+-devices to notify the use of a batch of buffers to the driver by
+-only writing out a single used descriptor with the Buffer ID
+-corresponding to the last descriptor in the batch.
++VIRTIO_F_IN_ORDER and/or VIRTIO_F_ADMIN_VQ_IN_ORDER features.
++If negotiated, this knowledge allows devices to notify the use of
++a batch of buffers to the driver by only writing out a single used
++descriptor with the Buffer ID corresponding to the last descriptor
++in the batch.
+ 
+ The device then skips forward in the ring according to the size of
+ the batch. The driver needs to look up the used Buffer ID and
+@@ -500,8 +500,8 @@ \subsection{Event Suppression Structure Format}\label{sec:Basic
+ 
+ \drivernormative{\subsection}{Indirect Descriptors}{Basic Facilities of a Virtio Device / Packed Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
+ The driver MUST NOT set the DESC_F_INDIRECT flag unless the
+-VIRTIO_F_INDIRECT_DESC feature was negotiated.   The driver MUST NOT
+-set any flags except DESC_F_WRITE within an indirect descriptor.
++VIRTIO_F_INDIRECT_DESC or VIRTIO_F_ADMIN_VQ_INDIRECT_DESC features was negotiated.
++The driver MUST NOT set any flags except DESC_F_WRITE within an indirect descriptor.
+ 
+ A driver MUST NOT create a descriptor chain longer than allowed
+ by the device.
+diff --git a/split-ring.tex b/split-ring.tex
+index bfef62d..62f425c 100644
+--- a/split-ring.tex
++++ b/split-ring.tex
+@@ -208,6 +208,10 @@ \subsection{The Virtqueue Descriptor Table}\label{sec:Basic Facilities of a Virt
+ descriptors in ring order: starting from offset 0 in the table,
+ and wrapping around at the end of the table.
+ 
++If VIRTIO_F_ADMIN_VQ_IN_ORDER has been negotiated, driver uses
++descriptors in admin queue ring order: starting from offset 0 in the
++table, and wrapping around at the end of the table.
++
+ \begin{note}
+ The legacy \hyperref[intro:Virtio PCI Draft]{[Virtio PCI Draft]}
+ referred to this structure as vring_desc, and the constants as
+@@ -223,16 +227,17 @@ \subsection{The Virtqueue Descriptor Table}\label{sec:Basic Facilities of a Virt
+ Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
+ this implies that loops in the descriptor chain are forbidden!
+ 
+-If VIRTIO_F_IN_ORDER has been negotiated, and when making a
+-descriptor with VRING_DESC_F_NEXT set in \field{flags} at offset
+-$x$ in the table available to the device, driver MUST set
++If VIRTIO_F_IN_ORDER and/or VIRTIO_F_ADMIN_VQ_IN_ORDER has been negotiated,
++and when making a descriptor with VRING_DESC_F_NEXT set in \field{flags} at
++offset $x$ in the table available to the device, driver MUST set
+ \field{next} to $0$ for the last descriptor in the table
+ (where $x = queue\_size - 1$) and to $x + 1$ for the rest of the descriptors.
+ 
+ \subsubsection{Indirect Descriptors}\label{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
+ 
+ Some devices benefit by concurrently dispatching a large number
+-of large requests. The VIRTIO_F_INDIRECT_DESC feature allows this (see \ref{sec:virtio-queue.h}~\nameref{sec:virtio-queue.h}). To increase
++of large requests. The VIRTIO_F_INDIRECT_DESC and VIRTIO_F_ADMIN_VQ_INDIRECT_DESC
++features allows this (see \ref{sec:virtio-queue.h}~\nameref{sec:virtio-queue.h}). To increase
+ ring capacity the driver can store a table of indirect
+ descriptors anywhere in memory, and insert a descriptor in main
+ virtqueue (with \field{flags}\&VIRTQ_DESC_F_INDIRECT on) that refers to memory buffer
+@@ -258,15 +263,19 @@ \subsubsection{Indirect Descriptors}\label{sec:Basic Facilities of a Virtio Devi
+ A single indirect descriptor
+ table can include both device-readable and device-writable descriptors.
+ 
+-If VIRTIO_F_IN_ORDER has been negotiated, indirect descriptors
+-use sequential indices, in-order: index 0 followed by index 1
++If VIRTIO_F_IN_ORDER has been negotiated, indirect descriptors,
++for non admin virtq, use sequential indices, in-order: index 0 followed
++by index 1 followed by index 2, etc.
++
++If VIRTIO_F_ADMIN_VQ_IN_ORDER has been negotiated, admin virtq indirect
++descriptors use sequential indices, in-order: index 0 followed by index 1
+ followed by index 2, etc.
+ 
+ \drivernormative{\paragraph}{Indirect Descriptors}{Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
+ The driver MUST NOT set the VIRTQ_DESC_F_INDIRECT flag unless the
+-VIRTIO_F_INDIRECT_DESC feature was negotiated.   The driver MUST NOT
+-set the VIRTQ_DESC_F_INDIRECT flag within an indirect descriptor (ie. only
+-one table per descriptor).
++VIRTIO_F_INDIRECT_DESC and/or VIRTIO_F_ADMIN_VQ_INDIRECT_DESC features were negotiated.
++The driver MUST NOT set the VIRTQ_DESC_F_INDIRECT flag within an indirect
++descriptor (ie. only one table per descriptor).
+ 
+ A driver MUST NOT create a descriptor chain longer than the Queue Size of
+ the device.
+@@ -274,9 +283,9 @@ \subsubsection{Indirect Descriptors}\label{sec:Basic Facilities of a Virtio Devi
+ A driver MUST NOT set both VIRTQ_DESC_F_INDIRECT and VIRTQ_DESC_F_NEXT
+ in \field{flags}.
+ 
+-If VIRTIO_F_IN_ORDER has been negotiated, indirect descriptors
+-MUST appear sequentially, with \field{next} taking the value
+-of 1 for the 1st descriptor, 2 for the 2nd one, etc.
++If VIRTIO_F_IN_ORDER and/or VIRTIO_F_ADMIN_VQ_IN_ORDER has been negotiated,
++indirect descriptors MUST appear sequentially, with \field{next} taking the
++value of 1 for the 1st descriptor, 2 for the 2nd one, etc.
+ 
+ \devicenormative{\paragraph}{Indirect Descriptors}{Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
+ The device MUST ignore the write-only flag (\field{flags}\&VIRTQ_DESC_F_WRITE) in the descriptor that refers to an indirect table.
 -- 
 2.21.0
 
