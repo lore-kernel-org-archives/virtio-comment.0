@@ -1,19 +1,19 @@
-Return-Path: <virtio-comment-return-2195-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2196-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D7AA8986070
-	for <virtio-comment@lists.oasis-open.org>; Wed, 11 Aug 2021 11:43:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DC180986143
+	for <virtio-comment@lists.oasis-open.org>; Wed, 11 Aug 2021 11:43:33 +0000 (UTC)
 From: Max Gurtovoy <mgurtovoy@nvidia.com>
-Date: Wed, 11 Aug 2021 14:43:08 +0300
-Message-ID: <20210811114309.7941-4-mgurtovoy@nvidia.com>
+Date: Wed, 11 Aug 2021 14:43:09 +0300
+Message-ID: <20210811114309.7941-5-mgurtovoy@nvidia.com>
 In-Reply-To: <20210811114309.7941-1-mgurtovoy@nvidia.com>
 References: <20210811114309.7941-1-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [RFC PATCH v3 3/4] virtio-blk: add support for VIRTIO_F_ADMIN_VQ
+Subject: [virtio-comment] [RFC PATCH v3 4/4] virtio-net: add support for VIRTIO_F_ADMIN_VQ
 Content-Type: text/plain
 To: virtio-comment@lists.oasis-open.org, jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com
 Cc: parav@nvidia.com, shahafs@nvidia.com, aadam@redhat.com, bodong@nvidia.com, amikheev@nvidia.com, nitzanc@nvidia.com, jgg@nvidia.com, stefanha@redhat.com, eperezma@redhat.com, oren@nvidia.com, Max Gurtovoy <mgurtovoy@nvidia.com>
@@ -23,35 +23,30 @@ Set the relevant index in case of VIRTIO_F_ADMIN_VQ negotiation.
 
 Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
 ---
- content.tex | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ content.tex | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/content.tex b/content.tex
-index bc4c01d..6c029d5 100644
+index 6c029d5..18ea2f7 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -4398,10 +4398,21 @@ \subsection{Device ID}\label{sec:Device Types / Block Device / Device ID}
-   2
- 
- \subsection{Virtqueues}\label{sec:Device Types / Block Device / Virtqueues}
-+ if VIRTIO_F_ADMIN_VQ is not negotiated, the request queues layout is as
-+ follows:
- \begin{description}
- \item[0] requestq1
- \item[\ldots]
- \item[N-1] requestqN
-+\end{description}
-+
-+ If VIRTIO_F_ADMIN_VQ is negotiated, queue0 is an admin virtqueue and the
-+ request queues are shifted as follows:
-+\begin{description}
-+\item[0] adminq
-+\item[1] requestq1
-+\item[\ldots]
-+\item[N] requestqN
+@@ -2914,6 +2914,7 @@ \subsection{Virtqueues}\label{sec:Device Types / Network Device / Virtqueues}
+ \item[2(N-1)] receiveqN
+ \item[2(N-1)+1] transmitqN
+ \item[2N] controlq
++\item[2N + 1] adminq (or \textbf{2N} in case VIRTIO_NET_F_CTRL_VQ is not set)
  \end{description}
  
-  N=1 if VIRTIO_BLK_F_MQ is not negotiated, otherwise N is set by
+  N=1 if neither VIRTIO_NET_F_MQ nor VIRTIO_NET_F_RSS are negotiated, otherwise N is set by
+@@ -2921,6 +2922,8 @@ \subsection{Virtqueues}\label{sec:Device Types / Network Device / Virtqueues}
+ 
+  controlq only exists if VIRTIO_NET_F_CTRL_VQ set.
+ 
++ adminq only exists if VIRTIO_F_ADMIN_VQ set.
++
+ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits}
+ 
+ \begin{description}
 -- 
 2.21.0
 
