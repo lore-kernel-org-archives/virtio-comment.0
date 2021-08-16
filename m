@@ -1,46 +1,40 @@
-Return-Path: <pankaj.gupta.linux@gmail.com>
+Return-Path: <arseny.krasnov@kaspersky.com>
+From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+Subject: [RFC PATCH v8 0/2] virtio-vsock: introduce SOCK_SEQPACKET description
+Date: Mon, 16 Aug 2021 11:55:25 +0300
+Message-ID: <20210816085528.4175303-1-arseny.krasnov@kaspersky.com>
 MIME-Version: 1.0
-References: <20210728145502.264171-1-pankaj.gupta.linux@gmail.com> <CAPcyv4hUgVDDqfciy_+xc6umXdWxoWr_appkSHTFSQY3WqhaJw@mail.gmail.com>
-In-Reply-To: <CAPcyv4hUgVDDqfciy_+xc6umXdWxoWr_appkSHTFSQY3WqhaJw@mail.gmail.com>
-From: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Date: Wed, 25 Aug 2021 09:52:43 +0200
-Message-ID: <CAM9Jb+jJEuwYekfV2HeZnoFB2QxgjA=20NKtRn_5UhY7i0jR-w@mail.gmail.com>
-Subject: Re: [PATCH] virtio-pmem: PMEM device spec
-Content-Type: text/plain; charset="UTF-8"
-To: Dan Williams <dan.j.williams@intel.com>
-Cc: virtio-comment@lists.oasis-open.org, David Hildenbrand <david@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>, Taylor Stark <tstark@linux.microsoft.com>, Pankaj Gupta <pankaj.gupta@ionos.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Andra Paraschiv <andraprs@amazon.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>
+Cc: virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hi Dan,
+This adds description of SOCK_SEQPACKET type for virtio-vsock.
 
-> >
-> > Posting virtio specification for virtio pmem device. Virtio pmem is a
-> > paravirtualized device which allows the guest to bypass page cache.
-> > Virtio pmem kernel driver is merged in Upstream Kernel 5.3. Also, Qemu
-> > device is merged in Qemu 4.1.
-> >
->
-> Is there still time to adjust this?
->
-> I notice that this document reiterates concepts that are described in
-> the PMEM programming model definition:
->
-> https://www.snia.org/sites/default/files/technical_work/final/NVMProgrammingModel_v1.2.pdf
->
-> ...specifically that virtio-pmem explicitly disables
-> NVM.PM.OPTIMIZED_FLUSH and forces NVM.PM.FILE.SYNC. Then this document
-> can describe what happens on the backend to convey the sync operation
-> from the VM to the VMM.
+Here is merged Linux implementation:
+https://lore.kernel.org/netdev/20210611110744.3650456-1-arseny.krasnov@kasp=
+ersky.com/
 
-Thanks for having a look. I am currently removing(mostly removed) the
-implementation details from
-the proposed spec and only keeping device and driver interfaces and
-their communication structures as per
-the feedback from the VIRTIO committee.
+Here is extra patchset for record boundaries:
+https://lkml.org/lkml/2021/8/16/205
 
-Good to know the above document covers guest FLUSH usability details
-which also applies to virtio-pmem.
+Also this patchset has patch which replaces enums to defines in
+virtio-vsock part of spec. SOCK_SEQPACKET patch is based on it.
 
-Best regards,
-Pankaj
+ Arseny Krasnov(2):
+  virtio-vsock: use C style defines for constants
+  virtio-vsock: SOCK_SEQPACKET description
+
+ virtio-vsock.tex | 91 ++++++++++++++++++++++++++++++++--------------
+ 1 files changed, 63 insertions(+), 28 deletions(-)
+
+ v7 -> v8:
+ - Message and reconrd boundaries description rephrased.
+
+ v6 -> v7:
+ - Added record boundaries bit description.
+
+--=20
+2.25.1
 
