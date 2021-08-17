@@ -1,197 +1,118 @@
-Return-Path: <virtio-comment-return-2213-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8CB5A9863B9
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Aug 2021 09:01:52 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20210812133150.36146-3-david@redhat.com>
+Return-Path: <david@redhat.com>
 References: <20210812133150.36146-1-david@redhat.com>
- <20210812133150.36146-3-david@redhat.com>
-Date: Tue, 17 Aug 2021 11:01:43 +0200
-Message-ID: <87k0kktpfs.fsf@redhat.com>
+ <20210812133150.36146-3-david@redhat.com> <87k0kktpfs.fsf@redhat.com>
+From: David Hildenbrand <david@redhat.com>
+Subject: Re: [virtio-comment] [PATCH v1 2/2] virtio-mem: describe interaction
+ with memory properties
+Message-ID: <f4bf611f-c35f-8b22-5382-5a8ea87bfd31@redhat.com>
+Date: Tue, 17 Aug 2021 11:58:30 +0200
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH v1 2/2] virtio-mem: describe
- interaction with memory properties
-Content-Type: text/plain
-To: David Hildenbrand <david@redhat.com>, virtio-comment@lists.oasis-open.org
-Cc: David Hildenbrand <david@redhat.com>
+In-Reply-To: <87k0kktpfs.fsf@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+To: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Aug 12 2021, David Hildenbrand <david@redhat.com> wrote:
+[...]
 
-> Let's describe how we expect the interaction with memory properties that
-> might be available on a specific platform for ordinary system RAM.
->
-> This is primarily a preparation for s390x support, which provides
-> storage keys and may provide storage attributes, depending on the system
-> configuration.
->
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
->  virtio-mem.tex | 71 ++++++++++++++++++++++++++++++++++----------------
->  1 file changed, 49 insertions(+), 22 deletions(-)
->
-> diff --git a/virtio-mem.tex b/virtio-mem.tex
-> index c4dd0d0..a1057cd 100644
-> --- a/virtio-mem.tex
-> +++ b/virtio-mem.tex
-> @@ -32,6 +32,16 @@ \section{Memory Device}\label{sec:Device Types / Memory Device}
->  expose plugged memory blocks to the operating system as system RAM,
->  available for the page allocator.
->  
-> +Some platforms provide memory properties for system RAM that are usually
-> +queried and modified using special CPU instructions. Memory properties might
-> +be implicitly queried or modified on memory access. Memory properties can
-> +include advanced memory protection, access and change indication, or memory
-> +usage indication relevant in virtualized environments. \footnote{For example,
-> +s390x provides storage keys for each 4 KiB page and may, depending on the
-> +configuration, provide storage attributes for each 4 KiB page.} The device
-> +provides the exact same properties with the exact same semantics for
-> +plugged device memory as available for ordinary RAM in the same configuration.
-> +
->  \subsection{Device ID}\label{sec:Device Types / Memory Device / Device ID}
->  24
->  
-> @@ -47,7 +57,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature bits}
->  \item[VIRTIO_MEM_F_ACPI_PXM (0)] The field \field{node_id} in the device
->  configuration is valid and corresponds to an ACPI PXM.
->  \item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver MUST NOT access
-> -unplugged memory.
-> +unplugged memory. \footnote{This feature is expected to be enabled on platforms
-> +with memory properties that might get modified implicitly on memory access.}
+>>   \subsection{Device ID}\label{sec:Device Types / Memory Device / Device ID}
+>>   24
+>>   
+>> @@ -47,7 +57,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature bits}
+>>   \item[VIRTIO_MEM_F_ACPI_PXM (0)] The field \field{node_id} in the device
+>>   configuration is valid and corresponds to an ACPI PXM.
+>>   \item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver MUST NOT access
+>> -unplugged memory.
+>> +unplugged memory. \footnote{This feature is expected to be enabled on platforms
+>> +with memory properties that might get modified implicitly on memory access.}
+> 
+> "On platforms with memory properties (...), this feature is expected to
+> be offered by the device." ?
+> 
 
-"On platforms with memory properties (...), this feature is expected to
-be offered by the device." ?
+Ack.
 
->  \end{description}
->  
->  \subsection{Device configuration layout}\label{sec:Device Types / Memory Device / Device configuration layout}
-> @@ -159,8 +170,8 @@ \subsection{Device Initialization}\label{Device Types / Memory Device / Device I
->  
->  The device MUST NOT change the state of memory blocks during device reset.
->  
-> -The device MUST NOT change the content of plugged memory blocks during
-> -device reset.
-> +The device MUST NOT modify memory or memory properties of plugged memory
-> +blocks during device reset.
->  
->  \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Operation}
->  
-> @@ -223,23 +234,30 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
->  
->  \drivernormative{\subsubsection}{Device Operation}{Device Types / Memory Device / Device Operation}
->  
-> -The driver MUST NOT write to unplugged memory blocks.
-> +The driver MUST NOT write memory or modify memory properties of
-> +unplugged memory blocks.
->  
-> -The driver MUST NOT read from unplugged memory blocks outside
-> -\field{usable_region_size}.
-> +The driver MUST NOT read memory or query memory properties of unplugged
-> +memory blocks outside \field{usable_region_size}.
->  
->  Without VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE, the driver SHOULD NOT read
-> -memory of unplugged memory blocks inside \field{usable_region_size}.
-> +memory or query memory properties of unplugged memory blocks inside
-> +\field{usable_region_size}.
->  
-> -With VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE, the driver MUST NOT read memory of
-> -unplugged memory blocks.
-> +With VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE, the driver MUST NOT read memory
-> +or query memory properties of unplugged memory blocks inside
-> +\field{usable_region_size}.
->  
-> -The driver MUST NOT request to unplug memory blocks while the memory is
-> -still in use.
-> +The driver MUST NOT request unplug of memory blocks while corresponding memory
-> +or memory properties are still in use.
->  
->  The driver SHOULD initialize memory blocks after plugging them, the content
->  is undefined.
->  
-> +The driver SHOULD initialize memory properties of memory blocks after plugging
-> +them if it cannot deal with either the default settings or the previous
-> +setting.
+[...]
 
-This would imply that any memory properties need to allow modification
-by the driver, right? It's clear what you want to introduce this for,
-but do we need to tighten the definition of what kind of memory
-properties we are talking about?
+>>   
+>> -The driver MUST NOT request to unplug memory blocks while the memory is
+>> -still in use.
+>> +The driver MUST NOT request unplug of memory blocks while corresponding memory
+>> +or memory properties are still in use.
+>>   
+>>   The driver SHOULD initialize memory blocks after plugging them, the content
+>>   is undefined.
+>>   
+>> +The driver SHOULD initialize memory properties of memory blocks after plugging
+>> +them if it cannot deal with either the default settings or the previous
+>> +setting.
+> 
+> This would imply that any memory properties need to allow modification
+> by the driver, right? It's clear what you want to introduce this for,
+> but do we need to tighten the definition of what kind of memory
+> properties we are talking about?
 
-> +
->  The driver SHOULD react to resize requests from the device
->  (\field{requested_size} in the device configuration changed) by
->  (un)plugging memory blocks.
-> @@ -253,25 +271,34 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
->  
->  \devicenormative{\subsubsection}{Device Operation}{Device Types / Memory Device / Device Operation}
->  
-> -The device MAY change the content of unplugged memory blocks at any time.
-> +The device MUST provide the exact same memory properties with the exact same
-> +semantics for device memory the platform provides in the same configuration for
-> +ordinary RAM.
+Right, we actually want to have:
 
-This supposes that all RAM has the same properties across the whole
-platform, right? Do we want to be able to support some kind of
-heterogeneous platforms, or is that too much of an odd case?
+"The device MUST allow to read and write memory and querying and 
+modifying memory properties of plugged memory blocks."
 
-> +
-> +The device MAY modify memory or reset memory properties to defaults of unplugged
-> +memory blocks at any time.
->  
-> -The device MUST NOT change the content of plugged memory blocks.
-> +The device MUST NOT modify memory or memory properties of plugged memory
-> +blocks.
->  
->  Without VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE, the device MUST allow the CPU to
-> -read memory of unplugged memory blocks inside \field{usable_region_size}.
-> -\footnote{To allow for simplified dumping of memory. The CPU is expected to
-> -copy such memory to another location before starting DMA.}
-> +read memory or query memory properties of unplugged memory blocks inside
-> +\field{usable_region_size}. \footnote{To allow for simplified dumping of
-> +memory. The CPU is expected to copy such memory to another location before
-> +starting DMA.}
->  
->  With VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE, the device MAY allow the CPU to
-> -read memory of unplugged memory blocks inside \field{usable_region_size}.
-> +read memory or query memory properties of unplugged memory blocks inside
-> +\field{usable_region_size}.
->  
-> -The device MAY allow to read from unplugged memory blocks inside the
-> -usable device-managed region via DMA.
-> +The device MAY allow to read memory or query memory properties of unplugged
-> +memory blocks inside \field{usable_region_size} via DMA.
->  
-> -The device MAY allow to read from unplugged memory blocks outside
-> -the usable device-managed region.
-> +The device MAY allow to read memory or query memory properties of unplugged
-> +memory blocks outside \field{usable_region_size} via DMA.
->  
-> -The device MAY allow to write to unplugged memory blocks.
-> +The device MAY allow to write memory or modify memory properties of unplugged
-> +memory blocks.
->  
->  The device MAY change the state of memory blocks during system resets.
->  
+(I would have thought we'd have that but I cannot find it right now; too 
+basic that I seem to have forgotten to add it initially)
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+What I want to document here, for example, is that on s390x you might 
+just get the "0" storage key or the "stable" storage attribute (--> 
+platform default) -- platform defaults. But you won't suddenly get a 
+setting that would result in unexpected behavior (e.g., strange 
+protection via the storage key, data loss due to the storage attribute).
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+So consequently, when e.g., plugging memory in Linux where we don't have 
+to care about storage keys at all; we won't have to initialize storage 
+keys when plugging memory, because it will contain a safe/default value 
+(or just the old values the driver set earlier) that won't give us surprises
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+What would be your suggestion?
+
+> 
+>> +
+>>   The driver SHOULD react to resize requests from the device
+>>   (\field{requested_size} in the device configuration changed) by
+>>   (un)plugging memory blocks.
+>> @@ -253,25 +271,34 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+>>   
+>>   \devicenormative{\subsubsection}{Device Operation}{Device Types / Memory Device / Device Operation}
+>>   
+>> -The device MAY change the content of unplugged memory blocks at any time.
+>> +The device MUST provide the exact same memory properties with the exact same
+>> +semantics for device memory the platform provides in the same configuration for
+>> +ordinary RAM.
+> 
+> This supposes that all RAM has the same properties across the whole
+> platform, right? Do we want to be able to support some kind of
+> heterogeneous platforms, or is that too much of an odd case?
+
+I think, if the platform already doesn't have the same memory properties 
+for all ordinary RAM (note that PMEM might be special and is not 
+ordinary RAM) in the configuration, then we'd be dealing with an odd 
+corner case already.
+
+If we would have such a platform, then I'd assume that the device would 
+also be flexible to either provide memory properties or not. Again, I'd 
+say we'd mimic the exact same semantics as the paltform.
+
+I guess once we actually run into such an odd case and want to handle it 
+properly for virtio-mem, we'd have to document how to detect on such a 
+platform if memory properties actually apply; there would have to be a 
+way already to detect the same for other ordinary RAM.
+
+Maybe we can rephrase this statement to cover this case already.
+
+Thanks!
+
+-- 
+Thanks,
+
+David / dhildenb
 
