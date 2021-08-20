@@ -1,8 +1,8 @@
 Return-Path: <jasowang@redhat.com>
 From: Jason Wang <jasowang@redhat.com>
-Subject: [RFC PATCH 2/3] virtio-pci: PASID support
-Date: Fri, 20 Aug 2021 15:59:19 +0800
-Message-Id: <20210820075920.42355-3-jasowang@redhat.com>
+Subject: [RFC PATCH 3/3] virtio-pci: introduce the management device capability
+Date: Fri, 20 Aug 2021 15:59:20 +0800
+Message-Id: <20210820075920.42355-4-jasowang@redhat.com>
 In-Reply-To: <20210820075920.42355-1-jasowang@redhat.com>
 References: <20210820075920.42355-1-jasowang@redhat.com>
 MIME-Version: 1.0
@@ -12,93 +12,118 @@ To: virtio-comment@lists.oasis-open.org
 Cc: mst@redhat.com, cohuck@redhat.com, stefanha@redhat.com, mgurtovoy@nvidia.com, eperezma@redhat.com, lulu@redhat.com, lingshan.zhu@intel.com, zhengkuan.yh@alibaba-inc.com, Jason Wang <jasowang@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This patch introduce a new virtio-pci capability for assigning PASID
-for a specific virtqueue.
+This patch introduces the management device capability. The device
+that offers this capability is the management device. The management
+device driver can use this capability to create managed device who
+doesn't have a dedicated transport specific configuration interface.
+
+The idea is simple, introduce a device_select field then we can reuse
+almost all the existing capabilities (except for the shared memory
+one) to configure the managed device.
+
+A simple managed device provision interface is also proposed.
+
+To be simple, I tie this capability with the PASID capability instead
+of introducing device MMU functions.
 
 Signed-off-by: Jason Wang <jasowang@redhat.com>
 ---
- content.tex | 54 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+ content.tex | 75 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
 diff --git a/content.tex b/content.tex
-index 50c0523..5266965 100644
+index 5266965..d3ebd76 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -707,6 +707,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
- #define VIRTIO_PCI_CAP_VENDOR_CFG        9
- /* MSI-X configuration */
+@@ -709,6 +709,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
  #define VIRTIO_CPI_CAP_MSIX_CFG          10
-+/* PASID configuration */
-+#define VIRTIO_PCI_CAP_PASID             11
+ /* PASID configuration */
+ #define VIRTIO_PCI_CAP_PASID             11
++/* Managed device configuration */
++#define VIRTIO_PCI_CAP_MANAGED_DEV_CFG   12
  \end{lstlisting}
  
          Any other value is reserved for future use.
-@@ -1334,6 +1336,54 @@ \subsubsection{MSI-X configuration capability}\label{sec:Virtio Transport Option
- The driver MUST mask a specific vector before trying to setup the
- MSI-X addresses and MSI-X data.
+@@ -1384,6 +1386,79 @@ \subsubsection{PASID configuration}\label{MSI-X configuration capability}{PASID
+ The driver MUST configure the PASID for each virtqueue if PASID is
+ enabled via PASID Extended Capability.
  
-+\subsubsection{PASID configuration}\label{MSI-X configuration capability}{PASID / Virtio Over PCI Bus / PCI Device Layout / PASID configuration}
++\subsubsection{Managed device configuration}\label{Managed device configuration}{PASID / Virtio Over PCI Bus / PCI Device Layout / Managed device configuration}
 +
-+The VIRTIO_PCI_CAP_RING_PASID capability is for assigning PASID for a
-+specific virtqueue.
++The VIRTIO_PCI_CAP_MANAGED_DEV_CFG capability allows the one device to
++manage other (usually virtual) virtio devices. The device that offers
++VIRTIO_PCI_CAP_MANAGED_DEV_CFG is called management device. The
++device that is managed by the management device is called managed
++device.
 +
 +The capability is immediately followed by an additional field like so:
 +
 +\begin{lstlisting}
-+struct virtio_pci_cfg_cap {
++struct virtio_pci_managed_dev_cap {
 +        struct virtio_pci_cap cap;
-+        le16 queue_select;       /* read-write */
-+        le32 {
-+          queue_pasid : 20;      /* read-write */
-+          reserved : 12;         /* read-write */
-+        };
-+        u8 pasid_enable;         /* read-write */
++        u32 num_devices;            /* read-only for driver */
++        le32 device_select;         /* read-write */
++        le32 config_select;         /* read-write */
++        u8 config[256];             /* read-write */
++        u8 create;                  /* read-write */
++        u8 create_ok;               /* read-only for driver */
 +};
++
++/* create_ok values */
++#define VIRTIO_MGMT_OK          0
++#define VIRTIO_MGMT_ID_DUP      1
++#define VIRTIO_MGMT_INVALID_CFG 2
 +\end{lstlisting}
 +
 +\begin{description}
-+\item[\field{queue_select}]
-+        Queue Select. The driver selects which virtqueue the following
-+        fields refer to.
-+\item[\field{queue_pasid}]
-+        PASID for the virtqueue.
-+\item[\field{reserved}]
-+        Reserved for the future use.
-+\item[\field{pasid_enable}]
-+        The driver use this to enable (write 1) or disable (write 0)
-+        PASID for the virtqueue.
++\item[\field{num_devices}]
++        The device specifies the maximum number of managed devices
++        here.
++\item[\field{device_select}]
++        Device Select. The driver selects which device the following
++        fields and other virtio-pci capabilities refer to.
++\item[\field{config_select}]
++        The driver uses this to select which 256 bytes chunk of
++        \field{config} shows.
++\item[field{config}]
++        The metadata that is used to create a managed device. The
++        actual format is device specific.
++\item[\field{create}]
++        The driver use this to create (write 1) or destroy (write 0) a
++        specific managed device.
++\item[\field{create_ok}]
++        The device specifies whether the managed device is
++        successfully created or destroyed. 0 means success, others
++        means failure.
 +\end{description}
 +
-+\devicenormative{\paragraph}{PASID configuration}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PASID configuration}
++\devicenormative{\paragraph}{Managed device configuration}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Managed device configuration}
 +
-+The device MUST present at least one VIRTIO_PCI_CAP_PASID capability
-+if it presents the PASID Extended Capability.
++The management device MUST reserved device index 0 as itself.
 +
-+The device MUST NOT present VIRTIO_PCI_CAP_PASID capability if PASID
-+Extended Capability is not presented.
++The management device MUST present 0 to \field{device_select} upon
++reset.
 +
-+The device MUST disable PASID for all virtqueues and presenting 0 to
-+\field{enable} upon reset.
++The management device MUST fail the write to \field{create} if the
++\field{device_select} is zero.
 +
-+\drivernormative{\paragraph}{PASID configuration}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PASID configuration}
++The management device MUST fail the creation of a managed device if
++the filed\{device_select} is duplicated with the id of an existing
++managed device.
 +
-+The driver MUST configure the PASID for each virtqueue if PASID is
-+enabled via PASID Extended Capability.
++The device MUST NOT present VIRTIO_PCI_CAP_MANAGED_DEV_CFG if
++VIRTIO_PCI_CAP_PASID is not presented.
++
++\drivernormative{\paragraph}{Managed device configuration}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Managed device configuration}
++
++The management driver MUST create a managed device by allocating a
++non-zero device id for \field{device_select} and use that for the
++following steps for this managed device if the creating is succeed
++(read \field{create_ok} as zero).
 +
  \subsubsection{Legacy Interfaces: A Note on PCI Device Layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Legacy Interfaces: A Note on PCI Device Layout}
  
  Transitional devices MUST present part of configuration
-@@ -1590,6 +1640,10 @@ \subsubsection{Device Initialization}\label{sec:Virtio Transport Options / Virti
-   corresponding to this vector into \field{queue_msix_vector}. Read
-   \field{queue_msix_vector}: on success, previously written value is
-   returned; on failure, NO_VECTOR value is returned.
-+
-+\item Optionally, if PASID Extended Capability is present and enabled
-+  on the device, select a PASID to use for the TLP of a
-+  virtqueue. Write the PASID value into \field{pasid}.
- \end{enumerate}
- 
- \subparagraph{Legacy Interface: A Note on Virtqueue Configuration}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Device Initialization / Virtqueue Configuration / Legacy Interface: A Note on Virtqueue Configuration}
 -- 
 2.24.3 (Apple Git-128)
 
