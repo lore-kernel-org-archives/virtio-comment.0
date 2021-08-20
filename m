@@ -1,5 +1,8 @@
-Return-Path: <jasowang@redhat.com>
+Return-Path: <mst@redhat.com>
+Date: Fri, 20 Aug 2021 03:03:57 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
 Subject: Re: [virtio-comment] Live Migration of Virtio Virtual Function
+Message-ID: <20210820023540-mutt-send-email-mst@kernel.org>
 References: <DM4PR12MB504062CEF6BEDABE6F76DEC2DEF99@DM4PR12MB5040.namprd12.prod.outlook.com>
  <62bd1c8d-c56e-fc98-f833-61d9c999f814@redhat.com>
  <cc7e769a-fee6-2940-74a7-03dbc98a109f@nvidia.com>
@@ -9,85 +12,199 @@ References: <DM4PR12MB504062CEF6BEDABE6F76DEC2DEF99@DM4PR12MB5040.namprd12.prod.
  <5eb7d5b4-a715-5ef2-81f7-9721d865d6ac@nvidia.com>
  <5b4db3ac-0291-69ea-7e82-5b3f19049e61@redhat.com>
  <20210819104216-mutt-send-email-mst@kernel.org>
-From: Jason Wang <jasowang@redhat.com>
-Message-ID: <af402bd0-f6b1-811a-08da-7e3b23be6c05@redhat.com>
-Date: Fri, 20 Aug 2021 10:17:05 +0800
+ <af402bd0-f6b1-811a-08da-7e3b23be6c05@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210819104216-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset="gbk"; format="flowed"
-Content-Transfer-Encoding: base64
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
+In-Reply-To: <af402bd0-f6b1-811a-08da-7e3b23be6c05@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+To: Jason Wang <jasowang@redhat.com>
 Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, Shahaf Shuler <shahafs@nvidia.com>, Ariel Adam <aadam@redhat.com>, Amnon Ilan <ailan@redhat.com>, Bodong Wang <bodong@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>, Stefan Hajnoczi <stefanha@redhat.com>, Eugenio Perez Martin <eperezma@redhat.com>, Liran Liss <liranl@nvidia.com>, Oren Duer <oren@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-CtTaIDIwMjEvOC8xOSDPws7nMTA6NTgsIE1pY2hhZWwgUy4gVHNpcmtpbiDQtLXAOgo+IE9uIFRo
-dSwgQXVnIDE5LCAyMDIxIGF0IDEwOjQ0OjQ2QU0gKzA4MDAsIEphc29uIFdhbmcgd3JvdGU6Cj4+
-PiBUaGUgUEYgZGV2aWNlIHdpbGwgaGF2ZSBhbiBvcHRpb24gdG8gcXVpZXNjZS9mcmVlemUgdGhl
-IFZGIGRldmljZS4KPj4KPj4gSXMgc3VjaCBkZXNpZ24gYSBtdXN0PyBJZiBubywgd2h5IG5vdCBz
-aW1wbHkgaW50cm9kdWNlIHRob3NlIGZ1bmN0aW9ucyBpbgo+PiB0aGUgVkY/Cj4gTWFueSBJT01N
-VXMgb25seSBzdXBwb3J0IHByb3RlY3Rpb25zIGF0IHRoZSBmdW5jdGlvbiBsZXZlbC4KPiBUaHVz
-IHdlIG5lZWQgYWJpbGl0eSB0byBoYXZlIG9uZSBkZXZpY2UgKGUuZy4gYSBQRikKPiB0byBjb250
-cm9sIG1pZ3JhdGlvbiBvZiBhbm90aGVyIChlLmcuIGEgVkYpLgoKClNvIGFzIGRpc2N1c3NlZCBw
-cmV2aW91c2x5LCB0aGUgb25seSBwb3NzaWJsZSAiYWR2YW50YWdlIiBpcyB0aGF0IHRoZSAKRE1B
-IGlzIGlzb2xhdGVkLgoKCj4gVGhpcyBpcyBiZWNhdXNlIGFsbG93aW5nIFZGIHRvIGFjY2VzcyBo
-eXBlcnZpc29yIG1lbW9yeSB1c2VkIGZvcgo+IG1pZ3JhdGlvbiBpcyBub3QgYSBnb29kIGlkZWEu
-Cj4gRm9yIElPTU1VcyB0aGF0IHN1cHBvcnQgc3ViZnVuY3Rpb25zLCB0aGVzZSAiZGV2aWNlcyIg
-Y291bGQgYmUKPiBzdWJmdW5jdGlvbnMuCj4KPiBUaGUgb25seSBhbHRlcm5hdGl2ZSBpcyB0byBr
-ZWVwIHRoaW5ncyBpbiBkZXZpY2UgbWVtb3J5IHdoaWNoCj4gZG9lcyBub3QgbmVlZCBhbiBJT01N
-VS4KPiBJIGd1ZXNzIHdlJ2QgZW5kIHVwIHdpdGggc29tZXRoaW5nIGxpa2UgYSBWUSBpbiBkZXZp
-Y2UgbWVtb3J5IHdoaWNoIG1pZ2h0Cj4gYmUgdHJpY2t5IGZyb20gbXVsdGlwbGUgcG9pbnRzIG9m
-IHZpZXcsIGJ1dCB5ZXMsIHRoaXMgY291bGQgYmUKPiB1c2VmdWwgYW5kIHBlb3BsZSBkaWQgYXNr
-IGZvciBzdWNoIGEgY2FwYWJpbGl0eSBpbiB0aGUgcGFzdC4KCgpJIGFzc3VtZSB0aGUgc3BlYyBh
-bHJlYWR5IHN1cHBvcnQgdGhpcy4gV2UgcHJvYmFibHkgbmVlZCBzb21lIApjbGFyaWZpY2F0aW9u
-IGF0IHRoZSB0cmFuc3BvcnQgbGF5ZXIuIEJ1dCBpdCdzIGFzIHNpbXBsZSBhcyBzZXR0aW5nIE1N
-SU8gCmFyZSBhcyB2aXJ0cXVldWUgYWRkcmVzcz8KCkV4Y2VwdCBmb3IgdGhlIGRpcnR5IGJpdCB0
-cmFja2luZywgd2UgZG9uJ3QgaGF2ZSBidWxrIGRhdGEgdGhhdCBuZWVkcyB0byAKYmUgdHJhbnNm
-ZXJyZWQgZHVyaW5nIG1pZ3JhdGlvbi4gU28gYSB2aXJ0cXVldWUgaXMgbm90IG11c3QgZXZlbiBp
-biB0aGlzIApjYXNlLgoKCj4KPj4gSWYgeWVzLCB3aGF0J3MgdGhlIHJlYXNvbiBmb3IgbWFraW5n
-IHZpcnRpbyBkaWZmZXJlbnQgKGUuZyBWQ1BVIGxpdmUKPj4gbWlncmF0aW9uIGlzIG5vdCBkZXNp
-Z25lZCBsaWtlIHRoYXQpPwo+IEkgdGhpbmsgdGhlIG1haW4gZGlmZmVyZW5jZSBpcyB3ZSBuZWVk
-IFBGJ3MgaGVscCBmb3IgbWVtb3J5Cj4gdHJhY2tpbmcgZm9yIHByZS1jb3B5IG1pZ3JhdGlvbiBh
-bnl3YXkuCgoKU3VjaCBraW5kIG9mIG1lbW9yeSB0cmFja2luZyBpcyBub3QgYSBtdXN0LiBLVk0g
-dXNlcyBzb2Z0d2FyZSBhc3Npc3RlZCAKdGVjaG5vbG9naWVzICh3cml0ZSBwcm90ZWN0aW9uKSBh
-bmQgaXQgd29ya3MgdmVyeSB3ZWxsLiBGb3IgdmlydGlvLCAKdGVjaG5vbG9neSBsaWtlIHNoYWRv
-dyB2aXJ0cXVldWUgaGFzIGJlZW4gdXNlZCBieSBEUERLIGFuZCBwcm90b3R5cGVkIGJ5IApFdWdl
-bmlvLgoKRXZlbiBpZiB3ZSB3YW50IHRvIGdvIHdpdGggaGFyZHdhcmUgdGVjaG5vbG9neSwgd2Ug
-aGF2ZSBtYW55IAphbHRlcm5hdGl2ZXMgKGFzIHdlJ3ZlIGRpc2N1c3NlZCBpbiB0aGUgcGFzdCk6
-CgoxKSBJT01NVSBkaXJ0eSBiaXQgKEUuZyBtb2Rlcm4gSU9NTVUgaGF2ZSBFQSBiaXQgZm9yIGxv
-Z2dpbmcgZXh0ZXJuYWwgCmRldmljZSB3cml0ZSkKMikgV3JpdGUgcHJvdGVjdGlvbiB2aWEgSU9N
-TVUgb3IgZGV2aWNlIE1NVQozKSBBZGRyZXNzIHNwYWNlIElEIGZvciBpc29sYXRpbmcgRE1BcwoK
-VXNpbmcgcGh5c2ljYWwgZnVuY3Rpb24gaXMgc3ViLW9wdGltYWwgdGhhdCBhbGwgb2YgdGhlIGFi
-b3ZlIHNpbmNlOgoKMSkgbGltaXRlZCB0byBhIHNwZWNpZmljIHRyYW5zcG9ydCBvciBpbXBsZW1l
-bnRhdGlvbiBhbmQgaXQgZG9lc24ndCB3b3JrIApmb3IgZGV2aWNlIG9yIHRyYW5zcG9ydCB3aXRo
-b3V0IFBGCjIpIHRoZSB2aXJ0aW8gbGV2ZWwgZnVuY3Rpb24gaXMgbm90IHNlbGYgY29udGFpbmVk
-LCB0aGlzIG1ha2VzIGFueSAKZmVhdHVyZSB0aGF0IHRpZXMgdG8gUEYgaW1wb3NzaWJsZSB0byBi
-ZSB1c2VkIGluIHRoZSBuZXN0ZWQgbGF5ZXIKMykgbW9yZSBjb21wbGljYXRlZCB0aGFuIGxldmVy
-YWdpbmcgdGhlIGV4aXN0aW5nIGZhY2lsaXRpZXMgcHJvdmlkZWQgYnkgCnRoZSBwbGF0Zm9ybSBv
-ciB0cmFuc3BvcnQKCkNvbnNpZGVyIChQKUFTSUQgd2lsbCBiZSByZWFkeSB2ZXJ5IHNvb24sIHdv
-cmthcm91bmQgdGhlIHBsYXRmb3JtIApsaW1pdGF0aW9uIHZpYSBQRiBpcyBub3QgYSBnb29kIGlk
-ZWEgZm9yIG1lLiBFc3BlY2lhbGx5IGNvbnNpZGVyIGl0J3MgCm5vdCBhIG11c3QgYW5kIHdlIGhh
-ZCBhbHJlYWR5IHByb3RvdHlwZSB0aGUgc29mdHdhcmUgYXNzaXN0ZWQgdGVjaG5vbG9neS4KCgo+
-ICAgTWlnaHQgYXMgd2VsbCBpbnRlZ3JhdGUKPiB0aGUgcmVzdCBvZiBzdGF0ZSBpbiB0aGUgc2Ft
-ZSBjaGFubmVsLgoKClRoYXQncyBhbm90aGVyIHF1ZXN0aW9uLiBJIHRoaW5rIGZvciB0aGUgZnVu
-Y3Rpb24gdGhhdCBpcyBhIG11c3QgZm9yIApkb2luZyBsaXZlIG1pZ3JhdGlvbiwgaW50cm9kdWNp
-bmcgdGhlbSBpbiB0aGUgZnVuY3Rpb24gaXRzZWxmIGlzIHRoZSAKbW9zdCBuYXR1cmFsIHdheSBz
-aW5jZSB3ZSBkaWQgYWxsIHRoZSBvdGhlciBmYWNpbGl0aWVzIHRoZXJlLiBUaGlzIGVhc2UgCnRo
-ZSBmdW5jdGlvbiB0aGF0IGNhbiBiZSB1c2VkIGluIHRoZSBuZXN0ZWQgbGF5ZXIuCgpBbmQgdXNp
-bmcgdGhlIGNoYW5uZWwgaW4gdGhlIFBGIGlzIG5vdCBjb21pbmcgZm9yIGZyZWUuIEl0IHJlcXVp
-cmVzIApzeW5jaHJvbml6YXRpb24gaW4gdGhlIHNvZnR3YXJlIG9yIGV2ZW4gUU9TLgoKT3Igd2Ug
-Y2FuIGp1c3Qgc2VwYXJhdGUgdGhlIGRpcnR5IHBhZ2UgdHJhY2tpbmcgaW50byBQRiAoYnV0IG5l
-ZWQgdG8gCmRlZmluZSB0aGVtIGFzIGJhc2ljIGZhY2lsaXR5IGZvciBmdXR1cmUgZXh0ZW5zaW9u
-KS4KCgo+Cj4gQW5vdGhlciBhbnN3ZXIgaXMgdGhhdCBDUFVzIHRyaXZpYWxseSBzd2l0Y2ggYmV0
-d2Vlbgo+IGZ1bmN0aW9ucyBieSBzd2l0Y2hpbmcgdGhlIGFjdGl2ZSBwYWdlIHRhYmxlcy4gRm9y
-IFBDSSBETUEKPiBpdCBpcyBhbGwgbXVjaCB0cmlja2llciBzaW5lIHRoZSBwYWdlIHRhYmxlcyBj
-YW4gYmUgc2VwYXJhdGUKPiBmcm9tIHRoZSBkZXZpY2UsIGFuZCBhc3N1bWVkIHRvIGJlIG1vc3Rs
-eSBzdGF0aWMuCgoKSSBkb24ndCBzZWUgbXVjaCBkaWZmZXJlbnQsIHRoZSBwYWdlIHRhYmxlIGlz
-IGFsc28gc2VwYXJhdGVkIGZyb20gdGhlIApDUFUuIElmIHRoZSBkZXZpY2Ugc3VwcG9ydHMgc3Rh
-dGUgc2F2ZSBhbmQgcmVzdG9yZSB3ZSBjYW4gc2NoZWR1bGluZyB0aGUgCm11bHRpcGxlIFZNcy9W
-Q1BVcyBvbiB0aGUgc2FtZSBkZXZpY2UuCgoKPiBTbyBpZiB5b3Ugd2FudCB0byBjcmVhdGUgc29t
-ZXRoaW5nIGxpa2UgdGhlIFZNQ1MgdGhlbgo+IGFnYWluIHlvdSBlaXRoZXIgbmVlZCBzb21lIGhl
-bHAgZnJvbSBhbm90aGVyIGRldmljZSBvcgo+IHB1dCBpdCBpbiBkZXZpY2UgbWVtb3J5LgoKCkZv
-ciBDUFUgdmlydHVhbGl6YXRpb24sIHRoZSBzdGF0ZXMgY291bGQgYmUgc2F2ZWQgYW5kIHJlc3Rv
-cmVkIHZpYSBNU1JzLiAKRm9yIHZpcnRpbywgYWNjZXNzaW5nIHRoZW0gdmlhIHJlZ2lzdGVycyBp
-cyBhbHNvIHBvc3NpYmxlIGFuZCBtdWNoIG1vcmUgCnNpbXBsZS4KClRoYW5rcwoKCj4KPgoK
+On Fri, Aug 20, 2021 at 10:17:05AM +0800, Jason Wang wrote:
+> 
+> 在 2021/8/19 下午10:58, Michael S. Tsirkin 写道:
+> > On Thu, Aug 19, 2021 at 10:44:46AM +0800, Jason Wang wrote:
+> > > > The PF device will have an option to quiesce/freeze the VF device.
+> > > 
+> > > Is such design a must? If no, why not simply introduce those functions in
+> > > the VF?
+> > Many IOMMUs only support protections at the function level.
+> > Thus we need ability to have one device (e.g. a PF)
+> > to control migration of another (e.g. a VF).
+> 
+> 
+> So as discussed previously, the only possible "advantage" is that the DMA is
+> isolated.
+> 
+> 
+> > This is because allowing VF to access hypervisor memory used for
+> > migration is not a good idea.
+> > For IOMMUs that support subfunctions, these "devices" could be
+> > subfunctions.
+> > 
+> > The only alternative is to keep things in device memory which
+> > does not need an IOMMU.
+> > I guess we'd end up with something like a VQ in device memory which might
+> > be tricky from multiple points of view, but yes, this could be
+> > useful and people did ask for such a capability in the past.
+> 
+> 
+> I assume the spec already support this. We probably need some clarification
+> at the transport layer. But it's as simple as setting MMIO are as virtqueue
+> address?
+
+Several issues
+- we do not support changing VQ address. Devices do need to support
+  changing memory addresses.
+- Ordering becomes tricky especially .
+  E.g. when device reads descriptor in VQ
+  memory it suddenly does not flush out writes into buffer
+  that is potentially in RAM. We might also need even stronger
+  barriers on the driver side. We used dma_wmb but now it's
+  probably need to be wmb.
+  Reading multibyte structures from device memory is slow.
+  To get reasonable performance we might need to mark this device memory
+  WB or WC. That generally makes things even trickier.
+
+
+> Except for the dirty bit tracking, we don't have bulk data that needs to be
+> transferred during migration. So a virtqueue is not must even in this case.
+
+Main traffic is write tracking.
+
+
+> 
+> > 
+> > > If yes, what's the reason for making virtio different (e.g VCPU live
+> > > migration is not designed like that)?
+> > I think the main difference is we need PF's help for memory
+> > tracking for pre-copy migration anyway.
+> 
+> 
+> Such kind of memory tracking is not a must. KVM uses software assisted
+> technologies (write protection) and it works very well.
+
+So page-fault support is absolutely a viable option IMHO.
+To work well we need VIRTIO_F_PARTIAL_ORDER - there was not
+a lot of excitement but sure I will finalize and repost it.
+
+
+However we need support for reporting and handling faults.
+Again this is data path stuff and needs to be under
+hypervisor control so I guess we get right back
+to having this in the PF?
+
+
+
+
+
+> For virtio,
+> technology like shadow virtqueue has been used by DPDK and prototyped by
+> Eugenio.
+
+That's ok but I think since it affects performance at 100% of the
+time when active we can not rely on this as the only solution.
+
+
+> Even if we want to go with hardware technology, we have many alternatives
+> (as we've discussed in the past):
+> 
+> 1) IOMMU dirty bit (E.g modern IOMMU have EA bit for logging external device
+> write)
+> 2) Write protection via IOMMU or device MMU
+> 3) Address space ID for isolating DMAs
+
+Not all systems support any of the above unfortunately.
+
+Also some systems might have a limited # of PASIDs.
+So burning up a extra PASID per VF halving their
+number might not be great as the only option.
+
+
+> 
+> Using physical function is sub-optimal that all of the above since:
+> 
+> 1) limited to a specific transport or implementation and it doesn't work for
+> device or transport without PF
+> 2) the virtio level function is not self contained, this makes any feature
+> that ties to PF impossible to be used in the nested layer
+> 3) more complicated than leveraging the existing facilities provided by the
+> platform or transport
+
+I think I disagree with 2 and 3 above simply because controlling VFs through
+a PF is how all other devices did this. About 1 - well this is
+just about us being smart and writing this in a way that is
+generic enough, right? E.g. include options for PASIDs too.
+
+Note that support for cross-device addressing is useful
+even outside of migration.  We also have things like
+priority where it is useful to adjust properties of
+a VF on the fly while it is active. Again the normal way
+all devices do this is through a PF. Yes a bunch of tricks
+in QEMU is possible but having a driver in host kernel
+and just handle it in a contained way is way cleaner.
+
+
+> Consider (P)ASID will be ready very soon, workaround the platform limitation
+> via PF is not a good idea for me. Especially consider it's not a must and we
+> had already prototype the software assisted technology.
+
+Well PASID is just one technology.
+
+
+> 
+> >   Might as well integrate
+> > the rest of state in the same channel.
+> 
+> 
+> That's another question. I think for the function that is a must for doing
+> live migration, introducing them in the function itself is the most natural
+> way since we did all the other facilities there. This ease the function that
+> can be used in the nested layer.
+> 
+> And using the channel in the PF is not coming for free. It requires
+> synchronization in the software or even QOS.
+> 
+> Or we can just separate the dirty page tracking into PF (but need to define
+> them as basic facility for future extension).
+
+Well maybe just start focusing on write tracking, sure.
+Once there's a proposal for this we can see whether
+adding other state there is easier or harder.
+
+
+> 
+> > 
+> > Another answer is that CPUs trivially switch between
+> > functions by switching the active page tables. For PCI DMA
+> > it is all much trickier sine the page tables can be separate
+> > from the device, and assumed to be mostly static.
+> 
+> 
+> I don't see much different, the page table is also separated from the CPU.
+> If the device supports state save and restore we can scheduling the multiple
+> VMs/VCPUs on the same device.
+
+It's just that performance is terrible. If you keep losing packets
+migration might as well not be live.
+
+> 
+> > So if you want to create something like the VMCS then
+> > again you either need some help from another device or
+> > put it in device memory.
+> 
+> 
+> For CPU virtualization, the states could be saved and restored via MSRs. For
+> virtio, accessing them via registers is also possible and much more simple.
+> 
+> Thanks
+
+IMy guess is performance is going to be bad. MSRs are part of the
+same CPU that is executing the accesses....
+
+> 
+> > 
+> > 
+
