@@ -1,60 +1,54 @@
-Return-Path: <mgurtovoy@nvidia.com>
-Subject: Re: [PATCH 1/1] Fix copy/paste bug in PCI transport paragraph
-References: <20210815160140.22749-1-mgurtovoy@nvidia.com>
- <20210815174335-mutt-send-email-mst@kernel.org>
-From: Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <84ee7baf-869a-1647-edaf-c86f1bc771e7@nvidia.com>
-Date: Mon, 16 Aug 2021 11:10:52 +0300
+Return-Path: <virtio-comment-return-2256-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 095E39864EA
+	for <virtio-comment@lists.oasis-open.org>; Thu, 26 Aug 2021 02:13:19 +0000 (UTC)
+From: Gurchetan Singh <gurchetansingh@chromium.org>
+Date: Wed, 25 Aug 2021 19:13:11 -0700
+Message-Id: <20210826021313.378-1-gurchetansingh@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <20210815174335-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com, stefanha@redhat.com, eperezma@redhat.com, oren@nvidia.com, jasowang@redhat.com, aadam@redhat.com
+Subject: [virtio-comment] [RFC PATCH 0/2] Context init virtio-gpu spec
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
+To: virtio-comment@lists.oasis-open.org
+Cc: kraxel@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+Here's the virtio spec change for context init.  The first patch
+clarifies existing features, and second patch adds the new features
+outlined here:
 
-On 8/16/2021 12:44 AM, Michael S. Tsirkin wrote:
-> On Sun, Aug 15, 2021 at 07:01:40PM +0300, Max Gurtovoy wrote:
->> Refer to "Shared memory capability" and not to "Device-specific
->> configuration".
->>
->> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
->> ---
->>   content.tex | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/content.tex b/content.tex
->> index 1bfce9f..60b6072 100644
->> --- a/content.tex
->> +++ b/content.tex
->> @@ -1144,7 +1144,7 @@ \subsubsection{Shared memory capability}\label{sec:Virtio Transport Options / Vi
->>   The identifier in \field{cap.id} does not denote a certain order of
->>   preference; it is only used to uniquely identify a region.
->>   
->> -\devicenormative{\paragraph}{Device-specific configuration}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Shared memory capability}
->> +\devicenormative{\paragraph}{Shared memory capability}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Shared memory capability}
->>   
->>   The region defined by the combination of \field{cap.offset},
->>   \field{offset_hi}, and \field {cap.length}, \field{length_hi}
->> @@ -1152,7 +1152,7 @@ \subsubsection{Shared memory capability}\label{sec:Virtio Transport Options / Vi
->>   
->>   The \field{cap.id} MUST be unique for any one device instance.
->>   
->> -\devicenormative{\paragraph}{Device-specific configuration}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Shared memory capability}
->> +\devicenormative{\paragraph}{Shared memory capability}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Shared memory capability}
->>   
->>   The region defined by the combination of the \field {cap.offset},
->>   \field {cap.offset_hi}, and \field {cap.length}, \field
->
-> And I guess we then need to fix the conformance clauses?
+https://lists.freedesktop.org/archives/dri-devel/2021-August/320913.html
 
-It looks ok actually there.
+Gurchetan Singh (2):
+  virtio-gpu: clarify spec regarding capability sets
+  virtio-gpu: add context init support
+
+ virtio-gpu.tex | 133 ++++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 120 insertions(+), 13 deletions(-)
+
+--=20
+2.31.0
 
 
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
->
->> -- 
->> 2.21.0
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
