@@ -1,19 +1,19 @@
-Return-Path: <virtio-comment-return-2257-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2262-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 464649864F8
-	for <virtio-comment@lists.oasis-open.org>; Thu, 26 Aug 2021 02:13:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 14C6F98638E
+	for <virtio-comment@lists.oasis-open.org>; Mon, 30 Aug 2021 19:42:01 +0000 (UTC)
 From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Wed, 25 Aug 2021 19:13:13 -0700
-Message-Id: <20210826021313.378-3-gurchetansingh@chromium.org>
-In-Reply-To: <20210826021313.378-1-gurchetansingh@chromium.org>
-References: <20210826021313.378-1-gurchetansingh@chromium.org>
+Date: Mon, 30 Aug 2021 12:41:55 -0700
+Message-Id: <20210830194155.882-1-gurchetansingh@chromium.org>
+In-Reply-To: <20210826021313.378-3-gurchetansingh@chromium.org>
+References: <20210826021313.378-3-gurchetansingh@chromium.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [RFC PATCH 2/2] virtio-gpu: add context init support
+Subject: [virtio-comment] [RFC PATCH v2 2/2] virtio-gpu: add context init support
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="US-ASCII"
 To: virtio-comment@lists.oasis-open.org
@@ -41,13 +41,15 @@ associated witht the OpenGL rendering.  Now, there are multiple
 timelines which can be associated with GL, VK or even display
 contexts.
 
+v2: Correct number of bits
+
 Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
 ---
  virtio-gpu.tex | 75 ++++++++++++++++++++++++++++++++++++++++++--------
  1 file changed, 63 insertions(+), 12 deletions(-)
 
 diff --git a/virtio-gpu.tex b/virtio-gpu.tex
-index 35c129f..3357ce5 100644
+index 35c129f..5753466 100644
 --- a/virtio-gpu.tex
 +++ b/virtio-gpu.tex
 @@ -1,14 +1,10 @@
@@ -117,7 +119,7 @@ l{sec:Device Types / GPU De
 +  that case:
 +  \begin{itemize*}
 +  \item VIRTIO_GPU_FLAG_FENCE MUST also be set
-+  \item the lower 8 bits of \field{info} indicates the value of a
++  \item the lower 5 bits of \field{info} indicates the value of a
 +   context-specific ring index.  The minimum value is 0 and maximum
 +   value is 31.
 +  \item \field{fence_id} acts as a sequence number on the synchronization
@@ -185,12 +187,12 @@ e
 +The implementation MUST create a context for the given \field{ctx_id} in
 +the \field{hdr}.  For debugging purposes, a \field{debug_name} and it's
 +length \field{nlen} is provided by the driver.  If
-+VIRTIO_GPU_F_CONTEXT_INIT is supported, then lower 8 bits of
++VIRTIO_GPU_F_CONTEXT_INIT is supported, then lower 6 bits of
 +\field{context_init} MAY contain the \field{capset_id} associated with
 +context.  In that case, then the device MUST create a context that can
 +handle the specified command stream.
 +
-+If the lower 8-bits of the \field{context_init} are zero, then the type of
++If the lower 6-bits of the \field{context_init} are zero, then the type of
 +the context is determined by the device.
 +
  \item[VIRTIO_GPU_CMD_CTX_DESTROY]
