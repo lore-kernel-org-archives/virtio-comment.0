@@ -1,240 +1,207 @@
-Return-Path: <virtio-comment-return-2262-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 14C6F98638E
-	for <virtio-comment@lists.oasis-open.org>; Mon, 30 Aug 2021 19:42:01 +0000 (UTC)
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Mon, 30 Aug 2021 12:41:55 -0700
-Message-Id: <20210830194155.882-1-gurchetansingh@chromium.org>
-In-Reply-To: <20210826021313.378-3-gurchetansingh@chromium.org>
-References: <20210826021313.378-3-gurchetansingh@chromium.org>
+Return-Path: <mst@redhat.com>
+Date: Tue, 31 Aug 2021 21:13:23 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Subject: Re: [virtio-comment] [PATCH v5] virtio-vsock: add description for
+ datagram type
+Message-ID: <20210831211205-mutt-send-email-mst@kernel.org>
+References: <20210610181203.979686-1-jiang.wang@bytedance.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [RFC PATCH v2 2/2] virtio-gpu: add context init support
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"
-To: virtio-comment@lists.oasis-open.org
-Cc: kraxel@redhat.com
+In-Reply-To: <20210610181203.979686-1-jiang.wang@bytedance.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Jiang Wang <jiang.wang@bytedance.com>
+Cc: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, virtualization@lists.linux-foundation.org, asias@redhat.com, stefanha@redhat.com, sgarzare@redhat.com, arseny.krasnov@kaspersky.com, cong.wang@bytedance.com, duanxiongchun@bytedance.com, xieyongji@bytedance.com, chaiwen.cc@bytedance.com, jhansen@vmware.com, jasowang@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This brings explicit context initialization and different types
-to virtio-gpu.
+On Thu, Jun 10, 2021 at 06:12:03PM +0000, Jiang Wang wrote:
+> Add supports for datagram type for virtio-vsock. Datagram
+> sockets are connectionless and unreliable. To avoid contention
+> with stream and other sockets, add two more virtqueues and
+> a new feature bit to identify if those two new queues exist or not.
+> 
+> Also add descriptions for resource management of datagram, which
+> does not use the existing credit update mechanism associated with
+> stream sockets.
+> 
+> Signed-off-by: Jiang Wang <jiang.wang@bytedance.com>
 
-In the past, VIRTIO_GPU_F_VIRGL meant the virglrenderer support.
-With VIRTIO_GPU_F_VIRGL + VIRTIO_GPU_F_CONTEXT_INIT, this means
-generic 3D virtualization defined by the context type.  It's
-entirely possible the virglrenderer project isn't available on
-the host in this scenario.  The VIRTIO_GPU_F_VIRGL naming
-convention is kept since it's easier to redefine the meaning
-rather than changing header files.
+Is this going anywhere? Linux with this included was just released but
+if no one has the cycles to work on the spec then it's not too late to
+disable the guest code in a stable@ patch.
 
-The context type is associated an particular capset id.  Virgl
-has two capsets due a prior bug, but for other cases the 1:1
-mapping between context type and capset id is valid.
-
-In addition, fencing needs to be fixed to accomodate multiple
-context types.  In the past, there was one global timeline
-associated witht the OpenGL rendering.  Now, there are multiple
-timelines which can be associated with GL, VK or even display
-contexts.
-
-v2: Correct number of bits
-
-Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
----
- virtio-gpu.tex | 75 ++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 63 insertions(+), 12 deletions(-)
-
-diff --git a/virtio-gpu.tex b/virtio-gpu.tex
-index 35c129f..5753466 100644
---- a/virtio-gpu.tex
-+++ b/virtio-gpu.tex
-@@ -1,14 +1,10 @@
- \section{GPU Device}\label{sec:Device Types / GPU Device}
-=20
- virtio-gpu is a virtio based graphics adapter.  It can operate in 2D
--mode and in 3D (virgl) mode.  3D mode will offload rendering ops to
-+mode and in 3D mode.  3D mode will offload rendering ops to
- the host gpu and therefore requires a gpu with 3D support on the host
- machine.
-=20
--3D mode is not covered (yet) in this specification, even though it is
--mentioned here and there due to some details of the virtual hardware
--being designed with 3D mode in mind.
--
- In 2D mode the virtio-gpu device provides support for ARGB Hardware
- cursors and multiple scanouts (aka heads).
-=20
-@@ -39,6 +35,8 @@ \subsection{Feature bits}\label{sec:Device Types / GPU De=
-vice / Feature bits}
-   to other virtio devices is supported.
- \item[VIRTIO_GPU_F_RESOURCE_BLOB (3)] creating and using size-based blob
-   resources is supported.
-+\item[VIRTIO_GPU_F_CONTEXT_INIT (4)] multiple context types and
-+  synchronization timelines supported.  Requires VIRTIO_GPU_F_VIRGL.
- \end{description}
-=20
- \subsection{Device configuration layout}\label{sec:Device Types / GPU Devi=
-ce / Device configuration layout}
-@@ -214,7 +212,7 @@ \subsubsection{Device Operation: Request header}\label{=
-sec:Device Types / GPU De
-         VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB,
-         VIRTIO_GPU_CMD_SET_SCANOUT_BLOB,
-=20
--        /* 3d commands (OpenGL) */
-+        /* 3d commands */
-         VIRTIO_GPU_CMD_CTX_CREATE =3D 0x0200,
-         VIRTIO_GPU_CMD_CTX_DESTROY,
-         VIRTIO_GPU_CMD_CTX_ATTACH_RESOURCE,
-@@ -249,13 +247,16 @@ \subsubsection{Device Operation: Request header}\labe=
-l{sec:Device Types / GPU De
- };
-=20
- #define VIRTIO_GPU_FLAG_FENCE (1 << 0)
-+#define VIRTIO_GPU_FLAG_INFO_RING_IDX (1 << 1)
-+
-+#define VIRTIO_GPU_INFO_RING_IDX_MASK 0x0000001f;
-=20
- struct virtio_gpu_ctrl_hdr {
-         le32 type;
-         le32 flags;
-         le64 fence_id;
-         le32 ctx_id;
--        le32 padding;
-+        le32 info;
- };
- \end{lstlisting}
-=20
-@@ -275,6 +276,22 @@ \subsubsection{Device Operation: Request header}\label=
-{sec:Device Types / GPU De
-   \item send the response only after command processing is complete.
-   \end{itemize*}
- \item[\field{ctx_id}] Rendering context (used in 3D mode only).
-+\item[\field{info}] Information associated with the command.  If
-+  VIRTIO_GPU_F_CONTEXT_INIT is supported, then the driver MAY set
-+  VIRTIO_GPU_FLAG_INFO_RING_IDX bit in the request \field{flags}.  In
-+  that case:
-+  \begin{itemize*}
-+  \item VIRTIO_GPU_FLAG_FENCE MUST also be set
-+  \item the lower 5 bits of \field{info} indicates the value of a
-+   context-specific ring index.  The minimum value is 0 and maximum
-+   value is 31.
-+  \item \field{fence_id} acts as a sequence number on the synchronization
-+   timeline defined by \field{ctx_idx} and the ring index.
-+  \item when the command associated with \field{fence_id} is complete, the
-+  device MUST send a response for all outstanding commands with a sequence
-+  number less than or equal to \field{fence_id} on the same
-+  synchronization timeline.
-+  \end{itemize*}
- \end{description}
-=20
- On success the device will return VIRTIO_GPU_RESP_OK_NODATA in
-@@ -516,6 +533,12 @@ \subsubsection{Device Operation: controlq}\label{sec:D=
-evice Types / GPU Device /
- =09the first edition of Virgl (Gallium OpenGL) protocol.
-   \item \href{https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/ma=
-ster/src/virgl_hw.h#L550}{VIRTIO_GPU_CAPSET_VIRGL2} --
- =09the second edition of Virgl (Gallium OpenGL) protocol after the capset =
-fix.
-+  \item \href{https://android.googlesource.com/device/generic/vulkan-cerea=
-l/+/refs/heads/master/protocols/}{VIRTIO_GPU_CAPSET_GFXSTREAM} --
-+=09gfxtream's (mostly) autogenerated GLES and Vulkan streaming protocols.
-+  \item \href{https://gitlab.freedesktop.org/olv/venus-protocol}{VIRTIO_GP=
-U_CAPSET_VENUS} --
-+=09Mesa's (mostly) autogenerated Vulkan protocol.
-+  \item \href{https://chromium.googlesource.com/chromiumos/platform/crosvm=
-/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol.rs}{=
-VIRTIO_GPU_CAPSET_CROSS_DOMAIN} --
-+=09protocol for display virtualization via Wayland proxying.
-   \end{itemize*}
-=20
- \begin{lstlisting}
-@@ -527,6 +550,9 @@ \subsubsection{Device Operation: controlq}\label{sec:De=
-vice Types / GPU Device /
-=20
- #define VIRTIO_GPU_CAPSET_VIRGL 1
- #define VIRTIO_GPU_CAPSET_VIRGL2 2
-+#define VIRTIO_GPU_CAPSET_GFXSTREAM 3
-+#define VIRTIO_GPU_CAPSET_VENUS 4
-+#define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
- struct virtio_gpu_resp_capset_info {
-         struct virtio_gpu_ctrl_hdr hdr;
-         le32 capset_id;
-@@ -684,21 +710,46 @@ \subsubsection{Device Operation: controlq (3d)}\label=
-{sec:Device Types / GPU Dev
-=20
- \begin{description}
-=20
--\item[VIRTIO_GPU_CMD_CTX_CREATE]
-+\item[VIRTIO_GPU_CMD_CTX_CREATE] creates a context for submitting an opaqu=
-e
-+  command stream.  Request data is \field{struct virtio_gpu_ctx_create}.
-+  Response type is VIRTIO_GPU_RESP_OK_NODATA.
-+
-+\begin{lstlisting}
-+#define VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK 0x0000003f;
-+struct virtio_gpu_ctx_create {
-+       struct virtio_gpu_ctrl_hdr hdr;
-+       le32 nlen;
-+       le32 context_init;
-+       char debug_name[64];
-+};
-+\end{lstlisting}
-+
-+The implementation MUST create a context for the given \field{ctx_id} in
-+the \field{hdr}.  For debugging purposes, a \field{debug_name} and it's
-+length \field{nlen} is provided by the driver.  If
-+VIRTIO_GPU_F_CONTEXT_INIT is supported, then lower 6 bits of
-+\field{context_init} MAY contain the \field{capset_id} associated with
-+context.  In that case, then the device MUST create a context that can
-+handle the specified command stream.
-+
-+If the lower 6-bits of the \field{context_init} are zero, then the type of
-+the context is determined by the device.
-+
- \item[VIRTIO_GPU_CMD_CTX_DESTROY]
- \item[VIRTIO_GPU_CMD_CTX_ATTACH_RESOURCE]
- \item[VIRTIO_GPU_CMD_CTX_DETACH_RESOURCE]
--  Manage OpenGL contexts.
-+  Manage virtio-gpu 3d contexts.
-=20
- \item[VIRTIO_GPU_CMD_RESOURCE_CREATE_3D]
--  Create OpenGL resources.
-+  Create virtio-gpu 3d resources.
-=20
- \item[VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D]
- \item[VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D]
--  Transfer data from and to OpenGL resources.
-+  Transfer data from and to virtio-gpu 3d resources.
-=20
- \item[VIRTIO_GPU_CMD_SUBMIT_3D]
--  Submit rendering commands (mesa gallium command stream).
-+  Submit an opaque command stream.  The type of the command stream is
-+  determined when creating a context.
-=20
- \item[VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB] maps a host-only
-   blob resource into an offset in the host visible memory region. Request
---=20
-2.31.0
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+> ---
+> 
+> V2: addressed the comments for the previous version.
+> V3: add description for the mergeable receive buffer.
+> V4: add a feature bit for stream and reserver a bit for seqpacket.
+> Fix mrg_rxbuf related sentences.
+> V5: removed mergeable rx buffer part. It will go to a 
+> separate patch. Fixed comments about tx, rx, feature bit etc.
+> 
+>  virtio-vsock.tex | 71 +++++++++++++++++++++++++++++++++++++++++++++++---------
+>  1 file changed, 60 insertions(+), 11 deletions(-)
+> 
+> diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+> index da7e641..26a62ac 100644
+> --- a/virtio-vsock.tex
+> +++ b/virtio-vsock.tex
+> @@ -9,14 +9,37 @@ \subsection{Device ID}\label{sec:Device Types / Socket Device / Device ID}
+>  
+>  \subsection{Virtqueues}\label{sec:Device Types / Socket Device / Virtqueues}
+>  \begin{description}
+> -\item[0] rx
+> -\item[1] tx
+> +\item[0] stream rx
+> +\item[1] stream tx
+> +\item[2] datagram rx
+> +\item[3] datagram tx
+> +\item[4] event
+> +\end{description}
+> +The virtio socket device uses 5 queues if feature bit VIRTIO_VSOCK_F_DRGAM is set. Otherwise, it
+> +only uses 3 queues, as the following.
+> +
+> +\begin{description}
+> +\item[0] stream rx
+> +\item[1] stream tx
+>  \item[2] event
+>  \end{description}
+>  
+> +When behavior differs between stream and datagram rx/tx virtqueues
+> +their full names are used. Common behavior is simply described in
+> +terms of rx/tx virtqueues and applies to both stream and datagram
+> +virtqueues.
+> +
+>  \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+>  
+> -There are currently no feature bits defined for this device.
+> +\begin{description}
+> +\item[VIRTIO_VSOCK_F_STREAM (0)] Device has support for stream socket type.
+> +\end{description}
+> +
+> +\begin{description}
+> +\item[VIRTIO_VSOCK_F_DGRAM (2)] Device has support for datagram socket type.
+> +\end{description}
+> +
+> +If no feature bits are defined, assume device only supports stream socket type.
+>  
+>  \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
+>  
+> @@ -107,6 +130,9 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
+>  
+>  \subsubsection{Virtqueue Flow Control}\label{sec:Device Types / Socket Device / Device Operation / Virtqueue Flow Control}
+>  
+> +Flow control applies to stream sockets; datagram sockets do not have
+> +flow control.
+> +
+>  The tx virtqueue carries packets initiated by applications and replies to
+>  received packets.  The rx virtqueue carries packets initiated by the device and
+>  replies to previously transmitted packets.
+> @@ -140,12 +166,15 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+>  consists of a (cid, port number) tuple. The header fields used for this are
+>  \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+>  
+> -Currently only stream sockets are supported. \field{type} is 1 for stream
+> -socket types.
+> +Currently stream and datagram (dgram) sockets are supported. \field{type} is 1 for stream
+> +socket types. \field{type} is 3 for dgram socket types.
+>  
+>  Stream sockets provide in-order, guaranteed, connection-oriented delivery
+>  without message boundaries.
+>  
+> +Datagram sockets provide unordered, unreliable, connectionless messages 
+> +with message boundaries and a maximum length.
+> +
+>  \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device / Device Operation / Buffer Space Management}
+>  \field{buf_alloc} and \field{fwd_cnt} are used for buffer space management of
+>  stream sockets. The guest and the device publish how much buffer space is
+> @@ -162,7 +191,7 @@ \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device /
+>  u32 peer_free = peer_buf_alloc - (tx_cnt - peer_fwd_cnt);
+>  \end{lstlisting}
+>  
+> -If there is insufficient buffer space, the sender waits until virtqueue buffers
+> +For stream sockets, if there is insufficient buffer space, the sender waits until virtqueue buffers
+>  are returned and checks \field{buf_alloc} and \field{fwd_cnt} again. Sending
+>  the VIRTIO_VSOCK_OP_CREDIT_REQUEST packet queries how much buffer space is
+>  available. The reply to this query is a VIRTIO_VSOCK_OP_CREDIT_UPDATE packet.
+> @@ -170,22 +199,33 @@ \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device /
+>  previously receiving a VIRTIO_VSOCK_OP_CREDIT_REQUEST packet. This allows
+>  communicating updates any time a change in buffer space occurs.
+>  
+> +Unlike stream sockets, dgram sockets do not use VIRTIO_VSOCK_OP_CREDIT_UPDATE or
+> +VIRTIO_VSOCK_OP_CREDIT_REQUEST packets. The dgram buffer management
+> +is split to two parts: sender side and receiver side. For the sender side, if the 
+> +virtqueue is full, the packet will be dropped.
+> +For the receiver side, the packet is dropped by the receiver if there is no space in the
+> +receive buffer.
+> +
+>  \drivernormative{\paragraph}{Device Operation: Buffer Space Management}{Device Types / Socket Device / Device Operation / Buffer Space Management}
+> -VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+> -sufficient free buffer space for the payload.
+> +For stream sockets, VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+> +sufficient free buffer space for the payload. For dgram sockets, VIRTIO_VSOCK_OP_RW data packets
+> +MAY be transmitted when the peer rx buffer is full. Then the packet will be dropped by the peer,
+> +and driver will not get any notification.
+>  
+>  All packets associated with a stream flow MUST contain valid information in
+>  \field{buf_alloc} and \field{fwd_cnt} fields.
+>  
+>  \devicenormative{\paragraph}{Device Operation: Buffer Space Management}{Device Types / Socket Device / Device Operation / Buffer Space Management}
+> -VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+> -sufficient free buffer space for the payload.
+> +For stream sockets, VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+> +sufficient free buffer space for the payload. For dgram sockets, VIRTIO_VSOCK_OP_RW data packets
+> +MAY be transmitted when the peer rx buffer is full. Then the packet will be dropped by the peer,
+> +and the device will not get any notification.
+>  
+>  All packets associated with a stream flow MUST contain valid information in
+>  \field{buf_alloc} and \field{fwd_cnt} fields.
+>  
+>  \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / Device Operation / Receive and Transmit}
+> -The driver queues outgoing packets on the tx virtqueue and incoming packet
+> +The driver queues outgoing packets on the tx virtqueue and allocates incoming packet
+>  receive buffers on the rx virtqueue. Packets are of the following form:
+>  
+>  \begin{lstlisting}
+> @@ -195,6 +235,7 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
+>  };
+>  \end{lstlisting}
+>  
+> +
+>  Virtqueue buffers for outgoing packets are read-only. Virtqueue buffers for
+>  incoming packets are write-only.
+>  
+> @@ -240,6 +281,14 @@ \subsubsection{Stream Sockets}\label{sec:Device Types / Socket Device / Device O
+>  destination) address tuple for a new connection while the other peer is still
+>  processing the old connection.
+>  
+> +\subsubsection{Datagram Sockets}\label{sec:Device Types / Socket Device / Device Operation / Datagram Sockets}
+> +
+> +Datagram (dgram) sockets are connectionless and unreliable. The sender just sends
+> +a message to the peer and hopes it will be delivered. A VIRTIO_VSOCK_OP_RST reply is sent if
+> +a receiving socket does not exist on the destination.
+> +If the transmission or receiving buffers are full, the packets
+> +are dropped.
+> +
+>  \subsubsection{Device Events}\label{sec:Device Types / Socket Device / Device Operation / Device Events}
+>  
+>  Certain events are communicated by the device to the driver using the event
+> -- 
+> 2.11.0
+> 
+> 
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+> 
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+> 
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
