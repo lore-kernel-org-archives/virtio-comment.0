@@ -1,129 +1,148 @@
-Return-Path: <arseny.krasnov@kaspersky.com>
+Return-Path: <virtio-comment-return-2271-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 8F2DF9865D8
+	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Sep 2021 06:21:49 +0000 (UTC)
 From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
-Subject: [PATCH v9 1/2] virtio-vsock: use C style defines for constants
-Date: Fri, 3 Sep 2021 09:21:16 +0300
-Message-ID: <20210903062120.3189532-1-arseny.krasnov@kaspersky.com>
+Date: Fri, 3 Sep 2021 09:21:34 +0300
+Message-ID: <20210903062138.3189664-1-arseny.krasnov@kaspersky.com>
 In-Reply-To: <20210903062039.3189334-1-arseny.krasnov@kaspersky.com>
 References: <20210903062039.3189334-1-arseny.krasnov@kaspersky.com>
 MIME-Version: 1.0
+Subject: [virtio-comment] [PATCH v9 2/2] virtio-vsock: SOCK_SEQPACKET description
 Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
-To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>, Andra Paraschiv <andraprs@amazon.com>
+To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Andra Paraschiv <andraprs@amazon.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>
 Cc: virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This:
-1) Replaces enums with C style "defines", because
-   use of enums is not documented, while "defines"
-   are widely used in spec.
-2) Adds defines for some constants.
+This adds description of SOCK_SEQPACKET socket type
+support for virtio-vsock.
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Arseny Krasnov <arseny.krasnov@kaspersky.com>
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 ---
- virtio-vsock.tex | 54 +++++++++++++++++++++++++-----------------------
- 1 file changed, 28 insertions(+), 26 deletions(-)
+ virtio-vsock.tex | 43 ++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 38 insertions(+), 5 deletions(-)
 
 diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-index da7e641..ad57f9d 100644
+index ad57f9d..c89c7af 100644
 --- a/virtio-vsock.tex
 +++ b/virtio-vsock.tex
-@@ -86,23 +86,18 @@ \subsection{Device Operation}\label{sec:Device Types / =
-Socket Device / Device Op
- operation constants:
+@@ -16,7 +16,10 @@ \subsection{Virtqueues}\label{sec:Device Types / Socket =
+Device / Virtqueues}
 =20
- \begin{lstlisting}
--enum {
--=09VIRTIO_VSOCK_OP_INVALID =3D 0,
--
--=09/* Connect operations */
--=09VIRTIO_VSOCK_OP_REQUEST =3D 1,
--=09VIRTIO_VSOCK_OP_RESPONSE =3D 2,
--=09VIRTIO_VSOCK_OP_RST =3D 3,
--=09VIRTIO_VSOCK_OP_SHUTDOWN =3D 4,
--
--=09/* To send payload */
--=09VIRTIO_VSOCK_OP_RW =3D 5,
--
--=09/* Tell the peer our credit info */
--=09VIRTIO_VSOCK_OP_CREDIT_UPDATE =3D 6,
--=09/* Request the peer to send the credit info to us */
--=09VIRTIO_VSOCK_OP_CREDIT_REQUEST =3D 7,
--};
-+#define VIRTIO_VSOCK_OP_INVALID        0
-+/* Connect operations */
-+#define VIRTIO_VSOCK_OP_REQUEST        1
-+#define VIRTIO_VSOCK_OP_RESPONSE       2
-+#define VIRTIO_VSOCK_OP_RST            3
-+#define VIRTIO_VSOCK_OP_SHUTDOWN       4
-+/* To send payload */
-+#define VIRTIO_VSOCK_OP_RW             5
-+/* Tell the peer our credit info */
-+#define VIRTIO_VSOCK_OP_CREDIT_UPDATE  6
-+/* Request the peer to send the credit info to us */
-+#define VIRTIO_VSOCK_OP_CREDIT_REQUEST 7
- \end{lstlisting}
+ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature=
+ bits}
 =20
- \subsubsection{Virtqueue Flow Control}\label{sec:Device Types / Socket Dev=
-ice / Device Operation / Virtqueue Flow Control}
-@@ -140,8 +135,12 @@ \subsubsection{Addressing}\label{sec:Device Types / So=
-cket Device / Device Opera
+-There are currently no feature bits defined for this device.
++\begin{description}
++\item VIRTIO_VSOCK_F_SEQPACKET (1) SOCK_SEQPACKET socket type is
++    supported.
++\end{description}
+=20
+ \subsection{Device configuration layout}\label{sec:Device Types / Socket D=
+evice / Device configuration layout}
+=20
+@@ -135,15 +138,17 @@ \subsubsection{Addressing}\label{sec:Device Types / S=
+ocket Device / Device Opera
  consists of a (cid, port number) tuple. The header fields used for this ar=
 e
  \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
 =20
--Currently only stream sockets are supported. \field{type} is 1 for stream
--socket types.
-+Currently only stream sockets are supported. \field{type} is 1 (VIRTIO_VSO=
+-Currently only stream sockets are supported. \field{type} is 1 (VIRTIO_VSO=
 CK_TYPE_STREAM)
-+for stream socket types.
-+
-+\begin{lstlisting}
-+#define VIRTIO_VSOCK_TYPE_STREAM 1
-+\end{lstlisting}
-=20
- Stream sockets provide in-order, guaranteed, connection-oriented delivery
- without message boundaries.
-@@ -222,10 +221,15 @@ \subsubsection{Stream Sockets}\label{sec:Device Types=
- / Socket Device / Device O
- insufficient resources to establish the connection.
-=20
- When a connected socket receives VIRTIO_VSOCK_OP_SHUTDOWN the header
--\field{flags} field bit 0 indicates that the peer will not receive any mor=
-e
--data and bit 1 indicates that the peer will not send any more data.  These
--hints are permanent once sent and successive packets with bits clear do no=
-t
--reset them.
-+\field{flags} field bit VIRTIO_VSOCK_SHUTDOWN_F_RECEIVE (bit 0) set indica=
-tes
-+that the peer will not receive any more data and bit VIRTIO_VSOCK_SHUTDOWN=
-_F_SEND
-+(bit 1) set indicates that the peer will not send any more data.  These hi=
-nts are
-+permanent once sent and successive packets with bits clear do not reset th=
-em.
-+
-+\begin{lstlisting}
-+#define VIRTIO_VSOCK_SHUTDOWN_F_RECEIVE 0
-+#define VIRTIO_VSOCK_SHUTDOWN_F_SEND    1
-+\end{lstlisting}
-=20
- The VIRTIO_VSOCK_OP_RST packet aborts the connection process or forcibly
- disconnects a connected socket.
-@@ -248,9 +252,7 @@ \subsubsection{Device Events}\label{sec:Device Types / =
-Socket Device / Device Op
- The event buffer is as follows:
+-for stream socket types.
++Currently stream and seqpacket sockets are supported. \field{type} is 1 (V=
+IRTIO_VSOCK_TYPE_STREAM)
++for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket=
+ socket types.
 =20
  \begin{lstlisting}
--enum virtio_vsock_event_id {
--        VIRTIO_VSOCK_EVENT_TRANSPORT_RESET =3D 0,
--};
-+#define VIRTIO_VSOCK_EVENT_TRANSPORT_RESET 0
+-#define VIRTIO_VSOCK_TYPE_STREAM 1
++#define VIRTIO_VSOCK_TYPE_STREAM    1
++#define VIRTIO_VSOCK_TYPE_SEQPACKET 2
+ \end{lstlisting}
 =20
- struct virtio_vsock_event {
-         le32 id;
+ Stream sockets provide in-order, guaranteed, connection-oriented delivery
+-without message boundaries.
++without message boundaries. Seqpacket sockets provide in-order, guaranteed=
+,
++connection-oriented delivery with message and record boundaries.
+=20
+ \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket De=
+vice / Device Operation / Buffer Space Management}
+ \field{buf_alloc} and \field{fwd_cnt} are used for buffer space management=
+ of
+@@ -244,6 +249,34 @@ \subsubsection{Stream Sockets}\label{sec:Device Types =
+/ Socket Device / Device O
+ destination) address tuple for a new connection while the other peer is st=
+ill
+ processing the old connection.
+=20
++\subsubsection{Seqpacket Sockets}\label{sec:Device Types / Socket Device /=
+ Device Operation / Seqpacket Sockets}
++
++\paragraph{Message and record boundaries}\label{sec:Device Types / Socket =
+Device / Device Operation / Seqpacket Sockets / Boundaries}
++Two types of boundaries supported: message and record boundaries.
++
++A message contains data sent by a single system call. Message boundary mea=
+ns
++that data of single send system call is guaranteed to be read wholly by si=
+ngle
++receive system call. If receive buffer is not enough, then out of size dat=
+a
++will be dropped.
++
++Record is any number of subsequent messages, where last message is sent wi=
+th POSIX
++MSG_EOR flag set. Record boundary means that receiver gets MSG_EOR flag se=
+t
++in the corresponding message where sender set it.
++
++To provide message boundaries, last RW packet of each message has VIRTIO_V=
+SOCK_SEQ_EOM
++bit (bit 0) set in the \field{flags} of packet's header.
++
++\begin{lstlisting}
++#define VIRTIO_VSOCK_SEQ_EOM (1 << 0)
++\end{lstlisting}
++
++To provide record boundaries, last RW packet of each record has VIRTIO_VSO=
+CK_SEQ_EOR
++bit (bit 1) set in the \field{flags} of packet's header.
++
++\begin{lstlisting}
++#define VIRTIO_VSOCK_SEQ_EOR (1 << 1)
++\end{lstlisting}
++
+ \subsubsection{Device Events}\label{sec:Device Types / Socket Device / Dev=
+ice Operation / Device Events}
+=20
+ Certain events are communicated by the device to the driver using the even=
+t
 --=20
 2.25.1
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
