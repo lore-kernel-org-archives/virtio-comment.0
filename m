@@ -1,175 +1,124 @@
-Return-Path: <virtio-comment-return-2288-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2277-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7CFF49861ED
-	for <virtio-comment@lists.oasis-open.org>; Mon, 20 Sep 2021 13:36:31 +0000 (UTC)
-From: David Hildenbrand <david@redhat.com>
-Date: Mon, 20 Sep 2021 15:36:18 +0200
-Message-Id: <20210920133618.16071-6-david@redhat.com>
-In-Reply-To: <20210920133618.16071-1-david@redhat.com>
-References: <20210920133618.16071-1-david@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id BC53C9864E1
+	for <virtio-comment@lists.oasis-open.org>; Thu,  9 Sep 2021 01:29:59 +0000 (UTC)
+From: Gurchetan Singh <gurchetansingh@chromium.org>
+Date: Wed,  8 Sep 2021 18:29:52 -0700
+Message-Id: <20210909012953.431-1-gurchetansingh@chromium.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH v2 5/5] virtio-mem: describe interaction with memory properties
-Content-Type: text/plain; charset="US-ASCII"
+Subject: [virtio-comment] [PATCH v1 1/2] virtio-gpu: clarify spec regarding capability sets
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
 To: virtio-comment@lists.oasis-open.org
-Cc: David Hildenbrand <david@redhat.com>
+Cc: kraxel@redhat.com, olvaffe@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Let's describe how we expect the interaction with memory properties that
-might be available on a specific platform for ordinary system RAM.
+Capability sets will be used as a proxy for the context type,
+so add more detail regarding their use.
 
-This is primarily a preparation for s390x support, which provides
-storage keys and may provide storage attributes, depending on the system
-configuration.
-
-Signed-off-by: David Hildenbrand <david@redhat.com>
+Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
 ---
- virtio-mem.tex | 61 +++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 40 insertions(+), 21 deletions(-)
+ virtio-gpu.tex | 58 +++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 57 insertions(+), 1 deletion(-)
 
-diff --git a/virtio-mem.tex b/virtio-mem.tex
-index dce035c..0a6d558 100644
---- a/virtio-mem.tex
-+++ b/virtio-mem.tex
-@@ -32,6 +32,16 @@ \section{Memory Device}\label{sec:Device Types / Memory =
-Device}
- expose plugged memory blocks to the operating system as system RAM,
- available for the page allocator.
+diff --git a/virtio-gpu.tex b/virtio-gpu.tex
+index 7bfb8dd..35c129f 100644
+--- a/virtio-gpu.tex
++++ b/virtio-gpu.tex
+@@ -53,7 +53,7 @@ \subsection{Device configuration layout}\label{sec:Device=
+ Types / GPU Device / D
+         le32 events_read;
+         le32 events_clear;
+         le32 num_scanouts;
+-        le32 reserved;
++        le32 num_capsets;
+ };
+ \end{lstlisting}
 =20
-+Some platforms provide memory properties for system RAM that are usually
-+queried and modified using special CPU instructions. Memory properties mig=
-ht
-+be implicitly queried or modified on memory access. Memory properties can
-+include advanced memory protection, access and change indication, or memor=
-y
-+usage indication relevant in virtualized environments. \footnote{For examp=
-le,
-+s390x provides storage keys for each 4 KiB page and may, depending on the
-+configuration, provide storage attributes for each 4 KiB page.} The device
-+provides the exact same properties with the exact same semantics for
-+plugged device memory as available for comparable RAM in the same configur=
-ation.
-+
- \subsection{Device ID}\label{sec:Device Types / Memory Device / Device ID}
- 24
-=20
-@@ -47,7 +57,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory=
- Device / Feature bits}
- \item[VIRTIO_MEM_F_ACPI_PXM (0)] The field \field{node_id} in the device
- configuration is valid and corresponds to an ACPI PXM.
- \item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver is not allowed t=
-o
--access unplugged memory.
-+access unplugged memory. \footnote{On platforms with memory properties tha=
-t
-+might get modified implicitly on memory access, this feature is expected t=
-o
-+be offered by the device.}
+@@ -67,6 +67,8 @@ \subsubsection{Device configuration fields}
+   \field{events_read}, mimicking write-to-clear behavior.
+ \item[\field{num_scanouts}] specifies the maximum number of scanouts
+   supported by the device.  Minimum value is 1, maximum value is 16.
++\item[\field{num_capsets}] specifies the maximum number of capability
++  sets supported by the device.  The minimum value is zero.
  \end{description}
 =20
- \subsection{Device configuration layout}\label{sec:Device Types / Memory D=
-evice / Device configuration layout}
-@@ -159,8 +171,8 @@ \subsection{Device Initialization}\label{Device Types /=
- Memory Device / Device I
+ \subsubsection{Events}
+@@ -498,6 +500,60 @@ \subsubsection{Device Operation: controlq}\label{sec:D=
+evice Types / GPU Device /
+ This detaches any backing pages from a resource, to be used in case of
+ guest swapping or object destruction.
 =20
- The device MUST NOT change the state of memory blocks during device reset.
-=20
--The device MUST NOT change the content of plugged memory blocks during
--device reset.
-+The device MUST NOT modify memory or memory properties of plugged memory
-+blocks during device reset.
-=20
- \subsection{Device Operation}\label{sec:Device Types / Memory Device / Dev=
-ice Operation}
-=20
-@@ -223,23 +235,24 @@ \subsection{Device Operation}\label{sec:Device Types =
-/ Memory Device / Device Op
-=20
- \drivernormative{\subsubsection}{Device Operation}{Device Types / Memory D=
-evice / Device Operation}
-=20
--The driver MUST NOT write memory of unplugged memory blocks.
-+The driver MUST NOT write memory or modify memory properties of
-+unplugged memory blocks.
-=20
--The driver MUST NOT read memory of unplugged memory blocks outside
--\field{usable_region_size}.
-+The driver MUST NOT read memory or query memory properties of unplugged me=
-mory
-+blocks outside \field{usable_region_size}.
-=20
--The driver MUST NOT read memory of unplugged memory blocks inside
--\field{usable_region_size} via DMA.
-+The driver MUST NOT read memory or query memory properties of unplugged me=
-mory
-+blocks inside \field{usable_region_size} via DMA.
-=20
- If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has not been negotiated, the driver
--SHOULD NOT read memory of unplugged memory blocks inside
--\field{usable_region_size} via the CPU.
-+SHOULD NOT read memory or query memory properties of unplugged memory bloc=
-ks
-+inside \field{usable_region_size} via the CPU.
-=20
- If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the driver
--MUST NOT read memory of unplugged memory blocks.
-+MUST NOT read memory or query memory properties of unplugged memory blocks=
-.
-=20
--The driver MUST NOT request to unplug memory blocks while the memory is
--still in use.
-+The driver MUST NOT request unplug of memory blocks while corresponding me=
-mory
-+or memory properties are still in use.
-=20
- The driver SHOULD initialize memory blocks after plugging them, the conten=
-t
- is undefined.
-@@ -257,18 +270,24 @@ \subsection{Device Operation}\label{sec:Device Types =
-/ Memory Device / Device Op
-=20
- \devicenormative{\subsubsection}{Device Operation}{Device Types / Memory D=
-evice / Device Operation}
-=20
--The device MAY change the content of unplugged memory blocks at any time.
-+The device MUST provide the exact same memory properties with the exact sa=
-me
-+semantics for device memory the platform provides in the same configuratio=
-n for
-+comparable RAM.
-=20
--The device MUST NOT change the content of plugged memory blocks.
-+The device MAY modify memory of unplugged memory blocks or reset memory
-+properties of such memory blocks to platform defaults at any time.
-=20
--The device MUST allow the driver to read and write memory of plugged
--memory blocks.
-+The device MUST NOT modify memory or memory properties of plugged memory
-+blocks.
++\item[VIRTIO_GPU_CMD_GET_CAPSET_INFO] Gets the information associated with
++  a particular \field{capset_index}, which MUST less than \field{num_capse=
+ts}
++  defined in the device configuration.  Request data is
++  \field{struct virtio_gpu_get_capset_info}.  Response type is
++  VIRTIO_GPU_RESP_OK_CAPSET_INFO.
 +
-+The device MUST allow the driver to read and write memory and to query
-+and modify memory attributes of plugged memory blocks.
-=20
- If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has not been negotiated, the device
--MUST allow the driver to read memory of unplugged memory blocks inside
--\field{usable_region_size} via the CPU. \footnote{To allow for simplified
--dumping of memory. The CPU is expected to copy such memory to another
--location before starting DMA.}
-+MUST allow the driver to read memory and to query memory properties of
-+unplugged memory blocks inside \field{usable_region_size} via the CPU.
-+\footnote{To allow for simplified dumping of memory. The CPU is expected t=
-o
-+copy such memory to another location before starting DMA.}
-=20
- The device MAY change the state of memory blocks during system resets.
-=20
++  On success, \field{struct virtio_gpu_resp_capset_info} contains the
++  \field{capset_id}, \field{capset_max_version}, \field{capset_max_size}
++  associated with capset at the specified {capset_idex}.  field{capset_id}=
+ MUST
++  be one of the following (see listing for values):
++
++  \begin{itemize*}
++  \item \href{https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/ma=
+ster/src/virgl_hw.h#L526}{VIRTIO_GPU_CAPSET_VIRGL} --
++=09the first edition of Virgl (Gallium OpenGL) protocol.
++  \item \href{https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/ma=
+ster/src/virgl_hw.h#L550}{VIRTIO_GPU_CAPSET_VIRGL2} --
++=09the second edition of Virgl (Gallium OpenGL) protocol after the capset =
+fix.
++  \end{itemize*}
++
++\begin{lstlisting}
++struct virtio_gpu_get_capset_info {
++        struct virtio_gpu_ctrl_hdr hdr;
++        le32 capset_index;
++        le32 padding;
++};
++
++#define VIRTIO_GPU_CAPSET_VIRGL 1
++#define VIRTIO_GPU_CAPSET_VIRGL2 2
++struct virtio_gpu_resp_capset_info {
++        struct virtio_gpu_ctrl_hdr hdr;
++        le32 capset_id;
++        le32 capset_max_version;
++        le32 capset_max_size;
++        le32 padding;
++};
++\end{lstlisting}
++
++\item[VIRTIO_GPU_CMD_GET_CAPSET] Gets the capset associated with a
++  particular \field{capset_id} and \field{capset_version}.  Request data i=
+s
++  \field{struct virtio_gpu_get_capset}.  Response type is
++  VIRTIO_GPU_RESP_OK_CAPSET.
++
++\begin{lstlisting}
++struct virtio_gpu_get_capset {
++        struct virtio_gpu_ctrl_hdr hdr;
++        le32 capset_id;
++        le32 capset_version;
++};
++
++struct virtio_gpu_resp_capset {
++        struct virtio_gpu_ctrl_hdr hdr;
++        u8 capset_data[];
++};
++\end{lstlisting}
++
+ \item[VIRTIO_GPU_CMD_RESOURCE_ASSIGN_UUID] Creates an exported object from
+   a resource. Request data is \field{struct
+     virtio_gpu_resource_assign_uuid}.  Response type is
 --=20
-2.31.1
+2.31.0
 
 
 This publicly archived list offers a means to provide input to the
