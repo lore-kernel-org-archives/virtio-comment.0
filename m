@@ -1,410 +1,219 @@
-Return-Path: <virtio-comment-return-2279-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2280-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1131C9864DF
-	for <virtio-comment@lists.oasis-open.org>; Thu,  9 Sep 2021 01:33:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6C2909864EE
+	for <virtio-comment@lists.oasis-open.org>; Thu,  9 Sep 2021 22:45:27 +0000 (UTC)
 MIME-Version: 1.0
 References: <20210826021313.378-3-gurchetansingh@chromium.org>
  <20210830194155.882-1-gurchetansingh@chromium.org> <CAPaKu7R-YotOMgszxqexQsWaixqzGDU_u-HEZXNPJRD7jV4j5w@mail.gmail.com>
-In-Reply-To: <CAPaKu7R-YotOMgszxqexQsWaixqzGDU_u-HEZXNPJRD7jV4j5w@mail.gmail.com>
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Wed, 8 Sep 2021 18:32:51 -0700
-Message-ID: <CAAfnVBnRUotfzO+BNDzOJB3nuY=zvh42uGV3MU5DWcNqwH1BqQ@mail.gmail.com>
+ <CAAfnVBnRUotfzO+BNDzOJB3nuY=zvh42uGV3MU5DWcNqwH1BqQ@mail.gmail.com>
+In-Reply-To: <CAAfnVBnRUotfzO+BNDzOJB3nuY=zvh42uGV3MU5DWcNqwH1BqQ@mail.gmail.com>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Thu, 9 Sep 2021 15:45:14 -0700
+Message-ID: <CAPaKu7Qnz+vaBGgjub12CrPi9tchYPHhCo8XWQ0EW2msNd9q4Q@mail.gmail.com>
 Subject: Re: [virtio-comment] [RFC PATCH v2 2/2] virtio-gpu: add context init support
-Content-Type: multipart/alternative; boundary="000000000000d89f1505cb85fa86"
-To: Chia-I Wu <olvaffe@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+To: Gurchetan Singh <gurchetansingh@chromium.org>
 Cc: virtio-comment@lists.oasis-open.org, Gerd Hoffmann <kraxel@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---000000000000d89f1505cb85fa86
-Content-Type: text/plain; charset="UTF-8"
+Thanks.  v1 looks good to me.
 
-On Thu, Sep 2, 2021 at 9:59 AM Chia-I Wu <olvaffe@gmail.com> wrote:
-
-> On Mon, Aug 30, 2021 at 12:42 PM Gurchetan Singh
-> <gurchetansingh@chromium.org> wrote:
-> > +\item[\field{info}] Information associated with the command.  If
-> > +  VIRTIO_GPU_F_CONTEXT_INIT is supported, then the driver MAY set
-> > +  VIRTIO_GPU_FLAG_INFO_RING_IDX bit in the request \field{flags}.  In
-> > +  that case:
-> > +  \begin{itemize*}
-> > +  \item VIRTIO_GPU_FLAG_FENCE MUST also be set
-> VIRTIO_GPU_FLAG_FENCE is optional currently and has a cost.  There
-> might be use cases where fencing is not needed even with rings.  Why
-> is it required when VIRTIO_GPU_FLAG_INFO_RING_IDX is set?
+On Wed, Sep 8, 2021 at 6:33 PM Gurchetan Singh
+<gurchetansingh@chromium.org> wrote:
 >
-
-The latest non-RFC spec changes don't require
-VIRTIO_GPU_FLAG_INFO_RING_IDX + VIRTIO_GPU_FLAG_FENCE to go in unison.
-Implementation-wise, command buffer submission always sets
-VIRTIO_GPU_FLAG_FENCE at the moment (prior behavior unchanged with
-multiple-rings).  More guest-side changes (say VIRTGPU_EXECBUF_NO_WAIT)
-would be required if one wants to submit a command without waiting for a
-response (or use the ASG technique).
-
-
 >
-> > +  \item the lower 5 bits of \field{info} indicates the value of a
-> > +   context-specific ring index.  The minimum value is 0 and maximum
-> > +   value is 31.
-> For Venus at least, we plan to assign each VkQueue of each logical
-> VkDevice a ring index.  While 32 for a logical VkDevice seems enough
-> (TM), there are apps that require more than one logical device.
 >
-> Should we reserve 8 bits and allow up to 63?  This way the last two
-> bits can be flexible if we run out of bit space in the future.
+> On Thu, Sep 2, 2021 at 9:59 AM Chia-I Wu <olvaffe@gmail.com> wrote:
+>>
+>> On Mon, Aug 30, 2021 at 12:42 PM Gurchetan Singh
+>> <gurchetansingh@chromium.org> wrote:
+>> > +\item[\field{info}] Information associated with the command.  If
+>> > +  VIRTIO_GPU_F_CONTEXT_INIT is supported, then the driver MAY set
+>> > +  VIRTIO_GPU_FLAG_INFO_RING_IDX bit in the request \field{flags}.  In
+>> > +  that case:
+>> > +  \begin{itemize*}
+>> > +  \item VIRTIO_GPU_FLAG_FENCE MUST also be set
+>> VIRTIO_GPU_FLAG_FENCE is optional currently and has a cost.  There
+>> might be use cases where fencing is not needed even with rings.  Why
+>> is it required when VIRTIO_GPU_FLAG_INFO_RING_IDX is set?
 >
-
-Done.
-
-
-
-
 >
-> > +  \item \field{fence_id} acts as a sequence number on the
-> synchronization
-> > +   timeline defined by \field{ctx_idx} and the ring index.
-> > +  \item when the command associated with \field{fence_id} is complete,
-> the
-> > +  device MUST send a response for all outstanding commands with a
-> sequence
-> > +  number less than or equal to \field{fence_id} on the same
-> > +  synchronization timeline.
-> > +  \end{itemize*}
-> >  \end{description}
-> >
-> >  On success the device will return VIRTIO_GPU_RESP_OK_NODATA in
-> > @@ -516,6 +533,12 @@ \subsubsection{Device Operation:
-> controlq}\label{sec:Device Types / GPU Device /
-> >         the first edition of Virgl (Gallium OpenGL) protocol.
-> >    \item \href{
-> https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/src/virgl_hw.h#L550}{VIRTIO_GPU_CAPSET_VIRGL2}
-> --
-> >         the second edition of Virgl (Gallium OpenGL) protocol after the
-> capset fix.
-> > +  \item \href{
-> https://android.googlesource.com/device/generic/vulkan-cereal/+/refs/heads/master/protocols/}{VIRTIO_GPU_CAPSET_GFXSTREAM
-> <https://android.googlesource.com/device/generic/vulkan-cereal/+/refs/heads/master/protocols/%7D%7BVIRTIO_GPU_CAPSET_GFXSTREAM>}
-> --
-> > +       gfxtream's (mostly) autogenerated GLES and Vulkan streaming
-> protocols.
-> > +  \item \href{
-> https://gitlab.freedesktop.org/olv/venus-protocol}{VIRTIO_GPU_CAPSET_VENUS}
-> --
-> > +       Mesa's (mostly) autogenerated Vulkan protocol.
-> > +  \item \href{
-> https://chromium.googlesource.com/chromiumos/platform/crosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol.rs}{VIRTIO_GPU_CAPSET_CROSS_DOMAIN
-> <https://chromium.googlesource.com/chromiumos/platform/crosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol.rs%7D%7BVIRTIO_GPU_CAPSET_CROSS_DOMAIN>}
-> --
-> > +       protocol for display virtualization via Wayland proxying.
-> >    \end{itemize*}
-> >
-> >  \begin{lstlisting}
-> > @@ -527,6 +550,9 @@ \subsubsection{Device Operation:
-> controlq}\label{sec:Device Types / GPU Device /
-> >
-> >  #define VIRTIO_GPU_CAPSET_VIRGL 1
-> >  #define VIRTIO_GPU_CAPSET_VIRGL2 2
-> > +#define VIRTIO_GPU_CAPSET_GFXSTREAM 3
-> > +#define VIRTIO_GPU_CAPSET_VENUS 4
-> > +#define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
-> >  struct virtio_gpu_resp_capset_info {
-> >          struct virtio_gpu_ctrl_hdr hdr;
-> >          le32 capset_id;
-> > @@ -684,21 +710,46 @@ \subsubsection{Device Operation: controlq
-> (3d)}\label{sec:Device Types / GPU Dev
-> >
-> >  \begin{description}
-> >
-> > -\item[VIRTIO_GPU_CMD_CTX_CREATE]
-> > +\item[VIRTIO_GPU_CMD_CTX_CREATE] creates a context for submitting an
-> opaque
-> > +  command stream.  Request data is \field{struct virtio_gpu_ctx_create}.
-> > +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
-> > +
-> > +\begin{lstlisting}
-> > +#define VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK 0x0000003f;
-> > +struct virtio_gpu_ctx_create {
-> > +       struct virtio_gpu_ctrl_hdr hdr;
-> > +       le32 nlen;
-> > +       le32 context_init;
-> > +       char debug_name[64];
-> > +};
-> > +\end{lstlisting}
-> > +
-> > +The implementation MUST create a context for the given \field{ctx_id} in
-> > +the \field{hdr}.  For debugging purposes, a \field{debug_name} and it's
-> > +length \field{nlen} is provided by the driver.  If
-> > +VIRTIO_GPU_F_CONTEXT_INIT is supported, then lower 6 bits of
-> > +\field{context_init} MAY contain the \field{capset_id} associated with
-> > +context.  In that case, then the device MUST create a context that can
-> > +handle the specified command stream.
-> > +
-> > +If the lower 6-bits of the \field{context_init} are zero, then the type
-> of
-> > +the context is determined by the device.
-> > +
-> >  \item[VIRTIO_GPU_CMD_CTX_DESTROY]
-> >  \item[VIRTIO_GPU_CMD_CTX_ATTACH_RESOURCE]
-> >  \item[VIRTIO_GPU_CMD_CTX_DETACH_RESOURCE]
-> > -  Manage OpenGL contexts.
-> > +  Manage virtio-gpu 3d contexts.
-> >
-> >  \item[VIRTIO_GPU_CMD_RESOURCE_CREATE_3D]
-> > -  Create OpenGL resources.
-> > +  Create virtio-gpu 3d resources.
-> >
-> >  \item[VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D]
-> >  \item[VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D]
-> > -  Transfer data from and to OpenGL resources.
-> > +  Transfer data from and to virtio-gpu 3d resources.
-> >
-> >  \item[VIRTIO_GPU_CMD_SUBMIT_3D]
-> > -  Submit rendering commands (mesa gallium command stream).
-> > +  Submit an opaque command stream.  The type of the command stream is
-> > +  determined when creating a context.
-> >
-> >  \item[VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB] maps a host-only
-> >    blob resource into an offset in the host visible memory region.
-> Request
-> > --
-> > 2.31.0
-> >
-> >
-> > This publicly archived list offers a means to provide input to the
-> > OASIS Virtual I/O Device (VIRTIO) TC.
-> >
-> > In order to verify user consent to the Feedback License terms and
-> > to minimize spam in the list archive, subscription is required
-> > before posting.
-> >
-> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > List help: virtio-comment-help@lists.oasis-open.org
-> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > Feedback License:
-> https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> > List Guidelines:
-> https://www.oasis-open.org/policies-guidelines/mailing-lists
-> > Committee: https://www.oasis-open.org/committees/virtio/
-> > Join OASIS: https://www.oasis-open.org/join/
-> >
+> The latest non-RFC spec changes don't require VIRTIO_GPU_FLAG_INFO_RING_I=
+DX + VIRTIO_GPU_FLAG_FENCE to go in unison.  Implementation-wise, command b=
+uffer submission always sets VIRTIO_GPU_FLAG_FENCE at the moment (prior beh=
+avior unchanged with multiple-rings).  More guest-side changes (say VIRTGPU=
+_EXECBUF_NO_WAIT) would be required if one wants to submit a command withou=
+t waiting for a response (or use the ASG technique).
 >
-
---000000000000d89f1505cb85fa86
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Sep 2, 2021 at 9:59 AM Chia-I=
- Wu &lt;<a href=3D"mailto:olvaffe@gmail.com" target=3D"_blank">olvaffe@gmai=
-l.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">On Mon, Aug 30, 2021 at 12:42 PM Gurchetan Singh<br>
-&lt;<a href=3D"mailto:gurchetansingh@chromium.org" target=3D"_blank">gurche=
-tansingh@chromium.org</a>&gt; wrote:<br>
-&gt; +\item[\field{info}] Information associated with the command.=C2=A0 If=
-<br>
-&gt; +=C2=A0 VIRTIO_GPU_F_CONTEXT_INIT is supported, then the driver MAY se=
-t<br>
-&gt; +=C2=A0 VIRTIO_GPU_FLAG_INFO_RING_IDX bit in the request \field{flags}=
-.=C2=A0 In<br>
-&gt; +=C2=A0 that case:<br>
-&gt; +=C2=A0 \begin{itemize*}<br>
-&gt; +=C2=A0 \item VIRTIO_GPU_FLAG_FENCE MUST also be set<br>
-VIRTIO_GPU_FLAG_FENCE is optional currently and has a cost.=C2=A0 There<br>
-might be use cases where fencing is not needed even with rings.=C2=A0 Why<b=
-r>
-is it required when VIRTIO_GPU_FLAG_INFO_RING_IDX is set?<br></blockquote><=
-div><br></div><div>The latest non-RFC spec changes don&#39;t require VIRTIO=
-_GPU_FLAG_INFO_RING_IDX=C2=A0+=C2=A0VIRTIO_GPU_FLAG_FENCE to go in unison.=
-=C2=A0 Implementation-wise, command buffer submission always sets VIRTIO_GP=
-U_FLAG_FENCE at the moment (prior behavior unchanged with multiple-rings).=
-=C2=A0 More guest-side changes (say VIRTGPU_EXECBUF_NO_WAIT) would be requi=
-red if one wants to submit a command without waiting for a response (or use=
- the ASG technique).</div><div>=C2=A0</div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex">
-<br>
-&gt; +=C2=A0 \item the lower 5 bits of \field{info} indicates the value of =
-a<br>
-&gt; +=C2=A0 =C2=A0context-specific ring index.=C2=A0 The minimum value is =
-0 and maximum<br>
-&gt; +=C2=A0 =C2=A0value is 31.<br>
-For Venus at least, we plan to assign each VkQueue of each logical<br>
-VkDevice a ring index.=C2=A0 While 32 for a logical VkDevice seems enough<b=
-r>
-(TM), there are apps that require more than one logical device.<br>
-<br>
-Should we reserve 8 bits and allow up to 63?=C2=A0 This way the last two<br=
+>>
+>>
+>> > +  \item the lower 5 bits of \field{info} indicates the value of a
+>> > +   context-specific ring index.  The minimum value is 0 and maximum
+>> > +   value is 31.
+>> For Venus at least, we plan to assign each VkQueue of each logical
+>> VkDevice a ring index.  While 32 for a logical VkDevice seems enough
+>> (TM), there are apps that require more than one logical device.
+>>
+>> Should we reserve 8 bits and allow up to 63?  This way the last two
+>> bits can be flexible if we run out of bit space in the future.
 >
-bits can be flexible if we run out of bit space in the future.<br></blockqu=
-ote><div><br></div><div>Done.=C2=A0</div><div><br></div><div><br></div><div=
->=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt; +=C2=A0 \item \field{fence_id} acts as a sequence number on the synchr=
-onization<br>
-&gt; +=C2=A0 =C2=A0timeline defined by \field{ctx_idx} and the ring index.<=
-br>
-&gt; +=C2=A0 \item when the command associated with \field{fence_id} is com=
-plete, the<br>
-&gt; +=C2=A0 device MUST send a response for all outstanding commands with =
-a sequence<br>
-&gt; +=C2=A0 number less than or equal to \field{fence_id} on the same<br>
-&gt; +=C2=A0 synchronization timeline.<br>
-&gt; +=C2=A0 \end{itemize*}<br>
-&gt;=C2=A0 \end{description}<br>
-&gt;<br>
-&gt;=C2=A0 On success the device will return VIRTIO_GPU_RESP_OK_NODATA in<b=
-r>
-&gt; @@ -516,6 +533,12 @@ \subsubsection{Device Operation: controlq}\label{=
-sec:Device Types / GPU Device /<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0the first edition of Virgl (Gallium O=
-penGL) protocol.<br>
-&gt;=C2=A0 =C2=A0 \item \href{<a href=3D"https://gitlab.freedesktop.org/vir=
-gl/virglrenderer/-/blob/master/src/virgl_hw.h#L550%7D%7BVIRTIO_GPU_CAPSET_V=
-IRGL2" rel=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/=
-virgl/virglrenderer/-/blob/master/src/virgl_hw.h#L550}{VIRTIO_GPU_CAPSET_VI=
-RGL2</a>} --<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0the second edition of Virgl (Gallium =
-OpenGL) protocol after the capset fix.<br>
-&gt; +=C2=A0 \item \href{<a href=3D"https://android.googlesource.com/device=
-/generic/vulkan-cereal/+/refs/heads/master/protocols/%7D%7BVIRTIO_GPU_CAPSE=
-T_GFXSTREAM" rel=3D"noreferrer" target=3D"_blank">https://android.googlesou=
-rce.com/device/generic/vulkan-cereal/+/refs/heads/master/protocols/}{VIRTIO=
-_GPU_CAPSET_GFXSTREAM</a>} --<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0gfxtream&#39;s (mostly) autogenerated GLES=
- and Vulkan streaming protocols.<br>
-&gt; +=C2=A0 \item \href{<a href=3D"https://gitlab.freedesktop.org/olv/venu=
-s-protocol%7D%7BVIRTIO_GPU_CAPSET_VENUS" rel=3D"noreferrer" target=3D"_blan=
-k">https://gitlab.freedesktop.org/olv/venus-protocol}{VIRTIO_GPU_CAPSET_VEN=
-US</a>} --<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa&#39;s (mostly) autogenerated Vulkan p=
-rotocol.<br>
-&gt; +=C2=A0 \item \href{<a href=3D"https://chromium.googlesource.com/chrom=
-iumos/platform/crosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross=
-_domain_protocol.rs%7D%7BVIRTIO_GPU_CAPSET_CROSS_DOMAIN" rel=3D"noreferrer"=
- target=3D"_blank">https://chromium.googlesource.com/chromiumos/platform/cr=
-osvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol.=
-rs}{VIRTIO_GPU_CAPSET_CROSS_DOMAIN</a>} --<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0protocol for display virtualization via Wa=
-yland proxying.<br>
-&gt;=C2=A0 =C2=A0 \end{itemize*}<br>
-&gt;<br>
-&gt;=C2=A0 \begin{lstlisting}<br>
-&gt; @@ -527,6 +550,9 @@ \subsubsection{Device Operation: controlq}\label{s=
-ec:Device Types / GPU Device /<br>
-&gt;<br>
-&gt;=C2=A0 #define VIRTIO_GPU_CAPSET_VIRGL 1<br>
-&gt;=C2=A0 #define VIRTIO_GPU_CAPSET_VIRGL2 2<br>
-&gt; +#define VIRTIO_GPU_CAPSET_GFXSTREAM 3<br>
-&gt; +#define VIRTIO_GPU_CAPSET_VENUS 4<br>
-&gt; +#define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5<br>
-&gt;=C2=A0 struct virtio_gpu_resp_capset_info {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct virtio_gpu_ctrl_hdr hdr;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 le32 capset_id;<br>
-&gt; @@ -684,21 +710,46 @@ \subsubsection{Device Operation: controlq (3d)}\=
-label{sec:Device Types / GPU Dev<br>
-&gt;<br>
-&gt;=C2=A0 \begin{description}<br>
-&gt;<br>
-&gt; -\item[VIRTIO_GPU_CMD_CTX_CREATE]<br>
-&gt; +\item[VIRTIO_GPU_CMD_CTX_CREATE] creates a context for submitting an =
-opaque<br>
-&gt; +=C2=A0 command stream.=C2=A0 Request data is \field{struct virtio_gpu=
-_ctx_create}.<br>
-&gt; +=C2=A0 Response type is VIRTIO_GPU_RESP_OK_NODATA.<br>
-&gt; +<br>
-&gt; +\begin{lstlisting}<br>
-&gt; +#define VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK 0x0000003f;<br>
-&gt; +struct virtio_gpu_ctx_create {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct virtio_gpu_ctrl_hdr hdr;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0le32 nlen;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0le32 context_init;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0char debug_name[64];<br>
-&gt; +};<br>
-&gt; +\end{lstlisting}<br>
-&gt; +<br>
-&gt; +The implementation MUST create a context for the given \field{ctx_id}=
- in<br>
-&gt; +the \field{hdr}.=C2=A0 For debugging purposes, a \field{debug_name} a=
-nd it&#39;s<br>
-&gt; +length \field{nlen} is provided by the driver.=C2=A0 If<br>
-&gt; +VIRTIO_GPU_F_CONTEXT_INIT is supported, then lower 6 bits of<br>
-&gt; +\field{context_init} MAY contain the \field{capset_id} associated wit=
-h<br>
-&gt; +context.=C2=A0 In that case, then the device MUST create a context th=
-at can<br>
-&gt; +handle the specified command stream.<br>
-&gt; +<br>
-&gt; +If the lower 6-bits of the \field{context_init} are zero, then the ty=
-pe of<br>
-&gt; +the context is determined by the device.<br>
-&gt; +<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_CTX_DESTROY]<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_CTX_ATTACH_RESOURCE]<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_CTX_DETACH_RESOURCE]<br>
-&gt; -=C2=A0 Manage OpenGL contexts.<br>
-&gt; +=C2=A0 Manage virtio-gpu 3d contexts.<br>
-&gt;<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_RESOURCE_CREATE_3D]<br>
-&gt; -=C2=A0 Create OpenGL resources.<br>
-&gt; +=C2=A0 Create virtio-gpu 3d resources.<br>
-&gt;<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D]<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D]<br>
-&gt; -=C2=A0 Transfer data from and to OpenGL resources.<br>
-&gt; +=C2=A0 Transfer data from and to virtio-gpu 3d resources.<br>
-&gt;<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_SUBMIT_3D]<br>
-&gt; -=C2=A0 Submit rendering commands (mesa gallium command stream).<br>
-&gt; +=C2=A0 Submit an opaque command stream.=C2=A0 The type of the command=
- stream is<br>
-&gt; +=C2=A0 determined when creating a context.<br>
-&gt;<br>
-&gt;=C2=A0 \item[VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB] maps a host-only<br>
-&gt;=C2=A0 =C2=A0 blob resource into an offset in the host visible memory r=
-egion. Request<br>
-&gt; --<br>
-&gt; 2.31.0<br>
-&gt;<br>
-&gt;<br>
-&gt; This publicly archived list offers a means to provide input to the<br>
-&gt; OASIS Virtual I/O Device (VIRTIO) TC.<br>
-&gt;<br>
-&gt; In order to verify user consent to the Feedback License terms and<br>
-&gt; to minimize spam in the list archive, subscription is required<br>
-&gt; before posting.<br>
-&gt;<br>
-&gt; Subscribe: <a href=3D"mailto:virtio-comment-subscribe@lists.oasis-open=
-.org" target=3D"_blank">virtio-comment-subscribe@lists.oasis-open.org</a><b=
-r>
-&gt; Unsubscribe: <a href=3D"mailto:virtio-comment-unsubscribe@lists.oasis-=
-open.org" target=3D"_blank">virtio-comment-unsubscribe@lists.oasis-open.org=
-</a><br>
-&gt; List help: <a href=3D"mailto:virtio-comment-help@lists.oasis-open.org"=
- target=3D"_blank">virtio-comment-help@lists.oasis-open.org</a><br>
-&gt; List archive: <a href=3D"https://lists.oasis-open.org/archives/virtio-=
-comment/" rel=3D"noreferrer" target=3D"_blank">https://lists.oasis-open.org=
-/archives/virtio-comment/</a><br>
-&gt; Feedback License: <a href=3D"https://www.oasis-open.org/who/ipr/feedba=
-ck_license.pdf" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open=
-.org/who/ipr/feedback_license.pdf</a><br>
-&gt; List Guidelines: <a href=3D"https://www.oasis-open.org/policies-guidel=
-ines/mailing-lists" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-=
-open.org/policies-guidelines/mailing-lists</a><br>
-&gt; Committee: <a href=3D"https://www.oasis-open.org/committees/virtio/" r=
-el=3D"noreferrer" target=3D"_blank">https://www.oasis-open.org/committees/v=
-irtio/</a><br>
-&gt; Join OASIS: <a href=3D"https://www.oasis-open.org/join/" rel=3D"norefe=
-rrer" target=3D"_blank">https://www.oasis-open.org/join/</a><br>
-&gt;<br>
-</blockquote></div></div>
+>
+> Done.
+>
+>
+>
+>>
+>>
+>> > +  \item \field{fence_id} acts as a sequence number on the synchroniza=
+tion
+>> > +   timeline defined by \field{ctx_idx} and the ring index.
+>> > +  \item when the command associated with \field{fence_id} is complete=
+, the
+>> > +  device MUST send a response for all outstanding commands with a seq=
+uence
+>> > +  number less than or equal to \field{fence_id} on the same
+>> > +  synchronization timeline.
+>> > +  \end{itemize*}
+>> >  \end{description}
+>> >
+>> >  On success the device will return VIRTIO_GPU_RESP_OK_NODATA in
+>> > @@ -516,6 +533,12 @@ \subsubsection{Device Operation: controlq}\label{=
+sec:Device Types / GPU Device /
+>> >         the first edition of Virgl (Gallium OpenGL) protocol.
+>> >    \item \href{https://gitlab.freedesktop.org/virgl/virglrenderer/-/bl=
+ob/master/src/virgl_hw.h#L550}{VIRTIO_GPU_CAPSET_VIRGL2} --
+>> >         the second edition of Virgl (Gallium OpenGL) protocol after th=
+e capset fix.
+>> > +  \item \href{https://android.googlesource.com/device/generic/vulkan-=
+cereal/+/refs/heads/master/protocols/}{VIRTIO_GPU_CAPSET_GFXSTREAM} --
+>> > +       gfxtream's (mostly) autogenerated GLES and Vulkan streaming pr=
+otocols.
+>> > +  \item \href{https://gitlab.freedesktop.org/olv/venus-protocol}{VIRT=
+IO_GPU_CAPSET_VENUS} --
+>> > +       Mesa's (mostly) autogenerated Vulkan protocol.
+>> > +  \item \href{https://chromium.googlesource.com/chromiumos/platform/c=
+rosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol=
+.rs}{VIRTIO_GPU_CAPSET_CROSS_DOMAIN} --
+>> > +       protocol for display virtualization via Wayland proxying.
+>> >    \end{itemize*}
+>> >
+>> >  \begin{lstlisting}
+>> > @@ -527,6 +550,9 @@ \subsubsection{Device Operation: controlq}\label{s=
+ec:Device Types / GPU Device /
+>> >
+>> >  #define VIRTIO_GPU_CAPSET_VIRGL 1
+>> >  #define VIRTIO_GPU_CAPSET_VIRGL2 2
+>> > +#define VIRTIO_GPU_CAPSET_GFXSTREAM 3
+>> > +#define VIRTIO_GPU_CAPSET_VENUS 4
+>> > +#define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
+>> >  struct virtio_gpu_resp_capset_info {
+>> >          struct virtio_gpu_ctrl_hdr hdr;
+>> >          le32 capset_id;
+>> > @@ -684,21 +710,46 @@ \subsubsection{Device Operation: controlq (3d)}\=
+label{sec:Device Types / GPU Dev
+>> >
+>> >  \begin{description}
+>> >
+>> > -\item[VIRTIO_GPU_CMD_CTX_CREATE]
+>> > +\item[VIRTIO_GPU_CMD_CTX_CREATE] creates a context for submitting an =
+opaque
+>> > +  command stream.  Request data is \field{struct virtio_gpu_ctx_creat=
+e}.
+>> > +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+>> > +
+>> > +\begin{lstlisting}
+>> > +#define VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK 0x0000003f;
+>> > +struct virtio_gpu_ctx_create {
+>> > +       struct virtio_gpu_ctrl_hdr hdr;
+>> > +       le32 nlen;
+>> > +       le32 context_init;
+>> > +       char debug_name[64];
+>> > +};
+>> > +\end{lstlisting}
+>> > +
+>> > +The implementation MUST create a context for the given \field{ctx_id}=
+ in
+>> > +the \field{hdr}.  For debugging purposes, a \field{debug_name} and it=
+'s
+>> > +length \field{nlen} is provided by the driver.  If
+>> > +VIRTIO_GPU_F_CONTEXT_INIT is supported, then lower 6 bits of
+>> > +\field{context_init} MAY contain the \field{capset_id} associated wit=
+h
+>> > +context.  In that case, then the device MUST create a context that ca=
+n
+>> > +handle the specified command stream.
+>> > +
+>> > +If the lower 6-bits of the \field{context_init} are zero, then the ty=
+pe of
+>> > +the context is determined by the device.
+>> > +
+>> >  \item[VIRTIO_GPU_CMD_CTX_DESTROY]
+>> >  \item[VIRTIO_GPU_CMD_CTX_ATTACH_RESOURCE]
+>> >  \item[VIRTIO_GPU_CMD_CTX_DETACH_RESOURCE]
+>> > -  Manage OpenGL contexts.
+>> > +  Manage virtio-gpu 3d contexts.
+>> >
+>> >  \item[VIRTIO_GPU_CMD_RESOURCE_CREATE_3D]
+>> > -  Create OpenGL resources.
+>> > +  Create virtio-gpu 3d resources.
+>> >
+>> >  \item[VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D]
+>> >  \item[VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D]
+>> > -  Transfer data from and to OpenGL resources.
+>> > +  Transfer data from and to virtio-gpu 3d resources.
+>> >
+>> >  \item[VIRTIO_GPU_CMD_SUBMIT_3D]
+>> > -  Submit rendering commands (mesa gallium command stream).
+>> > +  Submit an opaque command stream.  The type of the command stream is
+>> > +  determined when creating a context.
+>> >
+>> >  \item[VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB] maps a host-only
+>> >    blob resource into an offset in the host visible memory region. Req=
+uest
+>> > --
+>> > 2.31.0
+>> >
+>> >
+>> > This publicly archived list offers a means to provide input to the
+>> > OASIS Virtual I/O Device (VIRTIO) TC.
+>> >
+>> > In order to verify user consent to the Feedback License terms and
+>> > to minimize spam in the list archive, subscription is required
+>> > before posting.
+>> >
+>> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>> > List help: virtio-comment-help@lists.oasis-open.org
+>> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.=
+pdf
+>> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailin=
+g-lists
+>> > Committee: https://www.oasis-open.org/committees/virtio/
+>> > Join OASIS: https://www.oasis-open.org/join/
+>> >
 
---000000000000d89f1505cb85fa86--
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
