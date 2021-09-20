@@ -1,50 +1,127 @@
-Return-Path: <virtio-comment-return-2287-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2289-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 77ABE986184
+	by lists.oasis-open.org (Postfix) with ESMTP id 2B45F986291
 	for <virtio-comment@lists.oasis-open.org>; Mon, 20 Sep 2021 13:36:30 +0000 (UTC)
 From: David Hildenbrand <david@redhat.com>
-Date: Mon, 20 Sep 2021 15:36:16 +0200
-Message-Id: <20210920133618.16071-4-david@redhat.com>
+Date: Mon, 20 Sep 2021 15:36:17 +0200
+Message-Id: <20210920133618.16071-5-david@redhat.com>
 In-Reply-To: <20210920133618.16071-1-david@redhat.com>
 References: <20210920133618.16071-1-david@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH v2 3/5] virtio-mem: document basic memory access to plugged memory blocks
+Subject: [virtio-comment] [PATCH v2 4/5] virtio-mem: introduce VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE
 Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
 Cc: David Hildenbrand <david@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Let's cleanly document that the driver just has to allow for access to
-plugged memory blocks.
+Until now, we allowed a driver to read unplugged memory within the
+usable device-managed region: this simplified bring-up of virtio-mem in
+Linux quite a bit, especially when it came to physical memory dumping.
+
+When the device is using a memory backend that supports a shared
+zeropage, such as virtio-mem in QEMU under Linux on anonymous memory, the
+old behavior could be realized easily.
+
+However, when using other memory backends (such as hugetlbfs or shmem)
+or architectures, such as s390x, where a shared zeropage either does not
+exist or cannot be used, letting the driver read unplugged memory can
+result in undesired memory consumption in the hypervisor. The device
+wants to make sure that the guest is aware and will not read unplugged
+memory, not even in corner cases.
+
+In the meantime, the Linux implementation matured such that it will no
+longer access unplugged memory, for example, during kdump, when reading
+/proc/kcore, or via (now removed) /dev/kmem.
+
+Similar to VIRTIO_F_ACCESS_PLATFORM, this change will be disruptive and
+require driver adaptions -- even if it's just accepting the new feature.
+Devices are expected to only set the bit when really required, to keep
+existing setups working.
 
 Signed-off-by: David Hildenbrand <david@redhat.com>
 ---
- virtio-mem.tex | 3 +++
- 1 file changed, 3 insertions(+)
+ virtio-mem.tex | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
 diff --git a/virtio-mem.tex b/virtio-mem.tex
-index cca3c9f..3860b8c 100644
+index 3860b8c..dce035c 100644
 --- a/virtio-mem.tex
 +++ b/virtio-mem.tex
-@@ -249,6 +249,9 @@ \subsection{Device Operation}\label{sec:Device Types / =
-Memory Device / Device Op
+@@ -46,6 +46,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory=
+ Device / Feature bits}
+ \begin{description}
+ \item[VIRTIO_MEM_F_ACPI_PXM (0)] The field \field{node_id} in the device
+ configuration is valid and corresponds to an ACPI PXM.
++\item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver is not allowed t=
+o
++access unplugged memory.
+ \end{description}
 =20
- The device MUST NOT change the content of plugged memory blocks.
+ \subsection{Device configuration layout}\label{sec:Device Types / Memory D=
+evice / Device configuration layout}
+@@ -144,11 +146,17 @@ \subsection{Device Initialization}\label{Device Types=
+ / Memory Device / Device I
 =20
-+The device MUST allow the driver to read and write memory of plugged
-+memory blocks.
+ \drivernormative{\subsubsection}{Device Initialization}{Device Types / Mem=
+ory Device / Device Initialization}
+=20
++The driver SHOULD accept VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE if it is
++offered and the driver supports it.
 +
- The device MUST allow the driver to read memory of unplugged memory blocks
- inside \field{usable_region_size} via the CPU. \footnote{To allow for simp=
+ The driver SHOULD issue UNPLUG ALL requests until successful if the device
+ still has memory plugged and the plugged memory is not in use.
+=20
+ \devicenormative{\subsubsection}{Device Initialization}{Device Types / Mem=
+ory Device / Device Initialization}
+=20
++A device MAY fail to operate further if VIRTIO_MEM_F_UNPLUGGED_INACCESSIBL=
+E
++is not accepted.
++
+ The device MUST NOT change the state of memory blocks during device reset.
+=20
+ The device MUST NOT change the content of plugged memory blocks during
+@@ -223,9 +231,13 @@ \subsection{Device Operation}\label{sec:Device Types /=
+ Memory Device / Device Op
+ The driver MUST NOT read memory of unplugged memory blocks inside
+ \field{usable_region_size} via DMA.
+=20
+-The driver SHOULD NOT read memory of unplugged memory blocks inside
++If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has not been negotiated, the driver
++SHOULD NOT read memory of unplugged memory blocks inside
+ \field{usable_region_size} via the CPU.
+=20
++If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the driver
++MUST NOT read memory of unplugged memory blocks.
++
+ The driver MUST NOT request to unplug memory blocks while the memory is
+ still in use.
+=20
+@@ -252,10 +264,11 @@ \subsection{Device Operation}\label{sec:Device Types =
+/ Memory Device / Device Op
+ The device MUST allow the driver to read and write memory of plugged
+ memory blocks.
+=20
+-The device MUST allow the driver to read memory of unplugged memory blocks
+-inside \field{usable_region_size} via the CPU. \footnote{To allow for simp=
 lified
- dumping of memory. The CPU is expected to copy such memory to another loca=
+-dumping of memory. The CPU is expected to copy such memory to another loca=
 tion
+-before starting DMA.}
++If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has not been negotiated, the device
++MUST allow the driver to read memory of unplugged memory blocks inside
++\field{usable_region_size} via the CPU. \footnote{To allow for simplified
++dumping of memory. The CPU is expected to copy such memory to another
++location before starting DMA.}
+=20
+ The device MAY change the state of memory blocks during system resets.
+=20
 --=20
 2.31.1
 
