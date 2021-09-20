@@ -1,62 +1,104 @@
-Return-Path: <david@redhat.com>
+Return-Path: <virtio-comment-return-2286-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 584BC986170
+	for <virtio-comment@lists.oasis-open.org>; Mon, 20 Sep 2021 13:36:27 +0000 (UTC)
 From: David Hildenbrand <david@redhat.com>
-Subject: [PATCH v2 0/5] virtio-mem: VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE and interaction with memory properties
-Date: Mon, 20 Sep 2021 15:36:13 +0200
-Message-Id: <20210920133618.16071-1-david@redhat.com>
+Date: Mon, 20 Sep 2021 15:36:14 +0200
+Message-Id: <20210920133618.16071-2-david@redhat.com>
+In-Reply-To: <20210920133618.16071-1-david@redhat.com>
+References: <20210920133618.16071-1-david@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v2 1/5] virtio-mem: simplify statements that express unexpected behavior on memory access
 Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: quoted-printable
 To: virtio-comment@lists.oasis-open.org
-Cc: David Hildenbrand <david@redhat.com>, Hui Zhu <teawater@gmail.com>, Marek Kedzierski <mkedzier@redhat.com>, Sebastien Boeuf <sebastien.boeuf@intel.com>, Halil Pasic <pasic@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Wei Yang <richard.weiyang@linux.alibaba.com>
+Cc: David Hildenbrand <david@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Looking into supporting virtio-mem
-a) without a shared zeropage for the memory backing of the device --
-   not allowing the driver to read unplugged memory
-b) on architectures with memory properties for RAM (e.g., s390x with
-   storage keys and storage attributes)
-requires extension of the spec to handle both cases cleanly and describe
-the expected semantics.
+Some statements express that the device MAY allow access to memory inside
+unplugged memory blocks, although it's really just unexpected behavior and
+conforming drivers MUST NOT perform such access.
 
-I'll open a github issue soon; in the meantime, I'll work on the actual
-implementation in QEMU and Linux.
+Clarify that, and move the special CPU vs. DMA handling for some
+unplugged memory blocks to the driver section instead.
 
-For a), I already shared a Linux implementation in the past [1], which will
-be simplified once virito-mem memory can no longer be mapped via /dev/mem
-[2].
+While at it, start rephrasing our statements to clarify and prepare for
+further changes.
 
-For b), it's actually unlocking virtio-mem on s390x in QEMU/Linux,
-initially supporting storage keys but not supporting storage attributes
-for simplicity.
+Signed-off-by: David Hildenbrand <david@redhat.com>
+---
+ virtio-mem.tex | 23 +++++++++--------------
+ 1 file changed, 9 insertions(+), 14 deletions(-)
 
-[1] https://lkml.kernel.org/r/20210215122421.27964-1-david@redhat.com
-[2] https://lkml.kernel.org/r/20210902160919.25683-1-david@redhat.com
-
-Cc: Hui Zhu <teawater@gmail.com>
-Cc: Marek Kedzierski <mkedzier@redhat.com>
-Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
-Cc: Halil Pasic <pasic@linux.ibm.com>
-Cc: Cornelia Huck <cohuck@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>
-Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
-
-v1-> v2:
-- Addressed all feedback from Conny.
-- Added patch #1-#3 to cleanup and clarify.
-
-David Hildenbrand (5):
-  virtio-mem: simplify statements that express unexpected behavior on
-    memory access
-  virtio-mem: rephrase remaining memory access statements
-  virtio-mem: document basic memory access to plugged memory blocks
-  virtio-mem: introduce VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE
-  virtio-mem: describe interaction with memory properties
-
- virtio-mem.tex | 72 +++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 51 insertions(+), 21 deletions(-)
-
--- 
+diff --git a/virtio-mem.tex b/virtio-mem.tex
+index 62a1d02..f0c5970 100644
+--- a/virtio-mem.tex
++++ b/virtio-mem.tex
+@@ -220,8 +220,11 @@ \subsection{Device Operation}\label{sec:Device Types /=
+ Memory Device / Device Op
+ The driver MUST NOT read from unplugged memory blocks outside
+ \field{usable_region_size}.
+=20
+-The driver SHOULD NOT read from unplugged memory blocks inside
+-\field{usable_region_size}.
++The driver MUST NOT read memory of unplugged memory blocks inside
++\field{usable_region_size} via DMA.
++
++The driver SHOULD NOT read memory of unplugged memory blocks inside
++\field{usable_region_size} via the CPU.
+=20
+ The driver MUST NOT request to unplug memory blocks while the memory is
+ still in use.
+@@ -246,18 +249,10 @@ \subsection{Device Operation}\label{sec:Device Types =
+/ Memory Device / Device Op
+=20
+ The device MUST NOT change the content of plugged memory blocks.
+=20
+-The device MUST allow the CPU to read from unplugged memory blocks inside
+-the usable device-managed region. \footnote{To allow for simplified dumpin=
+g of
+-memory. The CPU is expected to copy such memory to another location before
+-starting DMA.}
+-
+-The device MAY allow to read from unplugged memory blocks inside the
+-usable device-managed region via DMA.
+-
+-The device MAY allow to read from unplugged memory blocks outside
+-the usable device-managed region.
+-
+-The device MAY allow to write to unplugged memory blocks.
++The device MUST allow the driver to read memory of unplugged memory blocks
++inside \field{usable_region_size} via the CPU. \footnote{To allow for simp=
+lified
++dumping of memory. The CPU is expected to copy such memory to another loca=
+tion
++before starting DMA.}
+=20
+ The device MAY change the state of memory blocks during system resets.
+=20
+--=20
 2.31.1
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
