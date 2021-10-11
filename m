@@ -1,148 +1,86 @@
-Return-Path: <virtio-comment-return-2271-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8F2DF9865D8
-	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Sep 2021 06:21:49 +0000 (UTC)
-From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
-Date: Fri, 3 Sep 2021 09:21:34 +0300
-Message-ID: <20210903062138.3189664-1-arseny.krasnov@kaspersky.com>
-In-Reply-To: <20210903062039.3189334-1-arseny.krasnov@kaspersky.com>
-References: <20210903062039.3189334-1-arseny.krasnov@kaspersky.com>
+Return-Path: <cohuck@redhat.com>
+From: Cornelia Huck <cohuck@redhat.com>
+Subject: [PATCH] ccw: clarify device reset
+Date: Mon, 11 Oct 2021 13:38:28 +0200
+Message-Id: <20211011113828.309458-1-cohuck@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH v9 2/2] virtio-vsock: SOCK_SEQPACKET description
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-To: cohuck@redhat.com, virtio-comment@lists.oasis-open.org, Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Arseny Krasnov <arseny.krasnov@kaspersky.com>, Andra Paraschiv <andraprs@amazon.com>, Norbert Slusarek <nslusarek@gmx.net>, Colin Ian King <colin.king@canonical.com>
-Cc: virtualization@lists.linux-foundation.org, oxffffaa@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+To: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+Cc: Jason Wang <jasowang@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This adds description of SOCK_SEQPACKET socket type
-support for virtio-vsock.
+Unlike other transports, a reset triggered by the driver is actually
+complete once the command has been completed. Make this behaviour
+and the requirements more explicit.
 
-Signed-off-by: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+Signed-off-by: Cornelia Huck <cohuck@redhat.com>
 ---
- virtio-vsock.tex | 43 ++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 38 insertions(+), 5 deletions(-)
 
-diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-index ad57f9d..c89c7af 100644
---- a/virtio-vsock.tex
-+++ b/virtio-vsock.tex
-@@ -16,7 +16,10 @@ \subsection{Virtqueues}\label{sec:Device Types / Socket =
-Device / Virtqueues}
-=20
- \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature=
- bits}
-=20
--There are currently no feature bits defined for this device.
-+\begin{description}
-+\item VIRTIO_VSOCK_F_SEQPACKET (1) SOCK_SEQPACKET socket type is
-+    supported.
-+\end{description}
-=20
- \subsection{Device configuration layout}\label{sec:Device Types / Socket D=
-evice / Device configuration layout}
-=20
-@@ -135,15 +138,17 @@ \subsubsection{Addressing}\label{sec:Device Types / S=
-ocket Device / Device Opera
- consists of a (cid, port number) tuple. The header fields used for this ar=
-e
- \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
-=20
--Currently only stream sockets are supported. \field{type} is 1 (VIRTIO_VSO=
-CK_TYPE_STREAM)
--for stream socket types.
-+Currently stream and seqpacket sockets are supported. \field{type} is 1 (V=
-IRTIO_VSOCK_TYPE_STREAM)
-+for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket=
- socket types.
-=20
- \begin{lstlisting}
--#define VIRTIO_VSOCK_TYPE_STREAM 1
-+#define VIRTIO_VSOCK_TYPE_STREAM    1
-+#define VIRTIO_VSOCK_TYPE_SEQPACKET 2
- \end{lstlisting}
-=20
- Stream sockets provide in-order, guaranteed, connection-oriented delivery
--without message boundaries.
-+without message boundaries. Seqpacket sockets provide in-order, guaranteed=
-,
-+connection-oriented delivery with message and record boundaries.
-=20
- \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket De=
-vice / Device Operation / Buffer Space Management}
- \field{buf_alloc} and \field{fwd_cnt} are used for buffer space management=
- of
-@@ -244,6 +249,34 @@ \subsubsection{Stream Sockets}\label{sec:Device Types =
-/ Socket Device / Device O
- destination) address tuple for a new connection while the other peer is st=
-ill
- processing the old connection.
-=20
-+\subsubsection{Seqpacket Sockets}\label{sec:Device Types / Socket Device /=
- Device Operation / Seqpacket Sockets}
-+
-+\paragraph{Message and record boundaries}\label{sec:Device Types / Socket =
-Device / Device Operation / Seqpacket Sockets / Boundaries}
-+Two types of boundaries supported: message and record boundaries.
-+
-+A message contains data sent by a single system call. Message boundary mea=
-ns
-+that data of single send system call is guaranteed to be read wholly by si=
-ngle
-+receive system call. If receive buffer is not enough, then out of size dat=
-a
-+will be dropped.
-+
-+Record is any number of subsequent messages, where last message is sent wi=
-th POSIX
-+MSG_EOR flag set. Record boundary means that receiver gets MSG_EOR flag se=
-t
-+in the corresponding message where sender set it.
-+
-+To provide message boundaries, last RW packet of each message has VIRTIO_V=
-SOCK_SEQ_EOM
-+bit (bit 0) set in the \field{flags} of packet's header.
-+
-+\begin{lstlisting}
-+#define VIRTIO_VSOCK_SEQ_EOM (1 << 0)
-+\end{lstlisting}
-+
-+To provide record boundaries, last RW packet of each record has VIRTIO_VSO=
-CK_SEQ_EOR
-+bit (bit 1) set in the \field{flags} of packet's header.
-+
-+\begin{lstlisting}
-+#define VIRTIO_VSOCK_SEQ_EOR (1 << 1)
-+\end{lstlisting}
-+
- \subsubsection{Device Events}\label{sec:Device Types / Socket Device / Dev=
-ice Operation / Device Events}
-=20
- Certain events are communicated by the device to the driver using the even=
-t
---=20
-2.25.1
+We have discussed this before while talking about reset behaviour,
+but I don't remember sending an actual patch.
 
+If this looks good, I'll open an issue.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+---
+ conformance.tex |  2 ++
+ content.tex     | 22 +++++++++++++++++++++-
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+diff --git a/conformance.tex b/conformance.tex
+index c52f1a40be2d..24e862ad217a 100644
+--- a/conformance.tex
++++ b/conformance.tex
+@@ -122,6 +122,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Initialization / Communicating Status Information}
+ \item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Host->Guest Notification / Notification via Adapter I/O Interrupts}
+ \item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Guest->Host Notification}
++\item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
+ \end{itemize}
+ 
+ \conformance{\subsection}{Network Driver Conformance}\label{sec:Conformance / Driver Conformance / Network Driver Conformance}
+@@ -372,6 +373,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Initialization / Setting Up Indicators / Setting Up Two-Stage Queue Indicators}
+ \item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Host->Guest Notification / Notification via Adapter I/O Interrupts}
+ \item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Guest->Host Notification}
++\item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
+ \end{itemize}
+ 
+ \conformance{\subsection}{Network Device Conformance}\label{sec:Conformance / Device Conformance / Network Device Conformance}
+diff --git a/content.tex b/content.tex
+index 5e716721edb3..0410f46f6a78 100644
+--- a/content.tex
++++ b/content.tex
+@@ -2775,8 +2775,28 @@ \subsubsection{Guest->Host Notification}\label{sec:Virtio Transport Options / Vi
+ \subsubsection{Resetting Devices}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
+ 
+ In order to reset a device, a driver sends the
+-CCW_CMD_VDEV_RESET command.
++CCW_CMD_VDEV_RESET command. This command does not carry any payload.
+ 
++The device signals completion of the reset operation by making the subchannel
++status pending to indicate successful completion of the channel command.
++Notably, the command not only triggers the reset operation, but the reset
++operation is already completed when the operation concludes successfully.
++
++\devicenormative{\paragraph}{Resetting Devices}{Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
++
++Before making the subchannel status pending to indicate successful completion
++of the reset command, the device MUST reinitialize \field{device status} to
++zero.
++
++The device MUST NOT send notifications or interact with the queues after
++it signaled successful completion of the reset command.
++
++\drivernormative{\paragraph}{Resetting Devices}{Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
++
++The driver MAY consider the reset operation to be complete already after
++successful completion of the channel command, although it MAY also verify
++reset completion by reading \field{device status} via CCW_CMD_READ_STATUS
++afterwards.
+ 
+ \chapter{Device Types}\label{sec:Device Types}
+ 
+-- 
+2.31.1
 
