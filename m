@@ -1,117 +1,99 @@
-Return-Path: <virtio-return-3601-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio@lists.oasis-open.org>
-List-Post: <mailto:virtio@lists.oasis-open.org>
-List-Help: <mailto:virtio-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <CACGkMEtb8P76pu0VM+B-Dt1BMi1edxv18BmAN0S6Z6_vHLHKSA@mail.gmail.com>
+Return-Path: <jasowang@redhat.com>
+Subject: Re: [PATCH] ccw: clarify device reset
 References: <20211011113828.309458-1-cohuck@redhat.com>
  <CACGkMEtb8P76pu0VM+B-Dt1BMi1edxv18BmAN0S6Z6_vHLHKSA@mail.gmail.com>
-Date: Tue, 12 Oct 2021 13:16:45 +0200
-Message-ID: <87sfx6wl0i.fsf@redhat.com>
+ <87sfx6wl0i.fsf@redhat.com>
+From: Jason Wang <jasowang@redhat.com>
+Message-ID: <a8481ea4-31a8-149d-70df-6ccabdf8bce9@redhat.com>
+Date: Wed, 13 Oct 2021 14:20:21 +0800
 MIME-Version: 1.0
-Subject: [virtio] Re: [PATCH] ccw: clarify device reset
-Content-Type: text/plain
-To: Jason Wang <jasowang@redhat.com>
+In-Reply-To: <87sfx6wl0i.fsf@redhat.com>
+Content-Type: text/plain; charset="gbk"; format="flowed"
+Content-Transfer-Encoding: base64
+Content-Language: en-US
+To: Cornelia Huck <cohuck@redhat.com>
 Cc: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, Halil Pasic <pasic@linux.ibm.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Oct 12 2021, Jason Wang <jasowang@redhat.com> wrote:
-
-> On Mon, Oct 11, 2021 at 7:38 PM Cornelia Huck <cohuck@redhat.com> wrote:
->>
->> Unlike other transports, a reset triggered by the driver is actually
->> complete once the command has been completed. Make this behaviour
->> and the requirements more explicit.
->>
->> Signed-off-by: Cornelia Huck <cohuck@redhat.com>
->> ---
->>
->> We have discussed this before while talking about reset behaviour,
->> but I don't remember sending an actual patch.
->>
->> If this looks good, I'll open an issue.
->>
->> ---
->>  conformance.tex |  2 ++
->>  content.tex     | 22 +++++++++++++++++++++-
->>  2 files changed, 23 insertions(+), 1 deletion(-)
->>
-
->> @@ -2775,8 +2775,28 @@ \subsubsection{Guest->Host Notification}\label{sec:Virtio Transport Options / Vi
->>  \subsubsection{Resetting Devices}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
->>
->>  In order to reset a device, a driver sends the
->> -CCW_CMD_VDEV_RESET command.
->> +CCW_CMD_VDEV_RESET command. This command does not carry any payload.
->>
->> +The device signals completion of the reset operation by making the subchannel
->> +status pending to indicate successful completion of the channel command.
->
-> Not familiar with ccw, but I wonder what's the meaning of "making the
-> subchannel status pending"?
-
-Hm, I was wondering whether I'm striking the balance between assuming
-the reader knows the details of how channel I/O works and explaining the
-basic flow...
-
-Slightly simplified, if a device/control unit has finished processing a
-channel program (whether successfully or not), it places some status in
-the control blocks for the subchannel that serves as its communication
-conduit, one of the values being "status pending". The driver may
-collect the subchannel status at any time, but "status pending" in
-particular means that an interrupt becomes pending. A system may run
-with interrupts disabled, while still polling for pending interrupts, so
-I did not want to write that the device generates an interrupt. Not sure
-if this is now too hard to understand for someone not that familiar with
-the matter, though.
-
->
->> +Notably, the command not only triggers the reset operation, but the reset
->> +operation is already completed when the operation concludes successfully.
->> +
->> +\devicenormative{\paragraph}{Resetting Devices}{Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
->> +
->> +Before making the subchannel status pending to indicate successful completion
->> +of the reset command, the device MUST reinitialize \field{device status} to
->> +zero.
->
-> Is the ordering of reinitialization and interrupt guaranteed by the transport?
-
-It is definitely how it should be, i.e. the device performing the reset
-and only then making the subchannel status pending. I had thought this
-was self-evident, and QEMU also works like that, but maybe it really
-needed some clarification. (I assume the zCX thingy also does it like
-that, but I cannot check that myself.)
-
->
->> +
->> +The device MUST NOT send notifications or interact with the queues after
->> +it signaled successful completion of the reset command.
->> +
->> +\drivernormative{\paragraph}{Resetting Devices}{Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
->> +
->> +The driver MAY consider the reset operation to be complete already after
->> +successful completion of the channel command, although it MAY also verify
->> +reset completion by reading \field{device status} via CCW_CMD_READ_STATUS
->> +afterwards.
->
-> I wonder if it's better to say
->
-> The driver MUST consider the reset operation to be complete by either ... or ...
-
-We currently say that the driver SHOULD consider reset complete when it
-reads back a zero status. For ccw, completion of the command is required
-before the driver can issue another command (such as to check the device
-status). What I wanted to say here is that the driver is already free to
-consider the reset complete if the command was successful, but that it
-can read back the status _after_ the reset command is through to satisfy
-the generic SHOULD statement.
-
-
----------------------------------------------------------------------
-To unsubscribe from this mail list, you must leave the OASIS TC that 
-generates this mail.  Follow this link to all your TCs in OASIS at:
-https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
-
+CtTaIDIwMjEvMTAvMTIgz8LO5zc6MTYsIENvcm5lbGlhIEh1Y2sg0LS1wDoKPiBPbiBUdWUsIE9j
+dCAxMiAyMDIxLCBKYXNvbiBXYW5nIDxqYXNvd2FuZ0ByZWRoYXQuY29tPiB3cm90ZToKPgo+PiBP
+biBNb24sIE9jdCAxMSwgMjAyMSBhdCA3OjM4IFBNIENvcm5lbGlhIEh1Y2sgPGNvaHVja0ByZWRo
+YXQuY29tPiB3cm90ZToKPj4+IFVubGlrZSBvdGhlciB0cmFuc3BvcnRzLCBhIHJlc2V0IHRyaWdn
+ZXJlZCBieSB0aGUgZHJpdmVyIGlzIGFjdHVhbGx5Cj4+PiBjb21wbGV0ZSBvbmNlIHRoZSBjb21t
+YW5kIGhhcyBiZWVuIGNvbXBsZXRlZC4gTWFrZSB0aGlzIGJlaGF2aW91cgo+Pj4gYW5kIHRoZSBy
+ZXF1aXJlbWVudHMgbW9yZSBleHBsaWNpdC4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBDb3JuZWxp
+YSBIdWNrIDxjb2h1Y2tAcmVkaGF0LmNvbT4KPj4+IC0tLQo+Pj4KPj4+IFdlIGhhdmUgZGlzY3Vz
+c2VkIHRoaXMgYmVmb3JlIHdoaWxlIHRhbGtpbmcgYWJvdXQgcmVzZXQgYmVoYXZpb3VyLAo+Pj4g
+YnV0IEkgZG9uJ3QgcmVtZW1iZXIgc2VuZGluZyBhbiBhY3R1YWwgcGF0Y2guCj4+Pgo+Pj4gSWYg
+dGhpcyBsb29rcyBnb29kLCBJJ2xsIG9wZW4gYW4gaXNzdWUuCj4+Pgo+Pj4gLS0tCj4+PiAgIGNv
+bmZvcm1hbmNlLnRleCB8ICAyICsrCj4+PiAgIGNvbnRlbnQudGV4ICAgICB8IDIyICsrKysrKysr
+KysrKysrKysrKysrKy0KPj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspLCAx
+IGRlbGV0aW9uKC0pCj4+Pgo+Pj4gQEAgLTI3NzUsOCArMjc3NSwyOCBAQCBcc3Vic3Vic2VjdGlv
+bntHdWVzdC0+SG9zdCBOb3RpZmljYXRpb259XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9w
+dGlvbnMgLyBWaQo+Pj4gICBcc3Vic3Vic2VjdGlvbntSZXNldHRpbmcgRGV2aWNlc31cbGFiZWx7
+c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBvdmVyIGNoYW5uZWwgSS9PIC8g
+RGV2aWNlIE9wZXJhdGlvbiAvIFJlc2V0dGluZyBEZXZpY2VzfQo+Pj4KPj4+ICAgSW4gb3JkZXIg
+dG8gcmVzZXQgYSBkZXZpY2UsIGEgZHJpdmVyIHNlbmRzIHRoZQo+Pj4gLUNDV19DTURfVkRFVl9S
+RVNFVCBjb21tYW5kLgo+Pj4gK0NDV19DTURfVkRFVl9SRVNFVCBjb21tYW5kLiBUaGlzIGNvbW1h
+bmQgZG9lcyBub3QgY2FycnkgYW55IHBheWxvYWQuCj4+Pgo+Pj4gK1RoZSBkZXZpY2Ugc2lnbmFs
+cyBjb21wbGV0aW9uIG9mIHRoZSByZXNldCBvcGVyYXRpb24gYnkgbWFraW5nIHRoZSBzdWJjaGFu
+bmVsCj4+PiArc3RhdHVzIHBlbmRpbmcgdG8gaW5kaWNhdGUgc3VjY2Vzc2Z1bCBjb21wbGV0aW9u
+IG9mIHRoZSBjaGFubmVsIGNvbW1hbmQuCj4+IE5vdCBmYW1pbGlhciB3aXRoIGNjdywgYnV0IEkg
+d29uZGVyIHdoYXQncyB0aGUgbWVhbmluZyBvZiAibWFraW5nIHRoZQo+PiBzdWJjaGFubmVsIHN0
+YXR1cyBwZW5kaW5nIj8KPiBIbSwgSSB3YXMgd29uZGVyaW5nIHdoZXRoZXIgSSdtIHN0cmlraW5n
+IHRoZSBiYWxhbmNlIGJldHdlZW4gYXNzdW1pbmcKPiB0aGUgcmVhZGVyIGtub3dzIHRoZSBkZXRh
+aWxzIG9mIGhvdyBjaGFubmVsIEkvTyB3b3JrcyBhbmQgZXhwbGFpbmluZyB0aGUKPiBiYXNpYyBm
+bG93Li4uCj4KPiBTbGlnaHRseSBzaW1wbGlmaWVkLCBpZiBhIGRldmljZS9jb250cm9sIHVuaXQg
+aGFzIGZpbmlzaGVkIHByb2Nlc3NpbmcgYQo+IGNoYW5uZWwgcHJvZ3JhbSAod2hldGhlciBzdWNj
+ZXNzZnVsbHkgb3Igbm90KSwgaXQgcGxhY2VzIHNvbWUgc3RhdHVzIGluCj4gdGhlIGNvbnRyb2wg
+YmxvY2tzIGZvciB0aGUgc3ViY2hhbm5lbCB0aGF0IHNlcnZlcyBhcyBpdHMgY29tbXVuaWNhdGlv
+bgo+IGNvbmR1aXQsIG9uZSBvZiB0aGUgdmFsdWVzIGJlaW5nICJzdGF0dXMgcGVuZGluZyIuIFRo
+ZSBkcml2ZXIgbWF5Cj4gY29sbGVjdCB0aGUgc3ViY2hhbm5lbCBzdGF0dXMgYXQgYW55IHRpbWUs
+IGJ1dCAic3RhdHVzIHBlbmRpbmciIGluCj4gcGFydGljdWxhciBtZWFucyB0aGF0IGFuIGludGVy
+cnVwdCBiZWNvbWVzIHBlbmRpbmcuCgoKU28gaXQgbG9va3Mgc29tZXRoaW5nIHNpbWlsYXIgdG8g
+SVNSIChpbnRlcnJ1cHQgc3RhdHVzIHJlZ2lzdGVyKSBpbiBQQ0kuCgoKPiBBIHN5c3RlbSBtYXkg
+cnVuCj4gd2l0aCBpbnRlcnJ1cHRzIGRpc2FibGVkLCB3aGlsZSBzdGlsbCBwb2xsaW5nIGZvciBw
+ZW5kaW5nIGludGVycnVwdHMsIHNvCj4gSSBkaWQgbm90IHdhbnQgdG8gd3JpdGUgdGhhdCB0aGUg
+ZGV2aWNlIGdlbmVyYXRlcyBhbiBpbnRlcnJ1cHQuCgoKSSBzZWUuCgoKPiAgIE5vdCBzdXJlCj4g
+aWYgdGhpcyBpcyBub3cgdG9vIGhhcmQgdG8gdW5kZXJzdGFuZCBmb3Igc29tZW9uZSBub3QgdGhh
+dCBmYW1pbGlhciB3aXRoCj4gdGhlIG1hdHRlciwgdGhvdWdoLgoKCkl0J3Mgbm90LgoKQnR3IEkg
+Zm91bmQgdGhlIGxpbmsgdG8gUzM5MCBDb21tb24gSS9PIGlzIGJyb2tlbiAoYXQgbGVhc3QgSSBj
+YW4ndCAKYWNjZXNzIGl0IGZyb20gQ2hpbmEpOgoKaHR0cDovL3B1YmxpYmZwLmRoZS5pYm0uY29t
+L2NnaS1iaW4vYm9va21nci9CT09LUy9kejlhcjUwMS9DQ09OVEVOVFMKCgo+Cj4+PiArTm90YWJs
+eSwgdGhlIGNvbW1hbmQgbm90IG9ubHkgdHJpZ2dlcnMgdGhlIHJlc2V0IG9wZXJhdGlvbiwgYnV0
+IHRoZSByZXNldAo+Pj4gK29wZXJhdGlvbiBpcyBhbHJlYWR5IGNvbXBsZXRlZCB3aGVuIHRoZSBv
+cGVyYXRpb24gY29uY2x1ZGVzIHN1Y2Nlc3NmdWxseS4KPj4+ICsKPj4+ICtcZGV2aWNlbm9ybWF0
+aXZle1xwYXJhZ3JhcGh9e1Jlc2V0dGluZyBEZXZpY2VzfXtWaXJ0aW8gVHJhbnNwb3J0IE9wdGlv
+bnMgLyBWaXJ0aW8gb3ZlciBjaGFubmVsIEkvTyAvIERldmljZSBPcGVyYXRpb24gLyBSZXNldHRp
+bmcgRGV2aWNlc30KPj4+ICsKPj4+ICtCZWZvcmUgbWFraW5nIHRoZSBzdWJjaGFubmVsIHN0YXR1
+cyBwZW5kaW5nIHRvIGluZGljYXRlIHN1Y2Nlc3NmdWwgY29tcGxldGlvbgo+Pj4gK29mIHRoZSBy
+ZXNldCBjb21tYW5kLCB0aGUgZGV2aWNlIE1VU1QgcmVpbml0aWFsaXplIFxmaWVsZHtkZXZpY2Ug
+c3RhdHVzfSB0bwo+Pj4gK3plcm8uCj4+IElzIHRoZSBvcmRlcmluZyBvZiByZWluaXRpYWxpemF0
+aW9uIGFuZCBpbnRlcnJ1cHQgZ3VhcmFudGVlZCBieSB0aGUgdHJhbnNwb3J0Pwo+IEl0IGlzIGRl
+ZmluaXRlbHkgaG93IGl0IHNob3VsZCBiZSwgaS5lLiB0aGUgZGV2aWNlIHBlcmZvcm1pbmcgdGhl
+IHJlc2V0Cj4gYW5kIG9ubHkgdGhlbiBtYWtpbmcgdGhlIHN1YmNoYW5uZWwgc3RhdHVzIHBlbmRp
+bmcuIEkgaGFkIHRob3VnaHQgdGhpcwo+IHdhcyBzZWxmLWV2aWRlbnQsIGFuZCBRRU1VIGFsc28g
+d29ya3MgbGlrZSB0aGF0LCBidXQgbWF5YmUgaXQgcmVhbGx5Cj4gbmVlZGVkIHNvbWUgY2xhcmlm
+aWNhdGlvbi4gKEkgYXNzdW1lIHRoZSB6Q1ggdGhpbmd5IGFsc28gZG9lcyBpdCBsaWtlCj4gdGhh
+dCwgYnV0IEkgY2Fubm90IGNoZWNrIHRoYXQgbXlzZWxmLikKCgpPay4KCgo+Cj4+PiArCj4+PiAr
+VGhlIGRldmljZSBNVVNUIE5PVCBzZW5kIG5vdGlmaWNhdGlvbnMgb3IgaW50ZXJhY3Qgd2l0aCB0
+aGUgcXVldWVzIGFmdGVyCj4+PiAraXQgc2lnbmFsZWQgc3VjY2Vzc2Z1bCBjb21wbGV0aW9uIG9m
+IHRoZSByZXNldCBjb21tYW5kLgo+Pj4gKwo+Pj4gK1xkcml2ZXJub3JtYXRpdmV7XHBhcmFncmFw
+aH17UmVzZXR0aW5nIERldmljZXN9e1ZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBv
+dmVyIGNoYW5uZWwgSS9PIC8gRGV2aWNlIE9wZXJhdGlvbiAvIFJlc2V0dGluZyBEZXZpY2VzfQo+
+Pj4gKwo+Pj4gK1RoZSBkcml2ZXIgTUFZIGNvbnNpZGVyIHRoZSByZXNldCBvcGVyYXRpb24gdG8g
+YmUgY29tcGxldGUgYWxyZWFkeSBhZnRlcgo+Pj4gK3N1Y2Nlc3NmdWwgY29tcGxldGlvbiBvZiB0
+aGUgY2hhbm5lbCBjb21tYW5kLCBhbHRob3VnaCBpdCBNQVkgYWxzbyB2ZXJpZnkKPj4+ICtyZXNl
+dCBjb21wbGV0aW9uIGJ5IHJlYWRpbmcgXGZpZWxke2RldmljZSBzdGF0dXN9IHZpYSBDQ1dfQ01E
+X1JFQURfU1RBVFVTCj4+PiArYWZ0ZXJ3YXJkcy4KPj4gSSB3b25kZXIgaWYgaXQncyBiZXR0ZXIg
+dG8gc2F5Cj4+Cj4+IFRoZSBkcml2ZXIgTVVTVCBjb25zaWRlciB0aGUgcmVzZXQgb3BlcmF0aW9u
+IHRvIGJlIGNvbXBsZXRlIGJ5IGVpdGhlciAuLi4gb3IgLi4uCj4gV2UgY3VycmVudGx5IHNheSB0
+aGF0IHRoZSBkcml2ZXIgU0hPVUxEIGNvbnNpZGVyIHJlc2V0IGNvbXBsZXRlIHdoZW4gaXQKPiBy
+ZWFkcyBiYWNrIGEgemVybyBzdGF0dXMuIEZvciBjY3csIGNvbXBsZXRpb24gb2YgdGhlIGNvbW1h
+bmQgaXMgcmVxdWlyZWQKPiBiZWZvcmUgdGhlIGRyaXZlciBjYW4gaXNzdWUgYW5vdGhlciBjb21t
+YW5kIChzdWNoIGFzIHRvIGNoZWNrIHRoZSBkZXZpY2UKPiBzdGF0dXMpLiBXaGF0IEkgd2FudGVk
+IHRvIHNheSBoZXJlIGlzIHRoYXQgdGhlIGRyaXZlciBpcyBhbHJlYWR5IGZyZWUgdG8KPiBjb25z
+aWRlciB0aGUgcmVzZXQgY29tcGxldGUgaWYgdGhlIGNvbW1hbmQgd2FzIHN1Y2Nlc3NmdWwsIGJ1
+dCB0aGF0IGl0Cj4gY2FuIHJlYWQgYmFjayB0aGUgc3RhdHVzIF9hZnRlcl8gdGhlIHJlc2V0IGNv
+bW1hbmQgaXMgdGhyb3VnaCB0byBzYXRpc2Z5Cj4gdGhlIGdlbmVyaWMgU0hPVUxEIHN0YXRlbWVu
+dC4KCgpPaywgSSdtIGZpbmUgd2l0aCB0aGF0LgoKVGhhbmtzCgoKPgoK
