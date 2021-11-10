@@ -1,73 +1,104 @@
-Return-Path: <virtio-comment-return-2394-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2336-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D48EF9864A7
-	for <virtio-comment@lists.oasis-open.org>; Thu, 25 Nov 2021 09:05:52 +0000 (UTC)
-From: "Qi, Yadong" <yadong.qi@intel.com>
-Date: Thu, 25 Nov 2021 09:05:48 +0000
-Message-ID: <BL1PR11MB54799096EE4A2C195B0475FBE3629@BL1PR11MB5479.namprd11.prod.outlook.com>
-References: <20211124024757.742884-1-yadong.qi@intel.com>
- <YZ4UIhAXoJOqd6Ba@stefanha-x1.localdomain>
- <BL1PR11MB54794413B1C9336F723B1ADFE3629@BL1PR11MB5479.namprd11.prod.outlook.com>
- <20211125060804.GA645@lst.de>
-In-Reply-To: <20211125060804.GA645@lst.de>
+	by lists.oasis-open.org (Postfix) with ESMTP id D07A5986475
+	for <virtio-comment@lists.oasis-open.org>; Wed, 10 Nov 2021 18:56:06 +0000 (UTC)
+From: tstark@linux.microsoft.com
+Date: Wed, 10 Nov 2021 10:55:54 -0800
+Message-Id: <20211110185555.190-1-tstark@linux.microsoft.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] RE: [PATCH v2] virtio-blk: add secure discard feature to
- specification
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+Subject: [virtio-comment] [PATCH v5 0/1] virtio-pmem: Support describing pmem as shared memory region
 Content-Transfer-Encoding: quoted-printable
-To: "hch@lst.de" <hch@lst.de>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "Chen, Luhai" <luhai.chen@intel.com>, "Wang, Kai Z" <kai.z.wang@intel.com>
+Content-Type: text/plain; charset="US-ASCII"
+To: virtio-comment@lists.oasis-open.org
+Cc: grahamwo@microsoft.com, benhill@microsoft.com, tstark@microsoft.com, pankaj.gupta.linux@gmail.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-> -----Original Message-----
-> From: hch@lst.de <hch@lst.de>
-> Sent: Thursday, November 25, 2021 2:08 PM
-> To: Qi, Yadong <yadong.qi@intel.com>
-> Cc: Stefan Hajnoczi <stefanha@redhat.com>; virtio-comment@lists.oasis-
-> open.org; hch@lst.de; Chen, Luhai <luhai.chen@intel.com>; Wang, Kai Z
-> <kai.z.wang@intel.com>
-> Subject: Re: [PATCH v2] virtio-blk: add secure discard feature to specifi=
-cation
->=20
-> On Thu, Nov 25, 2021 at 01:04:20AM +0000, Qi, Yadong wrote:
-> > > Is the meaning of secure discard widely understood or does it make
-> > > sense to define it in more detail?
-> > Good question, I think I can add more detail. Where is the correct
-> > position to add such detail? How about add it under feature bits defini=
-tion?
->=20
-> Secure discard is a weird linux-specific term that we certainly would not=
- pick any
-> more.  secure erase is much more common in the industry.
+From: Taylor Stark <tstark@microsoft.com>
 
-How about VIRTIO_BLK_F_SECURE_ERASE and VIRTIO_BLK_T_SECURE_ERASE?
-And new fields name: max_secure_erase_sectors, max_secure_erase_seg,
-secure_erase_sector_alignment?
+Changes from v4 [1]:
+ - Clarified which fields of virtio_pmem_config are valid depending on shar=
+ed
+   memory feature negotiation (suggested by Cornelia Huck).
 
-Best Regard
-Yadong
+Changes from v3 [1]:
+ - Rebased onto master now that the base virtio-pmem spec has been merged.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
+Changes from v2:
+ - Incorporated suggestions from Cornelia Huck on rewording driver initiali=
+zation.
+
+Changes from v1:
+ - Added in a feature bit (VIRTIO_PMEM_F_SHMEM_REGION) for controlling how =
+the
+   device indicates the guest physical address ranges to the driver. This f=
+eature
+   directly affects control flow of the driver, since it seemed weird to ha=
+ve
+   the driver indicate support for shared memory regions, and then needing
+   to include an enum (or similar) informing the driver how the device
+   indicated guest physical address ranges. If devices want to indicate the
+   ranges as guest absolute addresses, they can skip negotiating the featur=
+e.
+ - The linux driver implementation has been updated and tested, but I'm hol=
+ding
+   off on posting the patches to get some feedback on the new approach.
+ - Moved some changes to proper subsections (normative subsections).
+
+[1] https://lists.oasis-open.org/archives/virtio-comment/202111/msg00004.ht=
+ml
+
+---
+
+This patch updates the virtio-pmem spec to add support for describing the p=
+mem
+region as a shared memory region. This is required to support virtio-pmem i=
+n
+Hyper-V, since Hyper-V only allows PCI devices to operate on memory ranges
+defined via BARs. When using the virtio PCI transport, shared memory region=
+s
+are described via PCI BARs.
+
+As virtio-pmem hasn't been added to the virtio spec yet (see this issue [1]=
+),
+this patch is based off the RFC spec [2]. The linux driver implementation h=
+as
+been posted at [3].
+
+[1] https://github.com/oasis-tcs/virtio-spec/issues/78
+[2] https://lists.oasis-open.org/archives/virtio-dev/201903/msg00083.html
+[3] https://lore.kernel.org/nvdimm/20210715223505.GA29329@linuxonhyperv3.gu=
+j3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
+
+Taylor Stark (1):
+  virtio-pmem: Support describing pmem as shared memory region
+
+ conformance.tex | 14 ++++++++++++--
+ virtio-pmem.tex | 40 +++++++++++++++++++++++++++++++++-------
+ 2 files changed, 45 insertions(+), 9 deletions(-)
+
+--=20
+2.33.0.vfs.0.0
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
