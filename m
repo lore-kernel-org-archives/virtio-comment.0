@@ -1,279 +1,122 @@
-Return-Path: <virtio-comment-return-2371-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2358-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6CC7C986433
-	for <virtio-comment@lists.oasis-open.org>; Tue, 23 Nov 2021 11:10:33 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20211122205618.4aadff06.pasic@linux.ibm.com>
-References: <20211110185555.190-1-tstark@linux.microsoft.com>
- <20211110185555.190-2-tstark@linux.microsoft.com>
- <20211118183752.32100dc3.pasic@linux.ibm.com>
- <20211121080834.GA9507@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <878rxgl7w6.fsf@redhat.com> <20211122205618.4aadff06.pasic@linux.ibm.com>
-Date: Tue, 23 Nov 2021 12:10:24 +0100
-Message-ID: <8735nnktzz.fsf@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id A15DC9864C4
+	for <virtio-comment@lists.oasis-open.org>; Thu, 18 Nov 2021 02:57:49 +0000 (UTC)
+From: yadong.qi@intel.com
+Date: Thu, 18 Nov 2021 10:57:41 +0800
+Message-Id: <20211118025741.230748-1-yadong.qi@intel.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH v5 1/1] virtio-pmem: Support describing
- pmem as shared memory region
-Content-Type: text/plain
-To: Halil Pasic <pasic@linux.ibm.com>
-Cc: Taylor Stark <tstark@linux.microsoft.com>, virtio-comment@lists.oasis-open.org, grahamwo@microsoft.com, benhill@microsoft.com, tstark@microsoft.com, pankaj.gupta.linux@gmail.com, Halil Pasic <pasic@linux.ibm.com>
+Subject: [virtio-comment] [PATCH] virtio-blk: add secure discard feature to specification
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
+To: virtio-comment@lists.oasis-open.org
+Cc: yadong.qi@intel.com, luhai.chen@intel.com, kai.z.wang@intel.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, Nov 22 2021, Halil Pasic <pasic@linux.ibm.com> wrote:
+From: Yadong Qi <yadong.qi@intel.com>
 
-> On Mon, 22 Nov 2021 12:58:01 +0100
-> Cornelia Huck <cohuck@redhat.com> wrote:
->
->> On Sun, Nov 21 2021, Taylor Stark <tstark@linux.microsoft.com> wrote:
->> 
->> > On Thu, Nov 18, 2021 at 06:37:52PM +0100, Halil Pasic wrote:  
->> >> On Wed, 10 Nov 2021 10:55:55 -0800
->> >> tstark@linux.microsoft.com wrote:
->> >> [..]  
->> >> > @@ -36,22 +39,45 @@ \subsection{Device configuration layout}\label{sec:Device Types / PMEM Device /
->> >> >  \end{lstlisting}
->> >> >  
->> >> >  \begin{description}
->> >> > -\item[\field{start}] contains the physical address of the first byte of the persistent memory region.
->> >> > +\item[\field{start}] contains the physical address of the first byte of the
->> >> > +persistent memory region, if VIRTIO_PMEM_F_SHMEM_REGION has not been negotiated.
->> >> >  
->> >> > -\item[\field{size}] contains the length of this address range.
->> >> > +\item[\field{size}] contains the length of this address range, if
->> >> > +VIRTIO_PMEM_F_SHMEM_REGION has not been negotiated.
->> >> >  \end{description}
->> >> >  
->> >> > +\subsection{Device Initialization}\label{sec:Device Types / PMEM Device / Device Initialization}
->> >> > +
->> >> > +The device indicates the guest physical address to the driver in one of two ways:
->> >> >  \begin{enumerate}
->> >> > -\item Driver vpmem start is read from \field{start}.
->> >> > -\item Driver vpmem end is read from \field{size}.
->> >> > +\item As a guest absolute address, using virtio_pmem_config.
->> >> > +\item As a shared memory region.
->> >> >  \end{enumerate}
->> >> >  
->> >> > -\subsection{Driver Initialization}\label{sec:Device Types / PMEM Driver / Driver Initialization}
->> >> > -
->> >> >  The driver determines the start address and size of the persistent memory region in preparation for reading or writing data.
->> >> >  
->> >> >  The driver initializes req_vq in preparation for making flush requests.
->> >> >  
->> >> > +\devicenormative{\subsubsection}{Device Initialization}{Device Types / PMEM Device / Device Initialization}
->> >> > +
->> >> > +If VIRTIO_PMEM_F_SHMEM_REGION has been negotiated, the device MUST indicate the
->> >> > +guest physical address as a shared memory region. The device MUST use shared
->> >> > +memory region ID 0. The device SHOULD set \field{start} and \field{size} to zero.
->> >> > +
->> >> > +
->> >> > +If VIRTIO_PMEM_F_SHMEM_REGION has not been negotiated, the device MUST indicate  
->> 
->> [for the sake of the argument made below, note the 'has not been
->> negotiated' here]
->> 
->> >> > +the guest physical address as a guest absolute address. The device MUST set
->> >> > +\field{start} to the absolute address and \field{size} to the size of the
->> >> > +address range, in bytes.  
->> >> 
->> >> Sorry for joining in this late. 
->> >> 
->> >> I'm wondering if the quoted parts implies that the device SHOULD change
->> >> its config space (fields start and size) when the driver sets
->> >> FEATURES_OK, and the feature is VIRTIO_PMEM_F_SHMEM_REGION set at the
->> >> device (it was offered, and got set).
->> >> 
->> >> My train of thought is: initially no feature is considered negotiated,
->> >> and config space access is allowed before feature negotiation is
->> >> completed. That means the at this stage the device must indicate via
->> >> the config space, and thus \field{size} != 0. But as a part of the
->> >> transition 'features not negotiated' -> 'features negotiated' the device
->> >> needs to go '\field{size} != 0' -> '\field{size} == 0'  
->> 
->> It has been advised that it SHOULD put 0 there, but I don't consider
->> that a must, just a good idea.
->
-> Right I agree with that. So we say that the config state update is a
-> good idea as well?
->
-> BTW the definition of SHOULD:
->    SHOULD   This word, or the adjective "RECOMMENDED", mean that there
->    may exist valid reasons in particular circumstances to ignore a
->    particular item, but the full implications must be understood and
->    carefully weighed before choosing a different course.
->
-> Maybe I should have used 'should go' instead of 'needs to go' but that
-> doesn't change the fact, that the spec currently regards this
-> config space update as RECOMMENDED.
->
-> Conny, is that what we want?
->
+There are user requests to use BLKSECDISCARD on virtio-blk device.
+Hence in this proposal, extend virtio-blk protocol to support secure
+discard command.
 
-I really don't understand your problem with this? Yes, we recommend that
-the device does this, but if there's anything that makes it difficult for
-the device, it can omit it.
+Introduced new feature flag and command type:
+    VIRTIO_BLK_F_SECDISCARD
+    VIRTIO_BLK_T_SECDISCARD
 
->
->> 
->> >> 
->> >> Is that what we want?
->> >> 
->> >> Also I understand that Hyper-V would make the device cease operation if
->> >> the feature VIRTIO_PMEM_F_SHMEM_REGION was not accepted by the driver.
->> >> I believe I've read that in some previous email.
->> >> 
->> >> Do we need a  'MAY fail to operate further if' statement? Anything that
->> >> ain't guarded by feature bits ain't optional, and anything that is
->> >> guarded by feature bits is optional unless explicitly stated otherwise.  
->> 
->> The device can always fail the setting of FEATURES_OK, see 2.2.2:
->> 
->> "The device SHOULD accept any valid subset of features the driver
->> accepts, otherwise it MUST fail to set the FEATURES_OK device status bit
->> when the driver writes it."
->> 
->> I'd argue that "SHMEM_REGION not set" can be considered a non-valid
->> subset by the device. (Also, there's a SHOULD in there.)
->
-> Yes, but that is not very helpful for somebody reading the spec without
-> having the context of this discussion.
->
-> To put it differently, why do we use the "MAY fail to operate further
-> if" statement for:
-> * VIRTIO_F_ACCESS_PLATFORM not accepted
-> * VIRTIO_F_ORDER_PLATFORM not accepted
-> * VIRTIO_F_VERSION_1 not offered
->
-> If "SHMEM_REGION not accepted" is covered by 2.2.2 and thus superfluous,
-> then so is "ACCESS_PLATFORM not accepted".
+This feature is a passthrough feature on backend because it is hard
+to emulate a secure discard. So virtio-blk will report this feature
+to guest OS if backend device support such kind of feature. And
+when guest OS issues a secure discard command, backend driver will
+passthrough the command to host device blocks.
 
-I'd say it is indeed not really needed. The driver must be able to deal
-with the device rejecting FEATURES_OK for a certain feature set.
+Signed-off-by: Yadong Qi <yadong.qi@intel.com>
+---
+ content.tex | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
->
-> IMHO in the sentence quoted by you "valid subset" should be interpreted
-> as a subset that is closed to the "depends on" relationship between
-> feature sets. I.e. a subset is invalid, if it contains at least one
-> feature such that some feature required by it is not in the subset.
->
-> If we say that any device implementation can proclaim any subset of
-> features invalid, than the the first part of the sentence does
-> not have any meaning to it.
->
-> You are definitively right about the SHOULD, it is not a MUST.
->
-> I believe the whole idea behind features is to facilitate extensibility
-> and compatibility.
->
-> Usually a driver can safely ignore features it does not know or care
-> about,and the device SHOULD still work according to the expectations of
-> the driver.
->
-> But some feature bits are not like that. For example it ain't safe for
-> the driver to ignore ACCESS_PLATFORM, for obvious reasons. And we
-> express that with the "MAY fail to operate further if" statement.
-
-Well if you want to highlight a bit, highlight it. But I don't think
-this is really needed here. Things like ACCESS_PLATFORM are not as
-obvious.
-
->
->
->> 
->> >> 
->> >> Regards,
->> >> Halil  
->> >
->> > No problem, thanks for joining in! :) I think your train of thought makes sense.
->> > You're right, for Hyper-V we can't support any driver that doesn't support
->> > VIRTIO_PMEM_F_SHMEM_REGION. So we have no choice but to set the config fields
->> > to zero from the start. There's no meaningful value we can place in those fields.  
->> 
->> I think this is fine: we only require the fields to have meaningful
->> contents if SHMEM_REGION has not been negotiated -- as long as the
->> device has not accepted FEATURES_OK from the driver, nothing has been
->> negotiated respectively not been negotiated.
->
-> I have issues accepting the tristate nature of 'has been negotiated'. I
-> don't think that is intuitive. If this really what we want we should be
-> very clear about it.
->
-> In my opinion feature negotiation is usually an opt-in. Before the opt-in
-> the device is to give us the "compatible" or "old" behavior.
-
-But a device is always free to require the "new" behaviour; otherwise,
-we could never ditch old interfaces.
-
->
->> 
->> >
->> > I'm trying to figure out how best to word this. Saying that devices should set
->> > config fields prior to FEATURE_OK is redundant. Should I add a section saying that
->> > config fields MAY be set to 0 if VIRTIO_PMEM_F_SHMEM_REGION is offerred (such as
->> > in the Hyper-V case)? And that if it's set to 0 and the feature isn't negotiated,
->> > the device must reject the driver? I'd also have to add in a section saying that
->> > the pmem region shouldn't be touched by the driver prior to DRIVER_OK being set,
->> > to save drivers from accessing the zeroed values placed in the config. Additionally,
->> > encouraging devices to set the config fields to 0 once the feature has been
->> > negotiated seems like the right thing to do, to catch bugs?  
->> 
->> I don't think we can prohibit the driver from reading the config space,
->> that is explicitly allowed in the general case.
->
-> I agree. I believe the specification should tell us which features are
-> essential by design, and which features are optional by design. We
-> clearly have both kinds of features, right?
-
-It also depends on the individual device which features are essential.
-
->
->> 
->> We probably can add a non-normative extra statement, though, that a
->> device may present zeroes in the config space before feature negotiation
->> has finished if it doesn't support !SHMEM_REGION. 
->
-> I would not tie that to 'before feature negotiation' or 'does not support
-> SHMEM'. We can say something like:
->
-> If the value of the field \filed{size} is 0, then the \field{start} does
-> not contain the physical address of the persistent memory region, and
-> the persistent memory region is advertised by means different than 
-> via the config space.
-
-Isn't that self-evident? If the device does not provide the information
-in the config space, it uses a different mechanism.
-
->
->> That would also give
->> the driver a way to discover that it doesn't make sense to continue
->> without negotiating SHMEM_REGION. No extra normative statement, but
->> should make it a bit more clear to those trying to implement this.
->> 
->> >
->> > I'm not sure about the 'MAY fail to operate further statement'. Couldn't there
->> > be lots of reasons why a device rejects a driver? And wouldn't those be
->> > implementation details of each device? Is it common to document those?  
->> 
->> We probably don't need such a statement (see above).
->
-> I disagree.
-
-I still stand by my opinion.
-
->
->> 
->> As voting for this is open until tomorrow, we should quickly decide what
->> to do. My preference would be to merge it as-is and do a clarification
->> on top.
->> 
->
-> I'm fine with merging as is.
-
-OK; if everyone agrees we need changes on top, we can add them later.
+diff --git a/content.tex b/content.tex
+index 5d112af..305c51f 100644
+--- a/content.tex
++++ b/content.tex
+@@ -4435,6 +4435,13 @@ \subsection{Feature bits}\label{sec:Device Types / B=
+lock Device / Feature bits}
+=20
+ \item[VIRTIO_BLK_F_LIFETIME (15)] Device supports providing storage lifeti=
+me
+      information.
++
++\item[VIRTIO_BLK_F_SECDISCARD (16)] Device can support secure discard comm=
+and,
++    share the same maximum discard sectors size and discard segment number=
+ with
++    VIRTIO_BLK_F_DISCARD. Maximum discard sectors size in
++    \field{max_discard_sectors} and maximum discard segment number in
++    \field{max_discard_seg}.
++
+ \end{description}
+=20
+ \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Bl=
+ock Device / Feature bits / Legacy Interface: Feature bits}
+@@ -4619,7 +4626,8 @@ \subsection{Device Operation}\label{sec:Device Types =
+/ Block Device / Device Ope
+ The type of the request is either a read (VIRTIO_BLK_T_IN), a write
+ (VIRTIO_BLK_T_OUT), a discard (VIRTIO_BLK_T_DISCARD), a write zeroes
+ (VIRTIO_BLK_T_WRITE_ZEROES), a flush (VIRTIO_BLK_T_FLUSH), a get device ID
+-string command (VIRTIO_BLK_T_GET_ID), or a get device lifetime command
++string command (VIRTIO_BLK_T_GET_ID), a secure discard
++(VIRTIO_BLK_T_SECDISCARD), or a get device lifetime command
+ (VIRTIO_BLK_T_GET_LIFETIME).
+=20
+ \begin{lstlisting}
+@@ -4630,6 +4638,7 @@ \subsection{Device Operation}\label{sec:Device Types =
+/ Block Device / Device Ope
+ #define VIRTIO_BLK_T_GET_LIFETIME 10
+ #define VIRTIO_BLK_T_DISCARD      11
+ #define VIRTIO_BLK_T_WRITE_ZEROES 13
++#define VIRTIO_BLK_T_SECDISCARD   14
+ \end{lstlisting}
+=20
+ The \field{sector} number indicates the offset (multiplied by 512) where
+@@ -4729,13 +4738,13 @@ \subsection{Device Operation}\label{sec:Device Type=
+s / Block Device / Device Ope
+ and VIRTIO_BLK_T_OUT requests.
+=20
+ The length of \field{data} MUST be a multiple of the size of struct
+-virtio_blk_discard_write_zeroes for VIRTIO_BLK_T_DISCARD and
+-VIRTIO_BLK_T_WRITE_ZEROES requests.
++virtio_blk_discard_write_zeroes for VIRTIO_BLK_T_DISCARD,
++VIRTIO_BLK_T_SECDISCARD and VIRTIO_BLK_T_WRITE_ZEROES requests.
+=20
+ The length of \field{data} MUST be 20 bytes for VIRTIO_BLK_T_GET_ID reques=
+ts.
+=20
+-VIRTIO_BLK_T_DISCARD requests MUST NOT contain more than
+-\field{max_discard_seg} struct virtio_blk_discard_write_zeroes segments in
++VIRTIO_BLK_T_DISCARD and VIRTIO_BLK_T_SECDISCARD requests MUST NOT contain=
+ more
++than \field{max_discard_seg} struct virtio_blk_discard_write_zeroes segmen=
+ts in
+ \field{data}.
+=20
+ VIRTIO_BLK_T_WRITE_ZEROES requests MUST NOT contain more than
+@@ -4764,7 +4773,7 @@ \subsection{Device Operation}\label{sec:Device Types =
+/ Block Device / Device Ope
+ write any data.
+=20
+ The device MUST set the \field{status} byte to VIRTIO_BLK_S_UNSUPP for
+-discard and write zeroes commands if any unknown flag is set.
++discard, secure discard and write zeroes commands if any unknown flag is s=
+et.
+ Furthermore, the device MUST set the \field{status} byte to
+ VIRTIO_BLK_S_UNSUPP for discard commands if the \field{unmap} flag is set.
+=20
+--=20
+2.25.1
 
 
 This publicly archived list offers a means to provide input to the
@@ -288,7 +131,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
