@@ -1,114 +1,73 @@
-Return-Path: <virtio-comment-return-2412-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0DAFC98612F
-	for <virtio-comment@lists.oasis-open.org>; Mon, 29 Nov 2021 12:33:15 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20211126114654.425806-1-cohuck@redhat.com>
-References: <20211126114654.425806-1-cohuck@redhat.com>
-Date: Mon, 29 Nov 2021 13:33:08 +0100
-Message-ID: <87ee6zi1kr.fsf@redhat.com>
-MIME-Version: 1.0
-Subject: [virtio-comment] Re: [PATCH v2] ccw: clarify device reset
-Content-Type: text/plain
-To: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
-Cc: Jason Wang <jasowang@redhat.com>, Halil Pasic <pasic@linux.ibm.com>
+Return-Path: <f61b6c8063f3d1ba9c093f3a7c6c5c03f42f1faa@lizzy.crudebyte.com>
+From: Christian Schoenebeck <qemu_oss@crudebyte.com>
+Date: Fri, 19 Nov 2021 14:21:12 +0100
+Subject: [PATCH] Add VIRTIO_RING_F_LARGE_INDIRECT_DESC
+Message-Id: <E1mpa34-0008EK-Di@lizzy.crudebyte.com>
+Content-Type: text/plain; charset="US-ASCII"
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, Greg Kurz <groug@kaod.org>, Cornelia Huck <cohuck@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, Nov 26 2021, Cornelia Huck <cohuck@redhat.com> wrote:
+This new feature flag allows indirect descriptor tables to
+exceed the queue size.
 
-> Unlike other transports, a reset triggered by the driver is actually
-> complete once the command has been completed. Make this behaviour
-> and the requirements more explicit.
+Signed-off-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
+---
+Stefan noted that there should also be a numeric configuration field
+reflecting a precise limit of indirect descriptors. The question is where
+should that go to exactly? Some devices currently handle this in their
+device specific configuration space. Wouldn't it make sense to handle that
+in the common configuration space instead?
+---
+ content.tex    | 21 +++++++++++++++++++++
+ split-ring.tex |  2 +-
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/123
-
->
-> Signed-off-by: Cornelia Huck <cohuck@redhat.com>
-> ---
->
-> v1->v2: drop channel I/O internals, talk more specificly about virtio reset
->
-> ---
->  conformance.tex |  2 ++
->  content.tex     | 22 +++++++++++++++++++++-
->  2 files changed, 23 insertions(+), 1 deletion(-)
->
-> diff --git a/conformance.tex b/conformance.tex
-> index 80547db4939b..f7975d974c63 100644
-> --- a/conformance.tex
-> +++ b/conformance.tex
-> @@ -123,6 +123,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->  \item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Initialization / Communicating Status Information}
->  \item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Host->Guest Notification / Notification via Adapter I/O Interrupts}
->  \item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Guest->Host Notification}
-> +\item \ref{drivernormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
->  \end{itemize}
->  
->  \conformance{\subsection}{Network Driver Conformance}\label{sec:Conformance / Driver Conformance / Network Driver Conformance}
-> @@ -374,6 +375,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->  \item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Initialization / Setting Up Indicators / Setting Up Two-Stage Queue Indicators}
->  \item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Host->Guest Notification / Notification via Adapter I/O Interrupts}
->  \item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Guest->Host Notification}
-> +\item \ref{devicenormative:Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
->  \end{itemize}
->  
->  \conformance{\subsection}{Network Device Conformance}\label{sec:Conformance / Device Conformance / Network Device Conformance}
-> diff --git a/content.tex b/content.tex
-> index 5d112af206d2..899df5ffde6d 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -2775,8 +2775,28 @@ \subsubsection{Guest->Host Notification}\label{sec:Virtio Transport Options / Vi
->  \subsubsection{Resetting Devices}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
->  
->  In order to reset a device, a driver sends the
-> -CCW_CMD_VDEV_RESET command.
-> +CCW_CMD_VDEV_RESET command. This command does not carry any payload.
->  
-> +The device signals completion of the virtio reset operation through successful
-> +conclusion of the CCW_CMD_VDEV_RESET channel command. In particular, the
-> +command not only triggers the reset operation, but the reset operation is
-> +already completed when the operation concludes successfully.
-> +
-> +\devicenormative{\paragraph}{Resetting Devices}{Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
-> +
-> +The device MUST finish the virtio reset operation and reinitialize
-> +\field{device status} to zero before it concludes the CCW_CMD_VDEV_RESET
-> +command successfully.
-> +
-> +The device MUST NOT send notifications or interact with the queues after
-> +it signaled successful conclusion of the CCW_CMD_VDEV_RESET command.
-> +
-> +\drivernormative{\paragraph}{Resetting Devices}{Virtio Transport Options / Virtio over channel I/O / Device Operation / Resetting Devices}
-> +
-> +The driver MAY consider the virtio reset operation to be complete already after
-> +successful conclusion of the CCW_CMD_VDEV_RESET channel command, although it
-> +MAY also choose to verify reset completion by reading \field{device status} via
-> +CCW_CMD_READ_STATUS and checking whether it is 0 afterwards.
->  
->  \chapter{Device Types}\label{sec:Device Types}
->  
-> -- 
-> 2.31.1
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+diff --git a/content.tex b/content.tex
+index 5d112af..b42a26b 100644
+--- a/content.tex
++++ b/content.tex
+@@ -6693,6 +6693,27 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+   transport specific.
+   For more details about driver notifications over PCI see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}.
+ 
++  \item[VIRTIO_RING_F_LARGE_INDIRECT_DESC(40)] This feature indicates that the
++  amount of descriptors in an indirect descriptor table is allowed to exceed
++  the Queue Size.
++
++  If this feature bit is not negotiated, then a driver MUST NOT create a
++  descriptor chain longer than the Queue Size, which then also applies to
++  indirect descriptor tables as in \ref{sec:Basic Facilities of a Virtio
++  Device / Virtqueues / The Virtqueue Descriptor Table / Indirect
++  Descriptors}. Which means without this feature, the Queue Size limits
++  both the maximum amount of pending messages being emplaced in the vring,
++  as well as the actual bulk data size being transmitted.
++
++  With this feature enabled, the Queue Size only limits the maximum amount
++  of pending messages in the vring, but does not oppose a limit to the actual
++  bulk data size being transmitted. Decoupling these two configuration
++  parameters this way not only allows much larger bulk data being transferred
++  per message, but also avoids complicated synchronization mechanisms if
++  device only supports a very small amount of pending/active messages.
++  Due to the 16-bit size of a descriptor's "next" field there is still an
++  absolute limit of $2^{16}$ descriptors per indirect descriptor table.
++
+ \end{description}
+ 
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+diff --git a/split-ring.tex b/split-ring.tex
+index bfef62d..5284635 100644
+--- a/split-ring.tex
++++ b/split-ring.tex
+@@ -269,7 +269,7 @@ \subsubsection{Indirect Descriptors}\label{sec:Basic Facilities of a Virtio Devi
+ one table per descriptor).
+ 
+ A driver MUST NOT create a descriptor chain longer than the Queue Size of
+-the device.
++the device unless VIRTIO_RING_F_LARGE_INDIRECT_DESC has been negotiated.
+ 
+ A driver MUST NOT set both VIRTQ_DESC_F_INDIRECT and VIRTQ_DESC_F_NEXT
+ in \field{flags}.
+-- 
+2.20.1
 
