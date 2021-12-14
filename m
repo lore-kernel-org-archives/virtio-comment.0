@@ -1,64 +1,70 @@
-Return-Path: <55b04c584638393050bc76467439550d87e24696@lizzy.crudebyte.com>
-Message-Id: <cover.1639494803.git.qemu_oss@crudebyte.com>
+Return-Path: <4971f1bee76d664a71d411d8769a23a0d04097e7@lizzy.crudebyte.com>
+Message-Id: <4971f1bee76d664a71d411d8769a23a0d04097e7.1639494803.git.qemu_oss@crudebyte.com>
+In-Reply-To: <cover.1639494803.git.qemu_oss@crudebyte.com>
+References: <cover.1639494803.git.qemu_oss@crudebyte.com>
 From: Christian Schoenebeck <qemu_oss@crudebyte.com>
-Date: Tue, 14 Dec 2021 16:13:23 +0100
-Subject: [PATCH 0/2] Add VIRTIO_RING_F_INDIRECT_SIZE and queue_indirect_size
+Date: Tue, 14 Dec 2021 16:13:10 +0100
+Subject: [PATCH 1/2] Add VIRTIO_RING_F_INDIRECT_SIZE
 Content-Type: text/plain; charset="US-ASCII"
 To: virtio-comment@lists.oasis-open.org
 Cc: Stefan Hajnoczi <stefanha@redhat.com>, Cornelia Huck <cohuck@redhat.com>, Greg Kurz <groug@kaod.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This is a follow-up of:
-[0/2]: https://lists.oasis-open.org/archives/virtio-comment/202111/msg00089.html
-[1/2]: https://lists.oasis-open.org/archives/virtio-comment/202112/msg00005.html
-[2/2]: https://lists.oasis-open.org/archives/virtio-comment/202112/msg00006.html
+This new feature flag allows to decouple the maximum amount of
+descriptors in indirect descriptor tables from the Queue Size.
 
-These two patches introduce a more fine graded control over the maximum length
-of indirect descriptor tables.
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/122
+Signed-off-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
+---
+ content.tex    | 21 +++++++++++++++++++++
+ split-ring.tex |  2 +-
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
-Associated Github Task:
-https://github.com/oasis-tcs/virtio-spec/issues/122
-
-Changes:
-
-  * VIRTIO_RING_F_LARGE_INDIRECT_DESC -> VIRTIO_RING_F_INDIRECT_SIZE
-    [patch 1], [patch 2]
-
-  * queue_indirect_size field: 16 bit -> 32 bit [patch 2]
-
-  * Semantic change: "per indirect descriptor table" -> "per vring slot".
-    [patch 2]
-
-  * Revised first paragraph of VIRTIO_RING_F_INDIRECT_SIZE(40) to be more clear
-    that it is not only about exceeding the queue size
-    ("This feature indicates ... "). [patch 1]
-
-  * Drop mentioning "revision 3". [patch 2]
-
-  * revised commit log [patch 1]
-
-  * Grammar: "... but does not limit the actual bulk data size ...". [patch 1]
-
-  * Grammar: "... if the device ...". [patch 1]
-
-  * queue_indirect_size field may only be used if VIRTIO_RING_F_INDIRECT_SIZE
-    was used. [patch 2]
-
-  * Drop usage of SHOULD/MUST in common description. [patch 2]
-
-  * Grammar: had been -> was [patch 2]
-
-  * Add requirements for field 'queue_indirect_size' to driver normative
-    section. [patch 2]
-
-Christian Schoenebeck (2):
-  Add VIRTIO_RING_F_INDIRECT_SIZE
-  Add common configuration field "queue_indirect_size"
-
- content.tex    | 44 ++++++++++++++++++++++++++++++++++++++++++++
- split-ring.tex |  5 ++++-
- 2 files changed, 48 insertions(+), 1 deletion(-)
-
+diff --git a/content.tex b/content.tex
+index 5d112af..0aa4842 100644
+--- a/content.tex
++++ b/content.tex
+@@ -6693,6 +6693,27 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+   transport specific.
+   For more details about driver notifications over PCI see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}.
+ 
++  \item[VIRTIO_RING_F_INDIRECT_SIZE(40)] This feature indicates that the
++  maximum amount of descriptors in indirect descriptor tables is independent
++  from the Queue Size.
++
++  If this feature bit is not negotiated, then a driver MUST NOT create a
++  descriptor chain longer than the Queue Size, which then also applies to
++  indirect descriptor tables as in \ref{sec:Basic Facilities of a Virtio
++  Device / Virtqueues / The Virtqueue Descriptor Table / Indirect
++  Descriptors}. Which means without this feature, the Queue Size limits
++  both the maximum amount of slots in the vring, as well as the actual
++  bulk data size being transmitted per vring slot.
++
++  With this feature enabled, the Queue Size only limits the maximum amount
++  of slots in the vring, but does not limit the actual bulk data size
++  being transmitted when indirect descriptors are used. Decoupling these
++  two configuration parameters this way not only allows much larger bulk data
++  being transferred per vring slot, but also avoids complicated synchronization
++  mechanisms if the device only supports a very small amount of vring slots. Due
++  to the 16-bit size of a descriptor's "next" field there is still an absolute
++  limit of $2^{16}$ descriptors per indirect descriptor table.
++
+ \end{description}
+ 
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+diff --git a/split-ring.tex b/split-ring.tex
+index bfef62d..ae2aeb8 100644
+--- a/split-ring.tex
++++ b/split-ring.tex
+@@ -269,7 +269,7 @@ \subsubsection{Indirect Descriptors}\label{sec:Basic Facilities of a Virtio Devi
+ one table per descriptor).
+ 
+ A driver MUST NOT create a descriptor chain longer than the Queue Size of
+-the device.
++the device unless VIRTIO_RING_F_INDIRECT_SIZE has been negotiated.
+ 
+ A driver MUST NOT set both VIRTQ_DESC_F_INDIRECT and VIRTQ_DESC_F_NEXT
+ in \field{flags}.
 -- 
 2.20.1
 
