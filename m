@@ -1,15 +1,15 @@
-Return-Path: <virtio-comment-return-2466-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2467-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F40B1986180
-	for <virtio-comment@lists.oasis-open.org>; Sun, 26 Dec 2021 08:18:47 +0000 (UTC)
-Date: Sun, 26 Dec 2021 03:18:39 -0500
+	by lists.oasis-open.org (Postfix) with ESMTP id 8BE9C986238
+	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Dec 2021 08:15:37 +0000 (UTC)
+Date: Mon, 27 Dec 2021 03:15:29 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20211226031821-mutt-send-email-mst@kernel.org>
+Message-ID: <20211227031128-mutt-send-email-mst@kernel.org>
 References: <20211209140543.1876-1-longpeng2@huawei.com>
  <d09a2b0c1cee4d2180b33c452a42794c@huawei.com>
 MIME-Version: 1.0
@@ -27,9 +27,12 @@ On Thu, Dec 23, 2021 at 02:49:25PM +0000, Longpeng (Mike, Cloud Infrastructure S
 > 
 > Is there anything else I need to do to reserve the device id?
 
-Follow these steps please:
+OK, I see the issue was created. I think it makes sense to wait
+until Jan 3 with the vote since lots of people are on
+vacation.
 
-https://github.com/oasis-tcs/virtio-spec#use-of-github-issues
+Meanwhile - are there plans to add this device to the spec eventually?
+Can you share a bit more of what it does?
 
 > > -----Original Message-----
 > > From: Longpeng (Mike, Cloud Infrastructure Service Product Dept.)
