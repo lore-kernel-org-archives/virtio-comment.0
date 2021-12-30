@@ -1,9 +1,9 @@
 Return-Path: <mst@redhat.com>
-Date: Thu, 30 Dec 2021 12:55:11 -0500
+Date: Thu, 30 Dec 2021 13:12:00 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 Subject: Re: [virtio-comment] Re: [PATCH 1/1] Fix reserved Feature bits
  numbering
-Message-ID: <20211230125436-mutt-send-email-mst@kernel.org>
+Message-ID: <20211230131036-mutt-send-email-mst@kernel.org>
 References: <20210801124527.35655-1-mgurtovoy@nvidia.com>
  <87sfzhx0h3.fsf@redhat.com>
  <ed7f44c2-5058-c4ef-e427-d1c83126bc62@nvidia.com>
@@ -39,10 +39,9 @@ On Thu, Dec 30, 2021 at 04:57:57PM +0200, Max Gurtovoy wrote:
 > 
 > Issue #128.
 
+Note that at the moment the issue itself is empty, the only content is
+in the comments.
 
-Thanks and now you follow
-
-https://github.com/oasis-tcs/virtio-spec/blob/master/README.md#use-of-github-issues
 
 > > > > > -----Original Message-----
 > > > > > From: Michael S. Tsirkin <mst@redhat.com>
