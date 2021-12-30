@@ -1,110 +1,93 @@
-Return-Path: <virtio-comment-return-2468-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2470-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 06F05986238
-	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Dec 2021 09:38:48 +0000 (UTC)
-From: "Longpeng (Mike, Cloud Infrastructure Service Product Dept.)"
-	<longpeng2@huawei.com>
-Date: Mon, 27 Dec 2021 09:38:41 +0000
-Message-ID: <2be7836713cc4d06ba24b86d21d18094@huawei.com>
-References: <20211209140543.1876-1-longpeng2@huawei.com>
- <d09a2b0c1cee4d2180b33c452a42794c@huawei.com>
- <20211227031128-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20211227031128-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 62712986279
+	for <virtio-comment@lists.oasis-open.org>; Thu, 30 Dec 2021 14:24:48 +0000 (UTC)
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Date: Thu, 30 Dec 2021 14:24:46 +0000
+Message-ID: <DM4PR12MB504084D7E95CF5E942867B61DE459@DM4PR12MB5040.namprd12.prod.outlook.com>
+References: <20210801124527.35655-1-mgurtovoy@nvidia.com>
+ <87sfzhx0h3.fsf@redhat.com> <ed7f44c2-5058-c4ef-e427-d1c83126bc62@nvidia.com>
+ <874kbpvkpn.fsf@redhat.com> <20210816103945-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20210816103945-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] RE: [PATCH] content: reserve virtio device ID for QingTian Box
- devices
-Content-Language: zh-CN
+Subject: RE: [virtio-comment] Re: [PATCH 1/1] Fix reserved Feature bits
+ numbering
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "Gonglei (Arei)" <arei.gonglei@huawei.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "stefanha@redhat.com" <stefanha@redhat.com>, "eperezma@redhat.com" <eperezma@redhat.com>, Oren Duer <oren@nvidia.com>, Parav Pandit <parav@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+Hi MST/Cornelia,
+Can you please update on the status of this patch ?
+It's open for few months and I'm wondering if there is something wrong with=
+ it ?
 
+-----Original Message-----
+From: Michael S. Tsirkin <mst@redhat.com>=20
+Sent: Monday, August 16, 2021 5:40 PM
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: Max Gurtovoy <mgurtovoy@nvidia.com>; virtio-comment@lists.oasis-open.or=
+g; stefanha@redhat.com; eperezma@redhat.com; Oren Duer <oren@nvidia.com>
+Subject: Re: [virtio-comment] Re: [PATCH 1/1] Fix reserved Feature bits num=
+bering
 
-> -----Original Message-----
-> From: Michael S. Tsirkin [mailto:mst@redhat.com]
-> Sent: Monday, December 27, 2021 4:15 PM
-> To: Longpeng (Mike, Cloud Infrastructure Service Product Dept.)
-> <longpeng2@huawei.com>
-> Cc: Gonglei (Arei) <arei.gonglei@huawei.com>;
-> virtio-comment@lists.oasis-open.org
-> Subject: Re: [PATCH] content: reserve virtio device ID for QingTian Box d=
-evices
+On Mon, Aug 16, 2021 at 10:48:36AM +0200, Cornelia Huck wrote:
+> On Thu, Aug 12 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
 >=20
-> On Thu, Dec 23, 2021 at 02:49:25PM +0000, Longpeng (Mike, Cloud Infrastru=
-cture
-> Service Product Dept.) wrote:
-> > Hi Michael,
+> > On 8/10/2021 9:44 AM, Cornelia Huck wrote:
+> >> On Sun, Aug 01 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
+> >>
+> >>> This should have been updated during VIRTIO_F_NOTIFICATION_DATA=20
+> >>> and VIRTIO_F_NOTIF_CONFIG_DATA standartization.
+> >>>
+> >>> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+> >>> ---
+> >>>   content.tex | 4 ++--
+> >>>   1 file changed, 2 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/content.tex b/content.tex index 5c70a3c..e9a32fa=20
+> >>> 100644
+> >>> --- a/content.tex
+> >>> +++ b/content.tex
+> >>> @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities=
+ of a Virtio Device / Feature B
+> >>>   \begin{description}
+> >>>   \item[0 to 23] Feature bits for the specific device type
+> >>>  =20
+> >>> -\item[24 to 37] Feature bits reserved for extensions to the queue=20
+> >>> and
+> >>> +\item[24 to 39] Feature bits reserved for extensions to the queue=20
+> >>> +and
+> >>>     feature negotiation mechanisms
+> >> I'm wondering whether we should do s/reserved/used/ here?
 > >
-> > Is there anything else I need to do to reserve the device id?
+> > I'm just fixing a bug here. You can take this patch and create=20
+> > another one with the above suggestion on top.
+> >
+> > I'm ok with your suggestion.
 >=20
-> OK, I see the issue was created. I think it makes sense to wait
-> until Jan 3 with the vote since lots of people are on
-> vacation.
->=20
-
-Ok, thanks.
-
-> Meanwhile - are there plans to add this device to the spec eventually?
-> Can you share a bit more of what it does?
->=20
-
-We want to carve out some resources (e.g. vcpu, mem, pci_dev) from the user=
-'s=20
-VM and then use these resources to start a sandbox for the user. The usage=
-=20
-quite likes the software enclave which Nitro already supported, but we have=
-=20
-much wider usage, for example, running unikernel + app (e.g. OSV + Redis) i=
-n=20
-the sandbox, it would provide much better performance than the traditional =
-os.
+> So... any opinions on whether this should get a proper vote? [I won't=20
+> be able to handle that in the next weeks. Michael?]
 
 
-> > > -----Original Message-----
-> > > From: Longpeng (Mike, Cloud Infrastructure Service Product Dept.)
-> > > Sent: Thursday, December 9, 2021 10:06 PM
-> > > To: virtio-comment@lists.oasis-open.org
-> > > Cc: Gonglei (Arei) <arei.gonglei@huawei.com>; Longpeng (Mike, Cloud
-> > > Infrastructure Service Product Dept.) <longpeng2@huawei.com>
-> > > Subject: [PATCH] content: reserve virtio device ID for QingTian Box d=
-evices
-> > >
-> > > From: Longpeng <longpeng2@huawei.com>
-> > >
-> > > Huawei Cloud is one of the famous public cloud providers, and its
-> > > hypervisor is named QingTian. We plan to support the QingTian Box
-> > > that provides some guest-aware features ( for high performance,
-> > > security, etc. ) in the future, and at least one of them is already
-> > > in development. It needs data transmission based on the Virtio, so
-> > > we want to reserve a device id ( 43 ) for the QingTian Box.
-> > >
-> > > Signed-off-by: Longpeng <longpeng2@huawei.com>
-> > > ---
-> > >  content.tex | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/content.tex b/content.tex
-> > > index 899df5f..2a6f9de 100644
-> > > --- a/content.tex
-> > > +++ b/content.tex
-> > > @@ -2893,6 +2893,8 @@ \chapter{Device Types}\label{sec:Device Types}
-> > >  \hline
-> > >  42         &   RDMA device \\
-> > >  \hline
-> > > +43         &   QingtianBox \\
-> > > +\hline
-> > >  \end{tabular}
-> > >
-> > >  Some of the devices above are unspecified by this document,
-> > > --
-> > > 1.8.3.1
+Feature bit numbering is an important enough matter that I'd say let's have=
+ an issue for this please, and I will do a ballot.
+
+> >
+> >>
+> >>>  =20
+> >>> -\item[38 and above] Feature bits reserved for future extensions.
+> >>> +\item[40 and above] Feature bits reserved for future extensions.
+> >>>   \end{description}
+> >>>  =20
+> >>>   \begin{note}
 
 
 This publicly archived list offers a means to provide input to the=0D
