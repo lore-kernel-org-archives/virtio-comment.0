@@ -1,48 +1,57 @@
-Return-Path: <virtio-comment-return-2490-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2477-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2630C986256
-	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Jan 2022 08:10:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8F6949861FF
+	for <virtio-comment@lists.oasis-open.org>; Mon,  3 Jan 2022 11:13:34 +0000 (UTC)
 From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20220103164709-mutt-send-email-mst@kernel.org>
-References: <20220103170344.3696-1-mgurtovoy@nvidia.com>
- <87mtkcwxaq.fsf@redhat.com>
- <20220103164709-mutt-send-email-mst@kernel.org>
-Date: Tue, 04 Jan 2022 09:10:48 +0100
-Message-ID: <87k0ffx6nr.fsf@redhat.com>
+In-Reply-To: <20210801124527.35655-1-mgurtovoy@nvidia.com>
+References: <20210801124527.35655-1-mgurtovoy@nvidia.com>
+Date: Mon, 03 Jan 2022 12:13:09 +0100
+Message-ID: <87r19p3we2.fsf@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [PATCH v2 1/1] Fix reserved Feature bits numbering
+Subject: [virtio-comment] Re: [PATCH 1/1] Fix reserved Feature bits numbering
 Content-Type: text/plain
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Max Gurtovoy <mgurtovoy@nvidia.com>, virtio-comment@lists.oasis-open.org, oren@nvidia.com, stefanha@redhat.com, eperezma@redhat.com
+To: Max Gurtovoy <mgurtovoy@nvidia.com>, virtio-comment@lists.oasis-open.org, mst@redhat.com
+Cc: stefanha@redhat.com, eperezma@redhat.com, oren@nvidia.com, Max Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, Jan 03 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+On Sun, Aug 01 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
 
-> On Mon, Jan 03, 2022 at 06:20:45PM +0100, Cornelia Huck wrote:
->> On Mon, Jan 03 2022, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
->> 
->> > This should have been updated during VIRTIO_F_NOTIFICATION_DATA,
->> > VIRTIO_F_NOTIF_CONFIG_DATA and VIRTIO_F_RING_RESET standartization.
->> >
->> > Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
->> > Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
->> 
->> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/128
->> 
->> Can you please also update the archive link in the issue, once the mail
->> shows up there?
+> This should have been updated during VIRTIO_F_NOTIFICATION_DATA and
+> VIRTIO_F_NOTIF_CONFIG_DATA standartization.
 >
+> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+> ---
+>  content.tex | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> Wish we had a cleaner way to do it than updating this each time we
-> add a generic feature bit.
+> diff --git a/content.tex b/content.tex
+> index 5c70a3c..e9a32fa 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+>  \begin{description}
+>  \item[0 to 23] Feature bits for the specific device type
+>  
+> -\item[24 to 37] Feature bits reserved for extensions to the queue and
+> +\item[24 to 39] Feature bits reserved for extensions to the queue and
+>    feature negotiation mechanisms
+>  
+> -\item[38 and above] Feature bits reserved for future extensions.
+> +\item[40 and above] Feature bits reserved for future extensions.
+>  \end{description}
+>  
+>  \begin{note}
 
-Indeed. But let's just go with this fixup until we come up with a better
-way.
+Sigh, I just noticed that we also missed to adjust this for the new
+VIRTIO_F_RING_RESET feature bit :(
+
+Obviously not your fault, but could you please post an updated version
+for us to vote on?
 
 
 This publicly archived list offers a means to provide input to the
