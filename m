@@ -1,64 +1,47 @@
-Return-Path: <virtio-comment-return-2508-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3FCEA986499
-	for <virtio-comment@lists.oasis-open.org>; Wed, 12 Jan 2022 17:21:01 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-References: <oasis-tcs/virtio-spec/issues/131@github.com>
-Date: Wed, 12 Jan 2022 18:20:53 +0100
-Message-ID: <87lezkx43u.fsf@redhat.com>
+Return-Path: <mgurtovoy@nvidia.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Subject: [PATCH v2 1/1] Fix reserved Feature bits numbering
+Date: Mon, 3 Jan 2022 19:03:44 +0200
+Message-ID: <20220103170344.3696-1-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [oasis-tcs/virtio-spec] Device specific Feature bits numbering is
- not aligned (Issue #131)
 Content-Type: text/plain
-To: Max Gurtovoy <mgurtovoy@nvidia.com>
-Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+To: virtio-comment@lists.oasis-open.org, mst@redhat.com, cohuck@redhat.com
+Cc: oren@nvidia.com, stefanha@redhat.com, eperezma@redhat.com, Max
+ Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+This should have been updated during VIRTIO_F_NOTIFICATION_DATA,
+VIRTIO_F_NOTIF_CONFIG_DATA and VIRTIO_F_RING_RESET standartization.
 
-> Feature bits 56 to 63 are taken by the virtio-net device and not reflected in the generic feature bits accounting.
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+---
 
-Thank you for reporting this, forwarding to the lists for discussion.
+changes from v1:
+ - added "Reviewed-by" signature (Stefan)
+ - include VIRTIO_F_RING_RESET feature bit (Cornelia)
 
-It seems like we're in a bit of a pickle: The spec says that the higher
-feature bits are reserved for future generic extensions, but virtio-net
-is already using some bits in that space (as they have already exhausted
-the lower device-specific bits). Now we cannot undo the already reserved
-bits, but obviously we need space both for generic extensions and
-device-specific extensions. Fortunately, we're not short on feature
-bits, we can simply consider the bits beyond 63.
+---
+ content.tex | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I'd like to propose the following:
-
-- bits 41-49: reserved for future extensions
-- bits 50-63: used for specific device types
-- bits 64-127: used for specific device types
-- bits 128 and above: reserved for future extensions
-
-This gives us room for both generic and device-specific extensions in
-the first 64 bits for some more time before we have to go to bit 64 and
-beyond.
-
-Thoughts? We need to figure that out before the 1.2 release.
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+diff --git a/content.tex b/content.tex
+index cf20570..32de668 100644
+--- a/content.tex
++++ b/content.tex
+@@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+ \begin{description}
+ \item[0 to 23] Feature bits for the specific device type
+ 
+-\item[24 to 37] Feature bits reserved for extensions to the queue and
++\item[24 to 40] Feature bits reserved for extensions to the queue and
+   feature negotiation mechanisms
+ 
+-\item[38 and above] Feature bits reserved for future extensions.
++\item[41 and above] Feature bits reserved for future extensions.
+ \end{description}
+ 
+ \begin{note}
+-- 
+2.21.0
 
