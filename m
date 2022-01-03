@@ -1,57 +1,65 @@
-Return-Path: <virtio-comment-return-2477-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2483-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8F6949861FF
-	for <virtio-comment@lists.oasis-open.org>; Mon,  3 Jan 2022 11:13:34 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20210801124527.35655-1-mgurtovoy@nvidia.com>
-References: <20210801124527.35655-1-mgurtovoy@nvidia.com>
-Date: Mon, 03 Jan 2022 12:13:09 +0100
-Message-ID: <87r19p3we2.fsf@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 2C6E7986207
+	for <virtio-comment@lists.oasis-open.org>; Mon,  3 Jan 2022 16:59:03 +0000 (UTC)
+Message-ID: <66bc22a2-17f3-68cb-b3a1-a9573dee03ab@nvidia.com>
+Date: Mon, 3 Jan 2022 18:58:55 +0200
 MIME-Version: 1.0
+References: <20210801124527.35655-1-mgurtovoy@nvidia.com>
+ <87r19p3we2.fsf@redhat.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+In-Reply-To: <87r19p3we2.fsf@redhat.com>
 Subject: [virtio-comment] Re: [PATCH 1/1] Fix reserved Feature bits numbering
-Content-Type: text/plain
-To: Max Gurtovoy <mgurtovoy@nvidia.com>, virtio-comment@lists.oasis-open.org, mst@redhat.com
-Cc: stefanha@redhat.com, eperezma@redhat.com, oren@nvidia.com, Max Gurtovoy <mgurtovoy@nvidia.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+To: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org, mst@redhat.com
+Cc: stefanha@redhat.com, eperezma@redhat.com, oren@nvidia.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Sun, Aug 01 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
 
-> This should have been updated during VIRTIO_F_NOTIFICATION_DATA and
-> VIRTIO_F_NOTIF_CONFIG_DATA standartization.
+On 1/3/2022 1:13 PM, Cornelia Huck wrote:
+> On Sun, Aug 01 2021, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
 >
-> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
-> ---
->  content.tex | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>> This should have been updated during VIRTIO_F_NOTIFICATION_DATA and
+>> VIRTIO_F_NOTIF_CONFIG_DATA standartization.
+>>
+>> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+>> ---
+>>   content.tex | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/content.tex b/content.tex
+>> index 5c70a3c..e9a32fa 100644
+>> --- a/content.tex
+>> +++ b/content.tex
+>> @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+>>   \begin{description}
+>>   \item[0 to 23] Feature bits for the specific device type
+>>   
+>> -\item[24 to 37] Feature bits reserved for extensions to the queue and
+>> +\item[24 to 39] Feature bits reserved for extensions to the queue and
+>>     feature negotiation mechanisms
+>>   
+>> -\item[38 and above] Feature bits reserved for future extensions.
+>> +\item[40 and above] Feature bits reserved for future extensions.
+>>   \end{description}
+>>   
+>>   \begin{note}
+> Sigh, I just noticed that we also missed to adjust this for the new
+> VIRTIO_F_RING_RESET feature bit :(
 >
-> diff --git a/content.tex b/content.tex
-> index 5c70a3c..e9a32fa 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
->  \begin{description}
->  \item[0 to 23] Feature bits for the specific device type
->  
-> -\item[24 to 37] Feature bits reserved for extensions to the queue and
-> +\item[24 to 39] Feature bits reserved for extensions to the queue and
->    feature negotiation mechanisms
->  
-> -\item[38 and above] Feature bits reserved for future extensions.
-> +\item[40 and above] Feature bits reserved for future extensions.
->  \end{description}
->  
->  \begin{note}
+> Obviously not your fault, but could you please post an updated version
+> for us to vote on?
 
-Sigh, I just noticed that we also missed to adjust this for the new
-VIRTIO_F_RING_RESET feature bit :(
+Yes sure.
 
-Obviously not your fault, but could you please post an updated version
-for us to vote on?
+Sending v2.
 
 
 This publicly archived list offers a means to provide input to the
