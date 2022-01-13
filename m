@@ -1,91 +1,76 @@
-Return-Path: <sgarzare@redhat.com>
-From: Stefano Garzarella <sgarzare@redhat.com>
-Subject: [PATCH v11 3/3] virtio-vsock: SOCK_SEQPACKET description
-Date: Wed, 12 Jan 2022 18:09:36 +0100
-Message-Id: <20220112170936.245410-4-sgarzare@redhat.com>
+Return-Path: <virtio-comment-return-2509-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 999FE9864E5
+	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Jan 2022 10:50:46 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
 In-Reply-To: <20220112170936.245410-1-sgarzare@redhat.com>
 References: <20220112170936.245410-1-sgarzare@redhat.com>
+Date: Thu, 13 Jan 2022 11:50:09 +0100
+Message-ID: <87fsprx63i.fsf@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-To: virtio-comment@lists.oasis-open.org
-Cc: mst@redhat.com, arseny.krasnov@kaspersky.com, stefanha@redhat.com, cohuck@redhat.com, sgarzare@redhat.com, jasowang@redhat.com
+Subject: [virtio-comment] Re: [PATCH v11 0/3] virtio-vsock: SOCK_SEQPACKET description
+Content-Type: text/plain
+To: Stefano Garzarella <sgarzare@redhat.com>, virtio-comment@lists.oasis-open.org
+Cc: mst@redhat.com, arseny.krasnov@kaspersky.com, stefanha@redhat.com, sgarzare@redhat.com, jasowang@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: Arseny Krasnov <arseny.krasnov@kaspersky.com>
+On Wed, Jan 12 2022, Stefano Garzarella <sgarzare@redhat.com> wrote:
 
-This adds description of SOCK_SEQPACKET socket type
-support for virtio-vsock.
+> v11:
+> - reworked "Message and record boundaries" paragraph [stefanha]
+>
+> v10: https://markmail.org/message/aebu4zqp4kxdm4ej
+>
+> Linux kernel and QEMU already merged SOCK_SEQPACKET support,
+> so I'm resending Arseny's patches to have consistent virtio-spec
+> and implementation.
 
-Signed-off-by: Arseny Krasnov <arseny.krasnov@kaspersky.com>
-[reworked "Message and record boundaries" paragraph]
-Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
----
- virtio-vsock.tex | 32 ++++++++++++++++++++++++++++----
- 1 file changed, 28 insertions(+), 4 deletions(-)
+It really should not have been merged without a spec :( But now that it
+has happened already, we need to get a proper spec added sooner rather
+than later, and it would be nice if it could make virtio 1.2, which
+would mean that voting needs to start this week.
 
-diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-index bf015ac..81b72df 100644
---- a/virtio-vsock.tex
-+++ b/virtio-vsock.tex
-@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
- 
- \begin{description}
- \item VIRTIO_VSOCK_F_STREAM (0) stream socket type is supported.
-+\item VIRTIO_VSOCK_F_SEQPACKET (1) seqpacket socket type is supported.
- \end{description}
- 
- \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
-@@ -139,15 +140,17 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
- consists of a (cid, port number) tuple. The header fields used for this are
- \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
- 
--Currently only stream sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
--for stream socket types.
-+Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
-+for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
- 
- \begin{lstlisting}
--#define VIRTIO_VSOCK_TYPE_STREAM 1
-+#define VIRTIO_VSOCK_TYPE_STREAM    1
-+#define VIRTIO_VSOCK_TYPE_SEQPACKET 2
- \end{lstlisting}
- 
- Stream sockets provide in-order, guaranteed, connection-oriented delivery
--without message boundaries.
-+without message boundaries. Seqpacket sockets provide in-order, guaranteed,
-+connection-oriented delivery with message and record boundaries.
- 
- \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device / Device Operation / Buffer Space Management}
- \field{buf_alloc} and \field{fwd_cnt} are used for buffer space management of
-@@ -248,6 +251,27 @@ \subsubsection{Stream Sockets}\label{sec:Device Types / Socket Device / Device O
- destination) address tuple for a new connection while the other peer is still
- processing the old connection.
- 
-+\subsubsection{Seqpacket Sockets}\label{sec:Device Types / Socket Device / Device Operation / Seqpacket Sockets}
-+
-+\paragraph{Message and record boundaries}\label{sec:Device Types / Socket Device / Device Operation / Seqpacket Sockets / Boundaries}
-+Two types of boundaries are supported: message and record boundaries.
-+
-+A message contains data sent in a single operation. A single message can be
-+split into multiple RW packets.
-+To provide message boundaries, last RW packet of each message has
-+VIRTIO_VSOCK_SEQ_EOM bit (bit 0) set in the \field{flags} of packet's header.
-+
-+Record is any number of subsequent messages, where last message is sent with POSIX
-+MSG_EOR flag set. Record boundary means that receiver gets MSG_EOR flag set
-+in the corresponding message where sender set it.
-+To provide record boundaries, last RW packet of each record has VIRTIO_VSOCK_SEQ_EOR
-+bit (bit 1) set in the \field{flags} of packet's header.
-+
-+\begin{lstlisting}
-+#define VIRTIO_VSOCK_SEQ_EOM (1 << 0)
-+#define VIRTIO_VSOCK_SEQ_EOR (1 << 1)
-+\end{lstlisting}
-+
- \subsubsection{Device Events}\label{sec:Device Types / Socket Device / Device Operation / Device Events}
- 
- Certain events are communicated by the device to the driver using the event
--- 
-2.31.1
+(I don't see an issue at https://github.com/oasis-tcs/virtio-spec/issues
+yet; creating one would be an obvious pre-req.)
+
+>
+> I added patch 2, following the discussion about F_STREAM feature bit:
+> https://markmail.org/message/aoaspjy2jhidwbuo#query:+page:1+mid:obw54zzikgqimhjk+state:results
+>
+> About patch 2, the vhost-vsock device in the Linux kernel doesn't set bit 0
+> (F_STREAM), so at this point I don't know if it's better to use a negative
+> feature flag (e.g. F_NO_STREAM) or we go for F_STREAM and send a patch to
+> linux-stable (and QEMU?) to solve this issue.
+
+I fear that even with a patch for stable, there can still be old setups
+around for which "only F_SEQPACKET set" translates to "supports both
+stream and seqpacket"... so I guess it mostly becomes a question of
+whether ignoring those broken setups is tolerable. (The old setups not
+setting any feature bits are fine with the proposed patch.) Using a
+negative feature bit is uglier, but also clearer. I suppose we want to
+be able to make stream sockets optional? If so, I think the negative
+approach is the better option, unless we can live with some broken
+setups.
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
