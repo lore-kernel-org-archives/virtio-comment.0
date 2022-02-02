@@ -1,77 +1,64 @@
-Return-Path: <sgarzare@redhat.com>
-Date: Tue, 8 Feb 2022 12:37:31 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-Subject: Re: [PATCH v10 0/3] virtio-vsock: SOCK_SEQPACKET description
-Message-ID: <20220208113731.iq4bb4imhmzh7yoo@step1g3>
-References: <20220105163505.192146-1-sgarzare@redhat.com>
- <20220204064424-mutt-send-email-mst@kernel.org>
- <20220207113559.nut5dt5ma67xzifw@step1g3>
- <20220207084422-mutt-send-email-mst@kernel.org>
+Return-Path: <mgurtovoy@nvidia.com>
+Message-ID: <f8b0ea37-8721-5ca4-f6d7-37770728beec@nvidia.com>
+Date: Wed, 2 Feb 2022 12:52:47 +0200
 MIME-Version: 1.0
-In-Reply-To: <20220207084422-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, jasowang@redhat.com, cohuck@redhat.com, stefanha@redhat.com, arseny.krasnov@kaspersky.com
+Subject: Re: [PATCH] Reserve more feature bits for device type usage
+References: <20220114111210.129059-1-cohuck@redhat.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+In-Reply-To: <20220114111210.129059-1-cohuck@redhat.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+To: Cornelia Huck <cohuck@redhat.com>, virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, Feb 07, 2022 at 08:45:43AM -0500, Michael S. Tsirkin wrote:
->On Mon, Feb 07, 2022 at 12:35:59PM +0100, Stefano Garzarella wrote:
->> On Fri, Feb 04, 2022 at 06:57:10AM -0500, Michael S. Tsirkin wrote:
->> > On Wed, Jan 05, 2022 at 05:35:02PM +0100, Stefano Garzarella wrote:
->> > > v9: https://markmail.org/message/4s6kfbeblxw4vzk4
->> > >
->> > > Linux kernel and QEMU already merged SOCK_SEQPACKET support,
->> > > so I'm resending Arseny's patches to have consistent virtio-spec
->> > > and implementation.
->> > >
->> > > I added patch 2, following the discussion about F_STREAM feature bit:
->> > > https://markmail.org/message/aoaspjy2jhidwbuo#query:+page:1+mid:obw54zzikgqimhjk+state:results
->> > >
->> > > About patch 2, the vhost-vsock device in the Linux kernel doesn't set bit 0
->> > > (F_STREAM), so at this point I don't know if it's better to use a negative
->> > > feature flag (e.g. F_NO_STREAM) or we go for F_STREAM and send a patch to
->> > > linux-stable (and QEMU?) to solve this issue.
->> > >
->> > > Thanks,
->> > > Stefano
->> >
->> > I thought a lot about this.  Given things are in the field, I think
->> > fundamentally F_NO_STREAM is a good idea,
->>
->> Yep, last weeks, I've been trying to write patches for QEMU and Linux to
->> align with the spec, but actually using just F_STREAM or a
->> F_SEQPACKET/F_STREAM combination is a little confusing.
->>
->> > however I think maybe
->> > we should split it:
->> > VIRTIO_VSOCK_F_NO_IMPLIED_STREAM meaning "stream is not implied"
->> > VIRTIO_VSOCK_F_STREAM meaning "stream is supported"
->>
->> Yes, that's probably the best thing to do.
->>
->> What do you think if we use a more generic VIRTIO_VSOCK_F_NO_IMPLIED_TYPES
->> meaning "support of any socket types is not implied" ?
->
->Fine too.
->
->> Maybe it's superfluous since we only supported STREAM, but from the point of
->> view of the final result of the specifications, it should be clearer... But
->> if it is not set we imply that STREAM is supported, so no, maybe better
->> VIRTIO_VSOCK_F_NO_IMPLIED_STREAM.
->
->my thinking too.
->
->> Can we make this change before the release of 1.2?
->>
->> Stefano
->
->I don't think we should rush it into 1.2, but we can just
->fork 1.next and merge it for 1.3
->
 
-Okay, so if it's ok with you, I can send a followup patch later.
+On 1/14/2022 1:12 PM, Cornelia Huck wrote:
+> Feature bits 41 and above are noted as being reserved for future
+> extensions. However, the net device has been using bits in that space
+> for some time now, as it already used up the device type specific
+> range up to 23.
+>
+> To avoid problems in the future, let's designate bits 50 to 127 to
+> device type specific usage (which accommodates current usage by the
+> net driver, and gives breathing room for future type specific bits),
+> and declare bits 41 to 49 and bits 128 and above to be reserved for
+> future extensions (which gives us some time before bit numbers move
+> beyond 63, which would need some changes in existing device and driver
+> implementations.)
+>
+> Reported-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/131
+> Signed-off-by: Cornelia Huck <cohuck@redhat.com>
+> ---
+>   content.tex | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/content.tex b/content.tex
+> index 32de6685c50b..c6f116c7aa39 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -97,12 +97,12 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+>   Feature bits are allocated as follows:
+>   
+>   \begin{description}
+> -\item[0 to 23] Feature bits for the specific device type
+> +\item[0 to 23, and 50 to 127] Feature bits for the specific device type
+>   
+>   \item[24 to 40] Feature bits reserved for extensions to the queue and
+>     feature negotiation mechanisms
+>   
+> -\item[41 and above] Feature bits reserved for future extensions.
+> +\item[41 to 49, and 128 and above] Feature bits reserved for future extensions.
+>   \end{description}
+>   
+>   \begin{note}
 
-Thanks,
-Stefano
+Cornelia,
+
+I've noticed that Legacy net device has VIRTIO_NET_F_GUEST_RSC4 (41) and 
+VIRTIO_NET_F_GUEST_RSC6 (42).
+
+Do we need to reserved them too or keep the fix as-is ?
+
 
