@@ -1,100 +1,664 @@
-Return-Path: <qemu_oss@crudebyte.com>
-From: Christian Schoenebeck <qemu_oss@crudebyte.com>
-Subject: Re: [PATCH 2/2] Add common configuration field "queue_indirect_size"
-Date: Mon, 21 Feb 2022 14:28:54 +0100
-Message-ID: <1873283.GO7HMKvsLY@silver>
-In-Reply-To: <YhNqifSTxdOhy5tV@stefanha-x1.localdomain>
-References: <cover.1639494803.git.qemu_oss@crudebyte.com> <4715621.MooAOXffm5@silver> <YhNqifSTxdOhy5tV@stefanha-x1.localdomain>
+Return-Path: <virtio-comment-return-2747-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 683819862AF
+	for <virtio-comment@lists.oasis-open.org>; Wed,  9 Feb 2022 02:45:28 +0000 (UTC)
+Message-ID: <5d081346-9c29-b508-d4a7-f31fcbd5bfd7@redhat.com>
+Date: Wed, 9 Feb 2022 10:45:13 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Cornelia Huck <cohuck@redhat.com>, Greg Kurz <groug@kaod.org>
+References: <20220124093918.34371-1-mgurtovoy@nvidia.com>
+ <20220124093918.34371-2-mgurtovoy@nvidia.com>
+ <1b77bbb8-a488-a2a8-1374-b8691356ac15@redhat.com>
+ <7baddbd5-71af-d207-3e61-a842b5844fa0@nvidia.com>
+ <CACGkMEv48vLgR9Ok9AB-yf1eURo_8w6HyqiKKxyavGwKpK2mSQ@mail.gmail.com>
+ <ce62cf49-893b-ad59-7759-c5e5ad940aae@nvidia.com>
+ <CACGkMEv_E7h2dJ1Wu0f0+ABwjHcRzarWSQwQbPi=MEJQpyXZ9w@mail.gmail.com>
+ <2b3bd770-7ea4-e99b-9b00-3a2c386a3a04@nvidia.com>
+From: Jason Wang <jasowang@redhat.com>
+In-Reply-To: <2b3bd770-7ea4-e99b-9b00-3a2c386a3a04@nvidia.com>
+Subject: Re: [virtio-comment] [PATCH v2 1/4] Add virtio Admin Virtqueue
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+To: Max Gurtovoy <mgurtovoy@nvidia.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Montag, 21. Februar 2022 11:33:45 CET Stefan Hajnoczi wrote:
-> On Sat, Feb 19, 2022 at 05:36:24PM +0100, Christian Schoenebeck wrote:
-> > On Montag, 24. Januar 2022 14:53:45 CET Stefan Hajnoczi wrote:
-> > > On Tue, Dec 14, 2021 at 04:13:17PM +0100, Christian Schoenebeck wrote:
-> > > > @@ -938,6 +939,16 @@ \subsubsection{Common configuration structure
-> > > > layout}\label{sec:Virtio Transport>
-> > > > 
-> > > >          may benefit from providing another value, for example an
-> > > >          internal
-> > > >          virtqueue
-> > > >          identifier, or an internal offset related to the virtqueue
-> > > >          number.
-> > > >          \end{note}
-> > > > 
-> > > > +
-> > > > +\item[\field{queue_indirect_size}]
-> > > > +        This field is used to negotiate the maximum amount of
-> > > > descriptors
-> > > > per +        vring slot as in \ref{sec:Basic Facilities of a Virtio
-> > > > Device / +        Virtqueues / The Virtqueue Descriptor Table /
-> > > > Indirect
-> > > > Descriptors} if +        and only if the VIRTIO_RING_F_INDIRECT_SIZE
-> > > > feature has been negotiated. +
-> > > > +        The device specifies its maximum supported number of
-> > > > descriptors
-> > > > per +        vring slot. If the driver requires fewer descriptors, it
-> > > > writes its +        lower value to inform the device of the reduced
-> > > > resource requirements.
-> > > 
-> > > "vring slot" is a little vague, it means "indirect descriptor
-> > > table"? The two paragraphs could use "maximum number of descriptors per
-> > > indirect descriptor table" instead of referring to vring slots to imply
-> > > indirect descriptor tables.
-> > 
-> > The intended phrasing was intended to reflect that "Queue Indirect Size"
-> > is
-> > meant to be the *sum* of all indirect descriptors:
-> > https://lists.oasis-open.org/archives/virtio-comment/202112/msg00008.html
-> > 
-> > Just to avoid that I am missing something here; as of now, there can only
-> > be two indirect tables per round-trip message, right?
-> 
-> No, just one indirect descriptor table. An indirect descriptor table may
-> contain both IN and OUT descriptors so it can handle a round-trip
-> message.
 
-Ok, you are right. I thought it would pick (per round-trip message) 2 pre-
-allocated descriptors (directly from the queue), and that those 2 descriptors 
-would then point to a separate indirect table each.
+=E5=9C=A8 2022/1/30 =E4=B8=8B=E5=8D=886:31, Max Gurtovoy =E5=86=99=E9=81=93=
+:
+>
+> On 1/28/2022 5:18 AM, Jason Wang wrote:
+>> On Thu, Jan 27, 2022 at 10:47 PM Max Gurtovoy <mgurtovoy@nvidia.com>=20
+>> wrote:
+>>>
+>>> On 1/27/2022 3:03 PM, Jason Wang wrote:
+>>>> On Thu, Jan 27, 2022 at 6:25 PM Max Gurtovoy <mgurtovoy@nvidia.com>=20
+>>>> wrote:
+>>>>> On 1/27/2022 5:14 AM, Jason Wang wrote:
+>>>>>> =E5=9C=A8 2022/1/24 =E4=B8=8B=E5=8D=885:39, Max Gurtovoy =E5=86=99=
+=E9=81=93:
+>>>>>>> In one of the many use cases a user wants to manipulate features=20
+>>>>>>> and
+>>>>>>> configuration of the virtio devices regardless of the device type
+>>>>>>> (net/block/console). Some of this configuration is generic=20
+>>>>>>> enough. i.e
+>>>>>>> Number of MSI-X vectors of a virtio PCI VF device. There is a=20
+>>>>>>> need to do
+>>>>>>> such features query and manipulation by its parent PCI PF.
+>>>>>>>
+>>>>>>> Currently virtio specification defines control virtqueue to=20
+>>>>>>> manipulate
+>>>>>>> features and configuration of the device it operates on. However,
+>>>>>>> control virtqueue commands are device type specific, which makes=20
+>>>>>>> it very
+>>>>>>> difficult to extend for device agnostic commands.
+>>>>>>>
+>>>>>>> To support this requirement in elegant way, this patch=20
+>>>>>>> introduces a new
+>>>>>>> admin virtqueue. Admin virtqueue will use the same command=20
+>>>>>>> format for
+>>>>>>> all
+>>>>>>> types of virtio devices.
+>>>>>>>
+>>>>>>> Manipulate features via admin virtqueue is asynchronous,=20
+>>>>>>> scalable, easy
+>>>>>>> to extend and doesn't require additional and expensive on-die=20
+>>>>>>> resources
+>>>>>>> to be allocated for every new feature that will be added in the=20
+>>>>>>> future.
+>>>>>>>
+>>>>>>> Subsequent patches make use of this admin virtqueue.
+>>>>>>>
+>>>>>>> Reviewed-by: Parav Pandit <parav@nvidia.com>
+>>>>>>> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+>>>>>>> ---
+>>>>>>> =C2=A0=C2=A0=C2=A0 admin-virtq.tex | 89=20
+>>>>>>> +++++++++++++++++++++++++++++++++++++++++++++++++
+>>>>>>> =C2=A0=C2=A0=C2=A0 content.tex=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 ++=
++--
+>>>>>>> =C2=A0=C2=A0=C2=A0 2 files changed, 96 insertions(+), 2 deletions(-=
+)
+>>>>>>> =C2=A0=C2=A0=C2=A0 create mode 100644 admin-virtq.tex
+>>>>>>>
+>>>>>>> diff --git a/admin-virtq.tex b/admin-virtq.tex
+>>>>>>> new file mode 100644
+>>>>>>> index 0000000..1a41c22
+>>>>>>> --- /dev/null
+>>>>>>> +++ b/admin-virtq.tex
+>>>>>>> @@ -0,0 +1,89 @@
+>>>>>>> +\section{Admin Virtqueues}\label{sec:Basic Facilities of a Virtio
+>>>>>>> Device / Admin Virtqueues}
+>>>>>>> +
+>>>>>>> +Admin virtqueue is used to send administrative commands to=20
+>>>>>>> manipulate
+>>>>>>> +various features of the device and/or to manipulate various=20
+>>>>>>> features,
+>>>>>>> +if possible, of another device within the same group (e.g. PCI=20
+>>>>>>> VFs of
+>>>>>>> +a parent PCI PF device are grouped together. These devices can be
+>>>>>>> +optionally managed by its parent PCI PF using its admin=20
+>>>>>>> virtqueue.).
+>>>>>>> +
+>>>>>>> +Use of Admin virtqueue is negotiated by the VIRTIO_F_ADMIN_VQ
+>>>>>>> +feature bit.
+>>>>>>> +
+>>>>>>> +Admin virtqueue index may vary among different device types.
+>>>>>>> +
+>>>>>>> +Regardless of device offering VIRTIO_F_IN_ORDER, admin queue=20
+>>>>>>> command
+>>>>>>> buffers
+>>>>>>> +are used by the device in out of order manner.
+>>>>>>> +
+>>>>>>> +The Admin command set defines the commands that may be issued only
+>>>>>>> to the admin
+>>>>>>> +virtqueue. Each virtio device that advertises the=20
+>>>>>>> VIRTIO_F_ADMIN_VQ
+>>>>>>> feature, MUST
+>>>>>>> +support all the mandatory admin commands. A device MAY support=20
+>>>>>>> also
+>>>>>>> one or more
+>>>>>>> +optional admin commands. All commands are of the following form:
+>>>>>> Do we need a way for advertising the supported optional commands (or
+>>>>>> features bits)? Otherwise dealing with the compatibility will result
+>>>>>> of per command probing.
+>>>>>>
+>>>>>>
+>>>>>>> +
+>>>>>>> +\begin{lstlisting}
+>>>>>>> +struct virtio_admin_cmd {
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Device-readable part=
+ */
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u16 command;
+>>>>>> Two questions:
+>>>>>>
+>>>>>> 1) It looks to me it's better to have a explicit device_id here=20
+>>>>>> other
+>>>>>> than embed it in each command
+>>>>> this was already discussed.
+>>>>>
+>>>>> We agreed that some commands are not referring to different device so
+>>>>> no, we don't need to put it in generic structure.
+>>>>>
+>>>>> I'm not against putting such id but we don't have an exact idea=20
+>>>>> how will
+>>>>> SF device_id will look like.
+>>>>>
+>>>>> Maybe it will be some 128 bit uuid ? maybe u64 ?
+>>>> How do you know u16 is sufficient for command?
+>>> it's sufficient for VFs and this is the subject of the proposed=20
+>>> commands.
+>> So VIRTIO_ADMIN_CAPS_IDENTIFY maps to 3 commands:
+>>
+>> VIRTIO_ADMIN_PCI_SRIOV_ATTRS,
+>> VIRTIO_ADMIN_PCI_VF_INTERRUPT_CONFIG_SET,
+>> VIRTIO_ADMIN_PCI_VF_INTERRUPT_CONFIG_GET
+>>
+>> Unless you do 1:1 mapping between cap bit and command, you will be
+>> short of commands if you're using u16.
+>
+> 2^16 admin commands are more than enough.
 
-But it is like you said: just one pre-allocated descriptor, pointing to 
-exactly one indirect table, and inside that indirect table there are first the 
-indirect descriptors (pages) for device<-driver request message, followed by 
-indirect descriptors (pages) for device->driver response message. And this 
-order (request first, response second) is implied by the QEMU code as well.
 
-The names for "in" and "out" in the code are a bit confusing BTW.
+You introduce 65536 cap bits via identify. And you use u16 for command.
 
-> 2.6.5.3.1 Driver Requirements: Indirect Descriptors says:
-> 
->   A driver MUST NOT set both VIRTQ_DESC_F_INDIRECT and VIRTQ_DESC_F_NEXT in
-> flags.
+But you map 3 commands to a single cap bit. You will be short of=20
+commands. Isn't it?
 
-Yes, I was aware about that and that should have made it clear to me already. 
-I had a calculation error while debugging the code which mislead me.
 
-> It's unclear whether this statement is referring to 1) one descriptor,
-> 2) to all descriptors in a buffer, or 3) to all descriptors ever made
-> available by the driver. QEMU's hw/virtio.c:virtqueue_pop() shows that
-> the interpretation is #2. So if a buffer uses an indirect descriptor
-> table then it has exactly 1 descriptor in the virtqueue's descriptor
-> table.
-> 
-> Stefan
+>
+>
+>>
+>>> When you'll add SF to virtio spec we'll create new commands for it with
+>>> SF_id.
+>>>
+>>> Again, this was discussed with Parav in V1 and was close. Please don't
+>>> re-open.
+>> I don't think so, you can reserve a special device id for the PF itself.
+>
+> can you propose something concrete ?
+>
+> are you sure by 100% that sf_id is 32 bit ? can the TG ack on that ?
 
-Yes, it is 2).
 
-Ok, I'll change the phrasing as you suggested to "per indirect descriptor 
-table" and will send a new version this week.
+I meant for command without and destination. You can reserve a special=20
+ID for that.
 
-Thanks!
+Regarding the bit, if you think 32bit is not sufficient, let's just use=20
+64bit, or reserving some bytes in the command.
 
-Best regards,
-Christian Schoenebeck
 
+>
+>>
+>>>>> =C2=A0=C2=A0 how can we guess ?
+>>>> You know it's you but not me that tries to propose this solution,=20
+>>>> right?
+>>> I'm proposing a solution but you ask questions that we answer but
+>>> somehow they are asked again.
+>>>>>> 2) virtio-net cvq use class/command which seems more elegant, e.g=20
+>>>>>> all
+>>>>>> commands belongs to MSI could be grouped into the same class
+>>>>> why can't we do it in u16 command opcode ?
+>>>> Where did you see I say you can't use u16?
+>>> you suggest to replace it to class + command.
+>>>
+>>> I don't understand why.
+>>>
+>>> If it's not mandatory, please ack.
+>>>
+>>>
+>>>>> are you open for changes or
+>>>>> should we copy/paste from net cvq ?
+>>>> Net cvq comes first, it's natural to ask why you do things=20
+>>>> differently.
+>>> I answered why.
+>>>
+>>> Admin command set has a different purpose.
+>>>
+>>>>> Let's ask differently. Why we need class/command structure ? why=20
+>>>>> is it
+>>>>> more elegant ?
+>>>> Don't you see my reply above?
+>>>>
+>>>> "
+>>>> commands belongs to MSI could be grouped into the same class
+>>>> "
+>>> It's doesn't explain why class A + commands 1, 2 is better than opcodes
+>>> 1 + 2 without a class.
+>> Well, if you read how cvq work it's not hard to get the conclusion,
+>>
+>> It's easier to be mapped to a feature bit. You just map a class and=20
+>> that's all.
+>>
+>> Otherwise, you need to feature X:=C2=A0 command A,B,C,D ....
+>
+> But I just added one feature bit: the existence of the AQ.
+>
+> in your suggestion I'll need to add for each feature:
+>
+> Feature X can be negotiated only if AQ feature is negotiated.
+>
+> And if feature X will have a small extension so a new feature will be=20
+> needed and it will say:
+>
+> Feature Y can be negotiated in feature X and feature AQ are negotiated.
+>
+> or if feature X and feature Y are mutual exclusive then:
+>
+> feature X can't be negotiated if feature Y is negotiated.
+>
+> feature X can be negotiated only if feature AQ is negotiated.
+
+
+This is how virtqueue works for all the existing device. It's as simple=20
+as depending the feature to another feature which indicates the existing=20
+of a specific type of virtqueue.
+
+
+>
+>
+> and this is a small example. We will have more and more Admin=20
+> functionality and this will be impossible to scale.
+>
+> A simple identify command solve this.
+>
+>>
+>>>
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 command_specific_dat=
+a[];
+>>>>>>> +
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Device-writable part=
+ */
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 status;
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 command_specific_err=
+or;
+>>>>>> I wonder the reason why not using a single field for the above two
+>>>>>> fields. (Or any value for separating command specific error out, we
+>>>>>> don't do that for virtio-net cvq).
+>>>>> each command have its own specific errors.
+>>>>>
+>>>>> virtio net cvq is not generic - it's a net device cvqueue.
+>>>> We're talking about the command format, not its semantics, right?
+>>>>
+>>>> It's command format is pretty general.
+>>> in the Admin command set we would like to have better format that will
+>>> allow users/drivers to better understand device error.
+>>>
+>>> It is very common in many HW devices and specs out there.
+>>>
+>>> I hope it doesn't critical for you as a concept.
+>>>
+>>>>> To make it generic we need to separate.
+>>>>>
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 command_specific_res=
+ult[];
+>>>>>>> +};
+>>>>>>> +\end{lstlisting}
+>>>>>>> +
+>>>>>>> +The following table describes the generic Admin status codes:
+>>>>>>> +
+>>>>>>> +\begin{tabular}{|l|l|l|}
+>>>>>>> +\hline
+>>>>>>> +Opcode & Status & Description \\
+>>>>>>> +\hline \hline
+>>>>>>> +00h=C2=A0=C2=A0 & VIRTIO_ADMIN_STATUS_OK=C2=A0=C2=A0=C2=A0 & succe=
+ssful completion=C2=A0 \\
+>>>>>>> +\hline
+>>>>>>> +01h=C2=A0=C2=A0 & VIRTIO_ADMIN_STATUS_CS_ERR=C2=A0=C2=A0=C2=A0 & c=
+ommand specific error=C2=A0 \\
+>>>>>>> +\hline
+>>>>>>> +02h=C2=A0=C2=A0 & VIRTIO_ADMIN_STATUS_COMMAND_UNSUPPORTED=C2=A0=C2=
+=A0=C2=A0 &=20
+>>>>>>> unsupported or
+>>>>>>> invalid opcode=C2=A0 \\
+>>>>>>> +\hline
+>>>>>>> +\end{tabular}
+>>>>>>> +
+>>>>>>> +The \field{command} and \field{command_specific_data} are
+>>>>>>> +set by the driver, and the device sets the \field{status}, the
+>>>>>>> +\field{command_specific_error} and the=20
+>>>>>>> \field{command_specific_result},
+>>>>>>> +if needed.
+>>>>>>> +
+>>>>>>> +The \field{command_specific_error} should be inspected by the=20
+>>>>>>> driver
+>>>>>>> only if \field{status} is set to
+>>>>>>> +VIRTIO_ADMIN_STATUS_CS_ERR by the device. In this case, the=20
+>>>>>>> content
+>>>>>>> of \field{command_specific_error}
+>>>>>>> +holds the command specific error. If \field{status} is not set to
+>>>>>>> VIRTIO_ADMIN_STATUS_CS_ERR, the
+>>>>>>> +\field{command_specific_error} value is undefined.
+>>>>>>> +
+>>>>>>> +The following table describes the Admin command set:
+>>>>>>> +
+>>>>>>> +\begin{tabular}{|l|l|l|}
+>>>>>>> +\hline
+>>>>>>> +Opcode & Command & M/O \\
+>>>>>>> +\hline \hline
+>>>>>>> +0000h=C2=A0=C2=A0 & VIRTIO_ADMIN_CAPS_IDENTIFY=C2=A0=C2=A0=C2=A0 &=
+ M \\
+>>>>>>> +\hline
+>>>>>>> +0001h - 7FFFh=C2=A0=C2=A0 & Generic admin cmds=C2=A0=C2=A0=C2=A0 &=
+ - \\
+>>>>>>> +\hline
+>>>>>>> +8000h - FFFFh=C2=A0=C2=A0 & Reserved=C2=A0=C2=A0=C2=A0 & - \\
+>>>>>>> +\hline
+>>>>>>> +\end{tabular}
+>>>>>> See above, I'd suggest to use class/command as virtio-net cvq.
+>>>>> see my comment above.
+>>> I answered above.
+>>>>>>> +
+>>>>>>> +\subsection{VIRTIO ADMIN CAPS IDENTIFY command}\label{sec:Basic
+>>>>>>> Facilities of a Virtio Device / Admin Virtqueues / VIRTIO ADMIN=20
+>>>>>>> CAPS
+>>>>>>> IDENTIFY command}
+>>>>>>> +
+>>>>>>> +The VIRTIO_ADMIN_CAPS_IDENTIFY command has no command specific=20
+>>>>>>> data
+>>>>>>> set by the driver.
+>>>>>>> +This command upon success, returns a data buffer that describes
+>>>>>>> information about the supported
+>>>>>>> +admin capabilities by the device. This information is of form:
+>>>>>>> +\begin{lstlisting}
+>>>>>>> +struct virtio_admin_caps_identify_result {
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * caps[0] - Bit 0x0 - B=
+it 0x7 are reserved
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * caps[1] - Bit 0x0 - B=
+it 0x7 are reserved
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * caps[2] - Bit 0x0 - B=
+it 0x7 are reserved
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * ....
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * caps[8191] - Bit 0x0 =
+- Bit 0x7 are reserved
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 caps[8192];
+>>>>>>> +};
+>>>>>> Ok, so I see the identify command. But I wonder if we can do that=20
+>>>>>> via
+>>>>>> the feature bits?
+>>>>> It doesn't scale. I tried it. It doesn't work.
+>>>> What prevents you from improving the scalability instead of trying to
+>>>> revinting a duplicated mechanism?
+>>> It was already discussed.
+>>>
+>>> Spec doesn't scale, too many constrains between command-A,B,C and
+>>> feature 44,45, 46 and for transport X, Y, Z.
+>> What I meant is, if you feel the current feature negotiation doesn't
+>> scale, you can improve it instead of reinventing it partially (e.g no
+>> negotiation) .
+>
+> We're adding an identify command for the admin command set.
+>
+> did you review it ?
+
+
+Yes, but what I meant is that we've already had a feature negotiation=20
+mechanism. We should improve it instead of reinventing another one.
+
+Thanks
+
+
+>
+>>
+>> Thanks
+>>
+>>>> Thanks
+>>>>
+>>>>> Thanks.
+>>>>>
+>>>>>> Thanks
+>>>>>>
+>>>>>>
+>>>>>>> +\end{lstlisting}
+>>>>>>> diff --git a/content.tex b/content.tex
+>>>>>>> index 32de668..c524fab 100644
+>>>>>>> --- a/content.tex
+>>>>>>> +++ b/content.tex
+>>>>>>> @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic=20
+>>>>>>> Facilities
+>>>>>>> of a Virtio Device / Feature B
+>>>>>>> =C2=A0=C2=A0=C2=A0 \begin{description}
+>>>>>>> =C2=A0=C2=A0=C2=A0 \item[0 to 23] Feature bits for the specific dev=
+ice type
+>>>>>>> =C2=A0=C2=A0=C2=A0 -\item[24 to 40] Feature bits reserved for exten=
+sions to the=20
+>>>>>>> queue and
+>>>>>>> +\item[24 to 41] Feature bits reserved for extensions to the=20
+>>>>>>> queue and
+>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 feature negotiation mechanisms
+>>>>>>> =C2=A0=C2=A0=C2=A0 -\item[41 and above] Feature bits reserved for f=
+uture=20
+>>>>>>> extensions.
+>>>>>>> +\item[42 and above] Feature bits reserved for future extensions.
+>>>>>>> =C2=A0=C2=A0=C2=A0 \end{description}
+>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \begin{note}
+>>>>>>> @@ -449,6 +449,8 @@ \section{Exporting Objects}\label{sec:Basic
+>>>>>>> Facilities of a Virtio Device / Expo
+>>>>>>> =C2=A0=C2=A0=C2=A0 types. It is RECOMMENDED that devices generate v=
+ersion 4
+>>>>>>> =C2=A0=C2=A0=C2=A0 UUIDs as specified by \hyperref[intro:rfc4122]{[=
+RFC4122]}.
+>>>>>>> =C2=A0=C2=A0=C2=A0 +\input{admin-virtq.tex}
+>>>>>>> +
+>>>>>>> =C2=A0=C2=A0=C2=A0 \chapter{General Initialization And Device
+>>>>>>> Operation}\label{sec:General Initialization And Device Operation}
+>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 We start with an overview of device =
+initialization, then=20
+>>>>>>> expand
+>>>>>>> on the
+>>>>>>> @@ -6847,6 +6849,9 @@ \chapter{Reserved Feature
+>>>>>>> Bits}\label{sec:Reserved Feature Bits}
+>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 that the driver can reset a queue in=
+dividually.
+>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 See \ref{sec:Basic Facilities of a V=
+irtio Device /=20
+>>>>>>> Virtqueues /
+>>>>>>> Virtqueue Reset}.
+>>>>>>> =C2=A0=C2=A0=C2=A0 +=C2=A0 \item[VIRTIO_F_ADMIN_VQ (41)] This featu=
+re indicates that
+>>>>>>> +=C2=A0 the device supports administration virtqueue negotiation.
+>>>>>>> +
+>>>>>>> =C2=A0=C2=A0=C2=A0 \end{description}
+>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \drivernormative{\section}{Reserved =
+Feature Bits}{Reserved
+>>>>>>> Feature Bits}
+>>>>>> This publicly archived list offers a means to provide input to the
+>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>>>
+>>>>>> In order to verify user consent to the Feedback License terms and
+>>>>>> to minimize spam in the list archive, subscription is required
+>>>>>> before posting.
+>>>>>>
+>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>>> List archive:
+>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F=
+lists.oasis-open.org%2Farchives%2Fvirtio-comment%2F&amp;data=3D04%7C01%7Cmg=
+urtovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b=
+7db39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
+oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sda=
+ta=3DI8TmvBEUVIj3BqZfjX9IG3JGchDPYH2fyoWQq4MEElk%3D&amp;reserved=3D0=20
+>>>>>>
+>>>>>> Feedback License:
+>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F=
+www.oasis-open.org%2Fwho%2Fipr%2Ffeedback_license.pdf&amp;data=3D04%7C01%7C=
+mgurtovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c=
+1b7db39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJW=
+IjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;s=
+data=3D22N0rKTDw%2FzO7LZjAVjU5FXKfAiF9wm%2BoKAqNk5vhg4%3D&amp;reserved=3D0=
+=20
+>>>>>>
+>>>>>> List Guidelines:
+>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F=
+www.oasis-open.org%2Fpolicies-guidelines%2Fmailing-lists&amp;data=3D04%7C01=
+%7Cmgurtovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d157273=
+40c1b7db39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8e=
+yJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&am=
+p;sdata=3DhVC8t%2FpBFqyJNUJnXw5pUFyr2TIfc7Y8o3Tj%2F3DSkj4%3D&amp;reserved=
+=3D0=20
+>>>>>>
+>>>>>> Committee:
+>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F=
+www.oasis-open.org%2Fcommittees%2Fvirtio%2F&amp;data=3D04%7C01%7Cmgurtovoy%=
+40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b7db39efd=
+9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLj=
+AwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DAuN=
+IOPqOlcH%2BB3F6cZ7cNYLFazmvRvhugTy%2B4PU4fIM%3D&amp;reserved=3D0=20
+>>>>>>
+>>>>>> Join OASIS:
+>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F=
+www.oasis-open.org%2Fjoin%2F&amp;data=3D04%7C01%7Cmgurtovoy%40nvidia.com%7C=
+ecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0=
+%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV=
+2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DW2yLv9d5YcfQ%2F5GX=
+V9uvATbpQdamK4cRCLRlWiFLvmI%3D&amp;reserved=3D0=20
+>>>>>>
+>>>>>>
+>>>> This publicly archived list offers a means to provide input to the
+>>>>
+>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>
+>>>>
+>>>>
+>>>> In order to verify user consent to the Feedback License terms and
+>>>>
+>>>> to minimize spam in the list archive, subscription is required
+>>>>
+>>>> before posting.
+>>>>
+>>>>
+>>>>
+>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>
+>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>
+>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>
+>>>> List archive:=20
+>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fli=
+sts.oasis-open.org%2Farchives%2Fvirtio-comment%2F&amp;data=3D04%7C01%7Cmgur=
+tovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b7d=
+b39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoi=
+MC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=
+=3DI8TmvBEUVIj3BqZfjX9IG3JGchDPYH2fyoWQq4MEElk%3D&amp;reserved=3D0
+>>>>
+>>>> Feedback License:=20
+>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fww=
+w.oasis-open.org%2Fwho%2Fipr%2Ffeedback_license.pdf&amp;data=3D04%7C01%7Cmg=
+urtovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b=
+7db39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
+oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sda=
+ta=3D22N0rKTDw%2FzO7LZjAVjU5FXKfAiF9wm%2BoKAqNk5vhg4%3D&amp;reserved=3D0
+>>>>
+>>>> List Guidelines:=20
+>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fww=
+w.oasis-open.org%2Fpolicies-guidelines%2Fmailing-lists&amp;data=3D04%7C01%7=
+Cmgurtovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340=
+c1b7db39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJ=
+WIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;=
+sdata=3DhVC8t%2FpBFqyJNUJnXw5pUFyr2TIfc7Y8o3Tj%2F3DSkj4%3D&amp;reserved=3D0
+>>>>
+>>>> Committee:=20
+>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fww=
+w.oasis-open.org%2Fcommittees%2Fvirtio%2F&amp;data=3D04%7C01%7Cmgurtovoy%40=
+nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b7db39efd9c=
+cc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAw=
+MDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DAuNIO=
+PqOlcH%2BB3F6cZ7cNYLFazmvRvhugTy%2B4PU4fIM%3D&amp;reserved=3D0
+>>>>
+>>>> Join OASIS:=20
+>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fww=
+w.oasis-open.org%2Fjoin%2F&amp;data=3D04%7C01%7Cmgurtovoy%40nvidia.com%7Cec=
+b99411085446c7d06708d9e20d260e%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7=
+C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2l=
+uMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DW2yLv9d5YcfQ%2F5GXV9=
+uvATbpQdamK4cRCLRlWiFLvmI%3D&amp;reserved=3D0
+>>>>
+>>
+>> This publicly archived list offers a means to provide input to the
+>>
+>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>
+>>
+>>
+>> In order to verify user consent to the Feedback License terms and
+>>
+>> to minimize spam in the list archive, subscription is required
+>>
+>> before posting.
+>>
+>>
+>>
+>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>
+>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>
+>> List help: virtio-comment-help@lists.oasis-open.org
+>>
+>> List archive:=20
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flist=
+s.oasis-open.org%2Farchives%2Fvirtio-comment%2F&amp;data=3D04%7C01%7Cmgurto=
+voy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b7db3=
+9efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC=
+4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=
+=3DI8TmvBEUVIj3BqZfjX9IG3JGchDPYH2fyoWQq4MEElk%3D&amp;reserved=3D0
+>>
+>> Feedback License:=20
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.=
+oasis-open.org%2Fwho%2Fipr%2Ffeedback_license.pdf&amp;data=3D04%7C01%7Cmgur=
+tovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b7d=
+b39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoi=
+MC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=
+=3D22N0rKTDw%2FzO7LZjAVjU5FXKfAiF9wm%2BoKAqNk5vhg4%3D&amp;reserved=3D0
+>>
+>> List Guidelines:=20
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.=
+oasis-open.org%2Fpolicies-guidelines%2Fmailing-lists&amp;data=3D04%7C01%7Cm=
+gurtovoy%40nvidia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1=
+b7db39efd9ccc17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWI=
+joiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sd=
+ata=3DhVC8t%2FpBFqyJNUJnXw5pUFyr2TIfc7Y8o3Tj%2F3DSkj4%3D&amp;reserved=3D0
+>>
+>> Committee:=20
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.=
+oasis-open.org%2Fcommittees%2Fvirtio%2F&amp;data=3D04%7C01%7Cmgurtovoy%40nv=
+idia.com%7Cecb99411085446c7d06708d9e20d260e%7C43083d15727340c1b7db39efd9ccc=
+17a%7C0%7C0%7C637789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD=
+AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DAuNIOPq=
+OlcH%2BB3F6cZ7cNYLFazmvRvhugTy%2B4PU4fIM%3D&amp;reserved=3D0
+>>
+>> Join OASIS:=20
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.=
+oasis-open.org%2Fjoin%2F&amp;data=3D04%7C01%7Cmgurtovoy%40nvidia.com%7Cecb9=
+9411085446c7d06708d9e20d260e%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C6=
+37789368821237568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luM=
+zIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DW2yLv9d5YcfQ%2F5GXV9uv=
+ATbpQdamK4cRCLRlWiFLvmI%3D&amp;reserved=3D0
+>>
+>
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
