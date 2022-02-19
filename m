@@ -1,85 +1,105 @@
-Return-Path: <virtio-comment-return-2767-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B42839863B6
-	for <virtio-comment@lists.oasis-open.org>; Tue, 22 Feb 2022 10:24:30 +0000 (UTC)
+Return-Path: <qemu_oss@crudebyte.com>
+From: Christian Schoenebeck <qemu_oss@crudebyte.com>
+Subject: Re: [PATCH 2/2] Add common configuration field "queue_indirect_size"
+Date: Sat, 19 Feb 2022 17:36:24 +0100
+Message-ID: <4715621.MooAOXffm5@silver>
+In-Reply-To: <Ye6vaQZauiY7xsMB@stefanha-x1.localdomain>
+References: <cover.1639494803.git.qemu_oss@crudebyte.com> <55b04c584638393050bc76467439550d87e24696.1639494803.git.qemu_oss@crudebyte.com> <Ye6vaQZauiY7xsMB@stefanha-x1.localdomain>
 MIME-Version: 1.0
-References: <20191125183430.1686620-1-yuri.benditovich@daynix.com> <20220220081428-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20220220081428-mutt-send-email-mst@kernel.org>
-From: Yuri Benditovich <yuri.benditovich@daynix.com>
-Date: Tue, 22 Feb 2022 12:24:17 +0200
-Message-ID: <CAOEp5OfaNSCxkKH_BLSaFbMAsQ7pk+rLbeDoyKeA=8dkKZwUcA@mail.gmail.com>
-Subject: [virtio-comment] Re: [PATCH] virtio-net: (spelling only) support for receive-side scaling
-Content-Type: text/plain; charset="UTF-8"
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, Cornelia Huck <cohuck@redhat.com>, Greg Kurz <groug@kaod.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Sun, Feb 20, 2022 at 3:23 PM Michael S. Tsirkin <mst@redhat.com> wrote:
->
-> On Mon, Nov 25, 2019 at 08:34:30PM +0200, Yuri Benditovich wrote:
-> > Additional patch for previous 'v4 virtio-net: define support for
-> > receive-side scaling' - contains only spelling fixes.
-> >
-> > Signed-off-by: Yuri Benditovich <yuri.benditovich@daynix.com>
->
-> I just noticed that description of Device Initialization has not been
-> updated with this patch.
->
-> For example:
->
-> \item Identify and initialize the receive and
->   transmission virtqueues, up to N of each kind. If
->   VIRTIO_NET_F_MQ feature bit is negotiated,
->   N=\field{max_virtqueue_pairs}, otherwise identify N=1.
->
-> \item If the VIRTIO_NET_F_CTRL_VQ feature bit is negotiated,
->   identify the control virtqueue.
->
-> \item Fill the receive queues with buffers: see \ref{sec:Device Types / Network Device / Device Operation / Setting Up Receive Buffers}.
->
-> \item Even with VIRTIO_NET_F_MQ, only receiveq1, transmitq1 and
->   controlq are used by default.  The driver would send the
->   VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET command specifying the
->   number of the transmit and receive queues to use.
->
->
-> there are some more instances of this.
->
-> I created https://github.com/oasis-tcs/virtio-spec/issues/135
-> to track this.
-> Also, https://github.com/oasis-tcs/virtio-spec/issues/134 since
-> VIRTIO_NET_F_MQ name is now confusing.
->
->
-> Yuri, could you try to address these?
+On Montag, 24. Januar 2022 14:53:45 CET Stefan Hajnoczi wrote:
+> On Tue, Dec 14, 2021 at 04:13:17PM +0100, Christian Schoenebeck wrote:
+> > This new common configuration field allows to negotiate a more fine
+> > graded maximum lenght of indirect descriptor chains.
+> > 
+> > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/122
+> > Signed-off-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
+> > ---
+> > 
+> >  content.tex    | 25 ++++++++++++++++++++++++-
+> >  split-ring.tex |  3 +++
+> >  2 files changed, 27 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/content.tex b/content.tex
 
-Yes, I will do that
+Stefan, while preparing the next version of patches for this issue (#122), I 
+noticed that I missed your email here ...
 
->
-> Thanks!
->
-> --
-> MST
->
+> > index 0aa4842..e3cfcae 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -859,6 +859,7 @@ \subsubsection{Common configuration structure
+> > layout}\label{sec:Virtio Transport> 
+> >          le64 queue_driver;              /* read-write */
+> >          le64 queue_device;              /* read-write */
+> >          le16 queue_notify_data;         /* read-only for driver */
+> > 
+> > +        le32 queue_indirect_size;       /* read-write */
+> 
+> I see no other unaligned fields in this struct, so I think a le16
+> padding field is needed for safety:
+> 
+>            le64 queue_device;              /* read-write */
+>            le16 queue_notify_data;         /* read-only for driver */
+>   +        le16 reserved;                  /* no access */
+>   +        le32 queue_indirect_size;       /* read-write */
+> 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+That's no longer needed as there's now the new 'queue_reset' field, i.e.:
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+diff --git a/content.tex b/content.tex
+index 685525d..da57d5d 100644
+--- a/content.tex
++++ b/content.tex
+@@ -902,6 +902,7 @@ \subsubsection{Common configuration structure layout}
+\label{sec:Virtio Transport
+         le64 queue_device;              /* read-write */
+         le16 queue_notify_data;         /* read-only for driver */
+         le16 queue_reset;               /* read-write */
++        le32 queue_indirect_size;       /* read-write */
+ };
+ \end{lstlisting}
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+> >  };
+> >  \end{lstlisting}
+> > 
+> > @@ -938,6 +939,16 @@ \subsubsection{Common configuration structure
+> > layout}\label{sec:Virtio Transport> 
+> >          may benefit from providing another value, for example an internal
+> >          virtqueue
+> >          identifier, or an internal offset related to the virtqueue
+> >          number.
+> >          \end{note}
+> > 
+> > +
+> > +\item[\field{queue_indirect_size}]
+> > +        This field is used to negotiate the maximum amount of descriptors
+> > per +        vring slot as in \ref{sec:Basic Facilities of a Virtio
+> > Device / +        Virtqueues / The Virtqueue Descriptor Table / Indirect
+> > Descriptors} if +        and only if the VIRTIO_RING_F_INDIRECT_SIZE
+> > feature has been negotiated. +
+> > +        The device specifies its maximum supported number of descriptors
+> > per +        vring slot. If the driver requires fewer descriptors, it
+> > writes its +        lower value to inform the device of the reduced
+> > resource requirements.
+> "vring slot" is a little vague, it means "indirect descriptor
+> table"? The two paragraphs could use "maximum number of descriptors per
+> indirect descriptor table" instead of referring to vring slots to imply
+> indirect descriptor tables.
+
+The intended phrasing was intended to reflect that "Queue Indirect Size" is 
+meant to be the *sum* of all indirect descriptors:
+https://lists.oasis-open.org/archives/virtio-comment/202112/msg00008.html
+
+Just to avoid that I am missing something here; as of now, there can only be 
+two indirect tables per round-trip message, right?
+
+Best regards,
+Christian Schoenebeck
+
 
