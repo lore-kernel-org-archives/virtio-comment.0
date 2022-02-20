@@ -1,165 +1,82 @@
-Return-Path: <beshleman.devbox@gmail.com>
-From: beshleman.devbox@gmail.com
-Subject: [PATCH v5 2/2] virtio-vsock: add mergeable buffer feature bit
-Date: Thu, 24 Feb 2022 22:15:47 +0000
-Message-Id: <20220224221547.2436395-3-beshleman.devbox@gmail.com>
-In-Reply-To: <20220224221547.2436395-1-beshleman.devbox@gmail.com>
-References: <20210528040118.3253836-1-jiang.wang@bytedance.com>
- <20220224221547.2436395-1-beshleman.devbox@gmail.com>
-Content-Type: text/plain; charset="US-ASCII"
-To: mst@redhat.com, cohuck@redhat.com, virtio-comment@lists.oasis-open.org
-Cc: cong.wang@bytedance.com, duanxiongchun@bytedance.com, jiang.wang@bytedance.com, virtualization@lists.linux-foundation.org, xieyongji@bytedance.com, chaiwen.cc@bytedance.com, stefanha@redhat.com, asias@redhat.com, arseny.krasnov@kaspersky.com, jhansen@vmware.com, bobby.eshleman@bytedance.com
+Return-Path: <virtio-comment-return-2756-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id AC2859840CE
+	for <virtio-comment@lists.oasis-open.org>; Sun, 20 Feb 2022 13:23:37 +0000 (UTC)
+Date: Sun, 20 Feb 2022 08:23:26 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20220220081428-mutt-send-email-mst@kernel.org>
+References: <20191125183430.1686620-1-yuri.benditovich@daynix.com>
+MIME-Version: 1.0
+In-Reply-To: <20191125183430.1686620-1-yuri.benditovich@daynix.com>
+Subject: [virtio-comment] Re: [PATCH] virtio-net: (spelling only) support for receive-side
+ scaling
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Yuri Benditovich <yuri.benditovich@daynix.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-From: Jiang Wang <jiang.wang@bytedance.com>
+On Mon, Nov 25, 2019 at 08:34:30PM +0200, Yuri Benditovich wrote:
+> Additional patch for previous 'v4 virtio-net: define support for
+> receive-side scaling' - contains only spelling fixes.
+> 
+> Signed-off-by: Yuri Benditovich <yuri.benditovich@daynix.com>
 
-Add support for mergeable buffers for virtio-vsock. Mergeable buffers
-allow individual large packets to be spread across multiple buffers
-while still using only a single packet header. This avoids
-artificially restraining packet size to the size of a single
-buffer and offers a performant fragmentation/defragmentation
-scheme.
+I just noticed that description of Device Initialization has not been
+updated with this patch.
 
-Signed-off-by: Jiang Wang <jiang.wang@bytedance.com>
-Signed-off-by: Bobby Eshleman <bobby.eshleman@bytedance.com>
----
- virtio-vsock.tex | 76 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+For example:
 
-diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-index 1a66a1b..bf44d5d 100644
---- a/virtio-vsock.tex
-+++ b/virtio-vsock.tex
-@@ -39,6 +39,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
- \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
- \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
- \item[VIRTIO_VSOCK_F_DGRAM (2)] datagram socket type is supported.
-+\item[VIRTIO_VSOCK_F_MRG_RXBUF (3)] driver can merge receive buffers.
- \end{description}
- 
- \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
-@@ -87,6 +88,8 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
- 
- Packets transmitted or received contain a header before the payload:
- 
-+If feature VIRTIO_VSOCK_F_MRG_RXBUF is not negotiated, use the following header.
-+
- \begin{lstlisting}
- struct virtio_vsock_hdr {
- 	le64 src_cid;
-@@ -102,6 +105,15 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
- };
- \end{lstlisting}
- 
-+If feature VIRTIO_VSOCK_F_MRG_RXBUF is negotiated, use the following header.
-+\begin{lstlisting}
-+struct virtio_vsock_hdr_mrg_rxbuf {
-+	struct virtio_vsock_hdr hdr;
-+	le16 num_buffers;
-+};
-+\end{lstlisting}
-+
-+
- The upper 32 bits of src_cid and dst_cid are reserved and zeroed.
- 
- Most packets simply transfer data but control packets are also used for
-@@ -207,6 +219,25 @@ \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device /
- virtqueue is full. For receivers, the packet is dropped if there is no space
- in the receive buffer.
- 
-+\drivernormative{\paragraph}{Device Operation: Buffer Space Management}{Device Types / Socket Device / Device Operation / Setting Up Receive Buffers}
-+\begin{itemize}
-+\item If VIRTIO_VSOCK_F_MRG_RXBUF is not negotiated, the driver SHOULD populate the datagram rx queue
-+      with buffers of at least 4096 bytes.
-+\item If VIRTIO_VSOCK_F_MRG_RXBUF is negotiated, each buffer MUST be at
-+      least the size of the struct virtio_vsock_hdr_mgr_rxbuf.
-+\end{itemize}
-+
-+\begin{note}
-+Each buffer may be split across multiple descriptor elements.
-+\end{note}
-+
-+\devicenormative{\paragraph}{Device Operation: Buffer Space Management}{Device Types / Socket Device / Device Operation / Setting Up Receive Buffers}
-+The device MUST set \field{num_buffers} to the number of descriptors used when
-+transmitting the packet.
-+
-+The device MUST use only a single descriptor if VIRTIO_VSOCK_F_MRG_RXBUF
-+is not negotiated.
-+
- \drivernormative{\paragraph}{Device Operation: Buffer Space Management}{Device Types / Socket Device / Device Operation / Buffer Space Management}
- For stream sockets, VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
- sufficient free buffer space for the payload. For dgram sockets, VIRTIO_VSOCK_OP_RW data packets
-@@ -229,6 +260,7 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
- The driver queues outgoing packets on the tx virtqueue and allocates incoming packet
- receive buffers on the rx virtqueue. Packets are of the following form:
- 
-+If VIRTIO_VSOCK_F_MRG_RXBUF is not negotiated, use the following.
- \begin{lstlisting}
- struct virtio_vsock_packet {
-     struct virtio_vsock_hdr hdr;
-@@ -236,11 +268,42 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
- };
- \end{lstlisting}
- 
-+If VIRTIO_VSOCK_F_MRG_RXBUF is negotiated, use the following form:
-+\begin{lstlisting}
-+struct virtio_vsock_packet_mrg_rxbuf {
-+    struct virtio_vsock_hdr_mrg_rxbuf hdr;
-+    u8 data[];
-+};
-+\end{lstlisting}
-+
-+
- Virtqueue buffers for outgoing packets are read-only. Virtqueue buffers for
- incoming packets are write-only.
- 
- When transmitting packets to the device, \field{num_buffers} is not used.
- 
-+\begin{enumerate}
-+\item \field{num_buffers} indicates how many descriptors
-+  this packet is spread over (including this one).
-+  This is valid only if VIRTIO_VSOCK_F_MRG_RXBUF is negotiated.
-+  This allows receipt of large packets without having to allocate large
-+  buffers: a packet that does not fit in a single buffer can flow
-+  over to the next buffer, and so on. In this case, there will be
-+  at least \field{num_buffers} used buffers in the virtqueue, and the device
-+  chains them together to form a single packet in a way similar to
-+  how it would store it in a single buffer spread over multiple
-+  descriptors.
-+  The other buffers will not begin with a struct virtio_vsock_hdr.
-+
-+  If VIRTIO_VSOCK_F_MRG_RXBUF is not negotiated, then only one
-+  descriptor is used.
-+
-+\item If
-+  \field{num_buffers} is one, then the entire packet will be
-+  contained within this buffer, immediately following the struct
-+  virtio_vsock_hdr.
-+\end{enumerate}
-+
- \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
- 
- The \field{guest_cid} configuration field MUST be used as the source CID when
-@@ -256,6 +319,19 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
- A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
- unknown \field{type} value.
- 
-+If VIRTIO_VSOCK_F_MRG_RXBUF has been negotiated, the device MUST set
-+\field{num_buffers} to indicate the number of buffers
-+the packet (including the header) is spread over.
-+
-+If a receive packet is spread over multiple buffers, the device
-+MUST use all buffers but the last (i.e. the first $\field{num_buffers} -
-+1$ buffers) completely up to the full length of each buffer
-+supplied by the driver.
-+
-+The device MUST use all buffers used by a single receive
-+packet together, such that at least \field{num_buffers} are
-+observed by driver as used.
-+
- \subsubsection{Stream Sockets}\label{sec:Device Types / Socket Device / Device Operation / Stream Sockets}
- 
- Connections are established by sending a VIRTIO_VSOCK_OP_REQUEST packet. If a
+\item Identify and initialize the receive and
+  transmission virtqueues, up to N of each kind. If
+  VIRTIO_NET_F_MQ feature bit is negotiated,
+  N=\field{max_virtqueue_pairs}, otherwise identify N=1.
+
+\item If the VIRTIO_NET_F_CTRL_VQ feature bit is negotiated,
+  identify the control virtqueue.
+
+\item Fill the receive queues with buffers: see \ref{sec:Device Types / Network Device / Device Operation / Setting Up Receive Buffers}.
+
+\item Even with VIRTIO_NET_F_MQ, only receiveq1, transmitq1 and
+  controlq are used by default.  The driver would send the
+  VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET command specifying the
+  number of the transmit and receive queues to use.
+
+
+there are some more instances of this.
+
+I created https://github.com/oasis-tcs/virtio-spec/issues/135
+to track this.
+Also, https://github.com/oasis-tcs/virtio-spec/issues/134 since
+VIRTIO_NET_F_MQ name is now confusing.
+
+
+Yuri, could you try to address these?
+
+Thanks!
+
 -- 
-2.11.0
+MST
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
