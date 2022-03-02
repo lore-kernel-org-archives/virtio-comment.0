@@ -1,103 +1,86 @@
-Return-Path: <virtio-comment-return-2866-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1C45C98649B
-	for <virtio-comment@lists.oasis-open.org>; Tue, 29 Mar 2022 14:24:36 +0000 (UTC)
-Message-ID: <dafc9518-ef57-f659-14b1-b14890017f46@amazon.com>
-Date: Tue, 29 Mar 2022 17:24:12 +0300
+Return-Path: <mgurtovoy@nvidia.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+Subject: [PATCH v1 0/5] Introduce virtio subsystem and Admin virtqueue
+Date: Wed, 2 Mar 2022 17:56:03 +0200
+Message-ID: <20220302155608.24189-1-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
-References: <20220322094940.3486-1-lauralg@amazon.com>
- <CAGxU2F5EtepBLC9XzjHk+Rgz70PErnA7hqfLbMJ0K5gH1FU6Qw@mail.gmail.com>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <CAGxU2F5EtepBLC9XzjHk+Rgz70PErnA7hqfLbMJ0K5gH1FU6Qw@mail.gmail.com>
-Subject: Re: [virtio-comment] [PATCH] vsock: add documentation about len header field
-Content-Type: multipart/alternative;
-	boundary="------------9AoD5ghsrLsxiZTH5hJ2UGnd"
-Content-Language: en-US
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+Content-Type: text/plain
+To: virtio-comment@lists.oasis-open.org, mst@redhat.com, cohuck@redhat.com, virtio-dev@lists.oasis-open.org, jasowang@redhat.com
+Cc: parav@nvidia.com, shahafs@nvidia.com, oren@nvidia.com, stefanha@redhat.com, Max Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------9AoD5ghsrLsxiZTH5hJ2UGnd
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+Hi,
+A virtio subsystem definition will help extending the virtio specefication for
+various future features that require a notion of grouping devices together or
+managing devices inside a group. It also might be used splitting or sharing a
+single virtio backend between multiple devices (e.g. Multipath IO for virtio-blk
+devices). A virtio subsystem include one or more virtio devices.
 
-T24gMy8yOC8yMiAxNDowOSwgU3RlZmFubyBHYXJ6YXJlbGxhIHdyb3RlOgo+IENBVVRJT046IFRo
-aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
-bm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmly
-bSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gSGkgTGF1
-cmEsCj4KPiBPbiBUdWUsIE1hciAyMiwgMjAyMiBhdCAxMDo1MCBBTSBMYXVyYSBMb2doaW48bGF1
-cmFsZ0BhbWF6b24uY29tPiAgd3JvdGU6Cj4+IFNpZ25lZC1vZmYtYnk6IExhdXJhIExvZ2hpbjxs
-YXVyYWxnQGFtYXpvbi5jb20+Cj4+IC0tLQo+PiAgIHZpcnRpby12c29jay50ZXggfCA1ICsrKysr
-Cj4+ICAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0tZ2l0IGEv
-dmlydGlvLXZzb2NrLnRleCBiL3ZpcnRpby12c29jay50ZXgKPj4gaW5kZXggZDc5OTg0ZC4uZTMy
-Y2FkOCAxMDA2NDQKPj4gLS0tIGEvdmlydGlvLXZzb2NrLnRleAo+PiArKysgYi92aXJ0aW8tdnNv
-Y2sudGV4Cj4+IEBAIC0xMDcsNiArMTA3LDExIEBAIFxzdWJzZWN0aW9ue0RldmljZSBPcGVyYXRp
-b259XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2aWNlIC8gRGV2aWNlIE9wCj4+
-ICAgI2RlZmluZSBWSVJUSU9fVlNPQ0tfT1BfQ1JFRElUX1JFUVVFU1QgNwo+PiAgIFxlbmR7bHN0
-bGlzdGluZ30KPj4KPj4gK1xmaWVsZHtsZW59IGlzIHRoZSBzaXplIG9mIHRoZSBwYXlsb2FkLCBp
-biBieXRlcy4gSG93ZXZlciwgdGhlIGRyaXZlciBtYXkKPj4gK3Byb3ZpZGUgYnVmZmVyKHMpIGZv
-ciB0aGUgcGF5bG9hZCB0aGF0IGhhdmUgYSB0b3RhbCBzaXplIGxvbmdlciB0aGFuCj4+ICtcZmll
-bGR7bGVufS4gSWYgdGhhdCBpcyB0aGUgY2FzZSwgb25seSB0aGUgZmlyc3QgXGZpZWxke2xlbn0g
-Ynl0ZXMgTVVTVCBiZQo+PiArdXNlZCBmb3IgdGhlIGFjdHVhbCBkYXRhLgo+PiArCj4gSUlVQyBN
-VVNUIGFuZCBmcmllbmRzIGFyZSBmb3Igbm9ybWF0aXZlIHNlY3Rpb25zLCBzbyBJIHdvdWxkIHJl
-bW92ZQo+IHRoZSBsYXN0IHNlbnRlbmNlLgoKWW91J3JlIHJpZ2h0LCBJJ2xsIHJlbW92ZSBpdC4g
-SXQgc2hvdWxkIGFscmVhZHkgYmUgY2xlYXIgZW5vdWdoIG9ubHkgdGhlCmZpcnN0IGxlbiBieXRl
-cyBuZWVkIHRvIGJlIHVzZWQgZm9yIHRoZSBwYXlsb2FkLgoKVGhhbmtzLApMYXVyYQoKPgo+Cj4g
-VGhhbmtzLAo+IFN0ZWZhbm8KPgoKCgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVyIChSb21hbmlh
-KSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBTZi4gTGF6YXIgU3RyZWV0LCBVQkM1LCBm
-bG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21hbmlhLiBSZWdpc3RlcmVkIGlu
-IFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIyLzI2MjEvMjAwNS4K
---------------9AoD5ghsrLsxiZTH5hJ2UGnd
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Also introduce the admin facility to allow manipulating features and configurations
+in a generic manner. Using the admin command set, one can manipulate the device itself
+and/or to manipulate, if possible, another device within the same virtio subsystem (the
+following patch set).
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiAzLzI4LzIyIDE0OjA5LCBTdGVmYW5vIEdhcnph
-cmVsbGEKICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJj
-aXRlIgpjaXRlPSJtaWQ6Q0FHeFUyRjVFdGVwQkxDOVh6akhrK1JnejcwUEVybkE3aHFmTGJNSjBL
-NWdIMUZVNlF3QG1haWwuZ21haWwuY29tIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXBy
-ZSIgd3JhcD0iIj5DQVVUSU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9m
-IHRoZSBvcmdhbml6YXRpb24uIERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRz
-IHVubGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBp
-cyBzYWZlLgoKCgpIaSBMYXVyYSwKCk9uIFR1ZSwgTWFyIDIyLCAyMDIyIGF0IDEwOjUwIEFNIExh
-dXJhIExvZ2hpbiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86
-bGF1cmFsZ0BhbWF6b24uY29tIj4mbHQ7bGF1cmFsZ0BhbWF6b24uY29tJmd0OzwvYT4gd3JvdGU6
-CjwvcHJlPgogICAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNsYXNz
-PSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPgpTaWduZWQtb2ZmLWJ5OiBMYXVyYSBMb2doaW4gPGEg
-Y2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmxhdXJhbGdAYW1hem9u
-LmNvbSI+Jmx0O2xhdXJhbGdAYW1hem9uLmNvbSZndDs8L2E+Ci0tLQogdmlydGlvLXZzb2NrLnRl
-eCB8IDUgKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQg
-YS92aXJ0aW8tdnNvY2sudGV4IGIvdmlydGlvLXZzb2NrLnRleAppbmRleCBkNzk5ODRkLi5lMzJj
-YWQ4IDEwMDY0NAotLS0gYS92aXJ0aW8tdnNvY2sudGV4CisrKyBiL3ZpcnRpby12c29jay50ZXgK
-QEAgLTEwNyw2ICsxMDcsMTEgQEAgXHN1YnNlY3Rpb257RGV2aWNlIE9wZXJhdGlvbn1cbGFiZWx7
-c2VjOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgT3AKICNkZWZpbmUgVklS
-VElPX1ZTT0NLX09QX0NSRURJVF9SRVFVRVNUIDcKIFxlbmR7bHN0bGlzdGluZ30KCitcZmllbGR7
-bGVufSBpcyB0aGUgc2l6ZSBvZiB0aGUgcGF5bG9hZCwgaW4gYnl0ZXMuIEhvd2V2ZXIsIHRoZSBk
-cml2ZXIgbWF5Citwcm92aWRlIGJ1ZmZlcihzKSBmb3IgdGhlIHBheWxvYWQgdGhhdCBoYXZlIGEg
-dG90YWwgc2l6ZSBsb25nZXIgdGhhbgorXGZpZWxke2xlbn0uIElmIHRoYXQgaXMgdGhlIGNhc2Us
-IG9ubHkgdGhlIGZpcnN0IFxmaWVsZHtsZW59IGJ5dGVzIE1VU1QgYmUKK3VzZWQgZm9yIHRoZSBh
-Y3R1YWwgZGF0YS4KKwo8L3ByZT4KICAgICAgPC9ibG9ja3F1b3RlPgogICAgICA8cHJlIGNsYXNz
-PSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPgpJSVVDIE1VU1QgYW5kIGZyaWVuZHMgYXJlIGZvciBu
-b3JtYXRpdmUgc2VjdGlvbnMsIHNvIEkgd291bGQgcmVtb3ZlCnRoZSBsYXN0IHNlbnRlbmNlLjwv
-cHJlPgogICAgPC9ibG9ja3F1b3RlPgogICAgPHByZT4KWW91J3JlIHJpZ2h0LCBJJ2xsIHJlbW92
-ZSBpdC4gSXQgc2hvdWxkIGFscmVhZHkgYmUgY2xlYXIgZW5vdWdoIG9ubHkgdGhlCmZpcnN0IGxl
-biBieXRlcyBuZWVkIHRvIGJlIHVzZWQgZm9yIHRoZSBwYXlsb2FkLiAKCjwvcHJlPgogICAgPHBy
-ZT5UaGFua3MsCkxhdXJhCjwvcHJlPgogICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIKY2l0ZT0i
-bWlkOkNBR3hVMkY1RXRlcEJMQzlYempIaytSZ3o3MFBFcm5BN2hxZkxiTUowSzVnSDFGVTZRd0Bt
-YWlsLmdtYWlsLmNvbSI+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+
-CgoKVGhhbmtzLApTdGVmYW5vCgo8L3ByZT4KICAgIDwvYmxvY2txdW90ZT4KICAgIDxwPjxicj4K
-ICAgIDwvcD4KICA8cD48L3A+Cgo8cD48YnI+CkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgKFJv
-bWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdBIFNmLiBMYXphciBTdHJlZXQsIFVC
-QzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3MDAwNDUsIFJvbWFuaWEuIFJlZ2lzdGVy
-ZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJlciBKMjIvMjYyMS8yMDA1LjwvcD4KPC9i
-b2R5Pgo8L2h0bWw+Cg==
---------------9AoD5ghsrLsxiZTH5hJ2UGnd--
+The admin virtqueue is the first management interface to issue Admin commands from
+the admin command set.
+
+The admin virtqueue interface will be extended in the future with more and more
+features that some of them already in discussions. Some of these features don't
+fit to MMIO/config_space characteristics, therefore a queue is selected to address
+admin commands.
+
+Motivation for choosing admin queue:
+1. It is anticipated that admin queue will be used for managing and configuring
+   many different type of resources. For example,
+   a. PCI PF configuring PCI VF attributes.
+   b. virtio device creating/destroying/configuring subfunctions discussed in [1]
+   c. composing device config space of VF or SF such as mac address, number of VQs, virtio features
+
+   Mapping all of them as configuration registers to MMIO will require large MMIO space,
+   if done for each VF/SF. Such MMIO implementation in physical devices such as PCI PF and VF
+   requires on-chip resources to complete within MMIO access latencies. Such resources are very
+   expensive.
+
+2. Such limitation can be overcome by having smaller MMIO register set to build
+   a command request response interface. However, such MMIO based command interface
+   will be limited to serve single outstanding command execution. Such limitation can
+   resulting in high device creation and composing time which can affect VM startup time.
+   Often device can queue and service multiple commands in parallel, such command interface
+   cannot use parallelism offered by the device.
+
+3. When a command wants to DMA data from one or more physical addresses, for example in the future a
+   live migration command may need to fetch device state consist of config space, tens of
+   VQs state, VLAN and MAC table, per VQ partial outstanding block IO list database and more.
+   Packing one or more DMA addresses over new command interface will be burden some and continue
+   to suffer single outstanding command execution latencies. Such limitation is not good for time
+   sensitive live migration use cases.
+
+4. A virtio queue overcomes all the above limitations. It also supports DMA and multiple outstanding
+   descriptors. Similar mechanism exist today for device specific configuration - the control VQ.
+
+[1] https://lists.oasis-open.org/archives/virtio-comment/202108/msg00025.html
+
+This series was extended and splitted from the V3 of the "VIRTIO: Provision maximum MSI-X vectors for a VF".
+This series include the comments and fixes from V1-V3 of the initial patch set from above.
+The following series introduce the management devices and MSI-X configuration of virtio devices.
+
+Open issues:
+1. CCW and MMIO specification for admin_queue_index register
+
+Max Gurtovoy (5):
+  virtio: Introduce virtio subsystem
+  Introduce Admin Command Set
+  Introduce DEVICE INFO Admin command
+  Add virtio Admin virtqueue
+  Add miscellaneous configuration structure for PCI
+
+ admin.tex        | 177 +++++++++++++++++++++++++++++++++++++++++++++++
+ conformance.tex  |   3 +
+ content.tex      |  33 ++++++++-
+ introduction.tex |  20 ++++++
+ 4 files changed, 231 insertions(+), 2 deletions(-)
+ create mode 100644 admin.tex
+
+-- 
+2.21.0
 
