@@ -1,72 +1,97 @@
-Return-Path: <qemu_oss@crudebyte.com>
+Return-Path: <virtio-comment-return-2795-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 4B757986597
+	for <virtio-comment@lists.oasis-open.org>; Wed,  9 Mar 2022 14:59:00 +0000 (UTC)
 From: Christian Schoenebeck <qemu_oss@crudebyte.com>
-Subject: Re: [PATCH v2 4/4] Add CCW configuration field "indirect_num" to vq_info_block
-Date: Thu, 10 Mar 2022 17:09:54 +0100
-Message-ID: <4202676.ubQFSjKQEu@silver>
-In-Reply-To: <YioYtrSa0rX+nVMZ@stefanha-x1.localdomain>
-References: <2255414.aXzeqRvSCW@silver> <86604669.MZiAfaG04C@silver> <YioYtrSa0rX+nVMZ@stefanha-x1.localdomain>
+Date: Wed, 09 Mar 2022 15:58:56 +0100
+Message-ID: <3382929.hzA3DnVQDd@silver>
+In-Reply-To: <2255414.aXzeqRvSCW@silver>
+References: <2255414.aXzeqRvSCW@silver>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Cornelia Huck <cohuck@redhat.com>, Greg Kurz <groug@kaod.org>, Dominique Martinet <asmadeus@codewreck.org>
+Subject: Re: [virtio-comment] [PATCH v2 0/4] Add VIRTIO_RING_F_INDIRECT_SIZE and queue_indirect_size
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+To: virtio-comment@lists.oasis-open.org
+Cc: Cornelia Huck <cohuck@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, Greg Kurz <groug@kaod.org>, Dominique Martinet <asmadeus@codewreck.org>, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Donnerstag, 10. M=E4rz 2022 16:26:46 CET Stefan Hajnoczi wrote:
-> On Mon, Feb 21, 2022 at 06:01:41PM +0100, Christian Schoenebeck wrote:
-> > This new CCW configuration field allows to negotiate a more fine
-> > graded maximum lenght of indirect descriptor chains.
-> >=20
-> > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/122
-> > Signed-off-by: Christian Schoenebeck <qemu_oss@crudebyte.com
-> > Signed-off-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
+On Montag, 21. Februar 2022 17:22:18 CET Christian Schoenebeck wrote:
+> This is a follow-up of:
+> [1/2]:
+> https://lists.oasis-open.org/archives/virtio-comment/202112/msg00034.html
+> [2/2]:
+> https://lists.oasis-open.org/archives/virtio-comment/202112/msg00035.html
+> 
+> These 4 patches introduce a more fine graded control over the maximum length
+> of indirect descriptor tables.
+> 
+> Associated Github Task:
+> https://github.com/oasis-tcs/virtio-spec/issues/122
+> 
+> Latest Version (all patches):
+> https://github.com/cschoenebeck/virtio-spec/commits/long_indirect_descr
 
-I'll fix those accidentally added double SOBs BTW.
-
-> > ---
-> >=20
-> >  content.tex | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> >=20
-> > diff --git a/content.tex b/content.tex
-> > index a3baf4d..d400ea7 100644
-> > --- a/content.tex
-> > +++ b/content.tex
-> > @@ -2599,6 +2599,7 @@ \subsubsection{Configuring a
-> > Virtqueue}\label{sec:Virtio Transport Options / Vir>=20
-> >          be16 num;
-> >          be64 driver;
-> >          be64 device;
-> >=20
-> > +        be32 indirect_num;
-> >=20
-> >  };
-> >  \end{lstlisting}
-> >=20
-> > @@ -2607,6 +2608,10 @@ \subsubsection{Configuring a
-> > Virtqueue}\label{sec:Virtio Transport Options / Vir>=20
-> >  available area and used area for queue \field{index}, respectively. Th=
-e
-> >  actual virtqueue size (number of allocated buffers) is transmitted in
-> >  \field{num}.>=20
-> > +If VIRTIO_RING_F_INDIRECT_SIZE has been negotiated then
-> > \field{indirect_num} +reflects the maximum length of indirect descripto=
-r
-> > tables for queue +\field{index}.
->=20
-> I think the transfer direction of CCW_CMD_SET_VQ struct vq_info_block is
-> driver-to-device. So it allows the driver to set the Queue Indirect
-> Size, but how does the driver query the device's maximum Queue Indirect
-> Size value?
-
-Ah, seems you are right Stefan. I assumed this was similar to PCI.
-
-So the way to go on CCW would be an additional (equally named?) field in=20
-struct vq_info_block (CCW_CMD_READ_VQ_CONF) for device -> driver?
-
-Cornelia?
+Ping.
 
 Best regards,
 Christian Schoenebeck
 
+> v1 -> v2:
+> 
+>   * Update reserved bits section [patch 1].
+> 
+>   * Add requirement to device normative section [patch 1].
+> 
+>   * Use the general new term "Queue Indirect Size" where possible instead of
+> mentioning a bus specific field name [patch 1].
+> 
+>   * Simplified phrasing of requirements in split ring section [patch 1].
+> 
+>   * Move bus-independent changes from patch 2 to patch 1.
+> 
+>   * There is only one indirect descriptor table allowed per buffer
+>     (round-trip message), so use the term "per indirect descriptor table"
+> for the semantic of "Queue Indirect Size" in patch 2.
+> 
+>   * Simplify phrasing of requirements in patch 2.
+> 
+>   * MMIO: First shot [NEW patch 3].
+> 
+>   * CCW: First shot [NEW patch 4].
+> 
+> Christian Schoenebeck (4):
+>   Add VIRTIO_RING_F_INDIRECT_SIZE
+>   Add PCI configuration field "queue_indirect_size"
+>   Add MMIO configuration register "QueueIndirectNum"
+>   Add CCW configuration field "indirect_num" to vq_info_block
+> 
+>  content.tex     | 77 ++++++++++++++++++++++++++++++++++++++++++++++---
+>  packed-ring.tex |  2 +-
+>  split-ring.tex  |  8 +++--
+>  3 files changed, 80 insertions(+), 7 deletions(-)
+
+
+
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
