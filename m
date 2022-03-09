@@ -1,69 +1,87 @@
-Return-Path: <stefanha@redhat.com>
-Date: Thu, 10 Mar 2022 15:35:05 +0000
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Subject: Re: [virtio-comment] [PATCH v2 0/4] Add VIRTIO_RING_F_INDIRECT_SIZE
- and queue_indirect_size
-Message-ID: <YioaqRcBK51RbIXf@stefanha-x1.localdomain>
-References: <2255414.aXzeqRvSCW@silver>
- <3382929.hzA3DnVQDd@silver>
+Return-Path: <virtio-comment-return-2792-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 4483E98658B
+	for <virtio-comment@lists.oasis-open.org>; Wed,  9 Mar 2022 08:42:48 +0000 (UTC)
+Date: Wed, 9 Mar 2022 16:42:45 +0800 (GMT+08:00)
+From: sunyuanling <lingersun@126.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="KRVSI2J50fmakn39"
-Content-Disposition: inline
-In-Reply-To: <3382929.hzA3DnVQDd@silver>
-To: Christian Schoenebeck <qemu_oss@crudebyte.com>
-Cc: virtio-comment@lists.oasis-open.org, Cornelia Huck <cohuck@redhat.com>, Greg Kurz <groug@kaod.org>, Dominique Martinet <asmadeus@codewreck.org>, "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <351b1f20.96d9.17f6dd848e3.Coremail.lingersun@126.com>
+Subject: [virtio-comment] virtio supports opencl
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_113908_2067038745.1646815365346"
+To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+------=_Part_113908_2067038745.1646815365346
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
---KRVSI2J50fmakn39
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+CkhpIGFsbCwKVml0cmlvIGFscmVhZHkgaGFzIHN1cHBvcnQgZm9yIE9wZW5HTCxEbyB5b3UgaGF2
+ZSBhbnkgcGxhbnMgYWJvdXQgc3VwcG9ydGluZyBPcGVuQ0w/T3Igd2hlcmUgY2FuIEkgZ2V0IHVz
+ZWZ1bCBpbmZvcm1hdGlvbj8gT3IgaXMgdGhlcmUgYSByZWxldmFudCBvcGVuIHByb2plY3QgYWJv
+dXQgT3BlbkNMIGJhc2Ugb24gdmlydGlvIG5vdz8gQW55IG5ld3Mgd291bGQgYmUgbXVjaCBhcHBy
+ZWNpYXRlZCEKCnwgfApzdW55dWFubGluZwp8CnwK08rP5KO6bGluZ2Vyc3VuQDEyNi5jb20KfAoK
+x6nD+9PJIM340tfTys/ktPPKpiC2qNbG
+------=_Part_113908_2067038745.1646815365346
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-On Wed, Mar 09, 2022 at 03:58:56PM +0100, Christian Schoenebeck wrote:
-> On Montag, 21. Februar 2022 17:22:18 CET Christian Schoenebeck wrote:
-> > This is a follow-up of:
-> > [1/2]:
-> > https://lists.oasis-open.org/archives/virtio-comment/202112/msg00034.ht=
-ml
-> > [2/2]:
-> > https://lists.oasis-open.org/archives/virtio-comment/202112/msg00035.ht=
-ml
-> >=20
-> > These 4 patches introduce a more fine graded control over the maximum l=
-ength
-> > of indirect descriptor tables.
-> >=20
-> > Associated Github Task:
-> > https://github.com/oasis-tcs/virtio-spec/issues/122
-> >=20
-> > Latest Version (all patches):
-> > https://github.com/cschoenebeck/virtio-spec/commits/long_indirect_descr
->=20
-> Ping.
-
-Sorry for the delay.
-
-This looks very close. I posted a CCW question but it might just be my
-lack of familiarity with CCW :).
-
-Stefan
-
---KRVSI2J50fmakn39
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmIqGqkACgkQnKSrs4Gr
-c8gIPQf8CFe/9Hb1CPovd02PBFWkV8eTLbpVQ2fHs5q98ZCH05oGWMRNkIz0x9R3
-fmdtO3N8C+QuEh8ywfTC64hFZXND9NKUzEHqFcs3iMtETkv7vbtZWtF3XAwnC3Sj
-Rti49XIupW7BpO+Ckqy6L5p8wFkwsXBL+K4wQkTl/HrsgIQMdPw7kxFftGtlSiyw
-rE3vI+82IQOvqe8s+79andnBs8rgjmiDrIiERdtp2oty5XavM5zRQtimD3FG1Sit
-YEw/1AN5fscK4UlOvcrig4e3c0KTghqZfe4gL0hHsOcJbIyrbFZdAf0N8UxVEcgg
-hwK9BtXbejVFFzF0lF5ujtzmOV7aeg==
-=ZRrl
------END PGP SIGNATURE-----
-
---KRVSI2J50fmakn39--
+PGRpdiBjbGFzcz0ibmUtcXVvdGVkIj48aHRtbD4KPGhlYWQ+CiAgICAKPC9oZWFkPgo8ZGl2Pgo8
+ZGl2IHN0eWxlPSJsaW5lLWhlaWdodDoxLjY7Zm9udC1mYW1pbHk6J8a7t70nLCfOosjt0cW62ics
+J3NhbnMtc2VyaWYnOyI+PGJyPkhpIGFsbCw8YnI+Vml0cmlvIGFscmVhZHkgaGFzIHN1cHBvcnQg
+Zm9yIE9wZW5HTCxEbyB5b3UgaGF2ZSBhbnkgcGxhbnMgYWJvdXQgc3VwcG9ydGluZyBPcGVuQ0w/
+T3Igd2hlcmUgY2FuIEkgZ2V0IHVzZWZ1bCBpbmZvcm1hdGlvbj8gT3IgaXMgdGhlcmUgYSByZWxl
+dmFudCBvcGVuIHByb2plY3QgYWJvdXQgT3BlbkNMIGJhc2Ugb24gdmlydGlvIG5vdz8gQW55IG5l
+d3Mgd291bGQgYmUgbXVjaCBhcHByZWNpYXRlZCE8YnI+PC9kaXY+PGRpdiBjbGFzcz0ibmUtcXVv
+dGVkIj4gICAgICAgIDxhIGhyZWY9Imh0dHBzOi8vbWFhcy5tYWlsLjE2My5jb20vZGFzaGktd2Vi
+LWV4dGVuZC9odG1sL3Byb1NpZ25hdHVyZS5odG1sP2Z0bElkPTEmYW1wO25hbWU9c3VueXVhbmxp
+bmcmYW1wO3VpZD1saW5nZXJzdW4lNDAxMjYuY29tJmFtcDtpY29uVXJsPWh0dHBzJTNBJTJGJTJG
+bWFpbC1vbmxpbmUubm9zZG4uMTI3Lm5ldCUyRnFpeWVsb2dvJTJGZGVmYXVsdEF2YXRhci5wbmcm
+YW1wO2l0ZW1zPSU1QiUyMiVFOSU4MiVBRSVFNyVBRSVCMSVFRiVCQyU5QWxpbmdlcnN1biU0MDEy
+Ni5jb20lMjIlNUQiIHN0eWxlPSJkaXNwbGF5OmJsb2NrO2JhY2tncm91bmQ6I2ZmZjsgbWF4LXdp
+ZHRoOiA0MDBweDsgX3dpZHRoOiA0MDBweDtwYWRkaW5nOjE1cHggMCAxMHB4IDA7dGV4dC1kZWNv
+cmF0aW9uOiBub25lOyBvdXRsaW5lOm5vbmU7LXdlYmtpdC10YXAtaGlnaGxpZ2h0LWNvbG9yOnRy
+YW5zcGFyZW50Oy13ZWJraXQtdGV4dC1zaXplLWFkanVzdDpub25lICFpbXBvcnRhbnQ7dGV4dC1z
+aXplLWFkanVzdDpub25lICFpbXBvcnRhbnQ7Ij4KICAgICAgICAgICAgPHRhYmxlIGNlbGxwYWRk
+aW5nPSIwIiBzdHlsZT0id2lkdGg6IDEwMCU7IG1heC13aWR0aDogMTAwJTsgdGFibGUtbGF5b3V0
+OiBmaXhlZDsgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTtjb2xvcjogIzliOWVhMTtmb250LXNp
+emU6IDE0cHg7bGluZS1oZWlnaHQ6MS4zOy13ZWJraXQtdGV4dC1zaXplLWFkanVzdDpub25lICFp
+bXBvcnRhbnQ7dGV4dC1zaXplLWFkanVzdDpub25lICFpbXBvcnRhbnQ7Ij4KICAgICAgICAgICAg
+ICAgIDx0Ym9keSBzdHlsZT0iZm9udC1mYW1pbHk6ICdQaW5nRmFuZyBTQycsICdIaXJhZ2lubyBT
+YW5zIEdCJywnV2VuUXVhbllpIE1pY3JvIEhlaScsICdNaWNyb3NvZnQgWWFoZWknLCAnzqLI7dHF
+utonLCB2ZXJkYW5hICFpbXBvcnRhbnQ7IHdvcmQtd3JhcDpicmVhay13b3JkOyB3b3JkLWJyZWFr
+OmJyZWFrLWFsbDstd2Via2l0LXRleHQtc2l6ZS1hZGp1c3Q6bm9uZSAhaW1wb3J0YW50O3RleHQt
+c2l6ZS1hZGp1c3Q6bm9uZSAhaW1wb3J0YW50OyI+CiAgICAgICAgICAgICAgICAgICAgPHRyPgog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRkIHdpZHRoPSIzOCIgc3R5bGU9InBhZGRpbmc6
+MDsgYm94LXNpemluZzogYm9yZGVyLWJveDsgd2lkdGg6IDM4cHg7Ij4KICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICA8aW1nIHdpZHRoPSIzOCIgaGVpZ2h0PSIzOCIgc3R5bGU9InZlcnRp
+Y2FsLWFsaWduOm1pZGRsZTsgd2lkdGg6IDM4cHg7IGhlaWdodDogMzhweDsgYm9yZGVyLXJhZGl1
+czo1MCU7IiBzcmM9Imh0dHBzOi8vbWFpbC1vbmxpbmUubm9zZG4uMTI3Lm5ldC9xaXllbG9nby9k
+ZWZhdWx0QXZhdGFyLnBuZyI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJwYWRkaW5nOiAwIDAgMCAxMHB4OyBj
+b2xvcjogIzMxMzUzYjsiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgc3R5
+bGU9ImZvbnQtc2l6ZTogMTZweDtmb250LXdlaWdodDpib2xkOyB3aWR0aDoxMDAlOyB3aGl0ZS1z
+cGFjZTogbm93cmFwOyBvdmVyZmxvdzpoaWRkZW47dGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7Ij5z
+dW55dWFubGluZzwvZGl2PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC90ZD4KICAgICAg
+ICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAgICAgICAgICA8dHIgd2lkdGg9IjEw
+MCUiIHN0eWxlPSJmb250LXNpemU6IDE0cHggIWltcG9ydGFudDsgd2lkdGg6IDEwMCU7Ij4KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZCBjb2xzcGFuPSIyIiBzdHlsZT0icGFkZGluZzox
+MHB4IDAgMCAwOyBmb250LXNpemU6MTRweCAhaW1wb3J0YW50OyB3aWR0aDogMTAwJTsiPgogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJ3aWR0aDogMTAwJTtm
+b250LXNpemU6IDE0cHggIWltcG9ydGFudDt3b3JkLXdyYXA6YnJlYWstd29yZDt3b3JkLWJyZWFr
+OmJyZWFrLWFsbDsiPtPKz+SjumxpbmdlcnN1bkAxMjYuY29tPC9kaXY+CiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAg
+ICAgICAgICAgPC90Ym9keT4KICAgICAgICAgICAgPC90YWJsZT4KICAgICAgICA8L2E+PGh0bWw+
+PGRpdj48cCBzdHlsZT0iYm9yZGVyLXRvcDoxcHggc29saWQgI2U1ZTVlNTtwYWRkaW5nLXRvcDog
+OHB4OyBmb250LXNpemU6IDEycHg7IGNvbG9yOiNiNmI4YmI7bGluZS1oZWlnaHQ6IDEuODMzOyI+
+x6nD+9PJIDxhIGhyZWY9Imh0dHBzOi8vbWFpbC4xNjMuY29tL2Rhc2hpL2RscHJvLmh0bWw/ZnJv
+bT1tYWlsODgiIHN0eWxlPSJjb2xvcjojNmFhOGY2O3RleHQtZGVjb3JhdGlvbjogbm9uZSI+zfjS
+19PKz+S088qmPC9hPiC2qNbGPC9wPjwvZGl2PjwvaHRtbD48L2Rpdj4KPC9kaXY+CjwvaHRtbD48
+L2Rpdj4=
+------=_Part_113908_2067038745.1646815365346--
 
