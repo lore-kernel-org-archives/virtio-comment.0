@@ -1,105 +1,46 @@
-Return-Path: <virtio-comment-return-2811-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2812-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A8397986642
-	for <virtio-comment@lists.oasis-open.org>; Fri, 11 Mar 2022 13:49:57 +0000 (UTC)
-Message-ID: <70626dae-9d81-5fd2-5b08-8a377042c339@opensynergy.com>
-Date: Fri, 11 Mar 2022 14:49:51 +0100
-From: Harald Mommer <hmo@opensynergy.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 80C9C986646
+	for <virtio-comment@lists.oasis-open.org>; Fri, 11 Mar 2022 16:02:16 +0000 (UTC)
+From: "Huang, Yang" <yang.huang@intel.com>
+Date: Fri, 11 Mar 2022 16:02:08 +0000
+Message-ID: <DM6PR11MB384948F551208BB1187D7569850C9@DM6PR11MB3849.namprd11.prod.outlook.com>
+References: <70626dae-9d81-5fd2-5b08-8a377042c339@opensynergy.com>
+In-Reply-To: <70626dae-9d81-5fd2-5b08-8a377042c339@opensynergy.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] Comments on RPMB config space chapter 5.2.14
+Subject: RE: [virtio-comment] Comments on RPMB config space chapter 5.2.14
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, Huang Yang <yang.huang@intel.com>, virtio-comment@lists.oasis-open.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+To: Harald Mommer <hmo@opensynergy.com>, =?utf-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 Cc: Lukasz Zawada <Lukasz.Zawada@opensynergy.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Hello,
-
-the RPMB specification chapter 5.2.14 "Device configuration layout" says=20
-the following:
-
-All fields of this configuration are always available and read-only for=20
-the driver.
-
-struct virtio_rpmb_config {
- =C2=A0 u8 capacity;
- =C2=A0 u8 max_wr_cnt;
- =C2=A0 u8 max_rd_cnt;
-}
-
-capacity is the capacity of the device (expressed in 128KB units). The=20
-values MUST range between 0x00
-and 0x80 inclusive.
-
-max_wr_cnt and max_rd_cnt are the maximum numbers of RPMB block count=20
-(256B) that can be performed
-to device in one request. 0 implies no limitation.
-
-=3D=3D
-
-1.) We have an underlying physical RPMB device we would like to forward=20
-to a virtual machine via virtio RPMB. Looks like the physical device has=20
-a capacity of 256. 256 > 0x80. And 256 also does not fit in the u8=20
-capacity of the structure. Thinking now of cutting to 0x80 to fulfill=20
-the exact wording of the specification. Alternatively we might violate=20
-the specification and cut to 255 which is the biggest value still=20
-fitting in u8 capacity. But nothing of this is satisfying.
-
-2.) Looking at the specification the maximum RPMB block count is 256. In=20
-our case the physical device seems to have a max_wr_cnt and max_wr_cnt=20
-of 1 so we actually don't have a problem here with the value range of an=20
-u8. But strictly speaking 256 which is still an allowed value does also=20
-not fit into an u8 so for a physical device allowing a block count of=20
-256 a cut down to 255 would have to be done. Nice is different.
-
-It would have been better if all the u8 in the config space were le16=20
-not to have those value range problems now. But now it is as it is so=20
-I've to cut down now (still unsure which capacity limit to choose) in=20
-our implementation. But this is now only working around a specification=20
-flaw which should be addressed at some time in the specification itself.
-
-Looking forward to get some comments on this.
-
-Regards
-Harald
-
---=20
-Dipl.-Ing. Harald Mommer
-Senior Software Engineer
-
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
-
-Phone:  +49 (30) 60 98 540-0 <=3D=3D Zentrale
-Fax:    +49 (30) 60 98 540-99
-E-Mail: harald.mommer@opensynergy.com
-
-www.opensynergy.com
-
-Handelsregister: Amtsgericht Charlottenburg, HRB 108616B
-Gesch=C3=A4ftsf=C3=BChrer/Managing Director: Regis Adjamah
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+DQogDQo+IDEuKSBXZSBoYXZlIGFuIHVuZGVybHlpbmcgcGh5c2ljYWwgUlBNQiBkZXZpY2Ugd2Ug
+d291bGQgbGlrZSB0byBmb3J3YXJkIHRvDQo+IGEgdmlydHVhbCBtYWNoaW5lIHZpYSB2aXJ0aW8g
+UlBNQi4gTG9va3MgbGlrZSB0aGUgcGh5c2ljYWwgZGV2aWNlIGhhcyBhDQo+IGNhcGFjaXR5IG9m
+IDI1Ni4gMjU2ID4gMHg4MC4gQW5kIDI1NiBhbHNvIGRvZXMgbm90IGZpdCBpbiB0aGUgdTggY2Fw
+YWNpdHkgb2YgdGhlDQoNCjI1NioxMjhLQiA9IDMyTUIgUlBNQi4gV2hhdCdzIHlvdXIgZmxhc2gs
+IGVNTUMsIFVGUyBvciBOVk1lPw0KDQo+IHN0cnVjdHVyZS4gVGhpbmtpbmcgbm93IG9mIGN1dHRp
+bmcgdG8gMHg4MCB0byBmdWxmaWxsIHRoZSBleGFjdCB3b3JkaW5nIG9mIHRoZQ0KPiBzcGVjaWZp
+Y2F0aW9uLiBBbHRlcm5hdGl2ZWx5IHdlIG1pZ2h0IHZpb2xhdGUgdGhlIHNwZWNpZmljYXRpb24g
+YW5kIGN1dCB0byAyNTUNCj4gd2hpY2ggaXMgdGhlIGJpZ2dlc3QgdmFsdWUgc3RpbGwgZml0dGlu
+ZyBpbiB1OCBjYXBhY2l0eS4gQnV0IG5vdGhpbmcgb2YgdGhpcyBpcw0KPiBzYXRpc2Z5aW5nLg0K
+PiANCj4gMi4pIExvb2tpbmcgYXQgdGhlIHNwZWNpZmljYXRpb24gdGhlIG1heGltdW0gUlBNQiBi
+bG9jayBjb3VudCBpcyAyNTYuIEluIG91cg0KDQpXaGF0IHNwZWMgYXJlIHlvdSByZWZlcnJpbmc/
+IEhlcmUgaXMgdGhlIGRlc2NyaXB0aW9uIGluIGVNTUMgRWxlY3RyaWNhbCBTdGFuZGFyZCAoNS4x
+KSwgSkVTRDg0LUI1MToNCjcuNC43NyBSUE1CX1NJWkVfTVVMVCBbMTY4XQ0KVGhlIFJQTUIgcGFy
+dGl0aW9uIHNpemUgaXMgY2FsY3VsYXRlZCBmcm9tIHRoZSByZWdpc3RlciBieSB1c2luZyB0aGUg
+Zm9sbG93aW5nIGVxdWF0aW9uOiBSUE1CIHBhcnRpdGlvbg0Kc2l6ZSA9IDEyOGtCIHggUlBNQl9T
+SVpFX01VTFQNClRhYmxlIDE1NiDigJQgUlBNQiBQYXJ0aXRpb24gU2l6ZQ0KVmFsdWUgVmFsdWUg
+ZGVmaW5pdGlvbg0KMHgwMCBObyBSUE1CIHBhcnRpdGlvbiBhdmFpbGFibGUuDQoweDAxIDEgeCAx
+MjhLYnl0ZSA9IDEyOEtieXRlcw0KMHgwMiAyIHggMTI4S2J5dGUgPSAyNTZLYnl0ZXMNCjogOg0K
+MHg4MCAxMjh4MTI4S2J5dGUgPSAxNjM4NEtieXRlcw0KMHg4MS0weEZGIFJlc2VydmVkMQ0KTk9U
+RSAxIFJQTUIgZGF0YSBmcmFtZSBmb3JtYXQgZGVmaW5pdGlvbiBzdXBwb3J0cyBhIG1heGltdW0g
+b2YgMTYgTUIuIFRoaXMgbGltaXRzIHRoZSBzaXplDQpvZiB0aGUgUlBNQiBhcmVhLg0KDQoNCg==
 
