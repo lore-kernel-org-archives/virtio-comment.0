@@ -1,73 +1,62 @@
-Return-Path: <virtio-comment-return-2813-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2814-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8BB81986683
-	for <virtio-comment@lists.oasis-open.org>; Fri, 11 Mar 2022 16:35:05 +0000 (UTC)
-Message-ID: <486f583a-2957-0414-5336-545bcf9b0189@opensynergy.com>
-Date: Fri, 11 Mar 2022 17:34:53 +0100
+	by lists.oasis-open.org (Postfix) with ESMTP id B84529862A4
+	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Mar 2022 03:01:32 +0000 (UTC)
+From: "Huang, Yang" <yang.huang@intel.com>
+Date: Mon, 14 Mar 2022 03:01:26 +0000
+Message-ID: <DM6PR11MB3849E240BEB9101ED9DBBBF0850F9@DM6PR11MB3849.namprd11.prod.outlook.com>
 References: <70626dae-9d81-5fd2-5b08-8a377042c339@opensynergy.com>
  <DM6PR11MB384948F551208BB1187D7569850C9@DM6PR11MB3849.namprd11.prod.outlook.com>
-From: Harald Mommer <hmo@opensynergy.com>
-In-Reply-To: <DM6PR11MB384948F551208BB1187D7569850C9@DM6PR11MB3849.namprd11.prod.outlook.com>
+ <486f583a-2957-0414-5336-545bcf9b0189@opensynergy.com>
+In-Reply-To: <486f583a-2957-0414-5336-545bcf9b0189@opensynergy.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] Comments on RPMB config space chapter 5.2.14
+Subject: RE: [virtio-comment] Comments on RPMB config space chapter 5.2.14
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-To: "Huang, Yang" <yang.huang@intel.com>, =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+To: Harald Mommer <hmo@opensynergy.com>, =?utf-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 Cc: Lukasz Zawada <Lukasz.Zawada@opensynergy.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-
-On 11.03.22 17:02, Huang, Yang wrote:
->   
->> 1.) We have an underlying physical RPMB device we would like to forward to
->> a virtual machine via virtio RPMB. Looks like the physical device has a
->> capacity of 256. 256 > 0x80. And 256 also does not fit in the u8 capacity of the
-> 256*128KB = 32MB RPMB. What's your flash, eMMC, UFS or NVMe?
-
-UFS. I should still try to find out what exact chip is used on the board 
-and try to confirm with the data sheet (if available) that the capacity 
-of 256 we got from ioctl RPMB_IOC_CAP_CMD is indeed the correct one. 
-Which means 32MB. just to rule out I'm not fooled by some obscure bug 
-somewhere in the stack.
-
->> structure. Thinking now of cutting to 0x80 to fulfill the exact wording of the
->> specification. Alternatively we might violate the specification and cut to 255
->> which is the biggest value still fitting in u8 capacity. But nothing of this is
->> satisfying.
->>
->> 2.) Looking at the specification the maximum RPMB block count is 256. In our
-
-I'm referring to the virtio specification as it is currently on latest 
-master in https://github.com/oasis-tcs/virtio-spec.git.
-
-2.) is not about the total size of the RPMB device but about the max. 
-allowed number of blocks to be read or written at a time in one chunk 
-(config space max_wr_cnt and max_rd_cnt). While in the text 256B is 
-still a valid value in the config space this value would not fit into 
-the u8. Not the issue now but remarkable when we are already in clause 
-5.12.4.
-
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSGFyYWxkIE1vbW1lciA8
+aG1vQG9wZW5zeW5lcmd5LmNvbT4NCj4gU2VudDogU2F0dXJkYXksIE1hcmNoIDEyLCAyMDIyIDEy
+OjM1IEFNDQo+IFRvOiBIdWFuZywgWWFuZyA8eWFuZy5odWFuZ0BpbnRlbC5jb20+OyBBbGV4IEJl
+bm7DqWUNCj4gPGFsZXguYmVubmVlQGxpbmFyby5vcmc+OyB2aXJ0aW8tY29tbWVudEBsaXN0cy5v
+YXNpcy1vcGVuLm9yZw0KPiBDYzogTHVrYXN6IFphd2FkYSA8THVrYXN6Llphd2FkYUBvcGVuc3lu
+ZXJneS5jb20+DQo+IFN1YmplY3Q6IFJlOiBbdmlydGlvLWNvbW1lbnRdIENvbW1lbnRzIG9uIFJQ
+TUIgY29uZmlnIHNwYWNlIGNoYXB0ZXINCj4gNS4yLjE0DQo+IA0KPiANCj4gT24gMTEuMDMuMjIg
+MTc6MDIsIEh1YW5nLCBZYW5nIHdyb3RlOg0KPiA+DQo+ID4+IDEuKSBXZSBoYXZlIGFuIHVuZGVy
+bHlpbmcgcGh5c2ljYWwgUlBNQiBkZXZpY2Ugd2Ugd291bGQgbGlrZSB0bw0KPiA+PiBmb3J3YXJk
+IHRvIGEgdmlydHVhbCBtYWNoaW5lIHZpYSB2aXJ0aW8gUlBNQi4gTG9va3MgbGlrZSB0aGUgcGh5
+c2ljYWwNCj4gPj4gZGV2aWNlIGhhcyBhIGNhcGFjaXR5IG9mIDI1Ni4gMjU2ID4gMHg4MC4gQW5k
+IDI1NiBhbHNvIGRvZXMgbm90IGZpdA0KPiA+PiBpbiB0aGUgdTggY2FwYWNpdHkgb2YgdGhlDQo+
+ID4gMjU2KjEyOEtCID0gMzJNQiBSUE1CLiBXaGF0J3MgeW91ciBmbGFzaCwgZU1NQywgVUZTIG9y
+IE5WTWU/DQo+IA0KPiBVRlMuIEkgc2hvdWxkIHN0aWxsIHRyeSB0byBmaW5kIG91dCB3aGF0IGV4
+YWN0IGNoaXAgaXMgdXNlZCBvbiB0aGUgYm9hcmQgYW5kIHRyeQ0KPiB0byBjb25maXJtIHdpdGgg
+dGhlIGRhdGEgc2hlZXQgKGlmIGF2YWlsYWJsZSkgdGhhdCB0aGUgY2FwYWNpdHkgb2YgMjU2IHdl
+IGdvdA0KPiBmcm9tIGlvY3RsIFJQTUJfSU9DX0NBUF9DTUQgaXMgaW5kZWVkIHRoZSBjb3JyZWN0
+IG9uZS4NCj4gV2hpY2ggbWVhbnMgMzJNQi4ganVzdCB0byBydWxlIG91dCBJJ20gbm90IGZvb2xl
+ZCBieSBzb21lIG9ic2N1cmUgYnVnDQo+IHNvbWV3aGVyZSBpbiB0aGUgc3RhY2suDQo+IA0KPiA+
+PiBzdHJ1Y3R1cmUuIFRoaW5raW5nIG5vdyBvZiBjdXR0aW5nIHRvIDB4ODAgdG8gZnVsZmlsbCB0
+aGUgZXhhY3QNCj4gPj4gd29yZGluZyBvZiB0aGUgc3BlY2lmaWNhdGlvbi4gQWx0ZXJuYXRpdmVs
+eSB3ZSBtaWdodCB2aW9sYXRlIHRoZQ0KPiA+PiBzcGVjaWZpY2F0aW9uIGFuZCBjdXQgdG8gMjU1
+IHdoaWNoIGlzIHRoZSBiaWdnZXN0IHZhbHVlIHN0aWxsIGZpdHRpbmcNCj4gPj4gaW4gdTggY2Fw
+YWNpdHkuIEJ1dCBub3RoaW5nIG9mIHRoaXMgaXMgc2F0aXNmeWluZy4NCj4gPj4NCj4gPj4gMi4p
+IExvb2tpbmcgYXQgdGhlIHNwZWNpZmljYXRpb24gdGhlIG1heGltdW0gUlBNQiBibG9jayBjb3Vu
+dCBpcyAyNTYuDQo+ID4+IEluIG91cg0KPiANCj4gSSdtIHJlZmVycmluZyB0byB0aGUgdmlydGlv
+IHNwZWNpZmljYXRpb24gYXMgaXQgaXMgY3VycmVudGx5IG9uIGxhdGVzdCBtYXN0ZXIgaW4NCj4g
+aHR0cHM6Ly9naXRodWIuY29tL29hc2lzLXRjcy92aXJ0aW8tc3BlYy5naXQuDQo+IA0KPiAyLikg
+aXMgbm90IGFib3V0IHRoZSB0b3RhbCBzaXplIG9mIHRoZSBSUE1CIGRldmljZSBidXQgYWJvdXQg
+dGhlIG1heC4NCj4gYWxsb3dlZCBudW1iZXIgb2YgYmxvY2tzIHRvIGJlIHJlYWQgb3Igd3JpdHRl
+biBhdCBhIHRpbWUgaW4gb25lIGNodW5rIChjb25maWcNCj4gc3BhY2UgbWF4X3dyX2NudCBhbmQg
+bWF4X3JkX2NudCkuIFdoaWxlIGluIHRoZSB0ZXh0IDI1NkIgaXMgc3RpbGwgYSB2YWxpZA0KPiB2
+YWx1ZSBpbiB0aGUgY29uZmlnIHNwYWNlIHRoaXMgdmFsdWUgd291bGQgbm90IGZpdCBpbnRvIHRo
+ZSB1OC4gTm90IHRoZSBpc3N1ZQ0KPiBub3cgYnV0IHJlbWFya2FibGUgd2hlbiB3ZSBhcmUgYWxy
+ZWFkeSBpbiBjbGF1c2UgNS4xMi40Lg0KPiANCg0KTm90ZTogVGhlIG5vcm1hdGl2ZSByZWZlcmVu
+Y2Ugb2YgdGhpcyBSUE1CIHNlY3Rpb24gaXMgYmFzZWQtb24gZU1NQyBTcGVjIDUuMS4NCg0KDQo=
 
