@@ -1,77 +1,137 @@
-Return-Path: <qemu_oss@crudebyte.com>
-From: Christian Schoenebeck <qemu_oss@crudebyte.com>
+Return-Path: <mst@redhat.com>
+Date: Mon, 21 Mar 2022 18:13:55 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
 Subject: Re: [virtio-comment] [PATCH v3 1/4] Add VIRTIO_RING_F_INDIRECT_SIZE
-Date: Mon, 21 Mar 2022 10:23:07 +0100
-Message-ID: <1758197.u6jAxYQQ6s@silver>
-In-Reply-To: <20220320171750-mutt-send-email-mst@kernel.org>
-References: <4735344.EBYxvr1mta@silver> <18109331.vxdRPDnfUN@silver>
+Message-ID: <20220321174557-mutt-send-email-mst@kernel.org>
+References: <4735344.EBYxvr1mta@silver>
+ <18109331.vxdRPDnfUN@silver>
  <20220320171750-mutt-send-email-mst@kernel.org>
+ <1758197.u6jAxYQQ6s@silver>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <1758197.u6jAxYQQ6s@silver>
 Content-Type: text/plain; charset="iso-8859-1"
-To: "Michael S. Tsirkin" <mst@redhat.com>
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+To: Christian Schoenebeck <qemu_oss@crudebyte.com>
 Cc: virtio-comment@lists.oasis-open.org, Cornelia Huck <cohuck@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, Greg Kurz <groug@kaod.org>, Dominique Martinet <asmadeus@codewreck.org>, Halil Pasic <pasic@linux.ibm.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Sonntag, 20. M=E4rz 2022 22:52:16 CET Michael S. Tsirkin wrote:
-> On Sun, Mar 20, 2022 at 06:43:53PM +0100, Christian Schoenebeck wrote:
-> > To be honest, I don't feel like discussing precise wordings at this poi=
-nt
-> > when you are questioning the proposal on design level already.
+On Mon, Mar 21, 2022 at 10:23:07AM +0100, Christian Schoenebeck wrote:
+> On Sonntag, 20. M=E4rz 2022 22:52:16 CET Michael S. Tsirkin wrote:
+> > On Sun, Mar 20, 2022 at 06:43:53PM +0100, Christian Schoenebeck wrote:
+> > > To be honest, I don't feel like discussing precise wordings at this p=
+oint
+> > > when you are questioning the proposal on design level already.
+> > >=20
+> > > Maybe you make some more thorough thoughts on what you actually want =
+this
+> > > to be on design level before continueing to argue about precise
+> > > terminology, which you are not using either BTW when you articulating
+> > > your criticism.
+> > >=20
+> > > Or even better: come up with your own proposol with the precise wordi=
+ng
+> > > you
+> > > feel appropriate.
 > >=20
-> > Maybe you make some more thorough thoughts on what you actually want th=
-is
-> > to be on design level before continueing to argue about precise
-> > terminology, which you are not using either BTW when you articulating
-> > your criticism.
+> > OK let's go back and agree on what we are trying to achieve.  The github
+> > issue and the cover letter imply that while indirect descriptors would
+> > normally allow huge tables, we artificially limit them to queue size,
+> > and you want to be able to relax that.
+>=20
+> Correct, that's my motivation for all of this.
+
+Okay. So I think that given this, we can limit the total number
+of non-indirect descriptors, including non-indirect ones
+in a chain + all the ones in indirect pointer table if any,
+and excluding the indirect descriptor itself, and this
+will address the issue you are describing here, right?
+
+Question:
+- I am thinking about bi-directional descriptors such as
+  block and scsi have. it looks like they have a separate limit for
+  read and write parts of the chain. Should we have two limits
+  then? Or should we just make driver use the lower of the two,
+  i.e. the per vq limit applies to the total # of elements
+  in a buffer, and read/write sgs are controlled separately
+  by the per device control?
+ =20
+
+Stefan, any comments?
+
+
+
+> > Fair enough.
 > >=20
-> > Or even better: come up with your own proposol with the precise wording
-> > you
-> > feel appropriate.
+> > However, I feel trying to talk about indirect descriptor is too narrow a
+> > use-case, simply because the issue is not indirect at all.  Why do we
+> > limit number of segments? I think it's really because of backend
+> > limitations. And indirect is only used by the frontend.  So limiting
+> > that is really going about it wrong.
 >=20
-> OK let's go back and agree on what we are trying to achieve.  The github
-> issue and the cover letter imply that while indirect descriptors would
-> normally allow huge tables, we artificially limit them to queue size,
-> and you want to be able to relax that.
+> I am only aware about current implementation situation in QEMU and Linux =
 
-Correct, that's my motivation for all of this.
-
-> Fair enough.
+> kernel. As for those two: yes, it is not a limitation on Linux kernel sid=
+e,=20
+> but on QEMU side.
 >=20
-> However, I feel trying to talk about indirect descriptor is too narrow a
-> use-case, simply because the issue is not indirect at all.  Why do we
-> limit number of segments? I think it's really because of backend
-> limitations. And indirect is only used by the frontend.  So limiting
-> that is really going about it wrong.
-
-I am only aware about current implementation situation in QEMU and Linux=20
-kernel. As for those two: yes, it is not a limitation on Linux kernel side,=
-=20
-but on QEMU side.
-
-As for other implementations: no idea.
-
-> So block for example has seg_max already. What should happen
-> if that exceeds queue size is not defined.
+> As for other implementations: no idea.
 >=20
-> So maybe we can generalize that making it device independent?
-> The litmus paper for this is the block and scsi devices,
-> we should be able to use the new feature as a super-set.
+> > So block for example has seg_max already. What should happen
+> > if that exceeds queue size is not defined.
+> >=20
+> > So maybe we can generalize that making it device independent?
+> > The litmus paper for this is the block and scsi devices,
+> > we should be able to use the new feature as a super-set.
+> >=20
+> > Before we discuss solutions, did I formulate the problem correctly?
 >=20
-> Before we discuss solutions, did I formulate the problem correctly?
+> Keep in mind that I never worked on virtio code or virtio spec before. I =
+just=20
+> started to review virtio implementation of QEMU and Linux kernel and the =
 
-Keep in mind that I never worked on virtio code or virtio spec before. I ju=
-st=20
-started to review virtio implementation of QEMU and Linux kernel and the=20
-virtio spec in November, specifically in context of 9p. I definitely don't=
-=20
-know all the other virtioo device classes out there.
+> virtio spec in November, specifically in context of 9p. I definitely don'=
+t=20
+> know all the other virtioo device classes out there.
 
-In other words: I can't help you on fitting this appropriately into a super=
-set=20
-picture.
+I think it's great that we have someone taking care of 9p btw!
 
-Best regards,
-Christian Schoenebeck
+>=20
+> In other words: I can't help you on fitting this appropriately into a sup=
+erset=20
+> picture.
+>=20
+> Best regards,
+> Christian Schoenebeck
 
+I think we need some cleanups in the spec to make what you are trying to
+do possible to do cleanly, specifically move this description:
+
+	A buffer consists of zero or more device-readable physically-contiguous
+	elements followed by zero or more physically-contiguous
+	device-writable elements (each buffer has at least one element).
+
+out to the generic part from packed ring part, drop corresponding
+text from split ring and make it refer to the term "element".
+
+After this, the new field will just be "a number of elements per
+buffer" (note that indirect descriptors do not themselves
+describe elements and so won't be included in the math).
+
+Christian, you mentioned you don't like the term buffer generally,
+changing that can be done before or after this feature but IMHO
+best not as part of it.
+
+I think it's good in that it will fit better in the superset picture
+addressing in addition to your requirement also the requirement to have
+huge rings while limiting descriptors.
+
+Does above sound like it addresses your requirements of having
+a longer descriptor chain than queue size? If not what is not
+addressed?
+
+
+Thanks,
+--=20
+MST
 
