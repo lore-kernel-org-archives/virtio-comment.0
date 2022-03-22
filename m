@@ -1,48 +1,65 @@
-Return-Path: <virtio-return-3652-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio@lists.oasis-open.org>
-List-Post: <mailto:virtio@lists.oasis-open.org>
-List-Help: <mailto:virtio-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20220324080218-mutt-send-email-mst@kernel.org>
-References: <20220324103412.2740-1-mst@redhat.com>
- <87y20z61ck.fsf@redhat.com>
- <20220324080218-mutt-send-email-mst@kernel.org>
-Date: Thu, 24 Mar 2022 13:24:09 +0100
-Message-ID: <87r16r5yja.fsf@redhat.com>
+Return-Path: <virtio-comment-return-2846-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id D39E29863D4
+	for <virtio-comment@lists.oasis-open.org>; Tue, 22 Mar 2022 09:50:16 +0000 (UTC)
+From: Laura Loghin <lauralg@amazon.com>
+Date: Tue, 22 Mar 2022 11:49:40 +0200
+Message-ID: <20220322094940.3486-1-lauralg@amazon.com>
 MIME-Version: 1.0
-Subject: [virtio] Re: [virtio-dev] [PATCH] packed-ring: fix some typos
+Subject: [virtio-comment] [PATCH] vsock: add documentation about len header field
 Content-Type: text/plain
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org
+To: virtio-comment@lists.oasis-open.org
+Cc: Laura Loghin <lauralg@amazon.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Mar 24 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+Signed-off-by: Laura Loghin <lauralg@amazon.com>
+---
+ virtio-vsock.tex | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> On Thu, Mar 24, 2022 at 12:23:23PM +0100, Cornelia Huck wrote:
->> On Thu, Mar 24 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
->> 
->> > flag is misnamed in a couple of places.
->> 
->> s//The VIRTQ_DESC_F_INDIRECT_FLAG /
->
-> You mean VIRTQ_DESC_F_INDIRECT don't you?
+diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+index d79984d..e32cad8 100644
+--- a/virtio-vsock.tex
++++ b/virtio-vsock.tex
+@@ -107,6 +107,11 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
+ #define VIRTIO_VSOCK_OP_CREDIT_REQUEST 7
+ \end{lstlisting}
+ 
++\field{len} is the size of the payload, in bytes. However, the driver may
++provide buffer(s) for the payload that have a total size longer than
++\field{len}. If that is the case, only the first \field{len} bytes MUST be
++used for the actual data.
++
+ \subsubsection{Virtqueue Flow Control}\label{sec:Device Types / Socket Device / Device Operation / Virtqueue Flow Control}
+ 
+ The tx virtqueue carries packets initiated by applications and replies to
+-- 
+2.17.1
 
-Typo corrected by another typo... yeah.
-
->
->> >
->> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
->> > ---
->> >  packed-ring.tex | 4 ++--
->> >  1 file changed, 2 insertions(+), 2 deletions(-)
->> 
->> Reviewed-by: Cornelia Huck <cohuck@redhat.com>
 
 
----------------------------------------------------------------------
-To unsubscribe from this mail list, you must leave the OASIS TC that 
-generates this mail.  Follow this link to all your TCs in OASIS at:
-https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
+
+Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in Romania. Registration number J22/2621/2005.
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
