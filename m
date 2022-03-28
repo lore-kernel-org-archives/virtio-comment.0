@@ -1,50 +1,54 @@
-Return-Path: <virtio-comment-return-2846-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2862-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D39E29863D4
-	for <virtio-comment@lists.oasis-open.org>; Tue, 22 Mar 2022 09:50:16 +0000 (UTC)
-From: Laura Loghin <lauralg@amazon.com>
-Date: Tue, 22 Mar 2022 11:49:40 +0200
-Message-ID: <20220322094940.3486-1-lauralg@amazon.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id E875C986269
+	for <virtio-comment@lists.oasis-open.org>; Mon, 28 Mar 2022 11:09:38 +0000 (UTC)
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH] vsock: add documentation about len header field
-Content-Type: text/plain
-To: virtio-comment@lists.oasis-open.org
-Cc: Laura Loghin <lauralg@amazon.com>
+References: <20220322094940.3486-1-lauralg@amazon.com>
+In-Reply-To: <20220322094940.3486-1-lauralg@amazon.com>
+From: Stefano Garzarella <sgarzare@redhat.com>
+Date: Mon, 28 Mar 2022 13:09:23 +0200
+Message-ID: <CAGxU2F5EtepBLC9XzjHk+Rgz70PErnA7hqfLbMJ0K5gH1FU6Qw@mail.gmail.com>
+Subject: Re: [virtio-comment] [PATCH] vsock: add documentation about len
+ header field
+Content-Type: text/plain; charset="UTF-8"
+To: Laura Loghin <lauralg@amazon.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Signed-off-by: Laura Loghin <lauralg@amazon.com>
----
- virtio-vsock.tex | 5 +++++
- 1 file changed, 5 insertions(+)
+Hi Laura,
 
-diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-index d79984d..e32cad8 100644
---- a/virtio-vsock.tex
-+++ b/virtio-vsock.tex
-@@ -107,6 +107,11 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
- #define VIRTIO_VSOCK_OP_CREDIT_REQUEST 7
- \end{lstlisting}
- 
-+\field{len} is the size of the payload, in bytes. However, the driver may
-+provide buffer(s) for the payload that have a total size longer than
-+\field{len}. If that is the case, only the first \field{len} bytes MUST be
-+used for the actual data.
-+
- \subsubsection{Virtqueue Flow Control}\label{sec:Device Types / Socket Device / Device Operation / Virtqueue Flow Control}
- 
- The tx virtqueue carries packets initiated by applications and replies to
--- 
-2.17.1
+On Tue, Mar 22, 2022 at 10:50 AM Laura Loghin <lauralg@amazon.com> wrote:
+>
+> Signed-off-by: Laura Loghin <lauralg@amazon.com>
+> ---
+>  virtio-vsock.tex | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+> index d79984d..e32cad8 100644
+> --- a/virtio-vsock.tex
+> +++ b/virtio-vsock.tex
+> @@ -107,6 +107,11 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
+>  #define VIRTIO_VSOCK_OP_CREDIT_REQUEST 7
+>  \end{lstlisting}
+>
+> +\field{len} is the size of the payload, in bytes. However, the driver may
+> +provide buffer(s) for the payload that have a total size longer than
+> +\field{len}. If that is the case, only the first \field{len} bytes MUST be
+> +used for the actual data.
+> +
+
+IIUC MUST and friends are for normative sections, so I would remove
+the last sentence.
 
 
-
-
-Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in Romania. Registration number J22/2621/2005.
+Thanks,
+Stefano
 
 
 This publicly archived list offers a means to provide input to the
