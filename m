@@ -1,119 +1,123 @@
-Return-Path: <prvs=089f070a4=lauralg@amazon.com>
-Subject: Re: [virtio-comment] [PATCH] vsock: add documentation about len header field
-Message-ID: <50131c50-cb2c-384e-2e08-fbcedb811755@amazon.com>
-Date: Thu, 7 Apr 2022 11:16:27 +0300
+Return-Path: <virtio-dev-return-9380-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-dev@lists.oasis-open.org>
+List-Post: <mailto:virtio-dev@lists.oasis-open.org>
+List-Help: <mailto:virtio-dev-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-dev-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-dev-subscribe@lists.oasis-open.org>
+Date: Mon, 4 Apr 2022 08:03:07 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20220404072833-mutt-send-email-mst@kernel.org>
+References: <20220302155608.24189-1-mgurtovoy@nvidia.com>
+ <20220302155608.24189-2-mgurtovoy@nvidia.com>
 MIME-Version: 1.0
-References: <20220322094940.3486-1-lauralg@amazon.com>
- <CAGxU2F5EtepBLC9XzjHk+Rgz70PErnA7hqfLbMJ0K5gH1FU6Qw@mail.gmail.com>
- <dafc9518-ef57-f659-14b1-b14890017f46@amazon.com> <878rsifw7l.fsf@redhat.com>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <878rsifw7l.fsf@redhat.com>
-Content-Type: multipart/alternative;
-	boundary="------------6ot1cmYs5vK6uS8ynsDiCFfw"
-Content-Language: en-US
-To: Cornelia Huck <cohuck@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+In-Reply-To: <20220302155608.24189-2-mgurtovoy@nvidia.com>
+Subject: [virtio-dev] Re: [PATCH v1 1/5] virtio: Introduce virtio subsystem
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Max Gurtovoy <mgurtovoy@nvidia.com>
+Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com, virtio-dev@lists.oasis-open.org, jasowang@redhat.com, parav@nvidia.com, shahafs@nvidia.com, oren@nvidia.com, stefanha@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------6ot1cmYs5vK6uS8ynsDiCFfw
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+On Wed, Mar 02, 2022 at 05:56:04PM +0200, Max Gurtovoy wrote:
+> A virtio subsystem may contain one or more virtio devices. All of the
+> devices that make up a virtio subsystem share the same virtio subsystem
+> unique identifier. This identifier is the virtio qualified name (VQN).
+> Each device within a virtio subsystem has a unique identifier. This
+> identifier is the virtio device id (vdev_id). The combination of these
+> identifiers forms a globally unique value identifies a virtio device.
+> 
+> Reviewed-by: Parav Pandit <parav@nvidia.com>
+> Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
 
-T24gNC82LzIyIDExOjMyLCBDb3JuZWxpYSBIdWNrIHdyb3RlOgo+IENBVVRJT046IFRoaXMgZW1h
-aWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNs
-aWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUg
-c2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gT24gVHVlLCBNYXIg
-MjkgMjAyMiwgTGF1cmEgTG9naGluPGxhdXJhbGdAYW1hem9uLmNvbT4gIHdyb3RlOgo+Cj4+IE9u
-IDMvMjgvMjIgMTQ6MDksIFN0ZWZhbm8gR2FyemFyZWxsYSB3cm90ZToKPj4+IENBVVRJT046IFRo
-aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
-bm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmly
-bSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4+Pgo+Pj4KPj4+Cj4+
-PiBIaSBMYXVyYSwKPj4+Cj4+PiBPbiBUdWUsIE1hciAyMiwgMjAyMiBhdCAxMDo1MCBBTSBMYXVy
-YSBMb2doaW48bGF1cmFsZ0BhbWF6b24uY29tPiAgIHdyb3RlOgo+Pj4+IFNpZ25lZC1vZmYtYnk6
-IExhdXJhIExvZ2hpbjxsYXVyYWxnQGFtYXpvbi5jb20+Cj4+Pj4gLS0tCj4+Pj4gICAgdmlydGlv
-LXZzb2NrLnRleCB8IDUgKysrKysKPj4+PiAgICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25z
-KCspCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvdmlydGlvLXZzb2NrLnRleCBiL3ZpcnRpby12c29j
-ay50ZXgKPj4+PiBpbmRleCBkNzk5ODRkLi5lMzJjYWQ4IDEwMDY0NAo+Pj4+IC0tLSBhL3ZpcnRp
-by12c29jay50ZXgKPj4+PiArKysgYi92aXJ0aW8tdnNvY2sudGV4Cj4+Pj4gQEAgLTEwNyw2ICsx
-MDcsMTEgQEAgXHN1YnNlY3Rpb257RGV2aWNlIE9wZXJhdGlvbn1cbGFiZWx7c2VjOkRldmljZSBU
-eXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgT3AKPj4+PiAgICAjZGVmaW5lIFZJUlRJT19W
-U09DS19PUF9DUkVESVRfUkVRVUVTVCA3Cj4+Pj4gICAgXGVuZHtsc3RsaXN0aW5nfQo+Pj4+Cj4+
-Pj4gK1xmaWVsZHtsZW59IGlzIHRoZSBzaXplIG9mIHRoZSBwYXlsb2FkLCBpbiBieXRlcy4gSG93
-ZXZlciwgdGhlIGRyaXZlciBtYXkKPj4+PiArcHJvdmlkZSBidWZmZXIocykgZm9yIHRoZSBwYXls
-b2FkIHRoYXQgaGF2ZSBhIHRvdGFsIHNpemUgbG9uZ2VyIHRoYW4KPj4+PiArXGZpZWxke2xlbn0u
-IElmIHRoYXQgaXMgdGhlIGNhc2UsIG9ubHkgdGhlIGZpcnN0IFxmaWVsZHtsZW59IGJ5dGVzIE1V
-U1QgYmUKPj4+PiArdXNlZCBmb3IgdGhlIGFjdHVhbCBkYXRhLgo+Pj4+ICsKPj4+IElJVUMgTVVT
-VCBhbmQgZnJpZW5kcyBhcmUgZm9yIG5vcm1hdGl2ZSBzZWN0aW9ucywgc28gSSB3b3VsZCByZW1v
-dmUKPj4+IHRoZSBsYXN0IHNlbnRlbmNlLgo+PiBZb3UncmUgcmlnaHQsIEknbGwgcmVtb3ZlIGl0
-LiBJdCBzaG91bGQgYWxyZWFkeSBiZSBjbGVhciBlbm91Z2ggb25seSB0aGUKPj4gZmlyc3QgbGVu
-IGJ5dGVzIG5lZWQgdG8gYmUgdXNlZCBmb3IgdGhlIHBheWxvYWQuCj4gQW5vdGhlciBvcHRpb24g
-d291bGQgYmUKPgo+ICJIb3dldmVyLCB0aGUgZHJpdmVyIG1heSBwcm92aWRlIGJ1ZmZlcihzKSBm
-b3IgdGhlIHBheWxvYWQgdGhhdCBoYXZlIGEKPiB0b3RhbCBzaXplIGxvbmdlciB0aGFuIFxmaWVs
-ZHtsZW59LCBpbiB3aGljaCBjYXNlIG9ubHkgdGhlIGZpcnN0Cj4gXGZpZWxke2xlbn0gYnl0ZXMg
-d2lsbCBiZSB1c2VkIGZvciB0aGUgYWN0dWFsIGRhdGEuIgo+ClNvdW5kcyBiZXR0ZXIsIHRoYW5r
-cyBmb3IgdGhlIHN1Z2dlc3Rpb24hIEp1c3Qgc2VudCBhIG5ldyB2ZXJzaW9uLgoKTGF1cmEKCgoK
-QW1hem9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVyZWQgb2Zm
-aWNlOiAyN0EgU2YuIExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3IgMiwgSWFzaSwgSWFzaSBDb3Vu
-dHksIDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3RyYXRpb24g
-bnVtYmVyIEoyMi8yNjIxLzIwMDUuCg==
---------------6ot1cmYs5vK6uS8ynsDiCFfw
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+OK linux and qemu releases finally settling down so I have the time
+to review this, sorry about the delay.
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA0LzYvMjIgMTE6MzIsIENvcm5lbGlhIEh1Y2sg
-d3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJt
-aWQ6ODc4cnNpZnc3bC5mc2ZAcmVkaGF0LmNvbSI+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90
-ZS1wcmUiIHdyYXA9IiI+Q0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lk
-ZSBvZiB0aGUgb3JnYW5pemF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2ht
-ZW50cyB1bmxlc3MgeW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRl
-bnQgaXMgc2FmZS4KCgoKT24gVHVlLCBNYXIgMjkgMjAyMiwgTGF1cmEgTG9naGluIDxhIGNsYXNz
-PSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpsYXVyYWxnQGFtYXpvbi5jb20i
-PiZsdDtsYXVyYWxnQGFtYXpvbi5jb20mZ3Q7PC9hPiB3cm90ZToKCjwvcHJlPgogICAgICA8Ymxv
-Y2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3
-cmFwPSIiPk9uIDMvMjgvMjIgMTQ6MDksIFN0ZWZhbm8gR2FyemFyZWxsYSB3cm90ZToKPC9wcmU+
-CiAgICAgICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgICA8cHJlIGNsYXNzPSJt
-b3otcXVvdGUtcHJlIiB3cmFwPSIiPkNBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9t
-IG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4g
-YXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRo
-ZSBjb250ZW50IGlzIHNhZmUuCgoKCkhpIExhdXJhLAoKT24gVHVlLCBNYXIgMjIsIDIwMjIgYXQg
-MTA6NTAgQU0gTGF1cmEgTG9naGluPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJl
-Zj0ibWFpbHRvOmxhdXJhbGdAYW1hem9uLmNvbSI+Jmx0O2xhdXJhbGdAYW1hem9uLmNvbSZndDs8
-L2E+ICB3cm90ZToKPC9wcmU+CiAgICAgICAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAg
-ICAgICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5TaWduZWQtb2ZmLWJ5
-OiBMYXVyYSBMb2doaW48YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWls
-dG86bGF1cmFsZ0BhbWF6b24uY29tIj4mbHQ7bGF1cmFsZ0BhbWF6b24uY29tJmd0OzwvYT4KLS0t
-CiAgdmlydGlvLXZzb2NrLnRleCB8IDUgKysrKysKICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRp
-b25zKCspCgpkaWZmIC0tZ2l0IGEvdmlydGlvLXZzb2NrLnRleCBiL3ZpcnRpby12c29jay50ZXgK
-aW5kZXggZDc5OTg0ZC4uZTMyY2FkOCAxMDA2NDQKLS0tIGEvdmlydGlvLXZzb2NrLnRleAorKysg
-Yi92aXJ0aW8tdnNvY2sudGV4CkBAIC0xMDcsNiArMTA3LDExIEBAIFxzdWJzZWN0aW9ue0Rldmlj
-ZSBPcGVyYXRpb259XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2aWNlIC8gRGV2
-aWNlIE9wCiAgI2RlZmluZSBWSVJUSU9fVlNPQ0tfT1BfQ1JFRElUX1JFUVVFU1QgNwogIFxlbmR7
-bHN0bGlzdGluZ30KCitcZmllbGR7bGVufSBpcyB0aGUgc2l6ZSBvZiB0aGUgcGF5bG9hZCwgaW4g
-Ynl0ZXMuIEhvd2V2ZXIsIHRoZSBkcml2ZXIgbWF5Citwcm92aWRlIGJ1ZmZlcihzKSBmb3IgdGhl
-IHBheWxvYWQgdGhhdCBoYXZlIGEgdG90YWwgc2l6ZSBsb25nZXIgdGhhbgorXGZpZWxke2xlbn0u
-IElmIHRoYXQgaXMgdGhlIGNhc2UsIG9ubHkgdGhlIGZpcnN0IFxmaWVsZHtsZW59IGJ5dGVzIE1V
-U1QgYmUKK3VzZWQgZm9yIHRoZSBhY3R1YWwgZGF0YS4KKwo8L3ByZT4KICAgICAgICAgIDwvYmxv
-Y2txdW90ZT4KICAgICAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+SUlV
-QyBNVVNUIGFuZCBmcmllbmRzIGFyZSBmb3Igbm9ybWF0aXZlIHNlY3Rpb25zLCBzbyBJIHdvdWxk
-IHJlbW92ZQp0aGUgbGFzdCBzZW50ZW5jZS4KPC9wcmU+CiAgICAgICAgPC9ibG9ja3F1b3RlPgog
-ICAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+CllvdSdyZSByaWdodCwg
-SSdsbCByZW1vdmUgaXQuIEl0IHNob3VsZCBhbHJlYWR5IGJlIGNsZWFyIGVub3VnaCBvbmx5IHRo
-ZQpmaXJzdCBsZW4gYnl0ZXMgbmVlZCB0byBiZSB1c2VkIGZvciB0aGUgcGF5bG9hZC4KPC9wcmU+
-CiAgICAgIDwvYmxvY2txdW90ZT4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3Jh
-cD0iIj4KQW5vdGhlciBvcHRpb24gd291bGQgYmUKCiJIb3dldmVyLCB0aGUgZHJpdmVyIG1heSBw
-cm92aWRlIGJ1ZmZlcihzKSBmb3IgdGhlIHBheWxvYWQgdGhhdCBoYXZlIGEKdG90YWwgc2l6ZSBs
-b25nZXIgdGhhbiBcZmllbGR7bGVufSwgaW4gd2hpY2ggY2FzZSBvbmx5IHRoZSBmaXJzdApcZmll
-bGR7bGVufSBieXRlcyB3aWxsIGJlIHVzZWQgZm9yIHRoZSBhY3R1YWwgZGF0YS4iCgo8L3ByZT4K
-ICAgIDwvYmxvY2txdW90ZT4KICAgIDxwcmU+U291bmRzIGJldHRlciwgdGhhbmtzIGZvciB0aGUg
-c3VnZ2VzdGlvbiEgSnVzdCBzZW50IGEgbmV3IHZlcnNpb24uCgpMYXVyYQo8L3ByZT4KICA8cD48
-L3A+Cgo8cD48YnI+CkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiBy
-ZWdpc3RlcmVkIG9mZmljZTogMjdBIFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElh
-c2ksIElhc2kgQ291bnR5LCA3MDAwNDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4g
-UmVnaXN0cmF0aW9uIG51bWJlciBKMjIvMjYyMS8yMDA1LjwvcD4KPC9ib2R5Pgo8L2h0bWw+Cg==
+> ---
+>  introduction.tex | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
+> diff --git a/introduction.tex b/introduction.tex
+> index 6d52717..8e6611e 100644
+> --- a/introduction.tex
+> +++ b/introduction.tex
+> @@ -240,5 +240,23 @@ \section{Constant Specifications}
+>  refer to values 1 and 2 of Fld respectively. Further, VIRTIO_FLD_XXX refers to
+>  either VIRTIO_FLD_A or VIRTIO_FLD_B.
+>  
+> +\section{Definitions}\label{sec:Introduction / Definitions}
 
---------------6ot1cmYs5vK6uS8ynsDiCFfw--
+I think this belongs in Terminology section.
+
+> +
+> +\subsection{virtio device}\label{sec:Introduction / Definitions / virtio device}
+> +
+> +An entity that implements virtio specification.
+
+Applies to a driver equally ... if we are trying to explain it further,
+then I would say something along the lines of:
+
+virtio specifies an interface
+for a two-way communication between two parties called
+a device and a driver. driver is the party that initiates
+the communication setup and initialization.
+in common usage device is part of a hypervisor and driver part
+of a guest running within a VM on this hypervisor,
+but other uses are not precluded.
+
+
+> +\subsection{virtio subsystem}\label{sec:Introduction / Definitions / virtio subsystem}
+> +
+> +A virtio subsystem includes one or more virtio devices.
+> +Each virtio subsystem has a unique virtio qualified name (VQN) that is permanent for the lifetime of the virtio subsystem.
+
+the naming here is unfortunate. "subsystem" generally refers to
+something like a group of drivers within linux, and to a type of
+device in pci. VQN refers to a VQ number in the spec.
+
+I would suggest simply "device group".
+
+And please preface this with a bit of informal text explaining that
+sometimes it is useful to refer to a group of devices
+as a whole.
+
+
+> +The VQN is a 128-bit UUID. It is RECOMMENDED to use UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+
+
+Do we really need the UUID at all? It is unique within which context?
+Can we split the UUID from this proposal?
+
+> +Virtio devices within one virtio subsystem share the same VQN.
+
+share in which sense? I don't see any way to retrieve the VQN from
+the device itself.
+
+> Each virtio device has a unique virtio
+> +device id (vdev_id) within a virtio subsystem. A valid vdev_id is a 64-bit field in the range of
+> +0x0 - 0xFFFFFFFFFFFFFFF0.
+
+are other values reserved?
+
+> Vdev_id 0xFFFFFFFFFFFFFFFF is a broadcast value that is used to specify all the
+> +virtio devices in a virtio subsystem and isn't a valid vdev_id.
+
+broadcast is a bit confusing. Just say "Vdev_id value 0xFFFFFFFFFFFFFFFF
+refers to all devices in a group".
+
+I think we should also add a special value meaning "this device itself".
+
+> +
+> +The vdev_id value when combined with the VQN forms a globally unique value that identifies the virtio device.
+> +
+>  \newpage
+
+
+
+> -- 
+> 2.21.0
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 
