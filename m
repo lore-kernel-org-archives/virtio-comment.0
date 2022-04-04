@@ -1,170 +1,108 @@
-Return-Path: <mst@redhat.com>
-Date: Tue, 5 Apr 2022 08:12:45 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [virtio-comment] Re: [PATCH v1 5/5] Add miscellaneous
- configuration structure for PCI
-Message-ID: <20220405080634-mutt-send-email-mst@kernel.org>
-References: <20220302155608.24189-1-mgurtovoy@nvidia.com>
- <20220302155608.24189-6-mgurtovoy@nvidia.com>
- <20220404090330-mutt-send-email-mst@kernel.org>
- <b1cae24a-ee0e-a08d-25dd-90e045a95790@nvidia.com>
- <20220404121401-mutt-send-email-mst@kernel.org>
- <debdfcfd-4c4e-df2c-8ab0-0efb9e2af279@nvidia.com>
+Return-Path: <virtio-comment-return-2887-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id A5206986281
+	for <virtio-comment@lists.oasis-open.org>; Mon,  4 Apr 2022 13:55:49 +0000 (UTC)
+Message-ID: <29c47acc-b9fe-2787-3fae-52e666a54955@amazon.com>
+Date: Mon, 4 Apr 2022 16:55:24 +0300
 MIME-Version: 1.0
-In-Reply-To: <debdfcfd-4c4e-df2c-8ab0-0efb9e2af279@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Max Gurtovoy <mgurtovoy@nvidia.com>
-Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com, virtio-dev@lists.oasis-open.org, jasowang@redhat.com, parav@nvidia.com, shahafs@nvidia.com, oren@nvidia.com, stefanha@redhat.com
+References: <1645101080313.3853@amazon.com>
+ <20220217125506.icgvndy3v66cyhxy@sgarzare-redhat>
+ <0420e5d6-60f0-be57-ec6a-e88127174cda@gmail.com>
+ <1645519589258.8467@amazon.com>
+ <20220223085725.22vwp72qo7m6noq7@sgarzare-redhat>
+ <1645623537015.64403@amazon.com> <1647943078836.86626@amazon.com>
+ <CAGxU2F5m3ZTV8FBVM_Tq5wV1sWxUBjxmsda-BcjCVf7EFcy-DA@mail.gmail.com>
+From: Laura Loghin <lauralg@amazon.com>
+In-Reply-To: <CAGxU2F5m3ZTV8FBVM_Tq5wV1sWxUBjxmsda-BcjCVf7EFcy-DA@mail.gmail.com>
+Subject: Re: [virtio-comment] vsock: define a maximum size for the packet data
+Content-Type: multipart/alternative;
+	boundary="------------QHiGTdjYlNj0UtrtXxPv4BKp"
+Content-Language: en-US
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: Arseniy Krasnov <oxffffaa@gmail.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Apr 05, 2022 at 02:20:04PM +0300, Max Gurtovoy wrote:
-> 
-> On 4/4/2022 7:16 PM, Michael S. Tsirkin wrote:
-> > On Mon, Apr 04, 2022 at 06:52:27PM +0300, Max Gurtovoy wrote:
-> > > On 4/4/2022 4:04 PM, Michael S. Tsirkin wrote:
-> > > > On Wed, Mar 02, 2022 at 05:56:08PM +0200, Max Gurtovoy wrote:
-> > > > > This new structure will be used for adding new miscellaneous registers
-> > > > > for a virtio device configuration layout.
-> > > > > 
-> > > > > For now, only admin_queue_index register is added. Admin virtqueue index
-> > > > > does not depend on the device type. Hence, add a PCI capability to read
-> > > > > the admin virtqueue index.
-> > > > > 
-> > > > > Reviewed-by: Parav Pandit <parav@nvidia.com>
-> > > > > Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
-> > > > > ---
-> > > > >    conformance.tex |  2 ++
-> > > > >    content.tex     | 25 +++++++++++++++++++++++++
-> > > > >    2 files changed, 27 insertions(+)
-> > > > > 
-> > > > > diff --git a/conformance.tex b/conformance.tex
-> > > > > index 129831c..e31645e 100644
-> > > > > --- a/conformance.tex
-> > > > > +++ b/conformance.tex
-> > > > > @@ -102,6 +102,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
-> > > > >    \item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PCI configuration access capability}
-> > > > >    \item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Device Initialization / MSI-X Vector Configuration}
-> > > > >    \item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Notification of Device Configuration Changes}
-> > > > > +\item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Miscellaneous configuration structure layout}
-> > > > >    \end{itemize}
-> > > > >    \conformance{\subsection}{MMIO Driver Conformance}\label{sec:Conformance / Driver Conformance / MMIO Driver Conformance}
-> > > > > @@ -363,6 +364,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
-> > > > >    \item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Device Initialization / MSI-X Vector Configuration}
-> > > > >    \item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Used Buffer Notifications}
-> > > > >    \item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Notification of Device Configuration Changes}
-> > > > > +\item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Miscellaneous configuration structure layout}
-> > > > >    \end{itemize}
-> > > > >    \conformance{\subsection}{MMIO Device Conformance}\label{sec:Conformance / Device Conformance / MMIO Device Conformance}
-> > > > > diff --git a/content.tex b/content.tex
-> > > > > index 163cb34..bf46192 100644
-> > > > > --- a/content.tex
-> > > > > +++ b/content.tex
-> > > > > @@ -712,6 +712,7 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
-> > > > >    \item ISR Status
-> > > > >    \item Device-specific configuration (optional)
-> > > > >    \item PCI configuration access
-> > > > > +\item Miscellaneous configuration
-> > > > >    \end{itemize}
-> > > > >    Each structure can be mapped by a Base Address register (BAR) belonging to
-> > > > > @@ -771,6 +772,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
-> > > > >    #define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
-> > > > >    /* Vendor-specific data */
-> > > > >    #define VIRTIO_PCI_CAP_VENDOR_CFG        9
-> > > > > +/* Miscellaneous configuration */
-> > > > > +#define VIRTIO_PCI_CAP_MISC_CFG          10
-> > > > >    \end{lstlisting}
-> > > > >            Any other value is reserved for future use.
-> > > > > @@ -1352,6 +1355,28 @@ \subsubsection{PCI configuration access capability}\label{sec:Virtio Transport O
-> > > > >    specified by some other Virtio Structure PCI Capability
-> > > > >    of type other than \field{VIRTIO_PCI_CAP_PCI_CFG}.
-> > > > > +\subsubsection{Miscellaneous configuration structure layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Miscellaneous configuration structure layout}
-> > > > > +
-> > > > > +The miscellaneous configuration structure is found at the bar and offset within the VIRTIO_PCI_CAP_MISC_CFG capability.
-> > > > > +Its layout is below.
-> > > > > +\begin{lstlisting}
-> > > > > +struct virtio_pci_misc_cfg {
-> > > > > +        le16 admin_queue_index;         /* read-only for driver */
-> > > > > +};
-> > > > > +\end{lstlisting}
-> > > > > +
-> > > > > +\begin{description}
-> > > > > +\item[\field{admin_queue_index}]
-> > > > > +        The device uses this to report the index of the admin virtqueue.
-> > > > > +        This field is valid only if VIRTIO_F_ADMIN_VQ is set.
-> > > > > +\end{description}
-> > > > > +
-> > > > > +\devicenormative{\paragraph}{Miscellaneous configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Miscellaneous configuration structure layout}
-> > > > > +The device MUST present a valid \field{admin_queue_index} when VIRTIO_F_ADMIN_VQ is set.
-> > besides, is must have a misc config capability if it has
-> > VIRTIO_F_ADMIN_VQ.
-> 
-> admin_queue_index is part of the misc config so it implies from that.
+--------------QHiGTdjYlNj0UtrtXxPv4BKp
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-Explicit is better than implicit.
+T24gMy8yOC8yMiAxNDoxNCwgU3RlZmFubyBHYXJ6YXJlbGxhIHdyb3RlOgo+IENBVVRJT046IFRo
+aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
+bm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmly
+bSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gT24gVHVl
+LCBNYXIgMjIsIDIwMjIgYXQgMTA6NTggQU0gTG9naGluLCBMYXVyYTxsYXVyYWxnQGFtYXpvbi5j
+b20+ICB3cm90ZToKPj4gSGksCj4+Cj4+IFNvcnJ5IGZvciB0aGUgc3VwZXIgbGF0ZSByZXBseSEg
+SSBqdXN0IHNlbnQgdGhlIHBhdGNoIGZvciB0aGUgYGxlbmAgZGVzY3JpcHRpb24gWzFdLgo+Pgo+
+PiBSZWdhcmRpbmcgdGhlIG1heCBzaXplIGZvciB0aGUgcGFja2V0IGRhdGEsIHRoZSBwcm9wb3Nh
+bCBmb3IgYWRkaW5nIGEgZmllbGQgaW4gdGhlIGNvbmZpZyBzcGFjZSBzb3VuZHMgZ29vZCB0byBt
+ZS4gV2hhdCB3b3VsZCBiZSBzb21lIG5leHQgc3RlcHMgaGVyZT8gU2hvdWxkIEkgc2VuZCBhIHBh
+dGNoIGZvciB0aGlzIG9uZSBhcyB3ZWxsPwo+IFllcywgcGxlYXNlLgo+Cj4+ICBGcm9tIHdoYXQg
+SSB1bmRlcnN0YW5kLCB3ZSB3b3VsZCBkZWZpbmUgYSBuZXcgZmVhdHVyZSBmb3IgdGhlIG1heCBz
+aXplLCBhbmQKPj4gYWRkIGEgbmV3IGZpZWxkIGluIHRoZSBjb25maWcgc3BhY2UuIERpZCBJIG1p
+c3VuZGVyc3RhbmQgaXQ/Cj4gVGhhdCdzIHdoYXQgSSB3b3VsZCBkbyA6LSkKPiBXaGVuIHRoZSBm
+ZWF0dXJlIGlzIG5lZ290aWF0ZWQsIHRoZW4gdGhlIGRyaXZlciBzaG91bGQgbm90IHNlbmQKPiBw
+YWNrZXRzIGFuZCBhbGxvY2F0ZSBSWCBidWZmZXJzIGxhcmdlciB0aGFuIHRoYXQgc2l6ZS4KPgo+
+IFRoYW5rcywKPiBTdGVmYW5vCj4KSGksCgpJIGp1c3Qgc2VudCBhIHBhdGNoIGZvciB0aGUgbWF4
+IHNpemUgY29uZmlnIGZpZWxkOmh0dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5vcmcvYXJjaGl2ZXMv
+dmlydGlvLWNvbW1lbnQvMjAyMjA0L21zZzAwMDEwLmh0bWwuCkl0IG1vc3RseSBmb2xsb3dzIHRo
+ZSBzcGVjIGZvcm1hdCBmb3IgTVRVLiBGb3IgdGhlIG1heCB2YWx1ZSBJIHVzZWQgZm9yIG5vdyB0
+aGUgb25lIGRlZmluZWQgaW4gbGludXgsIGJ1dCBzaG91bGQgd2UgYWN0dWFsbHkgZ28gd2l0aCBh
+IGhpZ2hlciBvbmU/CgpUaGFuayB5b3UsCkxhdXJhCgoKCgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2Vu
+dGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBTZi4gTGF6YXIgU3Ry
+ZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21hbmlhLiBS
+ZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIyLzI2MjEvMjAwNS4K
 
-Besides, it is probably a good idea to specify what should driver do if
-VIRTIO_F_ADMIN_VQ is set in host features but capability is not there. I
-guess it must make sure it is cleared in guest features before setting
-FEATURES_OK.
+--------------QHiGTdjYlNj0UtrtXxPv4BKp
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-
-
-> > 
-> > 
-> > > > > +
-> > > > > +\drivernormative{\paragraph}{Miscellaneous configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Miscellaneous configuration structure layout}
-> > > > > +The driver MUST use the value of \field{admin_queue_index} to configure the admin virtqueue. For more details on virtqueue configuration see section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Device Initialization / Virtqueue Configuration}.
-> > > > > +
-> > > > >    \subsubsection{Legacy Interfaces: A Note on PCI Device Layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Legacy Interfaces: A Note on PCI Device Layout}
-> > > > >    Transitional devices MUST present part of configuration
-> > > > This is useful, but I think we'll want this for all transports then.
-> > > I think that adding more transports can be incremental and should be a no-go
-> > > for merging this patch set.
-> > > 
-> > > We discussed this in the previous version and nobody had a conclusion on the
-> > > right approach for other transports.
-> 
-> oh I had a typo. I meant shouldn't be a no-go.
-> 
-> 
-> > I think this referred to the msi-x thing not the the
-> > misc config capability - this is the first version where
-> > that appeared, right?  Cornelia what do you think?
-> > 
-> > In any case, in that case maybe besides saying it's transport-specific
-> > also mention that it is currently only defined for the PCI transport.
-> 
-> I'll try to add it, but it might not be removed from the spec when somebody
-> will add another transport admin support and will forget this comment.
-
-An alternative is to add admin support chapters and just specify
-these transports do not have admin support and must not set
-VIRTIO_F_ADMIN_VQ, if driver sees VIRTIO_F_ADMIN_VQ
-is must not set it.
-
-
-> 
-> > 
-> > > > 
-> > > > > -- 
-> > > > > 2.21.0
-> > 
-> > This publicly archived list offers a means to provide input to the
-> > OASIS Virtual I/O Device (VIRTIO) TC.
-> > 
-> > In order to verify user consent to the Feedback License terms and
-> > to minimize spam in the list archive, subscription is required
-> > before posting.
-> > 
-> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > List help: virtio-comment-help@lists.oasis-open.org
-> > List archive: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.oasis-open.org%2Farchives%2Fvirtio-comment%2F&amp;data=04%7C01%7Cmgurtovoy%40nvidia.com%7Ca1d60587d07741c5050d08da16568edc%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C637846858292442161%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=dWuRqSzUOaLhvJiplv2GH3GgTSBj%2BPLlYY4pRuUGI6Y%3D&amp;reserved=0
-> > Feedback License: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.oasis-open.org%2Fwho%2Fipr%2Ffeedback_license.pdf&amp;data=04%7C01%7Cmgurtovoy%40nvidia.com%7Ca1d60587d07741c5050d08da16568edc%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C637846858292442161%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=oKUUoOXqKpd4oaJc4AtB7FwU1wmnVv%2B2%2FLzUv%2FWwGho%3D&amp;reserved=0
-> > List Guidelines: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.oasis-open.org%2Fpolicies-guidelines%2Fmailing-lists&amp;data=04%7C01%7Cmgurtovoy%40nvidia.com%7Ca1d60587d07741c5050d08da16568edc%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C637846858292442161%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=cytTVlpAzn06%2BidXyenkhEx8ZhAFZZWyVPSlhVvrRHU%3D&amp;reserved=0
-> > Committee: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.oasis-open.org%2Fcommittees%2Fvirtio%2F&amp;data=04%7C01%7Cmgurtovoy%40nvidia.com%7Ca1d60587d07741c5050d08da16568edc%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C637846858292442161%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=a2ORe6u0we6fL%2BnG8Wqkq3BRJY8XTj0jsQQ0YKqnTCA%3D&amp;reserved=0
-> > Join OASIS: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.oasis-open.org%2Fjoin%2F&amp;data=04%7C01%7Cmgurtovoy%40nvidia.com%7Ca1d60587d07741c5050d08da16568edc%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C637846858292442161%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=5%2FjVkGXexgNZ%2BZq59B73tzJ6adJVqdoLvRuoCMDeoh8%3D&amp;reserved=0
-> > 
+PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
+bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
+diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiAzLzI4LzIyIDE0OjE0LCBTdGVmYW5vIEdhcnph
+cmVsbGEKICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJj
+aXRlIgpjaXRlPSJtaWQ6Q0FHeFUyRjVtM1pUVjhGQlZNX1RxNXdWMXNXeFVCanhtc2RhLUJjakNW
+ZjdFRmN5LURBQG1haWwuZ21haWwuY29tIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXBy
+ZSIgd3JhcD0iIj5DQVVUSU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9m
+IHRoZSBvcmdhbml6YXRpb24uIERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRz
+IHVubGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBp
+cyBzYWZlLgoKCgpPbiBUdWUsIE1hciAyMiwgMjAyMiBhdCAxMDo1OCBBTSBMb2doaW4sIExhdXJh
+IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpsYXVyYWxnQGFt
+YXpvbi5jb20iPiZsdDtsYXVyYWxnQGFtYXpvbi5jb20mZ3Q7PC9hPiB3cm90ZToKPC9wcmU+CiAg
+ICAgIDxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPgogICAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90
+ZS1wcmUiIHdyYXA9IiI+CkhpLAoKU29ycnkgZm9yIHRoZSBzdXBlciBsYXRlIHJlcGx5ISBJIGp1
+c3Qgc2VudCB0aGUgcGF0Y2ggZm9yIHRoZSBgbGVuYCBkZXNjcmlwdGlvbiBbMV0uCgpSZWdhcmRp
+bmcgdGhlIG1heCBzaXplIGZvciB0aGUgcGFja2V0IGRhdGEsIHRoZSBwcm9wb3NhbCBmb3IgYWRk
+aW5nIGEgZmllbGQgaW4gdGhlIGNvbmZpZyBzcGFjZSBzb3VuZHMgZ29vZCB0byBtZS4gV2hhdCB3
+b3VsZCBiZSBzb21lIG5leHQgc3RlcHMgaGVyZT8gU2hvdWxkIEkgc2VuZCBhIHBhdGNoIGZvciB0
+aGlzIG9uZSBhcyB3ZWxsPwo8L3ByZT4KICAgICAgPC9ibG9ja3F1b3RlPgogICAgICA8cHJlIGNs
+YXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPgpZZXMsIHBsZWFzZS4KCjwvcHJlPgogICAgICA8
+YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJl
+IiB3cmFwPSIiPkZyb20gd2hhdCBJIHVuZGVyc3RhbmQsIHdlIHdvdWxkIGRlZmluZSBhIG5ldyBm
+ZWF0dXJlIGZvciB0aGUgbWF4IHNpemUsIGFuZAphZGQgYSBuZXcgZmllbGQgaW4gdGhlIGNvbmZp
+ZyBzcGFjZS4gRGlkIEkgbWlzdW5kZXJzdGFuZCBpdD8KPC9wcmU+CiAgICAgIDwvYmxvY2txdW90
+ZT4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj4KVGhhdCdzIHdoYXQg
+SSB3b3VsZCBkbyA6LSkKV2hlbiB0aGUgZmVhdHVyZSBpcyBuZWdvdGlhdGVkLCB0aGVuIHRoZSBk
+cml2ZXIgc2hvdWxkIG5vdCBzZW5kCnBhY2tldHMgYW5kIGFsbG9jYXRlIFJYIGJ1ZmZlcnMgbGFy
+Z2VyIHRoYW4gdGhhdCBzaXplLgoKVGhhbmtzLApTdGVmYW5vCgo8L3ByZT4KICAgIDwvYmxvY2tx
+dW90ZT4KICAgIDxwcmU+CkhpLAoKSSBqdXN0IHNlbnQgYSBwYXRjaCBmb3IgdGhlIG1heCBzaXpl
+IGNvbmZpZyBmaWVsZDogPGEgY2xhc3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0
+cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0aW8tY29tbWVudC8yMDIyMDQv
+bXNnMDAwMTAuaHRtbCI+aHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0
+aW8tY29tbWVudC8yMDIyMDQvbXNnMDAwMTAuaHRtbDwvYT4uIApJdCBtb3N0bHkgZm9sbG93cyB0
+aGUgc3BlYyBmb3JtYXQgZm9yIE1UVS4gRm9yIHRoZSBtYXggdmFsdWUgSSB1c2VkIGZvciBub3cg
+dGhlIG9uZSBkZWZpbmVkIGluIGxpbnV4LCBidXQgc2hvdWxkIHdlIGFjdHVhbGx5IGdvIHdpdGgg
+YSBoaWdoZXIgb25lPwoKVGhhbmsgeW91LApMYXVyYQo8L3ByZT4KICAgIDxwPjxicj4KICAgIDwv
+cD4KICA8cD48L3A+Cgo8cD48YnI+CkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEp
+IFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdBIFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZs
+b29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3MDAwNDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4g
+Um9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJlciBKMjIvMjYyMS8yMDA1LjwvcD4KPC9ib2R5Pgo8
+L2h0bWw+Cg==
+--------------QHiGTdjYlNj0UtrtXxPv4BKp--
 
