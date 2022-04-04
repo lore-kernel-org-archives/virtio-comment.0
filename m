@@ -1,64 +1,88 @@
-Return-Path: <virtio-comment-return-2879-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2884-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7153E986231
-	for <virtio-comment@lists.oasis-open.org>; Mon,  4 Apr 2022 10:01:24 +0000 (UTC)
-Date: Mon, 4 Apr 2022 11:01:17 +0100
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <YkrB7e0lrjyozFar@stefanha-x1.localdomain>
+	by lists.oasis-open.org (Postfix) with ESMTP id 21C9C98626D
+	for <virtio-comment@lists.oasis-open.org>; Mon,  4 Apr 2022 13:03:24 +0000 (UTC)
+Message-ID: <d58e3386-c45f-1d80-6422-27bf1ed2e5b4@amazon.com>
+Date: Mon, 4 Apr 2022 16:02:57 +0300
+MIME-Version: 1.0
 References: <20220329150104.2309-1-lauralg@amazon.com>
  <20220331071439.3mv7tspifw7rwdvs@sgarzare-redhat>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zoL6ZqKVzmGNPy0r"
-Content-Disposition: inline
-In-Reply-To: <20220331071439.3mv7tspifw7rwdvs@sgarzare-redhat>
-Subject: Re: [virtio-comment] [PATCH v2] vsock: add documentation about len
- header field
-To: Laura Loghin <lauralg@amazon.com>
+ <YkrB7e0lrjyozFar@stefanha-x1.localdomain>
+From: Laura Loghin <lauralg@amazon.com>
+In-Reply-To: <YkrB7e0lrjyozFar@stefanha-x1.localdomain>
+Subject: Re: [virtio-comment] [PATCH v2] vsock: add documentation about len header
+ field
+Content-Type: multipart/alternative;
+	boundary="------------LYpX39nmqoXCL0r3tmmzx3Ur"
+Content-Language: en-US
+To: Stefan Hajnoczi <stefanha@redhat.com>
 Cc: virtio-comment@lists.oasis-open.org, Stefano Garzarella <sgarzare@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---zoL6ZqKVzmGNPy0r
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------LYpX39nmqoXCL0r3tmmzx3Ur
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-On Thu, Mar 31, 2022 at 09:14:39AM +0200, Stefano Garzarella wrote:
-> On Tue, Mar 29, 2022 at 06:01:04PM +0300, Laura Loghin wrote:
-> > Signed-off-by: Laura Loghin <lauralg@amazon.com>
-> > ---
-> > virtio-vsock.tex | 4 ++++
-> > 1 file changed, 4 insertions(+)
->=20
-> Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+T24gNC80LzIyIDEzOjAxLCBTdGVmYW4gSGFqbm9jemkgd3JvdGU6Cj4gT24gVGh1LCBNYXIgMzEs
+IDIwMjIgYXQgMDk6MTQ6MzlBTSArMDIwMCwgU3RlZmFubyBHYXJ6YXJlbGxhIHdyb3RlOgo+PiBP
+biBUdWUsIE1hciAyOSwgMjAyMiBhdCAwNjowMTowNFBNICswMzAwLCBMYXVyYSBMb2doaW4gd3Jv
+dGU6Cj4+PiBTaWduZWQtb2ZmLWJ5OiBMYXVyYSBMb2doaW48bGF1cmFsZ0BhbWF6b24uY29tPgo+
+Pj4gLS0tCj4+PiB2aXJ0aW8tdnNvY2sudGV4IHwgNCArKysrCj4+PiAxIGZpbGUgY2hhbmdlZCwg
+NCBpbnNlcnRpb25zKCspCj4+IFJldmlld2VkLWJ5OiBTdGVmYW5vIEdhcnphcmVsbGE8c2dhcnph
+cmVAcmVkaGF0LmNvbT4KPiBIaSBMYXVyYSwKPiBQbGVhc2Ugc2VlCj4gaHR0cHM6Ly9naXRodWIu
+Y29tL29hc2lzLXRjcy92aXJ0aW8tc3BlYy8jdXNlLW9mLWdpdGh1Yi1pc3N1ZXMgIGZvcgo+IGlu
+Zm9ybWF0aW9uIG9uIGhvdyB0byByZXF1ZXN0IGEgdm90ZSBzbyB0aGlzIGNhbiBiZSBhZGRlZCB0
+byB0aGUgVklSVElPCj4gc3BlY2lmaWNhdGlvbi4KPgo+IFN0ZWZhbgoKSGVsbG8sCgoKVGhhbmtz
+IGZvciB0aGUgcG9pbnRlci4KClJlcXVlc3RpbmcgYSB2b3RlLgpGaXhlczpodHRwczovL2dpdGh1
+Yi5jb20vb2FzaXMtdGNzL3ZpcnRpby1zcGVjL2lzc3Vlcy8xMzcgIDxodHRwczovL2dpdGh1Yi5j
+b20vb2FzaXMtdGNzL3ZpcnRpby1zcGVjL2lzc3Vlcy8xMzY+CgoKVGhhbmtzLApMYXVyYQoKCgpB
+bWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZp
+Y2U6IDI3QSBTZi4gTGF6YXIgU3RyZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50
+eSwgNzAwMDQ1LCBSb21hbmlhLiBSZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBu
+dW1iZXIgSjIyLzI2MjEvMjAwNS4K
+--------------LYpX39nmqoXCL0r3tmmzx3Ur
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Laura,
-Please see
-https://github.com/oasis-tcs/virtio-spec/#use-of-github-issues for
-information on how to request a vote so this can be added to the VIRTIO
-specification.
-
-Stefan
-
---zoL6ZqKVzmGNPy0r
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmJKwe0ACgkQnKSrs4Gr
-c8hWewf+Pn1eYrQkzH+ZDpcHSFY3uWngTpkwr4+7KPkhliEEnCPDP5KvnYtZkRJ7
-rQqf65TlqAVZg3DM51ZSr38gZyCTw/jeoZ+adww8rRrtuYPGh2rDEYgjI/f6B1vr
-1rDKC/5ubz5Ru5giyleBdBoCceXy8SdNnfcMTefJ/FyLxRniD4dAIlPUpUTeRok+
-LOPjzY+TbdgmnZ+P4JHSKERUdYCvCHjPH3N2bf5XkPxvzpJN+uSef26eOs+29eRp
-v3YxpUkiINi/lRYmthkYhMLBCNjdrF26pxr6uly4PAyFSQWkqb4Ulm7EgMikTXJ9
-l/FJpPjsmIbqte0P3cCpVLrSXb+Zcw==
-=XmBI
------END PGP SIGNATURE-----
-
---zoL6ZqKVzmGNPy0r--
+PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
+bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
+diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA0LzQvMjIgMTM6MDEsIFN0ZWZhbiBIYWpub2N6
+aSB3cm90ZTo8YnI+CiAgICA8L2Rpdj4KICAgIDxibG9ja3F1b3RlIHR5cGU9ImNpdGUiCiAgICAg
+IGNpdGU9Im1pZDpZa3JCN2UwbHJqeW96RmFyQHN0ZWZhbmhhLXgxLmxvY2FsZG9tYWluIj4KICAg
+ICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5PbiBUaHUsIE1hciAzMSwgMjAy
+MiBhdCAwOToxNDozOUFNICswMjAwLCBTdGVmYW5vIEdhcnphcmVsbGEgd3JvdGU6CjwvcHJlPgog
+ICAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNsYXNzPSJtb3otcXVv
+dGUtcHJlIiB3cmFwPSIiPk9uIFR1ZSwgTWFyIDI5LCAyMDIyIGF0IDA2OjAxOjA0UE0gKzAzMDAs
+IExhdXJhIExvZ2hpbiB3cm90ZToKPC9wcmU+CiAgICAgICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0
+ZSI+CiAgICAgICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPlNpZ25lZC1v
+ZmYtYnk6IExhdXJhIExvZ2hpbiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVm
+PSJtYWlsdG86bGF1cmFsZ0BhbWF6b24uY29tIj4mbHQ7bGF1cmFsZ0BhbWF6b24uY29tJmd0Ozwv
+YT4KLS0tCnZpcnRpby12c29jay50ZXggfCA0ICsrKysKMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0
+aW9ucygrKQo8L3ByZT4KICAgICAgICA8L2Jsb2NrcXVvdGU+CiAgICAgICAgPHByZSBjbGFzcz0i
+bW96LXF1b3RlLXByZSIgd3JhcD0iIj4KUmV2aWV3ZWQtYnk6IFN0ZWZhbm8gR2FyemFyZWxsYSA8
+YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86c2dhcnphcmVAcmVk
+aGF0LmNvbSI+Jmx0O3NnYXJ6YXJlQHJlZGhhdC5jb20mZ3Q7PC9hPgo8L3ByZT4KICAgICAgPC9i
+bG9ja3F1b3RlPgogICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPgpIaSBM
+YXVyYSwKUGxlYXNlIHNlZQo8YSBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0IiBocmVmPSJo
+dHRwczovL2dpdGh1Yi5jb20vb2FzaXMtdGNzL3ZpcnRpby1zcGVjLyN1c2Utb2YtZ2l0aHViLWlz
+c3VlcyI+aHR0cHM6Ly9naXRodWIuY29tL29hc2lzLXRjcy92aXJ0aW8tc3BlYy8jdXNlLW9mLWdp
+dGh1Yi1pc3N1ZXM8L2E+IGZvcgppbmZvcm1hdGlvbiBvbiBob3cgdG8gcmVxdWVzdCBhIHZvdGUg
+c28gdGhpcyBjYW4gYmUgYWRkZWQgdG8gdGhlIFZJUlRJTwpzcGVjaWZpY2F0aW9uLgoKU3RlZmFu
+CjwvcHJlPgogICAgPC9ibG9ja3F1b3RlPgogICAgPHByZT5IZWxsbywKCgpUaGFua3MgZm9yIHRo
+ZSBwb2ludGVyLgoKUmVxdWVzdGluZyBhIHZvdGUuCkZpeGVzOiA8YSByZWw9Im5vZm9sbG93IiBo
+cmVmPSJodHRwczovL2dpdGh1Yi5jb20vb2FzaXMtdGNzL3ZpcnRpby1zcGVjL2lzc3Vlcy8xMzYi
+Pmh0dHBzOi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlvLXNwZWMvaXNzdWVzLzEzNzwvYT4K
+CgpUaGFua3MsCkxhdXJhPC9wcmU+CiAgPHA+PC9wPgoKPHA+PGJyPgpBbWF6b24gRGV2ZWxvcG1l
+bnQgQ2VudGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBTZi4gTGF6
+YXIgU3RyZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21h
+bmlhLiBSZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIyLzI2MjEv
+MjAwNS48L3A+CjwvYm9keT4KPC9odG1sPgo=
+--------------LYpX39nmqoXCL0r3tmmzx3Ur--
 
