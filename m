@@ -1,76 +1,81 @@
-Return-Path: <mst@redhat.com>
-Date: Thu, 7 Apr 2022 10:58:09 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [virtio-comment] Re: [virtio] [PATCH] virtio: clarify feature
- negotiation
-Message-ID: <20220407105734-mutt-send-email-mst@kernel.org>
-References: <20220114225032.290762-1-mst@redhat.com>
- <20220119132319.5ee3821d.pasic@linux.ibm.com>
- <20220119112059-mutt-send-email-mst@kernel.org>
- <87k0eud0bi.fsf@redhat.com>
- <20220121033806.70b55223.pasic@linux.ibm.com>
- <87r191krbg.fsf@redhat.com>
- <20220124174052.1b6b423e.pasic@linux.ibm.com>
- <20220124132837-mutt-send-email-mst@kernel.org>
- <YfET8pNaYoWZ6eFt@myrica>
- <87lewharyk.fsf@redhat.com>
+Return-Path: <virtio-comment-return-2912-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 0A7939864DC
+	for <virtio-comment@lists.oasis-open.org>; Wed,  6 Apr 2022 08:32:51 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+In-Reply-To: <dafc9518-ef57-f659-14b1-b14890017f46@amazon.com>
+References: <20220322094940.3486-1-lauralg@amazon.com>
+ <CAGxU2F5EtepBLC9XzjHk+Rgz70PErnA7hqfLbMJ0K5gH1FU6Qw@mail.gmail.com>
+ <dafc9518-ef57-f659-14b1-b14890017f46@amazon.com>
+Date: Wed, 06 Apr 2022 10:32:46 +0200
+Message-ID: <878rsifw7l.fsf@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <87lewharyk.fsf@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: Jean-Philippe Brucker <jean-philippe@linaro.org>, Halil Pasic <pasic@linux.ibm.com>, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org, Viresh Kumar <viresh.kumar@linaro.org>
+Subject: Re: [virtio-comment] [PATCH] vsock: add documentation about len
+ header field
+Content-Type: text/plain
+To: Laura Loghin <lauralg@amazon.com>, Stefano Garzarella <sgarzare@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Apr 07, 2022 at 04:28:03PM +0200, Cornelia Huck wrote:
-> [sorry about resurrecting an undead thread; I'm trying to collect some
-> editorial changes]
-> 
-> On Wed, Jan 26 2022, Jean-Philippe Brucker <jean-philippe@linaro.org> wrote:
-> 
-> > On Mon, Jan 24, 2022 at 04:42:35PM -0500, Michael S. Tsirkin wrote:
-> >> So from that point of view, we are actually relaxing the requirements,
-> >> and yes we'll need to carefully go over each instance of
-> >> "offered".
-> >> I thought I did, but now I did a quick grep again and I found instances
-> >> in virtio-iommu.tex and virtio-gpio.tex
-> >> Both of these are new, so I think we can just fix them to "negotiated".
-> >> 
-> >> Jean-Philippe, Viresh, what do you think? Would it be a problem to
-> >> replace offered with negotiated, and restrict iommu and gpio drivers to
-> >> access config space after FEATURES_OK?
-> >
-> > No problem for iommu. The config space fields domain_range and input_range
-> > are not useful to the driver before DRIVER_OK. Reading field bypass
-> > earlier could be useful for debugging, but in that case going a few more
-> > steps into device initialization wouldn't hurt.
-> 
-> For domain_range and input_range, offered->negotiated looks like the
-> right thing to do. However, I'm a bit unsure about bypass. We currently
-> have:
-> 
-> "
-> An endpoint is in bypass mode if:
-> \begin{itemize}
->   \item the VIRTIO_IOMMU_F_BYPASS_CONFIG feature is offered and:
->     \begin{itemize}
->       \item config field \field{bypass} is 1 and the endpoint is
->         not attached to a domain. This applies even if the driver
->         does not accept the VIRTIO_IOMMU_F_BYPASS_CONFIG feature
->         and the device initializes field \field{bypass} to 1.
-> 
->         or
->       \item the endpoint is attached to a domain with
->         VIRTIO_IOMMU_ATTACH_F_BYPASS.
->     \end{itemize}
-> "
-> 
-> The "This applies even if..." clause refers to "offered, but not
-> accepted". I assume we want to do offered->negotiated even here, but
-> wanted to double-check.
+On Tue, Mar 29 2022, Laura Loghin <lauralg@amazon.com> wrote:
 
-Negotiated is same as accepted, I think it's good as is
+> On 3/28/22 14:09, Stefano Garzarella wrote:
+>> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+>>
+>>
+>>
+>> Hi Laura,
+>>
+>> On Tue, Mar 22, 2022 at 10:50 AM Laura Loghin<lauralg@amazon.com>  wrote:
+>>> Signed-off-by: Laura Loghin<lauralg@amazon.com>
+>>> ---
+>>>   virtio-vsock.tex | 5 +++++
+>>>   1 file changed, 5 insertions(+)
+>>>
+>>> diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+>>> index d79984d..e32cad8 100644
+>>> --- a/virtio-vsock.tex
+>>> +++ b/virtio-vsock.tex
+>>> @@ -107,6 +107,11 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
+>>>   #define VIRTIO_VSOCK_OP_CREDIT_REQUEST 7
+>>>   \end{lstlisting}
+>>>
+>>> +\field{len} is the size of the payload, in bytes. However, the driver may
+>>> +provide buffer(s) for the payload that have a total size longer than
+>>> +\field{len}. If that is the case, only the first \field{len} bytes MUST be
+>>> +used for the actual data.
+>>> +
+>> IIUC MUST and friends are for normative sections, so I would remove
+>> the last sentence.
+>
+> You're right, I'll remove it. It should already be clear enough only the
+> first len bytes need to be used for the payload.
 
--- 
-MST
+Another option would be
+
+"However, the driver may provide buffer(s) for the payload that have a
+total size longer than \field{len}, in which case only the first
+\field{len} bytes will be used for the actual data."
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
