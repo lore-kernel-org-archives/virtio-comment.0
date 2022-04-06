@@ -1,108 +1,85 @@
-Return-Path: <virtio-comment-return-2887-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2911-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A5206986281
-	for <virtio-comment@lists.oasis-open.org>; Mon,  4 Apr 2022 13:55:49 +0000 (UTC)
-Message-ID: <29c47acc-b9fe-2787-3fae-52e666a54955@amazon.com>
-Date: Mon, 4 Apr 2022 16:55:24 +0300
+	by lists.oasis-open.org (Postfix) with ESMTP id 6C3D79864DC
+	for <virtio-comment@lists.oasis-open.org>; Wed,  6 Apr 2022 07:42:20 +0000 (UTC)
 MIME-Version: 1.0
-References: <1645101080313.3853@amazon.com>
- <20220217125506.icgvndy3v66cyhxy@sgarzare-redhat>
- <0420e5d6-60f0-be57-ec6a-e88127174cda@gmail.com>
- <1645519589258.8467@amazon.com>
- <20220223085725.22vwp72qo7m6noq7@sgarzare-redhat>
- <1645623537015.64403@amazon.com> <1647943078836.86626@amazon.com>
- <CAGxU2F5m3ZTV8FBVM_Tq5wV1sWxUBjxmsda-BcjCVf7EFcy-DA@mail.gmail.com>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <CAGxU2F5m3ZTV8FBVM_Tq5wV1sWxUBjxmsda-BcjCVf7EFcy-DA@mail.gmail.com>
+References: <1645101080313.3853@amazon.com> <20220217125506.icgvndy3v66cyhxy@sgarzare-redhat>
+ <0420e5d6-60f0-be57-ec6a-e88127174cda@gmail.com> <1645519589258.8467@amazon.com>
+ <20220223085725.22vwp72qo7m6noq7@sgarzare-redhat> <1645623537015.64403@amazon.com>
+ <1647943078836.86626@amazon.com> <CAGxU2F5m3ZTV8FBVM_Tq5wV1sWxUBjxmsda-BcjCVf7EFcy-DA@mail.gmail.com>
+ <29c47acc-b9fe-2787-3fae-52e666a54955@amazon.com>
+In-Reply-To: <29c47acc-b9fe-2787-3fae-52e666a54955@amazon.com>
+From: Stefano Garzarella <sgarzare@redhat.com>
+Date: Wed, 6 Apr 2022 09:42:00 +0200
+Message-ID: <CAGxU2F6NMCxwTAbnLA_zZjSxrLJEr32iM2oNBxebEFe1U+JtEA@mail.gmail.com>
 Subject: Re: [virtio-comment] vsock: define a maximum size for the packet data
-Content-Type: multipart/alternative;
-	boundary="------------QHiGTdjYlNj0UtrtXxPv4BKp"
-Content-Language: en-US
-To: Stefano Garzarella <sgarzare@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+To: Laura Loghin <lauralg@amazon.com>
 Cc: Arseniy Krasnov <oxffffaa@gmail.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------QHiGTdjYlNj0UtrtXxPv4BKp
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+On Mon, Apr 4, 2022 at 3:55 PM Laura Loghin <lauralg@amazon.com> wrote:
+>
+> On 3/28/22 14:14, Stefano Garzarella wrote:
+>
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+>
+>
+>
+> On Tue, Mar 22, 2022 at 10:58 AM Loghin, Laura <lauralg@amazon.com> wrote:
+>
+> Hi,
+>
+> Sorry for the super late reply! I just sent the patch for the `len` description [1].
+>
+> Regarding the max size for the packet data, the proposal for adding a field in the config space sounds good to me. What would be some next steps here? Should I send a patch for this one as well?
+>
+> Yes, please.
+>
+> From what I understand, we would define a new feature for the max size, and
+> add a new field in the config space. Did I misunderstand it?
+>
+> That's what I would do :-)
+> When the feature is negotiated, then the driver should not send
+> packets and allocate RX buffers larger than that size.
+>
+> Thanks,
+> Stefano
+>
+> Hi,
+>
+> I just sent a patch for the max size config field: https://lists.oasis-open.org/archives/virtio-comment/202204/msg00010.html.
 
-T24gMy8yOC8yMiAxNDoxNCwgU3RlZmFubyBHYXJ6YXJlbGxhIHdyb3RlOgo+IENBVVRJT046IFRo
-aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
-bm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmly
-bSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gT24gVHVl
-LCBNYXIgMjIsIDIwMjIgYXQgMTA6NTggQU0gTG9naGluLCBMYXVyYTxsYXVyYWxnQGFtYXpvbi5j
-b20+ICB3cm90ZToKPj4gSGksCj4+Cj4+IFNvcnJ5IGZvciB0aGUgc3VwZXIgbGF0ZSByZXBseSEg
-SSBqdXN0IHNlbnQgdGhlIHBhdGNoIGZvciB0aGUgYGxlbmAgZGVzY3JpcHRpb24gWzFdLgo+Pgo+
-PiBSZWdhcmRpbmcgdGhlIG1heCBzaXplIGZvciB0aGUgcGFja2V0IGRhdGEsIHRoZSBwcm9wb3Nh
-bCBmb3IgYWRkaW5nIGEgZmllbGQgaW4gdGhlIGNvbmZpZyBzcGFjZSBzb3VuZHMgZ29vZCB0byBt
-ZS4gV2hhdCB3b3VsZCBiZSBzb21lIG5leHQgc3RlcHMgaGVyZT8gU2hvdWxkIEkgc2VuZCBhIHBh
-dGNoIGZvciB0aGlzIG9uZSBhcyB3ZWxsPwo+IFllcywgcGxlYXNlLgo+Cj4+ICBGcm9tIHdoYXQg
-SSB1bmRlcnN0YW5kLCB3ZSB3b3VsZCBkZWZpbmUgYSBuZXcgZmVhdHVyZSBmb3IgdGhlIG1heCBz
-aXplLCBhbmQKPj4gYWRkIGEgbmV3IGZpZWxkIGluIHRoZSBjb25maWcgc3BhY2UuIERpZCBJIG1p
-c3VuZGVyc3RhbmQgaXQ/Cj4gVGhhdCdzIHdoYXQgSSB3b3VsZCBkbyA6LSkKPiBXaGVuIHRoZSBm
-ZWF0dXJlIGlzIG5lZ290aWF0ZWQsIHRoZW4gdGhlIGRyaXZlciBzaG91bGQgbm90IHNlbmQKPiBw
-YWNrZXRzIGFuZCBhbGxvY2F0ZSBSWCBidWZmZXJzIGxhcmdlciB0aGFuIHRoYXQgc2l6ZS4KPgo+
-IFRoYW5rcywKPiBTdGVmYW5vCj4KSGksCgpJIGp1c3Qgc2VudCBhIHBhdGNoIGZvciB0aGUgbWF4
-IHNpemUgY29uZmlnIGZpZWxkOmh0dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5vcmcvYXJjaGl2ZXMv
-dmlydGlvLWNvbW1lbnQvMjAyMjA0L21zZzAwMDEwLmh0bWwuCkl0IG1vc3RseSBmb2xsb3dzIHRo
-ZSBzcGVjIGZvcm1hdCBmb3IgTVRVLiBGb3IgdGhlIG1heCB2YWx1ZSBJIHVzZWQgZm9yIG5vdyB0
-aGUgb25lIGRlZmluZWQgaW4gbGludXgsIGJ1dCBzaG91bGQgd2UgYWN0dWFsbHkgZ28gd2l0aCBh
-IGhpZ2hlciBvbmU/CgpUaGFuayB5b3UsCkxhdXJhCgoKCgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2Vu
-dGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBTZi4gTGF6YXIgU3Ry
-ZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21hbmlhLiBS
-ZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIyLzI2MjEvMjAwNS4K
+Great! I'll review in the next few days.
 
---------------QHiGTdjYlNj0UtrtXxPv4BKp
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+> It mostly follows the spec format for MTU. For the max value I used for now the one defined in linux, but should we actually go with a higher one?
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiAzLzI4LzIyIDE0OjE0LCBTdGVmYW5vIEdhcnph
-cmVsbGEKICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJj
-aXRlIgpjaXRlPSJtaWQ6Q0FHeFUyRjVtM1pUVjhGQlZNX1RxNXdWMXNXeFVCanhtc2RhLUJjakNW
-ZjdFRmN5LURBQG1haWwuZ21haWwuY29tIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXBy
-ZSIgd3JhcD0iIj5DQVVUSU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9m
-IHRoZSBvcmdhbml6YXRpb24uIERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRz
-IHVubGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBp
-cyBzYWZlLgoKCgpPbiBUdWUsIE1hciAyMiwgMjAyMiBhdCAxMDo1OCBBTSBMb2doaW4sIExhdXJh
-IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpsYXVyYWxnQGFt
-YXpvbi5jb20iPiZsdDtsYXVyYWxnQGFtYXpvbi5jb20mZ3Q7PC9hPiB3cm90ZToKPC9wcmU+CiAg
-ICAgIDxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPgogICAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90
-ZS1wcmUiIHdyYXA9IiI+CkhpLAoKU29ycnkgZm9yIHRoZSBzdXBlciBsYXRlIHJlcGx5ISBJIGp1
-c3Qgc2VudCB0aGUgcGF0Y2ggZm9yIHRoZSBgbGVuYCBkZXNjcmlwdGlvbiBbMV0uCgpSZWdhcmRp
-bmcgdGhlIG1heCBzaXplIGZvciB0aGUgcGFja2V0IGRhdGEsIHRoZSBwcm9wb3NhbCBmb3IgYWRk
-aW5nIGEgZmllbGQgaW4gdGhlIGNvbmZpZyBzcGFjZSBzb3VuZHMgZ29vZCB0byBtZS4gV2hhdCB3
-b3VsZCBiZSBzb21lIG5leHQgc3RlcHMgaGVyZT8gU2hvdWxkIEkgc2VuZCBhIHBhdGNoIGZvciB0
-aGlzIG9uZSBhcyB3ZWxsPwo8L3ByZT4KICAgICAgPC9ibG9ja3F1b3RlPgogICAgICA8cHJlIGNs
-YXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPgpZZXMsIHBsZWFzZS4KCjwvcHJlPgogICAgICA8
-YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJl
-IiB3cmFwPSIiPkZyb20gd2hhdCBJIHVuZGVyc3RhbmQsIHdlIHdvdWxkIGRlZmluZSBhIG5ldyBm
-ZWF0dXJlIGZvciB0aGUgbWF4IHNpemUsIGFuZAphZGQgYSBuZXcgZmllbGQgaW4gdGhlIGNvbmZp
-ZyBzcGFjZS4gRGlkIEkgbWlzdW5kZXJzdGFuZCBpdD8KPC9wcmU+CiAgICAgIDwvYmxvY2txdW90
-ZT4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj4KVGhhdCdzIHdoYXQg
-SSB3b3VsZCBkbyA6LSkKV2hlbiB0aGUgZmVhdHVyZSBpcyBuZWdvdGlhdGVkLCB0aGVuIHRoZSBk
-cml2ZXIgc2hvdWxkIG5vdCBzZW5kCnBhY2tldHMgYW5kIGFsbG9jYXRlIFJYIGJ1ZmZlcnMgbGFy
-Z2VyIHRoYW4gdGhhdCBzaXplLgoKVGhhbmtzLApTdGVmYW5vCgo8L3ByZT4KICAgIDwvYmxvY2tx
-dW90ZT4KICAgIDxwcmU+CkhpLAoKSSBqdXN0IHNlbnQgYSBwYXRjaCBmb3IgdGhlIG1heCBzaXpl
-IGNvbmZpZyBmaWVsZDogPGEgY2xhc3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0
-cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0aW8tY29tbWVudC8yMDIyMDQv
-bXNnMDAwMTAuaHRtbCI+aHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0
-aW8tY29tbWVudC8yMDIyMDQvbXNnMDAwMTAuaHRtbDwvYT4uIApJdCBtb3N0bHkgZm9sbG93cyB0
-aGUgc3BlYyBmb3JtYXQgZm9yIE1UVS4gRm9yIHRoZSBtYXggdmFsdWUgSSB1c2VkIGZvciBub3cg
-dGhlIG9uZSBkZWZpbmVkIGluIGxpbnV4LCBidXQgc2hvdWxkIHdlIGFjdHVhbGx5IGdvIHdpdGgg
-YSBoaWdoZXIgb25lPwoKVGhhbmsgeW91LApMYXVyYQo8L3ByZT4KICAgIDxwPjxicj4KICAgIDwv
-cD4KICA8cD48L3A+Cgo8cD48YnI+CkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEp
-IFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdBIFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZs
-b29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3MDAwNDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4g
-Um9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJlciBKMjIvMjYyMS8yMDA1LjwvcD4KPC9ib2R5Pgo8
-L2h0bWw+Cg==
---------------QHiGTdjYlNj0UtrtXxPv4BKp--
+Maybe yes, but having the same default value as the current one maybe
+simplifies the driver/device for backward compatibility?
+Let's discuss it on the patch.
+
+Thanks,
+Stefano
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
