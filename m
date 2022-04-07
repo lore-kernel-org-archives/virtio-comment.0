@@ -1,51 +1,143 @@
-Return-Path: <prvs=09535b9d5=lauralg@amazon.com>
-Subject: Re: [virtio-comment] [PATCH] virtio-vsock: add max payload size config field
-Message-ID: <2ca92fda-0869-6a7b-efbe-8c1335af4d0c@amazon.com>
-Date: Wed, 13 Apr 2022 13:03:41 +0300
-MIME-Version: 1.0
+Return-Path: <virtio-comment-return-2918-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 0DDA798650E
+	for <virtio-comment@lists.oasis-open.org>; Thu,  7 Apr 2022 12:03:46 +0000 (UTC)
+Date: Thu, 7 Apr 2022 14:03:38 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+Message-ID: <20220407120338.z5sohqlkh73bopnu@sgarzare-redhat>
 References: <20220404134931.28697-1-lauralg@amazon.com>
- <875ynmfuyd.fsf@redhat.com>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <875ynmfuyd.fsf@redhat.com>
-Content-Type: multipart/alternative;
-	boundary="------------Adn400A2GYFnYN3VqPvlNllK"
-Content-Language: en-US
-To: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org
+MIME-Version: 1.0
+In-Reply-To: <20220404134931.28697-1-lauralg@amazon.com>
+Subject: Re: [virtio-comment] [PATCH] virtio-vsock: add max payload size
+ config field
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+To: Laura Loghin <lauralg@amazon.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------Adn400A2GYFnYN3VqPvlNllK
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+On Mon, Apr 04, 2022 at 04:49:31PM +0300, Laura Loghin wrote:
+>Added a new field to the vsock device config space that
+>is limiting the size of the packet payload. This way
+>the driver is not allowed to allocate huge buffers, and
+>potentially fill up the entire memory.
+>Also defined a new feature bit for this, VIRTIO_VSOCK_F_SIZE_MAX,
+>in order to keep backwards compatibility.
+>
+>Signed-off-by: Laura Loghin <lauralg@amazon.com>
+>---
+> virtio-vsock.tex | 34 ++++++++++++++++++++++++++++++++++
+> 1 file changed, 34 insertions(+)
+>
+>diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+>index d79984d..a6950cc 100644
+>--- a/virtio-vsock.tex
+>+++ b/virtio-vsock.tex
+>@@ -23,6 +23,10 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> \begin{description}
+> \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+>+\item[VIRTIO_VSOCK_F_SIZE_MAX (2)] Maximum size of the packet payload is in
+>+	\field{data_max_size}. If offered by the device, device advises driver
+>+	about the value of its maximum payload size. If negotiated, the driver uses
+>+	\field{data_max_size} as the maximum packet payload size value.
+> \end{description}
+>
+> \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
+>@@ -32,6 +36,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \begin{lstlisting}
+> struct virtio_vsock_config {
+> 	le64 guest_cid;
+>+	le32 data_max_size;
+> };
+> \end{lstlisting}
+>
+>@@ -57,6 +62,35 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \hline
+> \end{tabular}
+>
+>+The following driver-read-only field, \field{data_max_size} only exists if
+>+VIRTIO_VSOCK_F_SIZE_MAX is set. This field specifies the maximum packet payload
+>+size for the driver to use.
 
-T24gNC82LzIyIDExOjU5LCBDb3JuZWxpYSBIdWNrIHdyb3RlOgo+IFRoZSBkZXZpY2UgTVVTVCBO
-T1QgY2hhbmdlIHRoZSB2YWx1ZSBleHBvc2VkIHRocm91Z2gKPiBcZmllbGR7ZGF0YV9tYXhfc2l6
-ZX0uCgpJIHVwZGF0ZWQgaXQgaW4gdjI6aHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNo
-aXZlcy92aXJ0aW8tY29tbWVudC8yMDIyMDQvbXNnMDAwNjIuaHRtbC4KCkxhdXJhCgoKCkFtYXpv
-biBEZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTog
-MjdBIFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3
-MDAwNDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJl
-ciBKMjIvMjYyMS8yMDA1Lgo=
---------------Adn400A2GYFnYN3VqPvlNllK
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Should we also define the maximum payload size when the feature is not 
+negotiated?
+We never defined it, but the current implementation does not use 
+payloads larger than 64k.
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA0LzYvMjIgMTE6NTksIENvcm5lbGlhIEh1Y2sg
-d3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJt
-aWQ6ODc1eW5tZnV5ZC5mc2ZAcmVkaGF0LmNvbSI+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90
-ZS1wcmUiIHdyYXA9IiI+VGhlIGRldmljZSBNVVNUIE5PVCBjaGFuZ2UgdGhlIHZhbHVlIGV4cG9z
-ZWQgdGhyb3VnaApcZmllbGR7ZGF0YV9tYXhfc2l6ZX0uPC9wcmU+CiAgICA8L2Jsb2NrcXVvdGU+
-CiAgICA8cHJlPgpJIHVwZGF0ZWQgaXQgaW4gdjI6IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJl
-ZXRleHQiIGhyZWY9Imh0dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5vcmcvYXJjaGl2ZXMvdmlydGlv
-LWNvbW1lbnQvMjAyMjA0L21zZzAwMDYyLmh0bWwiPmh0dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5v
-cmcvYXJjaGl2ZXMvdmlydGlvLWNvbW1lbnQvMjAyMjA0L21zZzAwMDYyLmh0bWw8L2E+LjwvcHJl
-PgogICAgPHByZT5MYXVyYQo8L3ByZT4KICA8cD48L3A+Cgo8cD48YnI+CkFtYXpvbiBEZXZlbG9w
-bWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdBIFNmLiBM
-YXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3MDAwNDUsIFJv
-bWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJlciBKMjIvMjYy
-MS8yMDA1LjwvcD4KPC9ib2R5Pgo8L2h0bWw+Cg==
---------------Adn400A2GYFnYN3VqPvlNllK--
+>+
+>+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>+
+>+The device MUST set \field{data_max_size} to between 0 and 65536 
+
+IIUC, this value is the maximum the device can manage, but then the 
+driver can always allocate smaller buffers both for TX and RX, so maybe 
+we could not put a limit, at the end the device can say what it wants, 
+the driver must only avoid to exceed that value.
+
+>inclusive, if
+>+it offers VIRTIO_VSOCK_F_SIZE_MAX.
+>+
+>+The device MUST NOT modify \field{data_max_size} once it has been set.
+>+
+>+The device MUST NOT pass received packets that exceed \field{data_max_size}
+>+(plus header length) size after VIRTIO_VSOCK_F_SIZE_MAX has been successfully
+>+negotiated.
+
+For the device the limit is anyway the buffer (allocated by the driver) 
+it finds in RX, so I don't know if this sentence is useful.
+
+>+
+>+The device MUST forward transmitted packets of up to \field{data_max_size}
+>+(plus header length) size after VIRTIO_VSOCK_F_SIZE_MAX has been successfully
+>+negotiated.
+>+
+>+\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>+
+>+A driver SHOULD negotiate VIRTIO_VSOCK_F_SIZE_MAX if the device offers it.
+>+
+>+If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST supply receive
+>+buffers that don't exceed the size \field{data_max_size} (plus header length).
+>+
+>+If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST  NOT transmit packets
+>+of size exceeding the value of \field{data_max_size} (plus header length).
+>+
+> \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
+>
+> \begin{enumerate}
+>-- 2.17.1
+
+I don't know if it is useful to define also a minimum size for the RX 
+buffers. It could be useful for example when we will support datagram, 
+we could use it to make driver allocate buffers that can contain entire 
+datagram.
+
+For now since we only support socket stream maybe it's not useful, so we 
+can postpone it. And maybe it's not useful even with datagram if we 
+support mergable buffers.
+
+Thanks,
+Stefano
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
