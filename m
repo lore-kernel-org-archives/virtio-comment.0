@@ -1,59 +1,65 @@
-Return-Path: <helei.sig11@bytedance.com>
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Subject: Re: [External] [virtio-comment] [V3 PATCH 0/1] Introduce virtio
- asymmetric crypto service
-From: =?utf-8?B?5L2V56OK?= <helei.sig11@bytedance.com>
-In-Reply-To: <CABgObfZEW9BPaj3XRca0JxZdY7JvGKaBWcq0PVda3O4J+qccQQ@mail.gmail.com>
-Date: Tue, 12 Apr 2022 18:34:28 +0800
-Message-Id: <B92BC36B-0972-4C31-B072-6F3BEB82026F@bytedance.com>
-References: <50696.122041204145900103@us-mta-219.us.mimecast.lan>
- <CABgObfZEW9BPaj3XRca0JxZdY7JvGKaBWcq0PVda3O4J+qccQQ@mail.gmail.com>
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: =?utf-8?B?5L2V56OK?= <helei.sig11@bytedance.com>, Cornelia Huck <cohuck@redhat.com>, "S. Tsirkin, Michael" <mst@redhat.com>, virtio-comment@lists.oasis-open.org, zhenwei pi <pizhenwei@bytedance.com>, Xin Zeng <xin.zeng@intel.com>, "Gonglei (Arei)" <arei.gonglei@huawei.com>
+Return-Path: <virtio-comment-return-2916-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 4AA2A98650A
+	for <virtio-comment@lists.oasis-open.org>; Thu,  7 Apr 2022 08:14:09 +0000 (UTC)
+From: Laura Loghin <lauralg@amazon.com>
+Date: Thu, 7 Apr 2022 11:13:30 +0300
+Message-ID: <20220407081330.17553-1-lauralg@amazon.com>
+MIME-Version: 1.0
+Subject: [virtio-comment] [PATCH v3] vsock: add documentation about len header field
+Content-Type: text/plain
+To: virtio-comment@lists.oasis-open.org
+Cc: Laura Loghin <lauralg@amazon.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+Signed-off-by: Laura Loghin <lauralg@amazon.com>
+---
+ virtio-vsock.tex | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+index d79984d..1d6579b 100644
+--- a/virtio-vsock.tex
++++ b/virtio-vsock.tex
+@@ -107,6 +107,11 @@ \subsection{Device Operation}\label{sec:Device Types / Socket Device / Device Op
+ #define VIRTIO_VSOCK_OP_CREDIT_REQUEST 7
+ \end{lstlisting}
+ 
++\field{len} is the size of the payload, in bytes. However, the driver may
++provide buffer(s) for the payload that have a total size longer than
++\field{len}, in which case only the first \field{len} bytes will be used for
++the actual data.
++
+ \subsubsection{Virtqueue Flow Control}\label{sec:Device Types / Socket Device / Device Operation / Virtqueue Flow Control}
+ 
+ The tx virtqueue carries packets initiated by applications and replies to
+-- 
+2.17.1
 
 
-> On Apr 12, 2022, at 4:55 PM, Paolo Bonzini <pbonzini@redhat.com> wrote:
->=20
-> On Tue, Apr 12, 2022 at 10:15 AM Cornelia Huck <cohuck@redhat.com> wrote:
->> +#define VIRTIO_CRYPTO_RSA_NO_HASH   0
->> +#define VIRTIO_CRYPTO_RSA_MD2       1
->> +#define VIRTIO_CRYPTO_RSA_MD3       2
->> +#define VIRTIO_CRYPTO_RSA_MD4       3
->> +#define VIRTIO_CRYPTO_RSA_MD5       4
->> +#define VIRTIO_CRYPTO_RSA_SHA1      5
->> +#define VIRTIO_CRYPTO_RSA_SHA256    6
->> +#define VIRTIO_CRYPTO_RSA_SHA384    7
->> +#define VIRTIO_CRYPTO_RSA_SHA512    8
->> +#define VIRTIO_CRYPTO_RSA_SHA224    9
->=20
-> Hi, should virtio-crypto really support outdated hashes such as MD2-MD5?
-> The kernel driver that has been merged only uses SHA1 or raw.
->=20
-> Paolo
->=20
 
-Removing these outdated hash algorithms is OK for me,  there are two reason=
-s to keep
-these outdated hashing algorithms:
-1. In the early stage of development, I referred to OpenSSL, and those hash
- algorithms are all supported by OpenSSL.
-2. When providing signing/verifying services, we only need to use their cor=
-responding
- OIDs instead of doing the actual hashing.
-Now that hashing algorithms like md2 are considered outdated by everyone, i=
-t is better to
-remove them before the protocol is updated.
 
-As Daniel said, we can also use VIRTIO_CRYPTO_HASH_XXX directly to specify =
-the=20
-hash algorithm for rsa-pkcs1pad. But there is a little problem here: linux =
-kernel=E2=80=99s=20
-built-in rsa-pkcs1pad implementation can recognize rmd160.=20
-Should we add a constant like =E2=80=98VIRTIO_CRYPTO_HASH_RMD160=E2=80=99 ?=
-=09
+Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in Romania. Registration number J22/2621/2005.
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
