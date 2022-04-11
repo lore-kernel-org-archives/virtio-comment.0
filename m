@@ -1,114 +1,70 @@
-Return-Path: <prvs=093b561d1=lauralg@amazon.com>
-Subject: Re: [virtio-comment] [PATCH v3] vsock: add documentation about len header
- field
-Message-ID: <ef8ed5a1-56ae-9527-0433-09025b2f484a@amazon.com>
-Date: Mon, 11 Apr 2022 16:58:57 +0300
-MIME-Version: 1.0
+Return-Path: <virtio-comment-return-2926-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 759BC9863AD
+	for <virtio-comment@lists.oasis-open.org>; Mon, 11 Apr 2022 14:32:53 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+In-Reply-To: <ef8ed5a1-56ae-9527-0433-09025b2f484a@amazon.com>
 References: <20220407081330.17553-1-lauralg@amazon.com>
  <87a6crbua8.fsf@redhat.com>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <87a6crbua8.fsf@redhat.com>
-Content-Type: multipart/alternative;
-	boundary="------------JauYiaewG9DXeQ4qYGXUmG9y"
-Content-Language: en-US
-To: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org
+ <ef8ed5a1-56ae-9527-0433-09025b2f484a@amazon.com>
+Date: Mon, 11 Apr 2022 16:32:47 +0200
+Message-ID: <874k2zbshc.fsf@redhat.com>
+MIME-Version: 1.0
+Subject: Re: [virtio-comment] [PATCH v3] vsock: add documentation about len
+ header field
+Content-Type: text/plain
+To: Laura Loghin <lauralg@amazon.com>, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------JauYiaewG9DXeQ4qYGXUmG9y
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+On Mon, Apr 11 2022, Laura Loghin <lauralg@amazon.com> wrote:
 
-T24gNC8xMS8yMiAxNjo1MywgQ29ybmVsaWEgSHVjayB3cm90ZToKPiBDQVVUSU9OOiBUaGlzIGVt
-YWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBvcmdhbml6YXRpb24uIERvIG5vdCBj
-bGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhl
-IHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgo+Cj4KPgo+IE9uIFRodSwgQXBy
-IDA3IDIwMjIsIExhdXJhIExvZ2hpbjxsYXVyYWxnQGFtYXpvbi5jb20+ICB3cm90ZToKPgo+PiBT
-aWduZWQtb2ZmLWJ5OiBMYXVyYSBMb2doaW48bGF1cmFsZ0BhbWF6b24uY29tPgo+PiAtLS0KPj4g
-ICB2aXJ0aW8tdnNvY2sudGV4IHwgNSArKysrKwo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2Vy
-dGlvbnMoKykKPiBSZXZpZXdlZC1ieTogQ29ybmVsaWEgSHVjazxjb2h1Y2tAcmVkaGF0LmNvbT4K
-Pgo+IEkgZ3Vlc3MgdGhhdCBuZWVkcyBhbiBpc3N1ZSB0byBiZSBpbmNsdWRlZCBpbiAxLjM/CgpJ
-IGFscmVhZHkgb3BlbmVkaHR0cHM6Ly9naXRodWIuY29tL29hc2lzLXRjcy92aXJ0aW8tc3BlYy9p
-c3N1ZXMvMTM3LCBpcyB0aGVyZSBhbnl0aGluZyBlbHNlIEkgc2hvdWxkIGRvPwoKTGF1cmEKCj4K
-Pgo+IFRoaXMgcHVibGljbHkgYXJjaGl2ZWQgbGlzdCBvZmZlcnMgYSBtZWFucyB0byBwcm92aWRl
-IGlucHV0IHRvIHRoZQo+IE9BU0lTIFZpcnR1YWwgSS9PIERldmljZSAoVklSVElPKSBUQy4KPgo+
-IEluIG9yZGVyIHRvIHZlcmlmeSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZlZWRiYWNrIExpY2Vuc2Ug
-dGVybXMgYW5kCj4gdG8gbWluaW1pemUgc3BhbSBpbiB0aGUgbGlzdCBhcmNoaXZlLCBzdWJzY3Jp
-cHRpb24gaXMgcmVxdWlyZWQKPiBiZWZvcmUgcG9zdGluZy4KPgo+IFN1YnNjcmliZTp2aXJ0aW8t
-Y29tbWVudC1zdWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmcKPiBVbnN1YnNjcmliZTp2aXJ0
-aW8tY29tbWVudC11bnN1YnNjcmliZUBsaXN0cy5vYXNpcy1vcGVuLm9yZwo+IExpc3QgaGVscDp2
-aXJ0aW8tY29tbWVudC1oZWxwQGxpc3RzLm9hc2lzLW9wZW4ub3JnCj4gTGlzdCBhcmNoaXZlOmh0
-dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5vcmcvYXJjaGl2ZXMvdmlydGlvLWNvbW1lbnQvCj4gRmVl
-ZGJhY2sgTGljZW5zZTpodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy93aG8vaXByL2ZlZWRiYWNr
-X2xpY2Vuc2UucGRmCj4gTGlzdCBHdWlkZWxpbmVzOmh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3Jn
-L3BvbGljaWVzLWd1aWRlbGluZXMvbWFpbGluZy1saXN0cwo+IENvbW1pdHRlZTpodHRwczovL3d3
-dy5vYXNpcy1vcGVuLm9yZy9jb21taXR0ZWVzL3ZpcnRpby8KPiBKb2luIE9BU0lTOmh0dHBzOi8v
-d3d3Lm9hc2lzLW9wZW4ub3JnL2pvaW4vCj4KCgoKQW1hem9uIERldmVsb3BtZW50IENlbnRlciAo
-Um9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVyZWQgb2ZmaWNlOiAyN0EgU2YuIExhemFyIFN0cmVldCwg
-VUJDNSwgZmxvb3IgMiwgSWFzaSwgSWFzaSBDb3VudHksIDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0
-ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuCg==
---------------JauYiaewG9DXeQ4qYGXUmG9y
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+> On 4/11/22 16:53, Cornelia Huck wrote:
+>> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+>>
+>>
+>>
+>> On Thu, Apr 07 2022, Laura Loghin<lauralg@amazon.com>  wrote:
+>>
+>>> Signed-off-by: Laura Loghin<lauralg@amazon.com>
+>>> ---
+>>>   virtio-vsock.tex | 5 +++++
+>>>   1 file changed, 5 insertions(+)
+>> Reviewed-by: Cornelia Huck<cohuck@redhat.com>
+>>
+>> I guess that needs an issue to be included in 1.3?
+>
+> I already openedhttps://github.com/oasis-tcs/virtio-spec/issues/137, is there anything else I should do?
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA0LzExLzIyIDE2OjUzLCBDb3JuZWxpYSBIdWNr
-IHdyb3RlOjxicj4KICAgIDwvZGl2PgogICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0i
-bWlkOjg3YTZjcmJ1YTguZnNmQHJlZGhhdC5jb20iPgogICAgICA8cHJlIGNsYXNzPSJtb3otcXVv
-dGUtcHJlIiB3cmFwPSIiPkNBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNp
-ZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNo
-bWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250
-ZW50IGlzIHNhZmUuCgoKCk9uIFRodSwgQXByIDA3IDIwMjIsIExhdXJhIExvZ2hpbiA8YSBjbGFz
-cz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86bGF1cmFsZ0BhbWF6b24uY29t
-Ij4mbHQ7bGF1cmFsZ0BhbWF6b24uY29tJmd0OzwvYT4gd3JvdGU6Cgo8L3ByZT4KICAgICAgPGJs
-b2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIg
-d3JhcD0iIj5TaWduZWQtb2ZmLWJ5OiBMYXVyYSBMb2doaW4gPGEgY2xhc3M9Im1vei10eHQtbGlu
-ay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmxhdXJhbGdAYW1hem9uLmNvbSI+Jmx0O2xhdXJhbGdA
-YW1hem9uLmNvbSZndDs8L2E+Ci0tLQogdmlydGlvLXZzb2NrLnRleCB8IDUgKysrKysKIDEgZmls
-ZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKPC9wcmU+CiAgICAgIDwvYmxvY2txdW90ZT4KICAg
-ICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj4KUmV2aWV3ZWQtYnk6IENvcm5l
-bGlhIEh1Y2sgPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmNv
-aHVja0ByZWRoYXQuY29tIj4mbHQ7Y29odWNrQHJlZGhhdC5jb20mZ3Q7PC9hPgoKSSBndWVzcyB0
-aGF0IG5lZWRzIGFuIGlzc3VlIHRvIGJlIGluY2x1ZGVkIGluIDEuMz88L3ByZT4KICAgIDwvYmxv
-Y2txdW90ZT4KICAgIDxicj4KICAgIDxwcmU+SSBhbHJlYWR5IG9wZW5lZCA8YSBjbGFzcz0ibW96
-LXR4dC1saW5rLWZyZWV0ZXh0IiBocmVmPSJodHRwczovL2dpdGh1Yi5jb20vb2FzaXMtdGNzL3Zp
-cnRpby1zcGVjL2lzc3Vlcy8xMzciPmh0dHBzOi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlv
-LXNwZWMvaXNzdWVzLzEzNzwvYT4sIGlzIHRoZXJlIGFueXRoaW5nIGVsc2UgSSBzaG91bGQgZG8/
-PC9wcmU+CiAgICA8cHJlPkxhdXJhPC9wcmU+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBj
-aXRlPSJtaWQ6ODdhNmNyYnVhOC5mc2ZAcmVkaGF0LmNvbSI+CiAgICAgIDxwcmUgY2xhc3M9Im1v
-ei1xdW90ZS1wcmUiIHdyYXA9IiI+CgoKVGhpcyBwdWJsaWNseSBhcmNoaXZlZCBsaXN0IG9mZmVy
-cyBhIG1lYW5zIHRvIHByb3ZpZGUgaW5wdXQgdG8gdGhlCk9BU0lTIFZpcnR1YWwgSS9PIERldmlj
-ZSAoVklSVElPKSBUQy4KCkluIG9yZGVyIHRvIHZlcmlmeSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZl
-ZWRiYWNrIExpY2Vuc2UgdGVybXMgYW5kCnRvIG1pbmltaXplIHNwYW0gaW4gdGhlIGxpc3QgYXJj
-aGl2ZSwgc3Vic2NyaXB0aW9uIGlzIHJlcXVpcmVkCmJlZm9yZSBwb3N0aW5nLgoKU3Vic2NyaWJl
-OiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLWFiYnJldmlhdGVkIiBocmVmPSJtYWlsdG86dmlydGlv
-LWNvbW1lbnQtc3Vic2NyaWJlQGxpc3RzLm9hc2lzLW9wZW4ub3JnIj52aXJ0aW8tY29tbWVudC1z
-dWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmc8L2E+ClVuc3Vic2NyaWJlOiA8YSBjbGFzcz0i
-bW96LXR4dC1saW5rLWFiYnJldmlhdGVkIiBocmVmPSJtYWlsdG86dmlydGlvLWNvbW1lbnQtdW5z
-dWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmciPnZpcnRpby1jb21tZW50LXVuc3Vic2NyaWJl
-QGxpc3RzLm9hc2lzLW9wZW4ub3JnPC9hPgpMaXN0IGhlbHA6IDxhIGNsYXNzPSJtb3otdHh0LWxp
-bmstYWJicmV2aWF0ZWQiIGhyZWY9Im1haWx0bzp2aXJ0aW8tY29tbWVudC1oZWxwQGxpc3RzLm9h
-c2lzLW9wZW4ub3JnIj52aXJ0aW8tY29tbWVudC1oZWxwQGxpc3RzLm9hc2lzLW9wZW4ub3JnPC9h
-PgpMaXN0IGFyY2hpdmU6IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJlZXRleHQiIGhyZWY9Imh0
-dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5vcmcvYXJjaGl2ZXMvdmlydGlvLWNvbW1lbnQvIj5odHRw
-czovL2xpc3RzLm9hc2lzLW9wZW4ub3JnL2FyY2hpdmVzL3ZpcnRpby1jb21tZW50LzwvYT4KRmVl
-ZGJhY2sgTGljZW5zZTogPGEgY2xhc3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0
-cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvd2hvL2lwci9mZWVkYmFja19saWNlbnNlLnBkZiI+aHR0
-cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvd2hvL2lwci9mZWVkYmFja19saWNlbnNlLnBkZjwvYT4K
-TGlzdCBHdWlkZWxpbmVzOiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0IiBocmVmPSJo
-dHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9wb2xpY2llcy1ndWlkZWxpbmVzL21haWxpbmctbGlz
-dHMiPmh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL3BvbGljaWVzLWd1aWRlbGluZXMvbWFpbGlu
-Zy1saXN0czwvYT4KQ29tbWl0dGVlOiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0IiBo
-cmVmPSJodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9jb21taXR0ZWVzL3ZpcnRpby8iPmh0dHBz
-Oi8vd3d3Lm9hc2lzLW9wZW4ub3JnL2NvbW1pdHRlZXMvdmlydGlvLzwvYT4KSm9pbiBPQVNJUzog
-PGEgY2xhc3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0cHM6Ly93d3cub2FzaXMt
-b3Blbi5vcmcvam9pbi8iPmh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL2pvaW4vPC9hPgoKPC9w
-cmU+CiAgICA8L2Jsb2NrcXVvdGU+CiAgICA8YnI+CiAgPHA+PC9wPgoKPHA+PGJyPgpBbWF6b24g
-RGV2ZWxvcG1lbnQgQ2VudGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3
-QSBTZi4gTGF6YXIgU3RyZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAw
-MDQ1LCBSb21hbmlhLiBSZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIg
-SjIyLzI2MjEvMjAwNS48L3A+CjwvYm9keT4KPC9odG1sPgo=
---------------JauYiaewG9DXeQ4qYGXUmG9y--
+The patch should have
+
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/137
+
+in it (no need to resend, we can include that before pushing as long as
+it sits in a reply to the mail); also, please update the issue to point
+to the v3 patch.
+
+[We still need to open up the 1.3 branch after some editorial stuff has
+been done; then we can hopefully flush the queue of outstanding issues.]
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
