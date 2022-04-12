@@ -1,39 +1,44 @@
-Return-Path: <virtio-return-3692-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio@lists.oasis-open.org>
-List-Post: <mailto:virtio@lists.oasis-open.org>
-List-Help: <mailto:virtio-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
+Return-Path: <cohuck@redhat.com>
 From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20220414114719.14a33a3d.pasic@linux.ibm.com>
-References: <20220412083059.86367-1-cohuck@redhat.com>
- <87pmlk81xx.fsf@redhat.com> <20220414114719.14a33a3d.pasic@linux.ibm.com>
-Date: Tue, 19 Apr 2022 11:52:03 +0200
-Message-ID: <87h76p8kos.fsf@redhat.com>
+Subject: [PATCH] introduction: add more section labels
+Date: Tue, 12 Apr 2022 09:45:51 +0200
+Message-Id: <20220412074551.84197-1-cohuck@redhat.com>
 MIME-Version: 1.0
-Subject: Re: [virtio] Re: [PATCH] iommu: offered -> negotiated
-Content-Type: text/plain
-To: Halil Pasic <pasic@linux.ibm.com>
-Cc: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, Halil Pasic <pasic@linux.ibm.com>
+Content-type: text/plain
+Content-Transfer-Encoding: 8bit
+To: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+Cc: Cornelia Huck <cohuck@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Apr 14 2022, Halil Pasic <pasic@linux.ibm.com> wrote:
+In order to be able to refer to changes in sections.
 
-> On Thu, 14 Apr 2022 11:11:06 +0200
-> Cornelia Huck <cohuck@redhat.com> wrote:
->
->> What do we do now? Revert, and re-apply a new patch after perhaps some
->> further discussion? (Would likely be for 1.3, though. Maybe also vote,
->> as this does not seem to be as straightforward as I thought.)
->
-> Sounds good to me. I'm not sure about the re-apply part, because I'm
-> not sure this patch is salvageable.
+Signed-off-by: Cornelia Huck <cohuck@redhat.com>
+---
+ introduction.tex | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reverted. Let's continue discussing this in an 1.3 context.
-
-
----------------------------------------------------------------------
-To unsubscribe from this mail list, you must leave the OASIS TC that 
-generates this mail.  Follow this link to all your TCs in OASIS at:
-https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
+diff --git a/introduction.tex b/introduction.tex
+index 6d527171ba7b..4dc708502e0b 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -155,7 +155,7 @@ \subsection{Transition from earlier specification drafts}\label{sec:Transition f
+ sections tagged "Legacy Interface" in the section title.
+ These highlight the changes made since the earlier drafts.
+ 
+-\section{Structure Specifications}
++\section{Structure Specifications}\label{sec:Structure Specifications}
+ 
+ Many device and driver in-memory structure layouts are documented using
+ the C struct syntax. All structures are assumed to be without additional
+@@ -216,7 +216,7 @@ \section{Structure Specifications}
+ \begin{lstlisting}
+ CPU_TO_BE16(B << 15 | A)
+ \end{lstlisting}
+-\section{Constant Specifications}
++\section{Constant Specifications}\label{sec:Constant Specifications}
+ 
+ In many cases, numeric values used in the interface between the device
+ and the driver are documented using the C \#define and /* */
+-- 
+2.34.1
 
