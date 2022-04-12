@@ -1,70 +1,149 @@
-Return-Path: <virtio-comment-return-2926-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 759BC9863AD
-	for <virtio-comment@lists.oasis-open.org>; Mon, 11 Apr 2022 14:32:53 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <ef8ed5a1-56ae-9527-0433-09025b2f484a@amazon.com>
-References: <20220407081330.17553-1-lauralg@amazon.com>
- <87a6crbua8.fsf@redhat.com>
- <ef8ed5a1-56ae-9527-0433-09025b2f484a@amazon.com>
-Date: Mon, 11 Apr 2022 16:32:47 +0200
-Message-ID: <874k2zbshc.fsf@redhat.com>
+Return-Path: <prvs=09448e652=lauralg@amazon.com>
+Subject: Re: [virtio-comment] [PATCH v3] vsock: add documentation about len header
+ field
+Message-ID: <b8753732-f0c4-8b4d-8b10-22c56e7ed650@amazon.com>
+Date: Tue, 12 Apr 2022 12:25:02 +0300
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] [PATCH v3] vsock: add documentation about len
- header field
-Content-Type: text/plain
-To: Laura Loghin <lauralg@amazon.com>, virtio-comment@lists.oasis-open.org
+References: <20220407081330.17553-1-lauralg@amazon.com>
+ <87a6crbua8.fsf@redhat.com> <ef8ed5a1-56ae-9527-0433-09025b2f484a@amazon.com>
+ <874k2zbshc.fsf@redhat.com>
+From: Laura Loghin <lauralg@amazon.com>
+In-Reply-To: <874k2zbshc.fsf@redhat.com>
+Content-Type: multipart/alternative;
+	boundary="------------BSpfqpMrZeLw0NOvAIummpYP"
+Content-Language: en-US
+To: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, Apr 11 2022, Laura Loghin <lauralg@amazon.com> wrote:
+--------------BSpfqpMrZeLw0NOvAIummpYP
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-> On 4/11/22 16:53, Cornelia Huck wrote:
->> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
->>
->>
->>
->> On Thu, Apr 07 2022, Laura Loghin<lauralg@amazon.com>  wrote:
->>
->>> Signed-off-by: Laura Loghin<lauralg@amazon.com>
->>> ---
->>>   virtio-vsock.tex | 5 +++++
->>>   1 file changed, 5 insertions(+)
->> Reviewed-by: Cornelia Huck<cohuck@redhat.com>
->>
->> I guess that needs an issue to be included in 1.3?
->
-> I already openedhttps://github.com/oasis-tcs/virtio-spec/issues/137, is there anything else I should do?
+T24gNC8xMS8yMiAxNzozMiwgQ29ybmVsaWEgSHVjayB3cm90ZToKPiBDQVVUSU9OOiBUaGlzIGVt
+YWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBvcmdhbml6YXRpb24uIERvIG5vdCBj
+bGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhl
+IHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgo+Cj4KPgo+IE9uIE1vbiwgQXBy
+IDExIDIwMjIsIExhdXJhIExvZ2hpbjxsYXVyYWxnQGFtYXpvbi5jb20+ICB3cm90ZToKPgo+PiBP
+biA0LzExLzIyIDE2OjUzLCBDb3JuZWxpYSBIdWNrIHdyb3RlOgo+Pj4gQ0FVVElPTjogVGhpcyBl
+bWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5pemF0aW9uLiBEbyBub3Qg
+Y2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91IGNhbiBjb25maXJtIHRo
+ZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4KPj4+Cj4+Pgo+Pj4KPj4+IE9u
+IFRodSwgQXByIDA3IDIwMjIsIExhdXJhIExvZ2hpbjxsYXVyYWxnQGFtYXpvbi5jb20+ICAgd3Jv
+dGU6Cj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IExhdXJhIExvZ2hpbjxsYXVyYWxnQGFtYXpvbi5j
+b20+Cj4+Pj4gLS0tCj4+Pj4gICAgdmlydGlvLXZzb2NrLnRleCB8IDUgKysrKysKPj4+PiAgICAx
+IGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCj4+PiBSZXZpZXdlZC1ieTogQ29ybmVsaWEg
+SHVjazxjb2h1Y2tAcmVkaGF0LmNvbT4KPj4+Cj4+PiBJIGd1ZXNzIHRoYXQgbmVlZHMgYW4gaXNz
+dWUgdG8gYmUgaW5jbHVkZWQgaW4gMS4zPwo+PiBJIGFscmVhZHkgb3BlbmVkaHR0cHM6Ly9naXRo
+dWIuY29tL29hc2lzLXRjcy92aXJ0aW8tc3BlYy9pc3N1ZXMvMTM3LCBpcyB0aGVyZSBhbnl0aGlu
+ZyBlbHNlIEkgc2hvdWxkIGRvPwo+IFRoZSBwYXRjaCBzaG91bGQgaGF2ZQo+Cj4gRml4ZXM6aHR0
+cHM6Ly9naXRodWIuY29tL29hc2lzLXRjcy92aXJ0aW8tc3BlYy9pc3N1ZXMvMTM3Cj4KPiBpbiBp
+dCAobm8gbmVlZCB0byByZXNlbmQsIHdlIGNhbiBpbmNsdWRlIHRoYXQgYmVmb3JlIHB1c2hpbmcg
+YXMgbG9uZyBhcwo+IGl0IHNpdHMgaW4gYSByZXBseSB0byB0aGUgbWFpbCk7IGFsc28sIHBsZWFz
+ZSB1cGRhdGUgdGhlIGlzc3VlIHRvIHBvaW50Cj4gdG8gdGhlIHYzIHBhdGNoLgoKSSB1cGRhdGVk
+IHRoZSBsaW5rIGluIHRoZSBpc3N1ZS4gVGhhbmtzIGZvciB0aGUgZ3VpZGFuY2UhCgpMYXVyYQoK
+Pgo+IFtXZSBzdGlsbCBuZWVkIHRvIG9wZW4gdXAgdGhlIDEuMyBicmFuY2ggYWZ0ZXIgc29tZSBl
+ZGl0b3JpYWwgc3R1ZmYgaGFzCj4gYmVlbiBkb25lOyB0aGVuIHdlIGNhbiBob3BlZnVsbHkgZmx1
+c2ggdGhlIHF1ZXVlIG9mIG91dHN0YW5kaW5nIGlzc3Vlcy5dCj4KPgo+IFRoaXMgcHVibGljbHkg
+YXJjaGl2ZWQgbGlzdCBvZmZlcnMgYSBtZWFucyB0byBwcm92aWRlIGlucHV0IHRvIHRoZQo+IE9B
+U0lTIFZpcnR1YWwgSS9PIERldmljZSAoVklSVElPKSBUQy4KPgo+IEluIG9yZGVyIHRvIHZlcmlm
+eSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZlZWRiYWNrIExpY2Vuc2UgdGVybXMgYW5kCj4gdG8gbWlu
+aW1pemUgc3BhbSBpbiB0aGUgbGlzdCBhcmNoaXZlLCBzdWJzY3JpcHRpb24gaXMgcmVxdWlyZWQK
+PiBiZWZvcmUgcG9zdGluZy4KPgo+IFN1YnNjcmliZTp2aXJ0aW8tY29tbWVudC1zdWJzY3JpYmVA
+bGlzdHMub2FzaXMtb3Blbi5vcmcKPiBVbnN1YnNjcmliZTp2aXJ0aW8tY29tbWVudC11bnN1YnNj
+cmliZUBsaXN0cy5vYXNpcy1vcGVuLm9yZwo+IExpc3QgaGVscDp2aXJ0aW8tY29tbWVudC1oZWxw
+QGxpc3RzLm9hc2lzLW9wZW4ub3JnCj4gTGlzdCBhcmNoaXZlOmh0dHBzOi8vbGlzdHMub2FzaXMt
+b3Blbi5vcmcvYXJjaGl2ZXMvdmlydGlvLWNvbW1lbnQvCj4gRmVlZGJhY2sgTGljZW5zZTpodHRw
+czovL3d3dy5vYXNpcy1vcGVuLm9yZy93aG8vaXByL2ZlZWRiYWNrX2xpY2Vuc2UucGRmCj4gTGlz
+dCBHdWlkZWxpbmVzOmh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL3BvbGljaWVzLWd1aWRlbGlu
+ZXMvbWFpbGluZy1saXN0cwo+IENvbW1pdHRlZTpodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9j
+b21taXR0ZWVzL3ZpcnRpby8KPiBKb2luIE9BU0lTOmh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3Jn
+L2pvaW4vCj4KCgoKQW1hem9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5SLkwuIHJl
+Z2lzdGVyZWQgb2ZmaWNlOiAyN0EgU2YuIExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3IgMiwgSWFz
+aSwgSWFzaSBDb3VudHksIDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0ZXJlZCBpbiBSb21hbmlhLiBS
+ZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuCg==
+--------------BSpfqpMrZeLw0NOvAIummpYP
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-The patch should have
-
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/137
-
-in it (no need to resend, we can include that before pushing as long as
-it sits in a reply to the mail); also, please update the issue to point
-to the v3 patch.
-
-[We still need to open up the 1.3 branch after some editorial stuff has
-been done; then we can hopefully flush the queue of outstanding issues.]
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
+bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
+diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA0LzExLzIyIDE3OjMyLCBDb3JuZWxpYSBIdWNr
+IHdyb3RlOjxicj4KICAgIDwvZGl2PgogICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0i
+bWlkOjg3NGsyemJzaGMuZnNmQHJlZGhhdC5jb20iPgogICAgICA8cHJlIGNsYXNzPSJtb3otcXVv
+dGUtcHJlIiB3cmFwPSIiPkNBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNp
+ZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNo
+bWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250
+ZW50IGlzIHNhZmUuCgoKCk9uIE1vbiwgQXByIDExIDIwMjIsIExhdXJhIExvZ2hpbiA8YSBjbGFz
+cz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86bGF1cmFsZ0BhbWF6b24uY29t
+Ij4mbHQ7bGF1cmFsZ0BhbWF6b24uY29tJmd0OzwvYT4gd3JvdGU6Cgo8L3ByZT4KICAgICAgPGJs
+b2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIg
+d3JhcD0iIj5PbiA0LzExLzIyIDE2OjUzLCBDb3JuZWxpYSBIdWNrIHdyb3RlOgo8L3ByZT4KICAg
+ICAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICAgIDxwcmUgY2xhc3M9Im1vei1x
+dW90ZS1wcmUiIHdyYXA9IiI+Q0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0
+c2lkZSBvZiB0aGUgb3JnYW5pemF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRh
+Y2htZW50cyB1bmxlc3MgeW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNv
+bnRlbnQgaXMgc2FmZS4KCgoKT24gVGh1LCBBcHIgMDcgMjAyMiwgTGF1cmEgTG9naGluPGEgY2xh
+c3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmxhdXJhbGdAYW1hem9uLmNv
+bSI+Jmx0O2xhdXJhbGdAYW1hem9uLmNvbSZndDs8L2E+ICB3cm90ZToKCjwvcHJlPgogICAgICAg
+ICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgICAgIDxwcmUgY2xhc3M9Im1vei1x
+dW90ZS1wcmUiIHdyYXA9IiI+U2lnbmVkLW9mZi1ieTogTGF1cmEgTG9naGluPGEgY2xhc3M9Im1v
+ei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmxhdXJhbGdAYW1hem9uLmNvbSI+Jmx0
+O2xhdXJhbGdAYW1hem9uLmNvbSZndDs8L2E+Ci0tLQogIHZpcnRpby12c29jay50ZXggfCA1ICsr
+KysrCiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo8L3ByZT4KICAgICAgICAgIDwv
+YmxvY2txdW90ZT4KICAgICAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+
+UmV2aWV3ZWQtYnk6IENvcm5lbGlhIEh1Y2s8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZF
+IiBocmVmPSJtYWlsdG86Y29odWNrQHJlZGhhdC5jb20iPiZsdDtjb2h1Y2tAcmVkaGF0LmNvbSZn
+dDs8L2E+CgpJIGd1ZXNzIHRoYXQgbmVlZHMgYW4gaXNzdWUgdG8gYmUgaW5jbHVkZWQgaW4gMS4z
+Pwo8L3ByZT4KICAgICAgICA8L2Jsb2NrcXVvdGU+CiAgICAgICAgPHByZSBjbGFzcz0ibW96LXF1
+b3RlLXByZSIgd3JhcD0iIj4KSSBhbHJlYWR5IG9wZW5lZGh0dHBzOi8vZ2l0aHViLmNvbS9vYXNp
+cy10Y3MvdmlydGlvLXNwZWMvaXNzdWVzLzEzNywgaXMgdGhlcmUgYW55dGhpbmcgZWxzZSBJIHNo
+b3VsZCBkbz8KPC9wcmU+CiAgICAgIDwvYmxvY2txdW90ZT4KICAgICAgPHByZSBjbGFzcz0ibW96
+LXF1b3RlLXByZSIgd3JhcD0iIj4KVGhlIHBhdGNoIHNob3VsZCBoYXZlCgpGaXhlczogPGEgY2xh
+c3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29hc2lz
+LXRjcy92aXJ0aW8tc3BlYy9pc3N1ZXMvMTM3Ij5odHRwczovL2dpdGh1Yi5jb20vb2FzaXMtdGNz
+L3ZpcnRpby1zcGVjL2lzc3Vlcy8xMzc8L2E+CgppbiBpdCAobm8gbmVlZCB0byByZXNlbmQsIHdl
+IGNhbiBpbmNsdWRlIHRoYXQgYmVmb3JlIHB1c2hpbmcgYXMgbG9uZyBhcwppdCBzaXRzIGluIGEg
+cmVwbHkgdG8gdGhlIG1haWwpOyBhbHNvLCBwbGVhc2UgdXBkYXRlIHRoZSBpc3N1ZSB0byBwb2lu
+dAp0byB0aGUgdjMgcGF0Y2guPC9wcmU+CiAgICA8L2Jsb2NrcXVvdGU+CiAgICA8cHJlPkkgdXBk
+YXRlZCB0aGUgbGluayBpbiB0aGUgaXNzdWUuIFRoYW5rcyBmb3IgdGhlIGd1aWRhbmNlITwvcHJl
+PgogICAgPHByZT5MYXVyYQo8L3ByZT4KICAgIDxibG9ja3F1b3RlIHR5cGU9ImNpdGUiIGNpdGU9
+Im1pZDo4NzRrMnpic2hjLmZzZkByZWRoYXQuY29tIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1
+b3RlLXByZSIgd3JhcD0iIj4KCltXZSBzdGlsbCBuZWVkIHRvIG9wZW4gdXAgdGhlIDEuMyBicmFu
+Y2ggYWZ0ZXIgc29tZSBlZGl0b3JpYWwgc3R1ZmYgaGFzCmJlZW4gZG9uZTsgdGhlbiB3ZSBjYW4g
+aG9wZWZ1bGx5IGZsdXNoIHRoZSBxdWV1ZSBvZiBvdXRzdGFuZGluZyBpc3N1ZXMuXQoKClRoaXMg
+cHVibGljbHkgYXJjaGl2ZWQgbGlzdCBvZmZlcnMgYSBtZWFucyB0byBwcm92aWRlIGlucHV0IHRv
+IHRoZQpPQVNJUyBWaXJ0dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVEMuCgpJbiBvcmRlciB0byB2
+ZXJpZnkgdXNlciBjb25zZW50IHRvIHRoZSBGZWVkYmFjayBMaWNlbnNlIHRlcm1zIGFuZAp0byBt
+aW5pbWl6ZSBzcGFtIGluIHRoZSBsaXN0IGFyY2hpdmUsIHN1YnNjcmlwdGlvbiBpcyByZXF1aXJl
+ZApiZWZvcmUgcG9zdGluZy4KClN1YnNjcmliZTogPGEgY2xhc3M9Im1vei10eHQtbGluay1hYmJy
+ZXZpYXRlZCIgaHJlZj0ibWFpbHRvOnZpcnRpby1jb21tZW50LXN1YnNjcmliZUBsaXN0cy5vYXNp
+cy1vcGVuLm9yZyI+dmlydGlvLWNvbW1lbnQtc3Vic2NyaWJlQGxpc3RzLm9hc2lzLW9wZW4ub3Jn
+PC9hPgpVbnN1YnNjcmliZTogPGEgY2xhc3M9Im1vei10eHQtbGluay1hYmJyZXZpYXRlZCIgaHJl
+Zj0ibWFpbHRvOnZpcnRpby1jb21tZW50LXVuc3Vic2NyaWJlQGxpc3RzLm9hc2lzLW9wZW4ub3Jn
+Ij52aXJ0aW8tY29tbWVudC11bnN1YnNjcmliZUBsaXN0cy5vYXNpcy1vcGVuLm9yZzwvYT4KTGlz
+dCBoZWxwOiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLWFiYnJldmlhdGVkIiBocmVmPSJtYWlsdG86
+dmlydGlvLWNvbW1lbnQtaGVscEBsaXN0cy5vYXNpcy1vcGVuLm9yZyI+dmlydGlvLWNvbW1lbnQt
+aGVscEBsaXN0cy5vYXNpcy1vcGVuLm9yZzwvYT4KTGlzdCBhcmNoaXZlOiA8YSBjbGFzcz0ibW96
+LXR4dC1saW5rLWZyZWV0ZXh0IiBocmVmPSJodHRwczovL2xpc3RzLm9hc2lzLW9wZW4ub3JnL2Fy
+Y2hpdmVzL3ZpcnRpby1jb21tZW50LyI+aHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNo
+aXZlcy92aXJ0aW8tY29tbWVudC88L2E+CkZlZWRiYWNrIExpY2Vuc2U6IDxhIGNsYXNzPSJtb3ot
+dHh0LWxpbmstZnJlZXRleHQiIGhyZWY9Imh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL3doby9p
+cHIvZmVlZGJhY2tfbGljZW5zZS5wZGYiPmh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL3doby9p
+cHIvZmVlZGJhY2tfbGljZW5zZS5wZGY8L2E+Ckxpc3QgR3VpZGVsaW5lczogPGEgY2xhc3M9Im1v
+ei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvcG9s
+aWNpZXMtZ3VpZGVsaW5lcy9tYWlsaW5nLWxpc3RzIj5odHRwczovL3d3dy5vYXNpcy1vcGVuLm9y
+Zy9wb2xpY2llcy1ndWlkZWxpbmVzL21haWxpbmctbGlzdHM8L2E+CkNvbW1pdHRlZTogPGEgY2xh
+c3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5v
+cmcvY29tbWl0dGVlcy92aXJ0aW8vIj5odHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9jb21taXR0
+ZWVzL3ZpcnRpby88L2E+CkpvaW4gT0FTSVM6IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJlZXRl
+eHQiIGhyZWY9Imh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL2pvaW4vIj5odHRwczovL3d3dy5v
+YXNpcy1vcGVuLm9yZy9qb2luLzwvYT4KCjwvcHJlPgogICAgPC9ibG9ja3F1b3RlPgogICAgPHA+
+PGJyPgogICAgPC9wPgogIDxwPjwvcD4KCjxwPjxicj4KQW1hem9uIERldmVsb3BtZW50IENlbnRl
+ciAoUm9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVyZWQgb2ZmaWNlOiAyN0EgU2YuIExhemFyIFN0cmVl
+dCwgVUJDNSwgZmxvb3IgMiwgSWFzaSwgSWFzaSBDb3VudHksIDcwMDA0NSwgUm9tYW5pYS4gUmVn
+aXN0ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuPC9w
+Pgo8L2JvZHk+CjwvaHRtbD4K
+--------------BSpfqpMrZeLw0NOvAIummpYP--
 
