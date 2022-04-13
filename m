@@ -1,59 +1,43 @@
-Return-Path: <virtio-comment-return-2934-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CD10C98652F
-	for <virtio-comment@lists.oasis-open.org>; Wed, 13 Apr 2022 09:36:35 +0000 (UTC)
+Return-Path: <virtio-return-3683-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio@lists.oasis-open.org>
+List-Post: <mailto:virtio@lists.oasis-open.org>
+List-Help: <mailto:virtio-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
 From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20220408091213.38247-1-cohuck@redhat.com>
-References: <20220408091213.38247-1-cohuck@redhat.com>
-Date: Wed, 13 Apr 2022 11:36:32 +0200
-Message-ID: <87ilrd9vfj.fsf@redhat.com>
+In-Reply-To: <20220125122332.64473-1-mst@redhat.com>
+References: <20220125122332.64473-1-mst@redhat.com>
+Date: Wed, 13 Apr 2022 11:35:50 +0200
+Message-ID: <87lew99vgp.fsf@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [PATCH] conformance: hook up GPU device normative statements
+Subject: [virtio] Re: [virtio-dev] [PATCH] virtio-gpio: offered -> negotiated
 Content-Type: text/plain
-To: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
-Cc: Gerd Hoffmann <kraxel@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, virtio@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, Apr 08 2022, Cornelia Huck <cohuck@redhat.com> wrote:
+On Tue, Jan 25 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-> These statements already exist, but were not linked in the conformance section.
+> virtqueues are only discovered after FEATURES_OK.
+> As such it makes no sense to talk about virtqueues being affected by
+> features which are offered but not negotiated, and doing so will confuse
+> the reader.
 >
-> Signed-off-by: Cornelia Huck <cohuck@redhat.com>
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 > ---
 >
-> I think this one can go in as an editorial update, at it just seems
-> to have been missed.
+> Viresh, others your thoughts on this? Looks like an obvious typo
+> to me, and something that I think we can fix under the editorial
+> changes rule.
 >
-> However, I think we need to go over the GPU spec: it seems to have
-> a lot of MUST etc. language that is not in any normative section.
-> No driver normative sections also seem to point to some possible
-> omissions. Probably 1.3 material, though.
->
-> ---
->  conformance.tex | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  virtio-gpio.tex | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
 Pushed as editorial update.
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+---------------------------------------------------------------------
+To unsubscribe from this mail list, you must leave the OASIS TC that 
+generates this mail.  Follow this link to all your TCs in OASIS at:
+https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
 
