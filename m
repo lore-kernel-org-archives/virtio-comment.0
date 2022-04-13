@@ -1,72 +1,47 @@
-Return-Path: <mgurtovoy@nvidia.com>
-From: Max Gurtovoy <mgurtovoy@nvidia.com>
-Subject: [PATCH v5 7/7] RFC: add initial support for configuring feature bits
-Date: Wed, 27 Apr 2022 01:58:24 +0300
-Message-ID: <20220426225824.5918-8-mgurtovoy@nvidia.com>
-In-Reply-To: <20220426225824.5918-1-mgurtovoy@nvidia.com>
-References: <20220426225824.5918-1-mgurtovoy@nvidia.com>
+Return-Path: <virtio-comment-return-2937-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id A838398652F
+	for <virtio-comment@lists.oasis-open.org>; Wed, 13 Apr 2022 09:42:58 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+Date: Wed, 13 Apr 2022 11:42:55 +0200
+Message-ID: <87a6cp9v4w.fsf@redhat.com>
 MIME-Version: 1.0
+Subject: [virtio-comment] virtio 1.3 development branch
 Content-Type: text/plain
-To: jasowang@redhat.com, virtio-comment@lists.oasis-open.org, mst@redhat.com, cohuck@redhat.com, virtio-dev@lists.oasis-open.org
-Cc: oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, aadam@redhat.com, virtio@lists.oasis-open.org, Max Gurtovoy <mgurtovoy@nvidia.com>
+To: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-After adding the concept of a management and a managed device, add
-another example of using this concept to manage resources.
+I've opened up a virtio-1.3 development branch in the virtio-spec git
+repository on github:
 
-Today there is no standard definition in the spec that allows user to
-setup specific feature bits of a virtio device.
+https://github.com/oasis-tcs/virtio-spec/tree/virtio-1.3
 
-For that, extend the management mechanism to allow management devices to
-change feature bits of its managed devices.
+All updates should target this branch; we will proceed to finalize the
+1.2 spec on the master branch and then will rebase once we got that out
+of the door.
 
-Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
----
- admin.tex | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+[I don't think any of the proposals that have been recently posted will
+have to be rebased on top of the new branch.]
 
-diff --git a/admin.tex b/admin.tex
-index 5b54743..43106ba 100644
---- a/admin.tex
-+++ b/admin.tex
-@@ -113,7 +113,9 @@ \subsection{VIRTIO ADMIN DEVICE CAPS IDENTIFY command}\label{sec:Basic Facilitie
-         * Bit 0 - if set, the device is a management device
-         * Bit 1 - if set, the device is a type 1 management device that supports
-         *         MSI-X vector mgmt of its type 1 managed devices
--        * Bits 2 - 63 - reserved for future capabilities.
-+        * Bit 2 - if set, the device is a type 1 management device that supports
-+        *         feature mgmt of bits 0 to 63 for its type 1 managed devices
-+        * Bits 3 - 63 - reserved for future capabilities.
-         */
-        le64 device_admin_caps;
-        u8 reserved[112];
-@@ -143,7 +145,9 @@ \subsection{VIRTIO ADMIN DEVICE CAPS ACCEPT command}\label{sec:Basic Facilities
-         * Bit 0 - if set, the driver accepted the device as a management device
-         * Bit 1 - if set, the driver accepted the device as a type 1 management device
-         *         that supports MSI-X vector mgmt of its type 1 managed devices
--        * Bits 2 - 63 - reserved for future capabilities.
-+        * Bit 2 - if set, the driver accepted the device as a type 1 management device
-+        *         that supports feature mgmt of bits 0 to 63 for its type 1 managed devices
-+        * Bits 3 - 63 - reserved for future capabilities.
-         */
-        le64 driver_admin_caps;
-        u8 reserved[112];
-@@ -167,12 +171,14 @@ \subsection{VIRTIO ADMIN DEVICE MGMT command}\label{sec:Basic Facilities of a Vi
-         u8 operation;
-         /*
-          * 0 - MSI-X vector
--         * 1 - 65535 are reserved
-+         * 1 - Device feature bits 0 to 63
-+         * 2 - 65535 are reserved
-          */
-         le16 resource;
-         /*
-          * The value to the given resource:
-          * if resource = 0 (MSI-X vector), it's a 1-based count.
-+         * if resource = 1 (Device feature bits 0 to 63), it's a feature bitmap.
-          */
-         le64 resource_val;
-         u8 reserved[5];
--- 
-2.21.0
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
