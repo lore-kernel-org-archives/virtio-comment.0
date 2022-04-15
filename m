@@ -1,93 +1,85 @@
-Return-Path: <virtio-comment-return-2938-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2945-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 92BBF98652F
-	for <virtio-comment@lists.oasis-open.org>; Wed, 13 Apr 2022 10:02:14 +0000 (UTC)
-From: Laura Loghin <lauralg@amazon.com>
-Date: Wed, 13 Apr 2022 13:01:40 +0300
-Message-ID: <20220413100140.15679-1-lauralg@amazon.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 15AC8986547
+	for <virtio-comment@lists.oasis-open.org>; Fri, 15 Apr 2022 13:06:35 +0000 (UTC)
+Date: Fri, 15 Apr 2022 15:06:25 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+Message-ID: <20220415130625.h6czph4jsqu4hjrh@sgarzare-redhat>
+References: <20220413100140.15679-1-lauralg@amazon.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH v2] virtio-vsock: add max payload size config field
-Content-Type: text/plain
-To: virtio-comment@lists.oasis-open.org
-Cc: Laura Loghin <lauralg@amazon.com>
+In-Reply-To: <20220413100140.15679-1-lauralg@amazon.com>
+Subject: Re: [virtio-comment] [PATCH v2] virtio-vsock: add max payload size
+ config field
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+To: Laura Loghin <lauralg@amazon.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Added a new field to the vsock device config space that
-is limiting the size of the packet payload. This way
-the driver is not allowed to allocate huge buffers, and
-potentially fill up the entire memory.
-Also defined a new feature bit for this, VIRTIO_VSOCK_F_SIZE_MAX,
-in order to keep backwards compatibility.
+On Wed, Apr 13, 2022 at 01:01:40PM +0300, Laura Loghin wrote:
+>Added a new field to the vsock device config space that
+>is limiting the size of the packet payload. This way
+>the driver is not allowed to allocate huge buffers, and
+>potentially fill up the entire memory.
+>Also defined a new feature bit for this, VIRTIO_VSOCK_F_SIZE_MAX,
+>in order to keep backwards compatibility.
+>
+>Signed-off-by: Laura Loghin <lauralg@amazon.com>
+>---
+> virtio-vsock.tex | 27 +++++++++++++++++++++++++++
+> 1 file changed, 27 insertions(+)
+>
+>diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+>index d79984d..e6903bd 100644
+>--- a/virtio-vsock.tex
+>+++ b/virtio-vsock.tex
+>@@ -23,6 +23,10 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> \begin{description}
+> \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+>+\item[VIRTIO_VSOCK_F_SIZE_MAX (2)] Maximum size of the packet payload is in
+>+	\field{data_max_size}. If offered by the device, device advises driver
+>+	about the value of its maximum payload size. If negotiated, the driver uses
+>+	\field{data_max_size} as the maximum packet payload size value.
+> \end{description}
+>
+> \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
+>@@ -32,6 +36,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \begin{lstlisting}
+> struct virtio_vsock_config {
+> 	le64 guest_cid;
+>+	le32 data_max_size;
+> };
+> \end{lstlisting}
+>
+>@@ -57,6 +62,28 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \hline
+> \end{tabular}
+>
+>+The following driver-read-only field, \field{data_max_size} only exists if
+>+VIRTIO_VSOCK_F_SIZE_MAX is set. This field specifies the maximum packet payload
+>+size for the driver to use.
+>+
+>+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>+
+>+The device MUST NOT change the value exposed through \field{data_max_size}.
+>+
+>+The device MUST forward transmitted packets of up to \field{data_max_size}
+>+(plus header length) size after VIRTIO_VSOCK_F_SIZE_MAX has been successfully
+>+negotiated.
 
-Signed-off-by: Laura Loghin <lauralg@amazon.com>
----
- virtio-vsock.tex | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Sorry, I thought we were going to delete this sentence like we did the 
+one above, maybe I didn't get the meaning right though.
 
-diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-index d79984d..e6903bd 100644
---- a/virtio-vsock.tex
-+++ b/virtio-vsock.tex
-@@ -23,6 +23,10 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
- \begin{description}
- \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
- \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
-+\item[VIRTIO_VSOCK_F_SIZE_MAX (2)] Maximum size of the packet payload is in
-+	\field{data_max_size}. If offered by the device, device advises driver
-+	about the value of its maximum payload size. If negotiated, the driver uses
-+	\field{data_max_size} as the maximum packet payload size value.
- \end{description}
- 
- \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
-@@ -32,6 +36,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
- \begin{lstlisting}
- struct virtio_vsock_config {
- 	le64 guest_cid;
-+	le32 data_max_size;
- };
- \end{lstlisting}
- 
-@@ -57,6 +62,28 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
- \hline
- \end{tabular}
- 
-+The following driver-read-only field, \field{data_max_size} only exists if
-+VIRTIO_VSOCK_F_SIZE_MAX is set. This field specifies the maximum packet payload
-+size for the driver to use.
-+
-+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-+
-+The device MUST NOT change the value exposed through \field{data_max_size}.
-+
-+The device MUST forward transmitted packets of up to \field{data_max_size}
-+(plus header length) size after VIRTIO_VSOCK_F_SIZE_MAX has been successfully
-+negotiated.
-+
-+\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-+
-+A driver SHOULD negotiate VIRTIO_VSOCK_F_SIZE_MAX if the device offers it.
-+
-+If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST supply receive
-+buffers that don't exceed the size \field{data_max_size} (plus header length).
-+
-+If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST  NOT transmit packets
-+of size exceeding the value of \field{data_max_size} (plus header length).
-+
- \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
- 
- \begin{enumerate}
--- 
-2.17.1
+What do you mean here by "forward"?
 
-
-
-
-Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in Romania. Registration number J22/2621/2005.
+Thanks,
+Stefano
 
 
 This publicly archived list offers a means to provide input to the
