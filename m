@@ -1,107 +1,127 @@
-Return-Path: <virtio-comment-return-2966-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-2948-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D227498656E
-	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Apr 2022 10:48:36 +0000 (UTC)
-Message-ID: <88f1d2e9-538f-807c-3311-bab3aaad1055@amazon.com>
-Date: Thu, 21 Apr 2022 13:48:12 +0300
+	by lists.oasis-open.org (Postfix) with ESMTP id 84701986400
+	for <virtio-comment@lists.oasis-open.org>; Tue, 19 Apr 2022 14:34:53 +0000 (UTC)
+Date: Tue, 19 Apr 2022 10:34:43 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20220419143435.126705-1-mst@redhat.com>
 MIME-Version: 1.0
-From: Laura Loghin <lauralg@amazon.com>
-References: <20220413100140.15679-1-lauralg@amazon.com>
- <20220415130625.h6czph4jsqu4hjrh@sgarzare-redhat>
- <67715438-6bd0-9338-6c22-b8f6114edf05@amazon.com>
-In-Reply-To: <67715438-6bd0-9338-6c22-b8f6114edf05@amazon.com>
-Subject: Re: [virtio-comment] [PATCH v2] virtio-vsock: add max payload size
- config field
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
+Subject: [virtio-comment] [PATCH] packed-ring.tex: link conformance statements
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: virtio@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-T24gNC8xNS8yMiAxODoyMywgTGF1cmEgTG9naGluIHdyb3RlOgo+IE9uIDQvMTUvMjIgMTY6MDYs
-IFN0ZWZhbm8gR2FyemFyZWxsYSB3cm90ZToKPj4gQ0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5h
-dGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5pemF0aW9uLiBEbyAKPj4gbm90IGNsaWNrIGxp
-bmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVy
-IAo+PiBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgo+Pgo+Pgo+Pgo+PiBPbiBXZWQsIEFw
-ciAxMywgMjAyMiBhdCAwMTowMTo0MFBNICswMzAwLCBMYXVyYSBMb2doaW4gd3JvdGU6Cj4+PiBB
-ZGRlZCBhIG5ldyBmaWVsZCB0byB0aGUgdnNvY2sgZGV2aWNlIGNvbmZpZyBzcGFjZSB0aGF0Cj4+
-PiBpcyBsaW1pdGluZyB0aGUgc2l6ZSBvZiB0aGUgcGFja2V0IHBheWxvYWQuIFRoaXMgd2F5Cj4+
-PiB0aGUgZHJpdmVyIGlzIG5vdCBhbGxvd2VkIHRvIGFsbG9jYXRlIGh1Z2UgYnVmZmVycywgYW5k
-Cj4+PiBwb3RlbnRpYWxseSBmaWxsIHVwIHRoZSBlbnRpcmUgbWVtb3J5Lgo+Pj4gQWxzbyBkZWZp
-bmVkIGEgbmV3IGZlYXR1cmUgYml0IGZvciB0aGlzLCBWSVJUSU9fVlNPQ0tfRl9TSVpFX01BWCwK
-Pj4+IGluIG9yZGVyIHRvIGtlZXAgYmFja3dhcmRzIGNvbXBhdGliaWxpdHkuCj4+Pgo+Pj4gU2ln
-bmVkLW9mZi1ieTogTGF1cmEgTG9naGluIDxsYXVyYWxnQGFtYXpvbi5jb20+Cj4+PiAtLS0KPj4+
-IHZpcnRpby12c29jay50ZXggfCAyNyArKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+IDEg
-ZmlsZSBjaGFuZ2VkLCAyNyBpbnNlcnRpb25zKCspCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL3ZpcnRp
-by12c29jay50ZXggYi92aXJ0aW8tdnNvY2sudGV4Cj4+PiBpbmRleCBkNzk5ODRkLi5lNjkwM2Jk
-IDEwMDY0NAo+Pj4gLS0tIGEvdmlydGlvLXZzb2NrLnRleAo+Pj4gKysrIGIvdmlydGlvLXZzb2Nr
-LnRleAo+Pj4gQEAgLTIzLDYgKzIzLDEwIEBAIFxzdWJzZWN0aW9ue0ZlYXR1cmUgYml0c31cbGFi
-ZWx7c2VjOkRldmljZSBUeXBlcyAKPj4+IC8gU29ja2V0IERldmljZSAvIEZlYXR1cmUgYml0c30K
-Pj4+IFxiZWdpbntkZXNjcmlwdGlvbn0KPj4+IFxpdGVtW1ZJUlRJT19WU09DS19GX1NUUkVBTSAo
-MCldIHN0cmVhbSBzb2NrZXQgdHlwZSBpcyBzdXBwb3J0ZWQuCj4+PiBcaXRlbVtWSVJUSU9fVlNP
-Q0tfRl9TRVFQQUNLRVQgKDEpXSBzZXFwYWNrZXQgc29ja2V0IHR5cGUgaXMgc3VwcG9ydGVkLgo+
-Pj4gK1xpdGVtW1ZJUlRJT19WU09DS19GX1NJWkVfTUFYICgyKV0gTWF4aW11bSBzaXplIG9mIHRo
-ZSBwYWNrZXQgCj4+PiBwYXlsb2FkIGlzIGluCj4+PiArwqDCoMKgwqDCoCBcZmllbGR7ZGF0YV9t
-YXhfc2l6ZX0uIElmIG9mZmVyZWQgYnkgdGhlIGRldmljZSwgZGV2aWNlIAo+Pj4gYWR2aXNlcyBk
-cml2ZXIKPj4+ICvCoMKgwqDCoMKgIGFib3V0IHRoZSB2YWx1ZSBvZiBpdHMgbWF4aW11bSBwYXls
-b2FkIHNpemUuIElmIG5lZ290aWF0ZWQsIAo+Pj4gdGhlIGRyaXZlciB1c2VzCj4+PiArwqDCoMKg
-wqDCoCBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gYXMgdGhlIG1heGltdW0gcGFja2V0IHBheWxvYWQg
-c2l6ZSB2YWx1ZS4KPj4+IFxlbmR7ZGVzY3JpcHRpb259Cj4+Pgo+Pj4gXHN1YnNlY3Rpb257RGV2
-aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gCj4+PiBT
-b2NrZXQgRGV2aWNlIC8gRGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fQo+Pj4gQEAgLTMyLDYg
-KzM2LDcgQEAgXHN1YnNlY3Rpb257RGV2aWNlIGNvbmZpZ3VyYXRpb24gCj4+PiBsYXlvdXR9XGxh
-YmVse3NlYzpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2aWNlCj4+PiBcYmVnaW57bHN0bGlzdGlu
-Z30KPj4+IHN0cnVjdCB2aXJ0aW9fdnNvY2tfY29uZmlnIHsKPj4+IMKgwqDCoMKgwqAgbGU2NCBn
-dWVzdF9jaWQ7Cj4+PiArwqDCoMKgwqDCoCBsZTMyIGRhdGFfbWF4X3NpemU7Cj4+PiB9Owo+Pj4g
-XGVuZHtsc3RsaXN0aW5nfQo+Pj4KPj4+IEBAIC01Nyw2ICs2MiwyOCBAQCBcc3Vic2VjdGlvbntE
-ZXZpY2UgY29uZmlndXJhdGlvbiAKPj4+IGxheW91dH1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAv
-IFNvY2tldCBEZXZpY2UKPj4+IFxobGluZQo+Pj4gXGVuZHt0YWJ1bGFyfQo+Pj4KPj4+ICtUaGUg
-Zm9sbG93aW5nIGRyaXZlci1yZWFkLW9ubHkgZmllbGQsIFxmaWVsZHtkYXRhX21heF9zaXplfSBv
-bmx5IAo+Pj4gZXhpc3RzIGlmCj4+PiArVklSVElPX1ZTT0NLX0ZfU0laRV9NQVggaXMgc2V0LiBU
-aGlzIGZpZWxkIHNwZWNpZmllcyB0aGUgbWF4aW11bSAKPj4+IHBhY2tldCBwYXlsb2FkCj4+PiAr
-c2l6ZSBmb3IgdGhlIGRyaXZlciB0byB1c2UuCj4+PiArCj4+PiArXGRldmljZW5vcm1hdGl2ZXtc
-c3Vic3Vic2VjdGlvbn17RGV2aWNlIGNvbmZpZ3VyYXRpb24gCj4+PiBsYXlvdXR9e0RldmljZSBU
-eXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgY29uZmlndXJhdGlvbiBsYXlvdXR9Cj4+PiAr
-Cj4+PiArVGhlIGRldmljZSBNVVNUIE5PVCBjaGFuZ2UgdGhlIHZhbHVlIGV4cG9zZWQgdGhyb3Vn
-aCAKPj4+IFxmaWVsZHtkYXRhX21heF9zaXplfS4KPj4+ICsKPj4+ICtUaGUgZGV2aWNlIE1VU1Qg
-Zm9yd2FyZCB0cmFuc21pdHRlZCBwYWNrZXRzIG9mIHVwIHRvIAo+Pj4gXGZpZWxke2RhdGFfbWF4
-X3NpemV9Cj4+PiArKHBsdXMgaGVhZGVyIGxlbmd0aCkgc2l6ZSBhZnRlciBWSVJUSU9fVlNPQ0tf
-Rl9TSVpFX01BWCBoYXMgYmVlbiAKPj4+IHN1Y2Nlc3NmdWxseQo+Pj4gK25lZ290aWF0ZWQuCj4+
-Cj4+IFNvcnJ5LCBJIHRob3VnaHQgd2Ugd2VyZSBnb2luZyB0byBkZWxldGUgdGhpcyBzZW50ZW5j
-ZSBsaWtlIHdlIGRpZCB0aGUKPj4gb25lIGFib3ZlLCBtYXliZSBJIGRpZG4ndCBnZXQgdGhlIG1l
-YW5pbmcgcmlnaHQgdGhvdWdoLgo+Pgo+PiBXaGF0IGRvIHlvdSBtZWFuIGhlcmUgYnkgImZvcndh
-cmQiPwo+Pgo+PiBUaGFua3MsCj4+IFN0ZWZhbm8KPj4KPgo+IFNvcnJ5IGZvciB0aGUgY29uZnVz
-aW9uLiBOb3cgSSBnb3Qgc3VwZXIgY29uZnVzZWQgYXMgd2VsbCA6RC4gU28gYWN0dWFsbHkKPiAi
-TVVTVCBOT1QgcGFzcyByZWNlaXZlZCBwYWNrZXRzIiB3YXMgYWJvdXQgdGhlIHBhY2tldHMgcmVj
-ZWl2ZWQgZnJvbSAKPiB0aGUgZHJpdmVyLAo+IGFuZCAiTVVTVCBmb3J3YXJkIHRyYW5zbWl0dGVk
-IHBhY2tldHMiIGFib3V0IHRoZSBwYWNrZXRzIHRyYW5zbWl0dGVkIAo+IGZyb20gdGhlCj4gYmFj
-a2VuZCB0byB0aGUgZHJpdmVyLiBUaGUgInJlY2VpdmUvdHJhbnNtaXQiIHRlcm1pbm9sb2d5IHdh
-cyBmcm9tIHRoZSAKPiBkZXZpY2UKPiBwZXJzcGVjdGl2ZSBoZXJlLiBTbyB5b3VyIGluaXRpYWwg
-Y29tbWVudCBhcHBsaWVkIHRvIHRoaXMgc2VudGVuY2UgCj4gYWN0dWFsbHksIG5vdCB0aGUKPiBp
-bml0aWFsIG9uZSwgYnV0IEkgZm9yZ290IHRoZW4gdGhhdCBJIHdyb3RlIHRoaXMgc2VjdGlvbiBm
-cm9tIHRoZSAKPiBkZXZpY2UgcGVyc3BlY3RpdmUuCj4gQm90aCBzZW50ZW5jZXMgYXJlIGFscmVh
-ZHkgaW1wbGllZCBieSB0aGVpciBjb3JyZXNwb25kaW5nIG9uZXMgZnJvbSAKPiB0aGUgZHJpdmVy
-Cj4gc2VjdGlvbiwgc28gSSB0aGluayBJIGNhbiBkZWxldGUgYm90aCBhY3R1YWxseS4KPiBUaGFu
-a3MgZm9yIHJhaXNpbmcgdGhpcyEKPgo+IExhdXJhCgpIaSwKCgpCb3RoIHNlbnRlbmNlcyBhcmUg
-cmVtb3ZlZCBub3csIGFuZCBJIGFsc28gdXBkYXRlZCBhIGJpdCB0aGUgc2Vjb25kCnJlcXVpcmVt
-ZW50IGZyb20gdGhlIGRyaXZlciBzZWN0aW9uLiBCZWZvcmUgaXQgd2FzIGEgYml0IHVuY2xlYXIg
-aWYKZGF0YV9tYXhfc2l6ZSBpcyB0aGUgbGltaXQgZm9yIGVhY2ggYnVmZmVyIG9yIGZvciB0aGVp
-ciBzdW0gKGZvcgppbXBsZW1lbnRhdGlvbnMgdGhhdCBhbGxvdyBtb3JlIHRoYW4gMiBidWZmZXJz
-IGZvciBhIHNpbmdsZSBwYWNrZXQpLgpJIChob3BlZnVsbHkpIG1hZGUgaXQgY2xlYXJlciBpbgpo
-dHRwczovL2xpc3RzLm9hc2lzLW9wZW4ub3JnL2FyY2hpdmVzL3ZpcnRpby1jb21tZW50LzIwMjIw
-NC9tc2cwMDA4OS5odG1sLgpQbGVhc2UsIGhhdmUgYSBsb29rIQoKVGhhbmtzLApMYXVyYQoKCj4K
-Pgo+Cj4gQW1hem9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVy
-ZWQgb2ZmaWNlOiAyN0EgU2YuIAo+IExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3IgMiwgSWFzaSwg
-SWFzaSBDb3VudHksIDcwMDA0NSwgUm9tYW5pYS4gCj4gUmVnaXN0ZXJlZCBpbiBSb21hbmlhLiBS
-ZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuCgoKCgoKQW1hem9uIERldmVsb3BtZW50
-IENlbnRlciAoUm9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVyZWQgb2ZmaWNlOiAyN0EgU2YuIExhemFy
-IFN0cmVldCwgVUJDNSwgZmxvb3IgMiwgSWFzaSwgSWFzaSBDb3VudHksIDcwMDA0NSwgUm9tYW5p
-YS4gUmVnaXN0ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIw
-MDUuCg==
+Link conformance statements into conformance chapter.
+
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
+ conformance.tex |  9 +++++++++
+ packed-ring.tex | 16 +++++-----------
+ 2 files changed, 14 insertions(+), 11 deletions(-)
+
+diff --git a/conformance.tex b/conformance.tex
+index 9807c30..663e7c3 100644
+--- a/conformance.tex
++++ b/conformance.tex
+@@ -85,6 +85,12 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues / Available Buffer Notification Suppression}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues / Supplying Buffers to The Device / Updating idx}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues / Supplying Buffers to The Device / Notifying The Device}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / Packed Virtqueues}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / PAcked Virtqueues / The Virtqueue Descriptor Table}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / Packed Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Supplying Buffers to The Device / Updating flags}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Supplying Buffers to The Device / Sending Available Buffer Notifications}
+ \item \ref{drivernormative:General Initialization And Device Operation / Device Initialization}
+ \item \ref{drivernormative:General Initialization And Device Operation / Device Cleanup}
+ \item \ref{drivernormative:Reserved Feature Bits}
+@@ -340,6 +346,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer Notification Suppression}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Used Ring}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / Available Buffer Notification Suppression}
++\item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues}
++\item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / The Virtqueue Descriptor Table}
++\item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
+ \item \ref{devicenormative:Reserved Feature Bits}
+ \end{itemize}
+diff --git a/packed-ring.tex b/packed-ring.tex
+index 2accc23..47f58a8 100644
+--- a/packed-ring.tex
++++ b/packed-ring.tex
+@@ -407,14 +407,12 @@ \subsubsection{Structure Size and Alignment}
+ can be queued at any given time.}.  The Queue Size value does not
+ have to be a power of 2.
+ 
+-\drivernormative{\subsection}{Virtqueues}{Basic Facilities of a
+-Virtio Device / Packed Virtqueues}
++\drivernormative{\subsection}{Virtqueues}{Basic Facilities of a Virtio Device / Packed Virtqueues}
+ The driver MUST ensure that the physical address of the first byte
+ of each virtqueue part is a multiple of the specified alignment value
+ in the above table.
+ 
+-\devicenormative{\subsection}{Virtqueues}{Basic Facilities of a
+-Virtio Device / Packed Virtqueues}
++\devicenormative{\subsection}{Virtqueues}{Basic Facilities of a Virtio Device / Packed Virtqueues}
+ The device MUST start processing driver descriptors in the order
+ in which they appear in the ring.
+ The device MUST start writing device descriptors into the ring in
+@@ -485,8 +483,7 @@ \subsection{Event Suppression Structure Format}\label{sec:Basic
+ A driver MAY send multiple available buffer notifications without making
+ any new descriptors available to the device.
+ 
+-\drivernormative{\subsection}{Scatter-Gather Support}{Basic Facilities of a
+-Virtio Device / Packed Virtqueues / Scatter-Gather Support}
++\drivernormative{\subsection}{Scatter-Gather Support}{Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
+ A driver MUST NOT create a descriptor list longer than allowed
+ by the device.
+ 
+@@ -508,8 +505,7 @@ \subsection{Event Suppression Structure Format}\label{sec:Basic
+ before all subsequent descriptors comprising the list are made
+ available.
+ 
+-\devicenormative{\subsection}{Scatter-Gather Support}{Basic Facilities of a
+-Virtio Device / Packed Virtqueues / Scatter-Gather Support}
++\devicenormative{\subsection}{Scatter-Gather Support}{Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
+ The device MUST use descriptors in a list chained by the
+ VIRTQ_DESC_F_NEXT flag in the same order that they
+ were made available by the driver.
+@@ -591,9 +587,7 @@ \subsubsection{Placing Available Buffers Into The Descriptor Ring}\label{sec:Bas
+ access the descriptor and any following descriptors the driver created and the
+ memory they refer to immediately.
+ 
+-\drivernormative{\paragraph}{Updating flags}{Basic Facilities of
+-a Virtio Device / Packed Virtqueues / Supplying Buffers to The
+-Device / Updating flags}
++\drivernormative{\paragraph}{Updating flags}{Basic Facilities of a Virtio Device / Packed Virtqueues / Supplying Buffers to The Device / Updating flags}
+ The driver MUST perform a suitable memory barrier before the
+ \field{flags} update, to ensure the
+ device sees the most up-to-date copy.
+-- 
+MST
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
