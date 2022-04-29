@@ -1,120 +1,231 @@
-Return-Path: <virtio-comment-return-2990-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3DB029865ED
-	for <virtio-comment@lists.oasis-open.org>; Fri, 29 Apr 2022 07:05:52 +0000 (UTC)
-Message-ID: <588a527b-84a2-3a84-bb49-d2e861447ce5@amazon.com>
-Date: Fri, 29 Apr 2022 10:05:28 +0300
+Return-Path: <parav@nvidia.com>
+From: Parav Pandit <parav@nvidia.com>
+Subject: [PATCH v5] virtio: Improve queue_reset polarity to match to default reset state
+Date: Fri, 29 Apr 2022 18:31:40 +0300
+Message-ID: <20220429153140.361874-1-parav@nvidia.com>
 MIME-Version: 1.0
-References: <20220421102939.24758-1-lauralg@amazon.com>
- <20220427090000.3cmk5dmbulbq4tkl@sgarzare-redhat>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <20220427090000.3cmk5dmbulbq4tkl@sgarzare-redhat>
-Subject: Re: [virtio-comment] [PATCH v3] virtio-vsock: add max payload size config
- field
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
-To: virtio-comment@lists.oasis-open.org
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+To: virtio-dev@lists.oasis-open.org, xuanzhuo@linux.alibaba.com, jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com, virtio-comment@lists.oasis-open.org
+Cc: stefanha@redhat.com, Parav Pandit <parav@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-T24gNC8yNy8yMiAxMjowMCwgU3RlZmFubyBHYXJ6YXJlbGxhIHdyb3RlOgo+IENBVVRJT046IFRo
-aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
-Cj4gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29u
-ZmlybSB0aGUgc2VuZGVyIAo+IGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4g
-T24gVGh1LCBBcHIgMjEsIDIwMjIgYXQgMDE6Mjk6MzlQTSArMDMwMCwgTGF1cmEgTG9naGluIHdy
-b3RlOgo+PiBBZGRlZCBhIG5ldyBmaWVsZCB0byB0aGUgdnNvY2sgZGV2aWNlIGNvbmZpZyBzcGFj
-ZSB0aGF0Cj4+IGlzIGxpbWl0aW5nIHRoZSBzaXplIG9mIHRoZSBwYWNrZXQgcGF5bG9hZC4gVGhp
-cyB3YXkKPj4gdGhlIGRyaXZlciBpcyBub3QgYWxsb3dlZCB0byBhbGxvY2F0ZSBodWdlIGJ1ZmZl
-cnMsIGFuZAo+PiBwb3RlbnRpYWxseSBmaWxsIHVwIHRoZSBlbnRpcmUgbWVtb3J5Lgo+PiBBbHNv
-IGRlZmluZWQgYSBuZXcgZmVhdHVyZSBiaXQgZm9yIHRoaXMsIFZJUlRJT19WU09DS19GX1NJWkVf
-TUFYLAo+PiBpbiBvcmRlciB0byBrZWVwIGJhY2t3YXJkcyBjb21wYXRpYmlsaXR5Lgo+Pgo+PiBT
-aWduZWQtb2ZmLWJ5OiBMYXVyYSBMb2doaW4gPGxhdXJhbGdAYW1hem9uLmNvbT4KPj4gLS0tCj4+
-IHZpcnRpby12c29jay50ZXggfCAyNCArKysrKysrKysrKysrKysrKysrKysrKysKPj4gMSBmaWxl
-IGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKykKPgo+IFJldmlld2VkLWJ5OiBTdGVmYW5vIEdhcnph
-cmVsbGEgPHNnYXJ6YXJlQHJlZGhhdC5jb20+Cj4KPj4KPj4gZGlmZiAtLWdpdCBhL3ZpcnRpby12
-c29jay50ZXggYi92aXJ0aW8tdnNvY2sudGV4Cj4+IGluZGV4IGQ3OTk4NGQuLjVkYjYxMTAgMTAw
-NjQ0Cj4+IC0tLSBhL3ZpcnRpby12c29jay50ZXgKPj4gKysrIGIvdmlydGlvLXZzb2NrLnRleAo+
-PiBAQCAtMjMsNiArMjMsMTAgQEAgXHN1YnNlY3Rpb257RmVhdHVyZSBiaXRzfVxsYWJlbHtzZWM6
-RGV2aWNlIFR5cGVzIC8gCj4+IFNvY2tldCBEZXZpY2UgLyBGZWF0dXJlIGJpdHN9Cj4+IFxiZWdp
-bntkZXNjcmlwdGlvbn0KPj4gXGl0ZW1bVklSVElPX1ZTT0NLX0ZfU1RSRUFNICgwKV0gc3RyZWFt
-IHNvY2tldCB0eXBlIGlzIHN1cHBvcnRlZC4KPj4gXGl0ZW1bVklSVElPX1ZTT0NLX0ZfU0VRUEFD
-S0VUICgxKV0gc2VxcGFja2V0IHNvY2tldCB0eXBlIGlzIHN1cHBvcnRlZC4KPj4gK1xpdGVtW1ZJ
-UlRJT19WU09DS19GX1NJWkVfTUFYICgyKV0gTWF4aW11bSBzaXplIG9mIHRoZSBwYWNrZXQgCj4+
-IHBheWxvYWQgaXMgaW4KPj4gK8KgwqDCoMKgwqAgXGZpZWxke2RhdGFfbWF4X3NpemV9LiBJZiBv
-ZmZlcmVkIGJ5IHRoZSBkZXZpY2UsIGRldmljZSAKPj4gYWR2aXNlcyBkcml2ZXIKPj4gK8KgwqDC
-oMKgwqAgYWJvdXQgdGhlIHZhbHVlIG9mIGl0cyBtYXhpbXVtIHBheWxvYWQgc2l6ZS4gSWYgbmVn
-b3RpYXRlZCwgCj4+IHRoZSBkcml2ZXIgdXNlcwo+PiArwqDCoMKgwqDCoCBcZmllbGR7ZGF0YV9t
-YXhfc2l6ZX0gYXMgdGhlIG1heGltdW0gcGFja2V0IHBheWxvYWQgc2l6ZSB2YWx1ZS4KPj4gXGVu
-ZHtkZXNjcmlwdGlvbn0KPj4KPj4gXHN1YnNlY3Rpb257RGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5
-b3V0fVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gCj4+IFNvY2tldCBEZXZpY2UgLyBEZXZpY2Ug
-Y29uZmlndXJhdGlvbiBsYXlvdXR9Cj4+IEBAIC0zMiw2ICszNiw3IEBAIFxzdWJzZWN0aW9ue0Rl
-dmljZSBjb25maWd1cmF0aW9uIAo+PiBsYXlvdXR9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBT
-b2NrZXQgRGV2aWNlCj4+IFxiZWdpbntsc3RsaXN0aW5nfQo+PiBzdHJ1Y3QgdmlydGlvX3Zzb2Nr
-X2NvbmZpZyB7Cj4+IMKgwqDCoMKgwqAgbGU2NCBndWVzdF9jaWQ7Cj4+ICvCoMKgwqDCoMKgIGxl
-MzIgZGF0YV9tYXhfc2l6ZTsKPj4gfTsKPj4gXGVuZHtsc3RsaXN0aW5nfQo+Pgo+PiBAQCAtNTcs
-NiArNjIsMjUgQEAgXHN1YnNlY3Rpb257RGV2aWNlIGNvbmZpZ3VyYXRpb24gCj4+IGxheW91dH1c
-bGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UKPj4gXGhsaW5lCj4+IFxlbmR7
-dGFidWxhcn0KPj4KPj4gK1RoZSBmb2xsb3dpbmcgZHJpdmVyLXJlYWQtb25seSBmaWVsZCwgXGZp
-ZWxke2RhdGFfbWF4X3NpemV9IG9ubHkgCj4+IGV4aXN0cyBpZgo+PiArVklSVElPX1ZTT0NLX0Zf
-U0laRV9NQVggaXMgc2V0LiBUaGlzIGZpZWxkIHNwZWNpZmllcyB0aGUgbWF4aW11bSAKPj4gcGFj
-a2V0IHBheWxvYWQKPj4gK3NpemUgZm9yIHRoZSBkcml2ZXIgdG8gdXNlLgo+PiArCj4+ICtcZGV2
-aWNlbm9ybWF0aXZle1xzdWJzdWJzZWN0aW9ufXtEZXZpY2UgY29uZmlndXJhdGlvbiBsYXlvdXR9
-e0RldmljZSAKPj4gVHlwZXMgLyBTb2NrZXQgRGV2aWNlIC8gRGV2aWNlIGNvbmZpZ3VyYXRpb24g
-bGF5b3V0fQo+PiArCj4+ICtUaGUgZGV2aWNlIE1VU1QgTk9UIGNoYW5nZSB0aGUgdmFsdWUgZXhw
-b3NlZCB0aHJvdWdoIAo+PiBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0uCj4+ICsKPj4gK1xkcml2ZXJu
-b3JtYXRpdmV7XHN1YnN1YnNlY3Rpb259e0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH17RGV2
-aWNlIAo+PiBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgY29uZmlndXJhdGlvbiBsYXlv
-dXR9Cj4+ICsKPj4gK0EgZHJpdmVyIFNIT1VMRCBuZWdvdGlhdGUgVklSVElPX1ZTT0NLX0ZfU0la
-RV9NQVggaWYgdGhlIGRldmljZSAKPj4gb2ZmZXJzIGl0Lgo+PiArCj4+ICtJZiB0aGUgZHJpdmVy
-IG5lZ290aWF0ZXMgVklSVElPX1ZTT0NLX0ZfU0laRV9NQVgsIHRoZSByZWNlaXZlIAo+PiBidWZm
-ZXJzIGl0Cj4+ICtzdXBwbGllcyBmb3IgYSBwYWNrZXQgTVVTVCBoYXZlIGEgdG90YWwgc2l6ZSB0
-aGF0IGRvZXNuJ3QgZXhjZWVkIHRoZSAKPj4gc2l6ZQo+PiArXGZpZWxke2RhdGFfbWF4X3NpemV9
-IChwbHVzIGhlYWRlciBsZW5ndGgpLgo+PiArCj4+ICtJZiB0aGUgZHJpdmVyIG5lZ290aWF0ZXMg
-VklSVElPX1ZTT0NLX0ZfU0laRV9NQVgsIGl0IE1VU1TCoCBOT1QgCj4+IHRyYW5zbWl0IHBhY2tl
-dHMKPj4gK29mIHNpemUgZXhjZWVkaW5nIHRoZSB2YWx1ZSBvZiBcZmllbGR7ZGF0YV9tYXhfc2l6
-ZX0gKHBsdXMgaGVhZGVyIAo+PiBsZW5ndGgpLgo+PiArCj4+IFxzdWJzZWN0aW9ue0RldmljZSBJ
-bml0aWFsaXphdGlvbn1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIFNvY2tldCAKPj4gRGV2aWNl
-IC8gRGV2aWNlIEluaXRpYWxpemF0aW9ufQo+Pgo+PiBcYmVnaW57ZW51bWVyYXRlfQo+PiAtLSAK
-Pj4gMi4xNy4xCj4+Cj4+Cj4+Cj4+Cj4+IEFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFu
-aWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdBIFNmLiAKPj4gTGF6YXIgU3RyZWV0LCBV
-QkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21hbmlhLiAKPj4gUmVn
-aXN0ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuCj4+
-Cj4+Cj4+IFRoaXMgcHVibGljbHkgYXJjaGl2ZWQgbGlzdCBvZmZlcnMgYSBtZWFucyB0byBwcm92
-aWRlIGlucHV0IHRvIHRoZQo+PiBPQVNJUyBWaXJ0dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVEMu
-Cj4+Cj4+IEluIG9yZGVyIHRvIHZlcmlmeSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZlZWRiYWNrIExp
-Y2Vuc2UgdGVybXMgYW5kCj4+IHRvIG1pbmltaXplIHNwYW0gaW4gdGhlIGxpc3QgYXJjaGl2ZSwg
-c3Vic2NyaXB0aW9uIGlzIHJlcXVpcmVkCj4+IGJlZm9yZSBwb3N0aW5nLgo+Pgo+PiBTdWJzY3Jp
-YmU6IHZpcnRpby1jb21tZW50LXN1YnNjcmliZUBsaXN0cy5vYXNpcy1vcGVuLm9yZwo+PiBVbnN1
-YnNjcmliZTogdmlydGlvLWNvbW1lbnQtdW5zdWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmcK
-Pj4gTGlzdCBoZWxwOiB2aXJ0aW8tY29tbWVudC1oZWxwQGxpc3RzLm9hc2lzLW9wZW4ub3JnCj4+
-IExpc3QgYXJjaGl2ZTogaHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0
-aW8tY29tbWVudC8KPj4gRmVlZGJhY2sgTGljZW5zZTogCj4+IGh0dHBzOi8vd3d3Lm9hc2lzLW9w
-ZW4ub3JnL3doby9pcHIvZmVlZGJhY2tfbGljZW5zZS5wZGYKPj4gTGlzdCBHdWlkZWxpbmVzOiAK
-Pj4gaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvcG9saWNpZXMtZ3VpZGVsaW5lcy9tYWlsaW5n
-LWxpc3RzCj4+IENvbW1pdHRlZTogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvY29tbWl0dGVl
-cy92aXJ0aW8vCj4+IEpvaW4gT0FTSVM6IGh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL2pvaW4v
-Cj4+Cj4KPgo+IFRoaXMgcHVibGljbHkgYXJjaGl2ZWQgbGlzdCBvZmZlcnMgYSBtZWFucyB0byBw
-cm92aWRlIGlucHV0IHRvIHRoZQo+IE9BU0lTIFZpcnR1YWwgSS9PIERldmljZSAoVklSVElPKSBU
-Qy4KPgo+IEluIG9yZGVyIHRvIHZlcmlmeSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZlZWRiYWNrIExp
-Y2Vuc2UgdGVybXMgYW5kCj4gdG8gbWluaW1pemUgc3BhbSBpbiB0aGUgbGlzdCBhcmNoaXZlLCBz
-dWJzY3JpcHRpb24gaXMgcmVxdWlyZWQKPiBiZWZvcmUgcG9zdGluZy4KPgo+IFN1YnNjcmliZTog
-dmlydGlvLWNvbW1lbnQtc3Vic2NyaWJlQGxpc3RzLm9hc2lzLW9wZW4ub3JnCj4gVW5zdWJzY3Jp
-YmU6IHZpcnRpby1jb21tZW50LXVuc3Vic2NyaWJlQGxpc3RzLm9hc2lzLW9wZW4ub3JnCj4gTGlz
-dCBoZWxwOiB2aXJ0aW8tY29tbWVudC1oZWxwQGxpc3RzLm9hc2lzLW9wZW4ub3JnCj4gTGlzdCBh
-cmNoaXZlOiBodHRwczovL2xpc3RzLm9hc2lzLW9wZW4ub3JnL2FyY2hpdmVzL3ZpcnRpby1jb21t
-ZW50Lwo+IEZlZWRiYWNrIExpY2Vuc2U6IGh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL3doby9p
-cHIvZmVlZGJhY2tfbGljZW5zZS5wZGYKPiBMaXN0IEd1aWRlbGluZXM6IAo+IGh0dHBzOi8vd3d3
-Lm9hc2lzLW9wZW4ub3JnL3BvbGljaWVzLWd1aWRlbGluZXMvbWFpbGluZy1saXN0cwo+IENvbW1p
-dHRlZTogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvY29tbWl0dGVlcy92aXJ0aW8vCj4gSm9p
-biBPQVNJUzogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvam9pbi8KPgpSZXF1ZXN0aW5nIGEg
-dm90ZS4KRml4ZXM6IGh0dHBzOi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlvLXNwZWMvaXNz
-dWVzLzE0MAoKVGhhbmsgeW91LApMYXVyYQoKCgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVyIChS
-b21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBTZi4gTGF6YXIgU3RyZWV0LCBV
-QkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21hbmlhLiBSZWdpc3Rl
-cmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIyLzI2MjEvMjAwNS4K
+Currently when driver initiates a queue reset, device is expected
+to communicate reset status to the driver by changing the value of the
+queue_reset register twice. First to return value other than 1 when
+reset is ongoing, later to return 1 when queue reset is completed.
+
+However initially during the device reset time the queue reset value
+is zero. queue_reset changes the value of the register to a different
+value on reset completion. Yet another time queue_reset value is
+expected to change when queue_select is reprogrammed.
+
+For example in below flow, a created virtqueue, which is disabled
+by driver leaves the queue state as
+queue_enable =3D 0, queue_reset =3D 1.
+
+example flow:
+a) 0,0 -> device init time value
+b) 1,0 -> vq is enabled by driver and working
+c) 1,1 -> vq is enabled, driver initiated reset
+d) 0,0 -> queue reset is ongoing
+   conflicts with #a, because queue is still enabled in device
+   whose reset is in progress.
+   External entity has no knowledge if VQ is undergoing reset or
+   VQ is never enabled.
+e) 0,1 -> queue reset is completed (conflicts with #a initial value)
+
+On next iteration, when queue_select selects the same VQ again,
+without enablement, device is confused to return 1 or 0 because
+it was reset once before via queue_reset register.
+
+This demands complex device implementation to understand what
+should be returned for a VQ that is reset using queue_reset register
+vs other means.
+
+Additionally, external entity that may have to manage a virtio device
+cannot distinguish between #a and #d, whether a VQ is not yet enabled
+or it is in use and undergoing a reset.
+
+Instead, it is better and efficient to maintain the same VQ state
+on the device when queue reset is completed.
+
+new proposed flow:
+q_enable, q_reset
+A) 0, 0 -> default, device init time
+B) 1, 0 -> driver has enabled vq
+C) 1, 1 -> driver started q reset
+D) 1, 1 -> q_reset stays 1 until device is busy resetting vq
+(device communicates that its working on resetting VQ, consistent with #C)
+E) 0, 0 -> q_reset by device is completed, q got disabled
+(consistent with device init time #A)
+
+Hence, this patch proposes a simple change to have reset register
+polarity to be same as that of initial reset value.
+
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/139
+Fixes: 12998e738621 ("virtio: pci support virtqueue reset")
+Fixes: a4ce81a83780 ("virtio: mmio support virtqueue reset")
+Fixes: 3b5378d70a42 ("virtio: introduce virtqueue reset as basic facility")
+Reviewed-by: Jason Wang <jasowang@redhat.com>
+Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+
+---
+changelog:
+v4->v5:
+ - Fixed better wordings suggested by Cornelia
+ - Added Xuan's and Jason's reviewed-by to commit log
+v3->v4:
+- removed incorrect requirement to read queue_enable on resetting
+  the queue
+v2->v3:
+- Updated the commit log to capture the problem more accurately
+- Fixed below comments from Michael and Cornelia
+- Fixed adding article 'the' before driver
+- Change wording in driver requirements section to reflect driver
+  requirements reflecting device behavior
+- Added device compliance statement on what to return for queue_reset
+  register to indicate ongoing reset in progress
+- Moved device specific description adjacent to other device related
+  queue reset description
+v1->v2:
+- Fixed below comment from Xuan Zhuo
+- Fixed the configuration and register layout text to reflect the polarity
+v0->v1:
+- Fixed below comments from Michael
+- Removed example device side pseudo code for old and new polarity
+- Removed unwanted articles 'a' and 'the'
+- Dropped extra empty line
+---
+ content.tex | 48 ++++++++++++++++++++----------------------------
+ 1 file changed, 20 insertions(+), 28 deletions(-)
+
+diff --git a/content.tex b/content.tex
+index 060bdab..7508dd1 100644
+--- a/content.tex
++++ b/content.tex
+@@ -1029,19 +1029,15 @@ \subsubsection{Common configuration structure layou=
+t}\label{sec:Virtio Transport
+ The device MUST present a 0 in \field{queue_enable} on reset.
+=20
+ If VIRTIO_F_RING_RESET has been negotiated, the device MUST present a 0 in
+-\field{queue_enable} after the driver has reset the virtqueue via
+-\field{queue_reset}.
+-
+-If VIRTIO_F_RING_RESET has been negotiated, the device MUST present a 0 in
+ \field{queue_reset} on reset.
+=20
+ If VIRTIO_F_RING_RESET has been negotiated, the device MUST present a 0 in
+ \field{queue_reset} after the virtqueue is enabled with \field{queue_enabl=
+e}.
+=20
+-The device MUST reset the queue when 1 is written to \field{queue_reset}, =
+and
+-present a 1 in \field{queue_reset} after the queue has been reset, until t=
+he
+-driver re-enables the queue via \field{queue_enable} or the device is rese=
+t.
+-The device MUST present consistent default values after queue reset.
++The device MUST reset the queue when 1 is written to \field{queue_reset}. =
+The
++device MUST continue to present 1 in \field{queue_reset} as long as the qu=
+eue reset
++is ongoing. The device MUST present 0 in both \field{queue_reset} and \fie=
+ld{queue_enable}
++when queue reset has completed.
+ (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue=
+ Reset}).
+=20
+ The device MUST present a 0 in \field{queue_size} if the virtqueue
+@@ -1069,12 +1065,12 @@ \subsubsection{Common configuration structure layou=
+t}\label{sec:Virtio Transport
+ The driver MUST NOT write a 0 to \field{queue_enable}.
+=20
+ If VIRTIO_F_RING_RESET has been negotiated, after the driver writes 1 to
+-\field{queue_reset} to reset the queue, it MUST verify that the queue
+-has been reset by reading back \field{queue_reset} and ensuring that it
+-is 1. The driver MAY re-enable the queue by writing a 1 to
+-\field{queue_enable} after ensuring that the other virtqueue fields have
+-been set up correctly. The driver MAY set driver-writeable queue configura=
+tion
+-values to different values than those that were used before the queue rese=
+t.
++\field{queue_reset} to reset the queue, the driver MUST NOT consider queue
++reset to be complete until it reads back 0 in \field{queue_reset}. The dri=
+ver
++MAY re-enable the queue by writing 1 to \field{queue_enable} after ensurin=
+g
++that other virtqueue fields have been set up correctly. The driver MAY set
++driver-writeable queue configuration values to different values than those=
+ that
++were used before the queue reset.
+ (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue=
+ Reset}).
+=20
+ \subsubsection{Notification structure layout}\label{sec:Virtio Transport O=
+ptions / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
+@@ -2005,19 +2001,15 @@ \subsection{MMIO Device Register Layout}\label{sec:=
+Virtio Transport Options / Vi
+ The device MUST NOT access virtual queue contents when \field{QueueReady} =
+is zero (0x0).
+=20
+ If VIRTIO_F_RING_RESET has been negotiated, the device MUST present a 0 in
+-\field{QueueReady} after the driver has reset the virtqueue via
+-\field{QueueReset}.
+-
+-If VIRTIO_F_RING_RESET has been negotiated, the device MUST present a 0 in
+ \field{QueueReset} on reset.
+=20
+ If VIRTIO_F_RING_RESET has been negotiated, The device MUST present a 0 in
+ \field{QueueReset} after the virtqueue is enabled with \field{QueueReady}.
+=20
+-The device MUST reset the queue when 1 is written to \field{QueueReset}, a=
+nd
+-present a 1 in \field{QueueReset} after the queue has been reset, until th=
+e
+-driver re-enables the queue via \field{QueueReady} or until the device is =
+reset.
+-The device MUST present consistent default values after queue reset.
++The device MUST reset the queue when 1 is written to \field{QueueReset}. T=
+he
++device MUST continue to present 1 in \field{QueueReset} as long as the que=
+ue reset
++is ongoing. The device MUST present 0 in both \field{QueueReset} and \fiel=
+d{QueueReady}
++when queue reset has completed.
+ (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue=
+ Reset}).
+=20
+ \drivernormative{\subsubsection}{MMIO Device Register Layout}{Virtio Trans=
+port Options / Virtio Over MMIO / MMIO Device Register Layout}
+@@ -2063,12 +2055,12 @@ \subsection{MMIO Device Register Layout}\label{sec:=
+Virtio Transport Options / Vi
+ it finishes handling an interrupt and MUST NOT set any of the undefined bi=
+ts in the value.
+=20
+ If VIRTIO_F_RING_RESET has been negotiated, after the driver writes 1 to
+-\field{QueueReset} to reset the queue, it MUST verify that the queue
+-has been reset by reading back \field{QueueReset} and ensuring that it
+-is 1. The driver MAY re-enable the queue by writing a 1 to
+-\field{QueueReady} after ensuring that the other virtqueue fields have
+-been set up correctly. The driver MAY set driver-writeable queue configura=
+tion
+-values to different values than those that were used before the queue rese=
+t.
++\field{QueueReset} to reset the queue, the driver MUST NOT consider queue
++reset to be complete until it reads back 0 in \field{QueueReset}. The driv=
+er
++MAY re-enable the queue by writing 1 to \field{QueueReady} after ensuring
++that other virtqueue fields have been set up correctly. The driver MAY set
++driver-writeable queue configuration values to different values than those
++that were used before the queue reset.
+ (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue=
+ Reset}).
+=20
+ \subsection{MMIO-specific Initialization And Device Operation}\label{sec:V=
+irtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization A=
+nd Device Operation}
+--=20
+1.8.3.1
 
