@@ -1,98 +1,133 @@
-Return-Path: <virtio-comment-return-3075-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3012-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 66490986538
-	for <virtio-comment@lists.oasis-open.org>; Thu, 19 May 2022 04:17:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DF07D98661F
+	for <virtio-comment@lists.oasis-open.org>; Thu, 12 May 2022 08:07:55 +0000 (UTC)
+From: Alvaro Karsz <alvaro.karsz@solid-run.com>
+Date: Thu, 12 May 2022 11:07:39 +0300
+Message-Id: <20220512080739.1952344-1-alvaro.karsz@solid-run.com>
 MIME-Version: 1.0
-References: <20220516103256.896922-1-alvaro.karsz@solid-run.com>
- <YoJxfLJLwn28i+Pz@stefanha-x1.localdomain> <CAJs=3_D=yqKzCdWwW+CY93rzGZYJEZ5twKbYgLaKpgTSNv0WVw@mail.gmail.com>
- <4a24ee12-4a53-b7de-d810-3719be28a5da@redhat.com> <CAJs=3_ChH_8eQfyj3Hj2BWXT+iLJN+vz6g9pUvx+-3+AbNDSXQ@mail.gmail.com>
- <CAJs=3_BGYmjaWPk82qi+qLvf52i=PZJT+O3WjvsDOSqyqEuf4A@mail.gmail.com>
-In-Reply-To: <CAJs=3_BGYmjaWPk82qi+qLvf52i=PZJT+O3WjvsDOSqyqEuf4A@mail.gmail.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Thu, 19 May 2022 12:16:53 +0800
-Message-ID: <CACGkMEuVQz3PQqKKh2Vc1_kVYyv+g=kLbCbnL4ajCKcwt1Aeeg@mail.gmail.com>
-Subject: Re: [virtio-comment] [PATCH v2] Introduction of Virtio Network device
- notifications coalescing feature
-Content-Type: text/plain; charset="UTF-8"
-To: Alvaro Karsz <alvaro.karsz@solid-run.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, virtio-comment@lists.oasis-open.org, Rabeeh Khoury <rabeeh@solid-run.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Subject: [virtio-comment] [PATCH] Introduction of Virtio Network device interrupt coalescing feature
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+To: virtio-comment@lists.oasis-open.org
+Cc: Alvaro Karsz <alvaro.karsz@solid-run.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, May 18, 2022 at 8:08 PM Alvaro Karsz <alvaro.karsz@solid-run.com> wrote:
->
-> > I don't want to
-> > distract you though, I think the virtio-net-level coalescing makes sense
-> > since it counts Ethernet frames rather than virtqueue buffers.
->
-> I'm not sure it should count ethernet frames, I think that it should
-> count descriptors.
-> Assume the following example:
->
-> tx-max-frames = 5
-> The driver wants to send a 64k packet, and VIRTIO_NET_F_HOST_TSO4 is negotiated.
-> The driver will write a 64K description on the descriptor area.
-> The device will segment the payload and will send more than 40 frames
-> (with standard MTU) in a very short time (so the timer is not a
-> factor).
-> The device will send more than 8 notifications to the driver for just
-> 1 used descriptor.
+Control a network device interrupt coalescing parameters using the control =
+virtqueue.
+A new control class was added: VIRTIO_NET_CTRL_INTR_COAL.
 
-I think you meant 1 used buffer actually, the notification was checked
-and raised when the device had a new used buffer. In your case without
-coalsing we may have at most 1 notification.
+This class provides 2 commands:
+- VIRTIO_NET_CTRL_INTR_COAL_USECS_SET:
+  Ask the network device to change the rx-usecs and tx-usecs parameters.
+  rx-usecs - Time to delay an RX interrupt after packet arrival in microsec=
+onds.
+  tx-usecs - Time to delay a TX interrupt after a sending a packet in micro=
+seconds.
 
-Having 8 notifications doesn't make much sense since there's no used
-buffer until the last notification.
+- VIRTIO_NET_CTRL_INTR_COAL_FRAMES_SET:
+  Ask the network device to change the rx-max-frames and tx-max-frames para=
+meters.
+  rx-max-frames - Number of packets to delay an RX interrupt after packet a=
+rrival.
+  tx-max-frames - Number of packets to delay a TX interrupt after sending a=
+ packet.
 
->
-> I think that speaking of descriptors instead of ethernet frames makes
-> more sense.
 
-So here is the doc for ethtool_coalesce:
+Signed-off-by: Alvaro Karsz <alvaro.karsz@solid-run.com>
+---
+ content.tex | 41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
- * @rx_max_coalesced_frames: Maximum number of packets to receive
- *      before an RX interrupt.
+diff --git a/content.tex b/content.tex
+index 7508dd1..a70cb27 100644
+--- a/content.tex
++++ b/content.tex
+@@ -3084,6 +3084,8 @@ \subsection{Feature bits}\label{sec:Device Types / Ne=
+twork Device / Feature bits
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+     channel.
 
-It counted by packets. So counting the packets makes more sense.
-Especially considering we have mergeable rx buffers where a single
-packet can consume multiple buffers.
++\item[VIRTIO_NET_F_INTR_COAL(55)] Device supports interrupt coalescing.
++
+ \item[VIRTIO_NET_F_HOST_USO (56)] Device can receive USO packets. Unlike U=
+FO
+  (fragmenting the packet) the USO splits large UDP packet
+  to several segments when each of these smaller packets has UDP header.
+@@ -3129,6 +3131,7 @@ \subsubsection{Feature bit requirements}\label{sec:De=
+vice Types / Network Device
+ \item[VIRTIO_NET_F_GUEST_ANNOUNCE] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_MQ] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR] Requires VIRTIO_NET_F_CTRL_VQ.
++\item[VIRTIO_NET_F_INTR_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_RSC_EXT] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NET_=
+F_HOST_TSO6.
+ \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
+ \end{description}
+@@ -4464,6 +4467,44 @@ \subsubsection{Control Virtqueue}\label{sec:Device T=
+ypes / Network Device / Devi
+ (necessarily when not using the legacy interface) little-endian.
 
->
-> This is relevant for RX as well.
-> Assume that VIRTIO_NET_F_GUEST_TSO4 is negotiated, and
-> VIRTIO_NET_F_MRG_RXBUF is not.
-> We could receive many frames that will be written in the same
-> descriptor chain, and we are in the same situation as described for
-> TX.
->
->
-> I think that this feature should be at a "higher level".
->
-> The device operates normally, ignoring the coalescing parameters.
->
-> If the device "decides" that it should send a notification according
-> to VirtIO "rules" (before checking if the events are suppressed by the
-> driver), it will then increase the internal coalescing counters, and
-> decide if it should send the notification.
-> So, in the case of GSO, it will increase the internal tx-fames counter
-> by 1 if the descriptor is of a 64B packet, or a 64KB  packet.
 
-I'm not sure I understand here. I think the right one is to increase
-the counter by 1 after the device receives a packet no matter how many
-descriptors/buffers are used for this packet.
++\paragraph{Interrupt Coalescing}\label{sec:Device Types / Network Device /=
+ Device Operation / Control Virtqueue / Interrupt Coalescing}
++
++If the VIRTIO_NET_F_INTR_COAL feature is negotiated, the driver can
++send control commands for dynamically changing the coalescing parameters.
++
++\begin{lstlisting}
++struct virtio_net_ctrl_coal_usec {
++    le32 tx_usecs;
++    le32 rx_usecs;
++};
++
++struct virtio_net_ctrl_coal_frames {
++    le32 tx_frames_max;
++    le32 rx_frames_max;
++};
++
++#define VIRTIO_NET_CTRL_INTR_COAL 6
++ #define VIRTIO_NET_CTRL_INTR_COAL_USECS_SET  0
++ #define VIRTIO_NET_CTRL_INTR_COAL_FRAMES_SET 1
++\end{lstlisting}
++
++The class VIRTIO_NET_CTRL_INTR_COAL has 2 commands:
++\begin{itemize}
++\item VIRTIO_NET_CTRL_INTR_COAL_USECS_SET: set the rx-usecs (time to delay=
+ an RX interrupt after packet arrival in microseconds) and tx-usecs (time t=
+o delay a TX interrupt after a sending a packet in microseconds) parameters=
+.
++\item VIRTIO_NET_CTRL_INTR_COAL_FRAMES_SET: set the rx-max-frames (number =
+of packets to delay an RX interrupt after packet arrival) and tx-max-frames=
+ (number of packets to delay a TX interrupt after sending a packet) paramet=
+ers.
++\end{itemize}
++
++\drivernormative{\subparagraph}{Interrupt Coalescing}{Device Types / Netwo=
+rk Device / Device Operation / Control Virtqueue / Interrupt Coalescing}
++
++
++A driver MUST NOT send to the device VIRTIO_NET_CTRL_INTR_COAL commands if=
+ the VIRTIO_NET_F_INTR_COAL feature
++has not been negotiated.
++
++\devicenormative{\subparagraph}{Interrupt Coalescing}{Device Types / Netwo=
+rk Device / Device Operation / Control Virtqueue / Interrupt Coalescing}
++
++A device SHOULD respond to the VIRTIO_NET_CTRL_INTR_COAL commands with VIR=
+TIO_NET_ERR if was not able to change the parameters.
++
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
 
-Thanks
-
->
->
-> What do you think?
->
-
+--
+2.32.0
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -106,7 +141,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
