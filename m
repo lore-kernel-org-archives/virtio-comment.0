@@ -1,114 +1,208 @@
-Return-Path: <mgurtovoy@nvidia.com>
-Message-ID: <72e6713e-31ef-06b3-4859-61d524bbf11e@nvidia.com>
-Date: Wed, 18 May 2022 18:32:42 +0300
-Subject: Re: [PATCH v5 0/7] Introduce device group and device management
-References: <20220426225824.5918-1-mgurtovoy@nvidia.com>
- <20220515112715-mutt-send-email-mst@kernel.org>
-From: Max Gurtovoy <mgurtovoy@nvidia.com>
-In-Reply-To: <20220515112715-mutt-send-email-mst@kernel.org>
+Return-Path: <virtio-comment-return-3076-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 26D0E986546
+	for <virtio-comment@lists.oasis-open.org>; Thu, 19 May 2022 08:46:13 +0000 (UTC)
+From: Alvaro Karsz <alvaro.karsz@solid-run.com>
+Date: Thu, 19 May 2022 11:45:51 +0300
+Message-Id: <20220519084551.18119-1-alvaro.karsz@solid-run.com>
 MIME-Version: 1.0
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: jasowang@redhat.com, virtio-comment@lists.oasis-open.org, cohuck@redhat.com, virtio-dev@lists.oasis-open.org, oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, aadam@redhat.com, virtio@lists.oasis-open.org
+Subject: [virtio-comment] [PATCH v3] Introduction of Virtio Network device notifications coalescing feature.
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+To: virtio-comment@lists.oasis-open.org
+Cc: rabeeh@solid-run.com, Alvaro Karsz <alvaro.karsz@solid-run.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+Control a network device notifications coalescing parameters using the cont=
+rol virtqueue.
+A new control class was added: VIRTIO_NET_CTRL_NOTF_COAL.
 
-On 5/15/2022 6:27 PM, Michael S. Tsirkin wrote:
-> On Wed, Apr 27, 2022 at 01:58:17AM +0300, Max Gurtovoy wrote:
->> Hi,
->> A device group definition will help extending the virtio specefication for
->> various future features that require a notion of grouping devices together or
->> managing devices inside a group. A device group include one or more virtio devices.
->> For now, only support for type 1 device group was added.
->
-> OK good progress here. Sent a bunch of comments, most of them
-> cosmetic.
->
+This class provides 2 commands:
+- VIRTIO_NET_CTRL_NOTF_COAL_USECS_SET:
+  Ask the network device to change the rx-usecs and tx-usecs parameters.
+  rx-usecs - Time to delay an RX notification after packet arrival in micro=
+seconds.
+  tx-usecs - Time to delay a TX notification after a sending a packet in mi=
+croseconds.
 
-Is there a chance to get some reviewed-by for few commits in the series ?
+- VIRTIO_NET_CTRL_NOTF_COAL_FRAMES_SET:
+  Ask the network device to change the rx-max-frames and tx-max-frames para=
+meters.
+  rx-max-frames - Number of packets to delay an RX notification after packe=
+t arrival.
+  tx-max-frames - Number of packets to delay a TX notification after sendin=
+g a packet.
 
-to see some progress from v5 -> v6.
+--
+v2:
+=09- Usage of notification terminology.
+=09- Add a few lines on what device should do when driver asked to
+=09  suppress notifications.
 
->> Also introduce the admin facility to allow manipulating features and configurations
->> in a generic manner. Using the admin command set, one can manipulate the device itself
->> and/or to manipulate, if possible, another device within the same device group (for now,
->> introduce only support of PCI SR-IOV devices grouping).
->>
->> The admin command set will be extended in the future  to support more functionalities.
->> Some of these functionalities are already under discussions.
->>
->> The admin virtqueue is the first management interface to issue admin commands from
->> the admin command set.
->>
->> Motivation for choosing admin queue as first management interface:
->> 1. It is anticipated that admin queue will be used for managing and configuring
->>     many different type of resources. For example,
->>     a. PCI PF configuring PCI VF attributes.
->>     b. virtio device creating/destroying/configuring subfunctions discussed in [1]
->>     c. composing device config space of VF or SF such as mac address, number of VQs, virtio features
->>
->>     Mapping all of them as configuration registers to MMIO will require large MMIO space,
->>     if done for each VF/SF. Such MMIO implementation in physical devices such as PCI PF and VF
->>     requires on-chip resources to complete within MMIO access latencies. Such resources are very
->>     expensive.
->>
->> 2. Such limitation can be overcome by having smaller MMIO register set to build
->>     a command request response interface. However, such MMIO based command interface
->>     will be limited to serve single outstanding command execution. Such limitation can
->>     resulting in high device creation and composing time which can affect VM startup time.
->>     Often device can queue and service multiple commands in parallel, such command interface
->>     cannot use parallelism offered by the device.
->>
->> 3. When a command wants to DMA data from one or more physical addresses, for example in the future a
->>     live migration command may need to fetch device state consist of config space, tens of
->>     VQs state, VLAN and MAC table, per VQ partial outstanding block IO list database and more.
->>     Packing one or more DMA addresses over new command interface will be burden some and continue
->>     to suffer single outstanding command execution latencies. Such limitation is not good for time
->>     sensitive live migration use cases.
->>
->> 4. A virtio queue overcomes all the above limitations. It also supports DMA and multiple outstanding
->>     descriptors. Similar mechanism exist today for device specific configuration - the control VQ.
->>
->> A future work can add another management interface to issue admin commands.
->>
->> [1] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.oasis-open.org%2Farchives%2Fvirtio-comment%2F202108%2Fmsg00025.html&amp;data=05%7C01%7Cmgurtovoy%40nvidia.com%7Cbc35d233eaa34e20897408da36877f01%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C637882252823323958%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=nP3IpYLl7cwk5SkibfDTdguBfzIsUKBwMPDffMG5Vk4%3D&amp;reserved=0
->>
->> This series include the comments and fixes from V1-V4 of the initial patch sets ("VIRTIO: Provision maximum
->> MSI-X vectors for a VF" and "Introduce virtio subsystem and Admin virtqueue" [2]).
->> This series was extended with additional RFC for setting managed device feature bits as another example for
->> using admin command set. Also device/driver negotiation for admin caps was introduced as a response for previous
->> comments on the mailing list.
->>
->> [2] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.oasis-open.org%2Farchives%2Fvirtio-comment%2F202203%2Fmsg00005.html&amp;data=05%7C01%7Cmgurtovoy%40nvidia.com%7Cbc35d233eaa34e20897408da36877f01%7C43083d15727340c1b7db39efd9ccc17a%7C0%7C0%7C637882252823323958%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=WAxPBmPb%2BcyMNACTGzcwzCv1kFdjX0iIbXzM8Zl%2Bv4M%3D&amp;reserved=0
->>
->>
->> Open issues:
->> 1. CCW and MMIO specification for admin_queue_index register
->>
->> Changelog:
->>   - Merged MSI-X configuration series to current one.
->>   - Addressed comments from MST, Jason Wang and others.
->>   - simplified the interface.
->>   - added another resource management  as RFC (feature bits).
->>
->> Max Gurtovoy (7):
->>    Introduce device group
->>    Introduce admin command set
->>    Introduce new destination type for admin commands
->>    Introduce virtio admin virtqueue
->>    Add miscellaneous configuration structure for PCI
->>    Introduce MGMT admin commands
->>    RFC: add initial support for configuring feature bits
->>
->>   admin.tex        | 282 +++++++++++++++++++++++++++++++++++++++++++++++
->>   conformance.tex  |   3 +
->>   content.tex      | 118 +++++++++++++++++++-
->>   introduction.tex |  42 +++++++
->>   4 files changed, 443 insertions(+), 2 deletions(-)
->>   create mode 100644 admin.tex
->>
->> -- 
->> 2.21.0
+v3:
+=09- Remove whitespaces.
+=09- Explain with examples how the device should act.
+
+--
+
+Signed-off-by: Alvaro Karsz <alvaro.karsz@solid-run.com>
+---
+ content.tex | 68 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 68 insertions(+)
+
+diff --git a/content.tex b/content.tex
+index 7508dd1..b0ee98d 100644
+--- a/content.tex
++++ b/content.tex
+@@ -3084,6 +3084,8 @@ \subsection{Feature bits}\label{sec:Device Types / Ne=
+twork Device / Feature bits
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+     channel.
+=20
++\item[VIRTIO_NET_F_NOTF_COAL(55)] Device supports notifications coalescing=
+.
++
+ \item[VIRTIO_NET_F_HOST_USO (56)] Device can receive USO packets. Unlike U=
+FO
+  (fragmenting the packet) the USO splits large UDP packet
+  to several segments when each of these smaller packets has UDP header.
+@@ -3129,6 +3131,7 @@ \subsubsection{Feature bit requirements}\label{sec:De=
+vice Types / Network Device
+ \item[VIRTIO_NET_F_GUEST_ANNOUNCE] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_MQ] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR] Requires VIRTIO_NET_F_CTRL_VQ.
++\item[VIRTIO_NET_F_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_RSC_EXT] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NET_=
+F_HOST_TSO6.
+ \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
+ \end{description}
+@@ -4464,6 +4467,71 @@ \subsubsection{Control Virtqueue}\label{sec:Device T=
+ypes / Network Device / Devi
+ (necessarily when not using the legacy interface) little-endian.
+=20
+=20
++\paragraph{Notifications Coalescing}\label{sec:Device Types / Network Devi=
+ce / Device Operation / Control Virtqueue / Notifications Coalescing}
++
++If the VIRTIO_NET_F_NOTF_COAL feature is negotiated, the driver can
++send control commands for dynamically changing the coalescing parameters.
++
++\begin{lstlisting}
++struct virtio_net_ctrl_coal_usec {
++    le32 tx_usecs;
++    le32 rx_usecs;
++};
++
++struct virtio_net_ctrl_coal_frames {
++    le32 tx_frames_max;
++    le32 rx_frames_max;
++};
++
++#define VIRTIO_NET_CTRL_NOTF_COAL 6
++ #define VIRTIO_NET_CTRL_NOTF_COAL_USECS_SET  0
++ #define VIRTIO_NET_CTRL_NOTF_COAL_FRAMES_SET 1
++\end{lstlisting}
++
++The class VIRTIO_NET_CTRL_NOTF_COAL has 2 commands:
++\begin{itemize}
++\item VIRTIO_NET_CTRL_NOTF_COAL_USECS_SET: set the rx-usecs (time to delay=
+ an RX notification after frame arrival in microseconds) and tx-usecs (time=
+ to delay a TX notification after a sending a frame in microseconds) parame=
+ters.
++\item VIRTIO_NET_CTRL_NOTF_COAL_FRAMES_SET: set the rx-max-frames (number =
+of frames to delay an RX notification after frame arrival) and tx-max-frame=
+s (number of frames to delay a TX notification after sending a frame) param=
+eters.
++\end{itemize}
++
++\paragraph{RX notifications}\label{sec:Device Types / Network Device / Dev=
+ice Operation / Control Virtqueue / Notifications Coalescing / RX notificat=
+ions}
++
++If, for example, rx_usecs =3D 10 and rx_frames_max =3D 15.
++
++\begin{itemize}
++\item The device will count received frames until it accumulates 15 frames=
+, or until 10 usecs elapsed since the arrival of the first frame.
++\item The device will check if at least one descriptor was used from the d=
+escriptor area, if not, it will continue to accumulate frames until one des=
+criptor is used.\\
++An example is if any of the VIRTIO_NET_F_GUEST_TSO/UFO features are negoti=
+ated, a device could receive more than 15 frames, and write all in the same=
+ buffer.
++\item The device will reset its internal coalescing counters.
++\item The device will send a notification to the driver only if the driver=
+ hasn't suppressed notifications.
++\end{itemize}
++
++
++\paragraph{TX notifications}\label{sec:Device Types / Network Device / Dev=
+ice Operation / Control Virtqueue / Notifications Coalescing / TX notificat=
+ions}
++
++If, for example, tx_usecs =3D 10 and tx_frames_max =3D 15.
++
++\begin{itemize}
++\item The device will count sent frames until it accumulates 15 frames, or=
+ until 10 usecs elapsed since first frame was sent.
++\item The device will check if at least one descriptor was used from the d=
+escriptor area, if not, it will continue to accumulate frames until one des=
+criptor is used.\\
++An example is if any of the VIRTIO_NET_F_HOST_TSO/UFO features are negotia=
+ted, a device could receive a big buffer, which will take more than 15 fram=
+es to send.
++\item The device will reset its internal coalescing counters.
++\item The device will send a notification to the driver only if the driver=
+ hasn't suppressed notifications.
++\end{itemize}
++
++\drivernormative{\subparagraph}{Notifications Coalescing}{Device Types / N=
+etwork Device / Device Operation / Control Virtqueue / Notifications Coales=
+cing}
++
++
++If the VIRTIO_NET_F_NOTF_COAL feature has not been negotiated, the driver =
+MUST NOT issue VIRTIO_NET_CTRL_NOTF_COAL commands.
++
++\devicenormative{\subparagraph}{Notifications Coalescing}{Device Types / N=
+etwork Device / Device Operation / Control Virtqueue / Notifications Coales=
+cing}
++
++A device SHOULD respond to the VIRTIO_NET_CTRL_NOTF_COAL commands with VIR=
+TIO_NET_ERR if was not able to change the parameters.\\ \\
++A device MUST NOT accept tx_frames_max/rx_frames_max values bigger than th=
+e queue size.\\ \\
++A device SHOULD NOT send notifications to the driver, if the driver asked =
+to suppress notifications.\\ \\
++A device SHOULD initialize all coalescing values to 0. \\ \\
++
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
+=20
+--=20
+2.32.0
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
