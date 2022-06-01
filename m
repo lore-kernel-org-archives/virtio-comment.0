@@ -1,100 +1,123 @@
-Return-Path: <virtio-comment-return-3108-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2D1D1986408
-	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Jun 2022 12:37:04 +0000 (UTC)
-References: <877d61wuc0.fsf@linaro.org>
- <80aace95-6c39-c7b9-61ba-70d60bcd08b2@quicinc.com>
- <c642058f36321cb7dfdfaa4664f5323841b65450.camel@sipsolutions.net>
- <a3856ec8-90d6-df19-2b5f-bc42700b09db@quicinc.com>
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Wed, 08 Jun 2022 13:28:25 +0100
-In-reply-to: <a3856ec8-90d6-df19-2b5f-bc42700b09db@quicinc.com>
-Message-ID: <87v8tbtjpv.fsf@linaro.org>
+Return-Path: <mgurtovoy@nvidia.com>
+Message-ID: <152fa52f-23c3-b222-68f6-db42b4231144@nvidia.com>
+Date: Wed, 1 Jun 2022 16:43:48 +0300
+Subject: Re: [virtio-comment] Re: [PATCH v5 1/7] Introduce device group
+References: <20220426225824.5918-1-mgurtovoy@nvidia.com>
+ <20220426225824.5918-2-mgurtovoy@nvidia.com>
+ <20220515112412-mutt-send-email-mst@kernel.org>
+ <b2239b43-a542-2d54-ecb2-86c0f4e35dd0@nvidia.com> <87o7zvezkc.fsf@redhat.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+In-Reply-To: <87o7zvezkc.fsf@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [Stratos-dev] Next VirtIO device for Project Stratos?
-Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-To: Trilok Soni <quic_tsoni@quicinc.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, stratos-dev@op-lists.linaro.org, virtio-dev@lists.oasis-open.org, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Matt Spencer <Matt.Spencer@arm.com>, Gerd Hoffmann <kraxel@redhat.com>, Arnd Bergmann <arnd.bergmann@linaro.org>, Christian Pinto <c.pinto@virtualopensystems.com>, Namhyung Kim <namhyung@kernel.org>, Petre Eftime <epetre@amazon.com>, Peter Hilber <peter.hilber@opensynergy.com>, Marcel Holtmann <marcel@holtmann.org>, "Michael S. Tsirkin" <mst@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, quic_pdaly@quicinc.com, pdaly@quicinc.com, svaddagi@qti.qualcomm.com
+To: Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, aadam@redhat.com, virtio@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
 
-Trilok Soni <quic_tsoni@quicinc.com> writes:
-
-> On 6/1/2022 1:06 PM, Johannes Berg wrote:
->> Hi,
->> Not sure if there was anything you wanted me to comment on, but
->> since
->> I'm "the wifi guy" ... :)
->>=20
->>>> mac80211 wlan / 10
->> FWIW, even though I'm the mac80211 maintainer, I'm not aware of a
->> specification or implementation of this ... I don't know what this is at
->> all.
->>=20
->>>> mac80211 hwsim wireless simulation device / 29
->> This I implemented (both a driver in mac80211-hwsim in the kernel,
->> as
->> well as a device in wmediumd), but I wouldn't really necessarily
->> recommend using it for anything but testing.
-
-I assume the use-case for this is something like a virtualised Android
-OS. For cloud native testing I guess a simulation device provides enough of
-what you need to exercise the guests network stack. However for real
-deployments you need something to allow selection of networks and
-reporting of network quality.
-
-I'm not super familiar with the wifi stack but is this all usually
-handled in one place or do multiple userspace daemons interrogate the
-kernel APIs for this information?
-
-If it all comes through one place perhaps it's enough for it to be given
-a pipe to the host to make those queries - effectively creating a proxy
-to the real host kernel interface?
-
->>> I am not sure if this related but virtio-ethernet keeps coming to us as
->>> requirement, I am not sure about the what is the support available in
->>> the various projects including Xen. This is a non-Mobile requirement
->>> particularly from the IOT or Auto segments. It will be nice to do adb
->>> over ethernet in the guest VM from the host shell.
->> For ethernet you have normal virtio-net.
+On 5/18/2022 4:32 PM, Cornelia Huck wrote:
+> On Wed, May 18 2022, Max Gurtovoy <mgurtovoy@nvidia.com> wrote:
 >
-> Thanks. Virtio-net is available, but I think e2e usecase w/ Type-1
-> Hypervisor is what I am looking for. I believe CrosVM also supports
-> Virtio-net but I am not sure if it works w/ Xen or not.
+>> Hi MST,
+>>
+>> On 5/15/2022 6:25 PM, Michael S. Tsirkin wrote:
+>>> On Wed, Apr 27, 2022 at 01:58:18AM +0300, Max Gurtovoy wrote:
+>>>> +\subsection{Device group}\label{sec:Introduction / Terminology / Devi=
+ce group}
+>>>> +
+>>>> +A device group includes one or more virtio devices.
+>>>> +Each virtio device has a unique virtio device id (vdev_id) within a d=
+evice group. A valid vdev_id is a 64-bit field in the range of
+>>>> +0x0 - 0xFFFFFFFFFFFFFFF0. Vdev_id 0xFFFFFFFFFFFFFFFF is a value that =
+refers to all devices in a device group and isn't a valid vdev_id.
+>>>> +
+>>>> +For now, the supported device groups are:
+>>>> +\begin{enumerate}
+>>>> +\item Type 1 - A virtio PCI SR-IOV physical function (PF) and its PCI=
+ SR-IOV virtual functions (VFs). For this group type, the PF device has vde=
+v_id that is equal to 0
+>>>> +and the VF devices have vdev_id's that are equal to their vf_number (=
+according to the PCI SR-IOV specification).
+>>>> +\end{enumerate}
+>>>> +
+>>>>    \section{Structure Specifications}\label{sec:Structure Specificatio=
+ns}
+>>> In context of virtualization type 1 already refers to a specific type
+>>> of hypervisor.
+>>>
+>>> I suggest simply "SR-IOV type" - this way users do not need to remember
+>>> special terminology.
+>> This is 12 lines addition commit with simple definition.
+>>
+>> I didn't mentioned hypervisors here.
+>>
+>> I will stick to your suggestion and use name instead of numbers
+>> (although I don't understand how can a use that knows how to read spec
+>> will be confused here), but I would like Jason and Cornelia to ack on
+>> this during this review cycle.
+>>
+>> When we'll get 3 acks on this name - I'll update it for v6.
+> So, do you want to imply some kind of numbering? I don't like "Type 1",
+> either. If the type needs to be referenced in code, it should have a
+> #define or such; otherwise, "SR-IOV type" would be fine.
 
-In normal Xen you would have a Dom0 with a traditional kernel driver to
-service the backend. In a more modular setup you might want to have a
-driver domain that combines the backend with the real HW driver running
-as a unikernel?
+ok I'll change it to be:
+
+diff --git a/introduction.tex b/introduction.tex
+index aa9ec1b..bba70a6 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -156,6 +156,18 @@ \subsection{Transition from earlier specification=20
+drafts}\label{sec:Transition f
+ =C2=A0sections tagged "Legacy Interface" in the section title.
+ =C2=A0These highlight the changes made since the earlier drafts.
+
++\subsection{Device group}\label{sec:Introduction / Terminology / Device=20
+group}
++
++A device group includes one or more virtio devices.
++Each virtio device has a unique virtio device id (vdev_id) within a=20
+device group. A valid vdev_id is a 64-bit field in the range of
++0x0 - 0xFFFFFFFFFFFFFFF0. Vdev_id 0xFFFFFFFFFFFFFFFF is a value that=20
+refers to all devices in a device group and isn't a valid vdev_id.
++
++For now, the supported device groups are:
++\begin{enumerate}
++\item SR-IOV type - A virtio PCI SR-IOV physical function (PF) and its=20
+PCI SR-IOV virtual functions (VFs). For this group type, the PF device=20
+has vdev_id that is equal to 0
++and the VF devices have vdev_id's that are equal to their vf_number=20
+(according to the PCI SR-IOV specification).
++\end{enumerate}
++
+ =C2=A0\section{Structure Specifications}\label{sec:Structure Specification=
+s}
+
+MST/Jason/Cornelia,
+
+can you add some Reviewed-By signatures if the above is agreed ?
+
+
 
 >
-> ---Trilok Soni
-
-
---=20
-Alex Benn=C3=A9e
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+>
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
+ists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
+>
 
