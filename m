@@ -1,61 +1,80 @@
-Return-Path: <helei.sig11@bytedance.com>
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Subject: Re: [virtio-comment] [External] [virtio-comment] [PATCH v4 1/1]
- virtio-crypto: introduce akcipher service
-From: =?utf-8?B?5L2V56OK?= <helei.sig11@bytedance.com>
-In-Reply-To: <87k09a8fuu.fsf@redhat.com>
-Date: Tue, 21 Jun 2022 18:36:59 +0800
-Message-Id: <F86BE6AC-E3F9-4B9D-A654-7CBECAEF1EF5@bytedance.com>
-References: <20220621100421.75356-1-helei.sig11@bytedance.com>
- <20220621100421.75356-2-helei.sig11@bytedance.com>
- <87pmj28gk4.fsf@redhat.com>
- <B0B1B7F6-E4C5-4510-955F-263EF47BF7F5@bytedance.com>
- <87k09a8fuu.fsf@redhat.com>
-Content-Type: text/plain;
-	charset=utf-8
+Return-Path: <virtio-comment-return-3099-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id E344098664C
+	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Jun 2022 11:59:36 +0000 (UTC)
+From: "Gittinger Joerg (XC-ECO/ESH2)" <Joerg.Gittinger@de.bosch.com>
+Date: Fri, 3 Jun 2022 11:59:33 +0000
+Message-ID: <AM7PR10MB393991E00607F2D6ACE978DBCDA19@AM7PR10MB3939.EURPRD10.PROD.OUTLOOK.COM>
+MIME-Version: 1.0
+Subject: [virtio-comment] =?iso-8859-1?Q?virtio-device_in_=B5C_of_a_SoC?=
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: =?utf-8?B?5L2V56OK?= <helei.sig11@bytedance.com>, "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.oasis-open.org, Xin Zeng <xin.zeng@intel.com>, arei.gonglei@huawei.com, pizhenwei@bytedance.com
+To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+Hi,
 
+I have a concrete request for a use-case to support by virtio, but am not s=
+ure where and how to discuss it. So please let me know if this mailing list=
+ is not the proper place. In detail I would like to get answers to:
+1) Is this the proper mailing list/place to discuss?
+2) Is the use case worth to discuss or is it out of the scope of virtio?
+3) How should it be discussed: with individual design proposals/code/patche=
+s or with sort of a concise design document?
 
-> On Jun 21, 2022, at 6:34 PM, Cornelia Huck <cohuck@redhat.com> wrote:
->=20
-> On Tue, Jun 21 2022, =E4=BD=95=E7=A3=8A <helei.sig11@bytedance.com> wrote=
-:
->=20
->>> On Jun 21, 2022, at 6:19 PM, Cornelia Huck <cohuck@redhat.com> wrote:
->>>=20
->>> On Tue, Jun 21 2022, Lei He <helei.sig11@bytedance.com> wrote:
->>>=20
->>>> Introduce akcipher (asymmetric key cipher) service type, several
->>>> asymmetric algorithms and relevent information:
->>>> - RSA(padding algorithm, ASN.1 schema definition)
->>>> - ECDSA(ECC algorithm)
->>>>=20
->>>> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
->>>> Signed-off-by: Lei He <helei.sig11@bytedance.com>
->>>> ---
->>>> introduction.tex  |  18 +++
->>>> virtio-crypto.tex | 351 ++++++++++++++++++++++++++++++++++++++++++++++=
-+++++++-
->>>> 2 files changed, 363 insertions(+), 6 deletions(-)
->>>=20
->>> Hm, there's currently a ballot running on v3... I assume you want the
->>> changes in v4 instead?
->>>=20
->>> Do you want to withdraw the ballot (and re-initiate voting for v4)?
->>>=20
->>=20
->> Yes, I want to re-initiate voting for v4. After the code was reviewed, t=
-here was a little
->> conflict with the v3, so the v4 was pushed to make the protocol and code=
- consistent.
->> Is there anything else I need to do to?
->=20
-> I did just withdraw the ballot, so nothing else from your side for now.
->=20
+The roughly outlined use case we are interested in is this:=20
+On many embedded System-on-Chips (SoCs) nowadays microcontrollers for real-=
+time OS (RTOS) and micro processors for Rich OS like Linux share access to =
+a common region in RAM. The idea is that if the RTOS on the =B5C would impl=
+ement virtio-device(s) using MMIO transport as a shared memory in RAM, virt=
+io-drivers implemented in Linux could directly communicate with the device =
+in the RTOS on the =B5C (yes, given the precondition that all queues + buff=
+ers are in common RAM and if cross-processor IRQs exist). There would be no=
+ hypervisor, the MMIO transport resides in a RAM area. Virtio devices like =
+crypto, socket, entropy, net,... could be implemented on the RTOS and used =
+by a rich OS like Linux out-of-the-box on such SoCs.
 
-Thanks a million :-)
+Unfortunately this is currently not supported with virtio MMIO transport, b=
+ecause for instance the feature and queue negotiation sequences at device i=
+nitialization phase implicitly require synchronous actions by the device on=
+ single MMIO-write operations performed by the driver which cannot be accom=
+plished with pure memory accesses. For instance the sequence:
+
+driver -> device: write IDX to register DeviceFeaturesSel
+driver <- device: read register DeviceFeatures (<-- value dependent on IDX)
+
+will not succeed because the driver running on a different processor would =
+have to wait until the device had recognized IDX and had written the correc=
+t feature bits word to the DeviceFeatures register in the common MMIO RAM. =
+Supporting this use case with virtio with the existing MMIO transport would=
+ require extending MMIO with additional synchronization options between suc=
+h write and read operations. Or a completely new synchronous MMIO transport=
+ would be required.
+
+Best regards + appreciating your comments
+Joerg
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
