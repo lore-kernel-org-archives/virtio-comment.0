@@ -1,143 +1,50 @@
-Return-Path: <mst@redhat.com>
-Date: Mon, 2 May 2022 08:16:59 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [virtio] [PATCH] acknowledgements: update for 1.2
-Message-ID: <20220502081625-mutt-send-email-mst@kernel.org>
-References: <20220502113914.20119-1-mst@redhat.com>
- <874k286sjs.fsf@redhat.com>
+Return-Path: <virtio-comment-return-3103-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 9E23D98634A
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Jun 2022 09:37:10 +0000 (UTC)
+From: "Bradford, Robert" <robert.bradford@intel.com>
+Date: Mon, 6 Jun 2022 09:35:49 +0000
+Message-ID: <819567d71d72495b6ab71eda915dcfdb8470467b.camel@intel.com>
+References: <877d61wuc0.fsf@linaro.org>
+In-Reply-To: <877d61wuc0.fsf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <874k286sjs.fsf@redhat.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org
+Subject: Re: [virtio-comment] Next VirtIO device for Project Stratos?
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <D9230355B1A45A499216D0326E968D23@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
+To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, May 02, 2022 at 02:13:43PM +0200, Cornelia Huck wrote:
-> On Mon, May 02 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
->=20
-> > To keep things simple I decided to just move the previous content
-> > to a historical acknowledgements section and add a new one.
->=20
-> Yes, that makes sense.
->=20
-> Btw: do we update the affiliations of people who moved employers in the
-> meantime? Or do we reflect the state at the time they contributed?
-
-I'd say at the time they contributed, my assumption is it is not
-an individual contribution.
-
-> >
-> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> > ---
-> >
-> >
-> >  acknowledgements.tex | 75 +++++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 74 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/acknowledgements.tex b/acknowledgements.tex
-> > index 4520cd3..1c0a155 100644
-> > --- a/acknowledgements.tex
-> > +++ b/acknowledgements.tex
-> > @@ -5,6 +5,78 @@ \chapter{Acknowledgements}\label{chap:Acknowledgements}
-> > =20
-> >  The following individuals have participated in the creation of this sp=
-ecification and are gratefully acknowledged:
-> > =20
-> > +\subsection*{Participants}
-> > +Alexander Duyck, Intel \newline
-> > +Alex Benn=E9e, Linaro \newline
-> > +Anton Yakovlev, OpenSynergy \newline
-> > +Arseny Krasnov, Kaspersky Lab \newline
-> > +Cornelia Huck, Red Hat \newline
-> > +David Hildenbrand, Red Hat \newline
-> > +David Stevens, Chromium \newline
-> > +Dr. David Alan Gilbert, Red Hat \newline
-> > +Enrico Granata, Google \newline
-> > +Eugenio P=E9rez, Red Hat \newline
-> > +Felipe Franciosi, Nutanix \newline
-> > +Gaetan Harter, OpenSynergy \newline
-> > +Gerd Hoffmann, Red Hat \newline
-> > +Gurchetan Singh, Chromium \newline
-> > +Halil Pasic, IBM \newline
-> > +Hao Chen, Google \newline
-> > +Huang Yang, Intel \newline
-> > +Jan Kiszka, Siemens \newline
-> > +Jean-Philippe Brucker, Linaro \newline
-> > +Jiang Wang, Bytedance \newline
-> > +Jie Deng, Intel \newline
-> > +Joel Nider, Individual \newline
-> > +Johannes Berg, Intel \newline
-> > +Junji Wei, Bytedance \newline
-> > +Keiichi Watanabe, Chromium \newline
-> > +Marcel Holtmann, Individual \newline
-> > +Max Gurtovoy, Nvidia \newline
-> > +Michael S. Tsirkin, Red Hat \newline
-> > +Nikos Dragazis, Arrikto \newline
-> > +Pankaj Gupta, Red Hat \newline
-> > +Paolo Bonzini, Red Hat \newline
-> > +Parav Pandit, Nvidia \newline
-> > +Peter Hilber, OpenSynergy \newline
-> > +Petre Eftime, Amazon \newline
-> > +Philipp Hahn, Univention \newline
-> > +Rob Bradford, Intel \newline
-> > +Stefan Fritsch, Individual \newline
-> > +Stefan Hajnoczi, Red Hat \newline
-> > +Stefano Garzarella, Red Hat \newline
-> > +Taylor Stark, Microsoft \newline
-> > +Tiwei Bie, Intel \newline
-> > +Viresh Kumar, Linaro \newline
-> > +Vitaly Mireyno, Marvell \newline
-> > +Xuan Zhuo, Alibaba \newline
-> > +Yadong Qi, Intel \newline
-> > +Yoni Bettan, Red Hat \newline
-> > +Yuri Benditovich, Red Hat / Daynix \newline
-> > +
-> > +The following non-members have provided valuable feedback on this
-> > +specification and are gratefully acknowledged:
-> > +
-> > +\subsection*{Reviewers}
-> > +Christophe de Dinechin, Red Hat \newline
-> > +Gil Savir, Intel \newline
-> > +Ruchika Gupta, Linaro \newline
-> > +Arnd Bergmann, Individual \newline
-> > +Bing Zhu, Intel \newline
-> > +Eduardo Habkost, Red Hat \newline
-> > +Eric Auger, Red Hat \newline
-> > +Jason Wang, Red Hat \newline
-> > +Jens Freimann, Red Hat \newline
-> > +Kevin Tian, Intel \newline
-> > +Linus Walleij, Linaro \newline
-> > +Matti M=F6ll, OpenSynergy \newline
-> > +Tomas Winkler, Intel \newline
-> > +Yang Huang, Intel \newline
-> > +
-> > +
-> > +The following individuals have participated in the creation of
-> > +previous versions of this specification and are gratefully acknowledge=
-d:
-> > +
-> >  \subsection*{Participants}
-> >  Allen Chia, Oracle	\newline
-> >  Amit Shah,	Red Hat	\newline
-> > @@ -59,7 +131,8 @@ \subsection*{Participants}
-> >  Wei Wang, Intel	\newline
-> >  Xin Zeng, Intel	\newline
-> > =20
-> > -The following non-members have provided valuable feedback on this
-> > +The following non-members have provided valuable feedback on
-> > +previous versions of this
-> >  specification and are gratefully acknowledged:
-> > =20
-> >  \subsection*{Reviewers}
-> > --=20
-> > MST
-> >
-> >
-> > ---------------------------------------------------------------------
-> > To unsubscribe from this mail list, you must leave the OASIS TC that=20
-> > generates this mail.  Follow this link to all your TCs in OASIS at:
-> > https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php =
-
+T24gVHVlLCAyMDIyLTA1LTMxIGF0IDA5OjA3ICswMTAwLCBBbGV4IEJlbm7DqWUgd3JvdGU6DQo+
+IFdhdGNoZG9nIC8gMzUNCj4gLS0tLS0tLS0tLS0tLQ0KPiANCj4gRGlzY3Vzc2lvbiBhYm91dCB0
+aGlzIGlzIHVzdWFsbHkgY29uZmxhdGVkIHdpdGggcmVzZXQgZnVuY3Rpb25hbGl0eQ0KPiBhcw0K
+PiB0aGUgdHdvIGFyZSBpbnRpbWF0ZWx5IHJlbGF0ZWQuDQo+IA0KPiBBbiBlYXJseSBpbnRlcmVz
+dCBpbiB0aGlzIHdhcyBmb3IgcHJvdmlkaW5nIGEgd2VsbCBzcGVjaWZpZWQgcmVzZXQNCj4gZnVu
+Y3Rpb25hbGl0eSBmaXJtd2FyZSBydW5uaW5nIG9uIHRoZSAtTSB2aXJ0IG1hY2hpbmUgbW9kZWwg
+aW4gUUVNVS4NCj4gVGhlDQo+IG5lZWQgaGFzIGJlZW4gcmVkdWNlZCBzb21ld2hhdCB3aXRoIHRo
+ZSBwcm92aXNpb24gb2YgdGhlIHNic2EtcmVmDQo+IG1vZGVsDQo+IHdoaWNoIGRvZXMgaGF2ZSBh
+IGRlZmluZWQgcmVzZXQgcGluLg0KPiANCj4gT3RoZXIgcXVlc3Rpb25zIHRoYXQgd291bGQgbmVl
+ZCB0byBiZSBhbnN3ZXJlZCBpbmNsdWRlIGhvdyB0aGUNCj4gZnVuY3Rpb25hbGl0eSB3b3VsZCBp
+bnRlcmFjdCB3aXRoIHRoZSBoeXBlcnZpc29yIGdpdmVuIGEgdkNQVSBjb3VsZA0KPiBlYXNpbHkg
+bm90IGJlIHNjaGVkdWxlZCBieSBpdCBhbmQgdGhlcmVmb3JlIG1pc3MgaXRzIGtpY2sgd2luZG93
+Lg0KPiANCg0KSSBndWVzcyB0aGlzIGEgcmlzayB3aXRoIGFueSB1c2Ugb2YgYSB3YXRjaGRvZyB3
+aGV0aGVyIGl0IGJlIGVtdWxhdGluZw0KYSBwaHlzaWNhbCBkZXZpY2Ugb3IgYSBwYXJhdmlydHVh
+bGlzZWQgb25lLiBJbiBwcmFjdGljZSB3ZSBoYXZlIG5ldmVyDQpzZWVuIHRoaXMuDQoNCj4gQ3Vy
+cmVudGx5IHRoZXJlIGhhdmUgYmVlbiBubyBwcm9wb3NhbHMgZm9yIHRoZSBzcGVjIG9yDQo+IGlt
+cGxlbWVudGF0aW9ucy4NCg0KSSB3YXMgdGhlIG9uZSB3aG8gcmVxdWVzdGVkIHRoZSBJRCBiZSBy
+ZXNlcnZlZC4gV2UgaGF2ZSBhbg0KaW1wbGVtZW50YXRpb24gaW4gQ2xvdWQgSHlwZXJ2aXNvcjoN
+Cmh0dHBzOi8vZ2l0aHViLmNvbS9jbG91ZC1oeXBlcnZpc29yL2Nsb3VkLWh5cGVydmlzb3IvYmxv
+Yi9tYWluL3ZpcnRpby1kZXZpY2VzL3NyYy93YXRjaGRvZy5ycw0KDQpBcyB3ZWxsIGFzIHRoZSBr
+ZXJuZWwgc2lkZTogDQoNCmh0dHBzOi8vZ2l0aHViLmNvbS9jbG91ZC1oeXBlcnZpc29yL2xpbnV4
+L2NvbW1pdC9jYzhmNzU3OWZhYWQ3OWNkZjAyZjliNmE3NDI1MTBjZDFiMWNmMzQwDQoNCkkgYWRt
+aXQgd3JpdGluZyB1cCBhIHBhdGNoIGZvciB0aGUgc3BlY2lmaWNhdGlvbiBmZWxsIHRocm91Z2gg
+dGhlDQpjcmFja3MuIFRoYXQncyBzb21ldGhpbmcgSSB3aWxsIHRyeSB0byByZWN0aWZ5IGluIHRo
+ZSBuZWFyIGZ1dHVyZSBhcyBpdA0Kd291bGQgYWxzbyBiZSBuaWNlIHRvIGJlIGFibGUgdG8gdXBz
+dHJlYW0gdGhlIGtlcm5lbCBwYXRjaC4NCg0KQ2hlZXJzLA0KDQpSb2INCg==
 
