@@ -1,76 +1,81 @@
-Return-Path: <virtio-comment-return-3109-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3108-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 939EA986407
-	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Jun 2022 12:40:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2D1D1986408
+	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Jun 2022 12:37:04 +0000 (UTC)
 References: <877d61wuc0.fsf@linaro.org>
- <819567d71d72495b6ab71eda915dcfdb8470467b.camel@intel.com>
+ <80aace95-6c39-c7b9-61ba-70d60bcd08b2@quicinc.com>
+ <c642058f36321cb7dfdfaa4664f5323841b65450.camel@sipsolutions.net>
+ <a3856ec8-90d6-df19-2b5f-bc42700b09db@quicinc.com>
 From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Wed, 08 Jun 2022 13:38:03 +0100
-In-reply-to: <819567d71d72495b6ab71eda915dcfdb8470467b.camel@intel.com>
-Message-ID: <87r13ztjkq.fsf@linaro.org>
+Date: Wed, 08 Jun 2022 13:28:25 +0100
+In-reply-to: <a3856ec8-90d6-df19-2b5f-bc42700b09db@quicinc.com>
+Message-ID: <87v8tbtjpv.fsf@linaro.org>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] Next VirtIO device for Project Stratos?
+Subject: [virtio-comment] Re: [Stratos-dev] Next VirtIO device for Project Stratos?
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-To: "Bradford, Robert" <robert.bradford@intel.com>
-Cc: virtio-comment@lists.oasis-open.org
+To: Trilok Soni <quic_tsoni@quicinc.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, stratos-dev@op-lists.linaro.org, virtio-dev@lists.oasis-open.org, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Matt Spencer <Matt.Spencer@arm.com>, Gerd Hoffmann <kraxel@redhat.com>, Arnd Bergmann <arnd.bergmann@linaro.org>, Christian Pinto <c.pinto@virtualopensystems.com>, Namhyung Kim <namhyung@kernel.org>, Petre Eftime <epetre@amazon.com>, Peter Hilber <peter.hilber@opensynergy.com>, Marcel Holtmann <marcel@holtmann.org>, "Michael S. Tsirkin" <mst@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, quic_pdaly@quicinc.com, pdaly@quicinc.com, svaddagi@qti.qualcomm.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
 
-"Bradford, Robert" <robert.bradford@intel.com> writes:
+Trilok Soni <quic_tsoni@quicinc.com> writes:
 
-> On Tue, 2022-05-31 at 09:07 +0100, Alex Benn=C3=A9e wrote:
->> Watchdog / 35
->> -------------
+> On 6/1/2022 1:06 PM, Johannes Berg wrote:
+>> Hi,
+>> Not sure if there was anything you wanted me to comment on, but
+>> since
+>> I'm "the wifi guy" ... :)
 >>=20
->> Discussion about this is usually conflated with reset functionality
+>>>> mac80211 wlan / 10
+>> FWIW, even though I'm the mac80211 maintainer, I'm not aware of a
+>> specification or implementation of this ... I don't know what this is at
+>> all.
+>>=20
+>>>> mac80211 hwsim wireless simulation device / 29
+>> This I implemented (both a driver in mac80211-hwsim in the kernel,
 >> as
->> the two are intimately related.
->>=20
->> An early interest in this was for providing a well specified reset
->> functionality firmware running on the -M virt machine model in QEMU.
->> The
->> need has been reduced somewhat with the provision of the sbsa-ref
->> model
->> which does have a defined reset pin.
->>=20
->> Other questions that would need to be answered include how the
->> functionality would interact with the hypervisor given a vCPU could
->> easily not be scheduled by it and therefore miss its kick window.
->>=20
->
-> I guess this a risk with any use of a watchdog whether it be emulating
-> a physical device or a paravirtualised one. In practice we have never
-> seen this.
->
->> Currently there have been no proposals for the spec or
->> implementations.
->
-> I was the one who requested the ID be reserved. We have an
-> implementation in Cloud Hypervisor:
-> https://github.com/cloud-hypervisor/cloud-hypervisor/blob/main/virtio-dev=
-ices/src/watchdog.rs
->
+>> well as a device in wmediumd), but I wouldn't really necessarily
+>> recommend using it for anything but testing.
 
-Ahh good. I guess it could be another cloud hypervisor component that
-makes the transition to rust-vmm if there is interest?
+I assume the use-case for this is something like a virtualised Android
+OS. For cloud native testing I guess a simulation device provides enough of
+what you need to exercise the guests network stack. However for real
+deployments you need something to allow selection of networks and
+reporting of network quality.
 
-> As well as the kernel side:=20
->
-> https://github.com/cloud-hypervisor/linux/commit/cc8f7579faad79cdf02f9b6a=
-742510cd1b1cf340
->
-> I admit writing up a patch for the specification fell through the
-> cracks. That's something I will try to rectify in the near future as it
-> would also be nice to be able to upstream the kernel patch.
+I'm not super familiar with the wifi stack but is this all usually
+handled in one place or do multiple userspace daemons interrogate the
+kernel APIs for this information?
 
-Thanks, please feel free to Cc me on any such patches and we can take a
-look.
+If it all comes through one place perhaps it's enough for it to be given
+a pipe to the host to make those queries - effectively creating a proxy
+to the real host kernel interface?
+
+>>> I am not sure if this related but virtio-ethernet keeps coming to us as
+>>> requirement, I am not sure about the what is the support available in
+>>> the various projects including Xen. This is a non-Mobile requirement
+>>> particularly from the IOT or Auto segments. It will be nice to do adb
+>>> over ethernet in the guest VM from the host shell.
+>> For ethernet you have normal virtio-net.
+>
+> Thanks. Virtio-net is available, but I think e2e usecase w/ Type-1
+> Hypervisor is what I am looking for. I believe CrosVM also supports
+> Virtio-net but I am not sure if it works w/ Xen or not.
+
+In normal Xen you would have a Dom0 with a traditional kernel driver to
+service the backend. In a more modular setup you might want to have a
+driver domain that combines the backend with the real HW driver running
+as a unikernel?
+
+>
+> ---Trilok Soni
+
 
 --=20
 Alex Benn=C3=A9e
