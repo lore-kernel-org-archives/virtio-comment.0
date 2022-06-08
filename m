@@ -1,50 +1,95 @@
-Return-Path: <virtio-comment-return-3103-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3109-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9E23D98634A
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Jun 2022 09:37:10 +0000 (UTC)
-From: "Bradford, Robert" <robert.bradford@intel.com>
-Date: Mon, 6 Jun 2022 09:35:49 +0000
-Message-ID: <819567d71d72495b6ab71eda915dcfdb8470467b.camel@intel.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 939EA986407
+	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Jun 2022 12:40:09 +0000 (UTC)
 References: <877d61wuc0.fsf@linaro.org>
-In-Reply-To: <877d61wuc0.fsf@linaro.org>
+ <819567d71d72495b6ab71eda915dcfdb8470467b.camel@intel.com>
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+Date: Wed, 08 Jun 2022 13:38:03 +0100
+In-reply-to: <819567d71d72495b6ab71eda915dcfdb8470467b.camel@intel.com>
+Message-ID: <87r13ztjkq.fsf@linaro.org>
 MIME-Version: 1.0
 Subject: Re: [virtio-comment] Next VirtIO device for Project Stratos?
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D9230355B1A45A499216D0326E968D23@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
-To: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+To: "Bradford, Robert" <robert.bradford@intel.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-T24gVHVlLCAyMDIyLTA1LTMxIGF0IDA5OjA3ICswMTAwLCBBbGV4IEJlbm7DqWUgd3JvdGU6DQo+
-IFdhdGNoZG9nIC8gMzUNCj4gLS0tLS0tLS0tLS0tLQ0KPiANCj4gRGlzY3Vzc2lvbiBhYm91dCB0
-aGlzIGlzIHVzdWFsbHkgY29uZmxhdGVkIHdpdGggcmVzZXQgZnVuY3Rpb25hbGl0eQ0KPiBhcw0K
-PiB0aGUgdHdvIGFyZSBpbnRpbWF0ZWx5IHJlbGF0ZWQuDQo+IA0KPiBBbiBlYXJseSBpbnRlcmVz
-dCBpbiB0aGlzIHdhcyBmb3IgcHJvdmlkaW5nIGEgd2VsbCBzcGVjaWZpZWQgcmVzZXQNCj4gZnVu
-Y3Rpb25hbGl0eSBmaXJtd2FyZSBydW5uaW5nIG9uIHRoZSAtTSB2aXJ0IG1hY2hpbmUgbW9kZWwg
-aW4gUUVNVS4NCj4gVGhlDQo+IG5lZWQgaGFzIGJlZW4gcmVkdWNlZCBzb21ld2hhdCB3aXRoIHRo
-ZSBwcm92aXNpb24gb2YgdGhlIHNic2EtcmVmDQo+IG1vZGVsDQo+IHdoaWNoIGRvZXMgaGF2ZSBh
-IGRlZmluZWQgcmVzZXQgcGluLg0KPiANCj4gT3RoZXIgcXVlc3Rpb25zIHRoYXQgd291bGQgbmVl
-ZCB0byBiZSBhbnN3ZXJlZCBpbmNsdWRlIGhvdyB0aGUNCj4gZnVuY3Rpb25hbGl0eSB3b3VsZCBp
-bnRlcmFjdCB3aXRoIHRoZSBoeXBlcnZpc29yIGdpdmVuIGEgdkNQVSBjb3VsZA0KPiBlYXNpbHkg
-bm90IGJlIHNjaGVkdWxlZCBieSBpdCBhbmQgdGhlcmVmb3JlIG1pc3MgaXRzIGtpY2sgd2luZG93
-Lg0KPiANCg0KSSBndWVzcyB0aGlzIGEgcmlzayB3aXRoIGFueSB1c2Ugb2YgYSB3YXRjaGRvZyB3
-aGV0aGVyIGl0IGJlIGVtdWxhdGluZw0KYSBwaHlzaWNhbCBkZXZpY2Ugb3IgYSBwYXJhdmlydHVh
-bGlzZWQgb25lLiBJbiBwcmFjdGljZSB3ZSBoYXZlIG5ldmVyDQpzZWVuIHRoaXMuDQoNCj4gQ3Vy
-cmVudGx5IHRoZXJlIGhhdmUgYmVlbiBubyBwcm9wb3NhbHMgZm9yIHRoZSBzcGVjIG9yDQo+IGlt
-cGxlbWVudGF0aW9ucy4NCg0KSSB3YXMgdGhlIG9uZSB3aG8gcmVxdWVzdGVkIHRoZSBJRCBiZSBy
-ZXNlcnZlZC4gV2UgaGF2ZSBhbg0KaW1wbGVtZW50YXRpb24gaW4gQ2xvdWQgSHlwZXJ2aXNvcjoN
-Cmh0dHBzOi8vZ2l0aHViLmNvbS9jbG91ZC1oeXBlcnZpc29yL2Nsb3VkLWh5cGVydmlzb3IvYmxv
-Yi9tYWluL3ZpcnRpby1kZXZpY2VzL3NyYy93YXRjaGRvZy5ycw0KDQpBcyB3ZWxsIGFzIHRoZSBr
-ZXJuZWwgc2lkZTogDQoNCmh0dHBzOi8vZ2l0aHViLmNvbS9jbG91ZC1oeXBlcnZpc29yL2xpbnV4
-L2NvbW1pdC9jYzhmNzU3OWZhYWQ3OWNkZjAyZjliNmE3NDI1MTBjZDFiMWNmMzQwDQoNCkkgYWRt
-aXQgd3JpdGluZyB1cCBhIHBhdGNoIGZvciB0aGUgc3BlY2lmaWNhdGlvbiBmZWxsIHRocm91Z2gg
-dGhlDQpjcmFja3MuIFRoYXQncyBzb21ldGhpbmcgSSB3aWxsIHRyeSB0byByZWN0aWZ5IGluIHRo
-ZSBuZWFyIGZ1dHVyZSBhcyBpdA0Kd291bGQgYWxzbyBiZSBuaWNlIHRvIGJlIGFibGUgdG8gdXBz
-dHJlYW0gdGhlIGtlcm5lbCBwYXRjaC4NCg0KQ2hlZXJzLA0KDQpSb2INCg==
+
+"Bradford, Robert" <robert.bradford@intel.com> writes:
+
+> On Tue, 2022-05-31 at 09:07 +0100, Alex Benn=C3=A9e wrote:
+>> Watchdog / 35
+>> -------------
+>>=20
+>> Discussion about this is usually conflated with reset functionality
+>> as
+>> the two are intimately related.
+>>=20
+>> An early interest in this was for providing a well specified reset
+>> functionality firmware running on the -M virt machine model in QEMU.
+>> The
+>> need has been reduced somewhat with the provision of the sbsa-ref
+>> model
+>> which does have a defined reset pin.
+>>=20
+>> Other questions that would need to be answered include how the
+>> functionality would interact with the hypervisor given a vCPU could
+>> easily not be scheduled by it and therefore miss its kick window.
+>>=20
+>
+> I guess this a risk with any use of a watchdog whether it be emulating
+> a physical device or a paravirtualised one. In practice we have never
+> seen this.
+>
+>> Currently there have been no proposals for the spec or
+>> implementations.
+>
+> I was the one who requested the ID be reserved. We have an
+> implementation in Cloud Hypervisor:
+> https://github.com/cloud-hypervisor/cloud-hypervisor/blob/main/virtio-dev=
+ices/src/watchdog.rs
+>
+
+Ahh good. I guess it could be another cloud hypervisor component that
+makes the transition to rust-vmm if there is interest?
+
+> As well as the kernel side:=20
+>
+> https://github.com/cloud-hypervisor/linux/commit/cc8f7579faad79cdf02f9b6a=
+742510cd1b1cf340
+>
+> I admit writing up a patch for the specification fell through the
+> cracks. That's something I will try to rectify in the near future as it
+> would also be nice to be able to upstream the kernel patch.
+
+Thanks, please feel free to Cc me on any such patches and we can take a
+look.
+
+--=20
+Alex Benn=C3=A9e
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
