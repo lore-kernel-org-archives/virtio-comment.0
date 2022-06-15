@@ -1,132 +1,74 @@
-Return-Path: <virtio-return-3795-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio@lists.oasis-open.org>
-List-Post: <mailto:virtio@lists.oasis-open.org>
-List-Help: <mailto:virtio-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-subscribe@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3125-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 8902A9865E9
+	for <virtio-comment@lists.oasis-open.org>; Wed, 15 Jun 2022 15:54:14 +0000 (UTC)
+Date: Wed, 15 Jun 2022 15:11:40 +0100
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <YqnonNuBc/WMWha0@stefanha-x1.localdomain>
+References: <20220404134931.28697-1-lauralg@amazon.com>
 MIME-Version: 1.0
-From: Chet Ensign <chet.ensign@oasis-open.org>
-Date: Fri, 24 Jun 2022 16:33:34 -0400
-Message-ID: <CAAwgnnN3zkPOTdWDNXbc9Ff34Ldax3wEzkPDebe50=mP-QXTNw@mail.gmail.com>
-Subject: [virtio] Ballot to approve Virtual I/O Device (VIRTIO) Version 1.2 with
- Non-Material Changes made since its last public review has been set up
-Content-Type: multipart/alternative; boundary="000000000000a1d59705e2377c9f"
-To: project-announce@lists.oasis-open.org, Members <members@lists.oasis-open.org>
-Cc: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="iZtL+H+CSt9XhTS/"
+Content-Disposition: inline
+In-Reply-To: <20220404134931.28697-1-lauralg@amazon.com>
+Subject: Re: [virtio-comment] [PATCH] virtio-vsock: add max payload size
+ config field
+To: Laura Loghin <lauralg@amazon.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---000000000000a1d59705e2377c9f
-Content-Type: text/plain; charset="UTF-8"
-
-dThe VIRTIO TC members [1] have requested a Special Majority Vote to
-approve Virtual I/O Device (VIRTIO) Version 1.2 as a Committee
-Specification.
-
-Changes have been made to this Committee Draft since its last public
-review. The description of the changes can be inspected at
-https://www.oasis-open.org/apps/org/workgroup/virtio/ballot.php?id=3705&referring_url=%2Fkws.
-
-
-The TC judges these changes to be Non-Material in accordance with the
-definition in the OASIS TC Process (
-http://www.oasis-open.org/policies-guidelines/tc-process#dNonmaterialChange).
-The TC requested this ballot in accordance with the procedure for approving
-a Committee Specification or Note (
-http://www.oasis-open.org/policies-guidelines/tc-process#Non-MaterialChangesSummary
-).
-
-The ballot can be inspected at
-https://www.oasis-open.org/committees/ballot.php?id=3712. The ballot is
-open now and closes on 01 July 2022.
-
-Any Eligible Person concerned that the changes are Material is asked to
-bring their concern to OASIS TC Administration at
-tc-administration@lists.oasis-open.org so that the appropriate actions can
-be taken.
-
-[1] https://www.oasis-open.org/committees/virtio
-
--- 
-Chet Ensign
-
-Chief Technical Community Steward
-
-OASIS Open
-
-+1 201-341-1393 <+1+201-341-1393>
-chet.ensign@oasis-open.org
-www.oasis-open.org
-
---000000000000a1d59705e2377c9f
-Content-Type: text/html; charset="UTF-8"
+--iZtL+H+CSt9XhTS/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">dThe VIRTIO TC members [1] have requested a Special Majori=
-ty Vote to approve Virtual I/O Device (VIRTIO) Version 1.2 as a Committee S=
-pecification. <br><br>Changes have been made to this Committee Draft since =
-its last public review. The description of the changes can be inspected at =
-<a href=3D"https://www.oasis-open.org/apps/org/workgroup/virtio/ballot.php?=
-id=3D3705&amp;referring_url=3D%2Fkws">https://www.oasis-open.org/apps/org/w=
-orkgroup/virtio/ballot.php?id=3D3705&amp;referring_url=3D%2Fkws</a>. <br><b=
-r>The TC judges these changes to be Non-Material in accordance with the def=
-inition in the OASIS TC Process (<a href=3D"http://www.oasis-open.org/polic=
-ies-guidelines/tc-process#dNonmaterialChange">http://www.oasis-open.org/pol=
-icies-guidelines/tc-process#dNonmaterialChange</a>). The TC requested this =
-ballot in accordance with the procedure for approving a Committee Specifica=
-tion or Note (<a href=3D"http://www.oasis-open.org/policies-guidelines/tc-p=
-rocess#Non-MaterialChangesSummary">http://www.oasis-open.org/policies-guide=
-lines/tc-process#Non-MaterialChangesSummary</a>).<br><br>The ballot can be =
-inspected at <a href=3D"https://www.oasis-open.org/committees/ballot.php?id=
-=3D3712">https://www.oasis-open.org/committees/ballot.php?id=3D3712</a>. Th=
-e ballot is open now and closes on 01 July 2022.<br><br>Any Eligible Person=
- concerned that the changes are Material is asked to bring their concern to=
- OASIS TC Administration at <a href=3D"mailto:tc-administration@lists.oasis=
--open.org">tc-administration@lists.oasis-open.org</a> so that the appropria=
-te actions can be taken. <br><br>[1] <a href=3D"https://www.oasis-open.org/=
-committees/virtio">https://www.oasis-open.org/committees/virtio</a><br clea=
-r=3D"all"><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature" =
-data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><table cellspacing=3D"0=
-" cellpadding=3D"0" style=3D"font-family:Arial;vertical-align:-webkit-basel=
-ine-middle"><tbody><tr><td width=3D"70" style=3D"vertical-align:middle"><sp=
-an style=3D"margin-right:5px;display:block"><img width=3D"70" height=3D"70"=
- style=3D"max-width:70px" src=3D"https://ci3.googleusercontent.com/mail-sig=
-/AIorK4wWWvttK4QvAyLjmQRfbisd2jdvX84ncnFeBuJn9NtWvi8WHJIwVlm1HGm8Re2Ji0U6N1=
-0brtc"></span></td><td style=3D"vertical-align:middle"><h3 style=3D"margin:=
-0px;font-size:16px;color:rgb(0,0,0)">Chet=C2=A0Ensign</h3><p style=3D"margi=
-n:0px;color:rgb(0,0,0);font-size:12px;line-height:20px">Chief Technical Com=
-munity Steward</p><p style=3D"margin:0px;color:rgb(0,0,0);font-size:12px;li=
-ne-height:20px">OASIS Open</p></td><td width=3D"30">=C2=A0</td><td width=3D=
-"1" style=3D"width:1px;border-bottom:none;border-left:1px solid rgb(34,72,2=
-29)">=C2=A0</td><td width=3D"30">=C2=A0</td><td style=3D"vertical-align:mid=
-dle"><table cellspacing=3D"0" cellpadding=3D"0" style=3D"vertical-align:-we=
-bkit-baseline-middle;font-family:Arial"><tbody><tr style=3D"vertical-align:=
-middle"><td width=3D"30" style=3D"vertical-align:middle"><table cellspacing=
-=3D"0" cellpadding=3D"0" style=3D"vertical-align:-webkit-baseline-middle;fo=
-nt-family:Arial"><tbody><tr><td style=3D"vertical-align:bottom"><span style=
-=3D"display:block;background-color:rgb(34,72,229)"><img src=3D"https://cdn2=
-.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.p=
-ng" width=3D"13" style=3D"display:block"></span></td></tr></tbody></table><=
-/td><td style=3D"padding:2px;color:rgb(0,0,0)"><a href=3D"tel:+1+201-341-13=
-93" style=3D"color:rgb(0,0,0);font-size:12px" target=3D"_blank">+1 201-341-=
-1393</a></td></tr><tr style=3D"vertical-align:middle"><td width=3D"30" styl=
-e=3D"vertical-align:middle"><table cellspacing=3D"0" cellpadding=3D"0" styl=
-e=3D"vertical-align:-webkit-baseline-middle;font-family:Arial"><tbody><tr><=
-td style=3D"vertical-align:bottom"><span style=3D"display:block;background-=
-color:rgb(34,72,229)"><img src=3D"https://cdn2.hubspot.net/hubfs/53/tools/e=
-mail-signature-generator/icons/email-icon-2x.png" width=3D"13" style=3D"dis=
-play:block"></span></td></tr></tbody></table></td><td style=3D"padding:2px"=
-><a href=3D"mailto:chet.ensign@oasis-open.org" style=3D"color:rgb(0,0,0);fo=
-nt-size:12px" target=3D"_blank">chet.ensign@oasis-open.org</a></td></tr><tr=
- style=3D"vertical-align:middle"><td width=3D"30" style=3D"vertical-align:m=
-iddle"><table cellspacing=3D"0" cellpadding=3D"0" style=3D"vertical-align:-=
-webkit-baseline-middle;font-family:Arial"><tbody><tr><td style=3D"vertical-=
-align:bottom"><span style=3D"display:block;background-color:rgb(34,72,229)"=
-><img src=3D"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-genera=
-tor/icons/link-icon-2x.png" width=3D"13" style=3D"display:block"></span></t=
-d></tr></tbody></table></td><td style=3D"padding:2px"><a href=3D"https://ww=
-w.oasis-open.org" style=3D"color:rgb(0,0,0);font-size:12px" target=3D"_blan=
-k">www.oasis-open.org</a></td></tr></tbody></table></td></tr></tbody></tabl=
-e></div></div></div>
+On Mon, Apr 04, 2022 at 04:49:31PM +0300, Laura Loghin wrote:
+> @@ -57,6 +62,35 @@ \subsection{Device configuration layout}\label{sec:Dev=
+ice Types / Socket Device
+>  \hline
+>  \end{tabular}
+> =20
+> +The following driver-read-only field, \field{data_max_size} only exists =
+if
+> +VIRTIO_VSOCK_F_SIZE_MAX is set. This field specifies the maximum packet =
+payload
+> +size for the driver to use.
 
---000000000000a1d59705e2377c9f--
+This wording can be misinterpreted but can be kept for now. This wording
+should be updated when the next field is added in the future, indicating
+that the field is only *used* when VIRTIO_VSOCK_F_SIZE_MAX has been
+negotiated. Further fields will be located after data_max_size so the
+field certainly *exists* even when VIRTIO_VSOCK_F_SIZE_MAX is not set.
+
+If someone misinterprets this they might think the config struct layout
+depends on the combination of negotiated feature bits. That's not the
+case, the layout is always the same. The size of the struct depends on
+the features offered by the device.
+
+Similar wording is used elsewhere in the spec, so we may want to clarify
+it for the entire spec.
+
+Stefan
+
+--iZtL+H+CSt9XhTS/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmKp6JwACgkQnKSrs4Gr
+c8ieHAgAvixIwDxqB2sDBaEbAzaT1xe3xHJYiNjsEz2lIe+Z8fLa7zLn9P5XRUK4
+DZOj5GacNqkPaEGD39lqgbq3wz5XQJ0jHOqPFTweVj1OK+N2KvpUWN+4Uk9/CuIR
+Iul8X5/4ZvCvtybIqoHzeOl+3428iv/dhbCqJpqdnuoIz63cnzkj89UCO82lCxev
+AnV18nVSXI7rplL1JTbsOtcopZg7HqjdqFcbw9524zaD8fHmgnPcTjpW3g0gaVL2
+7jxNdyeCxOOO1pC32OOTaK0KPgkApfhq7FanfNkIJHVp2TWaQHA2zvmnapEbh5Cr
+7ay9lqDLmIQw9DckQEdSGogeRsbrUg==
+=wPm/
+-----END PGP SIGNATURE-----
+
+--iZtL+H+CSt9XhTS/--
 
