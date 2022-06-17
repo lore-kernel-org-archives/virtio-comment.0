@@ -1,73 +1,92 @@
-Return-Path: <virtio-comment-return-3162-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3128-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5330A98662C
-	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Jun 2022 13:22:49 +0000 (UTC)
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Wed, 22 Jun 2022 14:08:59 +0100
-Message-ID: <87fsjwrfx5.fsf@linaro.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 14730986752
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Jun 2022 11:20:50 +0000 (UTC)
+Date: Fri, 17 Jun 2022 07:20:41 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20220617071406-mutt-send-email-mst@kernel.org>
+References: <20210420183203.1227004-1-anton.yakovlev@opensynergy.com>
+ <87a6m74un0.fsf@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] virtio-media-source for cloud native workloads?
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-To: stratos-dev@op-lists.linaro.org, virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
-Cc: Matt Spencer <Matt.Spencer@arm.com>, Peter Griffin <peter.griffin@linaro.org>, Gerd Hoffmann <kraxel@redhat.com>, Arnd Bergmann <arnd.bergmann@linaro.org>, Viresh Kumar <viresh.kumar@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, Peter Hilber <peter.hilber@opensynergy.com>, "Michael S. Tsirkin" <mst@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>
+In-Reply-To: <87a6m74un0.fsf@redhat.com>
+Subject: Re: [virtio-comment] [PATCH] virtio-snd: add support for audio
+ controls
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: Anton Yakovlev <anton.yakovlev@opensynergy.com>, virtio-comment@lists.oasis-open.org, liam.r.girdwood@linux.intel.com, tiwai@suse.de, broonie@kernel.org, maz@kernel.org, james.morse@arm.com, julien.thierry.kdev@gmail.com, suzuki.poulose@arm.com, cdupontd@redhat.com, kraxel@redhat.com, jean-philippe@linaro.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+On Tue, Jul 27, 2021 at 05:57:23PM +0200, Cornelia Huck wrote:
+> On Tue, Apr 20 2021, Anton Yakovlev <anton.yakovlev@opensynergy.com> wrote:
+> 
+> > This patch extends the virtio sound device specification by adding
+> > support for audio controls. Audio controls can be used to set the volume
+> > level, mute/unmute the audio signal, switch different modes/states of
+> > the virtual sound device, etc.
+> >
+> > Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> > ---
+> >  conformance.tex  |   5 +
+> >  virtio-sound.tex | 374 ++++++++++++++++++++++++++++++++++++++++++++++-
+> >  2 files changed, 378 insertions(+), 1 deletion(-)
+> >
+> 
+> > @@ -50,6 +53,7 @@ \subsection{Device Configuration Layout}\label{sec:Device Types / Sound Device /
+> >      le32 jacks;
+> >      le32 streams;
+> >      le32 chmaps;
+> > +    le32 controls;
+> >  };
+> >  \end{lstlisting}
+> >  
+> > @@ -62,6 +66,9 @@ \subsection{Device Configuration Layout}\label{sec:Device Types / Sound Device /
+> >  PCM streams.
+> >  \item[\field{chmaps}] (driver-read-only) indicates a total number of all available
+> >  channel maps.
+> > +\item[\field{controls}] (driver-read-only) indicates a total number of all available
+> > +control elements if VIRTIO_SND_F_CTLS has been negotiated.
+> 
+> While the driver is not supposed to read this if the feature has not
+> been negotiated, do we also want to add a normative statement about what
+> the device is supposed to do in this case? Does the field always exist?
 
-Hi,
 
-In my last survey of assigned device numbers I went through all the
-currently assigned device numbers and attempted to glean their current
-status. However we currently don't have any devices that might be useful
-in a Cloud Native development environment.
+Cornelia this is a general issue in the spec. We should be clearer
+that
+- drivers should be ready for config space to be shorter
+or longer than described here, as long as they do not
+need to access outside of it, it is ok.
+- negotiated/offered confusion
 
-To define terms cloud native is the idea you can build a workload
-processing element as a VM and run it in the cloud. It consumes data
-from virtio-devices and processes it in someway. This VM can then be
-moved from being hosted in the cloud and into a real platform which
-still provides it's data via a virtio device. The idea being you get the
-same behaviour (as well as allowing for data to be recorded so future
-debugging/tuning work can be done in the cloud).
 
-Currently most of the virtio devices are actually data sinks - for
-example for virtio-video the guest pushes data to the video device for
-it to process. What we need is a device(s?) to be a source of data to
-feed to these workloads.
+I will revive my proposal where feature is negotiated even before
+FEATURES_OK
 
-Why virtio-media-source? Well rather than creating a device for every
-data type maybe it would make more sense to have a generic device which
-can advertise the data stream info in it's configuration space. This
-would allow the kernel driver to then route the data to the appropriate
-kernel subsystem (e.g. v4l or alsa).
+I think this can stand as is for now.
 
-Would having a virtio driver potentially feeding different sub-systems
-based on configuration be a problem?
+-- 
+MST
 
-What do people think?
 
---=20
-Alex Benn=C3=A9e
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
-=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
