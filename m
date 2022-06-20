@@ -1,94 +1,80 @@
-Return-Path: <prvs=16359df86=lauralg@amazon.com>
-Subject: Re: [virtio-comment] [PATCH v4] virtio-vsock: add max payload size config
- field
-Message-ID: <195bc6a5-754c-917b-bb77-b5da43d48011@amazon.com>
-Date: Mon, 20 Jun 2022 16:07:09 +0300
-MIME-Version: 1.0
+Return-Path: <virtio-comment-return-3141-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 4ECAD9862CB
+	for <virtio-comment@lists.oasis-open.org>; Mon, 20 Jun 2022 13:29:47 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+In-Reply-To: <195bc6a5-754c-917b-bb77-b5da43d48011@amazon.com>
 References: <20220613104038.22010-1-lauralg@amazon.com>
  <20220614135734.534dbc0b.pasic@linux.ibm.com>
- <20220616123431-mutt-send-email-mst@kernel.org> <87v8svr7oi.fsf@redhat.com>
+ <20220616123431-mutt-send-email-mst@kernel.org>
+ <87v8svr7oi.fsf@redhat.com>
  <20220620060834-mutt-send-email-mst@kernel.org>
- <0d4bdf1e-a9a5-53a7-690b-efcf0400dde2@amazon.com> <87sfnzr37i.fsf@redhat.com>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <87sfnzr37i.fsf@redhat.com>
-Content-Type: multipart/alternative;
-	boundary="------------KEf5hqt8mlpCOO0vzzmD0i6J"
-Content-Language: en-US
-To: Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+ <0d4bdf1e-a9a5-53a7-690b-efcf0400dde2@amazon.com>
+ <87sfnzr37i.fsf@redhat.com>
+ <195bc6a5-754c-917b-bb77-b5da43d48011@amazon.com>
+Date: Mon, 20 Jun 2022 15:29:42 +0200
+Message-ID: <87pmj3qx89.fsf@redhat.com>
+MIME-Version: 1.0
+Subject: Re: [virtio-comment] [PATCH v4] virtio-vsock: add max payload size
+ config field
+Content-Type: text/plain
+To: Laura Loghin <lauralg@amazon.com>, "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Halil Pasic <pasic@linux.ibm.com>, virtio-comment@lists.oasis-open.org, Stefano Garzarella <sgarzare@redhat.com>, stefanha@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------KEf5hqt8mlpCOO0vzzmD0i6J
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+On Mon, Jun 20 2022, Laura Loghin <lauralg@amazon.com> wrote:
 
-T24gNi8yMC8yMiAxNDoyMCwgQ29ybmVsaWEgSHVjayB3cm90ZToKPiBDQVVUSU9OOiBUaGlzIGVt
-YWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBvcmdhbml6YXRpb24uIERvIG5vdCBj
-bGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhl
-IHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgo+Cj4KPgo+IE9uIE1vbiwgSnVu
-IDIwIDIwMjIsIExhdXJhIExvZ2hpbjxsYXVyYWxnQGFtYXpvbi5jb20+ICB3cm90ZToKPgo+PiBP
-biA2LzIwLzIyIDEzOjEzLCBNaWNoYWVsIFMuIFRzaXJraW4gd3JvdGU6Cj4+PiBJZiBhbnlvbmUg
-ZWxzZSBpbnRlbmRzIHRvIGNoYW5nZSB0aGVpciB2b3Rlcywgbm90ZSB0b2RheSBpcwo+Pj4gdGhl
-IGxhc3Qgb3Bwb3J0dW5pdHkuCj4+Pgo+Pj4gQWx0ZXJuYXRpdmVseSwgTGF1cmEsIHdvdWxkIHlv
-dSBjb25zaWRlciB0byBhZGRyZXNzIHRoZSBpc3N1ZXM/Cj4+PiBJZiB5b3Ugd2FudCB1cyB0byB3
-aXRoZHJhdyB0aGUgYmFsbG90IHRvIGNvbnNpZGVyIHRoZSBvcHRpb25zLAo+Pj4gdGhhdCBpcyBv
-ayB0b28uCj4+Pgo+Pj4gLS0KPj4+IE1TVAo+Pj4KPj4gSGksCj4+Cj4+IEkgc2VudCBhIG1lc3Nh
-Z2UgYSBiaXQgZWFybGllci4gSSBwbGFuIHRvIGFkZHJlc3MgdGhlIGNvbW1lbnRzIHRoaXMgd2Vl
-ay4gSSdtIG5vdCB5ZXQgdmVyeSBmYW1pbGlhciB3aXRoIHRoZSB2b3RpbmcgcHJvY2VzcywgYnV0
-IGlmIGFkZHJlc3NpbmcgdGhlIGNvbW1lbnRzIG1lYW5zIHdpdGhkcmF3aW5nIHRoZSBiYWxsb3Qs
-IHRoYXQgaXMgZmluZSBvbiBteSBzaWRlLiBUaGFua3MhCj4gIldpdGhkcmF3aW5nIHRoZSBiYWxs
-b3QiIGlzIHN1cHBvc2VkIHRvIGJlIGFuIGFjdGl2ZSBhY3Rpb24gKHNvIGl0IG5lZWRzCj4gdG8g
-YmUgcmVxdWVzdGVkIGV4cGxpY2l0bHkgSU1ITywgc28gSSdkIHByZWZlciB0byBoYXZlIGFuIGV4
-cGxpY3QKPiBzdGF0ZW1lbnQgYmVmb3JlIGRvaW5nIHNvKS4KPgo+IElmIHlvdSBwbGFuIHRvIHNl
-bmQgYSBuZXcgdmVyc2lvbiB0byBiZSB2b3RlZCB1cG9uLCBwbGVhc2UganVzdCBzdGF0ZQo+IHRo
-YXQgeW91J2QgbGlrZSB0aGUgYmFsbG90IHRvIGJlIHdpdGhkcmF3bi4gVGhhbmtzIQo+Ck9LLCBJ
-J2QgbGlrZSBteSBiYWxsb3QgdG8gYmUgd2l0aGRyYXduLgoKVGhhbmtzLAoKTGF1cmEKCgoKQW1h
-em9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVyZWQgb2ZmaWNl
-OiAyN0EgU2YuIExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3IgMiwgSWFzaSwgSWFzaSBDb3VudHks
-IDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3RyYXRpb24gbnVt
-YmVyIEoyMi8yNjIxLzIwMDUuCg==
---------------KEf5hqt8mlpCOO0vzzmD0i6J
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+> On 6/20/22 14:20, Cornelia Huck wrote:
+>> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+>>
+>>
+>>
+>> On Mon, Jun 20 2022, Laura Loghin<lauralg@amazon.com>  wrote:
+>>
+>>> On 6/20/22 13:13, Michael S. Tsirkin wrote:
+>>>> If anyone else intends to change their votes, note today is
+>>>> the last opportunity.
+>>>>
+>>>> Alternatively, Laura, would you consider to address the issues?
+>>>> If you want us to withdraw the ballot to consider the options,
+>>>> that is ok too.
+>>>>
+>>>> --
+>>>> MST
+>>>>
+>>> Hi,
+>>>
+>>> I sent a message a bit earlier. I plan to address the comments this week. I'm not yet very familiar with the voting process, but if addressing the comments means withdrawing the ballot, that is fine on my side. Thanks!
+>> "Withdrawing the ballot" is supposed to be an active action (so it needs
+>> to be requested explicitly IMHO, so I'd prefer to have an explict
+>> statement before doing so).
+>>
+>> If you plan to send a new version to be voted upon, please just state
+>> that you'd like the ballot to be withdrawn. Thanks!
+>>
+> OK, I'd like my ballot to be withdrawn.
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA2LzIwLzIyIDE0OjIwLCBDb3JuZWxpYSBIdWNr
-IHdyb3RlOjxicj4KICAgIDwvZGl2PgogICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0i
-bWlkOjg3c2ZuenIzN2kuZnNmQHJlZGhhdC5jb20iPgogICAgICA8cHJlIGNsYXNzPSJtb3otcXVv
-dGUtcHJlIiB3cmFwPSIiPkNBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNp
-ZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNo
-bWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250
-ZW50IGlzIHNhZmUuCgoKCk9uIE1vbiwgSnVuIDIwIDIwMjIsIExhdXJhIExvZ2hpbiA8YSBjbGFz
-cz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86bGF1cmFsZ0BhbWF6b24uY29t
-Ij4mbHQ7bGF1cmFsZ0BhbWF6b24uY29tJmd0OzwvYT4gd3JvdGU6Cgo8L3ByZT4KICAgICAgPGJs
-b2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIg
-d3JhcD0iIj5PbiA2LzIwLzIyIDEzOjEzLCBNaWNoYWVsIFMuIFRzaXJraW4gd3JvdGU6CjwvcHJl
-PgogICAgICAgIDxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPgogICAgICAgICAgPHByZSBjbGFzcz0i
-bW96LXF1b3RlLXByZSIgd3JhcD0iIj5JZiBhbnlvbmUgZWxzZSBpbnRlbmRzIHRvIGNoYW5nZSB0
-aGVpciB2b3Rlcywgbm90ZSB0b2RheSBpcwp0aGUgbGFzdCBvcHBvcnR1bml0eS4KCkFsdGVybmF0
-aXZlbHksIExhdXJhLCB3b3VsZCB5b3UgY29uc2lkZXIgdG8gYWRkcmVzcyB0aGUgaXNzdWVzPwpJ
-ZiB5b3Ugd2FudCB1cyB0byB3aXRoZHJhdyB0aGUgYmFsbG90IHRvIGNvbnNpZGVyIHRoZSBvcHRp
-b25zLAp0aGF0IGlzIG9rIHRvby4KCi0tCk1TVAoKPC9wcmU+CiAgICAgICAgPC9ibG9ja3F1b3Rl
-PgogICAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+SGksCgpJIHNlbnQg
-YSBtZXNzYWdlIGEgYml0IGVhcmxpZXIuIEkgcGxhbiB0byBhZGRyZXNzIHRoZSBjb21tZW50cyB0
-aGlzIHdlZWsuIEknbSBub3QgeWV0IHZlcnkgZmFtaWxpYXIgd2l0aCB0aGUgdm90aW5nIHByb2Nl
-c3MsIGJ1dCBpZiBhZGRyZXNzaW5nIHRoZSBjb21tZW50cyBtZWFucyB3aXRoZHJhd2luZyB0aGUg
-YmFsbG90LCB0aGF0IGlzIGZpbmUgb24gbXkgc2lkZS4gVGhhbmtzIQo8L3ByZT4KICAgICAgPC9i
-bG9ja3F1b3RlPgogICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPgoiV2l0
-aGRyYXdpbmcgdGhlIGJhbGxvdCIgaXMgc3VwcG9zZWQgdG8gYmUgYW4gYWN0aXZlIGFjdGlvbiAo
-c28gaXQgbmVlZHMKdG8gYmUgcmVxdWVzdGVkIGV4cGxpY2l0bHkgSU1ITywgc28gSSdkIHByZWZl
-ciB0byBoYXZlIGFuIGV4cGxpY3QKc3RhdGVtZW50IGJlZm9yZSBkb2luZyBzbykuCgpJZiB5b3Ug
-cGxhbiB0byBzZW5kIGEgbmV3IHZlcnNpb24gdG8gYmUgdm90ZWQgdXBvbiwgcGxlYXNlIGp1c3Qg
-c3RhdGUKdGhhdCB5b3UnZCBsaWtlIHRoZSBiYWxsb3QgdG8gYmUgd2l0aGRyYXduLiBUaGFua3Mh
-Cgo8L3ByZT4KICAgIDwvYmxvY2txdW90ZT4KICAgIDxwcmU+T0ssIEknZCBsaWtlIG15IGJhbGxv
-dCB0byBiZSB3aXRoZHJhd24uPC9wcmU+CiAgICA8cHJlPgo8L3ByZT4KICAgIDxwcmU+VGhhbmtz
-LDwvcHJlPgogICAgPHByZT5MYXVyYQo8L3ByZT4KICA8cD48L3A+Cgo8cD48YnI+CkFtYXpvbiBE
-ZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdB
-IFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3MDAw
-NDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJlciBK
-MjIvMjYyMS8yMDA1LjwvcD4KPC9ib2R5Pgo8L2h0bWw+Cg==
---------------KEf5hqt8mlpCOO0vzzmD0i6J--
+Thanks for the confirmation, I just did that.
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
