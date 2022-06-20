@@ -1,85 +1,177 @@
-Return-Path: <mst@redhat.com>
-Date: Mon, 20 Jun 2022 06:13:25 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [virtio-comment] [PATCH v4] virtio-vsock: add max payload size
- config field
-Message-ID: <20220620060834-mutt-send-email-mst@kernel.org>
+Return-Path: <prvs=16359df86=lauralg@amazon.com>
+Subject: Re: [virtio-comment] [PATCH v4] virtio-vsock: add max payload size config
+ field
+Message-ID: <0d4bdf1e-a9a5-53a7-690b-efcf0400dde2@amazon.com>
+Date: Mon, 20 Jun 2022 13:18:15 +0300
+MIME-Version: 1.0
 References: <20220613104038.22010-1-lauralg@amazon.com>
  <20220614135734.534dbc0b.pasic@linux.ibm.com>
- <20220616123431-mutt-send-email-mst@kernel.org>
- <87v8svr7oi.fsf@redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <87v8svr7oi.fsf@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: Halil Pasic <pasic@linux.ibm.com>, Laura Loghin <lauralg@amazon.com>, virtio-comment@lists.oasis-open.org, Stefano Garzarella <sgarzare@redhat.com>, stefanha@redhat.com
+ <20220616123431-mutt-send-email-mst@kernel.org> <87v8svr7oi.fsf@redhat.com>
+ <20220620060834-mutt-send-email-mst@kernel.org>
+From: Laura Loghin <lauralg@amazon.com>
+In-Reply-To: <20220620060834-mutt-send-email-mst@kernel.org>
+Content-Type: multipart/alternative;
+	boundary="------------GOVtvWSYM9z0HGIwqSYbQ6h3"
+Content-Language: en-US
+To: "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
+Cc: Halil Pasic <pasic@linux.ibm.com>, virtio-comment@lists.oasis-open.org, Stefano Garzarella <sgarzare@redhat.com>, stefanha@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, Jun 20, 2022 at 11:43:57AM +0200, Cornelia Huck wrote:
-> On Thu, Jun 16 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> 
-> > On Tue, Jun 14, 2022 at 01:57:34PM +0200, Halil Pasic wrote:
-> >> On Mon, 13 Jun 2022 13:40:38 +0300
-> >> Laura Loghin <lauralg@amazon.com> wrote:
-> >> 
-> >> > @@ -57,6 +62,25 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
-> >> >  \hline
-> >> >  \end{tabular}
-> >> >  
-> >> > +The following driver-read-only field, \field{data_max_size} only exists if
-> >> > +VIRTIO_VSOCK_F_SIZE_MAX is set. This field specifies the maximum packet payload
-> >> > +size for the driver to use.
-> >> > +
-> >> > +\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-> >> > +
-> >> > +The device MUST NOT change the value exposed through \field{data_max_size}.
-> >> > +
-> >> > +\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-> >> > +
-> >> > +A driver SHOULD negotiate VIRTIO_VSOCK_F_SIZE_MAX if the device offers it.
-> >> > +
-> >> > +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, the receive buffers it
-> >> > +supplies for a packet MUST have a total size that doesn't exceed the size
-> >> > +\field{data_max_size} (plus header length).
-> >> > +
-> >> > +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST  NOT transmit packets
-> >> > +of size exceeding the value of \field{data_max_size} (plus header length).
-> >> > +
-> >> 
-> >> Hi and sorry for being late to the party!
-> >> 
-> >> I believe I do understand why do we want to put a restriction on the
-> >> size of the transmitted packets, but I would appreciate if you could
-> >> explain to me why do we want to limit the receive buffer size.
-> >> 
-> >> Also I find the wording regarding a little bit ambiguous because
-> >> in a networking context it also makes sense to talk about the size of the
-> >> receive buffer. I guess hear we are talking about a single virtio buffer
-> >> (a descriptor chain described potentially non-continuous (or compact in
-> >> the mathematical sense of the word) which is composed from as many
-> >> continuous chunks of memory as many descriptors are contained within the
-> >> descriptor chain). If we are indeed talking about a single virtio buffer,
-> >> I don't understand the plural. If not, I'm not sure what are we talking
-> >> about.
-> >
-> > I think I agree here, I don't understand the mix of "buffers" and "a
-> > packet" either.
-> >
-> > I voted "no" on the ballot, though if others feel we should apply as
-> > is and fix up later, that is not too bad.
-> 
-> I now switched to "no" as well; it's not too bad to fix things later,
-> but it would be good if we had a common understanding before the change
-> goes in.
+--------------GOVtvWSYM9z0HGIwqSYbQ6h3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-If anyone else intends to change their votes, note today is
-the last opportunity.
+T24gNi8yMC8yMiAxMzoxMywgTWljaGFlbCBTLiBUc2lya2luIHdyb3RlOgo+IENBVVRJT046IFRo
+aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
+bm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmly
+bSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gT24gTW9u
+LCBKdW4gMjAsIDIwMjIgYXQgMTE6NDM6NTdBTSArMDIwMCwgQ29ybmVsaWEgSHVjayB3cm90ZToK
+Pj4gT24gVGh1LCBKdW4gMTYgMjAyMiwgIk1pY2hhZWwgUy4gVHNpcmtpbiI8bXN0QHJlZGhhdC5j
+b20+ICB3cm90ZToKPj4KPj4+IE9uIFR1ZSwgSnVuIDE0LCAyMDIyIGF0IDAxOjU3OjM0UE0gKzAy
+MDAsIEhhbGlsIFBhc2ljIHdyb3RlOgo+Pj4+IE9uIE1vbiwgMTMgSnVuIDIwMjIgMTM6NDA6Mzgg
+KzAzMDAKPj4+PiBMYXVyYSBMb2doaW48bGF1cmFsZ0BhbWF6b24uY29tPiAgd3JvdGU6Cj4+Pj4K
+Pj4+Pj4gQEAgLTU3LDYgKzYyLDI1IEBAIFxzdWJzZWN0aW9ue0RldmljZSBjb25maWd1cmF0aW9u
+IGxheW91dH1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UKPj4+Pj4gICBc
+aGxpbmUKPj4+Pj4gICBcZW5ke3RhYnVsYXJ9Cj4+Pj4+Cj4+Pj4+ICtUaGUgZm9sbG93aW5nIGRy
+aXZlci1yZWFkLW9ubHkgZmllbGQsIFxmaWVsZHtkYXRhX21heF9zaXplfSBvbmx5IGV4aXN0cyBp
+Zgo+Pj4+PiArVklSVElPX1ZTT0NLX0ZfU0laRV9NQVggaXMgc2V0LiBUaGlzIGZpZWxkIHNwZWNp
+ZmllcyB0aGUgbWF4aW11bSBwYWNrZXQgcGF5bG9hZAo+Pj4+PiArc2l6ZSBmb3IgdGhlIGRyaXZl
+ciB0byB1c2UuCj4+Pj4+ICsKPj4+Pj4gK1xkZXZpY2Vub3JtYXRpdmV7XHN1YnN1YnNlY3Rpb259
+e0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH17RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmlj
+ZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KPj4+Pj4gKwo+Pj4+PiArVGhlIGRldmlj
+ZSBNVVNUIE5PVCBjaGFuZ2UgdGhlIHZhbHVlIGV4cG9zZWQgdGhyb3VnaCBcZmllbGR7ZGF0YV9t
+YXhfc2l6ZX0uCj4+Pj4+ICsKPj4+Pj4gK1xkcml2ZXJub3JtYXRpdmV7XHN1YnN1YnNlY3Rpb259
+e0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH17RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmlj
+ZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KPj4+Pj4gKwo+Pj4+PiArQSBkcml2ZXIg
+U0hPVUxEIG5lZ290aWF0ZSBWSVJUSU9fVlNPQ0tfRl9TSVpFX01BWCBpZiB0aGUgZGV2aWNlIG9m
+ZmVycyBpdC4KPj4+Pj4gKwo+Pj4+PiArSWYgdGhlIGRyaXZlciBuZWdvdGlhdGVzIFZJUlRJT19W
+U09DS19GX1NJWkVfTUFYLCB0aGUgcmVjZWl2ZSBidWZmZXJzIGl0Cj4+Pj4+ICtzdXBwbGllcyBm
+b3IgYSBwYWNrZXQgTVVTVCBoYXZlIGEgdG90YWwgc2l6ZSB0aGF0IGRvZXNuJ3QgZXhjZWVkIHRo
+ZSBzaXplCj4+Pj4+ICtcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gKHBsdXMgaGVhZGVyIGxlbmd0aCku
+Cj4+Pj4+ICsKPj4+Pj4gK0lmIHRoZSBkcml2ZXIgbmVnb3RpYXRlcyBWSVJUSU9fVlNPQ0tfRl9T
+SVpFX01BWCwgaXQgTVVTVCAgTk9UIHRyYW5zbWl0IHBhY2tldHMKPj4+Pj4gK29mIHNpemUgZXhj
+ZWVkaW5nIHRoZSB2YWx1ZSBvZiBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gKHBsdXMgaGVhZGVyIGxl
+bmd0aCkuCj4+Pj4+ICsKPj4+PiBIaSBhbmQgc29ycnkgZm9yIGJlaW5nIGxhdGUgdG8gdGhlIHBh
+cnR5IQo+Pj4+Cj4+Pj4gSSBiZWxpZXZlIEkgZG8gdW5kZXJzdGFuZCB3aHkgZG8gd2Ugd2FudCB0
+byBwdXQgYSByZXN0cmljdGlvbiBvbiB0aGUKPj4+PiBzaXplIG9mIHRoZSB0cmFuc21pdHRlZCBw
+YWNrZXRzLCBidXQgSSB3b3VsZCBhcHByZWNpYXRlIGlmIHlvdSBjb3VsZAo+Pj4+IGV4cGxhaW4g
+dG8gbWUgd2h5IGRvIHdlIHdhbnQgdG8gbGltaXQgdGhlIHJlY2VpdmUgYnVmZmVyIHNpemUuCj4+
+Pj4KPj4+PiBBbHNvIEkgZmluZCB0aGUgd29yZGluZyByZWdhcmRpbmcgYSBsaXR0bGUgYml0IGFt
+YmlndW91cyBiZWNhdXNlCj4+Pj4gaW4gYSBuZXR3b3JraW5nIGNvbnRleHQgaXQgYWxzbyBtYWtl
+cyBzZW5zZSB0byB0YWxrIGFib3V0IHRoZSBzaXplIG9mIHRoZQo+Pj4+IHJlY2VpdmUgYnVmZmVy
+LiBJIGd1ZXNzIGhlYXIgd2UgYXJlIHRhbGtpbmcgYWJvdXQgYSBzaW5nbGUgdmlydGlvIGJ1ZmZl
+cgo+Pj4+IChhIGRlc2NyaXB0b3IgY2hhaW4gZGVzY3JpYmVkIHBvdGVudGlhbGx5IG5vbi1jb250
+aW51b3VzIChvciBjb21wYWN0IGluCj4+Pj4gdGhlIG1hdGhlbWF0aWNhbCBzZW5zZSBvZiB0aGUg
+d29yZCkgd2hpY2ggaXMgY29tcG9zZWQgZnJvbSBhcyBtYW55Cj4+Pj4gY29udGludW91cyBjaHVu
+a3Mgb2YgbWVtb3J5IGFzIG1hbnkgZGVzY3JpcHRvcnMgYXJlIGNvbnRhaW5lZCB3aXRoaW4gdGhl
+Cj4+Pj4gZGVzY3JpcHRvciBjaGFpbikuIElmIHdlIGFyZSBpbmRlZWQgdGFsa2luZyBhYm91dCBh
+IHNpbmdsZSB2aXJ0aW8gYnVmZmVyLAo+Pj4+IEkgZG9uJ3QgdW5kZXJzdGFuZCB0aGUgcGx1cmFs
+LiBJZiBub3QsIEknbSBub3Qgc3VyZSB3aGF0IGFyZSB3ZSB0YWxraW5nCj4+Pj4gYWJvdXQuCj4+
+PiBJIHRoaW5rIEkgYWdyZWUgaGVyZSwgSSBkb24ndCB1bmRlcnN0YW5kIHRoZSBtaXggb2YgImJ1
+ZmZlcnMiIGFuZCAiYQo+Pj4gcGFja2V0IiBlaXRoZXIuCj4+Pgo+Pj4gSSB2b3RlZCAibm8iIG9u
+IHRoZSBiYWxsb3QsIHRob3VnaCBpZiBvdGhlcnMgZmVlbCB3ZSBzaG91bGQgYXBwbHkgYXMKPj4+
+IGlzIGFuZCBmaXggdXAgbGF0ZXIsIHRoYXQgaXMgbm90IHRvbyBiYWQuCj4+IEkgbm93IHN3aXRj
+aGVkIHRvICJubyIgYXMgd2VsbDsgaXQncyBub3QgdG9vIGJhZCB0byBmaXggdGhpbmdzIGxhdGVy
+LAo+PiBidXQgaXQgd291bGQgYmUgZ29vZCBpZiB3ZSBoYWQgYSBjb21tb24gdW5kZXJzdGFuZGlu
+ZyBiZWZvcmUgdGhlIGNoYW5nZQo+PiBnb2VzIGluLgo+IElmIGFueW9uZSBlbHNlIGludGVuZHMg
+dG8gY2hhbmdlIHRoZWlyIHZvdGVzLCBub3RlIHRvZGF5IGlzCj4gdGhlIGxhc3Qgb3Bwb3J0dW5p
+dHkuCj4KPiBBbHRlcm5hdGl2ZWx5LCBMYXVyYSwgd291bGQgeW91IGNvbnNpZGVyIHRvIGFkZHJl
+c3MgdGhlIGlzc3Vlcz8KPiBJZiB5b3Ugd2FudCB1cyB0byB3aXRoZHJhdyB0aGUgYmFsbG90IHRv
+IGNvbnNpZGVyIHRoZSBvcHRpb25zLAo+IHRoYXQgaXMgb2sgdG9vLgo+Cj4gLS0KPiBNU1QKPgpI
+aSwKCkkgc2VudCBhIG1lc3NhZ2UgYSBiaXQgZWFybGllci4gSSBwbGFuIHRvIGFkZHJlc3MgdGhl
+IGNvbW1lbnRzIHRoaXMgd2Vlay4gSSdtIG5vdCB5ZXQgdmVyeSBmYW1pbGlhciB3aXRoIHRoZSB2
+b3RpbmcgcHJvY2VzcywgYnV0IGlmIGFkZHJlc3NpbmcgdGhlIGNvbW1lbnRzIG1lYW5zIHdpdGhk
+cmF3aW5nIHRoZSBiYWxsb3QsIHRoYXQgaXMgZmluZSBvbiBteSBzaWRlLiBUaGFua3MhCgpMYXVy
+YQoKCgoKQW1hem9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVy
+ZWQgb2ZmaWNlOiAyN0EgU2YuIExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3IgMiwgSWFzaSwgSWFz
+aSBDb3VudHksIDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3Ry
+YXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuCg==
+--------------GOVtvWSYM9z0HGIwqSYbQ6h3
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Alternatively, Laura, would you consider to address the issues?
-If you want us to withdraw the ballot to consider the options,
-that is ok too.
-
--- 
-MST
+PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
+bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
+diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA2LzIwLzIyIDEzOjEzLCBNaWNoYWVsIFMuIFRz
+aXJraW4KICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJj
+aXRlIgogICAgICBjaXRlPSJtaWQ6MjAyMjA2MjAwNjA4MzQtbXV0dC1zZW5kLWVtYWlsLW1zdEBr
+ZXJuZWwub3JnIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5DQVVU
+SU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBvcmdhbml6YXRp
+b24uIERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2Fu
+IGNvbmZpcm0gdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgoKCgpPbiBN
+b24sIEp1biAyMCwgMjAyMiBhdCAxMTo0Mzo1N0FNICswMjAwLCBDb3JuZWxpYSBIdWNrIHdyb3Rl
+Ogo8L3ByZT4KICAgICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgPHByZSBjbGFz
+cz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5PbiBUaHUsIEp1biAxNiAyMDIyLCAiTWljaGFlbCBT
+LiBUc2lya2luIiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86
+bXN0QHJlZGhhdC5jb20iPiZsdDttc3RAcmVkaGF0LmNvbSZndDs8L2E+IHdyb3RlOgoKPC9wcmU+
+CiAgICAgICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgICA8cHJlIGNsYXNzPSJt
+b3otcXVvdGUtcHJlIiB3cmFwPSIiPk9uIFR1ZSwgSnVuIDE0LCAyMDIyIGF0IDAxOjU3OjM0UE0g
+KzAyMDAsIEhhbGlsIFBhc2ljIHdyb3RlOgo8L3ByZT4KICAgICAgICAgIDxibG9ja3F1b3RlIHR5
+cGU9ImNpdGUiPgogICAgICAgICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIi
+Pk9uIE1vbiwgMTMgSnVuIDIwMjIgMTM6NDA6MzggKzAzMDAKTGF1cmEgTG9naGluIDxhIGNsYXNz
+PSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpsYXVyYWxnQGFtYXpvbi5jb20i
+PiZsdDtsYXVyYWxnQGFtYXpvbi5jb20mZ3Q7PC9hPiB3cm90ZToKCjwvcHJlPgogICAgICAgICAg
+ICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICAgICAgICA8cHJlIGNsYXNzPSJtb3ot
+cXVvdGUtcHJlIiB3cmFwPSIiPkBAIC01Nyw2ICs2MiwyNSBAQCBcc3Vic2VjdGlvbntEZXZpY2Ug
+Y29uZmlndXJhdGlvbiBsYXlvdXR9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2
+aWNlCiBcaGxpbmUKIFxlbmR7dGFidWxhcn0KCitUaGUgZm9sbG93aW5nIGRyaXZlci1yZWFkLW9u
+bHkgZmllbGQsIFxmaWVsZHtkYXRhX21heF9zaXplfSBvbmx5IGV4aXN0cyBpZgorVklSVElPX1ZT
+T0NLX0ZfU0laRV9NQVggaXMgc2V0LiBUaGlzIGZpZWxkIHNwZWNpZmllcyB0aGUgbWF4aW11bSBw
+YWNrZXQgcGF5bG9hZAorc2l6ZSBmb3IgdGhlIGRyaXZlciB0byB1c2UuCisKK1xkZXZpY2Vub3Jt
+YXRpdmV7XHN1YnN1YnNlY3Rpb259e0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH17RGV2aWNl
+IFR5cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KKwor
+VGhlIGRldmljZSBNVVNUIE5PVCBjaGFuZ2UgdGhlIHZhbHVlIGV4cG9zZWQgdGhyb3VnaCBcZmll
+bGR7ZGF0YV9tYXhfc2l6ZX0uCisKK1xkcml2ZXJub3JtYXRpdmV7XHN1YnN1YnNlY3Rpb259e0Rl
+dmljZSBjb25maWd1cmF0aW9uIGxheW91dH17RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZSAv
+IERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KKworQSBkcml2ZXIgU0hPVUxEIG5lZ290aWF0
+ZSBWSVJUSU9fVlNPQ0tfRl9TSVpFX01BWCBpZiB0aGUgZGV2aWNlIG9mZmVycyBpdC4KKworSWYg
+dGhlIGRyaXZlciBuZWdvdGlhdGVzIFZJUlRJT19WU09DS19GX1NJWkVfTUFYLCB0aGUgcmVjZWl2
+ZSBidWZmZXJzIGl0CitzdXBwbGllcyBmb3IgYSBwYWNrZXQgTVVTVCBoYXZlIGEgdG90YWwgc2l6
+ZSB0aGF0IGRvZXNuJ3QgZXhjZWVkIHRoZSBzaXplCitcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gKHBs
+dXMgaGVhZGVyIGxlbmd0aCkuCisKK0lmIHRoZSBkcml2ZXIgbmVnb3RpYXRlcyBWSVJUSU9fVlNP
+Q0tfRl9TSVpFX01BWCwgaXQgTVVTVCAgTk9UIHRyYW5zbWl0IHBhY2tldHMKK29mIHNpemUgZXhj
+ZWVkaW5nIHRoZSB2YWx1ZSBvZiBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gKHBsdXMgaGVhZGVyIGxl
+bmd0aCkuCisKPC9wcmU+CiAgICAgICAgICAgIDwvYmxvY2txdW90ZT4KICAgICAgICAgICAgPHBy
+ZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj4KSGkgYW5kIHNvcnJ5IGZvciBiZWluZyBs
+YXRlIHRvIHRoZSBwYXJ0eSEKCkkgYmVsaWV2ZSBJIGRvIHVuZGVyc3RhbmQgd2h5IGRvIHdlIHdh
+bnQgdG8gcHV0IGEgcmVzdHJpY3Rpb24gb24gdGhlCnNpemUgb2YgdGhlIHRyYW5zbWl0dGVkIHBh
+Y2tldHMsIGJ1dCBJIHdvdWxkIGFwcHJlY2lhdGUgaWYgeW91IGNvdWxkCmV4cGxhaW4gdG8gbWUg
+d2h5IGRvIHdlIHdhbnQgdG8gbGltaXQgdGhlIHJlY2VpdmUgYnVmZmVyIHNpemUuCgpBbHNvIEkg
+ZmluZCB0aGUgd29yZGluZyByZWdhcmRpbmcgYSBsaXR0bGUgYml0IGFtYmlndW91cyBiZWNhdXNl
+CmluIGEgbmV0d29ya2luZyBjb250ZXh0IGl0IGFsc28gbWFrZXMgc2Vuc2UgdG8gdGFsayBhYm91
+dCB0aGUgc2l6ZSBvZiB0aGUKcmVjZWl2ZSBidWZmZXIuIEkgZ3Vlc3MgaGVhciB3ZSBhcmUgdGFs
+a2luZyBhYm91dCBhIHNpbmdsZSB2aXJ0aW8gYnVmZmVyCihhIGRlc2NyaXB0b3IgY2hhaW4gZGVz
+Y3JpYmVkIHBvdGVudGlhbGx5IG5vbi1jb250aW51b3VzIChvciBjb21wYWN0IGluCnRoZSBtYXRo
+ZW1hdGljYWwgc2Vuc2Ugb2YgdGhlIHdvcmQpIHdoaWNoIGlzIGNvbXBvc2VkIGZyb20gYXMgbWFu
+eQpjb250aW51b3VzIGNodW5rcyBvZiBtZW1vcnkgYXMgbWFueSBkZXNjcmlwdG9ycyBhcmUgY29u
+dGFpbmVkIHdpdGhpbiB0aGUKZGVzY3JpcHRvciBjaGFpbikuIElmIHdlIGFyZSBpbmRlZWQgdGFs
+a2luZyBhYm91dCBhIHNpbmdsZSB2aXJ0aW8gYnVmZmVyLApJIGRvbid0IHVuZGVyc3RhbmQgdGhl
+IHBsdXJhbC4gSWYgbm90LCBJJ20gbm90IHN1cmUgd2hhdCBhcmUgd2UgdGFsa2luZwphYm91dC4K
+PC9wcmU+CiAgICAgICAgICA8L2Jsb2NrcXVvdGU+CiAgICAgICAgICA8cHJlIGNsYXNzPSJtb3ot
+cXVvdGUtcHJlIiB3cmFwPSIiPgpJIHRoaW5rIEkgYWdyZWUgaGVyZSwgSSBkb24ndCB1bmRlcnN0
+YW5kIHRoZSBtaXggb2YgImJ1ZmZlcnMiIGFuZCAiYQpwYWNrZXQiIGVpdGhlci4KCkkgdm90ZWQg
+Im5vIiBvbiB0aGUgYmFsbG90LCB0aG91Z2ggaWYgb3RoZXJzIGZlZWwgd2Ugc2hvdWxkIGFwcGx5
+IGFzCmlzIGFuZCBmaXggdXAgbGF0ZXIsIHRoYXQgaXMgbm90IHRvbyBiYWQuCjwvcHJlPgogICAg
+ICAgIDwvYmxvY2txdW90ZT4KICAgICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFw
+PSIiPgpJIG5vdyBzd2l0Y2hlZCB0byAibm8iIGFzIHdlbGw7IGl0J3Mgbm90IHRvbyBiYWQgdG8g
+Zml4IHRoaW5ncyBsYXRlciwKYnV0IGl0IHdvdWxkIGJlIGdvb2QgaWYgd2UgaGFkIGEgY29tbW9u
+IHVuZGVyc3RhbmRpbmcgYmVmb3JlIHRoZSBjaGFuZ2UKZ29lcyBpbi4KPC9wcmU+CiAgICAgIDwv
+YmxvY2txdW90ZT4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj4KSWYg
+YW55b25lIGVsc2UgaW50ZW5kcyB0byBjaGFuZ2UgdGhlaXIgdm90ZXMsIG5vdGUgdG9kYXkgaXMK
+dGhlIGxhc3Qgb3Bwb3J0dW5pdHkuCgpBbHRlcm5hdGl2ZWx5LCBMYXVyYSwgd291bGQgeW91IGNv
+bnNpZGVyIHRvIGFkZHJlc3MgdGhlIGlzc3Vlcz8KSWYgeW91IHdhbnQgdXMgdG8gd2l0aGRyYXcg
+dGhlIGJhbGxvdCB0byBjb25zaWRlciB0aGUgb3B0aW9ucywKdGhhdCBpcyBvayB0b28uCgotLQpN
+U1QKCjwvcHJlPgogICAgPC9ibG9ja3F1b3RlPgogICAgPHByZT5IaSw8L3ByZT4KICAgIDxwcmU+
+SSBzZW50IGEgbWVzc2FnZSBhIGJpdCBlYXJsaWVyLiBJIHBsYW4gdG8gYWRkcmVzcyB0aGUgY29t
+bWVudHMgdGhpcyB3ZWVrLiBJJ20gbm90IHlldCB2ZXJ5IGZhbWlsaWFyIHdpdGggdGhlIHZvdGlu
+ZyBwcm9jZXNzLCBidXQgaWYgYWRkcmVzc2luZyB0aGUgY29tbWVudHMgbWVhbnMgd2l0aGRyYXdp
+bmcgdGhlIGJhbGxvdCwgdGhhdCBpcyBmaW5lIG9uIG15IHNpZGUuIFRoYW5rcyE8L3ByZT4KICAg
+IDxwcmU+TGF1cmEKPC9wcmU+CiAgICA8cD48YnI+CiAgICA8L3A+CiAgPHA+PC9wPgoKPHA+PGJy
+PgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBv
+ZmZpY2U6IDI3QSBTZi4gTGF6YXIgU3RyZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENv
+dW50eSwgNzAwMDQ1LCBSb21hbmlhLiBSZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlv
+biBudW1iZXIgSjIyLzI2MjEvMjAwNS48L3A+CjwvYm9keT4KPC9odG1sPgo=
+--------------GOVtvWSYM9z0HGIwqSYbQ6h3--
 
