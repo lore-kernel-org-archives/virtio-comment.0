@@ -1,173 +1,118 @@
-Return-Path: <prvs=16628a3f4=lauralg@amazon.com>
-Subject: Re: [virtio-comment] [PATCH v4] virtio-vsock: add max payload size config
- field
-Message-ID: <5b08165e-03b9-3583-711e-3380ce964616@amazon.com>
-Date: Thu, 23 Jun 2022 18:36:50 +0300
-MIME-Version: 1.0
+Return-Path: <mst@redhat.com>
+Date: Thu, 23 Jun 2022 12:22:51 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Subject: Re: [virtio-comment] [PATCH v4] virtio-vsock: add max payload size
+ config field
+Message-ID: <20220623121838-mutt-send-email-mst@kernel.org>
 References: <20220613104038.22010-1-lauralg@amazon.com>
  <20220614135734.534dbc0b.pasic@linux.ibm.com>
  <20220616123431-mutt-send-email-mst@kernel.org>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <20220616123431-mutt-send-email-mst@kernel.org>
-Content-Type: multipart/alternative;
-	boundary="------------sxUFsPqlaSHF3Ej20zjOrO60"
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>, Halil Pasic <pasic@linux.ibm.com>
-Cc: virtio-comment@lists.oasis-open.org, Cornelia Huck <cohuck@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>
+ <5b08165e-03b9-3583-711e-3380ce964616@amazon.com>
+MIME-Version: 1.0
+In-Reply-To: <5b08165e-03b9-3583-711e-3380ce964616@amazon.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Laura Loghin <lauralg@amazon.com>
+Cc: Halil Pasic <pasic@linux.ibm.com>, virtio-comment@lists.oasis-open.org, Cornelia Huck <cohuck@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------sxUFsPqlaSHF3Ej20zjOrO60
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+On Thu, Jun 23, 2022 at 06:36:50PM +0300, Laura Loghin wrote:
+> On 6/16/22 19:40, Michael S. Tsirkin wrote:
+> 
+>     CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> 
+> 
+> 
+>     On Tue, Jun 14, 2022 at 01:57:34PM +0200, Halil Pasic wrote:
+> 
+>         On Mon, 13 Jun 2022 13:40:38 +0300
+>         Laura Loghin <lauralg@amazon.com> wrote:
+> 
+> 
+>             @@ -57,6 +62,25 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+>              \hline
+>              \end{tabular}
+> 
+>             +The following driver-read-only field, \field{data_max_size} only exists if
+>             +VIRTIO_VSOCK_F_SIZE_MAX is set. This field specifies the maximum packet payload
+>             +size for the driver to use.
+>             +
+>             +\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>             +
+>             +The device MUST NOT change the value exposed through \field{data_max_size}.
+>             +
+>             +\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>             +
+>             +A driver SHOULD negotiate VIRTIO_VSOCK_F_SIZE_MAX if the device offers it.
+>             +
+>             +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, the receive buffers it
+>             +supplies for a packet MUST have a total size that doesn't exceed the size
+>             +\field{data_max_size} (plus header length).
+>             +
+>             +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST  NOT transmit packets
+>             +of size exceeding the value of \field{data_max_size} (plus header length).
+>             +
+> 
+>         Hi and sorry for being late to the party!
+> 
+>         I believe I do understand why do we want to put a restriction on the
+>         size of the transmitted packets, but I would appreciate if you could
+>         explain to me why do we want to limit the receive buffer size.
+> 
+>         Also I find the wording regarding a little bit ambiguous because
+>         in a networking context it also makes sense to talk about the size of the
+>         receive buffer. I guess hear we are talking about a single virtio buffer
+>         (a descriptor chain described potentially non-continuous (or compact in
+>         the mathematical sense of the word) which is composed from as many
+>         continuous chunks of memory as many descriptors are contained within the
+>         descriptor chain). If we are indeed talking about a single virtio buffer,
+>         I don't understand the plural. If not, I'm not sure what are we talking
+>         about.
+> 
+>     I think I agree here, I don't understand the mix of "buffers" and "a
+>     packet" either.
+> 
+> The way I was understanding that while reading the spec is that a buffer
+> is corresponding to one descriptor,
 
-T24gNi8xNi8yMiAxOTo0MCwgTWljaGFlbCBTLiBUc2lya2luIHdyb3RlOgo+IENBVVRJT046IFRo
-aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
-bm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmly
-bSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gT24gVHVl
-LCBKdW4gMTQsIDIwMjIgYXQgMDE6NTc6MzRQTSArMDIwMCwgSGFsaWwgUGFzaWMgd3JvdGU6Cj4+
-IE9uIE1vbiwgMTMgSnVuIDIwMjIgMTM6NDA6MzggKzAzMDAKPj4gTGF1cmEgTG9naGluPGxhdXJh
-bGdAYW1hem9uLmNvbT4gIHdyb3RlOgo+Pgo+Pj4gQEAgLTU3LDYgKzYyLDI1IEBAIFxzdWJzZWN0
-aW9ue0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAv
-IFNvY2tldCBEZXZpY2UKPj4+ICAgXGhsaW5lCj4+PiAgIFxlbmR7dGFidWxhcn0KPj4+Cj4+PiAr
-VGhlIGZvbGxvd2luZyBkcml2ZXItcmVhZC1vbmx5IGZpZWxkLCBcZmllbGR7ZGF0YV9tYXhfc2l6
-ZX0gb25seSBleGlzdHMgaWYKPj4+ICtWSVJUSU9fVlNPQ0tfRl9TSVpFX01BWCBpcyBzZXQuIFRo
-aXMgZmllbGQgc3BlY2lmaWVzIHRoZSBtYXhpbXVtIHBhY2tldCBwYXlsb2FkCj4+PiArc2l6ZSBm
-b3IgdGhlIGRyaXZlciB0byB1c2UuCj4+PiArCj4+PiArXGRldmljZW5vcm1hdGl2ZXtcc3Vic3Vi
-c2VjdGlvbn17RGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fXtEZXZpY2UgVHlwZXMgLyBTb2Nr
-ZXQgRGV2aWNlIC8gRGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fQo+Pj4gKwo+Pj4gK1RoZSBk
-ZXZpY2UgTVVTVCBOT1QgY2hhbmdlIHRoZSB2YWx1ZSBleHBvc2VkIHRocm91Z2ggXGZpZWxke2Rh
-dGFfbWF4X3NpemV9Lgo+Pj4gKwo+Pj4gK1xkcml2ZXJub3JtYXRpdmV7XHN1YnN1YnNlY3Rpb259
-e0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH17RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmlj
-ZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KPj4+ICsKPj4+ICtBIGRyaXZlciBTSE9V
-TEQgbmVnb3RpYXRlIFZJUlRJT19WU09DS19GX1NJWkVfTUFYIGlmIHRoZSBkZXZpY2Ugb2ZmZXJz
-IGl0Lgo+Pj4gKwo+Pj4gK0lmIHRoZSBkcml2ZXIgbmVnb3RpYXRlcyBWSVJUSU9fVlNPQ0tfRl9T
-SVpFX01BWCwgdGhlIHJlY2VpdmUgYnVmZmVycyBpdAo+Pj4gK3N1cHBsaWVzIGZvciBhIHBhY2tl
-dCBNVVNUIGhhdmUgYSB0b3RhbCBzaXplIHRoYXQgZG9lc24ndCBleGNlZWQgdGhlIHNpemUKPj4+
-ICtcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gKHBsdXMgaGVhZGVyIGxlbmd0aCkuCj4+PiArCj4+PiAr
-SWYgdGhlIGRyaXZlciBuZWdvdGlhdGVzIFZJUlRJT19WU09DS19GX1NJWkVfTUFYLCBpdCBNVVNU
-ICBOT1QgdHJhbnNtaXQgcGFja2V0cwo+Pj4gK29mIHNpemUgZXhjZWVkaW5nIHRoZSB2YWx1ZSBv
-ZiBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gKHBsdXMgaGVhZGVyIGxlbmd0aCkuCj4+PiArCj4+IEhp
-IGFuZCBzb3JyeSBmb3IgYmVpbmcgbGF0ZSB0byB0aGUgcGFydHkhCj4+Cj4+IEkgYmVsaWV2ZSBJ
-IGRvIHVuZGVyc3RhbmQgd2h5IGRvIHdlIHdhbnQgdG8gcHV0IGEgcmVzdHJpY3Rpb24gb24gdGhl
-Cj4+IHNpemUgb2YgdGhlIHRyYW5zbWl0dGVkIHBhY2tldHMsIGJ1dCBJIHdvdWxkIGFwcHJlY2lh
-dGUgaWYgeW91IGNvdWxkCj4+IGV4cGxhaW4gdG8gbWUgd2h5IGRvIHdlIHdhbnQgdG8gbGltaXQg
-dGhlIHJlY2VpdmUgYnVmZmVyIHNpemUuCj4+Cj4+IEFsc28gSSBmaW5kIHRoZSB3b3JkaW5nIHJl
-Z2FyZGluZyBhIGxpdHRsZSBiaXQgYW1iaWd1b3VzIGJlY2F1c2UKPj4gaW4gYSBuZXR3b3JraW5n
-IGNvbnRleHQgaXQgYWxzbyBtYWtlcyBzZW5zZSB0byB0YWxrIGFib3V0IHRoZSBzaXplIG9mIHRo
-ZQo+PiByZWNlaXZlIGJ1ZmZlci4gSSBndWVzcyBoZWFyIHdlIGFyZSB0YWxraW5nIGFib3V0IGEg
-c2luZ2xlIHZpcnRpbyBidWZmZXIKPj4gKGEgZGVzY3JpcHRvciBjaGFpbiBkZXNjcmliZWQgcG90
-ZW50aWFsbHkgbm9uLWNvbnRpbnVvdXMgKG9yIGNvbXBhY3QgaW4KPj4gdGhlIG1hdGhlbWF0aWNh
-bCBzZW5zZSBvZiB0aGUgd29yZCkgd2hpY2ggaXMgY29tcG9zZWQgZnJvbSBhcyBtYW55Cj4+IGNv
-bnRpbnVvdXMgY2h1bmtzIG9mIG1lbW9yeSBhcyBtYW55IGRlc2NyaXB0b3JzIGFyZSBjb250YWlu
-ZWQgd2l0aGluIHRoZQo+PiBkZXNjcmlwdG9yIGNoYWluKS4gSWYgd2UgYXJlIGluZGVlZCB0YWxr
-aW5nIGFib3V0IGEgc2luZ2xlIHZpcnRpbyBidWZmZXIsCj4+IEkgZG9uJ3QgdW5kZXJzdGFuZCB0
-aGUgcGx1cmFsLiBJZiBub3QsIEknbSBub3Qgc3VyZSB3aGF0IGFyZSB3ZSB0YWxraW5nCj4+IGFi
-b3V0Lgo+IEkgdGhpbmsgSSBhZ3JlZSBoZXJlLCBJIGRvbid0IHVuZGVyc3RhbmQgdGhlIG1peCBv
-ZiAiYnVmZmVycyIgYW5kICJhCj4gcGFja2V0IiBlaXRoZXIuCgpUaGUgd2F5IEkgd2FzIHVuZGVy
-c3RhbmRpbmcgdGhhdCB3aGlsZSByZWFkaW5nIHRoZSBzcGVjIGlzIHRoYXQgYSBidWZmZXIKaXMg
-Y29ycmVzcG9uZGluZyB0byBvbmUgZGVzY3JpcHRvciwgc28gYSBwYWNrZXQgd2lsbCBjb3JyZXNw
-b25kIHRvCm11bHRpcGxlIGJ1ZmZlcnMgKGxpa2UgZm9yIGV4YW1wbGUgaW4gTGludXggb25lIGJ1
-ZmZlciBmb3IgdGhlIHBhY2tldApoZWFkZXIgYW5kIG9uZSBidWZmZXIgZm9yIHRoZSBwYXlsb2Fk
-KS4gSSB3YW50ZWQgdG8gbGltaXQgdGhlIG1lbW9yeQphbGxvY2F0ZWQgYnkgdGhlIGRyaXZlciBm
-b3IgUlggYnVmZmVycyBhbmQgVFggYnVmZmVycywgc28gdGhhdCdzIHdoeSBJCnVzZWQgJ2J1ZmZl
-cnMnIGZvciBSWC4gRG9lcyBpdCBtYWtlIHNlbnNlIG9yIGRpZCBJIG1pc3VuZGVyc3RhbmQgd2hh
-dAp3YXMgY2F1c2luZyB0aGUgY29uZnVzaW9uIGhlcmU/CgpUaGFua3MsCkxhdXJhCgo+Cj4gSSB2
-b3RlZCAibm8iIG9uIHRoZSBiYWxsb3QsIHRob3VnaCBpZiBvdGhlcnMgZmVlbCB3ZSBzaG91bGQg
-YXBwbHkgYXMKPiBpcyBhbmQgZml4IHVwIGxhdGVyLCB0aGF0IGlzIG5vdCB0b28gYmFkLgo+Cj4K
-Pj4gQWxzbywgZG8gd2UgaGF2ZSBzb21lIHNvcnQgb2YgcGFja2V0cyBtYXkgbm90IGNyb3NzIHZp
-cnRpbyBidWZmZXIKPj4gYm91bmRhcmllcywgb3IgZXZlbiBhIHNpbmdsZSBwYWNrZXQgcGVyIHNp
-bmdsZSB2aXJpdGlvIGJ1ZmZlciBydWxlIGZvcgo+PiB2c29jay4gSSBkaWQgYSBxdWljayBzZWFy
-Y2ggYW5kIGNvdWxkIG5vdCBmaW5kIGFueS4gRGlkIEkgb3Zlcmxvb2sKPj4gc29tZXRoaW5nPyBT
-aG91bGQgd2Ugc3BlbGwgdGhpcyBvdXQ/Cj4+Cj4+IEBNaWNoYWVsLCBDb25ueTogV2hhdCBkbyB5
-b3UgdGhpbms/Cj4+Cj4+IFJlZ2FyZHMsCj4+IEhhbGlsCgoKCgpBbWF6b24gRGV2ZWxvcG1lbnQg
-Q2VudGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBTZi4gTGF6YXIg
-U3RyZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21hbmlh
-LiBSZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIyLzI2MjEvMjAw
-NS4K
---------------sxUFsPqlaSHF3Ej20zjOrO60
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+what gave this impression? buffers can use any number of descriptors.
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA2LzE2LzIyIDE5OjQwLCBNaWNoYWVsIFMuIFRz
-aXJraW4KICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJj
-aXRlIgogICAgICBjaXRlPSJtaWQ6MjAyMjA2MTYxMjM0MzEtbXV0dC1zZW5kLWVtYWlsLW1zdEBr
-ZXJuZWwub3JnIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5DQVVU
-SU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBvcmdhbml6YXRp
-b24uIERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2Fu
-IGNvbmZpcm0gdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgoKCgpPbiBU
-dWUsIEp1biAxNCwgMjAyMiBhdCAwMTo1NzozNFBNICswMjAwLCBIYWxpbCBQYXNpYyB3cm90ZToK
-PC9wcmU+CiAgICAgIDxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPgogICAgICAgIDxwcmUgY2xhc3M9
-Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+T24gTW9uLCAxMyBKdW4gMjAyMiAxMzo0MDozOCArMDMw
-MApMYXVyYSBMb2doaW4gPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFp
-bHRvOmxhdXJhbGdAYW1hem9uLmNvbSI+Jmx0O2xhdXJhbGdAYW1hem9uLmNvbSZndDs8L2E+IHdy
-b3RlOgoKPC9wcmU+CiAgICAgICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgICA8
-cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPkBAIC01Nyw2ICs2MiwyNSBAQCBcc3Vi
-c2VjdGlvbntEZXZpY2UgY29uZmlndXJhdGlvbiBsYXlvdXR9XGxhYmVse3NlYzpEZXZpY2UgVHlw
-ZXMgLyBTb2NrZXQgRGV2aWNlCiBcaGxpbmUKIFxlbmR7dGFidWxhcn0KCitUaGUgZm9sbG93aW5n
-IGRyaXZlci1yZWFkLW9ubHkgZmllbGQsIFxmaWVsZHtkYXRhX21heF9zaXplfSBvbmx5IGV4aXN0
-cyBpZgorVklSVElPX1ZTT0NLX0ZfU0laRV9NQVggaXMgc2V0LiBUaGlzIGZpZWxkIHNwZWNpZmll
-cyB0aGUgbWF4aW11bSBwYWNrZXQgcGF5bG9hZAorc2l6ZSBmb3IgdGhlIGRyaXZlciB0byB1c2Uu
-CisKK1xkZXZpY2Vub3JtYXRpdmV7XHN1YnN1YnNlY3Rpb259e0RldmljZSBjb25maWd1cmF0aW9u
-IGxheW91dH17RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBjb25maWd1cmF0
-aW9uIGxheW91dH0KKworVGhlIGRldmljZSBNVVNUIE5PVCBjaGFuZ2UgdGhlIHZhbHVlIGV4cG9z
-ZWQgdGhyb3VnaCBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0uCisKK1xkcml2ZXJub3JtYXRpdmV7XHN1
-YnN1YnNlY3Rpb259e0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH17RGV2aWNlIFR5cGVzIC8g
-U29ja2V0IERldmljZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KKworQSBkcml2ZXIg
-U0hPVUxEIG5lZ290aWF0ZSBWSVJUSU9fVlNPQ0tfRl9TSVpFX01BWCBpZiB0aGUgZGV2aWNlIG9m
-ZmVycyBpdC4KKworSWYgdGhlIGRyaXZlciBuZWdvdGlhdGVzIFZJUlRJT19WU09DS19GX1NJWkVf
-TUFYLCB0aGUgcmVjZWl2ZSBidWZmZXJzIGl0CitzdXBwbGllcyBmb3IgYSBwYWNrZXQgTVVTVCBo
-YXZlIGEgdG90YWwgc2l6ZSB0aGF0IGRvZXNuJ3QgZXhjZWVkIHRoZSBzaXplCitcZmllbGR7ZGF0
-YV9tYXhfc2l6ZX0gKHBsdXMgaGVhZGVyIGxlbmd0aCkuCisKK0lmIHRoZSBkcml2ZXIgbmVnb3Rp
-YXRlcyBWSVJUSU9fVlNPQ0tfRl9TSVpFX01BWCwgaXQgTVVTVCAgTk9UIHRyYW5zbWl0IHBhY2tl
-dHMKK29mIHNpemUgZXhjZWVkaW5nIHRoZSB2YWx1ZSBvZiBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0g
-KHBsdXMgaGVhZGVyIGxlbmd0aCkuCisKPC9wcmU+CiAgICAgICAgPC9ibG9ja3F1b3RlPgogICAg
-ICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+CkhpIGFuZCBzb3JyeSBmb3Ig
-YmVpbmcgbGF0ZSB0byB0aGUgcGFydHkhCgpJIGJlbGlldmUgSSBkbyB1bmRlcnN0YW5kIHdoeSBk
-byB3ZSB3YW50IHRvIHB1dCBhIHJlc3RyaWN0aW9uIG9uIHRoZQpzaXplIG9mIHRoZSB0cmFuc21p
-dHRlZCBwYWNrZXRzLCBidXQgSSB3b3VsZCBhcHByZWNpYXRlIGlmIHlvdSBjb3VsZApleHBsYWlu
-IHRvIG1lIHdoeSBkbyB3ZSB3YW50IHRvIGxpbWl0IHRoZSByZWNlaXZlIGJ1ZmZlciBzaXplLgoK
-QWxzbyBJIGZpbmQgdGhlIHdvcmRpbmcgcmVnYXJkaW5nIGEgbGl0dGxlIGJpdCBhbWJpZ3VvdXMg
-YmVjYXVzZQppbiBhIG5ldHdvcmtpbmcgY29udGV4dCBpdCBhbHNvIG1ha2VzIHNlbnNlIHRvIHRh
-bGsgYWJvdXQgdGhlIHNpemUgb2YgdGhlCnJlY2VpdmUgYnVmZmVyLiBJIGd1ZXNzIGhlYXIgd2Ug
-YXJlIHRhbGtpbmcgYWJvdXQgYSBzaW5nbGUgdmlydGlvIGJ1ZmZlcgooYSBkZXNjcmlwdG9yIGNo
-YWluIGRlc2NyaWJlZCBwb3RlbnRpYWxseSBub24tY29udGludW91cyAob3IgY29tcGFjdCBpbgp0
-aGUgbWF0aGVtYXRpY2FsIHNlbnNlIG9mIHRoZSB3b3JkKSB3aGljaCBpcyBjb21wb3NlZCBmcm9t
-IGFzIG1hbnkKY29udGludW91cyBjaHVua3Mgb2YgbWVtb3J5IGFzIG1hbnkgZGVzY3JpcHRvcnMg
-YXJlIGNvbnRhaW5lZCB3aXRoaW4gdGhlCmRlc2NyaXB0b3IgY2hhaW4pLiBJZiB3ZSBhcmUgaW5k
-ZWVkIHRhbGtpbmcgYWJvdXQgYSBzaW5nbGUgdmlydGlvIGJ1ZmZlciwKSSBkb24ndCB1bmRlcnN0
-YW5kIHRoZSBwbHVyYWwuIElmIG5vdCwgSSdtIG5vdCBzdXJlIHdoYXQgYXJlIHdlIHRhbGtpbmcK
-YWJvdXQuCjwvcHJlPgogICAgICA8L2Jsb2NrcXVvdGU+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1x
-dW90ZS1wcmUiIHdyYXA9IiI+CkkgdGhpbmsgSSBhZ3JlZSBoZXJlLCBJIGRvbid0IHVuZGVyc3Rh
-bmQgdGhlIG1peCBvZiAiYnVmZmVycyIgYW5kICJhCnBhY2tldCIgZWl0aGVyLjwvcHJlPgogICAg
-PC9ibG9ja3F1b3RlPgogICAgPHByZT5UaGUgd2F5IEkgd2FzIHVuZGVyc3RhbmRpbmcgdGhhdCB3
-aGlsZSByZWFkaW5nIHRoZSBzcGVjIGlzIHRoYXQgYSBidWZmZXIKaXMgY29ycmVzcG9uZGluZyB0
-byBvbmUgZGVzY3JpcHRvciwgc28gYSBwYWNrZXQgd2lsbCBjb3JyZXNwb25kIHRvCm11bHRpcGxl
-IGJ1ZmZlcnMgKGxpa2UgZm9yIGV4YW1wbGUgaW4gTGludXggb25lIGJ1ZmZlciBmb3IgdGhlIHBh
-Y2tldApoZWFkZXIgYW5kIG9uZSBidWZmZXIgZm9yIHRoZSBwYXlsb2FkKS4gSSB3YW50ZWQgdG8g
-bGltaXQgdGhlIG1lbW9yeQphbGxvY2F0ZWQgYnkgdGhlIGRyaXZlciBmb3IgUlggYnVmZmVycyBh
-bmQgVFggYnVmZmVycywgc28gdGhhdCdzIHdoeSBJCnVzZWQgJ2J1ZmZlcnMnIGZvciBSWC4gRG9l
-cyBpdCBtYWtlIHNlbnNlIG9yIGRpZCBJIG1pc3VuZGVyc3RhbmQgd2hhdAp3YXMgY2F1c2luZyB0
-aGUgY29uZnVzaW9uIGhlcmU/CgpUaGFua3MsCkxhdXJhCjwvcHJlPgogICAgPGJsb2NrcXVvdGUg
-dHlwZT0iY2l0ZSIKICAgICAgY2l0ZT0ibWlkOjIwMjIwNjE2MTIzNDMxLW11dHQtc2VuZC1lbWFp
-bC1tc3RAa2VybmVsLm9yZyI+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9
-IiI+CgpJIHZvdGVkICJubyIgb24gdGhlIGJhbGxvdCwgdGhvdWdoIGlmIG90aGVycyBmZWVsIHdl
-IHNob3VsZCBhcHBseSBhcwppcyBhbmQgZml4IHVwIGxhdGVyLCB0aGF0IGlzIG5vdCB0b28gYmFk
-LgoKCjwvcHJlPgogICAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNs
-YXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPkFsc28sIGRvIHdlIGhhdmUgc29tZSBzb3J0IG9m
-IHBhY2tldHMgbWF5IG5vdCBjcm9zcyB2aXJ0aW8gYnVmZmVyCmJvdW5kYXJpZXMsIG9yIGV2ZW4g
-YSBzaW5nbGUgcGFja2V0IHBlciBzaW5nbGUgdmlyaXRpbyBidWZmZXIgcnVsZSBmb3IKdnNvY2su
-IEkgZGlkIGEgcXVpY2sgc2VhcmNoIGFuZCBjb3VsZCBub3QgZmluZCBhbnkuIERpZCBJIG92ZXJs
-b29rCnNvbWV0aGluZz8gU2hvdWxkIHdlIHNwZWxsIHRoaXMgb3V0PwoKQE1pY2hhZWwsIENvbm55
-OiBXaGF0IGRvIHlvdSB0aGluaz8KClJlZ2FyZHMsCkhhbGlsCjwvcHJlPgogICAgICA8L2Jsb2Nr
-cXVvdGU+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+CjwvcHJlPgog
-ICAgPC9ibG9ja3F1b3RlPgogICAgPHA+PGJyPgogICAgPC9wPgogIDxwPjwvcD4KCjxwPjxicj4K
-QW1hem9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5SLkwuIHJlZ2lzdGVyZWQgb2Zm
-aWNlOiAyN0EgU2YuIExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3IgMiwgSWFzaSwgSWFzaSBDb3Vu
-dHksIDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0ZXJlZCBpbiBSb21hbmlhLiBSZWdpc3RyYXRpb24g
-bnVtYmVyIEoyMi8yNjIxLzIwMDUuPC9wPgo8L2JvZHk+CjwvaHRtbD4K
---------------sxUFsPqlaSHF3Ej20zjOrO60--
+> so a packet will correspond to
+> multiple buffers (like for example in Linux one buffer for the packet
+> header and one buffer for the payload). I wanted to limit the memory
+> allocated by the driver for RX buffers and TX buffers, so that's why I
+> used 'buffers' for RX. Does it make sense or did I misunderstand what
+> was causing the confusion here?
+> 
+> Thanks,
+> Laura
+
+
+As above, a buffer can consist of many descriptors. See e.g.
+Descriptor Chaining.
+I think there are places in spec when say "descriptor" and we should
+fix them to say one or more descriptors.
+
+> 
+>     I voted "no" on the ballot, though if others feel we should apply as
+>     is and fix up later, that is not too bad.
+> 
+> 
+> 
+>         Also, do we have some sort of packets may not cross virtio buffer
+>         boundaries, or even a single packet per single viritio buffer rule for
+>         vsock. I did a quick search and could not find any. Did I overlook
+>         something? Should we spell this out?
+> 
+>         @Michael, Conny: What do you think?
+> 
+>         Regards,
+>         Halil
+> 
+> 
+> 
+> Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar
+> Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in
+> Romania. Registration number J22/2621/2005.
+> 
 
