@@ -1,108 +1,88 @@
-Return-Path: <virtio-comment-return-3170-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3177-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 453AA986764
-	for <virtio-comment@lists.oasis-open.org>; Thu, 23 Jun 2022 14:27:50 +0000 (UTC)
-Message-ID: <1625bc1c-5212-d017-5238-f190e40af66a@amazon.com>
-Date: Thu, 23 Jun 2022 17:27:28 +0300
-MIME-Version: 1.0
+	by lists.oasis-open.org (Postfix) with ESMTP id 0E2B4986797
+	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Jun 2022 15:51:03 +0000 (UTC)
+Date: Fri, 24 Jun 2022 16:50:57 +0100
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <YrXdYRZ6wVqUAQah@stefanha-x1.localdomain>
 References: <20220404134931.28697-1-lauralg@amazon.com>
  <YqnonNuBc/WMWha0@stefanha-x1.localdomain>
-From: Laura Loghin <lauralg@amazon.com>
-In-Reply-To: <YqnonNuBc/WMWha0@stefanha-x1.localdomain>
-Subject: Re: [virtio-comment] [PATCH] virtio-vsock: add max payload size config field
-Content-Type: multipart/alternative;
-	boundary="------------qOq6JrdD0CF0FZ4Kcw3Ec9Uk"
-Content-Language: en-US
-To: Stefan Hajnoczi <stefanha@redhat.com>
+ <1625bc1c-5212-d017-5238-f190e40af66a@amazon.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="FBkJqd7/rXEdcakt"
+Content-Disposition: inline
+In-Reply-To: <1625bc1c-5212-d017-5238-f190e40af66a@amazon.com>
+Subject: Re: [virtio-comment] [PATCH] virtio-vsock: add max payload size
+ config field
+To: Laura Loghin <lauralg@amazon.com>
 Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---------------qOq6JrdD0CF0FZ4Kcw3Ec9Uk
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+--FBkJqd7/rXEdcakt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-T24gNi8xNS8yMiAxNzoxMSwgU3RlZmFuIEhham5vY3ppIHdyb3RlOgo+IE9uIE1vbiwgQXByIDA0
-LCAyMDIyIGF0IDA0OjQ5OjMxUE0gKzAzMDAsIExhdXJhIExvZ2hpbiB3cm90ZToKPj4gQEAgLTU3
-LDYgKzYyLDM1IEBAIFxzdWJzZWN0aW9ue0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH1cbGFi
-ZWx7c2VjOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UKPj4gICBcaGxpbmUKPj4gICBcZW5k
-e3RhYnVsYXJ9Cj4+ICAgCj4+ICtUaGUgZm9sbG93aW5nIGRyaXZlci1yZWFkLW9ubHkgZmllbGQs
-IFxmaWVsZHtkYXRhX21heF9zaXplfSBvbmx5IGV4aXN0cyBpZgo+PiArVklSVElPX1ZTT0NLX0Zf
-U0laRV9NQVggaXMgc2V0LiBUaGlzIGZpZWxkIHNwZWNpZmllcyB0aGUgbWF4aW11bSBwYWNrZXQg
-cGF5bG9hZAo+PiArc2l6ZSBmb3IgdGhlIGRyaXZlciB0byB1c2UuCj4gVGhpcyB3b3JkaW5nIGNh
-biBiZSBtaXNpbnRlcnByZXRlZCBidXQgY2FuIGJlIGtlcHQgZm9yIG5vdy4gVGhpcyB3b3JkaW5n
-Cj4gc2hvdWxkIGJlIHVwZGF0ZWQgd2hlbiB0aGUgbmV4dCBmaWVsZCBpcyBhZGRlZCBpbiB0aGUg
-ZnV0dXJlLCBpbmRpY2F0aW5nCj4gdGhhdCB0aGUgZmllbGQgaXMgb25seSAqdXNlZCogd2hlbiBW
-SVJUSU9fVlNPQ0tfRl9TSVpFX01BWCBoYXMgYmVlbgo+IG5lZ290aWF0ZWQuIEZ1cnRoZXIgZmll
-bGRzIHdpbGwgYmUgbG9jYXRlZCBhZnRlciBkYXRhX21heF9zaXplIHNvIHRoZQo+IGZpZWxkIGNl
-cnRhaW5seSAqZXhpc3RzKiBldmVuIHdoZW4gVklSVElPX1ZTT0NLX0ZfU0laRV9NQVggaXMgbm90
-IHNldC4KPgo+IElmIHNvbWVvbmUgbWlzaW50ZXJwcmV0cyB0aGlzIHRoZXkgbWlnaHQgdGhpbmsg
-dGhlIGNvbmZpZyBzdHJ1Y3QgbGF5b3V0Cj4gZGVwZW5kcyBvbiB0aGUgY29tYmluYXRpb24gb2Yg
-bmVnb3RpYXRlZCBmZWF0dXJlIGJpdHMuIFRoYXQncyBub3QgdGhlCj4gY2FzZSwgdGhlIGxheW91
-dCBpcyBhbHdheXMgdGhlIHNhbWUuIFRoZSBzaXplIG9mIHRoZSBzdHJ1Y3QgZGVwZW5kcyBvbgo+
-IHRoZSBmZWF0dXJlcyBvZmZlcmVkIGJ5IHRoZSBkZXZpY2UuCj4KPiBTaW1pbGFyIHdvcmRpbmcg
-aXMgdXNlZCBlbHNld2hlcmUgaW4gdGhlIHNwZWMsIHNvIHdlIG1heSB3YW50IHRvIGNsYXJpZnkK
-PiBpdCBmb3IgdGhlIGVudGlyZSBzcGVjLgo+Cj4gU3RlZmFuCgpZZXMsIEkgYWdyZWUgd2l0aCB5
-b3UuIEluIGZhY3Qgd2hlbiBJIGFkZGVkIHRoaXMgc2VjdGlvbiBJIGhhZCBhIGxvb2sgYXQKdGhl
-IGNvcnJlc3BvbmRpbmcgb25lcyBmcm9tIG90aGVyIGRldmljZXMsIGFuZCBnb3QgY29uZnVzZWQg
-YnkgdGhlIHdvcmRpbmcuCk15IHVuZGVyc3RhbmRpbmcgYWN0dWFsbHkgd2FzIHRoYXQgdGhlIGZp
-ZWxkIHdvbid0IGV4aXN0LCBidXQgaW5kZWVkIEkKZm91bmQgaXQgcHJldHR5IHdlaXJkLCBzbyBp
-dCB3b3VsZCBiZSBncmVhdCBpZiB3ZSBjYW4gdXBkYXRlIGFsbCB0aGUgc3BlYwpzZWN0aW9ucyB0
-aGF0IGFyZSBwcm9wYWdhdGluZyB0aGlzIG1pc2ludGVycHJldGF0aW9uLiBGb3Igbm93LCBJIHdp
-bGwKdXBkYXRlIHRoZSBzZWN0aW9uIGluIHRoaXMgcGF0Y2guCgpUaGFua3MsCkxhdXJhCgoKCkFt
-YXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmlj
-ZTogMjdBIFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5
-LCA3MDAwNDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51
-bWJlciBKMjIvMjYyMS8yMDA1Lgo=
---------------qOq6JrdD0CF0FZ4Kcw3Ec9Uk
-MIME-Version: 1.0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+On Thu, Jun 23, 2022 at 05:27:28PM +0300, Laura Loghin wrote:
+> On 6/15/22 17:11, Stefan Hajnoczi wrote:
+> > On Mon, Apr 04, 2022 at 04:49:31PM +0300, Laura Loghin wrote:
+> > > @@ -57,6 +62,35 @@ \subsection{Device configuration layout}\label{sec=
+:Device Types / Socket Device
+> > >   \hline
+> > >   \end{tabular}
+> > > +The following driver-read-only field, \field{data_max_size} only exi=
+sts if
+> > > +VIRTIO_VSOCK_F_SIZE_MAX is set. This field specifies the maximum pac=
+ket payload
+> > > +size for the driver to use.
+> > This wording can be misinterpreted but can be kept for now. This wording
+> > should be updated when the next field is added in the future, indicating
+> > that the field is only *used* when VIRTIO_VSOCK_F_SIZE_MAX has been
+> > negotiated. Further fields will be located after data_max_size so the
+> > field certainly *exists* even when VIRTIO_VSOCK_F_SIZE_MAX is not set.
+> >=20
+> > If someone misinterprets this they might think the config struct layout
+> > depends on the combination of negotiated feature bits. That's not the
+> > case, the layout is always the same. The size of the struct depends on
+> > the features offered by the device.
+> >=20
+> > Similar wording is used elsewhere in the spec, so we may want to clarify
+> > it for the entire spec.
+> >=20
+> > Stefan
+>=20
+> Yes, I agree with you. In fact when I added this section I had a look at
+> the corresponding ones from other devices, and got confused by the wordin=
+g.
+> My understanding actually was that the field won't exist, but indeed I
+> found it pretty weird, so it would be great if we can update all the spec
+> sections that are propagating this misinterpretation. For now, I will
+> update the section in this patch.
 
-PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
-bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
-diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA2LzE1LzIyIDE3OjExLCBTdGVmYW4gSGFqbm9j
-emkKICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRl
-IgogICAgICBjaXRlPSJtaWQ6WXFub25OdUJjJTJGV01XaGEwQHN0ZWZhbmhhLXgxLmxvY2FsZG9t
-YWluIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5PbiBNb24sIEFw
-ciAwNCwgMjAyMiBhdCAwNDo0OTozMVBNICswMzAwLCBMYXVyYSBMb2doaW4gd3JvdGU6CjwvcHJl
-PgogICAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNsYXNzPSJtb3ot
-cXVvdGUtcHJlIiB3cmFwPSIiPkBAIC01Nyw2ICs2MiwzNSBAQCBcc3Vic2VjdGlvbntEZXZpY2Ug
-Y29uZmlndXJhdGlvbiBsYXlvdXR9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2
-aWNlCiBcaGxpbmUKIFxlbmR7dGFidWxhcn0KIAorVGhlIGZvbGxvd2luZyBkcml2ZXItcmVhZC1v
-bmx5IGZpZWxkLCBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gb25seSBleGlzdHMgaWYKK1ZJUlRJT19W
-U09DS19GX1NJWkVfTUFYIGlzIHNldC4gVGhpcyBmaWVsZCBzcGVjaWZpZXMgdGhlIG1heGltdW0g
-cGFja2V0IHBheWxvYWQKK3NpemUgZm9yIHRoZSBkcml2ZXIgdG8gdXNlLgo8L3ByZT4KICAgICAg
-PC9ibG9ja3F1b3RlPgogICAgICA8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPgpU
-aGlzIHdvcmRpbmcgY2FuIGJlIG1pc2ludGVycHJldGVkIGJ1dCBjYW4gYmUga2VwdCBmb3Igbm93
-LiBUaGlzIHdvcmRpbmcKc2hvdWxkIGJlIHVwZGF0ZWQgd2hlbiB0aGUgbmV4dCBmaWVsZCBpcyBh
-ZGRlZCBpbiB0aGUgZnV0dXJlLCBpbmRpY2F0aW5nCnRoYXQgdGhlIGZpZWxkIGlzIG9ubHkgKnVz
-ZWQqIHdoZW4gVklSVElPX1ZTT0NLX0ZfU0laRV9NQVggaGFzIGJlZW4KbmVnb3RpYXRlZC4gRnVy
-dGhlciBmaWVsZHMgd2lsbCBiZSBsb2NhdGVkIGFmdGVyIGRhdGFfbWF4X3NpemUgc28gdGhlCmZp
-ZWxkIGNlcnRhaW5seSAqZXhpc3RzKiBldmVuIHdoZW4gVklSVElPX1ZTT0NLX0ZfU0laRV9NQVgg
-aXMgbm90IHNldC4KCklmIHNvbWVvbmUgbWlzaW50ZXJwcmV0cyB0aGlzIHRoZXkgbWlnaHQgdGhp
-bmsgdGhlIGNvbmZpZyBzdHJ1Y3QgbGF5b3V0CmRlcGVuZHMgb24gdGhlIGNvbWJpbmF0aW9uIG9m
-IG5lZ290aWF0ZWQgZmVhdHVyZSBiaXRzLiBUaGF0J3Mgbm90IHRoZQpjYXNlLCB0aGUgbGF5b3V0
-IGlzIGFsd2F5cyB0aGUgc2FtZS4gVGhlIHNpemUgb2YgdGhlIHN0cnVjdCBkZXBlbmRzIG9uCnRo
-ZSBmZWF0dXJlcyBvZmZlcmVkIGJ5IHRoZSBkZXZpY2UuCgpTaW1pbGFyIHdvcmRpbmcgaXMgdXNl
-ZCBlbHNld2hlcmUgaW4gdGhlIHNwZWMsIHNvIHdlIG1heSB3YW50IHRvIGNsYXJpZnkKaXQgZm9y
-IHRoZSBlbnRpcmUgc3BlYy4KClN0ZWZhbgo8L3ByZT4KICAgIDwvYmxvY2txdW90ZT4KICAgIDxw
-cmU+WWVzLCBJIGFncmVlIHdpdGggeW91LiBJbiBmYWN0IHdoZW4gSSBhZGRlZCB0aGlzIHNlY3Rp
-b24gSSBoYWQgYSBsb29rIGF0CnRoZSBjb3JyZXNwb25kaW5nIG9uZXMgZnJvbSBvdGhlciBkZXZp
-Y2VzLCBhbmQgZ290IGNvbmZ1c2VkIGJ5IHRoZSB3b3JkaW5nLgpNeSB1bmRlcnN0YW5kaW5nIGFj
-dHVhbGx5IHdhcyB0aGF0IHRoZSBmaWVsZCB3b24ndCBleGlzdCwgYnV0IGluZGVlZCBJCmZvdW5k
-IGl0IHByZXR0eSB3ZWlyZCwgc28gaXQgd291bGQgYmUgZ3JlYXQgaWYgd2UgY2FuIHVwZGF0ZSBh
-bGwgdGhlIHNwZWMKc2VjdGlvbnMgdGhhdCBhcmUgcHJvcGFnYXRpbmcgdGhpcyBtaXNpbnRlcnBy
-ZXRhdGlvbi4gRm9yIG5vdywgSSB3aWxsCnVwZGF0ZSB0aGUgc2VjdGlvbiBpbiB0aGlzIHBhdGNo
-LgoKVGhhbmtzLApMYXVyYSA8L3ByZT4KICA8cD48L3A+Cgo8cD48YnI+CkFtYXpvbiBEZXZlbG9w
-bWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdBIFNmLiBM
-YXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3MDAwNDUsIFJv
-bWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJlciBKMjIvMjYy
-MS8yMDA1LjwvcD4KPC9ib2R5Pgo8L2h0bWw+Cg==
---------------qOq6JrdD0CF0FZ4Kcw3Ec9Uk--
+Thanks!
+
+Stefan
+
+--FBkJqd7/rXEdcakt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmK13WEACgkQnKSrs4Gr
+c8hufgf/Tb17KC/2OFLurozK4C2ujo0gT/E9IAtvtW21zYb/6Sewq57wpkT2Noff
+wi2BM5iKEPQEcSneBDRed5ZL5RkldZaZr/Ol/3X57JjP8pqfwqKzmGf9vdkQeSZj
+7OGkzM0aQjvzDL9GcclaFEXe7M51CWNNkmxoq+e2/bNR2J8HJgKlgjv0ByKuWQiZ
+wN4P5HlxiwitQxNpAhEoTYrQ9EOELgkFx6bH83tcaqDRrT20TGKJv1kl7dCwzm4r
+Tk4+VoOYQNZ6vewpZ5haEw4tCzABxA8Lgjs8YgXiZ0cWi6UORAhTPmnT20U0uDpQ
+JrqzIfWl4EyDxxCwLeSu4RH0+hyJDw==
+=aqYu
+-----END PGP SIGNATURE-----
+
+--FBkJqd7/rXEdcakt--
 
