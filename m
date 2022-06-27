@@ -1,138 +1,241 @@
-Return-Path: <virtio-comment-return-3182-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3185-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 92B9D9863E3
-	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Jun 2022 11:45:37 +0000 (UTC)
-Date: Mon, 27 Jun 2022 07:45:29 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20220627074428-mutt-send-email-mst@kernel.org>
-References: <20220627100737.16118-1-lauralg@amazon.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 05C5B9863E3
+	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Jun 2022 13:25:43 +0000 (UTC)
+Message-ID: <75f7af88-25b4-f698-80fe-72264ec290a3@amazon.com>
+Date: Mon, 27 Jun 2022 16:25:21 +0300
 MIME-Version: 1.0
-In-Reply-To: <20220627100737.16118-1-lauralg@amazon.com>
+References: <20220627100737.16118-1-lauralg@amazon.com>
+ <20220627074428-mutt-send-email-mst@kernel.org>
+From: Laura Loghin <lauralg@amazon.com>
+In-Reply-To: <20220627074428-mutt-send-email-mst@kernel.org>
 Subject: [virtio-comment] Re: [PATCH v5] virtio-vsock: add max payload size config field
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Laura Loghin <lauralg@amazon.com>
+Content-Type: multipart/alternative;
+	boundary="------------YAVDdGzi07y0YLmAGjKrDTfQ"
+Content-Language: en-US
+To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Mon, Jun 27, 2022 at 01:07:37PM +0300, Laura Loghin wrote:
-> Added a new field to the vsock device config space that
-> is limiting the size of the packet payload. This way
-> the driver is not allowed to allocate huge buffers, and
-> potentially fill up the entire memory.
+--------------YAVDdGzi07y0YLmAGjKrDTfQ
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-Could we discuss the motivation a bit more? Are we talking about
-device or driver memory? What about allocating huge buffers
-allows filling up entire memory which isn't possible with
-lots of small buffers?
+T24gNi8yNy8yMiAxNDo0NSwgTWljaGFlbCBTLiBUc2lya2luIHdyb3RlOgo+IENBVVRJT046IFRo
+aXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
+bm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmly
+bSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuCj4KPgo+Cj4gT24gTW9u
+LCBKdW4gMjcsIDIwMjIgYXQgMDE6MDc6MzdQTSArMDMwMCwgTGF1cmEgTG9naGluIHdyb3RlOgo+
+PiBBZGRlZCBhIG5ldyBmaWVsZCB0byB0aGUgdnNvY2sgZGV2aWNlIGNvbmZpZyBzcGFjZSB0aGF0
+Cj4+IGlzIGxpbWl0aW5nIHRoZSBzaXplIG9mIHRoZSBwYWNrZXQgcGF5bG9hZC4gVGhpcyB3YXkK
+Pj4gdGhlIGRyaXZlciBpcyBub3QgYWxsb3dlZCB0byBhbGxvY2F0ZSBodWdlIGJ1ZmZlcnMsIGFu
+ZAo+PiBwb3RlbnRpYWxseSBmaWxsIHVwIHRoZSBlbnRpcmUgbWVtb3J5Lgo+IENvdWxkIHdlIGRp
+c2N1c3MgdGhlIG1vdGl2YXRpb24gYSBiaXQgbW9yZT8gQXJlIHdlIHRhbGtpbmcgYWJvdXQKPiBk
+ZXZpY2Ugb3IgZHJpdmVyIG1lbW9yeT8gV2hhdCBhYm91dCBhbGxvY2F0aW5nIGh1Z2UgYnVmZmVy
+cwo+IGFsbG93cyBmaWxsaW5nIHVwIGVudGlyZSBtZW1vcnkgd2hpY2ggaXNuJ3QgcG9zc2libGUg
+d2l0aAo+IGxvdHMgb2Ygc21hbGwgYnVmZmVycz8KCkkgd2FzIHRhbGtpbmcgYWJvdXQgdGhlIGRy
+aXZlciBtZW1vcnkgaGVyZS4gSGF2aW5nIHN1Y2ggbGltaXQgaXMKYWxzbyB1c2VmdWwgaW4gY2Fz
+ZSB0aGUgZHJpdmVyIGlzIHNlbmRpbmcgcGFja2V0cyB0aGF0IGFyZSBiaWdnZXIKdGhhbiB3aGF0
+IHRoZSBkZXZpY2UgY2FuIGhhbmRsZSBpbiBhIHRpbWVseSBmYXNoaW9uIGFuZCB3aXRoIGl0cwph
+dmFpbGFibGUgbWVtb3J5LiBTbywgbmVnb3RpYXRpbmcgdGhpcyBzaXplIGNhbiBpbXByb3ZlIHRo
+ZQpwZXJmb3JtYW5jZS4KU2hvdWxkIEkgc2VuZCBhIG5ldyB2ZXJzaW9uIHdpdGggYSBtb3JlIGRl
+dGFpbGVkIGNvbW1pdCBtZXNzYWdlPwoKPgo+PiBBbHNvIGRlZmluZWQgYSBuZXcgZmVhdHVyZSBi
+aXQgZm9yIHRoaXMsIFZJUlRJT19WU09DS19GX1NJWkVfTUFYLAo+PiBpbiBvcmRlciB0byBrZWVw
+IGJhY2t3YXJkcyBjb21wYXRpYmlsaXR5Lgo+Pgo+PiBGaXhlczpodHRwczovL2dpdGh1Yi5jb20v
+b2FzaXMtdGNzL3ZpcnRpby1zcGVjL2lzc3Vlcy8xNDAKPj4KPj4gU2lnbmVkLW9mZi1ieTogTGF1
+cmEgTG9naGluPGxhdXJhbGdAYW1hem9uLmNvbT4KPj4gLS0tCj4+ICAgY29uZm9ybWFuY2UudGV4
+ICB8ICAyICsrCj4+ICAgdmlydGlvLXZzb2NrLnRleCB8IDI0ICsrKysrKysrKysrKysrKysrKysr
+KysrKwo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0t
+Z2l0IGEvY29uZm9ybWFuY2UudGV4IGIvY29uZm9ybWFuY2UudGV4Cj4+IGluZGV4IDQyZjg1Mzcu
+Ljc3Zjc1ODMgMTAwNjQ0Cj4+IC0tLSBhL2NvbmZvcm1hbmNlLnRleAo+PiArKysgYi9jb25mb3Jt
+YW5jZS50ZXgKPj4gQEAgLTIyMiw2ICsyMjIsNyBAQCBcc2VjdGlvbntDb25mb3JtYW5jZSBUYXJn
+ZXRzfVxsYWJlbHtzZWM6Q29uZm9ybWFuY2UgLyBDb25mb3JtYW5jZSBUYXJnZXRzfQo+PiAgIEEg
+c29ja2V0IGRyaXZlciBNVVNUIGNvbmZvcm0gdG8gdGhlIGZvbGxvd2luZyBub3JtYXRpdmUgc3Rh
+dGVtZW50czoKPj4KPj4gICBcYmVnaW57aXRlbWl6ZX0KPj4gK1xpdGVtIFxyZWZ7ZHJpdmVybm9y
+bWF0aXZlOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgY29uZmlndXJhdGlv
+biBsYXlvdXR9Cj4+ICAgXGl0ZW0gXHJlZntkcml2ZXJub3JtYXRpdmU6RGV2aWNlIFR5cGVzIC8g
+U29ja2V0IERldmljZSAvIERldmljZSBPcGVyYXRpb24gLyBCdWZmZXIgU3BhY2UgTWFuYWdlbWVu
+dH0KPj4gICBcaXRlbSBccmVme2RyaXZlcm5vcm1hdGl2ZTpEZXZpY2UgVHlwZXMgLyBTb2NrZXQg
+RGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlvbiAvIFJlY2VpdmUgYW5kIFRyYW5zbWl0fQo+PiAgIFxp
+dGVtIFxyZWZ7ZHJpdmVybm9ybWF0aXZlOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBE
+ZXZpY2UgT3BlcmF0aW9uIC8gRGV2aWNlIEV2ZW50c30KPj4gQEAgLTQ4MSw2ICs0ODIsNyBAQCBc
+c2VjdGlvbntDb25mb3JtYW5jZSBUYXJnZXRzfVxsYWJlbHtzZWM6Q29uZm9ybWFuY2UgLyBDb25m
+b3JtYW5jZSBUYXJnZXRzfQo+PiAgIEEgc29ja2V0IGRldmljZSBNVVNUIGNvbmZvcm0gdG8gdGhl
+IGZvbGxvd2luZyBub3JtYXRpdmUgc3RhdGVtZW50czoKPj4KPj4gICBcYmVnaW57aXRlbWl6ZX0K
+Pj4gK1xpdGVtIFxyZWZ7ZGV2aWNlbm9ybWF0aXZlOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZp
+Y2UgLyBEZXZpY2UgY29uZmlndXJhdGlvbiBsYXlvdXR9Cj4+ICAgXGl0ZW0gXHJlZntkZXZpY2Vu
+b3JtYXRpdmU6RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBPcGVyYXRpb24g
+LyBCdWZmZXIgU3BhY2UgTWFuYWdlbWVudH0KPj4gICBcaXRlbSBccmVme2RldmljZW5vcm1hdGl2
+ZTpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlvbiAvIFJlY2Vp
+dmUgYW5kIFRyYW5zbWl0fQo+PiAgIFxlbmR7aXRlbWl6ZX0KPj4gZGlmZiAtLWdpdCBhL3ZpcnRp
+by12c29jay50ZXggYi92aXJ0aW8tdnNvY2sudGV4Cj4+IGluZGV4IGQ3OTk4NGQuLjljYmY4YzQg
+MTAwNjQ0Cj4+IC0tLSBhL3ZpcnRpby12c29jay50ZXgKPj4gKysrIGIvdmlydGlvLXZzb2NrLnRl
+eAo+PiBAQCAtMjMsNiArMjMsMTAgQEAgXHN1YnNlY3Rpb257RmVhdHVyZSBiaXRzfVxsYWJlbHtz
+ZWM6RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZSAvIEZlYXR1cmUgYml0c30KPj4gICBcYmVn
+aW57ZGVzY3JpcHRpb259Cj4+ICAgXGl0ZW1bVklSVElPX1ZTT0NLX0ZfU1RSRUFNICgwKV0gc3Ry
+ZWFtIHNvY2tldCB0eXBlIGlzIHN1cHBvcnRlZC4KPj4gICBcaXRlbVtWSVJUSU9fVlNPQ0tfRl9T
+RVFQQUNLRVQgKDEpXSBzZXFwYWNrZXQgc29ja2V0IHR5cGUgaXMgc3VwcG9ydGVkLgo+PiArXGl0
+ZW1bVklSVElPX1ZTT0NLX0ZfU0laRV9NQVggKDIpXSBNYXhpbXVtIHNpemUgb2YgdGhlIHBhY2tl
+dCBwYXlsb2FkIGlzIGluCj4+ICsgICAgIFxmaWVsZHtkYXRhX21heF9zaXplfS4gSWYgb2ZmZXJl
+ZCBieSB0aGUgZGV2aWNlLCBkZXZpY2UgYWR2aXNlcyBkcml2ZXIKPj4gKyAgICAgYWJvdXQgdGhl
+IHZhbHVlIG9mIGl0cyBtYXhpbXVtIHBheWxvYWQgc2l6ZS4gSWYgbmVnb3RpYXRlZCwgdGhlIGRy
+aXZlciB1c2VzCj4+ICsgICAgIFxmaWVsZHtkYXRhX21heF9zaXplfSBhcyB0aGUgbWF4aW11bSBw
+YWNrZXQgcGF5bG9hZCBzaXplIHZhbHVlLgo+PiAgIFxlbmR7ZGVzY3JpcHRpb259Cj4+Cj4+ICAg
+XHN1YnNlY3Rpb257RGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fVxsYWJlbHtzZWM6RGV2aWNl
+IFR5cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KPj4g
+QEAgLTMyLDYgKzM2LDcgQEAgXHN1YnNlY3Rpb257RGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0
+fVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZQo+PiAgIFxiZWdpbntsc3Rs
+aXN0aW5nfQo+PiAgIHN0cnVjdCB2aXJ0aW9fdnNvY2tfY29uZmlnIHsKPj4gICAgICAgIGxlNjQg
+Z3Vlc3RfY2lkOwo+PiArICAgICBsZTMyIGRhdGFfbWF4X3NpemU7Cj4+ICAgfTsKPj4gICBcZW5k
+e2xzdGxpc3Rpbmd9Cj4+Cj4+IEBAIC01Nyw2ICs2MiwyNSBAQCBcc3Vic2VjdGlvbntEZXZpY2Ug
+Y29uZmlndXJhdGlvbiBsYXlvdXR9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2
+aWNlCj4+ICAgXGhsaW5lCj4+ICAgXGVuZHt0YWJ1bGFyfQo+Pgo+PiArVGhlIGZvbGxvd2luZyBk
+cml2ZXItcmVhZC1vbmx5IGZpZWxkLCBcZmllbGR7ZGF0YV9tYXhfc2l6ZX0gY2FuIGJlIHVzZWQg
+b25seSBpZgo+PiArVklSVElPX1ZTT0NLX0ZfU0laRV9NQVggaXMgbmVnb3RpYXRlZC4gVGhpcyBm
+aWVsZCBzcGVjaWZpZXMgdGhlIG1heGltdW0gcGFja2V0Cj4+ICtwYXlsb2FkIHNpemUgZm9yIHRo
+ZSBkcml2ZXIgdG8gdXNlLgo+PiArCj4+ICtcZGV2aWNlbm9ybWF0aXZle1xzdWJzdWJzZWN0aW9u
+fXtEZXZpY2UgY29uZmlndXJhdGlvbiBsYXlvdXR9e0RldmljZSBUeXBlcyAvIFNvY2tldCBEZXZp
+Y2UgLyBEZXZpY2UgY29uZmlndXJhdGlvbiBsYXlvdXR9Cj4+ICsKPj4gK1RoZSBkZXZpY2UgTVVT
+VCBOT1QgY2hhbmdlIHRoZSB2YWx1ZSBleHBvc2VkIHRocm91Z2ggXGZpZWxke2RhdGFfbWF4X3Np
+emV9Lgo+PiArCj4+ICtcZHJpdmVybm9ybWF0aXZle1xzdWJzdWJzZWN0aW9ufXtEZXZpY2UgY29u
+ZmlndXJhdGlvbiBsYXlvdXR9e0RldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2Ug
+Y29uZmlndXJhdGlvbiBsYXlvdXR9Cj4+ICsKPj4gK0EgZHJpdmVyIFNIT1VMRCBuZWdvdGlhdGUg
+VklSVElPX1ZTT0NLX0ZfU0laRV9NQVggaWYgdGhlIGRldmljZSBvZmZlcnMgaXQuCj4+ICsKPj4g
+K0lmIHRoZSBkcml2ZXIgbmVnb3RpYXRlcyBWSVJUSU9fVlNPQ0tfRl9TSVpFX01BWCwgdGhlIHNp
+emUgb2YgZWFjaCByZWNlaXZlCj4+ICtidWZmZXIgaXQgc3VwcGxpZXMgTVVTVCBub3QgZXhjZWVk
+IHRoZSBzaXplIFxmaWVsZHtkYXRhX21heF9zaXplfSAocGx1cyBoZWFkZXIKPj4gK2xlbmd0aCku
+Cj4+ICsKPj4gK0lmIHRoZSBkcml2ZXIgbmVnb3RpYXRlcyBWSVJUSU9fVlNPQ0tfRl9TSVpFX01B
+WCwgaXQgTVVTVCBOT1QgdHJhbnNtaXQgcGFja2V0cwo+PiArb2Ygc2l6ZSBleGNlZWRpbmcgdGhl
+IHZhbHVlIG9mIFxmaWVsZHtkYXRhX21heF9zaXplfSAocGx1cyBoZWFkZXIgbGVuZ3RoKS4KPj4g
+Kwo+PiAgIFxzdWJzZWN0aW9ue0RldmljZSBJbml0aWFsaXphdGlvbn1cbGFiZWx7c2VjOkRldmlj
+ZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgSW5pdGlhbGl6YXRpb259Cj4+Cj4+ICAg
+XGJlZ2lue2VudW1lcmF0ZX0KPj4gLS0KPj4gMi4xNy4xCj4+Cj4+Cj4+Cj4+Cj4+IEFtYXpvbiBE
+ZXZlbG9wbWVudCBDZW50ZXIgKFJvbWFuaWEpIFMuUi5MLiByZWdpc3RlcmVkIG9mZmljZTogMjdB
+IFNmLiBMYXphciBTdHJlZXQsIFVCQzUsIGZsb29yIDIsIElhc2ksIElhc2kgQ291bnR5LCA3MDAw
+NDUsIFJvbWFuaWEuIFJlZ2lzdGVyZWQgaW4gUm9tYW5pYS4gUmVnaXN0cmF0aW9uIG51bWJlciBK
+MjIvMjYyMS8yMDA1LgoKCgoKQW1hem9uIERldmVsb3BtZW50IENlbnRlciAoUm9tYW5pYSkgUy5S
+LkwuIHJlZ2lzdGVyZWQgb2ZmaWNlOiAyN0EgU2YuIExhemFyIFN0cmVldCwgVUJDNSwgZmxvb3Ig
+MiwgSWFzaSwgSWFzaSBDb3VudHksIDcwMDA0NSwgUm9tYW5pYS4gUmVnaXN0ZXJlZCBpbiBSb21h
+bmlhLiBSZWdpc3RyYXRpb24gbnVtYmVyIEoyMi8yNjIxLzIwMDUuCg==
+--------------YAVDdGzi07y0YLmAGjKrDTfQ
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> Also defined a new feature bit for this, VIRTIO_VSOCK_F_SIZE_MAX,
-> in order to keep backwards compatibility.
-> 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/140
-> 
-> Signed-off-by: Laura Loghin <lauralg@amazon.com>
-> ---
->  conformance.tex  |  2 ++
->  virtio-vsock.tex | 24 ++++++++++++++++++++++++
->  2 files changed, 26 insertions(+)
-> 
-> diff --git a/conformance.tex b/conformance.tex
-> index 42f8537..77f7583 100644
-> --- a/conformance.tex
-> +++ b/conformance.tex
-> @@ -222,6 +222,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->  A socket driver MUST conform to the following normative statements:
->  
->  \begin{itemize}
-> +\item \ref{drivernormative:Device Types / Socket Device / Device configuration layout}
->  \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Buffer Space Management}
->  \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Receive and Transmit}
->  \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Device Events}
-> @@ -481,6 +482,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->  A socket device MUST conform to the following normative statements:
->  
->  \begin{itemize}
-> +\item \ref{devicenormative:Device Types / Socket Device / Device configuration layout}
->  \item \ref{devicenormative:Device Types / Socket Device / Device Operation / Buffer Space Management}
->  \item \ref{devicenormative:Device Types / Socket Device / Device Operation / Receive and Transmit}
->  \end{itemize}
-> diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-> index d79984d..9cbf8c4 100644
-> --- a/virtio-vsock.tex
-> +++ b/virtio-vsock.tex
-> @@ -23,6 +23,10 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
->  \begin{description}
->  \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
->  \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
-> +\item[VIRTIO_VSOCK_F_SIZE_MAX (2)] Maximum size of the packet payload is in
-> +	\field{data_max_size}. If offered by the device, device advises driver
-> +	about the value of its maximum payload size. If negotiated, the driver uses
-> +	\field{data_max_size} as the maximum packet payload size value.
->  \end{description}
->  
->  \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
-> @@ -32,6 +36,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
->  \begin{lstlisting}
->  struct virtio_vsock_config {
->  	le64 guest_cid;
-> +	le32 data_max_size;
->  };
->  \end{lstlisting}
->  
-> @@ -57,6 +62,25 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
->  \hline
->  \end{tabular}
->  
-> +The following driver-read-only field, \field{data_max_size} can be used only if
-> +VIRTIO_VSOCK_F_SIZE_MAX is negotiated. This field specifies the maximum packet
-> +payload size for the driver to use.
-> +
-> +\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-> +
-> +The device MUST NOT change the value exposed through \field{data_max_size}.
-> +
-> +\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-> +
-> +A driver SHOULD negotiate VIRTIO_VSOCK_F_SIZE_MAX if the device offers it.
-> +
-> +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, the size of each receive
-> +buffer it supplies MUST not exceed the size \field{data_max_size} (plus header
-> +length).
-> +
-> +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST NOT transmit packets
-> +of size exceeding the value of \field{data_max_size} (plus header length).
-> +
->  \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
->  
->  \begin{enumerate}
-> -- 
-> 2.17.1
-> 
-> 
-> 
-> 
-> Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in Romania. Registration number J22/2621/2005.
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+PGh0bWw+CiAgPGhlYWQ+CiAgICA8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRl
+bnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRp
+diBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiA2LzI3LzIyIDE0OjQ1LCBNaWNoYWVsIFMuIFRz
+aXJraW4KICAgICAgd3JvdGU6PGJyPgogICAgPC9kaXY+CiAgICA8YmxvY2txdW90ZSB0eXBlPSJj
+aXRlIgogICAgICBjaXRlPSJtaWQ6MjAyMjA2MjcwNzQ0MjgtbXV0dC1zZW5kLWVtYWlsLW1zdEBr
+ZXJuZWwub3JnIj4KICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5DQVVU
+SU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBvcmdhbml6YXRp
+b24uIERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2Fu
+IGNvbmZpcm0gdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgoKCgpPbiBN
+b24sIEp1biAyNywgMjAyMiBhdCAwMTowNzozN1BNICswMzAwLCBMYXVyYSBMb2doaW4gd3JvdGU6
+CjwvcHJlPgogICAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4KICAgICAgICA8cHJlIGNsYXNz
+PSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPkFkZGVkIGEgbmV3IGZpZWxkIHRvIHRoZSB2c29jayBk
+ZXZpY2UgY29uZmlnIHNwYWNlIHRoYXQKaXMgbGltaXRpbmcgdGhlIHNpemUgb2YgdGhlIHBhY2tl
+dCBwYXlsb2FkLiBUaGlzIHdheQp0aGUgZHJpdmVyIGlzIG5vdCBhbGxvd2VkIHRvIGFsbG9jYXRl
+IGh1Z2UgYnVmZmVycywgYW5kCnBvdGVudGlhbGx5IGZpbGwgdXAgdGhlIGVudGlyZSBtZW1vcnku
+CjwvcHJlPgogICAgICA8L2Jsb2NrcXVvdGU+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1w
+cmUiIHdyYXA9IiI+CkNvdWxkIHdlIGRpc2N1c3MgdGhlIG1vdGl2YXRpb24gYSBiaXQgbW9yZT8g
+QXJlIHdlIHRhbGtpbmcgYWJvdXQKZGV2aWNlIG9yIGRyaXZlciBtZW1vcnk/IFdoYXQgYWJvdXQg
+YWxsb2NhdGluZyBodWdlIGJ1ZmZlcnMKYWxsb3dzIGZpbGxpbmcgdXAgZW50aXJlIG1lbW9yeSB3
+aGljaCBpc24ndCBwb3NzaWJsZSB3aXRoCmxvdHMgb2Ygc21hbGwgYnVmZmVycz88L3ByZT4KICAg
+IDwvYmxvY2txdW90ZT4KICAgIDxwcmU+SSB3YXMgdGFsa2luZyBhYm91dCB0aGUgZHJpdmVyIG1l
+bW9yeSBoZXJlLiBIYXZpbmcgc3VjaCBsaW1pdCBpcwphbHNvIHVzZWZ1bCBpbiBjYXNlIHRoZSBk
+cml2ZXIgaXMgc2VuZGluZyBwYWNrZXRzIHRoYXQgYXJlIGJpZ2dlcgp0aGFuIHdoYXQgdGhlIGRl
+dmljZSBjYW4gaGFuZGxlIGluIGEgdGltZWx5IGZhc2hpb24gYW5kIHdpdGggaXRzCmF2YWlsYWJs
+ZSBtZW1vcnkuIFNvLCBuZWdvdGlhdGluZyB0aGlzIHNpemUgY2FuIGltcHJvdmUgdGhlCnBlcmZv
+cm1hbmNlLgpTaG91bGQgSSBzZW5kIGEgbmV3IHZlcnNpb24gd2l0aCBhIG1vcmUgZGV0YWlsZWQg
+Y29tbWl0IG1lc3NhZ2U/CjwvcHJlPgogICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIKICAgICAg
+Y2l0ZT0ibWlkOjIwMjIwNjI3MDc0NDI4LW11dHQtc2VuZC1lbWFpbC1tc3RAa2VybmVsLm9yZyI+
+CiAgICAgIDxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+Cgo8L3ByZT4KICAgICAg
+PGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+CiAgICAgICAgPHByZSBjbGFzcz0ibW96LXF1b3RlLXBy
+ZSIgd3JhcD0iIj5BbHNvIGRlZmluZWQgYSBuZXcgZmVhdHVyZSBiaXQgZm9yIHRoaXMsIFZJUlRJ
+T19WU09DS19GX1NJWkVfTUFYLAppbiBvcmRlciB0byBrZWVwIGJhY2t3YXJkcyBjb21wYXRpYmls
+aXR5LgoKRml4ZXM6IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJlZXRleHQiIGhyZWY9Imh0dHBz
+Oi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlvLXNwZWMvaXNzdWVzLzE0MCI+aHR0cHM6Ly9n
+aXRodWIuY29tL29hc2lzLXRjcy92aXJ0aW8tc3BlYy9pc3N1ZXMvMTQwPC9hPgoKU2lnbmVkLW9m
+Zi1ieTogTGF1cmEgTG9naGluIDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9
+Im1haWx0bzpsYXVyYWxnQGFtYXpvbi5jb20iPiZsdDtsYXVyYWxnQGFtYXpvbi5jb20mZ3Q7PC9h
+PgotLS0KIGNvbmZvcm1hbmNlLnRleCAgfCAgMiArKwogdmlydGlvLXZzb2NrLnRleCB8IDI0ICsr
+KysrKysrKysrKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAyNiBpbnNlcnRpb25zKCsp
+CgpkaWZmIC0tZ2l0IGEvY29uZm9ybWFuY2UudGV4IGIvY29uZm9ybWFuY2UudGV4CmluZGV4IDQy
+Zjg1MzcuLjc3Zjc1ODMgMTAwNjQ0Ci0tLSBhL2NvbmZvcm1hbmNlLnRleAorKysgYi9jb25mb3Jt
+YW5jZS50ZXgKQEAgLTIyMiw2ICsyMjIsNyBAQCBcc2VjdGlvbntDb25mb3JtYW5jZSBUYXJnZXRz
+fVxsYWJlbHtzZWM6Q29uZm9ybWFuY2UgLyBDb25mb3JtYW5jZSBUYXJnZXRzfQogQSBzb2NrZXQg
+ZHJpdmVyIE1VU1QgY29uZm9ybSB0byB0aGUgZm9sbG93aW5nIG5vcm1hdGl2ZSBzdGF0ZW1lbnRz
+OgoKIFxiZWdpbntpdGVtaXplfQorXGl0ZW0gXHJlZntkcml2ZXJub3JtYXRpdmU6RGV2aWNlIFR5
+cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxheW91dH0KIFxpdGVt
+IFxyZWZ7ZHJpdmVybm9ybWF0aXZlOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZp
+Y2UgT3BlcmF0aW9uIC8gQnVmZmVyIFNwYWNlIE1hbmFnZW1lbnR9CiBcaXRlbSBccmVme2RyaXZl
+cm5vcm1hdGl2ZTpEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlv
+biAvIFJlY2VpdmUgYW5kIFRyYW5zbWl0fQogXGl0ZW0gXHJlZntkcml2ZXJub3JtYXRpdmU6RGV2
+aWNlIFR5cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBPcGVyYXRpb24gLyBEZXZpY2UgRXZl
+bnRzfQpAQCAtNDgxLDYgKzQ4Miw3IEBAIFxzZWN0aW9ue0NvbmZvcm1hbmNlIFRhcmdldHN9XGxh
+YmVse3NlYzpDb25mb3JtYW5jZSAvIENvbmZvcm1hbmNlIFRhcmdldHN9CiBBIHNvY2tldCBkZXZp
+Y2UgTVVTVCBjb25mb3JtIHRvIHRoZSBmb2xsb3dpbmcgbm9ybWF0aXZlIHN0YXRlbWVudHM6Cgog
+XGJlZ2lue2l0ZW1pemV9CitcaXRlbSBccmVme2RldmljZW5vcm1hdGl2ZTpEZXZpY2UgVHlwZXMg
+LyBTb2NrZXQgRGV2aWNlIC8gRGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fQogXGl0ZW0gXHJl
+ZntkZXZpY2Vub3JtYXRpdmU6RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBP
+cGVyYXRpb24gLyBCdWZmZXIgU3BhY2UgTWFuYWdlbWVudH0KIFxpdGVtIFxyZWZ7ZGV2aWNlbm9y
+bWF0aXZlOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9uIC8g
+UmVjZWl2ZSBhbmQgVHJhbnNtaXR9CiBcZW5ke2l0ZW1pemV9CmRpZmYgLS1naXQgYS92aXJ0aW8t
+dnNvY2sudGV4IGIvdmlydGlvLXZzb2NrLnRleAppbmRleCBkNzk5ODRkLi45Y2JmOGM0IDEwMDY0
+NAotLS0gYS92aXJ0aW8tdnNvY2sudGV4CisrKyBiL3ZpcnRpby12c29jay50ZXgKQEAgLTIzLDYg
+KzIzLDEwIEBAIFxzdWJzZWN0aW9ue0ZlYXR1cmUgYml0c31cbGFiZWx7c2VjOkRldmljZSBUeXBl
+cyAvIFNvY2tldCBEZXZpY2UgLyBGZWF0dXJlIGJpdHN9CiBcYmVnaW57ZGVzY3JpcHRpb259CiBc
+aXRlbVtWSVJUSU9fVlNPQ0tfRl9TVFJFQU0gKDApXSBzdHJlYW0gc29ja2V0IHR5cGUgaXMgc3Vw
+cG9ydGVkLgogXGl0ZW1bVklSVElPX1ZTT0NLX0ZfU0VRUEFDS0VUICgxKV0gc2VxcGFja2V0IHNv
+Y2tldCB0eXBlIGlzIHN1cHBvcnRlZC4KK1xpdGVtW1ZJUlRJT19WU09DS19GX1NJWkVfTUFYICgy
+KV0gTWF4aW11bSBzaXplIG9mIHRoZSBwYWNrZXQgcGF5bG9hZCBpcyBpbgorICAgICBcZmllbGR7
+ZGF0YV9tYXhfc2l6ZX0uIElmIG9mZmVyZWQgYnkgdGhlIGRldmljZSwgZGV2aWNlIGFkdmlzZXMg
+ZHJpdmVyCisgICAgIGFib3V0IHRoZSB2YWx1ZSBvZiBpdHMgbWF4aW11bSBwYXlsb2FkIHNpemUu
+IElmIG5lZ290aWF0ZWQsIHRoZSBkcml2ZXIgdXNlcworICAgICBcZmllbGR7ZGF0YV9tYXhfc2l6
+ZX0gYXMgdGhlIG1heGltdW0gcGFja2V0IHBheWxvYWQgc2l6ZSB2YWx1ZS4KIFxlbmR7ZGVzY3Jp
+cHRpb259CgogXHN1YnNlY3Rpb257RGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fVxsYWJlbHtz
+ZWM6RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZSAvIERldmljZSBjb25maWd1cmF0aW9uIGxh
+eW91dH0KQEAgLTMyLDYgKzM2LDcgQEAgXHN1YnNlY3Rpb257RGV2aWNlIGNvbmZpZ3VyYXRpb24g
+bGF5b3V0fVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gU29ja2V0IERldmljZQogXGJlZ2lue2xz
+dGxpc3Rpbmd9CiBzdHJ1Y3QgdmlydGlvX3Zzb2NrX2NvbmZpZyB7CiAgICAgIGxlNjQgZ3Vlc3Rf
+Y2lkOworICAgICBsZTMyIGRhdGFfbWF4X3NpemU7CiB9OwogXGVuZHtsc3RsaXN0aW5nfQoKQEAg
+LTU3LDYgKzYyLDI1IEBAIFxzdWJzZWN0aW9ue0RldmljZSBjb25maWd1cmF0aW9uIGxheW91dH1c
+bGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UKIFxobGluZQogXGVuZHt0YWJ1
+bGFyfQoKK1RoZSBmb2xsb3dpbmcgZHJpdmVyLXJlYWQtb25seSBmaWVsZCwgXGZpZWxke2RhdGFf
+bWF4X3NpemV9IGNhbiBiZSB1c2VkIG9ubHkgaWYKK1ZJUlRJT19WU09DS19GX1NJWkVfTUFYIGlz
+IG5lZ290aWF0ZWQuIFRoaXMgZmllbGQgc3BlY2lmaWVzIHRoZSBtYXhpbXVtIHBhY2tldAorcGF5
+bG9hZCBzaXplIGZvciB0aGUgZHJpdmVyIHRvIHVzZS4KKworXGRldmljZW5vcm1hdGl2ZXtcc3Vi
+c3Vic2VjdGlvbn17RGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fXtEZXZpY2UgVHlwZXMgLyBT
+b2NrZXQgRGV2aWNlIC8gRGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fQorCitUaGUgZGV2aWNl
+IE1VU1QgTk9UIGNoYW5nZSB0aGUgdmFsdWUgZXhwb3NlZCB0aHJvdWdoIFxmaWVsZHtkYXRhX21h
+eF9zaXplfS4KKworXGRyaXZlcm5vcm1hdGl2ZXtcc3Vic3Vic2VjdGlvbn17RGV2aWNlIGNvbmZp
+Z3VyYXRpb24gbGF5b3V0fXtEZXZpY2UgVHlwZXMgLyBTb2NrZXQgRGV2aWNlIC8gRGV2aWNlIGNv
+bmZpZ3VyYXRpb24gbGF5b3V0fQorCitBIGRyaXZlciBTSE9VTEQgbmVnb3RpYXRlIFZJUlRJT19W
+U09DS19GX1NJWkVfTUFYIGlmIHRoZSBkZXZpY2Ugb2ZmZXJzIGl0LgorCitJZiB0aGUgZHJpdmVy
+IG5lZ290aWF0ZXMgVklSVElPX1ZTT0NLX0ZfU0laRV9NQVgsIHRoZSBzaXplIG9mIGVhY2ggcmVj
+ZWl2ZQorYnVmZmVyIGl0IHN1cHBsaWVzIE1VU1Qgbm90IGV4Y2VlZCB0aGUgc2l6ZSBcZmllbGR7
+ZGF0YV9tYXhfc2l6ZX0gKHBsdXMgaGVhZGVyCitsZW5ndGgpLgorCitJZiB0aGUgZHJpdmVyIG5l
+Z290aWF0ZXMgVklSVElPX1ZTT0NLX0ZfU0laRV9NQVgsIGl0IE1VU1QgTk9UIHRyYW5zbWl0IHBh
+Y2tldHMKK29mIHNpemUgZXhjZWVkaW5nIHRoZSB2YWx1ZSBvZiBcZmllbGR7ZGF0YV9tYXhfc2l6
+ZX0gKHBsdXMgaGVhZGVyIGxlbmd0aCkuCisKIFxzdWJzZWN0aW9ue0RldmljZSBJbml0aWFsaXph
+dGlvbn1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIFNvY2tldCBEZXZpY2UgLyBEZXZpY2UgSW5p
+dGlhbGl6YXRpb259CgogXGJlZ2lue2VudW1lcmF0ZX0KLS0KMi4xNy4xCgoKCgpBbWF6b24gRGV2
+ZWxvcG1lbnQgQ2VudGVyIChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBT
+Zi4gTGF6YXIgU3RyZWV0LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1
+LCBSb21hbmlhLiBSZWdpc3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIy
+LzI2MjEvMjAwNS4KPC9wcmU+CiAgICAgIDwvYmxvY2txdW90ZT4KICAgICAgPHByZSBjbGFzcz0i
+bW96LXF1b3RlLXByZSIgd3JhcD0iIj4KPC9wcmU+CiAgICA8L2Jsb2NrcXVvdGU+CiAgICA8cD48
+YnI+CiAgICA8L3A+CiAgPHA+PC9wPgoKPHA+PGJyPgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVy
+IChSb21hbmlhKSBTLlIuTC4gcmVnaXN0ZXJlZCBvZmZpY2U6IDI3QSBTZi4gTGF6YXIgU3RyZWV0
+LCBVQkM1LCBmbG9vciAyLCBJYXNpLCBJYXNpIENvdW50eSwgNzAwMDQ1LCBSb21hbmlhLiBSZWdp
+c3RlcmVkIGluIFJvbWFuaWEuIFJlZ2lzdHJhdGlvbiBudW1iZXIgSjIyLzI2MjEvMjAwNS48L3A+
+CjwvYm9keT4KPC9odG1sPgo=
+--------------YAVDdGzi07y0YLmAGjKrDTfQ--
 
