@@ -1,113 +1,123 @@
-Return-Path: <virtio-comment-return-3181-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3182-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 05D329863C2
-	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Jun 2022 10:08:08 +0000 (UTC)
-From: Laura Loghin <lauralg@amazon.com>
-Date: Mon, 27 Jun 2022 13:07:37 +0300
-Message-ID: <20220627100737.16118-1-lauralg@amazon.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 92B9D9863E3
+	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Jun 2022 11:45:37 +0000 (UTC)
+Date: Mon, 27 Jun 2022 07:45:29 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20220627074428-mutt-send-email-mst@kernel.org>
+References: <20220627100737.16118-1-lauralg@amazon.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH v5] virtio-vsock: add max payload size config field
-Content-Type: text/plain
-To: mst@redhat.com
-Cc: virtio-comment@lists.oasis-open.org, Laura Loghin <lauralg@amazon.com>
+In-Reply-To: <20220627100737.16118-1-lauralg@amazon.com>
+Subject: [virtio-comment] Re: [PATCH v5] virtio-vsock: add max payload size config field
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Laura Loghin <lauralg@amazon.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Added a new field to the vsock device config space that
-is limiting the size of the packet payload. This way
-the driver is not allowed to allocate huge buffers, and
-potentially fill up the entire memory.
-Also defined a new feature bit for this, VIRTIO_VSOCK_F_SIZE_MAX,
-in order to keep backwards compatibility.
+On Mon, Jun 27, 2022 at 01:07:37PM +0300, Laura Loghin wrote:
+> Added a new field to the vsock device config space that
+> is limiting the size of the packet payload. This way
+> the driver is not allowed to allocate huge buffers, and
+> potentially fill up the entire memory.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/140
+Could we discuss the motivation a bit more? Are we talking about
+device or driver memory? What about allocating huge buffers
+allows filling up entire memory which isn't possible with
+lots of small buffers?
 
-Signed-off-by: Laura Loghin <lauralg@amazon.com>
----
- conformance.tex  |  2 ++
- virtio-vsock.tex | 24 ++++++++++++++++++++++++
- 2 files changed, 26 insertions(+)
-
-diff --git a/conformance.tex b/conformance.tex
-index 42f8537..77f7583 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -222,6 +222,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- A socket driver MUST conform to the following normative statements:
- 
- \begin{itemize}
-+\item \ref{drivernormative:Device Types / Socket Device / Device configuration layout}
- \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Buffer Space Management}
- \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Receive and Transmit}
- \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Device Events}
-@@ -481,6 +482,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- A socket device MUST conform to the following normative statements:
- 
- \begin{itemize}
-+\item \ref{devicenormative:Device Types / Socket Device / Device configuration layout}
- \item \ref{devicenormative:Device Types / Socket Device / Device Operation / Buffer Space Management}
- \item \ref{devicenormative:Device Types / Socket Device / Device Operation / Receive and Transmit}
- \end{itemize}
-diff --git a/virtio-vsock.tex b/virtio-vsock.tex
-index d79984d..9cbf8c4 100644
---- a/virtio-vsock.tex
-+++ b/virtio-vsock.tex
-@@ -23,6 +23,10 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
- \begin{description}
- \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
- \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
-+\item[VIRTIO_VSOCK_F_SIZE_MAX (2)] Maximum size of the packet payload is in
-+	\field{data_max_size}. If offered by the device, device advises driver
-+	about the value of its maximum payload size. If negotiated, the driver uses
-+	\field{data_max_size} as the maximum packet payload size value.
- \end{description}
- 
- \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
-@@ -32,6 +36,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
- \begin{lstlisting}
- struct virtio_vsock_config {
- 	le64 guest_cid;
-+	le32 data_max_size;
- };
- \end{lstlisting}
- 
-@@ -57,6 +62,25 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
- \hline
- \end{tabular}
- 
-+The following driver-read-only field, \field{data_max_size} can be used only if
-+VIRTIO_VSOCK_F_SIZE_MAX is negotiated. This field specifies the maximum packet
-+payload size for the driver to use.
-+
-+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-+
-+The device MUST NOT change the value exposed through \field{data_max_size}.
-+
-+\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
-+
-+A driver SHOULD negotiate VIRTIO_VSOCK_F_SIZE_MAX if the device offers it.
-+
-+If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, the size of each receive
-+buffer it supplies MUST not exceed the size \field{data_max_size} (plus header
-+length).
-+
-+If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST NOT transmit packets
-+of size exceeding the value of \field{data_max_size} (plus header length).
-+
- \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
- 
- \begin{enumerate}
--- 
-2.17.1
-
-
-
-
-Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in Romania. Registration number J22/2621/2005.
+> Also defined a new feature bit for this, VIRTIO_VSOCK_F_SIZE_MAX,
+> in order to keep backwards compatibility.
+> 
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/140
+> 
+> Signed-off-by: Laura Loghin <lauralg@amazon.com>
+> ---
+>  conformance.tex  |  2 ++
+>  virtio-vsock.tex | 24 ++++++++++++++++++++++++
+>  2 files changed, 26 insertions(+)
+> 
+> diff --git a/conformance.tex b/conformance.tex
+> index 42f8537..77f7583 100644
+> --- a/conformance.tex
+> +++ b/conformance.tex
+> @@ -222,6 +222,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  A socket driver MUST conform to the following normative statements:
+>  
+>  \begin{itemize}
+> +\item \ref{drivernormative:Device Types / Socket Device / Device configuration layout}
+>  \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Buffer Space Management}
+>  \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Receive and Transmit}
+>  \item \ref{drivernormative:Device Types / Socket Device / Device Operation / Device Events}
+> @@ -481,6 +482,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  A socket device MUST conform to the following normative statements:
+>  
+>  \begin{itemize}
+> +\item \ref{devicenormative:Device Types / Socket Device / Device configuration layout}
+>  \item \ref{devicenormative:Device Types / Socket Device / Device Operation / Buffer Space Management}
+>  \item \ref{devicenormative:Device Types / Socket Device / Device Operation / Receive and Transmit}
+>  \end{itemize}
+> diff --git a/virtio-vsock.tex b/virtio-vsock.tex
+> index d79984d..9cbf8c4 100644
+> --- a/virtio-vsock.tex
+> +++ b/virtio-vsock.tex
+> @@ -23,6 +23,10 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+>  \begin{description}
+>  \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+>  \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> +\item[VIRTIO_VSOCK_F_SIZE_MAX (2)] Maximum size of the packet payload is in
+> +	\field{data_max_size}. If offered by the device, device advises driver
+> +	about the value of its maximum payload size. If negotiated, the driver uses
+> +	\field{data_max_size} as the maximum packet payload size value.
+>  \end{description}
+>  
+>  \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
+> @@ -32,6 +36,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+>  \begin{lstlisting}
+>  struct virtio_vsock_config {
+>  	le64 guest_cid;
+> +	le32 data_max_size;
+>  };
+>  \end{lstlisting}
+>  
+> @@ -57,6 +62,25 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+>  \hline
+>  \end{tabular}
+>  
+> +The following driver-read-only field, \field{data_max_size} can be used only if
+> +VIRTIO_VSOCK_F_SIZE_MAX is negotiated. This field specifies the maximum packet
+> +payload size for the driver to use.
+> +
+> +\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> +
+> +The device MUST NOT change the value exposed through \field{data_max_size}.
+> +
+> +\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> +
+> +A driver SHOULD negotiate VIRTIO_VSOCK_F_SIZE_MAX if the device offers it.
+> +
+> +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, the size of each receive
+> +buffer it supplies MUST not exceed the size \field{data_max_size} (plus header
+> +length).
+> +
+> +If the driver negotiates VIRTIO_VSOCK_F_SIZE_MAX, it MUST NOT transmit packets
+> +of size exceeding the value of \field{data_max_size} (plus header length).
+> +
+>  \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
+>  
+>  \begin{enumerate}
+> -- 
+> 2.17.1
+> 
+> 
+> 
+> 
+> Amazon Development Center (Romania) S.R.L. registered office: 27A Sf. Lazar Street, UBC5, floor 2, Iasi, Iasi County, 700045, Romania. Registered in Romania. Registration number J22/2621/2005.
 
 
 This publicly archived list offers a means to provide input to the
