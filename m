@@ -1,44 +1,36 @@
-Return-Path: <virtio-comment-return-3247-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3240-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B2719986266
-	for <virtio-comment@lists.oasis-open.org>; Mon, 25 Jul 2022 10:11:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 626D19865AB
+	for <virtio-comment@lists.oasis-open.org>; Wed, 20 Jul 2022 14:47:38 +0000 (UTC)
 From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <4092b565-859c-8095-bbd6-10be6f4e2c2f@bytedance.com>
-References: <20220621100421.75356-1-helei.sig11@bytedance.com>
- <20220621100421.75356-2-helei.sig11@bytedance.com>
- <87pmj28gk4.fsf@redhat.com>
- <6ae5062f-e839-23a6-d000-5b6fd82158f4@bytedance.com>
- <87r12iprq1.fsf@redhat.com>
- <4092b565-859c-8095-bbd6-10be6f4e2c2f@bytedance.com>
-Date: Mon, 25 Jul 2022 12:11:21 +0200
-Message-ID: <87o7xdmrhy.fsf@redhat.com>
+In-Reply-To: <87a6cp9v4w.fsf@redhat.com>
+References: <87a6cp9v4w.fsf@redhat.com>
+Date: Wed, 20 Jul 2022 16:47:33 +0200
+Message-ID: <87sfmvon7e.fsf@redhat.com>
 MIME-Version: 1.0
-Subject: Re: [virtio-comment] Re: [External] Re: Re: [virtio-comment] [PATCH
- v4 1/1] virtio-crypto: introduce akcipher service
+Subject: Re: [virtio-comment] virtio 1.3 development branch
 Content-Type: text/plain
-To: Lei He <helei.sig11@bytedance.com>, mst@redhat.com, virtio-comment@lists.oasis-open.org
-Cc: helei.sig11@bytedance.com, xin.zeng@intel.com, arei.gonglei@huawei.com, pizhenwei@bytedance.com
+To: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Jul 19 2022, Lei He <helei.sig11@bytedance.com> wrote:
+On Wed, Apr 13 2022, Cornelia Huck <cohuck@redhat.com> wrote:
 
-> Here is the existing issue:
-> https://github.com/oasis-tcs/virtio-spec/issues/129
+> I've opened up a virtio-1.3 development branch in the virtio-spec git
+> repository on github:
 >
-> At first, we initiated a ballot with the v3 version but it didn't pass. 
-> At the same time, I posted some patches to implement the v3 protocol. 
-> Most of those patches have been upstream now, but after the review, the 
-> code is a little inconsistent with the v3 protocol, so I posted the v4 
-> and would like to use v4 to initiate the voting.
+> https://github.com/oasis-tcs/virtio-spec/tree/virtio-1.3
 >
-> The link in the issue has been updated to the latest patch now.
+> All updates should target this branch; we will proceed to finalize the
+> 1.2 spec on the master branch and then will rebase once we got that out
+> of the door.
 
-I have opened a ballot for this now.
+The virtio-1.3 branch has now been merged into master; please target any
+changes to master, as usual.
 
 
 This publicly archived list offers a means to provide input to the
