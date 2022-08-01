@@ -1,8 +1,8 @@
 Return-Path: <mst@redhat.com>
-Date: Mon, 1 Aug 2022 05:48:28 -0400
+Date: Mon, 1 Aug 2022 16:56:53 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 Subject: Re: [PATCH V2 0/5] Introduce virtio transport virtqueue
-Message-ID: <20220801054425-mutt-send-email-mst@kernel.org>
+Message-ID: <20220801165438-mutt-send-email-mst@kernel.org>
 References: <20220801093216.362119-1-lingshan.zhu@intel.com>
 MIME-Version: 1.0
 In-Reply-To: <20220801093216.362119-1-lingshan.zhu@intel.com>
@@ -19,24 +19,23 @@ On Mon, Aug 01, 2022 at 05:32:11PM +0800, Zhu Lingshan wrote:
 > 
 > This series defines the concepts of virtio management device
 > and virtio managed devices.
-> 
+
+
+Overall I'm happy with the progress made here. Pls keep iterating.
+I would like to see whether we can unify this with the admin
+queue work somehow. The technology is different (SIOV vs SRIOV)
+but there are also similarities.
+
+Do you care to review some patches from the admin queue proposals maybe?
+
+
 > This series also defines a commands set over the transport virtqueue,
 > including:
 > The command to query available resources of the management device
 > The commands to create / destroy the managed devices.
 > The commands to config the managed devices.
 > The commands to config virtqueues of the managed devices.
-
-
-Is there interest in at least analysing how this interacts with the
-recent admin queue proposals?
-
-
-I see some similarity in what these are trying to address - for example,
-feature bit provisioning - any analysis on how the two proposals
-compare?
-
-
+> 
 > Changes form V1:
 > 1)Add a command to set per-vq asid(Jason)
 > 2)Add a command to reset a virtqueue(Jason)
