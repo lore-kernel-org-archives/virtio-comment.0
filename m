@@ -1,9 +1,9 @@
-Return-Path: <lingshan.zhu@intel.com>
-Message-ID: <516d6490-e75f-234b-2d20-ea6b4ff39164@intel.com>
-Date: Tue, 2 Aug 2022 21:15:28 +0800
-MIME-Version: 1.0
+Return-Path: <mst@redhat.com>
+Date: Tue, 2 Aug 2022 09:20:37 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
 Subject: Re: [virtio-comment] Re: [PATCH V2 2/5] Introduce feature bit
  VIRTIO_F_TRANSPT_VQ_MDEV
+Message-ID: <20220802091729-mutt-send-email-mst@kernel.org>
 References: <20220801093216.362119-1-lingshan.zhu@intel.com>
  <20220801093216.362119-3-lingshan.zhu@intel.com>
  <20220801162534-mutt-send-email-mst@kernel.org>
@@ -11,126 +11,136 @@ References: <20220801093216.362119-1-lingshan.zhu@intel.com>
  <20220802024738-mutt-send-email-mst@kernel.org>
  <29533940-0345-4a84-fcc7-f42d914dc28d@intel.com>
  <20220802084742-mutt-send-email-mst@kernel.org>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20220802084742-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-To: "Michael S. Tsirkin" <mst@redhat.com>
+ <516d6490-e75f-234b-2d20-ea6b4ff39164@intel.com>
+MIME-Version: 1.0
+In-Reply-To: <516d6490-e75f-234b-2d20-ea6b4ff39164@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
 Cc: jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com, stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+On Tue, Aug 02, 2022 at 09:15:28PM +0800, Zhu, Lingshan wrote:
+> 
+> 
+> On 8/2/2022 8:55 PM, Michael S. Tsirkin wrote:
+> > On Tue, Aug 02, 2022 at 07:54:41PM +0800, Zhu, Lingshan wrote:
+> > > 
+> > > On 8/2/2022 2:52 PM, Michael S. Tsirkin wrote:
+> > > > On Tue, Aug 02, 2022 at 11:17:51AM +0800, Zhu, Lingshan wrote:
+> > > > > On 8/2/2022 4:27 AM, Michael S. Tsirkin wrote:
+> > > > > > On Mon, Aug 01, 2022 at 05:32:13PM +0800, Zhu Lingshan wrote:
+> > > > > > > This commit introduces feature bit VIRTIO_F_TRANSPT_VQ_MDEV,
+> > > > > > > which depends on VIRTIO_F_TRANSPT_VQ.
+> > > > > > > 
+> > > > > > > Feature bit VIRTIO_F_TRANSPT_VQ_MDEV indicates that the managed
+> > > > > > > devices are created, configured and destroyed through the
+> > > > > > > transport virtqueue, the transport virtqueue is the
+> > > > > > > transport layer for the managed devices.
+> > > > > > I'd avoid the term MDEV if possible, it's already used in virt contexts.
+> > > > > yes, let me work out a better name, it was vdev (virtual device) before, and
+> > > > > maybe
+> > > > > sdev(sub device) or a better one.
+> > > > Besides mdev can thinkably stand for both managed and management.
+> > > > Nvidia patches have the concept of a device group and
+> > > > group member but do not have a name for the device that controls
+> > > > the group. Admin device? Control device?
+> > > maybe management device?
+> > This term has been overused in this context with people saying things
+> > like "the management interface is used by management tools to
+> > manage managed devices" to the point where I'd
+> > rather we avoided it altogether.
+> They are like the parent device and the sub-device, but this is not good
+> enough.
+> It has ever been suggest to use "upstream device" and "downstream device" to
+> replace "master device" and "slave device",
+> but looks not good enough either.
+> 
+> The concept should be the management device and the managed device, we never
+> use these terms in virtio spec,
 
+It's not terrible but it's verbose and if you try to shorten
+you can't tell managed from management apart.
 
-On 8/2/2022 8:55 PM, Michael S. Tsirkin wrote:
-> On Tue, Aug 02, 2022 at 07:54:41PM +0800, Zhu, Lingshan wrote:
->>
->> On 8/2/2022 2:52 PM, Michael S. Tsirkin wrote:
->>> On Tue, Aug 02, 2022 at 11:17:51AM +0800, Zhu, Lingshan wrote:
->>>> On 8/2/2022 4:27 AM, Michael S. Tsirkin wrote:
->>>>> On Mon, Aug 01, 2022 at 05:32:13PM +0800, Zhu Lingshan wrote:
->>>>>> This commit introduces feature bit VIRTIO_F_TRANSPT_VQ_MDEV,
->>>>>> which depends on VIRTIO_F_TRANSPT_VQ.
->>>>>>
->>>>>> Feature bit VIRTIO_F_TRANSPT_VQ_MDEV indicates that the managed
->>>>>> devices are created, configured and destroyed through the
->>>>>> transport virtqueue, the transport virtqueue is the
->>>>>> transport layer for the managed devices.
->>>>> I'd avoid the term MDEV if possible, it's already used in virt contexts.
->>>> yes, let me work out a better name, it was vdev (virtual device) before, and
->>>> maybe
->>>> sdev(sub device) or a better one.
->>> Besides mdev can thinkably stand for both managed and management.
->>> Nvidia patches have the concept of a device group and
->>> group member but do not have a name for the device that controls
->>> the group. Admin device? Control device?
->> maybe management device?
-> This term has been overused in this context with people saying things
-> like "the management interface is used by management tools to
-> manage managed devices" to the point where I'd
-> rather we avoided it altogether.
-They are like the parent device and the sub-device, but this is not good 
-enough.
-It has ever been suggest to use "upstream device" and "downstream 
-device" to replace "master device" and "slave device",
-but looks not good enough either.
+Also the concept of a group of all devices controlled
+through a single one is missing.
 
-The concept should be the management device and the managed device, we 
-never use these terms in virtio spec,
-any better suggestions?
+> any better suggestions?
 
->
->>> Also, creating/destroying is one thing that seems to only apply to
->>> SIOV. configuring seems to apply to SRIOV as well?
->> In this series, yes, because actually we can not provision a SRIOV VF with
->> dynamic config, and VF provisioning is done through SRIOV cap
->>
->> Thanks
->> Zhu Lingshan
-> I am not sure what dynamic config means here exactly. Yes creating a VF
-> itself is not possible. But allocating VQs to it and
-> e.g. configuring the MAC address of a networking VF can be
-> done dynamically.
-I think this config can only be done through the CVQ after provisioning.
->
->>>
->>>
->>>>>> Signed-off-by: Jason Wang <jasowang@redhat.com>
->>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>> ---
->>>>>>     content.tex | 12 ++++++++++++
->>>>>>     1 file changed, 12 insertions(+)
->>>>>>
->>>>>> diff --git a/content.tex b/content.tex
->>>>>> index 969ca46..143949e 100644
->>>>>> --- a/content.tex
->>>>>> +++ b/content.tex
->>>>>> @@ -2968,6 +2968,18 @@ \subsection{Managed Devices Dscovery}\label{sec:Virtio Transport Options /Virtio
->>>>>>     Managed devices are created and discovered through a transport virtqueue.
->>>>>> +\subsection{Transport Virtqueue Features}\label{sec:Virtio Transport Options /Virtio Over Transport Virtqueue / Transport Virtqueue Features}
->>>>>> +
->>>>>> +Feature bit VIRTIO_F_TRANSPT_VQ_MDEV indicates that the managed devices are created, configured
->>>>>> +and destroyed through the transport virtqueue.
->>>>> Feature bit being present where? On the management device?
->>>> Yes, the management device, I will add this.
->>>>>> +This means the transport virtqueue is the transport layer for the managed devices.
->>>>> confused. how does this differ from VIRTIO_F_TRANSPT_VQ?
->>>> VIRTIO_F_TRANSPT_VQ means the management device offers a transport vq.
->>>> VIRTIO_F_TRANSPT_VQ_MDEV is a feature of the transport vq, means the
->>>> management device create / destroy and configure the managed device via the
->>>> transport vq.
->>>>
->>>> This reminds me that maybe I should use the term vdev(virtual device), so
->>>> that other kinds of devices can add their own feature bits under
->>>> VIRTIO_F_TRANSPT_VQ
->>>>
->>>> Thanks,
->>>> Zhu Lingshan
->>>>>> +
->>>>>> +Feature bit VIRTIO_F_TRANSPT_VQ_MDEV depends on VIRTIO_F_TRANSPT_VQ
->>>>>> +
->>>>>> +\devicenormative{\subsubsection}{Transport Virtqueue Features}{Virtio Transport Options / Virtio Over Transport Virtqueue / Transport Virtqueue Features}
->>>>>> +
->>>>>> +The management device MUST not accept VIRTIO_F_TRANSPT_VQ_MDEV if VIRTIO_F_TRANSPT_VQ is not negotiated.
->>>>>> +
->>>>>>     \chapter{Device Types}\label{sec:Device Types}
->>>>>>     On top of the queues, config space and feature negotiation facilities
->>>>>> -- 
->>>>>> 2.35.3
->>>>> This publicly archived list offers a means to provide input to the
->>>>> OASIS Virtual I/O Device (VIRTIO) TC.
->>>>>
->>>>> In order to verify user consent to the Feedback License terms and
->>>>> to minimize spam in the list archive, subscription is required
->>>>> before posting.
->>>>>
->>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->>>>> List help: virtio-comment-help@lists.oasis-open.org
->>>>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
->>>>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
->>>>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
->>>>> Committee: https://www.oasis-open.org/committees/virtio/
->>>>> Join OASIS: https://www.oasis-open.org/join/
->>>>>
+I gave some above.
+
+> > 
+> > > > Also, creating/destroying is one thing that seems to only apply to
+> > > > SIOV. configuring seems to apply to SRIOV as well?
+> > > In this series, yes, because actually we can not provision a SRIOV VF with
+> > > dynamic config, and VF provisioning is done through SRIOV cap
+> > > 
+> > > Thanks
+> > > Zhu Lingshan
+> > I am not sure what dynamic config means here exactly. Yes creating a VF
+> > itself is not possible. But allocating VQs to it and
+> > e.g. configuring the MAC address of a networking VF can be
+> > done dynamically.
+> I think this config can only be done through the CVQ after provisioning.
+> > 
+> > > > 
+> > > > 
+> > > > > > > Signed-off-by: Jason Wang <jasowang@redhat.com>
+> > > > > > > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> > > > > > > ---
+> > > > > > >     content.tex | 12 ++++++++++++
+> > > > > > >     1 file changed, 12 insertions(+)
+> > > > > > > 
+> > > > > > > diff --git a/content.tex b/content.tex
+> > > > > > > index 969ca46..143949e 100644
+> > > > > > > --- a/content.tex
+> > > > > > > +++ b/content.tex
+> > > > > > > @@ -2968,6 +2968,18 @@ \subsection{Managed Devices Dscovery}\label{sec:Virtio Transport Options /Virtio
+> > > > > > >     Managed devices are created and discovered through a transport virtqueue.
+> > > > > > > +\subsection{Transport Virtqueue Features}\label{sec:Virtio Transport Options /Virtio Over Transport Virtqueue / Transport Virtqueue Features}
+> > > > > > > +
+> > > > > > > +Feature bit VIRTIO_F_TRANSPT_VQ_MDEV indicates that the managed devices are created, configured
+> > > > > > > +and destroyed through the transport virtqueue.
+> > > > > > Feature bit being present where? On the management device?
+> > > > > Yes, the management device, I will add this.
+> > > > > > > +This means the transport virtqueue is the transport layer for the managed devices.
+> > > > > > confused. how does this differ from VIRTIO_F_TRANSPT_VQ?
+> > > > > VIRTIO_F_TRANSPT_VQ means the management device offers a transport vq.
+> > > > > VIRTIO_F_TRANSPT_VQ_MDEV is a feature of the transport vq, means the
+> > > > > management device create / destroy and configure the managed device via the
+> > > > > transport vq.
+> > > > > 
+> > > > > This reminds me that maybe I should use the term vdev(virtual device), so
+> > > > > that other kinds of devices can add their own feature bits under
+> > > > > VIRTIO_F_TRANSPT_VQ
+> > > > > 
+> > > > > Thanks,
+> > > > > Zhu Lingshan
+> > > > > > > +
+> > > > > > > +Feature bit VIRTIO_F_TRANSPT_VQ_MDEV depends on VIRTIO_F_TRANSPT_VQ
+> > > > > > > +
+> > > > > > > +\devicenormative{\subsubsection}{Transport Virtqueue Features}{Virtio Transport Options / Virtio Over Transport Virtqueue / Transport Virtqueue Features}
+> > > > > > > +
+> > > > > > > +The management device MUST not accept VIRTIO_F_TRANSPT_VQ_MDEV if VIRTIO_F_TRANSPT_VQ is not negotiated.
+> > > > > > > +
+> > > > > > >     \chapter{Device Types}\label{sec:Device Types}
+> > > > > > >     On top of the queues, config space and feature negotiation facilities
+> > > > > > > -- 
+> > > > > > > 2.35.3
+> > > > > > This publicly archived list offers a means to provide input to the
+> > > > > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > > > > 
+> > > > > > In order to verify user consent to the Feedback License terms and
+> > > > > > to minimize spam in the list archive, subscription is required
+> > > > > > before posting.
+> > > > > > 
+> > > > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > > > > List help: virtio-comment-help@lists.oasis-open.org
+> > > > > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > > > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > > > > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > > > > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > > > > Join OASIS: https://www.oasis-open.org/join/
+> > > > > > 
 
