@@ -1,14 +1,14 @@
-Return-Path: <virtio-comment-return-3295-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3296-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DF4D79864A6
-	for <virtio-comment@lists.oasis-open.org>; Tue,  2 Aug 2022 13:32:26 +0000 (UTC)
-Message-ID: <6b862785-2420-8aed-80d5-1bb6213ac13e@intel.com>
-Date: Tue, 2 Aug 2022 21:32:21 +0800
+	by lists.oasis-open.org (Postfix) with ESMTP id CADA39864A6
+	for <virtio-comment@lists.oasis-open.org>; Tue,  2 Aug 2022 13:37:07 +0000 (UTC)
+Message-ID: <8163c60f-9d32-b545-8039-25f36eff8208@intel.com>
+Date: Tue, 2 Aug 2022 21:37:00 +0800
 MIME-Version: 1.0
 References: <20220801093216.362119-1-lingshan.zhu@intel.com>
  <20220801093216.362119-3-lingshan.zhu@intel.com>
@@ -26,7 +26,8 @@ Subject: Re: [virtio-comment] Re: [PATCH V2 2/5] Introduce feature bit
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-To: virtio-comment@lists.oasis-open.org
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com, stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
 
