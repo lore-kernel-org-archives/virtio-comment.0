@@ -1,98 +1,145 @@
-Return-Path: <virtio-comment-return-3348-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3303-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 47A1E986304
-	for <virtio-comment@lists.oasis-open.org>; Tue,  9 Aug 2022 11:51:01 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <003401d8a895$974e1560$c5ea4020$@kalray.eu>
-References: <001a01d8a828$df564200$9e02c600$@kalray.eu>
- <CAJs=3_Ax+LoPT-SXbFFcRhuEQ+eyMrqxc8PMkJMQkRgt_1qqEQ@mail.gmail.com>
- <003401d8a895$974e1560$c5ea4020$@kalray.eu>
-Date: Tue, 09 Aug 2022 13:50:56 +0200
-Message-ID: <87zggdd49r.fsf@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 51449986581
+	for <virtio-comment@lists.oasis-open.org>; Wed,  3 Aug 2022 11:30:26 +0000 (UTC)
+Date: Wed, 3 Aug 2022 07:30:18 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20220803071725-mutt-send-email-mst@kernel.org>
+References: <20220803084441.1206034-1-keirf@google.com>
 MIME-Version: 1.0
-Subject: RE: [virtio-comment] [PATCH] virtio-net : Fix virtio_net_hdr struct
- size when VIRTIO_NET_F_HASH_REPORT feature is negociated.
-Content-Type: text/plain
-To: Cyril Germond <cgermond@kalray.eu>, Alvaro Karsz <alvaro.karsz@solid-run.com>
+In-Reply-To: <20220803084441.1206034-1-keirf@google.com>
+Subject: [virtio-comment] Re: [PATCH] virtio-balloon: add an untrusted device feature
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: Keir Fraser <keirf@google.com>
 Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Fri, Aug 05 2022, Cyril Germond <cgermond@kalray.eu> wrote:
+On Wed, Aug 03, 2022 at 08:44:41AM +0000, Keir Fraser wrote:
+> Add a feature bit to indicate that guest memory is protected from the
+> host by the Trusted Compyuting Base (TCB).
 
-> Hello
-> You are right indeed - my mistake.
-> It might even be better (at least less error-prone)  to refer to the 
-> sifeof(virtio_net_hdr) in case new fields get added in the future.
->
-> In the meantime, here is updated proposal.
-> BR
-> Cyril
+Typo.
+
+> This flag indicates to the
+> driver that memory ownership must be relinquished via the TCB, by
+> platform-specific means, before reporting that memory to the device.
+
+Thanks for the proposal! I feel it needs to be more detailed to be
+useful. In particular we need a bit more info about TCB and memory
+ownership here I feel, so people can interpret this. Is there a spec
+link?
+
+> 
+> Signed-off-by: Keir Fraser <keirf@google.com>
 > ---
->  content.tex    | 4 ++--
->  split-ring.tex | 6 +++---
->  2 files changed, 5 insertions(+), 5 deletions(-)
->
+>  content.tex | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
 > diff --git a/content.tex b/content.tex
-> index e863709..95b0425 100644
+> index e863709..1575ab7 100644
 > --- a/content.tex
 > +++ b/content.tex
-> @@ -3620,8 +3620,8 @@ \subsubsection{Setting Up Receive 
-> Buffers}\label{sec:Device Types / Network Devi
->  features are used, the maximum incoming packet
->  will be to 65550 bytes long (the maximum size of a
->  TCP or UDP packet, plus the 14 byte ethernet header), otherwise
-> -1514 bytes.  The 12-byte struct virtio_net_hdr is prepended to this,
-> -making for 65562 or 1526 bytes.
-> +1514 bytes.  The 12-byte (or 20-byte if VIRTIO_NET_F_HASH_REPORT feature 
-> has been negotiated) struct virtio_net_hdr is prepended to this,
-> +making for 65562 or 1526 bytes (respectively 65570 and 1534 bytes if 
-> VIRTIO_NET_F_HASH_REPORT has been negotiated).
+> @@ -5543,6 +5543,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
+>      Configuration field \field{poison_val} is valid.
+>  \item[ VIRTIO_BALLOON_F_PAGE_REPORTING(5) ] The device has support for free
+>      page reporting. A virtqueue for reporting free guest memory is present.
+> +\item[ VIRTIO_BALLOON_F_UNTRUSTED_DEVICE(6) ] The driver must
+> +    relinquish memory ownership via the Trusted Computing Base (TCB) before
+> +    notifying the device.
 
-Your mail client seems to add line wraps, which means that the patch
-cannot be applied by git am (and it makes the change hard to
-read). Please consider using git send-email, as described in
-https://github.com/oasis-tcs/virtio-spec#providing-feedback.
+The name does not seem to match what it does.
 
->
->  \drivernormative{\paragraph}{Setting Up Receive Buffers}{Device Types / 
-> Network Device / Device Operation / Setting Up Receive Buffers}
->
-> diff --git a/split-ring.tex b/split-ring.tex
-> index de94038..6f93c9e 100644
-> --- a/split-ring.tex
-> +++ b/split-ring.tex
-> @@ -128,10 +128,10 @@ \subsection{Legacy Interfaces: A Note on Virtqueue 
-> Endianness}\label{sec:Basic F
->  \subsection{Message Framing}\label{sec:Basic Facilities of a Virtio Device 
-> / Virtqueues / Message Framing}
->  The framing of messages with descriptors is
->  independent of the contents of the buffers. For example, a network
-> -transmit buffer consists of a 12 byte header followed by the network
-> +transmit buffer consists of a 12 (or 20 if VIRTIO_NET_F_HASH_REPORT feature 
-> has been negociated) byte header followed by the network
->  packet. This could be most simply placed in the descriptor table as a
-> -12 byte output descriptor followed by a 1514 byte output descriptor,
-> -but it could also consist of a single 1526 byte output descriptor in
-> +12 (or 20) byte output descriptor followed by a 1514 byte output 
-> descriptor,
-> +but it could also consist of a single 1526 (or 1534) byte output descriptor 
-> in
->  the case where the header and packet are adjacent, or even three or
->  more descriptors (possibly with loss of efficiency in that case).
+>  
+>  \end{description}
+>  
+> @@ -5558,11 +5561,22 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
+>  it MUST NOT accept VIRTIO_BALLOON_F_PAGE_REPORTING unless it also
+>  negotiates VIRTIO_BALLOON_F_PAGE_POISON.
+>  
+> +The driver SHOULD accept the VIRTIO_BALLOON_F_UNTRUSTED_DEVICE
+> +feature if offered by the device, and relinquish memory ownership via
+> +the TCB by platform-specific means.
+> +
+>  \devicenormative{\subsubsection}{Feature bits}{Device Types / Memory Balloon Device / Feature bits}
+>  If the device offers the VIRTIO_BALLOON_F_MUST_TELL_HOST feature
+>  bit, and if the driver did not accept this feature bit, the
+>  device MAY signal failure by failing to set FEATURES_OK
+>  \field{device status} bit when the driver writes it.
+> +
+> +If guest memory is protected from the host,
 
-As this is only an example, maybe it is better to simply prefix it with
+This does not make it clear how this is different from VIRTIO_F_ACCESS_PLATFORM
+which says:
 
-"For example, if VIRTIO_NET_F_HASH_REPORT has not been negotiated, a
-network transmit buffer consists of..."
+\item[VIRTIO_F_ACCESS_PLATFORM(33)] This feature indicates that
+  the device can be used on a platform where device access to data
+  in memory is limited and/or translated.
 
-so that you don't need to consider the separate cases, which make the
-example harder to read (and don't help to illustrate the process of
-deciding on a descriptor layout).
+
+
+
+> the device must offer the
+
+MUST
+
+> +VIRTIO_BALLOON_F_UNTRUSTED_DEVICE feature bit. If the driver does
+> +not accept this feature bit, the device MUST signal failure by failing
+> +to set FEATURES_OK \field{device status} bit when the driver writes
+> +it.
+> +
+>  \subparagraph{Legacy Interface: Feature bits}\label{sec:Device
+>  Types / Memory Balloon Device / Feature bits / Legacy Interface:
+>  Feature bits}
+> @@ -5573,6 +5587,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
+>  allow guest to use memory before notifying host if
+>  VIRTIO_BALLOON_F_MUST_TELL_HOST is not negotiated.
+>  
+> +The legacy interface cannot support VIRTIO_BALLOON_F_UNTRUSTED_DEVICE
+> +since there is no way to gracefully report feature negotiation failure.
+> +
+>  \subsection{Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device configuration layout}
+>    \field{num_pages} and \field{actual} are always available.
+>  
+> @@ -5647,6 +5664,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / D
+>      pages. These addresses are divided by 4096\footnote{This is historical, and independent of the guest page size.
+>  } and the descriptor
+>      describing the resulting 32-bit array is added to the inflateq.
+> +  \item If the VIRTIO_BALLOON_F_UNTRUSTED_DEVICE feature has been
+> +  negotiated, the driver MUST relinquish memory ownership via the TCB
+> +  before adding it to the inflateq.
+> +
+>    \end{enumerate}
+>  
+>  \item To remove memory from the balloon (aka. deflate):
+
+Don't we need to take it back before deflate?
+
+
+> @@ -6105,6 +6126,9 @@ \subsubsection{Free Page Reporting}\label{sec:Device Types / Memory Balloon Devi
+>  driver MUST initialize all free pages with \field{poison_val} before
+>  reporting them.
+>  
+> +If the VIRTIO_BALLOON_F_UNTRUSTED_DEVICE feature has been negotiated, the
+> +driver MUST notify free pages to the TCB before reporting them.
+> +
+>  The driver MUST NOT use the reported pages until the device has
+>  acknowledged the reporting request.
+
+Should this affect hinting too?
+
+Is "notify" same as "relinquish ownership"?
+
+Are these terms defined in some spec?
+
+>  
+> -- 
+> 2.37.1.455.g008518b4e5-goog
 
 
 This publicly archived list offers a means to provide input to the
