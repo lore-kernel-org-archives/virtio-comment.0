@@ -1,108 +1,165 @@
-Return-Path: <virtio-comment-return-3317-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3315-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D5E3A98658E
-	for <virtio-comment@lists.oasis-open.org>; Thu,  4 Aug 2022 15:41:57 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <YuviiNRT7Y3wMbKa@google.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id EF89A98658E
+	for <virtio-comment@lists.oasis-open.org>; Thu,  4 Aug 2022 15:02:33 +0000 (UTC)
+Date: Thu, 4 Aug 2022 15:02:27 +0000
+From: Keir Fraser <keirf@google.com>
+Message-ID: <Yuvfg31hvFix6U5u@google.com>
 References: <20220803084441.1206034-1-keirf@google.com>
  <20220803071725-mutt-send-email-mst@kernel.org>
- <87k07p8rmn.fsf@redhat.com> <YuviiNRT7Y3wMbKa@google.com>
-Date: Thu, 04 Aug 2022 17:41:53 +0200
-Message-ID: <878ro4818e.fsf@redhat.com>
 MIME-Version: 1.0
+In-Reply-To: <20220803071725-mutt-send-email-mst@kernel.org>
 Subject: Re: [virtio-comment] Re: [PATCH] virtio-balloon: add an untrusted
  device feature
-Content-Type: text/plain
-To: Keir Fraser <keirf@google.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.oasis-open.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Aug 04 2022, Keir Fraser <keirf@google.com> wrote:
+On Wed, Aug 03, 2022 at 07:31:06AM -0400, Michael S. Tsirkin wrote:
+> On Wed, Aug 03, 2022 at 08:44:41AM +0000, Keir Fraser wrote:
+> > This flag indicates to the
+> > driver that memory ownership must be relinquished via the TCB, by
+> > platform-specific means, before reporting that memory to the device.
+> 
+> Thanks for the proposal! I feel it needs to be more detailed to be
+> useful. In particular we need a bit more info about TCB and memory
+> ownership here I feel, so people can interpret this. Is there a spec
+> link?
 
-> On Wed, Aug 03, 2022 at 01:59:28PM +0200, Cornelia Huck wrote:
->> On Wed, Aug 03 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
->> 
->> > On Wed, Aug 03, 2022 at 08:44:41AM +0000, Keir Fraser wrote:
->> 
->> [hmm... I don't see the original mail on virtio-comment]
->
-> Sorry about that. My email bounced even after I subscribed to the
-> list. MST replied to my Cc. My list membership seems to have settled
-> now.
+The specific motivation for this is PKVM on ARM, where protected VM
+memory is inaccessible to the host kernel. Ownership is tracked by a
+small hypervisor, and that hypervisor needs to be aware that the pVM
+is willingly returning memory to the host. There's some old
+description of ARM PKVM here https://lwn.net/Articles/836693/
 
-Yes, seems to work now.
+So the purpose of the new flag is:
 
->
->> >> the device must offer the
->> >
->> > MUST
->> >
->> >> +VIRTIO_BALLOON_F_UNTRUSTED_DEVICE feature bit. If the driver does
->> >> +not accept this feature bit, the device MUST signal failure by failing
->> >> +to set FEATURES_OK \field{device status} bit when the driver writes
->> >> +it.
->> 
->> So, the bit is mandatory if offered?
->
-> In ARM PKVM the host is untrusted, and so the device cannot regain
-> ownership of memory pages. That has to be done via the TCB
-> (Hypervisor). If the driver isn't aware of that, it is impossible for
-> memory to be transferred back to the host, and ballooning cannot work.
+1. To inform the pVM that it must notify the hypervisor (although
+there could be out-of-band mechanisms to detect/probe this)
 
-Nod. I see that the Linux driver also explicitly clears the
-ACCESS_PLATFORM feature bit; I'm wondering what the overlap between the
-two features would be.
+2. If the flag is not accepted by the driver, device can abort balloon
+setup (since pVM ballooning cannot work without hypervisor
+notifications).
 
->
->> >> +
->> >>  \subparagraph{Legacy Interface: Feature bits}\label{sec:Device
->> >>  Types / Memory Balloon Device / Feature bits / Legacy Interface:
->> >>  Feature bits}
->> >> @@ -5573,6 +5587,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
->> >>  allow guest to use memory before notifying host if
->> >>  VIRTIO_BALLOON_F_MUST_TELL_HOST is not negotiated.
->> >>  
->> >> +The legacy interface cannot support VIRTIO_BALLOON_F_UNTRUSTED_DEVICE
->> >> +since there is no way to gracefully report feature negotiation failure.
->> 
->> UNTRUSTED_DEVICE requires VERSION_1, then?
->
-> I think so. I don't see any benefit to supporting it on legacy
-> interfaces.
+> > +\item[ VIRTIO_BALLOON_F_UNTRUSTED_DEVICE(6) ] The driver must
+> > +    relinquish memory ownership via the Trusted Computing Base (TCB) before
+> > +    notifying the device.
+> 
+> The name does not seem to match what it does.
 
-This dependency should be made explicit then, as balloon also supports
-legacy.
+Maybe something more direct, like VIRTIO_BALLOON_F_NOTIFY_HYP?
 
->
->> >> +
->> >>  \subsection{Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device configuration layout}
->> >>    \field{num_pages} and \field{actual} are always available.
->> >>  
->> >> @@ -5647,6 +5664,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / D
->> >>      pages. These addresses are divided by 4096\footnote{This is historical, and independent of the guest page size.
->> >>  } and the descriptor
->> >>      describing the resulting 32-bit array is added to the inflateq.
->> >> +  \item If the VIRTIO_BALLOON_F_UNTRUSTED_DEVICE feature has been
->> >> +  negotiated, the driver MUST relinquish memory ownership via the TCB
->> >> +  before adding it to the inflateq.
->> 
->> Do we need a definition of "relinquish memory ownership"?
->
-> Maybe. Though I would say that the mechanism is platform specific and
-> out of scope for virtio. But perhaps a short description of what this
-> term means, in more detail, would make sense? And then tighten up
-> usage of this term throughout the spec.
+> > +If guest memory is protected from the host,
+> 
+> This does not make it clear how this is different from VIRTIO_F_ACCESS_PLATFORM
+> which says:
+> 
+> \item[VIRTIO_F_ACCESS_PLATFORM(33)] This feature indicates that
+>   the device can be used on a platform where device access to data
+>   in memory is limited and/or translated.
 
-I guess other protected memory technologies have similar concepts; would
-it make sense to define "memory ownership" as "exclusive access"?
-I.e. the device cannot access the memory, and the driver has to give up
-exclusive access before adding it to the inflateq.
+Using this existing flag could possibly work, assuming there are no
+conflicting legacy semantics for this flag in relation to balloon
+driver.  At the moment the Linux virtio-balloon driver unconditionally
+clears this feature flag, so perhaps there are no legacy semantics at
+all.
 
+We could instead accept this existing flag and use it to turn on the
+hypervisor notifications as well as using DMA API for vring setup (we
+do need both anyway)? If the flag is cleared, as with the existing
+kernel driver, the device knows for sure that the driver is not ARM
+PKVM aware.
+
+"Turn on hypervisor notifications" here is platform specific: In ARM
+PKVM it means probe for existence of the new notification hypercall
+and send notifications if the hypercall exists.
+
+I'd be more than happy to use this flag rather than introduce
+another. Multiplying these sorts of flags more than absolutely
+necessary is for sure not a good idea.
+
+> > @@ -5647,6 +5664,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / D
+> >      pages. These addresses are divided by 4096\footnote{This is historical, and independent of the guest page size.
+> >  } and the descriptor
+> >      describing the resulting 32-bit array is added to the inflateq.
+> > +  \item If the VIRTIO_BALLOON_F_UNTRUSTED_DEVICE feature has been
+> > +  negotiated, the driver MUST relinquish memory ownership via the TCB
+> > +  before adding it to the inflateq.
+> > +
+> >    \end{enumerate}
+> >  
+> >  \item To remove memory from the balloon (aka. deflate):
+> 
+> Don't we need to take it back before deflate?
+
+No, giving memory to a protected VM does not need the VM's explicit permission.
+
+If such permission were required then we would have a problem implementing free page reporting (and maybe hinting too).
+
+> > @@ -6105,6 +6126,9 @@ \subsubsection{Free Page Reporting}\label{sec:Device Types / Memory Balloon Devi
+> >  driver MUST initialize all free pages with \field{poison_val} before
+> >  reporting them.
+> >  
+> > +If the VIRTIO_BALLOON_F_UNTRUSTED_DEVICE feature has been negotiated, the
+> > +driver MUST notify free pages to the TCB before reporting them.
+> > +
+> >  The driver MUST NOT use the reported pages until the device has
+> >  acknowledged the reporting request.
+> 
+> Should this affect hinting too?
+
+Yes you are probbaly right. Though given the main usage of hinting is
+for live migration, it's unlikely to be enabled for ARM PKVM any time
+soon. I don't know how we'd live migrate a VM with confidential memory.
+
+> Is "notify" same as "relinquish ownership"?
+
+Yes, sorry, I should tighten up the wording.
+
+> Are these terms defined in some spec?
+
+A spec for relinquishing memory ownership in ARM PKVM? I could
+certainly put something together if it's helpful. Also, concretely,
+there are patches to the Linux kernel.
+
+I assumed it would make sense to address the virtio spec before
+floating implementation patches, but perhaps it makes sense to
+consider it all in the round?
+
+Also, if we can agree that VIRTIO_F_ACCESS_PLATFORM can be pressed
+into service for our needs, perhaps the spec changes become a bit more
+straightforward. Though I assume you would still want many of the
+above additions, to make it clear how a protected VM should interact
+with ballooning?
+
+> >  
+> > -- 
+> > 2.37.1.455.g008518b4e5-goog
+> 
+> 
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+> 
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+> 
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
+> 
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
