@@ -1,15 +1,9 @@
-Return-Path: <virtio-comment-return-3346-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 26D76986304
-	for <virtio-comment@lists.oasis-open.org>; Tue,  9 Aug 2022 09:44:04 +0000 (UTC)
-Message-ID: <53749915-16a8-4a74-8746-829e70a6ce92@intel.com>
-Date: Tue, 9 Aug 2022 17:43:56 +0800
-MIME-Version: 1.0
+Return-Path: <mst@redhat.com>
+Date: Tue, 9 Aug 2022 05:33:15 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Subject: Re: [virtio-comment] [PATCH V3 RESEND 1/4] Introduce virito
+ transport virtqueue
+Message-ID: <20220809053032-mutt-send-email-mst@kernel.org>
 References: <20220805095343.486546-1-lingshan.zhu@intel.com>
  <20220805095343.486546-2-lingshan.zhu@intel.com>
  <CACGkMEt7uCOKrnxJMBMFbRtKicH42eHPBOuODao33XCEvRY=Ow@mail.gmail.com>
@@ -18,122 +12,66 @@ References: <20220805095343.486546-1-lingshan.zhu@intel.com>
  <d902070c-34dc-0a0d-d0b7-04ed10ad8670@intel.com>
  <CACGkMEv1SQg=PB7G+OdYvVZ2-TgkVu5givfNMUdnRwGtTzfPKw@mail.gmail.com>
  <0bc52b68-0e7c-4324-c7b5-8867561540a4@intel.com>
- <CACGkMEt-SQ-Q8RE1b_d2Lfh6QbOYVAmphOHGeQj5Ni1P8PeNAw@mail.gmail.com>
- <20220809053421-mutt-send-email-mst@kernel.org>
- <CACGkMEvt5orq24ej44JgghJ7X2s5JUK7-Z43butUxUkdAJPvRw@mail.gmail.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <CACGkMEvt5orq24ej44JgghJ7X2s5JUK7-Z43butUxUkdAJPvRw@mail.gmail.com>
-Subject: Re: [virtio-comment] [PATCH V3 RESEND 1/4] Introduce virito transport
- virtqueue
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-To: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Cornelia Huck <cohuck@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, nrupal.jani@intel.com, "Uminski, Piotr" <Piotr.Uminski@intel.com>, hang.yuan@intel.com, virtio-comment@lists.oasis-open.org
+MIME-Version: 1.0
+In-Reply-To: <0bc52b68-0e7c-4324-c7b5-8867561540a4@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: Jason Wang <jasowang@redhat.com>, Cornelia Huck <cohuck@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, nrupal.jani@intel.com, "Uminski, Piotr" <Piotr.Uminski@intel.com>, hang.yuan@intel.com, virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
+On Tue, Aug 09, 2022 at 05:28:26PM +0800, Zhu, Lingshan wrote:
+> 
+> 
+> On 8/9/2022 5:21 PM, Jason Wang wrote:
+> > On Tue, Aug 9, 2022 at 5:19 PM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
+> > > 
+> > > 
+> > > On 8/9/2022 5:12 PM, Michael S. Tsirkin wrote:
+> > > > On Tue, Aug 09, 2022 at 04:36:43PM +0800, Zhu, Lingshan wrote:
+> > > > > > > +
+> > > > > > > +A device that offers feature bit VIRTIO_F_TRANSPT_VQ and a transport virtqueue is a management device.
+> > > > > > > +It processes the commands through the transport virtqueue commands.
+> > > > > > I think we need to be verbose here, e.g what did those transport
+> > > > > > virtqueue commands do? What's the relationship between management
+> > > > > > device and managed device?
+> > > > > I will add an overview of the transport virtqueue commands here, and a
+> > > > > description of the relationship in the "managed device" section.
+> > > > Transport is fine but management of devices is clearly something
+> > > > nvidia's patches do. So I think it's best to reuse the concept of device
+> > > > groups for this, from Max's patchset. Let's not replicate that work at
+> > > > least. I promised Max to help a bit with wording so I'll soon send a
+> > > > revision of his patchset, the generic part about device group
+> > > > from which you should be able to reuse.
+> > > Of course, it is possible to add the device groups in this series for sure.
+> > > 
+> > > What I don't understand is: what kind of commands against a device
+> > > group? Destroy all?
+> > > And normally a parent device only support one kind of devices, like a
+> > > SRIOV capable
+> > > virtio-net PF only supports virtio-net VFs on it, and maybe there will
+> > > not be
+> > > a device support both SIOV and SRIOV, it is complex in the HW
+> > > implementation.
+> > For having backward compatibility? (E.g for platforms that don't support SIOV)
+> > 
+> > Thanks
+> If not a device model like SIOV which does not have a dedicated physical
+> transport layer,
+> the question would be: Why do we need a side channel for a VF? This looks
+> conflicts with
+> VF provisioning and virtio-spec definitions. E.g, why allow changing MSI in
+> the flight
+> outside the guest control?
+> 
+> Thanks,
+> Zhu Lingshan
 
+MSI is a weird one, seeing that it's an nvidia specific extension to the pci spec.
+A better example in the latest version is controlling device features
+or config space for example.
+That part is somewhat similar to what you guys have with SIOV.
 
-On 8/9/2022 5:37 PM, Jason Wang wrote:
-> On Tue, Aug 9, 2022 at 5:35 PM Michael S. Tsirkin <mst@redhat.com> wrote:
->> On Tue, Aug 09, 2022 at 05:31:32PM +0800, Jason Wang wrote:
->>> On Tue, Aug 9, 2022 at 5:28 PM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
->>>>
->>>>
->>>> On 8/9/2022 5:21 PM, Jason Wang wrote:
->>>>> On Tue, Aug 9, 2022 at 5:19 PM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
->>>>>>
->>>>>> On 8/9/2022 5:12 PM, Michael S. Tsirkin wrote:
->>>>>>> On Tue, Aug 09, 2022 at 04:36:43PM +0800, Zhu, Lingshan wrote:
->>>>>>>>>> +
->>>>>>>>>> +A device that offers feature bit VIRTIO_F_TRANSPT_VQ and a transport virtqueue is a management device.
->>>>>>>>>> +It processes the commands through the transport virtqueue commands.
->>>>>>>>> I think we need to be verbose here, e.g what did those transport
->>>>>>>>> virtqueue commands do? What's the relationship between management
->>>>>>>>> device and managed device?
->>>>>>>> I will add an overview of the transport virtqueue commands here, and a
->>>>>>>> description of the relationship in the "managed device" section.
->>>>>>> Transport is fine but management of devices is clearly something
->>>>>>> nvidia's patches do. So I think it's best to reuse the concept of device
->>>>>>> groups for this, from Max's patchset. Let's not replicate that work at
->>>>>>> least. I promised Max to help a bit with wording so I'll soon send a
->>>>>>> revision of his patchset, the generic part about device group
->>>>>>> from which you should be able to reuse.
->>>>>> Of course, it is possible to add the device groups in this series for sure.
->>>>>>
->>>>>> What I don't understand is: what kind of commands against a device
->>>>>> group? Destroy all?
->>>>>> And normally a parent device only support one kind of devices, like a
->>>>>> SRIOV capable
->>>>>> virtio-net PF only supports virtio-net VFs on it, and maybe there will
->>>>>> not be
->>>>>> a device support both SIOV and SRIOV, it is complex in the HW
->>>>>> implementation.
->>>>> For having backward compatibility? (E.g for platforms that don't support SIOV)
->>>>>
->>>>> Thanks
->>>> If not a device model like SIOV which does not have a dedicated physical
->>>> transport layer,
->>>> the question would be: Why do we need a side channel for a VF? This
->>>> looks conflicts with
->>>> VF provisioning and virtio-spec definitions. E.g, why allow changing MSI
->>>> in the flight
->>>> outside the guest control?
->>> Just to clarify my points. I meant that vendors may choose to
->>> implement both SRIOV and SIOV in the hardware. And I believe this is
->>> what most vendor will do.
->>>
->>> But it doesn't mean the control path needs to be shared.
->>>
->>> Thanks
->> Okay. But I feel some general structure and terminology should be shared, given
->> the similarity.
-> Yes, I agree.
-Yes, it looks we all want to control sub-devices from the parent device
-
-Thanks,
-Zhu Lingshan
->
-> Thanks
->
->>
->>>> Thanks,
->>>> Zhu Lingshan
->>>>>> Thanks,
->>>>>> Zhu Lingshan
->>>>>>
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+-- 
+MST
 
