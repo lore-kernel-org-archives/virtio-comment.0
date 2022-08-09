@@ -1,78 +1,200 @@
-Return-Path: <virtio-comment-return-3330-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3351-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9C996986599
-	for <virtio-comment@lists.oasis-open.org>; Fri,  5 Aug 2022 10:02:39 +0000 (UTC)
-From: Zhu Lingshan <lingshan.zhu@intel.com>
-Date: Fri,  5 Aug 2022 17:53:43 +0800
-Message-Id: <20220805095343.486546-5-lingshan.zhu@intel.com>
-In-Reply-To: <20220805095343.486546-1-lingshan.zhu@intel.com>
-References: <20220805095343.486546-1-lingshan.zhu@intel.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 3B8BC98633A
+	for <virtio-comment@lists.oasis-open.org>; Tue,  9 Aug 2022 20:52:57 +0000 (UTC)
+Date: Tue, 9 Aug 2022 16:52:45 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20220809164654-mutt-send-email-mst@kernel.org>
+References: <20220124125625.3706347-1-stevensd@chromium.org>
+ <20220124125625.3706347-2-stevensd@chromium.org>
 MIME-Version: 1.0
-Subject: [virtio-comment] [PATCH V3 RESEND 4/4] Add transport vq number for virtio blk and net
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-To: jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com, sgarzare@redhat.com, stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com, hang.yuan@intel.com
-Cc: virtio-comment@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>
+In-Reply-To: <20220124125625.3706347-2-stevensd@chromium.org>
+Subject: Re: [virtio-comment] [PATCH 1/2] virtio-balloon: add an event queue
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: David Stevens <stevensd@chromium.org>
+Cc: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This commit add the queue number of the transport virtqueue
-for virtio_blk and virtio_net
+On Mon, Jan 24, 2022 at 09:56:24PM +0900, David Stevens wrote:
+> Add an event queue to the balloon to allow the driver to send events to
+> the device, which allows the device to be more responsive to the memory
+> needs of the guest.
+> 
+> There are two defined events. The first event is an out of memory event.
+> This event provides a way for the guest to handle out of memory events
+> on a system where the host does not support deflate-on-oom. The second
+> event is an out of puff event, which the guest can send when it fails to
+> allocate memory while trying to inflate the balloon. This serves as an
+> indication to the device that the driver may not be able to inflate the
+> balloon in a timely manner.
+> 
+> Signed-off-by: David Stevens <stevensd@chromium.org>
+> ---
+>  conformance.tex |  2 ++
+>  content.tex     | 59 +++++++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 61 insertions(+)
+> 
+> diff --git a/conformance.tex b/conformance.tex
+> index 42f853762ebe..5e0baa5ae7df 100644
+> --- a/conformance.tex
+> +++ b/conformance.tex
+> @@ -181,6 +181,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
+>  \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Page Poison}
+>  \item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
+> +\item \ref{drivernormative:Device Types / Memory Balloon Device / Device Operation / Events}
+>  \end{itemize}
+>  
+>  \conformance{\subsection}{SCSI Host Driver Conformance}\label{sec:Conformance / Driver Conformance / SCSI Host Driver Conformance}
+> @@ -440,6 +441,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
+>  \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Page Poison}
+>  \item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Free Page Reporting}
+> +\item \ref{devicenormative:Device Types / Memory Balloon Device / Device Operation / Events}
+>  \end{itemize}
+>  
+>  \conformance{\subsection}{SCSI Host Device Conformance}\label{sec:Conformance / Device Conformance / SCSI Host Device Conformance}
+> diff --git a/content.tex b/content.tex
+> index 32de6685c50b..3aeb319d31a7 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -5420,6 +5420,7 @@ \subsection{Virtqueues}\label{sec:Device Types / Memory Balloon Device / Virtque
+>  \item[2] statsq
+>  \item[3] free_page_vq
+>  \item[4] reporting_vq
+> +\item[5] event_vq
+>  \end{description}
+>  
+>    statsq only exists if VIRTIO_BALLOON_F_STATS_VQ is set.
+> @@ -5428,6 +5429,8 @@ \subsection{Virtqueues}\label{sec:Device Types / Memory Balloon Device / Virtque
+>  
+>    reporting_vq only exists if VIRTIO_BALLOON_F_PAGE_REPORTING is set.
+>  
+> +  event_vq only exists if VIRTIO_BALLOON_F_EVENT_VQ is set.
+> +
+>  \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Feature bits}
+>  \begin{description}
+>  \item[VIRTIO_BALLOON_F_MUST_TELL_HOST (0)] Host has to be told before
+> @@ -5446,6 +5449,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
+>      Configuration field \field{poison_val} is valid.
+>  \item[ VIRTIO_BALLOON_F_PAGE_REPORTING(5) ] The device has support for free
+>      page reporting. A virtqueue for reporting free guest memory is present.
+> +\item[ VIRTIO_BALLOON_F_EVENT_VQ(6) ] A virtqueue for sending events from
+> +    the driver to the device.
+>  
+>  \end{description}
+>  
+> @@ -5529,6 +5534,8 @@ \subsection{Device Initialization}\label{sec:Device Types / Memory Balloon Devic
+>    notify the device about the stats virtqueue buffer.
+>  \item If the VIRTIO_BALLOON_F_PAGE_REPORTING feature bit is negotiated, then
+>    begin reporting free pages to the device.
+> +\item If the VIRTIO_BALLOON_F_EVENT_VQ feature bit is negotiated, then
+> +  begin reporting events to the device.
+>  \end{enumerate}
+>  
+>  \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / Device Operation}
+> @@ -6031,6 +6038,58 @@ \subsubsection{Free Page Reporting}\label{sec:Device Types / Memory Balloon Devi
+>  MUST NOT modify the the content of a reported page to a value other than
+>  \field{poison_val}.
+>  
+> +\subsubsection{Events}\label{sec:Device Types / Memory Balloon Device / Device Operation / Events}
+> +
+> +The events virtqueue allows the driver to signal events to the
+> +device.
 
-Signed-off-by: Jason Wang <jasowang@redhat.com>
-Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
----
- content.tex | 6 ++++++
- 1 file changed, 6 insertions(+)
+and the following is the format used for buffers added
+to this vq? write or read buffers?
 
-diff --git a/content.tex b/content.tex
-index be632d1..ba129d4 100644
---- a/content.tex
-+++ b/content.tex
-@@ -3777,6 +3777,7 @@ \subsection{Virtqueues}\label{sec:Device Types / Netw=
-ork Device / Virtqueues}
- \item[2(N-1)] receiveqN
- \item[2(N-1)+1] transmitqN
- \item[2N] controlq
-+\item[2N+1] transportq
- \end{description}
-=20
-  N=3D1 if neither VIRTIO_NET_F_MQ nor VIRTIO_NET_F_RSS are negotiated, oth=
-erwise N is set by
-@@ -3784,6 +3785,8 @@ \subsection{Virtqueues}\label{sec:Device Types / Netw=
-ork Device / Virtqueues}
-=20
-  controlq only exists if VIRTIO_NET_F_CTRL_VQ set.
-=20
-+ transportq only exists if VIRTIO_F_TRANSPT_VQ set
-+
- \subsection{Feature bits}\label{sec:Device Types / Network Device / Featur=
-e bits}
-=20
- \begin{description}
-@@ -5363,11 +5366,14 @@ \subsection{Virtqueues}\label{sec:Device Types / Bl=
-ock Device / Virtqueues}
- \item[0] requestq1
- \item[\ldots]
- \item[N-1] requestqN
-+\item[N] transportq
- \end{description}
-=20
-  N=3D1 if VIRTIO_BLK_F_MQ is not negotiated, otherwise N is set by
-  \field{num_queues}.
-=20
-+ transportq only exists if VIRTIO_F_TRANSPT_VQ set.
-+
- \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature =
-bits}
-=20
- \begin{description}
---=20
-2.35.3
+> +
+> +\begin{lstlisting}
+> +struct virtio_balloon_event {
+> +        u32 type;
+> +        u32 data;
+> +};
+> +
+> +#define VIRTIO_BALLOON_EVENT_OOM        1
+> +#define VIRTIO_BALLOON_EVENT_OOPUFF     2
+> +\end{lstlisting}
+> +
+> +The \field{type} determines how to interpret the event. The following
+> +events are defined:
+> +
+> +\begin{itemize}
+> +\item Out of memory
+> +\begin{lstlisting}
+> +#define VIRTIO_BALLOON_EVENT_OOM        1
+> +\end{lstlisting}
+> +The driver has encountered a situation in which using pages from the balloon
+> +is necessary for system stability (e.g. if memory is required by applications
+> +running within the guest). The \field{data} value indicates how many pages
+> +the driver requires to maintain system stability.
+
+I'd prefer that we report info in bytes or another portable metric
+please. Down the road we should switch balloon away from
+using pages, too. This might mean we need to make data and type u64.
+
+> +\item Out of puff
+> +\begin{lstlisting}
+> +#define VIRTIO_BALLOON_EVENT_OOPUFF     2
+> +\end{lstlisting}
+> +The driver has encountered an allocation failure when trying to inflate
+> +the balloon. The \field{data} value is unused. This event serves as a signal
+> +that the balloon may not be able to inflate in a timely manner.
+> +\end{itemize}
+> +
+> +\drivernormative{\paragraph}{Events}{Device Types / Memory Balloon Device / Device Operation / Events}
+> +
+> +The driver MUST update \field{actual} with any allocated pages before
+> +sending a VIRTIO_BALLOON_EVENT_OOPUFF event.
+> +
+> +The driver SHOULD wait for the device to acknowledge the event
+> +before trying to further inflate or deflate the balloon.
+
+Hmm what is the motivation for this?
+
+> +
+> +If VIRTIO_BALLOON_F_DEFLATE_ON_OOM has been negotiated, the driver
+> +SHOULD send an OOM event before using pages from the balloon.
+
+what does using mean here? You mean without MUST_TELL_HOST?
+
+> +
+> +\devicenormative{\paragraph}{Events}{Device Types / Memory Balloon Device / Device Operation / Events}
+> +
+> +When the device receives a VIRTIO_BALLOON_EVENT_OOM event, it SHOULD deflate
+> +the balloon by \field{data} pages before acknowledging the event.
+
+... by modifying the config space field I guess?
+
+> +
+>  \section{SCSI Host Device}\label{sec:Device Types / SCSI Host Device}
+>  
+>  The virtio SCSI host device groups together one or more virtual
+> -- 
+> 2.35.0.rc0.227.g00780c9af4-goog
+> 
+> 
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+> 
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+> 
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
 
 This publicly archived list offers a means to provide input to the
@@ -87,8 +209,7 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
