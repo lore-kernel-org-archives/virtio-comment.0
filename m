@@ -1,8 +1,8 @@
 Return-Path: <lingshan.zhu@intel.com>
 From: Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: [PATCH V4 3/4] Describe the process to present a managed device
-Date: Fri, 26 Aug 2022 18:00:32 +0800
-Message-Id: <20220826100034.200432-4-lingshan.zhu@intel.com>
+Subject: [PATCH V4 4/4] Add transport vq number for virtio blk and net
+Date: Fri, 26 Aug 2022 18:00:33 +0800
+Message-Id: <20220826100034.200432-5-lingshan.zhu@intel.com>
 In-Reply-To: <20220826100034.200432-1-lingshan.zhu@intel.com>
 References: <20220826100034.200432-1-lingshan.zhu@intel.com>
 MIME-Version: 1.0
@@ -12,63 +12,51 @@ To: mst@redhat.com, cohuck@redhat.com, sgarzare@redhat.com, stefanha@redhat.com,
 Cc: virtio-comment@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>, Jason Wang <jasowang@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-This commit describes the process to present a manage
-device, including device creation, config and virtqueue config
+This commit add the queue number of the transport virtqueue
+for virtio_blk and virtio_net
 
 Signed-off-by: Jason Wang <jasowang@redhat.com>
 Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
 ---
- content.tex | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ content.tex | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/content.tex b/content.tex
-index a299172..fdb7231 100644
+index fdb7231..287695c 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -3710,6 +3710,43 @@ \subsection{Virtqueue Reset}\label{sec:Virtio Transport Options / Virtio Over
- done (by verifying virtio_transportq_ctrl.ack == VIRTIO_TRANSPTQ_OK)
- before re-enabling it.
+@@ -3875,6 +3875,7 @@ \subsection{Virtqueues}\label{sec:Device Types / Network Device / Virtqueues}
+ \item[2(N-1)] receiveqN
+ \item[2(N-1)+1] transmitqN
+ \item[2N] controlq
++\item[2N+1] transportq
+ \end{description}
  
-+\subsection{Presenting Managed Devices}\label{sec:Virtio Transport Options /
-+Virtio Over Transport Virtqueue / Presenting Managed Device}
-+
-+If VIRTIO_F_TRANSPT_VQ is negotiated with the management device.
-+The presenting of the managed devices requires cooperation between
-+the management device driver, the transport virtqueue and the managed device driver.
-+
-+The management device driver typically takes the following steps to create a
-+managed device:
-+
-+\begin{enumerate}
-+\item Determine the virtio device id and device specific configuration.
-+\item Create the managed devices by VIRTIO_TRANSPORTQ_CTRL_DEV_CREATE command.
-+\item Optionally, configure the MSI entries by VIRTIO_TRANSPTQ_CTRL_MSI class commands
-+\item The managed device driver probes the managed device.
-+\end{enumerate}
-+
-+The management device driver will then use the transport virtqueue to
-+process the requests from the managed device driver.
-+
-+Managed device setup performed by the managde device driver:
-+\begin{itemize*}
-+\item Features negotiation by VIRTIO_TRANSPTQ_CTRL_FEAT class commands.
-+\item Device status management by VIRTIO_TRANSPTQ_CTRL_STATUS class commands.
-+\item Device configuration space access by VIRTIO_TRANSPTQ_CTRL_CONFIG class commands.
-+\end{itemize*}
-+
-+Virtqueues setup performed by the managed driver:
-+\begin{itemize*}
-+\item Set the virtqueue address by VIRTIO_TRANSPTQ_CTRL_VQ_ADDR_SET command.
-+\item Set the virtqueue size by VIRTIO_TRANSPTQ_CTRL_VQ_SIZE class commands.
-+\item Get the virtqueue notification area by VIRTIO_TRANSPTQ_CTRL_VQ_NOTIFY_GET command.
-+\item Set the virtqueue state by VIRTIO_TRANSPTQ_CTRL_VQ_STATE_SET command.
-+\item Optionally, set virtqueue asid by VIRTIO_TRANSPTQ_CTRL_VQ_ASID_SET command.
-+\item Enable the virtqueue by VIRTIO_TRANSPTQ_CTRL_VQ_ENABLE_SET command.
-+\end{itemize*}
-+
- \chapter{Device Types}\label{sec:Device Types}
+  N=1 if neither VIRTIO_NET_F_MQ nor VIRTIO_NET_F_RSS are negotiated, otherwise N is set by
+@@ -3882,6 +3883,8 @@ \subsection{Virtqueues}\label{sec:Device Types / Network Device / Virtqueues}
  
- On top of the queues, config space and feature negotiation facilities
+  controlq only exists if VIRTIO_NET_F_CTRL_VQ set.
+ 
++ transportq only exists if VIRTIO_F_TRANSPT_VQ set
++
+ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits}
+ 
+ \begin{description}
+@@ -5461,11 +5464,14 @@ \subsection{Virtqueues}\label{sec:Device Types / Block Device / Virtqueues}
+ \item[0] requestq1
+ \item[\ldots]
+ \item[N-1] requestqN
++\item[N] transportq
+ \end{description}
+ 
+  N=1 if VIRTIO_BLK_F_MQ is not negotiated, otherwise N is set by
+  \field{num_queues}.
+ 
++ transportq only exists if VIRTIO_F_TRANSPT_VQ set.
++
+ \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature bits}
+ 
+ \begin{description}
 -- 
 2.35.3
 
