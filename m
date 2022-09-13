@@ -1,91 +1,87 @@
-Return-Path: <virtio-comment-return-3445-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3449-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EDEE1986580
-	for <virtio-comment@lists.oasis-open.org>; Thu,  8 Sep 2022 17:36:53 +0000 (UTC)
-Message-ID: <6ba1c7ac-01b8-c4ba-5e24-28c88eab20ff@opensynergy.com>
-Date: Thu, 8 Sep 2022 19:36:36 +0200
-References: <20220908083044.95376-1-mst@redhat.com>
- <87sfl2s01f.fsf@redhat.com> <20220908070923-mutt-send-email-mst@kernel.org>
-From: =?UTF-8?Q?Matti_M=c3=b6ll?= <Matti.Moell@opensynergy.com>
-In-Reply-To: <20220908070923-mutt-send-email-mst@kernel.org>
+	by lists.oasis-open.org (Postfix) with ESMTP id 2FF15986434
+	for <virtio-comment@lists.oasis-open.org>; Tue, 13 Sep 2022 06:54:05 +0000 (UTC)
+From: Keqian Zhu <zhukeqian1@huawei.com>
+Date: Tue, 13 Sep 2022 14:53:58 +0800
+Message-ID: <20220913065358.12152-1-zhukeqian1@huawei.com>
 MIME-Version: 1.0
-Subject: [virtio-comment] Re: [virtio] Re: [virtio-dev] [PATCH] audio->sound
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-To: "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>, Anton Yakovlev <Anton.Yakovlev@opensynergy.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, virtio@lists.oasis-open.org
+Subject: [virtio-comment][PATCH v2] pci: Update ISR related description about MSI-X
+Content-Type: text/plain
+To: virtio-comment@lists.oasis-open.org
+Cc: mst@redhat.com, wanghaibin.wang@huawei.com, sundongxu3@huawei.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On 08.09.22 13:09, Michael S. Tsirkin wrote:
-> On Thu, Sep 08, 2022 at 11:11:40AM +0200, Cornelia Huck wrote:
->> On Thu, Sep 08 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
->>
->>> Spec calls the device "sound device". Make the name in the
->>> ID section match.
->>>
->>> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
->>> ---
->>>   content.tex | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/content.tex b/content.tex
->>> index 5c66e6b..279998a 100644
->>> --- a/content.tex
->>> +++ b/content.tex
->>> @@ -3014,7 +3014,7 @@ \chapter{Device Types}\label{sec:Device Types}
->>>   \hline
->>>   24         &   Memory device \\
->>>   \hline
->>> -25         &   Audio device \\
->>> +25         &   Sound device \\
->>>   \hline
->>>   26         &   file system device \\
->>>   \hline
->>
->> Reviewed-by: Cornelia Huck <cohuck@redhat.com>
->>
->> Actually, under the title "Sound device", the spec says
->>
->> "The virtio sound card is a virtual audio device..."
->>
->> -- should it be "virtio sound device" instead?
->=20
-> I don't know, leave that for audio experts ;)
+In commit 6a83c1d41748 ("pci: set ISR bit on config change with MSI-X"),
+device is required to set ISR bit on config change even when MSI-X enabled.
 
-I'll pretend to be one, and as far as I can remember audio is only the=20
-sounds in the audible range (few Hz to 20kHz) but SOUND can go below and=20
-above that in frequency (ultrasonic for example). It's an elaborate form=20
-of bike shedding if you ask me, but the 'real experts(tm)' claim that=20
-there's a huge difference.
+This update other ISR related description for above commit.
 
-As for the change, it looks fine to me. It makes the naming consistent=20
-across the chapters and doesn't exclude inaudible tones.
+Signed-off-by: Keqian Zhu <zhukeqian1@huawei.com>
+---
+ content.tex | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-Reviewed-By: Matti M=C3=B6ll <Matti.Moell@opensynergy.com>
+diff --git a/content.tex b/content.tex
+index e863709..01a4bfe 100644
+--- a/content.tex
++++ b/content.tex
+@@ -1158,10 +1158,10 @@ \subsubsection{ISR status capability}\label{sec:Virtio Transport Options / Virti
+ \end{tabular}
+ 
+ To avoid an extra access, simply reading this register resets it to 0 and
+-causes the device to de-assert the interrupt.
++causes the device to de-assert the interrupt when using INT\#x interrupt.
+ 
+ In this way, driver read of ISR status causes the device to de-assert
+-an interrupt.
++an INT\#x interrupt.
+ 
+ See sections \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Used Buffer Notifications} and \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Notification of Device Configuration Changes} for how this is used.
+ 
+@@ -1511,7 +1511,7 @@ \subsubsection{Device Initialization}\label{sec:Virtio Transport Options / Virti
+ 
+ When MSI-X capability is present and enabled in the device
+ (through standard PCI configuration space) \field{config_msix_vector} and \field{queue_msix_vector} are used to map configuration change and queue
+-interrupts to MSI-X vectors. In this case, the ISR Status is unused.
++interrupts to MSI-X vectors.
+ 
+ Writing a valid MSI-X Table entry number, 0 to 0x7FF, to
+ \field{config_msix_vector}/\field{queue_msix_vector} maps interrupts triggered
+@@ -1681,6 +1681,7 @@ \subsubsection{Notification of Device Configuration Changes}\label{sec:Virtio Tr
+ 
+   \item If MSI-X capability is enabled:
+     \begin{enumerate}
++    \item Set the second lower bit of the ISR Status field for the device.
+     \item If \field{config_msix_vector} is not NO_VECTOR,
+       request the appropriate MSI-X interrupt message for the
+       device, \field{config_msix_vector} sets the MSI-X Table entry
+@@ -1718,13 +1719,15 @@ \subsubsection{Driver Handling Interrupts}\label{sec:Virtio Transport Options /
+     \end{itemize}
+   \item If MSI-X capability is enabled:
+     \begin{itemize}
++      \item Read the ISR Status field, which will reset it to zero.
+       \item
+         Look through all virtqueues mapped to that MSI-X vector for the
+         device, to see if any progress has been made by the device
+         which requires servicing.
+       \item
+-        If the MSI-X vector is equal to \field{config_msix_vector},
+-        re-examine the configuration space to see what changed.
++        If the second lower bit of ISR Status filed is set and the
++        MSI-X vector is equal to \field{config_msix_vector}, re-examine
++        the configuration space to see what changed.
+     \end{itemize}
+ \end{itemize}
+ 
+-- 
+2.33.0
 
---=20
-OpenSynergy GmbH
-
-Rotherstr. 20, 10245 Berlin
-
-Phone: +49 30 60 98 54 0 =E2=80=93 54
-
-Fax:      +49 30 60 98 54 0 -99
-
-EMail: matti.moell@opensynergy.com
-
-www.opensynergy.com
-
-Handelsregister/Commercial Registry: Amtsgericht Charlottenburg, HRB 108616=
-B
-
-Gesch=C3=A4ftsf=C3=BChrer/Managing Director: Regis Adjamah
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -99,8 +95,7 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
