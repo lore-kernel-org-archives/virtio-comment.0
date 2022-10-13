@@ -1,146 +1,160 @@
-Return-Path: <pasic@linux.ibm.com>
-Date: Fri, 2 Sep 2022 01:33:47 +0200
-From: Halil Pasic <pasic@linux.ibm.com>
-Subject: Re: [virtio] Re: [virtio-dev] Re: [virtio] [PATCH RFC v7 6/8] ccw:
- disallow ADMIN_VQ
-Message-ID: <20220902013347.2cc8b344.pasic@linux.ibm.com>
-In-Reply-To: <20220831104233-mutt-send-email-mst@kernel.org>
-References: <20220812171841.12183-1-mst@redhat.com>
-	<20220812171841.12183-7-mst@redhat.com>
-	<20220816164811.16464110.pasic@linux.ibm.com>
-	<20220816114216-mutt-send-email-mst@kernel.org>
-	<20220818153958.7219f6b8.pasic@linux.ibm.com>
-	<20220818235403-mutt-send-email-mst@kernel.org>
-	<20220824014519.028ee16d.pasic@linux.ibm.com>
-	<20220828052839-mutt-send-email-mst@kernel.org>
-	<20220831163349.545f726d.pasic@linux.ibm.com>
-	<20220831104233-mutt-send-email-mst@kernel.org>
+Return-Path: <virtio-comment-return-3455-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-comment@lists.oasis-open.org>
+List-Post: <mailto:virtio-comment@lists.oasis-open.org>
+List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 683D098653D
+	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Oct 2022 07:45:46 +0000 (UTC)
+From: Baptiste Afsa <baptiste.afsa@harman.com>
+Date: Thu, 13 Oct 2022 09:45:13 +0200
+Message-ID: <20221013074513.25141-1-baptiste.afsa@harman.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com, stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com, hang.yuan@intel.com, virtio@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>, oren@nvidia.com, parav@nvidia.com, shahafs@nvidia.com, aadam@redhat.com, eperezma@redhat.com, Max Gurtovoy <mgurtovoy@nvidia.com>, Halil Pasic <pasic@linux.ibm.com>
+Subject: [virtio-comment] [PATCH] Introduce VIRTIO_F_ISOLATE_INDIRECT_DESC feature
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+To: virtio-comment@lists.oasis-open.org
+Cc: Baptiste Afsa <baptiste.afsa@harman.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, 31 Aug 2022 10:50:21 -0400
-"Michael S. Tsirkin" <mst@redhat.com> wrote:
+When negotiated, this feature bit serves two purposes:
 
-> > You seem to say that all the normative statements may be classified
-> > into two categories:
-> > C1) the other side does not rely on this requirement
-> > C2) the other side does rely on this requirement
-> > 
-> > The requirements form C1 can be removed form future versions of the
-> > spec, and devices may start not honoring these without breaking
-> > compatibility because the other side did not rely on these being held
-> > up in the first place.
-> > 
-> > The requirements from C2 can not be removed from future versions of the
-> > spec, because a device compliant to the previous version of the spec
-> > that relies on this requirement being fulfilled would break. And
-> > interchangeability is about compatibility and interoperability -- so
-> > that is no good.
-> > 
-> > I understand that reasoning. But what I don't understand is the
-> > following: how is the reader of the specification supposed to decide
-> > if a certain requirement is a C1 requirement or a C2 requirement.
-> > Misclassifying a requirement could obviously pose a problem.  
-> 
-> The reader is supposed to satisfy all requirements.
+  - It instructs the driver to allocate every indirect descriptor on its
+    own dedicated memory pages. A single memory page must only hold data
+    for exactly one indirect descriptor.
 
-I fullheartheadly agree with that. Ideally just both sides (the
-device and the driver) satisfying all the normative requirements would
-guarantee a favorable outcome for the end user: interoperability and at
-least basic functionality.
+  - It allows the host to unmap these pages from the guest address space
+    while the indirect descriptor is available to the device.
 
-I'm not sure we are there yet with virtio. 
+This feature may cause extra memory consumption on the guest side but is
+particularly helpful to support the memory isolation scheme described
+below. However, note that this feature is not limited to this specific
+use case and other applications may be considered.
 
-> Whether it is ok to rely on requirements is a problem that
-> unfortunately we don't always clarify.
+The main idea is to keep the memory of the VM that runs the driver
+isolated from the memory that runs the device, while still allowing
+zero-copy transfers between the two domains. The virtio buffers are
+mapped dynamically in the host address space by the hypervisor.
 
-I believe, we want the people to rely on the spec. AFAIU the
-normative statements are the parts of the spec that are the
-deserve the most to be relied upon.
+In this model, the virtqueues shared with the device are not the
+original virtqueues allocated by the driver but a copy maintained by the
+hypervisor. The hypervisor copies the descriptors from the driver
+virtqueues to these second virtqueues when the descriptors are made
+available to the device, along with mapping the I/O buffers to the
+device VM address space.
 
-[..]
+The use of this second set of virtqueues avoids the device the need to
+verify that the buffers are actually accessible to the device since the
+driver cannot update these copies.
 
+Dealing with indirect descriptors in this model brings additional issues
+because the hypervisor needs to grant the device access to both the
+indirect descriptor table and all the I/O buffers pointed to by this
+table. However, a compromised guest can modify the table while the
+device is using it, which may lead to faults in the device.
 
-> > 
-> > I think, it would conceptually simplify things a lot if the avoided
-> > normative statements that we hope to drop in the future. 
-> > 
-> > This is a rather academic discussion and probably not a worthwhile one.  
-> 
-> I absolutely understand where you are coming from... I'm fine just using
-> SHOULD NOT here for now.
+This problem could be solved by creating a copy of the indirect
+descriptor table as it is done with other descriptors but this approach
+requires some sort of dynamic memory allocation in the hypervisor, which
+might be problematic depending on the situation.
 
-If we stick with the statement pair like proposed in this patch, in my
-opinion only MUST NOT works. Let me cite those:
-"""
-+\devicenormative{\paragraph}{Handling Device Features}{Virtio Transport Options / Virtio over channel I/O / Device Initialization / Handling Device Features}
+Using the VIRTIO_F_ISOLATE_INDIRECT_DESC feature allows the hypervisor
+to unmap the indirect descriptor table from the guest address space
+while the indirect descriptor is on the device side and guarantees that
+it will not be modified while the device is using it.
+---
+ content.tex | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/content.tex b/content.tex
+index e863709..20e17b7 100644
+--- a/content.tex
++++ b/content.tex
+@@ -6944,6 +6944,23 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved F=
+eature Bits}
+   that the driver can reset a queue individually.
+   See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueu=
+e Reset}.
+=20
++  \item[VIRTIO_F_ISOLATE_INDIRECT_DESC(41)] This feature indicates that th=
+e
++  device requires the driver to allocate each indirect descriptor on its o=
+wn
++  dedicated memory pages which MUST NOT hold any other data than this indi=
+rect
++  descriptor.
 +
-+Device MUST NOT set bit VIRTIO_F_ADMIN_VQ (bit 41) in
-+DeviceFeatures.
++  This allows the host to unmap these pages from the guest address space w=
+hile
++  the indirect descriptors are available to the device. The device
++  implementation is therefore guaranteed that the driver cannot tampered w=
+ith an
++  indirect descriptor table while the device is using it.
 +
-+\drivernormative{\paragraph}{Handling Device Features}{Virtio Transport Options / Virtio over channel I/O / Device Initialization / Handling Device Features}
++  This mechanism notably allows to implement a memory isolation scheme whe=
+re the
++  virtio buffers are shared dynamically between the host and the guest as =
+they
++  are exchanged through the virtqueues. It permits the host to share indir=
+ect
++  descriptor tables and all the associated buffers as is, without the need=
+ for
++  the device to verify that the buffers referenced in an indirect descript=
+or
++  table are actually accessible to the device.
 +
-+Driver MUST NOT set bit VIRTIO_F_ADMIN_VQ (bit 41) in
-+DriverFeatures even if offered by the device.
-"""
+ \end{description}
+=20
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+@@ -6980,6 +6997,12 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved F=
+eature Bits}
+=20
+ A driver SHOULD accept VIRTIO_F_NOTIF_CONFIG_DATA if it is offered.
+=20
++A driver SHOULD accept VIRTIO_F_ISOLATE_INDIRECT_DESC if it is offered. If
++VIRTIO_F_ISOLATE_INDIRECT_DESC has been negotiated, a driver MUST NOT acce=
+ss the
++memory pages that contain an indirect descriptor after the indirect descri=
+ptor
++has been made available to the device and before it is returned as used,
++otherwise the resulting behavior is undefined.
++
+ \devicenormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+=20
+ A device MUST offer VIRTIO_F_VERSION_1.  A device MAY fail to operate furt=
+her
+@@ -7009,6 +7032,9 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Fe=
+ature Bits}
+ and presents a PCI SR-IOV capability structure, otherwise
+ it MUST NOT offer VIRTIO_F_SR_IOV.
+=20
++A device MAY fail to operate further if VIRTIO_F_ISOLATE_INDIRECT_DESC is =
+not
++accepted.
++
+ \section{Legacy Interface: Reserved Feature Bits}\label{sec:Reserved Featu=
+re Bits / Legacy Interface: Reserved Feature Bits}
+=20
+ Transitional devices MAY offer the following:
+--=20
+2.38.0
 
-By the way I just noticed that in the second normative above the heading
-says "Device Features" while the normative itself makes a statement about
-"DriverFeatures".
 
-IMHO we can remove both together, because any implementation that could
-be adversely affected by the removal of both is non-conforming because
-it violates one of these MUST NOT statements.
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-Also for the approach:  generic statement about handling feature
-negotiations for features are non-viable in certain constellations (e.g.
-some transport or the platform, or whatever lacks support or renders the
-feature impossible to implement) + a list of features not supported by
-certain transport, I came to prefer MUST NOT.
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-> Do you feel that's the way to go or have you changed your mind?
-> Couldn't figure it out.
-> 
-
-I believe we are fine either way, but generic statement + list of cases
-where this is known to apply is nicer to work with and evolve.
- 
-> 
-> But generally, I feel C1 is the default unless there is text that
-> explicitly says C2.
-> 
-
-Here we disagree. I believe most of our normative statements are such
-that the can be relied upon by everyone including the other side.
-
-[..]
-> > Yet I prefer phrasings like this one where the phrasing of statement is
-> > still valid for all future versions of the spec (just the parameters
-> > change: in this case what is reserved and what is not).
-> > 
-> > Regards,
-> > Halil  
-> 
-> 
-> I guess it's a matter of taste.
-> What worries me is that it's so easy to miss these implications.
-
-I agree, it is a matter of taste. I believe what we code-wise want
-is a transport specific mask both on the end of the device and on the
-end of the driver which ensures that bits that corresponding features can
-not be supported by entity that is doing its part of the negotiation are
-not set. I believe having a list of such features in the specification
-for each transport at an easy to locate place i s easier to map to code
-than a bunch of normative statement pairs. And also manipulating this
-list (adding to it, or removing form it) looks more straightforward to
-me.
-
-But I'm fine with either solution.
-
-Regards,
-Halil
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
