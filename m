@@ -1,48 +1,88 @@
-Return-Path: <virtio-dev-return-10218-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-dev@lists.oasis-open.org>
-List-Post: <mailto:virtio-dev@lists.oasis-open.org>
-List-Help: <mailto:virtio-dev-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-dev-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-dev-subscribe@lists.oasis-open.org>
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20221122141829-mutt-send-email-mst@kernel.org>
-References: <20221121012419.317406-1-mst@redhat.com>
- <20221121012419.317406-10-mst@redhat.com> <87tu2rdleb.fsf@redhat.com>
- <20221122141829-mutt-send-email-mst@kernel.org>
-Date: Wed, 23 Nov 2022 10:52:59 +0100
-Message-ID: <87edtungjo.fsf@redhat.com>
+Return-Path: <mst@redhat.com>
+Date: Wed, 23 Nov 2022 16:07:56 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+Subject: [PATCH v9 00/10] Introduce device group and device management
+Message-ID: <20221123210706.21476-1-mst@redhat.com>
 MIME-Version: 1.0
-Subject: [virtio-dev] Re: [PATCH v8 9/9] admin: conformance clauses
-Content-Type: text/plain
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, jasowang@redhat.com, sgarzare@redhat.com, stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com, hang.yuan@intel.com, virtio@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com, Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com, sgarzare@redhat.com, stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com, hang.yuan@intel.com
+Cc: virtio@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com, Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Nov 22 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-> On Tue, Nov 22, 2022 at 05:06:04PM +0100, Cornelia Huck wrote:
->> On Sun, Nov 20 2022, "Michael S. Tsirkin" <mst@redhat.com> wrote:
->> > +List of supported commands MUST NOT change: after reporting a
->> 
->> s/List/The list/
->> 
->> > +given command as supported through VIRTIO_ADMIN_CMD_LIST_QUERY
->> > +device MUST NOT later report it as unsupported.
->> 
->> s/device/the device/
->> 
->> Is that for multiple queries while the device is alive? Is the device
->> allowed to report a different list of commands after it has been reset?
->> And is it allowed to _add_ commands?
->
-> I feel it's a bad idea to allow this to change even across resets, at
-> least until we have a usecase where it's neeed. Basically
-> same as with features. Will document.
+Change log:
 
-Ok.
+since v8:
+	addressed comments by Cornelia - as we agreed on list
+	
+since v7:
+	make high level error codes match linux, with virtio specific codes
+		in a separate field
+	renamed _ACCEPT to _USE since that's what it does
+	clarified forward compatibility and non pci transports
+	support multiple admin vqs
+	conformance statements
+	lots of changes all over the place to I changed author from Max
+	to myself. Don't need to take credit but also don't want
+	to blame Max for my mistakes.
+
+since v6:
+
+	- removed some extentions intended for future use.
+	  We'll do them when we get there.
+
+	- brought back command list query from v5 in a simplified form -
+	  it's here to address the case where a single parent
+	  can address multiple groups, such as PF addressing
+	  transport vq and sriov vfs.
+
+	- attempt to make terminology more formal.
+	In particular a term for whoever controls the group.
+ 	I am still going back
+	and forth between "parent" and "owner" - owner might
+	be better after all since it will work if we ever
+	have a self group. For now it's parent.
+
+TODO (maybe?) - probably ok to defer until this part is upstream:
+
+	Add "all members" member id.
+
+	Add commands for MSI, feature discovery.
+
+	Add commands for transport vq.
 
 
----------------------------------------------------------------------
-To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+My intent is to try and support both SR-IOV and SIOV
+usecases with the same structure and maybe even the same
+VQ.
+
+For example, it might make sense to split creating/destroying
+SIOV devices from the transport passing data from the guest - the
+driver would then not negotiate VIRTIO_F_SR_IOV (which
+then means auto-provisioning).
+
+This is out of RFC, since we have two commands which are useful
+to discover supported group types (ATM can be none or SR-IOV).
+
+
+Michael S. Tsirkin (10):
+  virtio: document forward compatibility guarantees
+  admin: introduce device group and related concepts
+  admin: introduce group administration commands
+  admin: introduce virtio admin virtqueues
+  pci: add admin vq registers to virtio over pci
+  mmio: document ADMIN_VQ as reserved
+  ccw: document ADMIN_VQ as reserved
+  admin: command list discovery
+  admin: conformance clauses
+  ccw: document more reserved features
+
+ admin.tex   | 435 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ content.tex | 111 +++++++++++++-
+ 2 files changed, 544 insertions(+), 2 deletions(-)
+ create mode 100644 admin.tex
+
+-- 
+MST
 
