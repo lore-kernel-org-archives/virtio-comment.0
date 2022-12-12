@@ -1,393 +1,129 @@
-Return-Path: <virtio-dev-return-10123-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-dev-return-10315-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-dev@lists.oasis-open.org>
 List-Post: <mailto:virtio-dev@lists.oasis-open.org>
 List-Help: <mailto:virtio-dev-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-dev-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-dev-subscribe@lists.oasis-open.org>
-From: Cornelia Huck <cohuck@redhat.com>
-In-Reply-To: <20220825133410.18367-1-harald.mommer@opensynergy.com>
-References: <20220825133410.18367-1-harald.mommer@opensynergy.com>
-Date: Mon, 07 Nov 2022 13:30:58 +0100
-Message-ID: <87o7tj2bgd.fsf@redhat.com>
+Message-ID: <116b25ed-c4f1-8dda-0b6e-42fb83779b0e@amazon.es>
+Date: Mon, 12 Dec 2022 11:10:23 +0100
 MIME-Version: 1.0
-Subject: [virtio-dev] Re: [virtio-comment] [RFC PATCH v2 1/1] virtio-can: Device
- specification - 2nd RFC draft.
-Content-Type: text/plain
-To: Harald Mommer <harald.mommer@opensynergy.com>, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, linux-can@vger.kernel.org
-Cc: Dariusz Stojaczyk <Dariusz.Stojaczyk@opensynergy.com>, Harald Mommer <harald.mommer@opensynergy.com>
+From: Babis Chalios <bchalios@amazon.es>
+References: <20221121162756.350032-1-mst@redhat.com>
+ <20221121162756.350032-4-mst@redhat.com>
+ <358e4b4f-0fe8-3f17-dbf2-efb0c3c93218@amazon.es>
+In-Reply-To: <358e4b4f-0fe8-3f17-dbf2-efb0c3c93218@amazon.es>
+Subject: Re: [virtio-dev] Re: [PATCH RFC 3/3] rng: leak detection support
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
+To: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, "Cali, Marco" <xmarcalx@amazon.co.uk>, "Graf (AWS), Alexander" <graf@amazon.de>, "Jason A. Donenfeld" <Jason@zx2c4.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, Aug 25 2022, Harald Mommer <harald.mommer@opensynergy.com> wrote:
-
-> virtio-can is a virtual CAN device. It provides a way to give access to
-> a CAN controller from a driver guest. The device is aimed to be used by
-> driver guests running a HLOS as well as by driver guests running a
-> typical RTOS as used in controller environments.
-
-Note that I'm not familiar with CAN, so I'll comment mostly from a
-virtio spec POV.
-
->
-> This is the reworked (2nd) version of the specification after having
-> gotten some feedback on the virtio lists and the Linux CAN mailing
-> lists. (The 1st now outdated version of the specification draft has been
-> sent out on 1-Apr-2021 to the virtio lists.) There is now also a virtio
-> CAN Linux driver which in the meantime has become good enough to be
-> shown.
->
-> There were a lot of changes, only mentioning the most important ones
-> omitting editorial changes.
->
-> - Classic CAN is indeed non-mandatory, so a feature bit is needed.
->   According to ISO all CAN controllers support classic CAN but it may be
->   disabled by configuration. So classic CAN is indeed a feature which
->   may not be available in some environments.
->
-> - Introduce a new feature flag VIRTIO_CAN_F_LATE_TX_ACK. While marking
->   as used after the actual transmission has been done on the CAN bus
->   this cannot be implemented reliably in all environments. SocketCAN is
->   affected at least under heavy load for TX and RX.
->
-> - RTR frames were requested on the Linux mailing list. They cannot be
->   supported when the underlying CAN driver backend is a 3rd party
->   AUTOSAR driver as AUTOSAR CAN does not support RTR frames. A feature
->   flag VIRTIO_CAN_F_RTR_FRAMES has been added to make support of RTR
->   frames an optional feature.
->
-> - Add le32 flags. There is now a reserved field in both RX and TX
->   messages which might serve to contain an AUTOSAR hardware object
->   handle or similar in a future version of the specification without
->   need to change the layout of the RX and TX message structures.
->
-> - Removal of priorities and config space. Priorities cannot be supported
->   using SocketCAN, the information delivered in the config space cannot
->   be determined using SocketCAN. Support of different priorities was
->   anyway too much for a first version of a specification. If priorities
->   are supported in a future version there will probably be only 2
->   different priorities, normal and high. In a future version of the
->   specification high priority messages may either be supported by using
->   a flag bit in the TX message but most probably the better solution
->   will be to add add a dedicated 2nd TX queue for high priority messages
->   in a review comment. But as already said priorities are not for now.
-
-Please keep the change log separate from the description.
-
-[Most people add a S-o-b, although we don't enforce DCO.]
-
-> ---
->  conformance.tex  |  27 +++++-
->  content.tex      |   1 +
->  introduction.tex |   2 +
->  virtio-can.tex   | 229 +++++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 255 insertions(+), 4 deletions(-)
->  create mode 100644 virtio-can.tex
-
-(...)
-
-> diff --git a/virtio-can.tex b/virtio-can.tex
-> new file mode 100644
-> index 0000000..ef4de7b
-> --- /dev/null
-> +++ b/virtio-can.tex
-> @@ -0,0 +1,229 @@
-> +\section{CAN Device}\label{sec:Device Types / CAN Device}
-> +
-> +virtio-can is a virtio based CAN (Controller Area Network) controller.
-> +It is used to give a virtual machine access to a CAN bus. The CAN bus
-> +might either be a physical CAN bus or a virtual CAN bus between virtual
-> +machines or a combination of both.
-> +
-> +\subsection{Device ID}\label{sec:Device Types / CAN Device / Device ID}
-> +
-> +36
-> +
-> +\subsection{Virtqueues}\label{sec:Device Types / CAN Device / Virtqueues}
-> +
-> +\begin{description}
-> +\item[0] Txq
-> +\item[1] Rxq
-> +\item[2] Controlq
-> +\item[3] Indicationq
-> +\end{description}
-> +
-> +The \field{Txq} is used to send CAN packets to the CAN bus.
-> +
-> +The \field{Rxq} is used to receive CAN packets from the CAN bus.
-> +
-> +The \field{Controlq} is used to control the state of the CAN controller.
-> +
-> +The \field{Indicationq} is used to receive unsolicited indications of
-> +CAN controller state changes.
-> +
-> +\devicenormative{\subsubsection}{Feature bits}{Device Types / CAN Device / Feature bits}
-
-We usually don't put the whole feature bit specification into a
-normative section, especially as it applies to both device and
-driver. A device normative section is for statements like "The device
-MUST offer <feature> if <condition> applies", and a driver normative
-section for things like "The driver MUST accept <feature> if offered".
-
-> +
-> +Actual CAN controllers support Extended CAN IDs with 29 bits (CAN~2.0B)
-> +as well as Standard CAN IDs with 11 bits (CAN~2.0A). The support of
-> +CAN~2.0B Extended CAN IDs is considered as mandatory for this
-> +specification.
-> +
-> +\begin{description}
-> +
-> +\item[VIRTIO_CAN_F_CAN_CLASSIC (0)]
-> +
-> +The device supports classic CAN frames with a maximum payload size of 8
-> +bytes.
-> +
-> +\item[VIRTIO_CAN_F_CAN_FD (1)]
-> +
-> +The device supports CAN FD frames with a maximum payload size of 64
-> +bytes.
-> +
-> +\item[VIRTIO_CAN_F_RTR_FRAMES (2)]
-> +
-> +The device supports RTR (remote transmission request) frames. RTR frames
-> +are only supported with classic CAN.
-
-Are any combinations of those three feature bits valid (both to be
-offered, and to be negotiated?) It looks like F_RTR_FRAMES would only
-work with F_CAN_CLASSIC?
-
-> +
-> +\item[VIRTIO_CAN_F_LATE_TX_ACK (3)]
-> +
-> +The virtio CAN device marks transmission requests from the \field{Txq}
-> +as used after the CAN message has been transmitted on the CAN bus.
-> +Without this feature flag negotiated the device is allowed to mark
-
-"If this feature bit has not been negotiated, ..."
-
-> +transmission requests already as used when the CAN message has been
-> +scheduled for transmission but might not yet have been transmitted on
-> +the CAN bus.
-> +
-> +\end{description}
-> +
-> +\drivernormative{\subsubsection}{Device Initialization}{Device Types / CAN Device / Initialization}
-> +
-> +\begin{enumerate}
-> +
-> +\item Read the feature bits and negotiate with the device.
-
-I think this step is redundant.
-
-> +
-> +\item The driver MUST populate the \field{Rxq} with empty
-> +device-writeable buffers of at least the struct virtio_can_rx size to be
-> +ready for the reception of CAN messages.
-
-virtio_can_rx is only defined further below, and, IIUC, depends on the
-frames that are supported. Can this be expressed as a kind of absolute
-value (depending on the negotiated features)?
-
-> +
-> +\item The driver MUST populate the \field{Indicationq} with empty
-> +device-writeable buffers of at least the struct virtio_can_event_ind size
-> +so that the CAN device is able to provide status change indications to the
-> +virtio CAN driver.
-
-Is virtio_can_event_ind always supposed to be an le16 value? If yes,
-it would probably be easier to specify that here.
-
-> +
-> +\end{enumerate}
-> +
-> +\subsection{Device Operation}\label{sec:Device Types / CAN Device / Device Operation}
-> +
-> +A device operation has an outcome which is described by one of the
-> +following values:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_CAN_RESULT_OK     0u
-> +#define VIRTIO_CAN_RESULT_NOT_OK 1u
-> +\end{lstlisting}
-> +
-> +Other values are to be treated like VIRTIO_CAN_RESULT_NOT_OK.
-> +
-> +The type of a CAN message identifier is determined by \field{flags}. The
-> +3 most significant bits of
-> +\field{can_id} do not bear the information about the type of the CAN
-> +message identifier and are 0.
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_CAN_FLAGS_FD            0x4000U
-> +#define VIRTIO_CAN_FLAGS_EXTENDED      0x8000U
-> +#define VIRTIO_CAN_FLAGS_RTR           0x2000U
-> +\end{lstlisting}
-
-You refer to the "flags" and "can_id" fields, but it is unclear in which
-structure. Would this benefit from reordering?
-
-> +
-> +\subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Operation / Controller Mode}
-> +
-> +The general format of a request in the \field{Controlq} is
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_control_out {
-> +#define VIRTIO_CAN_SET_CTRL_MODE_START  0x0201u
-> +#define VIRTIO_CAN_SET_CTRL_MODE_STOP   0x0202u
-> +        le16 msg_type; 
-> +};
-> +\end{lstlisting}
-> +
-> +To participate in bus communication the CAN controller is started by
-> +sending a VIRTIO_CAN_SET_CTRL_MODE_START control message, to stop
-> +participating in bus communication it is stopped by sending a
-> +VIRTIO_CAN_SET_CTRL_MODE_STOP control message. Both requests are
-> +confirmed by the result of the operation.
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_control_in {
-> +        u8 result;
-> +};
-> +\end{lstlisting}
-> +
-> +If the transition succeeded the \field{result} is VIRTIO_CAN_RESULT_OK
-> +otherwise it is VIRTIO_CAN_RESULT_NOT_OK. The device marks the request
-> +used when the CAN controller has finalized the transition to the
-> +requested controller mode.
-> +
-> +On transition to the STOPPED state the device cancels all CAN messages
-> +already pending for transmission and marks them as used with
-> +\field{result} VIRTIO_CAN_RESULT_NOT_OK. In the STOPPED state the
-> +device marks messages received from the
-> +\field{Txq} as used with \field{result} VIRTIO_CAN_RESULT_NOT_OK without
-> +transmitting them to the CAN bus.
-> +
-> +Initially the CAN controller is in the STOPPED state.
-
-Is that an internal state of the controller that can be changed from the
-outside?
-
-> +
-> +Control queue messages are processed in order.
-> +
-> +\devicenormative{\subsubsection}{CAN Message Transmission}{Device Types / CAN Device / Device Operation / CAN Message Transmission}
-
-I think this should be a normal subsection, as you describe not only
-what the device needs to do, but also what the driver does. Maybe use
-separate normative sections for MUST statements?
-
-> +
-> +Messages are transmitted by placing outgoing CAN messages in the
-> +\field{Txq} virtqueue.
-
-Who places the messages? The driver? Probably better to use active voice
-here.
-
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_tx_out {
-> +#define VIRTIO_CAN_TX 0x0001u
-> +        le16 msg_type;
-> +        le16 reserved;
-> +        le32 flags;
-> +        le32 can_id;
-> +        u8 sdu[];
-> +};
-> +
-> +struct virtio_can_tx_in {
-> +        u8 result;
-> +};
-> +\end{lstlisting}
-> +
-> +The length of \field{sdu} is implicit in the length of the device
-> +read-only descriptors.
-
-Not sure what this means -- does that mean that any length of the
-desriptors is ok, as long as it fits the whole structure?
-
-> +
-> +If transmission of a CAN frame type is requested for which support has
-> +not been negotiated \field{result} shall be set to
-> +VIRTIO_CAN_RESULT_NOT_OK and the message shall not be scheduled for
-> +transmission.
-
-This probably should rather be something like "The device MUST reject
-any CAN frame type for which support has not been negotiated with
-VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST NOT schedule the
-message for transmission."
-
-> +
-> +If \field{can_id} or field{sdu} length are out of range or the CAN
-> +controller is in an invalid state \field{result} shall be set to
-> +VIRTIO_CAN_RESULT_NOT_OK and the message shall not be scheduled for
-> +transmission.
-
-Same here.
-
-> +
-> +If the parameters are valid the message is scheduled for transmission.
-> +
-> +If feature VIRTIO_CAN_F_CAN_LATE_TX_ACK has been negotiated the
-> +transmission request MUST be marked as used with \field{result} set to
-> +VIRTIO_CAN_OK after the CAN controller acknowledged the successful
-> +transmission on the CAN bus. Without feature
-> +VIRTIO_CAN_F_CAN_LATE_TX_ACK negotiated the transmission request MAY
-> +already be marked as used with \field{result} set to VIRTIO_CAN_OK when
-> +the transmission request has been processed by the virtio CAN device and
-> +send down the protocol stack being scheduled for transmission.
-> +
-> +\subsubsection{CAN Message Reception}\label{sec:Device Types / CAN Device / Device Operation / CAN Message Reception}
-> +
-> +Messages can be received by providing empty incoming buffers to the
-> +virtqueue \field{Rxq}.
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_rx {
-> +#define VIRTIO_CAN_RX 0x0101u
-> +        le16 msg_type;
-> +        le16 reserved;
-> +        le32 flags;
-> +        le32 can_id;
-> +        u8 sdu[];
-> +};
-> +\end{lstlisting}
-> +
-> +If the feature VIRTIO_CAN_F_CAN_FD has been negotiated the maximal
-> +possible \field{sdu} length is 64, if the feature has not been
-> +negotiated the maximal possible \field{sdu} length is 8.
-> +
-> +The actual length of the \field{sdu} is calculated from the length of the
-> +driver read-only descriptors.
-
-So the provided descriptors must fit at least the size of the structure
-plus whatever length the negotiated frame sizes support? Can the driver
-negotiate F_CAN_FD and still provide descriptors that only allow an sdu
-of length 8?
-
-> +
-> +\subsubsection{BusOff Indication}\label{sec:Device Types / CAN Device / Device Operation / BusOff Indication}
-> +
-> +There are certain error conditions so that the physical CAN controller
-> +has to stop participating in CAN communication on the bus. If such an
-> +error condition occurs the device informs the driver about the
-> +unsolicited CAN controller state change by a CAN BusOff indication.
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_event_ind {
-> +#define VIRTIO_CAN_BUSOFF_IND 0x0301u
-> +        le16 msg_type;
-> +};
-> +\end{lstlisting}
-> +
-> +After bus-off detection the CAN controller is in STOPPED state. The CAN
-> +module does not participate in bus communication any more so all CAN
-
-s/module/device/ ?
-
-> +messages pending for transmission are put into the used queue with
-> +\field{result} VIRTIO_CAN_RESULT_NOT_OK.
-
-
----------------------------------------------------------------------
-To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+SGkgTWljaGFlbCwKCk9uIDI1LzExLzIyIDEzOjQxLCBCYWJpcyBDaGFsaW9zIHdyb3RlOgo+IEhp
+IE1pY2hhZWwsCj4KPiBBbmQgdGhhbmtzIGEgbG90IG9uIHRoZSBlZmZvcnQgb24gdGhhdC4KPgo+
+IE9uIDIxLzExLzIyIDE3OjMwLCBNaWNoYWVsIFMuIFRzaXJraW4gd3JvdGU6Cj4+IENBVVRJT046
+IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4g
+RG8gCj4+IG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2Fu
+IGNvbmZpcm0gdGhlIHNlbmRlciAKPj4gYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4KPj4K
+Pj4KPj4KPj4gQWRkIHZpcnRxdWV1ZXMgdG8gc3VwcG9ydCByZXBvcnRpbmcgZW50cm9weSBsZWFr
+cyAoc2ltaWxhciB0byB2aXJ0aW8gCj4+IGJhc2VkIHZtZ2VuaWQpLgo+Pgo+PiBTaWduZWQtb2Zm
+LWJ5OiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQuY29tPgo+PiAtLS0KPj4gwqAgdmly
+dGlvLXJuZy50ZXggfCA2MSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrLQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgNjAgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
+dGlvbigtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvdmlydGlvLXJuZy50ZXggYi92aXJ0aW8tcm5nLnRl
+eAo+PiBpbmRleCAxZWM3MTY0Li40NzYwZGZhIDEwMDY0NAo+PiAtLS0gYS92aXJ0aW8tcm5nLnRl
+eAo+PiArKysgYi92aXJ0aW8tcm5nLnRleAo+PiBAQCAtOSwxMCArOSwxNCBAQCBcc3Vic2VjdGlv
+bntEZXZpY2UgSUR9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyAKPj4gRW50cm9weSBEZXZpY2Ug
+LyBEZXZpY2UgSUR9Cj4+IMKgIFxzdWJzZWN0aW9ue1ZpcnRxdWV1ZXN9XGxhYmVse3NlYzpEZXZp
+Y2UgVHlwZXMgLyBFbnRyb3B5IERldmljZSAvIAo+PiBWaXJ0cXVldWVzfQo+PiDCoCBcYmVnaW57
+ZGVzY3JpcHRpb259Cj4+IMKgIFxpdGVtWzBdIHJlcXVlc3RxCj4+ICtcaXRlbVsxXSBsZWFrcTEg
+KG9ubHkgaWYgVklSVElPX1JOR19GX0xFQUsgaXMgb2ZmZXJlZCkKPj4gK1xpdGVtWzJdIGxlYWtx
+MiAob25seSBpZiBWSVJUSU9fUk5HX0ZfTEVBSyBpcyBvZmZlcmVkKQo+PiDCoCBcZW5ke2Rlc2Ny
+aXB0aW9ufQo+Pgo+PiDCoCBcc3Vic2VjdGlvbntGZWF0dXJlIGJpdHN9XGxhYmVse3NlYzpEZXZp
+Y2UgVHlwZXMgLyBFbnRyb3B5IERldmljZSAvIAo+PiBGZWF0dXJlIGJpdHN9Cj4+IC3CoCBOb25l
+IGN1cnJlbnRseSBkZWZpbmVkCj4+ICtcYmVnaW57ZGVzY3JpcHRpb259Cj4+ICtcaXRlbVtWSVJU
+SU9fUk5HX0ZfTEVBSyAoMCldIERldmljZSBjYW4gcmVwb3J0IGFuZCBoYW5kbGUgCj4+IGluZm9y
+bWF0aW9uIGxlYWtzLgo+PiArXGVuZHtkZXNjcmlwdGlvbn0KPj4KPj4gwqAgXHN1YnNlY3Rpb257
+RGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gCj4+
+IEVudHJvcHkgRGV2aWNlIC8gRGV2aWNlIGNvbmZpZ3VyYXRpb24gbGF5b3V0fQo+PiDCoMKgwqAg
+Tm9uZSBjdXJyZW50bHkgZGVmaW5lZC4KPj4gQEAgLTIxLDYgKzI1LDcgQEAgXHN1YnNlY3Rpb257
+RGV2aWNlIEluaXRpYWxpemF0aW9ufVxsYWJlbHtzZWM6RGV2aWNlIAo+PiBUeXBlcyAvIEVudHJv
+cHkgRGV2aWNlIC8gRGV2Cj4+Cj4+IMKgIFxiZWdpbntlbnVtZXJhdGV9Cj4+IMKgIFxpdGVtIFRo
+ZSBcZmllbGR7cmVxdWVzdHF9IHZpcnRxdWV1ZSBpcyBpbml0aWFsaXplZAo+PiArXGl0ZW0gSWYg
+VklSVElPX1JOR19GX0xFQUsgaGFzIGJlZW4gbmVnb3RpYXRlZCwgXGZpZWxke2xlYWtxMX0gYW5k
+IAo+PiBcZmllbGR7bGVha3EyfSBhcmUgaW5pdGlhbGl6ZWQKPj4gwqAgXGVuZHtlbnVtZXJhdGV9
+Cj4+Cj4+IMKgIFxzdWJzZWN0aW9ue0RldmljZSBPcGVyYXRpb259XGxhYmVse3NlYzpEZXZpY2Ug
+VHlwZXMgLyBFbnRyb3B5IAo+PiBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9ufQo+PiBAQCAtNDEs
+MyArNDYsNTcgQEAgXHN1YnNlY3Rpb257RGV2aWNlIE9wZXJhdGlvbn1cbGFiZWx7c2VjOkRldmlj
+ZSAKPj4gVHlwZXMgLyBFbnRyb3B5IERldmljZSAvIERldmljZSBPCj4+IMKgIFRoZSBkZXZpY2Ug
+TVVTVCBwbGFjZSBvbmUgb3IgbW9yZSByYW5kb20gYnl0ZXMgaW50byB0aGUgYnVmZmVyCj4+IMKg
+IG1hZGUgYXZhaWxhYmxlIHRvIGl0IHRocm91Z2ggXGZpZWxke3JlcXVlc3RxfSwgYnV0IGl0Cj4+
+IMKgIE1BWSB1c2UgbGVzcyB0aGFuIHRoZSBlbnRpcmUgYnVmZmVyIGxlbmd0aC4KPj4gKwo+PiAr
+XHN1YnN1YnNlY3Rpb257UmVwb3J0aW5nIEluZm9ybWF0aW9uIExlYWtzfXtEZXZpY2UgVHlwZXMg
+LyBFbnRyb3B5IAo+PiBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9uIC8gUmVwb3J0aW5nIEluZm9y
+bWF0aW9uIExlYWtzfQo+PiArCj4+ICtUaGUgZGV2aWNlIG1pZ2h0LCBhZnRlciB0aGUgZmFjdCwg
+ZGV0ZWN0IHRoYXQgc29tZSBvZiB0aGUgZW50cm9weQo+PiAraXQgc3VwcGxpZWQgdG8gdGhlIGRy
+aXZlciBoYXMgYWZ0ZXIgdGhlIGZhY3QgZGVncmFkZWQgaW4gcXVhbGl0eQo+PiArb3IgbGVha2Vk
+IHRvIHRoZSBvdXRzaWRlIHdvcmxkLsKgIE9uZSBleGFtcGxlIGlzIHdoZW4gdGhlIGRldmljZQo+
+PiAraXMgcGFydCBvZiB0aGUgdmlydHVhbCBtYWNoaW5lIHVuZGVyZ29pbmcgYSByZXN0b3JlIGZy
+b20gc25hcHNob3QKPj4gK29wZXJhdGlvbi4gQW5vdGhlciBleGFtcGxlIGlzIHdoZW4gdGhlIGlu
+Zm9ybWF0aW9uIGxlYWtzIGZyb20gdGhlCj4+ICtob3N0IHN5c3RlbSB0aHJvdWdoIGEgc2lkZS1j
+aGFubmVsLgo+PiArCj4+ICtUaGUgZHJpdmVyIHdvdWxkIHR5cGljYWxseSByZWFjdCBieSBjYXVz
+aW5nIHJlZ2VuZXJhdGlvbiBvZiBhbnkKPj4gK2luZm9ybWF0aW9uIHRoYXQgbWlnaHQgaGF2ZSBs
+ZWFrZWQgYW5kIHRoYXQgaGFzIHRvIGJlIHNlY3JldCBvcgo+PiArdW5pcXVlLsKgIEl0IGlzIHVu
+ZGVyc3Rvb2QgdGhhdCB3aGVuIGFuIGluZm9ybWF0aW9uIGxlYWsgaGFzIGJlZW4KPj4gK2RldGVj
+dGVkIGl0IGlzIGxpa2VseSBub3QgbGltaXRlZCB0byB0aGUgZW50cm9weSByZWNlaXZlZCB0aHJv
+dWdoCj4+ICt0aGUgc3BlY2lmaWMgZGV2aWNlLiBJbiBwYXJ0aWN1bGFyLCB0aGlzIGlzIHRoZSBj
+YXNlIGZvcgo+PiArc25hcHNob3RpbmcgSXQgaXMgdGh1cyBzdWdnZXN0ZWQgdGhhdCB0aGUgc3lz
+dGVtIGZ1bGx5Cj4+ICtyZWdlbmVyYXRlIGFueSB1bmlxdWUvc2VjcmV0IGluZm9ybWF0aW9uIGlu
+IHRoaXMgc2NlbmFyaW8uCj4+ICsKPj4gK0lmIFZJUlRJT19STkdfRl9MRUFLIGhhcyBiZWVuIG5l
+Z290aWF0ZWQgdGhlIGRldmljZSBjYW4gcmVwb3J0Cj4+ICtzdWNoIGxlYWtzIHRvIHRoZSBkcml2
+ZXIgdGhyb3VnaCBhIHNldCBvZiBkZWRpY2F0ZWQgbGVhawo+PiArcXVldWVzOiBcZmllbGR7bGVh
+a3ExfSBhbmQgXGZpZWxke2xlYWtxMn0uCj4+ICsKPj4gK0J1ZmZlcnMgYWRkZWQgdG8gdGhlIGxl
+YWsgcXVldWVzIGNhbiBoYXZlIG9uZSBvZiB0d28gZm9ybXM6Cj4+ICtcYmVnaW57ZW51bWVyYXRl
+fQo+PiArXGl0ZW0gQSB3cml0ZS1vbmx5IGJ1ZmZlci4gSXQgd2lsbCBiZSBjb21wbGV0ZWx5IGZp
+bGxlZCBieSByYW5kb20gCj4+IGRhdGEgYnkgdGhlIGRldmljZS4KPj4gK1xpdGVtIEEgYnVmZmVy
+IGNvbnNpc3Rpbmcgb2YgcmVhZC1vbmx5IHNlY3Rpb24gZm9sbG93ZWQgYnkgYQo+PiArd3JpdGUt
+b25seSBzZWN0aW9uLCBib3RoIG9mIGlkZW50aWNhbCBzaXplLiBUaGUKPj4gK2RldmljZSB3aWxs
+IGNvcHkgZGF0YSBmcm9tIHRoZSByZWFkLW9ubHkgc2VjdGlvbiB0byB0aGUgd3JpdGUtb25seQo+
+PiArc2VjdGlvbi4KPj4gK1xlbmR7ZW51bWVyYXRlfQo+PiArCj4+ICtUaGUgc3RlcHMgZm9yIG9w
+ZXJhdGluZyB0aGUgdmlydHF1ZXVlIGFyZToKPj4gKwo+PiArXGJlZ2lue2VudW1lcmF0ZX0KPj4g
+K1xpdGVtIEF0IGVhY2ggdGltZSwgb25seSBvbmUgb2YgXGZpZWxke2xlYWtxMX0sIFxmaWVsZHts
+ZWFrcTJ9IGlzIAo+PiBhY3RpdmUKPj4gK8KgwqDCoMKgwqAgKGhhcyBidWZmZXJzIGFkZGVkL3Vz
+ZWQpLgo+PiArXGl0ZW0gQWZ0ZXIgaW5pdGlhbGl6YXRpb24sIFxmaWVsZHtsZWFrcTF9IGlzIGFj
+dGl2ZS4KPj4gK1xpdGVtIERyaXZlciBhZGRzIG11bHRpcGxlIGJ1ZmZlcnMgdG8gdGhlIGFjdGl2
+ZSBsZWFrIHF1ZXVlLgo+PiArXGl0ZW0gVGhlIGJ1ZmZlcnMgYXJlIG5vdCB1c2VkIHVudGlsIGFu
+IGluZm9ybWF0aW9uIGxlYWsgaXMKPj4gK8KgwqDCoMKgwqAgZGV0ZWN0ZWQsIGFzIGxvbmcgYXMg
+dGhhdCBpcyB0aGUgY2FzZSBkcml2ZXIgY2FuCj4+ICvCoMKgwqDCoMKgIGFkZCBtb3JlIGJ1ZmZl
+cnMgdG8gdGhlIGFjdGl2ZSBxdWV1ZS4KPj4gK1xpdGVtIFVwb24gZGV0ZWN0aW5nIGFuIGluZm9y
+bWF0aW9uIGxlYWssIGRldmljZSBzdGFydHMKPj4gK8KgwqDCoMKgwqAgdXNpbmcgYnVmZmVycyBp
+biB0aGUgYWN0aXZlIGxlYWsgcXVldWUuCj4+ICtcaXRlbSBVcG9uIGRldGVjdGluZyB0aGF0IGJ1
+ZmZlcnMgaGF2ZSBiZWVuIHVzZWQsIGRyaXZlcgo+PiArwqDCoMKgwqDCoCBzd2l0Y2hlcyB0byBh
+bm90aGVyIGxlYWsgcXVldWUgbWFraW5nIGl0IGFjdGl2ZQo+PiArwqDCoMKgwqDCoCAoZS5nLiBm
+cm9tIFxmaWVsZHtsZWFrcTF9IHRvIFxmaWVsZHtsZWFrcTJ9IG9yIHZpY2UgdmVyc2EpLgo+PiAr
+wqDCoMKgwqDCoCBJdCB0aGVuIHN0YXJ0cyBhZGRpbmcgYnVmZmVycyB0byB0aGUgbmV3IGxlYWsg
+cXVldWUuCj4+ICtcaXRlbSBEZXZpY2Ugd2lsbCBrZWVwIHVzaW5nIGJ1ZmZlcnMgaW4gdGhlIGFj
+dGl2ZSBsZWFrIHF1ZXVlCj4+ICvCoMKgwqDCoMKgIHVudGlsIGl0IGRldGVjdHMgdGhhdCBib3Ro
+IHRoZSBjdXJyZW50IGxlYWsgcXVldWUgaXMgZW1wdHkgYW5kIAo+PiBhbm90aGVyCj4+ICvCoMKg
+wqDCoMKgIGxlYWsgcXVldWUgaGFzIGJ1ZmZlcnMuIEF0IHRoYXQgcG9pbnQgZGV2aWNlIHN3aXRj
+aGVzIHRvCj4+ICvCoMKgwqDCoMKgIGFub3RoZXIgbGVhayBxdWV1ZSwgbWFraW5nIGl0IGFjdGl2
+ZS4KSSBhc3N1bWUgYnkgInVzaW5nIiBoZXJlIHlvdSBtZWFuIHRoYXQgdGhlIGRldmljZSB3aWxs
+IHBlcmZvcm0gZGlyZWN0bHkgCnRoZSBhY3Rpb24KZGVzY3JpYmVkIGJ5IHRoZSBidWZmZXJzIG9u
+Y2UgdGhleSBiZWNvbWUgYXZhaWxhYmxlIHRvIGl0LiBJcyBteSAKdW5kZXJzdGFuZGluZyBjb3Jy
+ZWN0PwoKQWxzbywgd2hhdCBoYXBwZW5zIGlmIGF0IHRoaXMgcG9pbnQgKHRoZXJlIGFyZSBidWZm
+ZXJzIG9uIHRoZSAib2xkIiAKYWN0aXZlIGxlYWsgcXVldWUpIGFuZCBhCm5ldyBpbmZvcm1hdGlv
+biBsZWFrIGlzIGRldGVjdGVkPyBTaG91bGQgd2UgY2xhcmlmeSB0aGlzIGNhc2U/Cgo+PiArXGl0
+ZW0gQWZ0ZXIgdGhlIHN3aXRjaCwgYnVmZmVycyBmcm9tIHRoZSBuZXcgbGVhayBxdWV1ZSBhcmUg
+bm90Cj4+ICvCoMKgwqDCoMKgIHVzZWQgdW50aWwgYW4gaW5mb3JtYXRpb24gbGVhayBpcyBkZXRl
+Y3RlZC4KPj4gK1xlbmR7ZW51bWVyYXRlfQo+PiAtLSAKPj4gTVNUCj4+Cj4KPiBJIGFtIHRha2lu
+ZyBub3cgYSBjbG9zZXIgbG9vayB0byB0cnlpbmcgdG8gc2VlIGFueSBwb3RlbnRpYWwgCj4gcmFj
+ZS1jb25kaXRpb25zIGJ1dCBpbiBhIGZpcnN0IGdsYW5jZSBpdCBsb29rcyBvayB0byBtZS4KPiBD
+dXJpb3VzIHRvIHNlZSB3aGF0IEphc29uIHRoaW5rcyB0b28uCj4KPiBDaGVlcnMsCj4gQmFiaXMK
+PiBBbWF6b24gU3BhaW4gU2VydmljZXMgc29jaWVkYWQgbGltaXRhZGEgdW5pcGVyc29uYWwsIENh
+bGxlIFJhbWlyZXogZGUgCj4gUHJhZG8gNSwgMjgwNDUgTWFkcmlkLiBSZWdpc3RybyBNZXJjYW50
+aWwgZGUgTWFkcmlkIC4gVG9tbyAyMjQ1OCAuIAo+IEZvbGlvIDEwMiAuIEhvamEgTS00MDEyMzQg
+LiBDSUYgQjg0NTcwOTM2CgoKQ2hlZXJzLApCYWJpcwoKQW1hem9uIFNwYWluIFNlcnZpY2VzIHNv
+Y2llZGFkIGxpbWl0YWRhIHVuaXBlcnNvbmFsLCBDYWxsZSBSYW1pcmV6IGRlIFByYWRvIDUsIDI4
+MDQ1IE1hZHJpZC4gUmVnaXN0cm8gTWVyY2FudGlsIGRlIE1hZHJpZCAuIFRvbW8gMjI0NTggLiBG
+b2xpbyAxMDIgLiBIb2phIE0tNDAxMjM0IC4gQ0lGIEI4NDU3MDkzNgo=
 
