@@ -1,99 +1,103 @@
-Return-Path: <virtio-comment-return-3588-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3587-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Message-ID: <5f88a64d-bca1-7039-d257-169621f813bd@linux.alibaba.com>
-Date: Mon, 19 Dec 2022 10:52:23 +0800
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 1167898668A
+	for <virtio-comment@lists.oasis-open.org>; Sat, 17 Dec 2022 12:48:48 +0000 (UTC)
+From: zhukeqian <zhukeqian1@huawei.com>
+Date: Sat, 17 Dec 2022 12:48:42 +0000
+Message-ID: <6e88d56dd4074402afbd23e2fbb48c98@huawei.com>
+References: <20220913065358.12152-1-zhukeqian1@huawei.com>
+In-Reply-To: <20220913065358.12152-1-zhukeqian1@huawei.com>
 MIME-Version: 1.0
-References: <20221205063639.127767-1-hengqi@linux.alibaba.com>
- <20221216074415-mutt-send-email-mst@kernel.org>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <20221216074415-mutt-send-email-mst@kernel.org>
-Subject: [virtio-comment] Re: [PATCH v3] virtio_net: support inner header hash
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, Jason Wang <jasowang@redhat.com>, Yuri Benditovich <yuri.benditovich@daynix.com>, Cornelia Huck <cohuck@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Subject: =?gb2312?B?tPC4tDogW3ZpcnRpby1jb21tZW50XVtQQVRDSCB2Ml0gcGNpOiBVcGRhdGUg?=
+ =?gb2312?Q?ISR_related_description_about_MSI-X?=
+Content-Language: zh-CN
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
+To: zhukeqian <zhukeqian1@huawei.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Cc: "mst@redhat.com" <mst@redhat.com>, "Wanghaibin (D)" <wanghaibin.wang@huawei.com>, "sundongxu (A)" <sundongxu3@huawei.com>, "Chentao (Boby)" <boby.chen@huawei.com>, "Zhangbo (Oscar)" <oscar.zhangbo@huawei.com>, zhukeqian <zhukeqian1@huawei.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-
-
-=E5=9C=A8 2022/12/16 =E4=B8=8B=E5=8D=888:49, Michael S. Tsirkin =E5=86=99=
-=E9=81=93:
-> On Mon, Dec 05, 2022 at 02:36:39PM +0800, Heng Qi wrote:
->> @@ -4005,6 +4159,24 @@ \subsubsection{Processing of Incoming Packets}\la=
-bel{sec:Device Types / Network
->>   #define VIRTIO_NET_HASH_REPORT_UDPv6_EX        9
->>   \end{lstlisting}
->>  =20
->> +If \field{hash_report} differs from VIRTIO_NET_HASH_REPORT_NONE,
->> +\field{hash_report_tunnel} can report the type of the tunnel-encapsulat=
-ed
->> +packet to the driver over the inner header hash calculation.
->> +Possible values that the device can report in \field{hash_report_tunnel=
-}
->> +are defined below:
->> +
->> +\begin{lstlisting}
->> +#define VIRTIO_NET_HASH_REPORT_GRE             1
->> +#define VIRTIO_NET_HASH_REPORT_VXLAN           2
->> +#define VIRTIO_NET_HASH_REPORT_GENEVE          3
->> +\end{lstlisting}
->> +
->> +The values VIRTIO_NET_HASH_REPORT_GRE, VIRTIO_NET_HASH_REPORT_VXLAN and
->> +VIRTIO_NET_HASH_REPORT_GENEVE correspond to VIRTIO_NET_HASH_TYPE_GRE_IN=
-NER,
->> +VIRTIO_NET_HASH_TYPE_VXLAN_INNER and VIRTIO_NET_HASH_TYPE_GENEVE_INNER =
-bits
->> +of supported hash types defined in respectively
->> +\ref{sec:Device Types / Network Device / Device Operation / Processing =
-of Incoming Packets / Hash calculation for incoming packets / Supported/ena=
-bled hash types}.
->> +
->>   \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Dev=
-ice / Device Operation / Control Virtqueue}
->>  =20
->>   The driver uses the control virtqueue (if VIRTIO_NET_F_CTRL_VQ is
-> If the new feature flag is negotiated, we need to spell out more clearly =
-what are the rules
-> for packets that are not encapsulated. Is hash_report_tunnel set to 0
-
-Yes, we should. When the _TUNNEL feature is negotiated, for=20
-non-encapsulated packets we set \field{hash_report_tunnel} to 0.
-
-> then? Another comment is that we keep repeating GRE/VXLAN/GENEVE too
-> many times. Let's add a paragraph defining a concept e.g. a "tunnel" or
-> "tunneled packets", explaining how they are handled at a high level,
-> and then just refer to the tunnel everywhere.
-> Let's also add external references to specifications documenting the
-> relevant tunnel types.
-
-Ok, I'll try to make this clear.
-
-Thanks.
-
->
->
->> --=20
->> 2.19.1.6.gb485710b
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+Rml4ZXM6IGh0dHBzOi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlvLXNwZWMvaXNzdWVzLzE0
+NQ0KDQpIaSBhbGwgVEMgbWVtYmVyczoNClRoaXMgaXMgdG8gcmVxdWVzdCBhIHZvdGUgb24gcmVz
+b2x2aW5nIHRoZSBhYm92ZSBpc3N1ZS4NCg0KVGhhbmtzLA0KS2VxaWFuDQoNCg0KLS0tLS3Tyrz+
+1K28/i0tLS0tDQq3orz+yMs6IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnIDx2
+aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZz4gtPqx7SBLZXFpYW4gWmh1DQq3osvN
+yrG85DogMjAyMsTqOdTCMTPI1SAxNDo1NA0KytW8/sjLOiB2aXJ0aW8tY29tbWVudEBsaXN0cy5v
+YXNpcy1vcGVuLm9yZw0Ks63LzTogbXN0QHJlZGhhdC5jb207IFdhbmdoYWliaW4gKEQpIDx3YW5n
+aGFpYmluLndhbmdAaHVhd2VpLmNvbT47IHN1bmRvbmd4dSAoQSkgPHN1bmRvbmd4dTNAaHVhd2Vp
+LmNvbT4NCtb3zOI6IFt2aXJ0aW8tY29tbWVudF1bUEFUQ0ggdjJdIHBjaTogVXBkYXRlIElTUiBy
+ZWxhdGVkIGRlc2NyaXB0aW9uIGFib3V0IE1TSS1YDQoNCkluIGNvbW1pdCA2YTgzYzFkNDE3NDgg
+KCJwY2k6IHNldCBJU1IgYml0IG9uIGNvbmZpZyBjaGFuZ2Ugd2l0aCBNU0ktWCIpLCBkZXZpY2Ug
+aXMgcmVxdWlyZWQgdG8gc2V0IElTUiBiaXQgb24gY29uZmlnIGNoYW5nZSBldmVuIHdoZW4gTVNJ
+LVggZW5hYmxlZC4NCg0KVGhpcyB1cGRhdGUgb3RoZXIgSVNSIHJlbGF0ZWQgZGVzY3JpcHRpb24g
+Zm9yIGFib3ZlIGNvbW1pdC4NCg0KU2lnbmVkLW9mZi1ieTogS2VxaWFuIFpodSA8emh1a2VxaWFu
+MUBodWF3ZWkuY29tPg0KLS0tDQogY29udGVudC50ZXggfCAxMyArKysrKysrKy0tLS0tDQogMSBm
+aWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdp
+dCBhL2NvbnRlbnQudGV4IGIvY29udGVudC50ZXgNCmluZGV4IGU4NjM3MDkuLjAxYTRiZmUgMTAw
+NjQ0DQotLS0gYS9jb250ZW50LnRleA0KKysrIGIvY29udGVudC50ZXgNCkBAIC0xMTU4LDEwICsx
+MTU4LDEwIEBAIFxzdWJzdWJzZWN0aW9ue0lTUiBzdGF0dXMgY2FwYWJpbGl0eX1cbGFiZWx7c2Vj
+OlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpICBcZW5ke3RhYnVsYXJ9DQogDQogVG8g
+YXZvaWQgYW4gZXh0cmEgYWNjZXNzLCBzaW1wbHkgcmVhZGluZyB0aGlzIHJlZ2lzdGVyIHJlc2V0
+cyBpdCB0byAwIGFuZCAtY2F1c2VzIHRoZSBkZXZpY2UgdG8gZGUtYXNzZXJ0IHRoZSBpbnRlcnJ1
+cHQuDQorY2F1c2VzIHRoZSBkZXZpY2UgdG8gZGUtYXNzZXJ0IHRoZSBpbnRlcnJ1cHQgd2hlbiB1
+c2luZyBJTlRcI3ggaW50ZXJydXB0Lg0KIA0KIEluIHRoaXMgd2F5LCBkcml2ZXIgcmVhZCBvZiBJ
+U1Igc3RhdHVzIGNhdXNlcyB0aGUgZGV2aWNlIHRvIGRlLWFzc2VydCAtYW4gaW50ZXJydXB0Lg0K
+K2FuIElOVFwjeCBpbnRlcnJ1cHQuDQogDQogU2VlIHNlY3Rpb25zIFxyZWZ7c2VjOlZpcnRpbyBU
+cmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBDSSBCdXMgLyBQQ0ktc3BlY2lmaWMgSW5p
+dGlhbGl6YXRpb24gQW5kIERldmljZSBPcGVyYXRpb24gLyBVc2VkIEJ1ZmZlciBOb3RpZmljYXRp
+b25zfSBhbmQgXHJlZntzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIg
+UENJIEJ1cyAvIFBDSS1zcGVjaWZpYyBJbml0aWFsaXphdGlvbiBBbmQgRGV2aWNlIE9wZXJhdGlv
+biAvIE5vdGlmaWNhdGlvbiBvZiBEZXZpY2UgQ29uZmlndXJhdGlvbiBDaGFuZ2VzfSBmb3IgaG93
+IHRoaXMgaXMgdXNlZC4NCiANCkBAIC0xNTExLDcgKzE1MTEsNyBAQCBcc3Vic3Vic2VjdGlvbntE
+ZXZpY2UgSW5pdGlhbGl6YXRpb259XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMg
+LyBWaXJ0aQ0KIA0KIFdoZW4gTVNJLVggY2FwYWJpbGl0eSBpcyBwcmVzZW50IGFuZCBlbmFibGVk
+IGluIHRoZSBkZXZpY2UgICh0aHJvdWdoIHN0YW5kYXJkIFBDSSBjb25maWd1cmF0aW9uIHNwYWNl
+KSBcZmllbGR7Y29uZmlnX21zaXhfdmVjdG9yfSBhbmQgXGZpZWxke3F1ZXVlX21zaXhfdmVjdG9y
+fSBhcmUgdXNlZCB0byBtYXAgY29uZmlndXJhdGlvbiBjaGFuZ2UgYW5kIHF1ZXVlIC1pbnRlcnJ1
+cHRzIHRvIE1TSS1YIHZlY3RvcnMuIEluIHRoaXMgY2FzZSwgdGhlIElTUiBTdGF0dXMgaXMgdW51
+c2VkLg0KK2ludGVycnVwdHMgdG8gTVNJLVggdmVjdG9ycy4NCiANCiBXcml0aW5nIGEgdmFsaWQg
+TVNJLVggVGFibGUgZW50cnkgbnVtYmVyLCAwIHRvIDB4N0ZGLCB0byAgXGZpZWxke2NvbmZpZ19t
+c2l4X3ZlY3Rvcn0vXGZpZWxke3F1ZXVlX21zaXhfdmVjdG9yfSBtYXBzIGludGVycnVwdHMgdHJp
+Z2dlcmVkIEBAIC0xNjgxLDYgKzE2ODEsNyBAQCBcc3Vic3Vic2VjdGlvbntOb3RpZmljYXRpb24g
+b2YgRGV2aWNlIENvbmZpZ3VyYXRpb24gQ2hhbmdlc31cbGFiZWx7c2VjOlZpcnRpbyBUcg0KIA0K
+ICAgXGl0ZW0gSWYgTVNJLVggY2FwYWJpbGl0eSBpcyBlbmFibGVkOg0KICAgICBcYmVnaW57ZW51
+bWVyYXRlfQ0KKyAgICBcaXRlbSBTZXQgdGhlIHNlY29uZCBsb3dlciBiaXQgb2YgdGhlIElTUiBT
+dGF0dXMgZmllbGQgZm9yIHRoZSBkZXZpY2UuDQogICAgIFxpdGVtIElmIFxmaWVsZHtjb25maWdf
+bXNpeF92ZWN0b3J9IGlzIG5vdCBOT19WRUNUT1IsDQogICAgICAgcmVxdWVzdCB0aGUgYXBwcm9w
+cmlhdGUgTVNJLVggaW50ZXJydXB0IG1lc3NhZ2UgZm9yIHRoZQ0KICAgICAgIGRldmljZSwgXGZp
+ZWxke2NvbmZpZ19tc2l4X3ZlY3Rvcn0gc2V0cyB0aGUgTVNJLVggVGFibGUgZW50cnkgQEAgLTE3
+MTgsMTMgKzE3MTksMTUgQEAgXHN1YnN1YnNlY3Rpb257RHJpdmVyIEhhbmRsaW5nIEludGVycnVw
+dHN9XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLw0KICAgICBcZW5ke2l0ZW1p
+emV9DQogICBcaXRlbSBJZiBNU0ktWCBjYXBhYmlsaXR5IGlzIGVuYWJsZWQ6DQogICAgIFxiZWdp
+bntpdGVtaXplfQ0KKyAgICAgIFxpdGVtIFJlYWQgdGhlIElTUiBTdGF0dXMgZmllbGQsIHdoaWNo
+IHdpbGwgcmVzZXQgaXQgdG8gemVyby4NCiAgICAgICBcaXRlbQ0KICAgICAgICAgTG9vayB0aHJv
+dWdoIGFsbCB2aXJ0cXVldWVzIG1hcHBlZCB0byB0aGF0IE1TSS1YIHZlY3RvciBmb3IgdGhlDQog
+ICAgICAgICBkZXZpY2UsIHRvIHNlZSBpZiBhbnkgcHJvZ3Jlc3MgaGFzIGJlZW4gbWFkZSBieSB0
+aGUgZGV2aWNlDQogICAgICAgICB3aGljaCByZXF1aXJlcyBzZXJ2aWNpbmcuDQogICAgICAgXGl0
+ZW0NCi0gICAgICAgIElmIHRoZSBNU0ktWCB2ZWN0b3IgaXMgZXF1YWwgdG8gXGZpZWxke2NvbmZp
+Z19tc2l4X3ZlY3Rvcn0sDQotICAgICAgICByZS1leGFtaW5lIHRoZSBjb25maWd1cmF0aW9uIHNw
+YWNlIHRvIHNlZSB3aGF0IGNoYW5nZWQuDQorICAgICAgICBJZiB0aGUgc2Vjb25kIGxvd2VyIGJp
+dCBvZiBJU1IgU3RhdHVzIGZpbGVkIGlzIHNldCBhbmQgdGhlDQorICAgICAgICBNU0ktWCB2ZWN0
+b3IgaXMgZXF1YWwgdG8gXGZpZWxke2NvbmZpZ19tc2l4X3ZlY3Rvcn0sIHJlLWV4YW1pbmUNCisg
+ICAgICAgIHRoZSBjb25maWd1cmF0aW9uIHNwYWNlIHRvIHNlZSB3aGF0IGNoYW5nZWQuDQogICAg
+IFxlbmR7aXRlbWl6ZX0NCiBcZW5ke2l0ZW1pemV9DQogDQotLQ0KMi4zMy4wDQoNCg0KVGhpcyBw
+dWJsaWNseSBhcmNoaXZlZCBsaXN0IG9mZmVycyBhIG1lYW5zIHRvIHByb3ZpZGUgaW5wdXQgdG8g
+dGhlDQpPQVNJUyBWaXJ0dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVEMuDQoNCkluIG9yZGVyIHRv
+IHZlcmlmeSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZlZWRiYWNrIExpY2Vuc2UgdGVybXMgYW5kDQp0
+byBtaW5pbWl6ZSBzcGFtIGluIHRoZSBsaXN0IGFyY2hpdmUsIHN1YnNjcmlwdGlvbiBpcyByZXF1
+aXJlZA0KYmVmb3JlIHBvc3RpbmcuDQoNClN1YnNjcmliZTogdmlydGlvLWNvbW1lbnQtc3Vic2Ny
+aWJlQGxpc3RzLm9hc2lzLW9wZW4ub3JnDQpVbnN1YnNjcmliZTogdmlydGlvLWNvbW1lbnQtdW5z
+dWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmcNCkxpc3QgaGVscDogdmlydGlvLWNvbW1lbnQt
+aGVscEBsaXN0cy5vYXNpcy1vcGVuLm9yZw0KTGlzdCBhcmNoaXZlOiBodHRwczovL2xpc3RzLm9h
+c2lzLW9wZW4ub3JnL2FyY2hpdmVzL3ZpcnRpby1jb21tZW50Lw0KRmVlZGJhY2sgTGljZW5zZTog
+aHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvd2hvL2lwci9mZWVkYmFja19saWNlbnNlLnBkZg0K
+TGlzdCBHdWlkZWxpbmVzOiBodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9wb2xpY2llcy1ndWlk
+ZWxpbmVzL21haWxpbmctbGlzdHMNCkNvbW1pdHRlZTogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5v
+cmcvY29tbWl0dGVlcy92aXJ0aW8vDQpKb2luIE9BU0lTOiBodHRwczovL3d3dy5vYXNpcy1vcGVu
+Lm9yZy9qb2luLw0KDQo=
 
