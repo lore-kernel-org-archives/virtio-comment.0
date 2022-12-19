@@ -1,103 +1,148 @@
-Return-Path: <virtio-comment-return-3587-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3589-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1167898668A
-	for <virtio-comment@lists.oasis-open.org>; Sat, 17 Dec 2022 12:48:48 +0000 (UTC)
-From: zhukeqian <zhukeqian1@huawei.com>
-Date: Sat, 17 Dec 2022 12:48:42 +0000
-Message-ID: <6e88d56dd4074402afbd23e2fbb48c98@huawei.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 82EF0986366
+	for <virtio-comment@lists.oasis-open.org>; Mon, 19 Dec 2022 12:22:22 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+In-Reply-To: <6e88d56dd4074402afbd23e2fbb48c98@huawei.com>
 References: <20220913065358.12152-1-zhukeqian1@huawei.com>
-In-Reply-To: <20220913065358.12152-1-zhukeqian1@huawei.com>
+ <6e88d56dd4074402afbd23e2fbb48c98@huawei.com>
+Date: Mon, 19 Dec 2022 13:22:15 +0100
+Message-ID: <87a63jmvm0.fsf@redhat.com>
 MIME-Version: 1.0
-Subject: =?gb2312?B?tPC4tDogW3ZpcnRpby1jb21tZW50XVtQQVRDSCB2Ml0gcGNpOiBVcGRhdGUg?=
- =?gb2312?Q?ISR_related_description_about_MSI-X?=
-Content-Language: zh-CN
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-To: zhukeqian <zhukeqian1@huawei.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Subject: [virtio-comment] Re: =?utf-8?B?562U5aSNOg==?= [virtio-comment][PATCH v2] pci: Update
+ ISR related
+ description about MSI-X
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+To: zhukeqian <zhukeqian1@huawei.com>, zhukeqian <zhukeqian1@huawei.com>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 Cc: "mst@redhat.com" <mst@redhat.com>, "Wanghaibin (D)" <wanghaibin.wang@huawei.com>, "sundongxu (A)" <sundongxu3@huawei.com>, "Chentao (Boby)" <boby.chen@huawei.com>, "Zhangbo (Oscar)" <oscar.zhangbo@huawei.com>, zhukeqian <zhukeqian1@huawei.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-Rml4ZXM6IGh0dHBzOi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlvLXNwZWMvaXNzdWVzLzE0
-NQ0KDQpIaSBhbGwgVEMgbWVtYmVyczoNClRoaXMgaXMgdG8gcmVxdWVzdCBhIHZvdGUgb24gcmVz
-b2x2aW5nIHRoZSBhYm92ZSBpc3N1ZS4NCg0KVGhhbmtzLA0KS2VxaWFuDQoNCg0KLS0tLS3Tyrz+
-1K28/i0tLS0tDQq3orz+yMs6IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnIDx2
-aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZz4gtPqx7SBLZXFpYW4gWmh1DQq3osvN
-yrG85DogMjAyMsTqOdTCMTPI1SAxNDo1NA0KytW8/sjLOiB2aXJ0aW8tY29tbWVudEBsaXN0cy5v
-YXNpcy1vcGVuLm9yZw0Ks63LzTogbXN0QHJlZGhhdC5jb207IFdhbmdoYWliaW4gKEQpIDx3YW5n
-aGFpYmluLndhbmdAaHVhd2VpLmNvbT47IHN1bmRvbmd4dSAoQSkgPHN1bmRvbmd4dTNAaHVhd2Vp
-LmNvbT4NCtb3zOI6IFt2aXJ0aW8tY29tbWVudF1bUEFUQ0ggdjJdIHBjaTogVXBkYXRlIElTUiBy
-ZWxhdGVkIGRlc2NyaXB0aW9uIGFib3V0IE1TSS1YDQoNCkluIGNvbW1pdCA2YTgzYzFkNDE3NDgg
-KCJwY2k6IHNldCBJU1IgYml0IG9uIGNvbmZpZyBjaGFuZ2Ugd2l0aCBNU0ktWCIpLCBkZXZpY2Ug
-aXMgcmVxdWlyZWQgdG8gc2V0IElTUiBiaXQgb24gY29uZmlnIGNoYW5nZSBldmVuIHdoZW4gTVNJ
-LVggZW5hYmxlZC4NCg0KVGhpcyB1cGRhdGUgb3RoZXIgSVNSIHJlbGF0ZWQgZGVzY3JpcHRpb24g
-Zm9yIGFib3ZlIGNvbW1pdC4NCg0KU2lnbmVkLW9mZi1ieTogS2VxaWFuIFpodSA8emh1a2VxaWFu
-MUBodWF3ZWkuY29tPg0KLS0tDQogY29udGVudC50ZXggfCAxMyArKysrKysrKy0tLS0tDQogMSBm
-aWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdp
-dCBhL2NvbnRlbnQudGV4IGIvY29udGVudC50ZXgNCmluZGV4IGU4NjM3MDkuLjAxYTRiZmUgMTAw
-NjQ0DQotLS0gYS9jb250ZW50LnRleA0KKysrIGIvY29udGVudC50ZXgNCkBAIC0xMTU4LDEwICsx
-MTU4LDEwIEBAIFxzdWJzdWJzZWN0aW9ue0lTUiBzdGF0dXMgY2FwYWJpbGl0eX1cbGFiZWx7c2Vj
-OlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpICBcZW5ke3RhYnVsYXJ9DQogDQogVG8g
-YXZvaWQgYW4gZXh0cmEgYWNjZXNzLCBzaW1wbHkgcmVhZGluZyB0aGlzIHJlZ2lzdGVyIHJlc2V0
-cyBpdCB0byAwIGFuZCAtY2F1c2VzIHRoZSBkZXZpY2UgdG8gZGUtYXNzZXJ0IHRoZSBpbnRlcnJ1
-cHQuDQorY2F1c2VzIHRoZSBkZXZpY2UgdG8gZGUtYXNzZXJ0IHRoZSBpbnRlcnJ1cHQgd2hlbiB1
-c2luZyBJTlRcI3ggaW50ZXJydXB0Lg0KIA0KIEluIHRoaXMgd2F5LCBkcml2ZXIgcmVhZCBvZiBJ
-U1Igc3RhdHVzIGNhdXNlcyB0aGUgZGV2aWNlIHRvIGRlLWFzc2VydCAtYW4gaW50ZXJydXB0Lg0K
-K2FuIElOVFwjeCBpbnRlcnJ1cHQuDQogDQogU2VlIHNlY3Rpb25zIFxyZWZ7c2VjOlZpcnRpbyBU
-cmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBDSSBCdXMgLyBQQ0ktc3BlY2lmaWMgSW5p
-dGlhbGl6YXRpb24gQW5kIERldmljZSBPcGVyYXRpb24gLyBVc2VkIEJ1ZmZlciBOb3RpZmljYXRp
-b25zfSBhbmQgXHJlZntzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIg
-UENJIEJ1cyAvIFBDSS1zcGVjaWZpYyBJbml0aWFsaXphdGlvbiBBbmQgRGV2aWNlIE9wZXJhdGlv
-biAvIE5vdGlmaWNhdGlvbiBvZiBEZXZpY2UgQ29uZmlndXJhdGlvbiBDaGFuZ2VzfSBmb3IgaG93
-IHRoaXMgaXMgdXNlZC4NCiANCkBAIC0xNTExLDcgKzE1MTEsNyBAQCBcc3Vic3Vic2VjdGlvbntE
-ZXZpY2UgSW5pdGlhbGl6YXRpb259XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMg
-LyBWaXJ0aQ0KIA0KIFdoZW4gTVNJLVggY2FwYWJpbGl0eSBpcyBwcmVzZW50IGFuZCBlbmFibGVk
-IGluIHRoZSBkZXZpY2UgICh0aHJvdWdoIHN0YW5kYXJkIFBDSSBjb25maWd1cmF0aW9uIHNwYWNl
-KSBcZmllbGR7Y29uZmlnX21zaXhfdmVjdG9yfSBhbmQgXGZpZWxke3F1ZXVlX21zaXhfdmVjdG9y
-fSBhcmUgdXNlZCB0byBtYXAgY29uZmlndXJhdGlvbiBjaGFuZ2UgYW5kIHF1ZXVlIC1pbnRlcnJ1
-cHRzIHRvIE1TSS1YIHZlY3RvcnMuIEluIHRoaXMgY2FzZSwgdGhlIElTUiBTdGF0dXMgaXMgdW51
-c2VkLg0KK2ludGVycnVwdHMgdG8gTVNJLVggdmVjdG9ycy4NCiANCiBXcml0aW5nIGEgdmFsaWQg
-TVNJLVggVGFibGUgZW50cnkgbnVtYmVyLCAwIHRvIDB4N0ZGLCB0byAgXGZpZWxke2NvbmZpZ19t
-c2l4X3ZlY3Rvcn0vXGZpZWxke3F1ZXVlX21zaXhfdmVjdG9yfSBtYXBzIGludGVycnVwdHMgdHJp
-Z2dlcmVkIEBAIC0xNjgxLDYgKzE2ODEsNyBAQCBcc3Vic3Vic2VjdGlvbntOb3RpZmljYXRpb24g
-b2YgRGV2aWNlIENvbmZpZ3VyYXRpb24gQ2hhbmdlc31cbGFiZWx7c2VjOlZpcnRpbyBUcg0KIA0K
-ICAgXGl0ZW0gSWYgTVNJLVggY2FwYWJpbGl0eSBpcyBlbmFibGVkOg0KICAgICBcYmVnaW57ZW51
-bWVyYXRlfQ0KKyAgICBcaXRlbSBTZXQgdGhlIHNlY29uZCBsb3dlciBiaXQgb2YgdGhlIElTUiBT
-dGF0dXMgZmllbGQgZm9yIHRoZSBkZXZpY2UuDQogICAgIFxpdGVtIElmIFxmaWVsZHtjb25maWdf
-bXNpeF92ZWN0b3J9IGlzIG5vdCBOT19WRUNUT1IsDQogICAgICAgcmVxdWVzdCB0aGUgYXBwcm9w
-cmlhdGUgTVNJLVggaW50ZXJydXB0IG1lc3NhZ2UgZm9yIHRoZQ0KICAgICAgIGRldmljZSwgXGZp
-ZWxke2NvbmZpZ19tc2l4X3ZlY3Rvcn0gc2V0cyB0aGUgTVNJLVggVGFibGUgZW50cnkgQEAgLTE3
-MTgsMTMgKzE3MTksMTUgQEAgXHN1YnN1YnNlY3Rpb257RHJpdmVyIEhhbmRsaW5nIEludGVycnVw
-dHN9XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLw0KICAgICBcZW5ke2l0ZW1p
-emV9DQogICBcaXRlbSBJZiBNU0ktWCBjYXBhYmlsaXR5IGlzIGVuYWJsZWQ6DQogICAgIFxiZWdp
-bntpdGVtaXplfQ0KKyAgICAgIFxpdGVtIFJlYWQgdGhlIElTUiBTdGF0dXMgZmllbGQsIHdoaWNo
-IHdpbGwgcmVzZXQgaXQgdG8gemVyby4NCiAgICAgICBcaXRlbQ0KICAgICAgICAgTG9vayB0aHJv
-dWdoIGFsbCB2aXJ0cXVldWVzIG1hcHBlZCB0byB0aGF0IE1TSS1YIHZlY3RvciBmb3IgdGhlDQog
-ICAgICAgICBkZXZpY2UsIHRvIHNlZSBpZiBhbnkgcHJvZ3Jlc3MgaGFzIGJlZW4gbWFkZSBieSB0
-aGUgZGV2aWNlDQogICAgICAgICB3aGljaCByZXF1aXJlcyBzZXJ2aWNpbmcuDQogICAgICAgXGl0
-ZW0NCi0gICAgICAgIElmIHRoZSBNU0ktWCB2ZWN0b3IgaXMgZXF1YWwgdG8gXGZpZWxke2NvbmZp
-Z19tc2l4X3ZlY3Rvcn0sDQotICAgICAgICByZS1leGFtaW5lIHRoZSBjb25maWd1cmF0aW9uIHNw
-YWNlIHRvIHNlZSB3aGF0IGNoYW5nZWQuDQorICAgICAgICBJZiB0aGUgc2Vjb25kIGxvd2VyIGJp
-dCBvZiBJU1IgU3RhdHVzIGZpbGVkIGlzIHNldCBhbmQgdGhlDQorICAgICAgICBNU0ktWCB2ZWN0
-b3IgaXMgZXF1YWwgdG8gXGZpZWxke2NvbmZpZ19tc2l4X3ZlY3Rvcn0sIHJlLWV4YW1pbmUNCisg
-ICAgICAgIHRoZSBjb25maWd1cmF0aW9uIHNwYWNlIHRvIHNlZSB3aGF0IGNoYW5nZWQuDQogICAg
-IFxlbmR7aXRlbWl6ZX0NCiBcZW5ke2l0ZW1pemV9DQogDQotLQ0KMi4zMy4wDQoNCg0KVGhpcyBw
-dWJsaWNseSBhcmNoaXZlZCBsaXN0IG9mZmVycyBhIG1lYW5zIHRvIHByb3ZpZGUgaW5wdXQgdG8g
-dGhlDQpPQVNJUyBWaXJ0dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVEMuDQoNCkluIG9yZGVyIHRv
-IHZlcmlmeSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZlZWRiYWNrIExpY2Vuc2UgdGVybXMgYW5kDQp0
-byBtaW5pbWl6ZSBzcGFtIGluIHRoZSBsaXN0IGFyY2hpdmUsIHN1YnNjcmlwdGlvbiBpcyByZXF1
-aXJlZA0KYmVmb3JlIHBvc3RpbmcuDQoNClN1YnNjcmliZTogdmlydGlvLWNvbW1lbnQtc3Vic2Ny
-aWJlQGxpc3RzLm9hc2lzLW9wZW4ub3JnDQpVbnN1YnNjcmliZTogdmlydGlvLWNvbW1lbnQtdW5z
-dWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmcNCkxpc3QgaGVscDogdmlydGlvLWNvbW1lbnQt
-aGVscEBsaXN0cy5vYXNpcy1vcGVuLm9yZw0KTGlzdCBhcmNoaXZlOiBodHRwczovL2xpc3RzLm9h
-c2lzLW9wZW4ub3JnL2FyY2hpdmVzL3ZpcnRpby1jb21tZW50Lw0KRmVlZGJhY2sgTGljZW5zZTog
-aHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvd2hvL2lwci9mZWVkYmFja19saWNlbnNlLnBkZg0K
-TGlzdCBHdWlkZWxpbmVzOiBodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9wb2xpY2llcy1ndWlk
-ZWxpbmVzL21haWxpbmctbGlzdHMNCkNvbW1pdHRlZTogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5v
-cmcvY29tbWl0dGVlcy92aXJ0aW8vDQpKb2luIE9BU0lTOiBodHRwczovL3d3dy5vYXNpcy1vcGVu
-Lm9yZy9qb2luLw0KDQo=
+On Sat, Dec 17 2022, zhukeqian <zhukeqian1@huawei.com> wrote:
+
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/145
+>
+> Hi all TC members:
+> This is to request a vote on resolving the above issue.
+
+I had hoped that someone familiar with this would review this
+patch... I've noted a typo below.
+
+Also, as the end-of-year holiday season is starting in most western
+countries, it is better to defer any voting to January.
+
+>
+> Thanks,
+> Keqian
+>
+>
+> -----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----
+> =E5=8F=91=E4=BB=B6=E4=BA=BA: virtio-comment@lists.oasis-open.org <virtio-=
+comment@lists.oasis-open.org> =E4=BB=A3=E8=A1=A8 Keqian Zhu
+> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2022=E5=B9=B49=E6=9C=8813=E6=97=A5 =
+14:54
+> =E6=94=B6=E4=BB=B6=E4=BA=BA: virtio-comment@lists.oasis-open.org
+> =E6=8A=84=E9=80=81: mst@redhat.com; Wanghaibin (D) <wanghaibin.wang@huawe=
+i.com>; sundongxu (A) <sundongxu3@huawei.com>
+> =E4=B8=BB=E9=A2=98: [virtio-comment][PATCH v2] pci: Update ISR related de=
+scription about MSI-X
+>
+> In commit 6a83c1d41748 ("pci: set ISR bit on config change with MSI-X"), =
+device is required to set ISR bit on config change even when MSI-X enabled.
+>
+> This update other ISR related description for above commit.
+>
+> Signed-off-by: Keqian Zhu <zhukeqian1@huawei.com>
+> ---
+>  content.tex | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+>
+> diff --git a/content.tex b/content.tex
+> index e863709..01a4bfe 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -1158,10 +1158,10 @@ \subsubsection{ISR status capability}\label{sec:V=
+irtio Transport Options / Virti  \end{tabular}
+> =20
+>  To avoid an extra access, simply reading this register resets it to 0 an=
+d -causes the device to de-assert the interrupt.
+> +causes the device to de-assert the interrupt when using INT\#x interrupt=
+.
+> =20
+>  In this way, driver read of ISR status causes the device to de-assert -a=
+n interrupt.
+> +an INT\#x interrupt.
+> =20
+>  See sections \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / P=
+CI-specific Initialization And Device Operation / Used Buffer Notifications=
+} and \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specifi=
+c Initialization And Device Operation / Notification of Device Configuratio=
+n Changes} for how this is used.
+> =20
+> @@ -1511,7 +1511,7 @@ \subsubsection{Device Initialization}\label{sec:Vir=
+tio Transport Options / Virti
+> =20
+>  When MSI-X capability is present and enabled in the device  (through sta=
+ndard PCI configuration space) \field{config_msix_vector} and \field{queue_=
+msix_vector} are used to map configuration change and queue -interrupts to =
+MSI-X vectors. In this case, the ISR Status is unused.
+> +interrupts to MSI-X vectors.
+> =20
+>  Writing a valid MSI-X Table entry number, 0 to 0x7FF, to  \field{config_=
+msix_vector}/\field{queue_msix_vector} maps interrupts triggered @@ -1681,6=
+ +1681,7 @@ \subsubsection{Notification of Device Configuration Changes}\la=
+bel{sec:Virtio Tr
+> =20
+>    \item If MSI-X capability is enabled:
+>      \begin{enumerate}
+> +    \item Set the second lower bit of the ISR Status field for the devic=
+e.
+>      \item If \field{config_msix_vector} is not NO_VECTOR,
+>        request the appropriate MSI-X interrupt message for the
+>        device, \field{config_msix_vector} sets the MSI-X Table entry @@ -=
+1718,13 +1719,15 @@ \subsubsection{Driver Handling Interrupts}\label{sec:Vi=
+rtio Transport Options /
+>      \end{itemize}
+>    \item If MSI-X capability is enabled:
+>      \begin{itemize}
+> +      \item Read the ISR Status field, which will reset it to zero.
+>        \item
+>          Look through all virtqueues mapped to that MSI-X vector for the
+>          device, to see if any progress has been made by the device
+>          which requires servicing.
+>        \item
+> -        If the MSI-X vector is equal to \field{config_msix_vector},
+> -        re-examine the configuration space to see what changed.
+> +        If the second lower bit of ISR Status filed is set and the
+
+"of the ISR Status field", I guess?
+
+> +        MSI-X vector is equal to \field{config_msix_vector}, re-examine
+> +        the configuration space to see what changed.
+>      \end{itemize}
+>  \end{itemize}
+
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=
+=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
