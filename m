@@ -1,208 +1,25 @@
-Return-Path: <xuanzhuo@linux.alibaba.com>
-Message-ID: <1672932259.7611659-1-xuanzhuo@linux.alibaba.com>
-Subject: Re: [virtio-comment] Re: [PATCH v2 0/1] introduce virtio-ism: internal shared memory device
-Date: Thu, 5 Jan 2023 23:24:19 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <20221223081939.26506-1-xuanzhuo@linux.alibaba.com>
- <c572aa1f-e2a9-721e-5389-aec605fc439f@linux.ibm.com>
- <88bdae7b-4ee0-8da8-5bb7-473957002bbe@linux.ibm.com>
- <1672917622.6090338-1-xuanzhuo@linux.alibaba.com>
- <58603f43-9165-eb0c-9ee6-114874681109@linux.ibm.com>
-In-Reply-To: <58603f43-9165-eb0c-9ee6-114874681109@linux.ibm.com>
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-To: Alexandra Winter <wintera@linux.ibm.com>
-Cc: hans@linux.alibaba.com, herongguang@linux.alibaba.com, zmlcc@linux.alibaba.com, dust.li@linux.alibaba.com, tonylu@linux.alibaba.com, zhenzao@linux.alibaba.com, helinguo@linux.alibaba.com, gerry@linux.alibaba.com, mst@redhat.com, cohuck@redhat.com, jasowang@redhat.com, Jan Kiszka <jan.kiszka@siemens.com>, kgraul@linux.ibm.com, wenjia@linux.ibm.com, jaka@linux.ibm.com, hca@linux.ibm.com, twinkler@linux.ibm.com, raspl@linux.ibm.com, virtio-comment@lists.oasis-open.org
+Return-Path: <virtio-dev-return-10431-cohuck=redhat.com@lists.oasis-open.org>
+Sender: <virtio-dev@lists.oasis-open.org>
+List-Post: <mailto:virtio-dev@lists.oasis-open.org>
+List-Help: <mailto:virtio-dev-help@lists.oasis-open.org>
+List-Unsubscribe: <mailto:virtio-dev-unsubscribe@lists.oasis-open.org>
+List-Subscribe: <mailto:virtio-dev-subscribe@lists.oasis-open.org>
+MIME-Version: 1.0
+References: <20221221101729.648097-1-alvaro.karsz@solid-run.com>
+In-Reply-To: <20221221101729.648097-1-alvaro.karsz@solid-run.com>
+From: Alvaro Karsz <alvaro.karsz@solid-run.com>
+Date: Wed, 4 Jan 2023 16:27:44 +0200
+Message-ID: <CAJs=3_C3LZ3RfRF5d_ktgpdFXrQKnnpx0hu9dzourHHjDY82PQ@mail.gmail.com>
+Subject: [virtio-dev] Re: [PATCH] virtio_net: support low and high rate of notification
+ coalescing sets
+Content-Type: text/plain; charset="UTF-8"
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: jasowang@redhat.com, mst@redhat.com
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Thu, 5 Jan 2023 15:29:14 +0100, Alexandra Winter <wintera@linux.ibm.com> wrote:
->
->
-> On 05.01.23 12:20, Xuan Zhuo wrote:
-> > On Wed, 4 Jan 2023 14:52:10 +0100, Alexandra Winter <wintera@linux.ibm.com> wrote:
-> >>
-> >>
-> >>
-> >> On 23.12.22 09:19, Xuan Zhuo wrote:
-> [...]
-> >>>
-> >>> # Virtio ISM device
-> >>>
-> >>>     ISM devices provide the ability to share memory between different guests on
-> >>>     a host. A guest's memory got from ism device can be shared with multiple
-> >>>     peers at the same time. This shared relationship can be dynamically created
-> >>>     and released.
-> >>>>     The shared memory obtained from the device is divided into multiple ism
-> >>>     regions for share. ISM device provides a mechanism to notify other ism
-> >>>     region referrers of content update events.
-> >
-> >
-> > Thank you very much for your reply.
-> >
-> >>
-> >> As this should work with SMC-D, let me point out some aspect of the ISM devices we use today:
-> >>
-> >> 1) Owner-User
-> >> For such a memory region one peer is the owner and the other peer is the user.
-> >> I don't see that in your diagram below. Maybe you could point that out more clearly.
-> >
-> > Indeed, we only emphasize the creator. After the creation, all the references of
-> > this region are similar.
-> >
-> > The user's management authority for region is reflected through permission, and
-> > this permissions can be transferred to other users.
-> >
-> >
-> >> I think the concept of user and owner simplifies device management (reset, recovery, etc..) and is
-> >> useful for other scenarios that use ISM as well.
-> >
-> > Can you be more specific? What is the benefit of the concept of owner for
-> > device management?
-> >
->
-> The owner/creator is responsible for the buffer/memory region. It decides when
-> the buffer should be freed. When it goes away, the buffer goes away.
+Ping
 
-Note a detail that is different from SMC-D ISM. For non-creator VM, we directly
-map the physical memory into VM.
-
-The advantage is that multiple VMs can directly share the same physical
-memory, but the disadvantage is that hypervisor cannot actively release it from
-VM.
-
-I don't know if you noticed this detail. This is one of the main reasons we
-choose to provide memory from hypervisor.
-
-We need to inform driver, driver notify the application, and after the
-application releases this region, driver inform to hypervisor that the region
-can be released.
-
-If the application or driver stuck without ACK, and hypervisor forces to
-release this region, it may cause business errors.
-
-Thanks.
-
-
-> Otherwise you have to keep track who is the last user, or 2 users could try to
-> free the buffer, etc.
->
->
-> >> After reading the whole thread, it seems to me that you propose a 'single owner, multiple
-> >> users' scenario, do I understand this correctly?
-> >
-> > Yes, we allow the scenes of multiple users.
-> >
-> >> Then SMC-D would use a subset of 'single owner-single user' which is fine.
-> >>
-> >>
-> >> 2) unidirectional buffers (memory regions)
-> >> For the ISM devices today only the user writes into the memory region and the owner only reads
-> >> from this memory region. This suits the SMC-D usecase and probably maximises performance in
-> >> other usecases as well.
-> >> So for compatibility, I would ask that the virtio-ism spec does not mandate to provide for
-> >> bidirectional usage of the memory regions. It should suffice, if the user can write and
-> >> the owner can read.
-> >
-> > I think there will be bidirectional write or creator-write scenes.
-> >
-> > SMC-D can be set up based on permission to read only for creator.
->
-> I agree.
->
-> >
-> >
-> >>
-> >> 3) Memory provided by the owner
-> >> In your diagram it seems that the hipervisor provides the memory for the buffers.
-> >> That puts the burden of providing enough memory or the risk of OOM on the Hipervisor
-> >> which is kind of unfair. In case of memory shortage this results in a first-come-first-serve
-> >> race.
-> >> We thought it more suitable that the instances that use ISM
-> >> (the owners of the buffers) provide for the memory. Then they can make the tradeoff
-> >> of memory for performance and do not impact other connections.
-> >
-> >
-> > Good Point.
-> >
-> > Indeed, it is a fair solution provided by creator.
-> >
-> > Our design considers that a user may maliciously occupys a region from other vm.
-> >
-> > When creator allocated a memory from the guest and it is attached by one
-> > maliciously user, this user may not release the reference normally after the
-> > connection (may not smc connection) is closed.
->
-> The creator should be able to free the memory in any case. Attached users should
-> be notified.
->
-> >
-> > If the region is provided by hypervisor, other user (including creator) can
-> > directly detach the region. And if one vm takes up too much regions, hypervisor
-> > can prevent this VM from alloc/attach new region.
-> >
-> > Thanks.
-> >
->
-> Especially in a cloud scenario memory is often a scarce resource and there may be
-> Class A guests with a lot of memory and Class B with less. If the hipervisor hands
-> out these virtio-ism buffers for free, that puts the bill on the hipervisor.
->
-> How is the hipervisor to decide how many regions are too much for a specific guest?
-> That requires an algorithm and/or additional configuration controls.
-> If otoh you bill the regions to the creator's memory, you can fine-tune inside each
-> guest how much it should spend on ism-buffers. e.g by defining a maximum size and
-> number of regions.
->
-> Imagine a scenario, where a guest runs into the problem, that it cannot get the
-> regions it wants. In my experience an admin is happy if such an issue can be fixed
-> by changing the settings inside the guest.
-> When regions are handed out by the hipervisor, then the admin has to change a
-> hipervisor setting. And most probably needs to either reduce the setting for another
-> guest, or increase Hipervisor memory (who pays for that?)
->
-> Also now the problems in one guest may be caused by activtiy in another guest.
-> Of course this happens a lot in real life, when guests are sharing resources, but
-> users are still complaining about it and want to minimize this as much as possible
-> (SLAs, etc..)
->
-> Of course there are always multiple ways to manage fairness and billing between guests,
-> and people have different preferences on usability. This is just my POV based on my own
-> experience and many customer stories from the typically highly virtualized
-> IBM Z environment.
-> Maybe others want to chime in.
->
-> >
-> >>
-> >>>
-> >>> ## Design
-> >>>
-> >>>     This is a structure diagram based on ism sharing between two vms.
-> >>>
-> >>>     |-------------------------------------------------------------------------------------------------------------|
-> >>>     | |------------------------------------------------|       |------------------------------------------------| |
-> >>>     | | Guest                                          |       | Guest                                          | |
-> >>>     | |                                                |       |                                                | |
-> >>>     | |   ----------------                             |       |   ----------------                             | |
-> >>>     | |   |    driver    |     [M1]   [M2]   [M3]      |       |   |    driver    |             [M2]   [M3]     | |
-> >>>     | |   ----------------       |      |      |       |       |   ----------------               |      |      | |
-> >>>     | |    |cq|                  |map   |map   |map    |       |    |cq|                          |map   |map   | |
-> >>>     | |    |  |                  |      |      |       |       |    |  |                          |      |      | |
-> >>>     | |    |  |                -------------------     |       |    |  |                --------------------    | |
-> >>>     | |----|--|----------------|  device memory  |-----|       |----|--|----------------|  device memory   |----| |
-> >>>     | |    |  |                -------------------     |       |    |  |                --------------------    | |
-> >>>     | |                                |               |       |                               |                | |
-> >>>     | |                                |               |       |                               |                | |
-> >>>     | | Qemu                           |               |       | Qemu                          |                | |
-> >>>     | |--------------------------------+---------------|       |-------------------------------+----------------| |
-> >>>     |                                  |                                                       |                  |
-> >>>     |                                  |                                                       |                  |
-> >>>     |                                  |------------------------------+------------------------|                  |
-> >>>     |                                                                 |                                           |
-> >>>     |                                                                 |                                           |
-> >>>     |                                                   --------------------------                                |
-> >>>     |                                                    | M1 |   | M2 |   | M3 |                                 |
-> >>>     |                                                   --------------------------                                |
-> >>>     |                                                                                                             |
-> >>>     | HOST                                                                                                        |
-> >>>     ---------------------------------------------------------------------------------------------------------------
-> [...]
+---------------------------------------------------------------------
+To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 
