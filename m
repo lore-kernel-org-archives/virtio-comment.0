@@ -1,113 +1,76 @@
-Return-Path: <virtio-comment-return-3863-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3868-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2A9169865D1
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Jan 2023 17:20:09 +0000 (UTC)
-Message-ID: <40a63ca5-1273-d334-8d81-d5880e4fdff1@nvidia.com>
-Date: Tue, 17 Jan 2023 19:19:59 +0200
-References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>
- <Y77S5+YK31f6QKaN@fedora>
- <E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>
-From: Max Gurtovoy <mgurtovoy@nvidia.com>
-In-Reply-To: <E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>
-MIME-Version: 1.0
-Subject: Re: [virtio-comment] About adding a new device type virtio-nvme
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-To: =?UTF-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>, Stefan Hajnoczi <stefanha@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id BDC54986648
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Jan 2023 03:24:27 +0000 (UTC)
+Date: Wed, 18 Jan 2023 11:23:43 +0800
+From: =?UTF-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>
+References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>, 
+	<Y77S5+YK31f6QKaN@fedora>, 
+	<E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>, 
+	<40a63ca5-1273-d334-8d81-d5880e4fdff1@nvidia.com>
+Mime-Version: 1.0
+Message-ID: <1DDD350DC1DCE386+2023011811234242045568@sudoinfotech.com>
+Subject: Re: Re: [virtio-comment] About adding a new device type virtio-nvme
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+To: Max Gurtovoy <mgurtovoy@nvidia.com>, Stefan Hajnoczi <stefanha@redhat.com>
 Cc: virtio-comment <virtio-comment@lists.oasis-open.org>, Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-
-On 17/01/2023 4:04, =E4=BE=AF=E8=8B=B1=E4=B9=90 wrote:
-> On Wed, 11 Jan 2023 10:16:55 -0500, Stefan wrote:
->
->
->>> On Wed, Jan 11, 2023 at 11:21:35AM +0800, =E4=BE=AF=E8=8B=B1=E4=B9=90 w=
-rote:
->>> As we know, nvme has more features than virtio-blk. For example, with t=
-he development of virtualization IO offloading to hardware, virtio-blk and =
-NVME-OF offloading to hardware >are developing rapidly.=C2=A0 So if virtio =
-and nvme are combined into Virtio-NvMe, Is it necessary to add a device typ=
-e Virtio-NvMe ?
->
->
->  =20
->
->
->
->> Hi,
->> In theory, yes, virtio-nvme can be done. The question is why do it?
->
->
->> NVMe already provides a PCI hardware spec for software and hardware
->> implementations to follow. An NVMe PCI device can be exposed to the
->> guest and modern operating systems recognize it without requiring new
->> drivers.
->
->> The value of VIRTIO here is probably in the deep integration into the
->> virtualization stack with vDPA, vhost, etc. A virtio-nvme device can use
->> all these things whereas a PCI device needs to do everything from
->> scratch.
->
-> The NVME technology and ecosystem are complete. However, in virtualizatio=
-n scenarios, NVME devices can only use PCIe pass-through . When NVME and vi=
-rtio combine to connect to the vDPA ecosystem, live migration is supported.
->
->
->> Let's not forget that virtio-blk is widely used and new commands are
->> being added as needed. Which NVMe features are you missing in
->> virtio-blk?
-> With the introduction of the concept of DPU, a large number of vendors ar=
-e offloading virtual devices to hardware. The back-end of Virtio-blk does n=
-ot support remote storage. Therefore, Virtio-Nvme-of can well combine the a=
-dvantages of remote storage and virtio live migration
->
->
->
->> I guess this is why virtio-nvme hasn't been done before: people who want
->> NVMe can already do NVMe PCI, people who want VIRTIO can use virtio-blk,
->> and so there hasn't been a great need to combine VIRTIO and NVMe yet.
->
->> What advantages do you see in having virtio-nvme?
->
->
-> virtio-nvme=C2=A0advantages :
-> 1)  live migration
-
-This is WIP and will use VFIO live migration framework.
-
-> 2)  support remote storage
-
-There are solutions today that can use remote storage as an NVMe=20
-Namespace. For example, DPU based NVMe device such as NVIDIA'S NVMe SNAP=20
-device.
-
->
->
->
-> Leo Hou/=E4=BE=AF=E8=8B=B1=E4=B9=90
->
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
-ts
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+T24gIFR1ZSwgMTcgSmFuIDIwMjMgMTk6MTk6NTkgKzAyMDAsIE1heCBHdXJ0b3ZveSB3cm90ZToK
+Cj5PbiAxNy8wMS8yMDIzIDQ6MDQsIOS+r+iLseS5kCB3cm90ZToKCj4+IE9uIFdlZCwgMTEgSmFu
+IDIwMjMgMTA6MTY6NTUgLTA1MDAsIFN0ZWZhbiB3cm90ZToKCj4+Cgo+PgoKPj4+PiBPbiBXZWQs
+IEphbiAxMSwgMjAyMyBhdCAxMToyMTozNUFNICswODAwLCDkvq/oi7HkuZAgd3JvdGU6Cgo+Pj4+
+IEFzIHdlIGtub3csIG52bWUgaGFzIG1vcmUgZmVhdHVyZXMgdGhhbiB2aXJ0aW8tYmxrLiBGb3Ig
+ZXhhbXBsZSwgd2l0aCB0aGUgZGV2ZWxvcG1lbnQgb2YgdmlydHVhbGl6YXRpb24gSU8gb2ZmbG9h
+ZGluZyB0byBoYXJkd2FyZSwgdmlydGlvLWJsayBhbmQgTlZNRS1PRiBvZmZsb2FkaW5nIHRvIGhh
+cmR3YXJlID5hcmUgZGV2ZWxvcGluZyByYXBpZGx5LsKgIFNvIGlmIHZpcnRpbyBhbmQgbnZtZSBh
+cmUgY29tYmluZWQgaW50byBWaXJ0aW8tTnZNZSwgSXMgaXQgbmVjZXNzYXJ5IHRvIGFkZCBhIGRl
+dmljZSB0eXBlIFZpcnRpby1Odk1lID8KCj4+Cgo+PgoKPj7CoMKgCgo+Pgo+PgoKPj4KCj4+PiBI
+aSwKCj4+PiBJbiB0aGVvcnksIHllcywgdmlydGlvLW52bWUgY2FuIGJlIGRvbmUuIFRoZSBxdWVz
+dGlvbiBpcyB3aHkgZG8gaXQ/Cgo+PgoKPj4KCj4+PiBOVk1lIGFscmVhZHkgcHJvdmlkZXMgYSBQ
+Q0kgaGFyZHdhcmUgc3BlYyBmb3Igc29mdHdhcmUgYW5kIGhhcmR3YXJlCgo+Pj4gaW1wbGVtZW50
+YXRpb25zIHRvIGZvbGxvdy4gQW4gTlZNZSBQQ0kgZGV2aWNlIGNhbiBiZSBleHBvc2VkIHRvIHRo
+ZQoKPj4+IGd1ZXN0IGFuZCBtb2Rlcm4gb3BlcmF0aW5nIHN5c3RlbXMgcmVjb2duaXplIGl0IHdp
+dGhvdXQgcmVxdWlyaW5nIG5ldwoKPj4+IGRyaXZlcnMuCgo+PgoKPj4+IFRoZSB2YWx1ZSBvZiBW
+SVJUSU8gaGVyZSBpcyBwcm9iYWJseSBpbiB0aGUgZGVlcCBpbnRlZ3JhdGlvbiBpbnRvIHRoZQoK
+Pj4+IHZpcnR1YWxpemF0aW9uIHN0YWNrIHdpdGggdkRQQSwgdmhvc3QsIGV0Yy4gQSB2aXJ0aW8t
+bnZtZSBkZXZpY2UgY2FuIHVzZQoKPj4+IGFsbCB0aGVzZSB0aGluZ3Mgd2hlcmVhcyBhIFBDSSBk
+ZXZpY2UgbmVlZHMgdG8gZG8gZXZlcnl0aGluZyBmcm9tCgo+Pj4gc2NyYXRjaC4KCj4+Cgo+PiBU
+aGUgTlZNRSB0ZWNobm9sb2d5IGFuZCBlY29zeXN0ZW0gYXJlIGNvbXBsZXRlLiBIb3dldmVyLCBp
+biB2aXJ0dWFsaXphdGlvbiBzY2VuYXJpb3MsIE5WTUUgZGV2aWNlcyBjYW4gb25seSB1c2UgUENJ
+ZSBwYXNzLXRocm91Z2ggLiBXaGVuIE5WTUUgYW5kIHZpcnRpbyBjb21iaW5lIHRvIGNvbm5lY3Qg
+dG8gdGhlIHZEUEEgZWNvc3lzdGVtLCBsaXZlIG1pZ3JhdGlvbiBpcyBzdXBwb3J0ZWQuCgo+PgoK
+Pj4KCj4+PiBMZXQncyBub3QgZm9yZ2V0IHRoYXQgdmlydGlvLWJsayBpcyB3aWRlbHkgdXNlZCBh
+bmQgbmV3IGNvbW1hbmRzIGFyZQoKPj4+IGJlaW5nIGFkZGVkIGFzIG5lZWRlZC4gV2hpY2ggTlZN
+ZSBmZWF0dXJlcyBhcmUgeW91IG1pc3NpbmcgaW4KCj4+PiB2aXJ0aW8tYmxrPwoKPj4gV2l0aCB0
+aGUgaW50cm9kdWN0aW9uIG9mIHRoZSBjb25jZXB0IG9mIERQVSwgYSBsYXJnZSBudW1iZXIgb2Yg
+dmVuZG9ycyBhcmUgb2ZmbG9hZGluZyB2aXJ0dWFsIGRldmljZXMgdG8gaGFyZHdhcmUuIFRoZSBi
+YWNrLWVuZCBvZiBWaXJ0aW8tYmxrIGRvZXMgbm90IHN1cHBvcnQgcmVtb3RlIHN0b3JhZ2UuIFRo
+ZXJlZm9yZSwgVmlydGlvLU52bWUtb2YgY2FuIHdlbGwgY29tYmluZSB0aGUgYWR2YW50YWdlcyBv
+ZiByZW1vdGUgc3RvcmFnZSBhbmQgdmlydGlvIGxpdmUgbWlncmF0aW9uCgo+PgoKPj4KCj4+Cgo+
+Pj4gSSBndWVzcyB0aGlzIGlzIHdoeSB2aXJ0aW8tbnZtZSBoYXNuJ3QgYmVlbiBkb25lIGJlZm9y
+ZTogcGVvcGxlIHdobyB3YW50Cgo+Pj4gTlZNZSBjYW4gYWxyZWFkeSBkbyBOVk1lIFBDSSwgcGVv
+cGxlIHdobyB3YW50IFZJUlRJTyBjYW4gdXNlIHZpcnRpby1ibGssCgo+Pj4gYW5kIHNvIHRoZXJl
+IGhhc24ndCBiZWVuIGEgZ3JlYXQgbmVlZCB0byBjb21iaW5lIFZJUlRJTyBhbmQgTlZNZSB5ZXQu
+Cgo+PgoKPj4+IFdoYXQgYWR2YW50YWdlcyBkbyB5b3Ugc2VlIGluIGhhdmluZyB2aXJ0aW8tbnZt
+ZT8KCj4+Cgo+PgoKPj4gdmlydGlvLW52bWXCoGFkdmFudGFnZXMgOgoKPj4gMSnCoCBsaXZlIG1p
+Z3JhdGlvbgoKPsKgCgo+Cgo+VGhpcyBpcyBXSVAgYW5kIHdpbGwgdXNlIFZGSU8gbGl2ZSBtaWdy
+YXRpb24gZnJhbWV3b3JrLgoKWWVzLCBWRklPIGxpdmUgbWlncmF0aW9uIGZyYW1ld29yayBpcyBX
+SVAsICBidXQgSSBzdGlsbCB0aGluayB2ZHBhIGlzIGEgZnJpZW5kbGllciBmcmFtZXdvcmsuCgoK
+PgoKPsKgCgo+PiAyKcKgIHN1cHBvcnQgcmVtb3RlIHN0b3JhZ2UKCj4KCj4KCj5UaGVyZSBhcmUg
+c29sdXRpb25zIHRvZGF5IHRoYXQgY2FuIHVzZSByZW1vdGUgc3RvcmFnZSBhcyBhbiBOVk1lCgo+
+TmFtZXNwYWNlLiBGb3IgZXhhbXBsZSwgRFBVIGJhc2VkIE5WTWUgZGV2aWNlIHN1Y2ggYXMgTlZJ
+RElBJ1MgTlZNZSBTTkFQCgo+ZGV2aWNlLgoKCgpZZXMsIHlvdSdyZSByaWdodC4gTnZtZSBoYXMg
+YSBidWlsdC1pbiBhZHZhbnRhZ2Ugb3ZlciB2aXJ0aW8tYmxrIGhhcmR3YXJlIG9mZmxvYWRpbmcu
+ClRoZSByZWFzb24gd2h5IEkgcHJvcG9zZSBWaXJ0aW8tTlZNZSBpcyB0byBjb21iaW5lIG52bWUg
+YW5kIHZpcnRpbywgc28gdGhhdCBOVk1FIApjYW4gYWRhcHQgdG8gdmlydGlvIGVjb3N5c3RlbSBi
+YXNlZCBvbiB2aXJ0aW8gaW50ZXJmYWNlIHNwZWNpZmljYXRpb25zLCBzdWNoIGFzIHZkcGEuCgoK
+Ci0tCkxlbyBIb3UvaG91eWluZ2xlCgo=
 
