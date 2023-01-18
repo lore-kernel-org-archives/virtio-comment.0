@@ -1,72 +1,71 @@
-Return-Path: <virtio-comment-return-3862-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3867-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C75AD9865CF
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Jan 2023 16:55:29 +0000 (UTC)
-Date: Tue, 17 Jan 2023 11:53:23 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <Y8bSg9BP7d0HP6Up@fedora>
-References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>
- <Y77S5+YK31f6QKaN@fedora>
- <E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>
- <Y8bGYRN69UOv2o29@fedora>
- <20230117162114.GA24976@lst.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9ebqRljzrZ/e/kPV"
-Content-Disposition: inline
-In-Reply-To: <20230117162114.GA24976@lst.de>
-Subject: Re: [virtio-comment] About adding a new device type virtio-nvme
-To: Christoph Hellwig <hch@lst.de>
-Cc: =?utf-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>, virtio-comment <virtio-comment@lists.oasis-open.org>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 2C6D0986368
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Jan 2023 02:50:00 +0000 (UTC)
+Date: Wed, 18 Jan 2023 10:49:23 +0800
+From: =?UTF-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>
+References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>, 
+	<Y77S5+YK31f6QKaN@fedora>, 
+	<E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>, 
+	<Y8bGYRN69UOv2o29@fedora>
+Mime-Version: 1.0
+Message-ID: <06E22D1C69A02418+2023011810492308135755@sudoinfotech.com>
+Subject: Re: Re: [virtio-comment] About adding a new device type virtio-nvme
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: virtio-comment <virtio-comment@lists.oasis-open.org>, Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---9ebqRljzrZ/e/kPV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jan 17, 2023 at 05:21:14PM +0100, Christoph Hellwig wrote:
-> On Tue, Jan 17, 2023 at 11:01:37AM -0500, Stefan Hajnoczi wrote:
-> > Each virtio-blk device is a single block device. There is no
-> > standardized management protocol in virtio-blk for connecting to remote
-> > block devices. I'm aware of hardware virtio-blk devices that connect to
-> > remote storage. Configuration is performed through an out-of-band
-> > management interface.
-> >=20
-> > Maybe when you say virtio-blk doesn't support remote storage this is
-> > what you mean?
->=20
-> That makes sense, but the same is true of non-fabrics nvme transports
-> like nvme-pci and a hypothetical nvme-virtio.
-
-Just to confirm (my NVMe knowledge is not great), "6 Fabrics Command
-Set", "5.22 Namespace Attachment command", etc cannot be used over
-nvme-pci to connect remote storage if a device supports those commands?
-
-https://nvmexpress.org/wp-content/uploads/NVM-Express-Base-Specification-2.=
-0c-2022.10.04-Ratified.pdf
-
-Stefan
-
---9ebqRljzrZ/e/kPV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmPG0oMACgkQnKSrs4Gr
-c8i5Zwf+NPdr1vGEUtUi5kKsZF+R+DLbrmKQr9i3DLzQOXVMka+lC2Kfd4NjH6+p
-FdwF87Me7llpXmj5I+H+OjPAkpL6tdnfaquVzmxc4W5mcZ/YNDN+Ra+2Anq8wB49
-i67nv+yRFW6oY3oRpf5IKQjBnds/7FqT8wLERbTRL2FQ4UzZ/vtLeERwzlSlQoOS
-mDmfglmc58VGhJW3VH1bhIfqqW+qfyGWSF4Joi1NKhj07Abkh8aIVyVgRkYzKLle
-yKFihGcRsC3bMs+YlO22S7u282JfSWSInVWqD+Lmua8RecFLtBTARqSe6klROeXw
-dTVJueucySzc7FgTDYL1cV9Fkbd/XA==
-=dmKL
------END PGP SIGNATURE-----
-
---9ebqRljzrZ/e/kPV--
+T24gVHVlLCAxNyBKYW4gMjAyMyAxMTowMTozNyAtMDUwMCwgU3RlZmFuIHdyb3RlOgoKPk9uIFR1
+ZSwgSmFuIDE3LCAyMDIzIGF0IDEwOjA0OjA3QU0gKzA4MDAsIOS+r+iLseS5kCB3cm90ZToKCj4+
+IE9uIFdlZCwgMTEgSmFuIDIwMjMgMTA6MTY6NTUgLTA1MDAsIFN0ZWZhbiB3cm90ZToKPj4KPj4K
+Pj4gPj5PbiBXZWQsIEphbiAxMSwgMjAyMyBhdCAxMToyMTozNUFNICswODAwLCDkvq/oi7HkuZAg
+d3JvdGU6Cj4+ID4+IEFzIHdlIGtub3csIG52bWUgaGFzIG1vcmUgZmVhdHVyZXMgdGhhbiB2aXJ0
+aW8tYmxrLiBGb3IgZXhhbXBsZSwgd2l0aCB0aGUgZGV2ZWxvcG1lbnQgb2YgdmlydHVhbGl6YXRp
+b24gSU8gb2ZmbG9hZGluZyB0byBoYXJkd2FyZSwgdmlydGlvLWJsayBhbmQgTlZNRS1PRiBvZmZs
+b2FkaW5nIHRvIGhhcmR3YXJlID5hcmUgZGV2ZWxvcGluZyByYXBpZGx5LsKgIFNvIGlmIHZpcnRp
+byBhbmQgbnZtZSBhcmUgY29tYmluZWQgaW50byBWaXJ0aW8tTnZNZSwgSXMgaXQgbmVjZXNzYXJ5
+IHRvIGFkZCBhIGRldmljZSB0eXBlIFZpcnRpby1Odk1lID8KPj4KPj4KPj4KPj4gwqAKPj4KPj4K
+Pj4KPj4gPkhpLAo+PiA+SW4gdGhlb3J5LCB5ZXMsIHZpcnRpby1udm1lIGNhbiBiZSBkb25lLiBU
+aGUgcXVlc3Rpb24gaXMgd2h5IGRvIGl0Pwo+Pgo+Pgo+Pgo+PiA+TlZNZSBhbHJlYWR5IHByb3Zp
+ZGVzIGEgUENJIGhhcmR3YXJlIHNwZWMgZm9yIHNvZnR3YXJlIGFuZCBoYXJkd2FyZQo+PiA+aW1w
+bGVtZW50YXRpb25zIHRvIGZvbGxvdy4gQW4gTlZNZSBQQ0kgZGV2aWNlIGNhbiBiZSBleHBvc2Vk
+IHRvIHRoZQo+PiA+Z3Vlc3QgYW5kIG1vZGVybiBvcGVyYXRpbmcgc3lzdGVtcyByZWNvZ25pemUg
+aXQgd2l0aG91dCByZXF1aXJpbmcgbmV3Cj4+ID5kcml2ZXJzLgo+Pgo+Pgo+PiA+VGhlIHZhbHVl
+IG9mIFZJUlRJTyBoZXJlIGlzIHByb2JhYmx5IGluIHRoZSBkZWVwIGludGVncmF0aW9uIGludG8g
+dGhlCj4+ID52aXJ0dWFsaXphdGlvbiBzdGFjayB3aXRoIHZEUEEsIHZob3N0LCBldGMuIEEgdmly
+dGlvLW52bWUgZGV2aWNlIGNhbiB1c2UKPj4gPmFsbCB0aGVzZSB0aGluZ3Mgd2hlcmVhcyBhIFBD
+SSBkZXZpY2UgbmVlZHMgdG8gZG8gZXZlcnl0aGluZyBmcm9tCj4+ID5zY3JhdGNoLgo+Pgo+PiBU
+aGUgTlZNRSB0ZWNobm9sb2d5IGFuZCBlY29zeXN0ZW0gYXJlIGNvbXBsZXRlLiBIb3dldmVyLCBp
+biB2aXJ0dWFsaXphdGlvbiBzY2VuYXJpb3MsIE5WTUUgZGV2aWNlcyBjYW4gb25seSB1c2UgUENJ
+ZSBwYXNzLXRocm91Z2ggLiBXaGVuIE5WTUUgYW5kIHZpcnRpbyBjb21iaW5lIHRvIGNvbm5lY3Qg
+dG8gdGhlIHZEUEEgZWNvc3lzdGVtLCBsaXZlIG1pZ3JhdGlvbiBpcyBzdXBwb3J0ZWQuCj4+Cj4+
+Cj4+ID5MZXQncyBub3QgZm9yZ2V0IHRoYXQgdmlydGlvLWJsayBpcyB3aWRlbHkgdXNlZCBhbmQg
+bmV3IGNvbW1hbmRzIGFyZQo+PiA+YmVpbmcgYWRkZWQgYXMgbmVlZGVkLiBXaGljaCBOVk1lIGZl
+YXR1cmVzIGFyZSB5b3UgbWlzc2luZyBpbgo+PiA+dmlydGlvLWJsaz8KPj4KPj4gV2l0aCB0aGUg
+aW50cm9kdWN0aW9uIG9mIHRoZSBjb25jZXB0IG9mIERQVSwgYSBsYXJnZSBudW1iZXIgb2YgdmVu
+ZG9ycyBhcmUgb2ZmbG9hZGluZyB2aXJ0dWFsIGRldmljZXMgdG8gaGFyZHdhcmUuIFRoZSBiYWNr
+LWVuZCBvZiBWaXJ0aW8tYmxrIGRvZXMgbm90IHN1cHBvcnQgcmVtb3RlIHN0b3JhZ2UuIFRoZXJl
+Zm9yZSwgVmlydGlvLU52bWUtb2YgY2FuIHdlbGwgY29tYmluZSB0aGUgYWR2YW50YWdlcyBvZiBy
+ZW1vdGUgc3RvcmFnZSBhbmQgdmlydGlvIGxpdmUgbWlncmF0aW9uCj4KPnZpcnRpby1ibGsgaXMg
+anVzdCBhIHN0b3JhZ2UgaW50ZXJmYWNlLCB3aGV0aGVyIHRoYXQgc3RvcmFnZSBpcyBsb2NhbCBv
+cgo+cmVtb3RlIGlzIHVwIHRvIHRoZSBkZXZpY2UgaW1wbGVtZW50YXRpb24uIFRoZSBibG9jayBk
+ZXZpY2UgY291bGQgYmUKPmxvY2F0ZWQgb24gQ2VwaCwgTkZTLCBldGMuCj7CoAo+RWFjaCB2aXJ0
+aW8tYmxrIGRldmljZSBpcyBhIHNpbmdsZSBibG9jayBkZXZpY2UuIFRoZXJlIGlzIG5vCj5zdGFu
+ZGFyZGl6ZWQgbWFuYWdlbWVudCBwcm90b2NvbCBpbiB2aXJ0aW8tYmxrIGZvciBjb25uZWN0aW5n
+IHRvIHJlbW90ZQo+YmxvY2sgZGV2aWNlcy4gSSdtIGF3YXJlIG9mIGhhcmR3YXJlIHZpcnRpby1i
+bGsgZGV2aWNlcyB0aGF0IGNvbm5lY3QgdG8KPnJlbW90ZSBzdG9yYWdlLiBDb25maWd1cmF0aW9u
+IGlzIHBlcmZvcm1lZCB0aHJvdWdoIGFuIG91dC1vZi1iYW5kCj5tYW5hZ2VtZW50IGludGVyZmFj
+ZS4KPsKgCj5NYXliZSB3aGVuIHlvdSBzYXkgdmlydGlvLWJsayBkb2Vzbid0IHN1cHBvcnQgcmVt
+b3RlIHN0b3JhZ2UgdGhpcyBpcwo+d2hhdCB5b3UgbWVhbj8KCgoKWWVzLCB2aXJ0aW8tYmxrIGRl
+dmljZXMgb2ZmbGFvZCB0byBoYXJkd2FyZSwgRm9yIGV4YW1wbGUsIERQVSBhbmQgU21hcnROSUMu
+ClNvLCBjb21wYXJlIHZpcnRpby1udm1lIHdpdGggdmlydGlvLWJsayBhbmQgTlZNRS4KCgoKCgpT
+dGVmYW4KCgo=
 
