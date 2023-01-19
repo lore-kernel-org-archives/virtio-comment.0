@@ -1,55 +1,105 @@
-Return-Path: <virtio-comment-return-3874-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3883-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 59925986653
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Jan 2023 13:29:55 +0000 (UTC)
-Date: Wed, 18 Jan 2023 08:29:45 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20230118082858-mutt-send-email-mst@kernel.org>
-References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>
- <Y77S5+YK31f6QKaN@fedora>
- <E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>
- <40a63ca5-1273-d334-8d81-d5880e4fdff1@nvidia.com>
- <1DDD350DC1DCE386+2023011811234242045568@sudoinfotech.com>
- <9b0655f9-cf97-8d9a-cfd9-bf756821d7e3@nvidia.com>
- <20230118060518-mutt-send-email-mst@kernel.org>
- <feb36edc-44bd-8604-ac3b-333eddb05222@nvidia.com>
-MIME-Version: 1.0
-In-Reply-To: <feb36edc-44bd-8604-ac3b-333eddb05222@nvidia.com>
-Subject: Re: [virtio-comment] About adding a new device type virtio-nvme
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Max Gurtovoy <mgurtovoy@nvidia.com>
-Cc: =?utf-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>, Stefan Hajnoczi <stefanha@redhat.com>, virtio-comment <virtio-comment@lists.oasis-open.org>, Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id 33636986668
+	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Jan 2023 10:19:57 +0000 (UTC)
+Date: Thu, 19 Jan 2023 18:19:02 +0800
+From: =?UTF-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>
+References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>, 
+	<Y77S5+YK31f6QKaN@fedora>, 
+	<E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>, 
+	<40a63ca5-1273-d334-8d81-d5880e4fdff1@nvidia.com>, 
+	<1DDD350DC1DCE386+2023011811234242045568@sudoinfotech.com>, 
+	<9b0655f9-cf97-8d9a-cfd9-bf756821d7e3@nvidia.com>
+Mime-Version: 1.0
+Message-ID: <528ED8FCD32C3FF2+2023011918190209488153@sudoinfotech.com>
+Subject: Re: Re: [virtio-comment] About adding a new device type virtio-nvme
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+To: Max Gurtovoy <mgurtovoy@nvidia.com>, Stefan Hajnoczi <stefanha@redhat.com>
+Cc: virtio-comment <virtio-comment@lists.oasis-open.org>, Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Jan 18, 2023 at 01:27:35PM +0200, Max Gurtovoy wrote:
-> What I don't understand is why we can't start merging the infrastructure we
-> worked on almost 2 years in parallel to unrelated vDPA efforts.
-
-Is all this pertinent to the virtio specification in some way?
-
--- 
-MST
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+V2VkLCAxOCBKYW4gMjAyMyAxMjowOTo1OSArMDIwMCwgTWF4IEd1cnRvdm95IHdyb3RlOgo+T24g
+MTgvMDEvMjAyMyA1OjIzLCDkvq/oi7HkuZAgd3JvdGU6Cgo+PiBPbsKgIFR1ZSwgMTcgSmFuIDIw
+MjMgMTk6MTk6NTkgKzAyMDAsIE1heCBHdXJ0b3ZveSB3cm90ZToKCj4+Cgo+Pj4gT24gMTcvMDEv
+MjAyMyA0OjA0LCDkvq/oi7HkuZAgd3JvdGU6Cgo+Pj4+IE9uIFdlZCwgMTEgSmFuIDIwMjMgMTA6
+MTY6NTUgLTA1MDAsIFN0ZWZhbiB3cm90ZToKCj4+Pj4+PiBPbiBXZWQsIEphbiAxMSwgMjAyMyBh
+dCAxMToyMTozNUFNICswODAwLCDkvq/oi7HkuZAgd3JvdGU6Cgo+Pj4+Pj4gQXMgd2Uga25vdywg
+bnZtZSBoYXMgbW9yZSBmZWF0dXJlcyB0aGFuIHZpcnRpby1ibGsuIEZvciBleGFtcGxlLCB3aXRo
+IHRoZSBkZXZlbG9wbWVudCBvZiB2aXJ0dWFsaXphdGlvbiBJTyBvZmZsb2FkaW5nIHRvIGhhcmR3
+YXJlLCB2aXJ0aW8tYmxrIGFuZCBOVk1FLU9GIG9mZmxvYWRpbmcgdG8gaGFyZHdhcmUgPmFyZSBk
+ZXZlbG9waW5nIHJhcGlkbHkuwqAgU28gaWYgdmlydGlvIGFuZCBudm1lIGFyZSBjb21iaW5lZCBp
+bnRvIFZpcnRpby1Odk1lLCBJcyBpdCBuZWNlc3NhcnkgdG8gYWRkIGEgZGV2aWNlIHR5cGUgVmly
+dGlvLU52TWUgPwoKPj4+PsKgwqDCoAoKPj4+PgoKPj4+Pj4gSGksCgo+Pj4+PiBJbiB0aGVvcnks
+IHllcywgdmlydGlvLW52bWUgY2FuIGJlIGRvbmUuIFRoZSBxdWVzdGlvbiBpcyB3aHkgZG8gaXQ/
+Cgo+Pj4+PiBOVk1lIGFscmVhZHkgcHJvdmlkZXMgYSBQQ0kgaGFyZHdhcmUgc3BlYyBmb3Igc29m
+dHdhcmUgYW5kIGhhcmR3YXJlCgo+Pj4+PiBpbXBsZW1lbnRhdGlvbnMgdG8gZm9sbG93LiBBbiBO
+Vk1lIFBDSSBkZXZpY2UgY2FuIGJlIGV4cG9zZWQgdG8gdGhlCgo+Pj4+PiBndWVzdCBhbmQgbW9k
+ZXJuIG9wZXJhdGluZyBzeXN0ZW1zIHJlY29nbml6ZSBpdCB3aXRob3V0IHJlcXVpcmluZyBuZXcK
+Cj4+Pj4+IGRyaXZlcnMuCgo+Pj4+PiBUaGUgdmFsdWUgb2YgVklSVElPIGhlcmUgaXMgcHJvYmFi
+bHkgaW4gdGhlIGRlZXAgaW50ZWdyYXRpb24gaW50byB0aGUKCj4+Pj4+IHZpcnR1YWxpemF0aW9u
+IHN0YWNrIHdpdGggdkRQQSwgdmhvc3QsIGV0Yy4gQSB2aXJ0aW8tbnZtZSBkZXZpY2UgY2FuIHVz
+ZQoKPj4+Pj4gYWxsIHRoZXNlIHRoaW5ncyB3aGVyZWFzIGEgUENJIGRldmljZSBuZWVkcyB0byBk
+byBldmVyeXRoaW5nIGZyb20KCj4+Pj4+IHNjcmF0Y2guCgo+Pj4+IFRoZSBOVk1FIHRlY2hub2xv
+Z3kgYW5kIGVjb3N5c3RlbSBhcmUgY29tcGxldGUuIEhvd2V2ZXIsIGluIHZpcnR1YWxpemF0aW9u
+IHNjZW5hcmlvcywgTlZNRSBkZXZpY2VzIGNhbiBvbmx5IHVzZSBQQ0llIHBhc3MtdGhyb3VnaCAu
+IFdoZW4gTlZNRSBhbmQgdmlydGlvIGNvbWJpbmUgdG8gY29ubmVjdCB0byB0aGUgdkRQQSBlY29z
+eXN0ZW0sIGxpdmUgbWlncmF0aW9uIGlzIHN1cHBvcnRlZC4KCj4+Pj4+IExldCdzIG5vdCBmb3Jn
+ZXQgdGhhdCB2aXJ0aW8tYmxrIGlzIHdpZGVseSB1c2VkIGFuZCBuZXcgY29tbWFuZHMgYXJlCgo+
+Pj4+PiBiZWluZyBhZGRlZCBhcyBuZWVkZWQuIFdoaWNoIE5WTWUgZmVhdHVyZXMgYXJlIHlvdSBt
+aXNzaW5nIGluCgo+Pj4+PiB2aXJ0aW8tYmxrPwoKPj4+PiBXaXRoIHRoZSBpbnRyb2R1Y3Rpb24g
+b2YgdGhlIGNvbmNlcHQgb2YgRFBVLCBhIGxhcmdlIG51bWJlciBvZiB2ZW5kb3JzIGFyZSBvZmZs
+b2FkaW5nIHZpcnR1YWwgZGV2aWNlcyB0byBoYXJkd2FyZS4gVGhlIGJhY2stZW5kIG9mIFZpcnRp
+by1ibGsgZG9lcyBub3Qgc3VwcG9ydCByZW1vdGUgc3RvcmFnZS4gVGhlcmVmb3JlLCBWaXJ0aW8t
+TnZtZS1vZiBjYW4gd2VsbCBjb21iaW5lIHRoZSBhZHZhbnRhZ2VzIG9mIHJlbW90ZSBzdG9yYWdl
+IGFuZCB2aXJ0aW8gbGl2ZSBtaWdyYXRpb24KCj4+Pj4+IEkgZ3Vlc3MgdGhpcyBpcyB3aHkgdmly
+dGlvLW52bWUgaGFzbid0IGJlZW4gZG9uZSBiZWZvcmU6IHBlb3BsZSB3aG8gd2FudAoKPj4+PiBO
+Vk1lIGNhbiBhbHJlYWR5IGRvIE5WTWUgUENJLCBwZW9wbGUgd2hvIHdhbnQgVklSVElPIGNhbiB1
+c2UgdmlydGlvLWJsaywKCj4+Pj4+IGFuZCBzbyB0aGVyZSBoYXNuJ3QgYmVlbiBhIGdyZWF0IG5l
+ZWQgdG8gY29tYmluZSBWSVJUSU8gYW5kIE5WTWUgeWV0LgoKPj4+Pj4gV2hhdCBhZHZhbnRhZ2Vz
+IGRvIHlvdSBzZWUgaW4gaGF2aW5nIHZpcnRpby1udm1lPwoKPj4+PiB2aXJ0aW8tbnZtZcKgYWR2
+YW50YWdlcyA6Cgo+Pj4+IDEpwqAgbGl2ZSBtaWdyYXRpb24KCj4+PsKgwqAKCj4+PiBUaGlzIGlz
+IFdJUCBhbmQgd2lsbCB1c2UgVkZJTyBsaXZlIG1pZ3JhdGlvbiBmcmFtZXdvcmsuCgo+PiBZZXMs
+IFZGSU8gbGl2ZSBtaWdyYXRpb24gZnJhbWV3b3JrIGlzIFdJUCzCoCBidXQgSSBzdGlsbCB0aGlu
+ayB2ZHBhIGlzIGEgZnJpZW5kbGllciBmcmFtZXdvcmsuCgoKCj5Ob3Qgc3VyZSB3aGF0IHlvdSBj
+b25zaWRlciBmcmllbmRseSA/CgpNeSBwZXJzb25hbCBvcGluaW9uOiBWRklPIGxpdmUgbWlncmF0
+aW9uIHJlcXVpcmVzIGRldmljZSBkZXNpZ24gcmVxdWlyZW1lbnRzLgpCdXQgdkRQQS1iYXNlZCBs
+aXZlIG1pZ3JhdGlvbiwgdGhlIHNvZnR3YXJlLWFic3RyYWN0ZWQgdkRQQSBkZXZpY2UgaW4gdGhl
+IHZEUEEKZnJhbWV3b3JrIGNhbiBkbyBzb21lIHN0YXRlIHJlY29yZGluZywgVGhlIGRlc2lnbiBy
+ZXF1aXJlbWVudHMgZm9yIHZpcnRpbyBkZXZpY2VzCnRoYXQgYXJlIG9mZmxvYWRpbmcgdG8gaGFy
+ZHdhcmUgbWF5IGJlIGxvd2VyLgoKwqAKCgo+VGhlIGNvbW11bml0eSBhZ3JlZWQgdGhhdCBpbiBT
+Ui1JT1YgLSBWRiBtaWdyYXRpb24gaXMgZG9uZSB2aWEgUEYgaW50ZXJmYWNlLgoKCgo+QW55IGRl
+dmljZSBzcGVjaWZpYyBtaWdyYXRpb24gKGUuZy4gdmRwYS92aXJ0aW8pwqAgaXMgbm90IGFzIGdl
+bmVyaWMgYXMKCj5WRklPIG1pZ3JhdGlvbi4gQWxzbyBpdCB3aWxsIGJlIG1haW50YWluZWQgYnkg
+YSBzbWFsbGVyIGdyb3VwIG9mIGVuZ2luZWVycy4KCgo+SWYgeW91IHdvdWxkIGxpa2UgdG8gdXNl
+IHZkcGEgLSBJIHN1Z2dlc3QgdXNpbmcgdmlydGlvLWJsayBhbmQgbm90Cj5pbnZlbnRpbmcgdmly
+dGlvLW52bWUgZGV2aWNlIHRoYXQgd2lsbCBmb3Igc3VyZSBiZSB3aXRoIGxlc3MgZmVhdHVyZSBz
+ZXQKPnRoYW4gcHVyZSBOVk1lLgoKCgo+SW4gY2FzZSB5b3UncmUgbWlzc2luZyBzb21lIGZlYXR1
+cmUgaW4gdmlydGlvLWJsayB0aGF0IGV4aXN0IGluIE5WTWUsCj55b3UncmUgd2VsY29tZSB0byBz
+dWJtaXQgYSBwcm9wb3NhbCB0byB0aGUgdGVjaG5pY2FsIGdyb3VwIHdpdGggdGhhdAo+ZmVhdHVy
+ZS4KCgpZZXMsIHRoaXMgaXMgZ29vZCBhZHZpY2UuCnZpcnRpby1ibGsgYWRkcyBGYWJyaWNzIHJl
+bGF0ZWQgY29tbWFuZHMgdG8gZW5hYmxlIHZpcnRpby1ibGsgdG8gc3VwcG9ydCAKdmlydGlvLWJs
+ay1vZiAob3ZlciBGYWJyaWMpLCBJIHdvbmRlciBpZiBpdCBpcyBmZWFzaWJsZS4KCgoKCj5OVklE
+SUEgYWxzbyBoYXMgYSBEUFUgYmFzZWQgcGh5c2ljYWwgVmlydGlvLWJsayBkZXZpY2UgKE5WSURJ
+QSdTCj52aXJ0aW8tYmxrIFNOQVApIHRoYXQgc3VwcG9ydCBTUi1JT1YgYW5kIHJlbW90ZSBzdG9y
+YWdlIGFjY2Vzcy4KCgpGb3IgcmVtb3RlIHN0b3JhZ2UgYWNjZXNzLCBob3cgaXMgdGhlIHBoeXNp
+Y2FsIFZpcnRpby1ibGsgZGV2aWNlJ3MgYmFjay1lbmQgaW1wbGVtZW50ZWQ/CldoYXQgcHJvdG9j
+b2wgaXMgdXNlZD8gCklzIGl0IGFuIG9wZW4gc291cmNlIHNvbHV0aW9uPwoKCgoKPkxpdmUgbWln
+cmF0aW9uIHNwZWNpZmljYXRpb24gaXMgV0lQIGluIGJvdGggTlZNZSBhbmQgVmlydGlvIHdvcmtp
+bmcKPmdyb3Vwcy4gSSBjYW4ndCBzYXkgd2hvIHdpbGwgYmUgbWVyZ2UgZmlyc3QuCgpZZXMsIEkg
+YWdyZWUgd2l0aCB5b3Ugb24gdGhhdCBwb2ludC4KCgoKPj4+wqDCoAo+Pj4+IDIpwqAgc3VwcG9y
+dCByZW1vdGUgc3RvcmFnZQoKPj4+IFRoZXJlIGFyZSBzb2x1dGlvbnMgdG9kYXkgdGhhdCBjYW4g
+dXNlIHJlbW90ZSBzdG9yYWdlIGFzIGFuIE5WTWUKCj4+PiBOYW1lc3BhY2UuIEZvciBleGFtcGxl
+LCBEUFUgYmFzZWQgTlZNZSBkZXZpY2Ugc3VjaCBhcyBOVklESUEnUyBOVk1lIFNOQVAKCj4+PiBk
+ZXZpY2UuCgo+PgoKPj4KCj4+IFllcywgeW91J3JlIHJpZ2h0LiBOdm1lIGhhcyBhIGJ1aWx0LWlu
+IGFkdmFudGFnZSBvdmVyIHZpcnRpby1ibGsgaGFyZHdhcmUgb2ZmbG9hZGluZy4KCj4+IFRoZSBy
+ZWFzb24gd2h5IEkgcHJvcG9zZSBWaXJ0aW8tTlZNZSBpcyB0byBjb21iaW5lIG52bWUgYW5kIHZp
+cnRpbywgc28gdGhhdCBOVk1FCgo+PiBjYW4gYWRhcHQgdG8gdmlydGlvIGVjb3N5c3RlbSBiYXNl
+ZCBvbiB2aXJ0aW8gaW50ZXJmYWNlIHNwZWNpZmljYXRpb25zLCBzdWNoIGFzIHZkcGEu
 
