@@ -1,15 +1,15 @@
-Return-Path: <virtio-comment-return-3876-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-3879-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EF35A986653
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Jan 2023 14:14:46 +0000 (UTC)
-Date: Wed, 18 Jan 2023 09:14:41 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <Y8f+0fTh1KYXhXSC@fedora>
+	by lists.oasis-open.org (Postfix) with ESMTP id 4178B986646
+	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Jan 2023 03:40:11 +0000 (UTC)
+Message-ID: <c85a2341-2402-cc2c-9c8e-2d2dc1cb6876@redhat.com>
+Date: Thu, 19 Jan 2023 11:40:02 +0800
+MIME-Version: 1.0
 References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>
  <Y77S5+YK31f6QKaN@fedora>
  <E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>
@@ -18,59 +18,65 @@ References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>
  <EE1B180C7FB41197+2023011717415699763014@sudoinfotech.com>
  <Y8a/8SH6sk3rgqcr@fedora>
  <CB1D0D0BB5D3E5E6+2023011810151168808928@sudoinfotech.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="C0vD5Iyh0pUB1OV8"
-Content-Disposition: inline
-In-Reply-To: <CB1D0D0BB5D3E5E6+2023011810151168808928@sudoinfotech.com>
-Subject: Re: Re: [virtio-comment] About adding a new device type virtio-nvme
-To: =?utf-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>
-Cc: jasowang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>, virtio-comment <virtio-comment@lists.oasis-open.org>, Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+ <Y8f+0fTh1KYXhXSC@fedora>
+From: Jason Wang <jasowang@redhat.com>
+In-Reply-To: <Y8f+0fTh1KYXhXSC@fedora>
+Subject: Re: [virtio-comment] About adding a new device type virtio-nvme
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+To: Stefan Hajnoczi <stefanha@redhat.com>, =?UTF-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>
+Cc: David Hildenbrand <david@redhat.com>, virtio-comment <virtio-comment@lists.oasis-open.org>, Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
---C0vD5Iyh0pUB1OV8
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jan 18, 2023 at 10:15:12AM +0800, =E4=BE=AF=E8=8B=B1=E4=B9=90 wrote:
-> On Tue, 17 Jan 2023 10:34:09 -0500, Stefan wrote:
-> >On Tue, Jan 17, 2023 at 05:41:57PM +0800, =E4=BE=AF=E8=8B=B1=E4=B9=90 wr=
-ote:
-> >> On Tue, 17 Jan 2023 09:32:05 +0100=EF=BC=8CDavid wrote=EF=BC=9A
-> >> >On 17.01.23 03:04, =E4=BE=AF=E8=8B=B1=E4=B9=90 wrote:
-> >The two diagrams are quite similar. Did you want to highlight a
->=20
-> >difference between the two approaches in the diagram?
->=20
-> The biggest difference is the VFIO and vDPA frameworks. The vDPA (virtio =
-data path acceleration) kernel framework
-> is a pillar in productizing the end-to-end vDPA solution and it enables N=
-IC vendors to integrate their vDPA NIC kernel=20
-> drivers into the framework as part of their productization efforts.=C2=A0
-> Detailed information reference=EF=BC=9Ahttps://www.redhat.com/en/blog/int=
-roduction-vdpa-kernel-framework
+=E5=9C=A8 2023/1/18 22:14, Stefan Hajnoczi =E5=86=99=E9=81=93:
+> On Wed, Jan 18, 2023 at 10:15:12AM +0800, =E4=BE=AF=E8=8B=B1=E4=B9=90 wro=
+te:
+>> On Tue, 17 Jan 2023 10:34:09 -0500, Stefan wrote:
+>>> On Tue, Jan 17, 2023 at 05:41:57PM +0800, =E4=BE=AF=E8=8B=B1=E4=B9=90 w=
+rote:
+>>>> On Tue, 17 Jan 2023 09:32:05 +0100=EF=BC=8CDavid wrote=EF=BC=9A
+>>>>> On 17.01.23 03:04, =E4=BE=AF=E8=8B=B1=E4=B9=90 wrote:
+>>> The two diagrams are quite similar. Did you want to highlight a
+>>> difference between the two approaches in the diagram?
+>> The biggest difference is the VFIO and vDPA frameworks. The vDPA (virtio=
+ data path acceleration) kernel framework
+>> is a pillar in productizing the end-to-end vDPA solution and it enables =
+NIC vendors to integrate their vDPA NIC kernel
+>> drivers into the framework as part of their productization efforts.
+>> Detailed information reference=EF=BC=9Ahttps://www.redhat.com/en/blog/in=
+troduction-vdpa-kernel-framework
+> For the sake of the argument, let's assume VFIO can't be used in your
+> situation so vDPA is required. The part I don't understand is which
+> specific NVMe features you need that virtio-blk lacks?
 
-For the sake of the argument, let's assume VFIO can't be used in your
-situation so vDPA is required. The part I don't understand is which
-specific NVMe features you need that virtio-blk lacks?
 
-Stefan
+I can think one:
 
---C0vD5Iyh0pUB1OV8
-Content-Type: application/pgp-signature; name="signature.asc"
+Avoid guest application migration from NVMe to virtio-blk?
 
------BEGIN PGP SIGNATURE-----
+Thanks
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmPH/tEACgkQnKSrs4Gr
-c8jiyggApsqne4isbriVovh7FmeB4FeFFTwke0igSZ9FFwa5YPmXAMiIZZNzH1sz
-FICwLz3jyDDzK9jiKHdb7JZ1s/cjKjLrnj7w5IwY69OZtx85jB4+7aK//rLPfW+V
-c+NVVqRf4pF8nzHOmEzj/Y8eUWMh890tCceyF0XQaMm/69v472dVrCl1f2hfs64A
-g+EQvAxd1lwwz5XKNQLBB+AQ/JOJx880J5swqMlUjb7/qHklKSN/NXNPJ3NQSEhB
-pBprM+tRJUZvLEiFzpbV99jrvKjrBBkY1wByrmvXoKb5P0KSUfSB+jEHeZKUqyse
-C4yWweka4DpFybj52BxPq7+io6WSJw==
-=JGiS
------END PGP SIGNATURE-----
 
---C0vD5Iyh0pUB1OV8--
+>
+> Stefan
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
