@@ -1,119 +1,142 @@
-Return-Path: <virtio-comment-return-3937-cohuck=redhat.com@lists.oasis-open.org>
-Sender: <virtio-comment@lists.oasis-open.org>
-List-Post: <mailto:virtio-comment@lists.oasis-open.org>
-List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
-List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
-List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Date: Wed, 1 Feb 2023 15:14:47 +0800
-From: Heng Qi <hengqi@linux.alibaba.com>
-Message-ID: <20230201071447.GC114094@h68b04307.sqa.eu95>
-References: <20230104071401.31746-1-hengqi@linux.alibaba.com>
- <PH0PR12MB54813142D74C1328873435E2DCC79@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230131055710.GC34480@h68b04307.sqa.eu95>
- <PH0PR12MB5481A27116866CCE1000113FDCD19@PH0PR12MB5481.namprd12.prod.outlook.com>
+Return-Path: <parav@nvidia.com>
+From: Parav Pandit <parav@nvidia.com>
+Subject: [PATCH v6] virtio-net: Avoid confusion between a card and a device
+Date: Mon, 23 Jan 2023 19:06:45 +0200
+Message-ID: <20230123170645.1141842-1-parav@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481A27116866CCE1000113FDCD19@PH0PR12MB5481.namprd12.prod.outlook.com>
-Subject: Re: [virtio-comment] RE: [virtio-dev] [PATCH v7] virtio-net: support
- inner header hash
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+To: mst@redhat.com, virtio-dev@lists.oasis-open.org, cohuck@redhat.com, pasic@linux.ibm.com, jasowang@redhat.com
+Cc: virtio-comment@lists.oasis-open.org, shahafs@nvidia.com, Parav Pandit <parav@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Wed, Feb 01, 2023 at 01:51:25AM +0000, Parav Pandit wrote:
-> 
-> 
-> > From: Heng Qi <hengqi@linux.alibaba.com>
-> > Sent: Tuesday, January 31, 2023 12:57 AM
-> > 
-> > On Wed, Jan 18, 2023 at 11:45:39PM +0000, Parav Pandit wrote:
-> > >
-> > >
-> > > > From: virtio-dev@lists.oasis-open.org
-> > > > <virtio-dev@lists.oasis-open.org>
-> > > > Sent: Wednesday, January 4, 2023 2:14 AM
-> > >
-> > > > If the tunnel is used to encapsulate the packets, the hash
-> > > > calculated using the outer header of the receive packets is always
-> > > > fixed for the same flow packets, i.e. they will be steered to the same
-> > receive queue.
-> > >
-> > > > +\item[VIRTIO_NET_F_HASH_TUNNEL(52)] Device supports inner
-> > > > +    header hash for GRE, VXLAN and GENEVE tunnel-encapsulated packets.
-> > > > +
-> > > A device may not support all 3 at the same time.
-> > > Please remove mentioning tunneling protocols description from here.
-> > > Just say device support inner header hash ...
-> > 
-> > Sorry for the late reply due to vacation.
-> > 
-> > Good idea, Michael suggested doing the same. But we also discussed this issue:
-> > Early, we used a feature bit to force devices to support GRE and VXLAN 
-> ..
-> There is no need to force the device.
-> LM will work as it will use both he values - the feature bit and the supported/negotiated hash type in the config space.
+Historically virtio network device is documented as an Ethernet card.
+A modern card in the industry has one to multiple ports, one to multiple
+PCI functions. However the virtio network device is usually just a
+single link/port network interface controller.
 
-Yes, that's exactly what we do now.
+Hence, avoid this confusing term 'card' and align the specification
+to adhere to widely used specification term as 'device' used for all
+virtio device types.
 
-> 
-> > > An additional bit map somewhere else should say supported hash over
-> > different tunneling types.
-> > >
-> > 
-> > Yes, we use \field{supported_hash_types} to declare supported hash types.
-> Nice. So yes, just remove the description from the feature bits.
+Replaced 'card' with 'network interface controller'.
 
-The next version will see this modification.
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/154
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+---
+This patch is on top of change [1].
 
-> [..]
-> > >
-> > > With the inclusion of tunnel outer header, it doesn't need to redefine the
-> > hashing for inner packets which is exactly same without the tunnel.
-> > > hash tunnel capability only indicates that hashing is done on the inner packets
-> > as_before.
-> > >
-> > 
-> > This seems like a trade-off, and I can get rid of this if the simple statement
-> > "computing the hash for the inner header of the tunnel packet is the same as
-> > without tunnel"
-> > is also clear to the reader.
-> > What do you think? Cc Jason and Michael.
-> Not sure I follow your comment.
-> Inclusion of outer header has zero change in inner header hash.
-> 
-> The data structure etc is just fine in the patch you proposed.
-> So, there is no need to redefine all over it again.
-> Only description need to be simplified as below.
-> Please just change the text wording to indicate that when tunnel feature is negotiated, and if the hashing is performed by the device on the inner header, hash_report_tunnel will contain the valid outer tunnel type information.
-> 
+[1] https://lists.oasis-open.org/archives/virtio-dev/202301/msg00210.html
+---
+changelog:
+v5->v6:
+- fixed 'consist' to 'consists'
+v4->v5:
+- replaced 'network card' with 'device' in the device initialization
+  section description
+- net device checksum feature bit description updated
+- rename card to network interface controller
+v3->v4:
+- rebased to new directory name
+v2->v3:
+- rebased to new file name
+v1->v2:
+- adapt to new file path
+v0->v1:
+- removed device word twice
+- corrected grammar for changing from card to device
+---
+ content.tex                      |  6 +++---
+ device-types/net/description.tex | 22 +++++++++++-----------
+ 2 files changed, 14 insertions(+), 14 deletions(-)
 
-OK, I'll take your advice and make appropriate changes.
-
-Thanks.
-
-> Also, this patch is adding two functionalities.
-> 1. Inner header hash calculation of existing already defined hash types 
-> 2. outer header hash for new type for GRE,VXLAN,GENEVE.
-> #1 should be in 1st patch.
-> #2 should be in 2nd patch.
-> This is better to review.
-> 
-> Overall useful features. Thanks for adding.
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+diff --git a/content.tex b/content.tex
+index 0118b8a..df5ce16 100644
+--- a/content.tex
++++ b/content.tex
+@@ -619,7 +619,7 @@ \subsection{PCI Device Discovery}\label{sec:Virtio Tran=
+sport Options / Virtio Ov
+ \hline
+ Transitional PCI Device ID  &  Virtio Device    \\
+ \hline \hline
+-0x1000      &   network card     \\
++0x1000      &   network device     \\
+ \hline
+ 0x1001     &   block device     \\
+ \hline
+@@ -635,7 +635,7 @@ \subsection{PCI Device Discovery}\label{sec:Virtio Tran=
+sport Options / Virtio Ov
+ \hline
+ \end{tabular}
+=20
+-For example, the network card device with the Virtio Device ID 1
++For example, the network device with the Virtio Device ID 1
+ has the PCI Device ID 0x1041 or the Transitional PCI Device ID 0x1000.
+=20
+ The PCI Subsystem Vendor ID and the PCI Subsystem Device ID MAY reflect
+@@ -2912,7 +2912,7 @@ \chapter{Device Types}\label{sec:Device Types}
+ \hline \hline
+ 0          & reserved (invalid) \\
+ \hline
+-1          &   network card     \\
++1          &   network device     \\
+ \hline
+ 2          &   block device     \\
+ \hline
+diff --git a/device-types/net/description.tex b/device-types/net/descriptio=
+n.tex
+index d3f9b52..e1341e6 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -1,13 +1,14 @@
+ \section{Network Device}\label{sec:Device Types / Network Device}
+=20
+-The virtio network device is a virtual ethernet card, and is the
+-most complex of the devices supported so far by virtio. It has
+-enhanced rapidly and demonstrates clearly how support for new
+-features are added to an existing device. Empty buffers are
+-placed in one virtqueue for receiving packets, and outgoing
+-packets are enqueued into another for transmission in that order.
+-A third command queue is used to control advanced filtering
+-features.
++The virtio network device is a virtual network interface controller.
++It consists of a virtual Ethernet link which connects the device
++to the Ethernet network. It is the most complex of the devices
++supported so far by virtio. It has enhanced rapidly and demonstrates
++clearly how support for new features are added to an existing
++device. Empty buffers are placed in one virtqueue for receiving
++packets, and outgoing packets are enqueued into another for
++transmission in that order. A third command queue is used to
++control advanced filtering features.
+=20
+ \subsection{Device ID}\label{sec:Device Types / Network Device / Device ID=
+}
+=20
+@@ -32,8 +33,7 @@ \subsection{Virtqueues}\label{sec:Device Types / Network =
+Device / Virtqueues}
+ \subsection{Feature bits}\label{sec:Device Types / Network Device / Featur=
+e bits}
+=20
+ \begin{description}
+-\item[VIRTIO_NET_F_CSUM (0)] Device handles packets with partial checksum.=
+   This
+-  ``checksum offload'' is a common feature on modern network cards.
++\item[VIRTIO_NET_F_CSUM (0)] Device handles packets with partial checksum =
+offload.
+=20
+ \item[VIRTIO_NET_F_GUEST_CSUM (1)] Driver handles packets with partial che=
+cksum.
+=20
+@@ -323,7 +323,7 @@ \subsection{Device Initialization}\label{sec:Device Typ=
+es / Network Device / Dev
+=20
+ \item If the VIRTIO_NET_F_MAC feature bit is set, the configuration
+   space \field{mac} entry indicates the ``physical'' address of the
+-  network card, otherwise the driver would typically generate a random
++  device, otherwise the driver would typically generate a random
+   local MAC address.
+=20
+ \item If the VIRTIO_NET_F_STATUS feature bit is negotiated, the link
+--=20
+2.26.2
 
