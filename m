@@ -1,38 +1,46 @@
-Return-Path: <virtio-comment-return-4474-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4340-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E21529865D0
-	for <virtio-comment@lists.oasis-open.org>; Thu, 23 Feb 2023 08:26:32 +0000 (UTC)
-Date: Thu, 23 Feb 2023 03:26:25 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20230223032434-mutt-send-email-mst@kernel.org>
-References: <20191112053748.1616272-1-yuri.benditovich@daynix.com>
- <20191112053748.1616272-2-yuri.benditovich@daynix.com>
+From: Parav Pandit <parav@nvidia.com>
+Date: Fri, 17 Feb 2023 17:45:27 +0200
+Message-ID: <20230217154529.33508-1-parav@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20191112053748.1616272-2-yuri.benditovich@daynix.com>
-Subject: Re: [virtio-comment] [PATCH v4 1/1] virtio-net: define support for
- receive-side scaling
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Yuri Benditovich <yuri.benditovich@daynix.com>
-Cc: virtio-comment@lists.oasis-open.org
+Subject: [virtio-comment] [PATCH v3 0/2] virtio-net: Improve dev config layout
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+To: mst@redhat.com, virtio-dev@lists.oasis-open.org, cohuck@redhat.com
+Cc: virtio-comment@lists.oasis-open.org, shahafs@nvidia.com, Parav Pandit <parav@nvidia.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Nov 12, 2019 at 07:37:48AM +0200, Yuri Benditovich wrote:
-> +Field \field{unclassified_queue} contains 0-based index of receive virtqueue to place unclassified packets in. Index 0 corresponds to receiveq1.
-> +
-> +Field \field{indirection_table} contains array of 0-based indices of receive virtqueus. Index 0 corresponds to receiveq1.
+This two patches improve dev configuration layout in two ways.
 
-We have this "0 corresponds to receiveq1" in lots of places.
-But what is unclear to me is which number corresponds to receiveq3.
-Is this the virtqueue number - so vq 5? Or 3 - 1 = 2?
+1. Define device configuration layout before describing it fields
+2. Avoid duplicate description of its read only fields and whole
+layout
 
--- 
-MST
+Patch summary:
+patch-1: consolidate read only field at one place in driver
+requirements
+patch-2: define device configuration layout before describing its
+fields.
+
+changelog:
+v2->v3:
+- split into two patches
+- move read only description to driver requirements section
+
+Parav Pandit (2):
+  virtio-net: Describe dev cfg fields read only
+  virtio-net: Define cfg fields before description
+
+ device-types/net/description.tex | 48 ++++++++++++++++++--------------
+ 1 file changed, 27 insertions(+), 21 deletions(-)
+
+--=20
+2.26.2
 
 
 This publicly archived list offers a means to provide input to the
@@ -47,7 +55,8 @@ Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 List help: virtio-comment-help@lists.oasis-open.org
 List archive: https://lists.oasis-open.org/archives/virtio-comment/
 Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lis=
+ts
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
