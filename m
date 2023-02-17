@@ -1,84 +1,40 @@
-Return-Path: <virtio-comment-return-4080-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4310-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9A7D898653E
-	for <virtio-comment@lists.oasis-open.org>; Thu,  9 Feb 2023 03:29:11 +0000 (UTC)
-Date: Thu, 9 Feb 2023 11:28:18 +0800
-From: =?UTF-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>
-References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>, 
-	<Y77S5+YK31f6QKaN@fedora>, 
-	<E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>, 
-	<Y8bGYRN69UOv2o29@fedora>, 
-	<06E22D1C69A02418+2023011810492308135755@sudoinfotech.com>, 
-	<20230205073219-mutt-send-email-mst@kernel.org>
-Mime-Version: 1.0
-Message-ID: <CF45745A0E409D27+202302091128179909136@sudoinfotech.com>
-Subject: Re: Re: [virtio-comment] About adding a new device type virtio-nvme
-Content-Type: text/plain;
-	charset="UTF-8"
+	by lists.oasis-open.org (Postfix) with ESMTP id 26A0B9865EC
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Feb 2023 03:01:09 +0000 (UTC)
+From: Parav Pandit <parav@nvidia.com>
+Date: Fri, 17 Feb 2023 03:01:06 +0000
+Message-ID: <PH0PR12MB5481D8AD26088B2B765DCDBFDCA19@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <961D315C9D3A523B+202301111121345064138@sudoinfotech.com>,
+ 	<Y77S5+YK31f6QKaN@fedora>,
+ 	<E0D19197FBCBB3B9+2023011710040633577713@sudoinfotech.com>,
+ 	<Y8bGYRN69UOv2o29@fedora>,
+ 	<06E22D1C69A02418+2023011810492308135755@sudoinfotech.com>,
+ 	<20230205073219-mutt-send-email-mst@kernel.org>
+ <CF45745A0E409D27+202302091128179909136@sudoinfotech.com>
+In-Reply-To: <CF45745A0E409D27+202302091128179909136@sudoinfotech.com>
+MIME-Version: 1.0
+Subject: RE: Re: [virtio-comment] About adding a new device type virtio-nvme
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-To: "Michael S. Tsirkin" <mst@redhat.com>
+To: =?utf-8?B?5L6v6Iux5LmQ?= <houyingle@sudoinfotech.com>, "Michael S.
+ Tsirkin" <mst@redhat.com>
 Cc: Stefan Hajnoczi <stefanha@redhat.com>, virtio-comment <virtio-comment@lists.oasis-open.org>, Christoph Hellwig <hch@lst.de>, Keith Busch <kbusch@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Klaus Jensen <k.jensen@samsung.com>, sgarzare <sgarzare@redhat.com>
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-T24gU3VuLCA1IEZlYiAyMDIzIDA3OjMzOjE3IC0wNTAwLCBNaWNoYWVsIFMuIFRzaXJraW4gd3Jv
-dGU6Cgo+T24gV2VkLCBKYW4gMTgsIDIwMjMgYXQgMTA6NDk6MjNBTSArMDgwMCwg5L6v6Iux5LmQ
-IHdyb3RlOgoKPj4gT24gVHVlLCAxNyBKYW4gMjAyMyAxMTowMTozNyAtMDUwMCwgU3RlZmFuIHdy
-b3RlOgoKPj4KCj4+ID5PbiBUdWUsIEphbiAxNywgMjAyMyBhdCAxMDowNDowN0FNICswODAwLCDk
-vq/oi7HkuZAgd3JvdGU6Cgo+PgoKPj4gPj4gT24gV2VkLCAxMSBKYW4gMjAyMyAxMDoxNjo1NSAt
-MDUwMCwgU3RlZmFuIHdyb3RlOgoKPj4gPj4KCj4+ID4+Cgo+PiA+PiA+Pk9uIFdlZCwgSmFuIDEx
-LCAyMDIzIGF0IDExOjIxOjM1QU0gKzA4MDAsIOS+r+iLseS5kCB3cm90ZToKCj4+ID4+ID4+IEFz
-IHdlIGtub3csIG52bWUgaGFzIG1vcmUgZmVhdHVyZXMgdGhhbiB2aXJ0aW8tYmxrLiBGb3IgZXhh
-bXBsZSwgd2l0aCB0aGUgZGV2ZWxvcG1lbnQgb2YgdmlydHVhbGl6YXRpb24gSU8gb2ZmbG9hZGlu
-ZyB0byBoYXJkd2FyZSwgdmlydGlvLWJsayBhbmQgTlZNRS1PRiBvZmZsb2FkaW5nIHRvIGhhcmR3
-YXJlID5hcmUgZGV2ZWxvcGluZyByYXBpZGx5LsKgIFNvIGlmIHZpcnRpbyBhbmQgbnZtZSBhcmUg
-Y29tYmluZWQgaW50byBWaXJ0aW8tTnZNZSwgSXMgaXQgbmVjZXNzYXJ5IHRvIGFkZCBhIGRldmlj
-ZSB0eXBlIFZpcnRpby1Odk1lID8KCj4+ID4+Cgo+PiA+PgoKPj4gPj4KCj4+ID4+IMKgCgo+PiA+
-PgoKPj4gPj4KCj4+ID4+Cgo+PiA+PiA+SGksCgo+PiA+PiA+SW4gdGhlb3J5LCB5ZXMsIHZpcnRp
-by1udm1lIGNhbiBiZSBkb25lLiBUaGUgcXVlc3Rpb24gaXMgd2h5IGRvIGl0PwoKPj4gPj4KCj4+
-ID4+Cgo+PiA+PgoKPj4gPj4gPk5WTWUgYWxyZWFkeSBwcm92aWRlcyBhIFBDSSBoYXJkd2FyZSBz
-cGVjIGZvciBzb2Z0d2FyZSBhbmQgaGFyZHdhcmUKCj4+ID4+ID5pbXBsZW1lbnRhdGlvbnMgdG8g
-Zm9sbG93LiBBbiBOVk1lIFBDSSBkZXZpY2UgY2FuIGJlIGV4cG9zZWQgdG8gdGhlCgo+PiA+PiA+
-Z3Vlc3QgYW5kIG1vZGVybiBvcGVyYXRpbmcgc3lzdGVtcyByZWNvZ25pemUgaXQgd2l0aG91dCBy
-ZXF1aXJpbmcgbmV3Cgo+PiA+PiA+ZHJpdmVycy4KCj4+ID4+Cgo+PiA+PgoKPj4gPj4gPlRoZSB2
-YWx1ZSBvZiBWSVJUSU8gaGVyZSBpcyBwcm9iYWJseSBpbiB0aGUgZGVlcCBpbnRlZ3JhdGlvbiBp
-bnRvIHRoZQoKPj4gPj4gPnZpcnR1YWxpemF0aW9uIHN0YWNrIHdpdGggdkRQQSwgdmhvc3QsIGV0
-Yy4gQSB2aXJ0aW8tbnZtZSBkZXZpY2UgY2FuIHVzZQoKPj4gPj4gPmFsbCB0aGVzZSB0aGluZ3Mg
-d2hlcmVhcyBhIFBDSSBkZXZpY2UgbmVlZHMgdG8gZG8gZXZlcnl0aGluZyBmcm9tCgo+PiA+PiA+
-c2NyYXRjaC4KCj4+ID4+Cgo+PiA+PiBUaGUgTlZNRSB0ZWNobm9sb2d5IGFuZCBlY29zeXN0ZW0g
-YXJlIGNvbXBsZXRlLiBIb3dldmVyLCBpbiB2aXJ0dWFsaXphdGlvbiBzY2VuYXJpb3MsIE5WTUUg
-ZGV2aWNlcyBjYW4gb25seSB1c2UgUENJZSBwYXNzLXRocm91Z2ggLiBXaGVuIE5WTUUgYW5kIHZp
-cnRpbyBjb21iaW5lIHRvIGNvbm5lY3QgdG8gdGhlIHZEUEEgZWNvc3lzdGVtLCBsaXZlIG1pZ3Jh
-dGlvbiBpcyBzdXBwb3J0ZWQuCgo+PiA+PgoKPj4gPj4KCj4+ID4+ID5MZXQncyBub3QgZm9yZ2V0
-IHRoYXQgdmlydGlvLWJsayBpcyB3aWRlbHkgdXNlZCBhbmQgbmV3IGNvbW1hbmRzIGFyZQoKPj4g
-Pj4gPmJlaW5nIGFkZGVkIGFzIG5lZWRlZC4gV2hpY2ggTlZNZSBmZWF0dXJlcyBhcmUgeW91IG1p
-c3NpbmcgaW4KCj4+ID4+ID52aXJ0aW8tYmxrPwoKPj4gPj4KCj4+ID4+IFdpdGggdGhlIGludHJv
-ZHVjdGlvbiBvZiB0aGUgY29uY2VwdCBvZiBEUFUsIGEgbGFyZ2UgbnVtYmVyIG9mIHZlbmRvcnMg
-YXJlIG9mZmxvYWRpbmcgdmlydHVhbCBkZXZpY2VzIHRvIGhhcmR3YXJlLiBUaGUgYmFjay1lbmQg
-b2YgVmlydGlvLWJsayBkb2VzIG5vdCBzdXBwb3J0IHJlbW90ZSBzdG9yYWdlLiBUaGVyZWZvcmUs
-IFZpcnRpby1Odm1lLW9mIGNhbiB3ZWxsIGNvbWJpbmUgdGhlIGFkdmFudGFnZXMgb2YgcmVtb3Rl
-IHN0b3JhZ2UgYW5kIHZpcnRpbyBsaXZlIG1pZ3JhdGlvbgoKPj4gPgoKPj4gPnZpcnRpby1ibGsg
-aXMganVzdCBhIHN0b3JhZ2UgaW50ZXJmYWNlLCB3aGV0aGVyIHRoYXQgc3RvcmFnZSBpcyBsb2Nh
-bCBvcgoKPj4gPnJlbW90ZSBpcyB1cCB0byB0aGUgZGV2aWNlIGltcGxlbWVudGF0aW9uLiBUaGUg
-YmxvY2sgZGV2aWNlIGNvdWxkIGJlCgo+PiA+bG9jYXRlZCBvbiBDZXBoLCBORlMsIGV0Yy4KCj4+
-ID7CoAoKPj4gPkVhY2ggdmlydGlvLWJsayBkZXZpY2UgaXMgYSBzaW5nbGUgYmxvY2sgZGV2aWNl
-LiBUaGVyZSBpcyBubwoKPj4gPnN0YW5kYXJkaXplZCBtYW5hZ2VtZW50IHByb3RvY29sIGluIHZp
-cnRpby1ibGsgZm9yIGNvbm5lY3RpbmcgdG8gcmVtb3RlCgo+PiA+YmxvY2sgZGV2aWNlcy4gSSdt
-IGF3YXJlIG9mIGhhcmR3YXJlIHZpcnRpby1ibGsgZGV2aWNlcyB0aGF0IGNvbm5lY3QgdG8KCj4+
-ID5yZW1vdGUgc3RvcmFnZS4gQ29uZmlndXJhdGlvbiBpcyBwZXJmb3JtZWQgdGhyb3VnaCBhbiBv
-dXQtb2YtYmFuZAoKPj4gPm1hbmFnZW1lbnQgaW50ZXJmYWNlLgoKPj4gPsKgCgo+PiA+TWF5YmUg
-d2hlbiB5b3Ugc2F5IHZpcnRpby1ibGsgZG9lc24ndCBzdXBwb3J0IHJlbW90ZSBzdG9yYWdlIHRo
-aXMgaXMKCj4+ID53aGF0IHlvdSBtZWFuPwoKPj4KCj4+Cgo+PgoKPj4gWWVzLCB2aXJ0aW8tYmxr
-IGRldmljZXMgb2ZmbGFvZCB0byBoYXJkd2FyZSwgRm9yIGV4YW1wbGUsIERQVSBhbmQgU21hcnRO
-SUMuCgo+PiBTbywgY29tcGFyZSB2aXJ0aW8tbnZtZSB3aXRoIHZpcnRpby1ibGsgYW5kIE5WTUUu
-Cgo+PgoKPj4KCj4+Cgo+PgoKPj4KCj4+IFN0ZWZhbgoKPj4KCj4KPkxldCdzIGNpcmNsZSBiYWNr
-IGEgYml0LiBZb3UgYXNrZWQ6Cgo+U28gaWYgdmlydGlvIGFuZCBudm1lIGFyZSBjb21iaW5lZCBp
-bnRvIFZpcnRpby1Odk1lLCBJcyBpdAoKPm5lY2Vzc2FyeSB0byBhZGQgYSBkZXZpY2UgdHlwZSBW
-aXJ0aW8tTnZNZSA/Cgo+QW5kIHRoZSBhbnN3ZXIgc2VlbXMgdG8gYmU6Cgo+bm90IHdpdGhvdXQg
-bXVjaCBtb3JlIGluIHRoZSB3YXkgb2YgbW90aXZhdGlvbi4KCsKgCgpZZXMsIHRoZSBjb25jbHVz
-aW9uIGlzIHRoaXMuCgpUaGFua3MhCgotLS0tCkxlbwoKCsKgCgoKCsKgCgoK
+PiBGcm9tOiB2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZyA8dmlydGlvLWNvbW1l
+bnRAbGlzdHMub2FzaXMtDQo+IG9wZW4ub3JnPiBPbiBCZWhhbGYgT2YgPz8/DQogDQo+ID5TbyBp
+ZiB2aXJ0aW8gYW5kIG52bWUgYXJlIGNvbWJpbmVkIGludG8gVmlydGlvLU52TWUsIElzIGl0DQo+
+IA0KPiA+bmVjZXNzYXJ5IHRvIGFkZCBhIGRldmljZSB0eXBlIFZpcnRpby1Odk1lID8NCj4gDQo+
+ID5BbmQgdGhlIGFuc3dlciBzZWVtcyB0byBiZToNCj4gDQo+ID5ub3Qgd2l0aG91dCBtdWNoIG1v
+cmUgaW4gdGhlIHdheSBvZiBtb3RpdmF0aW9uLg0KPiANCj4gDQo+IA0KPiBZZXMsIHRoZSBjb25j
+bHVzaW9uIGlzIHRoaXMuDQoNClNpbmNlIHRoaXMgY29uY2x1ZGVkIG5vdywgY2FuIHlvdSBwbGVh
+c2UgY2xvc2UgdGhlIGdpdGh1YiBpc3N1ZSBbMV0/DQoNClsxXSBodHRwczovL2dpdGh1Yi5jb20v
+b2FzaXMtdGNzL3ZpcnRpby1zcGVjL2lzc3Vlcy8xNDkNCg0K
 
