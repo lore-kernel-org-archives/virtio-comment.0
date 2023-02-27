@@ -1,239 +1,267 @@
-Return-Path: <virtio-comment-return-4580-cohuck=redhat.com@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4572-cohuck=redhat.com@lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
 List-Post: <mailto:virtio-comment@lists.oasis-open.org>
 List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DB6EC986601
-	for <virtio-comment@lists.oasis-open.org>; Tue, 28 Feb 2023 07:48:09 +0000 (UTC)
-Date: Tue, 28 Feb 2023 02:47:54 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20230228023225-mutt-send-email-mst@kernel.org>
-References: <20230226093724.44717-1-hengqi@linux.alibaba.com>
- <PH0PR12MB548149DF3FCB29805E442F75DCAC9@PH0PR12MB5481.namprd12.prod.outlook.com>
+	by lists.oasis-open.org (Postfix) with ESMTP id B309B9865F8
+	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Feb 2023 20:27:43 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB548149DF3FCB29805E442F75DCAC9@PH0PR12MB5481.namprd12.prod.outlook.com>
-Subject: [virtio-comment] Re: [PATCH v9] virtio-net: support the virtqueue coalescing
- moderation
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-To: Parav Pandit <parav@nvidia.com>
-Cc: Heng Qi <hengqi@linux.alibaba.com>, "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Alvaro Karsz <alvaro.karsz@solid-run.com>, David Edmondson <david.edmondson@oracle.com>, Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+References: <CAJ3Dt_XZJX=f-WkbD_wESFLztFyKNW_3TUAPnG-H_SpL6H0YaQ@mail.gmail.com>
+ <Yii/ToLoR5t9KFjr@stefanha-x1.localdomain> <CAJ3Dt_VTcT64n7bPiRkBBM=SyQWYF1wYYuQr2UnPtZZ-33P9FA@mail.gmail.com>
+In-Reply-To: <CAJ3Dt_VTcT64n7bPiRkBBM=SyQWYF1wYYuQr2UnPtZZ-33P9FA@mail.gmail.com>
+From: Gordon Stewart <gordon@bedrocksystems.com>
+Date: Mon, 27 Feb 2023 15:27:25 -0500
+Message-ID: <CAC9-NftTiN=g1myoXfqfqUGgvxf+_c_-4+p3zG2sEiXGdStgdw@mail.gmail.com>
+Subject: Fwd: [virtio-comment] virtio-net : 5.1.6.2 descriptor-chains on transmitq
+Content-Type: multipart/mixed; boundary="00000000000098c9cb05f5b44f18"
+To: virtio-comment@lists.oasis-open.org
 List-ID: <virtio-comment.lists.oasis-open.org>
 
-On Tue, Feb 28, 2023 at 01:40:29AM +0000, Parav Pandit wrote:
-> 
-> > From: Heng Qi <hengqi@linux.alibaba.com>
-> > Sent: Sunday, February 26, 2023 4:37 AM
-> 
-> > +# Read/Write attributes for coalescing parameters \begin{itemize} \item
-> Hash # above is not needed. Please remove.
-> 
-> > +For commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
-> > VIRTIO_NET_CTRL_NOTF_COAL_RX_SET, \field{max_usecs}
-> > +      and \field{max_packets} are write-only for a driver.
-> > +\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, \field{vqn},
-> > \field{reserved}, \field{max_usecs}
-> > +      and \field{max_packets} are write-only for a driver.
-> > +\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET, \field{vqn}
-> > and \field{reserved} are write-only
-> > +      for a driver, and, \field{max_usecs} and \field{max_packets} are read-only
-> > for the driver.
-> > +\end{itemize}
-> Instead of describing each individual fields of the structure struct virtio_net_ctrl_coal coal as read-only or write-only, better to say the struct itself as read/write only.
+--00000000000098c9cb05f5b44f18
+Content-Type: multipart/alternative; boundary="00000000000098c9c905f5b44f16"
 
-I don't see how you can reasonably do this. Which fields are RO and
-which WO depends on the command.
+--00000000000098c9c905f5b44f16
+Content-Type: text/plain; charset="UTF-8"
 
-> This way when/if in the future, if struct virtio_net_ctrl_coal coal extends, no need to rewrite this section of the spec.
+Hi Stefan,
 
-Exactly the reverse.
-If you specify RO/WO for each field then you don't need to touch
-existing description when adding fields.
-If you write in one place that all of struct is RO, when you add
-WO fields you need to change it.
+It took us a while to follow-up on this -- apologies.
 
+Here's a patch:
 
-> > +
-> >  Coalescing parameters:
-> >  \begin{itemize}
-> > +\item \field{vqn}: The virtqueue number of an enabled transmit or receive
-> > virtqueue.
-> >  \item \field{max_usecs} for RX: Maximum number of microseconds to delay a
-> > RX notification.
-> >  \item \field{max_usecs} for TX: Maximum number of microseconds to delay a
-> > TX notification.
-> >  \item \field{max_packets} for RX: Maximum number of packets to receive
-> > before a RX notification.
-> >  \item \field{max_packets} for TX: Maximum number of packets to send before
-> > a TX notification.
-> >  \end{itemize}
-> > 
-> > -The class VIRTIO_NET_CTRL_NOTF_COAL has 2 commands:
-> > +\field{reserved} is reserved and it is ignored by a device.
-> > +
-> > +The class VIRTIO_NET_CTRL_NOTF_COAL has 4 commands:
-> >  \begin{enumerate}
-> > -\item VIRTIO_NET_CTRL_NOTF_COAL_TX_SET: set the \field{max_usecs} and
-> > \field{max_packets} parameters for all transmit virtqueues.
-> > -\item VIRTIO_NET_CTRL_NOTF_COAL_RX_SET: set the \field{max_usecs} and
-> > \field{max_packets} parameters for all receive virtqueues.
-> > +\item VIRTIO_NET_CTRL_NOTF_COAL_TX_SET: set the \field{max_usecs} and
-> > \field{max_packets} parameters for all transmit virtqueues, and values of
-> > +                                        coalescing parameters are recorded as TX global values
-> > by a device.
-> "recording TX global values" is not conveying anything more as "all transmit virtqueues" is already mentioned.
-> The original text without "recorded as Tx global values" is just fine. Same for the RX below.
+From: Gordon Stewart <gordon@bedrocksystems.com>
+Date: Mon, 27 Feb 2023 13:59:45 -0500
+Subject: [PATCH] 5.1.6.2 Packet Transmission; clarify "output descriptor"
 
-I agree.
+---
+ device-types/net/description.tex | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> > +\item VIRTIO_NET_CTRL_NOTF_COAL_RX_SET: set the \field{max_usecs} and
-> > \field{max_packets} parameters for all receive virtqueues, and values of
-> > +                                        coalescing parameters are recorded as RX global values
-> > by a device.
-> > +\item VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET: set the \field{max_usecs} and
-> > \field{max_packets} parameters for an enabled transmit/receive
-> > +                                        virtqueue whose number is \field{vqn}, and do not
-> > change the TX/RX global values.
-> > +\item VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET: the device returns the
-> > \field{max_usecs} and \field{max_packets} parameters for an enabled
-> > +                                        transmit/receive virtqueue whose number is \field{vqn}.
-> >  \end{enumerate}
-> > 
-> > +If coalescing parameters are being set, the device applies the last
-> > +coalescing parameters received for a virtqueue, regardless of the command
-> > used to set the parameters. For example with 2 pairs of virtqueues:
-> > +# Command sequence
-> > +Each of the following commands sets \field{max_usecs} and
-> > \field{max_packets} parameters for virtqueues.
-> > +\begin{itemize}
-> > +\item Command1: VIRTIO_NET_CTRL_NOTF_COAL_RX_SET sets coalescing
-> > parameters for virtqueue0 and virtqueue2, and, virtqueue1 and virtqueue3
-> > retain their previous parameter values.
-> > +\item Command2: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vqn} =
-> > 0 sets coalescing parameters for virtqueue0, and virtqueue2 retains the values
-> > from command1.
-> > +\item Command3: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vqn} =
-> > 0, the device responds with coalescing parameters of virtqueue0 set by
-> > command2.
-> > +\item Command4: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vqn} =
-> > 1 sets coalescing parameters for virtqueue1, and virtqueue3 retains its previous
-> > values.
-> > +\item Command5: VIRTIO_NET_CTRL_NOTF_COAL_TX_SET sets coalescing
-> > parameters for virtqueue1 and virtqueue3, and overrides the values set by
-> > command4.
-> > +\item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vqn} =
-> > 1, the device responds with coalescing parameters of virtqueue1 set by
-> > command5.
-> > +\end{itemize}
-> > +
-> >  \subparagraph{Operation}\label{sec:Device Types / Network Device / Device
-> > Operation / Control Virtqueue / Notifications Coalescing / Operation}
-> > 
-> >  The device sends a used buffer notification once the notification conditions are
-> > met and if the notifications are not suppressed as explained in \ref{sec:Basic
-> > Facilities of a Virtio Device / Virtqueues / Used Buffer Notification Suppression}.
-> > @@ -1549,6 +1612,11 @@ \subsubsection{Control
-> > Virtqueue}\label{sec:Device Types / Network Device / Devi
-> > 
-> >  When the device has \field{max_usecs} = 0 or \field{max_packets} = 0, the
-> > notification conditions are met after every packet received/sent.
-> > 
-> > +When the device receives the VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
-> > +VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands, it saves the values of
-> > +coalescing parameters as global values, and the
-> > VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET command does not change the global
-> > values. If the device is reset, the global values will be set to 0.
-> > +When a virtqueue is enabled after virtqueue reset, its coalescing parameters
-> > are set to global values.
-> > +
-> >  \subparagraph{RX Example}\label{sec:Device Types / Network Device / Device
-> > Operation / Control Virtqueue / Notifications Coalescing / RX Example}
-> > 
-> >  If, for example:
-> > @@ -1585,15 +1653,26 @@ \subsubsection{Control
-> > Virtqueue}\label{sec:Device Types / Network Device / Devi
-> > 
-> >  \drivernormative{\subparagraph}{Notifications Coalescing}{Device Types /
-> > Network Device / Device Operation / Control Virtqueue / Notifications
-> > Coalescing}
-> > 
-> > -If the VIRTIO_NET_F_NOTF_COAL feature has not been negotiated, the driver
-> > MUST NOT issue VIRTIO_NET_CTRL_NOTF_COAL commands.
-> > +If neither the VIRTIO_NET_F_NOTF_COAL nor the
-> > VIRTIO_NET_F_VQ_NOTF_COAL
-> > +feature has been negotiated, the driver MUST NOT issue
-> > VIRTIO_NET_CTRL_NOTF_COAL commands.
-> > +
-> I agree to Alvaro's suggestion.
-> If VIRTIO_NET_F_NOTF_COAL is not negotiated, the driver must not issue commands A and B.
-> 
-> If VIRTIO_NET_F_VQ_NOTF_COAL is not negotiated, the driver must not issue commands C and D.
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 0500bb6..98f0f20 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -487,8 +487,8 @@ \subsubsection{Packet
+Transmission}\label{sec:Device Types / Network Device / De
+
+ \item \field{num_buffers} is set to zero.  This field is unused on
+transmitted packets.
+
+-\item The header and packet are added as one output descriptor to the
+-  transmitq, and the device is notified of the new entry
++\item The header and packet output descriptors are added as one buffer to
++  the transmitq, and the device is notified of the new entry
+   (see \ref{sec:Device Types / Network Device / Device
+Initialization}~\nameref{sec:Device Types / Network Device / Device
+Initialization}).
+ \end{enumerate}
+
+- Gordon
+
+---------- Forwarded message ---------
+From: Stefan Hajnoczi <stefanha@redhat.com>
+Date: Wed, Mar 9, 2022 at 7:53 PM
+Subject: Re: [virtio-comment] virtio-net : 5.1.6.2 descriptor-chains
+on transmitq
+To: Awais Masood <awais@bedrocksystems.com>
+Cc: <virtio-comment@lists.oasis-open.org>
 
 
-Yea. Though double negatives are annoying.  One way to avoid them is
+On Wed, Mar 09, 2022 at 06:00:08PM +0500, Awais Masood wrote:
+> Hi,
+>
+> Seeking some clarity on:
+>
+>  5.1.6.2
+>  Packet Transmission
+>
+>  5. The header and packet are added as one output descriptor to the
+> transmitq, and the device is notified of the new entry
+>
+> Does it imply no descriptor-chains for packets in transmitq? If
+> descriptor-chains are allowed on transmitq then why does it not state
+> 'output buffer' instead of 'output descriptor'?
 
-	The driver MUST negotiate VIRTIO_NET_F_NOTF_COAL before issuing commands A and B.
+Good point, the spec is misleading.
 
-or
-	The driver is REQUIRED to negotiate VIRTIO_NET_F_NOTF_COAL before issuing commands A and B.
+TX buffers can be chains and/or use indirect descriptors. I think it
+should read:
 
+  The header and packet output descriptors are added as one buffer to
+  the transmitq, and the device is notified of the new entry
 
+There are no restrictions on descriptor framing, it would violate the
+spec:
 
+  2.6.4 Message Framing
 
-> > +A driver MUST ignore the values of coalescing parameters received from the
-> > VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET command if a device responds with
-> > VIRTIO_NET_ERR.
-> > 
-> >  \devicenormative{\subparagraph}{Notifications Coalescing}{Device Types /
-> > Network Device / Device Operation / Control Virtqueue / Notifications
-> > Coalescing}
-> > 
-> > -A device SHOULD respond to the VIRTIO_NET_CTRL_NOTF_COAL commands
-> > with VIRTIO_NET_ERR if it was not able to change the parameters.
-> > +A device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
-> > VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if it
-> > was not able to change the parameters.
-> > +
-> > +A device MUST respond to the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET
-> > command with VIRTIO_NET_ERR if it was not able to change the parameters.
-> > +
-> > +A device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and
-> > VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands with VIRTIO_NET_ERR if
-> > the given virtqueue is disabled.
-> > +
-> > +A device MUST ignore \field{reserved}.
-> > 
-> >  A device SHOULD NOT send used buffer notifications to the driver if the
-> > notifications are suppressed, even if the notification conditions are met.
-> > 
-> > -Upon reset, a device MUST initialize all coalescing parameters to 0.
-> > +After disabling and re-enabling a virtqueue, the device MUST revert coalescing
-> revert to
-> > parameters of the virtqueue to the global values.
-> > +
-> Like others suggested, above can be reworded as,
-> 
-> After disabling and re-enabling a virtuqueue, the device MUST revert to coalescing parameters to the one configured using VIRTIO_NET_CTRL_NOTF_COAL.
+  The framing of messages with descriptors is independent of the
+  contents of the buffers. For example, a network transmit buffer
+  consists of a 12 byte header followed by the network packet. This
+  could be most simply placed in the descriptor table as a 12 byte
+  output descriptor followed by a 1514 byte output descriptor, but it
+  could also consist of a single 1526 byte output descriptor in the case
+  where the header and packet are adjacent, or even three or more
+  descriptors (possibly with loss of efficiency in that case).
 
-meaning RX/TX I guess. be explicit.
+Would you like to send a patch to update the spec? The guidelines for
+contributing spec changes are here:
+https://github.com/oasis-tcs/virtio-spec/blob/master/CONTRIBUTING.md
 
-... or 0 if RX/TX was not set?
+Stefan
 
 
-> > +Upon reset, a device MUST initialize all coalescing parameters to 0 and MUST
-> > set the global values to 0.
-> > 
-> No need to mention global values here. "all coalescing parameters to 0" covers per vq and per group of tx and rx vqs.
+-- 
+Gordon Stewart
+gordon@bedrocksystems.com
 
-Let's wait for new version of Alvaro's patch, rebase on top of that.
+BedRock
 
+Systems Inc
+*UNBREAKABLE FOUNDATION* *FOR *
+*FORMALLY SECURED COMPUTING*
 
-> >  \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
-> > Types / Network Device / Legacy Interface: Framing Requirements}
-> > --
-> > 2.19.1.6.gb485710b
+--00000000000098c9c905f5b44f16
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Stefan,<div><br></div><div>It took us a while to follow=
+-up on this -- apologies.</div><div><br></div><div>Here&#39;s a patch:</div=
+><div><pre style=3D"color:rgb(0,0,0);white-space:pre-wrap">From: Gordon Ste=
+wart &lt;<a href=3D"mailto:gordon@bedrocksystems.com">gordon@bedrocksystems=
+.com</a>&gt;
+Date: Mon, 27 Feb 2023 13:59:45 -0500
+Subject: [PATCH] 5.1.6.2 Packet Transmission; clarify &quot;output descript=
+or&quot;
+
+---
+ device-types/net/description.tex | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/device-types/net/description.tex b/device-types/net/descriptio=
+n.tex
+index 0500bb6..98f0f20 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -487,8 +487,8 @@ \subsubsection{Packet Transmission}\label{sec:Device Ty=
+pes / Network Device / De
+=20
+ \item \field{num_buffers} is set to zero.  This field is unused on transmi=
+tted packets.
+=20
+-\item The header and packet are added as one output descriptor to the
+-  transmitq, and the device is notified of the new entry
++\item The header and packet output descriptors are added as one buffer to
++  the transmitq, and the device is notified of the new entry
+   (see \ref{sec:Device Types / Network Device / Device Initialization}~\na=
+meref{sec:Device Types / Network Device / Device Initialization}).
+ \end{enumerate}</pre><div>- Gordon</div><div class=3D"gmail_quote"><br>---=
+------- Forwarded message ---------<br>
+From: Stefan Hajnoczi &lt;<a href=3D"mailto:stefanha@redhat.com" target=3D"=
+_blank">stefanha@redhat.com</a>&gt;<br>
+Date: Wed, Mar 9, 2022 at 7:53 PM<br>
+Subject: Re: [virtio-comment] virtio-net : 5.1.6.2 descriptor-chains<br>
+on transmitq<br>
+To: Awais Masood &lt;<a href=3D"mailto:awais@bedrocksystems.com" target=3D"=
+_blank">awais@bedrocksystems.com</a>&gt;<br>
+Cc: &lt;<a href=3D"mailto:virtio-comment@lists.oasis-open.org" target=3D"_b=
+lank">virtio-comment@lists.oasis-open.org</a>&gt;<br>
+<br>
+<br>
+On Wed, Mar 09, 2022 at 06:00:08PM +0500, Awais Masood wrote:<br>
+&gt; Hi,<br>
+&gt;<br>
+&gt; Seeking some clarity on:<br>
+&gt;<br>
+&gt;=C2=A0 5.1.6.2<br>
+&gt;=C2=A0 Packet Transmission<br>
+&gt;<br>
+&gt;=C2=A0 5. The header and packet are added as one output descriptor to t=
+he<br>
+&gt; transmitq, and the device is notified of the new entry<br>
+&gt;<br>
+&gt; Does it imply no descriptor-chains for packets in transmitq? If<br>
+&gt; descriptor-chains are allowed on transmitq then why does it not state<=
+br>
+&gt; &#39;output buffer&#39; instead of &#39;output descriptor&#39;?<br>
+<br>
+Good point, the spec is misleading.<br>
+<br>
+TX buffers can be chains and/or use indirect descriptors. I think it<br>
+should read:<br>
+<br>
+=C2=A0 The header and packet output descriptors are added as one buffer to<=
+br>
+=C2=A0 the transmitq, and the device is notified of the new entry<br>
+<br>
+There are no restrictions on descriptor framing, it would violate the<br>
+spec:<br>
+<br>
+=C2=A0 2.6.4 Message Framing<br>
+<br>
+=C2=A0 The framing of messages with descriptors is independent of the<br>
+=C2=A0 contents of the buffers. For example, a network transmit buffer<br>
+=C2=A0 consists of a 12 byte header followed by the network packet. This<br=
+>
+=C2=A0 could be most simply placed in the descriptor table as a 12 byte<br>
+=C2=A0 output descriptor followed by a 1514 byte output descriptor, but it<=
+br>
+=C2=A0 could also consist of a single 1526 byte output descriptor in the ca=
+se<br>
+=C2=A0 where the header and packet are adjacent, or even three or more<br>
+=C2=A0 descriptors (possibly with loss of efficiency in that case).<br>
+<br>
+Would you like to send a patch to update the spec? The guidelines for<br>
+contributing spec changes are here:<br>
+<a href=3D"https://github.com/oasis-tcs/virtio-spec/blob/master/CONTRIBUTIN=
+G.md" rel=3D"noreferrer" target=3D"_blank">https://github.com/oasis-tcs/vir=
+tio-spec/blob/master/CONTRIBUTING.md</a><br>
+<br>
+Stefan<br>
+</div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr" class=3D"gma=
+il_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><div=
+ dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><span>Gordon =
+Stewart</span></div><div dir=3D"ltr"><span><a href=3D"mailto:gordon@bedrock=
+systems.com" target=3D"_blank">gordon@bedrocksystems.com</a><br></span></di=
+v><p class=3D"MsoNormal" style=3D"text-align:start;word-spacing:0px">
+<span style=3D"font-size:16pt;font-family:PRIMETIME;color:rgb(12,107,255)" =
+lang=3D"EN-GB">BedRock</span><span style=3D"color:black"></span></p>
+<p class=3D"MsoNormal" style=3D"text-align:start;word-spacing:0px">
+<span style=3D"font-size:8pt;font-family:&quot;Open Sans&quot;,sans-serif;c=
+olor:black" lang=3D"EN-GB">Systems Inc</span><b><span style=3D"font-family:=
+&quot;Open Sans&quot;,sans-serif;color:rgb(255,147,0)" lang=3D"EN-GB"><br>
+</span></b><b><span style=3D"font-size:10pt;font-family:&quot;Open Sans&quo=
+t;,sans-serif;color:rgb(12,107,255)" lang=3D"EN-GB">UNBREAKABLE FOUNDATION<=
+/span></b><span style=3D"color:black" lang=3D"EN-GB">
+</span><b><span style=3D"font-size:10pt;font-family:&quot;Open Sans&quot;,s=
+ans-serif;color:rgb(12,107,255)" lang=3D"EN-GB">FOR
+</span></b></p>
+<b><span style=3D"font-size:10pt;font-family:&quot;Open Sans&quot;,sans-ser=
+if;color:rgb(0,107,255);text-transform:uppercase">FORMALLY SECURED COMPUTIN=
+G</span></b></div></div></div></div></div></div></div></div></div></div>
+
+--00000000000098c9c905f5b44f16--
+
+--00000000000098c9cb05f5b44f18
+Content-Type: text/plain; charset="US-ASCII"; name="signature.asc"
+Content-Disposition: attachment; filename="signature.asc"
+Content-Transfer-Encoding: base64
+Content-ID: <17f6f318eac61a8e03b1>
+X-Attachment-Id: 17f6f318eac61a8e03b1
+
+LS0tLS1CRUdJTiBQR1AgU0lHTkFUVVJFLS0tLS0NCg0KaVFFekJBRUJDQUFkRmlFRWhwV292OVA1
+Zk5xc05YZGFuS1NyczRHcmM4Z0ZBbUlvdjAwQUNna1FuS1NyczRHcg0KYzhnNnpBZ0FrVlhIbTVu
+UlkzTE02OG1ZM2R1TEYrY1VSdUdIdDJLUndqS2lOdzNkRVZFb21TMERhTjROTDBVMQ0KNlo3bzgw
+dmZrZm1IVTBpNDkydmNUeGh0ajNRMDVkQzRlT1g4S3UyUWFHUEtZczNYVWZFLzJGbldySWZxYTFp
+Yw0KUTliOTN3bDNWWktLN3lJdmJ1NHNCc3haM2pjMVhnSjVGdFBPZ3YyN29UZGNPWmJtTzNteUQ4
+Q1RLM2V1Q0N0Rg0KZVhjTmlzSHNWckkwb2tQdFIvUXFyK0RraThNM3RTTWtWQkRvRHhaeHJqOE0z
+UHE1QXBTR3orTzdqaEVZaTk2Vw0KVVJscnlzc2VXYUhLLzVTanU1enRPNHdVRjRFRmtRWTNvNmE1
+WnFRRVNqUlVRM0VtQnpiSlZaU0FvcjhSMXBzWg0Kalcrd1gzNFc3OERycHBqZDNEeDEzSkF1NWJU
+ZzFRPT0NCj1wRGppDQotLS0tLUVORCBQR1AgU0lHTkFUVVJFLS0tLS0NCg==
+--00000000000098c9cb05f5b44f18
+Content-Type: text/plain; charset=us-ascii
 
 
 This publicly archived list offers a means to provide input to the
@@ -251,4 +279,5 @@ Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
+--00000000000098c9cb05f5b44f18--
 
