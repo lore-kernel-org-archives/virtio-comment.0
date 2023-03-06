@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-4717-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4718-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FFF7C61DA4
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:46:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EFF2C61DA4
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 20:18:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8D9694256A
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5B2A941EF1
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 20:18:12 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 807819866C5
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4ADEE9866C0
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 20:18:12 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 772229866BD; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
+	id 38BA79866BE; Mon,  6 Mar 2023 20:18:12 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,92 +24,112 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 65A1D9866BF
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1F4399866BF
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Mar 2023 20:18:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: GC2aBYFyO9eh6K-miLh3Pg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678128375;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Asbr/RlbGGJgG1C7LoI9h8RVUFLRJXUIQ3IQ+QJ7zwU=;
-        b=P84JCzMlDuQs6AiZNSVR9uGvUso1KCIFVpIBO0gWynbrwzJ6JTTtj1whprNsinM20m
-         1U8YJkbISImabO5i4dGK38W4JCJVcxf14cwUhsFTlhAnBkd/AtZcaZfKtzyjJwuIkVEE
-         qZSI2pkAAdZg07u3GMB5vjbKivU/qBUoL62O9UpBZ3IYERK7mGWTgYJdGVTEPQymH9mw
-         AtgStX7bGUCt75n1CW7gj28aPZ7zQ36FXnQKDVRBvHf/4FnCp8yf/0XEro05N686Dm/E
-         gxj03bLCMDFlmfafUoX84UW+NpNSlVje/oDXRtQRaWGNo5MgD89AW+ekUj+ZET5QpTEV
-         h9FA==
-X-Gm-Message-State: AO0yUKWq6anT7ei99YtlYnfP11hcvy7hBZbaVNQV7CT9654hit2N+jwT
-	YuyuFsf+xnBQXDAYhIdFKpq3t/jc238459JjhzdrCpn27EMt+AzrGchfm4M/tgwKzdNvzVgN2x3
-	BFtOPOS/IbCawhNU563nWAht0Yup+0Fa83Q==
-X-Received: by 2002:a05:600c:310a:b0:3dc:555c:dd30 with SMTP id g10-20020a05600c310a00b003dc555cdd30mr10379027wmo.27.1678128375164;
-        Mon, 06 Mar 2023 10:46:15 -0800 (PST)
-X-Google-Smtp-Source: AK7set95ezq23oCkCs1iLRCrh45pPQlaw9vKEw6wp3Woz/n2BKv5mF9OPSTFyBLp+jXRHP+8//QpBw==
-X-Received: by 2002:a05:600c:310a:b0:3dc:555c:dd30 with SMTP id g10-20020a05600c310a00b003dc555cdd30mr10379010wmo.27.1678128374862;
-        Mon, 06 Mar 2023 10:46:14 -0800 (PST)
-Date: Mon, 6 Mar 2023 13:46:09 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jiri Pirko <jiri@nvidia.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sgarzare@redhat.com" <sgarzare@redhat.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	"nrupal.jani@intel.com" <nrupal.jani@intel.com>,
-	"Piotr.Uminski@intel.com" <Piotr.Uminski@intel.com>,
-	"hang.yuan@intel.com" <hang.yuan@intel.com>,
-	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
-	Zhu Lingshan <lingshan.zhu@intel.com>,
-	"pasic@linux.ibm.com" <pasic@linux.ibm.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
+X-MC-Unique: NFKd1cZLMemx--czfAJM4g-1
+Date: Mon, 6 Mar 2023 15:17:59 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+	jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com,
+	nrupal.jani@intel.com, Piotr.Uminski@intel.com, hang.yuan@intel.com,
+	virtio@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>,
+	pasic@linux.ibm.com, Shahaf Shuler <shahafs@nvidia.com>,
+	Parav Pandit <parav@nvidia.com>,
 	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <20230306134451-mutt-send-email-mst@kernel.org>
-References: <cover.1677761896.git.mst@redhat.com>
- <dd9c34ed74ee296228562f6946d4ca3f2fbee1e1.1677761896.git.mst@redhat.com>
- <PH0PR12MB5481595368C8F0C0E16B681BDCB29@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230303032434-mutt-send-email-mst@kernel.org>
- <ZAXB44F3MS9CxIiK@nanopsycho>
+Message-ID: <20230306201759.GA78491@fedora>
+References: <20230302204007.GD2554028@fedora>
+ <20230302190230-mutt-send-email-mst@kernel.org>
+ <20230303132840.GC2866370@fedora>
+ <20230303083213-mutt-send-email-mst@kernel.org>
+ <20230303202133.GA2901137@fedora>
+ <20230305043419-mutt-send-email-mst@kernel.org>
+ <20230306000302.GA244754@fedora>
+ <20230305191351-mutt-send-email-mst@kernel.org>
+ <20230306110340.GA35392@fedora>
+ <20230306133525-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <ZAXB44F3MS9CxIiK@nanopsycho>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="KA7q7YtT7K3QUpzA"
+Content-Disposition: inline
+In-Reply-To: <20230306133525-mutt-send-email-mst@kernel.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: [virtio-comment] Re: [virtio] Re: [PATCH v10 04/10] admin: introduce virtio admin
+ virtqueues
+
+--KA7q7YtT7K3QUpzA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [virtio] Re: [PATCH v10 06/10] mmio: document ADMIN_VQ as
- reserved
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 06, 2023 at 11:35:15AM +0100, Jiri Pirko wrote:
-> Well, lots of these things (if not majority) are customary, not
-> really written up anywhere in Linux kernel netdev world. It's most of
-> the time just a matter of convenience I would say. For example
-> splitted-up patch changelog. I do it, but most of the people don't (even
-> maintainers). From time to time during review, I request it as I don't
-> want to be lost in the changes. It is nice if the submitter tries to
-> make reviewer's life a bit easier :)
+On Mon, Mar 06, 2023 at 01:37:31PM -0500, Michael S. Tsirkin wrote:
+> On Mon, Mar 06, 2023 at 06:03:40AM -0500, Stefan Hajnoczi wrote:
+> > On Sun, Mar 05, 2023 at 07:18:24PM -0500, Michael S. Tsirkin wrote:
+> > > On Sun, Mar 05, 2023 at 07:03:02PM -0500, Stefan Hajnoczi wrote:
+> > > > On Sun, Mar 05, 2023 at 04:38:59AM -0500, Michael S. Tsirkin wrote:
+> > > > > On Fri, Mar 03, 2023 at 03:21:33PM -0500, Stefan Hajnoczi wrote:
+> > > > > > What happens if a command takes 1 second to complete, is the de=
+vice
+> > > > > > allowed to process the next command from the virtqueue during t=
+his time,
+> > > > > > possibly completing it before the first command?
+> > > > > >=20
+> > > > > > This requires additional clarification in the spec because "the=
+y are
+> > > > > > processed by the device in the order in which they are queued" =
+does not
+> > > > > > explain whether commands block the virtqueue (in order completi=
+on) or
+> > > > > > not (out of order completion).
+> > > > >=20
+> > > > > Oh I begin to see. Hmm how does e.g. virtio scsi handle this?
+> > > >=20
+> > > > virtio-scsi, virtio-blk, and NVMe requests may complete out of orde=
+r.
+> > > > Several may be processed by the device at the same time.
+> > >=20
+> > > Let's say I submit a write followed by read - is read
+> > > guaranteed to return an up to date info?
+> >=20
+> > In general, no. The driver must wait for the write completion before
+> > submitting the read if it wants consistency.
+> >=20
+> > Stefan
+>=20
+> I see.  I think it's a good design to follow then.
+>=20
+> I'll just copy
+> 	The driver queues requests to an arbitrary request queue, and
+> 	they are used by the device on that same queue. It is the
+> 	responsibility of the driver to ensure strict request ordering
+> 	for commands placed on different queues, because they will be
+> 	consumed with no order constraints.
+>=20
+> replacing "request" with "admin".
 
-True. With all this lore let's just agree netdev is not the easiest
-project to get started with, right?
+That sounds like it's only about multi-queue because it says "... for
+commands placed on different queues". What I mentioned about a write
+followed by a read quest also applies within a single queue.
 
--- 
-MST
+Can you clarify the semantics in the single queue case?
 
+Stefan
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+--KA7q7YtT7K3QUpzA
+Content-Type: application/pgp-signature; name="signature.asc"
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+-----BEGIN PGP SIGNATURE-----
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmQGSncACgkQnKSrs4Gr
+c8hnjQf/c+chHGbHvkocqbSFseheyYAfch0jVL3RruR5YIu4tNtkY9GarDYM0EaC
+fWVnOtKzYCfT2yzctNClrvkLdoxNj7N18H2J5YdFlIyyl40IoNu/DIwiP/dmjGY1
+7ItSCZFytX5jtpNFbSu7Qxg17etpdtLTCajt9Pszw7PMSRvXY961QOkEzU1TsiwR
+6qwE+eMA7ra5rP/z7wLSz4aqL7x+HZuTdZy9i3co+nTyHWTEbK38Qb91L0g25J0f
+Y6dGwCf/C/jVaxBgOva3wefgQJMPGlO1NLe5aW+p/ijkk6uCQqfoPtenFgKS7MB7
+JjyNA1R7ugd4iRIH02z5mtJ2lXvOtw==
+=OQ+c
+-----END PGP SIGNATURE-----
+
+--KA7q7YtT7K3QUpzA--
 
