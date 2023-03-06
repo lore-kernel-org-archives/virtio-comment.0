@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-4721-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4722-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 241FCC64EC4
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 21:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54BADC6FD1A
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 22:00:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 467C52B04F
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 21:51:01 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9DF394256F
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 22:00:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3A7B59866BF
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 21:51:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8F33C9866C7
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 22:00:27 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 2DCC6983C2D; Mon,  6 Mar 2023 21:51:01 +0000 (UTC)
+	id 859039866BE; Mon,  6 Mar 2023 22:00:27 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,180 +24,164 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1B9C59866BE
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Mar 2023 21:51:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 709649866C1
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Mar 2023 22:00:25 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: X1_v9zOlPq6s5tp5AbO3oA-1
+X-MC-Unique: 6jL9rLD0O1SBQomduUylKw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678139457;
+        d=1e100.net; s=20210112; t=1678140022;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VVAMgNWbk7fqBHrOtY31h2Kwb1eMiojdPeJ1cJvD6p4=;
-        b=bTdXu19WjPCjnFMu+NxTG2BPEkasHXGBOr5SMiuV65895IoNSDJbAbXIRb9YoK9yZA
-         DpAdkthJQE4g42695Pt5SQ4ITM0PgdCRhsLbq/MWtxLJbkmTVaQEIExPGmO7zWh0KPAR
-         u2W0MtNzPrcYCQJ9skvTgdJeJBIKKPkKLf+C4qi5ZeIYGQhKI39RG/8u8LCK6ucI5nER
-         D0HGMhFk6W2p2VmH9l1XlYTBoBBpruYJXl5UnLQ50Xcr7v+14DBk8kZAiT30FGT2BdpN
-         9asKKcmnN/0eiRIAlGcrSEXrvk2clzmlSHAXR+4gB0AcMMPHBUlKwBdM45biyMYHE26V
-         IKqA==
-X-Gm-Message-State: AO0yUKUKStXdKVS368SngrXOp7ZXC8dZIEOJB1ML5pEBbBaMB/ql4Go/
-	4nOv8QNbvYdF7ljbkoXYfZ/ikEkgVLiDjZEqFN/rRsrKzbQYECEX1H+p4CsVXftPfrkmX0EcNC3
-	kZvTg8kYq7uRXFsp0Df9kEFggVxGkaKia33Y2ezVnBQ==
-X-Received: by 2002:a05:600c:21d0:b0:3eb:38e6:f64d with SMTP id x16-20020a05600c21d000b003eb38e6f64dmr11419734wmj.39.1678139457706;
-        Mon, 06 Mar 2023 13:50:57 -0800 (PST)
-X-Google-Smtp-Source: AK7set+EHtSwNKechbx4Y0QqtpLsXbnVV48BMxpnnx+S9Znf8EM114rHnFZmZgwJN31IwoldfogsSQ==
-X-Received: by 2002:a05:600c:21d0:b0:3eb:38e6:f64d with SMTP id x16-20020a05600c21d000b003eb38e6f64dmr11419723wmj.39.1678139457335;
-        Mon, 06 Mar 2023 13:50:57 -0800 (PST)
-Date: Mon, 6 Mar 2023 16:50:53 -0500
+        bh=mhzVqHVcrHIyDRtyLxqjAOdIe18J6yPBs2WiqjSTruw=;
+        b=AqbQvOVhyYLcFF0POETIdWN7ChLga2c2cqNVoa2wfEn78VBiW2QEcZnvfyobXkq7yf
+         +XYEE25ikIi/UsZx4ZiYMh9csCVQf8BG8S12cuG1+L22VaM/CmHnhK6tAp08p2Cxnplu
+         2i0oN9X3AZaJ28bt2PfJQp0jEunZukqS2kSjKSrRyYZMcCQzAF1x3Tbrzc4iGO+kYxJN
+         m0/S7rYpGM6ZW6FvFBzqsCy4Cc2hXImDGtum4/7F1LVZKrH3n92WsnYjAcpyw6z6UwH4
+         ukgiT0eoVwZs/NkSlLQQuzwaD2Gech0KT0C6C6qLwRuZo+7zUDcT9rL4AEZz1JX6M8ix
+         U/ug==
+X-Gm-Message-State: AO0yUKX3FlYVIZpzPQaODF7QR2y/eqdJpqy22Ie1oH9gfUspsDzcYjP1
+	wnf5rwWF5OZiL4TSoIYsfL5iIxp8dPCtnYdGCO5SJ+H1NtZGjilHdziP9117GpuL029oFlazv6Q
+	bOAh9uKadZpEMDY2DEDvFmqN8AHIm/1mb/A==
+X-Received: by 2002:a05:600c:3153:b0:3eb:39c9:ecb0 with SMTP id h19-20020a05600c315300b003eb39c9ecb0mr10974696wmo.8.1678140021794;
+        Mon, 06 Mar 2023 14:00:21 -0800 (PST)
+X-Google-Smtp-Source: AK7set8ZpG0ST+1T1wypzMJip+v14GvHhEWpDkTiobInbREotsd9T68tRJTOuSaGg0jjaap43RCakQ==
+X-Received: by 2002:a05:600c:3153:b0:3eb:39c9:ecb0 with SMTP id h19-20020a05600c315300b003eb39c9ecb0mr10974668wmo.8.1678140021446;
+        Mon, 06 Mar 2023 14:00:21 -0800 (PST)
+Date: Mon, 6 Mar 2023 17:00:16 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: Christian Schoenebeck <qemu_oss@crudebyte.com>,
-	"Afsa, Baptiste" <Baptiste.Afsa@harman.com>,
-	Eugenio Perez Martin <eperezma@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20230306164500-mutt-send-email-mst@kernel.org>
-References: <20221013074513.25141-1-baptiste.afsa@harman.com>
- <6380471.4BWXO1n1mU@silver>
- <20230301095017-mutt-send-email-mst@kernel.org>
- <2812377.Px9Efocobp@silver>
- <20230306124013-mutt-send-email-mst@kernel.org>
- <20230306204601.GC78491@fedora>
+To: David Edmondson <david.edmondson@oracle.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+	jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com,
+	stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com,
+	hang.yuan@intel.com, virtio@lists.oasis-open.org,
+	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
+	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>
+Message-ID: <20230306165907-mutt-send-email-mst@kernel.org>
+References: <cover.1677761896.git.mst@redhat.com>
+ <0a784140387c2a592f7e1e7bbc5ae926ec5b45da.1677761896.git.mst@redhat.com>
+ <m2leka0yvl.fsf@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20230306204601.GC78491@fedora>
+In-Reply-To: <m2leka0yvl.fsf@oracle.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: VIRTIO_RING_F_INDIRECT_SIZE status
+Subject: [virtio-comment] Re: [virtio] [PATCH v10 01/10] virtio: document forward
+ compatibility guarantees
 
-On Mon, Mar 06, 2023 at 03:46:01PM -0500, Stefan Hajnoczi wrote:
-> On Mon, Mar 06, 2023 at 12:41:25PM -0500, Michael S. Tsirkin wrote:
-> > On Mon, Mar 06, 2023 at 04:00:37PM +0100, Christian Schoenebeck wrote:
-> > > On Wednesday, March 1, 2023 3:55:57 PM CET Michael S. Tsirkin wrote:
-> > > > On Wed, Mar 01, 2023 at 01:55:14PM +0100, Christian Schoenebeck wrote:
-> > > > >   2.8 Packed Virtqueues
-> > > > >   ...
-> > > > >   2.8.5 Scatter-Gather Support [1]
-> > > > >   ...
-> > > > >   While unusual (most implementations either create all lists solely using   
-> > > > >   non-indirect descriptors, or always use a single indirect element), if both 
-> > > > >   features have been negotiated, mixing indirect and non-indirect descriptors 
-> > > > >   in a ring is valid, as long as each list only contains descriptors of a 
-> > > > >   given type.
-> > > > > 
-> > > > >   [1] https://docs.oasis-open.org/virtio/virtio/v1.2/cs01/virtio-v1.2-cs01.html#x1-770005
-> > > > > 
-> > > > > To avoid misapprehensions: the way I understand it, same restrictions apply to
-> > > > > packed queues as split queues, in the sense that you may neither chain several
-> > > > > tables in a single message, nor multi-level nest tables, nor mix a list of
-> > > > > direct descriptors and indirect descriptors on the same level within one
-> > > > > message. So the explicit exception described here, only means you may use
-> > > > > *one* indirect table in one message, while using chained direct descriptors in
-> > > > > another message. But that's it, right?
-> > > > 
-> > > > 
-> > > > That's my understanding.
-> > > > 
-> > > > > > 2. Given this is a lot of work I am trying to find a way to
-> > > > > > make the impact bigger. In particular to cover the use-case
-> > > > > > of limiting s/g to 1k while making queues deeper (with
-> > > > > > or without indirect). For this I proposed:
-> > > > > > 
-> > > > > > 	So I think that given this, we can limit the total number
-> > > > > > 	of non-indirect descriptors, including non-indirect ones
-> > > > > > 	in a chain + all the ones in indirect pointer table if any,
-> > > > > > 	and excluding the indirect descriptor itself, and this
-> > > > > > 	will address the issue you are describing here, right?
-> > > > > > 
-> > > > > > people seemed to be ok with this idea?
-> > > > > 
-> > > > > IIUIC it would not make a difference from design perspective from what I
-> > > > > proposed, as virtio currently neither allows to mix, chain or mult-level nest
-> > > > > indirect descriptor tables within a single message), and hence it would just
-> > > > > boil down to adjusting the wording. So yes, it would therefore cover my
-> > > > > intended use case.
-> > > > > 
-> > > > > Best regards,
-> > > > > Christian Schoenebeck
-> > > > 
-> > > > 
-> > > > Sounds good to me. One interesting case is scsi and blk which have
-> > > > a seg_max field. This is defined as
-> > > > 
-> > > > \item[\field{seg_max}] is the maximum number of segments that can be in a
-> > > >     command. A bidirectional command can include \field{seg_max} input
-> > > >     segments and \field{seg_max} output segments.
-> > > > 
-> > > > it is never explained what *are* the segments, or how does it
-> > > > interact with VQ depth. Current drivers interpret this
-> > > > strictly and assume that this limits the s/g length but does not
-> > > > allow you to exceed vq size.
-> > > > 
-> > > > Do we thus want two limits (for read and write descriptors)?
-> > > 
-> > > No opinion on that, as my intended use case was just extending the buffer size
-> > > beyond queue size, not limiting it below queue size. Either way is fine with
-> > > me.
-> > > 
-> > > Anyhow, as this now gets broader scope, that also means the suggested flag
-> > > VIRTIO_RING_F_INDIRECT_SIZE needs to be renamed. VIRTIO_RING_F_BUFFER_SIZE?
-> > > 
-> > > Best regards,
-> > > Christian Schoenebeck
-> > 
-> > 
-> > Hmm that's unclear in that it might be in bytes too.
-> > Given blk and scsi call these "segments" how about
-> > VIRTIO_RING_F_SEG_MAX?
+On Mon, Mar 06, 2023 at 01:53:50PM +0000, David Edmondson wrote:
+> "Michael S. Tsirkin" <mst@redhat.com> writes:
 > 
-> The VIRTIO equivalent of a "segment" is an "element".
-
-Hmm true:
-	A buffer consists of zero or more device-readable physically-contiguous
-	elements followed by zero or more physically-contiguous
-	device-writable elements (each buffer has at least one element).
-
-However we then need to clean this up, since
-
-- At least in one place we say
-
-indirect elements to mean indirect descriptors.
-
-- we also say "queue elements" to mean "avail/desc/used"
-- We also say "descriptor elements" - not 100% sure it's the same.
-
-so we need to clean this up a bit first and maybe add
-text about indirect descriptors not counting as elements.
-
-
-
-
-> I don't think the
-> term "segment" is needed at the VIRTIO device model level since there is
-> already a word for it.
+> > Feature negotiation forms the basis of forward compatibility
+> > guarantees of virtio but has never been properly documented.
+> > Do it now.
+> >
+> > Suggested-by: Halil Pasic <pasic@linux.ibm.com>
+> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > ---
+> >  content.tex | 42 ++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 42 insertions(+)
+> >
+> > diff --git a/content.tex b/content.tex
+> > index 0e474dd..0c2d917 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -114,21 +114,63 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+> >  In particular, new fields in the device configuration space are
+> >  indicated by offering a new feature bit.
+> >  
+> > +To keep the feature negotiation mechanism extensible, it is important
+> > +that devices \em{do not} offer any feature bits that they would not be
+> > +able to handle if the driver accepted them (even though drivers are not
+> > +supposed to accept them in the first place even if offered, according to
+> > +this version of the specification.) 
 > 
-> I'm confused because VIRTIO_RING_F_BUFFER_SIZE and VIRTIO_RING_F_SEG_MAX
-> mean different things to me and have different units (bytes vs number of
-> segments).
-
-What was requested was number of segments/elements.
-
-> I wouldn't worry about virtio-blk/scsi seg_max. Although the segments
-> map to virtqueue elements, seg_max has a specific SCSI/block level
-> meaning related to data transfer and is not about constraints that apply
-> to all virtqueue requests. I/O requests have headers/footers, so they
-> can actually consume more elements than seg_max. Also, there could be
-> non-data transfer requests that happen to consume more than seg_max and
-> the storage controller would be happy with that (e.g. because VIRTIO
-> mandates flexible framing so you could break a request into 1-byte
-> elements). It's confusing the talk about seg_max at the VIRTIO device
-> model level - it's not about virtqueues at all.
+> I find this (the bit in parenthesis) confusing.
 > 
-> Stefan
+> Why are drivers not supposed to accept features that they have been
+> offered, given that they can't know that the device cannot handle the
+> feature that it just offered?
+> 
+> Is this alluding to the later section:
+> 
+> > feature bits not described in this specification, reserved feature
+> > bits and feature bits reserved or not supported for the specific
+> > transport or the specific device type
+> 
+> ?
 
-OK thanks for the clarification.
+exactly. how would you put this better? given an example?
 
-
+> > Likewise, it is important that
+> > +drivers \em{do not} accept feature bits they do not know how to handle
+> > +(even though devices are not supposed to offer them in the first place,
+> > +according to this version of the specification.) The preferred way for
+> > +handling reserved and unexpected features is that the driver ignores
+> > +them.
+> > +
+> > +In particular, this is
+> > +especially important for features limited to specific transports,
+> > +as enabling these for more transports in future versions of the
+> > +specification is highly likely to require changing the behaviour
+> > +from drivers and devices.
+> 
+> "require changed behaviour from drivers and devices".
+> 
+> > Drivers and devices supporting
+> > +multiple transports need to carefully maintain per-transport
+> > +lists of allowed features.
+> > +
+> >  \drivernormative{\subsection}{Feature Bits}{Basic Facilities of a Virtio Device / Feature Bits}
+> >  The driver MUST NOT accept a feature which the device did not offer,
+> >  and MUST NOT accept a feature which requires another feature which was
+> >  not accepted.
+> >  
+> > +The driver MUST validate the feature bits offered by the device.
+> > +The driver MUST ignore and MUST NOT accept any feature bit that is
+> > +\begin{itemize}
+> > +\item not described in this specification,
+> > +\item marked as reserved,
+> > +\item not supported for the specific transport,
+> > +\item not defined for the device type.
+> > +\end{itemize}
+> > +
+> >  The driver SHOULD go into backwards compatibility mode
+> >  if the device does not offer a feature it understands, otherwise MUST
+> >  set the FAILED \field{device status} bit and cease initialization.
+> >  
+> > +By contrast, the driver MUST NOT fail solely because a feature
+> > +it does not understand has been offered by the device.
+> > +
+> >  \devicenormative{\subsection}{Feature Bits}{Basic Facilities of a Virtio Device / Feature Bits}
+> >  The device MUST NOT offer a feature which requires another feature
+> >  which was not offered.  The device SHOULD accept any valid subset
+> >  of features the driver accepts, otherwise it MUST fail to set the
+> >  FEATURES_OK \field{device status} bit when the driver writes it.
+> >  
+> > +The device MUST NOT offer feature bits corresponding to features
+> > +it would not support if accepted by the driver (even if the
+> > +driver is prohibited from accepting the feature bits by the
+> > +specification); for the sake of clarity, this refers to feature
+> > +bits not described in this specification, reserved feature bits
+> > +and feature bits reserved or not supported for the specific
+> > +transport or the specific device type, but this does not preclude
+> > +devices written to a future version of this specification from
+> > +offering such feature bits should such a specification have a
+> > +provision for devices to support the corresponding features.
+> > +
+> >  If a device has successfully negotiated a set of features
+> >  at least once (by accepting the FEATURES_OK \field{device
+> >  status} bit during device initialization), then it SHOULD
+> > -- 
+> > MST
+> >
+> >
+> > ---------------------------------------------------------------------
+> > To unsubscribe from this mail list, you must leave the OASIS TC that 
+> > generates this mail.  Follow this link to all your TCs in OASIS at:
+> > https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php 
 
 
 This publicly archived list offers a means to provide input to the
