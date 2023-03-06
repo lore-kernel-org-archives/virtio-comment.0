@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-4710-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4711-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1086DC61DA4
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 16:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23735C61DA4
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 16:40:14 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 78F9D41EF1
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 16:27:09 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 671B560241
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 16:40:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 713349866C1
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 16:27:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5CE039866BE
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 16:40:13 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 685519866B8; Mon,  6 Mar 2023 16:27:09 +0000 (UTC)
+	id 512E59866B8; Mon,  6 Mar 2023 16:40:13 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-Id: <virtio-comment.lists.oasis-open.org>
 Precedence: bulk
@@ -23,218 +23,120 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 58AFC9866B9
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Mar 2023 16:27:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3E71E9866B9;
+	Mon,  6 Mar 2023 16:40:13 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: I8QMqkoBOaqcfAsJVUSvMA-1
-Date: Mon, 6 Mar 2023 11:27:04 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Christian Schoenebeck <qemu_oss@crudebyte.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	"Afsa, Baptiste" <Baptiste.Afsa@harman.com>,
-	Eugenio Perez Martin <eperezma@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20230306162704.GB56760@fedora>
-References: <20221013074513.25141-1-baptiste.afsa@harman.com>
- <6380471.4BWXO1n1mU@silver>
- <Y/9Z5fphn34/HSKs@fedora>
- <2458440.T3bEdP9vpG@silver>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="IYtYDm3WD6H4W8xh"
-Content-Disposition: inline
-In-Reply-To: <2458440.T3bEdP9vpG@silver>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [virtio-comment] Re: VIRTIO_RING_F_INDIRECT_SIZE status
-
---IYtYDm3WD6H4W8xh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ahdf8jxiRc9I55TUpTvSlodlfnKVlN30Rcz9VbfNzigygBxvzxxiFKO78VDkhO/1Mqx4T2sjzj8Or9VJa1ROigEJ2zQvLvR/MYsmTHrfVQo/dK1h3q2vAQE3MSdc9ckvqP9cpfGiTWj9quCs390tT7HlfNeCDzSryWHWBYBU8y77v62nSMj+BubkMW7lGlH+ImAclUE7hIajTpm6WmT+QmmNH/IMlajjs/jXBoaB3+1oR1EFGAq8pCFflsJQVLkU343kq6qsLy7tpbGrYgxNDdb0zeABa12mv1tsRPNPIpdSMboLAsJ5WwLd1oxOYZUZ/QMVqetjzgGe9O0gdImM6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cfpyZEayv1wopTYB/gQ0lk/aWCPPs5XrgLtU/4kXrew=;
+ b=gPcWolqHPaqsWOx6VRAJNBbogOjZc33WLwb10G/itEerjsDHBCNcVk3eu4t2J+QWQsLs6Qfi7Ruor2+9c8AEJd6i6zOuCGqUuU2n/UH+zTWkNl7KI/T1aeE3JF/1s5Gwjw9/Q/exBjB+zN22g1T29G4IMxo8BrmwSRtt0zbTeocF5qwunhOQuy+UeixPMxsCzVxEkzo1GNHhI2fMf9rNSLqApjttYbeGM0Dmh38+lgYEKrOY2fmJtM8Dfa7Mgx0OBMMenF+0NGPbKJai3Bg6MfXWr9W8ZGx0sm9mhGamGJ43iYhkuXD78FtdrP+a4npVvCFqnqK5WkNGp1ZwL25Ydg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Mon, 6 Mar 2023 17:40:04 +0100
+From: Jiri Pirko <jiri@nvidia.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+	jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com,
+	stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com,
+	hang.yuan@intel.com, virtio@lists.oasis-open.org,
+	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
+	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>
+Message-ID: <ZAYXZPVulKWDIuRr@nanopsycho>
+References: <cover.1677761896.git.mst@redhat.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <cover.1677761896.git.mst@redhat.com>
+X-ClientProxiedBy: FR3P281CA0062.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::11) To MN0PR12MB5979.namprd12.prod.outlook.com
+ (2603:10b6:208:37e::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5979:EE_|MW6PR12MB8836:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf0bb4b3-9df9-446e-febe-08db1e617357
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	K6ROxpB9dnpP4wCjkKROcErjqPmHaaqyzVBDKtKEVeN7U6ilahIw71TxOpiOtZ0qnGHWwmrn+JPRvbiVrapO3qpl+O0AZ5BC45RGBH5/dhIqc+64iqbA0Ymu5nzrrYQtcJIIlZXjUpMyyAk8S0mfkxWuF53jc+mCQ6wC/rQw2f2SmYNdnvM+ClTUony47e/OxibXYVtvFT2H+aWfBZiolepu67CViwQh3jkvOQ9HeLzMLS6p7lZhL1iC+yyE3eMQ87dWk6VeECWiXi7S3MTGNvZWzwCWm60QUZ0fzEWbzDAKIP5koEwznlBGq2+V9h8bA6PHlnnaMZ5+mLOpeSJemIMH7R66BbRcQu8+eECfWjYhO5OcHajUvodu4lwGNyalvqJn2G77qgsbPCYuWyBdinPOLvzPoS9LQN4Gdq0NWUczYvpCFtKyC/9ApUJ/2fzPk6St1cQdVzGl/3K7yhESwrtiFl4QJPdk5OBMupAoTIkkrhN7cRZfE4x/0xwEazx/ciF+u/VIVkdoVBvSAs2ox9fwuS55oTabocCvVuDhgw3+TiG0ZnTzsWPMZAwANxFakYcP78marUydA6Sz9koazPye/pwF2y1u8TG9CBryPWOhH9Tte6PrakOKHDAqVsA5I9LmZYTsaFCYfrC1Gbl0Vg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5979.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(7916004)(4636009)(396003)(346002)(376002)(136003)(39860400002)(366004)(451199018)(8936002)(7416002)(5660300002)(41300700001)(4326008)(6916009)(8676002)(66946007)(66476007)(66556008)(4744005)(2906002)(6506007)(316002)(83380400001)(54906003)(26005)(478600001)(6512007)(6486002)(107886003)(186003)(6666004)(9686003)(33716001)(86362001)(38100700002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3E9NCd8dYNjAPRKUCm5b2BCiUHHXKUNhRIgel/2TxPZqjjYfLMF5oMcWGe3n?=
+ =?us-ascii?Q?DBwPvrgD7me+pxORXTGX4veLLiXKV0KQKbnO4x/7CKaJQTK+fqQmUVFfdlkQ?=
+ =?us-ascii?Q?17KMJkEWdvqntFiFFz+DeEiq3SIPonDODrZgrppC+m5QVcO6iCY3nG4YiZVk?=
+ =?us-ascii?Q?hC/ypb3spCwzx7KbKYJZDUAkn3TB0iBdm1Mup/OGI5BIiFbVNbhDQ2qfO7h7?=
+ =?us-ascii?Q?rkQvz7qTl3f6Msu5gz3hqdtWEGo5ibQ1Sjjj+q0YVkenIuAlLVk6f3biMI5z?=
+ =?us-ascii?Q?+cVAvIoSOIdU7yQ+NpkzxJdnmbuDZ/rurQoiHNZRlKeeyZe41FQ0zQ6gi1bj?=
+ =?us-ascii?Q?ZuvYKw3X98+FjybET45r6IGdMFQMs49/kVyl1zH+LRojgLZNgIxOz3ylbFWx?=
+ =?us-ascii?Q?02B+Eg5FGkVkTTUwSd1WbBEsnQqz4dh9TpRKu6m4K+s/rhoXM21oXbPwMqcV?=
+ =?us-ascii?Q?zW+OnKDaeOFPKbrhT8y3PQuwMGL5/vHPON4t92sBKms1N4jIdhlh9TXBaR8U?=
+ =?us-ascii?Q?R5a/BSmo2/E8HBDZ2lJVhryKQLaYObVcXfEbTCBxmnryFHBDVMy+n+Kg7dLT?=
+ =?us-ascii?Q?GSyl6F2AUlurhMSNooGYhkJavThajJajKLV5lwrimK+uja7Z62cI/AS+rnNT?=
+ =?us-ascii?Q?WXdAaylhNrxmpkFLCYy/7nsBKvnbmE4iswvXNDZxsamqiVtrh3kBh76IiKHN?=
+ =?us-ascii?Q?zri9duwSNNfyy9GTunttu3yWaDlEwCujnxGSvGhlLxWw8jbNth6oetT6ZCYB?=
+ =?us-ascii?Q?nfhK22lzg0/AP9B66dRCOttVS7dGadrXw2EEx1OtIDa0+EiOXbHMjAKZDXx1?=
+ =?us-ascii?Q?sU2WyCbQ6q/LgEcyAWojD2A+4ZUSFWnQQOthYjKoH+tjGz45ezdGpSNUtuex?=
+ =?us-ascii?Q?Zn9343HWKNaKFtNZQ5ylpTIMJ3jWwZQ/U8EiI+ZJJxumV8441AcFy+PwLnHB?=
+ =?us-ascii?Q?4G2/oG8AKbZ1hlqMjWRaebmFELMzi+R9Zw67MMMK2e3AtvMNZ/f1X0Dc8dj3?=
+ =?us-ascii?Q?SqrUcVlwcsu7pk+K2bhQ5LCBkIEP/vKhYJbJ1lEQ8B30QjluVf6s0p6mabrF?=
+ =?us-ascii?Q?GVNT7UcMX0aq06Dbhk7rWX5DBQi6u3OxZq/SmMsPQzqDsNIQGbgXGKadMB1o?=
+ =?us-ascii?Q?N34YtZwVUHhuPKbyoqVX8zkWptWCjsIgAshgqw1z5AUBsB++5Y35F91WPz2g?=
+ =?us-ascii?Q?5ZpOTh5cWeeMC68kyqO6sDUclo1bcp+cAePJFYAP+tIBB5qi0TvAPfi1vcAp?=
+ =?us-ascii?Q?HYz+97xIOBgOV1KdVtXBU+7+NCsMBR/W6z/mccJDOEB/YUJylT12Y+DVItPK?=
+ =?us-ascii?Q?NfgdhRg94igCmZX9E0iohWycWkYSFyfA15xRQYCncvtsSuLbBd1dzDYagpr3?=
+ =?us-ascii?Q?3dZCd3DI0u/onM0DAIO6tCRnFRxp9b20PpjEFM6gviaj9Hp+dotgcOASEDwW?=
+ =?us-ascii?Q?7EJOk++RR6TJX7Y21asphhSKbopFNRJZD4Rw2sbxRxvaAMuEdFL80RqZpejk?=
+ =?us-ascii?Q?nurAb9aExrt707Kud971Euflbuap0wj4OKzYQiyW7dfOrJYdZMRFRfdIPTTl?=
+ =?us-ascii?Q?IeETDqEzs81U02GMP8bqfmBY5rQHsEsiCJUQxmNe?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf0bb4b3-9df9-446e-febe-08db1e617357
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5979.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 16:40:10.1989
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cN2TG17s7WTVO2A0nonc+HuU2Soo/j1ECB3B6qBHvhATgq9oLKI1aZLoNZVnWGGj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8836
+Subject: Re: [virtio-comment] [PATCH v10 00/10] Introduce device group and
+ device management
 
-On Mon, Mar 06, 2023 at 03:51:13PM +0100, Christian Schoenebeck wrote:
-> On Wednesday, March 1, 2023 2:57:57 PM CET Stefan Hajnoczi wrote:
-> > On Wed, Mar 01, 2023 at 01:55:14PM +0100, Christian Schoenebeck wrote:
-> > > On Tuesday, February 28, 2023 1:05:21 PM CET Michael S. Tsirkin wrote:
-> > > > On Tue, Feb 28, 2023 at 12:49:00PM +0100, Christian Schoenebeck wro=
-te:
-> > > > > On Monday, February 27, 2023 6:41:12 PM CET Michael S. Tsirkin wr=
-ote:
-> > > > > > On Mon, Feb 27, 2023 at 05:13:12PM +0100, Christian Schoenebeck=
- wrote:
-> > > > > > > On Monday, February 27, 2023 4:45:45 PM CET Stefan Hajnoczi w=
-rote:
-> > > > > > > > On Mon, Feb 27, 2023 at 02:53:55PM +0000, Afsa, Baptiste wr=
-ote:
-> > > > > > > > > The issue that we have now, is that this limitation does =
-not seem to be enforced
-> > > > > > > > > in Linux virtio drivers today. I came across:
-> > > > > > > > >=20
-> > > > > > > > > https://github.com/oasis-tcs/virtio-spec/issues/122
-> > > > > > > > >=20
-> > > > > > > > > which looks like a good base for us to build upon, but I'=
-m not sure what is the
-> > > > > > > > > status with this issue. Do you know whether there is any =
-plan regarding this?
-> > > > > > > >=20
-> > > > > > > > CCing Christian regarding extending queue size limits.
-> > > > > > >=20
-> > > > > > > Status on this issue: it was suspended in May last year. AFAI=
-CR Michael
-> > > > > > > expressed the need to give some more thought about it, and a =
-new virtio spec
-> > > > > > > release was just ahead at that time.
-> > > > > > >=20
-> > > > > > > Michael, suggestions how to bring this forward?
-> > > > > > >=20
-> > > > > > > Best regards,
-> > > > > > > Christian Schoenebeck
-> > > > > > >=20
-> > > > > >=20
-> > > > > > How about a summary letter listing various options, pros and co=
-ns?
-> > > > >=20
-> > > > > Actually I had submitted a draft for this feature (latest version=
- linked
-> > > > > above), and AFAICR Michael was the only person who expressed conc=
-erns from
-> > > > > design perspective. Comments by other people were already just ab=
-oout precise
-> > > > > wording, but not about the design itself.
-> > > > >=20
-> > > > > We stopped the discussion at the point where Michael expressed th=
-e need to
-> > > > > think more about it, but as his expressed concerns were a bit vag=
-ue, I still
-> > > > > don't see how I could bring this issue forward.
-> > > > >=20
-> > > > > Best regards,
-> > > > > Christian Schoenebeck
-> > > > >=20
-> > > >=20
-> > > >=20
-> > > > So the last time there were two things:
-> > > >=20
-> > > >=20
-> > > > 1. bugs introduced during the packed ring work. For example:
-> > > >=20
-> > > > 	>=20
-> > > > 	> I don't think so:
-> > > > 	>=20
-> > > > 	>   2.6.5.3.1 Driver Requirements: Indirect Descriptors
-> > > > 	>   ..
-> > > > 	>   "A driver MUST NOT set both VIRTQ_DESC_F_INDIRECT and VIRTQ_DE=
-SC_F_NEXT in
-> > > > 	>   flags."
-> > > > 	> So as far as I can see it, the amount of direct descriptors is c=
-urrently
-> > > > 	> always exactly one if an indirect table is used.
-> > > > 	>=20
-> > > > 	> Best regards,
-> > > > 	> Christian Schoenebeck
-> > > > 	>=20
-> > > >=20
-> > > > 	Oh. You are right.  Weirdly this text is not in packed-ring.tex - I
-> > > > 	think this and a bunch of other cases like this are an oversight,
-> > > > 	however we need to fix them first before adding features that assu=
-me
-> > > > 	they are fixed ...
-> > > >=20
-> > > > we need to get them fixed before we poke at core ring otherwise it'=
-s a
-> > > > mess - maybe the TC will accept just fixing this
-> > > > without a feature bit, or maybe people will feel a feature bit
-> > > > is required.
-> > >=20
-> > > It's been a while. Looking at v1.2 it says:
-> > >=20
-> > >   2.8 Packed Virtqueues
-> > >   ...
-> > >   2.8.5 Scatter-Gather Support [1]
-> > >   ...
-> > >   While unusual (most implementations either create all lists solely =
-using  =20
-> > >   non-indirect descriptors, or always use a single indirect element),=
- if both=20
-> > >   features have been negotiated, mixing indirect and non-indirect des=
-criptors=20
-> > >   in a ring is valid, as long as each list only contains descriptors =
-of a=20
-> > >   given type.
-> > >=20
-> > >   [1] https://docs.oasis-open.org/virtio/virtio/v1.2/cs01/virtio-v1.2=
--cs01.html#x1-770005
-> > >=20
-> > > To avoid misapprehensions: the way I understand it, same restrictions=
- apply to
-> > > packed queues as split queues, in the sense that you may neither chai=
-n several
-> > > tables in a single message, nor multi-level nest tables, nor mix a li=
-st of
-> > > direct descriptors and indirect descriptors on the same level within =
-one
-> > > message. So the explicit exception described here, only means you may=
- use
-> > > *one* indirect table in one message, while using chained direct descr=
-iptors in
-> > > another message. But that's it, right?
-> >=20
-> > Hi Christian,
-> > Yes, for packed virtqueues it is forbidden to mix normal and indirect
-> > descriptors in a single buffer. Further support for this interpretation
-> > is in 2.8.19 Driver Requirements: Indirect Descriptors:
-> >=20
-> >   A driver MUST NOT write direct descriptors with VIRTQ_DESC_F_INDIRECT
-> >   set in a scatter-gather list linked by VIRTQ_DESC_F_NEXT. flags.
-> >=20
-> > VIRTQ_DESC_F_INDIRECT cannot be set if the descriptor chain uses
-> > VIRTQ_DESC_F_NEXT, therefore it's not possible to mix normal and
-> > indirect descriptors in a single buffer.
-> >=20
-> > However, the Split Virtqueues section documents an exception where
-> > mixing normal and indirect descriptors in a single buffer is allowed,
-> > but only in a specific order. 2.7.5.3.2 Device Requirements: Indirect
-> > Descriptors says:
-> >=20
-> >   The device MUST handle the case of zero or more normal chained
-> >   descriptors followed by a single descriptor with
-> >   flags&VIRTQ_DESC_F_INDIRECT. Note: While unusual (most implementations
-> >   either create a chain solely using non-indirect descriptors, or use a
-> >   single indirect element), such a layout is valid.
-> >=20
-> > So what degree of mixing normal and indirect descriptors is allowed
-> > depends on the virtqueue format.
->=20
-> Oh, good catch! I was not aware about this device requirement for split
-> queues. I thought 2.7.5.3.1 "A driver MUST NOT set both VIRTQ_DESC_F_INDI=
-RECT
-> and VIRTQ_DESC_F_NEXT in flags" would rule that mixed case out, but right=
-, if
-> the indirect descriptor is last in the buffer then 2.7.5.3.1 is not viola=
-ted.
->=20
-> Which makes Michael's suggestion even mandatory.
->=20
-> Out of pure curiosity: is this mixed case actively used by somebody?
+Thu, Mar 02, 2023 at 02:04:48PM CET, mst@redhat.com wrote:
 
-I would love to know as well. :)
+[...]
 
-Stefan
 
---IYtYDm3WD6H4W8xh
-Content-Type: application/pgp-signature; name="signature.asc"
+>  admin: introduce device group and related concepts
+>  admin: introduce group administration commands
+>  admin: introduce virtio admin virtqueues
 
------BEGIN PGP SIGNATURE-----
+The ordering seems a bit odd to me. I think that at the beginning, the
+admin virtqueue should be introduced with generic concepts (including
+the generic command structure), only after that the section introducing
+device group stuff and related commands.
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmQGFFgACgkQnKSrs4Gr
-c8jlwQf+N1jT+SufUG2cjb9S87daU+Vj8+Un/bAI3TE7ov8Ql1eQo1Qp3ach+al8
-38Snq7yHs+8fC+djDNzZMubu6WEzHdzq1QY0KNPnOuQQGxZwnIlajyUJ/XiUZlir
-6lCidE0iG+nM2l+YjdXFbJm+/U9Pv3K8fGOozayiBSRNPq1uA50DpQcST5B3odUn
-/3Ygz8VjqSlKRFh7CyPpF6ZbCH+fyaY8dKjWj3HWK1EYDENlSkHULl2HS7QYYRkC
-7/HujpOti7mcU4VULKFMg1Yt8hZarh3XZ6xtNr4a7RUpYUGOAPjr5lW53kbCC3o0
-cap+OJccvRTt8UB5s0Rtf2TqFCH4eg==
-=/ntJ
------END PGP SIGNATURE-----
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
---IYtYDm3WD6H4W8xh--
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
