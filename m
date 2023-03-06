@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-4716-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4717-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D2B3C64EC4
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FFF7C61DA4
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:46:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D2B0829FC1
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:44:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8D9694256A
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C8AAB9866C3
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:44:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 807819866C5
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id BFE799866BF; Mon,  6 Mar 2023 18:44:29 +0000 (UTC)
+	id 772229866BD; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,120 +24,74 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ACDC49866BD
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Mar 2023 18:44:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 65A1D9866BF
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Mar 2023 18:46:18 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: orC5zC8iN8ySBQnoYo_NbA-1
+X-MC-Unique: GC2aBYFyO9eh6K-miLh3Pg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678128264;
+        d=1e100.net; s=20210112; t=1678128375;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=l2AvVtl3ILdzWc+qcnD/1TQ6KdgLcCr2Gf0PxkO5LDE=;
-        b=joWjpy30pLa+VbL3Y2/d6R5PMW1RHY21ZamV7LeUHDNca/rrP0Mfn2nB78eUZkSi3d
-         U5Abui3HSuLyXFldqI5BJLNnodBEsE8rluYBfY6fgKSP5ZCCS5yiu60i7fCZX7AyOIKG
-         BwYFiqDZiZpuSKE2wHFM1AvmkiJSRdGSzAcSjBuM8qUY2gk15HaSpQinWiPEtoIJheUY
-         +yPiHzkNjbsHq72J+jUmvG4/UJkO4uDyh2xxowUHfE7wNHpYZh/ON0rV2kWirbD/xVo/
-         u8D3AWFqeNgwYat1Dhrao7t8Nn473Wjt4e/GWuzBmBoqg26d/iKxAK9NhQQFnEkW6wbD
-         HZpA==
-X-Gm-Message-State: AO0yUKWYKnCZhwmvwJOMbR5aKzXCUD8b6hGK9ffXzZ2LbvsGNX2WDLfq
-	kR7HRhuq70g5a9hWEsCTAqefvvRrkkicEKivqTe3+3G0uj8nS/V/VxmQse7OoUFBQANOny1BroA
-	nV/fzkvZcEk4LY6QmUD/t9H5rNUzZ9ohPTQ==
-X-Received: by 2002:adf:eb4b:0:b0:2c6:e744:cf71 with SMTP id u11-20020adfeb4b000000b002c6e744cf71mr6538568wrn.52.1678128264677;
-        Mon, 06 Mar 2023 10:44:24 -0800 (PST)
-X-Google-Smtp-Source: AK7set/i6N0IggiWRpzoBvWSbyKPsm0o87aU7sarZ+r2OEb5dicNbwfqp2rJLfR8BRWRvHQmP0JFWQ==
-X-Received: by 2002:adf:eb4b:0:b0:2c6:e744:cf71 with SMTP id u11-20020adfeb4b000000b002c6e744cf71mr6538551wrn.52.1678128264386;
-        Mon, 06 Mar 2023 10:44:24 -0800 (PST)
-Date: Mon, 6 Mar 2023 13:44:19 -0500
+        bh=Asbr/RlbGGJgG1C7LoI9h8RVUFLRJXUIQ3IQ+QJ7zwU=;
+        b=P84JCzMlDuQs6AiZNSVR9uGvUso1KCIFVpIBO0gWynbrwzJ6JTTtj1whprNsinM20m
+         1U8YJkbISImabO5i4dGK38W4JCJVcxf14cwUhsFTlhAnBkd/AtZcaZfKtzyjJwuIkVEE
+         qZSI2pkAAdZg07u3GMB5vjbKivU/qBUoL62O9UpBZ3IYERK7mGWTgYJdGVTEPQymH9mw
+         AtgStX7bGUCt75n1CW7gj28aPZ7zQ36FXnQKDVRBvHf/4FnCp8yf/0XEro05N686Dm/E
+         gxj03bLCMDFlmfafUoX84UW+NpNSlVje/oDXRtQRaWGNo5MgD89AW+ekUj+ZET5QpTEV
+         h9FA==
+X-Gm-Message-State: AO0yUKWq6anT7ei99YtlYnfP11hcvy7hBZbaVNQV7CT9654hit2N+jwT
+	YuyuFsf+xnBQXDAYhIdFKpq3t/jc238459JjhzdrCpn27EMt+AzrGchfm4M/tgwKzdNvzVgN2x3
+	BFtOPOS/IbCawhNU563nWAht0Yup+0Fa83Q==
+X-Received: by 2002:a05:600c:310a:b0:3dc:555c:dd30 with SMTP id g10-20020a05600c310a00b003dc555cdd30mr10379027wmo.27.1678128375164;
+        Mon, 06 Mar 2023 10:46:15 -0800 (PST)
+X-Google-Smtp-Source: AK7set95ezq23oCkCs1iLRCrh45pPQlaw9vKEw6wp3Woz/n2BKv5mF9OPSTFyBLp+jXRHP+8//QpBw==
+X-Received: by 2002:a05:600c:310a:b0:3dc:555c:dd30 with SMTP id g10-20020a05600c310a00b003dc555cdd30mr10379010wmo.27.1678128374862;
+        Mon, 06 Mar 2023 10:46:14 -0800 (PST)
+Date: Mon, 6 Mar 2023 13:46:09 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Max Gurtovoy <mgurtovoy@nvidia.com>
-Cc: Jiri Pirko <jiri@nvidia.com>, virtio-comment@lists.oasis-open.org,
-	virtio-dev@lists.oasis-open.org, jasowang@redhat.com,
-	cohuck@redhat.com, sgarzare@redhat.com, stefanha@redhat.com,
-	nrupal.jani@intel.com, Piotr.Uminski@intel.com, hang.yuan@intel.com,
-	virtio@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>,
-	pasic@linux.ibm.com, Shahaf Shuler <shahafs@nvidia.com>,
-	Parav Pandit <parav@nvidia.com>
-Message-ID: <20230306134108-mutt-send-email-mst@kernel.org>
+To: Jiri Pirko <jiri@nvidia.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sgarzare@redhat.com" <sgarzare@redhat.com>,
+	"stefanha@redhat.com" <stefanha@redhat.com>,
+	"nrupal.jani@intel.com" <nrupal.jani@intel.com>,
+	"Piotr.Uminski@intel.com" <Piotr.Uminski@intel.com>,
+	"hang.yuan@intel.com" <hang.yuan@intel.com>,
+	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
+	Zhu Lingshan <lingshan.zhu@intel.com>,
+	"pasic@linux.ibm.com" <pasic@linux.ibm.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>
+Message-ID: <20230306134451-mutt-send-email-mst@kernel.org>
 References: <cover.1677761896.git.mst@redhat.com>
- <20c81b66f0b21b5bd646c24840ac3f8462c86acf.1677761896.git.mst@redhat.com>
- <ZAXfegxCfvfLwiJT@nanopsycho>
- <17471553-8981-eef9-656b-098e1acdda14@nvidia.com>
+ <dd9c34ed74ee296228562f6946d4ca3f2fbee1e1.1677761896.git.mst@redhat.com>
+ <PH0PR12MB5481595368C8F0C0E16B681BDCB29@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230303032434-mutt-send-email-mst@kernel.org>
+ <ZAXB44F3MS9CxIiK@nanopsycho>
 MIME-Version: 1.0
-In-Reply-To: <17471553-8981-eef9-656b-098e1acdda14@nvidia.com>
+In-Reply-To: <ZAXB44F3MS9CxIiK@nanopsycho>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [virtio] [PATCH v10 04/10] admin: introduce virtio admin
- virtqueues
+Subject: [virtio-comment] Re: [virtio] Re: [PATCH v10 06/10] mmio: document ADMIN_VQ as
+ reserved
 
-On Mon, Mar 06, 2023 at 05:37:09PM +0200, Max Gurtovoy wrote:
-> 
-> 
-> On 06/03/2023 14:41, Jiri Pirko wrote:
-> > Thu, Mar 02, 2023 at 02:05:06PM CET, mst@redhat.com wrote:
-> > > The admin virtqueues will be the first interface to issue admin commands.
-> > > 
-> > > Currently virtio specification defines control virtqueue to manipulate
-> > > features and configuration of the device it operates on. However,
-> > > control virtqueue commands are device type specific, which makes it very
-> > > difficult to extend for device agnostic commands.
-> > > 
-> > > To support this requirement in a more generic way, this patch introduces
-> > > a new admin virtqueue interface.
-> > > 
-> > > We also support more than one admin virtqueue, for QoS and
-> > > scalability requirements.
-> > > 
-> > > Signed-off-by: Max Gurtovoy <mgurtovoy@nvidia.com>
-> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> > > ---
-> > > admin.tex   | 74 +++++++++++++++++++++++++++++++++++++++++++++++++++++
-> > > content.tex |  7 +++--
-> > > 2 files changed, 79 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/admin.tex b/admin.tex
-> > > index 7e28b77..3ffac2e 100644
-> > > --- a/admin.tex
-> > > +++ b/admin.tex
-> > > @@ -155,3 +155,77 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
-> > > \field{command_specific_data} and \field{command_specific_result}
-> > > depends on these structures and is described separately or is
-> > > implicit in the structure description.
-> > > +
-> > > +\section{Administration Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Administration Virtqueues}
-> > > +
-> > > +An administration virtqueue of an owner device is used to submit
-> > > +group administration commands. An owner device can have more
-> > 
-> > I admit I'm confused. You introduce a concept of admin virtqueue, which
-> > sounds quite generic to me, usable in future by much more things than
-> > "device groups", correct?
-> > 
-> > If yes, here you say "group administration commands" which contradics
-> > that idea. On multiple places the text this patchset introduces
-> > this very muych tights to groups. Like in struct virtio_admin_cmd
-> > which contains fields very specific to groups.
-> > 
-> > If no, isn't it a mistake as the admin queue should be here to
-> > handle more than just group commands?
-> 
-> This was my original idea to have various different types of admin
-> operations allowed by an AQ. Not only group management.
-> Somehow this was changed down the road when MST took ownership :)
-> Maybe it's fine as an initial start but this shouldn't restrict the general
-> idea.
-> 
-> I had in mind things like general health commands, log commands, fw upgrade
->
+On Mon, Mar 06, 2023 at 11:35:15AM +0100, Jiri Pirko wrote:
+> Well, lots of these things (if not majority) are customary, not
+> really written up anywhere in Linux kernel netdev world. It's most of
+> the time just a matter of convenience I would say. For example
+> splitted-up patch changelog. I do it, but most of the people don't (even
+> maintainers). From time to time during review, I request it as I don't
+> want to be lost in the changes. It is nice if the submitter tries to
+> make reviewer's life a bit easier :)
 
-I'm not sure what if anything unifies these though.  I looked at
-specific proposals on the table and this covered them, and
-scope was already too broad and was not converging because of this.
-People are not good at predicting the future, so I confidently
-predict that we'll make some changes down the road ;)
-
+True. With all this lore let's just agree netdev is not the easiest
+project to get started with, right?
 
 -- 
 MST
