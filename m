@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-4758-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4759-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02610C678D5
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 19:31:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1571FC6FD1E
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 19:35:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2EC6F2ACA9
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 19:31:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 49EE42B01E
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 19:35:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 132949866DD
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 19:31:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 38E539866E3
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 19:35:45 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id F419E9866DA; Tue,  7 Mar 2023 19:31:35 +0000 (UTC)
+	id 2EE6C9866DB; Tue,  7 Mar 2023 19:35:45 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,197 +24,210 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E15CC9866DB;
-	Tue,  7 Mar 2023 19:31:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1D05D9866DD
+	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Mar 2023 19:35:41 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DlM1P0/qkoLgFIMCE/jO6sXycZbLAOBzqOwKeQDykqdDVReVBHXuZ3PEgXFzXpO+h2xrhsT7J/O8DoU/m/plnV20+ByOMf/5/jy9rGCK6YXlzlUC9gKkuNadLEAwq33IpWuWu1rbEHvWmtsF4/pSSbVVan3+BgvX1NDAm7ZSbTci8c5L0+PbX9j9UmJuNtU0s6quuqQWOaB4AqX31uxNbJVKz49GCQnVnKvdf5BoWPtBhUpe8y3X64Zl6XyiplBLukB5z44GmqZBBf9xtjDNsfnMMMy0Sw5S0LiKdXGOxSZXIqoHxFHuEf5La/sxBl8e73fPblh6+jqZIo/IYlFR6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IsHioAn77qGVys/qyASr6LPwwsjb2sLX7S1ZOmMS1rA=;
- b=M/CgjI312lbARKDJc7uIU4XuuRXAD4cNWSG2WbVGqjcWDe0wpEw8v6eSfX8InAGKPuJwEH0bAkgCGwJMXlw1OgR2dDEY/jvUhlDizJ0kK9IpYm4zql+fP0NCXTAeWRs/j0QSTTxfi3rb0jI6VCyCMKMq7DIrFPRtNkyluF49f+w52HCPQB71o9rNGTX9iZ6qhkl5V2HrDM1bWP0rGa4BOqq81A8IQwHQIlVaVIOi5FlzO93P1dmJQoSG21JO7xFKfKOftO4QpEqKy1qfBgUO9EXJnNEc/7sDdIq7Tjuhu2TXhJuBYG0aUVXP1tqzzZRGXi471sMpDurPf/KwivayMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, Jiri Pirko <jiri@nvidia.com>
-CC: "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "virtio-dev@lists.oasis-open.org"
-	<virtio-dev@lists.oasis-open.org>, "jasowang@redhat.com"
-	<jasowang@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>,
-	"sgarzare@redhat.com" <sgarzare@redhat.com>, "stefanha@redhat.com"
-	<stefanha@redhat.com>, "nrupal.jani@intel.com" <nrupal.jani@intel.com>,
-	"Piotr.Uminski@intel.com" <Piotr.Uminski@intel.com>, "hang.yuan@intel.com"
-	<hang.yuan@intel.com>, "virtio@lists.oasis-open.org"
-	<virtio@lists.oasis-open.org>, Zhu Lingshan <lingshan.zhu@intel.com>,
-	"pasic@linux.ibm.com" <pasic@linux.ibm.com>, Shahaf Shuler
-	<shahafs@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>
-Thread-Topic: [virtio-comment] [PATCH v10 00/10] Introduce device group and
- device management
-Thread-Index: AQHZTQeXLBm9R+Y8XE6rxgHYaBOlxa7ttIkAgACusoCAAI2yAIAApx+AgAAgzaA=
-Date: Tue, 7 Mar 2023 19:31:32 +0000
-Message-ID:
- <PH0PR12MB5481EEF6CD4B946233EE311FDCB79@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <cover.1677761896.git.mst@redhat.com>
- <ZAXcqqdwfoLokT2l@nanopsycho> <20230306175020-mutt-send-email-mst@kernel.org>
- <ZAbmEmwsMMxKJqeB@nanopsycho> <20230307121529-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230307121529-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BL3PR12MB6449:EE_
-x-ms-office365-filtering-correlation-id: 30cc7f7b-9890-4bb8-0e34-08db1f428e80
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- BFMg7Z7Rf3sKXsiJCwmCd3OCVuWiqbLACBAnYjn1s9RF9PD2j7xpBP1y2vaCOduu2v1najlAL+zGdz8PjDisFt+Hs1gYeXL/Zg8M2NBjVVrcBH58RkzgDC/jra2wAxC8Ru4aQLHYoV97MewDbMX8soulDbREVRt5L4uzitNUwk8omgyzyJEIhjeYmcl8baXcBY/xj84B1L7+lQxgFmR1ROLJNXHEEiOZLc2ABk0VNGVzKrDKNpWboxVF3iwbbk2NIGfThscLgCsg47hdOkk0/2I/DyprjLhWm5OfrUtFWgeQRYwm6mMj/LQk3ffX95q3pA2wUWrZ5GoY5OtqI/FaQb8Gtn0cIFIpOKBCdbWBz7Xh3EkhtMQm8KuBmPdA5M0MQN3hNNekweoMrwcgRGpNU8tIFxzAWIJkXOvAAIJWzfpmdNMkCLW2vu/RyVCjHQHrVYMpHT2iUaUcAsZz2PFHxMbgTZxD4CxAmT9x5ZV/F52PX4KL4/5Mjjiz8ErEtM6FTto8dEsmvGNAT2m0vrdO8QXLvJK7U2GCk6hu5TYVRE4mWhGjKv+/FucN8GC6XZ5qIyy6mVmomcds94pxI2Uk/uquUezJ9J7ZWalXSOZGoMuT+ZrAYomoMhspt7y2SW5D45Tok8XhLiUU/3afE8jSrc2JE5zVoYLN0Epd2HFSyGPaNbAZ4XFZlzg6ErRFdAfPTV+hdMLOWaBSlLMjqn/rLA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(136003)(396003)(376002)(346002)(39860400002)(451199018)(66446008)(186003)(7696005)(9686003)(8936002)(107886003)(122000001)(38100700002)(38070700005)(52536014)(64756008)(41300700001)(71200400001)(66556008)(8676002)(26005)(2906002)(66946007)(4326008)(5660300002)(76116006)(6506007)(478600001)(7416002)(66476007)(316002)(33656002)(54906003)(6636002)(110136005)(83380400001)(86362001)(55016003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?DHVJoTazGXfCbmLAT/kN3AVs7EE6Qcw6P7WlV+GRvdCfl/luAzYuaZUrA2ng?=
- =?us-ascii?Q?bZek4wuqotqTAAukQYro49cGYgkKhxW+jbip3PV290UEdp6Pfu6LAAKd0ODo?=
- =?us-ascii?Q?AxiXdohTFGxPrskqyiS04tEuThvYomkqjK/f9wBcYhWE/H0byCT7u0baDvRI?=
- =?us-ascii?Q?3gdD/cmnkCuOkDOmSQhb7uoXLoJ9u1ag9po/mNnJvnKi2TybsqSA3/GwcNmn?=
- =?us-ascii?Q?yfBvnC4RUBB4gThYTW2Ue+VuLzcw+6UnjSX25rmTGx3HikgSRz5sXmMnZs4B?=
- =?us-ascii?Q?/tYYoUi1CqivOyiq2OmQihA635T+vV0cQy4ky00WGp2rD89aja2T0Ka/yOsG?=
- =?us-ascii?Q?/zzzrM/HD3F0NeByE066pk4bG2mVCwNg2zEWHAgenwJ6SP89mWvC8JjegQBb?=
- =?us-ascii?Q?LH0e21Nb2NGnjav5pJUmUWFY56UWMjpK2Xm/I3b8DML23JhPLZVceybpN8gV?=
- =?us-ascii?Q?5iNifzj403+EAGF+bg/2BcEYd8LX4KZAqqryzj0YAvfNIfYQDeXnKiBFC1j/?=
- =?us-ascii?Q?wp9ky09W8wK6GsG0MDgtP4tftNHIhSAyMb+MdA2HEf9RZrmbHSSA9ypDD9sg?=
- =?us-ascii?Q?f69dwgDoXyvMUyTYroMjL4hS3BbiXNi3/hBB4Qg+AuVlFzBFxAwrJRjLzDEd?=
- =?us-ascii?Q?WUx8c+OxKS6vkw2TO2kOAMqGgv4NNt8LufNMj8m9okX7y5Ljmz2oPspfK0lV?=
- =?us-ascii?Q?Wc8zwwIUJT0gHaX/NyAELL4NzEg3yF+dqyOzvnX79h4quzhf5EQhk4TD2RzQ?=
- =?us-ascii?Q?fEEc8nlTyPS2tSNQCOaBY2FWcarnciLBtatn0cteLA9dacBN3XCwNzck/0Bp?=
- =?us-ascii?Q?U6eQnJEU3b0ztp30ZMYhbzptRFxL0xSX8VTDFd5xcNu+kt/ZfhUWNTh3pZM0?=
- =?us-ascii?Q?1hc8f/xKfuLIM6YCn3oo6BZAbtlDGlX9NVpV046MbSPFjISNFxl+FMVtoI7Q?=
- =?us-ascii?Q?EnC3gu5En3cWExTB6t+NrN+ezYPCayplSQwyOaeX5eYR3J10GiLRqL4RJLXO?=
- =?us-ascii?Q?6KUhFHXndp+6HmWIoWkcZIAc6qqE4gfTSTqzx1mLBJNvUUX2GHsKV+FKgwCq?=
- =?us-ascii?Q?8HAl5GjhGWwVa18ECsWeRZx6JvB2Y23JljaL2xVHxgslarU+0E1TloZgCS/N?=
- =?us-ascii?Q?+dVHIv37ez6ZYfgvLRuRqDJsCt8yB4GcM/KULP2KZkyFXdLvRNFjRiYSf32V?=
- =?us-ascii?Q?4T0Sx5f+fN0IIRp+FAfF4TYgWVAOcFdrUf1S94syrIztPSlbpLqzhpYIEIpt?=
- =?us-ascii?Q?JozLweKxL2rgTTx8loPmIKkxIrc0i/KoPL6uWPk4D3Wic2gee5PjY7m6c3h8?=
- =?us-ascii?Q?czebuqGfnOzXfzKmU6xSdEXbbKO7tbNFwWoRZyvIxLq97zxE37FZJ2fcaylM?=
- =?us-ascii?Q?w5DDSe3Q9EjTFSWoJgbPm+ItVXOWRibUax46opUEKQnT4Ll1/Qzx3SXdI5tv?=
- =?us-ascii?Q?+xNu/MOKM3D/hzmR11i+Ih9hbymurJ7YC0x4CDuiF/PBlEKBAkWT5oxDrUzF?=
- =?us-ascii?Q?cP8eBg0QTahAIYoycYAGMl2fqB6OX6rtBwpIPxtmpRyBb3t9e+vHIY/ur8T7?=
- =?us-ascii?Q?9Oy+GN79PacbXRbrDSs=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-MC-Unique: O3ohOrCBMTKzLmgDhHiy7g-1
+Date: Tue, 7 Mar 2023 14:35:36 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Christian Schoenebeck <qemu_oss@crudebyte.com>,
+	"Afsa, Baptiste" <Baptiste.Afsa@harman.com>,
+	Eugenio Perez Martin <eperezma@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Message-ID: <20230307193536.GC153228@fedora>
+References: <20221013074513.25141-1-baptiste.afsa@harman.com>
+ <6380471.4BWXO1n1mU@silver>
+ <20230301095017-mutt-send-email-mst@kernel.org>
+ <2812377.Px9Efocobp@silver>
+ <20230306124013-mutt-send-email-mst@kernel.org>
+ <20230306204601.GC78491@fedora>
+ <20230306164500-mutt-send-email-mst@kernel.org>
+ <20230307132627.GA124259@fedora>
+ <20230307114632-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30cc7f7b-9890-4bb8-0e34-08db1f428e80
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2023 19:31:32.1803
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8E79sYjd0acUl6MubYEu15z/5WlofNDRdmE30kXk3ddRw5Qp3KhluMPCTjMhZNG9VJuXJqUdW9p8qdjSNcxcTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6449
-Subject: RE: [virtio-comment] [PATCH v10 00/10] Introduce device group and
- device management
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="I2BoVVZDWtt62RCe"
+Content-Disposition: inline
+In-Reply-To: <20230307114632-mutt-send-email-mst@kernel.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [virtio-comment] Re: VIRTIO_RING_F_INDIRECT_SIZE status
 
+--I2BoVVZDWtt62RCe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Tuesday, March 7, 2023 12:20 PM
-
-[..]
-> > >For SR-IOV, it is not unusual for PFs to excercise control over VFs.
-> >
-> > I understand the concepts of SR-IOV. Yet I fail to see the need of
-> > such concept in virtio world. SR-IOV is very specific solution for PCI
-> > functions instantiation, and I believe that it is already considered
-> > quite limiting in many aspects. Does not make sense to me to introduce
-> > it for virtio. But again, I may be missing something crucial, I just
-> > would like to see the motivation, needs, usecases for this crystal
-> > clear, which is opposite to the current cover letter I'm afraid :/
+On Tue, Mar 07, 2023 at 11:47:32AM -0500, Michael S. Tsirkin wrote:
+> On Tue, Mar 07, 2023 at 08:26:27AM -0500, Stefan Hajnoczi wrote:
+> > On Mon, Mar 06, 2023 at 04:50:53PM -0500, Michael S. Tsirkin wrote:
+> > > On Mon, Mar 06, 2023 at 03:46:01PM -0500, Stefan Hajnoczi wrote:
+> > > > On Mon, Mar 06, 2023 at 12:41:25PM -0500, Michael S. Tsirkin wrote:
+> > > > > On Mon, Mar 06, 2023 at 04:00:37PM +0100, Christian Schoenebeck w=
+rote:
+> > > > > > On Wednesday, March 1, 2023 3:55:57 PM CET Michael S. Tsirkin w=
+rote:
+> > > > > > > On Wed, Mar 01, 2023 at 01:55:14PM +0100, Christian Schoenebe=
+ck wrote:
+> > > > > > > >   2.8 Packed Virtqueues
+> > > > > > > >   ...
+> > > > > > > >   2.8.5 Scatter-Gather Support [1]
+> > > > > > > >   ...
+> > > > > > > >   While unusual (most implementations either create all lis=
+ts solely using  =20
+> > > > > > > >   non-indirect descriptors, or always use a single indirect=
+ element), if both=20
+> > > > > > > >   features have been negotiated, mixing indirect and non-in=
+direct descriptors=20
+> > > > > > > >   in a ring is valid, as long as each list only contains de=
+scriptors of a=20
+> > > > > > > >   given type.
+> > > > > > > >=20
+> > > > > > > >   [1] https://docs.oasis-open.org/virtio/virtio/v1.2/cs01/v=
+irtio-v1.2-cs01.html#x1-770005
+> > > > > > > >=20
+> > > > > > > > To avoid misapprehensions: the way I understand it, same re=
+strictions apply to
+> > > > > > > > packed queues as split queues, in the sense that you may ne=
+ither chain several
+> > > > > > > > tables in a single message, nor multi-level nest tables, no=
+r mix a list of
+> > > > > > > > direct descriptors and indirect descriptors on the same lev=
+el within one
+> > > > > > > > message. So the explicit exception described here, only mea=
+ns you may use
+> > > > > > > > *one* indirect table in one message, while using chained di=
+rect descriptors in
+> > > > > > > > another message. But that's it, right?
+> > > > > > >=20
+> > > > > > >=20
+> > > > > > > That's my understanding.
+> > > > > > >=20
+> > > > > > > > > 2. Given this is a lot of work I am trying to find a way =
+to
+> > > > > > > > > make the impact bigger. In particular to cover the use-ca=
+se
+> > > > > > > > > of limiting s/g to 1k while making queues deeper (with
+> > > > > > > > > or without indirect). For this I proposed:
+> > > > > > > > >=20
+> > > > > > > > > 	So I think that given this, we can limit the total number
+> > > > > > > > > 	of non-indirect descriptors, including non-indirect ones
+> > > > > > > > > 	in a chain + all the ones in indirect pointer table if a=
+ny,
+> > > > > > > > > 	and excluding the indirect descriptor itself, and this
+> > > > > > > > > 	will address the issue you are describing here, right?
+> > > > > > > > >=20
+> > > > > > > > > people seemed to be ok with this idea?
+> > > > > > > >=20
+> > > > > > > > IIUIC it would not make a difference from design perspectiv=
+e from what I
+> > > > > > > > proposed, as virtio currently neither allows to mix, chain =
+or mult-level nest
+> > > > > > > > indirect descriptor tables within a single message), and he=
+nce it would just
+> > > > > > > > boil down to adjusting the wording. So yes, it would theref=
+ore cover my
+> > > > > > > > intended use case.
+> > > > > > > >=20
+> > > > > > > > Best regards,
+> > > > > > > > Christian Schoenebeck
+> > > > > > >=20
+> > > > > > >=20
+> > > > > > > Sounds good to me. One interesting case is scsi and blk which=
+ have
+> > > > > > > a seg_max field. This is defined as
+> > > > > > >=20
+> > > > > > > \item[\field{seg_max}] is the maximum number of segments that=
+ can be in a
+> > > > > > >     command. A bidirectional command can include \field{seg_m=
+ax} input
+> > > > > > >     segments and \field{seg_max} output segments.
+> > > > > > >=20
+> > > > > > > it is never explained what *are* the segments, or how does it
+> > > > > > > interact with VQ depth. Current drivers interpret this
+> > > > > > > strictly and assume that this limits the s/g length but does =
+not
+> > > > > > > allow you to exceed vq size.
+> > > > > > >=20
+> > > > > > > Do we thus want two limits (for read and write descriptors)?
+> > > > > >=20
+> > > > > > No opinion on that, as my intended use case was just extending =
+the buffer size
+> > > > > > beyond queue size, not limiting it below queue size. Either way=
+ is fine with
+> > > > > > me.
+> > > > > >=20
+> > > > > > Anyhow, as this now gets broader scope, that also means the sug=
+gested flag
+> > > > > > VIRTIO_RING_F_INDIRECT_SIZE needs to be renamed. VIRTIO_RING_F_=
+BUFFER_SIZE?
+> > > > > >=20
+> > > > > > Best regards,
+> > > > > > Christian Schoenebeck
+> > > > >=20
+> > > > >=20
+> > > > > Hmm that's unclear in that it might be in bytes too.
+> > > > > Given blk and scsi call these "segments" how about
+> > > > > VIRTIO_RING_F_SEG_MAX?
+> > > >=20
+> > > > The VIRTIO equivalent of a "segment" is an "element".
+> > >=20
+> > > Hmm true:
+> > > 	A buffer consists of zero or more device-readable physically-contigu=
+ous
+> > > 	elements followed by zero or more physically-contiguous
+> > > 	device-writable elements (each buffer has at least one element).
+> > >=20
+> > > However we then need to clean this up, since
+> > >=20
+> > > - At least in one place we say
+> > >=20
+> > > indirect elements to mean indirect descriptors.
+> > >=20
+> > > - we also say "queue elements" to mean "avail/desc/used"
+> > > - We also say "descriptor elements" - not 100% sure it's the same.
+> > >=20
+> > > so we need to clean this up a bit first and maybe add
+> > > text about indirect descriptors not counting as elements.
+> >=20
+> > Haha, yes. I also remembered that QEMU's type for a virtqueue buffer is
+> > called VirtQueueElement :).
+> >=20
+> > My impression from the spec is that when talking about virtqueues an
+> > element is a data blob that's part of a buffer and when talking about
+> > vrings an element descriptor is the ring entry that points to the data
+> > blob. Often the terms are used interchangeably (just "descriptors" or
+> > "elements").
+> >=20
+> > I'm not sure if the distinction is necessary. It might be simpler to
+> > always talk about descriptors and remove the term "element", since there
+> > is no way to avoid talking about descriptors eventually.
+> >=20
+> > Stefan
 >=20
-> First people are asking for it because it's out there, however limiting i=
-t is. In
-> fact Nvidia is - why don't you talk to Parav here and tell him that SR-IO=
-V is
-> legacy and there's no need to support.
+> Well this whole discussion started from the point that
+> indirect descriptors do not describe parts of a buffer.
 >=20
-Jiri and I discussed offline today.
-SR-IOV is widely used today and in the coming future up to thousands of dev=
-ices.
-Many vendors are building it or already built.
+> So I feel there's a distinction.
 
-SIOV as it stands today is still being crafted at various levels iommu, os,=
- device, pci and more.
-Not there yet fully.
+Good point.
 
-Jiri and I built the Linux kernel interfaces for SFs which are equivalent t=
-o SIOVs that overcome some of the SR-IOV limitations.
-And Jiri's suggestion was to leverage some of the vision and practice from =
-there.
+Stefan
 
-In other words, can AQ command be useful tomorrow for doing SIOV device add=
-/remove, and provisioning from non-owning PF?
-The way AQ is crafted today is not there yet, but in the future, it can be =
-extended.
->=20
-> >
-> > >There is interest in the community to include an interface to allow
-> > >this in the virtio spec, when the PF is a virtio device.  This is
-> > >what this patch does.
-> >
-> > Yeah, but why? As I asked before, what are the usecases? The fact
-> > there is interest in the community does not mean it makes sense to
-> > have it :)
-> >
->=20
-> If people want to build such hardware it will need some interface.
-> Far better to have it standard.
->=20
->=20
-> But generally e.g. intel already said they will reuse this same structure=
- with a
-> different group type for SIOV support.
-> I'll mention this in the cover letter.
->
+--I2BoVVZDWtt62RCe
+Content-Type: application/pgp-signature; name="signature.asc"
 
-We have the following already identified use cases of a device agnostic VQ.
+-----BEGIN PGP SIGNATURE-----
 
-1. SR-IOV VF device provisioning at virtio layer (features and config)
-2. SR IOV (SR-PCIM interface of the PCI spec) for VF provisioning, for exam=
-ple, MSI-X vectors
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmQHkgcACgkQnKSrs4Gr
+c8gK4AgAoaQ0/z7LrD7X4OIoZRqMrUP1i7IiiY1UBqm4NM+nd1pFjJEHRTnTVMo1
+sch8+2JQUY8bOxooZB03LnJTYTbBe8NKY6kwdhkEXZgAjOgbIBNAvdb1VtOaLSp5
+7Rqfd5K9Q7juAnAbP5aVH6IDzNhgPzPk3ul53llslGiqtOVG9X+janL0/gMor8ex
+b2VNb5ar4U+tka3WCOPGu7mm2DZTp9j+W511U46IPHnjsBwhRcLyNlOolhWbov7j
+enRFqMShUjuIwk7CWJ6AhnNRaw2AuIwsaLzuz2h+UfZQytlWqIM01dVxnDfEhOI/
+ktH39wSZQGf39AhET7QsEiXTB02WRw==
+=bZM3
+-----END PGP SIGNATURE-----
 
-3. SR-IOV VF Live migration
-4. Above #1 to #3 for SIOV devices instead of SRIOV devices
-
-5. cmd q interface for PF/VF/SF/SIOV to transport their own features, confi=
-g command over queue interface without any parent device
-
-#1 to #3 are well described in past. So, It is worth covering them in the c=
-over letter and things will be clear for new eyes.
-#4 is broad use case and like #1 to #3 that will eventually happen.
-#5 likely needs more discussion, we can differ to a later point because AQ =
-needs to progress in spec 1.3.
-
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+--I2BoVVZDWtt62RCe--
 
