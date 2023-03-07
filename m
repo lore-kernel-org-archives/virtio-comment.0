@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-4746-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4747-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6162DC6FD1B
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 16:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 909CDC6FD1B
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 16:30:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 942A241EE7
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 16:13:35 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CDC5841A0F
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 16:30:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7EB099866CC
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 16:13:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B42859866E4
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Mar 2023 16:30:40 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 6DB3A9866C5; Tue,  7 Mar 2023 16:13:35 +0000 (UTC)
+	id A5FEA9866C9; Tue,  7 Mar 2023 16:30:40 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,71 +24,131 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 51B329866C6
-	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Mar 2023 16:13:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8B1B39866D2
+	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Mar 2023 16:30:40 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: syyLN-yMMhW_bVDcHCXxWw-1
+X-MC-Unique: 92BXJKmuM0KnOff_2CAJ0Q-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678205586;
+        d=1e100.net; s=20210112; t=1678206622;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=U/ZiGnvwnABySinijQZzMTBCynCMdOabHec33IXZr+g=;
-        b=Ec5GYqK3//7ODsLGkL/dMSfUQySThMrJCxsWihQ4wMW106BRXdOq9YM7fOSaqkkXhC
-         noznMKPjdwg5rDXO9E+Lw8HFuCZT7Kc9UOqD0vRIK2TK57Z3lb9C2IeZCnfkwLW+lMDx
-         W28+8/DMZ1r5pXqb0rYGaqm/2hi5RArEtfK3lNfi9GyKYIGjpGC1h5ZxboS2YB3+a5Rg
-         u/lnvCOu1R60h6XV+dHzQ7RpyF1MdULR1nNFGiHXzZBHp5fU+D0CV7v8V4coZVD/RDxW
-         ztmtk1AGNmktXhYB+1dTjX5WVB6C48G0GF7V4Re01DUHOrWcm5oMRPIi0rCDftIG8kel
-         3dPA==
-X-Gm-Message-State: AO0yUKV5RRDKmWfPaeywUA0aRZbrunAJKHuQTgnPL0BWFqS/Gr59lwIf
-	upfnzHKBSkcXIqrJ3qZYaiZYXvj3gG3qFa8WcULCLZKbXLwKWYeo71u51X1+Jpk++gs69stxcHa
-	YvEvnfonI40D4bnhh5NNd6edUfPeRGuX8xA==
-X-Received: by 2002:a05:600c:3552:b0:3eb:3692:644d with SMTP id i18-20020a05600c355200b003eb3692644dmr13530835wmq.22.1678205586281;
-        Tue, 07 Mar 2023 08:13:06 -0800 (PST)
-X-Google-Smtp-Source: AK7set/RXaMK1doVkCadLKks1BW4lU+ILtQjeV3PlfLSIkSaJGIpkxtBdWFEb74m+oj0XA5eEU3gRg==
-X-Received: by 2002:a05:600c:3552:b0:3eb:3692:644d with SMTP id i18-20020a05600c355200b003eb3692644dmr13530809wmq.22.1678205586012;
-        Tue, 07 Mar 2023 08:13:06 -0800 (PST)
-Date: Tue, 7 Mar 2023 11:13:01 -0500
+        bh=98uTpV145EHl6mWYX6PEdg9YvFQFDXpZnjZkBUxBGOA=;
+        b=jVUnTU0L7BsxlbwvPF45doEG9EDnbzaBDe06elHv5ZG+UdmezHBAOm8oOcva+QIoWo
+         BML54EU2fLWWdR2l7Tumjra/lI7S/xZjJanVwoxGM7D52Bg22ax3MAQYC8+nXTD/vej0
+         K/xEYiQ77+8HOU3zdyDL7VR3FLjKxQchq7lVzwDfZekB6kglkMlOO2I0Bp6XR6hDSy83
+         YgryxhCCcHCUfBB9zF6WZRr7HDecrOWgo9cOCOnwpycH2G+vXBToLu90brrAi+UPHqkj
+         uMooBVqWxUt2fae1V2NtGjIOvCdaJT+XdeTj/Pu5yc6Ja27CWCdKyAUSr5kDnQiytOBN
+         hLFw==
+X-Gm-Message-State: AO0yUKWAIbiHGstXpJw5yyWrq8aX7UONizahM+NpXV8Anwx5x42XYfb1
+	dddoVBf7fcdCSK13rb2AUJIJEs1iaDmw4pHBmKiSl4P2xUn8QQXZqyr9cpYhX4tWc04/eFCEI2C
+	YzED+FxulbP0+4sStfVk5nUTTB9Ssd1KgkA==
+X-Received: by 2002:a05:600c:4592:b0:3dc:4b87:a570 with SMTP id r18-20020a05600c459200b003dc4b87a570mr15049179wmo.35.1678206622782;
+        Tue, 07 Mar 2023 08:30:22 -0800 (PST)
+X-Google-Smtp-Source: AK7set/3cGwPVcLPEiWEN9ZllIVLV+KRX2c60uew36WCnuHEF/YjPIU531LHeUqATzFQ/uVEVn08hQ==
+X-Received: by 2002:a05:600c:4592:b0:3dc:4b87:a570 with SMTP id r18-20020a05600c459200b003dc4b87a570mr15049147wmo.35.1678206622440;
+        Tue, 07 Mar 2023 08:30:22 -0800 (PST)
+Date: Tue, 7 Mar 2023 11:30:18 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Jiri Pirko <jiri@nvidia.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
-	virtio-comment@lists.oasis-open.org,
-	virtio-dev@lists.oasis-open.org, jasowang@redhat.com,
-	cohuck@redhat.com, sgarzare@redhat.com, nrupal.jani@intel.com,
-	Piotr.Uminski@intel.com, hang.yuan@intel.com,
-	virtio@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>,
-	pasic@linux.ibm.com, Shahaf Shuler <shahafs@nvidia.com>,
-	Parav Pandit <parav@nvidia.com>,
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+	jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com,
+	stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com,
+	hang.yuan@intel.com, virtio@lists.oasis-open.org,
+	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
+	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
 	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <20230307111143-mutt-send-email-mst@kernel.org>
-References: <20230302190230-mutt-send-email-mst@kernel.org>
- <20230303132840.GC2866370@fedora>
- <20230303083213-mutt-send-email-mst@kernel.org>
- <20230303202133.GA2901137@fedora>
- <20230305043419-mutt-send-email-mst@kernel.org>
- <20230306000302.GA244754@fedora>
- <20230305191351-mutt-send-email-mst@kernel.org>
- <20230306110340.GA35392@fedora>
- <20230306133525-mutt-send-email-mst@kernel.org>
- <ZAbvxj+7lgaI1HkI@nanopsycho>
+Message-ID: <20230307111458-mutt-send-email-mst@kernel.org>
+References: <cover.1677761896.git.mst@redhat.com>
+ <20c81b66f0b21b5bd646c24840ac3f8462c86acf.1677761896.git.mst@redhat.com>
+ <ZAXfegxCfvfLwiJT@nanopsycho>
+ <20230306133816-mutt-send-email-mst@kernel.org>
+ <ZAbpiRVdo8BciELX@nanopsycho>
 MIME-Version: 1.0
-In-Reply-To: <ZAbvxj+7lgaI1HkI@nanopsycho>
+In-Reply-To: <ZAbpiRVdo8BciELX@nanopsycho>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [virtio] Re: [PATCH v10 04/10] admin:
- introduce virtio admin virtqueues
+Subject: [virtio-comment] Re: [virtio] [PATCH v10 04/10] admin: introduce virtio admin
+ virtqueues
 
-On Tue, Mar 07, 2023 at 09:03:18AM +0100, Jiri Pirko wrote:
-> I sense there is no concete idea about what the "admin virtqueue" should
-> serve for exactly.
+On Tue, Mar 07, 2023 at 08:36:41AM +0100, Jiri Pirko wrote:
+> Hmm, if not for now, the future exension would not be so simple, I fear.
 
-Because the virtqueue is just a virtqueue - a way to pass around
-commands.  Admin commands are used whenever one needs to talk to one
-device about another one.
--- 
-MST
+Without knowing what it is I can't say.
+
+> 
+> >
+> >Passing commands to devices themselves is already covered in spec
+> >reasonably well though not in a generic way.
+> 
+> You mean using the control queue, correct?
+
+Depends on the device type. network devices have a control queue, yes.
+
+> >From one of the patch description of this patchset I understand that you
+> cannot use control queue for this because control queue is
+> device-specific, yet group control is device-agnostic.
+> 
+> My undestanding therefore was, that the admin queue you are introducing
+> serves as a generic carrier for device-agnostic commands, in parallel
+> for having control queue serving as a generic carrier of device-specific
+> commands. If this is not the case, I think it would be nice to describe
+> the exact monivation and scope of admin queue.
+
+Nope unfortunately.  This queue is just a carrier for admin commands.
+admin commands are commands that talk to one device about other
+devices. There's clearly no mechanism in the spec to do that,
+so we plug this hole.
+
+
+
+> 
+> >
+> >What we lack is passing commands about one device to another device.
+> >E.g. control VFs through PFs.
+> 
+> Could you provide examples of such commands please?
+
+For example a common feature is to program a vlan and have device
+put a given VF inside this vlan.
+
+In a virtualization scenario host controls this vlan programming giving
+the network a measure of protection from VFs.  If a VF is passed through
+to a VM, IOMMU limits VFs to only access guest memory so host has to do
+this programming through a PF.
+
+
+
+> 
+> >This is what groups do.
+> >But if we see more uses we can always add them.
+> >
+> >
+> >I'd rather avoid being too generic though.
+> 
+> In that case, why not to avoid using generic terms and stay
+> "group-centric"? What I mean is:
+> "Administration Virtqueues" -> "Group Administration Virtqueues"
+> "struct virtio_admin_cmd" -> "struct virtio_group_admin_cmd"
+> 
+> Etc. Helps to avoid confusion.
+
+Sure, I tried to do that but missed some opportunities.
+Will address.
+
+> 
+> >
+> >
+> >
+> >
+> >> 
+> >> >+than one administration virtqueue.
+> 
+> 
+> [...]
+> 
 
 
 This publicly archived list offers a means to provide input to the
