@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-4770-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-4771-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36E6CC64EC4
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Mar 2023 10:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1714C64EC4
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Mar 2023 10:55:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8BCAD2B023
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Mar 2023 10:17:43 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E71932B023
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Mar 2023 10:55:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 657399866E8
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Mar 2023 10:17:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D37D69866F2
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Mar 2023 10:55:48 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 525759866E6; Wed,  8 Mar 2023 10:17:43 +0000 (UTC)
+	id C16649866ED; Wed,  8 Mar 2023 10:55:48 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,256 +24,264 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3CE4A9866E7;
-	Wed,  8 Mar 2023 10:17:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id AE2FF9866EE;
+	Wed,  8 Mar 2023 10:55:48 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gdq8jSHkSKEUcDmE/2S3oIEflcWrMcT7afiRa7IlTRnlLZKfdQjUfFr3nAhlWm9troJuMCszldt8V5hIBffY6qaX/b1dIAoMAh+A47iKuoJTDkGYuknqVIj1/Yq6URESbNv2E5Xch9HyKO0Ehtg58/R3fYXWc0/ic5suvNgpfdz42m1PwzNyPr1GbnfL60mZCyBWaTC7T/Z0+OpN2TSuZWlRJzXr4B1ZzDf/orOhTz2MFQluyYlaSFNy4Zf+Pu6rK+7QL5arjfakPhdJolHbiYqEIO0at+s+rpXRhMrv8SJA15zAMJPx/rQTqMs/WfsaZSkxk/vt+1qUm6zUWqNMTw==
+ b=QnLymf7K2g9GqsXLov7Rl4ZFfAuPgVfn+ANIFoqbpy3AtuI8N8riVRsWWEPWfq7k4A6arxGPkD0Ppa1RbYdLrPMA54hFisCEgXKk6svLNqQ65VKFHPRR7Y6H8qz7/dxnWPuMshIvQRroQtt/5kVPZdncdednVxSwFctO3YxZRGrCtJaXS0INQF29EKeiu3MmU9V+CJlf0ono/o1B2wMlj++m/RbWOfuALzZ8O3G9hdl2tX/7SdB1LGfavE/xlH5R3Zxp3aLUBDJWAIuPdZv6pe+hNxvQA8gz6wQ9hgDzALO0al+z/y/134iBCuQhN3yux5kPbhb609IvGUr2omki+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ee4jH4ego27TSu8JbQFsbB9AHNRO6rJmLkydHIiLBoo=;
- b=WJoPbiwuhUairmUtg0FgzgL8GN860rEqfyxh3Ux/L3MDm9nbXDnyte7MuDNVcVM7z429pnBLGzsRsdPVtxjfxQx4xkVNSuUCVdTpwt683J63CQbhKAXZ1tY4XaE6db2QTGGQAPEkiQfMpqYGQOn19hAw4rweHJK07H+2G0Yi9TgN1UB4/2GYw+br1A5qckFgQ34BIavwcg8UgXQmyZ5AyexTfW7U7gigUWioNfAihOU09y4xEucmD5mIUt36uQrnvgpbGEbROT0WL9Gs//ItZ8FoHHhxvwdRO9K2ZAvKz4qqbCjACV29FDHr3SgEAFtgoROjgOSuGNiFwao75xPuUg==
+ bh=hfEnCDCWbcw4m4jSrEuJWyxU71N50IiEe4c8OZfBOCs=;
+ b=hkjDFW9t6yb6oAE5/0fG2J2IKaHI8TFNqowHUx+bc9PS6Tl5vImlJ70/JBjtn2+Enh7JiJn+HJq5PXthk1qiHyAep61c2IPmA0UUweahI9hddnTmAYzkvdu3C6tPpKHdKI5ILaf12V5FaD9sYzc5kUBccSGb0mO4r7beDyhNxh8Y36eC6a9dwdg8boLgZ/fnj3tgSYPPXRzqhWdxdeRXHR5vn2Xjj1xVTxvgNwA4LuJOtyxy3BRy/RchD9nu7Da4axCATbFvDeCS2dRxezezqExVSxbtcQh8omsplqrHL6jepugu5Ugz245VtF9907fT5oMCuzFkVfdwxShVZSvcBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Wed, 8 Mar 2023 11:17:35 +0100
-From: Jiri Pirko <jiri@nvidia.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	virtio-comment@lists.oasis-open.org,
-	virtio-dev@lists.oasis-open.org, jasowang@redhat.com,
-	cohuck@redhat.com, sgarzare@redhat.com, nrupal.jani@intel.com,
-	Piotr.Uminski@intel.com, hang.yuan@intel.com,
-	virtio@lists.oasis-open.org, Zhu Lingshan <lingshan.zhu@intel.com>,
-	pasic@linux.ibm.com, Shahaf Shuler <shahafs@nvidia.com>,
-	Parav Pandit <parav@nvidia.com>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <ZAhgv21Nnex6vbDf@nanopsycho>
-References: <20230303202133.GA2901137@fedora>
- <20230305043419-mutt-send-email-mst@kernel.org>
- <20230306000302.GA244754@fedora>
- <20230305191351-mutt-send-email-mst@kernel.org>
- <20230306110340.GA35392@fedora>
- <20230306133525-mutt-send-email-mst@kernel.org>
- <ZAbvxj+7lgaI1HkI@nanopsycho>
- <20230307143911.GC124259@fedora>
- <ZAdTSiVJGSrRIqZ3@nanopsycho>
- <20230307190347.GA153228@fedora>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230307190347.GA153228@fedora>
-X-ClientProxiedBy: FR3P281CA0198.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a5::20) To MN0PR12MB5979.namprd12.prod.outlook.com
- (2603:10b6:208:37e::15)
+Message-ID: <6668fd7a-3eb3-0447-9cbf-72d308b1336a@nvidia.com>
+Date: Wed, 8 Mar 2023 12:55:37 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.2
+Content-Language: en-US
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+ "jasowang@redhat.com" <jasowang@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "sgarzare@redhat.com" <sgarzare@redhat.com>,
+ "nrupal.jani@intel.com" <nrupal.jani@intel.com>,
+ "Piotr.Uminski@intel.com" <Piotr.Uminski@intel.com>,
+ "hang.yuan@intel.com" <hang.yuan@intel.com>,
+ "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
+ Zhu Lingshan <lingshan.zhu@intel.com>,
+ "pasic@linux.ibm.com" <pasic@linux.ibm.com>,
+ Shahaf Shuler <shahafs@nvidia.com>
+References: <cover.1677761896.git.mst@redhat.com>
+ <910b3607a5f255134d30b3e1233e564f564eafb8.1677761896.git.mst@redhat.com>
+ <PH0PR12MB548116853CAC23DF9CA7345EDCB29@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230302201912.GC2554028@fedora>
+ <20230302185803-mutt-send-email-mst@kernel.org>
+ <20230303131703.GB2866370@fedora>
+ <20230303081900-mutt-send-email-mst@kernel.org>
+ <4f869944-4ccd-c51e-0f30-dc3ba15ffd52@nvidia.com>
+ <20230307192752-mutt-send-email-mst@kernel.org>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+In-Reply-To: <20230307192752-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0024.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::15) To DM4PR12MB5040.namprd12.prod.outlook.com
+ (2603:10b6:5:38b::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5979:EE_|DM4PR12MB7719:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20b93410-a389-49d4-83d1-08db1fbe58ec
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5040:EE_|CO6PR12MB5396:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4f2b10f-07e3-4e6d-2739-08db1fc3ab3d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	+2EX/lwZ5h93dvfResDZqjCG87q42z+GB6e2F2zhrjMIZrLHF4L4d7yG1a25jZyRGwXYuKlxw+aH8BENtPBjKaExX7CBgDNxTaFpkdYEuN6DSPDx9kyqXq4sx2qSViPXBAgi+257KeOmg/DKr2beS6RLuLy7shgUks/gfbzX9OanBVypR+z4YVPiP+QRMynrYTsoxU8SwCcJoW/2uZBrfNsjmJ+9zIsaFG1qMkhqyevoMhDE88XtPYd62BD5nlv27apaG4wF8oMzIWQ5SMBsv5UDll4H+H1ZOVOcBq62VJi9iFftJmd87ayt5kGbQB/+dVPtdzjaRYn1MwBjq0fkb3QMYrgFh1818rEXNafxCNktp6RIRd9eZaK6syHFtEq6sDl19D22a0jvoYhfHMb9iYyLkxkauy8PW/pMVyy3UBVy1eaTM8zkS7U0k5Y2eeoRh/DzKygfiMaE8FRxkJ4x8fjsWtRPu7w7APB5ZXQA4tnaE/OhBN51OIWhOazdvkAEdz2SPQ5FuUfj6Ht7aIWT7cJEXHLSsGacnDn5OfTLMUJ/BQRRsSqE+lZrVs0sRTaNjMqsMkTenN+3G2ZVO4L8Zq1AJ9AqEAJD1yfMja9h8+YczwP1XRFHUeG9w3Q3TRNWCn/UZswNHScf3m4FGy9b4w==
+	A3O9RaXfJJxhRMsPxZlQm4BcuQlEU+N4c14JbBcVMlKKVilu+vwxDVLdf4pNOK+UqP9ct+T98wYkJVDFDOcktcz0v9tk1SA86zSn59kJsNfFjsHZh7vnV+Y3xmwykdJ88M4nmI620TXo4BhM4/ZOiYXW0emVfZSA8aV5uXhYl40vvmKKaWHpuqn1XkZcXEc0QFuLEPwsmBYej4LLuaUQrg/7XHof//TSZsBthCDfSbDrG4v1v81D4qaVJxLsgW1w6Qa72Sl5mmgzx1OGaKT2cdaCYpSLwvdhgvDAfy0qmsTy+sRWFekFKk+AnLYn31k+w3zsqVoWHbFdcTLrdSAWCbwOPaov40IwNQVePSqEDREM8w7fkzauOR1fkXhO7dDLmq5+QCP9RPVhHWVD09F32qcoj1ipGbSu08iNmqoylHv2wa0lLsaId5+4FMjE6njjK91we2UpdamUOzWqJWNBHSF5O9EM9LNpi0ucZTMKl8rFUe3rk1pq4qFYVooXLl89KvUZNDsGHDc69hIbYvMCXLvnTg4J/RPVGFMldecov4LyYcmLpTbzi9KVpaTNLcGnZMz3AfuBq8m6mAxn3t7Bjao676++lygYGZXTes0DImq/SncrDamZI5Lhv/1RViIdpxG9YVHsAl+xR/dIBVrOc5xZbrCx48zn4/fr6AJE12KwUYf+InWQomIIuhvZ4cE6GuQxKoiXx2tT52lt6et27goUZmMEzRlvpRBzc15rVOg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5979.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(7916004)(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(451199018)(83380400001)(66899018)(33716001)(9686003)(66556008)(4326008)(66946007)(8676002)(5660300002)(66476007)(7416002)(6916009)(2906002)(26005)(186003)(41300700001)(478600001)(8936002)(107886003)(6666004)(38100700002)(6506007)(6486002)(54906003)(316002)(6512007)(86362001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5040.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(346002)(396003)(376002)(136003)(366004)(451199018)(38100700002)(478600001)(316002)(31696002)(83380400001)(5660300002)(54906003)(7416002)(2906002)(36756003)(41300700001)(8676002)(6512007)(53546011)(6506007)(8936002)(4326008)(6916009)(186003)(6666004)(107886003)(66476007)(31686004)(66556008)(66946007)(6486002)(2616005)(86362001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fGrywULgQf6zApjtnMF5jsz0I5M0JoIMp/y8hbdizn+J5Z/GovgSXo89esXu?=
- =?us-ascii?Q?64CehHJSwxMON/LaE4Bzet86Decz7xky3+Mrxj3XqSzRDcmQJ6ZpouixZfDp?=
- =?us-ascii?Q?8eJ7wjjsNOGULpZ/HqFP9l5HSNeo+PgirCVLODLRJD8qIGFjPdaVD+NsV/iV?=
- =?us-ascii?Q?BpKBN1Z09St4yEvcxoHNVmUohd2Era8Th02O+d8sXwUrgtn8iWKv/RUoITM2?=
- =?us-ascii?Q?lEUW4uV6JJvONsTs2OdPvsto93f7dUWSQbIJz+3ekn1XKNR8K01uOiVTBEGO?=
- =?us-ascii?Q?gLtXkxUad5HM6TgUJVWw5zginRyS5hieac+kurO3fTO+RsJYMmKqhxhmaTFS?=
- =?us-ascii?Q?lJqR2NdQ7AJ5HWI8FEU/j8eRKFGeRNi9XZM4FvLTs03GRaG/31a70kA88tYu?=
- =?us-ascii?Q?/EJs48vZG1LDZO1WKSefTJs80LFKQu2ZK1dnuKtCFzGeBsOCtXtRuuqvTJj6?=
- =?us-ascii?Q?MTncNt+vBY1WKjBB11eyPtCaEArjeqmOyJ4EwZ1EK8KBIUFosgLUbVA7GdEs?=
- =?us-ascii?Q?PrA/n29hzzlaydUCEMxcigKthTPg5UN2N2WSzb9GafZ+n0Hu5oGPXWmFpiZN?=
- =?us-ascii?Q?jA2dPksvk1dactpKVnk4bFAYnmUOUElYWUpqY6fBQS2uwxbWESVAzASsamhB?=
- =?us-ascii?Q?F3IMzFfwq42Rpmox2RKOqtkxGDiIQfoHbQbWv2CJ30325Tz3woXDl45M6Jh0?=
- =?us-ascii?Q?dMHXej2UaVLlbR23qVw/YYmSsgmuXpTARgDUvbA+u9DVegFZBv6hZqUYsjVa?=
- =?us-ascii?Q?ojdUAJFUDHRQpFP5YYtZxx9sIihiubMAhyYpdnyqcFVfxqGe/9okHudOmGp1?=
- =?us-ascii?Q?b2Z4kb1UABBxRHuaaKjNMiRtPr8CtoQ7bo3FzyD4Lkg+HhYYcQCLjWJeLluK?=
- =?us-ascii?Q?zbasa0DGxFJOQFC/jmECvCeprmF77Jz8J+dUK7egmnjc+mVEkj/CzmmZ05as?=
- =?us-ascii?Q?yoU1dxmUXN6zjTnvjmrfdlSCUDQx1PthYsJpbG0K/2Oohu5JsMDsRAsIAOlK?=
- =?us-ascii?Q?CNSPHFT6C6QI7HNap55m3ESdwh3VbqzYl0NyUk2lVJcp1nk44mfsPpIpsD2m?=
- =?us-ascii?Q?iX5p20Ycbj5KP2eYfKUXqqU5TuzlfGs6fI7jjeqoth4IiAyNEyjVVYpHPzrX?=
- =?us-ascii?Q?l2e2j+yNKli0dgWe3L7vAQjHR+whtTEnyncGSlHQVYJmRL1ZFQO8qTYmltw2?=
- =?us-ascii?Q?v8KU49+AQhjQ94rqz3xtkvczHUeFQeEheDMd0JwYh7QENcE0OqK7T8fQ38hh?=
- =?us-ascii?Q?rNXEaXZOWtzmE8TCYLlmUEUdXW3/vQNR38ddLX7uQavb9MV6Wr3XI2jP9FkR?=
- =?us-ascii?Q?uu2nxANdaTRqFQOMJIhBVWUZZBQHWSTUmqSW6LW37Y+vi7KKiIkafSId+TMs?=
- =?us-ascii?Q?maCZ95/PAPl/UAsm1w7LoX6HDpNOEcJf5tWqdI0EM1YUbrH1DjHzG11xjipA?=
- =?us-ascii?Q?y7r3lNSeUKntIJ9KaW93SxGq9/bu2MY0fYtNDmgJOZbm43QfkOGhxgA1oX5P?=
- =?us-ascii?Q?miKWMF8eL3YmrHzAv4DwpoPYSSckOodrCkWRDlvnJ4hUMPfeAeWnJX3FoFVQ?=
- =?us-ascii?Q?xFa2ydYimj4iR6WH9rWzZexmOm8HzeDSHM/34MuV?=
+	=?utf-8?B?Qml6V2oxTjNxVS8rMEp5VlN6U0djcWxTd00rK2RqMmFkZ2RJb2ZDNWhibXJV?=
+ =?utf-8?B?WUdNQ1RQK2duNzRjcExLVENUdFdOZzhaN0QxM3BWKzBCdzdYV3V3MHBBL0pY?=
+ =?utf-8?B?bWRJWGQxbndZQnpLMFVXZjdCZGJtZFR6YWt0M3hqSXBGemI1YUc0MnNXai83?=
+ =?utf-8?B?NE5uZUF5QkZMZHBZU3YxeVFQUURCMks5SHZsNUFCS3BrdDJoRjlKZWVMM1pj?=
+ =?utf-8?B?UjlyQldWTEZYU2EyRTZxeGM0QnJuMDNBK0lzelN4OVQ3SHFaWHg5R29Ia3Jn?=
+ =?utf-8?B?b3hKSUVxdUtsMnBteCt1RkRJeVNaWXhCUE1nYlNibzJ4QWhCcVJFV3hxdnMy?=
+ =?utf-8?B?Q05XZElDNnAvb2k3SDBRbWZ5SGhpSU1hK044TmhaZkd3REVWSzhzRlNlRXli?=
+ =?utf-8?B?L0JvNEpvaHAzemswVEFOM3YzWjVZTWlkRjZVbjI4N1dVbUpHdXQwRUs2UTF5?=
+ =?utf-8?B?c0U3andtcDg1YU5ySWw5Nll4WDJXTFUyeFM5cGdtb2ZDeEUySDcxcEUyMm9q?=
+ =?utf-8?B?N0xoWEFXamlzb2t0dXJFRXhnYW82a01MdFVacW1QdXRwV2FhdE1IQXdDT2Qx?=
+ =?utf-8?B?NzZUdVdaMWpwejE4cUw1eCt1eldJbnJrM09PdXlmTzR5Rkt6bWVCK0VnRjVl?=
+ =?utf-8?B?eTdsQkZmMXIwTG9OK051TGpKSnJTQWIrS3BmT21HK1ZzTzg5bVFUbjFHSy9q?=
+ =?utf-8?B?ZUNGbFovR1o3cjduZ1drMnNwTFgxVHErQXBYdFpNSGVFRmtyT3ZvTnV1VDVM?=
+ =?utf-8?B?NCtTVkZYK25ncmx6azBkdWJSRytYeUVmbU9YRGJ6SnlKYVVGZ3R1eXZkUjRW?=
+ =?utf-8?B?dXpkK1VtaU5OK3ZqdnNHK3R3a2JSeURqR1ZQQUVSMDZLREF2Y3BLNGo5Wm51?=
+ =?utf-8?B?dDRwUWx4amZWVXVobXlnSU5EQ2JpbDdxSDZiNWJwZkw3VEt2MlkxWHQ1cE9W?=
+ =?utf-8?B?TWxPM0xWczBHbS9rMXdJS3ppaitRYTRZeWJkVDZkUmlOVE5xdnM2QWFJQWxr?=
+ =?utf-8?B?Sm5DcDljUzlDdnJOYVlpSCt4Z0JSVTQ4L3dJM21QVm1OcnRGZ3F5UTlYUGwx?=
+ =?utf-8?B?Wmp3ZHEzQUJaZXNONEVNWFF3Y2crYnVTVE1mT0ZWeFYyZ1BQbHkrL215TnZC?=
+ =?utf-8?B?NkF6TnVxV0tDNStHY3k4UndyYlNXSVhRVzNnMXJpYjk0blAyNDNhUVVITGN5?=
+ =?utf-8?B?T1VYVnJtTElKNk9nY05uWTNWMk1LN0JyajVmcHFHVitZQm10cjZKc3BZWEJ5?=
+ =?utf-8?B?RHlWc3o3NCtac0JCUkVBbDA5YkpYZ0w5QjhQTDEwdHI0SGpOTlVVVm1WSzB1?=
+ =?utf-8?B?S1FwMm80N3oxaVROeHlWSS9leXFVbWhLTzlRVGN5MDArYXlJSDZPSG5Cdm9o?=
+ =?utf-8?B?ckpmYk5mLzA5RGREeXJURmpER2lLT1ZTY1c2VXhtcm8weDQ3S1pLaHZlOG9T?=
+ =?utf-8?B?RncrQTdqc3hNRU5wNnRoTUo4OCtTYWcrSThFTXUwZWNjcnRSb0JjVVp1VEZP?=
+ =?utf-8?B?TFVpdzhFT2xOUW01aUIwOGpwRXdTN1lDMHREcWlDTkJjZ3ptZmNwMkFpM0Ry?=
+ =?utf-8?B?d3R2Q0VWb2dqUUxyRkxLSVVrYWVORTByZWNyWFJwR1lpK2lCcERzUW1OY2xE?=
+ =?utf-8?B?KzhadG4wUDVBdUp2S3ZpTDlNelE3US91VGFsS2RiY243WndxT0RORDdlV1ZV?=
+ =?utf-8?B?VXZScjNXaGJ2Q3JOdVhJd0RkQ1B4YWJJOTNqdVZ0OEw0eEsyWS9rS0laTExu?=
+ =?utf-8?B?RGl5RWVNVURORkx4MDZTRlRhaUlSV0U4T3lkbDl2dWk1ZXBra3laY28raWxN?=
+ =?utf-8?B?Y2pnZFhUVFB4bnVpOTM2TlVpMy8wTWNsU2EvSlpVOVFEYTFIUXo0NlFqYXlN?=
+ =?utf-8?B?dXpLNGtITjdZY09KbjFBQkVnVXowYkVUdFlVM2tZNDBGRDNEZUNCWjBrYWwz?=
+ =?utf-8?B?UFBQV2NmNXI1NnRLaUFsV285K2o3RnJYZ3FtdG5KMWhFQWZoWUVvaUdzUXU3?=
+ =?utf-8?B?NWNUZmFEcVdJdFl6YXp4OUxsNkFzNHJOVkR1OEFJM3h0OFNvcW01cHZUT3JC?=
+ =?utf-8?B?THc5d25xeGFjSXZaQkFZYWw3ZlRBTm5DekNncXg2VktOWTFxWGJEcTFlK2ky?=
+ =?utf-8?B?cXZJV2VGNmwyZmMraGhGWjQ0ckJiSjZ5N0RKTkE4ZnRDV2NHQ0RyWkJjZXlM?=
+ =?utf-8?B?ZXJ1K1ZoYXVLVUhNZFRhelVrQlU4TTV1NTdPM29vUVowRkxQUTlqaTJCME1Z?=
+ =?utf-8?B?U01XZTVCWDhFcllpT0pRa2Zocm5nPT0=?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20b93410-a389-49d4-83d1-08db1fbe58ec
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5979.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4f2b10f-07e3-4e6d-2739-08db1fc3ab3d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 10:17:40.1074
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 10:55:45.8332
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lO7nhivULmpqVbDLAm85nwW9LBswRAbd4n6d4rECe1XOfsIowFbtQZiH4ptDILDz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7719
-Subject: Re: [virtio-comment] Re: [virtio] Re: [PATCH v10 04/10] admin:
- introduce virtio admin virtqueues
-
-Tue, Mar 07, 2023 at 08:03:47PM CET, stefanha@redhat.com wrote:
->On Tue, Mar 07, 2023 at 04:07:54PM +0100, Jiri Pirko wrote:
->> Tue, Mar 07, 2023 at 03:39:11PM CET, stefanha@redhat.com wrote:
->> >On Tue, Mar 07, 2023 at 09:03:18AM +0100, Jiri Pirko wrote:
->> >> Mon, Mar 06, 2023 at 07:37:31PM CET, mst@redhat.com wrote:
->> >> >On Mon, Mar 06, 2023 at 06:03:40AM -0500, Stefan Hajnoczi wrote:
->> >> >> On Sun, Mar 05, 2023 at 07:18:24PM -0500, Michael S. Tsirkin wrote:
->> >> >> > On Sun, Mar 05, 2023 at 07:03:02PM -0500, Stefan Hajnoczi wrote:
->> >> >> > > On Sun, Mar 05, 2023 at 04:38:59AM -0500, Michael S. Tsirkin wrote:
->> >> >> > > > On Fri, Mar 03, 2023 at 03:21:33PM -0500, Stefan Hajnoczi wrote:
->> >> >> > > > > What happens if a command takes 1 second to complete, is the device
->> >> >> > > > > allowed to process the next command from the virtqueue during this time,
->> >> >> > > > > possibly completing it before the first command?
->> >> >> > > > > 
->> >> >> > > > > This requires additional clarification in the spec because "they are
->> >> >> > > > > processed by the device in the order in which they are queued" does not
->> >> >> > > > > explain whether commands block the virtqueue (in order completion) or
->> >> >> > > > > not (out of order completion).
->> >> >> > > > 
->> >> >> > > > Oh I begin to see. Hmm how does e.g. virtio scsi handle this?
->> >> >> > > 
->> >> >> > > virtio-scsi, virtio-blk, and NVMe requests may complete out of order.
->> >> >> > > Several may be processed by the device at the same time.
->> >> >> > 
->> >> >> > Let's say I submit a write followed by read - is read
->> >> >> > guaranteed to return an up to date info?
->> >> >> 
->> >> >> In general, no. The driver must wait for the write completion before
->> >> >> submitting the read if it wants consistency.
->> >> >> 
->> >> >> Stefan
->> >> >
->> >> >I see.  I think it's a good design to follow then.
->> >> 
->> >> Hmm, is it suitable to have this approach for configuration interface?
->> >> Storage device is a different beast, having parallel reads and writes
->> >> makes complete sense for performance.
->> >> 
->> >> ->read a req
->> >> ->read b req
->> >> ->read c req
->> >> <-read a rep
->> >> <-read b rep
->> >> <-read c rep
->> >> 
->> >> There is no dependency, even between writes.
->> >> 
->> >> But in case of configuration, does not make any sense to me.
->> >> Why is it needed? To pass the burden of consistency of
->> >> configuration to driver sounds odd at least.
->> >> 
->> >> I sense there is no concete idea about what the "admin virtqueue" should
->> >> serve for exactly.
->> >
->> >It's useful for long-running commands because they prevent other
->> >commands from executing.
->> >
->> >An example I've given is that deleting a group member might require
->> >waiting for the group member's I/O activity to finish. If that I/O
->> >activity cannot be cancelled instantaneously, then it could take an
->> >unbounded amount of time to delete the group member. The device would be
->> >unable to process futher admin commands.
->> 
->> I see. Then I believe that the device should handle the dependencies.
->> Example 1:
->> -> REQ cmd to create group member A
->> -> REQ cmd to create group member B
->> <- REP cmd to create group member A
->> <- REP cmd to create group member B
->> 
->> The device according to internal implementation can either serialize the
->> 2 group member creations or do it in parallel, if it supports it.
->> 
->> Example 2:
->> -> REQ cmd to create group member A
->> -> REQ cmd config group member A
->> <- REP cmd to create group member A
->> <- REP cmd config group member A
->> 
->> Here the serialization is necessary and the device is the one to take
->> care of it.
->> 
->> Makes sense?
->
->Yes, I understand. The spec would need to define ordering rules for
->specific commands and the device must implement them. It allows the
->driver to pipeline commands while also allowing out-of-order completion
->(parallelism) in some cases. The disadvantage of this approach is
->complexity in the spec and implementations.
->
->An alternative is unconditional out-of-order completion, where there are
->no per-command ordering rules. The driver must wait for a command to
->complete if it relies on the results of that command for its next
->command. I like this approach because it's less complex in the spec and
->for device implementers, while the burden on the driver implementer is
->still reasonable.
-
-But isn't this duplicating the burden of maintaining dependencies to
-both driver and device? I mean, device should not depend on driver doing
-the right thing, that means it has to check the dependencies for every
-incoming command anyway. The only difference would be to wait instead of
-returning "-EBUSY" in case the dependency is not satisfied yet.
-
-Device knows exactly what are the dependencies. And I believe, those are
-device implementation specific. For example, some implementation could
-support parallel VF config cmd execution, some implementation might
-need to serialize that. Driver has no clue.
-
-Could you please elaborate a bit more what you mean by "complexity in
-the spec"?
-
-Thanks!
+X-MS-Exchange-CrossTenant-UserPrincipalName: bfguJDZMkSx/NC1b2y/S3A8ywSKLkg7+3lz6fspPrlaWyfEw+8zIGBF3K80myuzMiQq1xDIxIn2xXXksujX20g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5396
+Subject: [virtio-comment] Re: [PATCH v10 03/10] admin: introduce group administration commands
 
 
->
->> >
->> >Group member creation might have similar issues if it involves acquiring
->> >remote resources (e.g. connecting to a Ceph cluster or allocating ports
->> >on a distributed network switch). It can be impossible to defer resource
->> 
->> Sidetrack: this is really fuzzy to me, how the new member is going to be
->> plugged into backend (network). Over the time, we learned that the
->> creation of device from the other side (switch side) makes more sense.
->> That is why I asked for motivation to introduce this infra.
->
->Michael, have you already thought about this?
->
->> >acquisition/initialization because because VIRTIO devices must be
->> >available as soon as the driver can see them (i.e. how do populate
->> >Configuration Space fields if you don't have the details of the resource
->> >yet?).
->> >
->> >So I have raised two questions:
->> >
->> >1. What are the admin queue command completion semantics: in-order or
->> >   out-of-order command completion?
->> 
->> I would add "dependencies/serialization" here.
->> 
->> 
->> >
->> >2. Will there be long-running commands and how will we deal with them
->> >   when they hang?
->> 
->> Yeah, sounds legit to define it in spec.
->> 
->> >
->> >Stefan
->> 
->> 
+
+On 08/03/2023 2:34, Michael S. Tsirkin wrote:
+> On Mon, Mar 06, 2023 at 01:04:42PM +0200, Max Gurtovoy wrote:
+>>
+>>
+>> On 03/03/2023 15:19, Michael S. Tsirkin wrote:
+>>> On Fri, Mar 03, 2023 at 08:17:03AM -0500, Stefan Hajnoczi wrote:
+>>>> On Thu, Mar 02, 2023 at 07:01:56PM -0500, Michael S. Tsirkin wrote:
+>>>>> On Thu, Mar 02, 2023 at 03:19:12PM -0500, Stefan Hajnoczi wrote:
+>>>>>> On Thu, Mar 02, 2023 at 06:40:29PM +0000, Parav Pandit wrote:
+>>>>>>>
+>>>>>>>> From: Michael S. Tsirkin <mst@redhat.com>
+>>>>>>>> Sent: Thursday, March 2, 2023 8:05 AM
+>>>>>>>
+>>>>>>>> +When \field{status} is VIRTIO_ADMIN_STATUS_OK, \field{status_qialifier}
+>>>>>>>> +is reserved and set to zero by the device.
+>>>>>>>> +
+>>>>>>> s/status_qialifier/status_qualifier
+>>>>>>> Missed from v10 of Feb.
+>>>>>>>
+>>>>>>>> +When \field{status} is VIRTIO_ADMIN_STATUS_EINVAL, the following table
+>>>>>>>> +describes possible \field{status_qialifier} values:
+>>>>>>> s/status_qialifier/status_qualifier
+>>>>>>>
+>>>>>>> Can you please add other useful error codes in addition to the EINVAL?
+>>>>>>> Few that we are needed EAGAIN, ENOMEM, EBUSY, ENODEV.
+>>>>>>
+>>>>>> Please define a unique constant for each error condition that can occur
+>>>>>> instead of sharing catch-all errno constants between multiple error
+>>>>>> conditions. If a driver wants to squash them together into an errno,
+>>>>>> that's fine, but I think doing this at the hardware interface level is
+>>>>>> just propagating the mistakes of errnos.
+>>>>>>
+>>>>>> Only status_qualifier is needed and the vague status field can be
+>>>>>> dropped. It's not clear to me why adding EAGAIN, ENOMEM, EBUSY, and
+>>>>>> ENODEV is useful. They have no meaning to the driver, only the
+>>>>>> status_qualifier really indicates what is going on.
+>>>>>
+>>>>> At a high level at the moment we have only two cases:
+>>>>> - ok
+>>>>> - invalid input supplied by driver
+>>>>>
+>>>>> maybe we will have more reasons for a failure - remains to
+>>>>> be seen.
+>>>>>
+>>>>>
+>>>>>
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> I'm sure you guys have discussed this previously, but please provide
+>>>>>> rationale in the spec because it looks weird to someone with fresh eyes.
+>>>>>>
+>>>>>> Stefan
+>>>>>
+>>>>> Really most drivers just want to propagate errno to userspace.
+>>>>> All the detailed reporting is for sure well intentional but
+>>>>> in the end it is at best printed into log - end to end
+>>>>> people just end up with a switch statement
+>>>>> converting these to errno codes.
+>>>>> So we are passing them from device and this way there will be
+>>>>> some uniformity.
+>>>>
+>>>> Please clarify the rationale in the spec. I don't agree with it, as
+>>>> explained in my earlier email, but as long as its documented, people can
+>>>> try to follow it.
+>>>>
+>>>> Stefan
+>>>
+>>> It's 2:2 for now, you are with Parav, me and Cornelia like it :)
+>>> Or I will try to document it better.
+>> I don't understand this status_qualifier as well and it wasn't included in
+>> my original patch set.
+> 
+> Sounds like you feel I should drop your S.O.B - is this the complaint?
+> I wanted to give attribution since I started with that but sure, no
+> problem.
+> 
+>> I vote for "status" that describe generic status codes and
+>> "command_specific_error" that should be inspected by the driver only if
+>> "status" is set to "VIRTIO_ADMIN_STATUS_COMMAND_SPECIFIC_ERR".
+>> We discussed this so many times before (and already agreed IIRC) and adding
+>> this new qualifiers mechanism sounds not right to me and not intuitive for
+>> device and driver developers.
+>>
+>> I suggest:
+>>
+>> 1. VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE
+>> 2. VIRTIO_ADMIN_STATUS_Q_INVALID_FIELD
+>> 3. VIRTIO_ADMIN_STATUS_Q_INVALID_GROUP
+>> 4. VIRTIO_ADMIN_STATUS_Q_INVALID_MEMBER
+>> 5. VIRTIO_ADMIN_STATUS_COMMAND_SPECIFIC_ERR (for more info read the
+>> command_specific_error field).
+> 
+> I don't think it's a good idea, we'll have to agree to disagree.
+
+Ok.
+can you explain why isn't this a good idea please ?
+remember that this is very common logic in many specifications and many 
+HW device implementation.
+> 
+> 
+> The point is simple. We can have a detailed virtio specific error.
+> Nice for debugging most drivers won't know what to do with it.
+> This is the status_qualifier.
+> Very detailed but
+> generally drivers will just have a giant switch statement translating
+> it to a simple error code for userspace.
+
+how giant is this switch statement ?
+NVMe handles fine with this logic. Maybe you can take a look on that to 
+get some more ideas of implementing this kind of things.
+
+Why do we need to add some qualifiers logic into our devices ?
+
+> So to save everyone work, we also added "status"
+> a generic kind of error class that is easy to pass to userspace
+> with a small switch statement.
+
+if you want something that is easy just pass OK = 0 and not_OK = 1 or != 0.
+Not need for qualifiers.
+In you case the qualifiers is just an extension for the status.
+
+> 
+> COMMAND_SPECIFIC_ERR is just way too much detail - commands generally
+> just should not fail it's a quality of implementation issue.
+
+it's the way many specifications work.
+And this is the correct way for future extensions IMO.
+Each new command may have it's own namespace of errors extensions.
+
+why we defer such essential decisions for the future ?
+We already introduces 2-3 admin features in the past (MSIX, feature bits 
+config, num_queues config, etc..) - maybe we can learn from it ?
 
 
+> 
+> 
+> 
+>>
+>>
+>>>
+> 
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
