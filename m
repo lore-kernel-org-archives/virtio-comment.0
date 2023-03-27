@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5033-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5034-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F17C76195
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Mar 2023 06:10:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E48D5C7619A
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Mar 2023 09:50:29 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DB56B42564
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Mar 2023 06:10:06 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 037D971C98
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Mar 2023 09:50:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CE67198627E
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Mar 2023 06:10:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2EFFF986742
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Mar 2023 09:50:24 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id BC960983DE9; Mon, 27 Mar 2023 06:10:06 +0000 (UTC)
+	id AF870986405; Mon, 27 Mar 2023 09:50:23 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,71 +24,164 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A2EDF986260;
-	Mon, 27 Mar 2023 06:10:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 79CDB986260
+	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Mar 2023 09:50:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R571e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046049;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0Veh3eZs_1679897400;
-Message-ID: <1679897351.7097778-1-xuanzhuo@linux.alibaba.com>
-Date: Mon, 27 Mar 2023 14:09:11 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+X-MC-Unique: hbbbx2kTMZu1R7iyBIXeFw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679910612;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XGFVtMlsYKlnPiT4XTGdUYrPj0d7WB5xShdEvp8Dm60=;
+        b=pgK3XgigOFDJ9zLmBbAnInkGp/nT7fjwVtvGO/VA63opwU9fCmvJP7CzFHsjuKs/wY
+         yuMDpBufjEpIw7Cp93sUzxfZ8q9PVADFjBN7ELeovHJmK1lifoKBcTMwFZmsj1slDDRr
+         6Gdni69GNXYD+aNx/nROrMFBW4zyRgVAGxgOMJUM3QrU+851wUMw+EDgSvDm+pUtzq1a
+         X+oMq3AK5i3IpLMybKbyEdKepPdvqsY/Y3gZWc5lLVIVT/EOdpct3Aq+p/4PZfgH4tyu
+         xs4l/l/B1O3za5wbYF7kd4Hgky+C3Y3p/o78ziuiZMsDgwGiT1HX1SdhyvSYcSfdXgt7
+         IXtQ==
+X-Gm-Message-State: AAQBX9fgF5bVWDbQQFFT9rTi6eA6Td1EFnti2sDAUPqlbU+/q1JLbumT
+	eGVvl82fFZVRO3bAjlLmacXNatIulkFAXREIZT/65fI/zA7krmmLayuIBUmhSQHHVfc/IXQkgE6
+	ns7GannpPDe1FZ9zChmgKEzHHzdBdI9VZew==
+X-Received: by 2002:a05:6214:2349:b0:5a7:a434:c307 with SMTP id hu9-20020a056214234900b005a7a434c307mr16323494qvb.24.1679910612098;
+        Mon, 27 Mar 2023 02:50:12 -0700 (PDT)
+X-Google-Smtp-Source: AKy350Z2YeLlnCIgCpjg7WEuW93vD+axBOaUl5o6xwqUZyXReCpJ0Hij3iyfkWwRKIYazAdJM+drnA==
+X-Received: by 2002:a05:6214:2349:b0:5a7:a434:c307 with SMTP id hu9-20020a056214234900b005a7a434c307mr16323482qvb.24.1679910611835;
+        Mon, 27 Mar 2023 02:50:11 -0700 (PDT)
+Date: Mon, 27 Mar 2023 11:50:07 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: <virtio-comment@lists.oasis-open.org>,
- <shahafs@nvidia.com>,
- Parav Pandit <parav@nvidia.com>,
- <mst@redhat.com>,
- <virtio-dev@lists.oasis-open.org>,
- <pasic@linux.ibm.com>,
- <cohuck@redhat.com>
-References: <20230324013534.280820-1-parav@nvidia.com>
-In-Reply-To: <20230324013534.280820-1-parav@nvidia.com>
-Subject: Re: [virtio-comment] [PATCH 0/3] transport-pci: msix summary update
+Cc: mst@redhat.com, virtio-dev@lists.oasis-open.org, pasic@linux.ibm.com, 
+	cohuck@redhat.com, virtio-comment@lists.oasis-open.org, shahafs@nvidia.com, 
+	Jiri Pirko <jiri@nvidia.com>
+Message-ID: <2h5c6jzeu6mxz6prebazh5g62je5nwwppx6zp3un6mjicxdq5v@xpvbt6soyu4u>
+References: <20230323005944.262738-1-parav@nvidia.com>
+ <20230323005944.262738-3-parav@nvidia.com>
+MIME-Version: 1.0
+In-Reply-To: <20230323005944.262738-3-parav@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+Subject: Re: [virtio-comment] [PATCH v5 2/8] transport-pci: Refer to the vq
+ by its number
 
-Series:
+Hi Parav,
 
-Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+On Thu, Mar 23, 2023 at 02:59:38AM +0200, Parav Pandit wrote:
+>Currently specification uses virtqueue index and
+>number interchangeably to refer to the virtqueue.
+>
+>Instead refer to it by its number.
+>
+>This patch is on top of [1].
+>
+>[1] https://lists.oasis-open.org/archives/virtio-dev/202302/msg00527.html
+>
+>Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
+>Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+>Signed-off-by: Parav Pandit <parav@nvidia.com>
+>---
+>changelog:
+>v2->v3:
+>- addressed comments from Michael
+>- changed vqn to virtqueue number in the Note
+>- refer to vqn field instead of virtqueue number
+>---
+> content.tex       |  2 +-
+> transport-pci.tex | 14 ++++++++------
+> 2 files changed, 9 insertions(+), 7 deletions(-)
+>
+>diff --git a/content.tex b/content.tex
+>index 1ab7794..0f634ac 100644
+>--- a/content.tex
+>+++ b/content.tex
+>@@ -321,7 +321,7 @@ \section{Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Virtqueues}
+> VIRTIO_F_IN_ORDER feature. If negotiated, this knowledge
+> might allow optimizations or simplify driver and/or device code.
+>
+>-Each virtqueue is identified as vq number or also referred
+>+Each virtqueue is identified by a vq number or also referred
 
-On Fri, 24 Mar 2023 04:35:31 +0300, Parav Pandit <parav@nvidia.com> wrote:
-> Summary for config_msix_vector and queue_msix_vector
-> registers have a confusing text of "for MSI-X".
+Could we merge this change into patch 1?
+
+Thanks,
+Stefano
+
+> to as a virtqueue number; vq number range is from 0 to 65535.
 >
-> Rewrite the register summary line.
+> Each virtqueue can consist of up to 3 parts:
+>diff --git a/transport-pci.tex b/transport-pci.tex
+>index b07a822..044c085 100644
+>--- a/transport-pci.tex
+>+++ b/transport-pci.tex
+>@@ -390,13 +390,15 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
 >
-> Patch summary:
-> patch 1 removes empty line at the end of the file
-> patch 2 updates configuration vector summary
-> patch 3 updates queue vector summary
+> \item[\field{queue_notify_data}]
+>         This field exists only if VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated.
+>-        The driver will use this value to put it in the 'virtqueue number' field
+>-        in the available buffer notification structure.
+>+        The driver will use this value to put it in the field
+>+        \field{vqn} in the available buffer notification
+>+        structure.
+>         See section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Available Buffer Notifications}.
+>         \begin{note}
+>         This field provides the device with flexibility to determine how virtqueues
+>         will be referred to in available buffer notifications.
+>-        In a trivial case the device can set \field{queue_notify_data}=vqn. Some devices
+>+        In a trivial case the device can set
+>+        \field{queue_notify_data}=vq number. Some devices
+>         may benefit from providing another value, for example an internal virtqueue
+>         identifier, or an internal offset related to the virtqueue number.
+>         \end{note}
+>@@ -1005,7 +1007,7 @@ \subsubsection{Device Initialization}\label{sec:Virtio Transport Options / Virti
+> The driver typically does this as follows, for each virtqueue a device has:
 >
-> These are only editorial changes to rewrite the summary.
-> Hence it should not require a github issue.
+> \begin{enumerate}
+>-\item Write the virtqueue index (first queue is 0) to \field{queue_select}.
+>+\item Write the virtqueue number (first queue is 0) to \field{queue_select}.
 >
-> Parav Pandit (3):
->   transport-pci: Remove empty line at end of file
->   transport-pci: Improve config msix vector description
->   transport-pci: Improve queue msix vector register desc
+> \item Read the virtqueue size from \field{queue_size}. This controls how big the virtqueue is
+>   (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues}~\nameref{sec:Basic Facilities of a Virtio Device / Virtqueues}). If this field is 0, the virtqueue does not exist.
+>@@ -1035,7 +1037,7 @@ \subsubsection{Available Buffer Notifications}\label{sec:Virtio Transport Option
 >
->  transport-pci.tex | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+> When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,
+> the driver sends an available buffer notification to the device by writing
+>-the 16-bit virtqueue index
+>+the 16-bit virtqueue number
+> of this virtqueue to the Queue Notify address.
 >
-> --
-> 2.26.2
+> When VIRTIO_F_NOTIFICATION_DATA has been negotiated,
+>@@ -1053,7 +1055,7 @@ \subsubsection{Available Buffer Notifications}\label{sec:Virtio Transport Option
+> If VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated:
+> \begin{itemize}
+> \item If VIRTIO_F_NOTIFICATION_DATA has not been negotiated, the driver MUST use the
+>-\field{queue_notify_data} value instead of the virtqueue index.
+>+\field{queue_notify_data} value instead of the virtqueue number.
+> \item If VIRTIO_F_NOTIFICATION_DATA has been negotiated, the driver MUST set the
+> \field{vqn} field to the \field{queue_notify_data} value.
+> \end{itemize}
+>-- 
+>2.26.2
 >
 >
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
+>This publicly archived list offers a means to provide input to the
+>OASIS Virtual I/O Device (VIRTIO) TC.
 >
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
+>In order to verify user consent to the Feedback License terms and
+>to minimize spam in the list archive, subscription is required
+>before posting.
 >
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+>Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>List help: virtio-comment-help@lists.oasis-open.org
+>List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+>Committee: https://www.oasis-open.org/committees/virtio/
+>Join OASIS: https://www.oasis-open.org/join/
 >
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
