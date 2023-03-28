@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5063-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5064-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2FAC76195
-	for <virtio-comment@archiver.kernel.org>; Tue, 28 Mar 2023 00:01:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 346ACC76196
+	for <virtio-comment@archiver.kernel.org>; Tue, 28 Mar 2023 13:53:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 250AB68490
-	for <virtio-comment@archiver.kernel.org>; Tue, 28 Mar 2023 00:00:51 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4115375603
+	for <virtio-comment@archiver.kernel.org>; Tue, 28 Mar 2023 13:53:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1E38798648C
-	for <virtio-comment@archiver.kernel.org>; Tue, 28 Mar 2023 00:00:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2B4D69863D6
+	for <virtio-comment@archiver.kernel.org>; Tue, 28 Mar 2023 13:53:33 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 152B59863D6; Tue, 28 Mar 2023 00:00:51 +0000 (UTC)
+	id 1B2B098637D; Tue, 28 Mar 2023 13:53:33 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,169 +24,204 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E91C8986546;
-	Tue, 28 Mar 2023 00:00:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 03F0D98638E;
+	Tue, 28 Mar 2023 13:53:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iP0S/SzT4ztTaQeBVSWbDy+zE/1QB5zYGaQAeH7u0n6Z6rwmuk/SQ4YGsG3DkrHezx/PrPLMH4lv1O80Gde3QXw23CZbZT/5ZvPBOKF/JP1IjwjhTgLUzHrGH4tQgXhDHbwY3gwBdjKkju71OIBgyheuQrzZbfJG4OI7qBtZC99urT6cmCtwA5yTHDjRLLT0NB4hC7JeLPatQxiLqw3++MeetxTPLJ/HFuFx0UNUIr+rkrx8fBpYPMly7MKZJ2WYZLd4n6G8ebhtkiDjmVsdkHzzqt8vQ38HmhpoExhmEyzCvyLeRsMv5G9TKh2K1RruIMcsXSb3+nObWx7KFYRdxQ==
+ b=e44SLadMfwy8Q/7lvmzLL7ara064pJwBwj7qo744ZabczY51jNaFKQ29jz7XYIyEKS2qcTNdFlVEtpRQ1Hr+ewsJwb6sYRBj4k/VRIL6ke5M5+mgcCZutPNn2KiBMURNPeGkBXp7wlk0PWKkxpbIiJNGHLPQPi0KZuohJGEJtTa/tk10mcY8lF+XdDCXJKOSSk31ypQsUl1ZB4Zgirn1+sv4Z6XFv1yipFkate+2/D/+owwd3RlTxQI+V+TNqYE9v6mmIP4x1aF3E4/kFQO3RcAX14ypH2pU3FG9oL6fkPGq/DlLhujkxpc5+qF3l9pIx2bjT8s52kpDiqErmzAebA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=auaXE3m2ufrOU8jg4DAORV49SujWR9c6uL2GASlpDeY=;
- b=ChtFTfvuRBrqE1euoBceVwM6JnRD6W9pieMyZguXbiiBbnVYznwQDPXUUNlhlbhV4EeLZcod0AcPAcrojip8GkF+kc0u+2t5PUSoGD3F5E+x9nAAuTgmlZgmcSBSlbKm3tf4CDgRCsdQ5Klb8c/3vQquoKdXmG1lr6bqEMrFInGmv5LRkKxY7RVjYlz9R0xzGMe/xkB8TomkvIXcAbeOU/6THiQbLIT3y7fZp4ZnYm1DdDkV/OT11EH0iNPkcrbsiZQ8gDVwKoZAUp0VMHdfsY8cY/S85mUBEp2F6fm2gh/KASOCUZQD0009nOIOZc/9H0h+b7zwMlLcFqG7N4+Bew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>,
-	<pasic@linux.ibm.com>, <cohuck@redhat.com>
-CC: <sgarzare@redhat.com>, <virtio-comment@lists.oasis-open.org>,
-	<shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
-Date: Tue, 28 Mar 2023 02:59:36 +0300
-Message-ID: <20230327235936.414196-9-parav@nvidia.com>
-X-Mailer: git-send-email 2.26.2
+ bh=w0NMebbiHJv6rvxablVx1sa9s9c/dBeuC+s0im2lzFs=;
+ b=S+/T+F0lAb1RBwuTqFzyH2NVM+aYd+3w8OgabUTnG3Oa4sf9YbfGEjwFoxfYBb/zjLipvfqME8Mt7YztCtSFRMVLbHXM+k9O3G9FMn8dtS4h9TMfamFAg4BuwB+1R8Nmu5+jbvXD26RiILqu1/DVWIWhttW2FXCKNSXdrT4pgx1FC8GKFiMDXNRjMtPe1nwH45hXgZ3/VQV2CXAAzNjlRmpwPSOq561riaYUm0zPtJYnWRVnZNMiUQJ0bBnQtaW/CiW1BuiRlG6SO9D294o7xKaVnZzRjX9gfIj/EoGGLDGCvuNKulDrAoQf/BNDoZ2nEeDuH+P5HPcml5zq7t7PAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+From: David Edmondson <david.edmondson@oracle.com>
+To: Parav Pandit <parav@nvidia.com>, mst@redhat.com,
+        virtio-dev@lists.oasis-open.org, pasic@linux.ibm.com,
+        cohuck@redhat.com
+Cc: sgarzare@redhat.com, virtio-comment@lists.oasis-open.org,
+        shahafs@nvidia.com, Parav Pandit <parav@nvidia.com>
 In-Reply-To: <20230327235936.414196-1-parav@nvidia.com>
 References: <20230327235936.414196-1-parav@nvidia.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 28 Mar 2023 14:53:05 +0100
+Message-ID: <m2fs9pc79a.fsf@oracle.com>
 Content-Type: text/plain
-X-Originating-IP: [10.126.230.37]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: LO4P123CA0420.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18b::11) To DS7PR10MB4926.namprd10.prod.outlook.com
+ (2603:10b6:5:3ac::20)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3C:EE_|DS7PR12MB6023:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfc38e29-30f0-4603-28f9-08db2f1f6452
+X-MS-TrafficTypeDiagnostic: DS7PR10MB4926:EE_|DM6PR10MB4156:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7527f43f-dc49-449c-b9a2-08db2f93c428
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	A6BmBHeWcw34UYeethpDtJokPm69Ipy4P5w9LSQ9nZJTDz/i6JsNTxa39+Lb2c5xg0QuPe+O+SJgljE8wnFH1P0oNRqxywwdedi9+oQfHe8mgKeWGV7/PByMFMvL4IGz6f3afpEkdNvrqZCVM+nwPF4JWOcSAtxiGqw+4dtzjyOUZjPliDh+U8uOj2DHuCeeCNcZ0K4cGrgZUymfQdbaz7j6VVrVG36Fmw6Jq/VGD6BT/ByjnBpV96LinvwDrdORnI1Kj/KA2mWe7mxPi9Ul4FX0r/xo+wEci2HQ73tL2ey1td7q5KAMLeG4KO6O4GFo6yU6yskkwP89cglzS9XVLojcHKsnDIfKZcqw6FtIM2Y7TFpZTqXqj+H9efxo8Ol2eaX5z/7fRprKFrtCVJoHnSlt2yqfLdwF5Tj8sXsb44zv6NrEEHUHK6fRmDmDpOzzRKC4iZ1UB86ZaCkTO3jE7i7ezhyDm0dOrY3REAI0CXIYvpaoy39V06romRnlavAS0vFaDcoEfN0gT7si1pcX8eDD+7N0NenlZn0TxWHjbrUKJtjXQ0vVFnph3jHLryQtLCtR2c0gBuQjbD6Ei6hHOFcG5JyGjXSwlzPsUmyIn0zZJNw6K4CH7z+LAjZEPr19dVOYA+KQ1bv2rMe/xPLS9a1v/0+kq0nGGiVe3CF4sw79qByghFZpaimDaJheuke/1R8PxZQi7FxqC1i9ujtiVYE4/jMdPtSlJmAKNYapprFmKDUiObXlFOKWOofd7yEcmrHHORDXiuMhSdbCq9VQMNMmSYAdZwp11TsLmqqUiic=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199021)(46966006)(36840700001)(40470700004)(26005)(1076003)(107886003)(6666004)(70586007)(70206006)(83380400001)(426003)(336012)(2616005)(16526019)(186003)(47076005)(316002)(110136005)(54906003)(36860700001)(41300700001)(4326008)(8676002)(82740400003)(7636003)(8936002)(2906002)(356005)(5660300002)(966005)(82310400005)(36756003)(86362001)(478600001)(40460700003)(40480700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 00:00:07.4623
+X-Microsoft-Antispam-Message-Info: 
+	10/D4C6inEjKpz+mJPASsmYIcccj4rtdNFMn+RN1d2c0bgjjdt/oDAS31ZBeHEMAU/VVwc7MbLqfVFhY23QetyWUgPefa6wSmvWePQSecTZHbtltpjhoLLqoF9d2uxk0eEQpb1Rfnd+SLuBBsFVJ6ekpSLe/IFxoSYbI7jFgFkRPUnJ3P5FfaDKGX56KIht5tAHXxO77wCRLyXPRKbiHJdPw1Yejg/vsmObWM86VouJ5y0tP/WrvARiTM4MRby43lGoz4m67qrIZVUNdPoHB6w8wFk0ZTM6+QtceIM3/Z89ILPoF13EJ7tRkjZLmgzZOfrJsKEDqmTQfeLMb2Wjdmo3frACqlDpVwReQ0S2G54wFVooc6uHnxFXcvolAQVtSMXMZxQexlM18VPekp3DyEec8lz1OvpJOzH18ycrAnXLnRa4BWsc11uVRPQaal0lKZjVW/0tq1PyqV0i3P1Si4yNVYQCa/vp7VS66VerK1/+J7MUgYI9jjmGATz/SrACFxENde4QEacLIZFtrpITiFmCA9py8USTILQD60nYdqpw=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR10MB4926.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(366004)(136003)(396003)(39860400002)(376002)(451199021)(186003)(6486002)(966005)(6506007)(316002)(6512007)(8676002)(4326008)(66476007)(66946007)(66556008)(66899021)(2616005)(478600001)(6666004)(26005)(41300700001)(5660300002)(8936002)(44832011)(2906002)(83380400001)(86362001)(38100700002)(36756003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?yXsPLk615xGEnjXmYDYPdqsI4i0Agky1ICErEoqmmEXYumBcyCtmopE/Apij?=
+ =?us-ascii?Q?R93JpAnJRVzb3kW4DQSnCISdfzIw++q06yXMyENspa4tpqxEIsathIOFIUUS?=
+ =?us-ascii?Q?ESWGCIpu93kP1cjxykcGkiNpVh4mqVWH+hjFoTiXCZOOSdDPHMH3L95qldmg?=
+ =?us-ascii?Q?QXi7ScrvajQWAORbi/4kFJ5ua0BvFkt6wyLBqwdnDHRX2XsY59mPUekqL9wl?=
+ =?us-ascii?Q?Kh2cbIIknIB+PxZFdwwaO67yreDTd3MW0Fkv7jafb4VE3EOTsu2LZztri28w?=
+ =?us-ascii?Q?t0TKztuNnYtC8OsJU7V0WjrnNQFa3/Nl2IyYXY1SHaSW/deiDSYB8LtJRZwv?=
+ =?us-ascii?Q?VwH/qKx8wACsJeFpgjvBCe+WXMIb/R7jd+5jRTexlyX1u+tGyBk3FhkDEmcP?=
+ =?us-ascii?Q?rCuiyFKCS9wDWEF7l2WG6U/HatMqQyUx+jA42DjJcxJtGvFgixAR1RApkHZu?=
+ =?us-ascii?Q?2Y03d+TVU9JR1vfCJyjQfDbCLLaMD7JLpZqMh5mIjLcrgAG2QV0d16weq3Si?=
+ =?us-ascii?Q?Vy9x5hbg131UGRjXx4NS7f2SBMEKPQmMVyODk9kzyEq03ZweUqgdWw9wYCi+?=
+ =?us-ascii?Q?hjpTqP+Egzxe0dRS946witM5vgPoXaDgspHzjatXumH8EgmBrV0ADxbmI6Ul?=
+ =?us-ascii?Q?D4iUgZcbtdXxl8u1lvsrLyyy8mCn83kQCWAQpie/k6tXJGY/ZiDvs/lqgFwc?=
+ =?us-ascii?Q?pyO49Hdz8QASPzWTyVt5G56xn7pEkGLcyX1yfmr0pfL4O1oT2CPW6NvubkZa?=
+ =?us-ascii?Q?2NAL/pw/2zTAlEF2p4MHHJjnuzX5nqPBVvKC8P85fmGpC53kb8exJX+Q28Wz?=
+ =?us-ascii?Q?QLshbAFcn9c2ZVdHO3EKFlLlZ/SgFa045OKDdL4tSsmG+dqn9he/C5cLnzkQ?=
+ =?us-ascii?Q?EU+XrFbEZ3bl8XPM6c4tBd/JrovuQFEihk9O8+powzGQ1Bu8JlvvOiqodwTE?=
+ =?us-ascii?Q?eq/QGdq4QL6LQPnYSFjSKXeYjFYf/woSebTJCCLljnps8ajMcaaXZewwsrbf?=
+ =?us-ascii?Q?j2kBiTF1owZ0TlNN9kJFX4w4fevZ7Yx1V6wG3nqFsDewUT3aex6jwOjwL6iK?=
+ =?us-ascii?Q?zoSGU9Z4wLbG8fs3SqpSrdTePMTxKZfvcOWbmPq5xoTzv6A7zCvGdqaxM2mK?=
+ =?us-ascii?Q?Dof3aqT9F+k6MPSfc4d5BlmDpIhPAnD3CICl4593Fsw7eQUux8sMg9z5ADJ7?=
+ =?us-ascii?Q?3FvKexTEKJXugzSUOglKoDT+sfV3WDZJhaBsG1XXtD8XxxFdDyFpr9cZ6Lzt?=
+ =?us-ascii?Q?CKDVRZe6F/9JIcMUBGXm0oRdhjG3JfPWqsXUSqrP7KhhaHlNK6M0P+KyoY3g?=
+ =?us-ascii?Q?aFlLGMY4Dvy2iOZlW93FQFAF/4xrqKd1k25qrBEd+j8ZYssderOYDv/nNGyn?=
+ =?us-ascii?Q?QsaFWypXL0Kb+MPHQP1JTuBq8l8cjbI23RjtKnT2SqSk39wXCA3uN5QzTbir?=
+ =?us-ascii?Q?/tfzgGzzQo2l0ICpj5cG5ORxpkzIk+WwgUx8cMmesqEWQO7HbnTWKa+f01ft?=
+ =?us-ascii?Q?JP7IYSdsOuxs01LrWEBuKxc8lalFazF3v72ZO2lsFsH1jYsJqGhPm3WtRYjB?=
+ =?us-ascii?Q?g3eah2CYUGIFnkI95OF9TOFLaS4LnGtEHDOsoceIHbd8W9tOr2fy5JJ4Oc/4?=
+ =?us-ascii?Q?KA=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
+	MWK55DRWAq+l8UFJfNs71Yc7/PjuEnCHrpRvPggMi1z6WKGcrAGwQZ1jE5s8Q5uHZdDlWbpE7jf5QwlciUicEpLFfsGWbbCWkq0b54yH28NKR8GhmNRa+hcxd7ScHYHO+V/4CVDQ0LjFGDn204PzF70xnDD0wZ+VbNdFXocccxozcSlbij2umr+J+RoUOR0wYqzmgueg2T8Oc2Hcj78wboN5U+31nsid850U5cPweLaBz8z4A4TqREUeAYPrq+PhdpC5kcqJUo+FFpN1iliL2JUui0ghvNc6wpsmb1MsidKrBXyJ9XI5oMW63PK7Yii2PeSmbSNyJfWOKz5gbV2aavCBzj4PAykLXV15jk76TeVtLKaYmKpdXKTz8d2mExFMTpV6hwOJjO1z/YOQGNnUyG0m8WHieHINa3M9DUI0f285+c34Rc6oOBQuCreBsC1pZ+YW0f3HgbVenATFNAiwxoaAzRH4bI0RaMUCEgJZyfH9BiK1yJywsvdY1TXWGnW4lKV171FDNoH/R66AbOBuD1G3NakinR/36NONfWLzk4JfgjiKKEVmUzQWKZE6uj+QwbrlJA/PSl+4dxV/ZfPjgAoIt6qTtgI7O570u3QgUqHRF2Yd7ZuxxfWic0kufLdoDMgDJVNXzPx3oV7G/H54GLxxpsk49grY+2fwWylVGkeCYehfJT4cSGq+yewNO2xn/is1qpf6S3vanHIk9DBAj4t8F4bsRUvRBN2eNZOLxHpnTwawRkZ6Jad6cCwjxBRD256nWZXF94aIfUW5x2svRQe1G2mYCHFDAJRrNN/Q7bCryDkUsSl7cqgjEqtE2jIxA7pRySS/xunrm4PdEsnWkJwizCZq1u2Ljf6Jiwu7w8CZmSy/fFrq1M3uZryjgB7H
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7527f43f-dc49-449c-b9a2-08db2f93c428
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB4926.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 13:53:10.2227
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfc38e29-30f0-4603-28f9-08db2f1f6452
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0000EE3C.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6023
-Subject: [virtio-comment] [PATCH v8 8/8] virtio-net: Describe RSS using rss rq id
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UHK9Y7FORv2cfc5ZeoNS8BODd/onvkHMdKkwNJYlt+FMeJPVEiS+igJcLndpUv7XYgU+W0/HjBQZAWhRwVsV5CIdp1GWG/HddIlXCivuI28=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB4156
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-24_11,2023-03-28_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 bulkscore=0 malwarescore=0
+ mlxscore=0 mlxlogscore=999 adultscore=0 suspectscore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2303280110
+X-Proofpoint-ORIG-GUID: NWnA4M1ScSd3HAjd-Q6r9DdHFdvyOB9o
+X-Proofpoint-GUID: NWnA4M1ScSd3HAjd-Q6r9DdHFdvyOB9o
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v8 0/8] Rename queue index to queue number
 
-The content of indirection table and unclassified_queue which are
-based on math calculation historically. To better describe this, to
-avoid intermixing array index with virtqueue index and to use virtqueue
-number
+Parav Pandit <parav@nvidia.com> writes:
 
-introduce a field rq_handle (receive queue handle) and refer them
-to describe unclassified_queue and indirection_table fields.
+> 1. Currently, virtqueue is identified between driver and device
+> interchangeably using either number of index terminology.
 
-As part of it, have the example that uses non zero virtqueue
-number which helps to have better mapping between receiveX
-object with virtqueue number and the actual value in the
-indirection table.
+"number or index"
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
-Signed-off-by: Parav Pandit <parav@nvidia.com>
+>
+> 2. Between PCI and MMIO transport the queue size (depth) is
+> defined as queue_size and QueueNum respectively.
+>
+> To avoid confusion and to have consistency, unify them to use as Number.
 
----
-changelog:
-v4->v5:
-- change subject to reflect rss_rq_id
-- fixed accidental removal of "unclassifed packets".
-- simplfied text around indirection_table mask to use the term
-  destination receive virtqueue. This aligns with next line about queue
-  reset.
-- removed rss_rq_id references as indirection table and
-  unclassified_queue data type is self explanatory
-v3->v4:
-- renamed rq_handle to rss_rq_id
-- moved rss_rq_id definition close to its usage in rss_config struct
-v2->v3:
-- moved rq_handle definition before using it
-- removed duplicate example as rq_handle is now described first
-v0->v1:
-- new patch suggested by Michael Tsirkin
----
- device-types/net/description.tex | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+s/as//
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 435c1fc..d6dd897 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -1423,11 +1423,16 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- Driver sends a VIRTIO_NET_CTRL_MQ_RSS_CONFIG command using the following format for \field{command-specific-data}:
- \begin{lstlisting}
-+struct rss_rq_id {
-+   le16 vqn_1_16: 15; /* Bits 1 to 16 of the virtqueue number */
-+   le16 reserved: 1; /* Set to zero */
-+};
-+
- struct virtio_net_rss_config {
-     le32 hash_types;
-     le16 indirection_table_mask;
--    le16 unclassified_queue;
--    le16 indirection_table[indirection_table_length];
-+    struct rss_rq_id unclassified_queue;
-+    struct rss_rq_id indirection_table[indirection_table_length];
-     le16 max_tx_vq;
-     u8 hash_key_length;
-     u8 hash_key_data[hash_key_length];
-@@ -1442,10 +1447,14 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \field{indirection_table} array.
- Number of entries in \field{indirection_table} is (\field{indirection_table_mask} + 1).
- 
--Field \field{unclassified_queue} contains the 0-based index of
--the receive virtqueue to place unclassified packets in. Index 0 corresponds to receiveq1.
-+\field{rss_rq_id} is a receive virtqueue id. \field{vqn_1_16}
-+consists of bits 1 to 16 of virtqueue number. For example,
-+\field{vqn_1_16} value of 3 corresponds to virtqueue number 6 maps to receiveq4.
-+
-+Field \field{unclassified_queue} contains the receive virtqueue
-+to place unclassified packets in.
- 
--Field \field{indirection_table} contains an array of 0-based indices of receive virtqueues. Index 0 corresponds to receiveq1.
-+Field \field{indirection_table} is an array of receive virtqueues.
- 
- A driver sets \field{max_tx_vq} to inform a device how many transmit virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
- 
-@@ -1455,7 +1464,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- A driver MUST NOT send the VIRTIO_NET_CTRL_MQ_RSS_CONFIG command if the feature VIRTIO_NET_F_RSS has not been negotiated.
- 
--A driver MUST fill the \field{indirection_table} array only with indices of enabled queues. Index 0 corresponds to receiveq1.
-+A driver MUST fill the \field{indirection_table} array only with
-+enabled receive virtqueues.
- 
- The number of entries in \field{indirection_table} (\field{indirection_table_mask} + 1) MUST be a power of two.
- 
-@@ -1468,7 +1478,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \begin{itemize}
- \item Calculate the hash of the packet as defined in \ref{sec:Device Types / Network Device / Device Operation / Processing of Incoming Packets / Hash calculation for incoming packets}.
- \item If the device did not calculate the hash for the specific packet, the device directs the packet to the receiveq specified by \field{unclassified_queue} of virtio_net_rss_config structure.
--\item Apply \field{indirection_table_mask} to the calculated hash and use the result as the index in the indirection table to get 0-based number of destination receiveq.
-+\item Apply \field{indirection_table_mask} to the calculated hash
-+and use the result as the index in the indirection table to get
-+the destination receive virtqueue.
- \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
- \end{itemize}
- 
+>
+> Solution:
+> a. Use virtqueue number description, and rename MMIO register as QueueSize.
+> b. Replace virtqueue index to virtqueue number
+
+s/to/with/
+
+> c. RSS area of virtio net has inherited some logic, describe it
+> using abstract rq_handle.
+>
+> Patch summary:
+> patch-1 introduce vq number as generic term
+> patch-2 renames index to number for pci transport
+> patch-3 renames mmio register from Num to Size
+> patch-4 renames index to number for mmio transport
+> patch-5 renames num field to size for ccw transport
+> patch-6 renames index field to queue_select for ccw transport
+> patch-7 for virtio-net removes duplicate example from requirements
+> patch-8 for virtio-net updates rss description to use vq number
+>
+> This series only improves the documentation, it does not change any
+> transport or device functionality.
+>
+> Please review.
+> This series fixes the issue [1].
+>
+> [1] https://github.com/oasis-tcs/virtio-spec/issues/163
+>
+> ---
+> changelog:
+> v7->v8:
+> - remove note about first virtqueue number
+> - skipped Max's comment to put word 'structure' in same line as its
+>   crosses 65 chars limit per line
+> - reworded queue_notification data set line, as '=' and vq number
+>   wording was odd
+> v6->v7:
+> - remove text around first vq as it is already covered in the basic
+>   virtqueues facility section
+> v5->v6:
+> - moved the vq number description from middle of vq operation
+>   to beginning of vq introduction
+> v4->v5:
+> - fixed accidental removal of "unclassifed packets".
+> - simplfied text around indirection_table mask
+> - removed rss_rq_id references as indirection table and
+>   unclassified_queue data type is self explanatory
+> v3->v4:
+> - moved note to comment for ccw
+> - renamed rq_handle to rss_rq_id
+> - moved rss_rq_id next to rss_config structure
+> - define rss_config structure using rss_rq_id
+> v2->v3:
+> - addressed comments from Michael
+> - added previous definitions for ccw fields
+> - moved rq_handle definition before using it
+> - added first patch to describe vq number
+> - updated pci for available buffer notification section
+> v1->v2:
+> - added patches for virtio net for rss area
+> - added patches for covering ccw transport
+> - added missing entries to refer in mmio transport
+>
+>
+> Parav Pandit (8):
+>   content: Add vq number text
+>   transport-pci: Refer to the vq by its number
+>   transport-mmio: Rename QueueNum register
+>   transport-mmio: Refer to the vq by its number
+>   transport-ccw: Rename queue depth/size to other transports
+>   transport-ccw: Refer to the vq by its number
+>   virtio-net: Avoid duplicate receive queue example
+>   virtio-net: Describe RSS using rss rq id
+>
+>  content.tex                      |  3 ++
+>  device-types/net/description.tex | 28 ++++++++++----
+>  transport-ccw.tex                | 27 ++++++++------
+>  transport-mmio.tex               | 63 ++++++++++++++++++--------------
+>  transport-pci.tex                | 14 ++++---
+>  5 files changed, 82 insertions(+), 53 deletions(-)
+>
+> -- 
+> 2.26.2
+>
+>
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 -- 
-2.26.2
-
+When the laugh track starts then the fun starts.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
