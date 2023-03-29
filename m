@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5084-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5085-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E08A3C6FD18
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Mar 2023 09:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 729B8C6FD18
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Mar 2023 09:06:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 73AFB71CB2
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Mar 2023 09:01:17 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8FC2875601
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Mar 2023 09:06:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 68A029864AF
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Mar 2023 09:01:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7FE8E9864A4
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Mar 2023 09:06:33 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 60B9F98649F; Wed, 29 Mar 2023 09:01:17 +0000 (UTC)
+	id 6FCC298649F; Wed, 29 Mar 2023 09:06:33 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,71 +24,71 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4D89C9864A3
-	for <virtio-comment@lists.oasis-open.org>; Wed, 29 Mar 2023 09:01:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5B09F9864A3
+	for <virtio-comment@lists.oasis-open.org>; Wed, 29 Mar 2023 09:06:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: uzF27P4VM7qprtxiTmefrA-1
+X-MC-Unique: f2pWiYNmMi64h8EXM_Lv5w-1
 From: Cornelia Huck <cohuck@redhat.com>
 To: Parav Pandit <parav@nvidia.com>, mst@redhat.com,
  virtio-dev@lists.oasis-open.org, pasic@linux.ibm.com
 Cc: sgarzare@redhat.com, virtio-comment@lists.oasis-open.org,
- shahafs@nvidia.com, Parav Pandit <parav@nvidia.com>
-In-Reply-To: <20230328201754.440974-2-parav@nvidia.com>
+ shahafs@nvidia.com, Parav Pandit <parav@nvidia.com>, Max Gurtovoy
+ <mgurtovoy@nvidia.com>, Jiri Pirko <jiri@nvidia.com>
+In-Reply-To: <20230328201754.440974-3-parav@nvidia.com>
 Organization: Red Hat GmbH
 References: <20230328201754.440974-1-parav@nvidia.com>
- <20230328201754.440974-2-parav@nvidia.com>
+ <20230328201754.440974-3-parav@nvidia.com>
 User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Wed, 29 Mar 2023 11:01:06 +0200
-Message-ID: <87zg7wlynh.fsf@redhat.com>
+Date: Wed, 29 Mar 2023 11:06:29 +0200
+Message-ID: <87wn30lyei.fsf@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
-Subject: [virtio-comment] Re: [PATCH v9 1/8] content: Add vq number text
+Subject: [virtio-comment] Re: [PATCH v9 2/8] transport-pci: Refer to the vq by its number
 
 On Tue, Mar 28 2023, Parav Pandit <parav@nvidia.com> wrote:
 
-> Introduce vq number and its range so that subsequent patches can refer
-> to it.
+> Currently specification uses virtqueue index and
+> number interchangeably to refer to the virtqueue.
+>
+> Instead refer to it by its number.
+>
+> This patch is on top of [1].
+>
+> [1] https://lists.oasis-open.org/archives/virtio-dev/202302/msg00527.html
+
+Please drop this reference, as the patches have been merged in the
+meanwhile.
+
 >
 > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
+> Reviewed-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+> Reviewed-by: Jiri Pirko <jiri@nvidia.com>
 > Signed-off-by: Parav Pandit <parav@nvidia.com>
 > ---
 > changelog:
 > v8->v9:
-> - added inclusive when describing the vq number range
-> - skipped comment to put virtqueue number wording first because we
->   prefer to use shorter vq number as much as possible
-> v5->v6:
-> - moved description close to introduction, it was in middle of
->   queue data transfer description
+> - reword the sentence to avoid future tense, like rest of the other
+>   fields description
+> - reword the sentence to avoid multiple verbs use and put -> uses
+> - use shorter name 'vq number' instead of 'virtqueue number'
+> v7->v8:
+> - remove note about first virtqueue number
+> - skipped Max's comment to put word 'structure' in same line as its
+>   crosses 65 chars limit per line
+> - reworded queue_notification data set line, as '=' and vq number
+>   wording was odd
 > v2->v3:
-> - new patch
+> - addressed comments from Michael
+> - changed vqn to virtqueue number in the Note
+> - refer to vqn field instead of virtqueue number
 > ---
->  content.tex | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/content.tex b/content.tex
-> index cff548a..3766bf9 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -298,6 +298,10 @@ \section{Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Virtqueues}
->  virtqueues\footnote{For example, the simplest network device has one virtqueue for
->  transmit and one for receive.}.
->  
-> +Each virtqueue is identified by a vq number or also referred
-> +to as a virtqueue number;
+>  transport-pci.tex | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
 
-I think "identified by a vq number (also referred to as a virtqueue
-number)" would read better.
-
-> vq number range is from 0 to 65535
-> +inclusive.
-> +
->  Driver makes requests available to device by adding
->  an available buffer to the queue, i.e., adding a buffer
->  describing the request to a virtqueue, and optionally triggering
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
 
 
 This publicly archived list offers a means to provide input to the
