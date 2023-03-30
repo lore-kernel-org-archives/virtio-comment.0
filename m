@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5114-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5115-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20A76C6FD1D
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 691B7C7619A
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6A3A41318E3
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 22:59:42 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 94AC01CA242
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 22:59:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2168C98697A
+	by lists.oasis-open.org (Postfix) with ESMTP id 7BF6E986AD5
 	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 22:59:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 18022986781; Thu, 30 Mar 2023 22:59:36 +0000 (UTC)
+	id 72C60986ACB; Thu, 30 Mar 2023 22:59:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,32 +24,32 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DD7609865A8;
-	Thu, 30 Mar 2023 22:59:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6DE3A98657D;
+	Thu, 30 Mar 2023 22:59:29 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VH7PAv09icc0Qqkx7KwR4pAPc7ZqOJxIMSswXFaqYcImRLV5adr/9Waqib40FKJl1seSJx86+cGqrMh9OI70d6SXs62AeMAHxaA8Jmv0vRKmcJVGpUEMSrGzYt/CBTypkBrkZK1gRX64LquySvCFSTqVQaNADBrSgGk7udmjOlz2L3+OXznc6Fe/NfJxlTq6dDiqq3qixU79GGjE+vf+gf3urC9+lJZF1I52cPRSdRnMYwzXX7SP38qLoAqnx3oSTVjyrGFHgH8rstssqNH9axvkl1c1TolMVRrTtHxfgD+3+AvogYAa/SusHTtmGGQzGyNUKPXasq19q/QcehaoqQ==
+ b=Yxq5BwlZoAY5pg8OMMdIK/6i/4xSRaLUN+2Ag6dtUk8rJhVopw1by4ZoYXC7mzpYsFZDXh4omH4JdL356TYYiRPyWE2eEab80x33Sk9/CV9t8WfMAVyT++2KxpmQgjUW7HDL7PxlGD+jatBSrNr2U1qyJQ10asbPuyIb13mvWJKJ+I4svzGsy9ayIM4JkmQ9hDYHuiyrgb2V287MO6ABxTXjRfI4MeBWXXBBPwNaICk30lfQyN5KpHkh7sJG7q06IzhiQhoLjUMsVKLxqH7D4C9AzS+m8fK9SiGqZmiHqOkc7TG8wTDjehV2NGflQkDLADGWhITurnF7cMOCuB2HDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7fbzqFU6DDkk8rn4e6jpqaA2XfFiG+6KDE3n+Jg+VPQ=;
- b=gzwuskp5h2RY2Bc9dpXuYG3u4C1qmcyI160qlVSJydGC66inA7l5zoBvWFCrbjATLlcZIuMk/cFqVuKP/sKhLk644tPD9JL1Rq1YPrU0io0i8xVTqTDjxVvasb6W6Yx8ymw8Et+VVQ5GpMbLZtFEceVL1AzEfeYgDUvPG7UPJcy+kx5Sc/45rDGRgSvGarOWUvfILGL3xQ6ZcOS0F4/56qbIhtEoYSkPooyCcEfnoDvx62o55eROdS7oF5EHeHzFJigFNLAcoGoXDQaVJQkSvZ2bXKqU9TjB6LlMmDCbx5VCKeBlCDLGOjJzsPHJTaCqwQvp4qkoAXfwpOv6EbUL7A==
+ bh=xr0oay6ztlXvUcaLfhm1baBTJWbocn/KPL0Kgm6GMXc=;
+ b=IP+wWpYojq8mylAaoo5N4o7Hr8RjduvH2U2iyubYTHkq54t74DkLNExAQw7ohhlLUI8RYUajcaPakUsJgcZLQsn5IEpCUDFvxLgPJYZ7ngmwsjX2ClV1RFuXwTvivBKDm9m7qJDeVW0T6AWXfr7k+ij2Bn4ssNRGiNugJARri+umuuDFIE4dpA5ruIq9xCySyb19DdWTP8TMUbQ9GPVZYJOBNeVzr3td+FnR5/cJMRFqU6JolWJKJ6htUzLFzqUWwt37DnezBmH2v17Gz+1dcGNc17tf99r9j3xIVWH2qjBytWNgZkHcpw7BW9JxTkWvnfE6mhYM2mssdUsap1BPVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>
 CC: <virtio-comment@lists.oasis-open.org>, <shahafs@nvidia.com>, Parav Pandit
-	<parav@nvidia.com>
-Date: Fri, 31 Mar 2023 01:58:24 +0300
-Message-ID: <20230330225834.506969-2-parav@nvidia.com>
+	<parav@nvidia.com>, Satananda Burla <sburla@marvell.com>
+Date: Fri, 31 Mar 2023 01:58:30 +0300
+Message-ID: <20230330225834.506969-8-parav@nvidia.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20230330225834.506969-1-parav@nvidia.com>
 References: <20230330225834.506969-1-parav@nvidia.com>
@@ -61,86 +61,104 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT006:EE_|SJ0PR12MB6966:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b597c08-bc30-4358-d81c-08db3172677c
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT052:EE_|SJ2PR12MB8651:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49298bab-abeb-4c0d-4b8e-08db31726953
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	dCAiwbNyhQ1Z7YVmDebSlKlMjCJC3NiUF6w6GqERdxOKTVhdnj9ceC0gRLmNHOAnfC7Y/XvkijZ2rM2I193EKX0Xlw7099JY7Qorl7PjdCRmuobYFPH5X5kej7pQy8UipWvLkTBCzeI8EMenpZQ6yvjHSzcfvzy4PwFLAII+qggDApbIaAXClliGXdhDjDUcbY6M759dzf//s8mCgANtI1Czm1vO2/d8S7pZZNI7F1gsR3P0CDt+9nRPcVZLFAwYFg4xBr0+4q53zChfqOsi36RXgBqm07fz4sMtIrmUHGt/SnWStQGpjNFh3LFiTR2Rkhi6157g4YnuagnUEVfCi23NI+70eRgRH61jpHYoQnM9Slz53Cc2/zOoi3Q1SK21WNYayeukqco6y1RpD6cc2t6Ys1tcflOK6mhYw52B2lxsQVEtCzMuZQDPJGEGPmwCmtpCpu0OLxtTRQNkNOfvrNtv0Q6rOLfDRoMd1TIpI9GUhRS0V16+BFCl8aia/aAiOwjqATvUL0TDZnN0/pRj+Rb/GpeZ5EPpfNrKReOnP8zi7qKbLe2CsYmjtTGXA10vezcy0D0rZlVCtcS1b2N2WGdY0KGJ57q0fzkCSDVg15pYE2i5q1d5SkKMXYJFba7FBORvxG1/0FEE/uldaha5vnVgCT5qDNcVjiQBb8xoIIr3E96N4vJAR4/qro0spa1datucnyzUxTPMCJC0UtMjORiPDFoM4byeW3pTnP12VoxHRyoZ0FG4iWAc3B/8YlVhPoosPA32ZEF87kgifsGEr4y5QdCYne73xnaJkWUpgSg=
+	sDYb18kCEz9D6XrxZDWWMv92o9au0mK9wnPlvRH4IhxRfzJ158s9cUick5JDIMBhI09IsCGDZNAdKNviW4XskA9fqaWxdFPxzJSD/F0/LhN+XLkY4GzEZV9XUM54K7JW0C9CPYm6o8jGtWeRhHQ6Nqy86zTW9W2nAs+jTd3107w0ZrLuK4OorSBLFDvLUENdcx4VSYpLfRF25RPzlYnNDcQHyDAB245vHCzh3z3091o0KXP6fCsOVpzBeX13aO3nhw1qWH3xNmD3D285aRoiPOff5NRtsIMcPw9QTwVaNM9vOkK/P/6YoGENYOaXgJLoB1goglZ5SICSOHu4WWlGJZIfrMhp5OvpLGRyKXJbzlG8d0IFOAxzCxo0aJNlIqFeXAK9C5XRm5wzw3ugkR5b9ZWPcQgahwrXm4DCl6/LpKcQ7UbBAUpyk1Bd8pMRg+cR7M/5x68VdjFQSjAO8f0duuia1K15/MjfZ4i8L5w4L3JK1QRPIi7zlm/5hU3ZSifvQKvn8Q+INOqUTD0Rsf/e107wH7gaawYTXMryWMWDZJqqN3Rc406G70V6dTaxNzF/zULq+pU/XPQsJh9eLC1HlxcOr6MKkupUKIVCZIzgN6963BZMQ7S6/5OTDpIraHsjvoGLucsz8F6zX+QYCYH4hlINOZGguydyu4kHOhSKRIGEnb37x3Eco64A6FU2hohI+HnF/GW1uejKgw7E7bogGnR7axsivBB2GCbYdnh8ClF99+TYm8M4H8AsGgkwNfRXFFYr5aAtLw4dNOfvGtQ5SPy2FN+j395TwpWH7JWhARc=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(39860400002)(136003)(376002)(396003)(451199021)(40470700004)(46966006)(36840700001)(2906002)(8936002)(40460700003)(356005)(82740400003)(41300700001)(7636003)(5660300002)(86362001)(36756003)(82310400005)(40480700001)(54906003)(316002)(110136005)(426003)(336012)(47076005)(34020700004)(478600001)(36860700001)(26005)(70586007)(6666004)(70206006)(4326008)(8676002)(107886003)(2616005)(83380400001)(16526019)(1076003)(186003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(39860400002)(136003)(396003)(451199021)(40470700004)(46966006)(36840700001)(16526019)(316002)(54906003)(186003)(6666004)(110136005)(1076003)(26005)(336012)(426003)(2616005)(83380400001)(47076005)(82740400003)(40460700003)(7636003)(478600001)(82310400005)(40480700001)(8936002)(86362001)(5660300002)(70206006)(356005)(70586007)(41300700001)(8676002)(36860700001)(2906002)(34020700004)(4326008)(36756003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 22:59:23.3762
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 22:59:26.4594
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b597c08-bc30-4358-d81c-08db3172677c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49298bab-abeb-4c0d-4b8e-08db31726953
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6966
-Subject: [virtio-comment] [PATCH 01/11] transport-pci: Use lowecase alphabets
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8651
+Subject: [virtio-comment] [PATCH 07/11] transport-pci: Introduce transitional MMR device id
 
-Use uniformly lowercase alphabets to write PCI vendor id and device id.
+Transitional MMR device PCI Device IDs are unique. Hence,
+any of the existing drivers do not bind to it.
+This further maintains the backward compatibility with
+existing drivers.
 
+Co-developed-by: Satananda Burla <sburla@marvell.com>
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
- transport-pci.tex | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ transport-pci.tex | 45 +++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 41 insertions(+), 4 deletions(-)
 
 diff --git a/transport-pci.tex b/transport-pci.tex
-index 85b2dae..7f27107 100644
+index ee11ba5..665448e 100644
 --- a/transport-pci.tex
 +++ b/transport-pci.tex
-@@ -18,17 +18,17 @@ \section{Virtio Over PCI Bus}\label{sec:Virtio Transport Options / Virtio Over P
- 
+@@ -19,12 +19,14 @@ \section{Virtio Over PCI Bus}\label{sec:Virtio Transport Options / Virtio Over P
  \subsection{PCI Device Discovery}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
  
--Any PCI device with PCI Vendor ID 0x1AF4, and PCI Device ID 0x1000 through
--0x107F inclusive is a virtio device. The actual value within this range
-+Any PCI device with PCI Vendor ID 0x1af4, and PCI Device ID 0x1000 through
-+0x107f inclusive is a virtio device. The actual value within this range
- indicates which virtio device is supported by the device.
+ Any PCI device with PCI Vendor ID 0x1af4, and PCI Device ID 0x1000 through
+-0x107f inclusive is a virtio device. The actual value within this range
+-indicates which virtio device is supported by the device.
++0x107f inclusive and DeviceID 0x10f9 through 0x10ff is a virtio device.
++The actual value within this range indicates which virtio device
++type it is.
  The PCI Device ID is calculated by adding 0x1040 to the Virtio Device ID,
  as indicated in section \ref{sec:Device Types}.
- Additionally, devices MAY utilize a Transitional PCI Device ID range,
--0x1000 to 0x103F depending on the device type.
-+0x1000 to 0x103f depending on the device type.
+-Additionally, devices MAY utilize a Transitional PCI Device ID range,
+-0x1000 to 0x103f depending on the device type.
++Additionally, devices MAY utilize a Transitional PCI Device ID range
++0x1000 to 0x103f inclusive or a Transitional MMR PCI Device ID range
++0x10f9 to 0x10ff inclusive, depending on the device type.
  
  \devicenormative{\subsubsection}{PCI Device Discovery}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
  
--Devices MUST have the PCI Vendor ID 0x1AF4.
-+Devices MUST have the PCI Vendor ID 0x1af4.
- Devices MUST either have the PCI Device ID calculated by adding 0x1040
- to the Virtio Device ID, as indicated in section \ref{sec:Device
- Types} or have the Transitional PCI Device ID depending on the device type,
-@@ -69,13 +69,13 @@ \subsection{PCI Device Discovery}\label{sec:Virtio Transport Options / Virtio Ov
- to drive the device.
+@@ -95,6 +97,41 @@ \subsubsection{Legacy Interfaces: A Note on PCI Device Discovery}\label{sec:Virt
  
- \drivernormative{\subsubsection}{PCI Device Discovery}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
--Drivers MUST match devices with the PCI Vendor ID 0x1AF4 and
-+Drivers MUST match devices with the PCI Vendor ID 0x1af4 and
- the PCI Device ID in the range 0x1040 to 0x107f,
- calculated by adding 0x1040 to the Virtio Device ID,
- as indicated in section \ref{sec:Device Types}.
- Drivers for device types listed in section \ref{sec:Virtio
- Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
--MUST match devices with the PCI Vendor ID 0x1AF4 and
-+MUST match devices with the PCI Vendor ID 0x1af4 and
- the Transitional PCI Device ID indicated in section
-  \ref{sec:Virtio
- Transport Options / Virtio Over PCI Bus / PCI Device Discovery}.
-@@ -691,7 +691,7 @@ \subsubsection{Vendor data capability}\label{sec:Virtio
- Devices CAN present multiple Vendor data capabilities with
- either different or identical \field{vendor_id} values.
+ This is to match legacy drivers.
  
--The value \field{vendor_id} MUST NOT equal 0x1AF4.
-+The value \field{vendor_id} MUST NOT equal 0x1af4.
++\subsubsection{Transitional MMR Interface: A Note on PCI Device
++Discovery}\label{sec:Virtio Transport Options / Virtio Over PCI
++Bus / PCI Device Discovery / Transitional MMR Interface: A Note on PCI Device Discovery}
++
++The transitional MMR device has one of the following PCI Device ID
++depending on the device type:
++
++\begin{tabular}{|l|c|}
++\hline
++Transitional PCI Device ID  &  Virtio Device    \\
++\hline \hline
++0x10f9      &   network device     \\
++\hline
++0x10fa     &   block device     \\
++\hline
++0x10fb     & memory ballooning (traditional)  \\
++\hline
++0x10fc     &      console       \\
++\hline
++0x10fd     &     SCSI host      \\
++\hline
++0x10fe     &  entropy source    \\
++\hline
++0x10ff     &   9P transport     \\
++\hline
++\end{tabular}
++
++The PCI Subsystem Vendor ID and the PCI Subsystem Device ID MAY
++reflect the PCI Vendor and Device ID of the environment.
++
++The transitional MMR driver MUST match any PCI Revision ID value.
++
++The transitional MMR driver MAY match any PCI Subsystem Vendor ID and
++any PCI Subsystem Device ID value.
++
+ \subsection{PCI Device Layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout}
  
- The size of the Vendor data capability MUST be a multiple of 4 bytes.
- 
+ The device is configured via I/O and/or memory regions (though see
 -- 
 2.26.2
 
