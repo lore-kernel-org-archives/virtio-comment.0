@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5122-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5123-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DAF4C7619A
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F799C7619A
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:01:02 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5780177B2F
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:43 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9304A150E30
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:52 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 45E0D986999
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8B4039867EC
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:52 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 098FF98699E; Thu, 30 Mar 2023 23:00:42 +0000 (UTC)
+	id 822739865F2; Thu, 30 Mar 2023 23:00:52 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,16 +24,16 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F312698662D;
-	Thu, 30 Mar 2023 23:00:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 585139868D8;
+	Thu, 30 Mar 2023 23:00:41 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lsFdpO2be6UNunefFkkRZrbD7vZD2iEQATWGanWr8G44mbMEcgv7yol5tQp7ldni9AC4f/792y4dQIwhl8Sd3ZkIfPZTpOSO6YydBm4paCEYhd7H4MueJuk9mmILpynUVUuAXQ+Vmn1l/QRq9PIwPvHcf9PIv9echfnFwrrpzt/9EsRbsdIF2e4I4JDd5fXn5CYERJxIkO7Vu3RJ5xq5ngvk5CzPmdQyx9y9h2l3uEMBuvqLulyK6WMu2dqqqk6Jqv5j/WLC59PuV9aEsP3SYRHYYMQFxzXr4W56WPa5rgxiBbjxumeP2fHQdlOdILOIDkDdvpYb6wfpFaQ67BFAFg==
+ b=ROkA3gy6Hd1wkTkgqzHLKo7//6p/2MSMz3/0yjgKVghvzaOmwKlL4fIl8gfpcCP4ObL13fdF2DBCBD7f3jEtHsKMgAxm3TvXOozhIH+XLXq7pV8zVecvesczGzWSY0XwPK1ADQZ9MoRZgS/rBG5BLsQpntNfTk848lSqiK59ugRVKwWmO0t07RxwflsyzfTYbxiQ6HUIhsu2vhpV4KQRFlx47Zf8Ynjgmsr/evSFcF7PGJLsLbem6XJensW1jCE5augOqSQxcbPnAwBIyIbR1mqbJt+FvLEK+GZVoCEtkvqW4QRbnSWi5kN8HeNbfNZK4+ZORUYR6q0Sh0RiaVcVZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cLP8fUqFnE83979XhmH/+lOzOhbYIMih79jrsSP+BMM=;
- b=oSb4gvITQta4V5QYkUTnwlO96hfJj/cfzOd5Bmy/13IrDwC7dSHMEp0h/L4+5OGiGXWTK1cEZ4F0t7EP8A8VwCPwgH4/G+sUHiUxurzXVz3v3cUjlQGQxhnNwLLeu7ma6X1QcZRBGiFj5CHx9s+m6Y6w2NOdg1P2u9VeFp2dNkvNH0EjRWliktxPwKima0rz8Euq/vQu0t0AIJq44hbFLgftZAO0591y3RUYYQLYQyOcEXGSFffcIhIumDCoKzRcbgEl59bSMHZFYMW7DOESPY0c72v5sn/itNWKB8DrRwy7G8b60H9lq4szSZadTUrRdF85Cwr/KSlIt+PlWVpg6g==
+ bh=GVPWHzWUyF0qn5ao/RlBOoIlw0HUJRuzmX0+elAojWE=;
+ b=c8AXEG2CHKbc7hJdHGcRRToKsokeJMwXIYaoqBA9MXxWKIAmsN5J9OIJfvy1KvWgzZXXahjK1ORuZOXd+J0Qf1UAngy7TUlDTuxmJtE+pKu42SuG6YEnC0sHd7EKYPTx5cyr5KQ6aNHt0xIDIifM8puxBknh4feBtJqmghYsMxoQfqA4xObassiX3rD/Qf0kNvEeI2ND6BdnLAcgmAbbqcqCeG6SqN8HdkoN6EsFo/gr5D30mnLDlIz9hWfn9npVwUl6KF3sMCmjjGQaWc/5ajz1PedixvJWVq6CTfw4jgAMH5c3p31wlEYMimyWc5/QG9SCDl/g92/OaRdFWa1SKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -48,8 +48,8 @@ From: Parav Pandit <parav@nvidia.com>
 To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>
 CC: <virtio-comment@lists.oasis-open.org>, <shahafs@nvidia.com>, Parav Pandit
 	<parav@nvidia.com>, Satananda Burla <sburla@marvell.com>
-Date: Fri, 31 Mar 2023 01:58:32 +0300
-Message-ID: <20230330225834.506969-10-parav@nvidia.com>
+Date: Fri, 31 Mar 2023 01:58:34 +0300
+Message-ID: <20230330225834.506969-12-parav@nvidia.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20230330225834.506969-1-parav@nvidia.com>
 References: <20230330225834.506969-1-parav@nvidia.com>
@@ -61,142 +61,113 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT086:EE_|DM4PR12MB5326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 278c845a-a69a-473e-c941-08db31726d1f
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT026:EE_|CH0PR12MB5042:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32a260f4-7011-4f52-4fe9-08db31726f17
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	lW/efizUFAf1ozChKMQuSsd56F+oQD2XW15mlz67RVhBRRRNO3CTBHFHzCHLLtoqQmuMLS8ikeofAG+0CXWiG9YJrnca0gOdf6/kpxj0Jh7YJJ9xP1eGkzzAei9dfnMj0EINBlTdm0Lb4wbb+ICn2PeYs3gfu5rWPIqtHVFmy+jpJoJb6NFaJdAugv/E8kigGeEalcXkkwA5EGLSmrkTMxAaWhEuwVetuBOHvkFwSe4V1/CwyYEo/NPYptN6zMggxEc/LGn9F+gTfmUrNuaI+Ze4vdCZXQAFzhdWwUYPmIUuf54hi4VRkijNP9PeNlb9NCAyl17dTf3AHMcBz+2/Cs/H4IBMksgxS/I38zNfhxMH76T/+rRsFfLUvH0azbu4mpi2y7h/O+OBVRufarYyu36SF7xsLXoGSWB4n5x8HyO4WcxzKCTNoYwbzMWO2B7jH5o/TnFLZrIcBw+oufD40XTHkzGWnl0o9AM6n9IVPoS+3dbP0NYbbhGz+UCU/Pi/j/0gI6hKqSb1tdyxRbHTphgTDb5GNNYQjVq/CNDQaoCqr/o+pWTDAon9YV/6xg9WvQMuqm54sJmEOGflITYZqWqBG2JQPaTgRKjNuddaoFVGihbIPyTej33k7/C0GtwAXoEmhkpDhHgkVNAe/6I7iAyfU/Q+UNAgDQMpDbxqp1xVbacYyShi5SdMlGz8ldLC4joCijMrLJkouTeG9RN2e3YOHsNyiqOfA+idAQRmQvGgiZE2d9ZtL6YtdUTG2UIxfNdpUlhQLqNkWblTpcFRpvKpeSahZ/9c3JknHuaP9Eo=
+	Kqd0oImZGUw7RAKjROm1aQicfBvFfdzNIJmdIx/fuQO+9zo4UAff5Xfr+a06vIODkxBh+QMaOyKCgNLyRB+WSSylnYEMOY3fWJB5t+TLD7ZQxcN1Z6u15D1KhtCaUONr9n3Go7cU6tWx7OLu3rLmlHQJ1TSlvYnbKrd0Rtb66W+Oxn1/b4UAz83l3XlhF57PLJrPcCuzdjWKMGhbpdfABDgl5IBRV/kci/foTuFlwzZBZZ3RdNtXtlTSgVumIzcZJfVKg0batduEMSwyPKA1wWef3qRgPeI51Pv0X0IUlx203IulVi8rXzrxJNKSj4B+/eglnrhNM3ambln7JznBvz3l/l3R6RyT5xZgimqJB516b5pSYhaFYJX5TPd+nixobhFowZPakN71l0efQIR6Zk2kdzhJPLbjfT40I2zX8YLpayXvXRZojZPzKqV9C/tqwN/R+/IaqbGqJO6aqceeH8TMfCWjrBRwDK04x58mHm8AN7BY2X1C++iwYbQK6rqe8O+dIzgE5+o7maKkM1nKRHz+T3KNeXQSdpKD1DEN7k0bXOFKw4JZGTRcQ+eSVEhK+TKgd4GWArUeRB7feXrVQ1N9YQYhUfQu0dSZsmSu5k9J8reZbVYS3l7i5ws1CY5T9cX4UAwufefCpaDVvEJuBtZnEsVIZcrQqLWXNY5oYiBWtwZqpZyG3S1zzv6RfGx5/J1oDfgDyz45OYH2InCnxM1rPc58ZIcRsK9zyLyFCJTkOrAiKi5p2MK+Or9iAdxuexrhGbmN29eeIYfgCFBdGe6JqmIXNysk7BdUJF5g32A=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(396003)(346002)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(110136005)(5660300002)(8936002)(2906002)(316002)(40480700001)(186003)(70206006)(41300700001)(40460700003)(86362001)(26005)(70586007)(54906003)(8676002)(4326008)(36756003)(478600001)(356005)(7636003)(2616005)(16526019)(1076003)(82740400003)(82310400005)(83380400001)(336012)(6666004)(47076005)(36860700001)(426003)(34020700004);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(40460700003)(2906002)(8936002)(356005)(82740400003)(41300700001)(5660300002)(82310400005)(36756003)(86362001)(40480700001)(7636003)(336012)(47076005)(478600001)(34020700004)(54906003)(36860700001)(186003)(16526019)(426003)(1076003)(26005)(6666004)(2616005)(83380400001)(70586007)(70206006)(8676002)(4326008)(110136005)(316002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 22:59:32.8324
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 22:59:36.1326
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 278c845a-a69a-473e-c941-08db31726d1f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32a260f4-7011-4f52-4fe9-08db31726f17
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT086.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5326
-Subject: [virtio-comment] [PATCH 09/11] transport-pci: Describe PCI MMR dev config registers
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5042
+Subject: [virtio-comment] [PATCH 11/11] conformance: Add transitional MMR interface conformance
 
-Legacy virtio configuration registers and adjacent
-device configuration registers are located somewhere
-in a memory BAR.
+Add conformance section for the transitional MMR interface.
 
-A new capability supplies the location of these registers
-which a driver can use to map I/O access to legacy
-memory mapped registers.
-
-This gives the ability to locate legacy registers in either
-the existing memory BAR or as completely new BAR at BAR 0.
-
-A below example diagram attempts to depicts it in an existing
-memory BAR.
-
-+------------------------------+
-|Transitional                  |
-|MMR SRIOV VF                  |
-|                              |
-++---------------+             |
-||dev_id =       |             |
-||{0x10f9-0x10ff}|             |
-|+---------------+             |
-|                              |
-++--------------------+        |
-|| PCIe ext cap = 0xB |        |
-|| cfg_type = 10      |        |
-|| offset   = 0x1000  |        |
-|| bar      = A {0..5}|        |
-|+--|-----------------+        |
-|   |                          |
-|   |                          |
-|   |    +-------------------+ |
-|   |    | Memory BAR = A    | |
-|   |    |                   | |
-|   +------>+--------------+ | |
-|        |  |legacy virtio | | |
-|        |  |+ dev cfg     | | |
-|        |  |registers     | | |
-|        |  +--------------+ | |
-|        +-----------------+ | |
-+------------------------------+
+Basically transitional MMR interface follows same requirements as that
+of the transitional device with few exceptions to it. List such delta
+requirements in the conformance section.
 
 Co-developed-by: Satananda Burla <sburla@marvell.com>
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
- transport-pci.tex | 33 +++++++++++++++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+ conformance.tex      |  8 ++++++--
+ tmmr-conformance.tex | 27 +++++++++++++++++++++++++++
+ 2 files changed, 33 insertions(+), 2 deletions(-)
+ create mode 100644 tmmr-conformance.tex
 
-diff --git a/transport-pci.tex b/transport-pci.tex
-index aeda4a1..55a6aa0 100644
---- a/transport-pci.tex
-+++ b/transport-pci.tex
-@@ -168,6 +168,7 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
- \item ISR Status
- \item Device-specific configuration (optional)
- \item PCI configuration access
-+\item Legacy memory mapped configuration registers (optional)
+diff --git a/conformance.tex b/conformance.tex
+index ccbc9bf..4cccba7 100644
+--- a/conformance.tex
++++ b/conformance.tex
+@@ -11,7 +11,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ 
+ Conformance targets:
+ \begin{description}
+-\item[Driver] A driver MUST conform to four conformance clauses:
++\item[Driver] A driver MUST conform to five conformance clauses:
+   \begin{itemize}
+     \item Clause \ref{sec:Conformance / Driver Conformance}.
+     \item One of clauses \ref{sec:Conformance / Driver Conformance / PCI Driver Conformance}, \ref{sec:Conformance / Driver Conformance / MMIO Driver Conformance} or \ref{sec:Conformance / Driver Conformance / Channel I/O Driver Conformance}.
+@@ -36,8 +36,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
+ 
+     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
++    \item Clause \ref{sec:Conformance / Transitional MMR Interface: Transitional MMR Device and Transitional MMR Driver Conformance}.
+   \end{itemize}
+-\item[Device] A device MUST conform to four conformance clauses:
++\item[Device] A device MUST conform to five conformance clauses:
+   \begin{itemize}
+     \item Clause \ref{sec:Conformance / Device Conformance}.
+     \item One of clauses \ref{sec:Conformance / Device Conformance / PCI Device Conformance}, \ref{sec:Conformance / Device Conformance / MMIO Device Conformance} or \ref{sec:Conformance / Device Conformance / Channel I/O Device Conformance}.
+@@ -63,6 +64,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
+ 
+     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
++    \item Clause \ref{sec:Conformance / Transitional MMR Interface: Transitional MMR Device and Transitional MMR Driver Conformance}.
+   \end{itemize}
+ \end{description}
+ 
+@@ -294,3 +296,5 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item Section \ref{sec:Device Types / SCSI Host Device / Device Operation / Device Operation: eventq / Legacy Interface: Device Operation: eventq}
+ \item Section \ref{sec:Reserved Feature Bits / Legacy Interface: Reserved Feature Bits}
  \end{itemize}
- 
- Each structure can be mapped by a Base Address register (BAR) belonging to
-@@ -228,6 +229,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
- #define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
- /* Vendor-specific data */
- #define VIRTIO_PCI_CAP_VENDOR_CFG        9
-+/* Legacy configuration registers capability */
-+#define VIRTIO_PCI_CAP_LEGACY_MMR_CFG    10
- \end{lstlisting}
- 
-         Any other value is reserved for future use.
-@@ -682,6 +685,18 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
- Configuration Space / Legacy Interface: Device Configuration
- Space}~\nameref{sec:Basic Facilities of a Virtio Device / Device Configuration Space / Legacy Interface: Device Configuration Space} for workarounds.
- 
-+\paragraph{Transitional MMR Interface: A Note on Configuration Registers}
-+\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Common configuration structure layout / Transitional MMR Interface: A Note on Configuration Registers}
 +
-+The transitional MMR device MUST present legacy virtio registers
-+consisting of legacy common configuration registers followed by
-+legacy device specific configuration registers described in section
-+\ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Common configuration structure layout / Legacy Interfaces: A Note on Configuration Registers}
-+in a memory region PCI BAR.
++\input{tmmr-conformance.tex}
+diff --git a/tmmr-conformance.tex b/tmmr-conformance.tex
+new file mode 100644
+index 0000000..ad3489b
+--- /dev/null
++++ b/tmmr-conformance.tex
+@@ -0,0 +1,27 @@
++\conformance{\section}{Transitional MMR Interface: Transitional MMR Device and Transitional MMR Driver Conformance}\label{sec:Conformance / Transitional MMR Interface: Transitional MMR Device and Transitional MMR Driver Conformance}
 +
-+The transitional MMR device MUST provide the location of the
-+legacy virtio configuration registers using a legacy memory mapped
-+registers capability described in section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Transitional MMR Interface: Legacy Memory Mapped Configuration Registers Capability}.
- 
- \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
- 
-@@ -956,9 +971,23 @@ \subsubsection{PCI configuration access capability}\label{sec:Virtio Transport O
- specified by some other Virtio Structure PCI Capability
- of type other than \field{VIRTIO_PCI_CAP_PCI_CFG}.
- 
-+\subsubsection{Transitional MMR Interface: Legacy Memory Mapped Configuration Registers Capability}
-+\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Transitional MMR Interface: Legacy Memory Mapped Configuration Registers Capability}
++An implementation MAY choose to implement OPTIONAL support for the
++transitional MMR interface, by conforming to all of the MUST
++level requirements for the transitional MMR interface for the
++transitional devices and drivers.
 +
-+The optional VIRTIO_PCI_CAP_LEGACY_MMR_CFG capability defines
-+the location of the legacy virtio configuration registers
-+followed by legacy device specific configuration registers in
-+the memory region BAR for the transitional MMR device.
++The requirements for the transitional MMR interface follows all
++the legacy interface requirements listed in section
++\ref{sec:Conformance / Legacy Interface: Transitional Device and
++Transitional Driver Conformance} with the following exceptions.
 +
-+The \field{cap.offset} MUST be 4-byte aligned.
-+The \field{cap.offset} SHOULD be 4KBytes aligned and
-+\field{cap.length} SHOULD be 4KBytes.
++Following requirements MUST NOT be implemented:
 +
-+The transitional MMR device MUST present a legacy configuration
-+memory mapped registers capability using \field{virtio_pcie_ext_cap}.
++\begin{itemize}
++\item Section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery / Legacy Interfaces: A Note on PCI Device Discovery}
++\item Section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Common configuration structure layout / Legacy Interfaces: A Note on Configuration Registers}
++\end{itemize}
 +
- \subsubsection{Legacy Interface: A Note on Feature Bits}
--\label{sec:Virtio Transport Options / Virtio Over PCI Bus /
--Virtio Structure PCI Capabilities / Legacy Interface: A Note on Feature Bits}
-+\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Legacy Interface: A Note on Feature Bits}
- 
- Only Feature Bits 0 to 31 are accessible through the
- Legacy Interface. When used through the Legacy Interface,
++Instead following requirements MUST be implemented:
++
++\begin{itemize}
++\item Section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery / Transitional MMR Interface: A Note on PCI Device Discovery}
++\item Section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Common configuration structure layout / Transitional MMR Interface: A Note on Configuration Registers}
++\item Section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Notification capability / Transitional MMR Interface}
++\item Section \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Transitional MMR Interface: Legacy Memory Mapped Configuration Registers Capability}
++\end{itemize}
 -- 
 2.26.2
 
