@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5112-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5113-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C68C6FD1D
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 19:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E493C7619A
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 22:59:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 517EA23D52
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 19:13:53 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8A4A63356A
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 22:59:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3A77598655C
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 19:13:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6A3E3986573
+	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 22:59:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 29D9F98654B; Thu, 30 Mar 2023 19:13:53 +0000 (UTC)
+	id 4F6B598655C; Thu, 30 Mar 2023 22:59:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,445 +24,282 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 176F298654C;
-	Thu, 30 Mar 2023 19:13:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3909F986563;
+	Thu, 30 Mar 2023 22:59:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ap0dEteuzX140icz7TRysKolNiDR4XyOp9BcD5dLBJFewXv3DKP+A2ROkBF9zQ2OgjZFec/tzxUeufqGxa76P0AfKO+Swu+3kQimRZSS3f0vNVI5NyYzmjDmJ51HQ1LDdQmJr31CDfBKF9G3sWwLBfImLrCAbaeEEFMLheVgbS1c6SfIp1SLvvg1W32vzUlbaYQvwZTBE09AFcBNsYVwHG+nKA9OEyxP1769DPRXJI8y6WYjokN57B7lYQztosc9WAkNbWH09RQvmGKaGqbXqEwm+U638i2Fqrs484Fr/nSOFHw8sUt8FD0/aqHG3KWF77PZYU5Var5R7Um3uHDTbA==
+ b=a5+GOaxmhwgS2Z6dI5bkgZDS75K7Ge/lcmkh4QYK+QnFjBk/v2nheFXo6UgU/mbnFaGzIK7MTcM1cFQAvWRlmD5uGEom4oEOJp2g9ragYfU1D/zHR6qZvUNGPXebDJn+Rl/bstbDqx+WXvZr8PH88sYzovH1lRkYgew1y2JoLLXJchKzbWz4quY1KbY5sNGuPcnWcvTbTcqOrWYLDL3VeSuLfybfZeuaNDJT9cA4ijhOey3D3aGA1k1bPoehLg0R5acrnvQHDQ+IeIxNhsnzI4x/FcUsDKpU5V1VUvB3Sja56HLNEz9bEOWaXv+2bR1S57wZ1IC8Sx0UeA76uA0Ijg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lmZ5OBDq/GkAmKFHUPxKhjhJRjLuXZEJEUYz4yuAkzQ=;
- b=SbnLWIgpI96x9fVpTeI18mDic3XnEkpafjZLs/7TfQwJcznHCmYs7daxR1nMGvDZcHBXi1e6Kjcf4Ukb8S81gor1vXAv7rMdTcRHWZb/FctmpmyVC2VGuENyROmi6xdJbW5z/1BX+6Su8SPKqUm6weyq46Gb/B7B8Ik+mH+F8/c0AoWxgdqJ8/fFBMcnnF6pXAqhLTcKai2644u1hwyh0PyGdYl4kT0yjtTQcVY0oIE2dEi/n4lizwaknTPdQYoy/tmjiX1ZbSOk05xwaLFMXK/qmZ+/QkPX4MRXCQpjGWBmnra3+3jDZ64QlrfUgV19mkXGK7fwnj0GPGAZiT4ARg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
+ bh=rDHmUVljLgtm8ZwkzV/6Rtvki8EKzLmQJq0rcbu+prk=;
+ b=X+g9sBjUPqWEB87hr2lBIYuSmKihqz5Ac5Y+jmsA215gE9tziwA2iApupZprBa3xr3p1sDRzrBhCSrGqSD51dEE2MkSuVe00XfZ6S0qDiG4+RNg48bGnbVxg9fNooWF+PAMGJOxwAImeUKh21/UqDG997H80PXC+6b0dkiA0MiwP6XW20KM4zfgTADvKe+15ti7fvV9uNKbBPqXDqCCkEQ96ygxxlTgh3p+bYzcmTnGMa+4svMfeDJ0skq6Ea8uZU03tEnO0mTbhIFSH+iri4uSGnMLje5AcXfNnBh36GFwWZAhqHaaZNoqV2QLfwizJ5W4T+28jvz4HvW//3sLg5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
-To: Halil Pasic <pasic@linux.ibm.com>
-CC: "mst@redhat.com" <mst@redhat.com>, "virtio-dev@lists.oasis-open.org"
-	<virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>,
-	"sgarzare@redhat.com" <sgarzare@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Thread-Topic: [virtio-dev] [PATCH v10 0/8] Rename queue index to queue number
-Thread-Index: AQHZYoTK+G4wjcUZS0KTWqxqTzIiaK8TkDoAgAAY0bA=
-Date: Thu, 30 Mar 2023 19:13:47 +0000
-Message-ID:
- <PH0PR12MB548165C4B11375F8C7EE7AD1DC8E9@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230329212341.465843-1-parav@nvidia.com>
- <20230330191114.77acd860.pasic@linux.ibm.com>
-In-Reply-To: <20230330191114.77acd860.pasic@linux.ibm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SJ0PR12MB6903:EE_
-x-ms-office365-filtering-correlation-id: d772c05f-8d73-4654-4921-08db3152e356
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- NE1ASSnOtGgmOgz33xz9FDOmM9P+dSRn5e7+KAAmsOvWXY9fJW+LtvT7vlz1lVmJ5VMgLWZCLL4BRK1TAIBUaFf+6QgKn7KpBsL/rxbuJ5+75U+O6pGgoGeQcv3hvbqjez0f0ILJNAtDPV6rOUYiIugkFTZd0dTTgXRXTTYuoI+CjM0Kd/NadxXg3Nc8aLbU8wWBuWNQ32Qov42tHmaZVzFkMVAXaTXWQTSFY4n0yJfQoqKePgA3HjSdeOdmqY9cOBLe2G+j3837VRq+B7kp/UfwOM7/CfwNjLV20bJu2QxPrHRIA8DMbOS4nW10yeX9BgbQseFAe/iz2vRMJ2svC6h6MRHg/7e6dnNsZMRcskIE2FDy7QydBox0Px0KKtvK7JZkRg94ACJvm+31NncBvJETGZjue02k1STJkdMK20zdOs3f/MkPJ2S5C4/Y/Ig5ZnxGiNCwZ2/eb0rVv0tkZLsiYQc8SGUa5Y5KosjIfWh5Xcwta8sqPiqwrBIcvdkUfwhwDIfJjQXwtUr5QqvgLjhKx1wlKRyRYIIT4QH7rzMdhUtnhwRrF2rWzzNIbpMkDcQSIQDjLDVhyauwGMr4VHQ4Qmz5ydK1kFMVfZZaxCTEUvuzpYJTHkTd37BiLw13
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(376002)(366004)(39860400002)(136003)(451199021)(38070700005)(86362001)(9686003)(53546011)(83380400001)(33656002)(5660300002)(30864003)(186003)(6506007)(122000001)(52536014)(8936002)(2906002)(107886003)(7696005)(41300700001)(71200400001)(6916009)(55016003)(4326008)(54906003)(66946007)(38100700002)(66556008)(316002)(76116006)(478600001)(66446008)(8676002)(66476007)(64756008);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?DArl5k7yudXNqvOsSirLNGLVRWToGeOBNbYkpW7wZB9E1Ur3H8yYmpg3Oo9X?=
- =?us-ascii?Q?HfjxW9BRJdW7UVUkmEypQnrZ7hepERI4Y/rc6kFUPZ7lZoSf5b+FQdmtWlE6?=
- =?us-ascii?Q?ieOKb7C3u8UXbzjS2/d2ABzeM250davIhCBfQxN0kuArOskMmb/LslfalMxG?=
- =?us-ascii?Q?Ua3EH8uQRlBIdxWh+da+3rYF78dpxldgmUkhtGQE0riGnCRsliKJy69lFSbg?=
- =?us-ascii?Q?JPb3uwdcExkAbtD6EeWiaoHz10fxKMEJfoieL4cVcbAelQ64qEOTZPl7QeoE?=
- =?us-ascii?Q?YRH7uBOJQbkaTFRV7y5cKInYRhJtQpimxbFHk/3jpiGtXXvYJjHp9eCIVFN0?=
- =?us-ascii?Q?rjVMShGSPA40w367bQjGs8WXVDk1R1Y9XxUsSt6z8/dNDwKtb1w4S1nS+K8M?=
- =?us-ascii?Q?a0ayxKAKTrX6rvdW8Wec4TXpVdHJxG0q9Y8kYBxZg8htdlRtSw+hvAPX/oUt?=
- =?us-ascii?Q?3wx1XVRSVZ2bcbPlGLBwzySCf0rrpz4XsnBIb1YOJJAVxCNHGaIUHXJN0vXi?=
- =?us-ascii?Q?Pf/H0UfY9QltkR1uGP4TgS7+AAjYVXCasT1KsZwJt8jSZgLG8wpZU5PjMwW/?=
- =?us-ascii?Q?7qje4v0sMtZXN8hbmMA8u0Hp2uwHwgE/wPWemhqymLe7KEGtsX0de5aB4l4F?=
- =?us-ascii?Q?y3mzWF7wIC+SPdjETNT17yUQksDc+u3qyowvLjLzqOM2wb+s2M0pNM3y7Evr?=
- =?us-ascii?Q?aOuMem2U1eNB7E2nVvof7e9m3a4j1npyB4AYlyvQNw+WtDjIcQdtpKV/olU8?=
- =?us-ascii?Q?XpJPxtMTsK/hQxqVrzTYwwtt8rQZAqKwpkYCVTG0+s90X8VoHAmlwP0HQftr?=
- =?us-ascii?Q?FCKuTgxXTdAQ0HB+m6ZMoiceDcGzNJmyYEsMCvk2J5iR/gyMGOkPQy8jXHVP?=
- =?us-ascii?Q?3/f5m3IxDHICemYIfdMW8cno70egCs3nNoQGFNdJEtMjOw8itZRaX/PRTUsP?=
- =?us-ascii?Q?ACiufrfucBFtLpKj3/uWC0tgZYrsGBMM6pBF/zUZxEBaQkfOHrV0MFWp/Eql?=
- =?us-ascii?Q?RN9j9o3Mz3e+bcDN6Mwg4Lo0iDn8sO8xWtsGtRE4/pcgvu071RHvS1Gc2CJ5?=
- =?us-ascii?Q?aDkBWD+wL4oUkxUVh2R0KRl3vd5KFzZ19zTXkt37qKJ1Gsvr2W6xSsnlWeho?=
- =?us-ascii?Q?t3Bj6c+Ref2jDHs+03tNfYemvodklczIW5zPmc1XR1cYhp0VKBZuVDKW5kyv?=
- =?us-ascii?Q?RO14mJx2I1pErUjTgA5ZmCsbCwudp+vxrxGYLukk0Az7JdUnRcHUeA2kywyE?=
- =?us-ascii?Q?LEkVM8D2/3lohu3nOF9bLQtbiQh/4ns6p2XHJxBYKTRHt2ZJT1h+vTXHowNJ?=
- =?us-ascii?Q?E+scUz7FByxGQr+kVz4I/aBe/Nv/ExiYRf/bya2giIWsHXTpO7gF2bDfPvf4?=
- =?us-ascii?Q?w6+xGpzZsy2Mdggz2OYQjsHnZJ5PDWw832luf30F1HWqwRKL5vcwhtWRG5wE?=
- =?us-ascii?Q?0O/XemCkWmWsDHmjOUn/TR1F+5Fi01Th+0nfC22S28F2EXni3cx/4+mDNih4?=
- =?us-ascii?Q?bAXcclxNSgD9irY8jS1uywPJVIQI24sQiwUBeEe5p0W/ua1Yi2VuTAvZA9gs?=
- =?us-ascii?Q?Po+WCp26XEGKyCsOKRQeB3k4feVl95HY/O1DCbp74OhCaepG+WCC+VZ5qX/3?=
- =?us-ascii?Q?YO80yrjRL4l7VHAyp/vUMog=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>
+CC: <virtio-comment@lists.oasis-open.org>, <shahafs@nvidia.com>, Parav Pandit
+	<parav@nvidia.com>
+Date: Fri, 31 Mar 2023 01:58:23 +0300
+Message-ID: <20230330225834.506969-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.126.231.37]
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT017:EE_|PH7PR12MB6465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35eca08b-54ba-4bdb-3fc1-08db317266f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	s9w/BMexE9Szcp8e2L3Bq9vKHMiHBH6HxZbZ9STMyeDfjnwNjjrjy4XOY+aIJK1wiA/dtOzpb0d5oTT+Xg+TZ2i6hCLsbxcYNIDnss4llCxP2j4yyhRhcLU40lZiJPGr2q9UhAqhFeca+9FMpdDuzkd2V7hQt6yIrrxGAc/e72hFI0XnmN7799Ht9AHZdOSlAcDL0tnRgEnJI9olls07Iy6yVRTIxOZlm4bK/TpyZcY7TsZraZllg+8KR6Gcj5+LPi4Cn61fnVWWt0+9l/cQGJ3Ktx73T9P+gR0rK9sViV0roQykichFTH6fvSwL3P3vcyw2sX6rn7uHRXmphBqxN42kVtYN5J+cNJbrRNXpxJu+1Izt1j0f/Mjd4XhEY1Xe3Xu3Qd0KZhKnA2RkCEAyznBO8WdYybc6Jj2TA/MOyXegNcfyDDy2xpIlQ6ePnKQaCCKAoRBP+NEYrQQrbOAQyXIINBK/IRMjmbb3Ivj/JaGxMrTADRaO08yi3usoGHP2bFW9TOmSEfEobKatOvx4C9FpehvFxRQA7j58W08/qJ6KWtN3Cc1mxGOAusZTfc5QpWoLsT3MbZuM4w0owBywGbpFwvUdy1KBkV+H9ZinM3bsqtjR4WI2NyX8XfRikAWmbCcVg9IszAFy15VUlefQ0YOdZ7UrqnICJpJ60p32sshoUnRV4PqrRHQOANWATrq40G4ghjRUcPxjUFTBPxaieqSK5SR1V7ocX2uqM6zT74VXHqbu19O3RewO/jmVzhmmlhXmdpTfIZ9Pk1VIWJY9qDP13EymXA6VYRRoV2ruPrE=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(396003)(346002)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(6666004)(107886003)(478600001)(1076003)(36756003)(426003)(83380400001)(86362001)(70206006)(5660300002)(2616005)(186003)(54906003)(40480700001)(16526019)(2906002)(7636003)(316002)(36860700001)(4326008)(8676002)(110136005)(41300700001)(34020700004)(82310400005)(336012)(82740400003)(8936002)(40460700003)(47076005)(356005)(70586007)(26005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d772c05f-8d73-4654-4921-08db3152e356
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2023 19:13:47.3689
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 22:59:22.4457
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Hrfvat4WbeRxbx3JWpvEIlP5QbE5FWH4OPf6RTGPMZ3A+o+S4KQCwnwq0tUCGJdZDomLjYUB5CQffl+jTlQ1og==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6903
-Subject: [virtio-comment] RE: [virtio-dev] [PATCH v10 0/8] Rename queue index to queue number
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35eca08b-54ba-4bdb-3fc1-08db317266f1
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6465
+Subject: [virtio-comment] [PATCH 00/11] Introduce transitional mmr pci device
+
+Overview:
+---------
+The Transitional MMR device is a variant of the transitional PCI device.
+It has its own small Device ID range. It does not have I/O
+region BAR; instead it exposes legacy configuration and device
+specific registers at an offset in the memory region BAR.
+
+Such transitional MMR devices will be used at the scale of
+thousands of devices using PCI SR-IOV and/or future scalable
+virtualization technology to provide backward
+compatibility (for legacy devices) and also future
+compatibility with new features.
+
+Usecase:
+--------
+1. A hypervisor/system needs to provide transitional
+   virtio devices to the guest VM at scale of thousands,
+   typically, one to eight devices per VM.
+
+2. A hypervisor/system needs to provide such devices using a
+   vendor agnostic driver in the hypervisor system.
+
+3. A hypervisor system prefers to have single stack regardless of
+   virtio device type (net/blk) and be future compatible with a
+   single vfio stack using SR-IOV or other scalable device
+   virtualization technology to map PCI devices to the guest VM.
+   (as transitional or otherwise)
+
+Motivation/Background:
+----------------------
+The existing transitional PCI device is missing support for
+PCI SR-IOV based devices. Currently it does not work beyond
+PCI PF, or as software emulated device in reality. It currently
+has below cited system level limitations:
+
+[a] PCIe spec citation:
+VFs do not support I/O Space and thus VF BARs shall not
+indicate I/O Space.
+
+[b] cpu arch citiation:
+Intel 64 and IA-32 Architectures Software Developer’s Manual:
+The processor’s I/O address space is separate and distinct from
+the physical-memory address space. The I/O address space consists
+of 64K individually addressable 8-bit I/O ports, numbered 0 through FFFFH.
+
+[c] PCIe spec citation:
+If a bridge implements an I/O address range,...I/O address range
+will be aligned to a 4 KB boundary.
+
+[d] I/O region accesses at PCI system level is slow as they are non-posted
+operations in PCIe fabric.
+
+The usecase requirements and limitations above can be solved by
+extending the transitional device, mapping legacy and device
+specific configuration registers in a memory PCI BAR instead
+of using non composable I/O region.
+
+Please review.
+
+Patch summary:
+--------------
+patch 1 to 5 prepares the spec
+patch 6 to 11 defines transitional mmr device
+
+patch-1 uses lower case alphabets to name device id
+patch-2 move transitional device id in legay section along with
+        revision id
+patch-3 splits legacy feature bits description from device id
+patch-4 rename and moves virtio config registers next to 1.x
+        registers section
+patch-5 Adds missing helper verb in terminology definitions
+patch-6 introduces transitional mmr device
+patch-7 introduces transitional mmr device pci device ids
+patch-8 introduces virtio extended pci capability
+patch-9 describes new pci capability to locate legacy mmr
+        registers
+patch-10 extended usage of driver notification capability for
+         the transitional mmr device
+patch-11 adds conformance section of the transitional mmr device
+
+This design and details further described below.
+
+Design:
+-------
+Below picture captures the main small difference between current
+transitional PCI SR-IOV VF and transitional MMR SR-IOV VF.
+
++------------------+ +--------------------+ +--------------------+
+|virtio 1.x        | |Transitional        | |Transitional        |
+|SRIOV VF          | |SRIOV VF            | |MMR SRIOV VF        |
+|                  | |                    | |                    |
+++---------------+ | ++---------------+   | ++---------------+   |
+||dev_id =       | | ||dev_id =       |   | ||dev_id =       |   |
+||{0x1040-0x106C}| | ||{0x1000-0x103f}|   | ||{0x10f9-0x10ff}|   |
+|+---------------+ | |+---------------+   | |+---------------+   |
+|                  | |                    | |                    |
+|+------------+    | |+------------+      | |+-----------------+ |
+||Memory BAR  |    | ||Memory BAR  |      | ||Memory BAR       | |
+|+------------+    | |+------------+      | ||                 | |
+|                  | |                    | || +--------------+| |
+|                  | |+-----------------+ | || |legacy virtio || |
+|                  | ||IOBAR impossible | | || |+ dev cfg     || |
+|                  | |+-----------------+ | || |registers     || |
+|                  | |                    | || +--------------+| |
+|                  | |                    | |+-----------------+ |
++------------------+ +--------------------+ +--------------------+
+
+Here transitional MMR SR-IOV VF has legacy configuration and
+legacy device specific registers located at an offset in the memory
+region BAR.
+
+A memory region can be dedicated at BAR0 or it can be in an
+existing BAR, allowing flexibility when implementing support
+in a hardware device.
+
+Transitional MMR SR-IOV VFs use a distinct device ID range to that
+of existing virtio SR-IOV VFs to allow flexibility in driver
+binding.
+
+A more zoom-in version of transitional MMR SR-IOV device shows
+that the location of the legacy registers are discovered by the
+driver using a new capability.
+
++------------------------------+
+|Transitional                  |
+|MMR SRIOV VF                  |
+|                              |
+++---------------+             |
+||dev_id =       |             |
+||{0x10f9-0x10ff}|             |
+|+---------------+             |
+|                              |
+++--------------------+        |
+|| PCIe ext cap = 0xB |        |
+|| cfg_type = 10      |        |
+|| offset   = 0x1000  |        |
+|| bar      = N {0..5}|        |
+|+--|-----------------+        |
+|   |                          |
+|   |                          |
+|   |    +-------------------+ |
+|   |    | Memory BAR = A    | |
+|   |    |                   | |
+|   +------>+--------------+ | |
+|        |  |legacy virtio | | |
+|        |  |+ dev cfg     | | |
+|        |  |registers     | | |
+|        |  +--------------+ | |
+|        +-----------------+ | |
++------------------------------+
+
+Software usage:
+---------------
+Transitional MMR device can be used by multiple ways.
+
+1. The most common way to use and map to the guest VM is by
+using vfio driver framework in Linux kernel.
+
+                +----------------------+
+                |pci_dev_id = 0x100X   |
++---------------|pci_rev_id = 0x0      |-----+
+|vfio device    |BAR0 = I/O region     |     |
+|               |Other attributes      |     |
+|               +----------------------+     |
+|                                            |
++   +--------------+     +-----------------+ |
+|   |I/O to memory |     | Other vfio      | |
+|   |rd/wr mapper  |     | functionalities | |
+|   +--------------+     +-----------------+ |
+|                                            |
++-------------------+------------------------+
+                    |
+       +------------+-----------------+
+       |         Transitional         |
+       |         MMR SRIOV VF         |
+       +------------------------------+
+
+2. Virtio pci driver to bind to the listed device id and
+   use it as native device in the host.
+
+3. Use it in a light weight hypervisor to run bare-metal OS.
+
+Parav Pandit (11):
+  transport-pci: Use lowecase alphabets
+  transport-pci: Move transitional device id to legacy section
+  transport-pci: Split notes of PCI Device Layout
+  transport-pci: Rename and move legacy PCI Device layout section
+  introduction: Add missing helping verb
+  introduction: Introduce transitional MMR interface
+  transport-pci: Introduce transitional MMR device id
+  transport-pci: Introduce virtio extended capability
+  transport-pci: Describe PCI MMR dev config registers
+  transport-pci: Use driver notification PCI capability
+  conformance: Add transitional MMR interface conformance
+
+ conformance.tex      |  11 +-
+ introduction.tex     |  34 +++-
+ tmmr-conformance.tex |  27 +++
+ transport-pci.tex    | 405 ++++++++++++++++++++++++++++++-------------
+ 4 files changed, 354 insertions(+), 123 deletions(-)
+ create mode 100644 tmmr-conformance.tex
+
+-- 
+2.26.2
 
 
-> From: Halil Pasic <pasic@linux.ibm.com>
-> Sent: Thursday, March 30, 2023 1:11 PM
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-> I argue that using a different term in that context than in the rest of t=
-he
-> specification makes sense, because in the context of notifications the vi=
-rtqueue
-> isn't always identified by its index.
-Using single term as number is possible, so lets use single term.=20
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
->=20
-> More precisely: if VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated in the
-> context of notifications the virtqueue is identified by the so called
-> "queue_notify_data";=20
-> if VIRTIO_F_NOTIF_CONFIG_DATA has been negotiated in
-
-You missed "not" before negotiation. :)
-
-> the context of notifications the virtqueue is identified by the virtqueue=
- index (as
-> usual, for example in queue_select, or in the ccws).
->=20
-> As I've pointed out in my comment to patch 2, I believe replacing virtque=
-ue
-> index with virtqueue number is detrimental to clarity.
->=20
-> Thus please find a counter-proposal below. If there is interest I can mak=
-e a
-> series out of it, and prettify it. If I can't convince you guys, then I w=
-ill have to
-> get used to vqn and virtqueue number.
->=20
-> AFAIR the other problem with index was the RSS for virtio-net. But there =
-we are
-> currently heading down a direction of introducing a new abstraction. This
-> approach avoids confusion around the term 'virtqueue index' as much as it
-> avoids confusion around the term 'virtqueue nuber'.
->=20
->=20
-> > c. RSS area of virtio net has inherited some logic, describe it using
-> > abstract rss_rq_id.
->=20
-> -------------------------8<--------------------------------------
-> From: Halil Pasic <pasic@linux.ibm.com>
-> Date: Thu, 30 Mar 2023 17:57:53 +0200
-> Subject: [PATCH 1/1] content: clarify how virtques are identified
->=20
-> Clarify how virtqueues are identified in the context of available notific=
-ations
-> and in the context of RSS for virtio-net .
->=20
-> Signed-off-by: Halil Pasic <pasic@linux.ibm.com>
-> ---
->  content.tex                      | 15 ++++++++++-----
->  device-types/net/description.tex | 30 ++++++++++++++++++++++--------
->  transport-ccw.tex                |  2 +-
->  transport-pci.tex                |  7 ++++---
->  4 files changed, 37 insertions(+), 17 deletions(-)
->=20
-> diff --git a/content.tex b/content.tex
-> index cff548a..a376232 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -298,6 +298,9 @@ \section{Virtqueues}\label{sec:Basic Facilities of a
-> Virtio Device / Virtqueues}  virtqueues\footnote{For example, the simples=
-t
-> network device has one virtqueue for  transmit and one for receive.}.
->=20
-> +If not otherwise stated, each virtqueue is identified by a so called
-> +virtqueue index. Valid virtqueue indexes range from 0 up to 65535.
-> +
-Missing inclusive after 65535.
-Covered in v10.
-
->  Driver makes requests available to device by adding  an available buffer=
- to the
-> queue, i.e., adding a buffer  describing the request to a virtqueue, and
-> optionally triggering @@ -402,7 +405,7 @@ \section{Driver Notifications}
-> \label{sec:Basic Facilities of a Virtio Device /
->=20
->  When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,  this
-> notification involves sending the -virtqueue number to the device (method
-> depending on the transport).
-> +virtqueue index to the device (method depending on the transport).
->=20
->  However, some devices benefit from the ability to find out the  amount o=
-f
-> available data in the queue without accessing the virtqueue in memory:
-> @@ -413,7 +416,9 @@ \section{Driver Notifications} \label{sec:Basic Facil=
-ities
-> of a Virtio Device /  the following information:
->=20
->  \begin{description}
-> -\item [vqn] VQ number to be notified.
-> +\item [vqn] Identifies the virtqueueue to be notified. If
-> VIRTIO_F_NOTIF_CONFIG_DATA has been
-> +      negotiateted, the value of \field{vqn} is the notify data suplied =
-by the
-> device
-There is still vqn here.  So no better than vq number.
-To be truly clear, it should be renamed to vq_identifier, that either conta=
-ins vqn or vq_notification_data.
-
-As I replied I can take up that cleanup at later point if we find some moti=
-vation for CONFIG_DATA use.
-
-> +      (by transport specific means). Otherwise it is the virtqueue index=
-.
->  \item [next_off] Offset
->        within the ring where the next available ring entry
->        will be written.
-> @@ -786,13 +791,13 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved
-> Feature Bits}
->    buffer notifications.
->    As mentioned in section \ref{sec:Basic Facilities of a Virtio Device /=
- Driver
-> notifications}, when the
->    driver is required to send an available buffer notification to the dev=
-ice, it
-> -  sends the virtqueue number to be notified. The method of delivering
-> +  sends the virtqueue index of the virtqueue to be notified. The method
-> + of delivering
->    notifications is transport specific.
->    With the PCI transport, the device can optionally provide a per-virtqu=
-eue
-> value
-> -  for the driver to use in driver notifications, instead of the virtqueu=
-e number.
-> +  for the driver to use in driver notifications, instead of the virtqueu=
-e index.
->    Some devices may benefit from this flexibility by providing, for examp=
-le,
->    an internal virtqueue identifier, or an internal offset related to the
-> -  virtqueue number.
-> +  virtqueue index.
->=20
->    This feature indicates the availability of such value. The definition =
-of the
->    data to be provided in driver notification and the delivery method is =
-diff --git
-> a/device-types/net/description.tex b/device-types/net/description.tex
-> index d7c8b1b..7678a57 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -1421,18 +1421,33 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi
->=20
->  \subparagraph{Setting RSS parameters}\label{sec:Device Types / Network
-> Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS=
-) /
-> Setting RSS parameters}
->=20
-> +
->  Driver sends a VIRTIO_NET_CTRL_MQ_RSS_CONFIG command using the
-> following format for \field{command-specific-data}:
->  \begin{lstlisting}
-> +
-> +struct rss_rq_id {
-> +   le16 value; /* virtqueue index divided by two */ };
-> +
-This misses the freeing up the last bit of the value that Michael suggested=
-.
-Once that is done, it will start looking like v10.
-
->  struct virtio_net_rss_config {
->      le32 hash_types;
->      le16 indirection_table_mask;
-> -    le16 unclassified_queue;
-> -    le16 indirection_table[indirection_table_length];
-> +    struct rss_rq_id unclassified_queue;
-> +    struct rss_rq_id indirection_table[indirection_table_length];
->      le16 max_tx_vq;
->      u8 hash_key_length;
->      u8 hash_key_data[hash_key_length];
->  };
->  \end{lstlisting}
-> +
-> +The type struct rss\_rq\_id is introduced to better distinguish receive
-> +queue ids form other integral fields.
-> +
-> +A receive queue id is only defined for receive queues, as the virtqueue
-> +index of the receive virtqueue divided by two (the virtqueue index of a
-> +receive queue is always even). For example receiveq4 is identified by
-> +the virtqueue index 6 and the receive queue id 3.
-> +
->  Field \field{hash_types} contains a bitmask of allowed hash types as  de=
-fined in
-> \ref{sec:Device Types / Network Device / Device Operation / Processing of
-> Incoming Packets / Hash calculation for incoming packets / Supported/enab=
-led
-> hash types}.
-> @@ -1442,10 +1457,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device
-> Types / Network Device / Devi  \field{indirection_table} array.
->  Number of entries in \field{indirection_table} is
-> (\field{indirection_table_mask} + 1).
->=20
-> -Field \field{unclassified_queue} contains the 0-based index of -the rece=
-ive
-> virtqueue to place unclassified packets in. Index 0 corresponds to receiv=
-eq1.
-> +Field \field{unclassified_queue} contains the receive queue id of the re=
-ceive
-> virtqueue to place unclassified packets in.
->=20
-> -Field \field{indirection_table} contains an array of 0-based indices of =
-receive
-> virtqueues. Index 0 corresponds to receiveq1.
-> +Field \field{indirection_table} contains an array of 0-based indices of =
-receive
-> queue ids.
->=20
->  A driver sets \field{max_tx_vq} to inform a device how many transmit
-> virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
->=20
-> @@ -1455,7 +1469,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device
-> Types / Network Device / Devi
->=20
->  A driver MUST NOT send the VIRTIO_NET_CTRL_MQ_RSS_CONFIG command
-> if the feature VIRTIO_NET_F_RSS has not been negotiated.
->=20
-> -A driver MUST fill the \field{indirection_table} array only with indices=
- of
-> enabled queues. Index 0 corresponds to receiveq1.
-> +A driver MUST fill the \field{indirection_table} array only with receive=
- queue
-> ids of enabled queues.
->=20
->  The number of entries in \field{indirection_table}
-> (\field{indirection_table_mask} + 1) MUST be a power of two.
->=20
-> @@ -1467,8 +1481,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device
-> Types / Network Device / Devi  The device MUST determine the destination
-> queue for a network packet as follows:
->  \begin{itemize}
->  \item Calculate the hash of the packet as defined in \ref{sec:Device Typ=
-es /
-> Network Device / Device Operation / Processing of Incoming Packets / Hash
-> calculation for incoming packets}.
-> -\item If the device did not calculate the hash for the specific packet, =
-the device
-> directs the packet to the receiveq specified by \field{unclassified_queue=
-} of
-> virtio_net_rss_config structure (value of 0 corresponds to receiveq1).
-> -\item Apply \field{indirection_table_mask} to the calculated hash and us=
-e the
-> result as the index in the indirection table to get 0-based number of des=
-tination
-> receiveq (value of 0 corresponds to receiveq1).
-> +\item If the device did not calculate the hash for the specific packet, =
-the
-> device directs the packet to the receiveq specified by \field{unclassifie=
-d_queue}
-> of virtio_net_rss_config structure.
-> +\item Apply \field{indirection_table_mask} to the calculated hash and us=
-e the
-> result as the index in the indirection table to receive queue id of the d=
-estination
-> receiveq.
->  \item If the destination receive queue is being reset (See \ref{sec:Basi=
-c
-> Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the devic=
-e MUST
-> drop the packet.
->  \end{itemize}
->=20
-> diff --git a/transport-ccw.tex b/transport-ccw.tex index c492cb9..bc05639
-> 100644
-> --- a/transport-ccw.tex
-> +++ b/transport-ccw.tex
-> @@ -544,7 +544,7 @@ \subsubsection{Guest->Host
-> Notification}\label{sec:Virtio Transport Options / Vi  \end{tabular}
->=20
->  When VIRTIO_F_NOTIFICATION_DATA has not been negotiated, -the
-> \field{Notification data} contains the Virtqueue number.
-> +the \field{Notification data} contains the virtque index.
->=20
->  When VIRTIO_F_NOTIFICATION_DATA has been negotiated,  the value has the
-> following format:
-> diff --git a/transport-pci.tex b/transport-pci.tex index b07a822..9b71c05=
- 100644
-> --- a/transport-pci.tex
-> +++ b/transport-pci.tex
-> @@ -390,15 +390,16 @@ \subsubsection{Common configuration structure
-> layout}\label{sec:Virtio Transport
->=20
->  \item[\field{queue_notify_data}]
->          This field exists only if VIRTIO_F_NOTIF_CONFIG_DATA has been
-> negotiated.
-> -        The driver will use this value to put it in the 'virtqueue numbe=
-r' field
-> +        The driver will use this value to put it in the \field{vqn}
-> + field
->          in the available buffer notification structure.
->          See section \ref{sec:Virtio Transport Options / Virtio Over PCI =
-Bus / PCI-
-> specific Initialization And Device Operation / Available Buffer Notificat=
-ions}.
->          \begin{note}
->          This field provides the device with flexibility to determine how=
- virtqueues
->          will be referred to in available buffer notifications.
-> -        In a trivial case the device can set \field{queue_notify_data}=
-=3Dvqn. Some
-> devices
-> +        In a trivial case the device can set \field{queue_notify_data} t=
-o the
-> virtqueue index,
-> +        that is the value in \field{queue\_select}. Some devices
->          may benefit from providing another value, for example an interna=
-l
-> virtqueue
-> -        identifier, or an internal offset related to the virtqueue numbe=
-r.
-> +        identifier, or an internal offset related to the virtqueue index=
-.
->          \end{note}
->=20
->  \item[\field{queue_reset}]
-> --
-> 2.31.1
->=20
->=20
-Most field changes are using index instead of number here in one patch.
-No different than "number" patch.
-
-And it still uses the vqn field name in the notification.
-vqn is at least correct field name when CONFIG_DATA is not negotiated.
-With 'index' usage, vqn field name is incorrect regardless of CONFIG_DATA, =
-because its intents to hold index or something else. :)
-
-So v10 has same or higher score as index.
-
-Given everyone have come this far and also other patches using vqn, I think=
- we should proceed to use "number".
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
