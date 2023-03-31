@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5124-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5125-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E6EC6FD1D
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D641CC6FD18
+	for <virtio-comment@archiver.kernel.org>; Fri, 31 Mar 2023 06:44:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6C8002A8D3
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:56 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2A4522A823
+	for <virtio-comment@archiver.kernel.org>; Fri, 31 Mar 2023 06:44:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 650BA9868BC
-	for <virtio-comment@archiver.kernel.org>; Thu, 30 Mar 2023 23:00:56 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2198D986581
+	for <virtio-comment@archiver.kernel.org>; Fri, 31 Mar 2023 06:44:10 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 578DE98685E; Thu, 30 Mar 2023 23:00:56 +0000 (UTC)
+	id 16204986561; Fri, 31 Mar 2023 06:44:10 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,116 +24,180 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D3B1198689B;
-	Thu, 30 Mar 2023 23:00:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 03A1C986563
+	for <virtio-comment@lists.oasis-open.org>; Fri, 31 Mar 2023 06:44:10 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l9eisupZ4TlLx1QgLdrrtGLJ+mxsac//fj+LinlxdPDGKmWB54K3YD/2ubb2KQFJcozhSCiB0m9UVNyxWm9IYx+nrW0a21Vn1Ss2ZGBHoKvIGCBbvZOO9OtIUK17zLOAyGfjVHrk6jfj1N2uwNhMoSkxc8QzKl10tirfUvftWoE5abXcAlkqVueQtB1u3YvaOZ0TMuXfV1RAzpH0c8TkB8qPAJXzl/4mAuoh+QDAH66XHEBH1VutpBfHXOsRX3lwFgic0HPGI3nWkysogtw5cv6Jog22ntlnXNkYF9AB+OF8nqiwG3q+exbpCnlU5/5IWV0KdIDsI76t535fi+1Lhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yIPT4x6v39QvctAomuzbBiZsyQyP12gJaQXHOpL4XDU=;
- b=nzPKW8e8NiTB/sNhwzJvRLRj3AhvJit6p8DCk+auZfzggMrpKxNPu+yZTuRuPTbXhcu9igabtdjPSr8UELOQ2bS9lm1zt9DHvVAx4Rrh5JiSdfCZCTraCfjtAYkut23Fcq6KkOJ8SakywYT8bIjv4RhGY3hkArRoaKLALWCA8Yvlwna73NYLnK4UyWr9g/maddajf7NIbn2VvXIy78EOQ/DDdqQA42mxuYR3D3up83ziXtR4r0XFbJmEykPSJ6YCQatwjM4MAvpTqtFQFEcPjMv6TCUkkYKnTsAIhJPZ/MqHX9Q6Ue2zyqcYcLgck0YQ6cy/SZ26evbzOBzTGFv5Mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>
-CC: <virtio-comment@lists.oasis-open.org>, <shahafs@nvidia.com>, Parav Pandit
-	<parav@nvidia.com>, Satananda Burla <sburla@marvell.com>
-Date: Fri, 31 Mar 2023 01:58:33 +0300
-Message-ID: <20230330225834.506969-11-parav@nvidia.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230330225834.506969-1-parav@nvidia.com>
+X-MC-Unique: KA2l4AOhPpinCbvDrOoqxQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680245041;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FPasKnD9VJaW+NmMT5kgUY7YfgKmC+r+0Zv0xL3nB4E=;
+        b=HFuWA6H5p/EBJ5ZXI0eOosFwUuIpS2NmSHkydp8RFNIvzIL5kJt9YoS5XiK/J+AEOY
+         A+m5Ly6ncE62NwoaWqnilde+aqVYjiuuCkqLC+0rg+SknoFWL4/af5yLqE0IwTnu69OZ
+         cfIY3E9fuJFWD8L3quYuscFPlW6ue61HB7Oc6MHwPxOVvPSBCmXYryPR0LQxqi5MOfR6
+         bQ3DYxQ6ugHFfx0/BaiIF6RoFcE2DirsxEiXxSwBJ02rx5bQbP9Bv5DcDX7+OiHvYYi+
+         CGHYi+COxdPI2wvEpOQc5dasuCu3YTceVugdVp7XRFTagi7waxe2NkNBVqW6Jum7fJ4b
+         wo4w==
+X-Gm-Message-State: AAQBX9dc7tO3FxKn3W1VixllAw8higbGx6kGtGBPCQW2FGgMCf0HU3L7
+	BhRQjFX09IzicT2Noq8O6IBDF44SPe/xDhxP5NM3pBd7qKejAYYMr0HvTEfjAVmmofX6QS8cjF2
+	5ldbYps3cFqrjbtZMvuaUmXRVVyZWoIEL9Q==
+X-Received: by 2002:a05:600c:cc:b0:3f0:3049:b216 with SMTP id u12-20020a05600c00cc00b003f03049b216mr5911887wmm.28.1680245041131;
+        Thu, 30 Mar 2023 23:44:01 -0700 (PDT)
+X-Google-Smtp-Source: AKy350amyeJhQcBG1wcA53nEMHKYLWf7uomoPLyNBzRUP3HPjTeGSHYlIXZb3v8DFw3LuV8WiDnRIQ==
+X-Received: by 2002:a05:600c:cc:b0:3f0:3049:b216 with SMTP id u12-20020a05600c00cc00b003f03049b216mr5911870wmm.28.1680245040699;
+        Thu, 30 Mar 2023 23:44:00 -0700 (PDT)
+Date: Fri, 31 Mar 2023 02:43:56 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: virtio-dev@lists.oasis-open.org, cohuck@redhat.com,
+	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com,
+	Satananda Burla <sburla@marvell.com>
+Message-ID: <20230331024233-mutt-send-email-mst@kernel.org>
 References: <20230330225834.506969-1-parav@nvidia.com>
+ <20230330225834.506969-3-parav@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.37]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT052:EE_|BL0PR12MB4948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 339274b9-25ed-4723-1ee7-08db31726dbb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	KJNE51SrwArwxr81WRTDoTYeHPcd6tmxQ+yEHudJfcxcu3lBCld+VC/ND5+RuN4TU0ObYKKIMk2QmN4Uc7IRPqAClVBI7pfYXt27Z00soZLiXomNOQFc3ssrF9J3RlYa++QuFg0iBRzx/iBU8hnYIzRN/NOSR+EZkwRn3YQam4TV8FRDmB7V5CR5w+5cAgcWsKISNORYhVp49jrRbxnQoaPHYLTOvVSmsqU6N3Lvei1K3SP91FVUFrSiXjhWDCf7wrdeQoGFvIWIAn3/ecrZjH+iO8FZbmjeXp+WEDNH7xqvgmt1l2hg1kPPzalv0Lv4CMTPTZjPzFBhlH+5SU8RyxI27LFgZD3Q644S8udFxuYsBs0UGzmP0bLVniJEyExHFPXsaT86dr3I7qQMOO7pgF3gEQxcj8WvVxchmsGWH08deTp44LxdFuntVyH7IVuy7ahICFlnYZdGx99BW0WKMCyMbe3J3fJ4CIx0fg/2W9xbz1mSQLs8wJBaJ4dab1RtT9PN1a8tor3XpSv78Hi4rqc3Ix88x0MHJ7z1835PtRSVApEHNUZpBn8AQR8tx6JBs7V39Pgbca3fd9Gi1aD5ZsYcee4g3oLTSMTYYX4gpAu5rWlDCL8wNFk43IvfEFM8yE2IwWAjYflSETcx5eb9VaETLNZaClVQ8aCIz4IsVXXGlQmOsPNM353k/HrtUThcRMqpIJQeCQfKxZJn9xs6qZ9Xdn7kN0B2uVOmaqSZHXKW+sAVI0DEWxE3/h4pay6U
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199021)(46966006)(36840700001)(15650500001)(2906002)(8936002)(82740400003)(66899021)(5660300002)(41300700001)(7636003)(356005)(82310400005)(86362001)(36756003)(40480700001)(47076005)(478600001)(336012)(54906003)(36860700001)(34020700004)(16526019)(186003)(426003)(1076003)(26005)(6666004)(2616005)(8676002)(4326008)(83380400001)(70206006)(70586007)(110136005)(316002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 22:59:33.8507
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 339274b9-25ed-4723-1ee7-08db31726dbb
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4948
-Subject: [virtio-comment] [PATCH 10/11] transport-pci: Use driver notification PCI capability
+In-Reply-To: <20230330225834.506969-3-parav@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH 02/11] transport-pci: Move transitional device id to
+ legacy section
 
-PCI devices support memory BAR regions for performant driver
-notifications using the notification capability.
-Enable transitional MMR devices to use it in simpler manner.
+On Fri, Mar 31, 2023 at 01:58:25AM +0300, Parav Pandit wrote:
+> Currently PCI device discovery details for the transitional device
+> are documented in two different sections.
+> 
+> For example, PCI device and vendor ID registers are documented in
+> 'Device Requirements: PCI Device Discovery' section, while PCI
+> revision id is documented in 'Legacy Interfaces: A Note on PCI
+> Device Discovery' section.
+> 
+> Transitional devices requirements should be documented in "legacy
+> interfaces" section as clearly mentioned in
+> 'Legacy Interface: A Note on Feature Bits'.
 
-Co-developed-by: Satananda Burla <sburla@marvell.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
- transport-pci.tex | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+I already commented on this, I disagree.
+Modern drivers must be able
+to completely ignore legacy interface sections, but they
+do bind to transitional device IDs.
+This change breaks this assumption.
 
-diff --git a/transport-pci.tex b/transport-pci.tex
-index 55a6aa0..4fd9898 100644
---- a/transport-pci.tex
-+++ b/transport-pci.tex
-@@ -763,6 +763,34 @@ \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options
- cap.length >= queue_notify_off * notify_off_multiplier + 4
- \end{lstlisting}
- 
-+\paragraph{Transitional MMR Interface: A note on Notification Capability}
-+\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Notification capability / Transitional MMR Interface}
-+
-+The transitional MMR device benefits from receiving driver
-+notifications at the Queue Notification address offered using
-+the notification capability, rather than via the memory mapped
-+legacy QueueNotify configuration register.
-+
-+Transitional MMR device uses same Queue Notification address
-+within a BAR for all virtqueues:
-+\begin{lstlisting}
-+cap.offset
-+\end{lstlisting}
-+
-+The transitional MMR device MUST support Queue Notification
-+address within a BAR for all virtqueues at:
-+\begin{lstlisting}
-+cap.offset
-+\end{lstlisting}
-+
-+The transitional MMR driver that wants to use driver
-+notifications offered using notification capability MUST use
-+same Queue Notification address within a BAR for all virtqueues at:
-+
-+\begin{lstlisting}
-+cap.offset
-+\end{lstlisting}
-+
- \subsubsection{ISR status capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / ISR status capability}
- 
- The VIRTIO_PCI_CAP_ISR_CFG capability
--- 
-2.26.2
+
+> Hence,
+> 1. Move transitional device requirements to its designated Legacy
+>    interface section
+> 2. Describe regular device requirements without quoting it as "non
+>    transitional device"
+> 
+> While at it, write the description using a singular object definition.
+> 
+> Reviewed-by: Satananda Burla <sburla@marvell.com>
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
+> ---
+>  transport-pci.tex | 70 ++++++++++++++++++++++++-----------------------
+>  1 file changed, 36 insertions(+), 34 deletions(-)
+> 
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index 7f27107..1f74c6f 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -28,46 +28,24 @@ \subsection{PCI Device Discovery}\label{sec:Virtio Transport Options / Virtio Ov
+>  
+>  \devicenormative{\subsubsection}{PCI Device Discovery}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
+>  
+> -Devices MUST have the PCI Vendor ID 0x1af4.
+> -Devices MUST either have the PCI Device ID calculated by adding 0x1040
+> +The device MUST have the PCI Vendor ID 0x1af4.
+> +The device MUST calculate PCI Device ID by adding 0x1040
+>  to the Virtio Device ID, as indicated in section \ref{sec:Device
+> -Types} or have the Transitional PCI Device ID depending on the device type,
+> -as follows:
+> -
+> -\begin{tabular}{|l|c|}
+> -\hline
+> -Transitional PCI Device ID  &  Virtio Device    \\
+> -\hline \hline
+> -0x1000      &   network device     \\
+> -\hline
+> -0x1001     &   block device     \\
+> -\hline
+> -0x1002     & memory ballooning (traditional)  \\
+> -\hline
+> -0x1003     &      console       \\
+> -\hline
+> -0x1004     &     SCSI host      \\
+> -\hline
+> -0x1005     &  entropy source    \\
+> -\hline
+> -0x1009     &   9P transport     \\
+> -\hline
+> -\end{tabular}
+> +Types}.
+>  
+>  For example, the network device with the Virtio Device ID 1
+> -has the PCI Device ID 0x1041 or the Transitional PCI Device ID 0x1000.
+> -
+> -The PCI Subsystem Vendor ID and the PCI Subsystem Device ID MAY reflect
+> -the PCI Vendor and Device ID of the environment (for informational purposes by the driver).
+> +has the PCI Device ID 0x1041.
+>  
+> -Non-transitional devices SHOULD have a PCI Device ID in the range
+> -0x1040 to 0x107f.
+> -Non-transitional devices SHOULD have a PCI Revision ID of 1 or higher.
+> -Non-transitional devices SHOULD have a PCI Subsystem Device ID of 0x40 or higher.
+> +The device SHOULD have a PCI Device ID in the range 0x1040 to 0x107f.
+> +The device SHOULD have a PCI Revision ID of 1 or higher.
+> +The device SHOULD have a PCI Subsystem Device ID of 0x40 or higher.
+>  
+>  This is to reduce the chance of a legacy driver attempting
+>  to drive the device.
+>  
+> +The PCI Subsystem Vendor ID and the PCI Subsystem Device ID MAY reflect
+> +the PCI Vendor and Device ID of the environment (for informational purposes by the driver).
+> +
+>  \drivernormative{\subsubsection}{PCI Device Discovery}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
+>  Drivers MUST match devices with the PCI Vendor ID 0x1af4 and
+>  the PCI Device ID in the range 0x1040 to 0x107f,
+> @@ -85,8 +63,32 @@ \subsection{PCI Device Discovery}\label{sec:Virtio Transport Options / Virtio Ov
+>  PCI Subsystem Device ID value.
+>  
+>  \subsubsection{Legacy Interfaces: A Note on PCI Device Discovery}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery / Legacy Interfaces: A Note on PCI Device Discovery}
+> -Transitional devices MUST have a PCI Revision ID of 0.
+> -Transitional devices MUST have the PCI Subsystem Device ID
+> +
+> +The transitional device has one of the following PCI Device ID
+> +depending on the device type:
+> +
+> +\begin{tabular}{|l|c|}
+> +\hline
+> +Transitional PCI Device ID  &  Virtio Device    \\
+> +\hline \hline
+> +0x1000      &   network device     \\
+> +\hline
+> +0x1001     &   block device     \\
+> +\hline
+> +0x1002     & memory ballooning (traditional)  \\
+> +\hline
+> +0x1003     &      console       \\
+> +\hline
+> +0x1004     &     SCSI host      \\
+> +\hline
+> +0x1005     &  entropy source    \\
+> +\hline
+> +0x1009     &   9P transport     \\
+> +\hline
+> +\end{tabular}
+> +
+> +The transitional device MUST have a PCI Revision ID of 0.
+> +The transitional device MUST have the PCI Subsystem Device ID
+>  matching the Virtio Device ID, as indicated in section \ref{sec:Device Types}.
+>  Transitional devices MUST have the Transitional PCI Device ID in
+>  the range 0x1000 to 0x103f.
+> -- 
+> 2.26.2
 
 
 This publicly archived list offers a means to provide input to the
