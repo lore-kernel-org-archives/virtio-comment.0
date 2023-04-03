@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5142-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5143-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C037EC76188
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Apr 2023 14:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9009C761A6
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Apr 2023 15:03:11 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 229F333565
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Apr 2023 14:59:08 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 90F2042BFC
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Apr 2023 15:03:08 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1D65E9865FF
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Apr 2023 14:59:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CE891986638
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Apr 2023 15:03:07 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 15B2C9863E5; Mon,  3 Apr 2023 14:59:08 +0000 (UTC)
+	id A71D9986626; Mon,  3 Apr 2023 15:03:07 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,131 +24,167 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 02A5B9863DD;
-	Mon,  3 Apr 2023 14:58:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 53AF09865AB
+	for <virtio-comment@lists.oasis-open.org>; Mon,  3 Apr 2023 15:03:07 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i1FIMUxznE1V8dVFTeQ4o+UeBnHgNVt4Vn4EqxVTXWiteHOr8wE5S1sToQKtI4WsbUC62NrLJKPNUiLIri9wjWtXFCUhIhtrKiI8RSuYF0bY7sPykaj6tv5w1WmQSc29nZwX5BOC7wdeBho54xP/l0pa6QsqjLK4m1e16oIu6KX5CcTPfbxTgqaXPFLT7AiR6tNrHm9ytUGvLnVS1BxJsr96WLbzb3tGA92RZ1hsB5Ou01mjZA1/9wTY9Hlir0KfLrSQchs/sVT9mTNxoduhgUmvlXm8dVT8W3X/KYRItaOf3Ws8iA5c0LthlLgNpFP5UON9LAY/F+muyyfZY9FPQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fnpflWF00AuIPAk7NNka5r5eBWGsVE5SNAcQ6x8eNjc=;
- b=EVX4pIvRuqybLh3ck2UfNPZoLnTIgsxwKb7OTdjd/0COVotlHfhdt549P/nJLu9qpUgtlU9e62M230BLKeqfd0g4gOtxeVcX6FLBiILd26q25lumGllVb+FPy+OWSMhbjasFRPvN8NY1Osk5hGivnJ2XlDtesLFF7DM39Y9utsTmitvv/aUHHhsMnJylp6MvHENB9CJsc/RFO87AHDUTtAgjk4Y+oYWh2iV3pxup8cbnz3u9KsnYxtbKrFW9r8RlauiqbsU1zLSslZG7AXAwvUG4SUMogFERrqs5G8YNVn+2wE4vtYDhvv46HVM+ytgPN6yfIzEloencXo8qOX4xag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>, Satananda Burla <sburla@marvell.com>
-Thread-Topic: [PATCH 02/11] transport-pci: Move transitional device id to
- legacy section
-Thread-Index:
- AQHZY1tGdy5B+WGsTEetsq6ex3gwSa8UcZ4AgAD0knCAAkPqgIACA4iAgAAC4gCAAAIPwA==
-Date: Mon, 3 Apr 2023 14:58:52 +0000
-Message-ID:
- <PH0PR12MB548146C767C1425EC9CC620CDC929@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230330225834.506969-1-parav@nvidia.com>
- <20230330225834.506969-3-parav@nvidia.com>
- <20230331024233-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481977FD9EF430B891A1F3FDC8F9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230402035420-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481FEAA37D23191932F5C7FDC929@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230403104716-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230403104716-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CY8PR12MB7316:EE_
-x-ms-office365-filtering-correlation-id: 6c79fe56-ac48-4bdb-50ca-08db3453f07f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- vTFgsMaJfd+tffHXM/gBMFgYDMOv1QQMPU857Cv1q4Hdrk5KHsib3NHfDSfAjDesjYqEE7WePI/TzOqblzk635AUzDQuBe93vQD3t9MS/youJwQ8G+wDFJfh2KnVvAehM/FcAffiC3+SIzxOO/fY+72fMsVzkqyyTRAj9Vz4SQ+uhA4AKlqgBT8HzJQOB1GMtOJ4tMq11p1hVWWsr4jHl8cTrzTD1cf4OAinBxx21OwKpjLg7Qirgpkm4ObFgVrmjb90K5p4IFs2UxSRMDDJtNOcGjQTBfdW7jyPnH+GB7ilV57041D989ju/u+qJZbrULLd390LIFSD5xbPBFI9iJnIPVm74o1AECDSRBU+qxlB6AJN3FhmYEvqzf6UnZzXlXViDW7oIFqphbjNSU7FrVTMHjqGuCIxo6QWWb5gtNmsOcMItE6IVyMAGakL4XeSUHgXMoWmn0Pnr0ikMFIWmEgoWGclT6A44S4f35EDhTmpyr5q/KsvLLukApvEYVGslh+8ErxyFjJfdbZ1yfLE8SXo4TcLM9zxqU1vAAkRjHq9FwxI3TrskQEODcTGBs1gz7DfNS+Cj09EtMDpGvoqGNoJgvMaZkUQfzdKdN96NhUZF1ARkpUBuaxHABXjUlwZ
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(451199021)(38070700005)(122000001)(38100700002)(86362001)(33656002)(55016003)(7696005)(71200400001)(2906002)(186003)(9686003)(4744005)(4326008)(6916009)(76116006)(6506007)(8936002)(66946007)(5660300002)(52536014)(41300700001)(66446008)(478600001)(66476007)(8676002)(64756008)(66556008)(316002)(54906003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?jZELkjbeCs10ycF7rM/KttQqZ6kpSkUBiOYKUVI0B2yU2oL+llFVy3WJUzwP?=
- =?us-ascii?Q?qGzBJv0HJfhFXrrbtelOwrtZ3RGD2xepNaYMDd9K++JKoOnQasUVKKn04Ldb?=
- =?us-ascii?Q?+D6k6eh0KCyyijW8hbQmRRBe6anSSR8UtNXTBODr/9y5mM3Q3+IwbumHaHIa?=
- =?us-ascii?Q?mxm7kmF+veuFeuQ7N5bxEYggYfmUZ4cjke8yoyUDIfphnXlXBeYda3TDCAG1?=
- =?us-ascii?Q?f3ewIHXFWRzK7vFuGeQU277xd5JiD0xCMHNWj23QrwNXVbK64nx8CoX2DaC7?=
- =?us-ascii?Q?NyvzGYqKPtUY5YZRV0n9f9Q9NI1JvpUuEkfykZ7txqBA1n/aJ26dxEjHrEJ0?=
- =?us-ascii?Q?Wws2SASlttPA7F+f8YGxY9Danh/T/IsPN+9pIv5WEc08PQmAxP5ao3uLbg1U?=
- =?us-ascii?Q?VnUYDvOVkNxrSP4EEFjna/k4RBzfhMMbDbPw/laSy2pxuGmmzA69ta138xYo?=
- =?us-ascii?Q?e3seOg3eCIfB0tqlL+mKhTdAGJfryqEXk9+NNM3+VVwmbI/q1LlC4oKeCkG+?=
- =?us-ascii?Q?8J1e/qVIa7LMbGTMeFtLMNUf9YfJBfgDGHRxJ/JkFYfoTq8UdIlmt2W5jPSK?=
- =?us-ascii?Q?5qvRYPyWfXRUirUjkhSM9YiaHux+0dRhDonLis+sJW2grILRiSaY+vA9SLzv?=
- =?us-ascii?Q?hZFbyVuEa32xr+xi5AXd1ZD96tqQh0GkAoPr6847XMGNaew97FFeWYFXrJ38?=
- =?us-ascii?Q?fQVgdohOI/UFY31iRaP8vk39V4kHmytme+gcsAdEN80/E3KwhhK+1Z5gSDmO?=
- =?us-ascii?Q?Z40jOyCtMJHGEEdOdbSiNbhCREcYIB6xj10mWMlj3N1D/uVSOFhTzthyjLQJ?=
- =?us-ascii?Q?sjED6duVfT2IpUX+fN+GF5EG+KpvO6hWQseU8fs2AvzCBOF/nF8pY2n8FR5B?=
- =?us-ascii?Q?/hmeaJR2ikg1neT0BTx9YnMs6S7jI4rw9Lf/5IE45guab72Ri/IEWe9fykF9?=
- =?us-ascii?Q?ZIAdd8/E9KJo7eZPTSl4Hu4sXXfTVuFpjthYQEvQQazkxX6ZCH+rD3vWJ0ed?=
- =?us-ascii?Q?Qj/7YSi8yGOLBaW9R5s2e4KmnFJZYtYXVwq6iIr7Mbi1JE3FtZ43/TBqY3pc?=
- =?us-ascii?Q?104OtcMBRG9K7fctteEDb2uSL5QHcdpnXGVKHXRimXLjYVlPGzcLgCtKAo4C?=
- =?us-ascii?Q?clnazawOYI0cw+j23E6SW7E5GwIN9DQ3B7Lrfcd+ioJdkWoQEmH/a1T4tEWE?=
- =?us-ascii?Q?G4U3Q2LXAI8LffyEw07DUaE7smypKKJH1MCF3xwS2IT2BPtGyHzfGqP4CClJ?=
- =?us-ascii?Q?1D/qgZf0PSIWQz9OutNFGGRJDhjRFV/SFKA+m96n8KekXet151kTTVQ1u2B7?=
- =?us-ascii?Q?Cb8QTrFGL7t5zVWTYTZbd90pas3FPOEp9fM29eZ3DfwrxMd9Im+1NeJ7No1W?=
- =?us-ascii?Q?T4fI/Ylun15GPxiRZNzIIz74vptktH9YtKa5QGGOkj+OFNIYidiw8dkGkilP?=
- =?us-ascii?Q?9RjIYjo6QaitcwChIoXMOj/CpeEdVS1bVG5dJ9fRLFdfghK/z0E//kMbu13d?=
- =?us-ascii?Q?OuDWaqeS2+yPQ9eBP9ouiECmO74+UyO0xHId9yi3OVq37MzsVnzQ/COH5gnI?=
- =?us-ascii?Q?Er7g7geRQ2QM5A0a0gv1RsXd/mPjX9jOOnbu137mmbz+ZAcKB277sjkOnETP?=
- =?us-ascii?Q?589cu3gOJSolC1MVkSACcx0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-MC-Unique: v-XROSmhPJuEAOo1pCDqdQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680534183;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GMp1K8BpR9AnpOsdxoJswPrr2mrEXpJnYY/saVr10Z0=;
+        b=KoW5Xpw+fWRmVDcxGGSafboxIeNIRySuBCNI2jTEgoFWJ2N52qZzp0jKZR03hZV+84
+         zvQy4RZh8pPmdyRNdnG014FQpxauqxkPpw5SBkr0seLRaXvwtNywb9IqzgMuqE4zqbzF
+         LANyqMRr/clAwD6iWJWkyn4r0XBtZyC1EZu9ndN5vA7/W8fsd2GaBT8Kqrqj/FrbUmUz
+         wZDeYnnPQ5OIGfi5tlFjPaLls6XRoRr0u71Pqg7ZBVx9UlQzuK0RMzMUyh/RxzPpvL27
+         z804Q9oJWUymuyGDSnP/f7NbLIiPIN9D8DqufgTNKfECGy1KVTPfrlKLosZA7VJu4KZG
+         ohwg==
+X-Gm-Message-State: AAQBX9c0g4X4CWtCqGMNjbo0aQesqimS+m2ZAUDeijCaz4EUI8KhORQb
+	bG41aX6pPdW7u9gDHMz0o0lTwq/UYFoz8R6UV05+mznk0C+rncWoZ0DQ0SX04hNROUTEv4q9UEn
+	mmblB659c7QEPdGTzSx036MQOl4yvkNRMwE1GZ/lcZJeDBDb0J1RXlBSj7OJnmWUc4SR+WveY3q
+	2B0Rh9HoDe+TzpA2j4
+X-Received: by 2002:a17:906:a399:b0:930:9385:ce51 with SMTP id k25-20020a170906a39900b009309385ce51mr35028140ejz.68.1680534182905;
+        Mon, 03 Apr 2023 08:03:02 -0700 (PDT)
+X-Google-Smtp-Source: AKy350bdt61/lkSilxxB3ydZ9tS21DF8sjnedpwH0XPYH1TVwVqW6R6TFPQA2k46LtBLrY+zeG0YtA==
+X-Received: by 2002:a17:906:a399:b0:930:9385:ce51 with SMTP id k25-20020a170906a39900b009309385ce51mr35028090ejz.68.1680534182511;
+        Mon, 03 Apr 2023 08:03:02 -0700 (PDT)
+Date: Mon, 3 Apr 2023 11:02:55 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+	jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com,
+	sgarzare@redhat.com, stefanha@redhat.com, nrupal.jani@intel.com,
+	Piotr.Uminski@intel.com, hang.yuan@intel.com
+Cc: virtio@lists.oasis-open.org, Jiri Pirko <jiri@nvidia.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
+	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>
+Message-ID: <cover.1680533760.git.mst@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c79fe56-ac48-4bdb-50ca-08db3453f07f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2023 14:58:52.4760
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /PUuI7inCpQjQl7woMrvINcpNPdVy8VQaahH2q7MaFdkhedM0y+BR811i0QWeiK5/Senc2P25RyUmI2R2jvnuA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7316
-Subject: [virtio-comment] RE: [PATCH 02/11] transport-pci: Move transitional device id to
- legacy section
+X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
+X-Mutt-Fcc: =sent
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] [PATCH v11 00/10] Introduce device group and device management
 
 
-> From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Monday, April 3, 2023 10:50 AM
+Change log:
 
->=20
-> No idea what all this means, sorry.  Please do not move text that affects=
- modern
-> drivers to a legacy section. And we've spilled way too much ink on this a=
-lready.
+since v10:
+	addressed lots of comments by Jiri, Stefan. Cornelia, Lngshan, Parav, Max
+	Cornelia, do you want to pick up 10/10 separately?
 
-I disagree because spec do not describe modern driver and what you are desc=
-ribing is not aligned the way current spec is written.
-I prefer to avoid mentioning it again the same feature bits section that ta=
-lks about Transitional interface.
+since v9:
+	addressed comments by Parav, Max, Cornelia, David and Zhu Lingshan:
+		added link to errno header from Linux
+		rename _MEM to _MEMBER
+		admin vq num is zero based
+		clarify who sends commands where
+		minor english tweaks
+		clarify command length
+		specify interaction with sriov capability
+		correct commit log - NumVFs can be 0
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+	i could not decide what should happen when VFs are
+	disabled. for now did not specify.
+
+since v8:
+	addressed comments by Cornelia - as we agreed on list
+	
+since v7:
+	make high level error codes match linux, with virtio specific codes
+		in a separate field
+	renamed _ACCEPT to _USE since that's what it does
+	clarified forward compatibility and non pci transports
+	support multiple admin vqs
+	conformance statements
+	lots of changes all over the place to I changed author from Max
+	to myself. Don't need to take credit but also don't want
+	to blame Max for my mistakes.
+
+since v6:
+
+	- removed some extentions intended for future use.
+	  We'll do them when we get there.
+
+	- brought back command list query from v5 in a simplified form -
+	  it's here to address the case where a single parent
+	  can address multiple groups, such as PF addressing
+	  transport vq and sriov vfs.
+
+	- attempt to make terminology more formal.
+	In particular a term for whoever controls the group.
+ 	I am still going back
+	and forth between "parent" and "owner" - owner might
+	be better after all since it will work if we ever
+	have a self group. For now it's parent.
+
+TODO (maybe?) - probably ok to defer until this part is upstream:
+
+	Add "all members" member id.
+
+	Add commands for MSI, feature discovery.
+
+	Add commands for transport vq.
+
+
+My intent is to try and support both SR-IOV and SIOV
+usecases with the same structure and maybe even the same
+VQ.
+
+For example, it might make sense to split creating/destroying
+SIOV devices from the transport passing data from the guest - the
+driver would then not negotiate VIRTIO_F_SR_IOV (which
+then means auto-provisioning).
+
+More ideas for use-cases:
+virtio VF features query and configuration space provisioning
+virtio VF resource (queues, msix vectors count) provisioning
+
+
+Future directions (shouldn't block this patch)
+- aborting commands - left for later. or is vq reset enough?
+- should we rename structures from admin to group admin?
+  left as is for now just in case we soon get more admin things which are
+  not group administration. easy to change later.
+
+
+Michael S. Tsirkin (10):
+  virtio: document forward compatibility guarantees
+  admin: introduce device group and related concepts
+  admin: introduce group administration commands
+  admin: introduce virtio admin virtqueues
+  pci: add admin vq registers to virtio over pci
+  mmio: document ADMIN_VQ as reserved
+  ccw: document ADMIN_VQ as reserved
+  admin: command list discovery
+  admin: conformance clauses
+  ccw: document more reserved features
+
+ admin.tex        | 586 +++++++++++++++++++++++++++++++++++++++++++++++
+ content.tex      | 113 ++++++++-
+ introduction.tex |   3 +
+ 3 files changed, 700 insertions(+), 2 deletions(-)
+ create mode 100644 admin.tex
+
+-- 
+MST
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
