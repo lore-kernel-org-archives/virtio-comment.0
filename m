@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5210-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5211-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D213C761A6
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 08:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C64E5C6FD1D
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 08:28:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C193226A2B
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 08:15:23 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5880541EF1
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 08:28:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BB54C98658F
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 08:15:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5383C9863FE
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 08:28:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B370F9863E5; Tue,  4 Apr 2023 08:15:23 +0000 (UTC)
+	id 4AE0B9863E4; Tue,  4 Apr 2023 08:28:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,65 +24,49 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A34779863F0
-	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Apr 2023 08:15:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3AAC99863E5
+	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Apr 2023 08:28:58 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: HGB1506yO4SAzZLBwt-ppg-1
+X-MC-Unique: BXaZQn8pP4iGlAT1Tsvj2A-1
 From: Cornelia Huck <cohuck@redhat.com>
-To: Parav Pandit <parav@nvidia.com>, "mst@redhat.com" <mst@redhat.com>,
- "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
- "pasic@linux.ibm.com" <pasic@linux.ibm.com>
-Cc: "sgarzare@redhat.com" <sgarzare@redhat.com>,
- "virtio-comment@lists.oasis-open.org"
- <virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>
-In-Reply-To: <PH0PR12MB54816C0F0759AAD5E9C76604DC929@PH0PR12MB5481.namprd12.prod.outlook.com>
+To: Parav Pandit <parav@nvidia.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>,
+ "mst@redhat.com" <mst@redhat.com>, "virtio-dev@lists.oasis-open.org"
+ <virtio-dev@lists.oasis-open.org>, "pasic@linux.ibm.com"
+ <pasic@linux.ibm.com>
+In-Reply-To: <DM8PR12MB54802EF9E32D78394A233231DC929@DM8PR12MB5480.namprd12.prod.outlook.com>
 Organization: Red Hat GmbH
-References: <20230329212341.465843-1-parav@nvidia.com>
- <20230329212341.465843-9-parav@nvidia.com> <87tty2fvjj.fsf@redhat.com>
- <PH0PR12MB54816C0F0759AAD5E9C76604DC929@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20230324013534.280820-1-parav@nvidia.com>
+ <1679897351.7097778-1-xuanzhuo@linux.alibaba.com>
+ <DM8PR12MB54802EF9E32D78394A233231DC929@DM8PR12MB5480.namprd12.prod.outlook.com>
 User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Tue, 04 Apr 2023 10:15:14 +0200
-Message-ID: <87edp0jc6l.fsf@redhat.com>
+Date: Tue, 04 Apr 2023 10:28:48 +0200
+Message-ID: <87bkk4jbjz.fsf@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
-Subject: Re: [virtio-comment] RE: [PATCH v10 8/8] virtio-net: Describe RSS
- using rss rq id
+Subject: RE: [virtio-comment] [PATCH 0/3] transport-pci: msix summary update
 
 On Mon, Apr 03 2023, Parav Pandit <parav@nvidia.com> wrote:
 
->> From: Cornelia Huck <cohuck@redhat.com>
->> Sent: Thursday, March 30, 2023 5:17 AM
->> > +Field \field{indirection_table} is an array of receive virtqueues.
->> 
->> "an array of receive virtqueues identified via their rss_rq_id" ?
-> No need to make it this verbose. It is evident from the definition itself.
+> Hi Cornelia,
 >
+>> From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+>> Sent: Monday, March 27, 2023 2:09 AM
+>> Series:
 >> 
->> >
->> >  A driver sets \field{max_tx_vq} to inform a device how many transmit
->> virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
->> >
->> > @@ -1455,7 +1465,8 @@ \subsubsection{Control
->> > Virtqueue}\label{sec:Device Types / Network Device / Devi
->> >
->> >  A driver MUST NOT send the VIRTIO_NET_CTRL_MQ_RSS_CONFIG command
->> if the feature VIRTIO_NET_F_RSS has not been negotiated.
->> >
->> > -A driver MUST fill the \field{indirection_table} array only with indices of
->> enabled queues. Index 0 corresponds to receiveq1.
->> > +A driver MUST fill the \field{indirection_table} array only with
->> > +enabled receive virtqueues.
+>> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 >> 
->> "only with rss_rq_id references to enabled receive virtqueues" ?
->> 
-> In this field and other fields, we just refer to the receive virtqueues as rss_rq_id parent structure itself is describing what it is.
-> Hence, we omit re-iterating rss_rq_id at multiple places.
+>
+> It is editorial change rewording the text.
+> Can you please take this short series forward?
 
-Personally, I'd prefer to spell it out, as it is a specific way to refer
-to a virtqueue.
+Patch 1 (which Michael has already pushed) is editorial; for the other
+two patches, I'm not that sure, especially as there still seems to be
+some discussion?
 
 
 This publicly archived list offers a means to provide input to the
