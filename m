@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5215-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5216-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30F78C761A6
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 12:43:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98FC9C761A6
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 12:52:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3C82D2B04E
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 12:43:40 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id BAE2C2A8F4
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 12:52:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1E9819863FE
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 12:43:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B3605986400
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Apr 2023 12:52:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 067FF9863E4; Tue,  4 Apr 2023 12:43:40 +0000 (UTC)
+	id A9D869863E5; Tue,  4 Apr 2023 12:52:37 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,95 +24,100 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E830C9863E5
-	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Apr 2023 12:43:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 96C889863EF
+	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Apr 2023 12:52:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: vCmf4kT_M2iS5Jkvb2dUaw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680612216;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dCAXKP/Snwk0r7y93pfN0nz6yssYFNUrhdX7W0lWj8k=;
-        b=io5rzhVKYjMTi7uqyVbchWz1J4QMxfiaMpfyPMbs0JZzWscZD1S9XXYlyZQqd1W1hC
-         vt4q7j0p8GjmBlBqVj2zk08Fwh+ZHfOnL/ClJ3WPx5iTRvljwPkvTGfAgq35C0xrQLaW
-         hdTWFLaHyPUwvzmpGpEg6l4rK2q8ji9LyRx+H1PE8EdDevpeDIHQcv/SB1t+WI7nW8BO
-         O4gI5ektLEp5HssOpIXDxSdoYdESiAHRbgEpqDGg796Vw8eiNs7+74Q6NsnpbRJTPJoT
-         8fsdYGopktm2o7vfpcFVVjcIxmchQVKkRhX1x8d3YD9599uWD99aApx7rv6rW+1UxgZD
-         qGHw==
-X-Gm-Message-State: AAQBX9cNNtuv2S1FwI3je8PxysApnrImeACHQgiWZ/A9Y3oFWOdUxdrd
-	CD5oe2ntYLvS1iRdWdC1ZR39xjJJ7LyC71jLnrFrEVWKG46qVVBYSrx3VZAKmIIGusPuV/wSN+R
-	EwkZ+nFWt/7tt6C3/SNrvMLdzN1r6x0wJFw==
-X-Received: by 2002:a17:906:4943:b0:947:d9b1:89a1 with SMTP id f3-20020a170906494300b00947d9b189a1mr1958897ejt.44.1680612216522;
-        Tue, 04 Apr 2023 05:43:36 -0700 (PDT)
-X-Google-Smtp-Source: AKy350Y+VkEzGKsWLfXijf5BPpHK7SmyWKgr9n80ngusKGCx3vDBpA+91T+2wrL/dYXiBmUMdEK2DA==
-X-Received: by 2002:a17:906:4943:b0:947:d9b1:89a1 with SMTP id f3-20020a170906494300b00947d9b189a1mr1958885ejt.44.1680612216281;
-        Tue, 04 Apr 2023 05:43:36 -0700 (PDT)
-Date: Tue, 4 Apr 2023 08:43:31 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, virtio-dev@lists.oasis-open.org,
-	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com,
-	Satananda Burla <sburla@marvell.com>
-Message-ID: <20230404084126-mutt-send-email-mst@kernel.org>
-References: <20230330225834.506969-1-parav@nvidia.com>
- <20230330225834.506969-9-parav@nvidia.com>
- <20230404032922-mutt-send-email-mst@kernel.org>
- <87jzysjd4g.fsf@redhat.com>
+X-MC-Unique: MaUOXY-UNmSX-imyXotpQA-1
+Date: Tue, 4 Apr 2023 08:52:28 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+	jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com,
+	nrupal.jani@intel.com, Piotr.Uminski@intel.com, hang.yuan@intel.com,
+	virtio@lists.oasis-open.org, Jiri Pirko <jiri@nvidia.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
+	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>
+Message-ID: <20230404125228.GD428487@fedora>
+References: <cover.1680533760.git.mst@redhat.com>
+ <fbf6f659974884f7430ec7ef68028305d7acee0c.1680533760.git.mst@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <87jzysjd4g.fsf@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="CBrKcojyhf/mdaKh"
+Content-Disposition: inline
+In-Reply-To: <fbf6f659974884f7430ec7ef68028305d7acee0c.1680533760.git.mst@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: [virtio-comment] Re: [PATCH v11 05/10] pci: add admin vq registers to virtio over pci
+
+--CBrKcojyhf/mdaKh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH 08/11] transport-pci: Introduce virtio extended capability
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 04, 2023 at 09:54:55AM +0200, Cornelia Huck wrote:
-> On Tue, Apr 04 2023, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> 
-> > On Fri, Mar 31, 2023 at 01:58:31AM +0300, Parav Pandit wrote:
-> >> PCI device configuration space for capabilities is limited to only 192
-> >> bytes shared by many PCI capabilities of generic PCI device and virtio
-> >> specific.
-> >> 
-> >> Hence, introduce virtio extended capability that uses PCI Express
-> >> extended capability.
-> >> Subsequent patch uses this virtio extended capability.
-> >> 
-> >> Co-developed-by: Satananda Burla <sburla@marvell.com>
-> >
-> > What does it "Co-developed-by" mean exactly that Signed-off-by
-> > does not?
-> 
-> AIUI, "Co-developed-by:" is more akin to a second "Author:", i.e. to
-> give attribution. (Linux kernel rules actually state that any
-> "Co-developed-by:" must be followed by a "Signed-off-by:" for that
-> author, but we don't really do DCO here, the S-o-b is more of a
-> convention.)
+On Mon, Apr 03, 2023 at 11:03:29AM -0400, Michael S. Tsirkin wrote:
+> @@ -1033,6 +1037,19 @@ \subsubsection{Common configuration structure layo=
+ut}\label{sec:Virtio Transport
+>          This field exists only if VIRTIO_F_RING_RESET has been
+>          negotiated. (see \ref{sec:Basic Facilities of a Virtio Device / =
+Virtqueues / Virtqueue Reset}).
+> =20
+> +\item[\field{admin_queue_index}]
+> +        The device uses this to report the index of the first administra=
+tion virtqueue.
+> +        This field is valid only if VIRTIO_F_ADMIN_VQ has been negotiate=
+d.
+> +\item[\field{admin_queue_num}]
+> +	The device uses this to report the number of the
+> +	supported administration virtqueues.
+> +	Virtqueues with index
+> +	between \field{admin_queue_index} and (\field{admin_queue_index} +
+> +	\field{admin_queue_num} - 1) inclusive serve as administration
+> +	virtqueues.
+> +	The value 0 indicates no supported administration virtqueues.
+> +	This field is valid only if VIRTIO_F_ADMIN_VQ has been
+> +	negotiated.
+>  \end{description}
 
+Maybe add a device-normative statement that [admin_queue_index,
+admin_queue_index + admin_queue_num) must be located after
+device-specific virtqueues?
 
-Actually, we might want to generally, to signify agreement to the IPR.
-How about adding this to our rules?  But in this case Satananda Burla is
-a TC member so yes, no problem.
+That would remind implementers that the device-specific virtqueue layout
+needs to be followed and cannot be modified by the presence of
+Administration Virtqueues.
 
-> >
-> >
-> >> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>  \devicenormative{\paragraph}{Common configuration structure layout}{Virt=
+io Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common con=
+figuration structure layout}
+> @@ -1119,6 +1136,14 @@ \subsubsection{Common configuration structure layo=
+ut}\label{sec:Virtio Transport
+>  were used before the queue reset.
+>  (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtque=
+ue Reset}).
+> =20
+> +If VIRTIO_F_ADMIN_VQ has been negotiated, and if the driver
+> +configures any administration virtqueues, the driver MUST
+> +configure the administration virtqueues using the index
+> +in the range \field{admin_queue_index} to
+> +\field{admin_queue_index} + \field{admin_queue_num} - 1 inclusive.
+> +The driver MAY configure less administration virtqueues than
 
+s/less/fewer/
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+--CBrKcojyhf/mdaKh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+-----BEGIN PGP SIGNATURE-----
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmQsHYwACgkQnKSrs4Gr
+c8h+EAgAuMg+rpcKwmatwJWZWCRDaalOpsr0KPTdZRTlkHTXsVxCbrghT8txEaxt
+dOXKZENCpDTD5GEDYa3MLwzL5MecP9PNIDnRPramW6l5RSLABXu1H6m4gWjk2gCP
+A4nyH9W8TvUYLx7P4fEjDwBqgj3UkMmAE0L+JYMt2GdNrfSEBChdRK9l+z3Jgf7I
+sUryDb1WShfF5MWoKiK8SW0EE+mEoR9sOxrhsmAJ40mmralBHqbdH4O74yTcCGqP
+DELozVuyNE4mXLnwzH/u7acI41ADlu2aRpo+kGYtDdStpZ5U+3vzbIoyYpy/vfwN
+NN69qxxbC5HXWaR85dJ9V38Wb65eKA==
+=K1OP
+-----END PGP SIGNATURE-----
+
+--CBrKcojyhf/mdaKh--
 
