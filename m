@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5290-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5291-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3746CC76196
-	for <virtio-comment@archiver.kernel.org>; Thu,  6 Apr 2023 07:20:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FACEC76196
+	for <virtio-comment@archiver.kernel.org>; Thu,  6 Apr 2023 07:30:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D736441A3F
-	for <virtio-comment@archiver.kernel.org>; Thu,  6 Apr 2023 07:20:23 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B3FD02AD69
+	for <virtio-comment@archiver.kernel.org>; Thu,  6 Apr 2023 07:30:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 754499867C6
-	for <virtio-comment@archiver.kernel.org>; Thu,  6 Apr 2023 07:20:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A62F49865C8
+	for <virtio-comment@archiver.kernel.org>; Thu,  6 Apr 2023 07:30:24 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 84EE79865CA; Thu,  6 Apr 2023 07:20:22 +0000 (UTC)
+	id 95AEE9865B7; Thu,  6 Apr 2023 07:30:24 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,192 +24,119 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C4BB29865BD;
-	Thu,  6 Apr 2023 07:20:13 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 85A939865B8
+	for <virtio-comment@lists.oasis-open.org>; Thu,  6 Apr 2023 07:30:24 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="341398583"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; 
-   d="scan'208";a="341398583"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="756282554"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; 
-   d="scan'208";a="756282554"
-Message-ID: <0149d88a-196b-0bdc-32b4-1e01eb562310@linux.intel.com>
-Date: Thu, 6 Apr 2023 15:20:03 +0800
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680766222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rIykLxwJvksJ7aa8lySC83PQ2q904UW2fGt87LCu1EM=;
+        b=S7DkLKbnBKIeeXK1QrDRMIESQBLtNjR29oneyZ28Gp77szf8Erfy0YMRt8vrCGHySC
+         tj9FGMVBzpDycowAx6bFj02ciE5QsNAnFjmnpwI6OrSbcz+QVLS/+aiN4el/aQHszIBD
+         RpnOog9obqLIpZnwlH54MwF17MLl9kzoNdMTRzBSfqIbfMndz2AIIyJ+tmuic9HKp+8p
+         6J1b15ReNtTzH6WtPLEHEK8w7MGv8faaQULGyAibBkdxHmR6/xRAuEQ8iR2pjtNCxSli
+         b3zjf3Eo/wCuZHOYrYr5+XLSRI27jaOrJ7ye+bOiPayfuj7eQ0VbIrFXQ+yDRk4e5o91
+         XByg==
+X-Gm-Message-State: AAQBX9e4lMj+s0sb5n2n1Gc8SuT0Y4KnOOzz+lF7/DIGsavKEWgaWm8g
+	umC5+ovsH7YlgS79QQi9vzP8o8HYjYQESqpCVts=
+X-Google-Smtp-Source: AKy350ZRCDawwlXh29wCjUcLDp1EJ7LFYcBT8Q5GCHEEawJMjazp9SgWHus/JravLXA4mieZbrOdgQ==
+X-Received: by 2002:a17:902:eccd:b0:1a1:b528:9bea with SMTP id a13-20020a170902eccd00b001a1b5289beamr10998309plh.50.1680766222442;
+        Thu, 06 Apr 2023 00:30:22 -0700 (PDT)
+From: David Stevens <stevensd@chromium.org>
+To: virtio-comment@lists.oasis-open.org
+Cc: David Stevens <stevensd@chromium.org>
+Date: Thu,  6 Apr 2023 16:30:02 +0900
+Message-Id: <20230406073002.3642873-1-stevensd@chromium.org>
+X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.9.1
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>,
- virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
- jasowang@redhat.com, cohuck@redhat.com, sgarzare@redhat.com,
- stefanha@redhat.com, nrupal.jani@intel.com, Piotr.Uminski@intel.com,
- hang.yuan@intel.com
-Cc: virtio@lists.oasis-open.org, Jiri Pirko <jiri@nvidia.com>,
- Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
- Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
- Max Gurtovoy <mgurtovoy@nvidia.com>
-References: <cover.1680533760.git.mst@redhat.com>
- <84cf421ad95111b37cddb52b2a7bf625b7955ae6.1680533760.git.mst@redhat.com>
-From: Zhu Lingshan <lingshan.zhu@linux.intel.com>
-In-Reply-To: <84cf421ad95111b37cddb52b2a7bf625b7955ae6.1680533760.git.mst@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH v11 08/10] admin: command list discovery
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [RFC] Define a low power state for devices
 
+This RFC defines a low power state for virtio devices, to gives
+drivers an option for power management besides simply resetting their
+device.
 
+This patch is a draft aimed at starting a discussion, rather than being
+a finalized patch.
 
-On 4/3/2023 11:03 PM, Michael S. Tsirkin wrote:
-> Add commands to find out which commands does each group support,
-> as well as enable their use by driver.
-> This will be especially useful once we have multiple group types.
->
-> An alternative is per-type VQs. This is possible but will
-> require more per-transport work. Discovery through the vq
-> helps keep things contained.
->
-> e.g. lack of support for some command can switch to a legacy mode
->
-> note that commands are expected to be avolved by adding new
-> fields to command specific data at the tail, so
-> we generally do not need feature bits for compatibility.
->
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
->
-> ---
-> dropped S.O.B by Max
-> explain in commit log how commands will evolve, comment by Stefan
-> replace will use with is capable of use, comment by Stefan
-> typo fix reported by David and Lingshan
-> rename cmds to cmd_opcodes suggested by Jiri
-> list group_type explicitly in command description suggested by Jiri
-> clarify how can device not support some commands
-> always say group administration commands, comment by Jiri
-> ---
->   admin.tex | 102 +++++++++++++++++++++++++++++++++++++++++++++++++++++-
->   1 file changed, 101 insertions(+), 1 deletion(-)
->
-> diff --git a/admin.tex b/admin.tex
-> index f201bcd..9552797 100644
-> --- a/admin.tex
-> +++ b/admin.tex
-> @@ -113,7 +113,9 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
->   \hline
->   opcode & Name & Command Description \\
->   \hline \hline
-> -0x0000 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
-> +0x0000 & VIRTIO_ADMIN_CMD_LIST_QUERY & Provides to driver list of commands supported for this group type    \\
-> +0x0001 & VIRTIO_ADMIN_CMD_LIST_USE & Provides to device list of commands used for this group type \\
-> +0x0002 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
->   \hline
->   0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
->   \hline
-> @@ -183,6 +185,104 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
->   depends on these structures and is described separately or is
->   implicit in the structure description.
->   
-> +Before sending any group administration commands to the device, the driver
-> +needs to communicate to the device which commands it is going to
-> +use. Initially (after reset), only two commands are assumed to be used:
-> +VIRTIO_ADMIN_CMD_LIST_QUERY and VIRTIO_ADMIN_CMD_LIST_USE.
-> +
-> +Before sending any other commands for any member of a specific group to
-> +the device, the driver queries the supported commands via
-> +VIRTIO_ADMIN_CMD_LIST_QUERY and sends the commands it is
-> +capable of using via VIRTIO_ADMIN_CMD_LIST_USE.
-> +
-> +Commands VIRTIO_ADMIN_CMD_LIST_QUERY and
-> +VIRTIO_ADMIN_CMD_LIST_USE
-> +both use the following structure describing the
-> +command opcodes:
-> +
-> +\begin{lstlisting}
-> +struct virtio_admin_cmd_list {
-> +       /* Indicates which of the below fields were returned
-> +       le64 device_admin_cmd_opcodes[];
-> +};
-> +\end{lstlisting}
-> +
-> +This structure is an array of 64 bit values in little-endian byte
-> +order, in which a bit is set if the specific command opcode
-> +is supported. Thus, \field{device_admin_cmd_opcodes[0]} refers to the
-> +first 64-bit value in this array corresponding to opcodes 0 to
-> +63, \field{device_admin_cmd_opcodes[1]} is the second 64-bit value
-> +corresponding to opcodes 64 to 127, etc.
-> +For example, the array of size 2 including
-> +the values 0x3 in \field{device_admin_cmd_opcodes[0]}
-> +and 0x1 in \field{device_admin_cmd_opcodes[1]} indicates that only
-> +opcodes 0, 1 and 64 are supported.
-> +The length of the array depends on the supported opcodes - it is
-> +large enough to include bits set for all supported opcodes,
-> +that is the length can be calculated by starting with the largest
-> +supported opcode adding one, dividing by 64 and rounding up.
-> +In other words, for
-> +VIRTIO_ADMIN_CMD_LIST_QUERY and VIRTIO_ADMIN_CMD_LIST_USE the
-> +length of \field{command_specific_result} and
-> +\field{command_specific_data} respectively will be
-> +$DIV_ROUND_UP(max_cmd, 64) * 8$ where DIV_ROUND_UP is integer division
-> +with round up and \field{max_cmd} is the largest available command opcode.
-> +
-> +The array is also allowed to be larger and to additionally
-> +include an arbitrary number of all-zero entries.
-> +
-> +Accordingly, bits 0 and 1 corresponding to opcode 0
-> +(VIRTIO_ADMIN_CMD_LIST_QUERY) and 1
-> +(VIRTIO_ADMIN_CMD_LIST_USE) are
-> +always set in \field{device_admin_cmd_opcodes[0]} returned by VIRTIO_ADMIN_CMD_LIST_QUERY.
-> +
-> +For the command VIRTIO_ADMIN_CMD_LIST_QUERY, \field{opcode} is set to 0x0.
-> +The \field{group_member_id} is unused. It is set to zero by driver.
-> +This command has no command specific data.
-> +The device, upon success, returns a result in
-> +\field{command_specific_result} in the format
-> +\field{struct virtio_admin_cmd_list} describing the
-> +list of group administration commands supported for the group type
-> +specified by \field{group_type}.
-> +
-> +For the command VIRTIO_ADMIN_CMD_LIST_USE, \field{opcode}
-> +is set to 0x1.
-> +The \field{group_member_id} is unused. It is set to zero by driver.
-> +The \field{command_specific_data} is in the format
-> +\field{struct virtio_admin_cmd_list} describing the
-> +list of group administration commands used by the driver
-> +with the group type specified by \field{group_type}.
-> +
-> +This command has no command specific result.
-> +
-> +The driver issues the command VIRTIO_ADMIN_CMD_LIST_QUERY to
-> +query the list of commands valid for this group and before sending
-> +any commands for any member of a group.
-> +
-> +The driver then enables use of some of the opcodes by sending to
-> +the device the command VIRTIO_ADMIN_CMD_LIST_USE with a subset
-> +of the list returned by VIRTIO_ADMIN_CMD_LIST_QUERY that is
-> +both understood and used by the driver.
-> +
-> +If the device supports the command list used by the driver, the
-> +device completes the command with status VIRTIO_ADMIN_STATUS_OK.
-> +If the device does not support the command list
-> +(for example, if the driver is not capable to use
-> +some required commands), the device
-> +completes the command with status
-> +VIRTIO_ADMIN_STATUS_INVALID_FIELD.
-> +
-> +Note: drivers are assumed not to set bits in
-> +device_admin_cmd_opcodes
-> +if they are not familiar with how the command opcode
-> +is used, since devices could have dependencies between
-> +command opcodes.
-> +
-> +It is assumed that all members in a group support and are used
-> +with the same list of commands. However, for owner devices
-> +supporting multiple group types, the list of supported commands
-> +might differ between different group types.
-> +
->   \section{Administration Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Administration Virtqueues}
->   
->   An administration virtqueue of an owner device is used to submit
-Reviewed-by: Zhu Lingshan <lingshan.zhu@intel.com>
+To provide some context on where this is coming from, I'm working on
+reducing the power overhead of ARCVM (virtualized Android running on
+ChromeOS). One of the big gaps in ARCVM power management is that it does
+not implement Android's partial wake locks - i.e. the (virtualized) CPUs
+are always on, even if the (virtualized) screen is off. This means we
+can't force apps to stop running when they shouldn't be running, which
+can lead to higher power consumption compared to the ChromeOS baseline.
+
+Partial wake locks are built on s2idle, but unfortunately the current
+power management of virtio drivers does not let us use s2idle. The fact
+that power management is based around resetting the virtio device means
+that it doesn't work with stateful devices (e.g. virtio-fs). Even for
+stateless devices, re-initializing all of the devices takes longer than
+we would like, especially on lower end hardware.
+
+My rough idea for how to address this would be to make the existing
+virtio power management targeted at S4 specifically (i.e. the freeze
+device callback). For S0/S1/S3 (i.e. the suspend device callback), this
+new lighter weight low power state would be used if available -
+otherwise it would fall back to the existing S4 power management code.
+
+I have a very rough prototype that seems to work, and I haven't seen
+anything that makes me think this approach is fundamentally unworkable.
+That said, I would like to get feedback on the approach earlier rather
+than later.
+---
+ content.tex | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/content.tex b/content.tex
+index cff548ab9675..01da6f62ef20 100644
+--- a/content.tex
++++ b/content.tex
+@@ -449,6 +449,28 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
+ types. It is RECOMMENDED that devices generate version 4
+ UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+ 
++\section{Low Power Mode}\label{sec:Basic Facilities of a Virtio Device / Low Power Mode}
++
++A virtio device can be put into a low power state when the
++VIRTIO_F_LOW_POWER bit is negotiated. How a driver puts a
++device into a low power state is transport specific.
++
++In general, a virtio device in a low power state should
++avoid initating any communication with the driver. However,
++certain device-specific functionality is exempt from this
++requirement. Such functionality is detailed in the device
++type specifications.
++
++% One example of such functionality would be allowing
++% the virtio-net device to wake up the guest to deliver
++% incoming network packets.
++
++While a virtio device is in a low power state, it should
++maintain any type specific state in such a way that it is
++able to immediately resume functioning upon leaving the low
++power state, without the need for any additional
++communication with the driver.
++
+ \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+ 
+ We start with an overview of device initialization, then expand on the
+@@ -803,6 +825,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+   that the driver can reset a queue individually.
+   See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}.
+ 
++  \item[VIRTIO_F_LOW_POWER(41)] This feature indicates
++  that the driver can put the device into a low power mode.
++  See \ref{sec:Basic Facilities of a Virtio Device / Low Power Mode}.
++
+ \end{description}
+ 
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+-- 
+2.40.0.348.gf938b09366-goog
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
