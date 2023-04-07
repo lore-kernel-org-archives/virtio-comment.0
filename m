@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5299-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5300-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE6F5C6FD1D
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 07:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C6CC76196
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:15:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E9C282B151
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 07:35:22 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3F1843F57A
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CF5879865E3
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 07:35:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 391639865E1
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id AD51E983F7B; Fri,  7 Apr 2023 07:35:22 +0000 (UTC)
+	id 31A189865D8; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,88 +24,92 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8263D9865D8
-	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Apr 2023 07:34:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1EAEA9865D9
+	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: -xDFEtGRNceTbNrZWmP0_Q-1
+X-MC-Unique: h7sgITT_MdCXluZJ06Vljg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680852858;
+        d=1e100.net; s=20210112; t=1680855325;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dupmBcvSmkSTRYUDCDXAG5jfB3RiU20fR+rd9Zpsmao=;
-        b=68mcky4CaYUMJ/drLUGxLPPob0UFjfGwbunILBJR1HCpoLrIwd95aEVuIStzNyjOse
-         kj/4kLgKT90OM2d7yLmr6Up01EWsFgAJGK55ohT9+yfvcWfmdP/3IlA0XgTkOMZFFP+x
-         j4iZcuvcAkHZ/CWsjASBAvLlvFBUYtA+qaUbyVuQpkkYG6uETtbe6m5tUtqORkYzl5Lh
-         d/sz9wFBMl1ME/Skz/VJCE2yk/m9F7Wyf/wCO/R1rKBqAWPmqZ8a6t5cIzFtl6pO45Va
-         HXZ3TNrLi9ZiRJTTAuCc70ld81dI8hNIHfa4awnroa9z2cf+OiuwrRAP2kI5SimMtPN3
-         nNTg==
-X-Gm-Message-State: AAQBX9cLuYJYqMgOl1Jx5RBZU0jirZOCbJcazU6Z/22VHkxraMXFvyk8
-	ZTIEJ70dMiUkRBXf+5hLYBU/E2+KeRwjAkVDgo8KWRuQrT2+cdJBFIy/LWtthWzPrdejiUhYq+7
-	jHzBbn+f4FoWtT1wus/iE3H9WyceFwFAaWQ==
-X-Received: by 2002:a1c:770d:0:b0:3ef:f26b:a187 with SMTP id t13-20020a1c770d000000b003eff26ba187mr633073wmi.0.1680852857818;
-        Fri, 07 Apr 2023 00:34:17 -0700 (PDT)
-X-Google-Smtp-Source: AKy350bWdGEDPjc77jkaXox3gDdIAxFZmmJCPU3A/nsFrjWjULtcx/fljhL95gXfO4nuqCqW0m9qbQ==
-X-Received: by 2002:a1c:770d:0:b0:3ef:f26b:a187 with SMTP id t13-20020a1c770d000000b003eff26ba187mr633057wmi.0.1680852857525;
-        Fri, 07 Apr 2023 00:34:17 -0700 (PDT)
-Date: Fri, 7 Apr 2023 03:34:12 -0400
+        bh=zt9FyPmEqPlSCNAf6SuLxf/NsgJHq0ZXI9diWvSfh6s=;
+        b=vL3QMLl4JMFnHAzSRKbV/6tLCwa0Hev/aF3Q9lfCsr2XT1b9nAbirMGmAZxp6LLNXm
+         bFPIQPdeSfGgRFfCT5vPRzGbwW956xpCB/HyH19wa0un/Z4BM3DkTKoj++w6ImIju4hW
+         sWL7ehsBkDNLgu7Dq1SxEU74bXNA9+ZaOkye0h8yUXvTJJUROui6RXnaO+T3byigif+K
+         CM8qqJu/SvVfC/iwZb4ktCGh2qadSixaSkYD3Ny0T/m3ddaBG1YykjoIwvCC/vqTyUNo
+         PZcvjXymBsg2gt2FShvAdU7tBy3ckkC0lTgHNa8Lb+iwuLAJDqSE+jsePeNO6um9YKsN
+         5zwQ==
+X-Gm-Message-State: AAQBX9e9e+zZjk6qRigEBuFutTymqhbNyaZ0RC+Pn8fpTi9/ZDMVL+J7
+	93tSKP9IySf+2WYABnZxgJ6MvdRSwwrx6T65mZW9ZWfWRhA2BEyHBc1GQKZlCfIbMp/ydKokyzX
+	ptJtsPeel0NDPkOJPzc75BU/yjCFm0GRM4Q==
+X-Received: by 2002:a7b:ce16:0:b0:3ee:2b04:e028 with SMTP id m22-20020a7bce16000000b003ee2b04e028mr951022wmc.14.1680855325121;
+        Fri, 07 Apr 2023 01:15:25 -0700 (PDT)
+X-Google-Smtp-Source: AKy350Zz4iVZsIXBH2ZmcEdewZ7JM7wSnvYfjozA/xBwyAY5RiMbnpTU6tS7dwDzYDIWgf1YsmDFCw==
+X-Received: by 2002:a7b:ce16:0:b0:3ee:2b04:e028 with SMTP id m22-20020a7bce16000000b003ee2b04e028mr950992wmc.14.1680855324682;
+        Fri, 07 Apr 2023 01:15:24 -0700 (PDT)
+Date: Fri, 7 Apr 2023 04:15:21 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: Zhu Lingshan <lingshan.zhu@linux.intel.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
+Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sgarzare@redhat.com" <sgarzare@redhat.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	"nrupal.jani@intel.com" <nrupal.jani@intel.com>,
-	"Piotr.Uminski@intel.com" <Piotr.Uminski@intel.com>,
-	"hang.yuan@intel.com" <hang.yuan@intel.com>,
-	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
-	Jiri Pirko <jiri@nvidia.com>, Zhu Lingshan <lingshan.zhu@intel.com>,
-	"pasic@linux.ibm.com" <pasic@linux.ibm.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	Shahaf Shuler <shahafs@nvidia.com>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <20230407032731-mutt-send-email-mst@kernel.org>
-References: <cover.1680533760.git.mst@redhat.com>
- <84cf421ad95111b37cddb52b2a7bf625b7955ae6.1680533760.git.mst@redhat.com>
- <0149d88a-196b-0bdc-32b4-1e01eb562310@linux.intel.com>
- <PH0PR12MB548174BC1333E7107B731108DC919@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Satananda Burla <sburla@marvell.com>
+Message-ID: <20230407041000-mutt-send-email-mst@kernel.org>
+References: <20230330225834.506969-1-parav@nvidia.com>
+ <20230330225834.506969-9-parav@nvidia.com>
+ <20230404032922-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548157060FCDB5B38CA63C8ADC939@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230405010807-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481B5F4F8797F0F795E7794DC909@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB548174BC1333E7107B731108DC919@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481B5F4F8797F0F795E7794DC909@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH v11 08/10] admin: command list discovery
+Subject: [virtio-comment] Re: [PATCH 08/11] transport-pci: Introduce virtio extended capability
 
-On Thu, Apr 06, 2023 at 02:05:07PM +0000, Parav Pandit wrote:
+On Wed, Apr 05, 2023 at 01:16:31PM +0000, Parav Pandit wrote:
 > 
 > 
-> > From: Zhu Lingshan <lingshan.zhu@linux.intel.com>
-> > Sent: Thursday, April 6, 2023 3:20 AM
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Wednesday, April 5, 2023 1:11 AM
 > 
-> I have a dumb question.
-> Zhu responded to these patches.
-> Some patches have prefix appended as "virtio", some has "virtio-dev", and some have "virtio-comment".
-> Whichever tool is adding it prefix, why it cannot keep the simple consistency?
+> > > > > +struct virtio_pcie_ext_cap {
+> > > > > +        struct pcie_ext_cap pcie_ecap;
+> > > > > +        u8 cfg_type; /* Identifies the structure. */
+> > > > > +        u8 bar; /* Index of the BAR where its located */
+> > > > > +        u8 id; /* Multiple capabilities of the same type */
+> > > > > +        u8 zero_padding[1];
+> > > > > +        le64 offset; /* Offset with the bar */
+> > > > > +        le64 length; /* Length of the structure, in bytes. */
+> > > > > +        u8 data[]; /* Optional variable length data */
+> > > >
+> > > > Maybe le64 data[], for alignment?
+> > > >
+> > > It gets harder to decode (typecasting ..) if its string with le64 data type.
+> > 
+> > In what language? In C you have to cast anyway, string is char *, often signed,
+> > not u8.
+> > 
+> > > I will extend the comment,
+> > >
+> > > +        u8 data[]; /* Optional variable length data, must be aligned
+> > > + to 8 bytes */
+> > 
+> > I'd keep it le64 or u64, it is highly unlikely we'll pass strings through this
+> > interface anyway.
 > 
-> Do we need to ask OASIS about it?
+> Ok. will change.
 > 
+> What about rest of the patches? If we proceed using MMR interface, rest of the patches are fine?
 
-Guess: are you using gmail?  Each list adds its own prefix.  Which is
-admittedly a bad idea but there you are, OASIS outsources this and can't
-change it. Adding a footer is an even worse idea but they won't change
-this either.
+Biggest problem is 7/11 - the new IDs, breaking all existing drivers.
 
-So if you are subscribed to multiple lists you are getting
-multiple copies, which is handy if each list goes to its
-own folder. However, gmail is unusual in that it deduplicates
-email discarding all copies but one. There are work-arounds
-with filters but the end result in any case will be that
-you will get one of the copies, selected at random.
-As they have different prefixes and footers added, there you go,
-a mix of different prefixes in a single thread.
+I thought I replied on that but don't see it on that specific patch.
+Let me repost my thoughts now I had time to think it over.
 
 -- 
 MST
