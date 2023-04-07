@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5300-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5301-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C6CC76196
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB1FC76196
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:38:08 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3F1843F57A
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 615A52AD40
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:38:07 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 391639865E1
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 46C449865DE
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 08:38:07 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 31A189865D8; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
+	id 328B6983F7B; Fri,  7 Apr 2023 08:38:07 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,95 +24,148 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1EAEA9865D9
-	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Apr 2023 08:15:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 215919865D7
+	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Apr 2023 08:38:07 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: h7sgITT_MdCXluZJ06Vljg-1
+X-MC-Unique: aW2TAD34PZqnaqb1XW8FbA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680855325;
+        d=1e100.net; s=20210112; t=1680856683;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zt9FyPmEqPlSCNAf6SuLxf/NsgJHq0ZXI9diWvSfh6s=;
-        b=vL3QMLl4JMFnHAzSRKbV/6tLCwa0Hev/aF3Q9lfCsr2XT1b9nAbirMGmAZxp6LLNXm
-         bFPIQPdeSfGgRFfCT5vPRzGbwW956xpCB/HyH19wa0un/Z4BM3DkTKoj++w6ImIju4hW
-         sWL7ehsBkDNLgu7Dq1SxEU74bXNA9+ZaOkye0h8yUXvTJJUROui6RXnaO+T3byigif+K
-         CM8qqJu/SvVfC/iwZb4ktCGh2qadSixaSkYD3Ny0T/m3ddaBG1YykjoIwvCC/vqTyUNo
-         PZcvjXymBsg2gt2FShvAdU7tBy3ckkC0lTgHNa8Lb+iwuLAJDqSE+jsePeNO6um9YKsN
-         5zwQ==
-X-Gm-Message-State: AAQBX9e9e+zZjk6qRigEBuFutTymqhbNyaZ0RC+Pn8fpTi9/ZDMVL+J7
-	93tSKP9IySf+2WYABnZxgJ6MvdRSwwrx6T65mZW9ZWfWRhA2BEyHBc1GQKZlCfIbMp/ydKokyzX
-	ptJtsPeel0NDPkOJPzc75BU/yjCFm0GRM4Q==
-X-Received: by 2002:a7b:ce16:0:b0:3ee:2b04:e028 with SMTP id m22-20020a7bce16000000b003ee2b04e028mr951022wmc.14.1680855325121;
-        Fri, 07 Apr 2023 01:15:25 -0700 (PDT)
-X-Google-Smtp-Source: AKy350Zz4iVZsIXBH2ZmcEdewZ7JM7wSnvYfjozA/xBwyAY5RiMbnpTU6tS7dwDzYDIWgf1YsmDFCw==
-X-Received: by 2002:a7b:ce16:0:b0:3ee:2b04:e028 with SMTP id m22-20020a7bce16000000b003ee2b04e028mr950992wmc.14.1680855324682;
-        Fri, 07 Apr 2023 01:15:24 -0700 (PDT)
-Date: Fri, 7 Apr 2023 04:15:21 -0400
+        bh=0mtb9CiJWugUeXG3y1gTusZYkF0xLB5fiqkRBGfkc5A=;
+        b=PpENuHXNVUttgxzXpTglfbwdddKLuv/a4CRspTr/xZwO7FAPAZhbm3jvGYUC2IHRk2
+         7JwacspL51ApE5vtZ5bYWu9HeUTWWGFv5r/gsDph+s+Bq/8ejnuqo7NMqXWlXQek4SAW
+         EdGiCSMq+2gBtRfMCu1yCz4iFEIrnh51ZTh8NCi5xGLEZZL3+8dLhkr6Bq9jlpY0IYj9
+         T1WfCBVYUaAn3U41Gks/J2rKcvk/Sxc12NBdePRd892Ep+UAIXqg+YCjYHL8xrJpKIh0
+         ZDLIRwyQjmDlMrmX7/cgkOVY3lM3htyk612FQeiQp6Z8EYWdfIZTXM+A5teJCDQxEXZD
+         dH4w==
+X-Gm-Message-State: AAQBX9dQOx4JrO7GbZioqG/u5Y8+18nqLlcWM7/AneJMI8rN8ocZrrsm
+	HiVkELJ7anC9kempJS3mEpTpG8i9pCr1XcFe8Tl7XedO7DAAtP/f0GKKnuDWiEta3umhFnTjEeK
+	xgkcG6h7DiV5S8mnhZ1F71vNPW24QjmpJJg==
+X-Received: by 2002:adf:fa8e:0:b0:2cf:e3d0:2a43 with SMTP id h14-20020adffa8e000000b002cfe3d02a43mr787181wrr.4.1680856683000;
+        Fri, 07 Apr 2023 01:38:03 -0700 (PDT)
+X-Google-Smtp-Source: AKy350YCGH2Nsb8c4hDTTvBQQmV+oNzWq27x/UmNtYmy+mjwma54yqSnCyHTlVA7HpItuGym7FT48A==
+X-Received: by 2002:adf:fa8e:0:b0:2cf:e3d0:2a43 with SMTP id h14-20020adffa8e000000b002cfe3d02a43mr787166wrr.4.1680856682695;
+        Fri, 07 Apr 2023 01:38:02 -0700 (PDT)
+Date: Fri, 7 Apr 2023 04:37:59 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>,
+Cc: virtio-dev@lists.oasis-open.org, cohuck@redhat.com,
+	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com,
 	Satananda Burla <sburla@marvell.com>
-Message-ID: <20230407041000-mutt-send-email-mst@kernel.org>
+Message-ID: <20230407041619-mutt-send-email-mst@kernel.org>
 References: <20230330225834.506969-1-parav@nvidia.com>
- <20230330225834.506969-9-parav@nvidia.com>
- <20230404032922-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548157060FCDB5B38CA63C8ADC939@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230405010807-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481B5F4F8797F0F795E7794DC909@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230330225834.506969-8-parav@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481B5F4F8797F0F795E7794DC909@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <20230330225834.506969-8-parav@nvidia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH 08/11] transport-pci: Introduce virtio extended capability
+Subject: [virtio-comment] Re: [PATCH 07/11] transport-pci: Introduce transitional MMR device id
 
-On Wed, Apr 05, 2023 at 01:16:31PM +0000, Parav Pandit wrote:
+On Fri, Mar 31, 2023 at 01:58:30AM +0300, Parav Pandit wrote:
+> Transitional MMR device PCI Device IDs are unique. Hence,
+> any of the existing drivers do not bind to it.
+> This further maintains the backward compatibility with
+> existing drivers.
 > 
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Wednesday, April 5, 2023 1:11 AM
-> 
-> > > > > +struct virtio_pcie_ext_cap {
-> > > > > +        struct pcie_ext_cap pcie_ecap;
-> > > > > +        u8 cfg_type; /* Identifies the structure. */
-> > > > > +        u8 bar; /* Index of the BAR where its located */
-> > > > > +        u8 id; /* Multiple capabilities of the same type */
-> > > > > +        u8 zero_padding[1];
-> > > > > +        le64 offset; /* Offset with the bar */
-> > > > > +        le64 length; /* Length of the structure, in bytes. */
-> > > > > +        u8 data[]; /* Optional variable length data */
-> > > >
-> > > > Maybe le64 data[], for alignment?
-> > > >
-> > > It gets harder to decode (typecasting ..) if its string with le64 data type.
-> > 
-> > In what language? In C you have to cast anyway, string is char *, often signed,
-> > not u8.
-> > 
-> > > I will extend the comment,
-> > >
-> > > +        u8 data[]; /* Optional variable length data, must be aligned
-> > > + to 8 bytes */
-> > 
-> > I'd keep it le64 or u64, it is highly unlikely we'll pass strings through this
-> > interface anyway.
-> 
-> Ok. will change.
-> 
-> What about rest of the patches? If we proceed using MMR interface, rest of the patches are fine?
+> Co-developed-by: Satananda Burla <sburla@marvell.com>
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
 
-Biggest problem is 7/11 - the new IDs, breaking all existing drivers.
+This is IMO just too big a change: fundamentally this is a completely
+new transport since no existing drivers can use this device at all. Not
+a thing we should do lightly. And we have options on the table
+such as AQ, which address most of the issue. Yes they do not
+work for passthrough of a PF but that seems like a minor issue.
+If we want to save the MMR idea, let's find a way to cut
+down this patchset's size significantly.
 
-I thought I replied on that but don't see it on that specific patch.
-Let me repost my thoughts now I had time to think it over.
 
--- 
-MST
+On a more positive side, I do not really see a reason to
+have a new ID at all. Device can have a normal device ID
+and additionally the new capability.
+
+
+
+
+
+
+
+
+
+> ---
+>  transport-pci.tex | 45 +++++++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 41 insertions(+), 4 deletions(-)
+> 
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index ee11ba5..665448e 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -19,12 +19,14 @@ \section{Virtio Over PCI Bus}\label{sec:Virtio Transport Options / Virtio Over P
+>  \subsection{PCI Device Discovery}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
+>  
+>  Any PCI device with PCI Vendor ID 0x1af4, and PCI Device ID 0x1000 through
+> -0x107f inclusive is a virtio device. The actual value within this range
+> -indicates which virtio device is supported by the device.
+> +0x107f inclusive and DeviceID 0x10f9 through 0x10ff is a virtio device.
+> +The actual value within this range indicates which virtio device
+> +type it is.
+>  The PCI Device ID is calculated by adding 0x1040 to the Virtio Device ID,
+>  as indicated in section \ref{sec:Device Types}.
+> -Additionally, devices MAY utilize a Transitional PCI Device ID range,
+> -0x1000 to 0x103f depending on the device type.
+> +Additionally, devices MAY utilize a Transitional PCI Device ID range
+> +0x1000 to 0x103f inclusive or a Transitional MMR PCI Device ID range
+> +0x10f9 to 0x10ff inclusive, depending on the device type.
+>  
+>  \devicenormative{\subsubsection}{PCI Device Discovery}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Discovery}
+>  
+> @@ -95,6 +97,41 @@ \subsubsection{Legacy Interfaces: A Note on PCI Device Discovery}\label{sec:Virt
+>  
+>  This is to match legacy drivers.
+>  
+> +\subsubsection{Transitional MMR Interface: A Note on PCI Device
+> +Discovery}\label{sec:Virtio Transport Options / Virtio Over PCI
+> +Bus / PCI Device Discovery / Transitional MMR Interface: A Note on PCI Device Discovery}
+> +
+> +The transitional MMR device has one of the following PCI Device ID
+> +depending on the device type:
+> +
+> +\begin{tabular}{|l|c|}
+> +\hline
+> +Transitional PCI Device ID  &  Virtio Device    \\
+> +\hline \hline
+> +0x10f9      &   network device     \\
+> +\hline
+> +0x10fa     &   block device     \\
+> +\hline
+> +0x10fb     & memory ballooning (traditional)  \\
+> +\hline
+> +0x10fc     &      console       \\
+> +\hline
+> +0x10fd     &     SCSI host      \\
+> +\hline
+> +0x10fe     &  entropy source    \\
+> +\hline
+> +0x10ff     &   9P transport     \\
+> +\hline
+> +\end{tabular}
+> +
+> +The PCI Subsystem Vendor ID and the PCI Subsystem Device ID MAY
+> +reflect the PCI Vendor and Device ID of the environment.
+> +
+> +The transitional MMR driver MUST match any PCI Revision ID value.
+> +
+> +The transitional MMR driver MAY match any PCI Subsystem Vendor ID and
+> +any PCI Subsystem Device ID value.
+> +
+>  \subsection{PCI Device Layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout}
+>  
+>  The device is configured via I/O and/or memory regions (though see
+> -- 
+> 2.26.2
 
 
 This publicly archived list offers a means to provide input to the
