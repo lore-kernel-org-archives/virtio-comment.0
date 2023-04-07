@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5307-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5308-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E581AC76196
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 11:24:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 932DFC6FD1D
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 11:27:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3CBE72B14B
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 11:24:48 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DEFF942B65
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 11:27:12 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 313A09865DF
-	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 11:24:48 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D37B59865DD
+	for <virtio-comment@archiver.kernel.org>; Fri,  7 Apr 2023 11:27:12 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 286A4983F7B; Fri,  7 Apr 2023 11:24:48 +0000 (UTC)
+	id C87B0983F7B; Fri,  7 Apr 2023 11:27:12 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,94 +24,131 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 165B19865D7
-	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Apr 2023 11:24:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B7B729865D7
+	for <virtio-comment@lists.oasis-open.org>; Fri,  7 Apr 2023 11:27:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: eCtDOZPtPwyZIuDZHBw6Ug-1
+X-MC-Unique: ORE2ham_N46YvUCBPpnKng-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680866681;
+        d=1e100.net; s=20210112; t=1680866829;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J9wV+HPybbcwvA0ir1v/VEcSMEAVkTUNIV/pHtIIsug=;
-        b=JhPvDwHoiWyjJqHYCe7hd6GYLzuHj1A8EpT2dpsJfLJOq6mxXFiRuB5zRZAe9uLR1o
-         9xFDU2wT9+rwg+FTZpeSAqt9ROk7dJ9Nkw6j2tJAurCAwzvCCmtBJWIv+40H4jrvqj3T
-         5K1E9Xi29t9/rg6KtCPMI+SjZoqxlKMTaTWLtvN8R5UWWvj6hDj+NEtspht+JfGX4ZgW
-         KDuUFcX8oVLZWKezhnGbauAcfljv8HW7T2UbHddkafidreNLhVkpWZEngWZONv9mtK5n
-         JncGCoqtA/Ia/xHURgzdXE/ns3p19RcdKvI9fqw25EA0dka14pFG5T6fgzCgssedx8Qj
-         Dg9g==
-X-Gm-Message-State: AAQBX9est5Qhnbu1IyxGlqM7Bmfnhk8Ly2AdacEtgl4/5AbIakY/FW6i
-	PE3wvpBOQCEflHIOvDLOXC0YZtPlK5vk/55ZbpjiW5W8fhrbIbFV3SkC2XyFqypYilp2KRI8mC4
-	GWMaS5OdNd9kfAQVZeXB8UfSdCNgG4am5hQ==
-X-Received: by 2002:adf:f54c:0:b0:2ce:ab0a:81fe with SMTP id j12-20020adff54c000000b002ceab0a81femr1097935wrp.62.1680866681302;
-        Fri, 07 Apr 2023 04:24:41 -0700 (PDT)
-X-Google-Smtp-Source: AKy350ZzhDDK/LlcybITOO75HAuXJuWz/Li2ZHZf1zN7tShcpSdZbeuJStlg58lZ2IwTrpB33g9KRQ==
-X-Received: by 2002:adf:f54c:0:b0:2ce:ab0a:81fe with SMTP id j12-20020adff54c000000b002ceab0a81femr1097929wrp.62.1680866680979;
-        Fri, 07 Apr 2023 04:24:40 -0700 (PDT)
-Date: Fri, 7 Apr 2023 07:24:38 -0400
+        bh=j3vzFtjJa1lMxhhQClLahkS2HrYMLpqXhDpodpWt7tE=;
+        b=aA77aeDQQdCp+oxGUCbQDnVXso8ZvSvfsKuKXoHOJW8bEh0eQ/TaXLDFi0cE5gE7qA
+         TGkxD9lmmP1CbvIfQiQfcq+6fjscxWa8jOGGGaSkih216XlqISPZ1/upFZU2KytrnB/8
+         ccR3c5uvzwpML/P3oE14MxPgKGZwddHIXnM+i9EFUgQ825OqgHZRURAUozxNDMuKn4KL
+         V1RrTHzG7cS239iu19tf1Ykgj6KJbCZSRdT0Cga3LbgplahGcSNlre4II5/pO4fuq5tA
+         ehCncRRDqFIjxWV14Nx4rgkBy6tbGZjLlTv0e7qLI1vPdcVcIJ/UAUmVN9JDR3eiGZlf
+         IDyw==
+X-Gm-Message-State: AAQBX9dw1493IzM+lAgDA20zkhMg4SJ0ECurNViQ4xjHBYswSurWWdHr
+	KLLgLvgPTKDDiHh2L4ukR5UvMgnJVHjIpyI9tKgHuttfddQun1eFO46HxHxg06sbs8qHAmVLXD1
+	8TqKXomWuYYg3nV3DCzANaizuDy5y1lkIWw==
+X-Received: by 2002:adf:ee02:0:b0:2e5:56f8:61fc with SMTP id y2-20020adfee02000000b002e556f861fcmr1293906wrn.15.1680866829525;
+        Fri, 07 Apr 2023 04:27:09 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ZTZTaktPClLsP2LVa544d3obo+u2aYitmFLQGxJqhn2eKTgCjdFLm+eExl22+Yg/oHIK788w==
+X-Received: by 2002:adf:ee02:0:b0:2e5:56f8:61fc with SMTP id y2-20020adfee02000000b002e556f861fcmr1293893wrn.15.1680866829180;
+        Fri, 07 Apr 2023 04:27:09 -0700 (PDT)
+Date: Fri, 7 Apr 2023 07:27:06 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org,
-	virtio-dev@lists.oasis-open.org
-Message-ID: <20230407071926-mutt-send-email-mst@kernel.org>
-References: <87edoyqvnu.fsf@redhat.com>
+To: David Stevens <stevensd@chromium.org>
+Cc: virtio-comment@lists.oasis-open.org
+Message-ID: <20230407072507-mutt-send-email-mst@kernel.org>
+References: <20230406073002.3642873-1-stevensd@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <87edoyqvnu.fsf@redhat.com>
+In-Reply-To: <20230406073002.3642873-1-stevensd@chromium.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] [RFC] virtio 1.3 schedule
+Subject: Re: [virtio-comment] [RFC] Define a low power state for devices
 
-On Wed, Apr 05, 2023 at 03:57:09PM +0200, Cornelia Huck wrote:
-> The virtio 1.2 spec has been released on July 1st, 2022, so I think we
-> should come up with a plan for the 1.3 release. Given that it took us
-> several months last time, we need to think about declaring freeze during
-> (northern hemisphere) summer if we want to have a release ready before
-> the end-of-year holiday season starts.
+On Thu, Apr 06, 2023 at 04:30:02PM +0900, David Stevens wrote:
+> This RFC defines a low power state for virtio devices, to gives
+> drivers an option for power management besides simply resetting their
+> device.
 > 
-> We have some things currently under discussion/review that we should
-> still consider for 1.3:
+> This patch is a draft aimed at starting a discussion, rather than being
+> a finalized patch.
 > 
-> - vq index etc. naming cleanup
-> - admin vq
-> - virtio-video
-> - some things we deferred for 1.2 (see
->   https://github.com/oasis-tcs/virtio-spec/issues?q=is%3Aissue+is%3Aopen+label%3Adeferred-in-v1.2-csprd01)
-> - other things that are not on my personal list (please mention whatever
->   you think is important)
+> To provide some context on where this is coming from, I'm working on
+> reducing the power overhead of ARCVM (virtualized Android running on
+> ChromeOS). One of the big gaps in ARCVM power management is that it does
+> not implement Android's partial wake locks - i.e. the (virtualized) CPUs
+> are always on, even if the (virtualized) screen is off. This means we
+> can't force apps to stop running when they shouldn't be running, which
+> can lead to higher power consumption compared to the ChromeOS baseline.
 > 
-> Please also keep in mind that 1.3 will not be the last virtio release,
-> and many projects like Linux or QEMU consider features stable and ready
-> for inclusion once the spec has hit the git tree, but not neccessarily a
-> virtio spec release.
+> Partial wake locks are built on s2idle, but unfortunately the current
+> power management of virtio drivers does not let us use s2idle. The fact
+> that power management is based around resetting the virtio device means
+> that it doesn't work with stateful devices (e.g. virtio-fs). Even for
+> stateless devices, re-initializing all of the devices takes longer than
+> we would like, especially on lower end hardware.
 > 
-> That said, let me propose the following timeline:
+> My rough idea for how to address this would be to make the existing
+> virtio power management targeted at S4 specifically (i.e. the freeze
+> device callback). For S0/S1/S3 (i.e. the suspend device callback), this
+> new lighter weight low power state would be used if available -
+> otherwise it would fall back to the existing S4 power management code.
 > 
-> - July 1st 2023: enter feature freeze; all proposed changes must at
->   least have an open github issue that refers to a proposal on-list
-> - August 1st 2023: enter change freeze; everything needs to have been
->   voted upon (i.e. we can start with preparations for a release like
->   compiling the change log)
-> - at the same time, fork virtio-next, which can be used for development
->   while we're working on the release
-> - August/September 2023: prepare draft, initiate initial voting etc.
+> I have a very rough prototype that seems to work, and I haven't seen
+> anything that makes me think this approach is fundamentally unworkable.
+> That said, I would like to get feedback on the approach earlier rather
+> than later.
+> ---
+>  content.tex | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/content.tex b/content.tex
+> index cff548ab9675..01da6f62ef20 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -449,6 +449,28 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
+>  types. It is RECOMMENDED that devices generate version 4
+>  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+>  
+> +\section{Low Power Mode}\label{sec:Basic Facilities of a Virtio Device / Low Power Mode}
+> +
+> +A virtio device can be put into a low power state when the
+> +VIRTIO_F_LOW_POWER bit is negotiated. How a driver puts a
+> +device into a low power state is transport specific.
+> +
+> +In general, a virtio device in a low power state should
+> +avoid initating any communication with the driver. However,
+> +certain device-specific functionality is exempt from this
+> +requirement. Such functionality is detailed in the device
+> +type specifications.
+> +
+> +% One example of such functionality would be allowing
+> +% the virtio-net device to wake up the guest to deliver
+> +% incoming network packets.
+> +
+> +While a virtio device is in a low power state, it should
+> +maintain any type specific state in such a way that it is
+> +able to immediately resume functioning upon leaving the low
+> +power state, without the need for any additional
+> +communication with the driver.
+> +
+>  \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+>  
+>  We start with an overview of device initialization, then expand on the
+> @@ -803,6 +825,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>    that the driver can reset a queue individually.
+>    See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}.
+>  
+> +  \item[VIRTIO_F_LOW_POWER(41)] This feature indicates
+> +  that the driver can put the device into a low power mode.
+> +  See \ref{sec:Basic Facilities of a Virtio Device / Low Power Mode}.
+> +
+>  \end{description}
+>  
+>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
 
-Hmm looks like you forgot a 30 day the public review period (or is that
-included in the "etc"? ).  During this period we will likely receive
-review comments which we have to address. Should the changes turn out to
-be material, another public review period will be required.
-Let's spell it out please.
+So what purpose does this flag serve exactly?  I guess transports also
+provide ways to enumerate supported power states, no?
 
-
-
-> - by September/October 2023: have the final 1.3 spec ready, voted upon,
->   and released
-> - virtio-next can be merged into mainline, and we continue with business
->   as usual
-> 
-> Thoughts? We might want to move things a tad earlier, but I don't think
-> we should push the schedule out much further.
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
