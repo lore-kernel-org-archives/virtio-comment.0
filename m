@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5322-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5323-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C850AC77B61
-	for <virtio-comment@archiver.kernel.org>; Mon, 10 Apr 2023 01:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F126C77B61
+	for <virtio-comment@archiver.kernel.org>; Mon, 10 Apr 2023 01:36:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DA4223DF35
-	for <virtio-comment@archiver.kernel.org>; Mon, 10 Apr 2023 01:33:49 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7F517604AB
+	for <virtio-comment@archiver.kernel.org>; Mon, 10 Apr 2023 01:36:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C46A498636D
-	for <virtio-comment@archiver.kernel.org>; Mon, 10 Apr 2023 01:33:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 737249865A6
+	for <virtio-comment@archiver.kernel.org>; Mon, 10 Apr 2023 01:36:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B05F79843C6; Mon, 10 Apr 2023 01:33:49 +0000 (UTC)
+	id 6C45C986366; Mon, 10 Apr 2023 01:36:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,276 +24,177 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9F015986319
-	for <virtio-comment@lists.oasis-open.org>; Mon, 10 Apr 2023 01:33:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5C07C9862A5
+	for <virtio-comment@lists.oasis-open.org>; Mon, 10 Apr 2023 01:36:31 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: lBQfwfR-PimTr6AGJ9xn7w-1
+X-MC-Unique: P1wZoGGBNTSvUgC5ZznHXQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681090426; x=1683682426;
+        d=1e100.net; s=20210112; t=1681090588; x=1683682588;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BtwG4PU4amkOM2K+PKTfQ0j6IbROHgP5F+YrVmClMG0=;
-        b=E2j9aps4xHIlh0hIv0LzWzN/VxqSd1WS/fF+ljzHZhNE0OsH9iUZ1FAELr62hB0MHt
-         0FF8lZNI9EAqX2mUwIDWmxO6nO1XelbjOKa4JSMRj8QHs1kTBMYtSCUyPEe1YPBBulMc
-         /EG4Dl9jyNFe2F+NP3ayZjPAy0pISJ7Ne5h1SMs4urafVueJUcmCzknPueTJjINnPy3P
-         13UgNjhoFPrunMeh7J8YRan+x71rhxmDYAvrEPdQ4h5FO9x5OI3fTBlXG06MNbH8plBa
-         sFryZP/BBBK/7jbvkzW6IX9Sl5QQ60S3qvrCGxZHXp3XestvZHcoklJHn18uJA9PiiUi
-         OD3A==
-X-Gm-Message-State: AAQBX9c1+s0J6T/0T0tXvNvTOcko9ZwfBfUFFh95LWFCfLYVSKXerkw9
-	AFpDHx3Y4TqQEVoioW8DZvorkKdguf4IJVF9JFysSbQjBbHO9geQVFpf/t/dEoaynku+PxKeyhw
-	lWUhQjv8K6R10gifQM49P4F5Jc/7pRxrbl2oUzzscdNSWjo0jwbapu2cjzm/bfjA=
-X-Received: by 2002:a05:6808:3307:b0:383:fef9:6cac with SMTP id ca7-20020a056808330700b00383fef96cacmr2388896oib.9.1681090426167;
-        Sun, 09 Apr 2023 18:33:46 -0700 (PDT)
-X-Google-Smtp-Source: AKy350ZQ2XqsbPJ/y8jkxpMthAPy63rRO431jUa8QvUzzuKd6KgHejs0xLQHWkTSE/4s44BPwcmg+tUCwBItEQLcYoU=
-X-Received: by 2002:a05:6808:3307:b0:383:fef9:6cac with SMTP id
- ca7-20020a056808330700b00383fef96cacmr2388892oib.9.1681090425882; Sun, 09 Apr
- 2023 18:33:45 -0700 (PDT)
+        bh=XVoAUVNC0VwUE2Cd0oCg4bMkW6jLsQZI3GKzijUTVIc=;
+        b=0MLTG6T39rRq746mRw5Ztuzc3flqikGIs53bK1w48NX6U+CCGdsMQpti1ZGC2kT7CY
+         75DFZXDXviRa/95l/0ll1OQ60ynrYgFZi4Ou0+Nx0HELyQ7ihDErd1vxqCBopz1Ll9Bi
+         CnvDNgo3Tb6O4DC73H/1YO6UMqvpmu7yPmkV14Lf0lTGWXCSGOsIcZeSt7V1vLa6ywfe
+         4Goj7azcoOuWKwboC8FPmJDvPFjhKqy1ZOW+ZjeyGbDJdnKTrGOyXgR0X6PdH6urrQLr
+         gu9klT2boVLFl0bez5ElMaVXQnuD26hoG7GPP/4Ztcx7CrvRsw339src/4g6HurDlKHx
+         pZaQ==
+X-Gm-Message-State: AAQBX9fQNJQB5kei9T8m3NqC2IJySZV/pUr29sapPn5o2t4ou2euERS+
+	0rcFTkycsfeeOaaZ6MxUhseKkChcjxeSSn2vilNHkIHaR0ODEFOBtPOZyK3d71ZPnru/E2w1pAc
+	mAszRuWYHAkt5og3Az38IozZ1dmXrTdkJc93Jo85zct1DmQWMrg==
+X-Received: by 2002:a05:6808:915:b0:389:50f2:4aa6 with SMTP id w21-20020a056808091500b0038950f24aa6mr2410403oih.9.1681090588453;
+        Sun, 09 Apr 2023 18:36:28 -0700 (PDT)
+X-Google-Smtp-Source: AKy350a96XF3a7OWYoRa8Ep6XSXgEDQvOpYv2K9viH7QsgZ2GO7sIPQ3PEqv9+mQCJxsWukyFnr9uvP0zhvuWapJlMo=
+X-Received: by 2002:a05:6808:915:b0:389:50f2:4aa6 with SMTP id
+ w21-20020a056808091500b0038950f24aa6mr2410397oih.9.1681090588206; Sun, 09 Apr
+ 2023 18:36:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230330225834.506969-1-parav@nvidia.com> <20230330225834.506969-10-parav@nvidia.com>
- <20230407043841-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230407043841-mutt-send-email-mst@kernel.org>
+References: <20230330225834.506969-1-parav@nvidia.com> <20230330225834.506969-9-parav@nvidia.com>
+In-Reply-To: <20230330225834.506969-9-parav@nvidia.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Mon, 10 Apr 2023 09:33:32 +0800
-Message-ID: <CACGkMEtkOdwixxaRz2Pv9xP75vb13ncboX5XRs8NqFCUsS16aQ@mail.gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, virtio-dev@lists.oasis-open.org, cohuck@redhat.com, 
+Date: Mon, 10 Apr 2023 09:36:17 +0800
+Message-ID: <CACGkMEtMOy4B-O-52ka+9P3OBQ_hs1KvdjWodNYg-XKLff+giw@mail.gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: mst@redhat.com, virtio-dev@lists.oasis-open.org, cohuck@redhat.com, 
 	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com, 
 	Satananda Burla <sburla@marvell.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [PATCH 09/11] transport-pci: Describe PCI
- MMR dev config registers
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH 08/11] transport-pci: Introduce virtio
+ extended capability
 
-On Fri, Apr 7, 2023 at 4:55=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
-wrote:
+On Fri, Mar 31, 2023 at 7:00=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
+te:
 >
-> On Fri, Mar 31, 2023 at 01:58:32AM +0300, Parav Pandit wrote:
-> > Legacy virtio configuration registers and adjacent
-> > device configuration registers are located somewhere
-> > in a memory BAR.
-> >
-> > A new capability supplies the location of these registers
-> > which a driver can use to map I/O access to legacy
-> > memory mapped registers.
-> >
-> > This gives the ability to locate legacy registers in either
-> > the existing memory BAR or as completely new BAR at BAR 0.
-> >
-> > A below example diagram attempts to depicts it in an existing
-> > memory BAR.
-> >
-> > +------------------------------+
-> > |Transitional                  |
-> > |MMR SRIOV VF                  |
-> > |                              |
-> > ++---------------+             |
-> > ||dev_id =3D       |             |
-> > ||{0x10f9-0x10ff}|             |
-> > |+---------------+             |
-> > |                              |
-> > ++--------------------+        |
-> > || PCIe ext cap =3D 0xB |        |
-> > || cfg_type =3D 10      |        |
-> > || offset   =3D 0x1000  |        |
-> > || bar      =3D A {0..5}|        |
-> > |+--|-----------------+        |
-> > |   |                          |
-> > |   |                          |
-> > |   |    +-------------------+ |
-> > |   |    | Memory BAR =3D A    | |
-> > |   |    |                   | |
-> > |   +------>+--------------+ | |
-> > |        |  |legacy virtio | | |
-> > |        |  |+ dev cfg     | | |
-> > |        |  |registers     | | |
-> > |        |  +--------------+ | |
-> > |        +-----------------+ | |
-> > +------------------------------+
-> >
-> > Co-developed-by: Satananda Burla <sburla@marvell.com>
-> > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> PCI device configuration space for capabilities is limited to only 192
+> bytes shared by many PCI capabilities of generic PCI device and virtio
+> specific.
 >
+> Hence, introduce virtio extended capability that uses PCI Express
+> extended capability.
+> Subsequent patch uses this virtio extended capability.
 >
-> I am split about using the extended capability for this, since in
-> practice this makes for more code in hypervisors.  How about just using
-> an existing capability as opposed to the extended capability? Less work
-> for existing hypervisors, no? And let's begin to use the extended
-> capability for something more important than legacy access.
->
->
->
->
-> > ---
-> >  transport-pci.tex | 33 +++++++++++++++++++++++++++++++--
-> >  1 file changed, 31 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/transport-pci.tex b/transport-pci.tex
-> > index aeda4a1..55a6aa0 100644
-> > --- a/transport-pci.tex
-> > +++ b/transport-pci.tex
-> > @@ -168,6 +168,7 @@ \subsection{Virtio Structure PCI Capabilities}\labe=
-l{sec:Virtio Transport Option
-> >  \item ISR Status
-> >  \item Device-specific configuration (optional)
-> >  \item PCI configuration access
-> > +\item Legacy memory mapped configuration registers (optional)
-> >  \end{itemize}
-> >
-> >  Each structure can be mapped by a Base Address register (BAR) belongin=
-g to
-> > @@ -228,6 +229,8 @@ \subsection{Virtio Structure PCI Capabilities}\labe=
-l{sec:Virtio Transport Option
-> >  #define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
-> >  /* Vendor-specific data */
-> >  #define VIRTIO_PCI_CAP_VENDOR_CFG        9
-> > +/* Legacy configuration registers capability */
-> > +#define VIRTIO_PCI_CAP_LEGACY_MMR_CFG    10
-> >  \end{lstlisting}
-> >
-> >          Any other value is reserved for future use.
-> > @@ -682,6 +685,18 @@ \subsubsection{Common configuration structure layo=
-ut}\label{sec:Virtio Transport
-> >  Configuration Space / Legacy Interface: Device Configuration
-> >  Space}~\nameref{sec:Basic Facilities of a Virtio Device / Device Confi=
-guration Space / Legacy Interface: Device Configuration Space} for workarou=
-nds.
-> >
-> > +\paragraph{Transitional MMR Interface: A Note on Configuration Registe=
-rs}
-> > +\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Str=
-ucture PCI Capabilities / Common configuration structure layout / Transitio=
-nal MMR Interface: A Note on Configuration Registers}
-> > +
-> > +The transitional MMR device MUST present legacy virtio registers
-> > +consisting of legacy common configuration registers followed by
-> > +legacy device specific configuration registers described in section
-> > +\ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Struc=
-ture PCI Capabilities / Common configuration structure layout / Legacy Inte=
-rfaces: A Note on Configuration Registers}
-> > +in a memory region PCI BAR.
-> > +
-> > +The transitional MMR device MUST provide the location of the
-> > +legacy virtio configuration registers using a legacy memory mapped
-> > +registers capability described in section \ref{sec:Virtio Transport Op=
-tions / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Transitio=
-nal MMR Interface: Legacy Memory Mapped Configuration Registers Capability}=
-.
-> >
-> >  \subsubsection{Notification structure layout}\label{sec:Virtio Transpo=
-rt Options / Virtio Over PCI Bus / PCI Device Layout / Notification capabil=
-ity}
-> >
-> > @@ -956,9 +971,23 @@ \subsubsection{PCI configuration access capability=
-}\label{sec:Virtio Transport O
-> >  specified by some other Virtio Structure PCI Capability
-> >  of type other than \field{VIRTIO_PCI_CAP_PCI_CFG}.
-> >
-> > +\subsubsection{Transitional MMR Interface: Legacy Memory Mapped Config=
-uration Registers Capability}
-> > +\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Str=
-ucture PCI Capabilities / Transitional MMR Interface: Legacy Memory Mapped =
-Configuration Registers Capability}
-> > +
-> > +The optional VIRTIO_PCI_CAP_LEGACY_MMR_CFG capability defines
-> > +the location of the legacy virtio configuration registers
-> > +followed by legacy device specific configuration registers in
-> > +the memory region BAR for the transitional MMR device.
-> > +
-> > +The \field{cap.offset} MUST be 4-byte aligned.
-> > +The \field{cap.offset} SHOULD be 4KBytes aligned and
->
-> what's the point of this?
->
-> > +\field{cap.length} SHOULD be 4KBytes.
->
-> Why is length 4KBytes? Why not the actual length?
->
->
-> > +
-> > +The transitional MMR device MUST present a legacy configuration
-> > +memory mapped registers capability using \field{virtio_pcie_ext_cap}.
-> > +
-> >  \subsubsection{Legacy Interface: A Note on Feature Bits}
-> > -\label{sec:Virtio Transport Options / Virtio Over PCI Bus /
-> > -Virtio Structure PCI Capabilities / Legacy Interface: A Note on Featur=
-e Bits}
-> > +\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Str=
-ucture PCI Capabilities / Legacy Interface: A Note on Feature Bits}
-> >
->
->
-> So it is not by chance that we abadoned the legacy interface,
-> it had some fundamental issues.
-> Let me list some off the top of my mind:
-> - no atomicity across accesses, so if a register changes
->   while it is read driver gets trash. solved using generation id
-> - no defined endian-ness. solved using le
-> - no way to reject driver configuration
+> Co-developed-by: Satananda Burla <sburla@marvell.com>
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
 
-I can think more:
+Can you explain the differences compared to what I've used to propose?
 
-- VIRTIO_F_ACCESS_PLATFORM
-- VIRTIO_F_ORDER_PLATFORM
+https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg08078.html
 
-The above two are a must for hardware devices which are almost
-impossible for legacy interfaces.
-
-Hardware transitional devices are really tricky, ENI is one example
-which can only work for x86.
-
-config ALIBABA_ENI_VDPA
-        tristate "vDPA driver for Alibaba ENI"
-        select VIRTIO_PCI_LIB_LEGACY
-        depends on PCI_MSI && X86
-
-It has an MMIO bar for legacy registers and it works by chance for
-Linux drivers; DPDK requires patches to let it work.
-
-This is fine for vDPA but not for virtio if the design can only work
-for some specific setups (OSes/archs).
+This can save time for everybody.
 
 Thanks
 
+> ---
+>  transport-pci.tex | 69 ++++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 68 insertions(+), 1 deletion(-)
 >
-> we just did a new thing instead, but I feel if you are reviving the
-> legacy interface yet again, it is worth thinking about solving the worst
-> of the warts. For example, I can see an endian-ness register that
-> hypervisor can either read to check device is compatible with guest, or
-> maybe even write to force device to specific endian-ness.
-> A generation counter that hypervisor can check to
-> verify value is consistent? Can work if hypervisor
-> caches configuration.
-> A bad state flag that device can set to make hypervisor
-> stop guest? Better than corrupting it ...
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index 665448e..aeda4a1 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -174,7 +174,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{=
+sec:Virtio Transport Option
+>  the function, or accessed via the special VIRTIO_PCI_CAP_PCI_CFG field i=
+n the PCI configuration space.
+>
+>  The location of each structure is specified using a vendor-specific PCI =
+capability located
+> -on the capability list in PCI configuration space of the device.
+> +on the capability list in PCI configuration space of the device
+> +unless stated otherwise.
+>  This virtio structure capability uses little-endian format; all fields a=
+re
+>  read-only for the driver unless stated otherwise:
+>
+> @@ -301,6 +302,72 @@ \subsection{Virtio Structure PCI Capabilities}\label=
+{sec:Virtio Transport Option
+>  fields provide the most significant 32 bits of a total 64 bit offset and
+>  length within the BAR specified by \field{cap.bar}.
+>
+> +Virtio extended PCI Express capability structure defines
+> +the location of certain virtio device configuration related
+> +structures using PCI Express extended capability. Virtio
+> +extended PCI Express capability structure uses PCI Express
+> +vendor specific extended capability (VSEC). It has a below
+> +layout:
+> +
+> +\begin{lstlisting}
+> +struct pcie_ext_cap {
+> +        le16 cap_vendor_id; /* Generic PCI field: 0xB */
+> +        le16 cap_version : 2; /* Generic PCI field: 0 */
+> +        le16 next_cap_offset : 14; /* Generic PCI field: next cap or 0 *=
+/
+> +};
+> +
+> +struct virtio_pcie_ext_cap {
+> +        struct pcie_ext_cap pcie_ecap;
+> +        u8 cfg_type; /* Identifies the structure. */
+> +        u8 bar; /* Index of the BAR where its located */
+> +        u8 id; /* Multiple capabilities of the same type */
+> +        u8 zero_padding[1];
+> +        le64 offset; /* Offset with the bar */
+> +        le64 length; /* Length of the structure, in bytes. */
+> +        u8 data[]; /* Optional variable length data */
+> +};
+> +\end{lstlisting}
+> +
+> +This structure contains optional data, depending on
+> +\field{cfg_type}. The fields are interpreted as follows:
+> +
+> +\begin{description}
+> +\item[\field{cap_vendor_id}]
+> +         0x0B; identifies a vendor-specific extended capability.
+> +
+> +\item[\field{cap_version}]
+> +         contains a value of 0.
+> +
+> +\item[\field{next_cap_offset}]
+> +        Offset to the next capability.
+> +
+> +\item[\field{cfg_type}]
+> +        follows the same definition as \field{cfg_type}
+> +        from the \field{struct virtio_pci_cap}.
+> +
+> +\item[\field{bar}]
+> +        follows the same  same definition as  \field{bar}
+> +        from the \field{struct virtio_pci_cap}.
+> +
+> +\item[\field{id}]
+> +        follows the same  same definition as  \field{id}
+> +        from the \field{struct virtio_pci_cap}.
+> +
+> +\item[\field{offset}]
+> +        indicates where the structure begins relative to the
+> +        base address associated with the BAR. The alignment
+> +        requirements of offset are indicated in each
+> +        structure-specific section that uses
+> +        \field{struct virtio_pcie_ext_cap}.
+> +
+> +\item[\field{length}]
+> +        indicates the length of the structure indicated by this
+> +        capability.
+> +
+> +\item[\field{data}]
+> +        optional data of this capability.
+> +\end{description}
+> +
+>  \drivernormative{\subsubsection}{Virtio Structure PCI Capabilities}{Virt=
+io Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilit=
+ies}
+>
+>  The driver MUST ignore any vendor-specific capability structure which ha=
+s
+> --
+> 2.26.2
 >
 >
->
->
-> >  Only Feature Bits 0 to 31 are accessible through the
-> >  Legacy Interface. When used through the Legacy Interface,
-> > --
-> > 2.26.2
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 >
 
 
