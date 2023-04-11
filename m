@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5398-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5399-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A32C7619A
-	for <virtio-comment@archiver.kernel.org>; Tue, 11 Apr 2023 19:42:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABCA3C7619A
+	for <virtio-comment@archiver.kernel.org>; Tue, 11 Apr 2023 19:43:06 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A0EEA29FC6
-	for <virtio-comment@archiver.kernel.org>; Tue, 11 Apr 2023 19:42:51 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7AB7C44349
+	for <virtio-comment@archiver.kernel.org>; Tue, 11 Apr 2023 19:43:01 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7CE129863D1
-	for <virtio-comment@archiver.kernel.org>; Tue, 11 Apr 2023 19:42:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6AD4298661D
+	for <virtio-comment@archiver.kernel.org>; Tue, 11 Apr 2023 19:43:01 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 6478298636D; Tue, 11 Apr 2023 19:42:51 +0000 (UTC)
+	id 638489863A7; Tue, 11 Apr 2023 19:43:01 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,36 +24,34 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 50B8998636E;
-	Tue, 11 Apr 2023 19:42:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 48FBB9863A4;
+	Tue, 11 Apr 2023 19:42:55 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fs15HI4M2Ogn3xol/nZqt+sq625ypgGtgBWOgJNj11FzRxM5gXjt2PPTIkqy+KY8gU5cpRxxZMvN8VYTmuLSLH1amjsMGyo4sHsdyixSQmTZBbOVsCFHB+1RnW12ntgZV0qFxJjsv29FIcgg32PK7OJ/ioYzp5iSABg3IoFMiSovlbf8Dsd1YiFBiigKyxU9EaoWKEyeWNB1DFB17oP0Naou9tjtd1mCJipA1KT8wtSkMg1WLlTMLiAfXXvKADHIchO45Zy/3/EBe011qmzmISHKjnxHquQApnioIK9/QxB6Q1nVp0j+kc42GfmIA5p6Mlm7z0+ZUZjLwdOMhT5d1A==
+ b=FVvH26pdJlF07satcTH/DMBu5m20H9W40rNe5DoYoNt6eTTSjhAZhfBLD8bpZ7NjjIFA8cb8js4c/O4BeI3oU7KbgdWx8SLCVAOj517Zw4tuoYKCK+eR88G/baR2l675KPRFEvT22bJjCMkyXq/yE306HR8gLgwGwJBzrM6p3m2kMaRYXpGUm3zVuywJzyzmi0BCZ+Veck2CzwpLHJ7rzTUFw4O7u+ivGv2TSdH1ffzumSmvtHPCFN4fhpeq3+M4/Hh/FwwBGtR6jVX7LyJbKwUWgalL0URKOVTy736DtNphBCeOEjv3vX9RmpG8yCut6eUQOGpYbFZcBnGeYzWBZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kTV0oFodIs1m1vrhsh7Gzh+MQSvJNEyr3e2kZBLX6u4=;
- b=FV9klrzcFHfHTtsqc+ok83HiH1t2aIgmD5gtl217LX+SAXDULhVG6i/Q1fnXqDqAaBUti1Xb1ISUqY/O0USvGNtdk5Lm/jEW650+YttEvj1r29iHNZLDRa3FVJHlHPxEplb9FP9miMqQOBnw1xnGfmUx7CBqEfV7Rve8K4fYQCMnGv+WvhOVqLT4zsI5e3APOGCbMiOvW5O/Oi8eUqLil2w9gEOMQwaYfK5ZGybmVqU42wT6g8s1YwJG9rbzQf5+ulyGlGtoee5fDqCfdXdBWoY6J6tZPIVvNGNtNx/khcpvfhguIvolUBELgDIR0oEn4azYgjKJcaxJuXKB4XRzKA==
+ bh=PJ6Blg4RQuxZ4e7AwyjM7ZcsCk9HP69HF3YaFT+gkME=;
+ b=Z0S/Bu933nglmBVYKMYcDhWU3DcaG/c1rkZ4sGumKWNZV6lOKwgFlVsr6APo0mnQWd5Z7PKcMfwZl8prXclKi3kzqGyNimqPZ2BmtUCNp8PkCeJN1KkaBUFIheg/otLlvtYesd8A9m1Rd9YY7BD8qeyE958ilxoM1F9LFQKNhTk9W++0gZd8SA/W6AVVZ2kGcxyXFUDBVFs5/awS47bkLN45eh6eTLCVM+8g39L/SBRXE0rfZgAo5KACUfCURfjTcqexrb3mjcS2vuHncuwykYGv4Bh/Ygtmati/mJ2Gvx7utczYhO77NRkgzzpZUFmANlqShCRz/kduQDnPEpIZHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>,
 	<pasic@linux.ibm.com>, <cohuck@redhat.com>
 CC: <virtio-comment@lists.oasis-open.org>, <shahafs@nvidia.com>, Parav Pandit
-	<parav@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>
-Date: Tue, 11 Apr 2023 22:42:19 +0300
-Message-ID: <20230411194220.752355-2-parav@nvidia.com>
+	<parav@nvidia.com>
+Date: Tue, 11 Apr 2023 22:42:18 +0300
+Message-ID: <20230411194220.752355-1-parav@nvidia.com>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230411194220.752355-1-parav@nvidia.com>
-References: <20230411194220.752355-1-parav@nvidia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -62,61 +60,52 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT091:EE_|SN7PR12MB7180:EE_
-X-MS-Office365-Filtering-Correlation-Id: d76741cc-01e5-4511-5800-08db3ac4eddf
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT033:EE_|DM4PR12MB6614:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41227c66-9271-4665-166b-08db3ac4f002
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	fbRcwylhASoF1NdIShZChbuzGnx3TpPcXo23Y5Butre03gjd5vIUiAZtyzMK8nrqdwMLfUTERCgm/7fqHnn0jI04VhNTQgGTrL75hU4gMulh6cV228p7S6KxMUJ9Fwslesaq9B5C+InDuEA98svalVyLatRHAj6u1WOvUbMbcn2V0wOg/fAlTRAIZy5K0Es4wlHQJGK8hQpr4/H9BS4SlSp2fSFpVVNC/3GLmeyhl1Sumoi1OEbDSOpKWdKkxEVTgPm71iaJnbE1ss/kpIuFxAkkn2+UZ65MqssbEQsxVLaxqSnGb/gnP9mvVHI6qX2iJSAijMhqXpbSg3zrMnVGjqI4fYfNYjEi4t8qFcxyUguaBqbttxUJJJxzMxuHw+szM7uX4owZm005aQrPl3gpu76DLxMjtxjSReuvLvwmxEzFAnwoD67mbX4qswUjvEPv4jr27bNaYtM978Ym1pIU5e0G42Au5NjI9tBF0r8Xt43yVmFLRkuAZaLdhv/BEbf64diTuKm5FsiapM1hScgaBNePXsELcD5Z57hcrY7vs2I9Bb+S0nnzSDks8/h72W89dk43zANHk+omkA88nWS47BjnVdSdps9hbqJZMbe0ehH6t816xZDL4rB4ZJqMIeKAE6SfybsIgxfDRFyDuU1qhBO6yxgygK4uCKSpzmcV5GyacFeGAZlGHFw3TEmteJm877VaTwyCpos0P9QGHsWgaBXNVkogUtQ/02/p3Wu8SkwB1S0idnIXWwgTfpIaZ1Up+2HzBsqcdo68C0BTq+ITPvrBsrvmOdB6qj/Vxsqg7SE=
+	d1exRuaEpMNDuBBld4KclqHDrei4hvXlnX6W6OK5teI/zYrpdDUfpXX9yMobcnKjwstTpnJSJPmQH5bHDsB851ZjURTXgwspphRl/gE9W90Sm0idpywUcJC37M1tOt8u22TB9QW2rK+hwGlPZ+OJgBBBHR0DzTXUf85Qk1efljyxK7qtyklZBqT6OgPrrzTVbZ5ZwrKF9AxU4UdNhinfYP4MP167RetIjsjtDVB8DRXcE95as3WaCTN0tTKmniTEEyswXmGzk4Ru4YqQPeJjPOMj1u2nYf5xywXickv6MY+iD2Lk1z7Z9daXI182fsEjUttpg/fskqvRcngoLzJnhujqksy8OcL43VMG/gM+12wYzPTqEDet3NSHQ22nJbKNF0K+qRqAHMNrv29EH3TjpQhCWfaqVbzm0UqJxLFUafOAwqBAyWKTOW2MEtGpyZbF32ibDiFlrTZ+zJ7bRUcdLC9+w5gw2VeXD4QfI+QKR924CMmryfSWjMNgXfg/lf3aX2D8014NLi8ZKFLNuVgFVFbrn3SUXqwwCKixWKo12+/6h0tPDvuHsMH6MF2eASYV2993F6tVqi1xN5dAsAM5GLpTMAva/Bq+w/EQuROr2I4/NbVYYDYpjdGmSuRo/R38fa0qgAF+O11pIByw8dT56FuEQyrteA+9VT9t9Gn9jZpoK+FBcetYRyYLE98AR2gzgBwd+DbQUqZB6Zldwdfg2gyCPxOeQxq40HfF9TH41ccw6IxlV5K0RBhiLvmC/c+l9e56pIrkaXufyqoS7Vn64Q==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(39860400002)(376002)(346002)(451199021)(36840700001)(46966006)(40470700004)(36756003)(86362001)(41300700001)(110136005)(70586007)(316002)(478600001)(4326008)(70206006)(8676002)(54906003)(40480700001)(36860700001)(5660300002)(82310400005)(2906002)(8936002)(34070700002)(47076005)(82740400003)(356005)(16526019)(7636003)(186003)(6666004)(26005)(1076003)(107886003)(2616005)(426003)(336012)(83380400001)(40460700003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199021)(46966006)(40470700004)(36840700001)(86362001)(82310400005)(36756003)(4744005)(2906002)(478600001)(40480700001)(36860700001)(6666004)(34070700002)(426003)(186003)(47076005)(336012)(107886003)(16526019)(1076003)(26005)(83380400001)(70206006)(40460700003)(82740400003)(70586007)(8676002)(4326008)(54906003)(5660300002)(2616005)(110136005)(41300700001)(356005)(7636003)(316002)(8936002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2023 19:42:48.0645
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2023 19:42:51.6164
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d76741cc-01e5-4511-5800-08db3ac4eddf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41227c66-9271-4665-166b-08db3ac4f002
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7180
-Subject: [virtio-comment] [PATCH 1/2] transport-pci: Improve config msix vector description
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6614
+Subject: [virtio-comment] [PATCH 0/2] transport-pci: msix register desc improve
 
-config_msix_vector is the register that holds the MSI-X vector number
-for receiving configuration change related interrupts.
+Problem:
 
-It is not "for MSI-X".
+Current wording queue_msix_vector and config_msix_vector says
+"for MSI-X", which is bit confusing.
 
-Hence, replace the confusing text with appropriate one.
+config_msix_vector and queue_msix_vector are the msix vector
+number for configuration change and queue related interrupts.
 
-Reviewed-by: Max Gurtovoy <mgurtovoy@nvidia.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
+Hence, reword it.
 
 ---
 changelog:
 v0->v1:
 - added 'here'
 - dropped 'receiving'
----
- transport-pci.tex | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+- dropped already merged patch for empty line
 
-diff --git a/transport-pci.tex b/transport-pci.tex
-index 42be072..cb9fadd 100644
---- a/transport-pci.tex
-+++ b/transport-pci.tex
-@@ -343,7 +343,8 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
-         Driver Feature Bits selected by \field{driver_feature_select}.
- 
- \item[\field{config_msix_vector}]
--        The driver sets the Configuration Vector for MSI-X.
-+        The driver writes an MSI-X vector number here for Configuration change
-+        interrupts.
- 
- \item[\field{num_queues}]
-         The device specifies the maximum number of virtqueues supported here.
+Parav Pandit (2):
+  transport-pci: Improve config msix vector description
+  transport-pci: Improve queue msix vector register desc
+
+ transport-pci.tex | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
 -- 
 2.26.2
 
