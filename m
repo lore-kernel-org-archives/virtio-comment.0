@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5416-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5417-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7AE4C7619A
-	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 04:21:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D763C77B6E
+	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 04:31:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 25A042B020
-	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 04:21:06 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7133826A2A
+	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 04:31:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1DAC898651C
-	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 04:21:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6C9DD9865FD
+	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 04:31:27 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 143229864B3; Wed, 12 Apr 2023 04:21:06 +0000 (UTC)
+	id 63A449865B5; Wed, 12 Apr 2023 04:31:27 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,130 +24,104 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 05174986509
-	for <virtio-comment@lists.oasis-open.org>; Wed, 12 Apr 2023 04:21:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5218E986514
+	for <virtio-comment@lists.oasis-open.org>; Wed, 12 Apr 2023 04:31:27 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: RY6jP6doMUKr5j6HjwUgiA-1
+X-MC-Unique: 9dR_Q_DSMk6rU03OMuh5DA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681273263;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PqpuHF4Mi9VcxFgkf1M9251n7aY1Xeds05xh7jpHVDk=;
-        b=gAEf937Gf5v6ktzc8X7v5FtawV/TGYJPMg1VzRjA+k9h1daBNWs6JWHsc/ahe2L70Y
-         hoeq568oy5st4gCnWbRIe3q0T8rTeaMNAB7ebuweLWPMCpokQrbH9vyzTuTb5pJQqAlu
-         TyeaZiQdvxF8lBGr6SiZI8daMPg+Lq2e3/4/meAyKWR03eM+cOTKjdQgDiPWm8yeQzPP
-         UZpPSZiYmYOG4T5cXspUlBF6rVEOUE7g7w3dPSa0HKt7FSfFuHfyTAVSeZQW/0yCdbAk
-         kY0Jz3cIkPfyYxQTobAohhD+tz32w1V86rshg8QcoCR3/zK7zovHfNd9LmJc4G8cVQq7
-         i0Jw==
-X-Gm-Message-State: AAQBX9dWLPTw0cFeyyLZY8M53V+0dJsFDo9HwC8wrSBcAlxNar4pVJk7
-	taLvwCxwXkUJoJxc3lJM4zf/xnNfBMLyYbLAWDzr5MKn+sTY2Oe/R8aUsWmINNiBjMzI7dwfmX/
-	B9/VrAl0aCFwiTa9ZmWxkUYjGk9AYhqIO0g==
-X-Received: by 2002:a1c:7406:0:b0:3f0:7db5:6077 with SMTP id p6-20020a1c7406000000b003f07db56077mr717641wmc.39.1681273263016;
-        Tue, 11 Apr 2023 21:21:03 -0700 (PDT)
-X-Google-Smtp-Source: AKy350YxP9aJXz8zaC1mmG3g9Huuh5f0i4O6Rkm8eciBOAClCMWfphsnda4MjtMqfX1hDsDi2uIhDQ==
-X-Received: by 2002:a1c:7406:0:b0:3f0:7db5:6077 with SMTP id p6-20020a1c7406000000b003f07db56077mr717632wmc.39.1681273262744;
-        Tue, 11 Apr 2023 21:21:02 -0700 (PDT)
-Date: Wed, 12 Apr 2023 00:20:59 -0400
+        d=1e100.net; s=20210112; t=1681273878;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zaa83pC8CIqsQkq9wj1coypM3DxmF6CONRK+crZeBTc=;
+        b=hVcXQBs0mrx8qKARUB3oOjH/jyXIg4UTSL420IRLX8pcfHHz0N4HFQPfygmuPtiLmT
+         1kJUf2Ks9wMG8kpw99ZnCeldVy5uXeIsmwIGmQXHDXN7+sAE2ZQ9UUHzoEEdRKbHAUa8
+         tuPYlW5xwnK3GQIn63lWsnkPRG2ilUAgS0PlrO94I3cFgTrOexwIdPpiQ80De82X20AL
+         UgwMew5gB23WEbLacoBerZ5Fpz6wHzsWyGaclfK7lpW25oqYxdtQ6U/1N8Xt/Y2T93aO
+         IKZOC2ONWZK5pFbV7hmQ8wDUm/+vqh9lkItDAJKxTCkFJv7lrPAFb0oNIHZrCA1Nk7WD
+         0fVg==
+X-Gm-Message-State: AAQBX9ePzdsx+4EMU7zdNcvU2FmoKH7RgnI8Fi/Q3R7apQc9T2ue37er
+	2lzmSFuVrT9RkbLK4fZEMB/tqD6bSpcoaC0fyDbS+uvyA5EBCrNaii9VbK4oPakL48T+eLR2tw0
+	XDGeOZ8zHydhR2yZ7rIdeKs48LHOh0vgPrA==
+X-Received: by 2002:a05:600c:2148:b0:3ed:f9d3:f95c with SMTP id v8-20020a05600c214800b003edf9d3f95cmr8850549wml.19.1681273878756;
+        Tue, 11 Apr 2023 21:31:18 -0700 (PDT)
+X-Google-Smtp-Source: AKy350aDA4uCL6CN+M7S8FMse76+rytlpPSY6zhbD+0MvmBL6SCzM/5QZOl5DXnBWIiSr9BZ3tYsRw==
+X-Received: by 2002:a05:600c:2148:b0:3ed:f9d3:f95c with SMTP id v8-20020a05600c214800b003edf9d3f95cmr8850537wml.19.1681273878478;
+        Tue, 11 Apr 2023 21:31:18 -0700 (PDT)
+Date: Wed, 12 Apr 2023 00:31:14 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>,
+To: Parav Pandit <parav@nvidia.com>
+Cc: virtio-dev@lists.oasis-open.org, cohuck@redhat.com,
+	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com,
 	Satananda Burla <sburla@marvell.com>
-Message-ID: <20230412002017-mutt-send-email-mst@kernel.org>
+Message-ID: <20230412003006-mutt-send-email-mst@kernel.org>
 References: <20230330225834.506969-1-parav@nvidia.com>
- <20230330225834.506969-9-parav@nvidia.com>
- <CACGkMEtMOy4B-O-52ka+9P3OBQ_hs1KvdjWodNYg-XKLff+giw@mail.gmail.com>
- <307a9f8f-6184-0403-97ab-1b1c16d4fd3c@nvidia.com>
- <CACGkMEucOwwFDMqyWA+DgYV7X=9f5-P4Ba_AP=5kTsjna=n+7A@mail.gmail.com>
- <PH0PR12MB548194B46A3E32329C10D00EDC9A9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEstkFaH1rh+O-D9h=bin_09ut2_GnSZDsxrQi_ptDtBKg@mail.gmail.com>
+ <20230330225834.506969-11-parav@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <CACGkMEstkFaH1rh+O-D9h=bin_09ut2_GnSZDsxrQi_ptDtBKg@mail.gmail.com>
+In-Reply-To: <20230330225834.506969-11-parav@nvidia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH 08/11] transport-pci: Introduce virtio
- extended capability
+Subject: [virtio-comment] Re: [PATCH 10/11] transport-pci: Use driver notification PCI
+ capability
 
-On Wed, Apr 12, 2023 at 12:04:45PM +0800, Jason Wang wrote:
-> On Wed, Apr 12, 2023 at 3:01 AM Parav Pandit <parav@nvidia.com> wrote:
-> >
-> >
-> > > From: virtio-dev@lists.oasis-open.org <virtio-dev@lists.oasis-open.org> On
-> > > Behalf Of Jason Wang
-> > > Sent: Monday, April 10, 2023 11:29 PM
-> >
-> > > > However, it is not backward compatible, if the device place them in
-> > > > extended capability, it will not work.
-> > > >
-> > >
-> > > It is kind of intended since it is only used for new PCI-E features:
-> > >
-> > New fields in new extended pci cap area is fine.
-> > Migrating old fields to be present in the new extended pci cap, is not your intention. Right?
+On Fri, Mar 31, 2023 at 01:58:33AM +0300, Parav Pandit wrote:
+> PCI devices support memory BAR regions for performant driver
+> notifications using the notification capability.
+> Enable transitional MMR devices to use it in simpler manner.
 > 
-> Right, but what I want to say is, such migration may cause unnecessary
-> problems. And I don't see why it is a must for your legacy MMIO bar
-> proposal.
+> Co-developed-by: Satananda Burla <sburla@marvell.com>
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
+> ---
+>  transport-pci.tex | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
 > 
-> >
-> > > "
-> > > +The location of the virtio structures that depend on the PCI Express
-> > > +capability are specified using a vendor-specific extended capabilities
-> > > +on the extended capabilities list in PCI Express extended configuration
-> > > +space of the device.
-> > > "
-> > >
-> > > > To make it backward compatible, a device needs to expose existing
-> > > > structure in legacy area. And extended structure for same capability
-> > > > in extended pci capability region.
-> > > >
-> > > > In other words, it will have to be a both places.
-> > >
-> > > Then we will run out of config space again?
-> > No.
-> > Only currently defined caps to be placed in two places.
-> 
-> What's the advantage of doing this?
-> 
-> New drivers should provide backward compatibility so they must scan the pci cap.
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index 55a6aa0..4fd9898 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -763,6 +763,34 @@ \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options
+>  cap.length >= queue_notify_off * notify_off_multiplier + 4
+>  \end{lstlisting}
+>  
+> +\paragraph{Transitional MMR Interface: A note on Notification Capability}
+> +\label{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities / Notification capability / Transitional MMR Interface}
+> +
+> +The transitional MMR device benefits from receiving driver
+> +notifications at the Queue Notification address offered using
+> +the notification capability, rather than via the memory mapped
+> +legacy QueueNotify configuration register.
+> +
+> +Transitional MMR device uses same Queue Notification address
+> +within a BAR for all virtqueues:
+> +\begin{lstlisting}
+> +cap.offset
+> +\end{lstlisting}
+> +
+> +The transitional MMR device MUST support Queue Notification
+> +address within a BAR for all virtqueues at:
+> +\begin{lstlisting}
+> +cap.offset
+> +\end{lstlisting}
+> +
+> +The transitional MMR driver that wants to use driver
+> +notifications offered using notification capability MUST use
+> +same Queue Notification address within a BAR for all virtqueues at:
+> +
+> +\begin{lstlisting}
+> +cap.offset
+> +\end{lstlisting}
+> +
+>  \subsubsection{ISR status capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / ISR status capability}
+>  
+>  The VIRTIO_PCI_CAP_ISR_CFG capability
 
-No, they can start with express cap. Finding one they can skip
-the old cap completely.
+Why? What exactly is going on here? legacy drivers will
+not do this.
 
-> The Old driver can only scan the pci cap.
-> 
-> > New fields don’t need to be placed in PCI cap, because no driver is looking there.
-> 
-> It would be much more simple if we forbid placing new fields in the
-> PCI cap, it is already out of space.
-> 
-> Thanks
-> 
-> >
-> > We probably already discussed this in previous email by now.
-> >
-> > > Otherwise we need to deal with the
-> > > case when existing structures were only placed at extended capability. Michael
-> > > suggest to add a new feature, but the driver may not negotiate the feature
-> > > which requires more thought.
-> > >
-> > Not sure I understand feature bit.
-> > PCI transport fields existence is usually not dependent on upper layer protocol.
-> >
-> > > > We may need it even sooner than this because the AQ patch is expanding
-> > > > the structure located in legacy area.
-> > >
-> > > Just to make sure I understand this, assuming we have adminq, any reason a
-> > > dedicated pcie ext cap is required?
-> > >
-> > No. it was my short sight. I responded right after above text that AQ doesn’t need cap extension.
+> -- 
+> 2.26.2
 
 
 This publicly archived list offers a means to provide input to the
