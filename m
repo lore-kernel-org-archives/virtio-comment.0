@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5434-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5435-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE397C77B73
-	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 05:17:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0437C77B7A
+	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 05:23:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4F3A942B68
-	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 05:17:10 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1B16560348
+	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 05:23:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 47B7E986520
-	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 05:17:10 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 058E8986520
+	for <virtio-comment@archiver.kernel.org>; Wed, 12 Apr 2023 05:23:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3E55A98650E; Wed, 12 Apr 2023 05:17:10 +0000 (UTC)
+	id E6CA898650F; Wed, 12 Apr 2023 05:23:42 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,76 +24,96 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2EAC098650F
-	for <virtio-comment@lists.oasis-open.org>; Wed, 12 Apr 2023 05:17:10 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D3019986509
+	for <virtio-comment@lists.oasis-open.org>; Wed, 12 Apr 2023 05:23:42 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: D5PfGfPONNq02U15lkbGig-1
+X-MC-Unique: _9ziUft-MTaV-5DkLztgwg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681276627;
+        d=1e100.net; s=20210112; t=1681277019;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zRWvovlSBjnAK75vdU/qypXHIkReoHAfqmY3XHghr0E=;
-        b=AaL7LlBKQKC3EO0onQVnzam+S+VwgoEUx++Vc/m0IXNT60MSjLgB2FPef6cOKKBUrh
-         laz/A2XNgwrBN9vpRl7mjVOMxhZTn1zDOCimIONq9ka2MoxRvYAIhNXr27UpV9Bx/KYW
-         3Q7nwgBGE5/Fa8+L5inBkC6pPZwErv2s40sCbjDAopahF7H2jkf2Oxf9bawNzcE3gf+N
-         sqVH6PawiVU4M5n2sjYlLGPf8eh13pHis60VLSo914t+cpgLPWtykSfA1S8flKyypCiY
-         JDxuzjblUGx3mrmunyNm6+GgxC9IZUvXJoqOgoafMMvWYkr72Z+8bwvrADqqrQFfBRCp
-         GT1Q==
-X-Gm-Message-State: AAQBX9ehZjl5EWLoo+1A0eNvsQJnZZQTSJdnHowTFJyG/F9ri4Iz1lKj
-	5WdypXs2d9GVvXC/YXVHa4Dp9ksE9nT28gWdvsyARIFtOr55DS7ILgu/TARSEFoGhyGA0u3DLvG
-	lqS8voPiGPgqqJxRl90qDTLeg6zzlhDn4zQ==
-X-Received: by 2002:a05:600c:2247:b0:3eb:2b88:a69a with SMTP id a7-20020a05600c224700b003eb2b88a69amr8296767wmm.14.1681276627241;
-        Tue, 11 Apr 2023 22:17:07 -0700 (PDT)
-X-Google-Smtp-Source: AKy350bImKrhWp/WA9TY0H5mJOS1hKB072X249wrw1onVdhUY9TCWogJuSVklexVvC+G9Pmp/V4M6A==
-X-Received: by 2002:a05:600c:2247:b0:3eb:2b88:a69a with SMTP id a7-20020a05600c224700b003eb2b88a69amr8296754wmm.14.1681276626912;
-        Tue, 11 Apr 2023 22:17:06 -0700 (PDT)
-Date: Wed, 12 Apr 2023 01:17:03 -0400
+        bh=yr1TWzBPyNrEyAvFAzxTLh0FZ63M+yYKfpMJ43cdj0U=;
+        b=V7rrSiNt55JjmqFUtI6k5RxrzLaHsVPBB4BpBTg6B8ozsJNk6JPDS2Dgu+SdK7oBSU
+         m/31lgs6nNtcqcbIkehbRzo+Mm+mbH5JGRcqXJDmPRawGbre0Y+jIHqhTgzKT/2CG0jY
+         FZHUYxTuBB6cnwQLxzinZKsXN/RxGby/TIP/PW6ClNRjiwas67t78LWu6SP6UghjCqcr
+         5uYJBxyN8RysSV+00V8daPzN9m16xT6GN1Oe6CoIZet/IOdGYTaVolqNkjOsc9PCgPYb
+         1U95361c03yRxhUTvKz5LDanqel81iAMHytumF9pgTCebxbyz9ddZHmcPPmX6TNjNSeT
+         vxHA==
+X-Gm-Message-State: AAQBX9eozZ3D3VV1ZcfYblQ1aDk7rWrBYGhS80gCFPJuBrG5T7tPqsmi
+	q9KavmtQWuKtwOPgvTJvIEi4cI3oXSnfX9Kq9YDWaov5+BwOm17o1uvMlL2R7vGQJV/SFBXMoQc
+	j0ryvKaken8u44hrRKPl+huOS9Qm/Z3308A==
+X-Received: by 2002:adf:f546:0:b0:2f2:9198:f0f with SMTP id j6-20020adff546000000b002f291980f0fmr3756680wrp.10.1681277019733;
+        Tue, 11 Apr 2023 22:23:39 -0700 (PDT)
+X-Google-Smtp-Source: AKy350YWFjB0z2S/iHgvh69qOuEh7o4o7qo7LeD5Aevgl9Lp4ci6lwvBwk0c2XMfikMWl4erjQsAgg==
+X-Received: by 2002:adf:f546:0:b0:2f2:9198:f0f with SMTP id j6-20020adff546000000b002f291980f0fmr3756667wrp.10.1681277019430;
+        Tue, 11 Apr 2023 22:23:39 -0700 (PDT)
+Date: Wed, 12 Apr 2023 01:23:35 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Satananda Burla <sburla@marvell.com>
-Message-ID: <20230412011222-mutt-send-email-mst@kernel.org>
+	Shahaf Shuler <shahafs@nvidia.com>
+Message-ID: <20230412011741-mutt-send-email-mst@kernel.org>
 References: <20230330225834.506969-1-parav@nvidia.com>
- <20230330225834.506969-11-parav@nvidia.com>
- <20230412003006-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481394D07C5CFBB2347B5F0DC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230412004152-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548170E8002F19709C6D55ADDC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230412010224-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481843F73EA11341608A1B6DC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230412004331-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481EC4B82A0A57F08ABF3F7DC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230412010437-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481912FE593E532F4566AB8DC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481843F73EA11341608A1B6DC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481912FE593E532F4566AB8DC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [PATCH 10/11] transport-pci: Use driver
- notification PCI capability
+Subject: Re: [virtio-comment] Re: [PATCH 00/11] Introduce transitional mmr
+ pci device
 
-On Wed, Apr 12, 2023 at 05:06:09AM +0000, Parav Pandit wrote:
+On Wed, Apr 12, 2023 at 05:15:40AM +0000, Parav Pandit wrote:
 > 
 > 
 > > From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
 > > open.org> On Behalf Of Michael S. Tsirkin
 > 
-> > > On that occurrence, hypervisor driver forwards the q notification using the q
-> > notification region which is defined by struct virtio_pci_notify_cap.
-> > 
-> > What is wrong with forwarding it on the legacy window?
-> Legacy window is configuration registers.
-> One has sandwitched q notification register in middle of all the config registers.
-> Such registers do not start the VQ data path engines.
-> 1.x spec has done the right thing to have dedicated notification region which something an actual pci hw can implement.
+> > New issue I found today:
+> > - if guest disables MSI-X host can not disable MSI-X.
+> >   need some other channel to notify device about this.
+> >
+> I will look into it. 
+>  
+> > Old issues we discussed before today:
+> > - reset needs some special handling because real hardware
+> >   can not guarantee returning 0 on the 1st read
+> When done through the legacy MMR as we discussed, it will.
+> 
+> > - if guest writes into mac, reusing host mac (which is RO)
+> >   will not work, need extra registers
+> No. Again legacy interface section of MMR behaves as legacy.
+> 
+> > - something about notification makes you want to poke
+> >   at modern notification register? which of course
+> >   is its own can of worms with VIRTIO_F_NOTIFICATION_DATA
+> >   changing the format completely.
+> There is no NOTIFICATION_DATA with legacy. So it is not applicable.
+> Format is same with only vq index.
 
-okay so.. in fact it turns out existing hardware is not
-really happy to emulate legacy. it does not really fit that well.
-so maybe we should stop propagating the legacy interface to
-modern hardware then.
-Add the legacy net header size feature and be done with it.
+You are writing into modern register here. *what* are you writing there?
+with modern register the format depends on features. here you did not
+negotiate any features. what if NOTIFICATION_DATA is a required feature?
+with legacy there's no FEATURES_OK so no way to report failure.  driver
+barrels on, sends wrong data in the kick and hangs.
+
+
+Sure, we can add a section to notification register and come up with
+some behaviour. Without even trying to guess how messy or clean that
+will be, far from being a small clean contained thing this feature is
+sticking its fingers in lots of pies.
+
+
+
+Look I know proposed this originally. I thought it's a small thing too.
+It was an idea. I am not sure it pans out though. Not all ideas work.
 
 -- 
 MST
