@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5464-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5465-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730D9C77B76
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 21:43:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1AFC77B61
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 21:46:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9D5212B06A
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 21:43:47 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CEFB83358D
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 21:46:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8951C986615
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 21:43:47 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B8424986617
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 21:46:31 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 759E6986197; Thu, 13 Apr 2023 21:43:47 +0000 (UTC)
+	id AF2BC986197; Thu, 13 Apr 2023 21:46:31 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 633D0986601
-	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Apr 2023 21:43:47 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9FD26986600
+	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Apr 2023 21:46:31 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 3PfzJcpOOpK9t2d_OvCehg-1
+X-MC-Unique: et2MdqbFMzuHqgitqpSPNQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681422223; x=1684014223;
+        d=1e100.net; s=20221208; t=1681422385; x=1684014385;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8Tc2PCm+pxR9ftdoKs6wXfiMIfxu7ofI+J5rXyxQj7I=;
-        b=FCqjLQtNxSYS2vHXpvRDBKK0CSIw4GCP0qf7yMpoKTi13QAIDklIGM3SM+t79bq4Cl
-         ZmIH4bcCUfhFgUiNF1Teke1GvEJMSFgGBEqZNuK8BQlinjCBdhapz355UGa64UzFaOF8
-         ftA5dfq5g+x6IgnnkJpZqC93xS3ZY4+38B0cPPU+XIl1wtMktAXEqKtIJj5Tjpr/qZdM
-         QFYrHvDsUmr5PRETunACLH802xr2sI03Mf033RFMfR2aapUFFB+P3InkcsBoB39zFIbG
-         aoMmsmUALlFULiEfYqo31XtnAMcLs8XAZsfJmNzqWejfK5usL5Zbsfs53zxf2APCyEjh
-         RzZQ==
-X-Gm-Message-State: AAQBX9dJfMNmPzBy6aZK0wF3OFmJEV54H9pHtRydvIqVB3M//JX7UVKr
-	h5wAe36IKU0VAMQ3zBc6F8ADZAoM5kT/6fkstCc/vaizNxCUPX1BSgVhJ/lFcbR1B+DLxUXY3PZ
-	bKV/lZE06byzT0+Oyomz+8lracdICqbMHMA==
-X-Received: by 2002:a5d:45c3:0:b0:2f5:5d74:4f9f with SMTP id b3-20020a5d45c3000000b002f55d744f9fmr2558770wrs.11.1681422223697;
-        Thu, 13 Apr 2023 14:43:43 -0700 (PDT)
-X-Google-Smtp-Source: AKy350YJzrxpbiL7uj6Hb42h4Q9xKPKoNO1teM2JCgIG5EBGzyu7gjFOYU+7TLEhvzRc8QilA6x9kw==
-X-Received: by 2002:a5d:45c3:0:b0:2f5:5d74:4f9f with SMTP id b3-20020a5d45c3000000b002f55d744f9fmr2558757wrs.11.1681422223213;
-        Thu, 13 Apr 2023 14:43:43 -0700 (PDT)
-Date: Thu, 13 Apr 2023 17:43:39 -0400
+        bh=OTqphmYZkbT3QYsY/f5Uczx4let1/XUA/cgodrDsZhM=;
+        b=VbR4JR3fmEsKxnkynilWovfmvlXzvtetsHVg8ysQu9cteKjQJz/mbszRUciO1YDnjJ
+         SsVemOQ0z7paIkX3KN95S1zpq9UCMBcN6fUXcZUvuTXH4LKiyaaqNVmVLHxdK5cPEwEb
+         vLktLq/jNKWiN1QGQkGuZaq7zNAM8L2XnT7K/bIVwswmn/Ug2NGvn/hxbTjv62AbJgRQ
+         tMuF6O2lpszjoZlBdxIfcYkf0h/7kErCBAGyNL2RnxekRHLOVn4RUUie36xMrgRIsq0O
+         Poq76cOCy73PkYHjo2dGjkDM/MCtLuT7G73dbzzohtc+OztlDyppggVY0R/KVlXsAXja
+         L+ZQ==
+X-Gm-Message-State: AAQBX9e5YelgEoGr+eQQ3qpHUI/VxTT+ncEGOw7hEzIM6I1/XBvcCLGS
+	S6zjgA+HzhALpeS1MACvEtXqqmS2YYWzafsfM1dNLIea/1c1XOMBfPx74V4H4zPIq81glnMxVLH
+	szi0x/KoVoCpSFGk1Padv2G2ZC2LGFoMGqQ==
+X-Received: by 2002:a5d:4d0a:0:b0:2ef:b596:3f71 with SMTP id z10-20020a5d4d0a000000b002efb5963f71mr2370323wrt.51.1681422385749;
+        Thu, 13 Apr 2023 14:46:25 -0700 (PDT)
+X-Google-Smtp-Source: AKy350aorGjWLV3hdeONyukJCosC5DQgyvAUf0hw7xHS5KFBsoX0SEtK/5zAnmkssF6l6vpAV3eejw==
+X-Received: by 2002:a5d:4d0a:0:b0:2ef:b596:3f71 with SMTP id z10-20020a5d4d0a000000b002efb5963f71mr2370314wrt.51.1681422385432;
+        Thu, 13 Apr 2023 14:46:25 -0700 (PDT)
+Date: Thu, 13 Apr 2023 17:46:22 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Heng Qi <hengqi@linux.alibaba.com>
 Cc: Jason Wang <jasowang@redhat.com>, virtio-dev@lists.oasis-open.org,
@@ -56,7 +56,7 @@ Cc: Jason Wang <jasowang@redhat.com>, virtio-dev@lists.oasis-open.org,
 	Parav Pandit <parav@nvidia.com>,
 	Yuri Benditovich <yuri.benditovich@daynix.com>,
 	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Message-ID: <20230413173127-mutt-send-email-mst@kernel.org>
+Message-ID: <20230413174525-mutt-send-email-mst@kernel.org>
 References: <20230403045833.21853-1-hengqi@linux.alibaba.com>
  <1d30d4a0-6bfc-3d58-17a4-645602d3792f@redhat.com>
  <a95ca379-0675-9b33-f649-bd2a19b56190@linux.alibaba.com>
@@ -133,29 +133,8 @@ is impossible with the feature and possible without.
 This was the whole reason I asked for a security
 considerations sections.
 
-
-> Thanks!
-> 
-> > 
-> > Thanks
-> > 
-> > 
-> > This publicly archived list offers a means to provide input to the
-> > OASIS Virtual I/O Device (VIRTIO) TC.
-> > 
-> > In order to verify user consent to the Feedback License terms and
-> > to minimize spam in the list archive, subscription is required
-> > before posting.
-> > 
-> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > List help: virtio-comment-help@lists.oasis-open.org
-> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> > List Guidelines:
-> > https://www.oasis-open.org/policies-guidelines/mailing-lists
-> > Committee: https://www.oasis-open.org/committees/virtio/
-> > Join OASIS: https://www.oasis-open.org/join/
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
