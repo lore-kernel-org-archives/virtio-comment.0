@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5454-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5455-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92098C77B6C
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 05:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EDD2C77B61
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 06:29:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BA9E42AEEA
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 05:47:17 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 817212AEF6
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 06:29:57 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A6B4E9865FF
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 05:47:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6BA7F986601
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 06:29:57 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 979939865F7; Thu, 13 Apr 2023 05:47:17 +0000 (UTC)
+	id 574C69865F7; Thu, 13 Apr 2023 06:29:57 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,41 +24,41 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 863809865F8
-	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Apr 2023 05:47:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 460109865F8
+	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Apr 2023 06:29:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681364835; x=1683956835;
+        d=1e100.net; s=20221208; t=1681367395; x=1683959395;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Cq+3D1UNID/L21s76d9e2AuC546/rAYe13wBCtIeQ8I=;
-        b=IvjwZmIKpbIBIplmSFhlmYnMtnWuTV+BLtdGgbDCGOKKgCbAX+JBOKfdgWCHj/wylr
-         FCgk2OdA0jIbKSwXmQ473YKqbzElxyqJe9fLNVeO2cZ079zUOEd19lWeC435/KmLNrpo
-         ceICt8Lo84E2BD0q8nq8SXmvlrzi5WKg4Y3dBX604XunLPnqNXY95ZpJM6p9ViOLBNfh
-         AGaL7we9nIPcMlCutrl20MHoM9iqdBT6laaujU2yzn54XjA4BJMIiOd5TyhK9x1q46Tj
-         AiPOkAl+89RHBYwpY8sy3j/LR7aKu4w9w1yy8zIJIscMUHXbgBvnXhsODV0qlA67cKyK
-         6h4g==
-X-Gm-Message-State: AAQBX9ePra+lKXAgMsUjI251fpm4U8CB8eUwJ37LR+3mCrsm4aQ6E7jL
-	mfmreyctasaeYxeHI+dVt2i79NmRRyxl8o5w/jZfhg==
-X-Google-Smtp-Source: AKy350b8xChEvuLrmyyBIne5GZIRB8KE3gTOAB6O4ZwgxS1ZY8Y/veRtl9wIM0+HZagyvnO+HjDurkhKKwOPea4qiJw=
-X-Received: by 2002:a2e:8296:0:b0:2a7:73ce:93be with SMTP id
- y22-20020a2e8296000000b002a773ce93bemr340371ljg.9.1681364835460; Wed, 12 Apr
- 2023 22:47:15 -0700 (PDT)
+        bh=COfjOeq0eD2PzUENBiCPoxPGXtJHgwSsnLb7Pm4TfpM=;
+        b=lHm0viILwCnjQ0BGsrLJpNeOskz5I1J2Be6+0UyM/c/9o6A8FZUguEV0f60amV4srm
+         hRWQoE+CvtH6d30XkiAmfkpoCp7BdY7nx3eOx8DR/EXY0Fo0CbY8LCWSqS2XBEscDzcI
+         5uHVWE0rejlDtWQTla+M6s/wqQC1KwIhclHuDI9kG3bSenGDmgxH4JLDvx2f7Inj722L
+         zLdMXYcNd5vpQBXKHd8B7ziFGxuzR1WAdKSYBfdj71R7mO8346mBS+zgNYFmo7uuBkok
+         i9aleQu/E9Cchc05l0T+SQCQp0sNObw5O51uYfsmDeqxBpksuDAf/qabFHMmQlsqxKWb
+         Qduw==
+X-Gm-Message-State: AAQBX9fKUWd2McsrhmYxbuFGYEVvz5MaMdPmFuVMdysb8zyiwTaVwPBW
+	cE0ITT6Nr1o5PQSPraVCAFkA4imbf6ST5kvP6NX/7w==
+X-Google-Smtp-Source: AKy350YNpJX7II076WW6+ujabZqkeiodhgX3JHVvXRG0ANoHbArCIgAsguxaRw1wyYBsN9oLShTpetH39bx6E9YqoYY=
+X-Received: by 2002:a2e:8ec9:0:b0:2a1:d819:f0ae with SMTP id
+ e9-20020a2e8ec9000000b002a1d819f0aemr369156ljl.9.1681367395125; Wed, 12 Apr
+ 2023 23:29:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230406073002.3642873-1-stevensd@chromium.org> <20230406123505.GA714885@fedora>
-In-Reply-To: <20230406123505.GA714885@fedora>
+References: <20230406073002.3642873-1-stevensd@chromium.org> <20230407072507-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230407072507-mutt-send-email-mst@kernel.org>
 From: David Stevens <stevensd@chromium.org>
-Date: Thu, 13 Apr 2023 14:47:04 +0900
-Message-ID: <CAD=HUj7yocc+ijGKVmpTqOyiF0g7GjasPV-E22VdRM3CW83pcA@mail.gmail.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
+Date: Thu, 13 Apr 2023 15:29:43 +0900
+Message-ID: <CAD=HUj53_M_H6wC9q8qB5b6HC8n-F7KyOFRsO0qsjDpXWhaS6Q@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: virtio-comment@lists.oasis-open.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Subject: Re: [virtio-comment] [RFC] Define a low power state for devices
 
-On Thu, Apr 6, 2023 at 9:35=E2=80=AFPM Stefan Hajnoczi <stefanha@redhat.com=
-> wrote:
+On Fri, Apr 7, 2023 at 8:27=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
+wrote:
 >
 > On Thu, Apr 06, 2023 at 04:30:02PM +0900, David Stevens wrote:
 > > This RFC defines a low power state for virtio devices, to gives
@@ -98,39 +98,71 @@ s
 > > ---
 > >  content.tex | 26 ++++++++++++++++++++++++++
 > >  1 file changed, 26 insertions(+)
+> >
+> > diff --git a/content.tex b/content.tex
+> > index cff548ab9675..01da6f62ef20 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -449,6 +449,28 @@ \section{Exporting Objects}\label{sec:Basic Facili=
+ties of a Virtio Device / Expo
+> >  types. It is RECOMMENDED that devices generate version 4
+> >  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+> >
+> > +\section{Low Power Mode}\label{sec:Basic Facilities of a Virtio Device=
+ / Low Power Mode}
+> > +
+> > +A virtio device can be put into a low power state when the
+> > +VIRTIO_F_LOW_POWER bit is negotiated. How a driver puts a
+> > +device into a low power state is transport specific.
+> > +
+> > +In general, a virtio device in a low power state should
+> > +avoid initating any communication with the driver. However,
+> > +certain device-specific functionality is exempt from this
+> > +requirement. Such functionality is detailed in the device
+> > +type specifications.
+> > +
+> > +% One example of such functionality would be allowing
+> > +% the virtio-net device to wake up the guest to deliver
+> > +% incoming network packets.
+> > +
+> > +While a virtio device is in a low power state, it should
+> > +maintain any type specific state in such a way that it is
+> > +able to immediately resume functioning upon leaving the low
+> > +power state, without the need for any additional
+> > +communication with the driver.
+> > +
+> >  \chapter{General Initialization And Device Operation}\label{sec:Genera=
+l Initialization And Device Operation}
+> >
+> >  We start with an overview of device initialization, then expand on the
+> > @@ -803,6 +825,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved=
+ Feature Bits}
+> >    that the driver can reset a queue individually.
+> >    See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virt=
+queue Reset}.
+> >
+> > +  \item[VIRTIO_F_LOW_POWER(41)] This feature indicates
+> > +  that the driver can put the device into a low power mode.
+> > +  See \ref{sec:Basic Facilities of a Virtio Device / Low Power Mode}.
+> > +
+> >  \end{description}
+> >
+> >  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bit=
+s}
 >
-> I'm curious to see how this maps to virtio-pci and the underlying PCI
-> power management features. Do you have a VIRTIO PCI transport spec
-> proposal you can share?
+> So what purpose does this flag serve exactly?  I guess transports also
+> provide ways to enumerate supported power states, no?
 
-Here's a proposal for the change to the VIRTIO PCI transport spec. In
-my testing, this is sufficient for things to work with Linux's
-existing PCI power management functionality. Although I'm far from an
-expert in this area, so I definitely could be missing something.
+This is mostly here to parallel the VIRTIO_F_SR_IOV feature flag.
+Generally speaking, it does seem redundant with the transport-specific
+enumeration.
 
-diff --git a/transport-pci.tex b/transport-pci.tex
-index 5d984673cd60..a2e78bd118f2 100644
---- a/transport-pci.tex
-+++ b/transport-pci.tex
-@@ -1146,3 +1146,15 @@ \subsubsection{Driver Handling
-Interrupts}\label{sec:Virtio Transport Options /
-         re-examine the configuration space to see what changed.
-     \end{itemize}
- \end{itemize}
-+
-+\devicenormative{\paragraph}{Notification of Device Configuration
-Changes}{Virtio Transport Options / Virtio Over PCI Bus / PCI-specific
-Initialization And Device Operation / Low Power Mode}
-+
-+Low power mode corresponds to the device power management state
-+D3\textsubscript{Hot}. A device offering VIRTIO_F_LOW_POWER MUST
-+present the PCI Power Management Capability. Such a device MUST
-+NOT perform an internal reset when transitioning from
-+D3\textsubscript{Hot} to D0.
-+
-+When a device in a low power state initiates communication with
-+the driver, it MUST generate a PME via the transport appropriate
-+mechanism.
+The two potential uses I can think of would be to allow devices to
+support transport level power management without supporting virtio
+level power management (might apply to existing devices?) and to allow
+devices to behave differently if they know that the driver doesn't
+support virtio power management. But I don't know how useful these are
+in practice.
 
 -David
 
