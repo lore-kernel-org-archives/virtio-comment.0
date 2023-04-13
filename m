@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5457-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5458-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B2DC77B61
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 15:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B34C77B6E
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 17:03:16 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 842D62AEEA
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 15:57:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A72AA3F549
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 17:03:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6BAB99865FF
-	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 15:57:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9A6CA986600
+	for <virtio-comment@archiver.kernel.org>; Thu, 13 Apr 2023 17:03:15 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 59EBF9865FD; Thu, 13 Apr 2023 15:57:34 +0000 (UTC)
+	id 8B0CA9865FD; Thu, 13 Apr 2023 17:03:15 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,155 +24,178 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 46F8C9865FE
-	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Apr 2023 15:57:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 78C8E9865FF
+	for <virtio-comment@lists.oasis-open.org>; Thu, 13 Apr 2023 17:03:15 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: j7q0ZriiNrWzAOIjog5bbA-1
+X-MC-Unique: 9GjCwdq5MFOWVsUdQy41Ug-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681401451; x=1683993451;
+        d=1e100.net; s=20221208; t=1681405391; x=1683997391;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rsprKwroaWMnMl7gEdUC3Tab6/Ival6pFMQj11FGeVg=;
-        b=T4IXsfreNcsHQHJ0rRPmKXsIibzmOdncOXbWah0Sfqb44wlgqojPBgXVQIOlPQ/iFu
-         I97NlBlPgajSYcczeuKp4WWNwlRa8cliCDizAr7g7z68eNC/MtBSwPIjP+1fPfGAmzXL
-         2NrVQZ0w/BHRQCRy3jBPfEm+/7eDajBOe144TkZR6RvEvsP9HUx9BgcEecYXNjApQoiD
-         kU3f2aKfRcHgmYxE1aC+c+t1XDqP0KX/+Bat24M2JMfoPjpJ4CaFo4tg4FMpuxIf701i
-         h+smasIL+2Kl0utk9NVifJV1+SwtOC60v5rC0fHRsffBJZOzuXTOJjywrqX64coplbmD
-         xFKg==
-X-Gm-Message-State: AAQBX9eW4uXHdFJLuYHwu6tVPfn9oplDCgnv9oKxuUCnrW/bN1t2dd1g
-	17FVeQkBp6lh9cs6C+ju1mxbYZy/v1AGjo3hNXitT4opXqm/tEV7ADXQ8qTX9Erb09do6xf6GSR
-	7rajDA/peyOWaajthLM/uhtYUU58mthLtjQ==
-X-Received: by 2002:adf:eb0b:0:b0:2d8:47c7:7b50 with SMTP id s11-20020adfeb0b000000b002d847c77b50mr2030325wrn.1.1681401450717;
-        Thu, 13 Apr 2023 08:57:30 -0700 (PDT)
-X-Google-Smtp-Source: AKy350ZHU5D4Nb3vr0DSt+tEkAQwAYdTsYd1xdQyCHlJXTggNzu1ExsFNj4iCweDq6tzPcm0wM0tfA==
-X-Received: by 2002:adf:eb0b:0:b0:2d8:47c7:7b50 with SMTP id s11-20020adfeb0b000000b002d847c77b50mr2030314wrn.1.1681401450381;
-        Thu, 13 Apr 2023 08:57:30 -0700 (PDT)
-Date: Thu, 13 Apr 2023 11:57:27 -0400
+        bh=iAXfBJm9ckzvaG11rY9yUDkBUYxT+aDXVMTJFOZrmAg=;
+        b=dN9yYSszOzmdpICEn6HA65lQiTDA/oUeTO2WXlT6eWKRq5ay9PixFsx0omRQFnE3Vh
+         3iGaXkRpefJUGXzs/O+F54BE8ywsajNKKrkscF6VjeoCL2KZbpqBZHaJsELzy21nFh3H
+         f9yA7ZZBhAYDYFW2RR+ZnyUnwOOGic0inKOumIy0y7Mf4IaMI473/1OAQTOJ1QhAYbVO
+         Tl1OFHVBOhG2N3F9eZbxfVLC2v6walpvoYDkHXMKGB1M3k3D8CD+vPKpXypqyvusCK6E
+         kvR3H69LPymH7LAeXBdN4mGy74SWgFMKWpQIHUzvI2ESAOpwJlqdqrTg/u+s/ceYRB/3
+         dNKA==
+X-Gm-Message-State: AAQBX9cVqTByCh6zWg5qATq1dYi0NXpPLumJpZOkB6B2qEzdWGFQCNY1
+	140eMPQLty1QsUwewr8B2K/Ll92ivg3Fx1iPqsMaupB366Ff0ImBxLyQympuZ70mbVmEAavP3zu
+	lUIDpteLk/plnSLsfCm3w+DQOQRXrH+n3Ag==
+X-Received: by 2002:a1c:f402:0:b0:3f0:9f44:c7ce with SMTP id z2-20020a1cf402000000b003f09f44c7cemr2462434wma.22.1681405391676;
+        Thu, 13 Apr 2023 10:03:11 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ayHOSiTz76Fjw6kiQdv/Nf9Mh9kR26WzhnJfx6aLsDkGIMzzAgAvJtOKYfrOBgsQxGRY5WuQ==
+X-Received: by 2002:a1c:f402:0:b0:3f0:9f44:c7ce with SMTP id z2-20020a1cf402000000b003f09f44c7cemr2462410wma.22.1681405391331;
+        Thu, 13 Apr 2023 10:03:11 -0700 (PDT)
+Date: Thu, 13 Apr 2023 13:03:08 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: David Stevens <stevensd@chromium.org>
-Cc: virtio-comment@lists.oasis-open.org
-Message-ID: <20230413115008-mutt-send-email-mst@kernel.org>
-References: <20230406073002.3642873-1-stevensd@chromium.org>
- <20230407072507-mutt-send-email-mst@kernel.org>
- <CAD=HUj53_M_H6wC9q8qB5b6HC8n-F7KyOFRsO0qsjDpXWhaS6Q@mail.gmail.com>
+To: Jason Wang <jasowang@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Satananda Burla <sburla@marvell.com>
+Message-ID: <20230413130225-mutt-send-email-mst@kernel.org>
+References: <CACGkMEtMOy4B-O-52ka+9P3OBQ_hs1KvdjWodNYg-XKLff+giw@mail.gmail.com>
+ <307a9f8f-6184-0403-97ab-1b1c16d4fd3c@nvidia.com>
+ <CACGkMEucOwwFDMqyWA+DgYV7X=9f5-P4Ba_AP=5kTsjna=n+7A@mail.gmail.com>
+ <PH0PR12MB548194B46A3E32329C10D00EDC9A9@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230411172207-mutt-send-email-mst@kernel.org>
+ <CACGkMEsSxnn0+T6ng99HV-PwA3kEe6J050GNDKJjcjBQfQxbfA@mail.gmail.com>
+ <20230412001803-mutt-send-email-mst@kernel.org>
+ <CACGkMEtfFsiNVesHU=TWWPgDBzXw_49xrYujb42egMJPZg8__Q@mail.gmail.com>
+ <20230412012356-mutt-send-email-mst@kernel.org>
+ <CACGkMEuFtgw4E3ZORp+cKEZi_sf8m99Vn-JTeX=XuY3P7oNt9w@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAD=HUj53_M_H6wC9q8qB5b6HC8n-F7KyOFRsO0qsjDpXWhaS6Q@mail.gmail.com>
+In-Reply-To: <CACGkMEuFtgw4E3ZORp+cKEZi_sf8m99Vn-JTeX=XuY3P7oNt9w@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] [RFC] Define a low power state for devices
+Subject: Re: [virtio-comment] Re: [virtio-dev] [PATCH 08/11] transport-pci:
+ Introduce virtio extended capability
 
-On Thu, Apr 13, 2023 at 03:29:43PM +0900, David Stevens wrote:
-> On Fri, Apr 7, 2023 at 8:27 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+On Wed, Apr 12, 2023 at 01:37:59PM +0800, Jason Wang wrote:
+> On Wed, Apr 12, 2023 at 1:25 PM Michael S. Tsirkin <mst@redhat.com> wrote:
 > >
-> > On Thu, Apr 06, 2023 at 04:30:02PM +0900, David Stevens wrote:
-> > > This RFC defines a low power state for virtio devices, to gives
-> > > drivers an option for power management besides simply resetting their
-> > > device.
+> > On Wed, Apr 12, 2023 at 12:53:52PM +0800, Jason Wang wrote:
+> > > On Wed, Apr 12, 2023 at 12:20 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > >
+> > > > On Wed, Apr 12, 2023 at 12:07:26PM +0800, Jason Wang wrote:
+> > > > > On Wed, Apr 12, 2023 at 5:25 AM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > > > >
+> > > > > > On Tue, Apr 11, 2023 at 07:01:16PM +0000, Parav Pandit wrote:
+> > > > > > >
+> > > > > > > > From: virtio-dev@lists.oasis-open.org <virtio-dev@lists.oasis-open.org> On
+> > > > > > > > Behalf Of Jason Wang
+> > > > > > > > Sent: Monday, April 10, 2023 11:29 PM
+> > > > > > >
+> > > > > > > > > However, it is not backward compatible, if the device place them in
+> > > > > > > > > extended capability, it will not work.
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > It is kind of intended since it is only used for new PCI-E features:
+> > > > > > > >
+> > > > > > > New fields in new extended pci cap area is fine.
+> > > > > > > Migrating old fields to be present in the new extended pci cap, is not your intention. Right?
+> > > > > > >
+> > > > > > > > "
+> > > > > > > > +The location of the virtio structures that depend on the PCI Express
+> > > > > > > > +capability are specified using a vendor-specific extended capabilities
+> > > > > > > > +on the extended capabilities list in PCI Express extended configuration
+> > > > > > > > +space of the device.
+> > > > > > > > "
+> > > > > > > >
+> > > > > > > > > To make it backward compatible, a device needs to expose existing
+> > > > > > > > > structure in legacy area. And extended structure for same capability
+> > > > > > > > > in extended pci capability region.
+> > > > > > > > >
+> > > > > > > > > In other words, it will have to be a both places.
+> > > > > > > >
+> > > > > > > > Then we will run out of config space again?
+> > > > > > > No.
+> > > > > > > Only currently defined caps to be placed in two places.
+> > > > > > > New fields don’t need to be placed in PCI cap, because no driver is looking there.
+> > > > > > >
+> > > > > > > We probably already discussed this in previous email by now.
+> > > > > > >
+> > > > > > > > Otherwise we need to deal with the
+> > > > > > > > case when existing structures were only placed at extended capability. Michael
+> > > > > > > > suggest to add a new feature, but the driver may not negotiate the feature
+> > > > > > > > which requires more thought.
+> > > > > > > >
+> > > > > > > Not sure I understand feature bit.
+> > > > > >
+> > > > > > This is because we have a concept of dependency between
+> > > > > > features but not a concept of dependency of feature on
+> > > > > > capability.
+> > > > > >
+> > > > > > > PCI transport fields existence is usually not dependent on upper layer protocol.
+> > > > > > >
+> > > > > > > > > We may need it even sooner than this because the AQ patch is expanding
+> > > > > > > > > the structure located in legacy area.
+> > > > > > > >
+> > > > > > > > Just to make sure I understand this, assuming we have adminq, any reason a
+> > > > > > > > dedicated pcie ext cap is required?
+> > > > > > > >
+> > > > > > > No. it was my short sight. I responded right after above text that AQ doesn’t need cap extension.
+> > > > > >
+> > > > > >
+> > > > > >
+> > > > > > You know, thinking about this, I begin to feel that we should
+> > > > > > require that if at least one extended config exists then
+> > > > > > all caps present in the regular config are *also*
+> > > > > > mirrored in the extended config. IOW extended >= regular.
+> > > > > > The reason is that extended config can be emulated more efficiently
+> > > > > > (2x less exits).
+> > > > >
+> > > > > Any reason for it to get less exits?
+> > > >
+> > > > For a variety of reasons having to do with buggy hardware e.g. linux
+> > > > likes to use cf8/cfc for legacy ranges. 2 accesses are required for each
+> > > > read/write.  extended space is just 1.
+> > > >
 > > >
-> > > This patch is a draft aimed at starting a discussion, rather than being
-> > > a finalized patch.
+> > > Ok.
 > > >
-> > > To provide some context on where this is coming from, I'm working on
-> > > reducing the power overhead of ARCVM (virtualized Android running on
-> > > ChromeOS). One of the big gaps in ARCVM power management is that it does
-> > > not implement Android's partial wake locks - i.e. the (virtualized) CPUs
-> > > are always on, even if the (virtualized) screen is off. This means we
-> > > can't force apps to stop running when they shouldn't be running, which
-> > > can lead to higher power consumption compared to the ChromeOS baseline.
+> > > >
+> > > > > At least it has not been done in
+> > > > > current Qemu's emulation. (And do we really care about the performance
+> > > > > of config space access?)
+> > > > >
+> > > > > Thanks
+> > > >
+> > > > For boot speed, yes. Not minor 5% things but 2x, sure.
 > > >
-> > > Partial wake locks are built on s2idle, but unfortunately the current
-> > > power management of virtio drivers does not let us use s2idle. The fact
-> > > that power management is based around resetting the virtio device means
-> > > that it doesn't work with stateful devices (e.g. virtio-fs). Even for
-> > > stateless devices, re-initializing all of the devices takes longer than
-> > > we would like, especially on lower end hardware.
+> > > If we care about boot speed we should avoid using the PCI layer in the
+> > > guest completely.
 > > >
-> > > My rough idea for how to address this would be to make the existing
-> > > virtio power management targeted at S4 specifically (i.e. the freeze
-> > > device callback). For S0/S1/S3 (i.e. the suspend device callback), this
-> > > new lighter weight low power state would be used if available -
-> > > otherwise it would fall back to the existing S4 power management code.
-> > >
-> > > I have a very rough prototype that seems to work, and I haven't seen
-> > > anything that makes me think this approach is fundamentally unworkable.
-> > > That said, I would like to get feedback on the approach earlier rather
-> > > than later.
-> > > ---
-> > >  content.tex | 26 ++++++++++++++++++++++++++
-> > >  1 file changed, 26 insertions(+)
-> > >
-> > > diff --git a/content.tex b/content.tex
-> > > index cff548ab9675..01da6f62ef20 100644
-> > > --- a/content.tex
-> > > +++ b/content.tex
-> > > @@ -449,6 +449,28 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
-> > >  types. It is RECOMMENDED that devices generate version 4
-> > >  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
-> > >
-> > > +\section{Low Power Mode}\label{sec:Basic Facilities of a Virtio Device / Low Power Mode}
-> > > +
-> > > +A virtio device can be put into a low power state when the
-> > > +VIRTIO_F_LOW_POWER bit is negotiated. How a driver puts a
-> > > +device into a low power state is transport specific.
-> > > +
-> > > +In general, a virtio device in a low power state should
-> > > +avoid initating any communication with the driver. However,
-> > > +certain device-specific functionality is exempt from this
-> > > +requirement. Such functionality is detailed in the device
-> > > +type specifications.
-> > > +
-> > > +% One example of such functionality would be allowing
-> > > +% the virtio-net device to wake up the guest to deliver
-> > > +% incoming network packets.
-> > > +
-> > > +While a virtio device is in a low power state, it should
-> > > +maintain any type specific state in such a way that it is
-> > > +able to immediately resume functioning upon leaving the low
-> > > +power state, without the need for any additional
-> > > +communication with the driver.
-> > > +
-> > >  \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
-> > >
-> > >  We start with an overview of device initialization, then expand on the
-> > > @@ -803,6 +825,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-> > >    that the driver can reset a queue individually.
-> > >    See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}.
-> > >
-> > > +  \item[VIRTIO_F_LOW_POWER(41)] This feature indicates
-> > > +  that the driver can put the device into a low power mode.
-> > > +  See \ref{sec:Basic Facilities of a Virtio Device / Low Power Mode}.
-> > > +
-> > >  \end{description}
-> > >
-> > >  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+> > > Thanks
 > >
-> > So what purpose does this flag serve exactly?  I guess transports also
-> > provide ways to enumerate supported power states, no?
+> > Woa. And do what? Add a ton of functionality in a PV way to MMIO?
 > 
-> This is mostly here to parallel the VIRTIO_F_SR_IOV feature flag.
-> Generally speaking, it does seem redundant with the transport-specific
-> enumeration.
+> Probably, we have microVM already. And hyperv drops PCI since Gen2.
 > 
-> The two potential uses I can think of would be to allow devices to
-> support transport level power management without supporting virtio
-> level power management (might apply to existing devices?) and to allow
-> devices to behave differently if they know that the driver doesn't
-> support virtio power management. But I don't know how useful these are
-> in practice.
+> > NUMA, MSI, power management .... the list goes on and on.
+> > If you have pci on the host it is way easier to pass that
+> > through to guest than do a completely different thing.
 > 
-> -David
+> It's a balance. If you want functionality, PCI is probably a must. But
+> if you care about only the boot speed, the boot speed is not slowed
+> down by a single device but the whole PCI layer.
+> 
+> Thanks
 
-I'm a bit confused by all this. So there are actually two types of PM?
-What does initiating communication involve? Is consuming buffers
-initiating communication? Sending interrupts?
+I don't know that if we add a ton of features to the mmio layer
+that it won't slow down, too.
 
-
--- 
-MST
+> >
+> > --
+> > MST
+> >
 
 
 This publicly archived list offers a means to provide input to the
