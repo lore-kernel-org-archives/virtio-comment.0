@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5468-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5469-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F71DC77B6E
-	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 03:08:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2E5C77B61
+	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 03:09:57 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B50C62AEF5
-	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 03:08:55 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id BD38D33568
+	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 03:09:56 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A4E2898660D
-	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 03:08:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id AF324986630
+	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 03:09:56 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 97153983C98; Fri, 14 Apr 2023 03:08:55 +0000 (UTC)
+	id A5269986615; Fri, 14 Apr 2023 03:09:56 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,36 +24,33 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 84DA0986600
-	for <virtio-comment@lists.oasis-open.org>; Fri, 14 Apr 2023 03:08:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 94349986602
+	for <virtio-comment@lists.oasis-open.org>; Fri, 14 Apr 2023 03:09:56 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: dB0iJpg0PMiXsf_ZJYdhbw-1
+X-MC-Unique: EaqU3t32PK6FI05Qty9M1A-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681441732; x=1684033732;
+        d=1e100.net; s=20221208; t=1681441787; x=1684033787;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=InlTNJYWfyNaL3nO8HILkD4J7UYTzg5KfywzLe6KV4s=;
-        b=NHVO7QsoN/+saWTsCkMm6uBMf5Z/HGYRP5h2NnMuNZKLj6yQTnhsx84Gfr2yiepSZF
-         Vea1D0ByfvFOj4c7urFugpnSiqbemKhnjr+HwQ754pS0s0WsQJuv0im+aQ2XrTEcjYmA
-         VUlp90xtj106La9WYTxqeGv9ToAQ91xJ4U6msTeWS3Nu5c95VJBewsTWJNENOjArxTy3
-         VKLs7igGVIcC7HyLAyONbZTiHyi4L0ItLw3FH+shZHl9kWWLXzJwqcexQjOiaGR60ln7
-         PWkDenSwVG5OLOdi7zrkHWz1zA3FTSzg8G974cnQnj1EXoyq1bjDehkxVElRJon1SfA/
-         hwMg==
-X-Gm-Message-State: AAQBX9cCSwEZHPY3EwO/qj7gUIBJRUOuqlky7/ZmyyRoarzho7Ws6Zak
-	cFz7ZFGD8LlK36WhM3h6pvhH2yloEibiC0qNBxLkVOLbLg78MdLq/C6RpxXXnuGJduoym4zvQy2
-	8KUCDcyV3YZYVnhCvxpCaTV0ouu3PUlJaytXB0m2CRBP/D+LX7Q==
-X-Received: by 2002:a05:6870:3489:b0:187:7f2e:98d6 with SMTP id n9-20020a056870348900b001877f2e98d6mr1897571oah.9.1681441732427;
-        Thu, 13 Apr 2023 20:08:52 -0700 (PDT)
-X-Google-Smtp-Source: AKy350bhEJ5aDMn+YXE0CTjcg9iCAujE550uMPapDViTNmpu+HshMKRZ515Ox4ruq2hIryP0r/w41BsNSbRlkQMsaTQ=
-X-Received: by 2002:a05:6870:3489:b0:187:7f2e:98d6 with SMTP id
- n9-20020a056870348900b001877f2e98d6mr1897558oah.9.1681441732177; Thu, 13 Apr
- 2023 20:08:52 -0700 (PDT)
+        bh=wpL4Qa4AOKZpHPC6oJ0Kov5AMMa7Gm86QMKtghTfIPk=;
+        b=Wb1JX4lY41sn8lSKBnN5m0f5c5tpl2mSQMTLhuI6hbcuB3QgITDx0fu7JXNY6BzYbp
+         o3K41P+01oBCIVkZ1NvFKeVrTQaksoT3OVpbRxDIWUMm8Qw58+RjftvxxR4v7BFYKyRO
+         wKkzFNEyWgAvf99KgKkSL94kAhCyX6XEKzFqIjjYdJ0U9B/j7F76bkn5uVfa+1yEzUsb
+         kynfeqEUlPyD3f4wITRzmA9LNvHZGS5963YeZmPoVIkvy6KFOKRrdbmZJz4ibPsCSlMu
+         fylYJPQvwmQBI6QBvMtOsq/0U4RFfkboKbBxZdXvxYVTfONmnWqT/lWfr8j5CvrK5pmS
+         gaDw==
+X-Gm-Message-State: AAQBX9dZ8jvtfEpt58nDO4YaDIn55qZ7R0vLVdpDup6RZVsSNaxOb7sY
+	hBisr6MomBZtmLiq6dig60HiF7w4qDAmQbqjjHZVgpMzk3pF/dnhhh4ispd0a6ZqVNycBqoTANG
+	F76oj63uOsvQa3zaNW0wnzwBqnbQhfVNj0r0BxiK6W3Jq9SksfA==
+X-Received: by 2002:a05:6870:c34e:b0:187:89c5:1efa with SMTP id e14-20020a056870c34e00b0018789c51efamr2224170oak.9.1681441786969;
+        Thu, 13 Apr 2023 20:09:46 -0700 (PDT)
+X-Google-Smtp-Source: AKy350bk+ViZwcvps3JyjyJplX6qkxV0oOhwb+CyApabNcNVJDR23UkU8zgFAFMMDpPGwrWArV2pkAOMM10/SwZ80Fo=
+X-Received: by 2002:a05:6870:c34e:b0:187:89c5:1efa with SMTP id
+ e14-20020a056870c34e00b0018789c51efamr2224165oak.9.1681441786703; Thu, 13 Apr
+ 2023 20:09:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230410020906-mutt-send-email-mst@kernel.org>
- <CACGkMEufWUXHKahg3GLOKfV5aptbiek_DKwy+7rCfMya2GPaTQ@mail.gmail.com>
- <20230412000802-mutt-send-email-mst@kernel.org> <CACGkMEshNydwBD=Q0JW-SDY6xyiJ4uVrLn+pxbUrinycBKwsrw@mail.gmail.com>
- <PH0PR12MB548118F57BB4B4A4F8DC9D7ADC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <PH0PR12MB548118F57BB4B4A4F8DC9D7ADC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
  <CACGkMEvYsz1fSPG+fKpRaZ05Ut7ffKwvMPvR8xbRBsXA_6vGQw@mail.gmail.com>
  <PH0PR12MB548137D7A25C99EAA42B4D12DC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
  <CACGkMEshW82qztmGw8YJWJ8=QCoRd6cPxQ+ySazxsO_o+U6c4Q@mail.gmail.com>
@@ -62,11 +59,11 @@ References: <20230410020906-mutt-send-email-mst@kernel.org>
  <PH0PR12MB5481F0CF5A555A6BB2CE856CDC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
  <CACGkMEuNOYOxvcSzrs0UFEyk+xOkGUpOfhK8rOy_Mebz5b5wdg@mail.gmail.com>
  <a74d3107-d38c-df15-e2ff-f848635f24bd@nvidia.com> <CACGkMEt+bGN7UYEopXPj0+deAnYm1VUNp05VvGHcJnkd8LzbGg@mail.gmail.com>
- <f9f01f9d-f6ec-0daa-a11d-c75589dcbe6c@nvidia.com>
-In-Reply-To: <f9f01f9d-f6ec-0daa-a11d-c75589dcbe6c@nvidia.com>
+ <20230413130326-mutt-send-email-mst@kernel.org> <PH0PR12MB54819A5D8FCEC6375D80897DDC989@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54819A5D8FCEC6375D80897DDC989@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Fri, 14 Apr 2023 11:08:40 +0800
-Message-ID: <CACGkMEskPJgNrBQV10ieSaKCg_kBbi2E0z1BEbdyiiaDdD1zJA@mail.gmail.com>
+Date: Fri, 14 Apr 2023 11:09:35 +0800
+Message-ID: <CACGkMEvSSXyXQnRs=OiaSJnSEYHP83chL6-B5ZPCGx6TeW9W5Q@mail.gmail.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
 	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, 
@@ -80,132 +77,119 @@ Content-Transfer-Encoding: quoted-printable
 Subject: Re: [virtio-comment] Re: [PATCH 09/11] transport-pci: Describe PCI
  MMR dev config registers
 
-On Fri, Apr 14, 2023 at 1:24=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
+On Fri, Apr 14, 2023 at 3:39=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
 te:
 >
 >
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Thursday, April 13, 2023 1:20 PM
+> >
+> > On Thu, Apr 13, 2023 at 01:14:15PM +0800, Jason Wang wrote:
+> > > > >>>> The proposed solution in this series enables it and avoid per
+> > > > >>>> field sw
+> > > > >>> interpretation and mediation in parsing values etc.
+> >
+> > ... except for reset, notifications, and maybe more down the road.
+> >
+> Your AQ proposal addresses reset too.
+> Nothing extra for the notifications, as comes for free from the device si=
+de.
+> >
+> > > > >>> I don't think it's possible. See the discussion about
+> > > > >>> ORDER_PLATFORM and ACCESS_PLATFORM in previous threads.
+> > > > >>>
+> > > > >> I have read the previous thread.
+> > > > >> Hypervisor will be limiting to those platforms where ORDER_PLATF=
+ORM
+> > is not needed.
+> > > > >
+> > > > > So you introduce a bunch of new facilities that only work on some
+> > > > > specific archs. This breaks the architecture independence of
+> > > > > virtio since 1.0.
+> > > > The defined spec for PCI device does not work today for transitiona=
+l
+> > > > device for virtualization. Only works in limited PF case.
+> > > > Hence this update.
+> > >
+> > > I fully understand the motivation. I just want to say
+> > >
+> > > 1) compare to the MMIO ar BAR0, this proposal doesn't provide much
+> > > advantages
+> > > 2) mediate on top of modern devices allows us to not worry about the
+> > > device design which is hard for legacy
+> >
+> > I begin to think so, too. When I proposed this it looked like just a si=
+ngle
+> > capability will be enough, without a lot of mess.  But it seems that ad=
+dressing
+> > this fully is getting more and more complex.
+> > The one thing we can't do in software is different header size for virt=
+io net. For
+> > starters, let's add a capability to address that?
 >
-> On 4/13/2023 1:14 AM, Jason Wang wrote:
+> Hdr bit doesn't solve it because hypervisor is not involved in any trappi=
+ng of feature bits, cvq or other vqs.
+> It is unified code for 1.x and transitional in hypervisor.
 >
-> >> For LM BAR length and number should be same between two PCI VFs. But i=
-ts
-> >> orthogonal to this point. Such checks will be done anyway.
-> >
-> > Quoted the wrong sections, I think it should be:
-> >
-> > "
-> > length MAY include padding, or fields unused by the driver, or future
-> > extensions. Note: For example, a future device might present a large
-> > structure size of several MBytes. As current devices never utilize
-> > structures larger than 4KBytes in size, driver MAY limit the mapped
-> > structure size to e.g. 4KBytes (thus ignoring parts of structure after
-> > the first 4KBytes) to allow forward compatibility with such devices
-> > without loss of functionality and without wasting resources.
-> > "
-> yes. This is the one.
+> We have two options to satisfy the requirements.
+> (partly taken/repeated from Jason's yday email).
 >
-> > If it's a transitional device but not placed at BAR0, it might have
-> > side effects for Linux drivers which assumes BAR0 for legacy.
-> >
-> True. Transitional can be at BAR0.
->
-> > I don't see how easy it could be a non transitional device:
-> >
-> > "
-> > Devices or drivers with no legacy compatibility are referred to as
-> > non-transitional devices and drivers, respectively.
-> > "
-> Michael has suggested rewording of the text.
-> It is anyway new text so lets park it aside for now.
-> It is mostly tweaking the text.
->
-> >
-> >> device can expose this optional capability and its attached MMIO regio=
-n.
-> >>
-> >> Spec changes are similar to #2.
-> >>> - non trivial spec changes which ends up of the tricky cases that
-> >>> tries to workaround legacy to fit for a hardware implementation
-> >>> - work only for the case of virtualization with the help of
-> >>> meditation, can't work for bare metal
-> >> For bare-metal PFs usually thin hypervisors are used that does very
-> >> minimal setup. But I agree that bare-metal is relatively less importan=
-t.
-> >
-> > This is not what I understand. I know several vendors that are using
-> > virtio devices for bare metal.
-> >
-> I was saying the case for legacy bare metal is less of a problem because
-> PCIe does not limit functionality, perf is still limited due to IOBAR.
->
-> >>
-> >>> - only work for some specific archs without SVQ
-> >>>
-> >> That is the legacy limitation that we don't worry about.
-> >>
-> >>> 2) allow BAR0 to be MMIO for transitional device
-> >>>
-> >>> Pros:
-> >>> - very minor change for the spec
-> >> Spec changes wise they are similar to #1.
-> >
-> > This is different since the changes for this are trivial.
-> >
-> >>> - work for virtualization (and it work even without dedicated
-> >>> mediation for some setups)
-> >> I am not aware where can it work without mediation. Do you know any
-> >> specific kernel version where it actually works?
-> >
-> > E.g current Linux driver did:
-> >
-> > rc =3D pci_request_region(pci_dev, 0, "virtio-pci-legacy");
-> >
-> > It doesn't differ from I/O with memory. It means if you had a
-> > "transitional" device with legacy MMIO BAR0, it just works.
-> >
->
-> Thanks to the abstract PCI API in Linux.
+> 1. AQ (solves reset) + notification for building non transitional device =
+that support perform well and it is both backward and forward compat
+> Pros:
+> a. efficient device reset.
+> b. efficient notifications from OS to device
+> c. device vendor doesn't need to build transitional configuration space.
+> d. works without any mediation in hv for 1.x and non 1.x for all non-lega=
+cy interfaces (vqs, config space, cvq, and future features).
 
-And this (legacy MMIO bar) has been supported by DPDK as well for a while.
+Without mediation, how could you forward guest config access to admin
+virtqueue? Or you mean:
 
+1) hypervisor medate for legacy
+2) otherwise the modern BARs are assigned to the guest
+
+For 2) as we discussed, we can't have such an assumption as
+
+1) spec doesn't enforce the size of a specific structure
+2) bing vendor locked thus a blocker for live migration as it mandate
+the layout for the guest, mediation layer is a must in this case to
+maintain cross vendor compatibility
+
+Hypervisor needs to start from a mediation method and do BAR
+assignment only when possible.
+
+> e. can work with non-Linux guest VMs too
 >
-> >>> - work for bare metal for some setups (without mediation)
-> >>> Cons:
-> >>> - only work for some specific archs without SVQ
-> >>> - BAR0 is required
-> >>>
-> >> Both are not limitation as they are mainly coming from the legacy side
-> >> of things.
-> >>
-> >>> 3) modern device mediation for legacy
-> >>>
-> >>> Pros:
-> >>> - no changes in the spec
-> >>> Cons:
-> >>> - require mediation layer in order to work in bare metal
-> >>> - require datapath mediation like SVQ to work for virtualization
-> >>>
-> >> Spec change is still require for net and blk because modern device do
-> >> not understand legacy, even with mediation layer.
-> >
-> > That's fine and easy since we work on top of modern devices.
-> >
-> >> FEATURE_1, RW cap via CVQ which is not really owned by the hypervisor.
-> >
-> > Hypervisors can trap if they wish.
-> >
-> Trapping non legacy accessing for 1.x doesn't make sense.
+> Cons:
+> a. More AQ commands work in sw
 
-Actually not, I think I've mentioned the reason for several times:
-
-It's a must for ABI and migration compatibility:
-
-1) The offset is not necessarily a page boundary
-2) The length is not necessarily times of a PAGE_SIZE
-3) PAGE_SIZE varies among different archs
-4) Two vendors may have two different layout for the structure
+Note that this needs to be done on top of the transport virtqueue. And
+we need to carefully design the command sets since they could be
+mutually exclusive.
 
 Thanks
+
+
+> b. Does not work for bare metal PFs
+>
+> 2. Allowing MMIO BAR0 on transitional device as SHOULD requirement with l=
+arger BAR size.
+> Pros:
+> a. Can work with Linux bare-metal and Linux guest VMs as one of the wider=
+ uses case
+> b. in-efficient device handling for notifications
+> c. Works without mediation like 1.d.
+> d. Also works without HV mediation.
+>
+> Cons:
+> a. device reset implementation is very for the hw.
+> b. requires transitional device to be built.
+> c. Notification performance may suffer.
+>
+> For Marvell and us #1 works well.
+> I am evaluating #2 and get back.
+>
 
 
 This publicly archived list offers a means to provide input to the=0D
