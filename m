@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5487-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5488-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A7C2C77B70
-	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 08:03:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4647AC77B61
+	for <virtio-comment@archiver.kernel.org>; Sun, 16 Apr 2023 13:41:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 106692AC64
-	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 08:03:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 559A92B066
+	for <virtio-comment@archiver.kernel.org>; Sun, 16 Apr 2023 13:41:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1373A986613
-	for <virtio-comment@archiver.kernel.org>; Fri, 14 Apr 2023 08:03:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3CECA986285
+	for <virtio-comment@archiver.kernel.org>; Sun, 16 Apr 2023 13:41:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 00698984140; Fri, 14 Apr 2023 08:03:36 +0000 (UTC)
+	id 2879A985FF0; Sun, 16 Apr 2023 13:41:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,233 +24,130 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E1356986600
-	for <virtio-comment@lists.oasis-open.org>; Fri, 14 Apr 2023 08:03:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1165D985FF8;
+	Sun, 16 Apr 2023 13:41:58 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681459412; x=1684051412;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=q3jm+LjUjhXNbTBwmcWiB7EQHlWdERZUgCJ9jcqTEgM=;
-        b=bSKjlTSm3b7d4OQNY+kxksx0Xoy19V9tlxZSRjQdPTJz5Xp7NF+4AbSft2knsRUmzw
-         PF8wnWA/TZPwZfVXrCcZ7yeqkYIqMvVQt2TV1rx0vuC4vuYpvemFM2sJtJzUgIZ13CD6
-         6MlZrUT2JfuyLbM4VcUnUt1xshCnqiteg3NBBedPheuu8PEjazKFIptX54e0IAxRTMR+
-         tJ05JCclBeWDL8DsAzAXa4VhgAqX3jOZstCZicGu5/+Q0XYb29nZIQu03srTx2Eab45O
-         NdsMeGW/Fahuppq9Jg2Yp3S5kEpDylRVKx9PHYRrhKOXrN0GAviZihy2CMes6Ebc+LGp
-         mpJQ==
-X-Gm-Message-State: AAQBX9cGUfdlsnDUMINKXNf8ymPX2UXuNLkG1PskOeMQQ5vOQbhfuuE+
-	qyASZyZp87Rsm/UGsBV4GvqSsVAALtjacxT/TcolrA==
-X-Google-Smtp-Source: AKy350Z9S2ubQB+pSOzM+xqhQGZ2RM8exsEy1rcdHJ0QdQHGvCzqSjy09iB2k2gUXhb0OqBrqiIdaDC8JI1snH0t2+Q=
-X-Received: by 2002:a2e:8255:0:b0:2a8:aefd:c6c6 with SMTP id
- j21-20020a2e8255000000b002a8aefdc6c6mr132124ljh.9.1681459412477; Fri, 14 Apr
- 2023 01:03:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230406073002.3642873-1-stevensd@chromium.org>
- <20230407072507-mutt-send-email-mst@kernel.org> <CAD=HUj53_M_H6wC9q8qB5b6HC8n-F7KyOFRsO0qsjDpXWhaS6Q@mail.gmail.com>
- <20230413115008-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230413115008-mutt-send-email-mst@kernel.org>
-From: David Stevens <stevensd@chromium.org>
-Date: Fri, 14 Apr 2023 17:03:21 +0900
-Message-ID: <CAD=HUj6xs3o_CRzOO-EU=BFkVi0=8YC34meVWCUAXWzht_sC9A@mail.gmail.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ce8MIHEY7lAxDfP1fTYdEmkT1fbBBEGBqO9zUMcji86OZx4f93/abrzyDupI0H+t3l2aeA2+nRObEXlPVnpJSBMlPAORJlAr1E6KkQrrwO4AaeyV8pazWGLVnygoHIfaGTidU10oT4bJann1zRcXvEJoh4LYPUFN6SK4hIjJh2PDBkcKcBN0AjBfo3VAJ1jtQHcQps8RnXK0cORzBL5PnOciLLGveoe7Y8fGwd1v9aZfiKVB1won1+MIYYYJp8CohHpSAWtZQhMcsPs6gsY6SoZ/EeMGgyV6LZVIyXO8cxONoWnPL4/2IceYjErcpyH3AzsyP5dM4m8fYwU9P3Cdow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tCsZMPEY9nN+SaVCx6jaEc/Fqgoh3MLkHZs+uDQ9ewg=;
+ b=O2HZCkWhNl/kV4FBSx9Ztwqxw2wJi72MWEpxA9bOsmIq71/dpVE1Wc/j4P7HjU5nvEEs8nobtQcnwjpRVFx3jSBcwsnzSNkQfOxKa51QMK1U+5oCFoKmzpE1mNQvDVgRI8Mzk70f0LrSQS+35jWIuuAO0IKKPKvygt5aMhl/ZkAveuzfMKpqq9886quoftj5/Q2XXBfm+SBYh44g60gyk6dHAUFgJICbmjwJ/a99eTYl97oo0K0QfSJHTye64x9FIz9S1mKRwGg5vCjf6l3oAyC5wRpgsqdnB/He4QlgFpdMK9F0/VE4tszxxLOzilOKDgo2d4LBhOuLo70UjM5/uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [RFC] Define a low power state for devices
+CC: Jason Wang <jasowang@redhat.com>, "virtio-dev@lists.oasis-open.org"
+	<virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Shahaf Shuler <shahafs@nvidia.com>, Satananda Burla <sburla@marvell.com>,
+	Maxime Coquelin <maxime.coquelin@redhat.com>, Yan Vugenfirer <yan@daynix.com>
+Thread-Topic: [virtio-comment] Re: [PATCH 09/11] transport-pci: Describe PCI
+ MMR dev config registers
+Thread-Index:
+ AQHZY1tLAUtRpuZtUUOucQPGJlFfkK8flpUAgAQ7nwCAAE6hgIAAAXwAgAAFegCAAAt0AIAALl6AgAEOIwCAAFEgAIAAIPWAgAAcJ4CAASFtgIAABJ4AgAAKJYCAAACFsIAABgyAgAAAT3CAAAYpAIAAAJIAgAAJz4CAAILBcIAAxPiAgAAc1wCAABy4gIAAzAAAgAA85gCAAABI8IAAXS4AgAAARpCAAEh7AIADk47Q
+Date: Sun, 16 Apr 2023 13:41:55 +0000
+Message-ID:
+ <PH0PR12MB5481F9D94282F794E0A08BF0DC9F9@PH0PR12MB5481.namprd12.prod.outlook.com>
+References:
+ <CACGkMEu2B_GogDR9HUwB7mT8fkGh+Q_buPLz4nhwhK7h9k6BQQ@mail.gmail.com>
+ <PH0PR12MB5481F0CF5A555A6BB2CE856CDC9B9@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEuNOYOxvcSzrs0UFEyk+xOkGUpOfhK8rOy_Mebz5b5wdg@mail.gmail.com>
+ <a74d3107-d38c-df15-e2ff-f848635f24bd@nvidia.com>
+ <CACGkMEt+bGN7UYEopXPj0+deAnYm1VUNp05VvGHcJnkd8LzbGg@mail.gmail.com>
+ <f9f01f9d-f6ec-0daa-a11d-c75589dcbe6c@nvidia.com>
+ <20230413163216-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54818B39801152ECBA138E73DC989@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtMKqzN3E9S-pusTr=doYRtDvTZUie2PrygzPiH0p5fvg@mail.gmail.com>
+ <PH0PR12MB5481EEEE5BFE68CDC6628455DC999@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230414025523-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230414025523-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BN9PR12MB5275:EE_
+x-ms-office365-filtering-correlation-id: 42503ab9-a71c-40cc-1cc6-08db3e8057f7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 0Pc+NO0su2f1bMAHPHDXNeRud2Unvr6qiTZEGCN6tgeq1LCiLjHac7tPdYh8PwQ+7Gjtts4WiMWSao31WtlzhB0nF38EaP7mJXVRF/Ak4L6x7ZBKh02SjN9iXCxgiRzY51MIxFgacuztcWeU0P99nXKzNh0o7W8lZvjKkjmvCP8FYPLnADm8NRdHRj7w11Dxo3b4EbWOnb7gnfxTCGlWqTmBM6Td360dbMgCEWY/On10bgjqkBjvN1XYTysjSBxSb136b4ADPdu8WetQ1IfQ9HThqUizCxRwFJLCcj4uhm7vKLghIeqxvaz9alSNv1WaFIX9QcnYWZfqsojmIXeiVxUsdWfmjJ1waD3cmXG6sL+H88lpXK3A9Vpnr28brCN619AGFFniD5IUl7afYZIERj0l8C3dPoXO6sMQHqww0uhLpOu/cbRxOt3EMCnoZLzxLn0PjXb+VwT0cvFFR/7yAR6XaAw/CbzxVcok3lr6MIWnoIjhCRkX/rrPtHULp2X2tn0IdjoRClIZudwDFOEpELRYXJQEysu8CIZ2FmIxFxawJayJQLLPYBLGGjdAJ+ZEFFlW9IL8GSYBZYIpKUGYZejG97kjfQwUXHaFuOUG+VpBKhOBH6nzU4jLlwn/pJb6
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(396003)(346002)(366004)(136003)(451199021)(54906003)(186003)(26005)(6506007)(38070700005)(83380400001)(38100700002)(4326008)(6916009)(66946007)(66556008)(66476007)(64756008)(66446008)(76116006)(9686003)(478600001)(71200400001)(4744005)(2906002)(33656002)(41300700001)(316002)(122000001)(8676002)(86362001)(7696005)(8936002)(55016003)(52536014)(5660300002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dHRwMFlTckU5OWxtWDlVZnR5THRmNk5IcWNKbzh1YXJVdXVWWHNMendRTHpK?=
+ =?utf-8?B?ZHJMdVRCazNLb3UrN0lsWFlTWGlNaDRuUzVNOEoraG5zcEg5T3lVcWZRMDV3?=
+ =?utf-8?B?ODdiaFRpTnFSMUZqQWpKQnRPOEN4MThPampPNFdjNUI4Tnk5NWM5L2xZMzBx?=
+ =?utf-8?B?bmU5aG90MnRQRWZ2K3VSaG9EbXQ5cVhxdThzU3BGOEJING9tRzVlL0MwZk9E?=
+ =?utf-8?B?QjhOQTcxVWl4QlZzS3JuQlU5L3R6OTNuRGVhR2JkMVp0d1VUeWh1U29JbUNX?=
+ =?utf-8?B?dlI4SlVNMFBYMVFWTnFKV3R0RWxFcWlUbEROSlFpRFh2M252VGJRVEh5dGFn?=
+ =?utf-8?B?WEZiRFpwZEp0UTZlc0dIbG5ySk9Denhxd3kzY2J5YXZma0F5VUU4aDVmeE4z?=
+ =?utf-8?B?ZTV1N3RGaG9pOFZ3TzdWV2pzcVovTzhhVGM0Nm9zbXlxQllUUDZQRmNDK0p0?=
+ =?utf-8?B?RitZcW9zSVJJK1J0RnRBL1ZWVjNnTUs4eS92UjRaOERxUG1FOGtZVzZSOWR0?=
+ =?utf-8?B?a3BUOGNPNWhLaW5lUjQ1cmtGNmxUYjM1dXNqUTZ6b2pMV3l5cWRaVlptR3pp?=
+ =?utf-8?B?ZHFmNjRsWmhoZUpzWXdTa1czUVpTWmlkRnU4S1JLdVFqcDRQUldacitlSkVW?=
+ =?utf-8?B?THgxKzhWMWhEaHhjZjE1d2pCQjRuTXVGZ0l2ZmMrWXBMNWJoMlVtTVlMQnVS?=
+ =?utf-8?B?akd3bDlvL2hyc0RzVXcvVlF3QTNxZlRYbXV1ZkF3WjQvWG1GTXg1bmZ2WDNR?=
+ =?utf-8?B?UDlFK0lvUlJMVTExS21UaDJQRjNEMXdXSVlVQ3pOZms1c1JIcHQyTG5lWDdr?=
+ =?utf-8?B?WFMxalFhVVZlWWZxN29wM0R2UnVMTEJjUkszbkZUOTV2ZTZWbUdZZmlxK1Zx?=
+ =?utf-8?B?Q3RORm5QaStUcmF4eFlkQUNoWHRISmlZcENOOFlZZUlHQzZNblRWT2xqZFAv?=
+ =?utf-8?B?UFZuZmNYZVlBVktGNTZZekM2RE85ZFFyM1hkcGdlU1VTb2NadDlXZWdwN2hs?=
+ =?utf-8?B?c3VLOVozRTcvQy9CdXc1enZFcnl5WVpxNWk1VkNHYkJ2K2hxa01YOE42cmlr?=
+ =?utf-8?B?VFpKZGdiSjJYOVFwN0R6K1ZZMkRSRTE5RFBpYk1qalZYdXJKeE9Zbk5aOE0y?=
+ =?utf-8?B?ZzBSN2hnY0ZGYVBDOGhuS3RIU3d6clVqcVZub1V5MmtObk80OU5Idm5ReU5G?=
+ =?utf-8?B?eWU0ZU5EYVV6ZmZRU0ZzcVhRTHB2QW5pUExBMkxURXBWR2cwQnF5LzBtY3Bn?=
+ =?utf-8?B?cVJMbGFHcmFBVS9HckRKSjJOaDlHcE9HM3hjNVNPaFp3dHFIUmZERFZZcS91?=
+ =?utf-8?B?SStEMnEvWXpvK3h5MTVvWC9zdWZsTm9HcWFxdUEwR2Y3NkFIdUtXSjNMV1kw?=
+ =?utf-8?B?L2VVdldpam14OElMN2k3T1VpU010ZEhiNEN3d2xZNmxuSEhLaDJsK1dSKy9h?=
+ =?utf-8?B?d3Q4U3BtR2FmaCt4WkdnN1FORTdDZ25RV1o5VkVEazZHSlYwTTcxZjBrRVAv?=
+ =?utf-8?B?QTVzazlZS0c5emEvU2tKNW91bFc3UytBNGZoYkI0clZYT0ZIdGpUbWZvMFNI?=
+ =?utf-8?B?RzVWUjNxME53Zkpza0N1Ujl4RVFQZ2FYQkY1NnNVV0RwODFlTittYzZYN0t2?=
+ =?utf-8?B?MzZjam5XeU1CQzJ2MUYrdVRoUmdUMGEvNjBPNmhyYWlYUnQ2ZDdjZmpkd0Vw?=
+ =?utf-8?B?Z2dJWFlyLzZMYit6S2xNeGc1d1BmT3BOVHJabUlSVkg2QVVEOGZTZ3RZajhC?=
+ =?utf-8?B?TWMzZyt2YUlad2NGRUJYTk9QblRtL1Y1ckg2Yk13RmFzT2h6eW5zRHgxK2kv?=
+ =?utf-8?B?THZqMEZQRjlTNnZLLzF4UTJ2cnZvQTZxWG0vdjI1bisyeUFlYy9oNmZtS0xy?=
+ =?utf-8?B?VW1hbVVOMHp5dnpZakNWd2V3U1MrajU5VU8vUkpvYmpWMFV2aDQxLzFBS3Z3?=
+ =?utf-8?B?WjNEU0NQbmZGYVlTMXBVVWJ5UXY4YWl6dEpRZ3RHOGR5c0Q2dGJYaC9SY3Rv?=
+ =?utf-8?B?dTF5VjJVcUwySjRDN3VZRFBFOGdzd25ybzVwNGVhaDJUTkVEY0VReGovWVpM?=
+ =?utf-8?B?b09zT0NHT1Rhd05PaE0wVkdBUWdTMFFaWE1md2R5WC9CeHJFVFJkZmJxaFFv?=
+ =?utf-8?Q?NU5M=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42503ab9-a71c-40cc-1cc6-08db3e8057f7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2023 13:41:55.5599
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OJWLkC+MfTx6UgwJgK2nC61VdKWhKfVAPEbdGxVKR+0FUwjpyRjmLL9cJ+5TFGpmMVzG0bcFZoicMlXhW5hd5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5275
+Subject: RE: [virtio-comment] Re: [PATCH 09/11] transport-pci: Describe PCI
+ MMR dev config registers
 
-On Fri, Apr 14, 2023 at 12:57=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com=
-> wrote:
->
-> On Thu, Apr 13, 2023 at 03:29:43PM +0900, David Stevens wrote:
-> > On Fri, Apr 7, 2023 at 8:27=E2=80=AFPM Michael S. Tsirkin <mst@redhat.c=
-om> wrote:
-> > >
-> > > On Thu, Apr 06, 2023 at 04:30:02PM +0900, David Stevens wrote:
-> > > > This RFC defines a low power state for virtio devices, to gives
-> > > > drivers an option for power management besides simply resetting the=
-ir
-> > > > device.
-> > > >
-> > > > This patch is a draft aimed at starting a discussion, rather than b=
-eing
-> > > > a finalized patch.
-> > > >
-> > > > To provide some context on where this is coming from, I'm working o=
-n
-> > > > reducing the power overhead of ARCVM (virtualized Android running o=
-n
-> > > > ChromeOS). One of the big gaps in ARCVM power management is that it=
- does
-> > > > not implement Android's partial wake locks - i.e. the (virtualized)=
- CPUs
-> > > > are always on, even if the (virtualized) screen is off. This means =
-we
-> > > > can't force apps to stop running when they shouldn't be running, wh=
-ich
-> > > > can lead to higher power consumption compared to the ChromeOS basel=
-ine.
-> > > >
-> > > > Partial wake locks are built on s2idle, but unfortunately the curre=
-nt
-> > > > power management of virtio drivers does not let us use s2idle. The =
-fact
-> > > > that power management is based around resetting the virtio device m=
-eans
-> > > > that it doesn't work with stateful devices (e.g. virtio-fs). Even f=
-or
-> > > > stateless devices, re-initializing all of the devices takes longer =
-than
-> > > > we would like, especially on lower end hardware.
-> > > >
-> > > > My rough idea for how to address this would be to make the existing
-> > > > virtio power management targeted at S4 specifically (i.e. the freez=
-e
-> > > > device callback). For S0/S1/S3 (i.e. the suspend device callback), =
-this
-> > > > new lighter weight low power state would be used if available -
-> > > > otherwise it would fall back to the existing S4 power management co=
-de.
-> > > >
-> > > > I have a very rough prototype that seems to work, and I haven't see=
-n
-> > > > anything that makes me think this approach is fundamentally unworka=
-ble.
-> > > > That said, I would like to get feedback on the approach earlier rat=
-her
-> > > > than later.
-> > > > ---
-> > > >  content.tex | 26 ++++++++++++++++++++++++++
-> > > >  1 file changed, 26 insertions(+)
-> > > >
-> > > > diff --git a/content.tex b/content.tex
-> > > > index cff548ab9675..01da6f62ef20 100644
-> > > > --- a/content.tex
-> > > > +++ b/content.tex
-> > > > @@ -449,6 +449,28 @@ \section{Exporting Objects}\label{sec:Basic Fa=
-cilities of a Virtio Device / Expo
-> > > >  types. It is RECOMMENDED that devices generate version 4
-> > > >  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
-> > > >
-> > > > +\section{Low Power Mode}\label{sec:Basic Facilities of a Virtio De=
-vice / Low Power Mode}
-> > > > +
-> > > > +A virtio device can be put into a low power state when the
-> > > > +VIRTIO_F_LOW_POWER bit is negotiated. How a driver puts a
-> > > > +device into a low power state is transport specific.
-> > > > +
-> > > > +In general, a virtio device in a low power state should
-> > > > +avoid initating any communication with the driver. However,
-> > > > +certain device-specific functionality is exempt from this
-> > > > +requirement. Such functionality is detailed in the device
-> > > > +type specifications.
-> > > > +
-> > > > +% One example of such functionality would be allowing
-> > > > +% the virtio-net device to wake up the guest to deliver
-> > > > +% incoming network packets.
-> > > > +
-> > > > +While a virtio device is in a low power state, it should
-> > > > +maintain any type specific state in such a way that it is
-> > > > +able to immediately resume functioning upon leaving the low
-> > > > +power state, without the need for any additional
-> > > > +communication with the driver.
-> > > > +
-> > > >  \chapter{General Initialization And Device Operation}\label{sec:Ge=
-neral Initialization And Device Operation}
-> > > >
-> > > >  We start with an overview of device initialization, then expand on=
- the
-> > > > @@ -803,6 +825,10 @@ \chapter{Reserved Feature Bits}\label{sec:Rese=
-rved Feature Bits}
-> > > >    that the driver can reset a queue individually.
-> > > >    See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / =
-Virtqueue Reset}.
-> > > >
-> > > > +  \item[VIRTIO_F_LOW_POWER(41)] This feature indicates
-> > > > +  that the driver can put the device into a low power mode.
-> > > > +  See \ref{sec:Basic Facilities of a Virtio Device / Low Power Mod=
-e}.
-> > > > +
-> > > >  \end{description}
-> > > >
-> > > >  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature=
- Bits}
-> > >
-> > > So what purpose does this flag serve exactly?  I guess transports als=
-o
-> > > provide ways to enumerate supported power states, no?
-> >
-> > This is mostly here to parallel the VIRTIO_F_SR_IOV feature flag.
-> > Generally speaking, it does seem redundant with the transport-specific
-> > enumeration.
-> >
-> > The two potential uses I can think of would be to allow devices to
-> > support transport level power management without supporting virtio
-> > level power management (might apply to existing devices?) and to allow
-> > devices to behave differently if they know that the driver doesn't
-> > support virtio power management. But I don't know how useful these are
-> > in practice.
-> >
-> > -David
->
-> I'm a bit confused by all this. So there are actually two types of PM?
-
-At least in the PCI case, there are two different specifications
-involved (VIRTIO and PCI/PCIe), so I think it's fair to say there are
-two different types of power management. If we want any specific
-behavior when devices are in the "VIRTIO" low power mode, if we don't
-have a feature bit somewhere, then we'd be mandating that feature for
-any virtio device which implements PCI power management.
-
-In particular, I would like to require that VIRTIO low power mode
-preserves state, which is stricter than the PCI/PCIe spec. Reading the
-spec again, keying on No_Soft_Reset =3D 1b might be sufficient, although
-it's not completely clear to me whether No_Soft_Reset is a static
-property of a given device or a property of a specific D3_Hot -> D0
-transition. If it's a static property of the device, then I guess we
-can probably avoid defining a top level feature bit in favor of device
-type feature bits for any device-specific changes that we hash out
-later.
-
-> What does initiating communication involve? Is consuming buffers
-> initiating communication? Sending interrupts?
-
-I think I was coming at defining what low power state means from the
-wrong way. Rather than defining what a device can't do, I think it's
-easier to define what a device must do. How about this definition:
-
-+ A driver MUST not interact with a device in low power mode device
-+ in any way except for to take the device out of low power mode or to
-+ handle wakeup events generated by the device. How wakeup events
-+ are implemented is transport specific, and when a device should
-+ generate wakeup events is device type specific.
-+
-+ A device in low power mode MUST maintain its state such that all driver
-+ visible state after exiting low power mode exactly matches driver visible
-+ state before entering low power mode. A device in low power mode
-+ SHOULD minimize its resource usage, although what steps to take are
-+ specific to a particular device implementation.
-
-This modified definition would let us replace the part about
-"initiating communication" in the PCI changes to just be
-
-+ Wakeup events are implemented as PMEs.
-
--David
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+PiBGcm9tOiB2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZyA8dmlydGlvLWNvbW1l
+bnRAbGlzdHMub2FzaXMtDQo+IG9wZW4ub3JnPiBPbiBCZWhhbGYgT2YgTWljaGFlbCBTLiBUc2ly
+a2luDQo+IFNlbnQ6IEZyaWRheSwgQXByaWwgMTQsIDIwMjMgMjo1NyBBTQ0KIA0KPiBEbyB5b3Ug
+cmVmZXIgdG8gdGhlIHRyaWNrIEphc29uIHByb3Bvc2VkIHdoZXJlIEJBUjAgaXMgbWVtb3J5IGJ1
+dCBvdGhlcndpc2UNCj4gbWF0Y2hlcyBsZWdhY3kgQkFSMCBleGFjdGx5PyBJcyB0aGlzIHlvdXIg
+cHJlZmVycmVkIHNvbHV0aW9uIGF0IHRoaXMgcG9pbnQgdGhlbj8NCg0KV2UgbG9vayBhdCBpdCBh
+Z2Fpbi4NCkFib3ZlIHNvbHV0aW9uIGNhbiB3b3JrIHJlbGlhYmx5IG9ubHkgZm9yIGEgdmVyeSBz
+bWFsbCBudW1iZXIgb2YgUEYgYW5kIHRoYXQgdG9vIHdpdGggdmVyeSBzcGVjaWFsIGhhcmR3YXJl
+IGNpcmN1aXRyeSBkdWUgdG8gdGhlIHJlc2V0IGZsb3cuDQoNClRoZXJlZm9yZSwgZm9yIHZpcnR1
+YWxpemF0aW9uIGJlbG93IGludGVyZmFjZSBpcyBwcmVmZXJyZWQuDQphLiBGb3IgdHJhbnNpdGlv
+bmFsIGRldmljZSBsZWdhY3kgY29uZmlndXJhdGlvbiByZWdpc3RlciB0cmFuc3BvcnQgb3ZlciBB
+USwNCk5vdGlmaWNhdGlvbiB0byB1dGlsaXplIHRyYW5zaXRpb25hbCBkZXZpY2Ugbm90aWZpY2F0
+aW9uIGFyZWEgb2YgdGhlIEJBUi4NCg0KYi4gTm9uIGxlZ2FjeSBpbnRlcmZhY2Ugb2YgdHJhbnNp
+dGlvbmFsIGFuZCBub24tdHJhbnNpdGlvbmFsIFBDSSBkZXZpY2UgdG8gYWNjZXNzIGRpcmVjdCBQ
+Q0kgZGV2aWNlIHdpdGhvdXQgbWVkaWF0aW9uLg0K
 
