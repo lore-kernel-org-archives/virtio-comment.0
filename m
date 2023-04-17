@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5496-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5497-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 251B0C77B70
-	for <virtio-comment@archiver.kernel.org>; Mon, 17 Apr 2023 11:50:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6B3C77B7A
+	for <virtio-comment@archiver.kernel.org>; Mon, 17 Apr 2023 16:13:14 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6E1B968467
-	for <virtio-comment@archiver.kernel.org>; Mon, 17 Apr 2023 11:50:19 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8E8BE42B69
+	for <virtio-comment@archiver.kernel.org>; Mon, 17 Apr 2023 16:13:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 56E5C9863C0
-	for <virtio-comment@archiver.kernel.org>; Mon, 17 Apr 2023 11:50:19 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 709A69863A3
+	for <virtio-comment@archiver.kernel.org>; Mon, 17 Apr 2023 16:13:13 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4352D98632B; Mon, 17 Apr 2023 11:50:19 +0000 (UTC)
+	id 5A4F898634A; Mon, 17 Apr 2023 16:13:13 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,215 +24,119 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 551CC98634A
-	for <virtio-comment@lists.oasis-open.org>; Mon, 17 Apr 2023 11:50:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4879B986353;
+	Mon, 17 Apr 2023 16:13:13 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: USTpt44MPZm39LVRo-AWKg-1
-From: Cornelia Huck <cohuck@redhat.com>
-To: Peter Hilber <peter.hilber@opensynergy.com>,
- virtio-comment@lists.oasis-open.org
-Cc: Peter Hilber <peter.hilber@opensynergy.com>
-In-Reply-To: <20230313041116.126953-1-peter.hilber@opensynergy.com>
-Organization: Red Hat GmbH
-References: <20230313041116.126953-1-peter.hilber@opensynergy.com>
-User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Mon, 17 Apr 2023 13:49:56 +0200
-Message-ID: <87zg76k9sr.fsf@redhat.com>
+Date: Mon, 17 Apr 2023 18:13:04 +0200
+From: Halil Pasic <pasic@linux.ibm.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
+        "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+        "sgarzare@redhat.com" <sgarzare@redhat.com>,
+        "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>,
+        Shahaf Shuler <shahafs@nvidia.com>, Halil Pasic <pasic@linux.ibm.com>
+Message-ID: <20230417181304.147838e3.pasic@linux.ibm.com>
+In-Reply-To: <20230417024402-mutt-send-email-mst@kernel.org>
+References: <20230405010657.612529-1-parav@nvidia.com>
+	<20230405010657.612529-4-parav@nvidia.com>
+	<20230405012723-mutt-send-email-mst@kernel.org>
+	<PH0PR12MB5481C1EC27F79A87218C3767DC909@PH0PR12MB5481.namprd12.prod.outlook.com>
+	<20230405172731.561890b1.pasic@linux.ibm.com>
+	<PH0PR12MB54819AFEDBFEC41CACA0CF92DC909@PH0PR12MB5481.namprd12.prod.outlook.com>
+	<20230407073308-mutt-send-email-mst@kernel.org>
+	<87ile2kdav.fsf@redhat.com>
+	<PH0PR12MB54812C754ED9063E34E06E1BDC9A9@PH0PR12MB5481.namprd12.prod.outlook.com>
+	<20230417051844.70ba47cc.pasic@linux.ibm.com>
+	<20230417024402-mutt-send-email-mst@kernel.org>
+Organization: IBM
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Subject: Re: [virtio-comment] [RFC PATCH] virtio-rtc: Add device specification.
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: hoC3ghuKAVizmyNEm9gPXr6kKI_VV9Mw
+X-Proofpoint-GUID: jvVd0TXpn9PfOqEHubwCZ7BWLOmXq4B7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-17_10,2023-04-17_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 clxscore=1015 impostorscore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ mlxlogscore=999 mlxscore=0 adultscore=0 suspectscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2304170145
+Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] RE: [virtio-dev] RE: [PATCH
+ v12 03/10] content: Rename confusing queue_notify_data and vqn names
 
-On Mon, Mar 13 2023, Peter Hilber <peter.hilber@opensynergy.com> wrote:
+On Mon, 17 Apr 2023 03:04:34 -0400
+"Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-> This is a partial draft for a Real-Time Clock (RTC) device. The
-> virtio-rtc device provides information about current time through one or
-> more clocks.
->
-> It is planned to add a timer/alarm feature as part of a draft spec
-> update.
->
-> The draft uses the "Timer/Clock" device id which is already part of the
-> specification. This device id was registered a long time ago and should
-> be unused according to the author's information. The name "RTC" was
-> determined to be the best for a device which focuses on current time,
-> but is up to discussion.
->
-> For this device, there is a prototypical Linux kernel driver for which
-> upstreaming is planned, and a proprietary device implementation.
->
-> In the spec text, there is some redundancy between the informative and
-> the normative text. The intent is that the informative text already
-> gives all the essential information about the device.
->
-> In the spec, clock ids are 64 bit wide to have unique ids when
-> supporting clock hot-plugging in the future.
->
-> Any feedback is appreciated very much.
->
-> Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
-> ---
->  conformance.tex                         |   2 +
->  content.tex                             |   3 +-
->  device-types/rtc/description.tex        | 523 ++++++++++++++++++++++++
->  device-types/rtc/device-conformance.tex |  10 +
->  device-types/rtc/driver-conformance.tex |   9 +
->  5 files changed, 546 insertions(+), 1 deletion(-)
->  create mode 100644 device-types/rtc/description.tex
->  create mode 100644 device-types/rtc/device-conformance.tex
->  create mode 100644 device-types/rtc/driver-conformance.tex
+> On Mon, Apr 17, 2023 at 05:18:44AM +0200, Halil Pasic wrote:
+> > On Tue, 11 Apr 2023 13:35:09 +0000
+> > Parav Pandit <parav@nvidia.com> wrote:
+> >   
+> > > > From: Cornelia Huck <cohuck@redhat.com>
+> > > > Sent: Tuesday, April 11, 2023 4:56 AM    
+> > >   
+> > > > 
+> > > > Yes, please leave it as F_CONFIG_DATA, as we're just putting some "data"
+> > > > there in the end (and F_CONFIG_COOKIE might indeed be confusing for the
+> > > > ccw case.)    
+> > > 
+> > > Since Halil didn't respond for 5+ days + Michel and you propose to continue use CONFIG_DATA and this is rare used field, I will rename 
+> > >   
+> > 
+> > Sorry, this one has fallen through the cracks.  
+> 
+> Well this whole patchset is just a cleanup so it's not holding up other
+> work at least. But I have to say it's difficult to make progress when
+> someone comes back from outer space after more than a week of silence
+> while others finished a discussion and reopens it with some new
+> feedback.
 
-(...)
+Sorry, this was after 6 days. I didn't know that qualifies
+as 'outer space'. As pointed out below, I was monitoring the preceding
+discussion, and since the way things went was and is acceptable for
+me, I didn't want to muddy the waters any further.
 
-> +VIRTIO_RTC_S_INVAL indicates that
-> +
-> +\begin{itemize}
-> +\item the driver request values are not allowed by the specification or
+The issue I ended up addressing got introduced in very last email, which
+pre-announced the next version.
 
-Do we need to specify that, as such a driver would be non-conforming
-anyway?
+My first intention was to explain myself, and apologize, after being
+called out.
 
-> +\item the device read-only part of the message, or device write-only
-> +	part of the message, is too small.
-> +\end{itemize}
-> +
-> +VIRTIO_RTC_S_DEVERR indicates that the device encountered an error while
-> +executing the request, which could not be attributed to invalid input
-> +from the driver.
+But then, also looking by looking at v13 I realized that
+there might have been a slip up because F_NOTIF_CONFIG_DATA got shortened to
+F_CONFIG_DATA in the discussion, which is no big deal for the discussion
+itself, but may have leaked in the v13 proposal. Parav has sent out the
+announced next version after about 8 hours. And if it weren't for my
+hypothesis why we ended up with the proposed name vq_config_data, the
+right place to discuss further would have been v13.
 
-Is there any way for the driver to find out whether the request has
-partially been executed, and whether it should retry?
+In hindsight, I see, replying to the v12 thread wasn't a good move.
 
-> +
-> +All \field{reserved} fields are written as zero, and their value is
-> +ignored.
-> +
-> +The set of clocks does not change after feature negotiation completion,
-> +until device reset. The set of clocks should not change on device reset
-> +either (similar to negotiated features). Clock identifiers are
-> +zero-based, dense indices. All fields named \field{clock_id} contain
-> +clock identifiers.
-> +
-> +\devicenormative{\subsubsection}{Device Operation}{Device Types / RTC Device / Device Operation}
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_OK if the device successfully
-> +executed the request.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_UNSUPP if the device could not
-> +execute the specific request due to an implementation limitation.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_UNSUPP for a request with a value
-> +of the \field{message_type} field which is neither described in this
-> +specification nor otherwise known to the implementation.
+[..]
 
-Should any such implementation limitations be guarded via feature bits?
-I.e. can we drop _UNSUPP if we require features to be negotiated (and
-per-clock capabilites being clearly communicated)?
+> 
+> I also feel high latency is one of the reasons people are beginning to
+> ask to split into subcommitees where they won't have to deal with this
+> kind of thing. 
+> 
 
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_UNSUPP for a request with a value
-> +of the \field{hw_counter} field which is neither described in this
-> +specification nor otherwise known to the implementation.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_NODEV if the \field{clock_id} field
-> +value supplied with the message request does not identify a clock.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_INVAL if the request values are not
-> +allowed by the specification and none of the previous requirements in
-> +this document stipulated another \field{status}.
+I tend to agree. 
 
-I think we can drop this (see above).
+> Let's try to keep the latency low, please.
 
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_INVAL if the device read-only part
-> +of the message is too small.
+Believe me, it is not like I'm actively trying to introduce extra
+latency.
 
-(...)
+Regards,
+Halil
 
-> +\item[VIRTIO_RTC_M_CLOCK_CAP] discovers the capabilities of the clock
-> +identified by the \field{clock_id} field.
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_RTC_M_CLOCK_CAP 0x1001 /* message type */
-> +
-> +struct virtio_rtc_req_clock_cap {
-> +	struct virtio_rtc_req_head head;
-> +	__u8 reserved[4];
-> +	__le64 clock_id;
-> +};
-> +
-> +struct virtio_rtc_resp_clock_cap {
-> +	struct virtio_rtc_resp_head head;
-> +	__le16 type;
-> +	__u8 reserved[10];
-> +};
-> +\end{lstlisting}
-> +
-> +The \field{type} field identifies the clock type. A device provides
-> +zero or more clocks for a clock type. The following clock types are
-> +defined:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_RTC_CLOCK_UTC 0
-> +#define VIRTIO_RTC_CLOCK_TAI 1
-> +#define VIRTIO_RTC_CLOCK_MONO 2
-> +\end{lstlisting}
-> +
-> +VIRTIO_RTC_CLOCK_UTC uses the UTC (Coordinated Universal Time) time
-> +standard. The device uses the time epoch of January 1, 1970, 00:00
-> +UTC. This is the same epoch as \emph{Unix time}.
-> +
-> +VIRTIO_RTC_CLOCK_TAI uses the TAI (International Atomic Time) time
-> +standard. The device uses the time epoch of January 1, 1970, 00:00
-> +TAI.
-> +
-> +VIRTIO_RTC_CLOCK_MONO uses monotonic physical time (SI seconds
-> +subdivisions) since some unspecified epoch. The VIRTIO_RTC_CLOCK_MONO
-> +epoch is before or during device reset.
-> +
-> +Additional clock types may be standardized in the future.
-> +Implementation-specific clock type definitions are not recommended and
-> +use a clock type id greater than or equal to 0xF000.
-
-Could this command return capabilities in addition to the type?
-E.g. indicate whether a clock supports cross-timestamping?
-
-> +
-> +\end{description}
-
-(...)
-
-> +\drivernormative{\paragraph}{readq Operation}{Device Types / RTC Device / Device Operation / readq Operation}
-> +
-> +The driver MUST put the request into the device-readable part of the
-> +readq message.
-> +
-> +The driver MUST allocate enough space for the response in the
-> +device-writable part of the readq message.
-> +
-> +If VIRTIO_RTC_F_READ_CROSS was not negotiated, the driver MUST NOT send
-> +the VIRTIO_RTC_M_READ_CROSS message.
-
-There seems to be some dislike for doubly-negated statements, what
-about:
-
-"The driver MUST negotiate VIRTIO_RTC_F_READ_CROSS before sending a
-VIRTIO_RTC_M_READ_CROSS message."
-
-(...)
-
-Generally, looks reasonable to me, but I'm not that familiar with clocks
-and would appreciate if someone else took a look as well.
-
+> > For
+> > the preceding ones: I do not have a strong opinion. I do
+> > share Michael's and Connie's assessment regarding a possible
+> > clash with CCW.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
