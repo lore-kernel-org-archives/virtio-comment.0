@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5566-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5567-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D0BC77B75
-	for <virtio-comment@archiver.kernel.org>; Fri, 21 Apr 2023 05:37:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34126C7618E
+	for <virtio-comment@archiver.kernel.org>; Fri, 21 Apr 2023 05:43:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C74DD2AED1
-	for <virtio-comment@archiver.kernel.org>; Fri, 21 Apr 2023 05:37:40 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7E5441FF63
+	for <virtio-comment@archiver.kernel.org>; Fri, 21 Apr 2023 05:43:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A468F986644
-	for <virtio-comment@archiver.kernel.org>; Fri, 21 Apr 2023 05:37:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 58E2C986636
+	for <virtio-comment@archiver.kernel.org>; Fri, 21 Apr 2023 05:43:48 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8323A986636; Fri, 21 Apr 2023 05:37:40 +0000 (UTC)
+	id 4771F983FEB; Fri, 21 Apr 2023 05:43:48 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6A8AD986637
-	for <virtio-comment@lists.oasis-open.org>; Fri, 21 Apr 2023 05:37:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 32E2E986637
+	for <virtio-comment@lists.oasis-open.org>; Fri, 21 Apr 2023 05:43:48 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 2SXAFIo5OIyuOqTh4T4p5w-1
+X-MC-Unique: l8q_3_H5N7u3qs6GS1JR7w-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682055456; x=1684647456;
+        d=1e100.net; s=20221208; t=1682055825; x=1684647825;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Rvj/tPDnWqWkpGKU+ZIAoggJv+IOb9ucBH1F/a6Fy4Q=;
-        b=Cd11rCeWgzI7lL9ziA13bCs/xlhKdUHTCgdisvfuYomUFPqD62uBzTF500GWtwFbx1
-         z7Ac6tnD9xihCgMb9oE1mPiiltGeHdarYJ5Jwfu/zyqzNwhTKlmxv8iZdjlQZ4Dg3cgK
-         YiS8xLune/MOUknpan0sa7KYVRuguWE33f6HgsSw5wZu2cU1pxKHRYDJefncHSeRDdWd
-         yi65dHws65K1dB5jhq++cLdKpcLcpJvsJzDn/qgZsV60LGUlm8cdsU95cup+vvoL5Nza
-         S6jvFO1oQvuvQygePnT3wxha9WUWw5HJsEdtxhiFtvzpINJiyFDr8+fxNoFb+4mEQkQp
-         ztcQ==
-X-Gm-Message-State: AAQBX9c9jZvzTA85IBIo0sqBrFgRsukK3cIgvDz3V+QJYQfnEL9j5BB0
-	VBjog+Ou8Jf3n72YKIjbCaWXT6PoLbr4+w0cBIN2c2c8iDmhz32Gylbj6ntOisgM5tay6s0pkLT
-	2Zs4RXtEMct7cifB8dQvZBVWCo/jv+kcGIA==
-X-Received: by 2002:a7b:cb8a:0:b0:3ee:1acd:b039 with SMTP id m10-20020a7bcb8a000000b003ee1acdb039mr809212wmi.34.1682055456755;
-        Thu, 20 Apr 2023 22:37:36 -0700 (PDT)
-X-Google-Smtp-Source: AKy350buTzx0O1X98KYm7vSu5ry1DUtKYa1L9y34HsuwHRZXkoXJBz76mKRgqRh9INZM4LcAB2Y1lA==
-X-Received: by 2002:a7b:cb8a:0:b0:3ee:1acd:b039 with SMTP id m10-20020a7bcb8a000000b003ee1acdb039mr809203wmi.34.1682055456499;
-        Thu, 20 Apr 2023 22:37:36 -0700 (PDT)
-Date: Fri, 21 Apr 2023 01:37:32 -0400
+        bh=z3pbInikhMeZSfdaxQvw+Ul7ae3bI6PoC4SdBdK79ac=;
+        b=fB+75MRUFXXBPjwQm5/uDzymzTKjpw3MXOpk6Odbr9XHZ8Uz1Dz1BsWBV3p9xKqguF
+         b6/J14l+hYh6JEHMEvOppKFIOtCsBMqcu0/ZrVjMKdUez49NyxO/WpUMe7kuc9JgAg7d
+         epCkThS4QNjc8GOBpI/IJuqoI2DoshxreBmm2xl8B+C3+5ASDodg7PyoQh2NvgXAZIwE
+         a8nSFaCJK0NY+mNyVbCnDPzf3vOh6NvXR7wZ8nvKxF9Go6zgnCPlDHmSoDnH45M96Fqs
+         afNp2gthzvDIpX05FNSSFDwkP8nrF3gfK0vVL0XxFArRv3xMgHdMZthmAGHrs1HXXQ6k
+         02zg==
+X-Gm-Message-State: AAQBX9dQC8R2ALTHIzgQBywvS8rvlxLjJOeWs+ukrn3XNzxICVFrWLEQ
+	toHTsC1EYgUgXiy+mnhiRtcAuCadDq3hwz4VUiUP3kDonkHeLeFdi9FD/JmCXNxO+UGc1b+tmor
+	2uIZK/wWDrIDEUL9FuL2TsrsrnX1jdtOdPA==
+X-Received: by 2002:a05:600c:24cd:b0:3f1:73ce:e1dd with SMTP id 13-20020a05600c24cd00b003f173cee1ddmr800192wmu.10.1682055824990;
+        Thu, 20 Apr 2023 22:43:44 -0700 (PDT)
+X-Google-Smtp-Source: AKy350aC/Tux1oNoEUaqWQomhRYVtHmmHvuxCO8tIa7cU6+5R5lKcV6tUFW5bkywUeQN4SPMdvYoWA==
+X-Received: by 2002:a05:600c:24cd:b0:3f1:73ce:e1dd with SMTP id 13-20020a05600c24cd00b003f173cee1ddmr800187wmu.10.1682055824682;
+        Thu, 20 Apr 2023 22:43:44 -0700 (PDT)
+Date: Fri, 21 Apr 2023 01:43:40 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
@@ -57,7 +57,7 @@ Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	Shahaf Shuler <shahafs@nvidia.com>,
 	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <20230421013005-mutt-send-email-mst@kernel.org>
+Message-ID: <20230421014212-mutt-send-email-mst@kernel.org>
 References: <20230420195158.69737-1-parav@nvidia.com>
  <20230420195158.69737-2-parav@nvidia.com>
  <20230420163800-mutt-send-email-mst@kernel.org>
@@ -85,7 +85,9 @@ On Thu, Apr 20, 2023 at 08:51:57PM +0000, Parav Pandit wrote:
 > > Urm not exactly. there is also a special value of 0xffff.
 > > I feel this here is just a high level description.
 > It is high-level description. 0xffff is already covered elsewhere in the doc.
-> 
+
+So make it as brief as possible then.
+
 > > how about
 > > 	Used by the driver to set the MSI-X vector for Configuration change
 > > notification interrupts.
@@ -97,16 +99,7 @@ On Thu, Apr 20, 2023 at 08:51:57PM +0000, Parav Pandit wrote:
 > 
 > The driver writes the MSI-X table vector in this field for Configuration change notification interrupts.
 > It uses a single verb instead two = "used" and "set".
-
-well it's just "the MSI-X vector". not "table vector".
-and personally I'd like something less verbose. yes Configuration isn't
-really clear. and I dislike saying "this field" or "here" - it feels
-repetetive ...
-
-
-       Set by the driver to the MSI-X Vector for Configuration change notifications.
-
-?
+> 
 
 
 This publicly archived list offers a means to provide input to the
