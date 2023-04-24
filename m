@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5615-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5616-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1D3C7618E
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 22:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D357BC77B76
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 22:09:02 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 516CD157F14
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 22:07:23 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3A0052A8DB
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 22:09:02 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 49A5698643D
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 22:07:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 319B098642D
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 22:09:02 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 40F569863AC; Mon, 24 Apr 2023 22:07:23 +0000 (UTC)
+	id 25ABD9863AC; Mon, 24 Apr 2023 22:09:02 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,23 +24,23 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2F65A9863A5;
-	Mon, 24 Apr 2023 22:07:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 12D559863A5;
+	Mon, 24 Apr 2023 22:08:53 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L7vVJ8hiBr2QcrhngaCHqtFcIC1G4S+pknOyfAQL7IlhivPaMa/5rK0MKIrxaZbvBcn7Z4/wx5aZBEfy56WwBm6nvE179McsdC3xm/3jrCfDOsVdxL3cb3Bh+EIK9C1arhMegKfpwSRCO1bAwuRintfvPW8gw0uOp+IMJvvZxNdoXp3y+gw14cV4m2/WngQw7SlJ0HNgRIkn+rLBRJV70t1ZseJw79nbkKD16MzGjuK0fDqQKFhSJ2uk6p3EtNfFS+6u4Z0W5Skxk/ipR4qSms2HePYbTTib8rNennhPUWRgUYGUrEwuMEajIp72yPEs595jxq120xPMzCO3PU0vzg==
+ b=n9rNGNedHo+ZZJCZC5yIE5Wunj8EJq2mhK5lWjmHYAUNC9NobGTUErAVlaXKkE42gg4vG2BGYkz6Zy0Yncq1IEeT0QVjyfaOTey7jQug3UXRwBBIih1R5Q0WtkJ+dahNC7ybrdubPUpYyb+F+puTK2Z/Yy5Zw/4qxm1VpL/bga/xQ1i9qxS7ZBZbGqfeFbf+GRmduxq1xR8pEP78qQXQv0JRHjAtVe6WV6zs3xoYFaz7dHV4OE8k27oNYI1ccePjmSvfYsnf+nPvDOkDO8GW/Sd71SDUn7F5fx/Krz6ITUujZ35qaILNhsAbvq/olVeeTQEazsds907Bp3cud8S0eQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0fZ1WvA63hIY5rOj4YHOoCgW80N1U5Kl44c3Hmentvg=;
- b=mBFS0+818PE+SMaiYFk8zGSbe0pH6VEKS85j1QG5IwXtlMOvKokEzqWTGbY9U7krwjX7pXF2w4bbgpsV7IHAGVvTSFq4dusyJV5OpUwMdDUahhO/UNhRmiPAXXy1xcaWqu7r3v9YBKx04LUn0mHleXtltihMdKawM4tULhpnUXYG7QxwuFuBF8P4gYHMRm1eYEyKt1uqCT6aNmelPuppBJMz091buOwsYGOKfYZwyAxMb+2LZLjR7ZQRAabCblaHXzvIkcaE3rQPnjrHfKn0QUgVVq6kh8FKdiD+L88ubYQuUin5k9EI06DAODIdMie8UMbwSEmoUr7h2Q/DZTL6dQ==
+ bh=eX+0r4+zdsLpanGxwkxDwcCnHBLm040beMifk20RLCo=;
+ b=MjMnPFjoFsXatGli2g+p/75m27PHTHDhYKpSzTWx8ee/TeDtI1xPWYmvDlODKFKq1gsWYoOZL+0SRWyVNOhtGY0sNyg6kY0ywkxAYUQ66nNrANHa6sq02gzAM7W1Pg71a4izlkkKxMsBGIivAdy/PTbIOwUB8xXqeVuy2J2TJTCLktLs5DORy30LjUl8eNAptml65VbuEKn8Dni1LAMVP+3THq+eX1Z5pZsnLQZc+OvAmLnJwk31/2AQfWGqWbr45DlsP2si66RwO+aqW3Tps1VjCcPEV2dDk6sWdEzcIUpYOrefpu+0oM9JgO7WEW+OFeWiDet68NbERDCADYkptg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Message-ID: <e9256f17-f9ab-de6d-0377-d9fc210a7cc0@nvidia.com>
-Date: Mon, 24 Apr 2023 18:07:12 -0400
+Message-ID: <66eb18c8-506b-b5a2-69a4-7cfaf7ae702e@nvidia.com>
+Date: Tue, 25 Apr 2023 01:08:39 +0300
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-US
@@ -51,285 +51,128 @@ To: "Michael S. Tsirkin" <mst@redhat.com>,
  hang.yuan@intel.com
 Cc: virtio@lists.oasis-open.org, Jiri Pirko <jiri@nvidia.com>,
  Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
- Shahaf Shuler <shahafs@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>
+ Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
 References: <cover.1682354275.git.mst@redhat.com>
- <79c27bca6f72e4ea5d1d0e3a6b1a54369b03fb30.1682354275.git.mst@redhat.com>
-From: Parav Pandit <parav@nvidia.com>
-In-Reply-To: <79c27bca6f72e4ea5d1d0e3a6b1a54369b03fb30.1682354275.git.mst@redhat.com>
+ <a67ae1170d9535a98862d01825b2662180d77d82.1682354275.git.mst@redhat.com>
+From: Max Gurtovoy <mgurtovoy@nvidia.com>
+In-Reply-To: <a67ae1170d9535a98862d01825b2662180d77d82.1682354275.git.mst@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DM6PR03CA0002.namprd03.prod.outlook.com
- (2603:10b6:5:40::15) To PH0PR12MB5481.namprd12.prod.outlook.com
- (2603:10b6:510:d4::15)
+X-ClientProxiedBy: ZR0P278CA0182.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:44::15) To DM4PR12MB5040.namprd12.prod.outlook.com
+ (2603:10b6:5:38b::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5481:EE_|DM4PR12MB5136:EE_
-X-MS-Office365-Filtering-Correlation-Id: f007e15a-da12-46e7-8b8f-08db45104407
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5040:EE_|DM4PR12MB5842:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7aeda4f-94a1-48e0-875d-08db45107b51
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	iv2lw+mu18PcJIJGwXiBzvdZIwaRLOdIwDKs8KygYLh0cMyp70bLHZH4KOjuF/fUFl4HfudqxEZn5NoNcXIj0Ua/N/Iw7NwMHiTsHfwudAhCwyHCdpRXZnP5oxGP01dwTnSqYpr0sAQNL5RKTr/k2eTNdn3BZcRWZmyPTYJs2M4BETull8P9n6/wXKgKeb0Fe0zAsYL1tzOAt2GYVJDO6wDYGde8M0xepVtO0txv8qG6E65o9sqzfrMqjTKmz5cOWmtnxfeaqn/2sBZfGSHzxpW0EWDQjt4cuLoxIlz2JXdOjYZKrIqSO4VBRK5PBPMljdCD2czeaIJAYIkM45PcTnsk+T2AcytNlqtUNU3KOH1NvrqPkggwNg8VBo5Z1LJsMIxPKWBPk0BLygfM8Qwlm8h9lGkhCd5/iH2qy8CLyJb/K5rD1vyZwxYYxoiUDzAbh2BV8dXihaEhp5+S3L3BJzYkKmzspRmRwbCJigvnZyNbAkPFwjghFngsj+PsW8VetaTj9LLHbh9vHu8jzmpNKKYipyT4zGRIxxpACBUNcOlf8+gJQfQt+ljDqAXHu/1eTrGDvk2hlPy0t/opE3rXIwGCRdQgA4kTftKt6uJtgGBPu75ohnBOwgo/Z/5Qtv/5Otd4QCLBLE+D8jIiEiP5eLzw2mJEfqUwbEEviYTedOSIS6nDVmX3doEQAF5N9FOeu5+kge1EvWs3xUhlSoFGSI1hJ/jkd2sD+zwhiig3UuPGJ8h2ND43yMdOyjMynehk
+	ZcoTiAK6w2Nmt0XD2Jn4tveqzcwa2rB5TcpEUBwIUYpEG6ydNg2RIYa5BTa+6fIK4qL87Q30fGVKu+1w3tqI38MsVZS/z5ya5nKGuIM4EKQVpa+BZ2Cg/jnDFyvDjfSRQqe5QweSCLUqSGXbyPfYch26G8MLLdt0H48i0Zv09e6h8MIhQYSgqa7GcDrjpwaiyI/ctg5gckFjsCLkXzJH7lQmGd1b8/J2y0fcAOdjyok9LJZiPT3gmeJ7PHnIb2qqEjTp47DKnAKfO3JwRZ9GjF8RK1hWCLVW9zET1lxKbNM8ERyijygKtgpqb7c7fX0xjg5h5H/oiX0JJ5AybZvxWCxsZYHDOETovJ8gDh3k9jk3CSjj4M4pIu3MlKihoXOKdgdabVR7OKukCCwxrqzpEJD7D2uZu/tOZlSELMHopN8PWGlyNJRE7SOytdPh84Pam73ozBZtYFIEwwITfK70CL7/15DAnp4XaoB9fpzT0+OF2iCTMOo0pArh+3YY/NSEpjHAdmPaLl4+hqJo5iYfY6UGojrZjDARiBAGWtOKXVN/wpgQHpMNilxn4sQ4u80NRzALjh0SyrHr5qMtET2YKlar/Vk4iQDkZyPmQOZtX7IyMEgyoCHkVftW7HaaHnU/nn1NZDJEqHiNgyscv32fd76zeP4EL8rrA9s5jlktSQ8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(366004)(136003)(346002)(39860400002)(451199021)(2906002)(6486002)(107886003)(2616005)(6512007)(6506007)(6666004)(186003)(53546011)(26005)(66946007)(66556008)(66476007)(8676002)(8936002)(41300700001)(4326008)(316002)(478600001)(7416002)(5660300002)(54906003)(921005)(38100700002)(36756003)(86362001)(31696002)(83380400001)(31686004)(66899021)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5040.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(376002)(346002)(366004)(136003)(451199021)(38100700002)(921005)(6506007)(6512007)(53546011)(26005)(2616005)(186003)(8936002)(83380400001)(107886003)(7416002)(2906002)(8676002)(5660300002)(36756003)(478600001)(54906003)(6486002)(316002)(6666004)(4326008)(66556008)(41300700001)(31696002)(66946007)(86362001)(66476007)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TkdDVnh2d0VEME5aUU9hazRVV1FJaDY4Z1UrRzhodGNldlR1Z2ZidEZrdkpL?=
- =?utf-8?B?ZDdhQnNyWEtvZVJBTzhKSStxUjNsK1lvUUNmTUZ5cXo3a1MzTmhudEFmTlNO?=
- =?utf-8?B?VUFMQTMxendUTy84SDVsdVpXM3pEdnRTdzlSSnQ4R2FOVGV0MnhQTEd1Wkow?=
- =?utf-8?B?U3BIQVg3SFBpKzdiNGV0cWFLNDBqaXJJN3l0UGZydHpiVzRPcGtEOEFvNkc2?=
- =?utf-8?B?eXd5WEVicy9YTE1BL25BUlBaM0Q4VFowWTdNQjF0ODNuUXNadHFFWWhKMm9a?=
- =?utf-8?B?ODJPYjBOMXEybFVNcWdaeW0zSHBpVmVSYjZhM3IrRWRhTVZwZWF3cjQ4YVN2?=
- =?utf-8?B?TElSdkRyODV3OVNyeSs5OElmSE5waGFhcmNkamxXbmc2dUViUHJzOXYyUmVN?=
- =?utf-8?B?NlY0WXRSbmdRU05kTkVhekF0dlRYdFJMMjI5TFc0ZkxBbnBvOUNTYUlZUnJM?=
- =?utf-8?B?VUlpaDlmano5S3JzWUwrdmxvdmIvc3daL29PRGsyTCtBYzVjV2MwdDRhT0Fk?=
- =?utf-8?B?dHNFMUxZODJwV3psSVdscWRLbVhpOWMyN0t3ZXErelY4MGN4RDdjbHhlRkZC?=
- =?utf-8?B?WTkrbWx4U0hFanFVbUZlRlhuVWNnOFI5UTNnMk1maGthNzRIZmt5WktDdHE2?=
- =?utf-8?B?NDA2SmdkVjVhQTUwNHkwd1dkaEdCZXVQSlhkalJYWDltQS8vZVNNNXNvWm5S?=
- =?utf-8?B?TUVQcndsMnFmQXJOSXB3UmJkUW9kbTJ4V2NPaXVlTVQyc1Z1MTZuOG5FOFlR?=
- =?utf-8?B?NDlhRjR4dFdnMGplZnFVcmRZeGwzLzRMZ3oxbDRONEowRVdwUXZPRUE0QXl0?=
- =?utf-8?B?b20xdzZYNHBxdTNjMm5xSjJiL2JrVTNHWThyRm50aUtKWlBBOEgvNk90YW9i?=
- =?utf-8?B?bnh1ZDJTSjVvNmd6K3FxQnc4U1lPSUJpcURIWkRJTlZXblRGbitxbEZmKzVh?=
- =?utf-8?B?RWhiWEJNYi9uRWtGUnJPRVB0NStDS2JMdkU1bWtJb3VCK25IbVBiMi92bUFK?=
- =?utf-8?B?dXJhb0J4eGZlNFJNRzZxM0JZTUVhK2M4TVJmeFVlM3hMdDdLelNIeWFtMGU1?=
- =?utf-8?B?MmViSE9VVldQa3NEODlLY1ZicGxoS0JmdTJNRE0zQjE3RCszdWRhYjlYUDVC?=
- =?utf-8?B?MDFYVkZSRUhKRzFSWFhiSEZ3SFg3dkVJS0tMYkJLYmhrdG04Zzc0MGFvUmRF?=
- =?utf-8?B?aEowck51NlJTMDBWRll2K0lqS1RYZ0tXWWJBZ1ptOWhTREtJZjlmT3pWVytK?=
- =?utf-8?B?bnI4cmZqK3V2WmV1VW9PZ25ZL2ltblM0b04yL1ZScDk1em1QTzdyS1ZaZUQw?=
- =?utf-8?B?THFnQ05USzRTVG5lcjNpeTZCWGlsWFJTL2hJZk5GSkRNTFp6SjdDUkJFUzhB?=
- =?utf-8?B?RTNvTzkrdUpZZGVYNXc5VmJibHZTUkZkWHJJMzlpdm5SOTFPWXA5cEtVeW9U?=
- =?utf-8?B?a3p6dUErN0pCcmFhNmdsQkFWaGdCUjZWSVR3d2NVaFcrS2lHMlg4MU13a1hN?=
- =?utf-8?B?M0pnUzVCR0RjMjZyKzhqUW0yaXBRa3hwLzQ0MDRUUXlIT25GUUNCSUpQNjFX?=
- =?utf-8?B?Y3ZOdEpESFZHRDFIY2cwQlJrK3BucVpvanhSZmpxc25KTis5OHN2cm9UbXJ3?=
- =?utf-8?B?aGxNTFVIdFpGTWtKL0d5WXg2clhLTXVyd2JTNXZ5MHY5dG1ENmNuUDJ3UXFa?=
- =?utf-8?B?N2w4SVVlcSthQlF1c1Q5RzkzdkhLN3dwVEZGc1JML0NKeVhGZjZ0NTNEYzU4?=
- =?utf-8?B?NlFpMmtldHI1Y0d6KzQ2clRNU1ZyMGlBV0hkTkxtWU5VNzZVd2NsT1B2NDRO?=
- =?utf-8?B?OFMveENKMm9RM1pyZTg5RUlNM2lFMDd3SmM2M0c0bk5Felp4bG9PTWkrZkpw?=
- =?utf-8?B?YWVmSVJTQTFLaTRoY3BFMFBtVUFNak1lTFRsSzIwZU1WVlBHY2ZvaFc2OGp2?=
- =?utf-8?B?NlVHUFJndUhJd0JGVVZkdHMxYmp0Q0NSa012Z1U2a24xREdmSUVUeVY4QWNP?=
- =?utf-8?B?Ly94Zkg4d3RVUkhlSHhZbVJCUHMzZFIxSENudlh0c3UzTEkzUzBCalpVVmpz?=
- =?utf-8?B?cExvdHVrRzhROXluMGtkNHNaeE8yUHhGTkhXTVNWVWI5SUFPNTBOYzhxYk5x?=
- =?utf-8?Q?8uBXpyjNQXnoG9h0El6uoLCRY?=
+	=?utf-8?B?NlYveUNZVXdJVkxpVUJNclcySjBUT3RZendIODNkSGxxbUJBTVJPYW1qdjRr?=
+ =?utf-8?B?SDNXWVRENWE1NU8xczUwdy81U3BrNkh0STh6YkpzOHdyYUlRaEhUWVgweldh?=
+ =?utf-8?B?NmNjY2Uxeng1T1BQazV0MnNpUTdVK0M1SDhTdDFSUVNUMWwzTjdMU1FRejhM?=
+ =?utf-8?B?b0xyREVXWSs5TkhFam4vdVVOS3ZqYzlwbVMwbHRZUWh3ZmpBejFXTDFiM3Fm?=
+ =?utf-8?B?QkNwbHRpNE1KdlRqTS82OUg0cWxkM0Qyd3BSQUtrUnBWNVdMTTRiQ2JuK0ZQ?=
+ =?utf-8?B?UkhrOFk0S3FwQkw1eGJmN3dXMmhzZWpjM1lrbjk4QkRtNnpkNkRLM05Pb1RT?=
+ =?utf-8?B?UW5VcENJVUZiekk1dVlSZ2dWNXlxQ0RadXgweFpzdlFxcFgweEpMRGFBd3BB?=
+ =?utf-8?B?S3FwbG50VkxuM1F1eW9XSnVZNUg1RW9SMmVvRmNVZ0xiTDZEalBIcWNpYWVJ?=
+ =?utf-8?B?V0lNT0FuSjQ1S1VVNkNBWDFZKzlKaUUxaWVEZ2VCRUVFU29jQzlDK2Q3REhO?=
+ =?utf-8?B?ZVdvbzV0Nm8zTjJuckU3R204SHlZd3ZaWnlLcnFHNklkMmtXZVRva0p1UmJQ?=
+ =?utf-8?B?dFBSTWVVNEJvUmtQVFptWjJoWHU5THV0a09kZHFqN0tyMFZyZ25VNEUxK205?=
+ =?utf-8?B?UjFad2NQUG44SzF6bzdGdmNGczdzNnFJQWZHMnNlR3BIQk1sdEtOUzN2V0Ra?=
+ =?utf-8?B?TlpDZWVGdmJGQXpoN0JVSmJZSzUwSVJTamxvazRKQlEyK1dnbXFNdFRKTEFF?=
+ =?utf-8?B?TWdNQ2U4czZvV3hwUUdmcnM0dWlId3dxOVlTUVRad05YNmZUeDlxVHkvaWRG?=
+ =?utf-8?B?bXRBVEoxMi9VdlFpWWh3aitlZnhMLzVnSWdycy8rV3lSajdvUFc0cytaaWJL?=
+ =?utf-8?B?TU5xblN1LytidFF5dXNxUnVGaFFwd2FhOXJvdzlXa3ROYW8wSFkyaHJBRXc3?=
+ =?utf-8?B?Q0lHeUZweEFwRlpVTWJqSUZMblhUYnlFN3ZTckQ2WlFldFVNakxVS3BySFFK?=
+ =?utf-8?B?TDI5SVhyUDhKb1Z2VGpKQXhsUzFGczdNaTlNTXhKS2owd1pWdFVqMFVwU3p3?=
+ =?utf-8?B?dTlYMStGVnFGWGZ6SWo3b1VJWU9wUVc0c215bS8yVmdkVW5FRFZacTYwYUdW?=
+ =?utf-8?B?bTN4T0R4WlFVZ05UR0R0amFuNXowbmgrNjQ3V3pxOVRxWi9SbWhUYUdlY2w5?=
+ =?utf-8?B?MTkzRGFMQ2phdmxYUUV3c09sb1BVRU14OHN0SUpnOEk0ZUFrSi9LRjZtVjdW?=
+ =?utf-8?B?QWd3WVlHWVNZcHBPYXRSN3pVOUx0VmNIOCtUdVUya0I0Wm5zOXNWTHhnZHlV?=
+ =?utf-8?B?WXcxZDdvaDREVFJ3cms3Tnl0K1BYanpWblptckMveSs2VXZ3YzdDWmplS0FT?=
+ =?utf-8?B?dGxEbVg3anBZU0VENUM4WEpGQnlNNTllTzJCWmpON3liWkZDR2FsdnB5b2xl?=
+ =?utf-8?B?VkY2c2puWjY2NkRianJ2WE9GUHp6a1E0K2VtYVVHMmlQRUhWaWV5VkhTWDNP?=
+ =?utf-8?B?ajVhYlNDVHBXK1A5WG9jM3JHUUR3VkxiLzg5anlYWDZxOUkvSjZuZC9kT1B3?=
+ =?utf-8?B?bzI4ck1aemEzSkVYcjZVV1duTmxSYjRiaWtBcEFYNmIvQmMvTW16NTZYV2tJ?=
+ =?utf-8?B?ejZtbzJDWlFBdmtsUFlEbWoxd0lBUmRrdTc3RXhMOFQ4SlluYWl6cW1vdk1F?=
+ =?utf-8?B?ZUNDbHFLaDV4NDdxL2NHSXJORFYweURXN0RlMTBXODJrSUpxWUl1Zk1CWEcz?=
+ =?utf-8?B?S1JxL1JlMVpJbTllTnlCZXZOTHlwUVNyTExWMnAxVGVEdHpvNnJVREM0bWlZ?=
+ =?utf-8?B?dDVXcXFEaU9rczY3b2dFTmN0emo3RkRTMDlMMEsyOThNWXZPU2QzSnljc29p?=
+ =?utf-8?B?ai9scEVMcno3ZlZxNHlPUlk2UXNSa01QN0dlMFp4RUIvRGdXOTE5TTc5Y2Uv?=
+ =?utf-8?B?eG41MEFxdCt2ZVhQZWhFZnBWRG5hWVpiN2Q0N3JuRmR4RDlQdEJhRG5GNm5V?=
+ =?utf-8?B?R2MzUkdWcis4Qm5YNUR1VG12SEV5WDlpVzlDdTZWeUU1QlM5YWJ1dUI2dFc4?=
+ =?utf-8?B?ejBieE5BRFRTOEJFOVl5U0lNQU02YXFVZXNWMnlMNlJNQTBGKzdPZmdSczl5?=
+ =?utf-8?B?d29HQ1dXU0FGa1krMzNIZnVkTzh6MVRHT1lsa3lhaTZEL3pyUENYNWhwa0Ey?=
+ =?utf-8?B?Nmc9PQ==?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f007e15a-da12-46e7-8b8f-08db45104407
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7aeda4f-94a1-48e0-875d-08db45107b51
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 22:07:16.8030
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 22:08:49.6288
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 46y/u+07tUDpDL3MK8f48Os1WC9c/0V5VDjD0yQh2hYH4oiU0zLW7/PBd+D3/2XVmrvd11/geELnSzi11Kmfjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5136
-Subject: [virtio-comment] Re: [PATCH v12 03/10] admin: introduce group administration commands
+X-MS-Exchange-CrossTenant-UserPrincipalName: D4VOUPTc5/yngpz6VHIGD+J4ZKhq3Yuzoso+03QuzUVtq6Zq6q5CbF8v2/dpeKfkhz5J6eK3NxOqYdn7TY6FPw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5842
+Subject: [virtio-comment] Re: [PATCH v12 06/10] mmio: document ADMIN_VQ as reserved
 
 
 
-On 4/24/2023 12:44 PM, Michael S. Tsirkin wrote:
-> This introduces a general structure for group administration commands,
-> used to control device groups through their owner.
-> 
-> Following patches will introduce specific commands and an interface for
-> submitting these commands to the owner.
-> 
-> Note that the commands are focused on controlling device groups:
-> this is why group related fields are in the generic part of
-> the structure.
-
-Below paragraph is no longer applies as we already discussed more use 
-cases of the AQ such as accessing the PCI VF's legacy config space 
-registers. Please drop below paragraph.
-
-> Without this the admin vq would become a "whatever" vq which does not do
-> anything specific at all, just a general transport like thing.
-> I feel going this way opens the design space to the point where
-> we no longer know what belongs in e.g. config space
-> what in the control q and what in the admin q.
-> As it is, whatever deals with groups is in the admin q; other
-> things not in the admin q.
-> 
-
-A PF can use same or different AQ with a new struct 
-virtio_legacy_register_access with a different opcode range.
-
-AQ doesn't replace the control vq, so that part description is fine.
-
-> There are specific exceptions such as query but that's an exception that
-> proves the rule ;)
+On 24/04/2023 19:44, Michael S. Tsirkin wrote:
+> Adding relevant registers needs more work and it's not
+> clear what the use-case will be as currently only
+> the PCI transport is supported. But let's keep the
+> door open on this.
+> We already say it's reserved in a central place, but it
+> does not hurt to remind implementers to mask it.
 > 
 > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> Reviewed-by: Parav Pandit <parav@nvidia.com>
 > Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-> Reviewed-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> 
 > ---
 > 
-> changes since v11:
-> 	acks by Stefan and Lingshan
-> 
-> changes since v10:
-> 	explain the role of status vs status_qualifier, addresses
-> 		multiple comments
-> 	add more status values and appropriate qualifiers,
-> 		as suggested by Parav
-> 	clarify reserved command opcodes as suggested by Stefan
-> 	better formatting for ranges, comment by Jiri
-> 	make sure command-specific-data is a multiple of qword,
-> 	so things are aligned, suggested by Jiri
-> 	add Q_OK qualifier for success
+> changes in v12:
+> 	drop "as of now" to address comment by parav
 > ---
->   admin.tex        | 121 +++++++++++++++++++++++++++++++++++++++++++++++
->   introduction.tex |   3 ++
->   2 files changed, 124 insertions(+)
+>   content.tex | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
 > 
-> diff --git a/admin.tex b/admin.tex
-> index 05d506a..d6042e4 100644
-> --- a/admin.tex
-> +++ b/admin.tex
-> @@ -60,4 +60,125 @@ \section{Device groups}\label{sec:Basic Facilities of a Virtio Device / Device g
->   PCI transport (see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus}).
->   \end{description}
+> diff --git a/content.tex b/content.tex
+> index bcbc06d..7d6d9c4 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -2365,6 +2365,18 @@ \subsection{Legacy interface}\label{sec:Virtio Transport Options / Virtio Over M
 >   
-> +\subsection{Group administration commands}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands}
+>   Notification mechanisms did not change.
 >   
-> +The driver sends group administration commands to the owner device of
-> +a group to control member devices of the group.
-> +This mechanism can
-> +be used, for example, to configure a member device before it is
-> +initialized by its driver.
-> +\footnote{The term "administration" is intended to be interpreted
-> +widely to include any kind of control. See specific commands
-> +for detail.}
+> +\subsection{Features reserved for future use}\label{sec:Virtio Transport Options / Virtio Over MMIO / Features reserved for future use}
 > +
-> +All the group administration commands are of the following form:
+> +Devices and drivers utilizing Virtio Over MMIO
+> +do not support the following features:
+> +\begin{itemize}
 > +
-> +\begin{lstlisting}
-> +struct virtio_admin_cmd {
-> +        /* Device-readable part */
-> +        le16 opcode;
-> +        /*
-> +         * 1       - SR-IOV
-> +         * 2-65535 - reserved
-> +         */
-> +        le16 group_type;
-> +        /* unused, reserved for future extensions */
-> +        u8 reserved1[12];
-> +        le64 group_member_id;
-> +        le64 command_specific_data[];
+> +\item VIRTIO_F_ADMIN_VQ
 > +
-> +        /* Device-writable part */
-> +        le16 status;
-> +        le16 status_qualifier;
-> +        /* unused, reserved for future extensions */
-> +        u8 reserved2[4];
-> +        u8 command_specific_result[];
-> +};
-> +\end{lstlisting}
+> +\end{itemize}
 > +
-> +For all commands, \field{opcode}, \field{group_type} and if
-> +necessary \field{group_member_id} and \field{command_specific_data} are
-> +set by the driver, and the owner device sets \field{status} and if
-> +needed \field{status_qualifier} and
-> +\field{command_specific_result}.
+> +These features are reserved for future use.
 > +
-> +Generally, any unused device-readable fields are set to zero by the driver
-> +and ignored by the device.  Any unused device-writeable fields are set to zero
-> +by the device and ignored by the driver.
-> +
-> +\field{opcode} specifies the command. The valid
-> +values for \field{opcode} can be found in the following table:
-> +
-> +\begin{tabular}{|l|l|}
-> +\hline
-> +opcode & Name & Command Description \\
-> +\hline \hline
-> +0x0000 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
-> +\hline
-> +0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
-> +\hline
-> +\end{tabular}
-> +
-> +The \field{group_type} specifies the group type identifier.
-> +The \field{group_member_id} specifies the member identifier within the group.
-> +See section \ref{sec:Introduction / Terminology / Device group}
-> +for the definition of the group type identifier and group member
-> +identifier.
-> +
-> +The \field{status} describes the command result and possibly
-> +failure reason at an abstract level, this is appropriate for
-> +forwarding to applications. The \field{status_qualifier} describes
-> +failures at a low virtio specific level, as appropriate for debugging.
-> +The following table describes possible \field{status} values;
-> +to simplify common implementations, they are intentionally
-> +matching common \hyperref[intro:errno]{Linux error names and numbers}:
-> +
-> +\begin{tabular}{|l|l|l|}
-> +\hline
-> +Status (decimal) & Name & Description \\
-> +\hline \hline
-> +00   & VIRTIO_ADMIN_STATUS_OK    & successful completion  \\
-> +\hline
-> +11   & VIRTIO_ADMIN_STATUS_EAGAIN    & try again \\
-> +\hline
-> +12   & VIRTIO_ADMIN_STATUS_ENOMEM    & insufficient resources \\
-> +\hline
-> +22   & VIRTIO_ADMIN_STATUS_EINVAL    & invalid command \\
-> +\hline
-> +other   & -    & group administration command error  \\
-> +\hline
-> +\end{tabular}
-> +
-> +When \field{status} is VIRTIO_ADMIN_STATUS_OK, \field{status_qualifier}
-> +is reserved and set to zero by the device.
-> +
-> +The following table describes possible \field{status_qualifier} values:
-> +\begin{tabular}{|l|l|l|}
-> +\hline
-> +Status & Name & Description \\
-> +\hline \hline
-> +0x00   & VIRTIO_ADMIN_STATUS_Q_OK               & used with VIRTIO_ADMIN_STATUS_OK  \\
-> +\hline
-> +0x01   & VIRTIO_ADMIN_STATUS_Q_INVALID_COMMAND  & command error: no additional information  \\
-> +\hline
-> +0x02   & VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE   & unsupported or invalid \field{opcode}  \\
-> +\hline
-> +0x03   & VIRTIO_ADMIN_STATUS_Q_INVALID_FIELD    & unsupported or invalid field within \field{command_specific_data}  \\
-> +\hline
-> +0x04   & VIRTIO_ADMIN_STATUS_Q_INVALID_GROUP    & unsupported or invalid \field{group_type} \\
-> +\hline
-> +0x05   & VIRTIO_ADMIN_STATUS_Q_INVALID_MEMBER   & unsupported or invalid \field{group_member_id} \\
-> +\hline
-> +0x06   & VIRTIO_ADMIN_STATUS_Q_NORESOURCE       & out of internal resources: ok to retry \\
-> +\hline
-> +0x07   & VIRTIO_ADMIN_STATUS_Q_TRYAGAIN         & command blocks for too long: should retry \\
-> +\hline
-> +0x08-0xFFFF   & -    & reserved for future use \\
-> +\hline
-> +\end{tabular}
-> +
-> +Each command uses a different \field{command_specific_data} and
-> +\field{command_specific_result} structures and the length of
-> +\field{command_specific_data} and \field{command_specific_result}
-> +depends on these structures and is described separately or is
-> +implicit in the structure description.
-> diff --git a/introduction.tex b/introduction.tex
-> index 287c5fc..b7155bf 100644
-> --- a/introduction.tex
-> +++ b/introduction.tex
-> @@ -68,6 +68,9 @@ \section{Normative References}\label{sec:Normative References}
->   	\phantomsection\label{intro:FUSE}\textbf{[FUSE]} &
->   	Linux FUSE interface,
->   	\newline\url{https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/fuse.h}\\
-> +	\phantomsection\label{intro:errno}\textbf{[errno]} &
-> +	Linux error names and numbers,
-> +	\newline\url{https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/asm-generic/errno-base.h}\\
-Thanks for fixing this link. Missing in commit log changes for v12. 
-Hopefully after b4 integration, this will be smooth.
+>   \section{Virtio Over Channel I/O}\label{sec:Virtio Transport Options / Virtio Over Channel I/O}
+>   
+>   S/390 based virtual machines support neither PCI nor MMIO, so a
 
->           \phantomsection\label{intro:eMMC}\textbf{[eMMC]} &
->           eMMC Electrical Standard (5.1), JESD84-B51,
->           \newline\url{http://www.jedec.org/sites/default/files/docs/JESD84-B51.pdf}\\
+Looks good,
 
-Other than commit log change,
-Reviewed-by: Parav Pandit <parav@nvidia.com>
+Reviewed-by: Max Gurtovoy <mgurtovoy@nvidia.com>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
