@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5598-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5599-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54303C77B78
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 16:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46AE1C77B61
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 16:45:00 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1F062F3F6E
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 16:44:32 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9BAEA41EFB
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 16:44:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1231A986635
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 16:44:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9350B98642F
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 16:44:41 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 09261986350; Mon, 24 Apr 2023 16:44:32 +0000 (UTC)
+	id 8F713986385; Mon, 24 Apr 2023 16:44:41 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,32 +24,32 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E5B0998668C
-	for <virtio-comment@lists.oasis-open.org>; Mon, 24 Apr 2023 16:44:31 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7570498636F
+	for <virtio-comment@lists.oasis-open.org>; Mon, 24 Apr 2023 16:44:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 0T41mvLdM3qhWzTBe0pRGw-1
+X-MC-Unique: efp5voJnMIeujUJVwwWe6w-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682354665; x=1684946665;
+        d=1e100.net; s=20221208; t=1682354669; x=1684946669;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zrqk9zz+/ARCGK2+2s0QDuvrwtsdCybtn+7slA3jQ98=;
-        b=P4sLkWDZoJESpYy/gaq4bQAVj1GTWGoDUImCYkRHwv8VeGcfPAcXawZesFmS9j9L5c
-         kRHXGxQRMinlKsrPT7sK7Z5nwSYRNJz8ADA9iR4HjHbgTyztxjYERm2BOTGOX/awHeWZ
-         dXNG/g09ydmXdq7ulL7lNfvxrNbOoyDuj+dOpQd1sCVVtQaGdcoUx/4C8Lnnzu7l73yt
-         TsR0R+DaqYRlRlFkkyBGxHRJqDN0EOjP8nd2383xZf+ZPzUSW7xt2K92NPT7/38fkhkl
-         NyemwZeNXqS31D/d8LT1poOI0izmI3gJo2P8KwJjuUAmruQxNUR28OZ59VWUQYdshUUm
-         GSiQ==
-X-Gm-Message-State: AAQBX9cazwVAFuRbF2gJSwfavaZcAAKCoodCHK63fTYMxNSmq2T+0jRR
-	17xtpe3AKP9ARr9kJDgEXxyKkumfBOZMC6453t5ocTHA9Wpx/mVar0ploXvDZGIrOimm8kfTC9C
-	FWyLPAHVaUxP3YhrgCmzhnPUi+MYYaYfv9BDT757pAU6nn4wFXuQETV73BkgGFuSdl0iUoh5uEe
-	5iNnePgkLp/Ng=
-X-Received: by 2002:a5d:5222:0:b0:2f4:cfb4:57f3 with SMTP id i2-20020a5d5222000000b002f4cfb457f3mr11168287wra.53.1682354665082;
-        Mon, 24 Apr 2023 09:44:25 -0700 (PDT)
-X-Google-Smtp-Source: AKy350bujVa9R/pSf+pgXaWIrj3ofX55WOEHv4iNmj+s2F2esHacyE2NeBIEAvsZEt+hmn/e0KPrdg==
-X-Received: by 2002:a5d:5222:0:b0:2f4:cfb4:57f3 with SMTP id i2-20020a5d5222000000b002f4cfb457f3mr11168254wra.53.1682354664660;
-        Mon, 24 Apr 2023 09:44:24 -0700 (PDT)
-Date: Mon, 24 Apr 2023 12:44:20 -0400
+        bh=50ze/OHr6hW9+cfXzFxRsxUNw7wHbJTvlyLGbPtQ8GA=;
+        b=ASbuqMK/0K36h0qXh7t3R5Z8Xj5Ef0vhEuoRGhM+NX+sr2ZsvZK/Wgd/uVxf5tG3ra
+         otIouP9px2PXyIhOhofgNCRN6q/m9gSetBaLLxlnvi6zLb9Gz/YoRXOFeQYmieyaOsZH
+         Z87LzbPazogUjDIqNiWBqkuFGfJ78PnC3DcIpQvx7unwmRbGofcyCFgk5xb/FHYPFSpB
+         5fjw+n+cJ4VpDIKwwbEIukMgULVxM++dk+lXNXec36L10J6d04E9ogCDtTdOYSL6vyUu
+         dzIWZkATsrguOgL89Kt4p4fw4CFapfrRWa/1c/m4Zal1mJa/gjKuN2ZDamBql0An57dK
+         //0A==
+X-Gm-Message-State: AC+VfDzMBJVVQqwbG8q8NkmNC3FsVKt5EV+fBSvsbAONEbXu7TJ4704o
+	W2+hvRkoUMAQqyIfpU1AlzsSCLWAKu6ooGOkc5Lztb57HgwsrLTuMAiUOiVosL3uorpj/3qCITe
+	X5sA8Wu+IG+9XXSy27bJzkBpyc0P6SOrwTu7enHjK8/9F3vq3mRpDaKEA4CHpHhaylh6B3Yc6ZZ
+	+gYzUCIkVdKag=
+X-Received: by 2002:a5d:4b86:0:b0:304:8149:239b with SMTP id b6-20020a5d4b86000000b003048149239bmr1698306wrt.50.1682354668794;
+        Mon, 24 Apr 2023 09:44:28 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ7MBpGhNh82j9cS/kBWuH8vWB1lLTCszwnsr+jy6F7GoK+EE06Jqy/WIOfQFrB1akRmM+E91A==
+X-Received: by 2002:a5d:4b86:0:b0:304:8149:239b with SMTP id b6-20020a5d4b86000000b003048149239bmr1698277wrt.50.1682354668513;
+        Mon, 24 Apr 2023 09:44:28 -0700 (PDT)
+Date: Mon, 24 Apr 2023 12:44:24 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
 	jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com,
@@ -59,7 +59,7 @@ Cc: virtio@lists.oasis-open.org, Jiri Pirko <jiri@nvidia.com>,
 	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
 	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
 	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <1c8fd21fc009897b5d338976888c25fa81ac896f.1682354275.git.mst@redhat.com>
+Message-ID: <79c27bca6f72e4ea5d1d0e3a6b1a54369b03fb30.1682354275.git.mst@redhat.com>
 References: <cover.1682354275.git.mst@redhat.com>
 MIME-Version: 1.0
 In-Reply-To: <cover.1682354275.git.mst@redhat.com>
@@ -69,139 +69,195 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] [PATCH v12 02/10] admin: introduce device group and related concepts
+Subject: [virtio-comment] [PATCH v12 03/10] admin: introduce group administration commands
 
-Each device group has a type. For now, define one initial group type:
+This introduces a general structure for group administration commands,
+used to control device groups through their owner.
 
-SR-IOV type - PCI SR-IOV virtual functions (VFs) of a given
-PCI SR-IOV physical function (PF). This group may contain zero or more
-virtio devices according to NumVFs configured.
+Following patches will introduce specific commands and an interface for
+submitting these commands to the owner.
 
-Each device within a group has a unique identifier. This identifier
-is the group member identifier.
+Note that the commands are focused on controlling device groups:
+this is why group related fields are in the generic part of
+the structure.
+Without this the admin vq would become a "whatever" vq which does not do
+anything specific at all, just a general transport like thing.
+I feel going this way opens the design space to the point where
+we no longer know what belongs in e.g. config space
+what in the control q and what in the admin q.
+As it is, whatever deals with groups is in the admin q; other
+things not in the admin q.
 
-Note: one can argue both ways whether the new device group handling
-functionality (this and following patches) is closer
-to a new device type or a new transport type.
-
-However, it's expected that we will add more features in the near
-future. To facilitate this as much as possible of the text is located in
-the new admin chapter.
-
-Effort was made to minimize transport-specific text.
-
-There's a bit of duplication with 0x1 repeated twice and
-no special section for group type identifiers.
-It seems ok to defer adding these until we have more group
-types.
+There are specific exceptions such as query but that's an exception that
+proves the rule ;)
 
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Reviewed-by: Zhu Lingshan <lingshan.zhu@intel.com>
 ---
-changes in v12:
-	stefan's ack
-	minor commit log tweaks, Parav
-	use neutral tone, Parav
 
-changes in v11:
-	dropped Max's S.O.B.
-	dropped an unmatched ) as reported by Parav
-	document that member id is 1 to numvfs
-	document that vf enable must be set (will also be reflected in
-		the conformance section)
-	document that we deferred generalizing text as requested by Parav -
-	I think we can do it later
-	minor wording fixes to address comments by David
-	add concepts of owner and member driver. unused currently
-	but will come in handy later, as suggested by Stefan
+changes since v11:
+	acks by Stefan and Lingshan
+
+changes since v10:
+	explain the role of status vs status_qualifier, addresses
+		multiple comments
+	add more status values and appropriate qualifiers,
+		as suggested by Parav
+	clarify reserved command opcodes as suggested by Stefan
+	better formatting for ranges, comment by Jiri
+	make sure command-specific-data is a multiple of qword,
+	so things are aligned, suggested by Jiri
+	add Q_OK qualifier for success
 ---
- admin.tex   | 63 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- content.tex |  2 ++
- 2 files changed, 65 insertions(+)
- create mode 100644 admin.tex
+ admin.tex        | 121 +++++++++++++++++++++++++++++++++++++++++++++++
+ introduction.tex |   3 ++
+ 2 files changed, 124 insertions(+)
 
 diff --git a/admin.tex b/admin.tex
-new file mode 100644
-index 0000000..05d506a
---- /dev/null
+index 05d506a..d6042e4 100644
+--- a/admin.tex
 +++ b/admin.tex
-@@ -0,0 +1,63 @@
-+\section{Device groups}\label{sec:Basic Facilities of a Virtio Device / Device groups}
-+
-+It is occasionally useful to have a device control a group of
-+other devices. Terminology used in such cases:
-+
-+\begin{description}
-+\item[Device group]
-+        or just group, includes zero or more devices.
-+\item[Owner device]
-+        or owner, the device controlling the group.
-+\item[Member device]
-+        a device within a group. The owner device itself is not
-+	a member of the group.
-+\item[Member identifier]
-+        each member has this identifier, unique within the group
-+	and used to address it through the owner device.
-+\item[Group type identifier]
-+	specifies what kind of member devices there are in a
-+	group, how the member identifier is interpreted
-+	and what kind of control the owner has.
-+	A given owner can control multiple groups
-+	of different types but only a single group of a given type,
-+	thus the type and the owner together identify the group.
-+	\footnote{Even though some group types only support
-+			specific transports, group type identifiers
-+			are global rather than transport-specific -
-+			a flood of new group types is not expected.}
-+\end{description}
-+
-+\begin{note}
-+Each device only has a single driver, thus for the purposes of
-+this section, "the driver" is usually unambiguous and refers to
-+the driver of the owner device.  When there's ambiguity, "owner
-+driver" refers to the driver of the owner device, while "member
-+driver" refers to the driver of a member device.
-+\end{note}
-+
-+The following group types, and their identifiers, are currently specified:
-+\begin{description}
-+\item[SR-IOV group type (0x1)]
-+This device group has a PCI Single Root I/O Virtualization
-+(SR-IOV) physical function (PF) device as the owner and includes
-+all its SR-IOV virtual functions (VFs) as members (see
-+\hyperref[intro:PCIe]{[PCIe]}).
-+
-+The PF device itself is not a member of the group.
-+
-+The group type identifier for this group is 0x1.
-+
-+A member identifier for this group can have a value from 0x1 to
-+\field{NumVFs} as specified in the
-+SR-IOV Extended Capability of the owner device
-+and equals the SR-IOV VF number of the member device;
-+the group only exists when the \field{VF Enable} bit
-+in the SR-IOV Control Register within the
-+SR-IOV Extended Capability of the owner device is set
-+(see \hyperref[intro:PCIe]{[PCIe]}).
-+
-+Both owner and member devices for this group type use the Virtio
-+PCI transport (see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus}).
-+\end{description}
-+
-+
-diff --git a/content.tex b/content.tex
-index 8098988..04592fb 100644
---- a/content.tex
-+++ b/content.tex
-@@ -493,6 +493,8 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
- types. It is RECOMMENDED that devices generate version 4
- UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+@@ -60,4 +60,125 @@ \section{Device groups}\label{sec:Basic Facilities of a Virtio Device / Device g
+ PCI transport (see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus}).
+ \end{description}
  
-+\input{admin.tex}
-+
- \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
++\subsection{Group administration commands}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands}
  
- We start with an overview of device initialization, then expand on the
++The driver sends group administration commands to the owner device of
++a group to control member devices of the group.
++This mechanism can
++be used, for example, to configure a member device before it is
++initialized by its driver.
++\footnote{The term "administration" is intended to be interpreted
++widely to include any kind of control. See specific commands
++for detail.}
++
++All the group administration commands are of the following form:
++
++\begin{lstlisting}
++struct virtio_admin_cmd {
++        /* Device-readable part */
++        le16 opcode;
++        /*
++         * 1       - SR-IOV
++         * 2-65535 - reserved
++         */
++        le16 group_type;
++        /* unused, reserved for future extensions */
++        u8 reserved1[12];
++        le64 group_member_id;
++        le64 command_specific_data[];
++
++        /* Device-writable part */
++        le16 status;
++        le16 status_qualifier;
++        /* unused, reserved for future extensions */
++        u8 reserved2[4];
++        u8 command_specific_result[];
++};
++\end{lstlisting}
++
++For all commands, \field{opcode}, \field{group_type} and if
++necessary \field{group_member_id} and \field{command_specific_data} are
++set by the driver, and the owner device sets \field{status} and if
++needed \field{status_qualifier} and
++\field{command_specific_result}.
++
++Generally, any unused device-readable fields are set to zero by the driver
++and ignored by the device.  Any unused device-writeable fields are set to zero
++by the device and ignored by the driver.
++
++\field{opcode} specifies the command. The valid
++values for \field{opcode} can be found in the following table:
++
++\begin{tabular}{|l|l|}
++\hline
++opcode & Name & Command Description \\
++\hline \hline
++0x0000 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
++\hline
++0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
++\hline
++\end{tabular}
++
++The \field{group_type} specifies the group type identifier.
++The \field{group_member_id} specifies the member identifier within the group.
++See section \ref{sec:Introduction / Terminology / Device group}
++for the definition of the group type identifier and group member
++identifier.
++
++The \field{status} describes the command result and possibly
++failure reason at an abstract level, this is appropriate for
++forwarding to applications. The \field{status_qualifier} describes
++failures at a low virtio specific level, as appropriate for debugging.
++The following table describes possible \field{status} values;
++to simplify common implementations, they are intentionally
++matching common \hyperref[intro:errno]{Linux error names and numbers}:
++
++\begin{tabular}{|l|l|l|}
++\hline
++Status (decimal) & Name & Description \\
++\hline \hline
++00   & VIRTIO_ADMIN_STATUS_OK    & successful completion  \\
++\hline
++11   & VIRTIO_ADMIN_STATUS_EAGAIN    & try again \\
++\hline
++12   & VIRTIO_ADMIN_STATUS_ENOMEM    & insufficient resources \\
++\hline
++22   & VIRTIO_ADMIN_STATUS_EINVAL    & invalid command \\
++\hline
++other   & -    & group administration command error  \\
++\hline
++\end{tabular}
++
++When \field{status} is VIRTIO_ADMIN_STATUS_OK, \field{status_qualifier}
++is reserved and set to zero by the device.
++
++The following table describes possible \field{status_qualifier} values:
++\begin{tabular}{|l|l|l|}
++\hline
++Status & Name & Description \\
++\hline \hline
++0x00   & VIRTIO_ADMIN_STATUS_Q_OK               & used with VIRTIO_ADMIN_STATUS_OK  \\
++\hline
++0x01   & VIRTIO_ADMIN_STATUS_Q_INVALID_COMMAND  & command error: no additional information  \\
++\hline
++0x02   & VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE   & unsupported or invalid \field{opcode}  \\
++\hline
++0x03   & VIRTIO_ADMIN_STATUS_Q_INVALID_FIELD    & unsupported or invalid field within \field{command_specific_data}  \\
++\hline
++0x04   & VIRTIO_ADMIN_STATUS_Q_INVALID_GROUP    & unsupported or invalid \field{group_type} \\
++\hline
++0x05   & VIRTIO_ADMIN_STATUS_Q_INVALID_MEMBER   & unsupported or invalid \field{group_member_id} \\
++\hline
++0x06   & VIRTIO_ADMIN_STATUS_Q_NORESOURCE       & out of internal resources: ok to retry \\
++\hline
++0x07   & VIRTIO_ADMIN_STATUS_Q_TRYAGAIN         & command blocks for too long: should retry \\
++\hline
++0x08-0xFFFF   & -    & reserved for future use \\
++\hline
++\end{tabular}
++
++Each command uses a different \field{command_specific_data} and
++\field{command_specific_result} structures and the length of
++\field{command_specific_data} and \field{command_specific_result}
++depends on these structures and is described separately or is
++implicit in the structure description.
+diff --git a/introduction.tex b/introduction.tex
+index 287c5fc..b7155bf 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -68,6 +68,9 @@ \section{Normative References}\label{sec:Normative References}
+ 	\phantomsection\label{intro:FUSE}\textbf{[FUSE]} &
+ 	Linux FUSE interface,
+ 	\newline\url{https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/fuse.h}\\
++	\phantomsection\label{intro:errno}\textbf{[errno]} &
++	Linux error names and numbers,
++	\newline\url{https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/asm-generic/errno-base.h}\\
+         \phantomsection\label{intro:eMMC}\textbf{[eMMC]} &
+         eMMC Electrical Standard (5.1), JESD84-B51,
+         \newline\url{http://www.jedec.org/sites/default/files/docs/JESD84-B51.pdf}\\
 -- 
 MST
 
