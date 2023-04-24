@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5583-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5584-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B80EBC7618E
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 13:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C74BC7618E
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 13:58:53 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0FF07C6224
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 13:38:43 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 48AEA190905
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 13:58:52 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F3B8C98636F
-	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 13:38:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2C17F986394
+	for <virtio-comment@archiver.kernel.org>; Mon, 24 Apr 2023 13:58:52 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E2B8298633A; Mon, 24 Apr 2023 13:38:42 +0000 (UTC)
+	id 16AF598634E; Mon, 24 Apr 2023 13:58:52 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,205 +24,221 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D1CE0986350
-	for <virtio-comment@lists.oasis-open.org>; Mon, 24 Apr 2023 13:38:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0500398635B
+	for <virtio-comment@lists.oasis-open.org>; Mon, 24 Apr 2023 13:58:52 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-MC-Unique: JVHEj9cJMHe4xTpLsLicbA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682343521; x=1684935521;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TpNApqBi3Ia61ZGzd56nD1WWy84eyBXVwxv0T/cLNzg=;
-        b=MUcC3YhZ/qgn1ue8BDTBVJYI/LihvCqoH2BzH4I/b2mhOaHvlKxvjrjF6fy/+K5NcG
-         4xAItMR18zoC5WbaEPcRdsDzMImsZvgDyilNEEUgS4xBY7PVIWwaUY66MK4pif7piEXm
-         bDdZcInF+jBacWc4unTsyxvvX3bIDD0UFaEvSWlquEdXm18lhAds/crnDF4xhyVJo3K6
-         h+EtSHSm/u1art4qX5RAEx7QMiU7AnyJNVMqUXPMxXRn3l0mPAKbV4pFzw0PfNPDuzJM
-         vNzJ0dj6jXN3V1isrgpM0WdACiPvE1V/zvhn1MmT38/hhyHppHiT5d61yBxKnMDfnJgl
-         +n0w==
-X-Gm-Message-State: AAQBX9fEvsvjuntHGOZCQ+eJ0rF2oL9kSokU2ZWMnuSABTIvmsTeBfOt
-	ECcw1xqhL5MwxZIZDnd9Ly4IvA==
-X-Google-Smtp-Source: AKy350bq0zgLR0N/8SJmF1RMBWLxYkrHUy/hP70KY4ondrO98TSwemseyHtf/i1yiIsrEkl6zB2jLg==
-X-Received: by 2002:a17:902:c793:b0:19f:87b5:1873 with SMTP id w19-20020a170902c79300b0019f87b51873mr12182721pla.62.1682343520656;
-        Mon, 24 Apr 2023 06:38:40 -0700 (PDT)
-Message-ID: <8f65c9aa-c867-0929-151c-21bbe25a0693@bytedance.com>
-Date: Mon, 24 Apr 2023 21:38:34 +0800
+        d=1e100.net; s=20221208; t=1682344728; x=1684936728;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WykvHQ4TFffOUI49OoXgVIYf8wagH+dBF6/rV3OzJFg=;
+        b=HcVEWP4YU9r9RZp3O6y4MbH17sjk0e62xrtGWFjDDLfm7gniYIYuzo+4ADO4WJlWmR
+         VJOPB2zEg/dbLncgYVuzaCGcvrREDrQ+kvakOgNxWz0AAJ23jvDtMMtpISFhTZ/U2813
+         YWv545npxI7cja4MSVDaAkXWxxgbyOQWB2u/1HuDqoASyn44Svotg493PaH+O8AnNyu5
+         8rZXFXdE1jxF0NGHAk22Kmq41BYngZIoNS4PHiFcKU6GsYk+Z70UeO4BeicxjqyQSjz/
+         7wNfJBOcM5n8+xYyisCyXnTZdU+uBAEoL18KXCUXA5dgp35y0ZiTXvyFH9/V9X3lKevi
+         pWmA==
+X-Gm-Message-State: AAQBX9dVvg7RcDtPra5iCaqi+mjMdlTku4WQ3Pa8YKFs3HjXWncYHXEZ
+	8gnzyrSxiS36e2AothqAubH3mh1gKONkU4RzC2G0Xj2CTBgsMEaW0hrB8zSPHwed0FjH7Cs61ov
+	lSh9B9oA5uSiK2mNR+sUNUEFd9NVFD1ICkg==
+X-Received: by 2002:a1c:7908:0:b0:3f1:6ead:e389 with SMTP id l8-20020a1c7908000000b003f16eade389mr7966122wme.30.1682344728448;
+        Mon, 24 Apr 2023 06:58:48 -0700 (PDT)
+X-Google-Smtp-Source: AKy350YpADqyrE9++GDmhDcbFEwEOeLahToQerykir0kuLYGNgvGej9r5/aLQfi/oSj5x+YY1KDRNA==
+X-Received: by 2002:a1c:7908:0:b0:3f1:6ead:e389 with SMTP id l8-20020a1c7908000000b003f16eade389mr7966105wme.30.1682344728061;
+        Mon, 24 Apr 2023 06:58:48 -0700 (PDT)
+Date: Mon, 24 Apr 2023 09:58:44 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Halil Pasic <pasic@linux.ibm.com>
+Cc: Parav Pandit <parav@nvidia.com>, virtio-dev@lists.oasis-open.org,
+	cohuck@redhat.com, sgarzare@redhat.com,
+	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com
+Message-ID: <20230424094202-mutt-send-email-mst@kernel.org>
+References: <20230419014639.919458-1-parav@nvidia.com>
+ <20230419014639.919458-11-parav@nvidia.com>
+ <20230424152221.54c44489.pasic@linux.ibm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: Jason Wang <jasowang@redhat.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, Cornelia Huck
- <cohuck@redhat.com>, parav@nvidia.com, virtio-dev@lists.oasis-open.org,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "helei.sig11@bytedance.com" <helei.sig11@bytedance.com>, houp@yusur.tech
-References: <1ab0beff-8b18-7a94-1a68-6bf36bcd0394@bytedance.com>
- <CACGkMEvh+G2Tm=WDTOK3K2GO8c2dQ4y=UiKAk_kvsid2MGzbGg@mail.gmail.com>
-Content-Language: en-US
-From: zhenwei pi <pizhenwei@bytedance.com>
-In-Reply-To: <CACGkMEvh+G2Tm=WDTOK3K2GO8c2dQ4y=UiKAk_kvsid2MGzbGg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: Re: [virtio-comment] [PROPOSAL] Virtio Over Fabrics(TCP/RDMA)
+In-Reply-To: <20230424152221.54c44489.pasic@linux.ibm.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH v14 10/11] virtio-net: Describe RSS using rss rq id
 
-
-
-On 4/24/23 11:40, Jason Wang wrote:
-> On Sun, Apr 23, 2023 at 7:31 PM zhenwei pi <pizhenwei@bytedance.com> wrote:
->>
->> Hi,
->>
->> In the past years, virtio supports lots of device specifications by
->> PCI/MMIO/CCW. These devices work fine in the virtualization environment,
->> and we have a chance to support virtio device family for the
->> container/host scenario.
+On Mon, Apr 24, 2023 at 03:22:21PM +0200, Halil Pasic wrote:
+> On Wed, 19 Apr 2023 04:46:38 +0300
+> Parav Pandit <parav@nvidia.com> wrote:
 > 
-> PCI can work for containers for sure (or does it meet any issue like
-> scalability?). It's better to describe what problems you met and why
-> you choose this way to solve it.
+> > The content of the indirection table and unclassified_queue were
+> > originally described based on mathematical operations. In order to
+> > make it easier to understand and to avoid intermixing the array
+> > index with the vq index, introduce a structure
+> > rss_rq_id (RSS receive queue
+> > ID) and use it to describe the unclassified_queue and
+> > indirection_table fields.
+> > 
+> > As part of it, have the example that uses non-zero virtqueue
+> > index which helps to have better mapping between receiveX
+> > object with virtqueue index and the actual value in the
+> > indirection table.
+> > 
+> > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
+> > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > 
+> > ---
+> > changelog:
+> > v12->v13:
+> > - rename vqn to vq_index
+> > - renamed vq index to virtqueue index
+> > v11->v12:
+> > - use 'virtqueue index' instead of 'virtqueue number'
+> > v10->v11:
+> > - commit log updated to drop old reference to rq_handle, replaced with
+> >   rss_rq_id detail
+> > v8->v9:
+> > - reword rss_rq_id and unclassified_packets description
+> > - use article
+> > - use 'vq number' instead of 'virtqueue number'
+> > v4->v5:
+> > - change subject to reflect rss_rq_id
+> > - fixed accidental removal of "unclassifed packets".
+> > - simplfied text around indirection_table mask to use the term
+> >   destination receive virtqueue. This aligns with next line about queue
+> >   reset.
+> > - removed rss_rq_id references as indirection table and
+> >   unclassified_queue data type is self explanatory
+> > v3->v4:
+> > - renamed rq_handle to rss_rq_id
+> > - moved rss_rq_id definition close to its usage in rss_config struct
+> > v2->v3:
+> > - moved rq_handle definition before using it
+> > - removed duplicate example as rq_handle is now described first
+> > v0->v1:
+> > - new patch suggested by Michael Tsirkin
+> > ---
+> >  device-types/net/description.tex | 27 ++++++++++++++++++++-------
+> >  1 file changed, 20 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+> > index f3f9f1d..e4d236e 100644
+> > --- a/device-types/net/description.tex
+> > +++ b/device-types/net/description.tex
+> > @@ -1434,11 +1434,16 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+> >  
+> >  Driver sends a VIRTIO_NET_CTRL_MQ_RSS_CONFIG command
+
+maybe add:
+	including virtqueue index of relevant receive queues
+
+> using the following format for \field{command-specific-data}:
+> >  \begin{lstlisting}
+> > +struct rss_rq_id {
+> > +   le16 vq_index_1_16: 15; /* Bits 1 to 16 of the virtqueue index */
+> > +   le16 reserved: 1; /* Set to zero */
+> > +};
+> > +
 > 
-> It's better to compare this with
+> I'm not a fan of this being done with bitmaps, as I have stated before,
+> but I can live with it.
+
+Same.
+
+> >  struct virtio_net_rss_config {
+> >      le32 hash_types;
+> >      le16 indirection_table_mask;
+> > -    le16 unclassified_queue;
+> > -    le16 indirection_table[indirection_table_length];
+> > +    struct rss_rq_id unclassified_queue;
+> > +    struct rss_rq_id indirection_table[indirection_table_length];
+> >      le16 max_tx_vq;
+> >      u8 hash_key_length;
+> >      u8 hash_key_data[hash_key_length];
+> > @@ -1453,10 +1458,15 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+> >  \field{indirection_table} array.
+> >  Number of entries in \field{indirection_table} is (\field{indirection_table_mask} + 1).
+> >  
+> > -Field \field{unclassified_queue} contains the 0-based index of
+> > -the receive virtqueue to place unclassified packets in. Index 0 corresponds to receiveq1.
+> > +\field{rss_rq_id} is a receive virtqueue id. \field{vq_index_1_16}
+> > +consists of bits 1 to 16 of a virtqueue index. For example, a
+> > +\field{vq_index_1_16} value of 3 corresponds to virtqueue index 6,
+> > +which maps to receiveq4.
+> > +
+> > +Field \field{unclassified_queue} contains the receive virtqueue
+> > +in which to place unclassified packets.
 > 
-> 1) hiding the fabrics details via DPU
-> 2) vDPA
+> It does not contain a receive virtqueue but its \field{rss_rq_id},
+> i.e. it's "receive virtqueue id".
+
+Yes all this last chunk is not an improvement.  
+My whole point was that we do not need a name for this
+thing that is struct rss_rq_id. It's just a weird way to store a vq
+index.
+
+Also \field{rss_rq_id} is confusing since it's actually
+\field{struct rss_rq_id}. We are using C-like not C++ like syntax ;)
+
+One way to address all this:
+
+\field{struct rss_rq_id} contains a virtqueue index: \field{vq_index_1_16}
+consists of bits 1 to 16 of a virtqueue index. For example, a
+\field{vq_index_1_16} value of 3 corresponds to virtqueue index 6,
+which maps to receiveq4.
+
+Field \field{unclassified_queue} contains the virtqueue index
+of the receive virtqueue to place unclassified packets in,
+in \field{struct rss_rq_id} format.
+
+
+
+
+
+> > +\field{vq_index_1_16} value of 3 corresponds to virtqueue index 6,
+> > +which maps to receiveq4.
+> > +
+> > +Field \field{unclassified_queue} contains the receive virtqueue
+> > +in which to place unclassified packets.
+
+
+
+
+> >  
+> > -Field \field{indirection_table} contains an array of 0-based indices of receive virtqueues. Index 0 corresponds to receiveq1.
+> > +Field \field{indirection_table} is an array of receive virtqueues.
 > 
-Hi,
-
-Sorry, I missed this part. "Network defined peripheral devices of virtio 
-family" is the main purpose of this proposal, this allows us to use many 
-types of remote resources which are provided by virtio target.
-
- From the point of my view, there are 3 cases:
-1, Host/container scenario. For example, host kernel connects a virtio 
-target block service, maps it as a vdx(virtio-blk) device(used by 
-Map-Reduce service which needs a fast/large size disk). The host kernel 
-also connects a virtio target crypto service, maps it as virtio crypto 
-device(used by nginx to accelarate HTTPS). And so on.
-
-         +----------+    +----------+       +----------+
-         |Map-Reduce|    |   nginx  |  ...  | processes|
-         +----------+    +----------+       +----------+
-------------------------------------------------------------
-Host         |               |                  |
-Kernel   +-------+       +-------+          +-------+
-          | ext4  |       | LKCF  |          | HWRNG |
-          +-------+       +-------+          +-------+
-              |               |                  |
-          +-------+       +-------+          +-------+
-          |  vdx  |       |vCrypto|          | vRNG  |
-          +-------+       +-------+          +-------+
-              |               |                  |
-              |           +--------+             |
-              +---------->|TCP/RDMA|<------------+
-                          +--------+
-                              |
-                          +------+
-                          |NIC/IB|
-                          +------+
-                              |                      +-------------+
-                              +--------------------->|virtio target|
-                                                     +-------------+
-
-2, Typical virtualization environment. The workloads run in a guest, and 
-QEMU handles virtio-pci(or MMIO), and forwards requests to target.
-         +----------+    +----------+       +----------+
-         |Map-Reduce|    |   nginx  |  ...  | processes|
-         +----------+    +----------+       +----------+
-------------------------------------------------------------
-Guest        |               |                  |
-Kernel   +-------+       +-------+          +-------+
-          | ext4  |       | LKCF  |          | HWRNG |
-          +-------+       +-------+          +-------+
-              |               |                  |
-          +-------+       +-------+          +-------+
-          |  vdx  |       |vCrypto|          | vRNG  |
-          +-------+       +-------+          +-------+
-              |               |                  |
-PCI --------------------------------------------------------
-                              |
-QEMU                 +--------------+
-                      |virtio backend|
-                      +--------------+
-                              |
-                          +------+
-                          |NIC/IB|
-                          +------+
-                              |                      +-------------+
-                              +--------------------->|virtio target|
-                                                     +-------------+
-
-3, SmartNIC/DPU/vDPA environment. It's possible to convert virtio-pci 
-request to virtio-of request by hardware, and forward request to virtio 
-target directly.
-         +----------+    +----------+       +----------+
-         |Map-Reduce|    |   nginx  |  ...  | processes|
-         +----------+    +----------+       +----------+
-------------------------------------------------------------
-Host         |               |                  |
-Kernel   +-------+       +-------+          +-------+
-          | ext4  |       | LKCF  |          | HWRNG |
-          +-------+       +-------+          +-------+
-              |               |                  |
-          +-------+       +-------+          +-------+
-          |  vdx  |       |vCrypto|          | vRNG  |
-          +-------+       +-------+          +-------+
-              |               |                  |
-PCI --------------------------------------------------------
-                              |
-SmartNIC             +---------------+
-                      |virtio HW queue|
-                      +---------------+
-                              |
-                          +------+
-                          |NIC/IB|
-                          +------+
-                              |                      +-------------+
-                              +--------------------->|virtio target|
-                                                     +-------------+
-
->>
->> - Theory
->> "Virtio Over Fabrics" aims at "reuse virtio device specifications", and
->> provides network defined peripheral devices.
->> And this protocol also could be used in virtualization environment,
->> typically hypervisor(or vhost-user process) handles request from virtio
->> PCI/MMIO/CCW, remaps request and forwards to target by fabrics.
+> Same here.
 > 
-> This requires meditation in the datapath, isn't it?
+> >  
+> >  A driver sets \field{max_tx_vq} to inform a device how many transmit virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
+> >  
+> > @@ -1466,7 +1476,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+> >  
+> >  A driver MUST NOT send the VIRTIO_NET_CTRL_MQ_RSS_CONFIG command if the feature VIRTIO_NET_F_RSS has not been negotiated.
+> >  
+> > -A driver MUST fill the \field{indirection_table} array only with indices of enabled queues. Index 0 corresponds to receiveq1.
+> > +A driver MUST fill the \field{indirection_table} array only with
+> > +enabled receive virtqueues.
 > 
->>
->> - Protocol
->> The detail protocol definition see:
->> https://github.com/pizhenwei/linux/blob/virtio-of-github/include/uapi/linux/virtio_of.h
+> Same here.
+> >  
+> >  The number of entries in \field{indirection_table} (\field{indirection_table_mask} + 1) MUST be a power of two.
+> >  
+> > @@ -1479,7 +1490,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+> >  \begin{itemize}
+> >  \item Calculate the hash of the packet as defined in \ref{sec:Device Types / Network Device / Device Operation / Processing of Incoming Packets / Hash calculation for incoming packets}.
+> >  \item If the device did not calculate the hash for the specific packet, the device directs the packet to the receiveq specified by \field{unclassified_queue} of virtio_net_rss_config structure.
+> > -\item Apply \field{indirection_table_mask} to the calculated hash and use the result as the index in the indirection table to get 0-based number of destination receiveq.
+> > +\item Apply \field{indirection_table_mask} to the calculated hash
+> > +and use the result as the index in the indirection table to get
+> > +the destination receive virtqueue.
 > 
-> I'd say a RFC patch for virtio spec is more suitable than the codes.
+> Same here.
 > 
+> >  \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
+> >  \end{itemize}
+> >  
 
-OK. I'll send a RFC patch for virtio spec later if this proposal is 
-acceptable.
-
-[...]
-
-> 
-> A quick glance at the code told me it's a mediation layer that convert
-> descriptors in the vring to the fabric specific packet. This is the
-> vDPA way.
-> 
-> If we agree virtio of fabic is useful, we need invent facilities to
-> allow building packet directly without bothering the virtqueue (the
-> API is layout independent anyhow).
-> 
-> Thanks
-> 
-
-This code describes the case 1[Host/container scenario], also proves 
-this case works.
-Create a virtqueue in the virtio fabric module, also emulate a 
-"virtqueue backend" here, when uplayer kicks vring, the "backend" gets 
-notified and builds packet to TCP/RDMA.
-
-[...]
-
--- 
-zhenwei pi
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
