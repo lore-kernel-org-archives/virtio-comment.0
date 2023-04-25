@@ -1,17 +1,20 @@
-Return-Path: <virtio-comment-return-5629-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5630-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D632C77B61
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 07:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B2DAC6FD18
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 07:23:33 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6F03F2B063
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 07:23:32 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 58A4A9863E1
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 07:23:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 906572ACA8
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 07:05:31 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by host09.ws5.connectedcommunity.org (Postfix) with QMQP
-	id 85C5F3D8D4; Tue, 25 Apr 2023 07:05:31 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with QMQP
+	id 4A2B69863D7; Tue, 25 Apr 2023 07:23:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -21,132 +24,248 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BA62D9863E1
-	for <virtio-comment@lists.oasis-open.org>; Tue, 25 Apr 2023 07:04:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3767E983FEA
+	for <virtio-comment@lists.oasis-open.org>; Tue, 25 Apr 2023 07:23:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682406265; x=1684998265;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20221208; t=1682407408; x=1684999408;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+IL9kc7mFRmmHIy1kFjAeVngNv7apJV+bSnDYD76jMk=;
-        b=akiqBi2fpGBCiJs7uZPtECgYL6mUa+kan0AHjSFt8vyb1PcFDvTmU9qfCkOCvjT3Op
-         yHXPxsfCC2Ug6c7GrzyOI1MB5K9gx6wAc/yE4ajlNQ6hT2CXwkcxca9BgtpcDSVSSu3c
-         BzCnWPOsPkkEiLveoq6htt55T6XKY94mkTzvDlr5NyjYWJXQH8f/w9wgmxreCW6uU2Hc
-         pIQYYXItwrf6QBAqL8lYqBD0VRCghlbpbPrerP2RL3pKSOcDkWRpqo2tgRkxrjgWWD5B
-         HxSSR0AbBBC6NCvyLtWRRo2UozlRacgg6ac7SN/vXlvMzLK1lolO2p4BSmfTcUAQVC3R
-         tEFQ==
-X-Gm-Message-State: AAQBX9dFyTBwOerSOs3ieemEMsXjsJ1tE5bYMv/i9h4rDgcr4hoyER9k
-	TZz39dKMX8ZcICE488p8bAh3qg==
-X-Google-Smtp-Source: AKy350Y9lDG3TzdJf2dLB12mA8kyMQVtz2U0JoPe2VzqMFYRjpmxRjoOrIwnBkI6Q7vGdltRDcKZvw==
-X-Received: by 2002:a17:902:d2cb:b0:19d:611:2815 with SMTP id n11-20020a170902d2cb00b0019d06112815mr19390023plc.42.1682406264774;
-        Tue, 25 Apr 2023 00:04:24 -0700 (PDT)
-Message-ID: <66cc128e-d903-f9b3-1e94-1bb48d0173ad@bytedance.com>
-Date: Tue, 25 Apr 2023 15:02:27 +0800
+        bh=J94x5nDxDjS9dFUS9i7xyVVyTjc9z/mWRA/g8SHDlAs=;
+        b=jojwlyNu4hJOUBf4XwNZ8UZoM1lhuUxKeJTeiaqKaoQwKBvyPDoG+fx+y4I4NKwRYZ
+         v+RPPe0GnFidQVF2CmZDoHTftrF5vw6wt+lZSOyaMtYT43Er8rqP/0/gKXdKKhaRudzY
+         ClO2t1E23doAKtgerut5NwTnQ6KjHe5N/Cmwi8CNyzIjDoHZcdDD2i8TCaCCOWerPV0v
+         Wt9uPfNs1elzHBGiALwoRqhf2wzXx0z3b96YqoZ2tA2AcOqiaaXPf8l6mqxGDM6FS4Cu
+         7LXHlVJ6TEKYqwjUoxtvpTxs2BVSTgcvtwe0SbFRFUSlXUb7o4Ycl0NmcNTXW5k7flf5
+         U0jA==
+X-Gm-Message-State: AAQBX9fGN41l3V2rXO+qeoV4NM0ZwpoOh5QgeXCeJwpj3kfoGv2gIog6
+	J0vpye/l7qImTu1ziWYCtpMigw==
+X-Google-Smtp-Source: AKy350ZVwBl7fxgG3aWRb3vLWE9RoM6LFHbIjZcg4MAmsvE8t7u4CrD7gcbgxJJKHaGneENjsHzTBA==
+X-Received: by 2002:a17:903:2094:b0:1a2:98b1:1ee2 with SMTP id d20-20020a170903209400b001a298b11ee2mr14504118plc.15.1682407408073;
+        Tue, 25 Apr 2023 00:23:28 -0700 (PDT)
+Message-ID: <694c448b-ca87-fde1-8d0f-5b473bdab04f@bytedance.com>
+Date: Tue, 25 Apr 2023 15:21:31 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-To: Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>
+Content-Language: en-US
+To: Jason Wang <jasowang@redhat.com>
 Cc: "Michael S . Tsirkin" <mst@redhat.com>, Cornelia Huck
- <cohuck@redhat.com>, virtio-dev@lists.oasis-open.org,
+ <cohuck@redhat.com>, parav@nvidia.com, virtio-dev@lists.oasis-open.org,
  "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
  "helei.sig11@bytedance.com" <helei.sig11@bytedance.com>, houp@yusur.tech
 References: <1ab0beff-8b18-7a94-1a68-6bf36bcd0394@bytedance.com>
  <CACGkMEvh+G2Tm=WDTOK3K2GO8c2dQ4y=UiKAk_kvsid2MGzbGg@mail.gmail.com>
  <8f65c9aa-c867-0929-151c-21bbe25a0693@bytedance.com>
- <4150bd72-a358-c854-0c64-b149621a1b8d@nvidia.com>
-Content-Language: en-US
+ <CACGkMEu9Tzrj+9CUzWOeGhRK-qONHk6cf+2RTTJtxtcKFB8cqw@mail.gmail.com>
 From: zhenwei pi <pizhenwei@bytedance.com>
-In-Reply-To: <4150bd72-a358-c854-0c64-b149621a1b8d@nvidia.com>
+In-Reply-To: <CACGkMEu9Tzrj+9CUzWOeGhRK-qONHk6cf+2RTTJtxtcKFB8cqw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: Re: [virtio-comment] [PROPOSAL] Virtio Over Fabrics(TCP/RDMA)
+Subject: Re: Re: Re: [virtio-comment] [PROPOSAL] Virtio Over Fabrics(TCP/RDMA)
 
-On 4/25/23 13:03, Parav Pandit wrote:
-[...]
-> Example #3 enables to implement virtio backend over fabrics initiator in 
-> the user space, which is also a good use case.
-Yes.
 
-> It can be also be done in non native virtio backend.
-> More below.
-> 
->> 3, SmartNIC/DPU/vDPA environment. It's possible to convert virtio-pci 
->> request to virtio-of request by hardware, and forward request to 
->> virtio target directly.
->>          +----------+    +----------+       +----------+
->>          |Map-Reduce|    |   nginx  |  ...  | processes|
->>          +----------+    +----------+       +----------+
->> ------------------------------------------------------------
->> Host         |               |                  |
->> Kernel   +-------+       +-------+          +-------+
->>           | ext4  |       | LKCF  |          | HWRNG |
->>           +-------+       +-------+          +-------+
->>               |               |                  |
->>           +-------+       +-------+          +-------+
->>           |  vdx  |       |vCrypto|          | vRNG  |
->>           +-------+       +-------+          +-------+
->>               |               |                  |
->> PCI --------------------------------------------------------
->>                               |
->> SmartNIC             +---------------+
->>                       |virtio HW queue|
->>                       +---------------+
->>                               |
->>                           +------+
->>                           |NIC/IB|
->>                           +------+
->>                               |                      +-------------+
->>                               +--------------------->|virtio target|
->>                                                      +-------------+
+
+On 4/25/23 14:36, Jason Wang wrote:
+> On Mon, Apr 24, 2023 at 9:38 PM zhenwei pi <pizhenwei@bytedance.com> wrote:
 >>
-> All 3 seems a valid use cases.
+>>
+>>
+>> On 4/24/23 11:40, Jason Wang wrote:
+>>> On Sun, Apr 23, 2023 at 7:31 PM zhenwei pi <pizhenwei@bytedance.com> wrote:
+>>>>
+>>>> Hi,
+>>>>
+>>>> In the past years, virtio supports lots of device specifications by
+>>>> PCI/MMIO/CCW. These devices work fine in the virtualization environment,
+>>>> and we have a chance to support virtio device family for the
+>>>> container/host scenario.
+>>>
+>>> PCI can work for containers for sure (or does it meet any issue like
+>>> scalability?). It's better to describe what problems you met and why
+>>> you choose this way to solve it.
+>>>
+>>> It's better to compare this with
+>>>
+>>> 1) hiding the fabrics details via DPU
+>>> 2) vDPA
+>>>
+>> Hi,
+>>
+>> Sorry, I missed this part. "Network defined peripheral devices of virtio
+>> family" is the main purpose of this proposal,
 > 
-> Use case 1 and 2 can be achieved directly without involving any 
-> mediation layer or any other translation layer (for example virtio to nfs).
-> Many blk and file protocols outside of the virtio already exists which 
-> achieve this. I don't see virtio being any different to support this in 
-> native manner, mainly the blk, fs, crypto device.
+> This can be achieved by either DPU or vDPA. I think the advantages is,
+> if we standardize this in the spec, it avoids vendor specific
+> protocol.
 > 
 
-I'm working on iSCSI/iSER/NVMe-oF for several years, frankly, I also 
-think there is no essential difference between virtio-blk over fabrics 
-and NVMe-oF. As far as I know, storage specified protocol is quit common 
-and popular, but the other device types seems lack. For example, I don't 
-know any protocol to support remote crypto device(please correct me if 
-there is already one). I also notice that virtio-camera is reserved, a 
-remote camera protocol may be developed to support camera redirection in 
-future. virtio-of works on virtio transport layer, it allow us to 
-support almost the full virtio device family.
+Agree with "standardize this in the spec to avoid vendor specific 
+protocol", this also avoid device specific protocol, for example, we 
+don't need "block over fabrics", "crypto over fabrics", "camera over 
+fabrics" ... to support virtio device family, instead we only need a 
+single virtio-of.
 
-> use case #3 brings additional a benefits at the same time different 
-> complexity but sure #3 is also a valid and common use case in our 
-> experiences.
-> 
-> In my experience working with FC, iSCSI, FCoE, NVMe RDMA fabrics, iSER,
-> A virito fabrics needs a lot of work to reach the scale, resiliency and 
-> lastly the security. (step by step...)
-> 
-> My humble suggestion is : pick one transport instead of all at once, 
-> rdma being most performant probably the first candidate to see the perf 
-> gain for use case #1 and #2 from remote system.
-> 
-> I briefly see your rdma command descriptor example, which is not aligned 
-> to 16B. Perf wise it will be poor than nvme rdma fabrics.
-> 
-Thanks, I'll confirm this with RDMA expert, maybe add a padding field in 
-command.
+"This can be achieved by either DPU or vDPA", do you mean case 3?
 
-> For PCI transport for net, we intent to start the work to improve 
-> descriptors, the transport binding for net device. From our research I 
-> see that some abstract virtio descriptors are great today, but if you 
-> want to get best out of the system (sw, hw, cpu), such abstraction is 
-> not the best. Sharing of "id" all the way to target and bring back is an 
-> example of such inefficiency in your example.
+>> this allows us to use many
+>> types of remote resources which are provided by virtio target.
+>>
+>>   From the point of my view, there are 3 cases:
+>> 1, Host/container scenario. For example, host kernel connects a virtio
+>> target block service, maps it as a vdx(virtio-blk) device(used by
+>> Map-Reduce service which needs a fast/large size disk). The host kernel
+>> also connects a virtio target crypto service, maps it as virtio crypto
+>> device(used by nginx to accelarate HTTPS). And so on.
+>>
+>>           +----------+    +----------+       +----------+
+>>           |Map-Reduce|    |   nginx  |  ...  | processes|
+>>           +----------+    +----------+       +----------+
+>> ------------------------------------------------------------
+>> Host         |               |                  |
+>> Kernel   +-------+       +-------+          +-------+
+>>            | ext4  |       | LKCF  |          | HWRNG |
+>>            +-------+       +-------+          +-------+
+>>                |               |                  |
+>>            +-------+       +-------+          +-------+
+>>            |  vdx  |       |vCrypto|          | vRNG  |
+>>            +-------+       +-------+          +-------+
+>>                |               |                  |
+>>                |           +--------+             |
+>>                +---------->|TCP/RDMA|<------------+
+>>                            +--------+
+>>                                |
+>>                            +------+
+>>                            |NIC/IB|
+>>                            +------+
+>>                                |                      +-------------+
+>>                                +--------------------->|virtio target|
+>>                                                       +-------------+
+>>
+>> 2, Typical virtualization environment. The workloads run in a guest, and
+>> QEMU handles virtio-pci(or MMIO), and forwards requests to target.
+>>           +----------+    +----------+       +----------+
+>>           |Map-Reduce|    |   nginx  |  ...  | processes|
+>>           +----------+    +----------+       +----------+
+>> ------------------------------------------------------------
+>> Guest        |               |                  |
+>> Kernel   +-------+       +-------+          +-------+
+>>            | ext4  |       | LKCF  |          | HWRNG |
+>>            +-------+       +-------+          +-------+
+>>                |               |                  |
+>>            +-------+       +-------+          +-------+
+>>            |  vdx  |       |vCrypto|          | vRNG  |
+>>            +-------+       +-------+          +-------+
+>>                |               |                  |
+>> PCI --------------------------------------------------------
+>>                                |
+>> QEMU                 +--------------+
+>>                        |virtio backend|
+>>                        +--------------+
+>>                                |
+>>                            +------+
+>>                            |NIC/IB|
+>>                            +------+
+>>                                |                      +-------------+
+>>                                +--------------------->|virtio target|
+>>                                                       +-------------+
+>>
+> 
+> So it's the job of the Qemu to do the translation from virtqueue to packet here?
+> 
 
-Could you please give me more hint about this?
-Because requests from virtqueue always have unique id, so the inflight 
-virtio-of request use id to distinguish. otherwise, it has no other meaning.
+Yes. QEMU pops request from virtqueue backend, translates it into 
+virtio-of, and forwards to target side. Handle response from target 
+side, then interrupt guest.
+
+>> 3, SmartNIC/DPU/vDPA environment. It's possible to convert virtio-pci
+>> request to virtio-of request by hardware, and forward request to virtio
+>> target directly.
+>>           +----------+    +----------+       +----------+
+>>           |Map-Reduce|    |   nginx  |  ...  | processes|
+>>           +----------+    +----------+       +----------+
+>> ------------------------------------------------------------
+>> Host         |               |                  |
+>> Kernel   +-------+       +-------+          +-------+
+>>            | ext4  |       | LKCF  |          | HWRNG |
+>>            +-------+       +-------+          +-------+
+>>                |               |                  |
+>>            +-------+       +-------+          +-------+
+>>            |  vdx  |       |vCrypto|          | vRNG  |
+>>            +-------+       +-------+          +-------+
+>>                |               |                  |
+>> PCI --------------------------------------------------------
+>>                                |
+>> SmartNIC             +---------------+
+>>                        |virtio HW queue|
+>>                        +---------------+
+>>                                |
+>>                            +------+
+>>                            |NIC/IB|
+>>                            +------+
+>>                                |                      +-------------+
+>>                                +--------------------->|virtio target|
+>>                                                       +-------------+
+>>
+>>>>
+>>>> - Theory
+>>>> "Virtio Over Fabrics" aims at "reuse virtio device specifications", and
+>>>> provides network defined peripheral devices.
+>>>> And this protocol also could be used in virtualization environment,
+>>>> typically hypervisor(or vhost-user process) handles request from virtio
+>>>> PCI/MMIO/CCW, remaps request and forwards to target by fabrics.
+>>>
+>>> This requires meditation in the datapath, isn't it?
+>>>
+>>>>
+>>>> - Protocol
+>>>> The detail protocol definition see:
+>>>> https://github.com/pizhenwei/linux/blob/virtio-of-github/include/uapi/linux/virtio_of.h
+>>>
+>>> I'd say a RFC patch for virtio spec is more suitable than the codes.
+>>>
+>>
+>> OK. I'll send a RFC patch for virtio spec later if this proposal is
+>> acceptable.
+> 
+> Well, I think we need to have an RFC first to know if it is acceptable or not.
+> 
+
+Sure, I'll send a draft.
+
+>>
+>> [...]
+>>
+>>>
+>>> A quick glance at the code told me it's a mediation layer that convert
+>>> descriptors in the vring to the fabric specific packet. This is the
+>>> vDPA way.
+>>>
+>>> If we agree virtio of fabic is useful, we need invent facilities to
+>>> allow building packet directly without bothering the virtqueue (the
+>>> API is layout independent anyhow).
+>>>
+>>> Thanks
+>>>
+>>
+>> This code describes the case 1[Host/container scenario], also proves
+>> this case works.
+>> Create a virtqueue in the virtio fabric module, also emulate a
+>> "virtqueue backend" here, when uplayer kicks vring, the "backend" gets
+>> notified and builds packet to TCP/RDMA.
+> 
+> In this case, it won't perform good. Since it still use virtqueue
+> which is unnecessary in the datapath for fabric.
+>  > Thanks
+> 
+>>
+>> [...]
+>>
+>> --
+>> zhenwei pi
+>>
+> 
 
 -- 
 zhenwei pi
