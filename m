@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5631-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5632-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90E6FC77B61
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 10:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 892F9C77B71
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 13:07:01 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B526A2AC51
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 10:59:26 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E1C3433584
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 13:06:56 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9802798644B
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 10:59:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 91D4898644E
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 13:06:56 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8103298642D; Tue, 25 Apr 2023 10:59:26 +0000 (UTC)
+	id 8681398643E; Tue, 25 Apr 2023 13:06:56 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,116 +24,144 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6F73E98642F;
-	Tue, 25 Apr 2023 10:59:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 723EF98643F;
+	Tue, 25 Apr 2023 13:06:54 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-Date: Tue, 25 Apr 2023 12:59:18 +0200
+Date: Tue, 25 Apr 2023 15:02:15 +0200
 From: Halil Pasic <pasic@linux.ibm.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>,
-        <sgarzare@redhat.com>, <virtio-comment@lists.oasis-open.org>,
-        <shahafs@nvidia.com>, Halil Pasic
- <pasic@linux.ibm.com>
-Message-ID: <20230425125918.6ff86375.pasic@linux.ibm.com>
-In-Reply-To: <20230419014639.919458-7-parav@nvidia.com>
+Cc: "mst@redhat.com" <mst@redhat.com>,
+        "virtio-dev@lists.oasis-open.org"
+ <virtio-dev@lists.oasis-open.org>,
+        "cohuck@redhat.com" <cohuck@redhat.com>,
+        "sgarzare@redhat.com" <sgarzare@redhat.com>,
+        "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>,
+        Shahaf Shuler <shahafs@nvidia.com>, Halil Pasic <pasic@linux.ibm.com>
+Message-ID: <20230425150215.1c445755.pasic@linux.ibm.com>
+In-Reply-To: <PH0PR12MB5481ABEFADC3ECFD93E645FADC649@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20230419014639.919458-1-parav@nvidia.com>
- <20230419014639.919458-7-parav@nvidia.com>
+	<20230419014639.919458-5-parav@nvidia.com>
+	<20230424152919.70254ffa.pasic@linux.ibm.com>
+	<PH0PR12MB5481ABEFADC3ECFD93E645FADC649@PH0PR12MB5481.namprd12.prod.outlook.com>
 Organization: IBM
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
-Content-Type: text/plain; charset=US-ASCII
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 06FrXIq5a5zUFNTFhlNWsX0mH5r06pCs
-X-Proofpoint-ORIG-GUID: 5ExDtakTWNILSByvcBo-CZ1HmgHEqm8M
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: g83ESZqvj8W5vs4Ym3NntjTKLVSNxxri
+X-Proofpoint-GUID: g-3apqPWpjhgMnvh_pX4TyeA4w0Xhb-G
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-25_03,2023-04-25_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=999
- priorityscore=1501 malwarescore=0 phishscore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 bulkscore=0 mlxscore=0 suspectscore=0 impostorscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304250094
-Subject: Re: [virtio-comment] [PATCH v14 06/11] transport-mmio: Avoid
- referring to zero based index
+ definitions=2023-04-25_05,2023-04-25_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0 mlxscore=0
+ mlxlogscore=999 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304250117
+Subject: [virtio-comment] Re: [virtio-dev] RE: [virtio-comment] [PATCH v14 04/11]
+ transport-pci: Avoid first vq index reference
 
-On Wed, 19 Apr 2023 04:46:34 +0300
+On Tue, 25 Apr 2023 04:10:00 +0000
 Parav Pandit <parav@nvidia.com> wrote:
 
-> VQ range is already described in the first patch in basic virtqueue
-> section. Hence remove the duplicate reference to it.
+> > From: Halil Pasic <pasic@linux.ibm.com>
+> > Sent: Monday, April 24, 2023 9:29 AM
+[..]
+> > 
+> > In [1] you state the following: "There is nothing like a zero based index. A VQ
+> > can be any u16 _number_ in range of 0 to 65534.
+> > Number can also start from zero. So zero based index = zero based number."
+> > 
+> > I don't really understand what do you mean by this,   
+> Like you described the vq index range is device specific and it is already documented in each device type.
 > 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
 
-Acked-by: Halil Pasic <pasic@linux.ibm.com>
+Yes, but we don't actually spell it out. In virtio 1.1 "index" or
+"virtqueue number" can be found in chapter 5 "Device Types".
 
-Same comments apply as for patch #4.
+Yes each device has a section "5.X.2 Virtqueues", but we don't spell it
+out that the numbers 0, 1, 2 are actually virtqueue indexes.
+
+> A driver can choose to enable its "first VQ" located at vq index 2 for a specific device type.
+> So, for device the first VQ is vq index 2 instead of 0.
+
+You read "first queue" as the queue that was "enabled" first. I tend to
+agree, the queues can be "enabled" in any particular order. But I don't
+agree that the queue that was "first enabled" is the what the spec
+currently refers to as "first queue".
+
+I don't really agree with your statement. For example, IMHO, it does not
+work if the device has just one queue (like block, entropy) or just two
+queues.
+
+I'm convinced, for the device the first vq is always the queue with
+index 0, if there is such a thing as "first vq for the device". I believe
+the specification does not need "first vq for the device" and similar,
+because what we actually need is "the queue with virtqueue index N".
 
 > 
-> ---
-> changelog:
-> v12->v13:
-> - corrected number to index
-> v11->v12:
-> - remove changes related to 'vq number'
-> v8->v9:
-> - added 'by' at two places
-> - replaced 'queue number' with 'vq number'
+> PCI spec wrote "first queue is 0", this was little misleading how driver and device see it.
 > 
-> v6->v7:
-> - remove text around first vq as it is already covered in the basic
->   virtqueues facility section
-> ---
->  transport-mmio.tex | 13 ++++---------
->  1 file changed, 4 insertions(+), 9 deletions(-)
+> So vq index starts from 0 but it need not be the first VQ, that's what I meant by above line and range description.
 > 
-> diff --git a/transport-mmio.tex b/transport-mmio.tex
-> index 164e640..2d24b4c 100644
-> --- a/transport-mmio.tex
-> +++ b/transport-mmio.tex
-> @@ -113,8 +113,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
->      following operations on \field{QueueSizeMax},
->      \field{QueueSize}, \field{QueueReady},
->      \field{QueueDescLow}, \field{QueueDescHigh}, \field{QueueDriverlLow}, \field{QueueDriverHigh},
-> -    \field{QueueDeviceLow}, \field{QueueDeviceHigh} and \field{QueueReset} apply to. The index
-> -    number of the first queue is zero (0x0).
-> +    \field{QueueDeviceLow}, \field{QueueDeviceHigh} and \field{QueueReset} apply to.
->    }
->    \hline
->    \mmioreg{QueueSizeMax}{Maximum virtual queue size}{0x034}{R}{%
-> @@ -363,8 +362,7 @@ \subsubsection{Virtqueue Configuration}\label{sec:Virtio Transport Options / Vir
->  The driver will typically initialize the virtual queue in the following way:
->  
->  \begin{enumerate}
-> -\item Select the queue writing its index (first queue is 0) to
-> -   \field{QueueSel}.
-> +\item Select the queue by writing its index to \field{QueueSel}.
->  
->  \item Check if the queue is not already in use: read \field{QueueReady},
->     and expect a returned value of zero (0x0).
-> @@ -474,9 +472,7 @@ \subsection{Legacy interface}\label{sec:Virtio Transport Options / Virtio Over M
->      Writing to this register selects the virtual queue that the
->      following operations on the \field{QueueSizeMax},
->      \field{QueueSize}, \field{QueueAlign}
-> -    and \field{QueuePFN} registers apply to. The index
-> -    number of the first queue is zero (0x0).
-> -.
-> +    and \field{QueuePFN} registers apply to.
->    }
->    \hline
->    \mmioreg{QueueSizeMax}{Maximum virtual queue size}{0x034}{R}{%
-> @@ -550,8 +546,7 @@ \subsection{Legacy interface}\label{sec:Virtio Transport Options / Virtio Over M
->  
->  The virtual queue is configured as follows:
->  \begin{enumerate}
-> -\item Select the queue writing its index (first queue is 0) to
-> -   \field{QueueSel}.
-> +\item Select the queue by writing its index to \field{QueueSel}.
->  
->  \item Check if the queue is not already in use: read \field{QueuePFN},
->     expecting a returned value of zero (0x0).
+
+
+IMHO we should make sure the spec can not be read in this way. Because
+if one was to choose the vq index 5 from the allowed range of [0..65535].
+And try to "enable" the vq with index 5 as the first and only queue of
+the virtio-blk device, and use it as such: well that would not work out
+well.
+
+> > but I'm afraid it is not
+> > consistent with my understanding. Can not be any number in range of 0 to
+> > 65534.
+> > 
+> > Rather in general it depends on the device type, and on the device how many
+> > queues it support. Let us call this number dev_vq_max. And if dev_vq_max > N  
+> > > 0 index is associated with a queue the N-1 index is also associated with a  
+> > queue.
+> > 
+> > Let me also note that the number of queues supported/provided by the device
+> > is a matter of the device. For many devices the number of queues is a constant
+> > given in the specification. A Network Device tells its driver how may queues it
+> > supports via max_virtqueue_pairs, Crypto Device via max_dataqueues, and
+> > Console Device via max_dataqueues.
+> > The transports PCI also has num_queues which is documented as "The device
+> > specifies the maximum number of virtqueues supported here." while CCW and
+> > MMIO have no transport specific means to tell the driver about the number of
+> > queues supported by the device. In any case, if the number of queues provided
+> > by the device is N, each of those queues is uniquely identified by exactly one
+> > index from the range [0..N-1]. Furthermore the role a certain queue plays is
+> > determined by its index. E.g. for the Console Device virtqueue identified by the
+> > index 3 is the "control receiveq".
+> >   
+> Sure. All you wrote is correct.
+> 
+
+I'm happy we agree. All I say we may want to rewrite the 
+
+"Each virtqueue is identified by a virtqueue index; virtqueue index
+range is from 0 to 65535 inclusive."
+as
+"Each virtqueue is uniquely identified by a virtqueue index. The number
+of supported virtqueues is device dependent, but can never exceed 65536.
+Thus 16 bit is sufficient to represent virtqueue indexes. If the number
+of virtqueues currently supported by some device is N, each of it is
+virtqueues is uniquely identified by a single index from the range
+[0..N-1]."
+
+And it may be ester than doing a separate issue+ballot for it.
+
+Regards,
+Halil
+
+> 
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+> 
 
 
 This publicly archived list offers a means to provide input to the
