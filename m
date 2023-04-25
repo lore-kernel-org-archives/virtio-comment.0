@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5639-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5640-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA03C77B61
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 14:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 144FFC77B61
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 16:20:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1153B370ED
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 14:10:03 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2A4F32AC4B
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 16:20:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DA403986463
-	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 14:10:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1A2C2986460
+	for <virtio-comment@archiver.kernel.org>; Tue, 25 Apr 2023 16:20:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id BA94F986449; Tue, 25 Apr 2023 14:10:02 +0000 (UTC)
+	id 0A53998644A; Tue, 25 Apr 2023 16:20:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,81 +24,101 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9E21898644B
-	for <virtio-comment@lists.oasis-open.org>; Tue, 25 Apr 2023 14:10:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D1D8E98644B;
+	Tue, 25 Apr 2023 16:20:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 4v4pYJwnNF-JN4a7B3kTXg-1
-Date: Tue, 25 Apr 2023 10:09:42 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: zhenwei pi <pizhenwei@bytedance.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Cornelia Huck <cohuck@redhat.com>, parav@nvidia.com,
-	virtio-dev@lists.oasis-open.org,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"helei.sig11@bytedance.com" <helei.sig11@bytedance.com>,
-	houp@yusur.tech
-Message-ID: <20230425140942.GB697094@fedora>
-References: <1ab0beff-8b18-7a94-1a68-6bf36bcd0394@bytedance.com>
- <CACGkMEvh+G2Tm=WDTOK3K2GO8c2dQ4y=UiKAk_kvsid2MGzbGg@mail.gmail.com>
+Date: Tue, 25 Apr 2023 18:20:08 +0200
+From: Halil Pasic <pasic@linux.ibm.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+        "virtio-dev@lists.oasis-open.org"
+ <virtio-dev@lists.oasis-open.org>,
+        "cohuck@redhat.com" <cohuck@redhat.com>,
+        "sgarzare@redhat.com" <sgarzare@redhat.com>,
+        "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>,
+        Shahaf Shuler <shahafs@nvidia.com>, Halil Pasic <pasic@linux.ibm.com>
+Message-ID: <20230425182008.707b3b56.pasic@linux.ibm.com>
+In-Reply-To: <20230425091058-mutt-send-email-mst@kernel.org>
+References: <20230419014639.919458-1-parav@nvidia.com>
+	<20230419014639.919458-5-parav@nvidia.com>
+	<20230424152919.70254ffa.pasic@linux.ibm.com>
+	<PH0PR12MB5481ABEFADC3ECFD93E645FADC649@PH0PR12MB5481.namprd12.prod.outlook.com>
+	<20230425150215.1c445755.pasic@linux.ibm.com>
+	<20230425091058-mutt-send-email-mst@kernel.org>
+Organization: IBM
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="sOWzMF8PgDSle/pD"
-Content-Disposition: inline
-In-Reply-To: <CACGkMEvh+G2Tm=WDTOK3K2GO8c2dQ4y=UiKAk_kvsid2MGzbGg@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [virtio-comment] [PROPOSAL] Virtio Over Fabrics(TCP/RDMA)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: QZ8aYiaUxbASmDg8wwKkEBOMMdQC2qVS
+X-Proofpoint-GUID: 7T2be5vsMrwXGkeliV32eDdgnMLNZ6SF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-25_07,2023-04-25_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 mlxlogscore=999 impostorscore=0
+ adultscore=0 spamscore=0 priorityscore=1501 mlxscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304250144
+Subject: [virtio-comment] Re: [virtio-dev] RE: [virtio-comment] [PATCH v14 04/11]
+ transport-pci: Avoid first vq index reference
 
---sOWzMF8PgDSle/pD
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, 25 Apr 2023 09:15:14 -0400
+"Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-On Mon, Apr 24, 2023 at 11:40:02AM +0800, Jason Wang wrote:
-> On Sun, Apr 23, 2023 at 7:31=E2=80=AFPM zhenwei pi <pizhenwei@bytedance.c=
-om> wrote:
-> > I develop an kernel initiator(unstable, WIP version, currently TCP/RDMA
-> > supported):
-> > https://github.com/pizhenwei/linux/tree/virtio-of-github
->=20
-> A quick glance at the code told me it's a mediation layer that convert
-> descriptors in the vring to the fabric specific packet. This is the
-> vDPA way.
->
-> If we agree virtio of fabic is useful, we need invent facilities to
-> allow building packet directly without bothering the virtqueue (the
-> API is layout independent anyhow).
+> On Tue, Apr 25, 2023 at 03:02:15PM +0200, Halil Pasic wrote:
+> > On Tue, 25 Apr 2023 04:10:00 +0000
+> > Parav Pandit <parav@nvidia.com> wrote:
+[..]
+> > > Sure. All you wrote is correct.
+> > >   
+> > 
+> > I'm happy we agree. All I say we may want to rewrite the 
+> > 
+> > "Each virtqueue is identified by a virtqueue index; virtqueue index
+> > range is from 0 to 65535 inclusive."
+> > as
+> > "Each virtqueue is uniquely identified by a virtqueue index. The number
+> > of supported virtqueues is device dependent, but can never exceed 65536.
+> > Thus 16 bit is sufficient to represent virtqueue indexes. If the number
+> > of virtqueues currently supported by some device is N, each of it is
+> > virtqueues is uniquely identified by a single index from the range
+> > [0..N-1]."  
+> 
+> Seems to be repeating same thing over and over.
 
-I agree. vrings makes sense for RDMA, but I think virtio_fabrics.c
-should not be dependent on vrings.
+Nod.
 
-Linux struct virtqueue is independent of vrings but the implementation
-currently lives in virtio_ring.c because there has never been a
-non-vring transport before.
+> This redundancy has cost, e.g. more places to change when we
+> talk about admin queues.
+> Yes it can not be any number 0 to 65535 but this kind of nitpicking
+> belongs in conformance statements not in general description.
+> 
 
-It would be nice to implement virtqueue_add_sgs() specifically for
-virtio_tcp.c without the use of vrings. Is a new struct
-virtqueue_ops needed with with .add_sgs() and related callbacks?
+I tend to agree. I would prefer to have it in some sort of conformance
+statement, but I would also prefer to have it in exactly one place (and
+not all over the place).
 
-Luckily the <linux/virtio.h> API already supports this abstraction and
-changes to existing device drivers should be unnecessary or minimal.
+Regards,
+Halil
 
-Stefan
+[..]
 
---sOWzMF8PgDSle/pD
-Content-Type: application/pgp-signature; name="signature.asc"
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
------BEGIN PGP SIGNATURE-----
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRH3yYACgkQnKSrs4Gr
-c8glGQgAyHNMxA0CLKzkiNCPiFfIGs9j95peVLn+iN1vYppj7p91elb8ts8chRdD
-w27oBCAFAGIKi10MzI4p6lGEt/GwNOadKWdN7pMqc+kxnlYzR9s//mcTbe47Beb6
-uE8f0+uE8z7wz5xGmWy5Cs7tXR0RNAWm7+jGU+fS0Zv9EgFdU3CCtBqZKQrrcasx
-MZHkq3IQkfihDXsDpccI3QVB2XjyK67afiDbHkvfbdwTzT8L9fHArxkhw5WDiZbm
-4WF1H2x2szF2tm+++VnO+tmQzIEAu+mpmrINKh2HkEcu+g2dNT7gzuk+ChDGi+Z4
-M9aR4A5KhARTyOCQKxrmcaQsoduhQw==
-=HTPF
------END PGP SIGNATURE-----
-
---sOWzMF8PgDSle/pD--
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
