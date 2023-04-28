@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5692-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5693-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB2CC77B60
-	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 07:55:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605A1C77B7C
+	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 13:35:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1CCE72A88B
-	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 07:55:58 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 85DA21395ED
+	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 13:35:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0293D98668B
-	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 07:55:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 72C8898669D
+	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 13:35:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id EB63B986681; Fri, 28 Apr 2023 07:55:57 +0000 (UTC)
+	id 5DD8B98668E; Fri, 28 Apr 2023 13:35:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,134 +24,132 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DB219986682
-	for <virtio-comment@lists.oasis-open.org>; Fri, 28 Apr 2023 07:55:57 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 48A1898668F;
+	Fri, 28 Apr 2023 13:35:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682668555; x=1685260555;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VL9LDu8DU3Va3PDXDkVz37vkQYafMGcSZXK+8VgtsTw=;
-        b=UFK09UNf20Bdl0eSyoM4KbCAqf8vMgPQaGMnZiOX54EiZp0js84YBZdgQCt39Z/6DM
-         Sj7t5kZkyXArm9qr678rlbhUutP4lBZuiPkUJyP2ktDSj97J9JVNZs1uDpYA+6lP6qjD
-         DcyfDAoo5i11W4pKlWACTTqZucdm7AYTd9OuDSpNpyfvoqj/uioCAD+mScrx3fzZ1S+I
-         NkdoiseY45U11QkwshPiXhMCX6nm5om+9mYxAvSKlBJx1TcICZ6QqtzB4u661lo1/l2+
-         3zoC/jfqafrh/4Zc/PaOPz6Wr/jhhng4MOmvrC4oFT2+57BbWYdkcMTzh7CJbWEckL/t
-         rRLA==
-X-Gm-Message-State: AC+VfDzeJ74Vox/1NZucx9tV9pG/uoszefdNFdij2Oy6LdKMwXEswpCO
-	C+8lkslw6Uu7HzbeevXZfKwEzFS0bBDTNLaG8ak=
-X-Google-Smtp-Source: ACHHUZ7IsB/SjeLgBIWWjThtg8oNqaSAhSFK85OAX5XSoWXvwP2M1TZ4xb4WgJM5sM55FP2hJNh9PQ==
-X-Received: by 2002:a05:6a20:3d91:b0:f5:78fd:4152 with SMTP id s17-20020a056a203d9100b000f578fd4152mr6130372pzi.13.1682668554954;
-        Fri, 28 Apr 2023 00:55:54 -0700 (PDT)
-Message-ID: <b22ed875-8940-df96-0cfd-131fba093609@bytedance.com>
-Date: Fri, 28 Apr 2023 15:53:58 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JKu/pi9USuU1vjnjdS2Aa7omAaRZkGGz6ZrG18BiLEg+s4tahqE1arT/kecOHlJg7lY1wz4dF8rhOuV0+Mv/qZKNPMoaQLN5bsYLLuXdpdvUAf3fQxzSzVbGm9ttceR9BGCBp8se6heF6pHDsy+ip43vKNB0Y57pvgO6UBiJLpihGppfZ//XIZhMHoBYOAAPiDQq7GihLNn/l7T3f46hyPx0ZD3ZBudathaTSHI6lQKssM+XOoBhlnFmxsP7+nr17bcRAFH0a4Zf1iEYTynabw81/hVfo0FgJxDnDTjHYRS/YSwRoE86lEF8xA0qhlom2Jmfic1E2DTdYi56RTQCnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sLLjNIi4S7GiF9rRzUD7YuKWHPHjUWKQ6BKwhTDJdPc=;
+ b=ARFGIZE2HA7piSFKAy5Ii9TLpKWjZfqza56cSvaBeL27efSYfQ0pRcbK6496inv/MTwgIU7DrQiW69uqositcLmWDWUVpQYKgsh2DQrU+/+kPvbOtUTzY5pXaApB65HoKgml/uwANBcIKkvsVENtKdRw/z7SM7P98VP+FxFLN9DhL0NZK/86VHKye9h2vB5euyrKSUXxRI3r3qUDHQd6J1on5oXWW2qMlJMkh15pXe0H0cSc7hDljW18/L/x+ctJg5W5hGjo2oUnVQWRy++qjlJiMOl0N78A4seYi9waTPJTEdB0uB2AC/o12C/t+koDokoftC+x+Efszn49nPo2HQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"pasic@linux.ibm.com" <pasic@linux.ibm.com>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>
+Thread-Topic: [PATCH v3 0/2] transport-pci: msix register desc improve
+Thread-Index:
+ AQHZdGE6BcXrBONjlkOC0QSro05TaK83HJUAgAN5WOCABY/KsIAACjmAgAAATYCAAJNpMA==
+Date: Fri, 28 Apr 2023 13:35:31 +0000
+Message-ID:
+ <PH0PR12MB5481702B9992D7EC87045392DC6B9@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20230421145434.83774-1-parav@nvidia.com>
+ <20230422061011-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54814D66357FCDAE3B3869DADC679@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <DM8PR12MB54809734DCE2820CA728AFA0DC6B9@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20230428004335-mutt-send-email-mst@kernel.org>
+ <20230428004638-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230428004638-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
 Content-Language: en-US
-To: virtio-comment@lists.oasis-open.org
-References: <1ab0beff-8b18-7a94-1a68-6bf36bcd0394@bytedance.com>
- <CACGkMEvh+G2Tm=WDTOK3K2GO8c2dQ4y=UiKAk_kvsid2MGzbGg@mail.gmail.com>
- <8f65c9aa-c867-0929-151c-21bbe25a0693@bytedance.com>
- <4150bd72-a358-c854-0c64-b149621a1b8d@nvidia.com>
- <5af40945-9f11-93f8-bd2b-3a795d13f06c@bytedance.com>
- <PH0PR12MB54818E051102FDC9281F2DA0DC6A9@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: zhenwei pi <pizhenwei@bytedance.com>
-In-Reply-To: <PH0PR12MB54818E051102FDC9281F2DA0DC6A9@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: RE: Re: [virtio-comment] [PROPOSAL] Virtio Over Fabrics(TCP/RDMA)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BY5PR12MB4097:EE_
+x-ms-office365-filtering-correlation-id: e81e1bf9-f85f-4169-eb0e-08db47ed702b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ wHpdVCg5iHVGiUwlOGUA5ksNqFM2TF11StHH/+AMgskwYoLwaTmcwmLsekRzd4Y6yeBd/p/TT0gf5wIJIX3rjHbDjn9P53MYLqMWkTPiLq/jIOuRaTOila2TypSfPgxZi9rdRFmcP+NKDaeNgmJwGcQmFWh5sPYyeJojtdLDJ5rcNTNWRy5xXfrYH3sv7CsB11AgFO1jWxjK8ZYFL5WzPLmyLS4MPoAI1XkmLUwYA0gZYYzX8+Zt1A8KSG8p8fryv4Vnz6z6N8oI4enzG0bxcsL9JhI8hs8OD90/hFsRfp2fNftHuPBmx3XRS9HBldgvTiPquBCPVwvzFLrY851RsY5SDctsHWEJco2eDpspgmF4lDCVCCvHBZdSFigQuJuHV6taNdgNhmKJCEypR5CabMOwMR35oDCXLuH/q7JxQT1R38ygATLu63a0OcnaODZ9p9lEMmPSeBfa0NpGS9ngOxp2FM9XLXLRsdCBuEkDcxLCpVLaBlixvFlc1xlLO7aDAuZf5Jmmce52bCsoKQ+ZEqZUGFxb4JST3JzZlOmem0pHA308Ge4QsAbNcXLX4KciE5mzZ0eQmH8lFwqga2CZnGAlILJ4c8jANTmfQtsNu9hcWXzhutHmz06mYbX/ncFsaV31EcoFfsOJkvSoJuuTiNVQqk87aVMmW89iMq5cEQE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(366004)(346002)(39860400002)(396003)(451199021)(107886003)(6506007)(9686003)(83380400001)(186003)(55016003)(6916009)(76116006)(41300700001)(38070700005)(4326008)(5660300002)(8676002)(8936002)(4744005)(2906002)(66476007)(66556008)(66946007)(66446008)(64756008)(52536014)(26005)(316002)(54906003)(86362001)(478600001)(7696005)(966005)(122000001)(38100700002)(33656002)(71200400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?BZJ2OW8hB7A5BAchQFHExlTEm41Ka2ZIllN6vsHi2t95OtdEU/OwrLSE7WTl?=
+ =?us-ascii?Q?toH9ne4s7ja4q9utrxt7ZPxdmsZlkFUYqqbeMU7MrAXT3s+Je3ySYod3eHgC?=
+ =?us-ascii?Q?eAU6i+1+33I8Fazn5/Cz+rKmB6qdWiBlboppgWaSha/QFQOqqei7KY55D9XV?=
+ =?us-ascii?Q?TPdFzgAl0+nkwpKRV64SWvMqoqTtb9Q1PRCqhSyExLP2bzSMGGVKY/0gopxu?=
+ =?us-ascii?Q?32AAPeCOH8FT6JiC0aNfMZXoIfEHTp0gc5+TMaKlSxMuDQaIDa3pQHweo1wC?=
+ =?us-ascii?Q?YP4r0tQ1w2cP/H0CB89Zlnb2T7GXnE1sC6ubuThBjJnchgM9it2H13j+JI1v?=
+ =?us-ascii?Q?BiVJSAQhsmnlXPEal6o7S+XcrJe29Rc9KWahxO/SDpVM9I+wSlejfHxL1MJN?=
+ =?us-ascii?Q?SaFkVHa3VFRi21Ujlri8vNvcrMi0lZ5wNx/p8j1Q6qQqlDjKZohYlUMqKhqy?=
+ =?us-ascii?Q?14UZZqbfQpt0xX4PVrrDGid9rWJqZf8+xX+BMLQwzzHlhDK/n5Gs836KlbE5?=
+ =?us-ascii?Q?qPTjxXUjp3M3l/5Sr6r2wTRt/aQfIpToNnkHsxI15TJ3Z8/CWyFGXcBGBwDh?=
+ =?us-ascii?Q?mkuvm8l+8clGWu/Rqo1udC5VMQAeu1k2lHb+PahXnd1F1OdAzRr+/YPh0BAn?=
+ =?us-ascii?Q?pyH8LyiAwWUZXShZwhbgxW2X6Kj28bOIWbKaIikS96/WS7DmDO4UnAJ0E388?=
+ =?us-ascii?Q?XG8MNdrTMvWFW6cXFvAkMnPyMjU38N63lB+ba4xfvGMnz3ZgQT2cXBG3D6uM?=
+ =?us-ascii?Q?sR0WJHm4H3WY+Nf4AXz7OwEywpaoo26y+tK5UGGI6dfb/QVAGEJgWspBbVHg?=
+ =?us-ascii?Q?/hhJaLdtHO2F6PVO9/0OXG3luc5Srr+znUbyY+RU3VtJ6YSIQ+EmsT+OBrmY?=
+ =?us-ascii?Q?vkwjQczVEnrSloRoEc6iWRYo9NZjtL5kWK+lZ/CmGzC27wyk5WdXsjNYtaaR?=
+ =?us-ascii?Q?lF81JijCOA9goumg5nZaSf0xTbmsj1sH/udQ/OiKlbVPLnHuiNQnmb8rzv8U?=
+ =?us-ascii?Q?X3qqeSO+uGzKKBTuGz37vNWGC0mJT4UQSOQCJ2dyDnu+UwLof0tElbiP7VNR?=
+ =?us-ascii?Q?Wxy0IjBY8NOj+BLUyt4GAzkEELPoWVMw/9f2+cyIuNOaAfcHkJt6AgLZRWWU?=
+ =?us-ascii?Q?5/bJAV239+llTNPToIPaAoUOvk3HaoIB/IMM0BC18PIy+wxozsX6UscG93/C?=
+ =?us-ascii?Q?Ysv9qwWiGaAfKMsmqrVen16UgNu49Km1l3mHr5AeJdvb32HGS5dd7cR+EO3N?=
+ =?us-ascii?Q?zv8Jh256SXRipnaNfNjfD7qiPyXW4Q+uBeTzVAWQ8l8u1CMD4Yj2b0orfk5s?=
+ =?us-ascii?Q?5/mMfBbtL9hzxjWq9lwdjod/6h/fKYsQ9L49pR89BywPbYgKEHlWezjCV9wO?=
+ =?us-ascii?Q?RetZTV0LTmh0zm3CqQJBeKIL2w4yWmk3YMPSKRdToyfIQBRMFnSdnfgjyz4z?=
+ =?us-ascii?Q?rA/ptrhmfHg0zCNXyM10f2Z7dTVpHQt9g6Hd8qFFa9CdSVRQSlNtAsMPgUdw?=
+ =?us-ascii?Q?62jYKyeGWM1drY0sBg0xMlGUc+VO1m5oBB5VRAfXCyRYEEszYBjXtzFmsC7I?=
+ =?us-ascii?Q?P/UfWWu5/xz4Lq926Ro=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e81e1bf9-f85f-4169-eb0e-08db47ed702b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2023 13:35:31.7583
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: khnam+FXpRtP3KUZ8tmTPq0pyqJCjuWy/JzDupNi8GPbxrygzVC80WMjyFe/AApEMOaGzkAyLJTF/KoVmVZTog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4097
+Subject: [virtio-comment] RE: [PATCH v3 0/2] transport-pci: msix register desc improve
 
 
 
-On 4/28/23 04:31, Parav Pandit wrote:
-> 
-> 
->> From: zhenwei pi <pizhenwei@bytedance.com>
->> Sent: Thursday, April 27, 2023 4:21 AM
->>
->> On 4/25/23 13:03, Parav Pandit wrote:
->>>
->>>
->> [...]
->>>
->>> I briefly see your rdma command descriptor example, which is not
->>> aligned to 16B. Perf wise it will be poor than nvme rdma fabrics.
->>>
->>
->> Hi,
->> I'm confused here, could you please give me more hint?
->> 1, The size of command descriptor(I defined in example) is larger than
->> command size of nvme rdma, more overhead leads performance worse than
->> nvme over rdma.
->>
-> Which structure?
-> 
-> I am guessing from the header file that you have,
-> 
-> virtio_of_command_vring
-> followed by
-> virtio_of_vring_desc[cmd.ndesc] where cmd.opcode = virtio_of_op_vring
-> 
-> if so, it seems fine to me.
-> However, the lack of actual command missing in the virtio_of_command_vring struct is not so good.
-> Such indirection overheads only reduce the perf as it is not constant size data coming in for the blk storage target side.
-> And even if it comes somehow, it requires two level protocol parsers.
-> Can be simplified as you are not starting with any history here, abstraction point can be possibly virtio commands than the vring.
-> 
-> I don’t see a need for desc to have id and flags the way its drafted over the rdma fabrics:
-> What I had in mind as,
-> struct virtio_of_descriptor {
-> 	le64 addr;
-> 	le32 len;
-> 	union {
-> 		le32 rdma_key;
-> 		le32 id + reserved;
-> 		le32 tcp_desc_id;
-> 	};
-> 
-> We can possibly define appropriate virtio fabric descriptors; at that point, the abstraction point is not literally taking the vring across the fabric.
-> 
-> Depending on use case may be starting with either one of TCP or RDMA makes sense, instead of cooking all at once.
-> 
->> 2, The command size not aligned to 16B leads performance issue on RDMA
->> SEND operation. My colleague Zhuo help me test the performance on sending
->> 16/24/32 bytes:
->> taskset -c 30 ib_send_bw -d mlx5_2 -i 1 -x 3 -s 16 -t 1 xx.xx.xx.xx taskset -c 30
->> ib_send_bw -d mlx5_2 -i 1 -x 3 -s 24 -t 1 xx.xx.xx.xx taskset -c 30 ib_send_bw -d
->> mlx5_2 -i 1 -x 3 -s 32 -t 1 xx.xx.xx.xx The QPS seems almost same.
->>
-> structure [1] generated subsequent vring_desc[] descriptors to unaligned 8B address results in partial writes of the desc.
-> 
-> It is hard to say from ib_send_bw test what is being done.
-> I remember mlx5 have cache aligned accesses, nop wqe segments and more.
-> 
-> I also don’t see the 'id' field coming back in the response command_status.
-> So why to transmit over the fabric which is not used.
-> Did I miss the id in completion side?
-> 
-> [1] https://github.com/pizhenwei/linux/blob/7a13b310d1338c462f8e0b13d39a571645bc4698/include/uapi/linux/virtio_of.h#L129
+> From: Michael S. Tsirkin <mst@redhat.com>
+> Sent: Friday, April 28, 2023 12:47 AM
 
-I got your point clearly. Thanks a lot! I'm working on the spec and I'll 
-send it soon. Let's continue to discuss the detail in that series.
+> > > > [1] https://github.com/oasis-tcs/virtio-spec/issues/169
+> > >
+> > > Can you please raise the ballot for this?
+> >
+> > ok if you put in link to lore, not to oasis archive, then please also
+> > include date and subject so people can still locate it in the oasis
+> > archive if they need to.
+>=20
+> Also please link to virtio-comment archive. virtio-dev is for device/driv=
+er
+> developers not for comments.
 
--- 
-zhenwei pi
+Added OASIS virtio comment link.
+Updated lore link to virtio-comment as well.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
