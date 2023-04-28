@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5691-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5692-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C139C77B60
-	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 04:47:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB2CC77B60
+	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 07:55:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 79F953E309
-	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 04:47:20 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1CCE72A88B
+	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 07:55:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 742DD98668C
-	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 04:47:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0293D98668B
+	for <virtio-comment@archiver.kernel.org>; Fri, 28 Apr 2023 07:55:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 6AA76984284; Fri, 28 Apr 2023 04:47:20 +0000 (UTC)
+	id EB63B986681; Fri, 28 Apr 2023 07:55:57 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,80 +24,120 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5B472986681
-	for <virtio-comment@lists.oasis-open.org>; Fri, 28 Apr 2023 04:47:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DB219986682
+	for <virtio-comment@lists.oasis-open.org>; Fri, 28 Apr 2023 07:55:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 4GZpRTCJMKKmgA387MnTzg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682657237; x=1685249237;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IwZgIZi01YZ26DMCFZikjl59Fw+i9fp1ny9gzjwTkcA=;
-        b=j0WknL2tITC6p2j1Jov2XeKMg+6rtNwX8TXs+GNdN/PDPVEDnuqId5nvVNpqw1WLn7
-         DbTGl7otHeVL1eZJ8WUAEGpp3wZZAjtKnunMqNKg53JtGpekCg13Nmj6YY4HdEgirJJf
-         CCOiOZtxegVy1m11HHFcgArqGJlpIfKgh2dQmq41X1b/PfbeOS2WrWV3MP10BoVYaQXv
-         YppAjlE9Um8V7kMZXRFDSAr07F348HWvMT0ketF8mGzxTJJZeYWPJAGtH0ZwR6NDkDIM
-         77QLY0BoGfpGWkNQx/vtKn3rYGW5HK8xFaxhQUnXcNzc7oy8gJBbn/+Xsfkrs9b+KOT1
-         qg6A==
-X-Gm-Message-State: AC+VfDx29/gFT3V+BrLJFPWEvHHRJ3beMxargLJ9UhjerB3CdwcEjak3
-	QfzXS66Bbtd4fDRh5TK/TvPCqT0NNdMalMBcpKX6XiT14biiZVCpmjJtv2BFfEOKjNQgLnWD/Uu
-	tSdoLcnEW535TXhNC3Ht2mm8d+tuT7JfIlA==
-X-Received: by 2002:a1c:c902:0:b0:3f0:7f4f:2aa8 with SMTP id f2-20020a1cc902000000b003f07f4f2aa8mr2941664wmb.9.1682657237026;
-        Thu, 27 Apr 2023 21:47:17 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4x8x6gZNMI7Rt0wQvsqC40q/Xv6CiuzdAcGCpedtocrcU1afrPaKt+bcOATw8Da/QBdPPrIg==
-X-Received: by 2002:a1c:c902:0:b0:3f0:7f4f:2aa8 with SMTP id f2-20020a1cc902000000b003f07f4f2aa8mr2941658wmb.9.1682657236716;
-        Thu, 27 Apr 2023 21:47:16 -0700 (PDT)
-Date: Fri, 28 Apr 2023 00:47:13 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"pasic@linux.ibm.com" <pasic@linux.ibm.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Message-ID: <20230428004638-mutt-send-email-mst@kernel.org>
-References: <20230421145434.83774-1-parav@nvidia.com>
- <20230422061011-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54814D66357FCDAE3B3869DADC679@PH0PR12MB5481.namprd12.prod.outlook.com>
- <DM8PR12MB54809734DCE2820CA728AFA0DC6B9@DM8PR12MB5480.namprd12.prod.outlook.com>
- <20230428004335-mutt-send-email-mst@kernel.org>
+        d=1e100.net; s=20221208; t=1682668555; x=1685260555;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VL9LDu8DU3Va3PDXDkVz37vkQYafMGcSZXK+8VgtsTw=;
+        b=UFK09UNf20Bdl0eSyoM4KbCAqf8vMgPQaGMnZiOX54EiZp0js84YBZdgQCt39Z/6DM
+         Sj7t5kZkyXArm9qr678rlbhUutP4lBZuiPkUJyP2ktDSj97J9JVNZs1uDpYA+6lP6qjD
+         DcyfDAoo5i11W4pKlWACTTqZucdm7AYTd9OuDSpNpyfvoqj/uioCAD+mScrx3fzZ1S+I
+         NkdoiseY45U11QkwshPiXhMCX6nm5om+9mYxAvSKlBJx1TcICZ6QqtzB4u661lo1/l2+
+         3zoC/jfqafrh/4Zc/PaOPz6Wr/jhhng4MOmvrC4oFT2+57BbWYdkcMTzh7CJbWEckL/t
+         rRLA==
+X-Gm-Message-State: AC+VfDzeJ74Vox/1NZucx9tV9pG/uoszefdNFdij2Oy6LdKMwXEswpCO
+	C+8lkslw6Uu7HzbeevXZfKwEzFS0bBDTNLaG8ak=
+X-Google-Smtp-Source: ACHHUZ7IsB/SjeLgBIWWjThtg8oNqaSAhSFK85OAX5XSoWXvwP2M1TZ4xb4WgJM5sM55FP2hJNh9PQ==
+X-Received: by 2002:a05:6a20:3d91:b0:f5:78fd:4152 with SMTP id s17-20020a056a203d9100b000f578fd4152mr6130372pzi.13.1682668554954;
+        Fri, 28 Apr 2023 00:55:54 -0700 (PDT)
+Message-ID: <b22ed875-8940-df96-0cfd-131fba093609@bytedance.com>
+Date: Fri, 28 Apr 2023 15:53:58 +0800
 MIME-Version: 1.0
-In-Reply-To: <20230428004335-mutt-send-email-mst@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH v3 0/2] transport-pci: msix register desc improve
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: virtio-comment@lists.oasis-open.org
+References: <1ab0beff-8b18-7a94-1a68-6bf36bcd0394@bytedance.com>
+ <CACGkMEvh+G2Tm=WDTOK3K2GO8c2dQ4y=UiKAk_kvsid2MGzbGg@mail.gmail.com>
+ <8f65c9aa-c867-0929-151c-21bbe25a0693@bytedance.com>
+ <4150bd72-a358-c854-0c64-b149621a1b8d@nvidia.com>
+ <5af40945-9f11-93f8-bd2b-3a795d13f06c@bytedance.com>
+ <PH0PR12MB54818E051102FDC9281F2DA0DC6A9@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <PH0PR12MB54818E051102FDC9281F2DA0DC6A9@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: RE: Re: [virtio-comment] [PROPOSAL] Virtio Over Fabrics(TCP/RDMA)
 
-On Fri, Apr 28, 2023 at 12:46:13AM -0400, Michael S. Tsirkin wrote:
-> On Fri, Apr 28, 2023 at 04:10:21AM +0000, Parav Pandit wrote:
-> > Hi,
-> > 
-> > > From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
-> > > open.org> On Behalf Of Parav Pandit
-> > > Sent: Monday, April 24, 2023 11:15 AM
-> > 
-> > > > LGTM.
-> > > > Given the amount of back and forth, I guess we should vote.
-> > > >
-> > > Ok. created github at [1].
-> > > Will wait for few more days to ask for vote for any other review comments.
-> > > 
-> > > [1] https://github.com/oasis-tcs/virtio-spec/issues/169
-> > 
-> > Can you please raise the ballot for this?
+
+
+On 4/28/23 04:31, Parav Pandit wrote:
 > 
-> ok if you put in link to lore, not to oasis archive, then
-> please also include date and subject so people can still locate
-> it in the oasis archive if they need to.
+> 
+>> From: zhenwei pi <pizhenwei@bytedance.com>
+>> Sent: Thursday, April 27, 2023 4:21 AM
+>>
+>> On 4/25/23 13:03, Parav Pandit wrote:
+>>>
+>>>
+>> [...]
+>>>
+>>> I briefly see your rdma command descriptor example, which is not
+>>> aligned to 16B. Perf wise it will be poor than nvme rdma fabrics.
+>>>
+>>
+>> Hi,
+>> I'm confused here, could you please give me more hint?
+>> 1, The size of command descriptor(I defined in example) is larger than
+>> command size of nvme rdma, more overhead leads performance worse than
+>> nvme over rdma.
+>>
+> Which structure?
+> 
+> I am guessing from the header file that you have,
+> 
+> virtio_of_command_vring
+> followed by
+> virtio_of_vring_desc[cmd.ndesc] where cmd.opcode = virtio_of_op_vring
+> 
+> if so, it seems fine to me.
+> However, the lack of actual command missing in the virtio_of_command_vring struct is not so good.
+> Such indirection overheads only reduce the perf as it is not constant size data coming in for the blk storage target side.
+> And even if it comes somehow, it requires two level protocol parsers.
+> Can be simplified as you are not starting with any history here, abstraction point can be possibly virtio commands than the vring.
+> 
+> I don’t see a need for desc to have id and flags the way its drafted over the rdma fabrics:
+> What I had in mind as,
+> struct virtio_of_descriptor {
+> 	le64 addr;
+> 	le32 len;
+> 	union {
+> 		le32 rdma_key;
+> 		le32 id + reserved;
+> 		le32 tcp_desc_id;
+> 	};
+> 
+> We can possibly define appropriate virtio fabric descriptors; at that point, the abstraction point is not literally taking the vring across the fabric.
+> 
+> Depending on use case may be starting with either one of TCP or RDMA makes sense, instead of cooking all at once.
+> 
+>> 2, The command size not aligned to 16B leads performance issue on RDMA
+>> SEND operation. My colleague Zhuo help me test the performance on sending
+>> 16/24/32 bytes:
+>> taskset -c 30 ib_send_bw -d mlx5_2 -i 1 -x 3 -s 16 -t 1 xx.xx.xx.xx taskset -c 30
+>> ib_send_bw -d mlx5_2 -i 1 -x 3 -s 24 -t 1 xx.xx.xx.xx taskset -c 30 ib_send_bw -d
+>> mlx5_2 -i 1 -x 3 -s 32 -t 1 xx.xx.xx.xx The QPS seems almost same.
+>>
+> structure [1] generated subsequent vring_desc[] descriptors to unaligned 8B address results in partial writes of the desc.
+> 
+> It is hard to say from ib_send_bw test what is being done.
+> I remember mlx5 have cache aligned accesses, nop wqe segments and more.
+> 
+> I also don’t see the 'id' field coming back in the response command_status.
+> So why to transmit over the fabric which is not used.
+> Did I miss the id in completion side?
+> 
+> [1] https://github.com/pizhenwei/linux/blob/7a13b310d1338c462f8e0b13d39a571645bc4698/include/uapi/linux/virtio_of.h#L129
 
-Also please link to virtio-comment archive. virtio-dev is
-for device/driver developers not for comments.
+I got your point clearly. Thanks a lot! I'm working on the spec and I'll 
+send it soon. Let's continue to discuss the detail in that series.
 
-> -- 
-> MST
-
+-- 
+zhenwei pi
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
