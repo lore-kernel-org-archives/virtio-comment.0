@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5723-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5724-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E9ECC77B75
-	for <virtio-comment@archiver.kernel.org>; Wed,  3 May 2023 15:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C17F6C77B7F
+	for <virtio-comment@archiver.kernel.org>; Wed,  3 May 2023 16:06:42 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8063F42B66
-	for <virtio-comment@archiver.kernel.org>; Wed,  3 May 2023 15:59:08 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 006C5126C2B
+	for <virtio-comment@archiver.kernel.org>; Wed,  3 May 2023 16:06:42 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6950F9865A3
-	for <virtio-comment@archiver.kernel.org>; Wed,  3 May 2023 15:59:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DD7819866AE
+	for <virtio-comment@archiver.kernel.org>; Wed,  3 May 2023 16:06:41 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 55D5B98658B; Wed,  3 May 2023 15:59:08 +0000 (UTC)
+	id C8BFB98658B; Wed,  3 May 2023 16:06:41 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,244 +24,184 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 453CB986594;
-	Wed,  3 May 2023 15:59:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B7C58986594
+	for <virtio-comment@lists.oasis-open.org>; Wed,  3 May 2023 16:06:41 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-Virus-Scanned: E-securemail
+Secumail-id: <5f2f.6452868e.ba099.0>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LCMf3tomhQJr8TUJpbLeALrPcYU7XSrYHo/wJMTq1k3EpIIYojJ/q56ms3/gA93GRSGyOnPUx7BhaugTtvQFLi7RH3C6sBne1CMT0nFK12uNeUlOlqH+YRo1V43vwG8mjpgIopuA4fc46Nk0T350iorjipNVVsx+GyJaN2u4jA/1cXwnDy3DC1/tajWekXFpMV4q36hOgf1M5kGBva9E0MZIrAEI9omd8e9bIf6IDhPT/Cnbu9nhcqcUkvsbtUBPLNKoX39l/BgqkZdvEtOdq9ggtqCr03kIcFepzLI7qAZJgEetdcT0haKMRVc9HFE7rtTvS3l5ZOgCgOwIC0jxog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
+ b=kHwKTQR241gHVed5OVpSEum1Yjag0W1vKizyXM71xhOC5VxGKpfc2gyAIU67RWtHgTI1n5DUsW56ds2gfl/mP5jTnwg0rMA50YhT1hMYCJB5PKV66PHfa9oLhaaJpGvQF8jsognbnjQmf0k77LUGRSwn+JVDoAfYKrRXHVE4ofIKqR0LjTnx5qcpKf3O6XvoVx4kIUAJxXUZTJ+iyT15E4TUb7autC27AkNRl281FiOIozRmnWFcrVNpZZg7qEppTLvWE/CvN/+yJKCX/oXjmgwSmTFh7VfiPLLTbp5TMit+IHez1Spnj+USHqBgw6NWOGEC8M4LeTvwhRvWLg9nCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microsoft.com; s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aS2NSU93QjrAEjt9PQ+LYp10gV75DJdFYCk8BVI+GCM=;
- b=IdSzIoWj6/4+5JEdxIJWDw+MrB3O8Nf5cPlcDhRV74iPgeGFqJ66Uq3vgtJY9e7xI3BjIgf8UB98x9HL9OrZKIeJVj1EnVkqMr+B5xacuRexuIHza2ixgaUL5qKI8BOVXTfYyGm7jB3bjv5+0fXFqJ8r0X1N2/KjvDDZ6HKYoQncDZrafe+DY3LuLHboawL1nH6y+6VziQCpl9byhkl/djahfRAPKZhKVc2FvhD9t1GIbvcT7nks8hYDB0yC86HjjqFdNtQ/nGg78OFb6g/AdP5rscmNJl+GtV3ZOnRP54jzerdldgj/yvsk8gnzRRBd/lHlgVgOJDZQqNQPezlhbw==
+ bh=4y7RKGtgFzfnlOjfln395dAxRXhZMLcrZJKhPyvdo1U=;
+ b=RoITzJ/0WOyVgZ8LQQqMYkge51AgvQ7Y+0SGdWukF5zEUSaNDj671WzoIbSzCMmcEGgksoR/obQ2bRFFF5H+E7RuAHRsjiVApl2wpJ39V8yPc11VKl70xH9+SkCLL+86kUyRY90v9fLhk6OHaP4xgzLN6KleYoVLcm9PRun9smjsVglIk9IpW7pxXl1lMtFm5uedfa5qWo1eh4vr3kUqDnCktzwdBKdyrJV343YJnaQE4Tjv9OKE5M+PD9Nvb5BNWfRJUL081n9uQMhSLxGuqLVIjfSQHFG7/IpecUkVClXE1elUAfmUYUbd2KQrRmew35f3j5sUDP1MyrAHOTmbwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-From: David Edmondson <david.edmondson@oracle.com>
-To: Parav Pandit <parav@nvidia.com>, mst@redhat.com,
-        virtio-dev@lists.oasis-open.org, cohuck@redhat.com
-Cc: sgarzare@redhat.com, pasic@linux.ibm.com,
-        virtio-comment@lists.oasis-open.org, shahafs@nvidia.com,
-        Parav Pandit
- <parav@nvidia.com>
-In-Reply-To: <20230428041949.411221-11-parav@nvidia.com>
-References: <20230428041949.411221-1-parav@nvidia.com>
- <20230428041949.411221-11-parav@nvidia.com>
-Date: Wed, 03 May 2023 16:57:52 +0100
-Message-ID: <m2fs8dv24f.fsf@oracle.com>
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0090.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:190::23) To DS7PR10MB4926.namprd10.prod.outlook.com
- (2603:10b6:5:3ac::20)
+ smtp.mailfrom=kalrayinc.com; dmarc=pass action=none
+ header.from=kalrayinc.com; dkim=pass header.d=kalrayinc.com; arc=none
+From: Cyril Germond <cgermond@kalrayinc.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: virtio-comment@lists.oasis-open.org
+Thread-Topic: [virtio-comment] RE: [PATCH] virtio-net: Fix virtio_net_hdr
+ struct size when VIRTIO_NET_F_HASH_REPORT is negotiated.
+Thread-Index: AQHZUBws9xErIboLTkuPTmBRBa1so69I6OJwgAANlgCAABtbUA==
+Date: Wed, 3 May 2023 16:06:36 +0000
+Message-ID: <PAZP264MB388803A394E65A266E2D587EC66C9@PAZP264MB3888.FRAP264.PROD.OUTLOOK.COM>
+References: <20221121090212.645-1-cgermond@kalray.eu>
+ <PAZP264MB3888A224F87ABA76501F3CC8C66C9@PAZP264MB3888.FRAP264.PROD.OUTLOOK.COM>
+ <20230503102517-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230503102517-mutt-send-email-mst@kernel.org>
+Accept-Language: en-GB, fr-FR, en-US
+Content-Language: en-gb
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kalrayinc.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAZP264MB3888:EE_|MR1P264MB1603:EE_
+x-ms-office365-filtering-correlation-id: 8f9cef89-9034-4ff3-9ee7-08db4bf05f23
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2USs4e0MOxOV7/CCVT+DKyNajbHUEITyRlah5Q58Y5zA/G8wc23Zs7D8Id5lM3HalY/MkNmViN69btFvMOqLfwvR7l1/HI/ksFLG8+VtJRMNfEcD2ytSY33xlNG6O51LSW5i6KSICZ8YKP5ip2s4Ypi80eU5br/t6zdMvHfImAK9QH07tHYbsz7IV1x4ntfuz63+THage2xLZOt/VrAVBgxXubosxv4NkhaYu3pZceqj7rGrxdaLz5xtRgKjWt9zMyAeD+qdbQDpJE/teO/nbVRIORJIs3qg/qTWmRjXxRIeITGjLHA2GC8hrjP/YHHLQJHbf59IVKEffwvjaeEqsRg68o6Ur+XsnH8NNPeyqhNtIir57W3jWJ0r3RiNavAq3d/oOHGc/377rZuNPCiBREDkDSWPsfJYCgJaxD+WwUu5vw35nia1jhjiYR8+jMuIE0HzRErdDzXPKrMpTL3pR+vMNNEgBsqxkGi6YNblQmbaGmN56qSGbLrURxqP9t4LHQTpIpIpGmsLWzGmGXslKDZk/FkVu8/L+bj6DeZNN+pi0h0ARBs7ZrzWEZmWKaCGmJed+YshyP8sieDWFGdh7nXGScmjc6AfF2K6ApBMaE4=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAZP264MB3888.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(39850400004)(136003)(346002)(366004)(451199021)(66899021)(33656002)(122000001)(5660300002)(2906002)(52536014)(38100700002)(38070700005)(316002)(86362001)(55016003)(66446008)(64756008)(66476007)(66556008)(66946007)(41300700001)(8676002)(8936002)(4326008)(6916009)(966005)(83380400001)(76116006)(26005)(9686003)(6506007)(53546011)(478600001)(7696005)(71200400001)(186003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: MoYCypsRI/CYcy+BboYxwnAUL3b0HKOC9xriwRWdutCn5T7YFgpHwtZKPZW0DOSqdGpU25LVZw/vBFjtc8fCxn1Ghc5l8Rq705J2xlAleLYhcrtaJsKaRlClqYW9nEDc5PlDBTFd5QIcvFVbgxH/LBr0w6vTACjdseQ98uOZC72mdpoXH0UyjSu39UtFKVod5lnMFA7ORNfH9x9nlFDbHTByVa24QYkVLK7vZpogPB9dLgrnrDAoQ2xcBY1OeI+6xKbJMDoF/2F7HiabTWbwQWTjdpCkKoM0nQ+TbNDxsfqv4g5GJexBkyE0g19bmdWCGjS7EU6AJHureKebhqL2r1SOTN3jXpwE5QxLXVCMjFZQXbz9Ik5k3okwdGnV2sNJXnlDQ6oUDz/eqjKZotWpVe/4XQ3v36omEYNm21hGgp8ukIUmz4Cqc2/sDzrQREdzClThnxZa3/9y7XIieC809pdY5ODT+gEeMjWE/80MgPGCPAltYkQCM8ql3Pua+kwTntj/q4id7gzdxqrGlAescIEi6EGiVmjm6oB+gEHto//AobOqmAu+KOOgYeoNBWiewQUGUK55+neqbO0ZTAfJgdjnjQg4sS2y5/0TWcn9x6Eo9MEYiPB7gYVz3a61pl7uLSOep2lLy1m8xo8IbSi7z/4oB4WK6IHiu+QNg+/RQh+sZS76PVXQwRNqMVhlftvov0/so6cRQZXoJHczRCNsVrwd1zgJoRCLv1zgyTSqhzqgga/wGIYruQxK/t/SqH5ZtBnm0d7AFFQ/e3IDHwcUvTwoQk6UjxnJTskHAcWoKVrwqQjcw+qvbwIPiPC1LTlg+84JEgenaxEuwAfY+/tiz7xK2HW3c+HSSfLI/zEWkMIzlRPY+fg6LGJ7cJxaD+N65JjQO6gEtul6uqFbUg2kW4wcWjd059hq8uNmYApdtwjLUnMZxvWUKf47z5VL2Bqo
+ YO9TbwoeUIf9x5wtTCK8j87gS5x1SvHBN/RJiepEmGknrPBrZ/xe8jPIWrFuS0MbJNejTHvXr7dqQ9tVkaSXeGClu4YtqgAfreavPJItimk3YSt+YG6Wq0IqtjRhMumuLp4tImL4pRuUXbEQcBUse+p8XKmJbe+LK2fcX7tXPuGUpo8Nf6Qn7R1eAmlVesJ7orrYZ50NzdVY1gB4otBdfZiHQY5x96XDeFzQYr4ULUNcJVFvmiMM9lQWJXsqRApna4670nGgjB73aM6y7pGOyVZ4aXSJoWGTMygfat1arqhBo6goQrDsI90wLo4R9RQomsXAl12sz+EoiVRkqebzHVaCRXY6IgOZR6fu63WmntD613+eC8WJZHkaKLSHMNpavonr454xR6xFCl8WcwgU7LX6vFwuVWhLNkVZ0d1V+qIpnGSavTX5G7RbuNnxlZe5Thlj3JcyxavAVDKx+W1mdU93y1W7qllAqcUoVXaH+QMNIdvBH8fi0+Gn53XxyogM/tE3ekc81G02JfFYfoyqQa3xKNsL5KO0Y6VTyLLMre/baV4Aah9cghhpd6apqURQcnqCSgO46TAnzP0LA1lJeP6TtB92NOm/I060clDCCQXhxteNiMzOnj3i7jTtNu2f
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR10MB4926:EE_|CH3PR10MB7630:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0980d1fc-d045-4815-9619-08db4bef2a29
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	OTYSdGATzg+zcJpdQ/9F/U84r8CWs4NjN4w61Ky8//NSmGfihwxnb/J5Yct1W8ncSo/qPWC3ciiR5fgW6+G/DKxWKQJMQ+0Vtx8+lmu0xJ4EJQ47dBmj8bhm7pEQKVnzhzkc9Snyj+WJPbdTNNaGg710ud0nxPWENQU4zBjmGLLDUvWuBJiEKrKWxj8kWLLhyS0N+MK0l7hpwB6t4RdsnkZ3XPee5BN9six1g4hmc+ByNceEvZeBd3vDVnj3WpLStBDhZKTLaJpu4s//nUGJmkLCnDuqKzI5TIoVw3g3pguPL+vvya/9x4UfixeGhmY8uUNn0MimttQm8VsTvyiksBRX+xa4Fa9700rarRdnH3oDHJxTtVSgGlqJbpcjAiGLGZfXu2AZyI09IFUEidOYmsbLOh8ULNN3w2NPVWbmMV3IHbmhzBPnfENE9Hhz/j1q6g8tFRRDri7df08Fk1dP7oJAvMDzXwtMcfDkEmEmnbGjkjVjqwsXBkQ0uepN+RfzadNSFhzQNUODweIB9hYKEDMJQ3Kpi7dgxBXpC2Da7G4Uq7UbXmVlBTddoQU+HqXunPUaaBGKdiGF8rNtrdIBGQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR10MB4926.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(396003)(366004)(346002)(39860400002)(376002)(451199021)(26005)(6512007)(6506007)(38100700002)(6486002)(36756003)(2616005)(41300700001)(4326008)(478600001)(66556008)(66946007)(316002)(83380400001)(6666004)(86362001)(186003)(44832011)(2906002)(5660300002)(8936002)(66476007)(8676002)(66899021)(966005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?XfhhRP3BAm6b2ma1hwfxetxqb84b11nkiNBBLLCasyKeiEzmZ0sMqLTGn/iY?=
- =?us-ascii?Q?sE/1ibpg2BFywpW2P5glKBUIiDg9nzK3xRrRI3VApogilN8iIXaJdULEGavw?=
- =?us-ascii?Q?vAxodQR8PfxfAspZN1u/87lohZF8ZTVbcuZL6GPpNGA70yA2T3cxkh4P+WR7?=
- =?us-ascii?Q?wjfjnlK9B4zzGW3Xs7HtVcEQYowun6AYnvijefVFIMqdNeBTFys5xKzrfaIY?=
- =?us-ascii?Q?PusVZLGqbs7Kqfr3kBSvejwrGeL3esysDm9sx8Q79MAd2q5Ixinpu2AEkSnO?=
- =?us-ascii?Q?BgCIYt7TF0kzwd5EIdz2JJ/Fmv0gZLiaGBrMcUJjxsCWpelWku4brqKJ5AeH?=
- =?us-ascii?Q?4ZMg0ewNTwMY4O8bvEmkWWuAT3npM7ErAwtny6ZHgQ1WLH3eT3HHcuj3aC4v?=
- =?us-ascii?Q?lWC2BvNy2aRZYasIyaQxE1nOUHDwuPMhjhigxd8IXluCKfepLilfjahG3ti0?=
- =?us-ascii?Q?8n1IL5aZAyrSMK3BJ11l3JObsNX8e+JjS/w52ipLvSb72RH7iZ1lWF5MTsCv?=
- =?us-ascii?Q?G8NCpF1nDEhkMVQl5/yiO0LfjmpQnu+TQwtyHq5++v4KP0BTrsBydm/V0TOa?=
- =?us-ascii?Q?+p0XmKouUtLYsi3a/omrfRqYjXJuBQN6aGgLyLnadcsGccOpgpuM1WUtr+fx?=
- =?us-ascii?Q?UGGLj5PbLPoh6nKWm8CFGP0StK/XWVHNeQNGEfVbXyXVxIQ0LvEF5CoAuVEa?=
- =?us-ascii?Q?+qQzId22qu0a/TDwVuq7RaW28+SamIcTXlrJ2THSvUQctcTIlDkiPH07L2lA?=
- =?us-ascii?Q?lBVs3yEWjqhfLSIzmMJs9vQSgpWGufTEnmjWylfvKh1HIcWm6YqDXl1fdG8Y?=
- =?us-ascii?Q?zuLHBhJl/JqJN+fOqkIaZ9mfUPUUBkF95+OZSrbqO/v78swUaz0kQca8+azE?=
- =?us-ascii?Q?qQxkoCFxgn19ZItuMRLSnkhjJz+bdgqQasbqcfU8JCAQ2GURfgM5bItx1VeO?=
- =?us-ascii?Q?I/cgnqDkSqVuS+B2X0Z+n7yOGJoS9i+1VgFNld/sjSd/mrN2n+ht56GACEqJ?=
- =?us-ascii?Q?W3wAwHZkIjttZr3NNKXQVtBmX9R04TYBsBliA8KwYcoMkZxzmIrx7oYSMbyb?=
- =?us-ascii?Q?HX9SPfQ++t+zsUIJTYATOfN9rLg6fcm3zjMlw12xHRVwZsKA+arsrrQVPCkZ?=
- =?us-ascii?Q?gZ4YXYkPnXecKvxrAP+/pHf0QflQIChOSj1bddqekGKrBvJ5+B9CHl/LrVlG?=
- =?us-ascii?Q?gn5L40XMGblUCkjo+SOGvx6dHBS9nWv4bCJHjzSiNrvlb1JjLm8bwrNEHm67?=
- =?us-ascii?Q?sF1gozpExP9C3C3icSKYTw0bnNl07wKcxpIiVloLhmSVfJNvUARPOwIcoyDJ?=
- =?us-ascii?Q?F0Bn9065o9z8Bfq+YuqRPBzzw3qvykNOEsNZf1lCFweGhgrA44RQ+n1sqKv9?=
- =?us-ascii?Q?Y76ParIR6Nx5rOscVYYga5UmV1fjDsLSLFrZJ1qpSbbDQXsGrL6D3iHFVQt9?=
- =?us-ascii?Q?6I30ADbx1WcEyx6smsPQ5utRIV9Zh+yQ1MmRso4tmCFUZO3RUHJy5tj/zr7K?=
- =?us-ascii?Q?Wz7njymVUM2H6wp+Dn/qknAoL2rrONs+bRGYzhZYSYcFJV7maCmwDXbKAW05?=
- =?us-ascii?Q?HWUP6EyyyNPdwFYbq/oGHfpPrlQ9QwPU0DH8tF5Etdr7qGpBhm671tcVAtOi?=
- =?us-ascii?Q?/Q=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
-	fUu1HhTK3KtkE56tfgZqDCoiqRBB9Hbg8WP6WPdwK/gOpXqTshloj0wGldibV9D1mTICYsOAAkw8TwzrothhvwMsAT0YfQAdI+HlfwLxCO3QqpiVRmPHA8AZgKMF5kCk80/546m0vD6k8QyjPc7xFRXZoZJ34hIF2mZSpjioCXcfgrta0Cs/215P8NeB7EaOf64PD0I/T5TnSO7RDLmhO0soei2BKbLAdx9r9y/g86qQj3tQwTdTLV6jcaO7slM2Ci6HK+I/AztVQgTFsAF342EW+Drl1MHUjFzl3U54oZaE5HSoewYCU0BY6BYmda6ycly0dez8lfp9qucqkOfXoO58Tfy+3Iy75qW52OzXWRMniuY8QFIqPNYfLtR/UeTe0fke5CxYJAP4xXZWgG9d9cTJAJst1nCn5MkVHIpLBiHXxlqWQNZ9qKyAI9E2Ljkm8sAI94vjXMknRffannjSYqsJ2Xm7cSkiMa7dRAQMwwQILzubSXM9/uf174h+XpVA87eFWBmDXJDlT0siaA2mV5hIPn3dvvIRKgkKuumkMlUeTABchkrqzx/XQrR8ES6TwCA/BWKQ3toM948U7mYGZzUVO81VLATqo3Nmvh9gt0GrFNwODz4+o99ja5GWWCQ2TvjTrCzma7lR9mnMns1zofx6C+E4PQZtOpD2pfKH9yLS/44huhVZvoyV7Kmz6y0pvvg38dgoMsDBiVC9Ms8BxPYfTbRsrwPDmLlGCPC8Xig2jrsjhLIoHb1AVs9b/IOaFRFjEnsYe1ZgAxNb5KEgsvxVHnEE9XzkK0AsvfGDXlRGsCKEyD84/FBj+B7uFEmB+10zzz6pYk+FeQPz96iuRN0j6QvuUqUR2qhw0aaor2hlDCwXbmSvY2xZ1azUUIJq
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0980d1fc-d045-4815-9619-08db4bef2a29
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB4926.namprd10.prod.outlook.com
+X-OriginatorOrg: kalrayinc.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2023 15:57:58.1903
+X-MS-Exchange-CrossTenant-AuthSource: PAZP264MB3888.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f9cef89-9034-4ff3-9ee7-08db4bf05f23
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 May 2023 16:06:36.2846
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: guz5OQapJ26qT7NIiXDx9LljYJGebuTl4cs1d+fX/yFIxe/JNzt5dersDBVOwXCz0t9xQDOxaGXwKbpCxZKjaPponIzJf15wiPa9c2yEnLU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7630
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-03_11,2023-05-03_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 spamscore=0
- mlxlogscore=999 bulkscore=0 suspectscore=0 mlxscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
- definitions=main-2305030136
-X-Proofpoint-GUID: dblnYA7zY5IAtWoVx8GIxJGCDPkNGA7B
-X-Proofpoint-ORIG-GUID: dblnYA7zY5IAtWoVx8GIxJGCDPkNGA7B
-Subject: Re: [virtio-comment] [PATCH v15 10/11] virtio-net: Describe RSS
- using rss rq id
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8931925d-7620-4a64-b7fe-20afd86363d3
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ToW1+lWM4j+7k65D76nyxbTQG4GMZ1KVt0AyZOhwLrF3GQY104W11vvS5nQfPsK5dUlzLLBSNkraWxwOQHEUWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MR1P264MB1603
+X-ALTERMIMEV2_out: done
+Subject: RE: [virtio-comment] RE: [PATCH] virtio-net: Fix virtio_net_hdr
+ struct size when VIRTIO_NET_F_HASH_REPORT is negotiated.
 
-Parav Pandit <parav@nvidia.com> writes:
+OK thanks
 
-> The content of the indirection table and unclassified_queue were
-> originally described based on mathematical operations. In order to
-> make it easier to understand and to avoid intermixing the array
-> index with the vq index, introduce a structure
-> rss_rq_id (RSS receive queue
-> ID) and use it to describe the unclassified_queue and
-> indirection_table fields.
->
-> As part of it, have the example that uses non-zero virtqueue
-> index which helps to have better mapping between receiveX
-> object with virtqueue index and the actual value in the
-> indirection table.
->
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
->
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/170
+
+-----Original Message-----
+From: Michael S. Tsirkin <mst@redhat.com> 
+Sent: Wednesday, May 3, 2023 4:27 PM
+To: Cyril Germond <cgermond@kalrayinc.com>
+Cc: virtio-comment@lists.oasis-open.org
+Subject: Re: [virtio-comment] RE: [PATCH] virtio-net: Fix virtio_net_hdr struct size when VIRTIO_NET_F_HASH_REPORT is negotiated.
+
+On Wed, May 03, 2023 at 01:39:59PM +0000, Cyril Germond wrote:
+> Hello
+> It seems this proposal has not received feedback from virtio-net folks.
+> What should we do with it ?
+> Thanks
+
+Request a vote to resolve this as described at:
+https://github.com/oasis-tcs/virtio-spec#use-of-github-issues
+
+> -----Original Message-----
+> From: Cyril Germond <cgermond@kalray.eu>
+> Sent: Monday, November 21, 2022 10:03 AM
+> To: virtio-comment@lists.oasis-open.org
+> Cc: Cyril Germond <cgermond@kalray.eu>
+> Subject: [PATCH] virtio-net: Fix virtio_net_hdr struct size when VIRTIO_NET_F_HASH_REPORT is negotiated.
+> 
+> Hard-coded references to the size of virtio_net_hdr strut are wrong when VIRTIO_NET_HASH_REPORT feature is negotiated.
+> 
+> Changelog:
+> v1->v2: Fixed wording syntax
+> v2->v3: Rebase
+> 
+> Signed-off-by: Cyril Germond <cgermond@kalray.eu>
 > ---
-> changelog:
-> v14->v15:
-> - address next comment from Michael and Halil
-> - changed description of unclassified_queue to use 'specifies'
-> v12->v13:
-> - rename vqn to vq_index
-> - renamed vq index to virtqueue index
-> v11->v12:
-> - use 'virtqueue index' instead of 'virtqueue number'
-> v10->v11:
-> - commit log updated to drop old reference to rq_handle, replaced with
->   rss_rq_id detail
-> v8->v9:
-> - reword rss_rq_id and unclassified_packets description
-> - use article
-> - use 'vq number' instead of 'virtqueue number'
-> v4->v5:
-> - change subject to reflect rss_rq_id
-> - fixed accidental removal of "unclassifed packets".
-> - simplfied text around indirection_table mask to use the term
->   destination receive virtqueue. This aligns with next line about queue
->   reset.
-> - removed rss_rq_id references as indirection table and
->   unclassified_queue data type is self explanatory
-> v3->v4:
-> - renamed rq_handle to rss_rq_id
-> - moved rss_rq_id definition close to its usage in rss_config struct
-> v2->v3:
-> - moved rq_handle definition before using it
-> - removed duplicate example as rq_handle is now described first
-> v0->v1:
-> - new patch suggested by Michael Tsirkin
-> ---
->  device-types/net/description.tex | 27 ++++++++++++++++++++-------
->  1 file changed, 20 insertions(+), 7 deletions(-)
->
-> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> index f3f9f1d..e25a9d0 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -1434,11 +1434,16 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+>  content.tex    | 10 ++++++----
+>  split-ring.tex |  3 ++-
+>  2 files changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/content.tex b/content.tex index 91ba76c..61bc09c 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -3622,8 +3622,8 @@ \subsubsection{Setting Up Receive 
+> Buffers}\label{sec:Device Types / Network Devi  features are used, the 
+> maximum incoming packet  will be to 65550 bytes long (the maximum size 
+> of a  TCP or UDP packet, plus the 14 byte ethernet header), otherwise
+> -1514 bytes.  The 12-byte struct virtio_net_hdr is prepended to this, -making for 65562 or 1526 bytes.
+> +1514 bytes.  The struct virtio_net_hdr (the length of which depends 
+> +on VIRTIO_NET_F_HASH_REPORT feature negotiation) is prepended to this.
 >  
->  Driver sends a VIRTIO_NET_CTRL_MQ_RSS_CONFIG command using the following format for \field{command-specific-data}:
->  \begin{lstlisting}
-> +struct rss_rq_id {
-> +   le16 vq_index_1_16: 15; /* Bits 1 to 16 of the virtqueue index */
-> +   le16 reserved: 1; /* Set to zero */
-> +};
-> +
->  struct virtio_net_rss_config {
->      le32 hash_types;
->      le16 indirection_table_mask;
-> -    le16 unclassified_queue;
-> -    le16 indirection_table[indirection_table_length];
-> +    struct rss_rq_id unclassified_queue;
-> +    struct rss_rq_id indirection_table[indirection_table_length];
->      le16 max_tx_vq;
->      u8 hash_key_length;
->      u8 hash_key_data[hash_key_length];
-> @@ -1453,10 +1458,15 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->  \field{indirection_table} array.
->  Number of entries in \field{indirection_table} is (\field{indirection_table_mask} + 1).
+>  \drivernormative{\paragraph}{Setting Up Receive Buffers}{Device Types 
+> / Network Device / Device Operation / Setting Up Receive Buffers}
 >  
-> -Field \field{unclassified_queue} contains the 0-based index of
-> -the receive virtqueue to place unclassified packets in. Index 0 corresponds to receiveq1.
-> +\field{rss_rq_id} is a receive virtqueue id. \field{vq_index_1_16}
-> +consists of bits 1 to 16 of a virtqueue index. For example, a
-> +\field{vq_index_1_16} value of 3 corresponds to virtqueue index 6,
-> +which maps to receiveq4.
-> +
-> +Field \field{unclassified_queue} specifies the receive virtqueue in which to
-> +place unclassified packets.
+> @@ -3632,9 +3632,11 @@ \subsubsection{Setting Up Receive Buffers}\label{sec:Device Types / Network Devi
+>    \begin{itemize}
+>      \item If VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6, VIRTIO_NET_F_GUEST_UFO,
+>  	VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6 are negotiated, the driver SHOULD populate
+> -      the receive queue(s) with buffers of at least 65562 bytes.
+> +      the receive queue(s) with buffers of at least 65570 bytes
+> +      if VIRTIO_NET_F_HASH_REPORT is negotiated, 65562 bytes otherwise.
+>      \item Otherwise, the driver SHOULD populate the receive queue(s)
+> -      with buffers of at least 1526 bytes.
+> +      with buffers of at least 1534 bytes if VIRTIO_NET_F_HASH_REPORT
+> +      is negotiated, 1526 bytes otherwise.
+>    \end{itemize}
+>  \item If VIRTIO_NET_F_MRG_RXBUF is negotiated, each buffer MUST be at  least the size of the struct virtio_net_hdr.
+> diff --git a/split-ring.tex b/split-ring.tex index de94038..82e910f 
+> 100644
+> --- a/split-ring.tex
+> +++ b/split-ring.tex
+> @@ -127,7 +127,8 @@ \subsection{Legacy Interfaces: A Note on Virtqueue 
+> Endianness}\label{sec:Basic F
 >  
-> -Field \field{indirection_table} contains an array of 0-based indices of receive virtqueues. Index 0 corresponds to receiveq1.
-> +Field \field{indirection_table} is an array of receive virtqueues.
-
-...an array of receive virtqueue ids.
-
->  
->  A driver sets \field{max_tx_vq} to inform a device how many transmit virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
->  
-> @@ -1466,7 +1476,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->  
->  A driver MUST NOT send the VIRTIO_NET_CTRL_MQ_RSS_CONFIG command if the feature VIRTIO_NET_F_RSS has not been negotiated.
->  
-> -A driver MUST fill the \field{indirection_table} array only with indices of enabled queues. Index 0 corresponds to receiveq1.
-> +A driver MUST fill the \field{indirection_table} array only with
-> +enabled receive virtqueues.
->  
->  The number of entries in \field{indirection_table} (\field{indirection_table_mask} + 1) MUST be a power of two.
->  
-> @@ -1479,7 +1490,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->  \begin{itemize}
->  \item Calculate the hash of the packet as defined in \ref{sec:Device Types / Network Device / Device Operation / Processing of Incoming Packets / Hash calculation for incoming packets}.
->  \item If the device did not calculate the hash for the specific packet, the device directs the packet to the receiveq specified by \field{unclassified_queue} of virtio_net_rss_config structure.
-> -\item Apply \field{indirection_table_mask} to the calculated hash and use the result as the index in the indirection table to get 0-based number of destination receiveq.
-> +\item Apply \field{indirection_table_mask} to the calculated hash
-> +and use the result as the index in the indirection table to get
-> +the destination receive virtqueue.
->  \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
->  \end{itemize}
->  
-> -- 
-> 2.26.2
->
->
-> This publicly archived list offers a means to provide input to the
+>  \subsection{Message Framing}\label{sec:Basic Facilities of a Virtio 
+> Device / Virtqueues / Message Framing}  The framing of messages with 
+> descriptors is -independent of the contents of the buffers. For 
+> example, a network
+> +independent of the contents of the buffers. For example, if 
+> +VIRTIO_NET_F_HASH_REPORT has not been negotiated, a network
+>  transmit buffer consists of a 12 byte header followed by the network  
+> packet. This could be most simply placed in the descriptor table as a
+>  12 byte output descriptor followed by a 1514 byte output descriptor,
+> --
+> 2.25.1
+> 
+> 
+> 
+> 
+> 
+> 
+> This publicly archived list offers a means to provide input to the 
 > OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
+> 
+> In order to verify user consent to the Feedback License terms and to 
+> minimize spam in the list archive, subscription is required before 
+> posting.
+> 
 > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
 > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
 > List help: virtio-comment-help@lists.oasis-open.org
 > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Feedback License: 
+> https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: 
+> https://www.oasis-open.org/policies-guidelines/mailing-lists
 > Committee: https://www.oasis-open.org/committees/virtio/
 > Join OASIS: https://www.oasis-open.org/join/
--- 
-J'aurais toujours faim de toi.
+
+
+
+
+
+
+
+
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
