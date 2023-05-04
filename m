@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5762-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5763-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE07DC77B7C
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8494FC7EE21
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:51 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 147331462C5
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:44 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DCAA4157EEB
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:50 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0B2869866C0
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D11309866B6
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:50 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0310E9866B1; Thu,  4 May 2023 08:21:44 +0000 (UTC)
+	id C851098663F; Thu,  4 May 2023 08:21:50 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,26 +24,26 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E6F1A9866B5
-	for <virtio-comment@lists.oasis-open.org>; Thu,  4 May 2023 08:21:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B89CD98667D
+	for <virtio-comment@lists.oasis-open.org>; Thu,  4 May 2023 08:21:50 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683188502; x=1685780502;
+        d=1e100.net; s=20221208; t=1683188509; x=1685780509;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=O452Xqy04xSz7kE56vFvcsKbLigsrs0uGOpRr/9m/6Q=;
-        b=C67XxMfK2tkuOXXeMzThtQh8hutRJwhwf8s/JoUZH/UuYxHrV9AN7zajT0wB2ZJt9y
-         R+aUUasmH1pu3Z5ZjGouYsyaJGVTZN4QDVc0WTE/1pnSz9eG3x3cqS0KrLKJ5mx0byY4
-         hNXJB6tK+5/wKt8K+ChMWckUKBfN+t7bqNHYiK1r4HeTVoqpvAKbHLVZfelWwJoAa7bC
-         l6gOZAz0jWeIudmLb807PpfD38OkmCVPi3DDId+/Z/cse6AlVXWVKVEKa/hpLG2D5JBa
-         WnU3+TkQFi3stb/uxohwQnp3Tmo66hNh/2yi8bk3MIoB+/TGraTwVd0458my8/H7/ca3
-         47zw==
-X-Gm-Message-State: AC+VfDzlYycJGHgSM+Gv7kd3N9TRRHo+sy3HVtC7LIPER7Hjz6NhDFLM
-	qy2zkFImyZHZCGEcOiDPt4hddA==
-X-Google-Smtp-Source: ACHHUZ6t2VeGTk9Ve8w3WjZaMArQd42mYSJb7FbMIbuvXQfp9cc75tYh0Ni5/TnZwXe6yp9E3/ECBQ==
-X-Received: by 2002:a05:6a20:a11b:b0:ef:242d:54e3 with SMTP id q27-20020a056a20a11b00b000ef242d54e3mr1763849pzk.21.1683188502222;
-        Thu, 04 May 2023 01:21:42 -0700 (PDT)
+        bh=egMLM8IYdt+9eyEM2YiFFLdutvVIe1BlO8/5VKpS3Kk=;
+        b=IYa4vqiWllVkSj/aYczNvVZ/UC3NrUX5DZd1ht1ooNyJURXZT2RWvDyanHyKqfvhJK
+         Pg8oerAVL7pU33u2hiMeB9z3vMeVyR6mt6xGrINhxjP33KIjJ9MMRrkh4QtJZLO6QqH3
+         amkmakfWg2zC4IKhXaOmCqJHCUPaj4I1g5hMOpqJW5mwrJtFVVhRwrVmP+blmz+iKgRx
+         +sVbkCYHnYrEaMsgprO+B/2oCiS/C3CaB3K/ikhA1sl85I0uKX1wHoA5yWJpDlOkjpc/
+         +0YY60BE6eBXCqM+znWLgVuHWwAMe2LacPFTSQ3Uuy6eqGYRboiEr8KBH5WuFwQKfrXy
+         VnKQ==
+X-Gm-Message-State: AC+VfDyHpVu6Ea2uzSekO7YXdQkHYOff+h+++y9wP/ofK1UufwZy8jud
+	gCGGzMVgMNPjhcQTlcLDOS5cKw==
+X-Google-Smtp-Source: ACHHUZ6XHl0jYbUP5ICw2edO/YdjkqzpEG9Fpe8XSmLtfxJuS7nPw2q/eisLraKCumm/PgwgdT+lyw==
+X-Received: by 2002:a17:90a:12cb:b0:24e:113d:db82 with SMTP id b11-20020a17090a12cb00b0024e113ddb82mr1416300pjg.8.1683188509411;
+        Thu, 04 May 2023 01:21:49 -0700 (PDT)
 From: zhenwei pi <pizhenwei@bytedance.com>
 To: parav@nvidia.com,
 	mst@redhat.com,
@@ -54,239 +54,68 @@ Cc: virtio-comment@lists.oasis-open.org,
 	helei.sig11@bytedance.com,
 	xinhao.kong@duke.edu,
 	zhenwei pi <pizhenwei@bytedance.com>
-Date: Thu,  4 May 2023 16:19:05 +0800
-Message-Id: <20230504081910.238585-7-pizhenwei@bytedance.com>
+Date: Thu,  4 May 2023 16:19:07 +0800
+Message-Id: <20230504081910.238585-9-pizhenwei@bytedance.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230504081910.238585-1-pizhenwei@bytedance.com>
 References: <20230504081910.238585-1-pizhenwei@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v2 06/11] transport-fabrics: introduce command set
+Subject: [virtio-comment] [PATCH v2 08/11] transport-fabrics: introduce status of completion
 
-Introduce command structures for Virtio-oF.
+Define status of completion, currently status 0-114 has the same
+meaning to the linux error code, because these status are used for
+many years, they are clear and friendly to linux system developers
+(even for other platform developers).
 
 Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
 ---
- transport-fabrics.tex | 209 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 209 insertions(+)
+ transport-fabrics.tex | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
 diff --git a/transport-fabrics.tex b/transport-fabrics.tex
-index 7711321..37f57c6 100644
+index 026ff5f..f563c3e 100644
 --- a/transport-fabrics.tex
 +++ b/transport-fabrics.tex
-@@ -495,3 +495,212 @@ \subsubsection{Buffer Mapping Definition}\label{sec:Virtio Transport Options / V
-                     |value |  -> 8193 (value.u32)
-                     +------+
- \end{lstlisting}
+@@ -838,3 +838,38 @@ \subsubsection{Opcodes Definition}\label{sec:Virtio Transport Options / Virtio O
+ 
+ virtio_of_op_set_config is used to set the config of a device for control queue only.
+ The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Config Command} with specified offset and bytes and value fields.
 +
-+\subsubsection{Commands Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition}
-+This section defines command structures for Virtio Over Fabrics.
-+
-+A common structure virtio_of_value is fixed to 8 bytes and MUST be used as one
-+of the following format:
-+
-+\begin{itemize}
-+\item u8
-+\item le16
-+\item le32
-+\item le64
-+\end{itemize}
-+
-+\paragraph{Command ID}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Command ID}
-+There is command_id(le16) field in each Command and Completion:
-+
-+\begin{itemize}
-+\item Generally the initiator allocates a Command ID and specifies the
-+command_id field of a Command, and the target MUST specify the same Command ID
-+in command_id field of Completion.
-+\item The initiator MUST guarantee each Command ID is unique in the inflight Commands.
-+\item Command ID 0xff00 - 0xffff is reserved for control queue to delivery asynchronous event.
-+\end{itemize}
-+
-+The reserved Command ID for control queue is defined as follows:
-+
-+\begin{tabular}{ |l|l| }
-+\hline
-+Command ID & Description \\
-+\hline \hline
-+0xffff & Keepalive. The initiator SHOULD ignore this event \\
-+\hline
-+0xfffe & Config change. The initiator SHOULD generate config change interrupt to device \\
-+\hline
-+0xff00 - 0xfffd & Reserved \\
-+\hline
-+\end{tabular}
-+
-+\paragraph{Connect Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Connect Command}
-+The Connect Command is used to establish Virtio Over Fabrics queue. The control
-+queue MUST be established firstly, then the Connect command establishes an
-+association between the initiator and the target.
-+
-+The Target ID of 0xffff is reserved, then:
-+\begin{itemize}
-+\item The Target ID of 0xffff MUST be specified as the Target ID in a Connect
-+Command for the control queue.
-+\item The target SHOULD allocate any available Target ID to the initiator,
-+and return the allocated Target ID in the Completion.
-+\item The returned Target ID MUST be specified as the Target ID, and the Queue ID
-+MUST be specified in a Connect Command for the virtqueue.
-+\end{itemize}
-+
-+The Connect Command has following structure:
++\subsubsection{Status Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Status Definition}
++This section defines status for Virtio Over Fabrics Completion.
 +
 +\begin{lstlisting}
-+struct virtio_of_command_connect {
-+        le16 opcode;
-+        le16 command_id;
-+        le16 target_id;
-+        le16 queue_id;
-+        le16 ndesc;
-+#define VIRTIO_OF_CONNECTION_TCP     1
-+#define VIRTIO_OF_CONNECTION_RDMA    2
-+        u8 oftype;
-+        u8 padding[5];
-+};
++#define VIRTIO_OF_SUCCESS       0
++#define VIRTIO_OF_EPERM         1
++#define VIRTIO_OF_ENOENT        2
++#define VIRTIO_OF_EIO           5
++#define VIRTIO_OF_ENXIO         6
++#define VIRTIO_OF_E2BIG         7
++#define VIRTIO_OF_ENOMEM        12
++#define VIRTIO_OF_EACCES        13
++#define VIRTIO_OF_EFAULT        14
++#define VIRTIO_OF_EBUSY         16
++#define VIRTIO_OF_EEXIST        17
++#define VIRTIO_OF_ENODEV        19
++#define VIRTIO_OF_EINVAL        22
++#define VIRTIO_OF_ERANGE        34
++#define VIRTIO_OF_ENOSYS        38
++#define VIRTIO_OF_ECHRNG        44
++#define VIRTIO_OF_EUNATCH       49
++#define VIRTIO_OF_EBADE         52
++#define VIRTIO_OF_EBADR         53
++#define VIRTIO_OF_EBADRQC       56
++#define VIRTIO_OF_ENODATA       61
++#define VIRTIO_OF_EPROTO        71
++#define VIRTIO_OF_EBADMSG       74
++#define VIRTIO_OF_ENOTUNIQ      76
++#define VIRTIO_OF_EREMCHG       78
++#define VIRTIO_OF_EUSERS        87
++#define VIRTIO_OF_EOPNOTSUPP    95
++#define VIRTIO_OF_EALREADY      114
++#define VIRTIO_OF_EQUIRK        4096
 +\end{lstlisting}
-+
-+The Connect commands MUST contains one Segment Descriptor and one structure
-+virtio_of_command_connect to specify Initiator VQN and Target VNQ,
-+virtio_of_command_connect has following structure:
-+
-+\begin{lstlisting}
-+struct virtio_of_connect {
-+        u8 ivqn[256];
-+        u8 tvqn[256];
-+        u8 padding[512];
-+};
-+\end{lstlisting}
-+
-+\paragraph{Feature Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Feature Command}
-+
-+The control queue uses Feature Command to get or set features. This command is used for:
-+
-+\begin{itemize}
-+\item The initiator/target features. This is used to negotiate transport layer features.
-+\item The driver/device features. This is used to negotiate Virtio Based device
-+features which is similar to PCI based device.
-+\end{itemize}
-+
-+The Feature Command has following structure:
-+
-+\begin{lstlisting}
-+struct virtio_of_command_feature {
-+        le16 opcode;
-+        le16 command_id;
-+        le32 feature_select;
-+        le64 value;        /* ignore this field on GET */
-+};
-+\end{lstlisting}
-+
-+\paragraph{Queue Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Queue Command}
-+
-+The control queue uses Queue Command to get or set properties on a specific queue.
-+The Queue Command has following structure:
-+
-+\begin{lstlisting}
-+struct virtio_of_command_queue {
-+        le16 opcode;
-+        le16 command_id;
-+        le16 queue_id;
-+        u8 padding6;
-+        u8 padding7;
-+        struct virtio_of_value value;   /* ignore this field on GET */
-+};
-+\end{lstlisting}
-+
-+
-+\paragraph{Config Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Config Command}
-+
-+The control queue uses Config Command to get or set configure on device.
-+The Config Command has following structure:
-+
-+\begin{lstlisting}
-+struct virtio_of_command_config {
-+        le16 opcode;
-+        le16 command_id;
-+        le16 offset;
-+        u8 bytes;
-+        u8 padding7;
-+        struct virtio_of_value value;        /* ignore this field on GET */
-+};
-+\end{lstlisting}
-+
-+The bytes field supports on Get only:
-+
-+\begin{itemize}
-+\item 1, then the initiator reads from value field of Completion as u8
-+\item 2, then the initiator reads from value field of Completion as le16
-+\item 4, then the initiator reads from value field of Completion as le32
-+\item 8, then the initiator reads from value field of Completion as le64
-+\end{itemize}
-+
-+The bytes field supports on Set only:
-+
-+\begin{itemize}
-+\item 1, then the initiator specifies the value field of Config Command as u8
-+\item 2, then the initiator specifies the value field of Config Command as le16
-+\item 4, then the initiator specifies the value field of Config Command as le32
-+\item 8, then the initiator specifies the value field of Config Command as le64
-+\end{itemize}
-+
-+\paragraph{Common Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command}
-+
-+The control queue uses Common Command to get or set common properties on
-+device(i.e. get device ID). The Common Command has following structure:
-+
-+\begin{lstlisting}
-+struct virtio_of_command_common {
-+        le16 opcode;
-+        le16 command_id;
-+        u8 padding4;
-+        u8 padding5;
-+        u8 padding6;
-+        u8 padding7;
-+        struct virtio_of_value value;        /* ignore this field on GET */
-+};
-+\end{lstlisting}
-+
-+
-+\paragraph{Vring Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Vring Command}
-+
-+Both control queue and virtqueue use Vring Command to transmit buffer.
-+The Vring Command has following structure:
-+
-+\begin{lstlisting}
-+struct virtio_of_command_vring {
-+        le16 opcode;
-+        le16 command_id;
-+        /* Total buffer size this command contains(not include command&descriptors). */
-+        le32 length;
-+        /* How many descriptors this command contains */
-+        le16 ndesc;
-+        u8 padding[6];
-+};
-+\end{lstlisting}
-+
-+\paragraph{Completion}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Completion}
-+
-+The target responses Completion to the initiator to report command status,
-+device properties, and transmit buffer. The Completion has following structure:
-+
-+\begin{lstlisting}
-+struct virtio_of_completion {
-+        le16 status;
-+        le16 command_id;
-+        /* How many descriptors this completion contains */
-+        le16 ndesc;
-+        u8 rsvd6;
-+        u8 rsvd7;
-+        struct virtio_of_value value;
-+};
-+\end{lstlisting}
-+
-+Note that Virtio Over Fabrics does not define an interrupt mechanism, generally
-+the initiator receives a Completion, it SHOULD generate a host interrupt
-+(if no interrupt suspending on device).
 -- 
 2.25.1
 
