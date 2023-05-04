@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5760-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5761-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD2CC7EE21
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FEABC77B7C
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BEDA11318CB
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5E474142D46
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B3A809866B9
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 55E5A9866B8
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 08:21:40 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A9D4598663F; Thu,  4 May 2023 08:21:36 +0000 (UTC)
+	id 4C5FE983EB5; Thu,  4 May 2023 08:21:40 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,26 +24,26 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 99616986640
-	for <virtio-comment@lists.oasis-open.org>; Thu,  4 May 2023 08:21:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 38EFF98663F
+	for <virtio-comment@lists.oasis-open.org>; Thu,  4 May 2023 08:21:40 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683188495; x=1685780495;
+        d=1e100.net; s=20221208; t=1683188498; x=1685780498;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=WQRf5FWc8h91El1/Dzp07anAXabpgv2augiS3cZvLRw=;
-        b=Qtk/dNVlRrwTuAQSJ4S30HCt0W1FVBNJzSAOjNqT6V5ftacWmyXZBwmZ2fA5B4K1UY
-         rEUncJNOrht3gFYd/9dGzgCb7V6B1I4hyD+qYALeGkDVjC+O4ouQtSkhqTVHErXsoGxp
-         23V4acqrI1uSV+0yH3FtoHBRfW+YTWezpPnltfQts/tuC+yEW/qagocap/cAA725enpo
-         GBwkjP3TPmEZsuPLO1VIoxwKcFP52BIJtTrnbMznkVm2YioKFw2MCVnua2ykS3ZYCwGA
-         qg4ajm31h3EO8MpDU4WUy3SRrCSl5Qq3QIMjFt7amXAkF+pybk205XeyhC/voDdeX4Xs
-         73jA==
-X-Gm-Message-State: AC+VfDywvhA5XM96JYG44LezE3ZoJZEfC6ywZd5Fe4uBBW/54XqjDHVx
-	MgsL9SqsBc0g0FIbjN8nJ/0xUg==
-X-Google-Smtp-Source: ACHHUZ5ngufVryyiGfhzCVsR1Wy2kOCWYIT8eAa6sZ94k506DyC+tyHZqWhXFmuhEeEpZO+RlNSuDA==
-X-Received: by 2002:a17:90a:5d8c:b0:246:a5d8:cb73 with SMTP id t12-20020a17090a5d8c00b00246a5d8cb73mr1663431pji.14.1683188495065;
-        Thu, 04 May 2023 01:21:35 -0700 (PDT)
+        bh=VmnQVBgXKjPMWE19J7QvVOYwNG/TxTtMFvSwN5o+KsE=;
+        b=EwrrZsSaT9r0CqMxzYtI2tlsC6xFXkxlp1ALNZ6i84Rec5LX27OXJQ2YwxSrkGy4rd
+         /9n7g5b4ocayudT5BBbiBKwbviRrQk5VXzQCuEQw4XnBuuGz9O0r35QQTgnKHesy1qSx
+         b3Gfpi66g8Sg96DPxe2AbBaFp7z4tGl3pJC4BRJRvLT0YtI6Hoiaz+AiTTH5Lq/fjnc5
+         szqF0PpnpP1ndoc+zLK76Agh5zhPF0t1O+dbbolXFNBbhGm0qgw76la7oVq908phwZ7h
+         SkXo9zm+58xx3IQD+JCRzEskx0lozAhpyNo14hEK8HJbVKhQjz576zgPKzTBImrTWgSP
+         i4NA==
+X-Gm-Message-State: AC+VfDxDP5B5NUg1Ooecp2nTfT7DId7TaQNDu/m7ANL70IbaEEtWVlAY
+	KFDjTU0BqEiVampz89MX2jrOXQ==
+X-Google-Smtp-Source: ACHHUZ5+Wb9aLk1Cy/W5A15t1CAdRt5uX5WjEPVAGoWVsWsFKCWAWTuPGlsRNqpvOWyTtoFNCfUpEg==
+X-Received: by 2002:a17:90a:6308:b0:24e:473e:71c3 with SMTP id e8-20020a17090a630800b0024e473e71c3mr1341162pjj.19.1683188498562;
+        Thu, 04 May 2023 01:21:38 -0700 (PDT)
 From: zhenwei pi <pizhenwei@bytedance.com>
 To: parav@nvidia.com,
 	mst@redhat.com,
@@ -54,62 +54,59 @@ Cc: virtio-comment@lists.oasis-open.org,
 	helei.sig11@bytedance.com,
 	xinhao.kong@duke.edu,
 	zhenwei pi <pizhenwei@bytedance.com>
-Date: Thu,  4 May 2023 16:19:03 +0800
-Message-Id: <20230504081910.238585-5-pizhenwei@bytedance.com>
+Date: Thu,  4 May 2023 16:19:04 +0800
+Message-Id: <20230504081910.238585-6-pizhenwei@bytedance.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230504081910.238585-1-pizhenwei@bytedance.com>
 References: <20230504081910.238585-1-pizhenwei@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v2 04/11] transport-fabrics: introduce Stream Transmission
+Subject: [virtio-comment] [PATCH v2 05/11] transport-fabrics: introduce Keyed Transmission
 
-Stream transmission is used for stream oriented communication(Ex TCP),
+Keyed transmission is used for message oriented communication(Ex RDMA),
 also add virtio-blk read/write 8K example.
 
 Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
 ---
- transport-fabrics.tex | 229 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 229 insertions(+)
+ transport-fabrics.tex | 178 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 178 insertions(+)
 
 diff --git a/transport-fabrics.tex b/transport-fabrics.tex
-index b88acfd..c02cf26 100644
+index c02cf26..7711321 100644
 --- a/transport-fabrics.tex
 +++ b/transport-fabrics.tex
-@@ -88,3 +88,232 @@ \subsubsection{Segment Descriptor Definition}\label{sec:Virtio Transport Options
- \end{tabular}
- 
- Depending on the opcode, a Command contains zero or more structure virtio_of_vring_desc.
+@@ -317,3 +317,181 @@ \subsubsection{Buffer Mapping Definition}\label{sec:Virtio Transport Options / V
+                     |......|
+                     +------+  -> 8193
+ \end{lstlisting}
 +
-+\subsubsection{Buffer Mapping Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Buffer Mapping Definition}
-+Virtio Over Fabrics defines two types of buffer mapping rules.
-+
-+\paragraph{Stream Transmission}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Stream Transmission}
-+Command, Segment Descriptors, and buffer are transmitted in a stream within a
-+connection. The layout in stream:
++\paragraph{Keyed Transmission}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Keyed Transmission}
++Command and Segment Descriptors are transmitted in a message within a
++connection, and buffer is transmitted by remote memory access.  The layout in message:
 +
 +\begin{lstlisting}
-+CMDx contains 0 descriptor, CMDy contains (n - m + 1) descriptors and buffer:
++CMDx contains 0 descriptor, CMDy contains (n - m + 1) descriptors:
 +
-+     +-----+     +-----++-----+     +-----++-----+
-+ ... | CMDx| ... | CMDy||DESCm| ... |DESCn|| BUF | ...
-+     +-----+     +-----++-----+     +-----++-----+
++     +-----+     +-----++-----+     +-----+
++ ... | CMDx| ... | CMDy||DESCm| ... |DESCn| ...
++     +-----+     +-----++-----+     +-----+
 +
-+COMPx contains 0 descriptor, COMPy contains (k - j + 1) descriptors and buffer:
++COMPx contains 0 descriptor, COMPy contains 0 descriptor:
 +
-+     +-----+     +-----++-----+     +-----++-----+
-+ ... |COMPx| ... |COMPy||DESCj| ... |DESCk|| BUF | ...
-+     +-----+     +-----++-----+     +-----++-----+
++     +-----+     +-----+
++ ... |COMPx| ... |COMPy| ...
++     +-----+     +-----+
 +\end{lstlisting}
 +
-+An example of a virtio-blk write 8K request(total size: sizeof(Command) +
-+4 * sizeof(Descriptor) + 8208):
++An example of a virtio-blk write 8K request(message size: sizeof(Command) +
++4 * sizeof(Descriptor)):
 +\begin{lstlisting}
 + COMMAND            +------+
 +                    |opcode|  ->  virtio_of_op_vring
 +                    +------+
 +                    |cmd id|  ->  10
 +                    +------+
-+                    |length|  ->  8208
++                    |length|  ->  0
 +                    +------+
 +                    |ndesc |  ->  4
 +                    +------+
@@ -117,93 +114,79 @@ index b88acfd..c02cf26 100644
 +                    +------+
 +
 + DESC0              +------+
-+              +-----|addr  |  -> 0
-+              |     +------+
-+              |     |length|  -> 16 (virtio blk write command)
-+              |     +------+
-+              |     |id    |  -> 0
-+              |     +------+
-+              |     |flags |  -> 0
-+              |     +------+
-+              |
-+ DESC1        |     +------+
-+              | +---|addr  |  -> 16
-+              | |   +------+
-+              | |   |length|  -> 4096
-+              | |   +------+
-+              | |   |id    |  -> 1
-+              | |   +------+
-+              | |   |flags |  -> 0
-+              | |   +------+
-+              | |
-+ DESC2        | |   +------+
-+              | | +-|addr  |  -> 4112
-+              | | | +------+
-+              | | | |length|  -> 4096
-+              | | | +------+
-+              | | | |id    |  -> 2
-+              | | | +------+
-+              | | | |flags |  -> 0
-+              | | | +------+
-+              | | |
-+ DESC3        | | | +------+
-+              | | | |addr  |  -> 0
-+              | | | +------+
-+              | | | |length|  -> 1
-+              | | | +------+
-+              | | | |id    |  -> 3
-+              | | | +------+
-+              | | | |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+              | | | +------+
-+              | | |
-+ DATA         +-+-+>+------+  -> 0
-+                | | |......|
-+                +-+>+------+  -> 16
-+                  | |......|
-+                  +>+------+  -> 4112
-+                    |......|
-+                    +------+  -> 8208
++                    |addr  |  -> 0xffff012345670000
++                    +------+
++                    |length|  -> 16 (virtio blk write command)
++                    +------+
++                    |id    |  -> 0
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED
++                    +------+
++                    |key   |  -> 0x1234
++                    +------+
++
++ DESC1              +------+
++                    |addr  |  -> 0xffff012345671000
++                    +------+
++                    |length|  -> 4096
++                    +------+
++                    |id    |  -> 1
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED
++                    +------+
++                    |key   |  -> 0x1236
++                    +------+
++
++ DESC2              +------+
++                    |addr  |  -> 0xffff012345673000
++                    +------+
++                    |length|  -> 4096
++                    +------+
++                    |id    |  -> 2
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED
++                    +------+
++                    |key   |  -> 0x1238
++                    +------+
++
++ DESC3              +------+
++                    |addr  |  -> 0xffff012345677000
++                    +------+
++                    |length|  -> 1
++                    +------+
++                    |id    |  -> 3
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED | VIRTIO_OF_DESC_F_WRITE
++                    +------+
++                    |key   |  -> 0x1239
++                    +------+
 +\end{lstlisting}
 +
-+The Completion of this request(total size: sizeof(Completion) +
-+1 * sizeof(Descriptor) + 1):
++The target handles Command, reads the remote addresses of DESC0/DESC1/DESC2,
++writes the remote address of DESC3, then responses Completion:
 +\begin{lstlisting}
 + COMPLETION         +------+
 +                    |status|  ->  VIRTIO_OF_SUCCESS
 +                    +------+
 +                    |cmd id|  ->  10
 +                    +------+
-+                    |ndesc |  ->  1
++                    |ndesc |  ->  0
 +                    +------+
 +                    |rsvd  |
 +                    +------+
 +                    |value |  -> 1 (value.u32)
 +                    +------+
-+
-+ DESC0              +------+
-+                  +-|addr  |  -> 0
-+                  | +------+
-+                  | |length|  -> 1
-+                  | +------+
-+                  | |id    |  -> 3
-+                  | +------+
-+                  | |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+                  | +------+
-+                  |
-+ DATA             |>+------+  -> 0
-+                    |......|
-+                    +------+  -> 1
 +\end{lstlisting}
 +
-+Another example of a virtio-blk read 8K request(total size: sizeof(Command) +
-+4 * sizeof(Descriptor) + 16):
++Another example of a virtio-blk read 8K request(message size: sizeof(Command) +
++4 * sizeof(Descriptor)):
 +\begin{lstlisting}
 + COMMAND            +------+
 +                    |opcode|  ->  virtio_of_op_vring
 +                    +------+
-+                    |cmd id|  ->  14
++                    |cmd id|  ->  10
 +                    +------+
-+                    |length|  ->  16 (virtio blk read command)
++                    |length|  ->  0
 +                    +------+
 +                    |ndesc |  ->  4
 +                    +------+
@@ -211,102 +194,68 @@ index b88acfd..c02cf26 100644
 +                    +------+
 +
 + DESC0              +------+
-+                  +-|addr  |  -> 0
-+                  | +------+
-+                  | |length|  -> 16
-+                  | +------+
-+                  | |id    |  -> 0
-+                  | +------+
-+                  | |flags |  -> 0
-+                  | +------+
-+                  |
-+ DESC1            | +------+
-+                  | |addr  |  -> 0
-+                  | +------+
-+                  | |length|  -> 4096
-+                  | +------+
-+                  | |id    |  -> 1
-+                  | +------+
-+                  | |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+                  | +------+
-+                  |
-+ DESC2            | +------+
-+                  | |addr  |  -> 0
-+                  | +------+
-+                  | |length|  -> 4096
-+                  | +------+
-+                  | |id    |  -> 2
-+                  | +------+
-+                  | |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+                  | +------+
-+                  |
-+ DESC3            | +------+
-+                  | |addr  |  -> 0
-+                  | +------+
-+                  | |length|  -> 1
-+                  | +------+
-+                  | |id    |  -> 3
-+                  | +------+
-+                  | |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+                  | +------+
-+                  |
-+ DATA             +>+------+  -> 0
-+                    |......|
-+                    +------+  -> 16
++                    |addr  |  -> 0xffff012345670000
++                    +------+
++                    |length|  -> 16 (virtio blk write command)
++                    +------+
++                    |id    |  -> 0
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED
++                    +------+
++                    |key   |  -> 0x1234
++                    +------+
++
++ DESC1              +------+
++                    |addr  |  -> 0xffff012345671000
++                    +------+
++                    |length|  -> 4096
++                    +------+
++                    |id    |  -> 1
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED | VIRTIO_OF_DESC_F_WRITE
++                    +------+
++                    |key   |  -> 0x1236
++                    +------+
++
++ DESC2              +------+
++                    |addr  |  -> 0xffff012345673000
++                    +------+
++                    |length|  -> 4096
++                    +------+
++                    |id    |  -> 2
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED | VIRTIO_OF_DESC_F_WRITE
++                    +------+
++                    |key   |  -> 0x1238
++                    +------+
++
++ DESC3              +------+
++                    |addr  |  -> 0xffff012345677000
++                    +------+
++                    |length|  -> 1
++                    +------+
++                    |id    |  -> 3
++                    +------+
++                    |flags |  -> VIRTIO_OF_DESC_F_KEYED | VIRTIO_OF_DESC_F_WRITE
++                    +------+
++                    |key   |  -> 0x1239
++                    +------+
 +\end{lstlisting}
 +
-+The Completion of this request(total size: sizeof(Completion) +
-+3 * sizeof(Descriptor) + 8193):
++The target handles Command, reads the remote address of DESC0, writes the remote
++addresses of DESC1/DESC2/DESC3, then responses Completion:
 +\begin{lstlisting}
 + COMPLETION         +------+
 +                    |status|  ->  VIRTIO_OF_SUCCESS
 +                    +------+
-+                    |cmd id|  ->  14
++                    |cmd id|  ->  10
 +                    +------+
-+                    |ndesc |  ->  3
++                    |ndesc |  ->  0
 +                    +------+
 +                    |rsvd  |
 +                    +------+
 +                    |value |  -> 8193 (value.u32)
 +                    +------+
-+
-+ DESC0              +------+
-+              +-----|addr  |  -> 0
-+              |     +------+
-+              |     |length|  -> 4096
-+              |     +------+
-+              |     |id    |  -> 1
-+              |     +------+
-+              |     |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+              |     +------+
-+              |
-+ DESC1        |     +------+
-+              | +---|addr  |  -> 4096
-+              | |   +------+
-+              | |   |length|  -> 4096
-+              | |   +------+
-+              | |   |id    |  -> 2
-+              | |   +------+
-+              | |   |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+              | |   +------+
-+              | |
-+ DESC2        | |   +------+
-+              | | +-|addr  |  -> 8192
-+              | | | +------+
-+              | | | |length|  -> 1
-+              | | | +------+
-+              | | | |id    |  -> 3
-+              | | | +------+
-+              | | | |flags |  -> VIRTIO_OF_DESC_F_WRITE
-+              | | | +------+
-+              | | |
-+ DATA         +-+-+>+------+  -> 0
-+                | | |......|
-+                +-+>+------+  -> 4096
-+                  | |......|
-+                  +>+------+  -> 8192
-+                    |......|
-+                    +------+  -> 8193
 +\end{lstlisting}
 -- 
 2.25.1
