@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5753-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5754-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6D85C77B75
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 02:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85AF1C77B7C
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 06:30:11 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 03FC529FE0
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 02:31:26 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 90D0B23D45
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 06:30:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A9DC798672E
-	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 02:31:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7C5DD9866AE
+	for <virtio-comment@archiver.kernel.org>; Thu,  4 May 2023 06:30:10 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 9F9869866DD; Thu,  4 May 2023 02:31:25 +0000 (UTC)
+	id 6B5D4983EB5; Thu,  4 May 2023 06:30:10 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,152 +24,95 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C8FFF986813;
-	Thu,  4 May 2023 02:31:15 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 50FCC98663F
+	for <virtio-comment@lists.oasis-open.org>; Thu,  4 May 2023 06:30:10 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z5/sJZQhfv0ojAEX+ze6ZO/o2k2v3EkuQso44G6qx9UoQ0TSwpZq5k2jmL+TxQKN1x12XUb5qpdHsMLwavcNlqA45iyW90MEJzJjcA/0LRJ9G1VmDrGSRi+xV2DwyAZ5EFtm32VXw3AnUhrSFt8FfrPzMHGNv4jf1X3C7gD9CORBFIEIt/uMwchmyjKAjDIG8aObDXMmCX0B6kDK7a6fQe6XQPx8r325vyq7dmAhANrTazXG4wi2rrGMJ3PueGeUjr/d5suqXbV9SQGW3TGDIDzpTZ4ZcpuAC9/jRIuvhH/CDR12fkAsVtjmgEv55qGQcIHPAEa+mgS8XtrSu7Msmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q406ff/+rL2bNbD/kk13stnf2xsQqSQR2UX2HdcoGzI=;
- b=bHhtaiyLeN+DJWUOZWhD51/Ris/T0fXGcyhpfRDK0tYP95TQEHJIBHxvWAtrwWm7606YojBRG5rHvtWkEvBexG/lwNqDrmx5PnbwxHyYct3HpJ4gLFexNnzKF4H6oWYROvEDJ0ULHzLK+A2Wz5YAat0BWQVEofbWXKQWDwPpLQSeVcbYXBLaSNNUwkFNHW6lfhqM95bqjfhdF3wa0I1hhgk0CaOh52bGnDu9JmB2PEM28+gkaLazHWGwobU7s4JeyPX7uj3eHkLj08ye/8ERKhW53tmZdYQ8nQUo0NCDnchOIZMAETcCKXnwNNPJh7jqqIdpnve4Xc+XkGjslGwIZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>
-CC: <sgarzare@redhat.com>, <pasic@linux.ibm.com>,
-	<david.edmondson@oracle.com>, <virtio-comment@lists.oasis-open.org>,
-	<shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
-Date: Thu, 4 May 2023 05:29:59 +0300
-Message-ID: <20230504022959.547025-12-parav@nvidia.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230504022959.547025-1-parav@nvidia.com>
-References: <20230504022959.547025-1-parav@nvidia.com>
+X-MC-Unique: 5IVs1JKNPImLVGwkd4qowg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683181807; x=1685773807;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=f2weFPdGb3o4iyyG9gMQoEUzj9ZqdfCy+rwR76Nr4AA=;
+        b=IwVVE6LLoEKmzXVKovPujvvRUuTo0hh+Y5RKd0aJlxovwkEeM4VCLNMMcQsUiGG2cG
+         m2n3V/zh8h4nz+VwxlcJs7P1AsIEXYaoSbGIYFL6COwU1x4j64rSYZwcfux7m2Cf66S/
+         IRZbGbg8vXC3Sx88TGey30wfyVD7IsoBUYTk18grLP3kwqbNWd/Ytj+PtqcoXuRaOUdX
+         K8EdlZdO5rgzEHCMC00eua1D3iZRC8+jVi6+I/spn+OASm84X4FyQKh2Yg12YSFrb84s
+         Wi3j8ywqDsRzPo15d27FkxgP71lQxroTYfylDqIakSS5lsqEJzY36NOhOKssAUNlFI19
+         uM/Q==
+X-Gm-Message-State: AC+VfDxyrr+af/Eu0wBd04JLZzpJSQCzo3u3P/bUqMObHG8gK8f1fRyo
+	aohQ+qHZYf4Wj8+EzgPKRAdX8yC3G5NI3FfuxcC8ROHhur2wdsr+m+xKipl/AWsLzVj8kyTYj9l
+	4pMkbGhMcR5NwwLqXPKdpzfOpPlSOv21Usw==
+X-Received: by 2002:a1c:7917:0:b0:3f1:6942:e024 with SMTP id l23-20020a1c7917000000b003f16942e024mr17237626wme.27.1683181807023;
+        Wed, 03 May 2023 23:30:07 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4STYu5emRgzxuM18qFl6RII8H9Pb2/TZ4AEiOAbh0oBI4vWV8PTJuVBTnkjGourMOXhWZCuQ==
+X-Received: by 2002:a1c:7917:0:b0:3f1:6942:e024 with SMTP id l23-20020a1c7917000000b003f16942e024mr17237597wme.27.1683181806681;
+        Wed, 03 May 2023 23:30:06 -0700 (PDT)
+Date: Thu, 4 May 2023 02:30:02 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: virtio-dev@lists.oasis-open.org, cohuck@redhat.com,
+	david.edmondson@oracle.com, sburla@marvell.com, jasowang@redhat.com,
+	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com,
+	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>
+Message-ID: <20230504022948-mutt-send-email-mst@kernel.org>
+References: <20230503032659.530330-1-parav@nvidia.com>
+ <20230503032659.530330-2-parav@nvidia.com>
+ <20230503014838-mutt-send-email-mst@kernel.org>
+ <36e8746e-9edd-7998-3381-9cee2457f3df@nvidia.com>
+ <20230503124848-mutt-send-email-mst@kernel.org>
+ <c7cf0054-cfba-57d4-6a3f-bf774751994f@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.37]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT065:EE_|SA0PR12MB4414:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e5e97a0-d43f-4f82-c2cd-08db4c478dee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	/Xofiaa9xLnf0P7pUKhph2GRDpi0G8C+kPZCNvikcH8AOcl2/3xPSiVuzsi2NdUoAlOlO3XgLeYv7NjySJGVzAuBtRkGMuyiEBjQT5ovcTBSyOCDFUEb6jDJ7LN3mi8Pvuwoaazyf+j52ScD60pJCq05Jf1hL9I+udO6PVw7LE+m+RH5wz/F4y8xmWGSfIR5Ecb31YsqJj+An8hL85rxBdRv1CuVfzfbJeNRCaNvvTWCZaubA4NgAa7LW1vqXkPk4INXo5prVsPsBOjskAQEQYnxYJMPY4y2LH+AsVpIsMSrgUm0wqduGqIy0pG9o+Z7Li3lcukIOsmqOJQq37hmF5cdCCgdxaA+IdvjqIS83GEt/jbuZOpoVKcFrH7Io28XqPlL+oOKbknj14PZ8J/K8CvmTECmQf6enErUdvE6637LNf+ZGbNYTWvZ6+eFXbo+5Ejrj/veDAT3/ihVLMdFSdgRdaD5IvAomiF8AuU8M0nASMQyA0wb1TFxDtoyvbyjzDxXw+3Wc5S0SIVqgfTpDBECo68CKZKOLX66ywJymgjtC8HRDaLqdZiWZ48LtaFGIm6uNEOyXDIaW3zB8C0Yui4Wda6qkxReZkD6Nb2eWfLzP0PdTWjxKCCUlUbaooC98wtLsZRcHDjowgI/qRS6IpJkzVhTpqpk9aJSm4b6GETDQKaOxhoC0udiXBZmofStbRtYHGgvRuwT4MOBshWwceSKUsfv8fzWPeirspCatbh7sVSN99RlJxI0UzBQipoK
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(8936002)(8676002)(426003)(1076003)(26005)(2616005)(966005)(336012)(36756003)(40480700001)(107886003)(356005)(2906002)(15650500001)(83380400001)(47076005)(186003)(82310400005)(16526019)(4326008)(70586007)(70206006)(6666004)(478600001)(41300700001)(5660300002)(316002)(54906003)(110136005)(86362001)(36860700001)(7636003)(82740400003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2023 02:30:40.9743
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e5e97a0-d43f-4f82-c2cd-08db4c478dee
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4414
-Subject: [virtio-comment] [PATCH v16 11/11] virtio-net: Update vqn to vq_index for cvq cmds
+In-Reply-To: <c7cf0054-cfba-57d4-6a3f-bf774751994f@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH v1 1/2] transport-pci: Introduce legacy registers access
+ commands
 
-Replace field name vqn to vq_index for recent virtqueue level commands.
+On Wed, May 03, 2023 at 01:23:55PM -0400, Parav Pandit wrote:
+> 
+> 
+> On 5/3/2023 12:49 PM, Michael S. Tsirkin wrote:
+> > On Wed, May 03, 2023 at 10:49:14AM -0400, Parav Pandit wrote:
+> > > 
+> > > 
+> > > On 5/3/2023 1:50 AM, Michael S. Tsirkin wrote:
+> > > > On Wed, May 03, 2023 at 06:26:58AM +0300, Parav Pandit wrote:
+> > > 
+> > > > > +Legacy registers write admin command follows \field{struct virtio_admin_cmd}.
+> > > > > +This command writes legacy registers of a member VF device. Driver should write
+> > > > > +appropriate register \field{size} depending on the width of the legacy
+> > > > > +common registers or device specific registers.
+> > > > > +Driver sets command \field{opcode} to VIRTIO_ADMIN_CMD_LREG_WRITE.
+> > > > > +Driver sets \field{group_type} to 1 for VFs.
+> > > > > +Driver sets \field{group_member_id} to a valid VF number.
+> > > > > +
+> > > > > +The \field{command_specific_data} has following listed structure format:
+> > > > > +
+> > > > > +\begin{lstlisting}
+> > > > > +struct virtio_admin_cmd_lreg_wr_data {
+> > > > > +	u8 offset; /* Starting byte offset of the register(s) to write */
+> > > > > +	u8 size; /* Number of bytes to write into the register. */
+> > > > > +	u8 register[];
+> > > > 
+> > > > And maybe add
+> > > > 	u8 reserved[]; /* structure padding to multiple of 8 bytes */
+> > > > 
+> > > > > +};
+> > > Thinking, what do we miss without the padding here?
+> > 
+> > it's not 100% clear where the padding is.
+> > 
+> It is same as rest of the other virtio structures as described in "Structure
+> Specifications" section.
+> 
+> "Many device and driver in-memory structure layouts are documented using the
+> C struct syntax. All structures
+> are assumed to be without additional padding."
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
-Signed-off-by: Parav Pandit <parav@nvidia.com>
-
----
-changelog:
-v12->v13:
-- new patch
----
- device-types/net/description.tex | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 83bdaef..3030222 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -1560,7 +1560,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- };
- 
- struct virtio_net_ctrl_coal_vq {
--    le16 vqn;
-+    le16 vq_index;
-     le16 reserved;
-     struct virtio_net_ctrl_coal coal;
- };
-@@ -1574,7 +1574,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- Coalescing parameters:
- \begin{itemize}
--\item \field{vqn}: The virtqueue number of an enabled transmit or receive virtqueue.
-+\item \field{vq_index}: The virtqueue index of an enabled transmit or receive virtqueue.
- \item \field{max_usecs} for RX: Maximum number of microseconds to delay a RX notification.
- \item \field{max_usecs} for TX: Maximum number of microseconds to delay a TX notification.
- \item \field{max_packets} for RX: Maximum number of packets to receive before a RX notification.
-@@ -1587,7 +1587,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \begin{itemize}
- \item For commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET, the structure virtio_net_ctrl_coal is write-only for the driver.
- \item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, the structure virtio_net_ctrl_coal_vq is write-only for the driver.
--\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET, \field{vqn} and \field{reserved} are write-only
-+\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET, \field{vq_index} and \field{reserved} are write-only
-       for the driver, and the structure virtio_net_ctrl_coal is read-only for the driver.
- \end{itemize}
- 
-@@ -1596,9 +1596,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \item VIRTIO_NET_CTRL_NOTF_COAL_TX_SET: use the structure virtio_net_ctrl_coal to set the \field{max_usecs} and \field{max_packets} parameters for all transmit virtqueues.
- \item VIRTIO_NET_CTRL_NOTF_COAL_RX_SET: use the structure virtio_net_ctrl_coal to set the \field{max_usecs} and \field{max_packets} parameters for all receive virtqueues.
- \item VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET: use the structure virtio_net_ctrl_coal_vq to set the \field{max_usecs} and \field{max_packets} parameters
--                                        for an enabled transmit/receive virtqueue whose number is \field{vqn}.
-+                                        for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
- \item VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET: use the structure virtio_net_ctrl_coal_vq to get the \field{max_usecs} and \field{max_packets} parameters
--                                        for an enabled transmit/receive virtqueue whose number is \field{vqn}.
-+                                        for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
- \end{enumerate}
- 
- The device may generate notifications more or less frequently than specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-@@ -1608,12 +1608,12 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- with two pairs of virtqueues as an example:
- Each of the following commands sets \field{max_usecs} and \field{max_packets} parameters for virtqueues.
- \begin{itemize}
--\item Command1: VIRTIO_NET_CTRL_NOTF_COAL_RX_SET sets coalescing parameters for virtqueues having vqn 0 and vqn 2. Virtqueues having vqn 1 and vqn 3 retain their previous parameters.
--\item Command2: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vqn} = 0 sets coalescing parameters for virtqueue having vqn 0. Virtqueue having vqn 2 retains the parameters from command1.
--\item Command3: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vqn} = 0, the device responds with coalescing parameters of vqn 0 set by command2.
--\item Command4: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vqn} = 1 sets coalescing parameters for virtqueue having vqn 1. Virtqueue having vqn 3 retains its previous parameters.
--\item Command5: VIRTIO_NET_CTRL_NOTF_COAL_TX_SET sets coalescing parameters for virtqueues having vqn 1 and vqn 3, and overrides the parameters set by command4.
--\item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vqn} = 1, the device responds with coalescing parameters of vqn 1 set by command5.
-+\item Command1: VIRTIO_NET_CTRL_NOTF_COAL_RX_SET sets coalescing parameters for virtqueues having index 0 and index 2. Virtqueues having index 1 and index 3 retain their previous parameters.
-+\item Command2: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vq_index} = 0 sets coalescing parameters for virtqueue having index 0. Virtqueue having index 2 retains the parameters from command1.
-+\item Command3: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq_index} = 0, the device responds with coalescing parameters of vq_index 0 set by command2.
-+\item Command4: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vq_index} = 1 sets coalescing parameters for virtqueue having index 1. Virtqueue having index 3 retains its previous parameters.
-+\item Command5: VIRTIO_NET_CTRL_NOTF_COAL_TX_SET sets coalescing parameters for virtqueues having index 1 and index 3, and overrides the parameters set by command4.
-+\item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq_index} = 1, the device responds with coalescing parameters of index 1 set by command5.
- \end{itemize}
- 
- \subparagraph{Operation}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing / Operation}
-@@ -1663,7 +1663,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- \drivernormative{\subparagraph}{Notifications Coalescing}{Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- 
--The driver MUST set \field{vqn} to the virtqueue number of an enabled transmit or receive virtqueue.
-+The driver MUST set \field{vq_index} to the virtqueue index of an enabled transmit or receive virtqueue.
- 
- The driver MUST have negotiated the VIRTIO_NET_F_NOTF_COAL feature when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET.
- 
--- 
-2.26.2
+exactly, so please include the padding explicitly.
 
 
 This publicly archived list offers a means to provide input to the
