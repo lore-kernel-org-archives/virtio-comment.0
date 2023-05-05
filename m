@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5808-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5809-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B38D1C77B7F
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63901C77B7F
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9F7A63249
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:00 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 835248669D
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:03 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 757279866C4
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 795839866C4
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:03 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 64E45986739; Fri,  5 May 2023 15:41:00 +0000 (UTC)
+	id 708F19866BC; Fri,  5 May 2023 15:41:03 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,32 +24,32 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 08E3A9866EC
-	for <virtio-comment@lists.oasis-open.org>; Fri,  5 May 2023 15:40:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 989509866BD
+	for <virtio-comment@lists.oasis-open.org>; Fri,  5 May 2023 15:40:59 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: b6_iZFluNEqlQnmrKzgvgg-1
+X-MC-Unique: Oegn0TecPDW0VKzF7Ti4MA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683301245; x=1685893245;
+        d=1e100.net; s=20221208; t=1683301252; x=1685893252;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B5vvd6n3/fWZcuEu7Yz9c4kdtdKj/0AFXD2FAPiZ9lg=;
-        b=PEhItCkA6Jrc9fWnrLR7BnrBoVMokOq9TzyaYm6PxlnSqeeCPmlx4vy//2zOM8YZga
-         dZTqRlb1I/9nvSH9rlUwv7TNGhEMNgaYX+pWNcrbH0UjP4oUzpl4/ODFLXiQy0zZR3/J
-         ogmvs5ezG6ox40H48uHuVQMspqBttNFqzJqKv1fjU1gYPujN8e9ArMA/I4p3xMWa15Ry
-         Tu75S1IKXnTzHVuIbGg76IJAeWGdNMzBcWtMQgHAynexp2ro+2eeT4u3SUUUNMZf5Kj2
-         7B01SUTyoYOZAGA/HIO3kUHzZxedAfcNKeCcnpIl9xrYNBA3tRE38xyGtBpE81H4TtJ+
-         AsxQ==
-X-Gm-Message-State: AC+VfDxGNbxtIWJ+fWcQP5IZ8sWFaxsqCVHDx/T4z4EwvcxfI1hyDkA1
-	+cdZeimN+H7JPN32omEEcim5syf4uc79HOCFp5j4CXBkuyv4Ct9j6pVc3wNR/I53WUaaco94u2I
-	j/iva9BjHp6TUqcaLeago1krAOVQ9v9kUPDxpkhel/XIIh1fpLbTCUsskHNG3J6bQcbO5NWHWDM
-	itSswNnaYvSwc=
-X-Received: by 2002:a05:600c:24ce:b0:3f2:51e7:f1f4 with SMTP id 14-20020a05600c24ce00b003f251e7f1f4mr1461563wmu.10.1683301244902;
-        Fri, 05 May 2023 08:40:44 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5Wkkwv1nAUpAwVZfzOKUCENsITj8jhbzpJhtciq5OJ7yEjOZxWvgy4Hq/DwlTOttFXLKNt3Q==
-X-Received: by 2002:a05:600c:24ce:b0:3f2:51e7:f1f4 with SMTP id 14-20020a05600c24ce00b003f251e7f1f4mr1461533wmu.10.1683301244480;
-        Fri, 05 May 2023 08:40:44 -0700 (PDT)
-Date: Fri, 5 May 2023 11:40:41 -0400
+        bh=gyzPHSvuDFmnnqIDgQOcFB1PJ1uuDf1Bt3ai0c/hK2w=;
+        b=YbEgtJJBXcFwjG2PM8X8gJuMs3JS+mOs9ZcoFi5IPyOW1MneLj2DkkXoWtnVwMv2SP
+         xheXXzX36vuS/yiXQNcIRx2Ca93CaSXSUl5e68rZPTdgvjmZ8f43f/VMsM7dzzJ1R+W+
+         JAmR+i/nlwZejrf1ecTVL3e+/lNmhiN4yRUqDnfA6e5T9vJS8Yki1lsf6oXPagT3w31s
+         O020sZBe/uX9j522WaUj0UYt0SVTYcdQEyRtFPTLtr5TDlRhka3p5sIaXPHC3WJ1UgfL
+         /g6Zar8fY/KXnnKfrcLZ2PtwXjkt+iZ9kGd+9GfYD/5xmQCNMsEZfMchd+Cx10r2O24M
+         1tzw==
+X-Gm-Message-State: AC+VfDyz1yaT5WbdIZzToB1Y/J/Cd1GC/fRADc7/2hmCgG81uiFqoq/x
+	V0hFsawnv4BaHC8Hd8wBT1cnOCktdI/mx6/3nfywUj+gEEhw2nUsKtOx/1XsSZQcPrZkF1AVM+1
+	fnD/HucAhmBWCF/70WqKINZluTGVGXzM3hO2yirTHOrVOS6ZiMpijr4996Zs6SH+wXP5W/qZEUm
+	OnQ6HyPcr7DwY=
+X-Received: by 2002:adf:d0c7:0:b0:306:372d:7891 with SMTP id z7-20020adfd0c7000000b00306372d7891mr1607073wrh.59.1683301251681;
+        Fri, 05 May 2023 08:40:51 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6bTeSpKzKeHy0GRRi7ZWB5/3pxcVU36gUkoY4mnHWcWjHP9JBzzj7u4OxCrlI3clE9MFSP3w==
+X-Received: by 2002:adf:d0c7:0:b0:306:372d:7891 with SMTP id z7-20020adfd0c7000000b00306372d7891mr1607042wrh.59.1683301251234;
+        Fri, 05 May 2023 08:40:51 -0700 (PDT)
+Date: Fri, 5 May 2023 11:40:48 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
 	jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com,
@@ -59,7 +59,7 @@ Cc: virtio@lists.oasis-open.org, Jiri Pirko <jiri@nvidia.com>,
 	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
 	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
 	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <d12263629be44bda17b8e12beea69bc6ef82eeb1.1683301091.git.mst@redhat.com>
+Message-ID: <b8f17feea5f4921f89d6395d0b078f766a65e4fe.1683301091.git.mst@redhat.com>
 References: <cover.1683301091.git.mst@redhat.com>
 MIME-Version: 1.0
 In-Reply-To: <cover.1683301091.git.mst@redhat.com>
@@ -69,140 +69,178 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] [PATCH v13 02/10] admin: introduce device group and related concepts
+Subject: [virtio-comment] [PATCH v13 04/10] admin: introduce virtio admin virtqueues
 
-Each device group has a type. For now, define one initial group type:
+The admin virtqueues will be the first interface used to issue admin commands.
 
-SR-IOV type - PCI SR-IOV virtual functions (VFs) of a given
-PCI SR-IOV physical function (PF). This group may contain zero or more
-virtio devices according to NumVFs configured.
+Currently the virtio specification defines control virtqueue to manipulate
+features and configuration of the device it operates on:
+virtio-net, virtio-scsi, etc all have existing control virtqueues. However,
+control virtqueue commands are device type specific, which makes it very
+difficult to extend for device agnostic commands.
 
-Each device within a group has a unique identifier. This identifier
-is the group member identifier.
+Keeping the device-specific virtqueue separate from the admin virtqueue
+is simpler and has fewer potential problems. I don't think creating
+common infrastructure for device-specific control virtqueues across
+device types worthwhile or within the scope of this patch series.
 
-Note: one can argue both ways whether the new device group handling
-functionality (this and following patches) is closer
-to a new device type or a new transport type.
+To support this requirement in a more generic way, this patch introduces
+a new admin virtqueue interface.
+The admin virtqueue can be seen as the virtqueue analog to a transport.
+The admin queue thus does nothing device type-specific (net, scsi, etc)
+and instead focuses on transporting the admin commands.
 
-However, it's expected that we will add more features in the near
-future. To facilitate this as much as possible of the text is located in
-the new admin chapter.
-
-Effort was made to minimize transport-specific text.
-
-There's a bit of duplication with 0x1 repeated twice and
-no special section for group type identifiers.
-It seems ok to defer adding these until we have more group
-types.
+We also support more than one admin virtqueue, for QoS and
+scalability requirements.
 
 Based-on-patch-by: Max Gurtovoy <mgurtovoy@nvidia.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
----
-changes in v12:
-	stefan's ack
-	minor commit log tweaks, Parav
-	use neutral tone, Parav
 
-changes in v11:
-	dropped Max's S.O.B.
-	dropped an unmatched ) as reported by Parav
-	document that member id is 1 to numvfs
-	document that vf enable must be set (will also be reflected in
-		the conformance section)
-	document that we deferred generalizing text as requested by Parav -
-	I think we can do it later
-	minor wording fixes to address comments by David
-	add concepts of owner and member driver. unused currently
-	but will come in handy later, as suggested by Stefan
 ---
- admin.tex   | 63 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- content.tex |  2 ++
- 2 files changed, 65 insertions(+)
- create mode 100644 admin.tex
+
+since v12:
+	document that num_queues in blk excludes admin queues
+	reported by Parav
+changes since v11:
+	ack by stefan
+	queues->enqueues to address comment by parav
+
+changes since v10:
+
+explain ordering of commands as suggested by Stefan
+dropped Max's S.O.B
+reword commit log as suggested by David
+minor wording fixes suggested by David
+---
+ admin.tex                        | 75 ++++++++++++++++++++++++++++++++
+ content.tex                      |  7 ++-
+ device-types/blk/description.tex |  2 +-
+ 3 files changed, 81 insertions(+), 3 deletions(-)
 
 diff --git a/admin.tex b/admin.tex
-new file mode 100644
-index 0000000..05d506a
---- /dev/null
+index e40d14e..5acec67 100644
+--- a/admin.tex
 +++ b/admin.tex
-@@ -0,0 +1,63 @@
-+\section{Device groups}\label{sec:Basic Facilities of a Virtio Device / Device groups}
+@@ -182,3 +182,78 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
+ \field{command_specific_data} and \field{command_specific_result}
+ depends on these structures and is described separately or is
+ implicit in the structure description.
 +
-+It is occasionally useful to have a device control a group of
-+other devices. Terminology used in such cases:
++\section{Administration Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Administration Virtqueues}
 +
-+\begin{description}
-+\item[Device group]
-+        or just group, includes zero or more devices.
-+\item[Owner device]
-+        or owner, the device controlling the group.
-+\item[Member device]
-+        a device within a group. The owner device itself is not
-+	a member of the group.
-+\item[Member identifier]
-+        each member has this identifier, unique within the group
-+	and used to address it through the owner device.
-+\item[Group type identifier]
-+	specifies what kind of member devices there are in a
-+	group, how the member identifier is interpreted
-+	and what kind of control the owner has.
-+	A given owner can control multiple groups
-+	of different types but only a single group of a given type,
-+	thus the type and the owner together identify the group.
-+	\footnote{Even though some group types only support
-+			specific transports, group type identifiers
-+			are global rather than transport-specific -
-+			a flood of new group types is not expected.}
-+\end{description}
++An administration virtqueue of an owner device is used to submit
++group administration commands. An owner device can have more
++than one administration virtqueue.
 +
-+\begin{note}
-+Each device only has a single driver, thus for the purposes of
-+this section, "the driver" is usually unambiguous and refers to
-+the driver of the owner device.  When there's ambiguity, "owner
-+driver" refers to the driver of the owner device, while "member
-+driver" refers to the driver of a member device.
-+\end{note}
++If VIRTIO_F_ADMIN_VQ has been negotiated, an owner device exposes one
++or more adminstration virtqueues. The number and locations of the
++administration virtqueues are exposed by the owner device in a transport
++specific manner.
 +
-+The following group types, and their identifiers, are currently specified:
-+\begin{description}
-+\item[SR-IOV group type (0x1)]
-+This device group has a PCI Single Root I/O Virtualization
-+(SR-IOV) physical function (PF) device as the owner and includes
-+all its SR-IOV virtual functions (VFs) as members (see
-+\hyperref[intro:PCIe]{[PCIe]}).
++The driver enqueues requests to an arbitrary administration
++virtqueue, and they are used by the device on that same
++virtqueue. It is the responsibility of the driver to ensure
++strict request ordering for commands, because they will be
++consumed with no order constraints.  For example, if consistency
++is required then the driver can wait for the processing of a
++first command by the device to be completed before submitting
++another command depending on the first one.
 +
-+The PF device itself is not a member of the group.
++Administration virtqueues are used as follows:
++\begin{itemize}
++\item The driver submits the command using the \field{struct virtio_admin_cmd}
++structure using a buffer consisting of two parts: a device-readable one followed by a
++device-writable one.
++\item the device-readable part includes fields from \field{opcode}
++through \field{command_specific_data}.
++\item the device-writeable buffer includes fields from \field{status}
++through \field{command_specific_result} inclusive.
++\end{itemize}
 +
-+The group type identifier for this group is 0x1.
++For each command, this specification describes a distinct
++format structure used for \field{command_specific_data} and
++\field{command_specific_result}, the length of these fields
++depends on the command.
 +
-+A member identifier for this group can have a value from 0x1 to
-+\field{NumVFs} as specified in the
-+SR-IOV Extended Capability of the owner device
-+and equals the SR-IOV VF number of the member device;
-+the group only exists when the \field{VF Enable} bit
-+in the SR-IOV Control Register within the
-+SR-IOV Extended Capability of the owner device is set
-+(see \hyperref[intro:PCIe]{[PCIe]}).
++However, to ensure forward compatibility
++\begin{itemize}
++\item drivers are allowed to submit buffers that are longer
++than the device expects
++(that is, longer than the length of
++\field{opcode} through \field{command_specific_data}).
++This allows the driver to maintain
++a single format structure even if some structure fields are
++unused by the device.
++\item drivers are allowed to submit buffers that are shorter
++than what the device expects
++(that is, shorter than the length of \field{status} through
++\field{command_specific_result}). This allows the device to maintain
++a single format structure even if some structure fields are
++unused by the driver.
++\end{itemize}
 +
-+Both owner and member devices for this group type use the Virtio
-+PCI transport (see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus}).
-+\end{description}
++The device compares the length of each part (device-readable and
++device-writeable) of the buffer as submitted by driver to what it
++expects and then silently truncates the structures to either the
++length submitted by the driver, or the length described in this
++specification, whichever is shorter.  The device silently ignores
++any data falling outside the shorter of the two lengths. Any
++missing fields are interpreted as set to zero.
 +
++Similarly, the driver compares the used buffer length
++of the buffer to what it expects and then silently
++truncates the structure to the used buffer length.
++The driver silently ignores any data falling outside
++the used buffer length reported by the device.  Any missing
++fields are interpreted as set to zero.
 +
++This simplifies driver and device implementations since the
++driver/device can simply maintain a single large structure (such
++as a C structure) for a command and its result. As new versions
++of the specification are designed, new fields can be added to the
++tail of a structure, with the driver/device using the full
++structure without concern for versioning.
 diff --git a/content.tex b/content.tex
-index 4ec2d76..aecda0e 100644
+index aecda0e..8761795 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -493,6 +493,8 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
- types. It is RECOMMENDED that devices generate version 4
- UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+@@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+ \begin{description}
+ \item[0 to 23, and 50 to 127] Feature bits for the specific device type
  
-+\input{admin.tex}
+-\item[24 to 40] Feature bits reserved for extensions to the queue and
++\item[24 to 41] Feature bits reserved for extensions to the queue and
+   feature negotiation mechanisms
+ 
+-\item[41 to 49, and 128 and above] Feature bits reserved for future extensions.
++\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
+ \end{description}
+ 
+ \begin{note}
+@@ -849,6 +849,9 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+   that the driver can reset a queue individually.
+   See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}.
+ 
++  \item[VIRTIO_F_ADMIN_VQ(41)] This feature indicates that the device exposes one or more
++  administration virtqueues.
 +
- \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+ \end{description}
  
- We start with an overview of device initialization, then expand on the
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+index f04c932..6fc1991 100644
+--- a/device-types/blk/description.tex
++++ b/device-types/blk/description.tex
+@@ -136,7 +136,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Block Device /
+ bits as indicated above.
+ 
+ The field \field{num_queues} only exists if VIRTIO_BLK_F_MQ is set. This field specifies
+-the number of queues.
++the number of queues\footnote{This excludes administration virtqueues if any are supported. }.
+ 
+ The parameters in the configuration space of the device \field{max_discard_sectors}
+ \field{discard_sector_alignment} are expressed in 512-byte units if the
 -- 
 MST
 
