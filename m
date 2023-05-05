@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5796-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5797-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5ACC77B7C
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 01:48:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37AA2C77B7C
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 03:27:14 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DFD7A26D0
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 01:47:41 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id EE7543DF3D
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 03:27:09 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D04C89866B8
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 01:47:41 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DEB1C9866B4
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 03:27:09 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C6895986654; Fri,  5 May 2023 01:47:41 +0000 (UTC)
+	id CC4EE986654; Fri,  5 May 2023 03:27:09 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,153 +24,315 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C2F88986768;
-	Fri,  5 May 2023 01:47:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B34D098665C
+	for <virtio-comment@lists.oasis-open.org>; Fri,  5 May 2023 03:27:07 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ebDqAtEJPF//xakOxlckTl6Pj79ehTY9C1g4BYNWNvCPhSsNsoEndNkguvp3BVPQjjGae6HkTh28ND2Sb5hMgXOumB0b6SZFKQt2vvkWWFo+y9zhVIzE2HTGumEbZZmbPQ+kfH82wIClxk1CQGEPbZzsM9TMuuA1AlvCnVwBxZF3+wKmyunQ8/U4QkMrnkBazhnjOoJSJkkD+NyYRfN6F0Ko+/DPGWIJT1PedHz+6SD13k0krBJ9HI6OZshJlnc4A1JUD3KPgAVmEbiATE2i8zgpGCqDLqwvtxtYWk+tlwBqL17K38bVkx5ThRP8Dxr1zxbgFONpuZooRfsMqJESYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L1ecDeLjYH/nHANlEMIl6D9vxLvlHPoLugLS7uiWEu0=;
- b=d1buNrzm/lOCZ9E7GfznsodWwKQRm3m5EoTZvgiTmZ3xiKuvabICDZGM8w0jl6h3TmJSQX+3wSCBStnF0lgM9e3H6wFUUpIK7rVDJTGADpJnU2WFau2K/i8f/fqT4NkkvP8wiW01sNELY0ld2uEUrkc62pOvopJgL73/tNHbnIbOKSk0SrbGe10PMQXJ0nfloPvSfIQaQf3P4Ch/HJDfY5X4ODDHeM+EF3zUiplVtfX+Z65DDhS9sKOHxqzwdftsunGvY/jIPPmIE8JEKTNvG7jwFHk0D3Uo/qBY2Tl8WzLCDJ7kzpIbSWxETH9XeglDJ3KD9CuFZyijZHiOCqmXzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>
-CC: <sgarzare@redhat.com>, <pasic@linux.ibm.com>,
-	<david.edmondson@oracle.com>, <virtio-comment@lists.oasis-open.org>,
-	<shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
-Date: Fri, 5 May 2023 04:46:14 +0300
-Message-ID: <20230505014614.571520-12-parav@nvidia.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230505014614.571520-1-parav@nvidia.com>
-References: <20230505014614.571520-1-parav@nvidia.com>
+X-MC-Unique: 30yTD30tOmC2hCQ7fNphJQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683257219; x=1685849219;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qDOMtYXa43dUG35QRHmxRw/LEflNB/GzfKDuFDFhHe0=;
+        b=A0XJHkJSSHWkxseJIKoe8RJoWGUJaQtc3DUcaXu5qP9/DBjr7bWXAOu1EI+z18AZom
+         UctGdweZ/tr3nXe0APM/HtSq5cb2M1LM+9CGYr8WoDvany+2Rw4zax4Jc+CeCJB/COna
+         EUT+W+w0Hcmr7syMyY47C1AhyrCEEhpGGbVCUcdWyKFeiAFkD6VFVvMYWxpZE880omx4
+         xtMHdwBC+IOuL5lCqDmTbHBWLDdTT6qKF6NAjb+dDSikHGjvysjcmr+sE2FlblOMBlGu
+         abRcJ2NUAGbQPQKnX9dxCsW1UfbKjpnAWDMJhZLaXfc7pBBoS2uEWs31PzfozSxOzWLL
+         YcoQ==
+X-Gm-Message-State: AC+VfDwLWBhsbdM47km9gBnDMSKKu57TS+2woUBpUxdsH8DVtBv/As3F
+	pz3P473McMgVisKnLvcre7KgOd4fKF1QWt38hGURjcCdTk3mqKtRfkK4uZkV/ExNtd7K7yPquut
+	j/RRVChDHC/JNM/JPXkZY0blrwUXjXyvuqg==
+X-Received: by 2002:a05:6a00:24d4:b0:635:c8e4:ed0f with SMTP id d20-20020a056a0024d400b00635c8e4ed0fmr594971pfv.11.1683257219548;
+        Thu, 04 May 2023 20:26:59 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6zj1ClVY4m5EOgJmLN0HJ7fkbNjjyj4Tzjnn7mPVHpdeiacqc5b/kvJFkhmrW+Zz915HWc0g==
+X-Received: by 2002:a05:6a00:24d4:b0:635:c8e4:ed0f with SMTP id d20-20020a056a0024d400b00635c8e4ed0fmr594947pfv.11.1683257219087;
+        Thu, 04 May 2023 20:26:59 -0700 (PDT)
+Message-ID: <dba64a65-0538-a060-47a1-24d30f42ca49@redhat.com>
+Date: Fri, 5 May 2023 11:26:52 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.0
+To: Parav Pandit <parav@nvidia.com>, mst@redhat.com,
+ virtio-dev@lists.oasis-open.org, cohuck@redhat.com,
+ david.edmondson@oracle.com
+Cc: sburla@marvell.com, virtio-comment@lists.oasis-open.org,
+ shahafs@nvidia.com, "Zhu, Lingshan" <lingshan.zhu@intel.com>
+References: <20230503032659.530330-1-parav@nvidia.com>
+ <20230503032659.530330-2-parav@nvidia.com>
+From: Jason Wang <jasowang@redhat.com>
+In-Reply-To: <20230503032659.530330-2-parav@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.37]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT088:EE_|CO6PR12MB5394:EE_
-X-MS-Office365-Filtering-Correlation-Id: 241bf952-81b5-46b2-a079-08db4d0a9efe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	h2GMTmD1VB8UMCtv1MaXu3cNlMXd4kbe5OY+AU/ZIAq8sAG4/8yuefDiY/d/Jq4hv9mgkmtSB/WFAaIdCab45NDP0wbogdTvNgFqvEDtEwe1IdVpApMpMpUwcEYlO9NIoVcn7CFHZ+qdqpBenohqLXOaSj2IA2n/ZdU1rVMuGT2l9TJZRO/NKdZaGHCWBPb6lCmT4JxEXuwyE5RW4uMFzyCfTGAYZPgX4rjVpdR/DKxvLV7ZWQUA/bUv+p/YyWGskapwlk6OAt1pR1ITpazTrrCGgIADVtYysp53XI8Qnj7nKYDauVgvmUi5wF7A8i/p2qtnR8BapAQ1zifLJv4mOfsbqVIWUHZafN8v+C4TV7RsEGceaws8SHu0GP0IO9BbflSk/JIYTp8O8kPMB+omxnLopWiongMAPFCxXNe1xr2T7nQ/TvIYoMQeslQOufTIWLy28dLuNJ65XEMI2Ntd27cFIrRvyjwMDV+ntNCxhgyJthH5WWU1WxbuE7JqUtz5PA08BdETlJeGtqaOjUJGznDEr4TYN6Q5GIR0wtYMSOCVdzr3nGkEp32HGHET9fB2uiw8gIzQQj2PhZlSDp36iaks/WkLQXEcUlb4tb/v7z/IPT16SGqcGsCWJRIL4bA09rSLNU535sQfa8TFwXxTPJ1cD0hNSs2WNsbJCRv9HeffQrwzTnqC/OZFH0IXLo8xHXOQXid+iBI9/41BHby6SUiXtqJG3U3saLzZVoLGcfGQQvdoMTnzhIEpnqZaMash
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(39860400002)(396003)(346002)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(54906003)(316002)(478600001)(6666004)(70206006)(966005)(70586007)(4326008)(110136005)(86362001)(36756003)(47076005)(426003)(336012)(83380400001)(1076003)(107886003)(36860700001)(26005)(2616005)(8936002)(8676002)(40480700001)(5660300002)(2906002)(41300700001)(82310400005)(15650500001)(7636003)(356005)(82740400003)(186003)(16526019);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2023 01:47:01.3993
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 241bf952-81b5-46b2-a079-08db4d0a9efe
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT088.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5394
-Subject: [virtio-comment] [PATCH v17 11/11] virtio-net: Update vqn to vq_index for cvq cmds
+Subject: [virtio-comment] Re: [PATCH v1 1/2] transport-pci: Introduce legacy registers access
+ commands
 
-Replace field name vqn to vq_index for recent virtqueue level commands.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/163
-Reviewed-by: David Edmondson <david.edmondson@oracle.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
+在 2023/5/3 11:26, Parav Pandit 写道:
+> This patch introduces legacy registers access commands for the owner
+> group member PCI PF to access the legacy registers of the member VFs.
+>
+> If in future any SIOV devices to support legacy registers, they
+> can be easily supported using same commands by using the group
+> member identifiers of the future SIOV devices.
+>
+> More details as overview, motivation, use case are further described
+> below.
+>
+> Usecase:
+> --------
+> 1. A hypervisor/system needs to provide transitional
+>     virtio devices to the guest VM at scale of thousands,
+>     typically, one to eight devices per VM.
+>
+> 2. A hypervisor/system needs to provide such devices using a
+>     vendor agnostic driver in the hypervisor system.
+>
+> 3. A hypervisor system prefers to have single stack regardless of
 
----
-changelog:
-v12->v13:
-- new patch
----
- device-types/net/description.tex | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 83bdaef..3030222 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -1560,7 +1560,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- };
- 
- struct virtio_net_ctrl_coal_vq {
--    le16 vqn;
-+    le16 vq_index;
-     le16 reserved;
-     struct virtio_net_ctrl_coal coal;
- };
-@@ -1574,7 +1574,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- Coalescing parameters:
- \begin{itemize}
--\item \field{vqn}: The virtqueue number of an enabled transmit or receive virtqueue.
-+\item \field{vq_index}: The virtqueue index of an enabled transmit or receive virtqueue.
- \item \field{max_usecs} for RX: Maximum number of microseconds to delay a RX notification.
- \item \field{max_usecs} for TX: Maximum number of microseconds to delay a TX notification.
- \item \field{max_packets} for RX: Maximum number of packets to receive before a RX notification.
-@@ -1587,7 +1587,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \begin{itemize}
- \item For commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET, the structure virtio_net_ctrl_coal is write-only for the driver.
- \item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, the structure virtio_net_ctrl_coal_vq is write-only for the driver.
--\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET, \field{vqn} and \field{reserved} are write-only
-+\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET, \field{vq_index} and \field{reserved} are write-only
-       for the driver, and the structure virtio_net_ctrl_coal is read-only for the driver.
- \end{itemize}
- 
-@@ -1596,9 +1596,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \item VIRTIO_NET_CTRL_NOTF_COAL_TX_SET: use the structure virtio_net_ctrl_coal to set the \field{max_usecs} and \field{max_packets} parameters for all transmit virtqueues.
- \item VIRTIO_NET_CTRL_NOTF_COAL_RX_SET: use the structure virtio_net_ctrl_coal to set the \field{max_usecs} and \field{max_packets} parameters for all receive virtqueues.
- \item VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET: use the structure virtio_net_ctrl_coal_vq to set the \field{max_usecs} and \field{max_packets} parameters
--                                        for an enabled transmit/receive virtqueue whose number is \field{vqn}.
-+                                        for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
- \item VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET: use the structure virtio_net_ctrl_coal_vq to get the \field{max_usecs} and \field{max_packets} parameters
--                                        for an enabled transmit/receive virtqueue whose number is \field{vqn}.
-+                                        for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
- \end{enumerate}
- 
- The device may generate notifications more or less frequently than specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-@@ -1608,12 +1608,12 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- with two pairs of virtqueues as an example:
- Each of the following commands sets \field{max_usecs} and \field{max_packets} parameters for virtqueues.
- \begin{itemize}
--\item Command1: VIRTIO_NET_CTRL_NOTF_COAL_RX_SET sets coalescing parameters for virtqueues having vqn 0 and vqn 2. Virtqueues having vqn 1 and vqn 3 retain their previous parameters.
--\item Command2: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vqn} = 0 sets coalescing parameters for virtqueue having vqn 0. Virtqueue having vqn 2 retains the parameters from command1.
--\item Command3: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vqn} = 0, the device responds with coalescing parameters of vqn 0 set by command2.
--\item Command4: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vqn} = 1 sets coalescing parameters for virtqueue having vqn 1. Virtqueue having vqn 3 retains its previous parameters.
--\item Command5: VIRTIO_NET_CTRL_NOTF_COAL_TX_SET sets coalescing parameters for virtqueues having vqn 1 and vqn 3, and overrides the parameters set by command4.
--\item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vqn} = 1, the device responds with coalescing parameters of vqn 1 set by command5.
-+\item Command1: VIRTIO_NET_CTRL_NOTF_COAL_RX_SET sets coalescing parameters for virtqueues having index 0 and index 2. Virtqueues having index 1 and index 3 retain their previous parameters.
-+\item Command2: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vq_index} = 0 sets coalescing parameters for virtqueue having index 0. Virtqueue having index 2 retains the parameters from command1.
-+\item Command3: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq_index} = 0, the device responds with coalescing parameters of vq_index 0 set by command2.
-+\item Command4: VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET with \field{vq_index} = 1 sets coalescing parameters for virtqueue having index 1. Virtqueue having index 3 retains its previous parameters.
-+\item Command5: VIRTIO_NET_CTRL_NOTF_COAL_TX_SET sets coalescing parameters for virtqueues having index 1 and index 3, and overrides the parameters set by command4.
-+\item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq_index} = 1, the device responds with coalescing parameters of index 1 set by command5.
- \end{itemize}
- 
- \subparagraph{Operation}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing / Operation}
-@@ -1663,7 +1663,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- \drivernormative{\subparagraph}{Notifications Coalescing}{Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- 
--The driver MUST set \field{vqn} to the virtqueue number of an enabled transmit or receive virtqueue.
-+The driver MUST set \field{vq_index} to the virtqueue index of an enabled transmit or receive virtqueue.
- 
- The driver MUST have negotiated the VIRTIO_NET_F_NOTF_COAL feature when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET.
- 
--- 
-2.26.2
+So the "single stack" is kind of misleading, you need a dedicated virtio 
+mediation layer which has different code path than a simpler vfio-pci 
+which is completely duplicated with vDPA subsystem. And you lose all the 
+advantages of vDPA in this way. The device should not be designed for a 
+single type of software stack , it need to leave the decision to the 
+hypervisor/cloud vendors.
+
+
+>     virtio device type (net/blk) and be future compatible with a
+>     single vfio stack using SR-IOV or other scalable device
+>     virtualization technology to map PCI devices to the guest VM.
+>     (as transitional or otherwise)
+>
+> Motivation/Background:
+> ----------------------
+> The existing virtio transitional PCI device is missing support for
+> PCI SR-IOV based devices. Currently it does not work beyond
+> PCI PF, or as software emulated device in reality. Currently it
+> has below cited system level limitations:
+>
+> [a] PCIe spec citation:
+> VFs do not support I/O Space and thus VF BARs shall not indicate I/O Space.
+>
+> [b] cpu arch citiation:
+> Intel 64 and IA-32 Architectures Software Developer’s Manual:
+> The processor’s I/O address space is separate and distinct from
+> the physical-memory address space. The I/O address space consists
+> of 64K individually addressable 8-bit I/O ports, numbered 0 through FFFFH.
+>
+> [c] PCIe spec citation:
+> If a bridge implements an I/O address range,...I/O address range will be
+> aligned to a 4 KB boundary.
+>
+> Above usecase requirements can be solved by PCI PF group owner enabling
+> the access to its group member PCI VFs legacy registers using an admin
+> virtqueue of the group owner PCI PF.
+>
+> Software usage example:
+> -----------------------
+> The most common way to use and map to the guest VM is by
+> using vfio driver framework in Linux kernel.
+>
+>                  +----------------------+
+>                  |pci_dev_id = 0x100X   |
+> +---------------|pci_rev_id = 0x0      |-----+
+> |vfio device    |BAR0 = I/O region     |     |
+> |               |Other attributes      |     |
+> |               +----------------------+     |
+> |                                            |
+> +   +--------------+     +-----------------+ |
+> |   |I/O BAR to AQ |     | Other vfio      | |
+> |   |rd/wr mapper  |     | functionalities | |
+> |   +--------------+     +-----------------+ |
+> |                                            |
+> +------+-------------------------+-----------+
+>         |                         |
+
+
+So the mapper here is actually the control path mediation layer which 
+duplicates with vDPA.
+
+
+>    +----+------------+       +----+------------+
+>    | +-----+         |       | PCI VF device A |
+>    | | AQ  |-------------+---->+-------------+ |
+>    | +-----+         |   |   | | legacy regs | |
+>    | PCI PF device   |   |   | +-------------+ |
+>    +-----------------+   |   +-----------------+
+>                          |
+>                          |   +----+------------+
+>                          |   | PCI VF device N |
+>                          +---->+-------------+ |
+>                              | | legacy regs | |
+>                              | +-------------+ |
+>                              +-----------------+
+>
+> 2. Virtio pci driver to bind to the listed device id and
+>     use it as native device in the host.
+
+
+How this can be done now?
+
+
+>
+> 3. Use it in a light weight hypervisor to run bare-metal OS.
+>
+> Please review.
+>
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/167
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>
+> ---
+> changelog:
+> v0->v1:
+> - addressed comments, suggesetions and ideas from Michael Tsirkin and Jason Wang
+> - far more simpler design than MMR access
+> - removed complexities of MMR device ids
+> - removed complexities of MMR registers and extended capabilities
+> - dropped adding new extended capabilities because if if they are
+>    added, a pci device still needs to have existing capabilities
+>    in the legacy configuration space and hypervisor driver do not
+>    need to access them
+> ---
+>   admin.tex                 |  5 ++-
+>   transport-pci-vf-regs.tex | 84 +++++++++++++++++++++++++++++++++++++++
+>   transport-pci.tex         |  2 +
+>   3 files changed, 90 insertions(+), 1 deletion(-)
+>   create mode 100644 transport-pci-vf-regs.tex
+>
+> diff --git a/admin.tex b/admin.tex
+> index 648253c..852ee04 100644
+> --- a/admin.tex
+> +++ b/admin.tex
+> @@ -115,7 +115,10 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
+>   \hline \hline
+>   0x0000 & VIRTIO_ADMIN_CMD_LIST_QUERY & Provides to driver list of commands supported for this group type    \\
+>   0x0001 & VIRTIO_ADMIN_CMD_LIST_USE & Provides to device list of commands used for this group type \\
+> -0x0002 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
+> +0x0002 & VIRTIO_ADMIN_CMD_LREG_WRITE & Write legacy registers of a member device    \\
+> +0x0003 & VIRTIO_ADMIN_CMD_LREG_READ & Read legacy registers of a member device    \\
+> +0x0004 & VIRTIO_ADMIN_CMD_LQ_NOTIFY_QUERY & Read the queue notification offset for legacy interface \\
+> +0x0005 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
+>   \hline
+>   0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
+>   \hline
+> diff --git a/transport-pci-vf-regs.tex b/transport-pci-vf-regs.tex
+> new file mode 100644
+> index 0000000..16ced32
+> --- /dev/null
+> +++ b/transport-pci-vf-regs.tex
+> @@ -0,0 +1,84 @@
+> +\subsection{SR-IOV VFs Legacy Registers Access}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / SR-IOV Legacy Registers Access}
+> +
+> +As described in PCIe base specification \hyperref[intro:PCIe]{[PCIe]} PCI VFs
+> +do not support IOBAR. A PCI PF device can optionally enable driver to access
+> +its member PCI VFs devices legacy common configuration and device configuration
+> +registers using an administration virtqueue. A PCI PF group owner device that
+> +supports its member VFs legacy registers access via the administration
+> +virtqueue should supports following commands.
+> +
+> +\begin{enumerate}
+> +\item Legacy Registers Write
+> +\item Legacy Registers Read
+> +\item Legacy Queue Notify Offset Query
+> +\end{enumerate}
+> +
+> +\subsubsection{Legacy Registers Write}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / SR-IOV Legacy Registers Access / Legacy Registers Write}
+> +
+> +Legacy registers write admin command follows \field{struct virtio_admin_cmd}.
+> +This command writes legacy registers of a member VF device. Driver should write
+> +appropriate register \field{size} depending on the width of the legacy
+> +common registers or device specific registers.
+> +Driver sets command \field{opcode} to VIRTIO_ADMIN_CMD_LREG_WRITE.
+> +Driver sets \field{group_type} to 1 for VFs.
+> +Driver sets \field{group_member_id} to a valid VF number.
+> +
+> +The \field{command_specific_data} has following listed structure format:
+> +
+> +\begin{lstlisting}
+> +struct virtio_admin_cmd_lreg_wr_data {
+> +	u8 offset; /* Starting byte offset of the register(s) to write */
+> +	u8 size; /* Number of bytes to write into the register. */
+> +	u8 register[];
+> +};
+> +\end{lstlisting}
+
+
+So this actually implements a transport, I wonder if it would be better 
+(and simpler) to do it on top of the transport vq proposal:
+
+https://lists.oasis-open.org/archives/virtio-comment/202208/msg00003.html
+
+Then it aligns with SIOV natively.
+
+Or to make it more general like PCI over admin virtqueue.
+
+Thanks
+
+
+> +
+> +This command does not have any command specific result.
+> +
+> +\subsubsection{Legacy Registers Read}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / SR-IOV Legacy Registers Access / Legacy Registers Read}
+> +
+> +Legacy registers read admin command follows \field{struct virtio_admin_cmd}.
+> +This command reads legacy registers of a member VF device. Driver should write
+> +appropriate register \field{size} depending on the width of the legacy
+> +common configuration registers or device specific registers.
+> +Driver sets command \field{opcode} to VIRTIO_ADMIN_CMD_LREG_READ.
+> +Driver sets \field{group_type} to 1 for VFs.
+> +Driver sets \field{group_member_id} to a valid VF number.
+> +
+> +The \field{command_specific_data} has following listed structure format:
+> +
+> +\begin{lstlisting}
+> +struct virtio_admin_cmd_lreg_rd_data {
+> +	u8 offset; /* Starting byte offset of the register to read */
+> +	u8 size; /* Number of bytes to read from the registers */
+> +};
+> +\end{lstlisting}
+> +
+> +When command completes successfully, command result contains following
+> +listed content:
+> +
+> +\begin{lstlisting}
+> +struct virtio_admin_cmd_lreg_rd_result {
+> +	u8 registers[];
+> +};
+> +\end{lstlisting}
+> +
+> +\subsubsection{Legacy Queue Notify Offset Query}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / SR-IOV Legacy Registers Access / Legacy Queue Notify Offset Query}
+> +
+> +This command returns the notify offset of the member VF for queue
+> +notifications. This command follows \field{struct virtio_admin_cmd}.
+> +Driver sets command opcode \field{opcode} to VIRTIO_ADMIN_CMD_LQ_NOTIFY_QUERY.
+> +There is no command specific data for this command.
+> +Driver sets \field{group_type} to 1.
+> +Driver sets \field{group_member_id} to a valid VF number.
+> +
+> +When command completes successfully, command result contains the queue
+> +notification address in the listed format:
+> +
+> +\begin{lstlisting}
+> +struct virtio_admin_cmd_lq_notify_query_result {
+> +	u8 bar; /* PCI BAR number of the member VF */
+> +	u8 reserved[7];
+> +	le64 offset; /* Byte offset within the BAR */
+> +};
+> +\end{lstlisting}
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index ff889d3..b187576 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -1179,3 +1179,5 @@ \subsubsection{Driver Handling Interrupts}\label{sec:Virtio Transport Options /
+>           re-examine the configuration space to see what changed.
+>       \end{itemize}
+>   \end{itemize}
+> +
+> +\input{transport-pci-vf-regs.tex}
 
 
 This publicly archived list offers a means to provide input to the
