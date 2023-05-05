@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5810-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5811-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52834C77B7F
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A3C5C77B7F
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D6EE3139617
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:27 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 936AB157757
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 946ED98672E
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 83A77986742
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 May 2023 15:41:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 820679866F6; Fri,  5 May 2023 15:41:27 +0000 (UTC)
+	id 78E029866BC; Fri,  5 May 2023 15:41:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,32 +24,32 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5818B9866BD
+	by lists.oasis-open.org (Postfix) with ESMTP id D0966986704
 	for <virtio-comment@lists.oasis-open.org>; Fri,  5 May 2023 15:41:27 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: i3XZb9oEM6qLkgadQMD4JQ-1
+X-MC-Unique: G-xkez5hO5iyuhsQRQKW0g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683301255; x=1685893255;
+        d=1e100.net; s=20221208; t=1683301258; x=1685893258;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PX/EXCm14WLIS6TD6POoC7BgMmh/5jePyj2HrqcvxOg=;
-        b=I7ckY2WvCWsZ2Z9Z5Zu+geWjCkUnHjcp86sgA1Ak+QVISxHlFBirrzhwj3Iptupv+l
-         LQUGJizuMlYmrAF49AJCCvkZMKgTiYGrREtgGeKbKte+mjcD3VMLbKy/q6uhG/QWSAFs
-         hK4lmPVAn1O3I6EjRYF4Asr9ivjSGddRqWhVC6CMgFbOu/tkk78Hx3GQoLPMXQGtBjee
-         FqRV98u1x3GeZDab7Y9akPB3dd5aA3eRHhleGJZTzuQNMRQgAEJSxwharyXaiH5BLl3A
-         GLMp/DqIREmytRye3vf/I3V3dEcr+FR6Kw65GKaa0LGAprzNDZiUGinP3wGUpQn1WqtI
-         Tpow==
-X-Gm-Message-State: AC+VfDwp1Y7QF5JrFiKRwOoShVqubhchz2BVKzw3HR9QtO5cL9nkibt8
-	JcsZuKGdUGyXDOwVHdDY5vOFWI6TKsb8g4ma8YpKgdRVSmtsPv0qiSVUzQnD2IE2LXCUJs/OKIG
-	2TFtWXRjQnPnhbeKPWkG2aHQvgifF9YLckmCpOg4kAs8LJcFd7QNffEnxTK5Jp0bPG36MefsEGk
-	xayl1jojnMGbg=
-X-Received: by 2002:a05:600c:2299:b0:3f1:a71b:d46b with SMTP id 25-20020a05600c229900b003f1a71bd46bmr1328393wmf.41.1683301254824;
-        Fri, 05 May 2023 08:40:54 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ68bfAlwP8EHpNvXACv4wWn97B2WAPP1jMpt5GN16+0xumuHHncjAoeqX/P0Wj7hvJf9zZbRQ==
-X-Received: by 2002:a05:600c:2299:b0:3f1:a71b:d46b with SMTP id 25-20020a05600c229900b003f1a71bd46bmr1328368wmf.41.1683301254527;
-        Fri, 05 May 2023 08:40:54 -0700 (PDT)
-Date: Fri, 5 May 2023 11:40:51 -0400
+        bh=hrLDYm0tWFX3og+TOXpTdZLvlimTZWf1SkPsKWu4K7M=;
+        b=XjPFCIfCIZQ49qzf437+wdncbHYDI25Ye+1U3SWNOhrQ+uUeg5aUwpM5mYcwO8Ql/U
+         awUZ7XcExiuWbvTuD3PZUbIRcE5Y6DS0XTYR5ljEKdTYHGXwWCw1GWZxEgrRzKXTnkBP
+         WLnjQOG5J28DRTYpm7DzjSlmOp9Me5Z3hvLSSnb7XrI5A8TjwdwFo0J2Z6ijlJDSHxsD
+         MHL/Ed43jA2Dp7aC7bZJ4x1NyOKjI5SG6HF88asSKKvFs6iip5mXdI8EQ6V4fMytxdP7
+         lrVYEYTbvM0RFw3UMmzu2ctJ4FokNxn+ugBfqz9gc+32WXHnJ3zJWZI3s/MYl7OB75Fy
+         QIXQ==
+X-Gm-Message-State: AC+VfDzg86LxxhJnSF1v5dnTWSeNqKHNvRKKgfu34Wb2KKijFmGU+Xlc
+	D4OFtAkjDFHgR8MGGy+we/Nhn/LwYcYJqe6hxIAQB79brAvSlOw1MvfPMeuif7xrWeoMu+/rLVG
+	QnWpRt/AJzPbyBvcHjKzUo3nBsRM+IuFqRs+OveNzUPJyqCjzZYn/YZDzcg8ZvDBotXtM6Te3TY
+	545PCEINVimS0=
+X-Received: by 2002:adf:f183:0:b0:2fe:f2d1:dcab with SMTP id h3-20020adff183000000b002fef2d1dcabmr1621422wro.58.1683301258509;
+        Fri, 05 May 2023 08:40:58 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5SqbYI3pn33Vj57EIVe6xLzSPTdhiPALQs+drOYuQ9m7bGYJMp2Soo1q40q8R0EpNKeZcrqg==
+X-Received: by 2002:adf:f183:0:b0:2fe:f2d1:dcab with SMTP id h3-20020adff183000000b002fef2d1dcabmr1621395wro.58.1683301258161;
+        Fri, 05 May 2023 08:40:58 -0700 (PDT)
+Date: Fri, 5 May 2023 11:40:54 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
 	jasowang@redhat.com, mst@redhat.com, cohuck@redhat.com,
@@ -59,7 +59,7 @@ Cc: virtio@lists.oasis-open.org, Jiri Pirko <jiri@nvidia.com>,
 	Zhu Lingshan <lingshan.zhu@intel.com>, pasic@linux.ibm.com,
 	Shahaf Shuler <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
 	Max Gurtovoy <mgurtovoy@nvidia.com>
-Message-ID: <778cbbfc75b5d5c779c539ace5fb04fa5cd0480a.1683301091.git.mst@redhat.com>
+Message-ID: <2ce496d32bf090cb7858b31736a4e37515e1e0d2.1683301091.git.mst@redhat.com>
 References: <cover.1683301091.git.mst@redhat.com>
 MIME-Version: 1.0
 In-Reply-To: <cover.1683301091.git.mst@redhat.com>
@@ -69,110 +69,48 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] [PATCH v13 05/10] pci: add admin vq registers to virtio over pci
+Subject: [virtio-comment] [PATCH v13 06/10] mmio: document ADMIN_VQ as reserved
 
-Add new registers to the PCI common configuration structure.
+Adding relevant registers needs more work and it's not
+clear what the use-case will be as currently only
+the PCI transport is supported. But let's keep the
+door open on this.
+We already say it's reserved in a central place, but it
+does not hurt to remind implementers to mask it.
 
-These registers will be used for querying the indices of the admin
-virtqueues of the owner device. To configure, reset or enable the admin
-virtqueues, the driver should follow existing queue configuration/setup
-sequence.
-
-Based-on-patch-by: Max Gurtovoy <mgurtovoy@nvidia.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
----
-
-since v11:
-	document that admin vqs are not counted with regular vqs
 Reviewed-by: Parav Pandit <parav@nvidia.com>
-Reviewed-by: Zhu Lingshan <lingshan.zhu@intel.com>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Reviewed-by: Max Gurtovoy <mgurtovoy@nvidia.com>
 
-dropped Max's S.O.B
-make queue_num not 0 based
 ---
- content.tex       |  9 +++++++++
- transport-pci.tex | 26 ++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
 
-diff --git a/content.tex b/content.tex
-index 8761795..1986e98 100644
---- a/content.tex
-+++ b/content.tex
-@@ -851,6 +851,15 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+changes in v12:
+	drop "as of now" to address comment by parav
+---
+ transport-mmio.tex | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/transport-mmio.tex b/transport-mmio.tex
+index f884a2c..5680fc4 100644
+--- a/transport-mmio.tex
++++ b/transport-mmio.tex
+@@ -562,3 +562,15 @@ \subsection{Legacy interface}\label{sec:Virtio Transport Options / Virtio Over M
+ \end{enumerate}
  
-   \item[VIRTIO_F_ADMIN_VQ(41)] This feature indicates that the device exposes one or more
-   administration virtqueues.
-+  At the moment this feature is only supported for devices using
-+  \ref{sec:Virtio Transport Options / Virtio Over PCI
-+	  Bus}~\nameref{sec:Virtio Transport Options / Virtio Over PCI Bus}
-+	  as the transport and is reserved for future use for
-+	  devices using other transports (see
-+	  \ref{drivernormative:Basic Facilities of a Virtio Device / Feature Bits}
-+	and
-+	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
-+	handling features reserved for future use.
- 
- \end{description}
- 
-diff --git a/transport-pci.tex b/transport-pci.tex
-index 5d98467..ec012b3 100644
---- a/transport-pci.tex
-+++ b/transport-pci.tex
-@@ -321,6 +321,10 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
-         le64 queue_device;              /* read-write */
-         le16 queue_notify_data;         /* read-only for driver */
-         le16 queue_reset;               /* read-write */
+ Notification mechanisms did not change.
 +
-+        /* About the administration virtqueue. */
-+        le16 admin_queue_index;         /* read-only for driver */
-+        le16 admin_queue_num;         /* read-only for driver */
- };
- \end{lstlisting}
- 
-@@ -347,6 +351,7 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
- 
- \item[\field{num_queues}]
-         The device specifies the maximum number of virtqueues supported here.
-+        This excludes administration virtqueues if any are supported.
- 
- \item[\field{device_status}]
-         The driver writes the device status here (see \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}). Writing 0 into this
-@@ -406,6 +411,19 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
-         This field exists only if VIRTIO_F_RING_RESET has been
-         negotiated. (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}).
- 
-+\item[\field{admin_queue_index}]
-+        The device uses this to report the index of the first administration virtqueue.
-+        This field is valid only if VIRTIO_F_ADMIN_VQ has been negotiated.
-+\item[\field{admin_queue_num}]
-+	The device uses this to report the number of the
-+	supported administration virtqueues.
-+	Virtqueues with index
-+	between \field{admin_queue_index} and (\field{admin_queue_index} +
-+	\field{admin_queue_num} - 1) inclusive serve as administration
-+	virtqueues.
-+	The value 0 indicates no supported administration virtqueues.
-+	This field is valid only if VIRTIO_F_ADMIN_VQ has been
-+	negotiated.
- \end{description}
- 
- \devicenormative{\paragraph}{Common configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}
-@@ -492,6 +510,14 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
- were used before the queue reset.
- (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}).
- 
-+If VIRTIO_F_ADMIN_VQ has been negotiated, and if the driver
-+configures any administration virtqueues, the driver MUST
-+configure the administration virtqueues using the index
-+in the range \field{admin_queue_index} to
-+\field{admin_queue_index} + \field{admin_queue_num} - 1 inclusive.
-+The driver MAY configure less administration virtqueues than
-+supported by the device.
++\subsection{Features reserved for future use}\label{sec:Virtio Transport Options / Virtio Over MMIO / Features reserved for future use}
 +
- \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
- 
- The notification location is found using the VIRTIO_PCI_CAP_NOTIFY_CFG
++Devices and drivers utilizing Virtio Over MMIO
++do not support the following features:
++\begin{itemize}
++
++\item VIRTIO_F_ADMIN_VQ
++
++\end{itemize}
++
++These features are reserved for future use.
 -- 
 MST
 
