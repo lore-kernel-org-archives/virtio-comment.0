@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5828-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5829-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A79F2C77B75
-	for <virtio-comment@archiver.kernel.org>; Sat,  6 May 2023 00:02:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E63AAC7EE2A
+	for <virtio-comment@archiver.kernel.org>; Sat,  6 May 2023 02:24:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id EA805330BB
-	for <virtio-comment@archiver.kernel.org>; Sat,  6 May 2023 00:02:07 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3758829FCA
+	for <virtio-comment@archiver.kernel.org>; Sat,  6 May 2023 02:24:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E1A5E986701
-	for <virtio-comment@archiver.kernel.org>; Sat,  6 May 2023 00:02:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2DEBB9866E7
+	for <virtio-comment@archiver.kernel.org>; Sat,  6 May 2023 02:24:41 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D090D9841A9; Sat,  6 May 2023 00:02:07 +0000 (UTC)
+	id 25FE49841A9; Sat,  6 May 2023 02:24:41 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,156 +24,229 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ADC109866E9;
-	Sat,  6 May 2023 00:02:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 12FB99866DD
+	for <virtio-comment@lists.oasis-open.org>; Sat,  6 May 2023 02:24:41 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CbyAQ5VaUvZKLm/agQUC02L42yzErLWc8vew+sOdQQb9PrMGVbSa+22/52MFkWgZK0ayuIe2+az58mgLssD+qrxI0h076swmF/rpRY7bK6uciBCScL7Ng4Xo4JqMHdAGf6SSwnp6JYg3lv7pZciTuLQZ0epHq4yFhCSXdVaYxSXWXUEz0LqiS1Ny13ZhJWOzXIcoJ+fzfbbF7ylb86ABtMbznajKgUjCuLL+ZNVdcsuFp1ks2yqZl563eEPQLqZW/fyXRBnlDNkR8RN6nIkJFYxxaCoop3Z3zzotlP3uYt34sdBQFeBxz4L8I+7DF5OlgGFxWW/SxU/+7T89a4PayA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I+rmA27nqQ3aX+3ZmFA2+y3B7gdrSYy43R4RrSlQTJM=;
- b=MXZ1wovBqqon+YcSGkjYS8PLCGbFEhglWalaOYjdtRrJYDQn33P361/yI5tTclj2buJROyHPRiloSrjSB+QztMDPbyp4L17Qjovomh50b+ug4JWDM6KzOZ+yC2PRrnIFIlIAy0N4TwzQ+1ZjDBC3oEUPNPpZy1B/rwcwWwYoZANVq0OHlOkBX3D9/hylM6ym/RJ8vkniyKwjKLG0R0pN4pZ/5YvsGHUPop2kqtmoSVPn4rKRBo03J4TwO+bERlu2CootFO4r/vtVzD4B8nZRSuBz6iPlG23zxpkF6VT5WHo1e8L++TGiK0tATI72BSPS6k4sw+LQrx6WtiHFSIFeGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <mst@redhat.com>, <virtio-dev@lists.oasis-open.org>, <cohuck@redhat.com>,
-	<david.edmondson@oracle.com>
-CC: <sburla@marvell.com>, <jasowang@redhat.com>, <yishaih@nvidia.com>,
-	<maorg@nvidia.com>, <virtio-comment@lists.oasis-open.org>,
-	<shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
-Date: Sat, 6 May 2023 03:01:35 +0300
-Message-ID: <20230506000135.628899-3-parav@nvidia.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230506000135.628899-1-parav@nvidia.com>
-References: <20230506000135.628899-1-parav@nvidia.com>
+X-MC-Unique: snWU1yHNPBG07lnYqFnzow-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683339872; x=1685931872;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=L20I05a1ZD0uGuPIxXOeh8hC231/sFaWMDptFiwlPR4=;
+        b=SsGG4JHzUaAWayn0qlBfVnvVVwwvpUHLi76qjXg6e1eBA/AujDHYK4OAVn5odqsAj/
+         MYWw0++X2n5sIfHFABovJyPxNkrme3DGnx4wu2QoXysSXorfFGZGogIp64J6Ov17h1XC
+         RLGL1ZJKWWEmLkC8WaZrLlCgSf2ISPKypwq4MhMpQS5VmzwQuOhJhv1OIkZXbfBT4Zbu
+         0Ng4c6z4ZJsDoNS0KgTY2sHAPoFIM5FlbFuriS5M56U5Abq7YUpi9gl2ek7DG5MpIUOK
+         d4bBygySyN/wat4IQ30NqYMb9ItA8XZ2c+onx8qIezLptXJdtXJDuoV46kHnjTT9dwak
+         k83w==
+X-Gm-Message-State: AC+VfDyh5AgEvCAd7v58/WNY1cOInouJfW1DB/hvuFFIfrNaG82Nsm98
+	oJ2el2Db1/xEKnC3djf/UoqhG34dke/AJCM6n3gElgPczqYYzdekpJfv3qc5ts0FjHPmPfVSrPC
+	g/KuxJKiFAaJQzQDml6d25J4W96SD92QYr6wQ7TK7+greNOVP8w==
+X-Received: by 2002:ac2:4282:0:b0:4ef:e87e:df88 with SMTP id m2-20020ac24282000000b004efe87edf88mr793334lfh.64.1683339871705;
+        Fri, 05 May 2023 19:24:31 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ7plVaBMEcSgLRJIeUhkNE3Ruy5ynq4oH7stw9oNnA/kHKoDyZ4wUC2MMywug/PhOgCG1XP8EdeinxTtz48G3c=
+X-Received: by 2002:ac2:4282:0:b0:4ef:e87e:df88 with SMTP id
+ m2-20020ac24282000000b004efe87edf88mr793325lfh.64.1683339871360; Fri, 05 May
+ 2023 19:24:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.37]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT008:EE_|LV3PR12MB9095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 886be52a-3e0a-4004-af69-08db4dc51ebd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	dbMr7/Ezqvawwoh75vOh5kVAq5oyQWJOjQExfgE/XYT/zLvdQ1Rrr3mO6m/NEfpb8Y4z82Ti+mdXY1JQE/bMWGQwg5cn6rVrmKnO8I5G9JoqK/gHmuXD6c8JIWmA4z+E+esqju7n2DmYJX98CZvFvgW3aBYwozovzGbONZDGt7yF1hmaPWX7/KeP3WJAcFVJT9zTJEV3Cc4B7c/zyuulxOX5MGCRQ3Iw4Lc+0pfB7C3kYqEz1UY3CswJlMxyBFYvmkth0EecV5fZXlFFu1fbxBdsJ9XvGQr33FhQ8GclCImM6H4fcbnKYXk+agw6keCsNOkUsytJF0XzS48GCkJKG0vVrwIiaP/o59FXyIifefEA+t3xtYi3b78Fpc2XlNQ/vsFx131l/8r9rPDruONQg+mkqagIRXjbS8hhRl8NR1V3Rho5pFE5/AgGc6QL0A7YrsTjGwUj2loiOpV3NlJP4VQ9MLrJM19NMFw841tKLF8w43Wzyt8toOxkzF5gwrc6e0m3ceEvzjFImz4O/g8omw7YgVQx7PloiaV0Lua7h+7xcqGMCstpyMqGWeBmrHXkpbE20cqXCLENQtT2gUwWo+HdX7VfDcp+VULBP4PN+f6Ond4538vlw8b7CJTBFpKSO6xT5aKwTJiVhRl3L3V4Vl1XG3AiipGHY6QFcp14sWumLIShvAVsnun2LMz7Iy9xA5qQAce6BYDedKoJ8XfKvw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(396003)(136003)(346002)(451199021)(36840700001)(40470700004)(46966006)(40460700003)(83380400001)(2616005)(336012)(426003)(186003)(16526019)(36756003)(36860700001)(86362001)(82310400005)(356005)(82740400003)(40480700001)(7636003)(47076005)(8676002)(316002)(8936002)(2906002)(6666004)(41300700001)(5660300002)(478600001)(110136005)(54906003)(4326008)(70586007)(70206006)(1076003)(107886003)(26005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2023 00:02:02.0982
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 886be52a-3e0a-4004-af69-08db4dc51ebd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9095
-Subject: [virtio-comment] [PATCH v2 2/2] transport-pci: Add legacy register access conformance section
+References: <20230503032659.530330-1-parav@nvidia.com> <20230503032659.530330-2-parav@nvidia.com>
+ <dba64a65-0538-a060-47a1-24d30f42ca49@redhat.com> <PH0PR12MB548178D2363F81D26062592BDC729@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB548178D2363F81D26062592BDC729@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Sat, 6 May 2023 10:24:20 +0800
+Message-ID: <CACGkMEsbeZdXD4XPX_1deMDV-0bFHwj4U6GE4ytrYiKgOem2aQ@mail.gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "mst@redhat.com" <mst@redhat.com>, 
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, 
+	"david.edmondson@oracle.com" <david.edmondson@oracle.com>, "sburla@marvell.com" <sburla@marvell.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>, 
+	"Zhu, Lingshan" <lingshan.zhu@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v1 1/2] transport-pci: Introduce legacy registers access commands
 
-Add device and driver conformanace section for legacy registers access
-commands interface.
+On Fri, May 5, 2023 at 8:49=E2=80=AFPM Parav Pandit <parav@nvidia.com> wrot=
+e:
+>
+>
+>
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Thursday, May 4, 2023 11:27 PM
+> >
+> > So the "single stack" is kind of misleading, you need a dedicated virti=
+o
+> > mediation layer which has different code path than a simpler vfio-pci w=
+hich is
+> > completely duplicated with vDPA subsystem.
+> Huh. No. it is not duplicated.
+> Vfio-pci provides the framework for extension than doing simple vfio-pci =
+for extensions.
 
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
-changelog:
-v1->v2:
-- addressed comments from Michael
-- removed duplicate and contradicting normatives to existing legacy
-  interface section
-- added endianness normative for device specific region
-- updated conformance links
----
- conformance.tex               |  2 ++
- transport-pci-legacy-regs.tex | 27 +++++++++++++++++++++++++++
- 2 files changed, 29 insertions(+)
+I'm not sure how to define simple here, do you mean mdev?
 
-diff --git a/conformance.tex b/conformance.tex
-index 01ccd69..3f2d49e 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -109,6 +109,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PCI configuration access capability}
- \item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Device Initialization / MSI-X Vector Configuration}
- \item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Notification of Device Configuration Changes}
-+\item \ref{drivernormative:Virtio Transport Options / Virtio Over PCI Bus / Legacy Interfaces: SR-IOV VFs Registers Access}
- \end{itemize}
- 
- \conformance{\subsection}{MMIO Driver Conformance}\label{sec:Conformance / Driver Conformance / MMIO Driver Conformance}
-@@ -194,6 +195,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Device Initialization / MSI-X Vector Configuration}
- \item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Used Buffer Notifications}
- \item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / PCI-specific Initialization And Device Operation / Notification of Device Configuration Changes}
-+\item \ref{devicenormative:Virtio Transport Options / Virtio Over PCI Bus / Legacy Interfaces: SR-IOV VFs Registers Access}
- \end{itemize}
- 
- \conformance{\subsection}{MMIO Device Conformance}\label{sec:Conformance / Device Conformance / MMIO Device Conformance}
-diff --git a/transport-pci-legacy-regs.tex b/transport-pci-legacy-regs.tex
-index 9088fe6..4db578f 100644
---- a/transport-pci-legacy-regs.tex
-+++ b/transport-pci-legacy-regs.tex
-@@ -104,3 +104,30 @@ \subsubsection{Legacy Queue Notify Offset Query Command}\label{sec:Virtio Transp
- interface I/O space BAR and passthrough other PCI BARs and PCI device
- capabilities to the guest virtual machine without any translation.
- \end{note}
-+
-+\devicenormative{\paragraph}{SR-IOV VFs Legacy Registers Access}{Virtio Transport Options / Virtio Over PCI Bus / Legacy Interfaces: SR-IOV VFs Registers Access}
-+
-+If the PCI PF device supports legacy registers access for its group members,
-+the device MUST set all corresponding bits for commands VIRTIO_ADMIN_CMD_LREG_WRITE,
-+VIRTIO_ADMIN_CMD_LREG_READ and VIRTIO_ADMIN_CMD_LQ_NOTIFY_QUERY in
-+command result of VIRTIO_ADMIN_CMD_LIST_QUERY in
-+\field{device_admin_cmd_opcodes}.
-+
-+The device MUST encode and decode legacy device specific registers using
-+little-endian format.
-+
-+The device MUST fail VIRTIO_ADMIN_CMD_LREG_WRITE and VIRTIO_ADMIN_CMD_LREG_READ
-+commands for the invalid offset which is outside the legacy registers
-+address range.
-+
-+The PCI VF device SHOULD NOT use PCI BAR 0 when it prefers to support
-+legacy interface registers access.
-+
-+\drivernormative{\paragraph}{SR-IOV VFs Legacy Registers Access}{Virtio Transport Options / Virtio Over PCI Bus / Legacy Interfaces: SR-IOV VFs Registers Access}
-+
-+The driver MUST encode and decode legacy device specific registers using
-+little-endian format.
-+
-+The driver SHOULD send commands VIRTIO_ADMIN_CMD_LREG_WRITE and
-+VIRTIO_ADMIN_CMD_LREG_READ with a valid offset which is in the legacy
-+registers address range.
--- 
-2.26.2
+> I am not debating here vdpa vs non vdpa yet again.
+>
+> > And you lose all the advantages of
+> > vDPA in this way. The device should not be designed for a single type o=
+f
+> > software stack , it need to leave the decision to the hypervisor/cloud =
+vendors.
+> >
+> It is left to the hypervisor/cloud user to decide to use vdpa or vfio or =
+something else.
+>
+> >
+> > >     virtio device type (net/blk) and be future compatible with a
+> > >     single vfio stack using SR-IOV or other scalable device
+> > >     virtualization technology to map PCI devices to the guest VM.
+> > >     (as transitional or otherwise)
+> > >
+> > > Motivation/Background:
+> > > ----------------------
+> > > The existing virtio transitional PCI device is missing support for PC=
+I
+> > > SR-IOV based devices. Currently it does not work beyond PCI PF, or as
+> > > software emulated device in reality. Currently it has below cited
+> > > system level limitations:
+> > >
+> > > [a] PCIe spec citation:
+> > > VFs do not support I/O Space and thus VF BARs shall not indicate I/O =
+Space.
+> > >
+> > > [b] cpu arch citiation:
+> > > Intel 64 and IA-32 Architectures Software Developer=E2=80=99s Manual:
+> > > The processor=E2=80=99s I/O address space is separate and distinct fr=
+om the
+> > > physical-memory address space. The I/O address space consists of 64K
+> > > individually addressable 8-bit I/O ports, numbered 0 through FFFFH.
+> > >
+> > > [c] PCIe spec citation:
+> > > If a bridge implements an I/O address range,...I/O address range will
+> > > be aligned to a 4 KB boundary.
+> > >
+> > > Above usecase requirements can be solved by PCI PF group owner
+> > > enabling the access to its group member PCI VFs legacy registers usin=
+g
+> > > an admin virtqueue of the group owner PCI PF.
+> > >
+> > > Software usage example:
+> > > -----------------------
+> > > The most common way to use and map to the guest VM is by using vfio
+> > > driver framework in Linux kernel.
+> > >
+> > >                  +----------------------+
+> > >                  |pci_dev_id =3D 0x100X   |
+> > > +---------------|pci_rev_id =3D 0x0      |-----+
+> > > |vfio device    |BAR0 =3D I/O region     |     |
+> > > |               |Other attributes      |     |
+> > > |               +----------------------+     |
+> > > |                                            |
+> > > +   +--------------+     +-----------------+ |
+> > > |   |I/O BAR to AQ |     | Other vfio      | |
+> > > |   |rd/wr mapper  |     | functionalities | |
+> > > |   +--------------+     +-----------------+ |
+> > > |                                            |
+> > > +------+-------------------------+-----------+
+> > >         |                         |
+> >
+> >
+> > So the mapper here is actually the control path mediation layer which
+> > duplicates with vDPA.
+> >
+> Yet again no. It implements PCI level abstraction.
+> It is not touching the whole QEMU layer and not at all getting involved i=
+n virtio device flow of understanding device reset, and device config space=
+, cvq, features bits and more.
+
+I think you miss the fact that QEMU can choose to not understand all
+you mentioned here with the help of the general vdpa device.
+Vhost-vDPA provides a much simpler device abstraction than vfio-pci.
+If a cloud vendor wants a tiny/thin hypervisor layer, it can be done
+through vDPA for sure.
+
+> All of these were discussed in v0, lets not repeat.
+>
+> >
+> > >    +----+------------+       +----+------------+
+> > >    | +-----+         |       | PCI VF device A |
+> > >    | | AQ  |-------------+---->+-------------+ |
+> > >    | +-----+         |   |   | | legacy regs | |
+> > >    | PCI PF device   |   |   | +-------------+ |
+> > >    +-----------------+   |   +-----------------+
+> > >                          |
+> > >                          |   +----+------------+
+> > >                          |   | PCI VF device N |
+> > >                          +---->+-------------+ |
+> > >                              | | legacy regs | |
+> > >                              | +-------------+ |
+> > >                              +-----------------+
+> > >
+> > > 2. Virtio pci driver to bind to the listed device id and
+> > >     use it as native device in the host.
+> >
+> >
+> > How this can be done now?
+> >
+> Currently a PCI VF binds to the virtio driver and without any vdpa layeri=
+ng, virtio net/blk etc devices are created on top of virtio PCI VF device.
+> Not sure I understood your question.
+
+I meant the current virtio-pci driver can use what you propose here.
+
+>
+> > > +\begin{lstlisting}
+> > > +struct virtio_admin_cmd_lreg_wr_data {
+> > > +   u8 offset; /* Starting byte offset of the register(s) to write */
+> > > +   u8 size; /* Number of bytes to write into the register. */
+> > > +   u8 register[];
+> > > +};
+> > > +\end{lstlisting}
+> >
+> >
+> > So this actually implements a transport, I wonder if it would be better
+> > (and simpler) to do it on top of the transport vq proposal:
+> >
+> > https://lists.oasis-open.org/archives/virtio-comment/202208/msg00003.ht=
+ml
+> >
+> I also wonder why TVQ cannot use AQ.
+
+It can for sure, but whether using a single virtqueue type for both
+administration and transport is still questionable.
+
+>
+> > Then it aligns with SIOV natively.
+> >
+> SIOV is not well defined spec, whenever it is defined, it can use AQ or T=
+VQ.
+>
+> We also discussed that mediation of hypervisor for control path in some u=
+se case is not desired, hence I will leave that discussion to the future wh=
+en SIOV arrives.
+
+We need to plan it ahead. We don't want to end up with redundant
+design. For example, this proposal is actually a partial transport
+implementation. Transport virtqueue can do much better in this case.
+
+Thanks
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
