@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5836-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5837-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D9AAC77B75
-	for <virtio-comment@archiver.kernel.org>; Mon,  8 May 2023 10:10:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7DC8C77B75
+	for <virtio-comment@archiver.kernel.org>; Mon,  8 May 2023 16:55:03 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 64CB1F3EA0
-	for <virtio-comment@archiver.kernel.org>; Mon,  8 May 2023 10:10:46 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id EC1061922E8
+	for <virtio-comment@archiver.kernel.org>; Mon,  8 May 2023 16:55:02 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4DC8098639F
-	for <virtio-comment@archiver.kernel.org>; Mon,  8 May 2023 10:10:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E25299863C4
+	for <virtio-comment@archiver.kernel.org>; Mon,  8 May 2023 16:55:02 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3C001983E8E; Mon,  8 May 2023 10:10:46 +0000 (UTC)
+	id D60589863BF; Mon,  8 May 2023 16:55:02 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,199 +24,156 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2A41B986298
-	for <virtio-comment@lists.oasis-open.org>; Mon,  8 May 2023 10:10:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C50129863C2;
+	Mon,  8 May 2023 16:55:02 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: avF04k1xOoSnFy-iuWQRwQ-1
-From: Cornelia Huck <cohuck@redhat.com>
-To: Peter Hilber <peter.hilber@opensynergy.com>,
- virtio-comment@lists.oasis-open.org
-In-Reply-To: <75b978fc-b6e8-e0ec-c6eb-5a695214c921@opensynergy.com>
-Organization: Red Hat GmbH
-References: <20230313041116.126953-1-peter.hilber@opensynergy.com>
- <87zg76k9sr.fsf@redhat.com>
- <75b978fc-b6e8-e0ec-c6eb-5a695214c921@opensynergy.com>
-User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Mon, 08 May 2023 12:10:40 +0200
-Message-ID: <87ttwncevz.fsf@redhat.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Os06qdDnF1GFdtdDq/HMF0jiFobRE18iEpODfB4DVn9V4iGExXq9NqgYdZN6n+EYTz7+R4ZzUOjqlaHlRu/QjZpB4yFZs9/plCuoardNJG8accJrN8aFD6ugIhCYuAJT8E0mWm84JKN/tYU+clIszGkPjupao13/fey5r4DAqrUq3ooDVinCZvbpfkppmKzSZrUS0KSWG88aySKtbRIAJ0Ejfd66hCl7XW4EaNMbeTlt0/pMlnweSGTFbX2pqmm4X/kn3yjcr92H/QnlsZroWu6/Hs+5342ixt6At0LEEnfr3LoiVZd2VsWklrDk1SQ4lFyvXzz8nMcYJuzNnPFJ4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OhCnPWvfwLe11Gqu4N17sVpIWgIJJWAEVYJsK6j0xkQ=;
+ b=VAYoH/fu94fL75+3vzVSm71/LfQemapvk+rVk2qeGvHUYHMOEYe53bUZ8ApYvIyHi/Qzw7xy6Xl3LukZBVprnmCGUYCnyfXS8bRAwg/w5vRURQsyVjml2AOqDgoHvaqdtN0YgWQkTPTMS1UwEqioKmjo7ptwjGlF1bPHMmHcEk28nKK6g+RCfupSFrqBqmc2iga6jw/YrAROMNyqLuvbFaVpsb08STqZo8x5anlGx4n+uelGsFWjPqFVJQ/kDGT7Psw5jzf18EkIjIAMyoKTz593772FDKCQOgjeo1QOUfXRKs5SS43fObHqtWjsNcgSH0+vmLsK3PU075ZI1bWm8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Message-ID: <71d65eb3-c025-9287-0157-81e1d05574d1@nvidia.com>
+Date: Mon, 8 May 2023 12:54:55 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-dev@lists.oasis-open.org, cohuck@redhat.com,
+ david.edmondson@oracle.com, sburla@marvell.com, jasowang@redhat.com,
+ yishaih@nvidia.com, maorg@nvidia.com, virtio-comment@lists.oasis-open.org,
+ shahafs@nvidia.com
+References: <20230506000135.628899-1-parav@nvidia.com>
+ <20230507050146-mutt-send-email-mst@kernel.org>
+Content-Language: en-US
+From: Parav Pandit <parav@nvidia.com>
+In-Reply-To: <20230507050146-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN6PR08CA0001.namprd08.prod.outlook.com
+ (2603:10b6:805:66::14) To PH0PR12MB5481.namprd12.prod.outlook.com
+ (2603:10b6:510:d4::15)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Subject: Re: [virtio-comment] [RFC PATCH] virtio-rtc: Add device specification.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5481:EE_|MN0PR12MB5858:EE_
+X-MS-Office365-Filtering-Correlation-Id: af9ce668-8ada-4798-73c1-08db4fe4f5da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	/WmZYVR1KTqDRdGskVm3PWa2xJT+uLNFfAHyP3TNOWzmzWjZx3er/hMRHVXnxuXZuPktoAoYrtJHF3XRcCDfCylxmAoOfYEFB4SQ8OAbpRnUWvwV82OChmP5Q7ynZkVLbHm/XhUlMyMcJlt0cfDGEvdjvLhzz2oUWcw8DeWSZNezfT72ndifF5v+AkMfnATH6DXSwkjf+0/qXcLJd82cbkAwlgIkQbAXjJmo2/BKy22eWsbhYQ0smFjEdwfYgYDaHU8y91fM2e01ig6FEBzzg9h474b5JBdLVNPjDfzAGlmmAN8N600GvsKBS1/rspiEdtcIf4W7cQn6V0MuYz5rHTk7EvKLZs1jCy4LNHmMRQEooLWKAlw6YSCin36m3O+PZ1ebnygKqcyBAnHXHXXOnI12pDoUU8X5nsXysM03HaRCnNR1/cXZOfg75/Gu+ff3jE1yvtt3x+zDTu+ldbJ2k4X+SWWKSkFte4wG9ZJmXbYObzY83GIO9E8jwdZdy/FodZ1LZIkMnRxEI/tD7++woa97/vUDNRtqewUBQnHnHq1dPN6do1T1ldlWqjc8u+G26pON9tZUVa9L7xh0HmlS+6gpkz0sQVp+zymcnW3h/hKMdHiUd/iu+YK4xN69bqlZGwFhswo0gtl1+MAGqiX4aQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(376002)(346002)(39860400002)(366004)(451199021)(31686004)(6666004)(66556008)(66476007)(6916009)(4326008)(478600001)(6486002)(66946007)(316002)(86362001)(36756003)(31696002)(83380400001)(107886003)(53546011)(6506007)(6512007)(26005)(2616005)(8676002)(41300700001)(2906002)(8936002)(5660300002)(186003)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U2ZOQ2I2a3c0MHlPajVYOENwSVI0dmF3T0w0UVQvbXJ2OTE0ZTROS1A3MEF5?=
+ =?utf-8?B?UHJqa21EcytmSml5RW9tVG5xWEFBTnlteStJbUZRVWdJc0VJU3R0aWVrTitp?=
+ =?utf-8?B?dHErL010S2t1SHA5RXIyKzlxbUxYeDU3TDNBeFU1aHVrTU5ZYllpTnhVdEZP?=
+ =?utf-8?B?Ymk1VHRnbGtNZEhrTGw1bTM3VURlbThGUjJvRUFVZ1N0RGxzMWN4K1RqSENa?=
+ =?utf-8?B?ZzEzcFI5YXJFQXBoTDVDWSt3T0xMMnFaSE9lcHhrSFZ4TllVMmR1R25HTWJU?=
+ =?utf-8?B?S3dKMHRMaHM4NDBGOC9NSXByVnoyci92TEFTMjUwOXdmSlE5eWxNN1U1Q2or?=
+ =?utf-8?B?R09zYkw5SkdKZEE5WXRsOFQ1cDI3NlNNZHdqSkZUNUFmeVVMMkY2SVYrcHRZ?=
+ =?utf-8?B?MmpNSmJtWDBScmpCd3NvYUVaamp5SHNsOU13N0hvSzliQmtFK1E3YWJJRGFV?=
+ =?utf-8?B?Qitqc0RaUVlZc3BUNFh1VVlBSWNVb0dSZlNuQnhaWUZxZkJORWRhREtBeE80?=
+ =?utf-8?B?RnI1ODdIUUlvK2VnalhOUjBnMmJNZDlJNXBKQjZSQnF6V1pObEVBN3Iza0JH?=
+ =?utf-8?B?aisxYmlQamFXUXBqSE5YTElUZHZKWnZaVklSVThGVmxWU2M4SXU3K2pWM2Yx?=
+ =?utf-8?B?bHNoUks1ZmF5WnJrNkhMTHdtVEhjNnpmck54ZUtCV0c1bndIRzJLc25LMGZm?=
+ =?utf-8?B?VjhxcmFCNURoTDJHRHFxMHFNYjBGM29RYnYxa2JGSXMyRUExL0dka0NEckhm?=
+ =?utf-8?B?Q3hyTU1yM3FGcmtHRWFXZVVORFhUUUhuM3o0a0FRcnNEKzlHVERmTkpJMllK?=
+ =?utf-8?B?c3VrblhQbk0xcHpUazgrb0ZBWmpjNFROejQvU0JKbmJoZ0MxRllLcXNLSnI1?=
+ =?utf-8?B?UUdYOS9ubE91WUNRRGdFWlVOVlYxUmtUTmxWbFhxY3M1cG1pYWRNSUFkQml6?=
+ =?utf-8?B?OE1MTHhvUWJGcHVNQmtRanlqZUY5UFNPQnFScDdKZ2RSdDJiNFBwOVZZWk9m?=
+ =?utf-8?B?UVFzTUE4bzVQclBtalZHS2h5Nm1iV1Z5ZnBVb1BGTnFhYk0xYXB0dTNOTmlI?=
+ =?utf-8?B?eFoveEQvd0x4Q2dHV2xlWEwxVTEwRzAxbWIzL2hKc0R4WkdiRlZHYk9kc3N6?=
+ =?utf-8?B?azBwZFJ4L1VXaHJsWi84SmRiRTlieGN3RSsxMktVVXFPNFE3aDAyYmhsZUpY?=
+ =?utf-8?B?amVKRUw5eElkT09zMXFrbXhTR0lzcFFsWGk4MTlYY2tMQW5FVzBHQjVKdWI4?=
+ =?utf-8?B?VFRPalBKOFZBeFBUbFEwMUs3dWJQZG13ZWZsR0NZb0NnbXgxOHptS2N5VU4z?=
+ =?utf-8?B?QnBKZFRvSDRDQ000S2NoMXRRcHErcS8rZ1Uwa1pNRUcwc24zUXBzREF4T1I3?=
+ =?utf-8?B?eitzeDJ5UE5IelhnbDN6blVIcTRoODh4cmxUVDRsdEUvY215U0NxWi9URWUz?=
+ =?utf-8?B?ZzByUVAySEFzZ1VZTlBMMkZpK2lKa0pwYVpsWG1TbjlucU9RcFdUTkdnT0tv?=
+ =?utf-8?B?U0syZHJKWnVLS0NpbjVrOWNTQzE4Wm9pWWJnYUMzTVY4N2JOMU1UMXBleUdG?=
+ =?utf-8?B?cTZXMFN3V29aeFFuY0NTRm5yU1E3QXI0aU04cGJIaDRzdjFsZFQ4aFBBL1hW?=
+ =?utf-8?B?TjFJN056TlVMWWI3eUpxVVhoeDk4OWRnKzdNYlZ1dTNUb3pwVWRINGlCT3Iv?=
+ =?utf-8?B?ek1vSHVnOU4vQ0E4VlQwRGJaVUV0ZlR1UzhDY0RnUTFTbjFmK3hxc0Jpaktk?=
+ =?utf-8?B?M1Jjdlp5ajVrZkhaTEozK2ZHazl5UlZGS01TT0FaLzhJT0NGVVBxN1I5cFR5?=
+ =?utf-8?B?a0NIbE1MOTY0eXZBYVhhZGsxTytXWEVLZW9jclh3QldWMHdyQjV2S1oxR3dL?=
+ =?utf-8?B?alQ5YS9ibkNuQzBqK3Z0NnBmR0M4enRvNTR6YmVzcVM0UjFjb1Q1ZDFqUFVq?=
+ =?utf-8?B?WnBZTHc2YStOT3RjVDhTWm40S2hOR1pxWi9EMTZPT21DSXhucVRqOUJKQ08v?=
+ =?utf-8?B?NngzeTduL0p2Q1grWUt6dnU0eXRVSXZQdkpVTVFFYkZaMW4xSU1ramlKaCsy?=
+ =?utf-8?B?UTRlY1JpQzMzMEdiQWIxTlAvM2ZIRTVGT1B1cklvMENWRzZLc2IzQ0Fjc2pj?=
+ =?utf-8?Q?ZZQkBhtzwJKs47gEafkcowT8a?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af9ce668-8ada-4798-73c1-08db4fe4f5da
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2023 16:55:00.1051
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VhecA/tQg5Izc5v/GOg30SNTrGPvCJM51f+jEvAHxSVWB9LvrjWCkZJTOaNFaxY8jScBRNzFxFYis6hi1uYnXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5858
+Subject: [virtio-comment] Re: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
+ using AQ
 
-On Wed, Apr 26 2023, Peter Hilber <peter.hilber@opensynergy.com> wrote:
 
-> On 17.04.23 13:49, Cornelia Huck wrote:
->> On Mon, Mar 13 2023, Peter Hilber <peter.hilber@opensynergy.com> wrote:
->>> +VIRTIO_RTC_S_DEVERR indicates that the device encountered an error while
->>> +executing the request, which could not be attributed to invalid input
->>> +from the driver.
->>
->> Is there any way for the driver to find out whether the request has
->> partially been executed, and whether it should retry?
->
-> Maybe this could be changed to say that
->
->     ... the device did not execute the request due to an error which was
->     not caused by invalid input from the driver.
+On 5/7/2023 5:04 AM, Michael S. Tsirkin wrote:
+> 
+> one things I still don't see addressed here is support for
+> legacy interrupts. legacy driver can disable msix and
+> interrupts will be then sent.
+> how about a special command that is used when device would
+> normally send INT#x? it can also return ISR to reduce latency.
 
-Ok, that looks clearer.
+I am not sure if this is a real issue. Because even the legacy guests 
+have msix enabled by default. In theory yes, it can fall back to intx.
 
->
-> As for retrying: Should there be an additional status code? IMHO this
-> would increase complexity without a clear benefit. Could the device not
-> retry internally if immediate retrying makes sense at the particular
-> point in time?
+There are few options.
+1. A hypervisor driver can be conservative and steal an msix of the VF 
+for transporting intx.
+Pros: Does not need special things in device
+Cons:
+a. Fairly intrusive in hypervisor vf driver.
+b. May not be ever used as guest is unlikely to fail on msix
 
-I guess that depends on the request; the device should probably not
-report an error to the driver if it can recover/retry itself. If we
-can't think of any request that actually require the driver to do the
-retry itself, we can ignore that for now.
+2. Since multiple VFs intx to be serviced, one command per VF in AQ is 
+too much overhead that device needs to map a request to,
 
->
->>
->>> +
->>> +All \field{reserved} fields are written as zero, and their value is
->>> +ignored.
->>> +
->>> +The set of clocks does not change after feature negotiation completion,
->>> +until device reset. The set of clocks should not change on device reset
->>> +either (similar to negotiated features). Clock identifiers are
->>> +zero-based, dense indices. All fields named \field{clock_id} contain
->>> +clock identifiers.
->>> +
->>> +\devicenormative{\subsubsection}{Device Operation}{Device Types / RTC Device / Device Operation}
->>> +
->>> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
->>> +\field{status} field to VIRTIO_RTC_S_OK if the device successfully
->>> +executed the request.
->>> +
->>> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
->>> +\field{status} field to VIRTIO_RTC_S_UNSUPP if the device could not
->>> +execute the specific request due to an implementation limitation.
->>> +
->>> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
->>> +\field{status} field to VIRTIO_RTC_S_UNSUPP for a request with a value
->>> +of the \field{message_type} field which is neither described in this
->>> +specification nor otherwise known to the implementation.
->>
->> Should any such implementation limitations be guarded via feature bits?
->> I.e. can we drop _UNSUPP if we require features to be negotiated (and
->> per-clock capabilites being clearly communicated)?
->>
->
-> All new message types should be guarded by feature bits, of course. By
-> mistake, I added the `nor otherwise known to the implementation` suffix
-> to the requirement above; I will remove it.
->
-> What would dropping _UNSUPP mean? I think there should still be an error
-> status in this case, regardless of whether the driver was compliant or
-> not.
->
-> But I think I should change the spec draft so that there will be no
-> _UNSUPP statuses if both driver and device are compliant (and if the
-> driver does not choose to ignore the actual device capabilities). For
-> this, only one change should be required: Add a VIRTIO_RTC_M_CROSS_CAP
-> message, through which the driver can determine whether the device
-> supports cross-timestamping for a particular pair of clock and HW
-> counter.
+A better way is to have an eventq of depth = num_vfs, like many other 
+virtio devices have it.
 
-That sounds good to me.
+An eventq can hold per VF interrupt entry including the isr value that 
+you suggest above.
 
->
-> (Also, the field name should read `msg_type`, not `message_type`.)
->
->>> +
->>> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
->>> +\field{status} field to VIRTIO_RTC_S_UNSUPP for a request with a value
->>> +of the \field{hw_counter} field which is neither described in this
->>> +specification nor otherwise known to the implementation.
->>> +
->>> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
->>> +\field{status} field to VIRTIO_RTC_S_NODEV if the \field{clock_id} field
->>> +value supplied with the message request does not identify a clock.
->>> +
->>> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
->>> +\field{status} field to VIRTIO_RTC_S_INVAL if the request values are not
->>> +allowed by the specification and none of the previous requirements in
->>> +this document stipulated another \field{status}.
->>
->> I think we can drop this (see above).
->>
->
-> Again, I would still consider a non-OK status helpful for error handling
-> and diagnostic purposes.
+Something like,
 
-Ok, I don't really object to that.
+union eventq_entry {
+	u8 raw_data[16];
+	struct intx_entry {
+		u8 event_opcode;
+		u8 group_type;
+		u8 reserved[6];
+		le64 group_identifier;
+		u8 isr_status;
+	};
+};
 
->
->>> +
->>> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
->>> +\field{status} field to VIRTIO_RTC_S_INVAL if the device read-only part
->>> +of the message is too small.
->>
->> (...)
->>
->>> +\item[VIRTIO_RTC_M_CLOCK_CAP] discovers the capabilities of the clock
->>> +identified by the \field{clock_id} field.
->>> +
->>> +\begin{lstlisting}
->>> +#define VIRTIO_RTC_M_CLOCK_CAP 0x1001 /* message type */
->>> +
->>> +struct virtio_rtc_req_clock_cap {
->>> +	struct virtio_rtc_req_head head;
->>> +	__u8 reserved[4];
->>> +	__le64 clock_id;
->>> +};
->>> +
->>> +struct virtio_rtc_resp_clock_cap {
->>> +	struct virtio_rtc_resp_head head;
->>> +	__le16 type;
->>> +	__u8 reserved[10];
->>> +};
->>> +\end{lstlisting}
->>> +
->>> +The \field{type} field identifies the clock type. A device provides
->>> +zero or more clocks for a clock type. The following clock types are
->>> +defined:
->>> +
->>> +\begin{lstlisting}
->>> +#define VIRTIO_RTC_CLOCK_UTC 0
->>> +#define VIRTIO_RTC_CLOCK_TAI 1
->>> +#define VIRTIO_RTC_CLOCK_MONO 2
->>> +\end{lstlisting}
->>> +
->>> +VIRTIO_RTC_CLOCK_UTC uses the UTC (Coordinated Universal Time) time
->>> +standard. The device uses the time epoch of January 1, 1970, 00:00
->>> +UTC. This is the same epoch as \emph{Unix time}.
->>> +
->>> +VIRTIO_RTC_CLOCK_TAI uses the TAI (International Atomic Time) time
->>> +standard. The device uses the time epoch of January 1, 1970, 00:00
->>> +TAI.
->>> +
->>> +VIRTIO_RTC_CLOCK_MONO uses monotonic physical time (SI seconds
->>> +subdivisions) since some unspecified epoch. The VIRTIO_RTC_CLOCK_MONO
->>> +epoch is before or during device reset.
->>> +
->>> +Additional clock types may be standardized in the future.
->>> +Implementation-specific clock type definitions are not recommended and
->>> +use a clock type id greater than or equal to 0xF000.
->>
->> Could this command return capabilities in addition to the type?
->> E.g. indicate whether a clock supports cross-timestamping?
->
-> Yes. But cross-timestamping will typically only be requested by the
-> driver, and supported by the device, for specific HW counters. So I
-> think this would be better indicated with a new VIRTIO_RTC_M_CROSS_CAP
-> message (as discussed in the previous to last reply).
->
-> An additional `capabilities` field may be added with the next iteration
-> of the spec, which should add more features.
+This eventq resides on the owner parent PF.
+isr_status is read on clear like today.
 
-Sounds good!
+May be such eventq can be useful in future for wider case.
+We may have to find a different name for it as other devices has device 
+specific eventq.
 
+I am inclined to differ this to a later point if one can identify the 
+real failure with msix for the guest VM.
+
+So far we don't see this ever happening.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
