@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5863-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5864-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8659C77B7F
-	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 06:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BC00C7EE22
+	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 07:05:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 10F372A881
-	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 06:22:21 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A9DBCF3EBD
+	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 07:05:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F110D9865E3
-	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 06:22:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1AA149867F3
+	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 07:05:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id DC752983E4E; Thu, 11 May 2023 06:22:20 +0000 (UTC)
+	id 518579865D0; Thu, 11 May 2023 07:05:29 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,227 +24,215 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C6DE89865CF
-	for <virtio-comment@lists.oasis-open.org>; Thu, 11 May 2023 06:22:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C57809865CF
+	for <virtio-comment@lists.oasis-open.org>; Thu, 11 May 2023 07:05:06 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: HQRU6oBCOC2dNJZ5O2vjfg-1
+X-MC-Unique: br_8GPBYNVKfNqAHWStHUw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683786137; x=1686378137;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qvTcGmIXxyDMPid1ZcXoYD8pt/u5oQbyrNypSr25UXE=;
-        b=l8gDiqXGWOocJq+1uLh7LxQYL6hzhzOMAxtt4dnvHxtO0FFsqzkpBWio53tp2+bv4T
-         jR1mEpMFaNlLMAY7R5o7vaLeROyqEAyRUlaC88O+yDY7fPyLeSRDNL2jNX7TUTFMLzzF
-         n1HnKbsvdoAeLZcFEg8wzfU8kOiXKNH+mgFM3j9C677xox7B1MMRbWu8kMsTH8E70YZa
-         8OZs6Qc5Q0gXDpntTgmVpQTmSqrgbKZddQYbeKKVhUAIXfsokZaSeabdOuC3hx4huumY
-         7R8+E/0UJ41X82o5QUFfzAx6TsCFEXB7bhBk3KO7v+CDFE7W0uSk1DZCP3euJEQk6uO7
-         P8WQ==
-X-Gm-Message-State: AC+VfDynyMB7OoMhvcTokABCXwOu1mCQNMPrMya0sW+5bM8av9dpXaV1
-	wRxSEZVPCm+gErUMRwqSgSs44ej8IdVHRC1ezEccJW+yS5UbIpdsIvZaC1j04bdj8X4/U3y4UvD
-	+vVCMt9iJIqF9Fp4YpxNWFir8uQDH6SVtcg==
-X-Received: by 2002:adf:fc4b:0:b0:2f3:e981:f183 with SMTP id e11-20020adffc4b000000b002f3e981f183mr15403009wrs.10.1683786137299;
-        Wed, 10 May 2023 23:22:17 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ6qmh41ZGTKFTsC5riTzOEJESXDPB78MU19ANw4XnVtFIbvKPv2CAC/dCod/v2KtlAYR+Qgsg==
-X-Received: by 2002:adf:fc4b:0:b0:2f3:e981:f183 with SMTP id e11-20020adffc4b000000b002f3e981f183mr15402997wrs.10.1683786136966;
-        Wed, 10 May 2023 23:22:16 -0700 (PDT)
-Date: Thu, 11 May 2023 02:22:12 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Heng Qi <hengqi@linux.alibaba.com>
-Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
-	Yuri Benditovich <yuri.benditovich@daynix.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Message-ID: <20230511021050-mutt-send-email-mst@kernel.org>
-References: <20230425165659-mutt-send-email-mst@kernel.org>
- <19e6d4e6-e3d8-7eca-4d54-d113b4cc5504@linux.alibaba.com>
- <20230426104538-mutt-send-email-mst@kernel.org>
- <5463159d-daa2-101b-6abf-ea7aa4f40bd0@linux.alibaba.com>
- <20230427130008-mutt-send-email-mst@kernel.org>
- <20230505135115.GA110622@h68b04307.sqa.eu95>
- <20230505105427-mutt-send-email-mst@kernel.org>
- <e3930c64-b7eb-a01e-39c9-0fe718756185@linux.alibaba.com>
- <20230509110941-mutt-send-email-mst@kernel.org>
- <13fe574e-19da-b842-76cc-4a729a86d676@linux.alibaba.com>
+        d=1e100.net; s=20221208; t=1683788692; x=1686380692;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jaDamBumYh0TGQgIx3NmVB+sIPTV+eNiFtd4Il2nPM0=;
+        b=FeDNHNh7Q67tVYrwO+AnsnoDFMz0DrVC4gOnnFqINGZ0VU1M9CdOGyAMaxBh+jdA8c
+         gm/vbxOgzbaohxfVxzFFCqTh7vSClnDmQW99ii9zRIrjyRndMciJ/GgHtV1S+Rjug4Vj
+         h5lBsp0kWx+6UIqH70/L0Q3dyA2V0iB9iD19dlb0Gum9Q5o9h6UaKXDrDh0srcQ4ff5p
+         p/HayIvs95EO7Hycfch//VChF91l0uu2zf8lHvul1Rghtlky6XUGNcjw8osA2xAgiUPA
+         Y1am2RUwh33zVLFlvYA0JWbVMopz1ScO96KxeQsxZWUczbvnrK2Lp5QI2Fm+eiyoF9Ya
+         KeeQ==
+X-Gm-Message-State: AC+VfDzHPqxHNJAnpP5TdW4ddZGutHqKOC9REH1OeDHXSP6X2SFmu3Sp
+	NedOYTy8ydAsuKJ/rjzDylEw+7TrPmtt4JzEnPd0qaD1fL+TMFvg/+07/VVE507a917FFhNDkwP
+	DdzRvgOYojGNs5TuI0ixH2bQEGBBVZjhafdFWF3mKYcNYL7o9wA==
+X-Received: by 2002:ac2:4adc:0:b0:4eb:40d4:e0d2 with SMTP id m28-20020ac24adc000000b004eb40d4e0d2mr2196455lfp.38.1683788692048;
+        Thu, 11 May 2023 00:04:52 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ7q1dP/0Lalc5IAacQljym+H4oGXop1tbHeoJf2IFXf5xFVAu4ILcJ2cmiuiR2JJ2wYJyzKbTg82uzsH/RFlI4=
+X-Received: by 2002:ac2:4adc:0:b0:4eb:40d4:e0d2 with SMTP id
+ m28-20020ac24adc000000b004eb40d4e0d2mr2196444lfp.38.1683788691683; Thu, 11
+ May 2023 00:04:51 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <13fe574e-19da-b842-76cc-4a729a86d676@linux.alibaba.com>
+References: <20230506000135.628899-1-parav@nvidia.com> <CACGkMEt_2B68a+BZ4-vfeDf_eYj5ZhxrDNd6dxuiF85qr0yN2g@mail.gmail.com>
+ <20230507093959-mutt-send-email-mst@kernel.org> <CACGkMEtfMbcu2OPsH6P2tA1aHh2FKygv=xkJ-e1XQzb62nE1vQ@mail.gmail.com>
+ <20230510014534-mutt-send-email-mst@kernel.org> <CACGkMEvTs9oMewgrQpYZu1v1wdUXtxsvjqB6CPRf+y4C8EN_KQ@mail.gmail.com>
+ <20230510033812-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230510033812-mutt-send-email-mst@kernel.org>
+From: Jason Wang <jasowang@redhat.com>
+Date: Thu, 11 May 2023 15:04:40 +0800
+Message-ID: <CACGkMEsp0i7EyyBBp06wJzrVBLNbH7MP_TT-j7b5c_yavgAmqw@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>, virtio-dev@lists.oasis-open.org, cohuck@redhat.com, 
+	david.edmondson@oracle.com, sburla@marvell.com, yishaih@nvidia.com, 
+	maorg@nvidia.com, virtio-comment@lists.oasis-open.org, shahafs@nvidia.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re:
- [virtio-dev] Re: [virtio-comment] [PATCH v13] virtio-net: support inner
- header hash
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
+ using AQ
 
-On Wed, May 10, 2023 at 05:15:37PM +0800, Heng Qi wrote:
-> 
-> 
-> 在 2023/5/9 下午11:15, Michael S. Tsirkin 写道:
-> > On Tue, May 09, 2023 at 10:22:19PM +0800, Heng Qi wrote:
-> > > 
-> > > 在 2023/5/5 下午10:56, Michael S. Tsirkin 写道:
-> > > > On Fri, May 05, 2023 at 09:51:15PM +0800, Heng Qi wrote:
-> > > > > On Thu, Apr 27, 2023 at 01:13:29PM -0400, Michael S. Tsirkin wrote:
-> > > > > > On Thu, Apr 27, 2023 at 10:28:29AM +0800, Heng Qi wrote:
-> > > > > > > 在 2023/4/26 下午10:48, Michael S. Tsirkin 写道:
-> > > > > > > > On Wed, Apr 26, 2023 at 10:14:30PM +0800, Heng Qi wrote:
-> > > > > > > > > This does not mean that every device needs to implement and support all of
-> > > > > > > > > these, they can choose to support some protocols they want.
-> > > > > > > > > 
-> > > > > > > > > I add these because we have scale application scenarios for modern protocols
-> > > > > > > > > VXLAN-GPE/GENEVE:
-> > > > > > > > > 
-> > > > > > > > > +\item In scenarios where the same flow passing through different tunnels is expected to be received in the same queue,
-> > > > > > > > > +      warm caches, lessing locking, etc. are optimized to obtain receiving performance.
-> > > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > Maybe the legacy GRE, VXLAN-GPE and GENEVE? But it has a little crossover.
-> > > > > > > > > 
-> > > > > > > > > Thanks.
-> > > > > > > > But VXLAN-GPE/GENEVE can use source port for entropy.
-> > > > > > > > 
-> > > > > > > > 	It is recommended that the UDP source port number
-> > > > > > > > 	 be calculated using a hash of fields from the inner packet
-> > > > > > > > 
-> > > > > > > > That is best because
-> > > > > > > > it allows end to end control and is protocol agnostic.
-> > > > > > > Yes. I agree with this, I don't think we have an argument on this point
-> > > > > > > right now.:)
-> > > > > > > 
-> > > > > > > For VXLAN-GPE/GENEVE or other modern tunneling protocols, we have to deal
-> > > > > > > with
-> > > > > > > scenarios where the same flow passes through different tunnels.
-> > > > > > > 
-> > > > > > > Having them hashed to the same rx queue, is hard to do via outer headers.
-> > > > > > > > All that is missing is symmetric Toepliz and all is well?
-> > > > > > > The scenarios above or in the commit log also require inner headers.
-> > > > > > Hmm I am not sure I get it 100%.
-> > > > > > Could you show an example with inner header hash in the port #,
-> > > > > > hash is symmetric, and you still have trouble?
-> > > > > > 
-> > > > > > 
-> > > > > > It kinds of sounds like not enough entropy is not the problem
-> > > > > > at this point.
-> > > > > Sorry for the late reply. :)
-> > > > > 
-> > > > > For modern tunneling protocols, yes.
-> > > > > 
-> > > > > > You now want to drop everything from the header
-> > > > > > except the UDP source port. Is that a fair summary?
-> > > > > > 
-> > > > > For example, for the same flow passing through different VXLAN tunnels,
-> > > > > packets in this flow have the same inner header and different outer
-> > > > > headers. Sometimes these packets of the flow need to be hashed to the
-> > > > > same rxq, then we can use the inner header as the hash input.
-> > > > > 
-> > > > > Thanks!
-> > > > So, they will have the same source port yes?
-> > > Yes. The outer source port can be calculated using the 5-tuple of the
-> > > original packet,
-> > > and the outer ports are the same but the outer IPs are different after
-> > > different directions of the same flow pass through different tunnels.
-> > > > Any way to use that
-> > > We use it in monitoring, firewall and other scenarios.
-> > > 
-> > > > so we don't depend on a specific protocol?
-> > > Yes, selected tunneling protocols can be used in this scenario like this.
-> > > 
-> > > Thanks.
-> > > 
-> > No, the question was - can we generalize this somehow then?
-> > For example, a flag to ignore source IP when hashing?
-> > Or maybe just for UDP packets?
-> 
-> 1. I think the common solution is based on the inner header, so that
-> GRE/IPIP tunnels can also enjoy inner symmetric hashing.
-> 
-> 2. The VXLAN spec does not show that the outer source port in both
-> directions of the same flow must be the same [1]
-> (although the outer source port is calculated based on the consistent hash
-> in the kernel. The consistent hash will sort the five-tuple before
-> calculating hashing),
-> but it is best not to assume that consistent hashing is used in all VXLAN
-> implementations.
+On Wed, May 10, 2023 at 3:43=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
+ wrote:
+>
+> On Wed, May 10, 2023 at 03:01:25PM +0800, Jason Wang wrote:
+> > On Wed, May 10, 2023 at 2:05=E2=80=AFPM Michael S. Tsirkin <mst@redhat.=
+com> wrote:
+> > >
+> > > On Mon, May 08, 2023 at 10:23:39AM +0800, Jason Wang wrote:
+> > > > > I thought so too originally. Unfortunately I now think that no, l=
+egacy is not
+> > > > > going to be a byproduct of transport virtqueue for modern -
+> > > > > it is different enough that it needs dedicated commands.
+> > > >
+> > > > If you mean the transport virtqueue, I think some dedicated command=
+s
+> > > > for legacy are needed. Then it would be a transport that supports
+> > > > transitional devices. It would be much better than having commands =
+for
+> > > > a partial transport like this patch did.
+> > >
+> > > OK I am beginning to get what you are saying.  So your criticism is
+> > > this: what if device supports vq transport for modern, and we want to
+> > > build a transitional device on top.  how will that look. yes?
+> >
+> > Yes. I think it needs to be done through the transport virtqueue
+> > otherwise the transport is not self-contained.
+>
+> I mean, any feature can be done over transport vq.
+>
+> But there is value in adding legacy commands to an otherwise
+> modern device without reworking it completely to
+> switch to a different transport.
 
-I agree, best not to assume if it's not in the spec.
-The requirement to hash two sides to same queue might
-not be necessary for everyone though, right?
+There's probably no need for a rework since legacy is not complicated.
+More below.
 
-> The GENEVE spec uses "SHOUlD"[2].
+>
+>
+> > > A reasonable thing to include at least in the commit log. Parav?
+> > >
+> > > You are also asking what if the device uses transport vq,
+> > > and we want transitional on top of that.
+> > > It's a fair question but I don't exactly get why would
+> > > this legacy support feature be wanted for the vq transport
+> > > and not for other transports.
+> >
+> > Not sure I get the question, but all the existing transport support
+> > legacy, if we want to have another, should the legacy support be a
+> > must or not?
+>
+> This specific proposal is for tunneling legacy over admin vq.
+> It can live alongside a normal modern VF, with hypervisor
+> combining these to create a transitional device.
 
-What about other tunnels? Could you summarize please?
-SHOULD means "if you ignore this
-things will work but not well".
-You mentioned concerns such as worse performance,
-this is fine with SHOULD. Is inner hashing important for
-correctness sometimes?
+Exactly, but what I meant here is
 
-> 3. How should we generalize? The device uses a feature to advertise all the
-> tunnel types it supports, and hashes these tunnel types using the outer
-> source port,
-> and then we still have to give the specific tunneling protocols supported by
-> the device, just like we do now.
+If we decide to use the admin vq, is there any good reason to tie it
+to PCI if we don't want to tunneling PCI over adminq?
 
-Is it problematic to do this for all UDP packets?
+Why not simply invent individual commands to access legacy facilities
+like commands to access like what transport virtqueue did for modern
+device?:
 
-> [1] "Source Port: It is recommended that the UDP source port number be
-> calculated using a hash of fields from the inner packet -- one example
-> being a hash of the inner Ethernet frame's headers. This is to enable a
-> level of entropy for the ECMP/load-balancing of the VM-to-VM traffic across
-> the VXLAN overlay. When calculating the UDP source port number in this
-> manner, it is RECOMMENDED that the value be in the dynamic/private
-> port range 49152-65535 [RFC6335] "
-> 
-> [2] "Source Port: A source port selected by the originating tunnel endpoint.
-> This source port SHOULD be the same for all packets belonging to a
-> single encapsulated flow to prevent reordering due to the use of different
-> paths. To encourage an even distribution of flows across multiple links,
-> the source port SHOULD be calculated using a hash of the encapsulated packet
-> headers using, for example, a traditional 5-tuple. Since the port
-> represents a flow identifier rather than a true UDP connection, the entire
-> 16-bit range MAY be used to maximize entropy. In addition to setting the
-> source port, for IPv6, the flow label MAY also be used for providing
-> entropy. For an example of using the IPv6 flow label for tunnel use cases,
-> see [RFC6438]."
-> 
-> Thanks.
-> 
-> > 
-> 
-> 
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
-> 
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
-> 
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
-> 
+1) device features
+2) driver features
+3) queue address
+4) queue size
+5) queue select
+6) queue notify
+7) device status
+8) ISR status
+9) config msix
+10) queue msix
+11) device configuration space
+
+It focuses on the facilities instead of transport specific details
+like registers (we don't even need legacy registers in this case), I
+gives more deterministic behavior so we don't need to care about the
+cross registers read/write.
+
+>
+> > >
+> > >
+> > >
+> > >
+> > > > > Consider simplest case, multibyte fields. Legacy needs multibyte =
+write,
+> > > > > modern does not even need multibyte read.
+> > > >
+> > > > I'm not sure I will get here,
+> > >
+> > > What does this mean?
+> >
+> > I meant I don't get what the issue if "modern does not even need
+> > multibyte read".
+>
+> parse error again. reword?
+
+I meant we need two sets of command for legacy and modern. We can
+choose not to expose multibyte reads for modern commands.
+
+>
+> > >
+> > > > since we can't expose admin vq to
+> > > > guests, it means we need some software mediation. So if we just
+> > > > implement what PCI allows us, then everything would be fine (even i=
+f
+> > > > some method is not used).
+> > > >
+> > > > Thanks
+> > >
+> > > To repeat discussion on one of the previous versions, no it will not =
+be
+> > > fine because legacy virtio abuses pci in fundamentally broken ways.
+> > > So yes you need a mediator on the host but even giving this
+> > > mediator a chance to be robust on top of hardware
+> > > means the hardware interface can not simply mirror legacy
+> > > to hardware.
+> > >
+> > > For example, host mediator needs to trap writes into mac,
+> > > buffer them and then send a 6 byte write.
+> > > Now, pci actually does allow 6 byte writes, but legacy
+> > > guests instead to 6 single byte writes for portability reasons.
+> >
+> > It's a known race condition, so PCI over adminq doesn't make it worse.
+>
+> it can however make it better - you can do a single 6 byte write command.
+>
+
+It would be tricky to detect when a legacy guest has finished writing
+to the mac.
+
+> > The mediator can just mirror what guests write over the admin
+> > commands.
+>
+> and this "just" just isn't good enough, or we end up with hacks
+> in hardware.
+
+Yes but this "issue" exists in this proposal as well.
+
+Thanks
+
+>
+> > Thanks
+> >
+> > > --
+> > > MSr
+> > >
+>
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
