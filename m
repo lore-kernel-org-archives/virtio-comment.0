@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5883-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5884-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10AEC77B7F
-	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 21:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84845C77B75
+	for <virtio-comment@archiver.kernel.org>; Fri, 12 May 2023 06:00:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 06EEF179149
-	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 21:03:19 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8A83741EE2
+	for <virtio-comment@archiver.kernel.org>; Fri, 12 May 2023 06:00:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E085B9866E3
-	for <virtio-comment@archiver.kernel.org>; Thu, 11 May 2023 21:03:18 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 655D49866E8
+	for <virtio-comment@archiver.kernel.org>; Fri, 12 May 2023 06:00:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id CC7639860A7; Thu, 11 May 2023 21:03:18 +0000 (UTC)
+	id 4B491986291; Fri, 12 May 2023 06:00:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,164 +24,293 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BA2A69866D7;
-	Thu, 11 May 2023 21:03:18 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 338469866D9;
+	Fri, 12 May 2023 06:00:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LEIqrTnTvKb4dQtfLqa5o+VyrTkNLvqxyuCkq3VGWvO60Z7a5Kw7jq8oTA77LuQKcyZfZMLhXByJ1V7M4xSK7Vn4n/2eLM5OyxWi5bisXmnpXTjzCH4iMMyoMUZRihcMrBcGfwZh8XT3ChzqwVPjs3AcfmRDGEV5iYCFEQxha/0vJ4MdeYJnUELAPOmrFQXVFCZck5KuZkDuDPqi1O6N2rpJl6ZQ/aIvH00HQ+FJs1qMwBZufwRdVLkIrG3tHY6JUR3CEuHuFHkWb9qzSszqy9H5WhWi89X6ytUOfvR57aw8En776Go/IEFgj48UQQhbP7BSILOR92b1T5ggx4ZoGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yXa7p4ef7wONA4MoggXkD+1kUP8qpRUPkByaI3vxGHY=;
- b=EKE9qiQQdnhkyNJr+iH5hk/ej0VEyVRyFUFQRxmZuu7Udq4o2A1Ic7+90Gj+EBWd3WgfnD78CromlP01pzBf0IHvOToIZRbOUI1ssNCbkQfsCziaJzrJ8fuCPKfQ4ctRyclVzw9PQHyKiZ2CTSJRJFFRME9bfBnLsDiYwL28Hqrcy/9vBEhEGw9Rsc7wYjOO50D1+rNxISXZtO/YaDSkGnpjIu523IcWn2jZXMIoJjaIZPNLnVzJvDIRZIA7HpZa6M0hcbrRN7LYCJ8ztBM/YazTJPuwFM65KEUFE/rbrzqTCOG0QYmF1V4+CIXRjOEm7sRC8LXF1/xnIMLJNN5pMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0ViNr3kF_1683871219;
+Date: Fri, 12 May 2023 14:00:19 +0800
+From: Heng Qi <hengqi@linux.alibaba.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Jason Wang <jasowang@redhat.com>, "virtio-dev@lists.oasis-open.org"
-	<virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>,
-	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
-	"sburla@marvell.com" <sburla@marvell.com>, Yishai Hadas <yishaih@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>
-Thread-Topic: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
- using AQ
-Thread-Index:
- AQHZf637tzEcVLD5bUyVf2EjaUYU3K9Mhl4AgAJOSwCAANQugIADYnEAgACpnQCAAAFGAIAAENkwgAA311CAALAXAIAAZyuQgAAGRoCAAHWGAIAABVgAgAABGsA=
-Date: Thu, 11 May 2023 21:03:16 +0000
-Message-ID:
- <PH0PR12MB548140424015DAEF13246042DC749@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <CACGkMEtfMbcu2OPsH6P2tA1aHh2FKygv=xkJ-e1XQzb62nE1vQ@mail.gmail.com>
- <20230510014534-mutt-send-email-mst@kernel.org>
- <43ec1c8d-7d11-2400-3649-1fe366b1e21b@nvidia.com>
- <20230510121417-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481F030A76141320F03956EDC779@PH0PR12MB5481.namprd12.prod.outlook.com>
- <PH0PR12MB5481CEB307F413E53B03D502DC779@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtm5AS50YmPi6A5=gzZZ9Jm55NEJ3GKOTzv-Z0m5E5J_w@mail.gmail.com>
- <PH0PR12MB5481DE0569EC53A862A4D2E9DC749@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230511093309-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548187706D06D135D3C4FF03DC749@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230511165529-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230511165529-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SJ2PR12MB9163:EE_
-x-ms-office365-filtering-correlation-id: 67a04aa8-0fc1-423d-e786-08db526323e7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- yqcVOV3RXCrr7pclKgu/llcbIraAjugNgTusPjGPtJX179Sn4racJifRKvqLHX0vKN2RhT40JFp9pqRMqSLyuQNumQFAJxm1qtj64V/sway2tc3+Au0gtIue1cN4Qa+YxggPuJxeeqefCA/0IKBVyxH9gdFGj/DyyzuPPOzJmnn/qGYk2JjZ/5DfSJqMUb2QDCU8QSZIUMKzr5n/Y5rUM7SU5Pb3puAlmU+owO84dKtziYZEcgG9+maRDeCL0umOKrhIWQPebaZYppLE72wFWfitsJXJXbFxlyqtNC08u8P+EOcp7tzzpq6HFHRKhe7XfptjzPETmo3kAsyUNUZVJTIllB5MgzZmiBkHTXKVZ/hY7VaTU5nM6Ic4Kc37gd2GMdXreyNVmViDuOoWyqs8vVnpUT1YvdTUoZWgiw4Yx4CY+ih2u731r9d8Ak8/0LUvaSzs+X1cnHoHzOAtJDUlLyA1UlJhiWIRSRnnM7YsaPlmQ2mXiHO3hQ8uvlfHRL51ZqmXaOXlPIMJu1AyE4fChMsVcczMvdHM8AUfXUyXQppaRD4BdbYPYXIU9RETjgChe5ru8lOarTqEizLLfylHHOuYlM1o0OYTCYBBBT59qGa6TW3yzqHB6xPPPzwXWnZZ+W4o0XM43n7/YSgdzpkqsU5AFgNx9mlT4aJy6E4/Lw1IszBPNbRDFuWc85o0yTe31SguolZgx8UL5yXhoRiaRg==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(346002)(396003)(376002)(39860400002)(451199021)(2906002)(26005)(38100700002)(55016003)(107886003)(9686003)(122000001)(6506007)(71200400001)(186003)(38070700005)(86362001)(5660300002)(8936002)(64756008)(66476007)(52536014)(478600001)(33656002)(966005)(54906003)(8676002)(4326008)(316002)(6916009)(7696005)(66556008)(66446008)(76116006)(66946007)(41300700001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?x3kRPr+Ce1rKhdKqT+PkrDyJkOl+CwAn6ZYlZD3XNXzBkRgIWvr69XPBk/6E?=
- =?us-ascii?Q?ZqfKBChdP8XPEcfHBnUSFl5CqBn4zkT7Xj+vgL/nwkRZwuFc6lkdYaWQUVg5?=
- =?us-ascii?Q?2PVI10GJYRkYuiulOWSzc7nRAcfBtxiJjJwIWFhsp9IfwGK86LRWk8m95LPf?=
- =?us-ascii?Q?G4soTa3SVV0QOFjSp6+HsfHRLfn0waii3dImoZ+9Bxtpn0yLW9dUoapgw/M9?=
- =?us-ascii?Q?MrgTkyMegtjOv/uPTllDI+NHd21lzchJqPe6UVD6jX/Dkxh1OjWomH+8nmEk?=
- =?us-ascii?Q?epWByyjjJrXO3ZH3iYg3s7DUBEvRWoJUBLJSMop4pCauYRMtoUePuQ5CJF3I?=
- =?us-ascii?Q?Ij1fiFXLoxlXh8UPrPtIRubPD5pExPDCtAgApFNxpM9ehPyy5qKPnxgt8FkS?=
- =?us-ascii?Q?giOYGRN9xmSQDVHzN/gUlbs2qsMSxtn8YRTVFyxwXq84jx0RrhdWtW73lDTG?=
- =?us-ascii?Q?++waeDc52TcbHmSZ7mg2ujUiPIGXA1S0BHsSaTbeJjTgQ6ZEw6qgHvsRzujA?=
- =?us-ascii?Q?AnU9hoyc0YO7gbu8BEZ6nLJXR4HiecDkyXUk+9Ts+yRjr0CqBkMBEsXTOh0P?=
- =?us-ascii?Q?7G5cpr9ILG58fLWPYSegmgrdEjfrZpMdfu1MB6r9C2yMIIG7aBPvz7kj0+4v?=
- =?us-ascii?Q?8jNDPZH0BGcfYXrJRlOGzpTownywZ+6Qe2/gtXl2CSzMnQZIyUH6X0aBX+tq?=
- =?us-ascii?Q?vz6EzecCoiBwOa0VyvHmfXcAruzduKQP/LWOCLs5ecO1CmY3uU6dYcwSZVMA?=
- =?us-ascii?Q?EEg50kOijuOtIHolmfcQih9xhucokbrnyAfYwqxSlbIQOHjBSVdBfdSJwC5j?=
- =?us-ascii?Q?pRLHetTN0EgpFWBvpIvyU9LHH7LbzvBrvnSOF3BckvtzI3YOPXQpqnkfesXV?=
- =?us-ascii?Q?bt7CcdgJGQBGokt9pjmta7S+8EnbNAPIB6K08lAE6JlJgD26DR1Kb2q3Q9/q?=
- =?us-ascii?Q?RPvxR/PS2reILdiVC5xmPW17Gjg1EudXK1PxLBuJjTvhE0ixQRMZQkOVsDJH?=
- =?us-ascii?Q?Nnt8pziF4F/y7bXQgrbwrOomFJcXdvnf3u6cxIqWzoZb6H1BrGQBYElPdF6U?=
- =?us-ascii?Q?/JUalI/w9fpo7zXIF8Gcb0ZIJb7aDS84sgaEpt4U6D4GOIkFNViACK+PvRxq?=
- =?us-ascii?Q?nGtJo0NC/oDjRalKTgTUgjGJlFpNOuEeNfoXrdausH81R0VEkCa3Lp/M4Ap1?=
- =?us-ascii?Q?PkRhB9nt1Ay2eHu3M4U0OGAWaNanoVyt9sKxuziSKDJ1rlz8jiW7QBVC/DAq?=
- =?us-ascii?Q?KkY5Rq4kJYwhiVl7Ce1fJm+JoskEWn2jIASvwHqBth0e277q3WZtRtdgo797?=
- =?us-ascii?Q?XT41xP86khAGqkcm9dU82be4ZAWK91CTWYoLo0qMtJaNi6QYmcz32/qPm6fH?=
- =?us-ascii?Q?tt+w732eIZdWnpV3H7q4LQ7mmB4PHyS2cDIa+fF4BIHDnqwbxhfzQx0xYd+a?=
- =?us-ascii?Q?lKbY8/l9VlqL7jMXVVOmfsxABG6w9feTVsR5JrQYt1j132NXK3emec8W8bQi?=
- =?us-ascii?Q?Xl1m+quq466sxs9CPvhx5UlWuBVOMJPG3N7FGK02HplqjqmD9VS8Wztk2H0i?=
- =?us-ascii?Q?cSvcuwmw/Dhre2H7tXM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
+	Yuri Benditovich <yuri.benditovich@daynix.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Message-ID: <20230512060019.GA106739@h68b04307.sqa.eu95>
+References: <19e6d4e6-e3d8-7eca-4d54-d113b4cc5504@linux.alibaba.com>
+ <20230426104538-mutt-send-email-mst@kernel.org>
+ <5463159d-daa2-101b-6abf-ea7aa4f40bd0@linux.alibaba.com>
+ <20230427130008-mutt-send-email-mst@kernel.org>
+ <20230505135115.GA110622@h68b04307.sqa.eu95>
+ <20230505105427-mutt-send-email-mst@kernel.org>
+ <e3930c64-b7eb-a01e-39c9-0fe718756185@linux.alibaba.com>
+ <20230509110941-mutt-send-email-mst@kernel.org>
+ <13fe574e-19da-b842-76cc-4a729a86d676@linux.alibaba.com>
+ <20230511021050-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67a04aa8-0fc1-423d-e786-08db526323e7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2023 21:03:16.0640
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tGzBfFwyanW/nsVwi+JLl0nf30k8/tKDfToAx6b6mnbsldJ/qPGYtbmajQw7o4Yexxao5qaQxqT/qosM4VYE9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9163
-Subject: [virtio-comment] RE: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
- using AQ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230511021050-mutt-send-email-mst@kernel.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re:
+ [virtio-dev] Re: [virtio-comment] [PATCH v13] virtio-net: support inner
+ header hash
 
+On Thu, May 11, 2023 at 02:22:12AM -0400, Michael S. Tsirkin wrote:
+> On Wed, May 10, 2023 at 05:15:37PM +0800, Heng Qi wrote:
+> > 
+> > 
+> > 在 2023/5/9 下午11:15, Michael S. Tsirkin 写道:
+> > > On Tue, May 09, 2023 at 10:22:19PM +0800, Heng Qi wrote:
+> > > > 
+> > > > 在 2023/5/5 下午10:56, Michael S. Tsirkin 写道:
+> > > > > On Fri, May 05, 2023 at 09:51:15PM +0800, Heng Qi wrote:
+> > > > > > On Thu, Apr 27, 2023 at 01:13:29PM -0400, Michael S. Tsirkin wrote:
+> > > > > > > On Thu, Apr 27, 2023 at 10:28:29AM +0800, Heng Qi wrote:
+> > > > > > > > 在 2023/4/26 下午10:48, Michael S. Tsirkin 写道:
+> > > > > > > > > On Wed, Apr 26, 2023 at 10:14:30PM +0800, Heng Qi wrote:
+> > > > > > > > > > This does not mean that every device needs to implement and support all of
+> > > > > > > > > > these, they can choose to support some protocols they want.
+> > > > > > > > > > 
+> > > > > > > > > > I add these because we have scale application scenarios for modern protocols
+> > > > > > > > > > VXLAN-GPE/GENEVE:
+> > > > > > > > > > 
+> > > > > > > > > > +\item In scenarios where the same flow passing through different tunnels is expected to be received in the same queue,
+> > > > > > > > > > +      warm caches, lessing locking, etc. are optimized to obtain receiving performance.
+> > > > > > > > > > 
+> > > > > > > > > > 
+> > > > > > > > > > Maybe the legacy GRE, VXLAN-GPE and GENEVE? But it has a little crossover.
+> > > > > > > > > > 
+> > > > > > > > > > Thanks.
+> > > > > > > > > But VXLAN-GPE/GENEVE can use source port for entropy.
+> > > > > > > > > 
+> > > > > > > > > 	It is recommended that the UDP source port number
+> > > > > > > > > 	 be calculated using a hash of fields from the inner packet
+> > > > > > > > > 
+> > > > > > > > > That is best because
+> > > > > > > > > it allows end to end control and is protocol agnostic.
+> > > > > > > > Yes. I agree with this, I don't think we have an argument on this point
+> > > > > > > > right now.:)
+> > > > > > > > 
+> > > > > > > > For VXLAN-GPE/GENEVE or other modern tunneling protocols, we have to deal
+> > > > > > > > with
+> > > > > > > > scenarios where the same flow passes through different tunnels.
+> > > > > > > > 
+> > > > > > > > Having them hashed to the same rx queue, is hard to do via outer headers.
+> > > > > > > > > All that is missing is symmetric Toepliz and all is well?
+> > > > > > > > The scenarios above or in the commit log also require inner headers.
+> > > > > > > Hmm I am not sure I get it 100%.
+> > > > > > > Could you show an example with inner header hash in the port #,
+> > > > > > > hash is symmetric, and you still have trouble?
+> > > > > > > 
+> > > > > > > 
+> > > > > > > It kinds of sounds like not enough entropy is not the problem
+> > > > > > > at this point.
+> > > > > > Sorry for the late reply. :)
+> > > > > > 
+> > > > > > For modern tunneling protocols, yes.
+> > > > > > 
+> > > > > > > You now want to drop everything from the header
+> > > > > > > except the UDP source port. Is that a fair summary?
+> > > > > > > 
+> > > > > > For example, for the same flow passing through different VXLAN tunnels,
+> > > > > > packets in this flow have the same inner header and different outer
+> > > > > > headers. Sometimes these packets of the flow need to be hashed to the
+> > > > > > same rxq, then we can use the inner header as the hash input.
+> > > > > > 
+> > > > > > Thanks!
+> > > > > So, they will have the same source port yes?
+> > > > Yes. The outer source port can be calculated using the 5-tuple of the
+> > > > original packet,
+> > > > and the outer ports are the same but the outer IPs are different after
+> > > > different directions of the same flow pass through different tunnels.
+> > > > > Any way to use that
+> > > > We use it in monitoring, firewall and other scenarios.
+> > > > 
+> > > > > so we don't depend on a specific protocol?
+> > > > Yes, selected tunneling protocols can be used in this scenario like this.
+> > > > 
+> > > > Thanks.
+> > > > 
+> > > No, the question was - can we generalize this somehow then?
+> > > For example, a flag to ignore source IP when hashing?
+> > > Or maybe just for UDP packets?
+> > 
+> > 1. I think the common solution is based on the inner header, so that
+> > GRE/IPIP tunnels can also enjoy inner symmetric hashing.
+> > 
+> > 2. The VXLAN spec does not show that the outer source port in both
+> > directions of the same flow must be the same [1]
+> > (although the outer source port is calculated based on the consistent hash
+> > in the kernel. The consistent hash will sort the five-tuple before
+> > calculating hashing),
+> > but it is best not to assume that consistent hashing is used in all VXLAN
+> > implementations.
+> 
+> I agree, best not to assume if it's not in the spec.
+> The requirement to hash two sides to same queue might
+> not be necessary for everyone though, right?
 
+The outer source port is also not reliable when it needs to be hashed to
+the same queue, but the inner header identifies a flow reliably and
+universally.
 
-> From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Thursday, May 11, 2023 4:58 PM
->=20
-> On Thu, May 11, 2023 at 08:47:04PM +0000, Parav Pandit wrote:
-> > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > Sent: Thursday, May 11, 2023 9:39 AM
-> > >
-> > > On Thu, May 11, 2023 at 01:28:40PM +0000, Parav Pandit wrote:
-> > > > This is not the objective to transport all PCI virtio fields over A=
-Q.
-> > > > Transport VQ commands proposal commands and commands in this
-> > > > proposal
-> > > are just fine the way there without quoting it as "transport".
-> > >
-> > > I mean, it's a transport in a sense of where it will reside in e.g.
-> > > linux virtio stack - below virtio core.
-> > > We don't save much code there by reusing the same register layout of
-> > > legacy pci.
-> > > But let's at least make this feature complete, and then we'll see
-> > > whether it is cleaner to reuse legacy layout or build a new one.
-> >
-> > I don't follow your comment about "this feature complete".
-> > When you say _this_, it means the feature proposed in this patch of
-> supporting legacy over PCI VFs?
-> >
-> > If so, anything missing in this proposal?
->=20
-> I think I commented at least on what I see as missing is first of all a n=
-eed to
-> support INT#x emulation since level interrupts are I think not supported =
-for VFs.
-> right?
+> 
+> > The GENEVE spec uses "SHOUlD"[2].
+> 
+> What about other tunnels? Could you summarize please?
 
-I don't see it mandatory as I responded in [1].
-I didn't see your response on [1].
+Sure.
 
-[1] https://lore.kernel.org/virtio-comment/71d65eb3-c025-9287-0157-81e1d055=
-74d1@nvidia.com/
+The VXLAN spec[1] does not show that the outer source port in both
+directions of the same flow must be the same.
 
+VXLAN-GPE[2]("SHOULD")/GENEVE[3]("SHOULD")/GRE-in-UDP[4.1]/STT[5]
+recommend that the outer source port of the same flow be calculated
+based on the inner header hash and set to the same.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+But the udp source port of GRE-in-UDP may be used in a scenario similar
+to NAPT [4.2], where the udp source port is no longer used for entropy,
+but for identifying different internal hosts. So using udp source port
+does not identify the same stream. This is why using the inner header is
+more general, since information about the original stream can reliably
+identify a flow.
+
+[1] "Source Port: It is recommended that the UDP source port number be
+calculated using a hash of fields from the inner packet -- one example
+being a hash of the inner Ethernet frame's headers. This is to enable a
+level of entropy for the ECMP/load-balancing of the VM-to-VM traffic
+across the VXLAN overlay. When calculating the UDP source port number in
+this manner, it is RECOMMENDED that the value be in the dynamic/private
+port range 49152-65535 [RFC6335]"
+
+[2] "Source UDP Port: The source UDP port is used as entropy for devices
+forwarding encapsulated packets across the underlay (ECMP for IP routers,
+or load splitting for link aggregation by bridges). Tenant traffic flows
+should all use the same source UDP port to lower the chances of packet
+reordering by the underlay for a given flow. It is recommended for VTEPs
+to generate this port number using a hash of the inner packet headers.
+Implementations MAY use the entire 16 bit source UDP port for entropy."
+
+[3] "Source Port: A source port selected by the originating tunnel
+endpoint. This source port SHOULD be the same for all packets belonging
+to a single encapsulated flow to prevent reordering due to the use of
+different paths. To encourage an even distribution of flows across
+multiple links, the source port SHOULD be calculated using a hash of the
+encapsulated packet headers using, for example, a traditional 5-tuple.
+Since the port represents a flow identifier rather than a true UDP
+connection, the entire 16-bit range MAY be used to maximize entropy."
+
+[4.1] "GRE-in-UDP permits the UDP source port value to be used to encode
+an entropy value. The UDP source port contains a 16-bit entropy value
+that is generated by the encapsulator to identify a flow for the
+encapsulated packet. The port value SHOULD be within the ephemeral port
+range, i.e., 49152 to 65535, where the high-order two bits of the port
+are set to one. This provides fourteen bits of entropy for the inner
+flow identifier. In the case that an encapsulator is unable to derive
+flow entropy from the payload header or the entropy usage has to be
+disabled to meet operational requirements (see Section 7), to avoid
+reordering with a packet flow, the encapsulator SHOULD use the same UDP
+source port value for all packets assigned to a flow, e.g., the result
+of an algorithm that performs a hash of the tunnel ingress and egress IP
+address."
+
+[4.2] "use of the UDP source port for entropy may impact middleboxes'
+behavior. If a GRE-in-UDP tunnel is expected to be used on a path
+with a middlebox, the tunnel can be configured either to disable use
+of the UDP source port for entropy or to enable middleboxes to pass
+packets with UDP source port entropy."
+
+[5] "STT achieves the first goal by ensuring that the source and
+destination ports and addresses in the outer header are all the same for
+a single flow.  The second goal is achieved by generating the source
+port using a random hash of fields in the headers of the inner packets,
+e.g. the ports and addresses of the virtual flow's packets."
+
+> SHOULD means "if you ignore this
+> things will work but not well".
+> You mentioned concerns such as worse performance,
+> this is fine with SHOULD.
+
+That's it.
+
+> Is inner hashing important for
+> correctness sometimes?
+
+I'm sorry I didn't understand this, can you explain it in more detail?
+
+> 
+> > 3. How should we generalize? The device uses a feature to advertise all the
+> > tunnel types it supports, and hashes these tunnel types using the outer
+> > source port,
+> > and then we still have to give the specific tunneling protocols supported by
+> > the device, just like we do now.
+> 
+> Is it problematic to do this for all UDP packets?
+
+I think there will be problems. While devices support configuring this,
+drivers sometimes don't want devices to do special handling for certain
+tunneling protocols.
+
+Thanks.
+
+> 
+> > [1] "Source Port: It is recommended that the UDP source port number be
+> > calculated using a hash of fields from the inner packet -- one example
+> > being a hash of the inner Ethernet frame's headers. This is to enable a
+> > level of entropy for the ECMP/load-balancing of the VM-to-VM traffic across
+> > the VXLAN overlay. When calculating the UDP source port number in this
+> > manner, it is RECOMMENDED that the value be in the dynamic/private
+> > port range 49152-65535 [RFC6335] "
+> > 
+> > [2] "Source Port: A source port selected by the originating tunnel endpoint.
+> > This source port SHOULD be the same for all packets belonging to a
+> > single encapsulated flow to prevent reordering due to the use of different
+> > paths. To encourage an even distribution of flows across multiple links,
+> > the source port SHOULD be calculated using a hash of the encapsulated packet
+> > headers using, for example, a traditional 5-tuple. Since the port
+> > represents a flow identifier rather than a true UDP connection, the entire
+> > 16-bit range MAY be used to maximize entropy. In addition to setting the
+> > source port, for IPv6, the flow label MAY also be used for providing
+> > entropy. For an example of using the IPv6 flow label for tunnel use cases,
+> > see [RFC6438]."
+> > 
+> > Thanks.
+> > 
+> > > 
+> > 
+> > 
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> > 
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> > 
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
+> > 
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
