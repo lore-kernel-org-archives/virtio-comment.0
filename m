@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5907-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5908-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D87EBC77B7D
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5759C77B75
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:32:02 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A6B4E3DF46
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:31:45 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 232AA4434B
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:32:02 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4BCC69865BA
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:31:45 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 171E0986514
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:32:02 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 42F7598650E; Mon, 15 May 2023 15:31:45 +0000 (UTC)
+	id 0F4879864EE; Mon, 15 May 2023 15:32:02 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,138 +24,237 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 307BD986509;
-	Mon, 15 May 2023 15:31:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F05DA986509
+	for <virtio-comment@lists.oasis-open.org>; Mon, 15 May 2023 15:32:01 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fmCB1hPFAGqyZ3hR19i46f2cXon68nmJIzIKodRnYPqnofQyW5XZHYuvIB1iJsVf4NO7KQcoH8Q2DqE5xOf+xYZnyRpM3yqZ2TmbdTcT2BCbiiBhuDuHNnSmWp3gqvF90EZ57BeERJqz2l2/0oPmQVGqMZ4YEnZJFaIH9BFv3kdt44IcRSeaWd+phCQUVR5nPHeRxF3ziMG3tcwwXsxnz0f3TLmV0S4i7gGqSNJIomRnJp1aDHzjiLYiPNBozz6/P5cFoZIli8tUkC7CB07lMZTyyaWLVNK6aJL3XRnaluCIk1FU/CRk/FB/XrynYS+4eXAUeC1BIkk5TUBvZMlZ3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h/lj5kHkXeMd4m4lQy9eGhX3p5AfVHKyp8Q4rET4G74=;
- b=HeBPSdhBPkJYtQGxoHLssCht0fK3HGxHxqBhWvVX0aS0U91PwuoihrxGfBIzfBbtkDuRYTDw83I4Y/zceUq9GOGQBL2uOJfwiv2dHLRCH6RPZTNfTbJiQl78oTbDcQ7nXMWtdjBOA3DE2Es42ifOd+YKI82z3EW9AjE5xM4K3BWYEFZhZQwNkIlBHe/RSNGnmgz6+8TpDj6oTi408axe6yIJOatcpQg6qle/wQdmKhLSqaib/6QlCUKx4bGJAGNsSxo6ey05mNtXUjiL+Eg6oY2VJK0vy76Lb3QQP8ddDW09zjn7XD3BzqZLI0mUvXu78mQrqQUnWLlBcoc07nE2NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
-CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>, "david.edmondson@oracle.com"
-	<david.edmondson@oracle.com>, "sburla@marvell.com" <sburla@marvell.com>,
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Thread-Topic: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
- using AQ
-Thread-Index:
- AQHZf637tzEcVLD5bUyVf2EjaUYU3K9Mhl4AgAJOSwCAANQugIADYnEAgACpnQCAAAFGAIAAENkwgAA311CAALAXAIAAZAWAgAXHc4CAAKnusA==
-Date: Mon, 15 May 2023 15:31:41 +0000
-Message-ID:
- <PH0PR12MB54815939DA349753648921ABDC789@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230506000135.628899-1-parav@nvidia.com>
- <CACGkMEt_2B68a+BZ4-vfeDf_eYj5ZhxrDNd6dxuiF85qr0yN2g@mail.gmail.com>
- <20230507093959-mutt-send-email-mst@kernel.org>
- <CACGkMEtfMbcu2OPsH6P2tA1aHh2FKygv=xkJ-e1XQzb62nE1vQ@mail.gmail.com>
- <20230510014534-mutt-send-email-mst@kernel.org>
- <43ec1c8d-7d11-2400-3649-1fe366b1e21b@nvidia.com>
- <20230510121417-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481F030A76141320F03956EDC779@PH0PR12MB5481.namprd12.prod.outlook.com>
- <PH0PR12MB5481CEB307F413E53B03D502DC779@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtm5AS50YmPi6A5=gzZZ9Jm55NEJ3GKOTzv-Z0m5E5J_w@mail.gmail.com>
- <20230511085519-mutt-send-email-mst@kernel.org>
- <eb69906c-818b-a1ee-3317-262e159785e0@redhat.com>
-In-Reply-To: <eb69906c-818b-a1ee-3317-262e159785e0@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS7PR12MB5744:EE_
-x-ms-office365-filtering-correlation-id: 20652097-c595-45ec-6fe0-08db55597b3b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 5Ahe9kNP1+393lmVEyugyk6joTRIETJCv84B/zp0Jl0vGzCYz8N6+EN7gcIUzMojuw44lrjtZt4bCt4ksRCOG9Q6uKNH9PG35tiRo2HbleFxpaItJW2haZB/+OtxBn5cbD7e95RPwOjJP4k8rGQIMK8njFpLjKlzlljE+AFZOc9/p+CIZCdbARe8KxU64TYk6d1fwHfoHCoYlfJ91Y0JLoZj6in6vYq/QqSY2vMg+yWFLjLgmU2ItbIbi2xaL3HOvbG7/oGa4pR1F+u0yXJrKK1facZTbUXY5E/NUdXDLbU69l3XLJObVoaqDS+X8keZS6ut1VC0DnvElufX0/ZIo4paJCcgs5n3I1RswNyd807tvbefJqcnnKwDICsT8mGwU3sf6jNyxCJtfl9j+Fsz3buZLoPfRwpbI+Te9s3IxAy0GasjObAw0sbi+KjV9DT71MCFgeEaqV5CimzBX9DhURyt+2rit+wLKUq7TBTE/AusxwH24Zm+rTMFd/zCazUWxlOlN9xb6DOQNCPLiM7jR6hV7Co43KfOhKYsBaZYCaZRU8sPFNmemE67nwT2hty0zakv/IfPsoAl3A3Uz+0y0+y3oaoh5022heBaC9yJ/1Q7UH/4o2bzBppiZLcjGIU6
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(346002)(396003)(39860400002)(366004)(451199021)(83380400001)(7696005)(71200400001)(478600001)(54906003)(110136005)(9686003)(6506007)(186003)(107886003)(33656002)(2906002)(4326008)(38100700002)(64756008)(122000001)(38070700005)(76116006)(66476007)(66446008)(66556008)(41300700001)(66946007)(8936002)(8676002)(52536014)(5660300002)(55016003)(86362001)(316002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Qkx3OU45RkNiNWlMRko3dGZLMmlDbjN1RHBsa2t2RysyRVA1ZVkyVmZFR25U?=
- =?utf-8?B?ODJLaWRkb2dlUUJwSjl5dkRXQmNqc3Zha0s1Q3VkWFpacExMWUprUFU4eVo4?=
- =?utf-8?B?blNTWC9laGwwby81OVY1ZjlydzArODRsZ1l4amVhWTRJN1BKMU54Y096ZjNr?=
- =?utf-8?B?MUhBTm4zNWVZczY3Qm9IN0t3SEl4TlU0U1N5UUhvWGthOU1EOG1VcEVYWHZZ?=
- =?utf-8?B?RVBmODNJUFhzeXR4T21OdUl3MVJwSVZwekJTSEo4Zmsxd3Uya0RuVk00YlVh?=
- =?utf-8?B?UHF2NzRaeDVBRTlQMElQM2NuWTVKZ01VWFArei9LL3pTM3JuZEJjbGZrVlQy?=
- =?utf-8?B?TEZyQUxQTEh0b3lERjNYMnhQM2RUalVNMjBGWWhoNmY5TngyUlFjdTBiVnpk?=
- =?utf-8?B?UVF2NVg4K2dMN1c5RmZvclpyUFVXM0pHQkE5UkVqa09aWWNVdEszSzNXclFu?=
- =?utf-8?B?WVBsenlWMkZ1cWFLQWNsVkRlMjhvVHlnTkhEckFENGtYWHhYUEhMck9mdEpm?=
- =?utf-8?B?NzhrY0JISlpqVWhMcWNaOVV4QU9sejdZdjc2VmxxTjNuOFUrSHpaWDVxcWYz?=
- =?utf-8?B?QzRJdFhDVjdxZC9GTUFoem1Vc1hLeFRvNk1XY3pBeGsvd3lWQjBTTlNrUkxY?=
- =?utf-8?B?eUxMbkllcnAxQTRpakpsVFVsQlJ3RndXMW92T0J4Um80Q2h4Yy9ra2kxdnJu?=
- =?utf-8?B?L2crQjh2c0szaExDeTNpUEs4Q0ZLWUI4bnR1dDNIZ0NBNGJFYmxNVHRrelFX?=
- =?utf-8?B?aTBSQ3E3ZHlXMEllaE1PMTdmQmd3dUtocmloY2lBSzluUW9YRVJuZ3dKQWw3?=
- =?utf-8?B?RExsMnMzVUQ4Z3Fia24yYXhNSVg4ald5eTZ4VVpGKzhsdmozYjc3NGR5d3ox?=
- =?utf-8?B?NEtPa24zT000M2JZQWErTUZEWHpaazMzL1RRMmdBcGQrSmVmSU9qaktSb3lN?=
- =?utf-8?B?OGZMVmc3cTRiOU0rek1qcnNlNjQ2S2tnTDRMNFF3VDIzdlFDT1BwQzBQbVJm?=
- =?utf-8?B?Vll3dGpKSkdKMjdZa2ZBTHJ3aXo3R2xxOXUzUU0xZnNLdFp2N2M1am4vMjgy?=
- =?utf-8?B?UGRwaDNuVTJYcjRWREl3Rk50UC9FdzMra28zUHYzR1JvODBXejBNN3lwSXdB?=
- =?utf-8?B?WG4vdHErREVPVXlDck9vb0RLZGJUdDRmZUdkRjJ5VFFCUVIrNGRNeDg4V1Ev?=
- =?utf-8?B?T3k2QjFVQ2dpRHhEeG5ReVh4d0ZFR042OTVTR20wNElsclo4K1hlZ0xMbGgw?=
- =?utf-8?B?NUs5YThvRFpNZ1NnTGRJYjhqeXVJbk42aUFpZVpoaytXdWQwQnZBOVdZbVhQ?=
- =?utf-8?B?L1UwSmJBNzZBWWNsWTFHQzZBYzA3MlpHUzV4WEFkVld1ZU9oV1BxMEhVZUUx?=
- =?utf-8?B?aXhiQkFnRFRlR1FJcE5WMTh2SFU4bEMwYnMvYnl5RnY2SmZmbExoRWtwMDdm?=
- =?utf-8?B?VVZYZWxVQ0xEUHFkdlF1aW9YZElXRkpTbzVhNW5idDlaOFdzeks4MG9zZyts?=
- =?utf-8?B?RmtXQWJxQnJCN09TZVR0Y0xXcDVNS0ova0J2dXR3TnAzNS94ZEl5ZGlRSkVJ?=
- =?utf-8?B?WFdsUzBDZGtGL1R1YWo1b0UzK0lEaGZNMDJFWWQ2M2t6RnROdjh5ZHp6bUFF?=
- =?utf-8?B?MGRKRDM3NDJhV0s3NGhDV1NmUVZpc1loOTdCWXJjRDhpaW1Kb0tTNTFPWUFz?=
- =?utf-8?B?Uk5JRllYeFVKbjhBZlBYRysyamFZZ2RvRnZkNTNZMWt3NjF2ZUJMcWYxdDc1?=
- =?utf-8?B?ajVKQ2kzK2IxMXRLMHBkc2ltblNrZVJzZ2pYNDNrNi9EeDh1VzFQZW5qczJz?=
- =?utf-8?B?NGFyaHpTK2xBU0hxdVV0WTNNYnMvQlpkSUhXUWJBcjVUM01aVW9OeGtJVExj?=
- =?utf-8?B?V0g3cWRhUmRDeXNoc2lXTVMxcU1NaXhzR0R0TS9jS2hkT25qWllLejV3amxN?=
- =?utf-8?B?cklEcnZ0SVc0MlppQ3JEUTR0Tk1YR20reGNhcjZyZFFaSlBiVVBoNFAwalZT?=
- =?utf-8?B?MjRKR3lGR242d0cwYnZUWkhLVk5UTUQyT2Q1QzB6SmJsd0ZYUldWaUVWdkFG?=
- =?utf-8?B?TGJEWk95YUpWNUJQTkhic1BNR014MlRiMHdIY3g4dU1WZndkaFkvcmFTK3pV?=
- =?utf-8?B?MkJlRDV5UTQ1UHRoTm5HSGY5VGUxeVVyYnBIK0hNaExFYWo4ZFBIc28xYUJD?=
- =?utf-8?Q?yErbBPdOQpSsnHO0hTlK2Nw=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684164720; x=1686756720;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vbVJtc1UP1N9B9tXaK4L/CPneyuJyGGZkIZe6Jl4Iq4=;
+        b=B1La3RNdZYhfiTP08ikGuh7B4JBBh0Ng/GMW9mV1aEQ7pC681nuWM8MTAH14MTboM9
+         Q3jPpbMyS1l34GFsRBvjGW+uJG6FwTmp9MSNwdNCq65+TDTpCRuHTjsSnegiKXI5tq9M
+         3I+pHmenGtRXkItNd6tnxGFb7+TbW6Snd/+HPrAusFz5xYh0MVccg+PWNotk2rSrF/Mi
+         Hgqmv4Ob1wlKYSAJoQPaDk85D1hq02K73TvaQlPwtG8ko6ufj9wVKnd73cGYeV7xgEUK
+         RogrJMMvqwo3dqgd8+mOJApvCUDWtdyuhz1ClpRo07oWH5/Ow0bv41+aMwAe8aUKZ9Tj
+         1znQ==
+X-Gm-Message-State: AC+VfDxhkz+56X3gKhjO4VJiIno3ueChz9Qc2e/o7KxRY42ysHQKHJT4
+	LUfUY/S6PJOoWvg8zRsTFafJjPsqYjHYv5fy/2tIoLTCPY3/oxGrZTs=
+X-Google-Smtp-Source: ACHHUZ5nRXsV4fjThPdN7wUVBvLWSX6VQgE4LIqSzYQ91JpnBP9NiPgJAkjpqq6CQB3serww18wYiQWV8z9Y5Js96KQ=
+X-Received: by 2002:a05:600c:3ca5:b0:3f1:80d0:906b with SMTP id
+ bg37-20020a05600c3ca500b003f180d0906bmr23604005wmb.4.1684164719938; Mon, 15
+ May 2023 08:31:59 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20652097-c595-45ec-6fe0-08db55597b3b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2023 15:31:41.0508
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /cFSX73yE9ABIXnJEQEZkXPOb/p0G3TxbYeg/jXiz8Y/VgCaAKQ5jSaT/0U42y/w1DQBGTDQ/8qdrFOoagMghQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5744
-Subject: [virtio-comment] RE: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
- using AQ
+References: <CABmGT5FVRj9=vrekhCOWwQnO2eOHDt8pA35hef+=BLN7fWi5=Q@mail.gmail.com>
+ <877ct939qv.fsf@redhat.com>
+In-Reply-To: <877ct939qv.fsf@redhat.com>
+From: "T.J. Alumbaugh" <talumbau@google.com>
+Date: Mon, 15 May 2023 09:31:23 -0600
+Message-ID: <CABmGT5EW_D7DWKM5WAGruyvyDiNv8R8_hGZXUvDc3itUZLeaQw@mail.gmail.com>
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
+Content-Type: multipart/alternative; boundary="000000000000e0857505fbbd27c7"
+Subject: Re: [virtio-comment] trouble sending patch with git send-email
 
-DQo+IEZyb206IEphc29uIFdhbmcgPGphc293YW5nQHJlZGhhdC5jb20+DQo+IFNlbnQ6IE1vbmRh
-eSwgTWF5IDE1LCAyMDIzIDE6MjAgQU0NCg0KPiANCj4gUmlnaHQsIGJ1dCBhcyBkaXNjdXNzZWQs
-IGEgcG9zc2libGUgdXNlciBpcyB0aGUgU0lPViB0cmFuc2l0aW9uYWwgZGV2aWNlIHZpYQ0KPiB0
-cmFuc3BvcnQgdmlydHF1ZXVlcy4NCj4gDQo+IA0KPiA+IHRyYW5zcG9ydCB2cSBtaWdodCwgYnV0
-IEkgYW0gd29ycmllZCB3ZSdsbCBoYXZlIHRvIHNwZW5kIGV4dHJhDQo+ID4gd29yayBjbGFyaWZ5
-aW5nIGl0J3MgYSBsZWdhY3kgaW50ZXJmYWNlLiBGb3IgZXhhbXBsZSB3ZSB3aWxsDQo+ID4gaGF2
-ZSB0byBleHBsYWluIHRoYXQgb25seSAzMiBiaXRzIG9mIGZlYXR1cmVzIG11c3QgYmUgdXNlZC4N
-Cj4gPiBGb2N1c2luZyBtb3JlIGVmZm9ydCBvbiB0cmFuc3BvcnQgdnEgaXMgYXR0cmFjdGl2ZSB0
-aG91Z2ggLi4uDQo+ID4gSXQgaXMgd29ydGggZXhhbWluaW5nIHRoaXMgb3B0aW9uIGluIG1vcmUg
-ZGVwdGguDQo+ID4gRGlkIHlvdT8NCj4gDQo+IA0KPiBNeSB1bmRlcnN0YW5kaW5nIGlzLCBmb3Ig
-YW55IGNhc2UsIHdlIG5lZWQgc3VjaCBjbGFyaWZpY2F0aW9ucy4gV2hhdA0KPiBQYXJhdiBwcm9w
-b3NlZCBoZXJlIGlzIG5vdCB0aGUgYWNjZXNzIHRvIHRoZSBhY3R1YWwgcmVnaXN0ZXJzIGJ1dCBz
-dGljaw0KPiB0byB0aGUgc2VtYW50aWMgb2YgdGhvc2UgcmVnaXN0ZXJzLiBJIHRoaW5rIHdlIG11
-c3Qgc2F5IGhpZ2ggMzJiaXRzIG9mDQo+IHRoZSBmZWF0dXJlcyBtdXN0IGJlIGFzc3VtZWQgdG8g
-YmUgMC4NCj4gDQpJIGFtIGF2b2lkZWQgZHVwbGljYXRpbmcgYW55dGhpbmcgdGhhdCBpcyBhbHJl
-YWR5IHdyaXR0ZW4gZm9yIHRoZSBQQ0kgaW50ZXJmYWNlLg0KSW4gbGVnYWN5IGludGVyZmFjZSBz
-ZWN0aW9uIG9mIFBDSSwgd2UgYWxyZWFkeSBoYXZlOg0KDQoiTm90ZSB0aGF0IG9ubHkgRmVhdHVy
-ZSBCaXRzIDAgdG8gMzEgYXJlIGFjY2Vzc2libGUgdGhyb3VnaCB0aGUgTGVnYWN5IEludGVyZmFj
-ZSIuDQpJZiBNTUlPIGlzIG1pc3Npbmcgc3VjaCBsaW5lIGluIGV4aXN0aW5nIGludGVyZmFjZSwg
-aXQgaXMgYmV0dGVyIHRvIGJlIGFkZGVkIHRoZXJlLg0KSXQgaXMgbm90IHNjb3BlIG9mIHRoaXMg
-cGF0Y2guDQo=
+--000000000000e0857505fbbd27c7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, May 15, 2023 at 9:17=E2=80=AFAM Cornelia Huck <cohuck@redhat.com> w=
+rote:
+>
+>
+> Just to make sure it's not something obvious: Have you double checked
+> that the author in git matches the address you subscribed with? Because
+> this mail came through, and having the author set to a different address
+> without realizing it is something that happens a lot.
+>
+
+Thanks for the suggestion. I confirmed that the Author for the git commit
+matches this email address:
+
+Author: T.J. Alumbaugh <talumbau@google.com>
+
+I also generated a cover letter for the patch, since it seems reasonable to
+include a significant "Motivation" section for a spec addition. That step
+is actually not in the guidance, but other than that, it's a pretty
+"vanilla" patch as far as I can tell. Is it undesirable to send cover
+letters for patches?
+
+-T.J.
+
+
+
+
+On Mon, May 15, 2023 at 9:17=E2=80=AFAM Cornelia Huck <cohuck@redhat.com> w=
+rote:
+
+> On Mon, May 15 2023, "T.J. Alumbaugh" <talumbau@google.com> wrote:
+>
+> > Hi,
+> >
+> > I'm having an issue trying to send a proposed spec change for
+> > discussion to this list. I'm following the instructions here:
+> >
+> > https://github.com/oasis-tcs/virtio-spec#providing-feedback
+> >
+> > which seem to be pretty standard and the typical workflow for sending
+> > git patches. However, my messages bounce with this error:
+> >
+> > <virtio-comment@lists.oasis-open.org>: permission denied. Command
+> output:
+> >     Traceback (most recent call last):   File
+> >     "/home/oasis/bin/kmlm_crosspost_issubn", line 14, in <module>
+>  import
+> >     MySQLdb ImportError: No module named MySQLdb Sorry, only subscriber=
+s
+> may
+> >     post. If you are a subscriber, please forward this message to
+> >     virtio-comment-owner@lists.oasis-open.org to get your new address
+> included
+> >     (#5.7.2) ERROR: postqmail-local Error #77
+> >
+> >
+> > I have confirmed that I am a subscriber to this list. This email
+> > itself will serve as an experiment to determine if the message is
+> > legitimate (the system believes I am not a subscriber), or if this
+> > error is spurious and there is some other issue with sending a patch
+> > with `git send-email`. In the event that this email does get through,
+> > any advice on how to proceed would be much appreciated! Thanks,
+> >
+> > -T.J.
+>
+> Just to make sure it's not something obvious: Have you double checked
+> that the author in git matches the address you subscribed with? Because
+> this mail came through, and having the author set to a different address
+> without realizing it is something that happens a lot.
+>
+>
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines:
+> https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
+>
+>
+
+--000000000000e0857505fbbd27c7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br>On Mon, May 15, 2023 at 9:17=E2=80=AFAM Cornelia H=
+uck &lt;<a href=3D"mailto:cohuck@redhat.com">cohuck@redhat.com</a>&gt; wrot=
+e:<br>&gt;<br>&gt;<br>&gt; Just to make sure it&#39;s not something obvious=
+: Have you double checked<br>&gt; that the author in git matches the addres=
+s you subscribed with? Because<br>&gt; this mail came through, and having t=
+he author set to a different address<br>&gt; without realizing it is someth=
+ing that happens a lot.<br>&gt;<br><br>Thanks for the suggestion. I confirm=
+ed that the Author for the git commit matches this email address:<br><br>Au=
+thor: T.J. Alumbaugh &lt;<a href=3D"mailto:talumbau@google.com">talumbau@go=
+ogle.com</a>&gt;<div><br></div><div>I also generated a cover letter for the=
+ patch, since it seems reasonable to include a significant &quot;Motivation=
+&quot; section for a spec addition. That step is actually not in the guidan=
+ce, but other than that, it&#39;s a pretty &quot;vanilla&quot; patch as far=
+=C2=A0as I can tell. Is it undesirable to send cover letters for patches?</=
+div><div><br></div><div>-T.J.</div><div><br></div><div><br></div></div><br>=
+<br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon=
+, May 15, 2023 at 9:17=E2=80=AFAM Cornelia Huck &lt;<a href=3D"mailto:cohuc=
+k@redhat.com">cohuck@redhat.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">On Mon, May 15 2023, &quot;T.J. Alumbaugh&=
+quot; &lt;<a href=3D"mailto:talumbau@google.com" target=3D"_blank">talumbau=
+@google.com</a>&gt; wrote:<br>
+<br>
+&gt; Hi,<br>
+&gt;<br>
+&gt; I&#39;m having an issue trying to send a proposed spec change for<br>
+&gt; discussion to this list. I&#39;m following the instructions here:<br>
+&gt;<br>
+&gt; <a href=3D"https://github.com/oasis-tcs/virtio-spec#providing-feedback=
+" rel=3D"noreferrer" target=3D"_blank">https://github.com/oasis-tcs/virtio-=
+spec#providing-feedback</a><br>
+&gt;<br>
+&gt; which seem to be pretty standard and the typical workflow for sending<=
+br>
+&gt; git patches. However, my messages bounce with this error:<br>
+&gt;<br>
+&gt; &lt;<a href=3D"mailto:virtio-comment@lists.oasis-open.org" target=3D"_=
+blank">virtio-comment@lists.oasis-open.org</a>&gt;: permission denied. Comm=
+and output:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Traceback (most recent call last):=C2=A0 =C2=A0File=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&quot;/home/oasis/bin/kmlm_crosspost_issubn&quot;, =
+line 14, in &lt;module&gt;=C2=A0 =C2=A0 =C2=A0import<br>
+&gt;=C2=A0 =C2=A0 =C2=A0MySQLdb ImportError: No module named MySQLdb Sorry,=
+ only subscribers may<br>
+&gt;=C2=A0 =C2=A0 =C2=A0post. If you are a subscriber, please forward this =
+message to<br>
+&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"mailto:virtio-comment-owner@lists.oasis-=
+open.org" target=3D"_blank">virtio-comment-owner@lists.oasis-open.org</a> t=
+o get your new address included<br>
+&gt;=C2=A0 =C2=A0 =C2=A0(#5.7.2) ERROR: postqmail-local Error #77<br>
+&gt;<br>
+&gt;<br>
+&gt; I have confirmed that I am a subscriber to this list. This email<br>
+&gt; itself will serve as an experiment to determine if the message is<br>
+&gt; legitimate (the system believes I am not a subscriber), or if this<br>
+&gt; error is spurious and there is some other issue with sending a patch<b=
+r>
+&gt; with `git send-email`. In the event that this email does get through,<=
+br>
+&gt; any advice on how to proceed would be much appreciated! Thanks,<br>
+&gt;<br>
+&gt; -T.J.<br>
+<br>
+Just to make sure it&#39;s not something obvious: Have you double checked<b=
+r>
+that the author in git matches the address you subscribed with? Because<br>
+this mail came through, and having the author set to a different address<br=
+>
+without realizing it is something that happens a lot.<br>
+<br>
+<br>
+This publicly archived list offers a means to provide input to the<br>
+OASIS Virtual I/O Device (VIRTIO) TC.<br>
+<br>
+In order to verify user consent to the Feedback License terms and<br>
+to minimize spam in the list archive, subscription is required<br>
+before posting.<br>
+<br>
+Subscribe: <a href=3D"mailto:virtio-comment-subscribe@lists.oasis-open.org"=
+ target=3D"_blank">virtio-comment-subscribe@lists.oasis-open.org</a><br>
+Unsubscribe: <a href=3D"mailto:virtio-comment-unsubscribe@lists.oasis-open.=
+org" target=3D"_blank">virtio-comment-unsubscribe@lists.oasis-open.org</a><=
+br>
+List help: <a href=3D"mailto:virtio-comment-help@lists.oasis-open.org" targ=
+et=3D"_blank">virtio-comment-help@lists.oasis-open.org</a><br>
+List archive: <a href=3D"https://lists.oasis-open.org/archives/virtio-comme=
+nt/" rel=3D"noreferrer" target=3D"_blank">https://lists.oasis-open.org/arch=
+ives/virtio-comment/</a><br>
+Feedback License: <a href=3D"https://www.oasis-open.org/who/ipr/feedback_li=
+cense.pdf" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.org/=
+who/ipr/feedback_license.pdf</a><br>
+List Guidelines: <a href=3D"https://www.oasis-open.org/policies-guidelines/=
+mailing-lists" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.=
+org/policies-guidelines/mailing-lists</a><br>
+Committee: <a href=3D"https://www.oasis-open.org/committees/virtio/" rel=3D=
+"noreferrer" target=3D"_blank">https://www.oasis-open.org/committees/virtio=
+/</a><br>
+Join OASIS: <a href=3D"https://www.oasis-open.org/join/" rel=3D"noreferrer"=
+ target=3D"_blank">https://www.oasis-open.org/join/</a><br>
+<br>
+</blockquote></div>
+
+--000000000000e0857505fbbd27c7--
