@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5899-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5900-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EAB6C7EE22
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:50:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25CD8C77B7D
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:05:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7184711B669
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:50:35 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 51D5519090A
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:05:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4A95798650E
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:50:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3996698651C
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 15:05:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3A9E19864EE; Mon, 15 May 2023 14:50:35 +0000 (UTC)
+	id 26ECC9864EE; Mon, 15 May 2023 15:05:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,61 +24,94 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 282C4986509
-	for <virtio-comment@lists.oasis-open.org>; Mon, 15 May 2023 14:50:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 13E3D986509;
+	Mon, 15 May 2023 15:05:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684162233; x=1686754233;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=It4PSYIr00QhJVeVO8m3xAyfm1t5Hle5i90PhtsVA20=;
-        b=YbzN0K5PA3hZW+2/vZW4lD95btks/xZ2Gd/7mVaUxJPjWEswmzt/bk8ViEqJ0yAxQe
-         x8bhOWqaZdq3R6yzp+0ex2nB7yeEpQz7rxWpAf0BTjPCsK+5NJc1xnsbgllb6OKtkm+x
-         EDGqWWi9/N94xmanMr0+QTc1EIYMSsg0SPiZrMEbn6BA4xhmjezu9DcQxuIVe4TvHlmG
-         uUHUsdTIGifDny4yHUp5iFgglmcRmgvKCqMgacYx+Mf4lT91JhZVfyWwfIsHlq2gAAn6
-         cEt3r9YgSJdkZsEttPPDSRZYvvwrqHSpBhFertCoKR53h13V0KmRLstCsswygYHRfnG6
-         Vu2w==
-X-Gm-Message-State: AC+VfDySfwWLV5Z4/Sy1fNefkxr6OC1N1k6+IWa/WT/dBvLfo9MaoTfl
-	jn31f05rzaAIe4y5OYmEFcBB0hOosrypqfMLPAaDBwCNc7mgtuN5w1Nh7g==
-X-Google-Smtp-Source: ACHHUZ51/obNK91hhHsG0oH3R5nYrAp7H8oecEKC5r6rr5qcD21K4gmj8IOG+GQO1mspK02fOt8dGd7ID+BSSHjRBYs=
-X-Received: by 2002:a05:6000:12d0:b0:304:b1da:77d with SMTP id
- l16-20020a05600012d000b00304b1da077dmr23180402wrx.52.1684162233086; Mon, 15
- May 2023 07:50:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H2IX2LYpbm7w1N8WZUCyj92zEXbypZ4JPm8+4Q5lMuPUeBo5YMODwpGBNO02np9cAdi2N3cxLLmMXtuaqe5kODcO5lFjrJik5blvMl+1dURt9Evg8lCM834NeQwu46p7o3Zst9wGQBZtuNYi2u5UbCzf2OoNzJLcHI75zm+0ynPbiWS3eoHhvtODXgzdSydLgwF+be/3JSMRCZKDgEDk7nMpBJ11YGOI+PweM9E2i/wroK6qReKVNz3lvQ7d/sfkqs8LMQ+i4MejmiU255x/F9SrW1gO0qumrauilQJ1ZZl15S2sEo2MOj5zom+iE8s+sQYKId0ZDZ1jybnOf3WHsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7ybfgmACHvIEm/vBfOdL4AU3Z8hGieEp1Qb/hxLnI1U=;
+ b=n+lS7PHPDArcYU6kFayIXFc6SPQo8UERSy+wlK7eSLDzKiJoveBHSuDw6gxua3h0v330Gx8+EUMBlYclaEUypyDBB8wymuzTtMAwlNPtHc+2qE4cdFc/axPxVRJr2d71uwGDHNyruO3IxT6JvgvKlRfBmRJc2oi++fLavF5TxnV8ozCsFMtNYViTOpgGfSqgswU79qJp3NgrGkYGc1JbEozxYWVyO3bjn+Y3bgirbHgam3aoLFOQakNlF61L5bNgpk0jSxrNyiR1zvja2jL+KlYZru3GUcgKfe0sJScJUuxVRBMd6CelaVPZ4KbnPMqL2gYPC5Y6m8TxJFLD+ue2DA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+From: Parav Pandit <parav@nvidia.com>
+To: <mst@redhat.com>, <cohuck@redhat.com>,
+	<virtio-comment@lists.oasis-open.org>
+CC: <virtio-dev@lists.oasis-open.org>, <shahafs@nvidia.com>, Parav Pandit
+	<parav@nvidia.com>
+Date: Mon, 15 May 2023 18:04:57 +0300
+Message-ID: <20230515150457.760478-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-From: "T.J. Alumbaugh" <talumbau@google.com>
-Date: Mon, 15 May 2023 08:49:57 -0600
-Message-ID: <CABmGT5FVRj9=vrekhCOWwQnO2eOHDt8pA35hef+=BLN7fWi5=Q@mail.gmail.com>
-To: virtio-comment@lists.oasis-open.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: [virtio-comment] trouble sending patch with git send-email
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.126.231.37]
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT005:EE_|PH7PR12MB7284:EE_
+X-MS-Office365-Filtering-Correlation-Id: b44138cb-afc6-412a-67be-08db5555d285
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	hsd/HGBEuZX1uz4xynUC+CPe6cjh+AAE9CAgLqa7IvfkHSCEC2eo21P1qpqWhI2Ih9E2XzPxQMUl4Bn4fGD6Me/77JiYg4WXE2xHsuKFyvs09/SMO86PPOchb38c8k8XP4cF+yY4W2iqZ+OEISPdX3kNgK5FVOuDDAwRhmukzX7zJJOnQAUPPfVabmlVwqnV5g3wpsfMmew858xowZ0ZQX4/Y60YG1Tj87dJyUMTiuPtQHMvcfA429CoEaOnxD75JMGn32msikpPit7Fzu/Ds7Qn0Vijr4kTqLUfY7Ils+nVnTsqDPJyKO3R4ztC9wC3GUxYQeKaMv2GrhqjloA6788NsAuaKx1ww3ZfChWWtc9Aa+jdqGOpChm3+lZBmSlc/+AWnacb8bFG3nTqV4XcqNVzpbF6cDbdnpNFcdjoaKNcT28kPcILshVJGzzKJnz7a8kkThYw7uvW96BTpuR87uAtDEWrT7q3QpN9Dkmd2RIPOP5kDD+kgOgtQMUlXccfUahv+R1WgXFVxU0t/Y4oHc/weD7nscpap0Kxs6yUl0wKYb6FBIOcvK1NfIcxQyryDSIj51LdbMtnLEAzUVt/nitpbKb5B3NY3MYHOHt197ap+0Zu+7Q0HpUWzj/9Zht4QF4ptbmAUFMV4mduyJQvYPRrzp/2iPU5dOdSPLprLAx+Qe3RseFiLH4CVBjfYzcv22s/fo3hfgiIeCoRATb4S+PoVjCNRll+LCNA4fe/Sy4jJuqv9MH9gkl2NGkMXWfaxOFho7dGsSoycMe8uCWeZhGHvCRlY70OOO65/R1XtMM=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(346002)(396003)(136003)(451199021)(46966006)(36840700001)(40470700004)(54906003)(110136005)(478600001)(4326008)(70206006)(70586007)(6666004)(316002)(966005)(82310400005)(8936002)(40480700001)(2906002)(8676002)(41300700001)(5660300002)(26005)(1076003)(82740400003)(107886003)(7636003)(356005)(86362001)(40460700003)(2616005)(336012)(426003)(83380400001)(186003)(16526019)(47076005)(36860700001)(36756003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2023 15:05:29.4034
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b44138cb-afc6-412a-67be-08db5555d285
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7284
+Subject: [virtio-comment] [PATCH] content: Fix type error
 
-Hi,
+Fix spelling error from suppling to supplying.
 
-I'm having an issue trying to send a proposed spec change for
-discussion to this list. I'm following the instructions here:
+This is on top of [1].
 
-https://github.com/oasis-tcs/virtio-spec#providing-feedback
+[1] https://lists.oasis-open.org/archives/virtio-comment/202305/msg00101.html
 
-which seem to be pretty standard and the typical workflow for sending
-git patches. However, my messages bounce with this error:
+Reported-by: Cornelia Huck <cohuck@redhat.com>
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+---
+ content.tex | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-<virtio-comment@lists.oasis-open.org>: permission denied. Command output:
-    Traceback (most recent call last):   File
-    "/home/oasis/bin/kmlm_crosspost_issubn", line 14, in <module>     import
-    MySQLdb ImportError: No module named MySQLdb Sorry, only subscribers may
-    post. If you are a subscriber, please forward this message to
-    virtio-comment-owner@lists.oasis-open.org to get your new address included
-    (#5.7.2) ERROR: postqmail-local Error #77
+diff --git a/content.tex b/content.tex
+index 327926f..9df81b8 100644
+--- a/content.tex
++++ b/content.tex
+@@ -409,8 +409,8 @@ \section{Driver Notifications} \label{sec:Basic Facilities of a Virtio Device /
+ VIRTIO_F_NOTIF_CONFIG_DATA is not negotiated or device supplied virtqueue
+ notification config data if VIRTIO_F_NOTIF_CONFIG_DATA is negotiated.
+ 
+-The notification method and suppling any such virtqueue notification config data
+-is transport specific.
++The notification method and supplying any such virtqueue notification config
++data is transport specific.
+ 
+ However, some devices benefit from the ability to find out the
+ amount of available data in the queue without accessing the virtqueue in memory:
+-- 
+2.26.2
 
-
-I have confirmed that I am a subscriber to this list. This email
-itself will serve as an experiment to determine if the message is
-legitimate (the system believes I am not a subscriber), or if this
-error is spurious and there is some other issue with sending a patch
-with `git send-email`. In the event that this email does get through,
-any advice on how to proceed would be much appreciated! Thanks,
-
--T.J.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
