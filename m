@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5898-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5899-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C34BCC77B7D
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EAB6C7EE22
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:50:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D927D2AC47
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:30:58 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7184711B669
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:50:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CD1EA986511
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:30:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4A95798650E
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 May 2023 14:50:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id BC5489864EE; Mon, 15 May 2023 14:30:58 +0000 (UTC)
+	id 3A9E19864EE; Mon, 15 May 2023 14:50:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,127 +24,75 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A9837986509;
-	Mon, 15 May 2023 14:30:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 282C4986509
+	for <virtio-comment@lists.oasis-open.org>; Mon, 15 May 2023 14:50:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KEAiP3g/zpe5IqvAG2QWtEBLJ0evRtJtZW0vumnabMQAlpaWlkfuDGxmsIYxDNGkx7FCZnB/0mHCsC+BlsVRCPCV6ZF9bPZfE2smwDqavl9juSW4PjzyCfmG+uWI9l3PWB1ALHV3cSDeUMLEWgEymY7Ef41RCjYMqAWV3UVHFzqz7GO18H47hLqwxfVrkNOwqKIKOMNNZ+ZqoYfjdli3QWXdJzrmusV0hZCqiNEikigdbVPVzJkddRYapSAXew8TMwyfdSrr/PGBxclQg7SrTtP0yyiEX8njW8WBuWXNkSTN+mzAV9x2+enCca0pkS8H48pnK5PWcuDikUqRe+2vHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yO3/EsWaMKmIkJme6+Bt8r/yZVbsakVspnmv8CcVyKA=;
- b=GLOLqbOX4+3zjpEU/iz35cykINYLJLGeEtCGcP+JtAy6U9drFOtYc1V3tfAWgIGWXZO7cA3t7X5sYUWYyEo5qEqdYUKVJLdNP0Q14qq3YZA+VCz/PIiVq8EAF9y3PVhPa93P4fu/tw8jsFIyvc++SJNTZmAxe/ukhe5MSSnlR7406tD9V2sDBjQlK3KhPbInTlCZxPcpmJhle3sfwaIgpX2bTQ/jo5BpazlLuWmM9eLWNgd1Otmoj2pjND+etctU8Q9lL0QYvpz6gtpm6/L4plRo9YkYqNDNCA67Z20+NtvsyPMtymTlfo9mAyA+Qp8bZ37HTpbR6zbYZGVY9JhLWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>
-CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>, "david.edmondson@oracle.com"
-	<david.edmondson@oracle.com>, "sburla@marvell.com" <sburla@marvell.com>,
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Thread-Topic: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
- using AQ
-Thread-Index:
- AQHZf637tzEcVLD5bUyVf2EjaUYU3K9Mhl4AgAJOSwCAANQugIADYnEAgAAP1ICAAAu1gIABh4gAgABhyYCAAABooIAF7m6AgAAsIgCAAEhEoA==
-Date: Mon, 15 May 2023 14:30:55 +0000
-Message-ID:
- <PH0PR12MB54817BC2F2FBFE3609AFA23CDC789@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <CACGkMEt_2B68a+BZ4-vfeDf_eYj5ZhxrDNd6dxuiF85qr0yN2g@mail.gmail.com>
- <20230507093959-mutt-send-email-mst@kernel.org>
- <CACGkMEtfMbcu2OPsH6P2tA1aHh2FKygv=xkJ-e1XQzb62nE1vQ@mail.gmail.com>
- <20230510014534-mutt-send-email-mst@kernel.org>
- <CACGkMEvTs9oMewgrQpYZu1v1wdUXtxsvjqB6CPRf+y4C8EN_KQ@mail.gmail.com>
- <20230510033812-mutt-send-email-mst@kernel.org>
- <CACGkMEsp0i7EyyBBp06wJzrVBLNbH7MP_TT-j7b5c_yavgAmqw@mail.gmail.com>
- <20230511085205-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54812F2EFEC7B6A235953A82DC749@PH0PR12MB5481.namprd12.prod.outlook.com>
- <0f75a142-71e9-676a-11ae-a54e6dbb472d@redhat.com>
- <20230515060641-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230515060641-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DM4PR12MB6136:EE_
-x-ms-office365-filtering-correlation-id: 087c70dd-4d9a-4edf-a84b-08db5550fe37
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 63/Z/k4wNmFb7RYTBxaHgctBw61EvIMhZnyQCERpq8mu1thcIzorC6P/mSIbABQQtSfcIFpaUEM9vSaN7e7Emq4izZUpBhJu0WGJZoDLX3BeUPHiqUOcuO8N/jUnmlNNZyRoWCHVr/6UwVgBlm3ERwiI0JwN1eQ7B6B5EGSHEtCBLYNQJtThqS822gkIreVDTrkUeH+SvYnLkPPhe5TQXWquNAqwe+vyvvZs3287CCGclC26zOz2FD/rtJTMpI+rcB9OIloCJnJyQZ57QkMZ1N2PNOxjgVlcqRQ0UepjUyO9QLMhcfVYD6J8yGjQNxgwpKdufEeWSNXgvUMzs2vu5OE8SZGnfpghen+5LJeMSgqA2y++HAXD2EDGpsjLn5GjXZsXvOJBVLC15pbDfZxjqPutgURJwmrqTkzdgBy+fvbcPAUTrYAUb0yfpUgABUU5cFflhc15bptHwcTdJ01PlrAbSpnO7g7RHtbrFDvUgY/CLEvAHIwA2piJA/8XBPckque1ufBRiteARXUk5gSGx91XGO6iRGFXIPEaWw/w0hZSH1+qY0y/B1Hc6L7BXrowxKpJjS1vE5XBg28H2ZXimpSc5JpN+IH+yNLvbfWHnSpVarZeSUlSjrOlPqnKelpe
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(366004)(136003)(346002)(376002)(396003)(451199021)(33656002)(86362001)(54906003)(110136005)(316002)(64756008)(66946007)(66476007)(4326008)(66446008)(66556008)(478600001)(76116006)(7696005)(4744005)(55016003)(5660300002)(52536014)(8676002)(8936002)(2906002)(38070700005)(38100700002)(122000001)(41300700001)(186003)(107886003)(6506007)(9686003)(83380400001)(71200400001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?TWZqSHIzTE1QWnFxYTFPQXRmdkx5ZkxkK1BPbmRlQWlkTTVHUitoZTBReVE0?=
- =?utf-8?B?Z3hPTzg1dW9zeHBzdlptQ1kxVWNPaGVLRHV0TEpvYStKcXFJb3VsWEVYS3JO?=
- =?utf-8?B?VW5abzE2OUJRLzRrNHVtYWVJdXJ3ZFBEWExHLzc1YVowNXBWV1d5UnlqWUJn?=
- =?utf-8?B?enpBa1JQK0Z5RVd4eEovRytVdkE4dE1zc0hvL0E5S1ZaYVhFcmZnQ2FPbGR0?=
- =?utf-8?B?dTl6YU1yTEg5OVZUaitXcEMwN0tIRFpsR1RDd05TS2ZHS01USnExSTF6ajZ6?=
- =?utf-8?B?MXpQRDZaVkxaekxHRlFidko1ZUJNb2Q1b1kvakZMSjA5dUZtcTdMWkNTMW5J?=
- =?utf-8?B?VTRQRzMvM0ViK1poZUdiR2c1SUNvV2hxd2QwU1hrc3F0S3hQNGQ0MTJMVnE5?=
- =?utf-8?B?cDR5VEtLZzM4ZXZsM2VKTXF0bXdSd3YxdnJ2UHEzQXRPaE1YV3k5aW92S2RT?=
- =?utf-8?B?Q2E5MHpnL0J6WVcrUHg0aW5jOTBwUlNUK09MSG9KcnBsNEk4SmZOa0RSZUFX?=
- =?utf-8?B?MGw3M01uU29CUTMwc1ViaXdSa3RNTEVxMmRCcnBQWk8wMlpITm05YndXaFBK?=
- =?utf-8?B?RXcwVFpjNUcxT0Q4bEhNUXUvNE8zcDRzbWVwTDdtdnBzOUo2dlFTYlZ3eFZa?=
- =?utf-8?B?MFppRTNVNEhMYStKa3VONzBzS2dQSGhNRndSVGJmUHUwYTIyMjBUQnpqelFQ?=
- =?utf-8?B?WitFQ2w5bFNOUGJ2K2JnSFV0UUo4clZKeWZTaGY2OHM4em5mV280bktFelFy?=
- =?utf-8?B?K0J6Tlg2RUtwZXF0ZS92cXM4OWRlTXd5dnhvbCtqUSsxYVVteGNwOGxBRzY4?=
- =?utf-8?B?MlphK1NOK05pNHpPaGVTcStUSTZMMTdPbnFNT3pKWkpmQ3JDV2l2OG9xL1ZG?=
- =?utf-8?B?UHpCdTFlL29DY1JrRnhJVk9HVFJTWkZQMVJiWDJuQnB4SzAxalczUHB3Umoy?=
- =?utf-8?B?NzI5L1pmZFBRb0REbGVCWm56S3pjNUxoQmVUdVpMN3U4ZWNQcTZWSCtEcTlu?=
- =?utf-8?B?Qnp1VnJsWThGZndTRWx5U2RqajkwR0hrWWNkZzRRSkZtaU5ZVXA0RGRicHgv?=
- =?utf-8?B?MXFxZTJRWXJieDk5UkhiZ1JLNFU5L0hUZ3RBa29vayt4U2ZGZG9GZ0F3TkJZ?=
- =?utf-8?B?VHJQTkpZMUVNTXlqWHJtY3d4V3VKNFlOclNGVmZnR0NNcjE0bW05aHlVMmNV?=
- =?utf-8?B?ZmVPbkY1U05RZnJ3TmZNUDZDbkJYdFVJQWFMQmxoYVVBL1JleVR0OXM2UEtk?=
- =?utf-8?B?bVhIOHprQTluZUppT2R6VkNHR1U5NGdVUjVGNkQ3ZlhxSU5LY292UE5CTXlp?=
- =?utf-8?B?QWhEbllid1FKcE9XUlVlcDBVR1lvV2o2ek13ay9pbWphMG80cUVzaU94RmJL?=
- =?utf-8?B?TFh6NnUyWGhCUUFKL1Jnd3VJaEo3NjJWNXZOb3d5R0p6K05hTEE3Wm9lWXJM?=
- =?utf-8?B?YzNBMDdDL3REYW1iZElOQUIzNGxrZDJ1emd5Zk84U1I5L3BrK1F2VWE3azdy?=
- =?utf-8?B?VHZ0SkcxcWpDSVpXSzY4ZzRVU2F0MTBPbjZkbll0NXFGVitoNmx3L2RMSmhs?=
- =?utf-8?B?OW9COTBvK3RtdVlHdW9wL0xFNGhZeFBoTkRlajh1OW16RlhPMXRTVlU1R1RP?=
- =?utf-8?B?QWYyMnFjVS9VSlpvWHZETFp3aW5UemVqcmNWUEx4WE02V3FKQWZhbUlSbXJG?=
- =?utf-8?B?QWhNK3dFL2RXbWV2SW0vcVh4bkgrU2tXR2sxa2FlcEtRbkJ4U1NCd1VMUDhm?=
- =?utf-8?B?Sk5Vd1NZTk41M2ZTMmc4Z3pFMjZFNFdWU0JVWlhMdTloU3Q5ZThicVkrTFdC?=
- =?utf-8?B?eFFJamo0R0NWRmdBbzZ1Z0tPNDY0YVBhaTdhVk4yYnpmeVo2RlNKOHdxTXpY?=
- =?utf-8?B?VzBERXZQckhMczA1NVVBT1RqeStnRExiNjF3UmYxNmhBNlhtajk4Z2pVcWhz?=
- =?utf-8?B?YjRoMzVpVXk2SDhVdWpGRlJUZlptS2E2WVFrazVoVE1mMzFoQnEzUEMwYmpo?=
- =?utf-8?B?Ull2dmw0UjM0a3psclk0QlEzdyt1cDJidWtGdTlzUExiZ2o3bDFQOVBwMFdI?=
- =?utf-8?B?dW1hdC9MdjBvWjIrYVp2R3R4YklWYjF0SXRvdXkzZ1FHaUVyWVZHNjZqRGho?=
- =?utf-8?B?SXYwZjBuQXlXUDl3Y1QzZ1hnOFVMVEhzQTZrcjM4V01RSGFTRGJ3M0FUcHRk?=
- =?utf-8?Q?96bJyOqDRqi1dUZxWjmvrRU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684162233; x=1686754233;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=It4PSYIr00QhJVeVO8m3xAyfm1t5Hle5i90PhtsVA20=;
+        b=YbzN0K5PA3hZW+2/vZW4lD95btks/xZ2Gd/7mVaUxJPjWEswmzt/bk8ViEqJ0yAxQe
+         x8bhOWqaZdq3R6yzp+0ex2nB7yeEpQz7rxWpAf0BTjPCsK+5NJc1xnsbgllb6OKtkm+x
+         EDGqWWi9/N94xmanMr0+QTc1EIYMSsg0SPiZrMEbn6BA4xhmjezu9DcQxuIVe4TvHlmG
+         uUHUsdTIGifDny4yHUp5iFgglmcRmgvKCqMgacYx+Mf4lT91JhZVfyWwfIsHlq2gAAn6
+         cEt3r9YgSJdkZsEttPPDSRZYvvwrqHSpBhFertCoKR53h13V0KmRLstCsswygYHRfnG6
+         Vu2w==
+X-Gm-Message-State: AC+VfDySfwWLV5Z4/Sy1fNefkxr6OC1N1k6+IWa/WT/dBvLfo9MaoTfl
+	jn31f05rzaAIe4y5OYmEFcBB0hOosrypqfMLPAaDBwCNc7mgtuN5w1Nh7g==
+X-Google-Smtp-Source: ACHHUZ51/obNK91hhHsG0oH3R5nYrAp7H8oecEKC5r6rr5qcD21K4gmj8IOG+GQO1mspK02fOt8dGd7ID+BSSHjRBYs=
+X-Received: by 2002:a05:6000:12d0:b0:304:b1da:77d with SMTP id
+ l16-20020a05600012d000b00304b1da077dmr23180402wrx.52.1684162233086; Mon, 15
+ May 2023 07:50:33 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 087c70dd-4d9a-4edf-a84b-08db5550fe37
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2023 14:30:55.3304
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T+l2QpazT9bTEj3SLSw/Tqdmv5s6r37cqSdr+7j7tv33mth2bIhpfdJ4kFzF3oGO9+eBq8qhcI5Rfxvmg8D0Og==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6136
-Subject: [virtio-comment] RE: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
- using AQ
+From: "T.J. Alumbaugh" <talumbau@google.com>
+Date: Mon, 15 May 2023 08:49:57 -0600
+Message-ID: <CABmGT5FVRj9=vrekhCOWwQnO2eOHDt8pA35hef+=BLN7fWi5=Q@mail.gmail.com>
+To: virtio-comment@lists.oasis-open.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: [virtio-comment] trouble sending patch with git send-email
 
-DQo+IEZyb206IE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5jb20+DQo+IFNlbnQ6IE1v
-bmRheSwgTWF5IDE1LCAyMDIzIDY6MDkgQU0NCj4gVG8gYmUgbW9yZSBzcGVjaWZpYywgZGV2aWNl
-IGNvbmZpZyBvZnRlbiBoYXMgdGhlIHNhbWUgbGF5b3V0IHVuZGVyIGxlZ2FjeSBhbmQNCj4gbW9k
-ZXJuLiBUaHVzIGlmIGdldHRpbmcgYW4gb2Zmc2V0IHdpdGhpbiBkZXZpY2UgY29uZmlnLCBzYW1l
-IGRlY29kaW5nIGxvZ2ljDQo+IHNob3VsZCBiZSByZXVzYWJsZSBiZXR3ZWVuIGxlZ2FjeSBhbmQg
-bW9kZXJuLg0KTW9kZXJuIGRldmljZSByZWdpc3RlcnMgYXJlIGRpcmVjdGx5IGFjY2Vzc2libGUg
-ZnJvbSB0aGUgZ3Vlc3QgZHJpdmVyIHdpdGhvdXQgbWVkaWF0aW9uIGZvciBWRixTRixTSU9WLg0K
-SGVuY2UsIHRoZXJlIGlzIG5vIG5lZWQgdG8gaGF2ZSBjb21tYW5kcyBmb3IgbW9kZXJuIHJlZ2lz
-dGVyIGFjY2VzcyBvdmVyIHNvbWUgVlEuDQoNCldpbGwgcmVwbHkgdG8gcmVzdCBvZiB0aGUgSmFz
-b24ncyBjb21tZW50cyBpbiBzb21lIHRpbWUuDQo=
+Hi,
+
+I'm having an issue trying to send a proposed spec change for
+discussion to this list. I'm following the instructions here:
+
+https://github.com/oasis-tcs/virtio-spec#providing-feedback
+
+which seem to be pretty standard and the typical workflow for sending
+git patches. However, my messages bounce with this error:
+
+<virtio-comment@lists.oasis-open.org>: permission denied. Command output:
+    Traceback (most recent call last):   File
+    "/home/oasis/bin/kmlm_crosspost_issubn", line 14, in <module>     import
+    MySQLdb ImportError: No module named MySQLdb Sorry, only subscribers may
+    post. If you are a subscriber, please forward this message to
+    virtio-comment-owner@lists.oasis-open.org to get your new address included
+    (#5.7.2) ERROR: postqmail-local Error #77
+
+
+I have confirmed that I am a subscriber to this list. This email
+itself will serve as an experiment to determine if the message is
+legitimate (the system believes I am not a subscriber), or if this
+error is spurious and there is some other issue with sending a patch
+with `git send-email`. In the event that this email does get through,
+any advice on how to proceed would be much appreciated! Thanks,
+
+-T.J.
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
