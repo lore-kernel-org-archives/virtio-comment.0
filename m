@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5931-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5932-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA06AC77B75
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 04:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26B70C77B7F
+	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 04:18:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A92151318F7
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 04:13:11 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DE63417916F
+	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 04:18:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2B87898670A
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 04:13:11 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5030A9865BD
+	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 04:18:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E1799986783; Tue, 16 May 2023 04:13:10 +0000 (UTC)
+	id 40B3C983DA0; Tue, 16 May 2023 04:18:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,148 +24,93 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B372B98670B
-	for <virtio-comment@lists.oasis-open.org>; Tue, 16 May 2023 04:13:10 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 05C4498676B
+	for <virtio-comment@lists.oasis-open.org>; Tue, 16 May 2023 04:18:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: aH5FLW4RNBqN1fu8-PahLQ-1
+X-MC-Unique: OpX90IdMO06kD3ngURFdYg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684210386; x=1686802386;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=JwlPpIHPiMhlaGPr2kjj+GWduEqbPSymhbswgtEXn9w=;
-        b=Sb+cudMHrQq1W5BR6QBJQnx5MvD5p17uuaP5+W+/ToXB93Pyb0OTwclBIzITQa2tiO
-         wiXM1Yh0M32PNuV1ejDwedmY/PbO1hkla3aRsZZJE+2nKe4eSYTKYqr2LZ8ZDnkin0iv
-         wjfFYOkBJfdqL610TflCSR+gkDOigXe347dRalbPLVcCpIn4MLS+i21NUuZkMWjFlp9W
-         uHyiIRcH6rslBNE4HuOqoeMnhipd0+f0OJZ/fP0rSQ2i6L/JbqGCFJFLSv36Ffrn9CoT
-         2lAJYg1jRKa0uk3KU9RTUmt78pDXZrHm20ew7YIRi9W5nv7WOkPtIcznHRZq3E5VfnNQ
-         pAMA==
-X-Gm-Message-State: AC+VfDwRboj1JHkKXKLGiWKTfohoNd6wdNIjQevWaJDVbBwIJwVnjZ8l
-	huK3B6qVigLe3nfOWaNJjKQ+LNAv6T1BmgxPzGoZCkqLfQPkm2rVSoSyeOWfKvzCFwzR/qTuNAe
-	RqxWmUUIHHEZbqJ3ioJntixsglu4nd2Umu5R/BYbTFmDzncH6eXxNXOoIinz+
-X-Received: by 2002:ac2:4208:0:b0:4f0:206a:9fae with SMTP id y8-20020ac24208000000b004f0206a9faemr6144352lfh.11.1684210386761;
-        Mon, 15 May 2023 21:13:06 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4XcgOMLWyRUrYdmvLdb0S7Ly943Vaf6XwsABKIRWswnWEAN99m8ytXLLS4m7bI20BNVt0y6deELrest0GIrjU=
-X-Received: by 2002:ac2:4208:0:b0:4f0:206a:9fae with SMTP id
- y8-20020ac24208000000b004f0206a9faemr6144344lfh.11.1684210386455; Mon, 15 May
- 2023 21:13:06 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1684210712; x=1686802712;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j1i+oFwOq64prLPrePOaDHSqIUpoNmnP3cge/hKF+k4=;
+        b=Ns7WTitF4JbEAg0DOfE42oL//8PXKsGQc5O6flzI4gZE7BkJnuZyiQ/HLaeKBsm5Kk
+         nkIb9PQLop+FNYRAh+WSJNXeYCorR4Cd6msk0ey4jUlx23VbbRAu9O1ma8O33luz7hjm
+         6XOQIrZ4OdamfMqOpt9xSCYdsNJ586IX9mSHfaCFmU+DVsIUg2SkH0Se2CSZo4BdNhbb
+         5u+1H6jUTSVpOwu5jeAUb67g5K2DFDg7g3owQR1bIUpZYC2VG49dSSz8KgIuzMmC4Myg
+         30vJ5F4f3enylqmnpDoeQ7Q9hZwItH66Ktm9FlTcVp/0CzxiXcdL6noZ6XEQjvr5TwkY
+         pIDg==
+X-Gm-Message-State: AC+VfDw36/4NXSZBSm4RykX9Tuq6ZRyt+HD6MoSd6ZQMONZIMmxJoSf/
+	72wXPrpewTHDPsdYinCiLtDaywxCkG57CnX5Ayb3dAJ5oKQDI6/7Hiq58O/sSqAxlcQpWJlxBE9
+	6EMOI9aw8ZLpDZFxyLrGwr5lIjn9VhSY5vA==
+X-Received: by 2002:adf:e4c7:0:b0:2f1:e162:d48 with SMTP id v7-20020adfe4c7000000b002f1e1620d48mr23531357wrm.47.1684210712340;
+        Mon, 15 May 2023 21:18:32 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ77+QEkomj6eT93cs+VIu+GwePt0pbiTT6LhfM9V85f47S91/dBoHMie2bHbW/Q1drqJqPOgA==
+X-Received: by 2002:adf:e4c7:0:b0:2f1:e162:d48 with SMTP id v7-20020adfe4c7000000b002f1e1620d48mr23531344wrm.47.1684210712033;
+        Mon, 15 May 2023 21:18:32 -0700 (PDT)
+Date: Tue, 16 May 2023 00:18:27 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jason Wang <jasowang@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Shahaf Shuler <shahafs@nvidia.com>
+Message-ID: <20230516001359-mutt-send-email-mst@kernel.org>
+References: <20230510014534-mutt-send-email-mst@kernel.org>
+ <43ec1c8d-7d11-2400-3649-1fe366b1e21b@nvidia.com>
+ <20230510121417-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481F030A76141320F03956EDC779@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <PH0PR12MB5481CEB307F413E53B03D502DC779@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtm5AS50YmPi6A5=gzZZ9Jm55NEJ3GKOTzv-Z0m5E5J_w@mail.gmail.com>
+ <PH0PR12MB5481DE0569EC53A862A4D2E9DC749@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <893b6ec0-a74f-69b7-95a3-988f0f9382a8@redhat.com>
+ <PH0PR12MB5481CF52380D414AFFBA6A9FDC789@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <078af8e2-fb10-b33a-6751-374c4fbd09a9@redhat.com>
 MIME-Version: 1.0
-References: <20230516030139.767838-1-parav@nvidia.com>
-In-Reply-To: <20230516030139.767838-1-parav@nvidia.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 16 May 2023 12:12:55 +0800
-Message-ID: <CACGkMEuyNy-JkX_Uy7TnS4qg=xmd2yjwuuLDFw6SO=dZeUe1=w@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: virtio-comment@lists.oasis-open.org, mst@redhat.com, cohuck@redhat.com, 
-	virtio-dev@lists.oasis-open.org, shahafs@nvidia.com
+In-Reply-To: <078af8e2-fb10-b33a-6751-374c4fbd09a9@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [PATCH] content: Replace guest OS with driver
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH v2 0/2] transport-pci: Introduce legacy registers access
+ using AQ
 
-On Tue, May 16, 2023 at 11:02=E2=80=AFAM Parav Pandit <parav@nvidia.com> wr=
-ote:
->
-> Currently device status field description and driver requirements
-> section uses mix of terminology for the driver. These two sections
-> sometimes call the driver as 'the guest OS' or 'the driver'.
->
-> Most of the cleanup around 'guest Os' was already done around commit
-> 212c0cf3 in past. Clean up the remaining few references to just
-> refer it as 'driver'.
->
-> This is an editorial change.
->
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
+On Tue, May 16, 2023 at 11:28:04AM +0800, Jason Wang wrote:
+> > 
+> > > Admin virtqueue doesn't preventing anything from letting IMS go directly to the
+> > > device.
+> > But there is no aq/cfgq/cmdq defined for the guest, so with current proposal it is prevented.
+> 
+> 
+> It's a choice of the implementation but not spec. Spec doesn't say adminq
+> can't be used for guest.
 
-Do we plan to replace the "hypervisor" with "device" as well?
+It actually kind of does. adminq controls group members through the
+group owner.  owner is not itself a member. For a guest controlling a
+member to use adminq you have to also pass the owner to guest.
+Possible but not a standard architecture.
 
-Thanks
-
-> ---
->  content.tex | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/content.tex b/content.tex
-> index 9df81b8..417d476 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -26,10 +26,10 @@ \section{\field{Device Status} Field}\label{sec:Basic=
- Facilities of a Virtio Dev
->  following bits are defined (listed below in the order in which
->  they would be typically set):
->  \begin{description}
-> -\item[ACKNOWLEDGE (1)] Indicates that the guest OS has found the
-> +\item[ACKNOWLEDGE (1)] Indicates that the driver has found the
->    device and recognized it as a valid virtio device.
->
-> -\item[DRIVER (2)] Indicates that the guest OS knows how to drive the
-> +\item[DRIVER (2)] Indicates that the driver knows how to drive the
->    device.
->    \begin{note}
->      There could be a significant (or infinite) delay before setting
-> @@ -473,13 +473,13 @@ \section{Device Initialization}\label{sec:General I=
-nitialization And Device Oper
->  \begin{enumerate}
->  \item Reset the device.
->
-> -\item Set the ACKNOWLEDGE status bit: the guest OS has noticed the devic=
-e.
-> +\item Set the ACKNOWLEDGE status bit: the driver has noticed the device.
->
-> -\item Set the DRIVER status bit: the guest OS knows how to drive the dev=
-ice.
-> +\item Set the DRIVER status bit: the driver knows how to drive the devic=
-e.
->
->  \item\label{itm:General Initialization And Device Operation /
->  Device Initialization / Read feature bits} Read device feature bits, and=
- write the subset of feature bits
-> -   understood by the OS and driver to the device.  During this step the
-> +   understood by the driver to the device.  During this step the
->     driver MAY read (but MUST NOT write) the device-specific configuratio=
-n fields to check that it can support the device before accepting it.
->
->  \item\label{itm:General Initialization And Device Operation / Device Ini=
-tialization / Set FEATURES-OK} Set the FEATURES_OK status bit.  The driver =
-MUST NOT accept
-> --
-> 2.26.2
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->
+-- 
+MST
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
