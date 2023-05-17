@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5960-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5961-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E456C77B7F
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 21:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F31EC77B7D
+	for <virtio-comment@archiver.kernel.org>; Wed, 17 May 2023 05:44:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DB2D7E44
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 21:57:02 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2ADBCF3F5F
+	for <virtio-comment@archiver.kernel.org>; Wed, 17 May 2023 05:44:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4ED869867DB
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 May 2023 21:57:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1A0FC9865A6
+	for <virtio-comment@archiver.kernel.org>; Wed, 17 May 2023 05:44:47 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id ECAA2986782; Tue, 16 May 2023 21:57:01 +0000 (UTC)
+	id 11462983DFC; Wed, 17 May 2023 05:44:47 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,84 +24,73 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B661198673C
-	for <virtio-comment@lists.oasis-open.org>; Tue, 16 May 2023 21:57:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EA01E986319
+	for <virtio-comment@lists.oasis-open.org>; Wed, 17 May 2023 05:44:41 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: UF3pfe5oOWSeJmRi6x-AzQ-1
+X-MC-Unique: gXSXxGT0OxWYmcD3LllZOg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684274218; x=1686866218;
+        d=1e100.net; s=20221208; t=1684302276; x=1686894276;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JwXr+ZCfS3PH08G2JokrsOW0HzxZPh3CaCu0b/Cl1Oo=;
-        b=aKjZRmxXOC5n/0ohIxIJ9mRBsGhCm/6RHQ+eTvrg7teWqDdei28Kb22JUymfgWGPKG
-         nTM9/8UXZtPj5tdzzZaSjchCkIQ4FMk6HnJwjBUKP+QDIVZppqju+C6gprMhbm502+aB
-         8D+2d6TlJG+aYyzJ3KGDlIEA/yQ5c+UdFqng5ixeNzAZ/Om7OP4vvpDKwYAvnW5IcSH5
-         N9rOizcly5WVAw+9vIQzAZ5JAGXbVqkEfJETDXnNUDlB35bT2R5CFYCiiXGlhZlr+pNq
-         JbbFkBebLervDl/n0KmgpYmterXIAcIZlqvHIgEuNP/becWD7vAUqbK7e3ZWM2vFd5CD
-         UevQ==
-X-Gm-Message-State: AC+VfDx5PcjLIB4bkpjqccZ3OLkdx8T8Dmhi+8ZRnwwirObctYN+Ydte
-	TIaczNUUwf6obAeA6FjRlBpEQCSPlFxDzuF6M8LZArsEJdEK5nmEOGqt1LMfE/ZBFEiKyCQwWiF
-	0R/5aJ7RejRnVh81kLMElSC96es54XrqCb9pcOsXYWQ==
-X-Received: by 2002:a5d:4c47:0:b0:306:3a16:1c2 with SMTP id n7-20020a5d4c47000000b003063a1601c2mr23538837wrt.12.1684274218233;
-        Tue, 16 May 2023 14:56:58 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ6Zrncy4MtFHE+WhNWxemoobOBjJRHtpgiM3ww71hHRM4ts11zmyARIkdW5ANaYzVkenHaasQ==
-X-Received: by 2002:a5d:4c47:0:b0:306:3a16:1c2 with SMTP id n7-20020a5d4c47000000b003063a1601c2mr23538817wrt.12.1684274217913;
-        Tue, 16 May 2023 14:56:57 -0700 (PDT)
-Date: Tue, 16 May 2023 17:56:53 -0400
+        bh=VyLFJDEmnS8gP1P2TSEeeWkOW8BcxQb6Efe2a+tsk+I=;
+        b=aWhYWQZRKhkbiAFQ/gTAyedZ1rAbcle0CbsqjjJRZWpvExbJmWQK5sJDFXR7l1kBKF
+         s88OmYe4PGdzsvu9OdtlRSnzG1NsO/6SHlFRBk+y5GjH+Tar+i6PgxtRIvfLJBY+wD4i
+         hFdx3LImZt/327Q1QubXRKkbJrC9pfHvJwTwUhRHMweeQvzU5A3EmcTuk7ZAuKGjIktG
+         9O88mQ3ob/c55a2B3DmzjO58CKO9iFLoU2vi68PQiiJbaPhmY4b+yCvOv7IPTHuSZXqG
+         Rt3ua8UqpfrPAnOubFTlpnFuhW4xc5JFS0M7CIghLqTzYAfBog0bNBa6KA3WILhejR3n
+         69QQ==
+X-Gm-Message-State: AC+VfDwyoA9grqsX8Tqas6MygpSEGTSNEI0C2BFX4Zjfpa8PZG4nrAAK
+	AaF9Y7ZsCASqhmXrv6DbfqRv/sD3GPxjk7wn01wvfITq8l+M6Xu0yTG1hLeJSojeyTlQIWC0bbp
+	oSBFFfMIZfeXcoXzO5+H8SLw8t+t74IIfYA==
+X-Received: by 2002:a05:600c:35c5:b0:3f4:1848:4dff with SMTP id r5-20020a05600c35c500b003f418484dffmr718461wmq.7.1684302276452;
+        Tue, 16 May 2023 22:44:36 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4Fx9bgCXxc/ehCPq22F1lMpkeA/FlyAiWtNn0YuQDTtrgUJfQCN7zG9MPky3z9G6/WKDP5GQ==
+X-Received: by 2002:a05:600c:35c5:b0:3f4:1848:4dff with SMTP id r5-20020a05600c35c500b003f418484dffmr718450wmq.7.1684302276187;
+        Tue, 16 May 2023 22:44:36 -0700 (PDT)
+Date: Wed, 17 May 2023 01:44:32 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Message-ID: <20230516175452-mutt-send-email-mst@kernel.org>
-References: <CACGkMEtfMbcu2OPsH6P2tA1aHh2FKygv=xkJ-e1XQzb62nE1vQ@mail.gmail.com>
- <20230510014534-mutt-send-email-mst@kernel.org>
- <CACGkMEvTs9oMewgrQpYZu1v1wdUXtxsvjqB6CPRf+y4C8EN_KQ@mail.gmail.com>
- <20230510033812-mutt-send-email-mst@kernel.org>
- <CACGkMEsp0i7EyyBBp06wJzrVBLNbH7MP_TT-j7b5c_yavgAmqw@mail.gmail.com>
- <PH0PR12MB5481BCA4D8F6546B3300DD29DC749@PH0PR12MB5481.namprd12.prod.outlook.com>
- <83603339-e3fa-fe56-d447-813e73eb1961@redhat.com>
- <PH0PR12MB54815633F6C88A1EFFB24500DC799@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230516170940-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481C64573259FEE1C191229DC799@PH0PR12MB5481.namprd12.prod.outlook.com>
+Cc: virtio-dev@lists.oasis-open.org, cohuck@redhat.com,
+	david.edmondson@oracle.com, sburla@marvell.com, jasowang@redhat.com,
+	yishaih@nvidia.com, maorg@nvidia.com,
+	virtio-comment@lists.oasis-open.org, shahafs@nvidia.com
+Message-ID: <20230517013839-mutt-send-email-mst@kernel.org>
+References: <20230506000135.628899-1-parav@nvidia.com>
+ <20230506000135.628899-2-parav@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481C64573259FEE1C191229DC799@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <20230506000135.628899-2-parav@nvidia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [PATCH v2 0/2] transport-pci: Introduce
- legacy registers access using AQ
+Subject: [virtio-comment] Re: [PATCH v2 1/2] transport-pci: Introduce legacy registers access
+ commands
 
-On Tue, May 16, 2023 at 09:49:19PM +0000, Parav Pandit wrote:
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Tuesday, May 16, 2023 5:12 PM
-> 
-> > 
-> > Nah, we don't need a "break randomly unless it's a full moon and you cross your
-> > heart three times" mode. If you are going to implement support for legacy
-> > emulation implement it in a way that either predictably works or predictably
-> > refuses to load.
-> 
-> It works with same level of predictability as current legacy interface definition for x86_64 platform when msix in guest is supported.
-> 
-> Supporting intx we discussed to deal incrementally after this.
+On Sat, May 06, 2023 at 03:01:34AM +0300, Parav Pandit wrote:
+> +\begin{lstlisting}
+> +struct virtio_admin_cmd_lreg_wr_data {
+> +	u8 offset; /* Starting byte offset of the register(s) to write */
+> +	u8 register[];
+> +};
+> +\end{lstlisting}
 
-Only thing I am worried is that we do not decide to go back
-to msix vector after all because of the shifting offset
-of device config. As I said, split device and transport
-configs to separate commands rather than just using offset
-and then I think it's ok to defer INTx work a bit.
+So to summarize, I think the main comment here was to have separate
+commands for access to common versus device config. Just today I thought
+some more and came up with another reason why this is a good idea: if we
+ever want legacy MMIO emulation, we can reuse the device config command.
 
-Though I feel it's valuable and will help us move towards
-more important goals like LM.
+Jason also feels the common config command can be shared
+with vq transport effort. We can discuss this, for sure,
+I guess its putting code in hardware versus in hypervisor,
+but if there are hardware vendors who strictly want
+this code in hardware I don't have a big problem with this
+even if I don't exactly get why.
+
+With this idea all hypervisor has to do is subtract the offset from
+device config access, sounds like a small price to pay.  Does this sound
+like a reasonable compromize to you?
+
 -- 
 MST
 
