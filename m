@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5964-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5965-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24A95C77B7A
-	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 05:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDD3BC77B7D
+	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 08:09:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 37D242AC4D
-	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 05:48:15 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id D64912AF8B
+	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 08:09:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1B97B9866FC
-	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 05:48:15 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BB61D9866F8
+	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 08:09:25 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0B2299840C0; Thu, 18 May 2023 05:48:15 +0000 (UTC)
+	id A76B8986573; Thu, 18 May 2023 08:09:25 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,242 +24,316 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E74D89866F7
-	for <virtio-comment@lists.oasis-open.org>; Thu, 18 May 2023 05:48:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 920719866F7;
+	Thu, 18 May 2023 08:09:25 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: fdGGi_nsOEm-sQIrNSj9hQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684388889; x=1686980889;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mE+eQCK7q1+W6n/94xYD5INp9xkeBkGqlc0Dmc362L4=;
-        b=Yi7mxRFroLvehH1yr2KHeHMAz/JUk20Y0RPkWFfsZ4NLSwp4xxoYbYqmghkD7U6Onz
-         zGj4EkeWw5umiDGqo+y28riwc+9OkXqeYqR+oVY6l+e88cKfdLnSsGwehtrjLBU8/v/t
-         4iU+YJSesyK0EKCdbDlZ3UcldrAEfoG7HpNVt5eJwEpc2KeKd6RL8Su6xVSZ0Cvi6ZZ0
-         TNip7G0TcHPLfkvbv4S28v9jjm0v9m9YKqnaZpCD069JZOOLeVStXYiK0Uoo3cRvwhKI
-         mxeHqcKAaE7ZiqJVeZ6wapFAwxMLvKyceHWLC9RXW6K6Npf8FuVSt58Xy5/DQYKswNyK
-         Om+A==
-X-Gm-Message-State: AC+VfDxJpEGnzDQibN7M0BjeOlWVwpxCUGrZouChoRVQKrSAFkGa5nJu
-	S+q0+x3NlEGVF5l+FcL8csHI92MsifnZj5tGhTENpPlVj2z+p0jmBTHat5e5GNFVkpgcxpDLfC2
-	D3dGA30FMzvhZHRhSyIXQyswtLYsthjIUCJOeHitX7lel+vO+QQ==
-X-Received: by 2002:a17:90a:fb82:b0:253:3ce4:b421 with SMTP id cp2-20020a17090afb8200b002533ce4b421mr1398373pjb.1.1684388888771;
-        Wed, 17 May 2023 22:48:08 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4AV6TUVzZne1jfGuSpqWcEcgpPUq8GBRbmztuvfhJQnlab8FbDREpW1LOgppb5RwfG341BSl8rSAwFLo//JyU=
-X-Received: by 2002:a17:90a:fb82:b0:253:3ce4:b421 with SMTP id
- cp2-20020a17090afb8200b002533ce4b421mr1398349pjb.1.1684388888225; Wed, 17 May
- 2023 22:48:08 -0700 (PDT)
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R311e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046059;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0Viw103m_1684397359;
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: virtio-comment@lists.oasis-open.org
+Cc: hans@linux.alibaba.com,
+	herongguang@linux.alibaba.com,
+	zmlcc@linux.alibaba.com,
+	dust.li@linux.alibaba.com,
+	tonylu@linux.alibaba.com,
+	zhenzao@linux.alibaba.com,
+	helinguo@linux.alibaba.com,
+	gerry@linux.alibaba.com,
+	xuanzhuo@linux.alibaba.com,
+	mst@redhat.com,
+	cohuck@redhat.com,
+	jasowang@redhat.com,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	wintera@linux.ibm.com,
+	kgraul@linux.ibm.com,
+	wenjia@linux.ibm.com,
+	jaka@linux.ibm.com,
+	hca@linux.ibm.com,
+	twinkler@linux.ibm.com,
+	raspl@linux.ibm.com,
+	virtio-dev@lists.oasis-open.org,
+	pasic@linux.ibm.com
+Date: Thu, 18 May 2023 16:09:18 +0800
+Message-Id: <20230518080919.48797-1-xuanzhuo@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 MIME-Version: 1.0
-References: <PH0PR12MB54816668AFE3CF0F90C8F342DC7F9@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB54816668AFE3CF0F90C8F342DC7F9@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Ariel Adam <aadam@redhat.com>
-Date: Thu, 18 May 2023 08:47:56 +0300
-Message-ID: <CANerMUV1vCA9j6QJ+0q93VoUeUkesuv_mToK6o3iz0989OC+Fg@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="00000000000058c24c05fbf1598e"
-Subject: Re: [virtio-comment] virtio networking collaboration meeting: call
- for agenda
+X-Git-Hash: 7478fa9
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v4 0/1] introduce virtio-ism: internal shared memory device
 
---00000000000058c24c05fbf1598e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hello everyone,
 
-The "Virtio-networking upstream biweekly meeting" which happens on
-Wednesday's every 2 weeks (led by Eugenio and Jason) was meant to get all
-the companies interested in virtio networking together to help move things
-forward (both virtio-networking/spec and vDPA).
+# Background
 
-See meeting notes from previous meetings:
-https://docs.google.com/document/d/1FoPi81zQmo5y20G0Yntg-eGHX14LnWc63TwR57m=
-Cbs4/edit#
+    Nowadays, there is a common scenario to accelerate communication between
+    different VMs and containers, including light weight virtual machine based
+    containers. One way to achieve this is to colocate them on the same host.
+    However, the performance of inter-VM communication through network stack is
+    not optimal and may also waste extra CPU cycles. This scenario has been
+    discussed many times, but still no generic solution available [1] [2] [3].
 
-Why not use that meeting and just add more topics given that a lot of
-the relevant companies already join this meeting?
+    We also have a lot of such scenarios internally, except for general network
+    communication, there are also many application scenarios of shared
+    memory. Due to various reasons, it is difficult for us to realize these
+    business data using network communication. For example, in some scenarios,
+    the application needs to exchange a large amount of data with the physical
+    device on the host, so shared memory is the most suitable solution.
 
-Thanks.
+    Shared memory is an efficient communication method, so we hope to implement
+    a cross-vm shared memory method. We were inspired by the IBM ism device[4],
+    we use virtio-ism to achieve memory sharing between vm on the same host.
 
-On Thu, May 18, 2023 at 3:54=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
-te:
+# virtio-ism
 
-> Hi all,
->
-> At the moment to my knowledge, many TC members are working on many new
-> features for virtio network device specification - all of us working in
-> parallel.
->
-> I feel a biweekly meeting would help us virtio networking developers
-> collaborate more effectively.
-> For example, we can discuss how do features each one is working on
-> interact, what timeframe is each one targeting, etc.
->
-> I suggest:
-> - A biweekly meeting using google meet.
-> - Meeting agenda will be posted on list before a week so people
->   will have a full week to review, respond on the existing mailing lists.
-> - If no agenda items for that meeting day, meeting will be cancelled.
-> - Minutes will be posted on list after a meeting.
-> - non-TC members can also join; this is an additional space to get input
->   from outside experts, under the existing terms of OASIS feedback licens=
-e.
->
-> - All decisions are still made by TC electronic ballot as usual. Proposed
-> collaboration
->   meetings are unrelated to TC ballot. The point is ability to
-> collaborate,
->   plan and split work better between developers working in the same spec
-> area.
->
-> For the first meeting, I propose the following agenda item:
-> - discuss new virtio net device features for 1.4 spec release
->
-> I suggest several day & time slots.
-> Days:
-> - Tue (May 30) or
-> - Wed (May 31)
-> Time:
-> - 2 pm GMT, or
-> - 5 am GMT
->
-> We can pick other time/day options as well depending on who wants to
-> attend and in which time zone.
->
-> If all this sounds interesting to you, if you would like to attend this
-> and hopefully future collaboration meetings,
-> please reply with email, cc to list:
-> a. preferred time slots that work for you.
-> b. any items you would like to add to above agenda.
->
-> Any other comments, suggestions?
->
-> Regards,
-> Parav Pandit
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines:
-> https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->
->
+    An ISM(Internal Shared Memory) device provides the ability to access memory
+    shared between multiple devices. This allows low-overhead communication in
+    presence of such memory. For example, memory can be shared with guests of
+    multiple virtual machines running on the same host, with each virtual
+    machine including an ism device and with the guests getting the shared
+    memory by the ism devices.
 
---00000000000058c24c05fbf1598e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+    An ism device can communicate with multiple peers simultaneously. This
+    communication can be dynamically started and ended.
 
-<div dir=3D"ltr">The &quot;Virtio-networking upstream biweekly meeting&quot=
-; which happens on Wednesday&#39;s every 2 weeks (led by Eugenio and Jason)=
- was meant to get all the companies interested in virtio networking togethe=
-r to help move things forward (both virtio-networking/spec and vDPA).<div><=
-br></div><div>See meeting notes from previous=C2=A0meetings:=C2=A0<a href=
-=3D"https://docs.google.com/document/d/1FoPi81zQmo5y20G0Yntg-eGHX14LnWc63Tw=
-R57mCbs4/edit#">https://docs.google.com/document/d/1FoPi81zQmo5y20G0Yntg-eG=
-HX14LnWc63TwR57mCbs4/edit#</a></div><div><br></div><div>Why not use that me=
-eting and just add more topics given that a lot of the=C2=A0relevant compan=
-ies already join this meeting?</div><div><br></div><div>Thanks.=C2=A0 =C2=
-=A0=C2=A0</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Thu, May 18, 2023 at 3:54=E2=80=AFAM Parav Pandit &lt;<a=
- href=3D"mailto:parav@nvidia.com">parav@nvidia.com</a>&gt; wrote:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">Hi all,<br>
-<br>
-At the moment to my knowledge, many TC members are working on many new feat=
-ures for virtio network device specification - all of us working in paralle=
-l.<br>
-<br>
-I feel a biweekly meeting would help us virtio networking developers collab=
-orate more effectively.<br>
-For example, we can discuss how do features each one is working on interact=
-, what timeframe is each one targeting, etc.<br>
-<br>
-I suggest:<br>
-- A biweekly meeting using google meet.<br>
-- Meeting agenda will be posted on list before a week so people<br>
-=C2=A0 will have a full week to review, respond on the existing mailing lis=
-ts.<br>
-- If no agenda items for that meeting day, meeting will be cancelled.<br>
-- Minutes will be posted on list after a meeting.<br>
-- non-TC members can also join; this is an additional space to get input<br=
->
-=C2=A0 from outside experts, under the existing terms of OASIS feedback lic=
-ense.<br>
-<br>
-- All decisions are still made by TC electronic ballot as usual. Proposed c=
-ollaboration<br>
-=C2=A0 meetings are unrelated to TC ballot. The point is ability to collabo=
-rate, <br>
-=C2=A0 plan and split work better between developers working in the same sp=
-ec area.<br>
-<br>
-For the first meeting, I propose the following agenda item:<br>
-- discuss new virtio net device features for 1.4 spec release<br>
-<br>
-I suggest several day &amp; time slots.<br>
-Days:<br>
-- Tue (May 30) or<br>
-- Wed (May 31)<br>
-Time:<br>
-- 2 pm GMT, or <br>
-- 5 am GMT<br>
-<br>
-We can pick other time/day options as well depending on who wants to attend=
- and in which time zone.<br>
-<br>
-If all this sounds interesting to you, if you would like to attend this and=
- hopefully future collaboration meetings, <br>
-please reply with email, cc to list:<br>
-a. preferred time slots that work for you.<br>
-b. any items you would like to add to above agenda.<br>
-<br>
-Any other comments, suggestions?<br>
-<br>
-Regards,<br>
-Parav Pandit<br>
-<br>
-This publicly archived list offers a means to provide input to the<br>
-OASIS Virtual I/O Device (VIRTIO) TC.<br>
-<br>
-In order to verify user consent to the Feedback License terms and<br>
-to minimize spam in the list archive, subscription is required<br>
-before posting.<br>
-<br>
-Subscribe: <a href=3D"mailto:virtio-comment-subscribe@lists.oasis-open.org"=
- target=3D"_blank">virtio-comment-subscribe@lists.oasis-open.org</a><br>
-Unsubscribe: <a href=3D"mailto:virtio-comment-unsubscribe@lists.oasis-open.=
-org" target=3D"_blank">virtio-comment-unsubscribe@lists.oasis-open.org</a><=
-br>
-List help: <a href=3D"mailto:virtio-comment-help@lists.oasis-open.org" targ=
-et=3D"_blank">virtio-comment-help@lists.oasis-open.org</a><br>
-List archive: <a href=3D"https://lists.oasis-open.org/archives/virtio-comme=
-nt/" rel=3D"noreferrer" target=3D"_blank">https://lists.oasis-open.org/arch=
-ives/virtio-comment/</a><br>
-Feedback License: <a href=3D"https://www.oasis-open.org/who/ipr/feedback_li=
-cense.pdf" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.org/=
-who/ipr/feedback_license.pdf</a><br>
-List Guidelines: <a href=3D"https://www.oasis-open.org/policies-guidelines/=
-mailing-lists" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.=
-org/policies-guidelines/mailing-lists</a><br>
-Committee: <a href=3D"https://www.oasis-open.org/committees/virtio/" rel=3D=
-"noreferrer" target=3D"_blank">https://www.oasis-open.org/committees/virtio=
-/</a><br>
-Join OASIS: <a href=3D"https://www.oasis-open.org/join/" rel=3D"noreferrer"=
- target=3D"_blank">https://www.oasis-open.org/join/</a><br>
-<br>
-</blockquote></div>
+    This is a structure diagram based on ism sharing between two vms.
 
---00000000000058c24c05fbf1598e--
+    |-------------------------------------------------------------------------------------------------------------|
+    | |------------------------------------------------|       |------------------------------------------------| |
+    | | Guest                                          |       | Guest                                          | |
+    | |                                                |       |                                                | |
+    | |   ----------------                             |       |   ----------------                             | |
+    | |   |    driver    |     [M1]   [M2]   [M3]      |       |   |    driver    |             [M2]   [M3]     | |
+    | |   ----------------       |      |      |       |       |   ----------------               |      |      | |
+    | |    |cq|                  |map   |map   |map    |       |    |cq|                          |map   |map   | |
+    | |    |  |                  |      |      |       |       |    |  |                          |      |      | |
+    | |    |  |                -------------------     |       |    |  |                --------------------    | |
+    | |----|--|----------------|  device memory  |-----|       |----|--|----------------|  device memory   |----| |
+    | |    |  |                -------------------     |       |    |  |                --------------------    | |
+    | |                                |               |       |                               |                | |
+    | |                                |               |       |                               |                | |
+    | | Qemu                           |               |       | Qemu                          |                | |
+    | |--------------------------------+---------------|       |-------------------------------+----------------| |
+    |                                  |                                                       |                  |
+    |                                  |                                                       |                  |
+    |                                  |------------------------------+------------------------|                  |
+    |                                                                 |                                           |
+    |                                                                 |                                           |
+    |                                                   --------------------------                                |
+    |                                                    | M1 |   | M2 |   | M3 |                                 |
+    |                                                   --------------------------                                |
+    |                                                                                                             |
+    | HOST                                                                                                        |
+    ---------------------------------------------------------------------------------------------------------------
+
+    On the top, we found that for the existing tcp network communication
+    scenario, if it is replaced with smc + shared memory, a great performance
+    improvement can also be obtained. And for smc, user processes just need to
+    do little modification.
+      - latency reduced by about 50%
+      - throughput increased by about 300%
+      - CPU consumption reduced by about 50%
+
+    Since there is no particularly suitable shared memory management solution
+    matches the need for SMC(See ## Comparison with existing technology), and
+    virtio is the standard for communication in the virtualization world, we
+    want to implement a virtio-ism device based on virtio, which can support
+    on-demand memory sharing across VMs, containers or VM-container. To match
+    the needs of SMC, the virtio-ism device need to support:
+
+    1. Dynamic provision: shared memory regions are dynamically allocated and
+       provisioned.
+    2. Multi-region management: the shared memory is divided into regions,
+       and a peer may allocate one or more regions from the same shared memory
+       device.
+    3. Permission control: the permission of each region can be set separately.
+    4. Dynamic connection: each ism region of a device can be shared with
+       different devices, eventually a device can be shared with thousands of
+       devices
+
+## Live Migration
+
+    If two VMs is migrated from the same host to two different physical hosts,
+    it is impossible to share memory, so we will not consider supporting
+    migration for the time being.
+
+# Comparison with existing technology
+
+## ivshmem or ivshmem 2.0 of Qemu
+
+   1. ivshmem 1.0 is a large piece of memory that can be seen by all devices
+      that use this VM, so the security is not enough.
+
+   2. ivshmem 2.0 is a shared memory belonging to a VM that can be read-only by
+      all other VMs that use the ivshmem 2.0 shared memory device, which also
+      does not meet our needs in terms of security.
+
+## vhost-pci and virtiovhostuser
+
+    1. does not support dynamic allocation
+    2. one device just support connect to one vm
+
+# Usage
+    This is the usage steps by the user process.
+
+    |                                                | user process syscall                     | driver to device
+ ---|------------------------------------------------|------------------------------------------|-------------------------------
+  1 | got memory and token                           | ioctl(fd, VIRTIO_ISM_IOCTL_ALLOC, &ctl)  | VIRTIO_ISM_CTRL_ALLOC_REGION
+ ---|------------------------------------------------|------------------------------------------|-------------------------------
+  2 | send token to peer process                     |                                          |
+ ---|------------------------------------------------|------------------------------------------|-------------------------------
+  3 | got shared memory(two process share the memory)| ioctl(fd, VIRTIO_ISM_IOCTL_ATTACH, &ctl) | VIRTIO_ISM_CTRL_ATTACH_REGION
+ ---|------------------------------------------------|------------------------------------------|-------------------------------
+  4 | notify peer process                            | ioctl(fd, VIRTIO_ISM_IOCTL_KICK)         | write notify area
+ ---|------------------------------------------------|------------------------------------------|-------------------------------
+  5 | receive notify from other process              | wakeup by select/epoll/....              | driver recv interrupt
+ ---|------------------------------------------------|------------------------------------------|-------------------------------
+  6 | release the reference to the shared memory     | ioctl(fd, VIRTIO_ISM_IOCTL_DETACH, &ctl) | VIRTIO_ISM_CTRL_DETACH_REGION
+ ---|------------------------------------------------|------------------------------------------|-------------------------------
+
+# POC CODE
+
+    There are no functions related to eventq and perm yet.
+    This implementation is for V2 version spec. So some details are not match
+    this version.
+
+    Qemu   (virtio ism device): https://github.com/fengidri/qemu/compare/7d66b74c4dd0d74d12c1d3d6de366242b13ed76d...ism-upstream-1216?expand=1
+    Kernel (virtio ism driver): https://github.com/fengidri/linux-kernel-virtio-ism/compare/6f8101eb21bab480537027e62c4b17021fb7ea5d...ism-upstream-1223
+
+    Start qemu with option "--device virtio-ism-pci,disable-legacy=on, disable-modern=off".
+
+### User Space APP
+
+    The ism driver provide /dev/vismX interface, allow users to use Virtio-ISM
+    device in user space directly.
+
+    Try tools/virtio/virtio-ism/virtio-ism-mmap
+
+    Usage:
+         cd tools/virtio/virtio-ism/; make
+         insmode virtio-ism.ko
+
+    case1: communicate
+
+       vm1: ./virtio-ism-mmap alloc -> token
+       vm2: ./virtio-ism-mmap attach -t <token> --write-msg AAAA --commit
+
+       vm2 will write msg to shared memory, then notify vm1. After vm1 receive
+       notify, then read from shared memory.
+
+    case2: ping-pong test.
+
+        vm1: ./virtio-ism-mmap server
+        vm2: ./virtio-ism-mmap -i 192.168.122.101 pp
+
+        1. server alloc one ism region
+        2. client get the token by tcp
+
+        3. client commit(kick) to server, server recv notify, commit(kick) to client
+        4. loop #3
+
+    case3: throughput test.
+
+        vm1: ./virtio-ism-mmap server
+        vm2: ./virtio-ism-mmap -i 192.168.122.101 tp
+
+        1. server alloc one ism region
+        2. client get the token by tcp
+
+        3. client write 1M data to ism region
+        4. client commit(kick) to server
+        5. server recv notify, copy the data, the commit(kick) back to client
+        6. loop #3-#5
+
+    case4: throughput test with protocol defined by user.
+
+        vm1: ./virtio-ism-mmap server
+        vm2: ./virtio-ism-mmap -i 192.168.122.101 tp --polling --tp-chunks 15 --msg-size 64k -n 50000
+
+        Used the ism region as a ring.
+
+        In this scene, client and server are in the polling mode. Test it on
+        my machine, the maximum can reach 12GBps
+
+## About smc with virtio-ism
+
+    At present, my colleagues are advancing the work of this area, and have
+    contacted IBM's developers, but smc may need to do some modification, which
+    may involve some complicated things, please give them more time.
+
+# References
+
+    [1] https://projectacrn.github.io/latest/tutorials/enable_ivshmem.html
+    [2] https://dl.acm.org/doi/10.1145/2847562
+    [3] https://hal.archives-ouvertes.fr/hal-00368622/document
+    [4] Information about IBM ism device and SMC:
+            1. SMC reference: https://www.ibm.com/docs/en/zos/2.5.0?topic=system-shared-memory-communications
+            2. SMC-Dv2 and ISMv2 introduction: https://www.newera.com/INFO/SMCv2_Introduction_10-15-2020.pdf
+            3. ISM device: https://www.ibm.com/docs/en/linux-on-systems?topic=n-ism-device-driver-1
+            4. SMC protocol (including SMC-D): https://www.ibm.com/support/pages/system/files/inline-files/IBM%20Shared%20Memory%20Communications%20Version%202_2.pdf
+            5. SMC-D FAQ: https://www.ibm.com/support/pages/system/files/inline-files/2021-02-09-SMC-D-FAQ.pdf
+
+
+If there are any problems, please point them out.
+Hope to hear from you, thank you.
+
+v4:
+   1. reorganize the structure of the spec
+   2. fix some problems
+
+v3:
+   1. support to apply memory from vm
+   2. add query operation
+   3. optimize the description of spec and enrich some details
+   4. use the communication domain as a term
+   5. replace gid with cdid
+
+v2:
+   1. add Attach/Detach event
+   2. add Events Filter
+   3. allow Alloc/Attach huge region
+   4. remove host/guest terms
+
+v1:
+   1. cover letter adding explanation of ism vlan
+   2. spec add gid
+   3. explain the source of ideas about ism
+   4. POC support virtio-ism-smc.ko virtio-ism-dev.ko and support virtio-ism-mmap
+
+
+
+Xuan Zhuo (1):
+  virtio-ism: introduce new device virtio-ism
+
+ conformance.tex                         |   2 +
+ content.tex                             |   1 +
+ device-types/ism/description.tex        | 591 ++++++++++++++++++++++++
+ device-types/ism/device-conformance.tex |  17 +
+ device-types/ism/driver-conformance.tex |  13 +
+ device-types/ism/layout-pic.tex         | 112 +++++
+ virtio-html.tex                         |   9 +
+ virtio.tex                              |   9 +
+ 8 files changed, 754 insertions(+)
+ create mode 100644 device-types/ism/description.tex
+ create mode 100644 device-types/ism/device-conformance.tex
+ create mode 100644 device-types/ism/driver-conformance.tex
+ create mode 100644 device-types/ism/layout-pic.tex
+
+-- 
+2.32.0.3.g01195cf9f
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
