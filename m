@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5972-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5973-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03986C77B7A
-	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 19:32:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 635A5C77B7D
+	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 19:42:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 53E252A880
-	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 19:32:05 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 806D215B669
+	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 19:42:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 39FA5986721
-	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 19:32:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 59EDF98671E
+	for <virtio-comment@archiver.kernel.org>; Thu, 18 May 2023 19:42:25 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 2A15D986719; Thu, 18 May 2023 19:32:05 +0000 (UTC)
+	id 50679983E90; Thu, 18 May 2023 19:42:25 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,286 +24,141 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1738398671B
-	for <virtio-comment@lists.oasis-open.org>; Thu, 18 May 2023 19:32:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3FD8798671A
+	for <virtio-comment@lists.oasis-open.org>; Thu, 18 May 2023 19:42:25 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 2D56NqhMNp6tLdq0BNDmMQ-1
+X-MC-Unique: Coaf9csZNfuZ8GLNiDyIAw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684438320; x=1687030320;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gk/P5Q6oh1+J+yS32XgtUK/J5UnvxwCTenW4e37ooOg=;
-        b=ClIt1MRjOiq7RflzefQIKR15+JYmQqjI/vSj62hFhQQlX/Cct6D+X8Ir3VFgiXISJX
-         qN5DUDGNWHkKkWfUGjtXhH8bLmlPL1sOakR223yMeg/q88xWEgXzVqU/GMYuP29i4zCS
-         TbC5O+T7umcc0xbsM+8ij4DjxCnSlMdnDpx/ILgPqgASpNYPw6+qtLXyAw234/TqPIBx
-         FbCW5nmib1IIqhaxfPQFlZfG55kxAl/hHM8BRwonRWd7MQYg6rYBL+p4eCgHIX4zR9hS
-         mkcEy5WSRfCb/IMuaRpdSaslo7zFohTp0lv3tVoyaI3Fcg8R53bFu4k+5j26ZLRuRDkM
-         Xd6g==
-X-Gm-Message-State: AC+VfDyTzx1ntcIEYqxrQWBtbK8PaZFGf1ZnzOySvipc87NbOoW7j+V1
-	+7vS5FbNOzzhBjR/xZVx0V4rgkkBCWu545hmM6wUIoMgg7ml5Mihtu5X+rCebS4V/7hyC1oxPaJ
-	lEGuwPeISooNUZA6wDC01nyKgac/SFan1iQ==
-X-Received: by 2002:ac2:5df6:0:b0:4f1:3bd7:e53a with SMTP id z22-20020ac25df6000000b004f13bd7e53amr86708lfq.49.1684438320253;
-        Thu, 18 May 2023 12:32:00 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5QRCZ3cz3t3VPQgl3kvZoUBm8OnUQl00Pfd8hopWEMlJVZJ4zRiR3BVhJ55TzGenmnpwyrWA==
-X-Received: by 2002:ac2:5df6:0:b0:4f1:3bd7:e53a with SMTP id z22-20020ac25df6000000b004f13bd7e53amr86700lfq.49.1684438319892;
-        Thu, 18 May 2023 12:31:59 -0700 (PDT)
-Date: Thu, 18 May 2023 15:31:54 -0400
+        d=1e100.net; s=20221208; t=1684438939; x=1687030939;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VkMT5T7p5/+HcsQz3l9yGUINmopUARuya177oqeNbLQ=;
+        b=BYw0NYCFRiRMhRHiCmCGbMdz82DWUlFYUjQ5ZRWNNz8yZzmVx5XP7lycU025qqJbzD
+         e6Xjh0d1W43PtOalp4oG8RqsWgsdWR7nZ3xvNO2R0gjY7FfCrO4aQd3RgDzAh1QJUxrB
+         mvcACyQWEsHsHV78Cz3+NFRlZWNZ3k2YMoImZJMM2pRq648etDzFBwPeKtBgAN7QaCRs
+         fUkKLmMJd9nJkXvNK7bXrzZ182/CwAMirel4VHuCXlUdDOX6iRAtRXrs0QRXwzVHorLe
+         UDmaWtZPhuJhsQ1p3vkaGqrSWZkJ5sg57Yjn9gnZXF8UZd6CpQwjTbbIkfNuGfXwXOKf
+         7CiQ==
+X-Gm-Message-State: AC+VfDz1+KPC4IplAxP5LCtci1Sp5glKyG4eBwBfV6vF8gZiTgqO30lT
+	z5h+R39b6NvPEWC3Cyb1VFbgSoONpQyYzchmruSHmo5a3Ww4669nBoOIG0Wr8wM6seFGB+AJa54
+	fnw1PIWDvKZHdDJKzvC2+Dpebc8MMFPOQ9A==
+X-Received: by 2002:a05:6512:4cd:b0:4f2:62aa:986a with SMTP id w13-20020a05651204cd00b004f262aa986amr31159lfq.21.1684438939489;
+        Thu, 18 May 2023 12:42:19 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4JhqtOBBTWjj9qElp/R+SZbG0C26imwsxQsPcXU/9ZaTl7/r1f9d0jjtG6lFHwNW1nsYMdoQ==
+X-Received: by 2002:a05:6512:4cd:b0:4f2:62aa:986a with SMTP id w13-20020a05651204cd00b004f262aa986amr31149lfq.21.1684438939066;
+        Thu, 18 May 2023 12:42:19 -0700 (PDT)
+Date: Thu, 18 May 2023 15:42:12 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Chet Ensign <chet.ensign@oasis-open.org>
-Cc: Eugenio Perez Martin <eperezma@redhat.com>,
-	Ariel Adam <aadam@redhat.com>, Parav Pandit <parav@nvidia.com>,
-	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20230518151424-mutt-send-email-mst@kernel.org>
-References: <PH0PR12MB54816668AFE3CF0F90C8F342DC7F9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CANerMUV1vCA9j6QJ+0q93VoUeUkesuv_mToK6o3iz0989OC+Fg@mail.gmail.com>
- <CAJaqyWf1bKrSZOLY3R2KxZxgLnJ1BH=PXzqvatBHmKQs3zgL9A@mail.gmail.com>
- <CAAwgnnMgyWqm9wAU0y7DXt7TAO=TtfPuBW4omFajw=eSeYOc-g@mail.gmail.com>
- <20230518143013-mutt-send-email-mst@kernel.org>
- <CAAwgnnOfyKsjb-h4OuZXhM0XVH1xvn5cfZMUXG=xwJZ7qBjEig@mail.gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Shahaf Shuler <shahafs@nvidia.com>
+Message-ID: <20230518153640-mutt-send-email-mst@kernel.org>
+References: <20230506000135.628899-1-parav@nvidia.com>
+ <20230506000135.628899-2-parav@nvidia.com>
+ <20230517013839-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54817CBB98900B83C4F30164DC7E9@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <CAAwgnnOfyKsjb-h4OuZXhM0XVH1xvn5cfZMUXG=xwJZ7qBjEig@mail.gmail.com>
+In-Reply-To: <PH0PR12MB54817CBB98900B83C4F30164DC7E9@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio] Re: [virtio-comment] virtio networking collaboration
- meeting: call for agenda
+Subject: Re: [virtio-comment] RE: [PATCH v2 1/2] transport-pci: Introduce
+ legacy registers access commands
 
-Well this is why I said:
->     Neither can material be solely
->     presented in such a meeting or in the doc linked - it has to be posted
->     to the mailing list to be considered for inclusion in the specification.
+On Wed, May 17, 2023 at 07:32:33PM +0000, Parav Pandit wrote:
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Wednesday, May 17, 2023 1:45 AM
+> > 
+> > On Sat, May 06, 2023 at 03:01:34AM +0300, Parav Pandit wrote:
+> > > +\begin{lstlisting}
+> > > +struct virtio_admin_cmd_lreg_wr_data {
+> > > +	u8 offset; /* Starting byte offset of the register(s) to write */
+> > > +	u8 register[];
+> > > +};
+> > > +\end{lstlisting}
+> > 
+> > So to summarize, I think the main comment here was to have separate
+> > commands for access to common versus device config. Just today I thought
+> > some more and came up with another reason why this is a good idea: if we ever
+> > want legacy MMIO emulation, we can reuse the device config command.
+> > 
+> MMIO is actually simpler than PCI because all the registers are contiguous regardless of msix.
+> So single command with offset can service just fine.
 
-This should serve to protect the IPR - while people can discuss
-whatever, for things to be in the spec they have to be on list.
+yes but then you need to implement both MMIO and PCI in hardware.
+with a flag you can implement legacy MMIO in software on top of
+legacy PCI in hardware.
 
-As an additional precaution, I think that while subscribing to list is
-one way to agree to the feedback license, another is simply asking
-anyone who is not a TC member to confirm.
+> More below.
+> 
+> > Jason also feels the common config command can be shared with vq transport
+> > effort. We can discuss this, for sure, I guess its putting code in hardware versus
+> > in hypervisor, but if there are hardware vendors who strictly want this code in
+> > hardware I don't have a big problem with this even if I don't exactly get why.
+> > 
+> > With this idea all hypervisor has to do is subtract the offset from device config
+> > access, sounds like a small price to pay.  
+> It is more than the subtraction cost.
+> 
+> Hypervisor needs to inspect MSI-X enable/disable settings to decide when to issue command #1 vs #3 for the requested offset.
 
-Just in case, I also suggested to Eugenio that anyone discussing issues
-connected to a virtio spec is presented with a reminder along the lines
-of:
+I thought that for now you wanted to ignore MSI-X disable case?
+Because if you do care then we need INTx emulation.
 
-    By joining the meeting, participants agree that any information shared in the
-    meeting will be considered submitted by them to the VIRTIO TC, according
-    the OASIS Intellectual Property Rights (IPR) Policy
-    https://www.oasis-open.org/policies-guidelines/ipr
 
-Hope this helps.
+> > Does this sound like a reasonable
+> > compromize to you?
+> 
+> Splitting proposed one command to two commands,
+> 1. one for accessing legacy common config
+> 2. second for accessing legacy device specific config 
+> 
+> seems fine to me as below.
+> 
+> So we will have total 5 commands (instead of 3).
+> 
+> 1. legacy common config read
+> 2. legacy common config write
+> 
+> 3. legacy device config read
+> 4. legacy device config write
+> 5. query device notification area
+> 
+> #1 and #3 same cmd signature but different opcode.
+> #2 and #4 same cmd signature but different opcode.
+> 
 
-On Thu, May 18, 2023 at 03:09:38PM -0400, Chet Ensign wrote:
-> Thanks, Michael. I knew the TC operates that way so I found the exchange
-> confusing. 
+Sounds reasonable. Jason?
+
+notification thing needs more thought I feel though.
+It feels weirdly bolted on, but I can't put my finger
+on what's wrong exactly yet. Will think it over.
+
+
 > 
-> The key issue here is IPR commitments that go with contributions. When someone
-> makes a contribution to the TC - chunk of code or whatever - their IPR has to
-> be covered. For TC members, they are committed by joining and being on the
-> roster. For any non-TC members, contribution has to be done via the comment
-> list to gain the equivalent commitment. That protection for the TC and Oasis is
-> the key thing I look for. 
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
 > 
-> On Thu, May 18, 2023 at 2:47 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
 > 
->     Chet, all,
-> 
->     In fact TC voted to conduct all business by electronic ballot, without
->     meetings.
-> 
->     Both non-TC and TC members will inevitably meet to discuss things like
->     their plans or implementation efforts. We hardly can, or want to,
->     prevent that. However:
->     Any such meetings are not mandatory to maintain voting rights. Anything
->     discussed in such meetings has no force as a TC decision. Such a meeting
->     will not be listed in the TC calendar. Neither can material be solely
->     presented in such a meeting or in the doc linked - it has to be posted
->     to the mailing list to be considered for inclusion in the specification.
-> 
->     In particular all this applies to the Virtio-networking upstream
->     biweekly meeting - this is not a TC meeting, but some TC members attend
->     it.
-> 
-> 
-> 
->     On Thu, May 18, 2023 at 12:53:41PM -0400, Chet Ensign wrote:
->     > Just a reminder everyone that you must be a TC member to participate in
->     TC
->     > meetings. Eugenio, Ariel, I don't see you on the roster. Let me know if
->     you
->     > need directions on how to set up your OASIS logins as Redhat employees. 
->     >
->     > Thanks, 
->     >
->     > /chet 
->     >
->     > On Thu, May 18, 2023 at 5:33 AM Eugenio Perez Martin <eperezma@redhat.com
->     >
->     > wrote:
->     >
->     >     On Thu, May 18, 2023 at 7:48 AM Ariel Adam <aadam@redhat.com> wrote:
->     >     >
->     >     > The "Virtio-networking upstream biweekly meeting" which happens on
->     >     Wednesday's every 2 weeks (led by Eugenio and Jason) was meant to get
->     all
->     >     the companies interested in virtio networking together to help move
->     things
->     >     forward (both virtio-networking/spec and vDPA).
->     >     >
->     >     > See meeting notes from previous meetings: https://docs.google.com/
->     >     document/d/1FoPi81zQmo5y20G0Yntg-eGHX14LnWc63TwR57mCbs4/edit#
->     >     >
->     >     > Why not use that meeting and just add more topics given that a lot
->     of the
->     >     relevant companies already join this meeting?
->     >     >
->     >
->     >     Yes, that fits perfectly with the purpose of the meeting. And it has
->     >     been used in the past to discuss AQ if I recall correctly.
->     >
->     >     The shared document is already open for writing so everybody can
->     >     propose new topics.
->     >
->     >     Thanks for bringing it to the discussion!
->     >
->     >     > Thanks.
->     >     >
->     >     > On Thu, May 18, 2023 at 3:54 AM Parav Pandit <parav@nvidia.com>
->     wrote:
->     >     >>
->     >     >> Hi all,
->     >     >>
->     >     >> At the moment to my knowledge, many TC members are working on many
->     new
->     >     features for virtio network device specification - all of us working
->     in
->     >     parallel.
->     >     >>
->     >     >> I feel a biweekly meeting would help us virtio networking
->     developers
->     >     collaborate more effectively.
->     >     >> For example, we can discuss how do features each one is working on
->     >     interact, what timeframe is each one targeting, etc.
->     >     >>
->     >     >> I suggest:
->     >     >> - A biweekly meeting using google meet.
->     >     >> - Meeting agenda will be posted on list before a week so people
->     >     >>   will have a full week to review, respond on the existing mailing
->     >     lists.
->     >     >> - If no agenda items for that meeting day, meeting will be
->     cancelled.
->     >     >> - Minutes will be posted on list after a meeting.
->     >     >> - non-TC members can also join; this is an additional space to get
->     input
->     >     >>   from outside experts, under the existing terms of OASIS feedback
->     >     license.
->     >     >>
->     >     >> - All decisions are still made by TC electronic ballot as usual.
->     >     Proposed collaboration
->     >     >>   meetings are unrelated to TC ballot. The point is ability to
->     >     collaborate,
->     >     >>   plan and split work better between developers working in the
->     same spec
->     >     area.
->     >     >>
->     >     >> For the first meeting, I propose the following agenda item:
->     >     >> - discuss new virtio net device features for 1.4 spec release
->     >     >>
->     >     >> I suggest several day & time slots.
->     >     >> Days:
->     >     >> - Tue (May 30) or
->     >     >> - Wed (May 31)
->     >     >> Time:
->     >     >> - 2 pm GMT, or
->     >     >> - 5 am GMT
->     >     >>
->     >     >> We can pick other time/day options as well depending on who wants
->     to
->     >     attend and in which time zone.
->     >     >>
->     >     >> If all this sounds interesting to you, if you would like to attend
->     this
->     >     and hopefully future collaboration meetings,
->     >     >> please reply with email, cc to list:
->     >     >> a. preferred time slots that work for you.
->     >     >> b. any items you would like to add to above agenda.
->     >     >>
->     >     >> Any other comments, suggestions?
->     >     >>
->     >     >> Regards,
->     >     >> Parav Pandit
->     >     >>
->     >     >> This publicly archived list offers a means to provide input to the
->     >     >> OASIS Virtual I/O Device (VIRTIO) TC.
->     >     >>
->     >     >> In order to verify user consent to the Feedback License terms and
->     >     >> to minimize spam in the list archive, subscription is required
->     >     >> before posting.
->     >     >>
->     >     >> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->     >     >> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->     >     >> List help: virtio-comment-help@lists.oasis-open.org
->     >     >> List archive: https://lists.oasis-open.org/archives/virtio-comment
->     /
->     >     >> Feedback License: https://www.oasis-open.org/who/ipr/
->     >     feedback_license.pdf
->     >     >> List Guidelines: https://www.oasis-open.org/policies-guidelines/
->     >     mailing-lists
->     >     >> Committee: https://www.oasis-open.org/committees/virtio/
->     >     >> Join OASIS: https://www.oasis-open.org/join/
->     >     >>
->     >
->     >
->     >     This publicly archived list offers a means to provide input to the
->     >     OASIS Virtual I/O Device (VIRTIO) TC.
->     >
->     >     In order to verify user consent to the Feedback License terms and
->     >     to minimize spam in the list archive, subscription is required
->     >     before posting.
->     >
->     >     Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->     >     Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->     >     List help: virtio-comment-help@lists.oasis-open.org
->     >     List archive: https://lists.oasis-open.org/archives/virtio-comment/
->     >     Feedback License: https://www.oasis-open.org/who/ipr/
->     feedback_license.pdf
->     >     List Guidelines: https://www.oasis-open.org/policies-guidelines/
->     >     mailing-lists
->     >     Committee: https://www.oasis-open.org/committees/virtio/
->     >     Join OASIS: https://www.oasis-open.org/join/
->     >
->     >
->     >
->     >
->     > --
->     >            Chet Ensign
->     >
->     >            Chief Technical                      [p]  +1 201-341-1393
->     > [AIorK4wW] Community Steward                    [e] 
->     chet.ensign@oasis-open.org
->     >                                                 [l]  www.oasis-open.org
->     >            OASIS Open
->     >
-> 
-> 
->     ---------------------------------------------------------------------
->     To unsubscribe from this mail list, you must leave the OASIS TC that
->     generates this mail.  Follow this link to all your TCs in OASIS at:
->     https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php
-> 
-> 
-> 
-> 
-> --
->            Chet Ensign
-> 
->            Chief Technical                      [p]  +1 201-341-1393
-> [AIorK4wW] Community Steward                    [e]  chet.ensign@oasis-open.org
->                                                 [l]  www.oasis-open.org
->            OASIS Open
-> 
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
 
 This publicly archived list offers a means to provide input to the
