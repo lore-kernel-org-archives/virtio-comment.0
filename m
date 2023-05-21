@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5987-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5988-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A563CC7EE23
-	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 14:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D6F8C77B7C
+	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 14:35:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id AC2F91318C7
-	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 14:33:16 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7D08B2B079
+	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 14:35:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0E049985FE4
-	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 14:33:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 760469859EA
+	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 14:35:25 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 01FE29859E5; Sun, 21 May 2023 14:33:16 +0000 (UTC)
+	id 6E9D59859E6; Sun, 21 May 2023 14:35:25 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,177 +24,96 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E287D9859E7
-	for <virtio-comment@lists.oasis-open.org>; Sun, 21 May 2023 14:33:15 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 53B9C9859E7
+	for <virtio-comment@lists.oasis-open.org>; Sun, 21 May 2023 14:35:03 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: OAmVJXd4PG6wQg4dNBwVBQ-1
+X-MC-Unique: 3-eOVaQsMBaj3omjt1EudA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684679590; x=1687271590;
+        d=1e100.net; s=20221208; t=1684679698; x=1687271698;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MA4GW2nnkL3E2dDXl8tw+jfP9C1kadozU8GYe7m1qTg=;
-        b=H/NoyNjY8jDb73IxIRCDsapThjPqMRAZIN0c8XauA0Gw6fYJOfHgzpO/UyKC4BdzA2
-         TW5dgIAdyFNn2cg3XSplG4KOYjwJy05z3MHMGdgB+EtcRyyFZK7vPfxK7GFCyQgtKPBJ
-         c/LYyTNycWEe7wHZShoPr0csHjbyTjkJX203XDxwHNJ6SFF9HPDP1DmbFvT8J+ZXODia
-         gJAsgUzEFO/bLykLiPN8TYMC5x9N5hwAqQoNqfiUbMgg1SPeO42iFoE61ULR8nBzbean
-         /oFhdZcJns7kHo3qh2OFP1YSFMUD9Fxg+YcYSAGigaOrptxyNAq4EpVlQH5uWukOLvoB
-         8Wrw==
-X-Gm-Message-State: AC+VfDw21mRUz0AL/3FTMcZlEi+E9Zrv1ZlvvciFrs2s7zgTH4qjdxj3
-	vkNUZ15ScSDeyE9Ojgtia8tjqIF545ILM3KEveKwoEzAx087wZiOYWOdifn1/wsve9sFEWNEWwX
-	YHBUYs1Y4z+YmF/mLJ4xb6UlWdK6p6iuXrg==
-X-Received: by 2002:a5d:6091:0:b0:306:3361:6cbf with SMTP id w17-20020a5d6091000000b0030633616cbfmr5770588wrt.21.1684679590228;
-        Sun, 21 May 2023 07:33:10 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ71HlMe1HP4Rjc8MOij4cCe+Bf+s5mbps+IGVEmePtTLmU2JU/UOQ7i3yY9LA98F9obuhhKig==
-X-Received: by 2002:a5d:6091:0:b0:306:3361:6cbf with SMTP id w17-20020a5d6091000000b0030633616cbfmr5770578wrt.21.1684679589852;
-        Sun, 21 May 2023 07:33:09 -0700 (PDT)
-Date: Sun, 21 May 2023 10:33:05 -0400
+        bh=rHqoc4F4yxRb8yZ7OYMj/uACmQ36I/uIlurzFZBRpos=;
+        b=IjPbMXO7v+hX4oHGJAe7/oj62IIVuik3ofZtY4tSZ5ylt67OfyZ+TdT+fw8MRFIOwr
+         zmz5oeVydoZx4Nd0JJsQG8/RsVfOj5pgFUuxNAtSGP45KW0ajUrjDKo4NDT1A+6Ts7rG
+         1JRpRwV1jCxgXyveFQ1sSasAYQQ0A2s3ipDifCNbJrjx4CVEYdfRWZ6a7yRGFeVz94ss
+         lX+kSMv/S1S44C+/aLV643mv8lOwrA341gUi5sIsxm8QPI4DOy+/zveoIdzedetw/Phh
+         lE3oAYRMU9RYMNafHq6r/coJILbLFX+0oREt2Rmno1oHzVq/SxUxZe8l03XFNRB/bgjN
+         kpVg==
+X-Gm-Message-State: AC+VfDy18wiFtGzxFsPDELOCwmQx6LrkPdbI7pH6B5JAhM+fhJ9ODKjq
+	ic7Z2h91/ZGAosXbbkAVhvh0AEFedU6opdF7vGsVAY3tx7tv1lJylTTGvotIfWBqfF+sc3e56II
+	wZB0Re7Hvi6u2DJYKk9Ja9xmxw6UGtGCAkA==
+X-Received: by 2002:adf:f591:0:b0:307:8ea4:f8f5 with SMTP id f17-20020adff591000000b003078ea4f8f5mr7941302wro.27.1684679698006;
+        Sun, 21 May 2023 07:34:58 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ63IY+4tlu+WfT8NNqgQR3DUYj2a0heaxtl4gv+zQwiwiuKe4NfzaYmpqzVZm9nZZDhEdyXuw==
+X-Received: by 2002:adf:f591:0:b0:307:8ea4:f8f5 with SMTP id f17-20020adff591000000b003078ea4f8f5mr7941291wro.27.1684679697674;
+        Sun, 21 May 2023 07:34:57 -0700 (PDT)
+Date: Sun, 21 May 2023 10:34:54 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Message-ID: <20230521102050-mutt-send-email-mst@kernel.org>
-References: <20230506000135.628899-1-parav@nvidia.com>
- <20230506000135.628899-2-parav@nvidia.com>
- <20230517013839-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54817CBB98900B83C4F30164DC7E9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230518153640-mutt-send-email-mst@kernel.org>
- <20230519015520-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481AABA8A22DC088B5D7CFDDC7C9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230521050829-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548161A2D28C387C9AF23B81DC429@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Satananda Burla <sburla@marvell.com>
+Message-ID: <20230521103341-mutt-send-email-mst@kernel.org>
+References: <20230330225834.506969-1-parav@nvidia.com>
+ <20230330225834.506969-9-parav@nvidia.com>
+ <20230519020737-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481E912A8CDE621DF4344DEDC7C9@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230521015236-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481905220D7C38DE46F1FE7DC429@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB548161A2D28C387C9AF23B81DC429@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481905220D7C38DE46F1FE7DC429@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] RE: [PATCH v2 1/2] transport-pci: Introduce
- legacy registers access commands
+Subject: [virtio-comment] Re: [PATCH 08/11] transport-pci: Introduce virtio extended capability
 
-On Sun, May 21, 2023 at 01:21:17PM +0000, Parav Pandit wrote:
+On Sun, May 21, 2023 at 01:24:55PM +0000, Parav Pandit wrote:
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Sunday, May 21, 2023 1:58 AM
 > 
-> > From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
-> > open.org> On Behalf Of Michael S. Tsirkin
-> > Sent: Sunday, May 21, 2023 5:17 AM
-> 
-> > > The Notification of the VFs are on the VF BAR for modern or legacy.
-> > > One needs to build additional cross forwarding hardware from PF to VF for the
-> > doorbells.
+> > Yes but neither can it support new devices because it does not look for the new
+> > device id. So it's fine - I was talking about new devices using extended
+> > capability.
 > > 
-> > I think doorbells are driver notifications (linux driver calls them kicks)?
-> > I don't understand what you are saying above really.
-> > what can and what can't be done?
+> > We shouldn't just laser-focus on existing software and devices, there's probably
+> > more to come.
 > >
-> VF has the notification BAR region.
-> All 1.x and legacy such notification lands on the VF BAR.
+> Sure, new devices can use new capability.
+> I will roll this as separate patch and github issue.
+> As we discussed, legacy register access over AQ does not need this capability anyway.
 > 
-> > Again all this idea (as opposed to Jason's transport vq) is to have a simple
-> > software model. Attaching a driver to two devices at the same time is hard to
-> > achive e.g. under windows.
-> >
-> Yet you initiate same discussion point that we already discussed again after summarizing.
-> A driver is not attached to two devices.
-> A driver is attached to a single device.
-
-And that device is the owner no? to send commands?
-
-> A device uses a parent/owner group device to access legacy.
-> 
-> Software model may evolve over time.
+> So not related to v2 discussion.
+> I am in middle of splitting this as separate patch unrelated to the v2 for legacy access.
 > 
 > > 
-> > > And it cannot utilize what already exists for 1.x VF.
+> > > But that is the case with any existing software, not just seabios.
 > > >
-> > >  > 2. It should be possible to send notifications through an admin
-> > > command too,
-> > > >    otherwise admin commands are an incomplete set of functionality.
-> > > >
-> > > Yes. it is only for the functionality. As we discussed in past already, this will not
-> > get any performance.
+> > > New capability is in addition to the existing one.
+> > > And code already exists to refer to the old one, so I am not seeing any gain to
+> > create them now.
+> > > Any new capability that one creates in the future can be in the extended area.
 > > 
-> > Performance might be ok if hardware disables kicks most of the time.
+> > Question is about MCFG in general.  Is adding capability to access MCFG to
+> > seabios for pci accesses practical? hard?
 > >
-> Even for the first kick it is order of magnitude higher.
-> Kicks is the natural tool for the low latency.
->  
+> What is MCFG?
+
+This is the name of the ACPI table describing memory mapped pci config
+accesses.
+
+
+> > > You mentioned a perf angle that it takes half the time, but I don't
+> > > see how as the only change between legacy and ext is: offset.
 > > 
-> > > > 3. I feel using a capability to describe legacy notification
-> > > >    area would be better just because we already have a
-> > > >    structure for this. make it an express capability if you like.
-> > > The AQ command interface is far more programable object than PCI capability
-> > to return this admin info.
-> > > Hence I prefer AQ cmd.
-> > 
-> > I feel your preferences for 1 and 3 conflict. If you really insist on kicks being on
-> > VFs then at least let us make VF driver in the host simple. 
-> It is straight forward.
-> 
-> If you prefer the "offset" example of past,
-> 
-> If (legacy_offset == queue_notify_offset)
->    *db = guest_supplied_q_notify_content;
-> else 
->     virtio_net_send_aq_cmd();
-> 
-> "simple" is really a subjective term in this context.
+> > For a variety of reasons Linux does not use memory mapped accesses for legacy
+> > config space, it uses cf8/cfc for that.
+> And does it use memory mapped accesses for non-legacy config space?
 
-yes this is qemu. sure.
-
-So we have legacy emulation send commands to VF or to PF.  Okay. But let
-us avoid the need for VF driver to send commands to PF to initialize.
-Just get all information it needs from VF itself.
-
-
-Maybe it's a good idea to reuse existing notification capability,
-or maybe a new one, but let's avoid making VF driver depend on PF
-commands.
-
-
-
-> > If it has to talk to PF
-> > driver things are really complex. At this point we are very very far from VFIO
-> > model, and then what exactly have we gained by implementing legacy control
-> > path in hardware? 
-> It is in the VFIO model, legacy largely falls in the special path for backward compat for the hw devices.
-> 
-> > Let's do software with maybe a couple of features such as
-> > VIRTIO_NET_F_LEGACY_HEADER.
-> >
-> We have already these design choices and tradeoff in v0 and v1, it doesn't fit the requirements.
-
-BTW not for this project but generally this is why I thought it is not
-at all a bad idea to have a requirements text document e.g. under
-todo/
-discuss it as normally maybe even vote on including features in a
-plan for a release.
-
-> We cannot iterate exact 100% same points again in this summary discussion.
-> 
-> If you have any different comments from v0 and v1, please share, otherwise these commands should proceed.
-> 
-> What you hint is saying hey, "transport everything through the PF, then why do you have a VF?"
-> We again past that discussion.
-> 
-> This is different requirement, than 
-> "There is a VF passthrough accessible directly from the guest without a VI, some of them need to have legacy support also".
-> Hence how do one make that legacy guest utilize it the VF in passthrough manner for 1.x and 0.9.5.
-> With this proposal 0.9.5 slow registers are accessed over the owner group admin PF keeping the whole model and functionality intact.
-> 
-> This is it.
-
-
-So, I am saying one model is small driver for VF and a big one for PF.
-And to keep the VF driver simple, it should get information simply from
-config space capability.
-
-
+No other way to access that, right?
 
 -- 
 MST
