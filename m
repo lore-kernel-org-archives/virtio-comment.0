@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-5983-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-5984-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93062C7EE23
-	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 05:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3B6C77B7C
+	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 09:16:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 46614370E6
-	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 05:57:53 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 750A94282C
+	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 09:16:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 118D39862A1
-	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 05:57:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 58DE49859EA
+	for <virtio-comment@archiver.kernel.org>; Sun, 21 May 2023 09:16:47 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 03D199859E7; Sun, 21 May 2023 05:57:53 +0000 (UTC)
+	id 468399859E5; Sun, 21 May 2023 09:16:47 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,86 +24,137 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E15059859E9
-	for <virtio-comment@lists.oasis-open.org>; Sun, 21 May 2023 05:57:52 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 32D259859E6
+	for <virtio-comment@lists.oasis-open.org>; Sun, 21 May 2023 09:16:47 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: KoYI9ORSMU6OlqIfhhJDJw-1
+X-MC-Unique: TeoLCfuzMEuB92SjVQexcw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684648667; x=1687240667;
+        d=1e100.net; s=20221208; t=1684660602; x=1687252602;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=neEnWwdBJs1CHdHlkglta2HaEq1W3RW8Zwqq2ZQfi78=;
-        b=Y0vsaHkqRway8oEZ+H9rKNXRxs0T4GOQRDmNXrriBFRrsRf6NxYgIy8VkhiBPRwWo7
-         UHX7srxCf6cOsnIGawCeixS9xKpBTkURulJ9zU/sAu+h+zWPQ24LXEeeO4TG45xTYjTY
-         Mazm/7EArc6R1rEzIWhJU/YkBnteeUew1gDA8trqztGAE9tPv4SqRzHKzb/HmbSuo1g+
-         JQ9hPZL9yceXqybOpq+qUjGCi9pOpEMJLHRfr/c4l3UADGbjdUyWJQRcLAzV2KZxIBwF
-         bHWTM0t08iEuUkGWLhAOlC5UAZ8Uu7gzZDubIBMIZNj9DRC1SYK144M41a50HLR+PMPu
-         ziFw==
-X-Gm-Message-State: AC+VfDxS6fqSDqXaRRfpHORT4VtBfJ1hSNJFbqc9CcCp/05kSvwHI/ch
-	+GYgqxIlyrcZ+FRD/y0VqQT21uiiccrO14G+umc5QeBz58Onw+ZYj4OWTWWRL/WrNEFzXrbl+2q
-	Pzr2D1gpYx2VdLbwCDD2HRyxQWjk01GeUhg==
-X-Received: by 2002:adf:f409:0:b0:2fe:e137:dbad with SMTP id g9-20020adff409000000b002fee137dbadmr4251127wro.51.1684648666849;
-        Sat, 20 May 2023 22:57:46 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7jJX+90+JUA0pXXmGVdq7vGbr8TYXK9Jix6Ol6UlmCNNudlg5fjcjSHvJ8vjbQeVQVz9sJ/g==
-X-Received: by 2002:adf:f409:0:b0:2fe:e137:dbad with SMTP id g9-20020adff409000000b002fee137dbadmr4251119wro.51.1684648666498;
-        Sat, 20 May 2023 22:57:46 -0700 (PDT)
-Date: Sun, 21 May 2023 01:57:42 -0400
+        bh=M6Z0PGKRWJgwF/vuXGYFhq9YXaLWw67KbEJUntKVQ60=;
+        b=Vmn6U8LdlJk5vZS5fyluJN6iaCh7ezvRwAuvoQNlNEm9g+8sYtGN/pRRsW2GNOjz5e
+         WVFJYFEsWmf+mg4HfffECqt9/1hSktvRtZUAC6k8+eSlyJ0xhA3wZFoDxZQ/I3TStk0u
+         qFKrzuNQavuhI0TFAeMTuz+2h9aBriSK1yK8snMRqnLdOMndzUTCFbffCuL9uR0nPAZV
+         ze6QSK61jSVTCXdWmp69rYUv2zoebDroV+UYMgMYEO7820pYslR9NzCS+PTenXx+1l43
+         M55hrO2Io7201MRS7AgGouSAlYDvgbVrCAVjEfUgcFtYjUUt/cynWLBg2m6KWmkkeqHq
+         unMQ==
+X-Gm-Message-State: AC+VfDw13ESeLgjhSzDMJ7d9kGVfSXEViOH36PFNCIbRf8ucvoHnBzcV
+	XmJ1XMzhub07cLlLnX7rG4H9tX/J/bXtcUo+Wzd1dYJC5H/NY9cT2NNmQCn7l6CDKIZPbj9p0aY
+	tB6WjGyXE2BE/i6wYZ9cYyHSVWykPXQA1GQ==
+X-Received: by 2002:a5d:4d51:0:b0:2f3:e981:f183 with SMTP id a17-20020a5d4d51000000b002f3e981f183mr5334658wru.10.1684660602536;
+        Sun, 21 May 2023 02:16:42 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4OMgpNWHq8lpeE3aP35prfmS8E1zjKNmaruf5bp/fALEh7UUuhnz7qwla8Cx9XH92JceZhWg==
+X-Received: by 2002:a5d:4d51:0:b0:2f3:e981:f183 with SMTP id a17-20020a5d4d51000000b002f3e981f183mr5334644wru.10.1684660602213;
+        Sun, 21 May 2023 02:16:42 -0700 (PDT)
+Date: Sun, 21 May 2023 05:16:38 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Satananda Burla <sburla@marvell.com>
-Message-ID: <20230521015236-mutt-send-email-mst@kernel.org>
-References: <20230330225834.506969-1-parav@nvidia.com>
- <20230330225834.506969-9-parav@nvidia.com>
- <20230519020737-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481E912A8CDE621DF4344DEDC7C9@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Shahaf Shuler <shahafs@nvidia.com>
+Message-ID: <20230521050829-mutt-send-email-mst@kernel.org>
+References: <20230506000135.628899-1-parav@nvidia.com>
+ <20230506000135.628899-2-parav@nvidia.com>
+ <20230517013839-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54817CBB98900B83C4F30164DC7E9@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230518153640-mutt-send-email-mst@kernel.org>
+ <20230519015520-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481AABA8A22DC088B5D7CFDDC7C9@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481E912A8CDE621DF4344DEDC7C9@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481AABA8A22DC088B5D7CFDDC7C9@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH 08/11] transport-pci: Introduce virtio extended capability
+Subject: Re: [virtio-comment] RE: [PATCH v2 1/2] transport-pci: Introduce
+ legacy registers access commands
 
-On Fri, May 19, 2023 at 09:02:58PM +0000, Parav Pandit wrote:
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Friday, May 19, 2023 2:10 AM
-> > 
-> > So looking at this in isolation, it probably warrants an extra github issue. So I
-> > would like to find out whether we should introduce this capability and switch to
-> > it for new devices.
-> > 
-> > My main question is whether e.g. seabios will be able to use it.
-> > Could you take a look at the source and let us all know?
-> > 
-> Existing unmodified seabios cannot use it because it is not looking at the new offset and cap_id.
-
-Yes but neither can it support new devices because it does not look
-for the new device id. So it's fine - I was talking about new devices
-using extended capability.
-
-We shouldn't just laser-focus on existing software and devices,
-there's probably more to come.
-
-
-> But that is the case with any existing software, not just seabios.
+On Fri, May 19, 2023 at 04:37:16PM +0000, Parav Pandit wrote:
 > 
-> New capability is in addition to the existing one.
-> And code already exists to refer to the old one, so I am not seeing any gain to create them now.
-> Any new capability that one creates in the future can be in the extended area.
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Friday, May 19, 2023 2:07 AM
+> > 
+> > On Thu, May 18, 2023 at 03:42:19PM -0400, Michael S. Tsirkin wrote:
+> > > > > Does this sound like a reasonable
+> > > > > compromize to you?
+> > > >
+> > > > Splitting proposed one command to two commands, 1. one for accessing
+> > > > legacy common config 2. second for accessing legacy device specific
+> > > > config
+> > > >
+> > > > seems fine to me as below.
+> > > >
+> > > > So we will have total 5 commands (instead of 3).
+> > > >
+> > > > 1. legacy common config read
+> > > > 2. legacy common config write
+> > > >
+> > > > 3. legacy device config read
+> > > > 4. legacy device config write
+> > > > 5. query device notification area
+> > > >
+> > > > #1 and #3 same cmd signature but different opcode.
+> > > > #2 and #4 same cmd signature but different opcode.
+> > > >
+> > >
+> > > Sounds reasonable. Jason?
+> > >
+> > > notification thing needs more thought I feel though.
+> > > It feels weirdly bolted on, but I can't put my finger on what's wrong
+> > > exactly yet. Will think it over.
+> > 
+> > 
+> > So with a fresh mind, at least three things:
+> > 
+> > 1. given driver attaches to the PF, it should be possible to forward
+> >    notifications there, as opposed to individual VFs.  NumVFs is 16 bit so
+> >    it will fit in a 32 bit write together with VQ index.
+> >
+> The Notification of the VFs are on the VF BAR for modern or legacy.
+> One needs to build additional cross forwarding hardware from PF to VF for the doorbells.
 
-Question is about MCFG in general.  Is adding capability to access MCFG
-to seabios for pci accesses practical? hard?
+I think doorbells are driver notifications (linux driver calls them
+kicks)?
+I don't understand what you are saying above really.
+what can and what can't be done?
 
-> You mentioned a perf angle that it takes half the time, but I don't
-> see how as the only change between legacy and ext is: offset.
+Again all this idea (as opposed to Jason's transport vq)
+is to have a simple software model. Attaching a driver to two
+devices at the same time is hard to achive e.g. under windows.
 
-For a variety of reasons Linux does not use memory mapped
-accesses for legacy config space, it uses cf8/cfc for that.
+
+> And it cannot utilize what already exists for 1.x VF.
+> 
+>  > 2. It should be possible to send notifications through an admin command too,
+> >    otherwise admin commands are an incomplete set of functionality.
+> > 
+> Yes. it is only for the functionality. As we discussed in past already, this will not get any performance.
+
+Performance might be ok if hardware disables kicks most of the time.
+
+
+
+> > 3. I feel using a capability to describe legacy notification
+> >    area would be better just because we already have a
+> >    structure for this. make it an express capability if you like.
+> The AQ command interface is far more programable object than PCI capability to return this admin info.
+> Hence I prefer AQ cmd.
+
+I feel your preferences for 1 and 3 conflict. If you really insist on
+kicks being on VFs then at least let us make VF driver in the
+host simple. If it has to talk to PF driver things are really
+complex. At this point we are very very far from VFIO model,
+and then what exactly have we gained by implementing
+legacy control path in hardware? Let's do software with
+maybe a couple of features such as VIRTIO_NET_F_LEGACY_HEADER.
+
 
 -- 
 MST
