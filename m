@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6016-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6017-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 534FBC7EE29
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 May 2023 01:18:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A7AAC7EE23
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 May 2023 04:09:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8DEEF2A821
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 May 2023 01:18:04 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id EADB16848D
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 May 2023 04:09:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8220E986426
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 May 2023 01:18:04 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D85AE986412
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 May 2023 04:09:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 78C819863FB; Wed, 24 May 2023 01:18:04 +0000 (UTC)
+	id CE96E98628B; Wed, 24 May 2023 04:09:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,216 +24,214 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 65A6F986402
-	for <virtio-comment@lists.oasis-open.org>; Wed, 24 May 2023 01:18:04 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BB2839863FB
+	for <virtio-comment@lists.oasis-open.org>; Wed, 24 May 2023 04:09:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: n9ROtbYaPcOZsz4mL5M8oQ-1
+X-MC-Unique: NqeSSzxzPq6aFOvFxxZVbg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684891073; x=1687483073;
+        d=1e100.net; s=20221208; t=1684901373; x=1687493373;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JjJsVAZoakMcwKYxQPVQcRdcijUC0/csYa39GfPgSK0=;
-        b=DuzmAGjrvwluzAF1DlVbdDyWCXuClajQiqu+Hh+/GXZwKWjF5m86LZjypmXi4dFh3l
-         oVKOr0JOFZ6zkz3PYAJEE2vDKxkU3zkeca8JfY95TjK3X06DUFQPWDmbqg9p1ovuafkh
-         iv8H1Flt7SCVFfVN0tRgxsfwLko4O0EM7FpFeLZGqInUE8wT7aWyhYqYqH7mobV7++V4
-         z6ws5U3IpqCX/6hxv1E3pijQdvI3643LXPKsuPOyjK9itvJZ1cWhZeD4NSrJtg+YoZ7K
-         DaqFwCp4O7/tSmBAagJBkCMgYEqP3vc55U4LLeY6GYTHX7oD+nMiwOZyurHdzAdLX5Ga
-         K14A==
-X-Gm-Message-State: AC+VfDzOgLgwA+n7FwRtij01uU5FEsiABEx8EwW/E1cpEQ0kmRITYEvR
-	fvihk6jUL2JsXVAeeQGNPvkysx2vFjn5u3QnMFU7Fl3QYifPRuxeojSPpdANIgcF7LimklxxTk2
-	i6vLyYEoQXSLfMquuCCIkKJKygvMGKA3BixV6wP8H3M6sLkT9+A==
-X-Received: by 2002:a2e:b165:0:b0:2ac:87f6:7b4a with SMTP id a5-20020a2eb165000000b002ac87f67b4amr5527827ljm.2.1684891073104;
-        Tue, 23 May 2023 18:17:53 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7aFXC7fPhpR/CI4xPY31T02r9muE2FE/0oRKOFSRL1xfS8YCoi5Z3HCN4wyj1/L28O+a+NI9aJ7qLj/+wToXU=
-X-Received: by 2002:a2e:b165:0:b0:2ac:87f6:7b4a with SMTP id
- a5-20020a2eb165000000b002ac87f67b4amr5527816ljm.2.1684891072718; Tue, 23 May
- 2023 18:17:52 -0700 (PDT)
+        bh=9h4+mPWARSMWTSgNBGXLaJKepM11S77N/TL6iHEDhck=;
+        b=ZMLq5nsLGdFvKcQuzYJcX9f/fQl4qfaOfIc7/Jv7wb0e704VHlFP9RYm4+wexEC1XR
+         0/utTGaQG/JObIjJ2BLn+apbCcbgIKFnryLL/+kBdgzB042IUHsJAVk1aQzJx/zmZAY2
+         xt1hh5IIQDf4890t//ObgnX8xiwjO+rX/sMMUXM9oEnvtGIgHF6hR+g4yITuFOMJo5Yq
+         XSC+/3rHEG9Y26gm44OniFE9MGJ3Z2zoOmnKmtJuTPiddqb2ALzJvqV34xy2hMI4z6YB
+         bILhzLzmnzmOGg7r1LYBlf8ms8K0xWhpwnkqTreJm3Vs1UOJtFjJvGYTJ3BEvVypM/Md
+         DO7g==
+X-Gm-Message-State: AC+VfDw/0V2kOcnGWZjDRA+/4EcIlGJPGf/m0i9OruNZ0W+FqD+cfgSE
+	cR9g9NdD+CfHqd++noBJ2Lx17+225LuVOmmitktmfn/leyqtfx3+DgLEthPmXOkTsSvKZrAfsZ5
+	KZfdIsOnF8XcDa06OJXc7yISMloByV6aofjhqnwZIpoEBe3wgJw==
+X-Received: by 2002:a05:6512:2308:b0:4f3:bb19:3bd6 with SMTP id o8-20020a056512230800b004f3bb193bd6mr3544101lfu.34.1684901373770;
+        Tue, 23 May 2023 21:09:33 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4KjSEYuR/pYN2KcinDPAs9pSpxWrqdT9qeEhut6ueuw+oRj5wjL9kvs7R1CsmNTxLrbcl2JasLKJ7n0/sOsYI=
+X-Received: by 2002:a05:6512:2308:b0:4f3:bb19:3bd6 with SMTP id
+ o8-20020a056512230800b004f3bb193bd6mr3544089lfu.34.1684901373397; Tue, 23 May
+ 2023 21:09:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230519015520-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481AABA8A22DC088B5D7CFDDC7C9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230521050829-mutt-send-email-mst@kernel.org> <PH0PR12MB548161A2D28C387C9AF23B81DC429@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230521102050-mutt-send-email-mst@kernel.org> <PH0PR12MB54815D83C3287FE7B3A2947CDC429@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230522154149-mutt-send-email-mst@kernel.org> <PH0PR12MB5481A2AD326E7F0A7CEFC223DC439@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230522170700-mutt-send-email-mst@kernel.org> <PH0PR12MB54818BD5421AC200C2DEEDCFDC409@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230523141718-mutt-send-email-mst@kernel.org> <PH0PR12MB548124A538CE4CCCE76F068FDC409@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB548124A538CE4CCCE76F068FDC409@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20230522121200.40939-1-hengqi@linux.alibaba.com>
+ <20230522150743-mutt-send-email-mst@kernel.org> <20230523024118.GA23504@h68b04307.sqa.eu95>
+ <20230523024057-mutt-send-email-mst@kernel.org> <20230523091820.GC23504@h68b04307.sqa.eu95>
+ <20230523092237-mutt-send-email-mst@kernel.org> <20230523135144.GD23504@h68b04307.sqa.eu95>
+In-Reply-To: <20230523135144.GD23504@h68b04307.sqa.eu95>
 From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 24 May 2023 09:17:41 +0800
-Message-ID: <CACGkMEuixsBibSq_pEQvcKOH0WBQWnta4Q2c28SV8qTS8gaVcA@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, 
-	"david.edmondson@oracle.com" <david.edmondson@oracle.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>
+Date: Wed, 24 May 2023 12:09:22 +0800
+Message-ID: <CACGkMEscLOVssyAeTYZE0o_KT86UazdBdj9NKPrmK5=g6YcBuA@mail.gmail.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtio-dev@lists.oasis-open.org, 
+	virtio-comment@lists.oasis-open.org, Parav Pandit <parav@nvidia.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] RE: [PATCH v2 1/2] transport-pci: Introduce
- legacy registers access commands
+Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [Proposal] Relationship
+ between XDP and rx-csum in virtio-net
 
-Hi Parav:
-
-On Wed, May 24, 2023 at 6:22=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
-te:
+On Tue, May 23, 2023 at 9:51=E2=80=AFPM Heng Qi <hengqi@linux.alibaba.com> =
+wrote:
 >
->
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Tuesday, May 23, 2023 2:49 PM
-> > > > iokit is from my previous work experience not virtio.
-> > > > For virtio we had a lot of trouble with hacks like this on windows.
-> > > I don't know why windows driver need to talk to PF driver until now w=
-hen the
-> > AQ doesn't exists.
-> >
-> > What is it you want to know?
-> >
-> Why a VF driver needs to talk to a PF driver in windows without AQ?
->
-> > > > That's an important platform.
+> On Tue, May 23, 2023 at 09:30:28AM -0400, Michael S. Tsirkin wrote:
+> > On Tue, May 23, 2023 at 05:18:20PM +0800, Heng Qi wrote:
+> > > On Tue, May 23, 2023 at 03:15:37AM -0400, Michael S. Tsirkin wrote:
+> > > > On Tue, May 23, 2023 at 10:41:18AM +0800, Heng Qi wrote:
+> > > > > On Mon, May 22, 2023 at 03:10:05PM -0400, Michael S. Tsirkin wrot=
+e:
+> > > > > > On Mon, May 22, 2023 at 08:12:00PM +0800, Heng Qi wrote:
+> > > > > > > 1) Add a feature bit to the virtio specification to tell the =
+sender that a fully
+> > > > > > > csumed packet must be sent.
+> > > > > >
+> > > > > > Who is the sender in this picture? The driver?
+> > > > >
+> > > > > The device or the driver.
+> > > > >
+> > > > > When the device is hw, the sender is more likely to be a device.
+> > > > > When the device is sw, the sender can be a device or a driver.
+> > > > >
+> > > > > But in general, this feature is inclined to constrain the behavio=
+r of the device and
+> > > > > the driver from the receiving side.
 > > > >
-> > > I am not sure how important is it.
-> > > What I learnt that a decade has passed and even after that virtio dri=
-vers are
-> > not part of the OS distro.
-> >
-> > Because with QEMU they are so easy to side-load. So we never bothered.
-> >
-> I don't understand your comment.
-> I was saying to my knowledge a Windows OS do not have a virtio drivers in=
- their distro which you said is important.
->
-> > > It doesn't need to because guest is anyway going to do whatever it do=
-es.
-> >
-> > yes. But hypervisor can do work-arounds or detect broken functionality =
-and
-> > stop cleanly.
-> >
-> You mentioned this several times.
-> Below requirement still holds fine.
->
-> > > The clear requirement is: to not fix legacy but to support legacy.
-> > > Fixing legacy is role of 1.x. Not the role of legacy interface itself=
- using
-> > AQ/MMIO.
-> >
->  > And for purpose of BAR mapping, such BAR in the VF can be mapped too.
-> > > You didn't answer why VF BAR is a problem and suggest PF BAR.
-> >
-> > VF BAR by itself is not a problem. Discovering VF BAR mapping offset th=
-rough PF
-> > is.
-> >
-> At the end of the email you right that "AQ is fine" but here you write di=
-scovering that through the PF AQ is.
-> How to interpret your comment?
->
-> > > If notification for VF is in VF -> hence other config registers also =
-in VF, such
-> > blanket statements does not help.
-> >
-> > not other config registers. what's needed in VF driver should be retrie=
-vable
-> > through VF.
-> >
-> This applies to the modern device, for legacy emulation, I don't see this=
- a mandatory.
->
-> > > Your comments and suggestions are helpful.
-> > > Some of them follow the loop that doesn't help.
-> > > Again, thanks a lot for the inputs and reviews.
+> > > > Based on above I am guessing you are talking about driver getting
+> > > > packets from device, I wish you used terms from virtio spec.
 > > >
-> > > The design discussion helped to produce two solutions here than what =
-was
-> > started in v0.
-> >
-> > OK good. Now I suggest you make an effort to come up with some compromi=
-se
-> > that will make this thread stop. I really can't say I even remember wha=
-t we said
-> > in the beginning.
->
-> > You had this idea of starting with a problem statement document how abo=
-ut
-> > doing that? Because I feel every time people bring up some idea and a p=
-roblem
-> > this idea would solve, you go "this is out of scope". Let's decide what=
- the scope
-> > is?
-> >
-> The requirements are simple and straightforward at start of the cover let=
-ter.
-> i.e. for quick reference in short: A PCI VF passthrough to guest VM to su=
-pport legacy + 1.x.
->
-> I propose:
-> Method-1:
-> 1. VF legacy registers access over AQ of PF
-> 2. VF driver notifications using MMIO of VF
->
-> Method-2:
-> 1. legacy registers access using two MMIO registers (data and addr)
-> 2. VF driver notifications using MMIO of VF
->
-
-Based on your above summary (and a more detailed one in another
-thread), it's not hard to see the tricky part is the try to
-provide/mediate modern features for legacy. Assuming we all agree:
-
-1) We want transitional devices but not legacy only devices
-2) Mediation is a must for legacy
-
-Then finding a way to reuse a modern interface is much better than
-building a new path back to the old legacy maze. I really think we
-should go with a way to meditate on top of a modern device. This
-probably requires some new feature bit(s) like
-VIRTIO_NET_F_LEGACY_HEADER but it has the lowest cost.
-
-1) no new hardware interface like registers/capabilities etc
-2) no datapath meditation, hypervisor will negotiate
-VIRTIO_NET_F_LEGACY_HEADER for legacy guest drivers
-3) endian is fine, hypervisor know it's modern so it's little
-4) reset is fine, hypervisor know it's modern so it can do proper meditatio=
+> > > Yes, I'm going to use the terminology of the virtio spec.
+> > >
+> > > >
+> > > > > For example:
+> > > > > VIRTIO_NET_F_UNNECESSARY_CSUM : The driver tells the device that =
+you must send me a fully csumed packet.
+> > > > >
+> > > > > Then the specific implementation can be
+> > > > >
+> > > > > (1) the sender sends a fully csumed packet;
+> > > > > (2) the receiver receives a CHECKSUM_PARTIAL packet, and the devi=
+ce helps calculate the fully csum
+> > > > >     (because the two parties in the communication are located on =
+the same host, the packet is trusted.).
+> > > > >
+> > > > > In summary, if VIRTIO_NET_F_UNNECESSARY_CSUM is negotiated, the d=
+river will no longer receive any packets marked CHECKSUM_PARTIAL.
+> > > > >
+> > > > > Thanks.
+> > > >
+> > > > This is what clearing VIRTIO_NET_F_GUEST_CSUM does.
+> > >
+> > > Yes, but with VIRTIO_NET_F_GUEST_CSUM cleared, although the device ca=
 n
-5) notification is fine, hypervisor know it's modern so it can use
-modern notification areas
-6) all the behaviour is deterministic, no undocumented or code defined
-legacy behaviours
+> > > receive a fully checksummed packet, we can no longer enjoy
+> > > the device's ability to validate the packet checksum. That is, the va=
+lue
+> > > of \field{flags} in the virtio_net_hdr structure is set to 0, which m=
+eans
+> > > that the packet received by the driver will not be marked as
+> > > VIRTIO_NET_HDR_F_DATA_VALID.
+> > >
+> > > So, we need a feature bit (let's say VIRTIO_NET_F_UNNECESSARY_CSUM).
+> > > If VIRTIO_NET_F_UNNECESSARY_CSUM is negotiated, the device must give =
+the
+> > > driver a fully checksummed packet, and the packet is validated by the
+> > > device with \field{flags} set to VIRTIO_NET_HDR_F_DATA_VALID.
+> > >
+> > > >
+> > > > I feel you are trying to say that clearing VIRTIO_NET_F_GUEST_CSUM
+> > > > disables all offloads but you want to keep some of them?
+> > > >
+> > >
+> > > No, what I mean is that a feature VIRTIO_NET_F_UNNECESSARY_CSUM is ne=
+eded
+> > > in addition to VIRTIO_NET_F_GUEST_CSUM, if both features are negotiat=
+ed,
+> > > then the driver may always receive packets marked as
+> > > VIRTIO_NET_HDR_F_DATA_VALID, which means that we can now load XDP at =
+the
+> > > same time.
+> >
+> > Makes no sense to me. VIRTIO_NET_F_GUEST_CSUM set already allows
+> > VIRTIO_NET_HDR_F_DATA_VALID:
+>
+> We need to focus on what happens when the XDP program is loaded:
+>
+> The current virtio-net needs to turn off the VIRTIO_NET_F_GUEST_CSUM
+> feature when loading XDP. The main reason for doing this is because
+> VIRTIO_NET_F_GUEST_CSUM allows to receive packets marked as
+> VIRTIO_NET_HDR_F_NEEDS_CSUM. Such packets are not compatible with
+> XDP programs, because we cannot guarantee that the csum_{start, offset}
+> fields are correct after XDP modifies the packets.
 
-Anything that prevents you from adding things like VIRTIO_NET_F_LEGACY_HEAD=
-ER?
-
-You wrote the following in v1:
-
-"""
-There is virtio PCI VF.
-The user who attaches this VF to the VM, it doesn=E2=80=99t know if its gue=
-st
-is to run legacy driver or 1.x
-Hence hypervisor doesn=E2=80=99t want to run special stack when guest may
-(likely) be 1.x and device also supports 1.x.
-"""
-
-I don't understand this actually. For "special stack", are you
-referring to the mediation path for legacy? I don't see how
-VIRTIO_NET_F_LEGACY_HEADER differs from new hardware interfaces like
-admin virtqueue in this regard. If management stack wants a
-transitional device, Hypervisor just need
-
-1) for modern BAR, assign it directly to the VM if it wishes, no
-mediation at all
-2) for legacy BAR, trap and mediate
-
-The only difference happens in 2), that is which kind of interfaces
-should we go, existing modern or new legacy like admin virtqueue.
-
-Or as Michael said, it would be better to explain how the hypervisor
-expects to work may help.
+We can try to fix or workaround this. A rough idea is for example by
+using a flow dissector? Anyhow the GSO of virtio-net was marked as
+dodgy which means the csum_start/offset needs to be validated again in
+the xmit path. Or we can monitor if the packet is modified or not, if
+not, we don't need to zero vnet header?
 
 Thanks
+
+>
+> So in order for the driver to continue to enjoy the device's ability to
+> validate packets while XDP is loaded, we need a new feature to tell the
+> device not to deliver packets marked as VIRTIO_NET_HDR_F_NEEDS_CSUM (in
+> other words, the device can only deliver packets marked as
+> VIRTIO_NET_HDR_F_DATA_VALID).
+>
+> Thanks.
+>
+> > \item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+> >   VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} can be
+> >   set: if so, the packet checksum at offset \field{csum_offset}
+> >   from \field{csum_start} and any preceding checksums
+> >   have been validated.  The checksum on the packet is incomplete and
+> >   if bit VIRTIO_NET_HDR_F_RSC_INFO is not set in \field{flags},
+> >   then \field{csum_start} and \field{csum_offset} indicate how to calcu=
+late it
+> >   (see Packet Transmission point 1).
+> >
+> > Did you maybe mean if either feature is negotiated?
+> >
+> >
+> >
+> > > > Again please use virtio terminology not Linux. to help you out,
+> > > > in current linux, VIRTIO_NET_HDR_F_NEEDS_CSUM and VIRTIO_NET_HDR_F_=
+DATA_VALID
+> > > > will set CHECKSUM_PARTIAL and CHECKSUM_UNNECESSARY respectively.
+> > > >
+> > >
+> > > Sure. Will do as you suggested.
+> > >
+> > > Thanks.
+> > >
+> > > >
+> > > > --
+> > > > MST
+> > > >
+> > > >
+> > > > -------------------------------------------------------------------=
+--
+> > > > To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> > > > For additional commands, e-mail: virtio-dev-help@lists.oasis-open.o=
+rg
+> >
+> >
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> >
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> >
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.p=
+df
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing=
+-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
+>
 
 
 This publicly archived list offers a means to provide input to the=0D
