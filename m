@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6037-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6038-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF1A5C7EE23
-	for <virtio-comment@archiver.kernel.org>; Fri, 26 May 2023 08:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FED2C7EE23
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 May 2023 00:58:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 30CB733098
-	for <virtio-comment@archiver.kernel.org>; Fri, 26 May 2023 08:05:28 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2FC922B055
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 May 2023 00:58:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 03C3E986684
-	for <virtio-comment@archiver.kernel.org>; Fri, 26 May 2023 08:05:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F22EF98658C
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 May 2023 00:58:57 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E70EE983DA0; Fri, 26 May 2023 08:05:27 +0000 (UTC)
+	id DBBD3986384; Mon, 29 May 2023 00:58:57 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,130 +24,87 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D9FD09863FC;
-	Fri, 26 May 2023 08:04:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C525C986471
+	for <virtio-comment@lists.oasis-open.org>; Mon, 29 May 2023 00:58:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046056;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0VjVS-AI_1685088259;
-Message-ID: <69cd31d4-c059-3edd-f14b-bdf03ac4b200@linux.alibaba.com>
-Date: Fri, 26 May 2023 16:04:18 +0800
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685321936; x=1687913936;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=3mbkOX3TfiuS0tviyMz9wygUvllQmGjI4/ybZQHSkjQ=;
+        b=MKF7rWKwnnm49ZHnsN7P86F7iZJF0xH1f9HZe6Dl+XJbDuDG39Eo3gTv3xsx6b1XR6
+         SFOiGO0kT/v+qA54Cz5WRx4BOOqTT21qByXFjxJ+9y3OjTYVFsAFVimLBgO5w4LraU7Y
+         3G0Kt1UYBVlM9suEPx4vPChao401fTeGroo08uQMbmw7gNYVvWTMuWZqPCORMesXaU6t
+         jBdt7brct85dj//ocjKDLzOcODeZ0qvD/rr0cf0H917aE2mSkjKvmg+gCq+brCuJ2RoC
+         Krd1kKT7mTJzT7vkueDCwKiqyfXfZ5i2ekqTcltLoQv6BesXbFrIvMpdEpkVwuPAJbkz
+         po6Q==
+X-Gm-Message-State: AC+VfDzzEL0xrJvCVQmomgu5gQJTArC1s4Lw3jskQvU2fCDnl3cdTaHX
+	3yjTVLmGZruNZdmZxdOEPBS3rQ==
+X-Google-Smtp-Source: ACHHUZ6j7mcTyvw4hsIlhnVjuInxjxKc2pHUv5d5L/ObThW0byS8ArEQ0plfdPdr4mFxMdp/bGZ7eg==
+X-Received: by 2002:a05:6a21:100e:b0:10b:d045:f0cf with SMTP id nk14-20020a056a21100e00b0010bd045f0cfmr7432337pzb.23.1685321936147;
+        Sun, 28 May 2023 17:58:56 -0700 (PDT)
+Message-ID: <7c2c3b40-3099-1525-352e-9ab1ef4682ac@bytedance.com>
+Date: Mon, 29 May 2023 08:56:46 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org,
- Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
- Yuri Benditovich <yuri.benditovich@daynix.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <20230522050236.49433-1-hengqi@linux.alibaba.com>
- <20230522151522-mutt-send-email-mst@kernel.org>
- <20230523035803.GB23504@h68b04307.sqa.eu95>
-In-Reply-To: <20230523035803.GB23504@h68b04307.sqa.eu95>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: parav@nvidia.com, mst@redhat.com, stefanha@redhat.com, jasowang@redhat.com
+Cc: virtio-comment@lists.oasis-open.org, houp@yusur.tech,
+ helei.sig11@bytedance.com, xinhao.kong@duke.edu
+References: <20230504081910.238585-1-pizhenwei@bytedance.com>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <20230504081910.238585-1-pizhenwei@bytedance.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re: [PATCH v14] virtio-net:
- support inner header hash
+Content-Transfer-Encoding: 7bit
+Subject: [virtio-comment] PING: [PATCH v2 00/11] Introduce Virtio Over Fabrics
 
+PING!
 
+On 5/4/23 16:18, zhenwei pi wrote:
+> v1 -> v2:
+> - Suggested by Parav, split a large patch into several small patches.
+> - Small changes for VQN, add "There is no strict style limitation".
+> - Move *bytes* field limitation from get/set config opcode section to
+>    Config Command.
+> 
+> v1:
+> Introduce Virtio-oF specification, include:
+> - overview
+> - Virtio Qualified Name
+> - Segment Descriptor definition
+> - Buffer Mapping definition: Stream Transmission and Keyed Transmission
+> - Command set definition
+> - opcode definition
+> - status definition
+> - transport binding: TCP and RDMA
+> - device initialization
+> 
+> Previous discussion:
+> https://lists.oasis-open.org/archives/virtio-comment/202304/msg00442.html
+> 
+> zhenwei pi (11):
+>    transport-fabrics: introduce Virtio Over Fabrics overview
+>    transport-fabrics: introduce Virtio Qualified Name
+>    transport-fabircs: introduce Segment Descriptor Definition
+>    transport-fabrics: introduce Stream Transmission
+>    transport-fabrics: introduce Keyed Transmission
+>    transport-fabrics: introduce command set
+>    transport-fabrics: introduce opcodes
+>    transport-fabrics: introduce status of completion
+>    transport-fabrics: add TCP&RDMA binding
+>    transport-fabrics: add device initialization
+>    transport-fabrics: support inline data for keyed transmission
+> 
+>   content.tex           |    1 +
+>   transport-fabrics.tex | 1021 +++++++++++++++++++++++++++++++++++++++++
+>   2 files changed, 1022 insertions(+)
+>   create mode 100644 transport-fabrics.tex
+> 
 
-在 2023/5/23 上午11:58, Heng Qi 写道:
-> On Mon, May 22, 2023 at 03:19:16PM -0400, Michael S. Tsirkin wrote:
->> On Mon, May 22, 2023 at 01:02:36PM +0800, Heng Qi wrote:
->>> 1. Currently, a received encapsulated packet has an outer and an inner header, but
->>> the virtio device is unable to calculate the hash for the inner header. The same
->>> flow can traverse through different tunnels, resulting in the encapsulated
->>> packets being spread across multiple receive queues (refer to the figure below).
->>> However, in certain scenarios, we may need to direct these encapsulated packets of
->>> the same flow to a single receive queue. This facilitates the processing
->>> of the flow by the same CPU to improve performance (warm caches, less locking, etc.).
->>>
->>>                 client1                    client2
->>>                    |        +-------+         |
->>>                    +------->|tunnels|<--------+
->>>                             +-------+
->>>                                |  |
->>>                                v  v
->>>                        +-----------------+
->>>                        | monitoring host |
->>>                        +-----------------+
->>>
->>> To achieve this, the device can calculate a symmetric hash based on the inner headers
->>> of the same flow.
->>>
->>> 2. For legacy systems, they may lack entropy fields which modern protocols have in
->>> the outer header, resulting in multiple flows with the same outer header but
->>> different inner headers being directed to the same receive queue. This results in
->>> poor receive performance.
->>>
->>> To address this limitation, inner header hash can be used to enable the device to advertise
->>> the capability to calculate the hash for the inner packet, regaining better receive performance.
->>>
->>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
->>> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
->>> ---
->>> v13->v14:
->>> 	1. Move supported_hash_tunnel_types from config space into cvq command. @Parav Pandit
->>> 	2. Rebase to master branch.
->>> 	3. Some minor modifications.
->> So, I proposed adding a "generic UDP tunnel" option which simply uses UDP source
->> port for hash. I think it will help us not having to chaise future tunnels as
->> more and more are added.
-> I agree, but I thought we'd do this in another thread, sorry.
-> Following your suggestion, we should add a field similar to
-> \field{generic_udp_tunnel_option} in the virtnet_hash_tunnel_config_set
-> structure.
->
-> \field{generic_udp_tunnel_option} should be 0, 1 or 2.
->
-> \field{hash_tunnel_types} is still useful, but for more general purpose we need
-> to use it together with \field{generic_udp_tunnel_option}.
->
-> When \field{generic_udp_tunnel_option} is 0, all tunneling protocols included in
-> \field{hash_tunnel_types} use the inner header for hashing. For other tunnel
-> protocols not included in \field{hash_tunnel_types}, the hash is calculated as if
-> VIRTIO_NET_F_TUNNEL_HASH is not negotiated.
->
-> When \field{generic_udp_tunnel_option} is 1, all tunneling protocols included in
-> \field{hash_tunnel_types} use the inner header for hashing. For other tunnel
-> protocols not included in \field{hash_tunnel_types}, if their outer headers are
-> based on UDP protocol, the device use the outer UDP source port for hashing.
-> For the rest of the tunnel protocols, the hash is calculated as if VIRTIO_NET_F_TUNNEL_HASH
-> was not negotiated.
->
-> When \field{generic_udp_tunnel_option} is 2, for all UDP tunneling protocols,
-> the outer udp source port is used for hashing, otherwise if the tunneling protocol
-> is included in \field{hash_tunnel_types}, the inner header is used for hashing.
-> For the rest of the tunnel protocols, the hash is calculated as if VIRTIO_NET_F_TUNNEL_HASH
-> was not negotiated.
->
-> And for this option, we need to add a reminder:
-> Although the \field{generic_udp_tunnel_option} helps us adapt to more new
-> tunneling protocols, it is still an unreliable option, especially for
-> tunneling protocols that use "SHOULD" "Recommended" in their own
-> specifications, because it means the udp source port does not
-> always fully identify a stream.
->
-
-Hi, Michael.
-
-Do you agree with this plan? Please let me know if you have any comments.:)
-
-If there are no comments, I can start a new version to make progress.
-
-Thanks.
-
->> I also suggested dropping some tunnels which are less common and where
->> the specification is unambiguous enough that source port should include
->> inner hash.
-> OK, I'll re-screen and update the tunneling protocols we already include
-> (e.g. remove STT since it fits what you said).
->
-> Thanks.
->
-> ---------------------------------------------------------------------
-> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
-
+-- 
+zhenwei pi
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
