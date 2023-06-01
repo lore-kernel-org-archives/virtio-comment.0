@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6060-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6061-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C4B5C77B73
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 00:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE78CC77B7A
+	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 04:30:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 61D372A881
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 00:33:49 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1109742825
+	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 04:30:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4A191986610
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 00:33:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 03046986617
+	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 04:30:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3473A98646D; Thu,  1 Jun 2023 00:33:49 +0000 (UTC)
+	id EF1AF986610; Thu,  1 Jun 2023 04:30:42 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,115 +24,188 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1ACE4986604;
-	Thu,  1 Jun 2023 00:33:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DC63A986605
+	for <virtio-comment@lists.oasis-open.org>; Thu,  1 Jun 2023 04:30:42 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R8UFfuTETOR6OIgeakzDx6nt1rRda1KJBUZsBRA1FGbjRMkFH3SH7/jhm+OxWgWzb9tWbCc0CQJ2XRgqDq8hjW7uUvvblu140jq0giTJRNM0vG5gyx5mn1mfOxRrY+Qmi/DGnbWOWW8gTI/0ZiL/CIP29udfo5WAjdaXAa+YyaTFJWRHhm9CBPUBpmORYdv28U/X+Uuh53ly70dMnQVVN0KhdB9m+FedwZn15FM0DzRUJEFdSKbI15t2CZzfVbLLkltmrvq2pBvsMDg4Uz6ExYhZ9Bxj+TCpB3uqJgZSTWZzdaZwGFdq8S7EbAiaROZOTHOVKT565V0UO2r6dvjF3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qgkpGdMUamElAsNADXkBJFaRI7sxk5Jsr4vQRYTBZLU=;
- b=SM+/PHVDfMBmE1Iy/PkreBCTzbQ75XhE4nN0Ks6NFhJaG7xsJdkGTPq0x7gJcA/wn0dY0KJH5P464+B+6FnkLmHdbBpQtu95TZcfqh7srlDretGw9xZDMoc8NeOLTjGrZ+A9U0xRYthbPTI2Ktpw3GW/qjb6C9AQCEIRtuQCHVT8oPEUncuGl9gW1qr4beGUGeB+lDh9tO+4RWWj04X4XuUD1OZasQ9dofEbrkAa6NYZTfs09qwjBWsVHtjcg6yygTrXBju/HbL8877MvUDHEBKRPyzrZSndhBKWb99QJTG0A3BnyP9avgeni202Q0bs22p1p0y4g5cd9rAgDRQ6SA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Si-Wei Liu <si-wei.liu@oracle.com>, "virtio@lists.oasis-open.org"
-	<virtio@lists.oasis-open.org>
-CC: "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>
-Thread-Topic: [virtio-comment] virtio networking collaboration meeting: call
- for agenda
-Thread-Index: AdmJCcjCjRUFdJrUSz6FqEiskKvSlQLBKLYAAASG6KA=
-Date: Thu, 1 Jun 2023 00:33:43 +0000
-Message-ID:
- <PH0PR12MB54811BFA23452BEA3313DBCADC499@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <PH0PR12MB54816668AFE3CF0F90C8F342DC7F9@PH0PR12MB5481.namprd12.prod.outlook.com>
- <b2e85349-35e2-23ed-46c9-20f0cf47760f@oracle.com>
-In-Reply-To: <b2e85349-35e2-23ed-46c9-20f0cf47760f@oracle.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH3PR12MB8754:EE_
-x-ms-office365-filtering-correlation-id: 4b29b02b-543c-4177-d1b8-08db6237da81
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- jem6bPdONhu85voRmPNC0CTN6c52Ww7ZJdUatcI7oVHWyFsZkx1DfUW06E9f6wR+Zz1/UxCupVLBFrlgx4kPuepXs6E6K5eSBtcWWAmbaN2Uq0uJJEKTqrXE5SfCS7FmROXT99fovqMwAhc3Mz0kGpG7c2plDmVUkV2OQgUwrOUVSxc8tOQXuVdfbFqCqKujCSfmhxprY+1PymddPCyJR7jTxy+8U48SuAK2Z8xvQ7CjvflTRXD+T9atghqeztYFgG1p5GQ4rtQSyIpOaMefcqPx1m5/rpD+dBfkpJSC+Fego6iHODtj/oPEIeE05EfxFjngDLNeuCnBw5FFKWRLX2/YngTwp/B7cy9EbkWh6fMKBVtHqzbws8OciL942pO6KlWqMlxqCWgp1kk8x11DavGfHxmWuds/wlpZ1hTxAfZXZrZLO98gd4boFzftD6EIPkpHkaGsgMroN7QeRqCghuN1Leses4Gf3J3F5JDrRLaRbDarMNgTKv3YeKi4A00mKWdWTAwYTt9g0sIslWziigSiPMrnW/PGkJOel5ZbQM2KIXi6YNY1EXF25DQ/TIegO2pgEoONeXPMRoON9NwfhuzxgFjoFMvjcNJcOZaDBP4qqGfuv62efyVZpqCL2Ef5
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(396003)(346002)(366004)(136003)(451199021)(110136005)(64756008)(66946007)(76116006)(66446008)(66476007)(66556008)(38070700005)(4326008)(316002)(478600001)(86362001)(33656002)(6506007)(186003)(9686003)(8936002)(52536014)(8676002)(2906002)(5660300002)(4744005)(7696005)(71200400001)(55016003)(122000001)(38100700002)(41300700001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?a1ZqT292bDBhVVZuVlEySXdZdEdydTQrWXREclZLeUNUOXdVRFdpN0wxTHRv?=
- =?utf-8?B?UHhrUWs3eENTS25sbUoyNWRQdWc2dTVFN3dqaWtCNXNQN0tjWndkeDViSGtx?=
- =?utf-8?B?Vmp0eEhvWG5OZ0ZQRlVoT3hES2pzM3dTM2ZRbjkwdFp3TnpVbWhnamVsbkZF?=
- =?utf-8?B?SWcvbllkZzVDY2Z4cTZzRDVLNGlPdWFCaGhVTXJmNmJkc1ZwWkIwMWY3NEdT?=
- =?utf-8?B?UUlXcEN0SzZVQW1zaXR0Y0x1NStscncycFhPQXZPQ2tuaHFpMEVXM1ZNZk5h?=
- =?utf-8?B?SVNXTnFSUmtyUnVNN2cwWndUQ1FpTitINFVIS0NrRUthSDZJQU5XR3djUDNV?=
- =?utf-8?B?R2g4RzVnckdHVlRTVTlscXg3UDYrMmxPcWgwbnJOZzNUNWVkMXhRM2NmaDZn?=
- =?utf-8?B?M0REcXMvSXMrVTRnY3ZCMUptTGIyaHVHaUc2RmtkdFhNbFJTZHpKTmZyZnBX?=
- =?utf-8?B?ZmpBK2RuM2pPMXZqc09aU1JWNFVnN200SUVIT1ZCOTFDS1hLNG81Z0ZKVml2?=
- =?utf-8?B?aHZKVXFsT2xGeHF2eFBIa2diRTBMQktEcnpGL2QzSVFoVXBqSHJub3FDUUt3?=
- =?utf-8?B?T2tIaDJ2KzVzcG1NbVc0S005RGtoZDZVcU5oMnd2MFI3K3hWVXRjaVBTNmwy?=
- =?utf-8?B?aEw3cjZBcUdlSng0TENGVlArb2JPUCtYL0F3RngyVWFUMkJybEhDaUdsVU5U?=
- =?utf-8?B?elh6ek5FY3FBRHF6SjVjSWpUYnZDVDE1ZlM5emJDNElPWVZnYjlGZ3dYa3hL?=
- =?utf-8?B?N1krWk04dU5NZVNKdGNpZG9Uay9aa29pY2s4TFNSNHgwSGUwcldKbk5KOTYz?=
- =?utf-8?B?VnhpQVlRTE85OXlTZFBROEJvdXFXMXBBVHcyaDA5NHFlc1BCSktvRjhNSjU1?=
- =?utf-8?B?L1VBcnhxU2hPSktVRlNQSHVadS9EcWg5UWltbTIvSiszRHhlRnFFZnd2ZWVz?=
- =?utf-8?B?TGZURHhVUXdTWlV1WngrL0lZeUdoUnpJVUR4OVd3TzU0dWVVVk9lOUxMM01u?=
- =?utf-8?B?ejBoMzE0dXRnOHhNSE9qMDEyYVU4UmVlS0xZaEp1YzNZNEpsMCszS3F5SjZO?=
- =?utf-8?B?WHJnNXMydjR1QmdJbGY0Sm9qb240dzB1RUFITUtnS2o4cmlkczVBd3Vhamhj?=
- =?utf-8?B?eEZrY0M0MldlQ3Fvb0grZmpZQkdTMWEranh0cEpWOU41YjdqRXk3NDlueE9C?=
- =?utf-8?B?bndVZ3Nkc0Npd3djdHhVWSt2emlzVDRzcGlxak5HSTNkTmwvazlHczJ1SENR?=
- =?utf-8?B?K1JRNE1Rb2NzOHVZdWhjVHcvWmUrTndOVUhSWlE3NXBjSVRLbTA5WmxXM0hB?=
- =?utf-8?B?TERyR21vZUp2T1RDNjZ4YU9wS0JDUC9wUmNROEhxNUVIZWpzYkozdERXc1hu?=
- =?utf-8?B?bitjc0NoZi9kRE1PQzVsZ2hxYm5UaGgrZlhVaThTUzJlaGIyTWpoVDR6RFMr?=
- =?utf-8?B?NlJPSUh6anoyWnpieGNtUGFPUE51K3NxRmhRWlMvRWtyOEZ6azBPSGhwbEJF?=
- =?utf-8?B?Um9XSlFDc1RXNWxNMWdZUmxjSXEwOXl3Q0RvRTA1eGhMY3dMMGZ4MnlRdUhY?=
- =?utf-8?B?M0Fyb0xMeUllcWgzZ2M3N0k1MjZpMDRSRnJDSFNxeW9zWkUrUXh5K2tKTjJD?=
- =?utf-8?B?MFRCU25kRTEwOGtKaUs5Vm0vbHJ2Q20xZis1UU1WSndDQzFyVi9DVTg3Q2M2?=
- =?utf-8?B?RXVTdHljTWZyeUVtKzFnK1UwQ2g5bjdiMi9Jb2VsNm1uS0dGejBCdHR0bmw3?=
- =?utf-8?B?eGcrRlhDaFUzbC92ZHBrU0NHaDR2Z3J4R3pkODRzWnJFZ013WHU1Nlh5KzZV?=
- =?utf-8?B?U3dYNllYZUJ4MjlrNGF6QVAvQzZ1WCtjbEluaEVPVEtTcmY4eHUwRm5CdzNZ?=
- =?utf-8?B?YTBHNUR2THRqaEdrMlRIWjNpbDI0ai93Y0o2Zy9hU0ZtTmY5U0R6NExtQWR0?=
- =?utf-8?B?Qjl2TFBHUlJxa29rTzlqZUlLdENGS3l6cmZpZXptdzRsbTRWMVBXM0xNMkl2?=
- =?utf-8?B?cW0rdXZFL2w4Y0VxZVUzby9WU2h1TFd3aWFsSy8za0lEejBGSHZMczBmbUlH?=
- =?utf-8?B?WkFWaVltV0lDRmRtWVBVZlZGVlVqdjZhN2N0c04rM2JadG96djZFUlJqeUMv?=
- =?utf-8?B?REN0ZG5LTDRGN25VL2U2UE5OS2d6eHF3UkhmZmhCSFFlVlo4U0hkR1hzZlB0?=
- =?utf-8?Q?0JBWsJ53wdqyHHJa9v+InHs=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-MC-Unique: tOCaTByvMPi53cB1PJy9Hw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685593835; x=1688185835;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=oGtQzT81lfqyr+ReTD9KfeBTCtGMs2Ncclx5J5qVNbc=;
+        b=Dux8th2jU9cQRwtxXn8AoZSGNVuWu7vrz0eZHA7aJemKAud+h3qwsKE8wF6EbbHUHY
+         5VJfNSCIypmmWfRJm6FGamC3nYzMS63kiD63nopwRO3VFoHVj1xSK2Z7Ak0k8dsE/qoj
+         2+SjRxVNQF06ewAi0hwyYplkdkmdHD4ZO0JmrSxWEc2jjJOOT3CbjPqKyJBMrM4NfKfH
+         DIG0aarg4XjTKFxOf6gfxyKhT7mPRUNu7/3rQBFm7nULQqzuevP65mFNWzUaam5a2vFl
+         2CghnYQYMLOv7iWgm/598fv9v8UsLrKUanTQowyYpwI+mEFGPMBh7qNt1u2d0hHgt86G
+         gLCA==
+X-Gm-Message-State: AC+VfDwNwxTT9zt4tAhBWTXWMmS6AdhSnJarcUoufSisXpqJhhgeHqrK
+	g7BkbMMhcUF2u79BTNZ+jxSxz4i/SwpxXi0ufaspMey7EA4OaFOqPxYSCEztJ69r2d2D1k5Fs+M
+	gU+his8at4VlxUnWcUn/U+bfXWMGsuT52AQ==
+X-Received: by 2002:a7b:c3c6:0:b0:3f6:766:f76f with SMTP id t6-20020a7bc3c6000000b003f60766f76fmr866195wmj.36.1685593834921;
+        Wed, 31 May 2023 21:30:34 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ76Nz77IORJydhaCPKuHF7/QXUGBo0OZj5fAULSDTYZ07ZMLekzxO80pPBzpqxNLrA914lY1w==
+X-Received: by 2002:a7b:c3c6:0:b0:3f6:766:f76f with SMTP id t6-20020a7bc3c6000000b003f60766f76fmr866183wmj.36.1685593834599;
+        Wed, 31 May 2023 21:30:34 -0700 (PDT)
+Date: Thu, 1 Jun 2023 00:30:30 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org,
+	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
+	Yuri Benditovich <yuri.benditovich@daynix.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Message-ID: <20230601002734-mutt-send-email-mst@kernel.org>
+References: <20230522050236.49433-1-hengqi@linux.alibaba.com>
+ <20230522151522-mutt-send-email-mst@kernel.org>
+ <20230523035803.GB23504@h68b04307.sqa.eu95>
+ <69cd31d4-c059-3edd-f14b-bdf03ac4b200@linux.alibaba.com>
+ <20230530153623-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b29b02b-543c-4177-d1b8-08db6237da81
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2023 00:33:43.1604
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pc8leO6oN+p+ebfeMjF5MNAVaSzC6GR7Swpp72Me0jS48sFQqWjJUY4WRFFN3vCBWrtOJJ6bxAD/sCu9vCbQng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8754
-Subject: RE: [virtio-comment] virtio networking collaboration meeting: call
- for agenda
+In-Reply-To: <20230530153623-mutt-send-email-mst@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re: [PATCH v14] virtio-net:
+ support inner header hash
 
-DQoNCj4gRnJvbTogU2ktV2VpIExpdSA8c2ktd2VpLmxpdUBvcmFjbGUuY29tPg0KPiBTZW50OiBX
-ZWRuZXNkYXksIE1heSAzMSwgMjAyMyA2OjIzIFBNDQoNCj4gPiBJIHN1Z2dlc3Qgc2V2ZXJhbCBk
-YXkgJiB0aW1lIHNsb3RzLg0KPiA+IERheXM6DQo+ID4gLSBUdWUgKE1heSAzMCkgb3INCj4gPiAt
-IFdlZCAoTWF5IDMxKQ0KPiA+IFRpbWU6DQo+ID4gLSAyIHBtIEdNVCwgb3INCj4gPiAtIDUgYW0g
-R01UDQo+ID4NCj4gPiBXZSBjYW4gcGljayBvdGhlciB0aW1lL2RheSBvcHRpb25zIGFzIHdlbGwg
-ZGVwZW5kaW5nIG9uIHdobyB3YW50cyB0bw0KPiBhdHRlbmQgYW5kIGluIHdoaWNoIHRpbWUgem9u
-ZS4NCj4gNSBhbSBHTVQgV2VkbmVzZGF5IHdvcmtzIGZvciBtZS4gSWYgcG9zc2libGUsIEkgd291
-bGQgbGlrZSB0byBhdm9pZCBzY2hlZHVsaW5nDQo+IGl0IHRvIHRoZSBzYW1lIHdlZWsgb2YgdGhl
-IHZkcGEgbWVldGluZywgYXMgSSBoYXZlIHRvIGF0dGVuZCBib3RoLg0KDQpPay4gU291bmRzIGdv
-b2QuDQpXaWxsIGNvbGxlY3Qgc29tZSBtb3JlIGZlZWRiYWNrIHRoaXMgd2VlayBhbmQgaWYgdGhp
-cyB3b3Jrcywgd2lsbCBzY2hlZHVsZSAxc3QgYW5kIDNyZCB3ZWVrIFdlZC4NCg==
+On Tue, May 30, 2023 at 03:40:18PM -0400, Michael S. Tsirkin wrote:
+> On Fri, May 26, 2023 at 04:04:18PM +0800, Heng Qi wrote:
+> > 
+> > 
+> > 在 2023/5/23 上午11:58, Heng Qi 写道:
+> > > On Mon, May 22, 2023 at 03:19:16PM -0400, Michael S. Tsirkin wrote:
+> > > > On Mon, May 22, 2023 at 01:02:36PM +0800, Heng Qi wrote:
+> > > > > 1. Currently, a received encapsulated packet has an outer and an inner header, but
+> > > > > the virtio device is unable to calculate the hash for the inner header. The same
+> > > > > flow can traverse through different tunnels, resulting in the encapsulated
+> > > > > packets being spread across multiple receive queues (refer to the figure below).
+> > > > > However, in certain scenarios, we may need to direct these encapsulated packets of
+> > > > > the same flow to a single receive queue. This facilitates the processing
+> > > > > of the flow by the same CPU to improve performance (warm caches, less locking, etc.).
+> > > > > 
+> > > > >                 client1                    client2
+> > > > >                    |        +-------+         |
+> > > > >                    +------->|tunnels|<--------+
+> > > > >                             +-------+
+> > > > >                                |  |
+> > > > >                                v  v
+> > > > >                        +-----------------+
+> > > > >                        | monitoring host |
+> > > > >                        +-----------------+
+> > > > > 
+> > > > > To achieve this, the device can calculate a symmetric hash based on the inner headers
+> > > > > of the same flow.
+> > > > > 
+> > > > > 2. For legacy systems, they may lack entropy fields which modern protocols have in
+> > > > > the outer header, resulting in multiple flows with the same outer header but
+> > > > > different inner headers being directed to the same receive queue. This results in
+> > > > > poor receive performance.
+> > > > > 
+> > > > > To address this limitation, inner header hash can be used to enable the device to advertise
+> > > > > the capability to calculate the hash for the inner packet, regaining better receive performance.
+> > > > > 
+> > > > > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> > > > > Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+> > > > > ---
+> > > > > v13->v14:
+> > > > > 	1. Move supported_hash_tunnel_types from config space into cvq command. @Parav Pandit
+> > > > > 	2. Rebase to master branch.
+> > > > > 	3. Some minor modifications.
+> > > > So, I proposed adding a "generic UDP tunnel" option which simply uses UDP source
+> > > > port for hash. I think it will help us not having to chaise future tunnels as
+> > > > more and more are added.
+> > > I agree, but I thought we'd do this in another thread, sorry.
+> > > Following your suggestion, we should add a field similar to
+> > > \field{generic_udp_tunnel_option} in the virtnet_hash_tunnel_config_set
+> > > structure.
+> > > 
+> > > \field{generic_udp_tunnel_option} should be 0, 1 or 2.
+> > > 
+> > > \field{hash_tunnel_types} is still useful, but for more general purpose we need
+> > > to use it together with \field{generic_udp_tunnel_option}.
+> > > 
+> > > When \field{generic_udp_tunnel_option} is 0, all tunneling protocols included in
+> > > \field{hash_tunnel_types} use the inner header for hashing. For other tunnel
+> > > protocols not included in \field{hash_tunnel_types}, the hash is calculated as if
+> > > VIRTIO_NET_F_TUNNEL_HASH is not negotiated.
+> > > 
+> > > When \field{generic_udp_tunnel_option} is 1, all tunneling protocols included in
+> > > \field{hash_tunnel_types} use the inner header for hashing. For other tunnel
+> > > protocols not included in \field{hash_tunnel_types}, if their outer headers are
+> > > based on UDP protocol, the device use the outer UDP source port for hashing.
+> > > For the rest of the tunnel protocols, the hash is calculated as if VIRTIO_NET_F_TUNNEL_HASH
+> > > was not negotiated.
+> > > 
+> > > When \field{generic_udp_tunnel_option} is 2, for all UDP tunneling protocols,
+> > > the outer udp source port is used for hashing, otherwise if the tunneling protocol
+> > > is included in \field{hash_tunnel_types}, the inner header is used for hashing.
+> > > For the rest of the tunnel protocols, the hash is calculated as if VIRTIO_NET_F_TUNNEL_HASH
+> > > was not negotiated.
+> > > 
+> > > And for this option, we need to add a reminder:
+> > > Although the \field{generic_udp_tunnel_option} helps us adapt to more new
+> > > tunneling protocols, it is still an unreliable option, especially for
+> > > tunneling protocols that use "SHOULD" "Recommended" in their own
+> > > specifications, because it means the udp source port does not
+> > > always fully identify a stream.
+> > > 
+> > 
+> > Hi, Michael.
+> > 
+> > Do you agree with this plan? Please let me know if you have any comments.:)
+> > 
+> > If there are no comments, I can start a new version to make progress.
+> > 
+> > Thanks.
+> 
+> How are "tunneling protocols" defined though?
+> 
+> Maybe pass a mask of destination UDP ports for which this applies?
+> 
+> Then we don't need options, if port is set in mask then
+> generic udp tunnel inner hash applies. If port is not set then
+> hash is calculated in some other way, including
+> one of tunnel specific flags.
+
+I admit this is pretty complex though. As an intermediate step
+I can see two other options:
+- just do this for all UDP packets assuming most traffic is encapsulated
+- assume that the list of protocols is configured in the NIC
+  by other means (e.g. hard-coded, or we can add an admin command for this)
+
+Thoghts?
+
+
+> 
+> > > > I also suggested dropping some tunnels which are less common and where
+> > > > the specification is unambiguous enough that source port should include
+> > > > inner hash.
+> > > OK, I'll re-screen and update the tunneling protocols we already include
+> > > (e.g. remove STT since it fits what you said).
+> > > 
+> > > Thanks.
+> > > 
+> > > ---------------------------------------------------------------------
+> > > To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> > > For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
