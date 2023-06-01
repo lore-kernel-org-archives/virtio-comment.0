@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6066-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6067-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21A73C7EE29
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 11:54:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E10C77B7A
+	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 13:09:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 62BA560045
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 11:54:02 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 117FC37101
+	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 13:09:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4E624986614
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 11:54:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 07D8998661C
+	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 13:09:59 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3FD8B983DE3; Thu,  1 Jun 2023 11:54:02 +0000 (UTC)
+	id 002F7986608; Thu,  1 Jun 2023 13:09:59 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,195 +24,150 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2D16A986605;
-	Thu,  1 Jun 2023 11:54:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E460D986611
+	for <virtio-comment@lists.oasis-open.org>; Thu,  1 Jun 2023 13:09:58 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R951e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045192;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0Vk5zXTl_1685620436;
-Message-ID: <dd2a411b-fb92-e0d7-d853-df16e9d5b1f8@linux.alibaba.com>
-Date: Thu, 1 Jun 2023 19:53:51 +0800
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685624994; x=1688216994;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=vw4zncncs1nd68EZ5+AwW/BVWZdPtY8kT0+HhNl1+38=;
+        b=jRKRp9FzB1m97elLLTphdEtmTuAuhX8A2S8eyWC/f7yarmtKC1CujQlkBTae/5Qr2F
+         fsC1xQ5CRpPcdFPySEGDWhOtjaxc/eBFfC/fp5bo21sWXRg+OGCnIRWaSpLYGdDmpM2D
+         p+LTE/b0J06Z+8Krfw0cP8tH3O11P3tSokgxfA39LfRBkhkPonS5T+1LjvFFDSY96ePv
+         MuJLbKz+KnvfjjKorwGXaRP1CO2lwi7wGGoU5JJEa9qKhY6deitBG2KZNcHcGcLol1Tj
+         Bmdq/QN8TaSK6qClO8VOMlcLDSSeYsQ6zrL9idf0H9quDqjz863qB2q1oscWiyTnPNsw
+         xlqg==
+X-Gm-Message-State: AC+VfDzrtr7IvXNTnlri/tS72qBcFuhLFd3+xhPIh+c27/VNGURuqTuI
+	3vVQwoBdE0q8gUSPmgPX45Q2pw==
+X-Google-Smtp-Source: ACHHUZ4DSuYR6A65M8yHGiMw1r3OmIJFPNzL6I+qjXVLeHhzpEdN3i+1VeUcR9fbKuZBPPhQS4iAKw==
+X-Received: by 2002:a17:902:e5c9:b0:1ac:3780:3a76 with SMTP id u9-20020a170902e5c900b001ac37803a76mr7120729plf.4.1685624993969;
+        Thu, 01 Jun 2023 06:09:53 -0700 (PDT)
+Message-ID: <4426aa84-f22a-f361-af44-561dfd5a4ea0@bytedance.com>
+Date: Thu, 1 Jun 2023 21:09:49 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org,
- Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
- Yuri Benditovich <yuri.benditovich@daynix.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <20230522050236.49433-1-hengqi@linux.alibaba.com>
- <20230522151522-mutt-send-email-mst@kernel.org>
- <20230523035803.GB23504@h68b04307.sqa.eu95>
- <69cd31d4-c059-3edd-f14b-bdf03ac4b200@linux.alibaba.com>
- <20230530153623-mutt-send-email-mst@kernel.org>
- <20230601002734-mutt-send-email-mst@kernel.org>
- <20230601051708.GC98474@h68b04307.sqa.eu95>
- <20230601070318-mutt-send-email-mst@kernel.org>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <20230601070318-mutt-send-email-mst@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
+References: <20230504081910.238585-1-pizhenwei@bytedance.com>
+ <20230504081910.238585-6-pizhenwei@bytedance.com>
+ <20230531162048.GG1248296@fedora>
+ <aad519cd-5114-6144-8520-a258745c5e4a@bytedance.com>
+ <20230601113322.GA1538357@fedora>
+Content-Language: en-US
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <20230601113322.GA1538357@fedora>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re: [PATCH
- v14] virtio-net: support inner header hash
+Content-Transfer-Encoding: 7bit
+Subject: Re: Re: [virtio-comment] Re: [PATCH v2 05/11] transport-fabrics:
+ introduce Keyed Transmission
 
 
 
-在 2023/6/1 下午7:06, Michael S. Tsirkin 写道:
-> On Thu, Jun 01, 2023 at 01:17:08PM +0800, Heng Qi wrote:
->> On Thu, Jun 01, 2023 at 12:30:30AM -0400, Michael S. Tsirkin wrote:
->>> On Tue, May 30, 2023 at 03:40:18PM -0400, Michael S. Tsirkin wrote:
->>>> On Fri, May 26, 2023 at 04:04:18PM +0800, Heng Qi wrote:
->>>>>
->>>>> 在 2023/5/23 上午11:58, Heng Qi 写道:
->>>>>> On Mon, May 22, 2023 at 03:19:16PM -0400, Michael S. Tsirkin wrote:
->>>>>>> On Mon, May 22, 2023 at 01:02:36PM +0800, Heng Qi wrote:
->>>>>>>> 1. Currently, a received encapsulated packet has an outer and an inner header, but
->>>>>>>> the virtio device is unable to calculate the hash for the inner header. The same
->>>>>>>> flow can traverse through different tunnels, resulting in the encapsulated
->>>>>>>> packets being spread across multiple receive queues (refer to the figure below).
->>>>>>>> However, in certain scenarios, we may need to direct these encapsulated packets of
->>>>>>>> the same flow to a single receive queue. This facilitates the processing
->>>>>>>> of the flow by the same CPU to improve performance (warm caches, less locking, etc.).
->>>>>>>>
->>>>>>>>                  client1                    client2
->>>>>>>>                     |        +-------+         |
->>>>>>>>                     +------->|tunnels|<--------+
->>>>>>>>                              +-------+
->>>>>>>>                                 |  |
->>>>>>>>                                 v  v
->>>>>>>>                         +-----------------+
->>>>>>>>                         | monitoring host |
->>>>>>>>                         +-----------------+
->>>>>>>>
->>>>>>>> To achieve this, the device can calculate a symmetric hash based on the inner headers
->>>>>>>> of the same flow.
->>>>>>>>
->>>>>>>> 2. For legacy systems, they may lack entropy fields which modern protocols have in
->>>>>>>> the outer header, resulting in multiple flows with the same outer header but
->>>>>>>> different inner headers being directed to the same receive queue. This results in
->>>>>>>> poor receive performance.
->>>>>>>>
->>>>>>>> To address this limitation, inner header hash can be used to enable the device to advertise
->>>>>>>> the capability to calculate the hash for the inner packet, regaining better receive performance.
->>>>>>>>
->>>>>>>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
->>>>>>>> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
->>>>>>>> ---
->>>>>>>> v13->v14:
->>>>>>>> 	1. Move supported_hash_tunnel_types from config space into cvq command. @Parav Pandit
->>>>>>>> 	2. Rebase to master branch.
->>>>>>>> 	3. Some minor modifications.
->>>>>>> So, I proposed adding a "generic UDP tunnel" option which simply uses UDP source
->>>>>>> port for hash. I think it will help us not having to chaise future tunnels as
->>>>>>> more and more are added.
->>>>>> I agree, but I thought we'd do this in another thread, sorry.
->>>>>> Following your suggestion, we should add a field similar to
->>>>>> \field{generic_udp_tunnel_option} in the virtnet_hash_tunnel_config_set
->>>>>> structure.
->>>>>>
->>>>>> \field{generic_udp_tunnel_option} should be 0, 1 or 2.
->>>>>>
->>>>>> \field{hash_tunnel_types} is still useful, but for more general purpose we need
->>>>>> to use it together with \field{generic_udp_tunnel_option}.
->>>>>>
->>>>>> When \field{generic_udp_tunnel_option} is 0, all tunneling protocols included in
->>>>>> \field{hash_tunnel_types} use the inner header for hashing. For other tunnel
->>>>>> protocols not included in \field{hash_tunnel_types}, the hash is calculated as if
->>>>>> VIRTIO_NET_F_TUNNEL_HASH is not negotiated.
->>>>>>
->>>>>> When \field{generic_udp_tunnel_option} is 1, all tunneling protocols included in
->>>>>> \field{hash_tunnel_types} use the inner header for hashing. For other tunnel
->>>>>> protocols not included in \field{hash_tunnel_types}, if their outer headers are
->>>>>> based on UDP protocol, the device use the outer UDP source port for hashing.
->>>>>> For the rest of the tunnel protocols, the hash is calculated as if VIRTIO_NET_F_TUNNEL_HASH
->>>>>> was not negotiated.
->>>>>>
->>>>>> When \field{generic_udp_tunnel_option} is 2, for all UDP tunneling protocols,
->>>>>> the outer udp source port is used for hashing, otherwise if the tunneling protocol
->>>>>> is included in \field{hash_tunnel_types}, the inner header is used for hashing.
->>>>>> For the rest of the tunnel protocols, the hash is calculated as if VIRTIO_NET_F_TUNNEL_HASH
->>>>>> was not negotiated.
->>>>>>
->>>>>> And for this option, we need to add a reminder:
->>>>>> Although the \field{generic_udp_tunnel_option} helps us adapt to more new
->>>>>> tunneling protocols, it is still an unreliable option, especially for
->>>>>> tunneling protocols that use "SHOULD" "Recommended" in their own
->>>>>> specifications, because it means the udp source port does not
->>>>>> always fully identify a stream.
->>>>>>
->>>>> Hi, Michael.
->>>>>
->>>>> Do you agree with this plan? Please let me know if you have any comments.:)
->>>>>
->>>>> If there are no comments, I can start a new version to make progress.
->>>>>
->>>>> Thanks.
->>>> How are "tunneling protocols" defined though?
->>>>
->>>> Maybe pass a mask of destination UDP ports for which this applies?
->>>>
->>>> Then we don't need options, if port is set in mask then
->>>> generic udp tunnel inner hash applies. If port is not set then
->>>> hash is calculated in some other way, including
->>>> one of tunnel specific flags.
->>> I admit this is pretty complex though. As an intermediate step
->>> I can see two other options:
->>> - just do this for all UDP packets assuming most traffic is encapsulated
->> This is a bit crude, but it does simplify the complexity of device
->> implementations.
+On 6/1/23 19:33, Stefan Hajnoczi wrote:
+> On Thu, Jun 01, 2023 at 05:02:45PM +0800, zhenwei pi wrote:
 >>
->>> - assume that the list of protocols is configured in the NIC
->>>    by other means (e.g. hard-coded, or we can add an admin command for this)
->> Other means also means hardcoding, because we always need to know what
->> the "new tunnel type" is, otherwise the driver can't understand it.
->> Assuming we don't use any hard-coded tunnel types for the
->> VIRTIO_NET_F_TUNNEL_HASH feature, then we use the GET command to get the
->> tunnel types supported by the device before we intend to use the
->> inner header hashing capabilities. But if we don't do mappings for
->> these codes, the driver can't understand what the device returns. Then
->> we need to hardcode it...
-> Yes, if we have a GET command that will need a bitmap anyway, so
-> let's just set a bitmap with a command.
->
->> So I tend to dst port mask, or generic option (set to 1 to use source
->> port for all UDP packets).
->> Thanks.
-> Makes sense, and I don't think we need both options.
-
-Yes, I agree too.
-
-Thanks.
-
->
->>> Thoghts?
+>>
+>> On 6/1/23 00:20, Stefan Hajnoczi wrote:
+>>> On Thu, May 04, 2023 at 04:19:04PM +0800, zhenwei pi wrote:
+>>>> Keyed transmission is used for message oriented communication(Ex RDMA),
+>>>> also add virtio-blk read/write 8K example.
+>>>>
+>>>> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
+>>>> ---
+>>>>    transport-fabrics.tex | 178 ++++++++++++++++++++++++++++++++++++++++++
+>>>>    1 file changed, 178 insertions(+)
+>>>>
+>>>> diff --git a/transport-fabrics.tex b/transport-fabrics.tex
+>>>> index c02cf26..7711321 100644
+>>>> --- a/transport-fabrics.tex
+>>>> +++ b/transport-fabrics.tex
+>>>> @@ -317,3 +317,181 @@ \subsubsection{Buffer Mapping Definition}\label{sec:Virtio Transport Options / V
+>>>>                        |......|
+>>>>                        +------+  -> 8193
+>>>>    \end{lstlisting}
+>>>> +
+>>>> +\paragraph{Keyed Transmission}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Keyed Transmission}
+>>>> +Command and Segment Descriptors are transmitted in a message within a
+>>>> +connection, and buffer is transmitted by remote memory access.  The layout in message:
 >>>
+>>> With RDMA it is theoretically possible to implement virtqueues without
+>>> messages in the data path (i.e. by using something similar to vring with
+>>> RDMA). Why did you decide to use a mixed messages + RDMA approach
+>>> instead of a 100% RDMA approach?
 >>>
->>>>>>> I also suggested dropping some tunnels which are less common and where
->>>>>>> the specification is unambiguous enough that source port should include
->>>>>>> inner hash.
->>>>>> OK, I'll re-screen and update the tunneling protocols we already include
->>>>>> (e.g. remove STT since it fits what you said).
->>>>>>
->>>>>> Thanks.
->>>>>>
->>>>>> ---------------------------------------------------------------------
->>>>>> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
->>>>>> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+>>
+>> Hi,
+>>
+>> To reduce networking RTT. From my experience, a single RDMA message(event
+>> based) uses at least 6us.
+>> This approach has a chance to send a command(include data segments) by 1
+>> networking RTT, and receive a completion(include data segments) in 1
+>> networking RTT. I tried to design a 100% RDMA approach(mapping a vring to
+>> the remote side, the remote side accesses this vring by RDMA READ/WRITE),
+>> but I failed to find an idea to achieve.
+> 
+> The goal is to minimize the number of RDMA transfers. Each area of
+> memory should be located on the system that is polling constantly (busy
+> waiting) and the other side occassionally sends an RDMA WRITE request.
+> 
+> This idea requires bi-directional RDMA where both initiator and target
+> make memory accessible to the other side. Is this possible?
+> 
+> The target owns the Available Ring, a descriptor table similar to those
+> used by the Split and Packed Virtqueue layouts that is used by the
+> driver to submit virtqueue buffers to the device. The target sends a key
+> to the Available Ring to the initiator during virtqueue setup. The
+> initiator sends RDMA WRITEs that fill in virtqueue descriptors. Indirect
+> descriptors are supported, but the target will need to use RDMA READs to
+> load the indirect descriptor table, so there is overhead. Even regular
+> non-indirect descriptors have overhead because an RDMA READ is required
+> to read the payload. The best approach for small virtqueue elements is
+> to inline the payload in the Available Ring descriptor so no additional
+> RDMA transfers are needed (this achieves similar effect to your approach
+> of using messages + RDMA, but with pure RDMA). The target polls the
+> Available Ring to detect available buffers.
+> 
+> The initiator sends a key to the Used Ring to the target during
+> virtqueue setup. The target sends RDMA WRITEs that fill in used
+> elements. The initiator polls the Used Ring to detect used buffers.
+> 
+> I'm not sure if the Used Ring makes sense as RDMA memory. Maybe it's
+> better to send a message over the reliable connection instead so that
+> Used Buffer Notifications can support interrupts and not just polling.
+> 
 
+I guess RDMA WRITE WITH IMM would be fine for this approach.
+
+> This is a new virtqueue layout. It's only worthwhile implementing it if
+> the Available Ring RDMA performance is significantly better than the
+> current approach.
+> 
+> Stefan
+
+I agree with your approach to maintain the Vring. If I understand correctly:
+an example of virtio-blk write 4k:
+1, initiator write the 3 vring desc by RDMA WRITE WITH IMM(IMM Data to 
+carry VQ control message), this uses 1 networking RTT.
+2, target handles WRITE WITH IMM, reads remote memory from initiator of 
+desc[0] and desc[1]. This uses 1 networking RTT. (I did not find the 2 
+keys of desc[0] and desc[1] from your approach, but I think this can be 
+implemented in step 1 by adding another memory)
+3, target handles virtio-blk write request and writes the memory to 
+initiator of desc[2] by RDMA WRITE WITH IMM.(IMM Data to carry control 
+message). This uses 1 networking RTT.
+
+
+So we use at lease 3 RTT by this approach. If unfortunately the u32 
+imm_data is lack to carry enough control message, we may need more RTT.
+
+Sorry, the previous "I failed to find an idea to achieve." means that I 
+failed to find an idea to complete 1 single request in 2 RTT.
+
+-- 
+zhenwei pi
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
