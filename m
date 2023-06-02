@@ -1,17 +1,20 @@
-Return-Path: <virtio-comment-return-6092-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6093-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5C35C7EE24
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 05:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4506BC7EE24
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 08:41:44 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4A9822C23
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 08:41:43 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 2E4D59867E5
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 08:41:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DADB52AF8A
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 05:20:26 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by host09.ws5.connectedcommunity.org (Postfix) with QMQP
-	id C4430330B6; Fri,  2 Jun 2023 05:20:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with QMQP
+	id 1AB689867DD; Fri,  2 Jun 2023 08:41:43 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -21,28 +24,28 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 231C49867DB
-	for <virtio-comment@lists.oasis-open.org>; Fri,  2 Jun 2023 05:19:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 070219867DE
+	for <virtio-comment@lists.oasis-open.org>; Fri,  2 Jun 2023 08:41:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685683162; x=1688275162;
+        d=1e100.net; s=20221208; t=1685695301; x=1688287301;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XxxqhIceCnTSdigMkb1kJtvr9vODraO2nmO7hTExe2I=;
-        b=GkvCLrzEI6aoXQ0AsAFkieSI7qDSmHbbbJqlQKbAC1c3miPiwocIONtg6lvJ7jztOG
-         9yYLVoa2HF7KMBkgcPqlPjCOUdNKpeNvzToaKh0bBA05he1r7bmAyf3bvXiNywNnO1g/
-         SenvVNsML65s80YhFZduagb72qmpuRyjNB/CkbUR5/L6zmXGahk36H1mSj5lX1c66QbO
-         rcYcfzUv4+DEoI4Cg3S/ve/aPZMfGjCKTnzWaGop4QC99CwAGUTfgfzvuAzscn2lJNTh
-         rPPYCCstYKOUocdyxwmrYtbE9764v7t7sIAXsLf7XUgjG1s3zZZzizNKurloQufy23x0
-         ldYg==
-X-Gm-Message-State: AC+VfDxDn1qHNLO4JRJg1iZbDcYztjMMPkc4BglRBp3RtSZGGaDuz2gB
-	HMVr4be4aQ5V51uMh9RXZRrYXQ==
-X-Google-Smtp-Source: ACHHUZ6GlsYCRMjSLvXOTP1nRxe2MbOHmcma0HdcmOZdK/3ceIu0pfeiIB9nwr+i3nRTzika9jausQ==
-X-Received: by 2002:a17:903:2292:b0:1ac:a6b0:1c87 with SMTP id b18-20020a170903229200b001aca6b01c87mr1814032plh.48.1685683162495;
-        Thu, 01 Jun 2023 22:19:22 -0700 (PDT)
-Message-ID: <8cfdc9bf-03c9-92fc-f2e0-d59b180b0d82@bytedance.com>
-Date: Fri, 2 Jun 2023 13:15:00 +0800
+        bh=2H6M/O0dCKeyyyBCXJSGvQ/ufPpz+zWGUK9jKKUVUms=;
+        b=Gb1Li6r3qBjjL2C49z+4xiS/FpRD9gRXbB6oEZY7g0AM1u2fZh81jBzaLkp0XjzzWh
+         nWuRiKzyZZA7gU23qdaiJsWep9zOjklHZHer346+WHZFveWFhUd+OBZvj3cV9GtbT6ap
+         h5sh/euAy39Zvop6LpP98yx6KdqRZK5bXYln/YtuH+N3e9162VblaEnEtgywMbPvnthH
+         H+H+t1irRLqGneKqkfYA7xkeuPd1Ug5L0Hai1wFGBW7ZIPdXpj6FpZENciiBgHFgK1tk
+         /NgXqSI7kDx39aKkFZFTJgP1Ea2lqjwsqJnZp4jFUiPWOHp2V54Jdo9TMSL8BEDMuLbh
+         Jqyg==
+X-Gm-Message-State: AC+VfDx5Gvt1SVs+Dh7jpcrTtxvP8LpfyucXiTdj66hwsHYFVAWLMBMU
+	1mgr6oxju0bRAHOYRRjI7kX8gw==
+X-Google-Smtp-Source: ACHHUZ4Adf4zU0MSrtX7+CZYzXPNrVf9rWHkpAagS/RzUwrXfM4TnQOEAvxNtg9VFJxGDnn0mvNvyA==
+X-Received: by 2002:a05:620a:3d14:b0:75b:23a0:dea5 with SMTP id tq20-20020a05620a3d1400b0075b23a0dea5mr10622288qkn.35.1685695300795;
+        Fri, 02 Jun 2023 01:41:40 -0700 (PDT)
+Message-ID: <3775beed-5e2b-0835-d257-f495b16fba0f@bytedance.com>
+Date: Fri, 2 Jun 2023 16:39:24 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
@@ -52,412 +55,391 @@ Cc: parav@nvidia.com, mst@redhat.com, jasowang@redhat.com,
  virtio-comment@lists.oasis-open.org, houp@yusur.tech,
  helei.sig11@bytedance.com, xinhao.kong@duke.edu
 References: <20230504081910.238585-1-pizhenwei@bytedance.com>
- <20230504081910.238585-7-pizhenwei@bytedance.com>
- <20230531171036.GH1248296@fedora>
+ <20230504081910.238585-8-pizhenwei@bytedance.com>
+ <20230531205508.GA1509630@fedora>
 From: zhenwei pi <pizhenwei@bytedance.com>
-In-Reply-To: <20230531171036.GH1248296@fedora>
+In-Reply-To: <20230531205508.GA1509630@fedora>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [virtio-comment] Re: Re: [PATCH v2 06/11] transport-fabrics: introduce command set
+Subject: [virtio-comment] Re: Re: [PATCH v2 07/11] transport-fabrics: introduce opcodes
 
 
 
-On 6/1/23 01:10, Stefan Hajnoczi wrote:
-> On Thu, May 04, 2023 at 04:19:05PM +0800, zhenwei pi wrote:
->> Introduce command structures for Virtio-oF.
+On 6/1/23 04:55, Stefan Hajnoczi wrote:
+> On Thu, May 04, 2023 at 04:19:06PM +0800, zhenwei pi wrote:
+>> Define opcode with this rule:
+>> The Virtio-oF transport layer commands use 0x0000-0x0fff, and the
+>> device layer commands use 0x1000-0xffff.
+>> get/set status/feature/
+>> config use consecutive number.
 >>
 >> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
 >> ---
->>   transport-fabrics.tex | 209 ++++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 209 insertions(+)
+>>   transport-fabrics.tex | 134 ++++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 134 insertions(+)
 >>
 >> diff --git a/transport-fabrics.tex b/transport-fabrics.tex
->> index 7711321..37f57c6 100644
+>> index 37f57c6..026ff5f 100644
 >> --- a/transport-fabrics.tex
 >> +++ b/transport-fabrics.tex
->> @@ -495,3 +495,212 @@ \subsubsection{Buffer Mapping Definition}\label{sec:Virtio Transport Options / V
->>                       |value |  -> 8193 (value.u32)
->>                       +------+
->>   \end{lstlisting}
+>> @@ -704,3 +704,137 @@ \subsubsection{Commands Definition}\label{sec:Virtio Transport Options / Virtio
+>>   Note that Virtio Over Fabrics does not define an interrupt mechanism, generally
+>>   the initiator receives a Completion, it SHOULD generate a host interrupt
+>>   (if no interrupt suspending on device).
 >> +
->> +\subsubsection{Commands Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition}
->> +This section defines command structures for Virtio Over Fabrics.
+>> +\subsubsection{Opcodes Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition}
+>> +This section defines command opcodes for Virtio Over Fabrics:
 >> +
->> +A common structure virtio_of_value is fixed to 8 bytes and MUST be used as one
->> +of the following format:
->> +
->> +\begin{itemize}
->> +\item u8
->> +\item le16
->> +\item le32
->> +\item le64
->> +\end{itemize}
+>> +\begin{lstlisting}
+>> +#define virtio_of_op_connect               0x0000
+>> +#define virtio_of_op_discconnect           0x0001
 > 
-> The way it's written does not document where the u8, u16, u32 bytes are
-> located and that the unused bytes are 0. I think I understand what you
-> mean though:
-> 
->    le64 value = cpu_to_le64((u64)v); /* v is u8, u16, u32, or u64 */
-> 
-> Please clarify.
-> 
-
-I want to describe an union structure of 8 bytes:
-union virtio_of_value {
-     u8;
-     u16;
-     u32;
-     u64;
-};
-
-Depending on the opcode, use the right one.
-
->> +
->> +\paragraph{Command ID}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Command ID}
->> +There is command_id(le16) field in each Command and Completion:
-> 
-> "is a command_id"
+> "disconnect"
 > 
 
 OK.
 
+>> +#define virtio_of_op_get_feature           0x0002
+>> +#define virtio_of_op_set_feature           0x0003
+>> +#define virtio_of_op_keepalive             0x0004
+>> +#define virtio_of_op_vring                 0x0fff
+>> +#define virtio_of_op_get_vendor_id         0x1000
+>> +#define virtio_of_op_get_device_id         0x1001
+>> +#define virtio_of_op_get_generation        0x1002
+>> +#define virtio_of_op_get_status            0x1004
+>> +#define virtio_of_op_set_status            0x1005
+>> +#define virtio_of_op_get_device_feature    0x1006
+>> +#define virtio_of_op_set_driver_feature    0x1007
+>> +#define virtio_of_op_get_num_queues        0x1008
+>> +#define virtio_of_op_get_queue_size        0x100a
+>> +#define virtio_of_op_get_config            0x100c
+>> +#define virtio_of_op_set_config            0x100d
+>> +\end{lstlisting}
+> 
+> Is Queue Reset missing?
+> https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-280001
+> 
+
+Originally, I designed reset as set_status(0). But an explicit reset 
+command is better! Add this in next version.
+
 >> +
->> +\begin{itemize}
->> +\item Generally the initiator allocates a Command ID and specifies the
-> 
-> "allocates a Command ID that is unique for all in-flight commands"?
-> 
-
-Yes. Will add.
-
->> +command_id field of a Command, and the target MUST specify the same Command ID
-> 
-> The "MUST" statement needs to be in a driver-normative section. You can
-> keep the sentence in this non-normative section by tweaking it:
-> "target specifies"
-> 
-> The idea is that all MUST/SHOULD/etc statements are in a separate
-> device/driver-normative section so that they can be easily reviewed by
-> device/driver implementers without re-reading the entire text.
-> 
-
-OK.
-
->> +in command_id field of Completion.
->> +\item The initiator MUST guarantee each Command ID is unique in the inflight Commands.
-> 
-> Same here about "MUST".
-> 
->> +\item Command ID 0xff00 - 0xffff is reserved for control queue to delivery asynchronous event.
-> 
-> "for control queue asynchronous events"
-> 
-
-OK.
-
->> +\end{itemize}
+>> +\paragraph{virtio_of_op_connect}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_connect}
 >> +
->> +The reserved Command ID for control queue is defined as follows:
+>> +virtio_of_op_connect is used to connect a target for both control queue and virtqueue.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Connect Command}
+>> +and specify the ndesc field as 1, also contains 1 structure virtio_of_vring_desc
+>> +filled by structure virtio_of_command_status.
 > 
-> "The reserved Command IDs for the control queue are as follows:"
+> What are the semantics of this command? Is the idea that the initiatior
+> will establish 1 TCP connection to the target for every virtqueue (plus
+> one for the control queue) and send a virtio_of_op_connect command as
+> the first command in the connection in order to indicate that the
+> connection is associated with a specific queue?
+>
+
+Yes.
+
+> Is there a state machine related to connection and queue lifecycles?
 > 
+
+No state machine related to connection. The lifecycles of Virtio-oF 
+queues: establish a connection(transport specific), issue connect 
+command, issue control/vq command ... issue disconnect command(optional, 
+gracefully shutdown), disconnection connection.
+
 >> +
->> +\begin{tabular}{ |l|l| }
+>> +\paragraph{virtio_of_op_discconnect}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_discconnect}
+>> +
+>> +virtio_of_op_discconnect is used to disconnect a target for both control queue and virtqueue.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command}.
+> 
+> What happens if the initiatior drops the connection without sending a
+> virtio_of_op_discconnect command?
+> 
+
+A Virtio-of queue could shutdown gracefully by issuing 
+virtio_of_op_discconnect command. The inflight commands will be 
+completed by target.
+Otherwise the inflight commands may be dropped by target.
+
+> Are there resources associated with a connected queue?
+> 
+
+A control queue disconnects, the initiator and target should shutdown 
+all the virtqueues associated with this control queue.
+
+A connected virtqueue associates a QID for both initiator and target 
+side, once a Virtio-of queue disconnects, the QID becomes free, allow 
+reconnect.
+
+>> +
+>> +\paragraph{virtio_of_op_get_feature}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_feature}
+>> +
+>> +virtio_of_op_get_feature is used to get features of target for control queue only.
+> 
+> Does this command fail when sent to a virtqueue instead of the control
+> queue?
+> 
+> By the way, what's the difference between a connection and queue?
+> 
+
+I need describe the mapping between a connection and queue in '[PATCH v2 
+01/11] transport-fabrics: introduce Virtio Over Fabrics overview', and 
+use 'Virtio Over Fabrics queue' only.
+
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Feature Command}.
+> 
+> When? As the first message or immediately after virtio_of_op_connect?
+> 
+
+At any time theory. As the first message or immediately after 
+virtio_of_op_connect is recommended.
+
+>> +
+>> +\begin{tabular}{ |l|l|l| }
 >> +\hline
->> +Command ID & Description \\
->> +\hline \hline
->> +0xffff & Keepalive. The initiator SHOULD ignore this event \\
-> 
-> "Ignored by the initiator." + move the SHOULD statement to a
-> driver-normative section.
-> 
+>> +Feature Select & Value & Description \\
 >> +\hline
->> +0xfffe & Config change. The initiator SHOULD generate config change interrupt to device \\
+>> +virtio_of_feature_max_segment & 0x0 & Get the maximum segments within a Vring Command supported by target \\
 > 
-> "Causes the initiator to generate a configuration change notification."
+> Does Vring Command mean virtio_of_op_vring? What is the difference
+> between "segments" and "descriptors"?
 > 
->> +\hline
->> +0xff00 - 0xfffd & Reserved \\
+> Does the max_segment value have a type or does the initiator have to
+> support up to u64?
+> 
+> How does max_segment affect the maximum number of virtqueue buffer
+> elements?
+> 
+> What happens when a feature that is not supported by the target is
+> queried by the initiator?
+> 
+> I was expecting a feature bit negotiation mechanism, but it seems the
+> "feature" is a parameter value, not just a single but like VIRTIO
+> Feature Bits. Please rename this to "parameter", "setting", or similar
+> to avoid confusion with Feature Bits.
+> 
+
+VIRTIO Feature Bits style is fine. Change into this style in next 
+version. Then I'd introduce a new opcode 
+virtio_of_op_get_max_segment(required command, no feature bits testing).
+
 >> +\hline
 >> +\end{tabular}
 >> +
->> +\paragraph{Connect Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Connect Command}
->> +The Connect Command is used to establish Virtio Over Fabrics queue. The control
->> +queue MUST be established firstly, then the Connect command establishes an
->> +association between the initiator and the target.
-> 
-> Is a "Virtio Over Fabrics queue" different from a virtqueue?
-> 
-> If I understand correctly, the control queue must be established by the
-> initiator first and then the Connect command is sent to begin
-> communication between the initiator and the target?
-> 
-
-The queue mapping is missing in the '[PATCH v2 01/11] transport-fabrics: 
-introduce Virtio Over Fabrics overview', like:
-A "Virtio Over Fabrics queue" is a reliable connection between initiator 
-and target. There are 2 types of Virtio Over Fabrics queue:
-+\begin{itemize}
-+\item A single Control queue is required to execute control operations.
-+\item 0 or more Virtio Over Fabrics queues map the virtqueues.
-+\end{itemize}
-
+>> +\paragraph{virtio_of_op_set_feature}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_set_feature}
 >> +
->> +The Target ID of 0xffff is reserved, then:
+>> +virtio_of_op_set_feature is used to set features of initiator for control queue only.
 > 
-> Please move this after the fields have been shown and the purpose of the
-> Target ID field has been explained.
+> "set features of initiator" sounds like the target uses it to set up the
+> initiator, but I think this command is sent from the initiator to the
+> target. Maybe:
 > 
->> +\begin{itemize}
->> +\item The Target ID of 0xffff MUST be specified as the Target ID in a Connect
->> +Command for the control queue.
->> +\item The target SHOULD allocate any available Target ID to the initiator,
->> +and return the allocated Target ID in the Completion.
->> +\item The returned Target ID MUST be specified as the Target ID, and the Queue ID
->> +MUST be specified in a Connect Command for the virtqueue.
->> +\end{itemize}
-> 
-> What is the purpose of the Target ID? Is it to allow a server to provide
-> access to multiple targets over the same connection?
-> 
-
-A target listens on a port, and provides access to 0 or more targets. An 
-initiator connect the specific target by TVQN of connect command.
-An initiator could connect a single target, multiple initiators could 
-connect the same target(typically, shared disk/fs).
-
->> +
->> +The Connect Command has following structure:
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_command_connect {
->> +        le16 opcode;
->> +        le16 command_id;
->> +        le16 target_id;
->> +        le16 queue_id;
->> +        le16 ndesc;
-> 
-> Where is this field documented?
-> 
-
-OK. Will add.
-
-> Why does the initiator send ndesc to the target? Normally a VIRTIO Transport reports the device's max descriptors and then the driver can tell the device to reduce the number of descriptors, if desired.
-> 
-
-A target supports at lease 1 descriptor. The 'ndesc' of struct 
-virtio_of_command_connect indicates the full PDU contains: struct 
-virtio_of_command_connect + 1 * virtio_of_vq_desc + data.
-
->> +#define VIRTIO_OF_CONNECTION_TCP     1
->> +#define VIRTIO_OF_CONNECTION_RDMA    2
-> 
-> What does RDMA mean? I thought RDMA is a general concept that several
-> fabrics implement (with different details like how addressing works).
-> 
-
-I guest your concern is the difference of IB/RoCE/iWarp ...
-We are trying to define the payload protocol here, so I think we can 
-ignore the difference of the HCA.
-
->> +        u8 oftype;
->> +        u8 padding[5];
->> +};
->> +\end{lstlisting}
->> +
->> +The Connect commands MUST contains one Segment Descriptor and one structure
->> +virtio_of_command_connect to specify Initiator VQN and Target VNQ,
->> +virtio_of_command_connect has following structure:
-> 
-> I'm confsued. virtio_of_command_connect was defined above. The struct
-> defined below is virtio_of_connect. Does this paragraph need to be
-> updated (virtio_of_command_connect -> virtio_of_connect)?
-> 
-> Why is virtio_of_connect a separate struct and not part of
-> virtio_of_command_connect?
-> 
-
-Because I'd like to define all the commands with a fixed length.
-
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_connect {
->> +        u8 ivqn[256];
->> +        u8 tvqn[256];
-> 
-> If the initiator is already sends tvqn, why also have target_id?
-> 
->> +        u8 padding[512];
->> +};
->> +\end{lstlisting}
->> +
->> +\paragraph{Feature Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Feature Command}
->> +
->> +The control queue uses Feature Command to get or set features. This command is used for:
->> +
->> +\begin{itemize}
->> +\item The initiator/target features. This is used to negotiate transport layer features.
->> +\item The driver/device features. This is used to negotiate Virtio Based device
->> +features which is similar to PCI based device.
-> 
-> Please do not make references to the PCI Transport.
+>    "virtio_of_op_set_feature sets feature values in the target and is
+>    sent on the control queue."
 > 
 
 OK.
 
->> +\end{itemize}
->> +
->> +The Feature Command has following structure:
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_command_feature {
->> +        le16 opcode;
->> +        le16 command_id;
->> +        le32 feature_select;
->> +        le64 value;        /* ignore this field on GET */
->> +};
->> +\end{lstlisting}
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Feature Command}.
 > 
-> I guess the opcode tells the target whether this is a VIRTIO Features
-> Get, VIRTIO Features Set, VIRTIO-Over-Fabrics Features Get, or
-> VIRTIO-Over-Fabrics Features Set command? Please document the opcodes
-> here and also include a full opcode table somewhere else.
+> There are currently no features defined that can be set using
+> virtio_of_op_set_feature?
 > 
->> +
->> +\paragraph{Queue Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Queue Command}
->> +
->> +The control queue uses Queue Command to get or set properties on a specific queue.
->> +The Queue Command has following structure:
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_command_queue {
->> +        le16 opcode;
->> +        le16 command_id;
->> +        le16 queue_id;
-> 
-> Does "queue" mean virtqueue here? Or does it also apply to the control
-> queue? If it's a virtqueue, please call this vq_id.
-> 
->> +        u8 padding6;
->> +        u8 padding7;
->> +        struct virtio_of_value value;   /* ignore this field on GET */
->> +};
->> +\end{lstlisting}
-> 
-> The opcode and their semantics are not documented.
-> 
->> +\paragraph{Config Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Config Command}
->> +
->> +The control queue uses Config Command to get or set configure on device.
->> +The Config Command has following structure:
-> 
-> I suggest choosing a different name to avoid confusion with the
-> VIRTIO Configuration Space.
-> 
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_command_config {
->> +        le16 opcode;
->> +        le16 command_id;
->> +        le16 offset;
->> +        u8 bytes;
->> +        u8 padding7;
->> +        struct virtio_of_value value;        /* ignore this field on GET */
->> +};
->> +\end{lstlisting}
->> +
->> +The bytes field supports on Get only:
->> +
->> +\begin{itemize}
->> +\item 1, then the initiator reads from value field of Completion as u8
->> +\item 2, then the initiator reads from value field of Completion as le16
->> +\item 4, then the initiator reads from value field of Completion as le32
->> +\item 8, then the initiator reads from value field of Completion as le64
->> +\end{itemize}
->> +
->> +The bytes field supports on Set only:
->> +
->> +\begin{itemize}
->> +\item 1, then the initiator specifies the value field of Config Command as u8
->> +\item 2, then the initiator specifies the value field of Config Command as le16
->> +\item 4, then the initiator specifies the value field of Config Command as le32
->> +\item 8, then the initiator specifies the value field of Config Command as le64
->> +\end{itemize}
-> 
-> I have no idea what virtio_of_command_config does because the opcodes
-> aren't documented.
-> 
->> +
->> +\paragraph{Common Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command}
->> +
->> +The control queue uses Common Command to get or set common properties on
->> +device(i.e. get device ID). The Common Command has following structure:
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_command_common {
->> +        le16 opcode;
->> +        le16 command_id;
->> +        u8 padding4;
->> +        u8 padding5;
->> +        u8 padding6;
->> +        u8 padding7;
->> +        struct virtio_of_value value;        /* ignore this field on GET */
->> +};
->> +\end{lstlisting}
->> +
->> +
->> +\paragraph{Vring Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Vring Command}
->> +
->> +Both control queue and virtqueue use Vring Command to transmit buffer.
->> +The Vring Command has following structure:
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_command_vring {
->> +        le16 opcode;
->> +        le16 command_id;
->> +        /* Total buffer size this command contains(not include command&descriptors). */
->> +        le32 length;
->> +        /* How many descriptors this command contains */
->> +        le16 ndesc;
->> +        u8 padding[6];
->> +};
->> +\end{lstlisting}
->> +
->> +\paragraph{Completion}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Completion}
->> +
->> +The target responses Completion to the initiator to report command status,
->> +device properties, and transmit buffer. The Completion has following structure:
->> +
->> +\begin{lstlisting}
->> +struct virtio_of_completion {
->> +        le16 status;
->> +        le16 command_id;
->> +        /* How many descriptors this completion contains */
->> +        le16 ndesc;
->> +        u8 rsvd6;
->> +        u8 rsvd7;
->> +        struct virtio_of_value value;
->> +};
->> +\end{lstlisting}
->> +
->> +Note that Virtio Over Fabrics does not define an interrupt mechanism, generally
->> +the initiator receives a Completion, it SHOULD generate a host interrupt
->> +(if no interrupt suspending on device).
-> 
-> It's not possible to review this patch because these structs aren't used
-> yet and the opcodes are undefined.
-> 
-> Defining structs that are shared by multiple opcodes might make
-> implementations cleaner, but I think it makes the spec less clear. I
-> would rather have a list of all opcodes and each one shows the full
-> command layout (even if it is duplicated). That way it's very easy to
-> look up an opcode you are implementing or debugging and check what's
-> needed. If the command layout is not documented in a single place, then
-> it takes more effort to figure out how an opcode works.
-> 
-> Stefan
 
-OK, I'll merge the structure definition into the opcode definition.
+'[PATCH v2 11/11] transport-fabrics: support inline data for keyed 
+transmission' would be the first bit.
+
+>> +\paragraph{virtio_of_op_keepalive}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_keepalive}
+>> +
+>> +virtio_of_op_keepalive is used to keep alive with the target for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command}.
+> 
+> What is the purpose of this command? It is only sent on the control
+> queue so its purpose cannot be to actually keep connections alive since
+> virtqueue connections would not stay alive.
+> 
+> Maybe this is really a health check (ping/pong) to detect when the
+> control queue becomes unavailable?
+> 
+
+Originally I thought that keepalive for control is enough: once the 
+control becomes unavailable, shutdown the control queue and all the 
+related virtqueues. the virtio_of_op_vring commands detect the virtqueue 
+connection implicitly.
+
+This command for both control queue and virtqueue is fine.
+
+>> +\paragraph{}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_vring}
+>> +
+>> +virtio_of_op_vring is used to transmit buffer for both control queue and virtqueue.
+> 
+> "buffers"
+> 
+> My understanding is that the control queue is not a virtqueue. How can a
+> vring operation make sense on something that is not a virtqueue?
+> 
+
+Oh, my fault. this is for virtqueue only. and virtio_of_op_vring should 
+be renamed to virtio_of_op_vq.
+
+> I think the term used by the VIRTIO spec (2.6 Virtqueues) is "supply an
+> available buffer to the device" rather than "transmit buffer".
+> 
+
+OK.
+
+>> +The initiator MUST issues \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Vring Command}
+> 
+> "issue"
+> 
+>> +and specify the ndesc field as the number of buffer segments,
+> 
+> buffer segments == data segments == segment descriptor (struct virtio_of_vring_desc)?
+> 
+> Please pick one term and use it consistently.
+> 
+
+OK.
+
+>> +also contains ndesc structure virtio_of_vring_desc.
+>> +Each structure virtio_of_vring_desc is filled by each buffer segment one by one.
+>> +
+>> +\paragraph{virtio_of_op_get_vendor_id}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_vendor_id}
+>> +
+>> +virtio_of_op_get_vendor_id is used to get vendor id for control queue only.
+> 
+> The spec uses slightly more specific terms that avoid confusion with
+> other types of device/vendor IDs: either "get the Virtio Vendor ID" or
+> "get the Virtio Subsystem Vendor ID".
+> 
+
+OK.
+
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command},
+>> +and reads from value field of Completion as le32.
+>> +
+>> +\paragraph{virtio_of_op_get_device_id}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_device_id}
+>> +
+>> +virtio_of_op_get_device_id is used to get device id for control queue only.
+> 
+> "get the Virtio Device ID" or "get the Virtio Subsystem Device ID"
+> 
+
+OK.
+
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command},
+>> +and reads from value field of Completion as le32.
+>> +
+>> +\paragraph{virtio_of_op_get_generation}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_generation}
+>> +
+>> +virtio_of_op_get_generation is used to get config generation for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command},
+>> +and reads from value field of Completion as le32.
+> 
+> Maybe every virtio_of_op_get_config completion should include the
+> generation counter value. That way fewer roundtrips are required because
+> virtio_of_op_get_generation commands are not necessary.
+> 
+> The advantage to virtio_of_op_get_generation is that it maps nicely to
+> existing VIRTIO driver frameworks that expect to read the generation
+> counter separately, so I guess it's okay to keep it even if it's
+> inefficient over a fabric.
+> 
+> We could do both, too.
+> 
+
+Great! I'd define a new structure for 
+virtio_of_op_get_generation(include generation field) and drop 
+virtio_of_op_get_generation.
+
+>> +
+>> +\paragraph{virtio_of_op_get_status}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_status}
+>> +
+>> +virtio_of_op_get_status is used to get device status for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command},
+>> +and reads from value field of Completion as le32.
+>> +
+>> +\paragraph{virtio_of_op_set_status}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_set_status}
+>> +
+>> +virtio_of_op_set_status is used to set device status for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command},
+>> +and specify the value field of Common Command as le32.
+>> +
+>> +\paragraph{virtio_of_op_get_device_feature}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_device_feature}
+>> +
+>> +virtio_of_op_get_device_feature is used to get device feature for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Feature Command},
+>> +and reads from value field of Completion as le64.
+> 
+> What happens when feature_select is out of range? I guess
+> Completion.value is set to 0.
+> 
+
+Yes. But I think the feature_select is always in range, bit64-bit 
+127(feature_select == 1) is not offered currently, so 
+Completion.value.u64 is 0.
+
+> Does virtio_of_op_get_device_feature return the feature bits offered by
+> the device or does it update to reflect negotiated feature bits after
+> virtio_of_op_set_driver_feature?
+> 
+
+virtio_of_op_get_device_feature returns the same feature bits after 
+virtio_of_op_set_driver_feature. Because 1) the device feature is 
+capability of device, 2) a target may be shared by multi initiators.
+
+For now, I don't see any dependence on getting driver feature. Do you 
+have any concern about this?
+
+>> +
+>> +\paragraph{virtio_of_op_set_driver_feature}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_set_driver_feature}
+>> +
+>> +virtio_of_op_set_driver_feature is used to set driver feature for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Feature Command},
+>> +and specify the value field of Common Command as le64.
+>> +
+>> +The initiator uses feature_select field to select which feature bits to set.
+>> +Value 0x0 selects Feature Bits 0 to 63, 0x1 selects Feature Bits 64 to 128, etc.
+>> +
+>> +\paragraph{virtio_of_op_get_num_queues}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_num_queues}
+>> +
+>> +virtio_of_op_get_num_queues is used to get the number of queues for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command},
+>> +and reads from value field of Completion as le16.
+>> +
+>> +\paragraph{virtio_of_op_get_queue_size}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_queue_size}
+>> +
+>> +virtio_of_op_get_queue_size is used to get the size of a specified queue for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Queue Command} with specified queue_id,
+>> +and reads from value field of Completion as le16.
+> 
+> Is it possible to set the queue size? For example, the PCI Transport
+> allows the driver to lower the queue size but not increase it (see
+> 4.1.5.1.3 Virtqueue Configuration).
+> 
+
+Agree. Because a target may be shared by multi initiators, it's not 
+reasonable to set queue size of target, the queue size only affect this 
+initiator itself.
+For example, a target supports queue size 1024. initiatorX uses 128 
+queue size, and initiatorY uses 1024. Do you have any suggestion about this?
+
+>> +
+>> +\paragraph{virtio_of_op_get_config}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_get_config}
+>> +
+>> +virtio_of_op_get_config is used to get the config of a device for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Config Command} with specified offset and bytes,
+>> +and reads from value field of Completion.
+>> +
+>> +\paragraph{virtio_of_op_set_config}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Opcodes Definition / virtio_of_op_set_config}
+>> +
+>> +virtio_of_op_set_config is used to set the config of a device for control queue only.
+>> +The initiator MUST issue a \nameref{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Config Command} with specified offset and bytes and value fields.
+>> -- 
+>> 2.25.1
+>>
 
 -- 
 zhenwei pi
