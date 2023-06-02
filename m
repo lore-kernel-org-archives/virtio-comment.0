@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6082-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6083-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BCCFC77B7A
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 22:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF8EC7EE23
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 00:57:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 71A09E6946
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 22:03:52 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CF2152AF86
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 00:57:14 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 685C89867C9
-	for <virtio-comment@archiver.kernel.org>; Thu,  1 Jun 2023 22:03:52 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B7D609867CF
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 00:57:14 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 56EA89867C2; Thu,  1 Jun 2023 22:03:52 +0000 (UTC)
+	id A8F86983FE6; Fri,  2 Jun 2023 00:57:14 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,98 +24,104 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1C3C99867ED;
-	Thu,  1 Jun 2023 22:03:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8F85E9867CA
+	for <virtio-comment@lists.oasis-open.org>; Fri,  2 Jun 2023 00:57:14 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UxovKvqOSjGBaI6/o84dJs5hvSmRQH05A45YMQO9DAzFLSm06GnNDUmNKwnfA7jjel5L7YKvZxYCsQFx0yHkTIrbIoD2To8ZDnyZzSSusAGLHw93KvPy06SSeeT814Bof/LECvTZziCADiUG90zvMwcPkwpjOL5gsYys6lRhr0dVVE8M0YVC2VMPHcSYIGbpt6Pl9qltNDs60L94pbXiY4JauNWWvCdOb+OKPSjN/bAzDd6TL/BWmyyBZi6loMBxbq51Lu64di1CTQ5CUxpQpJieGtuBNntF+lVBO6BrDCi7sWk5SJ0sPEvdjAzIWMa8vRzTvmiPHw4jypeW47ziyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=253fqTi+CTt+O+k0yYE5/trGjTCVlezqHRUMMJeKPJk=;
- b=c/Fk7MKD+XPguI194Vy6Yst7vaI4qQz8uKp4mWUOyOJlHOylb6LM6BGwA9mHeWWJrX9/3ZNqssAR+DmVpxEDk9ZakzFosepvMBrLsrrpHkIX0C3k3ENR+Xx6F/ndsOxTYwarQ2LoUgjLFpvRHFO7WUZdJwtLlOsrRDtjclWX9Q5Bzjey3Uhrq6wmA97dPMY9fJectY/yabapQtNL9uAhYnZg2dl+NLpDgaY7sR0BoBziMUuX0qA6TPQZ6aI3WcgJcusxJrybic0YMvJDnfKzX2dTwlGmMIiE+OV/SKK3FGefTfB+/oMI6IEcJwgh8yiLxGIunh5iesgpF+wSQU2xbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.oasis-open.org>
-CC: <shahafs@nvidia.com>, <virtio@lists.oasis-open.org>, Parav Pandit
-	<parav@nvidia.com>
-Date: Fri, 2 Jun 2023 01:03:02 +0300
-Message-ID: <20230601220305.587034-5-parav@nvidia.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230601220305.587034-1-parav@nvidia.com>
-References: <20230601220305.587034-1-parav@nvidia.com>
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685667432; x=1688259432;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PqMHpptZeRHMFjG7CRQuvRhLg3UuzHrfgNOpj+h6jmE=;
+        b=iirXC0GzohWjQfu+r0vV8zehdZBTRpM+S+rDGhnQ1U7iP7Q0Hzdh0BJWu3oFMVRik4
+         RrcEMhtj2c8m4XSuOJhltaTWHPYZEYGOVyn8VMa37XZneetPMRZOPBIordZSGDSE5/KJ
+         P0nUGIF96G3xRFTHVM+9t3nvras70AhOxj3vn3vm/5vmUMu84WkeQCtHaOOvQggE6wSe
+         ASc/2lNC/r2+A4pKNB6ad7Jsp/0E3WvoGhOuYIIvaBcz9B/bEVrzozooKbQ6CCotjAuj
+         4vEWAGswg2II8/iIhKjZQnif4i9Czb+GYB+2wcMdhiZ2gFNHC7MZGVXvoxtKSwypjqbx
+         OSaQ==
+X-Gm-Message-State: AC+VfDwRY+jjfREU9vhKVq79iyoE+PFoG+7dW8FgKDWAsr1rIrpH+SkM
+	V4xjZXszAXBX7Xy2VNr5dhnxiA==
+X-Google-Smtp-Source: ACHHUZ4gJcqbhDwauU7zDuyFyYT2c8+4ZBHR7Y349y3NjF723rTofKCxWEl4fXX67IfeNSkghwzb3A==
+X-Received: by 2002:a17:90b:370a:b0:254:ce9e:53 with SMTP id mg10-20020a17090b370a00b00254ce9e0053mr703772pjb.23.1685667432348;
+        Thu, 01 Jun 2023 17:57:12 -0700 (PDT)
+Message-ID: <ced49494-1839-50d3-6742-0d5c1e7b33c7@bytedance.com>
+Date: Fri, 2 Jun 2023 08:55:02 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.35]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT024:EE_|SN7PR12MB6689:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bb676b4-271c-4700-9f8b-08db62ec09a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	46cD8YccHTk3+0Okc/GiDI3e5VEj7TRGDkigLmPVzAXvOBkJ4B1SsA/EoOuDWWMR7eXMTjkuhbsEl9pn7gT7o/QvyplNcrmeIrKWc3/dhGC1cWP8uJ/I3MOywAVL/w6NulVErxfLHLB4m2ea/9r5u67E7MT1F17J0MfO/7c/Cgq7qXPt4Rooyjd+iybTwODxusRVcxfBn1RnpKmnnVT+z6ggG28ENjtcs6oYalGunSgZ3827Ah94/H6EFQVYpq9RSKA6Gax0nSuHVyVeIJhwmoYWCaN5/ljCaNUsgfIqF6CZChbuJSdRgXe8TRqbKGkTqXOdrt787bBmM4ZbS9EjZAs/D/YfQaaLVquIMx05UPg/XwaPaJBnNSXTKA2gZ3froTXR27FN3nlkfFm3XhOpQLh7/1Vdo5ibo3jcxUGi32PQvUdeGBOfBsQx6HRQ7tR44EdqU2GD/vHfvQtoiMKD2C16A6W8ybmH/AD7p95m8HBB/oUaRve98zCMXGsepiOjG7CxKlNCe+Ori6YJ3RCBtlimXVl4gBqE5ti6sJIxg5johAPAE6+BaYCZQQrsOQsIH6vbwHfNTT4EaNfBFR6ZTphoQ65butRRmXbIv84mLVdU5dImc6hVDKBSl/UeDoTfp+skr296jFPdAdX1l7LjqE4iFpy5wSDoSHHUuU61MkWQoXkzXs70XSIx52QcVArOr1gO8nB+NANNE/dxhz3eRBspX6swGbW6RrF6JN4bDBJAqncxeBlKGEpaPliaigC9
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(136003)(376002)(346002)(451199021)(36840700001)(46966006)(40470700004)(6916009)(70586007)(450100002)(70206006)(41300700001)(316002)(4326008)(8936002)(54906003)(8676002)(2906002)(15650500001)(5660300002)(36860700001)(40460700003)(6666004)(478600001)(356005)(7636003)(40480700001)(107886003)(26005)(186003)(426003)(36756003)(47076005)(336012)(83380400001)(1076003)(82310400005)(82740400003)(86362001)(2616005)(16526019);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 22:03:31.4391
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bb676b4-271c-4700-9f8b-08db62ec09a3
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6689
-Subject: [virtio-comment] [PATCH requirements 4/7] net-features: Add notification coalescing requirements
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
+References: <20230504081910.238585-1-pizhenwei@bytedance.com>
+ <20230504081910.238585-6-pizhenwei@bytedance.com>
+ <20230531162048.GG1248296@fedora>
+ <aad519cd-5114-6144-8520-a258745c5e4a@bytedance.com>
+ <20230601113322.GA1538357@fedora>
+ <4426aa84-f22a-f361-af44-561dfd5a4ea0@bytedance.com>
+ <20230601191353.GC1622695@fedora> <20230601212339.GA1687473@fedora>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <20230601212339.GA1687473@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: Re: Re: [virtio-comment] Re: [PATCH v2 05/11] transport-fabrics:
+ introduce Keyed Transmission
 
-Add virtio net device notification coalescing improvements requirements.
 
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
- net-workstream/features-1.4.md | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
-index 054f951..fc36f31 100644
---- a/net-workstream/features-1.4.md
-+++ b/net-workstream/features-1.4.md
-@@ -8,6 +8,7 @@ together is desired while updating the virtio net interface.
- # 2. Summary
- 1. Device counters visible to the driver
- 2. Low latency tx and rx virtqueues for PCI transport
-+3. Virtqueue notification coalescing re-arming support
- 
- # 3. Requirements
- ## 3.1 Device counters
-@@ -143,3 +144,10 @@ struct vnet_rx_completion {
- 7. The device should be able to indicate when a full page buffer is consumed,
-    which can be recycled by the driver when the packets from the completed
-    page is fully consumed.
-+
-+## 3.3 Virtqueue notification coalescing re-enable support
-+1. Tx and Rx virtqueue notification coalescing should auto-disable on
-+   notification reporting to the driver. The driver should be able to enable
-+   coalescing after processing the packets per VQ. This ensures that when
-+   networking stack decides to poll, no new notifications are generated when
-+   per VQ notification coalescing is used.
+On 6/2/23 05:23, Stefan Hajnoczi wrote:
+> On Thu, Jun 01, 2023 at 03:13:53PM -0400, Stefan Hajnoczi wrote:
+>> On Thu, Jun 01, 2023 at 09:09:49PM +0800, zhenwei pi wrote:
+>>> On 6/1/23 19:33, Stefan Hajnoczi wrote:
+>>>> On Thu, Jun 01, 2023 at 05:02:45PM +0800, zhenwei pi wrote:
+>>>>> On 6/1/23 00:20, Stefan Hajnoczi wrote:
+>>>>>> On Thu, May 04, 2023 at 04:19:04PM +0800, zhenwei pi wrote:
+>> One more idea to play with: VIRTIO has flexible message framing, so
+>> devices must process a virtqueue buffer the same regardless of whether
+>> it has 1 large element or many small elements. Therefore the virtqueue
+>> RDMA protocol does not need to preserve the virtqueue element count and
+>> sizes from the driver. For example, the target can offer a list of
+>> key/length pairs that the initiator RDMA WRITES the virtqueue buffer
+>> contents into. For a virtio-blk device that would be a struct
+>> virtio_blk_outhdr followed by a large page-aligned buffer for the I/O
+>> buffer data to be transferred. Then the device always a properly aligned
+>> and contiguous buffer. Unfortunately this approach breaks down when the
+>> virtqueue carries requests that are organized very differently, but it
+>> might be useful when there is a most common request type.
+> 
+> I'm not sure if I explained this well. What I'm trying to say is that I
+> think RDMA benefits when the receiver's memory constraints are visible
+> to the sender. The sender performs RDMA WRITEs to the locations where
+> the receiver can efficiently process the data.
+> 
+> This protocol proposal doesn't really take advantage of this approach
+> because it communicates the virtqueue buffer elements from the initiator
+> (the sender) to the target (the receiver). That's the wrong way around.
+> 
+> I have never used RDMA myself, so this might be wrong, but as long as
+> the RDMA API allows the sender to specify a scatter-gather list as
+> input, then I think the details of the virtqueue buffer elements that
+> don't have the WRITE flag should never be communicated over the network.
+> Instead the initiator should RDMA WRITE from the VIRTIO driver's
+> scatter-gather list to the target's preferred destination instead.
+> 
+> Stefan
+
+Hi,
+
+I guess I followed your point. "the target can offer a list of 
+key/length pairs that the initiator RDMA WRITES the virtqueue buffer 
+contents into" seems not good to me, I'd prefer to expose RDMA memory 
+region of initiator side only(target side uses RDMA READ/WRITE to 
+operate the memory of initiator, this means target side has no need to 
+allocate/pin memory buffer).
+
+ From the point of my view, this protocol needs to be effective and 
+maintainable, mapping vring mechanism with RDMA WRITE from 2 
+directions(initiator to target, and target to initiator) leads high 
+complexity ...
+
 -- 
-2.26.2
-
+zhenwei pi
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
