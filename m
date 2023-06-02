@@ -1,20 +1,17 @@
-Return-Path: <virtio-comment-return-6091-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6092-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E08C7EE2A
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 04:39:55 +0000 (UTC)
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4A0402AF8C
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 04:39:54 +0000 (UTC)
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 324059867E4
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 04:39:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5C35C7EE24
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 05:20:27 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
-	by lists.oasis-open.org (Postfix) with QMQP
-	id 1ACBD983E8D; Fri,  2 Jun 2023 04:39:54 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DADB52AF8A
+	for <virtio-comment@archiver.kernel.org>; Fri,  2 Jun 2023 05:20:26 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by host09.ws5.connectedcommunity.org (Postfix) with QMQP
+	id C4430330B6; Fri,  2 Jun 2023 05:20:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,151 +21,446 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 076AD9867DB;
-	Fri,  2 Jun 2023 04:39:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 231C49867DB
+	for <virtio-comment@lists.oasis-open.org>; Fri,  2 Jun 2023 05:19:25 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046056;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vk8Kwqm_1685680788;
-Message-ID: <9afe0f6a-1a15-a200-b96d-385d3f69a375@linux.alibaba.com>
-Date: Fri, 2 Jun 2023 12:39:45 +0800
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685683162; x=1688275162;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XxxqhIceCnTSdigMkb1kJtvr9vODraO2nmO7hTExe2I=;
+        b=GkvCLrzEI6aoXQ0AsAFkieSI7qDSmHbbbJqlQKbAC1c3miPiwocIONtg6lvJ7jztOG
+         9yYLVoa2HF7KMBkgcPqlPjCOUdNKpeNvzToaKh0bBA05he1r7bmAyf3bvXiNywNnO1g/
+         SenvVNsML65s80YhFZduagb72qmpuRyjNB/CkbUR5/L6zmXGahk36H1mSj5lX1c66QbO
+         rcYcfzUv4+DEoI4Cg3S/ve/aPZMfGjCKTnzWaGop4QC99CwAGUTfgfzvuAzscn2lJNTh
+         rPPYCCstYKOUocdyxwmrYtbE9764v7t7sIAXsLf7XUgjG1s3zZZzizNKurloQufy23x0
+         ldYg==
+X-Gm-Message-State: AC+VfDxDn1qHNLO4JRJg1iZbDcYztjMMPkc4BglRBp3RtSZGGaDuz2gB
+	HMVr4be4aQ5V51uMh9RXZRrYXQ==
+X-Google-Smtp-Source: ACHHUZ6GlsYCRMjSLvXOTP1nRxe2MbOHmcma0HdcmOZdK/3ceIu0pfeiIB9nwr+i3nRTzika9jausQ==
+X-Received: by 2002:a17:903:2292:b0:1ac:a6b0:1c87 with SMTP id b18-20020a170903229200b001aca6b01c87mr1814032plh.48.1685683162495;
+        Thu, 01 Jun 2023 22:19:22 -0700 (PDT)
+Message-ID: <8cfdc9bf-03c9-92fc-f2e0-d59b180b0d82@bytedance.com>
+Date: Fri, 2 Jun 2023 13:15:00 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-To: Parav Pandit <parav@nvidia.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Cc: Shahaf Shuler <shahafs@nvidia.com>,
- "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <20230601220305.587034-1-parav@nvidia.com>
- <20230601220305.587034-6-parav@nvidia.com>
- <a471e048-b492-eb04-608d-4312da4d0b09@linux.alibaba.com>
- <PH0PR12MB5481647B8D459F5594756C93DC4EA@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <PH0PR12MB5481647B8D459F5594756C93DC4EA@PH0PR12MB5481.namprd12.prod.outlook.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: parav@nvidia.com, mst@redhat.com, jasowang@redhat.com,
+ virtio-comment@lists.oasis-open.org, houp@yusur.tech,
+ helei.sig11@bytedance.com, xinhao.kong@duke.edu
+References: <20230504081910.238585-1-pizhenwei@bytedance.com>
+ <20230504081910.238585-7-pizhenwei@bytedance.com>
+ <20230531171036.GH1248296@fedora>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <20230531171036.GH1248296@fedora>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio] RE: [virtio-comment] [PATCH requirements 5/7]
- net-features: Add n-tuple receive flow steering requirements
+Content-Transfer-Encoding: 7bit
+Subject: [virtio-comment] Re: Re: [PATCH v2 06/11] transport-fabrics: introduce command set
 
 
 
-在 2023/6/2 上午11:51, Parav Pandit 写道:
-> Hi Heng,
->
->> From: Heng Qi <hengqi@linux.alibaba.com>
->> Sent: Thursday, June 1, 2023 11:35 PM
+On 6/1/23 01:10, Stefan Hajnoczi wrote:
+> On Thu, May 04, 2023 at 04:19:05PM +0800, zhenwei pi wrote:
+>> Introduce command structures for Virtio-oF.
 >>
->> Hi, Parav.
+>> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
+>> ---
+>>   transport-fabrics.tex | 209 ++++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 209 insertions(+)
 >>
->> I also did some work on this feature, and I think it would be very useful if we
->> could work on this interface design and VirtIO Spec together!
->>
-> Sure, happy to bring this alive together.
-> More below.
->
->>> +
->>> +## 3.4 Receive virtqueue n-tuple flow steering (RFS)
->> I think this abbreviation can be replaced with eg Receive virtqueue n-tuple flow
->> director, RFD? or something else?
-> One hw vendor product name has director in it, so will probably want to stay away picking such TM.
->
-> May be we can just say flow filters.
-> A filter may have an action and a destination.
-> So it can be generic enough.
+>> diff --git a/transport-fabrics.tex b/transport-fabrics.tex
+>> index 7711321..37f57c6 100644
+>> --- a/transport-fabrics.tex
+>> +++ b/transport-fabrics.tex
+>> @@ -495,3 +495,212 @@ \subsubsection{Buffer Mapping Definition}\label{sec:Virtio Transport Options / V
+>>                       |value |  -> 8193 (value.u32)
+>>                       +------+
+>>   \end{lstlisting}
+>> +
+>> +\subsubsection{Commands Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition}
+>> +This section defines command structures for Virtio Over Fabrics.
+>> +
+>> +A common structure virtio_of_value is fixed to 8 bytes and MUST be used as one
+>> +of the following format:
+>> +
+>> +\begin{itemize}
+>> +\item u8
+>> +\item le16
+>> +\item le32
+>> +\item le64
+>> +\end{itemize}
+> 
+> The way it's written does not document where the u8, u16, u32 bytes are
+> located and that the unused bytes are 0. I think I understand what you
+> mean though:
+> 
+>    le64 value = cpu_to_le64((u64)v); /* v is u8, u16, u32, or u64 */
+> 
+> Please clarify.
+> 
 
-Yes, it's a good generic name.
+I want to describe an union structure of 8 bytes:
+union virtio_of_value {
+     u8;
+     u16;
+     u32;
+     u64;
+};
 
->
->
->> This allows us to distinguish more clearly from (Accelerated) Recieve Flow
->> Steering, (A)RFS.
->>
-> The idea was for ARFS and RFS both to reuse the same underlying infra, just the OS hooks are different. (stack vs user ethtool respectively).
->   
+Depending on the opcode, use the right one.
 
-Yes, so I want it to have a distinguishing name from RFS, 'recieve flow 
-filters' below as the name of the underlying infra is enough.:)
+>> +
+>> +\paragraph{Command ID}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Command ID}
+>> +There is command_id(le16) field in each Command and Completion:
+> 
+> "is a command_id"
+> 
 
->> ARFS can *automatically* issue RFS rules based on n-tuple rules, and we can
->> still issue n-tuple rules *manually*.
->> So RFD seems more reasonable than RFS abbreviation, what do you think?:)
->>
-> "Receive flow filters" is probably more neutral name. :)
->
->>> +1. The driver should be able to define a receive packet match criteria, an
->>> +   action and a destination for a packet. For example, an ipv4 packet with a
->>> +   multicast address to be steered to the receive vq 0. The second example is
->>> +   ipv4, tcp packet matching a specified IP address and tcp port tuple to
->>> +   steered to receive vq 10.
->>> +2. The match criteria should include exact tuple fields well-defined such as
->> mac
->>> +   address, IP addresses, tcp/udp ports, etc.
->>> +3. The match criteria should also include the field mask.
->> The mask structure can be considered to reuse the same structure as the key
->> structure.
-> Yes, mask will probably have the bit mask definition.
->
->>> +4. The match criteria may optionally also include specific packet data offset,
->>> +   length, and matching pattern, which may not be defined in the standard
->> RFC.
->>> +5. Action includes (a) dropping or (b) forwarding the packet.
->>> +6. Destination location is a receive virtqueue index or rss context.
->> We may have an additional requirement internally, such as specifying the queue
->> id of a certain VF, but we are still aligning this requirement internally, and it may
->> be more reasonable to implement the work involving device group based on
->> admin vq.
->>
-> The switch side APIs bit more complex.
-> We were first considering using the flow filters/steering for the guest driver and extend further for switching side.
+OK.
 
-Yes, but it's not that hard to just extend a VF id. In general, we will 
-get back to you next week after aligning because of any difficulties we 
-need this.:)
+>> +
+>> +\begin{itemize}
+>> +\item Generally the initiator allocates a Command ID and specifies the
+> 
+> "allocates a Command ID that is unique for all in-flight commands"?
+> 
 
->   
->>> +7. The device should process RFS rules before RSS rules, i.e., when there is a
->>> +   miss on the RFS rule RSS rule applies.
->>> +8. The device should be able to add/remove these rules at a rate of 100K
->>> +   rules/sec.
->>> +9. If multiple rules are programmed which has overlapping attributes for a
->>> +   received packet, the driver to define the location/priority of the rule.
->> Considering the capabilities similar to some current tools such as ethtool, if it is
->> a simple implementation, the first match principle can be applied.
->>
-> Yes, this likely needs refinement, I just wanted to get the seed for priority to be afloat when I wrote.
-> I am thinking of defining the priority at interface level, and driver can choose first match in the programming model based on the use.
->
+Yes. Will add.
 
-Yes, in general we really need priorities, and then maybe a matching 
-mode field to let the driver choose which matching principle to use.
+>> +command_id field of a Command, and the target MUST specify the same Command ID
+> 
+> The "MUST" statement needs to be in a driver-normative section. You can
+> keep the sentence in this non-normative section by tweaking it:
+> "target specifies"
+> 
+> The idea is that all MUST/SHOULD/etc statements are in a separate
+> device/driver-normative section so that they can be easily reviewed by
+> device/driver implementers without re-reading the entire text.
+> 
 
->>> +10. The driver should be able to query flow steering table entries
->> programmed in
->>> +    the device by the flow id.
->>> +11. The driver should be able to add the entry for attributes (a) match
->>> +    criteria, (b) action, (c) destination and (d) assign a unique id of 32 bits.
->>> +12. The driver should be able to delete the steering rule entry via a unique
->> id.
->>> +13. The driver should be able to add and delete the steering rules in out of
->>> +    order manner without depending on previous commands.
->>> +14. A group member device should be able to query the attributes of the
->> flow
->>> +    steering that device supports.
->>> +15. The driver and group owner driver should be able to query supported
->> device
->>> +    limits for the steering entries.
->> Do we want to support some user-defined fields, so that manufacturers can
->> customize the interpretation of some fields.
->>
-> Yes, we can phase out the common case of ipv{4,6} and {udp,tcp} as first phase and more customs field as second phase.
-> Those use define fields can be useful in custom filters.
+OK.
 
-Yes, for example some simple tunnel matching is possible, but the full, 
-exact tunnel matching is probably not the first phase of this new feature.
+>> +in command_id field of Completion.
+>> +\item The initiator MUST guarantee each Command ID is unique in the inflight Commands.
+> 
+> Same here about "MUST".
+> 
+>> +\item Command ID 0xff00 - 0xffff is reserved for control queue to delivery asynchronous event.
+> 
+> "for control queue asynchronous events"
+> 
 
+OK.
 
-Thanks!
+>> +\end{itemize}
+>> +
+>> +The reserved Command ID for control queue is defined as follows:
+> 
+> "The reserved Command IDs for the control queue are as follows:"
+> 
+>> +
+>> +\begin{tabular}{ |l|l| }
+>> +\hline
+>> +Command ID & Description \\
+>> +\hline \hline
+>> +0xffff & Keepalive. The initiator SHOULD ignore this event \\
+> 
+> "Ignored by the initiator." + move the SHOULD statement to a
+> driver-normative section.
+> 
+>> +\hline
+>> +0xfffe & Config change. The initiator SHOULD generate config change interrupt to device \\
+> 
+> "Causes the initiator to generate a configuration change notification."
+> 
+>> +\hline
+>> +0xff00 - 0xfffd & Reserved \\
+>> +\hline
+>> +\end{tabular}
+>> +
+>> +\paragraph{Connect Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Connect Command}
+>> +The Connect Command is used to establish Virtio Over Fabrics queue. The control
+>> +queue MUST be established firstly, then the Connect command establishes an
+>> +association between the initiator and the target.
+> 
+> Is a "Virtio Over Fabrics queue" different from a virtqueue?
+> 
+> If I understand correctly, the control queue must be established by the
+> initiator first and then the Connect command is sent to begin
+> communication between the initiator and the target?
+> 
 
+The queue mapping is missing in the '[PATCH v2 01/11] transport-fabrics: 
+introduce Virtio Over Fabrics overview', like:
+A "Virtio Over Fabrics queue" is a reliable connection between initiator 
+and target. There are 2 types of Virtio Over Fabrics queue:
++\begin{itemize}
++\item A single Control queue is required to execute control operations.
++\item 0 or more Virtio Over Fabrics queues map the virtqueues.
++\end{itemize}
 
+>> +
+>> +The Target ID of 0xffff is reserved, then:
+> 
+> Please move this after the fields have been shown and the purpose of the
+> Target ID field has been explained.
+> 
+>> +\begin{itemize}
+>> +\item The Target ID of 0xffff MUST be specified as the Target ID in a Connect
+>> +Command for the control queue.
+>> +\item The target SHOULD allocate any available Target ID to the initiator,
+>> +and return the allocated Target ID in the Completion.
+>> +\item The returned Target ID MUST be specified as the Target ID, and the Queue ID
+>> +MUST be specified in a Connect Command for the virtqueue.
+>> +\end{itemize}
+> 
+> What is the purpose of the Target ID? Is it to allow a server to provide
+> access to multiple targets over the same connection?
+> 
+
+A target listens on a port, and provides access to 0 or more targets. An 
+initiator connect the specific target by TVQN of connect command.
+An initiator could connect a single target, multiple initiators could 
+connect the same target(typically, shared disk/fs).
+
+>> +
+>> +The Connect Command has following structure:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_command_connect {
+>> +        le16 opcode;
+>> +        le16 command_id;
+>> +        le16 target_id;
+>> +        le16 queue_id;
+>> +        le16 ndesc;
+> 
+> Where is this field documented?
+> 
+
+OK. Will add.
+
+> Why does the initiator send ndesc to the target? Normally a VIRTIO Transport reports the device's max descriptors and then the driver can tell the device to reduce the number of descriptors, if desired.
+> 
+
+A target supports at lease 1 descriptor. The 'ndesc' of struct 
+virtio_of_command_connect indicates the full PDU contains: struct 
+virtio_of_command_connect + 1 * virtio_of_vq_desc + data.
+
+>> +#define VIRTIO_OF_CONNECTION_TCP     1
+>> +#define VIRTIO_OF_CONNECTION_RDMA    2
+> 
+> What does RDMA mean? I thought RDMA is a general concept that several
+> fabrics implement (with different details like how addressing works).
+> 
+
+I guest your concern is the difference of IB/RoCE/iWarp ...
+We are trying to define the payload protocol here, so I think we can 
+ignore the difference of the HCA.
+
+>> +        u8 oftype;
+>> +        u8 padding[5];
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The Connect commands MUST contains one Segment Descriptor and one structure
+>> +virtio_of_command_connect to specify Initiator VQN and Target VNQ,
+>> +virtio_of_command_connect has following structure:
+> 
+> I'm confsued. virtio_of_command_connect was defined above. The struct
+> defined below is virtio_of_connect. Does this paragraph need to be
+> updated (virtio_of_command_connect -> virtio_of_connect)?
+> 
+> Why is virtio_of_connect a separate struct and not part of
+> virtio_of_command_connect?
+> 
+
+Because I'd like to define all the commands with a fixed length.
+
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_connect {
+>> +        u8 ivqn[256];
+>> +        u8 tvqn[256];
+> 
+> If the initiator is already sends tvqn, why also have target_id?
+> 
+>> +        u8 padding[512];
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +\paragraph{Feature Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Feature Command}
+>> +
+>> +The control queue uses Feature Command to get or set features. This command is used for:
+>> +
+>> +\begin{itemize}
+>> +\item The initiator/target features. This is used to negotiate transport layer features.
+>> +\item The driver/device features. This is used to negotiate Virtio Based device
+>> +features which is similar to PCI based device.
+> 
+> Please do not make references to the PCI Transport.
+> 
+
+OK.
+
+>> +\end{itemize}
+>> +
+>> +The Feature Command has following structure:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_command_feature {
+>> +        le16 opcode;
+>> +        le16 command_id;
+>> +        le32 feature_select;
+>> +        le64 value;        /* ignore this field on GET */
+>> +};
+>> +\end{lstlisting}
+> 
+> I guess the opcode tells the target whether this is a VIRTIO Features
+> Get, VIRTIO Features Set, VIRTIO-Over-Fabrics Features Get, or
+> VIRTIO-Over-Fabrics Features Set command? Please document the opcodes
+> here and also include a full opcode table somewhere else.
+> 
+>> +
+>> +\paragraph{Queue Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Queue Command}
+>> +
+>> +The control queue uses Queue Command to get or set properties on a specific queue.
+>> +The Queue Command has following structure:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_command_queue {
+>> +        le16 opcode;
+>> +        le16 command_id;
+>> +        le16 queue_id;
+> 
+> Does "queue" mean virtqueue here? Or does it also apply to the control
+> queue? If it's a virtqueue, please call this vq_id.
+> 
+>> +        u8 padding6;
+>> +        u8 padding7;
+>> +        struct virtio_of_value value;   /* ignore this field on GET */
+>> +};
+>> +\end{lstlisting}
+> 
+> The opcode and their semantics are not documented.
+> 
+>> +\paragraph{Config Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Config Command}
+>> +
+>> +The control queue uses Config Command to get or set configure on device.
+>> +The Config Command has following structure:
+> 
+> I suggest choosing a different name to avoid confusion with the
+> VIRTIO Configuration Space.
+> 
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_command_config {
+>> +        le16 opcode;
+>> +        le16 command_id;
+>> +        le16 offset;
+>> +        u8 bytes;
+>> +        u8 padding7;
+>> +        struct virtio_of_value value;        /* ignore this field on GET */
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The bytes field supports on Get only:
+>> +
+>> +\begin{itemize}
+>> +\item 1, then the initiator reads from value field of Completion as u8
+>> +\item 2, then the initiator reads from value field of Completion as le16
+>> +\item 4, then the initiator reads from value field of Completion as le32
+>> +\item 8, then the initiator reads from value field of Completion as le64
+>> +\end{itemize}
+>> +
+>> +The bytes field supports on Set only:
+>> +
+>> +\begin{itemize}
+>> +\item 1, then the initiator specifies the value field of Config Command as u8
+>> +\item 2, then the initiator specifies the value field of Config Command as le16
+>> +\item 4, then the initiator specifies the value field of Config Command as le32
+>> +\item 8, then the initiator specifies the value field of Config Command as le64
+>> +\end{itemize}
+> 
+> I have no idea what virtio_of_command_config does because the opcodes
+> aren't documented.
+> 
+>> +
+>> +\paragraph{Common Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Common Command}
+>> +
+>> +The control queue uses Common Command to get or set common properties on
+>> +device(i.e. get device ID). The Common Command has following structure:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_command_common {
+>> +        le16 opcode;
+>> +        le16 command_id;
+>> +        u8 padding4;
+>> +        u8 padding5;
+>> +        u8 padding6;
+>> +        u8 padding7;
+>> +        struct virtio_of_value value;        /* ignore this field on GET */
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +
+>> +\paragraph{Vring Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Vring Command}
+>> +
+>> +Both control queue and virtqueue use Vring Command to transmit buffer.
+>> +The Vring Command has following structure:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_command_vring {
+>> +        le16 opcode;
+>> +        le16 command_id;
+>> +        /* Total buffer size this command contains(not include command&descriptors). */
+>> +        le32 length;
+>> +        /* How many descriptors this command contains */
+>> +        le16 ndesc;
+>> +        u8 padding[6];
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +\paragraph{Completion}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Completion}
+>> +
+>> +The target responses Completion to the initiator to report command status,
+>> +device properties, and transmit buffer. The Completion has following structure:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_of_completion {
+>> +        le16 status;
+>> +        le16 command_id;
+>> +        /* How many descriptors this completion contains */
+>> +        le16 ndesc;
+>> +        u8 rsvd6;
+>> +        u8 rsvd7;
+>> +        struct virtio_of_value value;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +Note that Virtio Over Fabrics does not define an interrupt mechanism, generally
+>> +the initiator receives a Completion, it SHOULD generate a host interrupt
+>> +(if no interrupt suspending on device).
+> 
+> It's not possible to review this patch because these structs aren't used
+> yet and the opcodes are undefined.
+> 
+> Defining structs that are shared by multiple opcodes might make
+> implementations cleaner, but I think it makes the spec less clear. I
+> would rather have a list of all opcodes and each one shows the full
+> command layout (even if it is duplicated). That way it's very easy to
+> look up an opcode you are implementing or debugging and check what's
+> needed. If the command layout is not documented in a single place, then
+> it takes more effort to figure out how an opcode works.
+> 
+> Stefan
+
+OK, I'll merge the structure definition into the opcode definition.
+
+-- 
+zhenwei pi
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
