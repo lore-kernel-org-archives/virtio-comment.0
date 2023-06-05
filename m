@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6126-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6127-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF06DC7EE24
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 07:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BD4C7EE23
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 08:43:29 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0FC7A2A827
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 07:59:49 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 867653309F
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 08:43:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EF18B98643F
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 07:59:48 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6BB1798643F
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 08:43:28 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id DD97998638A; Mon,  5 Jun 2023 07:59:48 +0000 (UTC)
+	id 53A5B98638A; Mon,  5 Jun 2023 08:43:28 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,127 +24,135 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CBE079863AC
-	for <virtio-comment@lists.oasis-open.org>; Mon,  5 Jun 2023 07:59:48 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 405269863AC
+	for <virtio-comment@lists.oasis-open.org>; Mon,  5 Jun 2023 08:43:28 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685951987; x=1688543987;
+        d=1e100.net; s=20221208; t=1685954606; x=1688546606;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qTjzVsOlpY5M6UoFgT8T+yT/kpWd2E8ewdvjVjWU1go=;
-        b=Mc0SiLTLwhqv3PERWL7MdOYZvP4IgEH0z6jkWOThNxczNLImeBNFSUJvCCTh+600S6
-         G8+dqD9SU947HJc4xK4Zh7bqE1Bx36nJDhULV15Bnzjuyps+p0tQJ8/B+iPlO/HZNeCm
-         wWHaugogbkjf8UbCZY0g2iW8EMQZgy1EAWH1s6+LbUM2vBVS264QNWK5gJzp9tvMJ+q/
-         7aQqLoa/4UCQ8F+5+caAMFW9k9mNoLJX5TWYQBiM4hDWFhlR76qHX+yMTm9p96YIqzZR
-         vfjqGxK3q6MEt46ge7abe+3ozi5VoITbnFwDXBzGx0kuE9m7L9i83BTPbu1o6qjW21pM
-         90ZA==
-X-Gm-Message-State: AC+VfDw8MuY6yrRWWWrFVkE95YkcMxGg7D27kJxPvKuSwiVK9+WRfEE8
-	kwEhqTlBVYxkOv75wDdBGBA4jQ==
-X-Google-Smtp-Source: ACHHUZ6iFV1sHGYxbVzqHzujy6wqqUWPj+Sl5eTL6VAFqmGGPy9Z2T2nZJ7VTyIaKfldfk/UHn3NOQ==
-X-Received: by 2002:a05:6358:9924:b0:123:6953:6754 with SMTP id w36-20020a056358992400b0012369536754mr8559943rwa.21.1685951987174;
-        Mon, 05 Jun 2023 00:59:47 -0700 (PDT)
-Message-ID: <bc6709df-8c72-0f31-35f8-57c369a47290@bytedance.com>
-Date: Mon, 5 Jun 2023 15:57:34 +0800
+        bh=VlOVl3n+s+wLdIcyFvxLsE7h5u4KfkGqLMWy3u/nUbg=;
+        b=RkJPwycMnc+W216cq50CHiNk1L3j2WVMsawhekho7fPVFtzsmpDu68PvMeGsxoPvJ8
+         Ap6R86Rp7HvrkjGbQV5gFfA/r8YVUxSPcFb40hdIuqglY73kWpzdSE7bjZC8Pbix23OL
+         dKLD02hUhKGRQ7wAFJg+0oSbgVmNLhR96MTCYt8RxbSXIUBqT8iYctUFANw0E+ciVFej
+         Bb/YN1sUS45QR3mNuPZlLFg8k7544Gao1nJKIgUDnaEV200kJfisJDR8e2k36xv2IoqL
+         lnxpmFl09bjq+0TOtSAOSr4C5SdZPjzbje9pD7v+SH4N9owriZsiyUxG+FfIiSqNrZk8
+         XmNQ==
+X-Gm-Message-State: AC+VfDzSIMLp564MwFLx04FTT/oO6BrTtTJatpCgGCT2qG114LxWF92f
+	Yqzc0XKIKi3wtiO3JFm6nxwyBA==
+X-Google-Smtp-Source: ACHHUZ5u3u81v97XNt8ZYi4Vn7oycEK6nytuUP7cUpqCQaWtt0YiX+WZSdz7iHa9L8Oq0akY/JCOBQ==
+X-Received: by 2002:a05:6a20:7d96:b0:114:dd7d:ce0c with SMTP id v22-20020a056a207d9600b00114dd7dce0cmr1355601pzj.48.1685954606036;
+        Mon, 05 Jun 2023 01:43:26 -0700 (PDT)
+Message-ID: <5c3600cd-4c9f-9d1f-a807-13ed54f6b11f@bytedance.com>
+Date: Mon, 5 Jun 2023 16:41:13 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, Stefan Hajnoczi <stefanha@redhat.com>
-Cc: mst@redhat.com, jasowang@redhat.com, virtio-comment@lists.oasis-open.org,
- houp@yusur.tech, helei.sig11@bytedance.com, xinhao.kong@duke.edu
+To: Parav Pandit <parav@nvidia.com>, mst@redhat.com, stefanha@redhat.com,
+ jasowang@redhat.com
+Cc: virtio-comment@lists.oasis-open.org, houp@yusur.tech,
+ helei.sig11@bytedance.com, xinhao.kong@duke.edu
 References: <20230504081910.238585-1-pizhenwei@bytedance.com>
- <20230504081910.238585-3-pizhenwei@bytedance.com>
- <20230531140640.GD1248296@fedora>
- <1572fc8c-2c92-10df-e109-6586a9692e0a@bytedance.com>
- <7238af9f-25e3-8490-a8dd-ee63435caba7@nvidia.com>
+ <20230504081910.238585-6-pizhenwei@bytedance.com>
+ <6b653208-ca45-4674-4568-9cb003e14d02@nvidia.com>
 From: zhenwei pi <pizhenwei@bytedance.com>
-In-Reply-To: <7238af9f-25e3-8490-a8dd-ee63435caba7@nvidia.com>
+In-Reply-To: <6b653208-ca45-4674-4568-9cb003e14d02@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: Re: [virtio-comment] [PATCH v2 02/11] transport-fabrics:
- introduce Virtio Qualified Name
+Subject: Re: [virtio-comment] Re: [PATCH v2 05/11] transport-fabrics:
+ introduce Keyed Transmission
 
 
 
-On 6/5/23 10:40, Parav Pandit wrote:
+On 6/5/23 10:41, Parav Pandit wrote:
 > 
 > 
-> On 6/1/2023 9:50 PM, zhenwei pi wrote:
+> On 5/4/2023 4:19 AM, zhenwei pi wrote:
+>> Keyed transmission is used for message oriented communication(Ex RDMA),
+>> also add virtio-blk read/write 8K example.
 >>
->>
->> On 5/31/23 22:06, Stefan Hajnoczi wrote:
->>> On Thu, May 04, 2023 at 04:19:01PM +0800, zhenwei pi wrote:
->>>> Add VQN section. The VQN is a little different from iSCSI/NVMe-oF on
->>>> style limitation. Because iSCSI/NVMe-of is storage specific protocol,
->>>> the full string IQN(for iSCSI/iSER) and NQN(for NVMe-oF) represents
->>>> a "storage access address". However, Virtio Over Fabrics works as
->>>> transport layer rather than device layer, a URL style string is better
->>>> to Virtio Over Fabrics. For example:
->>>> virtio-of://blk-resource/nvme-pool/849a39ad-8d7b-4a7a-adb6-e7407ace532c
->>>> virtio-of://blk-resource/hdd-pool/238151a7-acd7-4621-bbdf-382ddbccb6a1
->>>> ...
->>>> virtio-of://crypto-resource/25307f22-e5a8-4ea2-b7ca-79f5c3bebc3c
->>>
->>> I'm not sure what blk-resource and nvme-pool are in these URLs?
->>>
->>> Should the patch mention the virtio-of:// URI scheme?
->>>
->>
->> Sorry, I missed the address and port. They should be:
->> virtio-rdma://192.168.1.100:8549/blk-resource/nvme-pool/849a39ad-8d7b-4a7a-adb6-e7407ace532c
->> virtio-tcp://192.168.1.110/blk-resource/hdd-pool/238151a7-acd7-4621-bbdf-382ddbccb6a1
+>> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
+>> ---
 > 
-> Since it is device specific resource, may be blk-dev or blk-device reads 
-> better, as behind this device there are multiple resources.
+>> +An example of a virtio-blk write 8K request(message size: 
+>> sizeof(Command) +
+>> +4 * sizeof(Descriptor)):
+>> +\begin{lstlisting}
+>> + COMMAND            +------+
+>> +                    |opcode|  ->  virtio_of_op_vring
+>> +                    +------+
+>> +                    |cmd id|  ->  10
+>> +                    +------+
+>> +                    |length|  ->  0
+>> +                    +------+
+>> +                    |ndesc |  ->  4
+>> +                    +------+
+>> +                    |rsvd  |
+>> +                    +------+
+>> +
+>> + DESC0              +------+
+>> +                    |addr  |  -> 0xffff012345670000
+>> +                    +------+
+>> +                    |length|  -> 16 (virtio blk write command)
+>> +                    +------+
+>> +                    |id    |  -> 0
+>> +                    +------+
+> 
+> for RDMA this id is not useful. It can be omitted.
+> still parsing the rest.
+> 
+> if we talk blk as an example, above command descriptor can be of 32 bytes,
+> such as
+> struct virtio_of_cmd {
+>      u8 opcode;
+>      u8 rsvd;
+>      le16 cmd_id;
+>      u8 inline_desc_cnt;
+>      u8 rsvd[3];
+>      /* some padding/metadata for long desc list if any */
+> };
+> 
+> struct virtio_of_rdma_desc {
+>      le64 addr;
+>      le32 length;
+>      le32 rdma_key;
+> };
+> 
+> struct virtio_rdma_op {
+>      struct virtio_of_cmd cmd;
+>      struct virtio_of_rdma_desc desc[1 or 3]; /* count can be negotiated */
+> };
+> 
+> With this a send and receive queue on initiator and target can exchange, 
+> cmd descriptor for read/writes.
 > 
 
-OK.
+Hi,
 
->> ...
->>
->> This is human readable string. when the software(or hardware) handles 
->> this, this should be translated into:
->> transport: RDMA
->> address: 192.168.1.100
->> port: 8549 (default port 8549(CRC-16/ARC of "Virtio"))
->> target VQN: blk-resource/hdd-pool/238151a7-acd7-4621-bbdf-382ddbccb6a1
->>
->> This section only defines the "VQN" schema, not the resource string 
->> schema.
->>
->> For a process, I think the following two are both fine:
->> ./foo --full-url 
->> virtio-rdma://192.168.1.100:8549/blk-resource/nvme-pool/849a39ad-8d7b-4a7a-adb6-e7407ace532c
->> ./foo --transport rdma --address 192.168.1.100 --port 8549 --tvqn
->> blk-resource/hdd-pool/238151a7-acd7-4621-bbdf-382ddbccb6a1
->>
->> [snip]
->>
->>>
->>> Is the maximum name 255 UTF-8 bytes plus a NUL character? Please state
->>> this in the spec. For example:
->>>
->>>    \item The string is NUL terminated.
-> s/NUL/NULL ?
+Do you mean that separating a Virtio Over RDMA queue into 2 QP, one for 
+sending, another one for receiving?
+
+> RDMA allows mapping memory and also chaining it with next send.
+> This way, memory from 1B to 4GB can be represented using single rdma key 
+> for data DMA (read or write).
 > 
-
-OK.
-
->>>    \item The maximum name is 256 bytes in length, including the NUL 
->>> character.
->>>
->> OK, fix this in the next version.
->>
->>>> +\item There is no strict style limitation.
->>>
->>> I think it's necessary to define representations for specific fabrics
->>> (e.g. TCP/IP) so that VQNs can be exchanged between different VIRTIO
->>> implementations (VMMs, DPUs, command-line utilities, etc). Otherwise two
->>> different implementations may represent the same address differently.
->>>
->>> Stefan
->>
+> Completion is similarly 8B with status + cmd_id of constant size can be 
+> received in an RQ.
+> 
+> This is 1 RTT from initiator to target for cmd and response for whole 
+> 4GB data transfer.
+> Depending on the data size, memory pressure, sharing, outstanding 
+> commands, etc target can read/write data from initiator memory using 
+> RDMA read/write addresses.
+> 
+> With this target can also implement poll or event.
+> 
+> RDMA writes do not guarantee data placement visibility in same order on 
+> the responder side as what is send on the requester side.
+> 
+> I ran out of time. Will review more later in the week.
 > 
 > This publicly archived list offers a means to provide input to the
 > OASIS Virtual I/O Device (VIRTIO) TC.
