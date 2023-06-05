@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6122-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6123-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F6C4C77B73
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 02:40:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F12C77B73
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 02:41:14 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 819AC444C
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 02:40:58 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B247860083
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 02:41:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 716769863AC
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 02:40:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A60ED9863B3
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 02:41:13 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 68972986339; Mon,  5 Jun 2023 02:40:58 +0000 (UTC)
+	id 9D7DB986339; Mon,  5 Jun 2023 02:41:13 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,23 +24,23 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 58A2C98633D
-	for <virtio-comment@lists.oasis-open.org>; Mon,  5 Jun 2023 02:40:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8D38C98633E
+	for <virtio-comment@lists.oasis-open.org>; Mon,  5 Jun 2023 02:41:13 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F49GlYO6fW636TmO/bhV0kAqiZ7OF66ZUv8U9TPsCPP8xZOJ3PscQWrNJUqLEF96U8LLvGub+0X35nW6/LINZN1U0WsOQeyXEVa8WrUJqPk0C/apbi6CpiVGBzB8XO+DNp6zDOW3uypGRdgD3xzjUpRd2Bq7loa7Yn7WCa/pMeN3XuZNWD0REoOCWEdDXWHDrGxMZP9UxcYSE0tAu072JaknWhbKKmp4RsW2yTpxLiPnMV3Lv0Z/pN/nfFEbrjzX1SzpotYJ4pJZ7BaqF6YEBsaHlFeI1RYY5cxgjmRHoVS/KoMSc8Y7UnhtEea++w+CQM3iHn1Nx3CMoTBjY1e2ng==
+ b=JVtwDiwMuF9Ldz1iXcIrUjF0/w3dI1/LVy1JFuZ9IIG3hhX+a5r+GMIEzJZQcDqVQTbRfRIeGt2hbXCZ2jGMuU0xuiLZVxkZSeydra5BpTYrplc+QZU1WfnJekLxlti6OYp9PmHkP+fKFYRA5Lnn96Ns4/cxGZhkfKfSsVJqOcODfWBrslr5DzBbqbS996Ro8VPDFK2amXK1CDqPzgBi4tNLMGgQxu9gN6f1yxB2tZfjPv9pUmGHoUF/EfDHxR0y8xRD9jidlQNrvvy+RTLXpTNkXHrvv70KaLDMfRym4QN8yaMFuz0Cg6b0QPj1+CIh2tHTD+iLymuEULBXLy01tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZNOYpMKDx0n1seGpZy3yQvGFzSydCYXhsIgNlW6HuQ8=;
- b=WR5XSqypZ/8JS900EzmemKtg7x2AQdGPl/FXL8li1bhoQCJI180TY/pZ+5xHU7wGGdS6vj2N0gHP9U89Y2q56aBG5TzBMiW6gbm4xc4Gv4Zvyg6TdmHG5n2hyi9PeFPMP20RRWh/vR44MnZ3lz2WWpuH/DCSEa1UpOGgTky4UKSmR46b/a4nilws0j5PfVd/7mQR6JzV4s3dbFJz1okHSouon6f8OWR9e9dhRnQZ3vOBkTQATlZlIqg9Cx5Z/0DIkURu+fNt9kukB7VLr/pRROwE4O9TNSEo5Sy5yR6tDXWvO9wq3nfyfR5zT1TOdVsVvqsASQNAUU/SGuek1F6+Tw==
+ bh=wYVWL0RpYzubb3bqSKA5dfw/YIjQW6bNZSPdT76iaVA=;
+ b=HThOh+JORk+8dmPGMu12fewzwdVuJQinCVaMnNdAGqvZdiT+lnAVsllgxaY9kWR8oJSpoj8O4z1a5uIoUUcgW544RxRWFe2BDB2a0RnjTcYYvJCAjsNTfkol/jMq1wID4fLwjYETS2X2QpOCnrox0LFlSPvMfR/6iT7q3j4cN4GTW8kOtV69IXcLQtGe7Xban9fgAteTZyu9M0l+sHkcCphwyj7ezjkjpf3fgKesku6jFJ1eBVuYf1+yAM1VaPn3Xxdlrhmxtc+Q6jQZJauspCDZM7jDnxsxM9fkyViG3/aQq9juo4QseCkWDaRL/bD6Bp3dYqJMWZjcewRgfgnkJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Message-ID: <0e361e17-943d-5b03-1963-6dddbe6ff2b9@nvidia.com>
-Date: Sun, 4 Jun 2023 22:40:54 -0400
+Message-ID: <6b653208-ca45-4674-4568-9cb003e14d02@nvidia.com>
+Date: Sun, 4 Jun 2023 22:41:09 -0400
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 From: Parav Pandit <parav@nvidia.com>
@@ -49,151 +49,156 @@ To: zhenwei pi <pizhenwei@bytedance.com>, mst@redhat.com,
 Cc: virtio-comment@lists.oasis-open.org, houp@yusur.tech,
  helei.sig11@bytedance.com, xinhao.kong@duke.edu
 References: <20230504081910.238585-1-pizhenwei@bytedance.com>
- <20230504081910.238585-4-pizhenwei@bytedance.com>
+ <20230504081910.238585-6-pizhenwei@bytedance.com>
 Content-Language: en-US
-In-Reply-To: <20230504081910.238585-4-pizhenwei@bytedance.com>
+In-Reply-To: <20230504081910.238585-6-pizhenwei@bytedance.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0072.namprd03.prod.outlook.com
- (2603:10b6:408:fc::17) To PH0PR12MB5481.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN0PR07CA0006.namprd07.prod.outlook.com
+ (2603:10b6:408:141::23) To PH0PR12MB5481.namprd12.prod.outlook.com
  (2603:10b6:510:d4::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5481:EE_|CH3PR12MB8754:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8cbaf09b-fddb-4c55-ae79-08db656e4953
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5481:EE_|CY5PR12MB6648:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fd0be08-d5fc-4bff-d5fd-08db656e5248
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	zvAJlOQkhZcw04VwbMjRHkcW/g/2iQ8kdtN1f0MIwqcX8p1nZf/3LIqVcOc1a1MXUiq7oiij0pM2fBsjfzoIDt6BUh5cfc3qdTeA6NPno8jzidVPEx5CvGgvk46767LhiFci4L5RTCGFZVWBhGgC86mVHC4zjQCnNktfml7jc1p+lceBGAFMs2fo1uQwB71+c+U73UvU47CtpZ/rQoSKMWLS1pFno34x8O7E1I0vFCL8DcQ2u/f7eKALnO2Fs7KQXXpPLMl/pyL/tHkbByDqWaHrSpLSHgnSULMoKyy2XHO6o3fQSt2EnvzYatu52tB8Z9lGIeNcpe3Hyk5t7ScFNQand+Xe9r/FGb4VUqaocAyBw+won8D/+X6XNdEmPWO97mJZWUzcV/WGGll0EDGdIPa5NWZ8wTVfY0N1EjJGsi+qKe6hUSY8ZRdtlsxSCfDECcCPKxb70D9B2URbLBrZTIemBE7PXgvkqVoiDRC/AoVZEL0dIGJPLBimYSkSgLWGMoAatwF2bX5HQQRsTA8mu0cJDD1SermpWjRTlRt7v1sDLLk0N1RmjT5UZv+QmiSjkSu/8/m4qjt0Na834WwVFBkvjBxBbJhCnrRDKc4sxedHIOK/xZO9k8eb+3uD9spe/Wgox6F6ZUHqwULaUcf+6Q==
+	4ffdwt+ayePlLeyLk/2JnNHWmFpczb3ni1fMe8i3U1uu/AHdz7AUgHKdJjQZv2sHsnJ7R71qJULBemH8jcPXNm0uvulyCDxQgZ/b126AhSMLv00LpyZW4WQJdTvxps2EgGnq7H9MkciM0d+7BHF+NReq0sL+YB9Lr39TOp/AgS2AOgqdLSK/7JQy3ifUnX87GzTjyRdBiuS58xfaGVPLQH/C7p7tUim04NIVmfCKhsdjX+b2FCfDKsS747UBQrveNvKqT7UqrpRyQ1eim/tJ8iSBlbxscZg6C80FtKgpgnzF9DMsRrcc+IBiTmB9m/Cul/gG7ruovGEqS8FHUuESCxEu/zF486Y2czofITVzI03vM/yQrXJeozavK7YkLrGh+tF4YH/bBCvKp0B1MlKpisqirQhUe9SwIOWfBn/idLadZnIxFbzPZAFNiOy4xLXJuRfev8IQ26XynSGZyDd02XXgSTPRi/trYXsuVuPWQ/x7k2+eZXcV1BbtXLYg3CAPayy7SGdJx6Xi8dLtH+u13AjCmt7uuTsW379EVhApIe/enCsTpJL36Q9lDH0JAMpD+hTHcWcdxmyXdCCjV86Ec4akWfCGNVRHwvcc2pqT3MkU+AZp43Tk5/IlXLVEf7DPJYBMcUyDGboaGbmdseHD6Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(39860400002)(396003)(346002)(376002)(451199021)(53546011)(316002)(8936002)(8676002)(6512007)(66476007)(66556008)(41300700001)(478600001)(38100700002)(4326008)(6506007)(5660300002)(66946007)(31686004)(186003)(83380400001)(36756003)(2906002)(6486002)(2616005)(31696002)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(39860400002)(366004)(136003)(396003)(376002)(451199021)(478600001)(8936002)(8676002)(4326008)(66556008)(316002)(38100700002)(66476007)(66946007)(41300700001)(2616005)(186003)(83380400001)(6486002)(53546011)(6512007)(6506007)(31696002)(86362001)(5660300002)(2906002)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WTlGazVvbXVRVG8xa1FqaUlKWjIzTVZGZmpINjN3aGlkOWFNZnlyZWpDN04w?=
- =?utf-8?B?L2I1eXBzc3lyOG03U0dSa2RJUE9rdWFlMVlXWGwrNEcwRE8rajN4Rlg4dklu?=
- =?utf-8?B?Kzc3ekQxOXV2eElQQThUQzg1clBHTFRJaUt4WFNuNVFJUmpmbW5sdjFOR0J0?=
- =?utf-8?B?cTZuaUEvZVhqd2l3dUt1RTdFR2xaQ3lQVktmWTZ5bzFacTlNb1l3Z0lEL3ov?=
- =?utf-8?B?U3NUSWNHaDdBUmtYdjdJSWVqK1FNeWR1Rnd3OFVwN0d0L2hLR1Vmamh4TVFL?=
- =?utf-8?B?cXpyNUhhSHEwblRVNGdmZm1CY0c4NFZUNWdwZjN6TDVFSEh6emxBb1doc041?=
- =?utf-8?B?YWdMWXBlSG9ic1Zyd0VaUTh1RGJWcGpQd0xCRC9hVzhMR1VRY1lMdEMwZ0Ns?=
- =?utf-8?B?WTVYWW5ORjY4bUl6VHZSWm04NndjdzFqTXdVNStTTUNuZ0JJeTdNS0VIS21Z?=
- =?utf-8?B?ZHV3VjFrZ3FzM3pUb1hhUUdOajdzWGxBd2VjMkdicE8xbWNtOGlBRnVYS041?=
- =?utf-8?B?N0wxaURVUmJXZVBMUjRyWGFmQStHc3hXaTUyaXZIVWVXTTJnTTV1WGU1K0s3?=
- =?utf-8?B?K2x6b09pY3lOUEJML3hjcmNRU2ZTZlBWRzlNQ09YZnZNYkFHckJibHVGYmhL?=
- =?utf-8?B?S2Z1MW1vZ1NVaTZrOWhjVmpZSDlXbmhXQzFRNDgybUplanp5ckZrVGMvRWdS?=
- =?utf-8?B?US96dXJsRi9jelh2cVJaUFNVZGhvTkc3ZmU5MzhURXdmVnNLUmZmZDFMd1dP?=
- =?utf-8?B?b3BrdGdZVmhySDFuUWk0UEMxeVk1Y0huMndVYlFoSEdrTElRSHdOUXlCTEV6?=
- =?utf-8?B?WGwzWjJLSlZydWFJeDcrN2J3OHpNNjFlNnFHb1hvZXVweENjbk5IOVo2aFRq?=
- =?utf-8?B?NTc4VXFaQ1N1SkRLZGJTeEdZN2JRYWVVTUg5S3RYSGFENE5tOThYSDNnVzZJ?=
- =?utf-8?B?R3JYTjRzQlprbXJvV1NpUndkbmcyYmRwUmRIdVVGeFc0VFhteUI4NVF4YU1Z?=
- =?utf-8?B?bUpJZ2lRNlNXUTFYQkZJMGdkbjB3dHlaVzltY1gwakFWcktpeFp5SjF1K2R6?=
- =?utf-8?B?dVZycnVvNTlsWTk5L3p0SDhWM2Jhd3BIUm1JVmh1UVNWTlNHYitQSTFOdzJy?=
- =?utf-8?B?VTVQbkRFVHJMVlZTUUZ6dU8xRk9qY2oyRDBmYUowemd2cE5lUFg5WU5vWFox?=
- =?utf-8?B?SU9LYktYOUdYYml0aHA1UmVjRFZ4TkFTZHNMM3dNd2c4WUQ0QTNyUnRHTlh4?=
- =?utf-8?B?TUJMcnkxQjIxa2NhS2YyRjZZVEMxTGdwZW9kZTVFdXFoc3JISkF1eERyMzNp?=
- =?utf-8?B?RFZsVEdpZUJxbzhRNGU1bms5cDRESmM0aURKZVUrTktPL1JCdUd0S1NWeVU4?=
- =?utf-8?B?RUpyNUhybkFZcWVjRkhlVFNzaCtBWThPZWM4ZFEzVS9VbzM2Q2ZINVJ4ZU9Y?=
- =?utf-8?B?V2RlZU1rOWovU1YraFdFVURCbm1RellVeDdKWTVkbHFnMG80T3YxdEpFR3Ro?=
- =?utf-8?B?eTNZTnQwaWNLUXFGanNjelRBeldtNi81V2psREdpNGs3c1l2ZEd0TkNIWVQv?=
- =?utf-8?B?dGdqMnJSVi91Z3BTbHdlK2l3VmFRWm83blh3UnFOdTF0dWtSZW94SnUyT281?=
- =?utf-8?B?aUZWRVZUclI3YUFnR1V4TGxIOGdndUdILzkwbHdCQ1ZpbGVjUmNFZ2d4TFNo?=
- =?utf-8?B?Sy9nVXQ5bi9Hd2FXZS9ibTJrOVorN3NQWVprSm1uNFJnWXpVQTQ5R1h6MWVh?=
- =?utf-8?B?VmZsNWxJb3FsWkhXUWZjbDQ4bHlVVXV6WHNhWTRhSTdtczdiNnlWbWxLdURB?=
- =?utf-8?B?RHgvUkl0Wm5VbVZtVENuWHUzM2RiOE5mbndsWllXdWxyK2t6ajRMNDlacnNX?=
- =?utf-8?B?Tk4rVG1vU1VpMkxEWGtYSWE3Wm84N2l2bGdhNWY4TWVSd3ZUd1VBQnRLUFd5?=
- =?utf-8?B?Yk43c0dYUngwbWFkNTF0OGJHN3lrbVFxWmJMbXA2d1JFZis0RGNNOGRIZU5W?=
- =?utf-8?B?Z1ZITjNkdFdRdndkYlZXN2IwUkdJYTRLN0FMeFBQd3pPakJWS2M3cTAyaVV5?=
- =?utf-8?B?bldramV1b2twcENsMmFFeUV3QUZxVDNEMGJvM2RSaEJXOWVoUWxIQzZtVlVD?=
- =?utf-8?B?amFPQWJpSU5FYnlQaWJTYVFUVkovVXhKMkFQWklXQ2ZPQ2trTStZYVk2Vm1z?=
- =?utf-8?Q?XtjNF2HengUPficn1KGBLfjgkwP4Fzk8ASrefo3lgtDy?=
+	=?utf-8?B?dVN5Vy9heDl1MVNKaFo5NlNSaHFwOTJ3aEpRRHNXcVZQRGNuNWp4alhVdzBy?=
+ =?utf-8?B?TWtlU0Q3enY2M2lyQWo2YkhWbE83d1pMM0M1a0FiZmlwTWtnUzNIRi9mSVhP?=
+ =?utf-8?B?QlZxUXNwQWNJVjBlenoyQUNGblNuTGtZU2R4dlN3OUptQVdLaTFIajFKcExo?=
+ =?utf-8?B?dTBNL0FEdTV1RnZJcFc2cCtVNHU3aEdQbGFlcW1LMDdEcVR1bEwxUjByMGhX?=
+ =?utf-8?B?N285WXorWkdzaU5sU2dqL3oyOWc1Sjc0bFBRbkVyZXFyenkrUmtFTmJobjhl?=
+ =?utf-8?B?aURrWDQvUkl6Wkx4NnRaS2Rsa0c4RjdnYjhkeVBpd3ltOW5wK1hhcEZkQ2or?=
+ =?utf-8?B?R04xdkRzelB4NWxPOEhrZDVNMXpuUmF3elVnZHd5STNmM2xTT0xaelJUSmFa?=
+ =?utf-8?B?VU5ZclJEK0FMMmdpa0FuT3JHSDM0WG1GWTRLdzM3enlUSGlHa1RZM0pNRFZN?=
+ =?utf-8?B?T0Z5RTZ2N0V1bVB6aEdhMkNXYUpCVGtLS01pdnN4T3RyZ3B0dHJXNk1seTdV?=
+ =?utf-8?B?NFFXRW9hdmNRTnRJR2RWUWVRTU1XMDBJdDFRR1RoWnlmWXpYWm81TmcxMEx2?=
+ =?utf-8?B?L0FXVFFibENOTEt6OGhsZ1FlUFhqeGVKRlBORjFUa1lqajYzb21aL1hiSVFj?=
+ =?utf-8?B?emNGUzhTZUswSGFuQkQ1K0R4YjczaTFIa2I1eS9qa2o1WUE1QUt6eFQ1cWE2?=
+ =?utf-8?B?U3JOeGZuTWk5UjFnYjNnTzFJclA4MHo5NUMrK0NNNHhQM3Q2bDYxRUZMZ2Qx?=
+ =?utf-8?B?cDVpVWJUSDNJMXBjTVFINUZLTTRQVjFqYkM3Yk1KR2xiUUNocytVY2ZPb0t3?=
+ =?utf-8?B?b0JDTFJoblRRR3lqNFNpSHkyRnhXb1VPNXFNYllBbUpkd0NKOFNEOUdzVndY?=
+ =?utf-8?B?L3VWWU81ZzhNSVM4S3NaYm1pSTFWSGtpMkYrbXZnR09DQ1JmanorbnRhVjJV?=
+ =?utf-8?B?ZlpEcmFWOUEvREI4cmJ1MnRSZXpWNDRuNTZPMnBINmxHellkSngzRDZPbEpw?=
+ =?utf-8?B?SlNjVTN5enlxbERxV0hkZVM2YVB4a1A1M0psekY3VEpWc3pXMHNTd1ZvdlF2?=
+ =?utf-8?B?aFdTM0tCZUNuZUQrMEI3RHZ3YnhVR1ZGZ2xISVhQYkgrWnBCSmhtT3ZGK29X?=
+ =?utf-8?B?QUJMYlZFZWp5cWpFdCtadk13eFNNbzhyVzlsZGgyQS9nWldFV0k2RDJWUVpp?=
+ =?utf-8?B?YTBrZ3RIVlQ4K29HeEUxS0hyb2tQSk1tRzFHQVhMc0NqT1dGNHpTNlhKMWFj?=
+ =?utf-8?B?Y01QMHl4cFk2WTI5SWVmV3E2NkhoV1F3MmVmWktSUFY2SC9QQTUzMmVVQm1t?=
+ =?utf-8?B?RlhLd3kxTDE4VTd6bVJ4VWl3OEJxblhqcGFmTSsvckZuVDIvRVRZamNLQ3Fx?=
+ =?utf-8?B?cE9tRDdFUFdsc1NjbEVGNnBrWUt1RmJVd0JFSmVWZVgzYUxvRXdxRU1QR0th?=
+ =?utf-8?B?OW5FQ3BTRXBvU0ttSjFzUWU2UksyQ1ZzR1BKdTg3M2dTYzhuMnVlRHIxcnA0?=
+ =?utf-8?B?WUZERDFVVE5Mb0ovOTlua2EzY2FOVHpYQ0FpUkRrU1lXV0ZUd3lIdGlqNUJm?=
+ =?utf-8?B?dWlJOEJPVW55dWh4WVAyVXZhajhXQ1U3bld5QzN6cGEvT2RZcFREeFB3TzIz?=
+ =?utf-8?B?aU41UCtUbHVVckEzd2hmUVlDWUt1cy9uelJyMmJuNEdwN0dHcDNmYlNja1BW?=
+ =?utf-8?B?OU05R3hpWkVJSUNDMFVsdEdTYnJiS214bElxaUN0cnV1aWg3N012aEFVeVh1?=
+ =?utf-8?B?L0ZqbVRENHErTHFwTUd1cnFEcit0U0hKSS9EYkJSYkpVV0RZcncwakIyMUJX?=
+ =?utf-8?B?d0twWUhLQ20wZWhOaTdaM0dwak84TjRGT3Q1UUFUbzlFbzBGYzR0bG12Q1BL?=
+ =?utf-8?B?LzRRUDJzSjhrZ3NBVkpBSTFZSThhTUZWZDdmaFduemRSbEFjaktGVEVWZ1dG?=
+ =?utf-8?B?ZlRZYStlTWp6OFhuektjWVlRVVN6dnQxTXBncVZXNEl0TTJZQnlHOUQ1YkJG?=
+ =?utf-8?B?cWlzTXFIc04yZnhSd1ZhRGJ4TUtUVHIzc0hERFR6SkhiT0VVYXgwWnFjcGNm?=
+ =?utf-8?B?b1ZERVdWbDZKMVJCWmxXR3F0eXhnNzA0ejMvb3B4amMwcmZYTkRQVTJBeEVz?=
+ =?utf-8?B?Q0NrK3QyS2RrUHVURDlpK1F3M1dRRHF1clhYMzB0akpSckRPOFpiajlUU2R3?=
+ =?utf-8?Q?UEYyY/P48ABEg2c6dU/apAm1tsbXeG5wXXsYWsXGN2c4?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cbaf09b-fddb-4c55-ae79-08db656e4953
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fd0be08-d5fc-4bff-d5fd-08db656e5248
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2023 02:40:55.5605
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2023 02:41:10.5900
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y5eneyabOMb1ThWsYO0LhsFGV0JCRq+vDrRD04Mnl7XKKpEb7IGrl7mBfjvST66/TinuryhttiObxHs+pbR6ig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8754
-Subject: [virtio-comment] Re: [PATCH v2 03/11] transport-fabircs: introduce Segment Descriptor
- Definition
+X-MS-Exchange-CrossTenant-UserPrincipalName: dw4/+IibXrHba0Tv34LSm6THGtuiSlk+rBWwmzDSukjY9DkchY4iNkQxwdYP7IzzWaLCZGFvhmfeWHPgDMA9KA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6648
+Subject: [virtio-comment] Re: [PATCH v2 05/11] transport-fabrics: introduce Keyed Transmission
 
 
 
 On 5/4/2023 4:19 AM, zhenwei pi wrote:
-> Introduce segment descriptor to describe the Virtio device buffer
-> segments.
+> Keyed transmission is used for message oriented communication(Ex RDMA),
+> also add virtio-blk read/write 8K example.
 > 
 > Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
 > ---
->   transport-fabrics.tex | 43 +++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 43 insertions(+)
-> 
-> diff --git a/transport-fabrics.tex b/transport-fabrics.tex
-> index 26b0192..b88acfd 100644
-> --- a/transport-fabrics.tex
-> +++ b/transport-fabrics.tex
-> @@ -45,3 +45,46 @@ \subsection{Virtio Qualified Name}\label{sec:Virtio Transport Options / Virtio O
->   \item The string is null terminated.
->   \item There is no strict style limitation.
->   \end{itemize}
-> +
-> +\subsection{Transmission Protocol}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol}
-> +This section defines transmission protocol for Virtio Over Fabrics. All the
-> +fields use little endian format.
-> +
-> +\subsubsection{Segment Descriptor Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Segment Descriptor Definition}
-> +Virtio Over Fabrics uses the following structure to describe data segment:
-> +
+
+> +An example of a virtio-blk write 8K request(message size: sizeof(Command) +
+> +4 * sizeof(Descriptor)):
 > +\begin{lstlisting}
-> +struct virtio_of_vring_desc {
-vring doesnt seem necessary here.
-
-> +        le64 addr;
-> +        le32 length;
-> +        /* This marks the unique ID within a command, no limitation among inflight commands */
-> +        le16 id;
-id and key both seems redundant.
-Not sure the need of id in each descriptor.
-Yet to read full...
-
-> +        /* This marks a buffer as keyed transmission (otherwise stream transmission) */
-> +#define VIRTIO_OF_DESC_F_KEYED     1
-> +        /* This marks a buffer as device write-only (otherwise device read-only). */
-> +#define VIRTIO_OF_DESC_F_WRITE     2
-> +        le16 flags;
-> +        le32 key;
-> +};
-> +\end{lstlisting}
+> + COMMAND            +------+
+> +                    |opcode|  ->  virtio_of_op_vring
+> +                    +------+
+> +                    |cmd id|  ->  10
+> +                    +------+
+> +                    |length|  ->  0
+> +                    +------+
+> +                    |ndesc |  ->  4
+> +                    +------+
+> +                    |rsvd  |
+> +                    +------+
 > +
-> +The structure virtio_of_vring_desc is used for both keyed transmission
-> +(i.e. RDMA) and stream transmission(i.e. TCP). The fields is described as follows:
-> +
-> +\begin{tabular}{ |l|l|l| }
-> +\hline
-> +Field & keyed transmission & stream transmission \\
-> +\hline \hline
-> +addr & Start address of remote memory buffer & Start address within the stream buffer \\
-> +\hline
-> +length & The length of remote memory buffer & The length of buffer within the stream \\
-> +\hline
-> +id & The ID of this descriptor & The ID of this descriptor \\
-> +\hline
-> +flags & both keyed transmission and stream transmission supported & stream transmission only \\
-> +\hline
-This is probably transport specific, don't see the need to transport 
-this bit when the transport type is already known as keyed.
+> + DESC0              +------+
+> +                    |addr  |  -> 0xffff012345670000
+> +                    +------+
+> +                    |length|  -> 16 (virtio blk write command)
+> +                    +------+
+> +                    |id    |  -> 0
+> +                    +------+
 
-> +key & Key of the remote Memory Region & Ignore \\
-> +\hline
-> +\end{tabular}
-> +
-> +Depending on the opcode, a Command contains zero or more structure virtio_of_vring_desc.
-Please move above opcode line patch to different patch where opcode is 
-introduced.
+for RDMA this id is not useful. It can be omitted.
+still parsing the rest.
+
+if we talk blk as an example, above command descriptor can be of 32 bytes,
+such as
+struct virtio_of_cmd {
+	u8 opcode;
+	u8 rsvd;
+	le16 cmd_id;
+	u8 inline_desc_cnt;
+	u8 rsvd[3];
+	/* some padding/metadata for long desc list if any */
+};
+
+struct virtio_of_rdma_desc {
+	le64 addr;
+	le32 length;
+	le32 rdma_key;
+};
+
+struct virtio_rdma_op {
+	struct virtio_of_cmd cmd;
+	struct virtio_of_rdma_desc desc[1 or 3]; /* count can be negotiated */
+};
+
+With this a send and receive queue on initiator and target can exchange, 
+cmd descriptor for read/writes.
+
+RDMA allows mapping memory and also chaining it with next send.
+This way, memory from 1B to 4GB can be represented using single rdma key 
+for data DMA (read or write).
+
+Completion is similarly 8B with status + cmd_id of constant size can be 
+received in an RQ.
+
+This is 1 RTT from initiator to target for cmd and response for whole 
+4GB data transfer.
+Depending on the data size, memory pressure, sharing, outstanding 
+commands, etc target can read/write data from initiator memory using 
+RDMA read/write addresses.
+
+With this target can also implement poll or event.
+
+RDMA writes do not guarantee data placement visibility in same order on 
+the responder side as what is send on the requester side.
+
+I ran out of time. Will review more later in the week.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
