@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6143-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6144-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 887FEC77B73
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 17:21:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E0CBC7EE2A
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 21:57:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BD6671CA24A
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 17:21:44 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 17BE1C625D
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 21:57:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A2E62986485
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 17:21:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E96D5986491
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 21:57:14 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 96EFD98644A; Mon,  5 Jun 2023 17:21:44 +0000 (UTC)
+	id DE8E7986486; Mon,  5 Jun 2023 21:57:14 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,140 +24,166 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 85D2D98645C
-	for <virtio-comment@lists.oasis-open.org>; Mon,  5 Jun 2023 17:21:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C1F2B986488
+	for <virtio-comment@lists.oasis-open.org>; Mon,  5 Jun 2023 21:57:13 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: OHfcg90LNoe_MPWrCXxOZg-1
-Date: Mon, 5 Jun 2023 13:21:39 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: zhenwei pi <pizhenwei@bytedance.com>
-Cc: virtio-comment@lists.oasis-open.org
-Message-ID: <20230605172139.GF1624556@fedora>
-References: <20230504081910.238585-1-pizhenwei@bytedance.com>
- <20230504081910.238585-6-pizhenwei@bytedance.com>
- <20230531162048.GG1248296@fedora>
- <aad519cd-5114-6144-8520-a258745c5e4a@bytedance.com>
- <20230601113322.GA1538357@fedora>
- <4426aa84-f22a-f361-af44-561dfd5a4ea0@bytedance.com>
- <20230601191353.GC1622695@fedora>
- <20230601212339.GA1687473@fedora>
- <ced49494-1839-50d3-6742-0d5c1e7b33c7@bytedance.com>
+X-MC-Unique: BVFzrWziPrqT8JAQ7-qSLw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686002230; x=1688594230;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=o/i9s4K/c6xtxmoKDqVUXpMb3RyrGC9Wd0t+58xgX1o=;
+        b=S411+/tSN2O+/2/3VY9XAjY+k99UnyEpKCrrNKaRwe6xOzG0pZb7TQ5NIGT41P0t3e
+         yEfvqAKAKO6aZaGCWgD8mejwwGC6CpAP40WlE//sdJo2TJXdiDMSYk/B1iRtP+ZI4p/H
+         b3w0pBa2w2aY0ar9T7M16tHM0Jg4OB0SkyRymrb+UnJyj7Nzxg6ff9lIYtCp8ky0EDIx
+         mYDlYzM6+DJoNLAg+a8X9rU1jUnqP2swgfgC2wE7j7hiQZCkL/WUCd1DoGXmmzz1ectZ
+         ZYueWM93M1wfvHANkCtQWZeREfE8RjI6J7HZ7hRT+KYRXS1gT1GP67e4N7c7z+4WZD5B
+         prnw==
+X-Gm-Message-State: AC+VfDwBKjDW1gOC2qpEWLOHoq8WcF9/W2RvsyCb1X58T38+NThbx5U3
+	H3DhaCk3IKKZJ48AYcci3aYRCWKZ+AnWnnvat5U9olXie+66S0CJQmCv3ygYji/Y6jic4GwEhip
+	UTlYLk/5MhCteU4U5xujEryXUX4KswMPE3Q==
+X-Received: by 2002:adf:fe91:0:b0:30d:5071:b035 with SMTP id l17-20020adffe91000000b0030d5071b035mr161286wrr.56.1686002230157;
+        Mon, 05 Jun 2023 14:57:10 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ65HekcIgydehCi1Wr6j2updk10S9C6nDi22I1rtl86xK3agyNrSYbnngYcHpWwqWYg7pzGSg==
+X-Received: by 2002:adf:fe91:0:b0:30d:5071:b035 with SMTP id l17-20020adffe91000000b0030d5071b035mr161272wrr.56.1686002229832;
+        Mon, 05 Jun 2023 14:57:09 -0700 (PDT)
+Date: Mon, 5 Jun 2023 17:57:05 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Shahaf Shuler <shahafs@nvidia.com>
+Message-ID: <20230605174755-mutt-send-email-mst@kernel.org>
+References: <20230604101351-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548139ACEC00E7CA6D988182DC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230604105027-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481B721C34D85D63FCC1F3DDC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230604174224-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481DABA25CA36A5460B13E5DC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230605014539-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481C14D65D5E10CD23A9F67DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230605092859-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481CEB3A34AAB49A282F2A8DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="C+rkAR/zKO17GHse"
-Content-Disposition: inline
-In-Reply-To: <ced49494-1839-50d3-6742-0d5c1e7b33c7@bytedance.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: Re: Re: Re: [virtio-comment] Re: [PATCH v2 05/11] transport-fabrics:
- introduce Keyed Transmission
-
---C+rkAR/zKO17GHse
+In-Reply-To: <PH0PR12MB5481CEB3A34AAB49A282F2A8DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v3 0/3] transport-pci: Introduce legacy registers access
+ using AQ
 
-On Fri, Jun 02, 2023 at 08:55:02AM +0800, zhenwei pi wrote:
->=20
->=20
-> On 6/2/23 05:23, Stefan Hajnoczi wrote:
-> > On Thu, Jun 01, 2023 at 03:13:53PM -0400, Stefan Hajnoczi wrote:
-> > > On Thu, Jun 01, 2023 at 09:09:49PM +0800, zhenwei pi wrote:
-> > > > On 6/1/23 19:33, Stefan Hajnoczi wrote:
-> > > > > On Thu, Jun 01, 2023 at 05:02:45PM +0800, zhenwei pi wrote:
-> > > > > > On 6/1/23 00:20, Stefan Hajnoczi wrote:
-> > > > > > > On Thu, May 04, 2023 at 04:19:04PM +0800, zhenwei pi wrote:
-> > > One more idea to play with: VIRTIO has flexible message framing, so
-> > > devices must process a virtqueue buffer the same regardless of whether
-> > > it has 1 large element or many small elements. Therefore the virtqueue
-> > > RDMA protocol does not need to preserve the virtqueue element count a=
-nd
-> > > sizes from the driver. For example, the target can offer a list of
-> > > key/length pairs that the initiator RDMA WRITES the virtqueue buffer
-> > > contents into. For a virtio-blk device that would be a struct
-> > > virtio_blk_outhdr followed by a large page-aligned buffer for the I/O
-> > > buffer data to be transferred. Then the device always a properly alig=
-ned
-> > > and contiguous buffer. Unfortunately this approach breaks down when t=
-he
-> > > virtqueue carries requests that are organized very differently, but it
-> > > might be useful when there is a most common request type.
-> >=20
-> > I'm not sure if I explained this well. What I'm trying to say is that I
-> > think RDMA benefits when the receiver's memory constraints are visible
-> > to the sender. The sender performs RDMA WRITEs to the locations where
-> > the receiver can efficiently process the data.
-> >=20
-> > This protocol proposal doesn't really take advantage of this approach
-> > because it communicates the virtqueue buffer elements from the initiator
-> > (the sender) to the target (the receiver). That's the wrong way around.
-> >=20
-> > I have never used RDMA myself, so this might be wrong, but as long as
-> > the RDMA API allows the sender to specify a scatter-gather list as
-> > input, then I think the details of the virtqueue buffer elements that
-> > don't have the WRITE flag should never be communicated over the network.
-> > Instead the initiator should RDMA WRITE from the VIRTIO driver's
-> > scatter-gather list to the target's preferred destination instead.
-> >=20
-> > Stefan
->=20
-> Hi,
->=20
-> I guess I followed your point. "the target can offer a list of key/length
-> pairs that the initiator RDMA WRITES the virtqueue buffer contents into"
-> seems not good to me, I'd prefer to expose RDMA memory region of initiator
-> side only(target side uses RDMA READ/WRITE to operate the memory of
-> initiator, this means target side has no need to allocate/pin memory
-> buffer).
+On Mon, Jun 05, 2023 at 04:04:57PM +0000, Parav Pandit wrote:
+> 
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Monday, June 5, 2023 9:50 AM
+> 
+> > > Can you explain the motivation of : why querying notification offset via the
+> > group member PF is a problem, if there is."
+> > 
+> > I tried already, I can repeat if you like:
+> > 
+> > So, I am thinking of a model of using a tiny stub driver for the member.
+> This is what is proposed here.
+> 
+> > Control path driver is bigger as it operates AQ command, that would be the
+> > owner driver.  E.g. for PCI this driver needs to map BAR offsets.
+> The bar belongs to the PCI VF and hence BAR mapping will be done by the VF tiny stub driver, aka vfio vf driver in this proposal.
+> And control path driver provides the AQ facility to issue the commands for register read/write.
+> 
+> > Then it handles all data path for this member: driver and device notifications.
+> > It is clean and easy on all systems assuming you know offsets at device probe.
+> > But getting it in software from another driver (owner driver) is AFAIK tricky on
+> > some systems.
+> > 
+> We can assume that systems will eventually improve as multiple OS are improving one way or another.
+> 
+> > Generally solutions can be found, they can be more or less robust, and if
+> > systems designers have to overcome obstacles in implementing virtio they will
+> > just go to a competing interface as opposed to jump through hoops and work on
+> > extending either the OS or the virtio spec.
+> > 
+> 
+> > Yes I know your sales department tells you there's no demand for this feature
+> > on anything that is not linux/x86 and maybe arm, and maybe this means there
+> > won't ever be either, but let's just not raise this again can we? E.g. there was
+> > some interest from microsoft at some point, I think there was a reorg and that
+> > project died but hey you never know.
+> > Anyway, you asked I am trying to answer.
+> > 
+> It is not the sales department. MS has zero virtio tc presence to show the interest.
+> MS has zero inbox driver to my knowledge without current feature.
+> Hence, the absence shows lack of interest and hence building something for them with pessimism that they will not extend is not right IMHO.
+> 
+> > The cleanest way is just doing things consistently through one device.
+> I would surely do that for all future devices which will be self-contained.
+> The cost of doing that for legacy is not worth the efforts.
+> And since we agree that read/write 4 commands are OK on the AQ, the 5th command is no exception to it.
+> 
+> We are not at the point of questioning the existence of 4 commands itself on AQ.
 
-Many targets will need to pin memory for the underlying disk I/O anyway.
-If the initiator RDMA WRITEs data into the target's pinned memory, then
-the target can forward the data to the disk without copies.
+Yes I think these 4 are fine.
 
-But assuming the target doesn't want to pin memory, the protocol can
-still be simplified. The initiator sends a VQ_OP command containing:
-1. VQ_OP header with a list of <addr, key, len> tuples for WRITE
-   virtqueue buffer elements.
-2. The contents of the !WRITE virtqueue buffer elements.
+> > In this case for data path it has to be the VF, so let's just make this part simple
+> > and self contained.
+> > 
+> So data path is on the VF to do driver notifications by the tiny stub vfio vf driver.
+> It queries the PF driver when it wants to use AQ facility.
 
-Note that this approach does not involve the target sending RDMA READs
-because this seems inefficient to me when the ibv_*() APIs allow the
-initiator to send the !WRITE virtqueue buffer elements along with the
-requests using a scatter-gather list.
+No. The VMM talks to either PF for config space or VF for data path.
 
-The target receives the VQ_OP command and sends RDMA WRITEs to fill in
-used buffer elements. The last RDMA WRITEs may need to be WRITE WITH IMM
-to efficiently complete the request.
+> > 
+> > > I don't see a problem with AQ that covers VF,SF/SIOV for legacy.
+> > >
+> > > Proposed AQ command is cheap and covers both VF, SF/SIOV.
+> > 
+> > Well for SIOV BAR has to be the owner BAR. This was exactly the reason I asked
+> > for this. If it's not to be I think this is my second preference:
+> > no new command at all, and SIOV will come up with its own.
+> 
+> So a AQ notify query command services both VF and PF.
+> It always returns the BAR number for the own.
 
-> From the point of my view, this protocol needs to be effective and
-> maintainable, mapping vring mechanism with RDMA WRITE from 2
-> directions(initiator to target, and target to initiator) leads high
-> complexity ...
+For the owner? owner of SRIOV group is PF, not VF.
 
-My concern is that simply mapping vrings to RDMA is inefficient. It is
-not necessary for the target to RDMA READ virtqueue buffer elements when
-the initiator could include them in its send scatter-gather list
-instead.
+> A PF would have delegated the window in the PF BAR to the SF/SIOV.
+> And hence, this command is just fine like rest of the 4 commands.
 
-If we forget about vrings and focus instead on how to offer virtqueue
-semantics at the minimal RDMA cost, then I think the protocol would look
-more like what I'm describing.
+It would be fine if it could return PF BAR, but in your proposal
+it can't.
 
-Stefan
+> (Linux already has SF accessing the PF dedicated BAR for more than 2 years for non virtio device).
 
---C+rkAR/zKO17GHse
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+What's the point of this discussion even? You ask some questions
+apparently to clarify what issue I'm trying to address.  I try to
+clarify. You then turn around and say we agree, there's no issue, all of
+this does not matter, case closed.  Whom do you expect to convince with
+this line of reasoning? 
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmR+GaMACgkQnKSrs4Gr
-c8gQzwf8CusVTsgeHnMPjGkMt5qVSpXFzk7RoCI4aqqUxZ9EVkdESvtXCCDGKcjf
-Vx0o5de8/u5oUOA2SFJvPqNS973UWNZI9enZJGm1V+u4/8uOzS3LgWqAdN8F77P9
-RwbGyMIRYYOcD7wQ6yt+oSShTwt8SbFxTKJruOec661j2NX+PT7PbE2dERT2F2wf
-YWnYohzjeS27dZ35dQ/Ag/0CxCreGWqruXj6jyhChkTk+ZDDETGz4mi6mPyDhx0i
-wmI5LSdJ0SgnNZm0refrVcyoWpvcv434X0bxcAC2Es7NoY4/PmcaA+WcxhSkTsWq
-97yd/Lz+VKjZfJnWbzwC3Sf6uaJf1Q==
-=2e9M
------END PGP SIGNATURE-----
+-- 
+MST
 
---C+rkAR/zKO17GHse--
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
