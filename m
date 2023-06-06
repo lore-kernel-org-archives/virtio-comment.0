@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6149-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6150-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B69FC77B73
-	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 03:15:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834C7C77B73
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 07:16:14 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 897CC3356A
-	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 03:15:16 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 980C0E6949
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 07:16:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7583798649D
-	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 03:15:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7E54498648C
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 07:16:13 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 5DD3398590A; Tue,  6 Jun 2023 03:15:16 +0000 (UTC)
+	id 65BFF986262; Tue,  6 Jun 2023 07:16:13 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,120 +24,141 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4A1BA986488
-	for <virtio-comment@lists.oasis-open.org>; Tue,  6 Jun 2023 03:15:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4AA12986488
+	for <virtio-comment@lists.oasis-open.org>; Tue,  6 Jun 2023 07:16:13 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686021314; x=1688613314;
+        d=1e100.net; s=20221208; t=1686035772; x=1688627772;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=22huibJASxWRYFH/cd64VMsvxhtmBQfqCcrBTn/+CXE=;
-        b=Fyh/mlG3kdL0YuwOaTJg4VfsG4Nju9WB69GgFLDuqZcMkr9YRTmYVD16DlM2Z1xyT9
-         N0IXB4GSGWzIdRasKHxkMGu9crNRWxJNoLBsgrLnQQvZX7B8uGJUK7qFUFLjc6EhmoNT
-         kybXzYQJ5jUa0td16HZnYxCUoSPN34S8UQRz7R7cDWL5xN6Qc8PjjcJlj/henviy7Scj
-         Seu8545d0p0o9VOSzX1uHt3anRv6SS/xK2fghA74xeP0P62+gMVf3sxT4WJRmo+FwUNy
-         wQdzABUPAA9RPoZ0RvQCGLVnWf/f/Wi/6RBwX8auw6XTGe4SaW04//Tyl/5FuW9G5CYN
-         0i9w==
-X-Gm-Message-State: AC+VfDyPjqVfu833EIGavJUyGsLXnPZZ3Al30Myha9IA9jFDnIm/5hjj
-	4paMwicLRoM1ZcQ8690D6dApCg==
-X-Google-Smtp-Source: ACHHUZ7ypZ2QCc5X9aKN2KLsu9n4AhO4fUPcmiv3SDuJGeJSGTG/QUK7kuIRsY29DkZWgh397R9XbA==
-X-Received: by 2002:a05:6a00:2403:b0:652:7b99:df30 with SMTP id z3-20020a056a00240300b006527b99df30mr653406pfh.25.1686021314412;
-        Mon, 05 Jun 2023 20:15:14 -0700 (PDT)
-Message-ID: <db292e92-a5ad-bb40-1148-d43463431b25@bytedance.com>
-Date: Tue, 6 Jun 2023 11:13:01 +0800
+        bh=z4+5u346BDhJI/xQspczijGVOx1596UNX289bT0SkPM=;
+        b=dzDvFlFRSwthrhaamu/3Ct/JPCW3jPh2ARsmV4I6p34tllYfWoLeJxuTi6Yf0WKfX7
+         v6Y6qZUV2xQFMl+isAwOUPxcSqgjOvBQ45/FgL+CKrGRKNl5illZwUOz7Cb9vtyhmveY
+         A2Xgu5R3+aGfMT5g1n+UbShu+vcCxibh94Vqjyrbq5DqI3o7IQkEqEbXLVwOLfwN6gIJ
+         na1kcNx2qFu8VXcuDM20K1LgbeHDjMdY2Q4WpMlKySfGueSxRsmui/x3rEIZN0aSh58T
+         G+EJ455F0APPoaXnRrkbK80+PsRvh/inqtnHgVu/S/tjatCXsChxJlimsfB7Ukl27k6o
+         rakg==
+X-Gm-Message-State: AC+VfDyjZLJpJEe1arGJTHqcVpbfjZvLEWBrU0peXWj8yc+hryMlvCNF
+	glNzkj3/41w3HGAPkQt4Zw7hFg==
+X-Google-Smtp-Source: ACHHUZ6+yTgE6wYKmPGtL5r6Nbz0O4kuow0Xtw0emHgQn2qu8xNfMY0zNHXg6GO1AVuNJySZ+0hjnw==
+X-Received: by 2002:a25:ef12:0:b0:bad:5ee:e786 with SMTP id g18-20020a25ef12000000b00bad05eee786mr1015233ybd.18.1686035771835;
+        Tue, 06 Jun 2023 00:16:11 -0700 (PDT)
+Message-ID: <5a87cd0a-c883-5c4c-89d1-59be3ad73b4e@bytedance.com>
+Date: Tue, 6 Jun 2023 15:13:58 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-US
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: parav@nvidia.com, mst@redhat.com, jasowang@redhat.com,
- virtio-comment@lists.oasis-open.org, houp@yusur.tech,
- helei.sig11@bytedance.com, xinhao.kong@duke.edu
+To: Parav Pandit <parav@nvidia.com>, "stefanha@redhat.com"
+ <stefanha@redhat.com>
+Cc: "mst@redhat.com" <mst@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "houp@yusur.tech" <houp@yusur.tech>,
+ "helei.sig11@bytedance.com" <helei.sig11@bytedance.com>,
+ "xinhao.kong@duke.edu" <xinhao.kong@duke.edu>,
+ "jasowang@redhat.com" <jasowang@redhat.com>, zhouhuaping.san@bytedance.com
 References: <20230504081910.238585-1-pizhenwei@bytedance.com>
- <20230504081910.238585-5-pizhenwei@bytedance.com>
- <20230531152059.GF1248296@fedora>
- <c4621ae5-a677-8ecf-1b80-f598069cc0d4@bytedance.com>
- <20230605161143.GA1624556@fedora>
+ <20230504081910.238585-6-pizhenwei@bytedance.com>
+ <6b653208-ca45-4674-4568-9cb003e14d02@nvidia.com>
+ <5c3600cd-4c9f-9d1f-a807-13ed54f6b11f@bytedance.com>
+ <PH0PR12MB548194DBF9A205173DFE8042DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <fe6a7f09-6ee5-25d0-ea7e-ef4d77a37263@bytedance.com>
+ <PH0PR12MB54817ED91B804F55FDC99EC5DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: zhenwei pi <pizhenwei@bytedance.com>
-In-Reply-To: <20230605161143.GA1624556@fedora>
+In-Reply-To: <PH0PR12MB54817ED91B804F55FDC99EC5DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: Re: Re: [virtio-comment] [PATCH v2 04/11] transport-fabrics:
- introduce Stream Transmission
+Content-Transfer-Encoding: 8bit
+Subject: Re: RE: RE: [virtio-comment] Re: [PATCH v2 05/11] transport-fabrics:
+ introduce Keyed Transmission
 
-On 6/6/23 00:11, Stefan Hajnoczi wrote:
-> On Fri, Jun 02, 2023 at 10:26:48AM +0800, zhenwei pi wrote:
->> On 5/31/23 23:20, Stefan Hajnoczi wrote:
->>> On Thu, May 04, 2023 at 04:19:03PM +0800, zhenwei pi wrote:
->>>> +                  | +------+
->>>> +                  | |flags |  -> VIRTIO_OF_DESC_F_WRITE
->>>> +                  | +------+
->>>> +                  |
->>>> + DATA             |>+------+  -> 0
->>>> +                    |......|
->>>> +                    +------+  -> 1
->>>> +\end{lstlisting}
+
+
+On 6/5/23 21:12, Parav Pandit wrote:
+> 
+> 
+>> From: zhenwei pi <pizhenwei@bytedance.com>
+>> Sent: Monday, June 5, 2023 8:50 AM
+> 
+> 
+>>>>> if we talk blk as an example, above command descriptor can be of 32
+>>>>> bytes, such as struct virtio_of_cmd {
+>>>>>        u8 opcode;
+>>>>>        u8 rsvd;
+>>>>>        le16 cmd_id;
+>>>>>        u8 inline_desc_cnt;
+>>>>>        u8 rsvd[3];
+>>>>>        /* some padding/metadata for long desc list if any */ };
+>>>>>
+>>>>> struct virtio_of_rdma_desc {
+>>>>>        le64 addr;
+>>>>>        le32 length;
+>>>>>        le32 rdma_key;
+>>>>> };
+>>>>>
+>>>>> struct virtio_rdma_op {
+>>>>>        struct virtio_of_cmd cmd;
+>>>>>        struct virtio_of_rdma_desc desc[1 or 3]; /* count can be
+>>>>> negotiated */ };
+>>>>>
+>>>>> With this a send and receive queue on initiator and target can
+>>>>> exchange, cmd descriptor for read/writes.
+>>>>>
+>>>>
+>>>> Hi,
+>>>>
+>>>> Do you mean that separating a Virtio Over RDMA queue into 2 QP, one
+>>>> for sending, another one for receiving?
+>>>>
+>>> No. just one QP.
 >>>
->>> I think this is more flexible (and has more protocol overhead) than
->>> necessary. When the device has used a virtqueue buffer, it indicates how
->>> many bytes were used (this can be less than the totaly number of F_WRITE
->>> bytes available). I don't think there is a need to communicate F_WRITE
->>> descriptors, especially in the Completion. Just a Completion with a
->>> 'length' field instead of an 'ndesc' field followed by data is enough.
+>>> Initiator_QP_A -> target_QP_B.
+>>>
+>>> When initiator QP A sends 32B cmd, it lands in the target QP B's receive
+>> queue.
+>>>
+>>> After this target can do one or more read/write DMA using RDMA read/write
+>> from the initiator's memory.
 >>>
 >>
->> I guest this is not enough. For example, a initiator want to read 3 desc:
->> desc0[n bytes], desc1[m bytes], desc2[1 byte]. desc[2] is expected to read a
->> u8 status.
+>> Hi, I have several questions:
+>> 1, how to tell the target to read/write DMA using RDMA read/write? is
+>> virtio_of_rdma_desc missing?
 >>
->> the target fills desc0[n - x bytes], desc1[m - y bytes], desc2[1 byte], the
->> 'length' is (n - x + m - y + 1), we should decode each descriptor and fill
->> the driver buffer correctly.(otherwise, if x + y > 0, desc[2] is never
->> filled)
+> Virtio_of_rdma_desc is part of the 32B struct virtio_rdma_op in above example.
 > 
-> No, the framing really doesn't matter - that's what the spec says, after
-> all. The framing could be [n, m, 1] like in your example or [1, 1, n-2,
-> m-1, 1, 1], both are valid. What matters is that the device knows at
-> which offset the 1-byte status field must be written.
-> 
-> It is the VIRTIO specification that determines how to find the offset,
-> not the framing of the virtqueue buffer elements. (Again, the spec
-> explicitly forbids depending on framing.)
-> 
-> In other words, the virtio-blk spec says that the status byte is the
-> last writeable byte and that's how the device knows the offset. The
-> framing doesn't matter.
-> 
->>> Since VIRTIO has flexible framing
->>> (https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-390004),
->>> there isn't really a need to communicate the F_WRITE descriptors at all,
->>> just the maximum number of used bytes that the initiator expects.
->>>
->>> Can you explain why you chose to transmit F_WRITE descriptors in both
->>> the Command and the Completion? Maybe I missed a reason why it's
->>> important.
+>> 2, if several virtio_of_rdma_desc arrives, the target need to distinguish READ *
+>> m + WRITE * n descriptors. but *flags* field has been removed ...
 >>
->> Just keep the flags same to the descriptor from the command, give the
->> initiator a hint 'this is a read descriptor'.
+> The idea is to not have multiple virtio_of_rdma_desc.
+> An initiator can represent 1B to 4GB of noncontiguous buffer using a single rdma mkey.
+> Hence, only one virtio_of_rdma_desc is enough from initiator to target.
 > 
-> Sending virtqueue element information across the wire seems inefficient
-> to me. I think the protocol can be optimized for stream (TCP) and keyed
-> (RDMA) fabrics by omitting aspects that are not strictly needed.
+
+I have only a few knowledge about this:
+https://docs.nvidia.com/networking/pages/viewpage.action?pageId=25138119
+
+And I notice that rdma-core and linux infiniband/core has no standard 
+support for this, it seems mlx5 specific. Please correct me if I 
+misunderstood...
+
+>> 3, if I understand correctly, Initiator_QP_A -> Target_QP_B(CMD),
+>> Target_QP_B(RDMA READ), Target_QP_B(RDMA WRITE), Target_QP_B ->
+>> Initiator_QP_A(COMP). this uses 4 RTT.
+>>
+> RDMA read and writes are for the actual variable size data of 512B, 4K, 1MB etc.
 > 
-> Stefan
-
-Got it, thanks! By the way, for both command and completion, the 
-descriptors are not necessary? A command like:
-struct virtio_of_command_vq {
-         le16 opcode;
-         le16 command_id;
-         le32 out_length;
-         le32 in_length;
-         u8 rsvd[4];
-};
-
-This seems enough ...
+> Optionally, a target can expose a constant size buffer where initiator can directly write the data of 512B, 4KB as well.
+> However, this doesn't scale very well always, but sure it is possible, and it only works for blk write commands.
+> 
+> In a more advanced scheme target can dynamically add such buffers and advertise it to the initiator.
+> I would think to make it incremental once the basic data flow model is established.
+> 
+>>> Finally target_QP_B sends 8B completion, it arrives in the QP_A's receive
+>> queue.
+>>
+>> --
+>> zhenwei pi
 
 -- 
 zhenwei pi
