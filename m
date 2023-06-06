@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6160-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6161-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A8AC77B73
-	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 19:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E27EBC77B73
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 19:10:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 81D12157EE3
-	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 19:09:23 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 10B4E169CC6
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 19:10:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6B274986572
-	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 19:09:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F0EA998657E
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 19:10:03 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 563469864BB; Tue,  6 Jun 2023 19:09:23 +0000 (UTC)
+	id E5C199864BB; Tue,  6 Jun 2023 19:10:03 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4337A9864C1
-	for <virtio-comment@lists.oasis-open.org>; Tue,  6 Jun 2023 19:09:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D0A529864C1
+	for <virtio-comment@lists.oasis-open.org>; Tue,  6 Jun 2023 19:10:03 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: AUNPZ5HPOMukHw42kc_9Iw-1
+X-MC-Unique: 0GqLTUdDNMGuG3HLOiNJ-w-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686078558; x=1688670558;
+        d=1e100.net; s=20221208; t=1686078600; x=1688670600;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zek3pm+QhGTu5UWdxZWcT/Ke9tOW7s4s/oXDaMvod/U=;
-        b=elwBb4jkJ/NOwrRR+G6MLUE3Ka0OKkHHcI1mPIloJmbQ1NA3cQ76uQ1YQEIvlLOLK1
-         /oFGV3jqxHnr6MtyvPWxjA4U2dvhrW3399DHFfSGyUq+TcvIdZ969OvS46m+/oDbyt/D
-         /HPXjlRv9SSqwHD72kjX10FxMBx7kr0LddyB9IDSxWF2K1glr0fBmkIK6vVmyejV6lC1
-         fDA90xXYrvxeeb9a0sU5W64yKZZSlBkDb8qd0u+FN0DVIVgftS3zv5eTdZic/SfFc2Go
-         RBazF2qnF6d5Qksjlx5HsFWres17I08b9NI1ZqsuFxhf6PwnTF98zSmMs/rH0ayLHF4u
-         XdKg==
-X-Gm-Message-State: AC+VfDxP4cnOyzWw3hX25aQePCVrOVjMsj5UNKO3ms7nP2Im46xhpvIQ
-	4/+avRYvx/5N4elcaJe+blsNH3OicSy/+/1xOm085ZUm3yQ5HArsNejGzVKT+AAwhc+U/yVVa54
-	4YlwFONZ+wcLbTqDenE73z+lHn1zhXOgXbg==
-X-Received: by 2002:a05:600c:20c:b0:3f6:be1:b8d6 with SMTP id 12-20020a05600c020c00b003f60be1b8d6mr2875382wmi.9.1686078558243;
-        Tue, 06 Jun 2023 12:09:18 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ6Qnc4PpmZBgBNEhnZEP8DbPREMFKnSSs5vJrmEJwZ6apeLchHGegdnRzaszKtrl00L1Jqj/A==
-X-Received: by 2002:a05:600c:20c:b0:3f6:be1:b8d6 with SMTP id 12-20020a05600c020c00b003f60be1b8d6mr2875362wmi.9.1686078557906;
-        Tue, 06 Jun 2023 12:09:17 -0700 (PDT)
-Date: Tue, 6 Jun 2023 15:09:09 -0400
+        bh=udPn0tcbDU9hWsTJCGPYgdacykg0LxOA1NxWJEjfMoo=;
+        b=kXfIo67x18YpJ3yMPjEZ7qqQ5+Oa323GFhQB5SDkgl2dxDQGkj7pDI7VX9wo4PyLFU
+         4vfDZoHppbI0fE3KihX7XNgrY90TzUIMKDEHzE4mQnYhK9ax6+Z1YqMR+ffeV9VnHDFp
+         mRE2JAh9zLlWWZUzJD0hx97r43qw33QDHkRtKRxG5a0Ougb64jCG8yHIPpW+ApfCRGBK
+         hJ7cvOtP7k59DJRSdQ9AOpHNR5KsGnjGYHfohYj6gramMuT9eLAks0rtTTzmo2Wb+1nv
+         jBQg/UIQEGM087883bJR1HoEKyIWWhkhIwCkKMHnTsrWZrT2hrHPrhQ4bo6JXoR7S7J2
+         kdkw==
+X-Gm-Message-State: AC+VfDwJ1NnQHqZAttYN6AMJcxciAmcMyGXPLz7IThCTZmhALAycsDSc
+	ziVVP/4gRIv9z/dV1BCe+Hqaq5GuBDZFMgq6w/n0wHckh8V3/hu3FvIZjhUodq8Dp4ceZpr8y4v
+	ciPxFMAH5mqEv0CuFyUVg+qj1zpLQ+gTtEA==
+X-Received: by 2002:a5d:6a88:0:b0:30e:56ae:c8b6 with SMTP id s8-20020a5d6a88000000b0030e56aec8b6mr318424wru.46.1686078600671;
+        Tue, 06 Jun 2023 12:10:00 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ51DIH7HZB9x0XxceoDXhB297Gih/Nbf/mgloResHYXCIsESoaRX7mdtwQ3O/wNKp+njdnDlw==
+X-Received: by 2002:a5d:6a88:0:b0:30e:56ae:c8b6 with SMTP id s8-20020a5d6a88000000b0030e56aec8b6mr318409wru.46.1686078600345;
+        Tue, 06 Jun 2023 12:10:00 -0700 (PDT)
+Date: Tue, 6 Jun 2023 15:09:55 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>
 Cc: virtio-comment@lists.oasis-open.org,
@@ -64,45 +64,50 @@ Cc: virtio-comment@lists.oasis-open.org,
 	Zhu Lingshan <lingshan.zhu@intel.com>,
 	Shannon Nelson <snelson@pensando.io>, mgurtovoy@nvidia.com,
 	si-wei.liu@oracle.com
-Message-ID: <20230606150327-mutt-send-email-mst@kernel.org>
+Message-ID: <20230606150920-mutt-send-email-mst@kernel.org>
 References: <20230606175511.2337208-1-eperezma@redhat.com>
- <20230606175511.2337208-3-eperezma@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20230606175511.2337208-3-eperezma@redhat.com>
+In-Reply-To: <20230606175511.2337208-1-eperezma@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH 2/2] virtio: pci support virtqueue selective enabling
+Subject: [virtio-comment] Re: [PATCH 0/2] Selective queue enabling
 
-On Tue, Jun 06, 2023 at 07:55:11PM +0200, Eugenio Pérez wrote:
-> Reusing virtqueue reset method to enabling a vq.
+On Tue, Jun 06, 2023 at 07:55:09PM +0200, Eugenio Pérez wrote:
+> This series allows the driver to start the device (as set DRIVER_OK) with only
+> some queues enabled, and then enable another queues later.
 > 
-> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
-> ---
->  transport-pci.tex | 4 ++++
->  1 file changed, 4 insertions(+)
+> This is the current way to migrate net device state through control
+> virtqueue, in a software assisted framework with vDPA:
+> * First, only net CVQ is enabled at DRIVER_OK
+> * All the control commands (mac address, mq, etc) needed for the device
+> to behave the same as the source of migration are sent
+> * Finally all the dataplane queues are enabled.
+
+In my opinion, this is somewhat problematic. Specifically, currently
+devices tend to deduce how many queues are needed by looking
+at the state at DRIVER_OK time.  
+                                 
+Question: what is wrong with enabling queues initially and then
+doing a reset right after DRIVER_OK? You can even allocate
+memory for just one queue (zeroing it out).
+
+Granted this looks kind of ugly but side-steps this problem with
+no need for spec changes.
+
+> Eugenio Pérez (2):
+>   virtio: introduce selective queue enabling
+>   virtio: pci support virtqueue selective enabling
 > 
-> diff --git a/transport-pci.tex b/transport-pci.tex
-> index a5c6719..04c0429 100644
-> --- a/transport-pci.tex
-> +++ b/transport-pci.tex
-> @@ -375,6 +375,10 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
->  
->  \item[\field{queue_enable}]
->          The driver uses this to selectively prevent the device from executing requests from this virtqueue.
-> +        If the driver negotiates VIRTIO_F_RING_ENABLE_ANYTIME or
-> +        VIRTIO_F_RING_RESET, the driver writes 1 to this field to enable a
-> +        virtqueue.  See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Selective Virtqueue Enable}
-> +        and \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}.
->          1 - enabled; 0 - disabled.
-
-No, this is always used to enable queues even with no features.
-
->  \item[\field{queue_notify_off}]
+>  content.tex       | 15 +++++++++++++--
+>  transport-pci.tex |  4 ++++
+>  2 files changed, 17 insertions(+), 2 deletions(-)
+> 
 > -- 
 > 2.31.1
+> 
 
 
 This publicly archived list offers a means to provide input to the
