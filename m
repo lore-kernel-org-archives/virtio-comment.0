@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6145-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6146-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B720EC7EE23
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 22:13:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF065C7EE2E
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 01:33:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 12A021318C5
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 22:13:04 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E14FB2ACA4
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 01:33:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ED98F986494
-	for <virtio-comment@archiver.kernel.org>; Mon,  5 Jun 2023 22:13:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D6999986492
+	for <virtio-comment@archiver.kernel.org>; Tue,  6 Jun 2023 01:33:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id DB1F2986486; Mon,  5 Jun 2023 22:13:03 +0000 (UTC)
+	id C590C98590A; Tue,  6 Jun 2023 01:33:43 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,188 +24,293 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C8428986488;
-	Mon,  5 Jun 2023 22:13:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id AEBF1986488
+	for <virtio-comment@lists.oasis-open.org>; Tue,  6 Jun 2023 01:33:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GhQQlnXaV/81+j5xxExGNlAgQGddO7IOMQuME3jIsnD6ITegg4XWzpsw03EpzNRbkB+8AdsDWeN3SKzvlCnLu/GQPASHMnmDwzWyukiHQzFIx4NxpBspBif2RvKORE1DTRwalVV+fmY5Maoss1s2K4PMCKPI2xn4CV2z/7tWEZmhA9OHGJIH8Hg9Ig4gjEtWsP91XPEAyKExFZUfPJfjyQcYdNuOAXKZQoZ6NNT6plx3Yi6EWjkvdR9NZLJDiiKiYq6oawcs4IzF4Io9KcfmY+9my4vJcK5A/k9MR69H99t12Gy5INO5Uju+lntK9t1O8HvrN3Vu2QcMv8tLoHqiYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UksuLVE5j6TrBqH5qr37/90IDei1T9Y8MZfg8uN435c=;
- b=iSvoknzDS8QQ8rABoxi5oKce9A+97INwRk/7+kOICL+SFZjwZsZlv1l37KysPlfYchacfJIrvtMxZWUaQFRQTi5UBFpXknfEvnslQnfz/uCBQwTkftsPWcyqLi16wLXNeNdKtrxo56U3J0++gcJqUzTokdUQUAwQd1grHV7ZGKE++CBxD+wMa/tplavgZ9+AFbnyYFJBYaffOgKPgQUWnHLRC2LOVwi25wWyzV3D6lAlMUuK9fAVkVFx6/yyxiJIRBBvBEwK0+kw41GgJA7riKKhAHi+YLnhQxKTwYlKGy75CPf3Q9K5hQjRokgpj7PAOIfqAJn0i+UtzhhVYBrTuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>, "david.edmondson@oracle.com"
-	<david.edmondson@oracle.com>, "sburla@marvell.com" <sburla@marvell.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>, Yishai Hadas
-	<yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Thread-Topic: [virtio-dev] Re: [PATCH v3 0/3] transport-pci: Introduce legacy
- registers access using AQ
-Thread-Index:
- AQHZlZHqSKW+Shm580CRlUjcCTH7qK96p2iAgAAAjkCAAAV4gIAAAhyAgAAFe4CAAALHYIAABcIAgAAChLCAAHFxgIAAHa6ggABpWICAAHwV4IAACZWAgAAiwLCAAGU9gIAAAqIg
-Date: Mon, 5 Jun 2023 22:12:59 +0000
-Message-ID:
- <PH0PR12MB548180E16376862A3C0DFF1DDC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230604101351-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548139ACEC00E7CA6D988182DC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230604105027-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481B721C34D85D63FCC1F3DDC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230604174224-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481DABA25CA36A5460B13E5DC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605014539-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481C14D65D5E10CD23A9F67DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605092859-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481CEB3A34AAB49A282F2A8DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605174755-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230605174755-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|IA1PR12MB8310:EE_
-x-ms-office365-filtering-correlation-id: d855fb32-6678-4346-289a-08db66120609
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- ch8dIecG15zMq1oE9tyS3F80Aw7CUTVva8eqXmAgjw+UKpKqriW2bT5rbOIJQAbWVkMEzM9Nitj1MhBOWDtdbVW+VHhbgdMh39fvvxer9dc/XyIJI0F36ZSKYYsOKEEDwICOCT2jwOzNP26iWkVcK9kFgPe8V+1F5HjRY7pXx3m6MJruSu1UhyyGrMUEs0/rnVpYi31PoarB2dtTHZPVu5SlKTKlQRtgaHmu4uEbSTx6SBWk40HLb/Wgm/6UZzOo6KU2njF7wraZFJkApjCF8bkYIGt9cPIyl7V+aSx0G+pNH4tkkjqsKVqO4qdNI8I9SFMDeT5kVJROtKW/OFyzyYGMsM7j+yfAGXtKErQIZ7pX08dO/yLbjsWR+8eBZ5QGw7/JxDTIo/RvDP8KNh/mc004/usGJ64gQnlp48TZm9eAu8925WLsHqiLLwy2ngelUEE2q/ffn90RN/Y0Cci62c7X3ukp7iNu8gGXHDy91foc/+209gXQoUnEYAb9dwK54WJrd9gGVRipDE5O+qGP6VeU3IsHCC8aM1IgUcHU4Y11gbRfyRq5gQe0SMXvapJBEqUYXHunSF/QtjLP/ysIkGntdpuh1CDRAOMW8Vc9Ri290DwazvLrwYCz2c4esLjX
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(366004)(39860400002)(451199021)(9686003)(107886003)(6506007)(83380400001)(33656002)(122000001)(38070700005)(86362001)(38100700002)(186003)(55016003)(41300700001)(54906003)(2906002)(66446008)(478600001)(66946007)(76116006)(66476007)(4326008)(8676002)(6916009)(8936002)(64756008)(316002)(52536014)(5660300002)(7696005)(71200400001)(66556008);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?8pxGcxazQF0HwP/qLhYzyvCeVhaAMjeBRyNyan8ACn9rkoCIV7n9OmLHn+6N?=
- =?us-ascii?Q?f//Re7RFA4QlZgAqxm4vlYjWYiDX4nUujFmovO/BakuE4t5JgQdJXl/djkkw?=
- =?us-ascii?Q?Wm9LDERsjTl8iFOp//3mTMyHSoRbdieg4Sxdx/rhEyQ+Q/Q1wt//bjMzVQDP?=
- =?us-ascii?Q?IJ3Mv1KQdVEBZ8O+jwXzxF+gBYsVKhLmOpMg3VNrjJlx+hH7uEnA7jYcrZSR?=
- =?us-ascii?Q?DEAhIVehkQ0jWxSLhEysPtNmn73UHEyRjfQMgbCyx2bgdt06jmD7M+fvDJDq?=
- =?us-ascii?Q?GbbzsHEcbzS2JSz7DSn5NHmxF7Dc2oof4Z71ksnr43rlcxEGIhtGiTv/IaXA?=
- =?us-ascii?Q?F2tTnpcnnvHOlUUkzNW2H0zgiAHu3f/2mcYkshqWVjHt5cZ9Ws9tC9chSxEq?=
- =?us-ascii?Q?OG+FAd7/uAXSgavCM1hw707qeJcqVJ/qppQzGkF99H4E3AsQluXrI4WbrV1o?=
- =?us-ascii?Q?5ZfUWIN/uMARGS7o149zxumXbenh1JCNoJCV5xa3s+3Edz3JtCQcRmCIMJmt?=
- =?us-ascii?Q?5LeroboRYbE89/fwzTmCLdUE3Xfe5QSJLli/0V7jRaxbn1ApQWfT0c67rywk?=
- =?us-ascii?Q?PLcBUNWyJpOveWuih2z6vV7oVQbMiDQZhnmrILGRq6n6uiJhMtj23Gq5V1rM?=
- =?us-ascii?Q?1/nEJu2p+BbqnnKhBOkE8in43BRcy+qItHW/Hz7jEC7QvW6TBY44JDKcsEMC?=
- =?us-ascii?Q?Ix1rP9rAWaJ4pq1JynmbpTDQgEhbQSkJBgf5AydkeTwlIe0Jr60Elf3jxytf?=
- =?us-ascii?Q?APyx3S9QmJbvKXxmTiKpAevv+ChzszUM8uXay1HJsHWl9T5Xkmm9UFsUDWb1?=
- =?us-ascii?Q?7wGj1GNrrXpB0i39jr5Gcfm9nd22KIf4y4O7E+U5I/6FK8iuzVVud+3dcseH?=
- =?us-ascii?Q?e4T03mCEVce9vrTMRd6OAiQWyeQAE8Id5ARWFIgK/eOUVtnu7EK3FjmmySmI?=
- =?us-ascii?Q?I/1IHpLedi4FQLvk4s2/qYOkiMjdj4cfFmR2VLqXftBFOyaesWkTAiBwJDBW?=
- =?us-ascii?Q?F1P6Ixs49Xoh+AJ2NXCnn2PcqxEbFXG2B9y0ZvkWaU8dWjoqMozJRW6VIfl3?=
- =?us-ascii?Q?7kz0gpdmMAPah7ZCNqQ/Zg4H+JJ62p7lfaauVA4nuNly36PQaanrezpb5ahv?=
- =?us-ascii?Q?3acusX8e9yiEqr/kpKYg4pDb3JzcP2wGMoO8Ui16OJ8uqNi3PoLjA4JzgC4T?=
- =?us-ascii?Q?cZxuc0KpFja9Wblmbfye95mrY8M5kcUhiCNrpMFCmz0ZZHxI8TZThk/kHHs+?=
- =?us-ascii?Q?aQUKFNIIbq+pQ0J4SX11nReVp+rDdu7BFX8zaBNAoUyFsHkTt9ai9bXAdSRw?=
- =?us-ascii?Q?xiRBoxFoRjFDqARM2osv0O8AXOqj/cZPxMBn5ROy4mc87fyT55TIX6H1dm7H?=
- =?us-ascii?Q?sSXygk4qBsfaaX9XaxdYjlrGoT4e5fDNaJiW4cEqiCzA8bJDurRwamey18jg?=
- =?us-ascii?Q?1G//4MZmT7ENLZvZoGcRVFQxUu0A5l0wIDBBRrOOtyGEzPDueqTfcfSvXnA9?=
- =?us-ascii?Q?R6WALRAA7PT9gmf/eeCV8rn7AMKccRviVRG/XowgkPZVT+ZyaczISZDFsG4H?=
- =?us-ascii?Q?syWp7MrdTcDqQsrK/IobS/u0BS0ISuOQvIpttLOTqZ39nrafrewRJe2LFeeR?=
- =?us-ascii?Q?yy+Vo2xFTU+h1fV8DZOjPug=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686015221; x=1688607221;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jaR3FnzVUSjVB4BIlF0lL0oCo7rNxDNhu5n/C3XAzok=;
+        b=b70PAg126fxYGUJWe1xLfxEFXGiguQYMLdqSP5jCmjnRHAIS0e5sFQMmmAIIhlpJi8
+         a6I5RUBmdNfPQgUihJo7BNGEsTWv+qxgCwF3rJEV05xJj4n+oLfgNrr9B/2a2xlm13Uu
+         A1DNH1Gtr+TmKXmIigBJqNp+L+9BL93mSQWModBShCfxTdlv7pZjCLWptV3hL3+xCOpA
+         URLDCtbKpWUEFcImU323rSPMHuL4ywasGNbtVAp2X6tL7rZL4jU8DQj5SFk+ZSjxddBb
+         kiDn1cX1BfwpwWnXAWhl2GxCG3q+AbsAmNRYWSjR/jYRpKfHS73EFlC0gNHcXv783OOv
+         g1YQ==
+X-Gm-Message-State: AC+VfDzV8kGK/BEnpSXm4++OjofQa5L3lyf8awYAjf39yG6tXha1aFwX
+	iBcEruR1+8u741lh5gdNjcLBrQ==
+X-Google-Smtp-Source: ACHHUZ5I8sf3iMJwbcZ2aY9u9Rmnp7galM4aaP7yKq6ETUHKiTZ4+s8lJh7JQlyaIv3paRlN+rOgTQ==
+X-Received: by 2002:a17:90b:e8b:b0:253:6b3a:ab1e with SMTP id fv11-20020a17090b0e8b00b002536b3aab1emr10742534pjb.6.1686015221212;
+        Mon, 05 Jun 2023 18:33:41 -0700 (PDT)
+Message-ID: <54bb85af-7979-8226-cfef-d72c1cf2332f@bytedance.com>
+Date: Tue, 6 Jun 2023 09:31:27 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d855fb32-6678-4346-289a-08db66120609
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2023 22:12:59.9221
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7KJ1Yx6uqvBJ61t+SQWH1wHdgB9fLI0KR5RwHQ2i2x2ZrKzl9iUQjHbwbnG2F4dbhw4DeXfq2xTzHu7mAR2v3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8310
-Subject: [virtio-comment] RE: [virtio-dev] Re: [PATCH v3 0/3] transport-pci: Introduce legacy
- registers access using AQ
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: parav@nvidia.com, mst@redhat.com, jasowang@redhat.com,
+ virtio-comment@lists.oasis-open.org, houp@yusur.tech,
+ helei.sig11@bytedance.com, xinhao.kong@duke.edu
+References: <20230504081910.238585-1-pizhenwei@bytedance.com>
+ <20230504081910.238585-7-pizhenwei@bytedance.com>
+ <20230531171036.GH1248296@fedora>
+ <8cfdc9bf-03c9-92fc-f2e0-d59b180b0d82@bytedance.com>
+ <20230605163046.GB1624556@fedora>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <20230605163046.GB1624556@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: [virtio-comment] Re: Re: Re: [PATCH v2 06/11] transport-fabrics: introduce command set
 
+On 6/6/23 00:30, Stefan Hajnoczi wrote:
+> On Fri, Jun 02, 2023 at 01:15:00PM +0800, zhenwei pi wrote:
+>>
+>>
+>> On 6/1/23 01:10, Stefan Hajnoczi wrote:
+>>> On Thu, May 04, 2023 at 04:19:05PM +0800, zhenwei pi wrote:
+>>>> Introduce command structures for Virtio-oF.
+>>>>
+>>>> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
+>>>> ---
+>>>>    transport-fabrics.tex | 209 ++++++++++++++++++++++++++++++++++++++++++
+>>>>    1 file changed, 209 insertions(+)
+>>>>
+>>>> diff --git a/transport-fabrics.tex b/transport-fabrics.tex
+>>>> index 7711321..37f57c6 100644
+>>>> --- a/transport-fabrics.tex
+>>>> +++ b/transport-fabrics.tex
+>>>> @@ -495,3 +495,212 @@ \subsubsection{Buffer Mapping Definition}\label{sec:Virtio Transport Options / V
+>>>>                        |value |  -> 8193 (value.u32)
+>>>>                        +------+
+>>>>    \end{lstlisting}
+>>>> +
+>>>> +\subsubsection{Commands Definition}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition}
+>>>> +This section defines command structures for Virtio Over Fabrics.
+>>>> +
+>>>> +A common structure virtio_of_value is fixed to 8 bytes and MUST be used as one
+>>>> +of the following format:
+>>>> +
+>>>> +\begin{itemize}
+>>>> +\item u8
+>>>> +\item le16
+>>>> +\item le32
+>>>> +\item le64
+>>>> +\end{itemize}
+>>>
+>>> The way it's written does not document where the u8, u16, u32 bytes are
+>>> located and that the unused bytes are 0. I think I understand what you
+>>> mean though:
+>>>
+>>>     le64 value = cpu_to_le64((u64)v); /* v is u8, u16, u32, or u64 */
+>>>
+>>> Please clarify.
+>>>
+>>
+>> I want to describe an union structure of 8 bytes:
+>> union virtio_of_value {
+>>      u8;
+>>      u16;
+>>      u32;
+>>      u64;
+>> };
+>>
+>> Depending on the opcode, use the right one.
+> 
+> I was trying to point out that the memory layout of C unions is not
+> portable. Your example does not define the exact in-memory layout of
+> union virtio_of_value. Here is the first web search result I found about
+> this topic:
+> 
+>    "Q: And a related question: if you dump unions in binary form to a file,
+>    and then reload them from the file on a different platform, or with a
+>    program compiled by a different compiler, are you guaranteed to get
+>    back what you stored? (I think not, but I'm not sure)
+> 
+>    A: You're right; you're not."
+> 
+>    https://bytes.com/topic/c/answers/220372-unions-storage-abis
+> 
+> In the cpu_to_le64() code example that I gave, the exact in-memory
+> layout is well-defined. There is no ambiguity.
+> 
 
+OK, thanks.
 
-> From: virtio-dev@lists.oasis-open.org <virtio-dev@lists.oasis-open.org> O=
-n
-> Behalf Of Michael S. Tsirkin
-> Sent: Monday, June 5, 2023 5:57 PM
+>>>> +\hline
+>>>> +0xff00 - 0xfffd & Reserved \\
+>>>> +\hline
+>>>> +\end{tabular}
+>>>> +
+>>>> +\paragraph{Connect Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Transmission Protocol / Commands Definition / Connect Command}
+>>>> +The Connect Command is used to establish Virtio Over Fabrics queue. The control
+>>>> +queue MUST be established firstly, then the Connect command establishes an
+>>>> +association between the initiator and the target.
+>>>
+>>> Is a "Virtio Over Fabrics queue" different from a virtqueue?
+>>>
+>>> If I understand correctly, the control queue must be established by the
+>>> initiator first and then the Connect command is sent to begin
+>>> communication between the initiator and the target?
+>>>
+>>
+>> The queue mapping is missing in the '[PATCH v2 01/11] transport-fabrics:
+>> introduce Virtio Over Fabrics overview', like:
+>> A "Virtio Over Fabrics queue" is a reliable connection between initiator and
+>> target. There are 2 types of Virtio Over Fabrics queue:
+>> +\begin{itemize}
+>> +\item A single Control queue is required to execute control operations.
+>> +\item 0 or more Virtio Over Fabrics queues map the virtqueues.
+>> +\end{itemize}
+> 
+> That helps, thanks!
+> 
+>>
+>>>> +
+>>>> +The Target ID of 0xffff is reserved, then:
+>>>
+>>> Please move this after the fields have been shown and the purpose of the
+>>> Target ID field has been explained.
+>>>
+>>>> +\begin{itemize}
+>>>> +\item The Target ID of 0xffff MUST be specified as the Target ID in a Connect
+>>>> +Command for the control queue.
+>>>> +\item The target SHOULD allocate any available Target ID to the initiator,
+>>>> +and return the allocated Target ID in the Completion.
+>>>> +\item The returned Target ID MUST be specified as the Target ID, and the Queue ID
+>>>> +MUST be specified in a Connect Command for the virtqueue.
+>>>> +\end{itemize}
+>>>
+>>> What is the purpose of the Target ID? Is it to allow a server to provide
+>>> access to multiple targets over the same connection?
+>>>
+>>
+>> A target listens on a port, and provides access to 0 or more targets. An
+>> initiator connect the specific target by TVQN of connect command.
+>> An initiator could connect a single target, multiple initiators could
+>> connect the same target(typically, shared disk/fs).
+> 
+> Why is the target ID separate from the TVQN? If the Target ID is a
+> separate parameter then users will have to learn additional
+> syntax/command-line options to specify the TVQN + Target ID and that
+> syntax may vary between software.
+> 
+>>
+>>>> +
+>>>> +The Connect Command has following structure:
+>>>> +
+>>>> +\begin{lstlisting}
+>>>> +struct virtio_of_command_connect {
+>>>> +        le16 opcode;
+>>>> +        le16 command_id;
+>>>> +        le16 target_id;
+>>>> +        le16 queue_id;
+>>>> +        le16 ndesc;
+>>>
+>>> Where is this field documented?
+>>>
+>>
+>> OK. Will add.
+>>
+>>> Why does the initiator send ndesc to the target? Normally a VIRTIO Transport reports the device's max descriptors and then the driver can tell the device to reduce the number of descriptors, if desired.
+>>>
+>>
+>> A target supports at lease 1 descriptor. The 'ndesc' of struct
+>> virtio_of_command_connect indicates the full PDU contains: struct
+>> virtio_of_command_connect + 1 * virtio_of_vq_desc + data.
+>>
+>>>> +#define VIRTIO_OF_CONNECTION_TCP     1
+>>>> +#define VIRTIO_OF_CONNECTION_RDMA    2
+>>>
+>>> What does RDMA mean? I thought RDMA is a general concept that several
+>>> fabrics implement (with different details like how addressing works).
+>>>
+>>
+>> I guest your concern is the difference of IB/RoCE/iWarp ...
+>> We are trying to define the payload protocol here, so I think we can ignore
+>> the difference of the HCA.
+> 
+> I see, maybe this could be called STREAM vs KEYED instead of TCP vs RDMA?
+> 
 
-> > I would surely do that for all future devices which will be self-contai=
-ned.
-> > The cost of doing that for legacy is not worth the efforts.
-> > And since we agree that read/write 4 commands are OK on the AQ, the 5th
-> command is no exception to it.
-> >
-> > We are not at the point of questioning the existence of 4 commands itse=
-lf on
-> AQ.
->=20
-> Yes I think these 4 are fine.
->
-Ok. so we at least converge on it. :)
-=20
-> No. The VMM talks to either PF for config space or VF for data path.
->
-Ok. than offset 0 for notification.
+I'd like to define two PDU mapping rules(in '[PATCH v2 04/11] 
+transport-fabrics: introduce Stream Transmission' and '[PATCH v2 05/11] 
+transport-fabrics: introduce Keyed Transmission'): STREAM and KEYED. A 
+transport protocols need to use one.
 
-> > So a AQ notify query command services both VF and PF.
-> > It always returns the BAR number for the own.
->=20
-> For the owner? owner of SRIOV group is PF, not VF.
->=20
-> > A PF would have delegated the window in the PF BAR to the SF/SIOV.
-> > And hence, this command is just fine like rest of the 4 commands.
->=20
-> It would be fine if it could return PF BAR, but in your proposal it can't=
-.
->=20
-> > (Linux already has SF accessing the PF dedicated BAR for more than 2 ye=
-ars for
-> non virtio device).
->=20
->=20
-> What's the point of this discussion even? You ask some questions apparent=
-ly to
-> clarify what issue I'm trying to address.  I try to clarify. You then tur=
-n around and
-> say we agree, there's no issue, all of this does not matter, case closed.=
-  Whom
-> do you expect to convince with this line of reasoning?
+Then we can define protocols:
+#define VIRTIO_OF_CONNECTION_TCP     1		-> use STREAM
+#define VIRTIO_OF_CONNECTION_RDMA    2		-> use KEYED
+#define VIRTIO_OF_CONNECTION_TLS     3(in the future)	-> use STREAM
+#define VIRTIO_OF_CONNECTION_XXX
 
-I really don't understand what you want to say.
-What I explained above is for SF (not VF), you asked things for VF...
+>>
+>>>> +        u8 oftype;
+>>>> +        u8 padding[5];
+>>>> +};
+>>>> +\end{lstlisting}
+>>>> +
+>>>> +The Connect commands MUST contains one Segment Descriptor and one structure
+>>>> +virtio_of_command_connect to specify Initiator VQN and Target VNQ,
+>>>> +virtio_of_command_connect has following structure:
+>>>
+>>> I'm confsued. virtio_of_command_connect was defined above. The struct
+>>> defined below is virtio_of_connect. Does this paragraph need to be
+>>> updated (virtio_of_command_connect -> virtio_of_connect)?
+>>>
+>>> Why is virtio_of_connect a separate struct and not part of
+>>> virtio_of_command_connect?
+>>>
+>>
+>> Because I'd like to define all the commands with a fixed length.
+> 
+> I don't understand. virtio_of_connect and virtio_of_command_connect are
+> both fixed-length. Why can't they be unified into 1 fixed-length struct?
+> 
 
-You suggested that tiny stub vfio driver to perform discovery of notificati=
-on must be done only through the VF without explaining "why such rationale"=
- when there is anyway VF-PF driver interaction for the AQ.
+For stream protocol, it always work fine.
+For keyed protocol, for example RDMA, the target side needs to use 
+ibv_post_recv to receive a large size(sizeof virtio_of_command_connect + 
+sizeof virtio_of_connect). If the target uses ibv_post_recv to receive 
+sizeof(CMD) + sizeof(DESC) * 1, the initiator fails in RDMA SEND.
 
-But anyway, we need to progress; since the notify offset of 0 is acceptable=
- for legacy VF notifications as you suggest,=20
+>>> It's not possible to review this patch because these structs aren't used
+>>> yet and the opcodes are undefined.
+>>>
+>>> Defining structs that are shared by multiple opcodes might make
+>>> implementations cleaner, but I think it makes the spec less clear. I
+>>> would rather have a list of all opcodes and each one shows the full
+>>> command layout (even if it is duplicated). That way it's very easy to
+>>> look up an opcode you are implementing or debugging and check what's
+>>> needed. If the command layout is not documented in a single place, then
+>>> it takes more effort to figure out how an opcode works.
+>>>
+>>> Stefan
+>>
+>> OK, I'll merge the structure definition into the opcode definition.
+> 
+> Thank you!
+> 
+> Stefan
 
-I will drop the 5th notify query command for now.
-And add description to use the existing notify capability of VF with notify=
- offset of 0 for legacy q notifications.=20
+-- 
+zhenwei pi
 
-Rolling v4 now.
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
