@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6212-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6213-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A8B1C7EE23
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58742C77B7A
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8F91D157EE5
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:32 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C42992AEE4
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7BBA6986663
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B63C2986660
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7210F98664C; Wed,  7 Jun 2023 09:05:32 +0000 (UTC)
+	id ABFD798664C; Wed,  7 Jun 2023 09:05:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,178 +24,263 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 937A498664F;
-	Wed,  7 Jun 2023 09:03:57 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 52521986652
+	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Jun 2023 09:04:17 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046060;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vka496w_1686128631;
-Message-ID: <1686128584.2573118-1-xuanzhuo@linux.alibaba.com>
-Date: Wed, 7 Jun 2023 17:03:04 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- Shahaf Shuler <shahafs@nvidia.com>,
- "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
- Parav Pandit <parav@nvidia.com>
-References: <20230601220305.587034-1-parav@nvidia.com>
- <20230601220305.587034-2-parav@nvidia.com>
- <20230606180853-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481C4357772DE13272EA3BBDC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230606185016-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481C7FC00041476C73C3A74DC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230606191055-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230606191055-mutt-send-email-mst@kernel.org>
-Subject: [virtio-comment] Re: [virtio] Re: [virtio-comment] [PATCH requirements 1/7] net-features: Add requirements document for release 1.4
+X-MC-Unique: pU6FAL2dOEOJOpJoHF9_8A-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686128653; x=1688720653;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=3DHeo9U/Z1SfkmzitU7ixeqEqsrPPsM2P2vXWXy8hI0=;
+        b=Ot+DaZ2gtmEpXIj2yKRQHYUMfCzXNRJkvDnBsyUyIv7p+FHiyWb82plNM7sMIT6ifE
+         IFXChLn2DUusfPq79dU+NTynqbbO3/8k+PZ2lwaHJcp3EqYO+UGl/LQlWuo4iUhW3nwx
+         IgkbTJ0DbawEZ5feo1UszoheJzZrzjqYCoOLXJcLvWJoQPGV/TE3sJ6LyAqH7L2bxR1a
+         OyLLPc/6p4onUMKy0Lv9/q5YLD6QkSSmff9XWRz6ftuO//f+iiKKeYT8iX8uS1qRW4Mu
+         sZVl0Jh15EXuhj4sQzfczLYcKf/gArmVLW5GJdV7WtxtYqPQKCOq9a+O7iIcIruX2xl1
+         jFwA==
+X-Gm-Message-State: AC+VfDwXwnJz6CI0UCMOFAUAvcKnsZ+u6EtB8SSnOOxbJgkuMiBzBXmN
+	r9Uynp0xWS9U51z6/BgUyNMxuVM6LSjIzWMeF61ejNN3axmc+IjXudUIZ9xfyTnIdQwOFfwzvmp
+	gLGZ6aBaZa/Gnlfkw9m1bTg1oYSmmK0hKIQ==
+X-Received: by 2002:a5d:4e86:0:b0:30a:e93e:82aa with SMTP id e6-20020a5d4e86000000b0030ae93e82aamr3692537wru.42.1686128653398;
+        Wed, 07 Jun 2023 02:04:13 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5QQcEzc/g4xAOWxynqGt3hohXzFBIXznSLxkgfttSBP2+vgYTeFS5hjlCSDhEi3Hld41LtZw==
+X-Received: by 2002:a5d:4e86:0:b0:30a:e93e:82aa with SMTP id e6-20020a5d4e86000000b0030ae93e82aamr3692464wru.42.1686128652049;
+        Wed, 07 Jun 2023 02:04:12 -0700 (PDT)
+Date: Wed, 7 Jun 2023 05:04:08 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com,
+	david.edmondson@oracle.com, virtio-dev@lists.oasis-open.org,
+	sburla@marvell.com, jasowang@redhat.com, yishaih@nvidia.com,
+	maorg@nvidia.com, shahafs@nvidia.com
+Message-ID: <20230607050329-mutt-send-email-mst@kernel.org>
+References: <20230606201515.775121-1-parav@nvidia.com>
+MIME-Version: 1.0
+In-Reply-To: <20230606201515.775121-1-parav@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH v4 0/3] transport-pci: Introduce legacy registers access
+ using AQ
 
-On Tue, 6 Jun 2023 19:18:06 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> On Tue, Jun 06, 2023 at 11:08:12PM +0000, Parav Pandit wrote:
-> >
-> >
-> > > From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
-> > > open.org> On Behalf Of Michael S. Tsirkin
-> > > Sent: Tuesday, June 6, 2023 6:57 PM
-> >
-> > > > It matters for requirements, so we produce design that addresses it.
-> > > > We don't want to add config space every growing bit map which may be
-> > > different between different devices.
-> > >
-> > > then say that you want to conserve config space, that is the requirement. not
-> > > cvq specifically.
-> > >
-> > Well in one meeting you specifically told that requirements and design to be combined together, so it is drafted this way.
-> > Instead of very abstract like "conserve config space".
-> >
-> > We can debate and change from cvq to new cfgvq as part of the journey.
-> > It is fine.
->
-> just don't keep listing this in each feature. my plan is to work
-> on cfgvq so we can keep using config space without these
-> limitations.
+On Tue, Jun 06, 2023 at 11:15:12PM +0300, Parav Pandit wrote:
+> This short series introduces legacy registers access commands for the owner
+> group member PCI PF to access the legacy registers of the member VFs.
+> 
+> If in future any SIOV devices to support legacy registers, they
+> can be easily supported using same commands by using the group
+> member identifiers of the future SIOV devices.
+> 
+> More details as overview, motivation, use case are further described
+> below.
 
 
-cfgvq?
+Thanks for the patches! Getting ready for travel until June 20th,
+expect delays.
 
-Did I miss someting?
+> Patch summary:
+> --------------
+> patch-1 split rows of admin opcode tables by a line
+> patch-2 adds administrative virtuqueue commands
+> patch-3 adds its conformance section and links
+> 
+> It uses the newly introduced administrative virtqueue facility with 4 new
+> commands which uses the existing virtio_admin_cmd.
+> 
+> Usecase:
+> --------
+> 1. A hypervisor/system needs to provide transitional
+>    virtio devices to the guest VM at scale of thousands,
+>    typically, one to eight devices per VM.
+> 
+> 2. A hypervisor/system needs to provide such devices using a
+>    vendor agnostic driver in the hypervisor system.
+> 
+> 3. A hypervisor system prefers to have single stack regardless of
+>    virtio device type (net/blk) and be future compatible with a
+>    single vfio stack using SR-IOV or other scalable device
+>    virtualization technology to map PCI devices to the guest VM.
+>    (as transitional or otherwise)
+> 
+> Motivation/Background:
+> ----------------------
+> The existing virtio transitional PCI device is missing support for
+> PCI SR-IOV based devices. Currently it does not work beyond
+> PCI PF, or as software emulated device in reality. Currently it
+> has below cited system level limitations:
+> 
+> [a] PCIe spec citation:
+> VFs do not support I/O Space and thus VF BARs shall not indicate I/O Space.
+> 
+> [b] cpu arch citiation:
+> Intel 64 and IA-32 Architectures Software Developer’s Manual:
+> The processor’s I/O address space is separate and distinct from
+> the physical-memory address space. The I/O address space consists
+> of 64K individually addressable 8-bit I/O ports, numbered 0 through FFFFH.
+> 
+> [c] PCIe spec citation:
+> If a bridge implements an I/O address range,...I/O address range will be
+> aligned to a 4 KB boundary.
+> 
+> Overview:
+> ---------
+> Above usecase requirements is solved by PCI PF group owner accessing
+> its group member PCI VFs legacy registers using an admin virtqueue of
+> the group owner PCI PF.
+> 
+> Two new admin virtqueue commands are added which read/write PCI VF
+> registers.
+> 
+> Software usage example:
+> -----------------------
+> One way to use and map to the guest VM is by using vfio driver
+> framework in Linux kernel.
+> 
+>                 +----------------------+
+>                 |pci_dev_id = 0x100X   |
+> +---------------|pci_rev_id = 0x0      |-----+
+> |vfio device    |BAR0 = I/O region     |     |
+> |               |Other attributes      |     |
+> |               +----------------------+     |
+> |                                            |
+> +   +--------------+     +-----------------+ |
+> |   |I/O BAR to AQ |     | Other vfio      | |
+> |   |rd/wr mapper  |     | functionalities | |
+> |   +--------------+     +-----------------+ |
+> |                                            |
+> +------+-------------------------+-----------+
+>        |                         |
+>        |                    Driver notification
+>        |                         |
+>        |                         |
+>   +----+------------+       +----+------------+
+>   | +-----+         |       | PCI VF device A |
+>   | | AQ  |-------------+---->+-------------+ |
+>   | +-----+         |   |   | | legacy regs | |
+>   | PCI PF device   |   |   | +-------------+ |
+>   +-----------------+   |   +-----------------+
+>                         |
+>                         |   +----+------------+
+>                         |   | PCI VF device N |
+>                         +---->+-------------+ |
+>                             | | legacy regs | |
+>                             | +-------------+ |
+>                             +-----------------+
+> 
+> 2. Virtio pci driver to bind to the listed device id and
+>    use it as native device in the host.
+> 
+> 3. Use it in a light weight hypervisor to run bare-metal OS.
+> 
+> Please review.
+> 
+> Alternatives considered:
+> ========================
+> 1. Exposing BAR0 as MMIO BAR that follows legacy registers template
+> Pros:
+> a. Kind of works with legacy drivers as some of them have used API
+>    which is agnostic to MMIO vs IOBAR.
+> b. Does not require hypervisor intervantion
+> Cons:
+> a. Device reset is extremely hard to implement in device at scale as
+>    driver does not wait for device reset completion
+> b. Device register width related problems persist that hypervisor if
+>    wishes, it cannot be fixed.
+> 
+> 2. Accessing VF registers by tunneling it through new legacy PCI capability
+> Pros:
+> a. Self contained, but cannot work with future PCI SIOV devices
+> Cons:
+> a. Equally slow as AQ access
+> b. Still requires new capability for notification access
+> c. Requires hardware to build low level registers access which is not worth
+>    for long term future
+> 
+> 3. Accessing VF notification region using new PF BAR
+> Cons:
+> a. Requires hardware to build new PCI steering logic per PF to forward
+>    notification from the PF to VF, requires double the amount of logic
+>    compared to today
+> b. Requires very large additional PF BAR whose size must be max_Vfs * BAR size.
+> 
+> conclusion for picking AQ approach:
+> ==================================
+> 1. Overall AQ based access is simpler to implement with combination of
+>    best from software and device so that legacy registers do not get baked
+>    in the device hardware
+> 2. AQ allows hypervisor software to intercept legacy registers and make
+>    corrections if needed
+> 3. Provides trade-off between performance, device complexity vs spec,
+>    while still maintaining passthrough mode for the VFs with minimal
+>    hypervisor intercepts only for legacy registers access
+> 4. AQ mechanism is designed for accessing other member devices registers
+>    as noted in AQ submission, it utilizes the existing infrastructure over
+>    other alternatives.
+> 5. Uses existing driver notification region similar to legacy notification
+>    saving hardware resources
+> 
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/167
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
+> 
+> ---
+> changelog:
+> v3->v4:
+> - moved noted to the conformance section details in next patch
+> - removed queue notify address query AQ command on Michael's suggestion,
+>   though it is fine. Instead replaced with extending virtio_pci_notify_cap
+>   to indicate that legacy queue notifications can be done on the
+>   notification location
+> - fixed spelling errors
+> - replaced administrative virtqueue to administration virtqueue
+> - moved legacy interface normative references to legacy conformance
+>   section
+> v2->v3:
+> - added new patch to split raws of admin vq opcode table
+> - adddressed Jason and Michael's comment to split single register
+>   access command to common config and device specific commands.
+> - dropped the suggetion to introduce enable/disable command as
+>   admin command cap bit already covers it.
+> - added other alternative design considered and discussed in detail in v0, v1 and v2
+> v1->v2:
+> - addressed comments from Michael
+> - added theory of operation
+> - grammar corrections
+> - removed group fields description from individual commands as
+>   it is already present in generic section
+> - added endianness normative for legacy device registers region
+> - renamed the file to drop vf and add legacy prefix
+> - added overview in commit log
+> - renamed subsection to reflect command
+> v0->v1:
+> - addressed comments, suggesetions and ideas from Michael Tsirkin and Jason Wang
+> - far more simpler design than MMR access
+> - removed complexities of MMR device ids
+> - removed complexities of MMR registers and extended capabilities
+> - dropped adding new extended capabilities because if if they are
+>   added, a pci device still needs to have existing capabilities
+>   in the legacy configuration space and hypervisor driver do not
+>   need to access them
+> 
+> 
+> Parav Pandit (3):
+>   admin: Split opcode table rows with a line
+>   transport-pci: Introduce legacy registers access commands
+>   transport-pci: Add legacy register access conformance section
+> 
+>  admin.tex                     |  12 ++-
+>  conformance.tex               |   2 +
+>  transport-pci-legacy-regs.tex | 155 ++++++++++++++++++++++++++++++++++
+>  transport-pci.tex             |  19 +++++
+>  4 files changed, 187 insertions(+), 1 deletion(-)
+>  create mode 100644 transport-pci-legacy-regs.tex
+> 
+> -- 
+> 2.26.2
 
-
-Thanks.
-
->
-> > > > >
-> > > > > what matters is whether they have to be synchronized with a given
-> > > > > queue - I get it they don't have to.
-> > > > They don't have to be.
-> > >
-> > > Then say that.
-> > >
-> > I thought this is very obvious as querying counter is hundred-time slower operation than packet processing.
-> >
-> > > > I don't see how it can be every synchronized.
-> > >
-> > > you could program them through the vq itself.
-> > >
-> > Do you mean in the packet transmit and receive completions itself?
-> > It would be too heavy to do so to mix the control fields in the data path.
->
-> maybe. but notice how you have a specific design in mind so you are jumping ahead.
-> you asked how we could make these synch, i told you how.
-> the actual point is you want to say "we don't need this synchronous",
-> design idea: use cvq
->
->
-> > > > > we don't cover migration currently don't see how this is a spec rquirement.
-> > > > > unless maybe it's justification for 4?
-> > > > True, but design need to keep this in mind if it has some touch points like of
-> > > #4 so when migration arrives, it has the building block in place.
-> > >
-> > > so again, let's make sure we capture the actual spec requirement.
-> > >
-> > It is an actual spec requirement to be done and drafted in the spec.
-> > We may not do everything in the first phase, this are the broad requirements.
-> > And in design, we will say, requirement #4 is phase 2.
->
-> yes but this one I don't know what it means, spec wise.
-> some kind of block? what for?
->
-> > >
-> > > > > so maybe it means there needs to be a way to set counters?
-> > > > > so there's no need to mention migration - just that it should be
-> > > > > possible to move counters between devices.
-> > > > >
-> > > > > > +4. If a virtio device is group member device, a group owner should be
-> > > able
-> > > > > > +   to query all the counter attributes using the admin queue command
-> > > which
-> > > > > > +   a virtio device will expose via a control vq to the driver.
-> > > > >
-> > > > >
-> > > > > this seems weirdly specific.
-> > > > > what is the actual requirement?
-> > > > >
-> > > > I don't follow the question.
-> > > > When a device migrates from src to dst, group owner needs to know if both
-> > > side underlying member device has same counter attributes or not.
-> > >
-> > > whether it's through a command or not is not a requirement and I still do not
-> > > know what the requirement is.
-> > > what does "same counter attributes" mean? you never mentioned attributes
-> > > before.
-> > >
-> > I will refine this further and drop the word "attribute".
-> > If device support X counters, group owner should be able to know this bitmap.
->
-> i guess device might only support part of counters then?
->
-> > > > Yes, will change the GUEST surfaced from the current F_GUEST terminology of
-> > > the net device.
-> > >
-> > > So?  this predates 1.x spec we never bothered changing them.
-> > >
-> > Will remove the guest wording and will change to transmit and receive.
-> >
-> >
-> > > > > > +4. le64 rx_pkts: Total packets received by the device
-> > > > >
-> > > > > including dropped ones or not?
-> > > > >
-> > > > Not including. Will add this clarification further in v1.
-> > > >
-> > > > > > +
-> > > > > > +### 3.1.2 Per transmit queue counters 1. le64 tx_bad_desc_errors:
-> > > > > > +Descriptors dropped by the device due to errors in
-> > > > > > +   descriptors
-> > > > >
-> > > > > since when do we drop packets on error in descriptor?
-> > > > > we just as likely stall ...
-> > > > >
-> > > > It is left to the device to implement on what to do on bad desc.
-> > >
-> > > then how can you count drops?
-> > A device may count the drops based on errors.
-> > It is counting drops based on the error it got.
-> >
-> > > why does this even matter?
-> > To debug.
->
-> for debugging it's easiest if you just stop the vq, instead of drops.
->
-> > > and why on tx specifically?
-> > Missed the rx, will add.
-> >
-> > > I feel addressing descriptor errors is a completely separate project.
-> >
-> > Not sure if it is that big project.
->
-> I would have a separate debug section.
->
-> --
-> MST
->
->
-> ---------------------------------------------------------------------
-> To unsubscribe from this mail list, you must leave the OASIS TC that
-> generates this mail.  Follow this link to all your TCs in OASIS at:
-> https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php
->
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
