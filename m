@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6211-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6212-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEBE7C77B7A
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:03:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A8B1C7EE23
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0DDC2120D44
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:03:21 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8F91D157EE5
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EE38D986655
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:03:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7BBA6986663
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 09:05:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D67B598664C; Wed,  7 Jun 2023 09:03:20 +0000 (UTC)
+	id 7210F98664C; Wed,  7 Jun 2023 09:05:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,113 +24,178 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C24AC98664F
-	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Jun 2023 09:03:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 937A498664F;
+	Wed,  7 Jun 2023 09:03:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: hnAIcvy1OgeGRmu7VJjBqA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686128594; x=1688720594;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7UNzZu9GoGN3RFqdr9rH/oIL4MEzY2uQyvUdZXtht4M=;
-        b=cT3YgFPDFxSAQonHQ7zk+cF2Gse7NelCteXChE+IklBPCbqaN0EwKqjbQhNwXbjFSy
-         GtACsIILrrJNHhDvRZQtHkWEw3HZt1ujCoG6KaqIhdndl17jGxNRI1zTNLnKp5W9eJfk
-         Mp5k8QdtJsp0zM4QtpRyRhphw8vK67YStxbtZX3yBRzru9lMM6w564P9Tzcm/XECSMYm
-         LW3NUChvGUVQqoCOvnWeylrBkDdDpABgcHSd4KoDnph20NHNQwtSL2oZ8HqrO3fvf5rO
-         P6Su79icWGc3Tjr/oHr25A6zNQcpB0eFdI6bx0ct73M9lJEKOzSZD1X32gep0Oj2tMfF
-         8qHw==
-X-Gm-Message-State: AC+VfDxL4ZvDdnW/659xGxV6XKyMkN5e+eBSF+QAEc1DRrioeJTNyptr
-	+meV8ACKl2W2xP0EQoxkxkOiBh3DZVJlWGxbN2VwrJxIwW+gqqluD0iQ40LBc/saCBvsFNMSt56
-	zutMnfFC6NSMldLAiq7pQurJCrkkgXa4F1Q==
-X-Received: by 2002:a5d:58d5:0:b0:30a:8c0b:320d with SMTP id o21-20020a5d58d5000000b0030a8c0b320dmr3654919wrf.11.1686128594530;
-        Wed, 07 Jun 2023 02:03:14 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4/Yl6apSpsh9Eovp9duAHcOwVJCFRR88SDy/DbXzVWSv3hEyq0wDzZKKWhweJdknVMLvq7Rw==
-X-Received: by 2002:a5d:58d5:0:b0:30a:8c0b:320d with SMTP id o21-20020a5d58d5000000b0030a8c0b320dmr3654885wrf.11.1686128594218;
-        Wed, 07 Jun 2023 02:03:14 -0700 (PDT)
-Date: Wed, 7 Jun 2023 05:03:08 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Eugenio Perez Martin <eperezma@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org,
-	Laurent Vivier <lvivier@redhat.com>, Cindy Lu <lulu@redhat.com>,
-	cohuck@redhat.com, alvaro.karsz@solid-run.com,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Liuxiangdong <liuxiangdong5@huawei.com>,
-	Gautam Dawar <gdawar@xilinx.com>, longpeng2@huawei.com,
-	Dragos Tatulea <dtatulea@nvidia.com>, parav@nvidia.com,
-	stefanha@redhat.com, Harpreet Singh Anand <hanand@xilinx.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Heng Qi <hengqi@linux.alibaba.com>, jasowang@redhat.com,
-	Zhu Lingshan <lingshan.zhu@intel.com>,
-	Shannon Nelson <snelson@pensando.io>, mgurtovoy@nvidia.com,
-	si-wei.liu@oracle.com
-Message-ID: <20230607050112-mutt-send-email-mst@kernel.org>
-References: <20230606175511.2337208-1-eperezma@redhat.com>
- <20230606175511.2337208-3-eperezma@redhat.com>
- <20230606150327-mutt-send-email-mst@kernel.org>
- <CAJaqyWfpXcPn_Y_HF3bRHxCJCr5QPLS9e34AoBG1nr2-eK8Upw@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAJaqyWfpXcPn_Y_HF3bRHxCJCr5QPLS9e34AoBG1nr2-eK8Upw@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH 2/2] virtio: pci support virtqueue selective enabling
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046060;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vka496w_1686128631;
+Message-ID: <1686128584.2573118-1-xuanzhuo@linux.alibaba.com>
+Date: Wed, 7 Jun 2023 17:03:04 +0800
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ Shahaf Shuler <shahafs@nvidia.com>,
+ "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
+ Parav Pandit <parav@nvidia.com>
+References: <20230601220305.587034-1-parav@nvidia.com>
+ <20230601220305.587034-2-parav@nvidia.com>
+ <20230606180853-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481C4357772DE13272EA3BBDC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230606185016-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481C7FC00041476C73C3A74DC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230606191055-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230606191055-mutt-send-email-mst@kernel.org>
+Subject: [virtio-comment] Re: [virtio] Re: [virtio-comment] [PATCH requirements 1/7] net-features: Add requirements document for release 1.4
 
-On Wed, Jun 07, 2023 at 09:37:00AM +0200, Eugenio Perez Martin wrote:
-> On Tue, Jun 6, 2023 at 9:09 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+On Tue, 6 Jun 2023 19:18:06 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> On Tue, Jun 06, 2023 at 11:08:12PM +0000, Parav Pandit wrote:
 > >
-> > On Tue, Jun 06, 2023 at 07:55:11PM +0200, Eugenio Pérez wrote:
-> > > Reusing virtqueue reset method to enabling a vq.
+> >
+> > > From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+> > > open.org> On Behalf Of Michael S. Tsirkin
+> > > Sent: Tuesday, June 6, 2023 6:57 PM
+> >
+> > > > It matters for requirements, so we produce design that addresses it.
+> > > > We don't want to add config space every growing bit map which may be
+> > > different between different devices.
 > > >
-> > > Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
-> > > ---
-> > >  transport-pci.tex | 4 ++++
-> > >  1 file changed, 4 insertions(+)
+> > > then say that you want to conserve config space, that is the requirement. not
+> > > cvq specifically.
 > > >
-> > > diff --git a/transport-pci.tex b/transport-pci.tex
-> > > index a5c6719..04c0429 100644
-> > > --- a/transport-pci.tex
-> > > +++ b/transport-pci.tex
-> > > @@ -375,6 +375,10 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+> > Well in one meeting you specifically told that requirements and design to be combined together, so it is drafted this way.
+> > Instead of very abstract like "conserve config space".
+> >
+> > We can debate and change from cvq to new cfgvq as part of the journey.
+> > It is fine.
+>
+> just don't keep listing this in each feature. my plan is to work
+> on cfgvq so we can keep using config space without these
+> limitations.
+
+
+cfgvq?
+
+Did I miss someting?
+
+
+Thanks.
+
+>
+> > > > >
+> > > > > what matters is whether they have to be synchronized with a given
+> > > > > queue - I get it they don't have to.
+> > > > They don't have to be.
 > > >
-> > >  \item[\field{queue_enable}]
-> > >          The driver uses this to selectively prevent the device from executing requests from this virtqueue.
-> > > +        If the driver negotiates VIRTIO_F_RING_ENABLE_ANYTIME or
-> > > +        VIRTIO_F_RING_RESET, the driver writes 1 to this field to enable a
-> > > +        virtqueue.  See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Selective Virtqueue Enable}
-> > > +        and \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}.
-> > >          1 - enabled; 0 - disabled.
+> > > Then say that.
+> > >
+> > I thought this is very obvious as querying counter is hundred-time slower operation than packet processing.
 > >
-> > No, this is always used to enable queues even with no features.
+> > > > I don't see how it can be every synchronized.
+> > >
+> > > you could program them through the vq itself.
+> > >
+> > Do you mean in the packet transmit and receive completions itself?
+> > It would be too heavy to do so to mix the control fields in the data path.
+>
+> maybe. but notice how you have a specific design in mind so you are jumping ahead.
+> you asked how we could make these synch, i told you how.
+> the actual point is you want to say "we don't need this synchronous",
+> design idea: use cvq
+>
+>
+> > > > > we don't cover migration currently don't see how this is a spec rquirement.
+> > > > > unless maybe it's justification for 4?
+> > > > True, but design need to keep this in mind if it has some touch points like of
+> > > #4 so when migration arrives, it has the building block in place.
+> > >
+> > > so again, let's make sure we capture the actual spec requirement.
+> > >
+> > It is an actual spec requirement to be done and drafted in the spec.
+> > We may not do everything in the first phase, this are the broad requirements.
+> > And in design, we will say, requirement #4 is phase 2.
+>
+> yes but this one I don't know what it means, spec wise.
+> some kind of block? what for?
+>
+> > >
+> > > > > so maybe it means there needs to be a way to set counters?
+> > > > > so there's no need to mention migration - just that it should be
+> > > > > possible to move counters between devices.
+> > > > >
+> > > > > > +4. If a virtio device is group member device, a group owner should be
+> > > able
+> > > > > > +   to query all the counter attributes using the admin queue command
+> > > which
+> > > > > > +   a virtio device will expose via a control vq to the driver.
+> > > > >
+> > > > >
+> > > > > this seems weirdly specific.
+> > > > > what is the actual requirement?
+> > > > >
+> > > > I don't follow the question.
+> > > > When a device migrates from src to dst, group owner needs to know if both
+> > > side underlying member device has same counter attributes or not.
+> > >
+> > > whether it's through a command or not is not a requirement and I still do not
+> > > know what the requirement is.
+> > > what does "same counter attributes" mean? you never mentioned attributes
+> > > before.
+> > >
+> > I will refine this further and drop the word "attribute".
+> > If device support X counters, group owner should be able to know this bitmap.
+>
+> i guess device might only support part of counters then?
+>
+> > > > Yes, will change the GUEST surfaced from the current F_GUEST terminology of
+> > > the net device.
+> > >
+> > > So?  this predates 1.x spec we never bothered changing them.
+> > >
+> > Will remove the guest wording and will change to transmit and receive.
 > >
-> 
-> Yes. Now I see it is confusing if reading the spec and not the diff,
-> but my intention was to not modify the behavior without the feature
-> flags. Maybe there is a better way to achieve it.
-
-This is bad:
-
- Driver always does X.
-+If Y then driver does Z.
-
-
-This is good:
-
--Driver always does X.
--If Y, then driver does Z, otherwise X.
-
-even though it's a bigger patch, but patch review is
-secondary to a readable spec.
-
-
-
-> > >  \item[\field{queue_notify_off}]
-> > > --
-> > > 2.31.1
 > >
-
+> > > > > > +4. le64 rx_pkts: Total packets received by the device
+> > > > >
+> > > > > including dropped ones or not?
+> > > > >
+> > > > Not including. Will add this clarification further in v1.
+> > > >
+> > > > > > +
+> > > > > > +### 3.1.2 Per transmit queue counters 1. le64 tx_bad_desc_errors:
+> > > > > > +Descriptors dropped by the device due to errors in
+> > > > > > +   descriptors
+> > > > >
+> > > > > since when do we drop packets on error in descriptor?
+> > > > > we just as likely stall ...
+> > > > >
+> > > > It is left to the device to implement on what to do on bad desc.
+> > >
+> > > then how can you count drops?
+> > A device may count the drops based on errors.
+> > It is counting drops based on the error it got.
+> >
+> > > why does this even matter?
+> > To debug.
+>
+> for debugging it's easiest if you just stop the vq, instead of drops.
+>
+> > > and why on tx specifically?
+> > Missed the rx, will add.
+> >
+> > > I feel addressing descriptor errors is a completely separate project.
+> >
+> > Not sure if it is that big project.
+>
+> I would have a separate debug section.
+>
+> --
+> MST
+>
+>
+> ---------------------------------------------------------------------
+> To unsubscribe from this mail list, you must leave the OASIS TC that
+> generates this mail.  Follow this link to all your TCs in OASIS at:
+> https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php
+>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
