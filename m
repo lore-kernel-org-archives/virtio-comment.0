@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6204-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6205-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5ABAC7EE29
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 06:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4788C77B7A
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 07:37:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6008A2ACFF
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 06:54:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id D70FE29FC5
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 07:37:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B22AF98669B
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 06:54:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C6C66986652
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 07:37:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A067D98668B; Wed,  7 Jun 2023 06:54:38 +0000 (UTC)
+	id AE490986647; Wed,  7 Jun 2023 07:37:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,111 +24,95 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 68D65986846
-	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Jun 2023 06:54:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9A7F198664A
+	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Jun 2023 07:37:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 254dXeXVOmahCcyMFvfcDQ-1
+X-MC-Unique: Tnso0D0eNPGZ1rr8ZMObfQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686120874; x=1688712874;
+        d=1e100.net; s=20221208; t=1686123457; x=1688715457;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=/PU+oRLb3v0baA5txgeSEjG08KYUEYh0eQg6RDMz/Dc=;
-        b=EfUX/5BR3sd6x66i1FsQfPjwnxuo9Y3HZty1VjWDo79KuLxD8nLjYHtDJyLpibr6Zs
-         Y8rTkqbaDuXE0u7NXeigBNJEWmNWiUngltjl/qrakhk/zqzRf5CXJbYSL1ON1qvhnbss
-         UiNcj3HICTGLkT+xMtmeZrNorWTRw3YucM70Cu5O9JlwK8R/YX58rOHnWBGeR3usA4Wu
-         HSPrCBuKdCnNg9sGHzMdx2ueKiLER0lOvH4ExDq+vTNOLFz6fmYKkCQh7+YdOT04gHhf
-         HBkctEklXL/LEfLd//YNqtOvxkyH8SbjGqhfQoDv+u0iVmleDDiZVIYL+/kkfE/oBs1x
-         5GpQ==
-X-Gm-Message-State: AC+VfDzz99ByZDdoOHpzBSkqs78veGB21h1Hn68SLGnH3y9wbGdwAp9R
-	ryb4s4m+tbVFfTVW3Byi9rl615y9tYO/CeWxspqX1QrkSKwdVWov+IP5LUYTWzftOfY6cLXdpXZ
-	XoPvRrOJCE46xIyV51urIfiEpLOfEhgx5R1s1sbTyExcmFvc9qg==
-X-Received: by 2002:a2e:b16f:0:b0:2b1:ad0e:7361 with SMTP id a15-20020a2eb16f000000b002b1ad0e7361mr1837878ljm.32.1686120874485;
-        Tue, 06 Jun 2023 23:54:34 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5cdk69sNP6fGBVDAooujNrFOJCxbk7PH5ICpjFxekRh0FXM1VKgbr5/X9UkEyj228XKGyVR/9AEG+sb/C+k08=
-X-Received: by 2002:a2e:b16f:0:b0:2b1:ad0e:7361 with SMTP id
- a15-20020a2eb16f000000b002b1ad0e7361mr1837869ljm.32.1686120874193; Tue, 06
- Jun 2023 23:54:34 -0700 (PDT)
+        bh=QB3sXCfy9QWc+z23Kzs8HUnKuMkjUiUjuvntu1funwg=;
+        b=VjedXZNKnjaVsynkkrzgZmNd4CwuQ+mXnUxP3YsJFdVqwrkyGrSRXesZiILLtBZeCv
+         dEpChLZbadvhNQ0A5gLXQk4zcD27DcW8a0wKKTf4YKgXWXKzS3v4tnz3PvndWBs7K/qy
+         F/OXrziJkhSZFJthY29xhvbqE8ijSe84fyM/NeeljbzYfJ+SqRsQlvRV4egTCEMQigD3
+         16pMDwy/heQm6nvfrpWGi64FOaGR+UPziPoYI0LwzyhXVtIQVJ7weamiI7Am7hTgKNEL
+         N/IOShUCP6a5nVMeEBcboBjwnj8eqiBCMA9kWhtgYf/WheNdDenGtg06eLKEjv8opcAm
+         hSZQ==
+X-Gm-Message-State: AC+VfDzc9Tkc/ld2HnAIH/HJPisNSz9cVBPIuXJo/c2Aq+XfH9xYH6Vm
+	QEjSggYHKOn6BtdG+LmGEMmEsxl1atAZmQ5Hc5JSK3Qi1SFrUlsjM2vxBHx3IvljTpzA560G96D
+	8ozSikLD4SWmPMdcxIAxeSNh1tMywFlzE+Zit7kO2Qjwy983VAg==
+X-Received: by 2002:a25:a05:0:b0:b99:5707:4e6f with SMTP id 5-20020a250a05000000b00b9957074e6fmr4395389ybk.32.1686123457217;
+        Wed, 07 Jun 2023 00:37:37 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6HHa9OcgKb/xcJDk8KpHPbWMoUCw5pv+QL0KJ3wATAYknkkuXgGiYS+Xcl5q6bgSp/x0HSl5nNCFMe/YctCl8=
+X-Received: by 2002:a25:a05:0:b0:b99:5707:4e6f with SMTP id
+ 5-20020a250a05000000b00b9957074e6fmr4395384ybk.32.1686123456968; Wed, 07 Jun
+ 2023 00:37:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230604105027-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481B721C34D85D63FCC1F3DDC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230604174224-mutt-send-email-mst@kernel.org> <PH0PR12MB5481DABA25CA36A5460B13E5DC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605014539-mutt-send-email-mst@kernel.org> <PH0PR12MB5481C14D65D5E10CD23A9F67DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605092859-mutt-send-email-mst@kernel.org> <PH0PR12MB5481CEB3A34AAB49A282F2A8DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605174755-mutt-send-email-mst@kernel.org> <PH0PR12MB548180E16376862A3C0DFF1DDC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230606073544-mutt-send-email-mst@kernel.org> <CACGkMEv1so_KGwJZG3GnAf=JNky7+BMNK7N4NTtucDS+WyW5VA@mail.gmail.com>
- <PH0PR12MB5481D80A48F3BD82D86B3DB0DC53A@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5481D80A48F3BD82D86B3DB0DC53A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 7 Jun 2023 14:54:22 +0800
-Message-ID: <CACGkMEsVrqCGJJ2Q5OGbgPdtEJHTpvVt6nEKP_MzkSH_-cOa6w@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, 
-	"david.edmondson@oracle.com" <david.edmondson@oracle.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>
+References: <20230606175511.2337208-1-eperezma@redhat.com> <20230606175511.2337208-3-eperezma@redhat.com>
+ <20230606150327-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230606150327-mutt-send-email-mst@kernel.org>
+From: Eugenio Perez Martin <eperezma@redhat.com>
+Date: Wed, 7 Jun 2023 09:37:00 +0200
+Message-ID: <CAJaqyWfpXcPn_Y_HF3bRHxCJCr5QPLS9e34AoBG1nr2-eK8Upw@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, Laurent Vivier <lvivier@redhat.com>, 
+	Cindy Lu <lulu@redhat.com>, cohuck@redhat.com, alvaro.karsz@solid-run.com, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Liuxiangdong <liuxiangdong5@huawei.com>, 
+	Gautam Dawar <gdawar@xilinx.com>, longpeng2@huawei.com, 
+	Dragos Tatulea <dtatulea@nvidia.com>, parav@nvidia.com, stefanha@redhat.com, 
+	Harpreet Singh Anand <hanand@xilinx.com>, Stefano Garzarella <sgarzare@redhat.com>, 
+	Heng Qi <hengqi@linux.alibaba.com>, jasowang@redhat.com, 
+	Zhu Lingshan <lingshan.zhu@intel.com>, Shannon Nelson <snelson@pensando.io>, mgurtovoy@nvidia.com, 
+	si-wei.liu@oracle.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [virtio-dev] Re: [PATCH v3 0/3] transport-pci: Introduce legacy
- registers access using AQ
+Subject: [virtio-comment] Re: [PATCH 2/2] virtio: pci support virtqueue selective enabling
 
-On Wed, Jun 7, 2023 at 11:06=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
-te:
+On Tue, Jun 6, 2023 at 9:09=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
+wrote:
 >
->
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Tuesday, June 6, 2023 10:27 PM
+> On Tue, Jun 06, 2023 at 07:55:11PM +0200, Eugenio P=C3=A9rez wrote:
+> > Reusing virtqueue reset method to enabling a vq.
 > >
-> > I can't say I like this. I prefer to do meditation on top of a modern d=
-evice with
-> > some lightweight features like _F_LEAGCY_HEADER. I don't see any advant=
-ages
-> > of a new legacy ABI over _F_LEGACY_HEADER. I don't want to repeat but I=
- don't
-> > get any response here
+> > Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+> > ---
+> >  transport-pci.tex | 4 ++++
+> >  1 file changed, 4 insertions(+)
 > >
-> It is net only and not generic. Not a big blocker.
-> It doesnt stop at _F_LEAGCY_HEADER.
+> > diff --git a/transport-pci.tex b/transport-pci.tex
+> > index a5c6719..04c0429 100644
+> > --- a/transport-pci.tex
+> > +++ b/transport-pci.tex
+> > @@ -375,6 +375,10 @@ \subsubsection{Common configuration structure layo=
+ut}\label{sec:Virtio Transport
+> >
+> >  \item[\field{queue_enable}]
+> >          The driver uses this to selectively prevent the device from ex=
+ecuting requests from this virtqueue.
+> > +        If the driver negotiates VIRTIO_F_RING_ENABLE_ANYTIME or
+> > +        VIRTIO_F_RING_RESET, the driver writes 1 to this field to enab=
+le a
+> > +        virtqueue.  See \ref{sec:Basic Facilities of a Virtio Device /=
+ Virtqueues / Selective Virtqueue Enable}
+> > +        and \ref{sec:Basic Facilities of a Virtio Device / Virtqueues =
+/ Virtqueue Reset}.
+> >          1 - enabled; 0 - disabled.
 >
-> > Anything that prevents you from adding things like VIRTIO_NET_F_LEGACY_=
-HEADER?
-> It requires hypervisor to mediate 1.x config region and intercept feature=
- negotiation including q config and more.
-
-For config region, do you mean device configuration space or common
-config space?
-
-I don't see why we need to do mediation on neiter of the above.
-Hypervisor just need to prepare
-
-1) legacy BAR with legacy config and device configuration space and
-2) modern BAR with modern capabilities (common cfg and device cfg)
-
-For 2) it could be mapped directly to the modern capabilities. For 1)
-hypervisor needs to mediate
-
+> No, this is always used to enable queues even with no features.
 >
-> Additionally, 1.x device says the mac address is read only, while legacy =
-is RW.
-> And that requires yet another feature bit negotiation.
 
-Hypervisor can trap the legacy device configuration space write and
-convert it to cvq commands.
+Yes. Now I see it is confusing if reading the spec and not the diff,
+but my intention was to not modify the behavior without the feature
+flags. Maybe there is a better way to achieve it.
 
-Thanks
-
+> >  \item[\field{queue_notify_off}]
+> > --
+> > 2.31.1
 >
-> The main design goal is to not mediate 1.x specific region and not modify=
- 1.x region definitions.
-> Which is why we step forward with the AQ.
->
-> > https://lore.kernel.org/virtio-
-> > dev/CACGkMEuixsBibSq_pEQvcKOH0WBQWnta4Q2c28SV8qTS8gaVcA@mail.g
-> > mail.com/#t
 
 
 This publicly archived list offers a means to provide input to the=0D
