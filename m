@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6209-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6210-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AAC8C77B7A
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 08:57:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DB18C77B7A
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 08:59:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 78A1068465
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 08:57:27 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6BD1AF3F43
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 08:59:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 66067986651
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 08:57:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 59D05986653
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Jun 2023 08:59:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 54A8D98664C; Wed,  7 Jun 2023 08:57:27 +0000 (UTC)
+	id 49A1698664C; Wed,  7 Jun 2023 08:59:37 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,126 +24,150 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 41667986650
-	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Jun 2023 08:57:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3749098664F
+	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Jun 2023 08:59:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: x62KswOOO3yGD2MvWjqgyw-1
+X-MC-Unique: 23xMiA4ON166TecyV_mzBQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686128244; x=1688720244;
+        d=1e100.net; s=20221208; t=1686128374; x=1688720374;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ucg3jCxL78xCcPTdrV+9X0SV41LLLRqrkj85Fd8Z0vk=;
-        b=OOWPRx8UMIivVPM9Ub2TC+jWCdoRk3mNvRoRRCP+DNwAfUsjNEXz1u+i2isX4xf5AJ
-         UDgvWHSWfTjsPg7ZPiTfaonVwbwSfcptY6OmgfTJ6vwvqzK9IYBpUM5lDmfZ83vS9OSo
-         n0yxE2UvP4KZF0cSl+gA2W9nGQramJLM3wWC7pu3tiWkWT0KkIZ0AIkr+eRtDn9gp2kS
-         M2MAoxSJwQYWEkF+4ePob74cx11jZ8dR5kV6HvELIFmb2koiyTyLvpX8vofLdrhWOqTV
-         +QOxxT3N20NjUYslkNDndDQgyzI2ap3mET5RAm7Ep66R83X1jy/eyyNcG5xZstSE4EE9
-         ysNA==
-X-Gm-Message-State: AC+VfDxLHdNTiruB//rtopE0wJQDbPNo9ZGDqm7xJ2qQgCevE1l790L7
-	X/r2a7wgMsWo5VL1IpJ8lCRDVNbbqgPWd1CAeKUANBy/y3KI9c9QoZbJCZs885aLnsX0KrUPYl/
-	wR81cgFmMRVv3cvLJOCLh6DBwUEJbFyjrFA==
-X-Received: by 2002:a5d:480b:0:b0:30e:5b7c:de1c with SMTP id l11-20020a5d480b000000b0030e5b7cde1cmr847383wrq.11.1686128244210;
-        Wed, 07 Jun 2023 01:57:24 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5cVBV6nE7RtmcEBXn+HzuRodoDcm43tX6NFthW7AyByONHB9mNt2RgHuwDFwOrvr3zyeFr0A==
-X-Received: by 2002:a5d:480b:0:b0:30e:5b7c:de1c with SMTP id l11-20020a5d480b000000b0030e5b7cde1cmr847364wrq.11.1686128243933;
-        Wed, 07 Jun 2023 01:57:23 -0700 (PDT)
-Date: Wed, 7 Jun 2023 04:57:19 -0400
+        bh=0Ptz7uJo2T2Z3myZXJHs7+VBXCP0YE3/BUN9ZukGtSE=;
+        b=irAFzsBOQXkg4WeO8Dl3n8i1VK0YsnvhlKY8XkTvmhsyVNi68p9meXTxknhG8oXUTr
+         zyv6eLwqCJROHikL3kiQBdkY2T9xzTPi5+DUm0sQPj0v2YTBSsDmFa2zxJ/xvDwg8t9c
+         cwYdec9ybcWeWzPAeWJbUV8qo26aMtCqZptYtZ6g17cNy6fX3oL3qnfs+Om5nr8YebN1
+         uPdtH0rrpIGHWy/WiQE62MZxQH4FKviY6plgBewueyQ+xBbH+Cb7eTpGFL7G9b96g4yj
+         lnGKPqg3np9PkQrRAwHzT0fX/jQyAhd3byPmatPMnUoCQPrpoziV282SvSF4I6blMv8i
+         BeoQ==
+X-Gm-Message-State: AC+VfDxtMGoivpX25c7l6T9jKMzYLqQtYk2UzC4NIQ233yqC6FuymSq5
+	8hWPE+12nVKt/A8eCjAMmvzxgrKo2X9R9MmkZTbyn7Sqwac+WAGjEWE6IByYZCHZH7xRi15wb9a
+	mVEgwhorbO8LdtJ13gVObZHLgAxpubmqJog==
+X-Received: by 2002:adf:fdc8:0:b0:306:36ef:2e3b with SMTP id i8-20020adffdc8000000b0030636ef2e3bmr3306889wrs.70.1686128374042;
+        Wed, 07 Jun 2023 01:59:34 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6RkJ/YdlyHsfjX7Q8soFeFbrRpUkDc05974VXrwq5hJGK/MQW6j42F6R3hmkqXiAJpcGa2mw==
+X-Received: by 2002:adf:fdc8:0:b0:306:36ef:2e3b with SMTP id i8-20020adffdc8000000b0030636ef2e3bmr3306870wrs.70.1686128373695;
+        Wed, 07 Jun 2023 01:59:33 -0700 (PDT)
+Date: Wed, 7 Jun 2023 04:59:28 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Message-ID: <20230607045414-mutt-send-email-mst@kernel.org>
-References: <20230604174224-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481DABA25CA36A5460B13E5DC4CA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605014539-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481C14D65D5E10CD23A9F67DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605092859-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481CEB3A34AAB49A282F2A8DC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230605174755-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548180E16376862A3C0DFF1DDC4DA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230606073544-mutt-send-email-mst@kernel.org>
- <CACGkMEv1so_KGwJZG3GnAf=JNky7+BMNK7N4NTtucDS+WyW5VA@mail.gmail.com>
+To: Eugenio Perez Martin <eperezma@redhat.com>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtio-comment@lists.oasis-open.org,
+	Laurent Vivier <lvivier@redhat.com>, Cindy Lu <lulu@redhat.com>,
+	cohuck@redhat.com, alvaro.karsz@solid-run.com,
+	Liuxiangdong <liuxiangdong5@huawei.com>,
+	Gautam Dawar <gdawar@xilinx.com>, longpeng2@huawei.com,
+	Dragos Tatulea <dtatulea@nvidia.com>, parav@nvidia.com,
+	stefanha@redhat.com, Harpreet Singh Anand <hanand@xilinx.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Heng Qi <hengqi@linux.alibaba.com>, jasowang@redhat.com,
+	Zhu Lingshan <lingshan.zhu@intel.com>,
+	Shannon Nelson <snelson@pensando.io>, mgurtovoy@nvidia.com,
+	si-wei.liu@oracle.com
+Message-ID: <20230607045741-mutt-send-email-mst@kernel.org>
+References: <20230606175511.2337208-1-eperezma@redhat.com>
+ <20230606150920-mutt-send-email-mst@kernel.org>
+ <CAJaqyWd2o+++24dF5ab44a_rCUpBTHNwgxd3tQAeJZyh09M+wg@mail.gmail.com>
+ <1686126137.3070245-1-xuanzhuo@linux.alibaba.com>
+ <CAJaqyWeA40JgZfaynT2S4B9JY-bwrz3Exs9iD98AUPYvsZBgpg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CACGkMEv1so_KGwJZG3GnAf=JNky7+BMNK7N4NTtucDS+WyW5VA@mail.gmail.com>
+In-Reply-To: <CAJaqyWeA40JgZfaynT2S4B9JY-bwrz3Exs9iD98AUPYvsZBgpg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio-dev] Re: [PATCH v3 0/3] transport-pci: Introduce legacy
- registers access using AQ
+Subject: Re: [virtio-comment] Re: [PATCH 0/2] Selective queue enabling
 
-On Wed, Jun 07, 2023 at 10:27:12AM +0800, Jason Wang wrote:
-> On Tue, Jun 6, 2023 at 7:56 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+On Wed, Jun 07, 2023 at 10:47:12AM +0200, Eugenio Perez Martin wrote:
+> On Wed, Jun 7, 2023 at 10:23 AM Xuan Zhuo <xuanzhuo@linux.alibaba.com> wrote:
 > >
-> > On Mon, Jun 05, 2023 at 10:12:59PM +0000, Parav Pandit wrote:
-> > > Rolling v4 now.
+> > On Wed, 7 Jun 2023 07:35:58 +0200, Eugenio Perez Martin <eperezma@redhat.com> wrote:
+> > > On Tue, Jun 6, 2023 at 9:10 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > >
+> > > > On Tue, Jun 06, 2023 at 07:55:09PM +0200, Eugenio Pérez wrote:
+> > > > > This series allows the driver to start the device (as set DRIVER_OK) with only
+> > > > > some queues enabled, and then enable another queues later.
+> > > > >
+> > > > > This is the current way to migrate net device state through control
+> > > > > virtqueue, in a software assisted framework with vDPA:
+> > > > > * First, only net CVQ is enabled at DRIVER_OK
+> > > > > * All the control commands (mac address, mq, etc) needed for the device
+> > > > > to behave the same as the source of migration are sent
+> > > > > * Finally all the dataplane queues are enabled.
+> > > >
+> > > > In my opinion, this is somewhat problematic. Specifically, currently
+> > > > devices tend to deduce how many queues are needed by looking
+> > > > at the state at DRIVER_OK time.
+> > > >
+> > > > Question: what is wrong with enabling queues initially and then
+> > > > doing a reset right after DRIVER_OK? You can even allocate
+> > > > memory for just one queue (zeroing it out).
+> > > >
+> > > > Granted this looks kind of ugly but side-steps this problem with
+> > > > no need for spec changes.
+> > > >
+> > >
+> > > The problem is that the rx queues can start receiving, as the guest
+> > > already has buffers there.
 > >
-> > Great thanks! I think the result will be in a good shape from
-> > the ABI point of view. Good job!
+> > Can we reset the vq before filling buffers to it?
 > >
-> > I think so far Jason was the only one with significant comments
-> > on the series so let's see what he says.
 > 
-> I can't say I like this. I prefer to do meditation on top of a modern
-> device with some lightweight features like _F_LEAGCY_HEADER. I don't
-> see any advantages of a new legacy ABI over _F_LEGACY_HEADER. I don't
-> want to repeat but I don't get any response here
+> They are passthrough from the guest so there is a window where the
+> device can process rx descriptors.
+
+Not if there are no descriptors there.
+
+
+> > > Apart from that, the back and forth
+> > > introduces latencies.
+> > >
+> > > Maybe a better angle is to start all the queues as if they're reset,
+> > > write 1 just to CVQ, configure the device, and then write 1 to all
+> > > dataplane vqs?
+> >
+> > write to what?
+> >
 > 
-> https://lore.kernel.org/virtio-dev/CACGkMEuixsBibSq_pEQvcKOH0WBQWnta4Q2c28SV8qTS8gaVcA@mail.gmail.com/#t
-
-
-After trying to write this I came away with a conviction that
-if hardware vendors are prepared to implement legacy
-in hardware we should let them do exactly that.
-
-
-> >
-> > From my personal POV what will be left to do to get this
-> > feature ready for merging would be
-> >
-> > - tightening the language:
-> > - thinking of and addressing all kind of corner cases.
+> Sorry I was unclear, I mean to enable the vqs writing 1 to queue_enable.
 > 
-> We need first to check whether it's possible (not too late) to find
-> all the corner cases.
+> Thanks!
 > 
-> Thanks
-
-For sure, but of course we need to stop arguing about whether
-to have the feature in the 1st place.
-
+> > Thanks.
 > >
+> > >
+> > > Thanks!
+> > >
+> > > > > Eugenio Pérez (2):
+> > > > >   virtio: introduce selective queue enabling
+> > > > >   virtio: pci support virtqueue selective enabling
+> > > > >
+> > > > >  content.tex       | 15 +++++++++++++--
+> > > > >  transport-pci.tex |  4 ++++
+> > > > >  2 files changed, 17 insertions(+), 2 deletions(-)
+> > > > >
+> > > > > --
+> > > > > 2.31.1
+> > > > >
+> > > >
+> > >
 > >
-> > Since by now from our email discussions I have I think
-> > a decent understanding of how the feature is supposed to work
-> > I understand how these things work but I think there are still
-> > things that would be a bit unclear for an unprepared reader.
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
 > >
-> > Just to give a random example, there's no explicit
-> > time where the member kind of switches to the legacy/back to modern
-> > mode. I am guessing setting DRIVER bit through legacy interface
-> > does this. We'll want to list that.
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
 > >
-> > I'll try to help find these issues and maybe even suggest wording.
-> >
-> > I've delayed commenting on these until the high level design is agreed
-> > on, didn't want to make you waste time on polishing as the patches
-> > undergo significant changes, and I suggest you do the same in v4: let's
-> > make sure there's a wide agreement on the ABI then focus on the spec
-> > language.
-> >
-> >
-> >
-> > --
-> > MST
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
 > >
 
 
