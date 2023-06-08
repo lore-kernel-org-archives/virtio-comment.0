@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6241-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6242-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA062C7EE23
-	for <virtio-comment@archiver.kernel.org>; Thu,  8 Jun 2023 14:40:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 771FAC7EE25
+	for <virtio-comment@archiver.kernel.org>; Thu,  8 Jun 2023 14:41:53 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3B1D233584
-	for <virtio-comment@archiver.kernel.org>; Thu,  8 Jun 2023 14:40:02 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C867D4434C
+	for <virtio-comment@archiver.kernel.org>; Thu,  8 Jun 2023 14:41:52 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2E555986674
-	for <virtio-comment@archiver.kernel.org>; Thu,  8 Jun 2023 14:40:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BF944986681
+	for <virtio-comment@archiver.kernel.org>; Thu,  8 Jun 2023 14:41:52 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 21E5A98666B; Thu,  8 Jun 2023 14:40:02 +0000 (UTC)
+	id B7F8C98666B; Thu,  8 Jun 2023 14:41:52 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,223 +24,101 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 112A898666C
-	for <virtio-comment@lists.oasis-open.org>; Thu,  8 Jun 2023 14:40:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A43FE98666F
+	for <virtio-comment@lists.oasis-open.org>; Thu,  8 Jun 2023 14:41:46 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: tOPZ79bbNyG7xVzdQJcltQ-1
+X-MC-Unique: qFHaaNnoN2uEZyzkzCwS-g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686235196; x=1688827196;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D0adNSk4aRec7uNpag7SGyjCtwD/VQ6iyWKiYmBavMA=;
-        b=QSXWWCgYNk4e82Et8IPbezRCGpDQ+eBPdYLYfqR/+7T+OtifIjsqrBlBJB9Bj7NBvY
-         hyk6i0+60PLnv8sKt7jD7gajml4Oy/obccRJRAaDEFtrZAD2A7qXyu4KqBXO6b21Num0
-         uoYWVqhy19ps/AWUQv8o2y8WDonqkNxmqT7Z8voDJluODQ2J5W5NOpOEX456BFHBEGro
-         euhxGW/m7jcS5n4FCtsbh0wVEwn0hORTKMrGsFEbC4qbHv8/H9QyOqnHrNgValjDPKLu
-         HuR3XZ+JRZER+UyTjV2lQno1P++jcJoH9TLySx6Np9x/y3S7/C+UgkMTUWoVO7BjPfff
-         riaQ==
-X-Gm-Message-State: AC+VfDxO5DoJlVrMrlfKk6qhB9TV3rbH0aQh9PEjHLEFfQNEUDQZS/Wu
-	DsZqcIWu0joV/Hnfeng4oaQ1cxkgYQdbQniz84bmWBf2QJZ4Y00kveRcjnM1n8CKAk/+UM08zme
-	04h6JGK/Z16k64JrR9G4yfXj36T2vSSC+Sg==
-X-Received: by 2002:a05:6512:942:b0:4f3:bb93:4c8b with SMTP id u2-20020a056512094200b004f3bb934c8bmr2773083lft.19.1686235195995;
-        Thu, 08 Jun 2023 07:39:55 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ681rAr4WEKG2SvU3zJUapmgBkwze6iaFy1S7cc/QdSR49MnwPwtCfWD/BxYeOiaxlTDpolQA==
-X-Received: by 2002:a05:6512:942:b0:4f3:bb93:4c8b with SMTP id u2-20020a056512094200b004f3bb934c8bmr2773075lft.19.1686235195596;
-        Thu, 08 Jun 2023 07:39:55 -0700 (PDT)
-Date: Thu, 8 Jun 2023 10:39:50 -0400
+        d=1e100.net; s=20221208; t=1686235303; x=1688827303;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GGlWwF84oWGj/yPj2FFeP4GEjFBsHte/ABZwiYf8J9M=;
+        b=iv2B9Gcm5EmD1xlXXgSyfyhxDoQrVqGj+loxtCl3qMH8g2N63CIbfbp5uD/fAEjlIc
+         27ez+RP16+vLMhKTz0e6m+JL1mODt85Zm+RrrQWBwEqsWTUr1OtmhUnyJf/6uil2Qsv1
+         4COug3Vr527k0rYWfzt3+bn9S7OEC57er920jvte4oS1o7yEwuDCd1b/bPevPthWPbhM
+         Y5du5utMqCs37072oXFhA7SizBUTMrFL0Z6sXwkmrf6H6mdqUcBUMQfgHRvBiQYPJG1y
+         ANOgYShBxj4vq9DYYxxOG1dq9lMYcggs98EYy3upXowGGkEQnSFDIya9drKBtdDtaJeg
+         TWGQ==
+X-Gm-Message-State: AC+VfDy7rS/fydb6bWocuk0+ldscww7ezJIUIdnGoNahn4nk9kP08v+3
+	triMkYIaZLtWfKAYXjgUp54pb3PCbaMwYL93EFfFKcfxK0mBwT8VHayLuXqb4gQwaYQ6kUMYfx5
+	WnHB/EVPDK/P55JTZCcwh3dqt7VEzbC7/iQ==
+X-Received: by 2002:adf:f9c7:0:b0:30a:8e58:7955 with SMTP id w7-20020adff9c7000000b0030a8e587955mr2024104wrr.13.1686235303344;
+        Thu, 08 Jun 2023 07:41:43 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6S8wR4aSFunspyaTrvxpiqT5OvVaDpHCdYuTBVbSGPiz3q0rKcWYsHzCvCEp3fR30jom8n5A==
+X-Received: by 2002:adf:f9c7:0:b0:30a:8e58:7955 with SMTP id w7-20020adff9c7000000b0030a8e587955mr2024091wrr.13.1686235303057;
+        Thu, 08 Jun 2023 07:41:43 -0700 (PDT)
+Date: Thu, 8 Jun 2023 10:41:39 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Eugenio Perez Martin <eperezma@redhat.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+To: Parav Pandit <parav@nvidia.com>
+Cc: Heng Qi <hengqi@linux.alibaba.com>, Jason Wang <jasowang@redhat.com>,
+	Yuri Benditovich <yuri.benditovich@daynix.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Laurent Vivier <lvivier@redhat.com>, Cindy Lu <lulu@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"alvaro.karsz@solid-run.com" <alvaro.karsz@solid-run.com>,
-	Liuxiangdong <liuxiangdong5@huawei.com>,
-	Gautam Dawar <gdawar@xilinx.com>,
-	"longpeng2@huawei.com" <longpeng2@huawei.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	Harpreet Singh Anand <hanand@xilinx.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Heng Qi <hengqi@linux.alibaba.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	Zhu Lingshan <lingshan.zhu@intel.com>,
-	Shannon Nelson <snelson@pensando.io>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	"si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
-	Parav Pandit <parav@nvidia.com>
-Message-ID: <20230608103816-mutt-send-email-mst@kernel.org>
-References: <20230606175511.2337208-1-eperezma@redhat.com>
- <20230606175511.2337208-2-eperezma@redhat.com>
- <PH0PR12MB5481D1ACC60311CE48D622CFDC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230606151520-mutt-send-email-mst@kernel.org>
- <1686226293.022929-1-xuanzhuo@linux.alibaba.com>
- <CAJaqyWdusP1DXGV4==ddVRjh9FaTcu2u-4d03_4kOaf2Zom+GQ@mail.gmail.com>
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
+Message-ID: <20230608104119-mutt-send-email-mst@kernel.org>
+References: <20230605071608.73016-1-hengqi@linux.alibaba.com>
+ <DM8PR12MB54805C0A8E0E617EE2149851DC53A@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20230608064042.GC28580@h68b04307.sqa.eu95>
+ <PH0PR12MB548119AC6E8CF4A5EBCBA4D3DC50A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <CAJaqyWdusP1DXGV4==ddVRjh9FaTcu2u-4d03_4kOaf2Zom+GQ@mail.gmail.com>
+In-Reply-To: <PH0PR12MB548119AC6E8CF4A5EBCBA4D3DC50A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH 1/2] virtio: introduce selective
- queue enabling
+Subject: [virtio-comment] Re: [virtio-dev] RE: [PATCH v15] virtio-net: support inner header
+ hash
 
-On Thu, Jun 08, 2023 at 04:18:23PM +0200, Eugenio Perez Martin wrote:
-> On Thu, Jun 8, 2023 at 2:24 PM Xuan Zhuo <xuanzhuo@linux.alibaba.com> wrote:
-> >
-> > On Tue, 6 Jun 2023 15:19:53 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> > > On Tue, Jun 06, 2023 at 06:04:32PM +0000, Parav Pandit wrote:
-> > > > Hi Eugenio,
-> > > >
-> > > > > From: Eugenio P閞ez <eperezma@redhat.com>
-> > > > > Sent: Tuesday, June 6, 2023 1:55 PM
-> > > > >
-> > > > > This patch allows the driver to start the device (as set DRIVER_OK) with only
-> > > > > some queues enabled, and then enable another queues later.
-> > > > >
-> > > > > This is the current way to migrate net device state through control virtqueue, in
-> > > > > a software assisted framework with vDPA:
-> > > > > * First, only net CVQ is enabled at DRIVER_OK
-> > > > > * All the control commands (mac address, mq, etc) needed for the device to
-> > > > > behave the same as the source of migration are sent
-> > > > > * Finally all the dataplane queues are enabled.
-> > > > >
-> > > > > Signed-off-by: Eugenio P閞ez <eperezma@redhat.com>
-> > > > > ---
-> > > > >  content.tex | 15 +++++++++++++--
-> > > > >  1 file changed, 13 insertions(+), 2 deletions(-)
-> > > > >
-> > > > > diff --git a/content.tex b/content.tex
-> > > > > index d2ab9eb..ea4a6d8 100644
-> > > > > --- a/content.tex
-> > > > > +++ b/content.tex
-> > > > > @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a
-> > > > > Virtio Device / Feature B  \begin{description}
-> > > > >  \item[0 to 23, and 50 to 127] Feature bits for the specific device type
-> > > > >
-> > > > > -\item[24 to 41] Feature bits reserved for extensions to the queue and
-> > > > > +\item[24 to 42] Feature bits reserved for extensions to the queue and
-> > > > >    feature negotiation mechanisms
-> > > > >
-> > > > > -\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
-> > > > > +\item[43 to 49, and 128 and above] Feature bits reserved for future
-> > > > > extensions.
-> > > > >  \end{description}
-> > > > >
-> > > > >  \begin{note}
-> > > > > @@ -398,6 +398,13 @@ \section{Virtqueues}\label{sec:Basic Facilities of a
-> > > > > Virtio Device / Virtqueues}  Every driver and device supports either the Packed
-> > > > > or the Split  Virtqueue format, or both.
-> > > > >
-> > > > > +\subsection{Virtqueue selective enabling}\label{sec:Basic Facilities of
-> > > > > +a Virtio Device / Virtqueues / Selective Virtqueue Enable}
-> > > > > +
-> > > > > +If the driver negotiates VIRTIO\_F\_RING\_ENABLE\_ANYTIME, it can
-> > > > > +enable individual virtqueues both before and after the DRIVER\_OK. The
-> > > > > +way to enable a virtqueue is transport specific, but it mimics the
-> > > > > +re-enabling after an hypothetical reset.
-> > > > > +
-> > > > >  \subsection{Virtqueue Reset}\label{sec:Basic Facilities of a Virtio Device /
-> > > > > Virtqueues / Virtqueue Reset}
-> > > > >
-> > > > >  When VIRTIO_F_RING_RESET is negotiated, the driver can reset a virtqueue
-> > > > > @@ -870,6 +877,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved
-> > > > > Feature Bits}
-> > > > >   \ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
-> > > > >   handling features reserved for future use.
-> > > > >
-> > > > > +  \item[VIRTIO_F_RING_ENABLE_ANYTIME(42)] This feature indicates  that
-> > > > > + the driver can enable a queue both before and after DRIVER\_OK.
-> > > > > +  See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Selective
-> > > > > Virtqueue Enable}.
-> > > > > +
-> > > >
-> > > > Can you please highlight, current spec normative which indicates that
-> > > > all queues must be enabled before DRIVER_OK and more queues cannot be
-> > > > enabled after DRIVER_OK?
-> > >
-> > >
-> > > This one:
-> > > \drivernormative{\subsection}{Device Initialization}{General Initialization And Device Operation / Device Initialization}
-> > >
-> > > it does not say "all queues" if you want to split hairs but I think
-> > > assuming it's safe to enable queues later is dangerous.
-> >
-> > Although there is no "all queues" here, if the queue is not ready, the device
-> > may use all the queues after "Device OK". So I also think it might be dangerous.
-> >
-> > But I also ran into this problem. We want the device to support 100 queues, but
-> > we also want to use only 16 queues by default. The user can then manually scale
-> > up to 100, if the user has a large memory.
-> >
-> > So I think, the point is that "num_queues" is the max and default value. Can we
-> > change "num_queues" to default, then we introduced a new value as max.
-> >
-> > Does this way solve your problem? @Eugenio
-> >
+On Thu, Jun 08, 2023 at 02:26:51PM +0000, Parav Pandit wrote:
 > 
-> It would need a tweak, but it gives me an idea.
+> > From: Heng Qi <hengqi@linux.alibaba.com>
+> > Sent: Thursday, June 8, 2023 2:41 AM
 > 
-> I think you're talking about what the device offers, isn't it? I would
-> need to modify it from the driver.
+> [..]
+> > > > +The device MUST calculate the inner header hash for the configured
+> > > > \field{hash_tunnel_types} without the outer UDP header if
+> > > > \field{hash_option} is 1.
+> > > > +
+> > > This I think conflicts with the current RSS where if this override (higher priority
+> > than RSS) or not.
+> > 
+> > VIRTIO_NET_F_HASH_TUNNEL instructs the device to calculate an inner header
+> > hash for configured tunnel types.
+> > Then, which fields are used for the calculation of the inner header hash is
+> > determined by the RSS configuration.
+> > 
+> > Therefore, if the inner header hash uses \field{hash_option} to indicate that the
+> > outer source UDP port is used to calculate the hash, it overrides the RSS
+> > configuration (higher priority than RSS). It now not only indicates for which
+> > tunnel types the inner hash should be calculated, but also indicates which fields
+> > participate in the RSS hash calculation.
+> > 
+> > At this point, we can
+> > 1. continue to allow this behavior. That is, if \field{hash_option} is set to 1, the
+> > hash value calculated based on the outer source port indicated by
+> > VIRTIO_NET_F_HASH_TUNNEL is provided to the indirection table to select the
+> > rxq instead of the hash value provided by RSS.
+> > 
+> > 2. hand over to RSS the ability to specify a hash based on the outer source port.
+> > That is, we can add VIRTIO_NET_RSS_HASH_TUNNEL_SRC_PORT_UDP_{v4, v6,
+> > EX} in \field{supported_hash_types} to indicate that the hash should be
+> > calculated using the outer source port for all UDP tunneling protocols.
+> > This approach removes the need for \field{hash_option} and makes the line
+> > between VIRTIO_NET_F_HASH_TUNNEL and VIRTIO_NET_F_RSS clearer.
+> > 
+> #2 is preferred.
 > 
-> But it has an interesting question, how to allocate "less vrings" than
-> virtio_pci_common_cfg.num_queues?
+> But I must be missing something.
+> Without VIRTIO_NET_RSS_HASH_TUNNEL_SRC_PORT_UDP_X, today if one wants to do RSS based on the outer UDP ports,
+> It is already supported by the RSS (even in presence of the inner header).
+> 
+> So why do have to introduce VIRTIO_NET_RSS_HASH_TUNNEL_SRC_PORT_UDP_X?
 
-Just allocate less, don't configure what you do not use.
+they want an option to ignore all other header fields.
 
-> I guess it is ok to set all vq
-> addresses to a vring that never increments avail_idx? The driver still
-> needs to allocate memory for that one and lose start time configuring
-> them.
-> 
-> Maybe for net is valid to leave them unconfigured? it should only use
-> one vq pair and CVQ by default.
-
-It's ok for all devices, and this is how it always worked.
-
-> My proposal could be done at the virtio-net level, allowing
-> max_virtqueue_pairs to be 0 from the beginning. For example, allowing
-> the driver to write it before DRIVER_OK. In that case, no data vq is
-> enabled and only CVQ process requests after DRIVER_OK. After all the
-> config is written, the driver changes the number of active queues with
-> VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET.
-> 
-> I think it is better solved in a generic way, but I'm ok with this
-> -net specific too.
-> 
-> Thanks!
-> 
-> > Thanks.
-> >
-> >
-> >
-> > >
-> > > E.g. vhost user backends tend to assume no new queues appear
-> > > after DRIVER_OK.
-> > >
-> > > --
-> > > MST
-> > >
-> >
-> > This publicly archived list offers a means to provide input to the
-> > OASIS Virtual I/O Device (VIRTIO) TC.
-> >
-> > In order to verify user consent to the Feedback License terms and
-> > to minimize spam in the list archive, subscription is required
-> > before posting.
-> >
-> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > List help: virtio-comment-help@lists.oasis-open.org
-> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> > Committee: https://www.oasis-open.org/committees/virtio/
-> > Join OASIS: https://www.oasis-open.org/join/
-> >
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
