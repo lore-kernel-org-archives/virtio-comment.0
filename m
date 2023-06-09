@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6282-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6283-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02FBFC7EE29
-	for <virtio-comment@archiver.kernel.org>; Fri,  9 Jun 2023 03:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2D08C7EE29
+	for <virtio-comment@archiver.kernel.org>; Fri,  9 Jun 2023 03:57:22 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 43FF62B02A
-	for <virtio-comment@archiver.kernel.org>; Fri,  9 Jun 2023 03:54:25 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 110F02ACA9
+	for <virtio-comment@archiver.kernel.org>; Fri,  9 Jun 2023 03:57:22 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 305E398669B
-	for <virtio-comment@archiver.kernel.org>; Fri,  9 Jun 2023 03:54:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0098298669B
+	for <virtio-comment@archiver.kernel.org>; Fri,  9 Jun 2023 03:57:21 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 1CA4298668E; Fri,  9 Jun 2023 03:54:25 +0000 (UTC)
+	id E112298668E; Fri,  9 Jun 2023 03:57:21 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,249 +24,170 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0434398668F
-	for <virtio-comment@lists.oasis-open.org>; Fri,  9 Jun 2023 03:54:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CE49D98668F
+	for <virtio-comment@lists.oasis-open.org>; Fri,  9 Jun 2023 03:57:21 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0VkgSYbH_1686282858;
-Message-ID: <1686282802.4363132-1-xuanzhuo@linux.alibaba.com>
-Date: Fri, 9 Jun 2023 11:53:22 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: Eugenio Perez Martin <eperezma@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- Laurent Vivier <lvivier@redhat.com>,
- Cindy Lu <lulu@redhat.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "alvaro.karsz@solid-run.com" <alvaro.karsz@solid-run.com>,
- Liuxiangdong <liuxiangdong5@huawei.com>,
- Gautam Dawar <gdawar@xilinx.com>,
- "longpeng2@huawei.com" <longpeng2@huawei.com>,
- Dragos Tatulea <dtatulea@nvidia.com>,
- "stefanha@redhat.com" <stefanha@redhat.com>,
- Harpreet Singh Anand <hanand@xilinx.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Heng Qi <hengqi@linux.alibaba.com>,
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686283040; x=1688875040;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QapHwANnaX4l8/XqJb1pzjwveSasVFbl6eTxj13JV50=;
+        b=VbIsovqP++LzQEh860JOe4pK3dFK/J0d8Lz7yoGMzs0JpBwJ/Sj+L2C2INFYEFu/qz
+         vBRIfucffQMNfh3EzxHAq6EN5r0/1pk/lE/uefXvmaOtxgPBDnm8KxZXkYFezXw54rnP
+         1b9EMl4/4V89Hpxcb2ZAp8dz0dN2Y0KFVjo4OhVC6sIdYmtAhZKRDoCtuwPb686q7330
+         aRLt3iQjyJyOhgneolLZ+YpGGThje+/Ld4OdzICIlk3olhaaj/rYq6BU14NiDUlyVdsx
+         iP8nRupbiQZ7vQDlSRYSWdfx25+DyVXWKCAaMsQOz+4GkSfAWMOUJJloW2dDq2nKW3Sq
+         kneA==
+X-Gm-Message-State: AC+VfDwqIQLkmYJcKVZC55NRiD49gr1Uv6n6p4Vu4uaJiCUr858gx+al
+	oGZYLsIaiY2zjcob7FBB2bVqEA==
+X-Google-Smtp-Source: ACHHUZ7jq4LFuJ5wqN0cZkj5LGLq/NeDsrMuPxcJ1phA2L+dMjplBsATQSfDyQGY0JGHwTGAQXMzdA==
+X-Received: by 2002:a05:6a20:748c:b0:110:b7fb:2c92 with SMTP id p12-20020a056a20748c00b00110b7fb2c92mr729837pzd.11.1686283039974;
+        Thu, 08 Jun 2023 20:57:19 -0700 (PDT)
+Message-ID: <36cf507b-2dd8-2d77-c6a9-b561e5ba491e@bytedance.com>
+Date: Fri, 9 Jun 2023 11:55:06 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>, Stefan Hajnoczi <stefanha@redhat.com>
+Cc: "mst@redhat.com" <mst@redhat.com>,
  "jasowang@redhat.com" <jasowang@redhat.com>,
- Zhu Lingshan <lingshan.zhu@intel.com>,
- Shannon Nelson <snelson@pensando.io>,
- Max Gurtovoy <mgurtovoy@nvidia.com>,
- "si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
- Parav Pandit <parav@nvidia.com>
-References: <20230606175511.2337208-1-eperezma@redhat.com>
- <20230606175511.2337208-2-eperezma@redhat.com>
- <PH0PR12MB5481D1ACC60311CE48D622CFDC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230606151520-mutt-send-email-mst@kernel.org>
- <1686226293.022929-1-xuanzhuo@linux.alibaba.com>
- <CAJaqyWdusP1DXGV4==ddVRjh9FaTcu2u-4d03_4kOaf2Zom+GQ@mail.gmail.com>
-In-Reply-To: <CAJaqyWdusP1DXGV4==ddVRjh9FaTcu2u-4d03_4kOaf2Zom+GQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [PATCH 1/2] virtio: introduce selective queue enabling
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "houp@yusur.tech" <houp@yusur.tech>,
+ "helei.sig11@bytedance.com" <helei.sig11@bytedance.com>,
+ "xinhao.kong@duke.edu" <xinhao.kong@duke.edu>
+References: <20230504081910.238585-1-pizhenwei@bytedance.com>
+ <20230504081910.238585-7-pizhenwei@bytedance.com>
+ <20230531171036.GH1248296@fedora>
+ <8cfdc9bf-03c9-92fc-f2e0-d59b180b0d82@bytedance.com>
+ <20230605163046.GB1624556@fedora>
+ <54bb85af-7979-8226-cfef-d72c1cf2332f@bytedance.com>
+ <20230606133444.GC1958291@fedora>
+ <86978fc3-c065-5a64-2996-28b4eb2b40bd@bytedance.com>
+ <20230608164123.GB2240319@fedora>
+ <PH0PR12MB5481C447A5FCA25A6D5B28E0DC50A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <d3455f74-c0a8-5285-0b07-caa99e17ce44@bytedance.com>
+ <PH0PR12MB548134F882F3B725749BED05DC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <PH0PR12MB548134F882F3B725749BED05DC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] RE: RE: Re: Re: Re: [PATCH v2 06/11]
+ transport-fabrics: introduce command set
 
-On Thu, 8 Jun 2023 16:18:23 +0200, Eugenio Perez Martin <eperezma@redhat.co=
-m> wrote:
-> On Thu, Jun 8, 2023 at 2:24=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.alibaba.=
-com> wrote:
-> >
-> > On Tue, 6 Jun 2023 15:19:53 -0400, "Michael S. Tsirkin" <mst@redhat.com=
-> wrote:
-> > > On Tue, Jun 06, 2023 at 06:04:32PM +0000, Parav Pandit wrote:
-> > > > Hi Eugenio,
-> > > >
-> > > > > From: Eugenio P=E9=96=9Eez <eperezma@redhat.com>
-> > > > > Sent: Tuesday, June 6, 2023 1:55 PM
-> > > > >
-> > > > > This patch allows the driver to start the device (as set DRIVER_O=
-K) with only
-> > > > > some queues enabled, and then enable another queues later.
-> > > > >
-> > > > > This is the current way to migrate net device state through contr=
-ol virtqueue, in
-> > > > > a software assisted framework with vDPA:
-> > > > > * First, only net CVQ is enabled at DRIVER_OK
-> > > > > * All the control commands (mac address, mq, etc) needed for the =
-device to
-> > > > > behave the same as the source of migration are sent
-> > > > > * Finally all the dataplane queues are enabled.
-> > > > >
-> > > > > Signed-off-by: Eugenio P=E9=96=9Eez <eperezma@redhat.com>
-> > > > > ---
-> > > > >  content.tex | 15 +++++++++++++--
-> > > > >  1 file changed, 13 insertions(+), 2 deletions(-)
-> > > > >
-> > > > > diff --git a/content.tex b/content.tex
-> > > > > index d2ab9eb..ea4a6d8 100644
-> > > > > --- a/content.tex
-> > > > > +++ b/content.tex
-> > > > > @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facili=
-ties of a
-> > > > > Virtio Device / Feature B  \begin{description}
-> > > > >  \item[0 to 23, and 50 to 127] Feature bits for the specific devi=
-ce type
-> > > > >
-> > > > > -\item[24 to 41] Feature bits reserved for extensions to the queu=
-e and
-> > > > > +\item[24 to 42] Feature bits reserved for extensions to the queu=
-e and
-> > > > >    feature negotiation mechanisms
-> > > > >
-> > > > > -\item[42 to 49, and 128 and above] Feature bits reserved for fut=
-ure extensions.
-> > > > > +\item[43 to 49, and 128 and above] Feature bits reserved for fut=
-ure
-> > > > > extensions.
-> > > > >  \end{description}
-> > > > >
-> > > > >  \begin{note}
-> > > > > @@ -398,6 +398,13 @@ \section{Virtqueues}\label{sec:Basic Facilit=
-ies of a
-> > > > > Virtio Device / Virtqueues}  Every driver and device supports eit=
-her the Packed
-> > > > > or the Split  Virtqueue format, or both.
-> > > > >
-> > > > > +\subsection{Virtqueue selective enabling}\label{sec:Basic Facili=
-ties of
-> > > > > +a Virtio Device / Virtqueues / Selective Virtqueue Enable}
-> > > > > +
-> > > > > +If the driver negotiates VIRTIO\_F\_RING\_ENABLE\_ANYTIME, it can
-> > > > > +enable individual virtqueues both before and after the DRIVER\_O=
-K. The
-> > > > > +way to enable a virtqueue is transport specific, but it mimics t=
-he
-> > > > > +re-enabling after an hypothetical reset.
-> > > > > +
-> > > > >  \subsection{Virtqueue Reset}\label{sec:Basic Facilities of a Vir=
-tio Device /
-> > > > > Virtqueues / Virtqueue Reset}
-> > > > >
-> > > > >  When VIRTIO_F_RING_RESET is negotiated, the driver can reset a v=
-irtqueue
-> > > > > @@ -870,6 +877,10 @@ \chapter{Reserved Feature Bits}\label{sec:Re=
-served
-> > > > > Feature Bits}
-> > > > >   \ref{devicenormative:Basic Facilities of a Virtio Device / Feat=
-ure Bits} for
-> > > > >   handling features reserved for future use.
-> > > > >
-> > > > > +  \item[VIRTIO_F_RING_ENABLE_ANYTIME(42)] This feature indicates=
-  that
-> > > > > + the driver can enable a queue both before and after DRIVER\_OK.
-> > > > > +  See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues =
-/ Selective
-> > > > > Virtqueue Enable}.
-> > > > > +
-> > > >
-> > > > Can you please highlight, current spec normative which indicates th=
-at
-> > > > all queues must be enabled before DRIVER_OK and more queues cannot =
-be
-> > > > enabled after DRIVER_OK?
-> > >
-> > >
-> > > This one:
-> > > \drivernormative{\subsection}{Device Initialization}{General Initiali=
-zation And Device Operation / Device Initialization}
-> > >
-> > > it does not say "all queues" if you want to split hairs but I think
-> > > assuming it's safe to enable queues later is dangerous.
-> >
-> > Although there is no "all queues" here, if the queue is not ready, the =
-device
-> > may use all the queues after "Device OK". So I also think it might be d=
-angerous.
-> >
-> > But I also ran into this problem. We want the device to support 100 que=
-ues, but
-> > we also want to use only 16 queues by default. The user can then manual=
-ly scale
-> > up to 100, if the user has a large memory.
-> >
-> > So I think, the point is that "num_queues" is the max and default value=
-. Can we
-> > change "num_queues" to default, then we introduced a new value as max.
-> >
-> > Does this way solve your problem? @Eugenio
-> >
->
-> It would need a tweak, but it gives me an idea.
->
-> I think you're talking about what the device offers, isn't it?
+On 6/9/23 10:06, Parav Pandit wrote:
+> 
+>> From: zhenwei pi <pizhenwei@bytedance.com>
+>> Sent: Thursday, June 8, 2023 9:39 PM
+> 
+> 
+>>> We should start with first establishing the data transfer model covering 512B
+>> to 1M context and take up the optimizations as extensions.
+>>>
+>>>
+>>
+>> Hi, Parav
+>>
+>> What do you think about another RDMA inline proposal in '[PATCH v2 11/11]
+>> transport-fabrics: support inline data for keyed transmission'?
+>>
+>> 1, use feature command to get the target max recv buffer size, for example 16k
+>> 2, use feature command to set the initiator max recv buffer size, for example
+>> 16k If the size of payload is less than max recv buffer size, using a single RDMA
+>> SEND is enough. for example, virtio-blk writes 8k: 16 + 8192 < 16384, this
+>> means a single RDMA SEND is fine.
+> 
+> Let me read it.
+>  From above short description, it appears that every receive buffer posted must be of size 16K.
+> And if sender choose not to do inline, there is super buffer wasted.
+> 
+> If it is read only or read workload, target majority buffer wastage is close to 98% or so assuming 64B command size.
+> 
+> And when buffer is full, the sender is stalled for the full round trip to enqueue the command.
+
+Yes, this waste memory, it's not good enough.
+
+I tried to understand your proposal, please correct me if I misunderstand...
+
+Define data structure like:
+
+struct virtio_of_keyed_desc {
+         le64 addr;
+         le32 length;
+         le32 key;
+};
+
+struct virtio_of_command_vq {
+         le16 opcode;
+         le16 command_id;
+         le32 out_length;
+         le32 in_length;
+         union {
+                 struct virtio_of_keyed {
+                         le32 out_offset;
+                 };
+
+                 struct virtio_of_stream {
+                         u8 rsvd[4];
+                 };
+         };
+};
+
+struct virtio_of_completion {
+         le16 status;
+         le16 command_id;
+         u8 rsvd[4];
+         union {
+                 le64 value;
+                 struct virtio_of_vq_completion {
+                         le32 in_length;
+                         le32 len;
+                 };
+         }
+};
 
 
-Yes, I want the driver offers a default-num-queues and a max-num-queues.
+For stream(Ex TCP/IP), the request PDU includes [struct 
+virtio_of_command_vq + data], the response PDU includes [struct 
+virtio_of_completion + data].
 
-Thanks
+For keyed(Ex RDMA), the request PDU includes [struct 
+virtio_of_command_vq + struct virtio_of_keyed_desc], there are 2 opcodes 
+for keyed transmission:
+1, opcode virtio_of_op_vq: (basic and required command)
+the initiator prepares a buffer of [out_length + in_length], the target 
+recv a 32B command, and reads the remote memory [addr, addr+out_length) 
+by RDMA READ, then writes the remote memory [addr+out_length, 
+addr+out_length+in_length) by RDMA WRITE, finally sends completion by 
+RDMA SEND.
 
+2, opcode virtio_of_op_vq_write_inline: (optional command)
+the initiator gets a remote buffer of target(Ex, 128K) after feature 
+negotiation.
 
-> I would
-> need to modify it from the driver.
->
-> But it has an interesting question, how to allocate "less vrings" than
-> virtio_pci_common_cfg.num_queues? I guess it is ok to set all vq
-> addresses to a vring that never increments avail_idx? The driver still
-> needs to allocate memory for that one and lose start time configuring
-> them.
->
-> Maybe for net is valid to leave them unconfigured? it should only use
-> one vq pair and CVQ by default.
->
-> My proposal could be done at the virtio-net level, allowing
-> max_virtqueue_pairs to be 0 from the beginning. For example, allowing
-> the driver to write it before DRIVER_OK. In that case, no data vq is
-> enabled and only CVQ process requests after DRIVER_OK. After all the
-> config is written, the driver changes the number of active queues with
-> VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET.
->
-> I think it is better solved in a generic way, but I'm ok with this
-> -net specific too.
->
-> Thanks!
->
-> > Thanks.
-> >
-> >
-> >
-> > >
-> > > E.g. vhost user backends tend to assume no new queues appear
-> > > after DRIVER_OK.
-> > >
-> > > --
-> > > MST
-> > >
-> >
-> > This publicly archived list offers a means to provide input to the
-> > OASIS Virtual I/O Device (VIRTIO) TC.
-> >
-> > In order to verify user consent to the Feedback License terms and
-> > to minimize spam in the list archive, subscription is required
-> > before posting.
-> >
-> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > List help: virtio-comment-help@lists.oasis-open.org
-> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.p=
-df
-> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing=
--lists
-> > Committee: https://www.oasis-open.org/committees/virtio/
-> > Join OASIS: https://www.oasis-open.org/join/
-> >
->
+The initiator selects a region of target remote memory(Ex, 4k - 12k), 
+and writes payload by RDMA WRITE, then sends a 32B command by RDMA 
+SEND(out_offset is 4K, ).
+The target handles command, writes the remote memory [addr, 
+addr+in_length), finally sends completion by RDMA SEND.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+-- 
+zhenwei pi
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
