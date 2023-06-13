@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6313-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6314-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7556CC7EE2E
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 02:28:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F435C7EE2F
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 02:57:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A505A2AC54
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 02:28:12 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C30352CAD4
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 02:57:16 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8D84098653E
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 02:28:12 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id AFE6E986575
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 02:57:16 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7B380986422; Tue, 13 Jun 2023 02:28:12 +0000 (UTC)
+	id A02E498653D; Tue, 13 Jun 2023 02:57:16 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,84 +24,114 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6909598653D;
-	Tue, 13 Jun 2023 02:28:12 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8C80398653E;
+	Tue, 13 Jun 2023 02:57:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046049;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0Vl01pA1_1686623286;
-Message-ID: <0f2ad536-a7e7-04f7-31f8-81c1c2bfaa16@linux.alibaba.com>
-Date: Tue, 13 Jun 2023 10:28:03 +0800
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045192;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0Vl0G32B_1686625030;
+Message-ID: <ae7b4a7f-dc9b-3466-1a46-8535f288856a@linux.alibaba.com>
+Date: Tue, 13 Jun 2023 10:57:06 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: Parav Pandit <parav@nvidia.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Cc: Shahaf Shuler <shahafs@nvidia.com>,
- "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "Michael S . Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowang@redhat.com>
+To: Parav Pandit <parav@nvidia.com>, virtio-comment@lists.oasis-open.org
+Cc: shahafs@nvidia.com, virtio@lists.oasis-open.org,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 References: <20230601220305.587034-1-parav@nvidia.com>
  <20230601220305.587034-6-parav@nvidia.com>
- <a471e048-b492-eb04-608d-4312da4d0b09@linux.alibaba.com>
- <PH0PR12MB5481647B8D459F5594756C93DC4EA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <9afe0f6a-1a15-a200-b96d-385d3f69a375@linux.alibaba.com>
- <20230606120830.GA28580@h68b04307.sqa.eu95>
- <PH0PR12MB5481FEE6DF87BCF2D44BF311DC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <c6609edb-5493-7470-4d56-df92c7a1715c@linux.alibaba.com>
- <PH0PR12MB548129A5BC4DDF5A9B986E8CDC54A@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <PH0PR12MB548129A5BC4DDF5A9B986E8CDC54A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <20230601220305.587034-6-parav@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] RE: [virtio] RE: [virtio-comment] [PATCH
- requirements 5/7] net-features: Add n-tuple receive flow steering
- requirements
+Subject: [virtio-comment] Re: [virtio] [PATCH requirements 5/7] net-features: Add n-tuple
+ receive flow steering requirements
 
 
 
-在 2023/6/13 上午1:26, Parav Pandit 写道:
->> From: Heng Qi <hengqi@linux.alibaba.com>
->> Sent: Monday, June 12, 2023 10:35 AM
->>> I will update this details in the v1.
->> Hi, Parav.
->>
->> Do we have a work schedule for the 1.4 features?
-> Since n-tuple requirements are straightforward, below is timeline in mind,
-> 1. Requirements agree and drafted by June-30
-> 2. Design and its review to finish by July-30
-> 3. Spec to review by Aug-30
-
-OK, is this timeline for all 1.4 features or individual high priority 
-1.4 features?
-Do we have a prioritization of 1.4 features? This also facilitates time 
-investment for community maintainers.
-
->> For example, the flow director we are very concerned about recently, because
->> different scenarios have requirements for it.
->>
->> We'd like to work out with you a rough timeline so we can discuss and
->> collaborate better!
->>
-> Will above timeline workable for you to work together on it?
-
-This timeline is ok for us. In addition, if it is difficult for the 
-community to carry the VF id or there is an unclear
-demarcation problem with the design of  the group owner management, 
-maybe we can skip this first (In any
-case, it depends on the opinion of the virtio community).
-
-> We should work on finite requirements that we can converge and deliver.
-
-Yes. Agree.
-
-> First draft was this v0 one.
+在 2023/6/2 上午6:03, Parav Pandit 写道:
+> Add virtio net device requirements for receive flow steering.
 >
-> Otherwise, it can be never ending list that doesn't reach anywhere as steering technology keeps improving.
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
+> ---
+>   net-workstream/features-1.4.md | 33 +++++++++++++++++++++++++++++++++
+>   1 file changed, 33 insertions(+)
 >
-> Slightly unrelated to question, let's call this feature as: "receive flow filters", instead of "flow director".
+> diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
+> index fc36f31..41242b4 100644
+> --- a/net-workstream/features-1.4.md
+> +++ b/net-workstream/features-1.4.md
+> @@ -9,6 +9,7 @@ together is desired while updating the virtio net interface.
+>   1. Device counters visible to the driver
+>   2. Low latency tx and rx virtqueues for PCI transport
+>   3. Virtqueue notification coalescing re-arming support
+> +4. Receive virtqueue n-tuple steering
+>   
+>   # 3. Requirements
+>   ## 3.1 Device counters
+> @@ -151,3 +152,35 @@ struct vnet_rx_completion {
+>      coalescing after processing the packets per VQ. This ensures that when
+>      networking stack decides to poll, no new notifications are generated when
+>      per VQ notification coalescing is used.
+> +
+> +## 3.4 Receive virtqueue n-tuple flow steering (RFS)
+> +1. The driver should be able to define a receive packet match criteria, an
+> +   action and a destination for a packet. For example, an ipv4 packet with a
+> +   multicast address to be steered to the receive vq 0. The second example is
+> +   ipv4, tcp packet matching a specified IP address and tcp port tuple to
+> +   steered to receive vq 10.
+> +2. The match criteria should include exact tuple fields well-defined such as mac
+> +   address, IP addresses, tcp/udp ports, etc.
+> +3. The match criteria should also include the field mask.
+> +4. The match criteria may optionally also include specific packet data offset,
 
-OK, here's our previous agreement.
+Is this the offset of the packet payload (not including the packet 
+header)? If yes, what might be the usage scenarios?
+
+> +   length, and matching pattern, which may not be defined in the standard RFC.
+> +5. Action includes (a) dropping or (b) forwarding the packet.
+> +6. Destination location is a receive virtqueue index or rss context.
+> +7. The device should process RFS rules before RSS rules, i.e., when there is a
+> +   miss on the RFS rule RSS rule applies.
+> +8. The device should be able to add/remove these rules at a rate of 100K
+> +   rules/sec.
+
+Why do we need to add this limit for the device please? I think that 
+different devices may handle ctrq at different speeds.
+
+> +9. If multiple rules are programmed which has overlapping attributes for a
+> +   received packet, the driver to define the location/priority of the rule.
+> +10. The driver should be able to query flow steering table entries programmed in
+> +    the device by the flow id.
+
+Combining points 9 and 10, can I deduce that the attributes of a flow 
+rule include identifier (id), position (index of the rule entry) and 
+priority?
+According to point 11, the driver needs to provide a unique id, if the 
+location and priority are not provided, they should have predefined 
+default values.
+
+> +11. The driver should be able to add the entry for attributes (a) match
+> +    criteria, (b) action, (c) destination and (d) assign a unique id of 32 bits.
+> +12. The driver should be able to delete the steering rule entry via a unique id.
+> +13. The driver should be able to add and delete the steering rules in out of
+> +    order manner without depending on previous commands.
+> +14. A group member device should be able to query the attributes of the flow
+> +    steering that device supports.
+
+Does a group member driver support insertion rules?  The group owner 
+driver and a group member driver should have the ability to add/remove 
+rules for themselves.
+
+> +15. The driver and group owner driver should be able to query supported device
+> +    limits for the steering entries.
+> +
+
+Does this include the number of rules supported by the device? Are there 
+other limits?
 
 Thanks!
+
+
 
 
 
