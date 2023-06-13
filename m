@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6320-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6321-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E2ACC7EE2E
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 08:28:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A039CC7EE29
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 08:57:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C8BC97C6A6
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 08:28:56 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C3A29C6225
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 08:57:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A88AF98657D
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 08:28:56 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B855998657E
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Jun 2023 08:57:48 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 960CA9842EA; Tue, 13 Jun 2023 08:28:56 +0000 (UTC)
+	id A21D198653E; Tue, 13 Jun 2023 08:57:48 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,100 +24,111 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 824D898653E
-	for <virtio-comment@lists.oasis-open.org>; Tue, 13 Jun 2023 08:28:56 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8E59E986542
+	for <virtio-comment@lists.oasis-open.org>; Tue, 13 Jun 2023 08:57:48 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: G9WqyNDDPbCkUBpraVBpmA-1
+X-MC-Unique: -Qx8VzqEMy2jc4O3ydGnog-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686644932; x=1689236932;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VTl8yAx8ONPCT4bqmQ5OZG2FcrTKUxWD2m364mEbP7M=;
-        b=hZFwtFljBTieViPon0fw2lO2pYf4RrXfF9o0LDTQGTaHHuP1EwSqnhWVA/x6AUvJS6
-         peCO0ow60/BJs3R58mg1leD7GGe3iMPMY+5Z9v4lSOCYzySczh6eEVc5hmGi5kCxIMUd
-         IuvZOM+EUZSMy3Iw0ZFBBqcuH3Lt+RWk5wAeRT7APsticwlGCECXrw6h7QLQESelcAZD
-         5sFWnKbnNpOQBJ2rAFvxwFN5ZT2MWAJeNgHqwe/Krw8V2ANN1WJ30o7LLbTeEZghfcYD
-         sxthXRj6puhShvIfRsb9rStMah8xEsxRZsWhJWnxku4lDvDxgVwP2YmUV68ChYs+09uQ
-         uiJw==
-X-Gm-Message-State: AC+VfDzdV/jkVpJ1iaI6Y5QKB6HEI/76Mr5IHNl8QF1XekySDG9/3s0x
-	mAWL9vYM1zmJoAZFAOc99EX28r0j9OLYF6hZSe41PCUxrabNBTYKA1R0/Q/AV6x+ylidG0BfMoZ
-	6K9NZAWpdls7Z0RHUoFc8/NsjaXVmrz+TOq2Qde2pHG5nJIF2lw==
-X-Received: by 2002:a81:7384:0:b0:559:deed:f363 with SMTP id o126-20020a817384000000b00559deedf363mr1131520ywc.2.1686644932274;
-        Tue, 13 Jun 2023 01:28:52 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4tPFAAv8ie2THRssGStKnL4uaIV5oGU/sOl/n+Gdj6b2dv8cTTGH+QiQHsWPKhcfKiy/yQlNDP4HdXR/yj+Js=
-X-Received: by 2002:a81:7384:0:b0:559:deed:f363 with SMTP id
- o126-20020a817384000000b00559deedf363mr1131510ywc.2.1686644932091; Tue, 13
- Jun 2023 01:28:52 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1686646665; x=1689238665;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dGi8T9jJddSh/uXoKavZy/ZVX8Czbmn/Jk4nVSbGZtA=;
+        b=AOM7GxeBqnDRnX3Hm0chQIzNXrrJz1JM7kiZXtXIPZZJIQXg+xrJGRjI59vRP4Y042
+         nfLyy7iHz9ZV9kS3yVpke0+RAR+WftJog9M9XB/6HNca+svGN0RHLfvBlmMWbHnRUc5k
+         aXRWyfdTNYyAgTdtQJj8DAuBoT9brVWjZQ5hkigZHbocmKLVEzRtlZtxBW98MRsrMXwe
+         Lf+T9bJD0ow96tDDNYQYJ/6yVa3dHImrsLlfN96jDWqlOYcZboXTQW7wSgmIDiDwsuOn
+         5xY+qzZeGUZ4k2ET120Ra0W0SDOsQjYJWIr/DJmV/MK00XBJTYMlNHpYHy+h+B5uJyh2
+         XKrA==
+X-Gm-Message-State: AC+VfDz33RvEp8iwvqvR2F0qA7xftPsdhAajvRmQvbHvbXFEDpMKbBhb
+	/+Z46GrKz2gtO3SbrdEVFsVxLiyGY2OMVKFtDuI2KURyyGY+Q0OqbtqxlzIDFu5WiRgOVNQsCS3
+	QS+ENNEo0nXwNlJ9QRngD2Ef6GaQKmiBUfA==
+X-Received: by 2002:a17:907:608a:b0:968:c3b5:8b92 with SMTP id ht10-20020a170907608a00b00968c3b58b92mr12213565ejc.57.1686646665187;
+        Tue, 13 Jun 2023 01:57:45 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5hXCpwXi966lLvFCMN0ygV38SCZ2cNikrrC8v39w61ORiD+iTd3+sYgBDAML7B3YazdiZqhA==
+X-Received: by 2002:a17:907:608a:b0:968:c3b5:8b92 with SMTP id ht10-20020a170907608a00b00968c3b58b92mr12213558ejc.57.1686646664919;
+        Tue, 13 Jun 2023 01:57:44 -0700 (PDT)
+Date: Tue, 13 Jun 2023 04:57:42 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Heng Qi <hengqi@linux.alibaba.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Jason Wang <jasowang@redhat.com>
+Message-ID: <20230613045211-mutt-send-email-mst@kernel.org>
+References: <20230601220305.587034-1-parav@nvidia.com>
+ <20230601220305.587034-6-parav@nvidia.com>
+ <a471e048-b492-eb04-608d-4312da4d0b09@linux.alibaba.com>
+ <PH0PR12MB5481647B8D459F5594756C93DC4EA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <9afe0f6a-1a15-a200-b96d-385d3f69a375@linux.alibaba.com>
+ <20230606120830.GA28580@h68b04307.sqa.eu95>
+ <PH0PR12MB5481FEE6DF87BCF2D44BF311DC52A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <c6609edb-5493-7470-4d56-df92c7a1715c@linux.alibaba.com>
+ <PH0PR12MB548129A5BC4DDF5A9B986E8CDC54A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-References: <20230606175511.2337208-1-eperezma@redhat.com> <20230606175511.2337208-2-eperezma@redhat.com>
- <20230613034645-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230613034645-mutt-send-email-mst@kernel.org>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Tue, 13 Jun 2023 10:28:16 +0200
-Message-ID: <CAJaqyWeCyC-ZMu-zzO_3XZjXO-+bLEC02Hcfa=MB4V=VOUCFWw@mail.gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Laurent Vivier <lvivier@redhat.com>, 
-	Cindy Lu <lulu@redhat.com>, cohuck@redhat.com, alvaro.karsz@solid-run.com, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Liuxiangdong <liuxiangdong5@huawei.com>, 
-	Gautam Dawar <gdawar@xilinx.com>, longpeng2@huawei.com, 
-	Dragos Tatulea <dtatulea@nvidia.com>, parav@nvidia.com, stefanha@redhat.com, 
-	Harpreet Singh Anand <hanand@xilinx.com>, Stefano Garzarella <sgarzare@redhat.com>, 
-	Heng Qi <hengqi@linux.alibaba.com>, jasowang@redhat.com, 
-	Zhu Lingshan <lingshan.zhu@intel.com>, Shannon Nelson <snelson@pensando.io>, mgurtovoy@nvidia.com, 
-	si-wei.liu@oracle.com
+In-Reply-To: <PH0PR12MB548129A5BC4DDF5A9B986E8CDC54A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [PATCH 1/2] virtio: introduce selective queue enabling
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [virtio] RE: [virtio-comment] [PATCH requirements 5/7]
+ net-features: Add n-tuple receive flow steering requirements
 
-On Tue, Jun 13, 2023 at 9:50=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
->
-> On Tue, Jun 06, 2023 at 07:55:10PM +0200, Eugenio P=C3=A9rez wrote:
-> > This patch allows the driver to start the device (as set DRIVER_OK) wit=
-h only
-> > some queues enabled, and then enable another queues later.
-> >
-> > This is the current way to migrate net device state through control
-> > virtqueue, in a software assisted framework with vDPA:
-> > * First, only net CVQ is enabled at DRIVER_OK
-> > * All the control commands (mac address, mq, etc) needed for the device
-> > to behave the same as the source of migration are sent
-> > * Finally all the dataplane queues are enabled.
-> >
-> > Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
->
->
-> I realized I never asked. *Why* enable CVQ so early?
-> I think it's so that commands take effect before any
-> buffers are processed? So maybe it's a net specific
-> issue?
->
+On Mon, Jun 12, 2023 at 05:26:04PM +0000, Parav Pandit wrote:
+> 
+> > From: Heng Qi <hengqi@linux.alibaba.com>
+> > Sent: Monday, June 12, 2023 10:35 AM
+> 
+> > > I will update this details in the v1.
+> > 
+> > Hi, Parav.
+> > 
+> > Do we have a work schedule for the 1.4 features?
+> 
+> Since n-tuple requirements are straightforward, below is timeline in mind,
+> 1. Requirements agree and drafted by June-30
 
-Yes, that's the reason. Can I add something to the patch message to
-make it clearer?
+Pls note a bunch of people are traveling to kvm forum,
+I'd add a couple of weeks.
 
-It can be solved using a net specific solution for sure, but I think
-we can make it general if other devices with CVQ have such needs.
+> 2. Design and its review to finish by July-30
+> 3. Spec to review by Aug-30
 
-Thanks.
+Wait a second are we talking about 1.4 or 1.3?  For 1.3 indeed we need
+to wrap development up by end of summer - our charter is to produce
+releases every 12 to 16 months, previous one was July 1st, 2022.
+
+> > For example, the flow director we are very concerned about recently, because
+> > different scenarios have requirements for it.
+> > 
+> > We'd like to work out with you a rough timeline so we can discuss and
+> > collaborate better!
+> > 
+> Will above timeline workable for you to work together on it?
+> We should work on finite requirements that we can converge and deliver.
+> First draft was this v0 one.
+> 
+> Otherwise, it can be never ending list that doesn't reach anywhere as steering technology keeps improving.
+> 
+> Slightly unrelated to question, let's call this feature as: "receive flow filters", instead of "flow director".
+> 
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
