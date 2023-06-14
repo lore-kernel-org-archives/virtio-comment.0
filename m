@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6348-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6349-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74AB4EB64D8
-	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5537EEB64D8
+	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:24:07 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 926B64454E
-	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:23:55 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9E09160344
+	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:24:06 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8C29A9866D5
-	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:23:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 968199866B2
+	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:24:06 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 82F5C9866B3; Wed, 14 Jun 2023 04:23:55 +0000 (UTC)
+	id 8E30998668E; Wed, 14 Jun 2023 04:24:06 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,32 +24,32 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 522E59866AB;
-	Wed, 14 Jun 2023 04:23:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A99AF986843;
+	Wed, 14 Jun 2023 04:23:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oH7NKqn1ZrkRKQK1NwvwLwNjyg6Hw70T/o04Jl+cOHIAf6zKTtOP/m6IwTHrRbzMPmtSFKpTqEgEQdFmhAHfXI6hsFrGs5kXN/PSdT51pWfALizo93AAWSEDXWKD9fQX4pjuhYkcHbDiZOS17j/zr7T0XdHlq4/kFlO52eJfmu3NgrseehzzeDJyeOKCCNWmywYYOVsGwUsg1D6jdB/I780Xa+gsirwunIU+QV6b1CTgrZvvzNhjRufybMsbItOEQuv0RM/aJwIWjIIAfB517wxi5dLP5AcpYdcMuvX3muSJsZKn29CgAQhVBfPf1OZ8xcWUHQPtuqAv8lWZjZ5fCQ==
+ b=J8eE7eR3Oeiw0r1VQ2DDsJkyrIVbPVirY1uoIWBJO6+07zBY51pqbEypttzoYShWcPgD2q5WOxCoxfkd8ZJqw1lqpqliDcsqHR77JH4SzblvI/o3ynsA4lWJTdjMsR3goOZa7jmbR5T5S7wjSvWrlrn9qUXvnbJE5E0oZlNA5xX/nL/+S1i2mOCIJBIzpIRE3qNZhkgLRG3yAebFJo0fyR4he0biz5o68dsfkiBFCBJ7ur+kofIF9uBV2dFP0X6DhLNvUlkWwANRzz/+/OxzA5WsP/iXG8rOBUYG1Vo6xXxMXwWCYW80wcsVhJxDM/Z80V21b01k+vBNItsfC+nSnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t+lW9D1GLGu1FdrKJMDnEw6GKwzoyBtYBiqXIze74J4=;
- b=NvnbGKqjjRX9yxqQP3gpOkxjd+OOJvzXkkxdNsgRqeHKT6MK58aKYL9mjAztyHKoaPlbZBEbaqqIHXnzTmLBG7+n6gkedkpg/rt7D+36WHXjsEelk3X4R2h+mkWp8fuRJVTJAgmOxi+E4M64y+TD+lzdat2Z/XTkH3JqO8mbkEEa0U3yNPnn7uIH4CRUyhkWzz9mIa0r45/BfPEYfuZC0wmg/jNY166YbwC5mUgy1Igg1U1Ctwh+FlZA1Iba8e8m3RFeAYnd/cA1//5VFbwThr4FMigS66TOKrzVj488qOGA5kRrngXJOW9YFBGiEI2KkMla0STZENHNtc6ZeCyYUw==
+ bh=xPRMHrSwgLvtRipqK6dYDj16mMQJ7XTfVq7MA2zaJNE=;
+ b=S8YOPYSRtPuKMeb2Xl0aQDXRCUDJkjRY0jrM2mwpPzI4thciwZu8gj8FtlWUpJuA2ebg/qbcj8D9+KCJmY+Mz1t3Ip4u0lLRUoCC0FFSjK883oPppIkGsB5k3m5TS34j/JEE7pPuedd+/EAMNLAmsKU/XaYBFS60F4mepFGInP68bYnHcFxm9RuCLk9ZK2PCLhP6S7snGpR0Sdk22XBQYzp1mU5PaMctenD9DSyA/XLBXdsyqk3MRAZ0DSi41Gvq/9hsmE4C6vmswelnyzVvHN/F3ohIr/DuWOFLW/Gll6tSiruXnJ+lCRmlpP1mxTF+tJquKBCGOFcr/nSf9LlDwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
+ 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
  header.from=nvidia.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.oasis-open.org>
 CC: <shahafs@nvidia.com>, <hengqi@linux.alibaba.com>,
 	<virtio@lists.oasis-open.org>, Parav Pandit <parav@nvidia.com>
-Date: Wed, 14 Jun 2023 07:22:55 +0300
-Message-ID: <20230614042257.1252775-6-parav@nvidia.com>
+Date: Wed, 14 Jun 2023 07:22:57 +0300
+Message-ID: <20230614042257.1252775-8-parav@nvidia.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20230614042257.1252775-1-parav@nvidia.com>
 References: <20230614042257.1252775-1-parav@nvidia.com>
@@ -61,89 +61,63 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT096:EE_|DS7PR12MB9042:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11182dee-394c-4af2-d102-08db6c8f1a47
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT038:EE_|SA1PR12MB7272:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b157730-3c23-4602-209d-08db6c8f1c03
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	C+olEQmYsKAz8Tm+wy3Ps9jKl4ENvNC40WhbSCOFHKykjoueNV2AlZh6dr3QiEur3ku7cjWEORsKe16yHld+KM/20d05rXsgJqOWD+vRQkygSsfeggt2uHs5r4AdmfWIh5kpLTWriqDWuR3eGZS5tUQffniRMcYoQkz991srPRNtgtpIV/b3CsEYGLKyxuKh1VniDZur8/ok3o5+MN9hHlTfb/nEEszgs84fc+7jqcVxSqJyfcj8X7WWlNxpG6rrSsxY4fSF2zZrgNkS19BElwjjuIxc340y23NylFgyvCqq3+0sUOcAX1vZWnVTzcM8UJiIil+FzKZHpdpH1GnJuaahTHXnf4bnVgOPZMJGJjRwI/Vl5oTZ/Q0oHLg+UdlrQfPcn1UF+ivxEz29rDrZJlVrB2X3V0w1rfxzrtTYPtJMJAwGtaMJ9jaQoQQvcEOJv6wMKUcrrtgZSb5yJKMMsw/s8VY4eSsP0C60bBbZsSHxWdbaQ0HLoomf1W2Fu+YbF38BiVLAOK4tCAyQDi8LYhUTCajcRra/24V/ekbOYNAltL6LJYKASdPaAdF/6EgmSYMnIXKAEfzCWUUhm3mXKxB3boA9WOvd7OLYv1qN4gF611+nJWhMOFIbR/q0GFR8Slk25Bmmi1ofWWClCLhR+AdmoGTvpz4CUae81q3M5gNI1BuaoE0t8ZvoVsho3aoxh3XKlUQc3k1aF5omhgdOCxeuHoNTbU31f7SVbCve3iQtKou+MOOEgBO1Mu3dTLchXIt2QrI6kRfBQpqWZ4YBDg==
+	bceuKMOzKjvbNfStMi4N8Z1ltZrU7Xm/5ZJmthuvd6zW0MaOaXN/296lSmF0ijgu6Xk19DKFpend76A91NZORQpdYY3pmMPyPUZJVbMC7eXbIDlisYDUwPwgw6DJw784WvAuRsPUaVc0g2X/rtRUNbUUSMJ1RP8s0PW10Vl1n7D2FFbdsZGYo7JORJPlrDp2gBEpU6pWiUKG6PMbsbAiwBIp/SrKc2MqGYWnzN0YIWGsMztlKOO/jhwmxCE1jQHaBbwv8/wHLpj/icf6varB9J0s3mNBJNDQwKSEsaXb4Q4y3EkZUy6fAFFhF5uHgYqhrlDG6jMf3J+4lJP9zBGKvganNmo3jPFuoo0NC7i1qm981Z4B356klSAgz8njPpW74KBJeaMQ4/MrLnevgiaNTYtmV+fR4PnM/c765thFmEECtjBmZ2Xs54reBulbI+jouXIIkXQsMukM4IPQJoRpqJ2UVd4DfzVmRDBSlK0DGjQWMrN2w/0gScQJDH5XhKShKL+TNFJIDsNpWeC3pmyScpa/9OObqlCXvYNchzZQ+oJSplyW4hE/sn8I61lm9SZw4BsPXxjlFdXbuwuf22W07+5Qw+8b4ljh1I7yTea6mGLiK8NQ1rt5l9J5yTVDLpOON+s67qJX3HjV6gp/e17p91EjwubrQPb8FpzTMl1/hIHzXeWCVl+2TIwayyKosQHQ7R5f06p0puMk91TZAlCXV3BJxsz6U+WxvlB/DElwsgA5GGyHsopzHKh3GsQFcWVq
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(346002)(396003)(376002)(451199021)(36840700001)(40470700004)(46966006)(426003)(47076005)(2616005)(83380400001)(36860700001)(336012)(356005)(82740400003)(7636003)(40480700001)(86362001)(82310400005)(36756003)(40460700003)(478600001)(54906003)(4326008)(6666004)(8936002)(2906002)(8676002)(5660300002)(70206006)(70586007)(41300700001)(6916009)(316002)(186003)(16526019)(107886003)(26005)(1076003)(473944003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(107886003)(1076003)(26005)(6666004)(40480700001)(186003)(16526019)(478600001)(86362001)(40460700003)(7636003)(4326008)(6916009)(70206006)(70586007)(356005)(316002)(82310400005)(2906002)(8676002)(8936002)(5660300002)(41300700001)(82740400003)(2616005)(54906003)(426003)(336012)(36756003)(36860700001)(83380400001)(47076005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 04:23:27.7907
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 04:23:30.7584
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11182dee-394c-4af2-d102-08db6c8f1a47
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b157730-3c23-4602-209d-08db6c8f1c03
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT096.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9042
-Subject: [virtio-comment] [PATCH REQUIREMENTS v1 5/7] net-features: Add n-tuple receive flow filters requirements
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7272
+Subject: [virtio-comment] [PATCH REQUIREMENTS v1 7/7] net-features: Add header data split requirements
 
-Add virtio net device requirements for receive flow filters.
+Add header data split requirements for the receive packets.
 
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
-changelog:
-v0->v1:
-- fixed comments from Heng Li
-- renamed receive flow steering to receive flow filters
-- clarified byte offset in match criteria
----
- net-workstream/features-1.4.md | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ net-workstream/features-1.4.md | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
-index a34556c..fbeb1dd 100644
+index 2b51759..f26b61c 100644
 --- a/net-workstream/features-1.4.md
 +++ b/net-workstream/features-1.4.md
-@@ -9,6 +9,7 @@ together is desired while updating the virtio net interface.
- 1. Device counters visible to the driver
- 2. Low latency tx and rx virtqueues for PCI transport
+@@ -11,6 +11,7 @@ together is desired while updating the virtio net interface.
  3. Virtqueue notification coalescing re-arming support
-+4  Virtqueue receive flow filters (RFF)
+ 4  Virtqueue receive flow filters (RFF)
+ 5. Device timestamp for tx and rx packets
++6. Header data split for the receive virtqueue
  
  # 3. Requirements
  ## 3.1 Device counters
-@@ -169,3 +170,35 @@ struct vnet_rx_completion {
-    generated notification. 
- 2. When the driver enables the notification coalescing reporting, the device
-    to notify again if notification coalescing conditions are met.
+@@ -228,3 +229,15 @@ struct vnet_rx_completion {
+    point of reception from the network.
+ 3. The device should provide a receive packet timestamp in a single DMA
+    transaction along with the rest of the receive completion fields.
 +
-+## 3.4 Virtqueue receive flow filters (RFF)
-+1. The driver should be able to define a receive packet match criteria, an
-+   action and a destination for a packet. For example, an ipv4 packet with a
-+   multicast address to be steered to the receive vq 0. The second example is
-+   ipv4, tcp packet matching a specified IP address and tcp port tuple to
-+   steered to receive vq 10.
-+2. The match criteria should include exact tuple fields well-defined such as mac
-+   address, IP addresses, tcp/udp ports, etc.
-+3. The match criteria should also include the field mask.
-+4. The match criteria may optionally also include specific packet byte offset,
-+   length, and matching pattern, which may not be defined in the standard RFC.
-+5. Action includes (a) dropping or (b) forwarding the packet.
-+6. Destination location is a receive virtqueue index or rss context.
-+7. The device should process RFF rules before RSS rules, i.e., when there is a
-+   miss on the RFF rule, RSS rule applies if RSS configuration exists.
-+8. The device should be able to add/remove these rules at a rate of 100K
-+   rules/sec over a dedicated virtqueue who can complete the flow rule commands
-+   in out of order manner.
-+9. If multiple rules are programmed which has overlapping attributes for a
-+   received packet, the driver to define the location/priority of the rule.
-+10. The driver should be able to query flow filter table entries programmed in
-+    the device by the flow id.
-+11. The driver should be able to add the entry for attributes (a) match
-+    criteria, (b) action, (c) destination and (d) assign a unique id of 32 bits.
-+12. The driver should be able to delete the flow filter rule entry via a unique id.
-+13. The driver should be able to add and delete the flow filter rules in out of
-+    order manner without depending on previous rules.
-+14. A group member device should be able to query the attributes of the flow
-+    filter rules that device supports.
-+15. The driver and group owner driver should be able to query supported device
-+    limits for the flow rule entries.
++## 3.6 Header data split for the receive virtqueue
++1. The device should be able to DMA the packet header and data to two different
++   memory locations, this enables driver and networking stack to perform zero
++   copy to application buffer(s).
++2. The driver should be able to configure maximum header buffer size per
++   virtqueue.
++3. The header buffer to be in a physically contiguous memory per virtqueue
++4. The device should be able to indicate header data split in the receive
++   completion.
++5. The device should be able to zero pad the header buffer when the received
++   header is shorter than cpu cache line size.
 -- 
 2.26.2
 
