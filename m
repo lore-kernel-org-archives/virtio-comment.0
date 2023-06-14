@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6349-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6350-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5537EEB64D8
-	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:24:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40E7BEB64D8
+	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:26:52 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9E09160344
-	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:24:06 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A0C1D71C87
+	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:26:51 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 968199866B2
-	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:24:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8205198668E
+	for <virtio-comment@archiver.kernel.org>; Wed, 14 Jun 2023 04:26:51 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8E30998668E; Wed, 14 Jun 2023 04:24:06 +0000 (UTC)
+	id 6BEEE986656; Wed, 14 Jun 2023 04:26:51 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,102 +24,122 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A99AF986843;
-	Wed, 14 Jun 2023 04:23:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5A45E98665C
+	for <virtio-comment@lists.oasis-open.org>; Wed, 14 Jun 2023 04:26:51 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J8eE7eR3Oeiw0r1VQ2DDsJkyrIVbPVirY1uoIWBJO6+07zBY51pqbEypttzoYShWcPgD2q5WOxCoxfkd8ZJqw1lqpqliDcsqHR77JH4SzblvI/o3ynsA4lWJTdjMsR3goOZa7jmbR5T5S7wjSvWrlrn9qUXvnbJE5E0oZlNA5xX/nL/+S1i2mOCIJBIzpIRE3qNZhkgLRG3yAebFJo0fyR4he0biz5o68dsfkiBFCBJ7ur+kofIF9uBV2dFP0X6DhLNvUlkWwANRzz/+/OxzA5WsP/iXG8rOBUYG1Vo6xXxMXwWCYW80wcsVhJxDM/Z80V21b01k+vBNItsfC+nSnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xPRMHrSwgLvtRipqK6dYDj16mMQJ7XTfVq7MA2zaJNE=;
- b=S8YOPYSRtPuKMeb2Xl0aQDXRCUDJkjRY0jrM2mwpPzI4thciwZu8gj8FtlWUpJuA2ebg/qbcj8D9+KCJmY+Mz1t3Ip4u0lLRUoCC0FFSjK883oPppIkGsB5k3m5TS34j/JEE7pPuedd+/EAMNLAmsKU/XaYBFS60F4mepFGInP68bYnHcFxm9RuCLk9ZK2PCLhP6S7snGpR0Sdk22XBQYzp1mU5PaMctenD9DSyA/XLBXdsyqk3MRAZ0DSi41Gvq/9hsmE4C6vmswelnyzVvHN/F3ohIr/DuWOFLW/Gll6tSiruXnJ+lCRmlpP1mxTF+tJquKBCGOFcr/nSf9LlDwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.oasis-open.org>
-CC: <shahafs@nvidia.com>, <hengqi@linux.alibaba.com>,
-	<virtio@lists.oasis-open.org>, Parav Pandit <parav@nvidia.com>
-Date: Wed, 14 Jun 2023 07:22:57 +0300
-Message-ID: <20230614042257.1252775-8-parav@nvidia.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230614042257.1252775-1-parav@nvidia.com>
-References: <20230614042257.1252775-1-parav@nvidia.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="386920015"
+X-IronPort-AV: E=Sophos;i="6.00,241,1681196400"; 
+   d="scan'208";a="386920015"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="1042037189"
+X-IronPort-AV: E=Sophos;i="6.00,241,1681196400"; 
+   d="scan'208";a="1042037189"
+Message-ID: <c78d5554-ac1b-ed67-01d0-00943e69af44@intel.com>
+Date: Wed, 14 Jun 2023 12:26:42 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.35]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT038:EE_|SA1PR12MB7272:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b157730-3c23-4602-209d-08db6c8f1c03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	bceuKMOzKjvbNfStMi4N8Z1ltZrU7Xm/5ZJmthuvd6zW0MaOaXN/296lSmF0ijgu6Xk19DKFpend76A91NZORQpdYY3pmMPyPUZJVbMC7eXbIDlisYDUwPwgw6DJw784WvAuRsPUaVc0g2X/rtRUNbUUSMJ1RP8s0PW10Vl1n7D2FFbdsZGYo7JORJPlrDp2gBEpU6pWiUKG6PMbsbAiwBIp/SrKc2MqGYWnzN0YIWGsMztlKOO/jhwmxCE1jQHaBbwv8/wHLpj/icf6varB9J0s3mNBJNDQwKSEsaXb4Q4y3EkZUy6fAFFhF5uHgYqhrlDG6jMf3J+4lJP9zBGKvganNmo3jPFuoo0NC7i1qm981Z4B356klSAgz8njPpW74KBJeaMQ4/MrLnevgiaNTYtmV+fR4PnM/c765thFmEECtjBmZ2Xs54reBulbI+jouXIIkXQsMukM4IPQJoRpqJ2UVd4DfzVmRDBSlK0DGjQWMrN2w/0gScQJDH5XhKShKL+TNFJIDsNpWeC3pmyScpa/9OObqlCXvYNchzZQ+oJSplyW4hE/sn8I61lm9SZw4BsPXxjlFdXbuwuf22W07+5Qw+8b4ljh1I7yTea6mGLiK8NQ1rt5l9J5yTVDLpOON+s67qJX3HjV6gp/e17p91EjwubrQPb8FpzTMl1/hIHzXeWCVl+2TIwayyKosQHQ7R5f06p0puMk91TZAlCXV3BJxsz6U+WxvlB/DElwsgA5GGyHsopzHKh3GsQFcWVq
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(107886003)(1076003)(26005)(6666004)(40480700001)(186003)(16526019)(478600001)(86362001)(40460700003)(7636003)(4326008)(6916009)(70206006)(70586007)(356005)(316002)(82310400005)(2906002)(8676002)(8936002)(5660300002)(41300700001)(82740400003)(2616005)(54906003)(426003)(336012)(36756003)(36860700001)(83380400001)(47076005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 04:23:30.7584
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b157730-3c23-4602-209d-08db6c8f1c03
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7272
-Subject: [virtio-comment] [PATCH REQUIREMENTS v1 7/7] net-features: Add header data split requirements
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.12.0
+To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Eugenio Perez Martin <eperezma@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ Laurent Vivier <lvivier@redhat.com>, Cindy Lu <lulu@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "alvaro.karsz@solid-run.com" <alvaro.karsz@solid-run.com>,
+ Liuxiangdong <liuxiangdong5@huawei.com>, Gautam Dawar <gdawar@xilinx.com>,
+ "longpeng2@huawei.com" <longpeng2@huawei.com>,
+ Dragos Tatulea <dtatulea@nvidia.com>,
+ "stefanha@redhat.com" <stefanha@redhat.com>,
+ Harpreet Singh Anand <hanand@xilinx.com>,
+ Stefano Garzarella <sgarzare@redhat.com>, Heng Qi
+ <hengqi@linux.alibaba.com>, Shannon Nelson <snelson@pensando.io>,
+ Max Gurtovoy <mgurtovoy@nvidia.com>,
+ "si-wei.liu@oracle.com" <si-wei.liu@oracle.com>
+References: <20230608180617-mutt-send-email-mst@kernel.org>
+ <CAJaqyWf-=R+KHfBjzrGzkunTdeV8sAgFUv_kYoxNo3uqH2OOSw@mail.gmail.com>
+ <20230609115250-mutt-send-email-mst@kernel.org>
+ <CAJaqyWfOONuDoewWR7VcsxYB34=m23GqTo2=sroUf-JvvQGJcg@mail.gmail.com>
+ <20230613034216-mutt-send-email-mst@kernel.org>
+ <20230613035132-mutt-send-email-mst@kernel.org>
+ <CAJaqyWfOi5D+f+JPBFZ8Rw+TCG5TLE+X8affo-EBaCAQx8_2vQ@mail.gmail.com>
+ <PH0PR12MB5481746BE0C1B7CE4D098A7BDC55A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230613154823-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54811F91C70744E7A83BD10ADC55A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230613173837-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481CBCA2D51F3B67581C100DC55A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB5481CBCA2D51F3B67581C100DC55A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] Re: [PATCH 0/2] Selective queue enabling
 
-Add header data split requirements for the receive packets.
 
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
- net-workstream/features-1.4.md | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
 
-diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
-index 2b51759..f26b61c 100644
---- a/net-workstream/features-1.4.md
-+++ b/net-workstream/features-1.4.md
-@@ -11,6 +11,7 @@ together is desired while updating the virtio net interface.
- 3. Virtqueue notification coalescing re-arming support
- 4  Virtqueue receive flow filters (RFF)
- 5. Device timestamp for tx and rx packets
-+6. Header data split for the receive virtqueue
- 
- # 3. Requirements
- ## 3.1 Device counters
-@@ -228,3 +229,15 @@ struct vnet_rx_completion {
-    point of reception from the network.
- 3. The device should provide a receive packet timestamp in a single DMA
-    transaction along with the rest of the receive completion fields.
-+
-+## 3.6 Header data split for the receive virtqueue
-+1. The device should be able to DMA the packet header and data to two different
-+   memory locations, this enables driver and networking stack to perform zero
-+   copy to application buffer(s).
-+2. The driver should be able to configure maximum header buffer size per
-+   virtqueue.
-+3. The header buffer to be in a physically contiguous memory per virtqueue
-+4. The device should be able to indicate header data split in the receive
-+   completion.
-+5. The device should be able to zero pad the header buffer when the received
-+   header is shorter than cpu cache line size.
--- 
-2.26.2
+On 6/14/2023 5:54 AM, Parav Pandit wrote:
+>
+>> From: Michael S. Tsirkin <mst@redhat.com>
+>> Sent: Tuesday, June 13, 2023 5:48 PM
+>>> Why queue_reset is needed here?
+>>> I don't see spec saying that queue_enable must be done only once for a given
+>> Q before DRIVER_OK.
+>>
+>> I see you found it.
+>>
+>>>> - program another queue address, size
+>>>>
+>>>> Finally we are decided, let's start operating:
+>>>>
+>>>> - DRIVER_OK
+>>>>
+>>>>
+>>>> I don't see how it's possible with just queue_enable.
+>>>>
+>>>>
+>>>>> It is not explicitly mentioned in the spec that one can setup the
+>>>>> queue using
+>>>> queue reset instead of queue enable.
+>>>>> As Jason mentioned it is implementation specific, one device
+>>>>> supports it and
+>>>> one doesn't.
+>>>>> Hence, it will break on those devices which doesnt support it.
+>>>>>
+>>>> Setup? No, and spec explicitly says to setup one has to use
+>>>> queue_enable. But this is not what we discussed with Stefano here.
+>>>>
+>>> The above sequence you described is not well documented.
+>> It's the standard sequence for queue reset, is it not?
+>>
+>> For example:
+>>
+>> 	Virtqueue reset is divided into two parts. The driver first resets a queue
+>> and
+>> 	can afterwards optionally re-enable it.
+>>
+>>
+>> it seems clear that queue has to be enabled before being reset.
+>>
+> Yes, it is clear.
+>   
+>> I'm not sure what's broken.
+>>
+> If a device has assumed that queue_reset must be done after DRIVER_OK stage because until that point the device is not "live",
+> Such device needs the fix.
+I think queue_reset just resets the queue and its fields including the 
+queue_enable. DRIVER_OK is not a must for performing a queue_reset,
+My understanding is:
+- before DRIVER_OK, the driver can re-config the queue anytime, doesn't 
+need a reset_queue
+- after DRIVER_OK, the driver has to reset the queue to re-config the 
+queue. Because a queue is considered alive when both DRIVER_OK && 
+queue_enable,
+and resetting a queue also set queue_enable to zero.
+
+At the end of the migration, hypervisor should reset the queues and 
+config the queues with the guest configurations and enable the queues, 
+right?
+
+Thanks
 
 
 This publicly archived list offers a means to provide input to the
