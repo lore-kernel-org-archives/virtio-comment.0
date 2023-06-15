@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6354-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6355-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5776EB64D9
-	for <virtio-comment@archiver.kernel.org>; Thu, 15 Jun 2023 05:56:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3122EB64D9
+	for <virtio-comment@archiver.kernel.org>; Thu, 15 Jun 2023 06:35:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0FC6E42563
-	for <virtio-comment@archiver.kernel.org>; Thu, 15 Jun 2023 05:56:28 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E982A42906
+	for <virtio-comment@archiver.kernel.org>; Thu, 15 Jun 2023 06:35:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0160B9866B6
-	for <virtio-comment@archiver.kernel.org>; Thu, 15 Jun 2023 05:56:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CAB0F9866B9
+	for <virtio-comment@archiver.kernel.org>; Thu, 15 Jun 2023 06:35:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E096E986339; Thu, 15 Jun 2023 05:56:27 +0000 (UTC)
+	id AF67398663F; Thu, 15 Jun 2023 06:35:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,111 +24,120 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C463898663F
-	for <virtio-comment@lists.oasis-open.org>; Thu, 15 Jun 2023 05:56:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7346B986339;
+	Thu, 15 Jun 2023 06:34:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="339165724"
-X-IronPort-AV: E=Sophos;i="6.00,244,1681196400"; 
-   d="scan'208";a="339165724"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="802209733"
-X-IronPort-AV: E=Sophos;i="6.00,244,1681196400"; 
-   d="scan'208";a="802209733"
-Message-ID: <a948882f-7646-7cef-d04d-b7ead9336cc5@intel.com>
-Date: Thu, 15 Jun 2023 13:56:10 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.12.0
-Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Eugenio Perez Martin <eperezma@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- Laurent Vivier <lvivier@redhat.com>, Cindy Lu <lulu@redhat.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "alvaro.karsz@solid-run.com" <alvaro.karsz@solid-run.com>,
- Liuxiangdong <liuxiangdong5@huawei.com>, Gautam Dawar <gdawar@xilinx.com>,
- "longpeng2@huawei.com" <longpeng2@huawei.com>,
- Dragos Tatulea <dtatulea@nvidia.com>,
- "stefanha@redhat.com" <stefanha@redhat.com>,
- Harpreet Singh Anand <hanand@xilinx.com>,
- Stefano Garzarella <sgarzare@redhat.com>, Heng Qi
- <hengqi@linux.alibaba.com>, Shannon Nelson <snelson@pensando.io>,
- Max Gurtovoy <mgurtovoy@nvidia.com>,
- "si-wei.liu@oracle.com" <si-wei.liu@oracle.com>
-References: <20230608180617-mutt-send-email-mst@kernel.org>
- <20230609115250-mutt-send-email-mst@kernel.org>
- <CAJaqyWfOONuDoewWR7VcsxYB34=m23GqTo2=sroUf-JvvQGJcg@mail.gmail.com>
- <20230613034216-mutt-send-email-mst@kernel.org>
- <20230613035132-mutt-send-email-mst@kernel.org>
- <CAJaqyWfOi5D+f+JPBFZ8Rw+TCG5TLE+X8affo-EBaCAQx8_2vQ@mail.gmail.com>
- <PH0PR12MB5481746BE0C1B7CE4D098A7BDC55A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230613154823-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54811F91C70744E7A83BD10ADC55A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230613173837-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481CBCA2D51F3B67581C100DC55A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <c78d5554-ac1b-ed67-01d0-00943e69af44@intel.com>
- <PH0PR12MB548104F31CA38275A2D7E41EDC5AA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <476b3ec4-0a19-2f61-4d2a-e4badfbeb499@intel.com>
- <PH0PR12MB548153E61A5C67902F427746DC5AA@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB548153E61A5C67902F427746DC5AA@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] Re: [PATCH 0/2] Selective queue enabling
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045176;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vl9G.H8_1686810869;
+Message-ID: <1686810211.4567776-1-xuanzhuo@linux.alibaba.com>
+Date: Thu, 15 Jun 2023 14:23:31 +0800
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-dev@lists.oasis-open.org,
+ virtio-comment@lists.oasis-open.org,
+ Parav Pandit <parav@nvidia.com>,
+ Jason Wang <jasowang@redhat.com>
+References: <1686550355.2503424-1-xuanzhuo@linux.alibaba.com>
+ <20230612022526-mutt-send-email-mst@kernel.org>
+ <1686569235.2395291-1-xuanzhuo@linux.alibaba.com>
+ <20230613045854-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230613045854-mutt-send-email-mst@kernel.org>
+Subject: Re: [virtio-comment] Re: About custom device counter
 
-
-
-On 6/14/2023 7:56 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Wednesday, June 14, 2023 2:11 AM
->> On 6/14/2023 12:32 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Wednesday, June 14, 2023 12:27 AM
->>>>> If a device has assumed that queue_reset must be done after
->>>>> DRIVER_OK stage because until that point the device is not "live",
->>>>> Such device needs the
->>>> fix.
->>>> I think queue_reset just resets the queue and its fields including
->>>> the queue_enable. DRIVER_OK is not a must for performing a
->>>> queue_reset, My understanding is:
->>>> - before DRIVER_OK, the driver can re-config the queue anytime,
->>>> doesn't need a reset_queue
->>> Before DRIVER_OK stage, to reconfigure a queue, driver needs to write
->> queue_enable = 0.
->>> This is not allowed in the spec.
->>> So driver need to use queue_reset to reconfigure.
->> The spec requires the driver config all other fields before set queue_enable.
->> I am not sure whether there are real occurring cases that re-config the vq fields
->> between queue_enable and DRIVER_OK in the initialization.
->>
-> Probably there is no case today, but may be it can occur where driver tries to configure something and if it fails, it may need to roll back and re-configure queues.
+On Tue, 13 Jun 2023 05:02:01 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> On Mon, Jun 12, 2023 at 07:27:15PM +0800, Xuan Zhuo wrote:
+> > On Mon, 12 Jun 2023 02:25:42 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> > > On Mon, Jun 12, 2023 at 02:12:35PM +0800, Xuan Zhuo wrote:
+> > > > We hope to support device custom counter. That is, virtio spec provides a
+> > > > channel for driver and device, and both key and value are provided by device.
+> > > >
+> > > > We discussed this issue earlier, and after some internal practice, I think it is
+> > > > still necessary to discuss this again.
+> > > >
+> > > > It is very important, each cloud vendor will always have some special counters,
+> > > > these counters may not exist in another vendor. At the same time, if we have
+> > > > to discuss it in the spec every time we add a counter, or add a feature, I
+> > > > think it is very inconvenient. Manufacturers may add some new counters at any
+> > > > time based on some new requirements. Some counters may also be removed at any
+> > > > time.
+> > > >
+> > > > Of course I know that doing this might hurt migration. But what I want to say is,
+> > > > why does it affect live migration? These counters we plan to give to users
+> > > > through ethtool -S, and some changes have taken place in the ethtool counters
+> > > > output by users. Does this have any practical impact? Or do we directly use
+> > > > some other output in a way, we can clearly tell the user that these counters
+> > > > may change during the migration process. For example, the driver is migrated
+> > > > to some new devices. These devices support some new counters. I think users
+> > > > should be able to see these new counters. These new counters may be the
+> > > > purpose of the migration.
+> > > >
+> > > > We don't need to support live migration at this point.
+> > > >
+> > > > Thanks.
+> > >
+> > >
+> > > Why not just document the thing?
+> >
+> > Device Counter or Device Stat, we discussed this issue earlier,
+> > So I want to slove the problem migration firstly.
+> >
+> >
+> > Thanks.
 >
->> But I agree maybe we should allow set queue_enable = 0.
->>
-> This functionality of queue_enable = 0, is supported using queue_reset register.
->   
->> This reset may happen after DRIVER_OK.
-> Yes, the queue_reset after DRIVER_OK is not ambiguous.
-> Queue_reset before DRIVER_OK has the ambiguity, and will clarify that it should be supported by device before DRIVER_OK.
+> Sorry have trouble parsing this.
 >
-> For the main motivation of this patch, the _RESET bit seems enough to selectively enable the queue before or after DRIVER_OK.
-I guess the intention may be:
-Step 1: the hypervisor owns all queues, it enables all queues and cvq, 
-set queue fields with phony host values.
-Then set DRIVER_OK, config the device and send commands through cvq.
-But don't do link announce. So the device would not consume the 
-descriptors and external network will not send
-any data to it.
+> Can we get examples of counters from various vendors, so that
+> it's clear what kind of thing this, and it becomes convincing
+> that abstracting this in virtio spec is pointless?
 
-Step 2: Reset the queues, set the fields of the queues with guest 
-config, selectively enable the queues,
-so the device works for the guest.
-
-Does this sounds good?
+Such as "limit", in a cloud scenario, multiple users purchase different VMs, and
+these VMs share the capabilities of the same host. In order to ensure that each
+VM will not affect others, the network card(virtio-net) capability of each VM is
+limited. When these users purchase VMs, this limit has already been determined.
+So if the network card traffic of a vm exceeds the upper limit, packet loss will
+occur. It is necessary for us to count these packet losses. And the device
+should expose to the user.
 
 
+Such as "session", our dpu supports tcp connection tracking, but there is an
+upper limit to the number of connections, and if it exceeds, packet loss will
+also occur.
 
+These are two commonly used scenarios, I hope they can help you.
+
+Thanks.
+
+
+>
+> Also, am I right assuming that in virtualized settings this is mostly
+> relevant for hosts? E.g. guests see a vendor neutral virtio but
+> host wants to figure out source of issues?
+>
+>
+>
+>
+> >
+> > >
+> > > --
+> > > MST
+> > >
+> > >
+> > > This publicly archived list offers a means to provide input to the
+> > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > >
+> > > In order to verify user consent to the Feedback License terms and
+> > > to minimize spam in the list archive, subscription is required
+> > > before posting.
+> > >
+> > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > List help: virtio-comment-help@lists.oasis-open.org
+> > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > Join OASIS: https://www.oasis-open.org/join/
+> > >
+>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
