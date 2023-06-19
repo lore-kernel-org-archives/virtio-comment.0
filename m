@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6403-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6404-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 013C5EB64DB
-	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:46:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D7DEB64DA
+	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:57:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BA5077A1D5
-	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:46:20 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C298694AA5
+	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 864D3986429
-	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:46:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B49C09863E1
+	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 809139863A6; Mon, 19 Jun 2023 17:46:20 +0000 (UTC)
+	id 9F2AE9863A9; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6E85C9863B0
-	for <virtio-comment@lists.oasis-open.org>; Mon, 19 Jun 2023 17:46:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8C1D09863B0
+	for <virtio-comment@lists.oasis-open.org>; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 3djsDDY3N2mn6MhLdkUD4Q-1
+X-MC-Unique: p1d3WvLJOkm7P1WuwbnPiw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687196776; x=1689788776;
+        d=1e100.net; s=20221208; t=1687197462; x=1689789462;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GJBl9bFulDopcvBihB7kSrsOg12O0mQgw0tMuZ5P+U0=;
-        b=RIsOKNMvjMx+1V9e2r5gOow//fuzhvvcK4BTmPKd3C+sT2xtzNtVaVGzKjv+t7FWwV
-         674q/KAshm4b3ZoUGWdq/ALTzbvRhzho9MU8R00Zl9bEUzLlYRHU9vkmRxmwYPbRC2FZ
-         2vuBp6fDTYBexwrQPmPWCA2iIG83cx5Thi6hfImjNB9r8v3g8cPK5E/iAiMeaKc9SSiz
-         Pyqzb821RRxkCYtnLMa9fD5bpZaWiuthobJazLkFCYG2WWSxwi/IoMwdP9UCNuFbA4Zh
-         OvdD30opeTMfcdDPKkf1kh6DhDUD98HpAlIdubVayIz2f235Hu76vSWOBWOEtuY3yr3J
-         cjrQ==
-X-Gm-Message-State: AC+VfDwvNgFS3XoSQVLiZf8ujV8RcOOQ0a+Z+fTJ0vvNz5xihj7v3vGM
-	TILShPXJDdOcZC+ohjIdornJES05nl8UNxypQh/LC+5hJU9cvYd1xG7tKxN4D1FrJhKRD4sEGzg
-	Iejn6tLGyQ+CPQ77V1ZoUQ9Ubup9oPSHnpg==
-X-Received: by 2002:a05:6512:2e3:b0:4f1:26f5:7814 with SMTP id m3-20020a05651202e300b004f126f57814mr6424817lfq.20.1687196776193;
-        Mon, 19 Jun 2023 10:46:16 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7+4fxbFOo+f+Q5rzIV9HFhBJY1ZCXoDd3gMpB+0gLAGL1cS8ByROT88pWP0O7JR8aFPqx92g==
-X-Received: by 2002:a05:6512:2e3:b0:4f1:26f5:7814 with SMTP id m3-20020a05651202e300b004f126f57814mr6424799lfq.20.1687196775873;
-        Mon, 19 Jun 2023 10:46:15 -0700 (PDT)
-Date: Mon, 19 Jun 2023 13:46:12 -0400
+        bh=OwHZZ7wwhMQA3lKajQTdq1PYdZYpPPfzoNjCpqwrcic=;
+        b=EajnOoBwf0auZDzTmosZQUR6RwDEg6n4Jq6/HEbeF087bVLxVCmsXHj97qVohgrB+N
+         k35Cs0/Pw683Ca2k26C5obMOI+0j/3E3RlJy8k3zb7qfVKoXEeP6X5qUsgr5HPQQkkpf
+         NcWsqNfinCz/2PbUPtUS3hd5sooOqcdz51noJ7PSQCzcmzIRtXNHpf8Xwr+QLoASHeMB
+         xLqtzoRNXr0qIjfVe04uKRoYvAyioN47wGrctXcGAHGqytQjKkIc9ck96HcIKsDbhIbZ
+         Q6D0WDBgvvdZhxAL4sLPHsZqoyeaDCMoMvadB8MBwqUxMPXmTkqyBspqnhuzDnV7yTTe
+         p/cA==
+X-Gm-Message-State: AC+VfDzHha8W9QFLXp1H8zMM6T2VlISQmLvUP6VnD7BxSjRPyqbYdgF9
+	DUnZA0rkEZrZ7SZz8/n0GePGh313+G1MVRxlCh1EIJaR9dga95qvDQAw2bPHYiRzufHwoZQcx+L
+	z/0UI4MJvN8AP5XvCu12MYdlzpCaVJLpZDw==
+X-Received: by 2002:a5d:68d0:0:b0:30f:c008:a921 with SMTP id p16-20020a5d68d0000000b0030fc008a921mr8285213wrw.17.1687197462403;
+        Mon, 19 Jun 2023 10:57:42 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4JGu7epeNB7k0q3Fep7rLSWUkEREGHXR1ZOK7aQANtnNp1YlBrDqbh/35nvUyWh4MGPdxZxA==
+X-Received: by 2002:a5d:68d0:0:b0:30f:c008:a921 with SMTP id p16-20020a5d68d0000000b0030fc008a921mr8285197wrw.17.1687197462060;
+        Mon, 19 Jun 2023 10:57:42 -0700 (PDT)
+Date: Mon, 19 Jun 2023 13:57:37 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
@@ -59,85 +59,83 @@ Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"jasowang@redhat.com" <jasowang@redhat.com>,
 	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
 	Shahaf Shuler <shahafs@nvidia.com>
-Message-ID: <20230619133754-mutt-send-email-mst@kernel.org>
+Message-ID: <20230619134649-mutt-send-email-mst@kernel.org>
 References: <20230613173015.1244486-1-parav@nvidia.com>
  <20230613173015.1244486-5-parav@nvidia.com>
- <20230619124042-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481506017B439B07FC1253DDC5FA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230619132018-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481D7DD7654CF3B18939956DC5FA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230619122836-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481758B8EE080750D6377C0DC5FA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230619131115-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481D1836A5B9A7B345A20A8DC5FA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230619133322-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481E624E00FC403C9ECFA03DC5FA@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481D7DD7654CF3B18939956DC5FA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481E624E00FC403C9ECFA03DC5FA@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [virtio-dev] Re: [PATCH v6 4/4] transport-pci: Introduce group
- legacy group member config region access
+Subject: [virtio-comment] Re: [PATCH v6 4/4] transport-pci: Introduce group legacy group
+ member config region access
 
-On Mon, Jun 19, 2023 at 05:35:04PM +0000, Parav Pandit wrote:
+On Mon, Jun 19, 2023 at 05:45:17PM +0000, Parav Pandit wrote:
 > 
 > 
 > > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Monday, June 19, 2023 1:26 PM
+> > Sent: Monday, June 19, 2023 1:38 PM
 > 
-> > > > Also these devices will use non-transitional ID but they in fact do
-> > > > have a legacy interface so using this definition they are
-> > > > transitional devices. Maybe we need to add when we describe the
-> > > > device ID text like "non transitional devices and transitional devices utilizing
-> > commands XYZ" ...?
-> > >
-> > > Transitional device has specific meaning, I am not sure we should muddy it.
+> > > > If we can't just make it come for free then maybe
+> > > > VIRTIO_PCI_CAP_LEGACY_NOTIFY_CFG is better, we can just list the
+> > > > number in the common section and then link to the description in the new
+> > section.
+> > > >
+> > > How is it better? It requires burning more bytes.
+> > > Is it better because it is self contained?
 > > 
-> > 
-> > 
-> > To simplify transition from these earlier draft interfaces, a device MAY
-> > implement:
-> > 
-> > \begin{description}
-> > \item[Transitional Device]
-> >         a device supporting both drivers conforming to this
-> >         specification, and allowing legacy drivers.
-> > \end{description}
-> > 
-> > 
-> > I agree it can be read this way. The issue is a lot of text in the spec just assumes
-> > that "has legacy interface == transitional device".
-> > 
-> > 
-> > 
-> > For example:
-> > When using the legacy interface the driver MAY access the device-specific
-> > configuration region using any width accesses, and a transitional device MUST
-> > present driver with the same results as when accessed using the ``natural''
-> > access method (i.e.
-> > 32-bit accesses for 32-bit fields, etc).
-> > 
-> > 
-> > If we break the assumption we need to audit the spec for this
-> > assumption and again, I really would rather not.
-> 
-> We are not breaking the assumption. Above listed requirement is already captured in the legacy interface conformance section.
-> So I am not sure what extra to write here.
+> > Mostly yes. But it also adds a bit more flexibility, right?
+> > I thought avoiding touching transport-pci is worth less flexibility but if we can't
+> > avoid that...
+> >
+> That flexibility is better gained via AQ instead of introducing new extended capability on the VF.
 >  
+> > 
+> > > > I also feel we want ability to have such a capability in the owner too.
+> > > > Would prefer including it now though I guess we can add it as an extension.
+> > >
+> > > Re-opening the past discussion.. amazing. :)
+> > 
+> > OK fair enough.. I guess both of us are not 100% happy but it's a compromize
+> > for now. And maybe we'll add one of AQ and / or PF cap down the road.
+> > 
+> > > Why? How is it different and better than querying over AQ?
+> > 
+> > Wait a second let me clarify. I am talking about notification in the PCI BAR of the
+> > PF. *Not* offset in PF capability but in the VF BAR.
+> > 
+> Ok. question remains the same, why not discover such notification capability it over the AQ command?
+> AQ command on the PF is self-contained and extendible without baking things in very low level hw centric pci capabilities, which are hard to get rid of it.
 
-Hmm not sure what's unclear.  I can try to explain the issue again.
+I worry about systems where there's value in having VF driver
+map memory without talking to PF driver.
+Current VF capability is kind of ok I guess ...
 
-These devices have a legacy interface yes?
-So they should be transitional to avoid breaking assumption.
+If you want admin command to query then it would need
+to map in PF memory.
+I understand two concerns with this:
+- you worry that this forces ordering requirements - it's true and I
+  don't know of a good fix. So if possible use VF BAR by preference?
+- you worry about wasting physical memory space
+  this we can fix by sticking VF# in the kick.
+
+As an alternative, if we can make the new command
+able to communicate offset in PCI BAR or in VF BAR
+or both then I think that's also an acceptable compromize:
+drivers that have trouble mapping VF BAR after querying
+PF can just map PF BAR. WDYT?
 
 
-But they are not *exactly*
-in that they don't have a transitional device ID.
-
-At least the device id section needs extra text
-then to explain this?
-
-Or do you just want to make them have transitional ID?
-
-
--- 
-MST
+> > 
+> > > I see the AQ is better than group owner and group member specific cap.
+> > 
 
 
 This publicly archived list offers a means to provide input to the
