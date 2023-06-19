@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6404-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6405-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D7DEB64DA
-	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:57:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F750EB64D9
+	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 18:00:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C298694AA5
-	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 563A812D8AA
+	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 18:00:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B49C09863E1
-	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2E9E1986428
+	for <virtio-comment@archiver.kernel.org>; Mon, 19 Jun 2023 18:00:45 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 9F2AE9863A9; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
+	id 1AECE9863A6; Mon, 19 Jun 2023 18:00:45 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8C1D09863B0
-	for <virtio-comment@lists.oasis-open.org>; Mon, 19 Jun 2023 17:57:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0708F9863B0
+	for <virtio-comment@lists.oasis-open.org>; Mon, 19 Jun 2023 18:00:45 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: p1d3WvLJOkm7P1WuwbnPiw-1
+X-MC-Unique: 7zk3f2dyOOOb95npIo6fnQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687197462; x=1689789462;
+        d=1e100.net; s=20221208; t=1687197642; x=1689789642;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OwHZZ7wwhMQA3lKajQTdq1PYdZYpPPfzoNjCpqwrcic=;
-        b=EajnOoBwf0auZDzTmosZQUR6RwDEg6n4Jq6/HEbeF087bVLxVCmsXHj97qVohgrB+N
-         k35Cs0/Pw683Ca2k26C5obMOI+0j/3E3RlJy8k3zb7qfVKoXEeP6X5qUsgr5HPQQkkpf
-         NcWsqNfinCz/2PbUPtUS3hd5sooOqcdz51noJ7PSQCzcmzIRtXNHpf8Xwr+QLoASHeMB
-         xLqtzoRNXr0qIjfVe04uKRoYvAyioN47wGrctXcGAHGqytQjKkIc9ck96HcIKsDbhIbZ
-         Q6D0WDBgvvdZhxAL4sLPHsZqoyeaDCMoMvadB8MBwqUxMPXmTkqyBspqnhuzDnV7yTTe
-         p/cA==
-X-Gm-Message-State: AC+VfDzHha8W9QFLXp1H8zMM6T2VlISQmLvUP6VnD7BxSjRPyqbYdgF9
-	DUnZA0rkEZrZ7SZz8/n0GePGh313+G1MVRxlCh1EIJaR9dga95qvDQAw2bPHYiRzufHwoZQcx+L
-	z/0UI4MJvN8AP5XvCu12MYdlzpCaVJLpZDw==
-X-Received: by 2002:a5d:68d0:0:b0:30f:c008:a921 with SMTP id p16-20020a5d68d0000000b0030fc008a921mr8285213wrw.17.1687197462403;
-        Mon, 19 Jun 2023 10:57:42 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4JGu7epeNB7k0q3Fep7rLSWUkEREGHXR1ZOK7aQANtnNp1YlBrDqbh/35nvUyWh4MGPdxZxA==
-X-Received: by 2002:a5d:68d0:0:b0:30f:c008:a921 with SMTP id p16-20020a5d68d0000000b0030fc008a921mr8285197wrw.17.1687197462060;
-        Mon, 19 Jun 2023 10:57:42 -0700 (PDT)
-Date: Mon, 19 Jun 2023 13:57:37 -0400
+        bh=EH8FKleXz3QACMmTrr7uV3EjktQgRjwYCgC/1NJMKKQ=;
+        b=fWTvA2o4H0UaeFwbb9j76uvEG8lE35d9o5w+0B9v1Wun1NJZx0nk1rAPnwBmGxNnaf
+         ZcylqO0ASUjhFrsBDJXJfXV5v69Ooqv5lMTiNK/UhwtFg2COYGz9W/VJWSF71ZgXm3ay
+         Dy3InXSioyMAn/OL9Hbb3FdnP9d1HmIz7c0VhdA/3eMc7GwtnEDVsYDCn3uO4mv+M85G
+         9WVunoMrcoBAYYfO892ljS9rmAMLCGV66RHaXylK3HyJAph8pqG6lUvjVGOAPvFNA8mF
+         0u/bqcfd9ncWSrdEm5j+PORQO6Fu26yXdtbtzeHvVGaQURp+J8XWM+2PTnOWpSMXwkUa
+         WoeA==
+X-Gm-Message-State: AC+VfDyJlq+MsuyFzhNCwDW+qGRuXSy3ViyjjvYeeOtCnFhuK0Ck7Ub1
+	aMH75mI0Fkq5YxKqzznY3KnaS1a9UPf1VlCG0kipb63IeE1cOkOP15X99Fqt0DTocYQLTAFdxjr
+	yNNBMj2oeRLhFR/O+FOQQ+AMUXTiB/lVIMg==
+X-Received: by 2002:a5d:69d1:0:b0:30e:2ff3:8c88 with SMTP id s17-20020a5d69d1000000b0030e2ff38c88mr7243838wrw.35.1687197641969;
+        Mon, 19 Jun 2023 11:00:41 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4wE68oxVGzmD3mod4fDviifeAjck/tbmtD2OGt1uPTQtoWZhW+nY4B2Of3XCh6XfSdoJKwrg==
+X-Received: by 2002:a5d:69d1:0:b0:30e:2ff3:8c88 with SMTP id s17-20020a5d69d1000000b0030e2ff38c88mr7243825wrw.35.1687197641695;
+        Mon, 19 Jun 2023 11:00:41 -0700 (PDT)
+Date: Mon, 19 Jun 2023 14:00:37 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
@@ -59,7 +59,7 @@ Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"jasowang@redhat.com" <jasowang@redhat.com>,
 	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
 	Shahaf Shuler <shahafs@nvidia.com>
-Message-ID: <20230619134649-mutt-send-email-mst@kernel.org>
+Message-ID: <20230619135750-mutt-send-email-mst@kernel.org>
 References: <20230613173015.1244486-1-parav@nvidia.com>
  <20230613173015.1244486-5-parav@nvidia.com>
  <20230619122836-mutt-send-email-mst@kernel.org>
@@ -96,46 +96,17 @@ On Mon, Jun 19, 2023 at 05:45:17PM +0000, Parav Pandit wrote:
 > > avoid that...
 > >
 > That flexibility is better gained via AQ instead of introducing new extended capability on the VF.
->  
-> > 
-> > > > I also feel we want ability to have such a capability in the owner too.
-> > > > Would prefer including it now though I guess we can add it as an extension.
-> > >
-> > > Re-opening the past discussion.. amazing. :)
-> > 
-> > OK fair enough.. I guess both of us are not 100% happy but it's a compromize
-> > for now. And maybe we'll add one of AQ and / or PF cap down the road.
-> > 
-> > > Why? How is it different and better than querying over AQ?
-> > 
-> > Wait a second let me clarify. I am talking about notification in the PCI BAR of the
-> > PF. *Not* offset in PF capability but in the VF BAR.
-> > 
-> Ok. question remains the same, why not discover such notification capability it over the AQ command?
-> AQ command on the PF is self-contained and extendible without baking things in very low level hw centric pci capabilities, which are hard to get rid of it.
 
-I worry about systems where there's value in having VF driver
-map memory without talking to PF driver.
-Current VF capability is kind of ok I guess ...
+To be frank for e.g. transport vq we'll need to do it with admin command
+(can we stop saying AQ please? it's a habit that carries over
+when you write spec later. I know AC is a weird abbreviation though
+;) )
 
-If you want admin command to query then it would need
-to map in PF memory.
-I understand two concerns with this:
-- you worry that this forces ordering requirements - it's true and I
-  don't know of a good fix. So if possible use VF BAR by preference?
-- you worry about wasting physical memory space
-  this we can fix by sticking VF# in the kick.
+So yes, if we can find a way to make everyone happy with admin commands
+then it is better, for sure.
 
-As an alternative, if we can make the new command
-able to communicate offset in PCI BAR or in VF BAR
-or both then I think that's also an acceptable compromize:
-drivers that have trouble mapping VF BAR after querying
-PF can just map PF BAR. WDYT?
-
-
-> > 
-> > > I see the AQ is better than group owner and group member specific cap.
-> > 
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
