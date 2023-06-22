@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6485-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6486-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64573EB64DA
-	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 18:36:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D192AEB64D8
+	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 18:40:16 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C26F1370EF
-	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 18:36:22 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 39B4542C27
+	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 18:40:16 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 24F1A98680B
-	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 18:36:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 22E7D9865E3
+	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 18:40:16 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 1BB9D9866E3; Thu, 22 Jun 2023 18:36:22 +0000 (UTC)
+	id 11DF79865D1; Thu, 22 Jun 2023 18:40:16 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EF36398688F
-	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Jun 2023 18:36:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F33DE9865D4
+	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Jun 2023 18:40:15 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: VZbdarK5P8-Ez8msZ7-hvg-1
+X-MC-Unique: wQPp_IUcOSOGH2W_vGergw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687458978; x=1690050978;
+        d=1e100.net; s=20221208; t=1687459206; x=1690051206;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fYR+R55xT1qzMX4w8Iar6TgvkBQeGL6Q70pL+qVN9sQ=;
-        b=Ien7BYWEl2W5fCM+b7m5Rk+Ib/3UtqefPdWcQ2Q+deo2py8syptwItQN0Cr5o3ZsSg
-         lkVHmgUz/ucMtYpqn0/lfNxFAXBpc1CqAcL2CxlE55SQtIt8onHHEs5NCoMugnY1PUvs
-         Fs9j+m1BcSAiZJ/RyUm1gI2dh5IALm74nq18WEvowYJHTCtvoadLAkMutTVRy4KI+ooD
-         T/GZIhMcstL507PO1nQA2zJUNMZfjcyvj2R3moNsIUwRsWkVgq4+2cqnoR4sf62d8mf5
-         rmfAConfBSDtfVSTAG4kSGs9vouWc2C+AA4UZYLec4+Db0cA2DSNjNUwgQHmQvKknLui
-         3vZg==
-X-Gm-Message-State: AC+VfDx+4/56qJnb9aN0mjS89f0/kGbwHSQM+ziNGy/TtlRCLx9lxNuz
-	aPq9D2bMca2y9d3+Tf2x+GzVEjroMIxyNqGhsrRhQFw9b5JqCbhd9Y8fPTpxFfxIt8Lhxf6jjnt
-	hoOjcd2EStjqsOYSdwqbqGq5Q9FeyAr1wHQ==
-X-Received: by 2002:aa7:c604:0:b0:51a:3dfb:ae1a with SMTP id h4-20020aa7c604000000b0051a3dfbae1amr16581272edq.4.1687458977908;
-        Thu, 22 Jun 2023 11:36:17 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5TD7PgtVKow4k8mAsHL+Opm1sLBb3tNyxESSLQx1M0YM29TJBp1HjB2uXtiGpQQ4bR0RQTLw==
-X-Received: by 2002:aa7:c604:0:b0:51a:3dfb:ae1a with SMTP id h4-20020aa7c604000000b0051a3dfbae1amr16581256edq.4.1687458977635;
-        Thu, 22 Jun 2023 11:36:17 -0700 (PDT)
-Date: Thu, 22 Jun 2023 14:36:13 -0400
+        bh=rl7mygweHwX8VG9HNyQgDs6gObz0L5xgZt6c0b4dElo=;
+        b=EPGmL/sTd1Q9tpNWEQXFCACgah57rdbwp/T6BtgqaOSchtg7kGbziZ3Lq3mrvZacmz
+         jIaLTYqmSGwQeFddy87DSI/Fb1HWWUoQGi8jKy34Pk8i9PgGXwjPzR51oGj3XYzV3/Ob
+         TN/DBzbYLYUHqMqewlquIee54Dv3/dMU2hYrgVnTmT14k9YENaCmObiz5LJbzTMk66uR
+         5kPSG9NMXXdkw9oUBaZH4jDkBckjFwZBPAh+AHTiL3cg90qyeoyCSQaQ8E+EZff2wyjF
+         8L4tCassxN8alrxmP9dYrWdIPjrMvV5djRxNnQtTX/WFv2y8oBjV220dIz4I2ZaFDcgj
+         tKHQ==
+X-Gm-Message-State: AC+VfDyg9tMJIPMHb6DxFY8aBq2xOoM4YVzBY3PD3M/fgRzwCp60EqxU
+	7ke8A/dbjgPmXtvgzIkEAr/IaE8+LpOkscoPCg86ZZE77FW9nX/827CM2EfTHBLB1iKK50kW2vO
+	QaH154QTNXuGM3Mr6U4mSXVEKJKuL4ZTi5A==
+X-Received: by 2002:a17:907:72ca:b0:974:b15:fce5 with SMTP id du10-20020a17090772ca00b009740b15fce5mr17647704ejc.38.1687459206333;
+        Thu, 22 Jun 2023 11:40:06 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5uZ9klJuXIKWEAvFDibdHWTGRy7FpaU4k1xD/6oZAJnmyk7X1h225CSloKKRc3zsIuJzDrbw==
+X-Received: by 2002:a17:907:72ca:b0:974:b15:fce5 with SMTP id du10-20020a17090772ca00b009740b15fce5mr17647693ejc.38.1687459206041;
+        Thu, 22 Jun 2023 11:40:06 -0700 (PDT)
+Date: Thu, 22 Jun 2023 14:40:02 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: Heng Qi <hengqi@linux.alibaba.com>,
@@ -58,19 +58,19 @@ Cc: Heng Qi <hengqi@linux.alibaba.com>,
 	Yuri Benditovich <yuri.benditovich@daynix.com>,
 	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
 	Cornelia Huck <cohuck@redhat.com>
-Message-ID: <20230622141253-mutt-send-email-mst@kernel.org>
-References: <20230622021932-mutt-send-email-mst@kernel.org>
+Message-ID: <20230622143626-mutt-send-email-mst@kernel.org>
+References: <20230621163116-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481C4EA5D0614E1289DFC77DC5DA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230622021932-mutt-send-email-mst@kernel.org>
  <PH0PR12MB54815D6D07A49CE775620088DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622120756-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54812B8DA2A17EF07CBDC3F1DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622124701-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548183EB6CB52E3A719C27ACDC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622131120-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481A92301E4D27AFA43CB0DDC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622133802-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481EDA41A3BA3FDF9A75E38DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230622130359-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481367BAA5DE0BAA33DBAA8DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230622132837-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481B65F624B16200B91B0AADC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230622140412-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481BE907C0BBACC00389091DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481EDA41A3BA3FDF9A75E38DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481BE907C0BBACC00389091DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
@@ -78,93 +78,74 @@ Content-Disposition: inline
 Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re: [PATCH v18] virtio-net:
  support inner header hash
 
-On Thu, Jun 22, 2023 at 06:12:09PM +0000, Parav Pandit wrote:
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Thursday, June 22, 2023 1:44 PM
+On Thu, Jun 22, 2023 at 06:17:54PM +0000, Parav Pandit wrote:
+> 
+> 
+> > From: virtio-dev@lists.oasis-open.org <virtio-dev@lists.oasis-open.org> On
+> > Behalf Of Michael S. Tsirkin
+> > Sent: Thursday, June 22, 2023 2:12 PM
+> 
+> [..]
+> 
+> > > > > The proposal for 1.4 is literally very simple as below.
+> > > > > 1. All existing fields of cfg space stays in cfg space 2. Any new
+> > > > > capabilities to be queried, query using a vq (aq, cfgvq, whatevervq).
+> > > > > 3. Optionally existing fields can be queries over vq of #2 Once
+> > > > > this arrive, no need for new GET commands.
+> > > > > Till that time, don't keep infinitely grow the cfg space.
+> > > > > Any next addition to cfg space, should work on defining the cfgvq.
+> > > >
+> > > > Simple, but short sighted. I know you guys don't support your
+> > > > hardware for 10-
+> > > > 20 years but for software people do.
+> > > > And so "All existing fields of cfg space stays in cfg space" is a
+> > > > bad idea simply because this does not allow removing things from
+> > > > config space not in 10 not in
+> > > > 20 years not ever.
+> > > >
+> > > #1 is for backward compat for existing drivers.
+> > >  You missed about #3. Existing cfg space fields can be queries using the cfgvq
+> > too.
 > > 
-> > On Thu, Jun 22, 2023 at 05:20:23PM +0000, Parav Pandit wrote:
+> > Then #1 does not matter. We can give devices choice.
+> > 
+> > > >
+> > > > Instead we need to allow two ways to access config space.  Teach
+> > > > drivers about both, actually mandate supporting both.  And then
+> > > > devices will make their own cost/benefit decision about which features they
+> > want to support in MMIO.
 > > >
-> > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > Sent: Thursday, June 22, 2023 1:15 PM
-> > > >
-> > > > On Thu, Jun 22, 2023 at 05:04:04PM +0000, Parav Pandit wrote:
-> > > > >
-> > > > >
-> > > > > > From: virtio-dev@lists.oasis-open.org
-> > > > > > <virtio-dev@lists.oasis-open.org> On Behalf Of Michael S.
-> > > > > > Tsirkin
-> > > > > > Sent: Thursday, June 22, 2023 12:54 PM
-> > > > >
-> > > > > > > Admin command as I recall are not accessible directly by the
-> > > > > > > member driver to
-> > > > > > the member device.
-> > > > > > > So a cmdq or cfgq is needed.
-> > > > > >
-> > > > > > Possible, sure. Or we actually discussed a self group. I took it
-> > > > > > away until it had a user.
-> > > > > >
-> > > > > The problematic part of AQ is that its index is placed in the yet
-> > > > > another onchip
-> > > > die register that does not scale as each member device has different
-> > > > queue count.
-> > > > > When admin queue was discussed, it was only for group owner, (you
-> > > > answered to Jiri).
-> > > > > Hence the scale is relatively less, so it was acceptable.
-> > > > >
-> > > > > Now having unique numbers for VFs is not good.
-> > > > > Max proposal was the last index after existing defined VQs of
-> > > > > num_queues,
-> > > > that saves the storage space on device.
-> > > >
-> > > > Surely, you can just have a very large index and be done with it?
-> > > >
-> > > There is count of AQ too.
+> > > If both method is mandated, I don't see benefit at all of two methods.
 > > 
-> > Make that same across VFs?
+> > Mandated for driver.
+> > Benefit is for devices, they will have the choice which drivers to support. In 10-
+> > 20 years all drivers support cfg command and then people can start shipping
+> > devices without MMIO access to any registers.
 > >
-> Queues are not infinite, so when one doesn't need it, better to not make same number.
+> Until that point devices are forced to burn memory, which is not needed at all in < 3 years.
 
-I don't get it. Can you show an example configuration where there's
-a problem? Which device type, # of data queues and admin queues desired and etc etc.
+No they are not. They can make their own decision which fields to support in MMIO space.
+If they want to cut at 1.3 time, they can, but they also can cut it
+at 1.2 time, this means some features will not be accessible through
+MMIO only through the new commands.
 
-> > > For receive flow filters one may want to have multiple flowfilter_vqs as the
-> > perf req is high for some vms.
-> > >
-> > > And device to build non linear PCI steering on the driver notification for this
-> > very high q count.
-> > > It is optimal to have finite and linear q max value.
-> > 
-> > What does this have to do with AQ? These are data vqs.
-> > 
+> Once cfgvq is present for new fields, from the day 1, device does not need to store any newly defined fields on MMIO.
+
+Exactly.
+
+> And 10 to 20 years, it can stop for existing fields..
 > 
-> I think further. Ignore this comment.
-> We need few bare minimum fields to bootstrap the device.
-> So num_aq is one of them to absorb.
-> This is ok.
+> The clear benefit is fields defined in 1.4 no longer needs to be stored starting from 2023-24.
+
+And why is it a problem that someone can also build a 1.4 device with MMIO?
+
+> > > VQ is generic part of the spec for slow and fast operation, so it is not at all a
+> > cost for config reading.
+> > 
+> > This will depend. E.g. if there's a single command to get all of config in one go,
+> > then it actually can be a speedup, reducing the # of VM exits.
 > 
-> > So 1.4 will maybe have new migration capabilities, and that is great.
-> > But I do not like it that we are adding in 1.3 features that can't be supported
-> > with current migration capabilities.
-> For 1.3 vdpa style solution are anyway trapping the CVQ so no problem for it either.
-
-OK I get the idea. True.
-Trapping is not the same as driving or actually emulating though.
-That part would be new. Certainly annoying.
-Practical? Needs a bit of thought.
-
-
-What's even more annoying is that provisioning would suffer too, instead
-of treating all fields the same this one will have to be treated
-differently.
-
-Can't say something can't be done, but it's unfortunate that
-we are adding to technical debt.
-
-It's late here, I think I will sleep on this.
-
-
--- 
-MST
+> Yes, one command to get all at least device specific config.
 
 
 This publicly archived list offers a means to provide input to the
