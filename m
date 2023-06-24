@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6489-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6490-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B3DEB64DD
-	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 20:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E189EB64DA
+	for <virtio-comment@archiver.kernel.org>; Sat, 24 Jun 2023 18:41:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9D9F926A2B
-	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 20:27:51 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 289772B00F
+	for <virtio-comment@archiver.kernel.org>; Sat, 24 Jun 2023 18:41:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 705BF9865D6
-	for <virtio-comment@archiver.kernel.org>; Thu, 22 Jun 2023 20:27:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 196209866EF
+	for <virtio-comment@archiver.kernel.org>; Sat, 24 Jun 2023 18:41:15 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 5AFAA983E47; Thu, 22 Jun 2023 20:27:51 +0000 (UTC)
+	id 02B519866E9; Sat, 24 Jun 2023 18:41:15 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,198 +24,218 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3EF269865D4;
-	Thu, 22 Jun 2023 20:27:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DCE2E9866EA
+	for <virtio-comment@lists.oasis-open.org>; Sat, 24 Jun 2023 18:41:14 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mqfZDJz4srX4TPqXayKXvoGViZAz6r23TYGOY0L4UejervVz9rcdFpVdzMFSElvShxDSXfmCnlbeZ8BdKfYlaIllEgliymIfxcu/x5OVcGAmbdmodBocTboUGhPsb5oBKJPQbM6tZYqgQxbZbTqWj7wUsiv/qPZcn7fTrmb4sNMdjEFvdQRaotSa8dO0VXORZ4lM3V17tuN8/54KzKb2iPIsdyox3RfpHsSRInl14dv00wxwCDRLvNtVaCVyJskM7mr1cAOIC4M+INbvu+dGAPGQ98wURJ0MgC063m7Us3N7vFjQi14QlLfwDbA31kojzc3wyFA8iiC9b8z79pel6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MMJ55PHB0Gq500UvrTTlX8MTBBkKbIz4ItVNhDGRWDQ=;
- b=f5cuR7yp0CL/5mMuPe7V7cm2fIokEowB8qBcjTk0rfjeJHC3PoDBJHSpCVrc/oTG5lutaTNmX1lmRuJRdvvFtj4BO8/YDnsStaUChEql1Wm5iV6YSPHA55i6sYRT92ofluyyhUhEqiO0FiU7diS0QduB0pTSsEqtcwgmp8/xfwB4ckpWv3ZdnyKxyZaL8k5SPIsG3gy5nTSkRq6UrFJya8H5tIgKNJpgrWj3Og+DhXnEMAiAFIdg2vapQRrvHebUiQLVCYUbMr1Y2otvrQvjFeKjCtB3R0J1Cf7BR17sMR/fVJCW/Nsb20pyiAyqNzlAEnOSMySmgoMOPrMafsEn9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Heng Qi <hengqi@linux.alibaba.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "virtio-dev@lists.oasis-open.org"
-	<virtio-dev@lists.oasis-open.org>, Jason Wang <jasowang@redhat.com>, Yuri
- Benditovich <yuri.benditovich@daynix.com>, Xuan Zhuo
-	<xuanzhuo@linux.alibaba.com>, Cornelia Huck <cohuck@redhat.com>
-Thread-Topic: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re:
- [PATCH v18] virtio-net: support inner header hash
-Thread-Index:
- AQHZpEdpSlZ4I0eUeUmZIFkjtAkw3q+VZGYAgAASyQCAAC5zgIAAADyAgAAMJYCAAAHeEIAABAeAgAAB1cCAAKHPAIAAY0PggABRroCAAAA20IAABzoAgAACfmCAAAb+gIAAAMtggAAHJQCAAAHV4IAABGkAgAAWBSA=
-Date: Thu, 22 Jun 2023 20:27:48 +0000
-Message-ID:
- <PH0PR12MB5481532370A0525D0B4AB30EDC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230622021932-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54815D6D07A49CE775620088DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622130359-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481367BAA5DE0BAA33DBAA8DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622132837-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481B65F624B16200B91B0AADC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622140412-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481BE907C0BBACC00389091DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622143626-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54812621EAFA660735B3A8F0DC22A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230622145052-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230622145052-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|MW4PR12MB6921:EE_
-x-ms-office365-filtering-correlation-id: 44575cf6-b82c-4093-50b2-08db735f253d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- F6u2NdM/IOOY6C1HFz1kdJiYMxZGO5EsJx7hWD0/CWmpywb9iEH6IDXkx/4eEQwzy4HOEhypWeTINGPU0eK8wzWYECWnqCqRY3UGPPPPIdvRSU3Y2kLdNfv9+Wm9AtGU8zmKqpK8vIEml4R6waIncfktyMNPnQbH1naATZYj5udx3NwORZTH4QVPx5KTn5mrs0ruGmIwPZBVBSEuy/pjzZjQOeP3lCHb0SXNVht7WfVThrJGoAWTmXDYxcr8k9H+C+Re26FdrmHnfqoRxdQWKDcxcKvwLugY4CJxU4/oTd89+DS5JBano/PPxB+orqlqZ8QkAwGQkYFwU4RSpOOGlLDKmpLI8RJYtyyLS8mY2ZOghiOSfySCOYK5gAYcv8tCleRv06RLmxAjqbAsgxwiUXYGSYCg1EeFY4egJxqshvSuT3IK72olXhk9eX6xEtkEg4PmBDNKBs6jVBPnCJqWNCdhIGVEEhXxFvkSs8Id8jsjCOsSY+3F0MfTizjcJnnMOL6hO/VuuSkjMQ8AIUbPZs9e9lJ9m28PNuOYWU8hvnut1WG2qK0KYXsbKqyILNShXuhqWBTQrr3vAYL6allqe4EVVJ207RLPqPDIy4irYHoUpdp4bkp/2OcfyrNn+g+Y
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(366004)(451199021)(66446008)(64756008)(66556008)(4326008)(66946007)(6916009)(76116006)(41300700001)(66476007)(316002)(54906003)(52536014)(8936002)(8676002)(2906002)(5660300002)(66899021)(7696005)(71200400001)(478600001)(55016003)(6506007)(122000001)(26005)(83380400001)(33656002)(186003)(9686003)(38100700002)(38070700005)(86362001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ou97lNDWoYe2DjT4g5ghErBI8SS5g6IaLmE+RCTV3W52btZHElEEG3mEBsor?=
- =?us-ascii?Q?FlmrTNTBoR5OgWM66qoMa9Cn0oOqKwFewF35f8aMu+KViFtUYHtwU4gDj2qx?=
- =?us-ascii?Q?ldHGCq6Yq36Tzpw9IKQUf303Dn4OoL4D7VHvKtnuud4eAQXkd3FYYnm9mcL7?=
- =?us-ascii?Q?TY7Ff2lp7ieouEE0eDDCDzEEpYEzKnm0HHT1q2c/D0oJ2y5SPjJjGSdTS9gR?=
- =?us-ascii?Q?H3Z86k3FT1bYi9vpod1oN5RIU6j3KzP+BYJuoiBsMZ/vrgS32ZMfyLpnEq/h?=
- =?us-ascii?Q?BaW0ILDzpCtUSOliGcES48HMZLgf23YdtnPCGw2BW8RlgoX6KQfrSp/IXYVG?=
- =?us-ascii?Q?dv2phgu/x6/yo62HUgTLZmKn03ceYKU+++kuh6a1w58gMi3AFKtwGG8sjHWZ?=
- =?us-ascii?Q?JpqMjg/FpDKLJZma71YNVl3tSqHz0fWkt5EeHj3BQQQaTLVDML38/+pGYoDJ?=
- =?us-ascii?Q?yW7lkjoYV1Rsr3M9hx9YVPyquh8SaNcuu42aGdfMhVXy526VClSjG+0kRX6Q?=
- =?us-ascii?Q?KCy4xFmIy7XJpCBmTtwMZVZp1Q5jVifURgHlj7dt59Dp4ZYb3B25TPunS8Od?=
- =?us-ascii?Q?XOJ4eJFTFN2Gc3oefTkznv+Ys6oZZdEcbCys2we2V8dbL4/UzoF4ou4tthYf?=
- =?us-ascii?Q?/fJCg9ptyfELnI/o71scxwe7IWGRSwasRp4t2NJpZ/U73zqK/H8nZcQo01oH?=
- =?us-ascii?Q?qjrTG2I/jMdAfBgBSBgx/ND5V2qDgE6lgwhBjTntXdQLYXPi75ruWS7xnjyz?=
- =?us-ascii?Q?dlDJ+W+xBRyy30362OVUjIzrDtj6rN3MbNyyLJ6c3JRRBV5UuMjturFdS/Kd?=
- =?us-ascii?Q?QuzJ0jLScAKuZT1wrAUp0wS4vioxAXsY9YKcRwgxNIiklvSn8EqwTEWxDRss?=
- =?us-ascii?Q?eZZkNy/RC5P5YrDyNRIiHtAjYlomM21HC8YZo3+XFK/ojwwNVXXX0bmTn9zB?=
- =?us-ascii?Q?g4n69/uDJkbTr+lN0e7VATLjIcwjm0cb9uEpBUPtpFL8z+FhGQ0cL6lX4pQ7?=
- =?us-ascii?Q?pMcbG83YpcaZCkmxHy/Tfb5wmuBqtcIUIcWmpqlvsphHOBw2fbNWEih0844z?=
- =?us-ascii?Q?PFntL5Fez/+62W4uT9D92hd2OwiF7LzQql6aJK9wqnJLikT/rCEFduoG2VTq?=
- =?us-ascii?Q?K7wrEe8KcjclS+kD/J7H50yrtie7hAfwP2bt+RWRuIZvdCxn4mK6HiAh7Yeb?=
- =?us-ascii?Q?j70wODu8C46px2XMTV577pU+BMKtm6mA63NMSgyEpIzhbtnG3CV0j8T791cr?=
- =?us-ascii?Q?rcoBC7LFazoO5iWNeoELjtlVfHS5PLipFNbR28q3fzuWl7ETMtbq9QhVVhHj?=
- =?us-ascii?Q?Bt1spp9lc4i5WpN/odF/ZIIE1jiFezufNkEfa/IS4FSjdwdgTYmEwlrAdW5S?=
- =?us-ascii?Q?i3V2afcnoy2S7zx5M/j5IZyb6EdnDZ7bB+BvkeyhBSXMIpVyjuZ4bapIuasT?=
- =?us-ascii?Q?ac1IymN1yv7fNSabnqqugB/PFXFrRFae0Qe9+cXsd347BlPk4rcdhdF8pnHG?=
- =?us-ascii?Q?Fnvnk3Vrod5IugpQ1Lkyhh75nfi3z4B8CkhDNliKcEGGxdQ814DgRlyxY0PX?=
- =?us-ascii?Q?n90St6PZUx8qe6IhGwY=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-MC-Unique: 05H8orC1Ncadv34rqN-kKw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687632070; x=1690224070;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HY+GAgtQMaOLCnQYP+erBo+OdRKbhhQfMKWrT/CRb/c=;
+        b=c1qi8jmwiGWi11AppCjjv0JPZPogGU7NCyAw4JprATcf5F5k+ZyOp6TCkFeHibPmA2
+         5JTO4ohxHv0czf08c9J8Rhg6wiMjBO/ZkMHnR6/PpxqQKQNdoCTQtwF7gxGwJIEr2qOc
+         2pdng02a0MEY0y1ivmr0eGWlE+RVWPqURfk8A+FDvFNTKsa3WUYXSg4KIa1ynJRkDqiR
+         2BSCR42WdoYWx0/hl2mq+MwnVNl6f3JcvFnk61DFKI7xYOnLx6doYuBGFHDox82v50XZ
+         SusmYFWEZpK/rgmYS3TLMqaqxObnV8iX7XfpbIKAQRkT0y7G7CDjyMK6OZ5DnKTnYHRC
+         7MLw==
+X-Gm-Message-State: AC+VfDwcP6fFqaK3G+jplemVZyzES5hEM2KlpVK+CmmXWWoAJC+l4dmd
+	NcxL6kKzQa1zr7XgTm+ELLNiT4Lk4hrK2tNCzSqaAoR7Bj3aMdmQzFW6pJeIfYbHxgJgmkveSzZ
+	RKcoXIjnt1/q3CES5FggRlZHxwOsqKgfeNgKX5U15DAdoKVlr2g==
+X-Received: by 2002:ac8:4e96:0:b0:400:817a:50ff with SMTP id 22-20020ac84e96000000b00400817a50ffmr10198731qtp.33.1687632069940;
+        Sat, 24 Jun 2023 11:41:09 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6RAPqZ+cae4zFiQIbLLr98hC+RFCpZo8lomNq7Z8mWj4IPbnE3iA06e+0kZm6cEK6TzdOgPcsDVbXPJXmWWZM=
+X-Received: by 2002:ac8:4e96:0:b0:400:817a:50ff with SMTP id
+ 22-20020ac84e96000000b00400817a50ffmr10198708qtp.33.1687632069669; Sat, 24
+ Jun 2023 11:41:09 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44575cf6-b82c-4093-50b2-08db735f253d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2023 20:27:48.6545
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UqzH3xPNCxOddbxQD7ijwX3BRvBpd11TQrxHMejDV49hmI+X6pRF3tHIJ4W14rVO58+e+tZT/046UHA2djVcUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6921
-Subject: RE: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] Re: [PATCH
- v18] virtio-net: support inner header hash
+References: <CAJaqyWf-=R+KHfBjzrGzkunTdeV8sAgFUv_kYoxNo3uqH2OOSw@mail.gmail.com>
+ <20230609115250-mutt-send-email-mst@kernel.org> <CAJaqyWfOONuDoewWR7VcsxYB34=m23GqTo2=sroUf-JvvQGJcg@mail.gmail.com>
+ <20230613034216-mutt-send-email-mst@kernel.org> <20230613035132-mutt-send-email-mst@kernel.org>
+ <CAJaqyWfOi5D+f+JPBFZ8Rw+TCG5TLE+X8affo-EBaCAQx8_2vQ@mail.gmail.com>
+ <20230613082755-mutt-send-email-mst@kernel.org> <CAJaqyWdTPmvrGvOStY-uTg1KboAC6s7s8+1JkF1xWFUBwBVT+g@mail.gmail.com>
+ <20230616102011-mutt-send-email-mst@kernel.org> <CAJaqyWfx5Z9LxvpHy90EU5ZUHxROKMRtVVw00KAaCm+HzT0ksg@mail.gmail.com>
+ <20230617184944-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230617184944-mutt-send-email-mst@kernel.org>
+From: Eugenio Perez Martin <eperezma@redhat.com>
+Date: Sat, 24 Jun 2023 20:40:33 +0200
+Message-ID: <CAJaqyWdLHJng86Hu0jPS+YWv-GgdJV8t+sdjcAhW07MKxeqAOA@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	virtio-comment@lists.oasis-open.org, Laurent Vivier <lvivier@redhat.com>, 
+	Cindy Lu <lulu@redhat.com>, cohuck@redhat.com, alvaro.karsz@solid-run.com, 
+	Liuxiangdong <liuxiangdong5@huawei.com>, Gautam Dawar <gdawar@xilinx.com>, longpeng2@huawei.com, 
+	Dragos Tatulea <dtatulea@nvidia.com>, parav@nvidia.com, stefanha@redhat.com, 
+	Harpreet Singh Anand <hanand@xilinx.com>, Stefano Garzarella <sgarzare@redhat.com>, 
+	Heng Qi <hengqi@linux.alibaba.com>, Zhu Lingshan <lingshan.zhu@intel.com>, 
+	Shannon Nelson <snelson@pensando.io>, mgurtovoy@nvidia.com, si-wei.liu@oracle.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] Re: [PATCH 0/2] Selective queue enabling
 
-
-
-> From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Thursday, June 22, 2023 3:02 PM
-
-
-> > Existing fields used by existing drivers must be in MMIO.
-> > Device does not have a choice.
->=20
-> They can if they like mask some less important features reducing the foot=
-print.
-How do to that? How would device know to not have existing fields on MMIO?
-
-> This will be the cost/benefit analysis each vendor does separately.
->=20
-> Case in point, if inner hash support is in 1.3, and linux drivers don't r=
-eally use
-> that at all for a year or two because it's only used by alibaba in their =
-stack, and
-> by the time linux starts using them it also supports the new commands, th=
-en
-> practically devices do not care and can just mask the feature bit in MMIO=
-.
->=20
-Once it lands to config space, it becomes existing fields.
-More below.
->=20
-
-> > > If they want to cut at 1.3 time, they can, but they also can cut it
-> > > at 1.2 time, this means some features will not be accessible through
-> > > MMIO only through the new commands.
+On Sun, Jun 18, 2023 at 1:08=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com>=
+ wrote:
+>
+> On Sat, Jun 17, 2023 at 02:53:46PM +0200, Eugenio Perez Martin wrote:
+> > On Fri, Jun 16, 2023 at 4:40=E2=80=AFPM Michael S. Tsirkin <mst@redhat.=
+com> wrote:
 > > >
-> > New commands services new fields by newer driver.
-> > Newer driver can call new command to get new and old fields both.
->=20
-> yes.
->=20
-> > So 1.3 and 1.4 devices cannot optimize for older drivers.
->=20
->=20
-> I don't know what this means.
->=20
-I guess next below question answers it.
-=20
-> >
-> > > > Once cfgvq is present for new fields, from the day 1, device does
-> > > > not need to
-> > > store any newly defined fields on MMIO.
-> > >
-> > > Exactly.
-> > >
-> > > > And 10 to 20 years, it can stop for existing fields..
+> > > On Thu, Jun 15, 2023 at 10:35:09AM +0200, Eugenio Perez Martin wrote:
+> > > > On Tue, Jun 13, 2023 at 2:29=E2=80=AFPM Michael S. Tsirkin <mst@red=
+hat.com> wrote:
+> > > > >
+> > > > > On Tue, Jun 13, 2023 at 12:12:43PM +0200, Eugenio Perez Martin wr=
+ote:
+> > > > > > On Tue, Jun 13, 2023 at 9:53=E2=80=AFAM Michael S. Tsirkin <mst=
+@redhat.com> wrote:
+> > > > > > >
+> > > > > > > On Tue, Jun 13, 2023 at 03:46:35AM -0400, Michael S. Tsirkin =
+wrote:
+> > > > > > > > On Mon, Jun 12, 2023 at 09:56:57AM +0200, Eugenio Perez Mar=
+tin wrote:
+> > > > > > > > > > > Another drawback of that is the long time a device ca=
+n spend to
+> > > > > > > > > > > reconfigure its memory maps.
+> > > > > > > > > >
+> > > > > > > > > > The map is already used for cvq though, I don't see why=
+ it would take
+> > > > > > > > > > much more with this.
+> > > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > In the case of vDPA HW, CVQ maps may not need to reach th=
+e device's or
+> > > > > > > > > platform IOMMU, so the modification of that mapping is wa=
+y cheaper.
+> > > > > > > >
+> > > > > > > > Oh, I get it. It's setup time, but you are right.
+> > > > > > > >
+> > > > > > > > > > > taking that into account, does it make
+> > > > > > > > > > > sense to send a new version with the bit 1 on enable?
+> > > > > > > > > > >
+> > > > > > > > > > > Thanks!
+> > > > > > > > > >
+> > > > > > > > > > Current hardware won't support the extra bit though.
+> > > > > > >
+> > > > > > >
+> > > > > > > Thinking more about this, I think the following works:
+> > > > > > >
+> > > > > > > - enable all queues before DRIVER_OK
+> > > > > > > - reset all data queues before DRIVER_OK
+> > > > > > > - DRIVER_OK
+> > > > > > > - CVQ commands
+> > > > > > > - re-enable data queues
+> > > > > > >
+> > > > > > >
+> > > > > > > No?
+> > > > > > >
+> > > > > >
+> > > > > > If it is valid to write to queue_reset before DRIVER_OK, then s=
+ure. I
+> > > > > > asked for that in the past at
+> > > > > > https://lists.oasis-open.org/archives/virtio-dev/202305/msg0032=
+9.html
+> > > > > > .
+> > > > >
+> > > > > Well then Jason said:
+> > > > >  we should make svq work without RING_RESET
+> > > > > but now apparently we went full circle and propose
+> > > > > a feature bit after all?
+> > > > >
 > > > >
-> > > > The clear benefit is fields defined in 1.4 no longer needs to be
-> > > > stored starting
-> > > from 2023-24.
+> > > > My understanding is that RING_RESET covers more than just delaying =
+the
+> > > > enabling of net data vqs, like to change the address or properties =
+of
+> > > > vqs after DRIVER_OK. While the late enabling may be easy to impleme=
+nt
+> > > > in current hw, vq property changes may be more challenging. There a=
+re
+> > > > current HW that only support late enabling but not reconfigure the
+> > > > queues. Ideally, just the subset of late enabling is needed.
+> > > >
+> > > > Does it make sense to change the proposal to something in the line =
+of:
+> > > > RING_F_LATE_ENABLING: This feature flag is a subset of _F_RING_RESE=
+T.
+> > > > If this feature is negotiated, all vqs start as if the vqs has been
+> > > > reset before DRIVER_OK. This feature does not allow resetting a que=
+ue
+> > > > once it is live.
+> > > >
+> > > > Thanks!
 > > >
-> > > And why is it a problem that someone can also build a 1.4 device with
-> MMIO?
+> > > Maybe. No idea - I am not a hardware designer. Can some hardware
+> > > vendors chime in and confirm?
+> > > It seems like a very very narrow "make my hack work" use-case.
+> > > And I'm not even sure how well it works.
+> > > For example what if cvq command enables rss? If the queues in
+> > > question are not enabled packets will be dropped.
+> > > So - fix some setups, break others?
 > > >
-> > Why to build device using large MMIO when those fields are accessible v=
-ia vq.
->=20
-> If you don't want to - don't. But it's simple and handy for software.
-> Not all devices are complex beasts like net.
-
-Every single device has a VQ to my knowledge.
-So VQ is already simple for communication even without cvq.
-
->=20
-> Apropos, I am not yet sure the best way is simply adding admin vq to vfs,=
- in that
-> this only works for fields not needed before DRIVER_OK.
-> Ideally I think we should fix all of config space, including device and c=
-ommon
-> config. I have some ideas but let's not get ahead of ourselves.
->=20
-> > VQ construct exists so it is already simple.
 > >
-> > If the spec is defined in a way, that new fields must be accessible via=
- vq, and
-> optionally via MMIO, than it is ok.
-> > One can choose to build via MMIO.
-> > So MMIO for new fields must not be mandatory.
->=20
-> For devices, yes. I am suggesting mandating it for drivers.
-It must be mandatory for the driver to support VQ, only than it works.
-If driver does not implement, and device only offers via VQ, it does not wo=
-rk.
+> > I don't think it breaks, they are already dropped before setting
+> > DRIVER_OK anyway. If we restore the configuration before DRIVER_OK in
+> > the future, the device is supposed to drop packets meanwhile anyway,
+> > isn't it?
+>
+>
+> I just thought of an idea. Devices generally don't poke at rings
+> by themselves. How about at init time we cause kicks on data queues
+> to vmexit? Then on 1st kick we map hardware so following ones will
+> go straight to hardware. This will make sure cvq is processed
+> first. Hmm?
+>
 
-> Or maybe it's enough to make it a SHOULD.
+That would be possible, but nothing prevents the hw to start
+processing requests even without that first kick, isn't it?
+
+I think that was discussed also in the past, as previous qemu patches
+gave a spurious kick to start queues just in case. I think the
+conclusion was that at least the vDPA device will start processing
+requests at DRIVER_OK, no need to wait for a kick.
+
+https://lore.kernel.org/all/CACGkMEt8cMM1UxVzxb0eHeaWSpR0ApvGzaF901vrM4m-uG=
+MiPA@mail.gmail.com/
+
+Thanks!
+
+> > >
+> > > > >
+> > > > > > >
+> > > > > > >
+> > > > > > > > --
+> > > > > > > > MST
+> > > > > > >
+> > > > > > >
+> > > > > > > This publicly archived list offers a means to provide input t=
+o the
+> > > > > > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > > > > >
+> > > > > > > In order to verify user consent to the Feedback License terms=
+ and
+> > > > > > > to minimize spam in the list archive, subscription is require=
+d
+> > > > > > > before posting.
+> > > > > > >
+> > > > > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > > > > > List help: virtio-comment-help@lists.oasis-open.org
+> > > > > > > List archive: https://lists.oasis-open.org/archives/virtio-co=
+mment/
+> > > > > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback=
+_license.pdf
+> > > > > > > List Guidelines: https://www.oasis-open.org/policies-guidelin=
+es/mailing-lists
+> > > > > > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > > > > > Join OASIS: https://www.oasis-open.org/join/
+> > > > > > >
+> > > > >
+> > >
+>
+
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
