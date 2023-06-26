@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6530-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6531-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5725FEB64DC
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 13:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55AA0EB64D7
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 19:05:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7DC7815AA26
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 13:01:32 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 791A626A33
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 19:05:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 67909986410
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 13:01:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6827E986408
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 19:05:31 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 53054986393; Mon, 26 Jun 2023 13:01:32 +0000 (UTC)
+	id 54A30986394; Mon, 26 Jun 2023 19:05:31 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,177 +24,224 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3B460986394;
-	Mon, 26 Jun 2023 13:01:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 24FDA986407
+	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jun 2023 19:05:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-TM-MAIL-RECEIVED-TIME: 1687806313.953000
+X-TM-MAIL-UUID: 6eadbaeb-f80f-4610-9811-fae3aaa06cea
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cpzQnsnESbEgn/3ffdHavauMFgM3fO2MtpMZ94CAhH9z+b/fhISezbXYFhrAqvYv0BjNz2QJbX/DOSiaHML1qjXWIXgqUhBD15BBlLOxs6N7q4JABNRe6KG+rV40RhseBBqpNH2Z/3HGLhWRGLS+8zpyCg9HG/0dz+zNWVdO269VfWxz7Wkarq3ecgdGI5LYFfmbxxup7X5XPzz3PUw6IUHkEhwz1hu+xN2CuqMRBJQeV/ldh34elwNGLEYUbEDfdBtUwwmHutLzFmsF39Yz1M2eaufxvOzsUY5H6mqwQQNWHd+iLLJmPReX4q7X6YuiAeRXlDP2M/qUufUoHgu1GQ==
+ b=VTKrva7eCkLrY/xWbWvhjvETclakszh2WflXxoC8VuGTp4t+sCtA6xi+gOu2Z/fSzwKa+SABgWJxvey8GvRrA4joLKWy+bdzBj8Y35WhWlfusXTE3pFKB/rYK8SOvVdrOdcpRRAz5/6Y4CHRfhbS4xiZG8wxPXd57A77FaoljQWvmqLsAz+FhBH3TFrtxUcAgxE1EcyrsAB/fa9uDgWqde7tJtR03Njib2TOIlD+9blmWykiBLPvUAOLprTA2IChVMNeww6ECn4LKJhabqEUdw4vpjP0OjDRe89jNGb7YFMo6/IaNLgG5pJHtLebEM+ymC+TtS43sSMj57rtx+inPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P5bkoGfgygImPHp54ZUwfB6r/0gmk8JvqDCprvxZilA=;
- b=hlv4DEFDesLc2lilj0+GTizQina1xsJL5EDRqp/Ql5qK52dzS7VPJQp6MW0gbPFMAcM8a3NZGvv/cvZMrnuQOOfcNvdfT12Gdn5eRQ/OI0nSPP/4snS4m6YnK04LlOmWKbB9oOzzHU8n6Av/QGphmlW3+8kVTIX7nZWxSyA2grGeuRZaMPYcFynY4KvZ+AldpmGAv9NoUx3KxRD5IP0yJ0ZkYA217gdP5weW/FJxJoTkvHpMmRoOWa4WFB5sThbEK79tS14Y/ioIaOlXGs0jH8iJsrvAUp9Wyx0q1F34jcmBqyLC9AVqDL5zU3TrbcnMS5Z1/N8mwRI3tpz3fS2EOw==
+ bh=re48b7+doVQma+4tGWiOkn0sMeNfzPcCBrySDsImhkc=;
+ b=BNKA0log+FI5Ppu0IzMdE+VJpmuosAcP5fsVn+yQpUO5lnqM59vPOFUVqjSNZMkuYjpbfxtBoaqr/0KA5E6sjr5KVCYmy8aWsfW2YeCQFcuiMA0VNPN5mvjsgayIfI7MkUTUu9oN/25wJW1v+WiJ3uiQ5WMX2R6NuJCgvQAQWls4qj8Ix5rA2wWb//WDseOvIcvfcPiybcjhA2purA6/glWwbYwg/crCsJqbdyC7xWrccDnUMhc7ZpHy1QPvu7t9z7m/G3VwN4JlGq+q1LpjWo7Br7u1Qsbymbo24kumM0erJz8ZdnYyhEsbG/wbgIXIah8iKYOEV5iTgp3XdsPx5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"mst@redhat.com" <mst@redhat.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "Zhu, Lingshan"
-	<lingshan.zhu@intel.com>
-Thread-Topic: RE: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] [RFC
- PATCH] admin-queue: bind the group member to the device
-Thread-Index:
- AQHZp/aO4VG7c5VX5U2HGCV+HZ1m26+cowyAgAAHC4CAAA21gIAAA3QAgAAN8QCAAAS2AIAACv+AgAAPS4CAABdjkIAABQ6AgAAG3VA=
-Date: Mon, 26 Jun 2023 13:01:27 +0000
-Message-ID:
- <PH0PR12MB5481E690B550FEFA47560205DC26A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230626062210.49020-1-xuanzhuo@linux.alibaba.com>
- <1ddd572b-a1d0-74eb-1e31-abb6dafdef3d@intel.com>
- <1687763309.2985258-1-xuanzhuo@linux.alibaba.com>
- <0a3cc0d7-638b-a49c-d846-8a4ba6e5501f@intel.com>
- <1687766994.5635917-1-xuanzhuo@linux.alibaba.com>
- <0d536952-bc05-460c-a116-3ec26c25b017@intel.com>
- <1687771000.8174524-1-xuanzhuo@linux.alibaba.com>
- <5809781c-1688-478e-d1db-39067fb45d80@intel.com>
- <1687776645.3360302-4-xuanzhuo@linux.alibaba.com>
- <PH0PR12MB54818E9B1BEE45EFC0E3E78CDC26A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <1687782753.9811661-1-xuanzhuo@linux.alibaba.com>
-In-Reply-To: <1687782753.9811661-1-xuanzhuo@linux.alibaba.com>
-Accept-Language: en-US
+ smtp.mailfrom=opensynergy.com; dmarc=pass action=none
+ header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opensynergy.com;
+Message-ID: <8d5fc5be-1db8-65c1-c8ab-9fbd10808a59@opensynergy.com>
+Date: Mon, 26 Jun 2023 21:05:10 +0200
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+ virtio-comment@lists.oasis-open.org
+References: <20230619120128.234244-1-alex.bennee@linaro.org>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA3PR12MB7782:EE_
-x-ms-office365-filtering-correlation-id: bd39cd5d-620c-493c-531e-08db76457433
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- ZeHsNxXqIvwya2J1HajQWy69tx/arnqkINO90tkGE693QlBQg8Ic3mWifbJK/wzBeG4lfDL64nF+eMADUgbNf8pgSokx6d3n3nyd4wDOlCap3uHXcjOEKJcpVv4NGzpOMsebim/xcRKBis/MhI0zIGFt7lDiSbKj/RYl3+BMbYnBZv1WADhcmMHyiXDIMvoPkwdMlDHc8/FDfp7LBYZfIeuxtWNppGbUEO+Q+72rrVgYpzBINZqTrXWwu1pEwIM1wrLp0CMWyZZaFOhmXVqignxJVM/mAnwqks0w7voyY5OGmtEltsvfxzz78ACKcyVzfPWRu7bFmO4KuKQZIKgCJXng2WNag97DDl5x57KOl5MDTL8sMpskAy6s1mYBmQKhJv40c17bgBfCW0p++kMdX+pEigXPfC1D/8TM2hurmx1uoB6SRsiNFxCIho4D4PIXGdO0vuT44DjGG++JRMoY3smNd10MKtytYYAO4WkcA/jcNbqOVgLI79kms4cKyH5SVQEjNYrA3OFkdJgK3ALCryuAIX/K8NgfsUEkFk8Cs1ipwohzVLck3wxeNv4eLnsOFamo/Dlk7JLYzoTYZ711e8YPonZuUAuwLuU2kiByICMfmJxMSTx99DePHik0+8H2
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(366004)(376002)(136003)(39860400002)(396003)(451199021)(38100700002)(122000001)(55016003)(86362001)(38070700005)(6506007)(5660300002)(26005)(9686003)(186003)(478600001)(76116006)(66946007)(66556008)(66476007)(66446008)(64756008)(6916009)(2906002)(54906003)(4326008)(8676002)(52536014)(8936002)(316002)(71200400001)(7696005)(41300700001)(83380400001)(33656002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Y3o4AMDrnYOy44Ih+Q+HK1chD3ZGFpODAE1OizSi66ncGi2QRKXKRHyxCZld?=
- =?us-ascii?Q?SBKreGEsOt7ajDWTChq/S7grW+rhkncwWGsP3a4MEcm/lEDYQ/WacnAVNJCT?=
- =?us-ascii?Q?vx+OKgbDMqHkpWRqabmH1X72R9xYIRYmZKxEB5ZHMuP0tg4oPrsRdibNHHBw?=
- =?us-ascii?Q?5zX+Oz2ZWwNWumt2nMdq1rk1N+Wk3U9AD6qeg7BsPRJY7c/jmaa1kIYkSj3z?=
- =?us-ascii?Q?EE0Plwp4E6pPvqDHGrl40OLhDDF1datuHi4CmJ67dJQYpjyJXiMX7bX1in9e?=
- =?us-ascii?Q?uK5F1ZppIKLSSqTSEcttRWrUAJsS3I/UM9tersca9iRnQLu0dw0njOek3TmB?=
- =?us-ascii?Q?UIWdbAM4CrNS4nSZDgezeoDVKKUjwayBy36L2BBBdrYjr8LQfMzAJQTyjWsq?=
- =?us-ascii?Q?QNgqfm1d0FfXeYAljfnu4n2L3skR4lKiqK9eTaSpWGT0FWFPpTUBU7KJe4vl?=
- =?us-ascii?Q?WouSaRUnHoMmB8fmYVQ9FWSg5Q9pVxqTaX7tNhCGpI1LknCZbeqQ5MqczN+R?=
- =?us-ascii?Q?EXaiTg6h0n5RUzd6czq7xXg/71ImcX5Uj9zVOrXda9SZ5G/+7eLjyWS90DH7?=
- =?us-ascii?Q?bLO7IvvATtKKCvinxDmgjwW24VPBD9UzjtukAMoUV6cmtwJxElWtIZMLGeIN?=
- =?us-ascii?Q?3AsEpsySvTehxr7HcKA6KsA7kh1wJcEZModPtHNa2E9X8w9vCYy0I27tLi73?=
- =?us-ascii?Q?SblZUtdHUX2Zj3H3i1UiWCPcSipRLkvjIkrdo7Ftw2PCiOY0QvEELPEtC+GL?=
- =?us-ascii?Q?Bma3TsweGBkcUhyWvGPJncQ0qiaPps4BysOIMe6QfDOTchrz6aNPgdsvaiCw?=
- =?us-ascii?Q?WyttsYeqEtVaVVvtrN1uVcP6KCK1IwSMqNfW5dff2wmKD29ovaOrBr+By63o?=
- =?us-ascii?Q?zJqUV/o2CUymO1dUXhMxmwDdRKvIT+zIJlZhJXBQUjMDM5i7Uo/rg13c0vOB?=
- =?us-ascii?Q?nqYVnKiMZLNTEPH211LXeEPVluTWfAo4rOABwSxXyz4iiJbLyvdIF61/qQP2?=
- =?us-ascii?Q?IQ5GpP42IHhe52hiQD2RPF4iwr5xYa8vl3oFbXmOM7RmtTy4eJCX6X9+Nmas?=
- =?us-ascii?Q?KED6jwIwsIfGH+FppoQd9p9RS4cg12Ygr9xjTEXuIydPhm9yFN7G6nwvJmJE?=
- =?us-ascii?Q?1HU89o6PJI/CJHxEX8SKuEeublDQTj/zS4vkgpIQpePqks4nPNOZOnVKISR8?=
- =?us-ascii?Q?FKsjEkvxEP51wBzItwIIu6QcyuPQtZXrf38Je6EMYCB+Z7ALd1F3Sx40Zm4D?=
- =?us-ascii?Q?5DhLQSGFGhgBzml/Wj2PRIA/VB/LkWvvBybSnzWbCeEW0xl+oEx9YG7ZUXv3?=
- =?us-ascii?Q?dSzu5avn60VfYV2aNhZHSBGO3/EXeAKYGg526TMNOgAr+joQyulsQ3cOb1dN?=
- =?us-ascii?Q?qil09p+5tEwkVO9LnYMF9YhyG01pF7PwPN6hVb9CYkA1cttmG+/CDbKuJAYf?=
- =?us-ascii?Q?PfX3XT09AOdE/afs7Q0RRh4fFlevtdlYNjk5faBHraYY5H+l/zi3zyXvJlvB?=
- =?us-ascii?Q?iYYLJ0T6fSq+vG6xA0akm9AMdsDH4zOznuPfJzUl6MSVoOo0+H9TlUf5ZRAo?=
- =?us-ascii?Q?tkXhSk9Ba8fZRS/kUPo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Harald Mommer <harald.mommer@opensynergy.com>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Harald Mommer <hmo@opensynergy.com>, Will Deacon <will@kernel.org>
+In-Reply-To: <20230619120128.234244-1-alex.bennee@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0032.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::19) To BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:4a::9)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BE1P281MB3400:EE_|BE1P281MB1634:EE_
+X-MS-Office365-Filtering-Correlation-Id: d06275fb-c002-4a33-314f-08db767844b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	FwlAN6Y4VkRdheFCjxmZ0JFAmvu9ETPKd3Yf6UIiORUMV7paN7+koDFutUyHJT6nPgbUMz/NuQgCYOa/YWbjYWPC8S2mUeD17E3mWNRoD5jl0bW/bZgOrDxPZMfL7Wx2JU18i2QJFXP6l3CC42TlTycgjRHx820ePjtRVv3FAZjD++yjXazzln/twX6wb+FemN9KXJ1UcRYNvn2sCicpreFz0JXD2+LDwMO9vSJleu9fUE9yTSgA2CTpAdlDl+SPJ8qJLIkfWI2aW6DujMnk+R7dmxE16vnOFGtsU/YF6M/Cj1xRh2zam6GLpg8X4DjB9ocNxfrkr1UN3tE+Sl32O6rK2W2/Lo+zgjB6dNqDusQthZeT8BaubywCH1rCmO0NlNseOTvcExJHrwCrysHNqzWds+4jxFLqfgf5zlOqnk3Ein05nMgBNlBxCwWAxdXrFxehgWFy+WUSKx2ARpI+cVOeyGfB7t2GWsk2KBFFJfJOyioWQbguiELZyEjn5IbbxmF0WT0m5N017kFk85WA/kV1ubB1K7yi835dCNE6q8n5xFu5U7BLSmY3xhddKEvU0UmzsDK8G3yyGS7zpF73Pa4i9MmNSvitCow28bZ1/s4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(396003)(366004)(376002)(39830400003)(136003)(346002)(451199021)(2906002)(53546011)(38100700002)(2616005)(83380400001)(26005)(186003)(66574015)(31696002)(41300700001)(86362001)(54906003)(42186006)(478600001)(66556008)(66946007)(66476007)(4326008)(316002)(36756003)(5660300002)(31686004)(8676002)(8936002)(44832011);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aWlDUHpTZ29paCtqTnlwSTRCWTVPR3pkSHR6ejJnQmlPNVdOUHFzQnNqVlBV?=
+ =?utf-8?B?R0doZW1EbG02SGQ2VDdUNnpqNlZLVVozUXJ3S2gvNTlTeXhmSk44N2NVeWRO?=
+ =?utf-8?B?eVR3Unc3dDNOYkNIMkVoVjBYd2l1S1llTlNvZkpSeGp1Z0ZPTDdzck1vU2Vp?=
+ =?utf-8?B?Vm1Sd3YwWlYralFEQlhYcUZSKzNSMTQ5d0tTeHMrcExQSHp2cGMvbFpEdlE3?=
+ =?utf-8?B?ZTIwZDZYRDA5dzF2Z0hjdkNWK2wzZ1c2TjhXQlpVcTlhakxOeFp4cjlYcnVS?=
+ =?utf-8?B?R3NqNUovTktHTjN2d3ArdzBOV3pEOVFseEkwbm1hYmRxVFBvQmJZd1ZWZWFT?=
+ =?utf-8?B?Tmt0MzF5VG5SWnF3V293NDZNMzVEY01mQitsdWJMTC9kTWtBOWNGSmpZRlV5?=
+ =?utf-8?B?RnJEUUREYVFPYmpUVENNVFJidjZrYUF0Z1U3L0dYamRxSlZob2xIVXZzQkJX?=
+ =?utf-8?B?SXZCaExWU1g3QkVZMVJZL1V3U3kyM3V0TzZwWnVoUUloTDNMWldqQTYrT1hx?=
+ =?utf-8?B?NGNnd2NuVkhVdnFoMk50azJyb1VRVzNlR1k2eWFqY0lkWmQ3cXBwRWZHZjdo?=
+ =?utf-8?B?NU8wUkxsOW93eVBkV28wZ3JlNUdLYzFVSDNzNE04VFQxem9ya1ZBekxENFU2?=
+ =?utf-8?B?ZUZRd0M1TzhOOGNSb0lnK1pMN3k5VHJsbndBTnFrVWFaai9iUDh1NE03bE95?=
+ =?utf-8?B?d3JTbW4wNm5qczVPYkpHUWxxc2tCdlJDaElwUW1yQVhWYitKRVJyVFB3UTBG?=
+ =?utf-8?B?US9PN2hPNldQTWwxK0V0ZWJRK2tQK0FIYkFZUXBvaHplZGxTLy9HdVdrbGMy?=
+ =?utf-8?B?Mm52bGlGV3hnczdUNTlqT0FNSVJNY1FwREh6dGZLaEZDcGJhTzNIVGVuTDRE?=
+ =?utf-8?B?UE5vcG9sS0tIS3E3eVVVbFdXcDRPRHh4UGRkTzhDQ29mczBUcEc2WTZFSXFF?=
+ =?utf-8?B?UnlVNisxQUprMkRiVFFMeEtaNEZlM0ZuRW11WXpQdzdDelZvRm5QdEpMTXAy?=
+ =?utf-8?B?aU00N2lFTXNNN2t6Nm9OSkx1S1lDRk9vUXRnaVcxM3hxbkc5REJjbE1hMnhG?=
+ =?utf-8?B?Z0YrZjBQMXJrZXhOWGhmOHoxVElQaWRSRmgyNVM4dWxnK2J4ZEdLTDlueWJl?=
+ =?utf-8?B?NVNBS0NnZmVHQTJiWmtpdUgxU2lNc0QwbUlzL2g5M3g1L01JZ0tyQk02UlQ4?=
+ =?utf-8?B?SG01SVRxUnA5cHZSTkVRTytoa0hJYVRlOUIwbUFxeUpoVENVSExZRCt5Lyt1?=
+ =?utf-8?B?NitsZGhkTFYxSmVpV2U4N3JWYkZjRi9oTXRpblBacmtiT1pqa1pYejNpNTZU?=
+ =?utf-8?B?UFIyZFRxNHY0S24vbFZDVWk3SVY3dDM5V0thTy9MQ2lWM3pWekhldGZrVXN6?=
+ =?utf-8?B?MlhldHpaNlE5b2R5TEpjcnc1OTBSNE1nNTZlRzg3NllJdHZSTUxWc3hyQTc3?=
+ =?utf-8?B?NHM1dWdrVWxwNUczMGloYUMrN1Z5Vml2QUYxZUNxTmpGUEsvZVhwSnhOWkxD?=
+ =?utf-8?B?ZVo1YU55MGpCSzNRRGZnZkwrdm1IVmtieWNYVmsyZmxNLytmVEwwWWVVWmdw?=
+ =?utf-8?B?V2ozZlVQRm9FVnI4ME44dW5RM0dFM2RibWlRSGJTMi9hdTNYTDdFRzhsSFRX?=
+ =?utf-8?B?bi9nKzFFbkV6VWNpM0tmK2NzSDlpRXF6Q01PTVpQdENtdS93RXdEcVVtbjFv?=
+ =?utf-8?B?M2sxaVprejB5UW1mQzBTUUx4Zy9iM0hQY1JOcGNBcGJ1dy8wcjJSU21ZMURy?=
+ =?utf-8?B?bjRHQ0YwWjZ6aWxINjZkYlNkNDk3R25IOU11aVNzNUpFQm5rU0cwZWo0SndG?=
+ =?utf-8?B?bWY4QkZkT040c2FRV1BWYU15VEtFTnQ2VkQ2dnRGUDJiRWQzOHZKVDg2bkhk?=
+ =?utf-8?B?Mk0xY0J2RDhGQ2V1Mzh3VHcwOGZXNXdIbEpHL1pyd003WGNPdHNaVFZSNWNZ?=
+ =?utf-8?B?M3ROaDVzVTBrSE5YeGpOTTJyWk8ya1ROZjNmckZQUHdPV0w0aG1rdmcrS0Vm?=
+ =?utf-8?B?eWp0RGMrWlJwdmh6UUNhUSt6TS9JWk56NzhoM2hKT3dCMDVKNHlJbDdHSmlk?=
+ =?utf-8?B?cUhzemNYN2o2blJ2bmhBRzZibm0xQjRRN1BFSGtNRURVZHMzRGxPbzczbjl4?=
+ =?utf-8?Q?HgV839OtwmXtScyo7ZpbfSYsx?=
+X-OriginatorOrg: opensynergy.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d06275fb-c002-4a33-314f-08db767844b8
+X-MS-Exchange-CrossTenant-AuthSource: BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd39cd5d-620c-493c-531e-08db76457433
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2023 13:01:27.7338
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 19:05:12.5123
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kYw5JeH7lmau3a+H4Lr/5Keq4ePb7bfsnzL4SMJMEJMpvwSO6RQLf8mMIOV6cJIy3RbXK+M315mOR0qhcsQ6YQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7782
-Subject: RE: RE: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] [RFC
- PATCH] admin-queue: bind the group member to the device
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pPe8mgjhKeDGg15+Q6198FiRM/jrCSlbmB+taMRSJ21rcaXxVlWSjTtGqGC6wW5vdDB+4vT9RqViLpc2BukAZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB1634
+X-TM-AS-ERS: 104.47.7.171-0.0.0.0
+X-TMASE-Version: StarCloud-1.3-9.1.1011-27716.002
+X-TMASE-Result: 10--20.087700-4.000000
+X-TMASE-MatchedRID: C/snMIRQLS3je4vNKJAOkiE8raaf46xMK2WlM+Lm07x83mXuKlGTiK89
+	5HEdohSr6lROzfyovSNWDMuqIBD7Ihpqc4nsuG3a+mtDRLyNCFrn0oaU6WM++zt4PshyF7gpNsV
+	oz6OmcrPs1AvftlvAh0VjdiEf4r/Prddi2w4fb9BFg2HO5lmNEJ/lBCdM0NkRWQMS6lqffg8MSs
+	xPfYjEmSTYHx7xhYUzeOutAIhYOd7ER3IYAYbSWzXl3Z4Qx1kR5+5PDJUB/vWBaX4iQh46D+FgK
+	VVSaMRVj3Bgwc+5X+Bj57I3JCt9/S9BHkOCxllOMjlC8fIChHOVlsxwvB691eSxnfO8XDh3KtMF
+	YmFcg83caDpBsOZgrCytubT7l9bVXEayR3z9qp5SKsXuA7t++RUk9SpeetB18Yq7KCpNJN+Cn27
+	pT9p/WXpruyUp14qiHIjjcaZTRE5TCnjVsjEjBMVNAYApHGPk2j7jyCKpnCcSCDdzAMeX/U7zkl
+	yhPTD9YIyQM4JfnWl4bd6tiMFuXX7cGd19dSFd
+X-TMASE-XGENCLOUD: a1566fbd-55f1-478a-9133-52e33054ff43-0-0-200-0
+X-TM-Deliver-Signature: 193FF7C3A93E96566229E604B6BB7BBF
+X-TM-Addin-Auth: i9kyasmmNp+pCdjrw0v0a1pMLHig3KQpIL6Mrd1xrZb7iU7s51rJPVl1ukM
+	qQOyjXbA1QyVF9vn+jQAZS6uSCV4ygY1WCJWbjfhr40uUa0eRjM68twDcpNGanVwj8eqfdJ3AQL
+	6sIM+WxfYhQeRrdeJVZhzY1NKYZ9a1UhFfZrGY4lsNmUck5FNpqX6m6EJE895Jd/IuyquGO9xKt
+	y3wPY979uBF3aCAI2rk8Iid1j4lb/VJCiNqI3CY6g/yYYVyCp0TTeyFFK7J4J4jyAaKeFToLWua
+	rlhEalL38WjHZZ8=.hB3Q3ghMbogNEhkHLoxJAx/hs7HabKoww7GrL4KiIcbJ/Cpd5iSb5HkWPm
+	gov7AjxcMZTT3M+uAoEUEEraub1zslWKUOwBCul6zagG+6e3XhCjdbB4SMnJxdYw+Pd1O8i2L2w
+	TJHYHJvMyLMRVOHvvW0x6C+sdaGOSIs6GtWZlMjnafNYc8nbpANvEZIud/OzRXVIqdgyxYMwGPs
+	q46qSmr5cp9msrPUTa3+D3ZFi9PIyQCVeWzjdJcbZ9qP40u84l5yMx7bSUrfzBu4DFpLpBmg1E5
+	LHwPm0G9VX4ElrWEpXYhqqLxolZE1f8szxrWzH6pxpmDetGLK24GAV/M8hA==
+X-TM-Addin-ProductCode: EMS
+Subject: Re: [virtio-comment] [RFC PATCH] virtio-rpmb: fix spec land mine in
+ max_[wr|rd]_cnt
 
+Hello,
 
+this damned "unlimited" makes me crazy. Nothing in a computer is unlimited.
 
-> From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> Sent: Monday, June 26, 2023 8:33 AM
+How easy could life have been if the virtio spec had used 16 bit values 
+for max_wr_cnt and max_rd_cnt in the config space but it is as it is and 
+this cannot be changed any more.
 
-[..]
+On 19.06.23 14:01, Alex Bennée wrote:
+> Even if 0 meant no limit we are still limited by the field size of the
+> request. That said for a maximum sized partition (* 80 128 1024) you
+> could only actually request 40960 blocks before running out of device.
+> Perhaps it would be better to mark 0 as invalid?
 
-> > The flow is for one OS (Linux) is:
-> > 1. user enable SR-IOV on the PF device in a host, which creates SR-IOV =
-VFs in
-> the device.
-> > (num_vfs and vf enable bit in the PCI capability)
-> >
-> > 2. VFs are created at the PCI level in the host system and also inside
-> > the device
-> >
-> > 3. A user on the host may bind these VFs to the VF driver
-> > (virtionet/blk or vfio or vp_vdpa or some other)
-> >
-> > Between step #2 and #3, a user may configure one or multiple attributes=
- of
-> the VF.
-> > This includes feature bits, config space fields, vf msix vectors and mo=
-re.
-> > This is to be using admin command.
-> > These admin commands definition is due.
->=20
->=20
-> YES
->=20
-> My problem is that the nic is created by user on the management platform.=
-  Or
-> the device is migrated from other host.
+Where comes this 80 from? I saw a 0x80 in the virtio specification, 
+which would be 128 and not 80 decimal.
+
+> Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> Cc: Harald Mommer <hmo@opensynergy.com>
+> Cc: Will Deacon <will@kernel.org>
+> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+> ---
+>   device-types/rpmb/description.tex | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-Do you mean the management platform !=3D the owner PF device?
+> diff --git a/device-types/rpmb/description.tex b/device-types/rpmb/description.tex
+> index 1dae3fd..2ce8a5b 100644
+> --- a/device-types/rpmb/description.tex
+> +++ b/device-types/rpmb/description.tex
+> @@ -37,7 +37,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / RPMB Device /
+>      The values MUST range between 0x00 and 0x80 inclusive.
+>   \item[\field{max_wr_cnt and max_rd_cnt}] are the maximum numbers of RPMB
+>      block count (256B) that can be performed to device in one request. 0 implies
+> -   no limitation.
+> +   no limitation other than the maximum value you can store in \field{block_count} (65535).
+>   \end{description}
 
-=20
-> So we need to bind the device(created by user) to the vf between step #2 =
-and
-> #3.
->
-We likely have some terminology issues.
-Bind the device to the vf?
+Yes, 65535 is what fits in the 2 byte block count of various underlying 
+storage technology specs. So 65535 is an upper limit. Smallest upper 
+limit which makes sense? I guess no as there is underlying storage 
+technology.
 
-At OS level, there are
-a. virtio PCI PF owner device
-b. virtio PCI VF member device
+JESD85-B51 for eMMC:
 
-c. some OS level device (such as net/blk, vfio, vdpa created by attaching #=
-b to the driver)
+Looking at 6.6.22.4.3 Authenticated Data Write I see that at least for 
+write 2 or 3 sizes may be supported:
 
-d. An optional representor device on the DPU side (defined and managed by t=
-he vendor, outside the virtio spec as device implemtion).
-Is this #d you call management platform?
-If so, yes, orchestration may need to consult management platform, but this=
- is optional.
+1 block, 2 blocks and optionally 32 blocks but nothing in between of 2 
+and 32.
+
+This is strange. If I understand this correctly (Maybe but I'm not sure) 
+the limits of the underlying storage technology cannot be always 
+represented cleanly by the virtio config space definitions due to the 
+missing 3..31 value range.
+
+JESD220C-2.2 for UFS is more friendly:
+
+14.1.4.4 Geometry descriptor
+
+bRPMB_ReadWriteSize is an 8 bit value, 0 seems not to be foreseen. 255 
+is the theoretical maximum and we don't have to cope with 0 means 
+"unlimited".
+
+And then I found something in an NVMe spec (NVM Express® Base 
+Specification, revision 2.0b)
+
+Figure 275 says that in bytes 315:312 some bits 31:24 (8 bits)
+
+"Access Size: If the Number of RPMB Units field is non-zero, then this 
+field indicates the maximum number of 512B units of data that may be 
+read or written per RPMB access by Security Send or Security Receive 
+commands for the controller. This is a 0’s based value. A value of 0h 
+indicates support for one unit of 512B of data."
+
+So if I understand this correctly NVMe has the biggest limit with 255 + 1.
+
+Considering current storage technology it could be that in practice for 
+now the best implementation choice when interpreting "unlimited" may be 
+to interpret this as "256".
+
+Replacing the word "unlimited" by "65535" may not be what should be done 
+here.
+
+>   
+>   \devicenormative{\subsection}{Device Initialization}{Device Types / RPMB Device / Device Initialization}
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
