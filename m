@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6507-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6508-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35B4EB64DC
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 07:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DBB1EB64D7
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 07:28:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1915F2A837
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 07:28:20 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CDCB023D57
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 07:28:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 05E5C986402
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 07:28:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C4E1E986406
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 07:28:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id EF30C985FDB; Mon, 26 Jun 2023 07:28:19 +0000 (UTC)
+	id BCC76985FDB; Mon, 26 Jun 2023 07:28:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,26 +24,26 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DC09D986382
-	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jun 2023 07:28:19 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ABCAC986382
+	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jun 2023 07:28:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687764498; x=1690356498;
+        d=1e100.net; s=20221208; t=1687764505; x=1690356505;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=e6pCWE1bLSVs1o0At2WaN2zF00aRYkDdCGOG10x1zl4=;
-        b=Q2Hg7SkLEHc9POBaVcRdoZTemrxWn4hiSwpWy0bO+DJnGxxv0igiL6l/G9Z0HkV3zf
-         JzDagMTTasA/7cj3iq18IpAqrNzD38JwnHvtU0AzdEuiL6Oyt1s15a69bw0XWl7YHR1I
-         a315xcrvJlFC+D8E2rgbudbGqy7MZm7iwaN8f61x0TvNQ3MIkOEc/EZTQqsdt2/k9dzA
-         8Fg9hIfOd5pL25K+Bx5vzGciAPAREyokYMJPvEaL2Cd7eoPSCE5MYtBS6lrHdIbqCVmb
-         L0qAJkmmR0iqaQfrbg3cNkUpSsxYaVQEOG4ae5TvY/XK4wpJwajegcCTrXyZ+IKMNeWN
-         dDPg==
-X-Gm-Message-State: AC+VfDz9yXsg55Hc4dq/Pj1Aw8FT3lq/D0YJcZpJ9f/Ce/jghRxhDQh5
-	e5bTizdNyeFQj674/JQDJr9yPA==
-X-Google-Smtp-Source: ACHHUZ7fTs6mMXmKCXuwY/34y2HjcL+egP14L8fcaL/fVdDDxbEJTSYx2GI2ko21ceojSkbPXWxmYg==
-X-Received: by 2002:a17:90b:3a8a:b0:256:5efe:8880 with SMTP id om10-20020a17090b3a8a00b002565efe8880mr27448716pjb.11.1687764498435;
-        Mon, 26 Jun 2023 00:28:18 -0700 (PDT)
+        bh=sp4mWz0EXA5hjSLzu5g1/ElmKe7oyOxwBs6i1WFkNTo=;
+        b=Qp8o3bLpODRLXLsN9T73NNZWHML3HjWTn7j52gMONeIu9X/YhDUTIcmVZwKcA+iHCA
+         RrtPJY8W62q9aH4Ws3PqR+jI7aQogLZPf6L1YxNhaPNCWVqdMCPJD01uTFe35TXcHHih
+         jiPhu0xxlDCTy+vQJmJeCKVun4RZkWtaMCj5cRXUuUodsT2H64e/hh9TuvQsa3F2DwqV
+         nBpqdv7uhelI/AHNAnWPZ67B1UxaZb+gASw90KUDtUHNjhuHlB2yVSxhWTmn/DUfR7m/
+         FnzI1o2qPLZ143uVb5hsdi+1dbHWkRNJNpNWlo+6O1x9lTCwU2l4WLMs7ax3qAeWBg3d
+         E6HQ==
+X-Gm-Message-State: AC+VfDyaAAmFzxRdX6L33ZiCgg+ciCUvHsWHVSSLcP0gBJpzP4xfLqlk
+	5YyUhqZqy9RmB3JJgyRkDVxxfw==
+X-Google-Smtp-Source: ACHHUZ4B9gs+MVq7xrkHu2OJNK4XBTiNrqlSw1aNvCEGlmmfXGE6zOI0hiz85opYqKk1mCDg8ouPXA==
+X-Received: by 2002:aca:190a:0:b0:3a0:3376:8f61 with SMTP id l10-20020aca190a000000b003a033768f61mr19481569oii.11.1687764505534;
+        Mon, 26 Jun 2023 00:28:25 -0700 (PDT)
 From: zhenwei pi <pizhenwei@bytedance.com>
 To: stefanha@redhat.com,
 	parav@nvidia.com,
@@ -55,80 +55,99 @@ Cc: virtio-comment@lists.oasis-open.org,
 	zhouhuaping.san@bytedance.com,
 	xinhao.kong@duke.edu,
 	zhenwei pi <pizhenwei@bytedance.com>
-Date: Mon, 26 Jun 2023 15:25:45 +0800
-Message-Id: <20230626072551.1709389-2-pizhenwei@bytedance.com>
+Date: Mon, 26 Jun 2023 15:25:47 +0800
+Message-Id: <20230626072551.1709389-4-pizhenwei@bytedance.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230626072551.1709389-1-pizhenwei@bytedance.com>
 References: <20230626072551.1709389-1-pizhenwei@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v4 1/7] transport-fabrics: introduce Virtio Over Fabrics overview
+Subject: [virtio-comment] [PATCH v4 3/7] transport-fabrics: introduce Virtio-oF Protocol Data Unit
 
-In the past years, virtio supports lots of device specifications by
-PCI/MMIO/CCW. These devices work fine in the virtualization environment.
-
-Introduce Virtio Over Fabrics transport to support "network attached
-peripheral devices". With this transport, Many Virtio based devices
-work over fabrics. Note that the balloon device may not make sense,
-shared memory regions won't work.
+Introduce Virtio-oF PDU for Virtio-oF queue, add Stream Data Transfers
+and Keyed Data Transfers mechanism.
 
 Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
 ---
- content.tex           |  1 +
- transport-fabrics.tex | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
- create mode 100644 transport-fabrics.tex
+ transport-fabrics.tex | 68 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 68 insertions(+)
 
-diff --git a/content.tex b/content.tex
-index d2ab9eb..bbbd79e 100644
---- a/content.tex
-+++ b/content.tex
-@@ -637,6 +637,7 @@ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
- \input{transport-pci.tex}
- \input{transport-mmio.tex}
- \input{transport-ccw.tex}
-+\input{transport-fabrics.tex}
- 
- \chapter{Device Types}\label{sec:Device Types}
- 
 diff --git a/transport-fabrics.tex b/transport-fabrics.tex
-new file mode 100644
-index 0000000..d10be2a
---- /dev/null
+index 54d7558..d562b2c 100644
+--- a/transport-fabrics.tex
 +++ b/transport-fabrics.tex
-@@ -0,0 +1,32 @@
-+\section{Virtio Over Fabrics}\label{sec:Virtio Transport Options / Virtio Over Fabrics}
+@@ -45,3 +45,71 @@ \subsection{Virtio-oF Qualified Name}\label{sec:Virtio Transport Options / Virti
+ \item The maximum name is 256 bytes in length, including the NUL character.
+ \item There is no strict style limitation.
+ \end{itemize}
 +
-+Virtio Over Fabrics (Virtio-oF) enables operations over fabrics that rely
-+primarily on message passing.
 +
-+Virtio-oF uses a reliable connection to transmit data. The reliable
-+connection facilitates communication between entities playing the following roles:
++\subsection{Protocol Data Unit}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Protocol Data Unit}
++This section defines Virtio-oF Protocol Data Unit (PDU) for both the Virtio-oF control queue and Virtio-oF virtqueue.
 +
++Virtio-oF PDU is a unit of information exchanged between a Virtio-oF initiator and a Virtio-oF target:
 +\begin{itemize}
-+\item A Virtio-oF initiator functions as a Virtio-oF client.
-+The Virtio-oF initiator sends commands and associated data from the driver
-+to the Virtio-oF target.
-+\item A Virtio-oF target functions as a Virtio-oF server.
-+The Virtio-oF target forwards commands to the device and sends completions
-+and associated data back to the Virtio-oF initiator.
++\item A request Virtio-oF PDU from Virtio-oF initiator to Virtio-oF target contains command and associated data, if present.
++\item A response Virtio-oF PDU from Virtio-oF target to Virtio-oF initiator contains completion and associated data, if present.
 +\end{itemize}
 +
-+Virtio-oF has the following features:
++\subsubsection{Stream Data Transfers}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Protocol Data Unit/ Stream Data Transfers}
++Stream-based (i.e. TCP/IP) Virtio-oF queue transfers Virtio-oF PDUs in a streaming fashion.
 +
-+\begin{itemize}
-+\item A Virtio-oF target is allowed to be connected by 0 or more Virtio-oF initiators.
-+\item A Virtio-oF initiator is allowed to connect to a single Virtio-oF target only.
-+A Virtio-oF device instance is a virtio device that the Virtio-oF initiator is
-+accessing through the Virtio-oF target.
-+\item There is a one-to-one mapping between the Virtio-oF queue and the reliable connection.
-+\item There is one, and only one, Virtio-oF control queue for a Virtio-oF device instance.
-+The Virtio-oF control queue is used to execute control commands,
-+for example, to get the Virtio Device ID.
-+\item There is a one-to-one mapping between virtqueue and Virtio-oF virtqueue
-+which executes the bulk data transport on virtio devices.
-+\item The arrival of data on the Virtio-oF queue indicates that a notification has arrived.
-+\end{itemize}
++The layout in a stream:
++\begin{lstlisting}
++PDUx and PDUz contain a command only, PDUy contains a command and data:
++
++     +----+     +---------+     +----+
++     |PDUx|     |   PDUy  |     |PDUz|
++ ... +----+ ... +----+----+ ... +----+ ...
++     |CMD |     |CMD |Data|     |CMD |
++     +----+     +---------+     +----+
++
++PDUl contains completion only, PDUm and PDUn contain completion and data:
++
++     +----+     +---------+     +---------+
++     |PDUl|     |   PDUm  |     |   PDUn  |
++ ... +----+ ... +----+----+ ... +----+----+ ...
++     |COMP|     |COMP|Data|     |COMP|Data|
++     +----+     +---------+     +---------+
++\end{lstlisting}
++
++\subsubsection{Keyed Data Transfers}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Protocol Data Unit/ Keyed Data Transfers}
++Message-based (i.e. RDMA) Virtio-oF queue transfers Virtio-oF PDUs in a message fashion, and uses the following structure to describe the remote data:
++
++\begin{lstlisting}
++struct virtio_of_keyed_desc {
++        /* the remote address of data */
++        le64 addr;
++        /* the length of data */
++        le32 length;
++        /* the key to access the remote data */
++        le32 key;
++};
++\end{lstlisting}
++
++A Virtio-oF control queue supports 1 keyed descriptor, and a Virtio-oF virtqueue supports 1 or more keyed descriptors.
++
++The PDUs of messages:
++\begin{lstlisting}
++PDUx contains a command only, PDUy contains a command and 1 descriptor,
++and PDUz contains a command and k - j + 1 descriptors.
++
++     +----+     +---------+     +--------------------+
++     |PDUx|     |   PDUy  |     |        PDUz        |
++ ... +----+ ... +----+----+ ... +----+-----+---+-----+ ...
++     |CMD |     |CMD |DESC|     |CMD |DESCj|...|DESCk|
++     +----+     +---------+     +----------+---+-----+
++
++PDUl, PDUm, and PDUn contain completion only.
++
++     +----+     +----+     +----+
++     |PDUl|     |PDUm|     |PDUn|
++ ... +----+ ... +----+ ... +----+ ...
++     |COMP|     |COMP|     |COMP|
++     +----+     +----+     +----+
++\end{lstlisting}
 -- 
 2.25.1
 
