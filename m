@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6496-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6497-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96487EB64DA
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 03:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4E6EB64DA
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 03:50:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D98F67912D
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 03:47:14 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 350AF7C665
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 03:50:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D0CB6986426
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 03:47:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1D31A98636F
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 03:50:41 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C673C98635B; Mon, 26 Jun 2023 03:47:14 +0000 (UTC)
+	id 0B52098635B; Mon, 26 Jun 2023 03:50:41 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,46 +24,46 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B4C21986364
-	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jun 2023 03:47:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EBC9F986364
+	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jun 2023 03:50:40 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: IziHAmoxOUCGkbhpay6rRQ-1
+X-MC-Unique: xr54S4_-PGmZlZRq3af1CA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687751225; x=1690343225;
+        d=1e100.net; s=20221208; t=1687751435; x=1690343435;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JBDB/Zh0PmXFWj45JEpBigYLGcdO+Z8X6mq8Zdyv9WY=;
-        b=cQhGb+cAM/DbZYUNDLH0fiukUBG5zxhr5piU3iPE+iEkSb/YPJe0/QLleALdCuPpvd
-         y26m0h7y75t066PcnM8cvHUOVwnnjAHImaN1k4cVkVfIHkz2IePjl/fPhQemsZ0pb4aE
-         JxC5JN5BF+P+BeTx64+TC5m8U3U+20kQLyO+OBVtgN5+O9c0pZGh1jPfg+1fvphuVCLj
-         x9e3mDvsdjWbZm9FW4vw99amj8KRZq1gxxsXsJr8FBvbrpkaXMZNh54cF18Qn2Bc/8kb
-         92fVMXUQM494EmQ0TNHFfrKanwb4FSnGkbj+9o6D9ei7WfG/0Cf6mhvDvfbI+8NqN41w
-         hHaw==
-X-Gm-Message-State: AC+VfDzSZOfdSPxNfO6gzhlHahvCxYJZMe9h2vONkzUheUzDSAMW+IGI
-	hXFnU8o+LGNfDnJOfDgkpPIiUh2nLTpbkRDmvbLWaJFcsFP+Wnoplgxv9Km7+ahmrVqDmjmwFSJ
-	DWp265RGKoA27mBO6p/KYezaw43AZiCTtbUlzP8MfLg0Z1UxfRA==
-X-Received: by 2002:a2e:9c14:0:b0:2b5:800e:3f17 with SMTP id s20-20020a2e9c14000000b002b5800e3f17mr9579665lji.49.1687751225092;
-        Sun, 25 Jun 2023 20:47:05 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ6pZ5q494PmNqa+MjFyqP5Hp6s3omWTqD6fvuQBrVvQTx+0byZ7sYGVpi/A5H8OdcFM3l4Soif0/HvSoIkH8yU=
-X-Received: by 2002:a2e:9c14:0:b0:2b5:800e:3f17 with SMTP id
- s20-20020a2e9c14000000b002b5800e3f17mr9579651lji.49.1687751224796; Sun, 25
- Jun 2023 20:47:04 -0700 (PDT)
+        bh=mnnlSBSITLWqgUZbsKRR9LQib65igNjFa13IWGtgrMI=;
+        b=Er+zJsDlGtZjdsvOK/RwxjcO8KHI5AxE6SJc4TBQU6YrfUKhr5zWQGAo+m5FcsJiNG
+         i6NrqjiFEy77dHp2U5Y8bZTB3zIJCoSF67PYnjKTCoPHQBuWB7hMAS6d7wzjslNM2Cxw
+         i9z2uFXP+oDCeGUQxXoamqDil2Oy94E+FvIU+dagaHDP3s0ZV9nNr/Y9i3GeuUH+Kd98
+         haRkVLi9X49rIyDHEIsU43/sx0uD4M5bmV1MIkuUyk3mM/q4CYxp7LaPVowLiTl8caqt
+         W+6YugIQQfIOHtVmNxtaNOMgyiLwLo/Jew1s75wAwgs4gW1LydcgGIsul64SBr0REdB+
+         crrg==
+X-Gm-Message-State: AC+VfDy/+RbGHD3VCEG/IbzzdR2m3CKw6A12g4EXccaawpAxMVLRQbU7
+	zawTt2JgcQ7UhRKRL+M4mM+89onsSYFw9t1b2YAF0r6FbOnIb5ZFY9DxfLwY3Fh33yifY+xqFKx
+	/GHFmGqbmQtlzVUD+WjVOWsGNecUIS48OeN0GoRHylUolq/HJbA==
+X-Received: by 2002:a2e:8810:0:b0:2b4:74e2:afa8 with SMTP id x16-20020a2e8810000000b002b474e2afa8mr7878346ljh.9.1687751435387;
+        Sun, 25 Jun 2023 20:50:35 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4pCZGwbBU0QQJIvIEfDxg9BnFyQCmI9ZAebEceop9JMvokyhY3amEyAHqpLffZGR49BmHRcxoR7HGhU25HErQ=
+X-Received: by 2002:a2e:8810:0:b0:2b4:74e2:afa8 with SMTP id
+ x16-20020a2e8810000000b002b474e2afa8mr7878338ljh.9.1687751435136; Sun, 25 Jun
+ 2023 20:50:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <PH0PR12MB5481B197049376E7C4D0112EDC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <PH0PR12MB54810313CA6DD1995F52745DDC50A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsy=pG=LT0hOT-PO3HTkk3NOAu6qA_GaZpKwqq8B996cA@mail.gmail.com>
+ <PH0PR12MB5481B197049376E7C4D0112EDC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <CACGkMEsPjwgx=atOC1ww+RnfJcrg7m2CmMXWQCCoreCwsWVpLg@mail.gmail.com>
  <PH0PR12MB54817C027CB2B7BB74BD35EDDC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <CACGkMEsGA4ZhOPn5OCTZEZkja2UrLpJ8DXH+d62Fp5rtdicseg@mail.gmail.com>
  <PH0PR12MB5481F1BE96B1CE71F4FBD2D8DC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <CACGkMEu+LDKUkg5ZZjcRsztrL1QGY2a6wto8r93Ddwc6L=a63w@mail.gmail.com>
  <PH0PR12MB5481175A9D915E3BF396AFFBDC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsN=5DcMsZa5hHGKb9kCRUVA2CcwZ4uif-E0HKaXiJ-fA@mail.gmail.com>
- <20230609031923-mutt-send-email-mst@kernel.org> <PH0PR12MB54817CE9205B222B57680AE4DC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230610202143-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230610202143-mutt-send-email-mst@kernel.org>
+ <CACGkMEsN=5DcMsZa5hHGKb9kCRUVA2CcwZ4uif-E0HKaXiJ-fA@mail.gmail.com> <20230609031923-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230609031923-mutt-send-email-mst@kernel.org>
 From: Jason Wang <jasowang@redhat.com>
-Date: Mon, 26 Jun 2023 11:46:53 +0800
-Message-ID: <CACGkMEu5URMSAEpNXngFPeqmT8zBbMeSYSZ9mB8uN0krTzcm8g@mail.gmail.com>
+Date: Mon, 26 Jun 2023 11:50:24 +0800
+Message-ID: <CACGkMEtPKh-fEkjPu2iPeV5uXus0W7J1V94q1VHVWv-jJHYWGQ@mail.gmail.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Parav Pandit <parav@nvidia.com>, 
 	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, 
@@ -77,167 +77,50 @@ Content-Transfer-Encoding: quoted-printable
 Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [PATCH v3 0/3]
  transport-pci: Introduce legacy registers access using AQ
 
-On Sun, Jun 11, 2023 at 8:27=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
+On Fri, Jun 9, 2023 at 3:22=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
+wrote:
 >
-> On Fri, Jun 09, 2023 at 05:11:53PM +0000, Parav Pandit wrote:
-> > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > Sent: Friday, June 9, 2023 3:22 AM
-> > >
-> > > On Fri, Jun 09, 2023 at 02:27:01PM +0800, Jason Wang wrote:
-> > > > > I would like to keep the stateful interactions of 1.x device outs=
-ide of 0.9.5.
-> > > >
-> > > > I don't think this is a real problem, but let's see the drawbacks o=
-f
-> > > > this proposal:
-> > > >
-> > > > 1) non-trivial changes of full new transport alike ABI
-> > > > 2) can't work for nesting
-> > > > 3) require vendor to implement legacy behaviour which can't be
-> > > > documented precisely
-> > > > 4) require admin virtqueue to work
-> > > >
-> > > > We won't have the above issues if we use modern + legacy header/mac=
-.
-> > > >
-> > > > Thanks
-> > >
-> > >
-> > > All this is true. But it's by design. It makes the legacy thing as is=
-olated as
-> > > possible. Because let's be frank we won't be able to drop legacy supp=
-ort in like
-> > > 10 years. But hardware vendors will do that quickly if they can't sel=
-l hardware.
+> On Fri, Jun 09, 2023 at 02:27:01PM +0800, Jason Wang wrote:
+> > > I would like to keep the stateful interactions of 1.x device outside =
+of 0.9.5.
 > >
-> > I don't think above 4 points are true for below reasoning.
+> > I don't think this is a real problem, but let's see the drawbacks of
+> > this proposal:
 > >
-> > Hypervisor flow without involving guest; first sanity round to figure o=
-ut things can work:
-> > 1. reset the device
-> > 2. set ACK and DRIVER bit
-> > 3. read features and make sure _MAC, _HDR are supported.
-> > 4. if not abort.
-> > 5. reset the device 2nd time so that guest can have right view of thing=
-s.
+> > 1) non-trivial changes of full new transport alike ABI
+> > 2) can't work for nesting
+> > 3) require vendor to implement legacy behaviour which can't be
+> > documented precisely
+> > 4) require admin virtqueue to work
 > >
-> > On guest access of legacy area:
-> > 6. reset the device
-> > 7. set ACK and DRIVER bit on guest request
-> > 8. read features and make sure _MAC, _HDR are offered
-> > 8.1 Hope for the best that on two completely unrelated device reset on =
-#1 and #6, the device offers exact same feature bits.
-> > And mention this in the spec 1.x for rest of the future.
->
-> > We shouldn't be adding such a limitation to the spec.
-> > We have seen this with mlx5 device where 5 years ago one thought this c=
-annot happen.
-> > And now with modern use case now features changes across two resets for=
- mlx5 device.
->
-> Interesting this actually violates a spec recommendation:
->
->         If a device has successfully negotiated a set of features
->         at least once (by accepting the FEATURES_OK \field{device
->         status} bit during device initialization), then it SHOULD
->         NOT fail re-negotiation of the same set of features after
->         a device or system reset.  Failure to do so would interfere
->         with resuming from suspend and error recovery.
+> > We won't have the above issues if we use modern + legacy header/mac.
+> >
+> > Thanks
 >
 >
-> > Baking such limitation in current spec for past 1.x is sub-optimal.
-> >
-> > ok, so to avoid baking such reset flow nasty things in spec, lets avoid=
- flow of #1 to #5 in hypervisor.
-> > So, provision the device to support these new feature bits via AQ.
-> > So AQ is required for feature provisioning anyway.
-> >
-> > So, your point #4 is required in both methods and so it scores same as =
-this proposal.
-> > Hence feature bit is not of an advantage.
-> >
-> > With _MAC now we need writable mac on 1.x config space.
-> > for 1.x writable mac has two requirements.
-> > 1. It must be atomic (not for 0.9.5, but must for 1.x like CVQ)
-> > 2. should be synchronous to know success/failure to know when it is eff=
-ective
-> >
-> > Both are present on the CVQ, so yet add another duplicate 1.x scheme th=
-at fulfill above requirements.
-> >
-> > ok. So may be let's do AQ command for just mac setting.
-> >
-> > This scores down now for two reasons.
-> > a. Duplicate of existing 1.x feature
-> > b. requires AQ.
-> >
-> > So, from RW mac we moved from 1.x cfg space to AQ. This mediation for 1=
-.x is not good.
-> > And now it's not trivial either as it is not just simple *p_mac =3D X.
-> > Hence, #1 of non-trivial starts to looks less appealing.
-> >
-> > Your point #3 about vendor to implement legacy behavior.
-> > If vendor needs to support legacy, vendor anyway needs to implement _HD=
-R anyway in data path.
-> > and above MAC change, and feature provisioning.
-> >
-> > For legacy there is no extra/special documentation.
-> > All the behavior listed in Legacy interfaces section for configuration =
-register present applies here.
-> >
-> > So, I don't see mac support is trivial by any means compared to propose=
-d scheme for 1.x.
-> > Hence, comparing trivialness of two solutions seems same for your point=
- #1 once you do mac plumbing.
-> >
-> > Regarding #2 on nesting. I won't claim I understand this as your level =
-of knowledge.
-> > If you are sauing only the VF is in VM as virtio PCI device to supporti=
-ng nested guest, that doesn't have AQ, hence it doesn't work due above issu=
-es.
->
-> Nothing is tied to admin queue here btw - it's using admin commands.
-> And by the way, there's a simple way to make this work with nesting
-> down the road if we want to: add support for sending admin commands
-> using MMIO. Jason, if you want to solve nesting I think that's the best
-> way. Will address other use-cases too, not just legacy.
+> All this is true. But it's by design. It makes the legacy thing
+> as isolated as possible.
 
-Probably, but then just for the legacy support it would be much easier
-to allow legacy MMIO BAR in this case other than inventing new
-capability for carrying admin commands.
+Only the device ABI but not the implementation I think.
 
-And I found more issues:
+> Because let's be frank we won't be
+> able to drop legacy support in like 10 years.
 
-1) The owner device itself is not a member of the group. We need to
-relax this otherwise MMIO still requires a PF for example.
-2) The admin command is variable length, which is kind of hard to be
-implemented via a MMIO interface, we need tweak the spec to define a
-maximum length or invent a way to probe the maximum length
+Another question is, current modern PCI layout could become "legacy"
+in the future. So should then the hardware stick the two legacy
+interfaces?
+
+> But hardware
+> vendors will do that quickly if they can't sell hardware.
+
+It looks to me that producing a modern only device will be more quick and e=
+asy?
 
 Thanks
 
 >
->
-> > Then yes, but than it is back to square one, where you need sequence #1=
- to #8 to be done + non-forward-looking spec changes on reset flow.
-> >
-> > In that alternative, one can say, hey skip steps #1 to #5, and on step =
-#8 doesn't have required feature bit, mark the device FAILED.
-> > But this is common case and its late in the init flow to discover it.
-> >
-> > And now MAC cannot be set atomically either in nesting with just featur=
-e bit without ugly and non-trivial spec updates.
-> > And when one needs nesting with legacy, probably PV is better.
-> >
-> > As Michael said,
-> > Overall isolating legacy to AQ for config, intx and by reusing 1.x's no=
-tification is good trade off where 1.x device level interface is kept as de=
-tached from the legacy as possible.
-> >
-> > This is why the notification address query also was desired via AQ as p=
-roposed in v3, but it is small trade off if you think it should be discover=
-ed via PCI cap like v5.
+> --
+> MST
 >
 
 
