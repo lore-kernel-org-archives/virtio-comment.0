@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6527-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6528-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A07FEB64D7
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 12:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7BDCEB64D7
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 12:36:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4FD8A60344
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 12:35:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DBCEB86424
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 12:36:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2C0379863BA
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 12:35:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CFFFA986408
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Jun 2023 12:36:24 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 163F698638D; Mon, 26 Jun 2023 12:35:36 +0000 (UTC)
+	id C7D5698638D; Mon, 26 Jun 2023 12:36:24 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,38 +24,18 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B35FB986394
-	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Jun 2023 12:35:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B3950986393;
+	Mon, 26 Jun 2023 12:36:15 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: s2IC57pSOUu0H12mbSiKcw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687782912; x=1690374912;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LQel5gZ5BJPQepJTNiJF0xMvS5e0tCrCeP5TwjUhWc0=;
-        b=R2MWpHWFD2yAKrcR5y44o9pTVtp4cZTjTjLxAenoq4tJnRxUZwLDuRpdCq7gA3Irnl
-         JaozAKGeRvS4kJTUZHUjryBi5gin02lmgxfqbs4ltGJFqqhDMwCGjM1J8eDK/U9RHGhs
-         vJHSWFFIp44U7JxA8t4g/njT/0OIi47k/Y7VkmbubkF5qrwdLxuk7GrIvIR78lCKXLbQ
-         tNkM4tsTjkVVGDTygcPmmpB6ZKC+ixn4THOPWb0jTk2qrewIb86vAim19qjtdrjTcxfy
-         xBm9xV+2Y33jHomm6uMf0P+LB4EuolSTz7RPPObsKV3K7mBJBui8Hj1Vj9zscVZ3DL+M
-         fPrA==
-X-Gm-Message-State: AC+VfDzgGxL7s6ome//a5u1WWNdkRff9wqWYxrNfvblS48PLH9FxHSu4
-	EZXsoRC89XfzphZKoDxrAWL4pKflZoIsU5D1OBYFOlvf6YRa2TXTO02/JKtakc890BeRyWnC1rO
-	RXSivyVxcn/inh76/Cw4rHPS3yJcLFoaxQQ==
-X-Received: by 2002:a7b:ce12:0:b0:3fa:97ad:2ba5 with SMTP id m18-20020a7bce12000000b003fa97ad2ba5mr1477103wmc.31.1687782912262;
-        Mon, 26 Jun 2023 05:35:12 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7ss+Viy85uC83o7s4bnewRzJX+NdBfOiMsBNM6Qvs8psKvNvbHtO0c8vwmY2J+T6z6kPPACQ==
-X-Received: by 2002:a7b:ce12:0:b0:3fa:97ad:2ba5 with SMTP id m18-20020a7bce12000000b003fa97ad2ba5mr1477089wmc.31.1687782911854;
-        Mon, 26 Jun 2023 05:35:11 -0700 (PDT)
-Date: Mon, 26 Jun 2023 08:35:08 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045176;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vm1PxOw_1687782969;
+Message-ID: <1687782753.9811661-1-xuanzhuo@linux.alibaba.com>
+Date: Mon, 26 Jun 2023 20:32:33 +0800
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20230626083311-mutt-send-email-mst@kernel.org>
+Cc: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+ "mst@redhat.com" <mst@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "Zhu, Lingshan" <lingshan.zhu@intel.com>
 References: <20230626062210.49020-1-xuanzhuo@linux.alibaba.com>
  <1ddd572b-a1d0-74eb-1e31-abb6dafdef3d@intel.com>
  <1687763309.2985258-1-xuanzhuo@linux.alibaba.com>
@@ -66,21 +46,15 @@ References: <20230626062210.49020-1-xuanzhuo@linux.alibaba.com>
  <5809781c-1688-478e-d1db-39067fb45d80@intel.com>
  <1687776645.3360302-4-xuanzhuo@linux.alibaba.com>
  <PH0PR12MB54818E9B1BEE45EFC0E3E78CDC26A@PH0PR12MB5481.namprd12.prod.outlook.com>
-MIME-Version: 1.0
 In-Reply-To: <PH0PR12MB54818E9B1BEE45EFC0E3E78CDC26A@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] [RFC
- PATCH] admin-queue: bind the group member to the device
+Subject: Re: RE: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] [RFC PATCH] admin-queue: bind the group member to the device
 
-On Mon, Jun 26, 2023 at 12:19:04PM +0000, Parav Pandit wrote:
-> 
-> 
+On Mon, 26 Jun 2023 12:19:04 +0000, Parav Pandit <parav@nvidia.com> wrote:
+>
+>
 > > From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 > > Sent: Monday, June 26, 2023 6:51 AM
-> > 
+> >
 > > On Mon, 26 Jun 2023 17:56:01 +0800, "Zhu, Lingshan"
 > > <lingshan.zhu@intel.com> wrote:
 > > >
@@ -220,48 +194,54 @@ On Mon, Jun 26, 2023 at 12:19:04PM +0000, Parav Pandit wrote:
 > > > Once a VF is crated, there comes with some default configurations,
 > > > like MTU and MAC.
 > > > Do you mean first step creation and second step initialize it?
-> > 
+> >
 > > Not exactly correct,
-> > 
+> >
 > > The first step is just to create a vf, at this time there can be a default virtio-net, it
 > > doesn't matter.
-> > 
+> >
 > > In the second step, we can bind a backend device to this vf.
-> > 
+> >
 > > Not just for initialization for new divice, we also want to support live migration.
-> > 
+> >
 > > For example, on the host, we create a vf and passthrough it into a guest os, this
 > > guest is migrated from another host, and its corresponding network card is also
 > > migrated to this host. We need to bind this vf to the migrated network card.
-> > 
+> >
 > > So just initialization is not enough.
 > >
-> 
+>
 > Yet to catch up on the thread, so likely I am missing something.
-> 
+>
 > The flow is for one OS (Linux) is:
 > 1. user enable SR-IOV on the PF device in a host, which creates SR-IOV VFs in the device.
 > (num_vfs and vf enable bit in the PCI capability)
-> 
+>
 > 2. VFs are created at the PCI level in the host system and also inside the device
-> 
+>
 > 3. A user on the host may bind these VFs to the VF driver (virtionet/blk or vfio or vp_vdpa or some other)
-> 
+>
 > Between step #2 and #3, a user may configure one or multiple attributes of the VF.
 > This includes feature bits, config space fields, vf msix vectors and more.
 > This is to be using admin command.
 > These admin commands definition is due.
 
-To be frank, I am not sure binding to an ID necessarily needs to be
-gated on provisioning commands.
-What was not explained at all is what purpose does this extra level
-of indirection serve.
+
+YES
+
+My problem is that the nic is created by user on the management platform.  Or
+the device is migrated from other host.
+
+So we need to bind the device(created by user) to the vf between step #2 and #3.
+
+Thanks.
 
 
-> 
->  
+>
+>
+>
 > > Thanks
-> > 
+> >
 > > > If so, current spec only allow the user to config MAC through control vq.
 > > > vDPA allows to provision a device with proper configuration, maybe
 > > > that can be the solution?
@@ -396,7 +376,6 @@ of indirection serve.
 > > > > Join OASIS: https://www.oasis-open.org/join/
 > > > >
 > > >
-
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
