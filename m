@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6538-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6539-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A8D5EB64DD
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Jun 2023 04:33:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 729EDEB64D9
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Jun 2023 08:07:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3C01D68468
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Jun 2023 04:33:37 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A1E93C6104
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Jun 2023 08:07:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 26515986414
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Jun 2023 04:33:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8C47E986413
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Jun 2023 08:07:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0D67C986312; Tue, 27 Jun 2023 04:33:37 +0000 (UTC)
+	id 7B9F79843C5; Tue, 27 Jun 2023 08:07:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,390 +24,306 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E818C986350
-	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Jun 2023 04:33:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6236A98635B
+	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Jun 2023 08:07:58 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: UvgjYbMXOvab0FcpqPzVRQ-1
+X-MC-Unique: Je7Wif79PyGYqu4tpG3lEg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687840412; x=1690432412;
+        d=1e100.net; s=20221208; t=1687853274; x=1690445274;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JKZGnYJzqRhADvu1FWFpUXM75JPAlfydl7gBDrHGFZM=;
-        b=U7Xkn93ziZcRB9IB2MXwdxV1LgcWt6a0amVMB9EO/2Z6MhGXql2Jtsm8H7yXc0FxKF
-         sKcxDJ/cals9Q60DNshRGUQPB6KwETz6XGefwMN+e07KbbE2LSBGAFxw3KHItSbCcWJ4
-         Zm3ArYGBfMMftmMZtwjowEaxnTyGl7JomY9wUphGBpBT66yPHahyJwMlzO4O/J4rtnJg
-         IK9fQwIFwb/HsBomVkT15bqWnCzNZRvqSKE60QfPxD5WhQj0EraBnb8rF9ZnibO/ZtNj
-         Ypq5bNuHFTQjhPjb+pS5rWUEDTo8qbN6nJCpVyFI/C16GKJrkF0ekmL/Ml8mIYopPDy6
-         Y+IQ==
-X-Gm-Message-State: AC+VfDzNZ2rD1SJUmNgk0KBqKk3KlHqQQIJ9ap1qCa4k3MyOVerBxgIA
-	vKz+2lghwGcYtb4RePRbHjihTmm4qZuUkV6UsRZaivndy7HjdAGxsFM0DmdMLSluPprnIFkySmC
-	UTJ5gdZVkAzKzZhO9ErqbBntTDSDMyX5LGWdXC/S6nG365jDpcQ==
-X-Received: by 2002:a19:7113:0:b0:4f6:8eb:50ca with SMTP id m19-20020a197113000000b004f608eb50camr18113208lfc.33.1687840412134;
-        Mon, 26 Jun 2023 21:33:32 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7Frm1cwT1PfTvZcahFnNKR8PsBUu0MUtmlnXbwjcIu+WSWxGc89HDh8HDn8Mxas1sRbCqwGia6kUDfCPiNnxI=
-X-Received: by 2002:a19:7113:0:b0:4f6:8eb:50ca with SMTP id
- m19-20020a197113000000b004f608eb50camr18113189lfc.33.1687840411720; Mon, 26
- Jun 2023 21:33:31 -0700 (PDT)
+        bh=1iFqHivfZjaugFyXwMvlqAvOb2Zrct0Li90NdSSqWgg=;
+        b=NfwEbFR8B3pZPKkLn5m3nKhNyOpABnUmvgxWHomyO3DLf2XWXVWfsESfal39zzoeeJ
+         /CAWjPb3tY8bwB2OKB5doR0cGlnOEWFGi747r3OrKpkl2uZlpaz85JmRSdD6ofR4ZsjH
+         0Im3zUka2IMM8lrxB4FMEd0YnQOGslfW2UIkRvgIn1iw56gXj8TQy3LeJZ+sBsAl6+R9
+         nOipezCHpQhQx3TcpCEKo2MXb+1GX8yi/3AwJ5xMTiB/YaysdpzbqssV0PIXa5itqHrY
+         U1lZ21+7kpY7YG992drp6zIi13W7zMnR2alkA1+oCDSGoJXpsoUPErWHBxtBah1VmO8e
+         MGjA==
+X-Gm-Message-State: AC+VfDxwS4hxRSoTgGRsvcvF/J/vTI5mKQl0V2qmG6gH4KqM3b7ZA8Zs
+	uShsizIGODwcWaYwxLTJUbCYSzE2illOZ4yR3CwrLq9TRcmSDcEFZnn+jGrgY1MKFYWna7od4tI
+	TYzVuJjWCRiMOCHFFy1ts7E/Kd6Wjvq5/jduCNEIBAlMS8uNhdQ==
+X-Received: by 2002:a2e:9d16:0:b0:2b6:9e83:73da with SMTP id t22-20020a2e9d16000000b002b69e8373damr3262087lji.32.1687853273784;
+        Tue, 27 Jun 2023 01:07:53 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4hFGRRXv88dHVcSIt3bljSx+xbNwpveqcqgVN9xaZFAofscNCs5/Lm5kDO9aHYNfiHV74s9iJ6BYXmUiTLr4g=
+X-Received: by 2002:a2e:9d16:0:b0:2b6:9e83:73da with SMTP id
+ t22-20020a2e9d16000000b002b69e8373damr3262071lji.32.1687853273465; Tue, 27
+ Jun 2023 01:07:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <PH0PR12MB54810313CA6DD1995F52745DDC50A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsy=pG=LT0hOT-PO3HTkk3NOAu6qA_GaZpKwqq8B996cA@mail.gmail.com>
- <PH0PR12MB5481B197049376E7C4D0112EDC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsPjwgx=atOC1ww+RnfJcrg7m2CmMXWQCCoreCwsWVpLg@mail.gmail.com>
- <PH0PR12MB54817C027CB2B7BB74BD35EDDC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsGA4ZhOPn5OCTZEZkja2UrLpJ8DXH+d62Fp5rtdicseg@mail.gmail.com>
- <PH0PR12MB5481F1BE96B1CE71F4FBD2D8DC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEu+LDKUkg5ZZjcRsztrL1QGY2a6wto8r93Ddwc6L=a63w@mail.gmail.com>
- <PH0PR12MB5481175A9D915E3BF396AFFBDC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsN=5DcMsZa5hHGKb9kCRUVA2CcwZ4uif-E0HKaXiJ-fA@mail.gmail.com>
- <20230609031923-mutt-send-email-mst@kernel.org> <PH0PR12MB54817CE9205B222B57680AE4DC51A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvVEgywkt6ZzWNRicceexDZ+aDzv-SusUHC5+G6gJi3_A@mail.gmail.com>
- <PH0PR12MB5481216B4B97DCB726B0B12DDC26A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEu=HzmLc5Ew1Hk4qogtvNTJMQLoddMFfx2OS8FwJ7dQdQ@mail.gmail.com> <PH0PR12MB54816E008E2E037898ED7D23DC27A@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB54816E008E2E037898ED7D23DC27A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20230613082755-mutt-send-email-mst@kernel.org>
+ <CAJaqyWdTPmvrGvOStY-uTg1KboAC6s7s8+1JkF1xWFUBwBVT+g@mail.gmail.com>
+ <20230616102011-mutt-send-email-mst@kernel.org> <CAJaqyWfx5Z9LxvpHy90EU5ZUHxROKMRtVVw00KAaCm+HzT0ksg@mail.gmail.com>
+ <20230617184944-mutt-send-email-mst@kernel.org> <CAJaqyWdLHJng86Hu0jPS+YWv-GgdJV8t+sdjcAhW07MKxeqAOA@mail.gmail.com>
+ <CACGkMEtnR3iEKvCYBy_9N7NgdORsdcAXTRLF4p-9JJW1fFFMWw@mail.gmail.com>
+ <20230625172717-mutt-send-email-mst@kernel.org> <CACGkMEsF08=U0i8Vyd3_aRGm78Y==HSyTqsAzYJC2OCXyqmDiw@mail.gmail.com>
+ <CAJaqyWfmtLJbePYrhbw-xd5-jaD=wwaMG2Xc8N_x8yjLSCD0Lw@mail.gmail.com> <20230626053446-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230626053446-mutt-send-email-mst@kernel.org>
 From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 27 Jun 2023 12:33:20 +0800
-Message-ID: <CACGkMEupQg+xer4ab2ckXUZ5TsjDFEjvLr-7YXvbsDXsW532jw@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "cohuck@redhat.com" <cohuck@redhat.com>, 
-	"david.edmondson@oracle.com" <david.edmondson@oracle.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>
+Date: Tue, 27 Jun 2023 16:07:42 +0800
+Message-ID: <CACGkMEsDvu9ZzueSumA4k+cHoE7O=hkCrrdqKsqiNzgkfuv6ZA@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Eugenio Perez Martin <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	virtio-comment@lists.oasis-open.org, Laurent Vivier <lvivier@redhat.com>, 
+	Cindy Lu <lulu@redhat.com>, cohuck@redhat.com, alvaro.karsz@solid-run.com, 
+	Liuxiangdong <liuxiangdong5@huawei.com>, Gautam Dawar <gdawar@xilinx.com>, longpeng2@huawei.com, 
+	Dragos Tatulea <dtatulea@nvidia.com>, parav@nvidia.com, stefanha@redhat.com, 
+	Harpreet Singh Anand <hanand@xilinx.com>, Stefano Garzarella <sgarzare@redhat.com>, 
+	Heng Qi <hengqi@linux.alibaba.com>, Zhu Lingshan <lingshan.zhu@intel.com>, 
+	Shannon Nelson <snelson@pensando.io>, mgurtovoy@nvidia.com, si-wei.liu@oracle.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [PATCH v3 0/3]
- transport-pci: Introduce legacy registers access using AQ
+Subject: Re: [virtio-comment] Re: [PATCH 0/2] Selective queue enabling
 
-On Tue, Jun 27, 2023 at 11:17=E2=80=AFAM Parav Pandit <parav@nvidia.com> wr=
-ote:
+On Mon, Jun 26, 2023 at 5:40=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
+ wrote:
 >
->
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Monday, June 26, 2023 10:38 PM
->
-> > > >
-> > > Because there is no point of failing it later when actual rw occurs.
-> >
-> > Even with admin virtqueue, the hypervisor should be ready for any admin
-> > command failures somehow.
-> >
-> Yes, device failures can happen regardless.
->
-> > And with modern devices, the reset is not a must, the hypervisor can ju=
-st read
-> > device_features to check if _MAC/_HDR is there.
->
-> >
-> I read the spec differently as,
-> The driver MUST follow this sequence to initialize a device:
-> 1. Reset the device.
-
-It's not the initialization, it's a probing of supported features.
-
->
-> > And what's more important,
-> > the hypervisor can know if the feature negotiation succeeds or not. Wit=
-h
-> > legacy, there's no such way.
-> Again, we are not fixing the legacy here.
-
-I mean, it's not worse than failing silently in the legacy case so we
-don't need to care.
-
->
+> On Mon, Jun 26, 2023 at 10:19:48AM +0200, Eugenio Perez Martin wrote:
+> > On Mon, Jun 26, 2023 at 4:53=E2=80=AFAM Jason Wang <jasowang@redhat.com=
+> wrote:
 > > >
-> > > > > 1. reset the device
-> > > > > 2. set ACK and DRIVER bit
-> > > > > 3. read features and make sure _MAC, _HDR are supported.
+> > > On Mon, Jun 26, 2023 at 5:32=E2=80=AFAM Michael S. Tsirkin <mst@redha=
+t.com> wrote:
 > > > >
-> > > > Similar step is required even for AQ since the hypervisor needs to
-> > > > know if legacy commands are supported there.
-> > > >
-> > > No. similar steps are not required on AQ because AQ support discovery=
- is
-> > done once per owner device. Not for each member device.
-> >
-> > This seems a topic beyond legacy. If both modern and transitional devic=
-es are
-> > supported, a per device probing or provisioning is still required. And =
-if
-> > provisioning is supported, there's no need to probe MAC/HDR.
-> >
-> That is possible to rely on the AQ.
->  > >
-> > > > > 4. if not abort.
-> > > > > 5. reset the device 2nd time so that guest can have right view of=
- things.
+> > > > On Sun, Jun 25, 2023 at 01:31:36PM +0800, Jason Wang wrote:
+> > > > > On Sun, Jun 25, 2023 at 2:41=E2=80=AFAM Eugenio Perez Martin
+> > > > > <eperezma@redhat.com> wrote:
+> > > > > >
+> > > > > > On Sun, Jun 18, 2023 at 1:08=E2=80=AFAM Michael S. Tsirkin <mst=
+@redhat.com> wrote:
+> > > > > > >
+> > > > > > > On Sat, Jun 17, 2023 at 02:53:46PM +0200, Eugenio Perez Marti=
+n wrote:
+> > > > > > > > On Fri, Jun 16, 2023 at 4:40=E2=80=AFPM Michael S. Tsirkin =
+<mst@redhat.com> wrote:
+> > > > > > > > >
+> > > > > > > > > On Thu, Jun 15, 2023 at 10:35:09AM +0200, Eugenio Perez M=
+artin wrote:
+> > > > > > > > > > On Tue, Jun 13, 2023 at 2:29=E2=80=AFPM Michael S. Tsir=
+kin <mst@redhat.com> wrote:
+> > > > > > > > > > >
+> > > > > > > > > > > On Tue, Jun 13, 2023 at 12:12:43PM +0200, Eugenio Per=
+ez Martin wrote:
+> > > > > > > > > > > > On Tue, Jun 13, 2023 at 9:53=E2=80=AFAM Michael S. =
+Tsirkin <mst@redhat.com> wrote:
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > On Tue, Jun 13, 2023 at 03:46:35AM -0400, Michael=
+ S. Tsirkin wrote:
+> > > > > > > > > > > > > > On Mon, Jun 12, 2023 at 09:56:57AM +0200, Eugen=
+io Perez Martin wrote:
+> > > > > > > > > > > > > > > > > Another drawback of that is the long time=
+ a device can spend to
+> > > > > > > > > > > > > > > > > reconfigure its memory maps.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > The map is already used for cvq though, I d=
+on't see why it would take
+> > > > > > > > > > > > > > > > much more with this.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > In the case of vDPA HW, CVQ maps may not need=
+ to reach the device's or
+> > > > > > > > > > > > > > > platform IOMMU, so the modification of that m=
+apping is way cheaper.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > Oh, I get it. It's setup time, but you are righ=
+t.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > taking that into account, does it make
+> > > > > > > > > > > > > > > > > sense to send a new version with the bit =
+1 on enable?
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > Thanks!
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > Current hardware won't support the extra bi=
+t though.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Thinking more about this, I think the following w=
+orks:
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > - enable all queues before DRIVER_OK
+> > > > > > > > > > > > > - reset all data queues before DRIVER_OK
+> > > > > > > > > > > > > - DRIVER_OK
+> > > > > > > > > > > > > - CVQ commands
+> > > > > > > > > > > > > - re-enable data queues
+> > > > > > > > > > > > >
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > No?
+> > > > > > > > > > > > >
+> > > > > > > > > > > >
+> > > > > > > > > > > > If it is valid to write to queue_reset before DRIVE=
+R_OK, then sure. I
+> > > > > > > > > > > > asked for that in the past at
+> > > > > > > > > > > > https://lists.oasis-open.org/archives/virtio-dev/20=
+2305/msg00329.html
+> > > > > > > > > > > > .
+> > > > > > > > > > >
+> > > > > > > > > > > Well then Jason said:
+> > > > > > > > > > >  we should make svq work without RING_RESET
+> > > > > > > > > > > but now apparently we went full circle and propose
+> > > > > > > > > > > a feature bit after all?
+> > > > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > My understanding is that RING_RESET covers more than ju=
+st delaying the
+> > > > > > > > > > enabling of net data vqs, like to change the address or=
+ properties of
+> > > > > > > > > > vqs after DRIVER_OK. While the late enabling may be eas=
+y to implement
+> > > > > > > > > > in current hw, vq property changes may be more challeng=
+ing. There are
+> > > > > > > > > > current HW that only support late enabling but not reco=
+nfigure the
+> > > > > > > > > > queues. Ideally, just the subset of late enabling is ne=
+eded.
+> > > > > > > > > >
+> > > > > > > > > > Does it make sense to change the proposal to something =
+in the line of:
+> > > > > > > > > > RING_F_LATE_ENABLING: This feature flag is a subset of =
+_F_RING_RESET.
+> > > > > > > > > > If this feature is negotiated, all vqs start as if the =
+vqs has been
+> > > > > > > > > > reset before DRIVER_OK. This feature does not allow res=
+etting a queue
+> > > > > > > > > > once it is live.
+> > > > > > > > > >
+> > > > > > > > > > Thanks!
+> > > > > > > > >
+> > > > > > > > > Maybe. No idea - I am not a hardware designer. Can some h=
+ardware
+> > > > > > > > > vendors chime in and confirm?
+> > > > > > > > > It seems like a very very narrow "make my hack work" use-=
+case.
+> > > > > > > > > And I'm not even sure how well it works.
+> > > > > > > > > For example what if cvq command enables rss? If the queue=
+s in
+> > > > > > > > > question are not enabled packets will be dropped.
+> > > > > > > > > So - fix some setups, break others?
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > I don't think it breaks, they are already dropped before se=
+tting
+> > > > > > > > DRIVER_OK anyway. If we restore the configuration before DR=
+IVER_OK in
+> > > > > > > > the future, the device is supposed to drop packets meanwhil=
+e anyway,
+> > > > > > > > isn't it?
+> > > > > > >
+> > > > > > >
+> > > > > > > I just thought of an idea. Devices generally don't poke at ri=
+ngs
+> > > > > > > by themselves. How about at init time we cause kicks on data =
+queues
+> > > > > > > to vmexit? Then on 1st kick we map hardware so following ones=
+ will
+> > > > > > > go straight to hardware. This will make sure cvq is processed
+> > > > > > > first. Hmm?
 > > > > >
-> > > > > On guest access of legacy area:
-> > > > > 6. reset the device
-> > > > > 7. set ACK and DRIVER bit on guest request 8. read features and
-> > > > > make sure _MAC, _HDR are offered
-> > > > > 8.1 Hope for the best that on two completely unrelated device
-> > > > > reset on #1
-> > > > and #6, the device offers exact same feature bits.
+> > > > > This is not the case at least for vhost-net. It doesn't need to b=
+e
+> > > > > kicked in order to work. And it's an example that we need clearly
+> > > > > define the behaviour instead of depending on any existing
+> > > > > implementation details.
 > > > >
-> > > > Explained and discussed in another thread, this is a hard
-> > > > requirement otherwise a lot of things would break.
+> > > > This kind of guarantee however sounds generally useful to
+> > > > control which queues are accessed when.
 > > > >
-> > > That limitation is for the past or current.
-> >
-> > You need at least a new feature bit.
-> >
-> Not needed, current mechanism is just fine as there is member device driv=
-er to owner communication.
->
-> > > As we move forward there is no need to continue with such limitation.
-> > > There may be more work needed to overcome that limitation, but we don=
-=E2=80=99t
-> > want to build on top of that limitation.
-> >
-> > Let's open a dedicated thread for this if necessary.
-> >
-> Ok. We don=E2=80=99t want to have that assumption and build interface.
->
+> > > > This is only needed after restore, which is ATM a vdpa thing,
+> > > > so can just be a vdpa flag, but I'm ok with it as a
+> > > > virtio flag too.
 > > >
-> > > > > And mention this in the spec 1.x for rest of the future.
-> > > > >
-> > > > > We shouldn't be adding such a limitation to the spec.
-> > > > > We have seen this with mlx5 device where 5 years ago one thought
-> > > > > this
-> > > > cannot happen.
-> > > > > And now with modern use case now features changes across two
-> > > > > resets for
-> > > > mlx5 device.
-> > > > > Baking such limitation in current spec for past 1.x is sub-optima=
-l.
-> > > > >
-> > > > > ok, so to avoid baking such reset flow nasty things in spec, lets
-> > > > > avoid flow of
-> > > > #1 to #5 in hypervisor.
-> > > > > So, provision the device to support these new feature bits via AQ=
-.
-> > > > > So AQ is required for feature provisioning anyway.
-> > > > >
-> > > > > So, your point #4 is required in both methods and so it scores
-> > > > > same as this
-> > > > proposal.
-> > > > > Hence feature bit is not of an advantage.
-> > > > >
-> > > > > With _MAC now we need writable mac on 1.x config space.
-> > > > > for 1.x writable mac has two requirements.
-> > > > > 1. It must be atomic (not for 0.9.5, but must for 1.x like CVQ)
-> > > >
-> > > > For LEGACY_MAC, we don't need to be atomic. We manage to survive fo=
-r
-> > > > several years.
-> > > >
-> > > It was cited as issue in past discussed when you and Michael both ask=
-ed to
-> > consider tvq.
-> > > What changed now?
-> >
-> > Nothing changed, what I meant is: with admin virtqueue it could be atom=
-ic or
-> > not.
-> >
-> I don=E2=80=99t know why you keep circling back on it.
->
-> Why do you ask below "how atomicity is achieved if it is not important?"
->
+> > > Great. Having a virtio flag may help to reduce the extra and
+> > > duplicated effort spent in vdpa.
 > > >
-> > > The issue is that device hw needs implement special RW registers now =
-for the
-> > mac for legacy.
-> > > This is the unwanted burden not needed, where AQ is better.
 > >
-> > How can you solve the atomic issue in this case? The issue is the drive=
-r where
-> > legacy guests write to device configuration space byte by byte.
-> You contradict yourself, above you say that we managed, here you say its =
-issue.
+> > So the flag should be something in the line of:
+> > VIRTIO_F_ACCESS_AFTER_KICK: The device will only access the ring after
+> > the first kick. Before that kick, it will not process any request.
+> >
+> > ?
+> >
+> > Thanks!
 >
-> It does write byte by byte, a hypervisor can collect 6 bytes and write al=
-l together in one go.
->
-> It seems that now the past issue of atomicity was raised and solved with =
-AQ, you start to oppose that it...
+> That's not bad. I am not sure adding this to spec is worth
+> the effort but at least it's kind of reasonable.
+> Are there uses such as hardening where something like this could be usefu=
+l?
 
-Let me clarify:
-
-Let's first look at the ABI solely:
-
-+struct virtio_admin_cmd_ld_reg_wr_data {
-+       u8 offset; /* Starting byte offset of the device register(s) to wri=
-te */
-+       u8 register[];
-+};
-
-For accessing mac, it could be atomic or not.
-
-Hypervisor can try to collect 6 bytes for atomicy but again it's best
-effort and may (for Linux) or may not work for all kinds of guests.
-
->
-> > Modern guests will use cvq.
-> >
-> Sure.
->
-> > >
-> > > > > 2. should be synchronous to know success/failure to know when it
-> > > > > is effective
-> > > >
-> > > > It's as simple as allowing mac in the device configuration space wr=
-itable.
-> > > >
-> > > Not simple for hw at scale.
-> >
-> > I don't understand, it uses modern device configuration space. How does=
- it
-> > matter with the scale of admin virtqueue?
-> >
-> The new feature bit demands mac address in config space to be read write.=
- Modern device doesnt have it as RW.
-> This burden is unnecessary to carry forward.
-
-How much burden if we just make 6 byte RW per device?
-
-> An AQ eliminates such heavy device side implementation.
->
-> > > AQ is superior that communicates rarely used information.
-> > >
-> > > > >
-> > > > > Both are present on the CVQ, so yet add another duplicate 1.x
-> > > > > scheme that
-> > > > fulfill above requirements.
-> > > >
-> > > > I'm not sure how to define duplication, the legacy device
-> > > > configuration space access via admin virtqueue is kind of a duplica=
-tion in
-> > this sense as well.
-> > > >
-> > > It only exists on AQ for legacy purpose.
-> > > The feature bit defined is not for legacy, hence its duplicated.
-> >
-> > It's for legacy mediation and what's more, it allows mac to be configur=
-ed
-> > without cvq.
-> >
-> This fundamental thing is not a gain, but a negative aspect to complicate=
- the device PCI.
-
-Is this minor stuff more complicated than the entire admin virtqueue stuff?
-
-The point is methodology, mediation on top of modern devices is
-simpler, and a lot of other methods could be used if LEGACY_MAC
-doesn't suffice.
-
-> It even contradicts for current spec definition " Device configuration sp=
-ace is generally used for rarely-changing or initialization-time parameters=
-".
-
-I don't see how, mac is rarely changed, and for blocks we have
-writeable stuffs like wce as well.
-
->
-> > > I don=E2=80=99t see how that is avoided when one side has undefined c=
-orner case that
-> > is translated to well defined behavior.
-> >
-> > Let me give you an example. The legacy device behaviour is basically wh=
-at
-> > Qemu codes did, by reusing the existing Qemu virtio device model codes,=
- most
-> > of the issues can be avoided.
-> >
-> You are welcome to document them in legacy interface section.
-
-Well, you can't describe the behaviour of several kilo lines of code precis=
-ely.
-
->
-> > > It only means that piece will be in endless errata in sw.
-> >
-> > Errata in software is much more simpler/cheaper than hardware, isn't it=
-?
-> >
-> AQ has ability to implement things in less hw centric way.
-> And sw when necessary can always decide which AQ commands to use.
-> So it is more flexible.
-
-A lot of examples have been demonstrated, software erratas is much
-more flexible. It's really common to workaround hardware errata in
-kernel or BIOS.
-
->
-> > > It still scores same or less.
-> > >
-> > > > >
-> > > > > For legacy there is no extra/special documentation.
-> > > > > All the behavior listed in Legacy interfaces section for
-> > > > > configuration register
-> > > > present applies here.
-> > > >
-> > > > That's not true, the legacy section is the best effort since it's
-> > > > too late to define (codes came before the spec).
-> > > >
-> > > One can added the missing documentation...
-> >
-> > It will be too late for the legacy, and it would be too hard since it b=
-asically tries
-> > to describe the exact code behaviour. And there could be a lot of very =
-hard
-> > questions that need to be answered. E.g what happens if a driver tries =
-to use
-> > both modern and legacy interfaces?
-> >
-> It is no different than what is defined already in transitional device.
-
-Can you show me where the spec answers this question?
+I think so, the driver can simply ignore any device notifications
+before the first kick. But it doesn't solve all the problems, we still
+need to take care about the device without this feature.
 
 Thanks
 
-> No point repeating same questions again, please.
 >
 >
+> > > Thanks
 > > >
-> > >
+> > > >
+> > > > > > >
+> > > > > >
+> > > > > > That would be possible, but nothing prevents the hw to start
+> > > > > > processing requests even without that first kick, isn't it?
 > > > > >
-> > > > > So, I don't see mac support is trivial by any means compared to
-> > > > > proposed
-> > > > scheme for 1.x.
-> > > > > Hence, comparing trivialness of two solutions seems same for your
-> > > > > point #1
-> > > > once you do mac plumbing.
+> > > > > Yes.
 > > > > >
-> > > > > Regarding #2 on nesting. I won't claim I understand this as your
-> > > > > level of
-> > > > knowledge.
-> > > > > If you are sauing only the VF is in VM as virtio PCI device to
-> > > > > supporting nested
-> > > > guest, that doesn't have AQ, hence it doesn't work due above issues=
-.
+> > > > > Thanks
+> > > > >
+> > > > > >
+> > > > > > I think that was discussed also in the past, as previous qemu p=
+atches
+> > > > > > gave a spurious kick to start queues just in case. I think the
+> > > > > > conclusion was that at least the vDPA device will start process=
+ing
+> > > > > > requests at DRIVER_OK, no need to wait for a kick.
+> > > > > >
+> > > > > > https://lore.kernel.org/all/CACGkMEt8cMM1UxVzxb0eHeaWSpR0ApvGza=
+F901vrM4m-uGMiPA@mail.gmail.com/
+> > > > > >
+> > > > > > Thanks!
+> > > > > >
+> > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > > >
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > --
+> > > > > > > > > > > > > > MST
+> > > > > > > > > > > > >
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > This publicly archived list offers a means to pro=
+vide input to the
+> > > > > > > > > > > > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > In order to verify user consent to the Feedback L=
+icense terms and
+> > > > > > > > > > > > > to minimize spam in the list archive, subscriptio=
+n is required
+> > > > > > > > > > > > > before posting.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Subscribe: virtio-comment-subscribe@lists.oasis-o=
+pen.org
+> > > > > > > > > > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oas=
+is-open.org
+> > > > > > > > > > > > > List help: virtio-comment-help@lists.oasis-open.o=
+rg
+> > > > > > > > > > > > > List archive: https://lists.oasis-open.org/archiv=
+es/virtio-comment/
+> > > > > > > > > > > > > Feedback License: https://www.oasis-open.org/who/=
+ipr/feedback_license.pdf
+> > > > > > > > > > > > > List Guidelines: https://www.oasis-open.org/polic=
+ies-guidelines/mailing-lists
+> > > > > > > > > > > > > Committee: https://www.oasis-open.org/committees/=
+virtio/
+> > > > > > > > > > > > > Join OASIS: https://www.oasis-open.org/join/
+> > > > > > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > >
+> > > > > > >
+> > > > > >
 > > > >
-> > > > This is the most common setup, no?
-> > > >
-> > > Depends on who see it.
-> > > We don=E2=80=99t see common setup for legacy or otherwise.
 > > >
-> > > > The major issues are the transport function is not self contained i=
-n
-> > > > a device (function). This will cause a lot of trouble when trying t=
-o
-> > > > implement nesting. E.g you need to assign or emulate SR-IOV from L1
-> > > > to
-> > > > L(N-1) in order to let L(N) to work.
-> > > >
-> > > Those who do nesting usually do assign the PF as well.
-> >
-> > This is not what I was told and it's not flexible.
-> One food type does not solve hunger for whole world.
-> So one can come up with more elaborate solution as time progresses, we ar=
-e hoping that legacy doesnt reach to that point.
+>
 
 
 This publicly archived list offers a means to provide input to the=0D
