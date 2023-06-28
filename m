@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6582-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6583-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97634EB64D7
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 17:16:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D3F2EB64DA
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 17:24:03 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DF4E7370ED
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 17:16:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1A70E3437
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 17:23:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4B26D9866EA
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 17:16:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E5E3D9865CF
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 17:23:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3DD8B9866EB; Wed, 28 Jun 2023 17:16:28 +0000 (UTC)
+	id D6F33986587; Wed, 28 Jun 2023 17:23:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0BC6D98658B
-	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Jun 2023 17:16:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C04DA986585
+	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Jun 2023 17:23:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: dTb2dLPsMBuB1QrBRSjPYg-1
+X-MC-Unique: FQK8C0eFOZiqKx6Mpeml1Q-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687972584; x=1690564584;
+        d=1e100.net; s=20221208; t=1687973034; x=1690565034;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/beAg24EPBSdpYJKknG5/bbZy5Asy+6LWILRn8cAPsk=;
-        b=HBJYlizigf9oNL+1kQS5M3yNqoTKnnw/9Irm860btbGiUYyTgsTPoKosVbo+NO2Gec
-         F6eSEnIgD6qpigCYQlIN5gvXDJhInMXP2B+Sszc3CnDQUIDlZIh2WfRTg5cY5PxbcPk2
-         JCg3oMOUv2E3Ax5qeCLo4PstXa1/FgFfGsvbzdeW3Dk/BhlZzAiUb7uptuTUPsyqX2uk
-         Ftfmu2bbWvO7NnnRpneLLfim7SRsDkmNlVzyTIYMaaV2PovFAoQF0LZ3AdPNX6UKpOr3
-         8jb13hLOWnwACYHneE4iQFhf4/WLVMn4Nz34CqSJ2hB7YrPd4wUNgCfPuGxsa0hUVMA/
-         af+Q==
-X-Gm-Message-State: AC+VfDx0kiB6zg+Z49QXXRLBI5Mh1sz2tFAS0WT1aJesV9i9WcfN6ngg
-	8KOPC/Nhm4+uvTzX6vJiC0EPVLgb6OKyPwzfRJpXDjAJ6z6pC/MerC2zrYN5tVPPEnVwa/wtWDP
-	V1e3CVWcqckFTDvUgXiBcOCxbcCWLVancT00aqsRH6CZ7
-X-Received: by 2002:a5d:5692:0:b0:30e:590f:78d1 with SMTP id f18-20020a5d5692000000b0030e590f78d1mr22871526wrv.63.1687972584239;
-        Wed, 28 Jun 2023 10:16:24 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ43pItxca6r1RZXyVgUC8nCU9y5cGzgEBN/3eeub07PVn+7yrQ2YjLPfwgORIRJJWN/4fFYnA==
-X-Received: by 2002:a5d:5692:0:b0:30e:590f:78d1 with SMTP id f18-20020a5d5692000000b0030e590f78d1mr22871500wrv.63.1687972583814;
-        Wed, 28 Jun 2023 10:16:23 -0700 (PDT)
-Date: Wed, 28 Jun 2023 13:16:20 -0400
+        bh=UEhI+y/sFJpwvPUHKOKNN4EUNW3O7wtsVdNzBIXm7Nk=;
+        b=ii8uoKYS750C4rCXW0PKqjpvROlFC6q/ePYu5T4rPusDyewkF3hDlhU+j1o6XzzddB
+         Q7SzCSmjOC0b9VB/IZvnQcKPExLgMHge5wCtUYBbMsefdZ0dzjGKDcJyz20proxEbGli
+         Wyg3T2n73LCPTyUD8Y9RWB43RiG5DbAr0PJNmlgGfOdEJ0E46/ZUS2csj9E8YH5nHRe+
+         4yy8kdMDv4FNNHs7qpJUtouvM3wlmoag0gOHLRK3hyx3KblFQAeTyMBI7iLhXqIe9vl8
+         1UObVLAtp4y9RTcGxzGoXPJSaa8vg51Syu5wevav9s1BD8uEgNsupA6hb4d1bQxfcRWT
+         sNZQ==
+X-Gm-Message-State: AC+VfDwgi06aIORr36tUnwGf1t3eaZKIoVUdordq0IhzCTkYYZd7AQtp
+	As4s71Mus1OvdAEz93g+xHsm1h3b805zdrlCo0fg72lQvKOAbK60gQqeKr8zzalDJz5i6xmrLwK
+	NjleHRM/BXZN+SzqedUT72/2Kc/56Q9lY9w==
+X-Received: by 2002:a5d:480e:0:b0:313:e8f9:803 with SMTP id l14-20020a5d480e000000b00313e8f90803mr10421136wrq.3.1687973034586;
+        Wed, 28 Jun 2023 10:23:54 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5irfaTSU9d07pC2xOiNetMGjhyeE25d5BHy3QPT9mMXOgkOvN5Qezr3VSFZ7w5nxI5atZbyA==
+X-Received: by 2002:a5d:480e:0:b0:313:e8f9:803 with SMTP id l14-20020a5d480e000000b00313e8f90803mr10421126wrq.3.1687973034308;
+        Wed, 28 Jun 2023 10:23:54 -0700 (PDT)
+Date: Wed, 28 Jun 2023 13:23:50 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: Jason Wang <jasowang@redhat.com>, Heng Qi <hengqi@linux.alibaba.com>,
@@ -56,7 +56,7 @@ Cc: Jason Wang <jasowang@redhat.com>, Heng Qi <hengqi@linux.alibaba.com>,
 	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
 	Yuri Benditovich <yuri.benditovich@daynix.com>,
 	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Message-ID: <20230628130839-mutt-send-email-mst@kernel.org>
+Message-ID: <20230628132122-mutt-send-email-mst@kernel.org>
 References: <20230627163549.40028-1-hengqi@linux.alibaba.com>
  <CACGkMEvFmAiWDp8w=ytin21Oi+PcTb1X3Eve7Kt2NVr_RkhgmA@mail.gmail.com>
  <PH0PR12MB54811123CFCDEFE3B48D4381DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
@@ -74,98 +74,6 @@ Subject: Re: [virtio-comment] RE: [PATCH v19] virtio-net: support inner
  header hash
 
 On Wed, Jun 28, 2023 at 05:06:40PM +0000, Parav Pandit wrote:
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Wednesday, June 28, 2023 12:46 PM
-> 
-> > Actually, my preblem is exactly if there's no one single interface that can do
-> > everything.
-> >
-> Extended config space reading via single DMA interface is just enough.
-> 
-> > 
-> > Two interfaces that do the same might seem redundant but there could be good
-> > reasons for this, in this case legacy.
-> >
-> But legacy should not force it to newer interface. More below.
->  
-> > See the difference?
-> > 
-> 
-> > > I didn't propose two interfaces. Let me explain again.
-> > >
-> > > I proposed,
-> > > a. all new fields to go via vq (single interface) b. all existing
-> > > fields to stay in cfg space (single interface) c. if one wants to
-> > > optimize optionally existing fields can utilize (same flexibility how you asked
-> > for PF and VF notification).
-> > >
-> > >
-> > > > We already need config space with provisioning.
-> > > Provisioning does provision features, config space and control parameters,
-> > msix vectors and more.
-> > > Provisioning does _not_ need config space.
-> > 
-> > I mean it needs to provision it.
-> > 
-> No matter there is config space of dma, a device to be provisioned.
-> 
-> > > > In fact e.g. on Linux we want drivers to keep doing virtio_cread()
-> > > > and all the DMA tricks should be hidden behind the scenes. You don't
-> > > > like it that config space is on-chip? Build an interface for it not
-> > > > to be on chip. There is simply no downside to that.
-> > > >
-> > > This is the ask to build software interface between driver and device to not
-> > demand on-chip config space more importantly _predictably_.
-> > 
-> > Absolutely. So we would say that driver SHOULD use the DMA interface if it is
-> > present.
-> > 
-> I am asking for driver MUST use the DMA interface for _extended_ config space.
-> Why?
-> For two reasons.
-> 
-> 1. Because than device is 100% sure that it does not fulfill MMIO needs
-> 2. Single interface to access extended config space, which is what you asked for.
-> 3. Single driver code because there is single way to get it.
-> 
-
-Right. But I think there's a better way.
-Just say that any feature in MMIO MUST be also in DMA.
-So any modern driver will have no reason at all to use MMIO - DMA
-is a superset.
-
-
-> > > > I came back after a small break and I still see this discussion that
-> > > > keeps playing out as a big distraction.
-> > > > In particular where are you doing to store the things that are for DMA?
-> > > > In system RAM? We don't *have* anywhere in system RAM to store this,
-> > > > we will need an interface to allocate system RAM and pass it to
-> > > > device for this idea to work. So in 1.3 where we won't have this,
-> > > > there is much less of an excuse to use a vq.
-> > > To store what?
-> > > CVQ is already there to do GET and SET operation.
-> > 
-> > To store whatever value CVQ is requesting. Where is it going to come from?
-> >
-> It is going to come from the device memory that does not have hard requirements of MMIO accessibility.
-> For example slow flash memory.
->  
-> > Asynchronous is just harder for software.  Look at the hoops virtio net has to
-> > jump through to do control path over cvq and weep. Compare to single liner
-> > virtio_cread.
-> > 
-> > I happen to maintain Linux drivers too, so I care.
-> > 
-> It is harder for first time if no such construct exists; and it is clearly not the case.
-> This patch is already adding CVQ get and set command.
-
-I expect get to mostly go unused.
-
-> Async behavior already built into the virtio spec.
-> Extending it for extended config space just make device more cheaper to build.
-> Software cost is paid only once at device init time just like CVQ, AQ and more.
-> 
 > > > >
 > > > > Please let people just focus on fixing config space instead of
 > > > > temporary cvq hacks.
@@ -178,32 +86,13 @@ I expect get to mostly go unused.
 > Because when device has two ways to access config space, it always have to account and build the interface that, hey some driver will not use DMA.
 > Hence have it always in the MMIO accessible area.
 
-If we say that drivers should use DMA, they will.  If we additionally
-explain that some features might not be in MMIO no sane driver will use
-MMIO if it does not have to.
-Or if it does then it has violated the spec and will get less features?
+Maybe I get it. You want to use the new features as a carrot to force
+drivers to implement DMA? You suspect they will ignore the spec
+requirement just because things seem to work?
 
+There's some logic here, for sure. you just might be right.
 
-
-
-> > I get the value of reduced MMIO register map.
-> > I get that the only way to get that appears to be to pass values around using
-> > DMA.
-> >
-> Ok. great.
->  
-> > I don't think we need to throw away config space - just use DMA to access it.
-> > 
-> > And "existing defined" here seems to be at a completely random point in time.
-> > If someone wants to have fields in MMIO, I see no reason not to.
-> 
-> This demands two ways of access and that conflicts with your point of desire to do single way.
-> I proposed single way, extended config space via DMA interface, that is really as simple as that.
-
-
-My desire is to have a single way that works for everything.
-We have legacy so we will have legacy ways too, these
-might not work for everything.
+However, surely we can discuss this small tweak in 1.4 timeframe?
 
 -- 
 MST
