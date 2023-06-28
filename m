@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6564-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6565-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4A58EB64D7
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 06:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8AD8EB64D7
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 06:55:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E1BF84434A
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 06:09:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E05A288E07
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 06:55:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C3925986587
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 06:09:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BF76B986573
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Jun 2023 06:55:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id AA51798654C; Wed, 28 Jun 2023 06:09:39 +0000 (UTC)
+	id AA3CA98654E; Wed, 28 Jun 2023 06:55:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,385 +24,211 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9740B98654E;
-	Wed, 28 Jun 2023 06:09:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 96D9E98654F
+	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Jun 2023 06:55:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0Vm8TP1Z_1687932574;
-Message-ID: <1687932392.6613173-2-xuanzhuo@linux.alibaba.com>
-Date: Wed, 28 Jun 2023 14:06:32 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687935337; x=1690527337;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=O3O0ffgwYIxYpd4mfluJOYFT3vTCqtwqO197QXs8uKs=;
+        b=dJhzVvI7HRIYRIYbAWdQj+4vnlC3NmLIwAsdlndLXe+vl1Ag1+ybJKtYZXavVabNsj
+         BDVvyWfl4BCJ5n+HDVJVFIl6xKDiTVVqugihzNs7620f687WdHteWJRdXmApba9rny0N
+         g+4UKQY2GpcV+tDyBw5wQ6ULCRrWzueIMbMRv6oaMlXidbODhA7B7groJckaen9k65IJ
+         huT4ijCRofIWkso7jwRN+XDnfYPdSNG+MSvN63cr9qwUrtVjYkQhP0glZTEg79LlmaOd
+         x3zYcUJ4S7quL8aUaNM+FQuQWllg6E+dcdPknkhrWUv+WroX0A/UQ786VjCXhDYuauGD
+         SMOw==
+X-Gm-Message-State: AC+VfDxZgevPm3OPQcJq3CPvi8fjqomOEuD1X3waGHlMon7bjyOSsfOh
+	7EvDQuUa9/Q9vEebjvu4eFwxcQ==
+X-Google-Smtp-Source: ACHHUZ5wLGzFve/47ZM45LtF4Wgrb0xTnXq1KZgkp9jSVz5rZjL9f4MBITi/0CZjYalLmlGF6iCgZw==
+X-Received: by 2002:a9d:6f16:0:b0:6b7:3549:980a with SMTP id n22-20020a9d6f16000000b006b73549980amr11331143otq.31.1687935337479;
+        Tue, 27 Jun 2023 23:55:37 -0700 (PDT)
+Message-ID: <acb2a80a-77c1-6a89-a258-15df427541fd@bytedance.com>
+Date: Wed, 28 Jun 2023 14:53:14 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
 To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-dev@lists.oasis-open.org,
- mst@redhat.com,
- parav@nvidia.com,
- virtio-comment@lists.oasis-open.org,
- "Zhu, Lingshan" <lingshan.zhu@intel.com>
-References: <20230626062210.49020-1-xuanzhuo@linux.alibaba.com>
- <1687854185.3344731-3-xuanzhuo@linux.alibaba.com>
- <CACGkMEs=2HJ=Bg5Xk1GYZAOKpNLpf5EUrkNEkEOKU4hSbXC=mw@mail.gmail.com>
- <1687863046.3264692-9-xuanzhuo@linux.alibaba.com>
- <CACGkMEvyJrnyN0CFv2sAraNQM5E_Hkccmo1hJNzQPX8DRB5ryg@mail.gmail.com>
-In-Reply-To: <CACGkMEvyJrnyN0CFv2sAraNQM5E_Hkccmo1hJNzQPX8DRB5ryg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [RFC PATCH] admin-queue: bind the group member to the device
-
-On Wed, 28 Jun 2023 10:49:45 +0800, Jason Wang <jasowang@redhat.com> wrote:
-> On Tue, Jun 27, 2023 at 6:54=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.alibaba=
-.com> wrote:
-> >
-> > On Tue, 27 Jun 2023 17:00:06 +0800, Jason Wang <jasowang@redhat.com> wr=
-ote:
-> > > On Tue, Jun 27, 2023 at 4:28=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.ali=
-baba.com> wrote:
-> > > >
-> > > >
-> > > > Thanks Parav for pointing it out. We may have some gaps on the case.
-> > > >
-> > > > Let me introduce our case, which I think it is simple and should be=
- easy to
-> > > > understand.
-> > > >
-> > > > First, the user (customer) purchased a bare metal machine.
-> > > >
-> > > > ## Bare metal machine
-> > > >
-> > > > Let me briefly explain the characteristics of a bare metal machine.=
- It is not a
-> > > > virtual machine, it is a physical machine, and the difference betwe=
-en it and a
-> > > > general physical machine is that its PCI is connected to a device s=
-imilar to a
-> > > > DPU. This DPU provides devices such as virtio-blk/net to the host t=
-hrough PCI.
-> > > > These devices are managed by the vendor, and must be created and pu=
-rchased
-> > > > on the vendor's management platform.
-> > > >
-> > > > ## DPU
-> > > >
-> > > > There is a software implementation in the DPU, which will respond t=
-o PCI
-> > > > operations. But as mentioned above, resources such as network cards=
- must be
-> > > > purchased and created before they can exist. So users can create VF=
-, which is
-> > > > just a pci-level operation, but there may not be a corresponding ba=
-ckend.
-> > > >
-> > > > ## Management Platform
-> > > >
-> > > > The creation and configuration of devices is realized on the manage=
-ment
-> > > > platform.
-> > > >
-> > > > After the user completed the purchase on the management platform (t=
-his is an
-> > > > independent platform provided by the vendor and has nothing to do w=
-ith
-> > > > virtio), then there will be a corresponding device implementation i=
-n the DPU.
-> > > > This includes some user configurations, available bandwidth resourc=
-es and other
-> > > > information.
-> > > >
-> > > > ## Usage
-> > > >
-> > > > Since the user is directly on the HOST, the user can create VMs, pa=
-ssthrough PF
-> > > > or VF into the VM. Or users can create a large number of dockers, a=
-ll of which
-> > > > use a separate virtio-net device for performance.
-> > > >
-> > > > The reason why users use vf is that we need to use a large number o=
-f virtio-net
-> > > > devices. This number reaches 1k+.
-> > > >
-> > > > Based on this scenario, we need to bind vf to the backend device. B=
-ecause, we
-> > > > cannot automatically complete the creation of the virtio-net backen=
-d device when
-> > > > the user creates a vf.
-> > > >
-> > > > ## Migration
-> > > >
-> > > > In addition, let's consider another scenario of migration. If a vm =
-is migrated
-> > > > from another host, of course its corresponding virtio device is als=
-o migrated to
-> > > > the DPU. At this time, our newly created vf can only be used by the=
- vm after it
-> > > > is bound to the migrated device. We do not want this vf to be a bra=
-nd new
-> > > > device.
-> > > >
-> > > > ## Abstraction
-> > > >
-> > > > So, this is how I understand the process of creating vf:
-> > > >
-> > > > 1. Create a PCI VF, at this time there may be no backend virtio dev=
-ice, or there
-> > > >     is only a default backend. It does not fully meet our expectati=
-ons.
-> > > > 2. Create device or migrate device
-> > > > 3. Bind the backend virtio device to the vf
-> > >
-> > > 3) should come before 2)?
-> > >
-> > > Who is going to do 3) btw, is it the user? If yes, for example, if a
-> > > user wants another 4 queue virtio-net devices, after purchase, how
-> > > does the user know its id?
-> >
-> > Got the id from the management platform.
->
-> So it can do the binding via that management platform which this
-> became a cloud vendor specific interface.
-
-In our scenario, this is bound by the user using this id and vf id in the o=
-s.
-
->
-> >
-> > >
-> > > >
-> > > > In most scenarios, the first step may be enough. We can make some f=
-ine-tuning on
-> > > > this default device, such as modifying its mac. In the future, we c=
-an use admin
-> > > > queue to modify its msix vector and other configurations.
-> > > >
-> > > > But we should allow, we bind a backend virtio device to a certain v=
-f. This is
-> > > > useful for live migration and virtio devices with special configura=
-tions.
-> > >
-> > > All of these could be addressed if a dynamic provisioning model is
-> > > implemented (SIOV or transport virtqueue). Trying to have a workaround
-> > > in SR-IOV might be tricky.
-> >
-> >
-> > SR-IOV vf is native PCI device, this is the advancement.
->
-> The problem is that it doesn't support flexible provisioning, e.g
-> create and destroy a single VF.
-
-YES. ^_^!!
+Cc: stefanha@redhat.com, parav@nvidia.com, mst@redhat.com,
+ virtio-comment@lists.oasis-open.org, houp@yusur.tech,
+ helei.sig11@bytedance.com, zhouhuaping.san@bytedance.com,
+ xinhao.kong@duke.edu, Zhu Lingshan <lingshan.zhu@intel.com>
+References: <20230626072551.1709389-1-pizhenwei@bytedance.com>
+ <20230626072551.1709389-5-pizhenwei@bytedance.com>
+ <CACGkMEuNbKa8CJAKeB+ATeC9h=6aJ04U1Ti2k6SMde8Giiq8+w@mail.gmail.com>
+ <ebf95d17-36e2-9e46-cb03-459c12f75a87@bytedance.com>
+ <CACGkMEthPiw5XK7ADWNefRPBzhqFBNxnOvZjCNJsooj99C4-DA@mail.gmail.com>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <CACGkMEthPiw5XK7ADWNefRPBzhqFBNxnOvZjCNJsooj99C4-DA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: Re: Re: [PATCH v4 4/7] transport-fabrics: introduce command set
 
 
->
-> >
-> >
-> > >
-> > > >
-> > > > The design of virtio itself is two layers, and virtio should allow =
-switching the
-> > > > transport layer by nature. This is our advantage.
-> > >
-> > > Is it not switching the transport layer but about binding/unbinding
-> > > vitio devices to VF?
-> >
-> > YES.
-> >
-> > >
-> > > Is a new capability or similar admin cmd sufficient in this case?
-> >
-> > All is ok.
-> >
-> >
-> > >
-> > > struct virtio_pci_bind_cap {
-> > >         struct virtio_pci_cap cap;
-> > >         u16 bind; // virtio_device_id
-> > >         u16 unbind; // virtio_device_id
-> > > };
-> >
-> > You mean that the "bind" or "unbind" is writeable?
 
-This is a good idea.
+On 6/28/23 10:56, Jason Wang wrote:
+> On Wed, Jun 28, 2023 at 9:37 AM zhenwei pi <pizhenwei@bytedance.com> wrote:
+>>
+>>
+>>
+>> On 6/27/23 17:04, Jason Wang wrote:
+>>> On Mon, Jun 26, 2023 at 3:28 PM zhenwei pi <pizhenwei@bytedance.com> wrote:
+>>>>
+>>>> Introduce command set for Virtio-oF which includes:
+>>>> - command id: a tag to distinguish in-flight commands
+>>>> - status: indicate the result of a Virtio-oF command
+>>>> - opcodes: the Virtio-oF transport layer commands use 0x0000-0x0fff,
+[snip]
+>>>> +\begin{lstlisting}
+>>>> +#define virtio_of_op_connect               0x0000
+>>>> +#define virtio_of_op_disconnect            0x0001
+>>>> +#define virtio_of_op_keepalive             0x0002
+>>>> +#define virtio_of_op_get_feature           0x0004
+>>>> +#define virtio_of_op_set_feature           0x0005
+>>>> +#define virtio_of_op_get_keyed_num_descs   0x0100
+>>>> +#define virtio_of_op_vq                    0x0fff
+>>>> +#define virtio_of_op_get_vendor_id         0x1000
+>>>> +#define virtio_of_op_get_device_id         0x1001
+>>>> +#define virtio_of_op_reset_device          0x1003
+>>>> +#define virtio_of_op_get_status            0x1004
+>>>> +#define virtio_of_op_set_status            0x1005
+>>>> +#define virtio_of_op_get_device_feature    0x1006
+>>>> +#define virtio_of_op_set_driver_feature    0x1009
+>>>> +#define virtio_of_op_get_vq_size           0x100a
+>>>> +#define virtio_of_op_get_config            0x100c
+>>>> +#define virtio_of_op_set_config            0x100d
+>>>
+>>> We had a proposal of transport virtqueue that allows using a
+>>> virtqueue[1] for configuring a device. And Ling shan will rebase it on
+>>> top of the admin commands.
+>>>
+>>> That is to say, admin commands could be used for transport which will
+>>> be duplicated with the commands you invented here.
+>>>
+>>> I wonder if the virtio-OF can just reuse the admin commands (have a
+>>> quick glance and I didn't find any blocker for this).
+>>>
+>>> Thanks
+>>>
+>>> [1] https://lists.oasis-open.org/archives/virtio-comment/202208/msg00003.html
+>>>
+>>
+>>   From my understand, the virtio device related commands looks
+>> similar(set/get status/features, reset device ...), but not same:
+>> 1, the admin commands are executed upon the admin virtqueue, it uses
+>> virtqueue based transfer.
+> 
+> Note that the actual commands are independent of admin virtqueue. It
+> is defined separately as admin commands and it would be supported by
+> the MMIO in the future.
+> 
+>> The virtio-of commands are executed upon a virtio-of queue(established
+>> reliable connection), not a virtqueue. A virtio-of device could support
+>> admin commands in theory.
+>> I suppose a virtio-of device with admin vq supported like:
+>> +---------------------+
+>> |   +-------------+   |
+>> |   |control queue|   |
+>> |   +-------------+   |
+>> +---------------------+
+>> |   +-------------+   |
+>> |   | virtqueue0  |   |
+>> |   +-------------+   |
+>> |   | virtqueue1  |   |
+>> |   +-------------+   |
+>> |   | virtqueue ..|   |
+>> |   +-------------+   |
+>> |   |  admin vq   |   |
+>> |   +-------------+   |
+>> +---------------------+
+>>
+>> The virtio-of commands ares used by both virtio-of control queue and
+>> virtio-of virtqueues(include admin vq).
+>> The admin commands are used by admin vq only.
+>>
+>> 2, the virtio-of commands are used over fabrics, they are defined in a
+>> fixed size,
+> 
+> Any issue you see if it is variable?
+> 
 
-Thanks.
+For stream transfer, a command of variable length is difficult to decode.
+For keyed transfer, the receiver side must know the size of commands, 
+then post recv large enough memory. And unaligned length hurts the 
+performance.
 
+>> the admin commands are described by virtqueue descriptors.
+> 
+> See above, it's not necessarily carried via descriptors.
+> 
+>>
+>> 3, the virtio-of commands need a command_id field to distinguish each
+>> other for command depth, but the admin commands don't need command_id
+>> field(supported by virtqueue descriptor heads).
+> 
+> I'm not sure I get this, could you give me an example?
+> 
 
->
-> Yes.
->
+Please see subsubsection{Command ID} in this patch.
+
+>>
+>> 4, connect/disconnect are fabrics specific, stream/keyed transfer
+>> related features/commands are fabrics specific too.
+>> interrupt related commands are not used by virtio-of.
+> 
+> So we had:
+> 
+> struct virtio_admin_cmd {
+>          /* Device-readable part */
+>          le16 opcode;
+>          /*
+>           * 1       - SR-IOV
+>           * 2-65535 - reserved
+>           */
+>          le16 group_type;
+> ...
+> };
+> 
+> The of specific command could have a dedicated group in this case.
+> 
 > Thanks
->
-> >
-> > Thanks.
-> >
-> > >
-> > > Thanks
-> > >
-> > > >
-> > > > ## About the identity
-> > > >
-> > > > In this patch, I used a vendor's id. The purpose of this is that I =
-hope to
-> > > > be compatible with all devices. In the network scenario, it is actu=
-ally possible
-> > > > to use a mac.
-> > > >
-> > > > Perhaps, introduce a standard id for each device/driver, I think th=
-is may be
-> > > > more in line with the habit of virtio spec.
-> > > >
-> > > > Thanks.
-> > > >
-> > > > On Mon, 26 Jun 2023 14:22:10 +0800, Xuan Zhuo <xuanzhuo@linux.aliba=
-ba.com> wrote:
-> > > > > The VFs of the SR-IOV are created by the user inside the guest OS=
-, so the virtio
-> > > > > devices don't know about these VFs. Because each VF may be assign=
-ed a different role
-> > > > > by the user, the virtio device can not choose one VF to bind rand=
-om.
-> > > > > So only the user knows how to bind the virtio devices to the VFs.
-> > > > > On the other hand, generally the virtio devices are not created b=
-y the user
-> > > > > inside the guest OS. This requires some management platform to pa=
-rticipate.
-> > > > >
-> > > > > So the usage of this command:
-> > > > > 1. The user purchases a virtio network card on the management pla=
-tform,
-> > > > >    and sets the ip, queue number, etc. The user obtains the ident=
-ity of
-> > > > >    the network card.
-> > > > > 2. The user creates a VF with echo 8 > sriov_numvfs
-> > > > > 3. The user binds the net crad to a VF with identity through the =
-command
-> > > > >    of the patch
-> > > > >
-> > > > > Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> > > > > ---
-> > > > >  admin.tex | 41 ++++++++++++++++++++++++++++++++++++++++-
-> > > > >  1 file changed, 40 insertions(+), 1 deletion(-)
-> > > > >
-> > > > > diff --git a/admin.tex b/admin.tex
-> > > > > index 2efd4d7..64d0667 100644
-> > > > > --- a/admin.tex
-> > > > > +++ b/admin.tex
-> > > > > @@ -115,7 +115,8 @@ \subsection{Group administration commands}\la=
-bel{sec:Basic Facilities of a Virti
-> > > > >  \hline \hline
-> > > > >  0x0000 & VIRTIO_ADMIN_CMD_LIST_QUERY & Provides to driver list o=
-f commands supported for this group type    \\
-> > > > >  0x0001 & VIRTIO_ADMIN_CMD_LIST_USE & Provides to device list of =
-commands used for this group type \\
-> > > > > -0x0002 - 0x7FFF & - & Commands using \field{struct virtio_admin_=
-cmd}    \\
-> > > > > +0x0002 & VIRTIO_ADMIN_CMD_BIND_DEVICE & Bind the device to one g=
-roup member \\
-> > > > > +0x0003 - 0x7FFF & - & Commands using \field{struct virtio_admin_=
-cmd}    \\
-> > > > >  \hline
-> > > > >  0x8000 - 0xFFFF & - & Reserved for future commands (possibly usi=
-ng a different structure)    \\
-> > > > >  \hline
-> > > > > @@ -429,6 +430,44 @@ \subsection{Group administration commands}\l=
-abel{sec:Basic Facilities of a Virti
-> > > > >  \field{VF Enable} refer to registers within the SR-IOV Extended
-> > > > >  Capability as specified by \hyperref[intro:PCIe]{[PCIe]}.
-> > > > >
-> > > > > +\subsubsection{Bind the device for member}
-> > > > > +
-> > > > > +The VFs of the SR-IOV are created by the user inside the guest O=
-S, so the virtio
-> > > > > +devices don't know about these VFs. Because each VF may be assig=
-ned a different role
-> > > > > +by the user, the virtio device can not choose one VF to bind ran=
-dom.
-> > > > > +So only the user knows how to bind the virtio devices to the VFs.
-> > > > > +On the other hand, generally the virtio devices are not created =
-by the user
-> > > > > +inside the guest OS. This requires some management platform to p=
-articipate.
-> > > > > +
-> > > > > +So we introduce a new admin queue command to bind the VFs and th=
-e virtio
-> > > > > +devices.
-> > > > > +
-> > > > > +\begin{lstlisting}
-> > > > > +struct virtio_admin_cmd_bind {
-> > > > > +    u64 identity;
-> > > > > +};
-> > > > > +\end{lstlisting}
-> > > > > +
-> > > > > +The user got the \field{identity} from the management platform, =
-that is not
-> > > > > +included by this spec.
-> > > > > +
-> > > > > +\drivernormative{\paragraph}{Group administration commands}{Basi=
-c Facilities of a Virtio Device / Device groups / Group administration comm=
-ands / Bind the device for member}
-> > > > > +
-> > > > > +VIRTIO_ADMIN_CMD_BIND_DEVICE requires that the \field{group_memb=
-er_id} MUST be set.
-> > > > > +
-> > > > > +The \field{identity} is passed by the user. It is the identity o=
-f the virtio
-> > > > > +device.
-> > > > > +
-> > > > > +\devicenormative{\paragraph}{Group administration commands}{Basi=
-c Facilities of a Virtio Device / Device groups / Group administration comm=
-ands / Bind the device for member}
-> > > > > +
-> > > > > +Every device MUST have one unique \field{identity} in the host.
-> > > > > +
-> > > > > +If the PF device can not find the device by the \field{identity},
-> > > > > +the \field{status} MUST be set to VIRTIO_ADMIN_STATUS_EINVAL.
-> > > > > +
-> > > > > +If the device is found by the \field{identity}, the device MUST =
-work as the
-> > > > > +device of this group member specified by the \field{group_member=
-_id}.
-> > > > > +
-> > > > >  \section{Administration Virtqueues}\label{sec:Basic Facilities o=
-f a Virtio Device / Administration Virtqueues}
-> > > > >
-> > > > >  An administration virtqueue of an owner device is used to submit
-> > > > > --
-> > > > > 2.32.0.3.g01195cf9f
-> > > > >
-> > > > >
-> > > > > This publicly archived list offers a means to provide input to the
-> > > > > OASIS Virtual I/O Device (VIRTIO) TC.
-> > > > >
-> > > > > In order to verify user consent to the Feedback License terms and
-> > > > > to minimize spam in the list archive, subscription is required
-> > > > > before posting.
-> > > > >
-> > > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > > > List help: virtio-comment-help@lists.oasis-open.org
-> > > > > List archive: https://lists.oasis-open.org/archives/virtio-commen=
-t/
-> > > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_lic=
-ense.pdf
-> > > > > List Guidelines: https://www.oasis-open.org/policies-guidelines/m=
-ailing-lists
-> > > > > Committee: https://www.oasis-open.org/committees/virtio/
-> > > > > Join OASIS: https://www.oasis-open.org/join/
-> > > > >
-> > > >
-> > >
-> >
->
+> 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+The command set to virtio-of looks like:
+[Common configuration structure layout] to Virtio PCI,
+[MMIO Device Register Layout] to Virtio MMIO,
+[Channel Commands for Virtio] to Virtio Channel I/O.
+
+By the way, [Channel Commands for Virtio] is already defined, is it 
+possible to reuse it?
+
+>>
+>> As far as I can see, they are quite different, defining them separately
+>> would be fine.
+>>
+>> --
+>> zhenwei pi
+>>
+> 
+
+-- 
+zhenwei pi
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
