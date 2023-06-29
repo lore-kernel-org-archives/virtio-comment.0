@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6588-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6589-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF8BEB64D7
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 02:05:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4639EB64D7
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 02:18:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id ED0341922E5
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 02:05:32 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1C32E29FC3
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 02:18:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D5E5E9865CA
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 02:05:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 13F6E9865AA
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 02:18:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C06B5986588; Thu, 29 Jun 2023 02:05:32 +0000 (UTC)
+	id 03018986588; Thu, 29 Jun 2023 02:18:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,117 +24,86 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7BD2898658B;
-	Thu, 29 Jun 2023 02:05:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E37CD98658B;
+	Thu, 29 Jun 2023 02:18:31 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046056;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0VmBgo35_1688004313;
-Message-ID: <4132affe-9b97-a81f-ad57-50ed4341678b@linux.alibaba.com>
-Date: Thu, 29 Jun 2023 10:05:09 +0800
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="365468357"
+X-IronPort-AV: E=Sophos;i="6.01,167,1684825200"; 
+   d="scan'208";a="365468357"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="746863580"
+X-IronPort-AV: E=Sophos;i="6.01,167,1684825200"; 
+   d="scan'208";a="746863580"
+Message-ID: <1bdd18c7-c4bd-8049-ee63-227fe25fb7a5@intel.com>
+Date: Thu, 29 Jun 2023 10:18:25 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
- Yuri Benditovich <yuri.benditovich@daynix.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <20230627163549.40028-1-hengqi@linux.alibaba.com>
- <CACGkMEvFmAiWDp8w=ytin21Oi+PcTb1X3Eve7Kt2NVr_RkhgmA@mail.gmail.com>
- <PH0PR12MB54811123CFCDEFE3B48D4381DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628061257-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481ED6C94DE8CC414C3369BDC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628123131-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481BA1CDA0942170186CB59DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628132122-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54814D42786A6981467D3FADDC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628152125-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481EAD97F6163C52DF4FF53DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <PH0PR12MB5481EAD97F6163C52DF4FF53DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.12.0
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>, Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>,
+ "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>
+References: <PH0PR12MB5481821452DA2A9572714BB9DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <6b95e5ec-37e7-7150-9926-6bb02ee13cf3@intel.com>
+ <PH0PR12MB54818AEB1A85069B42B97158DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB54818AEB1A85069B42B97158DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] RE: [PATCH v19] virtio-net: support inner header
- hash
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] Re: virtio member device provisioning get/set
+ and virtio child device life cycle mixing not needed
 
 
 
-在 2023/6/29 上午9:56, Parav Pandit 写道:
+On 6/28/2023 9:10 PM, Parav Pandit wrote:
 >
->> From: Michael S. Tsirkin <mst@redhat.com>
->> Sent: Wednesday, June 28, 2023 3:45 PM
->>>> Maybe I get it. You want to use the new features as a carrot to
->>>> force drivers to implement DMA? You suspect they will ignore the
->>>> spec requirement just because things seem to work?
->>>>
->>> Right because it is not a must normative.
->> Well SHOULD also does not mean "ok to just ignore".
+>> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+>> open.org> On Behalf Of Zhu, Lingshan
+>> Sent: Wednesday, June 28, 2023 3:31 AM
 >>
->> 	This word, or the adjective "RECOMMENDED", mean that there
->> 	   may exist valid reasons in particular circumstances to ignore a
->> 	   particular item, but the full implications must be understood and
->> 	   carefully weighed before choosing a different course.
->>
-> RECOMMENDED and SHOULD forces the device to support MMIO, which is not good.
-> So rather a good design is device tells the starting offset for the extended config space.
-> And extended config space MUST be accessed using a DMA.
-> With this sw can have infinite size MMIO and hw device forces DMA based on its implementation of where to start DMA from.
-> This also gives the ability to maintain current config as MMIO for backward compatibility.
->   
->>
->>>> There's some logic here, for sure. you just might be right.
->>>>
->>>> However, surely we can discuss this small tweak in 1.4 timeframe?
->>> Sure, if we prefer the DMA approach I don't have a problem in adding
->> temporary one field to config space.
->>> I propose to add a line to the spec " Device Configuration Space"
->>> section, something like,
+>> On 6/28/2023 8:22 AM, Parav Pandit wrote:
+>>> Hi Lingshan Zhu,
 >>>
->>> Note: Any new device configuration space fields additional MUST consider
->> accessing such fields via a DMA interface.
->>> And this will guide the new patches of what to do instead of last moment
->> rush.
+>>> I have reviewed v4 version transport VQ a while back that consist of two main
+>> pieces.
+>>> 1. some virtio device creation/destroy commands 2. virtio device
+>>> feature and config space provisioning commands.
+>>>
+>>> Many of us are seeing the value of device provisioning commands
+>> with/without live migration.
+>>> New virtio devices do not need to follow any existing of config space etc per
+>> say for real hw.
+>>> There is some value in reusing software but it may not be the prime driving
+>> factor for brand new devices.
+>>> This needs more discussion and not as_is done in the v4.
+>>>
+>>> So, if you are planning to revise your transport vq patches as admin
+>> commands, please split the series into two.
+>>> a. device and config space provisioning SET/GET part.
+>> Hi Parav
 >>
->> Yea, except again I'd probably make it a SHOULD: e.g. I can see how switching to
->> MMIO might be an option for qemu helping us debug DMA issues.
+>> I agree it is good to unify the interface for SRIOV and SIOV. However more
+>> discussion is required, e.g., for a VF, will config its MSIX by admin vq(owned by
+>> host) conflict with the MSIX cap.
 >>
-> There are too many queues whose debugging is needed and MMIO likely not the way to debug.
->   
->> The time to discuss this detail would be around when proposal for the DMA
->> access to config space is on list though: I feel this SHOULD vs MUST is a small
->> enough detail.
->>
->  From implementation POV it is certainly critical and good step forward to optimize virtio interface.
->   
->> Going back to inner hash. If we move supported_tunnels back to config space,
->> do you feel we still need GET or just drop it? I note we do not have GET for
->> either hash or rss config.
->>
-> For hash and rss config, debugging is missing. :)
-> Yes, we can drop the GET after switching supported_tunnels to struct virtio_net_hash_config.
-
-Great! Glad to hear this!
-
->   
->> And if we no longer have GET is there still a reason for a separate command as
->> opposed to a field in virtio_net_hash_config?
->> I know this was done in v11 but there it was misaligned.
->> We went with a command because we needed it for supported_tunnels but
->> now that is no longer the case and there are reserved words in
->> virtio_net_hash_config ...
->>
->> Let me know how you feel it about that, not critical for me.
-> struct virtio_net_hash_config reserved is fine.
-
-+1.
-
-Inner header hash is orthogonal to RSS, and it's fine to have its own 
-structure and commands.
-There is no need to send additional RSS fields when we configure inner 
-header hash.
-
-Thanks.
-
+> No, it doesn't conflict.
+> SR-PCIM interface is outside the scope of PCIe spec.
+> I completed the work in PCI spec to clarify this already, its coming in the 6.1 errata spec.
+>
+> Non virtio device and Linux kernel both already has similar implementation in place and in use for more than a year.
+> So msix provisioning via AQ is fine. VF can expose new MSIX capability post reconfiguration via AQ.
+It is the guest to config MSIX of an assigned VF by writing to MSIX 
+capability. However host owns the AQ,
+means host can modify the MSIX config even when guest operational running.
+A new synchronization mechanism? Trap accesses to MSIX cap? Ban access 
+of MSIX through AQ after DRIVER_OK?
+Do you have any detailed information about how to prevent the conflicts 
+like this?
+>
+> We will be able to unify them across SRIOV and SIOV.
+> SIOV anyway has to wait as its undergoing significant changes currently.
 
 
 This publicly archived list offers a means to provide input to the
