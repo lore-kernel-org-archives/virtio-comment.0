@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6608-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6609-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F8CEB64D9
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 13:08:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38836C3DA40
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 14:50:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 338F61FF63
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 13:08:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 61FDA755C1
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 14:50:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 14B7C9865E1
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 13:08:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3B99E9866E7
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 14:50:33 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id F35919865CA; Thu, 29 Jun 2023 13:08:38 +0000 (UTC)
+	id 20F8A9865D5; Thu, 29 Jun 2023 14:50:33 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,123 +24,171 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DF3909865CE;
-	Thu, 29 Jun 2023 13:08:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0250F9865E1;
+	Thu, 29 Jun 2023 14:49:53 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R801e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046056;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0VmERanV_1688044112;
-Message-ID: <0c557208-a3e1-4f3f-7ecf-8d0abc4e49c7@linux.alibaba.com>
-Date: Thu, 29 Jun 2023 21:08:31 +0800
+X-TM-MAIL-RECEIVED-TIME: 1688050178.713000
+X-TM-MAIL-UUID: 67d40f0c-723f-4a07-8140-b912dc22be84
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JoHXcDuy99jLDXURhUlzN4gyxFPzpfAW/RjP7u1MabxjTigrWqk3G2PhkgdUkxFAV/Je+bf7ZEQSvR2R8G+SJiisScaB36bmX9vaSraYfts8OQGROgpu99NrbacZenCrOIjzOJoqvtWWOOm3OuL+++mhxo4JLnarEXD6BKeG+zy6yhPi5B0A0LjWHM97nnyrhSZUcnkozkyu3uLy40WoFMzGLX6s+KskZ8okOAYqeApCnEZcHfzjrjlAdA0hI6yNZmbWPEIvvKgQCNKYqIUYnpWuATZmaIkQt/h5REs6wcNzKUcpWrLTz/ktFnRIf/vQY7Cpv3GCH+ti33fWT2H3uQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uXE0H22iw+cpckPfVbWhUzcsGOxy+sHiyyCjodERnMY=;
+ b=noXSRX0VcBc0eXPqSbBIeIu0R7ksQ++yaTlV6rYl7iveNve/k/urq3P0vbGcZLqzshcgD8EyCi22CYU224HzKjTawxZK0fOs2OEdfc5UOGYW0KLkevS7mSSKYdknxhvPWLwgUkvShPzRP7SxNqpavTuq7c4y6AJwzBAInX3YjFx7N3zQ26uuBRH6fNAMxqdIiv6Mi14cCZrzEr7BQO/5dWaDVqRE4MMCj0p6eyemujGAO/GA5BMiSSup56eiYdyyFk9BZ7LQFKrYo0bkjBt7nThlCX9PMO094IWNK/93b1gAw9G5J/NLG03xjDC5NxtUhOcnIQJTh2hKV2GeDEa7iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 217.66.60.4) smtp.rcpttodomain=chromium.org smtp.mailfrom=opensynergy.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=opensynergy.com; dkim=none (message not signed); arc=none
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 217.66.60.4)
+ smtp.mailfrom=opensynergy.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=opensynergy.com;
+Received-SPF: Pass (protection.outlook.com: domain of opensynergy.com
+ designates 217.66.60.4 as permitted sender) receiver=protection.outlook.com;
+ client-ip=217.66.60.4; helo=SR-MAIL-03.open-synergy.com; pr=C
+From: Alexander Gordeev <Alexander.Gordeev@opensynergy.com>
+To: virtio-comment@lists.oasis-open.org,
+	virtio-dev@lists.oasis-open.org
+Cc: Alexander Gordeev <Alexander.Gordeev@opensynergy.com>,
+	Albert Esteve <aesteve@redhat.com>,
+	Alexandre Courbot <acourbot@chromium.org>,
+	alex.bennee@linaro.org,
+	Andrew Gazizov <andrew.gazizov@opensynergy.com>,
+	Andrii Cherniavskyi <andrii.cherniavskyi@opensynergy.com>,
+	Cornelia Huck <cohuck@redhat.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Enric Balletbo i Serra <eballetb@redhat.com>,
+	Enrico Granata <egranata@google.com>,
+	Gustavo Padovan <gustavo.padovan@collabora.com>,
+	Keiichi Watanabe <keiichiw@chromium.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Marcin Wojtas <mwojtas@google.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Matti.Moell@opensynergy.com,
+	bag@semihalf.com,
+	bgrzesik@google.com,
+	hmazur@google.com,
+	mikrawczyk@google.com,
+	srosek@google.com,
+	zyta@google.com,
+	linux-media@vger.kernel.org,
+	libcamera-devel@lists.libcamera.org
+Date: Thu, 29 Jun 2023 16:49:14 +0200
+Message-Id: <20230629144915.597188-1-Alexander.Gordeev@opensynergy.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
- Yuri Benditovich <yuri.benditovich@daynix.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <PH0PR12MB54811123CFCDEFE3B48D4381DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628061257-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481ED6C94DE8CC414C3369BDC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628123131-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481BA1CDA0942170186CB59DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628132122-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54814D42786A6981467D3FADDC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628152125-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481EAD97F6163C52DF4FF53DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <4132affe-9b97-a81f-ad57-50ed4341678b@linux.alibaba.com>
- <20230629074627-mutt-send-email-mst@kernel.org>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <20230629074627-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] RE: [PATCH v19] virtio-net:
- support inner header hash
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1EUR05FT039:EE_|FR0P281MB2046:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 0bf81e8f-0f0a-4dbe-b644-08db78b00f99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	zX2xceQkmOiDI1mEwvCjEjCRe+ZctXd5Dxrfzho9lSMu7dzcifEGX8+h/12j1PfzA8vbfbPpDxZ+DHc2wQOcEigZAJHl1LNcesaSypJGONx7UDeRPh6fmuMQKsWH21KX+RkB9hg/dVKHFM3DJgjEJLmjdp2dfdj25hA5A0iu0MIB1tE+mah4twICr6MG4vYtv7paeEGuRQyEnRlXkNwPOikjAP5Yu5E4vI7MAu+BZil3eVuIxTNrIqycBHL5bpcFIZfzg9y1XkqAk1DwCS8YZi7nwdPKm4jDtAu2FV1HSmXT+3ogHpJoguEOXa+83ALQ6LzBHoAWDq9iTnIKLKUvhnc/tuDX8GhsrRWyRsqyyj6TWUCbYGmJ/du71pBoV//dfrEdP9HkSd6UUze/yP8/5Q+Imtzi4pC/CodYLtr6EnUkz62eCvZFX3JZB68E+Y7C8oUHA/KgBVe7elPFJiTVKe23Bwc8gsCt5hm7tRzjFfIQ9lKJJw1e/rYO+jaHHfAWR0yCv6LMKwZbJY0CqNCd56Gss0lrBMjozhgHKpBXIMHtq0GHT1OQ3aAZZie5xrq+chsIguU4J+8B3z4VgKmvJtHpazcDjgyb3T6jFXO9mtIrvgEa7sJlBYqGEcgHceUHsobmfjY1xYfaPCvMzojAQC7LrewaO28j0aaDpkEGogXNZulBvH6lHKIQxPyhdr8bVfSMTgtOWiarzH0U2lo6zklY90Wmyggn3W5++aWnIx7fKjz7qXIXsTVBpFPsPOCvBjhV3HFLkgsCbad+au/OOg==
+X-Forefront-Antispam-Report:
+	CIP:217.66.60.4;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(396003)(376002)(39840400004)(346002)(136003)(451199021)(46966006)(36840700001)(7416002)(5930299015)(1076003)(5660300002)(336012)(4326008)(316002)(70206006)(478600001)(36756003)(70586007)(8676002)(8936002)(2906002)(186003)(54906003)(966005)(36860700001)(42186006)(40480700001)(41300700001)(82310400005)(86362001)(81166007)(47076005)(26005)(2616005)(83380400001)(36900700001);DIR:OUT;SFP:1102;
+X-OriginatorOrg: opensynergy.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 14:49:37.3585
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bf81e8f-0f0a-4dbe-b644-08db78b00f99
+X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=800fae25-9b1b-4edc-993d-c939c4e84a64;Ip=[217.66.60.4];Helo=[SR-MAIL-03.open-synergy.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VI1EUR05FT039.eop-eur05.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR0P281MB2046
+X-TM-AS-ERS: 104.47.7.174-0.0.0.0
+X-TMASE-Version: StarCloud-1.3-9.1.1011-27722.000
+X-TMASE-Result: 10--13.217400-4.000000
+X-TMASE-MatchedRID: xXA8JSLb31tKqT77NMMyNxZu3Ax5Ngq859KGlOljPvu4xpDSsMYz9Ik+
+	ek903bmdJIE8B+MatXg0MlZvaRoxGC6T4pgCl/M6R6eMmpdkcdk6Cu19Vtgyg//cMgrTjbBkRQc
+	XrCueZFhpO0BOxhTlbJA/ATZ0Yg5D0GDK5hZjJXyB7KF1cYE+v/emg0BhV6PFu5fROEbKeImvU1
+	tCOC5lhTIs3LEAaA7XSE3uK2tLdI1NOAGUOSRGeF7YyKSX4fHjFQ/jDVQKXn4eyPVZe0RJiUkgG
+	AfseSYI2agkMppXv0n2CX+DNSvaTpVqXn8k6sIeju2XlcEx9HQFgK3XHdr3w4loy91GB/ZEB0lB
+	bq8327NXoinqR4tvX6Wz+FpE58Tnk/dA6P3T5Fuw0Dfrl0kL6wjIhAT2d4YVyEYRIXZC1hLpS1H
+	JaayLrp6fQ44SVZDd6xA0Ava73nBHnLDmms99+BEuOqgkm3/1h7z+gmKKj0oDf6I8jFx+tgxKJh
+	lMXnCqcYO7LzLWqS5krrVhD7Q0DkmcU+PbeIu4GrcQV6ODggA/FSuCUJL71oRUjoIe39qe
+X-TMASE-XGENCLOUD: 63fc4136-7300-4884-b1b5-fe214e3d4904-0-0-200-0
+X-TM-Deliver-Signature: E20E4B2E1F2FAFE8063F4F07ED9B9661
+X-TM-Addin-Auth: VzlyViWVjvreRq2jAlTwoTktHB4Ho5ISkitaE0gRjobWlTcvBcoo7FvhCQp
+	mVsk50NE5mQ3+HxUDNOTk1pKfopxjKVGMM8D1RuxoUxYePHY36dB9ztQeqLNiloSE98p0Jh/Zjo
+	NsvI/waMsFTPSNlthdAoupefPv9Z0v1/f4/+7IC3czAvDnUzDk8vPzUEGEIY10AW4/oDkKqVf0q
+	EnN7tjUBZCjkxf5cnPsdrf8N4Qik+JG0UbyLBf3PmM/46VNuHBF5baIN+XoxOi/TjbkeKu3meYT
+	lEqCQJ7eOOKwrGAHzXYwHgWy5owzp5lE6Kia.t7kmS6ReXbQ3us1rnwxn9AffsQCChUxohIKm43
+	LwVrB6EYZlfqhGKuYkACBR3mEnKGyaHZo8FqjacPojkifyNZsw+DjRRqpW0xZuvEMdM/nCWOf97
+	alY759K5Z31JrC2hYG4HoHvUMirIEDdknuLzM9qhmnF1jJBiXO0fqn8dOKQZDxjR4wMnxr6bvYr
+	FS1G3ThoVVM/AujSKXh+D7lj9T+FMrfSfnaU0gnWq9Wk0KBI0MZDbPexv6Z7vCKczITuBMguhxh
+	f3lhmWmIii5opOSx87+IcwiLausIhaJmbuSQwAYumRf7QI8t84T1bR3XQt4IH/1dBhx2Fu5UVnw
+	DqBQ==
+X-TM-Addin-ProductCode: EMS
+Subject: [virtio-comment] [RFC PATCH v8 0/1] Virtio video device specification
 
+Hi,
 
+This is the 8th version of virtio-video device patch. Feedback would be very
+appreciated.
 
-在 2023/6/29 下午7:48, Michael S. Tsirkin 写道:
-> On Thu, Jun 29, 2023 at 10:05:09AM +0800, Heng Qi wrote:
->>
->> 在 2023/6/29 上午9:56, Parav Pandit 写道:
->>>> From: Michael S. Tsirkin <mst@redhat.com>
->>>> Sent: Wednesday, June 28, 2023 3:45 PM
->>>>>> Maybe I get it. You want to use the new features as a carrot to
->>>>>> force drivers to implement DMA? You suspect they will ignore the
->>>>>> spec requirement just because things seem to work?
->>>>>>
->>>>> Right because it is not a must normative.
->>>> Well SHOULD also does not mean "ok to just ignore".
->>>>
->>>> 	This word, or the adjective "RECOMMENDED", mean that there
->>>> 	   may exist valid reasons in particular circumstances to ignore a
->>>> 	   particular item, but the full implications must be understood and
->>>> 	   carefully weighed before choosing a different course.
->>>>
->>> RECOMMENDED and SHOULD forces the device to support MMIO, which is not good.
->>> So rather a good design is device tells the starting offset for the extended config space.
->>> And extended config space MUST be accessed using a DMA.
->>> With this sw can have infinite size MMIO and hw device forces DMA based on its implementation of where to start DMA from.
->>> This also gives the ability to maintain current config as MMIO for backward compatibility.
->>>>>> There's some logic here, for sure. you just might be right.
->>>>>>
->>>>>> However, surely we can discuss this small tweak in 1.4 timeframe?
->>>>> Sure, if we prefer the DMA approach I don't have a problem in adding
->>>> temporary one field to config space.
->>>>> I propose to add a line to the spec " Device Configuration Space"
->>>>> section, something like,
->>>>>
->>>>> Note: Any new device configuration space fields additional MUST consider
->>>> accessing such fields via a DMA interface.
->>>>> And this will guide the new patches of what to do instead of last moment
->>>> rush.
->>>>
->>>> Yea, except again I'd probably make it a SHOULD: e.g. I can see how switching to
->>>> MMIO might be an option for qemu helping us debug DMA issues.
->>>>
->>> There are too many queues whose debugging is needed and MMIO likely not the way to debug.
->>>> The time to discuss this detail would be around when proposal for the DMA
->>>> access to config space is on list though: I feel this SHOULD vs MUST is a small
->>>> enough detail.
->>>>
->>>   From implementation POV it is certainly critical and good step forward to optimize virtio interface.
->>>> Going back to inner hash. If we move supported_tunnels back to config space,
->>>> do you feel we still need GET or just drop it? I note we do not have GET for
->>>> either hash or rss config.
->>>>
->>> For hash and rss config, debugging is missing. :)
->>> Yes, we can drop the GET after switching supported_tunnels to struct virtio_net_hash_config.
->> Great! Glad to hear this!
->>
->>>> And if we no longer have GET is there still a reason for a separate command as
->>>> opposed to a field in virtio_net_hash_config?
->>>> I know this was done in v11 but there it was misaligned.
->>>> We went with a command because we needed it for supported_tunnels but
->>>> now that is no longer the case and there are reserved words in
->>>> virtio_net_hash_config ...
->>>>
->>>> Let me know how you feel it about that, not critical for me.
->>> struct virtio_net_hash_config reserved is fine.
->> +1.
->>
->> Inner header hash is orthogonal to RSS, and it's fine to have its own
->> structure and commands.
->> There is no need to send additional RSS fields when we configure inner
->> header hash.
->>
->> Thanks.
-> Not RSS, hash calculations. It's not critical, but I note that
-> practically you said you will enable this with symmetric hash
-> so it makes sense to me to send this in the same command
+The main change coming with this draft is the introduction of background
+operations and delayed responses to commands (the term is taken from the SCMI
+spec) over eventq. Now most of the commands work like this. The only
+exceptions are STREAM_CREATE and RESOURCE_ATTACH_BACKING commands. This should
+help avoid commandq descriptors exhaustion. Also I introduced "in band" and
+"out of band" handling of SET_PARAMS command. Out of band is the way how it
+was done before i.e. the command is handled immediately after dequeuing from
+commandq. In band means putting it into device's INPUT queue so that it can
+be executed precisely after a certain input resource and before the next one.
+These two changes allowed me to represent the events as a custom case of the
+delayed responses. Also this enables processing resolution changes embedded in
+the stream and coming from outside in the same way. I think this makes it
+possible to implement V4L2 Requests API.
 
-This works for me.
+Questions for discussion/roadmap:
+1. It looks like the current way of describing the device capabilities is not
+very well extendable. I'd like to change it again. The goal is that after
+adding new generic parameters/new codecs/new codec parameters and covering
+them with the feature flags the format of the device response doesn't depend
+that much on the enabled flags. My current idea is to convert this into a
+serie of descriptors with offsets and sizes, so that the device can then
+simply adjust offsets and sizes, but keep that layout the same. Any ideas here
+would be appreciated.
+2. Since draft v7 the device is expected to provide all and every one of its
+capabilities as a response to the DEVICE_QUERY_CAPS command. Maybe the device
+shouldn't adjust the parameters itself now?
+3. I think the last piece, that is missing completely, is QoS. How can the
+device indicate to the driver, that it is saturated? How could the device be
+shared between multiple guests in a fair way?
 
-Thanks.
+Full PDF: https://drive.google.com/file/d/1uPg4kxThlNPBSiC4b5veyFz4OFGytU7v/view?usp=sharing
+PDF with the video section only: https://drive.google.com/file/d/1iW3MbseRZLovlxpc4XAF8VTvhQ_Tww6q/view?usp=sharing
 
-> with the key.
->
-> Not critical though if there's opposition.
->
+Changelog v7 -> v8:
+* Added the delayed responses to commands sent on the eventq.
+* Added the in band STREAM_SET_PARAMS command handling.
+* Implemented device events using the newly added delayed responses.
+
+Alexander Gordeev (1):
+  virtio-video: Add virtio video device specification
+
+ conformance.tex                           |    4 +
+ content.tex                               |    1 +
+ device-types/video/description.tex        | 2040 +++++++++++++++++++++
+ device-types/video/device-conformance.tex |   22 +
+ device-types/video/driver-conformance.tex |   16 +
+ introduction.tex                          |   21 +
+ 6 files changed, 2104 insertions(+)
+ create mode 100644 device-types/video/description.tex
+ create mode 100644 device-types/video/device-conformance.tex
+ create mode 100644 device-types/video/driver-conformance.tex
+
+-- 
+2.34.1
 
 
 This publicly archived list offers a means to provide input to the
