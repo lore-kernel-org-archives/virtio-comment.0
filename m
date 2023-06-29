@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6594-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6595-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52243EB64D7
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 03:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE48FEB64DA
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 03:32:16 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 72AC87C664
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 03:29:26 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A5F9BF3F75
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 03:32:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 57D779865CE
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 03:29:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2AD2698672C
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 03:32:13 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4320F98658B; Thu, 29 Jun 2023 03:29:26 +0000 (UTC)
+	id A5F5C98680F; Thu, 29 Jun 2023 03:32:12 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,289 +24,161 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2D16198658E
-	for <virtio-comment@lists.oasis-open.org>; Thu, 29 Jun 2023 03:29:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6AC7F9866EA
+	for <virtio-comment@lists.oasis-open.org>; Thu, 29 Jun 2023 03:32:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: Y8tnXl3YPMa7ycO_8CCD6g-1
+X-MC-Unique: F49W0v16PamqnVrAf2r5Ag-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688009362; x=1690601362;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZhUZRsfZAsfcUCNmxuz68VVSaIeNbux1Anw7CEPGc0M=;
-        b=eouBcLi70QZ2cpskgpzJhNBY9sHZUEtf3ckgOWXEtIaNXGDWle8+DZQSLwc1qUyZCi
-         3e6ZDWMwzZoUW8b+m8Qiycr1jScRHs+8C15FMwcOY0oUSIXFhXw8XMQNmm75PyoT1YkS
-         JCa/IyztSfCGp/Mn1kefnJoJosM5w2DnaWpR7tqLjyUnhC09GiIkkSXKm2Fuz8BO2S4g
-         agmfGP3BnvY5EZNE0o0f+vqGAX5MmcN1VW3OoKCx3xtMiM96PqHNdFYboSFv5jxZZadX
-         uJiyELvSJU/9dFO1+7YM+OJNrmlKbV0yfHnHG2jyU85J+9PBrGQWzx7iZy9yVD7rmh61
-         RSpw==
-X-Gm-Message-State: AC+VfDxCc8DGj2sfwjjfyNHyU2vs7GwvyFIpQBXE4d11dOg9Bzn31MG7
-	x+TN/K7in6sPEpLGmh4Ith/Qa15B2XFfBjJje0Na8d70gkvTvNYGhyCC4GXpmU7Qn3mr8vSV3TQ
-	nRY2tJK3/F1FEoDxT8QXhWtVHlWJIyYmo+ypD+lFDLM//S5jcoQ==
-X-Received: by 2002:a05:651c:103c:b0:2b6:a83e:4ce3 with SMTP id w28-20020a05651c103c00b002b6a83e4ce3mr7050483ljm.44.1688009362146;
-        Wed, 28 Jun 2023 20:29:22 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ56Y6bR/BH9z/yZVtyz/6yDcQ2b8cEPN2ESMbbuhG5EAnSw8l0SKOx9UVDW0ijoHF7KZTsyQcTFqJVGwvud+wY=
-X-Received: by 2002:a05:651c:103c:b0:2b6:a83e:4ce3 with SMTP id
- w28-20020a05651c103c00b002b6a83e4ce3mr7050473ljm.44.1688009361820; Wed, 28
- Jun 2023 20:29:21 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1688009529; x=1690601529;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kI5IOUeZJ/vHqBN7sqfgEDhZdVbaSKz3RpS2au4PPu0=;
+        b=i3pq+Yaw2WwfpToeGAU6Xvr8OCxxdx6iHK55SikMFQUpmnaniMLLNguYqq0/gDKDEp
+         yXkmVa6xG7xSjoAEeiPCj7GLL3lueTrvSrRexL+6YexS9t1HIBTHo6KvpEm5GqSUK5cS
+         yr/C5rBs+xL67n4s55ftyk+f2kTI2tj1sipzD9nyNuaEzRZdIejU/JgczMM5P1yHCyT+
+         EqGWu66Fujen+65zDi1xr+iWXqm5IQ747tec1/95MggkgHbdRgGimK0tobPjcIgCgqI3
+         i9sQyuL+/8eSWcTCPALxsvcqiKrs3kQGo1iIQbFQLa9znWKwYCC/Rqt8rlZirzYgHM5i
+         2zGA==
+X-Gm-Message-State: AC+VfDxn4MI+jssczfig/iNE6yFTkympJVFhVJM/uuFzCoSkG+k0Jgcc
+	PAzcsZDJPodPYLRrSiXRt388gFMwL6NdsXYkR3/KfnqwzHbiS0q1jaGf7fCmf+AAFPrHrtFQ+ft
+	6yYtMzrURo63ouKaUZHXWer1p1XyqkWYrgA==
+X-Received: by 2002:a17:90b:4d83:b0:263:4164:dfba with SMTP id oj3-20020a17090b4d8300b002634164dfbamr3149164pjb.6.1688009528940;
+        Wed, 28 Jun 2023 20:32:08 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6q/WyQczcM65401ZAq7i/3V2e/Cybblvzag8eS9cEpcshnrGWvr/siUm0qncI3nezg+HAb+w==
+X-Received: by 2002:a17:90b:4d83:b0:263:4164:dfba with SMTP id oj3-20020a17090b4d8300b002634164dfbamr3149150pjb.6.1688009528620;
+        Wed, 28 Jun 2023 20:32:08 -0700 (PDT)
+Message-ID: <2522ab61-a333-a33b-784c-01ea6b4b42da@redhat.com>
+Date: Thu, 29 Jun 2023 11:31:58 +0800
 MIME-Version: 1.0
-References: <20230626062210.49020-1-xuanzhuo@linux.alibaba.com>
- <1687854185.3344731-3-xuanzhuo@linux.alibaba.com> <CACGkMEs=2HJ=Bg5Xk1GYZAOKpNLpf5EUrkNEkEOKU4hSbXC=mw@mail.gmail.com>
- <1687863046.3264692-9-xuanzhuo@linux.alibaba.com> <CACGkMEvyJrnyN0CFv2sAraNQM5E_Hkccmo1hJNzQPX8DRB5ryg@mail.gmail.com>
- <1687932392.6613173-2-xuanzhuo@linux.alibaba.com> <20230628114143-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230628114143-mutt-send-email-mst@kernel.org>
-From: Jason Wang <jasowang@redhat.com>
-Date: Thu, 29 Jun 2023 11:29:10 +0800
-Message-ID: <CACGkMEspnOhFi3XbeOaZ3mPcCv3G8+34hVYo7nrmVndDkZSJ2w@mail.gmail.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
 To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtio-dev@lists.oasis-open.org, 
-	parav@nvidia.com, virtio-comment@lists.oasis-open.org, 
-	"Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: Heng Qi <hengqi@linux.alibaba.com>, virtio-comment@lists.oasis-open.org,
+ virtio-dev@lists.oasis-open.org, Parav Pandit <parav@nvidia.com>,
+ Yuri Benditovich <yuri.benditovich@daynix.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+References: <20230627163549.40028-1-hengqi@linux.alibaba.com>
+ <CACGkMEvFmAiWDp8w=ytin21Oi+PcTb1X3Eve7Kt2NVr_RkhgmA@mail.gmail.com>
+ <20230628060519-mutt-send-email-mst@kernel.org>
+From: Jason Wang <jasowang@redhat.com>
+In-Reply-To: <20230628060519-mutt-send-email-mst@kernel.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [RFC PATCH] admin-queue: bind the group member
- to the device
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH v19] virtio-net: support inner header hash
 
-On Wed, Jun 28, 2023 at 11:55=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com=
-> wrote:
->
-> On Wed, Jun 28, 2023 at 02:06:32PM +0800, Xuan Zhuo wrote:
-> > On Wed, 28 Jun 2023 10:49:45 +0800, Jason Wang <jasowang@redhat.com> wr=
-ote:
-> > > On Tue, Jun 27, 2023 at 6:54=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.ali=
-baba.com> wrote:
-> > > >
-> > > > On Tue, 27 Jun 2023 17:00:06 +0800, Jason Wang <jasowang@redhat.com=
-> wrote:
-> > > > > On Tue, Jun 27, 2023 at 4:28=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux=
-.alibaba.com> wrote:
-> > > > > >
-> > > > > >
-> > > > > > Thanks Parav for pointing it out. We may have some gaps on the =
-case.
-> > > > > >
-> > > > > > Let me introduce our case, which I think it is simple and shoul=
-d be easy to
-> > > > > > understand.
-> > > > > >
-> > > > > > First, the user (customer) purchased a bare metal machine.
-> > > > > >
-> > > > > > ## Bare metal machine
-> > > > > >
-> > > > > > Let me briefly explain the characteristics of a bare metal mach=
-ine. It is not a
-> > > > > > virtual machine, it is a physical machine, and the difference b=
-etween it and a
-> > > > > > general physical machine is that its PCI is connected to a devi=
-ce similar to a
-> > > > > > DPU. This DPU provides devices such as virtio-blk/net to the ho=
-st through PCI.
-> > > > > > These devices are managed by the vendor, and must be created an=
-d purchased
-> > > > > > on the vendor's management platform.
-> > > > > >
-> > > > > > ## DPU
-> > > > > >
-> > > > > > There is a software implementation in the DPU, which will respo=
-nd to PCI
-> > > > > > operations. But as mentioned above, resources such as network c=
-ards must be
-> > > > > > purchased and created before they can exist. So users can creat=
-e VF, which is
-> > > > > > just a pci-level operation, but there may not be a correspondin=
-g backend.
-> > > > > >
-> > > > > > ## Management Platform
-> > > > > >
-> > > > > > The creation and configuration of devices is realized on the ma=
-nagement
-> > > > > > platform.
-> > > > > >
-> > > > > > After the user completed the purchase on the management platfor=
-m (this is an
-> > > > > > independent platform provided by the vendor and has nothing to =
-do with
-> > > > > > virtio), then there will be a corresponding device implementati=
-on in the DPU.
-> > > > > > This includes some user configurations, available bandwidth res=
-ources and other
-> > > > > > information.
-> > > > > >
-> > > > > > ## Usage
-> > > > > >
-> > > > > > Since the user is directly on the HOST, the user can create VMs=
-, passthrough PF
-> > > > > > or VF into the VM. Or users can create a large number of docker=
-s, all of which
-> > > > > > use a separate virtio-net device for performance.
-> > > > > >
-> > > > > > The reason why users use vf is that we need to use a large numb=
-er of virtio-net
-> > > > > > devices. This number reaches 1k+.
-> > > > > >
-> > > > > > Based on this scenario, we need to bind vf to the backend devic=
-e. Because, we
-> > > > > > cannot automatically complete the creation of the virtio-net ba=
-ckend device when
-> > > > > > the user creates a vf.
-> > > > > >
-> > > > > > ## Migration
-> > > > > >
-> > > > > > In addition, let's consider another scenario of migration. If a=
- vm is migrated
-> > > > > > from another host, of course its corresponding virtio device is=
- also migrated to
-> > > > > > the DPU. At this time, our newly created vf can only be used by=
- the vm after it
-> > > > > > is bound to the migrated device. We do not want this vf to be a=
- brand new
-> > > > > > device.
-> > > > > >
-> > > > > > ## Abstraction
-> > > > > >
-> > > > > > So, this is how I understand the process of creating vf:
-> > > > > >
-> > > > > > 1. Create a PCI VF, at this time there may be no backend virtio=
- device, or there
-> > > > > >     is only a default backend. It does not fully meet our expec=
-tations.
-> > > > > > 2. Create device or migrate device
-> > > > > > 3. Bind the backend virtio device to the vf
-> > > > >
-> > > > > 3) should come before 2)?
-> > > > >
-> > > > > Who is going to do 3) btw, is it the user? If yes, for example, i=
-f a
-> > > > > user wants another 4 queue virtio-net devices, after purchase, ho=
-w
-> > > > > does the user know its id?
-> > > >
-> > > > Got the id from the management platform.
-> > >
-> > > So it can do the binding via that management platform which this
-> > > became a cloud vendor specific interface.
-> >
-> > In our scenario, this is bound by the user using this id and vf id in t=
-he os.
-> >
-> > >
-> > > >
-> > > > >
-> > > > > >
-> > > > > > In most scenarios, the first step may be enough. We can make so=
-me fine-tuning on
-> > > > > > this default device, such as modifying its mac. In the future, =
-we can use admin
-> > > > > > queue to modify its msix vector and other configurations.
-> > > > > >
-> > > > > > But we should allow, we bind a backend virtio device to a certa=
-in vf. This is
-> > > > > > useful for live migration and virtio devices with special confi=
-gurations.
-> > > > >
-> > > > > All of these could be addressed if a dynamic provisioning model i=
-s
-> > > > > implemented (SIOV or transport virtqueue). Trying to have a worka=
-round
-> > > > > in SR-IOV might be tricky.
-> > > >
-> > > >
-> > > > SR-IOV vf is native PCI device, this is the advancement.
-> > >
-> > > The problem is that it doesn't support flexible provisioning, e.g
-> > > create and destroy a single VF.
-> >
-> > YES. ^_^!!
->
-> So sure, create it. Once you have created it, you can
-> use the VF# to talk to it.
->
->
-> I *suspect* that what this ID does is replace provisioning commands.
->
-> So instead of saying "create VF#3 with MAC 0xABC and 0x1000VQs"
-> you would have management say "ID 0xFACE refers to MAC ABC and 1000VQs"
-> and later you will say "bind VF#3 to ID 0xFACE" and that will
-> set it up.
->
-> Is that it?
->
-> But why is it important to do it in two steps like this?
-> as opposed to in one step?  I have no idea.
->
-> >
-> > >
-> > > >
-> > > >
-> > > > >
-> > > > > >
-> > > > > > The design of virtio itself is two layers, and virtio should al=
-low switching the
-> > > > > > transport layer by nature. This is our advantage.
-> > > > >
-> > > > > Is it not switching the transport layer but about binding/unbindi=
-ng
-> > > > > vitio devices to VF?
-> > > >
-> > > > YES.
-> > > >
-> > > > >
-> > > > > Is a new capability or similar admin cmd sufficient in this case?
-> > > >
-> > > > All is ok.
-> > > >
-> > > >
-> > > > >
-> > > > > struct virtio_pci_bind_cap {
-> > > > >         struct virtio_pci_cap cap;
-> > > > >         u16 bind; // virtio_device_id
-> > > > >         u16 unbind; // virtio_device_id
-> > > > > };
-> > > >
-> > > > You mean that the "bind" or "unbind" is writeable?
-> >
-> > This is a good idea.
-> >
-> > Thanks.
->
-> So stealing valuable memory from limited pci config space, no error
-> handling, no filtering... Ugh.  Let's not put a round peg in a square
-> hole.
 
-It's just quick example to demonstrate the idea, actually I meant it
-could be done via admin cmd, see above
+在 2023/6/28 18:10, Michael S. Tsirkin 写道:
+> On Wed, Jun 28, 2023 at 11:46:22AM +0800, Jason Wang wrote:
+>> On Wed, Jun 28, 2023 at 12:35 AM Heng Qi <hengqi@linux.alibaba.com> wrote:
+>>> 1. Currently, a received encapsulated packet has an outer and an inner header, but
+>>> the virtio device is unable to calculate the hash for the inner header. The same
+>>> flow can traverse through different tunnels, resulting in the encapsulated
+>>> packets being spread across multiple receive queues (refer to the figure below).
+>>> However, in certain scenarios, we may need to direct these encapsulated packets of
+>>> the same flow to a single receive queue. This facilitates the processing
+>>> of the flow by the same CPU to improve performance (warm caches, less locking, etc.).
+>>>
+>>>                 client1                    client2
+>>>                    |        +-------+         |
+>>>                    +------->|tunnels|<--------+
+>>>                             +-------+
+>>>                                |  |
+>>>                                v  v
+>>>                        +-----------------+
+>>>                        | monitoring host |
+>>>                        +-----------------+
+>>>
+>>> To achieve this, the device can calculate a symmetric hash based on the inner headers
+>>> of the same flow.
+>>>
+>>> 2. For legacy systems, they may lack entropy fields which modern protocols have in
+>>> the outer header, resulting in multiple flows with the same outer header but
+>>> different inner headers being directed to the same receive queue. This results in
+>>> poor receive performance.
+>>>
+>>> To address this limitation, inner header hash can be used to enable the device to advertise
+>>> the capability to calculate the hash for the inner packet, regaining better receive performance.
+>>>
+>>> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/173
+>>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+>>> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+>>> Reviewed-by: Parav Pandit <parav@nvidia.com>
+>>> ---
+>>> v18->v19:
+>>>          1. Have a single structure instead of two. @Michael S . Tsirkin
+>>>          2. Some small rewrites. @Michael S . Tsirkin
+>>>          3. Rebase to master.
+>>>
+>>> v17->v18:
+>>>          1. Some rewording suggestions from Michael (Thanks!).
+>>>          2. Use 0 to disable inner header hash and remove
+>>>             VIRTIO_NET_HASH_TUNNEL_TYPE_NONE.
+>>> v16->v17:
+>>>          1. Some small rewrites. @Parav Pandit
+>>>          2. Add Parav's Reviewed-by tag (Thanks!).
+>>>
+>>> v15->v16:
+>>>          1. Remove the hash_option. In order to delimit the inner header hash and RSS
+>>>             configuration, the ability to configure the outer src udp port hash is given
+>>>             to RSS. This is orthogonal to inner header hash, which will be done in the
+>>>             RSS capability extension topic (considered as an RSS extension together
+>>>             with the symmetric toeplitz hash algorithm, etc.). @Parav Pandit @Michael S . Tsirkin
+>>>          2. Fix a 'field' typo. @Parav Pandit
+>>>
+>>> v14->v15:
+>>>          1. Add tunnel hash option suggested by @Michael S . Tsirkin
+>>>          2. Adjust some descriptions.
+>>>
+>>> v13->v14:
+>>>          1. Move supported_hash_tunnel_types from config space into cvq command. @Parav Pandit
+>> I may miss some discussions, but this complicates the provisioning a lot.
+>>
+>> Having it in the config space, then a type agnostic provisioning
+>> through config space + feature bits just works fine.
+>>
+>> If we move it only via cvq, we need device specific provisioning interface.
+>>
+>> Thanks
+> Yea that's what I said too. Debugging too.  I think we should build a
+> consistent solution that allows accessing config space through DMA,
+> separately from this effort.  Parav do you think you can live with this
+> approach so this specific proposal can move forward?
 
-"""
-Is a new capability or similar admin cmd sufficient in this case?
-"""
+
+We can probably go another way, invent a new device configuration space 
+capability which fixed size like PCI configuration access capability?
+
+struct virtio_pci_cfg_cap {
+         struct virtio_pci_cap cap;
+         u8 dev_cfg_data[4]; /* Data for device configuration space 
+access. */
+};
+
+So it won't grow as the size of device configuration space grows.
 
 Thanks
 
->
-> For management I think we should use admin commands. They were built for
-> the management use-case.
-> Config space (pci and virtio) is better for driver slow path.
->
-> --
-> MST
+
 >
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
