@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6598-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6599-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FA3BEB64D9
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 06:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB51BEB64DC
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 06:35:46 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 91CB868469
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 06:03:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 11C5E7C6A9
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 06:35:46 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 79A549865AA
-	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 06:03:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 000629865CF
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Jun 2023 06:35:45 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 669EA9841AB; Thu, 29 Jun 2023 06:03:34 +0000 (UTC)
+	id E14F39841AB; Thu, 29 Jun 2023 06:35:45 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,132 +24,128 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4BF389865A8
-	for <virtio-comment@lists.oasis-open.org>; Thu, 29 Jun 2023 06:03:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CD750986590;
+	Thu, 29 Jun 2023 06:35:45 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: Pc3NGfCCMv6SO2mmVL3Hpg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688018611; x=1690610611;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3Vn4pIxXdldAGJK2qwvp/z0MC1chDzWDzziVkfQpNJM=;
-        b=Xyr/KcwTolkIWQpTA7065WuTpBAFHUMbvq8sqQH86fGp9/D0252t7ZpVr/yJcuXaTL
-         8ScR12e6pcAl6SBx1UZGkxakz/4WcccAJrpWPLhv4vdMdUwmkpXmZAecaTNdSEg58KJ5
-         8JEw2pHS/2RqJV9lOpulKxSk2nkifpbtbpSh+scOXanR3ZSYFEMeOKX4MnS5o1RmwtXn
-         hRm9/Y9Yc0qyDnai6uwUeyAY+1IIk+bJhe4UF12L8keoCZNPTd1TyhJYxcoJ2er8+tAr
-         jb5UEXW1MYeia/WK85UdYhnSqAoYSsANuI/veO1wGyeIHiu0Jdftmkvv2M/vIMi3+huK
-         /ktA==
-X-Gm-Message-State: AC+VfDyE0fS0jUMgUpEts6/sdRZMu9oWecwUV0Hm9dKNKVqTIPnLmAZV
-	ZaZ65dtVbr9i9PYXKas7vuF9srYx4J4LYnL+H7q0LPe+Nu+ZZlT7H9bzp5nT6OBytPRS106gz7l
-	bwdPP/6cC5AHlWmi032PfASX1uGJoVPNjDg==
-X-Received: by 2002:a05:600c:880c:b0:3f7:e78e:8a41 with SMTP id gy12-20020a05600c880c00b003f7e78e8a41mr3443249wmb.18.1688018610902;
-        Wed, 28 Jun 2023 23:03:30 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5ETgYo1ZbZdbKzDob3NebjQ7HiHkh7U6Ui5k1rhPA48hX/YO3R43aOtK7luEb498Prtwzt2w==
-X-Received: by 2002:a05:600c:880c:b0:3f7:e78e:8a41 with SMTP id gy12-20020a05600c880c00b003f7e78e8a41mr3443225wmb.18.1688018610520;
-        Wed, 28 Jun 2023 23:03:30 -0700 (PDT)
-Date: Thu, 29 Jun 2023 02:03:25 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>, Heng Qi <hengqi@linux.alibaba.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	Yuri Benditovich <yuri.benditovich@daynix.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Message-ID: <20230629020128-mutt-send-email-mst@kernel.org>
-References: <CACGkMEvFmAiWDp8w=ytin21Oi+PcTb1X3Eve7Kt2NVr_RkhgmA@mail.gmail.com>
- <PH0PR12MB54811123CFCDEFE3B48D4381DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628061257-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481ED6C94DE8CC414C3369BDC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628123131-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481BA1CDA0942170186CB59DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628132122-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54814D42786A6981467D3FADDC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230628152125-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481EAD97F6163C52DF4FF53DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="364583624"
+X-IronPort-AV: E=Sophos;i="6.01,167,1684825200"; 
+   d="scan'208";a="364583624"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="694519209"
+X-IronPort-AV: E=Sophos;i="6.01,167,1684825200"; 
+   d="scan'208";a="694519209"
+Message-ID: <e1b005d1-6ab6-6f9b-cea0-2b548b9f01de@intel.com>
+Date: Thu, 29 Jun 2023 14:35:39 +0800
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481EAD97F6163C52DF4FF53DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [virtio-comment] RE: [PATCH v19] virtio-net: support inner
- header hash
-
-On Thu, Jun 29, 2023 at 01:56:34AM +0000, Parav Pandit wrote:
-> 
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Wednesday, June 28, 2023 3:45 PM
-> > > > Maybe I get it. You want to use the new features as a carrot to
-> > > > force drivers to implement DMA? You suspect they will ignore the
-> > > > spec requirement just because things seem to work?
-> > > >
-> > > Right because it is not a must normative.
-> > 
-> > Well SHOULD also does not mean "ok to just ignore".
-> > 
-> > 	This word, or the adjective "RECOMMENDED", mean that there
-> > 	   may exist valid reasons in particular circumstances to ignore a
-> > 	   particular item, but the full implications must be understood and
-> > 	   carefully weighed before choosing a different course.
-> >
-> RECOMMENDED and SHOULD forces the device to support MMIO, which is not good.
-> So rather a good design is device tells the starting offset for the extended config space.
-> And extended config space MUST be accessed using a DMA.
-> With this sw can have infinite size MMIO and hw device forces DMA based on its implementation of where to start DMA from.
-> This also gives the ability to maintain current config as MMIO for backward compatibility.
-
-Really we do not need offsets. We have feature bits, and offsets are
-implied. But let's start a separate thread for discussions of this?
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.12.0
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>, Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>,
+ "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>
+References: <PH0PR12MB5481821452DA2A9572714BB9DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <6b95e5ec-37e7-7150-9926-6bb02ee13cf3@intel.com>
+ <PH0PR12MB54818AEB1A85069B42B97158DC24A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <1bdd18c7-c4bd-8049-ee63-227fe25fb7a5@intel.com>
+ <PH0PR12MB5481F5D8B77067A8CDCB5A9FDC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <f558c9f4-ca06-ba68-67f6-49f649097b05@intel.com>
+ <PH0PR12MB5481532D87D5606D90938B39DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <21362b40-9d40-8c56-30e1-1bc166d622be@intel.com>
+ <PH0PR12MB5481D899B11168F30AACB572DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB5481D899B11168F30AACB572DC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: virtio member device provisioning get/set
+ and virtio child device life cycle mixing not needed
 
 
-> > 
-> > 
-> > > > There's some logic here, for sure. you just might be right.
-> > > >
-> > > > However, surely we can discuss this small tweak in 1.4 timeframe?
-> > >
-> > > Sure, if we prefer the DMA approach I don't have a problem in adding
-> > temporary one field to config space.
-> > >
-> > > I propose to add a line to the spec " Device Configuration Space"
-> > > section, something like,
-> > >
-> > > Note: Any new device configuration space fields additional MUST consider
-> > accessing such fields via a DMA interface.
-> > >
-> > > And this will guide the new patches of what to do instead of last moment
-> > rush.
-> > 
-> > Yea, except again I'd probably make it a SHOULD: e.g. I can see how switching to
-> > MMIO might be an option for qemu helping us debug DMA issues.
-> >
-> There are too many queues whose debugging is needed and MMIO likely not the way to debug.
->  
-> > The time to discuss this detail would be around when proposal for the DMA
-> > access to config space is on list though: I feel this SHOULD vs MUST is a small
-> > enough detail.
-> >
-> >From implementation POV it is certainly critical and good step forward to optimize virtio interface.
->  
-> > Going back to inner hash. If we move supported_tunnels back to config space,
-> > do you feel we still need GET or just drop it? I note we do not have GET for
-> > either hash or rss config.
-> >
-> For hash and rss config, debugging is missing. :)
-> Yes, we can drop the GET after switching supported_tunnels to struct virtio_net_hash_config.
->  
-> > And if we no longer have GET is there still a reason for a separate command as
-> > opposed to a field in virtio_net_hash_config?
-> > I know this was done in v11 but there it was misaligned.
-> > We went with a command because we needed it for supported_tunnels but
-> > now that is no longer the case and there are reserved words in
-> > virtio_net_hash_config ...
-> > 
-> > Let me know how you feel it about that, not critical for me.
-> 
-> struct virtio_net_hash_config reserved is fine.
+
+On 6/29/2023 12:11 PM, Parav Pandit wrote:
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Thursday, June 29, 2023 12:02 AM
+>>
+>> On 6/29/2023 10:47 AM, Parav Pandit wrote:
+>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>> Sent: Wednesday, June 28, 2023 10:39 PM
+>>>>
+>>>>
+>>>> On 6/29/2023 10:23 AM, Parav Pandit wrote:
+>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>>>> Sent: Wednesday, June 28, 2023 10:18 PM
+>>>>>>> So msix provisioning via AQ is fine. VF can expose new MSIX
+>>>>>>> capability post
+>>>>>> reconfiguration via AQ.
+>>>>>> It is the guest to config MSIX of an assigned VF by writing to MSIX
+>> capability.
+>>>>>> However host owns the AQ, means host can modify the MSIX config
+>>>>>> even when guest operational running.
+>>>>> Host can do many things not just MSIX config.
+>>>>> Host is not supposed modify the config.
+>>>>>
+>>>>> In some OS MSI-X actual values are not even written by the guest...
+>>>> yest, current host stack is not perfect.
+>>>> So lets resolve these issues first rather than introduce new attack surface.
+>>>>>> A new synchronization mechanism? Trap accesses to MSIX cap? Ban
+>>>>>> access of MSIX through AQ after DRIVER_OK?
+>>>>>> Do you have any detailed information about how to prevent the
+>>>>>> conflicts like this?
+>>>>> A hypervisor is a trusted entity to not mess with the VF.
+>>>>> A hypervisor can go to an extreme to even do PCI FLR while guest is
+>> running..
+>>>>> So no need to go to the extreme.
+>>>>>
+>>>>> When hypervisor is untrusted in relatively far future, when a VF is
+>>>>> put in some
+>>>> secure enclave and locked hypervisor will not such access.
+>>>>> At that point large part will be covered.
+>>>> There can be other malicious software and a hypervisor may compromise.
+>>> In any case it is not the role of the AQ etc to provide such protection etc.
+>> Yes, it is not AQ's responsibility. I wish we don't introduce more weakness.
+>>> Safeguarding from hypervisor is completely different topic using confidential
+>> computing, TDISP and other affiliated standards.
+>>> It is far beyond msix config piece to tackle.
+>>>
+>>> Before we reach there, virtio spec has certain fundamental catch up to be
+>> done, at least to me.
+>> So lets work on that first than rush into the AQ/VF provisioning case.
+> I mean querying and provisioning feature bits and config space fields is the basic functionality before attempting to securing it.
+It may be fine to _ONLY_ provision virtio configuration through AQ, 
+limit the changes in virtio spec.
+Actually this is not provisioning a VF, this is modification after 
+creation, because we still
+create a VF through PCI interface num_vfs.
+> I was told that you are going to rebase the tvq series on top of AQ, hence the ask to split the series to two.
+> If I misunderstood, its fine, my bad.
+> Someone else will pick up the features/config provisioning+query part.
+If you want to re-use some transport cmds for SRIOV, that's fine, we 
+just can not reuse the whole command set for SRIOV.
+For example, we expect AQ as a transport for SIOV, therefore MSIX is 
+config-ed through AQ, as we discussed this
+set_msix_cmd may not apply to SRIOV for now.
+
+Querying is fine as you know it is read only.
+For setting, I assume we need a new mechanism to sycn the PCI config 
+space with AQ, and still the host owns the AQ.
+
+>
+>>>> I still think we should resolve the issues first.
+>>> I don’t think this is really an issue.
+>>> Passthrough VF devices are already there for more than a decade and msix
+>> config is just one small piece of it to provision, among others.
+>> passthrough, like vfio which assign the device including its config space to a
+>> guest, works well. While AQ is a side channel.
+> Sure. AQ is side channel but hypervisor's ability to access VF while in use including doing FLR and more is already exist.
+a hypervisor should not reset anything when the device has been 
+passthroughed, or such a hypervisor may be considered buggy
+> So such thing does not need special spec level protection.
+> An OS driver can handle it internally.
+again, I wish we don't introduce more attacking surface even the stack 
+is already vulnerable.
+
+Thanks
 
 
 This publicly archived list offers a means to provide input to the
