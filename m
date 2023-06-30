@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6655-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6656-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF6EEB64DA
-	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 09:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0EABEB64DA
+	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 10:33:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C61BA419B7
-	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 09:54:19 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E088F2AED4
+	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 10:33:23 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BD2F19866FB
-	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 09:54:19 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 689E89866FD
+	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 10:33:23 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B5B239866EC; Fri, 30 Jun 2023 09:54:19 +0000 (UTC)
+	id 3C9DA9865E9; Fri, 30 Jun 2023 10:33:23 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,104 +24,198 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 96F069866ED;
-	Fri, 30 Jun 2023 09:54:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 265B39866EC
+	for <virtio-comment@lists.oasis-open.org>; Fri, 30 Jun 2023 10:33:23 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ef79TGGmCPhxFZITKVBvXQ9bw2yNGA3tFrCgbcpbLtNsfSa+QLct/02TS802Jt9RmtQxTf04G+TX8iGVS1UcjIzDyRYVYACzfecSPi1lYwpLh7cVzppdYUwugs7qrXrbdx13cT63EutbL2tmQh9lz8AjH9Z+8NnTOlVwwbscBHGjOR43MU0PqLmBJj0HnslPXL8NkL02cdXL7Vi5bIWtRe2jzXmNsG8yOhgJH+19VPClyCQz+BNlIS4Vn5eUlsbuOb0n3YCttydavWl3vM7cEf16aa7s/I/HRvCqZjAegMxVLz28MSckGdzZK0qqZqJC+BTfxrEiedq8DTHs3XBzjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3ae8zgfAN4HUHJLunQvCxN6yW9ciYfi+d4cRr1A5nB0=;
- b=FdVP01kqqWGuiLo/L9p+IdD4b+WMpnw7yI7LsDXNqoBlpGurmU2gMzwW0zXh13sM6B+T8uHrpmf9Fg0ne/Hll1bQ6qPhcu0kvKAz9ka5WcSWIL+3Knf213+Tv9KlP6WUy2owX3+VOJRArpko+mznwNl2SSXRWO1U5moPPY+3Uy03nh2GaTwoAyZFUVqe73lITU22dslU2szeKakqmIUI+KcYKR/IhgCp5PlYPml15vOsQdG1oBtlI3+cPFLrz2Eokg8Fg0KUUWtdzj018d96TR/Irpi8sJynAc5/z4DR59hdl54U/ACIEP9yNgSzRBy2aYIEY2om7rE0/fSPh7Dflw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.oasis-open.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: <virtio-comment@lists.oasis-open.org>, <virtio-dev@lists.oasis-open.org>
-CC: Jiqian Chen <Jiqian.Chen@amd.com>
-Date: Fri, 30 Jun 2023 17:53:43 +0800
-Message-ID: <20230630095344.856316-1-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="341946724"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; 
+   d="scan'208";a="341946724"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="830881910"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; 
+   d="scan'208";a="830881910"
+Message-ID: <259c7b04-58df-8085-755f-a36993556a89@intel.com>
+Date: Fri, 30 Jun 2023 18:33:16 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT074:EE_|CH3PR12MB8535:EE_
-X-MS-Office365-Filtering-Correlation-Id: d11c5cc7-58a6-4593-0c7d-08db794fee81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ZMQfPYSM68zm79V7CsBV+XSBLHUet+VQhpnGIx5giPHa7rC95QxKzNxVmBVnvzQsZqIosYcbcd4QuHQ4bBFH8CXkVJW4dsSQwUsTTSzi5yw1aWLaaFMsMr/zVN0QPKy47J9CEsAvUdHMvlXo2XUKmyDXOgX3+h7iVS+hyaCPawu4mO0dGJ78cO7RXpMFtgk1FT7vrX08A1I3VlpLNdJta4d0ps9sonkVdE8+uqJy0IMVd5U06MmQVVMQfg4jDueLPVtyto7yDrd9xf317SS8gRmGVBoyAxuARt6vQzqrf02Kr2HduiNxIc7djbO8DZ2VBwWvA5bShHyxGrliqLjl5D8GWg42JbZ633ubZIaLSUxDxEUYSiZ9yjtQLOdivOx2S7Eyq1rQFTAjYT0j5heVgI/JDfXcCuieDU1FU7OhnV5dSgzbPA+sON0RdFEyBhF00Eg9cR0nyBySmrdbXnpAmHN1FXwLzmZ5TR4M7XUfSfQE6YJZ+ubg6rTNAo7dbe6WaJdzktt0XrXmee2cNKCLXTVo/FoGKhKHihkAEobQOUGi8ZzoJxO9fyu66g1paeswU9kQWCa+HlVPCxBpJlfvtMDN31YfBJC7/6GPosOGOC8P4Vy9B6kY0GOjmGeHzv1FLg2Uhmf8XGaH+eaU2E0lWmHMbpkqyxT5ImK51n3zKQguKGCQP1oNI3t0A551ZorglTJg2ykb2EuObJDa6YRzjs2tBziEliIINlDvX6CkjY6dn1XAns3wqSnEw011MmDH8cCEcf+m/KwNoL1bqaontKNaAx1WZn15acI/DMAj2/k=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199021)(46966006)(40470700004)(36840700001)(26005)(2906002)(86362001)(356005)(82310400005)(7696005)(6666004)(83380400001)(81166007)(2616005)(186003)(336012)(16526019)(426003)(47076005)(82740400003)(40460700003)(966005)(110136005)(41300700001)(36860700001)(40480700001)(4326008)(478600001)(36756003)(70586007)(450100002)(316002)(70206006)(1076003)(5660300002)(8936002)(8676002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 09:54:01.3400
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d11c5cc7-58a6-4593-0c7d-08db794fee81
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT074.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8535
-Subject: [virtio-comment] [VIRTIO GPU PATCH 0/1] Add new feature flag VIRTIO_GPU_F_FREEZING
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.12.0
+Content-Language: en-US
+To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>
+References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
+ <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
+ <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
+ <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com>
+ <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
+ <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com>
+ <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
+ <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com>
+ <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] About the plan of Admin Queue
 
-Hi all,
 
-I am working to implement virtgpu S3 function on Xen.
 
-Currently on Xen, if we start a guest through Qemu with enabling virtgpu,
-and then suspend and s3resume guest. We can find that the guest kernel
-comes back, but the display doesn't. It just shown a black screen.
+On 6/30/2023 5:14 PM, Xuan Zhuo wrote:
+> On Fri, 30 Jun 2023 16:32:44 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
+>>
+>> On 6/30/2023 3:56 PM, Xuan Zhuo wrote:
+>>> On Fri, 30 Jun 2023 15:54:40 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
+>>>> On 6/30/2023 3:46 PM, Xuan Zhuo wrote:
+>>>>> On Fri, 30 Jun 2023 14:19:47 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
+>>>>>> On 6/30/2023 1:54 PM, Xuan Zhuo wrote:
+>>>>>>> On Tue, 20 Jun 2023 16:11:12 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
+>>>>>>>> On 6/20/2023 2:44 PM, Xuan Zhuo wrote:
+>>>>>>>>> Hi,
+>>>>>>>>>
+>>>>>>>>> hi, I would want to know some plans and progress about admin queue.
+>>>>>>>>>
+>>>>>>>>> At the current spec, it seems that there is only one framework and no
+>>>>>>>>> specific commands. I'd like to know if anyone is currently working on this and
+>>>>>>>>> what the plans are.
+>>>>>>>>>
+>>>>>>>>> We also faced some similar issues, and we think admin queue is a good way to
+>>>>>>>>> manage sr-iov.
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Thanks.
+>>>>>>>> I plan to rebase original transport vq on admin vq.
+>>>>>>>>
+>>>>>>>> https://lists.oasis-open.org/archives/virtio-comment/202208/msg00140.html
+>>>>>>> I review the patch, that is for S-IOV, right?
+>>>>>> Yes, for SIOV and other similar devices
+>>>>>>> I think it is good.
+>>>>>>>
+>>>>>>> I would if all is configured by the transport vq/admin vq from the OS?
+>>>>>> For SIOV ADIs, this transport vq is the transport layer, so they are
+>>>>>> configured by the OS through transport vq.
+>>>>>>> Can we create a managed dev from the backend?
+>>>>>>>
+>>>>>>> Such as, the DPU sends a command to the driver, then the driver creates a new
+>>>>>>> managed dev.
+>>>>>> I think the group owner, usually the PCI PF is the management device.
+>>>>> I mean the DPU hot-plug a new device. Not the managament device create a new
+>>>>> device.
+>>>>>
+>>>>> The managament device is in the OS, we want the device is plugged by the DPU.
+>>>> The PCI management(SIOV group owner) device is on the DPU, when create
+>>>> an ADI,
+>>>> OS send a command to the DPU/PF through transport vq,
+>>>> then the PF hot plugged in a new ADI through the transport vq
+>>>> specific channel. Or did I misunderstand your question?
+>>> Your first step is the os send a command. Right?
+>>>
+>>> Can we let the DPU notify the driver to create a new devicer from the backend?
+>>>
+>>> The key point is who want to create a new device.
+>> DPU can come with a certain number of pre-created ADIs, just make sure the
+>> orchestration SW is aware of their device IDs.
+>>
+>> If you want the DPU randomly create ADIs and notify the driver, I think
+>> we need interrupt, e.g., re-use config interrupt. But why DPU
+>> wants to create and hot plug in a device to a guest?
+>> Shall the host handle that or DPU pre-create then expose to baremteal
+>> machines?
+>
+> In your scenario, the supervisor is on the os, which controls the DPU to create
+> new devices.
+>
+> In the cloud scenario, the vendor manager is in the DPU, and the entire
+> host is for users. Of course, there are situations where the vendor manager are
+> in the HOST. But for bare metal machines, the host belongs to the customer, the
+> vendor manager is only in the DPU.
+>
+> So when the customers buy a new nic for the host, the vendor manager will plug a
+> device to the host from the DPU.
+I understand once a customer orders a new NIC, you wants to present the 
+NIC to the host.
+However you only owns the DPU and the customer owns the host, that means 
+this creation
+and hot plug must be transparent to the host and there may not be a host 
+driver help
+handling an interrupt/probe.
 
-That is because when guest was during suspending, it called into Qemu and
-Qemu destroyed all resources and reset renderer. This made the display
-gone after guest resumed.
+However this is not PCI which has a tree/switch and can enumerate 
+devices to the
+host by spanning the device across the PCI hierarchy.
 
-So, I add a mechanism that when guest is suspending, it will notify Qemu,
-and then Qemu will not destroy resources. That can help guest's display
-come back.
+To address an ADI, there is only a device_id.
 
-As discussed and suggested by Robert Beckett and Gerd Hoffmann on v1
-qemu's mailing list. Due to that mechanism needs cooperation between
-guest and host. What's more, as virtio drivers by design paravirt
-drivers, it is reasonable for guest to accept some cooperation with host
-to manage suspend/resume. So I request to add a new feature flag, so that
-guest and host can negotiate whenever freezing is supported or not.
+So, do you mind share how your DPU offload the device model? What kind 
+of device your DPU provide
+to the host? Lets see whether DPU can mediate this by its own?
 
-Attach the patches of Qemu and kernel:
-        Qemu
-                v1: https://lore.kernel.org/qemu-devel/20230608025655.1674357-2-Jiqian.Chen@amd.com/
-                v2: https://lore.kernel.org/qemu-devel/20230630070016.841459-1-Jiqian.Chen@amd.com/T/#t
-        Kernel
-                v1: https://lore.kernel.org/lkml/20230608063857.1677973-1-Jiqian.Chen@amd.com/
-                v2: https://lore.kernel.org/lkml/20230630073448.842767-1-Jiqian.Chen@amd.com/T/#t
-
-Best regards,
-Jiqian Chen.
-
-Jiqian Chen (1):
-  virtio-gpu: Add new feature flag VIRTIO_GPU_F_FREEZING
-
- device-types/gpu/description.tex | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
-
--- 
-2.34.1
+>
+> Thanks.
+>
+>
+>> Thanks
+>>> Thanks.
+>>>
+>>>
+>>>
+>>>
+>>>> Thanks
+>>>>> Thanks.
+>>>>>
+>>>>>
+>>>>>> Thanks
+>>>>>>> Thanks.
+>>>>>>>
+>>>>>>>
+>>>>>>>> Thanks,
+>>>>>>>> Zhu Lingshan
+>>>>>>>>> This publicly archived list offers a means to provide input to the
+>>>>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>>>>>>
+>>>>>>>>> In order to verify user consent to the Feedback License terms and
+>>>>>>>>> to minimize spam in the list archive, subscription is required
+>>>>>>>>> before posting.
+>>>>>>>>>
+>>>>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>>>>>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>>>>>>>>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>>>>>>>>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+>>>>>>>>> Committee: https://www.oasis-open.org/committees/virtio/
+>>>>>>>>> Join OASIS: https://www.oasis-open.org/join/
+>>>>>>>>>
+>>>>>>>> This publicly archived list offers a means to provide input to the
+>>>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>>>>>
+>>>>>>>> In order to verify user consent to the Feedback License terms and
+>>>>>>>> to minimize spam in the list archive, subscription is required
+>>>>>>>> before posting.
+>>>>>>>>
+>>>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>>>>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>>>>>>>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>>>>>>>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+>>>>>>>> Committee: https://www.oasis-open.org/committees/virtio/
+>>>>>>>> Join OASIS: https://www.oasis-open.org/join/
+>>>>>>>>
+>>>>>>> This publicly archived list offers a means to provide input to the
+>>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>>>>
+>>>>>>> In order to verify user consent to the Feedback License terms and
+>>>>>>> to minimize spam in the list archive, subscription is required
+>>>>>>> before posting.
+>>>>>>>
+>>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>>>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>>>>>>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>>>>>>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+>>>>>>> Committee: https://www.oasis-open.org/committees/virtio/
+>>>>>>> Join OASIS: https://www.oasis-open.org/join/
+>>>>>>>
 
 
 This publicly archived list offers a means to provide input to the
