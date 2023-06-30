@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6650-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6651-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32044EB64D7
-	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 08:55:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D58BCEB64D7
+	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 09:08:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4132C2B060
-	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 08:55:54 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 31DFB33589
+	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 09:08:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 39E429866F1
-	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 08:55:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 07AF29866F1
+	for <virtio-comment@archiver.kernel.org>; Fri, 30 Jun 2023 09:08:04 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 31E289866EA; Fri, 30 Jun 2023 08:55:54 +0000 (UTC)
+	id E59899866EA; Fri, 30 Jun 2023 09:08:03 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,128 +24,197 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1E2B39866EB
-	for <virtio-comment@lists.oasis-open.org>; Fri, 30 Jun 2023 08:55:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D15D09866EB
+	for <virtio-comment@lists.oasis-open.org>; Fri, 30 Jun 2023 09:08:03 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: ChHn51UVMVuUQ0QeTtpqVA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688115349; x=1690707349;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jWAfKDAGqH59Tt7UHEGY3P+kz8669SVHn8ZpkYsy8uc=;
-        b=Q2jp6RDkVVrSWKs11yi0w9J7IGR4KRbXb6k50B/5T5Iuvr1UGwCPsqJIvG9377fDOi
-         Vy9pDAQ6jsnqrUPREVqBXqN8oL+4zkW2p+FkDzjNE2Kz8/yR9XVa3yfTiSbfR3AKlsZP
-         JbrDqVNKgt18qPye9TsacK1q5mULnTzf1Zy22JTIZu66Q+IstM44IY/n2PouPIXPgOIs
-         Ocl4W3v7GbGt0CqZI/H+dqyd196ZA0pCpkU2OfbHJbtsSwytvBAZueCGX0ssokvRpHAM
-         hOlOgsoPojTT/LiR78Yx7G2qCeJGq8kideC/m/iLXC99TwRyo1bY8E67Rjns+ijedPKq
-         /1iw==
-X-Gm-Message-State: ABy/qLbgZbaFwQ/nlnb7bsq+S6//M7ynzeW/XXNDeGbVQMKYss1IWQHh
-	6CikfPb7sOOtnoLIvK/ywplPW/E4oOO/bxxKoelMIiZ1PxldqpbnctAkcOM0NUM3NIq1W9BKKzL
-	dkzLQVLv5U1DLYACX9EMLzuFnylsANK0mdQ==
-X-Received: by 2002:adf:cd07:0:b0:30f:c012:b529 with SMTP id w7-20020adfcd07000000b0030fc012b529mr2145176wrm.56.1688115349610;
-        Fri, 30 Jun 2023 01:55:49 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlGSgWoZIeqZLBSPg9AsI/jQEq/L3ZUeVx8I68C2Fn1W+3k0oj0tQ+V37R87xwEKiGiRHEnnKQ==
-X-Received: by 2002:adf:cd07:0:b0:30f:c012:b529 with SMTP id w7-20020adfcd07000000b0030fc012b529mr2145154wrm.56.1688115349274;
-        Fri, 30 Jun 2023 01:55:49 -0700 (PDT)
-Date: Fri, 30 Jun 2023 04:55:45 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
-Message-ID: <20230630045007-mutt-send-email-mst@kernel.org>
-References: <87edoyqvnu.fsf@redhat.com>
- <20230407071926-mutt-send-email-mst@kernel.org>
- <87r0spjct2.fsf@redhat.com>
- <PH0PR12MB54819136AEC54AA081DD395ADC25A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230629153345-mutt-send-email-mst@kernel.org>
- <877crl49qy.fsf@redhat.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="359831669"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; 
+   d="scan'208";a="359831669"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="747357564"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; 
+   d="scan'208";a="747357564"
+Message-ID: <7c4e4fac-6163-1869-7b15-e60c8e4b7de7@intel.com>
+Date: Fri, 30 Jun 2023 17:07:54 +0800
 MIME-Version: 1.0
-In-Reply-To: <877crl49qy.fsf@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [virtio-comment] [RFC] virtio 1.3 schedule
-
-On Fri, Jun 30, 2023 at 10:47:33AM +0200, Cornelia Huck wrote:
-> On Thu, Jun 29 2023, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> 
-> > On Thu, Jun 29, 2023 at 05:41:34PM +0000, Parav Pandit wrote:
-> >> Hi Cornelia, Michael,
-> >> 
-> >> > From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
-> >> > open.org> On Behalf Of Cornelia Huck
-> >> > Sent: Wednesday, April 12, 2023 12:17 PM
-> >> 
-> >> > >> - July 1st 2023: enter feature freeze; all proposed changes must at
-> >> > >>   least have an open github issue that refers to a proposal on-list
-> >> > >> - August 1st 2023: enter change freeze; everything needs to have been
-> >> > >>   voted upon (i.e. we can start with preparations for a release like
-> >> > >>   compiling the change log)
-> >> > >> - at the same time, fork virtio-next, which can be used for development
-> >> > >>   while we're working on the release
-> >> > >> - August/September 2023: prepare draft, initiate initial voting etc.
-> >> > >
-> >> > > Hmm looks like you forgot a 30 day the public review period (or is
-> >> > > that included in the "etc"? ).  During this period we will likely
-> >> > > receive review comments which we have to address. Should the changes
-> >> > > turn out to be material, another public review period will be required.
-> >> > > Let's spell it out please.
-> >> > 
-> >> > Yeah, that's what I meant with "etc"... let's make this:
-> >> > 
-> >> > - August 2023: prepare draft, aim to have it ready and voted upon by
-> >> >   August 31 the latest (preferrably earlier)
-> >> > - September 2023: public review period (30 days)
-> >> > - October 2023: another public review period, if needed; otherwise, get
-> >> >   comittee specification ready and voted upon
-> >> > - October (maybe November, if we're running late) 2023: virtio 1.3
-> >> >   released
-> >> > 
-> >> > The most important dates are feature freeze on Jul 1 and change freeze on Aug
-> >> > 1, I guess; for the rest, we depend on whether people are out on PTO, which
-> >> > kind of feedback we get, etc. -- but as long as we release
-> >> > 1.3 in 2023, I'll be happy enough.
-> >> 
-> >> We have two extension features that has gone through several reviews and are in advance stage (and also late) for 1.3. :)
-> >> 
-> >> 1. inner hash v19, rolling to v20 anytime this week. 1 Patch.
-> >> [1] https://lists.oasis-open.org/archives/virtio-comment/202306/msg00490.html
-> >> 
-> >> 2. first user of aq for legacy access at v7.
-> >> 2 patches. First 2 are Fixes.
-> >> [2] https://lists.oasis-open.org/archives/virtio-comment/202306/msg00491.html
-> >> 
-> >> Both need few more days of review and vote.
-> >> Shall we please have few days in July for them so that it can be part of 1.3? 
-> >> or whole July is needed to prepare the draft spec?
-> >
-> > I think it's not too bad, projects that do releases every couple of
-> > months can afford to be strict, we do them ones a year and a half
-> > it makes sense to be flexible.
-> 
-> Yes, my only concern is to avoid slipping too badly -- and the "feature
-> freeze" period was actually intended to give us some time to wrap up
-> outstanding features.
-> 
-> For the inner header hash, I see there's already an issue (#173), so
-> it's good. I have not followed the aq legacy access feature -- if
-> everyone agrees that we should be able to vote on it in July, we should
-> have an issue for it as well (I cannot find one just by looking at
-> titles.)
-> 
-> Any other features that people are aware of?
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.12.0
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: virtio-comment@lists.oasis-open.org, "Michael S. Tsirkin" <mst@redhat.com>
+References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
+ <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
+ <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
+ <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com>
+ <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
+ <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com>
+ <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
+ <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com>
+In-Reply-To: <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] About the plan of Admin Queue
 
 
-Was hoping for virtio-can but it looks like it's still in RFC stage.
-I am guessing the spec should be copied to people who reviewed
-the driver.
 
--- 
-MST
+On 6/30/2023 4:32 PM, Zhu, Lingshan wrote:
+>
+>
+> On 6/30/2023 3:56 PM, Xuan Zhuo wrote:
+>> On Fri, 30 Jun 2023 15:54:40 +0800, "Zhu, Lingshan" 
+>> <lingshan.zhu@intel.com> wrote:
+>>>
+>>> On 6/30/2023 3:46 PM, Xuan Zhuo wrote:
+>>>> On Fri, 30 Jun 2023 14:19:47 +0800, "Zhu, Lingshan" 
+>>>> <lingshan.zhu@intel.com> wrote:
+>>>>> On 6/30/2023 1:54 PM, Xuan Zhuo wrote:
+>>>>>> On Tue, 20 Jun 2023 16:11:12 +0800, "Zhu, Lingshan" 
+>>>>>> <lingshan.zhu@intel.com> wrote:
+>>>>>>> On 6/20/2023 2:44 PM, Xuan Zhuo wrote:
+>>>>>>>> Hi,
+>>>>>>>>
+>>>>>>>> hi, I would want to know some plans and progress about admin 
+>>>>>>>> queue.
+>>>>>>>>
+>>>>>>>> At the current spec, it seems that there is only one framework 
+>>>>>>>> and no
+>>>>>>>> specific commands. I'd like to know if anyone is currently 
+>>>>>>>> working on this and
+>>>>>>>> what the plans are.
+>>>>>>>>
+>>>>>>>> We also faced some similar issues, and we think admin queue is 
+>>>>>>>> a good way to
+>>>>>>>> manage sr-iov.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Thanks.
+>>>>>>> I plan to rebase original transport vq on admin vq.
+>>>>>>>
+>>>>>>> https://lists.oasis-open.org/archives/virtio-comment/202208/msg00140.html 
+>>>>>>>
+>>>>>> I review the patch, that is for S-IOV, right?
+>>>>> Yes, for SIOV and other similar devices
+>>>>>> I think it is good.
+>>>>>>
+>>>>>> I would if all is configured by the transport vq/admin vq from 
+>>>>>> the OS?
+>>>>> For SIOV ADIs, this transport vq is the transport layer, so they are
+>>>>> configured by the OS through transport vq.
+>>>>>> Can we create a managed dev from the backend?
+>>>>>>
+>>>>>> Such as, the DPU sends a command to the driver, then the driver 
+>>>>>> creates a new
+>>>>>> managed dev.
+>>>>> I think the group owner, usually the PCI PF is the management device.
+>>>> I mean the DPU hot-plug a new device. Not the managament device 
+>>>> create a new
+>>>> device.
+>>>>
+>>>> The managament device is in the OS, we want the device is plugged 
+>>>> by the DPU.
+>>> The PCI management(SIOV group owner) device is on the DPU, when create
+>>> an ADI,
+>>> OS send a command to the DPU/PF through transport vq,
+>>> then the PF hot plugged in a new ADI through the transport vq
+>>> specific channel. Or did I misunderstand your question?
+>> Your first step is the os send a command. Right?
+>>
+>> Can we let the DPU notify the driver to create a new devicer from the 
+>> backend?
+>>
+>> The key point is who want to create a new device.
+> DPU can come with a certain number of pre-created ADIs, just make sure 
+> the
+> orchestration SW is aware of their device IDs.
+>
+> If you want the DPU randomly create ADIs and notify the driver, I think
+> we need interrupt, e.g., re-use config interrupt. But why DPU
+> wants to create and hot plug in a device to a guest?
+> Shall the host handle that or DPU pre-create then expose to baremteal 
+> machines?
+>
+> Thanks
+And how about this, I can try provide a new command can help query the 
+onboard ADIs,
+report the IDs, then the driver can probe them by the IDs and read their 
+config space
+to detect their config like num_vqs
+
+Thanks
+>>
+>> Thanks.
+>>
+>>
+>>
+>>
+>>> Thanks
+>>>> Thanks.
+>>>>
+>>>>
+>>>>> Thanks
+>>>>>> Thanks.
+>>>>>>
+>>>>>>
+>>>>>>> Thanks,
+>>>>>>> Zhu Lingshan
+>>>>>>>>
+>>>>>>>> This publicly archived list offers a means to provide input to the
+>>>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>>>>>
+>>>>>>>> In order to verify user consent to the Feedback License terms and
+>>>>>>>> to minimize spam in the list archive, subscription is required
+>>>>>>>> before posting.
+>>>>>>>>
+>>>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>>>>> List archive: 
+>>>>>>>> https://lists.oasis-open.org/archives/virtio-comment/
+>>>>>>>> Feedback License: 
+>>>>>>>> https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>>>>>>>> List Guidelines: 
+>>>>>>>> https://www.oasis-open.org/policies-guidelines/mailing-lists
+>>>>>>>> Committee: https://www.oasis-open.org/committees/virtio/
+>>>>>>>> Join OASIS: https://www.oasis-open.org/join/
+>>>>>>>>
+>>>>>>> This publicly archived list offers a means to provide input to the
+>>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>>>>
+>>>>>>> In order to verify user consent to the Feedback License terms and
+>>>>>>> to minimize spam in the list archive, subscription is required
+>>>>>>> before posting.
+>>>>>>>
+>>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>>>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>>>>>>> Feedback License: 
+>>>>>>> https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>>>>>>> List Guidelines: 
+>>>>>>> https://www.oasis-open.org/policies-guidelines/mailing-lists
+>>>>>>> Committee: https://www.oasis-open.org/committees/virtio/
+>>>>>>> Join OASIS: https://www.oasis-open.org/join/
+>>>>>>>
+>>>>>> This publicly archived list offers a means to provide input to the
+>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>>>>
+>>>>>> In order to verify user consent to the Feedback License terms and
+>>>>>> to minimize spam in the list archive, subscription is required
+>>>>>> before posting.
+>>>>>>
+>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+>>>>>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>>>>>> Feedback License: 
+>>>>>> https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>>>>>> List Guidelines: 
+>>>>>> https://www.oasis-open.org/policies-guidelines/mailing-lists
+>>>>>> Committee: https://www.oasis-open.org/committees/virtio/
+>>>>>> Join OASIS: https://www.oasis-open.org/join/
+>>>>>>
+>
 
 
 This publicly archived list offers a means to provide input to the
