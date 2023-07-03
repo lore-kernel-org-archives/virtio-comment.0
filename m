@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6676-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6677-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B1D6EB64DC
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 03:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E6EBEB64DC
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 04:29:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7F81CC8DEA
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 03:53:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3E9B316DD83
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 04:29:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5FBE3986553
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 03:53:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 274CF986533
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 04:29:40 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 47FC5983FE8; Mon,  3 Jul 2023 03:53:39 +0000 (UTC)
+	id 16327983FE8; Mon,  3 Jul 2023 04:29:40 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,141 +24,119 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2C35D98644B;
-	Mon,  3 Jul 2023 03:53:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 01EFB98644B
+	for <virtio-comment@lists.oasis-open.org>; Mon,  3 Jul 2023 04:29:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0VmRnCbf_1688356413;
-Message-ID: <1688354491.871065-6-xuanzhuo@linux.alibaba.com>
-Date: Mon, 3 Jul 2023 11:21:31 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-dev@lists.oasis-open.org,
- parav@nvidia.com,
- virtio-comment@lists.oasis-open.org,
- Jason Wang <jasowang@redhat.com>,
- "Zhu, Lingshan" <lingshan.zhu@intel.com>
-References: <20230626062210.49020-1-xuanzhuo@linux.alibaba.com>
- <1687854185.3344731-3-xuanzhuo@linux.alibaba.com>
- <20230627115247-mutt-send-email-mst@kernel.org>
- <1687918864.3728812-2-xuanzhuo@linux.alibaba.com>
- <20230628112107-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230628112107-mutt-send-email-mst@kernel.org>
-Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] [RFC PATCH] admin-queue: bind the group member to the device
+X-IronPort-AV: E=McAfee;i="6600,9927,10759"; a="393529989"
+X-IronPort-AV: E=Sophos;i="6.01,177,1684825200"; 
+   d="scan'208";a="393529989"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10759"; a="712430989"
+X-IronPort-AV: E=Sophos;i="6.01,177,1684825200"; 
+   d="scan'208";a="712430989"
+Message-ID: <2e176f24-293b-5be0-2928-e8ce0300e75a@intel.com>
+Date: Mon, 3 Jul 2023 12:29:32 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.12.0
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin" <mst@redhat.com>
+References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
+ <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
+ <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
+ <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com>
+ <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
+ <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com>
+ <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
+ <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com>
+ <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
+ <259c7b04-58df-8085-755f-a36993556a89@intel.com>
+ <PH0PR12MB5481243B22A694E42C351C20DC2AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB5481243B22A694E42C351C20DC2AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] About the plan of Admin Queue
 
-On Wed, 28 Jun 2023 11:41:02 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> On Wed, Jun 28, 2023 at 10:21:04AM +0800, Xuan Zhuo wrote:
-> > On Tue, 27 Jun 2023 12:02:41 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> > > On Tue, Jun 27, 2023 at 04:23:05PM +0800, Xuan Zhuo wrote:
-> > > > So, this is how I understand the process of creating vf:
-> > > >
-> > > > 1. Create a PCI VF, at this time there may be no backend virtio device, or there
-> > > >     is only a default backend. It does not fully meet our expectations.
-> > > > 2. Create device or migrate device
-> > > > 3. Bind the backend virtio device to the vf
-> > >
-> > > I can see this making sense as a feature bit that says VFs are not
-> > > initialized by default and must first be setup through an admin command.
-> > > This will likely need to be a feature bit because it's changing
-> > > behaviour outside of admin commands.
-> > >
-> > > Then, we can have:
-> > >
-> > > 	ADMIN_SETUP VF#
-> > > 	ADMIN_CLEANUP VF#
-> > >
-> > > I like this because this generalizes CREATE/DESTROY that SIOV guys proposed.
-> >
-> > Great!!
-> >
-> > >
-> > >
-> > > Why do we need an id as a level of indirection though? What is wrong
-> > > with just using VF# directly?
-> >
-> > I think VF# is ok. I also need to use it. But we need an ID for virtio device
-> > not the transport(PF, VF).
-> >
-> > What I want to emphasize is that PCI(pf or vf) is a transport, it is only used
-> > to connect the virtio driver and the virtio device. Right?
-> >
-> > The virtio device does not necessarily exist depending on PCI. For example, a
-> > virtio device is migrated from another DPU, and it is not associated with any
-> > PCI. What I have always wanted to say is that this device(not PCI) must have its
-> > own ID, which has nothing to do with the transport.
-> >
-> > Now we want to use this migrated device and connect it to the corresponding
-> > vm (migrated from the same host). We can passthrough vf to this vm. But how do I
-> > tell our DPU to bind this migrated device with this vf?
-> > We can specify the VF by the VF#, but how can we specify the virtio device?
-> > Maybe there are two migrated virtio device.
-> >
-> > Maybe we should compare it to the case of using PF directly before. The biggest
-> > difference here is that PF is directly hot-plugged by the DPU, so when a
-> > user(custom) buys a virtio-net device, the DPU directly inserts a new PCI device
-> > on the host. Now the vf is created by the user, and only the user knows how to
-> > use each one. We cannot directly bind the device purchased or migrated by the
-> > user to a certain vf. We need the user in the host to bind the vf(transport) to
-> > a certain virtio device.
-> >
-> > Thanks.
-> >
-> >
+
+
+On 6/30/2023 7:35 PM, Parav Pandit wrote:
+>> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+>> open.org> On Behalf Of Zhu, Lingshan
+>> Sent: Friday, June 30, 2023 6:33 AM
+>>
 >
-> Maybe I didn't have enough coffee today but I can't figure out what all
-> this means :( For example what does "exist depending" mean?  What does
-> "device is migrated" mean?  What does it mean to be "migrated from the
-> same host"? What is "any PCI"? E.g. I know people did vm migration
-> moving virtio from a hardware device to a software
-> implementation. Is that "not associated with any PCI" ?
-> What is "user(custom)"? how is "the vf is created by the user"?
-> what does it mean to "bind the device .. to a certain vf"?
-> It looks like Parav understand what's going on though, so
-> maybe it's my fault.
+>>>>> Can we let the DPU notify the driver to create a new devicer from the
+>> backend?
+> Yes, why not.
 >
-> But fundamentally, the problem is that the spec patch doesn't do
-> anything useful by itself, it relies on some out of spec interface to
-> make these id values make sense. So the TC is reduced to guessing: we
-> could just trust you that it's useful somehow and at the same time
-> serves the purpose whatever it is.
+>>>>> The key point is who want to create a new device.
+>>>> DPU can come with a certain number of pre-created ADIs, just make
+>>>> sure the orchestration SW is aware of their device IDs.
+>>>>
+> Cloud often need these devices to be created dynamically, many a time after the host OS is booted.
+> To be more generic, those devices to be created and connected to the host regardless of the life cycle of the host.
+> Xuan partly explained it.
 >
-> But it would be better if instead of trying to explain what that does in
-> vague terms, you post a spec patch that allows doing whatever needs
-> doing for these IDs to make sense through e.g. admin commands.
-
-I try to describe the requirement as a common requirement.
-
-@Parav do you think this is a requirement in your devices?
-
-The core point here is that our virtio-net device is created by customers on the
-management platform. It is not a pure virtio-net device, but also includes many
-other features, such as bandwidth, such as VPC information, etc. These are not
-within the scope of virtio, we cannot configure these information based on the
-admin queue after creating the vf. But we can bind the device created by the
-user to vf, which completes the binding of many manufacturer features to vf.
-
-In addition to this scenario, in the case of live migration, we can migrate a vm
-from one host to another host. During this process, the virtio-net devce is also
-migrated from the dpu of one host to the dpu of another host . At this time, the
-purpose of creating a vf is to insert the migrated virtio-net into the host. It
-is impossible for us to create a vf to get a brand new device. So also bind.
-
-The core problem of this patch is that we need to assign an id to each device.
-Is this reasonable? I think this is reasonable, each device can have an id.
-
-Virtio device and transport can be unbound and re-bound.
-
-Thanks.
-
-
+>>>> If you want the DPU randomly create ADIs and notify the driver, I
+>>>> think we need interrupt, e.g., re-use config interrupt. But why DPU
+>>>> wants to create and hot plug in a device to a guest?
+>>>> Shall the host handle that or DPU pre-create then expose to baremteal
+>>>> machines?
+>>> In your scenario, the supervisor is on the os, which controls the DPU
+>>> to create new devices.
+>>>
+>>> In the cloud scenario, the vendor manager is in the DPU, and the
+>>> entire host is for users. Of course, there are situations where the
+>>> vendor manager are in the HOST. But for bare metal machines, the host
+>>> belongs to the customer, the vendor manager is only in the DPU.
+>>>
+>>> So when the customers buy a new nic for the host, the vendor manager
+>>> will plug a device to the host from the DPU.
+>> I understand once a customer orders a new NIC, you wants to present the NIC
+>> to the host.
+>> However you only owns the DPU and the customer owns the host, that means
+>> this creation and hot plug must be transparent to the host and there may not be
+>> a host driver help handling an interrupt/probe.
+>>
+> That is ok. when driver is loaded, it would query about its child devices and probe it, if we strictly want to follow SIOV model.
 >
-> --
-> MST
+>> However this is not PCI which has a tree/switch and can enumerate devices to
+>> the host by spanning the device across the PCI hierarchy.
+>>
+> Those enumeration is triggered by the parent PCI device and pci bridge and switch will also discover it.
 >
+>> To address an ADI, there is only a device_id.
+>>
+> SIOV device must have a unique identifier at PCI bus level for sure.
+> I cannot speak more about it in this forum due to other logistics issue.
+> But assume that there is PCI level unique identifier for SIOV device that switches on the path will learn about.
+>   
+>> So, do you mind share how your DPU offload the device model? What kind of
+>> device your DPU provide to the host? Lets see whether DPU can mediate this by
+>> its own?
+>>
+> It is a virtio nic, blk and other virtio devices for us.
+> A DPU hotplugs a device, host side either gets interrupt or later gets to know about it when explicitly queries.
+> There is no mediation per say here, it is just a dpu based SIOV device like a regular PF.
 >
-> ---------------------------------------------------------------------
-> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+> For non virtio DPU device, I implemented them in Linux for dpus 2 years ago.
+> You might find a Linux reference model useful at [1].
+> A usage model already exists in one OS and in use for non virtio devices.
+> This certainly works without SIOV unique PCI device identifiers, because DPU (non-host) managed SIOV device spec still does not exist.
 >
+> For virtio, I think we should wait for this piece to be defined and leverage that, instead of virtio tc creating its own.
+>
+> [1] https://github.com/Mellanox/scalablefunctions/wiki
+well I see SF facing the similar challenge, I can add a command for the 
+driver to query all existing SIOV ADIs of a device,
+and the device return ADIs id and status. Looks good? and work for you 
+@Xuan?
+
+Thanks
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
