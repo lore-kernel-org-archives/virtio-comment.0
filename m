@@ -1,17 +1,20 @@
-Return-Path: <virtio-comment-return-6693-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6694-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04374C001B0
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 20:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C40C001B3
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 20:39:00 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3A23060089
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 20:39:00 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id 1E95898658F
+	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 20:39:00 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 55FB142C28
-	for <virtio-comment@archiver.kernel.org>; Mon,  3 Jul 2023 20:06:24 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by host09.ws5.connectedcommunity.org (Postfix) with QMQP
-	id 447AA2AFF8; Mon,  3 Jul 2023 20:06:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with QMQP
+	id 093D29842E8; Mon,  3 Jul 2023 20:39:00 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -21,39 +24,38 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8898D98655E;
-	Mon,  3 Jul 2023 20:03:45 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E806F986559
+	for <virtio-comment@lists.oasis-open.org>; Mon,  3 Jul 2023 20:38:59 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zuzrv5eH8vSt1M0NbR7IPKsZU0nXA/dETUoKKW0jPdhBTiFH9CZrEr2uJdWgFgniF+fxiZXidWjwK96MKfcOEaKGf/hz1xHLyAKuDN9IRQ1nYNtui05A0+U74NjWZ5dByFEH3CRSC+SUI7y/M23z0khusza/Bpeg2gaYVUjvjt5fiAqxKeeXhctTGQONV6S/t3ysgwxCmwvLpKk1FnOHIOL2pifYlCv4YKpC/dvLQeFN4H8AilDcYDt6eJxolPPZjVt04tXjkJvabniyXPQxcTnPQQ9ACkYfZMf4eE7cg/6re3AxqUGP6uU2k9qfYoIDNn4pmjnInfa0JyM3teIdNA==
+ b=VeaJBD+WMUkZmfb6B8MUQSDUW9/l5oY9Zes6pBKV/sMcj1LMDt5G6/NKwuyahqEAJJcXuDB1OkrMuJFML/iJV3GO5u8JE0G7921j2/IDvyULkUVZKlE2N2elBCSmZgsHbhxbqeoOX2PknPjH0ufNPAe0yOTzbPqtCva029Y369XLkPDXR8iW0Avjn0phKgM+4GjXZy/YsiRJkq17REelD/Hn/XeKAW0GwIEl+NVECFp8rMJyXs3YfsC0VhsIcy2eDjVA2JaeGxHpPbTqL6CzMKlduOQXJqz5XRevBjOXCvO5wsGgBpmtjYsQ5jNiiCPt+TWjozap2+0w3Y+jLWpNTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IZQNjmScCcvAnS9/hl5i7q+8jeJJWfHo3TwafYMkzOU=;
- b=RqbY2J4AfoMbELnDv0EDln/Ivs5irUgGGPkFdQO+YM870BKr7vm9B2kzpnVj4BgHzewxwgYaiaJ9pXzJ7wSrAOXLk5rvD7iZfZljfmpXfBHNMCsS2Xws/+26p2i2tC6yuoiTP9Jnta7WJBKeIDnJa8vv5Rge8Qoz4q23EEMqHM7ohKPXAD+fMbYATCg7hrpbltmSANOxQs01Yi/628/ZGHeQgpK/ZloUPHoY2xonbjpnT06CTx4y9IV2CphWSx0ydpzksuuQNHD9xMvSdNHNY2/sdRCZNze7wwGIJTQeWBvWHaQBrZ+/WO1bfe/r8zdpJ85J2e3ey9KUsNKjVI9J4A==
+ bh=Jdo2jqLy7oX6urit6vqEn3b01xIWOuj5ZLwKikovxj4=;
+ b=OC+RGh4E5C6jbyL/qYlXoyWP0W4Faa7ZNiNo//XW1UZAjsQjLWFbcefq9OKxc+jnlRCnQOuXA9CjA7oQPuXbg1O+JZbtHnv5WCinJqaONPIr3Fle2LL/vQW6cwt+EiHP0poWTSySlVFsl043+ub5T6MnCQJraeT3XQl9x/VJja9MXdNkdd4318Ddw7kKcODz1voJ0Z8/Dz3ViH9sSzBuKUZUwk05wLF+tcf6C8DvXdCoNRT0JxeaobotLHoiGInLrfPmvRqSus7vhan/qnkLWwj9jgwRvdKooAKNOztmXasPtFqXPU1ncExHOHJZNXPFVPu2K3YvbUR4xn+6FmMu3g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "Michael S. Tsirkin"
-	<mst@redhat.com>
-CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	Jason Wang <jasowang@redhat.com>, "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Thread-Topic: [virtio-dev] Re: [virtio-comment] [RFC PATCH] admin-queue: bind
- the group member to the device
+To: "Michael S. Tsirkin" <mst@redhat.com>, Xuan Zhuo
+	<xuanzhuo@linux.alibaba.com>
+CC: Jason Wang <jasowang@redhat.com>, "Zhu, Lingshan"
+	<lingshan.zhu@intel.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>
+Thread-Topic: [virtio-comment] About the plan of Admin Queue
 Thread-Index:
- AQHZp/aO4VG7c5VX5U2HGCV+HZ1m26+eUUOAgACAaoCAAKzGAIAA34IAgAcNCoCAARM7MA==
-Date: Mon, 3 Jul 2023 20:03:42 +0000
+ AQHZo0OgMaVHGskGLUio/ZFR6jh2f6+TVwYAgA+RFwCABNz3AIAAAtoAgABPh4CAAHb20A==
+Date: Mon, 3 Jul 2023 20:38:57 +0000
 Message-ID:
- <PH0PR12MB5481BB42593C9BAF209AA8DCDC29A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230626062210.49020-1-xuanzhuo@linux.alibaba.com>
- <1687854185.3344731-3-xuanzhuo@linux.alibaba.com>
- <20230627115247-mutt-send-email-mst@kernel.org>
- <1687918864.3728812-2-xuanzhuo@linux.alibaba.com>
- <20230628112107-mutt-send-email-mst@kernel.org>
- <1688354491.871065-6-xuanzhuo@linux.alibaba.com>
-In-Reply-To: <1688354491.871065-6-xuanzhuo@linux.alibaba.com>
+ <PH0PR12MB548146B440C789EC38DAC507DC29A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
+ <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
+ <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
+ <CACGkMEtNPGneB0E1sVqmpe9fGwMp=_2vmepy3Bm9r=5=5r=ZXQ@mail.gmail.com>
+ <1688372430.0519888-1-xuanzhuo@linux.alibaba.com>
+ <20230703071106-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230703071106-mutt-send-email-mst@kernel.org>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -61,136 +63,88 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|LV8PR12MB9081:EE_
-x-ms-office365-filtering-correlation-id: a0509f5f-b95c-4256-5d11-08db7c0099a3
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SJ1PR12MB6361:EE_
+x-ms-office365-filtering-correlation-id: d494c878-884a-40db-3d65-08db7c058643
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- f1u3H/RKudZ4dyDAPmceufZBo/7Y3dfLC9gbxSFxJ6zZM2sqYBRXNkkg0WPpKi/xI40UQKVuqYdxM7McIsJ8Gk16cDmxzLKsZ3KzKkn8JSnWj+gUNMWZN5zaySiSHAS0PuLNC2CjlL5ucrGYGm5IR5F7Pee2RFvkIE4qXJMa2i73Qo4w+amg7CCP9jJ6Za6E6WlLSh8FaWpUTk9rpc90NkBn5871zvt2QlZFtSoQ0i5ZGxC3IjXjFKUEMlDppr/dXpxzYTpKRUh864XLx6E07XXU5Qk4xxHQjs+p3KR0j1/AhyXrnUJ1v8qNd/xSR0yJWPUVMcS1vtFSw6J/al7InGA/IdhuWUvGO6HiwH+JEZgC5fHnW5Jh05AWSZ8La8gKgFSlUBEynkb61IktZIc2N2jgBWA61kVlGue7uHYcj3xz/GhelbZzUA3Hs6Zo1iDbFVARR9tg/HzTJbvvUaAMxmjVI3yz8qQjjTublKCk4KgpaR8QzjjD1lcYMp3bTiH3gPu3wP+THO/EANRmZkj6/DIbZ204Z26xBKGEqF4duKSgOSCYhdKmnH83npj39xSUQ2vv91VJSz+CqgJXhaIq7fIrnf9qdwmeMeoCb8HvsRv1yC8iNpQ4cVG4JiFW3QRu/0nuuXEi7jc7LvufD1PXFar2bfGFhJtsWzUHqYGPMCKzwvrcUwXNRWTEio+Mn03l
+ ygRgsRMFswXGCDatuDzHUdrGzDZSqvHDT+iq9AzMVMristm5iWTHD/Paj3Bh3sqrmYzvEgqeqMOoL7xHMEA9GttGOHILE4umzkFAr7EXX2fjFZ1sXFNF5MfUy+gGROA7OBI7eYBGOtlinyX5aeH2YkZy0EKUYGW00z7dAQnOI2324m3z5JnT0ECalViUGk955N8/wQRHUeaUumRCBT9SX10MGvWiutVFGnFBhCYj2sixFexBKqTocSlVlk++OQ85tjDw9wyAItdtR7THFoGe9631Ld948kLSSui6TJiJZIFyObMAlG5ViJfE1IXNU6cUo/VI66YyoZMrx6tPBqSBCB8gV59GsdL5inuvxNoT4DloKLTh4sGHc2wDMHPEHgiLtoMb/kZM/k8K6NGbMf3RgRVElgu+C9pvi3uvVEkqwGUdPXR1hErzoOJIDt6mmxVxK8qvMl5I6f6s47XkXnyDkuHsrQJMJ7LCILe5bo2j8G06gsJmQ4KZPcDHM78B/i6fkJyqCT0iBbEG2oCv04XICFFREw9uu/p2UlTTGg34Rf2MHKJVNPygPFk0xAgj8jiJ1tn7ax9MEh1SNwXIeebPb7NJqtA48P+AiFYTivtLTvqpqOWe+6pjDySt+Cggsyw3
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(451199021)(8936002)(110136005)(8676002)(54906003)(478600001)(26005)(9686003)(41300700001)(33656002)(52536014)(2906002)(71200400001)(5660300002)(966005)(86362001)(7696005)(66446008)(316002)(64756008)(66556008)(66476007)(76116006)(55016003)(66946007)(38100700002)(4326008)(122000001)(38070700005)(6506007)(186003)(83380400001)(358444002);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(366004)(39860400002)(346002)(376002)(136003)(451199021)(38070700005)(4744005)(2906002)(41300700001)(52536014)(5660300002)(8676002)(8936002)(33656002)(55016003)(86362001)(186003)(478600001)(71200400001)(26005)(6506007)(9686003)(7696005)(122000001)(76116006)(316002)(4326008)(64756008)(66476007)(66556008)(66446008)(66946007)(54906003)(38100700002)(110136005);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?3trRnXEWV30sWfGZhRprAq8+RayBAmdmHdfj1MWXwF0s/yQKAo2Ts8vywRZU?=
- =?us-ascii?Q?eNa3y1Za5/sL/MLVLfkwpxxjtTKSzUd8UrjDfOx2BWzXoQaCMTgxJI0z5y6F?=
- =?us-ascii?Q?VEkKjtgSbVs80907HStWC2Obr6hRpZEflOWq8lbdj1beGsr+hYFnQnz9rdyt?=
- =?us-ascii?Q?xicb0JwjfU/ZvBDUgQibe3trnAoIjMEWsYiEBNu1YIpkItPVqNtzs6zNxDOK?=
- =?us-ascii?Q?i4fktHcsk/1B/CQHfMDJB/RCsE+UgRsaFoIIHluFIEr+3k06XeqyiplXNUSC?=
- =?us-ascii?Q?9kwJTRozDiSVOdI8V67S6hBSjG7w1IlSJhAWBfkxrhbKms5yJpVHKZJVN8zU?=
- =?us-ascii?Q?oNsc5BdhkyCt9vZqWmpZ4zlmJL119dg8zapBmhrkdnPhyKalMfrXm2o/S063?=
- =?us-ascii?Q?zTLP1vkPMm6GcCm+XWGj9S7vTxfIwvPbDtkc6tLGjd2CvFARGgl0BXZqF1Vy?=
- =?us-ascii?Q?9cWAmXLNxExFt8+rN+nUJXp9WQ1+fp3pNFPD6dtmfUtIdE+SLJZ9KacsEZFZ?=
- =?us-ascii?Q?IMRzmTUl7UILxdWUpslyco3cN4Y122WGvx2aEaUrmTv0nyHYoHDKZD7+SmwS?=
- =?us-ascii?Q?caPsq9iZaWfI31PjsZ0LcAHbUFuLT869hmlpeqbofSadsjsr1w5NdUpjP832?=
- =?us-ascii?Q?lCJ110ITYirz+AOekIR+Dw1vUmtYLmBn2xTz5ec2pL0nfLi3fHRpNn8kGty4?=
- =?us-ascii?Q?aQphOOEsQ5XvxalEZ1C+h2R+2rYPzeQJzExl38MItIbtXk04mgc+RmA7g0G3?=
- =?us-ascii?Q?7MB9dGXTn3DXijjNZzeCwzpQa4Qt6m54m6vuuGsQh9A75z/mRkmhKiyQ/r76?=
- =?us-ascii?Q?bDXHqq9vei4owvG7YHxTXvX7A39nNPEYWgGLOZuFurssfJKjerApaO/jQFtb?=
- =?us-ascii?Q?bdBUvjI+Q0G1CHMHEkCrl6N0BuGT3A8pQw3xuut0hSAXyTrW8J8yC7h0yfct?=
- =?us-ascii?Q?kDWN5+UDeLNb8gzJTISg5UI0pO6NIZThtm4rhoyy55IIEv8FwBVt6nXbhGO+?=
- =?us-ascii?Q?kWdcanhXQUw3sbTXJZ78uFA3x7FE8+J3o1wF5OXpnVRb0x0MfSvW3WqkgAtk?=
- =?us-ascii?Q?Vcp0+KOMoZUdgkALML4w0s0PYqZ3eejjT6m9Ir4cCNkE1Gi8pF6MHvp2sptC?=
- =?us-ascii?Q?eYr+DuKIxfhWDdNq4PZW2CDSFERg67cOWMUt7zh1I/vOxJ0IFQxzeYneg0qo?=
- =?us-ascii?Q?w59toWV4Rch8tx05tLxEwqVJT2OnSk/EgVo+d4sIMIccBPSKM37jpr6rIfK1?=
- =?us-ascii?Q?axB4lkyL4/3tBvlD4350G67aeuwd6/johTqK9WKfiLfVG2QiXcQqHOglZ1KP?=
- =?us-ascii?Q?v2UqFl0aEvqYMzyXx19U3i/6lNMtMb02+gpxx6Bf7gysl0KNUDwsYS0HrCSe?=
- =?us-ascii?Q?zeqZt7/3n5ORf0io0te6tyL/bPbRvlMQj3SJQiKUITxKa4gZJQRfwZgL4AYg?=
- =?us-ascii?Q?FDMKhP/gRX5+B8Sb/0qv+mYXbiuzdjzrEM5XEWENEzgizSoZKK6saFGqR34d?=
- =?us-ascii?Q?ZMb8+uYgdHfdv3MQc4WjJdICfX5RGfbt5S0nP+4t8LGSUqWfviQm8nxpiyHP?=
- =?us-ascii?Q?DjhKyi7In1Qe73SfA8g=3D?=
+ =?us-ascii?Q?BsLI4pVC4kOPScYgLvWCGsgn0zzDpBxhIFxBgjnPykRrzffnX5+ipgW7oj9g?=
+ =?us-ascii?Q?xcftTh2jyjKDLqXMdSxZ9jSu7FHVKGlpuqxhcfBjF9c9jatVMwiLtA4fOLb2?=
+ =?us-ascii?Q?W75qQXpwxPAEqkkt/0uvg/lHdwy3i6PJuUy1RyZ6FzzYuNlhzNEIXWKc5BCt?=
+ =?us-ascii?Q?x219FSRfpDbKYdykTtggCk63PReg/Q6L1/SNaXQyHW78PR95usNsN2we0Gyr?=
+ =?us-ascii?Q?U31OzUoZfyxijjQoRqk9zv/n7br7Ju2s09q5+sKXH87J7B1qUcLhrAOCJ/fq?=
+ =?us-ascii?Q?Eui98jxqs7q2ZPnrQe3tblbFJmdW3qtqy4Z2hfchs8NH3R4DfzJKt1KSgN/c?=
+ =?us-ascii?Q?fCUSgarckXnfseWJJqwAa6+N276fiITsFHaNrmSGlp5QhVqGmJKkVIvj0ynz?=
+ =?us-ascii?Q?WGmEJnwmh8eHI2rZFKmlxczTYtvY+Hal9kauosEhdbdT31zMQSppBxxXafYF?=
+ =?us-ascii?Q?848z+91bjttGGYXiSRaUzWVVVGDrRiwh26R5ste9SitN6dtJGKzdPmPFGU43?=
+ =?us-ascii?Q?1uwjWEmU+C9bbfrhoNWotvwo8BpsjJuow5p1C31F3k9/YzsNwHxElDGi9XkA?=
+ =?us-ascii?Q?Uo4W8rDYjhSsZSDnwmhuOgwydcHnilrqot6S6/Zmi46svtzrLDCZzVdhN0el?=
+ =?us-ascii?Q?UxcWkTkl/3gKwjAGR0d/WpbLqcu14fM+kY+DeFhsnQW4XOQhrQh4ZwtXITrz?=
+ =?us-ascii?Q?aOFTchEDK8Um3Ia3B+S+vFjk+x29Oq+XT5r+sRSLwbg5zRqZfMYQIE1bTD1b?=
+ =?us-ascii?Q?d6Z2AFYpXD+qZQ2Sx3gwpmedDntuRuDv/lHmdUOK2VryGXXS0icgTK3PJHbg?=
+ =?us-ascii?Q?8FAPYjE0Pp/pNC7GidQ/TqRfNDQ+GbVAIz3HEd3Wxzq/oGdZ9HZOSx46WRYZ?=
+ =?us-ascii?Q?AVTbqJXCTMfe3Il54yG3phi0kJ0+B0uAsP1pX1ZTru/CJPsYpByy7WGPiA6O?=
+ =?us-ascii?Q?AFGSjf3TcgDlY5Dwsyohe+LxkGrrVwqBIoFXCNNFJYUlYEyXc+iXnW2dcpO0?=
+ =?us-ascii?Q?OffIAXuUsKB/bvcmgAffjeXHhTIqEPlsv0u8lUQD1VjNd8cCRT9rnNRzWETL?=
+ =?us-ascii?Q?gzhBLOLk+e3NN4LZyXD468wC2k54cSyveYDaVAPkONw1ptzbV9CezmTa+9xM?=
+ =?us-ascii?Q?G/epLE32hasUsjXqzDS+sDG7Wj22WHJCJ2qrg8f26/7iwMILg1U3KNx8lHeq?=
+ =?us-ascii?Q?9qGamTJpXxVv0WSs2JefBKQSQ8lSGLsRhjj2UGWfsqgm8nuCoMfBsuKDSlmP?=
+ =?us-ascii?Q?7apxtUaMQLh42w5VlrhR7CvOxEXyvlenHk/mNcBl5UaDWlT/pZEn2Q6t3fQb?=
+ =?us-ascii?Q?PBNCDPN48CP7BmJmfF4o05iyQp4WIOO6tKgrDrqi4Wo3Djtf7mk9MQcvy2H5?=
+ =?us-ascii?Q?viUtdOHmpa7V5KO1kuXcJR3QdESuqDfSTCo0xJjvmz6HlxPW24q+0rUnWYuR?=
+ =?us-ascii?Q?o+qIvHyNBPAECnh/N0qR51rvW6VmG4NH1o5HAx9rJuIx1mxfMJrm1tSXbfaY?=
+ =?us-ascii?Q?Dh+YuweYXXbPVwsSVQytp7SgcvekMc0qm3ncY8j4myj3PIBfGt4upL9/x37L?=
+ =?us-ascii?Q?RtBuNhGQ4aSsmbz+Ook=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0509f5f-b95c-4256-5d11-08db7c0099a3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2023 20:03:42.2438
+X-MS-Exchange-CrossTenant-Network-Message-Id: d494c878-884a-40db-3d65-08db7c058643
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2023 20:38:57.1703
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9FwWmVBfrQNR5SK9tJAKgTAezebZtDRi92l8l64krGFXh7MhB2v2CO0FBsC+oOugXN6Gw+ecsq+3P2OfmuTw9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9081
-Subject: [virtio-comment] RE: [virtio-dev] Re: [virtio-comment] [RFC PATCH] admin-queue: bind
- the group member to the device
-
-Hi Xuan,
-
-> From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> Sent: Sunday, July 2, 2023 11:22 PM
+X-MS-Exchange-CrossTenant-userprincipalname: SJ1gmrIuxLXM+kD80N24jz8eseijvGLgdQyaYX+XiASBGA2j93fbrh2eI35wneaX3MLjL4N+xkpe7SLs6u2XBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6361
+Subject: RE: [virtio-comment] About the plan of Admin Queue
 
 
-> I try to describe the requirement as a common requirement.
+
+> From: Michael S. Tsirkin <mst@redhat.com>
+> Sent: Monday, July 3, 2023 9:05 AM
 >=20
-> @Parav do you think this is a requirement in your devices?
+> OK it looks like at least Parav and Jason understand what's going on, may=
+be one
+> of you can explain:
 >=20
-> The core point here is that our virtio-net device is created by customers=
- on the
-> management platform. It is not a pure virtio-net device, but also include=
-s many
-> other features, such as bandwidth, such as VPC information, etc.
-When these devices are on PCI transport, and if they are PF.
-PCI VPD has well defined serial number, and few more fields.
-This helps to cross identify the device between compute side where virtio d=
-evice is used and other management side, who inserted this virtio PCI devic=
-e in the compute.
-
-
->  These are not
-> within the scope of virtio, we cannot configure these information based o=
-n the
-> admin queue after creating the vf. But we can bind the device created by =
-the
-> user to vf, which completes the binding of many manufacturer features to =
-vf.
+> 1- there's a management stack that can bind an ID
+>   to a group of properties
+> 2- the proposed command then binds an ID to a VF
+> 3- after this, VF can be assigned to a VM
 >=20
-> In addition to this scenario, in the case of live migration, we can migra=
-te a vm
-> from one host to another host. During this process, the virtio-net devce =
-is also
-> migrated from the dpu of one host to the dpu of another host . At this ti=
-me, the
-> purpose of creating a vf is to insert the migrated virtio-net into the ho=
-st. It is
-> impossible for us to create a vf to get a brand new device. So also bind.
->
-For the VF in this flow looks like below.
+> Is this a fair summary?
+>=20
+> In that case what is gained compared to
+> configuring properties on the VF directly?
+> Why is not the ID an internal property of the management?
 
-a. device id assignment is initiated by the compute side AQ to a VF (on des=
-tination)
-b. management system received the command and queried some central place to=
- get attributed (qos etc), that you described.
+For VFs I also believe we can live with an internal property.
 
-Here somehow the src side already had access to the management system in fi=
-rst place for the VF backend configuration.
-And I believe same access is/should be possible on the destination side too=
-.
-So that same parameter can be configured as out of band command.
+For migratable SIOV devices which are spawned by the management system has =
+similar ID assigned by the mgmt. system.
+Having such node local ID is needed anyway.
 
-In fact for virtio device migration, a migrating sw may even need to inspec=
-t and figure out which is the best system to migrate to in the backend.
-
-So out of band access is present and needed that can rely on the VF number =
-to provision these things without explicit bind command.
-
-So bind command is optional command that can help to do the work that is al=
-ready done today out of band.
-
-And if bind on specific system is identified, it is probably better to do t=
-his out of band.
-
-Your key point is " virtio-net device is created by customers on the manage=
-ment platform".
-If they are based on the VF, it can be identified uniquely by the VF number=
- without explicit bind command.
-
-For PF and VF I responded few other ideas before at [1], you probably misse=
-d it.
-
-[1] https://lore.kernel.org/virtio-comment/20230628112107-mutt-send-email-m=
-st@kernel.org/T/#m99518f22871a223c4dd014bb77e712b3befd9793
+There is a struggle (scale wise) to make such ID network wide unique if eac=
+h virtio device to expose such id at transport level.
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
