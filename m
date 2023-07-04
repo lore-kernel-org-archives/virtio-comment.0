@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6697-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6698-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59CB8EB64D9
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:13:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7433EB64D9
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:20:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 713DB157EEB
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DD12C16DD83
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:20:29 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 59741986597
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CF09D9865AB
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:20:29 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 47389986593; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
+	id BED52986593; Tue,  4 Jul 2023 12:20:29 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,12 +24,12 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 32D6C986595
-	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BD694986595
+	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Jul 2023 12:20:08 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R831e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vmcr6LA_1688472775;
-Message-ID: <1688472687.2108436-1-xuanzhuo@linux.alibaba.com>
-Date: Tue, 4 Jul 2023 20:11:27 +0800
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046051;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vmd-uom_1688473203;
+Message-ID: <1688472851.555355-2-xuanzhuo@linux.alibaba.com>
+Date: Tue, 4 Jul 2023 20:14:11 +0800
 From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Jason Wang <jasowang@redhat.com>,
@@ -55,18 +55,30 @@ On Mon, 3 Jul 2023 09:05:09 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
 > 3- after this, VF can be assigned to a VM
 >
 > Is this a fair summary?
+>
+> In that case what is gained compared to
+> configuring properties on the VF directly?
 
-This sounds like what I need.
+I have been thinking about this question for a long time, and there maybe is a
+gap of understanding here.
 
-This thread discusses another point, the device notifies the pf driver that
-there is a new device.
+In our scenario, we should have two roles, one is the user and the other is the
+vendor's management software. Do you think that the management
+software is running on the host, and it manages the DPU?
+
+But in the scenario I mentioned, the vendor's management software runs on
+the DPU, and all hosts belong to the user.
+
+The problem we want to solve is that this user may want 1000 network cards. So
+it must use VFs as a network cards. It cannot and will not configure detailed
+NIC properties based on the admin queue.
+
+I don't know if I found the key to the problem.
 
 Thanks.
 
 
->
-> In that case what is gained compared to
-> configuring properties on the VF directly?
+
 > Why is not the ID an internal property of the management?
 >
 > --
