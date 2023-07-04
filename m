@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6696-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6697-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA048EB64D9
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 06:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59CB8EB64D9
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:13:01 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 056E941EE5
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 06:56:41 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 713DB157EEB
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E2FFF986593
-	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 06:56:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 59741986597
+	for <virtio-comment@archiver.kernel.org>; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id CE058986563; Tue,  4 Jul 2023 06:56:40 +0000 (UTC)
+	id 47389986593; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,71 +24,54 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B6AF9986560
-	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Jul 2023 06:56:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 32D6C986595
+	for <virtio-comment@lists.oasis-open.org>; Tue,  4 Jul 2023 12:13:00 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: v9itGXhRNwOx23K7q02JFw-1
-From: Cornelia Huck <cohuck@redhat.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, Heng Qi <hengqi@linux.alibaba.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
- Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>, Yuri
- Benditovich <yuri.benditovich@daynix.com>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>
-In-Reply-To: <20230703114640-mutt-send-email-mst@kernel.org>
-Organization: Red Hat GmbH
-References: <20230703152711.106008-1-hengqi@linux.alibaba.com>
- <20230703114640-mutt-send-email-mst@kernel.org>
-User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Tue, 04 Jul 2023 08:56:34 +0200
-Message-ID: <87cz18i2ql.fsf@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Subject: [virtio-comment] Re: [PATCH v21] virtio-net: support inner header hash
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R831e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vmcr6LA_1688472775;
+Message-ID: <1688472687.2108436-1-xuanzhuo@linux.alibaba.com>
+Date: Tue, 4 Jul 2023 20:11:27 +0800
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+ "Zhu, Lingshan" <lingshan.zhu@intel.com>,
+ virtio-comment@lists.oasis-open.org,
+ parav@nvidia.com
+References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
+ <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
+ <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
+ <CACGkMEtNPGneB0E1sVqmpe9fGwMp=_2vmepy3Bm9r=5=5r=ZXQ@mail.gmail.com>
+ <1688372430.0519888-1-xuanzhuo@linux.alibaba.com>
+ <20230703071106-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230703071106-mutt-send-email-mst@kernel.org>
+Subject: Re: [virtio-comment] About the plan of Admin Queue
 
-On Mon, Jul 03 2023, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-
-> On Mon, Jul 03, 2023 at 11:27:11PM +0800, Heng Qi wrote:
->> 1. Currently, a received encapsulated packet has an outer and an inner header, but
->> the virtio device is unable to calculate the hash for the inner header. The same
->> flow can traverse through different tunnels, resulting in the encapsulated
->> packets being spread across multiple receive queues (refer to the figure below).
->> However, in certain scenarios, we may need to direct these encapsulated packets of
->> the same flow to a single receive queue. This facilitates the processing
->> of the flow by the same CPU to improve performance (warm caches, less locking, etc.).
->> 
->>                client1                    client2
->>                   |        +-------+         |
->>                   +------->|tunnels|<--------+
->>                            +-------+
->>                               |  |
->>                               v  v
->>                       +-----------------+
->>                       | monitoring host |
->>                       +-----------------+
->> 
->> To achieve this, the device can calculate a symmetric hash based on the inner headers
->> of the same flow.
->> 
->> 2. For legacy systems, they may lack entropy fields which modern protocols have in
->> the outer header, resulting in multiple flows with the same outer header but
->> different inner headers being directed to the same receive queue. This results in
->> poor receive performance.
->> 
->> To address this limitation, inner header hash can be used to enable the device to advertise
->> the capability to calculate the hash for the inner packet, regaining better receive performance.
->> 
->> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/173
->> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
->> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
->> Reviewed-by: Parav Pandit <parav@nvidia.com>
+On Mon, 3 Jul 2023 09:05:09 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> OK it looks like at least Parav and Jason understand what's
+> going on, maybe one of you can explain:
 >
-> Cornelia last minute comments before I start a vote?
+> 1- there's a management stack that can bind an ID
+>   to a group of properties
+> 2- the proposed command then binds an ID to a VF
+> 3- after this, VF can be assigned to a VM
+>
+> Is this a fair summary?
 
-Please just go ahead.
+This sounds like what I need.
 
+This thread discusses another point, the device notifies the pf driver that
+there is a new device.
+
+Thanks.
+
+
+>
+> In that case what is gained compared to
+> configuring properties on the VF directly?
+> Why is not the ID an internal property of the management?
+>
+> --
+> MST
+>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
