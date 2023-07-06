@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6770-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6771-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D4F8EB64D9
-	for <virtio-comment@archiver.kernel.org>; Thu,  6 Jul 2023 20:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4FB1EB64D9
+	for <virtio-comment@archiver.kernel.org>; Thu,  6 Jul 2023 20:28:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A75A32B011
-	for <virtio-comment@archiver.kernel.org>; Thu,  6 Jul 2023 20:21:17 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E2D722B011
+	for <virtio-comment@archiver.kernel.org>; Thu,  6 Jul 2023 20:28:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8E7A198680B
-	for <virtio-comment@archiver.kernel.org>; Thu,  6 Jul 2023 20:21:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C9C1E98680A
+	for <virtio-comment@archiver.kernel.org>; Thu,  6 Jul 2023 20:28:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 77021983B4A; Thu,  6 Jul 2023 20:21:17 +0000 (UTC)
+	id B2D5C9867B6; Thu,  6 Jul 2023 20:28:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,38 +24,43 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 58BC79867B6;
-	Thu,  6 Jul 2023 20:21:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9EA1C9867EB
+	for <virtio-comment@lists.oasis-open.org>; Thu,  6 Jul 2023 20:28:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XE0cQ4WIlsGGi94qsi4L3zpHecMa+/KD9xJTHUFm2LQGWkGn9rBkS14u/hI20YuJw3IRUoUX9GJS05ubHaMceG6XH0OYMGrTSZxbnKHeuJCyAPDrgE15p4wLbhq/esypYOrTPsZ/3ndAYDfVx7hxen1msqDnySGUOMvlNIcZ48bsd3e4iCfH3IQARj37V8fdi6josrJ3wptQt8sR4m5pC66/bMlXlXzk7erQQEcZhnhyhOSdg3JtTkO5hJUi50bW3zIQF1DEJE9pA95Jij+RXP731MPZMdG03CkWukDv22zQNZe+qcI9GbjpmogtwE6Wlh9C8wg48amGyC9X1K7HPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jPPyceN42Ng9cy6hpA9/Etot77YVn7fyG/J9cNgwXZY=;
- b=SBlCRLgH1MK5nhtNJuh2Da6KKHDDEUUoiwk4EADtc8DvpgsSkSq/Imm3tWRwBZj52ZAxybiAlNAp91NY2FT2bLJRRwIrWuclH0RGnhDQZjAFe8xo33qaUDfz50wffAJLoGCEFH4MY8yhkpSiHkkMHmiWxWt2sCdxEJtNBWtnzx+BeEoYTcbfh41tYeutifpBGC6rKwYYwCI++bG8SUHtRM84J7mSB6sCkOkFrD/bcXcHht2uV673aGNTAGetmRcXpVElxjbDPXzzT1tXjLXagrzFA7QKx6nomuxsm9juYXtxi9K0HKaa4mTwsUIQdDlKrWYfojaVcd+1xEes2UVR6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Cornelia Huck <cohuck@redhat.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "david.edmondson@oracle.com"
-	<david.edmondson@oracle.com>, "virtio-dev@lists.oasis-open.org"
-	<virtio-dev@lists.oasis-open.org>, "sburla@marvell.com" <sburla@marvell.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>, Yishai Hadas
-	<yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Shahaf Shuler
-	<shahafs@nvidia.com>
-Thread-Topic: [PATCH v10 4/4] transport-pci: Introduce group legacy group
- member config region access
-Thread-Index:
- AQHZr8EFxUk4agfAiUezeNF66UoB2q+s7j+AgAAAMsCAAAOkgIAAA7AwgAAKzQCAAACqYIAACE2AgAAAimCAAAs8AIAAAGiwgAAB8QCAAABNUIAADKSAgAAJwvA=
-Date: Thu, 6 Jul 2023 20:21:13 +0000
-Message-ID:
- <PH0PR12MB5481AF3000FFDBA2CBA5D7ADDC2CA@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230706123954-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54817D2E9B0D7C5FE9EA2B0EDC2CA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230706132638-mutt-send-email-mst@kernel.org>
+X-MC-Unique: 6SRc5uuVOnWSkYw6-tudCA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688675316; x=1691267316;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NUyaMi950aL/hHkWdSq+JGXYXS6LA6Ax3X1Mex+ekmM=;
+        b=ju/f9KsxMpa1ZHZtOtVT8sNxOe8Mr0dKN8uZZpbL0tZf4N0p3kYL5Av9jJxvuPKo2g
+         T460O16ghX22eFtEqQGOVKetVUdDIGyu8+AdaSVCD+g4EnEgm4nBFm1OctgeJtBduD66
+         k8wGewo3oXWSzVwFgVlMxOuHSgnL+JUt3fu4NZiZadcoy+H5la47/pe/wcH6K7hS26GQ
+         DaAqaWUrz+t0H84+9DaipP74z16+q3FeBwFM5NDNv93K0HCRNZgvfmi7lpeikhmsREAL
+         M2PdwisTTxKFnDIuKnEdDPhTgbj4C/p35xo2ODv/jMKxCASDPMI1/2GQr11ib7DFkq68
+         dfFA==
+X-Gm-Message-State: ABy/qLaMjrPgqkFW2Y8s+psd+iVoEonSX3xBsNjcCxju00s0WyK2v8Xn
+	rx8FoW3lOdmRCCktSIMCo26n10j//f2p3/iTbTNz2WM3fpIMzmbWYszClYZ9/Ynn6mLiBYWt1Hm
+	Khc5zh1SqF0Jm3yZIHJAsnJB5ezLLPDfaYA==
+X-Received: by 2002:adf:d08a:0:b0:314:3b68:eac6 with SMTP id y10-20020adfd08a000000b003143b68eac6mr2221328wrh.12.1688675316561;
+        Thu, 06 Jul 2023 13:28:36 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlGmJJfRhv9uUINk9T7sbB4LgIWN7drQrUZu+o31rIObUwMHQgxIX3VUxRkIVdinecSYmTebhg==
+X-Received: by 2002:adf:d08a:0:b0:314:3b68:eac6 with SMTP id y10-20020adfd08a000000b003143b68eac6mr2221308wrh.12.1688675316255;
+        Thu, 06 Jul 2023 13:28:36 -0700 (PDT)
+Date: Thu, 6 Jul 2023 16:28:31 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Cornelia Huck <cohuck@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"david.edmondson@oracle.com" <david.edmondson@oracle.com>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	Yishai Hadas <yishaih@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+	Shahaf Shuler <shahafs@nvidia.com>
+Message-ID: <20230706162505-mutt-send-email-mst@kernel.org>
+References: <20230706132638-mutt-send-email-mst@kernel.org>
  <PH0PR12MB54813564E839C71709DCBDEFDC2CA@PH0PR12MB5481.namprd12.prod.outlook.com>
  <20230706135858-mutt-send-email-mst@kernel.org>
  <PH0PR12MB5481B845ED0FDA919B822941DC2CA@PH0PR12MB5481.namprd12.prod.outlook.com>
@@ -64,117 +69,75 @@ References: <20230706123954-mutt-send-email-mst@kernel.org>
  <20230706145538-mutt-send-email-mst@kernel.org>
  <PH0PR12MB5481074A79C630384382CB20DC2CA@PH0PR12MB5481.namprd12.prod.outlook.com>
  <20230706154002-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230706154002-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH0PR12MB5332:EE_
-x-ms-office365-filtering-correlation-id: 6579ab60-6c7e-44fc-d104-08db7e5e8bae
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- lzFw61xHFRuLt12px2CAtzzSWCJTPJW4B9gMVcx1BsO4h2noA5sHDK2+UYeCUFo9V3b4ezAiOvMNzKifOZ1CYd9GSbGpQKrldDNywyTql+fzeyOyLqOKkv5eCaqKj10gr3lD+igfiOee1/YnL+cpH9QWbSx983Fx6+4MKk65O/00nWdFlPQSGS/NMwuHkH2iJD2ErS416Ai5sRn7M5MwviqriQPTcjlgD04SQf3OtSP3HAa5k6UT+nAXe8P1J1Ikx1/cMjQE1aoOS3by3gpw0hytmH6FJmn2F42b2NYMSY2yAwk6M16CxnyGBDAZT7CcsS+V+DWZ9oQbIfXMmqpZDEqsQ1vkWzTsrOWGjhjbDEjssFDbzRGIVUcW00E1v8jVlR07GI17/V32qmfDJqtgfaAIc2YsPbJphRJD7tO8zQM3x7Uso6sUPXczGcZnjI5W7tj5XotLyK5WwGnmQkW0DJieewsdo6sXC0nJfGX/ReFCG8o5hNqTrZYN6schhboxeSBb7GaIKv6rTcP3MrNiaaeh9UzHwP8mF9PlJKbNrDN5sfOjw2iyt+M5KvW8dXiDRWV+by804MNyFJg7F9tywKunqNQQehU7pHVeTOLJ9Mmh971Fvkw7BNEhT6YZtFil
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199021)(4744005)(2906002)(41300700001)(52536014)(5660300002)(38070700005)(8676002)(8936002)(33656002)(55016003)(86362001)(186003)(107886003)(71200400001)(478600001)(66476007)(6506007)(9686003)(122000001)(6916009)(64756008)(66446008)(4326008)(66946007)(66556008)(76116006)(316002)(7696005)(38100700002)(83380400001)(54906003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?toKIVlydHH8eJ9gb4fXjRpiI5Qaexcu10rupgbec0LVAXFJOnpR4HMU0SFqk?=
- =?us-ascii?Q?Fv75v5st6mqfjiJn3DKcw7nEe5TWyqGCTNj0TKDcrxwmFE5RGF2uvevLo4EA?=
- =?us-ascii?Q?tX7AnSsQBCw+nmHH3nhG4gS35aQOjadEuCas/LQUXnyHKKeoOBUhyk2qtl+h?=
- =?us-ascii?Q?iM1cuqOtu2qmJAQPl5rU9vToQ4IEFGdyJQIKkY0cqgwaVFxPooUDK2CmvHD+?=
- =?us-ascii?Q?okluq7TuD2KwtlYmz+Jp5P3FAlSCrhgAqNpv9d+JShRei4jMzj9GbusSvILT?=
- =?us-ascii?Q?HMDDMZ3awWzproKC53t1cuIyhh4vJHyav8G9Rx1NYmRuH/K75uO4vpsGvZHc?=
- =?us-ascii?Q?QTe2AZKpam15kn1ezyzxP3jG02c5ddhzI2WuEMLBJWFQvzSt9T8RdH7rrh57?=
- =?us-ascii?Q?EvB9d4s7TqrM7K2DJ/G4TN1fswsFNEEQib9pQ02RGCNfNLM4/FYZPTc1PgbI?=
- =?us-ascii?Q?0HkcJK3TY6X6+MedsEnwGBjV1InPa0thvO+kV/AEmlA6ntywcGy0tbXy25yR?=
- =?us-ascii?Q?6rQ0tkagRarzSjXS6HOiaWYJTHLWV2ZiqqFxqNxKo4CwSHt0/jDqT3Osfv/t?=
- =?us-ascii?Q?/s080vl/5Ifa3la7ImPcT4aAb+qIQljIsnotdues5WUXsZRrpWqMvmYiJeps?=
- =?us-ascii?Q?H6NipHF61oRooDExAa8lM7zCmOV4TCk3snH84nXbSNq97tILm5amO7woP+oT?=
- =?us-ascii?Q?ErX/fI67G+UpBwbroqtXIdCepRPeenTAapO3bRCmuxH9PmgwsURkienZ3n9I?=
- =?us-ascii?Q?B2BDv5LQUc1Ugivq1inHTewZCnTFn1+5LMQz6x4Rmu/LorZY49WmsrPUYblS?=
- =?us-ascii?Q?dvTxybLxw6GDiD6zgAqdGJTc6AKbjY7UtRFPVHsck3cDjGIPCkCpD7rhzLzg?=
- =?us-ascii?Q?MTUWBozhSMyyH14XFrKpcHITp8Btqoz8vza+/ZsnY55FYlaONfYwjmFAf7Gl?=
- =?us-ascii?Q?v45DmApvHm8QY946gFvGzKCkIqb+vUVslfiEbdrmWrngydW/aNIE+8RRyCk6?=
- =?us-ascii?Q?vg2TzLT20ipLanMjFHHezqZanSBuX8dcfmszj18YYsfzE91D82aC2/sduzru?=
- =?us-ascii?Q?d8t4DfGAiVolJO2MaS/bz1C/nLx7hLCPXWG8D2h3/V7GX3rwDOLCTSKWEvvM?=
- =?us-ascii?Q?lCqo8xFFNKKL2qKvP3/SWoZbVeoYpGviJRPnZ9s/h3Nuw+cEtucj9lc1tN5q?=
- =?us-ascii?Q?ORjzJzO3Wa4x2r5qiDLAbylvL4qCvBDsR/ZhYo13BkxljGIPClpDgN5BeHya?=
- =?us-ascii?Q?mkityKUGrgWrXnRXafzTzfx671silexpw2I7O8DEq4ErsXBjueDYbGHZSbN1?=
- =?us-ascii?Q?BgEnhOg5YEkwRCJs6HSECxv9XXpDAXJfQLKwSEgv0vGRDIRH6KSMLyjC2tPL?=
- =?us-ascii?Q?f9L+S+9xe0/3rpKk7BSe4h5K3KivK62k0m4t9quZekXngrBeH3vag6Jf3/jg?=
- =?us-ascii?Q?lgTd0LAsAo4iG0Z/PPCO8FUV1+7vMjRaM4wZmD0ZiVn2kroKeb7/XeqvwYSD?=
- =?us-ascii?Q?8+azrzuGS3UI38OF5Xed4sMD0YrV1IFBm21/o7IHqciLwAAghXT/JAlH+TPD?=
- =?us-ascii?Q?rmcfN3Pad+Gc3bZnytpYzB4WlrYsYD22li7ReyGFQpsVJYZxo7d/ZjUiugBD?=
- =?us-ascii?Q?CywKRyCMAl7tp+x1SwVMB6I=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ <PH0PR12MB5481AF3000FFDBA2CBA5D7ADDC2CA@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6579ab60-6c7e-44fc-d104-08db7e5e8bae
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jul 2023 20:21:13.7994
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GGYzDdAGvEpjbkJdkBaFADw0o1ikjWTbRLDfwITWN6V46ayFJK3Pq874ITTZuHt7B020241c/ATHeQVe4u6uLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5332
-Subject: [virtio-comment] RE: [PATCH v10 4/4] transport-pci: Introduce group legacy group
+In-Reply-To: <PH0PR12MB5481AF3000FFDBA2CBA5D7ADDC2CA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH v10 4/4] transport-pci: Introduce group legacy group
  member config region access
 
+On Thu, Jul 06, 2023 at 08:21:13PM +0000, Parav Pandit wrote:
+> 
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Thursday, July 6, 2023 3:43 PM
+> 
+> > > > As the order is there anyway, why not just prescribe entries are used in
+> > order?
+> > >
+> > > I don't see any value in defining any order. It is an array of entries not a priority
+> > list.
+> > 
+> > I think we are losing out. For example I can see how access through member
+> > would be preferable for ordering reasons.
+> > However device might still allow access through PF for cases where driver can't
+> > access VF.
+> > 
+> So a driver can choose say I prefer order over accessibility over VF, so it choose PF.
+> Device doesn't have the knowledge anyway whether driver can/cannot access the VF.
+> So, device's preference vs driver's preference may be different.
 
-> From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Thursday, July 6, 2023 3:43 PM
-
-> > > As the order is there anyway, why not just prescribe entries are used=
- in
-> order?
-> >
-> > I don't see any value in defining any order. It is an array of entries =
-not a priority
-> list.
->=20
-> I think we are losing out. For example I can see how access through membe=
-r
-> would be preferable for ordering reasons.
-> However device might still allow access through PF for cases where driver=
- can't
-> access VF.
->=20
-So a driver can choose say I prefer order over accessibility over VF, so it=
- choose PF.
-Device doesn't have the knowledge anyway whether driver can/cannot access t=
-he VF.
-So, device's preference vs driver's preference may be different.
-
-> But I don't see any configs where leaving this to the driver's discretion=
- is
-> preferable. If you see one let me know.
-
-In doesn't need to be config.
-It is the environment that chooses which is preferred by the driver.
-For example preference of accessibility over ordering.
+The driver has a final decision. Let's make it a SHOULD and then if
+driver knows best then it has the choice?
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+> > But I don't see any configs where leaving this to the driver's discretion is
+> > preferable. If you see one let me know.
+> 
+> In doesn't need to be config.
+> It is the environment that chooses which is preferred by the driver.
+> For example preference of accessibility over ordering.
+
+
+what does accessibility mean exactly? I definitely see
+OSes where owner driver can't access a member.
+So in that case naturally driver will skip the
+entry for member even if it's first. maybe there are
+configs where member access is possible but is very slow
+e.g. with lots of indirect function calls?
+OK fine, but then it will be up to the driver to test and
+make damn sure the benefits outweight the costs.
+
+IOW it's a hint for the driver. If you like you can say
+it explicitly even.
+
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
