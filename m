@@ -1,17 +1,20 @@
-Return-Path: <virtio-comment-return-6862-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6863-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7AD2EB64DD
-	for <virtio-comment@archiver.kernel.org>; Sun, 16 Jul 2023 20:04:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6E27EB64DC
+	for <virtio-comment@archiver.kernel.org>; Mon, 17 Jul 2023 14:53:52 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0713360347
+	for <virtio-comment@archiver.kernel.org>; Mon, 17 Jul 2023 14:53:52 +0000 (UTC)
+Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
+	by lists.oasis-open.org (Postfix) with ESMTP id E050C98663D
+	for <virtio-comment@archiver.kernel.org>; Mon, 17 Jul 2023 14:53:51 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2EC4133583
-	for <virtio-comment@archiver.kernel.org>; Sun, 16 Jul 2023 20:04:36 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by host09.ws5.connectedcommunity.org (Postfix) with QMQP
-	id 9F6A538F0A; Sun, 16 Jul 2023 20:04:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with QMQP
+	id C7B57986591; Mon, 17 Jul 2023 14:53:51 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -21,569 +24,458 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E533B9863BC;
-	Sun, 16 Jul 2023 20:00:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B00419865B8;
+	Mon, 17 Jul 2023 14:53:51 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NVLVERnDl4XtJMBPgBioPA1+G3calqc+oufrELCYCWMCBcguooiWTOnS7CxJLxggNZOmd9cqRS1sxXJt2R61eSVzkmaNiaOMNjI0LnfWqv9d3L7tpa4Oo+wlqVcjvtZa/gsA4jrWuQ0HOBeOygaGI5G+M0Moetg9PpT6ur6LMpvubnA4Mgg6p6Mzkpg7sLW/WfM0Bn4za8KuyL9ZQiCVmHHmCL4jWa24DCcafAevCBbfbtximiiIaHTiDmnhH4TTfJ2uMt1Ad0EfmtJCNDid8TqXGTu6oITOTwe+QdKjzw+rmTJx+i/YOrUrxPz7r2uw5zDYlPfaRzlnepD3yARPww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+iDKHEMK5pOFWFcNCKNo+14vKOCarLxUKBU+I5e2bH0=;
- b=MVG7s4QORBHSWfCbMSRWPi5higgmP2WZ7DhcUJf6PTJSM1oRh3kZ3cV3E6bseRBou5URfGyJqmUMbEmFizpIz5ILvnIj9ni3FlQYYXl43Y4MvDGNrhMynIm1tJzZ1VaIx5boZ/hJtSus1XssDBvueiWooVCzlF/YNP4zgqQVoHFc8jXJg5/ZQUjducBhRLfi30naak1A32tUpcV1aLwCuMaudieQp+UZRpZRh2bTmp7MxPxvLFgvlw5uXAzzpEUdFbLmpyTZhqxrlbC+SfRuO1mTSOOlnvjvszU/wrEl/K1sG28bU8ZcDrlwqsRloh8a6PPpl9n5L1zMLO6fXBqK1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Parav Pandit <parav@nvidia.com>, "pandit.parav@gmail.com"
-	<pandit.parav@gmail.com>, "hengqi@linux.alibaba.com"
-	<hengqi@linux.alibaba.com>, "sburla@marvell.com" <sburla@marvell.com>,
-	"si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
-	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>
-Thread-Topic: virtio-net collaboration bi-weekly
-Thread-Index: AQHZuCA20y4S8qxJwkm2F8nkQ/BidQ==
-Date: Sun, 16 Jul 2023 20:00:48 +0000
-Message-ID:
- <PH0PR12MB5481735097B736835714666ADC3AA@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <PH0PR12MB5481DBEAA12D6B22289D99E6DC4EA@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To:
- <PH0PR12MB5481DBEAA12D6B22289D99E6DC4EA@PH0PR12MB5481.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|PH7PR12MB9254:EE_
-x-ms-office365-filtering-correlation-id: f87206f2-69a1-4abd-8a25-08db8637594c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- Pk55nxM8YiOlePLFjKGiSuzbDZaER2htwmYmdfFjcYrcaLsGQ+c4q0m4evkewweuLwtX57H1f5J/NaGdJ7xu38IbLOa9PxqRuQpR4JniyMGswutlZ8ZvvIjz8zUfLweRsPEAEYs9M+l9wAVkMYbUSWi4PZHO06mWMLDfmp9wyJRjMt3SMQP1Cusg9bfswckhgfpQ/mvXdNVWmpDIziKpLN/c1+MrG4Lat6tJJgzXCS3BMOQMsp5mPslnI9vwkl8hlxhnY5YfHkjw73VhSUvAmobH0mVloLkbpEuHAe1is9hitEe39kToBeZ6IdlZjrKSzIccnw6C5Xd+CZKVPuxKT0B1R6Adk26XCYgb7vP225Io0wpP5YO/Ndk003/XGFkECVg5owzE9Wde6I7XFNIL/EbbJG1f0fece5qt2EyKXqwMJjOhz+RjPZcZbQb4KonN70mOG6v0I5HqGvD8r6xENLq4mBnOyhZfDbuyDQCD/pY20EPC4R0xW4mMBGOXqcC1qpTGCzzWsUs77zCeBLerAWMHsrQOLX7EzfRC+6PPRTaUpAUpRV8qqGYvI6ayuws13D1BIJRkIxSupQbB4shDNTXpXdugpXIHnQsrgUqZlrEHo+PbZ+qnf7xJR6yY6RNf9iOfy/UPAPKqjxtqAyJe40uAyNK+Qh5iMwGclBOHIHA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(366004)(136003)(39860400002)(346002)(376002)(451199021)(45080400002)(478600001)(71200400001)(7696005)(110136005)(186003)(53546011)(6506007)(26005)(9686003)(966005)(76116006)(2906002)(316002)(41300700001)(66946007)(66556008)(66476007)(66446008)(64756008)(5660300002)(52536014)(9326002)(8936002)(8676002)(38100700002)(166002)(122000001)(33656002)(40140700001)(86362001)(38070700005)(83380400001)(3480700007)(55016003)(84970400001)(19627405001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VmxwcXBlLzYrdDVzVFNGUDV4WnR0ckNHckZvNXVsSzI0MVp0UlB3aUJoR3NX?=
- =?utf-8?B?aGhaYWhYK0xtc2V4WjJselBzQ0JaYXNWQko0N1cwYU9DbjhwMEZLRzY1SHFj?=
- =?utf-8?B?OC9Zc0NaeDNmeEVBdmNqS2N4TG1FblNYWHQ4TWlrMUpPZzk4R1FRZ1JYaFBu?=
- =?utf-8?B?Q2c1YXRLZk5sTVJkYmtxWkpMdjB1enZHZjR4bFpBYUZ1WFMzbE1QMDJkZ3Bv?=
- =?utf-8?B?K1h0VjVIS0tEVm45WXlyT2VVN3JqMWJWS3JTSUxINjgzRG4wNW5WbDQ5MWtK?=
- =?utf-8?B?VHlnME1yZXNGM29DS0F1dGVGL2c0bTN6ZDVBUkpGZEoxMU1sZFlNYlFsaEJV?=
- =?utf-8?B?MXRXVUwzOWZNcjltSTI0Z09MTm9BWk5IYS9rMDJYMUFnT0luVDNyYmxFR05m?=
- =?utf-8?B?ekRWYlJuUmlIUW0ySHBCd2tIM2grOGFyTmVXeVhwWE9uNVdFRWxmbU5zcVE3?=
- =?utf-8?B?Z0xsZFlTVVdvakFuS3dRUm5ld3JGV2NEQmR3MU9GMjE2MW9uLzhnNkY0Q2p2?=
- =?utf-8?B?akwrdlA5VE1MZjJlNHBuRS9KRlBYVWNUSTFKOWFINDYrL2ROcXROeWNuOVV1?=
- =?utf-8?B?Nk1qQXZNZjU1U2hpTk5MS1l1Y0s1dVpYWUpydVhFOTFnU3hFSXVUeVNENlRV?=
- =?utf-8?B?M21nRUowM2NZQXF1eSs0WlNiekZ0REN1NERHTWQxOXpMR2ZKYS9PeTl2bVE5?=
- =?utf-8?B?MXpGT1FTYkNSQURIVWhhckx5VU5CNlgyUHgrSGlRMWZYbStPMU5yMWZxUkNp?=
- =?utf-8?B?NHVuRHo1U3ptRTdhWGhMVXVGQ2kxT1ZrL1FBaHIrZGo5SkVwSTlzOTRpa1JD?=
- =?utf-8?B?MUVrSFoydG15U3laVlR0Ulp2QWo1cGlUWGRwNmc3RVl2NUpMUHJOZnRxQjV3?=
- =?utf-8?B?dnBNY05VZnZZRjRXaVlRT0lkMmx6eXprcXc1WEFBT0NRZkxrWDk1d00vNzVK?=
- =?utf-8?B?dk1pRXdrRnhaVWw1UnVIWlVkVzMzVzhPV1h5U1dEQk5VVEJJb0U2aWM0K2tR?=
- =?utf-8?B?dGxzNkV3a1ZZdjBxUW4rZ3JCVUJ0eGRrRnVYSTA5THVOYUpjeUtGTFJKM2Fq?=
- =?utf-8?B?RlVuMTF2V1FMVjJ3a1Ivd0pBZmRvU21zVm80WklicksxclArS2dRTG1ONjJG?=
- =?utf-8?B?cmhPaGdEMFlDMk9ZT1doT3JFRnVidWFWbEhUdnYzTHRWZmFZaDBTdmpSQ3d2?=
- =?utf-8?B?MEhUSUJPSitXdkJ3ZTh1NTUrWWpONTBsLzRCMTd3OTlieEVoUlk3NWZWakpy?=
- =?utf-8?B?VjNSV2p2K0JkekVrY29FalBlbk1RQkdPaks5RHBCc1VtUEFVclhhWWJxOWps?=
- =?utf-8?B?aU9YMERrK2Z3MTZJNzV5bGNmMkRQVXBqbm1GS3RocTY1RHlrOGxnWTlNcmp2?=
- =?utf-8?B?UGdGVkEreU9EOG5uRDFXVlNpTkdVMmxYTDhuVWZKUzBkcnY3aVQ5TW1iQ0ZL?=
- =?utf-8?B?T3NtSHF2bjF4bEVsb3U1eitVQzlLam5nLzlYa3JjNHNKYVRBd21YV201aFpl?=
- =?utf-8?B?QU9uSmdodFRodFVKTGNKaWU5aTBoTHdNMWRQeWJGTFdPQlgxZU4zVk9jTFRR?=
- =?utf-8?B?Y3N5eC9QZnRrT3c2dUdyWmw1djU1d0dIMGlMdm52MTF4ODJmSXNzSWxzdjFr?=
- =?utf-8?B?TzVYSXdlUGNvWGExNmZwcEdVNTYra010Q2ltcE5oYlg3dy9XVVRsbGhEWTJq?=
- =?utf-8?B?MUNQYmc2dTAyd2NiNU05d21Ya1V3K3U5NEFON2FlY1B2UHRsdGgvb0dqMTBH?=
- =?utf-8?B?WDJ1ZGpMckZtdzBQM0JvNFlyUnRMZ0ZwNUYyVnJ2MGxIVzZBME9VaDBLUDlw?=
- =?utf-8?B?dFdVaTNlaDRTeElIV3h5NWJleVZaMzBISEhkYnVqREJ6MHMvUUtDWE40bU9x?=
- =?utf-8?B?R3JyaEVkVHJ1TWFZMjRXeXFLZ3BxM3h1V1A5Q05SRVRYTUV3OGhDc0czTVN1?=
- =?utf-8?B?Smg5V0FhLzNhdlZ4TGs3UjNOK3lyNlR0UTB4aGFybkw1ZVJiZy9jTXRUUlNw?=
- =?utf-8?B?R3p0TVNkZDZxKzhQN3NiZmd5NXoxUFJlb25mdll3NU5neUlhREVWdFlzNHAx?=
- =?utf-8?B?ODIzUVBpUGhuM2lpSU9pT3pwd25pZ0NVMTZnNElXcnhqWXZ1c0lDVG9VRC9y?=
- =?utf-8?Q?L2u0=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_PH0PR12MB5481735097B736835714666ADC3AAPH0PR12MB5481namp_"
+Message-ID: <e778aec9-5401-d11d-9363-f8ac2436ad76@quicinc.com>
+Date: Mon, 17 Jul 2023 22:53:41 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f87206f2-69a1-4abd-8a25-08db8637594c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2023 20:00:48.2567
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lt1qXR83B3esrJejDRX4c9VfC8r76zi55IiGo2fome2xNp93NMGSxT1MsZA97qte+YdxtSSSG4DD2fMgQeCutA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9254
-Subject: [virtio-comment] RE: virtio-net collaboration bi-weekly
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Jonathon Reinhart <jrreinhart@google.com>
+CC: Cornelia Huck <cohuck@redhat.com>, <quic_ztu@quicinc.com>,
+        <virtio-dev@lists.oasis-open.org>,
+        <virtio-comment@lists.oasis-open.org>
+References: <000000000000925c1305ff1f7c76@google.com>
+ <fd2e0d5d-a3e9-027a-bec1-d0e821ec6421@quicinc.com>
+ <CAJJa5HxA6T+xv--80aWEtGWNx=a-yfNXwNsnyz3s8praHqg6Ew@mail.gmail.com>
+ <46ab6180-c639-6da4-d6c3-dc8b87345de9@quicinc.com>
+ <CAJJa5HwV76co8n4WeeL-mcMwwL9sKVWz_Ejiv-EMWgemsGGS3w@mail.gmail.com>
+From: Haixu Cui <quic_haixcui@quicinc.com>
+In-Reply-To: <CAJJa5HwV76co8n4WeeL-mcMwwL9sKVWz_Ejiv-EMWgemsGGS3w@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-ORIG-GUID: 15o0Vi7MLedMg8p2Aty2liXkWXL-DbKi
+X-Proofpoint-GUID: 15o0Vi7MLedMg8p2Aty2liXkWXL-DbKi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-17_11,2023-07-13_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 mlxscore=0 adultscore=0 spamscore=0
+ impostorscore=0 phishscore=0 priorityscore=1501 mlxlogscore=999
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2307170136
+Subject: [virtio-comment] Re: [virtio-dev][PATCH 2/2] virtio-spi: add the device specification
 
---_000_PH0PR12MB5481735097B736835714666ADC3AAPH0PR12MB5481namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Hi Jonathon Reinhart,
+     Thank you very much for your comments.
 
-SGkgQWxsLA0KDQpJIGhhdmUgYSBkaWZmaWN1bHRseSBqb2luaW5nIHRoaXMgd2Vlay4NCkkgY291
-bGRu4oCZdCBmaW5pc2ggdGhlIHJld29yayBmb3IgdXBkYXRpbmcgYWxsIHRoZSBjb21tZW50cy4N
-Cg0KSG93ZXZlciwgd2UgbmVlZCB0byBmaW5pc2ggdGhlIHN0ZWVyaW5nIHBhcnQgdGhpcyBtb250
-aCwNCnNvLCBJIGFtIGNhbmNlbGxpbmcgZm9yIHRoaXMgd2VlaywgYW5kIGluc3RlYWQgcmVzY2hl
-ZHVsaW5nIGl0IGZvciBzYW1lIHRpbWUgd2VlayBhZnRlciBuZXh0IG9uIEp1bHkgMjYuDQoNClNv
-cnJ5IGZvciB0aGUgZGVsYXkuDQoNClJlZ2FyZHMsDQpQYXJhdiBQYW5kaXQNCg0KLS0tLS1Pcmln
-aW5hbCBBcHBvaW50bWVudC0tLS0tDQpGcm9tOiBwYXJhdkBudmlkaWEuY29tIDxwYXJhdkBudmlk
-aWEuY29tPg0KU2VudDogRnJpZGF5LCBKdW5lIDIsIDIwMjMgMTE6MDAgQU0NClRvOiBwYXJhdkBu
-dmlkaWEuY29tOyBwYW5kaXQucGFyYXZAZ21haWwuY29tOyBoZW5ncWlAbGludXguYWxpYmFiYS5j
-b207IHNidXJsYUBtYXJ2ZWxsLmNvbTsgc2ktd2VpLmxpdUBvcmFjbGUuY29tOyB2aXJ0aW8tY29t
-bWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZzsgdmlydGlvQGxpc3RzLm9hc2lzLW9wZW4ub3JnOyB4
-dWFuemh1b0BsaW51eC5hbGliYWJhLmNvbQ0KU3ViamVjdDogdmlydGlvLW5ldCBjb2xsYWJvcmF0
-aW9uIGJpLXdlZWtseQ0KV2hlbjogV2VkbmVzZGF5LCBKdWx5IDE5LCAyMDIzIDU6MDAgQU0tNTo0
-NSBBTSB0em9uZTovL01pY3Jvc29mdC9VdGMuDQpXaGVyZToNCg0KdmlydGlvLW5ldCBjb2xsYWJv
-cmF0aW9uIGJpLXdlZWtseQ0KSm9pbiB3aXRoIEdvb2dsZSBNZWV0IOKAkyBIaSBBbGwsVGhpcyBp
-cyBhIGJpLXdlZWtseSBjb2xsYWJvcmF0aW9uIG1lZXRpbmcgZm9yIHZpcnRpbyBuZXQgc3BlY2lm
-aWNhdGlvbiBkZXZlbG9wZXJzLlRoaXMgd2VlayBhZ2VuZGE6MS4gRGlzY3VzcyB2aXJ0aW8gbmV0
-IDEuNCBmZWF0dXJlIHJlcXVpcmVtZW50cyBwb3N0ZWQgYXQgWzFdIGFuZCBhbnkgb3RoZXJzLmh0
-dHBzOi8vbGlzdHMub2FzaQ0KDQoNCkpvaW4gd2l0aCBHb29nbGUgTWVldDxodHRwczovL21lZXQu
-Z29vZ2xlLmNvbS9na2otcmF3aS11ZnA/aHM9MjI0Pg0KTWVldGluZyBsaW5rDQptZWV0Lmdvb2ds
-ZS5jb20vZ2tqLXJhd2ktdWZwPGh0dHBzOi8vbWVldC5nb29nbGUuY29tL2drai1yYXdpLXVmcD9o
-cz0yMjQ+DQpKb2luIGJ5IHBob25lDQooVVMpICsxIDk3OC00MDMtMDU4NDx0ZWw6KzEtOTc4LTQw
-My0wNTg0JTNCNzU2OTY5NzY0JTIzPg0KUElOOiA3NTY5Njk3NjQNCg0KTW9yZSBwaG9uZSBudW1i
-ZXJzPGh0dHBzOi8vdGVsLm1lZXQvZ2tqLXJhd2ktdWZwP3Bpbj03NTczNjgwNzgzMzI2JmhzPTA+
-DQpIaSBBbGwsDQoNClRoaXMgaXMgYSBiaS13ZWVrbHkgY29sbGFib3JhdGlvbiBtZWV0aW5nIGZv
-ciB2aXJ0aW8gbmV0IHNwZWNpZmljYXRpb24gZGV2ZWxvcGVycy4NCg0KVGhpcyB3ZWVrIGFnZW5k
-YToNCjEuIERpc2N1c3MgdmlydGlvIG5ldCAxLjQgZmVhdHVyZSByZXF1aXJlbWVudHMgcG9zdGVk
-IGF0IFsxXSBhbmQgYW55IG90aGVycy4NCmh0dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5vcmcvYXJj
-aGl2ZXMvdmlydGlvLWNvbW1lbnQvMjAyMzA2L21zZzAwMDE1Lmh0bWw8aHR0cHM6Ly93d3cuZ29v
-Z2xlLmNvbS91cmw/cT1odHRwcyUzQSUyRiUyRmxpc3RzLm9hc2lzLW9wZW4ub3JnJTJGYXJjaGl2
-ZXMlMkZ2aXJ0aW8tY29tbWVudCUyRjIwMjMwNiUyRm1zZzAwMDE1Lmh0bWwmc2E9RCZ1c3Q9MTY4
-NjE0OTk0MDAwMDAwMCZ1c2c9QU92VmF3MGhwMmJzWEw0RmZQX2lPLUVMNHlXbD4NCg0KMi4gaW5u
-ZXIgaGFzaCBvcGVuDQoNCi0tLS0tLS0NCmEuIEFsbCBkZWNpc2lvbnMgYXJlIHN0aWxsIG1hZGUg
-YnkgVEMgZWxlY3Ryb25pYyBiYWxsb3QgYXN1c3VhbC4gUHJvcG9zZWQgY29sbGFib3JhdGlvbiBt
-ZWV0aW5nc2FyZSB1bnJlbGF0ZWQgdG8gVEMgYmFsbG90Lg0KYi4gQWxsIGRpc2N1c3Npb25zIGZv
-bGxvdyBPQVNJUyBmZWVkYmFjayBsaWNlbnNlLiBodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9w
-b2xpY2llcy1ndWlkZWxpbmVzL2lwci8jYXBwZW5kaXhhPGh0dHBzOi8vd3d3Lmdvb2dsZS5jb20v
-dXJsP3E9aHR0cHMlM0ElMkYlMkZ3d3cub2FzaXMtb3Blbi5vcmclMkZwb2xpY2llcy1ndWlkZWxp
-bmVzJTJGaXByJTJGJTIzYXBwZW5kaXhhJnNhPUQmdXN0PTE2ODYxNDk5NDAwMDAwMDAmdXNnPUFP
-dlZhdzJDLVFPY1dQaEVRU2h0bk5IdXU0YzE+DQpXaGVuDQpFdmVyeSAyIHdlZWtzIGZyb20gMTJh
-bSB0byAxMjo0NWFtIG9uIFdlZG5lc2RheSAoQ2VudHJhbCBUaW1lIC0gQ2hpY2FnbykNCkd1ZXN0
-cw0KcGFyYXZAbnZpZGlhLmNvbTxtYWlsdG86cGFyYXZAbnZpZGlhLmNvbT4gLSBvcmdhbml6ZXIN
-CnBhbmRpdC5wYXJhdkBnbWFpbC5jb208bWFpbHRvOnBhbmRpdC5wYXJhdkBnbWFpbC5jb20+DQpo
-ZW5ncWlAbGludXguYWxpYmFiYS5jb208bWFpbHRvOmhlbmdxaUBsaW51eC5hbGliYWJhLmNvbT4N
-CnNidXJsYUBtYXJ2ZWxsLmNvbTxtYWlsdG86c2J1cmxhQG1hcnZlbGwuY29tPg0Kc2ktd2VpLmxp
-dUBvcmFjbGUuY29tPG1haWx0bzpzaS13ZWkubGl1QG9yYWNsZS5jb20+DQp2aXJ0aW8tY29tbWVu
-dEBsaXN0cy5vYXNpcy1vcGVuLm9yZzxtYWlsdG86dmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMt
-b3Blbi5vcmc+DQp2aXJ0aW9AbGlzdHMub2FzaXMtb3Blbi5vcmc8bWFpbHRvOnZpcnRpb0BsaXN0
-cy5vYXNpcy1vcGVuLm9yZz4NCnh1YW56aHVvQGxpbnV4LmFsaWJhYmEuY29tPG1haWx0bzp4dWFu
-emh1b0BsaW51eC5hbGliYWJhLmNvbT4NClZpZXcgYWxsIGd1ZXN0IGluZm88aHR0cHM6Ly9jYWxl
-bmRhci5nb29nbGUuY29tL2NhbGVuZGFyL2V2ZW50P2FjdGlvbj1WSUVXJmVpZD1OM0kxTVdkaU5q
-QnNhblkxTVRKd04yZHVkREYwWm1KdWFXWWdkbWx5ZEdsdkxXTnZiVzFsYm5SQWJHbHpkSE11YjJG
-emFYTXRiM0JsYmk1dmNtYyZ0b2s9TVRZamNHRnlZWFpBYm5acFpHbGhMbU52YldSbVlUQmlNemt6
-TnpNeU9USXpaamcwTW1VeE16aGxZakZoTkRWaE5EZ3lObUk0WVRoa1pqayZjdHo9QW1lcmljYSUy
-RkNoaWNhZ28maGw9ZW4mZXM9MD4NClJTVlAgZm9yIHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lz
-LW9wZW4ub3JnPG1haWx0bzp2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZz4gZm9y
-IGFsbCBldmVudHMgaW4gdGhpcyBzZXJpZXMNClllczxodHRwczovL2NhbGVuZGFyLmdvb2dsZS5j
-b20vY2FsZW5kYXIvZXZlbnQ/YWN0aW9uPVJFU1BPTkQmZWlkPU4zSTFNV2RpTmpCc2FuWTFNVEp3
-TjJkdWRERjBabUp1YVdZZ2RtbHlkR2x2TFdOdmJXMWxiblJBYkdsemRITXViMkZ6YVhNdGIzQmxi
-aTV2Y21jJnJzdD0xJnRvaz1NVFlqY0dGeVlYWkFiblpwWkdsaExtTnZiV1JtWVRCaU16a3pOek15
-T1RJelpqZzBNbVV4TXpobFlqRmhORFZoTkRneU5tSTRZVGhrWmprJmN0ej1BbWVyaWNhJTJGQ2hp
-Y2FnbyZobD1lbiZlcz0wPg0KTm88aHR0cHM6Ly9jYWxlbmRhci5nb29nbGUuY29tL2NhbGVuZGFy
-L2V2ZW50P2FjdGlvbj1SRVNQT05EJmVpZD1OM0kxTVdkaU5qQnNhblkxTVRKd04yZHVkREYwWm1K
-dWFXWWdkbWx5ZEdsdkxXTnZiVzFsYm5SQWJHbHpkSE11YjJGemFYTXRiM0JsYmk1dmNtYyZyc3Q9
-MiZ0b2s9TVRZamNHRnlZWFpBYm5acFpHbGhMbU52YldSbVlUQmlNemt6TnpNeU9USXpaamcwTW1V
-eE16aGxZakZoTkRWaE5EZ3lObUk0WVRoa1pqayZjdHo9QW1lcmljYSUyRkNoaWNhZ28maGw9ZW4m
-ZXM9MD4NCk1heWJlPGh0dHBzOi8vY2FsZW5kYXIuZ29vZ2xlLmNvbS9jYWxlbmRhci9ldmVudD9h
-Y3Rpb249UkVTUE9ORCZlaWQ9TjNJMU1XZGlOakJzYW5ZMU1USndOMmR1ZERGMFptSnVhV1lnZG1s
-eWRHbHZMV052YlcxbGJuUkFiR2x6ZEhNdWIyRnphWE10YjNCbGJpNXZjbWMmcnN0PTMmdG9rPU1U
-WWpjR0Z5WVhaQWJuWnBaR2xoTG1OdmJXUm1ZVEJpTXprek56TXlPVEl6WmpnME1tVXhNemhsWWpG
-aE5EVmhORGd5Tm1JNFlUaGtaamsmY3R6PUFtZXJpY2ElMkZDaGljYWdvJmhsPWVuJmVzPTA+DQoN
-Ck1vcmUgb3B0aW9uczxodHRwczovL2NhbGVuZGFyLmdvb2dsZS5jb20vY2FsZW5kYXIvZXZlbnQ/
-YWN0aW9uPVZJRVcmZWlkPU4zSTFNV2RpTmpCc2FuWTFNVEp3TjJkdWRERjBabUp1YVdZZ2RtbHlk
-R2x2TFdOdmJXMWxiblJBYkdsemRITXViMkZ6YVhNdGIzQmxiaTV2Y21jJnRvaz1NVFlqY0dGeVlY
-WkFiblpwWkdsaExtTnZiV1JtWVRCaU16a3pOek15T1RJelpqZzBNbVV4TXpobFlqRmhORFZoTkRn
-eU5tSTRZVGhrWmprJmN0ej1BbWVyaWNhJTJGQ2hpY2FnbyZobD1lbiZlcz0wPg0KDQoNCkludml0
-YXRpb24gZnJvbSBHb29nbGUgQ2FsZW5kYXI8aHR0cHM6Ly9jYWxlbmRhci5nb29nbGUuY29tL2Nh
-bGVuZGFyLz4NCg0KWW91IGFyZSByZWNlaXZpbmcgdGhpcyBlbWFpbCBiZWNhdXNlIHlvdSBhcmUg
-YW4gYXR0ZW5kZWUgb24gdGhlIGV2ZW50LiBUbyBzdG9wIHJlY2VpdmluZyBmdXR1cmUgdXBkYXRl
-cyBmb3IgdGhpcyBldmVudCwgZGVjbGluZSB0aGlzIGV2ZW50Lg0KDQpGb3J3YXJkaW5nIHRoaXMg
-aW52aXRhdGlvbiBjb3VsZCBhbGxvdyBhbnkgcmVjaXBpZW50IHRvIHNlbmQgYSByZXNwb25zZSB0
-byB0aGUgb3JnYW5pemVyLCBiZSBhZGRlZCB0byB0aGUgZ3Vlc3QgbGlzdCwgaW52aXRlIG90aGVy
-cyByZWdhcmRsZXNzIG9mIHRoZWlyIG93biBpbnZpdGF0aW9uIHN0YXR1cywgb3IgbW9kaWZ5IHlv
-dXIgUlNWUC4gTGVhcm4gbW9yZTxodHRwczovL3N1cHBvcnQuZ29vZ2xlLmNvbS9jYWxlbmRhci9h
-bnN3ZXIvMzcxMzUjZm9yd2FyZGluZz4NCg0K
+On 7/11/2023 12:42 AM, Jonathon Reinhart wrote:
+> On Fri, Jul 7, 2023 at 3:21 AM Haixu Cui <quic_haixcui@quicinc.com> wrote:
+>>
+>> Hi Jonathon Reinhart,
+>>
+>>       Thank you so much for all your helpful advice and info!
+>>
+>>       I took a look at latest Linux SPI driver and found, for
+>> cs_setup/cs_hold/cs_inactive set in device-tree, there are following two
+>> conditions:
+>>       1) if SPI controller supports CS timing configuration and CS is not
+>> using a GPIO line, then the SPI driver set the
+>> cs_setup/cs_hold/ca_inactive values into the corresponding SPI CS registers;
+>>       2) if CS is using a GPIO line, or SPI controller doesn't support CS
+>> timing configuration, it is the software to perform the
+>> cs_setup/cs_hold/cs_inactive delays, which is implemented in function
+>> spi_set_cs in driver/spi/spi.c.
+>>
+>>       So I agree it is necessary to pass cs_setup/cs_hold/cs_inactive to
+>> the host for each transfer.
+>>
+>>       For condition 1, host should set these values into the CS timing
+>> registers. And as you mentioned "one might require different CS
+>> setup/hold times, depending on which slave_id they are talking to (on
+>> the same bus)", if so, host need to overwrite the CS timing registers
+>> between the two transfers talking to different salve_id.
+>>
+>>       For condition 2, SPI driver running in the host performing the
+>> cs_setup/cs_hold/cs_inactive delays seems more accurate, compared with
+>> performing delays in guest.
+>>
+>>
+>>       And the latest virtio spi transfer structure is defined as follows:
+>>
+>>        struct spi_transfer_head {
+>>           u8 slave_id;
+>>           u8 bits_per_word;
+>>           u8 cs_change;
+>>           u8 tx_nbits;
+>>          u8 rx_nbits;
+>>          u8 reserved[3];
+>>           u32 mode;
+>>           u32 freq;
+>>           u32 word_delay_ns;
+>>           u32 delay_ns;
+>>           u32 cs_change_delay_ns;
+>>           u32 cs_setup_ns;
+>>           u32 cs_hold_ns;
+>>           u32 cs_inactive_ns;
+>>        };
+>>
+> 
+> Hello Haixu Cui,
+> 
+> I think there may be some unnecessary redundancy in these fields. See below.
+> 
+>>        @slave_id: chipselect index the SPI transfer used
+>>        @bits_per_word: the number of bits in each SPI transfer word
+>>        @cs_change: True to deselect device before starting the next transfer
+>>        @tx_nbits: number of bits used for writing
+>>        @rx_nbits: number of bits used for reading
+>>        @reserved: reserved for future use
+>>        @mode: the spi mode defines how data is clocked out and in
+>>        @freq: transfer speed
+>>        @word_delay_ns: delay to be inserted between consecutive words of
+>> a transfer, in ns unit
+>>        @cs_setup_ns: delay to be introduced by the controller after CS is
+>> asserted, in ns unit
+> 
+> (I am reordering these in my quoted text to be grouped appropriately.)
+> 
+>>        @delay_ns: delay to be introduced after this transfer before
+>> (optionally) changing the chipselect status, in ns unit
+>>        @cs_hold_ns: delay to be introduced by the controller before CS is
+>> deasserted, in ns unit
+> 
+> Aren't @delay_ns and @cs_hold_ns specifying the same thing?
 
---_000_PH0PR12MB5481735097B736835714666ADC3AAPH0PR12MB5481namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+I think they are not the same thing, delay_ns is the spi transfer 
+property while cs_hold_ns is the spi device property， although they take 
+effect at the same stage.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
-YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
-IDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpSb2JvdG87fQ0KLyogU3R5bGUgRGVmaW5p
-dGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFy
-Z2luOjBpbjsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5z
-LXNlcmlmO30NCmgyDQoJe21zby1zdHlsZS1wcmlvcml0eTo5Ow0KCW1zby1zdHlsZS1saW5rOiJI
-ZWFkaW5nIDIgQ2hhciI7DQoJbXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFyZ2luLXJpZ2h0
-OjBpbjsNCgltc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVmdDowaW47DQoJ
-Zm9udC1zaXplOjE4LjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCglm
-b250LXdlaWdodDpib2xkO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxl
-LXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
-DQpzcGFuLnByaW1hcnktYnV0dG9uLXRleHQxDQoJe21zby1zdHlsZS1uYW1lOnByaW1hcnktYnV0
-dG9uLXRleHQxOw0KCWNvbG9yOndoaXRlO30NCnNwYW4uSGVhZGluZzJDaGFyDQoJe21zby1zdHls
-ZS1uYW1lOiJIZWFkaW5nIDIgQ2hhciI7DQoJbXNvLXN0eWxlLXByaW9yaXR5Ojk7DQoJbXNvLXN0
-eWxlLWxpbms6IkhlYWRpbmcgMiI7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkgTGlnaHQiLHNhbnMt
-c2VyaWY7DQoJY29sb3I6IzJGNTQ5Njt9DQpzcGFuLnNlY29uZGFyeS10ZXh0MQ0KCXttc28tc3R5
-bGUtbmFtZTpzZWNvbmRhcnktdGV4dDE7DQoJY29sb3I6IzcwNzU3QTt9DQpzcGFuLm5vdHJhbnNs
-YXRlDQoJe21zby1zdHlsZS1uYW1lOm5vdHJhbnNsYXRlO30NCnNwYW4uZ3JleS1idXR0b24tdGV4
-dDENCgl7bXNvLXN0eWxlLW5hbWU6Z3JleS1idXR0b24tdGV4dDE7DQoJY29sb3I6IzVGNjM2ODt9
-DQpzcGFuLkVtYWlsU3R5bGU0NQ0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglm
-b250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCi5N
-c29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZTox
-MC4wcHQ7DQoJbXNvLWxpZ2F0dXJlczpub25lO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXpl
-OjguNWluIDExLjBpbjsNCgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2Lldv
-cmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3Rl
-IG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAy
-NiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hh
-cGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+
-DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5n
-PSJFTi1VUyIgbGluaz0iYmx1ZSIgdmxpbms9InB1cnBsZSIgc3R5bGU9IndvcmQtd3JhcDpicmVh
-ay13b3JkIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij5IaSBBbGwsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNw
-OzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkkgaGF2ZSBhIGRpZmZpY3VsdGx5IGpv
-aW5pbmcgdGhpcyB3ZWVrLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+SSBj
-b3VsZG7igJl0IGZpbmlzaCB0aGUgcmV3b3JrIGZvciB1cGRhdGluZyBhbGwgdGhlIGNvbW1lbnRz
-LjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48
-L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5Ib3dldmVyLCB3ZSBuZWVkIHRvIGZpbmlzaCB0aGUg
-c3RlZXJpbmcgcGFydCB0aGlzIG1vbnRoLCA8bzpwPg0KPC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+c28sIEkgYW0gY2FuY2VsbGluZyBmb3IgdGhpcyB3ZWVrLCBhbmQgaW5zdGVhZCBy
-ZXNjaGVkdWxpbmcgaXQgZm9yIHNhbWUgdGltZSB3ZWVrIGFmdGVyIG5leHQgb24gSnVseSAyNi48
-bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+U29ycnkgZm9yIHRoZSBkZWxheS48bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCI+UmVnYXJkcyw8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PlBhcmF2IFBhbmRpdDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4m
-bmJzcDs8L286cD48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xp
-ZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQiPg0KPGRpdj4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPi0tLS0tT3JpZ2luYWwgQXBwb2ludG1lbnQtLS0tLTxicj4NCjxiPkZyb206
-PC9iPiBwYXJhdkBudmlkaWEuY29tICZsdDtwYXJhdkBudmlkaWEuY29tJmd0OyA8YnI+DQo8Yj5T
-ZW50OjwvYj4gRnJpZGF5LCBKdW5lIDIsIDIwMjMgMTE6MDAgQU08YnI+DQo8Yj5Ubzo8L2I+IHBh
-cmF2QG52aWRpYS5jb207IHBhbmRpdC5wYXJhdkBnbWFpbC5jb207IGhlbmdxaUBsaW51eC5hbGli
-YWJhLmNvbTsgc2J1cmxhQG1hcnZlbGwuY29tOyBzaS13ZWkubGl1QG9yYWNsZS5jb207IHZpcnRp
-by1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnOyB2aXJ0aW9AbGlzdHMub2FzaXMtb3Blbi5v
-cmc7IHh1YW56aHVvQGxpbnV4LmFsaWJhYmEuY29tPGJyPg0KPGI+U3ViamVjdDo8L2I+IHZpcnRp
-by1uZXQgY29sbGFib3JhdGlvbiBiaS13ZWVrbHk8YnI+DQo8Yj5XaGVuOjwvYj4gV2VkbmVzZGF5
-LCBKdWx5IDE5LCAyMDIzIDU6MDAgQU0tNTo0NSBBTSB0em9uZTovL01pY3Jvc29mdC9VdGMuPGJy
-Pg0KPGI+V2hlcmU6PC9iPiA8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjEuMHB0O2ZvbnQtZmFtaWx5OlJvYm90bztjb2xvcjp3aGl0ZSI+dmly
-dGlvLW5ldCBjb2xsYWJvcmF0aW9uIGJpLXdlZWtseTwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1m
-YW1pbHk6Um9ib3RvIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCIgc3R5bGU9Im1zby1saW5lLWhlaWdodC1hbHQ6Ljc1cHQiPjxzcGFuIHN0eWxlPSJm
-b250LXNpemU6MS4wcHQ7Zm9udC1mYW1pbHk6Um9ib3RvO2NvbG9yOndoaXRlIj5Kb2luIHdpdGgg
-R29vZ2xlIE1lZXQg4oCTIEhpIEFsbCxUaGlzIGlzIGEgYmktd2Vla2x5IGNvbGxhYm9yYXRpb24g
-bWVldGluZyBmb3IgdmlydGlvIG5ldCBzcGVjaWZpY2F0aW9uIGRldmVsb3BlcnMuVGhpcyB3ZWVr
-IGFnZW5kYToxLiBEaXNjdXNzDQogdmlydGlvIG5ldCAxLjQgZmVhdHVyZSByZXF1aXJlbWVudHMg
-cG9zdGVkIGF0IFsxXSBhbmQgYW55IG90aGVycy5odHRwczovL2xpc3RzLm9hc2k8bzpwPjwvbzpw
-Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXYgYWxpZ249ImNlbnRlciI+DQo8dGFibGUgY2xhc3M9
-Ik1zb05vcm1hbFRhYmxlIiBib3JkZXI9IjAiIGNlbGxzcGFjaW5nPSIwIiBjZWxscGFkZGluZz0i
-MCIgd2lkdGg9IjEwMCUiIHN0eWxlPSJ3aWR0aDoxMDAuMCUiPg0KPHRib2R5Pg0KPHRyPg0KPHRk
-IHN0eWxlPSJwYWRkaW5nOjBpbiAxMi4wcHQgMGluIDEyLjBwdCI+DQo8dGFibGUgY2xhc3M9Ik1z
-b05vcm1hbFRhYmxlIiBib3JkZXI9IjAiIGNlbGxzcGFjaW5nPSIwIiBjZWxscGFkZGluZz0iMCI+
-DQo8dGJvZHk+DQo8dHIgc3R5bGU9ImhlaWdodDoxMi4wcHQiPg0KPHRkIHN0eWxlPSJwYWRkaW5n
-OjBpbiAwaW4gMGluIDBpbjtoZWlnaHQ6MTIuMHB0Ij4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
-bWFsIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Um9ib3RvIj4mbmJzcDsgPG86cD48L286cD48
-L3NwYW4+PC9wPg0KPC9kaXY+DQo8L3RkPg0KPC90cj4NCjwvdGJvZHk+DQo8L3RhYmxlPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OlJvYm90byI+PG86cD4m
-bmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBhbGlnbj0iY2VudGVyIj4NCjx0YWJsZSBjbGFz
-cz0iTXNvTm9ybWFsVGFibGUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5n
-PSIwIiB3aWR0aD0iMTAwJSIgc3R5bGU9IndpZHRoOjEwMC4wJSI+DQo8dGJvZHk+DQo8dHI+DQo8
-dGQgdmFsaWduPSJ0b3AiIHN0eWxlPSJib3JkZXI6c29saWQgI0RBRENFMCAxLjBwdDtwYWRkaW5n
-Oi4yNWluIDI0LjBwdCAuMjVpbiAyNC4wcHQ7Ym9yZGVyLXJhZGl1czogOHB4Ij4NCjxkaXYgYWxp
-Z249ImxlZnQiPg0KPHRhYmxlIGNsYXNzPSJNc29Ob3JtYWxUYWJsZSIgZGlyPSJydGwiIGJvcmRl
-cj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIiBzdHlsZT0iYm9yZGVyLXJhZGl1
-czogOHB4Ij4NCjx0Ym9keT4NCjx0cj4NCjx0ZCB3aWR0aD0iMzclIiB2YWxpZ249InRvcCIgc3R5
-bGU9IndpZHRoOjM3LjAlO3BhZGRpbmc6MGluIDBpbiAwaW4gMGluIj4NCjx0YWJsZSBjbGFzcz0i
-TXNvTm9ybWFsVGFibGUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIw
-IiB3aWR0aD0iMTAwJSIgc3R5bGU9IndpZHRoOjEwMC4wJSI+DQo8dGJvZHk+DQo8dHI+DQo8dGQg
-dmFsaWduPSJ0b3AiIHN0eWxlPSJwYWRkaW5nOjBpbiAwaW4gMGluIDBpbjtkaXNwbGF5OmlubGlu
-ZS1ibG9jayI+DQo8dGFibGUgY2xhc3M9Ik1zb05vcm1hbFRhYmxlIiBib3JkZXI9IjAiIGNlbGxz
-cGFjaW5nPSIwIiBjZWxscGFkZGluZz0iMCIgd2lkdGg9IjEwMCUiIHN0eWxlPSJ3aWR0aDoxMDAu
-MCUiPg0KPHRib2R5Pg0KPHRyPg0KPHRkIHN0eWxlPSJwYWRkaW5nOjBpbiAwaW4gMjEuMHB0IDBp
-biI+DQo8dGFibGUgY2xhc3M9Ik1zb05vcm1hbFRhYmxlIiBib3JkZXI9IjAiIGNlbGxzcGFjaW5n
-PSIwIiBjZWxscGFkZGluZz0iMCIgc3R5bGU9IndvcmQtYnJlYWs6YnJlYWstd29yZCI+DQo8dGJv
-ZHk+DQo8dHI+DQo8dGQgc3R5bGU9ImJhY2tncm91bmQ6IzFBNzNFODtwYWRkaW5nOjcuNXB0IDE4
-Ljc1cHQgNy41cHQgMTguNzVwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBhbGlnbj0iY2VudGVy
-IiBzdHlsZT0idGV4dC1hbGlnbjpjZW50ZXIiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpSb2Jv
-dG87Y29sb3I6YmxhY2siPjxhIGhyZWY9Imh0dHBzOi8vbWVldC5nb29nbGUuY29tL2drai1yYXdp
-LXVmcD9ocz0yMjQiIHRhcmdldD0iX2JsYW5rIj48c3BhbiBjbGFzcz0icHJpbWFyeS1idXR0b24t
-dGV4dDEiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2xldHRlci1zcGFjaW5nOi4y
-cHQ7dGV4dC1kZWNvcmF0aW9uOm5vbmUiPkpvaW4NCiB3aXRoIEdvb2dsZSBNZWV0PC9zcGFuPjwv
-Yj48L3NwYW4+PC9hPjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Um9ib3RvIj48bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8L3RkPg0KPC90cj4NCjwvdGJvZHk+DQo8L3RhYmxlPg0KPC90
-ZD4NCjwvdHI+DQo8dHI+DQo8dGQgc3R5bGU9InBhZGRpbmc6MGluIDBpbiAuMjVpbiAwaW47d29y
-ZC1icmVhazpicmVhay13b3JkIj4NCjx0YWJsZSBjbGFzcz0iTXNvTm9ybWFsVGFibGUiIGJvcmRl
-cj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIj4NCjx0Ym9keT4NCjx0cj4NCjx0
-ZCBzdHlsZT0icGFkZGluZzowaW4gMGluIDMuMHB0IDBpbiI+DQo8aDIgc3R5bGU9Im1hcmdpbjow
-aW47LXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQiPjxzcGFuIHN0eWxlPSJmb250
-LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OlJvYm90bztjb2xvcjojM0M0MDQzIj5NZWV0aW5nIGxp
-bms8bzpwPjwvbzpwPjwvc3Bhbj48L2gyPg0KPC90ZD4NCjwvdHI+DQo8L3Rib2R5Pg0KPC90YWJs
-ZT4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibGluZS1oZWlnaHQ6MTUuMHB0
-O21zby1saW5lLWhlaWdodC1ydWxlOmV4YWN0bHkiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAu
-NXB0O2ZvbnQtZmFtaWx5OlJvYm90byI+PGEgaHJlZj0iaHR0cHM6Ly9tZWV0Lmdvb2dsZS5jb20v
-Z2tqLXJhd2ktdWZwP2hzPTIyNCI+PHNwYW4gc3R5bGU9ImNvbG9yOiM3MDc1N0E7dGV4dC1kZWNv
-cmF0aW9uOm5vbmUiPm1lZXQuZ29vZ2xlLmNvbS9na2otcmF3aS11ZnA8L3NwYW4+PC9hPjxvOnA+
-PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC90ZD4NCjwvdHI+DQo8dHI+DQo8dGQgc3R5bGU9
-InBhZGRpbmc6MGluIDBpbiAuMjVpbiAwaW47d29yZC1icmVhazpicmVhay13b3JkIj4NCjx0YWJs
-ZSBjbGFzcz0iTXNvTm9ybWFsVGFibGUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxw
-YWRkaW5nPSIwIj4NCjx0Ym9keT4NCjx0cj4NCjx0ZCBzdHlsZT0icGFkZGluZzowaW4gMGluIDMu
-MHB0IDBpbiI+DQo8aDIgc3R5bGU9Im1hcmdpbjowaW47LXdlYmtpdC1mb250LXNtb290aGluZzog
-YW50aWFsaWFzZWQiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OlJv
-Ym90bztjb2xvcjojM0M0MDQzIj5Kb2luIGJ5IHBob25lPG86cD48L286cD48L3NwYW4+PC9oMj4N
-CjwvdGQ+DQo8L3RyPg0KPC90Ym9keT4NCjwvdGFibGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0ibGluZS1oZWlnaHQ6MTUuMHB0O21zby1saW5lLWhlaWdodC1ydWxlOmV4YWN0bHkiPjxz
-cGFuIGNsYXNzPSJzZWNvbmRhcnktdGV4dDEiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0
-O2ZvbnQtZmFtaWx5OlJvYm90byI+KFVTKQ0KPC9zcGFuPjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9u
-dC1zaXplOjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG8iPjxhIGhyZWY9InRlbDorMS05NzgtNDAz
-LTA1ODQlM0I3NTY5Njk3NjQlMjMiIHRhcmdldD0iX2JsYW5rIj48c3BhbiBzdHlsZT0iY29sb3I6
-IzFBNzNFODt0ZXh0LWRlY29yYXRpb246bm9uZSI+KzEgOTc4LTQwMy0wNTg0PC9zcGFuPjwvYT4N
-Cjxicj4NCjxzcGFuIGNsYXNzPSJzZWNvbmRhcnktdGV4dDEiPlBJTjogNzU2OTY5NzY0PC9zcGFu
-Pjxicj4NCjxicj4NCjxhIGhyZWY9Imh0dHBzOi8vdGVsLm1lZXQvZ2tqLXJhd2ktdWZwP3Bpbj03
-NTczNjgwNzgzMzI2JmFtcDtocz0wIiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gc3R5bGU9ImNvbG9y
-OiMxQTczRTg7dGV4dC1kZWNvcmF0aW9uOm5vbmUiPk1vcmUgcGhvbmUgbnVtYmVyczwvc3Bhbj48
-L2E+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC90ZD4NCjwvdHI+DQo8L3Rib2R5Pg0KPC90YWJs
-ZT4NCjwvdGQ+DQo8L3RyPg0KPC90Ym9keT4NCjwvdGFibGU+DQo8L3RkPg0KPHRkIHdpZHRoPSI2
-MyUiIHZhbGlnbj0idG9wIiBzdHlsZT0id2lkdGg6NjMuMCU7cGFkZGluZzowaW4gMjQuMHB0IDBp
-biAwaW47d29yZC1icmVhazpicmVhay13b3JkIj4NCjx0YWJsZSBjbGFzcz0iTXNvTm9ybWFsVGFi
-bGUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIiB3aWR0aD0iMTAw
-JSIgc3R5bGU9IndpZHRoOjEwMC4wJSI+DQo8dGJvZHk+DQo8dHI+DQo8dGQgdmFsaWduPSJ0b3Ai
-IHN0eWxlPSJwYWRkaW5nOjBpbiAwaW4gMGluIDBpbiI+DQo8dGFibGUgY2xhc3M9Ik1zb05vcm1h
-bFRhYmxlIiBib3JkZXI9IjAiIGNlbGxzcGFjaW5nPSIwIiBjZWxscGFkZGluZz0iMCIgd2lkdGg9
-IjEwMCUiIHN0eWxlPSJ3aWR0aDoxMDAuMCUiPg0KPHRib2R5Pg0KPHRyPg0KPHRkIHN0eWxlPSJw
-YWRkaW5nOjBpbiAwaW4gLjI1aW4gMGluIj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0ibGluZS1oZWlnaHQ6MTUuMHB0Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtm
-b250LWZhbWlseTpSb2JvdG87Y29sb3I6IzNDNDA0MztsZXR0ZXItc3BhY2luZzouMTVwdCI+SGkg
-QWxsLDxicj4NCjxicj4NClRoaXMgaXMgYSBiaS13ZWVrbHkgY29sbGFib3JhdGlvbiBtZWV0aW5n
-IGZvciB2aXJ0aW8gbmV0IHNwZWNpZmljYXRpb24gZGV2ZWxvcGVycy48YnI+DQo8YnI+DQpUaGlz
-IHdlZWsgYWdlbmRhOjxicj4NCjEuIERpc2N1c3MgdmlydGlvIG5ldCAxLjQgZmVhdHVyZSByZXF1
-aXJlbWVudHMgcG9zdGVkIGF0IFsxXSBhbmQgYW55IG90aGVycy48YnI+DQo8YSBocmVmPSJodHRw
-czovL3d3dy5nb29nbGUuY29tL3VybD9xPWh0dHBzJTNBJTJGJTJGbGlzdHMub2FzaXMtb3Blbi5v
-cmclMkZhcmNoaXZlcyUyRnZpcnRpby1jb21tZW50JTJGMjAyMzA2JTJGbXNnMDAwMTUuaHRtbCZh
-bXA7c2E9RCZhbXA7dXN0PTE2ODYxNDk5NDAwMDAwMDAmYW1wO3VzZz1BT3ZWYXcwaHAyYnNYTDRG
-ZlBfaU8tRUw0eVdsIiB0YXJnZXQ9Il9ibGFuayI+aHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9y
-Zy9hcmNoaXZlcy92aXJ0aW8tY29tbWVudC8yMDIzMDYvbXNnMDAwMTUuaHRtbDwvYT48YnI+DQom
-bmJzcDs8YnI+DQoyLiBpbm5lciBoYXNoIG9wZW48YnI+DQombmJzcDs8YnI+DQotLS0tLS0tPGJy
-Pg0KYS4gQWxsIGRlY2lzaW9ucyBhcmUgc3RpbGwgbWFkZSBieSBUQyBlbGVjdHJvbmljIGJhbGxv
-dCBhc3VzdWFsLiBQcm9wb3NlZCBjb2xsYWJvcmF0aW9uIG1lZXRpbmdzYXJlIHVucmVsYXRlZCB0
-byBUQyBiYWxsb3QuPGJyPg0KYi4gQWxsIGRpc2N1c3Npb25zIGZvbGxvdyBPQVNJUyBmZWVkYmFj
-ayBsaWNlbnNlLiA8YSBocmVmPSJodHRwczovL3d3dy5nb29nbGUuY29tL3VybD9xPWh0dHBzJTNB
-JTJGJTJGd3d3Lm9hc2lzLW9wZW4ub3JnJTJGcG9saWNpZXMtZ3VpZGVsaW5lcyUyRmlwciUyRiUy
-M2FwcGVuZGl4YSZhbXA7c2E9RCZhbXA7dXN0PTE2ODYxNDk5NDAwMDAwMDAmYW1wO3VzZz1BT3ZW
-YXcyQy1RT2NXUGhFUVNodG5OSHV1NGMxIiB0YXJnZXQ9Il9ibGFuayI+DQpodHRwczovL3d3dy5v
-YXNpcy1vcGVuLm9yZy9wb2xpY2llcy1ndWlkZWxpbmVzL2lwci8jYXBwZW5kaXhhPC9hPjxvOnA+
-PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC90ZD4NCjwvdHI+DQo8dHI+DQo8dGQgc3R5bGU9
-InBhZGRpbmc6MGluIDBpbiAuMjVpbiAwaW47d29yZC1icmVhazpicmVhay13b3JkIj4NCjx0YWJs
-ZSBjbGFzcz0iTXNvTm9ybWFsVGFibGUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxw
-YWRkaW5nPSIwIj4NCjx0Ym9keT4NCjx0cj4NCjx0ZCBzdHlsZT0icGFkZGluZzowaW4gMGluIDMu
-MHB0IDBpbiI+DQo8aDIgc3R5bGU9Im1hcmdpbjowaW47LXdlYmtpdC1mb250LXNtb290aGluZzog
-YW50aWFsaWFzZWQiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OlJv
-Ym90bztjb2xvcjojM0M0MDQzIj5XaGVuPG86cD48L286cD48L3NwYW4+PC9oMj4NCjwvdGQ+DQo8
-L3RyPg0KPC90Ym9keT4NCjwvdGFibGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibGlu
-ZS1oZWlnaHQ6MTUuMHB0Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWls
-eTpSb2JvdG87Y29sb3I6IzNDNDA0MztsZXR0ZXItc3BhY2luZzouMTVwdCI+RXZlcnkgMiB3ZWVr
-cyBmcm9tIDEyYW0gdG8gMTI6NDVhbSBvbiBXZWRuZXNkYXkgKENlbnRyYWwgVGltZSAtIENoaWNh
-Z28pPG86cD48L286cD48L3NwYW4+PC9wPg0KPC90ZD4NCjwvdHI+DQo8dHI+DQo8dGQgc3R5bGU9
-InBhZGRpbmc6MGluIDBpbiAuMjVpbiAwaW47d29yZC1icmVhazpicmVhay13b3JkIj4NCjx0YWJs
-ZSBjbGFzcz0iTXNvTm9ybWFsVGFibGUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxw
-YWRkaW5nPSIwIj4NCjx0Ym9keT4NCjx0cj4NCjx0ZCBzdHlsZT0icGFkZGluZzowaW4gMGluIDMu
-MHB0IDBpbiI+DQo8aDIgc3R5bGU9Im1hcmdpbjowaW47LXdlYmtpdC1mb250LXNtb290aGluZzog
-YW50aWFsaWFzZWQiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OlJv
-Ym90bztjb2xvcjojM0M0MDQzIj5HdWVzdHM8bzpwPjwvbzpwPjwvc3Bhbj48L2gyPg0KPC90ZD4N
-CjwvdHI+DQo8L3Rib2R5Pg0KPC90YWJsZT4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0ibGluZS1oZWlnaHQ6MTUuMHB0Ij48c3BhbiBjbGFzcz0ibm90cmFuc2xhdGUiPjxzcGFu
-IHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OlJvYm90bztjb2xvcjojM0M0MDQy
-O2xldHRlci1zcGFjaW5nOi4xNXB0Ij48YSBocmVmPSJtYWlsdG86cGFyYXZAbnZpZGlhLmNvbSI+
-PHNwYW4gc3R5bGU9ImNvbG9yOiMzQzQwNDM7dGV4dC1kZWNvcmF0aW9uOm5vbmUiPnBhcmF2QG52
-aWRpYS5jb208L3NwYW4+PC9hPjwvc3Bhbj48L3NwYW4+PHNwYW4gY2xhc3M9InNlY29uZGFyeS10
-ZXh0MSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6Um9ib3RvO2xl
-dHRlci1zcGFjaW5nOi4xNXB0Ij4NCiAtIG9yZ2FuaXplcjwvc3Bhbj48L3NwYW4+PHNwYW4gc3R5
-bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6Um9ib3RvO2NvbG9yOiMzQzQwNDI7bGV0
-dGVyLXNwYWNpbmc6LjE1cHQiPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJsaW5lLWhlaWdodDoxNS4wcHQiPjxzcGFuIGNs
-YXNzPSJub3RyYW5zbGF0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1p
-bHk6Um9ib3RvO2NvbG9yOiMzQzQwNDI7bGV0dGVyLXNwYWNpbmc6LjE1cHQiPjxhIGhyZWY9Im1h
-aWx0bzpwYW5kaXQucGFyYXZAZ21haWwuY29tIj48c3BhbiBzdHlsZT0iY29sb3I6IzNDNDA0Mzt0
-ZXh0LWRlY29yYXRpb246bm9uZSI+cGFuZGl0LnBhcmF2QGdtYWlsLmNvbTwvc3Bhbj48L2E+PC9z
-cGFuPjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTpSb2Jv
-dG87Y29sb3I6IzNDNDA0MjtsZXR0ZXItc3BhY2luZzouMTVwdCI+PG86cD48L286cD48L3NwYW4+
-PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImxpbmUtaGVp
-Z2h0OjE1LjBwdCI+PHNwYW4gY2xhc3M9Im5vdHJhbnNsYXRlIj48c3BhbiBzdHlsZT0iZm9udC1z
-aXplOjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzNDNDA0MjtsZXR0ZXItc3BhY2lu
-ZzouMTVwdCI+PGEgaHJlZj0ibWFpbHRvOmhlbmdxaUBsaW51eC5hbGliYWJhLmNvbSI+PHNwYW4g
-c3R5bGU9ImNvbG9yOiMzQzQwNDM7dGV4dC1kZWNvcmF0aW9uOm5vbmUiPmhlbmdxaUBsaW51eC5h
-bGliYWJhLmNvbTwvc3Bhbj48L2E+PC9zcGFuPjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
-OjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzNDNDA0MjtsZXR0ZXItc3BhY2luZzou
-MTVwdCI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCIgc3R5bGU9ImxpbmUtaGVpZ2h0OjE1LjBwdCI+PHNwYW4gY2xhc3M9Im5vdHJhbnNs
-YXRlIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87Y29s
-b3I6IzNDNDA0MjtsZXR0ZXItc3BhY2luZzouMTVwdCI+PGEgaHJlZj0ibWFpbHRvOnNidXJsYUBt
-YXJ2ZWxsLmNvbSI+PHNwYW4gc3R5bGU9ImNvbG9yOiMzQzQwNDM7dGV4dC1kZWNvcmF0aW9uOm5v
-bmUiPnNidXJsYUBtYXJ2ZWxsLmNvbTwvc3Bhbj48L2E+PC9zcGFuPjwvc3Bhbj48c3BhbiBzdHls
-ZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzNDNDA0MjtsZXR0
-ZXItc3BhY2luZzouMTVwdCI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImxpbmUtaGVpZ2h0OjE1LjBwdCI+PHNwYW4gY2xh
-c3M9Im5vdHJhbnNsYXRlIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWls
-eTpSb2JvdG87Y29sb3I6IzNDNDA0MjtsZXR0ZXItc3BhY2luZzouMTVwdCI+PGEgaHJlZj0ibWFp
-bHRvOnNpLXdlaS5saXVAb3JhY2xlLmNvbSI+PHNwYW4gc3R5bGU9ImNvbG9yOiMzQzQwNDM7dGV4
-dC1kZWNvcmF0aW9uOm5vbmUiPnNpLXdlaS5saXVAb3JhY2xlLmNvbTwvc3Bhbj48L2E+PC9zcGFu
-Pjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87
-Y29sb3I6IzNDNDA0MjtsZXR0ZXItc3BhY2luZzouMTVwdCI+PG86cD48L286cD48L3NwYW4+PC9w
-Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImxpbmUtaGVpZ2h0
-OjE1LjBwdCI+PHNwYW4gY2xhc3M9Im5vdHJhbnNsYXRlIj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
-OjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzNDNDA0MjtsZXR0ZXItc3BhY2luZzou
-MTVwdCI+PGEgaHJlZj0ibWFpbHRvOnZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3Jn
-Ij48c3BhbiBzdHlsZT0iY29sb3I6IzNDNDA0Mzt0ZXh0LWRlY29yYXRpb246bm9uZSI+dmlydGlv
-LWNvbW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmc8L3NwYW4+PC9hPjwvc3Bhbj48L3NwYW4+PHNw
-YW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6Um9ib3RvO2NvbG9yOiMzQzQw
-NDI7bGV0dGVyLXNwYWNpbmc6LjE1cHQiPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0K
-PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJsaW5lLWhlaWdodDoxNS4wcHQiPjxz
-cGFuIGNsYXNzPSJub3RyYW5zbGF0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9u
-dC1mYW1pbHk6Um9ib3RvO2NvbG9yOiMzQzQwNDI7bGV0dGVyLXNwYWNpbmc6LjE1cHQiPjxhIGhy
-ZWY9Im1haWx0bzp2aXJ0aW9AbGlzdHMub2FzaXMtb3Blbi5vcmciPjxzcGFuIHN0eWxlPSJjb2xv
-cjojM0M0MDQzO3RleHQtZGVjb3JhdGlvbjpub25lIj52aXJ0aW9AbGlzdHMub2FzaXMtb3Blbi5v
-cmc8L3NwYW4+PC9hPjwvc3Bhbj48L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7
-Zm9udC1mYW1pbHk6Um9ib3RvO2NvbG9yOiMzQzQwNDI7bGV0dGVyLXNwYWNpbmc6LjE1cHQiPjxv
-OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-IHN0eWxlPSJsaW5lLWhlaWdodDoxNS4wcHQiPjxzcGFuIGNsYXNzPSJub3RyYW5zbGF0ZSI+PHNw
-YW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6Um9ib3RvO2NvbG9yOiMzQzQw
-NDI7bGV0dGVyLXNwYWNpbmc6LjE1cHQiPjxhIGhyZWY9Im1haWx0bzp4dWFuemh1b0BsaW51eC5h
-bGliYWJhLmNvbSI+PHNwYW4gc3R5bGU9ImNvbG9yOiMzQzQwNDM7dGV4dC1kZWNvcmF0aW9uOm5v
-bmUiPnh1YW56aHVvQGxpbnV4LmFsaWJhYmEuY29tPC9zcGFuPjwvYT48L3NwYW4+PC9zcGFuPjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OlJvYm90bztjb2xvcjojM0M0
-MDQyO2xldHRlci1zcGFjaW5nOi4xNXB0Ij48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJsaW5lLWhlaWdodDoxNS4wcHQiPjxzcGFuIHN0
-eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OlJvYm90bztjb2xvcjojM0M0MDQzO2xl
-dHRlci1zcGFjaW5nOi4xNXB0Ij48YSBocmVmPSJodHRwczovL2NhbGVuZGFyLmdvb2dsZS5jb20v
-Y2FsZW5kYXIvZXZlbnQ/YWN0aW9uPVZJRVcmYW1wO2VpZD1OM0kxTVdkaU5qQnNhblkxTVRKd04y
-ZHVkREYwWm1KdWFXWWdkbWx5ZEdsdkxXTnZiVzFsYm5SQWJHbHpkSE11YjJGemFYTXRiM0JsYmk1
-dmNtYyZhbXA7dG9rPU1UWWpjR0Z5WVhaQWJuWnBaR2xoTG1OdmJXUm1ZVEJpTXprek56TXlPVEl6
-WmpnME1tVXhNemhsWWpGaE5EVmhORGd5Tm1JNFlUaGtaamsmYW1wO2N0ej1BbWVyaWNhJTJGQ2hp
-Y2FnbyZhbXA7aGw9ZW4mYW1wO2VzPTAiIHRhcmdldD0iX2JsYW5rIj48Yj48c3BhbiBzdHlsZT0i
-Y29sb3I6IzFBNzNFODt0ZXh0LWRlY29yYXRpb246bm9uZSI+Vmlldw0KIGFsbCBndWVzdCBpbmZv
-PC9zcGFuPjwvYj48L2E+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC90ZD4NCjwvdHI+DQo8dHI+
-DQo8dGQgc3R5bGU9InBhZGRpbmc6MGluIDBpbiAwaW4gMGluO3dvcmQtYnJlYWs6YnJlYWstd29y
-ZCI+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImxpbmUtaGVpZ2h0OjE1LjBw
-dDttc28tbGluZS1oZWlnaHQtcnVsZTpleGFjdGx5Ij48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
-OjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzNDNDA0MyI+UlNWUDwvc3Bhbj48L2I+
-PHNwYW4gY2xhc3M9InNlY29uZGFyeS10ZXh0MSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC41
-cHQ7Zm9udC1mYW1pbHk6Um9ib3RvIj4gZm9yDQo8YSBocmVmPSJtYWlsdG86dmlydGlvLWNvbW1l
-bnRAbGlzdHMub2FzaXMtb3Blbi5vcmciPjxzcGFuIHN0eWxlPSJjb2xvcjojNzA3NTdBO3RleHQt
-ZGVjb3JhdGlvbjpub25lIj52aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZzwvc3Bh
-bj48L2E+IGZvciBhbGwgZXZlbnRzIGluIHRoaXMgc2VyaWVzPC9zcGFuPjwvc3Bhbj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzNDNDA0MyI+
-PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L3RkPg0KPC90cj4NCjx0cj4NCjx0ZCBz
-dHlsZT0icGFkZGluZzowaW4gMGluIDEyLjBwdCAwaW47d29yZC1icmVhazpicmVhay13b3JkIj4N
-Cjx0YWJsZSBjbGFzcz0iTXNvTm9ybWFsVGFibGUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAi
-IGNlbGxwYWRkaW5nPSIwIj4NCjx0Ym9keT4NCjx0cj4NCjx0ZCBzdHlsZT0icGFkZGluZzo2LjBw
-dCA5LjBwdCAwaW4gMGluIj4NCjx0YWJsZSBjbGFzcz0iTXNvTm9ybWFsVGFibGUiIGJvcmRlcj0i
-MSIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIiBzdHlsZT0iYm9yZGVyOnNvbGlkICNE
-QURDRTAgMS4wcHQ7Ym9yZGVyLXJhZGl1czogMTZweDtkaXNwbGF5OmlubGluZS1ibG9jayI+DQo8
-dGJvZHk+DQo8dHI+DQo8dGQgc3R5bGU9ImJvcmRlcjpub25lO3BhZGRpbmc6MGluIDBpbiAwaW4g
-MGluIj4NCjxkaXYgYWxpZ249ImNlbnRlciI+DQo8dGFibGUgY2xhc3M9Ik1zb05vcm1hbFRhYmxl
-IiBib3JkZXI9IjAiIGNlbGxzcGFjaW5nPSIwIiBjZWxscGFkZGluZz0iMCI+DQo8dGJvZHk+DQo8
-dHI+DQo8dGQgbm93cmFwPSIiIHN0eWxlPSJwYWRkaW5nOjQuNXB0IDkuMHB0IDQuNXB0IDEyLjBw
-dCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBhbGlnbj0iY2VudGVyIiBzdHlsZT0idGV4dC1hbGln
-bjpjZW50ZXIiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpSb2JvdG8iPjxhIGhyZWY9Imh0dHBz
-Oi8vY2FsZW5kYXIuZ29vZ2xlLmNvbS9jYWxlbmRhci9ldmVudD9hY3Rpb249UkVTUE9ORCZhbXA7
-ZWlkPU4zSTFNV2RpTmpCc2FuWTFNVEp3TjJkdWRERjBabUp1YVdZZ2RtbHlkR2x2TFdOdmJXMWxi
-blJBYkdsemRITXViMkZ6YVhNdGIzQmxiaTV2Y21jJmFtcDtyc3Q9MSZhbXA7dG9rPU1UWWpjR0Z5
-WVhaQWJuWnBaR2xoTG1OdmJXUm1ZVEJpTXprek56TXlPVEl6WmpnME1tVXhNemhsWWpGaE5EVmhO
-RGd5Tm1JNFlUaGtaamsmYW1wO2N0ej1BbWVyaWNhJTJGQ2hpY2FnbyZhbXA7aGw9ZW4mYW1wO2Vz
-PTAiIHRhcmdldD0iX2JsYW5rIj48c3BhbiBjbGFzcz0iZ3JleS1idXR0b24tdGV4dDEiPjxzcGFu
-IHN0eWxlPSJmb250LXNpemU6MTAuNXB0O3RleHQtZGVjb3JhdGlvbjpub25lIj5ZZXM8L3NwYW4+
-PC9zcGFuPjwvYT48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L3RkPg0KPC90cj4NCjwvdGJvZHk+
-DQo8L3RhYmxlPg0KPC9kaXY+DQo8L3RkPg0KPHRkIHN0eWxlPSJib3JkZXItdG9wOm5vbmU7Ym9y
-ZGVyLWxlZnQ6c29saWQgI0RBRENFMCAxLjBwdDtib3JkZXItYm90dG9tOm5vbmU7Ym9yZGVyLXJp
-Z2h0OnNvbGlkICNEQURDRTAgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiAwaW4iPg0KPGRpdiBh
-bGlnbj0iY2VudGVyIj4NCjx0YWJsZSBjbGFzcz0iTXNvTm9ybWFsVGFibGUiIGJvcmRlcj0iMCIg
-Y2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIj4NCjx0Ym9keT4NCjx0cj4NCjx0ZCBub3dy
-YXA9IiIgc3R5bGU9InBhZGRpbmc6NC41cHQgOS4wcHQgNC41cHQgOS4wcHQiPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCIgYWxpZ249ImNlbnRlciIgc3R5bGU9InRleHQtYWxpZ246Y2VudGVyIj48c3Bh
-biBzdHlsZT0iZm9udC1mYW1pbHk6Um9ib3RvIj48YSBocmVmPSJodHRwczovL2NhbGVuZGFyLmdv
-b2dsZS5jb20vY2FsZW5kYXIvZXZlbnQ/YWN0aW9uPVJFU1BPTkQmYW1wO2VpZD1OM0kxTVdkaU5q
-QnNhblkxTVRKd04yZHVkREYwWm1KdWFXWWdkbWx5ZEdsdkxXTnZiVzFsYm5SQWJHbHpkSE11YjJG
-emFYTXRiM0JsYmk1dmNtYyZhbXA7cnN0PTImYW1wO3Rvaz1NVFlqY0dGeVlYWkFiblpwWkdsaExt
-TnZiV1JtWVRCaU16a3pOek15T1RJelpqZzBNbVV4TXpobFlqRmhORFZoTkRneU5tSTRZVGhrWmpr
-JmFtcDtjdHo9QW1lcmljYSUyRkNoaWNhZ28mYW1wO2hsPWVuJmFtcDtlcz0wIiB0YXJnZXQ9Il9i
-bGFuayI+PHNwYW4gY2xhc3M9ImdyZXktYnV0dG9uLXRleHQxIj48c3BhbiBzdHlsZT0iZm9udC1z
-aXplOjEwLjVwdDt0ZXh0LWRlY29yYXRpb246bm9uZSI+Tm88L3NwYW4+PC9zcGFuPjwvYT48bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8L3RkPg0KPC90cj4NCjwvdGJvZHk+DQo8L3RhYmxlPg0KPC9k
-aXY+DQo8L3RkPg0KPHRkIHN0eWxlPSJib3JkZXI6bm9uZTtwYWRkaW5nOjBpbiAwaW4gMGluIDBp
-biI+DQo8ZGl2IGFsaWduPSJjZW50ZXIiPg0KPHRhYmxlIGNsYXNzPSJNc29Ob3JtYWxUYWJsZSIg
-Ym9yZGVyPSIwIiBjZWxsc3BhY2luZz0iMCIgY2VsbHBhZGRpbmc9IjAiPg0KPHRib2R5Pg0KPHRy
-Pg0KPHRkIG5vd3JhcD0iIiBzdHlsZT0icGFkZGluZzo0LjVwdCAxMi4wcHQgNC41cHQgOS4wcHQi
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgYWxpZ249ImNlbnRlciIgc3R5bGU9InRleHQtYWxpZ246
-Y2VudGVyIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Um9ib3RvIj48YSBocmVmPSJodHRwczov
-L2NhbGVuZGFyLmdvb2dsZS5jb20vY2FsZW5kYXIvZXZlbnQ/YWN0aW9uPVJFU1BPTkQmYW1wO2Vp
-ZD1OM0kxTVdkaU5qQnNhblkxTVRKd04yZHVkREYwWm1KdWFXWWdkbWx5ZEdsdkxXTnZiVzFsYm5S
-QWJHbHpkSE11YjJGemFYTXRiM0JsYmk1dmNtYyZhbXA7cnN0PTMmYW1wO3Rvaz1NVFlqY0dGeVlY
-WkFiblpwWkdsaExtTnZiV1JtWVRCaU16a3pOek15T1RJelpqZzBNbVV4TXpobFlqRmhORFZoTkRn
-eU5tSTRZVGhrWmprJmFtcDtjdHo9QW1lcmljYSUyRkNoaWNhZ28mYW1wO2hsPWVuJmFtcDtlcz0w
-IiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gY2xhc3M9ImdyZXktYnV0dG9uLXRleHQxIj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjEwLjVwdDt0ZXh0LWRlY29yYXRpb246bm9uZSI+TWF5YmU8L3NwYW4+
-PC9zcGFuPjwvYT48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L3RkPg0KPC90cj4NCjwvdGJvZHk+
-DQo8L3RhYmxlPg0KPC9kaXY+DQo8L3RkPg0KPC90cj4NCjwvdGJvZHk+DQo8L3RhYmxlPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OlJvYm90bztkaXNwbGF5
-Om5vbmUiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjx0YWJsZSBjbGFzcz0iTXNvTm9y
-bWFsVGFibGUiIGJvcmRlcj0iMSIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIiBzdHls
-ZT0iYm9yZGVyOnNvbGlkICNEQURDRTAgMS4wcHQ7Ym9yZGVyLXJhZGl1czogMTZweCI+DQo8dGJv
-ZHk+DQo8dHI+DQo8dGQgbm93cmFwPSIiIHN0eWxlPSJib3JkZXI6bm9uZTtwYWRkaW5nOjQuNXB0
-IDkuMHB0IDQuNXB0IDEyLjBwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBhbGlnbj0iY2VudGVy
-IiBzdHlsZT0idGV4dC1hbGlnbjpjZW50ZXIiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpSb2Jv
-dG87Y29sb3I6IzVGNjM2NyI+PGEgaHJlZj0iaHR0cHM6Ly9jYWxlbmRhci5nb29nbGUuY29tL2Nh
-bGVuZGFyL2V2ZW50P2FjdGlvbj1WSUVXJmFtcDtlaWQ9TjNJMU1XZGlOakJzYW5ZMU1USndOMmR1
-ZERGMFptSnVhV1lnZG1seWRHbHZMV052YlcxbGJuUkFiR2x6ZEhNdWIyRnphWE10YjNCbGJpNXZj
-bWMmYW1wO3Rvaz1NVFlqY0dGeVlYWkFiblpwWkdsaExtTnZiV1JtWVRCaU16a3pOek15T1RJelpq
-ZzBNbVV4TXpobFlqRmhORFZoTkRneU5tSTRZVGhrWmprJmFtcDtjdHo9QW1lcmljYSUyRkNoaWNh
-Z28mYW1wO2hsPWVuJmFtcDtlcz0wIiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gY2xhc3M9ImdyZXkt
-YnV0dG9uLXRleHQxIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDt0ZXh0LWRlY29yYXRp
-b246bm9uZSI+TW9yZQ0KIG9wdGlvbnM8L3NwYW4+PC9zcGFuPjwvYT48bzpwPjwvbzpwPjwvc3Bh
-bj48L3A+DQo8L3RkPg0KPC90cj4NCjwvdGJvZHk+DQo8L3RhYmxlPg0KPC90ZD4NCjwvdHI+DQo8
-L3Rib2R5Pg0KPC90YWJsZT4NCjwvdGQ+DQo8L3RyPg0KPC90Ym9keT4NCjwvdGFibGU+DQo8L3Rk
-Pg0KPC90cj4NCjwvdGJvZHk+DQo8L3RhYmxlPg0KPC90ZD4NCjwvdHI+DQo8L3Rib2R5Pg0KPC90
-YWJsZT4NCjwvZGl2Pg0KPC90ZD4NCjwvdHI+DQo8L3Rib2R5Pg0KPC90YWJsZT4NCjwvZGl2Pg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OlJvYm90bztkaXNw
-bGF5Om5vbmUiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXYgYWxpZ249ImNlbnRl
-ciI+DQo8dGFibGUgY2xhc3M9Ik1zb05vcm1hbFRhYmxlIiBib3JkZXI9IjAiIGNlbGxzcGFjaW5n
-PSIwIiBjZWxscGFkZGluZz0iMCIgd2lkdGg9IjEwMCUiIHN0eWxlPSJ3aWR0aDoxMDAuMCUiPg0K
-PHRib2R5Pg0KPHRyPg0KPHRkIHN0eWxlPSJwYWRkaW5nOjMuMHB0IDkuMHB0IDMuMHB0IDkuMHB0
-O3dvcmQtYnJlYWs6YnJlYWstd29yZCI+DQo8cCBzdHlsZT0ibGluZS1oZWlnaHQ6MTIuMHB0O21z
-by1saW5lLWhlaWdodC1ydWxlOmV4YWN0bHkiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6OS4wcHQ7
-Zm9udC1mYW1pbHk6Um9ib3RvO2NvbG9yOiM3MDc1N0EiPkludml0YXRpb24gZnJvbQ0KPGEgaHJl
-Zj0iaHR0cHM6Ly9jYWxlbmRhci5nb29nbGUuY29tL2NhbGVuZGFyLyIgdGFyZ2V0PSJfYmxhbmsi
-PjxzcGFuIHN0eWxlPSJjb2xvcjojMUE3M0U4O3RleHQtZGVjb3JhdGlvbjpub25lIj5Hb29nbGUg
-Q2FsZW5kYXI8L3NwYW4+PC9hPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIHN0eWxlPSJsaW5l
-LWhlaWdodDoxMi4wcHQ7bXNvLWxpbmUtaGVpZ2h0LXJ1bGU6ZXhhY3RseSI+PHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZTo5LjBwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzcwNzU3QSI+WW91IGFy
-ZSByZWNlaXZpbmcgdGhpcyBlbWFpbCBiZWNhdXNlIHlvdSBhcmUgYW4gYXR0ZW5kZWUgb24gdGhl
-IGV2ZW50LiBUbyBzdG9wIHJlY2VpdmluZyBmdXR1cmUgdXBkYXRlcyBmb3IgdGhpcyBldmVudCwg
-ZGVjbGluZSB0aGlzIGV2ZW50LjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIHN0eWxlPSJsaW5l
-LWhlaWdodDoxMi4wcHQ7bXNvLWxpbmUtaGVpZ2h0LXJ1bGU6ZXhhY3RseSI+PHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZTo5LjBwdDtmb250LWZhbWlseTpSb2JvdG87Y29sb3I6IzcwNzU3QSI+Rm9yd2Fy
-ZGluZyB0aGlzIGludml0YXRpb24gY291bGQgYWxsb3cgYW55IHJlY2lwaWVudCB0byBzZW5kIGEg
-cmVzcG9uc2UgdG8gdGhlIG9yZ2FuaXplciwgYmUgYWRkZWQgdG8gdGhlIGd1ZXN0IGxpc3QsIGlu
-dml0ZSBvdGhlcnMgcmVnYXJkbGVzcw0KIG9mIHRoZWlyIG93biBpbnZpdGF0aW9uIHN0YXR1cywg
-b3IgbW9kaWZ5IHlvdXIgUlNWUC4gPGEgaHJlZj0iaHR0cHM6Ly9zdXBwb3J0Lmdvb2dsZS5jb20v
-Y2FsZW5kYXIvYW5zd2VyLzM3MTM1I2ZvcndhcmRpbmciPg0KPHNwYW4gc3R5bGU9ImNvbG9yOiMx
-QTczRTg7dGV4dC1kZWNvcmF0aW9uOm5vbmUiPkxlYXJuIG1vcmU8L3NwYW4+PC9hPjxvOnA+PC9v
-OnA+PC9zcGFuPjwvcD4NCjwvdGQ+DQo8L3RyPg0KPC90Ym9keT4NCjwvdGFibGU+DQo8L2Rpdj4N
-CjwvdGQ+DQo8L3RyPg0KPC90Ym9keT4NCjwvdGFibGU+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwv
-aHRtbD4NCg==
+I list 4 conditions, here transfer cs delay including 
+spi_transfer->delay and spi_transfer->cs_change_delay, and device cs 
+delay including spi_device->cs_hold, spi_device->cs_setup and 
+spi_device->cs_inactive.
 
---_000_PH0PR12MB5481735097B736835714666ADC3AAPH0PR12MB5481namp_--
+condition 1:
+     virtio-spi controller only has transfer_one interface but no 
+transfer_one_message interface, and spi_transfer_one_message is the 
+default transfer_one_message interface of virtio-spi controller.
+     Hardware SPI controller doesn't support CS timing configuration.
+
+     In this case, both transfer cs delay and device cs delay are 
+executed by software in spi_transfer_one_message function in guest Linux 
+OS. So guest doesn't need pass these cs timing parameters to host.
+
+condition 2:
+     virtio-spi controller only has transfer_one interface but no 
+transfer_one_message interface, and spi_transfer_one_message is the 
+default transfer_one_message interface of virtio-spi controller.
+     Hardware SPI controller supports device CS timing configuration, 
+which means it has registers to hold these configuration values.
+
+     In this case, transfer cs delay is executed in 
+spi_transfer_one_message function, and guest need pass device cs delay 
+to host. Because one SPI number may have more than one slave, these 
+slaves also may have different device cs delay values, so for each 
+transfer, guest should pass device cs delay along with the slave_id to 
+host to overwrite the corresponding registers.
+
+condition 3:
+     virtio-spi controller has transfer_one_message interface but no 
+transfer_one interface.
+     Hardware SPI controller doesn't support CS timing configuration.
+
+     In this case, host SPI driver should implement all cs delay 
+operations with the transfer cs delay and device cs delay received from 
+the guest.
+
+condition 4:
+     virtio-spi controller has transfer_one_message interface but no 
+transfer_one interface.
+     Hardware SPI controller supports CS timing configuration.
+
+     In this case, guest pass transfer cs delay and device cs delay to 
+guest, and guest SPI driver should implement logic to execute transfer 
+cs delay then overwrite the corresponding register with the device cs 
+delay values.
+
+Except for condition 1, in other three conditions, guest should pass 
+both transfer cs delay and device cs delay to host.
+
+Best Regards
+Haixu Cui
+
+> 
+> Linux spi_transfer defines @delay as:
+>      delay to be introduced after this transfer before
+>      (optionally) changing the chipselect status, then starting the
+>      next transfer or completing this spi_message.
+> 
+> ...and spi_device @cs_hold as: delay to be introduced by the
+>      controller before CS is deasserted.
+> 
+> (This is the period labeled "D" in my diagram.)
+> 
+> I guess the only difference is if you have a series of transfers, where
+> only the last transfer has @cs_change=true, and all preceding messages
+> have @cs_change=false. In this case, @delay_ns would apply between each
+> transfer, and after the last transfer @delay_ns + @cs_hold would apply
+> before CS is deasserted:
+> 
+>      Transfer[0] (cs_change=false)
+>      delay(@delay_ns)
+>      Transfer[1] (cs_change=false)
+>      delay(@delay_ns)
+>      Transfer[3] (cs_change=true)
+>      delay(@delay_ns) + delay(@cs_hold_ns)
+>      CS deasserted
+> 
+> 
+>>        @cs_change_delay_ns: delay between cs deassert and assert when
+>> cs_change is set, in ns unit
+>>        @cs_inactive_ns: delay to be introduced by the controller after CS
+>> is deasserted, in ns unit
+> 
+> Similarly, aren't @cs_change_delay_ns and @cs_inactive_ns applied at the
+> same point in the cycle?
+> 
+> (This is the period labeled "E" in my diagram.)
+> 
+> Linux spi_device defines @cs_inactive as: delay to be introduced by the
+>      controller after CS is deasserted. If @cs_change_delay is used from
+>      @spi_transfer, then the two delays will be added up.
+> 
+> ...and spi_transfer defines @cs_change_delay as: delay between cs
+>      deassert and assert when @cs_change is set and @spi_transfer is not
+>      the last in @spi_message.
+> 
+> It even says they will be added up.
+> 
+> The only difference seems to be that @cs_change_delay applies only when
+> the transfer is not the last in a list (spi_message, which we don't have
+> here.)
+> 
+>      CS asserted
+>      Transfer[0] (cs_change=true)
+>      CS deasserted
+>      delay(@cs_inactive) + delay(@cs_change_delay)
+>      CS asserted
+>      Transfer[1] (cs_change=true)
+>      CS deasserted
+>      delay(@cs_inactive)
+> 
+> 
+> In both cases of redundancy above, the difference in semantics between
+> the spi_device and spi_transfer only seem to apply when a series of
+> transfers (spi_message or SPI_IOC_MESSAGE) are involved. Since (AFAICT)
+> you aren't proposing that construct here, maybe the separate fields are
+> not necessary? IOW, maybe @delay_ns and @cs_change_delay can be
+> eliminated?
+> 
+> Please let me know if I've misunderstood anything.
+> 
+> Jonathon
+> 
+>>
+>>       Could you please help check if this new structure contains enough
+>> information. Really appreciate for kind help.
+>>
+>> Best Regards
+>> Haixu Cui
+>>
+>> On 7/1/2023 5:59 AM, Jonathon Reinhart wrote:
+>>>> Hi @jrreinhart@google.com,
+>>>>        Thank you very much for your helpful comments.
+>>>>
+>>>>        I missed the delay and cs_change_delay parameters. I will add both
+>>>> of them, although cs_change_delay can not be set from userspace, but can
+>>>> be set in kernel space.
+>>>>
+>>>>
+>>>>        For CS delays such as PRE_DELAY/POST_DELAY, it seems that they are
+>>>> defined in structure spi_device:
+>>>>
+>>>>        @cs_setup: delay to be introduced by the controller after CS is
+>>>> asserted.
+>>>>
+>>>>        @cs_hold: delay to be introduced by the controller before CS is
+>>>> deasserted.
+>>>>
+>>>>        @cs_inactive: delay to be introduced by the controller after CS is
+>>>> deasserted. If @cs_change_delay is used from @spi_transfer, then the
+>>>> two delays will be added up.
+>>>>
+>>>>        They show the SPI controller ability to control the CS
+>>>> assertion/deassertion timing and should not be changed for each transfer
+>>>> (because thay can be updated by setting structure spi_transfer or
+>>>> structure spi_ioc_transfer). I think it better to define these parameter
+>>>> in host OS rather than in guest OS since it's the host OS to operate the
+>>>> hardware SPI controller directly. Besides, it can also avoid passing the
+>>>> same values from guest to host time after time.
+>>>>
+>>>>        What's your opinion on this topic? Again, thank you very much.
+>>>
+>>> Hi Haixu,
+>>>
+>>> I took another look at the Linux structures and attempted to map up the
+>>> delay parameters to the various points in a SPI sequence. Please correct
+>>> me if I'm wrong about any of this.
+>>>
+>>> Consider this diagram where CS# is an active-low chip select, and SCLK
+>>> is the serial clock:
+>>>
+>>>         ___.                                                   ._____.
+>>>     CS#    |___________________________________________________|     |___
+>>>            .                                                   .     .
+>>>            .                                                   .     .
+>>>    SCLK ________NNNN___NNNN___NNNN_______NNNN___NNNN___NNNN______________
+>>>            .   .    . .           .     .                  .   .     .
+>>> Delays:  +-A-+    +B+           +--C--+                  +-D-+--E--+
+>>>            .   .    . .           .     .                  .   .     .
+>>>            0   1    2 3           4     5                  6   7     8
+>>>            .   .    .             .     .                  .   .
+>>> Terms:   .   +Word+             .     .                  .   .
+>>>            .   .                  .     .                  .   .
+>>>            .   +-------Frame------+     +-------Frame------+   .
+>>>            .                                                   .
+>>>            +-----------------Transfer--------------------------+
+>>>
+>>> Using NXP terminology:
+>>>
+>>>     From 1 to 2 is a "word"     (with e.g. 8 bits).
+>>>     From 1 to 4 is a "frame"    (with 3 words).
+>>>     From 1 to 6 is a "transfer" (with 3 frames).
+>>>
+>>> Linux does not have the concept of a frame, only a series of transfers
+>>> (a spi_message), each of which can specify whether CS changes or not.
+>>>
+>>> I've identified these various timing points and attempted to match them
+>>> to the Linux spi_device and spi_transfer parameters:
+>>>
+>>> A - CS Setup: Delay after CS asserted before clock starts.
+>>>       spi_device.cs_setup
+>>>
+>>> B - Word Delay: Delay between words.
+>>>       spi_transfer.word_delay
+>>>
+>>> C - Frame Delay: Delay between frames.
+>>>       (Linux does not have the concept of a SPI "frame".)
+>>>
+>>> D - CS Hold: Delay after clock stops, and before CS deasserted.
+>>>       spi_device.cs_hold (+ spi_transfer.delay ??)
+>>>
+>>> E - CS Inactive: Delay after CS deasserted, before asserting again.
+>>>       spi_device.cs_inactive + spi_transfer.cs_change_delay
+>>>
+>>>
+>>> While I agree with you that some of these timings are unlikely to change
+>>> from transfer-to-transfer, the subset of which should be specified
+>>> at the device level vs. per-transfer seems somewhat arbitrary. As you
+>>> can see there is some overlap between them.
+>>>
+>>> If I understand correctly, it appears that the CS hold time *can* be
+>>> controlled on a per-transfer bases, using spi_transfer.delay
+>>> ("after this transfer before changing the chipselect status").
+>>>
+>>> That leaves CS setup as the only parameter that cannot be influenced on
+>>> a per-transfer basis.
+>>>
+>>> Theoretically, one might require different CS setup/hold times,
+>>> depending on which slave_id they are talking to (on the same bus).
+>>> In that case, one must set those spi_device parameters to the worst-case
+>>> (maximum) values. However, this is already a Linux limitation, so I'm
+>>> not sure it needs to be improved here.
+>>>
+>>> I think you've achieved parity with what the Linux kernel API allows,
+>>> and that's probably good enough. As you said, anything else can be
+>>> adjusted in the host OS -- I'm not sure how the guest would go about
+>>> achieving that, though. You're not proposing the use of configuration
+>>> space for virtio-spi, are you?
+>>>
+>>> Regards,
+>>> Jonathon Reinhart
+>>>
+>>>
+>>>>
+>>>> Best Regards
+>>>> Haixu Cui
+>>>>
+>>>> On 6/28/2023 1:06 AM, jrreinhart@google.com wrote:
+>>>>> Hi Haixu,
+>>>>>
+>>>>>> +The \field{word_delay} defines how long to wait between words within
+>>>>>> one SPI transfer,
+>>>>>> +in ns unit.
+>>>>>
+>>>>> I'm a little surprised to see a word_delay but no frame_delay or
+>>>>> transfer_delay.
+>>>>>
+>>>>> For example, many SPI peripherals require a delay after CS is asserted,
+>>>>> but before the first SCLK edge, allowing them to prepare to send data.
+>>>>> (E.g. an ADC might begin taking a sample.)
+>>>>>
+>>>>>
+>>>>> The linux struct spi_transfer has three delay fields:
+>>>>>
+>>>>> * @cs_change_delay: delay between cs deassert and assert when
+>>>>> *      @cs_change is set and @spi_transfer is not the last in
+>>>>> *      @spi_message
+>>>>> * @delay: delay to be introduced after this transfer before
+>>>>> *    (optionally) changing the chipselect status, then starting the
+>>>>> *    next transfer or completing this @spi_message.
+>>>>> * @word_delay: inter word delay to be introduced after each word size
+>>>>> *    (set by bits_per_word) transmission.
+>>>>>
+>>>>> The userspace spidev.h API has only two:
+>>>>>
+>>>>> * @delay_usecs: If nonzero, how long to delay after the last bit
+>>>>> *       transfer before optionally deselecting the device before the
+>>>>> *       next transfer.
+>>>>> * @word_delay_usecs: If nonzero, how long to wait between words within
+>>>>> *       one transfer. This property needs explicit support in the SPI
+>>>>> *       controller, otherwise it is silently ignored.
+>>>>>
+>>>>> The NXP i.MX RT500 SPI (master) controller, for example, has four
+>>>>> configurable delays:
+>>>>>
+>>>>> - PRE_DELAY: After CS assertion, before first SCLK edge.
+>>>>> - POST_DELAY: After a transfer, before CS deassertion.
+>>>>> - FRAME_DELAY: Between frames (which are arbitrarily defined by
+>>>>>      software).
+>>>>> - TRANSFER_DELAY: Minimum CS deassertion time between transfers.
+>>>>>
+>>>>> The NVIDIA Tegra114 SPI controller has:
+>>>>>
+>>>>> - nvidia,cs-setup-clk-count: CS setup timing parameter.
+>>>>> - nvidia,cs-hold-clk-count: CS hold timing parameter.
+>>>>>
+>>>>>
+>>>>> I understand that accurately representing all possible delays might be
+>>>>> difficult or futile, but I'm curious to understand why, of all the
+>>>>> possible delays, inter-word delay was chosen for inclusion.
+>>>>>
+>>>>> In a microcontroller, delays around CS (de)assertion can be customized
+>>>>> by using a GPIO -- rather than the hardware SPI block -- to drive the CS
+>>>>> signal. This way, delays can be inserted where needed. To do so with a
+>>>>> virtualized SPI controller might prove difficult however, as the virtual
+>>>>> channel carrying a CS GPIO signal might not be synchronized to the
+>>>>> channel carrying the SPI data.
+>>>>>
+>>>>> Curious to hear your thoughts.
+>>>>>
+>>>>> Thanks,
+>>>>> Jonathon Reinhart
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
+
