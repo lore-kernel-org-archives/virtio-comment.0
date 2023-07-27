@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6898-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6899-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE73EB64DD
-	for <virtio-comment@archiver.kernel.org>; Thu, 27 Jul 2023 06:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA83C41513
+	for <virtio-comment@archiver.kernel.org>; Thu, 27 Jul 2023 06:23:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A00EC68476
-	for <virtio-comment@archiver.kernel.org>; Thu, 27 Jul 2023 06:18:07 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7D45174105
+	for <virtio-comment@archiver.kernel.org>; Thu, 27 Jul 2023 06:23:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 776959867FF
-	for <virtio-comment@archiver.kernel.org>; Thu, 27 Jul 2023 06:18:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 665289866CC
+	for <virtio-comment@archiver.kernel.org>; Thu, 27 Jul 2023 06:23:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 521E39866C4; Thu, 27 Jul 2023 06:18:07 +0000 (UTC)
+	id 52CD79866C4; Thu, 27 Jul 2023 06:23:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,26 +24,17 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3FAD19866C5
-	for <virtio-comment@lists.oasis-open.org>; Thu, 27 Jul 2023 06:18:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3EDC39866C5
+	for <virtio-comment@lists.oasis-open.org>; Thu, 27 Jul 2023 06:23:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10783"; a="434493043"
-X-IronPort-AV: E=Sophos;i="6.01,234,1684825200"; 
-   d="scan'208";a="434493043"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10783"; a="850736320"
-X-IronPort-AV: E=Sophos;i="6.01,234,1684825200"; 
-   d="scan'208";a="850736320"
-Message-ID: <3f3b3a17-8199-8830-af22-94686feac956@intel.com>
-Date: Thu, 27 Jul 2023 14:17:53 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Content-Language: en-US
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: "virtio-comment@lists.oasis-open.org"
- <virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin"
- <mst@redhat.com>, Parav Pandit <parav@nvidia.com>
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046051;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0VoJOv3J_1690439013;
+Message-ID: <1690438807.4627175-3-xuanzhuo@linux.alibaba.com>
+Date: Thu, 27 Jul 2023 14:20:07 +0800
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Parav Pandit <parav@nvidia.com>
 References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
  <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
  <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
@@ -59,144 +50,169 @@ References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
  <1690425015.0990853-1-xuanzhuo@linux.alibaba.com>
  <52fa9d57-c21a-0235-b8bb-614e88e25f17@intel.com>
  <1690438140.7109714-2-xuanzhuo@linux.alibaba.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <1690438140.7109714-2-xuanzhuo@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <3f3b3a17-8199-8830-af22-94686feac956@intel.com>
+In-Reply-To: <3f3b3a17-8199-8830-af22-94686feac956@intel.com>
 Subject: Re: [virtio-comment] About the plan of Admin Queue
 
+On Thu, 27 Jul 2023 14:17:53 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
+>
+>
+> On 7/27/2023 2:09 PM, Xuan Zhuo wrote:
+> > On Thu, 27 Jul 2023 11:56:32 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
+> >>
+> >> On 7/27/2023 10:30 AM, Xuan Zhuo wrote:
+> >>> On Mon, 3 Jul 2023 12:29:32 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
+> >>>> On 6/30/2023 7:35 PM, Parav Pandit wrote:
+> >>>>>> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+> >>>>>> open.org> On Behalf Of Zhu, Lingshan
+> >>>>>> Sent: Friday, June 30, 2023 6:33 AM
+> >>>>>>
+> >>>>>>>>> Can we let the DPU notify the driver to create a new devicer from the
+> >>>>>> backend?
+> >>>>> Yes, why not.
+> >>>>>
+> >>>>>>>>> The key point is who want to create a new device.
+> >>>>>>>> DPU can come with a certain number of pre-created ADIs, just make
+> >>>>>>>> sure the orchestration SW is aware of their device IDs.
+> >>>>>>>>
+> >>>>> Cloud often need these devices to be created dynamically, many a time after the host OS is booted.
+> >>>>> To be more generic, those devices to be created and connected to the host regardless of the life cycle of the host.
+> >>>>> Xuan partly explained it.
+> >>>>>
+> >>>>>>>> If you want the DPU randomly create ADIs and notify the driver, I
+> >>>>>>>> think we need interrupt, e.g., re-use config interrupt. But why DPU
+> >>>>>>>> wants to create and hot plug in a device to a guest?
+> >>>>>>>> Shall the host handle that or DPU pre-create then expose to baremteal
+> >>>>>>>> machines?
+> >>>>>>> In your scenario, the supervisor is on the os, which controls the DPU
+> >>>>>>> to create new devices.
+> >>>>>>>
+> >>>>>>> In the cloud scenario, the vendor manager is in the DPU, and the
+> >>>>>>> entire host is for users. Of course, there are situations where the
+> >>>>>>> vendor manager are in the HOST. But for bare metal machines, the host
+> >>>>>>> belongs to the customer, the vendor manager is only in the DPU.
+> >>>>>>>
+> >>>>>>> So when the customers buy a new nic for the host, the vendor manager
+> >>>>>>> will plug a device to the host from the DPU.
+> >>>>>> I understand once a customer orders a new NIC, you wants to present the NIC
+> >>>>>> to the host.
+> >>>>>> However you only owns the DPU and the customer owns the host, that means
+> >>>>>> this creation and hot plug must be transparent to the host and there may not be
+> >>>>>> a host driver help handling an interrupt/probe.
+> >>>>>>
+> >>>>> That is ok. when driver is loaded, it would query about its child devices and probe it, if we strictly want to follow SIOV model.
+> >>>>>
+> >>>>>> However this is not PCI which has a tree/switch and can enumerate devices to
+> >>>>>> the host by spanning the device across the PCI hierarchy.
+> >>>>>>
+> >>>>> Those enumeration is triggered by the parent PCI device and pci bridge and switch will also discover it.
+> >>>>>
+> >>>>>> To address an ADI, there is only a device_id.
+> >>>>>>
+> >>>>> SIOV device must have a unique identifier at PCI bus level for sure.
+> >>>>> I cannot speak more about it in this forum due to other logistics issue.
+> >>>>> But assume that there is PCI level unique identifier for SIOV device that switches on the path will learn about.
+> >>>>>
+> >>>>>> So, do you mind share how your DPU offload the device model? What kind of
+> >>>>>> device your DPU provide to the host? Lets see whether DPU can mediate this by
+> >>>>>> its own?
+> >>>>>>
+> >>>>> It is a virtio nic, blk and other virtio devices for us.
+> >>>>> A DPU hotplugs a device, host side either gets interrupt or later gets to know about it when explicitly queries.
+> >>>>> There is no mediation per say here, it is just a dpu based SIOV device like a regular PF.
+> >>>>>
+> >>>>> For non virtio DPU device, I implemented them in Linux for dpus 2 years ago.
+> >>>>> You might find a Linux reference model useful at [1].
+> >>>>> A usage model already exists in one OS and in use for non virtio devices.
+> >>>>> This certainly works without SIOV unique PCI device identifiers, because DPU (non-host) managed SIOV device spec still does not exist.
+> >>>>>
+> >>>>> For virtio, I think we should wait for this piece to be defined and leverage that, instead of virtio tc creating its own.
+> >>>>>
+> >>>>> [1] https://github.com/Mellanox/scalablefunctions/wiki
+> >>>> well I see SF facing the similar challenge, I can add a command for the
+> >>>> driver to query all existing SIOV ADIs of a device,
+> >>>> and the device return ADIs id and status. Looks good? and work for you
+> >>>> @Xuan?
+> >>> Could I have your plan for this?
+> >>>
+> >>> If you do not mind, I'd like to add a command to query VF's info. Such
+> >>> as mac, ip, etc.
+> >> I think the query commands for SIOV is a little more complex, e.g.,
+> >> need to report device type and its scale(e.g., features, mq).
+> >> There can be thousands of SIOV ADIs and we don't want output flood.
+> >>
+> >> We have discussed implementation a config interrupt to report new
+> >> created / deleted
+> >> ADIs on the DPU side, therefore there must be a cap contains related
+> >> information,
+> >> my rough approach of the process is:
+> >> 1) a cap contains the total number of existing ADIs and the max dev id
+> >> 2) driver queries detailed information of a certain ADI or a bunch of
+> >> ADIs in a [dev_id....dev_id2] range.
+> > Yes, Admin Queue can obtain the info of the specific one or more devices.
+> >
+> >> I am not sure whether a NIC stores its IP
+> >
+> > IP is the other topic. I want the Admin Queue manage the switch.
+> > So the switch know about the IP of every device, and the
+> > Admin Queue will has the ability to config the IP of the device inside the
+> > switch.
+> DPU onboard switch? OVS? Does it beyond virtio spec?
 
+YES.
 
-On 7/27/2023 2:09 PM, Xuan Zhuo wrote:
-> On Thu, 27 Jul 2023 11:56:32 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
->>
->> On 7/27/2023 10:30 AM, Xuan Zhuo wrote:
->>> On Mon, 3 Jul 2023 12:29:32 +0800, "Zhu, Lingshan" <lingshan.zhu@intel.com> wrote:
->>>> On 6/30/2023 7:35 PM, Parav Pandit wrote:
->>>>>> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
->>>>>> open.org> On Behalf Of Zhu, Lingshan
->>>>>> Sent: Friday, June 30, 2023 6:33 AM
->>>>>>
->>>>>>>>> Can we let the DPU notify the driver to create a new devicer from the
->>>>>> backend?
->>>>> Yes, why not.
->>>>>
->>>>>>>>> The key point is who want to create a new device.
->>>>>>>> DPU can come with a certain number of pre-created ADIs, just make
->>>>>>>> sure the orchestration SW is aware of their device IDs.
->>>>>>>>
->>>>> Cloud often need these devices to be created dynamically, many a time after the host OS is booted.
->>>>> To be more generic, those devices to be created and connected to the host regardless of the life cycle of the host.
->>>>> Xuan partly explained it.
->>>>>
->>>>>>>> If you want the DPU randomly create ADIs and notify the driver, I
->>>>>>>> think we need interrupt, e.g., re-use config interrupt. But why DPU
->>>>>>>> wants to create and hot plug in a device to a guest?
->>>>>>>> Shall the host handle that or DPU pre-create then expose to baremteal
->>>>>>>> machines?
->>>>>>> In your scenario, the supervisor is on the os, which controls the DPU
->>>>>>> to create new devices.
->>>>>>>
->>>>>>> In the cloud scenario, the vendor manager is in the DPU, and the
->>>>>>> entire host is for users. Of course, there are situations where the
->>>>>>> vendor manager are in the HOST. But for bare metal machines, the host
->>>>>>> belongs to the customer, the vendor manager is only in the DPU.
->>>>>>>
->>>>>>> So when the customers buy a new nic for the host, the vendor manager
->>>>>>> will plug a device to the host from the DPU.
->>>>>> I understand once a customer orders a new NIC, you wants to present the NIC
->>>>>> to the host.
->>>>>> However you only owns the DPU and the customer owns the host, that means
->>>>>> this creation and hot plug must be transparent to the host and there may not be
->>>>>> a host driver help handling an interrupt/probe.
->>>>>>
->>>>> That is ok. when driver is loaded, it would query about its child devices and probe it, if we strictly want to follow SIOV model.
->>>>>
->>>>>> However this is not PCI which has a tree/switch and can enumerate devices to
->>>>>> the host by spanning the device across the PCI hierarchy.
->>>>>>
->>>>> Those enumeration is triggered by the parent PCI device and pci bridge and switch will also discover it.
->>>>>
->>>>>> To address an ADI, there is only a device_id.
->>>>>>
->>>>> SIOV device must have a unique identifier at PCI bus level for sure.
->>>>> I cannot speak more about it in this forum due to other logistics issue.
->>>>> But assume that there is PCI level unique identifier for SIOV device that switches on the path will learn about.
->>>>>
->>>>>> So, do you mind share how your DPU offload the device model? What kind of
->>>>>> device your DPU provide to the host? Lets see whether DPU can mediate this by
->>>>>> its own?
->>>>>>
->>>>> It is a virtio nic, blk and other virtio devices for us.
->>>>> A DPU hotplugs a device, host side either gets interrupt or later gets to know about it when explicitly queries.
->>>>> There is no mediation per say here, it is just a dpu based SIOV device like a regular PF.
->>>>>
->>>>> For non virtio DPU device, I implemented them in Linux for dpus 2 years ago.
->>>>> You might find a Linux reference model useful at [1].
->>>>> A usage model already exists in one OS and in use for non virtio devices.
->>>>> This certainly works without SIOV unique PCI device identifiers, because DPU (non-host) managed SIOV device spec still does not exist.
->>>>>
->>>>> For virtio, I think we should wait for this piece to be defined and leverage that, instead of virtio tc creating its own.
->>>>>
->>>>> [1] https://github.com/Mellanox/scalablefunctions/wiki
->>>> well I see SF facing the similar challenge, I can add a command for the
->>>> driver to query all existing SIOV ADIs of a device,
->>>> and the device return ADIs id and status. Looks good? and work for you
->>>> @Xuan?
->>> Could I have your plan for this?
->>>
->>> If you do not mind, I'd like to add a command to query VF's info. Such
->>> as mac, ip, etc.
->> I think the query commands for SIOV is a little more complex, e.g.,
->> need to report device type and its scale(e.g., features, mq).
->> There can be thousands of SIOV ADIs and we don't want output flood.
->>
->> We have discussed implementation a config interrupt to report new
->> created / deleted
->> ADIs on the DPU side, therefore there must be a cap contains related
->> information,
->> my rough approach of the process is:
->> 1) a cap contains the total number of existing ADIs and the max dev id
->> 2) driver queries detailed information of a certain ADI or a bunch of
->> ADIs in a [dev_id....dev_id2] range.
-> Yes, Admin Queue can obtain the info of the specific one or more devices.
->
->> I am not sure whether a NIC stores its IP
->
-> IP is the other topic. I want the Admin Queue manage the switch.
-> So the switch know about the IP of every device, and the
-> Admin Queue will has the ability to config the IP of the device inside the
-> switch.
-DPU onboard switch? OVS? Does it beyond virtio spec?
->
->
-> Thanks.
->
->
->> Thanks
->>> Thanks.
->>>
->>>
->>>
->>>> Thanks
->>>>
->>> This publicly archived list offers a means to provide input to the
->>> OASIS Virtual I/O Device (VIRTIO) TC.
->>>
->>> In order to verify user consent to the Feedback License terms and
->>> to minimize spam in the list archive, subscription is required
->>> before posting.
->>>
->>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->>> List help: virtio-comment-help@lists.oasis-open.org
->>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
->>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
->>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
->>> Committee: https://www.oasis-open.org/committees/virtio/
->>> Join OASIS: https://www.oasis-open.org/join/
->>>
+For SIOV, I think this is MUST. Maybe you have one simple implementation.
+But you have to solve the IP steering. So admin queue should has the ability
+to config the IP steering.
 
+Thanks.
+
+> >
+> >
+> > Thanks.
+> >
+> >
+> >> Thanks
+> >>> Thanks.
+> >>>
+> >>>
+> >>>
+> >>>> Thanks
+> >>>>
+> >>> This publicly archived list offers a means to provide input to the
+> >>> OASIS Virtual I/O Device (VIRTIO) TC.
+> >>>
+> >>> In order to verify user consent to the Feedback License terms and
+> >>> to minimize spam in the list archive, subscription is required
+> >>> before posting.
+> >>>
+> >>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> >>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> >>> List help: virtio-comment-help@lists.oasis-open.org
+> >>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> >>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> >>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> >>> Committee: https://www.oasis-open.org/committees/virtio/
+> >>> Join OASIS: https://www.oasis-open.org/join/
+> >>>
+>
+>
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
+>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
