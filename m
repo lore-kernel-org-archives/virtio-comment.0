@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6918-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6919-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 259F0EB64DD
-	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 01:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC863C001DC
+	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 02:02:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 555AA1FF69
-	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 01:20:33 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 282573E302
+	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 02:02:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 356DF986383
-	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 01:20:33 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 10A58986382
+	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 02:02:17 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 14266983EB2; Mon, 31 Jul 2023 01:20:33 +0000 (UTC)
+	id F08D9983EB2; Mon, 31 Jul 2023 02:02:16 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,345 +24,127 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DEE8B986364
-	for <virtio-comment@lists.oasis-open.org>; Mon, 31 Jul 2023 01:20:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DD3A8986364
+	for <virtio-comment@lists.oasis-open.org>; Mon, 31 Jul 2023 02:02:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 0Zt2gxCwM7icoKjJX1L5aA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690766412; x=1691371212;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WkuTw3uel2NfwCaOeISJIPdgMeJGtT9Fcjphf0LkbN0=;
-        b=CQ+v6X8GZXkECG0jWJR5wukveKUTXkMUrMp1JxKOShZUkFKGT/5k4fQ6UG18XR1mDj
-         RYP2TBlX2TnZ4y2VOCpjgMK1RsD5jFCUdG054/Y7GequEy/QesDeqwApZ2XDVH/cTbz1
-         AeRw95hEDQH0wGsDas2JcCxcUiCv5bBwS0niRWCXGTqGY14+ucY6MfsuY9ogl/gp8e1X
-         lKPMNYREulC0nouwxbfKrSwkRAJiVK/EwTikQy6i5DQdUReB4u7Xg6Rzw1elOr708aRE
-         20Sdss+Dbd90QZYexDnRtQb6QKog7miZ2XINr6Oi0QC1CvBz+SUfcvFFruS1sWd22u76
-         AGmQ==
-X-Gm-Message-State: ABy/qLYxZHIz1dAjhOVt3TQRlr3oH8nhxlbUf0Q9C1DcltwTrL2FDqIX
-	w1OtPkTIAakyY/sjT72hbaVdOC6ngzVOvl+Zyng6+OYMe60raVpNXKR/WNEcCGOYMwxmQ3fy321
-	3ZLC0e96JTVYgVugQ/OLDissRJICHAIt1WkXz6OMxfF3uoXz0Yg==
-X-Received: by 2002:a2e:330d:0:b0:2b9:cb2a:11bf with SMTP id d13-20020a2e330d000000b002b9cb2a11bfmr5137752ljc.49.1690766412075;
-        Sun, 30 Jul 2023 18:20:12 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlFY3m15na52o38dsODylnpxYbgKQx91XkeMyCoDVv32qJQv2u7WQjOmjSV6xKVjJJTLpzJL9ngwXiHZZ8e3eik=
-X-Received: by 2002:a2e:330d:0:b0:2b9:cb2a:11bf with SMTP id
- d13-20020a2e330d000000b002b9cb2a11bfmr5137741ljc.49.1690766411677; Sun, 30
- Jul 2023 18:20:11 -0700 (PDT)
-MIME-Version: 1.0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XxB3fVqO33AN9Sn//c9ESpYX2NrkDHWxbS8+PNM9+HaXWPqzYAkc5FousW0ztHI+KmbubADwfY+93OdT8O6DGnH5r49NqV3HgrLuBf9wnIjC0KqjaykYFPde5lExwb278b/iErRHoHi8YcvtbBgKhVaXFPZeoRAp7le0/fswJDz5cyMiKVWRt3VtNSie6X5bjxypr/8yUggUyDVyfsmJp5Mqrwbt/vYuRaXwxQsxh8WE1QsQEhuYryPjrd39hZiHn/8ohBfSvfFvAzP5019Xtnt9EGr6/KY0RiTexuFpF7mX/KCJa1tGbTF5iLJ5tGXpJFrNrQUlJJblNiUUBRtazQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gi3yX+/tjTgk8Mn6ciuGjkxBIPvVWURVdjQ7sYZv4zk=;
+ b=dPrawZH0L6oiYiijtHt6j+3EVO68qewf4lfJCwYTacgSc+z+IpOP8en9nncVk4U6uDNIeqnIVklYt7OCZ1vH31bru8eyqJnT5DWOLOgryAETOOt6okf+pfM0aPLGAZKrT9zGV8ywRZk+zCVGSTRUPKUzxLwcywS5ZFicZFwvhHhh/AZP78Iyh6UUm/hR7EIxXpiODmNNhJAKTiE0aipHT4V4vdmVVn1I2OEteyfR+MMH1H+rB1g+GsH4WUIqR3CD1K5KKIQgiHfase/TPB920m09I02dJbefxa3Mpib7VFowCavBPL9UMYFQiqpFIxNFVkgGnmV2BbH7Wb1xqXuttA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+CC: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>, Washizu Yui <yui.washidu@gmail.com>
+Thread-Topic: [virtio-comment] About the plan of Admin Queue
+Thread-Index:
+ AQHZo0OgMaVHGskGLUio/ZFR6jh2f6+TVwYAgA+RFwCAAAcYgIAAGFcAgAACKwCAAAB8AIAACicAgAALnICAABYRAIAAC8gAgARFlgCAJZahgIAAGBsAgAAlAwCAAAJ7gIAAAKCAgAAdAQCAAXJ/gIAEZfkAgAALboA=
+Date: Mon, 31 Jul 2023 02:02:14 +0000
+Message-ID:
+ <PH0PR12MB548142BFCFBD93FCCB64C443DC05A@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
- <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com> <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
- <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com> <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
- <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com> <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
- <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com> <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
- <259c7b04-58df-8085-755f-a36993556a89@intel.com> <PH0PR12MB5481243B22A694E42C351C20DC2AA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2e176f24-293b-5be0-2928-e8ce0300e75a@intel.com> <1690425015.0990853-1-xuanzhuo@linux.alibaba.com>
- <52fa9d57-c21a-0235-b8bb-614e88e25f17@intel.com> <1690438140.7109714-2-xuanzhuo@linux.alibaba.com>
- <3f3b3a17-8199-8830-af22-94686feac956@intel.com> <1690438807.4627175-3-xuanzhuo@linux.alibaba.com>
- <CACGkMEs=zL-R8-0yvKz3ZgZ8MWiX_ErTQYCAu8G49D75GKhpAw@mail.gmail.com> <1690524599.5130646-2-xuanzhuo@linux.alibaba.com>
-In-Reply-To: <1690524599.5130646-2-xuanzhuo@linux.alibaba.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Mon, 31 Jul 2023 09:20:00 +0800
-Message-ID: <CACGkMEsw1HWHsza1hOEGjAk7FiwQDG6HD5QfVsk+eQXJ1TMuTQ@mail.gmail.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Parav Pandit <parav@nvidia.com>, Washizu Yui <yui.washidu@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] About the plan of Admin Queue
+ <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
+ <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
+ <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com>
+ <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
+ <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com>
+ <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
+ <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com>
+ <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
+ <259c7b04-58df-8085-755f-a36993556a89@intel.com>
+ <PH0PR12MB5481243B22A694E42C351C20DC2AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <2e176f24-293b-5be0-2928-e8ce0300e75a@intel.com>
+ <1690425015.0990853-1-xuanzhuo@linux.alibaba.com>
+ <52fa9d57-c21a-0235-b8bb-614e88e25f17@intel.com>
+ <1690438140.7109714-2-xuanzhuo@linux.alibaba.com>
+ <3f3b3a17-8199-8830-af22-94686feac956@intel.com>
+ <1690438807.4627175-3-xuanzhuo@linux.alibaba.com>
+ <CACGkMEs=zL-R8-0yvKz3ZgZ8MWiX_ErTQYCAu8G49D75GKhpAw@mail.gmail.com>
+ <1690524599.5130646-2-xuanzhuo@linux.alibaba.com>
+ <CACGkMEsw1HWHsza1hOEGjAk7FiwQDG6HD5QfVsk+eQXJ1TMuTQ@mail.gmail.com>
+In-Reply-To:
+ <CACGkMEsw1HWHsza1hOEGjAk7FiwQDG6HD5QfVsk+eQXJ1TMuTQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SN7PR12MB7249:EE_
+x-ms-office365-filtering-correlation-id: f758cf19-8306-4586-da73-08db916a28f3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ hI0MN1ksGAqZRyn1Gphlw8yRwU5aBiXeB8ZjqpKybjDI5RXqoBePo2hg4Ecb+HQIx3oAYlIn09/uEs3qDbnoPW+19ngV5E+7G02g3CkahHth6rgcHb6mTxAAd+uSutp3wnCr3Gx/5x2Eyf86yX1Qmk2vAl/T89LJFAKvYv+mek76Cl20OOPECKDPGmj0qWzyPNC0NApYiznJYiS81cV6kmT+3bbE0oRGPQiXZN7L60Gvs+48A1LqD3sIzqGKkgvuL1IEV0stZKe+jMNf5mToqam1b9VX2D9C6zlouu3ZyLNHwjmjFmp55snpIc5VGwLGIWoTT6N/GhIQG4iVAcFtffg0rM3dYuoCHTkWi4J5bL2mK8ucT/hZwEGFIUtBEdAZekmpZSZTdyFjHGfNttVGS8jdjAcddXEhJvfCZNMKGKKM2lIElrYlYbhwHdm8o61JhBc6hnUi9OXtIGo51eRzXmwB87w02tI8x4ecgDleedbKboCQwPr5Joo1943pXRybt33qyPQeo2nV6Oq4u8/pS9c3eT3zlGscGAOGX1a+fsRc0bS6Fg5rAEQ8UH8rLv9TlMEdWt47iYLL83jlkVBunR9ZD5r0NIV2OK7owHavqHWfVqaEmq3htX3KgevbiRVM
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(366004)(376002)(39860400002)(136003)(451199021)(6506007)(54906003)(478600001)(110136005)(186003)(71200400001)(122000001)(7696005)(66476007)(66556008)(4326008)(66446008)(64756008)(83380400001)(9686003)(66946007)(38100700002)(76116006)(5660300002)(4744005)(52536014)(33656002)(41300700001)(38070700005)(2906002)(316002)(8676002)(8936002)(86362001)(55016003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?WituaXBoSVU0QW52MG1rYXlvNzdIZlAvNEJ4MTRkaEJuRVBBclE0UlZ5K1dN?=
+ =?utf-8?B?bHBSdThGYS9mYi9vcTFwTmRNTnR4bmJ6R1Z1MkdHaVBkYUhVWUlXMTNTT3hx?=
+ =?utf-8?B?dGlOMUlWUGlQWjk2Mm41Z0N0Z0hxNDVkRVlzQXNtUEt5cHVHUFF3SGxNTkY3?=
+ =?utf-8?B?VjJaeGpkMFhPa3dqelFlOXJ3eGkzZ0M1MDZDVUJMSmZFSnJqdUwvWTdSVURo?=
+ =?utf-8?B?WjM0Q0dwT1cwMTFFZk1TRUxNbGZNdFJLVk1iMHlUekx0bE01cmVCanBLVC9o?=
+ =?utf-8?B?b2M1WkR5ajJDSGo5aG0xcnI1eTZpYjdZYWE3cFRwWXVCKzBZeEswV01qcXRv?=
+ =?utf-8?B?UURKeWxaK3ZJSEhPM0dZaXFuZUVza29EYnBsSVBrZW9hUGNnTGl5UnkycENY?=
+ =?utf-8?B?S0kwb0toTzcwcXdqWDJxUklOZW53ZDFZQkFZRWZJa0QwbmRtdVMzZzJEKzE5?=
+ =?utf-8?B?Ni9hWkVOUDZTZUhBdlBXSDE2WEsyd05nS1JsRGljY2FUUXFFdlRDL2ZWdVMw?=
+ =?utf-8?B?K3IyeUgwU2tCM1g4QWo3YThzU3F4VXRWcVpUQ3FFMHBsT0dWRnF1S2ViczE0?=
+ =?utf-8?B?NjJmbDVmdmZXMmZmQVlzWWFpS1ZsTHhDNjZGTEpmdGErcEF2RnZtMjlGek9Y?=
+ =?utf-8?B?MHU1Y3o4L3FOdUhwQXBwMVRabWl3djFhNHpVYjlzZVpaWUpEYkVLNXJiaFN1?=
+ =?utf-8?B?TVBxZzEyY2Q2MTRHVmhRL0UwWG5yWmt6YUdWV0hLd2twV1pxbVZFZWlOOUEx?=
+ =?utf-8?B?MXFhVDVSMnZJdjIrUVc5ZzZoaGNzTDAwZWYrY0xzbzRJd01qNytqY0tFbTJX?=
+ =?utf-8?B?ZWx1R1NaM1ZGdjI3NWVhUEdjUzhIYUVIaEx3Y0FyQ1NLR1Y4VS80OTlBeksy?=
+ =?utf-8?B?V1RDdFZ1MDd1VnF1TzdxR3djM1Q4dlR2akNwd3hhWkVkMTAvd3FaNDhiWk1I?=
+ =?utf-8?B?UEdyUWtLM21JaXFGeTBhQlM2WXd5NnltRmM3RTdjUnZPSm9xVzZLNXBOQWJx?=
+ =?utf-8?B?Y3JjWEhYZytmSnJqNnBsTXVMR0trdDlSdFlUNG5QT3BxM3paaVpsZ1lsZ2J4?=
+ =?utf-8?B?NmlzdEVQdHlUbWJGckhnZkZOUVowMVFMVTl5N2F5VHNRTUxJNVFVamxxSVRI?=
+ =?utf-8?B?TjRPazMyMXVXeTZWc0J1TnQyR0FLcDVHMEtQM3U3b0ZrYW1ZSUg3cWFwZ2hr?=
+ =?utf-8?B?ZnpnUk1nVS96OW9VelMzNFdJcCtKS0g2QjNWNHVPSzVlYlRGT0NORVhtMEc5?=
+ =?utf-8?B?U1lhUnB4aWRnOUdHblRZVXNQNWZ1Z1JwRWFwYkJJMXlzODY0ZXdDOTE3SVI3?=
+ =?utf-8?B?SVdhbFRMTy9sVG1DdlV0SWVld2lkYkZ3b3dZVWFDakN4dlRiQVJUankyN084?=
+ =?utf-8?B?cFI5SnVIT2wxS3NpcUVTaHZ6VXNQMzYvVFFiLzRyVXdMSmlha2NpeEtjVW5y?=
+ =?utf-8?B?NDNYa1pUUUZTeVRwaHVMOVgvYmdYVGttUnJ1UXBhd2hkMkFWOGpSRit4QUM0?=
+ =?utf-8?B?eFR3NG81UnJ4clNMSzJxYXduQ0JrNzQ1S0h2OXdLUHJoS0JpZFB2dW03bFAz?=
+ =?utf-8?B?RlI4K25nR1pkL0wxUFo1eVhvSkoyd1NYeHFlV3RqUVMrZURHd3JlMXNKa3VU?=
+ =?utf-8?B?c3A5UDFRSER6SXlBQ0thRXI4QUpaQWsxb2V2VVNldGRDV3hUUWRWK1QrN3lG?=
+ =?utf-8?B?MWI4N0lvVDdHSlQxUWo4U0xjVU1TbWlrZnpZMEF2UlFBeTlPaWVhM0pBb0ox?=
+ =?utf-8?B?UC81TTRsYVMyeHpOci9MWTB1NkszdHd5eEp2bXVuMlhHWTdGNjZqTlF6V3lT?=
+ =?utf-8?B?K0h4UjE2d1VnS2xHdGtKV0NkZ2tIbDdGSFVzVjQ4N0NtNVVTeVQ5UVoybVZO?=
+ =?utf-8?B?NjVQTEhSU2lyT0lsV3VSaUlFRURzOENXd09QR1N3TzN0WnhCTHd6KzRFYWpQ?=
+ =?utf-8?B?WjF6N0g3QVlqcURzaUhOVm8vVWc5RDFrUDBtbzZMc2hlQklldFNUTVg1Z2hx?=
+ =?utf-8?B?cHFHcm1IekZxOUtUQjljWVZOcnoyUzRnNnZwRGwxM2daSENzUTNUcSszM09O?=
+ =?utf-8?B?MXNpZkRtTXFqYXAzZzlRcWl4SXZJWExUMzRkRk1BYldtVi8xeGx6QXAxQ1NK?=
+ =?utf-8?B?QWNpbkREdU5xcUozQWo3azhvZFhYVnUxVmRDVGx5Zm9GeHQzYjB4dTBKSzh4?=
+ =?utf-8?Q?yfHmeODoaDzQYSo7NnmbL8A=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f758cf19-8306-4586-da73-08db916a28f3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2023 02:02:14.2351
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: btQHnjN42jQfsTag/p8ukRi2chb3YolAYuDT09bP7ZW1/VhCcjbs6Cxd+kNOcNTvkv9BcDMM711n4sr81yKbOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7249
+Subject: RE: [virtio-comment] About the plan of Admin Queue
 
-On Fri, Jul 28, 2023 at 2:14=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.alibaba.c=
-om> wrote:
->
-> On Thu, 27 Jul 2023 16:03:56 +0800, Jason Wang <jasowang@redhat.com> wrot=
-e:
-> > On Thu, Jul 27, 2023 at 2:23=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.aliba=
-ba.com> wrote:
-> > >
-> > > On Thu, 27 Jul 2023 14:17:53 +0800, "Zhu, Lingshan" <lingshan.zhu@int=
-el.com> wrote:
-> > > >
-> > > >
-> > > > On 7/27/2023 2:09 PM, Xuan Zhuo wrote:
-> > > > > On Thu, 27 Jul 2023 11:56:32 +0800, "Zhu, Lingshan" <lingshan.zhu=
-@intel.com> wrote:
-> > > > >>
-> > > > >> On 7/27/2023 10:30 AM, Xuan Zhuo wrote:
-> > > > >>> On Mon, 3 Jul 2023 12:29:32 +0800, "Zhu, Lingshan" <lingshan.zh=
-u@intel.com> wrote:
-> > > > >>>> On 6/30/2023 7:35 PM, Parav Pandit wrote:
-> > > > >>>>>> From: virtio-comment@lists.oasis-open.org <virtio-comment@li=
-sts.oasis-
-> > > > >>>>>> open.org> On Behalf Of Zhu, Lingshan
-> > > > >>>>>> Sent: Friday, June 30, 2023 6:33 AM
-> > > > >>>>>>
-> > > > >>>>>>>>> Can we let the DPU notify the driver to create a new devi=
-cer from the
-> > > > >>>>>> backend?
-> > > > >>>>> Yes, why not.
-> > > > >>>>>
-> > > > >>>>>>>>> The key point is who want to create a new device.
-> > > > >>>>>>>> DPU can come with a certain number of pre-created ADIs, ju=
-st make
-> > > > >>>>>>>> sure the orchestration SW is aware of their device IDs.
-> > > > >>>>>>>>
-> > > > >>>>> Cloud often need these devices to be created dynamically, man=
-y a time after the host OS is booted.
-> > > > >>>>> To be more generic, those devices to be created and connected=
- to the host regardless of the life cycle of the host.
-> > > > >>>>> Xuan partly explained it.
-> > > > >>>>>
-> > > > >>>>>>>> If you want the DPU randomly create ADIs and notify the dr=
-iver, I
-> > > > >>>>>>>> think we need interrupt, e.g., re-use config interrupt. Bu=
-t why DPU
-> > > > >>>>>>>> wants to create and hot plug in a device to a guest?
-> > > > >>>>>>>> Shall the host handle that or DPU pre-create then expose t=
-o baremteal
-> > > > >>>>>>>> machines?
-> > > > >>>>>>> In your scenario, the supervisor is on the os, which contro=
-ls the DPU
-> > > > >>>>>>> to create new devices.
-> > > > >>>>>>>
-> > > > >>>>>>> In the cloud scenario, the vendor manager is in the DPU, an=
-d the
-> > > > >>>>>>> entire host is for users. Of course, there are situations w=
-here the
-> > > > >>>>>>> vendor manager are in the HOST. But for bare metal machines=
-, the host
-> > > > >>>>>>> belongs to the customer, the vendor manager is only in the =
-DPU.
-> > > > >>>>>>>
-> > > > >>>>>>> So when the customers buy a new nic for the host, the vendo=
-r manager
-> > > > >>>>>>> will plug a device to the host from the DPU.
-> > > > >>>>>> I understand once a customer orders a new NIC, you wants to =
-present the NIC
-> > > > >>>>>> to the host.
-> > > > >>>>>> However you only owns the DPU and the customer owns the host=
-, that means
-> > > > >>>>>> this creation and hot plug must be transparent to the host a=
-nd there may not be
-> > > > >>>>>> a host driver help handling an interrupt/probe.
-> > > > >>>>>>
-> > > > >>>>> That is ok. when driver is loaded, it would query about its c=
-hild devices and probe it, if we strictly want to follow SIOV model.
-> > > > >>>>>
-> > > > >>>>>> However this is not PCI which has a tree/switch and can enum=
-erate devices to
-> > > > >>>>>> the host by spanning the device across the PCI hierarchy.
-> > > > >>>>>>
-> > > > >>>>> Those enumeration is triggered by the parent PCI device and p=
-ci bridge and switch will also discover it.
-> > > > >>>>>
-> > > > >>>>>> To address an ADI, there is only a device_id.
-> > > > >>>>>>
-> > > > >>>>> SIOV device must have a unique identifier at PCI bus level fo=
-r sure.
-> > > > >>>>> I cannot speak more about it in this forum due to other logis=
-tics issue.
-> > > > >>>>> But assume that there is PCI level unique identifier for SIOV=
- device that switches on the path will learn about.
-> > > > >>>>>
-> > > > >>>>>> So, do you mind share how your DPU offload the device model?=
- What kind of
-> > > > >>>>>> device your DPU provide to the host? Lets see whether DPU ca=
-n mediate this by
-> > > > >>>>>> its own?
-> > > > >>>>>>
-> > > > >>>>> It is a virtio nic, blk and other virtio devices for us.
-> > > > >>>>> A DPU hotplugs a device, host side either gets interrupt or l=
-ater gets to know about it when explicitly queries.
-> > > > >>>>> There is no mediation per say here, it is just a dpu based SI=
-OV device like a regular PF.
-> > > > >>>>>
-> > > > >>>>> For non virtio DPU device, I implemented them in Linux for dp=
-us 2 years ago.
-> > > > >>>>> You might find a Linux reference model useful at [1].
-> > > > >>>>> A usage model already exists in one OS and in use for non vir=
-tio devices.
-> > > > >>>>> This certainly works without SIOV unique PCI device identifie=
-rs, because DPU (non-host) managed SIOV device spec still does not exist.
-> > > > >>>>>
-> > > > >>>>> For virtio, I think we should wait for this piece to be defin=
-ed and leverage that, instead of virtio tc creating its own.
-> > > > >>>>>
-> > > > >>>>> [1] https://github.com/Mellanox/scalablefunctions/wiki
-> > > > >>>> well I see SF facing the similar challenge, I can add a comman=
-d for the
-> > > > >>>> driver to query all existing SIOV ADIs of a device,
-> > > > >>>> and the device return ADIs id and status. Looks good? and work=
- for you
-> > > > >>>> @Xuan?
-> > > > >>> Could I have your plan for this?
-> > > > >>>
-> > > > >>> If you do not mind, I'd like to add a command to query VF's inf=
-o. Such
-> > > > >>> as mac, ip, etc.
-> > > > >> I think the query commands for SIOV is a little more complex, e.=
-g.,
-> > > > >> need to report device type and its scale(e.g., features, mq).
-> > > > >> There can be thousands of SIOV ADIs and we don't want output flo=
-od.
-> > > > >>
-> > > > >> We have discussed implementation a config interrupt to report ne=
-w
-> > > > >> created / deleted
-> > > > >> ADIs on the DPU side, therefore there must be a cap contains rel=
-ated
-> > > > >> information,
-> > > > >> my rough approach of the process is:
-> > > > >> 1) a cap contains the total number of existing ADIs and the max =
-dev id
-> > > > >> 2) driver queries detailed information of a certain ADI or a bun=
-ch of
-> > > > >> ADIs in a [dev_id....dev_id2] range.
-> > > > > Yes, Admin Queue can obtain the info of the specific one or more =
-devices.
-> > > > >
-> > > > >> I am not sure whether a NIC stores its IP
-> > > > >
-> > > > > IP is the other topic. I want the Admin Queue manage the switch.
-> > > > > So the switch know about the IP of every device, and the
-> > > > > Admin Queue will has the ability to config the IP of the device i=
-nside the
-> > > > > switch.
-> > > > DPU onboard switch? OVS? Does it beyond virtio spec?
-> > >
-> > > YES.
-> >
-> > Adding Washizu.
-> >
-> > We can have a switch/dpa defined in the networking device for sure.
-> >
-> > >
-> > > For SIOV, I think this is MUST.
-> >
-> > A learning bridge would be fine as a starter. It's better not to
-> > couple new scalable capability with any device specific features.
-> >
-> > > Maybe you have one simple implementation.
-> > > But you have to solve the IP steering. So admin queue should has the =
-ability
-> > > to config the IP steering.
-> >
-> > I think not. Those L2/LN tables/filters are networking specific.
-> > Control virtqueue is better than admin virtqueue here.
->
-> So I think some things like ring size, queue num, interrupts etc. are con=
-figured
-> by the admin queue. VF's ip, mac should be configured by PF's cvq.
->
-> Is that right?
->
-> @Michael @Jason
-
-That's my understanding.
-
-Thanks
-
->
-> Thanks.
->
->
-> >
-> > Thanks
-> >
-> > >
-> > > Thanks.
-> > >
-> > > > >
-> > > > >
-> > > > > Thanks.
-> > > > >
-> > > > >
-> > > > >> Thanks
-> > > > >>> Thanks.
-> > > > >>>
-> > > > >>>
-> > > > >>>
-> > > > >>>> Thanks
-> > > > >>>>
-> > > > >>> This publicly archived list offers a means to provide input to =
-the
-> > > > >>> OASIS Virtual I/O Device (VIRTIO) TC.
-> > > > >>>
-> > > > >>> In order to verify user consent to the Feedback License terms a=
-nd
-> > > > >>> to minimize spam in the list archive, subscription is required
-> > > > >>> before posting.
-> > > > >>>
-> > > > >>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > > >>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > > >>> List help: virtio-comment-help@lists.oasis-open.org
-> > > > >>> List archive: https://lists.oasis-open.org/archives/virtio-comm=
-ent/
-> > > > >>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_l=
-icense.pdf
-> > > > >>> List Guidelines: https://www.oasis-open.org/policies-guidelines=
-/mailing-lists
-> > > > >>> Committee: https://www.oasis-open.org/committees/virtio/
-> > > > >>> Join OASIS: https://www.oasis-open.org/join/
-> > > > >>>
-> > > >
-> > > >
-> > > > This publicly archived list offers a means to provide input to the
-> > > > OASIS Virtual I/O Device (VIRTIO) TC.
-> > > >
-> > > > In order to verify user consent to the Feedback License terms and
-> > > > to minimize spam in the list archive, subscription is required
-> > > > before posting.
-> > > >
-> > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > > List help: virtio-comment-help@lists.oasis-open.org
-> > > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_licen=
-se.pdf
-> > > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mai=
-ling-lists
-> > > > Committee: https://www.oasis-open.org/committees/virtio/
-> > > > Join OASIS: https://www.oasis-open.org/join/
-> > > >
-> > >
-> > > This publicly archived list offers a means to provide input to the
-> > > OASIS Virtual I/O Device (VIRTIO) TC.
-> > >
-> > > In order to verify user consent to the Feedback License terms and
-> > > to minimize spam in the list archive, subscription is required
-> > > before posting.
-> > >
-> > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > List help: virtio-comment-help@lists.oasis-open.org
-> > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license=
-.pdf
-> > > List Guidelines: https://www.oasis-open.org/policies-guidelines/maili=
-ng-lists
-> > > Committee: https://www.oasis-open.org/committees/virtio/
-> > > Join OASIS: https://www.oasis-open.org/join/
-> > >
-> >
->
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+DQo+IEZyb206IEphc29uIFdhbmcgPGphc293YW5nQHJlZGhhdC5jb20+DQo+IFNlbnQ6IE1vbmRh
+eSwgSnVseSAzMSwgMjAyMyA2OjUwIEFNDQo+ID4gU28gSSB0aGluayBzb21lIHRoaW5ncyBsaWtl
+IHJpbmcgc2l6ZSwgcXVldWUgbnVtLCBpbnRlcnJ1cHRzIGV0Yy4gYXJlDQo+ID4gY29uZmlndXJl
+ZCBieSB0aGUgYWRtaW4gcXVldWUuIFZGJ3MgaXAsIG1hYyBzaG91bGQgYmUgY29uZmlndXJlZCBi
+eSBQRidzIGN2cS4NCg0KVkYncyBtYWMgc2hvdWxkIGJlIGNvbmZpZ3VyZWQgYnkgaXRzZWxmIHVz
+aW5nIGl0cyBvd24gY3ZxLiBUaGVyZSBpcyBubyBtZWRpYXRpb24gcmVxdWlyZWQuDQo=
 
