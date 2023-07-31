@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6925-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6926-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6422C001DE
-	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 04:32:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB5E5C001DF
+	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 04:44:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E683975986
-	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 04:32:25 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id F37821318C9
+	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 04:44:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D572D986382
-	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 04:32:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D4E78986383
+	for <virtio-comment@archiver.kernel.org>; Mon, 31 Jul 2023 04:44:44 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C49E7983D41; Mon, 31 Jul 2023 04:32:25 +0000 (UTC)
+	id BEC1A983EBE; Mon, 31 Jul 2023 04:44:44 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,133 +24,230 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ABFCF986364;
-	Mon, 31 Jul 2023 04:32:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A8B0E986364
+	for <virtio-comment@lists.oasis-open.org>; Mon, 31 Jul 2023 04:44:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d4fsXVR7mFkFRsDm6NRD4VGLhZ19SVisFA8/D/2AxP9hH2FxxZEXstJDeq7T04NCBxk2TE5+FUHmj5fRTLR0xcZj7zarr6hr6R/IK2PuEJ1PkFfRcvtHk2ozqrT9rYYEvMxeh4tusjphZ4OnmNS8pSu99lAm4Q9wrK52oY6onarsUAdzDhaA7KLQvF2MtCJ3qoMxPdVJvO+/s2lFLrRr2necRbAvANZPCACIdDliTKvv0fwXmaPy5LcpjCiVLZ6QvRh1ld9AA4ELK5ayRg5LgnYLsh6LIROVwlFwro+JTKlVzzIa3FDX9m/2/5r+I9Dd56TBsx25hY0ytrjMsmG54w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YcyehsIoK2tpcteNbe2QDklp04H8FGv3+AJ0tlTP5Wc=;
- b=IZsy7I/3Z9zNeVG3xV0KiYAilXl5Ep8hQMFLaa3pd9+TAQJJp6SzE+5hGa99y+DNRFoOHNx7rQdyRntvBVkYm2G7oVLYKLpE+ZpJT1IfCmj1M6JRtM5OmC06W7ruGry3xk4eC2nIudhrI+6P/1YH85GN6KVLjtnOJk/3g/sG2SpNsJbP2Ukwy4MLhG7LinJhp10jAZyUE8SPOy0WejgQ+pWj7bSHkX2JZGAFkKAil9Y4SltCUVhor1ntK4IjWIn7mnWb0LA72ze820ga0Fl24JymB6NyEU8ygZpWayKuefxcBb0wbnlotS0LXo6+y/H64R45KvSqOgV+s8Fr533YQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "Michael S. Tsirkin"
-	<mst@redhat.com>
-CC: "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Thread-Topic: [PATCH v13] virtio-net: support device stats
-Thread-Index: AQHZv5jvruUY/+MlM0y3MfS8bNE+OK/L5l8AgADzOgCABnXkwA==
-Date: Mon, 31 Jul 2023 04:32:22 +0000
-Message-ID:
- <PH0PR12MB548149ED4C687913EDA3EED9DC05A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230726081229.55947-1-xuanzhuo@linux.alibaba.com>
- <20230726070801-mutt-send-email-mst@kernel.org>
- <1690422490.8491526-1-xuanzhuo@linux.alibaba.com>
-In-Reply-To: <1690422490.8491526-1-xuanzhuo@linux.alibaba.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH3PR12MB7716:EE_
-x-ms-office365-filtering-correlation-id: 297a3fe5-dea3-4a03-08ea-08db917f226b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- G63RmQwPvLmI7UL88UIzRmeHVwo2/cGV6TM/QCNwpNgu8s10TcvFgVDTXn5ZjEkwdFzClOscYsEsi/QjxK65YrXXMZt1m99TZ4zILDXENGH+SFBss8x5t9O4OCQwz6osmcR4ZJ39uEzbYfsrDqaXfEdGJLNdlBjilqFj5t/uSO7GNhYcPkqIbnhxmLkZpo5OWqnNOhOWl0iUVovu9VZlW09Wx0n2zPtWmKuhYNwQoAVOZ+z43cg66JoWYgfCFr04mVxprTDlWyJGhAF5tDlQd/D7491Xhh3N2rBKt6AVPAdp0X0Y+2G2ictFw4pvjJ0histsMlSR9Qcm0s9ek0gxbnb9wDuCctuhh7XR8PiavjYHoy6fiRt1QZoH0CX8ufcVwvrP5EVC3VWCeu4bX/QfccFx0/hJSnF1U9HfpCjSJwCmpCuiNGDQcR2WfWYvpoQX1v0GtRJrRkPD78Q7hHZfc9OSs1R/WHZrJzwBtEc0OzVabhMMcwAbkaj4hfY62P0x9yq95G4dmWawmifBCm6Da4jK05O2culFZ2OsE1dvgIeCqdhUqVkDhAFH6sxQVoH8hGoHMba1I9dq24aaU9CZebIU8s9AWP75jUwaorhDsM6gLUZkDpqKhT0aSX5P1VMO
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(376002)(366004)(396003)(39860400002)(451199021)(66946007)(66556008)(66476007)(66446008)(64756008)(122000001)(4326008)(76116006)(38070700005)(71200400001)(52536014)(5660300002)(478600001)(7696005)(9686003)(316002)(55016003)(110136005)(54906003)(38100700002)(86362001)(41300700001)(8676002)(8936002)(186003)(6506007)(33656002)(4744005)(2906002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?AVt/5IpRsnCiobTlViimN+Pj0iL5bZI7d+CftMDahVpj1LDnsrT5JZR+A1ix?=
- =?us-ascii?Q?zOwau3VSpfm7O0Zd19FMQMkuWVRC3IJwbtRS29wpwdk6OrpzWh3vR7KgvH47?=
- =?us-ascii?Q?sRKEOBwfrrtIPyj5i6S3ew/trk0n73shgYXuZZuthklfVAmxckMBsIlzmnna?=
- =?us-ascii?Q?UovujMRcnaSQ/AfRbvzLw/scFzrTyl5yTpLgQzp0/eduKBZdUeTZb6PIKl+P?=
- =?us-ascii?Q?TxSr94dU2vzgVTYoDzGDMf+akEgzQNxs5GXActBTQQ5tzx7j3/eVR1PHCh5M?=
- =?us-ascii?Q?a2nD/uiANl7GYh3IBJc/2C1xG3UtvFjwaSxOGaOls88cUcpQJIrN0TU3DjX4?=
- =?us-ascii?Q?TSEm2ZpWiF3tYLQ568QCru1+ZPP5GLR876S7i3fm7S9Y2L2qLCmlf/TQCgmS?=
- =?us-ascii?Q?EAVeYW6KcPPkdfuKK9W1GH4UqyE2pU2sNTIPUAW1D9UXZlFdwSwE/M5rN41+?=
- =?us-ascii?Q?4tXltFIU0ZlVH5hgh5Wp48lGgPj87eAng3JpsAPytHBAsaLzL5GemGWUwvNi?=
- =?us-ascii?Q?m5L2K5AHpC4Yi8INNNvxkxqJQJDNvOFnhLqXfUheKzJchNDU4WZDbPGmA4he?=
- =?us-ascii?Q?UogcS8KV7z5wFudRyl6tnRd8UP+IKn1XBXUPUHSxpLhdiWsN5cwoxrrs+Vip?=
- =?us-ascii?Q?ROufYnSuN4ZE06So1HMkvq8k7gOrfxYoyGs6/ofOc6lVtsaPHssuwvGa9elr?=
- =?us-ascii?Q?IuXp24g96eE6ic0Q8Ti4PLbQjZbUsJU0tDWUKj3UQmGkyg0zshRsB+Q7f5bO?=
- =?us-ascii?Q?K4xgs+It1mm79m2Pj3dE30gBreTe3KKsghz7SCSn10i7FlGmjGNKPl0KRHUR?=
- =?us-ascii?Q?mZHOXdUqBwDTAXC013PvBq15Im9BapJ9d5hPd9sU+0WV2CFuP+hczaejBcwM?=
- =?us-ascii?Q?aOVdKKskUX+OlU6dqSbObQZX1CuKwPf25csWYqeibaXvN74Sl3/NL5L1TsLB?=
- =?us-ascii?Q?xJ44HHecEC1glHDX8yMSsOZC306Wj65Ns/j3i7F1ZLRXd44/gADwJZorghLJ?=
- =?us-ascii?Q?xiCh/dG+BQmvJJ+9f3bR7QLEKWTXrzfLF+ptTz+RkpM8vjt27UpCwom4uQgW?=
- =?us-ascii?Q?ueFw+q6WKzRBJCZc5OBCfsLCxGhNugbarOjeIaYr2Uf0mNYzD2AcS1ecYWV+?=
- =?us-ascii?Q?Q4NYUPIO4V+RTiidzqrDxhuW04b0Z3lzxntFRffw96hax1nYoJYL8dz8RVJt?=
- =?us-ascii?Q?MJmvtGM42Lt88+lLwnQOEGa3YKrrYlU60SVTpYWmJhzut8Q1vfmRM33uJ21H?=
- =?us-ascii?Q?EfCezaIita5vM6nfMbxkfeImhHFRhMgcDy8x00VLLg0TflER6V9qSqVstrvH?=
- =?us-ascii?Q?8QUqBEWMTvZSCTKCwkRE0zXxuo/sd4S2JBN+hs9HDwPV73vf2yK08xIV57KA?=
- =?us-ascii?Q?jLfLlq7G22H/FFizPYdvzDskU71WN5i3ou5rwGUl36DH+UpiAd45EQIUn/Nr?=
- =?us-ascii?Q?A0HfMFB2spIS8EJGvGVfW8NQsKuS/Va9sFBwBYoXehMkj4eWSXZdJ3OKeqKQ?=
- =?us-ascii?Q?eyQ9Uk0qLlaD2Xr4MX2XUHD1Kv3O45N5bYUxv/lgFRnJCKxLAiaLOrSWk8AA?=
- =?us-ascii?Q?qlN7LGp8fsvU2uQgEiqlXTrukW3xvWPTa/SmlYe+yHIOU8NvoqS6j3yqutwq?=
- =?us-ascii?Q?+5w86VvFWcaZxJKutLDec9m6HT2yHO7kblzqr3iW6579?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690778683; x=1691383483;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fi9Xm6C9Xjarl0IuVTn+wv+DMvul6IuwST54B5MLV8I=;
+        b=RlnatDVkCiNz9nvWQI+ks2uvktXd8j8/cuec8HggA6SXdKAVtG7qam+crdwAv8p+C9
+         aajk1Qe3brhycrJ6cfX3mZ5/F4yibkkGwAxFgB8BHi+N1I5U69MF53sYkd7+2ZXwst5Y
+         C5hLfDZJ1/YMhxs41q+y9Srr2uNlusx6LOLvsER3Tg3h565ofrud/t7kYvLr8rSm2vt9
+         SV1Fl/YSe0Se8PPeBz3oEQLbnjBxYBdv5r0MfPVnLjtSH/Oq58ZvROrkbRyQcAmD1DPS
+         doHa0Xr/8/oASZyWTn5HrMXgDZdP+/BC69V4a9m9sqWAMOp5fpr2b039oXC3Z06K8qim
+         u0Lg==
+X-Gm-Message-State: ABy/qLazU59wWgl6nftG9ro83WCplujEW2QCs5WowwkOdhcWINdJG6oP
+	HQq/+mNq2be3YRZdEVGaHUQeMQ==
+X-Google-Smtp-Source: APBJJlHGX0oebUOhQ+9sMVmGElkukq7SnH7uYdJz/GytrQLzt916O7k4oB1K1Houu3ZpuLt51JKKwQ==
+X-Received: by 2002:a05:6e02:dcc:b0:346:7c6d:c667 with SMTP id l12-20020a056e020dcc00b003467c6dc667mr7010112ilj.13.1690778682991;
+        Sun, 30 Jul 2023 21:44:42 -0700 (PDT)
+Message-ID: <f71209fe-1a1a-aab1-7205-24d5137f9fe1@bytedance.com>
+Date: Mon, 31 Jul 2023 12:44:36 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 297a3fe5-dea3-4a03-08ea-08db917f226b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2023 04:32:22.6857
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ilvY/+72eO/p95TGjV7ISaqRG8nvMqEKe0JXGrr0lJNIQqoL7Cg6MPh/RlXmzw3STTpDyYI5fQAkGH+qiLezdg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7716
-Subject: [virtio-comment] RE: [PATCH v13] virtio-net: support device stats
-
-
-> From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> Sent: Thursday, July 27, 2023 7:18 AM
-
-> > why don't we have a config space field for supported types?
-> > more straight forward than complex rules...
->=20
-> I am ok for adding a config space field.
-
-During 1.3 we completed the discussion that any new config field addition m=
-ust adhere to DMA interface and not a register.
-Multiple capabilities need this.
-So lets please work on that.
-
-Counters needs to use the dma interface and it can wait one time to utilize=
- the modern interface.
-
-I have two proposals to for the dma interface and we should discuss that in=
- separate thread to not mix the cvq parts of the stats.
-I will start the thread shortly and put pointer to this requirement of coun=
-ters + many others that we are discussing including ntuple.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Raphael Norwitz <raphael.norwitz@nutanix.com>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, "parav@nvidia.com"
+ <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "houp@yusur.tech" <houp@yusur.tech>,
+ "zhouhuaping.san@bytedance.com" <zhouhuaping.san@bytedance.com>,
+ "xinhao.kong@duke.edu" <xinhao.kong@duke.edu>
+References: <20230626072551.1709389-1-pizhenwei@bytedance.com>
+ <20230626072551.1709389-2-pizhenwei@bytedance.com>
+ <3657EEE8-83D6-40EC-BA23-4BAB3011D2D8@nutanix.com>
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <3657EEE8-83D6-40EC-BA23-4BAB3011D2D8@nutanix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: Re: [virtio-comment] [PATCH v4 1/7] transport-fabrics: introduce
+ Virtio Over Fabrics overview
 
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+On 7/30/23 07:23, Raphael Norwitz wrote:
+> Hey Zhenwei,
+> 
+> Interesting proposal!
+> 
+> I have taken a pass through the series and have some thoughts/feedback. I see potential value in a way to desegregate device processing from the hypervisor, while re-using a lot of the existing code and well defined abstractions in the virtio ecosystem.
+> 
+
+Hi Raphael,
+
+ From the point of my view, Virtio-oF will support several scenarios:
+[1] host OS/containers. The host kernel connects the target directly, 
+then the host OS emulate a virtio device.
+[2] hypervisor. A hypervisor handles request from guest, then translate 
+the request into Virtio-oF, forward requests to target.
+[3] vhost-user. Like hypervisor, but has a higher performance.
+[4] virtio hardware acceleration on DPU/smartNIC.
+
+> For storage in particular it may have some performance impact by cutting out virtio processing from the hot path, but IMO there are better ways to achieve that working out of the box today. Your “eager buffers” are a nice touch for the write path, but come with their own costs I’ll describe later.
+> 
+> With that, I do see some limitations.
+> 
+> By design, this protocol gives the guest kernel direct access to the target. That in turn becomes a potential attack surface if a VM is compromised, whereas a virtio-over-{PCI/CCW/MMIO} abstraction shields the target from direct access.
+> 
+
+The eager buffer is WRITE-only MR to the initiator, would you please 
+give me more hints about 'potential attack'?
+
+> While migration should work cleanly for a TCP fabric, have you thought about how migration will work with RDMA? In theory, as VFIO migration matures, it’s possible the guest kernel and user space stacks could be hardened to deal with hardware being ripped out from under it, but that may be a bit futuristic.
+> 
+
+Do you mean the VM migration in scenario[2] and scenario[3]? as far as I 
+can see, draining the inflight requests would be fine on migration.
+
+> Also could you ever effectively migrate a VM from a TCP host to an RDMA accelerated one? The guest could have some smart logic to figure out “now my NIC doesn’t support RDMA, let me switch to TCP”. Today if you use RDMA acceleration behind any of the existing transports the guest does not have to worry about this and it can safely migrate anywhere.
+> 
+
+Frankly, I don't think this should be part of 'Virtio-oF specification'. 
+ From the point of my view, the specification defines the transport 
+binding only, the uplayer plays 'smart-select' game.
+
+> Similarly what happens if you need to change the target IP or if one target goes down? Is there any way to handle that without making changes inside the guest? I think you should describe “redirection” behavior like iSCSI has, but I’ll describe more in the relevant patch.
+> 
+
+Let's continue this discussion in
+'[PATCH v4 4/7] transport-fabrics: introduce command set'
+
+> For the storage use-case in general, I’m struggling to understand the advantages of virtio-over-fabrics over either the kernel NVMEoF or iSER initiator. It seems like it fundamentally boils down to a similar paradigm, the kernel submits IOVs to the target directly and it DMAs back and forth as required. In my experience, those who want to squeeze every last op out of their VMs skip virtio and do that anyways. For NVMeOF, the only limitation is that you need to use NVMe, but given how virtualization-friendly and ubiquitous it’s becoming for storage I don’t think that’s bad. iSER has some challenges but they are definitely surmountable.
+> 
+> Again, I like the “eager buffers", but if you’re thinking about storage performance, why not rather try introduce that into NVMEoF or iSER?
+> 
+> Other than storage, what devices will benefit from fabrics acceleration enough to compromise the ergonomics of the existing virtio transports?
+> 
+> In summary, I’d like to see:
+> 
+> [1] More discussion of the kinds of devices which will benefit from Virtio Over Fabrics. 
+
+About 2022 Q1, I developed virtio-crypto akcipher service(currently RSA 
+offload supported only), this allows HTTPS performance(Nginx+openssl) up 
+to ~300% in a guest.
+
+In our product environment, we use a lot of QAT cards as a 
+akcipher-service-pool, and Crypto Over Fabrics is used between QEMU and 
+server.
+Then the VM has no dependence on host server, and support VM migration.
+
+On the other hand, I have a plan to develop GPU Over Fabrics for the 
+virtual desktop. So I have to develop a GPU Over Fabrics protocol...
+
+Once the Virtio-Camera or Virtio-Video gets ready, Camera Over Fabrics 
+is needed for camera redirect ...
+
+Rather than XXX Over Fabrics again and again, I'd like to re-use Virtio 
+devices, a single Virtio-oF is enough. This is the background and 
+motivation about Virtio-oF.
+
+> [2] A comprehensive description of what the dataflow should look like. From having read the spec I get the gist but an example flow would be helpful for reference. Maybe just in the cover letter?
+> 
+> [3] If the goal is storage performance, a discussion of how this protocol provides performance benefits over and above the alternatives.
+> 
+
+As the above description, the goal is *NOT* storage performance.
+Frankly, I don't think there is essential difference between 
+NVMe-oF(multi queues supported) and Virtio-oF blk(multi queues 
+supported), but different with iSCSI/iSER(single queue supported). The 
+format of command(SCSI/NVMe/Virtio) hardly affects the storage performance.
+
+>> On Jun 26, 2023, at 3:25 AM, zhenwei pi <pizhenwei@bytedance.com> wrote:
+>>
+>> In the past years, virtio supports lots of device specifications by
+>> PCI/MMIO/CCW. These devices work fine in the virtualization environment.
+>>
+>> Introduce Virtio Over Fabrics transport to support "network attached
+>> peripheral devices". With this transport, Many Virtio based devices
+>> work over fabrics. Note that the balloon device may not make sense,
+> 
+> Is it just balloon/shared memory devices that don’t make sense? Does virtio-net make sense?
+> 
+> Virtio-oF as described has fundamental drawbacks for SCSI in that a single virtio-scsi controller VQ may service many different iSCSI targets and your proposed protocol has one connection per VQ. Connections are likely to be made to different hosts for a single controller, so you’d have to create some abstraction to allow for multiple connections per VQ, or (more likely) rework the virtio-scsi device definition specifically for Virtio-oF.
+> 
+> 
+>> shared memory regions won't work.
+>>
+>> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
+>> ---
+>> content.tex           |  1 +
+>> transport-fabrics.tex | 32 ++++++++++++++++++++++++++++++++
+>> 2 files changed, 33 insertions(+)
+>> create mode 100644 transport-fabrics.tex
+>>
+>> diff --git a/content.tex b/content.tex
+>> index d2ab9eb..bbbd79e 100644
+>> --- a/content.tex
+>> +++ b/content.tex
+>> @@ -637,6 +637,7 @@ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+>> \input{transport-pci.tex}
+>> \input{transport-mmio.tex}
+>> \input{transport-ccw.tex}
+>> +\input{transport-fabrics.tex}
+>>
+>> \chapter{Device Types}\label{sec:Device Types}
+>>
+>> diff --git a/transport-fabrics.tex b/transport-fabrics.tex
+>> new file mode 100644
+>> index 0000000..d10be2a
+>> --- /dev/null
+>> +++ b/transport-fabrics.tex
+>> @@ -0,0 +1,32 @@
+>> +\section{Virtio Over Fabrics}\label{sec:Virtio Transport Options / Virtio Over Fabrics}
+>> +
+>> +Virtio Over Fabrics (Virtio-oF) enables operations over fabrics that rely
+>> +primarily on message passing.
+>> +
+>> +Virtio-oF uses a reliable connection to transmit data. The reliable
+>> +connection facilitates communication between entities playing the following roles:
+>> +
+>> +\begin{itemize}
+>> +\item A Virtio-oF initiator functions as a Virtio-oF client.
+>> +The Virtio-oF initiator sends commands and associated data from the driver
+>> +to the Virtio-oF target.
+>> +\item A Virtio-oF target functions as a Virtio-oF server.
+>> +The Virtio-oF target forwards commands to the device and sends completions
+>> +and associated data back to the Virtio-oF initiator.
+>> +\end{itemize}
+>> +
+>> +Virtio-oF has the following features:
+>> +
+>> +\begin{itemize}
+>> +\item A Virtio-oF target is allowed to be connected by 0 or more Virtio-oF initiators.
+>> +\item A Virtio-oF initiator is allowed to connect to a single Virtio-oF target only.
+>> +A Virtio-oF device instance is a virtio device that the Virtio-oF initiator is
+>> +accessing through the Virtio-oF target.
+>> +\item There is a one-to-one mapping between the Virtio-oF queue and the reliable connection.
+> 
+> Again - there are drawbacks for some device types (i.e. SCSI). Maybe soften the language to suggest that it could be extended in the future?
+> 
+>> +\item There is one, and only one, Virtio-oF control queue for a Virtio-oF device instance.
+> 
+> Any particular reason for that?
+> 
+
+
+-- 
+zhenwei pi
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
