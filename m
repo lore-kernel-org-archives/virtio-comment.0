@@ -1,20 +1,17 @@
-Return-Path: <virtio-comment-return-6938-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6939-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8838FEB64DD
-	for <virtio-comment@archiver.kernel.org>; Tue,  1 Aug 2023 07:09:18 +0000 (UTC)
-Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C5EFD2B12F
-	for <virtio-comment@archiver.kernel.org>; Tue,  1 Aug 2023 07:09:17 +0000 (UTC)
-Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B8A29986478
-	for <virtio-comment@archiver.kernel.org>; Tue,  1 Aug 2023 07:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE497EB64DD
+	for <virtio-comment@archiver.kernel.org>; Tue,  1 Aug 2023 08:35:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
-	by lists.oasis-open.org (Postfix) with QMQP
-	id A57939843C7; Tue,  1 Aug 2023 07:09:17 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 116A72CAD7
+	for <virtio-comment@archiver.kernel.org>; Tue,  1 Aug 2023 08:35:37 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by host09.ws5.connectedcommunity.org (Postfix) with QMQP
+	id F36F22AFF8; Tue,  1 Aug 2023 08:35:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +21,34 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 903FF986408;
-	Tue,  1 Aug 2023 07:09:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 159A0986408;
+	Tue,  1 Aug 2023 08:33:59 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MAEeafsLSjPxyWqN3pnRfDcvk0qF74XRrfDnaDSP11+s+Qx1zZ4UrUmgS4r6DyxSXcURub95K7T+xGeSGDSqeqMqCr4BncgQu3s5ZxriDjjkVlreUm+275Nx/YGYRaMdrx4L0Ty7SLvN0IeAuXuQr0z4edRJyT/M/OOYmd9/CM8UgvYPOoozdvW1/0hJB0RGa+itv+4xchcDz9ITlTN9JX1DrFxK9O1rD5jczs7K9yTsonxuJWgwz8PR7sO8JwG3tyoLxMGBN9oCqwqAQIYIH+A/O1maI9GLfK9/a8YqvtGlhqvWPOzadYbzcHq0DSLkkJ88m+d4mK1AHfHIucnhlg==
+ b=D9ktS6gDX+sKoVgt8RZCDsfKL/Zmv4adv0Dyo6vOygpb/qlDEznHYQXlgeb02+AP+Oh9HaUcF6P9dkg1qQG76bZg9dEOneJHTOXoh0mfBP4paVstBYccSVZ4417RobddgzntjFsUIBzi3DEZ9PRnde1GUyDVzf3oOGJcbjkyt7+sc+EjQZknuG67H73JI72qzIZ0dFO6aXILzVE6MS66o1XiWuCcZEAc8FkzhwQA2DetL/YgCdCNTnwQXym7jNIxL5Z2ef/VXuSpeykOVZBvRyDpsWTciFJqZEyGEaJhTLEyjlVmP5nmt4MOlGKXwztb93bfm7n9D4yTC2qTugxNqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6lPIf6VpokMmezrSiItKnfMbTKxxYs51PBw6yOGuKfE=;
- b=O0eE2k9IOs/YVquECURvdr9mYFZ0/wJqKhMuREHaDx7KKjngACMKJTcvJdILiRrFetUBUwQ96aiuOZeyxlHoxOLonFNZ9rl2x4b83uSffdF076Go5XiJLzu6SgbDxKJZKUib2JFifOj8RsRh2abdQHUOpkS1U+ko1Ti9GVAKUJEjePeaZnYI9DozvOrZJPL7nNUX85pZgP9eEMKXBJZz8z9m7UiU1UHsZ4GWnTSq4dOoB1fkHHb+bpVhCDgBNDIdRUJGe5u93sqsNEf7Ym58Ug6Q2mfnxtLBibFnONMvoD2x4AKAlpssM9cOmd1U27RWPt8StnxjS9GOc2ylCl7TwQ==
+ bh=tThQteVSwT3vfJXgzrYJyMa0tuZiyRvrEfVbbX+OxdA=;
+ b=e1z0xekKJ1cKrJQbu+RiGWEt8Gr4glp1pPYwQ5cBPqs0Iwc8RxwIX5jX7HdKO+WLCfKspnig+tPqDdXnHA0SdD1448KRuhYT0ZT4A8RoLX8Mp5FVcMl8+U/mU8QnnCnQfmjTlKPiwRxhpYUKHqkHDqKmrD8Hi7w3ziF5OhgjoU4mF2Z9ReQ7arYcgHTgtL2u6se2ODMGQvKOVJGU9KdeGN+If9BUz0Yjr5AsMSq5Vd4Vy+AGMyfoDIZRJh8m4kV6p/+8VUFcU0zIJwkh3bEijm/ywh+5WRutFr4/699+i0TuJHMzmWasa3gxz5Kemd81gsxBdT/mFGL/nLtJxKFqEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
-To: "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-CC: Shahaf Shuler <shahafs@nvidia.com>, Xuan Zhuo
-	<xuanzhuo@linux.alibaba.com>, "Michael S. Tsirkin" <mst@redhat.com>,
-	"hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>
-Thread-Topic: proposal: use admin command (and aq) of the device to query
- config space
-Thread-Index: AdnERrUyzvIBkM4LRwukraLndwiuSg==
-Date: Tue, 1 Aug 2023 07:09:14 +0000
+To: "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin" <mst@redhat.com>
+CC: Shahaf Shuler <shahafs@nvidia.com>, "hengqi@linux.alibaba.com"
+	<hengqi@linux.alibaba.com>, "virtio@lists.oasis-open.org"
+	<virtio@lists.oasis-open.org>
+Thread-Topic: [PATCH requirements 5/7] net-features: Add n-tuple receive flow
+ filters requirements
+Thread-Index: AQHZvd/S1zVkOCRsJ0eCMof906XE7a/VKJZQ
+Date: Tue, 1 Aug 2023 08:33:56 +0000
 Message-ID:
- <PH0PR12MB54818D33A150A01DACF3BF74DC0AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <PH0PR12MB5481BFAC574390286C5BA0FBDC0AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20230724033421.249893-1-parav@nvidia.com>
+ <20230724033421.249893-6-parav@nvidia.com>
+In-Reply-To: <20230724033421.249893-6-parav@nvidia.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -56,174 +56,82 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SJ0PR12MB6879:EE_
-x-ms-office365-filtering-correlation-id: 795bdf2e-a7b7-41dc-8a56-08db925e36bc
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BL0PR12MB4897:EE_
+x-ms-office365-filtering-correlation-id: 4796ba83-8daf-4663-16db-08db926a0b8f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- /QaBdlkLN/bLgFnEuM9xktKe5ZLkfDmoEthA+sMaqGLLbhtMPXnK+4Jdwx7uQdSAi0X4AZFO0+qra4Ijn+sifDV0CM5ZlEXKTC8KV1CVA8/IC7Xp9N4IBLJMXg2XS8cpj4gVQdAhgkC6TwMenOi4c47+LAiLiqXK4+4asYo2EuZaeTE92tJDCqVGtkv8U2hiNBMNtOmxnxIlgFCtSR8SI/ox+bs5JeG5EyMjusWG67q39GsFAP0rOhq2PghrEWbQRsSOAKBC0HHeCbknoqA2NFc0avWz6r+t2uuMXd03b84PsxLLoAiivzoKQoFUKcGw1aaK6RRBM4qQCnj/F7zIGllu2QMndwILh48XZ7paMReMig2p5OEdtcmLBWq6t9hmZ7L5pjHLKFszsEWmglG8QA8KvydgkLxc9EUZblpHDwRk5C1NwN72noA3W9BpCHs00Rt6Fs9KTWenjP7w39WWjfT8WRc/hd9g4KKmgTssanWhymsCtw5n2nCRBr4zz3lgfTzQe18n+wXV/TkXeeA9Gj0bdbxlcvt5mqCqh+rL0glD9AkPUOQY0qlMN14tQWaXGP86XV8MAn1COR27FUSN7SNj5Kylfr29n4sUW9gSf2xl7ny03yQUYGuXLrD/mw4l
+ TkCu93ASQsYZh7gqc61Cdn4uQajzCzT+w5dLN98jKhpQc54Ny4vboJ3uUdWt6vH4p5MuSywq66OwqXrrVsatzNOgFXFgw52CyjjA9i5bttyz+JzPkMnMUK72vWF8aZPa6xvifgnPbyOtIYIWMQ9ra/raq+arNCBDbZ1NpGp7H/GD87quHt3O7CPI5+gLMvsVz8M3BeMxuj/gEXvmYtUaVJwkfjKigsU8OiaSBZijPzKe++wOsJc9rEjfGmXVhYGnDDPr53tUDsoPT0SXtmZuOZwK8anY1p56WY3lesuNg2/RAObA8QzP+wQAzbaLl6s6PZY4jicytcrXt6Oyh5gaiJAFzyeT2s7KPRVfAbTsFue7qfCmaHDu1F6ndLc1cIiMecbHkeMm19PSwKB9up+e47Ahztm9hRvYeHQkYJ1Ktdn0JtCjr9MVHgfIXqC7j/3KcWQ7J+wjB0BPgQ1VtYYo3YA/gS0yYOwWFQHFHnO3C9dcYny9EYsI+MEXKKAREAatFwxedmwGGEP66S6Gtw68OKR+vDz9QqawNjKn06tpOWgFtRVsigrbcsOL6baCQ2x24thqM1U11iSH3faq+wrcM7NfUqHaP32C21yt4n9AeGls5w5brtmjeptvA9HS7U4p
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(39860400002)(136003)(396003)(366004)(376002)(451199021)(4326008)(64756008)(66556008)(41300700001)(8676002)(66946007)(8936002)(76116006)(5660300002)(122000001)(52536014)(54906003)(110136005)(478600001)(316002)(66446008)(66476007)(2906002)(9686003)(86362001)(71200400001)(7696005)(38070700005)(38100700002)(83380400001)(6506007)(26005)(33656002)(55016003)(186003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(39860400002)(366004)(396003)(376002)(451199021)(52536014)(110136005)(54906003)(122000001)(9686003)(26005)(33656002)(6506007)(7696005)(8936002)(8676002)(5660300002)(55016003)(76116006)(66946007)(66556008)(66446008)(71200400001)(64756008)(66476007)(4326008)(2906002)(4744005)(83380400001)(38070700005)(478600001)(41300700001)(86362001)(186003)(38100700002)(316002);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?3VApIo9cAY+FUC7xaP4thrA5G1V9c0765rEn+6URkxsEePytsJrv2oTaSdsw?=
- =?us-ascii?Q?4oGIoCoG46TuVUCEXa1qlluYQI2JtNrKT8HI8ZZcUp6yzM9eAzAWBS/4ZwWj?=
- =?us-ascii?Q?OI44caLUTQmDCPk6XXlgOW1b/K9PReCrWBUqt+JipdRPoyrtFMN8ffuiZH0H?=
- =?us-ascii?Q?mIvIDRelKIkNpCcELQTHCuuI9rJBQ/CjAfIKlP9fDFVbATqJjZSTExMr+HWs?=
- =?us-ascii?Q?kkAC+0BTWdOtG49NkkIwLWMOu0dQKl5/4BZKQiYPTWlxrpTCgRplw9fHzeI4?=
- =?us-ascii?Q?Xb4+IFQRnm3A+c8p15NQmkCUVZq3vvMkoGkmqfvYFrPudai1ZyjFQB6LpK5B?=
- =?us-ascii?Q?K6rvvTykGoM1Z5l0X5ZEXiCiBu7TZ2Kxz2cpG/wDPDwDyCMA4XnP7W/t5MMS?=
- =?us-ascii?Q?9eWhzV8aYS4khFbdhxIoCnwqOuDRalIP1CQALELlMgdq00dRd6k0ioEjwhX7?=
- =?us-ascii?Q?+a02oqPDkYdcWwc3V7lK7vt5T+Qkn4lQae1nugI+8M2M7bSqmT5sb7CoJ6GX?=
- =?us-ascii?Q?NnsXkHlWZ0doPuqXQdcXArKJFa3xTNy//yWjLtyqvD1sAIIzJpdyBUvkWnjS?=
- =?us-ascii?Q?gYrdF9Pd7q7U/r9t5DAAZdwdCJanvBvjtzf9m6DwMqlcreiW/rBk2uDSn5ga?=
- =?us-ascii?Q?Xz0SsQoWWVBCvXFA4o6zQViAlZhoTI4RPTY7Wquv73vsF8K033ptqGFIMY8X?=
- =?us-ascii?Q?dE70Wze62K8Ei4SLNrOOq5dL3Q56gpZYjdJQgoirA2WmEwUpdxI3dFSaL3BM?=
- =?us-ascii?Q?Ls+J83byRKY7xi1Sf+zk2lCLjoh3bv68+HrAWu90du7vJhL5v5H7kAc2HxKd?=
- =?us-ascii?Q?Ts2g7dUbo8V/Yer752jbsR2uJZUiZwOMFF1OxArQErFUjS+JcIBYnd6NxY9P?=
- =?us-ascii?Q?qMpvM2PxzOZKkeYyL40Dd8NedWVbxVxDTxeVIADhyeaAEb/hMPE558UJXD7m?=
- =?us-ascii?Q?wQtfSn8+FBTnTCYqRk6VrkMwJ600fGy/qYiQk0NDb99USeM7KtkFOaRH/nJ+?=
- =?us-ascii?Q?FK9uS2vAZQyCiBPD1rjr0D13EgLhOOZ8C6P/fgm0EsJ+EQ1ODxUMW7RZcRmF?=
- =?us-ascii?Q?/sQ9Xg+cF3yawsd1A3EmOtlNKVNcx/k98El406MZ+/8wz5hqgMMpabuzBi3+?=
- =?us-ascii?Q?h37zMzit9uVYV8t4ryqaBJYSYzCRe3bbOUsoKcYO6l9Z2eUnwwYA/K2WXx8i?=
- =?us-ascii?Q?D2qnWItWnQ2uY9R/deIOLidAeYr/vRjaxLy3fc3MV9Wx0KNOO5YoW5SsQeR9?=
- =?us-ascii?Q?ItkQJMRjslPkcAN1PWKK3kXSTeUFK77IgUc0wUBQTmJDwYnYIowzg1+fmCmd?=
- =?us-ascii?Q?3vYrIK5XiyubIgaNB4eqNYJleu46PVBOMW6gdWgujWJ+NaUzZd6ZV+4RHBaJ?=
- =?us-ascii?Q?1z6fVzggmCQgP5yHNG3EW99b5vMd10CeBmykc3uCdY6+5y3nsUROPPCCx1M3?=
- =?us-ascii?Q?CiIm7lB5b/uOuU/0oDCZ3MCHWypSfHbZHUXjWXyVX3E24F8/f2WletfJcPRY?=
- =?us-ascii?Q?seWEVTQVYneYPYDVc5c2BgDr+S4oLl3+PRqXNB70a6AfIrC1IoG9jSgJ3mz+?=
- =?us-ascii?Q?E02rg/UDHO3Yx1cmif8=3D?=
+ =?us-ascii?Q?htO7KOLpIX3SJRKvAMwmTLNKXVXGjSL/xhwYDkNAdO25Zsx6lGXY1DEEFYxe?=
+ =?us-ascii?Q?rHmqgYmMr4SHo6QWzZoQqcofM0V+QLWhPydRz+6tvb6NmoFHAkmDTBISFEIV?=
+ =?us-ascii?Q?PX7NeSKGrF4OpdzOA6cEOufRVoDjB7LWwpbgA28jXufH0LBawvp0hokAfMnl?=
+ =?us-ascii?Q?kU6pb+kDEs8s1TbZ7HaNXQfMQlzhhL3D8CG32Xc1+AOsct+j+pCje18K4+X7?=
+ =?us-ascii?Q?5RRLVX9rlIRztKQ6a0EIpwBhlMZYR48FAVEcbsb/oZ41g1S42NM2MpkDeNXj?=
+ =?us-ascii?Q?7NWmKDTQPv3WQ2Eo7PuyG3tOtJbDK4cmoVWHa9WJIXrJ7kZX274OhJYnNcdi?=
+ =?us-ascii?Q?V0+nsnwoA3SWmD4ImQw5KRqR34ShlU4PNQWtzy9MK9m+ttEjypIf3X+CdNqe?=
+ =?us-ascii?Q?WusdV5Hzww3spH4EvhQgMyhRVGutAliYLbBDx8boxkAbwESEagjGla7Kqc4V?=
+ =?us-ascii?Q?dyNa0p5SUtx9mi9UdLLBAGHkWcPtp8jGDsoP/HrJGqW3yNIhsWJ/YN9BDFDO?=
+ =?us-ascii?Q?Zfdlj/TbQa4cM43n2ATyih6GDHfeuW6vom+c//b7P//sPo5cqTMNF3asAuOm?=
+ =?us-ascii?Q?A9URWmGaKewFPwQrJQ75amibnQ0BP4LgRI7tHePKnrdRbk4eNwgRVvTQfhUF?=
+ =?us-ascii?Q?FXlgS/ezgI2+HOKL62ZnjPMLMuGhk6DbuZErqIeV2zHnTnGdnxFYEix7BqoT?=
+ =?us-ascii?Q?Cpn4X3+slA+QWWYFqYLp9GrzU6ncV1QJs3rpr7XiNIk+mL4J51HMXbj/WV3I?=
+ =?us-ascii?Q?c1GeX9qoZNl9e2xHR/T0KdUbdZihhE79PWmA66mfqN1xURWlNJ0i/aDOYoea?=
+ =?us-ascii?Q?9oAkZHERy2t+MspwEH6yPRIvKzsrz+PcVifN11aDgkrn+cM8hKBnLj1ZpE2b?=
+ =?us-ascii?Q?Mr5iWh6u1CIrHreLU6pTHwFTLay94o4mPWh96O5Y0ibOaUGZsAjnPGBnU+N/?=
+ =?us-ascii?Q?g5kbISret0+wWKqRSCYIjK/cMngl/bJhZuit4XehEz05RxeuvBoT5flJ3m3g?=
+ =?us-ascii?Q?8VVkqVBYpCSnSxQS8QQF5ObvQ4i6S+7MvLV4oOOx25otslyqQ/bGr+G0J06I?=
+ =?us-ascii?Q?Kz/KUnG3nACmXymh8doa+3DZzXdr8+odv+zw7dZZ9LR2QMBNpwrkD8/bhTKX?=
+ =?us-ascii?Q?Hesyy7WelMkVMCIrDErvLTV7inyCo138Dhiy676wFlk8mGH9tYQTORN/KDYj?=
+ =?us-ascii?Q?3/wGTSaZO5kEFyXLy94O4PUQDiz3T0fLZ0fAMZ3NZ5egqkX4zbWVjFKcXspi?=
+ =?us-ascii?Q?EqhpvxFRX0UzDP/9iag7lpPj0fij6Of7nQZ42A6t3wbh6NknvCiNPw0tYD72?=
+ =?us-ascii?Q?UzCRwjw/Aql6/MXXqwnico3ELpK6NPieuB+wQrYEvMS6wydVcCSo9v+EGJsC?=
+ =?us-ascii?Q?b2DI8Z8QOnIGlPzgwSGAQg//EO2D7uqLoW85F+BsXp3qhrouPeAUgHKAWj3R?=
+ =?us-ascii?Q?ICKa5zKO8Z6bOWf5v8UCnoCsEacI8nhGaX136Oq6oUkFq2K28xRey3UHkl3S?=
+ =?us-ascii?Q?v/ABXKk4Bjs+RHUl6VVuz3sTIPBQL0KA5l6/mV/4K3iwBo5wOYRmXA3dh9UG?=
+ =?us-ascii?Q?4BcgaazXD7iGpx8lad8=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 795bdf2e-a7b7-41dc-8a56-08db925e36bc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Aug 2023 07:09:14.5873
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4796ba83-8daf-4663-16db-08db926a0b8f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Aug 2023 08:33:56.0664
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X/FeXbZSNNts7eDYmTHCJSB+F5sbs83idTkXEsBZQ5UXg+2R2Svu/jyQLM+pPzA6pHDDAjb0q8M5vDcbTKxSfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6879
-Subject: [virtio-comment] proposal: use admin command (and aq) of the device to query config
- space
+X-MS-Exchange-CrossTenant-userprincipalname: 3QE2mE62ICZTU9lPaJrDn6dk8VdMgNKLcQi5HKxwz+DpynvkqPqKLV54PivtIYEPuXfOy8DMvVpiL/fyBhwtMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4897
+Subject: [virtio-comment] RE: [PATCH requirements 5/7] net-features: Add n-tuple receive flow
+ filters requirements
 
-One line proposal:=20
-Let's use new admin command and admin q for all device types to query devic=
-e config space for new fields. (always).
+Hi Michael and all,
 
-Details below.
+> From: Parav Pandit <parav@nvidia.com>
+> Sent: Monday, July 24, 2023 9:04 AM
+>=20
+> Add virtio net device requirements for receive flow filters.
+>=20
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
 
-Query of device capabilities and configuration using DMA interface.
-Need:=20
-Currently device configuration space is exposed as read only registers. It =
-is growing rapidly.
-Some devices may be even multi-functionality device in coming future such a=
-s net + clock + rdma device.
-For a PCI transport implementing such ever-growing capabilities, configurat=
-ion is burdensome as plain registers.
-Hence, it is required for the driver to query capabilities and configuratio=
-n using a DMA interface.
+Do you have any further comments on it?
 
-Interface requirements:
-1. Maintain backward compatibility for existing defined configuration field=
-s to stay as registers.
-2. Any new field added must be accessed via DMA interface, regardless of de=
-vice implementation (hw/sw etc).
-Results in single driver code regardless of device implementation.
-3. A device must be able to choose, starting from which field driver must q=
-uery=20
-such configuration via DMA interface. This field offset must be greater tha=
-n currently defined configuration field.
-4. Any driver to device query operation must not be mandated to be
-mediated by the owner device for PCI VFs or SIOV or SF devices. Driver must=
- be able to
-communicate query capabilities and configuration fields directly to
-the device regardless of device type being PCI PF, VF, SF/SIOV device unifo=
-rmly.
-5. When having multi-functionality device in future, it is desired to not a=
-lways
-query all the configuration but may be able to query per-functionality conf=
-igurations.
-For example, query only steering capabilities, query only rdma capabilities=
- or query only clock capabilities.
-6. The driver should be able to query config/capabilities without
-polling for the DMA completion, in other words, the driver should be able t=
-o get
-notification from the device when DMA command completes.
-7. The driver should be able to utilize existing interrupt vector and/or
-virtqueue for query and set operation without demanding
-additional interrupt vector whenever possible.
+Heng and I want to progress now to start the design/spec draft of it starti=
+ng 3rd Aug.
+Flow filter command requires packed VQ descriptor extension.
+So, we need to wrap up now for this infrastructure extension pre-work which=
+ has significant effort.
 
-There are multiple options for DMA interface.
-Some of these options are listed below that we would like to consider fulfi=
-lling above requirements.
-
-Option_1:
-New DMA interface registers.
-New registers which allows single outstanding DMA command per device.
-Such as,
-struct pci_dma_cmd_mmio_registers {
-	le64 cmd_addr; /* rw */
-	le32 cmd_len;	/* rw: ordered write to it after cmd_addr, this triggers cmd=
- to device */
-	le32 start_offset_cfg_space; /* fields below this offset are not available=
- as register, dma is must */
-};
-
-struct pci_config_access_cmd {
-	u8 opcode; /* 0 =3D get config, 1 to N set dev specific config */
-	u8 reserved;
-	le16 msix_vector_index;
-	le64 rsp_addr; /* points to struct pci_config_access_rsp */
-	le32 rsp_len;
-};
-struct pci_config_access_rsp {
-	u8 status;
-	u8 debug_field;
-	u8 cmd_specific_data[];
-};
-
-Cons:
-1. Duplication of a VQ interface which can do same work and vq is purposed =
-for "bulk data transfer" in spec already like this use case.
-2. Some devices already have CVQ that can easily fulfil this role, which is=
- not utilized.
-3. Requires per device additional 16 bytes of register space.
-4. Requires an extra msix interrupt vector to differentiate from config cha=
-nge interrupts.
-
-Option_2:
-Use admin vq for all the device types regardless of its transport such as P=
-CI PF, PCI VF, PCI SIOV.
-In this method a new admin command is issued on the admin vq of the device =
-itself.
-Pros:
-1. Requirements 1 to 7 are fulfilled.
-2. Driver can reuse the same vector with CVQ that addresses requirement #7.
-Cons:
-1. Requires per device unique admin queue number and count.
-Still better than dedicated dma interface of #1, as it requires only 4 addi=
-tional bytes as opposed to 12 bytes.
-
-Option_3:
-Use control VQ for the devices that already has CVQ.
-In this method an existing CVQ of the device is used to query device config=
- space.
-Pros:
-1. All 7 requirements are fulfilled.
-2. Does not need 4 bytes of admin queue registers.
-3. Save MSI-X vectors of the AQ.
-4. Superior to option_2 as it doesn't require extra AQ.
-5. Most efficient of all 3 options.
-Cons:
-1. Those devices which does not have CVQ, may need to add it if at all they=
- are growing.
-
-d. Any other option?
+For now, we are taking design to next stage for these steering requirements=
+.
+The packed vq extension is going to benefit low latency tx part as well as =
+reviewed by Stephan.
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
