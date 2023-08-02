@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6972-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6973-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34B68C00528
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 12:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D843C00528
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 12:10:54 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 84F46747CC
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 12:09:49 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B413D78DA2
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 12:10:53 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 61D4B98664C
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 12:09:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B0D799866D8
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 12:10:53 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4EA43986636; Wed,  2 Aug 2023 12:09:49 +0000 (UTC)
+	id A6A93986636; Wed,  2 Aug 2023 12:10:53 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,95 +24,81 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3B028986649
-	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Aug 2023 12:09:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 952F598663F
+	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Aug 2023 12:10:49 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: bIJExWW-P8e1PT5t8LbJ4Q-1
+X-MC-Unique: VZXRjxP3MfyIXFrEaoiwKw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690978186; x=1691582986;
+        d=1e100.net; s=20221208; t=1690978246; x=1691583046;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dnh0jU54d+ANSjR94T/CZGz/W0+A2UP09b/x7YqdldQ=;
-        b=JKVvJ0+LVBGzD55bKsmsTw/o5Hih0jv4H+3IgvKoQafxU7ah1edllhneuqD6K5xDr4
-         nKAWDq3+One6mxUQ95V3SXT0MckjppHwACcdJhnETp0ZLm898Ne/12/YFG/B79RYUR4q
-         2DXw+pMlfWyWJk/NaEMsKn2TIf1VgUCQHZFBy82l0vbGD9ZwTVFfIQ/cavU4/3g90XW0
-         XST48i/hGZmLNSuEJfyuN7qPcfQyjAlydCXqCt69mDNChsdrugFun+NQE4Ed/yi1okO5
-         6u4SLMec7LCJuDIw4COTsNrxdjshTnL+gtODjhPitg75ejN1N/ged3nEUyJzhHP3JvQl
-         jxiA==
-X-Gm-Message-State: ABy/qLYOwZezkA2lhmmE+I/n7em3GFON0zFl8pHUFmOdZVnUdupX7uZy
-	tFh6MlYrJ9Eql8700D7N/zUa25D8WCNNQ+RBVHY+A6GH3h7jyHSPVDfUGjxSI36F63Ad/CzTKUp
-	amAOlURoUsAC0Du7//V6ePqT6zcegT752fw==
-X-Received: by 2002:adf:e741:0:b0:317:5a9b:fcec with SMTP id c1-20020adfe741000000b003175a9bfcecmr5296313wrn.14.1690978186386;
-        Wed, 02 Aug 2023 05:09:46 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlE5htCenUHkcRBTq+da8QW8Z6Gg5IzYgvz8hAHttNNEDIu1FT5xbmUJEYITO3JCQL3T6gehkw==
-X-Received: by 2002:adf:e741:0:b0:317:5a9b:fcec with SMTP id c1-20020adfe741000000b003175a9bfcecmr5296297wrn.14.1690978186101;
-        Wed, 02 Aug 2023 05:09:46 -0700 (PDT)
-Date: Wed, 2 Aug 2023 08:09:42 -0400
+        bh=ANhwzeFqYL/pz8zQAToGm+99+nWvMemBYeIa7858H64=;
+        b=RAXY4p7L188pUV9ymb3ay14ifIaK8izuMK9ARzp4bILZcGcAJWfs14xb9DM31+58yV
+         i6LJrkd5Bs4zgOtjjZM70OuhjVf++QZZSDWsncJQqyvy84ELmBIHYGaSuluB6++pt/Gh
+         tLxbra6lfKI70cS/zMVtcfyVOWuyZq9Y2HY2AKlVZMNC3D/SzNxoRPglVNydHLj73J0T
+         p0et8Vs6HuB5VqvvTpCM4XoFVWuNLtwG/lefjAZ0IKJDCMzxffXk8/IRpGdOn2+EbG0y
+         dNpbsnZLU0LPUbaHWSsLMsuTRWhohLCRxTQszSazoNF/XXCc7vDNljzTwwwYXFtHQf45
+         COmA==
+X-Gm-Message-State: ABy/qLa3ZQse6LkiegWBSssEuDqXCAZkfmF1v/HPL4VlLKOAZ5oe8blm
+	yEs4yNkcsZ/svI9SCLc8pvdtH22sgiSjgX4Ok1IzftXAw9zHB/Q38tuyiAeoUpDZwuN5of2GeZ5
+	BHaIOPnxJf5cx9P6JLu2jIDBpQO3TtVfMiD7aYpT4iw==
+X-Received: by 2002:adf:fa91:0:b0:313:f399:6cea with SMTP id h17-20020adffa91000000b00313f3996ceamr4737548wrr.4.1690978246526;
+        Wed, 02 Aug 2023 05:10:46 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlE61k3REWkwqBkDFa5NW7mgNBAX/rIGoZsVsI7624yGzGOyzlCA/U7lNFxsRTBijBOe6PlkKw==
+X-Received: by 2002:adf:fa91:0:b0:313:f399:6cea with SMTP id h17-20020adffa91000000b00313f3996ceamr4737524wrr.4.1690978246195;
+        Wed, 02 Aug 2023 05:10:46 -0700 (PDT)
+Date: Wed, 2 Aug 2023 08:10:42 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
+Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
 	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	Shahaf Shuler <shahafs@nvidia.com>,
 	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
 	"hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>
-Message-ID: <20230802075851-mutt-send-email-mst@kernel.org>
-References: <CACGkMEsDo8dKSwD=Uovo=ekussqQmA8kf90jzuRoDBZs2B-GTw@mail.gmail.com>
- <PH0PR12MB548134EA03AE48ACD6F422CADC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvHjAkbQ1D_PNhObpZ00g3P=E7Bzj3RvBPpst6cCFTWcQ@mail.gmail.com>
- <PH0PR12MB5481ABF25620784987149809DC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230802071603-mutt-send-email-mst@kernel.org>
- <DM8PR12MB548071770075800FD9020D27DC0BA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <20230802073700-mutt-send-email-mst@kernel.org>
- <DM8PR12MB54804B56DDF38E56DF7FF4F4DC0BA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <20230802074630-mutt-send-email-mst@kernel.org>
- <DM8PR12MB5480CBCB70621CD6BEF5222FDC0BA@DM8PR12MB5480.namprd12.prod.outlook.com>
+Message-ID: <20230802080959-mutt-send-email-mst@kernel.org>
+References: <PH0PR12MB54818D33A150A01DACF3BF74DC0AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230802000955-mutt-send-email-mst@kernel.org>
+ <3b88c1fe-a5c8-7bc3-b30b-5babe741ffb9@intel.com>
+ <PH0PR12MB54813732BE7EA68DC440D981DC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <ab1aec70-2016-dbdc-3707-c95b185dc1e6@intel.com>
+ <PH0PR12MB5481E0E5AFEEEAA10FDBEFDADC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20230802073108-mutt-send-email-mst@kernel.org>
+ <DM8PR12MB548060C7A27EFF9719FD1987DC0BA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20230802075306-mutt-send-email-mst@kernel.org>
+ <DM8PR12MB54800DA6273ABD4019720C79DC0BA@DM8PR12MB5480.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <DM8PR12MB5480CBCB70621CD6BEF5222FDC0BA@DM8PR12MB5480.namprd12.prod.outlook.com>
+In-Reply-To: <DM8PR12MB54800DA6273ABD4019720C79DC0BA@DM8PR12MB5480.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [virtio] RE: [virtio-comment] proposal: use
- admin command (and aq) of the device to query config space
+Subject: [virtio-comment] Re: proposal: use admin command (and aq) of the device to query
+ config space
 
-On Wed, Aug 02, 2023 at 11:56:11AM +0000, Parav Pandit wrote:
+On Wed, Aug 02, 2023 at 11:58:31AM +0000, Parav Pandit wrote:
 > 
 > > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Wednesday, August 2, 2023 5:21 PM
+> > Sent: Wednesday, August 2, 2023 5:24 PM
 > 
+> > > 2. Build SIOV device ground up that does not need to have existing limitations
+> > of 1.x.
+> > >
+> > > The transport VQ proposal 4 patches had heavy inclination for #1 without
+> > mentioning the real objective in the cover letter.
+> > > I was proposing that when virtio builds SIOV device it should start with #2.
+> > > Because #1 is sort of handled with sr-iov or vdpa already.
+> > >
+> > > #2 is more critical to get it right, after SIOV R2 spec is defined.
 > > 
-> > There's one thing to say about putting everything in one place, and that is that
-> > one can then find everything in one place.
-> 
-> When a device grows incrementally and each functionality also, 
-> grouping it per functionality gives better pace to keep things self-contained.
-> 
-> Think how messy a set command would be if all 3 functionality in one set command.
-> 
-> > For example, at the moment we actually do have a problem with cvq, and the
-> > problem is that it sets internal device state that is not observable (unlike original
-> > pre-1.0 config space which was writeable).
 > > 
-> Which part is not observable?
-
-e.g. rss config.
-
-> > 
-> > By the way there's a pci express ECN for relaxed ordering or something like this.
-> > I am yet to look at it, I wonder whether it can be used to avoid the issues we
-> > have with MMIO in a way that is easier to use than DMA.
+> > Can't we address both? E.g. use a different group type.
 > 
-> Waiting to deliver new features on new PCI standard will drastically slow down virtio.
+> SIOV device is just one type, serving two kinds of commands one for supporting backward compat, second for newer interface.
 
-features? surely not. but when we are building a new transport then
-we are building for the future, it takes years for a new
-transport to be deployed.
-
-> I don't think its good idea, but I would like to know about such ECN, if there is one.
-
-I am talking about unordered IO (UIO) ECN.
+Not sure about specifics but we can have two groups e.g. SIOV-compat and
+SIOV-passthrough.
 
 
 This publicly archived list offers a means to provide input to the
