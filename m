@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6948-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6949-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22883C04A94
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:44:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3E6C001DF
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:53:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7307942C27
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:44:24 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 77D5F61268
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:53:46 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 59FE598662A
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:44:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6833F98663F
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:53:46 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 46A819849DE; Wed,  2 Aug 2023 06:44:24 +0000 (UTC)
+	id 5FA009865EC; Wed,  2 Aug 2023 06:53:46 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,137 +24,443 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 31C8E9865EC;
-	Wed,  2 Aug 2023 06:44:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4F91B9865F1
+	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Aug 2023 06:53:46 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hARvJbT6oZbsqYfrPzrlUrxqgIK0AH/7X9/zrRqxttjA0cQ+gBufA94LRBWDBXDi6qKUVWXvvf7eevMuZqOBoIF9Wepd0R+JL8LS5BKXJwHyNS7gW1DSV0zvkVEiMp+/htDYVDOk6mb9eHEAiTkspzcjwEKs45GYcQNvBU5PGaWZ1bzHgsJsebTHuV+KF5SS8me6HtVGA8sJ7p+WEHDbkCi3++op4Yfw4lTjGnZVe495Nj0XJKlCBucOM2EmnFML5cYIZR9krfkagTAEP8b+cP/V8I/UkHBDK/rk2jLpFGrWYeoxTCf7gd9O0NnTbaYEH990RLdnrndq+KdsJxdoaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zMFe3p/W2RepbuQZ+8pRlOmk/Vn3cWTJNN+gcFO7TIs=;
- b=m/vdKppr2AtVLvAcqC90U2VSEvdIfPkNVuCqnGXqx1zTlY7a2SPRuMLZP5nqqD67fq0lIceyYk7VQ89Fp8lXHl/qf+ag2Xl6zCIzG37WjPLM0hJK5sj8xUlnCtq6nBZPJrC+48sCUOYXgvsvQfZHAqJMd8KrvwHGgMrsp2UaxQB8p/5Ws6EhqJAeessOe+7gFKGcdTprLpIRF2cp3C4DpcsTI8eVPq5rBgb0rcOBg3FU7997OoIJK8Jsb5O8AVq27Q4inZt+30ZbpOTtXfOs/yFQI0P8wfw8QBohmmuKZ31mG7png6c+bmi96y/WDfCO5hESc+V+XZexd3OZS8xFFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Parav Pandit <parav@nvidia.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin" <mst@redhat.com>
-CC: Shahaf Shuler <shahafs@nvidia.com>, "hengqi@linux.alibaba.com"
-	<hengqi@linux.alibaba.com>, "virtio@lists.oasis-open.org"
-	<virtio@lists.oasis-open.org>
-Thread-Topic: [PATCH requirements 5/7] net-features: Add n-tuple receive flow
- filters requirements
-Thread-Index: AQHZvd/S1zVkOCRsJ0eCMof906XE7a/VKJZQgAF0pOA=
-Date: Wed, 2 Aug 2023 06:44:20 +0000
-Message-ID:
- <PH0PR12MB54816E5CA04DAFD03581F6CBDC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230724033421.249893-1-parav@nvidia.com>
- <20230724033421.249893-6-parav@nvidia.com>
- <PH0PR12MB5481BFAC574390286C5BA0FBDC0AA@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To:
- <PH0PR12MB5481BFAC574390286C5BA0FBDC0AA@PH0PR12MB5481.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA1PR12MB6704:EE_
-x-ms-office365-filtering-correlation-id: 9a63bd07-d637-437b-6282-08db9323e6d7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- s1/bBNOPlAAos+GyxZ2YZ9HImmNjOEd0tLVd+xnXWdoaNbmx7uzW3GfgKtFtNprd/ngLVYg/DKXgBw3DxBV8w305SevLtX57iqm7X4vglqW0IrCXK403AX0SSoZdMPTdbD98FftK7/qor0mixtDk8r1950VZOjeht0Zaz5ntZhwX5spBNQDtce0qCwBtjk3f2XUufhpRuuHNK83DmJJK9KK66myw82P2cuQKHyUUQ2Bs9RasP8DHWmXMyc2kvuovhHYfZhZULGTAURGiW03/QiOSX4XJMP+qcCJRstkX2qfSQprPAIrSvQ6a4xp8lELLPGmFMrCmDFNpV1ZwG7ZPPApx/O0z9G+ci22T6iMVvr136w9Q68dHUthQ7DdH7g7RKHL5mQOnhw4WbLiwXU/CqH1biLEIT9dNoVXgbhceVl+7IsPqxSGLOG4YYeB2TmNMvx68+3Z325DysGxrNeFEKC8mRknDOEqiYjDIlXwqaTqAykXJTMTEYIPT2/myB5sxxjnF1PxLPpL9bOhENFwr3599tTmjbapcLNWxtGk+UstB+hcKn4BlgWbeam3Va8xHDyY6+z/07wQNYZDzyrXPnI4H8sbYLg25cKZwjIPI0AJPZTwuLlgiCZr159E/h8Pd
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(396003)(39860400002)(346002)(136003)(376002)(451199021)(5660300002)(52536014)(4326008)(66476007)(66556008)(66446008)(64756008)(2906002)(66946007)(76116006)(54906003)(41300700001)(110136005)(316002)(7696005)(71200400001)(8936002)(6506007)(8676002)(186003)(26005)(83380400001)(122000001)(38070700005)(478600001)(38100700002)(9686003)(33656002)(55016003)(86362001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ligUPjrOjckukUBlOBJWFFB6A1b5tfZK4sD99VzusFVMWRzOBMyRV3yjw8uM?=
- =?us-ascii?Q?OIdyTh9m06y1sVkdW/UHhsfkeidpw2SJvpxb8NcbAy6yELcB2C7zF/rWti9V?=
- =?us-ascii?Q?6nkWBskOBSBk87gEhEkV++QU4W+jjDjv6xL6Z4mvCahCR2KzmwLFZiOGdJ84?=
- =?us-ascii?Q?C4Agj+NvzYcml8IciTFOk8sDH76VYrESaVk7r6zlmikGIqGewcV7OH/w/4t6?=
- =?us-ascii?Q?TOtLs+txRmzMis7ZH79mMQo5c6yvJ6knDvi4E8kNg3hCCk2mJjdKi8ZbBt/8?=
- =?us-ascii?Q?GvgU3NVG7B3yhD+8T+EyWWNV5y5gIalceePPCcX33uG8DBGJX/WtGz051fPt?=
- =?us-ascii?Q?x+8gFo6anddhQ7JiBRUk8R4Qscwc6sRfgvIIDI4XGrc9lz6F5z4hWYcL1ax6?=
- =?us-ascii?Q?7vK+/F60nbu4jZn4bV/qshWtklQKrnSuzzrquNoDmUA8MJYh+BBJjgvx1aIW?=
- =?us-ascii?Q?YEf97xHVPOOKFWPDBBZdWSErL3D0dEOx7XNGay9qpl+x9Z4inOCTD3TTKt7z?=
- =?us-ascii?Q?HwlUoy66tx2RskHKZt8704i7ZwQOeQXrpS/hklIaQLvsJpNp4RUGKBo/NdRI?=
- =?us-ascii?Q?jYzOrb5+DFUf6r7FrJZZzqehsO108cGJQl2Y3HKAYVM4TiyRhGoRjdaWPy5b?=
- =?us-ascii?Q?yCcjlnNGDnh5QS7PEPqMG9koXlibza+//r9F6CxoRz1s/3qAhcjMWxZzxFPp?=
- =?us-ascii?Q?LLsVxqv+L1sDwc3mcV7/BabjBZxEsLy3BmTvcXvIBQy+dCtk0rzDK88amwJ+?=
- =?us-ascii?Q?A4dH06kVDFUlYuEFrb6nw3Dmj8TFxDvHDXXY9gMgipy4otU4oWUo1C6ObU0B?=
- =?us-ascii?Q?KpMIdGGBMl7ZUpeV9NZ1QjFsr5EE4ntMAMULoN7AfeSTIKxixT+YR1S9WEK+?=
- =?us-ascii?Q?HWzBDJyfReTbzkmN8iDJzqp4Neb+uk5KWq/THbLWqc1ywBQJ/I0f2cem2qr0?=
- =?us-ascii?Q?Rsm3Tyyhd46wwKA7tgq96nrbpnmeZ1opwT7fItSIUITEJrkGnAiWpLDzYIf6?=
- =?us-ascii?Q?2rDOSEgnVdIQCPk31TcCk3AagycYiojk9T3swxQx0iXysOs+EmMNGb4tjZmz?=
- =?us-ascii?Q?63UfV2IfEHtUJgG4s48zKO5WayxQxlKooaogPUccueVBu5ExVXfSnFeDETS7?=
- =?us-ascii?Q?nem5Xthf9vRbBgj/HG8ApSPpkW8UIt6IrjjVGT50dwyk7TlverYQ1zILXER4?=
- =?us-ascii?Q?+L7RTh3QpTTR//OZK4pGhaXMJ69MGSqAG8O0g1PcI7MfJzIoldFtq4Tw7Bxb?=
- =?us-ascii?Q?aKrwmN5kMTPgMsrUgbcYMnsKx/K8loBpqojNnBydUiV3xTGMWNT493uQo4kL?=
- =?us-ascii?Q?vtg8LLoincXIkQ6DL6zLnO3fAT6SCgsmd8jyCeZIIgcIY16QGC3+WfHPFov6?=
- =?us-ascii?Q?corbBRtlzIhQKOwZWO1iJsPTD1xhJSNfEOHIOvXIhykYvwsINwi1zDerdPFq?=
- =?us-ascii?Q?/Nl3wmadRHUKG31e5vaaE+YG1KUG6dnOgumdOMGReGBqUp3vCS1N951moYZ9?=
- =?us-ascii?Q?RPkTKruEa6FHYSN5ZwVXcl3yGtH9qQ8ADpbstHpgNlzdSnN+TE4UQLWubQgr?=
- =?us-ascii?Q?P/SR+1Ey6wPFS6X0APE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-MC-Unique: 5_b46iuEMfGzqYq9B8SFZA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690959219; x=1691564019;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3WOH5mvIn7f3nIkByu5EAEhAoAl5zNoXi/ltltE6vCI=;
+        b=Kccc+rGqTqDnbKrBMT95EKMPjjvWxXxmvT+QxH/PBYdW0gPXseJtJkR9JXuhKswwSQ
+         fQzwq2YpSeL+Q+zI5P2wG/BamvIJYo9g7j9VxqnAlYjeau9Uf3h8L1rM0LYTJo2NLZiz
+         x0b+7pq583ulUCz8NBXczJk3sMAcvZSfb64lS+yFG+BhDH1K0MWHO6USj0cS6i1UxE1T
+         f2o3+XuFHtd0s0IisBtrDp7/TbR3tOZ9vA3myVul7R1Ng44F0TQ+Mp4whwaC4iVEXvNW
+         pDmL1M7EC/fFqT0BsN2X4VtVV7c7jHO0eXE+OA4LE8kWy34okBo+zU49JpGLHvTEPnZN
+         D2bA==
+X-Gm-Message-State: ABy/qLbRYCk2Qvm5phptTmj5hEMBf1CeEpvczSMgEBSJy/vKAPbdNgtn
+	x4BN5HHFHbNGrWEpot0rcHoapcsfZK6jKD3jzNXJTNYWHC5NtdV1sM4Ym/sTdCvDcY0SJeF1xLF
+	worToiFVzflmHgZdJfyw4IsjxfYMHlmX8tfPvSLymQvT3sl/WBA==
+X-Received: by 2002:a2e:b001:0:b0:2b6:c2e4:a57a with SMTP id y1-20020a2eb001000000b002b6c2e4a57amr4603590ljk.38.1690959219568;
+        Tue, 01 Aug 2023 23:53:39 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlEwcHGEnwfEYOnClTokbxvMG1jDkVfUQhRcuXUwwowDjLvE+fPxC/n7K4o5W8UXSZg7dzoQeRXrRrbTDJGrYD8=
+X-Received: by 2002:a2e:b001:0:b0:2b6:c2e4:a57a with SMTP id
+ y1-20020a2eb001000000b002b6c2e4a57amr4603571ljk.38.1690959219172; Tue, 01 Aug
+ 2023 23:53:39 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a63bd07-d637-437b-6282-08db9323e6d7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Aug 2023 06:44:20.8719
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BtgneWJenTP4qDVZidtq7cAzqMJVuqXvL6BB9YVsWyBgqGQ7wkzPp1QcUYc9lqjEhNPcXPbYzlOV4PqP11yO7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6704
-Subject: [virtio-comment] RE: [PATCH requirements 5/7] net-features: Add n-tuple receive flow
- filters requirements
+References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
+ <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com> <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
+ <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com> <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
+ <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com> <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
+ <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com> <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
+ <259c7b04-58df-8085-755f-a36993556a89@intel.com> <PH0PR12MB5481243B22A694E42C351C20DC2AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <2e176f24-293b-5be0-2928-e8ce0300e75a@intel.com> <1690425015.0990853-1-xuanzhuo@linux.alibaba.com>
+ <52fa9d57-c21a-0235-b8bb-614e88e25f17@intel.com> <1690438140.7109714-2-xuanzhuo@linux.alibaba.com>
+ <3f3b3a17-8199-8830-af22-94686feac956@intel.com> <1690438807.4627175-3-xuanzhuo@linux.alibaba.com>
+ <CACGkMEs=zL-R8-0yvKz3ZgZ8MWiX_ErTQYCAu8G49D75GKhpAw@mail.gmail.com>
+ <1690445274.7622454-1-xuanzhuo@linux.alibaba.com> <CACGkMEvT=smzoQh29cfJwuL7kgs=ME+9PckwSMZ4Y7jjBNv7mQ@mail.gmail.com>
+ <aafe1885-0ec2-66ca-4511-f2606bc881ee@gmail.com> <CACGkMEv2MQyGPxwxyGJhYK0nga7fsPG8D916g+RFtsJvfOyxUg@mail.gmail.com>
+ <1690958095.5061157-1-xuanzhuo@linux.alibaba.com>
+In-Reply-To: <1690958095.5061157-1-xuanzhuo@linux.alibaba.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Wed, 2 Aug 2023 14:53:28 +0800
+Message-ID: <CACGkMEsxOwyytv7+Ox4nGTCRKgatUbx6w2rrJqh3f9bfkYEs=A@mail.gmail.com>
+To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Parav Pandit <parav@nvidia.com>, Yui Washizu <yui.washidu@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] About the plan of Admin Queue
 
-
-
-> From: virtio@lists.oasis-open.org <virtio@lists.oasis-open.org> On Behalf=
- Of
-> Parav Pandit
-> Sent: Tuesday, August 1, 2023 2:04 PM
->=20
-> Hi Michael and all,
->=20
-> > From: Parav Pandit <parav@nvidia.com>
-> > Sent: Monday, July 24, 2023 9:04 AM
+On Wed, Aug 2, 2023 at 2:37=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.alibaba.co=
+m> wrote:
+>
+> On Wed, 2 Aug 2023 14:15:55 +0800, Jason Wang <jasowang@redhat.com> wrote=
+:
+> > On Wed, Aug 2, 2023 at 2:01=E2=80=AFPM Yui Washizu <yui.washidu@gmail.c=
+om> wrote:
+> > >
+> > >
+> > > On 2023/07/27 17:28, Jason Wang wrote:
+> > > > On Thu, Jul 27, 2023 at 4:20=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.a=
+libaba.com> wrote:
+> > > >> On Thu, 27 Jul 2023 16:03:56 +0800, Jason Wang <jasowang@redhat.co=
+m> wrote:
+> > > >>> On Thu, Jul 27, 2023 at 2:23=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux=
+.alibaba.com> wrote:
+> > > >>>> On Thu, 27 Jul 2023 14:17:53 +0800, "Zhu, Lingshan" <lingshan.zh=
+u@intel.com> wrote:
+> > > >>>>>
+> > > >>>>> On 7/27/2023 2:09 PM, Xuan Zhuo wrote:
+> > > >>>>>> On Thu, 27 Jul 2023 11:56:32 +0800, "Zhu, Lingshan" <lingshan.=
+zhu@intel.com> wrote:
+> > > >>>>>>> On 7/27/2023 10:30 AM, Xuan Zhuo wrote:
+> > > >>>>>>>> On Mon, 3 Jul 2023 12:29:32 +0800, "Zhu, Lingshan" <lingshan=
+.zhu@intel.com> wrote:
+> > > >>>>>>>>> On 6/30/2023 7:35 PM, Parav Pandit wrote:
+> > > >>>>>>>>>>> From: virtio-comment@lists.oasis-open.org <virtio-comment=
+@lists.oasis-
+> > > >>>>>>>>>>> open.org> On Behalf Of Zhu, Lingshan
+> > > >>>>>>>>>>> Sent: Friday, June 30, 2023 6:33 AM
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>>>>>> Can we let the DPU notify the driver to create a new d=
+evicer from the
+> > > >>>>>>>>>>> backend?
+> > > >>>>>>>>>> Yes, why not.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>>>>>> The key point is who want to create a new device.
+> > > >>>>>>>>>>>>> DPU can come with a certain number of pre-created ADIs,=
+ just make
+> > > >>>>>>>>>>>>> sure the orchestration SW is aware of their device IDs.
+> > > >>>>>>>>>>>>>
+> > > >>>>>>>>>> Cloud often need these devices to be created dynamically, =
+many a time after the host OS is booted.
+> > > >>>>>>>>>> To be more generic, those devices to be created and connec=
+ted to the host regardless of the life cycle of the host.
+> > > >>>>>>>>>> Xuan partly explained it.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>>>>> If you want the DPU randomly create ADIs and notify the=
+ driver, I
+> > > >>>>>>>>>>>>> think we need interrupt, e.g., re-use config interrupt.=
+ But why DPU
+> > > >>>>>>>>>>>>> wants to create and hot plug in a device to a guest?
+> > > >>>>>>>>>>>>> Shall the host handle that or DPU pre-create then expos=
+e to baremteal
+> > > >>>>>>>>>>>>> machines?
+> > > >>>>>>>>>>>> In your scenario, the supervisor is on the os, which con=
+trols the DPU
+> > > >>>>>>>>>>>> to create new devices.
+> > > >>>>>>>>>>>>
+> > > >>>>>>>>>>>> In the cloud scenario, the vendor manager is in the DPU,=
+ and the
+> > > >>>>>>>>>>>> entire host is for users. Of course, there are situation=
+s where the
+> > > >>>>>>>>>>>> vendor manager are in the HOST. But for bare metal machi=
+nes, the host
+> > > >>>>>>>>>>>> belongs to the customer, the vendor manager is only in t=
+he DPU.
+> > > >>>>>>>>>>>>
+> > > >>>>>>>>>>>> So when the customers buy a new nic for the host, the ve=
+ndor manager
+> > > >>>>>>>>>>>> will plug a device to the host from the DPU.
+> > > >>>>>>>>>>> I understand once a customer orders a new NIC, you wants =
+to present the NIC
+> > > >>>>>>>>>>> to the host.
+> > > >>>>>>>>>>> However you only owns the DPU and the customer owns the h=
+ost, that means
+> > > >>>>>>>>>>> this creation and hot plug must be transparent to the hos=
+t and there may not be
+> > > >>>>>>>>>>> a host driver help handling an interrupt/probe.
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>> That is ok. when driver is loaded, it would query about it=
+s child devices and probe it, if we strictly want to follow SIOV model.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>>> However this is not PCI which has a tree/switch and can e=
+numerate devices to
+> > > >>>>>>>>>>> the host by spanning the device across the PCI hierarchy.
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>> Those enumeration is triggered by the parent PCI device an=
+d pci bridge and switch will also discover it.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>>> To address an ADI, there is only a device_id.
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>> SIOV device must have a unique identifier at PCI bus level=
+ for sure.
+> > > >>>>>>>>>> I cannot speak more about it in this forum due to other lo=
+gistics issue.
+> > > >>>>>>>>>> But assume that there is PCI level unique identifier for S=
+IOV device that switches on the path will learn about.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>>> So, do you mind share how your DPU offload the device mod=
+el? What kind of
+> > > >>>>>>>>>>> device your DPU provide to the host? Lets see whether DPU=
+ can mediate this by
+> > > >>>>>>>>>>> its own?
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>> It is a virtio nic, blk and other virtio devices for us.
+> > > >>>>>>>>>> A DPU hotplugs a device, host side either gets interrupt o=
+r later gets to know about it when explicitly queries.
+> > > >>>>>>>>>> There is no mediation per say here, it is just a dpu based=
+ SIOV device like a regular PF.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>> For non virtio DPU device, I implemented them in Linux for=
+ dpus 2 years ago.
+> > > >>>>>>>>>> You might find a Linux reference model useful at [1].
+> > > >>>>>>>>>> A usage model already exists in one OS and in use for non =
+virtio devices.
+> > > >>>>>>>>>> This certainly works without SIOV unique PCI device identi=
+fiers, because DPU (non-host) managed SIOV device spec still does not exist=
+.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>> For virtio, I think we should wait for this piece to be de=
+fined and leverage that, instead of virtio tc creating its own.
+> > > >>>>>>>>>>
+> > > >>>>>>>>>> [1] https://github.com/Mellanox/scalablefunctions/wiki
+> > > >>>>>>>>> well I see SF facing the similar challenge, I can add a com=
+mand for the
+> > > >>>>>>>>> driver to query all existing SIOV ADIs of a device,
+> > > >>>>>>>>> and the device return ADIs id and status. Looks good? and w=
+ork for you
+> > > >>>>>>>>> @Xuan?
+> > > >>>>>>>> Could I have your plan for this?
+> > > >>>>>>>>
+> > > >>>>>>>> If you do not mind, I'd like to add a command to query VF's =
+info. Such
+> > > >>>>>>>> as mac, ip, etc.
+> > > >>>>>>> I think the query commands for SIOV is a little more complex,=
+ e.g.,
+> > > >>>>>>> need to report device type and its scale(e.g., features, mq).
+> > > >>>>>>> There can be thousands of SIOV ADIs and we don't want output =
+flood.
+> > > >>>>>>>
+> > > >>>>>>> We have discussed implementation a config interrupt to report=
+ new
+> > > >>>>>>> created / deleted
+> > > >>>>>>> ADIs on the DPU side, therefore there must be a cap contains =
+related
+> > > >>>>>>> information,
+> > > >>>>>>> my rough approach of the process is:
+> > > >>>>>>> 1) a cap contains the total number of existing ADIs and the m=
+ax dev id
+> > > >>>>>>> 2) driver queries detailed information of a certain ADI or a =
+bunch of
+> > > >>>>>>> ADIs in a [dev_id....dev_id2] range.
+> > > >>>>>> Yes, Admin Queue can obtain the info of the specific one or mo=
+re devices.
+> > > >>>>>>
+> > > >>>>>>> I am not sure whether a NIC stores its IP
+> > > >>>>>> IP is the other topic. I want the Admin Queue manage the switc=
+h.
+> > > >>>>>> So the switch know about the IP of every device, and the
+> > > >>>>>> Admin Queue will has the ability to config the IP of the devic=
+e inside the
+> > > >>>>>> switch.
+> > > >>>>> DPU onboard switch? OVS? Does it beyond virtio spec?
+> > > >>>> YES.
+> > > >>> Adding Washizu.
+> > > >>>
+> > > >>> We can have a switch/dpa defined in the networking device for sur=
+e.
+> > > >> Yes, I think we should introduce that for the sr-iov. Or for other=
+.
+> > > > This should be a general one as a switch should be transport indepe=
+ndent.
+> > > >
+> > > >> I would like to know who is doing this?
+> > > > Washizu, could you confirm if you want to do this or not?
+> > >
+> > >
+> > > Does this mean adding a switch definition to the virtio spec?
+> > >
+> > >
+> > > If so, it will be necessary for the implementation of my plan,
+> > >
+> > > but it may take time (probably several months?) to get started,
+> > >
+> > > as I'm currently working on another task (virtio-net SR-IOV feature i=
+n
+> > > qemu).
+> > >
+> > > Anyone is welcome to work on adding the switch definition in the mean=
+time,
+> > >
+> > > it's completely fine with me.
+> > >
+> > > I think I'll work on that if no one has finished the work.
 > >
-> > Add virtio net device requirements for receive flow filters.
+> > Ok, great, I think we need to start this by considering reusing one of
+> > the existing DPA spec. (For example, ofdpa? or any other?)
+>
+> We have a need on this area. I want to start this work now.
+>
+> Could you give me the link of the spec?
+
+I'm not sure this is the best one, we can hear from others. I mention
+it since it has an emulation code that is done in Qemu (rocker
+switch).
+
+The spec is:
+
+https://docs.broadcom.com/doc/12378911
+
+(not sure this is the recent one though).
+
+Thanks
+
+>
+> Thanks
+>
+>
+>
 > >
-> > Signed-off-by: Parav Pandit <parav@nvidia.com>
->=20
-> Do you have any further comments on it?
->=20
-> Heng and I want to progress now to start the design/spec draft of it star=
-ting 3rd
-> Aug.
-> Flow filter command requires packed VQ descriptor extension.
-> So, we need to wrap up now for this infrastructure extension pre-work whi=
-ch
-> has significant effort.
->=20
-> For now, we are taking design to next stage for these steering requiremen=
-ts.
-> The packed vq extension is going to benefit low latency tx part as well a=
-s
-> reviewed by Stephan.
+> > Thanks
+> >
+> > >
+> > >
+> > >
+> > > >
+> > > >> Another question, @Jason are you referring to a new device type or=
+ a
+> > > >> new virtio-net feature.
+> > > > Extending virtio-net should be fine, did you see any issues for thi=
+s?
+> > > >
+> > > >>>> For SIOV, I think this is MUST.
+> > > >>> A learning bridge would be fine as a starter. It's better not to
+> > > >>> couple new scalable capability with any device specific features.
+> > > >>>
+> > > >>>> Maybe you have one simple implementation.
+> > > >>>> But you have to solve the IP steering. So admin queue should has=
+ the ability
+> > > >>>> to config the IP steering.
+> > > >>> I think not. Those L2/LN tables/filters are networking specific.
+> > > >> Let us assume that there is a switch/bridge firstly.
+> > > >> The VFs may be passed to different VMs.
+> > > >>
+> > > >> I also think this is the networking specific. But I want to config
+> > > >> the ip for every vf from the pf.
+> > > > What do you mean by ip here (e.g who is the user for this ip?)
+> > > >
+> > > >> Because the user of the vf may be unreliable.
+> > > >> We need a manager to config the ip for every vf.
+> > > > Did you mean you're using a tunnel or not?
+> > > >
+> > > >>
+> > > >>> Control virtqueue is better than admin virtqueue here.
+> > > >> by cq?
+> > > >>
+> > > >> What case?
+> > > > We've already used control virtqueue for steering.
+> > > >
+> > > > Thanks
+> > > >
+> > > >> Thanks.
+> > > >>
+> > > >>> Thanks
+> > > >>>
+> > > >>>> Thanks.
+> > > >>>>
+> > > >>>>>>
+> > > >>>>>> Thanks.
+> > > >>>>>>
+> > > >>>>>>
+> > > >>>>>>> Thanks
+> > > >>>>>>>> Thanks.
+> > > >>>>>>>>
+> > > >>>>>>>>
+> > > >>>>>>>>
+> > > >>>>>>>>> Thanks
+> > > >>>>>>>>>
+> > > >>>>>>>> This publicly archived list offers a means to provide input =
+to the
+> > > >>>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+> > > >>>>>>>>
+> > > >>>>>>>> In order to verify user consent to the Feedback License term=
+s and
+> > > >>>>>>>> to minimize spam in the list archive, subscription is requir=
+ed
+> > > >>>>>>>> before posting.
+> > > >>>>>>>>
+> > > >>>>>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > >>>>>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > >>>>>>>> List help: virtio-comment-help@lists.oasis-open.org
+> > > >>>>>>>> List archive: https://lists.oasis-open.org/archives/virtio-c=
+omment/
+> > > >>>>>>>> Feedback License: https://www.oasis-open.org/who/ipr/feedbac=
+k_license.pdf
+> > > >>>>>>>> List Guidelines: https://www.oasis-open.org/policies-guideli=
+nes/mailing-lists
+> > > >>>>>>>> Committee: https://www.oasis-open.org/committees/virtio/
+> > > >>>>>>>> Join OASIS: https://www.oasis-open.org/join/
+> > > >>>>>>>>
+> > > >>>>>
+> > > >>>>> This publicly archived list offers a means to provide input to =
+the
+> > > >>>>> OASIS Virtual I/O Device (VIRTIO) TC.
+> > > >>>>>
+> > > >>>>> In order to verify user consent to the Feedback License terms a=
+nd
+> > > >>>>> to minimize spam in the list archive, subscription is required
+> > > >>>>> before posting.
+> > > >>>>>
+> > > >>>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > >>>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > >>>>> List help: virtio-comment-help@lists.oasis-open.org
+> > > >>>>> List archive: https://lists.oasis-open.org/archives/virtio-comm=
+ent/
+> > > >>>>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_l=
+icense.pdf
+> > > >>>>> List Guidelines: https://www.oasis-open.org/policies-guidelines=
+/mailing-lists
+> > > >>>>> Committee: https://www.oasis-open.org/committees/virtio/
+> > > >>>>> Join OASIS: https://www.oasis-open.org/join/
+> > > >>>>>
+> > > >>>> This publicly archived list offers a means to provide input to t=
+he
+> > > >>>> OASIS Virtual I/O Device (VIRTIO) TC.
+> > > >>>>
+> > > >>>> In order to verify user consent to the Feedback License terms an=
+d
+> > > >>>> to minimize spam in the list archive, subscription is required
+> > > >>>> before posting.
+> > > >>>>
+> > > >>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > >>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > >>>> List help: virtio-comment-help@lists.oasis-open.org
+> > > >>>> List archive: https://lists.oasis-open.org/archives/virtio-comme=
+nt/
+> > > >>>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_li=
+cense.pdf
+> > > >>>> List Guidelines: https://www.oasis-open.org/policies-guidelines/=
+mailing-lists
+> > > >>>> Committee: https://www.oasis-open.org/committees/virtio/
+> > > >>>> Join OASIS: https://www.oasis-open.org/join/
+> > > >>>>
+> > >
+> >
+> >
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> >
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> >
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.p=
+df
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing=
+-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
+> >
+>
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
+ists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
+>
 
-In todays' meeting we further discussed that inline is optional feature for=
- the txq and for steering filters.
-Hence, based on the feedback, we can progress now without packed vq extensi=
-on.
-
-We need to close on the config space access via dma interface.
-So lets finish that blocker now so counters and filters can progress.
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
