@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6945-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6946-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82408C001DF
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92738C001DF
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:16:12 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D1BBD33097
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:16:06 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DDBDD370ED
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:16:11 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C1F839865F1
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:16:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D2F759866AC
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 06:16:11 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B15369849DE; Wed,  2 Aug 2023 06:16:06 +0000 (UTC)
+	id C81FD9849DE; Wed,  2 Aug 2023 06:16:11 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,47 +24,60 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9CFB59865EC
-	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Aug 2023 06:16:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B6E439865F1
+	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Aug 2023 06:16:11 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0VotvyCn_1690956960;
-Message-ID: <1690956823.7745488-1-xuanzhuo@linux.alibaba.com>
-Date: Wed, 2 Aug 2023 14:13:43 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: Yui Washizu <yui.washidu@gmail.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Parav Pandit <parav@nvidia.com>,
- Jason Wang <jasowang@redhat.com>
+X-MC-Unique: gmP7N_NBM-OLBHuqnklSUg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690956967; x=1691561767;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cyArx0quT+AiYAWP/mdWW/wCJVTj2UxsSvpcVmYNhKc=;
+        b=NPK9yLHbUB1scGSpeDk4YMtECPVW7MRhtK5KXho2tsNyc5Qw7Di7oyf2R+0f0R7n5C
+         Rwt5arNLNrec8lBngkgdIT+E6QhoOqMJOsybdi066u7eHq5hwFNvT83wpricnMbifWCb
+         33V4tm7+AgWuJFzn7hLy84RJqARRw/2ySw/Q+7NluPNLX5tEeTcQkJ8nc1STK4GWxB+j
+         i268HlZJrQaRjpH0TmTu2uxjnD0Y4N4hqMW8STIwMopFEu3BYu5KHVw7KTE3hUjSU1FN
+         BehdWmSBs6j3jyLo/14g7Ko8W+c6PAQGAU5ISxU1iCeGngjhzoEJ31C99jXwZWt70AqK
+         Twlw==
+X-Gm-Message-State: ABy/qLa9wWEaPjgErBymTT/VfQ5fF55mPNdkY7aOWRr85+8j8J3ii/Yd
+	TBrK1BAvAxRRaJajlrSNb6oq9Z7xybHWnYTodpK2R3bXs7JwEIvwOpsPe5QT5pY0DqIDQjBjLlC
+	cqn8/4r1RoxSo0fz6/vj70796IgvmVuWL7+Q9INzVzbDBEHpzkA==
+X-Received: by 2002:a2e:88d1:0:b0:2af:25cf:92ae with SMTP id a17-20020a2e88d1000000b002af25cf92aemr4340735ljk.22.1690956967111;
+        Tue, 01 Aug 2023 23:16:07 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlHcZbEVTzTIw0pkchvV4pFiGoos6v1vufHQXFvsqcJsdWkcJNgnLxHWUm8GbIUUyfUFQIcrdtCNeboNo6AgBdE=
+X-Received: by 2002:a2e:88d1:0:b0:2af:25cf:92ae with SMTP id
+ a17-20020a2e88d1000000b002af25cf92aemr4340706ljk.22.1690956966686; Tue, 01
+ Aug 2023 23:16:06 -0700 (PDT)
+MIME-Version: 1.0
 References: <1687243466.51691-1-xuanzhuo@linux.alibaba.com>
- <e37fb447-fd22-4d42-f3e2-2ab6f1c8f3b4@intel.com>
- <1688104464.531018-1-xuanzhuo@linux.alibaba.com>
- <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com>
- <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
- <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com>
- <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
- <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com>
- <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
- <259c7b04-58df-8085-755f-a36993556a89@intel.com>
- <PH0PR12MB5481243B22A694E42C351C20DC2AA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2e176f24-293b-5be0-2928-e8ce0300e75a@intel.com>
- <1690425015.0990853-1-xuanzhuo@linux.alibaba.com>
- <52fa9d57-c21a-0235-b8bb-614e88e25f17@intel.com>
- <1690438140.7109714-2-xuanzhuo@linux.alibaba.com>
- <3f3b3a17-8199-8830-af22-94686feac956@intel.com>
- <1690438807.4627175-3-xuanzhuo@linux.alibaba.com>
+ <b95673d9-21e5-0fea-abdf-c0f8389e5cee@intel.com> <1688111214.8488657-2-xuanzhuo@linux.alibaba.com>
+ <ac6bb15c-bb44-b1de-aef6-9974350962da@intel.com> <1688111784.0426908-3-xuanzhuo@linux.alibaba.com>
+ <7ab5978d-c503-c279-a42e-bcdbf40184d4@intel.com> <1688116457.7400494-4-xuanzhuo@linux.alibaba.com>
+ <259c7b04-58df-8085-755f-a36993556a89@intel.com> <PH0PR12MB5481243B22A694E42C351C20DC2AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <2e176f24-293b-5be0-2928-e8ce0300e75a@intel.com> <1690425015.0990853-1-xuanzhuo@linux.alibaba.com>
+ <52fa9d57-c21a-0235-b8bb-614e88e25f17@intel.com> <1690438140.7109714-2-xuanzhuo@linux.alibaba.com>
+ <3f3b3a17-8199-8830-af22-94686feac956@intel.com> <1690438807.4627175-3-xuanzhuo@linux.alibaba.com>
  <CACGkMEs=zL-R8-0yvKz3ZgZ8MWiX_ErTQYCAu8G49D75GKhpAw@mail.gmail.com>
- <1690445274.7622454-1-xuanzhuo@linux.alibaba.com>
- <CACGkMEvT=smzoQh29cfJwuL7kgs=ME+9PckwSMZ4Y7jjBNv7mQ@mail.gmail.com>
+ <1690445274.7622454-1-xuanzhuo@linux.alibaba.com> <CACGkMEvT=smzoQh29cfJwuL7kgs=ME+9PckwSMZ4Y7jjBNv7mQ@mail.gmail.com>
  <aafe1885-0ec2-66ca-4511-f2606bc881ee@gmail.com>
 In-Reply-To: <aafe1885-0ec2-66ca-4511-f2606bc881ee@gmail.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Wed, 2 Aug 2023 14:15:55 +0800
+Message-ID: <CACGkMEv2MQyGPxwxyGJhYK0nga7fsPG8D916g+RFtsJvfOyxUg@mail.gmail.com>
+To: Yui Washizu <yui.washidu@gmail.com>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "Zhu, Lingshan" <lingshan.zhu@intel.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Parav Pandit <parav@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Subject: Re: [virtio-comment] About the plan of Admin Queue
 
-On Wed, 2 Aug 2023 15:01:21 +0900, Yui Washizu <yui.washidu@gmail.com> wrot=
-e:
+On Wed, Aug 2, 2023 at 2:01=E2=80=AFPM Yui Washizu <yui.washidu@gmail.com> =
+wrote:
+>
 >
 > On 2023/07/27 17:28, Jason Wang wrote:
 > > On Thu, Jul 27, 2023 at 4:20=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.aliba=
@@ -240,17 +253,17 @@ t.
 > as I'm currently working on another task (virtio-net SR-IOV feature in
 > qemu).
 >
-> Anyone is welcome to work on adding the switch definition in the meantime,
+> Anyone is welcome to work on adding the switch definition in the meantime=
+,
 >
 > it's completely fine with me.
 >
 > I think I'll work on that if no one has finished the work.
 
-OK, I got.
+Ok, great, I think we need to start this by considering reusing one of
+the existing DPA spec. (For example, ofdpa? or any other?)
 
-Because we have a need in this area, I will push the work in this area.
-
-Thanks.
+Thanks
 
 >
 >
@@ -310,7 +323,8 @@ Thanks.
 he
 > >>>>>>>> OASIS Virtual I/O Device (VIRTIO) TC.
 > >>>>>>>>
-> >>>>>>>> In order to verify user consent to the Feedback License terms and
+> >>>>>>>> In order to verify user consent to the Feedback License terms an=
+d
 > >>>>>>>> to minimize spam in the list archive, subscription is required
 > >>>>>>>> before posting.
 > >>>>>>>>
@@ -363,6 +377,8 @@ ing-lists
 > >>>> Committee: https://www.oasis-open.org/committees/virtio/
 > >>>> Join OASIS: https://www.oasis-open.org/join/
 > >>>>
+>
+
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
