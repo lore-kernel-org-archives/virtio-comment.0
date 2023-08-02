@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-6961-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-6962-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A15F2C001DF
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 10:12:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8807C04E69
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 11:26:07 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E1E0674101
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 10:12:14 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id EAAD67C6A8
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 11:26:06 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D4F79986602
-	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 10:12:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E4022986689
+	for <virtio-comment@archiver.kernel.org>; Wed,  2 Aug 2023 11:26:06 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C16EC9865F7; Wed,  2 Aug 2023 10:12:14 +0000 (UTC)
+	id DAD5298660F; Wed,  2 Aug 2023 11:26:06 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,105 +24,66 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ACA799865F9;
-	Wed,  2 Aug 2023 10:12:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C58E798663F
+	for <virtio-comment@lists.oasis-open.org>; Wed,  2 Aug 2023 11:26:03 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="433372578"
-X-IronPort-AV: E=Sophos;i="6.01,248,1684825200"; 
-   d="scan'208";a="433372578"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="794510529"
-X-IronPort-AV: E=Sophos;i="6.01,248,1684825200"; 
-   d="scan'208";a="794510529"
-Message-ID: <ab1aec70-2016-dbdc-3707-c95b185dc1e6@intel.com>
-Date: Wed, 2 Aug 2023 17:40:55 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- Shahaf Shuler <shahafs@nvidia.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>
+X-MC-Unique: 3Wu-DITROQ2a3c3S9UXuMQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690975560; x=1691580360;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/DnDwadgKaqyFFtQVzC1P9h6UPf7H3NvgesIm9rNOGI=;
+        b=RXphq5JpWXIbo+QagaqdSuaEtL8xbkzW7MQ3H4o2X2za/D+6DN61xA0SMWZJpIvziP
+         1cAlqxY+V0/yqqJnylLCzPjHqVhEujyyNfBz0Fq27dGO61gVAeVs5Q0JjeKJiigCq+Oh
+         8LW8ZqhhazRG+9VO23W+tugrqfpyUFqtNRFeL8LOPqKwHGqtI9zYnl1M5NjNROnuGLF2
+         2ctLWtYfblKuKQa/RuXzlRFrZ4SjE4rACqZxlhAZ7ojiIQObnt/QO6lrRdCxoOmLfYwK
+         ypRic/ERhlztI/qiY96BWLPtN7f9IupjRV33C0Eua6mLxjcD/EkwYUO37+IK+0TymRJo
+         oilA==
+X-Gm-Message-State: ABy/qLboRTP68Ei6WWO57DKhyAPqCWYud3J/Rga4hPG00eajLQ2lRD+k
+	k/bQ40D0EgFdPR5s7t3+l/hvDottQgLekmhB8fFtKqJAziS9tpN6bENn1tEYCvxtYGtlcwyYkqD
+	f0w6iM8mqI5fdw8yHfLVLG/ahSRrM9fbbPg==
+X-Received: by 2002:adf:e489:0:b0:317:5dca:895 with SMTP id i9-20020adfe489000000b003175dca0895mr4012252wrm.71.1690975560623;
+        Wed, 02 Aug 2023 04:26:00 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlGWcjuYQWI6cWwz1X4/rqDno7JcZof8VLRDnrDpudU3CV5NYevaXCgW04hPTws81X+YagILvw==
+X-Received: by 2002:adf:e489:0:b0:317:5dca:895 with SMTP id i9-20020adfe489000000b003175dca0895mr4012238wrm.71.1690975560266;
+        Wed, 02 Aug 2023 04:26:00 -0700 (PDT)
+Date: Wed, 2 Aug 2023 07:25:56 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	"virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	"hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>
+Message-ID: <20230802071603-mutt-send-email-mst@kernel.org>
 References: <PH0PR12MB54818D33A150A01DACF3BF74DC0AA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20230802000955-mutt-send-email-mst@kernel.org>
- <3b88c1fe-a5c8-7bc3-b30b-5babe741ffb9@intel.com>
- <PH0PR12MB54813732BE7EA68DC440D981DC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB54813732BE7EA68DC440D981DC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <CACGkMEsDo8dKSwD=Uovo=ekussqQmA8kf90jzuRoDBZs2B-GTw@mail.gmail.com>
+ <PH0PR12MB548134EA03AE48ACD6F422CADC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEvHjAkbQ1D_PNhObpZ00g3P=E7Bzj3RvBPpst6cCFTWcQ@mail.gmail.com>
+ <PH0PR12MB5481ABF25620784987149809DC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
+MIME-Version: 1.0
+In-Reply-To: <PH0PR12MB5481ABF25620784987149809DC0BA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: proposal: use admin command (and aq) of the device to query
- config space
+Subject: [virtio-comment] Re: [virtio] RE: [virtio-comment] proposal: use admin command (and
+ aq) of the device to query config space
 
+On Wed, Aug 02, 2023 at 09:57:47AM +0000, Parav Pandit wrote:
+> > If you care about admin
+> > virtqueue then device configuration space is not the only thing that can be
+> > "ever growing", common_cfg is another one. 
+> The idea is to do minimal bootstrap work from the common config space and switch to the queue.
+> So common config shouldn’t be growing either other than minimal bootstrap functionality.
+> Hence, common config also to be available via dma command.
 
-
-On 8/2/2023 4:59 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Wednesday, August 2, 2023 2:15 PM
->> Rebasing "transport vq" on admin vq is still in my pipeline, I am currently
->> working on a patch series implementing virtio pci live migration in the
->> spec(carry on Jason and Eugenio's work).
->> I will post it next week and back to transport vq task then.
->>
-> Awesome and interesting to us as well.
-> I have draft for member device migration admin commands.
-> I guess yours will hit the mailing list first, so we can converge on your series.
-OK
->
->> For SIOV, I have implemented the interfaces for querying the configurations, for
->> example:
->> 1) Access config space:
->>
->> 247 +\begin{lstlisting}
->> 248 +#define VIRTIO_TRANSPTQ_CTRL_CONFIG    6
->> 249 +  #define VIRTIO_TRANSPTQ_CTRL_CONFIG_GET    0
->> 250 +  #define VIRTIO_TRANSPTQ_CTRL_CONFIG_SET    1
->> 251 +
->> 252 +struct virtio_transportq_ctrl_dev_config_get {
->> 253 +       u32 offset;
->> 254 +       u32 size;
->> 255 +};
->> 256 +
->> 257 +struct virtio_transportq_ctrl_dev_config_set {
->> 258 +       u32 offset;
->> 259 +       u32 size;
->> 260 +       u8  data[];
->> 261 +};
->> 262 +\end{lstlisting}
->>
->> I think we can re-use the GET command for SR-IOV, I am afraid SET would be a
->> side-channel attacking surface for SR-IOV.
->>
-> Get and set both should be inband for PF, VF, SIOV.
-> I don’t see any need to diverge and create any weird combinations differently for 3 different device types.
-I am not sure, when passthrough a device to a guest, the guest driver 
-ownes the config space of the device,
-if we allow changes against the config space through admin vq from host, 
-it looks like a risk.
->
->> 2) a specific config, e.g., features:
->>
->> 142 +The features negotiation of managed devices is done by the
->> 143 +following commands:
->> 144 +
->> 145 +\begin{lstlisting}
->> 146 +#define VIRTIO_TRANSPTQ_CTRL_FEAT   3
->> 147 + #define VIRTIO_TRANSPTQ_CTRL_FEAT_DEVICE_GET        0
->> 148 + #define VIRTIO_TRANSPTQ_CTRL_FEAT_DRIVER_SET        1
->> 149 + #define VIRTIO_TRANSPTQ_CTRL_FEAT_DRIVER_GET        2
->> 150 +
->> 151 +struct virtio_transportq_ctrl_dev_features {
->> 152 +        u32 features_len;
->> 153 +        u32 features[features_len];
->> 154 +};
->> 155 +\end{lstlisting}
->>
->> still can re-use the GET commands.
->>
->> Thanks
->> Zhu Lingshan
+That is more like a new transport. I thought this proposal is focusing
+on device specific config - let's get a handle on that first?
+"common config" is a pci transport specific thing.
 
 
 This publicly archived list offers a means to provide input to the
