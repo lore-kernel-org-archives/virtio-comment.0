@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7064-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7065-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7F41C001B0
-	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 06:56:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32CE4C001B0
+	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 07:05:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DB76E45B2D
-	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 06:56:16 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 759046034D
+	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 07:05:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BA33F986559
-	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 06:56:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4771E9864D2
+	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 07:05:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A243C9864C1; Thu, 10 Aug 2023 06:56:16 +0000 (UTC)
+	id 25344983D41; Thu, 10 Aug 2023 07:05:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,167 +24,127 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8E0409864C2
-	for <virtio-comment@lists.oasis-open.org>; Thu, 10 Aug 2023 06:56:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ECE249864C2
+	for <virtio-comment@lists.oasis-open.org>; Thu, 10 Aug 2023 07:04:32 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: KaDcWwR-OEO33D65SnfIrg-1
+X-MC-Unique: Tp5fe2CXPiiyyALXoRKGyg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691650572; x=1692255372;
+        d=1e100.net; s=20221208; t=1691651069; x=1692255869;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5+mTXKA3SYyDC6RMh0vz5uqokNjKq15py1Gcjb1M7qY=;
-        b=ZoGjE2vkT6Et1TrnaEb2N2k3Z5M7HlKiS53QD0iAaX88srs8N7ApczywrQABOBpqDm
-         /S1k+z8CetgRnETn/iIsMoAMOuUIejBa532DtiNzjYlfm4AJm3iVPQcNmtXvtua5/qRR
-         Hz8MfAzNb5Zh2aN53mdcZ01c0t8zLZXtLPYhBwzdlQXqynu9GfVXH3KEBd4FVGxMIajb
-         Cl7cXLRODc6K0IUZtbM1EYxPSfIkalGatbDN59Ui8p+Xw/P4dPdvgiyqt2o/WHrYOuDE
-         pf1fAcWwI0YbVfi11WO3Rtf2dIEs7RJ21XNHpbSnQ1X668LjkmaGOezHGFn0aKksTz8N
-         bczQ==
-X-Gm-Message-State: AOJu0YzjDVCMrdoJY4mFXC92HSX/2bxCwGXDZ+Aiv2T8cH3RwUnN0mih
-	HQELrTFPKqrspWl4XAlDAW95Z3i5M18lpN0yJ9WWuEHwjmzZ1cqowXQaxLf0Wfm/R/cGKWUxVxg
-	BDEm7Z1L7t2a+9jQfmMeqg1D5j5leijgZpzJj//7c6V/y+XcclQ==
-X-Received: by 2002:a2e:8ecb:0:b0:2b9:eb9d:cc51 with SMTP id e11-20020a2e8ecb000000b002b9eb9dcc51mr1146687ljl.49.1691650572675;
-        Wed, 09 Aug 2023 23:56:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH/Y6qcTBgeTL7pCjFnMc/laTJvZoK6IhaggMfqqALh8X5y1GqoKn6ywrB77Tg8hF1Fqb328nR3QwGQkNUCWsI=
-X-Received: by 2002:a2e:8ecb:0:b0:2b9:eb9d:cc51 with SMTP id
- e11-20020a2e8ecb000000b002b9eb9dcc51mr1146674ljl.49.1691650572348; Wed, 09
- Aug 2023 23:56:12 -0700 (PDT)
+        bh=K5uxDjsg6JtAfxSL1L+AkFz6NMZcX68UTVFZ3Nt0nos=;
+        b=R/HItMWnoibGPn4oB/lYEglK2QryrQSCZrDYAQwGDiB/nOvHolxwWcZWkU3nZWIf5k
+         HxtGEGWY0uCdVD+VIwZoc9suUUn171OANhCYk9BczfWXd2Tk6w2ppxfI9xfnOuDNZK2M
+         GzV0dB1RYzOqGtyIIRvBCRIVvvYkHWPY1KG0qNejokOBWyg+tFoprUrM96S0yyyNllqf
+         JFWtg6oe1wcffzBxFiiNLzi1o6+sSTyYNl/bFKlCZM4WyV4dgtmDNOaICV/fK5pUqwsY
+         FsBS+G/2fRAc7YuouM45DHInu/o4mkN4gjlhCQgVFL9z9SHHFLgQU/VfRO++ZcwPfpPo
+         cgPQ==
+X-Gm-Message-State: AOJu0Yyi40q/ADLYuuq3AFVOQU6f+K7y3Vk6T7TAfR/uUQ+wxL9Yhc7U
+	dpMTNM8RoQ0ukgZE2urOcV3hiaTcYTWKuS27Do+3w5Lhgb1RLXJLDmvlnC5F6B396LaZo/+/24Z
+	g1oE/v2EFII3eJR6xLxX10W7qEO0GUbzl1jnC5Np0vrQwYZYNhg==
+X-Received: by 2002:a2e:b179:0:b0:2b7:2ea:33c9 with SMTP id a25-20020a2eb179000000b002b702ea33c9mr1216779ljm.20.1691651069204;
+        Thu, 10 Aug 2023 00:04:29 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHkYCM9XDMALq44vzv0bxau7zqGmKMGbVH2kskpnN0f9CpblU2fZBVJO8qbiFLt6yUOyHrVWMDXI20FHGwFWhA=
+X-Received: by 2002:a2e:b179:0:b0:2b7:2ea:33c9 with SMTP id
+ a25-20020a2eb179000000b002b702ea33c9mr1216755ljm.20.1691651068871; Thu, 10
+ Aug 2023 00:04:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230724033421.249893-1-parav@nvidia.com> <20230724033421.249893-7-parav@nvidia.com>
- <1691570137.0487022-1-xuanzhuo@linux.alibaba.com>
-In-Reply-To: <1691570137.0487022-1-xuanzhuo@linux.alibaba.com>
+References: <1691481880.8297818-1-xuanzhuo@linux.alibaba.com>
+In-Reply-To: <1691481880.8297818-1-xuanzhuo@linux.alibaba.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Thu, 10 Aug 2023 14:56:00 +0800
-Message-ID: <CACGkMEs-d-zPLByDNuDNda7UPDsm6hgZKw-3A1aNA4npUsWy7g@mail.gmail.com>
+Date: Thu, 10 Aug 2023 15:04:17 +0800
+Message-ID: <CACGkMEtfHvg5YAi1Cz0PZV2w_CqU70hQA3XU3gwYx0Gg2Ke+RQ@mail.gmail.com>
 To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: Parav Pandit <parav@nvidia.com>, shahafs@nvidia.com, hengqi@linux.alibaba.com, 
-	virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, 
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Satananda Burla <sburla@marvell.com>, 
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [virtio] [PATCH requirements 6/7]
- net-features: Add packet timestamp requirements
+Subject: Re: [virtio-comment] virtio-net ip restriction.
 
-On Wed, Aug 9, 2023 at 4:47=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.alibaba.co=
+On Tue, Aug 8, 2023 at 4:09=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.alibaba.co=
 m> wrote:
 >
-> On Mon, 24 Jul 2023 06:34:20 +0300, Parav Pandit <parav@nvidia.com> wrote=
-:
-> > Add tx and rx packet timestamp requirements.
-> >
-> > Signed-off-by: Parav Pandit <parav@nvidia.com>
-> > ---
-> >  net-workstream/features-1.4.md | 26 ++++++++++++++++++++++++++
-> >  1 file changed, 26 insertions(+)
-> >
-> > diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1=
-.4.md
-> > index d228462..37820b6 100644
-> > --- a/net-workstream/features-1.4.md
-> > +++ b/net-workstream/features-1.4.md
-> > @@ -10,6 +10,7 @@ together is desired while updating the virtio net int=
-erface.
-> >  2. Low latency tx and rx virtqueues for PCI transport
-> >  3. Virtqueue notification coalescing re-arming support
-> >  4  Virtqueue receive flow filters (RFF)
-> > +5. Device timestamp for tx and rx packets
-> >
-> >  # 3. Requirements
-> >  ## 3.1 Device counters
-> > @@ -280,3 +281,28 @@ struct virtio_net_rff_delete {
-> >       u8 padding[2];
-> >       le32 flow_id;
-> >  };
-> > +
-> > +## 3.5 Packet timestamp
-> > +1. Device should provide transmit timestamp and receive timestamp of t=
-he packets
-> > +   at per packet level when the device is enabled.
-> > +2. Device should provide the current free running clock in the least l=
-atency
-> > +   possible using an MMIO register read of 64-bit to have the least ji=
-tter.
-> > +3. Device should provide the current frequency and the frequency unit =
-for the
-> > +   software to synchronize the reference point of software and the dev=
-ice using
-> > +   a control vq command.
-> > +
-> > +### 3.5.1 Transmit timestamp
-> > +1. Transmit completion must contain a packet transmission timestamp wh=
-en the
-> > +   device is enabled for it.
-> > +2. The device should record the packet transmit timestamp in the compl=
-etion at
-> > +   the farthest egress point towards the network.
-> > +3. The device must provide a transmit packet timestamp in a single DMA
-> > +   transaction along with the rest of the transmit completion fields.
-> > +
-> > +### 3.5.2 Receive timestamp
-> > +1. Receive completion must contain a packet reception timestamp when t=
-he device
-> > +   is enabled for it.
-> > +2. The device should record the received packet timestamp at the close=
-t ingress
-> > +   point of reception from the network.
-> > +3. The device should provide a receive packet timestamp in a single DM=
-A
-> > +   transaction along with the rest of the receive completion fields.
+> ## Background
 >
+> For cloud, the ip restriction is important. Because the user of the vm is
+> untrustworthy. One user may use the ip of another to config the netdevice=
+ to
+> receive and send packets. So we need to restrict the ip traffic of the de=
+vice(or port).
 >
-> According to the last discuss, the feature will depend on the new desc
-> structure.
+> ## Implement
+> Now we have these choice:
 >
-> I would to know, can we introduce this to the current spec with a simple =
-change?
->
->  struct vring_used_elem {
->         /* Index of start of used descriptor chain. */
->         __virtio32 id;
->         /* Total length of the descriptor chain which was used (written t=
-o) */
->         __virtio32 len;
->
-> +       __virtio64 timestamp;
->  };
+> 1. introduce the switch(as the part of pf or as a separate device under a=
+ll PF
+>    and VFs ), the switch support rx/tx filter
+> 2. the virtio-net device support the ip restriction
 
-I think this could be one way and another proposal from Willem is:
+I think they are not contradictory, we can have both. I'd suggest
+starting from 2 as it's simple without new dependencies.
 
-https://lists.linuxfoundation.org/pipermail/virtualization/2021-February/05=
-2422.html
-
-which might be tricky for TX but it's more flexible since it allows
-timestamps to be done per buffer.
-
->
->
-> Then, the existing devices can support this easily. If we introduce this =
-by the
-> new desc structure, we can foresee that this function will not be impleme=
-nted by
-> many existing machines. But this function is useful. So we want support t=
-his by
-> a simple way.
-
-Make sense.
+One question though, besides ip restriction, how did you implement the
+trust and spoof checking?
 
 Thanks
 
 >
 >
-> Thanks.
+> Parav wrote:
+> > I understood that you for some reason do not need restrictions for the =
+PF.
+> > I do not know why you don't need it. :)
+> > Most cloud setups that I came across so far, needs it, but ok...
 >
-> > --
-> > 2.26.2
+> PF is used by the administrator, so the ip restriction for the PF is
+> not important. But we can have this feature.
+>
+> > The design for the switch object needs to cover the PF as well, even th=
+ough it may not be done initially.
+> > (hint: an abstraction of switch port to be done, instead of doing thing=
+s directly on the group member id).
 > >
+> > We are seeing use cases reducing of having switch located on the PF for=
+ its VFs.
+>
+> So for you, we should introduce a switching PF?
+>
+> > So please reconsider.
+> > I remember you mentioned in past in other thread, that mac etc is contr=
+olled from the infrastructure side.
+>
+> YES.
+>
+> > So, I repeatedly ask if you _really_ need to have the switch object as =
+part of the owner PF or not.
+>
+> For me, that are all ok.
+> Could you explain the difference between these?
+> So I would to know which one is better and which one is simper?
+>
+> > Which sort of contradicts with locating the administrative switch on th=
+e owner PF.
+>
+> Why?
+>
+> For us, all is on the DPU.
+>
 > >
-> > ---------------------------------------------------------------------
-> > To unsubscribe from this mail list, you must leave the OASIS TC that
-> > generates this mail.  Follow this link to all your TCs in OASIS at:
-> > https://www.oasis-open.org/apps/org/workgroup/portal/my_workgroups.php
-> >
+> > If it does, flow filters vq that is being worked with Heng, Satananda, =
+David
+> > and others seems right direction to implement simple->complex switch ob=
+ject
+> > progressively.
+>
+> Great!!
+>
+>
+> Thanks.
 >
 > This publicly archived list offers a means to provide input to the
 > OASIS Virtual I/O Device (VIRTIO) TC.
