@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7066-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7067-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64F77C001DB
-	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 08:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB6C0C04E69
+	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 15:10:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A05AAC6226
-	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 08:50:31 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6B7CFC8C5A
+	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 15:10:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 792E69864D2
-	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 08:50:31 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C8DAB98690C
+	for <virtio-comment@archiver.kernel.org>; Thu, 10 Aug 2023 15:10:42 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 618D69864C1; Thu, 10 Aug 2023 08:50:31 +0000 (UTC)
+	id 57DAA986845; Thu, 10 Aug 2023 15:10:42 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,139 +24,131 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 34BB49864C2
-	for <virtio-comment@lists.oasis-open.org>; Thu, 10 Aug 2023 08:49:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 27FB3986677
+	for <virtio-comment@lists.oasis-open.org>; Thu, 10 Aug 2023 15:10:42 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: XJ9qB1VHMlaP41QzXXk96Q-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691657342; x=1692262142;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZMZGKHx8//utTT47WfxEzxAVCBzC12za5FrRAACg+x4=;
-        b=ZgaOUgWfHK/PXlRccdOJBDg029qa1LUuo4ehKsdfbkQLKqo/Xri3rTedJt6tfpKmHT
-         bgLFkH0S7UsoD+b0kyUS9ISZioknm8KIFbMPIMOqGrIqJNVFDsXlM2+v3yptkhS6r14A
-         9FbB7kXwatY3DR3NVvVHfpW6kFn0wQ6rIg796UI8ObRlRzCC+7Xsu4PRaCizTRB6Wq7U
-         XPsDW5imXOQFGq/SfOh91CUeD0wPgxCCsXyiFAnkpgNre0uqXVJm6LtVwbPOk+UPoFyy
-         wTpaKqHDe7VgpCkkesLmw6Vn2jNz8FvcskqU4aT6P5aMYgivP3TD9+JMAgHSyaehZstC
-         mG2Q==
-X-Gm-Message-State: AOJu0YwbiQlWjHgXsMs6GeQuGKqFNN8zaIu8H+J4OBbdP7gx/0phBQ67
-	TGYR+gOeIETT0Jtv9mb1gDBBX51bwSq7a488HGMnRXTeDNppJE9qdckEDIL9wyKo2geW8IEL+EJ
-	7MwY4bbtr0GRgkISE0z2dJIbNSouYe5aj5VYt9Sv73sXsgTZWVLyjXZfq7RFUqyPOztl1rtGvzw
-	2gr5LKS17zKTL+0R4uyA==
-X-Received: by 2002:adf:fa81:0:b0:314:2f3e:dca5 with SMTP id h1-20020adffa81000000b003142f3edca5mr1163041wrr.28.1691657342407;
-        Thu, 10 Aug 2023 01:49:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEeHV8UXqOEcJQsYHGIOkU7QcpM/+V583PxHjLJbJXYISFEHOC3F0/K1rxQJ98qOpkUwjr/cQ==
-X-Received: by 2002:adf:fa81:0:b0:314:2f3e:dca5 with SMTP id h1-20020adffa81000000b003142f3edca5mr1163021wrr.28.1691657342031;
-        Thu, 10 Aug 2023 01:49:02 -0700 (PDT)
-Date: Thu, 10 Aug 2023 10:48:59 +0200
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: virtio-comment@lists.oasis-open.org
-Cc: anton.yakovlev@opensynergy.com
-Message-ID: <ZNSke4Vs0jUSr3Jb@fedora>
+        d=1e100.net; s=20221208; t=1691680240; x=1692285040;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+fpr8pNQblhM2foyzcSS44XcvkZCtxl/gbiudYAKD88=;
+        b=GEXzaGXQ4rZ90maZX/CY+80CFfw6SdsXwEWUpizSXVGyQZxtiy8YaRCbQMmZjYn0wN
+         XC6AXkIGigT79X3N+IK/eOcnFg+PEAJsCSSbCTyvn2D4LPX70qt77yvu0OPg1dmtBhra
+         7A4l1eyYk7/iBV2QvhADdV+1z/U24Zdg2JQ3BgHkXu1U6wfOEv+HZJzHoGkwMEZbAoqb
+         8wPK809r4jLBIbjcpHERmN/awDDL1oUNPlMjpeOgZOju/9Ej4lAmz0UP/nJ07pqx7P1m
+         4x9KjQ3MLJCrlOT3JlYKWbjccHqK0NCGVE40hmsD6sJ81kFLygS3LQW/F7w/Ivker3st
+         6obg==
+X-Gm-Message-State: AOJu0YzJQ95GG2JjJGP3k59aFButzY2xfJSq8N8/JrENOoAVzfo7oFkR
+	Ao44aGlwp0v7OeeB+w+3VVdA8A==
+X-Google-Smtp-Source: AGHT+IH0ib+milz5Zc/MiEv3kVqNilXoqJK9dzmg0f8t2xaGhIDB5AP+6GPu8z36bZfIV8bxs/bOGQ==
+X-Received: by 2002:adf:e850:0:b0:313:f68c:cfe9 with SMTP id d16-20020adfe850000000b00313f68ccfe9mr2276058wrn.35.1691680239913;
+        Thu, 10 Aug 2023 08:10:39 -0700 (PDT)
+Date: Thu, 10 Aug 2023 16:10:36 +0100
+From: Jean-Philippe Brucker <jean-philippe@linaro.org>
+To: Akihiko Odaki <akihiko.odaki@daynix.com>
+Cc: virtio-comment@lists.oasis-open.org, eric.auger@redhat.com,
+	virtio-dev@lists.oasis-open.org
+Message-ID: <20230810151036.GA1901900@myrica>
+References: <20230803153238.541803-1-jean-philippe@linaro.org>
+ <20230803153238.541803-5-jean-philippe@linaro.org>
+ <ca33f633-26ea-b254-a75d-3bbf86d15d24@daynix.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] [RFC PATCH] virtio-sound: use 'data buffer' instead of 'buffer'
+In-Reply-To: <ca33f633-26ea-b254-a75d-3bbf86d15d24@daynix.com>
+Subject: [virtio-comment] Re: [PATCH 4/4] virtio-iommu: Clarify hot-unplug behavior
 
-This RFC replaces the wording 'buffer' with 'data buffer' when referring
-to the payload of PCM messages. The virtio specification defines the
-word buffer as a set of zero or more device-readable
-physically-contiguous elements followed by zero or more
-physically-contiguous device-writable elements. In the virtio-sound
-section, the word is used only for the data or payload in a request. In
-this case, the data buffer is sent together with a header, i.e.,
-device-readable, and the status, i.e., device-writable. To not get
-confused with the main definition, this rfc replaces those usages
-with the wording 'data buffer'.
+On Fri, Aug 04, 2023 at 03:19:27PM +0900, Akihiko Odaki wrote:
+> On 2023/08/04 0:32, Jean-Philippe Brucker wrote:
+> > Since it is not obvious what the virtio-iommu device or driver should do
+> > when an endpoint is removed [1], add some guidance in the specification.
+> > Follow the same principle as other (hardware) IOMMU devices: clearing
+> > endpoint ID state on endpoint removal is the responsibility of the
+> > driver, not the IOMMU device.
+> > 
+> > On most hardware IOMMU devices, the endpoint ID state is kept in tables
+> > managed by the driver, so intuitively the driver should be updating the
+> > tables on hot-unplug, so that a new endpoint plugged later with the same
+> > ID does not inherit stale translations. Besides, hardware IOMMUs have no
+> > knowledge of endpoint removal. It is less obvious for virtio-iommu
+> > because endpoint states are managed with ATTACH/DETACH requests, and a
+> > virtual platform could in theory update the endpoint state when it is
+> > removed. Existing VMMs like QEMU don't do it, and rightly expect the
+> > driver to manage endpoint ID state like with other IOMMUs. It is not
+> > invalid for a VMM to clean up state on endpoint removal, but a driver
+> > shouldn't count on it.
+> 
+> I think it's better to say it's invalid to detach on endpoint removal.
 
-Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
----
- device-types/sound/description.tex | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+It's certainly not a clear cut choice and I'm still hesitating whether we
+should allow, deny or let the VMM choose what to do.
 
-diff --git a/device-types/sound/description.tex b/device-types/sound/description.tex
-index 54c9c8e..97151fa 100644
---- a/device-types/sound/description.tex
-+++ b/device-types/sound/description.tex
-@@ -667,8 +667,8 @@ \subsubsection{PCM Notifications}
- 
- \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device / Device Operation / PCM IO Messages}
- 
--An I/O message consists of the header part, followed by the buffer, and then
--the status part.
-+An I/O message consists of a buffer that contains a header part, followed by
-+the data buffer, and then the status part.
- 
- \begin{lstlisting}
- /* an I/O header */
-@@ -697,20 +697,20 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device / Device
- \item[\field{latency_bytes}] indicates the current device latency.
- \end{description}
- 
--Since all buffers in the queue (with one exception) should be of the size
-+Since all data buffers in the queue (with one exception) should be of the size
- \field{period_bytes}, the completion of such an I/O request can be considered an
- elapsed period notification.
- 
- \paragraph{Output Stream}
- 
--In case of an output stream, the header is followed by a device-readable buffer
--containing PCM frames for writing to the device. All messages are placed into
--the tx queue.
-+In case of an output stream, the header is followed by a device-readable data
-+buffer containing PCM frames for writing to the device. All messages are placed
-+into the tx queue.
- 
- \devicenormative{\subparagraph}{Output Stream}{Device Types / Sound Device / Device Operation / PCM Output Stream}
- 
- \begin{itemize}
--\item The device MUST NOT complete the I/O request until the buffer is totally
-+\item The device MUST NOT complete the I/O request until the data buffer is totally
- consumed.
- \end{itemize}
- 
-@@ -718,13 +718,13 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device / Device
- 
- \begin{itemize}
- \item The driver SHOULD populate the tx queue with \field{period_bytes} sized
--buffers. The only exception is the end of the stream.
--\item The driver MUST NOT place device-writable buffers into the tx queue.
-+data buffers. The only exception is the end of the stream.
-+\item The driver MUST NOT place device-writable data buffers into the tx queue.
- \end{itemize}
- 
- \paragraph{Input Stream}
- 
--In case of an input stream, the header is followed by a device-writable buffer
-+In case of an input stream, the header is followed by a device-writable data buffer
- being populated with PCM frames from the device. All messages are placed into
- the rx queue.
- 
-@@ -735,7 +735,7 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device / Device
- \devicenormative{\subparagraph}{Input Stream}{Device Types / Sound Device / Device Operation / PCM Input Stream}
- 
- \begin{itemize}
--\item The device MUST NOT complete the I/O request until the buffer is full.
-+\item The device MUST NOT complete the I/O request until the data buffer is full.
- The only exception is the end of the stream.
- \end{itemize}
- 
-@@ -743,8 +743,8 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device / Device
- 
- \begin{itemize}
- \item The driver SHOULD populate the rx queue with \field{period_bytes} sized
--empty buffers before starting the stream.
--\item The driver MUST NOT place device-readable buffers into the rx queue.
-+empty data buffers before starting the stream.
-+\item The driver MUST NOT place device-readable data buffers into the rx queue.
- \end{itemize}
- 
- \subsubsection{Channel Map Control Messages}\label{sec:Device Types / Sound Device / Device Operation / Channel Map Control Messages}
--- 
-2.41.0
+However, it looks like crosvm already detaches the domain when an endpoint
+is unplugged:
 
+https://github.com/google/crosvm/blob/e8b2cd080e8174948563567d395c2a42416f2807/devices/src/virtio/iommu/sys/unix.rs#L68
+
+If I understood correctly, this function is called on PCIe hot-unplug, and
+endpoint_map represents the domain attached to an endpoint ID. So the
+domain is detached on endpoint removal. If a DETACH request is sent
+afterwards, it will still succeed (detach_endpoint() in
+devices/src/virtio/iommu.rs returns detached=true, which causes DETACH to
+succeed, even if the endpoint is not in endpoint_map). But I could be
+wrong as I'm not familiar with crosvm or rust.
+
+That does make the decision a little easier, because if we did
+retroactively specify that detaching on removal is invalid, this code
+would become a bug. But in my opinion crosvm isn't doing anything wrong
+here. It feels valid and even good practice to clean up all state
+associated to an endpoint when it is removed, to avoid leaks and stale
+objects.
+
+> Otherwise, the DETACH request made by the driver on endpoint removal will
+> result in an error, which may make the driver emit an spurious warning. In
+> fact, the Linux driver emits a warning if a DETACH request fails*
+> 
+> * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/iommu/virtio-iommu.c?id=809d0810e3520da669d231303608cdf5fe5c1a70
+> 
+
+I agree that this WARN_ON is problematic, we may have to demote it to
+dev_warn() or remove it entirely.
+
+PCIe supports async removal, where a device is physically removed without
+the user first pressing a button to notify the OS that the device is going
+away. And I'm currently playing with a PCIe thunderbolt drive where I just
+yank the device out like any USB device, without first warning the OS
+(apart from unmounting partitions). If a VMM wanted to emulate that, I
+guess it would remove the device, possibly detach its IOMMU domain, and
+notify the OS afterwards. So the driver needs to accept a failed DETACH
+request more quietly.
+
+Thanks,
+Jean
+
+> > 
+> > [1] https://lore.kernel.org/all/15bf1b00-3aa0-973a-3a86-3fa5c4d41d2c@daynix.com/
+> > 
+> > Reported-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+> > Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+> > ---
+> >   device-types/iommu/description.tex | 5 +++++
+> >   1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/device-types/iommu/description.tex b/device-types/iommu/description.tex
+> > index fb1b840..63ccd41 100644
+> > --- a/device-types/iommu/description.tex
+> > +++ b/device-types/iommu/description.tex
+> > @@ -407,6 +407,11 @@ \subsubsection{DETACH request}
+> >   After all endpoints have been successfully detached from a domain, it
+> >   ceases to exist and its ID can be reused by the driver for another domain.
+> > +When an endpoint is removed from the platform (for example
+> > +unplugged, or disabled with PCIe SR-IOV), the device is not
+> > +required to detach the endpoint ID from its domain. It is the
+> > +driver's responsibility to detach the endpoint before removal.
+> > +
+> >   \drivernormative{\paragraph}{DETACH request}{Device Types / IOMMU Device / Device operations / DETACH request}
+> >   The driver SHOULD set \field{reserved} to zero.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
