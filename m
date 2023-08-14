@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7079-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7080-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C41C04A6A
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 11:29:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77FEEC04A6A
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 11:29:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A0EE842A70
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 11:29:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E07C8613DA
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 11:29:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5819B9863EF
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 11:29:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D8EA49863D1
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 11:29:31 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 50A2398633F; Mon, 14 Aug 2023 11:29:29 +0000 (UTC)
+	id CBC2B98638A; Mon, 14 Aug 2023 11:29:31 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,16 +24,16 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3DAB198638A;
+	by lists.oasis-open.org (Postfix) with ESMTP id B88CA986371;
 	Mon, 14 Aug 2023 11:29:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="351613530"
+X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="351613522"
 X-IronPort-AV: E=Sophos;i="6.01,172,1684825200"; 
-   d="scan'208";a="351613530"
+   d="scan'208";a="351613522"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="803432860"
+X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="803432844"
 X-IronPort-AV: E=Sophos;i="6.01,172,1684825200"; 
-   d="scan'208";a="803432860"
+   d="scan'208";a="803432844"
 From: Zhu Lingshan <lingshan.zhu@intel.com>
 To: jasowang@redhat.com,
 	mst@redhat.com,
@@ -42,46 +42,110 @@ To: jasowang@redhat.com,
 Cc: virtio-comment@lists.oasis-open.org,
 	virtio-dev@lists.oasis-open.org,
 	Zhu Lingshan <lingshan.zhu@intel.com>
-Date: Tue, 15 Aug 2023 03:29:02 +0800
-Message-Id: <20230814192904.30062-4-lingshan.zhu@intel.com>
+Date: Tue, 15 Aug 2023 03:29:01 +0800
+Message-Id: <20230814192904.30062-3-lingshan.zhu@intel.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20230814192904.30062-1-lingshan.zhu@intel.com>
 References: <20230814192904.30062-1-lingshan.zhu@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [RFC PATCH 3/5] virtio: The actions by the device upon SUSPEND
+Subject: [virtio-comment] [RFC PATCH 2/5] virtio: introduce vq state as basic facility
 
-This commit specifies the actions to be taken by the device upon
-SUSPEND.
+This patch adds new device facility to save and restore virtqueue
+state. The virtqueue state is split into two parts:
+
+- The available state: The state that is used for read the next
+  available buffer.
+- The used state: The state that is used for make buffer used.
+
+This will simply the transport specific method implemention. E.g two
+le16 could be used instead of a single le32). For split virtqueue, we
+only need the available state since the used state is implemented in
+the virtqueue itself (the used index). For packed virtqueue, we need
+both the available state and the used state.
+
+Those states are required to implement live migration support for
+virtio device.
 
 Signed-off-by: Jason Wang <jasowang@redhat.com>
-Signed-off-by: Eugenio PÃrez <eperezma@redhat.com>
 Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
 ---
- content.tex | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ content.tex | 62 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
 diff --git a/content.tex b/content.tex
-index 074f43e..43bd5de 100644
+index 1bb4401..074f43e 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -96,6 +96,15 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
- If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device MUST clear SUSPEND
- and resumes operation upon DRIVER_OK.
+@@ -516,6 +516,68 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
+ types. It is RECOMMENDED that devices generate version 4
+ UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
  
-+If VIRTIO_F_SUSPEND is negotiated, when SUSPEND is set, the device MUST perform the following operations:
-+\begin{itemize}
-+\item Stop comsuming any descriptors
-+\item Mark all finished descriptors as used and send used buffer notification to the driver
-+\item Record Virtqueue State of each enabled virtqueue, see section \ref{sec:Virtqueues / Virtqueue State}
-+\item Pause its operation and preserve all configurations in its Device Configuration Space, see \ref{sec:Basic Facilities of a Virtio Device / Device Configuration Space}
-+\item Present SUSPEND in \field{device status}
-+\end{itemize}
++\section{Virtqueue State}\label{sec:Virtqueues / Virtqueue State}
 +
- \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature Bits}
++When VIRTIO_F_QUEUE_STATE is negotiated, the driver can set and
++get the device internal virtqueue state through the following
++fields. The implementation of the interfaces is transport specific.
++
++\subsection{\field{Available State} Field}
++
++The available state field is two bytes virtqueue state that is used by
++the device to read the next available buffer.
++
++When VIRTIO_RING_F_PACKED is not negotiated, it contains:
++
++\begin{lstlisting}
++le16 last_avail_idx;
++\end{lstlisting}
++
++The \field{last_avail_idx} field is the free-running available ring
++index where the device will read the next available head of a
++descriptor chain.
++
++See also \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Available Ring}.
++
++When VIRTIO_RING_F_PACKED is negotiated, it contains:
++
++\begin{lstlisting}
++le16 {
++  last_avail_idx : 15;
++  last_avail_wrap_counter : 1;
++};
++\end{lstlisting}
++
++The \field{last_avail_idx} field is the free-running location
++where the device read the next descriptor from the virtqueue descriptor ring.
++
++The \field{last_avail_wrap_counter} field is the last driver ring wrap
++counter that was observed by the device.
++
++See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counters}.
++
++\subsection{\field{Used State} Field}
++
++The used state field is two bytes of virtqueue state that is used by
++the device when marking a buffer used.
++
++When VIRTIO_RING_F_PACKED is negotiated, the used state contains:
++
++\begin{lstlisting}
++le16 {
++  used_idx : 15;
++  used_wrap_counter : 1;
++};
++\end{lstlisting}
++
++The \field{used_idx} field is the free-running location where the device write next
++used descriptor to the descriptor ring.
++
++The \field{used_wrap_counter} field is the wrap counter that is used
++by the device.
++
++See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counters}.
++
+ \input{admin.tex}
  
- Each virtio device offers all the features it understands.  During
+ \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
 -- 
 2.35.3
 
