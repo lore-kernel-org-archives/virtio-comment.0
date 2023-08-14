@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7070-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7071-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28C40C0015E
-	for <virtio-comment@archiver.kernel.org>; Fri, 11 Aug 2023 14:20:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56264C001B0
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 02:54:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1EAAA29FD3
-	for <virtio-comment@archiver.kernel.org>; Fri, 11 Aug 2023 14:20:45 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 87195370F1
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 02:54:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 904119866FB
-	for <virtio-comment@archiver.kernel.org>; Fri, 11 Aug 2023 14:20:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7488998637D
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 02:54:47 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7D1019865D9; Fri, 11 Aug 2023 14:20:44 +0000 (UTC)
+	id 6B8C4983BBC; Mon, 14 Aug 2023 02:54:47 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,160 +24,245 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6417F9865D4
-	for <virtio-comment@lists.oasis-open.org>; Fri, 11 Aug 2023 14:20:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 56DD798633D
+	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Aug 2023 02:54:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-MC-Unique: nO5aK_4_Ma6IPaVmZQ_1DQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691763641; x=1692368441;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9A2H32MvxyVA92h2iLfjVjwDp89Sr/D9cbLXIfhXhxw=;
-        b=DOgrwuoy7noEbhJLPXOakqTE/UDsf2iJjrY7eRWRPRUogSGi/Vmh3SQxGo7xp8918T
-         1sFnRnn2OueljpXnFsZuRAjCuUupRuFCy88xZ+Zysw7diZ/7v1+v52qOaVQC328JppWC
-         8B9ITzmnAJVI3Y/Xf5coIg5C1DnoG3KmBTyng9ikmpUG9+66hC6ofyRHZAWRb//n1SLR
-         AVPfAUWhtyPxjzef3VwN33xx0u+1/8mDYtHMLuHOmytzVmySSuvklRNxNsdOVpPneEwR
-         Wy6zEXL5ZyYLe8BjWHlQwr8R7KqgDD3ULwFgw4tIb917Z5d3iXlO8a95+rM7HVc70aZn
-         Wy7w==
-X-Gm-Message-State: AOJu0YypJSwfKJ0doZubU3X1KZrKQykH9EYZYIMW8VFzaCka+Jx5aZA2
-	BgpZzHqH5V8H400ZBKRy+1xQYQ==
-X-Google-Smtp-Source: AGHT+IGybX2kP1N4QFNMH3vH0B1xxvhxyNZeZBK8iASGdQciE4qG8niSomC+IC8/YVleIfbGJjyeog==
-X-Received: by 2002:a5d:42d2:0:b0:317:52d2:d05f with SMTP id t18-20020a5d42d2000000b0031752d2d05fmr1713414wrr.26.1691763641433;
-        Fri, 11 Aug 2023 07:20:41 -0700 (PDT)
-Date: Fri, 11 Aug 2023 15:20:39 +0100
-From: Jean-Philippe Brucker <jean-philippe@linaro.org>
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: virtio-comment@lists.oasis-open.org, eric.auger@redhat.com,
-	virtio-dev@lists.oasis-open.org,
-	Zide Chen <zide.chen@intel.corp-partner.google.com>,
-	crosvm-dev@chromium.org
-Message-ID: <20230811142039.GA2189828@myrica>
-References: <20230803153238.541803-1-jean-philippe@linaro.org>
- <20230803153238.541803-5-jean-philippe@linaro.org>
- <ca33f633-26ea-b254-a75d-3bbf86d15d24@daynix.com>
- <20230810151036.GA1901900@myrica>
- <96d8b628-3f21-40de-ab2e-20e6043dc937@daynix.com>
+        d=1e100.net; s=20221208; t=1691981679; x=1692586479;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ofcgpCJ8o23ZxfJToBXCStFSV4PfQzgvKQSUOIsRzVg=;
+        b=GGwkJ//CrlPO+s6+HwyJkep05Bvu1Ma2v3ThPJ1SqO/14LIqDouC4Ud0XRr1GxhjGU
+         jV1QTaObTdDtguHLLNyHu3y6ACrO5zg+jqzy3cr3b+/IpiBov49r8lvLlvWqdRE6aMer
+         vx5+oXV+aZwkbMWm1AyiVbvYr4NCXesXHmXkuQtIPnrpb7G+tGJZVIG3/Y1MaTpbcAA0
+         dMmOLit9NsYr0lclDjjDefgtj+tIH6TraMkaOrqQFPo4VQDEn6I7GpCdVsBcK/PF1Rs2
+         alOk331hQWnCTKqNcvu/G1jc1arsdGQUb8kU95dlx7qOS90pHRtjqggSeuV/F+Z0UVPQ
+         23hA==
+X-Gm-Message-State: AOJu0YxsfdfjNiyZrdAR+FVgII4ZrZEkBBCLvDJGQI1CDeGXrMWs4p1/
+	az1ZfwkW1m6budhlNaJFYiHtBhmeOyWuUoVju+YNd4gNSOBuMKokqUf24qL7HAx+85dkkyeFF0s
+	LwmxN/d/tfAdgFGSvFhSn3OFGq2gGYD9J22GwhWdEz8092V5Ptw==
+X-Received: by 2002:a2e:9198:0:b0:2b7:65:fca2 with SMTP id f24-20020a2e9198000000b002b70065fca2mr5615356ljg.49.1691981679372;
+        Sun, 13 Aug 2023 19:54:39 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEfQB5owbNh92yYDeHv2lQ06f5ZQTvS5DfwiQv2zTw/MjNL1tDYKpSbJRLPZOSGTyV9sZs2ZQ11mT9W+6Xg50w=
+X-Received: by 2002:a2e:9198:0:b0:2b7:65:fca2 with SMTP id f24-20020a2e9198000000b002b70065fca2mr5615350ljg.49.1691981679015;
+ Sun, 13 Aug 2023 19:54:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <96d8b628-3f21-40de-ab2e-20e6043dc937@daynix.com>
-Subject: [virtio-comment] Re: [PATCH 4/4] virtio-iommu: Clarify hot-unplug behavior
+References: <20230724033421.249893-1-parav@nvidia.com> <20230724033421.249893-7-parav@nvidia.com>
+ <1691570137.0487022-1-xuanzhuo@linux.alibaba.com> <CACGkMEs-d-zPLByDNuDNda7UPDsm6hgZKw-3A1aNA4npUsWy7g@mail.gmail.com>
+ <CAF=yD-+LMY3yE3qtd4vHc8CGOz6UAf4njM2QiZcajrQgL=KZRQ@mail.gmail.com>
+In-Reply-To: <CAF=yD-+LMY3yE3qtd4vHc8CGOz6UAf4njM2QiZcajrQgL=KZRQ@mail.gmail.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Mon, 14 Aug 2023 10:54:27 +0800
+Message-ID: <CACGkMEsw+H+2nuWBSRZQZ4GG1t2xynwi1Tku1PwDNVLt-R=p7g@mail.gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Parav Pandit <parav@nvidia.com>, shahafs@nvidia.com, 
+	hengqi@linux.alibaba.com, virtio@lists.oasis-open.org, 
+	virtio-comment@lists.oasis-open.org, Willem de Bruijn <willemb@google.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] Re: [virtio] [PATCH requirements 6/7]
+ net-features: Add packet timestamp requirements
 
-On Fri, Aug 11, 2023 at 07:21:29AM +0900, Akihiko Odaki wrote:
-> On 2023/08/11 0:10, Jean-Philippe Brucker wrote:
-> > On Fri, Aug 04, 2023 at 03:19:27PM +0900, Akihiko Odaki wrote:
-> > > On 2023/08/04 0:32, Jean-Philippe Brucker wrote:
-> > > > Since it is not obvious what the virtio-iommu device or driver should do
-> > > > when an endpoint is removed [1], add some guidance in the specification.
-> > > > Follow the same principle as other (hardware) IOMMU devices: clearing
-> > > > endpoint ID state on endpoint removal is the responsibility of the
-> > > > driver, not the IOMMU device.
-> > > > 
-> > > > On most hardware IOMMU devices, the endpoint ID state is kept in tables
-> > > > managed by the driver, so intuitively the driver should be updating the
-> > > > tables on hot-unplug, so that a new endpoint plugged later with the same
-> > > > ID does not inherit stale translations. Besides, hardware IOMMUs have no
-> > > > knowledge of endpoint removal. It is less obvious for virtio-iommu
-> > > > because endpoint states are managed with ATTACH/DETACH requests, and a
-> > > > virtual platform could in theory update the endpoint state when it is
-> > > > removed. Existing VMMs like QEMU don't do it, and rightly expect the
-> > > > driver to manage endpoint ID state like with other IOMMUs. It is not
-> > > > invalid for a VMM to clean up state on endpoint removal, but a driver
-> > > > shouldn't count on it.
-> > > 
-> > > I think it's better to say it's invalid to detach on endpoint removal.
-> > 
-> > It's certainly not a clear cut choice and I'm still hesitating whether we
-> > should allow, deny or let the VMM choose what to do.
-> > 
-> > However, it looks like crosvm already detaches the domain when an endpoint
-> > is unplugged:
-> > 
-> > https://github.com/google/crosvm/blob/e8b2cd080e8174948563567d395c2a42416f2807/devices/src/virtio/iommu/sys/unix.rs#L68
-> > 
-> > If I understood correctly, this function is called on PCIe hot-unplug, and
-> > endpoint_map represents the domain attached to an endpoint ID. So the
-> > domain is detached on endpoint removal. If a DETACH request is sent
-> > afterwards, it will still succeed (detach_endpoint() in
-> > devices/src/virtio/iommu.rs returns detached=true, which causes DETACH to
-> > succeed, even if the endpoint is not in endpoint_map). But I could be
-> > wrong as I'm not familiar with crosvm or rust.
-> > 
-> > That does make the decision a little easier, because if we did
-> > retroactively specify that detaching on removal is invalid, this code
-> > would become a bug. But in my opinion crosvm isn't doing anything wrong
-> > here. It feels valid and even good practice to clean up all state
-> > associated to an endpoint when it is removed, to avoid leaks and stale
-> > objects.
-> 
-> In this case I think it's creating use-after-free hazard. The guest believes
-> it is managing domains and assume a domain is available until it makes a
-> DETACH request for the last endpoint attached to the domain.
-> 
-> However, if the host automatically detaches an endpoint from a domain and if
-> the domain has no other endpoints, the domain will be gone and the domain ID
-> may be reused for another domain. If the guest makes a request with the
-> stale domain ID before it becomes aware that the device is unplugged, the
-> request will be performed on some arbitrary domain and may break things.
+On Fri, Aug 11, 2023 at 5:28=E2=80=AFAM Willem de Bruijn
+<willemdebruijn.kernel@gmail.com> wrote:
+>
+> On Thu, Aug 10, 2023 at 2:56=E2=80=AFAM Jason Wang <jasowang@redhat.com> =
+wrote:
+> >
+> > On Wed, Aug 9, 2023 at 4:47=E2=80=AFPM Xuan Zhuo <xuanzhuo@linux.alibab=
+a.com> wrote:
+> > >
+> > > On Mon, 24 Jul 2023 06:34:20 +0300, Parav Pandit <parav@nvidia.com> w=
+rote:
+> > > > Add tx and rx packet timestamp requirements.
+> > > >
+> > > > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > > > ---
+> > > >  net-workstream/features-1.4.md | 26 ++++++++++++++++++++++++++
+> > > >  1 file changed, 26 insertions(+)
+> > > >
+> > > > diff --git a/net-workstream/features-1.4.md b/net-workstream/featur=
+es-1.4.md
+> > > > index d228462..37820b6 100644
+> > > > --- a/net-workstream/features-1.4.md
+> > > > +++ b/net-workstream/features-1.4.md
+> > > > @@ -10,6 +10,7 @@ together is desired while updating the virtio net=
+ interface.
+> > > >  2. Low latency tx and rx virtqueues for PCI transport
+> > > >  3. Virtqueue notification coalescing re-arming support
+> > > >  4  Virtqueue receive flow filters (RFF)
+> > > > +5. Device timestamp for tx and rx packets
+> > > >
+> > > >  # 3. Requirements
+> > > >  ## 3.1 Device counters
+> > > > @@ -280,3 +281,28 @@ struct virtio_net_rff_delete {
+> > > >       u8 padding[2];
+> > > >       le32 flow_id;
+> > > >  };
+> > > > +
+> > > > +## 3.5 Packet timestamp
+> > > > +1. Device should provide transmit timestamp and receive timestamp =
+of the packets
+> > > > +   at per packet level when the device is enabled.
+> > > > +2. Device should provide the current free running clock in the lea=
+st latency
+> > > > +   possible using an MMIO register read of 64-bit to have the leas=
+t jitter.
 
-That's an excellent point, there is a race:
+Btw, register is not offered via all transports.
 
-        VMM                        GUEST
-     Remove ep 1
-       detach domain 1
-       destroy domain 1
-                                ATTACH ep 2 to domain 1
-     Handle ATTACH
-       create domain 1
+> > > > +3. Device should provide the current frequency and the frequency u=
+nit for the
+> > > > +   software to synchronize the reference point of software and the=
+ device using
+> > > > +   a control vq command.
+> > > > +
+> > > > +### 3.5.1 Transmit timestamp
+> > > > +1. Transmit completion must contain a packet transmission timestam=
+p when the
+> > > > +   device is enabled for it.
+> > > > +2. The device should record the packet transmit timestamp in the c=
+ompletion at
+> > > > +   the farthest egress point towards the network.
+> > > > +3. The device must provide a transmit packet timestamp in a single=
+ DMA
+> > > > +   transaction along with the rest of the transmit completion fiel=
+ds.
+> > > > +
+> > > > +### 3.5.2 Receive timestamp
+> > > > +1. Receive completion must contain a packet reception timestamp wh=
+en the device
+> > > > +   is enabled for it.
+> > > > +2. The device should record the received packet timestamp at the c=
+loset ingress
+> > > > +   point of reception from the network.
+> > > > +3. The device should provide a receive packet timestamp in a singl=
+e DMA
+> > > > +   transaction along with the rest of the receive completion field=
+s.
+> > >
+> > >
+> > > According to the last discuss, the feature will depend on the new des=
+c
+> > > structure.
+> > >
+> > > I would to know, can we introduce this to the current spec with a sim=
+ple change?
+> > >
+> > >  struct vring_used_elem {
+> > >         /* Index of start of used descriptor chain. */
+> > >         __virtio32 id;
+> > >         /* Total length of the descriptor chain which was used (writt=
+en to) */
+> > >         __virtio32 len;
+> > >
+> > > +       __virtio64 timestamp;
+> > >  };
+> >
+> > I think this could be one way and another proposal from Willem is:
+> >
+> > https://lists.linuxfoundation.org/pipermail/virtualization/2021-Februar=
+y/052422.html
+> >
+> > which might be tricky for TX but it's more flexible since it allows
+> > timestamps to be done per buffer.
+>
+> Thanks for looping me in, Jason.
+>
+> I would separate timestamping data from clock synchronization and
+> timestamping control path.
+>
+>
+> For synchronization, a single 64-bit MMIO read is not necessarily the
+> fastest when traversing real hardware boundaries, or sufficient. PCIe
+> has Precision Time Measurement (PTM) hardware logic to capture
+> clock measurement with less uncertainty and possibly latency, for instanc=
+e.
+> Indeed, uncertainty is more important than raw latency.
+>
+> FWIW, we're also trying to capture similar requires for physical devices
+> through the Open Compute Platform NIC Core Offloads effort:
+> https://www.opencompute.org/w/index.php?title=3DCore_Offloads#Timestampin=
+g
 
-     Notify that ep 1 is gone
-                                Handle notification, DETACH ep 1
+This is interesting and the whole idea of "NIC Core Offloads" looks
+great as well.
 
-The guest tries to attach ep 2 to domain 1, which succeeds. So the
-guest expects that ep 2 is now able to access the mappings that were on
-domain 1. But instead it's a new empty domain.
+>
+> Virtio defines both a virtual interface and one that can be supported
+> by hardware, so it's not a 1:1 match, but many subtle points probably
+> apply to both.
 
-I think that's a good justification for adding a device normative
-statement, something like:
+Yeah, I think virito-net may try to align with that.
 
-  The device SHOULD only detach endpoints from domains when requested by
-  the driver; either when handling ATTACH and DETACH requests or when
-  performing a device reset.
+>
+>
+> For timestamping, the difficult part is the transmit completion stamp,
+> asynchronous with data flow. If this is taken on the device before or
+> at the time of queuing the completion to the host, then it can be stored
+> in\ the completion descriptor.
 
-> 
-> By the way, crosvm's logic to detach endpoint on removal looks incorrect for
-> me. A domain may have several endpoints attached, but the code looks like
-> it's always destroying a domain whether there are other endpoints attached
-> to the domain. I'm adding Zide Chen, who wrote the code according to git
-> blame, and crosvm-dev@chromium.org to CC.
+Yes, this is the proposal from Xuan actually.
 
-Link to this thread for more context:
-https://lore.kernel.org/virtio-dev/20230803153238.541803-5-jean-philippe@linaro.org/
+> But if taken at the PHY, say, it is not
+> uncommon for this to happen after the completion is written.
 
-I thought crosvm rejected attaching multiple endpoints to one domain but I
-think I misread. Rejecting multiple attach would be a straightforward fix
-(it's allowed by the spec), though it would prevent assigning endpoints
-that cannot be isolated from each others by the hardware (the driver won't
-attach those to different domains, if it's made aware that they should be
-in the same IOMMU group, for example if they are on a conventional PCI
-bus).
+This seems the requirement of the this patch which says:
 
-Thanks,
-Jean
+"
+ The device should record the packet transmit timestamp in the completion a=
+t
+ the farthest egress point towards the network.
+"
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+It seems to imply the PHY but with a DMA interface:
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+"
+The device must provide a transmit packet timestamp in a single DMA
+transaction along with the rest of the transmit completion fields.
+"
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+Parav, can you clarify? And
+
+> And
+> instead a block of dedicated registers is used and the host must poll
+> a register. There are examples of these in the Linux device driver
+> directory. For virtio, it is probably sufficient to only support the
+> first kind.
+
+RIght, for the second, it could be tricky for a virtual environemnt.
+
+>
+>
+> A third aspect is the control path: querying and configuring hardware
+> timestamps (siocgstamp/siosgstamp). If hardware is capable, easiest is
+> to just timestamp every packet. Much hardware out there targets low
+> rate PTP messages. But a virtualized virtio device could timestamp
+> all. In which case this control API can maybe be punted on.
+>
+
+That could be one way.
+
+Thanks
+
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
