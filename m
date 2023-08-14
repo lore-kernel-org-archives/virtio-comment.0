@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7098-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7099-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7D92C001E0
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2257C001DB
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D069E6846B
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A83ED7534A
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:29 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 80CC19866CD
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9EA819863AC
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:29 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 5A068986677; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
+	id 95904983F78; Mon, 14 Aug 2023 16:28:29 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,171 +24,171 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 22B2898686C
-	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 84A3798638A
+	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Aug 2023 16:28:24 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: t3cvurP9N86GGuVg1wmi9g-1
-Date: Mon, 14 Aug 2023 10:30:39 -0400
+X-MC-Unique: Xb_tR0pqOBimkAJEYtyqfg-1
+Date: Mon, 14 Aug 2023 10:49:41 -0400
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Zhu Lingshan <lingshan.zhu@intel.com>
 Cc: jasowang@redhat.com, mst@redhat.com, eperezma@redhat.com,
 	cohuck@redhat.com, virtio-comment@lists.oasis-open.org,
 	virtio-dev@lists.oasis-open.org
-Message-ID: <20230814143039.GD3146793@fedora>
+Message-ID: <20230814144941.GE3146793@fedora>
 References: <20230814192904.30062-1-lingshan.zhu@intel.com>
- <20230814192904.30062-2-lingshan.zhu@intel.com>
+ <20230814192904.30062-3-lingshan.zhu@intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="8YxAithoFgASzzfJ"
+	protocol="application/pgp-signature"; boundary="StmkrWDkhXtARo7M"
 Content-Disposition: inline
-In-Reply-To: <20230814192904.30062-2-lingshan.zhu@intel.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [virtio-comment] [RFC PATCH 1/5] virtio: introduce SUSPEND bit
- in device status
+In-Reply-To: <20230814192904.30062-3-lingshan.zhu@intel.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [virtio-comment] Re: [virtio-dev] [RFC PATCH 2/5] virtio: introduce vq state as basic
+ facility
 
---8YxAithoFgASzzfJ
-Content-Type: text/plain; charset=iso-8859-1
+--StmkrWDkhXtARo7M
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 15, 2023 at 03:29:00AM +0800, Zhu Lingshan wrote:
-> This patch introudces a new status bit in the device status: SUSPEND.
+On Tue, Aug 15, 2023 at 03:29:01AM +0800, Zhu Lingshan wrote:
+> This patch adds new device facility to save and restore virtqueue
+> state. The virtqueue state is split into two parts:
 >=20
-> This SUSPEND bit can be used by the driver to suspend a device,
-> in order to stablize the device states and virtqueue states.
+> - The available state: The state that is used for read the next
+>   available buffer.
+> - The used state: The state that is used for make buffer used.
 >=20
-> Its main use case is live migration.
+> This will simply the transport specific method implemention. E.g two
+> le16 could be used instead of a single le32). For split virtqueue, we
+> only need the available state since the used state is implemented in
+> the virtqueue itself (the used index). For packed virtqueue, we need
+> both the available state and the used state.
 >=20
+> Those states are required to implement live migration support for
+> virtio device.
+>
 > Signed-off-by: Jason Wang <jasowang@redhat.com>
-> Signed-off-by: Eugenio P=C3rez <eperezma@redhat.com>
-
-There is an character encoding issue in Eugenio's surname.
-
 > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
 > ---
->  content.tex | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-
-This patch hints at the asynchronous nature of the SUSPEND bit (the
-driver must re-read the Device Status Field) but doesn't explain the
-rationale or any limits.
-
-For example, is there a timeout or should the driver re-read the Device
-Status Field forever?
-
-Does the driver need to re-read the Device Status Field after clearing
-the SUSPEND bit?
-
+>  content.tex | 62 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 62 insertions(+)
 >=20
 > diff --git a/content.tex b/content.tex
-> index 0a62dce..1bb4401 100644
+> index 1bb4401..074f43e 100644
 > --- a/content.tex
 > +++ b/content.tex
-> @@ -47,6 +47,9 @@ \section{\field{Device Status} Field}\label{sec:Basic F=
-acilities of a Virtio Dev
->  \item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
->    drive the device.
+> @@ -516,6 +516,68 @@ \section{Exporting Objects}\label{sec:Basic Faciliti=
+es of a Virtio Device / Expo
+>  types. It is RECOMMENDED that devices generate version 4
+>  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
 > =20
-> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that =
-the
-> +  device has been suspended by the driver.
+> +\section{Virtqueue State}\label{sec:Virtqueues / Virtqueue State}
 > +
->  \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
->    an error from which it can't recover.
->  \end{description}
-> @@ -73,6 +76,10 @@ \section{\field{Device Status} Field}\label{sec:Basic =
-Facilities of a Virtio Dev
->  recover by issuing a reset.
->  \end{note}
-> =20
-> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set.
+> +When VIRTIO_F_QUEUE_STATE is negotiated, the driver can set and
+> +get the device internal virtqueue state through the following
+> +fields. The implementation of the interfaces is transport specific.
 > +
-> +When set SUSPEND, the driver MUST re-read \field{device status} to ensur=
-e the SUSPEND bit is set.
+> +\subsection{\field{Available State} Field}
+> +
+> +The available state field is two bytes virtqueue state that is used by
 
-"When setting SUSPEND, ..." would be grammatically correct. Another
-option is "After setting the SUSPEND bit, ...".
+"two bytes of virtqueue state"
+
+> +the device to read the next available buffer.
+> +
+> +When VIRTIO_RING_F_PACKED is not negotiated, it contains:
+> +
+> +\begin{lstlisting}
+> +le16 last_avail_idx;
+> +\end{lstlisting}
+> +
+> +The \field{last_avail_idx} field is the free-running available ring
+> +index where the device will read the next available head of a
+> +descriptor chain.
+> +
+> +See also \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The=
+ Virtqueue Available Ring}.
+> +
+> +When VIRTIO_RING_F_PACKED is negotiated, it contains:
+> +
+> +\begin{lstlisting}
+> +le16 {
+> +  last_avail_idx : 15;
+> +  last_avail_wrap_counter : 1;
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{last_avail_idx} field is the free-running location
+> +where the device read the next descriptor from the virtqueue descriptor =
+ring.
+> +
+> +The \field{last_avail_wrap_counter} field is the last driver ring wrap
+> +counter that was observed by the device.
+> +
+> +See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counte=
+rs}.
+> +
+> +\subsection{\field{Used State} Field}
+> +
+> +The used state field is two bytes of virtqueue state that is used by
+> +the device when marking a buffer used.
+
+Please specify the non-packed case:
+
+"When VIRTIO_RING_F_PACKED is not negotiated, the 16-bit value is always
+0."
 
 > +
->  \devicenormative{\subsection}{Device Status Field}{Basic Facilities of a=
- Virtio Device / Device Status Field}
-> =20
->  The device MUST NOT consume buffers or send any used buffer
-> @@ -82,6 +89,13 @@ \section{\field{Device Status} Field}\label{sec:Basic =
-Facilities of a Virtio Dev
->  that a reset is needed.  If DRIVER_OK is set, after it sets DEVICE_NEEDS=
-_RESET, the device
->  MUST send a device configuration change notification to the driver.
-> =20
-> +The device MUST ignore SUSPEND if FEATURES_OK is not set.
+> +When VIRTIO_RING_F_PACKED is negotiated, the used state contains:
 > +
-> +The deivce MUST ignore SUSPEND if VIRTIO_F_SUSPEND is not negotiated.
+> +\begin{lstlisting}
+> +le16 {
+> +  used_idx : 15;
+> +  used_wrap_counter : 1;
+> +};
+> +\end{lstlisting}
 > +
-> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device MUST cl=
-ear SUSPEND
-> +and resumes operation upon DRIVER_OK.
+> +The \field{used_idx} field is the free-running location where the device=
+ write next
 
-I can't parse this sentence. If the driver writes SUSPEND | DRIVER_OK |
-=2E.. to the Device Status Field, then the device accepts DRIVER_OK and
-clears SUSPEND?
+"device writes the next"
 
-Why?
-
+> +used descriptor to the descriptor ring.
 > +
->  \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / F=
-eature Bits}
-> =20
->  Each virtio device offers all the features it understands.  During
-> @@ -872,6 +886,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved F=
-eature Bits}
->  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits=
-} for
->  	handling features reserved for future use.
-> =20
-> +  \item[VIRTIO_F_SUSPEND(41)] This feature indicates that the driver can
-> +   SUSPEND the device.
-> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Fiel=
-d}.
+> +The \field{used_wrap_counter} field is the wrap counter that is used
+> +by the device.
 > +
->  \end{description}
+> +See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counte=
+rs}.
+> +
+>  \input{admin.tex}
 > =20
->  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+>  \chapter{General Initialization And Device Operation}\label{sec:General =
+Initialization And Device Operation}
 > --=20
 > 2.35.3
 >=20
 >=20
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->=20
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->=20
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 >=20
 
---8YxAithoFgASzzfJ
+--StmkrWDkhXtARo7M
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmTaOo8ACgkQnKSrs4Gr
-c8iEWAgAlOg0ZC8OV46Uuzg1SUrcipn5OJFgKJNx3+DM0Jk9P5TD5Dg89P3O+gko
-5O5MXYfo2r+MZVoRBqqPr0DtvRE0tKaHzKbMcfpN87VkSSEFpN/NRynI/NMgJo8T
-vhRW72CLW+puYv3gpffUHb8avP4s8gbX6+wAFeXNp9ngqsckExY3er81XPExc7xF
-TBMKoJYzI7SxlVqURw9A+xjc+p7JpW+y/OcjpHcbL3O8zWuvCD6XJXYWTi1R4lsD
-+m4MJZiqimMh94cpdsc1DyLtLXDzPqbSmNYH9Txu7KvH675TeTuS8cJzdTz/1p9p
-1oeyVWb+yAlJFYXCW6j6mNnKdqMZTg==
-=3diE
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmTaPwUACgkQnKSrs4Gr
+c8gVsQgAqrPh/W+1xQ/CjdbA8Sq8ten2dZaVmWgiEf54XGkCh9uUSEybxBVGXYyb
+1R62kktlvZmVtnxtbmgKyLHTTzUhoFo3ty8F0mYHeqjFhz7mYoHg+ei00XYk26XQ
+1MXkQDB7bFFExttNEkkPmu8/XWHnVm9U9zg6NDP+I/PaTS/73Q0nT81/a66sSKcj
+8WyKF9h2EQ4Lfq0a3UJp/0xBtd4DahJALNDkVNEvvjLsmcddcr8x/MIO9dxUkSt2
+1v18SzSdM1wN2FGkj8VsJ0vPOvnFA9FPc6wyye74IOP7LAEd2/7i4n5kyglfbRV+
+O/fsUaTH1TuN5R9Tp7QYpG8Tn4foFw==
+=NAjI
 -----END PGP SIGNATURE-----
 
---8YxAithoFgASzzfJ--
+--StmkrWDkhXtARo7M--
 
