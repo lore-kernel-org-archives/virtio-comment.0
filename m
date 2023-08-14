@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7099-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7100-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2257C001DB
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00D22C001E0
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A83ED7534A
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id ED326EEA3A
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9EA819863AC
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E4E7F9863EE
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:44 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 95904983F78; Mon, 14 Aug 2023 16:28:29 +0000 (UTC)
+	id DC30598633D; Mon, 14 Aug 2023 16:28:44 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,143 +24,122 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 84A3798638A
-	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Aug 2023 16:28:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C95F398633E
+	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Aug 2023 16:28:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: Xb_tR0pqOBimkAJEYtyqfg-1
-Date: Mon, 14 Aug 2023 10:49:41 -0400
+X-MC-Unique: NW-uW-0ePVarhffE-o1F1A-1
+Date: Mon, 14 Aug 2023 11:15:10 -0400
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Zhu Lingshan <lingshan.zhu@intel.com>
 Cc: jasowang@redhat.com, mst@redhat.com, eperezma@redhat.com,
 	cohuck@redhat.com, virtio-comment@lists.oasis-open.org,
 	virtio-dev@lists.oasis-open.org
-Message-ID: <20230814144941.GE3146793@fedora>
+Message-ID: <20230814151510.GG3146793@fedora>
 References: <20230814192904.30062-1-lingshan.zhu@intel.com>
- <20230814192904.30062-3-lingshan.zhu@intel.com>
+ <20230814192904.30062-5-lingshan.zhu@intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="StmkrWDkhXtARo7M"
+	protocol="application/pgp-signature"; boundary="WLsu4S8TLnNtsKjf"
 Content-Disposition: inline
-In-Reply-To: <20230814192904.30062-3-lingshan.zhu@intel.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [virtio-comment] Re: [virtio-dev] [RFC PATCH 2/5] virtio: introduce vq state as basic
- facility
+In-Reply-To: <20230814192904.30062-5-lingshan.zhu@intel.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [virtio-comment] Re: [virtio-dev] [RFC PATCH 4/5] virtqueue: constraints for
+ virtqueue state
 
---StmkrWDkhXtARo7M
+--WLsu4S8TLnNtsKjf
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 15, 2023 at 03:29:01AM +0800, Zhu Lingshan wrote:
-> This patch adds new device facility to save and restore virtqueue
-> state. The virtqueue state is split into two parts:
+On Tue, Aug 15, 2023 at 03:29:03AM +0800, Zhu Lingshan wrote:
+> This commit specifies the constraints of the virtqueue state,
+> and the actions should be taken by the device when SUSPEND
+> and DRIVER_OK is set
 >=20
-> - The available state: The state that is used for read the next
->   available buffer.
-> - The used state: The state that is used for make buffer used.
->=20
-> This will simply the transport specific method implemention. E.g two
-> le16 could be used instead of a single le32). For split virtqueue, we
-> only need the available state since the used state is implemented in
-> the virtqueue itself (the used index). For packed virtqueue, we need
-> both the available state and the used state.
->=20
-> Those states are required to implement live migration support for
-> virtio device.
->
 > Signed-off-by: Jason Wang <jasowang@redhat.com>
 > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
 > ---
->  content.tex | 62 +++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 62 insertions(+)
+>  content.tex | 31 +++++++++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
 >=20
 > diff --git a/content.tex b/content.tex
-> index 1bb4401..074f43e 100644
+> index 43bd5de..f6ac581 100644
 > --- a/content.tex
 > +++ b/content.tex
-> @@ -516,6 +516,68 @@ \section{Exporting Objects}\label{sec:Basic Faciliti=
-es of a Virtio Device / Expo
->  types. It is RECOMMENDED that devices generate version 4
->  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+> @@ -587,6 +587,37 @@ \subsection{\field{Used State} Field}
 > =20
-> +\section{Virtqueue State}\label{sec:Virtqueues / Virtqueue State}
-> +
-> +When VIRTIO_F_QUEUE_STATE is negotiated, the driver can set and
-> +get the device internal virtqueue state through the following
-> +fields. The implementation of the interfaces is transport specific.
-> +
-> +\subsection{\field{Available State} Field}
-> +
-> +The available state field is two bytes virtqueue state that is used by
-
-"two bytes of virtqueue state"
-
-> +the device to read the next available buffer.
-> +
-> +When VIRTIO_RING_F_PACKED is not negotiated, it contains:
-> +
-> +\begin{lstlisting}
-> +le16 last_avail_idx;
-> +\end{lstlisting}
-> +
-> +The \field{last_avail_idx} field is the free-running available ring
-> +index where the device will read the next available head of a
-> +descriptor chain.
-> +
-> +See also \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The=
- Virtqueue Available Ring}.
-> +
-> +When VIRTIO_RING_F_PACKED is negotiated, it contains:
-> +
-> +\begin{lstlisting}
-> +le16 {
-> +  last_avail_idx : 15;
-> +  last_avail_wrap_counter : 1;
-> +};
-> +\end{lstlisting}
-> +
-> +The \field{last_avail_idx} field is the free-running location
-> +where the device read the next descriptor from the virtqueue descriptor =
-ring.
-> +
-> +The \field{last_avail_wrap_counter} field is the last driver ring wrap
-> +counter that was observed by the device.
-> +
-> +See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counte=
+>  See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counte=
 rs}.
+> =20
+> +\drivernormative{\subsection}{Virtqueue State}{Basic Facilities of a Vir=
+tio Device / Virtqueue State}
 > +
-> +\subsection{\field{Used State} Field}
+> +If VIRTIO_F_QUEUE_STATE has been negotiated, the driver MUST set SUSPEND=
+ in \field{device status}
+> +first before getting or setting Virtqueue State of any virtqueues.
 > +
-> +The used state field is two bytes of virtqueue state that is used by
-> +the device when marking a buffer used.
+> +If VIRTIO_F_QUEUE_STATE has been negotiaged but VIRTIO_RING_F_PACKED not=
+ been negotiated,
 
-Please specify the non-packed case:
+"negotiated"
 
-"When VIRTIO_RING_F_PACKED is not negotiated, the 16-bit value is always
-0."
+Please run a spell checker.
+
+> +the driver MUST NOT access \field{Used State} of any virtqueues, it shou=
+ld use the
+> +used index in the used ring.
+> +
+> +\devicenormative{\subsection}{Virtqueue State}{Basic Facilities of a Vir=
+tio Device / Virtqueue State}
+> +
+> +If VIRTIO_F_QUEUE_STATE has been negotiated but SUSPEND is not set in \f=
+ield{device status},
+> +the device MUST ignore any accesses against Virtqueue State of any virtq=
+ueues.
+
+"accesses against" is not commonly used in English. "accesses to" is more n=
+atural.
 
 > +
-> +When VIRTIO_RING_F_PACKED is negotiated, the used state contains:
-> +
-> +\begin{lstlisting}
-> +le16 {
-> +  used_idx : 15;
-> +  used_wrap_counter : 1;
-> +};
-> +\end{lstlisting}
-> +
-> +The \field{used_idx} field is the free-running location where the device=
- write next
+> +When VIRTIO_F_QUEUE_STATE has been negotiated but VIRTIO_RING_F_PACKED i=
+s not,
+> +the device MUST ignore any accesses against \field{Used State}.
 
-"device writes the next"
+Same here.
 
-> +used descriptor to the descriptor ring.
 > +
-> +The \field{used_wrap_counter} field is the wrap counter that is used
-> +by the device.
+> +If VIRTIO_F_QUEUE_STATE has been negotiaged, the device MUST reset
+> +the Virtqueue State of every virtqueue upon a reset.
+
+I'm not sure if this statement is necessary since Virtqueue State
+becomes inaccessible when the device is reset. By definition, Virtqueue
+State is the device-internal state of the virtqueue, so it follows
+logically that next time the driver can access the Virtqueue State after
+reset, it contains the current state and not previous state from before
+reset.
+
 > +
-> +See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counte=
-rs}.
+> +If VIRTIO_F_QUEUE_STATE and VIRTIO_RING_F_PACKED have been negotiaged, w=
+hen SUSPEND is set,
+> +the device MUST record the Virtqueue State of every enabled virtqueue
+> +in \field{Available State} and \field{Used State} respectively,
+> +and correspondingly restore the Virtqueue State of every enabled virtque=
+ue
+> +from \field{Avaiable State} and \field{Used State} when DRIVER_OK is set.
+
+"Available State"
+
+> +
+> +If VIRTIO_F_QUEUE_STATE has been negotiated but VIRTIO_RING_F_PACKED has=
+ been not, when SUSPEND is set,
+> +the device MUST record the available state of every enabled virtqueue in=
+ \field{Available State},
+> +and restore the available state of every enabled virtqueue from \field{A=
+vaiable State}
+
+"Available State"
+
+> +when DRIVER_OK is set.
 > +
 >  \input{admin.tex}
 > =20
@@ -175,20 +154,20 @@ Initialization And Device Operation}
 > For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 >=20
 
---StmkrWDkhXtARo7M
+--WLsu4S8TLnNtsKjf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmTaPwUACgkQnKSrs4Gr
-c8gVsQgAqrPh/W+1xQ/CjdbA8Sq8ten2dZaVmWgiEf54XGkCh9uUSEybxBVGXYyb
-1R62kktlvZmVtnxtbmgKyLHTTzUhoFo3ty8F0mYHeqjFhz7mYoHg+ei00XYk26XQ
-1MXkQDB7bFFExttNEkkPmu8/XWHnVm9U9zg6NDP+I/PaTS/73Q0nT81/a66sSKcj
-8WyKF9h2EQ4Lfq0a3UJp/0xBtd4DahJALNDkVNEvvjLsmcddcr8x/MIO9dxUkSt2
-1v18SzSdM1wN2FGkj8VsJ0vPOvnFA9FPc6wyye74IOP7LAEd2/7i4n5kyglfbRV+
-O/fsUaTH1TuN5R9Tp7QYpG8Tn4foFw==
-=NAjI
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmTaRP4ACgkQnKSrs4Gr
+c8jzEQgArmt5HSguzlaNVEIUBkIDH4opsmwYnXJ+sjGlLbG+s8mXF4G8K6bHiPMq
+WroWc2S7H4rLam4fI/6XMNhURZD0n63y8v1xIfZsOiGx5SIUI1OgQAsfx0DHzre+
+f4Gq0Vx9AJgdO9wCPHI8nhJ6OFwMOMta2dM4QMAj1N1YocnBDDHgql9QeAGeXQcI
+y6gYAP4n/NvXyKTzCi7iMzzbQnFB+lYdPMjuhXZyt8eD02pASfEbYBfSOfPjxR2T
+DZpcSM5M2ifSMNI+qOQT5e6PkDxECsqWgWjpmnQxMq/Gxt5XcpEITKm22cNrizGo
+S4p4Aj8tng2PBz9Ag7O1/VB+OCi1QQ==
+=SbOj
 -----END PGP SIGNATURE-----
 
---StmkrWDkhXtARo7M--
+--WLsu4S8TLnNtsKjf--
 
