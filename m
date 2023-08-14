@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7097-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7098-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C032C001DB
-	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7D92C001E0
+	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 834676126B
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id D069E6846B
 	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 29ABE986888
+	by lists.oasis-open.org (Postfix) with ESMTP id 80CC19866CD
 	for <virtio-comment@archiver.kernel.org>; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id F31A598652E; Mon, 14 Aug 2023 16:28:25 +0000 (UTC)
+	id 5A068986677; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,100 +24,135 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BF2689863B2
-	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Aug 2023 16:28:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 22B2898686C
+	for <virtio-comment@lists.oasis-open.org>; Mon, 14 Aug 2023 16:28:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: tSKnGWpFPLaO8w4mQhnh3g-1
-Date: Mon, 14 Aug 2023 11:00:46 -0400
+X-MC-Unique: t3cvurP9N86GGuVg1wmi9g-1
+Date: Mon, 14 Aug 2023 10:30:39 -0400
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Zhu Lingshan <lingshan.zhu@intel.com>
 Cc: jasowang@redhat.com, mst@redhat.com, eperezma@redhat.com,
 	cohuck@redhat.com, virtio-comment@lists.oasis-open.org,
 	virtio-dev@lists.oasis-open.org
-Message-ID: <20230814150046.GF3146793@fedora>
+Message-ID: <20230814143039.GD3146793@fedora>
 References: <20230814192904.30062-1-lingshan.zhu@intel.com>
- <20230814192904.30062-4-lingshan.zhu@intel.com>
+ <20230814192904.30062-2-lingshan.zhu@intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="koi+zE3223jqgSlz"
+	protocol="application/pgp-signature"; boundary="8YxAithoFgASzzfJ"
 Content-Disposition: inline
-In-Reply-To: <20230814192904.30062-4-lingshan.zhu@intel.com>
+In-Reply-To: <20230814192904.30062-2-lingshan.zhu@intel.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [virtio-comment] [RFC PATCH 3/5] virtio: The actions by the
- device upon SUSPEND
+Subject: Re: [virtio-comment] [RFC PATCH 1/5] virtio: introduce SUSPEND bit
+ in device status
 
---koi+zE3223jqgSlz
+--8YxAithoFgASzzfJ
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 15, 2023 at 03:29:02AM +0800, Zhu Lingshan wrote:
-> This commit specifies the actions to be taken by the device upon
-> SUSPEND.
+On Tue, Aug 15, 2023 at 03:29:00AM +0800, Zhu Lingshan wrote:
+> This patch introudces a new status bit in the device status: SUSPEND.
+>=20
+> This SUSPEND bit can be used by the driver to suspend a device,
+> in order to stablize the device states and virtqueue states.
+>=20
+> Its main use case is live migration.
 >=20
 > Signed-off-by: Jason Wang <jasowang@redhat.com>
 > Signed-off-by: Eugenio P=C3rez <eperezma@redhat.com>
+
+There is an character encoding issue in Eugenio's surname.
+
 > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
 > ---
->  content.tex | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  content.tex | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+
+This patch hints at the asynchronous nature of the SUSPEND bit (the
+driver must re-read the Device Status Field) but doesn't explain the
+rationale or any limits.
+
+For example, is there a timeout or should the driver re-read the Device
+Status Field forever?
+
+Does the driver need to re-read the Device Status Field after clearing
+the SUSPEND bit?
+
 >=20
 > diff --git a/content.tex b/content.tex
-> index 074f43e..43bd5de 100644
+> index 0a62dce..1bb4401 100644
 > --- a/content.tex
 > +++ b/content.tex
-> @@ -96,6 +96,15 @@ \section{\field{Device Status} Field}\label{sec:Basic =
-Facilities of a Virtio Dev
->  If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device MUST cl=
-ear SUSPEND
->  and resumes operation upon DRIVER_OK.
+> @@ -47,6 +47,9 @@ \section{\field{Device Status} Field}\label{sec:Basic F=
+acilities of a Virtio Dev
+>  \item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
+>    drive the device.
 > =20
-> +If VIRTIO_F_SUSPEND is negotiated, when SUSPEND is set, the device MUST =
-perform the following operations:
+> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that =
+the
+> +  device has been suspended by the driver.
+> +
+>  \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
+>    an error from which it can't recover.
+>  \end{description}
+> @@ -73,6 +76,10 @@ \section{\field{Device Status} Field}\label{sec:Basic =
+Facilities of a Virtio Dev
+>  recover by issuing a reset.
+>  \end{note}
+> =20
+> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set.
+> +
+> +When set SUSPEND, the driver MUST re-read \field{device status} to ensur=
+e the SUSPEND bit is set.
 
-"when SUSPEND is set" is ambigious. It could mean when the driver writes
-the Device Status Field, when the device transitions to SUSPEND, or
-something else. Maybe "before the device reports the SUSPEND bit set in
-the Device Status Field"?
+"When setting SUSPEND, ..." would be grammatically correct. Another
+option is "After setting the SUSPEND bit, ...".
 
-> +\begin{itemize}
-> +\item Stop comsuming any descriptors
+> +
+>  \devicenormative{\subsection}{Device Status Field}{Basic Facilities of a=
+ Virtio Device / Device Status Field}
+> =20
+>  The device MUST NOT consume buffers or send any used buffer
+> @@ -82,6 +89,13 @@ \section{\field{Device Status} Field}\label{sec:Basic =
+Facilities of a Virtio Dev
+>  that a reset is needed.  If DRIVER_OK is set, after it sets DEVICE_NEEDS=
+_RESET, the device
+>  MUST send a device configuration change notification to the driver.
+> =20
+> +The device MUST ignore SUSPEND if FEATURES_OK is not set.
+> +
+> +The deivce MUST ignore SUSPEND if VIRTIO_F_SUSPEND is not negotiated.
+> +
+> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device MUST cl=
+ear SUSPEND
+> +and resumes operation upon DRIVER_OK.
 
-"consuming"
+I can't parse this sentence. If the driver writes SUSPEND | DRIVER_OK |
+=2E.. to the Device Status Field, then the device accepts DRIVER_OK and
+clears SUSPEND?
 
-It may be more consistent to talk about virtqueue buffers (i.e.
-requests) rather than descriptors here.
+Why?
 
-> +\item Mark all finished descriptors as used and send used buffer notific=
-ation to the driver
-
-The device has to complete everything that is in flight, just completing
-"finished" stuff is not enough. Does "finished descriptors" really mean
-"in-flight virtqueue buffers"?
-
-"send a used buffer notification" or "send used buffer notifications"
-
-> +\item Record Virtqueue State of each enabled virtqueue, see section \ref=
-{sec:Virtqueues / Virtqueue State}
-
-Does "Record" mean that Virtqueue State fields can only be accessed by
-the driver while device is paused (they may be outdated or invalid while
-the device is unpaused)?
-
-> +\item Pause its operation and preserve all configurations in its Device =
-Configuration Space, see \ref{sec:Basic Facilities of a Virtio Device / Dev=
-ice Configuration Space}
-
-What does "preserve" mean? Does it mean the Device Configuration Space
-is not allowed to change during SUSPEND?
-
-> +\item Present SUSPEND in \field{device status}
-> +\end{itemize}
 > +
 >  \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / F=
 eature Bits}
 > =20
 >  Each virtio device offers all the features it understands.  During
+> @@ -872,6 +886,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved F=
+eature Bits}
+>  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits=
+} for
+>  	handling features reserved for future use.
+> =20
+> +  \item[VIRTIO_F_SUSPEND(41)] This feature indicates that the driver can
+> +   SUSPEND the device.
+> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Fiel=
+d}.
+> +
+>  \end{description}
+> =20
+>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
 > --=20
 > 2.35.3
 >=20
@@ -140,20 +175,20 @@ ists
 > Join OASIS: https://www.oasis-open.org/join/
 >=20
 
---koi+zE3223jqgSlz
+--8YxAithoFgASzzfJ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmTaQZ4ACgkQnKSrs4Gr
-c8iNlQgAtKgvJ0BfZiouuXm5cBHz9G0wvvn3Uk91o9hHBfbssehJGK1qnDEjqcB0
-bjoZ8+HbPVu/DeF9b0iUkUleMIrKSaJiWfb+LC+phhoNBf+Vi6zDvefj9U4xk1a4
-stiMx1MV7kXvIy+QycOyaoaVN4uU4A98RX94H64+34dplJWIDS0d4g8wSh3TIVZc
-PqwcVXdZQXY8yfVfzdg8Ij1uuAd6BSzesTZzqm8V0iHJdfS1LHWQ2hhWLKOOG3iS
-sLiecnjpGeFfgDYxovlFxBaCiBKiqY4KRyfuT8We9NxIDh7uK2YTAxmOhqMOT+GG
-qhX/92dQIGISQT620akqy6/brN7oZA==
-=VXop
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmTaOo8ACgkQnKSrs4Gr
+c8iEWAgAlOg0ZC8OV46Uuzg1SUrcipn5OJFgKJNx3+DM0Jk9P5TD5Dg89P3O+gko
+5O5MXYfo2r+MZVoRBqqPr0DtvRE0tKaHzKbMcfpN87VkSSEFpN/NRynI/NMgJo8T
+vhRW72CLW+puYv3gpffUHb8avP4s8gbX6+wAFeXNp9ngqsckExY3er81XPExc7xF
+TBMKoJYzI7SxlVqURw9A+xjc+p7JpW+y/OcjpHcbL3O8zWuvCD6XJXYWTi1R4lsD
++m4MJZiqimMh94cpdsc1DyLtLXDzPqbSmNYH9Txu7KvH675TeTuS8cJzdTz/1p9p
+1oeyVWb+yAlJFYXCW6j6mNnKdqMZTg==
+=3diE
 -----END PGP SIGNATURE-----
 
---koi+zE3223jqgSlz--
+--8YxAithoFgASzzfJ--
 
