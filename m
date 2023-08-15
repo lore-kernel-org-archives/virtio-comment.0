@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7134-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7135-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34CB6C001DE
-	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EC2AC001B0
+	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:50:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 55A1A2AC49
-	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:48:21 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7A7C126A2D
+	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:50:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 37C0998638E
-	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:48:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6B3AB9863EF
+	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:50:34 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 261B2984035; Tue, 15 Aug 2023 08:48:21 +0000 (UTC)
+	id 616BC984035; Tue, 15 Aug 2023 08:50:34 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,249 +24,133 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1484D98633F;
-	Tue, 15 Aug 2023 08:48:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D83C398633F;
+	Tue, 15 Aug 2023 08:50:06 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fTjWDMdxrtRnZ/P0kXFe78/PNoy701Pq1H7/0ImlOnk72vp7m1ERZcypHObM/Y0/GdMF7Nryncfh8gLzQLLBcFdrwbqLuDOY1Rxc+XnMYfrw9y+3+ally2NewGO61bKgOZYDQFPgrj4ZV2Wml0o963OBOJZSL1/uk1ad2mc5odFLbet6hSBoImVA/05zQelOGbcW/aaG1EH23MoP77ofnIiApETTbXuZjq0AGLaycJcm2lcH2gxMHCoHjkslCFyQonHXYIYw3qYZSN5CYxKNqWP3rSOwWa9YxoyQqWlMVp0Bo91q/Nhs9n4YsCG9eT6yyqrKTecI/t2KfPVJosFO5g==
+ b=NZxnbfS6JU883Vb6Up6TbSK/VlrCzzIlLXcZwKss6wJzHQkzVkVdoWgo2xHs3OkYyPrudFzfddWJrdbvOXSkHJtO+a4q4QtHkoKfHFYyix13r+bNZgr6Sex2K40bIJ5P2CGCevATs7NafW7WO/OPaDY63e+3y6h8w31Yg2LnJIhaeJJPhcWfuJTZJepXQZnDRB3k3GMEEXuIcUrAF2Sywd53AHVepthu4RXLCRZLJJyiSfBOjTqjEmN2x8UrEWumHOzRuhLHD7rfLg5/WCrQgDKrP9/GbyPe4ADcKMh/AeuaXR00CkoWFbXa9VCv9MKG9ZdzSihq3Si59ODsEQzzrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=13ry7Z+YUfTkMtQCqUzSc2HHY/4rJrHgS9oJKBmPYq0=;
- b=I5Avkdl0pAYZ9K5q3UpxFFJuhGkJ+ocNQdLy3+p7Zf8AMryjXnOkBW/lQWdF8amW9krtJicFywIxfCs+4TbAuHsRLj3BvkkJna0boM/byxJ/dI97Z6uy1zMvHniSzi9PVvprNjqTj4BOy4uer5QLawMMzzRT//XlGYNv9uK2NCZAFcMr6KE+d60enexmj6FEoLsrR3d/BU/FCw/sjUT9pUyvIoKEQKFBG5v3WybBBFJ4vIleju/3oHUmZVNP08Uk7DjZ1hjm+uFICMuCppHooh+07f3ql40LoDTu9ALmXy4u6jmFjGllSvT78Om19T3luAdpnxr9uCiW5ndeWClcfw==
+ bh=UcQlxU+mxDuJM0CueylogoVCMAcwXBm5/4tEqJQS8Uo=;
+ b=ZSfluc8qYCJPbrqvj2Xk8+a3Hd9boa7S4WvEs0U/qU44m1/XqSdXbDX8FJeC4991IR7J8XjGFlX/mVEdPO7BKbhofg9k89KddMo3JxL3o4kAM/mh+CF2YeJ0DIihhaK8FodfsG9BHvJ25xPhHOA5whPQvdxoTCOA7qv55HYSEBQl3t4zOA82MD77TuwXgcIU4bLSWox2cxHPiBerjD8YyqdHLq7l8iMAVpF/1kuDIzRegXFLj7/J0enpiroaFiHFBLdu/mMJzIzkS9WgolfBlK2TTZH9pWwKmAOSdYFBOMCffarrQ44UR/8kh53xljvW5D9J/c5y/yH86w45SD1AJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: David Edmondson <david.edmondson@oracle.com>
+CC: "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "hengqi@linux.alibaba.com"
+	<hengqi@linux.alibaba.com>, "xuanzhuo@linux.alibaba.com"
+	<xuanzhuo@linux.alibaba.com>, "sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>, "virtio@lists.oasis-open.org"
+	<virtio@lists.oasis-open.org>
+Thread-Topic: [PATCH requirements v4 2/7] net-features: Add low latency
+ transmit queue requirements
+Thread-Index: AQHZz0yZP5vZ5rxxDkSJQBFcnvNVGa/rCwIAgAABMJA=
+Date: Tue, 15 Aug 2023 08:50:03 +0000
+Message-ID:
+ <PH0PR12MB54818C2F8762C950CBC4B90FDC14A@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20230815074600.473933-1-parav@nvidia.com>
- <20230815074600.473933-3-parav@nvidia.com>
-User-agent: mu4e 1.10.3; emacs 30.0.50
-From: David Edmondson <david.edmondson@oracle.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: virtio-comment@lists.oasis-open.org, hengqi@linux.alibaba.com,
-        xuanzhuo@linux.alibaba.com, sburla@marvell.com, shahafs@nvidia.com,
-        virtio@lists.oasis-open.org
-Date: Tue, 15 Aug 2023 09:45:12 +0100
-In-reply-to: <20230815074600.473933-3-parav@nvidia.com>
-Message-ID: <m2350k7ku1.fsf@oracle.com>
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0352.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18d::15) To DS7PR10MB4926.namprd10.prod.outlook.com
- (2603:10b6:5:3ac::20)
+ <20230815074600.473933-3-parav@nvidia.com> <m2350k7ku1.fsf@oracle.com>
+In-Reply-To: <m2350k7ku1.fsf@oracle.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SJ2PR12MB9007:EE_
+x-ms-office365-filtering-correlation-id: 3c5b4508-0ec0-4111-c80a-08db9d6c9e3e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ mRMw/tdt6KDbtwXAyw34XsYO1x1zs335eUfGjl0RrMQUbCjoLXGA2f0QRZ2HJbomBzRMp3vT0JonfgQEU4sHejWnNs3Lu1/vQzDuxjQtoFoXHgsyR5XUq4DWsAqrSKzgdfI9xXvuJU3RkipFsFyBxEJ1Gpu6iHJ3eEtjRqQOVyYAdv5mxNex0GDmUwnnZwqvF0gZUKW15LvDAwRF+m6UaKNzcSecvjedk52kV1jK41mhtccZA3Nc0x0mqNE59SR41HiDjxKBiEdHDLk5vACOmQ9esYQ50eB6b0UAgiBJe4SLe02bPO24k0HUDGt7SD7cMrVaUTH2Z8WWbLegBa8gU9PUF27RH6eoxVS1qoFH3Ovfxc3DGVDZYGen/HZXW1UANQ/H8sbGKvpQeF1xcmO7qv5wQToH1fUejH9f9ZssNwYGV9O00gu5/7lIw+I1bpef9q8ZJ5EhQD2v8gPY8G/KTsjjnNxbEQZ7+HEXDLhmFq6f2sQWG2TWuE57cSOcORMpMHIe3kWr5Ef6d0oBCylBmIBR7xOvW7uPfgt9fhEaVULUUYN8X2basVuHN/dkt9+w5/0xKeGPA/V9YfdT299c0vv6m3AG7+OqtILEa20pMLUYC+CQY95RkBoHni4uDQON
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(39860400002)(376002)(366004)(136003)(396003)(186006)(1800799006)(451199021)(33656002)(83380400001)(86362001)(55016003)(41300700001)(478600001)(38070700005)(66946007)(66476007)(54906003)(76116006)(64756008)(6916009)(66556008)(122000001)(9686003)(316002)(8676002)(66446008)(52536014)(5660300002)(4326008)(8936002)(38100700002)(7696005)(2906002)(6506007)(4744005)(71200400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?p/1PhTCB1XmP1hD1k5jExyjjxfK328eWTpcm9tnsW7OHSQO+/KAdoYTxXQIS?=
+ =?us-ascii?Q?KOf38ZGLRynw5SxuKTxmFgt7bD45FHNK8DgOabpVDjPCeUUrkPxd15rue6GP?=
+ =?us-ascii?Q?YJyJ7MvV5s3sIxo64GJmSMSFkY8JPzd75WtBNKwOD+5wBrgD/+9tQpMVXHFf?=
+ =?us-ascii?Q?XgtZQ20mdEglmoET499VL8xGxsnRbqGONb/eSW19BbrOOga+SEeyACS+ENmN?=
+ =?us-ascii?Q?D82s9eeMhqacztRvhHO633aWfG4unYiblQoGCyHzIzoITWhIbeKHOuGKmB28?=
+ =?us-ascii?Q?UiWDfT70ctZdAZDXCFml1XvYjoeOPbcM6q601qKyMu7AGnEEACRjzqBPPmUm?=
+ =?us-ascii?Q?rlFNjA+zTXPejEJRX5RAtPVliQHAOYRFIAKgXlRxAEuuVQDVFucWZ99pH7NO?=
+ =?us-ascii?Q?g+Xb8MsM0gbR/Ta1uu+RzzcUfLGIiRoyXWcsYLT+wTICIguEVk6qZC2n03fK?=
+ =?us-ascii?Q?BKki+/Y8ralfxmxRYK6WzjzTp+i4UhayUXrg085G3gvwAJtWikX2EDX0Vw09?=
+ =?us-ascii?Q?M1O8asoEb6y8GWe+zaSKzmH3+8eWu3TVppGHh78jHoglK1jWNVV6jlezA3P5?=
+ =?us-ascii?Q?+9Ts85pNlf1maMrRfvycsV5qyqK1dxT/eZoIApgdZc6dkH3uwlj5aJY4jWX5?=
+ =?us-ascii?Q?o4xkN9j12R4Dni64wqLyeXuvgyBjvMsnNXV3HWWWSMvENKvDD+H+iUIiMc3j?=
+ =?us-ascii?Q?E5TtDFxn/gL3t7Dvz0z7lc1h/99vyANxPIcC9OZeI4mNeDoiA8LvNLs3oMFy?=
+ =?us-ascii?Q?WhJ9a+9igxwsEA4/VVpBLYUwrlhf+LHDKLuJtrYQ2KvULLHJuNjHmEIbNoBD?=
+ =?us-ascii?Q?/pQItTW3VV/rqY9gDWlIHbNAWlRgjTauo/3eDNRdhw2jVcolPragwoAPhsds?=
+ =?us-ascii?Q?zHOFMcWTnro50GM3Xirae5Ko6QNE+bYFwYKAP5xyKlbJnCzUu8Xm51ZfcJeu?=
+ =?us-ascii?Q?MlJHRhEacjRwOqtlDI1iMJ+bEoO85S9+Wh5bkVPCiNwidywdHV/uAEjn0+ZQ?=
+ =?us-ascii?Q?JOQtbvgLY6N8zFMeVzqbMrkODrXEqNh9yw2YcIXlvYYkba0s92uCU60daAy6?=
+ =?us-ascii?Q?z3MeVIR7jaZHNs1DoMXAjlXdHx3nGwxMP3jCZZe5xapV0HwPmaJbm01isGeV?=
+ =?us-ascii?Q?RrYMASyIdPRbumGN7tCyLBnNmjKFZXPfIOCnKwlCz/vBYKv+VQxp19QADJsN?=
+ =?us-ascii?Q?UpqadB3YCRsngjg8sXTEkjyNquHUEf1v13sPHVKtTbKqoInFKhFrNk7kD3wa?=
+ =?us-ascii?Q?j7+CNrpyXSxpyJARjBSx5CiS2wfptAv/D01Nn6/grRypzoG7ko4Nj925VZnW?=
+ =?us-ascii?Q?RdUnjyya1YPDfQUxjJwSfKo2oJCNUWfD/1nC1py25mzimJsiHRg0t6ZL48sx?=
+ =?us-ascii?Q?8AJa19HInmwINUpbM43RHOYOzTwrp/iI5Cv7a+67fExO++zvGXYrW73EGIul?=
+ =?us-ascii?Q?U0c5QbvFajbZKj4+/FnxRkWnURjHrXplTsQkUeI8OE/UUVKKDA6NMlX7UFPz?=
+ =?us-ascii?Q?Ya8HvYgS2qsjiKfd6JVOJFlm0IdQU5nlJvXObHK5BURXzU9QOvXpGlqH0lix?=
+ =?us-ascii?Q?01s6IC1kPnod0B4BewEN8Ms+k7hvAdRpUJzdXF1JWliQyFW5hs6ebJUC/LDM?=
+ =?us-ascii?Q?0iR1I8b067qDHvilGndbtuk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR10MB4926:EE_|SA1PR10MB6496:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce23104a-6b61-437b-489b-08db9d6c5a88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	SgzGXl5Yl9IoAUJreTeUaS4iA09p+cCh3t0vgdy8GRyN+v21N1y5eQuWO+oTcKVZBTmaioF84zlbjLNBZyELNjb9F5fATLmJ9nKnTPpScsMkldmJxO72+AhM0xSlT32hzUIQgb0FSmDbDcCcqkqNdQbDws57I7vtCcdlfxEO5qSh62TURG+k5fOqb/JjoLMe/SQUhKm2iBp2mbpRh6fxPR1sZeBifmGMn4vbvI0wlaNPTItvTWQJ1qJa3IHHH44+wDorGAX+6TLNFwqvZrR5XsfVY1JfR6MFzaD2QrZhLLDqFQXUz2J8d9P8t/kPSNCHlmRYSBd/UVsYxDxXCHnsh5Fe+IFcUmO9h44Fd9bbx1dtvTA/S9Waees8ymmqW8huFw9PFHWSxCvRF4xRt0dPkEo/L2AktopxcHcR6Ri7Vt/pfQTT15RH4Mc0eaFRinNcEg97snE0IlkcBJ0dg7TVtVEQ05y8xNhtk+X/j6hnOFGwqPiWt+ZnXAKz5Beru8gPMSS5AwY4fFvm8IzD4iTQxujlrbaeMmIm4YNEVDxREfo=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR10MB4926.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(39860400002)(366004)(346002)(396003)(376002)(451199021)(186006)(1800799006)(26005)(6512007)(2616005)(83380400001)(6506007)(41300700001)(66476007)(66556008)(66946007)(6916009)(2906002)(316002)(5660300002)(44832011)(8936002)(8676002)(4326008)(478600001)(6486002)(966005)(86362001)(36756003)(38100700002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?I0vY/q/IceVM5Xuzwm5yTarFOyFTy9HjcolhxmSjuDN7PODbXBLo+crfXc/C?=
- =?us-ascii?Q?+r/yv93+3LEOPZ1N7BMYNt8RalYaR3MW41xBtaUU5Z7GHfxKrkhDeoQPhZvf?=
- =?us-ascii?Q?04hQ5FFBSh3WCEBBG4zjjHQ+7t5ph8hGJu7XpyOqbXw09qtfysTQmKyDXRjL?=
- =?us-ascii?Q?amw53Mhe59oXnuD7aBeWWV53xQeTrupDnYwIlhCF2L5cGSjhmDkOWutsTwAz?=
- =?us-ascii?Q?i9ly7geYczhAAg4/lfkAUdFRQbJo2UoxgMHf/pZ/uN2tCNlgowWyAejofQc3?=
- =?us-ascii?Q?4HL2q43c4qYmnFUeXNLzDUL6o26gUx58cW50GZXm2kf5i5Ga90GELr2cq8wY?=
- =?us-ascii?Q?gnuWExxHL3EKdjXP/FyN/ehIxYOjCdikNuKaGiqruCJscyTYG6VoMoCNoCHO?=
- =?us-ascii?Q?Uotbamm3rLigs8sMu1rJcY1IWO5y69Fdce58bG6fYPwtuxPZTffnJNRqq6UX?=
- =?us-ascii?Q?1mZOuh3lB+q59U42MCdKhissOMn9l3cofDFVLujdR7l8CilMiA2xSMd2HF3Z?=
- =?us-ascii?Q?O/hJ8Ng19Ct5vqfmfDBPREg7BWda6rRJit040//DqBE5sNxaqtCf44zCBIGR?=
- =?us-ascii?Q?lCDdRHxPoIdpGxp/52XTvoFQxPz82okHjYorYB3IpQ7P29TqqJq5uo+3j6U2?=
- =?us-ascii?Q?kc1pMSUt8sFn366opnDL47hRVJy8VRuzEeAztL+HPFkhWMnDXIg6Ow3tcOd4?=
- =?us-ascii?Q?0lI5VKElEGmzjhy1t2tCnF1bHu6NGhjABSU1t/xhq1L1Sig9NpqhK0FlwRAG?=
- =?us-ascii?Q?tcLtgP2bZYkVEhMxeTTJDHB478CcuuLOlRJ2gis/H1F2VokroZDkJOMrRVgw?=
- =?us-ascii?Q?TOoCmUm1ln5qvMpwEfiyiK7lxbu/85/E4Y5+VPX8Cs2lKGHS6iPLU8toFPem?=
- =?us-ascii?Q?KjIaEiemRvFcUFvIGnUr7/wtFInFcIQgKzvWMRPUyUWcwgN11UcLs/jHfcX5?=
- =?us-ascii?Q?RF52jRiPwMhxlsXbo5mX9pmJYtS/rFQ/a1yL6Yuu3H91L6P8oQPuKHg7NeR2?=
- =?us-ascii?Q?x0QM59+6EUDCaRQht6AO7cR3tYSCIOVatjB+RqZyEkmhq3JlJyDtBDQ3qJLJ?=
- =?us-ascii?Q?K8AXEFnQJkR602yiijUGVirIwc+sRJ5Gl9lCWymn2JT12WFlWjDHt5fKEkju?=
- =?us-ascii?Q?zce1+vUF4eYDxFEAWJHpv0v3KAslr9cMuQgfyL2mK+/qwYd7v5ebhuPvCggT?=
- =?us-ascii?Q?RP1eew0ACaYN/aHvWDx03CjezN5Nwosl6wHZsddT0O3eZopZEJMVjgTz8Vb2?=
- =?us-ascii?Q?VgBFp3ct9VtUMlOVoSGqMo9wFbeYLvKnJnOZ4C/yZQov5jV+h/iP7sEaY5JA?=
- =?us-ascii?Q?NYLs820T1FSlHXRaPmlneKcpBeX2SvylDBzRl8qkQUHMRhOIvxztY2pVSSGW?=
- =?us-ascii?Q?6NoVsSngCRdeai8lQhkzmTDWC0ABm61CeFTacxGJxD8D8Tutt+PKPaeG4SGt?=
- =?us-ascii?Q?6g4y3bj5v/g/Hw6a86j25IUfGMVqdjiUkMVSJssrCyM/8cOJ08Y7EtrYtiDU?=
- =?us-ascii?Q?ykl+GoKZKEHxXDPxnjXMVEaE1cgdHoxHvR60vduTLlkSurANyxbS31P7MB0S?=
- =?us-ascii?Q?NRm+1Bv0pGZieXe3Mlm6koHNxF/hl47hqwzOB0ZAqjOzbsff0icFo/2EWY+U?=
- =?us-ascii?Q?Sg=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
-	xkti5Ca6vJsDY9uyFZif/0WTC8zZ82VvLzeLFzZo2hsDc3G5tA8Roe9shJh9uTBOxAg/+P06mPsKRROoeH0oFTVhoeqNyPGvYs697O6JeHeiw0xfPMLujWvd73eDGG5jyHMcnNeEsnoswBHkQpqR2TR3TnpXZmbssPnTfCBOqVjSqOTkcE8d3E9CSbdUWNNyk93sf8O9RbcCEMYYQDq/9UDO5eZxnxpaZ01dXYFWSBF4pPDDMxNz9fcK5qzOmV+2hA57UqG7fyconSzOui+oFw8D2AshjMNruV9nlOA1t7Pzr6qcjSG+wB/N2E8qLf/imdtXAUwASXl9UDHr1UDl9VxeIKqw4ny6YmXpALWMOrnkGxD150PdC3gGgcfABY8657ip0/0cpHfrtI2nRaxJ0o32PFS/SISkC3FQVdEQZ3Uvls6X4fzZf1FZ6oHMV/vAZHFiI20VPzk+8KzSvGMHjh5DRpfuyy+Oh7+nxzuwRLmU8hJPZdhTJU+OSDcEQmMEGt1q5HnL/6OWgX0zgAmVUl0dhOg80Z4wrDTzlWS+miL6Sb11lRiT2mSGm+9zIHp4FqJ8QqfVyMUnept3nisX+TOxGMYGU1ltemUT4sE1N1/JDt+0DnWhWYHhXzi+pcQGas1VKBR9IQyrsejIwOhvk+kd64zFunLhN4loV3Gh8vZbWZ1BeEU39XW3ERXWfobiLGbGOO/JUF8goACw4/a2GETH1E/g//8ij64+Kve1GV6D+MrCtpvwRwE4/oyywJATRo8VCOKVcV6klKBfjygqCW68EGToUCdtHVVGEi9P96ekm8AJHKXGYqEIfWLw2B9BGKb4OyGzarE/UDgK7TOVJJvV+h8UlfyccoeImNI/rQjr5u99HMNsbVbBKigzoQZE
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce23104a-6b61-437b-489b-08db9d6c5a88
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB4926.namprd10.prod.outlook.com
+X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2023 08:48:10.5033
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c5b4508-0ec0-4111-c80a-08db9d6c9e3e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Aug 2023 08:50:03.9737
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8421HupWBAhl70nkewku3cQcaLlWN/JKY5EOwGYMHB19hFo7G5L6pZ/JMBu9J3VITmS0SWNnCcWiFNpigM2YFql5+JXysIPAJBv54baxtpQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6496
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-15_08,2023-08-10_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 mlxscore=0
- bulkscore=0 mlxlogscore=999 suspectscore=0 spamscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
- definitions=main-2308150078
-X-Proofpoint-ORIG-GUID: 8ScXsn5YQN1Jh6V__u6mZSYpwJFm7Qei
-X-Proofpoint-GUID: 8ScXsn5YQN1Jh6V__u6mZSYpwJFm7Qei
-Subject: [virtio-comment] Re: [PATCH requirements v4 2/7] net-features: Add low latency
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RNdXeyxEAq+y02ZiwWWnhzFUL0e4h+6QnOJfJ4YhpgnPVq9by8kRIdhiKxIfcERhjK+V1fZU7jtv/DT4X/Yfig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9007
+Subject: [virtio-comment] RE: [PATCH requirements v4 2/7] net-features: Add low latency
  transmit queue requirements
 
 
-On Tuesday, 2023-08-15 at 10:45:55 +03, Parav Pandit wrote:
-> Add requirements for the low latency transmit queue.
->
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
+> From: David Edmondson <david.edmondson@oracle.com>
+> Sent: Tuesday, August 15, 2023 2:15 PM
 
-Acked-by: David Edmondson <david.edmondson@oracle.com>
+> > +3. Packet transmit descriptor should be able to place a small size pac=
+ket that
+> > +   does not have any L4 data after the vnet_tx_hdr_desc in the virtque=
+ue
+> memory.
+> > +   For example a TCP ack only packet can fit in a descriptor memory wh=
+ich
+> > +   otherwise consume more than 25% of metadata to describe the packet.
+>=20
+> The presence of "L4 data" seems like a distraction - just give an indicat=
+ion of
+> size ranges being considered.
+>=20
+Yes, its mainly the size consideration.
+Will update.
+Thanks.
 
-> ---
-> chagelog:
-> v3->v4:
-> - Addressed comments from David
-> - rewrote timestamp and completions pcie transcation requirement
-> v1->v2:
-> - added generic requirement to inline the request content
->   along with the descriptor for non virtio-net devices
-> - added requirement to inline the header content along
->   with the descriptor for virtio flow filter queue as two
->   features are similar
-> v0->v1:
-> - added design goals for which requirements are added
-> ---
->  net-workstream/features-1.4.md | 88 ++++++++++++++++++++++++++++++++++
->  1 file changed, 88 insertions(+)
->
-> diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
-> index c2b1cc8..40fa07f 100644
-> --- a/net-workstream/features-1.4.md
-> +++ b/net-workstream/features-1.4.md
-> @@ -7,6 +7,7 @@ together is desired while updating the virtio net interface.
->  
->  # 2. Summary
->  1. Device counters visible to the driver
-> +2. Low latency tx virtqueue for PCI transport
->  
->  # 3. Requirements
->  ## 3.1 Device counters
-> @@ -41,3 +42,90 @@ together is desired while updating the virtio net interface.
->  More counters discussed in [1].
->  
->  [1] https://lists.oasis-open.org/archives/virtio-comment/202308/msg00176.html
-> +
-> +## 3.2 Low PCI latency virtqueues
-> +### 3.2.1 Low PCI latency tx virtqueue
-> +0. Design goal
-> +   a. Reduce PCI access latency in packet transmit flow
-> +   b. Avoid O(N) descriptor parser to detect a packet stream to simplify device
-> +      logic
-> +   c. Reduce number of PCI transmit completion transactions and have unified
-> +      completion flow with/without transmit timestamping
-> +   d. Avoid partial cache line writes on transmit completions
-> +
-> +1. Packet transmit descriptor should contain data descriptors count without any
-> +   indirection and without any O(N) search to find the end of a packet stream.
-> +   For example, a packet transmit descriptor (called vnet_tx_hdr_desc
-> +   subsequently) to contain a field num_next_desc for the packet stream
-> +   indicating that a packet is located in N data descriptors.
-> +
-> +2. Packet transmit descriptor should contain segmentation offload-related fields
-> +   without any indirection. For example, packet transmit descriptor to contain
-> +   gso_type, gso_size/mss, header length, csum placement byte offset, and
-> +   csum start.
-> +
-> +3. Packet transmit descriptor should be able to place a small size packet that
-> +   does not have any L4 data after the vnet_tx_hdr_desc in the virtqueue memory.
-> +   For example a TCP ack only packet can fit in a descriptor memory which
-> +   otherwise consume more than 25% of metadata to describe the packet.
-
-The presence of "L4 data" seems like a distraction - just give an
-indication of size ranges being considered.
-
-> +
-> +4. Packet transmit descriptor should be able to place a full GSO header (L2 to
-> +   L4) after header descriptor and before data descriptors. For example, the
-> +   GSO header is placed after struct vnet_tx_hdr_desc in the virtqueue memory.
-> +   When such a GSO header is positioned adjacent to the packet transmit
-> +   descriptor, and when the GSO header is not aligned to 16B, the following
-> +   data descriptor to start on the 8B aligned boundary.
-> +
-> +5. An example of the above requirements at high level is:
-> +
-> +```
-> +struct virtio_packed_q_desc {
-> +   /* current desc for reference */
-> +   u64 address;
-> +   u32 len;
-> +   u16 id;
-> +   u16 flags;
-> +};
-> +
-> +/* Constant size header descriptor for tx packets */
-> +struct vnet_tx_hdr_desc {
-> +   u16 flags; /* indicate how to parse next fields */
-> +   u16 id; /* desc id to come back in completion */
-> +   u8 num_next_desc; /* indicates the number of the next 16B data desc for this
-> +		      * buffer.
-> +		      */
-> +   u8 gso_type;
-> +   le16 gso_hdr_len;
-> +   le16 gso_size;
-> +   le16 csum_start;
-> +   le16 csum_offset;
-> +   u8 inline_pkt_len; /* indicates the length of the inline packet after this
-> +		       * desc
-> +		       */
-> +   u8 reserved;
-> +   u8 padding[];
-> +};
-> +
-> +/* Example of a short packet or GSO header placed in the desc section of the vq
-> + */
-> +struct vnet_tx_small_pkt_desc {
-> +   u8 raw_pkt[128];
-> +};
-> +
-> +/* Example of header followed by data descriptor */
-> +struct vnet_tx_hdr_desc hdr_desc;
-> +struct vnet_data_desc desc[2];
-> +
-> +```
-> +
-> +6. Ability to zero pad the transmit completion when the transmit completion is
-> +   shorter than the CPU cache line size.
-> +
-> +7. Ability to write per packet timestamp and also write multiple
-> +   transmit completions using single PCIe transcation.
-> +
-> +8. A generic feature of the virtqueue, to contain such header data inline for virtio
-> +   devices other than virtio-net.
-> +
-> +9. A flow filter virtqueue also similarly need the ability to inline the short flow
-> +   command header.
--- 
-And you're standing here beside me, I love the passing of time.
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
