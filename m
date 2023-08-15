@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7136-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7137-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57954C001B0
-	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:52:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E82C0015E
+	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:59:22 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id AFD742113C
-	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:52:49 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9C78E60346
+	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:59:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 86BE198637D
-	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:52:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 844639863A5
+	for <virtio-comment@archiver.kernel.org>; Tue, 15 Aug 2023 08:59:21 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7374E984035; Tue, 15 Aug 2023 08:52:49 +0000 (UTC)
+	id 6AC89984035; Tue, 15 Aug 2023 08:59:21 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,143 +24,186 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 62D7B98633F;
-	Tue, 15 Aug 2023 08:52:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5A70098633F;
+	Tue, 15 Aug 2023 08:59:21 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FKb9nUs2UWblRDSdE/j8jDzCF07SmxbmXk0xS0JKD/IO7voNktJTijOQ6nlQHIYQh7UQ9LBU4wj3BlYWRxYxFZ6NixsrakBqVzyY6UeggGprRjr44stvpq2z/OoCyka+XODaxcvMYEOgRg65TTA5U2YWUF2LBl7FVo+CFjs7argnWYiuAvgB3FjwVdrD89OBtZSvT1ssH+bbJUtpbo7CX8YtrRhA0YZU9GmMxKWby9JcpIJweXsZX4oZdT8+cxV8TDjOExTWHelbWEFiSKhlRWgDmDBE174TNBM5Udk12wD/IbSsQ8zwkXk9s10Ek0VhuwkaneJ/+XZdP9j18JD94A==
+ b=dp4A/9Bfdf+xe+MJZKkiZrkdQqUfdS7eHVtmoHAUwZFrwgyZiUXBVcVTMy2lPtOnRueNe3lDOiTiou9CiKuR6zTwxcDKcucUVFohqV6C5CVtT3qEaCakDn5ESVdprozAtHkEUM0012dVO9ilBPvWqFG7+oFTKVWeQ0dKckf1MLzKglQjfQ8AtD+y1vrw8UjPQy4UwmfN8FDWrq6yrOR5ruHyx4alqikGsYP6ryY9k3RBfPML6vGqGR4z8MIJ6qfPPNtIywhqQrO8eDcfEYMhR9WyEcfN5nKznBYoPUIOH6cB+5tt/rMmOgVrVnHDrVFDAAboDsy7tukFzU4jMrYa2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e/zjmNOesafLzNFtOz273CkF20bqfugUK2vXhasF+NA=;
- b=GWvRZ6PZRv+ZGFiuD0wGIEV/2kqDaSf42FQNhax/hBRuNEBBvtDMiPBADCQ/tYiOOrueyt2Sp1J++qAKCpt7blt4vyiTUe7X5Poe6Zaxj8VKsfFXnTEelnBAprnsKAF+PQy3iUlLMRLXXVuaoIcW9N9E3fgmi9GuPBSB2yfi/66fXOLx5zJr+gxEXH61t0o1mdtCVh8wskLETf5LQXJR5MZIHEK6iytZTQmUVMLpcoM1SWXgbmDai2vhlXKCphJlFPb1oAx8lGIkz2dC2zY5xfOeFYpQD0BjUhwi/eOwHIZQCPEQMW9PcYYzhs26XDbgfvwdjGNwSR3FzC8/jTbs5g==
+ bh=oytgJrYpHh5+ENQC9j/7uSX7lTUCMCqF1M5VgKwBsJA=;
+ b=ZsdALK3ed9z5G3U6w0oZqO3+KadKjZQw3tAATXPfmfKUGX8ViLzxY7sQqlDZlOJnSKH3AF7z0hIyvdBSgPmGsStQaXdrSYu3gpPsDiklFQ+nLESEdPatLqGTAYSXSLYlvR8CFkbpjdxnUzEmUPxxacTKRyE47XqphhvEn5Xe/Br2zXxjdUpFxkSUGL7/XCFts1II1rlQ7eyNS67AhXfCzhiiIifL15c/yb4LXuPpXOSUAHu/3L39a7btQhn7xkl/Z+jxmfAULnE1fZDMked+hYmdhc7IOVtP+SlkH2c21dM7dhAI5OY+RTBMUttllVS/cSsWc2k5d1SNS2jXu7JyVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 References: <20230815074600.473933-1-parav@nvidia.com>
- <20230815074600.473933-8-parav@nvidia.com>
+ <20230815074600.473933-2-parav@nvidia.com>
 User-agent: mu4e 1.10.3; emacs 30.0.50
 From: David Edmondson <david.edmondson@oracle.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: virtio-comment@lists.oasis-open.org, hengqi@linux.alibaba.com,
-        xuanzhuo@linux.alibaba.com, sburla@marvell.com, shahafs@nvidia.com,
-        virtio@lists.oasis-open.org
-Date: Tue, 15 Aug 2023 09:52:31 +0100
-In-reply-to: <20230815074600.473933-8-parav@nvidia.com>
-Message-ID: <m2ttt06623.fsf@oracle.com>
+Cc: hengqi@linux.alibaba.com, xuanzhuo@linux.alibaba.com, sburla@marvell.com,
+        shahafs@nvidia.com, virtio@lists.oasis-open.org,
+        virtio-comment@lists.oasis-open.org
+Date: Tue, 15 Aug 2023 09:56:17 +0100
+In-reply-to: <20230815074600.473933-2-parav@nvidia.com>
+Message-ID: <m2pm3o65rb.fsf@oracle.com>
 Content-Type: text/plain
-X-ClientProxiedBy: LO2P265CA0345.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:d::21) To DS7PR10MB4926.namprd10.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0443.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a9::16) To DS7PR10MB4926.namprd10.prod.outlook.com
  (2603:10b6:5:3ac::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR10MB4926:EE_|SA1PR10MB6496:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3aa855d3-07e6-4056-8857-08db9d6cfb8e
+X-MS-TrafficTypeDiagnostic: DS7PR10MB4926:EE_|CH0PR10MB7484:EE_
+X-MS-Office365-Filtering-Correlation-Id: a141ec8e-acdf-4c05-4079-08db9d6de2fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	7H2wH5M+Dw4tNpR7WVMJX2a4OrRmM+vdExaqMIj5cHXkrC84L8npJlKlh1d1wKWUxDUM3mESbbWznXNPCQT437eMT6AoqxdOQzhKnF3PZKQVmJT7bCk4SdWr34M64DE+vHtvXM4Cv+AcHg5ks+soq/RKVdChZma+iqSxqZhYlVTRrayCvkaFyTyMfkKf9BzCnWrDjNFsjMz+gDVfy/eYNsB89weqeiH3ryQnLldJneuiQ5+Cd8Prib6Ja5BcVI2Erva1yTEaWqPx1S6M86I4qq7APqZz8YZrlmU6RcaHGpwRIO7zZS0MMkDdV/RtDJ8dt+uaKBniNSkyXK0nWV+3NxHt+F3sI66lpHDpCOddfB81yc6HF3QaxyqVxVfwBl+hzOVzwpX/v7AwnNS+XqT2ml4FzsfWoNxhw2BXjfR64WB+FVFfGGMgmFAf1JT+hsxH0AS2Gj0SRkVbb/WKYkDbDSl97KtrdmaZ56S9ZLhKC3FtH/qrHohL65kWM/iTtblf68hczS928w2Ejny8xSlX2bKQqClxufQNQClDb1DX+PMlgluOZy2DYjQWA2mOYaAB
+	CkmJqYxCdNovoajr1feQwi10hClNWungZ9DYoomlIfG68gjFoiNyB0EvXAaNs6NyguDYjhI299HuCWVVzoTy4Y+YCkL9u4Hll8PBUFJF8sM1XoEcXUMI5Ei09zY2/cdRAUHGBeH+KwXuunCHzPSZSFMaJXqTshOV1LdFWjB+SROesV0Bdws8+wywDhyw9NxLEFpUoprjYpuflKS/AaXyiZm2gL32oCfOx2pzY25hfnfBAcKmVxBt7UhCIFOhZsJWfY07Wk4VfH47Ng0TPOX7z+IJqnPBCXEy5/ol3mTSlozUSLsnfc6jIcPG77/ba2KK/nIIpl02bj6LMNVORM6o/jVgeSOBm90F5nJTPIFpApQJqCQHDb9iSJSbln8jVIqVxWlggczHmjlPDUrlHEBcpylf9yecAAUk48PFIvphaifVm8bZXdBY6S4tvou0y+QwFkuXz7WMZABrQY8DdDWLjRYuyjO1wZxUnLkNdgEaVswq6mjk7xEBhU9veRBKmeaRpIqcSxL7v0lPxqs6lX8KaeFdTR/PbRv/aE+13J4kad0=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR10MB4926.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(39860400002)(366004)(346002)(396003)(376002)(451199021)(186006)(1800799006)(26005)(6512007)(2616005)(83380400001)(6506007)(41300700001)(66476007)(66556008)(66946007)(6916009)(2906002)(316002)(5660300002)(44832011)(8936002)(8676002)(4326008)(478600001)(6666004)(6486002)(86362001)(36756003)(38100700002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR10MB4926.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(396003)(136003)(366004)(376002)(346002)(186006)(1800799006)(451199021)(38100700002)(36756003)(86362001)(6512007)(6506007)(966005)(44832011)(478600001)(6666004)(6486002)(2906002)(2616005)(26005)(83380400001)(316002)(41300700001)(66556008)(66946007)(66476007)(6916009)(5660300002)(8676002)(8936002)(4326008);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?i0R2qUSwyaa3Dr60y99YQ+Uj7a8tP4oRAGLiVQr3jVhsbjFs6W6p19hsjOxY?=
- =?us-ascii?Q?y+pRpCkYnnLSget7yAmQlzs//Nn8iXDuZIyg/FhxchzmfcQTAt3VjVloyWGj?=
- =?us-ascii?Q?wLvXtU0JKy2ojkq2zPS4TpwJvlkZBbux4tQ8q8DbBT984aU7/hgpPgZBXyTW?=
- =?us-ascii?Q?WZpsqVK33gxJpOijWFFXTS3j7sX7iKqOQl+R+Ao2LKzY3xFU3B867/VR9rLO?=
- =?us-ascii?Q?fohPD/MfrYcqTDIG9vACVOK6TzSlQ/QG4mG8E4C3eHALi06feQbJ6k1guspt?=
- =?us-ascii?Q?WRSdukfh9bsGItIAQ98TPL65NYs/bUUIvyVAW0b+gtf6yRaKw4+tquzge4Ih?=
- =?us-ascii?Q?MkauyN2evwhzZC0gLPfFlg8bHT8XKyNQE/H9mMyub8DpvxUAZRFyjUSAt4ci?=
- =?us-ascii?Q?nelqDEx5aM+pce0z1ekLqejmOoJq+HMf5J8hI+8k15Oyryyscxwi2jCrYaaa?=
- =?us-ascii?Q?hns+ac/lsqEv9Lfh8dHENIUuRGiyNvQy8UqO8tB6U48tei0g/glVcwu5ml26?=
- =?us-ascii?Q?rv7fVsH2+RShcQZl7x5EtTLaAzztpKjtq8vrZoYXQiSsqjBOSylmwBjP1FMn?=
- =?us-ascii?Q?P9+0/EbD/7Xka5TzZN3WcGpGzi2gT33OU848ZB0a4YxBvW9SF5mBp5+g0wY+?=
- =?us-ascii?Q?YLq8iB4dx+8DzS9id3ca0io4TqJ2RePdwAjORLH7xsZPiLgv+gVyadTUEzHb?=
- =?us-ascii?Q?fw8PCKFYdYL/8gJ2HAtcf0w09JbEOTMxjkAF3ZLefusPC6I00hcUuiCVjEmV?=
- =?us-ascii?Q?EulSTeb6Da9cm1vYGdbfp1REyMIGU4aSMvQZW24v935668Rr6oEkz/3D/REk?=
- =?us-ascii?Q?H2CHYVMEMzaKMedSBV0IdHUZAbpdpToqVbGzvtH5fRBU8J1KC9lZbNfpuCj3?=
- =?us-ascii?Q?yr8KrnjSBC530Ox1Ii6ByIONAbgdlQIlmzkuKs2LoUx1VNtggJOL8GkDrH+E?=
- =?us-ascii?Q?hNr3o7AtzDmX3Oi6yb4xHDEA+sV0BIEufhf+g2TPcFlGjGWVh++7KyyJmgdb?=
- =?us-ascii?Q?4/68BJbFXHfZLRZwi4PyEHmPUgirWdfj5JAjI5UxMCjltEYtTkrLaVUVgtmG?=
- =?us-ascii?Q?1Vve/uJSMSwPqAT9+nIHWZjKqLrw1Dcf4PbJyW+O6Y1SasZse0YXvbg4FHaL?=
- =?us-ascii?Q?c7qpR2Y6HrvrXH1oi/yajy0WURE8CCkVqIci2ulLap+exqdDxDi3FP25h/2y?=
- =?us-ascii?Q?iB5Vgjcx8oejMRg0p4ieG5JpePAmV5/v5dEgenT7DTe7JOqHgsXcMNkpvRVa?=
- =?us-ascii?Q?auf4hS6r1y4Nd4NsfS2D1AphI+DHzgdRbLrgQf0+m/rHq6tY9DRczmkzaTl4?=
- =?us-ascii?Q?1l6ofpZeupKzrc8CMUZuEq4f1cQo8GT7jqPhwBOpVaUSgbD4dRohYnFPIV6/?=
- =?us-ascii?Q?pt/6CHtInoAsWxlhJdfVTM1AI8j7ilLsGz80YoE4+cZSjFNBlMdP5kE++/Xp?=
- =?us-ascii?Q?NU7KBOkDSKjh7CS8793I/BvN2hH+AW+GifGBv43Z4PAkBC3HBdSCLUw+cg1Y?=
- =?us-ascii?Q?J9Tf6ZUkHDn7emFNYEATvQsh7ghAVQzoU4Ppt/TqKi/8XP38VFpikZ67VXQu?=
- =?us-ascii?Q?7IBPcmniKPGxGhZ8FzfhQOPYYErVOSW8alvXdjrevQ3TG4FMdoRIDPJr4+VA?=
- =?us-ascii?Q?9g=3D=3D?=
+	=?us-ascii?Q?HrqiD2fGNUFuhjoW+AAj6srJx8HKhkxhV8S+6Rsy38aEdgl2+ylL59LFnN8A?=
+ =?us-ascii?Q?X0bSTUMCf/ONVEuw/aI7Klr/jydyTukZ7hvOTUzccFX7rPju62CXP+ksyn7q?=
+ =?us-ascii?Q?kW67DhHuGYH2K9o45Ciquj8rRB0znnwbvfUl+4Q7kAypf+22EsyFsiG5hnRa?=
+ =?us-ascii?Q?3a9AtsdBUcBJ+S5GOOOWd/UQRT7/HHEmcObERdX9XUkJwu3asSMKuWxmgIG+?=
+ =?us-ascii?Q?j7vPqsJJvjm3jjY0puNnqeDrdxOSCWWT8fxiSR1TYtGkWEGbJ1rTqUImIHQw?=
+ =?us-ascii?Q?YFYgYE2jvtXd9C4g0djUQquMISL5fMOT+piN+idbz7ZdZxSFLNcEiFrH351s?=
+ =?us-ascii?Q?6occsG7XrBXl7sCfLZxog/jd9q6iJllKbq0Y8iH0bG4uTCq8ybeBxBD2t2dz?=
+ =?us-ascii?Q?mI9RBBFm7AFflD5kBcnzzc/eToLBrz+/WGyLheCzKD6c0EoiUe3Brr5KJs5C?=
+ =?us-ascii?Q?OC6FQifBozGK3pJBGtGxATkUiXn2o++tzhMV/OPB7KrLo1ryij3Q2pQKdXlZ?=
+ =?us-ascii?Q?EVH/YBsDMp9dcVjou85bfcGKw5kmP8fV6+SGOaEPXCbajhq7tyALyY4tNc4m?=
+ =?us-ascii?Q?yHV0BVFt+Woy54H8BLLKrbWvVeGEZdV7avc5jLoBxqpIYsRJPt21GiPfPWI7?=
+ =?us-ascii?Q?JgdfqjiavCpv/NfI/XUGudc64apfaE9c8wtfwWyl8OvMRCus4OgprKanF7tw?=
+ =?us-ascii?Q?pv9OyslZ/cW5b0qRkB240pvZeAnfDqDoQWK/i/XMenIJTkNun8o455+3h9UC?=
+ =?us-ascii?Q?2j5sSUtxGJPDNgYTxD/pKoPRZl87HS0FL059JSvyi14+pnDh0h+1kz1FVPso?=
+ =?us-ascii?Q?xnjnHFY/522cHb7SeqNKLnA6OyzREgxbb1g4dGj1mukboF9MEdWzcfkZY9Dq?=
+ =?us-ascii?Q?tCv+NNWOPP2c46XhnVUdWO1M4sO0dxsChyo6VZ7z/hYGCxbHAJvw48a/6Odx?=
+ =?us-ascii?Q?eBYTJ//WdLlaRF+gXkYcjpi5uMpd1veqcVjJzXpkBg3DoiQu4jqkEUWcI/WG?=
+ =?us-ascii?Q?ML2p3ZGr1mwecM23VqS8exh68OhKMcmAIYmjpzObI0D8SILDM5SRpVDg2VKo?=
+ =?us-ascii?Q?EnUp4Y4SjikWuDlPsNakdirhokZdtCeMh6upcR8U0CVTNrRNCZNpoWLY8Lem?=
+ =?us-ascii?Q?KPxYpL0JMwIW3E1IsGhwRFq/h5hpob5Fn8IeXo0Pags9vQzUBmqYhlgX9eZ5?=
+ =?us-ascii?Q?XV1zMEXzk+1j+lfK3kdPu2KyUo2LxZb4Pi+CpR9kjcVw7GN9q7YUSnQH5yMZ?=
+ =?us-ascii?Q?xGsDXxIgh2x6XeHuyOsIEtw6LBC87olUkYJawylkjISKS5Kb7oOz+acP02Iu?=
+ =?us-ascii?Q?4TyIOL/CznXLtUFwu0jCENPF4o9xXVHoafDNMKx1yi1ku0VmSjILTyAMGzeY?=
+ =?us-ascii?Q?YcsNOPk3/ka3bgZBmz4+3+lJt0hh8o5AYPAoc2hJPZn7jfIWLul6fxxHwn7K?=
+ =?us-ascii?Q?IwZTc0Kcp8EzTgFW5Qw6j4qxA3qvyr7FXfuYhF5AozQn7OnC8r0bAV8Lpx/N?=
+ =?us-ascii?Q?pqS7b03ha67UbpUykBHfXrvYSKpjq7rkMrgqViB5B96w5ScbS82SfKcm2W68?=
+ =?us-ascii?Q?aP9ItBH64nZeib6O+BqaPe1qEAnaWRvQlZad32/WSUA9cz4pRcQM2tijSZwy?=
+ =?us-ascii?Q?Iw=3D=3D?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
-	tzwiuhq2TogYz4KZqV1v9iJ4T7CF0ODCMpzFK4YiunuDzsiyU6Wq6HZzk7XLuhcSUbD//zQszxSeGmzNFz/isgEQqaI+III+HeOmutjI//ds1vK27MiZhZmsUgHoImTWB/vT/8PKUWigs5uIj6lhyjzrriWMfI73lVyCO7Cgx2auFXxYPwtcM3O1FGJLbVM21A7dJyJvRWkUn/1FaIYclaYhuVVoIzAXjnp+m4GVcwPh1q262MTGJFyuco1rOOZMFt4MlVpL+y62AwxSKmPl67IovePKdVuFQxwke4zf0dqgl9qY8oiF+/JM0czYtCJ/jopeJLcBpQpFvE8+5E5YFa0LmTFb5QE9RFXKF40zpxC2RtT88IK8EkT276Jt8k65foQWMOPBAH+QQAvdP3bx0vzsqdL+TyUK2rvgL3+UA18GCMWBNwS5e0TNiISsJ3YW2pYj7lm7SPW0D9OU3wyf/r5aB+CIpjPwf8xAKcPsLBew+NNyHbGt9joRYjerMe6r2L7rVdAP3T3GAMy/Aipv//IQZw9gUAiSHqcAwzO5+S3YwOaE0QW54wJke9anygaM3WqvJRYQVegrV5i5CbsNYsX8LIfLmpCXLQC6Bgu7LpJ7hOsh2qf2tg+7zrC6tPoH0RT6lXsYEEz5ClsAr+7RsmQavV+9fuTkfazZkMm6EPFQT+Bo3iQ3fXbm9rV7QeAxFzz7jXt3VZ4k5zXEKfIk9XlkafkWyLKkVXp3WzOFxm2jYidwfEDYidTIoiq6RgRA+kLqsZXYC2Yt4fLLHinm+cDa3GImxZVdrx/liiDD9/SvPiAoZweBm3JMHLgtLc4qUWwHGyzls5B3E3XudmnLsNPYuVYO+ny+WzM+iV8e9C2Cd7GC2oXnqp6wJkPp92T/
+	PqkyR5Dyc4wTkItIPu5dEPjhfIGFlPOmfDbO32L1jkAbk451Hzv5kzpLxl2I7tZutHREycI38xh3WRedx8bdHIRvbjLX224MNID+9H/9Cq0Zf/NyohPX2plcrIsq0odRj8rrPhZpY+8PNZchkM3nZKZRcCg4S1w0c+QwQ0t8a20a6lkoaVKGqD8e08iC06cF4TSSXYpKkXfN+kyN0Hb2OQNDC+kGzOz5JAraZoK8PP4YvNhakKes3oIvNYVkOAKAXTn4Cu29KpSsfmKErYccX58+yF+wQ+cuuYxYrim1W4/yDmnw/Thd4O8WgckEIdY3lxrmAe1uTzUk810kidmeaajKp1/rgO3jqy3Dro9kC8PZ4GOjXcCFwgFLHzCn9/M9o32V3Yn4aQDSb/hIE9J8xf7ld3BD0XNcIVYeaX1kzpq62d0Ki7+rr4+S08Yl3nltPUCtRM8UOpnL/a/N3zhFiIddAVSWmuF78R36/Uods1XbFgao55oLmQBVsoHXLi6IRcHJOCs/JrW2e7yDRHWPDmEsufrp0gj62sf12tQj5D6rh3IkM8SEUdVXcx35NS5LJu1xa/IWfTn8bvZUCi+bqgO/MwZjuvnyUDEk70vuZ1CfWYL4hBcNKnFKS93qvoG7d35YthMIzwzC/EhfJtTy022GQ27ZIOUfAXY086rJ1HykWcdFUD7JtWJYg+zecFq2Xyng0yRVOL5HtwoRhMqdayaIuIQNGBQ2ldUXPbbDI1kn+WFhhUH4BuI0lYuUWe21bJaG4WTJLJuMiztfodYTl+yh/G5fbqLPLJaeAPsDC14JuNpRBjtrCUSNstovKLgIebIqSnxsxd6V09J32PE8yuovA7tBuQVM9tz6OP4gMNoajXv6dYMMKjmYwOjR6UAi
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3aa855d3-07e6-4056-8857-08db9d6cfb8e
+X-MS-Exchange-CrossTenant-Network-Message-Id: a141ec8e-acdf-4c05-4079-08db9d6de2fc
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB4926.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2023 08:52:40.6164
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2023 08:59:09.0010
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1WF1a8AEx411OtuhuazpAu+wCUFqUz4PJnXSsdcYv8w9WR9m1YfvkpSz9ZsHDCZdQtf86wfBIvyPX16FJUqw7NdCe7KmchzcKlu2IesPzZU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6496
+X-MS-Exchange-CrossTenant-UserPrincipalName: IsB1ODGd2Tkhor6aImzR9RpZRD8gYdQnuRMIm1hS0dVJ5qSCLQb2neTJc4541qQPPgcGWo9WHDWMJ0HAH6bkWk4wVwhMiShH2qTqNhuKs2I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB7484
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-08-15_08,2023-08-10_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 bulkscore=0
- mlxlogscore=999 adultscore=0 suspectscore=0 malwarescore=0 phishscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 phishscore=0 mlxscore=0
+ spamscore=0 malwarescore=0 mlxlogscore=999 suspectscore=0 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
- definitions=main-2308150079
-X-Proofpoint-ORIG-GUID: H3w0z2B20Mu8T0LB64nvQs7u9_Z9ayeZ
-X-Proofpoint-GUID: H3w0z2B20Mu8T0LB64nvQs7u9_Z9ayeZ
-Subject: [virtio-comment] Re: [PATCH requirements v4 7/7] net-features: Add header data split
- requirements
+ definitions=main-2308150080
+X-Proofpoint-GUID: p5UOIuS-kPh1usbGaOUl-6svHYeWZs9i
+X-Proofpoint-ORIG-GUID: p5UOIuS-kPh1usbGaOUl-6svHYeWZs9i
+Subject: Re: [virtio-comment] [PATCH requirements v4 1/7] net-features: Add
+ requirements document for release 1.4
 
 
-On Tuesday, 2023-08-15 at 10:46:00 +03, Parav Pandit wrote:
-> Add header data split requirements for the receive packets.
+On Tuesday, 2023-08-15 at 10:45:54 +03, Parav Pandit wrote:
+> Add requirements document template for the virtio net features.
+>
+> Add virtio net device counters visible to driver.
 >
 > Signed-off-by: Parav Pandit <parav@nvidia.com>
-
-Acked-by: David Edmondson <david.edmondson@oracle.com>
-
 > ---
->  net-workstream/features-1.4.md | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+> changelog:
+> v3->v4:
+> - Addressed comment from David
+> - Added link to more counters that we are already discussing
+> v0->v1:
+> - removed tx dropped counter
+> - updated requirements to mention about virtqueue interface for counters
+>   query
+> ---
+>  net-workstream/features-1.4.md | 43 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+>  create mode 100644 net-workstream/features-1.4.md
 >
 > diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
-> index 82b907a..5e359b6 100644
-> --- a/net-workstream/features-1.4.md
+> new file mode 100644
+> index 0000000..c2b1cc8
+> --- /dev/null
 > +++ b/net-workstream/features-1.4.md
-> @@ -11,6 +11,7 @@ together is desired while updating the virtio net interface.
->  3. Virtqueue notification coalescing re-arming support
->  4  Virtqueue receive flow filters (RFF)
->  5. Device timestamp for tx and rx packets
-> +6. Header data split for the receive virtqueue
->  
->  # 3. Requirements
->  ## 3.1 Device counters
-> @@ -360,3 +361,15 @@ c. If/when virtio switch object is implemented, support ingress/egress flow
->     point of reception from the network.
->  3. The device should provide a receive packet timestamp in a single DMA
->     transaction along with the rest of the receive completion fields.
+> @@ -0,0 +1,43 @@
+> +# 1. Introduction
 > +
-> +## 3.6 Header data split for the receive virtqueue
-> +1. The device should be able to DMA the packet header and data to two different
-> +   memory locations, this enables driver and networking stack to perform zero
-> +   copy to application buffer(s).
-> +2. The driver should be able to configure maximum header buffer size per
-> +   virtqueue.
-> +3. The header buffer to be in a physically contiguous memory per virtqueue
-> +4. The device should be able to indicate header data split in the receive
-> +   completion.
-> +5. The device should be able to zero pad the header buffer when the received
-> +   header is shorter than cpu cache line size.
+> +This document describes the overall requirements for virtio net device
+> +improvements for upcoming release 1.4. Some of these requirements are
+> +interrelated and influence the interface design, hence reviewing them
+> +together is desired while updating the virtio net interface.
+> +
+> +# 2. Summary
+> +1. Device counters visible to the driver
+> +
+> +# 3. Requirements
+> +## 3.1 Device counters
+> +1. The driver should be able to query the device and/or per vq counters for
+> +   debugging purpose using a virtqueue directly from driver to device for
+> +   example using a control vq.
+> +2. The driver should be able to query which counters are supported using a
+> +   virtqueue command, for example using an existing control vq.
+> +3. If this device is migrated between two hosts, the driver should be able
+> +   get the counter values in the destination host from where it was left
+> +   off in the source host.
+> +4. If a virtio device is group member device, a group owner should be able
+> +   to query all the counter attributes using the administration command which
+> +   a virtio member device will expose via a virtqueue to the driver.
+
+The language seems confusing here. How about:
+
+If a virtio device is a group member device, it must be possible to
+query all of the group member counter attributes via the group owner
+device.
+
+> +4. If a virtio device is a group member device, a group owner should be able
+> +   to query all of the member device counter attributes and counters via the
+> +   group owner device.
+
+Similarly:
+
+If a virtio device is a group member device, it must be possible to
+query all of the group member counters via the group owner device.
+
+> +
+> +### 3.1.1 Per receive queue counters
+> +1. le64 rx_oversize_pkt_errors: Packet dropped due to receive packet being
+> +    oversize than the buffer size
+> +2. le64 rx_no_buffer_pkt_errors: Packet dropped due to unavailability of the
+> +    buffer in the receive queue
+> +3. le64 rx_gso_pkts: Packets treated as receive GSO sequence by the device
+> +4. le64 rx_pkts: Total packets received by the device
+> +
+> +### 3.1.2 Per transmit queue counters
+> +1. le64 tx_gso_pkts: Packets send as transmit GSO sequence
+> +2. le64 tx_pkts: Total packets send by the device
+> +
+> +### 3.1.3 More counters
+> +More counters discussed in [1].
+> +
+> +[1] https://lists.oasis-open.org/archives/virtio-comment/202308/msg00176.html
 -- 
-I used to worry, thought I was goin' mad in a hurry.
+It's gettin', it's gettin', it's gettin' kinda hectic.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
