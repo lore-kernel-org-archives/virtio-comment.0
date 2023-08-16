@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7161-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7162-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B321EC0015E
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 02:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FBC1C0015E
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 02:10:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 04C9D157EE6
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 02:05:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B485A3359C
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 02:10:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E09B19863FE
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 02:05:33 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A2DCD9863F0
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 02:10:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C969298633B; Wed, 16 Aug 2023 02:05:33 +0000 (UTC)
+	id 9AB6998633B; Wed, 16 Aug 2023 02:10:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,39 +24,39 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EDE829863D7
-	for <virtio-comment@lists.oasis-open.org>; Wed, 16 Aug 2023 02:05:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8CDC69863D1
+	for <virtio-comment@lists.oasis-open.org>; Wed, 16 Aug 2023 02:10:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 3bC72_ngMimwF760jCl1cw-1
+X-MC-Unique: lnWX0mfzPu6ixC8XO2r6uQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692151514; x=1692756314;
+        d=1e100.net; s=20221208; t=1692151834; x=1692756634;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xCLNCuomc2Yfe5HLnuPvE5absiI1cV1tBKr/SKiX0As=;
-        b=LEzBH+0s1RHruS1LGc6jJKhAr4U28Au9oEaeHDhgWerJJYsXxbRzwf1+ap9dNoWdYl
-         qR2psO5ARKYej/7xkEbgDgm4NWqrF/CoCzKB7Kv49dK/0wnMpUN4HKj2Dn2ZbZ7FUm4W
-         9M/wa2QiNGvZtFcakMDWNcUgOQmvWhdaZCAbNZ11GLwgj/xe1QcKhryJr5vbgTqktDAp
-         qFfegJD8ta3/cW3rtZQoRMJtGSRYQEqUIEyWvSlHbZU6F5YZp9XKsFG+aMnvFjhZsG/B
-         ImR0llcbRLVTBGAwq2n8MLTPJqGvLTBlbCSd60feOyfvZY0l4atD8kYqMXuwu0oKRA5m
-         VvvA==
-X-Gm-Message-State: AOJu0YziKp9a8Brm5CwHzziwWr5ssniE9av102uvDu2ov/ZXkpyQ3PGI
-	j58+hfsS2yil55VWP5AoGDk0Eq9j3IDfpIeXxqwCEmiiSgDyp4ez3ZylN3ncHHMd1+1sJ+RrVBh
-	IxWWPDSthU/AZHV5mU18z/y6MW8ruKEH524rkBFdJNtrRDm09Yg==
-X-Received: by 2002:a2e:320d:0:b0:2b6:cdfb:d06a with SMTP id y13-20020a2e320d000000b002b6cdfbd06amr386161ljy.22.1692151513811;
-        Tue, 15 Aug 2023 19:05:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEa41j2HrsEqwHrx5QFfRfZVERa1TxBAV02QjHZGfMvO3KsJ0Slxmh7JmhrX3hetveRlZ1F01nWiqEXfgaypbM=
-X-Received: by 2002:a2e:320d:0:b0:2b6:cdfb:d06a with SMTP id
- y13-20020a2e320d000000b002b6cdfbd06amr386144ljy.22.1692151513497; Tue, 15 Aug
- 2023 19:05:13 -0700 (PDT)
+        bh=ZNsN2QCPSzdxHQZ442EABMqql9mudKRipmeWhyzx/0o=;
+        b=RiHKC6EdPlrEcVCjsT4+RWEbHHOFAiac7uCvbi/Gp/ENIsMb1m11MX8idig0zBX1zm
+         3JKS0J7Kcdt2SQTrzaVQthWgo/fXps3pQJispfrUfaDma7Ha5O+47aq1zc+SHfz/eklt
+         swsIfhNjV0LWq2C3xvebl2JTCVbTGVYwMqTyvtonTwqgzkkVM5B1oyo3Ag1LfsgBFVFh
+         mbOFqJy+YVFEcYrkKwo1Ki85gEX973LJ88ZB8iMwyHHvGO5WlqJkyq9oa/6nfj8ZHJM5
+         fbgSkfn4YCHm/KgnKqHo5HV6LatQzSEi8BHsYfV8tlU87Jecd7t6Y9hNibbY2qEwJUeN
+         Zhew==
+X-Gm-Message-State: AOJu0Yz1SVfiNjJbYH7bm4kHqpqduFsbAfx7VEjqhyxQzf3oVCdTETgJ
+	jmF9CotsoAP0YtkafmHWdVwLrxV28coJdj+MlZeXFp8GRpkn75CnCZqqF4mOSQ7Y7oqd1unwLwG
+	ou76SRCbdS8/ib2cftqJ9b9A+rkmPAP3LnrL8iNGw1REJTm/GFQ==
+X-Received: by 2002:a2e:9d8b:0:b0:2b9:ea5f:36b with SMTP id c11-20020a2e9d8b000000b002b9ea5f036bmr369573ljj.52.1692151834089;
+        Tue, 15 Aug 2023 19:10:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEcsydXZi/f/kQTsw/lnUnEt8lUZSI7GmI9/eCTakswJ62fZlKkxkwmsAHNukTT5OWPqrrsaA4uAcQvc1PUMok=
+X-Received: by 2002:a2e:9d8b:0:b0:2b9:ea5f:36b with SMTP id
+ c11-20020a2e9d8b000000b002b9ea5f036bmr369556ljj.52.1692151833754; Tue, 15 Aug
+ 2023 19:10:33 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230814192904.30062-1-lingshan.zhu@intel.com>
- <20230814192904.30062-2-lingshan.zhu@intel.com> <CACGkMEvmYqKTk1Hveo96oKYw4hbEDJD2x5Ye3_nkeBTH0rcMMw@mail.gmail.com>
- <CACGkMEt4mYmf+6+WC=WEZqiJgO2tNo96Ekr5bbyN6akxpjwFqw@mail.gmail.com> <47cc93ea-47e9-6390-4752-02f10f2bdc6e@intel.com>
-In-Reply-To: <47cc93ea-47e9-6390-4752-02f10f2bdc6e@intel.com>
+ <20230814192904.30062-4-lingshan.zhu@intel.com> <CACGkMEuS8xnKi8Nh10T4KCXCYSa-yYmN5X+=ZkCHUrb0jbH-XA@mail.gmail.com>
+ <2ddf1100-9230-70e3-d641-d2dcda380694@intel.com>
+In-Reply-To: <2ddf1100-9230-70e3-d641-d2dcda380694@intel.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 16 Aug 2023 10:05:02 +0800
-Message-ID: <CACGkMEvuJ7iBL6NWesi8UO3Vw5216DobkL2bb525Hhh34x3h0w@mail.gmail.com>
+Date: Wed, 16 Aug 2023 10:10:22 +0800
+Message-ID: <CACGkMEtDqHPDwXKy09fgmhZ2yywF2061W0g-RDZwx7Lv5AtBLg@mail.gmail.com>
 To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
 Cc: mst@redhat.com, eperezma@redhat.com, cohuck@redhat.com, 
 	virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
@@ -64,142 +64,108 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [RFC PATCH 1/5] virtio: introduce SUSPEND
- bit in device status
+Subject: [virtio-comment] Re: [virtio-dev] Re: [RFC PATCH 3/5] virtio: The actions by the
+ device upon SUSPEND
 
-On Tue, Aug 15, 2023 at 6:50=E2=80=AFPM Zhu, Lingshan <lingshan.zhu@intel.c=
+On Tue, Aug 15, 2023 at 7:17=E2=80=AFPM Zhu, Lingshan <lingshan.zhu@intel.c=
 om> wrote:
 >
 >
 >
-> On 8/15/2023 8:37 AM, Jason Wang wrote:
-> > On Tue, Aug 15, 2023 at 8:26=E2=80=AFAM Jason Wang <jasowang@redhat.com=
-> wrote:
-> >> On Mon, Aug 14, 2023 at 7:29=E2=80=AFPM Zhu Lingshan <lingshan.zhu@int=
-el.com> wrote:
-> >>> This patch introudces a new status bit in the device status: SUSPEND.
-> >>>
-> >>> This SUSPEND bit can be used by the driver to suspend a device,
-> >>> in order to stablize the device states and virtqueue states.
-> >>>
-> >>> Its main use case is live migration.
-> >> I think patch 3 needs to be squashed into this one.
+> On 8/15/2023 8:29 AM, Jason Wang wrote:
+> > On Mon, Aug 14, 2023 at 7:29=E2=80=AFPM Zhu Lingshan <lingshan.zhu@inte=
+l.com> wrote:
+> >> This commit specifies the actions to be taken by the device upon
+> >> SUSPEND.
 > >>
-> >>> Signed-off-by: Jason Wang <jasowang@redhat.com>
-> >>> Signed-off-by: Eugenio P=C3=83rez <eperezma@redhat.com>
-> >>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> >>> ---
-> >>>   content.tex | 18 ++++++++++++++++++
-> >>>   1 file changed, 18 insertions(+)
-> >>>
-> >>> diff --git a/content.tex b/content.tex
-> >>> index 0a62dce..1bb4401 100644
-> >>> --- a/content.tex
-> >>> +++ b/content.tex
-> >>> @@ -47,6 +47,9 @@ \section{\field{Device Status} Field}\label{sec:Bas=
+> >> Signed-off-by: Jason Wang <jasowang@redhat.com>
+> >> Signed-off-by: Eugenio P=C3=83rez <eperezma@redhat.com>
+> >> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> >> ---
+> >>   content.tex | 9 +++++++++
+> >>   1 file changed, 9 insertions(+)
+> >>
+> >> diff --git a/content.tex b/content.tex
+> >> index 074f43e..43bd5de 100644
+> >> --- a/content.tex
+> >> +++ b/content.tex
+> >> @@ -96,6 +96,15 @@ \section{\field{Device Status} Field}\label{sec:Bas=
 ic Facilities of a Virtio Dev
-> >>>   \item[DRIVER_OK (4)] Indicates that the driver is set up and ready =
-to
-> >>>     drive the device.
-> >>>
-> >>> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates t=
-hat the
-> >>> +  device has been suspended by the driver.
-> >>> +
-> >>>   \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experi=
-enced
-> >>>     an error from which it can't recover.
-> >>>   \end{description}
-> >>> @@ -73,6 +76,10 @@ \section{\field{Device Status} Field}\label{sec:Ba=
-sic Facilities of a Virtio Dev
-> >>>   recover by issuing a reset.
-> >>>   \end{note}
-> >>>
-> >>> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set.
-> >>> +
-> >>> +When set SUSPEND, the driver MUST re-read \field{device status} to e=
-nsure the SUSPEND bit is set.
-> >>> +
-> >>>   \devicenormative{\subsection}{Device Status Field}{Basic Facilities=
- of a Virtio Device / Device Status Field}
-> >>>
-> >>>   The device MUST NOT consume buffers or send any used buffer
-> >>> @@ -82,6 +89,13 @@ \section{\field{Device Status} Field}\label{sec:Ba=
-sic Facilities of a Virtio Dev
-> >>>   that a reset is needed.  If DRIVER_OK is set, after it sets DEVICE_=
-NEEDS_RESET, the device
-> >>>   MUST send a device configuration change notification to the driver.
-> >>>
-> >>> +The device MUST ignore SUSPEND if FEATURES_OK is not set.
-> >> Is there any value to allow SUSPEND to be set without DRIVER_OK?
+> >>   If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device MUS=
+T clear SUSPEND
+> >>   and resumes operation upon DRIVER_OK.
 > >>
-> >>> +
-> >>> +The deivce MUST ignore SUSPEND if VIRTIO_F_SUSPEND is not negotiated=
-.
-> >> typo.
-> >>
-> >> Thanks
-> > Btw, it's not clear to me if driver is allowed to clear this bit.
-> To allow terminate a live migration process or resume from a failed live
-> migration,
-> we allow DRIVER_OK to clear SUSPEND, in patch 1.
+> >> +If VIRTIO_F_SUSPEND is negotiated, when SUSPEND is set, the device MU=
+ST perform the following operations:
+> >> +\begin{itemize}
+> >> +\item Stop comsuming any descriptors
+> > Typo.
+> yes will fix
+> >
+> >> +\item Mark all finished descriptors as used and send used buffer noti=
+fication to the driver
+> > What happens to the unfinished descriptors?
+> still in the descriptors table or considered as in-flight, we will post
+> a patch tracking in-flight descriptors.
 
-Does this imply DRIVER_OK is cleared during SUSPEND? This seems more
-complicated than simply allowing clearing this bit?
+So I think we should either
+
+1) add in-flight descriptors in this series
+
+or
+
+2) force a flush
+
+To make sure the new proposed function is complete.
+
+> >
+> >> +\item Record Virtqueue State of each enabled virtqueue, see section \=
+ref{sec:Virtqueues / Virtqueue State}
+> > This basically means those states are only available after suspending
+> > or not? It would be still useful for debugging if we allow it without
+> > suspending.
+> Yes, for now only allow to read/write the virtqueue state after setting
+> SUSPEND, this is to avoid race conditions with the device.
+
+For debugging, we don't need to care about those races. A lot of
+hardware allow to expose those via e.g ethtool.
+
+>
+> Still can suspend then collect the idx for debugging?
+
+I mean for runtime debugging.
+
+> >
+> >> +\item Pause its operation and preserve all configurations in its Devi=
+ce Configuration Space, see \ref{sec:Basic Facilities of a Virtio Device / =
+Device Configuration Space}
+> > We probably need to define the "pause" here (e.g what happens to the
+> > inflight descriptors).
+> Shall we say: freeze both its data-plane and control-plane?
+
+I mean if we've defined "suspend" we can simply use "suspend" instead
+of "pause"?
 
 Thanks
 
->
-> Thanks
 > >
 > > Thanks
 > >
-> >>> +
-> >>> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device MUS=
-T clear SUSPEND
-> >>> +and resumes operation upon DRIVER_OK.
-> >>> +
-> >>>   \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Devic=
-e / Feature Bits}
-> >>>
-> >>>   Each virtio device offers all the features it understands.  During
-> >>> @@ -872,6 +886,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserv=
-ed Feature Bits}
-> >>>          \ref{devicenormative:Basic Facilities of a Virtio Device / F=
-eature Bits} for
-> >>>          handling features reserved for future use.
-> >>>
-> >>> +  \item[VIRTIO_F_SUSPEND(41)] This feature indicates that the driver=
- can
-> >>> +   SUSPEND the device.
-> >>> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status =
-Field}.
-> >>> +
-> >>>   \end{description}
-> >>>
-> >>>   \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature =
-Bits}
-> >>> --
-> >>> 2.35.3
-> >>>
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+> >> +\item Present SUSPEND in \field{device status}
+> >> +\end{itemize}
+> >> +
+> >>   \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device=
+ / Feature Bits}
+> >>
+> >>   Each virtio device offers all the features it understands.  During
+> >> --
+> >> 2.35.3
+> >>
+> >
+> > ---------------------------------------------------------------------
+> > To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+> > For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+> >
 >
 
 
