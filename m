@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7181-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7182-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 723B6C001B0
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 12:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 324A8C04A6A
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 12:36:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BE6911922E6
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 12:35:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9348926A2F
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 12:36:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8C8539863F0
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 12:35:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8013398640D
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 12:36:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 74DE39863D7; Wed, 16 Aug 2023 12:35:36 +0000 (UTC)
+	id 766D29863D7; Wed, 16 Aug 2023 12:36:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,215 +24,174 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9BD3C9863D8
-	for <virtio-comment@lists.oasis-open.org>; Wed, 16 Aug 2023 12:33:56 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 664EA9863D8;
+	Wed, 16 Aug 2023 12:36:53 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: JkHZ6z_POnK-tJmzMfsi3g-1
-Date: Wed, 16 Aug 2023 08:33:47 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: jasowang@redhat.com, mst@redhat.com, eperezma@redhat.com,
-	cohuck@redhat.com, virtio-comment@lists.oasis-open.org,
-	virtio-dev@lists.oasis-open.org
-Message-ID: <20230816123347.GB3425284@fedora>
-References: <20230814192904.30062-1-lingshan.zhu@intel.com>
- <20230814192904.30062-4-lingshan.zhu@intel.com>
- <20230814150046.GF3146793@fedora>
- <9c6b11ce-33aa-ebff-62c4-cd316fab0689@intel.com>
- <20230815123340.GB3235352@fedora>
- <27d263a4-dcc8-6271-fef9-a080d59452e0@intel.com>
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045170;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0Vpw2RXx_1692189407;
+Message-ID: <5ce972f4-1efd-400d-bc45-c03e9956f2ce@linux.alibaba.com>
+Date: Wed, 16 Aug 2023 20:36:45 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="r0miMEbHfHwS5ZtF"
-Content-Disposition: inline
-In-Reply-To: <27d263a4-dcc8-6271-fef9-a080d59452e0@intel.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [virtio-comment] [RFC PATCH 3/5] virtio: The actions by the
- device upon SUSPEND
+User-Agent: Mozilla Thunderbird
+To: Parav Pandit <parav@nvidia.com>
+Cc: Shahaf Shuler <shahafs@nvidia.com>,
+ "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "david.edmondson@oracle.com" <david.edmondson@oracle.com>,
+ "xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
+ "sburla@marvell.com" <sburla@marvell.com>
+References: <20230815074600.473933-1-parav@nvidia.com>
+ <20230815074600.473933-5-parav@nvidia.com>
+ <6b48e787-7910-4714-b0a6-ea118c6a072f@linux.alibaba.com>
+ <PH0PR12MB54815DBA73F066BFAE3824CBDC15A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: Heng Qi <hengqi@linux.alibaba.com>
+In-Reply-To: <PH0PR12MB54815DBA73F066BFAE3824CBDC15A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH requirements v4 4/7] net-features: Add notification
+ coalescing requirements
 
---r0miMEbHfHwS5ZtF
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 16, 2023 at 12:25:39PM +0800, Zhu, Lingshan wrote:
->=20
->=20
-> On 8/15/2023 8:33 PM, Stefan Hajnoczi wrote:
-> > On Tue, Aug 15, 2023 at 07:07:42PM +0800, Zhu, Lingshan wrote:
-> > >=20
-> > > On 8/14/2023 11:00 PM, Stefan Hajnoczi wrote:
-> > > > On Tue, Aug 15, 2023 at 03:29:02AM +0800, Zhu Lingshan wrote:
-> > > > > This commit specifies the actions to be taken by the device upon
-> > > > > SUSPEND.
-> > > > >=20
-> > > > > Signed-off-by: Jason Wang <jasowang@redhat.com>
-> > > > > Signed-off-by: Eugenio P=C3rez <eperezma@redhat.com>
-> > > > > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> > > > > ---
-> > > > >    content.tex | 9 +++++++++
-> > > > >    1 file changed, 9 insertions(+)
-> > > > >=20
-> > > > > diff --git a/content.tex b/content.tex
-> > > > > index 074f43e..43bd5de 100644
-> > > > > --- a/content.tex
-> > > > > +++ b/content.tex
-> > > > > @@ -96,6 +96,15 @@ \section{\field{Device Status} Field}\label{se=
-c:Basic Facilities of a Virtio Dev
-> > > > >    If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the devi=
-ce MUST clear SUSPEND
-> > > > >    and resumes operation upon DRIVER_OK.
-> > > > > +If VIRTIO_F_SUSPEND is negotiated, when SUSPEND is set, the devi=
-ce MUST perform the following operations:
-> > > > "when SUSPEND is set" is ambigious. It could mean when the driver w=
-rites
-> > > > the Device Status Field, when the device transitions to SUSPEND, or
-> > > > something else. Maybe "before the device reports the SUSPEND bit se=
-t in
-> > > > the Device Status Field"?
-> > > Nice catch! will fix: when the driver sets SUSPEND, before the device
-> > > reports the
-> > > SUSPEND bit set in the \field{device status}, the device MUST perform=
- the
-> > > following actions.
-> > > > > +\begin{itemize}
-> > > > > +\item Stop comsuming any descriptors
-> > > > "consuming"
-> > > yes
-> > > > It may be more consistent to talk about virtqueue buffers (i.e.
-> > > > requests) rather than descriptors here.
-> > > yes
-> > > > > +\item Mark all finished descriptors as used and send used buffer=
- notification to the driver
-> > > > The device has to complete everything that is in flight, just compl=
-eting
-> > > > "finished" stuff is not enough. Does "finished descriptors" really =
-mean
-> > > > "in-flight virtqueue buffers"?
-> > > A patch of tracking in-flight descriptors is planned. Here I expect
-> > > "finished" mean "done" buffers, transmitted and received ACK.
-> > Yes, I don't mean tracking in-flight virtqueue buffers, I mean waiting
-> > until they are marked as used. I think "finished" is unclear and the
-> > text should explain that the device waits for in-flight virtqueue
-> > buffers (in the future this could be relaxed with in-flight tracking
-> > functionality).
-> Sure, I can add this in the next version: the device MUST wait until all
-> descriptors that being processed to finish and mark them as used
 
-Sounds good.
+在 2023/8/16 下午6:46, Parav Pandit 写道:
+>
+>> From: Heng Qi <hengqi@linux.alibaba.com>
+>> Sent: Wednesday, August 16, 2023 2:01 PM
+>>
+>> 在 2023/8/15 下午3:45, Parav Pandit 写道:
+>>> Add virtio net device notification coalescing improvements requirements.
+>>>
+>>> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>>> Acked-by: David Edmondson <david.edmondson@oracle.com>
+>>>
+>>> ---
+>>> changelog:
+>>> v3->v4:
+>>> - no change
+>>>
+>>> v1->v2:
+>>> - addressed comments from Stefan
+>>> - redrafted the requirements to use rearm term and avoid queue enable
+>>>     confusion
+>>> v0->v1:
+>>> - updated the description
+>>> ---
+>>>    net-workstream/features-1.4.md | 11 +++++++++++
+>>>    1 file changed, 11 insertions(+)
+>>>
+>>> diff --git a/net-workstream/features-1.4.md
+>>> b/net-workstream/features-1.4.md index 72d04bd..cb72442 100644
+>>> --- a/net-workstream/features-1.4.md
+>>> +++ b/net-workstream/features-1.4.md
+>>> @@ -8,6 +8,7 @@ together is desired while updating the virtio net interface.
+>>>    # 2. Summary
+>>>    1. Device counters visible to the driver
+>>>    2. Low latency tx and rx virtqueues for PCI transport
+>>> +3. Virtqueue notification coalescing re-arming support
+>>>
+>>>    # 3. Requirements
+>>>    ## 3.1 Device counters
+>>> @@ -172,3 +173,13 @@ struct vnet_rx_completion {
+>>>       which can be recycled by the driver when the packets from the completed
+>>>       page is fully consumed.
+>>>    8. The device should be able to consume multiple pages for a receive GSO
+>> stream.
+>>> +
+>>> +## 3.3 Virtqueue notification coalescing re-arming support 0. Design
+>>> +goal:
+>>> +   a. Avoid constant notifications from the device even in conditions when
+>>> +      the driver may not have acted on the previous pending notification.
+>>> +1. When Tx and Rx virtqueue notification coalescing is enabled, and when
+>> such
+>>> +   a notification is reported by the device, the device stops sending further
+>>> +   notifications until the driver rearms the notifications of the virtqueue.
+>>> +2. When the driver rearms the notification of the virtqueue, the device
+>>> +   to notify again if notification coalescing conditions are met.
+>> I'm wondering how this relates to the existing notification coalesing[1] and
+>> notification suppression[2]:
+>>
+>> [1]
+>> The device sends a used buffer notification once the notification conditions are
+>> met and if the notifications are not suppressed as explained in \ref{sec:Basic
+>> Facilities of a Virtio Device / Virtqueues / Used Buffer Notification
+>> Supppression}.
+>>
+>> [2]
+>> If the VIRTIO_F_EVENT_IDX feature bit is not negotiated:
+>> \begin{itemize}
+>> \item The driver MUST ignore the \field{avail_event} value.
+>> \item After the driver writes a descriptor index into the available ring:
+>>      \begin{itemize}
+>>            \item If \field{flags} is 1, the driver SHOULD NOT send a notification.
+>>            \item If \field{flags} is 0, the driver MUST send a notification.
+>>      \end{itemize}
+>> \end{itemize}
+>>
+>> Otherwise, if the VIRTIO_F_EVENT_IDX feature bit is negotiated:
+>> \begin{itemize}
+>> \item The driver MUST ignore the lower bit of \field{flags}.
+>> \item After the driver writes a descriptor index into the available ring:
+>>      \begin{itemize}
+>>            \item If the \field{idx} field in the available ring (which determined
+>>              where that descriptor index was placed) was equal to
+>>              \field{avail_event}, the driver MUST send a notification.
+>>            \item Otherwise the driver SHOULD NOT send a notification.
+>>      \end{itemize}
+>> \end{itemize}
+>>
+>> Regarding notification suppression:
+>> 1.When there is VIRTIO_NET_F_EVENT_IDX, even if the notification coalesing
+>> condition is met, we need to wait for the used_event notification condition to
+>> be met(the driver does not rearms the notification of the virtqueue now and
+>> the avail ring  is set VRING_AVAIL_F_NO_INTERRUPT in flag).
+>> 2.When there is no VIRTIO_NET_F_EVENT_IDX, if the driver turns off the
+>> notification, even if the notidication condition is met, the device cannot send
+>> the notification.
+>>
+>> Therefore, if I'm not wrong, a device can issue a notification only if the device is
+>> not suppressed from notifying the driver.
+>> [1][2] seems to have met this condition.
+> Notification suppression using _EVENT_IDX for non-memory transport is just sub-optimal for two reasons.
+>
+> 1. It requires device to poll on the used event to learn about when to un-suppress. (arm)
+> 2. this bit also controls driver notifications yet again demand device to arbitrarily poll on new descriptors posting
+>
+> Hence, an efficient scheme is needed and device notifications to be detached from driver notification.
+> And now that VQ level notification coalescing is in place, which suppresses the device notifications, it is logical to combine it with VQ device notifications.
+>
 
-> And we can replace it with tracking in-flight descriptors in the future
->=20
-> Thanks
-> >=20
-> > > > "send a used buffer notification" or "send used buffer notification=
-s"
-> > > Yes will fix
-> > > > > +\item Record Virtqueue State of each enabled virtqueue, see sect=
-ion \ref{sec:Virtqueues / Virtqueue State}
-> > > > Does "Record" mean that Virtqueue State fields can only be accessed=
- by
-> > > > the driver while device is paused (they may be outdated or invalid =
-while
-> > > > the device is unpaused)?
-> > > Yes, to avoid race with the device and make device implementation eas=
-ier,
-> > > this is also mentioned in Patch 4.
-> > > > > +\item Pause its operation and preserve all configurations in its=
- Device Configuration Space, see \ref{sec:Basic Facilities of a Virtio Devi=
-ce / Device Configuration Space}
-> > > > What does "preserve" mean? Does it mean the Device Configuration Sp=
-ace
-> > > > is not allowed to change during SUSPEND?
-> > > Yes, once the device presents SUSPEND in its device status, it should=
- not
-> > > change any
-> > > fields in its Device Configuration Space.
-> > >=20
-> > > Thanks for your review
-> > > > > +\item Present SUSPEND in \field{device status}
-> > > > > +\end{itemize}
-> > > > > +
-> > > > >    \section{Feature Bits}\label{sec:Basic Facilities of a Virtio =
-Device / Feature Bits}
-> > > > >    Each virtio device offers all the features it understands.  Du=
-ring
-> > > > > --=20
-> > > > > 2.35.3
-> > > > >=20
-> > > > >=20
-> > > > > This publicly archived list offers a means to provide input to the
-> > > > > OASIS Virtual I/O Device (VIRTIO) TC.
-> > > > >=20
-> > > > > In order to verify user consent to the Feedback License terms and
-> > > > > to minimize spam in the list archive, subscription is required
-> > > > > before posting.
-> > > > >=20
-> > > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > > > List help: virtio-comment-help@lists.oasis-open.org
-> > > > > List archive: https://lists.oasis-open.org/archives/virtio-commen=
-t/
-> > > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_lic=
-ense.pdf
-> > > > > List Guidelines: https://www.oasis-open.org/policies-guidelines/m=
-ailing-lists
-> > > > > Committee: https://www.oasis-open.org/committees/virtio/
-> > > > > Join OASIS: https://www.oasis-open.org/join/
-> > > > >=20
-> > >=20
-> > > This publicly archived list offers a means to provide input to the
-> > > OASIS Virtual I/O Device (VIRTIO) TC.
-> > >=20
-> > > In order to verify user consent to the Feedback License terms and
-> > > to minimize spam in the list archive, subscription is required
-> > > before posting.
-> > >=20
-> > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > List help: virtio-comment-help@lists.oasis-open.org
-> > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license=
-=2Epdf
-> > > List Guidelines: https://www.oasis-open.org/policies-guidelines/maili=
-ng-lists
-> > > Committee: https://www.oasis-open.org/committees/virtio/
-> > > Join OASIS: https://www.oasis-open.org/join/
-> > >=20
->=20
->=20
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->=20
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->=20
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->=20
+Let me summarize:
+1. When used idx notification is satisfied, but coalescing is not 
+satisfied, the driver continues to suppress device notifications.
+2. When used idx notification is not satisfied, even if coalescing is 
+satisfied, the device still cannot notify the driver.
+I think that's what coalescing does, and the description below has 
+satisfied this behavior:
+"The device sends a used buffer notification once the notification 
+conditions are met and if the notifications are
+not suppressed as explained in \ref{sec:Basic Facilities of a Virtio 
+Device / Virtqueues / Used Buffer Notification Supppression}."
 
---r0miMEbHfHwS5ZtF
-Content-Type: application/pgp-signature; name="signature.asc"
+Or we want to say that it has nothing to do with the used idx 
+notification. When the coalescing is satisfied and the driver
+rearms the notification of the virtqueue, the device now send a 
+notification.
 
------BEGIN PGP SIGNATURE-----
+Thanks!
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmTcwisACgkQnKSrs4Gr
-c8gSJwf/SO5XeMgvUyrVbV7nnsj61Icl10jUTIGgQn9bygGId5JmvJJm8AnH8EhP
-xnefJfZpl0YXsAQvGER6dgXZzvMbBgwr8V26ynkXuaJATVihWGXBGmgH48dv709B
-Mk+QUbEJuWSHmFjYwJ9omOJny0oJFsxBigIyQRRC8SX2db1i5U70Kk5ojpQSB3XI
-Lv3yJkwvOniaLYub65sf/CI3TEV/znhWPdF1d901nf0HLCOPN9ZsxnQq+f1lwOEC
-qJN/Bbr0wbZS3qds1fJCLQ1FSvk5G+EWwwFl5e27hK+qu0qRFjvazeyYjxWPQTjz
-DnkWQSaYQaKn2+LHsIcHSgQj+7gPtQ==
-=oNaK
------END PGP SIGNATURE-----
 
---r0miMEbHfHwS5ZtF--
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
