@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7175-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7176-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD852C001DF
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 08:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BF09C001B0
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 10:31:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1C6222AC4B
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 08:54:54 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6A0E629FCA
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 10:31:18 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 09CE99863D7
-	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 08:54:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 595F49863EE
+	for <virtio-comment@archiver.kernel.org>; Wed, 16 Aug 2023 10:31:18 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id EBAC7983EB2; Wed, 16 Aug 2023 08:54:53 +0000 (UTC)
+	id 47F559863D7; Wed, 16 Aug 2023 10:31:18 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,335 +24,228 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DA9FA9863D1
-	for <virtio-comment@lists.oasis-open.org>; Wed, 16 Aug 2023 08:54:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 366289863D8;
+	Wed, 16 Aug 2023 10:31:18 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045170;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0VpvHMJ._1692176087;
-Message-ID: <f6cdc677-f4e4-477b-b706-a9e7f64437a7@linux.alibaba.com>
-Date: Wed, 16 Aug 2023 16:54:44 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PehIrVLKiAB1Z0TJSaHkald22xmd80+iESfbzKVLWe/4YBtPL1zuo9S+nx6sPzjRZ9VN/qaXM5WJOPex5p3RUg20b0IfmmAUiDBZvX+IzNiaybAhoejTPo+a4jxGygN3/WLRvY/fztvDNsgvpBUnxumqAIceXjNbUaUISMfRMtDhb9fNkrCG3W8XSlpv+7CJdfo3EKqVoA5HrtohYZxm4/boYk11TcdojzNTvIQPgI4ybPIHQKiO3LF8/Hi0HsyQYqfSs4BCT3/31jEGMUMIRZVCHyCxec3HzpHp9aHz5Tt2++SVBm3OAUnueznvGknvZQm1rG3HVzE/+2CA4x62aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M0NEjh5064XFqNc3iUV+pE2AitI78YWtPPBu5iQYz1o=;
+ b=n89AfTayrZ2D3EbW14dy3Gj2Jh1uH9ffnM+kA5YlON0N1aJBJmwulpqqJrVHvPIoILKKXgRFieWf6FyvZ52F2Ghq+1vpQRu5vLIRnL/+gsjtUUNqP/IJgm1/tDEcG6LUj3OTDC5AZ2FXf50xgFQMyFMADwyf95hZqNO0A5sttf8WoPP6Bwi6ZG1YH6B/dkUP+29rKBHRmNM9zHct6WGCoDLStA93h95AxBVazLBzFahbrQx62cxJzqTMqPpeaRN6Z3AGAWk6ggcjVXUTJNe1Gw2Cr23mtHiYhXSrfFJch11o7gKv6MMdVLrG+fvHXp3QVHlMrkxByHbmoEt3LCw/6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Heng Qi <hengqi@linux.alibaba.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "david.edmondson@oracle.com"
+	<david.edmondson@oracle.com>, "xuanzhuo@linux.alibaba.com"
+	<xuanzhuo@linux.alibaba.com>, "sburla@marvell.com" <sburla@marvell.com>
+CC: Shahaf Shuler <shahafs@nvidia.com>, "virtio@lists.oasis-open.org"
+	<virtio@lists.oasis-open.org>, "si-wei.liu@oracle.com"
+	<si-wei.liu@oracle.com>
+Thread-Topic: [PATCH requirements v4 5/7] net-features: Add n-tuple receive
+ flow filters requirements
+Thread-Index: AQHZz0ybAp2BVBRKNECVQ04dzfRGH6/sdGHwgAAWTgCAAC4CkA==
+Date: Wed, 16 Aug 2023 10:31:14 +0000
+Message-ID:
+ <PH0PR12MB5481F06EC56F02837B515F83DC15A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20230815074600.473933-1-parav@nvidia.com>
+ <20230815074600.473933-6-parav@nvidia.com>
+ <PH0PR12MB54819624183D0A74599C14A1DC15A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <d8502ab9-69f2-4e7b-a013-94caf1c5b6b1@linux.alibaba.com>
+In-Reply-To: <d8502ab9-69f2-4e7b-a013-94caf1c5b6b1@linux.alibaba.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|MW6PR12MB8898:EE_
+x-ms-office365-filtering-correlation-id: 2164179c-de44-43e3-79c7-08db9e43eb1c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ KjY5nQGH9rVjz7x32MI47Wl7YMJtsA+HuyllQbyDf+kbNk7dSL+t9Y5x9bQM6rwLmyyFnODqQ87DJ26QALC3eaKdMfS6PwaNtjtsKRmXg/1Hzor5srIVbI/oKpFRY1d0O3c6U3uNXKT9rWYq4XgTUXR1LZLsh1U4UcLUEeBO7o0s6o1KkG9qiFPJGG9JEIY3qRda/ApJpxRT1eCmAlrUsh5g3M2iZYwV7rc+oB53NQeEa2Q60kW+7ZW/mLItGiY59lQ+07sZ+IYlrqLZZQ1eX6d/gbHzKc4KN2aDDB5kq8btKBWu3BjC1qSXMDuXQHp1H7tM2+M+wnIGGOY8viwA6s6L0aIns5Gzl0Lsrpe05Zf5MjEtZ+rj1AsYoLFVriy6zQxFaOzuU8e2aauJSWNxpGObPSbvdx5kt1CJmmczn9ddkr2js5cUseYk31rkKzMlh5UaVq5GR29K0UmU8mgLrcQ9KXkIZTeYpMCMDE3T/EPHzo0sokSbe6NfKyBFcbMc27Al2mV5ArbeWxh+Qk9maIuiIDcrKaFgP3hJYbgFRhlDN1y2UDqYw3+jAlHhvbFA7ipXoiLTbWKdQNgoEOxSOCbIysHbFZD1YGen5H9IhP6Du750v9cAw5CXHNFv04vE
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(366004)(136003)(396003)(39860400002)(1800799009)(451199024)(186009)(2906002)(83380400001)(86362001)(478600001)(7696005)(6506007)(71200400001)(33656002)(9686003)(26005)(55016003)(5660300002)(41300700001)(52536014)(122000001)(54906003)(316002)(66946007)(66556008)(66476007)(66446008)(64756008)(110136005)(76116006)(8676002)(8936002)(4326008)(38100700002)(38070700005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?aWwzRWpZeXc5eXhjc2l2TDdtZEhrdGlsalRjRUZtb3YyOERJSXE0ZVMrQkJh?=
+ =?utf-8?B?U1RRVE01MnVrVkR0Y1lvT1dvY2ErV25aWENJRmR2aXNmSWNHSmV0RjRuN0Fr?=
+ =?utf-8?B?ejJ6MmFGQXRYdlRLRFNzMUVQajUzQVE2MzlIZ2dmK1JjTVhzRzVrNVBraHNo?=
+ =?utf-8?B?Z3pUQTF0UHg0b1BzYlpENTVRSFhKdUErM0dMYmhwNTd5dzVUSDY5TEZINCtt?=
+ =?utf-8?B?MXBpR2crYkxNYldzMTVRZStRWUljRXo3V1FFM3lNOENOOXlaZlptQ3E1Nlph?=
+ =?utf-8?B?VkUyNXMxWHNESFp6ZFFoU09oUjJWTFVTa1dUbDVKK3VHTW9uTzhwaVNFM09I?=
+ =?utf-8?B?Y0VoQjJWaWt3UHJYVUg2Q0hPY0RTM0JMK3JhVDNWeXlQSko3MldtVUVXYW5Q?=
+ =?utf-8?B?dDUvd2kzbitSS2NsMGNkRjFmblYrbi80TTV0L2UzY05nZ3MwbEd1bjlTNG5E?=
+ =?utf-8?B?MXNQeEFUanQrazhHdW9vREZHOFI1amhBVFRlWG5FNlM3aC9nZlVUMDZWUllr?=
+ =?utf-8?B?WElPa08xMGpBWkl4NUMxYmtRZDF0VG8vcFI0YkNES2d2dkJUV1AxZlV1cTZP?=
+ =?utf-8?B?RlVpODNNZUtiNkc2N1ZtUGtDRGZBcCtNNkE1QWhEYk8yQTdUdThiYVBaVDBI?=
+ =?utf-8?B?WU5CamIySUUwMWJVVHFsaXBsQU9JSzM1QTFtd016U05WY2N6WXV5Ymo0YmFl?=
+ =?utf-8?B?cUxpQ2g4ZjVyUnVoRFgxYndxTFdMcE1oRnk5TkRzWXFsZVhhbDExSkdTZjdR?=
+ =?utf-8?B?dzJiQ3k5SXZPN2lBOGp0MTlNeWcvbkwxWlFHZHc1LzZSVklreWZOaEZoUDNz?=
+ =?utf-8?B?bWFhK3NrNi9NZy9uZGVuVkxTNHNtemY5emVNN08wTFlqNnUwL3d4UVI4eHFl?=
+ =?utf-8?B?bU84WFcxanJLdlpmYWZrVzUrNk94NWhtSThJa1F3SVJvMm01M200bjBycTBi?=
+ =?utf-8?B?T3dDQlhQTFRaaGpvTFo0K2p4emtzTlc4bjhTbW45VVZTOU0xc0p0eTE2MjRR?=
+ =?utf-8?B?b25Eajdkd2dCSHk1MURhb2MveFBpYnIzdW1XSExQODlzRXEyb2RpaUNTMGpk?=
+ =?utf-8?B?WGlkV3BKazM5OWE0aFBsWWlNNEgvb0ZjRGlXVEZLUGtteWtBQ3pUVlBaaFM0?=
+ =?utf-8?B?enQrRG1wK2xvQjgra3Y0R2dwNWNscWo4ZmlEVzdHQUtNc040RFZpQy9MS1Zn?=
+ =?utf-8?B?VTNBV1grYnNwV1NUM2M1clgzdW9rK2tEUWFMdmUxUExqM0I3Q2dhN2V1aEo2?=
+ =?utf-8?B?WEcwVzhjT0Q0dEVqUXJvTVcxQ1dmMy9JZkttVkF6VjI3OEoxZGZwcWR4UjFJ?=
+ =?utf-8?B?TGY4bHVFMmczWTZyZ0RycWdJVG8xVHRhRkZudGZjTjJIUTF3WEdVcnkveGp2?=
+ =?utf-8?B?Ulo1djNObS9kM2JZdVUzcEFrQWc0ZGhoVXducEpJbzJOc1k5aDdLRmFoOXZ2?=
+ =?utf-8?B?clVUQVFVUCswbThyTUlaUjRiRDdCT0pEdGQyQTlvUmh6c3llQlM3c2ZJZklT?=
+ =?utf-8?B?aGdUdmRENlBOMHoyMnIwdGRVRTFWUy9ocjJkMkFRLzB6OFd1dmlLSm1lcy9Z?=
+ =?utf-8?B?N2ZDckVWVDFJNFhhMjl5WXRXZWdYdlJIVFpvdGlvN3BGeHM4dlhYTlBPWlFM?=
+ =?utf-8?B?L292bzQ0ODEvclhsUkhjZ3o5ZzEzU20yY21teG5rLy93clcrVStLUnUxa0JM?=
+ =?utf-8?B?WjFtcURKWU9yUTJaYzhTT0NrOE5EUkNkRHZQNjRud3JtejQ1T2UraHFoeVZm?=
+ =?utf-8?B?R083M05sKzVWQjJmRi9rclZ6dXpibXJkMlZJSzAyVTU1TURyVW53YzI3Q2E2?=
+ =?utf-8?B?UXFtRjNwdkU1N0l3OFMrNXFJeE16cVp3R2IwU2JsRkk4d25GQ0J4Y0VIU3B3?=
+ =?utf-8?B?Sm1CVldaQlkyYVNmN0JyMW1WYUZJVnFocjQ4VExDd1RNaTZjRUNpa1VTWDJJ?=
+ =?utf-8?B?bzFQakhOUmpSYjNCWHpaMjE2ZFBwd0x5WmpCUWJ5Mm5uSGU2VXJHQlJsS2wr?=
+ =?utf-8?B?Q1NuOEtRdS93aGZJT2FZRHZPYnlNODJpUmpYT0NiL1VwcHVMWGxwNTlBQU9h?=
+ =?utf-8?B?aUh6V3dNMmtiR21XbE5MOFZQR2dpUGx3QUFSU1B5ZDhHV1UxdldGeEd6VnR1?=
+ =?utf-8?Q?EjWU=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Yuri Benditovich <yuri.benditovich@daynix.com>
-Cc: virtio-comment@lists.oasis-open.org, Parav Pandit <parav@nvidia.com>,
- "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- xuanzhuo@linux.alibaba.com
-References: <20230815123650.38822-1-hengqi@linux.alibaba.com>
- <CAOEp5OfUDq-6i7i4Ccr3P8=Fi308aUx7zPw9KSKesVnmEWsZwQ@mail.gmail.com>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <CAOEp5OfUDq-6i7i4Ccr3P8=Fi308aUx7zPw9KSKesVnmEWsZwQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] [PATCH] virtio-net: support the RSS context
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2164179c-de44-43e3-79c7-08db9e43eb1c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Aug 2023 10:31:14.7265
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KYIaNZsL6hB0SZPDn8gtr9Lf1qZIZSytH42ney/sXU66UkT9aEH965iTG1U92LZGRnPCQTEVqfEVZRt+btZHRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8898
+Subject: [virtio-comment] RE: [PATCH requirements v4 5/7] net-features: Add n-tuple receive
+ flow filters requirements
 
-
-
-在 2023/8/16 上午2:03, Yuri Benditovich 写道:
-> Probably worth to clarify: what is the expected persistency of the RSS 
-> context:
-
-Ok.
-
-> is it expected to survive device reset?
-
-No, after device reset, rss contexts are cleared.
-
-> powerdown cycle?
-
-Do you mean the host?
-
-If yes, there is no rss context anymore because the host ram is reset.
-If no, I think this is the same as the device reset.
-
-Thanks.
-
-> If there is some level of persistency, how can external software know 
-> what contexts that the device contains?
-> Should the sub-command be defined to apply one of saved contexts?
->
-> Thanks,
-> Yuri
->
->
-> On Tue, Aug 15, 2023 at 3:36 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
->
->     Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support
->     RSS spreading of
->     filter matches") adds support for RSS context as a destination for
->     receive flow filters
->     (pls see https://lists.oasis-open.
->     org/archives/virtio-comment/202308/msg00194.html).
->
->     An RSS context consists of configurable parameters specified by
->     receive-side scaling.
->
->     Usecase:
->     When users want some data flows to be steered to specific multiple
->     rxqs, they can set
->     receive flow filter rules for these data flows to an RSS context
->     with desired rxqs.
->
->     How to set/configure an RSS context:
->     Assuming no RSS context has been created before.
->     1. ethtool -X eth0 context new start 5 equal 8
->
->     This command creates an RSS context with an id=1 for eth0, and
->     fills in the indirection
->     table with rxq indexes 5-8 circularly. The hash key and hash types
->     reuse the default
->     RSS configuration.
->
->     Then, we can use 'ethtool -x eth0 context 1' to query the above
->     configuration.
->
->     2. ethtool -X eth0 context new start 6 equal 7 \
->        hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
->      1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3
->
->     This command creates an RSS context with an id=2 for eth0, and
->     fills in the indirection
->     table with rxq indexes 6-7 circularly. The hash key is
->     8f:bf:dd:11:23:58:d2:8a:00:31:d0\
->     :32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3.
->     Hash types reuse the default RSS configuration.
->
->     3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
->
->     This command specifies the hash types for the RSS context whose
->     id=1 on eth0.
->     Now this RSS context only has the hash key to reuse the default
->     RSS configuration.
->
->     4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
->
->     This command configures a receive flow filter rule for eth0, and
->     the data flow matching
->     this rule will continue to select the final rxq according to the
->     RSS context configuration
->     with id=1.
->
->     Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
->     ---
->      device-types/net/description.tex        | 70
->     +++++++++++++++++++++++++
->      device-types/net/driver-conformance.tex |  1 +
->      2 files changed, 71 insertions(+)
->
->     diff --git a/device-types/net/description.tex
->     b/device-types/net/description.tex
->     index 76585b0..2deb060 100644
->     --- a/device-types/net/description.tex
->     +++ b/device-types/net/description.tex
->     @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types
->     / Network Device / Feature bits
->      \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
->          channel.
->
->     +\item[VIRTIO_NET_F_RSS_CONTEXT(50)] Device supports multiple RSS
->     contexts.
->     +
->      \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header
->     hash for encapsulated packets.
->
->      \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue
->     notification coalescing.
->     @@ -150,6 +152,7 @@ \subsubsection{Feature bit
->     requirements}\label{sec:Device Types / Network Device
->      \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
->      \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
->      \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ
->     along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
->     +\item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and
->     VIRTIO_NET_F_RSS.
->      \end{description}
->
->      \subsubsection{Legacy Interface: Feature bits}\label{sec:Device
->     Types / Network Device / Feature bits / Legacy Interface: Feature
->     bits}
->     @@ -179,6 +182,8 @@ \subsection{Device configuration
->     layout}\label{sec:Device Types / Network Device
->              le16 rss_max_indirection_table_length;
->              le32 supported_hash_types;
->              le32 supported_tunnel_types;
->     +        le16 max_rss_contexts;
->     +        le16 reserved;
->      };
->      \end{lstlisting}
->
->     @@ -235,6 +240,12 @@ \subsection{Device configuration
->     layout}\label{sec:Device Types / Network Device
->      Encapsulation types are defined in \ref{sec:Device Types /
->     Network Device / Device Operation / Processing of Incoming Packets /
->      Hash calculation for incoming packets / Encapsulation types
->     supported/enabled for inner header hash}.
->
->     +Field \field{max_rss_contexts} only exists if
->     VIRTIO_NET_F_RSS_CONTEXT is set.
->     +This field specifies the maximum number of RSS contexts
->     \ref{sec:Device Types / Network Device /
->     +Device Operation / Control Virtqueue / RSS Context} supported by
->     the device.
->     +
->     +Field \field{reserved} contains zeroes and is reserved.
->     +
->      \devicenormative{\subsubsection}{Device configuration
->     layout}{Device Types / Network Device / Device configuration layout}
->
->      The device MUST set \field{max_virtqueue_pairs} to between 1 and
->     0x8000 inclusive,
->     @@ -285,6 +296,8 @@ \subsection{Device configuration
->     layout}\label{sec:Device Types / Network Device
->      The device SHOULD NOT offer VIRTIO_NET_F_CTRL_RX_EXTRA if it
->      does not offer VIRTIO_NET_F_CTRL_VQ.
->
->     +The device MUST set \field{max_rss_contexts} to at least 1 if it
->     offers VIRTIO_NET_F_RSS_CONTEXT.
->     +
->      \drivernormative{\subsubsection}{Device configuration
->     layout}{Device Types / Network Device / Device configuration layout}
->
->      The driver MUST NOT write to any of the device configuration fields.
->     @@ -1606,6 +1619,63 @@ \subsubsection{Control
->     Virtqueue}\label{sec:Device Types / Network Device / Devi
->      \item If the destination receive queue is being reset (See
->     \ref{sec:Basic Facilities of a Virtio Device / Virtqueues /
->     Virtqueue Reset}), the device MUST drop the packet.
->      \end{itemize}
->
->     +\paragraph{RSS Context}\label{sec:Device Types / Network Device /
->     Device Operation / Control Virtqueue / RSS Context}
->     +
->     +An RSS context consists of configurable parameters specified by
->     \ref{sec:Device Types / Network Device
->     +/ Device Operation / Control Virtqueue / Receive-side scaling (RSS)}.
->     +
->     +The RSS configuration supported by the VIRTIO_NET_F_RSS feature
->     is implicitly considered the default RSS context.
->     +
->     +The device offers the feature VIRTIO_NET_F_RSS_CONTEXT if it
->     supports one or more RSS contexts (excluding the default RSS context
->     +supported by VIRTIO_NET_F_RSS) and configurable parameters.
->     +
->     +\begin{lstlisting}
->     +struct virtnet_rss_ctx_add_modify {
->     +    u8 rss_ctx_id;
->     +    u8 padding[3];
->     +    struct virtio_net_rss_config rss;
->     +};
->     +
->     +struct virtnet_rss_ctx_del {
->     +    u8 rss_ctx_id;
->     +};
->     +
->     +#define VIRTNET_RSS_CTX_CTRL 8
->     + #define VIRTNET_RSS_CTX_CTRL_ADD  0
->     + #define VIRTNET_RSS_CTX_CTRL_MOD  1
->     + #define VIRTNET_RSS_CTX_CTRL_DEL  2
->     +\end{lstlisting}
->     +
->     +RSS context parameters:
->     +\begin{itemize}
->     +\item  \field{rss_ctx_id}: ID of the specific RSS context.
->     +\item  \field{rss}: Configure the specific RSS context whose id
->     is \field{rss_ctx_id}.
->     +\end{itemize}
->     +
->     +\field{padding} is reserved and it is ignored by the device.
->     +
->     +If the feature VIRTIO_NET_F_RSS_CONTEXT has been negotiated, the
->     driver can send the following
->     +VIRTNET_RSS_CTX_CTRL class commands to configure a specific RSS
->     context:
->     +\begin{enumerate}
->     +\item VIRTNET_RSS_CTX_CTRL_ADD: use the structure
->     virtnet_rss_ctx_add_modify to
->     +       add an RSS context configured as \field{rss} and id as
->     \field{rss_ctx_id} for the device.
->     +\item VIRTNET_RSS_CTX_CTRL_MOD: use the structure
->     virtnet_rss_ctx_add_modify to
->     +       configure parameters of the RSS context whose id is
->     \field{rss_ctx_id} as \field{rss} for the device.
->     +\item VIRTNET_RSS_CTX_CTRL_DEL: use the structure
->     virtnet_rss_ctx_del to delete
->     +       the RSS context whose id is \field{rss_ctx_id} for the device.
->     +\end{enumerate}
->     +
->     +For VIRTNET_RSS_CTX_CTRL_ADD and VIRTNET_RSS_CTX_CTRL_MOD
->     commands, the structure virtnet_rss_ctx_add_modify is read-only
->     for the device.
->     +For the VIRTNET_RSS_CTX_CTRL_DEL command, the structure
->     virtnet_rss_ctx_del is read-only for the device.
->     +
->     +\drivernormative{\subparagraph}{RSS Context}{Device Types /
->     Network Device / Device Operation / Control Virtqueue / RSS Context}
->     +
->     +The driver MUST have negotiated the VIRTIO_NET_F_RSS_CONTEXT
->     feature when issuing the VIRTNET_RSS_CTX_CTRL class commands.
->     +
->     +The driver MUST set \field{rss_ctx_id} to between 1 and
->     \field{max_rss_contexts} inclusive.
->     +
->     +The driver MUST NOT send the VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET
->     command when the device has responded to the
->     VIRTNET_RSS_CTX_CTRL_ADD command with VIRTIO_NET_OK.
->     +
->      \paragraph{Offloads State Configuration}\label{sec:Device Types /
->     Network Device / Device Operation / Control Virtqueue / Offloads
->     State Configuration}
->
->      If the VIRTIO_NET_F_CTRL_GUEST_OFFLOADS feature is negotiated,
->     the driver can
->     diff --git a/device-types/net/driver-conformance.tex
->     b/device-types/net/driver-conformance.tex
->     index 9d853d9..22ff5c3 100644
->     --- a/device-types/net/driver-conformance.tex
->     +++ b/device-types/net/driver-conformance.tex
->     @@ -15,4 +15,5 @@
->      \item \ref{drivernormative:Device Types / Network Device / Device
->     Operation / Control Virtqueue / Receive-side scaling (RSS) }
->      \item \ref{drivernormative:Device Types / Network Device / Device
->     Operation / Control Virtqueue / Notifications Coalescing}
->      \item \ref{drivernormative:Device Types / Network Device / Device
->     Operation / Control Virtqueue / Inner Header Hash}
->     +\item \ref{drivernormative:Device Types / Network Device / Device
->     Operation / Control Virtqueue / RSS Context}
->      \end{itemize}
->     -- 
->     2.19.1.6.gb485710b
->
->
->     This publicly archived list offers a means to provide input to the
->     OASIS Virtual I/O Device (VIRTIO) TC.
->
->     In order to verify user consent to the Feedback License terms and
->     to minimize spam in the list archive, subscription is required
->     before posting.
->
->     Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->     Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->     List help: virtio-comment-help@lists.oasis-open.org
->     List archive: https://lists.oasis-open.org/archives/virtio-comment/
->     Feedback License:
->     https://www.oasis-open.org/who/ipr/feedback_license.pdf
->     List Guidelines:
->     https://www.oasis-open.org/policies-guidelines/mailing-lists
->     Committee: https://www.oasis-open.org/committees/virtio/
->     Join OASIS: https://www.oasis-open.org/join/
->
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogSGVuZyBRaSA8aGVuZ3FpQGxpbnV4LmFsaWJhYmEuY29tPg0KPiBTZW50OiBX
+ZWRuZXNkYXksIEF1Z3VzdCAxNiwgMjAyMyAxOjA4IFBNDQoNCj4gPj4gRnJvbTogUGFyYXYgUGFu
+ZGl0IDxwYXJhdkBudmlkaWEuY29tPg0KPiA+PiBTZW50OiBUdWVzZGF5LCBBdWd1c3QgMTUsIDIw
+MjMgMToxNiBQTQ0KPiA+Pg0KPiA+PiBBZGQgdmlydGlvIG5ldCBkZXZpY2UgcmVxdWlyZW1lbnRz
+IGZvciByZWNlaXZlIGZsb3cgZmlsdGVycy4NCj4gPj4NCj4gPj4gU2lnbmVkLW9mZi1ieTogUGFy
+YXYgUGFuZGl0IDxwYXJhdkBudmlkaWEuY29tPg0KPiA+PiAtLS0NCj4gPj4gY2hhbmdlbG9nOg0K
+PiA+PiB2My0+djQ6DQo+ID4+IC0gQWRkcmVzc2VkIGNvbW1lbnRzIGZyb20gU2F0YW5hbmRhLCBI
+ZW5nLCBEYXZpZA0KPiA+PiAtIHJlbW92ZWQgY29udGV4dCBzcGVjaWZpYyB3b3JkaW5nLCByZXBs
+YWNlZCB3aXRoIGRlc3RpbmF0aW9uDQo+ID4+IC0gYWRkZWQgZ3JvdXAgY3JlYXRlL2RlbGV0ZSBl
+eGFtcGxlcyBhbmQgdXBkYXRlZCByZXF1aXJlbWVudHMNCj4gPj4gLSBhZGRlZCBvcHRpb25hbCBz
+dXBwb3J0IHRvIHVzZSBjdnEgZm9yIGZsb3IgZmlsdGVyIGNvbW1hbmRzDQo+ID4+IC0gYWRkZWQg
+ZXhhbXBsZSBvZiB0cmFuc3BvcnRpbmcgZmxvdyBmaWx0ZXIgY29tbWFuZHMgb3ZlciBjdnENCj4g
+Pj4gLSBtYWRlIGdyb3VwIHNpemUgdG8gYmUgMTYtYml0DQo+ID4+IC0gYWRkZWQgY29uY2VwdCBv
+ZiAwLT5uIG1heCBmbG93IGZpbHRlciBlbnRyaWVzIGJhc2VkIG9uIG1heCBjb3VudA0KPiA+PiAt
+IGFkZGVkIGNvbmNlcHQgb2YgMC0+biBtYXggZmxvdyBncm91cCBiYXNlZCBvbiBtYXggY291bnQN
+Cj4gPj4gLSBzcGxpdCBmaWVsZCBiaXRtYXNrIHRvIHNlcGFyYXRlIGNvbW1hbmQgZnJvbSBvdGhl
+ciBmaWx0ZXINCj4gPj4gY2FwYWJpbGl0aWVzDQo+ID4+IC0gcmV3cm90ZSByeCBmaWx0ZXIgcHJv
+Y2Vzc2luZyBjaGFpbiBvcmRlciB3aXRoIHJlc3BlY3QgdG8gZXhpc3RpbmcNCj4gPj4gICAgZmls
+dGVyIGNvbW1hbmRzIGFuZCByc3MNCj4gPj4gLSBtYWRlIGZsb3dfaWQgZmxhdCBhY3Jvc3MgYWxs
+IGdyb3Vwcw0KPiA+PiB2MS0+djI6DQo+ID4+IC0gc3BsaXQgc2V0dXAgYW5kIG9wZXJhdGlvbnMg
+cmVxdWlyZW1lbnRzDQo+ID4+IC0gYWRkZWQgZGVzaWduIGdvYWwNCj4gPj4gLSB3b3JkZWQgcmVx
+dWlyZW1lbnRzIG1vcmUgcHJlY2lzZWx5DQo+ID4+IHYwLT52MToNCj4gPj4gLSBmaXhlZCBjb21t
+ZW50cyBmcm9tIEhlbmcgTGkNCj4gPj4gLSByZW5hbWVkIHJlY2VpdmUgZmxvdyBzdGVlcmluZyB0
+byByZWNlaXZlIGZsb3cgZmlsdGVycw0KPiA+PiAtIGNsYXJpZmllZCBieXRlIG9mZnNldCBpbiBt
+YXRjaCBjcml0ZXJpYQ0KPiA+PiAtLS0NCj4gPj4gICBuZXQtd29ya3N0cmVhbS9mZWF0dXJlcy0x
+LjQubWQgfCAxNTENCj4gPj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+ID4+
+ICAgMSBmaWxlIGNoYW5nZWQsIDE1MSBpbnNlcnRpb25zKCspDQo+ID4+DQo+ID4+IGRpZmYgLS1n
+aXQgYS9uZXQtd29ya3N0cmVhbS9mZWF0dXJlcy0xLjQubWQNCj4gPj4gYi9uZXQtd29ya3N0cmVh
+bS9mZWF0dXJlcy0xLjQubWQgaW5kZXggY2I3MjQ0Mi4uNzhiYjNkMiAxMDA2NDQNCj4gPj4gLS0t
+IGEvbmV0LXdvcmtzdHJlYW0vZmVhdHVyZXMtMS40Lm1kDQo+ID4+ICsrKyBiL25ldC13b3Jrc3Ry
+ZWFtL2ZlYXR1cmVzLTEuNC5tZA0KPiA+PiBAQCAtOSw2ICs5LDcgQEAgdG9nZXRoZXIgaXMgZGVz
+aXJlZCB3aGlsZSB1cGRhdGluZyB0aGUgdmlydGlvIG5ldCBpbnRlcmZhY2UuDQo+ID4+ICAgMS4g
+RGV2aWNlIGNvdW50ZXJzIHZpc2libGUgdG8gdGhlIGRyaXZlciAgMi4gTG93IGxhdGVuY3kgdHgg
+YW5kIHJ4DQo+ID4+IHZpcnRxdWV1ZXMgZm9yIFBDSSB0cmFuc3BvcnQgIDMuIFZpcnRxdWV1ZSBu
+b3RpZmljYXRpb24gY29hbGVzY2luZw0KPiA+PiByZS1hcm1pbmcgc3VwcG9ydA0KPiA+PiArNCAg
+VmlydHF1ZXVlIHJlY2VpdmUgZmxvdyBmaWx0ZXJzIChSRkYpDQo+ID4+DQo+ID4+ICAgIyAzLiBS
+ZXF1aXJlbWVudHMNCj4gPj4gICAjIyAzLjEgRGV2aWNlIGNvdW50ZXJzDQo+ID4+IEBAIC0xODMs
+MyArMTg0LDE1MyBAQCBzdHJ1Y3Qgdm5ldF9yeF9jb21wbGV0aW9uIHsNCj4gPj4gICAgICBub3Rp
+ZmljYXRpb25zIHVudGlsIHRoZSBkcml2ZXIgcmVhcm1zIHRoZSBub3RpZmljYXRpb25zIG9mIHRo
+ZSB2aXJ0cXVldWUuDQo+ID4+ICAgMi4gV2hlbiB0aGUgZHJpdmVyIHJlYXJtcyB0aGUgbm90aWZp
+Y2F0aW9uIG9mIHRoZSB2aXJ0cXVldWUsIHRoZSBkZXZpY2UNCj4gPj4gICAgICB0byBub3RpZnkg
+YWdhaW4gaWYgbm90aWZpY2F0aW9uIGNvYWxlc2NpbmcgY29uZGl0aW9ucyBhcmUgbWV0Lg0KPiA+
+PiArDQo+ID4+ICsjIyAzLjQgVmlydHF1ZXVlIHJlY2VpdmUgZmxvdyBmaWx0ZXJzIChSRkYpIDAu
+IERlc2lnbiBnb2FsOg0KPiA+PiArICAgVG8gZmlsdGVyIGFuZC9vciB0byBzdGVlciBwYWNrZXQg
+YmFzZWQgb24gc3BlY2lmaWMgcGF0dGVybiBtYXRjaCB0byBhDQo+ID4+ICsgICBzcGVjaWZpYyBk
+ZXN0aW5hdGlvbiB0byBzdXBwb3J0IGFwcGxpY2F0aW9uL25ldHdvcmtpbmcgc3RhY2sgZHJpdmVu
+DQo+IHJlY2VpdmUNCj4gPj4gKyAgIHByb2Nlc3NpbmcuDQo+ID4+ICsxLiBUd28gdXNlIGNhc2Vz
+IGFyZTogdG8gc3VwcG9ydCBMaW51eCBuZXRkZXYgc2V0X3J4bmZjKCkgZm9yDQo+ID4+IEVUSFRP
+T0xfU1JYQ0xTUkxJTlMNCj4gPj4gKyAgIGFuZCB0byBzdXBwb3J0IG5ldGRldiBmZWF0dXJlIE5F
+VElGX0ZfTlRVUExFIGFrYSBBUkZTLg0KPiA+PiArDQo+ID4+ICsjIyMgMy40LjEgY29udHJvbCBw
+YXRoDQo+ID4+ICsxLiBUaGUgbnVtYmVyIG9mIGZsb3cgZmlsdGVyIG9wZXJhdGlvbnMvc2VjIGNh
+biByYW5nZSBmcm9tIDEwMGsvc2VjDQo+ID4+ICt0bw0KPiA+PiAxTS9zZWMNCj4gPj4gKyAgIG9y
+IGV2ZW4gbW9yZS4gSGVuY2UgZmxvdyBmaWx0ZXIgb3BlcmF0aW9ucyBtdXN0IGJlIGRvbmUgb3Zl
+ciBhIHF1ZXVlaW5nDQo+ID4+ICsgICBpbnRlcmZhY2UgdXNpbmcgb25lIG9yIG1vcmUgcXVldWVz
+Lg0KPiA+PiArMi4gVGhlIGRldmljZSBzaG91bGQgYmUgYWJsZSB0byBleHBvc2Ugb25lIG9yIG1v
+cmUgc3VwcG9ydGVkIGZsb3cNCj4gPj4gK2ZpbHRlcg0KPiA+PiBxdWV1ZQ0KPiA+PiArICAgY291
+bnQgYW5kIGl0cyBzdGFydCB2cSBpbmRleCB0byB0aGUgZHJpdmVyLg0KPiA+PiArMy4gQXMgZWFj
+aCBkZXZpY2UgbWF5IGJlIG9wZXJhdGluZyBmb3IgZGlmZmVyZW50IHBlcmZvcm1hbmNlDQo+IGNo
+YXJhY3RlcmlzdGljLA0KPiA+PiArICAgc3RhcnQgdnEgaW5kZXggYW5kIGNvdW50IG1heSBiZSBk
+aWZmZXJlbnQgZm9yIGVhY2ggZGV2aWNlLiBTZWNvbmRseSwgaXQgaXMNCj4gPj4gKyAgIGluZWZm
+aWNpZW50IGZvciBkZXZpY2UgdG8gcHJvdmlkZSBmbG93IGZpbHRlcnMgY2FwYWJpbGl0aWVzIHZp
+YSBhIGNvbmZpZyBzcGFjZQ0KPiA+PiArICAgcmVnaW9uLiBIZW5jZSwgdGhlIGRldmljZSBzaG91
+bGQgYmUgYWJsZSB0byBzaGFyZSB0aGVzZSBhdHRyaWJ1dGVzIHVzaW5nDQo+ID4+ICsgICBkbWEg
+aW50ZXJmYWNlLCBpbnN0ZWFkIG9mIHRyYW5zcG9ydCByZWdpc3RlcnMuDQo+ID4+ICs0LiBTaW5j
+ZSBmbG93IGZpbHRlcnMgYXJlIGVuYWJsZWQgbXVjaCBsYXRlciBpbiB0aGUgZHJpdmVyIGxpZmUg
+Y3ljbGUsIGRyaXZlcg0KPiA+PiArICAgd2lsbCBsaWtlbHkgY3JlYXRlIHRoZXNlIHF1ZXVlcyB3
+aGVuIGZsb3cgZmlsdGVycyBhcmUgZW5hYmxlZC4NCj4gDQo+IFJlZ2FyZGluZyB0aGlzIGRlc2Ny
+aXB0aW9uLCBJIHdhbnQgdG8gc2F5IHRoYXQgQVJGUyB3aWxsIGJlIGVuYWJsZWQgYXQgcnVudGlt
+ZS4NCj4gQnV0IGV0aHRvb2wgUkZGIHdpbGwgYmUgdXNlZCBhdCBhbnkgdGltZSBhcyBsb25nIGFz
+IHRoZSBkZXZpY2UgaXMgcmVhZHkuDQo+IA0KWWVzLCBidXQgZXRob29sIFJGUyBpcyBibG9ja2lu
+ZyBjYWxsYmFjayBpbiB3aGljaCBzbG93IHRhc2sgc3VjaCBhcyBxIGNyZWF0aW9uIGNhbiBiZSBk
+b25lLCBvbmx5IHdoZW4gb25lIHdhbnRzIHRvIGFkZCBmbG93cy4NCkFSRlMgaXMgYW55d2F5IGNv
+bnRyb2xsZWQgdXNpbmcgc2V0X2ZlYXR1cmVzKCkgY2FsbGJhY2suDQoNCj4gQ29tYmluaW5nIHdo
+YXQgd2FzIGRpc2N1c3NlZCBpbiB0b2RheSdzIG1lZXRpbmcsIGZsb3cgdnFzIGFuZCBjdHJscSBh
+cmUNCj4gbXV0dWFsbHkgZXhjbHVzaXZlLCBzbyBpZiBmbG93IHZxcyBhcmUgc3VwcG9ydGVkLCB0
+aGVuIGV0aHRvb2wgUkZGIGNhbiB1c2UgZmxvdw0KPiB2cToNCj4gDQo+ICINCj4gMC4gRmxvdyBm
+aWx0ZXIgcXVldWVzIGFuZCBmbG93IGZpbHRlciBjb21tYW5kcyBvbiBjdnEgYXJlIG11dHVhbGx5
+IGV4Y2x1c2l2ZS4NCj4gDQo+IDEuIFdoZW4gZmxvdyBxdWV1ZXMgYXJlIHN1cHBvcnRlZCwgdGhl
+IGRyaXZlciBzaG91bGQgY3JlYXRlIGZsb3cgZmlsdGVyIHF1ZXVlcw0KPiBhbmQgdXNlIGl0Lg0K
+PiAoU2luY2UgY3ZxIGlzIG5vdCBlbmFibGVkIGZvciBmbG93IGZpbHRlcnMsIGFueSBmbG93IGZp
+bHRlciBjb21tYW5kIGNvbWluZyBvbiBjdnENCj4gbXVzdCBmYWlsKS4NCj4gDQo+IDIuIElmIGRy
+aXZlciB3YW50cyB0byB1c2UgZmxvdyBmaWx0ZXJzIG92ZXIgY3ZxLCBkcml2ZXIgbXVzdCBleHBs
+aWNpdGx5IGVuYWJsZSBmbG93DQo+IGZpbHRlcnMgb24gY3ZxIHZpYSBhIGNvbW1hbmQsIHdoZW4g
+aXQgaXMgZW5hYmxlZCBvbiB0aGUgY3ZxIGRyaXZlciBjYW5ub3QgdXNlDQo+IGZsb3cgZmlsdGVy
+IHF1ZXVlcy4NCj4gVGhpcyBlbGltaW5hdGVzIGFueSBzeW5jaHJvbml6YXRpb24gbmVlZGVkIGJ5
+IHRoZSBkZXZpY2UgYW1vbmcgZGlmZmVyZW50IHR5cGVzDQo+IG9mIHF1ZXVlcy4NCj4gIg0KPiAN
+CkFjay4NCg0KPiBXZWxsIHRoZSAibGlrZWx5IGNyZWF0ZSB0aGVzZSBxdWV1ZXMgd2hlbiBmbG93
+IGZpbHRlcnMgYXJlIGVuYWJsZWQiDQo+IGRlc2NyaWJlZCBoZXJlIGlzIGNvbmZ1c2luZy4NCj4g
+QmVjYXVzZSBpZiBldGh0b29sIFJGRiBpcyB1c2VkLCB3ZSBuZWVkIHRvIGNyZWF0ZSBhIGZsb3cg
+dnEgaW4gdGhlIHByb2JlIHN0YWdlLA0KPiByaWdodD8NCj4NCkN1cnJlbnQgc3BlYyB3b3JkaW5n
+IGxpbWl0cyBvbmUgdG8gY3JlYXRlIHF1ZXVlcyBiZWZvcmUgRFJJVkVSX09LLg0KQnV0IHdpdGgg
+aW50cm9kdWN0aW9uIG9mIF9SRVNFVCBiaXQgb25lIGNhbiBjcmVhdGUgYW4gZW1wdHkgcXVldWUg
+YW5kIGRpc2FibGUgaXQgKHJlc2V0IGl0ISBXaGF0IGEgZ3JhbmQgbmFtZSkuDQoNCkFuZCByZS1l
+bmFibGUgaXQgZHVyaW5nIGV0aHRvb2wgY2FsbGJhY2tzLg0KVGhpcyB3b3VsZCBiZSB3b3JrYXJv
+dW5kIHRvIGR5bmFtaWNhbGx5IGNyZWF0ZSB0aGUgcXVldWUuDQogDQo+IFRoZXJlIGFyZSBzZXZl
+cmFsIG90aGVyIHJlYXNvbnM6DQo+IDEuIFRoZSBiZWhhdmlvciBvZiBkeW5hbWljYWxseSBjcmVh
+dGluZyBmbG93IHZxIHdpbGwgYnJlYWsgdGhlIGN1cnJlbnQgdmlydGlvDQo+IHNwZWMuDQo+ICDC
+oMKgIFBsZWFzZSBzZWUgdGhlICJEZXZpY2UgSW5pdGlhbGl6YXRpb24iIGNoYXB0ZXIuIGN0cmxx
+LCBhcyBhIGNvbmZpZ3VyYXRpb24gcXVldWUNCj4gIMKgwqAgc2ltaWxhciB0byBmbG93IHZxLCBp
+cyBhbHNvIGNyZWF0ZWQgaW4gdGhlIHByb2JlIHBoYXNlLiBTbyBpZiB3ZSBzdXBwb3J0IHRoZQ0K
+PiAiZHluYW1pY2FsbHkgY3JlYXRpbmciLA0KPiAgwqDCoCB3ZSBuZWVkIHRvIHVwZGF0ZSB0aGUg
+c3BlYy4NCj4gDQo+IDIuIEZsb3cgdnEgaXMgc2ltaWxhciB0byB0cmFuc21pdCBxLCBhbmQgZG9l
+cyBub3QgbmVlZCB0byBmaWxsIGRlc2NyaXB0b3JzIGluDQo+IGFkdmFuY2UsDQo+ICDCoMKgIHNv
+IHRoZSBjb25zdW1wdGlvbiBvZiByZXNvdXJjZXMgaXMgcmVsYXRpdmVseSBzbWFsbC4NCj4NCk9u
+bHkgdGhlIHF1ZXVlIGRlc2NyaXB0b3JzIG1lbW9yeSBpcyBjb25zdW1lZCwgd2hpY2ggaXMgbm90
+IGEgbG90Lg0KQnV0IGNvbmNlcHQgb2YgY3JlYXRpbmcgcmVzb3VyY2Ugd2l0aG91dCBjb25zdW1p
+bmcgaXMganVzdCBiYWQuDQpXZSBsZWFybnQgdGhlIGxlc3NvbiBmcm9tIG1seDUgZHJpdmVyIHRo
+YXQgZHluYW1pYyBjcmVhdGlvbiBpcyBlZmZpY2llbnQuDQpNYW55IHBhcnQgb2YgTGludXgga2Vy
+bmVsIGFsc28gbW92aW5nIGluIHRoaXMgZGlyZWN0aW9uLCBhbGwgdGhlIHdheSB1cHRvIGR5bmFt
+aWNhbGx5IGluZGl2aWR1YWwgbXNpeCB2ZWN0b3IuDQoNClNvIHdlIHNob3VsZCBzdHJpdmUgdG8g
+ZW5hYmxlIHRoZW0gZHluYW1pY2FsbHkgYW5kIGltcHJvdmUgdGhlIHZpcnRpbyBzcGVjLg0KDQpJ
+dCBzaG91bGQgYW4gb3J0aG9nb25hbCBmZWF0dXJlLCBzYWRseSBob3cgdGhlIFJJTkdfUkVTRVQg
+ZmVhdHVyZSBpcyBkb25lLiA6KA0KIA0KPiAzLiBEeW5hbWljIGNyZWF0aW9uIG9mIHZpcnRxdWV1
+ZSBzZWVtcyB0byBiZSBhIG5ldyB0aHJlYWQgb2YgdmlydGlvIHNwZWMsIGFuZCBpdA0KPiBzaG91
+bGQgYWxzbyBiZQ0KPiAgwqDCoCBhcHBsaWNhYmxlIHRvIHJ4cXMgYW5kIHR4cXMuIFdlIGNhbiB0
+ZW1wb3JhcmlseSBzdXBwb3J0IGNyZWF0aW5nIGZsb3cgdnEgaW4NCj4gdGhlIHByb2JlIHN0YWdl
+LA0KPiAgwqDCoCBhbmQgc3Vic2VxdWVudCBkeW5hbWljIGNyZWF0aW9uIGNhbiBiZSBhbiBleHRl
+bnNpb24uDQo+IA0KPiBTbywgc2hvdWxkIHdlIGNyZWF0ZSB0aGUgZmxvdyB2cXMgYXQgdGhlIGlu
+aXRpYWwgc3RhZ2Ugb2YgdGhlIGRyaXZlciBwcm9iZT8NCk9uZSBvcHRpb24gaXMgdG8gZm9sbG93
+IHRoZSBhYm92ZSB3b3JrYXJvdW5kLg0KU2Vjb25kIG9wdGlvbiBpcyB0byBhZGQgZmVhdHVyZSBi
+aXQgdG8gZmVhdHVyZSBiaXQgdG8gaW5kaWNhdGUgZHluYW1pYyBRIGNyZWF0aW9uLg0K
 
