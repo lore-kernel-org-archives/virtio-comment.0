@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7189-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7190-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ECF1C27C7A
-	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 08:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B0D8C27C7A
+	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 08:43:01 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BE2B5370ED
-	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 08:32:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 82AA142A67
+	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 08:43:00 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A5121986423
-	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 08:32:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 76D1F986400
+	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 08:43:00 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8B4BB984043; Thu, 17 Aug 2023 08:32:34 +0000 (UTC)
+	id 65E8D984043; Thu, 17 Aug 2023 08:43:00 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,223 +24,183 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 796869863F0;
-	Thu, 17 Aug 2023 08:32:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 550559863F0;
+	Thu, 17 Aug 2023 08:43:00 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="459105795"
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="371650273"
 X-IronPort-AV: E=Sophos;i="6.01,179,1684825200"; 
-   d="scan'208";a="459105795"
+   d="scan'208";a="371650273"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="981064737"
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="908322010"
 X-IronPort-AV: E=Sophos;i="6.01,179,1684825200"; 
-   d="scan'208";a="981064737"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MYXXeKazx3UAqdcPA/by8tKWaAhGHsWrRaXA5O38J20An8Ts3Of8M4n60iwtZqX2pZQRBPgNqTY93gd1d+9DLQCg7ZZDTUJJPmbXngzPF/sVBmq0bYkHS1J3OGRu0Cco5c+zITLFXx2eywEMRw7QlTmgameaoPXFZIuycCf1gtVaAeW5386wLE4OuyaW3iwAxDEB7+Y/UP5GqzrQeC+z7QVLbc+RWJ/qN7h+WrDbyVZ2uYYiVFNBuVVbywoVdhpmGWCwTlDHFPLIq2enOzLiUP3KbvH+uScblCjHUkwoYhY/xMSKyZ7gv01wOPuvRpXWI/zvMmRx+5KEVbSBBwaifw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v0dax68OA/8pFssny6u6AWO89+BlAeclPVSUSyCXLG8=;
- b=C3FGao9x+ezKS8CZTWLH5e8n5/b/Fa1VRM3Az6yn4zdM0rO6I1BQ2qkWoRQB2vEDbYrRYMBzHODVXFrJAnvzTvPLVhWHUKwNAFNJ1QTg/0NJHD1Wsb7+hREaeYlqHkyFaNvyWPEJ+X1Lk24L8p14r7dWucwgOMoyhzvH+utqjAV5woWA/jHUQHCKgEFeIVn63pOccwGg8dUKoeAqk6WdeN7S2XkX3cOJFhURqL9cLky7ioteZEzDbzfUHp3NN1/udGahpvm80gUD8lV7wVn9ZaOuYKMxU8sMCLpdYi8AGW5+J5kk6JqAddibY2fLTQyNTnFxwMSDBijXbMqCifxChQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-From: "Uminski, Piotr" <Piotr.Uminski@intel.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>, Jason Wang <jasowang@redhat.com>
-CC: "mst@redhat.com" <mst@redhat.com>, "eperezma@redhat.com"
-	<eperezma@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
-Thread-Topic: [virtio-comment] Re: [RFC PATCH 4/5] virtqueue: constraints for
- virtqueue state
-Thread-Index: AQHZzxBwlDBgS0G+IUOgGkTah2Pz86/rOY0AgALw2cA=
-Date: Thu, 17 Aug 2023 08:31:59 +0000
-Message-ID: <SN6PR11MB3517EF23D99CE4FDA8DDB22DFF1AA@SN6PR11MB3517.namprd11.prod.outlook.com>
+   d="scan'208";a="908322010"
+Message-ID: <a4acfe61-0eff-d487-a62e-5bb523bf3d54@intel.com>
+Date: Thu, 17 Aug 2023 16:42:51 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.14.0
+Content-Language: en-US
+To: "Uminski, Piotr" <Piotr.Uminski@intel.com>,
+ Jason Wang <jasowang@redhat.com>
+Cc: "mst@redhat.com" <mst@redhat.com>,
+ "eperezma@redhat.com" <eperezma@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
 References: <20230814192904.30062-1-lingshan.zhu@intel.com>
  <20230814192904.30062-5-lingshan.zhu@intel.com>
  <CACGkMEtkdXrTZ_=NkuPsmhUooCgKPiCiVo-nJMaDnJ5fufzGwQ@mail.gmail.com>
  <8ce92e00-39f9-3e99-96e2-5599588869e3@intel.com>
-In-Reply-To: <8ce92e00-39f9-3e99-96e2-5599588869e3@intel.com>
-Accept-Language: pl-PL, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR11MB3517:EE_|PH7PR11MB7028:EE_
-x-ms-office365-filtering-correlation-id: 70ea5d09-7b2d-4002-8241-08db9efc6cc4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: u+gpfuQcCObD66VNAQ5LcyLE4fustGfTjojmQuGjBgW620L6pRWpDdnH2ylZjT16J1OUKBIjniVU386D+29LdCRIuLuJyw0aT4Oy3R1LuqTyDGhbZpmoKnmF8F8x3dsLNnPvstkFB3g19GVHMXyYFIn4u9okqkBT59warr34Sf7GvzAhoEcH95Ft5LIcdqel+j7J2kb7mX/0+3NoP+OpjwfYHufMbUkV6YUq8FEGIZl54Tp+THE7n0IGShYWtKf3mtIKtl0SyzkTSrYQanCwv760vjcjWus1+dwm6One1DBegf3h6KvcIO2Igc5sbi28cARONskHfS67xBiFfwKrGJLIRv4HdkN8VatSciIVer5OkafYmNfk1O7CeZKKgBQazA39cwAH/vJwdmzyLYGpeQxMEqjXc/jcomqjMEvi0NWXnWRViMpmKqOtBIl6OZrF8VNX3wmbD5xxfAlRo7z/QCYv5jkw1Zm5xfZLNlW6ehBO1j1pf48PDzlJHmet03eajqIE9PXupwMNRaIyfdj/uW/98ToRuohfVotQPKCTC08mxMIcMypraQ/JWECnxA9wZJaPforJIuxo0US1ctULfMjYsCz1JGw/I2s+MAcqkFiXOM/7/UYdBBwiMJHYoSbwk/l2h0A1sR+YdWDjVDLmxA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR11MB3517.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(366004)(136003)(346002)(376002)(39860400002)(1800799009)(451199024)(186009)(2906002)(83380400001)(66899024)(26005)(86362001)(478600001)(6506007)(7696005)(71200400001)(33656002)(9686003)(53546011)(55016003)(966005)(5660300002)(52536014)(41300700001)(66446008)(122000001)(54906003)(316002)(66476007)(66946007)(66556008)(76116006)(64756008)(110136005)(4326008)(8676002)(8936002)(82960400001)(38100700002)(38070700005);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eHhlUVN1VkNXak1meGdHVE5ybTB5TUg1eVpod2FXMElBM1JTM002Q2pIQ3Vh?=
- =?utf-8?B?RUxJQjZNaVo0dzJLOVlmTzlLZ0hDZko2T290Z2ZtYkx3WjJMbnBjK0tLMFNm?=
- =?utf-8?B?Z3I2UytVZms0Nlg0Wmx0eGk4NVJQM2xPYkEwSURIVWl5aFQwQTdlemNtM3Ra?=
- =?utf-8?B?Zkg2dlFvN0M1K2RMTTArYnRQQ0ZiTnhTcGhiQXFrZUZ6MENnVnVXNkQ0bzEy?=
- =?utf-8?B?OWFlcnI5U3p4K2Y3VGZrc2lwNjluK3NrcThoS1FaK0JQK2wxdm5PSnNKc2E1?=
- =?utf-8?B?dHl3YUdpZHFJYUptT3I2b1o0Rko4MFlmeUNTcjVCcEFvanJJTXpXa0kwR2Jk?=
- =?utf-8?B?bW4ySTFzTWh4ZEJDQTg3ZHV3Z2RLVXZkZHIrOUxUdldMQUpHV1FFei9uTGRz?=
- =?utf-8?B?L0RXT3cvaUFzOXZNMWxXKzEwc29TdzkxMXI1Q2x4WDNkSlRqeE5Lb0dMdlhM?=
- =?utf-8?B?dndBM3VtVlFnczV6Q1JSV3NHMndsWlhNVU9BdFFaUFQvOHdmUDJ0OFBhbTgw?=
- =?utf-8?B?TjdnUkFEREFGME1zZlpoZGtTTmF0bFpSN3d2Y3FURFlvM0pDdVhWODBiN0tr?=
- =?utf-8?B?QUFZR0h4c21hNW0zdXkveFRGTGZ3WHplMXlWRENmeFRmaTRXdnJ3dktWNGZI?=
- =?utf-8?B?ZE04Tkl4UGNVMDNraW5WbVlqZHJZTUlSam5zTnhMQ0dNS2JFTEplWm5EUVpx?=
- =?utf-8?B?QkJ5VzBkQVZKNVQxZG1uejJUT2E0YXFaOXJweXpkV096ZTVoWkxLUFVlS2lY?=
- =?utf-8?B?L3JaMFArQ0FYNlE1NmJYejAxNWdwam5wVU1oNldjazhaRlh4M3BWQ1VOZ0FG?=
- =?utf-8?B?V1BDNWRIWjZjTzNTZ2VnQThpdWxQRkdrZjFpWENMNlVKMGtldEltTEdoS0Yv?=
- =?utf-8?B?OHA1K1V4dHdMQ1JJeDcyek1zOUc3cENtVWR0Smh2Z2dXREkrSXlUR0J5aDht?=
- =?utf-8?B?QzRNZG45M01WN2JYOGg2NVI0UURtMEhmY3kycm5iMU13a3dHbEN1NEhGZEta?=
- =?utf-8?B?d1hvelNpR2c4YW84YlNLS2thTHZDb2htc1BVZk1PWEZrV0tGMXl1bjFHc2h2?=
- =?utf-8?B?aTNocXpkdGQ5ZUkzbHNTZDNDd0JJNlRZemV6Umc4YjM0c3graDg1Y25vUWJT?=
- =?utf-8?B?MFlUeng5RytBY1h4UXRZUnM3NmlCNER4a2gyRlZaTFZMeEN5c3JUUmMrb2Vi?=
- =?utf-8?B?OEZIMlFOcjFGWTM5L29vMXdTVG1xSlE5aG1aTjJVT09RbnlpMzg4SXlHb21Z?=
- =?utf-8?B?c0hUTVpCNm4zNzdMa01OdFFzaGlmc0QzblJJenducEI4QmhuZmhQUlI2YTdG?=
- =?utf-8?B?MlNKcElCN0l0YVVYYVVyQit4MFFTdlBSTmc4dWxqbVdhYUhsU0FNeXlhc1Zv?=
- =?utf-8?B?ckZEaWpwQTEwZ2hxenZmSlFJNEZjWEpFMkFVS25ERVJ5VjBRaFdWY1ZQbnIv?=
- =?utf-8?B?OFFKbStPd3lMcWoxWG5zb0NMVXZGbjZJZXpVVk9laEcydmY0cEIzUVFBbWRB?=
- =?utf-8?B?QXpPLzlsT0NsWHpUdGlmaWd6ODYvVFpncm5vL0MrVnVCejhBcjBrZ2crb0ZU?=
- =?utf-8?B?ei9RaHJNZENLOVBzM0crTEg4S1NwSUNZUmJKTmpTYmk1Y1N5NFNqdEhiNnYr?=
- =?utf-8?B?d3lxUlhuUmI5SWljL2ZsQTJkZmVoNUIyQlgvbDAvMHl1WlZZS3R6MjVkQWNY?=
- =?utf-8?B?S3BwZXpVNVoycmpET1BoUFkzME1icm9tRTZXUEtKaE1NVTFBU3RnN2IrSmUv?=
- =?utf-8?B?YkgwbEV3eXBsY255bERsSmZzQUI4YitDeHVtSFA3ZzVodXF5ZWQ0ZXFNeXR1?=
- =?utf-8?B?VWdGUnIveVRmSk9lUHRubFF2RnVYRlA2K3gxclp6VS9GSWJKMXZSTUYrd2dl?=
- =?utf-8?B?SEFzNXhnZVBNQkwyclFYRUR0WGl3TFFyb2xCazh1Zk1CcVJDekZVdktKcGFP?=
- =?utf-8?B?RmpVbk1KVjcvc3RpVmwwSzliOEZ1THpiTEV3M2lzY2V4Z3VWSkYweDRDaktM?=
- =?utf-8?B?dTJiNFc3OEVIaDZMT2kzZzNqajhSL3d6aHg3RHN6VExQNitrQ0I3UnhlcTdY?=
- =?utf-8?B?eHplVW9NV1d4Q2s2N3hldmlHM2ljYk9ZT0Jtd2hpQklSWUFlOWdkMzAwMGVm?=
- =?utf-8?Q?EZeoDnOrTx/V8IUBehalDPoc8?=
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR11MB3517.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70ea5d09-7b2d-4002-8241-08db9efc6cc4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2023 08:31:59.6486
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OCPgbRiMNqXvU3kh3wu9wHoIua8RN3Ek8/cFh1cnna15mvWOCVk+HjEVuJZMDMRvk2R1zlzdsWDWDa3n8+grDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7028
-X-OriginatorOrg: intel.com
-Content-Transfer-Encoding: base64
-Subject: RE: [virtio-comment] Re: [RFC PATCH 4/5] virtqueue: constraints for
+ <SN6PR11MB3517EF23D99CE4FDA8DDB22DFF1AA@SN6PR11MB3517.namprd11.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <SN6PR11MB3517EF23D99CE4FDA8DDB22DFF1AA@SN6PR11MB3517.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [RFC PATCH 4/5] virtqueue: constraints for
  virtqueue state
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogdmlydGlvLWNvbW1lbnRA
-bGlzdHMub2FzaXMtb3Blbi5vcmcgPHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLQ0KPiBvcGVu
-Lm9yZz4gT24gQmVoYWxmIE9mIFpodSwgTGluZ3NoYW4NCj4gU2VudDogVHVlc2RheSwgQXVndXN0
-IDE1LCAyMDIzIDE6MzAgUE0NCj4gVG86IEphc29uIFdhbmcgPGphc293YW5nQHJlZGhhdC5jb20+
-DQo+IENjOiBtc3RAcmVkaGF0LmNvbTsgZXBlcmV6bWFAcmVkaGF0LmNvbTsgY29odWNrQHJlZGhh
-dC5jb207IHZpcnRpby0NCj4gY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZzsgdmlydGlvLWRl
-dkBsaXN0cy5vYXNpcy1vcGVuLm9yZw0KPiBTdWJqZWN0OiBbdmlydGlvLWNvbW1lbnRdIFJlOiBb
-UkZDIFBBVENIIDQvNV0gdmlydHF1ZXVlOiBjb25zdHJhaW50cyBmb3INCj4gdmlydHF1ZXVlIHN0
-YXRlDQo+IA0KPiANCj4gDQo+IE9uIDgvMTUvMjAyMyA4OjM0IEFNLCBKYXNvbiBXYW5nIHdyb3Rl
-Og0KPiA+IE9uIE1vbiwgQXVnIDE0LCAyMDIzIGF0IDc6MjnigK9QTSBaaHUgTGluZ3NoYW4gPGxp
-bmdzaGFuLnpodUBpbnRlbC5jb20+DQo+IHdyb3RlOg0KPiA+PiBUaGlzIGNvbW1pdCBzcGVjaWZp
-ZXMgdGhlIGNvbnN0cmFpbnRzIG9mIHRoZSB2aXJ0cXVldWUgc3RhdGUsDQo+ID4+IGFuZCB0aGUg
-YWN0aW9ucyBzaG91bGQgYmUgdGFrZW4gYnkgdGhlIGRldmljZSB3aGVuIFNVU1BFTkQNCj4gPj4g
-YW5kIERSSVZFUl9PSyBpcyBzZXQNCj4gPj4NCj4gPj4gU2lnbmVkLW9mZi1ieTogSmFzb24gV2Fu
-ZyA8amFzb3dhbmdAcmVkaGF0LmNvbT4NCj4gPj4gU2lnbmVkLW9mZi1ieTogWmh1IExpbmdzaGFu
-IDxsaW5nc2hhbi56aHVAaW50ZWwuY29tPg0KPiA+PiAtLS0NCj4gPj4gICBjb250ZW50LnRleCB8
-IDMxICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gPj4gICAxIGZpbGUgY2hhbmdl
-ZCwgMzEgaW5zZXJ0aW9ucygrKQ0KPiA+Pg0KPiA+PiBkaWZmIC0tZ2l0IGEvY29udGVudC50ZXgg
-Yi9jb250ZW50LnRleA0KPiA+PiBpbmRleCA0M2JkNWRlLi5mNmFjNTgxIDEwMDY0NA0KPiA+PiAt
-LS0gYS9jb250ZW50LnRleA0KPiA+PiArKysgYi9jb250ZW50LnRleA0KPiA+PiBAQCAtNTg3LDYg
-KzU4NywzNyBAQCBcc3Vic2VjdGlvbntcZmllbGR7VXNlZCBTdGF0ZX0gRmllbGR9DQo+ID4+DQo+
-ID4+ICAgU2VlIGFsc28gXHJlZntzZWM6UGFja2VkIFZpcnRxdWV1ZXMgLyBEcml2ZXIgYW5kIERl
-dmljZSBSaW5nIFdyYXANCj4gQ291bnRlcnN9Lg0KPiA+Pg0KPiA+PiArXGRyaXZlcm5vcm1hdGl2
-ZXtcc3Vic2VjdGlvbn17VmlydHF1ZXVlIFN0YXRlfXtCYXNpYyBGYWNpbGl0aWVzIG9mIGEgVmly
-dGlvDQo+IERldmljZSAvIFZpcnRxdWV1ZSBTdGF0ZX0NCj4gPj4gKw0KPiA+PiArSWYgVklSVElP
-X0ZfUVVFVUVfU1RBVEUgaGFzIGJlZW4gbmVnb3RpYXRlZCwgdGhlIGRyaXZlciBNVVNUIHNldA0K
-PiBTVVNQRU5EIGluIFxmaWVsZHtkZXZpY2Ugc3RhdHVzfQ0KPiA+PiArZmlyc3QgYmVmb3JlIGdl
-dHRpbmcgb3Igc2V0dGluZyBWaXJ0cXVldWUgU3RhdGUgb2YgYW55IHZpcnRxdWV1ZXMuDQo+ID4g
-SSBkb24ndCBnZXQgd2h5IHRoaXMgaXMgYSBtdXN0LiBJdCBjb3VsZCBiZSB1c2VmdWwgZm9yIGRl
-YnVnZ2luZy4NCj4gVG8gYXZvaWQgcmFjZSBjb25kaXRpb25zIHdpdGggdGhlIGRldmljZSBhbmQg
-bWFrZSB0aGUgZGV2aWNlDQo+IGltcGxlbWVudGF0aW9uIGVhc2llcg0KSXQgc2hvdWxkIGJlIHBv
-c3NpYmxlIHRvIHNldCBWaXJ0cXVldWUgU3RhdGUgaW4gdHdvIHN0YXRlczoNCiAtIEJlZm9yZSBE
-UklWRVJfT0sgLSBhcyBhIHBhcnQgb2YgdGhlIHF1ZXVlIGNyZWF0aW9uIGF0IHRhcmdldCBzeXN0
-ZW0NCi0gIEFmdGVyIFNVU1BFTkQgLSB3aGVuIHRoZSBkZXZpY2Ugd2FzIGFjdGl2YXRlZCBhbmQg
-dGhlbiBzdXNwZW5kZWQNClNldHRpbmcgc3RhdGUgb24gYWN0aXZlIGRldmljZSBjYW4gcHJvZHVj
-ZSByYW5kb20gcmVzdWx0cyBhbmQgc2hvdWxkIGJlIGZvcmJpZGRlbi4NCldlIG1heSBhbGxvdyB0
-byBnZXQgVmlydHF1ZXVlIFN0YXRlIG9uIGFjdGl2ZSBkZXZpY2UsIHdpdGhvdXQgU1VTUEVORC4g
-SG93ZXZlciwgd2Ugc2hvdWxkIG5vdCBtYW5kYXRlIHRoZSBkZXZpY2UNCnRvIHJlcG9ydCBjb3Jy
-ZWN0IHZhbHVlIC0gb24gc29tZSBpbXBsZW1lbnRhdGlvbnMgaXQgbWF5IGJlIGltcG9zc2libGUg
-d2l0aG91dCBzdXNwZW5kLg0KPiA+DQo+ID4+ICsNCj4gPj4gK0lmIFZJUlRJT19GX1FVRVVFX1NU
-QVRFIGhhcyBiZWVuIG5lZ290aWFnZWQgYnV0DQo+IFZJUlRJT19SSU5HX0ZfUEFDS0VEIG5vdCBi
-ZWVuIG5lZ290aWF0ZWQsDQo+ID4gdHlwbw0KPiB5ZXMNCj4gPg0KPiA+PiArdGhlIGRyaXZlciBN
-VVNUIE5PVCBhY2Nlc3MgXGZpZWxke1VzZWQgU3RhdGV9IG9mIGFueSB2aXJ0cXVldWVzLCBpdCBz
-aG91bGQNCj4gdXNlIHRoZQ0KPiA+PiArdXNlZCBpbmRleCBpbiB0aGUgdXNlZCByaW5nLg0KPiA+
-PiArDQo+ID4+ICtcZGV2aWNlbm9ybWF0aXZle1xzdWJzZWN0aW9ufXtWaXJ0cXVldWUgU3RhdGV9
-e0Jhc2ljIEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8NCj4gRGV2aWNlIC8gVmlydHF1ZXVlIFN0YXRl
-fQ0KPiA+PiArDQo+ID4+ICtJZiBWSVJUSU9fRl9RVUVVRV9TVEFURSBoYXMgYmVlbiBuZWdvdGlh
-dGVkIGJ1dCBTVVNQRU5EIGlzIG5vdCBzZXQgaW4NCj4gXGZpZWxke2RldmljZSBzdGF0dXN9LA0K
-PiA+PiArdGhlIGRldmljZSBNVVNUIGlnbm9yZSBhbnkgYWNjZXNzZXMgYWdhaW5zdCBWaXJ0cXVl
-dWUgU3RhdGUgb2YgYW55DQo+IHZpcnRxdWV1ZXMuDQo+ID4gQnR3LCBkbyB3ZSBuZWVkIHRvIGNs
-YXJpZnkgdGhlIGJlaGF2aW9yIG9mIHJpbmcgcmVzZXQgYWZ0ZXIgc3VzcGVuZGluZz8NCj4gSSB0
-aGluayBvbmNlIHN1c3BlbmRlZCwgdGhlIGRldmljZSBzaG91bGQgaWdub3JlIHJlc2V0dGluZyBh
-IHF1ZXVlDQo+ID4NCj4gPj4gKw0KPiA+PiArV2hlbiBWSVJUSU9fRl9RVUVVRV9TVEFURSBoYXMg
-YmVlbiBuZWdvdGlhdGVkIGJ1dA0KPiBWSVJUSU9fUklOR19GX1BBQ0tFRCBpcyBub3QsDQo+ID4+
-ICt0aGUgZGV2aWNlIE1VU1QgaWdub3JlIGFueSBhY2Nlc3NlcyBhZ2FpbnN0IFxmaWVsZHtVc2Vk
-IFN0YXRlfS4NCj4gPj4gKw0KPiA+PiArSWYgVklSVElPX0ZfUVVFVUVfU1RBVEUgaGFzIGJlZW4g
-bmVnb3RpYWdlZCwgdGhlIGRldmljZSBNVVNUIHJlc2V0DQo+ID4+ICt0aGUgVmlydHF1ZXVlIFN0
-YXRlIG9mIGV2ZXJ5IHZpcnRxdWV1ZSB1cG9uIGEgcmVzZXQuDQo+ID4gTmVlZCB0byBkZWZpbmUg
-dGhlIG1lYW5pbmcgb2YgInJlc2V0IiB0aGlzIGlzIGltcG9ydGFudCBmb3IgcGFja2VkIHZpcnRx
-dWV1ZS4NCj4gSSB3aWxsIHJlbW92ZSB0aGlzIGFzIFN0ZWZhbiBzdWdnZXN0ZWQuDQo+ID4NCj4g
-Pj4gKw0KPiA+PiArSWYgVklSVElPX0ZfUVVFVUVfU1RBVEUgYW5kIFZJUlRJT19SSU5HX0ZfUEFD
-S0VEIGhhdmUgYmVlbg0KPiBuZWdvdGlhZ2VkLCB3aGVuIFNVU1BFTkQgaXMgc2V0LA0KPiA+PiAr
-dGhlIGRldmljZSBNVVNUIHJlY29yZCB0aGUgVmlydHF1ZXVlIFN0YXRlIG9mIGV2ZXJ5IGVuYWJs
-ZWQgdmlydHF1ZXVlDQo+ID4+ICtpbiBcZmllbGR7QXZhaWxhYmxlIFN0YXRlfSBhbmQgXGZpZWxk
-e1VzZWQgU3RhdGV9IHJlc3BlY3RpdmVseSwNCj4gPj4gK2FuZCBjb3JyZXNwb25kaW5nbHkgcmVz
-dG9yZSB0aGUgVmlydHF1ZXVlIFN0YXRlIG9mIGV2ZXJ5IGVuYWJsZWQgdmlydHF1ZXVlDQo+ID4+
-ICtmcm9tIFxmaWVsZHtBdmFpYWJsZSBTdGF0ZX0gYW5kIFxmaWVsZHtVc2VkIFN0YXRlfSB3aGVu
-IERSSVZFUl9PSyBpcyBzZXQuDQo+ID4gV2UgY2FuIGp1c3QgbGV0IHRoZSBkZXZpY2UgcmVwb3J0
-IHRob3NlIHN0YXRlcyBpbiBhbnkgY2FzZSB0aGVuIHdlDQo+ID4gZG9uJ3QgbmVlZCB0byBjYXJl
-IGFib3V0IHRob3NlIGRldGFpbHMsIG9yIGRpZCB5b3Ugc2VlIGFueSBibG9ja2Vycz8NCj4gQWdy
-ZWUsIEkgd2lsbCBhZGQgdGhlIGRlZmluaXRpb24gb2YgdXNlZF9zdGF0ZSBvZiBzcGxpdHRlZCB2
-cSBpbiB0aGUNCj4gbmV4dCB2ZXJzaW9uDQo+IA0KPiBUaGFua3MNCj4gPg0KPiA+IFRoYW5rcw0K
-PiA+DQo+ID4+ICsNCj4gPj4gK0lmIFZJUlRJT19GX1FVRVVFX1NUQVRFIGhhcyBiZWVuIG5lZ290
-aWF0ZWQgYnV0DQo+IFZJUlRJT19SSU5HX0ZfUEFDS0VEIGhhcyBiZWVuIG5vdCwgd2hlbiBTVVNQ
-RU5EIGlzIHNldCwNCj4gPj4gK3RoZSBkZXZpY2UgTVVTVCByZWNvcmQgdGhlIGF2YWlsYWJsZSBz
-dGF0ZSBvZiBldmVyeSBlbmFibGVkIHZpcnRxdWV1ZSBpbg0KPiBcZmllbGR7QXZhaWxhYmxlIFN0
-YXRlfSwNCj4gPj4gK2FuZCByZXN0b3JlIHRoZSBhdmFpbGFibGUgc3RhdGUgb2YgZXZlcnkgZW5h
-YmxlZCB2aXJ0cXVldWUgZnJvbQ0KPiBcZmllbGR7QXZhaWFibGUgU3RhdGV9DQo+ID4+ICt3aGVu
-IERSSVZFUl9PSyBpcyBzZXQuDQo+ID4+ICsNCj4gPj4gICBcaW5wdXR7YWRtaW4udGV4fQ0KPiA+
-Pg0KPiA+PiAgIFxjaGFwdGVye0dlbmVyYWwgSW5pdGlhbGl6YXRpb24gQW5kIERldmljZSBPcGVy
-YXRpb259XGxhYmVse3NlYzpHZW5lcmFsDQo+IEluaXRpYWxpemF0aW9uIEFuZCBEZXZpY2UgT3Bl
-cmF0aW9ufQ0KPiA+PiAtLQ0KPiA+PiAyLjM1LjMNCj4gPj4NCj4gDQo+IA0KPiBUaGlzIHB1Ymxp
-Y2x5IGFyY2hpdmVkIGxpc3Qgb2ZmZXJzIGEgbWVhbnMgdG8gcHJvdmlkZSBpbnB1dCB0byB0aGUN
-Cj4gT0FTSVMgVmlydHVhbCBJL08gRGV2aWNlIChWSVJUSU8pIFRDLg0KPiANCj4gSW4gb3JkZXIg
-dG8gdmVyaWZ5IHVzZXIgY29uc2VudCB0byB0aGUgRmVlZGJhY2sgTGljZW5zZSB0ZXJtcyBhbmQN
-Cj4gdG8gbWluaW1pemUgc3BhbSBpbiB0aGUgbGlzdCBhcmNoaXZlLCBzdWJzY3JpcHRpb24gaXMg
-cmVxdWlyZWQNCj4gYmVmb3JlIHBvc3RpbmcuDQo+IA0KPiBTdWJzY3JpYmU6IHZpcnRpby1jb21t
-ZW50LXN1YnNjcmliZUBsaXN0cy5vYXNpcy1vcGVuLm9yZw0KPiBVbnN1YnNjcmliZTogdmlydGlv
-LWNvbW1lbnQtdW5zdWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gTGlzdCBoZWxwOiB2
-aXJ0aW8tY29tbWVudC1oZWxwQGxpc3RzLm9hc2lzLW9wZW4ub3JnDQo+IExpc3QgYXJjaGl2ZTog
-aHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0aW8tY29tbWVudC8NCj4g
-RmVlZGJhY2sgTGljZW5zZTogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvd2hvL2lwci9mZWVk
-YmFja19saWNlbnNlLnBkZg0KPiBMaXN0IEd1aWRlbGluZXM6IGh0dHBzOi8vd3d3Lm9hc2lzLW9w
-ZW4ub3JnL3BvbGljaWVzLWd1aWRlbGluZXMvbWFpbGluZy1saXN0cw0KPiBDb21taXR0ZWU6IGh0
-dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL2NvbW1pdHRlZXMvdmlydGlvLw0KPiBKb2luIE9BU0lT
-OiBodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9qb2luLw0KDQotLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KSW50ZWwg
-VGVjaG5vbG9neSBQb2xhbmQgc3AuIHogby5vLgp1bC4gU2xvd2Fja2llZ28gMTczIHwgODAtMjk4
-IEdkYW5zayB8IFNhZCBSZWpvbm93eSBHZGFuc2sgUG9sbm9jIHwgVklJIFd5ZHppYWwgR29zcG9k
-YXJjenkgS3Jham93ZWdvIFJlamVzdHJ1IFNhZG93ZWdvIC0gS1JTIDEwMTg4MiB8IE5JUCA5NTct
-MDctNTItMzE2IHwgS2FwaXRhbCB6YWtsYWRvd3kgMjAwLjAwMCBQTE4uClNwb2xrYSBvc3dpYWRj
-emEsIHplIHBvc2lhZGEgc3RhdHVzIGR1emVnbyBwcnplZHNpZWJpb3JjeSB3IHJvenVtaWVuaXUg
-dXN0YXd5IHogZG5pYSA4IG1hcmNhIDIwMTMgci4gbyBwcnplY2l3ZHppYWxhbml1IG5hZG1pZXJu
-eW0gb3Bvem5pZW5pb20gdyB0cmFuc2FrY2phY2ggaGFuZGxvd3ljaC4KClRhIHdpYWRvbW9zYyB3
-cmF6IHogemFsYWN6bmlrYW1pIGplc3QgcHJ6ZXpuYWN6b25hIGRsYSBva3Jlc2xvbmVnbyBhZHJl
-c2F0YSBpIG1vemUgemF3aWVyYWMgaW5mb3JtYWNqZSBwb3VmbmUuIFcgcmF6aWUgcHJ6eXBhZGtv
-d2VnbyBvdHJ6eW1hbmlhIHRlaiB3aWFkb21vc2NpLCBwcm9zaW15IG8gcG93aWFkb21pZW5pZSBu
-YWRhd2N5IG9yYXogdHJ3YWxlIGplaiB1c3VuaWVjaWU7IGpha2lla29sd2llayBwcnplZ2xhZGFu
-aWUgbHViIHJvenBvd3N6ZWNobmlhbmllIGplc3QgemFicm9uaW9uZS4KVGhpcyBlLW1haWwgYW5k
-IGFueSBhdHRhY2htZW50cyBtYXkgY29udGFpbiBjb25maWRlbnRpYWwgbWF0ZXJpYWwgZm9yIHRo
-ZSBzb2xlIHVzZSBvZiB0aGUgaW50ZW5kZWQgcmVjaXBpZW50KHMpLiBJZiB5b3UgYXJlIG5vdCB0
-aGUgaW50ZW5kZWQgcmVjaXBpZW50LCBwbGVhc2UgY29udGFjdCB0aGUgc2VuZGVyIGFuZCBkZWxl
-dGUgYWxsIGNvcGllczsgYW55IHJldmlldyBvciBkaXN0cmlidXRpb24gYnkgb3RoZXJzIGlzIHN0
-cmljdGx5IHByb2hpYml0ZWQuCg==
 
+
+On 8/17/2023 4:31 PM, Uminski, Piotr wrote:
+>
+>> -----Original Message-----
+>> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+>> open.org> On Behalf Of Zhu, Lingshan
+>> Sent: Tuesday, August 15, 2023 1:30 PM
+>> To: Jason Wang <jasowang@redhat.com>
+>> Cc: mst@redhat.com; eperezma@redhat.com; cohuck@redhat.com; virtio-
+>> comment@lists.oasis-open.org; virtio-dev@lists.oasis-open.org
+>> Subject: [virtio-comment] Re: [RFC PATCH 4/5] virtqueue: constraints for
+>> virtqueue state
+>>
+>>
+>>
+>> On 8/15/2023 8:34 AM, Jason Wang wrote:
+>>> On Mon, Aug 14, 2023 at 7:29 PM Zhu Lingshan <lingshan.zhu@intel.com>
+>> wrote:
+>>>> This commit specifies the constraints of the virtqueue state,
+>>>> and the actions should be taken by the device when SUSPEND
+>>>> and DRIVER_OK is set
+>>>>
+>>>> Signed-off-by: Jason Wang <jasowang@redhat.com>
+>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>> ---
+>>>>    content.tex | 31 +++++++++++++++++++++++++++++++
+>>>>    1 file changed, 31 insertions(+)
+>>>>
+>>>> diff --git a/content.tex b/content.tex
+>>>> index 43bd5de..f6ac581 100644
+>>>> --- a/content.tex
+>>>> +++ b/content.tex
+>>>> @@ -587,6 +587,37 @@ \subsection{\field{Used State} Field}
+>>>>
+>>>>    See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap
+>> Counters}.
+>>>> +\drivernormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio
+>> Device / Virtqueue State}
+>>>> +
+>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated, the driver MUST set
+>> SUSPEND in \field{device status}
+>>>> +first before getting or setting Virtqueue State of any virtqueues.
+>>> I don't get why this is a must. It could be useful for debugging.
+>> To avoid race conditions with the device and make the device
+>> implementation easier
+> It should be possible to set Virtqueue State in two states:
+>   - Before DRIVER_OK - as a part of the queue creation at target system
+> -  After SUSPEND - when the device was activated and then suspended
+> Setting state on active device can produce random results and should be forbidden.
+> We may allow to get Virtqueue State on active device, without SUSPEND. However, we should not mandate the device
+> to report correct value - on some implementations it may be impossible without suspend.
+I agree
+>>>> +
+>>>> +If VIRTIO_F_QUEUE_STATE has been negotiaged but
+>> VIRTIO_RING_F_PACKED not been negotiated,
+>>> typo
+>> yes
+>>>> +the driver MUST NOT access \field{Used State} of any virtqueues, it should
+>> use the
+>>>> +used index in the used ring.
+>>>> +
+>>>> +\devicenormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio
+>> Device / Virtqueue State}
+>>>> +
+>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated but SUSPEND is not set in
+>> \field{device status},
+>>>> +the device MUST ignore any accesses against Virtqueue State of any
+>> virtqueues.
+>>> Btw, do we need to clarify the behavior of ring reset after suspending?
+>> I think once suspended, the device should ignore resetting a queue
+>>>> +
+>>>> +When VIRTIO_F_QUEUE_STATE has been negotiated but
+>> VIRTIO_RING_F_PACKED is not,
+>>>> +the device MUST ignore any accesses against \field{Used State}.
+>>>> +
+>>>> +If VIRTIO_F_QUEUE_STATE has been negotiaged, the device MUST reset
+>>>> +the Virtqueue State of every virtqueue upon a reset.
+>>> Need to define the meaning of "reset" this is important for packed virtqueue.
+>> I will remove this as Stefan suggested.
+>>>> +
+>>>> +If VIRTIO_F_QUEUE_STATE and VIRTIO_RING_F_PACKED have been
+>> negotiaged, when SUSPEND is set,
+>>>> +the device MUST record the Virtqueue State of every enabled virtqueue
+>>>> +in \field{Available State} and \field{Used State} respectively,
+>>>> +and correspondingly restore the Virtqueue State of every enabled virtqueue
+>>>> +from \field{Avaiable State} and \field{Used State} when DRIVER_OK is set.
+>>> We can just let the device report those states in any case then we
+>>> don't need to care about those details, or did you see any blockers?
+>> Agree, I will add the definition of used_state of splitted vq in the
+>> next version
+>>
+>> Thanks
+>>> Thanks
+>>>
+>>>> +
+>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated but
+>> VIRTIO_RING_F_PACKED has been not, when SUSPEND is set,
+>>>> +the device MUST record the available state of every enabled virtqueue in
+>> \field{Available State},
+>>>> +and restore the available state of every enabled virtqueue from
+>> \field{Avaiable State}
+>>>> +when DRIVER_OK is set.
+>>>> +
+>>>>    \input{admin.tex}
+>>>>
+>>>>    \chapter{General Initialization And Device Operation}\label{sec:General
+>> Initialization And Device Operation}
+>>>> --
+>>>> 2.35.3
+>>>>
+>>
+>> This publicly archived list offers a means to provide input to the
+>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>
+>> In order to verify user consent to the Feedback License terms and
+>> to minimize spam in the list archive, subscription is required
+>> before posting.
+>>
+>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>> List help: virtio-comment-help@lists.oasis-open.org
+>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+>> Committee: https://www.oasis-open.org/committees/virtio/
+>> Join OASIS: https://www.oasis-open.org/join/
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
