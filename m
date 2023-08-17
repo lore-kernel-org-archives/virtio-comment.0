@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7185-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7186-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C90C2FC04
-	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 04:57:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96920C2FC04
+	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 05:13:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DE46A799C9
-	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 04:57:12 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id EA3807EAE5
+	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 05:13:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BEACF98641A
-	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 04:57:12 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CFA2198640D
+	for <virtio-comment@archiver.kernel.org>; Thu, 17 Aug 2023 05:13:48 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A8FF6984043; Thu, 17 Aug 2023 04:57:12 +0000 (UTC)
+	id BD6A5984043; Thu, 17 Aug 2023 05:13:48 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,226 +24,206 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8F5E09863F0;
-	Thu, 17 Aug 2023 04:57:12 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ACFE09863F0;
+	Thu, 17 Aug 2023 05:13:48 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lOyC/VxnSyn4VcB2HoxUYYYk7u9fz75gJDkijAmSlEhEHUWODEIMakWlysPw1ZXoaGbY6ZOfFoMEMvII9po5AtE++jaw5d1oi595X+fCIRRDQwmJRaphN8nPrs4K48k8sMEE3ixA8ydQt4W6LzPUksrgIhKiOogn4OXz21LWONhFaW8uSwv6vEtsMNDIkJbn+39FKaBAlONkrzxfJgRuTEoOJqFfifA4F/eUIwqnWXN8fZhzKznVNdKM6UDmU6R3CVgEDPobtVwyx1YO7Fp7SN3eI6Dl2BAnL6Bcl7z+/l5MeBnjha3risr735JymH9GW/6J+yPJT9s2+iySF+Zhgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5/7JwxlJetKnvYBfaUJWDMjsIBUgW10LM0pJ4irfMz4=;
- b=Mxr4Z2tXCVcIkvWsNSyqa8LUnkGdhknw/TVccwu/Tp747Sb5wUYz2fVR7SMtHY01kQ4ZLo7cyCSSePQJWavfb34yn1cF25UosjEku1iYMjkEKvRJhgwRRJlMqpMx+ihHYpA3nh7zXM4ISbXyvVYFiDOzlFYWrdHxMzNQJO/dADOcpCdMlbAF8Oe2rEn/FczlBM/LXKTVlxURlLMMgHCzn8ZRyE4WYW6G2HpQWZwmDnZSp26g6wmJakw9pjG9R4GcHDhNkg8MI6HVuM71XbFURmPD4nEluQNXu9P+cjTuvktSiIOwhqvD4LBEwvEB40bNLZerEw2LF+5MZ+66+U07qQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Heng Qi <hengqi@linux.alibaba.com>
-CC: Shahaf Shuler <shahafs@nvidia.com>, "virtio@lists.oasis-open.org"
-	<virtio@lists.oasis-open.org>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "david.edmondson@oracle.com"
-	<david.edmondson@oracle.com>, "xuanzhuo@linux.alibaba.com"
-	<xuanzhuo@linux.alibaba.com>, "sburla@marvell.com" <sburla@marvell.com>
-Thread-Topic: [PATCH requirements v4 4/7] net-features: Add notification
- coalescing requirements
-Thread-Index: AQHZz0yaD3nRfQHwDE2VYaiYBbnhPK/smUSAgAAkuxCAACAJgIABEMsA
-Date: Thu, 17 Aug 2023 04:57:08 +0000
-Message-ID:
- <PH0PR12MB5481D1A5BA1DD59AE4B6C58CDC1AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R861e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046051;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0Vpyd772_1692249222;
+Message-ID: <3b43db27-08cb-4fd6-b63b-a885b50044c6@linux.alibaba.com>
+Date: Thu, 17 Aug 2023 13:13:40 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Parav Pandit <parav@nvidia.com>
+Cc: Shahaf Shuler <shahafs@nvidia.com>,
+ "virtio@lists.oasis-open.org" <virtio@lists.oasis-open.org>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "david.edmondson@oracle.com" <david.edmondson@oracle.com>,
+ "xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
+ "sburla@marvell.com" <sburla@marvell.com>
 References: <20230815074600.473933-1-parav@nvidia.com>
  <20230815074600.473933-5-parav@nvidia.com>
  <6b48e787-7910-4714-b0a6-ea118c6a072f@linux.alibaba.com>
  <PH0PR12MB54815DBA73F066BFAE3824CBDC15A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <5ce972f4-1efd-400d-bc45-c03e9956f2ce@linux.alibaba.com>
-In-Reply-To: <5ce972f4-1efd-400d-bc45-c03e9956f2ce@linux.alibaba.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|MW3PR12MB4364:EE_
-x-ms-office365-filtering-correlation-id: a411a048-3284-42e2-1f21-08db9ede6948
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- txOltPynVXXz2+izesJiw3p8Y0Ztl74gX+GkRd6tnHeu20ZbhDSPTv6TJuTItl5l/XqCmD7DtZS4MqIsvrOBiHqED08gRZHbd3xljIKNtJXk59b7OYjZiNeC865wcZx5KwlV0LLsO91YuxEm1L9sgMPJB3t9/AKKafpoN2NKmtg1AsYh0EO4gHjVrxixkTD5fr2MDB18Put1eQpOknyzRLw3oR5Qc0UG1EB6YAJ/HTkkkF0DJMqZ5XJq6p3mTbVaaoWpiaJBknB/UmIyAzJkkapLkSWN5WCldKt8r1/p7sWgCaIhVtpb8fvH9mXcDkr7CHwyZjtY4+sFJJIbfDTCD9nDpRcf90LpIUTypB2uOH1xXoFM+6RJfTT3j+5F2rgtCpiRoKj18GDMEM0gJmUzE4uQqtVldTlFdLAHKNEfUjc+5P+4xkH1Zc3G8rtjamr1K0MPhq8PKqQO8xrACcUq5+h8I9/6EGNiscmKiPTmzJckQ1cg/HR6514YU4XTkK1bjwq14pHOLotyNVy0zdyV0BvA8z3w7HxdGi3Gsv7jFKntyseQKmUe8FsHLUMXpl4ZmvB4ODMRvU8HiUkDKL+Kkghm3075aF4p2zq6ichzJ/exagK+4eczx+27woYfHDS1
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(366004)(376002)(39860400002)(396003)(346002)(1800799009)(451199024)(186009)(15650500001)(2906002)(83380400001)(86362001)(478600001)(6506007)(7696005)(71200400001)(33656002)(9686003)(55016003)(5660300002)(52536014)(41300700001)(66446008)(122000001)(54906003)(316002)(66556008)(66946007)(66476007)(76116006)(64756008)(6916009)(8676002)(4326008)(8936002)(38100700002)(38070700005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?eHl5T1ZJSXBYa0Y0YkVRSTd5bm1QUklWamNEOTlGMnZ0bTlLNzdWdk9qQjVn?=
- =?utf-8?B?VWxjTi85aE5HYWt3c2RURTlEWk5KOW53c2NseUVOMzdGRnV4a3dnYk9wM1R3?=
- =?utf-8?B?OHZDamVsTEtVSXROSEJSYU1VQlh2bjdpclVOOXVUOEpJMGw4TmRrWkQ5TlFP?=
- =?utf-8?B?d2tJUHF6MzdOQlZmejNoWmwzR3I2L0xFcUJ6VlJwaHhBeTNvWTQrQ0wvTkcv?=
- =?utf-8?B?OWZkK3lhdzlzVEZLRDlpWjZEdEwrZ3pNRkpsdkJodGFBbkV3RHBKbitJajNo?=
- =?utf-8?B?TG9EejFGQVdJTEhzbnNUTEVscVBKY3Y2WXc3Nzk4M3NUN3pnVEZGS2NxeE9M?=
- =?utf-8?B?aHEzM2Q0VTFHTkNDSHRTK1YyRmRIQlZOZWhkRW5hTkdBemJIcVQzT0lscWxE?=
- =?utf-8?B?aXVEQk1Eb3FSODAxS3VRdE10bkdiS1hlWkFwSG9VYUxYMzA3V0kzL2tlaFFP?=
- =?utf-8?B?Z2dCT3RnakxFc044OTNkemxuN3lYZUxnYVM4UnJEZXNmeGtXNE9yYUJjZ2ZT?=
- =?utf-8?B?OWJyTFVlc2h5L1hQVUFubDQ3bjRzYTUxVGljanc1bjVERGVOUTBlc0xEQS9T?=
- =?utf-8?B?aUIreVByMFFvenJJekVud1ZyUU1zRWNrVk9mV2psUEllcFA0ekxObTRpWUto?=
- =?utf-8?B?WFZTUXdrdm5jT3V0UkF1ZmU3N2FKeWlvK0srcTJ3TjlMeDluRitEUEoyL2Yr?=
- =?utf-8?B?UWJ5WWJkODJSVk1RTm8rUmJhUFpFbUJ4dTEydVZDMmhHcWlpbzRGQzdlN2ZR?=
- =?utf-8?B?MkdYSUFMc3Vwb3hFMDVCc1plVEhqODltYXE4UVNCTGJpcWFyNHRtOHVwTlVE?=
- =?utf-8?B?bkhVTzBnaXZxV2J1K2ZNaVl0Smtob2Zvcjd3MWJiTEVoSGh1V251aDBJVjlV?=
- =?utf-8?B?aUM5ak51eTI2TDdMUnVQT0t0emNDdnhidGVsYnI1amlyazN6ZlZHVVJDVHJn?=
- =?utf-8?B?TE5HdEEvM1JpTVhxRXlqQlhDVE84WklsTWFCenQwNERkZk5uMExCMnpMQndI?=
- =?utf-8?B?ZHgwWnMzMlo1cEVxdC8rb3pENktHUU1sMjBYQUJTRThxRWU3TXNOcll4TUZD?=
- =?utf-8?B?NExadm94bU10Z3d5NHFKOFd0Y0VPbUkxM1J5dWpTRWRkR2xsQmE1MHhqYlRu?=
- =?utf-8?B?RjlMSHJJRllzRUdJc3dKMVFYYlIrMnllRmdvRXZxZklxNWJ3RlhQOFFsMng1?=
- =?utf-8?B?M2JIVUY5aDNjSERCaFNnR3p4RFBkOWUzV091VzBGRkh1dFZiQndJQnUzaUJl?=
- =?utf-8?B?bDUybHpLT1BQMmVWWXVCczVhMjB3TUFZL1YvRFlhTWREcDBRVVNMaVpPdFRP?=
- =?utf-8?B?ZWIxb0gyb0dFWm1YbmlmN0oyVUFTdWtycTJ3b2tQcUZ2a01YdkhVS2JwNmQw?=
- =?utf-8?B?dkpaaWhhOHJwNWtWSU53V1AxZWRwdG9ZTEtvajY1MTVKdlR3S2ZTTVJqeURt?=
- =?utf-8?B?MWxXbzlBVzJWMW80YVBqOUZtbUtIU0FWMTNENHhYdjNpQkIwOFZxUFJLY3Z1?=
- =?utf-8?B?ZzBTWldmby9hZHdtSVJlSmp2TEhIS2w2RHUzWHBzeFlFRlRzS0xjWkQ4TUxF?=
- =?utf-8?B?Zk51L2p4QkdnWlN3cS90MWRjaEFFOWhKbVZjOWg0RENCMXVVeDhsY1psK0ps?=
- =?utf-8?B?cG50ekhDNTBNd3dTWXM0YW9hL3lkNm1mVWR3Z0cxYzJWUXQwSExtbXhlU2VL?=
- =?utf-8?B?cmlVa1JPcWFTaUxFNW5LYTQxb2UrMEdhL1NpN1BsTWZ4M3ZTbk9pT1Q1Yzd6?=
- =?utf-8?B?VmphZFovT1NMR0tPNWNjQ2QzM0hJTTU5L0ZkcXJKVTNLcTVuOFdVdFlpbnIy?=
- =?utf-8?B?b3NxNUVZdUMvS1dvRGttUFdkbjVIZDgvOHdiU2xFemVOdlA1aVBLbjZnblVX?=
- =?utf-8?B?WlFmWlVHN2RLZ0JJSjh2VUVoZ3djNlVRamhsZWRoRXpzZHM2SUJBTmczb1Rh?=
- =?utf-8?B?eWVCY09mZGFnNGtOZ2dFMFMwaXlaTDRSUXh1R0hWZ2JSdUhidkZoRERnQnhx?=
- =?utf-8?B?ZHhUcjhkZWJYaUdBUml6NlNiYVdyaFZ5MXVJanVZNUdKdm5FN1lVV3hIc1la?=
- =?utf-8?B?eDFyUDRlQUFQSmJCZGtMV3NzWnRMNkladnFmRWN1ejJ0Y2VnUVhMVzZRUE5Q?=
- =?utf-8?B?WFA4RkN0OWdGam50WFFFSVhJNDliditEZ3ljeW1ja3BKQVJySm01SnN4czl3?=
- =?utf-8?Q?j/cjJWuLIGWJZUkrj2aX8qw=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a411a048-3284-42e2-1f21-08db9ede6948
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2023 04:57:08.8860
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OrWlk4Xb5oABXuFuGMYZKTTNQAu4WaIVgrASi8z+cxb9S17LtPfizxEEbjHeEPZ6sdPwAiZYA0pJ4NXVbJ4S6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4364
-Subject: [virtio-comment] RE: [PATCH requirements v4 4/7] net-features: Add notification
+ <PH0PR12MB5481D1A5BA1DD59AE4B6C58CDC1AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: Heng Qi <hengqi@linux.alibaba.com>
+In-Reply-To: <PH0PR12MB5481D1A5BA1DD59AE4B6C58CDC1AA@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH requirements v4 4/7] net-features: Add notification
  coalescing requirements
 
-DQoNCj4gRnJvbTogSGVuZyBRaSA8aGVuZ3FpQGxpbnV4LmFsaWJhYmEuY29tPg0KPiBTZW50OiBX
-ZWRuZXNkYXksIEF1Z3VzdCAxNiwgMjAyMyA2OjA3IFBNDQo+IA0KPiANCj4g5ZyoIDIwMjMvOC8x
-NiDkuIvljYg2OjQ2LCBQYXJhdiBQYW5kaXQg5YaZ6YGTOg0KPiA+DQo+ID4+IEZyb206IEhlbmcg
-UWkgPGhlbmdxaUBsaW51eC5hbGliYWJhLmNvbT4NCj4gPj4gU2VudDogV2VkbmVzZGF5LCBBdWd1
-c3QgMTYsIDIwMjMgMjowMSBQTQ0KPiA+Pg0KPiA+PiDlnKggMjAyMy84LzE1IOS4i+WNiDM6NDUs
-IFBhcmF2IFBhbmRpdCDlhpnpgZM6DQo+ID4+PiBBZGQgdmlydGlvIG5ldCBkZXZpY2Ugbm90aWZp
-Y2F0aW9uIGNvYWxlc2NpbmcgaW1wcm92ZW1lbnRzIHJlcXVpcmVtZW50cy4NCj4gPj4+DQo+ID4+
-PiBTaWduZWQtb2ZmLWJ5OiBQYXJhdiBQYW5kaXQgPHBhcmF2QG52aWRpYS5jb20+DQo+ID4+PiBB
-Y2tlZC1ieTogRGF2aWQgRWRtb25kc29uIDxkYXZpZC5lZG1vbmRzb25Ab3JhY2xlLmNvbT4NCj4g
-Pj4+DQo+ID4+PiAtLS0NCj4gPj4+IGNoYW5nZWxvZzoNCj4gPj4+IHYzLT52NDoNCj4gPj4+IC0g
-bm8gY2hhbmdlDQo+ID4+Pg0KPiA+Pj4gdjEtPnYyOg0KPiA+Pj4gLSBhZGRyZXNzZWQgY29tbWVu
-dHMgZnJvbSBTdGVmYW4NCj4gPj4+IC0gcmVkcmFmdGVkIHRoZSByZXF1aXJlbWVudHMgdG8gdXNl
-IHJlYXJtIHRlcm0gYW5kIGF2b2lkIHF1ZXVlIGVuYWJsZQ0KPiA+Pj4gICAgIGNvbmZ1c2lvbg0K
-PiA+Pj4gdjAtPnYxOg0KPiA+Pj4gLSB1cGRhdGVkIHRoZSBkZXNjcmlwdGlvbg0KPiA+Pj4gLS0t
-DQo+ID4+PiAgICBuZXQtd29ya3N0cmVhbS9mZWF0dXJlcy0xLjQubWQgfCAxMSArKysrKysrKysr
-Kw0KPiA+Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKykNCj4gPj4+DQo+ID4+
-PiBkaWZmIC0tZ2l0IGEvbmV0LXdvcmtzdHJlYW0vZmVhdHVyZXMtMS40Lm1kDQo+ID4+PiBiL25l
-dC13b3Jrc3RyZWFtL2ZlYXR1cmVzLTEuNC5tZCBpbmRleCA3MmQwNGJkLi5jYjcyNDQyIDEwMDY0
-NA0KPiA+Pj4gLS0tIGEvbmV0LXdvcmtzdHJlYW0vZmVhdHVyZXMtMS40Lm1kDQo+ID4+PiArKysg
-Yi9uZXQtd29ya3N0cmVhbS9mZWF0dXJlcy0xLjQubWQNCj4gPj4+IEBAIC04LDYgKzgsNyBAQCB0
-b2dldGhlciBpcyBkZXNpcmVkIHdoaWxlIHVwZGF0aW5nIHRoZSB2aXJ0aW8gbmV0DQo+IGludGVy
-ZmFjZS4NCj4gPj4+ICAgICMgMi4gU3VtbWFyeQ0KPiA+Pj4gICAgMS4gRGV2aWNlIGNvdW50ZXJz
-IHZpc2libGUgdG8gdGhlIGRyaXZlcg0KPiA+Pj4gICAgMi4gTG93IGxhdGVuY3kgdHggYW5kIHJ4
-IHZpcnRxdWV1ZXMgZm9yIFBDSSB0cmFuc3BvcnQNCj4gPj4+ICszLiBWaXJ0cXVldWUgbm90aWZp
-Y2F0aW9uIGNvYWxlc2NpbmcgcmUtYXJtaW5nIHN1cHBvcnQNCj4gPj4+DQo+ID4+PiAgICAjIDMu
-IFJlcXVpcmVtZW50cw0KPiA+Pj4gICAgIyMgMy4xIERldmljZSBjb3VudGVycw0KPiA+Pj4gQEAg
-LTE3MiwzICsxNzMsMTMgQEAgc3RydWN0IHZuZXRfcnhfY29tcGxldGlvbiB7DQo+ID4+PiAgICAg
-ICB3aGljaCBjYW4gYmUgcmVjeWNsZWQgYnkgdGhlIGRyaXZlciB3aGVuIHRoZSBwYWNrZXRzIGZy
-b20gdGhlDQo+IGNvbXBsZXRlZA0KPiA+Pj4gICAgICAgcGFnZSBpcyBmdWxseSBjb25zdW1lZC4N
-Cj4gPj4+ICAgIDguIFRoZSBkZXZpY2Ugc2hvdWxkIGJlIGFibGUgdG8gY29uc3VtZSBtdWx0aXBs
-ZSBwYWdlcyBmb3IgYQ0KPiA+Pj4gcmVjZWl2ZSBHU08NCj4gPj4gc3RyZWFtLg0KPiA+Pj4gKw0K
-PiA+Pj4gKyMjIDMuMyBWaXJ0cXVldWUgbm90aWZpY2F0aW9uIGNvYWxlc2NpbmcgcmUtYXJtaW5n
-IHN1cHBvcnQgMC4NCj4gPj4+ICtEZXNpZ24NCj4gPj4+ICtnb2FsOg0KPiA+Pj4gKyAgIGEuIEF2
-b2lkIGNvbnN0YW50IG5vdGlmaWNhdGlvbnMgZnJvbSB0aGUgZGV2aWNlIGV2ZW4gaW4gY29uZGl0
-aW9ucyB3aGVuDQo+ID4+PiArICAgICAgdGhlIGRyaXZlciBtYXkgbm90IGhhdmUgYWN0ZWQgb24g
-dGhlIHByZXZpb3VzIHBlbmRpbmcgbm90aWZpY2F0aW9uLg0KPiA+Pj4gKzEuIFdoZW4gVHggYW5k
-IFJ4IHZpcnRxdWV1ZSBub3RpZmljYXRpb24gY29hbGVzY2luZyBpcyBlbmFibGVkLCBhbmQNCj4g
-Pj4+ICt3aGVuDQo+ID4+IHN1Y2gNCj4gPj4+ICsgICBhIG5vdGlmaWNhdGlvbiBpcyByZXBvcnRl
-ZCBieSB0aGUgZGV2aWNlLCB0aGUgZGV2aWNlIHN0b3BzIHNlbmRpbmcgZnVydGhlcg0KPiA+Pj4g
-KyAgIG5vdGlmaWNhdGlvbnMgdW50aWwgdGhlIGRyaXZlciByZWFybXMgdGhlIG5vdGlmaWNhdGlv
-bnMgb2YgdGhlIHZpcnRxdWV1ZS4NCj4gPj4+ICsyLiBXaGVuIHRoZSBkcml2ZXIgcmVhcm1zIHRo
-ZSBub3RpZmljYXRpb24gb2YgdGhlIHZpcnRxdWV1ZSwgdGhlIGRldmljZQ0KPiA+Pj4gKyAgIHRv
-IG5vdGlmeSBhZ2FpbiBpZiBub3RpZmljYXRpb24gY29hbGVzY2luZyBjb25kaXRpb25zIGFyZSBt
-ZXQuDQo+ID4+IEknbSB3b25kZXJpbmcgaG93IHRoaXMgcmVsYXRlcyB0byB0aGUgZXhpc3Rpbmcg
-bm90aWZpY2F0aW9uDQo+ID4+IGNvYWxlc2luZ1sxXSBhbmQgbm90aWZpY2F0aW9uIHN1cHByZXNz
-aW9uWzJdOg0KPiA+Pg0KPiA+PiBbMV0NCj4gPj4gVGhlIGRldmljZSBzZW5kcyBhIHVzZWQgYnVm
-ZmVyIG5vdGlmaWNhdGlvbiBvbmNlIHRoZSBub3RpZmljYXRpb24NCj4gPj4gY29uZGl0aW9ucyBh
-cmUgbWV0IGFuZCBpZiB0aGUgbm90aWZpY2F0aW9ucyBhcmUgbm90IHN1cHByZXNzZWQgYXMNCj4g
-Pj4gZXhwbGFpbmVkIGluIFxyZWZ7c2VjOkJhc2ljIEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2
-aWNlIC8NCj4gPj4gVmlydHF1ZXVlcyAvIFVzZWQgQnVmZmVyIE5vdGlmaWNhdGlvbiBTdXBwcHJl
-c3Npb259Lg0KPiA+Pg0KPiA+PiBbMl0NCj4gPj4gSWYgdGhlIFZJUlRJT19GX0VWRU5UX0lEWCBm
-ZWF0dXJlIGJpdCBpcyBub3QgbmVnb3RpYXRlZDoNCj4gPj4gXGJlZ2lue2l0ZW1pemV9DQo+ID4+
-IFxpdGVtIFRoZSBkcml2ZXIgTVVTVCBpZ25vcmUgdGhlIFxmaWVsZHthdmFpbF9ldmVudH0gdmFs
-dWUuDQo+ID4+IFxpdGVtIEFmdGVyIHRoZSBkcml2ZXIgd3JpdGVzIGEgZGVzY3JpcHRvciBpbmRl
-eCBpbnRvIHRoZSBhdmFpbGFibGUgcmluZzoNCj4gPj4gICDCoMKgIFxiZWdpbntpdGVtaXplfQ0K
-PiA+PiAgIMKgwqDCoMKgwqDCoMKgwqAgXGl0ZW0gSWYgXGZpZWxke2ZsYWdzfSBpcyAxLCB0aGUg
-ZHJpdmVyIFNIT1VMRCBOT1Qgc2VuZCBhIG5vdGlmaWNhdGlvbi4NCj4gPj4gICDCoMKgwqDCoMKg
-wqDCoMKgIFxpdGVtIElmIFxmaWVsZHtmbGFnc30gaXMgMCwgdGhlIGRyaXZlciBNVVNUIHNlbmQg
-YSBub3RpZmljYXRpb24uDQo+ID4+ICAgwqDCoCBcZW5ke2l0ZW1pemV9DQo+ID4+IFxlbmR7aXRl
-bWl6ZX0NCj4gPj4NCj4gPj4gT3RoZXJ3aXNlLCBpZiB0aGUgVklSVElPX0ZfRVZFTlRfSURYIGZl
-YXR1cmUgYml0IGlzIG5lZ290aWF0ZWQ6DQo+ID4+IFxiZWdpbntpdGVtaXplfQ0KPiA+PiBcaXRl
-bSBUaGUgZHJpdmVyIE1VU1QgaWdub3JlIHRoZSBsb3dlciBiaXQgb2YgXGZpZWxke2ZsYWdzfS4N
-Cj4gPj4gXGl0ZW0gQWZ0ZXIgdGhlIGRyaXZlciB3cml0ZXMgYSBkZXNjcmlwdG9yIGluZGV4IGlu
-dG8gdGhlIGF2YWlsYWJsZSByaW5nOg0KPiA+PiAgIMKgwqAgXGJlZ2lue2l0ZW1pemV9DQo+ID4+
-ICAgwqDCoMKgwqDCoMKgwqDCoCBcaXRlbSBJZiB0aGUgXGZpZWxke2lkeH0gZmllbGQgaW4gdGhl
-IGF2YWlsYWJsZSByaW5nICh3aGljaCBkZXRlcm1pbmVkDQo+ID4+ICAgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgd2hlcmUgdGhhdCBkZXNjcmlwdG9yIGluZGV4IHdhcyBwbGFjZWQpIHdhcyBlcXVhbCB0
-bw0KPiA+PiAgIMKgwqDCoMKgwqDCoMKgwqDCoMKgIFxmaWVsZHthdmFpbF9ldmVudH0sIHRoZSBk
-cml2ZXIgTVVTVCBzZW5kIGEgbm90aWZpY2F0aW9uLg0KPiA+PiAgIMKgwqDCoMKgwqDCoMKgwqAg
-XGl0ZW0gT3RoZXJ3aXNlIHRoZSBkcml2ZXIgU0hPVUxEIE5PVCBzZW5kIGEgbm90aWZpY2F0aW9u
-Lg0KPiA+PiAgIMKgwqAgXGVuZHtpdGVtaXplfQ0KPiA+PiBcZW5ke2l0ZW1pemV9DQo+ID4+DQo+
-ID4+IFJlZ2FyZGluZyBub3RpZmljYXRpb24gc3VwcHJlc3Npb246DQo+ID4+IDEuV2hlbiB0aGVy
-ZSBpcyBWSVJUSU9fTkVUX0ZfRVZFTlRfSURYLCBldmVuIGlmIHRoZSBub3RpZmljYXRpb24NCj4g
-Pj4gY29hbGVzaW5nIGNvbmRpdGlvbiBpcyBtZXQsIHdlIG5lZWQgdG8gd2FpdCBmb3IgdGhlIHVz
-ZWRfZXZlbnQNCj4gPj4gbm90aWZpY2F0aW9uIGNvbmRpdGlvbiB0byBiZSBtZXQodGhlIGRyaXZl
-ciBkb2VzIG5vdCByZWFybXMgdGhlDQo+ID4+IG5vdGlmaWNhdGlvbiBvZiB0aGUgdmlydHF1ZXVl
-IG5vdyBhbmQgdGhlIGF2YWlsIHJpbmfCoCBpcyBzZXQNCj4gVlJJTkdfQVZBSUxfRl9OT19JTlRF
-UlJVUFQgaW4gZmxhZykuDQo+ID4+IDIuV2hlbiB0aGVyZSBpcyBubyBWSVJUSU9fTkVUX0ZfRVZF
-TlRfSURYLCBpZiB0aGUgZHJpdmVyIHR1cm5zIG9mZg0KPiA+PiB0aGUgbm90aWZpY2F0aW9uLCBl
-dmVuIGlmIHRoZSBub3RpZGljYXRpb24gY29uZGl0aW9uIGlzIG1ldCwgdGhlDQo+ID4+IGRldmlj
-ZSBjYW5ub3Qgc2VuZCB0aGUgbm90aWZpY2F0aW9uLg0KPiA+Pg0KPiA+PiBUaGVyZWZvcmUsIGlm
-IEknbSBub3Qgd3JvbmcsIGEgZGV2aWNlIGNhbiBpc3N1ZSBhIG5vdGlmaWNhdGlvbiBvbmx5DQo+
-ID4+IGlmIHRoZSBkZXZpY2UgaXMgbm90IHN1cHByZXNzZWQgZnJvbSBub3RpZnlpbmcgdGhlIGRy
-aXZlci4NCj4gPj4gWzFdWzJdIHNlZW1zIHRvIGhhdmUgbWV0IHRoaXMgY29uZGl0aW9uLg0KPiA+
-IE5vdGlmaWNhdGlvbiBzdXBwcmVzc2lvbiB1c2luZyBfRVZFTlRfSURYIGZvciBub24tbWVtb3J5
-IHRyYW5zcG9ydCBpcyBqdXN0DQo+IHN1Yi1vcHRpbWFsIGZvciB0d28gcmVhc29ucy4NCj4gPg0K
-PiA+IDEuIEl0IHJlcXVpcmVzIGRldmljZSB0byBwb2xsIG9uIHRoZSB1c2VkIGV2ZW50IHRvIGxl
-YXJuIGFib3V0IHdoZW4gdG8NCj4gPiB1bi1zdXBwcmVzcy4gKGFybSkgMi4gdGhpcyBiaXQgYWxz
-byBjb250cm9scyBkcml2ZXIgbm90aWZpY2F0aW9ucyB5ZXQNCj4gPiBhZ2FpbiBkZW1hbmQgZGV2
-aWNlIHRvIGFyYml0cmFyaWx5IHBvbGwgb24gbmV3IGRlc2NyaXB0b3JzIHBvc3RpbmcNCj4gPg0K
-PiA+IEhlbmNlLCBhbiBlZmZpY2llbnQgc2NoZW1lIGlzIG5lZWRlZCBhbmQgZGV2aWNlIG5vdGlm
-aWNhdGlvbnMgdG8gYmUgZGV0YWNoZWQNCj4gZnJvbSBkcml2ZXIgbm90aWZpY2F0aW9uLg0KPiA+
-IEFuZCBub3cgdGhhdCBWUSBsZXZlbCBub3RpZmljYXRpb24gY29hbGVzY2luZyBpcyBpbiBwbGFj
-ZSwgd2hpY2ggc3VwcHJlc3Nlcw0KPiB0aGUgZGV2aWNlIG5vdGlmaWNhdGlvbnMsIGl0IGlzIGxv
-Z2ljYWwgdG8gY29tYmluZSBpdCB3aXRoIFZRIGRldmljZSBub3RpZmljYXRpb25zLg0KPiA+DQo+
-IA0KPiBMZXQgbWUgc3VtbWFyaXplOg0KPiAxLiBXaGVuIHVzZWQgaWR4IG5vdGlmaWNhdGlvbiBp
-cyBzYXRpc2ZpZWQsIGJ1dCBjb2FsZXNjaW5nIGlzIG5vdCBzYXRpc2ZpZWQsIHRoZQ0KPiBkcml2
-ZXIgY29udGludWVzIHRvIHN1cHByZXNzIGRldmljZSBub3RpZmljYXRpb25zLg0KQWNrLg0KDQo+
-IDIuIFdoZW4gdXNlZCBpZHggbm90aWZpY2F0aW9uIGlzIG5vdCBzYXRpc2ZpZWQsIGV2ZW4gaWYg
-Y29hbGVzY2luZyBpcyBzYXRpc2ZpZWQsIHRoZQ0KPiBkZXZpY2Ugc3RpbGwgY2Fubm90IG5vdGlm
-eSB0aGUgZHJpdmVyLg0KQWNrLg0KDQo+IEkgdGhpbmsgdGhhdCdzIHdoYXQgY29hbGVzY2luZyBk
-b2VzLCBhbmQgdGhlIGRlc2NyaXB0aW9uIGJlbG93IGhhcyBzYXRpc2ZpZWQgdGhpcw0KPiBiZWhh
-dmlvcjoNCj4gIlRoZSBkZXZpY2Ugc2VuZHMgYSB1c2VkIGJ1ZmZlciBub3RpZmljYXRpb24gb25j
-ZSB0aGUgbm90aWZpY2F0aW9uIGNvbmRpdGlvbnMNCj4gYXJlIG1ldCBhbmQgaWYgdGhlIG5vdGlm
-aWNhdGlvbnMgYXJlIG5vdCBzdXBwcmVzc2VkIGFzIGV4cGxhaW5lZCBpbiBccmVme3NlYzpCYXNp
-Yw0KPiBGYWNpbGl0aWVzIG9mIGEgVmlydGlvIERldmljZSAvIFZpcnRxdWV1ZXMgLyBVc2VkIEJ1
-ZmZlciBOb3RpZmljYXRpb24NCj4gU3VwcHByZXNzaW9ufS4iDQo+DQpBY2suDQp0aGUgcHJvcG9z
-YWwgaGVyZSBpcyB0byBub3QgdXNlIEVWRU5UX0lEWCBzY2hlbWUsIGluc3RlYWQgZHJpdmVyIHRv
-IGVuYWJsZS9kaXNhYmxlIG5vdGlmaWNhdGlvbiBjb2FsZXNjaW5nIGluIGRpZmZlcmVudCB3YXks
-IGV2ZW4gd2hlbiBub3RpZmljYXRpb24gY29hbGVzY2luZyBwYXJhbWV0ZXJzIGFyZSBjb25maWd1
-cmVkLg0KQW5kIHRoaXMgdG8gYmUgZG9uZSBpbiBmYWlybHkgZmFzdCB3YXkgKG5vdCBsaWtlIGEg
-Y3ZxKSBjb21tYW5kLiBGb3IgZXhhbXBsZSBsaWtlIGRyaXZlciBub3RpZmljYXRpb25zLg0KIA0K
-PiBPciB3ZSB3YW50IHRvIHNheSB0aGF0IGl0IGhhcyBub3RoaW5nIHRvIGRvIHdpdGggdGhlIHVz
-ZWQgaWR4IG5vdGlmaWNhdGlvbi4gDQoNCldoZW4NCj4gdGhlIGNvYWxlc2NpbmcgaXMgc2F0aXNm
-aWVkIGFuZCB0aGUgZHJpdmVyIHJlYXJtcyB0aGUgbm90aWZpY2F0aW9uIG9mIHRoZQ0KPiB2aXJ0
-cXVldWUsIHRoZSBkZXZpY2Ugbm93IHNlbmQgYSBub3RpZmljYXRpb24uDQo+IA0KUmlnaHQuDQpG
-X05PVElGSU9OX0FSTSBpcyBtdXR1YWxseSBleGNsdXNpdmUgd2l0aCBGX0VWRU5UX0lEWC4NCihM
-aWtlIHBhY2tlZCB2cSBpcyBtdXR1YWxseSBleGNsdXNpdmUgd2l0aCBzcGxpdCBxLikNCg==
+
+
+在 2023/8/17 下午12:57, Parav Pandit 写道:
+>
+>> From: Heng Qi <hengqi@linux.alibaba.com>
+>> Sent: Wednesday, August 16, 2023 6:07 PM
+>>
+>>
+>> 在 2023/8/16 下午6:46, Parav Pandit 写道:
+>>>> From: Heng Qi <hengqi@linux.alibaba.com>
+>>>> Sent: Wednesday, August 16, 2023 2:01 PM
+>>>>
+>>>> 在 2023/8/15 下午3:45, Parav Pandit 写道:
+>>>>> Add virtio net device notification coalescing improvements requirements.
+>>>>>
+>>>>> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>>>>> Acked-by: David Edmondson <david.edmondson@oracle.com>
+>>>>>
+>>>>> ---
+>>>>> changelog:
+>>>>> v3->v4:
+>>>>> - no change
+>>>>>
+>>>>> v1->v2:
+>>>>> - addressed comments from Stefan
+>>>>> - redrafted the requirements to use rearm term and avoid queue enable
+>>>>>      confusion
+>>>>> v0->v1:
+>>>>> - updated the description
+>>>>> ---
+>>>>>     net-workstream/features-1.4.md | 11 +++++++++++
+>>>>>     1 file changed, 11 insertions(+)
+>>>>>
+>>>>> diff --git a/net-workstream/features-1.4.md
+>>>>> b/net-workstream/features-1.4.md index 72d04bd..cb72442 100644
+>>>>> --- a/net-workstream/features-1.4.md
+>>>>> +++ b/net-workstream/features-1.4.md
+>>>>> @@ -8,6 +8,7 @@ together is desired while updating the virtio net
+>> interface.
+>>>>>     # 2. Summary
+>>>>>     1. Device counters visible to the driver
+>>>>>     2. Low latency tx and rx virtqueues for PCI transport
+>>>>> +3. Virtqueue notification coalescing re-arming support
+>>>>>
+>>>>>     # 3. Requirements
+>>>>>     ## 3.1 Device counters
+>>>>> @@ -172,3 +173,13 @@ struct vnet_rx_completion {
+>>>>>        which can be recycled by the driver when the packets from the
+>> completed
+>>>>>        page is fully consumed.
+>>>>>     8. The device should be able to consume multiple pages for a
+>>>>> receive GSO
+>>>> stream.
+>>>>> +
+>>>>> +## 3.3 Virtqueue notification coalescing re-arming support 0.
+>>>>> +Design
+>>>>> +goal:
+>>>>> +   a. Avoid constant notifications from the device even in conditions when
+>>>>> +      the driver may not have acted on the previous pending notification.
+>>>>> +1. When Tx and Rx virtqueue notification coalescing is enabled, and
+>>>>> +when
+>>>> such
+>>>>> +   a notification is reported by the device, the device stops sending further
+>>>>> +   notifications until the driver rearms the notifications of the virtqueue.
+>>>>> +2. When the driver rearms the notification of the virtqueue, the device
+>>>>> +   to notify again if notification coalescing conditions are met.
+>>>> I'm wondering how this relates to the existing notification
+>>>> coalesing[1] and notification suppression[2]:
+>>>>
+>>>> [1]
+>>>> The device sends a used buffer notification once the notification
+>>>> conditions are met and if the notifications are not suppressed as
+>>>> explained in \ref{sec:Basic Facilities of a Virtio Device /
+>>>> Virtqueues / Used Buffer Notification Supppression}.
+>>>>
+>>>> [2]
+>>>> If the VIRTIO_F_EVENT_IDX feature bit is not negotiated:
+>>>> \begin{itemize}
+>>>> \item The driver MUST ignore the \field{avail_event} value.
+>>>> \item After the driver writes a descriptor index into the available ring:
+>>>>       \begin{itemize}
+>>>>             \item If \field{flags} is 1, the driver SHOULD NOT send a notification.
+>>>>             \item If \field{flags} is 0, the driver MUST send a notification.
+>>>>       \end{itemize}
+>>>> \end{itemize}
+>>>>
+>>>> Otherwise, if the VIRTIO_F_EVENT_IDX feature bit is negotiated:
+>>>> \begin{itemize}
+>>>> \item The driver MUST ignore the lower bit of \field{flags}.
+>>>> \item After the driver writes a descriptor index into the available ring:
+>>>>       \begin{itemize}
+>>>>             \item If the \field{idx} field in the available ring (which determined
+>>>>               where that descriptor index was placed) was equal to
+>>>>               \field{avail_event}, the driver MUST send a notification.
+>>>>             \item Otherwise the driver SHOULD NOT send a notification.
+>>>>       \end{itemize}
+>>>> \end{itemize}
+>>>>
+>>>> Regarding notification suppression:
+>>>> 1.When there is VIRTIO_NET_F_EVENT_IDX, even if the notification
+>>>> coalesing condition is met, we need to wait for the used_event
+>>>> notification condition to be met(the driver does not rearms the
+>>>> notification of the virtqueue now and the avail ring  is set
+>> VRING_AVAIL_F_NO_INTERRUPT in flag).
+>>>> 2.When there is no VIRTIO_NET_F_EVENT_IDX, if the driver turns off
+>>>> the notification, even if the notidication condition is met, the
+>>>> device cannot send the notification.
+>>>>
+>>>> Therefore, if I'm not wrong, a device can issue a notification only
+>>>> if the device is not suppressed from notifying the driver.
+>>>> [1][2] seems to have met this condition.
+>>> Notification suppression using _EVENT_IDX for non-memory transport is just
+>> sub-optimal for two reasons.
+>>> 1. It requires device to poll on the used event to learn about when to
+>>> un-suppress. (arm) 2. this bit also controls driver notifications yet
+>>> again demand device to arbitrarily poll on new descriptors posting
+>>>
+>>> Hence, an efficient scheme is needed and device notifications to be detached
+>> from driver notification.
+>>> And now that VQ level notification coalescing is in place, which suppresses
+>> the device notifications, it is logical to combine it with VQ device notifications.
+>> Let me summarize:
+>> 1. When used idx notification is satisfied, but coalescing is not satisfied, the
+>> driver continues to suppress device notifications.
+> Ack.
+>
+>> 2. When used idx notification is not satisfied, even if coalescing is satisfied, the
+>> device still cannot notify the driver.
+> Ack.
+>
+>> I think that's what coalescing does, and the description below has satisfied this
+>> behavior:
+>> "The device sends a used buffer notification once the notification conditions
+>> are met and if the notifications are not suppressed as explained in \ref{sec:Basic
+>> Facilities of a Virtio Device / Virtqueues / Used Buffer Notification
+>> Supppression}."
+>>
+> Ack.
+> the proposal here is to not use EVENT_IDX scheme, instead driver to enable/disable notification coalescing in different way, even when notification coalescing parameters are configured.
+> And this to be done in fairly fast way (not like a cvq) command. For example like driver notifications.
+>   
+>> Or we want to say that it has nothing to do with the used idx notification.
+> When
+>> the coalescing is satisfied and the driver rearms the notification of the
+>> virtqueue, the device now send a notification.
+>>
+> Right.
+> F_NOTIFION_ARM is mutually exclusive with F_EVENT_IDX.
+
+OK, I think I get your point, F_NOTIFION_ARM is mutually exclusive
+with VIRTQ_AVAIL_F_NO_INTERRUPT\used idx\VIRTIO_F_NOTIFY_ON_EMPT,
+and it seems that F_NOTIFION_ARM has the highest priority, and it needs 
+a new feature bit. Am I right :)?
+
+Thanks!
+
+> (Like packed vq is mutually exclusive with split q.)
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
