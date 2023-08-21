@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7207-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7208-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 229F5EE49A5
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:42:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CCC5EE4996
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 06:43:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5C29E22369
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:42:53 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 44DD342A6C
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 06:43:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3F0FA986238
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:42:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1FDC4986262
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 06:43:04 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 28AD6983FE9; Mon, 21 Aug 2023 05:42:53 +0000 (UTC)
+	id 0928B983FE9; Mon, 21 Aug 2023 06:43:04 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,349 +24,551 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1842398622C
-	for <virtio-comment@lists.oasis-open.org>; Mon, 21 Aug 2023 05:42:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ED4C598622C;
+	Mon, 21 Aug 2023 06:43:03 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EO4zcw6bi4TITmI1s+Eh8PlGOUCxs2Djz8bFamrzpSUBhFILGRTI9cZZl4Y/1ID+LuFo3hJmyuUn9Jw/WeM5ch//4MLYSDdOp2/RWaj6V3/o2SaAyzvAye7T0/BMyI2K+InYNUSTA85vzgJk7hBDaydqhUuR3/5sHMA0jUP5RNvTsyXFrtgo+giEYCHKEniGe4/gQYZ0FNnbOCa2DqFBfj4H+klk8+srTGqIZjCHebyphcamag9YOX7kmetHB9miv56hExOTKCcq8JgiHIGdVY6EPscK5sNtLPqPBtLJTJOallU60K0gw/B8NVDPdiHXCaUognmbL1NGIViYzpPQZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tcneDOndNePKHlL4+QUQ843m9HkgHYvVFcnyIpu6MqE=;
- b=CAYmP6x2kePAJKwzOhH8768JK4lmWIuDEndrUlHWC+IuvHLYabd5CvEVv8s5+1eQgG4wYJqpQ9IEj02WpJheoczFmTfdfbZdgGEAjH0HlNhXEBUrk02ivGEwGKfdr2C3F5P6JbnrQYueD9bsbFbqYg9BHVJOmeklidPSA2RXKtPWyQpTkAhnMz1xBRtWqVfOtJSitR84Pax3tJhNIItpxx8KdEN37Mwjc85lZLF10CwUaYomOae5n2EHKug/Ov5JAZDjqqyUHXFIdGWeLiVy8s7clSCLMSmG3TRdXUnCV71/Stp6zubHBq2SMbMmunXwVtlu+aTTV/agc6/4dgCzLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Peter Hilber <peter.hilber@opensynergy.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-CC: Cornelia Huck <cohuck@redhat.com>
-Thread-Topic: [virtio-comment] [RFC PATCH v2] virtio-rtc: Add device
- specification.
-Thread-Index: AQHZqzWn01mUtnPGCUaCuESJ+zAzFa+nCBEQgCaJjICABcqYEIAHKR+AgBoD7sA=
-Date: Mon, 21 Aug 2023 05:42:46 +0000
-Message-ID:
- <PH0PR12MB5481F7AD21A871DE5660A948DC1EA@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230630092959.392381-1-peter.hilber@opensynergy.com>
- <PH0PR12MB548182C0D5EB0C6273F30E9CDC28A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fb5b1603-68eb-3301-9e5c-6bb81e9bc594@opensynergy.com>
- <PH0PR12MB5481CA116DBB424005B0B5D1DC05A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <766e94a2-2592-d3ca-2ddf-164022df05da@opensynergy.com>
-In-Reply-To: <766e94a2-2592-d3ca-2ddf-164022df05da@opensynergy.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH0PR12MB8463:EE_
-x-ms-office365-filtering-correlation-id: 4543dd83-41a9-4c49-468f-08dba20972e2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- yRtTlphIeNwiBlr8kX5B3aMThxczSTT4Fw4jxvICMtVvEiasMk+dqRtvzYxzeZHqX//qChsexfEX2jdrTNBydQfqp0dpMLs+AMzFeF0GPl20jg2d0mSlMElGDjR25e5eEYe+xAWUYwuhfQREodtV6G4OeQ3cD/Ygc0x3ZngBsyVosu8D+5oDeh0dbwLuzOrymQ55D7cE5DDIIRZ5eH2smgFfD+kTWPg8nyl5J3gh7/0rt6UnbO/B0k0I9eDI2iiGJfNgCGQOr802CUERL05PeNdEwyPGv8F3s2vlg4SCU0TFqiAZmRH891Uc1cStDGiVyB9THG5+Cr419g4YyOcnadVQ/9l8IMH+zLAZe0RpLeCpDav3lUGA+ys4Fk8CIHcGCbglNXsBCTg/eAcMkaMSmwfUBsdPXYmHdiP9+bQCylM847oWNallQ90S3Sk/NS1T3NbSuqARIOSczvs1ZlmjkR5VFXbRMywvyPsoiJLrAaWrkFZT6f80vT4MzKFQrluT1YqKY0Mq0564yd+5L3EhFism4kOcTTGgL8jui3rCuC44USA6m3IauMLPLzVcJdQ92sCvdqHe+RjLedEa1XRwKPeyVtxaeQL8GfzDcHJ0O4mym2e08x+1ew//97p6UYNe
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(136003)(346002)(366004)(39860400002)(186009)(1800799009)(451199024)(66446008)(64756008)(66476007)(76116006)(66556008)(66946007)(316002)(9686003)(110136005)(8676002)(8936002)(4326008)(41300700001)(122000001)(478600001)(71200400001)(55016003)(38070700005)(7696005)(38100700002)(53546011)(6506007)(30864003)(2906002)(83380400001)(86362001)(5660300002)(33656002)(26005)(52536014);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?NjNtZGJnTUVNSHdqODJTNGFPazQrc2wzL0J3czNOOUxzTnFDL0FYdVJuY0Fk?=
- =?utf-8?B?NUtKYTk4SVJ0OGlQQ01Fb3F4ZzVOb2pSejR4cExEUE5iMjJFOVl6ais5RURE?=
- =?utf-8?B?R3R4RENqeCsxNHZNc243dnlwSkJ0NzRnRmtJVitlZTF3VGFZSmFRd0dsNCtF?=
- =?utf-8?B?eUd2cjFiYjhkOVJxY3FsQUFiM1ViTUlvckR3QSt0UEovdTVyS0dBbjZFcGN2?=
- =?utf-8?B?dmROM3R4dkZjbVBPQk5USGNham0xSU1pd3VuWmF3VGM4Skp4MFBHaHVYYU9C?=
- =?utf-8?B?dXRYRVR2RytvNlQ1UVh4VG5TNkR6Tkl4Tms5Sm1TVDF4ZzFNekZCYUQ1WDV0?=
- =?utf-8?B?QWNTMEhmbXZ4eHNSZ2V3ekdXcnpKQjVEdjFhZjBUM2tVQlpMQk9VYVRNOWpr?=
- =?utf-8?B?bUFEbkU1ekVuTUxIdWRNRWFJU25Kb28reEJrWnRmdkp3Rk52MWw1MHpseE5u?=
- =?utf-8?B?b2h6V2RNSTBwa1MyY0Jqd1E2VEs0NjQrRC85bmsrOTR5dStaK0JwM1oycG8z?=
- =?utf-8?B?UDVPVWwwWXVjdDVTYTlkc2FZaWVDZGsrWnRoS2N0aXhYZGpKdW5EeUNodUMr?=
- =?utf-8?B?bXk0cXVUeDBHQnVNTTdsZm9UbTJxMTdEMWIxbk54K1JycG83R3pQY29oZ2Q4?=
- =?utf-8?B?NGhiaGJ4bG84V3RyM3N2VDNvWmpBbEIwOVQ0SVVpQ0JGbklkSWlMeUFZWDlY?=
- =?utf-8?B?UTRuLy9UYW5sRE5RQ3cwYWVZc1dkUkNSaGJDdXZoK0l5Y09xU2lvMjBLVTN1?=
- =?utf-8?B?TURyRmQ5QXJmWFJWSlBOOUVvanNrNk9FeG1xc2tZM2c0ekVlaGNxNlNQOXlJ?=
- =?utf-8?B?ZVhrcldBeEYrOGxPV3ZUTjhqSXVvNTNUNGoxV1RCLzdaYXAycTFQTDFFbThP?=
- =?utf-8?B?YWsrVjhQb2FBWUtQdE1qTldFaTIwcnVrUHFVWmcwMUF2ZDhCRnhJSGRRVU5V?=
- =?utf-8?B?bjhVU2ZldDVCVnBaVU9rdmRMZXJvSE42VG5JSGVhcVgzY09VckxLN3M1aTRi?=
- =?utf-8?B?NWhRMnRna1hadFYzcWxheWVTSTVKRkgrRW5yL09yMmhTL2Q5dUtNQlRSZ2pk?=
- =?utf-8?B?THlIcEE0UU81TlA0RGI1UW5oZXBRZW4ySElpdW9PN3J6K3VDSCtRakQyK2JC?=
- =?utf-8?B?Z0NmM3JKSHZlNUpZbENxL1A3VUdsVmMyK2hkZnZMditXcytyQXAxTlNxaWJh?=
- =?utf-8?B?OW9wQit6OGhxVksyYTdNV0ZZa1ZWWTFpUTQxL2ZsQ0h4SUtwLy84eVhaWjdS?=
- =?utf-8?B?NWE3Y1pXNC9BNlRycW9GUGpyNkt6NStjd1RhSng4RTdpRVRBUEJDbGZndUJl?=
- =?utf-8?B?cDZBSXhoZ2xrTGQ1OTlYMFlTRnFsdmpyZTdnRlFEYTJibi8zcW53OEFSVml3?=
- =?utf-8?B?d0hQdVI3dFRoUVQwTlBPVHdHNEpleXEwUWlPbkpzNlBSZTNodmpGWjZNNDhn?=
- =?utf-8?B?YmhDTE43WlRaRm5kSC9pWHVINGxCU1V1M0ZvZFpselduS2R5YnBpNlc5UEhk?=
- =?utf-8?B?Tndtc2JEb3FyR3krbDZ4ZW03Ry8vang3Rk5kemhhRnZaS2tOVWNzWWV6TXNp?=
- =?utf-8?B?TmRtZWo1cGJaUWRxTEhjbHlYS2U4TkRMc0p4UExnUGJzWi8xZzh5U2UrSmFN?=
- =?utf-8?B?REZZcWJWUHdzUmhNdDY2SXNCMW05d0pCczJ0Qi9CNjcxa3dHSEcrOWw0dmR4?=
- =?utf-8?B?TnlnOHFpMUd3cnJGUXZHSXNnK0sxeGpwZEFKeitIdEsxUThrZENKK3lzSnV4?=
- =?utf-8?B?MEdQYlZUbEhybU5nWVMwV2g5ZU03Zm4zUE45dnBaMFZWL24vemk2cmFEQmpn?=
- =?utf-8?B?c3ZLUlZyblZVeWNVV0hzb0dhR3NYcDh5dnY4dGhQMnd6eDgyaVhnNTdoSkNh?=
- =?utf-8?B?elpVaHJMRGhuQnJQYXhPZlRzMU9VZGRzSzUvbTBOZXBpL2ZKN09GSFhJTUlI?=
- =?utf-8?B?c2lYU09Scjl6UEloNlc5ZTVIaDBmclQzTHJsMVE1V3hUT3RoRWhscFgvTWFs?=
- =?utf-8?B?T3oyR0FrOFlXTlF5Sy94RmFzUEZBanhKMTVHV09uUWNBM0RCaitvSFhFK0dB?=
- =?utf-8?B?OTlCdldaZHQ5Nk1EZXdYeGpxVTRBN25McmFKZnVGZEhJME0zcmo5dm9HWVZK?=
- =?utf-8?Q?qVyE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045168;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0VqBXR7P_1692600178;
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: virtio-dev@lists.oasis-open.org
+Cc: jasowang@redhat.com,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Parav Pandit <parav@nvidia.com>,
+	David Edmondson <david.edmondson@oracle.com>,
+	virtio-comment@lists.oasis-open.org
+Date: Mon, 21 Aug 2023 14:42:58 +0800
+Message-Id: <20230821064258.20608-1-xuanzhuo@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4543dd83-41a9-4c49-468f-08dba20972e2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2023 05:42:46.8592
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nZSgjKWUd9YnQhyNWhrk2qpH3zPvAi1EGKn15rsgKbcrFtJhnI13GPDuHhoWqFC98wXdCvCSaFUgAdH5yjxhWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8463
-Subject: RE: [virtio-comment] [RFC PATCH v2] virtio-rtc: Add device
- specification.
+X-Git-Hash: a9a9b43
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v15] virtio-net: support device stats
 
-DQo+IEZyb206IFBldGVyIEhpbGJlciA8cGV0ZXIuaGlsYmVyQG9wZW5zeW5lcmd5LmNvbT4NCj4g
-U2VudDogRnJpZGF5LCBBdWd1c3QgNCwgMjAyMyA5OjM4IFBNDQo+IA0KPiBPbiAzMS4wNy4yMyAw
-NToxNSwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KPiA+DQo+ID4+IEZyb206IFBldGVyIEhpbGJlciA8
-cGV0ZXIuaGlsYmVyQG9wZW5zeW5lcmd5LmNvbT4NCj4gPj4gU2VudDogVGh1cnNkYXksIEp1bHkg
-MjcsIDIwMjMgMzo1MSBQTQ0KPiA+DQo+ID4NCj4gPj4+PiBJbiB0aGUgc3BlYywgY2xvY2sgaWRz
-IGFyZSA2NCBiaXQgd2lkZSB0byBoYXZlIHVuaXF1ZSBpZHMgd2hlbg0KPiA+Pj4+IHN1cHBvcnRp
-bmcgY2xvY2sNCj4gPj4+IEl0IGlzIHVuY2xlYXIgdGhlIG5hbWVzcGFjZSBvZiB1bmlxdWVuZXNz
-Lg0KPiA+Pj4gRG8geW91IG1lYW4gdW5pcXVlIGlkIGFjcm9zcyBtdWx0aXBsZSB2aXJ0aW8gZGV2
-aWNlcz8NCj4gPj4NCj4gPj4gVGhlIGlkZWEgd2FzIG5vdCB0byBoYXZlIGEgdW5pcXVlIGlkIGFj
-cm9zcyBtdWx0aXBsZSB2aXJ0aW8gZGV2aWNlcy4NCj4gPj4gUmF0aGVyLCB0aGUgaWRlYSB3YXMg
-dG8gc2ltcGxpZnkgbGlmZXRpbWUgbWFuYWdlbWVudCBmb3IgY2xvY2tzIGluIGENCj4gPj4gc2lu
-Z2xlIHZpcnRpbyBkZXZpY2UgKGlmIHN1Y2ggbGlmZXRpbWVzIHdvdWxkIGJlIGludHJvZHVjZWQg
-aW4gdGhlDQo+ID4+IGZ1dHVyZSkgYnkgbm90IGhhdmluZyB0byB3b3JyeSBhYm91dCByYWNlIGNv
-bmRpdGlvbnMgZHVlIHRvIGNsb2NrIGlkIHJldXNlLg0KPiA+Pg0KPiA+IElmIHRoZSBpZCBub3Qg
-dW5pcXVlLCAxNi1iaXQgaXMgbGlrZWx5IG1vcmUgdGhhbiBlbm91Z2guDQo+ID4gVGhlcmUgc2hv
-dWxkIG5vdCBiZSBhbnkgcmFjZSBjb25kaXRpb24gd2l0aCByZXNwZWN0IHRvIGNsb2NrIGlkIGFz
-IGl0cyBwZXINCj4gZGV2aWNlLg0KPiA+DQo+IA0KPiBJIHRoaW5rIDY0IGJpdCBpcyBiZXR0ZXIg
-c2luY2UgdGhlIGNvc3QgaXMgbmVnbGlnaWJsZSwgYW5kIGUuZy4gdGhlIGRldmljZSB0aGVuIGRv
-ZXMNCj4gbm90IGhhdmUgdG8gY2FyZSBob3cgaXQgaXNzdWVzIGlkcyB3aGlsZSB0aGUgZHJpdmVy
-IGlzIHN1c3BlbmRlZC4NCg0KQ2FuIHlvdSBwbGVhc2UgZXhwbGFpbiBob3cgNjQtYml0IGJldHRl
-ciB3aGVuIHRoZSBudW1iZXIgb2YgY2xvY2tzIHBlciBkZXZpY2UgaXMgbm90IHNvIG11Y2g/DQpF
-dmVuIHdpdGggMjU2IG9yIDY0SyBjbG9ja3MgZGV2aWNlIHdvbnQgY2FyZSBob3cgdGhlIGlkcyBh
-cmUgaXNzdWVkLg0KDQo+ID4gQm90aCB0aGUgbW9kZXMgYXJlIGluIHVzZSwgaGVuY2Ugd2Ugd2Fu
-dCB0byBzdXBwb3J0ICMxIGFuZCAjMiBib3RoIHdpdGhvdXQNCj4gZHVwbGljYXRpbmcgdGhlIGlu
-dGVyZmFjZXMuDQo+ID4NCj4gDQo+IFdoYXQgSSB3YW50ZWQgdG8gcmVmZXIgdG8gaW4gbXkgcmVw
-bHkgYXJlIHRoZSBMaW51eCBrZXJuZWwgL2Rldi9wdHAqIGludGVyZmFjZXMsDQo+IHdoaWNoIGFy
-ZSBzZXBhcmF0ZSBmcm9tIHRoZSBuZXR3b3JrIGRldmljZSBpbnRlcmZhY2VzLg0KPiANClN1cmUu
-IEl0IGNhbiBiZS4NCldoZW4gdGhlIG5ldGRldmljZSBoYXMgdGhlIFJUQyBmZWF0dXJlcyBzdXBw
-b3J0cyBpdCB3aWxsIGNyZWF0ZSAvZGV2L3B0cCogYW5kIC9zeXMvY2xhc3MvbmV0L25ldGRldiBk
-ZXZpY2VzLg0KDQpBbGwgdGhlIHBsdW1iaW5nIHRoYXQgaXMgZG9uZSBpcyBmb3IgZHVhbCB1c2Uu
-DQpTbyBjb21tYW5kIGV0YyBkZWZpbml0aW9ucyBpcyBmb3IgZHVhbCB1c2UgYXMgSSBleHBsYWlu
-ZWQgYmVmb3JlLg0KVGhvc2UgY2FuIGJlIHVzZWQgZm9yIHZpcnRpby1uZXQgZGV2aWNlIHdoZW4g
-aXQgaGFzIGluLWJ1aWx0IHJ0Yy4NCg0KV2hlbiB0aGVyZSBpcyBvbmx5IHJ0YyBkZXZpY2Ugd2l0
-aCBpdHMgb3duIGRldmljZS10eXBlLCBzYW1lIGZ1bmN0aW9uYWxpdHkgYW5kIGNvbW1hbmRzIGFy
-ZSB0aGVyZS4NCkRyaXZlciB3aWxsIGNyZWF0ZSBvbmx5IC9kZXYvcHRwKiBkZXZpY2UuDQoNCkZy
-b20gU1cgcG9pbnQgb2YgdmlldyBpdCBpcyBqdXN0IG1hdHRlciBvZiBsYXllcmluZy4uDQpBbHJl
-YWR5IGRvbmUgYnkgbW9yZSB0aGFuIDEzKyBpbmR1c3RyeSBkZXZpY2VzLi4NCg0KPiA+PiBUaGUg
-ZXh0cmEgZWZmb3J0IHRvIGltcGxlbWVudCBhbm90aGVyIHNpbXBsZSB2aXJ0aW8gZGV2aWNlIChy
-YXRoZXINCj4gPj4gdGhhbiBwdXR0aW5nIGV2ZXJ5dGhpbmcgaW4gYSBzaW5nbGUgZGV2aWNlKSBz
-ZWVtcyB0byBiZSBzbWFsbCB3aGVuDQo+ID4+IGNvbXBhcmVkIHRvIHRoZSBjb21wbGV4aXR5IG9m
-IGNyZWF0aW5nIGFuIGV4dGVuc2libGUgc3BlY2lmaWNhdGlvbg0KPiA+PiB3aGljaCBzaG91bGQg
-d29yayBib3RoIHN0YW5kYWxvbmUgYW5kIGFzIHBhcnQgb2YgYW4gYWxyZWFkeSBleGlzdGluZywg
-YnV0DQo+IHN0aWxsIGdyb3dpbmcsIGRldmljZS4NCj4gPiBJdCBtYXkgc291bmQgYXMgc21hbGwg
-ZWZmb3J0IHdpdGggb25seSBhIGZvY3VzZWQgdmlldyBvbiBSVEMgb25seSBkZXZpY2UuDQo+ID4g
-QnV0IGJvdGggdHlwZXMgYXJlIG5lZWRlZC4NCj4gPiBGcm9tIGFjdHVhbCBpbXBsZW1lbnRhdGlv
-biBwb2ludCBvZiB2aWV3IGFuZCB1c2UgY2FzZSB3aXNlLCB5ZXQgYW5vdGhlciBQQ0kNCj4gZGV2
-aWNlIGF0IHNjYWxlIG9mIHZpcnR1YWwgbWFjaGluZXMgaXMgbm90IGRlc2lyZWQsIGVzcGVjaWFs
-bHkgd2hlbiBpdCBoYXMgdGlnaHQNCj4gdXNhZ2UgY29tcGxldGluZyBvbiBuZXR3b3JrIGRldmlj
-ZS4NCj4gPg0KPiA+DQo+IA0KPiBJZiB0aGUgaXNzdWUgaXMgUENJIHRyYW5zcG9ydCByZWxhdGVk
-IHJlc291cmNlIGNvbnN1bXB0aW9uLCB0aGUgUENJIHRyYW5zcG9ydA0KPiBjb3VsZCBiZSBleHRl
-bmRlZCB0byBzdXBwb3J0IG11bHRpLWZ1bmN0aW9uIGRldmljZXMsIGluIGEgd2F5IHdoaWNoIGlz
-IGFnbm9zdGljDQo+IHRvIHRoZSBkZXZpY2UgdHlwZXMgaW52b2x2ZWQuDQo+IA0KQWxsIHRoaW5n
-cyBuZWVkZWQgYnkgcnRjIGlzIGFscmVhZHkgcHJlc2VudCBvbiBuZXQgZGV2aWNlLiBTbyB0aGVy
-ZSBpcyBubyBwb2ludCBvZiBpbXByb3ZpbmcgUENJIHRyYW5zcG9ydCBldGMuDQpQQ0kgdHJhbnNw
-b3J0IHJlc291cmNlIGltcHJvdmVtZW50IGdvZXMganVzdCBiZXlvbmQgUENJIHRyYW5zcG9ydCBp
-bXByb3ZlbWVudC4gU3VjaCBhcyBBUElDLCBJT01NVSwgZGV2aWNlIHJlZ2lzdGVycyBhbmQgbW9y
-ZS4NClRoaXMgaXMgZXF1YWxseSBhbiBvdmVya2lsbC4NCg0KQW5kIGRlZmluaW5nIGFuZCBkdXBs
-aWNhdGluZyBleGFjdCBzYW1lIGNvbW1hbmRzIGluIG5ldCBpcyBlcXVhbGx5IHN1Yi1vcHRpbWFs
-LCBzcGVjaWFsbHkgd2hlbiB3ZSBrbm93IGl0cyBuZWVkIGZvciBsYXN0IHNldmVyYWwgbW9udGhz
-Lg0KDQpUaGlzIGlzIHRoZSByaWdodCBqdW5jdGlvbiB0byByZXVzZSBmdW5jdGlvbmFsaXR5IG9u
-IHR3byBkZXZpY2UgdHlwZXMgd2l0aG91dCBkdXBsaWNhdGlvbi4NCg0KPiA+PiBFLmcuLCB0aGUN
-Cj4gPj4gUlRDIGRldmljZSBzaG91bGQgYWxzbyBnZXQgYW4gYWxhcm0sIHdpdGggYW4gYXNzb2Np
-YXRlZCBldmVudHEsIGluIHRoZQ0KPiBmdXR1cmUuDQo+ID4gU3VyZSwgaXQgaXMgb2suIGl0IHdp
-bGwgYmUgb3B0aW9uYWwgd2hlbiBpdCBpcyBSVEMgZGV2aWNlLg0KPiA+DQo+ID4+IEFsc28sIEkg
-d29uZGVyIGlmIHRoZSBkcml2ZXIgaW1wbGVtZW50YXRpb24gc2hvdWxkIHRoZW4gd29yayBib3Ro
-IGFzDQo+ID4+IGEgc3RhbmRhbG9uZSBWaXJ0aW8gZHJpdmVyIGFuZCBhcyBwYXJ0IG9mIHRoZSBu
-ZXQgZHJpdmVyLg0KPiA+Pg0KPiA+IERyaXZlciBsYXllciB3aWxsIGJlIGZpbmUuIExpbnV4IHN0
-YWNrIGV2b2x2ZWQgb3ZlciBsYXN0IDMgeWVhcnMgdG8gc3VwcG9ydA0KPiBtdWx0aS1mdW5jdGlv
-bmFsaXR5IGRldmljZS4NCj4gPiBBIFJUQy9QVFAgZHJpdmVyIHdpbGwgYmUgYSBzdGFuZCBhbG9u
-ZSBlbnRpdHkgdGhhdCB3b3JrcyBvbiB1bmRlcmx5aW5nIGxheWVyZWQNCj4gd2F5IHRvIGlzc3Vl
-IHJlYWQgY21kLCBjb25maWcgZXRjLg0KPiA+DQo+IA0KPiBBcyBwZXIgbXkgYWJvdmUgcmVwbHks
-IEkgdGhpbmsgaXQgd291bGQgYmUgYmV0dGVyIHRvIHRhY2tsZSB0aGUgcHJvYmxlbSBhdCB0aGUN
-Cj4gUENJIHRyYW5zcG9ydCBsZXZlbCwgdGhlbiB0aGVyZSB3b3VsZCBiZSBubyBpbXBhY3Qgb24g
-aW5kaXZpZHVhbCBkZXZpY2UgZHJpdmVycy4NCj4gDQpUaGVyZSBpcyBubyBpbXBhY3QgYnkgYmV0
-dGVyIGRlZmluaXRpb24gdXNhYmxlIG9uIHR3byBkZXZpY2VzLg0KDQo+ID4+IE1heWJlIHRoZSBh
-Ym92ZSB1c2UgY2FzZSBjb3VsZCBhbHNvIGJlIGFkZHJlc3NlZCBieSBhIHN0YW5kYWxvbmUgUlRD
-DQo+ID4+IGRldmljZSBhcyBmb2xsb3dzOg0KPiA+Pg0KPiA+PiAxKSBUaGUgbmV0IGRldmljZSBl
-eHBvcnRzIGEgVVVJRCBvYmplY3QgdG8gd2hpY2ggdGhlIFJUQyBkZXZpY2UgY2FuDQo+ID4+IHJl
-ZmVyIHRvIChzbyB0aGUgZHJpdmVycyBjYW4gbGluayB0aGUgbmV0IGRldmljZSB0byB0aGUgUlRD
-IGNsb2NrKS4NCj4gPj4NCj4gPj4gMikgSWYgbmVlZGVkLCB0aGUgUlRDIGRldmljZSBhbGlnbnMg
-dGhlIGxpZmV0aW1lIG9mIHRoZSBjbG9jayB0byB0aGUgbmV0IGRldmljZS4NCj4gPj4gVGhlbiwg
-Y2xvY2sgbGlmZXRpbWVzIGFyZSBubyBsb25nZXIgc3RhdGljLCBhbmQgY2FuIGJlIGFsaWduZWQg
-d2l0aA0KPiA+PiB0aGUgbmV0IGRldmljZS4gVGhyb3VnaCBhbiBldmVudHEgKHRvIGJlIGFkZGVk
-KSwgdGhlIFJUQyBkZXZpY2UNCj4gPj4gYW5ub3VuY2VzIGNsb2NrIGNyZWF0aW9uL2Rlc3RydWN0
-aW9uLCB3aGljaCBjYW4gYmUgc3luY2hyb25pemVkIHRvIHRoZSBuZXQNCj4gZGV2aWNlIHN0YXRl
-Lg0KPiA+Pg0KPiA+IEFsbCBvZiB0aGUgaW5mcmFzdHJ1Y3R1cmUsIGNyb3NzIGRldmljZSBzeW5j
-aHJvbml6YXRpb24sIGl0cyBkZXZpY2Ugc2lkZQ0KPiBtYW5hZ2VtZW50IHdpbGwgY29tZSB3aXRo
-IGVxdWFsIGNvbXBsZXhpdHkuDQo+ID4gQW5kIHdlIHdpbGwgZW5kIHVwIHdpdGggc3ViLW9wdGlt
-YWwgd2F5IHRvIHVzaW5nIG11bHRpcGxlIFBDSSBkZXZpY2VzLg0KPiA+DQo+IA0KPiBBcyBwZXIg
-bXkgYWJvdmUgcmVwbHksIEkgdGhpbmsgaXQgd291bGQgYmUgYmV0dGVyIHRvIHRhY2tsZSB0aGUg
-cHJvYmxlbSBhdCB0aGUNCj4gUENJIHRyYW5zcG9ydCBsZXZlbC4uLg0KPiANCj4gPiBOZXQgYWxy
-ZWFkeSBoYXMgY3ZxIHJlcXVpcmVkIGJ5IFJUQy4gU28gY3ZxIGNvbW1hbmRzIGNhbiBiZSBjb21t
-b24uDQo+ID4gUmVhZHEgaXMgYWRkaXRpb25hbCwgd2UgbmVlZCB0byBkZWZpbmUgY29tbW9uIGJl
-dHdlZW4gdGhlIHR3byBhbmQgd2F5IHRvDQo+IGRpc2NvdmVyIGl0Lg0KPiA+DQo+IA0KPiAgSSB3
-b3VsZCBzdGlsbCB0cnkgdG8gYXZvaWQgbWl4aW5nIG5ldCBhbmQgUlRDIGRldGFpbHMuIFJUQw0K
-PiBzaG91bGQga2VlcCBhIGRlZGljYXRlZCBjdnEuIA0KQ2FuIHlvdSBwbGVhc2UgZXhwbGFpbiB3
-aHkgYSBkZWRpY2F0ZSBjdnEgaXMgbmVlZGVkIG9uIG5ldCBkZXZpY2U/DQoNCj4gVGhlbiB0aGUg
-UlRDIGRyaXZlciBjb3VsZCB1c2UgZ2VuZXJpYyBWaXJ0aW8NCj4gZnVuY3Rpb25hbGl0eSB0byBz
-ZW5kL3JlY2VpdmUgcmF0aGVyIHRoYW4gdXNpbmcgYW4gaW50ZXJmYWNlIHdoaWNoIGlzIHNwZWNp
-ZmljIHRvDQo+IHRoZSBuZXQgZHJpdmVyIGN2cS4NCj4gDQpQbGVhc2UgZXhwbGFpbiB3aHk/DQpX
-ZSBoYXZlIGRlZGljYXRlZCB2cXMgd29yayBvbmdvaW5nIGZvciBmbG93IGZpbHRlcnMgZHVlIHRv
-IGhpZ2ggcmF0ZSBvZiByZXF1ZXN0cyByZXF1aXJlbWVudCBoYW5kbGVkIGJ5IGh3Lg0KDQpTbyB3
-b3VsZCBsaWtlIHRvIHVuZGVyc3RhbmQgaWYgd2UgY2FuIGV4dGVuZCBzaW1pbGFyIGRlZGljYXRl
-ZCBjdnEuIEdpdmVuIG1vc3Qgb2YgdGhlIHF1ZXJpZXMgZG9uZSB2aWEgY3ZxIGZvciBydHMgYXJl
-IG5vdCB0aW1lIHNlbnNpdGl2ZS4NCkhlbmNlIG5ldCBjdnEgc2VlbXMgZW5vdWdoLg0KDQo+ID4+
-IEFjdHVhbGx5LCB0aGUgY3Jvc3MtdGltZXN0YW1waW5nIHN1cHBvcnQgY2FuIGJlIHNwZWNpZmlj
-IHRvIHRoZQ0KPiA+PiBjb21iaW5hdGlvbiBvZiBjbG9jayBhbmQgaGFyZHdhcmUgY291bnRlci4g
-VGhpcyBpcyBleHBsYWluZWQgaW4gbW9yZQ0KPiA+PiBkZXRhaWwgaW4gdGhlIGNvbnRleHQgb2Yg
-VklSVElPX1JUQ19NX1JFQURfQ1JPU1MuIEkgd2lsbCBtZW50aW9uIHRoaXMNCj4gaGVyZSBhcyB3
-ZWxsLg0KPiA+Pg0KPiA+IEhhcmR3YXJlIGNvdW50ZXIgaXMgYSBtaXNsZWFkaW5nIHRlcm0gaGVy
-ZS4gSXQgaXMgcmVhbGx5IHBsYXRmb3JtIChzeXN0ZW0pDQo+IHNwZWNpZmljIGlkZW50aWZpZXIu
-DQo+ID4NCj4gDQo+IE1heWJlIHdpdGggdGhlIGN1cnJlbnRseSBkZWZpbmVkIGhhcmR3YXJlIGNv
-dW50ZXJzIHRoZXJlIGlzIGEgb25lLXRvLW9uZQ0KPiBjb3JyZXNwb25kZW5jZSB0byBwbGF0Zm9y
-bXMsIGJ1dCB0aGF0IG5lZWQgbm90IGJlIHRoZSBjYXNlLiBFLmcuIGl0IG1pZ2h0IGJlDQo+IG1v
-cmUgY29udmVuaWVudCBmb3IgYSBkZXZpY2Ugb24gYW4gSW50ZWwgeDg2IHBsYXRmb3JtIHRvIHJl
-YWQgdGhlIEFsd2F5cw0KPiBSdW5uaW5nIFRpbWVyIChBUlQpIHJhdGhlciB0aGFuIHRoZSBUU0Mg
-ZGVyaXZlZCBmcm9tIHRoZSBBUlQsIGFuZCB0aGVuIHRoZQ0KPiBBUlQgY291bGQgYmVjb21lIGFu
-b3RoZXIgSFcgY291bnRlciBpbiB0aGUgc3BlYyBmb3IgeDg2Lg0KPg0KTWF5YmUgSSBhbSB3cm9u
-ZywgYnV0IGl0IGxvb2tzIGxpa2UgdGhpcyBpcyBwbGF0Zm9ybSBmZWF0dXJlIHdoZXJlIGRyaXZl
-ciBjYW4gZGV2aWNlIHRvIHJlYWQgQVJUIG9yIEFSTSB0aW1lciB3aXRob3V0IGFueSBkZXZpY2Ug
-a25vd2xlZGdlPw0KDQpDYW4geW91IHBsZWFzZSBleHBsYWluLCBpZiB0aGUgZGV2aWNlIGRvZXMg
-bm90IGhhdmUgdGhlIGtub3dsZWRnZSBvZiBwbGF0Zm9ybS9zeXN0ZW0gdGltZXIsIGNhbiBpdCBz
-dGlsbCBhY2hpZXZlIHRoZSBjcm9zcyB0aW1lc3RhbXBpbmcgYXQgZHJpdmVyIGxldmVsPw0KIA0K
-PiA+IE1heWJlIEkgYW0gd3JvbmcsIGJ1dCBJIHRoaW5rIGNyb3NzIHRpbWVzdGFtcGluZyBmdW5j
-dGlvbmFsaXR5IGNhbiBiZQ0KPiBhY2hpZXZlZCBhdCB0aGUgZHJpdmVyIGxldmVsLCByZWFkaW5n
-IGNvdW50ZXIgdmFsdWUgZnJvbSB0d28gc291cmNlcz8NCj4gPiBVbmxpa2VseT8gYmVjYXVzZSB0
-aGUgdmFyaWFuY2UgaXMgbG90Pw0KPiA+DQo+IA0KPiBJbiBzaG9ydCwgY3Jvc3MtdGltZXN0YW1w
-aW5nIGF0IHRoZSBkZXZpY2Ugc2lkZSBjYW4gYmUNCj4gDQo+IC0gbW9yZSBwcmVjaXNlLA0KPiAt
-IHByYWN0aWNhbGx5IGluc2Vuc2l0aXZlIHRvIHRlbXBvcmFsIGJlaGF2aW9yLCBhbmQNCj4gLSBs
-ZXNzIHJlc291cmNlIGRlbWFuZGluZyBkdWUgdG8gbGVzcyBuZWVkIHRvIHJlcGVhdCBjbG9jayBy
-ZWFkaW5ncywNCj4gDQo+IGlmIHRoZSBkZXZpY2UgaGFzIGEgY2xvY2sgYmFzZWQgb24gYW4gYXBw
-cm9wcmlhdGUgaGFyZHdhcmUgY291bnRlci4NCj4gDQo+IFdpdGggdGhlIGNyb3NzLXRpbWVzdGFt
-cGluZywgdGhlIGRldmljZSBjYW4gY29udmV5IGl0cyB1bmRlcnN0YW5kaW5nIG9mIHRoZQ0KPiBj
-dXJyZW50IHRpbWUgYXQgdGhlIGluc3RhbnQgYXQgd2hpY2ggdGhlIGhhcmR3YXJlIGNvdW50ZXIg
-aGFzIGEgc3BlY2lmaWMgdmFsdWUuDQo+IEJvdGggdGhlIGRldmljZSBhbmQgdGhlIGRyaXZlciBz
-aG91bGQgYmUgYWJsZSB0byByZWFkIHRoZSBzYW1lIGhhcmR3YXJlDQo+IGNvdW50ZXIuIFdoZW4g
-dGhlIGRldmljZSByZXBlYXRlZGx5IGNvbnZleXMgaXRzIHVuZGVyc3RhbmRpbmcgb2YgdGhlIGN1
-cnJlbnQNCj4gdGltZSBhbmQgY29ycmVzcG9uZGluZyBoYXJkd2FyZSBjb3VudGVyIHJlYWRpbmcs
-IGEgY2xvY2sgc3luY2hyb25pemF0aW9uDQo+IGRhZW1vbiBhdCB0aGUgZHJpdmVyIHNpZGUgY2Fu
-IGluZmVyIHRoZSBvZmZzZXQgYW5kIHNwZWVkIG9mIHRoZSBkZXZpY2UncyBjbG9jaw0KPiAocmVs
-YXRpdmUgdG8gdGhlIGRyaXZlcidzIHN5c3RlbSB0aW1lLCB3aGljaCBjYW4gYWxzbyBiZSByZWxh
-dGVkIHRvIHRoZSBzYW1lDQo+IGhhcmR3YXJlIGNvdW50ZXIpLg0KPiANCj4gSWYgdGhlIGRyaXZl
-ciBzaWRlIGRlcml2ZXMgc3lzdGVtIHRpbWUgZnJvbSB0aGUgaGFyZHdhcmUgY291bnRlciAoYW5k
-IGlmIHRoZQ0KPiBkZXZpY2UgZG9lcyBub3QgbWFuaXB1bGF0ZSB0aGUgY2xvY2sgQVRNKSwgdGhl
-biBhIGRyaXZlci1zaWRlIGNsb2NrDQo+IHN5bmNocm9uaXphdGlvbiBkYWVtb24gY2FuIHN5bmNo
-cm9uaXplIHRoZSBzeXN0ZW0gdGltZSB0byBhIHByZWNpc2lvbiBvZiA8IDEwDQo+IG5zLiBGb3Ig
-dGhpcywgdGhlcmUgYXJlIG5vIHNwZWNpYWwgcmVxdWlyZW1lbnRzIG9uIGNhbGlicmF0aW9uIG9y
-IGNsb2NrIHJlYWRpbmcNCj4gcGVyZm9ybWFuY2UsIGV4Y2VwdCB0aGF0IHRoZSBoYXJkd2FyZSBj
-b3VudGVyIHZpZXcgYnkgZGV2aWNlIGFuZCBkcml2ZXINCj4gc2hvdWxkIGJlIHN5bmNocm9uaXpl
-ZC4NCj4gDQo+IEEgZ29vZCBpbGx1c3RyYXRpb24gb2YgY3Jvc3MtdGltZXN0YW1waW5nIGF0IHRo
-ZSAodmlydHVhbCkgZGV2aWNlIHNpZGUgaXMgdGhlDQo+IHB0cF9rdm0gYXJtNjQgaW1wbGVtZW50
-YXRpb24gWzNdLCB3aGljaCB1c2VzIGt0aW1lX2dldF9zbmFwc2hvdCgpIGZvciBjcm9zcy0NCj4g
-dGltZXN0YW1waW5nLg0KPiANCj4gQnkgY29udHJhc3QsIGNyb3NzLXRpbWVzdGFtcGluZyBhdCB0
-aGUgZHJpdmVyIHNpZGUgKGFzIG9uZSBjb3VsZCBzYXkNCj4gUFRQX1NZU19PRkZTRVRfRVhURU5E
-RUQgZG9lcyBpbiB0aGUgTGludXgga2VybmVsKSByZXN1bHRzIGluIGluZmVyaW9yDQo+IHByZWNp
-c2lvbiwgaXMgc2Vuc2l0aXZlIHRvIGNsb2NrIHJlYWRpbmcgcGVyZm9ybWFuY2UsIGFuZCBwcm9i
-YWJseSBoYXMgdG8gYmUNCj4gcmVwZWF0ZWQgbW9yZSBvZnRlbi4gRnJvbSBteSBQT1YgY3Jvc3Mt
-dGltZXN0YW1waW5nIHNob3VsZCBiZSBkb25lIGF0IHRoZQ0KPiBkZXZpY2Ugc2lkZSwgaWYgdGhl
-IGRldmljZSBoYXMgYWNjZXNzIHRvIHN1aXRhYmxlIGhhcmR3YXJlIGNvdW50ZXJzLg0KPiANCj4g
-PiBJZiBzbywgd2h5IGRvIHdlIG5lZWQgdG8gYW5ub3RhdGUgYXJtL3g4NiwgY2FuIGl0IGJlIGRv
-bmUgd2l0aG91dCBpdCBhcyBqdXN0DQo+IHN5c3RlbSBjbG9jay9jeWNsZXM/DQo+ID4NCj4gDQpZ
-b3VyIGFib3ZlIGRldGFpbCBleHBsYW5hdGlvbiBsaWtlbHkgYW5zd2VycyB3aHkgZGV2aWNlIHZp
-ZXcgb2Ygc3lzdGVtIGNvdW50ZXIgaXMgbW9yZSBwcmVjaXNlLg0KDQo+IEFzIGRpc2N1c3NlZCBh
-Ym92ZSwgYWRkaXRpb25hbCBjb3VudGVycyBtYXkgYmUgdXNlZCBpbiB0aGUgZnV0dXJlLg0KPiAN
-CkRvIHlvdSBtZWFuIGFkZGl0aW9uYWwgc3lzdGVtIGNvdW50ZXI/DQoNCj4gQWxzbywgb24geDg2
-LCBubyBUU0MgbWlnaHQgYmUgcHJlc2VudCBvciB1c2VkICh0aGUgTGludXggb24gbXkgb3duIG5v
-dGVib29rDQo+IHVudGlsIHJlY2VudGx5IHJlZnVzZWQgdG8ga2VlcCB1c2luZyBUU0MgZHVlIHRv
-IGEgZmlybXdhcmUgaXNzdWUpLg0KPiANCj4gPj4+IElmIHNvLCBJIGd1ZXNzIG5vIG5lZWQgb2Yg
-YSBmZWF0dXJlIGJpdCBhcyBpdCBpcyBub3Qgc2VydmluZyBhbnkNCj4gPj4+IG1lYW5pbmdmdWwN
-Cj4gPj4gcHVycG9zZS4NCj4gPj4NCj4gPj4gVGhlIG9ubHkgcHVycG9zZSBpcyB0byBwb3RlbnRp
-YWxseSBzYXZlIHRoZSBkZXZpY2Ugc29tZQ0KPiA+PiBpbml0aWFsaXphdGlvbiB3b3JrIG9yIHJl
-c291cmNlcyBpbiBjYXNlIHRoZSBmZWF0dXJlIGlzIG5vdCBuZWdvdGlhdGVkLg0KPiA+Pg0KPiA+
-IE9rLiBJbiB0aGF0IGNhc2Ugd2Ugc2hvdWxkIG1vdmUgaXQgdG8gcGVyIGNsb2NrIGVuYWJsZW1l
-bnQgaW5zdGVhZCBvZiBmZWF0dXJlDQo+IGJpdC4NCj4gPg0KPiANCj4gQXMgcGVyIG15IGFib3Zl
-IHJlcGxpZXMsIEkgdGhpbmsgaXQgc2hvdWxkIGJlIGtlcHQgY2xvY2sgYW5kIGhhcmR3YXJlIGNv
-dW50ZXINCj4gc3BlY2lmaWMuIFRoZSBmZWF0dXJlIGJpdCBjb3VsZCBiZSByZW1vdmVkIGlmIGl0
-IHNlZW1zIG5vdCBoZWxwZnVsLg0KPiANCk9rLiBsZXRzIHJlbW92ZSBpdC4NCg0KPiA+Pj4gRWFj
-aCBjbG9jayBpbmZvcm1hdGlvbiBjYW4gYWR2ZXJ0aXNlIHdoYXQgaXMgc3VwcG9ydHMsIHJpZ2h0
-Pw0KPiA+Pj4NCj4gPj4NCj4gPj4gVGhlIGRyaXZlciBjYW4gdXNlIFZJUlRJT19SVENfTV9DUk9T
-U19DQVAgdG8gaW5xdWlyZSBhYm91dCB0aGlzIChvcg0KPiA+PiB0aGUgZHJpdmVyIGNvdWxkIGFs
-c28ganVzdCB0cnkgaWYgVklSVElPX1JUQ19NX1JFQURfQ1JPU1Mgd29ya3MpLg0KPiA+Pg0KPiA+
-IFZJUlRJT19SVENfTV9DUk9TU19DQVAgaXMgcmVsaWFibGUgd2F5IHRvIGRpc2NvdmVyIHRoZSBk
-ZXZpY2Ugc3VwcG9ydC4NCj4gPiBEaXJlY3QgY29tbWFuZCBpZiBpdCByZXN1bHRzIGluIGVycm9y
-IGNhbiB0aHJvdyB1bndhbnRlZCBrZXJuZWwgZXJyb3JzDQo+IHJlc3VsdGluZyBpbiBmYWxzZSBh
-bGFybXMuDQo+ID4NCj4gDQo+IEFncmVlZC4gVGhlIHNlY29uZCBvcHRpb24gaXMgbm90IG1lbnRp
-b25lZCBpbiB0aGUgdjIgc3BlYyBzbyBubyBhY3Rpb24gc2hvdWxkDQo+IGJlIG5lY2Vzc2FyeS4N
-Cj4gDQo+ID4+PiBJZiB0aGlzIGNsb2NrIGRldmljZSBpcyBhIFBDSSBkZXZpY2UsIG9uIGFuIGVt
-cHR5IHN5c3RlbSwgYSBQQ0kNCj4gPj4+IGRldmljZSBoYXMgdG8gZG8NCj4gPj4gYXQgbGVhc3Qg
-Y291cGxlIG9mIERNQS4NCj4gPj4+IDEuIHJlYWQgdGhlIGRlc2NyaXB0b3IgKDI1MCB0byAzMDBu
-c2VjKSAyLiBSZWFkIHRoZSByZXF1ZXN0ICgyNTAgdG8NCj4gPj4+IDMwMG5zZWMpIDMuIFdyaXRl
-IHRoZSByZXNwb25zZSAoNTAgbnNlYyspIDQuIHJhaXNlIGludGVycnVwdC4NCj4gPj4+DQo+ID4+
-PiBIb3cgaXMgdGhpcyB0aW1lIGRlbHRhIGFjY291bnRlZCBpbiBjbG9jayByZWFkaW5nPw0KPiA+
-Pj4gSXMgZHJpdmVyIGV4cGVjdGVkIHRvIHJlY29yZCBzeXN0ZW0gdGltZSBhbmQgc3VidHJhY3Qg
-aXQgb24NCj4gPj4+IHJlY2VpdmluZw0KPiA+PiByZXNwb25zZT8NCj4gPj4+IE9yPw0KPiA+Pg0K
-PiA+PiBBcyBhIGRpc2NsYWltZXIsIEkgYW0gbm8gZXhwZXJ0IGZvciBjbG9jayByZWFkaW5nLCBz
-byBhbnkgYWRkaXRpb25hbA0KPiA+PiBpbnNpZ2h0cyBhcmUgYXBwcmVjaWF0ZWQgdmVyeSBtdWNo
-Lg0KPiA+Pg0KPiA+PiBJIHRoaW5rIGhvdyB0aGUgZHJpdmVyIGFjY291bnRzIGZvciB0aGUgdGlt
-ZSBkZWx0YSBzaG91bGQgcmVtYWluDQo+ID4+IG91dHNpZGUgb2YgdGhlIHNjb3BlIG9mIHRoZSBz
-cGVjaWZpY2F0aW9uLiBJbiB0aGUgY3VycmVudCBzcGVjIHRoZQ0KPiA+PiBpbnRlcnByZXRhdGlv
-biBvZiBjbG9jayByZWFkaW5nIGlzIGJlaGF2aW9yIGludGVybmFsIHRvIHRoZSBkcml2ZXIuDQo+
-ID4gV2VsbCwgZGlyZWN0bHkgcmVhZGluZyB0aGUgY2xvY2sgYXMgZGV2aWNlIHJlZ2lzdGVyIGNh
-biBiZSBtb3JlIHByZWNpc2UuDQo+ID4gQnV0IHRoaXMgY2FuIGJlIGxpbWl0ZWQgdG8gc21hbGwg
-bnVtYmVyIG9mIGNsb2Nrcy4NCj4gPg0KPiANCj4gVGhpcyBjb3VsZCBiZSBhZGRlZCBpZiByZXF1
-aXJlZC4gQnV0IHRvIG1lIGl0IHdvdWxkIG9ubHkgbWFrZSBzZW5zZSB3aGVyZQ0KPiBjcm9zcy10
-aW1lc3RhbXBpbmcgZG9lc24ndCB3b3JrIChhbmQgd2hlcmUgcHJlY2lzaW9uIGlzIGltcG9ydGFu
-dCkuDQo+IA0KT2suIFNvIHRoaXMgY2FuIGJlIGZvbGxvdyB1cCBwb3N0IHRoaXMgd29yay4NCg0K
-PiA+PiBBbHNvLCBBRkFJVSBpbnRlcnByZXRhdGlvbiBvZiBjbG9jayByZWFkaW5ncyBpcyBhIHNj
-aWVudGlmaWMgYW5kDQo+ID4+IHRlY2huaWNhbCB0b3BpYyBvZiBpdHMgb3duLCB3aGljaCBoYXMg
-YmVlbiBleHRlbnNpdmVseSBkaXNjdXNzZWQgaW4NCj4gPj4gdGhlIHBhc3QgZGVjYWRlcy4gVGhl
-IGNob2ljZSBvZiBhIGNsb2NrIHJlYWRpbmcgYWxnb3JpdGhtIGltcGxpZXMNCj4gPj4gdHJhZGUt
-b2ZmcyBiZXR3ZWVuIHByZWNpc2lvbiwgaW1wbGVtZW50YXRpb24gY29tcGxleGl0eSwgYW5kIHJl
-c291cmNlDQo+ID4+IHVzYWdlL2Nsb2NrIHJlYWRpbmcgc3BlZWQgKHdoZW4gcmUtcmVhZGluZyB0
-aGUgY2xvY2spLg0KPiA+Pg0KPiA+PiBUaGUgTGludXgga2VybmVsIGhhcyBpb2N0bCBQVFBfU1lT
-X09GRlNFVF9FWFRFTkRFRCwgd2hpY2ggd2lsbCByZWFkDQo+ID4+IHRoZSBzeXN0ZW0gdGltZSBp
-bW1lZGlhdGVseSBiZWZvcmUgYW5kIGFmdGVyIGVhY2ggUFRQIGNsb2NrIHJlYWRpbmcsDQo+ID4+
-IGxlYXZpbmcgaXQgdXAgdG8gdXNlcnNwYWNlIGhvdyB0byBpbnRlcnByZXQgdGhlIGNsb2NrIHJl
-YWRpbmcuIFRoaXMNCj4gPj4gaW9jdGwgY2FuIGFsc28gYmUgdXNlZCB3aXRoIHRoZSBSRkMgTGlu
-dXgga2VybmVsIGRyaXZlciBpbXBsZW1lbnRpbmcNCj4gPj4gdGhpcyBzcGVjIFsyXSwgd2hpY2gg
-ZXhwb3NlcyBhIHZpcnR1YWwgUFRQIGNsb2NrLiBTbyBpbiB0aGlzIGNhc2UsIGl0DQo+ID4+IHdv
-dWxkIGhhcmRseSBoZWxwIHRvIHN0aXB1bGF0ZSBWaXJ0aW8gZHJpdmVyIGJlaGF2aW9yLCB3aGVu
-IHRoZQ0KPiA+PiBhY3R1YWwgY2xvY2sgcmVhZGluZyBpbnRlcnByZXRhdGlvbiBoYXBwZW5zIGlu
-IHVzZXJzcGFjZSBkYWVtb25zIHVzaW5nDQo+IFBUUF9TWVNfT0ZGU0VUX0VYVEVOREVELCBzdWNo
-IGFzIGNocm9ueS4NCj4gPj4NCj4gPj4gSSBzZWUgdGhlIGFib3ZlIGRpc2N1c3NlZCBWSVJUSU9f
-UlRDX01fUkVBRCBtZXRob2QgbWFpbmx5IGFzIGENCj4gPj4gZmFsbGJhY2sgaW4gY2FzZXMgd2hl
-cmUgdGhlIFZJUlRJT19SVENfTV9SRUFEX0NST1NTIG1ldGhvZCB3b3VsZCBub3QNCj4gYmUgYXZh
-aWxhYmxlLg0KPiA+PiBUaGUgVklSVElPX1JUQ19NX1JFQURfQ1JPU1MgbWV0aG9kIGlzIG1vcmUg
-b3IgbGVzcyBpbmRlcGVuZGVudCBvZg0KPiB0aGUNCj4gPj4gdGltZSBkZWx0YSAod2hpY2ggY2Fu
-IGJlIGluIHRoZSAxMDAgbXMgcmFuZ2UsIGFzIGRpc2N1c3NlZCBpbiB0aGUNCj4gPj4gZHJpdmVy
-IHBhdGNoIHNlcmllcyBjb3ZlciBsZXR0ZXIgWzJdKS4NCj4gPj4NCj4gPiBEbyB5b3UgbWVhbiB0
-aGF0IHRoZSBzeXN0ZW0gY2xvY2sgYW5kIGRldmljZSBjbG9jayByZWFkaW5nIGhhcHBlbmluZyBp
-bg0KPiBzaW5nbGUgY2FsbCwgaGVuY2UgdGhlIF9DUk9TUyBnaXZlcyBtb3JlIHByZWNpc2UgcmVz
-dWx0Pw0KPiA+DQo+IA0KPiBUaGUgY2xvY2sgcmVhZGluZyBkdXJhdGlvbiBpcyBvbmx5IHJlbGV2
-YW50IGZvciB0aGUgc2ltcGxlIFZJUlRJT19SVENfTV9SRUFEDQo+IG1ldGhvZC4gRm9yIFZJUlRJ
-T19SVENfTV9SRUFEX0NST1NTLCB0aGUgY2xvY2sgcmVhZGluZyBkdXJhdGlvbiBpcyBub3QNCj4g
-Y3JpdGljYWwsIHNpbmNlIHRoZSBtZWFzdXJlbWVudHMgYXJlIGRvbmUgYXQgdGhlIGRldmljZSBz
-aWRlLiBUaGUgZHJpdmVyIHNpZGUNCj4ganVzdCBuZWVkcyB0byBrbm93IHdoYXQgdGltZSBpdCB3
-b3VsZCBoYXZlIGFzc29jaWF0ZWQgdG8gdGhlIGhhcmR3YXJlIGNvdW50ZXINCj4gcmVhZGluZyBy
-ZXR1cm5lZCBieSB0aGUgZGV2aWNlLg0KPiANCj4gSSB0aGluayBJIHdpbGwgYWRkIHNvbWUgY29u
-dGVudHMgZnJvbSBteSByZXBsaWVzIHRvIHRoZSBjb21taXQgbWVzc2FnZS4NCj4gDQo+IFRoYW5r
-cyBmb3IgdGhlIGZlZWRiYWNrLA0KPiANCg0KSSBhcG9sb2dpemUgZm9yIG15IHNsb3cgcmVzcG9u
-c2UuIEkgd2FzIG5vdCB3ZWxsIHdoZW4geW91IHJlcGxpZWQuDQpBZnRlciB0aGF0IGxvc3QgdHJh
-Y2sgb2YgeW91ciBlbWFpbCBpbiBzdGFja3Mgb2YgZW1haWwgdW50aWwgeW91IHNlbnQgdGhlIG5l
-d2VyIHZlcnNpb24uDQoNCkxldHMgYnJpbmcgcnRjIGZ1bmN0aW9uYWxpdHkgaW4gdGhlIHR3byBk
-ZXZpY2VzLiBXZSBhcmUgYWxtb3N0IHRoZXJlLCBqdXN0IG5lZWQgdG8gcmVmaW5lIHRoZSBkZWZp
-bml0aW9ucy4NCg==
+This patch allows the driver to obtain some statistics from the device.
+
+In the device implementation, we can count a lot of such information,
+which can be used for debugging and judging the running status of the
+device. We hope to directly display it to the user through ethtool.
+
+To get stats atomically, try to get stats for all/multiple queue pairs
+in one command.
+
+Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Suggested-by: Michael S. Tsirkin <mst@redhat.com>
+---
+
+v15:
+   * query supported types via cvq @Parav
+   * fix some problem @David
+
+v14:
+   * introduce supported_stats to config space
+   * add header(vq_index, size, type) to each reply stats
+   * add ref to the tx GSO
+
+ device-types/net/description.tex        | 430 +++++++++++++++++++++++-
+ device-types/net/device-conformance.tex |   1 +
+ device-types/net/driver-conformance.tex |   1 +
+ 3 files changed, 429 insertions(+), 3 deletions(-)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 76585b0..9f55c0d 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -88,6 +88,9 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+     channel.
+
++\item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
++    to the driver through the control channel.
++
+ \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
+
+ \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
+@@ -1156,6 +1159,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+         u8 command;
+         u8 command-specific-data[];
+         u8 ack;
++        u8 command-specific-data-reply[];
+ };
+
+ /* ack values */
+@@ -1164,9 +1168,11 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ \end{lstlisting}
+
+ The \field{class}, \field{command} and command-specific-data are set by the
+-driver, and the device sets the \field{ack} byte. There is little it can
+-do except issue a diagnostic if \field{ack} is not
+-VIRTIO_NET_OK.
++driver, and the device sets the \field{ack} byte and optionally
++\field{command-specific-data-reply}. There is little the driver can
++do except issue a diagnostic if \field{ack} is not VIRTIO_NET_OK.
++
++The command VIRTIO_NET_CTRL_STATS_GET contains \field{command-specific-data-reply}.
+
+ \paragraph{Packet Receive Filtering}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Packet Receive Filtering}
+ \label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
+@@ -1805,6 +1811,424 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+
+ Upon reset, a device MUST initialize all coalescing parameters to 0.
+
++\paragraph{Device Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
++
++If the VIRTIO_NET_F_DEVICE_STATS feature is negotiated, the driver can obtain
++device stats from the device by using the following command.
++
++Different types of virtqueues have different stats. The stats of the receiveq
++are different from those of the transmitq.
++
++The stats of a certain type of virtqueue are also divided into multiple types
++because different types require different features. This enables the expansion
++of new stats.
++
++At one time, the driver can obtain the stats of one or multiple virtqueues.
++Additionally, the driver can obtain multiple type stats of each virtqueue.
++
++\begin{lstlisting}
++#define VIRTIO_NET_CTRL_STATS         7
++#define VIRTIO_NET_CTRL_STATS_QUERY   0
++#define VIRTIO_NET_CTRL_STATS_GET     1
++\end{lstlisting}
++
++To obtain device stats, use the VIRTIO_NET_CTRL_STATS_GET command with the
++\field{command-specific-data} containing the virtio_net_ctrl_queue_stats
++structure. The result is returned in the \field{command-specific-data-reply}.
++
++The following structure is used in \field{command-specific-data}:
++\begin{lstlisting}
++struct virtio_net_ctrl_queue_stats {
++       struct {
++           le16 vq_index;
++           le16 padding[3];
++           le64 types[1];
++       } stats[];
++};
++\end{lstlisting}
++
++The following structures are used in \field{command-specific-data-reply}:
++\begin{lstlisting}
++struct virtio_net_stats_capabilites {
++
++#define VIRTIO_NET_STATS_TYPE_CVQ       (1 << 0)
++#define VIRTIO_NET_STATS_TYPE_RX_BASIC  (1 << 1)
++#define VIRTIO_NET_STATS_TYPE_RX_CSUM   (1 << 2)
++#define VIRTIO_NET_STATS_TYPE_RX_GSO    (1 << 3)
++#define VIRTIO_NET_STATS_TYPE_TX_BASIC  (1 << 4)
++#define VIRTIO_NET_STATS_TYPE_TX_CSUM   (1 << 5)
++#define VIRTIO_NET_STATS_TYPE_TX_GSO    (1 << 6)
++    le64 supported_stats_types[1];
++}
++
++struct virtio_net_stats_reply_hdr {
++    le16 size;
++    le16 vq_index;
++
++#define VIRTIO_NET_STATS_TYPE_REPLY_CVQ       0
++#define VIRTIO_NET_STATS_TYPE_REPLY_RX_BASIC  1
++#define VIRTIO_NET_STATS_TYPE_REPLY_RX_CSUM   2
++#define VIRTIO_NET_STATS_TYPE_REPLY_RX_GSO    3
++#define VIRTIO_NET_STATS_TYPE_REPLY_TX_BASIC  4
++#define VIRTIO_NET_STATS_TYPE_REPLY_TX_CSUM   5
++#define VIRTIO_NET_STATS_TYPE_REPLY_TX_GSO    6
++    u8 type;
++    u8 padding[3];
++}
++
++struct virtio_net_stats_cvq {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 command_num;
++    le64 ok_num;
++};
++
++struct virtio_net_stats_rx_basic {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 rx_packets;
++    le64 rx_bytes;
++
++    le64 rx_notification;
++    le64 rx_interrupt;
++
++    le64 rx_drop;
++    le64 rx_drop_overruns;
++    le64 rx_drop_busy;
++};
++
++struct virtio_net_stats_rx_csum {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 rx_csum_valid;
++    le64 rx_needs_csum;
++    le64 rx_csum_bad;
++    le64 rx_csum_none;
++};
++
++struct virtio_net_stats_rx_gso {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 rx_gso_packets;
++    le64 rx_gso_bytes;
++    le64 rx_gso_packets_coalesced;
++    le64 rx_gso_bytes_coalesced;
++    le64 rx_gso_segments;
++    le64 rx_gso_segments_bytes;
++};
++
++struct virtio_net_stats_tx_basic {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 tx_packets;
++    le64 tx_bytes;
++
++    le64 tx_notification;
++    le64 tx_interrupt;
++
++    le64 tx_drop;
++    le64 tx_drop_malformed;
++
++    le64 tx_drop_busy;
++};
++
++struct virtio_net_stats_tx_csum {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 tx_csum_none;
++    le64 tx_needs_csum;
++};
++
++struct virtio_net_stats_tx_gso {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 tx_gso_packets;
++    le64 tx_gso_bytes;
++    le64 tx_gso_packets_split;
++    le64 tx_gso_bytes_split;
++    le64 tx_gso_segments;
++    le64 tx_gso_segments_bytes;
++};
++
++\end{lstlisting}
++
++The fields of the \field{struct virtio_net_ctrl_queue_stats}:
++\begin{description}
++    \item [vq_index]
++        The index of the virtqueue to obtain the stats.
++
++    \item [types]
++        This is a bitmask of the types of stats to be obtained. Therefore, a
++        \field{struct stats} inside virtio_net_ctrl_queue_stats may indicate
++        multiple stats replies for the virtqueue.
++\end{description}
++
++The fields of the \field{struct virtio_net_stats_reply_hdr}:
++\begin{description}
++    \item [vq_index]
++        The virtqueue index of the reply stats.
++
++    \item [size]
++        The size of bytes of the reply stats.
++
++    \item [type]
++        The type of the reply stats.
++
++\end{description}
++
++\subparagraph{Controlq Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Controlq Statistic}
++
++The structure corresponding to the controlq stats is virtio_net_stats_cvq.
++The corresponding type is VIRTIO_NET_STATS_TYPE_CVQ. This is just for the
++controlq.
++
++\begin{description}
++    \item [command_num]
++        The number of commands including the current command.
++
++    \item [ok_num]
++        The number of commands (including the current command) where the ack was VIRTIO_NET_OK.
++\end{description}
++
++
++\subparagraph{Receiveq Basic Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Receiveq Basic Statistic}
++
++The structure corresponding to the receiveq basic stats is virtio_net_stats_rx_basic.
++The corresponding type is VIRTIO_NET_STATS_TYPE_RX_BASIC. This is just for the
++receiveq.
++
++Receiveq basic stats does not require any feature. As long as the device supports
++VIRTIO_NET_F_DEVICE_STATS, the following are the receiveq basic stats.
++
++The packets described below were all presented on the specified virtqueue.
++\begin{description}
++    \item [rx_packets]
++        This is the number of packets received by the device (not the packets
++        passed to the guest). The count includes the packets dropped by the
++        device.
++
++    \item [rx_bytes]
++        This is the bytes of packets received by the device (not the packets
++        passed to the guest). The count includes the packets dropped by the
++        device.
++
++    \item [rx_notification]
++        The number of driver notifications received by device for this receiveq.
++
++    \item [rx_interrupt]
++        The number of device interrupts for this receiveq.
++
++    \item [rx_drop]
++        This is the number of packets dropped by the device. The count includes
++        all types of packets dropped by the device.
++
++    \item [rx_drop_overruns]
++        This is the number of packets dropped by the device when no more
++        descriptors were available.
++
++    \item [rx_drop_busy]
++        This is the number of packets dropped by the device when the device is
++        busy.
++
++\end{description}
++
++\subparagraph{Transmitq Basic Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Transmitq Basic Statistic}
++
++The structure corresponding to the transmitq basic stats is virtio_net_stats_tx_basic.
++The corresponding type is VIRTIO_NET_STATS_TYPE_TX_BASIC. This is just for the
++transmitq.
++
++Transmitq basic stats does not require any feature. As long as the device supports
++VIRTIO_NET_F_DEVICE_STATS, the following are the transmitq basic stats.
++
++The packets described below are all from a specific virtqueue.
++\begin{description}
++    \item [tx_packets]
++        This is the number of packets sent by the device (not the packets
++        got from the driver).
++
++    \item [tx_bytes]
++        This is the bytes of packets sent by the device (not the packets
++        got from the driver).
++
++    \item [tx_notification]
++        The number of driver notifications for this transmitq.
++
++    \item [tx_interrupt]
++        The number of device interrupts for this transmitq.
++
++    \item [tx_drop]
++        The number of packets dropped by the device. The count includes all
++        types of packets dropped by the device.
++
++    \item [tx_drop_malformed]
++        The number of packets dropped by the device, when the descriptor is in
++        an error state. For example, the buffer is too short.
++
++    \item [tx_drop_busy]
++        The number of packets dropped by the device, when the device is busy.
++
++\end{description}
++
++\subparagraph{Receiveq CSUM Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Receiveq CSUM Statistic}
++
++The structure corresponding to the receiveq csum stats is virtio_net_stats_rx_csum.
++The corresponding type is VIRTIO_NET_STATS_TYPE_RX_CSUM. This is just for the
++receiveq.
++
++Only after the VIRTIO_NET_F_GUEST_CSUM is negotiated, the receiveq csum stats
++can be obtained.
++
++The packets described below are all steered to a specific virtqueue.
++\begin{description}
++    \item [rx_csum_valid]
++        The number of packets with VIRTIO_NET_HDR_F_DATA_VALID.
++
++    \item [rx_needs_csum]
++        The number of packets with VIRTIO_NET_HDR_F_NEEDS_CSUM.
++
++    \item [rx_csum_bad]
++        The number of packets with abnormal csum.
++
++    \item [rx_csum_none]
++        The number of packets without hardware csum. The packet here refers to
++        the non-TCP/UDP packet that the backend cannot recognize.
++
++\end{description}
++
++\subparagraph{Transmitq CSUM Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Transmitq CSUM Statistic}
++
++The structure corresponding to the transmitq csum stats is virtio_net_stats_tx_csum.
++The corresponding type is VIRTIO_NET_STATS_TYPE_TX_CSUM. This is just for the
++transmitq.
++
++Only after the VIRTIO_NET_F_CSUM is negotiated, the transmitq csum stats can be
++obtained.
++
++The following are the transmitq csum stats:
++
++The packets described below are all from a specific virtqueue.
++\begin{description}
++    \item [tx_csum_none]
++        The number of packets that didn't require hardware csum.
++
++    \item [tx_needs_csum]
++        The number of packets that required hardware csum.
++
++\end{description}
++
++\subparagraph{Receiveq GSO Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Receiveq GSO Statistic}
++
++The structure corresponding to the receivq GSO stats is virtio_net_stats_rx_gso.
++The corresponding type is VIRTIO_NET_STATS_TYPE_RX_GSO. This is just for the
++receiveq.
++
++If one or more of the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6, or
++VIRTIO_NET_F_GUEST_UFO have been negotiated, the receiveq GSO stats can be
++obtained.
++
++GSO packets refer to packets passed by the device to the driver where
++\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
++
++The packets described below are all steered to a specific virtqueue.
++\begin{description}
++    \item [rx_gso_packets]
++        The number of the GSO packets received by device.
++
++    \item [rx_gso_bytes]
++        The bytes of the GSO packets received by device.
++
++    \item [rx_gso_packets_coalesced]
++        The number of the GSO packets coalesced by device.
++
++    \item [rx_gso_bytes_coalesced]
++        The bytes of the GSO packets coalesced by device.
++
++    \item [rx_gso_segments]
++        The number of the segments that make up GSO packets.
++
++    \item [rx_gso_segments_bytes]
++        The bytes of the segments that make up GSO packets.
++
++\end{description}
++
++\subparagraph{Transmitq GSO Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Transmitq GSO Statistic}
++
++The structure corresponding to the transmitq GSO stats is virtio_net_stats_tx_gso.
++The corresponding type is VIRTIO_NET_STATS_TYPE_TX_GSO. This is just for the
++transmitq.
++
++If one or more of the VIRTIO_NET_F_HOST_TSO4, VIRTIO_NET_F_HOST_TSO6,
++VIRTIO_NET_F_HOST_USO or VIRTIO_NET_F_HOST_UFO options have
++been negotiated, the transmitq GSO stats can be obtained.
++
++GSO packets refer to packets passed by the driver to the device where
++\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
++See more \ref{sec:Device Types / Network Device / Device Operation / Packet
++Transmission}.
++
++The packets described below are all from a specific virtqueue.
++\begin{description}
++    \item [tx_gso_packets]
++        The number of the GSO packets sent by device that are not cut to small
++        packets.
++
++    \item [tx_gso_bytes]
++        The bytes of the GSO packets sent by device that are not cut to small
++        packets.
++
++    \item [tx_gso_packets_split]
++        The number of the GSO packets that been cut into small packets.
++
++    \item [tx_gso_bytes_split]
++        The bytes of the GSO packets that been cut into small packets.
++
++    \item [tx_gso_segments]
++        The number of segments separated from the GSO packets.
++
++    \item [tx_gso_segments_bytes]
++        The bytes of segments separated from the GSO packets.
++\end{description}
++
++\devicenormative{\subparagraph}{Device Statistic}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
++The device MUST replies to the command VIRTIO_NET_CTRL_STATS_QUERY with the
++struct virtio_net_stats_capabilites. \field{supported_stats_types} includes all
++the stats types supported by the device.
++
++If virtio_net_ctrl_queue_stats is incorrect (such as the following), the device
++MUST set \field{ack} to VIRTIO_NET_ERR. Even if there is only one error,
++the device MUST fail the entire command.
++\begin{itemize}
++    \item \field{vq_index} exceeds the queue range.
++    \item \field{types} contains unknown types.
++    \item One or more of the bits present in \field{types} is not valid for the
++        specified virtqueue.
++    \item The feature corresponding to the specified \field{types} was not negotiated.
++    \item The size of the buffer allocated by the driver for \field{command-specific-data-reply}
++        is less than the total size of the stats specialed by
++        \field{virtio_net_ctrl_queue_stats}.
++\end{itemize}
++
++The device MUST write the requested stats structures in
++\field{command-specific-data-reply} in the order specified by the structure
++virtio_net_ctrl_queue_stats. If the \field{types} indicates multiple stats, the
++replies order by the type value from small to large.
++
++The device MUST set the actual size of the space occupied by the reply to the
++\field{size} of the \field{hdr}. And the device MUST set the \field{type} and
++the \field{vq_index} of the stats header.
++
++\drivernormative{\subparagraph}{Device Statistic}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
++
++The types contained in the \field{types} MUST be queried from the device via
++command VIRTIO_NET_CTRL_STATS_QUERY.
++
++\field{types} in struct virtio_net_ctrl_queue_stats MUST be valid to the vq
++specified by \field{vq_index}.
++
++The \field{command-specific-data-reply} buffer allocated by the driver MUST be
++able to hold all the stats specified by virtio_net_ctrl_queue_stats.
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
+
+diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
+index f88f48b..8ce58fe 100644
+--- a/device-types/net/device-conformance.tex
++++ b/device-types/net/device-conformance.tex
+@@ -15,4 +15,5 @@
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) / RSS processing}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
++\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
+ \end{itemize}
+diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
+index 9d853d9..b6636a2 100644
+--- a/device-types/net/driver-conformance.tex
++++ b/device-types/net/driver-conformance.tex
+@@ -15,4 +15,5 @@
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) }
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
++\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
+ \end{itemize}
+--
+2.32.0.3.g01195cf9f
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
