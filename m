@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7205-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7206-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DBC4EE49A0
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 316D6EE49A0
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:14:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9C1DC2AC48
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:06:20 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7F94026A33
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:14:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8525A98624D
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:06:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7603C986283
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 05:14:20 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 72F59983FE9; Mon, 21 Aug 2023 05:06:20 +0000 (UTC)
+	id 6B2DC983FE9; Mon, 21 Aug 2023 05:14:20 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,267 +24,117 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6122E98622C;
-	Mon, 21 Aug 2023 05:06:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5571C98622C;
+	Mon, 21 Aug 2023 05:14:14 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046059;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0VqA-WXI_1692594374;
-Message-ID: <7ff1c342-ea48-496e-907b-fae0fc18dec5@linux.alibaba.com>
-Date: Mon, 21 Aug 2023 13:06:10 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Parav Pandit <parav@nvidia.com>, virtio-comment@lists.oasis-open.org,
- david.edmondson@oracle.com, xuanzhuo@linux.alibaba.com, sburla@marvell.com
-Cc: shahafs@nvidia.com, virtio@lists.oasis-open.org
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NVY9xBwy6dpJRmcc63Hgv3UbmYFhVpN8bhxPQEshZK0H6GCxTY1BOVMs/JWtP5nTR8M2BxEqyAhlFQ5uybaYcK+FsPvfJRQOHIS0FWQr0OhzD2ab6sVpiufy3WlhMTEcNHMlSUj6ctiIjP4fsa705k33fLbSAPsrzoIpmEfMOD5v3QMsUBCmFHancOFYRvL1DbptXfAZhpWyBkQxjcG2doW2eDzAnAyCWcedRipMGeEITPG3uG+XvniZvyFFZ1RERBD5Tt9ubDGDZK0m5KZd7K9AE+iqj5PQTrYDCT4luR/glvf8A6utDYxhlwl9R6G+lpzA8swv8aMlk/3vjZfZTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xSGW64YqdKP4YLqdX56Nis0R05+fD1u9IV8exWSTR84=;
+ b=U4HR89WGf29eCZspjIADtTqnzs2LVFLhYfefvR+4Iy0HAOBC44pfoM+pmvcEi5iuKNRrRFbwMYGMw6spIxX/9xx+wrSbA4zLI2p/KmB1TIA62W+Wpky69iY3d7oCNKe32xnOJzzjHcf9r1kVf3J73ZyxM2jNsqfqtxCWRW72XfJj7QL5mVHeDQSsaJKLVu9Q3mhocaorukTIrzp9YvLpYjd2Ja3diw/3w8j6+sp63AKakYCcdL1ThexfSY4CuB3w0z86QvSyL6JmaTUr4qXKZY+5XKZTkyFvYhQgFqJfCUuwJ97jhbC5TZNwelN3+Vminf5f4Z8ki+P2dBkEj4xoLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Heng Qi <hengqi@linux.alibaba.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "david.edmondson@oracle.com"
+	<david.edmondson@oracle.com>, "xuanzhuo@linux.alibaba.com"
+	<xuanzhuo@linux.alibaba.com>, "sburla@marvell.com" <sburla@marvell.com>
+CC: Shahaf Shuler <shahafs@nvidia.com>, "virtio@lists.oasis-open.org"
+	<virtio@lists.oasis-open.org>
+Thread-Topic: [PATCH requirements v5 5/7] net-features: Add n-tuple receive
+ flow filters requirements
+Thread-Index: AQHZ0Y2Q89x8De6abk+ghYyGBDRkkq/0N0oAgAABUPA=
+Date: Mon, 21 Aug 2023 05:14:12 +0000
+Message-ID:
+ <DM8PR12MB54808AE0E58C3E7E4580C7CFDC1EA@DM8PR12MB5480.namprd12.prod.outlook.com>
 References: <20230818043557.496964-1-parav@nvidia.com>
  <20230818043557.496964-6-parav@nvidia.com>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <20230818043557.496964-6-parav@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH requirements v5 5/7] net-features: Add n-tuple receive
+ <7ff1c342-ea48-496e-907b-fae0fc18dec5@linux.alibaba.com>
+In-Reply-To: <7ff1c342-ea48-496e-907b-fae0fc18dec5@linux.alibaba.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM8PR12MB5480:EE_|IA1PR12MB8224:EE_
+x-ms-office365-filtering-correlation-id: b1f388c5-505a-4107-721e-08dba20574f1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ a/l2P4AFGvZxXfsUMTu06ygHi+PYyNZvkTm2QO+kTWSwKFbnH9tbKeW5U/rYTSWONlmUZdLLpvc5zImD2iBmOyFtenH5SpBk6BBJK938zOCe695Upa8iYcJn9OqjkA/FhtLaIrlHws0EcPloX7vY65/lp60FsPYZ0GrH03tBSN9zC1Y0S57eLKVoqGr2/cUcSaiCOozdl70yxe6dlZecrBBQriXhAUxyOPEJrFj4X30SvjaKLL7BwI4th3fqBGgpnYY30JvMzBLsMRR5KJDfDKr/bVrcagPAEaPXkLdvvIklvN703ET17fkexQgP8fEA4NRMMlIH0nCL5C8sGJTaEzGV8G8251xg56FlHoYl8M59Ny85Eg+plMVkgKQBuHTREQXPC/wtyWl2ozKjaqwhri+Hi+GYiABa3AhI2J6uOubI62ySwqKkt8i4vyKuNQuKgg00wCyjomWzw5U6kZziwz2klQf15pRWd7dPMZPnH7gsK0qJgWLDZ7uo1Rc2f/xczVzUeJ7dfg+jS5zJ2TJKoSADo0MlRxseWvOuUw/FqQhFwG1xDE9uMmTSnGDX8kyi4YMyLy+aRa2TLQRFd5rCYFre3V1rc4pJ9Hby20NRW7JoX5hdPFFm+TFyThH7aprk
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR12MB5480.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(366004)(396003)(376002)(39860400002)(1800799009)(186009)(451199024)(71200400001)(6506007)(7696005)(38070700005)(38100700002)(122000001)(9686003)(55016003)(26005)(33656002)(66556008)(316002)(2906002)(66946007)(66476007)(54906003)(66446008)(41300700001)(4744005)(110136005)(86362001)(76116006)(5660300002)(64756008)(4326008)(52536014)(8676002)(478600001)(8936002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QUZJUUtFVnpFcDV4MmMxMVFQTVV5TmxRaUFYNkgwSW1GYm5sQkE1aEc0SDI5?=
+ =?utf-8?B?VWVVSXUrNzNKTWxHWE9RNUdvbjcyUmQ1eXhvWms0SmNjN0gxY2JzeHpNZWVX?=
+ =?utf-8?B?Uk51SVlxaHovOUwxcU9WTng4Q1YrODBuY1N4TnFqbk5hY3d6bUxZZEhBVGdL?=
+ =?utf-8?B?U3RhY3NuaFdpZ2Z1cXhIaVFkbGlha2hGejJBeHpWVWpFOU9GOWZpZWRpOFBZ?=
+ =?utf-8?B?bXcwbzVXKytTb1F6R2w1SlFaUTBseXZMZVFmck9jVGxVZk10TWNpRmVYcTdp?=
+ =?utf-8?B?U3VjeEtzdzYxWVMreDE3OHJYeklGVkxLQlIwcEJIMm90Y29hUHkyb3VreEdX?=
+ =?utf-8?B?cDE5cjRLN0RsVUJSSi9TS28zZnQ4cXJBbFplb0QreTFqYkVVNUc1b3R1cTRF?=
+ =?utf-8?B?ZExnaE43TzlUdUF2bVBXOVBMOWc0VnVaK3o5ZnBoMTFUMUhIMjIwYk5aNG9U?=
+ =?utf-8?B?K2M5bFgxM0h3eDc4UVd0TWIzVkxxU3hIaGwrMnkvd1ljbTBLZVNJOWpHTkox?=
+ =?utf-8?B?UldUa2twWHRMRk5mb3ZPSGlMY2pSWnlBM0p3Y2NDZktEWWxhUGY1V21uNEU5?=
+ =?utf-8?B?VVZ6Mys5WWZPand3M1NwVExvRmNRR2dwQWkyZDFoNk1laU1mbDNyaTZMWGNT?=
+ =?utf-8?B?NStpYjAyRDdlOTdPRXBic3RUS2RBYlh5eHNkcE9rLzlwb1FEYzZTbHc0Zjkw?=
+ =?utf-8?B?MjhOQjJtUGIxK3ROem1BQVBDK2NPZGxNSG1GNitTZHI4YUtxRzJYelNPdFJk?=
+ =?utf-8?B?d2hSS1JSMFVqek1rb0NtYjJnaXZQbzIzR2g3aWxFbkN2OTFPNHkvZVliVFl0?=
+ =?utf-8?B?TVhqTm9YRW5iNUZuTi9yRkpSZjZJTHowZCtlUFZYTWh2eEttMkdqV2ZDcTFu?=
+ =?utf-8?B?QzBjWHlEbEg2OUlCMW03N0R2eW1Bdm9Sc3hvczV0ZStYd3NPQk9TLytGc0tG?=
+ =?utf-8?B?d1JYVis4bkw0bUs2QS9Gc1orcjhXRWM4ZGkwTE4xVUF0aEsvMFFkSGt6SElS?=
+ =?utf-8?B?YlYrTTNUeWNidmFubWtVQUxiaUcxTHljVnh5dzBLV3BoM3pzUFR0cTFTUGRC?=
+ =?utf-8?B?UXUxWFVURUYydDJ3ek00QmpLK3JadXZXMWI4cWlzYWVRZUpReWNOWDFHdU9H?=
+ =?utf-8?B?aVA4azVkQXNSYUN6bzFpYk14cGFnajVVcnZSTTdWWVA5MDBmRzhUWjNkQlVT?=
+ =?utf-8?B?V0RybWorWkJhbGNVb3Z0L2hvS1g2UzdOOXpYNjZVM3U0OUdjd2tkaW5mVFBT?=
+ =?utf-8?B?TXZvTXppU3JObExPUTIyVHJ6MThWL056SnlZSWZhdDR5T3pkZGVickhRcXE1?=
+ =?utf-8?B?UUxuVnBqWFJmU0ZaOFc0eTBNYWFkcjhpZnUrcnJLek1WRkYzenpFSU9QNGtW?=
+ =?utf-8?B?cDd3cWdwNEhJZDlxcXJKcTFYYUNXVGoyMGtFSVEzYzlqWXA4MUJ1WVhIcnlR?=
+ =?utf-8?B?WFUwdTZPZmNOMjBjZDJPN3NLc1VFQ3I0T1EyRmxycU83UVUwM2xiM0VlSmdi?=
+ =?utf-8?B?bU5KSEVlV3hneHRyaG8vVDFZMU5nQnEwQmF3d2RId1d3dUZoL0ZBY2tSamtP?=
+ =?utf-8?B?Q3RjQ0ZtNlJhLzNDWXMzemxNTDJ2V2pOY2xBczdKMFlMbis5eEl5WDNNUmcr?=
+ =?utf-8?B?OTJ6bysxQkQ4UXRNRFF0bUYvcDdxalVPSklmTm56Q0RZdzVYb1BPUWNGeEpo?=
+ =?utf-8?B?dEFsdTZrdmp1Nzc3VFZNOVBlTHlRaWRQODBDdHJiQ1RVR2psSlo2enA3aSti?=
+ =?utf-8?B?T0tHQkFyNEN5bXh5SHBEckVteDg2bWtmTFBKOTl5OVJ6WjAwaVRjdjZDMkE4?=
+ =?utf-8?B?SHpWZUlkQ29kM0MyQ1hDM0RUMnJoZDhtUnZSMzJDOXl6NUFObEhMQWtPend5?=
+ =?utf-8?B?bGtlMXBWaFRCK2t6WDJWL2hDcHRkbjVwZ1NkenduK0w5TjhuRnN2NE5oVFh1?=
+ =?utf-8?B?L2RiQTZycGExSW4wbnk3RDNMU1M2dnF3YkFzQWJKMkc5aHNuM0hxRzI4TDRX?=
+ =?utf-8?B?RHlzcHJnUnp3RGlMRFdiMzJqYjFDb1BZQlNYc3RteHg4MWQ0QWpkTGozbW9x?=
+ =?utf-8?B?QkFtd0IxWjhYS2lVTEhDaU5PbnpNWE4xZ2grR2NVNm9ZRVRnK25ESXFLVm90?=
+ =?utf-8?Q?/yOk=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5480.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1f388c5-505a-4107-721e-08dba20574f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2023 05:14:12.3545
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bZzQl1OOrewGZAMBzFIhxYtHf64VCkifH4mRN+ffDXFViwRQ3VrQWDPykART9IjgCSIHmOPpCSytO7YH4CkEKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8224
+Subject: [virtio-comment] RE: [PATCH requirements v5 5/7] net-features: Add n-tuple receive
  flow filters requirements
 
-
-
-在 2023/8/18 下午12:35, Parav Pandit 写道:
-> Add virtio net device requirements for receive flow filters.
->
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
-> Signed-off-by: Satananda Burla <sburla@marvell.com>
-> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-> ---
-> changelog:
-> v4->v5:
-> - Rewrote cvq and flow filter vq mutual exclusive text
-> - added cvq command to enable flow filters on cvq
-> - made commands more refined for priority, opcode and more
-> - Addressed comments from Heng
-> - restructured interface commands
-> v3->v4:
-> - Addressed comments from Satananda, Heng, David
-> - removed context specific wording, replaced with destination
-> - added group create/delete examples and updated requirements
-> - added optional support to use cvq for flor filter commands
-> - added example of transporting flow filter commands over cvq
-> - made group size to be 16-bit
-> - added concept of 0->n max flow filter entries based on max count
-> - added concept of 0->n max flow group based on max count
-> - split field bitmask to separate command from other filter capabilities
-> - rewrote rx filter processing chain order with respect to existing
->    filter commands and rss
-> - made flow_id flat across all groups
-> v1->v2:
-> - split setup and operations requirements
-> - added design goal
-> - worded requirements more precisely
-> v0->v1:
-> - fixed comments from Heng Li
-> - renamed receive flow steering to receive flow filters
-> - clarified byte offset in match criteria
-> ---
->   net-workstream/features-1.4.md | 163 +++++++++++++++++++++++++++++++++
->   1 file changed, 163 insertions(+)
->
-> diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
-> index 72b4132..330949c 100644
-> --- a/net-workstream/features-1.4.md
-> +++ b/net-workstream/features-1.4.md
-> @@ -9,6 +9,7 @@ together is desired while updating the virtio net interface.
->   1. Device counters visible to the driver
->   2. Low latency tx and rx virtqueues for PCI transport
->   3. Virtqueue notification coalescing re-arming support
-> +4  Virtqueue receive flow filters (RFF)
->   
->   # 3. Requirements
->   ## 3.1 Device counters
-> @@ -181,3 +182,165 @@ struct vnet_rx_completion {
->      notifications until the driver rearms the notifications of the virtqueue.
->   2. When the driver rearms the notification of the virtqueue, the device
->      to notify again if notification coalescing conditions are met.
-> +
-> +## 3.4 Virtqueue receive flow filters (RFF)
-> +0. Design goal:
-> +   To filter and/or to steer packet based on specific pattern match to a
-> +   specific destination to support application/networking stack driven receive
-> +   processing.
-> +1. Two use cases are: to support Linux netdev set_rxnfc() for ETHTOOL_SRXCLSRLINS
-> +   and to support netdev feature NETIF_F_NTUPLE aka ARFS.
-> +
-> +### 3.4.1 control path
-> +1. The number of flow filter operations/sec can range from 100k/sec to 1M/sec
-> +   or even more. Hence flow filter operations must be done over a queueing
-> +   interface using one or more queues.
-> +2. The device should be able to expose one or more supported flow filter queue
-> +   count and its start vq index to the driver.
-> +3. As each device may be operating for different performance characteristic,
-> +   start vq index and count may be different for each device. Secondly, it is
-> +   inefficient for device to provide flow filters capabilities via a config space
-> +   region. Hence, the device should be able to share these attributes using
-> +   dma interface, instead of transport registers.
-> +4. Since flow filters are enabled much later in the driver life cycle, driver
-> +   will likely create these queues when flow filters are enabled.
-
-I remember here that the creation phase of flow vq is in the probe 
-phase, and a feature is used to indicate dynamic creation.
-Or do we want to revert to a workaround similar to vq reset here?
-
-Thanks!
-
-> +5. Flow filter operations are often accelerated by device in a hardware. Ability
-> +   to handle them on a queue other than control vq is desired. This achieves near
-> +   zero modifications to existing implementations to add new operations on new
-> +   purpose built queues (similar to transmit and receive queue). Some devices
-> +   may not support flow filter queues and may want to support flow filter operations
-> +   over existing cvq, this gives the ability to utilize an existing cvq.
-> +   Therefore,
-> +   a. Flow filter queues and flow filter commands on cvq are mutually exclusive.
-> +   b. When flow filter queues are supported, the driver should use the flow filter
-> +      queues flow filter operations.
-> +      (Since cvq is not enabled for flow filters, any flow filter command coming
-> +      on cvq must fail).
-> +   c. If driver wants to use flow filters over cvq, driver must explicitly
-> +      enable flow filters on cvq via a command, when it is enabled on the cvq
-> +      driver cannot use flow filter queues. This eliminates any synchronization
-> +      needed by the device among different types of queues.
-> +6. The filter masks are optional; the device should be able to expose if it
-> +   support filter masks.
-> +7. The driver may want to have priority among group of flow entries; to facilitate
-> +   the device support grouping flow filter entries by a notion of a flow group.
-> +   Each flow group defines priority in processing flow.
-> +8. The driver and group owner driver should be able to query supported device
-> +   limits for the receive flow filters.
-> +9. Query the flow filter capabilities of the member device by the owner device
-> +   using administrative command.
-> +
-> +### 3.4.2 flow operations path
-> +1. The driver should be able to define a receive packet match criteria, an
-> +   action and a destination for a packet. For example, an ipv4 packet with a
-> +   multicast address to be steered to the receive vq 0. The second example is
-> +   ipv4, tcp packet matching a specified IP address and tcp port tuple to
-> +   be steered to receive vq 10.
-> +2. The match criteria should include exact tuple fields well-defined such as mac
-> +   address, IP addresses, tcp/udp ports, etc.
-> +3. The match criteria should also optionally include the field mask.
-> +4. Action includes (a) dropping or (b) forwarding the packet.
-> +5. Destination is a receive virtqueue index.
-> +6. Receive packet processing chain is:
-> +   a. filters programmed using cvq commands VIRTIO_NET_CTRL_RX,
-> +      VIRTIO_NET_CTRL_MAC and VIRTIO_NET_CTRL_VLAN.
-> +   b. filters programmed using RFF functiionality.
-> +   c. filters programmed using RSS VIRTIO_NET_CTRL_MQ_RSS_CONFIG command.
-> +   Whichever filtering and steering functionality is enabled, they are applied
-> +   in the above order.
-> +7. If multiple entries are programmed which has overlapping filtering attributes
-> +   for a received packet, the driver to define the location/priority of the entry.
-> +8. The filter entries are usually short in size of few tens of bytes,
-> +   for example IPv6 + TCP tuple would be 36 bytes, and ops/sec rate is
-> +   high, hence supplying fields inside the queue descriptor is preferred for
-> +   up to a certain fixed size, say 96 bytes.
-> +9. A flow filter entry consists of (a) match criteria, (b) action,
-> +    (c) destination and (d) a unique 32 bit flow id, all supplied by the
-> +    driver.
-> +10. The driver should be able to query and delete flow filter entry
-> +    by the flow id.
-> +
-> +### 3.4.3 interface example
-> +
-> +1. Flow filter capabilities to query using a DMA interface such as cvq
-> +using two different commands.
-> +
-> +```
-> +struct virtio_net_rff_cmd {
-> +	u8 class; /* RFF class */
-> +	u8 commands; /* 0 = query cap
-> +		      * 1 = query packet fields mask
-> +		      * 2 = enable flow filter operations over cvq
-> +		      * 3 = add flow group
-> +		      * 4 = del flow group
-> +		      * 5 = flow filter op.
-> +		      */
-> +	u8 command-specific-data[];
-> +};
-> +
-> +/* command 1 (query) */
-> +struct flow_filter_capabilities {
-> +	le16 start_vq_index;
-> +	le16 num_flow_filter_vqs;
-> +	le16 max_flow_groups; /* valid group id = max_flow_groups - 1 */
-> +	le16 max_group_priorities; /* max priorities of the group */
-> +	le32 max_flow_filters_per_group;
-> +	le32 max_flow_filters; /* max flow_id in add/del
-> +				* is equal = max_flow_filters - 1.
-> +				*/
-> +	u8 max_priorities_per_group;
-> +	u8 cvq_supports_flow_filters_ops;
-> +};
-> +
-> +/* command 2 (query packet field masks) */
-> +struct flow_filter_fields_support_mask {
-> +	le64 supported_packet_field_mask_bmap[1];
-> +};
-> +
-> +```
-> +
-> +2. Group add/delete cvq commands:
-> +
-> +```
-> +/* command 3 */
-> +struct virtio_net_rff_group_add {
-> +	le16 priority;	/* higher the value, higher priority */
-> +	le16 group_id;
-> +};
-> +
-> +
-> +/* command 4 */
-> +struct virtio_net_rff_group_delete {
-> +	le16 group_id;
-> +
-> +```
-> +
-> +3. Flow filter entry add/modify, delete over flow vq:
-> +
-> +```
-> +struct virtio_net_rff_add_modify {
-> +	u8 flow_op;
-> +	u8 priority;	/* higher the value, higher priority */
-> +	u16 group_id;
-> +	le32 flow_id;
-> +	struct match_criteria mc;
-> +	struct destination dest;
-> +	struct action action;
-> +
-> +	struct match_criteria mask;	/* optional */
-> +};
-> +
-> +struct virtio_net_rff_delete {
-> +	u8 flow_op;
-> +	u8 padding[3];
-> +	le32 flow_id;
-> +};
-> +
-> +```
-> +
-> +### 3.4.4 For incremental future
-> +a. Driver should be able to specify a specific packet byte offset, number
-> +   of bytes and mask as math criteria.
-> +b. Support RSS context, in addition to a specific RQ.
-> +c. If/when virtio switch object is implemented, support ingress/egress flow
-> +   filters at the switch port level.
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogSGVuZyBRaSA8aGVuZ3FpQGxpbnV4LmFsaWJhYmEuY29tPg0KPiBTZW50OiBN
+b25kYXksIEF1Z3VzdCAyMSwgMjAyMyAxMDozNiBBTQ0KDQo+ID4gKzQuIFNpbmNlIGZsb3cgZmls
+dGVycyBhcmUgZW5hYmxlZCBtdWNoIGxhdGVyIGluIHRoZSBkcml2ZXIgbGlmZSBjeWNsZSwgZHJp
+dmVyDQo+ID4gKyAgIHdpbGwgbGlrZWx5IGNyZWF0ZSB0aGVzZSBxdWV1ZXMgd2hlbiBmbG93IGZp
+bHRlcnMgYXJlIGVuYWJsZWQuDQo+IA0KPiBJIHJlbWVtYmVyIGhlcmUgdGhhdCB0aGUgY3JlYXRp
+b24gcGhhc2Ugb2YgZmxvdyB2cSBpcyBpbiB0aGUgcHJvYmUgcGhhc2UsIGFuZCBhDQo+IGZlYXR1
+cmUgaXMgdXNlZCB0byBpbmRpY2F0ZSBkeW5hbWljIGNyZWF0aW9uLg0KDQo+IE9yIGRvIHdlIHdh
+bnQgdG8gcmV2ZXJ0IHRvIGEgd29ya2Fyb3VuZCBzaW1pbGFyIHRvIHZxIHJlc2V0IGhlcmU/DQoN
+CkFzIHdlIGRpc2N1c3NlZCBkdXJpbmcgdjQsIGR5bmFtaWMgY3JlYXRpb24gdXNpbmcgYSBuZXcg
+ZmVhdHVyZSBiaXQuDQpTYXkgRl9WUV9EWU5BTUlDX0NSRUFURS4NCldpbGwgaW50cm9kdWNlIGl0
+IGFzIHBhcnQgb2YgdGhpcyBzZXJpZXMuDQpMZXRzIG5vdCBidWlsZCBuZXcgZmVhdHVyZXMgdXNp
+bmcgd29ya2Fyb3VuZHMuDQo=
 
