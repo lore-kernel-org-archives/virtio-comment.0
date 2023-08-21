@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7210-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7211-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E85CEE4996
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 10:32:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D83C3EE4996
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 10:44:51 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6B0942B00F
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 10:32:32 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1D62433097
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 10:44:51 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 51EF2986235
-	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 10:32:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0E262986259
+	for <virtio-comment@archiver.kernel.org>; Mon, 21 Aug 2023 10:44:51 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 41E55983FE9; Mon, 21 Aug 2023 10:32:32 +0000 (UTC)
+	id EE79E983FE9; Mon, 21 Aug 2023 10:44:50 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,188 +24,176 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3169898622C;
-	Mon, 21 Aug 2023 10:32:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DDD1098622C;
+	Mon, 21 Aug 2023 10:44:50 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10808"; a="363714798"
-X-IronPort-AV: E=Sophos;i="6.01,189,1684825200"; 
-   d="scan'208";a="363714798"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10808"; a="765319082"
-X-IronPort-AV: E=Sophos;i="6.01,189,1684825200"; 
-   d="scan'208";a="765319082"
-Message-ID: <b93edb87-1d5d-ec4d-6827-e85daa87ceb7@intel.com>
-Date: Mon, 21 Aug 2023 18:32:19 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H7Euz9HOlyF8jrUBFLTKGcfRhd/B3qUPLAlL9xftORZLFh+Zh99AUdrxAK/veLxHvJhWBE9emadllHDxx++XuEI5sbeXjwk5xohrfQIZMscPh9IJ9qU2F2EsoE+ULMDpVN9ee9R7etcq+BeyLxN+EGqmQ5I6V0MDN2uoMojTvwy4IVCFFxyXuZ+iK4y017IymFyKuJ6jBWVVZoi2ddvUr2sJjOqRsZXwn2ikjNssGaewUqJkHMgUov4YHh6ft5AZPikN4bRpVbTqG57hg+MnOXTl/5gq2vjICw/B+k+9NrPmVqYyFJy0gKY8kQATaNxpNpcBdD9YEbKIhl1TU76AsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uysTQNWYeZ+wvpy2ikLs21Oae2DH2sCv6yZXVqcfJ90=;
+ b=mjIXQNr2IQq3lvh+H9Tbj0F4QyLJT6/qB2dWdemcXBUcxccWqXeGIqaMkEnAErAPzUs1orQUyXk3wc0S5XJix3/JOUwgrDMvFSgq6arB7hypAcACGAQugOj9x23KQ0gHNbhwf+xTJCHrifyo+HhT19fNflTIjV727jpD5DpJ/+Nt0QoVtG9y6brXtA96wuZ0wke2ZmmkjCVjgnugqJM8eOQNMBZVkbOr9BmMohlLBM+yEgjkKE4mzI/lyAWRwcAhXT3FNqe/o7732RY/2rw6q4Lp2qqolerVFN7C/hMkczdZ98X5xVbWL3TVYS4GdV8Gp+iEU4i2VO9WnEmz7uSDyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+References: <20230818043557.496964-1-parav@nvidia.com>
+ <20230818043557.496964-2-parav@nvidia.com>
+User-agent: mu4e 1.10.3; emacs 30.0.50
+From: David Edmondson <david.edmondson@oracle.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: hengqi@linux.alibaba.com, xuanzhuo@linux.alibaba.com, sburla@marvell.com,
+        shahafs@nvidia.com, virtio@lists.oasis-open.org,
+        virtio-comment@lists.oasis-open.org
+Date: Mon, 21 Aug 2023 11:44:31 +0100
+In-reply-to: <20230818043557.496964-2-parav@nvidia.com>
+Message-ID: <m28ra465ey.fsf@oracle.com>
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0524.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c5::9) To DS7PR10MB4926.namprd10.prod.outlook.com
+ (2603:10b6:5:3ac::20)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.14.0
-Content-Language: en-US
-To: Eugenio Perez Martin <eperezma@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>, mst@redhat.com, cohuck@redhat.com,
- virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
- Si-Wei Liu <si-wei.liu@oracle.com>, Dragos Tatulea <dtatulea@nvidia.com>
-References: <20230814192904.30062-1-lingshan.zhu@intel.com>
- <20230814192904.30062-5-lingshan.zhu@intel.com>
- <CACGkMEtkdXrTZ_=NkuPsmhUooCgKPiCiVo-nJMaDnJ5fufzGwQ@mail.gmail.com>
- <8ce92e00-39f9-3e99-96e2-5599588869e3@intel.com>
- <CAJaqyWd=hCvknO5MQ0Nu4iwxPMfjHGHNJHiwzxAaRLcgZ1HKxg@mail.gmail.com>
- <23b9082d-050a-6f82-754e-d309c48972d5@intel.com>
- <CAJaqyWeye4fOTB5pPtwpzusgZRL6d36EzDD61zoD8Uf+0v4FQw@mail.gmail.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <CAJaqyWeye4fOTB5pPtwpzusgZRL6d36EzDD61zoD8Uf+0v4FQw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [RFC PATCH 4/5] virtqueue: constraints for
- virtqueue state
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR10MB4926:EE_|DS7PR10MB5167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4be5826a-fd50-4b21-44a8-08dba233a0a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	ERa6Z93l3jQVdc5p4q6pvXvnJIdwyh40AJxhVzCP78qQV7zRvcXHN3pc418awXf7YVP6S4E6EOHRj7R4/54C4J+2pw/uiZGIny18fmI9BBpCjCiPzc5QP96n9X1nAbFheI04F8k8sYWr+U9UwYMcKtkqeMgzl+zW+vs7gnQaK2kpS3McYNldPwrsfctG+Db5fLETYnKwzBpMFou1typy6X1bTindyxySl0FjkJ2QY/TAbjh/W7KDcSZbIxEo3jxrmg29wLuUqky7IROeK2eKJUsgvVOsmCVgyeP5a9l+8vOaYUUHMm8GMYmOvH5kJSXBHmX3x3pIzjfE/TsRyhS4HpziPMOSUMJKzm2/4kG5cZAaiDZCKLVw6T6bTqiVBk++imdFlIemI0eu55Miedix0qN7P7tPe9oO0gDfsnBq6cpTuW2jmgsxI8Dws6jKVfLuWtFCYrzJsE/r4E5TneHs6MRN+onTVD9vMXyQT1uVNbojgqAUCNovTtFZedksaqzD7ldtoUbB1lL7GLWOVurmrC2e7pgXHSGUhibwKBnXpTQ=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR10MB4926.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(346002)(136003)(39860400002)(396003)(451199024)(186009)(1800799009)(2906002)(83380400001)(38100700002)(6506007)(6486002)(5660300002)(44832011)(26005)(86362001)(8676002)(2616005)(8936002)(4326008)(316002)(66946007)(6512007)(6916009)(66556008)(66476007)(966005)(478600001)(6666004)(41300700001)(36756003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?IIujKa5Tmc+QzBnneiEbXSgF2kKPdTinebhoR5DUnr+XjYBl4sBl5abM0YaO?=
+ =?us-ascii?Q?gaoJqW6PSxcLXt7Eq5+gkOfGEmNj/sUssvxCZ7+F4soTMQIFPlrHYwAN89RA?=
+ =?us-ascii?Q?O64PIdgyy3Bf+CV3DFsZsbupXNLVVeyVx7r5PgtwwCHVElTexxwBktjWnkWE?=
+ =?us-ascii?Q?JhnHgumbKcSmMeM/XGsYpcNuCl4ZK0hk319ee1v5aKeO9q//RuQmcoIv6qg7?=
+ =?us-ascii?Q?YIIzye57xsR5wv3yFvi4dGPg82CS43G2WLMA70yqq6dkNxr0lmppLSut875C?=
+ =?us-ascii?Q?+TTmaXUlacFF+EkYyDZBSzzp+c7+FKSxJnpv9VAZ9p/W8I/slfYMOrWUtHKY?=
+ =?us-ascii?Q?xu9PKTOepOshk7WdGhoY7RuNsQVVmMItE+weZOgkCgnfiq9Qr2dMsGrCtDGy?=
+ =?us-ascii?Q?6IU4P2wIWueROcAuNjt/8MFjRkRNm2dsCZo0+SlB8dDyRmUtr1HddDZh6lhl?=
+ =?us-ascii?Q?jov8mdn77CbTGCHTIjWaSP+2tglAKefHEUTifvDw+MWmandfbbd5kho1/Gmx?=
+ =?us-ascii?Q?4cJD6TGFve1mrWO72V2EGd0r4ZrR/gInH4owpmS6FOo4uKP5iBhULwS+6TiA?=
+ =?us-ascii?Q?W1uTMHDNlF6zC6IkiS/hbmoDIG/kX9KaCb1lNCWydYaqcvImHM5SuvwajuZ2?=
+ =?us-ascii?Q?bIovmAtWf28bcj3UA2mR4Ix9qL6YUgqhHWjZxNZkU0/SJushdnOjDb3vdKcm?=
+ =?us-ascii?Q?9n+e0r4ppRUFb2pKkOJZQxM1Yl5Uk4VzTuDQprrVZXlos4J/eDkUFTyR+dlb?=
+ =?us-ascii?Q?V3WHRTGFCLWJyTYfe1Lyf5+vGYXTK4T2WPkRYl4oczJtJLG4USmedSfPtPlq?=
+ =?us-ascii?Q?XE9t/I62JhHCVOzS+dlYWyZcLVRpYxj1vxdtrDiy5OfWSqzOHJ4HxWCxaVxQ?=
+ =?us-ascii?Q?PfNHs/HAz0AhKclRDy3O7E96YZqRDJvbBX2cEIx+NzCEdQPlMqJk/omuxeBM?=
+ =?us-ascii?Q?e8Bgm77VhP6OqTgvaay7ZacTgfIPtTAJuFaCq7ZE0vODeuDIkKsHv08YktGN?=
+ =?us-ascii?Q?O5+l9NDj0ANe/OHvyIa8k2a3AbMDAS6kDIpydU2L46BlGjPx4WMHNV+1ANhJ?=
+ =?us-ascii?Q?ITYKOtorERYMXL6O22QxLSEateKGzv23nWWsKW038NuttkMtn/GKf3PRtbVi?=
+ =?us-ascii?Q?zlc1NJQkQ7yQXW/83266Xp8VL8/5Th7dw8hFHtd9sgTf25j4ZegM9KiaP3uo?=
+ =?us-ascii?Q?lpF+YhDHim7w/+cr56pDyWMoLhaPsFobeYXXwy7amkzTuSTtI65pehKhM0UP?=
+ =?us-ascii?Q?12JmII378iwmlV8PBSsev5jw8shFx8hsN3gWfH67Ifo6IHnRIYz8YSxMf8ck?=
+ =?us-ascii?Q?+mUaa/D0uuheVSnW31iEgtZz2MIYEghGDrV8vtyz6e6cxq7KCybzDhZhTQyO?=
+ =?us-ascii?Q?yqxx9hB4y94yyS+Bch/JA6snaNx3oDdF6m78xKMydi1aKlMgRTMy4lV7GgHg?=
+ =?us-ascii?Q?o3HO3K3P/eh4jVMbB5DqixhVj+r03dM+cB9vZ0cdvacWHMYHAaPcwbY2pdtv?=
+ =?us-ascii?Q?eTWXiAQYXKzRyFDFMQQbSwOnrEF5Ffsj17eww+qe/6/hiOh/JcHT42+BTC3U?=
+ =?us-ascii?Q?78PdxGgppcTzTYPcowQuLNK6g/PQVKLH30QubbsBqaH1Cd1AKoio8Kcrp0zT?=
+ =?us-ascii?Q?NA=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
+	4o1zZKPYhxYi3vX4sgByi6DsccU25H0kEiMGwO/stn39D5f+ms8JyJhWBeDeiTHLzdIliPEv5SWCBWuxJnhnPSpXFblS+6K7a0Zre1V23gDYpPHtxABjPemoTMbnxgtg0c3BYWDNOA8htYim/FJRJ/l7otsSx5qhPnAk8SoazzjVfnL7UVJulO7UeHWGRamBvmUqwaqMCbovXouELaKAaHM2zj7cYidr23UAJlDy2o3KLXwRmvVuKtFVW4TgrwqPxsBfd+qh0A4GaO+dsfJUPpjf1nRZhuzOq0IPQvDTsixw9YnosQBrBEvinBMI0xspAZFn31dzMbUb+kR2ffspTrqi4+IE9hKHYzX36eFHxXz0qtbz6l5vkXW0kDpABCY34p+PHf/mES66moOSiYMm7QaPI/JX1kxrrVl+CZsIVihpBjO5SEx7FIuV+VZtzqBzsuazEzhKMe2gu2b9ATcNCEwI4g2bPjwAxe7rdnzvf4m2y4T/eShW8ndLNiDTWL7GBEk0/9HUXir4Pcit+KOwKsUnknhX8GR3lmATdaXNETA4DM0dvHmnvfQC+jzrfaIOzDiFwsAwkU8ELOOrxrpSRsS0gwuFeEH05jLJEld4YRjD6bHPix6Ck+Uo5oqpXeW8rvxLMy4rWlzVJ4Vl8nmodFlzkrKSO47di4J8HY1VYTOTyFLaKmQQ5fvpMB/IsZ4+LpUyoZO+psNBp/s58o36iJbW/pg7TzYnCGv5/5U4HwSotJ1eJeOmB8bgS2mc/ZrVw2ZehtCHnphM5p7dxId1E/wNQUFrASiDmXbQ6oF2JG5ITWZ54F/olFc0d+h1krx0yOAbmRqWF4dGrfwyGQIhCa4YrkJsr/sxoSQMMI3Bc9Tk6QNHTgTZ9+2Oisn3eigF
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4be5826a-fd50-4b21-44a8-08dba233a0a8
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB4926.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 10:44:42.7502
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X69OrZSj3g6l2vlsgFW1T12TmcNK+U8SV8eLhxdHGK5z91jCZUYi5hhkyiWHXHxPzJJHCiBkb6MbNgxRJk7oH3FbJ/hCeU/Zca2jzCXHlP4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5167
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-21_01,2023-08-18_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxscore=0 spamscore=0
+ mlxlogscore=999 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
+ definitions=main-2308210099
+X-Proofpoint-GUID: vjWvyFjWSCR9p7cX5mqysfoDOfQGHrVk
+X-Proofpoint-ORIG-GUID: vjWvyFjWSCR9p7cX5mqysfoDOfQGHrVk
+Subject: Re: [virtio-comment] [PATCH requirements v5 1/7] net-features: Add
+ requirements document for release 1.4
 
 
+On Friday, 2023-08-18 at 07:35:51 +03, Parav Pandit wrote:
+> Add requirements document template for the virtio net features.
+>
+> Add virtio net device counters visible to driver.
+>
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
 
-On 8/21/2023 5:26 PM, Eugenio Perez Martin wrote:
-> On Fri, Aug 18, 2023 at 11:44 AM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
->>
->>
->> On 8/17/2023 11:19 PM, Eugenio Perez Martin wrote:
->>> On Tue, Aug 15, 2023 at 1:30 PM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
->>>>
->>>> On 8/15/2023 8:34 AM, Jason Wang wrote:
->>>>> On Mon, Aug 14, 2023 at 7:29 PM Zhu Lingshan <lingshan.zhu@intel.com> wrote:
->>>>>> This commit specifies the constraints of the virtqueue state,
->>>>>> and the actions should be taken by the device when SUSPEND
->>>>>> and DRIVER_OK is set
->>>>>>
->>>>>> Signed-off-by: Jason Wang <jasowang@redhat.com>
->>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>> ---
->>>>>>     content.tex | 31 +++++++++++++++++++++++++++++++
->>>>>>     1 file changed, 31 insertions(+)
->>>>>>
->>>>>> diff --git a/content.tex b/content.tex
->>>>>> index 43bd5de..f6ac581 100644
->>>>>> --- a/content.tex
->>>>>> +++ b/content.tex
->>>>>> @@ -587,6 +587,37 @@ \subsection{\field{Used State} Field}
->>>>>>
->>>>>>     See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counters}.
->>>>>>
->>>>>> +\drivernormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio Device / Virtqueue State}
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated, the driver MUST set SUSPEND in \field{device status}
->>>>>> +first before getting or setting Virtqueue State of any virtqueues.
->>>>> I don't get why this is a must. It could be useful for debugging.
->>>> To avoid race conditions with the device and make the device
->>>> implementation easier
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE has been negotiaged but VIRTIO_RING_F_PACKED not been negotiated,
->>>>> typo
->>>> yes
->>>>>> +the driver MUST NOT access \field{Used State} of any virtqueues, it should use the
->>>>>> +used index in the used ring.
->>>>>> +
->>>>>> +\devicenormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio Device / Virtqueue State}
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated but SUSPEND is not set in \field{device status},
->>>>>> +the device MUST ignore any accesses against Virtqueue State of any virtqueues.
->>>>> Btw, do we need to clarify the behavior of ring reset after suspending?
->>>> I think once suspended, the device should ignore resetting a queue
->>> Actually shadow virtqueue could benefit from the ability to change vq
->>> properties (addresses) while the device is suspended, and then just
->>> resume it. I've been told that ring reset is overkill for that.
->> If ring reset is overkill, is SUSPEND even more overkill?
-> It depends on the cost of recreating the vq in the device I think. But
-> it has more to do with *what* is changed in the vq, as it seems some
-> parameters (vq size) has more impact than others like vq address. The
-> way to stop the device does not affect, but ring reset offers the
-> possibility of change all of the parameters already.
->
-> Adding Si-Wei and Dragos here, as they pointed it out in the
-> virtio-networking upstream meeting.
->
->>> But probably it is better to address it on top, with another feature flag.
->> I think if we want to changing the vq properties, there must be a
->> mechanism to
->> stop the queue then resume the queue.
->>
->> How about allow setting queue_enable = 0 to stop it and =1 to resume and
->> force it reinitialize?
->>
-> Yes, I think that is better suited. But maybe this is better to be
-> added on top, so we maintain this series small.
-OK, I can work out a patch in this series implementing it.
-And as discussed in another thread with Jason in this series, it
-is better to forbid resetting a vq after SUSPEND.
+Acked-by: David Edmondson <david.edmondson@oracle.com>
 
-Thanks
+> ---
+> changelog:
+> v4->v5:
+> - Fixed attributes query and counters query
+> v3->v4:
+> - Addressed comment from David
+> - Added link to more counters that we are already discussing
+> v0->v1:
+> - removed tx dropped counter
+> - updated requirements to mention about virtqueue interface for counters
+>   query
+> ---
+>  net-workstream/features-1.4.md | 41 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+>  create mode 100644 net-workstream/features-1.4.md
 >
-> Thanks!
->
->> Thanks
->> Zhu Lingshan
->>>>>> +
->>>>>> +When VIRTIO_F_QUEUE_STATE has been negotiated but VIRTIO_RING_F_PACKED is not,
->>>>>> +the device MUST ignore any accesses against \field{Used State}.
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE has been negotiaged, the device MUST reset
->>>>>> +the Virtqueue State of every virtqueue upon a reset.
->>>>> Need to define the meaning of "reset" this is important for packed virtqueue.
->>>> I will remove this as Stefan suggested.
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE and VIRTIO_RING_F_PACKED have been negotiaged, when SUSPEND is set,
->>>>>> +the device MUST record the Virtqueue State of every enabled virtqueue
->>>>>> +in \field{Available State} and \field{Used State} respectively,
->>>>>> +and correspondingly restore the Virtqueue State of every enabled virtqueue
->>>>>> +from \field{Avaiable State} and \field{Used State} when DRIVER_OK is set.
->>>>> We can just let the device report those states in any case then we
->>>>> don't need to care about those details, or did you see any blockers?
->>>> Agree, I will add the definition of used_state of splitted vq in the
->>>> next version
->>>>
->>>> Thanks
->>>>> Thanks
->>>>>
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated but VIRTIO_RING_F_PACKED has been not, when SUSPEND is set,
->>>>>> +the device MUST record the available state of every enabled virtqueue in \field{Available State},
->>>>>> +and restore the available state of every enabled virtqueue from \field{Avaiable State}
->>>>>> +when DRIVER_OK is set.
->>>>>> +
->>>>>>     \input{admin.tex}
->>>>>>
->>>>>>     \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
->>>>>> --
->>>>>> 2.35.3
->>>>>>
->
-> This publicly archived list offers a means to provide input to the
->
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
->
->
-> In order to verify user consent to the Feedback License terms and
->
-> to minimize spam in the list archive, subscription is required
->
-> before posting.
->
->
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->
-> List help: virtio-comment-help@lists.oasis-open.org
->
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
->
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
->
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
->
-> Committee: https://www.oasis-open.org/committees/virtio/
->
-> Join OASIS: https://www.oasis-open.org/join/
->
-
+> diff --git a/net-workstream/features-1.4.md b/net-workstream/features-1.4.md
+> new file mode 100644
+> index 0000000..ea36f09
+> --- /dev/null
+> +++ b/net-workstream/features-1.4.md
+> @@ -0,0 +1,41 @@
+> +# 1. Introduction
+> +
+> +This document describes the overall requirements for virtio net device
+> +improvements for upcoming release 1.4. Some of these requirements are
+> +interrelated and influence the interface design, hence reviewing them
+> +together is desired while updating the virtio net interface.
+> +
+> +# 2. Summary
+> +1. Device counters visible to the driver
+> +
+> +# 3. Requirements
+> +## 3.1 Device counters
+> +1. The driver should be able to query the device and/or per vq counters for
+> +   debugging purpose using a virtqueue directly from driver to device for
+> +   example using a control vq.
+> +2. The driver should be able to query which counters are supported using a
+> +   virtqueue command, for example using an existing control vq.
+> +3. If this device is migrated between two hosts, the driver should be able
+> +   get the counter values in the destination host from where it was left
+> +   off in the source host.
+> +4. If a virtio device is a group member device, it must be possible to query
+> +   all of the group member counters via the group owner device.
+> +5. If a virtio device is a group member device, it must be possible to query
+> +   all of the group member counter attributes via the group owner device.
+> +
+> +### 3.1.1 Per receive queue counters
+> +1. le64 rx_oversize_pkt_errors: Packet dropped due to receive packet being
+> +    oversize than the buffer size
+> +2. le64 rx_no_buffer_pkt_errors: Packet dropped due to unavailability of the
+> +    buffer in the receive queue
+> +3. le64 rx_gso_pkts: Packets treated as receive GSO sequence by the device
+> +4. le64 rx_pkts: Total packets received by the device
+> +
+> +### 3.1.2 Per transmit queue counters
+> +1. le64 tx_gso_pkts: Packets send as transmit GSO sequence
+> +2. le64 tx_pkts: Total packets send by the device
+> +
+> +### 3.1.3 More counters
+> +More counters discussed in [1].
+> +
+> +[1] https://lists.oasis-open.org/archives/virtio-comment/202308/msg00176.html
+-- 
+I know a man called Sylvester, him have to wear a bullet proof vest y'all.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
