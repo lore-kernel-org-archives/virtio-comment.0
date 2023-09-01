@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7230-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7231-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78D8FCA0FE6
-	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 11:00:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EDCCA0FE8
+	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 12:45:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B6F3D12D358
-	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 11:00:45 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 10F4F3357A
+	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 12:45:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A29B29865E9
-	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 11:00:45 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F26839865F6
+	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 12:45:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 906049865C9; Fri,  1 Sep 2023 11:00:45 +0000 (UTC)
+	id E5A45986593; Fri,  1 Sep 2023 12:45:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,249 +24,222 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 71C6298658C
-	for <virtio-comment@lists.oasis-open.org>; Fri,  1 Sep 2023 11:00:45 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C16E298658E
+	for <virtio-comment@lists.oasis-open.org>; Fri,  1 Sep 2023 12:45:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-MC-Unique: scNgJ7jtMOmhb48l8CXFvw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693566037; x=1694170837;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wz9n8fqsI7jiFNwYpSgDyJmxy3p7QY81tAlou+VirwE=;
-        b=j0BgOv7GR/LqYYfnLDTzjPrWYEj+VB+KzgRUobXrGitnxptfygrxMmtbz/KD1KdcO/
-         zRa4b8bNE6MwETdf4NAkGDPsfP640vvOzndjdClvRvIlBY7UuxeqiXnVIQvh+hjVb6p7
-         5Cj8DoYfydQMc8Gcfir3YI+7slwbwfw6vJPpD5XqiXVtK6jZA51cIzOjkDy6Vn8H30UT
-         6AoPqcVmIAg1T5s5ctHsT3JXtfP4Vo3ktYFqttXn5+smxpTwYu63KY972Z5Ea51MOnIa
-         eVTexCaDEtsyNEfxlz69oCGDVVRQ6MP+DPy9DA8EXkbvLx4hpcfOz1Av0SmHDEaysWIr
-         MvrA==
-X-Gm-Message-State: AOJu0YyjHsVAZIdyUYtXhQ8yGOMw+Cs0EKlGbCtnWi9ULTFLJsLiMJzh
-	092D8WEgPytSsY5ArVmmKf2GPQ==
-X-Google-Smtp-Source: AGHT+IGh/sgWTZUny+y2lH4VfX+G4sFgF/tDfU4lH4e7mn2APqbe4Lk7xUbBwsDPnCU+ed1gsBJDIg==
-X-Received: by 2002:a5d:4410:0:b0:317:5ece:e169 with SMTP id z16-20020a5d4410000000b003175ecee169mr1573956wrq.68.1693566037191;
-        Fri, 01 Sep 2023 04:00:37 -0700 (PDT)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: slp@redhat.com,
-	mst@redhat.com,
-	marcandre.lureau@redhat.com,
-	stefanha@redhat.com,
-	viresh.kumar@linaro.org,
-	sgarzare@redhat.com,
-	takahiro.akashi@linaro.org,
-	erik.schilling@linaro.org,
-	manos.pitsidianakis@linaro.org,
-	mathieu.poirier@linaro.org
-Cc: qemu-devel@nongnu.org,
-	virtio-dev@lists.oasis-open.org,
-	virtio-comment@lists.oasis-open.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Date: Fri,  1 Sep 2023 12:00:18 +0100
-Message-Id: <20230901110018.3704459-1-alex.bennee@linaro.org>
-X-Mailer: git-send-email 2.39.2
+        d=1e100.net; s=20221208; t=1693572317; x=1694177117;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ouXJVZl4mDR5/cEQyxHcnEFyhfSlawc7J6ry03lS/Xk=;
+        b=FWHRniVSIkul80Q1ctkFwqk+CuLf4ExECA8Pe3DnaAKGDRQgT5kbA1UhwSqcel0+h6
+         H1N9GEEtR8yXSyT/X2MFA9PWDM78cBgze1mYB8ryDgGjha9rqaDm4EQhm1862BHxll2z
+         pMEnNykmJK64xFSbA9QlyiwlFD9BPOBtnPCapOaMWRGpPu0ocKtaC920tSzdRMkGbzs7
+         oaPclwAB8KTPrvfDrZ5Msnx/GH3GCJgYX1Ipy5af8DoMpiTSd7AqbjF0NhVMjQ5tRiRn
+         kD18B52UwYLQbfeCb0fMWFC80nw7nlxcig0Y8US6N7i5X4/1yCLlemaJeRQnoKHFlrem
+         LVMw==
+X-Gm-Message-State: AOJu0YzB9kvHJNF7INlQbgtnGKDr2gxtRegaXlkVjMTTfKzvm6/OIfLQ
+	ddGShzbBw/S5etx8CFHTEiN+108WLGA7RlUBE8A2+8lwmSJL1piL61yoljjz1uaAeg+0oinUlQw
+	PPels5uubWY70AUf6QsSi4gI1nPajxbQHwQ==
+X-Received: by 2002:a17:907:2953:b0:99d:f056:5d6b with SMTP id et19-20020a170907295300b0099df0565d6bmr1523512ejc.20.1693572317718;
+        Fri, 01 Sep 2023 05:45:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF6/69QvGdy41KX06nMkkHYkHcfdpDOpRN/548wudGayx2mCpSoCRUaTC9GcwIY8kIBKX+y9A==
+X-Received: by 2002:a17:907:2953:b0:99d:f056:5d6b with SMTP id et19-20020a170907295300b0099df0565d6bmr1523498ejc.20.1693572317380;
+        Fri, 01 Sep 2023 05:45:17 -0700 (PDT)
+Date: Fri, 1 Sep 2023 14:45:14 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Bobby Eshleman <bobby.eshleman@bytedance.com>
+Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, 
+	bobbyeshleman@gmail.com, cong.wang@bytedance.com, stefanha@redhat.com, 
+	jiang.wang@bytedance.com, arseny.krasnov@kaspersky.com, 
+	virtualization@lists.linux-foundation.org, cohuck@redhat.com, mst@redhat.com
+Message-ID: <h6wtvcglyw55enk6shdogbfnw3m6zbmb4lv65uhznpwzqjw5sc@vc7clkjbxfep>
+References: <20230829212945.3420727-1-bobby.eshleman@bytedance.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [RFC PATCH v2] docs/interop: define PROBE feature for vhost-user VirtIO devices
+In-Reply-To: <20230829212945.3420727-1-bobby.eshleman@bytedance.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH] virtio-vsock: add VIRTIO_VSOCK_F_DGRAM feature bit
 
-Currently QEMU has to know some details about the VirtIO device
-supported by a vhost-user daemon to be able to setup the guest. This
-makes it hard for QEMU to add support for additional vhost-user
-daemons without adding specific stubs for each additional VirtIO
-device.
+On Tue, Aug 29, 2023 at 09:29:45PM +0000, Bobby Eshleman wrote:
+>This adds support for datagrams to the virtio-vsock device.
+>
+>virtio-vsock already supports stream and seqpacket types. The existing
+>message types and header fields are extended to support datagrams.
+>Semantic differences between the flow types are stated, as well as any
+>additional requirements for devices and drivers implementing this
+>feature.
+>
+>Signed-off-by: Bobby Eshleman <bobby.eshleman@bytedance.com>
+>---
+> device-types/vsock/description.tex | 95 +++++++++++++++++++++++++++---
+> 1 file changed, 88 insertions(+), 7 deletions(-)
+>
+>diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+>index 7d91d159872f..638dca8e5da1 100644
+>--- a/device-types/vsock/description.tex
+>+++ b/device-types/vsock/description.tex
+>@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+>+\item[VIRTIO_VSOCK_F_DGRAM (3)] datagram socket type is supported.
+> \end{description}
+>
+> \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+>@@ -167,17 +168,22 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+> consists of a (cid, port number) tuple. The header fields used for this are
+> \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+>
+>-Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
+>-for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
+>+
+>+Currently stream, seqpacket, and datagram sockets are supported. \field{type} is
+>+1 (VIRTIO_VSOCK_TYPE_STREAM) for stream socket types, 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for
+>+seqpacket socket types, and 3 (VIRTIO_VSOCK_TYPE_DGRAM) for datagram socket types.
+>
+> \begin{lstlisting}
+> #define VIRTIO_VSOCK_TYPE_STREAM    1
+> #define VIRTIO_VSOCK_TYPE_SEQPACKET 2
+>+#define VIRTIO_VSOCK_TYPE_DGRAM     3
+> \end{lstlisting}
+>
+> Stream sockets provide in-order, guaranteed, connection-oriented delivery
+> without message boundaries. Seqpacket sockets provide in-order, guaranteed,
+>-connection-oriented delivery with message and record boundaries.
+>+connection-oriented delivery with message and record boundaries. Datagram
+>+sockets provide connection-less, best-effort delivery of messages, with no
+>+order or reliability guarantees.
+>
+> \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device / Device Operation / Buffer Space Management}
+> \field{buf_alloc} and \field{fwd_cnt} are used for buffer space management of
+>@@ -203,16 +209,19 @@ \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device /
+> previously receiving a VIRTIO_VSOCK_OP_CREDIT_REQUEST packet. This allows
+> communicating updates any time a change in buffer space occurs.
+>
+>+\field{buf_alloc} and \field{fwd_cnt} are reserved for future use by datagram
+>+sockets. These fields are not used for datagram buffer space management.
+>+
+> \drivernormative{\paragraph}{Device Operation: Buffer Space Management}{Device Types / Socket Device / Device Operation / Buffer Space Management}
+>-VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+>-sufficient free buffer space for the payload.
+>+For stream and seqpacket flows, VIRTIO_VSOCK_OP_RW data packets MUST only be
+>+transmitted when the peer has sufficient free buffer space for the payload.
+>
+> All packets associated with a stream flow MUST contain valid information in
+> \field{buf_alloc} and \field{fwd_cnt} fields.
+>
+> \devicenormative{\paragraph}{Device Operation: Buffer Space 
+> Management}{Device Types / Socket Device / Device Operation / Buffer 
+> Space Management}
+>-VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+>-sufficient free buffer space for the payload.
+>+For stream and seqpacket flows, VIRTIO_VSOCK_OP_RW data packets MUST only be
+>+transmitted when the peer has sufficient free buffer space for the payload.
+>
+> All packets associated with a stream flow MUST contain valid information in
+> \field{buf_alloc} and \field{fwd_cnt} fields.
+>@@ -299,6 +308,78 @@ \subsubsection{Seqpacket Sockets}\label{sec:Device Types / Socket Device / Devic
+> #define VIRTIO_VSOCK_SEQ_EOR (1 << 1)
+> \end{lstlisting}
+>
+>+\subsubsection{Datagram Sockets}\label{sec:Device Types / Socket Device / Device Operation / Datagram Sockets}
+>+
+>+\drivernormative{\paragraph}{Device Operation: Packet Fragmentation}{Device Types / Socket Device / Datagram Sockets / Fragmentation}
+>+
+>+Drivers MAY disassemble packets into smaller fragments. If drivers fragment a
+>+packet, they MUST follow the fragmentation rules described in section
+>+\ref{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}.
+>+
+>+Drivers MUST support assembly of received packet fragments according to the
+>+fragmentation rules described in section
+>+\ref{sec:Device Types / Socket Device / Device Operation / Datagram 
+>Sockets / Fragmentation}.
+>+
+>+\devicenormative{\paragraph}{Device Operation: Packet Fragmentation}{Device Types / Socket Device / Datagram Sockets / Fragmentation}
+>+
+>+Devices MAY disassemble packets into smaller fragments. If devices fragment a
+>+packet, they MUST follow the fragmentation rules described in section
+>+\ref{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}.
+>+
+>+Devices MUST support assembly of received packet fragments according to the
+>+fragmentation rules described in section
+>+\ref{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}.
+>+
+>+\drivernormative{\paragraph}{Device Operation: Packet Dropping}{Device Types / Socket Device / Datagram Sockets / Dropping}
+>+
+>+The driver MAY drop received packets with no notification to the device. This
+>+can happen if, for example, there are insufficient resources or no socket
+>+exists for the destination address.
+>+
+>+\devicenormative{\paragraph}{Device Operation: Packet Dropping}{Device Types / Socket Device / Datagram Sockets / Dropping}
+>+
+>+The device MAY drop received packets with no notification to the driver. This
+>+can happen if, for example, there are insufficient resources or no socket
+>+exists for the destination address.
 
-This patch suggests a new feature flag (VHOST_USER_PROTOCOL_F_PROBE)
-which the back-end can advertise which allows a probe message to be
-sent to get all the details QEMU needs to know in one message.
+Should we provide some notification if the socket does not exist at the
+destination?
 
-Together with the existing features VHOST_USER_PROTOCOL_F_STATUS and
-VHOST_USER_PROTOCOL_F_CONFIG we can create "standalone" vhost-user
-daemons which are capable of handling all aspects of the VirtIO
-transactions with only a generic stub on the QEMU side. These daemons
-can also be used without QEMU in situations where there isn't a full
-VMM managing their setup.
+>+
+>+\paragraph{Datagram Fragmentation}\label{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}
+>+
+>+\field{flags} may have the following bit set:
+>+
+>+\begin{lstlisting}
+>+#define VIRTIO_VSOCK_DGRAM_EOM (1 << 0)
+>+\end{lstlisting}
+>+
+>+When the header \field{flags} field bit VIRTIO_VSOCK_DGRAM_EOM (bit 0) is set,
+>+it indicates that the current payload is the end of a datagram 
+>fragment OR that
+>+the current payload is an entire datagram packet.
 
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+In the destination, if we discard some fragments, then could we
+reconstruct a different datagram from the one sent?
 
----
-v2
-  - dropped F_STANDALONE in favour of F_PROBE
-  - split probe details across several messages
-  - probe messages don't automatically imply a standalone daemon
-  - add wording where probe details interact (F_MQ/F_CONFIG)
-  - define VMM and make clear QEMU is only one of many potential VMMs
-  - reword commit message
----
- docs/interop/vhost-user.rst | 90 ++++++++++++++++++++++++++++++++-----
- hw/virtio/vhost-user.c      |  8 ++++
- 2 files changed, 88 insertions(+), 10 deletions(-)
+Is that anything acceptable?
 
-diff --git a/docs/interop/vhost-user.rst b/docs/interop/vhost-user.rst
-index 5a070adbc1..ba3b5e07b7 100644
---- a/docs/interop/vhost-user.rst
-+++ b/docs/interop/vhost-user.rst
-@@ -7,6 +7,7 @@ Vhost-user Protocol
- ..
-   Copyright 2014 Virtual Open Systems Sarl.
-   Copyright 2019 Intel Corporation
-+  Copyright 2023 Linaro Ltd
-   Licence: This work is licensed under the terms of the GNU GPL,
-            version 2 or later. See the COPYING file in the top-level
-            directory.
-@@ -27,17 +28,31 @@ The protocol defines 2 sides of the communication, *front-end* and
- *back-end*. The *front-end* is the application that shares its virtqueues, in
- our case QEMU. The *back-end* is the consumer of the virtqueues.
- 
--In the current implementation QEMU is the *front-end*, and the *back-end*
--is the external process consuming the virtio queues, for example a
--software Ethernet switch running in user space, such as Snabbswitch,
--or a block device back-end processing read & write to a virtual
--disk. In order to facilitate interoperability between various back-end
--implementations, it is recommended to follow the :ref:`Backend program
--conventions <backend_conventions>`.
-+In the current implementation a Virtual Machine Manager (VMM) such as
-+QEMU is the *front-end*, and the *back-end* is the external process
-+consuming the virtio queues, for example a software Ethernet switch
-+running in user space, such as Snabbswitch, or a block device back-end
-+processing read & write to a virtual disk. In order to facilitate
-+interoperability between various back-end implementations, it is
-+recommended to follow the :ref:`Backend program conventions
-+<backend_conventions>`.
- 
- The *front-end* and *back-end* can be either a client (i.e. connecting) or
- server (listening) in the socket communication.
- 
-+Probing device details
-+----------------------
-+
-+Traditionally the vhost-user daemon *back-end* shares configuration
-+responsibilities with the VMM *front-end* which needs to know certain
-+key bits of information about the device. This means the VMM needs to
-+define at least a minimal stub for each VirtIO device it wants to
-+support. If the daemon supports the right set of protocol features the
-+VMM can probe the daemon for the information it needs to setup the
-+device. See :ref:`Probing features for standalone daemons
-+<probing_features>` for more details.
-+
-+
- Support for platforms other than Linux
- --------------------------------------
- 
-@@ -316,6 +331,7 @@ replies. Here is a list of the ones that do:
- * ``VHOST_USER_GET_VRING_BASE``
- * ``VHOST_USER_SET_LOG_BASE`` (if ``VHOST_USER_PROTOCOL_F_LOG_SHMFD``)
- * ``VHOST_USER_GET_INFLIGHT_FD`` (if ``VHOST_USER_PROTOCOL_F_INFLIGHT_SHMFD``)
-+* ``VHOST_USER_GET_BACKEND_SPECS`` (if ``VHOST_USER_PROTOCOL_F_STANDALONE``)
- 
- .. seealso::
- 
-@@ -396,9 +412,10 @@ must support changing some configuration aspects on the fly.
- Multiple queue support
- ----------------------
- 
--Many devices have a fixed number of virtqueues.  In this case the front-end
--already knows the number of available virtqueues without communicating with the
--back-end.
-+Many devices have a fixed number of virtqueues. In this case the
-+*front-end* usually already knows the number of available virtqueues
-+without communicating with the back-end. For standalone daemons this
-+number can be can be probed with the ``VHOST_USER_GET_MIN_VQ`` message.
- 
- Some devices do not have a fixed number of virtqueues.  Instead the maximum
- number of virtqueues is chosen by the back-end.  The number can depend on host
-@@ -885,6 +902,23 @@ Protocol features
-   #define VHOST_USER_PROTOCOL_F_CONFIGURE_MEM_SLOTS  15
-   #define VHOST_USER_PROTOCOL_F_STATUS               16
-   #define VHOST_USER_PROTOCOL_F_XEN_MMAP             17
-+  #define VHOST_USER_PROTOCOL_F_PROBE                18
-+
-+.. _probing_features:
-+
-+Probing features for standalone daemons
-+---------------------------------------
-+
-+The protocol feature ``VHOST_USER_PROTOCOL_F_PROBE`` enables a number
-+of additional messages which allow the *front-end* to probe details
-+about the VirtIO device from the *back-end*. However for a *back-end*
-+to be described as standalone it must also support:
-+
-+  * ``VHOST_USER_PROTOCOL_F_STATUS``
-+  * ``VHOST_USER_PROTOCOL_F_CONFIG`` (if there is a config space)
-+
-+which are required to ensure the *back-end* daemon can operate
-+without the *front-end* managing some aspects of its configuration.
- 
- Front-end message types
- -----------------------
-@@ -1440,6 +1474,42 @@ Front-end message types
-   query the back-end for its device status as defined in the Virtio
-   specification.
- 
-+``VHOST_USER_GET_DEVICE_ID``
-+  :id: 41
-+  :request payload: N/A
-+  :reply payload: ``u32``
-+
-+  When the ``VHOST_USER_PROTOCOL_F_PROBE`` protocol feature has been
-+  successfully negotiated, this message is submitted by the front-end
-+  to query what VirtIO device the back-end support. This is intended
-+  to remove the need for the front-end to know ahead of time what the
-+  VirtIO device the backend emulates is.
-+
-+``VHOST_USER_GET_CONFIG_SIZE``
-+  :id: 42
-+  :request payload: N/A
-+  :reply payload: ``u32``
-+
-+  When the ``VHOST_USER_PROTOCOL_F_PROBE`` protocol feature has been
-+  successfully negotiated, this message is submitted by the front-end
-+  to query the size of the VirtIO device's config space. This is
-+  intended to remove the need for the front-end to know ahead of time
-+  what the size is. Replying with 0 when
-+  ``VHOST_USER_PROTOCOL_F_CONFIG`` has been negotiated would indicate
-+  an bug.
-+
-+``VHOST_USER_GET_MIN_VQ``
-+  :id: 43
-+  :request payload: N/A
-+  :reply payload: ``u32``
-+
-+  When the ``VHOST_USER_PROTOCOL_F_PROBE`` protocol feature has been
-+  successfully negotiated, this message is submitted by the front-end to
-+  query minimum number of VQ's required to support the device. A
-+  device may support more than this number of VQ's if it advertises
-+  the ``VHOST_USER_PROTOCOL_F_MQ`` protocol feature. Reporting a
-+  number greater than the result of ``VHOST_USER_GET_QUEUE_NUM`` would
-+  indicate a bug.
- 
- Back-end message types
- ----------------------
-diff --git a/hw/virtio/vhost-user.c b/hw/virtio/vhost-user.c
-index 8dcf049d42..4d433cdf2b 100644
---- a/hw/virtio/vhost-user.c
-+++ b/hw/virtio/vhost-user.c
-@@ -202,6 +202,13 @@ typedef struct VhostUserInflight {
-     uint16_t queue_size;
- } VhostUserInflight;
- 
-+typedef struct VhostUserBackendSpecs {
-+    uint32_t device_id;
-+    uint32_t config_size;
-+    uint32_t min_vqs;
-+    uint32_t max_vqs;
-+} VhostUserBackendSpecs;
-+
- typedef struct {
-     VhostUserRequest request;
- 
-@@ -226,6 +233,7 @@ typedef union {
-         VhostUserCryptoSession session;
-         VhostUserVringArea area;
-         VhostUserInflight inflight;
-+        VhostUserBackendSpecs specs;
- } VhostUserPayload;
- 
- typedef struct VhostUserMsg {
--- 
-2.39.2
+Thanks,
+Stefano
+
+>+
+>+Datagram fragmentation is subject to the following rules:
+>+
+>+The fragments for a datagram packet MUST be added to the virtqueue in
+>+sequential order.
+>+
+>+If a packet is not a fragment, then the VIRTIO_VSOCK_DGRAM_EOM bit (bit 0) of
+>+\field{flags} MUST be set.
+>+
+>+If a packet is the last fragment of a fragment sequence, then the
+>+VIRTIO_VSOCK_DGRAM_EOM bit (bit 0) of \field{flags} MUST be set.
+>+
+>+If a packet is any fragment except the last fragment of a fragment sequence,
+>+then the VIRTIO_VSOCK_DGRAM_EOM bit (bit 0) of \field{flags} MUST NOT be set.
+>+
+>+If a driver or device has already placed a fragment of a packet on the
+>+virtqueue, it MUST add the remaining fragments of the packet to the virtqueue
+>+before adding any additional packets or fragments to the virtqueue.
+>+
+>+If fragments for a packet are only partially received after an
+>+implementation-specific amount of time, then the destination device or driver
+>+MAY drop the fragments.
+>+
+>+Each buffer containing a fragment MUST begin with a valid struct
+>+virtio_vsock_hdr. \field{len} MUST equal the length of the fragment payload
+>+only.
+>+
+> \subsubsection{Device Events}\label{sec:Device Types / Socket Device / Device Operation / Device Events}
+>
+> Certain events are communicated by the device to the driver using the event
+>-- 
+>2.20.1
+>
 
 
 This publicly archived list offers a means to provide input to the
