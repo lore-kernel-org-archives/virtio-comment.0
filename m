@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7227-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7228-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A059C83F15
-	for <virtio-comment@archiver.kernel.org>; Wed, 30 Aug 2023 05:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A3E3CA0FE6
+	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 03:30:06 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7A1582B054
-	for <virtio-comment@archiver.kernel.org>; Wed, 30 Aug 2023 05:52:50 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A97F82A8EE
+	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 03:30:05 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5D36D986510
-	for <virtio-comment@archiver.kernel.org>; Wed, 30 Aug 2023 05:52:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7723198659A
+	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 03:30:05 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 470C3986509; Wed, 30 Aug 2023 05:52:50 +0000 (UTC)
+	id 48C8B986583; Fri,  1 Sep 2023 03:30:05 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,637 +24,277 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3384898650E;
-	Wed, 30 Aug 2023 05:52:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 29664986585;
+	Fri,  1 Sep 2023 03:30:05 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045170;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0VqtlCPp_1693374759;
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: virtio-dev@lists.oasis-open.org
-Cc: jasowang@redhat.com,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Parav Pandit <parav@nvidia.com>,
-	David Edmondson <david.edmondson@oracle.com>,
-	virtio-comment@lists.oasis-open.org
-Date: Wed, 30 Aug 2023 13:52:39 +0800
-Message-Id: <20230830055239.10680-1-xuanzhuo@linux.alibaba.com>
-X-Mailer: git-send-email 2.32.0.3.g01195cf9f
+From: Haixu Cui <quic_haixcui@quicinc.com>
+To: <virtio-dev@lists.oasis-open.org>, <virtio-comment@lists.oasis-open.org>,
+        <cohuck@redhat.com>, <harald.mommer@opensynergy.com>
+CC: <quic_ztu@quicinc.com>, <jrreinhart@google.com>,
+        Haixu Cui
+	<quic_haixcui@quicinc.com>
+Date: Fri, 1 Sep 2023 11:29:33 +0800
+Message-ID: <20230901032933.32434-1-quic_haixcui@quicinc.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Git-Hash: 467a631
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v16] virtio-net: support device stats
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: 51Fks71tH3jW1L7Nmzme_oI4fIH3Odk8
+X-Proofpoint-ORIG-GUID: 51Fks71tH3jW1L7Nmzme_oI4fIH3Odk8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-01_01,2023-08-31_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ clxscore=1011 malwarescore=0 phishscore=0 adultscore=0 mlxlogscore=999
+ suspectscore=0 spamscore=0 lowpriorityscore=0 mlxscore=0 bulkscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2309010030
+Subject: [virtio-comment] [PATCH v3] virtio-spi: add the device specification
 
-This patch allows the driver to obtain some statistics from the device.
+virtio-spi is a virtual SPI master and it allows a guset to operate and
+use the physical SPI master controlled by the host.
 
-In the device implementation, we can count a lot of such information,
-which can be used for debugging and judging the running status of the
-device. We hope to directly display it to the user through ethtool.
+This patch adds the specification for virtio-spi.
 
-To get stats atomically, try to get stats for all/multiple queue pairs
-in one command.
-
-Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
+Signed-off-by: Haixu Cui <quic_haixcui@quicinc.com>
 ---
+ device-types/spi/description.tex        | 191 ++++++++++++++++++++++++
+ device-types/spi/device-conformance.tex |   7 +
+ device-types/spi/driver-conformance.tex |   7 +
+ 3 files changed, 205 insertions(+)
+ create mode 100644 device-types/spi/description.tex
+ create mode 100644 device-types/spi/device-conformance.tex
+ create mode 100644 device-types/spi/driver-conformance.tex
 
-v16:
-   * fix some issues @Parav https://lore.kernel.org/all/PH0PR12MB54814174FC713CF5640B7B10DC1DA@PH0PR12MB5481.namprd12.prod.outlook.com/
-   * introduce *_{packets,bytes}_allowance_exceeded
-
-v15:
-   * query supported types via cvq @Parav
-   * fix some problem @David
-
-v14:
-   * introduce supported_stats to config space
-   * add header(vq_index, size, type) to each reply stats
-   * add ref to the tx GSO
-
- device-types/net/description.tex        | 527 +++++++++++++++++++++++-
- device-types/net/device-conformance.tex |   1 +
- device-types/net/driver-conformance.tex |   1 +
- 3 files changed, 526 insertions(+), 3 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 76585b0..61e7cd5 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -88,6 +88,9 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-     channel.
-
-+\item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
-+    to the driver through the control virtqueue.
+diff --git a/device-types/spi/description.tex b/device-types/spi/description.tex
+new file mode 100644
+index 0000000..c35826b
+--- /dev/null
++++ b/device-types/spi/description.tex
+@@ -0,0 +1,191 @@
++\section{SPI Master Device}\label{sec:Device Types / SPI Master Device}
 +
- \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
-
- \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
-@@ -1156,6 +1159,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-         u8 command;
-         u8 command-specific-data[];
-         u8 ack;
-+        u8 command-specific-result[];
- };
-
- /* ack values */
-@@ -1164,9 +1168,12 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \end{lstlisting}
-
- The \field{class}, \field{command} and command-specific-data are set by the
--driver, and the device sets the \field{ack} byte. There is little it can
--do except issue a diagnostic if \field{ack} is not
--VIRTIO_NET_OK.
-+driver, and the device sets the \field{ack} byte and optionally
-+\field{command-specific-result}. There is little the driver can
-+do except issue a diagnostic if \field{ack} is not VIRTIO_NET_OK.
++virtio-spi is a virtual SPI (Serial Peripheral Interface) master and it allows
++a guest to operate and use the physical SPI master controlled by the host.
 +
-+The command VIRTIO_NET_CTRL_STATS_QUERY and VIRTIO_NET_CTRL_STATS_GET contain
-+\field{command-specific-result}.
-
- \paragraph{Packet Receive Filtering}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Packet Receive Filtering}
- \label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
-@@ -1805,6 +1812,520 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-
- Upon reset, a device MUST initialize all coalescing parameters to 0.
-
-+\paragraph{Device Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
++virtio-spi has a single virtqueue. SPI transfer requests are placed into
++the virtqueue, and serviced by the physical SPI master.
 +
-+If the VIRTIO_NET_F_DEVICE_STATS feature is negotiated, the driver can obtain
-+device statistics from the device by using the following command.
++In a typical host and guest architecture with virtio-spi, Virtio SPI driver is
++the front-end existing in the guest kernel, and Virtio SPI device acts as the
++back-end in the host platform.
 +
-+Different types of virtqueues have different statistics. The statistics of the
-+receiveq are different from those of the transmitq.
++\subsection{Device ID}\label{sec:Device Types / SPI Master Device / Device ID}
++45
 +
-+The statistics of a certain type of virtqueue are also divided into multiple types
-+because different types require different features. This enables the expansion
-+of new statistics.
++\subsection{Virtqueues}\label{sec:Device Types / SPI Master Device / Virtqueues}
 +
-+In one command, the driver can obtain the statistics of one or multiple virtqueues.
-+Additionally, the driver can obtain multiple type statistics of each virtqueue.
-+
-+\subparagraph{Query Statistic Capabilities}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Query Statistic Capabilities}
-+
-+\begin{lstlisting}
-+#define VIRTIO_NET_CTRL_STATS         7
-+#define VIRTIO_NET_CTRL_STATS_QUERY   0
-+#define VIRTIO_NET_CTRL_STATS_GET     1
-+
-+struct virtio_net_stats_capabilities {
-+
-+#define VIRTIO_NET_STATS_TYPE_CVQ       (1 << 32)
-+
-+#define VIRTIO_NET_STATS_TYPE_RX_BASIC  (1 << 0)
-+#define VIRTIO_NET_STATS_TYPE_RX_CSUM   (1 << 1)
-+#define VIRTIO_NET_STATS_TYPE_RX_GSO    (1 << 2)
-+#define VIRTIO_NET_STATS_TYPE_RX_SPEED  (1 << 3)
-+
-+#define VIRTIO_NET_STATS_TYPE_TX_BASIC  (1 << 16)
-+#define VIRTIO_NET_STATS_TYPE_TX_CSUM   (1 << 17)
-+#define VIRTIO_NET_STATS_TYPE_TX_GSO    (1 << 18)
-+#define VIRTIO_NET_STATS_TYPE_TX_SPEED  (1 << 19)
-+
-+    le64 supported_stats_types[1];
-+}
-+\end{lstlisting}
-+
-+To obtain device statistic capability, use the VIRTIO_NET_CTRL_STATS_QUERY
-+command. When the command completes successfully, \field{command-specific-result}
-+is in the format of \field{struct virtio_net_stats_capabilities}.
-+
-+\subparagraph{Get Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Get Statistic}
-+
-+\begin{lstlisting}
-+struct virtio_net_ctrl_queue_stats {
-+       struct {
-+           le16 vq_index;
-+           le16 padding[3];
-+           le64 types_bitmap[1];
-+       } stats[];
-+};
-+
-+struct virtio_net_stats_reply_hdr {
-+    le32 size;
-+    le16 vq_index;
-+
-+#define VIRTIO_NET_STATS_TYPE_REPLY_CVQ       32
-+
-+#define VIRTIO_NET_STATS_TYPE_REPLY_RX_BASIC  0
-+#define VIRTIO_NET_STATS_TYPE_REPLY_RX_CSUM   1
-+#define VIRTIO_NET_STATS_TYPE_REPLY_RX_GSO    2
-+#define VIRTIO_NET_STATS_TYPE_REPLY_RX_SPEED  3
-+
-+#define VIRTIO_NET_STATS_TYPE_REPLY_TX_BASIC  16
-+#define VIRTIO_NET_STATS_TYPE_REPLY_TX_CSUM   17
-+#define VIRTIO_NET_STATS_TYPE_REPLY_TX_GSO    18
-+#define VIRTIO_NET_STATS_TYPE_REPLY_TX_SPEED  19
-+    u8 type;
-+    u8 padding;
-+}
-+\end{lstlisting}
-+
-+To obtain device statistics, use the VIRTIO_NET_CTRL_STATS_GET command with the
-+\field{command-specific-data} which is in the format of \field{struct virtio_net_ctrl_queue_stats}.
-+When the command completes successfully, \field{command-specific-result}
-+contains multiple statistic results, each statistic result has the
-+\field{struct virtio_net_stats_reply_hdr} as the header.
-+
-+The fields of the \field{struct virtio_net_ctrl_queue_stats}:
 +\begin{description}
-+    \item [vq_index]
-+        The index of the virtqueue to obtain the statistics.
-+
-+    \item [types_bitmap]
-+        This is a bitmask of the types of statistics to be obtained. Therefore, a
-+        \field{struct stats} inside virtio_net_ctrl_queue_stats may indicate
-+        multiple statistic replies for the virtqueue.
++\item[0] requestq
 +\end{description}
 +
-+The fields of the \field{struct virtio_net_stats_reply_hdr}:
-+\begin{description}
-+    \item [vq_index]
-+        The virtqueue index of the reply statistic.
++\subsection{Feature bits}\label{sec:Device Types / SPI Master Device / Feature bits}
 +
-+    \item [size]
-+        The size of bytes of the reply statistic.
++None
 +
-+    \item [type]
-+        The type of the reply statistic.
++\subsection{Device configuration layout}\label{sec:Device Types / SPI Master Device / Device configuration layout}
 +
-+\end{description}
-+
-+\subparagraph{Controlq Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Controlq Statistic}
-+
-+The structure corresponding to the controlq statistics is virtio_net_stats_cvq.
-+The corresponding type is VIRTIO_NET_STATS_TYPE_CVQ. This is for the controlq.
++All fields of this configuration are always available and read-only for Virtio SPI driver.
 +
 +\begin{lstlisting}
-+struct virtio_net_stats_cvq {
-+    struct virtio_net_stats_reply_hdr hdr;
-+
-+    le64 command_num;
-+    le64 ok_num;
++struct virtio_spi_config {
++	le32 bus_num;
++	le32 chip_select_max_number;
 +};
 +\end{lstlisting}
 +
-+\begin{description}
-+    \item [command_num]
-+        The number of commands received by the device including the current command.
++The \field{bus_num} indicates the physical SPI master assigned to guset, and this is SOC-specific.
 +
-+    \item [ok_num]
-+        The number of commands completed successfully by the device including the current command.
-+\end{description}
++The \field{chip_select_max_number} is the maximum number of chipselect the physical SPI master supports.
 +
++\subsection{Device Initialization}\label{sec:Device Types / SPI Master Device / Device Initialization}
 +
-+\subparagraph{Receiveq Basic Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Receiveq Basic Statistic}
++\begin{enumerate}
++\item The Virtio SPI driver configures and initializes the virtqueue.
++\end{enumerate}
 +
-+The structure corresponding to the receiveq basic statistics is virtio_net_stats_rx_basic.
-+The corresponding type is VIRTIO_NET_STATS_TYPE_RX_BASIC. This is for the
-+receiveq.
++\subsection{Device Operation}\label{sec:Device Types / SPI Master Device / Device Operation}
 +
-+Receiveq basic statistics does not require any feature. As long as the device supports
-+VIRTIO_NET_F_DEVICE_STATS, the following are the receiveq basic statistics.
++\subsubsection{Device Operation: Request Queue}\label{sec:Device Types / SPI Master Device / Device Operation: Request Queue}
++
++Virtio SPI driver enqueues requests to the virtqueue, and they are used by
++Virtio SPI device. Each request represents one SPI tranfer and is of the form: 
 +
 +\begin{lstlisting}
-+struct virtio_net_stats_rx_basic {
-+    struct virtio_net_stats_reply_hdr hdr;
-+
-+    le64 rx_notifications;
-+
-+    le64 rx_packets;
-+    le64 rx_bytes;
-+
-+    le64 rx_interrupts;
-+
-+    le64 rx_drops;
-+    le64 rx_drop_overruns;
-+    le64 rx_drop_busy;
++struct virtio_spi_transfer_head {
++        u8 slave_id;
++        u8 bits_per_word;
++        u8 cs_change;
++        u8 tx_nbits;
++        u8 rx_nbits;
++        le32 mode;
++        le32 freq;
++        le32 word_delay_ns;
++        le32 cs_setup_ns;
++        le32 cs_delay_hold_ns;
++        le32 cs_change_delay_inactive_ns;
 +};
 +\end{lstlisting}
 +
-+The packets described below were all presented on the specified virtqueue.
-+\begin{description}
-+    \item [rx_notifications]
-+        The number of driver notifications received by device for this receiveq.
-+
-+    \item [rx_packets]
-+        This is the number of packets received by the device (not the packets
-+        passed to the guest). The count includes the packets dropped by the
-+        device.
-+
-+    \item [rx_bytes]
-+        This is the bytes of packets received by the device (not the packets
-+        passed to the guest). The count includes the packets dropped by the
-+        device.
-+
-+    \item [rx_interrupts]
-+        The number of interrupts generated by the device for this receiveq.
-+
-+    \item [rx_drops]
-+        This is the number of packets dropped by the device. The count includes
-+        all types of packets dropped by the device.
-+
-+    \item [rx_drop_overruns]
-+        This is the number of packets dropped by the device when no more
-+        descriptors were available.
-+
-+    \item [rx_drop_busy]
-+        This is the number of packets dropped by the device when the device is
-+        busy.
-+
-+\end{description}
-+
-+\subparagraph{Transmitq Basic Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Transmitq Basic Statistic}
-+
-+The structure corresponding to the transmitq basic statistics is virtio_net_stats_tx_basic.
-+The corresponding type is VIRTIO_NET_STATS_TYPE_TX_BASIC. This is for the
-+transmitq.
-+
-+Transmitq basic statistics does not require any feature. As long as the device supports
-+VIRTIO_NET_F_DEVICE_STATS, the following are the transmitq basic statistics.
-+
 +\begin{lstlisting}
-+struct virtio_net_stats_tx_basic {
-+    struct virtio_net_stats_reply_hdr hdr;
-+
-+    le64 tx_notifications;
-+
-+    le64 tx_packets;
-+    le64 tx_bytes;
-+
-+    le64 tx_interrupts;
-+
-+    le64 tx_drops;
-+    le64 tx_drop_malformed;
-+
-+    le64 tx_drop_busy;
++struct virtio_spi_transfer_result {
++        u8 result;
 +};
 +\end{lstlisting}
 +
-+The packets described below are all from a specific virtqueue.
-+\begin{description}
-+    \item [tx_notifications]
-+        The number of driver notifications received by device for this transmitq.
-+
-+    \item [tx_packets]
-+        This is the number of packets sent by the device (not the packets
-+        got from the driver).
-+
-+    \item [tx_bytes]
-+        This is the bytes of packets sent by the device (not the packets
-+        got from the driver).
-+
-+    \item [tx_interrupts]
-+        The number of interrupts generated by the device for this transmitq.
-+
-+    \item [tx_drops]
-+        The number of packets dropped by the device. The count includes all
-+        types of packets dropped by the device.
-+
-+    \item [tx_drop_malformed]
-+        The number of packets dropped by the device, when the descriptors are
-+        malformed. For example, the buffer is too short.
-+
-+    \item [tx_drop_busy]
-+        The number of packets dropped by the device, when the device is busy.
-+
-+\end{description}
-+
-+\subparagraph{Receiveq CSUM Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Receiveq CSUM Statistic}
-+
-+The structure corresponding to the receiveq csum statistics is virtio_net_stats_rx_csum.
-+The corresponding type is VIRTIO_NET_STATS_TYPE_RX_CSUM. This is for the
-+receiveq.
-+
-+Only after the VIRTIO_NET_F_GUEST_CSUM is negotiated, the receiveq csum statistics
-+can be obtained.
-+
 +\begin{lstlisting}
-+struct virtio_net_stats_rx_csum {
-+    struct virtio_net_stats_reply_hdr hdr;
-+
-+    le64 rx_csum_valid;
-+    le64 rx_needs_csum;
-+    le64 rx_csum_none;
-+    le64 rx_csum_bad;
++struct virtio_spi_transfer_req {
++        struct virtio_spi_transfer_head head;
++        u8 tx_buf[];
++        u8 rx_buf[];
++        struct virtio_spi_transfer_result result;
 +};
 +\end{lstlisting}
 +
-+The packets described below were all presented on the specified virtqueue.
-+\begin{description}
-+    \item [rx_csum_valid]
-+        The number of packets with VIRTIO_NET_HDR_F_DATA_VALID.
++The \field{slave_id} indicates the chipselect index the SPI transfer used.
 +
-+    \item [rx_needs_csum]
-+        The number of packets with VIRTIO_NET_HDR_F_NEEDS_CSUM.
++The \field{bits_per_word} indicates the number of bits in each SPI transfer word.
 +
-+    \item [rx_csum_none]
-+        The number of packets without hardware csum. The packet here refers to
-+        the non-TCP/UDP packet that the backend cannot recognize.
++The \field{cs_change} indicates whether to deselect device before starting the
++next SPI transfer, 0 means chipselect keep asserted and 1 means chipselect deasserted
++then asserted again.
 +
-+    \item [rx_csum_bad]
-+        The number of packets with abnormal csum.
++The \field{tx_nbits} indicates bus width for write transfer:
++        0,1: bus width is 1, also known as SINGLE;
++	2  : bus width is 2, also known as DUAL;
++	4  : bus width is 4, also known as QUAD;
++	8  : bus width is 8, also known as OCTAL;
++	other values are invalid.
 +
-+\end{description}
++The \field{rx_nbits} indicates bus width for read transfer:
++        0,1: bus width is 1, also known as SINGLE;
++	2  : bus width is 2, also known as DUAL;
++	4  : bus width is 4, also known as QUAD;
++	8  : bus width is 8, also known as OCTAL;
++	other values are invalid.
 +
-+\subparagraph{Transmitq CSUM Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Transmitq CSUM Statistic}
++The \field{mode} indicates how data is clocked out and in. Bit definitions as follows:
++        bit 0: CPHA, determines the timing (i.e. phase) of the data bits
++	       relative to the clock pulses.
++        bit 1: CPOL, determines the polarity of the clock.
++        bit 2: CS_HIGH, if 1, chipselect active high, else active low.
++	bit 3: LSB_FIRST, determines per-word bits-on-wire, if 0, MSB
++	       first, else LSB first.
++	bit 4: LOOP, if 1, device is in loopback mode, else normal mode.
 +
-+The structure corresponding to the transmitq csum statistics is virtio_net_stats_tx_csum.
-+The corresponding type is VIRTIO_NET_STATS_TYPE_TX_CSUM. This is for the transmitq.
++The \field{freq} indicates the SPI transfer speed in Hz.
 +
-+Only after the VIRTIO_NET_F_CSUM is negotiated, the transmitq csum statistics can be
-+obtained.
++The \field{word_delay_ns} indicates delay to be inserted between consecutive
++words of a transfer, in ns unit.
 +
-+The following are the transmitq csum statistics:
++The \field{cs_setup_ns} indicates delay to be introduced after chipselect
++is asserted, in ns unit.
 +
-+\begin{lstlisting}
-+struct virtio_net_stats_tx_csum {
-+    struct virtio_net_stats_reply_hdr hdr;
++The \field{cs_delay_hold_ns} indicates delay to be introduced before chipselect
++is deasserted, in ns unit.
 +
-+    le64 tx_csum_none;
-+    le64 tx_needs_csum;
-+};
-+\end{lstlisting}
++The \field{cs_change_delay_inactive_ns} indicates delay to be introduced after
++chipselect is deasserted and before next asserted, in ns unit.
 +
-+The packets described below are all from a specific virtqueue.
-+\begin{description}
-+    \item [tx_csum_none]
-+        The number of packets which didn't require hardware csum.
++The \field{tx_buf} is the buffer for data sent to the device.
 +
-+    \item [tx_needs_csum]
-+        The number of packets which required hardware csum.
++The \field{rx_buf} is the buffer for data received to the device.
 +
-+\end{description}
-+
-+\subparagraph{Receiveq GSO Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Receiveq GSO Statistic}
-+
-+The structure corresponding to the receivq GSO statistics is virtio_net_stats_rx_gso.
-+The corresponding type is VIRTIO_NET_STATS_TYPE_RX_GSO. This is for the
-+receiveq.
-+
-+If one or more of the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6, or
-+VIRTIO_NET_F_GUEST_UFO have been negotiated, the receiveq GSO statistics can be
-+obtained.
-+
-+GSO packets refer to packets passed by the device to the driver where
-+\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
++The final \field{result} is the transfer result, either VIRTIO_SPI_TRANS_OK for success
++or VIRTIO_SPI_TRANS_ERR for error.
 +
 +\begin{lstlisting}
-+struct virtio_net_stats_rx_gso {
-+    struct virtio_net_stats_reply_hdr hdr;
-+
-+    le64 rx_gso_packets;
-+    le64 rx_gso_bytes;
-+    le64 rx_gso_packets_coalesced;
-+    le64 rx_gso_bytes_coalesced;
-+    le64 rx_gso_segments;
-+    le64 rx_gso_segments_bytes;
-+};
++#define VIRTIO_SPI_TRANS_OK     0
++#define VIRTIO_SPI_TRANS_ERR    1
 +\end{lstlisting}
 +
-+The packets described below were all presented on the specified virtqueue.
-+\begin{description}
-+    \item [rx_gso_packets]
-+        The number of the GSO packets received by device.
++\subsubsection{Device Operation: Operation Status}\label{sec:Device Types / SPI Master Device / Device Operation: Operation Status}
 +
-+    \item [rx_gso_bytes]
-+        The bytes of the GSO packets received by device.
-+        This includes the header size of the GSO packet.
++Fields in structure \field{virtio_spi_transfer_head} are written by Virtio SPI driver, while
++\field{result} in structure \field{virtio_spi_transfer_result} is written by Virtio SPI device.
 +
-+    \item [rx_gso_packets_coalesced]
-+        The number of the GSO packets coalesced by device.
++virtio-spi supports three transfer types:
++        1) half-duplex read;
++        2) half-duplex write;
++        3) full-duplex read and write. 
 +
-+    \item [rx_gso_bytes_coalesced]
-+        The bytes of the GSO packets coalesced by device.
-+        This includes the header size of the GSO packet.
++For half-duplex read transfer, \field{rx_buf} is filled by Virtio SPI device and consumed
++by Virtio SPI driver. For half-duplex write transfer, \field{tx_buf} is filled by Virtio 
++SPI driver and consumed by Virtio SPI device. And for full-duplex read and write transfer,
++both \field{tx_buf} and \field{rx_buf} are used.
 +
-+    \item [rx_gso_segments]
-+        The number of the segments which make up GSO packets.
++\drivernormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
 +
-+    \item [rx_gso_segments_bytes]
-+        The bytes of the segments which make up GSO packets.
++The Virtio SPI driver MUST send transfer requests on the requestq virtqueue.
 +
-+\end{description}
++Fields in structure \field{virtio_spi_transfer_head} MUST be filled by Virtio SPI driver
++and MUST be readable for Virtio SPI device.
 +
-+\subparagraph{Transmitq GSO Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Transmitq GSO Statistic}
++Structure \field{virtio_spi_transfer_result} MUST be filled by Virtio SPI device
++and MUST be writable for Virtio SPI device.
 +
-+The structure corresponding to the transmitq GSO statistics is
-+virtio_net_stats_tx_gso. The corresponding type is VIRTIO_NET_STATS_TYPE_TX_GSO.
-+This is for the
-+transmitq.
++For half-duplex read, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
++\field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
 +
-+If one or more of the VIRTIO_NET_F_HOST_TSO4, VIRTIO_NET_F_HOST_TSO6,
-+VIRTIO_NET_F_HOST_USO or VIRTIO_NET_F_HOST_UFO options have
-+been negotiated, the transmitq GSO statistics can be obtained.
++For half-duplex write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
++\field{tx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
 +
-+GSO packets refer to packets passed by the driver to the device where
-+\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
-+See more \ref{sec:Device Types / Network Device / Device Operation / Packet
-+Transmission}.
++For full-duplex read and write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head}, 
++\field{tx_buf}, \field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
 +
-+\begin{lstlisting}
-+struct virtio_net_stats_tx_gso {
-+    struct virtio_net_stats_reply_hdr hdr;
++For half-duplex write or full-duplex read and write transfer, Virtio SPI driver MUST not use \field{rx_buf}
++if the \field{result} returned from Virtio SPI device is VIRTIO_SPI_TRANS_ERR.
 +
-+    le64 tx_gso_packets;
-+    le64 tx_gso_bytes;
-+    le64 tx_gso_packets_split;
-+    le64 tx_gso_bytes_split;
-+    le64 tx_gso_segments;
-+    le64 tx_gso_segments_bytes;
-+};
-+\end{lstlisting}
++\devicenormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
 +
-+The packets described below are all from a specific virtqueue.
-+\begin{description}
-+    \item [tx_gso_packets]
-+        The number of the GSO packets sent by device that are not cut to small
-+        packets.
++Virtio SPI device MUST set all the fields of the structure \field{virtio_spi_config} before
++they are read by Virtio SPI driver.
 +
-+    \item [tx_gso_bytes]
-+        The bytes of the GSO packets sent by device that are not cut to small
-+        packets.
++Virtio SPI device MUST set the structure \field{virtio_spi_transfer_result} before sending
++it back to Virtio SPI driver.
 +
-+    \item [tx_gso_packets_split]
-+        The number of the GSO packets that been cut into small packets.
++Virtio SPI device MUST be able to identify the transfer type according to the received
++virtqueue descriptors.
 +
-+    \item [tx_gso_bytes_split]
-+        The bytes of the GSO packets that been cut into small packets.
++Virtio SPI device MUST NOT change the data in \field{tx_buf} if transfer type is half-duplex write
++or full-duplex read and write.
+diff --git a/device-types/spi/device-conformance.tex b/device-types/spi/device-conformance.tex
+new file mode 100644
+index 0000000..3e771bc
+--- /dev/null
++++ b/device-types/spi/device-conformance.tex
+@@ -0,0 +1,7 @@
++\conformance{\subsection}{SPI Master Device Conformance}\label{sec:Conformance / Device Conformance / SPI Master Device Conformance}
 +
-+    \item [tx_gso_segments]
-+        The number of segments separated from the GSO packets.
++An SPI Master device MUST conform to the following normative statements:
 +
-+    \item [tx_gso_segments_bytes]
-+        The bytes of segments separated from the GSO packets.
-+\end{description}
-+
-+\subparagraph{Receiveq Speed Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Receiveq Speed Statistic}
-+
-+The structure corresponding to the receiveq speed statistics is virtio_net_stats_rx_speed.
-+The corresponding type is VIRTIO_NET_STATS_TYPE_RX_SPEED. This is for the
-+receiveq.
-+
-+The device has the allowance for the speed. If VIRTIO_NET_F_SPEED_DUPLEX has
-+been negotiated, the driver can get this by \field{speed}.
-+When the real speed exceeds the speed allowance, some packets will be
-+dropped by the device.
-+
-+\begin{lstlisting}
-+struct virtio_net_stats_rx_speed {
-+    struct virtio_net_stats_reply_hdr hdr;
-+
-+    le64 rx_packets_allowance_exceeded;
-+    le64 rx_bytes_allowance_exceeded;
-+};
-+\end{lstlisting}
-+
-+The packets described below were all presented on the specified virtqueue.
-+\begin{description}
-+    \item [rx_packets_allowance_exceeded]
-+        The number of the packets dropped by device due to the real speed
-+        exceeding the speed allowance.
-+
-+    \item [rx_bytes_allowance_exceeded]
-+        The bytes of the packets dropped by device due to the real speed
-+        exceeding the speed allowance.
-+
-+\end{description}
-+
-+\subparagraph{Transmitq Speed Statistic}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic / Transmitq Speed Statistic}
-+
-+The structure corresponding to the transmitq speed statistics is
-+virtio_net_stats_tx_speed. The corresponding type is
-+VIRTIO_NET_STATS_TYPE_TX_SPEED. This is for the transmitq.
-+
-+The device has the allowance for the speed. If VIRTIO_NET_F_SPEED_DUPLEX has
-+been negotiated, the driver can get this by \field{speed}.
-+When the real speed exceeds the speed allowance, some packets will be
-+dropped by the device.
-+
-+\begin{lstlisting}
-+struct virtio_net_stats_tx_speed {
-+    struct virtio_net_stats_reply_hdr hdr;
-+
-+    le64 tx_packets_allowance_exceeded;
-+    le64 tx_bytes_allowance_exceeded;
-+};
-+\end{lstlisting}
-+
-+The packets described below were all presented on the specified virtqueue.
-+\begin{description}
-+    \item [tx_packets_allowance_exceeded]
-+        The number of the packets dropped by device due to the real speed
-+        exceeding the speed allowance.
-+
-+    \item [tx_bytes_allowance_exceeded]
-+        The bytes of the packets dropped by device due to the real speed
-+        exceeding the speed allowance.
-+
-+\end{description}
-+
-+\devicenormative{\subparagraph}{Device Statistic}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
-+The device MUST replies to the command VIRTIO_NET_CTRL_STATS_QUERY with the
-+struct virtio_net_stats_capabilities. \field{supported_stats_types} includes all
-+the statistic types supported by the device.
-+
-+If virtio_net_ctrl_queue_stats is incorrect (such as the following), the device
-+MUST set \field{ack} to VIRTIO_NET_ERR. Even if there is only one error,
-+the device MUST fail the entire command.
 +\begin{itemize}
-+    \item \field{vq_index} exceeds the queue range.
-+    \item \field{types_bitmap} contains unknown types.
-+    \item One or more of the bits present in \field{types_bitmap} is not valid
-+        for the specified virtqueue.
-+    \item The feature corresponding to the specified \field{types_bitmap} was
-+        not negotiated.
-+    \item The size of the buffer allocated by the driver for \field{command-specific-result}
-+        is less than the total size of the statistics specialed by
-+        \field{virtio_net_ctrl_queue_stats}.
++\item \ref{devicenormative:Device Types / SPI Master Device / Device Operation}
 +\end{itemize}
+diff --git a/device-types/spi/driver-conformance.tex b/device-types/spi/driver-conformance.tex
+new file mode 100644
+index 0000000..3c965ef
+--- /dev/null
++++ b/device-types/spi/driver-conformance.tex
+@@ -0,0 +1,7 @@
++\conformance{\subsection}{SPI Master Driver Conformance}\label{sec:Conformance / Driver Conformance / SPI Master Driver Conformance}
 +
-+The device MUST write the requested statistic structures in
-+\field{command-specific-result} in the order specified by the structure
-+virtio_net_ctrl_queue_stats. If the \field{types_bitmap} indicates multiple statistics,
-+the replies order by the type value from small to large.
++An SPI Master driver MUST conform to the following normative statements:
 +
-+The device MUST set the actual size of the space occupied by the reply to the
-+\field{size} of the \field{hdr}. And the device MUST set the \field{type} and
-+the \field{vq_index} of the statistic header.
-+
-+\drivernormative{\subparagraph}{Device Statistic}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
-+
-+The types contained in the \field{types_bitmap} MUST be queried from the device
-+via command VIRTIO_NET_CTRL_STATS_QUERY.
-+
-+\field{types_bitmap} in struct virtio_net_ctrl_queue_stats MUST be valid to the
-+vq specified by \field{vq_index}.
-+
-+The \field{command-specific-result} buffer allocated by the driver MUST be
-+able to hold all the statistics specified by virtio_net_ctrl_queue_stats.
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
-
-diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-index f88f48b..8ce58fe 100644
---- a/device-types/net/device-conformance.tex
-+++ b/device-types/net/device-conformance.tex
-@@ -15,4 +15,5 @@
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) / RSS processing}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
-+\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
- \end{itemize}
-diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-index 9d853d9..b6636a2 100644
---- a/device-types/net/driver-conformance.tex
-+++ b/device-types/net/driver-conformance.tex
-@@ -15,4 +15,5 @@
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) }
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
-+\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistic}
- \end{itemize}
---
-2.32.0.3.g01195cf9f
++\begin{itemize}
++\item \ref{drivernormative:Device Types / SPI Master Device / Device Operation}
++\end{itemize}
+-- 
+2.17.1
 
 
 This publicly archived list offers a means to provide input to the
