@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7235-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7236-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D101CA0FE4
-	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 15:11:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CAAACA0FF6
+	for <virtio-comment@archiver.kernel.org>; Sat,  2 Sep 2023 08:35:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A7C4C2B019
-	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 15:11:02 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9AF8E8504A
+	for <virtio-comment@archiver.kernel.org>; Sat,  2 Sep 2023 08:35:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8189B9865A6
-	for <virtio-comment@archiver.kernel.org>; Fri,  1 Sep 2023 15:11:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 83DDB9865B0
+	for <virtio-comment@archiver.kernel.org>; Sat,  2 Sep 2023 08:35:34 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 63FD698658C; Fri,  1 Sep 2023 15:11:02 +0000 (UTC)
+	id 72425986596; Sat,  2 Sep 2023 08:35:34 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,193 +24,239 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 40CD4986590
-	for <virtio-comment@lists.oasis-open.org>; Fri,  1 Sep 2023 15:11:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 60772983E52
+	for <virtio-comment@lists.oasis-open.org>; Sat,  2 Sep 2023 08:35:34 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1693581059.857000
-X-TM-MAIL-UUID: b864d096-d314-4a91-80a0-56d2657385d1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M0eT5CUIeVtFDJnXoV2PZS+Lq4nXLF5l3InlJlYtMpSEX4xgzG5/XGQGIBqWoAH8VFd6d+10HaNIXVuCE218G59lKCxIxeMmpzELWNrl7JAy8VENe/6119fCfivrudQgkgKoONoVX3zOuBUozu02uKZSwFGFCIr5jxrQs00Z4gKiezFnkplYL8zAdQkeydEB2ATBWu7Is4lxu144FQrbIvDvaq8vBE4uLe3QKWHl6CVmil8rxMZTDfysLtc4bbuk2yn/dK6YI2KaSiDoLyigBnWybGT3N1SuaEMpuXSwGYXHmIp9KT+gzKNM4zbJt3njETQkpK/nic+15xAKPA/wrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ARdt7H4Fg8JiO4O+lG5rbfyIvXuh7pDeHjeOwV7VbQQ=;
- b=aefK2EZfdTTcGaR+naMesrLWLWe+kZX6Wv/V9dvViDmjONy/WtVZrt2pRHsoj2ezuXRkoNw3yuFFDztbdg6INwj8ZJmOb1fe4P52HhW2TUl47jY8Ccb6PWlieCrHZkdsUOM+Ec29WyARAHGrl73nkxOMuUtvGusieXjV6oRHxmwTw56KT8EKgA4i2Z0psot2zT+7gNWN3LOclv+QwZcNkd0H+teWSDn3Y6Heerw5V1ksqbNeOqt7USWJjQiGV9NSZ7L3uaA1bIjNTZ3fGXQPLHpsI1HumlKuD8ENMzs8xvy306Me091DKJvdBgtujfFT60Bo61pcrLS+h+ynrKfJcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <88a72686-dae6-e72a-2e39-42388912a526@opensynergy.com>
-Date: Fri, 1 Sep 2023 17:10:57 +0200
-Content-Language: en-US
-To: Haixu Cui <quic_haixcui@quicinc.com>, virtio-dev@lists.oasis-open.org,
- virtio-comment@lists.oasis-open.org, cohuck@redhat.com
-Cc: quic_ztu@quicinc.com, jrreinhart@google.com
-References: <20230901032933.32434-1-quic_haixcui@quicinc.com>
-From: Harald Mommer <harald.mommer@opensynergy.com>
-In-Reply-To: <20230901032933.32434-1-quic_haixcui@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BE0P281CA0023.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:14::10) To BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:4a::9)
+X-MC-Unique: RHqAs1QWNTerXdRfDVdHKw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693643730; x=1694248530;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Tx/R4Ypx48aYWYb22H8fWrmat8EAEjJNpuQqM8wuIOk=;
+        b=SLmKFnGJ7PEJz+iRhYmITx75ENF+zyzKuL3gQ2HdBtyMKZmjcJRSeCqNtqHMHBCacx
+         6nHWaa8un+s3DTb071YxLtWZ9qRtcj9ulNdJ18X9XXU9tlx0dnVRwXyy3tVopjawT3AZ
+         zfztpfFFIWJQL5O/KUU23w76gfDwS4urSgLqtcCDK68+7en/wo7mjlbR6pQOLOAeQp8a
+         2oqmsl7y9LrKNTm3SIkXhV/+k3m/jaBd3wCvipL4MYRjvNLCY0BXW73m6qhz2l/R4xF/
+         +CXTzxCDGhmG+/gGZG2S3B0+VjE21h2W6M/+vSSYAXC/ueYXT0+5MwUcfzIMC3SDkgx7
+         ZsrA==
+X-Gm-Message-State: AOJu0Yz/QeaV+cpNaWQGTIDTyH2+kuvFdCAX4ieEuPiVkOaxgLLhZ+j/
+	PtEZAJcUH8WmO8uZCpKBeqdBC4V8qKttVgEY8zsTEb8rAX7X6v6aGVB0IUgn1IajMNy9nhnZYdY
+	tXnKEpy3MJhq+np+Ten8I8z76MxiEfpGaYA==
+X-Received: by 2002:a2e:9a8e:0:b0:2bc:b0ae:a9e5 with SMTP id p14-20020a2e9a8e000000b002bcb0aea9e5mr3448384lji.42.1693643730061;
+        Sat, 02 Sep 2023 01:35:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE3zcbVZ6d3LCJHvU3yrSQgputZFAf847TTrPCn81lmpiszvcgxiC7s0VltNhGdY9owoKzF9w==
+X-Received: by 2002:a2e:9a8e:0:b0:2bc:b0ae:a9e5 with SMTP id p14-20020a2e9a8e000000b002bcb0aea9e5mr3448365lji.42.1693643729668;
+        Sat, 02 Sep 2023 01:35:29 -0700 (PDT)
+Date: Sat, 2 Sep 2023 04:35:25 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Stefano Garzarella <sgarzare@redhat.com>,
+	Bobby Eshleman <bobby.eshleman@bytedance.com>,
+	virtio-dev@lists.oasis-open.org, cong.wang@bytedance.com,
+	jiang.wang@bytedance.com, cohuck@redhat.com,
+	virtualization@lists.linux-foundation.org, stefanha@redhat.com,
+	virtio-comment@lists.oasis-open.org, arseny.krasnov@kaspersky.com
+Message-ID: <20230902043334-mutt-send-email-mst@kernel.org>
+References: <20230829212945.3420727-1-bobby.eshleman@bytedance.com>
+ <h6wtvcglyw55enk6shdogbfnw3m6zbmb4lv65uhznpwzqjw5sc@vc7clkjbxfep>
+ <ZPLAip/TWqvWZ0hv@bullseye>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BE1P281MB3400:EE_|BE1P281MB1988:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d9d2b4f-1478-4b63-b5e7-08dbaafda587
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	NffLGAq9uCLC4cT2KuUIFkvWyT45Nx98TOLlh8tGHBFighFZHzbZOmB7TPE0WhXOc/D8ZPK2aqdYiV2i/2+MVVfyiNWOLVTcJldb5RaealakiGRvYbmW8Q27EVrnhFwcDUpSXg7YmtFT9slhyInPjSDd3VWu7dBRJ3ms7exFlpbonw/pzp+F1erzGXHU8YeOoaz4GFyCOkqgPaTcXKNrpT8EZT7h2VCqjAYXsqlxZoeeSmM8/dacuuLYfkwqrxeQGQP0gwYWYDB+KbDMKnsP8DV1Oupuv51NpAr9L4zr4Tl95LWIRa7qv1zHU8RluNfyiq3nRTaW+Y2reoJXCuEWG+QetxEbkLXEEGncCT8AnxDk6UoG4cM5mqOXVs5bfa8VEUx2HZPBAvM/jg3O9oPnHy40xtDZWOw6E9NIsiI9F5kIN7QzaHTeQrtreTdhkYYMSWqcFamA8fHbvLXi11qNLGKtPsAy3rFVleZ3vaSw/G4F83i6hvZv0D/f7fx5P8VF1irUJV+Rl1ZpEsll5OuWYUft3UAJ3RUKPSEDwKJEiXut3ajegYisGfvAoGWLsZUYj83iJ6mFd9Nm50jjgAR/cOLKHdAi2Ru/l9YVKEi2Mww=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(346002)(396003)(376002)(136003)(39840400004)(366004)(451199024)(1800799009)(186009)(53546011)(478600001)(83380400001)(2616005)(26005)(2906002)(44832011)(66476007)(42186006)(316002)(41300700001)(66556008)(66946007)(5660300002)(4326008)(8676002)(8936002)(36756003)(86362001)(31696002)(38100700002)(31686004);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ym85aWhJaUh3NlpKYWpyNmZIeGY0OGF6UmF3eE5OcHIwemVpcXEzYjE3QkFo?=
- =?utf-8?B?S212VkhHcnJnMnowbmRYcSt5Z2lPelJVa1BvaFhMOGZNakkzems4blZvdkxh?=
- =?utf-8?B?elZuSjNuK3pGaXRvaFVsODY4VjhVNzVZbldhU1NhMzl2Sk1qajdPTDZPRDhH?=
- =?utf-8?B?WlMxRk9lM0J5MCsrNmViRzNRd2lmRFBZN1J1a1dkZlA0RWZhc2gxMjlmWmtw?=
- =?utf-8?B?cUMra0dQNUlQNlZWbUZuRXo2YlFKb3BDWkRCU3VDdmQzTDlOdHpHVXpiakUv?=
- =?utf-8?B?NENWbnpwczNKNkZ6ZTNueitaZEtoWGN4Y2gvT1B5TlRBeE9JMlVPV0h6OCt4?=
- =?utf-8?B?OE41ZVZJT2FvMysvOEtPbkVWQ2QxQ2JlQ1Era1d1aloyWTNNMFRKWk5MRm1G?=
- =?utf-8?B?WFpZRW5zRk0xYm9UVmdQWFgxU0R4eHdUc2VZZDE1THBQS0Z2ZmRabTJZZ3l2?=
- =?utf-8?B?YkVCVmx1UTFWQXh2bXcreUk3TGljV1pYQUx1NmE1N1lrcTRBQzhYYmdDeC9i?=
- =?utf-8?B?M0NOV3BxK3k1MlFlQ1BhblVOSk9HM1R4eDE0djdleFBhby9IaUxoMEFvZnhp?=
- =?utf-8?B?UE1TZkdlbHBQeTJyeTRVTjFVVityTUFSNkRJQ3RSU21NQmpvSEh0U3ZZQ2Ev?=
- =?utf-8?B?ci9weXFxL2xjWUJaaXg1dnVLbDlXOVdGQjdEbmtkU3dqMEdGc3NhY3lZcStI?=
- =?utf-8?B?cjFtT0xuQncxU290UzlEUUdkQkl6SWF5YkdhNXVXSlB1ci9vTlpDWlc2bExm?=
- =?utf-8?B?b1Z3TGVRdGdmZTlGNlFLZ3J2Y08rY3ZQV1p3NStnKzdNcGJyb0VRT29EU2Qr?=
- =?utf-8?B?ZmNhd0lmbllTMGRpMlQ1azhMeUlXZGhYQkZWRFFISXp4VW9MR0NXeWk3Z2x5?=
- =?utf-8?B?SGMwK1c1cm5iaU81Q084bythZ3JrSWlCbENEWjNlNjB0VFNURTNDSWpSQXpo?=
- =?utf-8?B?cFdwNENtMXZ4SnFuaUxwR0hScVVqQXV3TDMrWXpXby9GS0hZRmM1cmFDYXdv?=
- =?utf-8?B?NWxrRVozUFNiSzNiaWVxVWxqaTN6L3J0SGZzSTV3bnk2TS9hTnRRZDVTNmtL?=
- =?utf-8?B?VUxDL0tMTmQ5NjhYVXhGTVZkWml0bElPRFUzbW1pTmNyTTNIK2tocXVOMTNW?=
- =?utf-8?B?VEJyVWM3S0N4alo3aDZqZy9makZ5ZUw1U3E0Y2tFa0pnL0VaK3MwUzdCdito?=
- =?utf-8?B?L2drK0RhNUVzVDdVbk5VdldwNWhWcDhqNlZaYURVWXV1ZE9FQVZhNk9hTEUx?=
- =?utf-8?B?RnZPMCtySytReS95K0ZvdmU5UHhMN3BHalpVSFdKODlKNGI4aTc2WFNxVHhD?=
- =?utf-8?B?U05EbXg0MytCY0hrR3ZNam9FYWlvTWhnK2tUOE1GWjdNQzIrNEtSWEF5Wkw2?=
- =?utf-8?B?RTBnZ0xjVkFLM1VLQ0hvTGhDZUNtay9ycDhlcThUalFVcjlwSEUrWS93VFgw?=
- =?utf-8?B?QVVyQ1Q0bUpHWGFUdXFkdG5mRGpZMVZPbDd1c2RXdGJtYkQvK20yTmFaYi9v?=
- =?utf-8?B?Um0wUnZxMFdNWVg1bkQvNTY5T2FNMGxMdnNSMDdabUhqTVVlMjl1dmxWZFN3?=
- =?utf-8?B?NnFjNXBJTWZvZkF4TS9lZGh4NTcwdmZPd0Y4emtDMldBVHNDL1pVV1hEeStH?=
- =?utf-8?B?cmd2bEVGUGsrTm0xUzgzYis1SitEakhYYmFlT0h6QjhoTWtJakgwZU93YlBZ?=
- =?utf-8?B?L2VkZFRMTTYxTmgydFptb0hZRmswWEo4dktUTzNvS05QOE9maTdSdTRqTzFs?=
- =?utf-8?B?bU0rMDF5RDhvTGo4UzdaOGlHdVhaR3dZbkp2akF3UUFxUEVmTHFvdHJ5VXg5?=
- =?utf-8?B?YkcydEZtV1ZjSUhtVmQ2N0Z1V0tsQ1lTTnNHc2ZBbndtMGNkU1dTemU3dDkx?=
- =?utf-8?B?Ym1lQnh4cjRWbEVOQ0puSGZncjRUSktEVGduUi9CbU8zSW5zemx6NThqVmhq?=
- =?utf-8?B?UnBQYzlMUHpwUnJtaDJmemNJc0oyMno2elJOWk5LTlJJYXdRTUtSUCtoZzNj?=
- =?utf-8?B?TGg2NzJiSlJQdnBvK0o2WWRuL2hoNHVxZnNTRkd4MUxhYWFxSVJjV1BEVUFQ?=
- =?utf-8?B?elQ4c3RNN0tKSmtrdHRsN21Sc3FOZ3Jidm5NTmw0bTJTc1hWSThtekFweHFY?=
- =?utf-8?Q?xAMkNyJOMlzAisNty0aTwWhSP?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d9d2b4f-1478-4b63-b5e7-08dbaafda587
-X-MS-Exchange-CrossTenant-AuthSource: BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 15:10:58.4913
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Z/We6tgXN86LKDrugnrpOyaCJOWeKoK9YsSnNI7XFF9TfjGFBvN4AzLedKnxYeAiNy0JLnsBe2ihiFjtPSPVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB1988
-X-TM-AS-ERS: 104.47.11.175-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1011-27850.000
-X-TMASE-Result: 10--9.882700-4.000000
-X-TMASE-MatchedRID: X4bcv0S75Kn5ETspAEX/non73EnA6dC3OTa4xErHZfcEo7RuIMv80Dgs
-	XzLh9833ZcGkfeZP8vtLCgQieT3WXraZwakIWlZPS74sGh2G9bGU0D9syQiRTEUBeepgOyG6wmU
-	T4MDCsQO9LLbMBWIxreIIoRYumX2/5BminDHFhmJzoxCmHXb7+r81t3rGD+B+OpqfTdGII65IYG
-	Hn2wTZBFVEDPcaXSIM8lBojmamEexo8Behwsz8wcm2jIZUTQ3wB4BMfq4SzeI+0J9ZTAkB2Px6m
-	KcE52cQw/N6Mv7o0jc1Rm+4VsXPJ32R47XZOqFn8kxNDHin3Z+OmNylh2VEB4vXantxmoFYkZZ+
-	XOxo7izfXDU2ciEUMiRLwDK9TnZNmXejpL0l0EMk+VN5SeE/CqWtxA0qDTb0twg8nWmuAKrf7qT
-	3sazIONaAIHU9wBaW414KcGUyzdQuenyXqLdFIn4f9vXTjfBbUW6JvL9bdLg=
-X-TMASE-XGENCLOUD: 17878721-80c9-46a0-8977-78a5d4d6e8b6-0-0-200-0
-X-TM-Deliver-Signature: 4948D745B22A34CF5C6013E2C378FAF1
-X-TM-Addin-Auth: fo0Sh7Q2PVBrvLJBEJEj2i3EA0PnIQaKSVabVJZE6A8Cn2X3P4vqm4Y0XRU
-	T8Mj6zVBNMK+AgGDhOunMKXc9rj7Aw9aMzgx5ZWspSoM7Yq7/TzwQ+k2zL7f6qwrYdicWiAedUP
-	Fb9CJMWV6EsVj8hzAyuXc0cVAiyOBNlO+dGgoXYn7zwfFzVbRYl0b+6Ph3YGJMtx3s4NO1zIXl4
-	fnPnSHsxoq/wny8r+tYCLPBB3HBagOB8czOs2gjqWP27GAjxJAJcrm794XDP74Ama8SxBWoOWkp
-	KbyobhwXk8TCjM4=.vCtTqRmh14QS7ZvJFQs6W/Z2DSnxGDlC+CLOnx7aBhFWz5+X+Jl7hmQuIu
-	NcYNjs5rvZgILIUbKG6/e9a1IESkojOYdh9wVsrUJNLiXGwBYObcNbAKcnyYkeQdnRPwLlNrcHT
-	uADQJ2vqdjxp3VAvw7UqGTBlj01CMjCj9ZwkTsoeY3DwY78N7aFkPE6Q6JCbVShX93O/F1EO1XQ
-	9mWiTlhWdnqVcah5zYes5MvYAyW7oyP8JaT3NRVRWses9pXMgZAtpuMlo0/GI7DErtW95Rmckdf
-	r8nm6e/kv+ZcAPswr7+XQ+mfVzJ1kucoVDiod0KoTKtyfXmbCcmdO1b1fFQ==
-X-TM-Addin-ProductCode: EMS
-Subject: [virtio-comment] Re: [PATCH v3] virtio-spi: add the device specification
+In-Reply-To: <ZPLAip/TWqvWZ0hv@bullseye>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH] virtio-vsock: add VIRTIO_VSOCK_F_DGRAM feature bit
 
-Hello,
+On Sat, Sep 02, 2023 at 04:56:42AM +0000, Bobby Eshleman wrote:
+> On Fri, Sep 01, 2023 at 02:45:14PM +0200, Stefano Garzarella wrote:
+> > On Tue, Aug 29, 2023 at 09:29:45PM +0000, Bobby Eshleman wrote:
+> > > This adds support for datagrams to the virtio-vsock device.
+> > > 
+> > > virtio-vsock already supports stream and seqpacket types. The existing
+> > > message types and header fields are extended to support datagrams.
+> > > Semantic differences between the flow types are stated, as well as any
+> > > additional requirements for devices and drivers implementing this
+> > > feature.
+> > > 
+> > > Signed-off-by: Bobby Eshleman <bobby.eshleman@bytedance.com>
+> > > ---
+> > > device-types/vsock/description.tex | 95 +++++++++++++++++++++++++++---
+> > > 1 file changed, 88 insertions(+), 7 deletions(-)
+> > > 
+> > > diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+> > > index 7d91d159872f..638dca8e5da1 100644
+> > > --- a/device-types/vsock/description.tex
+> > > +++ b/device-types/vsock/description.tex
+> > > @@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> > > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> > > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> > > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+> > > +\item[VIRTIO_VSOCK_F_DGRAM (3)] datagram socket type is supported.
+> > > \end{description}
+> > > 
+> > > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+> > > @@ -167,17 +168,22 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+> > > consists of a (cid, port number) tuple. The header fields used for this are
+> > > \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+> > > 
+> > > -Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
+> > > -for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
+> > > +
+> > > +Currently stream, seqpacket, and datagram sockets are supported. \field{type} is
+> > > +1 (VIRTIO_VSOCK_TYPE_STREAM) for stream socket types, 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for
+> > > +seqpacket socket types, and 3 (VIRTIO_VSOCK_TYPE_DGRAM) for datagram socket types.
+> > > 
+> > > \begin{lstlisting}
+> > > #define VIRTIO_VSOCK_TYPE_STREAM    1
+> > > #define VIRTIO_VSOCK_TYPE_SEQPACKET 2
+> > > +#define VIRTIO_VSOCK_TYPE_DGRAM     3
+> > > \end{lstlisting}
+> > > 
+> > > Stream sockets provide in-order, guaranteed, connection-oriented delivery
+> > > without message boundaries. Seqpacket sockets provide in-order, guaranteed,
+> > > -connection-oriented delivery with message and record boundaries.
+> > > +connection-oriented delivery with message and record boundaries. Datagram
+> > > +sockets provide connection-less, best-effort delivery of messages, with no
+> > > +order or reliability guarantees.
+> > > 
+> > > \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device / Device Operation / Buffer Space Management}
+> > > \field{buf_alloc} and \field{fwd_cnt} are used for buffer space management of
+> > > @@ -203,16 +209,19 @@ \subsubsection{Buffer Space Management}\label{sec:Device Types / Socket Device /
+> > > previously receiving a VIRTIO_VSOCK_OP_CREDIT_REQUEST packet. This allows
+> > > communicating updates any time a change in buffer space occurs.
+> > > 
+> > > +\field{buf_alloc} and \field{fwd_cnt} are reserved for future use by datagram
+> > > +sockets. These fields are not used for datagram buffer space management.
+> > > +
+> > > \drivernormative{\paragraph}{Device Operation: Buffer Space Management}{Device Types / Socket Device / Device Operation / Buffer Space Management}
+> > > -VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+> > > -sufficient free buffer space for the payload.
+> > > +For stream and seqpacket flows, VIRTIO_VSOCK_OP_RW data packets MUST only be
+> > > +transmitted when the peer has sufficient free buffer space for the payload.
+> > > 
+> > > All packets associated with a stream flow MUST contain valid information in
+> > > \field{buf_alloc} and \field{fwd_cnt} fields.
+> > > 
+> > > \devicenormative{\paragraph}{Device Operation: Buffer Space
+> > > Management}{Device Types / Socket Device / Device Operation / Buffer
+> > > Space Management}
+> > > -VIRTIO_VSOCK_OP_RW data packets MUST only be transmitted when the peer has
+> > > -sufficient free buffer space for the payload.
+> > > +For stream and seqpacket flows, VIRTIO_VSOCK_OP_RW data packets MUST only be
+> > > +transmitted when the peer has sufficient free buffer space for the payload.
+> > > 
+> > > All packets associated with a stream flow MUST contain valid information in
+> > > \field{buf_alloc} and \field{fwd_cnt} fields.
+> > > @@ -299,6 +308,78 @@ \subsubsection{Seqpacket Sockets}\label{sec:Device Types / Socket Device / Devic
+> > > #define VIRTIO_VSOCK_SEQ_EOR (1 << 1)
+> > > \end{lstlisting}
+> > > 
+> > > +\subsubsection{Datagram Sockets}\label{sec:Device Types / Socket Device / Device Operation / Datagram Sockets}
+> > > +
+> > > +\drivernormative{\paragraph}{Device Operation: Packet Fragmentation}{Device Types / Socket Device / Datagram Sockets / Fragmentation}
+> > > +
+> > > +Drivers MAY disassemble packets into smaller fragments. If drivers fragment a
+> > > +packet, they MUST follow the fragmentation rules described in section
+> > > +\ref{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}.
+> > > +
+> > > +Drivers MUST support assembly of received packet fragments according to the
+> > > +fragmentation rules described in section
+> > > +\ref{sec:Device Types / Socket Device / Device Operation / Datagram
+> > > Sockets / Fragmentation}.
+> > > +
+> > > +\devicenormative{\paragraph}{Device Operation: Packet Fragmentation}{Device Types / Socket Device / Datagram Sockets / Fragmentation}
+> > > +
+> > > +Devices MAY disassemble packets into smaller fragments. If devices fragment a
+> > > +packet, they MUST follow the fragmentation rules described in section
+> > > +\ref{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}.
+> > > +
+> > > +Devices MUST support assembly of received packet fragments according to the
+> > > +fragmentation rules described in section
+> > > +\ref{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}.
+> > > +
+> > > +\drivernormative{\paragraph}{Device Operation: Packet Dropping}{Device Types / Socket Device / Datagram Sockets / Dropping}
+> > > +
+> > > +The driver MAY drop received packets with no notification to the device. This
+> > > +can happen if, for example, there are insufficient resources or no socket
+> > > +exists for the destination address.
+> > > +
+> > > +\devicenormative{\paragraph}{Device Operation: Packet Dropping}{Device Types / Socket Device / Datagram Sockets / Dropping}
+> > > +
+> > > +The device MAY drop received packets with no notification to the driver. This
+> > > +can happen if, for example, there are insufficient resources or no socket
+> > > +exists for the destination address.
+> > 
+> > Should we provide some notification if the socket does not exist at the
+> > destination?
+> > 
+> 
+> Yes, I think so. I believe a start/stop congestion notification scheme
+> actually manages this issue well.
+> 
+> For example, the source begins sending packets to a destination.
+> 
+> The destination finds that there exists no socket for that destination
+> address. The destination sends a "stop" notification to the source that
+> contains the address in question. Meanwhile, packets are still coming in
+> but they are being dropped.
+> 
+> The source receives the "stop" notification with the address and adds it
+> to the "stopped destinations" list. Any new packet destination address
+> will be compared to that list. Any matches will be dropped before
+> sending (and ideally, before wasting time allocating the packet).
+> 
+> Only when a socket is bound to an address that matches a "stopped"
+> address does the destination send a "start" notification to any source
+> it has previusly sent a "stop" notification to.
+> 
+> Once "start" is received, flow may resume as normal.
 
-I'm currently integrating your V3 update in our proprietary virtio SPI 
-device and in our virtio SPI Linux driver.
-
-The virtio SPI Linux driver is currently not yet in a shape to be shown 
-and the paperwork with the company lawyer is not yet done.
-
-Some short first remarks, I'll have to look again into the updated V3 
-specification next week.
-
-On 01.09.23 05:29, Haixu Cui wrote:
-> +
-> +\begin{lstlisting}
-> +struct virtio_spi_transfer_head {
-> +        u8 slave_id;
-> +        u8 bits_per_word;
-> +        u8 cs_change;
-> +        u8 tx_nbits;
-> +        u8 rx_nbits;
-The "u8 reserved[3];" which was previously here must remain for 
-alignment reasons. The "le32 mode" needs to be cleanly and visibly 
-aligned to a 4 byte boundary.
-> +        le32 mode;
-> +        le32 freq;
-
-Any hint what to do with the next 3 values in Linux? Currently on the 
-device side I've a check that all values are zero. If this is not the case:
-
-if ([any of those values is != zero]) {
-         pr_warn_once("word_delay_ns, cs_setup_ns or cs_delay_hold_ns 
-not supported\n");
-         /* Pray that the SPI device can still cope with the timing */
-}
-
-No idea how to cope with those values using /dev/spidevXXXX.0 as backend 
-device. Looked into some data sheets: If being not on Linux but on some 
-small embedded controllers I would probably also have difficulties in 
-some cases.
-
-I guess printing a warning and hoping that the SPI device still can cope 
-with the timing is the only thing which can be done in some 
-environments. However having those values in the message is probably a 
-good idea, this is not the point.
-
-> +        le32 word_delay_ns;
-> +        le32 cs_setup_ns;
-> +        le32 cs_delay_hold_ns;
-> +        le32 cs_change_delay_inactive_ns;
-> +};
-> +\end{lstlisting}
-> +
-> +\begin{lstlisting}
-> +struct virtio_spi_transfer_result {
-> +        u8 result;
-> +};
-> +\end{lstlisting}
-> +
-> +\begin{lstlisting}
-> +struct virtio_spi_transfer_req {
-> +        struct virtio_spi_transfer_head head;
-> +        u8 tx_buf[];
-> +        u8 rx_buf[];
-> +        struct virtio_spi_transfer_result result;
-Exactly the order which is needed. Having the result as last element 
-there are no alignment problems with word sizes > 8 bits. My former 
-proposal to move the result field to a different place was simply wrong. 
-Perfect now.
-> +};
-> +\end{lstlisting}
+Again, dropping as control flow tactic has a bunch of problems.
+Blocking senders sounds more reasonable.
 
 
+> > > +
+> > > +\paragraph{Datagram Fragmentation}\label{sec:Device Types / Socket Device / Device Operation / Datagram Sockets / Fragmentation}
+> > > +
+> > > +\field{flags} may have the following bit set:
+> > > +
+> > > +\begin{lstlisting}
+> > > +#define VIRTIO_VSOCK_DGRAM_EOM (1 << 0)
+> > > +\end{lstlisting}
+> > > +
+> > > +When the header \field{flags} field bit VIRTIO_VSOCK_DGRAM_EOM (bit 0) is set,
+> > > +it indicates that the current payload is the end of a datagram fragment
+> > > OR that
+> > > +the current payload is an entire datagram packet.
+> > 
+> > In the destination, if we discard some fragments, then could we
+> > reconstruct a different datagram from the one sent?
+> > 
+> > Is that anything acceptable?
+> > 
+> 
+> Dropping fragments should be explicitly disallowed. The sender is
+> explicitly disallowed from NOT placing fragments on the virtqueue, but I
+> see that I am missing the piece that states that they may not be dropped
+> on the receive side.
+> 
+> I think it is worth mentioning that implicit in this spec is that
+> socket-to-socket dgram communication is unreliable, but device-to-driver
+> (and vice versa) is still reliable. That is, we can rely at least on the
+> virtqueues to work... and if they fail then the device/driver can simply
+> requeue (think send_pkt_queue in Linux)... so there is some reliability
+> at the lowest layer.
+
+Well you have this weird timeout thing for some reason.
+
+> > Thanks,
+> > Stefano
+> > 
+> 
+> Thanks!
+> Bobby
 
 
 This publicly archived list offers a means to provide input to the
