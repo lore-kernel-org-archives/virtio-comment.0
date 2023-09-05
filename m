@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7255-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7256-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30B72C83F33
-	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 09:43:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB83C83F33
+	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 13:51:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 87C151CA24F
-	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 09:43:28 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6CF38EEA0D
+	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 645F29865C1
-	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 09:43:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 503889864AF
+	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 549B09865A4; Tue,  5 Sep 2023 09:43:28 +0000 (UTC)
+	id 38F34986410; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,317 +24,163 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 360A1986412
-	for <virtio-comment@lists.oasis-open.org>; Tue,  5 Sep 2023 09:43:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 28553986412
+	for <virtio-comment@lists.oasis-open.org>; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693907000; x=1694511800;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KwAYAiC0ZfjdvB3C6HX+9XyalgTFlRuGFH6j/u6uVYc=;
-        b=NcPzo1k4qKyqfTDKcl22+ALApX10e+dV4SPDWookl0pcTbyRTSVy2U/IxV4g36rpBU
-         hLZ1tU0G4P21PdDbObUKLnyq5pnLckPF7iC/6Zr2bYWRrImUSxXV2PGLVaxD2uUIjlwM
-         WKFBdlGX7ikVAVlXiKXBg+CRa1KRkuLZ+X3VEovSClUk8h3zHU4FAwSOIY9JdSRNp3Xt
-         vRyF+yCgVbr8wH2jWyQBAKzTgZK0KkssGEsmEzXOjdwRPT1OLJ+Ktw+Ho2/g1vyJBZ+f
-         8JEeyweNRadQ7ISTYM59ZMeSuf4CKKhZx9j/StHLaIoEvu+nRk3my8j8UKU9pF/pTqYw
-         AZRA==
-X-Gm-Message-State: AOJu0YwyiYs7g2/yJm5HOD+chcmVIiJT8tZR3NF2Qz4Rqtit1d0cM42y
-	APYHNycw9G4wnk7BNETmpfM0+w==
-X-Google-Smtp-Source: AGHT+IFSQ/FW2lhS25J7YoCR4ieLXywDjCZOemFjyBoEsnU2AvJvtkTf0zn97/GYUu/DlEmK7iWurg==
-X-Received: by 2002:a2e:8014:0:b0:2bc:e3a5:57aa with SMTP id j20-20020a2e8014000000b002bce3a557aamr8361265ljg.0.1693907000105;
-        Tue, 05 Sep 2023 02:43:20 -0700 (PDT)
-References: <20230901110018.3704459-1-alex.bennee@linaro.org>
- <CADSE00LiE6c8UhZ-KXTRuTc-yJQ==c=3teTcs8Wyx2k1CmUGQg@mail.gmail.com>
-User-agent: mu4e 1.11.16; emacs 29.1.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: slp@redhat.com, mst@redhat.com, marcandre.lureau@redhat.com,
- stefanha@redhat.com, viresh.kumar@linaro.org, sgarzare@redhat.com,
- takahiro.akashi@linaro.org, erik.schilling@linaro.org,
- manos.pitsidianakis@linaro.org, mathieu.poirier@linaro.org,
- qemu-devel@nongnu.org, virtio-dev@lists.oasis-open.org,
- virtio-comment@lists.oasis-open.org
-Date: Tue, 05 Sep 2023 10:34:11 +0100
-In-reply-to: <CADSE00LiE6c8UhZ-KXTRuTc-yJQ==c=3teTcs8Wyx2k1CmUGQg@mail.gmail.com>
-Message-ID: <87y1hlgdl4.fsf@linaro.org>
+        d=1e100.net; s=20221208; t=1693921901; x=1694526701;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RHnzrOLNeK637F3RYU8WApmHJrz4auLbZDKUFzakdvo=;
+        b=HP49L9Egk8lcO+yvyiZvUH18ekKD9el5QYvwiuvcbXoox93GpzILrNJhVN6gAC52oh
+         laPTZIPJKJoZk0kdhx/96DY9P8opb8j2aYMoZUox6G49sSL0tkeQBtb6pa2WbQrD7ov6
+         TyDFLcGGUDhD5YJwm5IIHzA0dweWlwVVCPr0QWicAZWiNJj+cFjkWb+paR0MWnvuMagV
+         CFXLUtzHqZy4feCZCpWVCYOwUOHhd9zaKi9TreQYCBGfC5sKALJVzI6QWur+X8CoB2Aw
+         zNjhMcL6GA2q+ejPzjlXO+NlQ4+8nmxMpuGFxgS9uHrPYOqePtuHHHpnwuAbuR0K4r//
+         y2dQ==
+X-Gm-Message-State: AOJu0YyA7U1ZSlJNYvat+LcRTnFVjwdGlO5qBseJYVEz2ZImyR7D+zOm
+	vFCn7h+og2guxyrwQVA5MlIDjEFMkxC+g/+A/g9PwcU=
+X-Google-Smtp-Source: AGHT+IFMhl0a8WxIpO/2sy2iiF5QHBOLeV0NK/haznfNfwIS7RBY/+Ef6Cgrc3wT7kXJyBSqHWqN0M/gW43dzXhtaXs=
+X-Received: by 2002:a05:6e02:1071:b0:34c:b943:d170 with SMTP id
+ q17-20020a056e02107100b0034cb943d170mr12955389ilj.18.1693921900814; Tue, 05
+ Sep 2023 06:51:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <CAAjaMXaJb+BgKj2_Ou0ghzu-HogMSdqLH=8RJrfFrTKj2dmoqg@mail.gmail.com>
+In-Reply-To: <CAAjaMXaJb+BgKj2_Ou0ghzu-HogMSdqLH=8RJrfFrTKj2dmoqg@mail.gmail.com>
+From: Chet Ensign <chet.ensign@oasis-open.org>
+Date: Tue, 5 Sep 2023 09:51:30 -0400
+Message-ID: <CAAwgnnNQXD+94ksPV21mSa58=HGiaUi1-E5YMG=BJHj21fjUOg@mail.gmail.com>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: virtio-comment@lists.oasis-open.org
+Content-Type: multipart/alternative; boundary="0000000000002cfb4c06049ceded"
+Subject: Re: [virtio-comment] Expired certificate on https://docs.oasis-open.org/
+
+--0000000000002cfb4c06049ceded
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [virtio-dev] [RFC PATCH v2] docs/interop: define PROBE feature
- for vhost-user VirtIO devices
 
+Thank you Manos. We are on that.
 
-Albert Esteve <aesteve@redhat.com> writes:
+On Mon, Sep 4, 2023 at 2:05=E2=80=AFAM Manos Pitsidianakis <
+manos.pitsidianakis@linaro.org> wrote:
 
-> This looks great! Thanks for this proposal.
+> oasis-open.org has a valid certificate, but docs.* does not.
 >
-> On Fri, Sep 1, 2023 at 1:00=E2=80=AFPM Alex Benn=C3=A9e <alex.bennee@lina=
-ro.org> wrote:
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
 >
->  Currently QEMU has to know some details about the VirtIO device
->  supported by a vhost-user daemon to be able to setup the guest. This
->  makes it hard for QEMU to add support for additional vhost-user
->  daemons without adding specific stubs for each additional VirtIO
->  device.
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
 >
->  This patch suggests a new feature flag (VHOST_USER_PROTOCOL_F_PROBE)
->  which the back-end can advertise which allows a probe message to be
->  sent to get all the details QEMU needs to know in one message.
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines:
+> https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 >
->  Together with the existing features VHOST_USER_PROTOCOL_F_STATUS and
->  VHOST_USER_PROTOCOL_F_CONFIG we can create "standalone" vhost-user
->  daemons which are capable of handling all aspects of the VirtIO
->  transactions with only a generic stub on the QEMU side. These daemons
->  can also be used without QEMU in situations where there isn't a full
->  VMM managing their setup.
 >
->  Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
->
->  ---
->  v2
->    - dropped F_STANDALONE in favour of F_PROBE
->    - split probe details across several messages
->    - probe messages don't automatically imply a standalone daemon
->    - add wording where probe details interact (F_MQ/F_CONFIG)
->    - define VMM and make clear QEMU is only one of many potential VMMs
->    - reword commit message
->  ---
->   docs/interop/vhost-user.rst | 90 ++++++++++++++++++++++++++++++++-----
->   hw/virtio/vhost-user.c      |  8 ++++
->   2 files changed, 88 insertions(+), 10 deletions(-)
->
->  diff --git a/docs/interop/vhost-user.rst b/docs/interop/vhost-user.rst
->  index 5a070adbc1..ba3b5e07b7 100644
->  --- a/docs/interop/vhost-user.rst
->  +++ b/docs/interop/vhost-user.rst
->  @@ -7,6 +7,7 @@ Vhost-user Protocol
->   ..
->     Copyright 2014 Virtual Open Systems Sarl.
->     Copyright 2019 Intel Corporation
->  +  Copyright 2023 Linaro Ltd
->     Licence: This work is licensed under the terms of the GNU GPL,
->              version 2 or later. See the COPYING file in the top-level
->              directory.
->  @@ -27,17 +28,31 @@ The protocol defines 2 sides of the communication, *=
-front-end* and
->   *back-end*. The *front-end* is the application that shares its virtqueu=
-es, in
->   our case QEMU. The *back-end* is the consumer of the virtqueues.
->
->  -In the current implementation QEMU is the *front-end*, and the *back-en=
-d*
->  -is the external process consuming the virtio queues, for example a
->  -software Ethernet switch running in user space, such as Snabbswitch,
->  -or a block device back-end processing read & write to a virtual
->  -disk. In order to facilitate interoperability between various back-end
->  -implementations, it is recommended to follow the :ref:`Backend program
->  -conventions <backend_conventions>`.
->  +In the current implementation a Virtual Machine Manager (VMM) such as
->  +QEMU is the *front-end*, and the *back-end* is the external process
->  +consuming the virtio queues, for example a software Ethernet switch
->  +running in user space, such as Snabbswitch, or a block device back-end
->  +processing read & write to a virtual disk. In order to facilitate
->  +interoperability between various back-end implementations, it is
->  +recommended to follow the :ref:`Backend program conventions
->  +<backend_conventions>`.
->
->   The *front-end* and *back-end* can be either a client (i.e. connecting)=
- or
->   server (listening) in the socket communication.
->
->  +Probing device details
->  +----------------------
->  +
->  +Traditionally the vhost-user daemon *back-end* shares configuration
->  +responsibilities with the VMM *front-end* which needs to know certain
->  +key bits of information about the device. This means the VMM needs to
->  +define at least a minimal stub for each VirtIO device it wants to
->  +support. If the daemon supports the right set of protocol features the
->  +VMM can probe the daemon for the information it needs to setup the
->  +device. See :ref:`Probing features for standalone daemons
->  +<probing_features>` for more details.
->  +
->  +
->   Support for platforms other than Linux
->   --------------------------------------
->
->  @@ -316,6 +331,7 @@ replies. Here is a list of the ones that do:
->   * ``VHOST_USER_GET_VRING_BASE``
->   * ``VHOST_USER_SET_LOG_BASE`` (if ``VHOST_USER_PROTOCOL_F_LOG_SHMFD``)
->   * ``VHOST_USER_GET_INFLIGHT_FD`` (if ``VHOST_USER_PROTOCOL_F_INFLIGHT_S=
-HMFD``)
->  +* ``VHOST_USER_GET_BACKEND_SPECS`` (if ``VHOST_USER_PROTOCOL_F_STANDALO=
-NE``)
->
->   .. seealso::
->
->  @@ -396,9 +412,10 @@ must support changing some configuration aspects on=
- the fly.
->   Multiple queue support
->   ----------------------
->
->  -Many devices have a fixed number of virtqueues.  In this case the front=
--end
->  -already knows the number of available virtqueues without communicating =
-with the
->  -back-end.
->  +Many devices have a fixed number of virtqueues. In this case the
->  +*front-end* usually already knows the number of available virtqueues
->  +without communicating with the back-end. For standalone daemons this
->  +number can be can be probed with the ``VHOST_USER_GET_MIN_VQ`` message.
->
->   Some devices do not have a fixed number of virtqueues.  Instead the max=
-imum
->   number of virtqueues is chosen by the back-end.  The number can depend =
-on host
->  @@ -885,6 +902,23 @@ Protocol features
->     #define VHOST_USER_PROTOCOL_F_CONFIGURE_MEM_SLOTS  15
->     #define VHOST_USER_PROTOCOL_F_STATUS               16
->     #define VHOST_USER_PROTOCOL_F_XEN_MMAP             17
->  +  #define VHOST_USER_PROTOCOL_F_PROBE                18
->  +
->  +.. _probing_features:
->  +
->  +Probing features for standalone daemons
->  +---------------------------------------
->  +
->  +The protocol feature ``VHOST_USER_PROTOCOL_F_PROBE`` enables a number
->  +of additional messages which allow the *front-end* to probe details
->  +about the VirtIO device from the *back-end*. However for a *back-end*
->  +to be described as standalone it must also support:
->  +
->  +  * ``VHOST_USER_PROTOCOL_F_STATUS``
->  +  * ``VHOST_USER_PROTOCOL_F_CONFIG`` (if there is a config space)
->  +
->  +which are required to ensure the *back-end* daemon can operate
->  +without the *front-end* managing some aspects of its configuration.
->
->   Front-end message types
->   -----------------------
->  @@ -1440,6 +1474,42 @@ Front-end message types
->     query the back-end for its device status as defined in the Virtio
->     specification.
->
->  +``VHOST_USER_GET_DEVICE_ID``
->  +  :id: 41
->  +  :request payload: N/A
->  +  :reply payload: ``u32``
->  +
->  +  When the ``VHOST_USER_PROTOCOL_F_PROBE`` protocol feature has been
->  +  successfully negotiated, this message is submitted by the front-end
->  +  to query what VirtIO device the back-end support. This is intended
->  +  to remove the need for the front-end to know ahead of time what the
->  +  VirtIO device the backend emulates is.
->  +
->  +``VHOST_USER_GET_CONFIG_SIZE``
->  +  :id: 42
->  +  :request payload: N/A
->  +  :reply payload: ``u32``
->  +
->  +  When the ``VHOST_USER_PROTOCOL_F_PROBE`` protocol feature has been
->  +  successfully negotiated, this message is submitted by the front-end
->  +  to query the size of the VirtIO device's config space. This is
->  +  intended to remove the need for the front-end to know ahead of time
->  +  what the size is. Replying with 0 when
->  +  ``VHOST_USER_PROTOCOL_F_CONFIG`` has been negotiated would indicate
->  +  an bug.
->  +
->  +``VHOST_USER_GET_MIN_VQ``
->  +  :id: 43
->  +  :request payload: N/A
->  +  :reply payload: ``u32``
->  +
->  +  When the ``VHOST_USER_PROTOCOL_F_PROBE`` protocol feature has been
->  +  successfully negotiated, this message is submitted by the front-end to
->  +  query minimum number of VQ's required to support the device. A
->  +  device may support more than this number of VQ's if it advertises
->  +  the ``VHOST_USER_PROTOCOL_F_MQ`` protocol feature. Reporting a
->  +  number greater than the result of ``VHOST_USER_GET_QUEUE_NUM`` would
->  +  indicate a bug.
->
-> Maybe I lack some background, but not sure what min_vq is here?
-
-There will be a minimum number of queues you need to support the device.
-For example the virtio-sound spec specifies you need four queues:
-control, event, tx, rx
-
-> This looks like quering the number of VQs the backend requires/uses.
-> Which, in case of MQ, it may be bigger (which is where I assume comes the=
- `min`
-> part, if we consider `VHOST_USER_GET_QUEUE_NUM` the `max`).
-
-The MQ extension is currently used by networking but in theory any
-device could attempt to parallelism by extending the number of virt
-queues needed. So for net you get:
-
-  receiveq1
-  transmitq1
-  optional controlq
-
-So VHOST_USER_GET_MIN_VQ would report 2 or 3 (if VIRTIO_NET_F_CTRL_VQ is
-negotiated). However VHOST_USER_GET_QUEUE_NUM is only usable if
-VIRTIO_NET_F_MQ has been negotiated and could report more.
-
->
-> Couldn't we reuse the `VHOST_USER_GET_QUEUE_NUM` type for this?
->=20=20
->   Back-end message types
->   ----------------------
->  diff --git a/hw/virtio/vhost-user.c b/hw/virtio/vhost-user.c
->  index 8dcf049d42..4d433cdf2b 100644
->  --- a/hw/virtio/vhost-user.c
->  +++ b/hw/virtio/vhost-user.c
->  @@ -202,6 +202,13 @@ typedef struct VhostUserInflight {
->       uint16_t queue_size;
->   } VhostUserInflight;
->
->  +typedef struct VhostUserBackendSpecs {
->  +    uint32_t device_id;
->  +    uint32_t config_size;
->  +    uint32_t min_vqs;
->  +    uint32_t max_vqs;
->  +} VhostUserBackendSpecs;
->  +
->   typedef struct {
->       VhostUserRequest request;
->
->  @@ -226,6 +233,7 @@ typedef union {
->           VhostUserCryptoSession session;
->           VhostUserVringArea area;
->           VhostUserInflight inflight;
->  +        VhostUserBackendSpecs specs;
-
-Oops these snuck in, I shall clean them up
-
->   } VhostUserPayload;
->
->   typedef struct VhostUserMsg {
->  --=20
->  2.39.2
->
->  ---------------------------------------------------------------------
->  To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
->  For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
-
 
 --=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Chet Ensign
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+Chief Technical Community Steward
 
+OASIS Open
+
++1 201-341-1393 <+1+201-341-1393>
+chet.ensign@oasis-open.org
+www.oasis-open.org
+
+--0000000000002cfb4c06049ceded
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thank you Manos. We are on that.=C2=A0</div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 4, 2023 =
+at 2:05=E2=80=AFAM Manos Pitsidianakis &lt;<a href=3D"mailto:manos.pitsidia=
+nakis@linaro.org">manos.pitsidianakis@linaro.org</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex"><a href=3D"http://oasis-ope=
+n.org" rel=3D"noreferrer" target=3D"_blank">oasis-open.org</a> has a valid =
+certificate, but docs.* does not.<br>
+<br>
+This publicly archived list offers a means to provide input to the<br>
+OASIS Virtual I/O Device (VIRTIO) TC.<br>
+<br>
+In order to verify user consent to the Feedback License terms and<br>
+to minimize spam in the list archive, subscription is required<br>
+before posting.<br>
+<br>
+Subscribe: <a href=3D"mailto:virtio-comment-subscribe@lists.oasis-open.org"=
+ target=3D"_blank">virtio-comment-subscribe@lists.oasis-open.org</a><br>
+Unsubscribe: <a href=3D"mailto:virtio-comment-unsubscribe@lists.oasis-open.=
+org" target=3D"_blank">virtio-comment-unsubscribe@lists.oasis-open.org</a><=
+br>
+List help: <a href=3D"mailto:virtio-comment-help@lists.oasis-open.org" targ=
+et=3D"_blank">virtio-comment-help@lists.oasis-open.org</a><br>
+List archive: <a href=3D"https://lists.oasis-open.org/archives/virtio-comme=
+nt/" rel=3D"noreferrer" target=3D"_blank">https://lists.oasis-open.org/arch=
+ives/virtio-comment/</a><br>
+Feedback License: <a href=3D"https://www.oasis-open.org/who/ipr/feedback_li=
+cense.pdf" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.org/=
+who/ipr/feedback_license.pdf</a><br>
+List Guidelines: <a href=3D"https://www.oasis-open.org/policies-guidelines/=
+mailing-lists" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.=
+org/policies-guidelines/mailing-lists</a><br>
+Committee: <a href=3D"https://www.oasis-open.org/committees/virtio/" rel=3D=
+"noreferrer" target=3D"_blank">https://www.oasis-open.org/committees/virtio=
+/</a><br>
+Join OASIS: <a href=3D"https://www.oasis-open.org/join/" rel=3D"noreferrer"=
+ target=3D"_blank">https://www.oasis-open.org/join/</a><br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
+gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
+iv dir=3D"ltr"><table cellspacing=3D"0" cellpadding=3D"0" style=3D"font-fam=
+ily:Arial;vertical-align:-webkit-baseline-middle"><tbody><tr><td width=3D"7=
+0" style=3D"vertical-align:middle"><span style=3D"margin-right:5px;display:=
+block"><img width=3D"70" height=3D"70" style=3D"max-width: 70px;" src=3D"ht=
+tps://ci3.googleusercontent.com/mail-sig/AIorK4wWWvttK4QvAyLjmQRfbisd2jdvX8=
+4ncnFeBuJn9NtWvi8WHJIwVlm1HGm8Re2Ji0U6N10brtc"></span></td><td style=3D"ver=
+tical-align:middle"><h3 style=3D"margin:0px;font-size:16px;color:rgb(0,0,0)=
+">Chet=C2=A0Ensign</h3><p style=3D"margin:0px;color:rgb(0,0,0);font-size:12=
+px;line-height:20px">Chief Technical Community Steward</p><p style=3D"margi=
+n:0px;color:rgb(0,0,0);font-size:12px;line-height:20px">OASIS Open</p></td>=
+<td width=3D"30">=C2=A0</td><td width=3D"1" style=3D"width:1px;border-botto=
+m:none;border-left:1px solid rgb(34,72,229)">=C2=A0</td><td width=3D"30">=
+=C2=A0</td><td style=3D"vertical-align:middle"><table cellspacing=3D"0" cel=
+lpadding=3D"0" style=3D"vertical-align:-webkit-baseline-middle;font-family:=
+Arial"><tbody><tr style=3D"vertical-align:middle"><td width=3D"30" style=3D=
+"vertical-align:middle"><table cellspacing=3D"0" cellpadding=3D"0" style=3D=
+"vertical-align:-webkit-baseline-middle;font-family:Arial"><tbody><tr><td s=
+tyle=3D"vertical-align:bottom"><span style=3D"display:block;background-colo=
+r:rgb(34,72,229)"><img src=3D"https://cdn2.hubspot.net/hubfs/53/tools/email=
+-signature-generator/icons/phone-icon-2x.png" width=3D"13" style=3D"display=
+: block;"></span></td></tr></tbody></table></td><td style=3D"padding:2px;co=
+lor:rgb(0,0,0)"><a href=3D"tel:+1+201-341-1393" style=3D"color:rgb(0,0,0);f=
+ont-size:12px" target=3D"_blank">+1 201-341-1393</a></td></tr><tr style=3D"=
+vertical-align:middle"><td width=3D"30" style=3D"vertical-align:middle"><ta=
+ble cellspacing=3D"0" cellpadding=3D"0" style=3D"vertical-align:-webkit-bas=
+eline-middle;font-family:Arial"><tbody><tr><td style=3D"vertical-align:bott=
+om"><span style=3D"display:block;background-color:rgb(34,72,229)"><img src=
+=3D"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons=
+/email-icon-2x.png" width=3D"13" style=3D"display: block;"></span></td></tr=
+></tbody></table></td><td style=3D"padding:2px"><a href=3D"mailto:chet.ensi=
+gn@oasis-open.org" style=3D"color:rgb(0,0,0);font-size:12px" target=3D"_bla=
+nk">chet.ensign@oasis-open.org</a></td></tr><tr style=3D"vertical-align:mid=
+dle"><td width=3D"30" style=3D"vertical-align:middle"><table cellspacing=3D=
+"0" cellpadding=3D"0" style=3D"vertical-align:-webkit-baseline-middle;font-=
+family:Arial"><tbody><tr><td style=3D"vertical-align:bottom"><span style=3D=
+"display:block;background-color:rgb(34,72,229)"><img src=3D"https://cdn2.hu=
+bspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png" =
+width=3D"13" style=3D"display: block;"></span></td></tr></tbody></table></t=
+d><td style=3D"padding:2px"><a href=3D"https://www.oasis-open.org" style=3D=
+"color:rgb(0,0,0);font-size:12px" target=3D"_blank">www.oasis-open.org</a><=
+/td></tr></tbody></table></td></tr></tbody></table></div></div>
+
+--0000000000002cfb4c06049ceded--
