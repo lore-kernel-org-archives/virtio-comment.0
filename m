@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7256-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7257-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB83C83F33
-	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 13:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECCD1EE49B2
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 02:05:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6CF38EEA0D
-	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 38BFE66DED
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 02:05:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 503889864AF
-	for <virtio-comment@archiver.kernel.org>; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E714398650A
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 02:05:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 38F34986410; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
+	id 25B559864B8; Wed,  6 Sep 2023 02:05:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,163 +24,230 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 28553986412
-	for <virtio-comment@lists.oasis-open.org>; Tue,  5 Sep 2023 13:51:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2D7869864B2;
+	Wed,  6 Sep 2023 02:04:34 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693921901; x=1694526701;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RHnzrOLNeK637F3RYU8WApmHJrz4auLbZDKUFzakdvo=;
-        b=HP49L9Egk8lcO+yvyiZvUH18ekKD9el5QYvwiuvcbXoox93GpzILrNJhVN6gAC52oh
-         laPTZIPJKJoZk0kdhx/96DY9P8opb8j2aYMoZUox6G49sSL0tkeQBtb6pa2WbQrD7ov6
-         TyDFLcGGUDhD5YJwm5IIHzA0dweWlwVVCPr0QWicAZWiNJj+cFjkWb+paR0MWnvuMagV
-         CFXLUtzHqZy4feCZCpWVCYOwUOHhd9zaKi9TreQYCBGfC5sKALJVzI6QWur+X8CoB2Aw
-         zNjhMcL6GA2q+ejPzjlXO+NlQ4+8nmxMpuGFxgS9uHrPYOqePtuHHHpnwuAbuR0K4r//
-         y2dQ==
-X-Gm-Message-State: AOJu0YyA7U1ZSlJNYvat+LcRTnFVjwdGlO5qBseJYVEz2ZImyR7D+zOm
-	vFCn7h+og2guxyrwQVA5MlIDjEFMkxC+g/+A/g9PwcU=
-X-Google-Smtp-Source: AGHT+IFMhl0a8WxIpO/2sy2iiF5QHBOLeV0NK/haznfNfwIS7RBY/+Ef6Cgrc3wT7kXJyBSqHWqN0M/gW43dzXhtaXs=
-X-Received: by 2002:a05:6e02:1071:b0:34c:b943:d170 with SMTP id
- q17-20020a056e02107100b0034cb943d170mr12955389ilj.18.1693921900814; Tue, 05
- Sep 2023 06:51:40 -0700 (PDT)
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R591e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046050;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0VrRdbPn_1693965867;
+Message-ID: <bb6078ab-cba8-467c-85f4-ef7a4d2f3371@linux.alibaba.com>
+Date: Wed, 6 Sep 2023 10:04:23 +0800
 MIME-Version: 1.0
-References: <CAAjaMXaJb+BgKj2_Ou0ghzu-HogMSdqLH=8RJrfFrTKj2dmoqg@mail.gmail.com>
-In-Reply-To: <CAAjaMXaJb+BgKj2_Ou0ghzu-HogMSdqLH=8RJrfFrTKj2dmoqg@mail.gmail.com>
-From: Chet Ensign <chet.ensign@oasis-open.org>
-Date: Tue, 5 Sep 2023 09:51:30 -0400
-Message-ID: <CAAwgnnNQXD+94ksPV21mSa58=HGiaUi1-E5YMG=BJHj21fjUOg@mail.gmail.com>
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: virtio-comment@lists.oasis-open.org
-Content-Type: multipart/alternative; boundary="0000000000002cfb4c06049ceded"
-Subject: Re: [virtio-comment] Expired certificate on https://docs.oasis-open.org/
+User-Agent: Mozilla Thunderbird
+From: Heng Qi <hengqi@linux.alibaba.com>
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Yuri Benditovich <yuri.benditovich@daynix.com>
+References: <20230901093444.115447-1-hengqi@linux.alibaba.com>
+In-Reply-To: <20230901093444.115447-1-hengqi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] [PATCH v2] virtio-net: support the RSS context
 
---0000000000002cfb4c06049ceded
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi all!
 
-Thank you Manos. We are on that.
+Do you have any comments on this?
 
-On Mon, Sep 4, 2023 at 2:05=E2=80=AFAM Manos Pitsidianakis <
-manos.pitsidianakis@linaro.org> wrote:
+Thanks!
 
-> oasis-open.org has a valid certificate, but docs.* does not.
+在 2023/9/1 下午5:34, Heng Qi 写道:
+> Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support RSS spreading of
+> filter matches") adds support for RSS context as a destination for receive flow filters
+> (see WIP work: https://lists.oasis-open.org/archives/virtio-comment/202308/msg00194.html).
 >
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
+> An RSS context consists of configurable parameters specified by receive-side scaling.
 >
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
+> Use case:
+> When users want some data flows to be steered to specific multiple rxqs, they can set
+> receive flow filter rules for these data flows to an RSS context with desired rxqs.
 >
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines:
-> https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+> How to set/configure an RSS context:
+> Assuming no RSS context has been created before.
+> 1. ethtool -X eth0 context new start 5 equal 8
 >
+> This command creates an RSS context with an id=1 for eth0, and fills in the indirection
+> table with rxq indexes 5-8 circularly. The hash key and hash types reuse the default
+> RSS configuration.
 >
+> Then, we can use 'ethtool -x eth0 context 1' to query the above configuration.
+>
+> 2. ethtool -X eth0 context new start 6 equal 7 \
+>     hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
+>     1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3
+>
+> This command creates an RSS context with an id=2 for eth0, and fills in the indirection
+> table with rxq indexes 6-7 circularly. The hash key is 8f:bf:dd:11:23:58:d2:8a:00:31:d0\
+> :32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3.
+> Hash types reuse the default RSS configuration.
+>
+> 3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
+>
+> This command specifies the hash types for the RSS context whose id=1 on eth0.
+> Now this RSS context only has the hash key to reuse the default RSS configuration.
+>
+> 4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
+>
+> This command configures a receive flow filter rule for eth0, and the data flow matching
+> this rule will continue to select the final rxq according to the RSS context configuration
+> with id=1.
+>
+> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> Signed-off-by: Parav Pandit <parav@nvidia.com>
+> ---
+> v1->v2:
+>      1. u8 to le16 for field rss_ctx_id.
+>      2. Add normativation when device resetting. @Yuri Benditovich
+>      3. Use ctrlq cmd to query rss context capability instead of reading config space. @Parav Pandit
+>
+>   device-types/net/description.tex        | 85 +++++++++++++++++++++++++
+>   device-types/net/device-conformance.tex |  1 +
+>   device-types/net/driver-conformance.tex |  1 +
+>   3 files changed, 87 insertions(+)
+>
+> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+> index 76585b0..55cd86d 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+>   \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+>       channel.
+>   
+> +\item[VIRTIO_NET_F_RSS_CONTEXT(50)] Device supports multiple RSS contexts.
+> +
+>   \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
+>   
+>   \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
+> @@ -150,6 +152,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
+>   \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
+>   \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
+>   \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
+> +\item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and VIRTIO_NET_F_RSS.
+>   \end{description}
+>   
+>   \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
+> @@ -1606,6 +1609,88 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+>   \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
+>   \end{itemize}
+>   
+> +\paragraph{RSS Context}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
+> +
+> +An RSS context consists of configurable parameters specified by \ref{sec:Device Types / Network Device
+> +/ Device Operation / Control Virtqueue / Receive-side scaling (RSS)}.
+> +
+> +The RSS configuration supported by VIRTIO_NET_F_RSS is considered the default RSS configuration.
+> +
+> +The device offers the feature VIRTIO_NET_F_RSS_CONTEXT if it supports one or multiple RSS contexts
+> +(excluding the default RSS configuration) and configurable parameters.
+> +
+> +\subparagraph{Querying RSS Context Capability}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Querying RSS Context Capability}
+> +
+> +\begin{lstlisting}
+> +#define VIRTNET_RSS_CTX_CTRL 8
+> + #define VIRTNET_RSS_CTX_CTRL_CAP_GET  0
+> + #define VIRTNET_RSS_CTX_CTRL_ADD      1
+> + #define VIRTNET_RSS_CTX_CTRL_MOD      2
+> + #define VIRTNET_RSS_CTX_CTRL_DEL      3
+> +
+> +struct virtnet_rss_ctx_cap {
+> +    le16 max_rss_contexts;
+> +}
+> +\end{lstlisting}
+> +
+> +Field \field{max_rss_contexts} specifies the maximum number of RSS contexts \ref{sec:Device Types / Network Device /
+> +Device Operation / Control Virtqueue / RSS Context} supported by the device.
+> +
+> +The driver queries the RSS context capability of the device by sending the command VIRTNET_RSS_CTX_CTRL_CAP_GET
+> +with the structure virtnet_rss_ctx_cap.
+> +
+> +For the command VIRTNET_RSS_CTX_CTRL_CAP_GET, the structure virtnet_rss_ctx_cap is write-only for the device.
+> +
+> +\subparagraph{Setting RSS Context Parameters}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Setting RSS Context Parameters}
+> +
+> +\begin{lstlisting}
+> +struct virtnet_rss_ctx_add_modify {
+> +    le16 rss_ctx_id;
+> +    le16 padding;
+> +    struct virtio_net_rss_config rss;
+> +};
+> +
+> +struct virtnet_rss_ctx_del {
+> +    le16 rss_ctx_id;
+> +};
+> +\end{lstlisting}
+> +
+> +RSS context parameters:
+> +\begin{itemize}
+> +\item  \field{rss_ctx_id}: ID of the specific RSS context.
+> +\item  \field{rss}: RSS context parameters of the specific RSS context whose id is \field{rss_ctx_id}.
+> +\end{itemize}
+> +
+> +\field{padding} is reserved and it is ignored by the device.
+> +
+> +If the feature VIRTIO_NET_F_RSS_CONTEXT has been negotiated, the driver can send the following
+> +VIRTNET_RSS_CTX_CTRL class commands:
+> +\begin{enumerate}
+> +\item VIRTNET_RSS_CTX_CTRL_ADD: use the structure virtnet_rss_ctx_add_modify to
+> +       add an RSS context configured as \field{rss} and id as \field{rss_ctx_id} for the device.
+> +\item VIRTNET_RSS_CTX_CTRL_MOD: use the structure virtnet_rss_ctx_add_modify to
+> +       configure parameters of the RSS context whose id is \field{rss_ctx_id} as \field{rss} for the device.
+> +\item VIRTNET_RSS_CTX_CTRL_DEL: use the structure virtnet_rss_ctx_del to delete
+> +       the RSS context whose id is \field{rss_ctx_id} for the device.
+> +\end{enumerate}
+> +
+> +For commands VIRTNET_RSS_CTX_CTRL_ADD and VIRTNET_RSS_CTX_CTRL_MOD, the structure virtnet_rss_ctx_add_modify is read-only for the device.
+> +For the command VIRTNET_RSS_CTX_CTRL_DEL, the structure virtnet_rss_ctx_del is read-only for the device.
+> +
+> +\devicenormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
+> +
+> +The device MUST set \field{max_rss_contexts} to at least 1 if it offers VIRTIO_NET_F_RSS_CONTEXT.
+> +
+> +Upon reset, the device MUST clear all previously configured RSS contexts.
+> +
+> +\drivernormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
+> +
+> +The driver MUST have negotiated the VIRTIO_NET_F_RSS_CONTEXT feature when issuing the VIRTNET_RSS_CTX_CTRL class commands.
+> +
+> +The driver MUST set \field{rss_ctx_id} to between 1 and \field{max_rss_contexts} inclusive.
+> +
+> +The driver MUST NOT send the command VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET when the device has successfully configured at least one RSS context.
+> +
+>   \paragraph{Offloads State Configuration}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Offloads State Configuration}
+>   
+>   If the VIRTIO_NET_F_CTRL_GUEST_OFFLOADS feature is negotiated, the driver can
+> diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
+> index f88f48b..f517b00 100644
+> --- a/device-types/net/device-conformance.tex
+> +++ b/device-types/net/device-conformance.tex
+> @@ -15,4 +15,5 @@
+>   \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) / RSS processing}
+>   \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+>   \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
+> +\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
+>   \end{itemize}
+> diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
+> index 9d853d9..22ff5c3 100644
+> --- a/device-types/net/driver-conformance.tex
+> +++ b/device-types/net/driver-conformance.tex
+> @@ -15,4 +15,5 @@
+>   \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) }
+>   \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+>   \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
+> +\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
+>   \end{itemize}
 
---=20
-Chet Ensign
 
-Chief Technical Community Steward
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-OASIS Open
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-+1 201-341-1393 <+1+201-341-1393>
-chet.ensign@oasis-open.org
-www.oasis-open.org
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
---0000000000002cfb4c06049ceded
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thank you Manos. We are on that.=C2=A0</div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 4, 2023 =
-at 2:05=E2=80=AFAM Manos Pitsidianakis &lt;<a href=3D"mailto:manos.pitsidia=
-nakis@linaro.org">manos.pitsidianakis@linaro.org</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex"><a href=3D"http://oasis-ope=
-n.org" rel=3D"noreferrer" target=3D"_blank">oasis-open.org</a> has a valid =
-certificate, but docs.* does not.<br>
-<br>
-This publicly archived list offers a means to provide input to the<br>
-OASIS Virtual I/O Device (VIRTIO) TC.<br>
-<br>
-In order to verify user consent to the Feedback License terms and<br>
-to minimize spam in the list archive, subscription is required<br>
-before posting.<br>
-<br>
-Subscribe: <a href=3D"mailto:virtio-comment-subscribe@lists.oasis-open.org"=
- target=3D"_blank">virtio-comment-subscribe@lists.oasis-open.org</a><br>
-Unsubscribe: <a href=3D"mailto:virtio-comment-unsubscribe@lists.oasis-open.=
-org" target=3D"_blank">virtio-comment-unsubscribe@lists.oasis-open.org</a><=
-br>
-List help: <a href=3D"mailto:virtio-comment-help@lists.oasis-open.org" targ=
-et=3D"_blank">virtio-comment-help@lists.oasis-open.org</a><br>
-List archive: <a href=3D"https://lists.oasis-open.org/archives/virtio-comme=
-nt/" rel=3D"noreferrer" target=3D"_blank">https://lists.oasis-open.org/arch=
-ives/virtio-comment/</a><br>
-Feedback License: <a href=3D"https://www.oasis-open.org/who/ipr/feedback_li=
-cense.pdf" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.org/=
-who/ipr/feedback_license.pdf</a><br>
-List Guidelines: <a href=3D"https://www.oasis-open.org/policies-guidelines/=
-mailing-lists" rel=3D"noreferrer" target=3D"_blank">https://www.oasis-open.=
-org/policies-guidelines/mailing-lists</a><br>
-Committee: <a href=3D"https://www.oasis-open.org/committees/virtio/" rel=3D=
-"noreferrer" target=3D"_blank">https://www.oasis-open.org/committees/virtio=
-/</a><br>
-Join OASIS: <a href=3D"https://www.oasis-open.org/join/" rel=3D"noreferrer"=
- target=3D"_blank">https://www.oasis-open.org/join/</a><br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
-gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
-iv dir=3D"ltr"><table cellspacing=3D"0" cellpadding=3D"0" style=3D"font-fam=
-ily:Arial;vertical-align:-webkit-baseline-middle"><tbody><tr><td width=3D"7=
-0" style=3D"vertical-align:middle"><span style=3D"margin-right:5px;display:=
-block"><img width=3D"70" height=3D"70" style=3D"max-width: 70px;" src=3D"ht=
-tps://ci3.googleusercontent.com/mail-sig/AIorK4wWWvttK4QvAyLjmQRfbisd2jdvX8=
-4ncnFeBuJn9NtWvi8WHJIwVlm1HGm8Re2Ji0U6N10brtc"></span></td><td style=3D"ver=
-tical-align:middle"><h3 style=3D"margin:0px;font-size:16px;color:rgb(0,0,0)=
-">Chet=C2=A0Ensign</h3><p style=3D"margin:0px;color:rgb(0,0,0);font-size:12=
-px;line-height:20px">Chief Technical Community Steward</p><p style=3D"margi=
-n:0px;color:rgb(0,0,0);font-size:12px;line-height:20px">OASIS Open</p></td>=
-<td width=3D"30">=C2=A0</td><td width=3D"1" style=3D"width:1px;border-botto=
-m:none;border-left:1px solid rgb(34,72,229)">=C2=A0</td><td width=3D"30">=
-=C2=A0</td><td style=3D"vertical-align:middle"><table cellspacing=3D"0" cel=
-lpadding=3D"0" style=3D"vertical-align:-webkit-baseline-middle;font-family:=
-Arial"><tbody><tr style=3D"vertical-align:middle"><td width=3D"30" style=3D=
-"vertical-align:middle"><table cellspacing=3D"0" cellpadding=3D"0" style=3D=
-"vertical-align:-webkit-baseline-middle;font-family:Arial"><tbody><tr><td s=
-tyle=3D"vertical-align:bottom"><span style=3D"display:block;background-colo=
-r:rgb(34,72,229)"><img src=3D"https://cdn2.hubspot.net/hubfs/53/tools/email=
--signature-generator/icons/phone-icon-2x.png" width=3D"13" style=3D"display=
-: block;"></span></td></tr></tbody></table></td><td style=3D"padding:2px;co=
-lor:rgb(0,0,0)"><a href=3D"tel:+1+201-341-1393" style=3D"color:rgb(0,0,0);f=
-ont-size:12px" target=3D"_blank">+1 201-341-1393</a></td></tr><tr style=3D"=
-vertical-align:middle"><td width=3D"30" style=3D"vertical-align:middle"><ta=
-ble cellspacing=3D"0" cellpadding=3D"0" style=3D"vertical-align:-webkit-bas=
-eline-middle;font-family:Arial"><tbody><tr><td style=3D"vertical-align:bott=
-om"><span style=3D"display:block;background-color:rgb(34,72,229)"><img src=
-=3D"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons=
-/email-icon-2x.png" width=3D"13" style=3D"display: block;"></span></td></tr=
-></tbody></table></td><td style=3D"padding:2px"><a href=3D"mailto:chet.ensi=
-gn@oasis-open.org" style=3D"color:rgb(0,0,0);font-size:12px" target=3D"_bla=
-nk">chet.ensign@oasis-open.org</a></td></tr><tr style=3D"vertical-align:mid=
-dle"><td width=3D"30" style=3D"vertical-align:middle"><table cellspacing=3D=
-"0" cellpadding=3D"0" style=3D"vertical-align:-webkit-baseline-middle;font-=
-family:Arial"><tbody><tr><td style=3D"vertical-align:bottom"><span style=3D=
-"display:block;background-color:rgb(34,72,229)"><img src=3D"https://cdn2.hu=
-bspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png" =
-width=3D"13" style=3D"display: block;"></span></td></tr></tbody></table></t=
-d><td style=3D"padding:2px"><a href=3D"https://www.oasis-open.org" style=3D=
-"color:rgb(0,0,0);font-size:12px" target=3D"_blank">www.oasis-open.org</a><=
-/td></tr></tbody></table></td></tr></tbody></table></div></div>
-
---0000000000002cfb4c06049ceded--
