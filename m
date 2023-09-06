@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7270-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7271-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68B15EB8FAD
-	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 09:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 077BBEB8FAD
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 09:43:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id AA9A41318C9
-	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 09:37:51 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5CFAF2CAD7
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 09:43:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 92C759865E0
-	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 09:37:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 50DDA986630
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Sep 2023 09:43:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 81A1D9865C9; Wed,  6 Sep 2023 09:37:51 +0000 (UTC)
+	id 49FFC9865C9; Wed,  6 Sep 2023 09:43:30 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,18 +24,18 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 719F99865CD;
-	Wed,  6 Sep 2023 09:37:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3C3CA9865D0;
+	Wed,  6 Sep 2023 09:43:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="380820049"
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="362045587"
 X-IronPort-AV: E=Sophos;i="6.02,231,1688454000"; 
-   d="scan'208";a="380820049"
+   d="scan'208";a="362045587"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="741470287"
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="1072318958"
 X-IronPort-AV: E=Sophos;i="6.02,231,1688454000"; 
-   d="scan'208";a="741470287"
-Message-ID: <87445e65-e8c0-fd09-523f-cc7b0036ef75@intel.com>
-Date: Wed, 6 Sep 2023 17:37:44 +0800
+   d="scan'208";a="1072318958"
+Message-ID: <376eb02c-1cc9-dabf-af6a-551dc5015037@intel.com>
+Date: Wed, 6 Sep 2023 17:43:05 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.14.0
@@ -45,88 +45,149 @@ Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
  stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
  virtio-dev@lists.oasis-open.org
 References: <20230906081637.32185-1-lingshan.zhu@intel.com>
- <20230906081637.32185-6-lingshan.zhu@intel.com>
- <20230906043016-mutt-send-email-mst@kernel.org>
+ <20230906081637.32185-2-lingshan.zhu@intel.com>
+ <20230906042034-mutt-send-email-mst@kernel.org>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20230906043016-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20230906042034-mutt-send-email-mst@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] [PATCH 5/5] virtio-pci: implement
- VIRTIO_F_QUEUE_STATE
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] [PATCH 1/5] virtio: introduce vq state as basic
+ facility
 
 
 
-On 9/6/2023 4:32 PM, Michael S. Tsirkin wrote:
-> On Wed, Sep 06, 2023 at 04:16:37PM +0800, Zhu Lingshan wrote:
->> This patch adds two new le16 fields to common configuration structure
->> to support VIRTIO_F_QUEUE_STATE in PCI transport layer.
+On 9/6/2023 4:28 PM, Michael S. Tsirkin wrote:
+> On Wed, Sep 06, 2023 at 04:16:33PM +0800, Zhu Lingshan wrote:
+>> This patch adds new device facility to save and restore virtqueue
+>> state. The virtqueue state is split into two parts:
+>>
+>> - The available state: The state that is used for read the next
+>>    available buffer.
+>> - The used state: The state that is used for make buffer used.
+>>
+>> This will simply the transport specific method implementation. E.g two
+>> le16 could be used instead of a single le32). For split virtqueue, we
+>> only need the available state since the used state is implemented in
+>> the virtqueue itself (the used index). For packed virtqueue, we need
+>> both the available state and the used state.
+>>
+>> Those states are required to implement live migration support for
+>> virtio device.
 >>
 >> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->
-> I do not see why this would be pci specific at all.
-It is just the implementation is transport specific.
->
-> But besides I thought work on live migration will use
-> admin queue. This was explicitly one of the motivators.
-I assume this straight forward solution can work.
->
-> Poking at the device from the driver to migrate it
-> is not going to work if the driver lives within guest.
-The hypervisor can still set SUSPEND and do other stuffs like
-collecting dirty pages.
-
-The process should be freeze the guest first, then suspend the device.
->
->
->
->
+>> Signed-off-by: Jason Wang <jasowang@redhat.com>
+>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
 >> ---
->>   transport-pci.tex | 18 ++++++++++++++++++
->>   1 file changed, 18 insertions(+)
+>>   content.tex | 65 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 65 insertions(+)
 >>
->> diff --git a/transport-pci.tex b/transport-pci.tex
->> index a5c6719..3161519 100644
->> --- a/transport-pci.tex
->> +++ b/transport-pci.tex
->> @@ -325,6 +325,10 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
->>           /* About the administration virtqueue. */
->>           le16 admin_queue_index;         /* read-only for driver */
->>           le16 admin_queue_num;         /* read-only for driver */
->> +
->> +	/* Virtqueue state */
->> +        le16 queue_avail_state;         /* read-write */
->> +        le16 queue_used_state;          /* read-write */
->>   };
->>   \end{lstlisting}
+>> diff --git a/content.tex b/content.tex
+>> index 0a62dce..0e492cd 100644
+>> --- a/content.tex
+>> +++ b/content.tex
+>> @@ -502,6 +502,71 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
+>>   types. It is RECOMMENDED that devices generate version 4
+>>   UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
 >>   
->> @@ -428,6 +432,17 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
->>   	The value 0 indicates no supported administration virtqueues.
->>   	This field is valid only if VIRTIO_F_ADMIN_VQ has been
->>   	negotiated.
+>> +\section{Virtqueue State}\label{sec:Virtqueues / Virtqueue State}
 >> +
->> +\item[\field{queue_avail_state}]
->> +        This field is valid only if VIRTIO_F_QUEUE_STATE has been
->> +        negotiated. The driver sets and gets the available state of
->> +        the virtqueue here (see \ref{sec:Virtqueues / Virtqueue State}).
+>> +When VIRTIO_F_QUEUE_STATE has been negotiated, the driver can set and
+>> +get the device internal virtqueue state through the following
+>> +fields. The implementation of the interfaces is transport specific.
+>
+> virtqueue state can not, generally, be described by two 16 bit
+> indices.
+>
+> Consider an example: these buffers available: A B C D
+> After device used descriptors A and C, what is its state and
+> how do you describe it using a single index?
+<discussed in the 0/5 cover letter>
+>
+>
 >> +
->> +\item[\field{queue_used_state}]
->> +        This field is valid only if VIRTIO_F_QUEUE_STATE has been
->> +        negotiated. The driver sets and gets the used state of the
->> +        virtqueue here (see \ref{sec:Virtqueues / Virtqueue State}).
+>> +\subsection{\field{Available State} Field}
 >> +
->>   \end{description}
+>> +The available state field is two bytes of virtqueue state that is used by
+>> +the device to read the next available buffer.
+>> +
+>> +When VIRTIO_RING_F_PACKED is not negotiated, it contains:
+>> +
+>> +\begin{lstlisting}
+>> +le16 last_avail_idx;
+>> +\end{lstlisting}
+>> +
+>> +The \field{last_avail_idx} field is the free-running available ring
+>> +index where the device will read the next available head of a
+>> +descriptor chain.
+> next after what?
+I am not sure I get it.
+It's like a pointer, so I assume it goes without saying, implies the 
+next "address".
+
+Do you suggest "next after current being processed ones" or others?
+>
+>> +
+>> +See also \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Available Ring}.
+>> +
+>> +When VIRTIO_RING_F_PACKED is negotiated, it contains:
+>> +
+>> +\begin{lstlisting}
+>> +le16 {
+>> +  last_avail_idx : 15;
+>> +  last_avail_wrap_counter : 1;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The \field{last_avail_idx} field is the free-running location
+>> +where the device read the next descriptor from the virtqueue descriptor ring.
+>> +
+>> +The \field{last_avail_wrap_counter} field is the last driver ring wrap
+>> +counter that was observed by the device.
+>> +
+>> +See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counters}.
+>> +
+>> +\subsection{\field{Used State} Field}
+>> +
+>> +The used state field is two bytes of virtqueue state that is used by
+>> +the device when marking a buffer used.
+>> +
+>> +When VIRTIO_RING_F_PACKED is negotiated, the used state contains:
+>> +
+>> +\begin{lstlisting}
+>> +le16 {
+>> +  used_idx : 15;
+>> +  used_wrap_counter : 1;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The \field{used_idx} field is the free-running location where the device write the next
+>> +used descriptor to the descriptor ring.
+> I don't get what good does this used_idx do - used descriptors are written in
+> order so just check which ones are valid?
+a bit confused. please correct me if I misunderstood.
+
+Valid to the device? avail_idx? How to speculate used_idx from avail_idx,
+or walk through the ring?
+> And driver does of course know what the used_wrap_counter is
+> otherwise it can't work.
+> Or is this for some kind of
+> split driver setup where looking at the ring is impossible?
+For splitted virtqueue, we don't need to migrate used_idx, but for
+packed vq, is it easier if we record and restore it?
+>
+>
+>> +
+>> +The \field{used_wrap_counter} field is the wrap counter that is used
+>> +by the device.
+>> +
+>> +See also \ref{sec:Packed Virtqueues / Driver and Device Ring Wrap Counters}.
+>> +
+>> +When VIRTIO_RING_F_PACKED is not negotiated, the 16-bit value of \field{used_idx}
+>> +is always 0
+>> +
+>>   \input{admin.tex}
 >>   
->>   \devicenormative{\paragraph}{Common configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}
->> @@ -488,6 +503,9 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
->>   present either a value of 0 or a power of 2 in
->>   \field{queue_size}.
->>   
->> +If VIRTIO_F_QUEUE_STATE has not been negotiated, the device MUST ignore
->> +any accesses to \field{queue_avail_state} and \field{queue_used_state}.
->> +
->>   If VIRTIO_F_ADMIN_VQ has been negotiated, the value
->>   \field{admin_queue_index} MUST be equal to, or bigger than
->>   \field{num_queues}; also, \field{admin_queue_num} MUST be
+>>   \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
 >> -- 
 >> 2.35.3
 >>
@@ -147,23 +208,6 @@ The process should be freeze the guest first, then suspend the device.
 >> Committee: https://www.oasis-open.org/committees/virtio/
 >> Join OASIS: https://www.oasis-open.org/join/
 >>
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->
 
 
 This publicly archived list offers a means to provide input to the
