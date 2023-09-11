@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7321-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7322-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C85CEE57DF
-	for <virtio-comment@archiver.kernel.org>; Mon, 11 Sep 2023 16:03:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D9FEE7FF4
+	for <virtio-comment@archiver.kernel.org>; Mon, 11 Sep 2023 16:33:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 76E44613D0
-	for <virtio-comment@archiver.kernel.org>; Mon, 11 Sep 2023 16:03:13 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 214A68505F
+	for <virtio-comment@archiver.kernel.org>; Mon, 11 Sep 2023 16:33:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 62F52986485
-	for <virtio-comment@archiver.kernel.org>; Mon, 11 Sep 2023 16:03:13 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 121B1986499
+	for <virtio-comment@archiver.kernel.org>; Mon, 11 Sep 2023 16:33:34 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4FD6D98642F; Mon, 11 Sep 2023 16:03:13 +0000 (UTC)
+	id 0627C98642F; Mon, 11 Sep 2023 16:33:34 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,144 +24,296 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3F556986436;
-	Mon, 11 Sep 2023 16:03:13 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E6F56986460
+	for <virtio-comment@lists.oasis-open.org>; Mon, 11 Sep 2023 16:33:28 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-TM-MAIL-RECEIVED-TIME: 1694450005.773000
+X-TM-MAIL-UUID: 2331f09a-e5a3-4e91-8d8f-3a8ca366aabd
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=elUa8ierfrBbN+XbPu/WKZetT6wtTLqr0Cn7H7qE5BzjxkTJgeU/Wz9LmXZGgD2SpEjxqGLuuSu16F+EzlN6Qaw9x8ldAc9XAP1P5PG8t9dluY0rc+wa2NEDloZwq6puwrzykDzyXEC6Gdo8wy6RKk1nYOukawFyF4ELbw6ds8TRKu0tS4Ci9MClO81iISrF35LFWR+dAA7FGWGxnsdm9wcene3SIVX7iJ4OiIEXdW2AF4dlBEQ0hiZAUfHuOqtbnb1K+OefL/kVEn4FICIJGyIC+tsvYxmdMfmNakYBSBE5TE4hJIi3ctvUoykkA2SrPADg8fCe/J+COaKZKnz6BA==
+ b=Og2vrD9e+jqFtwnWU0o5gneJsYJYnaLdTBb7jzxXdzsvVrx6AHD13WtcySPFgE37/2YNmRxYfJgY7FnZ8V+DNeE+6iI7Af/7I5rTtjj+5bzZyrNieR4pfC9s0YyUYixEEmg7NTomPD4QFCTkdCc5sPZMEBoy7vQWsSq/sklx5401XE0iCckLpcXjHYEo58WB6N+sqElQVkuDveh/rfb3oizGUEAVvJPHWDMNgWOPat6cL3F0QSISHGPZvDl/D9nVhYoFLbjTtj5/2HrwMz+lkImzsEoan8WttmuWVcWt98g2ASodVzG6kIuZHIRRJ8fDBVy+Yj5jL9nrxfAlbw3qTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wXfeRtNRha7a2AzwuYcvtCxqT/xsz7K0dD18geNpWR4=;
- b=nrG0+wqPp9bSXBJA0o9qnZNR0pNm5z0rN1F1FTUIBjvn+mc2KPHLoZadCFoIZrhXkW7aWnmVXqR25ZBSNBqSA1ao+58/ECYCOe1/Iwd4F4eYXfMuvWcPskJlZH5qeTpxmqGNoL2bhY0uu3pWNXTuPZrmc5IwGJRPTmVMLUtqzZQGbiTtz1kT1dzS0kFx8ny2B34kT1ycES0HafmxG9doKJzMeAE3sbYbx9E/dcwzWWnocEmZRvno+gyX5aeKm9d3Q2KF9duGDMVXuyfTyScM3MTG1sLq7HSpTW6JATSCwMtWs49p6NF8rt4hEKBebIBWsUP4IDhqluNOJx2KBm3HFQ==
+ bh=bjGxzUhdNbo0vyQVWPdcra5Kteyn88Zm48Zp05i0j3g=;
+ b=fgb9Ll/kZ0pmhIbeyvTShzCt6oIDTxUiHjqs+0M4ruv0xKh3K94mVOiRTcEuRzcdlcFQ3UjA0tkmXRTZUJHg0keyL93/jiU8i55JGI9ZsTQ1lw6X87CsRjlIFMu/pfoy6q/xgEpYhRTSD9OQLBAeN9E2MVMnAaOJuaQw+5kemzsYZ3hItnUvfaDPv/c0SMM6pJ554d8DT+HmjgoH1K7jielpSXVCoPs678PhC4JFARqfOBUl6AMH6qE8X0ERdvZcmWxNQLMjPSFEsdfPDVMhJ2TYC+34OYMVgxchHj5m+oVBLjXLfdfyVfBPL5gVKlVA2mQSND1qibkEvQW17NzXSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-CC: "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "hengqi@linux.alibaba.com"
-	<hengqi@linux.alibaba.com>, "david.edmondson@oracle.com"
-	<david.edmondson@oracle.com>, "xuanzhuo@linux.alibaba.com"
-	<xuanzhuo@linux.alibaba.com>, "sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>, "virtio@lists.oasis-open.org"
-	<virtio@lists.oasis-open.org>
-Thread-Topic: [virtio] [PATCH requirements v5 3/7] net-features: Add low
- latency receive queue requirements
-Thread-Index: AQHZ0Y2OPkkXezMnckKK02qC/AGznbAVydaAgAAlFGA=
-Date: Mon, 11 Sep 2023 16:03:10 +0000
+ smtp.mailfrom=opensynergy.com; dmarc=pass action=none
+ header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
+From: Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+	=?iso-8859-1?Q?Marc-Andr=E9_Lureau?= <marcandre.lureau@gmail.com>, Robert
+ Beckett <bob.beckett@collabora.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "virtio-dev@lists.oasis-open.org"
+	<virtio-dev@lists.oasis-open.org>
+CC: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Alex Deucher <Alexander.Deucher@amd.com>, Christian
+ Koenig <Christian.Koenig@amd.com>, Stewart Hildebrand
+	<Stewart.Hildebrand@amd.com>, Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>,
+	Huang Rui <Ray.Huang@amd.com>
+Thread-Topic: [virtio-dev] [RESEND VIRTIO GPU PATCH v3 1/1] virtio-gpu: Add
+ new feature flag VIRTIO_GPU_F_FREEZE_S3
+Thread-Index: AQHZ5JeMrx+qZaGaC0WWUrTpw2yj27AVyyFc
+Date: Mon, 11 Sep 2023 16:33:24 +0000
 Message-ID:
- <PH0PR12MB5481F9484EC98BB1A6CD6E68DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230818043557.496964-1-parav@nvidia.com>
- <20230818043557.496964-4-parav@nvidia.com> <20230911134715.GC3803963@fedora>
-In-Reply-To: <20230911134715.GC3803963@fedora>
+ <FR0P281MB286152665C939C9CE291CE63BCF2A@FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM>
+References: <20230911100430.1408168-1-Jiqian.Chen@amd.com>
+ <20230911100430.1408168-2-Jiqian.Chen@amd.com>
+In-Reply-To: <20230911100430.1408168-2-Jiqian.Chen@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
+msip_labels:
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
+ header.d=none;dmarc=none action=none header.from=opensynergy.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BL1PR12MB5826:EE_
-x-ms-office365-filtering-correlation-id: 144d6199-2014-4e7d-5bc3-08dbb2e09895
+x-ms-traffictypediagnostic: FR0P281MB2861:EE_|BE1P281MB2803:EE_
+x-ms-office365-filtering-correlation-id: 36738168-ec90-4320-2615-08dbb2e4d1a0
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- 5k9eR9pgHsAw9IYorYNkmfxJ+Mi4yUVvfzdWUHBpdAk/xGpdsWGXEPhmMCWjS3drL4OZ27PWr7OlwS+Kk/HNC5a0HtiIqbXC4H3mWAbzfdPMGaTesZFi2Af4ksYZ89gXr2LtYAjWVTJxFmVjUMB0z01Az4AH6y4UG2GLQmXNlaCOFgwNiKbZws6XrcijAWJ85sVVAkO/6kw4Qc+ZDCh99s1Uq/0oCWt4B9d6nOhith3KtEWZK2OstnH6xg28zUWmcxT2Kx4XngLrpQLLnaOEcq5fwaI8/H4iiRWRTKaVXY5L5zINkf82bJb+9MOw7LBvLWl5K+udVZDTVzkUJ6eLQek8gKUlazKEvjmU7Gi7rX98fSUY9GnqydNananToOrs0EcRfs6M0Gdi62S85SOdzYv+wqWFJngCcHFakNQZnalXN40nwYBaDJSQe8NAjs+DMvva5aJ6bHETuHSRtlxdi+H1mfH+6cVCqJBAqc4fwkdAmB2tfZW1NRxRhNyKkwuyMonby/EzeP/TRHSfXigVISapqo5XlvJco8DyMLc28H+j3YvIs8CFhECfBtKUy1wpY+GO2bt3r8aHwIbEk9hIUlMyD6eiwmlt9DSTwqwSZoPb81Ax8uDfw6J94/i1reNE
+ EN0hhHborQ5j5AoB9Z0FZNkn56Hr2pdOyGjFN8CFnlWiKrJ0kW2TscuDyZ+tYdmee8tmRp5FGtEXCbdZOx7GFlTcnsjz5bXWoOhnG2Sz0L9tHK+hHUccfJ3QgOXZaX4eqOd9NGL1KGPp0dGe10+VCpZQZxC4BJQFYg6rE/kWaZJtSylJLAxWS0SGNpemlIcyqWNXWbH1RxswJP+NC1Jnvu/DICR+9M9pvzd5CTNmjBY/67vEF46SHJKSUV3KlPn71HEKWW7+biy1osocvGB00hnIjFVyQe9lYRQxX5G6ddj33Z5JpBveACOBLuE3PyYieErjV/eAALXg/7jz33mwAvUlAimrhYJrB7Cj7vXfp4hqv8gpWluU1vcN9UsnDL1nVAmliyV5n+B4SeklfFlK4q5W78xHpOq0/uSGLMWyhYpI4Em6qnRRvmY0pBCW9plO4b+69gwtLyO49IPucDIhNpUMGLfu9js/AFA9iWO/kksuByGtL7lcHHbDnBXulnZFRS3zj5eufVFUkt4b2DvzBIcmq8wO1fs6G2qlvUp21ibwv0HphLU/2Z9LnefnYXjXsxm+FgdqBMHnv6h3+LfK0/fBY2bkYAHTqLEMWJLCGgNwjqy2DiPkDLS2TCkRXDB7+OIkiz/gd77wfFuDIny0Se1x0WHWnEqKF49oLhngLcDc9QUJP2PtJXO0Gca/m+Am
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(39860400002)(346002)(366004)(376002)(451199024)(1800799009)(186009)(122000001)(7696005)(6506007)(52536014)(71200400001)(86362001)(33656002)(55016003)(38070700005)(38100700002)(2906002)(9686003)(478600001)(83380400001)(5660300002)(26005)(316002)(76116006)(8936002)(8676002)(66556008)(64756008)(66476007)(4326008)(6916009)(54906003)(66946007)(41300700001)(66446008);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(366004)(39840400004)(396003)(346002)(136003)(376002)(451199024)(186009)(1800799009)(66899024)(53546011)(71200400001)(52536014)(41300700001)(122000001)(38100700002)(15974865002)(86362001)(38070700005)(33656002)(2906002)(966005)(9686003)(83380400001)(66574015)(478600001)(110136005)(91956017)(316002)(5660300002)(4326008)(8936002)(8676002)(26005)(66476007)(7416002)(64756008)(54906003)(66446008)(66946007)(66556008)(42186006)(76116006);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?GUPSutsjLps05oaFz6OMxVdtRky1bbUom2wdvHsFMlLQgoCxxObmR78ah7nj?=
- =?us-ascii?Q?o0m/OQ87d3QUrkrtkBlZivXTebw8IwULmfnpusek/PTDE3L39cUHPruKZ5zy?=
- =?us-ascii?Q?9eP4gb7Ao91KfLvNMhaJxqQZHJ5R+W6KX3PG3eqTgVqMhSMUddQ8oqrOFvvJ?=
- =?us-ascii?Q?mz8zFNr7hDIFn63w6/HFQC2z9iPlojG3S6SdoHH2ZDG7738ky44eZnmcI5Zi?=
- =?us-ascii?Q?Jp0my+TM3B3s3CodFXmx6DoqidW2GOqXzh64t4Ne1U6bNGAO2mmugJ2/92qo?=
- =?us-ascii?Q?UDA5jm8YCIha7pMYvcVBXgKxoOmlQI831UNMOZOkbTzBy2XjdVsL01Eewxyg?=
- =?us-ascii?Q?jGs4yS5XAxVk9sKBsqdstXOo4jXV2SUsPMQAp3kpba9upJ8J6OQsgLi876bg?=
- =?us-ascii?Q?oUrwJNRe640Gt0hHe8FXeJJI+xOqNNNVK/0MSaXshFlGUqVr+LwtSmu6u1Ay?=
- =?us-ascii?Q?GZ/livnrht8avBiLOIj74/ceeKjcWuVgIODRhae/D3MxnwcWCjUICUZOx1Fp?=
- =?us-ascii?Q?KpWmGjJp7hxWTbUfVbU/X+FCVkfK0W15smEi3uhdb7yrLoEgN182A8SIzCQL?=
- =?us-ascii?Q?bqmumOkEXcjZa41QU0awGCtMd7nsogAfgdekh5Nv1wuUiUSYfYjcbxyBjPyw?=
- =?us-ascii?Q?MVUry9y7Bfsma2P/XBc7A9JJQGNcu94RMwlA2XyrdCvDucs60uuLu/RU/3T+?=
- =?us-ascii?Q?cyMQCA95MlvEj14PRxvn2mo8HoFLgHrRL8fTRb8TngpwOn6X7qS9MMHLa/U2?=
- =?us-ascii?Q?fXfD1aDwYfSI7vEUd2gpGRIHYi5+0b6jGMriCS87nE8SaBh4M4tylVRvF1MF?=
- =?us-ascii?Q?f3ao8ZZJyAd6uPOD3qObkdU6QXyQX8R17ru6mmS29W55uiRi6KXR2krsWQW8?=
- =?us-ascii?Q?UnjaWx/otIu7VFPQ6BjW/vC9D7qHy9+UxUz/iEmaGORsOmJ2Ca/1HNVfQOGY?=
- =?us-ascii?Q?Cr5F/dVuMmYPIFQiqaqZvyBf9F+0jfY7ZbwPK0JrB1AFh2Tnd7t/TrlOcMHD?=
- =?us-ascii?Q?td8Y9emebsDlrEETB44YdOPGONHdGFbdZBiK38G6HBjeBjuD7as1MQl6wSIX?=
- =?us-ascii?Q?qMhcyoYZWmvxPSN5TO8eq0jn+yu5Bi/jNH+Yq7kvwnOgGhIF28vUAx8qhtRB?=
- =?us-ascii?Q?+K0pHbg63teG3iYfMyzmQyTe+ldMoqeghrnaa9RFKVcTXlau2dgPUeLz2/Xv?=
- =?us-ascii?Q?yrGvJAnBmVd8fr5K5PZ578r2tqhMtVPexMNrW6KuTdhwHtuCgeR5wvjwDLP2?=
- =?us-ascii?Q?8z0OOVFP7L/43Ykt/Q1QGv0Ga5JFHyQGpYw/eX3RtQD+AiG7sjIuTS1vKY9Q?=
- =?us-ascii?Q?ky/mqcc17hZl/43Al1sbQ1ZS1SVHgkW3q2I6Mb9gNKwF5HyPsTdSghbfynO9?=
- =?us-ascii?Q?B+h7vnjmBIOyDEr1K++iHKPTNBFr10pqfW3By8Zz/C9wzN+3hlMy/cOopUiY?=
- =?us-ascii?Q?XUV9DBvwprPJ6Di2nK8IeWbrvjAEzHbzGMrzlgc05c53oJeChnokF7AgINue?=
- =?us-ascii?Q?8wyko1DkbMNbIyrK+cjA5EhT/c64nOg4WlTBJr6nTU6PMIK3P2O/ZGtGWyPV?=
- =?us-ascii?Q?5tmRYZqC/Ah5sFh4vRI=3D?=
-Content-Type: text/plain; charset="us-ascii"
+ =?iso-8859-1?Q?nd9wOThWRCvYf2XC/6sD6KxbKxh/XRBpLmLEtEnrv8IuHSrO85mrbJ5fuH?=
+ =?iso-8859-1?Q?LaI2HJF/r0cDgO8kJssnoO5xeEwAHpOnbc40oc36uumVq0CfGKS9dLQ0/J?=
+ =?iso-8859-1?Q?vl+OurXun3fCHaq9LN4Ur25kSeb4oTqtQKhtIwydh1Lz6//ig05WCmqwUh?=
+ =?iso-8859-1?Q?NDOPvCFhqM45v1VOVzCHY2Jv+dHBbUNxui9qSFb90Nf87sd38cWNuvVKkZ?=
+ =?iso-8859-1?Q?Nyw/UPX0qi8/+NbwTbWgOJVHy+fo1M3SO/hRcyXZGMtc0vASp/e+4XDIii?=
+ =?iso-8859-1?Q?5y7R5GJcoFSywzvQr37afNQiHIaKRu/AAhnvPTCf1SIGU7HsOdYAWd2ghP?=
+ =?iso-8859-1?Q?icdUds6k1Qvu9IapuBLCXf19ToKeXrrJku7gH1ZERAo2BA5AnC8+/MNvwh?=
+ =?iso-8859-1?Q?/dqXbnEtAeRL9+cTZ7T0gLLwuE7ERWUrZH9qme89k0An6ecNyIU6fcKrr2?=
+ =?iso-8859-1?Q?wPf90uanQVp3sTDq/t2RYvrNJXypdPCDXjyHcaGzx1NHOYS/T+iqt+F0LY?=
+ =?iso-8859-1?Q?XKGMLCGHs7bv6HgeJQ637ezwPmHQIg4qSO1C5010WCL2NlgNL6190P98Ao?=
+ =?iso-8859-1?Q?O/Xae2XHj107XHpELbQ27d7fdFoBinFgBmst/BTVD1cvK63MGjX46WTX75?=
+ =?iso-8859-1?Q?AdY+hIGkxMDIMGQF/H3wvPDeG8MhWmeWG/l5jDpRVvGNzGe772zALTxiTX?=
+ =?iso-8859-1?Q?XoYi1UgzKZICGrHw7Hh/gyPtAXBh+r4vA7aYh5rew7UFjv2IJEHoojw+3o?=
+ =?iso-8859-1?Q?97dUib1l434MrvjJ06yZkHcZAv4aGpgW+HjJA6JxX6W1x07bRMF3tTcw9i?=
+ =?iso-8859-1?Q?xHsNzWz9VLB9iW1J69BUfcnU7iNJzOQsrj5Pew5Fr1Ezn9rzc4tAAo+JvW?=
+ =?iso-8859-1?Q?JgnAnE/QpSHWsxT29Xkrf4ocY+bOAmmWI8VfS7yrLUZrDtIT/qBL4UNWuL?=
+ =?iso-8859-1?Q?2vcm7mKuye6zT0Gk4l0RnQe+fXJa3zl+5gWys6E5uS/33ugg/mxHIyw4+g?=
+ =?iso-8859-1?Q?MRFI2NKZmXY2S4Etae5SAYn7VEco96KDpAId/LO2DjS71/O2nmLHIJ2XVJ?=
+ =?iso-8859-1?Q?vuoFLchbk1/orXKFmAMH3YD6yzWD2tnPxmJttyNmthKS36YutOaFG/WyoK?=
+ =?iso-8859-1?Q?NBP3zaW9ot99r0c8XpVyj7tLHC9GePrrf1a7kpKqTIBXUxdT7/vj1k/TsZ?=
+ =?iso-8859-1?Q?bQpwaZamsqcM3wEB3PQGRRRhrE2wjj+KoXrzJ4LumNhCeNQdZACbhm0sAv?=
+ =?iso-8859-1?Q?twKQIiegdmL+uKfr7g85jLg7kl8eNg0pUJavrE67lUNE7GUcwpE1Esx+eu?=
+ =?iso-8859-1?Q?HE/d4D6SKc9SGS1VC9R0nxAoNK7rCTMC+EfD+u1vJ4CS/i/oys+yROQUzu?=
+ =?iso-8859-1?Q?AZnfISXmpTxyP/fPJO7p6Zl1irQlG4mEOk6K0FAI2cCA9opCag5aJYXsH4?=
+ =?iso-8859-1?Q?dmZZSC+Qp+xAA2Qt3tpw3JgWDMhZghjlVr3YaOGN1/oEwx1kOmlptRFnE3?=
+ =?iso-8859-1?Q?ChMPnsdt/VpbVJpXWmqDVaOPeCnepPNHehJqxhKgAkyNIqawtTP+MAOGZq?=
+ =?iso-8859-1?Q?/XMHrlIViaNniDvrAtcntcTO13Uwb9eP3lRo7pvWZ5n8yNLRtwjZflc8Hv?=
+ =?iso-8859-1?Q?GIWXozoYnMtpU=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-OriginatorOrg: opensynergy.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 144d6199-2014-4e7d-5bc3-08dbb2e09895
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2023 16:03:10.5188
+X-MS-Exchange-CrossTenant-AuthSource: FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36738168-ec90-4320-2615-08dbb2e4d1a0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2023 16:33:24.1858
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-id: 800fae25-9b1b-4edc-993d-c939c4e84a64
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tBCqFlWxCKIlN5k55KoFCoxSUVw5lrZU5W29Tw5gv4feb5ZyJEAChJP3kck7wm5F0ttV0mAA7pyicQpiROI2rQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5826
-Subject: [virtio-comment] RE: [virtio] [PATCH requirements v5 3/7] net-features: Add low
- latency receive queue requirements
+X-MS-Exchange-CrossTenant-userprincipalname: wQUFN/yoIlCNS/lZwy3j8yN2rLvF0l/HJXXbv5Ywaw9OBC3Q9JsXlgif/E2SBH6wLtvfhm+5R3JyVJ5deg/bMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB2803
+X-TM-AS-ERS: 104.47.7.175-0.0.0.0
+X-TMASE-Version: StarCloud-1.3-9.1.1011-27870.000
+X-TMASE-Result: 10--14.953200-4.000000
+X-TMASE-MatchedRID: nI1cAR4k0Hb5ETspAEX/npGPSO6O5JCaoJ9fUBwJTsx+Z55KTeg3iZKd
+	0Y/NwQWP70nqlR7yO+PEIW071TRcrgCyCXo9mCokbImvEGrHk0IHgEx+rhLN4uEKbxqb5I/nVkg
+	o+mIOpAs4BuHRx5ISicFobjNpENFWsBFKnCBbSTX6KF0S1zktZ6wF9xFsJmUw6VIbcsw5Z9IKE0
+	1KijBgBxoFYM0/xszzaD2UKQ7oadPJ3Kdb4xUXh3EayD3+TWEctYgIwzX+FnCrUVp6ho4UsJENz
+	gz0AJOnjbzwHsVt3F988euoZaqdcGychE78+cDjJw66cQh/R5c3RfriMbLZ1uUfXoklmccUri/8
+	EC+u4pyxsSmRwTLP5FltgJoA7ArZik3s3JIv+NJcB5L7DliBJYTH4XJVxZGKAtvBVlY5IReLz4g
+	av4lvdTKT8fDhc32NeyxAIZ479y5qMVT08sQozLr2u0KWqQKNFkXEytHxBjlSITmUaxn9yO1cV6
+	90qvCl7E4hcO6MtBbX0jf+J2tD8HjCKN9vMCFYx38MG44f3Tc7fkl66X2b72FHYdhaPYOm2KXam
+	Sg6MzzpCHE4SoIsN8f5SKH2vMRFx10k8QqyoAwRLjqoJJt/9Tn2/M0Zu6bmoli4ZoiOHT9+ICqu
+	Ni0WJAJSsHdNLaxFbr3VkAy6UaiNPidkUQ8i5eMWsSDxsHmrftwZ3X11IV0=
+X-TMASE-XGENCLOUD: dfc4b4dc-c315-470f-8071-5187dfbb0695-0-0-200-0
+X-TM-Deliver-Signature: 64BD32CB995BC426692A953F2890C4FF
+X-TM-Addin-Auth: 01Hx9t/oTdK7RuTe5jCwj5sTGQRLGjaO9H8xSkiVdx3oFT6/p5KTO+CyfAf
+	nlHgEBQMrDS1th9W32xfczEmdMjbcmNTmZfQNqAGgIIuGKELDmCsBtxa+NDtdihSXNeqTZNkPni
+	BVfwD8gWRl+PMeDmIEOXqybMb7gN/AHY/ApmuNgGGuMiG6EG1aYknhZeatwxGEKJpI7Kzp/dk5P
+	Rzpuo58peaZFooM1FXGYi3/vBOY3OBxtQKYQ4bb3PiGft+UTlR6xYJPW9FlqBbDFBCiMtNT78x4
+	6U2yqaXD3oWNnwdQ/Ibvk24k4OvIlQCeeAy86eA2kQW1QWBRneCmUQbAVw==.KnbwfYfrdkZ6Ag
+	e132ZI8niIRf/aOtkS75YoQsnluE6m4YdKkknXPjR4K12nOzuBucfT4fikPxWMhWiPjPTIwEASE
+	1+M+63HiddUFWNqYqXkwinnfXF6Kh3b30iGdIAvl6Qg7i+0r3dBZAtD+hJlhZ37MvpbLeIBHczW
+	k9gtdG2SI2GdWcbAcu8oONJzUAXX/TLzGrUeLvUhrzP5SU76AD/vrEV9+z42QuuV2ncPKwA38X7
+	YlSMk0CNW+QuABmqQHbY9f/2gvHm/El/8VFyG05uGZIue1D41R+iaebrwhYPG8fJaFJ4nrXRBB5
+	+bpwM3/HV73aFLXhqfSJrlp4RUhQ==
+X-TM-Addin-ProductCode: EMS
+Subject: [virtio-comment] Re: [virtio-dev] [RESEND VIRTIO GPU PATCH v3 1/1] virtio-gpu: Add new
+ feature flag VIRTIO_GPU_F_FREEZE_S3
+
+Hi Jiqian,
+
+Thanks for the proposal.
+
+Some time ago I was working on the same issue with suspending the gpu devic=
+e
+(on arm).  Additionally, I had troubles with virtio-video device as well, s=
+ee
+https://lore.kernel.org/lkml/20211215172739.GA77225@opensynergy.com/T/ for
+details.
+
+In your case, the
+VIRTIO_GPU_FREEZE_MODE_FREEZE_S3/VIRTIO_GPU_FREEZE_MODE_UNFREEZE do influen=
+ce
+how reset is being handled by Qemu, is this correct?  Since multiple device=
+s
+can benefit from the same mechanism, would it be possible to: a) have a mor=
+e
+generic, non ACPI-based name, b) make the feature generic, applicable to ot=
+her
+devices as well?
+
+
+Best wishes,
+Mikhail Golubev-Ciuchea
 
 
 
-> From: Stefan Hajnoczi <stefanha@redhat.com>
-> Sent: Monday, September 11, 2023 7:17 PM
+--
 
->=20
-> If I understand correctly there is no longer a 1:1 correspondence between
-> driver-supplied rx pages (available buffers) and received packets (used b=
-uffers).
-> Instead, the device consumes portions of driver-supplied rx pages as need=
-ed
-> and notifies the driver, and the entire rx page is marked used later when=
- it has
-> been fully consumed.
->=20
-> The virtqueue model is based on submitting available buffers and completi=
-ng
-> used buffers, not individual DMA transfers. It's not possible to do DMA
-> piecewise in this model. If you think about a VIRTIO over TCP transport t=
-hat
-> uses message-passing for available and used buffers, then it's clear the =
-rx page
-> approach breaks the model because only entire virtqueues buffers can be
-> marked used (there is a 1:1 correspondence between available buffers and =
-used
-> buffers).
->=20
-> Two options:
-> 1. Extend the virtqueue model to support this.
-> 2. Document this violation of the virtqueue model clearly but treat it
->    as an exception that may lead to complications in the future (e.g.
->    incompatibility with VIRTIO over TCP).
->=20
-I don't think it a violation. It is an extension of a new model. PCI and MM=
-IO will support it.
-TCP transport may not be able support everything that exists today in PCI.
-But I am not fully sure at present this as limitation.
+Mikhail Golubev-Ciuchea
 
-I will consider #1 later in this month further.
-This week occupied with the LM and flow filters that we want to review on W=
-ed meet.
 
-> I think it's worth investigating #1 to see whether the virtqueue model ca=
-n be
-> extended cleanly.
+OpenSynergy GmbH
+
+Rotherstr. 20, 10245 Berlin
+
+Telefon: +49 (30) 60 98 54 0 - 903
+
+EMail:   mikhail.golubev@opensynergy.com
+
+www.opensynergy.com
+
+Handelsregister/Commercial Registry: Amtsgericht Charlottenburg, HRB 108616=
+B
+
+Gesch=E4ftsf=FChrer/Managing Director: Regis Adjamah
+
+
+________________________________________
+From: virtio-dev@lists.oasis-open.org <virtio-dev@lists.oasis-open.org> on =
+behalf of Jiqian Chen <Jiqian.Chen@amd.com>
+Sent: Monday, September 11, 2023 12:04 PM
+To: Gerd Hoffmann; Marc-Andr=E9 Lureau; Robert Beckett; virtio-comment@list=
+s.oasis-open.org; virtio-dev@lists.oasis-open.org
+Cc: qemu-devel@nongnu.org; linux-kernel@vger.kernel.org; Stefano Stabellini=
+; Roger Pau Monn=E9; Alex Deucher; Christian Koenig; Stewart Hildebrand; Xe=
+nia Ragiadakou; Honglei Huang; Julia Zhang; Huang Rui; Jiqian Chen
+Subject: [virtio-dev] [RESEND VIRTIO GPU PATCH v3 1/1] virtio-gpu: Add new =
+feature flag VIRTIO_GPU_F_FREEZE_S3
+
+When we suspend/resume guest on Xen, the display can't come back.
+This is because when guest suspended, it called into Qemu. Then
+Qemu destroyed all resources which is used for display. So that
+guest's display can't come back to the time when it was suspended.
+
+To solve above problem, I added a new mechanism that when guest is
+suspending, it will notify Qemu, and then Qemu will not destroy
+resourcesi which are created by using commands
+VIRTIO_GPU_CMD_RESOURCE_CREATE_*.
+
+Due to that mechanism needs cooperation between guest and host,
+I need to add a new feature flag, so that guest and host can
+negotiate whenever freeze_S3 is supported or not.
+
+Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+---
+ device-types/gpu/description.tex | 42 ++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+
+diff --git a/device-types/gpu/description.tex b/device-types/gpu/descriptio=
+n.tex
+index 4435248..1a137e7 100644
+--- a/device-types/gpu/description.tex
++++ b/device-types/gpu/description.tex
+@@ -37,6 +37,8 @@ \subsection{Feature bits}\label{sec:Device Types / GPU De=
+vice / Feature bits}
+   resources is supported.
+ \item[VIRTIO_GPU_F_CONTEXT_INIT (4)] multiple context types and
+   synchronization timelines supported.  Requires VIRTIO_GPU_F_VIRGL.
++\item[VIRTIO_GPU_F_FREEZE_S3 (5)] freezing virtio-gpu and keeping resource=
+s
++  alive is supported.
+ \end{description}
+
+ \subsection{Device configuration layout}\label{sec:Device Types / GPU Devi=
+ce / Device configuration layout}
+@@ -228,6 +230,9 @@ \subsubsection{Device Operation: Request header}\label{=
+sec:Device Types / GPU De
+         VIRTIO_GPU_CMD_UPDATE_CURSOR =3D 0x0300,
+         VIRTIO_GPU_CMD_MOVE_CURSOR,
+
++        /* freeze mode */
++        VIRTIO_GPU_CMD_SET_FREEZE_MODE =3D 0x0400,
++
+         /* success responses */
+         VIRTIO_GPU_RESP_OK_NODATA =3D 0x1100,
+         VIRTIO_GPU_RESP_OK_DISPLAY_INFO,
+@@ -838,6 +843,43 @@ \subsubsection{Device Operation: cursorq}\label{sec:De=
+vice Types / GPU Device /
+
+ \end{description}
+
++\subsubsection{Device Operation: freeze_mode}\label{sec:Device Types / GPU=
+ Device / Device Operation / Device Operation: freeze_mode}
++
++\begin{lstlisting}
++typedef enum {
++  VIRTIO_GPU_FREEZE_MODE_UNFREEZE =3D 0,
++  VIRTIO_GPU_FREEZE_MODE_FREEZE_S3 =3D 3,
++} virtio_gpu_freeze_mode_t;
++
++struct virtio_gpu_set_freeze_mode {
++  struct virtio_gpu_ctrl_hdr hdr;
++  virtio_gpu_freeze_mode_t freeze_mode;
++};
++\end{lstlisting}
++
++\begin{description}
++
++\item[VIRTIO_GPU_CMD_SET_FREEZE_MODE]
++Notify freeze mode through controlq.
++Request data is \field{struct virtio_gpu_set_freeze_mode}.
++Response type is VIRTIO_GPU_RESP_OK_NODATA.
++
++This is added for S3 function in guest with virtio-gpu. When guest does
++S3, let it notify QEMU that virtio-gpu is in what freeze mode in
++\field{freeze_mode}. VIRTIO_GPU_FREEZE_MODE_FREEZE_S3 means guest is
++doing S3 and virtio-gpu will be freezed, VIRTIO_GPU_FREEZE_MODE_UNFREEZE
++means virtio-gpu can be used as usual. When virtio-gpu is freezed, QEMU
++will not destroy resources which are created by using commands
++VIRTIO_GPU_CMD_RESOURCE_CREATE_*, so that guest can use those resources
++to resume display.
++
++Note: this change is not enough to solve the problems of S4 function.
++QEMU may lose resources after hibernation. It needs more research and
++development. If S4 is supported in the future, it may need another
++feature flag here.
++
++\end{description}
++
+ \subsection{VGA Compatibility}\label{sec:Device Types / GPU Device / VGA C=
+ompatibility}
+
+ Applies to Virtio Over PCI only.  The GPU device can come with and
+--
+2.34.1
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 
 
 This publicly archived list offers a means to provide input to the=0D
