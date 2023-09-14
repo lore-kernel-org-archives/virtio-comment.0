@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7408-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7409-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F03EE021A
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 02:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A6B1EE021A
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:09:23 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2D3002AC50
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 02:55:59 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6223F42C33
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:09:22 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 16C7B986642
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 02:55:59 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4A2EA986662
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:09:22 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 04A77983BBB; Thu, 14 Sep 2023 02:55:59 +0000 (UTC)
+	id 3CEE5986649; Thu, 14 Sep 2023 03:09:22 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,135 +24,408 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E84A0986639
-	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Sep 2023 02:55:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0FF1F98663D
+	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Sep 2023 03:09:22 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WyCNnVKqmbreaYwcwVxxfdDpSCH27qxWO/JPF38M0lybfHTB1z2oInyJJdS7GDt9TW5Q7Rk1BYr/GeDFsGAetDPg+9sNMBXnUZg/OMWtvLIZ0jYvgYAmRxjkAglMBeFKFld7nrxTb2m0WphOcm+q2U9rjq+7twqBTIditkX1ZYTqXXdrXkcHsmW1NWZlkxLHVFY44QCSVj50n2vXjsIZodb1XwhObNA4EnMsf/rQVWMf3xaKnmAwDzKmGcDdWg73aorrCEMSv/ZjkQA+uApeqyJix4d8z8JP2ZtIeN5bWP4HgzAkRsVltyPV0Y//xUXolN0QpqycPHaiFofqzM6bqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tjpRS9A0oWlAIoCwcSfyYXaL7WX8Z5A5pbYuqjYLHPk=;
- b=HN8Ol7wPoaSlYS7RU+O3fo/B4pT31+Uy4u2K314sxTScptelZK//ZWzz6vm7v+iqW2tfCpTx6AdosYv1rbIewxlCXGKM9aSxQG/dUYU5DXA75WNXzcpE2NrNlhz/TztLckGIdPI3fOaYr39AKADeFJ/uPimeKRRAJWtYoLo93dVpSIlqLb8ZCOfB487ZcAR0yb521gjO0pu1cI7HrItu4twook4atYRuq6q9t8ihW5gmI3GjupE0esioFBRHl5qtKyVenPv/DOl7kIeys+u3/lTy+uV4IiTS/WRwWGsSdv/KN/M/uH6pz/zcoojbS7KQj8gkZaJYDQTfnaH2418nWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-CC: "jasowang@redhat.com" <jasowang@redhat.com>, "Michael S. Tsirkin"
-	<mst@redhat.com>, David Edmondson <david.edmondson@oracle.com>
-Thread-Topic: [PATCH v17] virtio-net: support device stats
-Thread-Index: AQHZ4VFcizzRxaDjyk+9nFKWIkpGi7AY5kXwgADC/wA=
-Date: Thu, 14 Sep 2023 02:55:56 +0000
-Message-ID:
- <PH0PR12MB54814C19D1B97675FCC56FBCDCF7A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230907060546.12730-1-xuanzhuo@linux.alibaba.com>
- <PH0PR12MB5481C32DA10A84488E421328DCF0A@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To:
- <PH0PR12MB5481C32DA10A84488E421328DCF0A@PH0PR12MB5481.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BY5PR12MB4209:EE_
-x-ms-office365-filtering-correlation-id: 5cbae3f6-eaa1-42e0-5254-08dbb4ce1e13
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 4TNHhkoXM2KbSQYrDfIxdCqFQM5XsxmYiNZTqRYEEMTrA89OsiZTa4KFHkHYBGPsjUyuK4bRIaR8k0CN/oW1KDVV29fbhjFybFTzQ3Ky7nO0wqdMLzY5kAqx2rVZCChdPB23a3qZDkoScYXRRqU/mzoWbXvePkujiw1PXH3PuLup/NC1tc818KqRqmLb9NG7sIN7boRGpAg7XCPqFrYnYiMkiCH432xOdIFQFKv+qLu7nW37pvFW1Jjvq/ktJ7rRXEa93T4hOS2vUGrCpmiVIfxq9SrB7b2w6q95W4YCfy8BCxccg+hV4h6bnHj40PIAkqsL/oDpjbHBEd6ocmT9x3+xCDNkRmKz/sPgZlYuWVD/3UeXraPdsvztsM/pMZtWhCozhuK5ef7NMFn2pFBjC4QJc4KyOMMXUFsSutKxASWh+RtoeFA44d1OLIezb44q8kYsTgxVhLHgmx/AzKQ+sG8Z1RvGSpgPGf8tP9LEYQ+cvZhYx8aGoh0mzBY/lwiSP01JCHHZK0id8bRFPqby5cSV+CSQJZo36LZdQ+TuGTkV/L4eZde6DX+9ZhG2ckrT5jkPeaNfk20w6IFSxl0bdAJXbLBdAN8MWfNKq/O10gCyrcq6n4Vxge6Egfvrw+k6
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(136003)(39860400002)(376002)(396003)(1800799009)(186009)(451199024)(41300700001)(8676002)(4326008)(52536014)(8936002)(316002)(110136005)(5660300002)(54906003)(76116006)(66556008)(66476007)(66946007)(66446008)(64756008)(66899024)(2906002)(122000001)(38100700002)(38070700005)(83380400001)(55016003)(9686003)(33656002)(86362001)(478600001)(71200400001)(6506007)(7696005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?j1BSAk1kUFfvFy5mPgyw+wJJINfdiKEghdBs3bzlTFF/Km7WyD3k7uqQHsEa?=
- =?us-ascii?Q?FRVpO3xZzN8+IaTCbYE/F5rzQCWuxhzoz9WRRza19nZ8lEKNCq0cvKdEaKFw?=
- =?us-ascii?Q?KFDWh/6EpP/LoaAz/ryvx+43xiOF01ojypxj0XW7ciQLo+XBU7GOkGH41pba?=
- =?us-ascii?Q?TptcLOj0Gnn2R1lcBpRwhzV6ocW7bC+Gy1buEN4jDv0ExAe/DrTnCiszTgh2?=
- =?us-ascii?Q?GlIrVJ26AP2cGvX2QAAd7L5vVo7opwEwkZ7zH2+EUx7RQIhBL3hezA65HSwM?=
- =?us-ascii?Q?3g4YyuHFvDMfFE+LYvS8v8nzjGPVLVouh1dzsTgco9Wv/UNceAPH6G07VzqN?=
- =?us-ascii?Q?cTogstsCTz0wKUVJVjBI82WvP1nFDvlTKFgIiknO8891cXid+3M1DKyNnIpM?=
- =?us-ascii?Q?kIEyAc9T00HSQoVDw1o5Qi8HVrPL5wddDy9QFREHT71De47fDgJtM/yNgxfK?=
- =?us-ascii?Q?VXJaBzothM8bIdrV353uJ7i7gnqaRE5heQ+fwg//8ZXhkIF7JrXR6ltiveuC?=
- =?us-ascii?Q?+WkJXJWLhuLJ+xsmYauJPWi+t1tBsZYG11HIdWe22FqBuj4xWbHQZlxKR5lr?=
- =?us-ascii?Q?nooVnpI2GkFOm54WhH2Ajh+krtF5AY8kfDeqCWrKRFqgHYsbBrRdwEl6FQns?=
- =?us-ascii?Q?WuGVl8ferEOnY74VSXWrrrrSs9uRAR9fCbo/JJbdaQLVT7iEAvy6nzayeNWf?=
- =?us-ascii?Q?MPnTTcLd4rc2q65m41SnqVkIy109IOHeCqITTQf/qw3QbiYVKvKC/PZ1Xzf1?=
- =?us-ascii?Q?otu96u1YGjMwFwQK/dZXXD+gEHqmB84m92fCzkQLG3/q6YYE7VtsLw2aHgnK?=
- =?us-ascii?Q?zBs/vvUPLEgnnfe9acCFY37+Hh+5gVFoi05lsCIJ1XUELJm2Z2swj+DcG3Uq?=
- =?us-ascii?Q?/LE3Rk9LseQCxWlZEdPcZeis1VrptT8WaYYae5X61zsGOR6dXBLDpa/rNp2R?=
- =?us-ascii?Q?ip407nfrSpj3wcjw8cyhvWd/+lThQKfmoch13l2cVvOfLO1IqBE4I+Ii63oH?=
- =?us-ascii?Q?0VCVpgmc0dWPQOuEno9f5n3/K6hAzS0DPl2OfSPZpwubHBdJ+00AIZrjOUMt?=
- =?us-ascii?Q?mUtPjJ+1qVevnQIW+I64oB1V+Sd6STTTSbXzO+vaZkEfHDig0VbFLHDssJvh?=
- =?us-ascii?Q?A3eVwoM96Qc8tKH3JYDrX/i4AF752CAxI/Z07u/IfOe5dTxVZ6Vibf6qcUYd?=
- =?us-ascii?Q?JP5UGNzA1YUPrIGZLOp3D3dVQpL5kdV16QpPSAwofAZticqu89CimHlu5rEs?=
- =?us-ascii?Q?QBCqtOMOspNBR4p6GE3jqTxkP177tAeDUICeuj6MvNCTexbm0QsGtnigQNmP?=
- =?us-ascii?Q?Ibu8R2PTwUVksFp9XBvHrIhLpOe6nNjrX5zlKZV3LdwQPv3kxPQ4wRO579u0?=
- =?us-ascii?Q?J3V/L3dzuL8vkL4dZjzD2S55+TGD/jk1YxQKauyDMiav+UB6w9VwPLPBza2l?=
- =?us-ascii?Q?CXEriyJRqIKLf1YCKRRgu0BhNZwXCe4jK9tX6FDVCromoKzOIFbYWPvsG6Fq?=
- =?us-ascii?Q?LMQz5yAXGUrBGpITB3pEvcIm3i5M22n2kpsJqoqAWPOfpsjoapbK8mb8mzuN?=
- =?us-ascii?Q?f2bV8hkuuqfbybzEo37F2YZpEqQWoShSCVPfNKnnAcXbGejZM+kGG1jKmIff?=
- =?us-ascii?Q?rO6T36TgH09u99q4vu+xH5vT4fhJDofpXkcV1io3KwZX?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-MC-Unique: aDkL1aKCNUCp0HcTOLd2aw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694660950; x=1695265750;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=2xjeIT/mTn5s7x9cXhy+Lkhn2ZrgddPDGWcshGeU1PM=;
+        b=TCo1MswjE17NXpfTkeTW93aZKW1pZ0Cfjw0tHU13OaW6h3aJi4uP9GRyxQLkNRIVYb
+         dVyPdUKatcxSL9gt3gxBCguFNLH7TD2Aont8/eZRHQHGdX41+WeIWe0pJyNf17Y4o9DD
+         +ek8+D+hw7dX7agCZHow9RdXgzwdQpPYlw7eRhEBdGAIC/CF7D2sIe3NthakW78tPSJh
+         EbwdIgAVBuh9s5HhZ+9kS5ph8JeocCatBk47vVfwXcmvpNE31OtEFj/ewAByocV2sqzz
+         YjFBCa5jl+VHjcdAtqv8yaJREUaZ5SoPqQkRMsZyuF87duAvi/517Rtf+iywuntGRdqL
+         s8Yg==
+X-Gm-Message-State: AOJu0YzJBQO+HqL6XtG7ePprD2R29ywgGNqgB2Q0dU5KNmWydReAtDPe
+	03x5mZvTQsGcZ8phBgWneSWOsl2Aq78ugh9gSqFsga+7cbyiD3g1YIU33KB5V1ZvD9AoI3xI1bz
+	VXXiOTscWXiqveHTNfKkIdlpxk6MazL7XsfMyaxhS4uvh2E3ROQ==
+X-Received: by 2002:ac2:4f13:0:b0:500:a41d:354c with SMTP id k19-20020ac24f13000000b00500a41d354cmr3907995lfr.28.1694660950598;
+        Wed, 13 Sep 2023 20:09:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGAwK9sIyuBtEjIDsMGiXKYjJ8K27gfLo1lDCA0t/KzKHrANdFGwyirJd8rY6nUJ9k+Teb8XfmNv49ZSxulxW8=
+X-Received: by 2002:ac2:4f13:0:b0:500:a41d:354c with SMTP id
+ k19-20020ac24f13000000b00500a41d354cmr3907976lfr.28.1694660950182; Wed, 13
+ Sep 2023 20:09:10 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cbae3f6-eaa1-42e0-5254-08dbb4ce1e13
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2023 02:55:56.3907
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Y4e+SgGwkMv1GmnKsW5TMDa8TIE9FW6ZplA4WOo/rZ0Mchs2WN8tu9BUZaFDzS6umOgdxstSQFrlNPJqmuWmLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4209
-Subject: [virtio-comment] RE: [PATCH v17] virtio-net: support device stats
+References: <20230906081637.32185-1-lingshan.zhu@intel.com>
+ <20230906081637.32185-6-lingshan.zhu@intel.com> <20230906043016-mutt-send-email-mst@kernel.org>
+ <CACGkMEu4R_nUFmpoNesmjJ-PtoE5brpWh8NLruWhEWycm2K4yg@mail.gmail.com>
+ <PH0PR12MB5481A50B1B13CE1756B98D0DDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtMmwWGJDYe5BLvLCcetThv-yfPR2QbphNuuh+bp-+ikg@mail.gmail.com>
+ <PH0PR12MB5481ED8DC23DC6D42665FB8EDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <eb6c350e-1198-7d83-a553-99c9c8c21edc@intel.com> <PH0PR12MB5481760E00AD18DB8BF91636DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <ad1dd3a6-7c11-5c6b-b50f-d608ec027dcd@intel.com> <PH0PR12MB54819C4A4220712DCD57AD56DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <fff7720f-6019-bd87-b14b-c0bf996f3959@intel.com> <PH0PR12MB5481D11A7DF45292103D9290DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEt6=AC4pYEoxNn2dpbLLEKTLj-SYV2eSUAi1ZA1LWR3qg@mail.gmail.com>
+ <PH0PR12MB5481E49BFCE50AA8F8373F45DCF1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtor0uDs9xUDXH1ZA3n9Zb9kzP9MAYwN5h6em+39gNfXg@mail.gmail.com> <PH0PR12MB54812276639E77E75EC7FEC6DCF0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54812276639E77E75EC7FEC6DCF0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Thu, 14 Sep 2023 11:08:58 +0800
+Message-ID: <CACGkMEt09Wi2Hg3bgpSW0Dgh6Bqwk4wbtyb_=uwUOM71SPURBw@mail.gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	"eperezma@redhat.com" <eperezma@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>, 
+	"stefanha@redhat.com" <stefanha@redhat.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] [PATCH 5/5] virtio-pci: implement VIRTIO_F_QUEUE_STATE
+
+On Wed, Sep 13, 2023 at 2:39=E2=80=AFPM Parav Pandit <parav@nvidia.com> wro=
+te:
+>
+>
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Wednesday, September 13, 2023 10:15 AM
+>
+> [..]
+> > > > > [1]
+> > > > > https://lists.oasis-open.org/archives/virtio-comment/202309/msg00=
+0
+> > > > > 61.h
+> > > > > tml
+> > > >
+> > > > The series works for stateless devices. Before we introduce device
+> > > > states in the spec, we can't migrate stateful devices. So the devic=
+e
+> > > > context doesn't make much sense right now.
+> > > The series works for stateful devices too. The device context covers =
+it.
+> >
+> > How? Can it be used for migrating any existing stateful devices? Don't =
+we need
+> > to define what context means for a specific stateful device before you =
+can
+> > introduce things like device context? Please go through the archives fo=
+r the
+> > relevant discussions (e.g virtio-FS), it's not as simple as introducing=
+ a device
+> > context API.
+> >
+> A device will have its own context for example RSS definition, or flow fi=
+lters tomorrow.
+
+If you know there are things that are missing when posting the
+patches, please use the RFC tag.
+
+> The device context will be extended post the first series.
+>
+> > And what's more, how can it handle the migration compatibility?
+> It will be taken care in follow on as we all know that this to be checked=
+.
+
+You don't even mention it anywhere in your series.
+
+> I will include the notes of future follow up work items in v1, which will=
+ be taken care post this series.
+>
+> > > > Dirty page tracking in virtio is not a must for live migration to
+> > > > work. It can be done via platform facilities or even software. And
+> > > > to make it more efficient, it needs to utilize transport facilities=
+ instead of a
+> > general one.
+> > > >
+> > > It is also optional in the spec proposal.
+> > > Most platforms claimed are not able to do efficiently either,
+> >
+> > Most platforms are working towards an efficient way. But we are talking=
+ about
+> > different things, hardware based dirty page logging is not a must, that=
+ is what
+> > I'm saying. For example, KVM doesn't use hardware to log dirty pages.
+> >
+> I also said same, that hw based dirty page logging is not must. :)
+> One day hw mmu will be able to track everything efficiently. I have not s=
+een it happening yet.
+
+How do you define efficiency? KVM uses page fault and most modern
+IOMMU support PRI now.
+
+>
+> > > hence the vfio subsystem added the support for it.
+> >
+> > As an open standard, if it is designed for a specific software subsyste=
+m on a
+> > specific OS, it's a failure.
+> >
+> It is not.
+> One need accept that, in certain areas virtio is following the trails of =
+advancement already done in sw stack.
+> So that virtio spec advancement fits in to supply such use cases.
+> And blocking such advancement of virtio spec to promote only_mediation ap=
+proach is not good either.
+>
+> BTW: One can say the mediation approach is also designed for specific sof=
+tware subsystem and hence failure.
+> I will stay away from quoting it, as I don=E2=80=99t see it this way.
+
+The proposal is based on well known technology since the birth of
+virtualization. I never knew a mainstream hypervisor that doesn't do
+trap and emulate, did you?
+
+>
+> > >
+> > > > The FLR, P2P demonstrates the fragility of a simple passthrough
+> > > > method and how it conflicts with live migration and complicates the=
+ device
+> > implementation.
+> > > Huh, it shows the opposite.
+> > > It shows that both will seamlessly work.
+> >
+> > Have you even tried your proposal with a prototype device?
+> Of course, it is delivered to user for 1.5 years ago before bringing it t=
+o the spec with virtio-net and virtio-blk devices.
+
+I hope this is your serious answer, but it looks like it is not. Your
+proposal misses a lot of states as I pointed out in another thread,
+how can it work in fact?
+
+>
+> >
+> > >
+> > > > And it means you need to audit all PCI features and do workaround i=
+f
+> > > > there're any possible issues (or using a whitelist).
+> > > No need for any of this.
+> >
+> > You need to prove this otherwise it's fragile. It's the duty of the aut=
+hor to justify
+> > not the reviewer.
+> >
+> One cannot post patches and nor review giant series in one go.
+> Hence the work to be split on a logical boundary.
+> Features provisioning, pci layout etc is secondary tasks to take care of.
+
+Again, if you know something is missing, you need to explain it in the
+series instead of waiting for some reviewers to point it out and say
+it's well-known afterwards.
+
+>
+> > For example FLR is required to be done in 100ms. How could you achieve =
+this
+> > during the live migration? How does it affect the downtime and FRS?
+> >
+> Good technical question to discuss instead of passthrough vs mediation. :=
+)
+>
+> Device administration work is separate from the device operational part.
+> The device context records what is the current device context, when the F=
+LR occurs, the device stops all the operations.
+> And on next read of the device context the FLRed context is returned.
+
+Firstly, you didn't explain how it affects the live migration, for
+example, what happens if we try to migrate while FLR is ongoing.
+Secondly, you ignore the other two questions.
+
+Let's save the time of both.
+
+>
+> > >
+> > > > This is tricky and we are migrating virtio not virtio-pci. If we
+> > > > don't use simple passthrough we don't need to care about this.
+> > > >
+> > > Exactly, we are migrating virtio device for the PCI transport.
+> >
+> > No, the migration facility is a general requirement for all transport.
+> It is for all transport. One can extend when do for MMIO.
+
+By using admin commands? It can not perform well for registered.
+
+>
+> > Starting from a PCI specific (actually your proposal does not even cove=
+r all even
+> > for PCI) solution which may easily end up with issues in other transpor=
+ts.
+> >
+> Like?
+
+The admin command/virtqueue itself may not work well for other
+transport. That's the drawback of your proposal while this proposal
+doesn't do any coupling.
+
+>
+> > Even if you want to migrate virtio for PCI,  please at least read Qemu =
+migration
+> > codes for virtio and PCI, then you will soon realize that a lot of thin=
+gs are
+> > missing in your proposal.
+> >
+> Device context is something that will be extended.
+> VIRTIO_PCI_CAP_PCI_CFG will also be added as optional item for PCI transp=
+ort.
+
+This is just one mini stuff, how about PCI config space and others?
+
+Again, please read Qemu codes, a lot of things are missing in your
+proposal now. If everything is fine to do passthrough based live
+migration, I'm pretty sure you need more than what Qemu has since it
+can only do a small fraction of the whole PCI.
+
+>
+> > > As usual, if you have to keep arguing about not doing passhthrough, w=
+e are
+> > surely past that point.
+> >
+> > Who is "we"?
+> >
+> We =3D You and me.
+> From 2021, you keep objecting that passthrough must not be done.
+
+This is a big misunderstanding, you need to justify it or at least
+address the concerns from any reviewer.
+
+> And blocking the work done by other technical committee members to improv=
+e the virtio spec to make that happen is simply wrong.
+
+It's unrealistic to think that one will be 100% correct. Justify your
+proposal or why I was wrong instead of ignoring my questions and
+complaining. That is why we need a community. If it doesn't work,
+virtio provides another process for convergence.
+
+>
+> > Is something like what you said here passed the vote and written
+> > to the spec?
+> Not only me.
+> The virtio technical committee has agreed for nested and hardware-based i=
+mplementation _both_.
+>
+> " hardware-based implementations" is part of the virtio specification cha=
+rter with ballot of [1].
+>
+> [1] https://lists.oasis-open.org/archives/virtio/202104/msg00038.html
+
+Let's don't do conceptual shifts, I was asking the passthrough but you
+give me the hardware implementation.
+
+>
+> And passthrough hardware-based device is in the charter that we strive to=
+ support.
+>
+> > We all know the current virtio spec is not built upon passthrough.
+>
+> This efforts improve the passthrough hw based implementation that should =
+not be blocked.
+
+Your proposal was posted only for several days and you think I would
+block that just because I asked several questions and some of them are
+not answered?
+
+>
+> > > Virtio does not need to stay in the weird umbrella to always mediate =
+etc.
+> >
+> > It's not the mediation, we're not doing vDPA, the device model we had i=
+n
+> > hardware and we present to guests are all virtio devices. It's the trap=
+ and
+> > emulation which is fundamental in the world of virtualization for the p=
+ast
+> > decades. It's the model we used to virtualize standard devices. If you =
+want to
+> > debate this methodology, virtio community is clearly the wrong forum.
+> >
+> I am not debating it at all. You keep bringing up the point of mediation.
+>
+> The proposal of [1] is clear that wants to do hardware based passthrough =
+devices with least amount of virtio level mediation.
+>
+> So somewhere mode of virtualizing has been used, that=E2=80=99s fine, it =
+can continue with full virtualization, mediation,
+>
+> And also hardware based passthrough device.
+>
+> > >
+> > > Series [1] will be enhanced further to support virtio passthrough dev=
+ice for
+> > device context and more.
+> > > Even further we like to extend the support.
+> > >
+> > > > Since the functionality proposed in this series focus on the minima=
+l
+> > > > set of the functionality for migration, it is virtio specific and
+> > > > self contained so nothing special is required to work in the nest.
+> > >
+> > > Maybe it is.
+> > >
+> > > Again, I repeat and like to converge the admin commands between
+> > passthrough and non-passthrough cases.
+> >
+> > You need to prove at least that your proposal can work for the passthro=
+ugh
+> > before we can try to converge.
+> >
+> What do you mean by "prove"? virtio specification development is not proo=
+f based method.
+
+For example, several of my questions were ignored.
+
+>
+> If you want to participate, please review the patches and help community =
+to improve.
+
+See above.
+
+>
+> > > If we can converge it is good.
+> > > If not both modes can expand.
+> > > It is not either or as use cases are different.
+> >
+> > Admin commands are not the cure for all, I've stated drawbacks in other
+> > threads. Not repeating it again here.
+> He he, sure, I am not attempting to cure all.
+> One solution does not fit all cases.
+
+Then why do you want to couple migration with admin commands?
+
+> Admin commands are used to solve the specific problem for which the AQ is=
+ designed for.
+>
+> One can make argument saying take pci fabric to 10 km distance, don=E2=80=
+=99t bring new virtio tcp transport...
+>
+> Drawing boundaries around virtio spec in certain way only makes it furthe=
+r inferior. So please do not block advancements bring in [1].
+
+As a reviewer, I ask questions but some of them are ignored, do you
+expect the reviewer to figure out by themselves?  If yes, then the
+virtio community is not the only community that can block you.
+
+> We really would like to make it more robust with your rich experience and=
+ inputs, if you care to participate.
+
+We can collaborate for sure: as I pointed out in another threads, from
+what I can see from the both proposals of the current version:
+
+I see a good opportunity to build your admin commands proposal on top
+of this proposal. Or it means, we can focus on what needs to be
+migrated first:
+
+1) queue state
+2) inflight descriptors
+3) dirty pages (optional)
+4) device state(context) (optional)
+
+I'd leave 3 or 4 since they are very complicated features. Then we can
+invent an interface to access those facilities? This is how this
+series is structured.
+
+And what's more, admin commands or transport specific interfaces. And
+when we invent admin commands, you may realize you are inventing a new
+transport which is the idea of transport via admin commands.
+
+Thanks
 
 
-
-> From: Parav Pandit <parav@nvidia.com>
-> Sent: Wednesday, September 13, 2023 8:55 PM
-
-> > +struct virtio_net_stats_reply_hdr {
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_CVQ       32
-> > +
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_BASIC  0
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_CSUM   1
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_GSO    2
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_SPEED  3
-> > +
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_BASIC  16
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_CSUM   17
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_GSO    18
-> > +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_SPEED  19
-> > +    u8 type;
-> > +    u8 reserved;
-> > +    le16 vq_index;
-> > +    le32 size;
-
-Even though we are not doing the switch logic at present, we keep the doors=
- open for such advancement.
-Most of the counters that we deal here will be applicable on switch port to=
-o instead of vq level too.
-The only change would occur in future is: instead of vq_index, it will be s=
-witch port number for a VF etc.
-So please keep le16 reserved adjacent to vq_index.
-
-While doing that, to keep the header in 8B boundary, I think we can limit t=
-he size width to be 16-bit.=20
-The reason is, even though, 64K device (switch ports) sounds a lot today, i=
-n long run it may not be.
-
-So 32-bit for resource identifier( le16 vq_index+ le16 reserved, or le32 sw=
-itch_port later).
-And 16-bit for size, that enables to cover 64K-1 =3D 8K-1 counters of width=
- 64-bit a given statistics category, which is also good enough and expandab=
-le to more categories.
+>
+> [1] https://lists.oasis-open.org/archives/virtio-comment/202309/msg00061.=
+html
 
 
 This publicly archived list offers a means to provide input to the=0D
