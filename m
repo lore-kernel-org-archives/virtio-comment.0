@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7423-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7424-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 736DBEDE9A8
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 11:35:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40429EDE9A4
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 11:37:11 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D0D5D26A51
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 11:35:27 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 979B421690
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 11:37:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 02F7F986640
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 11:35:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8D62F98664F
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 11:37:10 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0531A98402B; Thu, 14 Sep 2023 11:35:26 +0000 (UTC)
+	id 837F098402B; Thu, 14 Sep 2023 11:37:10 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,148 +24,81 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A086398663D
-	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Sep 2023 11:34:45 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 741F098663D
+	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Sep 2023 11:37:10 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: erB8cY24MyqB1wiEe30ZIg-1
+X-MC-Unique: ZYBSeQ_KMP-zlTkkn30Kww-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694691280; x=1695296080;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=roQQWJGP+CjOh4y3bJO70yqtkdteVlr7qjV+gxLBPfA=;
-        b=CRDJN6rmWbXXMFij4sZYdtvdmPoWErQmwrvpCY4tuKUEAv9QlPTjBuMKDxjMG2OfnM
-         R5eH66s01HiX8HgSBY9J0UgAM/n8MK9k9T0z0Iu2buejZxDKT75m/k50uMAsPy9Dc9EL
-         pY+nWuu8K9ZZzsz3lBZXZODjvQJ8VJaXmgNfCZFm8mwKGC7Fa6ttoDVdp4sGDcSDXxW0
-         DEwnV3KG4ZZwndk2ZbGZMuakYux0geuu/R0wpKp/PNWMRjE9B+S+9hgwfMAmfZ6kGbw5
-         otHnn7y2cghVUPsbYUqZ1aEL9I0hqnsYN0NTZWdEF0qu8e0n6fm4Z7cjTMHafomqGQ6K
-         Hiig==
-X-Gm-Message-State: AOJu0YxmLgF/sano08Y+0miB4M5LC4Wca8b3CK7UOBaKxLKg2kY/ckIn
-	Uc2NyZC3qiyfgH6byyctCzFnl9dAWAG/NzfGdasumCuM9cpB8cOlWdrtukokIzfMxX0SPJbWwc8
-	a9z7CPybWSftXloaldPlWzfQKuuscpYoMmQ==
-X-Received: by 2002:a17:906:53c5:b0:9a2:2842:f1c6 with SMTP id p5-20020a17090653c500b009a22842f1c6mr4246069ejo.28.1694691280320;
-        Thu, 14 Sep 2023 04:34:40 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFxGjcSg2xordJch72pu67Ol5RvNtPgyEdGRKBUex6yYa6U76xNGFSPk98vZYP5fiTlP9My6Q==
-X-Received: by 2002:a17:906:53c5:b0:9a2:2842:f1c6 with SMTP id p5-20020a17090653c500b009a22842f1c6mr4246053ejo.28.1694691279957;
-        Thu, 14 Sep 2023 04:34:39 -0700 (PDT)
-Date: Thu, 14 Sep 2023 07:34:35 -0400
+        d=1e100.net; s=20230601; t=1694691427; x=1695296227;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8fpcobUAQmNRu7g2td/pu6JTMcmiCHlmgba8nlGvTHI=;
+        b=C5LmjtABRPDdBcIGxTrzU4ALhJdjcOT3HnkiCxFjdo6/du020uf2Do980T0ZUQAzhG
+         uNXXUwFN5l9qM12xmwJtmWiPXlgMoYTXQSLIlHmwBwN7Ex/tgKUvsNSJeJO7CKZhJn0P
+         M8zfInvSZ7Bdp2gH1ImBVg2zeAdy7kemTAq8rdKVd2jqnvvLV4RioOtDgqAQScadh89g
+         edKPzb0q7t24r/JQFtYbfHjSrxc8LGuIL/6pSDNaDDjgn/0w8irczx5vhKxsfIZEknhT
+         LH9ACKoEarE46Vzhg+nv7iTj9LkysY2wSeGRL3ucDpk2+8SbD0FzjOIMUb2uyLeVMcKw
+         Skeg==
+X-Gm-Message-State: AOJu0Yxz+hkfbPAwGqAFGzbRegBOMv2/+tyeJ1EDcZ5bRai1jLM7c8P4
+	NJ06IzwgOQWiWOsZW8bVxtnKZYFALOfpRoeFfIKC8psGt/H727A3pPF57v4h3I6VhLFkz87hups
+	G49xTVYSjTdxWMItdEzOqdSRKTDD1oClplw==
+X-Received: by 2002:a17:906:81c7:b0:9ad:b80c:c19d with SMTP id e7-20020a17090681c700b009adb80cc19dmr1464804ejx.56.1694691427512;
+        Thu, 14 Sep 2023 04:37:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGEK0oq6O1OoliLiyMC6De+KMMdv2NaSQMRcGmKAxCn6wgwKUff91rKqRG4RmyQ7168QeELuw==
+X-Received: by 2002:a17:906:81c7:b0:9ad:b80c:c19d with SMTP id e7-20020a17090681c700b009adb80cc19dmr1464792ejx.56.1694691427180;
+        Thu, 14 Sep 2023 04:37:07 -0700 (PDT)
+Date: Thu, 14 Sep 2023 07:37:02 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Zhu Lingshan <lingshan.zhu@intel.com>
 Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
 	stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
 	virtio-dev@lists.oasis-open.org
-Message-ID: <20230914073023-mutt-send-email-mst@kernel.org>
+Message-ID: <20230914073454-mutt-send-email-mst@kernel.org>
 References: <20230906081637.32185-1-lingshan.zhu@intel.com>
- <20230906081637.32185-3-lingshan.zhu@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20230906081637.32185-3-lingshan.zhu@intel.com>
+In-Reply-To: <20230906081637.32185-1-lingshan.zhu@intel.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH 2/5] virtio: introduce SUSPEND bit in device status
+Subject: [virtio-comment] Re: [PATCH 0/5] virtio: introduce SUSPEND bit and vq state
 
-On Wed, Sep 06, 2023 at 04:16:34PM +0800, Zhu Lingshan wrote:
-> This patch introduces a new status bit in the device status: SUSPEND.
+On Wed, Sep 06, 2023 at 04:16:32PM +0800, Zhu Lingshan wrote:
+> This series introduces
+> 1)a new SUSPEND bit in the device status
+> Which is used to suspend the device, so that the device states
+> and virtqueue states are stabilized.
 > 
-> This SUSPEND bit can be used by the driver to suspend a device,
-> in order to stabilize the device states and virtqueue states.
+> 2)virtqueue state and its accessor, to get and set last_avail_idx
+> and last_used_idx of virtqueues.
 > 
-> Its main use case is live migration.
+> The main usecase of these new facilities is Live Migration.
 > 
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> Signed-off-by: Jason Wang <jasowang@redhat.com>
-> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
-> ---
->  content.tex | 31 +++++++++++++++++++++++++++++++
->  1 file changed, 31 insertions(+)
+> Future work: dirty page tracking and in-flight descriptors.
 > 
-> diff --git a/content.tex b/content.tex
-> index 0e492cd..0fab537 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -47,6 +47,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
->  \item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
->    drive the device.
->  
-> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that the
-> +  device has been suspended by the driver.
-> +
->  \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
->    an error from which it can't recover.
->  \end{description}
-> @@ -73,6 +76,10 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
->  recover by issuing a reset.
->  \end{note}
->  
-> +The driver SHOULD NOT set SUSPEND if FEATURES_OK is not set.
-> +
-> +When setting SUSPEND, the driver MUST re-read \field{device status} to ensure the SUSPEND bit is set.
-> +
->  \devicenormative{\subsection}{Device Status Field}{Basic Facilities of a Virtio Device / Device Status Field}
->  
->  The device MUST NOT consume buffers or send any used buffer
-> @@ -82,6 +89,26 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
->  that a reset is needed.  If DRIVER_OK is set, after it sets DEVICE_NEEDS_RESET, the device
->  MUST send a device configuration change notification to the driver.
->  
-> +The device MUST ignore SUSPEND if FEATURES_OK is not set.
-> +
-> +The device MUST ignore SUSPEND if VIRTIO_F_SUSPEND is not negotiated.
-
-why? let's just forbid driver from setting it.
-
-> +
-> +The device SHOULD allow settings to \field{device status} even when SUSPEND is set.
-> +
-> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device SHOULD clear SUSPEND
-> +and resumes operation upon DRIVER_OK.
-> +
-
-sorry what?
-
-> +If VIRTIO_F_SUSPEND is negotiated, when the driver sets SUSPEND,
-> +the device SHOULD perform the following actions before presenting SUSPEND bit in the \field{device status}:
-> +
-> +\begin{itemize}
-> +\item Stop consuming buffers of any virtqueues and mark all finished descritors as used.
-> +\item Wait until all descriptors that being processed to finish and mark them as used.
-> +\item Flush all used buffer and send used buffer notifications to the driver.
-
-flush how?
-
-> +\item Record Virtqueue State of each enabled virtqueue, see section \ref{sec:Virtqueues / Virtqueue State}
+> This series addresses many comments from Jason, Stefan and Eugenio
+> from RFC series.
 
 
-record where?
+after going over this in detail, it is like I worried: this
+tries to do too much through a single register and
+the ownership is muddied significantly.
 
-> +\item Pause its operation except \field{device status} and preserve configurations in its Device Configuration Space, see \ref{sec:Basic Facilities of a Virtio Device / Device Configuration Space}
+I feel a separate capability for suspend/resume that would
+be independent of device status would be preferable.
 
-pause in what sense? completely?  this does not seem realistic.
-e.g. pci express link has to stay active or device will die.
-
-
-also, presumably here it is except a bunch of other fields.
-e.g. what about queue select and all related queue fields?
-
-
-> +\end{itemize}
-> +
->  \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature Bits}
->  
->  Each virtio device offers all the features it understands.  During
-> @@ -937,6 +964,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
->  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
->  	handling features reserved for future use.
->  
-> +  \item[VIRTIO_F_SUSPEND(42)] This feature indicates that the driver can
-> +   SUSPEND the device.
-> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
-> +
->  \end{description}
->  
->  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+> Zhu Lingshan (5):
+>   virtio: introduce vq state as basic facility
+>   virtio: introduce SUSPEND bit in device status
+>   virtqueue: constraints for virtqueue state
+>   virtqueue: ignore resetting vqs when SUSPEND
+>   virtio-pci: implement VIRTIO_F_QUEUE_STATE
+> 
+>  content.tex       | 118 ++++++++++++++++++++++++++++++++++++++++++++++
+>  transport-pci.tex |  18 +++++++
+>  2 files changed, 136 insertions(+)
+> 
 > -- 
 > 2.35.3
 
