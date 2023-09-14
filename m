@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7412-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7413-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2AAAEE0213
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:12:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 922CFEE0213
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:12:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 23BB8157F04
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:12:10 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0943B2AEDD
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:12:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D7467986663
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:12:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E97A998664C
+	for <virtio-comment@archiver.kernel.org>; Thu, 14 Sep 2023 03:12:23 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id CD5F9986660; Thu, 14 Sep 2023 03:12:09 +0000 (UTC)
+	id E002E983D42; Thu, 14 Sep 2023 03:12:23 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,45 +24,47 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B539F98664A
-	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Sep 2023 03:12:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D18E4986640
+	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Sep 2023 03:12:23 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: _9mcRZiFMqWOgzn8i1B3SA-1
+X-MC-Unique: nVKfBcwdOq-ot1yLonxpHw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694661126; x=1695265926;
+        d=1e100.net; s=20230601; t=1694661140; x=1695265940;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=N9lZ02Uo21jVe/vsNtF2UbT/qTCrQwSJMp2wuhfLO28=;
-        b=ox0TEXTe0/aEdd8ZSOWuaz7uVUg6dmTKZuAMV7piCZRVBnnADN7s2Pef25FO5KqeHJ
-         lxNVdnXtDoGrhkRuVctjkLOz3iWPPySwBBPDjYiGNUB8UwWAEaIVBA1cN0nxAtraKgZT
-         NwNfWGueJnxynq+CirsRbU89WCpHcAUiThBP7w3b6YlQpxVi2ZLQr8E7A5esJdJl130b
-         ggQK6wzjxmJnVpxtW4D1dm/4Lbw9dTowWnteiQDdfKNFwhfl63Dj2ATGv3IDg3jQMZH6
-         +ep4gvXY0R8uSIiYT6MMgVg8Da7bPB8yroodyP09DEcnaBfYY62OwmGVu1CS4zldRHVm
-         H3MA==
-X-Gm-Message-State: AOJu0YzFXeQIOKW+n2wWb32cG7esHHWNcy+wXQJtYpe4zWgdv48gTDp8
-	DLMZAcdQHkLyD6rljGRWB70hCQza+NRe7Tetx9LhhJVCN5e66iMy+o7fc6VX/oSmZpDe+7PwbMH
-	+l4shwQk8k0B9vpkY/JLEx1UT6zYuz7pfRw92PYRqSNdEKD76Tw==
-X-Received: by 2002:a05:6512:613:b0:4fb:745e:dd01 with SMTP id b19-20020a056512061300b004fb745edd01mr3479188lfe.45.1694661125805;
-        Wed, 13 Sep 2023 20:12:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE63e1UJ3m9H2cyTHvKEzNtdjPfCavTkuVpyM2/ifN0tWL/Jx/36Q4Ul8bZEp/tog46TExg6bdELR9H9GhgVU8=
-X-Received: by 2002:a05:6512:613:b0:4fb:745e:dd01 with SMTP id
- b19-20020a056512061300b004fb745edd01mr3479174lfe.45.1694661125584; Wed, 13
- Sep 2023 20:12:05 -0700 (PDT)
+        bh=gGk0P8mrZhXfKqNTrvvfQbQy7vK6KMnwGnSgheVxUvw=;
+        b=AlZS8MuuTtpCHagiuA1XEwUfbUuDKLfDoQo+XgFYK+B5nE+M3uugCUqrxwWLL4fTZo
+         5ZvnbZ/Dr6XRSt7Nu6LitYXT50CLzWVebZlDIwgNJINLtJf9axCDv6Mss0dUecIfY4iA
+         nKCRwyq/YixLrACfQm9d+nG0ox/Hz3g5JhgzG4rEEWAtCy+91PIvGbaO3I08TzV6Gyhz
+         LJprpTTsSseR21r075fh1MEKdyv2iMnT77jSUWKar/8KCBRqO7bZl1O1cS3snDfAJC4b
+         QMFXl3/DlhGnt5Z8ldngoTRYNmk8DlO853/FYtPyGFFdCmFhM9jch0MdqFNzyhsTHH2I
+         h5zQ==
+X-Gm-Message-State: AOJu0Yy2Gkge1TeuJa6/4+55lc4ud24kPC83/IgM0Gpz72WGAOxkaxHw
+	QlP/UBrgKfMEirFQD+DQ7wp1bIxxLgc5oXIeOnr82y/RtX4zGG5opr5Z0/N1W53BkII4MqCJrFf
+	SI8FiqcGlTugo/St54rsqjhAM9vawVk4xuecfi1dzDn6stEAn8A==
+X-Received: by 2002:a19:ca1a:0:b0:500:d8d6:fbe4 with SMTP id a26-20020a19ca1a000000b00500d8d6fbe4mr2988230lfg.49.1694661140480;
+        Wed, 13 Sep 2023 20:12:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGeilcxmV8AZ7l3+orGOpNyXOSknvxaX5xdFtIaO7Z2fVfs1CitrQPSON2n5b1telnZ73iVr+GT0CfgFWL9q1w=
+X-Received: by 2002:a19:ca1a:0:b0:500:d8d6:fbe4 with SMTP id
+ a26-20020a19ca1a000000b00500d8d6fbe4mr2988228lfg.49.1694661140260; Wed, 13
+ Sep 2023 20:12:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <PH0PR12MB5481ED8DC23DC6D42665FB8EDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <eb6c350e-1198-7d83-a553-99c9c8c21edc@intel.com> <PH0PR12MB5481760E00AD18DB8BF91636DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <ad1dd3a6-7c11-5c6b-b50f-d608ec027dcd@intel.com> <PH0PR12MB54819C4A4220712DCD57AD56DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fff7720f-6019-bd87-b14b-c0bf996f3959@intel.com> <PH0PR12MB5481D11A7DF45292103D9290DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEt6=AC4pYEoxNn2dpbLLEKTLj-SYV2eSUAi1ZA1LWR3qg@mail.gmail.com>
- <PH0PR12MB5481E49BFCE50AA8F8373F45DCF1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtor0uDs9xUDXH1ZA3n9Zb9kzP9MAYwN5h6em+39gNfXg@mail.gmail.com> <20230913042534-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20230913042534-mutt-send-email-mst@kernel.org>
+References: <20230906081637.32185-1-lingshan.zhu@intel.com>
+ <20230906081637.32185-6-lingshan.zhu@intel.com> <20230906043016-mutt-send-email-mst@kernel.org>
+ <CACGkMEu4R_nUFmpoNesmjJ-PtoE5brpWh8NLruWhEWycm2K4yg@mail.gmail.com>
+ <PH0PR12MB5481A50B1B13CE1756B98D0DDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtMmwWGJDYe5BLvLCcetThv-yfPR2QbphNuuh+bp-+ikg@mail.gmail.com>
+ <PH0PR12MB5481ED8DC23DC6D42665FB8EDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEt9ATuU_OwtE_9rF1XHKCd9GavWCHx6_dFXCZibMKzJjA@mail.gmail.com>
+ <PH0PR12MB5481D538B4F3F76B393C5757DCF1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEs+5AjGzeDbWZYSkOMw65d6g6oDfgbOapa1G3EbtLUy7A@mail.gmail.com> <PH0PR12MB54811C3EC1618E413695D8FDDCF0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54811C3EC1618E413695D8FDDCF0A@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Thu, 14 Sep 2023 11:11:54 +0800
-Message-ID: <CACGkMEv+wNhGMQSc819JFW1n6Ae08QZV1=rDZdZsbDd7ExH3ww@mail.gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, "Zhu, Lingshan" <lingshan.zhu@intel.com>, 
+Date: Thu, 14 Sep 2023 11:12:09 +0800
+Message-ID: <CACGkMEtMz3KShVbxpf_DLSx8qde=8JAdPPYOnA_udEfQ8UU+uQ@mail.gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Zhu Lingshan <lingshan.zhu@intel.com>, 
 	"eperezma@redhat.com" <eperezma@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>, 
 	"stefanha@redhat.com" <stefanha@redhat.com>, 
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
@@ -73,26 +75,35 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Subject: Re: [virtio-comment] [PATCH 5/5] virtio-pci: implement VIRTIO_F_QUEUE_STATE
 
-On Wed, Sep 13, 2023 at 4:28=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
+On Wed, Sep 13, 2023 at 12:46=E2=80=AFPM Parav Pandit <parav@nvidia.com> wr=
+ote:
 >
-> On Wed, Sep 13, 2023 at 12:45:21PM +0800, Jason Wang wrote:
-> > For example, KVM doesn't use
-> > hardware to log dirty pages.
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Wednesday, September 13, 2023 10:14 AM
 >
-> It uses a mix of PML, PTE bit and EPT write protection.
+> > It's not about how many states in a single state machine, it's about ho=
+w many
+> > state machines that exist for device status. Having more than one creat=
+es big
+> > obstacles and complexity in the device. You need to define the interact=
+ion of
+> > each state otherwise you leave undefined behaviours.
+> The device mode has zero relation to the device status.
 
-Well EPT/PML is Intel specific, the minimal requirement is page fault.
-The logging is done by software anyhow.
+You will soon get this issue when you want to do nesting.
 
-Virtio can choose to go device page fault for sure.
+> It does not mess with it at all.
+> In fact the new bits in device status is making it more complex for the d=
+evice to handle.
+
+Are you challenging the design of the device status? It's definitely
+too late to do this.
+
+This proposal increases just one bit and that worries you? Or you
+think one more state is much more complicated than a new state machine
+with two states?
 
 Thanks
-
->
-> --
-> MST
->
 
 
 This publicly archived list offers a means to provide input to the=0D
