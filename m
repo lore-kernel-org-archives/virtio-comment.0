@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7453-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7454-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB466CD37B0
-	for <virtio-comment@archiver.kernel.org>; Mon, 18 Sep 2023 14:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE98CD37B0
+	for <virtio-comment@archiver.kernel.org>; Mon, 18 Sep 2023 17:30:50 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3A6F5120D4B
-	for <virtio-comment@archiver.kernel.org>; Mon, 18 Sep 2023 14:05:32 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 575851318E6
+	for <virtio-comment@archiver.kernel.org>; Mon, 18 Sep 2023 17:30:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 102409864C2
-	for <virtio-comment@archiver.kernel.org>; Mon, 18 Sep 2023 14:05:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4A70098651F
+	for <virtio-comment@archiver.kernel.org>; Mon, 18 Sep 2023 17:30:49 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E304A9863AD; Mon, 18 Sep 2023 14:05:31 +0000 (UTC)
+	id 42ADC98640C; Mon, 18 Sep 2023 17:30:49 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,134 +24,145 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6FF359863D7
-	for <virtio-comment@lists.oasis-open.org>; Mon, 18 Sep 2023 14:05:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 308F198640D
+	for <virtio-comment@lists.oasis-open.org>; Mon, 18 Sep 2023 17:30:49 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 5OF3VutbPcuiynNvnbnM3w-1
+X-MC-Unique: 2NzbGWodNCyxIMfgaqADvA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695045926; x=1695650726;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aBaH0w7I2soY0dkzOxGiZAhm9GFoon2ZK3bUZWRDZAI=;
-        b=BALvm8LAEfd9lf8pjuZyo5wW1K0T+kNTPneyPrF7L3za8lIS6V5zDa7tP81/z2zwe8
-         g2oVJDnmeeQulIIovqtpvbDGvf09oPx5OJRsq7rCOdWSg3n6X8E85n4GMNpYJpM33I3D
-         3MAbvQtxAgfFk6Qic9Tq8+JGTXc6gWI+LW8oojeY4XzPLuQw3lsGeNeQ8c6IT6wR39cU
-         GAK4PTIuUHcwdbJY9nE64AUTbwijyFnv1SI0usLXd70ay2ZL3WznjL8YP0/HnSulGjPl
-         rkNdCjxIyDpcHvheBoAgg+NIKWYudJRnFM5DfQskxXp7C2+pGAHyTQHNtWOhbX9prsrm
-         I2QA==
-X-Gm-Message-State: AOJu0YyP6OYOqKyz7W5+ZpP4KCjAIAZsS4JyN6jE91BmKQca5qSKwDm2
-	dHmaXvwctn2GNScpyVN6RoOH7PiXLoNyrwX9+7MmS52BkPFmFKfFooTCqYceNyfHdtVPC3VVcVI
-	iWHBeCHzhQADmm4faxnAM85vMrt8D72kphA==
-X-Received: by 2002:a05:6402:320b:b0:530:d6c5:7e79 with SMTP id g11-20020a056402320b00b00530d6c57e79mr5639332eda.32.1695045925843;
-        Mon, 18 Sep 2023 07:05:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE7nthvLQULQLpTDAJgK+3lUfEfesVF+IS0LX8MUzxYl5HeOR6sRpVtBkahoOq0Hr0mHiVOLA==
-X-Received: by 2002:a05:6402:320b:b0:530:d6c5:7e79 with SMTP id g11-20020a056402320b00b00530d6c57e79mr5639308eda.32.1695045925509;
-        Mon, 18 Sep 2023 07:05:25 -0700 (PDT)
-Date: Mon, 18 Sep 2023 10:05:21 -0400
+        d=1e100.net; s=20230601; t=1695058239; x=1695663039;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CnlUS9cQBdroapA8xyJQIGp1RfJxTW8/aQMePaiokE0=;
+        b=qNBH2yDkpPedrTpr1fFuOwLujct8M7K9VcHMOgT6AgY9hjMUnUcJO/raaq29iNCov5
+         u/7K8DeIrg1eJzHMg9h2uBtOI4p1AhuC12rgK9VepA1zSt7YHOqVnX1sJdVwQhkBb2GY
+         bBDbLpQYwTQcLN09M7yB3aRL9RimR7Ssqm1cl+g4b7CFK9XfiKuFta1J0skdQSJj6aXh
+         azily4fRQwTd77a0jtH+5u/NMHOiB4RJtvEDqDeAGRCtpzcmNlmqa4DhunkYfiPplZAm
+         JKPBUPndS/BPqAj83xBqG0VnfN7jnDruwR3cBk2qPc63TJR4ktSQvjYlMjyM53d57fWT
+         jW/Q==
+X-Gm-Message-State: AOJu0YwtkHhPtFPNDzC+9OfDFXLmOXq2fYYLFyybDAM8oYXdDXXGp70Z
+	BXu+4J8wrL/cTLBonRhr0HeB9lzEnjmpdBoBo9yAs7Wj+vSOXFPX2PZwgGw1rDsN7XGazZKw/24
+	8MtI65AT3xkMUtg9A+7qsskrTgrE7jllSmQ==
+X-Received: by 2002:a05:6512:545:b0:502:bdbd:8442 with SMTP id h5-20020a056512054500b00502bdbd8442mr7582421lfl.50.1695058238943;
+        Mon, 18 Sep 2023 10:30:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHbngeJ/ftAJXHwtTZZ8tAxdw6HYfM2Bwfj3KACS9ZwnEqWtVWqDxHuvKks6/dFJmtbp4akAg==
+X-Received: by 2002:a05:6512:545:b0:502:bdbd:8442 with SMTP id h5-20020a056512054500b00502bdbd8442mr7582401lfl.50.1695058238511;
+        Mon, 18 Sep 2023 10:30:38 -0700 (PDT)
+Date: Mon, 18 Sep 2023 13:30:34 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Babis Chalios <bchalios@amazon.es>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
-	"Cali, Marco" <xmarcalx@amazon.co.uk>,
-	"Graf (AWS), Alexander" <graf@amazon.de>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>, aams@amazon.de
-Message-ID: <20230918100355-mutt-send-email-mst@kernel.org>
-References: <20221121162756.350032-4-mst@redhat.com>
- <0abb7518-16e0-4227-bfe1-a29bd27124e8@amazon.es>
- <20230912170032-mutt-send-email-mst@kernel.org>
- <e738e7f0-dd13-44db-806c-543746aa6967@amazon.es>
- <20230913053707-mutt-send-email-mst@kernel.org>
- <d7d17e9f-e6ad-4106-a408-99281382a93f@amazon.es>
- <20230918083722-mutt-send-email-mst@kernel.org>
- <e75d9667-2ea0-44d0-a26f-fa3d5fe05651@amazon.es>
- <20230918091506-mutt-send-email-mst@kernel.org>
- <a22ba2cb-9b03-481a-b66e-0b78fbfb21f0@amazon.es>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
+	stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
+	virtio-dev@lists.oasis-open.org
+Message-ID: <20230918132852-mutt-send-email-mst@kernel.org>
+References: <20230906081637.32185-1-lingshan.zhu@intel.com>
+ <20230906081637.32185-4-lingshan.zhu@intel.com>
+ <20230914072857-mutt-send-email-mst@kernel.org>
+ <313a60c5-34ac-ca77-b7e1-7cb7eaf11340@intel.com>
+ <20230915071111-mutt-send-email-mst@kernel.org>
+ <547e4395-4244-290d-9d6e-1de02d1e7e71@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <a22ba2cb-9b03-481a-b66e-0b78fbfb21f0@amazon.es>
+In-Reply-To: <547e4395-4244-290d-9d6e-1de02d1e7e71@intel.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH RFC 3/3] rng: leak detection support
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH 3/5] virtqueue: constraints for
+ virtqueue state
 
-On Mon, Sep 18, 2023 at 04:02:54PM +0200, Babis Chalios wrote:
-> On 18/9/23 15:58, Michael S. Tsirkin wrote:
-> > On Mon, Sep 18, 2023 at 03:00:43PM +0200, Babis Chalios wrote:
-> > > > > Right, so I think that there is a race condition between the time the driver
-> > > > > sees the used buffers of the first
-> > > > > batch and until it adds the second batch on the next leak queue.
-> > > > > 
-> > > > > 1. driver adds batch 1
-> > > > > 2. leak event
-> > > > > 3. device uses batch 1
-> > > > > 4. driver sees the used buffers and
-> > > > >       a. switches leak queues
-> > > > >       b. adds batch 2.
-> > > > > 5. devices finds initial leak queue empty and sees buffers in second leak
-> > > > > queue.
-> > > > > 
-> > > > > If a second leak event happens after step 3 above and before all of steps 4
-> > > > > complete then batch 2 will not
-> > > > > be processed as part of the second leak event.
-> > > > driver can just pre-add buffers in the second queue.
-> > > > 
-> > > > 1. available buffers to queue 1-X
-> > > > 2. available buffers to queue X
-> > > > 
-> > > > 
-> > > > 3. poll queue X
-> > > > 4. used buffers in queue X
-> > > > 5. avail buffers in queue X
-> > > > 6. poll queue 1-X
-> > > > 7. used buffers in queue X
-> > > > 8. avail buffers in queue X
-> > > > 9. goto 3
-> > > > 
-> > > Yes, that's what the driver does now in the RFC patch. However, this just
-> > > decreases
-> > > the race window, it doesn't eliminate it. If a third leak event happens it
-> > > might not
-> > > find any buffers to use:
-> > > 
-> > > 1. available buffers to queue 1-X
-> > > 2. available buffers to queue X
-> > > 
-> > > 
-> > > 3. poll queue X
-> > > 4. used buffers in queue X       <- leak event 1 will use buffers in X
-> > > 5. avail buffers in queue X
-> > > 6. poll queue 1-X                <- leak event 2 will use buffers in 1-X
-> > > 7. used buffers in queue 1-X
-> > > 8. avail buffers in queue 1-X
-> > >                                   <- leak event 3 (it needs buffers in X, race with step 5)
-> > > 9. goto 3
-> > 
-> > I don't get it. we added buffers in step 5.
+On Mon, Sep 18, 2023 at 11:02:18AM +0800, Zhu, Lingshan wrote:
 > 
-> What if the leak event 3 arrives before step 5 had time to actually add the
-> buffers in X and make
-> them visible to the device?
-
-
-Then it will see a single event in 1-X instead of two events.  A leak is
-a leak though, I don't see does it matter how many triggered.
-
-
 > 
+> On 9/15/2023 7:16 PM, Michael S. Tsirkin wrote:
+> > On Fri, Sep 15, 2023 at 10:59:29AM +0800, Zhu, Lingshan wrote:
+> > > 
+> > > On 9/14/2023 7:30 PM, Michael S. Tsirkin wrote:
+> > > > On Wed, Sep 06, 2023 at 04:16:35PM +0800, Zhu Lingshan wrote:
+> > > > > This commit specifies the constraints of the virtqueue state,
+> > > > > and the actions should be taken by the device when SUSPEND
+> > > > > and DRIVER_OK is set
+> > > > > 
+> > > > > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> > > > > Signed-off-by: Jason Wang <jasowang@redhat.com>
+> > > > > Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
+> > > > > ---
+> > > > >    content.tex | 19 +++++++++++++++++++
+> > > > >    1 file changed, 19 insertions(+)
+> > > > > 
+> > > > > diff --git a/content.tex b/content.tex
+> > > > > index 0fab537..9d727ce 100644
+> > > > > --- a/content.tex
+> > > > > +++ b/content.tex
+> > > > > @@ -594,6 +594,25 @@ \subsection{\field{Used State} Field}
+> > > > >    When VIRTIO_RING_F_PACKED is not negotiated, the 16-bit value of \field{used_idx}
+> > > > >    is always 0
+> > > > > +\drivernormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio Device / Virtqueue State}
+> > > > > +
+> > > > > +If VIRTIO_F_QUEUE_STATE has been negotiated but VIRTIO_RING_F_PACKED not been negotiated,
+> > > > > +the driver SHOULD NOT access \field{Used State} of any virtqueues, it SHOULD use the
+> > > > > +used index in the used ring.
+> > > > > +
+> > > > > +\devicenormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio Device / Virtqueue State}
+> > > > > +
+> > > > > +If VIRTIO_F_QUEUE_STATE has been negotiated, the device SHOULD only accept setting
+> > > > > +Virtqueue State of any virtqueues when DRIVER_OK is not set in \field{device status},
+> > > > > +or both of DRIVER_OK and SUSPEND are set in \field{device status}.
+> > > > > +Otherwise the device MUST ignore any writes to Virtqueue State of any virtqueues.
+> > > > > +
+> > > > > +If VIRTIO_F_QUEUE_STATE have been negotiated, when SUSPEND is set,
+> > > > > +the device MUST record the Virtqueue State of every enabled virtqueue
+> > > > > +in \field{Available State} and \field{Used State} respectively,
+> > > > record how?
+> > > This is transport specific, for PCI they are recorded in the common config
+> > > space,
+> > > two new fields of them are introduced in patch 5.
 > > 
-> > > 
-> > > If, instead, we define a single leak queue and require that VMM should refuse to take a snapshot
-> > > if that queue is empty, we avoid the race condition in all cases and IMHO the protocol becomes
-> > > much simpler.
-> > > 
-> > > 
-> > > Cheers,
-> > > Babis
-> > > 
+> > that is not enough space to record state for every enabled vq.
+> They can work with queue_select like many other vq configurations.
+
+queue select is under driver control.
+
+
+> I will mention this in the comment.
 > > 
-> > ---------------------------------------------------------------------
-> > To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> > For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+> > > > > +and correspondingly restore the Virtqueue State of every enabled virtqueue
+> > > > > +from \field{Available State} and \field{Used State} when DRIVER_OK is set.
+> > > > when is that?
+> > > When the DRIVER sets DRIVER_OK and done before the device presents
+> > > DRIVER_OK.
+> > I don't really understand the flow here. does SUSPEND clear DRIVER_OK
+> > then?
+> SUSPEND does not clear DRIVER, I think this is not a must.
+
+then I don't get what does "when DRIVER_OK is set" mean - it stays
+set all the time.
+
+
+> > 
+> > 
+> > > > 
+> > > > > +
+> > > > >    \input{admin.tex}
+> > > > >    \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+> > > > > -- 
+> > > > > 2.35.3
+> > 
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> > 
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> > 
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
 > > 
 
 
