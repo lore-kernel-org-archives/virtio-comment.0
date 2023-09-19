@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7463-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7464-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C455CD3439
-	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 04:36:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1622CCD343E
+	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 06:07:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 728512168C
-	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 04:36:14 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4DCBF45B2A
+	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 06:07:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 67C1C986560
-	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 04:36:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 298D4986553
+	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 06:07:17 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 5E37F9864C2; Tue, 19 Sep 2023 04:36:14 +0000 (UTC)
+	id 0828E983E25; Tue, 19 Sep 2023 06:07:17 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,518 +24,643 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4F90698637D
-	for <virtio-comment@lists.oasis-open.org>; Tue, 19 Sep 2023 04:36:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EC2A89864C2
+	for <virtio-comment@lists.oasis-open.org>; Tue, 19 Sep 2023 06:07:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: FWJY-8eROTKOoPaJgs2uFA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695098160; x=1695702960;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=yCqNnjNme5X5mvUSrEqsbsK19gWbbL3Tnj3PC54jxUs=;
-        b=uZoi6BNHPQ3wEFivUhDz+FrlA+qw78N5a+SiofCy2dDxRL4N7VezRbgmRx+Mukzkpl
-         9/WiUkHyCviZy17/JNp24MFtYCiZbg7nV4oQad7U0YmTC/sG3b7ynaSNHmjGSjGuILrX
-         yYnXN+MD4QzXhQaLc5d/fo1EAsVilghtX4LgA4aDc0byAh6XGgoF5BqfgYM56FDjZbEh
-         /+WooS2m2c3jpJsrCO/vgW/vXzqctCp0NZ5jqpXsh8zzgwsBvhPPT3f5flvUdI7KWIiK
-         Bk++fiDsB0laFKCp1bIjjqIeVn8fkTuj4qaxfXlg2LaflpGPr6gkIXxbFOk8Gy345C6F
-         a7Ow==
-X-Gm-Message-State: AOJu0YyJZ0AXYN9V3Gz+RE3PVMdz8//QB2XXJ6XcfdlfetdeG9WUKKGT
-	yBBShqXACwcq7TRB1P6nlIMIxrNfo3u/0AMtnF4LpP9ACsKnjni60twJnerqe9frToJNel6ltf9
-	emAmvNewRPYBrhLJ+LUR56wXsi0q4l8HR49yCHRBzQgvudel66w==
-X-Received: by 2002:a19:e012:0:b0:502:fe11:a68f with SMTP id x18-20020a19e012000000b00502fe11a68fmr6856916lfg.28.1695098160389;
-        Mon, 18 Sep 2023 21:36:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFbvno9p/hQKmCn7U0uI1Oh30TxO3FxoFMQwE2juB8PehIhyEi8dZNbhkUVXfneI0y1B+sOQZ3iFVj6UmiCLE8=
-X-Received: by 2002:a19:e012:0:b0:502:fe11:a68f with SMTP id
- x18-20020a19e012000000b00502fe11a68fmr6856903lfg.28.1695098160063; Mon, 18
- Sep 2023 21:36:00 -0700 (PDT)
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046049;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0VsQ9oYA_1695103631;
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: virtio-comment@lists.oasis-open.org
+Cc: jasowang@redhat.com,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Parav Pandit <parav@nvidia.com>,
+	David Edmondson <david.edmondson@oracle.com>
+Date: Tue, 19 Sep 2023 14:07:10 +0800
+Message-Id: <20230919060710.36535-1-xuanzhuo@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 MIME-Version: 1.0
-References: <20230906081637.32185-1-lingshan.zhu@intel.com>
- <20230906081637.32185-6-lingshan.zhu@intel.com> <20230906043016-mutt-send-email-mst@kernel.org>
- <CACGkMEu4R_nUFmpoNesmjJ-PtoE5brpWh8NLruWhEWycm2K4yg@mail.gmail.com>
- <PH0PR12MB5481A50B1B13CE1756B98D0DDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtMmwWGJDYe5BLvLCcetThv-yfPR2QbphNuuh+bp-+ikg@mail.gmail.com>
- <PH0PR12MB5481ED8DC23DC6D42665FB8EDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <eb6c350e-1198-7d83-a553-99c9c8c21edc@intel.com> <PH0PR12MB5481760E00AD18DB8BF91636DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <ad1dd3a6-7c11-5c6b-b50f-d608ec027dcd@intel.com> <PH0PR12MB54819C4A4220712DCD57AD56DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fff7720f-6019-bd87-b14b-c0bf996f3959@intel.com> <PH0PR12MB5481D11A7DF45292103D9290DCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <88b8b14c-88d8-1f76-0e6e-7b5f334171f1@intel.com> <PH0PR12MB5481CBE0CDFF4ACD712F371CDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2b3e8da1-5cbb-f990-0c1d-c0e894a73486@intel.com> <PH0PR12MB5481E8114A659954251F17DCDCF2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtAe3j+A=gNEOJiZF8rcJnT-zw7Xg67LLM92FZCm0XqyQ@mail.gmail.com>
- <PH0PR12MB5481B44B636DA997885AABBEDCF1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtFWZAQ0fKFBJYpRGR_RCNyDZSxXY+22y==PbuZqHzrVA@mail.gmail.com>
- <PH0PR12MB5481169EDDE5B82D71BCCE95DCF0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEt0OHL7pwR7pY-xv9PdLHxM1oLw3vOVdVwys4=W_VodGw@mail.gmail.com> <PH0PR12MB54818C170FD45AC707216669DCF4A@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB54818C170FD45AC707216669DCF4A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 19 Sep 2023 12:35:47 +0800
-Message-ID: <CACGkMEv-0YTk-oVzHYSKKuE1FtOyET1LNth-dx_z0REiNy02tw@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	"eperezma@redhat.com" <eperezma@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>, 
-	"stefanha@redhat.com" <stefanha@redhat.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [PATCH 5/5] virtio-pci: implement VIRTIO_F_QUEUE_STATE
+X-Git-Hash: 51a41f9
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v18] virtio-net: support device stats
 
-On Sun, Sep 17, 2023 at 1:22=E2=80=AFPM Parav Pandit <parav@nvidia.com> wro=
-te:
->
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Thursday, September 14, 2023 8:41 AM
-> >
-> > On Wed, Sep 13, 2023 at 2:06=E2=80=AFPM Parav Pandit <parav@nvidia.com>=
- wrote:
-> > >
-> > >
-> > > > From: Jason Wang <jasowang@redhat.com>
-> > > > Sent: Wednesday, September 13, 2023 10:14 AM
-> > > > To: Parav Pandit <parav@nvidia.com>
-> > >
-> > > > > One can build infinite level of nesting to not do passthrough, at
-> > > > > the end user
-> > > > applications remains slow.
-> > > >
-> > > > We are talking about nested virtualization but nested emulation. I
-> > > > won't repeat the definition of virtualization but no matter how muc=
-h
-> > > > level of nesting, the hypervisor will try hard to let the
-> > > > application run natively for most of the time, otherwise it's not t=
-he nested
-> > virtualization at all.
-> > > >
-> > > > Nested virtualization has been supported by all major cloud vendors=
-,
-> > > > please read the relevant documentation for the performance
-> > > > implications. Virtio community is not the correct place to debate
-> > > > whether a nest is useful. We need to make sure the datapath could b=
-e
-> > > > assigned to any nest layers without losing any fundamental faciliti=
-es like
-> > migration.
-> > > >
-> > > I am not debating. You or Lingshan claim or imply that mediation is t=
-he only
-> > way to progress.
-> >
-> > Let me correct your temiology again. It's "trap and emulation" . It mea=
-ns the
-> > workload runs mostly native but sometimes is trapped by the hypervisor.
-> >
->
-> > And it's not the only way. It's the start point since all current virti=
-o spec is built
-> > upon this methodology.
-> Current spec is not the steering point to define new methods.
-> So we will build the spec infra to support passthrough.
->
+This patch allows the driver to obtain some statistics from the device.
 
-Passthrough migration actually, passthrough is already supported now.
+In the device implementation, we can count a lot of such information,
+which can be used for debugging and judging the running status of the
+device. We hope to directly display it to the user through ethtool.
 
-> Mediation/trap-emulation where hypervisor is involved is also second use =
-case that you are addressing.
->
-> And hence, both are not mutually exclusive.
-> Hence we should not debate that anymore.
->
-> >
-> > > And for sure virtio do not need to live in the dark shadow of mediati=
-on always.
-> >
-> > 99% of virtio devices are implemented in this way (which is what you ca=
-ll dark
-> > and shadow) now.
-> >
-> What I am saying is one should not say mediation/trap-emulation is the on=
-ly way for virtio.
+To get stats atomically, try to get stats for all/multiple queue pairs
+in one command.
 
-Then using things like "dark shadow" is not fair.
+Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Suggested-by: Michael S. Tsirkin <mst@redhat.com>
+---
 
-> So let passthrough device migration to progress.
+v18:
+   * fix some issues @Parav http://lore.kernel.org/all/PH0PR12MB5481C32DA10A84488E421328DCF0A@PH0PR12MB5481.namprd12.prod.outlook.com
 
-Then you need to answer or address the concerns.
+v17:
+   * fix some issues @Parav http://lore.kernel.org/all/PH0PR12MB54819EB466305284A8C9F649DCE4A@PH0PR12MB5481.namprd12.prod.outlook.com
 
->
-> > > For nesting use case sure one can do mediation related mode.
-> > >
-> > > So only mediation is not the direction.
-> >
-> > CPU and MMU virtualization were all built in this way.
-> >
-> Not anymore. Both of them have vcpus and viommu where may things are not =
-trapped.
+v16:
+   * fix some issues @Parav https://lore.kernel.org/all/PH0PR12MB54814174FC713CF5640B7B10DC1DA@PH0PR12MB5481.namprd12.prod.outlook.com/
+   * introduce *_{packets,bytes}_allowance_exceeded
 
-We are talking about different things. I'm saying trap is a must but
-you say not all are trapped.
+v15:
+   * query supported types via cvq @Parav
+   * fix some problem @David
 
-> So as I said both has pros and cons and users will pick what fits their n=
-eed and use case.
->
-> > >
-> > > > > So for such N and M being > 1, one can use software base emulatio=
-n
-> > anyway.
-> > > >
-> > > > No, only the control path is trapped, the datapath is still passthr=
-ough.
-> > > >
-> > > Again, it depends on the use case.
-> >
-> > No matter what use case, the definition and methodology of virtualizati=
-on
-> > stands still.
-> >
-> I will stop debating this because the core technical question is not answ=
-ered.
-> I don=E2=80=99t see a technology available that virtio can utilize to it.
-> That is interface that can work without messing with device status and fl=
-r while device migration is ongoing.
-
-Again, you need to justify it. For example, why does it mess up device
-status? Why is rest ok but not suspending?
-
-At least so far, I don't see good answers for thoses.
-
-> Hence, methodology for passthrough and mediation/trap-emulation is fundam=
-entally different.
-> And that is just fine.
->
-> > >
-> > > > >
-> > > > > >
-> > > > > > And exposing the whole device to the guest drivers will have
-> > > > > > security implications, your proposal has demonstrated that you
-> > > > > > need a workaround for
-> > > > > There is no security implications in passthrough.
-> > > >
-> > > > How can you prove this or is it even possible for you to prove this=
-?
-> > > Huh, when you claim that it is not secure, please point out exactly w=
-hat is not
-> > secure.
-> > > Please take with PCI SIG and file CVE to PCI sig.
-> >
-> > I am saying it has security implications. That is why you need to expla=
-in why you
-> > think it doesn't. What's more, the implications are obviously nothing r=
-elated to
-> > PCI SIG but a vendor virtio hardware implementation.
-> >
-> PCI passthough for virtio member devices and non virtio devices with P2P,=
- and their interaction is already there in the VM.
-> Device migration is not adding/removing anything, nor touching any securi=
-ty aspect of it.
-> Because it does not need to it either.
-> Device migration is making sure that it continue to exists.
-
-Since we are discussing in the virtio community, what we care about is
-the chance that guest(driver) can explore device security
-vulnerabilities. In this context, exposing more means the increasing
-of the attacking surfaces since we (cloud vendor) can't control guests
-but the hypervisor.
-
->
-> > >
-> > > > You expose all device details to guests (especially the transport
-> > > > specific details), the attack surface is increased in this way.
-> > > One can say it is the opposite.
-> > > Attack surface is increased in hypervisor due to mediation poking at
-> > everything controlled by the guest.
-> > >
-> >
-> > We all know such a stack has been widely used for decades. But you want=
- to say
-> > your new stack is much more secure than this?
-> >
-> It can be yes, because it exposes all necessary things defined in the vir=
-tio spec boundary today.
-> And not involving hypervisor in core device operation.
-
-That's perfectly fine if we can do this. But you need to justify this.
-
->
-> > >
-> > > >
-> > > > What's more, a simple passthrough may lose the chance to workaround
-> > > > hardware erratas and you will finally get back to the trap and emul=
-ation.
-> > > Hardware errata's is not the starting point to build the software sta=
-ck and
-> > spec.
-> >
-> > It's not the starting point. But it's definitely something that needs t=
-o be
-> > considered, go and see kernel codes (especially the KVM part) and you w=
-ill get
-> > the answer.
-> >
-> There are kernels which cannot be updated in field today in Nvidia cloud =
-shipped by Redhat's OS variant.
->
-> So it is invalid assumption that somehow data path does not have bug, but=
- large part of the control plane has bug, hence it should be done in softwa=
-re...
-
-Well, for sure there are cases that can't be worked around. But for
-the case that it can, trap and emulation gives much more flexibility.
-
->
-> > > What you imply is, one must never use vfio stack, one must not use vc=
-pu
-> > acceleration and everything must be emulated.
-> >
-> > Do I say so? Trap and emulation is the common methodology used in KVM a=
-nd
-> > VFIO. And if you want to replace it with a complete passthrough, you ne=
-ed to
-> > prove your method can work.
-> >
-> Please review patches. I do not plan to _replace_ is either.
-
-You define all the migration stuffs in the admin commands section,
-isn't this an implicit coupling?
-
-> Those users who want to use passthrough, can use passthrough with major t=
-raps+emulation on FLR, device_status, cvq, avq and without implementing AQ =
-on every single member device.
-> And those users who prefer trap+emualation can use that.
->
-> > >
-> > > Same argument of hardware errata applied to data path too.
-> >
-> > Anything makes datapath different? Xen used to fallback to shadow page =
-tables
-> > to workaround hardware TDP errata in the past.
-> >
-> > > One should not implement in hw...
-> > >
-> > > I disagree with such argument.
-> >
-> > It's not my argument.
-> >
-> You claimed that to overcome hw errata, one should use trap_emulation, so=
-mehow only for portion of the functionality.
-> And rest portion of the functionality does not have hw errata, hence hw s=
-hould be use (for example for data path). :)
-
-I've explained before, we all know there're errata that can't be a
-workaround in any way.
-
->
-> > >
-> > > You can say nesting is requirement for some use cases, so spec should=
- support
-> > it without blocking the passthrough mode.
-> > > Then it is fair discussion.
-> > >
-> > > I will not debate further on passthrough vs control path mediation as
-> > either_or approach.
-> > >
-> > > >
-> > > > >
-> > > > > > FLR at least.
-> > > > > It is actually the opposite.
-> > > > > FLR is supported with the proposal without any workarounds and
-> > mediation.
-> > > >
-> > > > It's an obvious drawback but not an advantage. And it's not a must
-> > > > for live migration to work. You need to prove the FLR doesn't
-> > > > conflict with the live migration, and it's not only FLR but also al=
-l the other
-> > PCI facilities.
-> > > I don=E2=80=99t know what you mean by prove. It is already clear from=
- the proposal
-> > FLR is not messing with rest of the device migration infrastructure.
-> > > You should read [1].
-> >
-> > I don't think you answered my question in that thread.
-> >
-> Please ask the question in that series if any, because there is no FLR, d=
-evice reset interaction in passthrough between owner and member device.
->
-> > >
-> > > > one other
-> > > > example is P2P and what's the next? As more features were added to
-> > > > the PCI spec, you will have endless work in auditing the possible
-> > > > conflict with the passthrough based live migration.
-> > > >
-> > > This drawback equally applies to mediation route where one need to do=
- more
-> > than audit where the mediation layer to be extended.
-> >
-> > No, for trap and emulation we don't need to do that. We only do datapat=
-h
-> > assignments.
-> >
-> It is required, because also such paths to be audited and extended as wit=
-hout it the feature does not visible to the guest.
-
-You need first answer the following questions:
-
-1) Why FLR is a must for the guest
-2) What's wrong with the current Qemu emulation of FLR for virtio-pci devic=
-e
-
->
-> > > So each method has its pros and cons. One suits one use case, other s=
-uits
-> > other use case.
-> > > Therefore, again attempting to claim that only mediation approach is =
-the only
-> > way to progress is incorrect.
-> >
-> > I never say things like this, it is your proposal that mandates migrati=
-on with
-> > admin commands. Could you please read what is proposed in this series
-> > carefully?
-> >
-> Admin commands are split from the AQ so one can use the admin commands in=
-band as well.
-
-How can it? It couples a lot of concepts like group, owner and
-members. All of these have only existed in SR-IOV so far.
-
-I don't know how to define those for MMIO where the design wants to be
-as simple as possible.
-
-> Though, I don=E2=80=99t see how it can functionality work without mediati=
-on.
-> This is the key technical difference between two approaches.
->
-> > On top of this series, you can build your amd commands easily. But ther=
-e's
-> > nothing that can be done on top of your proposal.
-> >
-> I don=E2=80=99t see what more to be done on top of our proposal.
-
-Actually it really has one, that is moving the description/definition
-of those states to the basc facility part. But if we do this, why not
-do it from the start? This is exactly what Lingshan's proposal did.
-
-> If you hint nesting, than it can be done through a peer admin device to d=
-elete such admin role.
->
-> > >
-> > > In fact audit is still better than mediation because most audits are =
-read only
-> > work as opposed to endlessly extending trapping and adding support in c=
-ore
-> > stack.
-> >
-> > One reality that you constantly ignore is that such trapping and device=
- models
-> > have been widely used by a lot of cloud vendors for more than a decade.
-> >
-> It may be but, it is not the only option.
-
-I don't say it's the only option. If most of the devices were built in
-this way, we should first allow any new function to be available to
-those devices and then consider other cases. Inventing a mechanism
-that can't work for most of the existing devices is sub-optimal.
-
->
-> > > Again, it is a choice that user make with the tradeoff.
-> > >
-> > > > >
-> > > > > >
-> > > > > > For non standard device we don't have choices other than
-> > > > > > passthrough, but for standard devices we have other choices.
-> > > > >
-> > > > > Passthrough is basic requirement that we will be fulfilling.
-> > > >
-> > > > It has several drawbacks that I would not like to repeat. We all
-> > > > know even for VFIO, it requires a trap instead of a complete passth=
-rough.
-> > > >
-> > > Sure. Both has pros and cons.
-> > > And both can co-exist.
-> >
-> > I don't see how it can co-exist with your proposal. I can see how admin
-> > commands can co-exist on top of this series.
-> >
-> The reason to me both has difficulty is because both are solving differen=
-t problem.
-> And they can co-exist as two different methods to two different problems.
-
-It's not hard to demonstrate how admin commands can be built on top.
-
->
-> > >
-> > > > > If one wants to do special nesting, may be, there.
-> > > >
-> > > > Nesting is not special. Go and see how it is supported by major
-> > > > cloud vendors and you will get the answer. Introducing an interface
-> > > > in virtio that is hard to be virtualized is even worse than writing
-> > > > a compiler that can not do bootstrap compilation.
-> > > We checked with more than two major cloud vendors and passthrough suf=
-fice
-> > their use cases and they are not doing nesting.
-> > > And other virtio vendor would also like to support native devices. So=
- again,
-> > please do not portray that nesting is the only thing and passthrough mu=
-st not be
-> > done.
-> >
-> > Where do I say passthrough must not be done? I'm saying you need to jus=
-tify
-> > your proposal instead of simply saying "hey, you are wrong".
-> >
-> I never said you are wrong. I replied to Lingshan that resuming/suspendin=
-g queues after the device is suspended, is wrong, and it should not be done=
-.
->
-> > Again, nesting is not the only issue, the key point is that it's partia=
-l and not self
-> > contained.
->
-> Admin commands are self-contained to the owner device.
-> They are not self contained in the member device, because it cannot be.
-
-There're cases that self contained is not required for example the
-provisioning. Admin commands/queues fit perfectly there.
-
-> Self containment cannot work with device reset, flr, dma flow.
-
-How do you define self containment? We all know that virtio can't fly
-without transporting specific things ...
-
-For the context of "self contain" I mean the basic virtio facility
-needs to be self contained.
-
-> Self containment requires mediation or renamed trap+emulation; which is t=
-he anti-goal of passtrough.
-> And I am very interested if you can show how admin commands can work with=
- device reset, flr flow WITHOUT mediation approach.
-
-Why is it the job for me? This proposal doesn't use admin commands at all.
-
-Thanks
+v14:
+   * introduce supported_stats to config space
+   * add header(vq_index, size, type) to each reply stats
+   * add ref to the tx GSO
 
 
 
+ device-types/net/description.tex        | 511 +++++++++++++++++++++++-
+ device-types/net/device-conformance.tex |   1 +
+ device-types/net/driver-conformance.tex |   1 +
+ 3 files changed, 510 insertions(+), 3 deletions(-)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 76585b0..514554c 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -88,6 +88,9 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+     channel.
+
++\item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
++    to the driver through the control virtqueue.
++
+ \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
+
+ \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
+@@ -1156,6 +1159,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+         u8 command;
+         u8 command-specific-data[];
+         u8 ack;
++        u8 command-specific-result[];
+ };
+
+ /* ack values */
+@@ -1164,9 +1168,12 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ \end{lstlisting}
+
+ The \field{class}, \field{command} and command-specific-data are set by the
+-driver, and the device sets the \field{ack} byte. There is little it can
+-do except issue a diagnostic if \field{ack} is not
+-VIRTIO_NET_OK.
++driver, and the device sets the \field{ack} byte and optionally
++\field{command-specific-result}. There is little the driver can
++do except issue a diagnostic if \field{ack} is not VIRTIO_NET_OK.
++
++The command VIRTIO_NET_CTRL_STATS_QUERY and VIRTIO_NET_CTRL_STATS_GET contain
++\field{command-specific-result}.
+
+ \paragraph{Packet Receive Filtering}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Packet Receive Filtering}
+ \label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
+@@ -1805,6 +1812,504 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+
+ Upon reset, a device MUST initialize all coalescing parameters to 0.
+
++\paragraph{Device Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
++
++If the VIRTIO_NET_F_DEVICE_STATS feature is negotiated, the driver can obtain
++device statistics from the device by using the following command.
++
++Different types of virtqueues have different statistics. The statistics of the
++receiveq are different from those of the transmitq.
++
++The statistics of a certain type of virtqueue are also divided into multiple types
++because different types require different features. This enables the expansion
++of new statistics.
++
++In one command, the driver can obtain the statistics of one or multiple virtqueues.
++Additionally, the driver can obtain multiple type statistics of each virtqueue.
++
++\subparagraph{Query Statistic Capabilities}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Query Statistic Capabilities}
++
++\begin{lstlisting}
++#define VIRTIO_NET_CTRL_STATS         8
++#define VIRTIO_NET_CTRL_STATS_QUERY   0
++#define VIRTIO_NET_CTRL_STATS_GET     1
++
++struct virtio_net_stats_capabilities {
++
++#define VIRTIO_NET_STATS_TYPE_CVQ       (1 << 32)
++
++#define VIRTIO_NET_STATS_TYPE_RX_BASIC  (1 << 0)
++#define VIRTIO_NET_STATS_TYPE_RX_CSUM   (1 << 1)
++#define VIRTIO_NET_STATS_TYPE_RX_GSO    (1 << 2)
++#define VIRTIO_NET_STATS_TYPE_RX_SPEED  (1 << 3)
++
++#define VIRTIO_NET_STATS_TYPE_TX_BASIC  (1 << 16)
++#define VIRTIO_NET_STATS_TYPE_TX_CSUM   (1 << 17)
++#define VIRTIO_NET_STATS_TYPE_TX_GSO    (1 << 18)
++#define VIRTIO_NET_STATS_TYPE_TX_SPEED  (1 << 19)
++
++    le64 supported_stats_types[1];
++}
++\end{lstlisting}
++
++To obtain device statistic capability, use the VIRTIO_NET_CTRL_STATS_QUERY
++command. When the command completes successfully, \field{command-specific-result}
++is in the format of \field{struct virtio_net_stats_capabilities}.
++
++\subparagraph{Get Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Get Statistics}
++
++\begin{lstlisting}
++struct virtio_net_ctrl_queue_stats {
++       struct {
++           le16 vq_index;
++           le16 reserved[3];
++           le64 types_bitmap[1];
++       } stats[];
++};
++
++struct virtio_net_stats_reply_hdr {
++#define VIRTIO_NET_STATS_TYPE_REPLY_CVQ       32
++
++#define VIRTIO_NET_STATS_TYPE_REPLY_RX_BASIC  0
++#define VIRTIO_NET_STATS_TYPE_REPLY_RX_CSUM   1
++#define VIRTIO_NET_STATS_TYPE_REPLY_RX_GSO    2
++#define VIRTIO_NET_STATS_TYPE_REPLY_RX_SPEED  3
++
++#define VIRTIO_NET_STATS_TYPE_REPLY_TX_BASIC  16
++#define VIRTIO_NET_STATS_TYPE_REPLY_TX_CSUM   17
++#define VIRTIO_NET_STATS_TYPE_REPLY_TX_GSO    18
++#define VIRTIO_NET_STATS_TYPE_REPLY_TX_SPEED  19
++    u8 type;
++    u8 reserved;
++    le16 vq_index;
++    le16 reserved1;
++    le16 size;
++}
++\end{lstlisting}
++
++To obtain device statistics, use the VIRTIO_NET_CTRL_STATS_GET command with the
++\field{command-specific-data} which is in the format of
++\field{struct virtio_net_ctrl_queue_stats}. When the command completes
++successfully, \field{command-specific-result} contains multiple statistic
++results, each statistic result has the \field{struct virtio_net_stats_reply_hdr}
++as the header.
++
++The fields of the \field{struct virtio_net_ctrl_queue_stats}:
++\begin{description}
++    \item [vq_index]
++        The index of the virtqueue to obtain the statistics.
++
++    \item [types_bitmap]
++        This is a bitmask of the types of statistics to be obtained. Therefore, a
++        \field{stats} inside \field{struct virtio_net_ctrl_queue_stats} may
++        indicate multiple statistic replies for the virtqueue.
++\end{description}
++
++The fields of the \field{struct virtio_net_stats_reply_hdr}:
++\begin{description}
++    \item [type]
++        The type of the reply statistic.
++
++    \item [vq_index]
++        The virtqueue index of the reply statistic.
++
++    \item [size]
++        The number of bytes for the statistics entry including size of \field{struct virtio_net_stats_reply_hdr}.
++
++\end{description}
++
++\subparagraph{Controlq Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Controlq Statistics}
++
++The structure corresponding to the controlq statistics is
++\field{struct virtio_net_stats_cvq}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_CVQ. This is for the controlq.
++
++\begin{lstlisting}
++struct virtio_net_stats_cvq {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 command_num;
++    le64 ok_num;
++};
++\end{lstlisting}
++
++\begin{description}
++    \item [command_num]
++        The number of commands received by the device including the current command.
++
++    \item [ok_num]
++        The number of commands completed successfully by the device including the current command.
++\end{description}
++
++
++\subparagraph{Receiveq Basic Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq Basic Statistics}
++
++The structure corresponding to the receiveq basic statistics is
++\field{struct virtio_net_stats_rx_basic}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_RX_BASIC. This is for the receiveq.
++
++Receiveq basic statistics do not require any feature. As long as the device supports
++VIRTIO_NET_F_DEVICE_STATS, the following are the receiveq basic statistics.
++
++\begin{lstlisting}
++struct virtio_net_stats_rx_basic {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 rx_notifications;
++
++    le64 rx_packets;
++    le64 rx_bytes;
++
++    le64 rx_interrupts;
++
++    le64 rx_drops;
++    le64 rx_drop_overruns;
++};
++\end{lstlisting}
++
++The packets described below were all presented on the specified virtqueue.
++\begin{description}
++    \item [rx_notifications]
++        The number of driver notifications received by the device for this
++        receiveq.
++
++    \item [rx_packets]
++        This is the number of packets passed to the driver by the device.
++
++    \item [rx_bytes]
++        This is the bytes of packets passed to the driver by the device.
++
++    \item [rx_interrupts]
++        The number of interrupts generated by the device for this receiveq.
++
++    \item [rx_drops]
++        This is the number of packets dropped by the device. The count includes
++        all types of packets dropped by the device.
++
++    \item [rx_drop_overruns]
++        This is the number of packets dropped by the device when no more
++        descriptors were available.
++
++\end{description}
++
++\subparagraph{Transmitq Basic Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq Basic Statistics}
++
++The structure corresponding to the transmitq basic statistics is
++\field{struct virtio_net_stats_tx_basic}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_TX_BASIC. This is for the transmitq.
++
++Transmitq basic statistics do not require any feature. As long as the device supports
++VIRTIO_NET_F_DEVICE_STATS, the following are the transmitq basic statistics.
++
++\begin{lstlisting}
++struct virtio_net_stats_tx_basic {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 tx_notifications;
++
++    le64 tx_packets;
++    le64 tx_bytes;
++
++    le64 tx_interrupts;
++
++    le64 tx_drops;
++    le64 tx_drop_malformed;
++};
++\end{lstlisting}
++
++The packets described below are all for a specific virtqueue.
++\begin{description}
++    \item [tx_notifications]
++        The number of driver notifications received by the device for this
++        transmitq.
++
++    \item [tx_packets]
++        This is the number of packets sent by the device (not the packets
++        got from the driver).
++
++    \item [tx_bytes]
++        This is the number of bytes sent by the device for all the sent packets
++        (not the bytes sent got from the driver).
++
++    \item [tx_interrupts]
++        The number of interrupts generated by the device for this transmitq.
++
++    \item [tx_drops]
++        The number of packets dropped by the device. The count includes all
++        types of packets dropped by the device.
++
++    \item [tx_drop_malformed]
++        The number of packets dropped by the device, when the descriptors are
++        malformed. For example, the buffer is too short.
++\end{description}
++
++\subparagraph{Receiveq CSUM Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq CSUM Statistics}
++
++The structure corresponding to the receiveq checksum statistics is
++\field{struct virtio_net_stats_rx_csum}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_RX_CSUM. This is for the receiveq.
++
++Only after the VIRTIO_NET_F_GUEST_CSUM is negotiated, the receiveq checksum
++statistics can be obtained.
++
++\begin{lstlisting}
++struct virtio_net_stats_rx_csum {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 rx_csum_valid;
++    le64 rx_needs_csum;
++    le64 rx_csum_none;
++    le64 rx_csum_bad;
++};
++\end{lstlisting}
++
++The packets described below were all presented on the specified virtqueue.
++\begin{description}
++    \item [rx_csum_valid]
++        The number of packets with VIRTIO_NET_HDR_F_DATA_VALID.
++
++    \item [rx_needs_csum]
++        The number of packets with VIRTIO_NET_HDR_F_NEEDS_CSUM.
++
++    \item [rx_csum_none]
++        The number of packets without hardware checksum. The packet here refers
++        to the non-TCP/UDP packet that the device cannot recognize.
++
++    \item [rx_csum_bad]
++        The number of packets with checksum mismatch.
++
++\end{description}
++
++\subparagraph{Transmitq CSUM Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq CSUM Statistics}
++
++The structure corresponding to the transmitq checksum statistics is
++\field{struct virtio_net_stats_tx_csum}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_TX_CSUM. This is for the transmitq.
++
++Only after the VIRTIO_NET_F_CSUM is negotiated, the transmitq checksum
++statistics can be obtained.
++
++The following are the transmitq checksum statistics:
++
++\begin{lstlisting}
++struct virtio_net_stats_tx_csum {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 tx_csum_none;
++    le64 tx_needs_csum;
++};
++\end{lstlisting}
++
++The packets described below are all for a specific virtqueue.
++\begin{description}
++    \item [tx_csum_none]
++        The number of packets which do not require hardware checksum.
++
++    \item [tx_needs_csum]
++        The number of packets which require checksum calculation by the device.
++
++\end{description}
++
++\subparagraph{Receiveq GSO Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq GSO Statistics}
++
++The structure corresponding to the receivq GSO statistics is
++\field{struct virtio_net_stats_rx_gso}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_RX_GSO. This is for the receiveq.
++
++If one or more of the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6
++have been negotiated, the receiveq GSO statistics can be obtained.
++
++GSO packets refer to packets passed by the device to the driver where
++\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
++
++\begin{lstlisting}
++struct virtio_net_stats_rx_gso {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 rx_gso_packets;
++    le64 rx_gso_bytes;
++    le64 rx_gso_packets_coalesced;
++    le64 rx_gso_bytes_coalesced;
++};
++\end{lstlisting}
++
++The packets described below were all presented on the specified virtqueue.
++\begin{description}
++    \item [rx_gso_packets]
++        The number of the GSO packets received by the device.
++
++    \item [rx_gso_bytes]
++        The bytes of the GSO packets received by the device.
++        This includes the header size of the GSO packet.
++
++    \item [rx_gso_packets_coalesced]
++        The number of the GSO packets coalesced by the device.
++
++    \item [rx_gso_bytes_coalesced]
++        The bytes of the GSO packets coalesced by the device.
++        This includes the header size of the GSO packet.
++\end{description}
++
++\subparagraph{Transmitq GSO Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq GSO Statistics}
++
++The structure corresponding to the transmitq GSO statistics is
++\field{struct virtio_net_stats_tx_gso}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_TX_GSO. This is for the transmitq.
++
++If one or more of the VIRTIO_NET_F_HOST_TSO4, VIRTIO_NET_F_HOST_TSO6,
++VIRTIO_NET_F_HOST_USO options have been negotiated, the transmitq GSO statistics
++can be obtained.
++
++GSO packets refer to packets passed by the driver to the device where
++\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
++See more \ref{sec:Device Types / Network Device / Device Operation / Packet
++Transmission}.
++
++\begin{lstlisting}
++struct virtio_net_stats_tx_gso {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 tx_gso_packets;
++    le64 tx_gso_bytes;
++    le64 tx_gso_segments;
++    le64 tx_gso_segments_bytes;
++    le64 tx_gso_packets_noseg;
++    le64 tx_gso_bytes_noseg;
++};
++\end{lstlisting}
++
++The packets described below are all for a specific virtqueue.
++\begin{description}
++    \item [tx_gso_packets]
++        The number of the GSO packets sent by the device.
++
++    \item [tx_gso_bytes]
++        The bytes of the GSO packets sent by the device.
++
++    \item [tx_gso_segments]
++        The number of segments prepared from GSO packets.
++
++    \item [tx_gso_segments_bytes]
++        The bytes of segments prepared from GSO packets.
++
++    \item [tx_gso_packets_noseg]
++        The number of the GSO packets without segmentation.
++
++    \item [tx_gso_bytes_noseg]
++        The bytes of the GSO packets without segmentation.
++
++\end{description}
++
++\subparagraph{Receiveq Speed Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq Speed Statistics}
++
++The structure corresponding to the receiveq speed statistics is
++\field{struct virtio_net_stats_rx_speed}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_RX_SPEED. This is for the receiveq.
++
++The device has the allowance for the speed. If VIRTIO_NET_F_SPEED_DUPLEX has
++been negotiated, the driver can get this by \field{speed}. When the received
++packets bitrate exceeds the \field{speed}, some packets may be dropped by the
++device.
++
++\begin{lstlisting}
++struct virtio_net_stats_rx_speed {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 rx_packets_allowance_exceeded;
++    le64 rx_bytes_allowance_exceeded;
++};
++\end{lstlisting}
++
++The packets described below were all presented on the specified virtqueue.
++\begin{description}
++    \item [rx_packets_allowance_exceeded]
++        The number of the packets dropped by the device due to the received
++        packets bitrate exceeding the \field{speed}.
++
++    \item [rx_bytes_allowance_exceeded]
++        The bytes of the packets dropped by the device due to the received
++        packets bitrate exceeding the \field{speed}.
++
++\end{description}
++
++\subparagraph{Transmitq Speed Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq Speed Statistics}
++
++The structure corresponding to the transmitq speed statistics is
++\field{struct virtio_net_stats_tx_speed}. The corresponding type is
++VIRTIO_NET_STATS_TYPE_TX_SPEED. This is for the transmitq.
++
++The device has the allowance for the speed. If VIRTIO_NET_F_SPEED_DUPLEX has
++been negotiated, the driver can get this by \field{speed}. When the transmit
++packets bitrate exceeds the \field{speed}, some packets may be dropped by the
++device.
++
++\begin{lstlisting}
++struct virtio_net_stats_tx_speed {
++    struct virtio_net_stats_reply_hdr hdr;
++
++    le64 tx_packets_allowance_exceeded;
++    le64 tx_bytes_allowance_exceeded;
++};
++\end{lstlisting}
++
++The packets described below were all presented on the specified virtqueue.
++\begin{description}
++    \item [tx_packets_allowance_exceeded]
++        The number of the packets dropped by the device due to the transmit packets
++        bitrate exceeding the \field{speed}.
++
++    \item [tx_bytes_allowance_exceeded]
++        The bytes of the packets dropped by the device due to the transmit packets
++        bitrate exceeding the \field{speed}.
++
++\end{description}
++
++\devicenormative{\subparagraph}{Device Statistics}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
++
++When the VIRTIO_NET_F_DEVICE_STATS feature is negotiated, the device MUST reply
++to the command VIRTIO_NET_CTRL_STATS_QUERY with the
++\field{struct virtio_net_stats_capabilities}. \field{supported_stats_types}
++includes all the statistic types supported by the device.
++
++If \field{struct virtio_net_ctrl_queue_stats} is incorrect (such as the
++following), the device MUST set \field{ack} to VIRTIO_NET_ERR. Even if there is
++only one error, the device MUST fail the entire command.
++\begin{itemize}
++    \item \field{vq_index} exceeds the queue range.
++    \item \field{types_bitmap} contains unknown types.
++    \item One or more of the bits present in \field{types_bitmap} is not valid
++        for the specified virtqueue.
++    \item The feature corresponding to the specified \field{types_bitmap} was
++        not negotiated.
++\end{itemize}
++
++The device MUST set the actual size of the bytes occupied by the reply to the
++\field{size} of the \field{hdr}. And the device MUST set the \field{type} and
++the \field{vq_index} of the statistic header.
++
++The \field{command-specific-result} buffer allocated by the driver may be
++smaller or bigger than all the statistics specified by
++\field{struct virtio_net_ctrl_queue_stats}. The device MUST fill up only upto
++the valid bytes.
++
++The statistics counters wrap around to zero on overflow.
++
++\drivernormative{\subparagraph}{Device Statistics}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
++
++The types contained in the \field{types_bitmap} MUST be queried from the device
++via command VIRTIO_NET_CTRL_STATS_QUERY.
++
++\field{types_bitmap} in \field{struct virtio_net_ctrl_queue_stats} MUST be valid to the
++vq specified by \field{vq_index}.
++
++The \field{command-specific-result} buffer allocated by the driver MUST have
++enough capacity to store all the statistics reply headers defined in
++\field{struct virtio_net_ctrl_queue_stats}. If the
++\field{command-specific-result} buffer is fully utilized by the device but some
++replies are missed, it is possible that some statistics may exceed the capacity
++of the driver's records. In such cases, the driver should allocate additional
++space for the \field{command-specific-result} buffer.
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
+
+diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
+index f88f48b..52526e4 100644
+--- a/device-types/net/device-conformance.tex
++++ b/device-types/net/device-conformance.tex
+@@ -15,4 +15,5 @@
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) / RSS processing}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
++\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
+ \end{itemize}
+diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
+index 9d853d9..c693c4f 100644
+--- a/device-types/net/driver-conformance.tex
++++ b/device-types/net/driver-conformance.tex
+@@ -15,4 +15,5 @@
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) }
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
++\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
+ \end{itemize}
+--
+2.32.0.3.g01195cf9f
 
 
-> Lingshan so far didn=E2=80=99t answer this.
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
