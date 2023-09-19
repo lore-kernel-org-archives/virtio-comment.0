@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7470-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7471-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F74CD549F
-	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 07:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512EACD54AB
+	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 09:44:05 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 543B27B0A6
-	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 07:56:22 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 95E632B04E
+	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 09:44:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3A56B9864D2
-	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 07:56:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 86B5598651C
+	for <virtio-comment@archiver.kernel.org>; Tue, 19 Sep 2023 09:44:04 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 28807983E25; Tue, 19 Sep 2023 07:56:22 +0000 (UTC)
+	id 75DB6983E25; Tue, 19 Sep 2023 09:44:04 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,140 +24,68 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 177E89864C2;
-	Tue, 19 Sep 2023 07:56:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 650299864C2
+	for <virtio-comment@lists.oasis-open.org>; Tue, 19 Sep 2023 09:44:04 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="377188522"
-X-IronPort-AV: E=Sophos;i="6.02,158,1688454000"; 
-   d="scan'208";a="377188522"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="749376829"
-X-IronPort-AV: E=Sophos;i="6.02,158,1688454000"; 
-   d="scan'208";a="749376829"
-Message-ID: <56e2e755-82c5-ff03-9501-969e5ffd139e@intel.com>
-Date: Tue, 19 Sep 2023 15:56:14 +0800
+X-MC-Unique: fie2ft3xMwWVJ6fUgnP8xQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695116640; x=1695721440;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vu8tgJc7XtYqldRwQrzM8br46Jv8/+7i7MeVb5Gsy6I=;
+        b=KD0zbb4+GQhYrxdbERzuvLEv5sOmmRmFgE5SPHng4McWiiAHOgxwbQLDgV8ClueChM
+         EMAGQrX3ZI8Wj6EeKf9EJmAqa3JON2CcO8HyVaogJmN2gj6XBYrHtO7JL5odeXuTfZKW
+         MekM5y703pMk+LGj9BePPgnaFh3UkSWuhgxF/RDGQmVb4IjQXatw9uMOzKPDI5iXKedz
+         d26+x/CHrkO6iaRGaHaVguDGKnmi4n00hw5AB1bx37ednDY2GKsIWh0euHPxl7r4ZRiN
+         61ci3YYm2ENqwSLnaaMhi8wlFAr3Wsf7irG4qXK1gc4JvgRjmeAmG5tiI7q/iMiGOv1q
+         zasA==
+X-Gm-Message-State: AOJu0YzO8cAuwI/ds3AxfXdNLqVEL3+vRIq7zaXJRolHqUEv7jPhWHXq
+	XnP57QGvpNlPpAkPGmdcdHPNwFcDX/ObKCrL6ElleBVzwxsO7T+pWNU0otqHVMeb2mXgJZ6Q+Er
+	pNqqXJX8bL2OSsr3EtcDEEksAKjuEYcJCUQ==
+X-Received: by 2002:a05:651c:120f:b0:2b6:e958:5700 with SMTP id i15-20020a05651c120f00b002b6e9585700mr9841511lja.4.1695116640774;
+        Tue, 19 Sep 2023 02:44:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IECDIbtWtvCO2ftih+O6eK9cTVxACQ5N6zMyqyehUAPmujMz2cmjb73vi4qTijKlbF52Hqz4Q==
+X-Received: by 2002:a05:651c:120f:b0:2b6:e958:5700 with SMTP id i15-20020a05651c120f00b002b6e9585700mr9841496lja.4.1695116640436;
+        Tue, 19 Sep 2023 02:44:00 -0700 (PDT)
+Date: Tue, 19 Sep 2023 05:43:56 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtualization@lists.linux-foundation.org,
+	virtio-comment@lists.oasis-open.org, anton.yakovlev@opensynergy.com,
+	stefanha@redhat.com, jasowang@redhat.com
+Message-ID: <20230919054054-mutt-send-email-mst@kernel.org>
+References: <ZQHPeD0fds9sYzHO@pc-79.home>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.15.1
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
- stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
- virtio-dev@lists.oasis-open.org
-References: <20230906081637.32185-1-lingshan.zhu@intel.com>
- <20230906081637.32185-4-lingshan.zhu@intel.com>
- <20230914072857-mutt-send-email-mst@kernel.org>
- <313a60c5-34ac-ca77-b7e1-7cb7eaf11340@intel.com>
- <20230915071111-mutt-send-email-mst@kernel.org>
- <547e4395-4244-290d-9d6e-1de02d1e7e71@intel.com>
- <20230918132852-mutt-send-email-mst@kernel.org>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20230918132852-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH 3/5] virtqueue: constraints for
- virtqueue state
+In-Reply-To: <ZQHPeD0fds9sYzHO@pc-79.home>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: virtio-sound linux driver conformance to spec
 
+On Wed, Sep 13, 2023 at 05:04:24PM +0200, Matias Ezequiel Vara Larsen wrote:
+> Hello,
+> 
+> This email is to report a behavior of the Linux virtio-sound driver that
+> looks like it is not conforming to the VirtIO specification. The kernel
+> driver is moving buffers from the used ring to the available ring
+> without knowing if the content has been updated from the user. If the
+> device picks up buffers from the available ring just after it is
+> notified, it happens that the content is old.
 
+Then, what happens, exactly? Do things still work?
 
-On 9/19/2023 1:30 AM, Michael S. Tsirkin wrote:
-> On Mon, Sep 18, 2023 at 11:02:18AM +0800, Zhu, Lingshan wrote:
->>
->> On 9/15/2023 7:16 PM, Michael S. Tsirkin wrote:
->>> On Fri, Sep 15, 2023 at 10:59:29AM +0800, Zhu, Lingshan wrote:
->>>> On 9/14/2023 7:30 PM, Michael S. Tsirkin wrote:
->>>>> On Wed, Sep 06, 2023 at 04:16:35PM +0800, Zhu Lingshan wrote:
->>>>>> This commit specifies the constraints of the virtqueue state,
->>>>>> and the actions should be taken by the device when SUSPEND
->>>>>> and DRIVER_OK is set
->>>>>>
->>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>> Signed-off-by: Jason Wang <jasowang@redhat.com>
->>>>>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
->>>>>> ---
->>>>>>     content.tex | 19 +++++++++++++++++++
->>>>>>     1 file changed, 19 insertions(+)
->>>>>>
->>>>>> diff --git a/content.tex b/content.tex
->>>>>> index 0fab537..9d727ce 100644
->>>>>> --- a/content.tex
->>>>>> +++ b/content.tex
->>>>>> @@ -594,6 +594,25 @@ \subsection{\field{Used State} Field}
->>>>>>     When VIRTIO_RING_F_PACKED is not negotiated, the 16-bit value of \field{used_idx}
->>>>>>     is always 0
->>>>>> +\drivernormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio Device / Virtqueue State}
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated but VIRTIO_RING_F_PACKED not been negotiated,
->>>>>> +the driver SHOULD NOT access \field{Used State} of any virtqueues, it SHOULD use the
->>>>>> +used index in the used ring.
->>>>>> +
->>>>>> +\devicenormative{\subsection}{Virtqueue State}{Basic Facilities of a Virtio Device / Virtqueue State}
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE has been negotiated, the device SHOULD only accept setting
->>>>>> +Virtqueue State of any virtqueues when DRIVER_OK is not set in \field{device status},
->>>>>> +or both of DRIVER_OK and SUSPEND are set in \field{device status}.
->>>>>> +Otherwise the device MUST ignore any writes to Virtqueue State of any virtqueues.
->>>>>> +
->>>>>> +If VIRTIO_F_QUEUE_STATE have been negotiated, when SUSPEND is set,
->>>>>> +the device MUST record the Virtqueue State of every enabled virtqueue
->>>>>> +in \field{Available State} and \field{Used State} respectively,
->>>>> record how?
->>>> This is transport specific, for PCI they are recorded in the common config
->>>> space,
->>>> two new fields of them are introduced in patch 5.
->>> that is not enough space to record state for every enabled vq.
->> They can work with queue_select like many other vq configurations.
-> queue select is under driver control.
-queue_select works for other fields like queue_size which is also RW.
-
-It looks no difference between queue_size and vq_state.
->
->
->> I will mention this in the comment.
->>>>>> +and correspondingly restore the Virtqueue State of every enabled virtqueue
->>>>>> +from \field{Available State} and \field{Used State} when DRIVER_OK is set.
->>>>> when is that?
->>>> When the DRIVER sets DRIVER_OK and done before the device presents
->>>> DRIVER_OK.
->>> I don't really understand the flow here. does SUSPEND clear DRIVER_OK
->>> then?
->> SUSPEND does not clear DRIVER, I think this is not a must.
-> then I don't get what does "when DRIVER_OK is set" mean - it stays
-> set all the time.
-That means the driver sets DRIVER_OK.
-
-I am not a native speaker, but This wording can be found throughout the 
-spec, e.g.:
-
-2.1.2 Device Requirements: Device Status Field
-
-If DRIVER_OK is set, after it sets DEVICE_NEEDS_RESET, the device MUST 
-send a device configuration
-change notification to the driver.
->
->
->>>
->>>>>> +
->>>>>>     \input{admin.tex}
->>>>>>     \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
->>>>>> -- 
->>>>>> 2.35.3
->>> This publicly archived list offers a means to provide input to the
->>> OASIS Virtual I/O Device (VIRTIO) TC.
->>>
->>> In order to verify user consent to the Feedback License terms and
->>> to minimize spam in the list archive, subscription is required
->>> before posting.
->>>
->>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->>> List help: virtio-comment-help@lists.oasis-open.org
->>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
->>> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
->>> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
->>> Committee: https://www.oasis-open.org/committees/virtio/
->>> Join OASIS: https://www.oasis-open.org/join/
->>>
+> This problem can be fixed
+> by waiting a period of time after the device dequeues a buffer from the
+> available ring. The driver should not be allowed to change the content
+> of a buffer in the available ring. When buffers are enqueued in the
+> available ring, the device can consume them immediately.
+> 
+> 1. Is the actual driver implementation following the spec?  
+> 2. Shall the spec be extended to support such a use-case?
+> 
+> Thanks, Matias
 
 
 This publicly archived list offers a means to provide input to the
