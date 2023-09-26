@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7554-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7555-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0D9DE7E626
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 11:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74ADCE7E62F
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 12:32:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 31862190909
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 11:58:01 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id AD57A216AB
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 12:32:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 18BF19863F0
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 11:58:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A11D698640B
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 12:32:40 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0581E98639D; Tue, 26 Sep 2023 11:58:01 +0000 (UTC)
+	id 89C369863A6; Tue, 26 Sep 2023 12:32:40 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,121 +24,271 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E939E9863A6
-	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Sep 2023 11:58:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7670798639D
+	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Sep 2023 12:32:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: NHiYrNYkNaarn_dz4pLMHQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695729477; x=1696334277;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LDUQkJqKg7a5pju4oZMwjxktm9UZqgOLon6vQViMVus=;
-        b=Wphn+rSXeuAmEBPpSJzn4GfdpUM8kJIhMzEFFjhdBfzaxrRy+nfbXP1I3dp28OqPnO
-         jEVMUr+JlAcNfHEKsUtp1lhXN6AmwjTlnIMjHXHh/Z0MMIXzHl59LHP0Y1YRL7fKJP37
-         GRBkm4YwHXHDZcDX0A5uyE6EUD1R7MfJiN+7QYNHmxzff6XMpBhLc/9O94QYGJKCFfpq
-         e2tKWT31N7s8jQ4QrYfJl/E4bdzXHGlEkq+SIZfOKL3sUl5nYhx9QNENqQ7o33yXG9xE
-         DJYpz0bi1zdavZdtmWj93Y9y7k6SjkX0ciEKoMrMthiiSzzEMZReDYCalQ9pysbC2Aby
-         gcNg==
-X-Gm-Message-State: AOJu0YxIvUhCIQ899X+Ok7xIzP5Nw6h7Sy9QJ9fvBzGATY+ZJU+VtTNC
-	GHdcYy3lQJK/2rUuHJcTI0bppdqKgkapa8E7sG8aPdWvbxveIi4feiQMZQz+cGyjdARFG0JYx6y
-	LNP3OucE7FuaaXNG8iL5vgsDeTwHc7Oj/5Q==
-X-Received: by 2002:a05:6000:1819:b0:31f:db58:993e with SMTP id m25-20020a056000181900b0031fdb58993emr8650909wrh.66.1695729476972;
-        Tue, 26 Sep 2023 04:57:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGqUu5eJTqHbuMDPnmmu6KVVJT0sBWxlgD7fJH5FsjF8TPqDhT5qOa8OpOO9UR50WMQw5yd9Q==
-X-Received: by 2002:a05:6000:1819:b0:31f:db58:993e with SMTP id m25-20020a056000181900b0031fdb58993emr8650871wrh.66.1695729476535;
-        Tue, 26 Sep 2023 04:57:56 -0700 (PDT)
-Date: Tue, 26 Sep 2023 07:57:51 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>, Jason Wang <jasowang@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	David Airlie <airlied@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@gmail.com>,
-	Robert Beckett <bob.beckett@collabora.com>,
-	Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
-	"Koenig, Christian" <Christian.Koenig@amd.com>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	"Zhang, Julia" <Julia.Zhang@amd.com>,
-	"Huang, Ray" <Ray.Huang@amd.com>
-Message-ID: <20230926075503-mutt-send-email-mst@kernel.org>
-References: <20230919114242.2283646-2-Jiqian.Chen@amd.com>
- <CACGkMEuEXk2UzXU7sFUk-nHEeE7QoB3kbjnHgktY7KWuK71Xrg@mail.gmail.com>
- <BL1PR12MB58490A484087B2B2C37B6E43E7F8A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <CACGkMEtx-i_9dgdONFzEmmWYNRhaoJQZX7a5OmLfDvGoUaajPQ@mail.gmail.com>
- <BL1PR12MB5849E38DE89D80B8A4CB7128E7FFA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <CACGkMEv0d3frw9KJcC3qDs0p8ZeWg6dowNEHcAHsgaOTm4CAAQ@mail.gmail.com>
- <BL1PR12MB5849B427B23D1ED269808463E7C3A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <CACGkMEtuRwAig_AbMA1YFa9YVw2aBQJDhZ06ZiD_QugthPDROQ@mail.gmail.com>
- <BL1PR12MB584991A9503502EDCB6B9D0BE7C3A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <PH0PR12MB5481E765DA98E7AD3D1BED15DCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+        d=1e100.net; s=20230601; t=1695731556; x=1696336356;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mkD6wrBG9QFokO0ZT5IfY2cfhyB6ZWcZNUzJaCP87oQ=;
+        b=gMOA4gLxess8kM4TEsIjUZqBrbA6lEe5c/BYOdkMAV+ijar6WYomkl/3oGWWg6GBnU
+         vousP0UqCl/zo2lLEU/G3rsvHBs3hmmLxWBsZQVnT2kYQFir8jnvg3daL6+fmaqt4hcM
+         X+wAaOhyIESWrduRPy3t0Au3FgU/lzb4tYXWMATbHHWGV9uAfx+4bihoR4DuGNYj7R+Z
+         5uGJpo44PA5owMKxLhiZi+FvPyzNBAJWJqzBegzxhop0chO5G/L/hGK2ht32fhG9HtJX
+         5TY8nEAhHC8lqxaqGsWZSRy0jlnc79SeTF58TM5+mLQe1jaLUSAvQw+VY/ryOZVMMKAg
+         w8GQ==
+X-Gm-Message-State: AOJu0YyqjVc5NQHFSf7A5I/c0xo1voJWK8FQp0LsYBf5robVtMOZCAZg
+	yWRz5zc0gGBuuPh80mtWxlxJruJt8gbVjkkZNEaEXA==
+X-Google-Smtp-Source: AGHT+IGVKKoWHfUTDYuSUsnXv+MHM8/gRRYZ+xYL8LMdUCMaME/BD/KiTC8A/tz4NJsSpyoz1485K+ylVAnQTXFTPSA=
+X-Received: by 2002:a05:6102:10c:b0:452:9988:5cb8 with SMTP id
+ z12-20020a056102010c00b0045299885cb8mr5810096vsq.13.1695731555998; Tue, 26
+ Sep 2023 05:32:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481E765DA98E7AD3D1BED15DCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio-dev] Re: [VIRTIO PCI PATCH v5 1/1] transport-pci: Add
- freeze_mode to virtio_pci_common_cfg
+References: <80a2e4337affb043909c348395fb45aeeb693dc7.1695640593.git.JESHWANTHKUMAR.NK@amd.com>
+ <904049f9-3ddf-7e88-c6f3-785a29a08210@linaro.org> <CAHUa44GzHPkntr=sFYYzokW0=9CCN7n6Ch1i6J7L7Uhh5U5P3A@mail.gmail.com>
+ <CAFA6WYOsPhFkyrG0P7B6Ec=AnDvoUaerLocM89KtmybLmKbsaw@mail.gmail.com>
+ <b15e849c-f424-1afb-4b99-ae2df954a044@amd.com> <CAFA6WYNMJ_njp95+AUu-p6H2wat+GCxntNX+WddKpufM4AVVYw@mail.gmail.com>
+ <70848d35-6288-24d4-e4dc-01ca7e4e180a@amd.com>
+In-Reply-To: <70848d35-6288-24d4-e4dc-01ca7e4e180a@amd.com>
+From: Sumit Garg <sumit.garg@linaro.org>
+Date: Tue, 26 Sep 2023 18:02:24 +0530
+Message-ID: <CAFA6WYNPRzaa=5HDpqN191KN8bQv1nCF6gXo4RPSG0SZ55WOVA@mail.gmail.com>
+To: Rijo Thomas <Rijo-john.Thomas@amd.com>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>, jeshwanthkumar.nk@amd.com, 
+	Devaraj.Rangasamy@amd.com, Mythri.Pandeshwarakrishna@amd.com, 
+	Nimesh.Easow@amd.com, babulu.ellune@amd.com, virtio-dev@lists.oasis-open.org, 
+	virtio-comment@lists.oasis-open.org, Arnd Bergmann <arnd.bergmann@linaro.org>, 
+	=?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+	OP-TEE TrustedFirmware <op-tee@lists.trustedfirmware.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v2] virtio-tee: Reserve device ID 46 for TEE device
 
-On Tue, Sep 26, 2023 at 11:37:37AM +0000, Parav Pandit wrote:
-> Hi Jiqian,
-> 
-> > From: Chen, Jiqian <Jiqian.Chen@amd.com>
-> > Sent: Tuesday, September 26, 2023 4:30 PM
-> 
-> > It is not to trigger resume behavior to device by setting unfreeze in my scenario.
-> > You may misunderstand my intention.
-> > In current kernel and qemu code, it will trigger reset device behavior by setting
-> > device_status to 0 during resuming, and I found some operations of reset is not
-> > reasonable during resuming, like virtio_gpu_reset, it will destroy render
-> > resources and then caused the display gone after guest finishing reusming.
-> 
-> When suspend is done, resume must not be done.
-> I don’t see a need to mix these operations from guest specially when suspend is done.
-> 
-> Did I miss your response for my suggestion few days ago in [1] for not mixing reset with suspend?
-> 
-> When new feature bit of suspend is offered, guest will _not_ do reset, hence no need to mix reset with suspend.
-> 
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202309/msg00260.html
++cc OP-TEE ML
 
-I frankly don't understand what you proposed there.
+On Tue, 26 Sept 2023 at 13:47, Rijo Thomas <Rijo-john.Thomas@amd.com> wrote=
+:
+>
+> On 9/26/2023 1:19 PM, Sumit Garg wrote:
+> > On Tue, 26 Sept 2023 at 12:53, Rijo Thomas <Rijo-john.Thomas@amd.com> w=
+rote:
+> >>
+> >> On 9/26/2023 12:14 PM, Sumit Garg wrote:
+> >>> +cc Alex
+> >>>
+> >>> On Tue, 26 Sept 2023 at 08:16, Jens Wiklander <jens.wiklander@linaro.=
+org> wrote:
+> >>>>
+> >>>> Hi,
+> >>>>
+> >>>> [+cc Arnd]
+> >>>>
+> >>>> On Tue, Sep 26, 2023 at 8:00=E2=80=AFAM Sumit Garg <sumit.garg@linar=
+o.org> wrote:
+> >>>>>
+> >>>>> +cc Jens
+> >>>>>
+> >>>>>> In a virtual environment, an application running in guest VM may w=
+ant
+> >>>>>> to delegate security sensitive tasks to a Trusted Application (TA)
+> >>>>>> running within a Trusted Execution Environment (TEE). A TEE is a t=
+rusted
+> >>>>>> OS running in some secure environment, for example, TrustZone on A=
+RM
+> >>>>>> CPUs, or a separate secure co-processor etc.
+> >>>>>
+> >>>>> I have been exploring this area quite recently with an effort to ha=
+ve a common VIRIO interface which can support different trusted OS implemen=
+tations. I guess you intend to test it with AMD-TEE, right? Any plans to te=
+st it with OP-TEE? As currently we have these two supported upstream.
+> >>>>>
+> >> Yes, we have tested with AMD-TEE. We have not yet tested with OP-TEE. =
+Sure, we will try it out.
+> >
+> > Glad to hear that. I can help get it tested with OP-TEE as well.
+> >
+>
+> We will test it out internally. Shall let you know in case we need help.
+>
+> >>
+> >>>>> Do you currently have any virtio frontend/backend implementations f=
+or this?
+> >>>>>
+> >>
+> >> Yes, we have. Frontend is a Linux virtio-TEE driver, and backend is vi=
+rtio-TEE device emulated in QEMU.
+> >> We used the Xen hypervisor.
+> >
+> > Can you share corresponding references? I can give it a try using Qemu =
+with KVM.
+> >
+>
+> We will share it in next couple of weeks. We have not yet hosted the code=
+ for external consumption.
+>
+> >>
+> >>>>>>
+> >>>>>> A virtual TEE device emulates a TEE within a guest VM. Such a virt=
+ual
+> >>>>>> TEE device supports multiple operations such as:
+> >>>>>>
+> >>>>>> VIRTIO_TEE_CMD_OPEN_DEVICE =E2=80=93 Open a communication channel =
+with virtio
+> >>>>>>                              TEE device.
+> >>>>>> VIRTIO_TEE_CMD_CLOSE_DEVICE =E2=80=93 Close communication channel =
+with virtio
+> >>>>>>                               TEE device.
+> >>>>>> VIRTIO_TEE_CMD_GET_VERSION =E2=80=93 Get version of virtio TEE.
+> >>>>>> VIRTIO_TEE_CMD_OPEN_SESSION =E2=80=93 Open a session to communicat=
+e with
+> >>>>>>                               trusted application running in TEE.
+> >>>>>> VIRTIO_TEE_CMD_CLOSE_SESSION =E2=80=93 Close a session to end comm=
+unication
+> >>>>>>                                with trusted application running in=
+ TEE.
+> >>>>>> VIRTIO_TEE_CMD_INVOKE_FUNC =E2=80=93 Invoke a command or function =
+in trusted
+> >>>>>>                              application running in TEE.
+> >>>>>> VIRTIO_TEE_CMD_CANCEL_REQ =E2=80=93 Cancel an ongoing command with=
+in TEE.
+> >>>>>>
+> >>>>>
+> >>>>> How about shared memory support? We would like to register guest pa=
+ges with the trusted OS.
+> >> We have a command VIRTIO_TEE_CMD_REGISTER_MEM for registering shared m=
+emory buffer with Trusted OS.
+> >
+> > I suppose the commit message has to be appended then. Do you have the
+> > draft virtio-tee device specification ready for review? I would be
+> > interested to review that.
+> >
+>
+> Yes, the command is missed out in the commit message.
 
-reset is a simple operation, it just erases all virtio
-state from the device. It is very commonly is performed at
-OS/driver startup. Making it not reset some virtio state
-is a bad idea since suddenly you kexec a guest
-that attempts a reset and device is stuck in some weird state.
+With the commit message updated to include support for shared memory,
+feel free to add:
 
--- 
-MST
+Acked-by: Sumit Garg <sumit.garg@linaro.org>
 
+>
+> We are in the process of preparing virtio-tee device specification. We wi=
+ll be sending it out to this
+> list.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+I would also suggest you to CC: op-tee@lists.trustedfirmware.org for review=
+.
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+>
+> >>
+> >> In this command, the guest pages are copied into a shadow buffer in th=
+e host OS. And this shadow
+> >> buffer is mapped with Trusted OS. So, buffer-copy is involved.
+> >>
+> >> One limitation, that we had was that the guest pages were non-contiguo=
+us. So, the number of physical
+> >> pages that had to be mapped with Trusted OS was exceeding 64 entries w=
+hen we were testing out the
+> >> registering of guest pages. AMD-TEE Trusted OS can map a physically no=
+n-contiguous buffer, but the
+> >> number of sg entries for such a buffer must be less than 64. So, we re=
+sorted to using a shadow buffer
+> >> that is allocated within host, and gets mapped with Trusted OS.
+> >
+> > I don't think OP-TEE OS has such a limitation on non-contiguous pages.
+> > So I would suggest you to keep VIRTIO_TEE_CMD_REGISTER_MEM as part of
+> > the ABI. It can be an optional feature for a particular trusted OS
+> > implementation to support.
+> >
+>
+> Currently, the reg_mem (register memory) control is dictated by a flag in=
+ virtio-tee qemu code. This flag
+> for our testing was hard-coded as false. We will enhance our code, so tha=
+t it is configurable. The value
+> of reg_mem shall be set to true/false depending upon whether the underlyi=
+ng TEE driver reports TEE_GEN_CAP_REG_MEM.
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+Sounds good to me.
+
+-Sumit
+
+>
+> Thanks,
+> Rijo
+>
+> > -Sumit
+> >
+> >>
+> >> Thanks,
+> >> Rijo
+> >>
+> >>>>
+> >>>> Coincidently Arnd and I (among others) discussed this in person last
+> >>>> week and the conclusion was that only temporary shared memory is
+> >>>> possible with virtio. So the shared memory has to be set up and torn
+> >>>> down by the host during each operation, typically open-session or
+> >>>> invoke-func.
+> >>>
+> >>> Agree as I was part of those discussions. But I would like to
+> >>> understand the reasoning behind it. Is there any restriction by VIRTI=
+O
+> >>> specification that we can't register guest page PAs to a device (TEE
+> >>> in our case) to allow for zero copy transfers?
+> >>>
+> >>> Alex mentioned some references to virtio GPU device. I suppose I need
+> >>> to dive into its implementation to see if there are any similarities
+> >>> to our use-case.
+> >>>
+> >>>> That might not be optimal if trying to maximize
+> >>>> performance, but it is portable.
+> >>>
+> >>> IMO, the ABI should be flexible enough to support a TEE with optimum
+> >>> performance.
+> >>>
+> >>> -Sumit
+> >>>
+> >>>>
+> >>>> Cheers,
+> >>>> Jens
+> >>>>
+> >>>>>
+> >>>>> -Sumit
+> >>>>>
+> >>>>>> We would like to reserve device ID 46 for Virtio-TEE device.
+> >>>>>>
+> >>>>>> Signed-off-by: Jeshwanth Kumar <jeshwanthkumar.nk@amd.com>
+> >>>>>> ---
+> >>>>>>  content.tex | 2 ++
+> >>>>>>  1 file changed, 2 insertions(+)
+> >>>>>>
+> >>>>>> diff --git a/content.tex b/content.tex
+> >>>>>> index 0a62dce..644aa4a 100644
+> >>>>>> --- a/content.tex
+> >>>>>> +++ b/content.tex
+> >>>>>> @@ -739,6 +739,8 @@ \chapter{Device Types}\label{sec:Device Types}
+> >>>>>>  \hline
+> >>>>>>  45         &   SPI master \\
+> >>>>>>  \hline
+> >>>>>> +46         &   TEE device \\
+> >>>>>> +\hline
+> >>>>>> \end{tabular}
+> >>>>>>
+> >>>>>>  Some of the devices above are unspecified by this document,
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
