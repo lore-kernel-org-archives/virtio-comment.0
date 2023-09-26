@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7538-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7539-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66540E81810
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 02:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3407E8181B
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 05:12:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2CEC842A63
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 02:51:21 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5843A2AFFD
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 05:12:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E1D9B986422
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 02:51:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3CB899863A6
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Sep 2023 05:12:34 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D1E2198639D; Tue, 26 Sep 2023 02:51:20 +0000 (UTC)
+	id 286DA983DE3; Tue, 26 Sep 2023 05:12:34 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,271 +24,183 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BEC969863A9
-	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Sep 2023 02:51:19 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 176E098639D;
+	Tue, 26 Sep 2023 05:12:34 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: sGKz_hASMMCDo9zzYGkePg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695696675; x=1696301475;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qnicI/mp2Br9l0f6bo39IqFYUc2gsVv1DLI2kf7BTb4=;
-        b=aTREnJdhM4Wk+XwIFQOsXoSluHBD4s6FKUkLLCwKX/18zV1GLwXim8ZsozylykXZlX
-         lxS9l6P/+zFMh2oYV8kotjBhefkcXWEsbgaEQfonqbOQE4BZlhesM0vvbv03mN/F2lKQ
-         C5pnj71tM5fmgKZbWIO72XAIpNam4tz+xUhatAX2HjE5v6Ypml9nwt5ak6NJX6WZz/3L
-         tfPAGAWfil6mphC8Z6e1Xt9HsRxLzBd2Us/TGUoq6GDkK7Htzw1JbJB5vUZseTC9KVgh
-         cABy+laRL8JcgHgD1xtmg+/ylwgNSwg0Wb/meaR21NPaifvaQ+OZW2WCKiD3TkM6FO3N
-         gThA==
-X-Gm-Message-State: AOJu0Yzt7R4wmsUjbYwpgy/UUmq0XiePR4JzA2KRMCeRhF9FVTgqa5Au
-	mOsnGtMLNECXhGGgqC6ENGrLZ+ld11RfsbLM3PFi2gkMoRxixGkImHm4DHAVWkOaWSfrAgOWlXI
-	TLpY+E6qvBBx6KdBFfkrH/A5RkhxUSAww7vdjRF0tE3a6YUDirg==
-X-Received: by 2002:ac2:5e3a:0:b0:503:446:c7b0 with SMTP id o26-20020ac25e3a000000b005030446c7b0mr6077161lfg.32.1695696675095;
-        Mon, 25 Sep 2023 19:51:15 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFAniTdQCTtK9WVCBdAHRvmAcKbBtEYMrfXxX8Mhfpy5mZWP4rJLchVLAhV+nGto1BdWCbHNvUvN8mrqPY38Ns=
-X-Received: by 2002:ac2:5e3a:0:b0:503:446:c7b0 with SMTP id
- o26-20020ac25e3a000000b005030446c7b0mr6077144lfg.32.1695696674715; Mon, 25
- Sep 2023 19:51:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=a6gpv5Ks7xCTt+/x2VYo+OURFTRxDp5KaReTEzTDwHfLwnhGz/6/BugHN4YZ8GrsP9BAsr77OyljRmNq5aP824ByN/+AMGrK7wmkAqeUa2LfB/17avDLws4+dMnvzyXEpuoUHY6Ze5IY/dKZyxZm+dvZHm+/9aShmwU6NsU5OxEjrw+w9SUwueDxu6KIbGXHvwU+d+33QCU9OLhpn7BU8Xk4ZBGfXdcgNedLxBdvsLlb9+43A1Qg+xFkBFvmIXIYDliyE7Y+zhvK1jJk+dZmL1F6kEEzcAZBUpZQueSx9GU/8R4TrbrzR97Orpc1jrB+FU6FBwecI7KYl0aIUx2btg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=85bvMqKZw+963bL9qdggjv7kPEELj8atl3uT/HwRKbI=;
+ b=eapvw8lEb0GQuk9BNkp0DjwtZ9Xud2SZ2vqfBnjwcXSSrksNtNB6HWWr0akrrgksKwLTAYX4OlXP5Z8rG80GvosWxWa+HlbVsSmviKh9NUhp2SHukWhg5zFXyKVHP9u6LypA7PcY/ptjt15Xq3hB6Zbc4ymXG3gAF07o0TRsIF8AyJyyZXXOKJHTiqrRqMLtOL1Uh9ixs75aLGrQDjSPJNrd3kKWay0Ru/EOgBkjOFfii5t2x9E9fdTIg51PIIR3lRMnzrmoM7JzS0URLPblhrsS1GN46TTAy2Jp+MHPzsqIQz2NeIR8IwRMx9Nx/yngoPm1qrA1MMTGzbWoZYjxjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <202c1c9c-661a-43b6-9017-279d68fe2205@amd.com>
+Date: Tue, 26 Sep 2023 10:42:18 +0530
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>,
+ "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+ virtio-comment@lists.oasis-open.org
+Cc: "Mythri.Pandeshwarakrishna@amd.com" <Mythri.Pandeshwarakrishna@amd.com>,
+ "Devaraj.Rangasamy@amd.com" <Devaraj.Rangasamy@amd.com>,
+ "Rijo-john.Thomas@amd.com" <Rijo-john.Thomas@amd.com>,
+ "Nimesh.Easow@amd.com" <Nimesh.Easow@amd.com>,
+ "babulu.ellune@amd.com" <babulu.ellune@amd.com>
+References: <80a2e4337affb043909c348395fb45aeeb693dc7.1695640593.git.JESHWANTHKUMAR.NK@amd.com>
+ <PH0PR12MB54813F8968ABA023D551E05FDCFCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "NK, JESHWANTHKUMAR" <jeshwanthkumar.nk@amd.com>
+In-Reply-To: <PH0PR12MB54813F8968ABA023D551E05FDCFCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0035.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:22::10) To MW3PR12MB4571.namprd12.prod.outlook.com
+ (2603:10b6:303:5c::13)
 MIME-Version: 1.0
-References: <20230919114242.2283646-1-Jiqian.Chen@amd.com> <20230919114242.2283646-2-Jiqian.Chen@amd.com>
- <CACGkMEuEXk2UzXU7sFUk-nHEeE7QoB3kbjnHgktY7KWuK71Xrg@mail.gmail.com>
- <BL1PR12MB58490A484087B2B2C37B6E43E7F8A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <CACGkMEtx-i_9dgdONFzEmmWYNRhaoJQZX7a5OmLfDvGoUaajPQ@mail.gmail.com>
- <BL1PR12MB5849E38DE89D80B8A4CB7128E7FFA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <CACGkMEv0d3frw9KJcC3qDs0p8ZeWg6dowNEHcAHsgaOTm4CAAQ@mail.gmail.com> <BL1PR12MB5849B427B23D1ED269808463E7C3A@BL1PR12MB5849.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5849B427B23D1ED269808463E7C3A@BL1PR12MB5849.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 26 Sep 2023 10:51:03 +0800
-Message-ID: <CACGkMEtuRwAig_AbMA1YFa9YVw2aBQJDhZ06ZiD_QugthPDROQ@mail.gmail.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, David Airlie <airlied@redhat.com>, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, 
-	=?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>, 
-	Robert Beckett <bob.beckett@collabora.com>, 
-	Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>, Parav Pandit <parav@nvidia.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, Xenia Ragiadakou <burzalodowa@gmail.com>, 
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>, 
-	"Huang, Ray" <Ray.Huang@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [virtio-dev] Re: [VIRTIO PCI PATCH v5 1/1] transport-pci: Add
- freeze_mode to virtio_pci_common_cfg
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4571:EE_|DM4PR12MB6134:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fdbbb51-e876-4ddd-d5b7-08dbbe4f2f66
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	1BOX/cQHbO+hRxC5cmfJzIZnO4PKImeZGteYRFFWUQI1zWFoPnFtnk8gw59Nxe7WN1UjNt6sFXNmS0ef2ddDReKwFXWIsvwGVmbzTrXVoAf2Cqz86eWR8Gf+jmyQiPg9ixrH/GzVP/a6a4OzAknbOHzcBB4dI5kvTj045P8gqF7c3oE/eed0rsOxawmJklmYXfTGxuo862S3eQOItKzHcZn2U7wAq3hRJI4OOmRPCU+WMie1VcGzSSpMDLQUvM5vNVdnUy/tsw8T/ndKzyV50NXlulNm377Jxc0LP1L3cxXpq2zgr7OCFNdrtZyc+9Wz3lzbLsg3CJVIs0Vjon48+NaASoDP2jbniCMZbKz12+kDMD1CYE7AB+vTV0PUTpmCr6jLkWo9yiRI33uAKRfY0v09q4hEf1b2EZKT9ZisFYgOkyh7ECqjcAEjzx08XCJPeq3pR/bDN6L5yeoA2C+NPEmeeegqBZn7U2iFUGi9GcH6IsQK+KRxZmyu29QCSqFOrhbu6CmqQ0JXhQ5s117JzPiV8svj+NbzJnKbeSvYIfKVIQdDX1Ep+MB+ryBJi/+ZUhi7e6K5pCmZDkbKuDTAU8wMhatvNR6WDYqlwxiPDvymE9nh9e0ma1OE+wGRzRFftF335Ow6VtrQ0rkxH1KeRA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4571.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(39860400002)(396003)(346002)(136003)(230922051799003)(451199024)(1800799009)(186009)(110136005)(5660300002)(316002)(54906003)(66556008)(66946007)(2616005)(8936002)(4326008)(8676002)(41300700001)(66476007)(2906002)(26005)(6506007)(6512007)(53546011)(6666004)(31686004)(38100700002)(6486002)(478600001)(86362001)(66899024)(83380400001)(31696002)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U3kzN2tvNmZmeDJKUkNSRGxaUVY2N0lzcUxBUitRVFN2MDNaZS9CL1VZOW1Z?=
+ =?utf-8?B?UExodUw5WWpGSVE4MUF4S2YrMXMwVmkwOVd2OEpFSVRVVDJuZXYrRCtLWHZD?=
+ =?utf-8?B?T2hHak82NHFXRjA2Mm45YmI4UWdWVUZCd3h2SlI2eWRET3BIMFh3ZlY0S1E2?=
+ =?utf-8?B?bXJUSEZkUGFFZktDM1BPWW8vNmhLUXBmYzVKOWRvRTRLZWFSeXZsQUVhWk5w?=
+ =?utf-8?B?MDZ4V1RqWHZjQ3EzaHFLWi8vd1A3ZWhyaG9RVElISlNDZ3k2bDYyM1h6YVc4?=
+ =?utf-8?B?WmtIcHFYRjJVeS9TSWxVa2dLYy96NnlaQlc3eXFjR2s0YnpXMnJEdmF4ZmNo?=
+ =?utf-8?B?M3JlbW1rSVhYbWdRQlh3NkN5WU81dVVmY1hYbHpGaVJFS3NzOXFUblk1cGZi?=
+ =?utf-8?B?ZmtDcVlySlB3bktSR091TzJoWWpaNjJnSWNEeFJuOGJPZ2gwRWVYaVNuWnJr?=
+ =?utf-8?B?b3c1Z3prRXBlQ1VGcnFrMkxldEtqaHpIaitGSERjMCswSDhsNGVQSUxscEov?=
+ =?utf-8?B?Tm5VdnJBS2ZFc0dKVUtQUlU0WUtrcVg2bzhadi9SRE9IUFNaTHlRaTJ1eEda?=
+ =?utf-8?B?MDlSMFp6OUV1amFvS0kwQ09LRHMvaWhadVIrMS9rempySlEva0JDalQrUG91?=
+ =?utf-8?B?S04rWHNDbjlFQm1CZE9MRStWUGkxaW1ycmNWd2M4MWNHRTYvSHd5WmJyWFZD?=
+ =?utf-8?B?aEVhVTlLa29ZYVZDeHdKR0M4YVFWcVFTZjdINnY5MFRnVVJkVWtrNm9JRWMx?=
+ =?utf-8?B?QXhaNTFNTjE5K1FYREFSUzRGZUxaL2JrZVExcGd1RHB2blZUMTVwbUk5Tyty?=
+ =?utf-8?B?WmdrRGp1Wm5kSjVUbXU2NmxtYmR4OG1IR3NSYTYvalBHaUphUVkvMmJ2dkVB?=
+ =?utf-8?B?a0daSXU0VGgrNlE1QUR5R1pFeVlNdXZSWGExenM4RDUrNEwzRWVpNUdSQThO?=
+ =?utf-8?B?alNrNVhFQnhNOXFlZ09lZHZrOGFDSnJCckpVWURQRy9WMlpXc20vTUhrMDB4?=
+ =?utf-8?B?Sy84T2lXQzFySVJlcjhlM1RFLzB3NGRKbDRRV0VJK3pGWDNRa2xTZU4zK25Q?=
+ =?utf-8?B?V1pJRXNiOUZUMUNGcnFiREdQbThDUmRLb3RNWFMwU2NnMVJpakhWNG9BRGhK?=
+ =?utf-8?B?ZzRZV0NUOEpOVm8yRi9MTWVjMU1MTys5T2xSWmh1SGN4RjZaUUswS2JYTkpU?=
+ =?utf-8?B?WVEvNWk0OENIcHRLL3g5Z01JVTROSjBHd3h2TjVqS3p1UVNkYStnZUlhNUw3?=
+ =?utf-8?B?V290T2JsZFFUTEtvbkk0MVd0Q1R6am5Dd09LQjhTdjBFc0dlR3NWeE9Wc2JR?=
+ =?utf-8?B?TWdZd0N1UTRFYUlCQTBmUTJTWWkvZ3BodjVZNlNzR25TeHNub1R2TmU3Nlhv?=
+ =?utf-8?B?Vm44MmZYYVRQQUswcTU3Sm1DOXNVVXBPUG81UEp2d2syT3BWTkxNZ1N6QlNw?=
+ =?utf-8?B?Nm5tbk9vSUk5Q2MzSzR2cEJPNnkzM2VNMnJjZ096cGE1SnVQVWUxc0QzWjhq?=
+ =?utf-8?B?bU42UHdMSDhlU2gyZms2TVBTeCtRczhoY1MvUzF4U0xvTTVON0g2NDZTbVVC?=
+ =?utf-8?B?KzNzOGdpWE5BOFBOUUxwaFE5YlZkTm9LQ1BmY1Fjam85eGtzbGNseXVxOVVV?=
+ =?utf-8?B?dVRZZjBiSUtzaktvRWU0WGZxeUc4K2svNlVNdUY0MG8zSlhjQzh1VUQyMlRy?=
+ =?utf-8?B?dkdVeHhkQzhhQmx2WkZRaDRlMW9vTTQ4aTMvUXBaVUZxUTNvdGltYjR4bS8z?=
+ =?utf-8?B?YVZSazFqNU4xaDFNWjBoK3pvNUNPRlNrTE9nd1Y4ZldMc0FDcEdWZWpEcVhM?=
+ =?utf-8?B?SW9DZEdtQlZaWlJDVHBnd2dkOVN0alhpaUZpeVhkR1hJRXBrQlpvclRqejRS?=
+ =?utf-8?B?ZHR1bjlTYU9iM0tGclM4MklvWEVvaEVMNXY3UlNxU1RzakR2cUtjODhVL2Ja?=
+ =?utf-8?B?TDlFQlFlZDIyYTFHOEgvNlRZSDNLUEVtdXBXNlE0Nk1BMWRlbzRSaFRpYlkz?=
+ =?utf-8?B?blRzcWdZb0hlbXJuOTZOVWgycHE4bThpUFhMcG5wVTd1dGZ4dW1rZ1Z1aity?=
+ =?utf-8?B?VkRIeml0MVdHeVhBMk1vQTlMYnptNi9NMzczODhoRlFWSVVYSmQ0NldvQjl0?=
+ =?utf-8?Q?AD9i0+IIA2HfSFQzf2M5KdkMv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fdbbb51-e876-4ddd-d5b7-08dbbe4f2f66
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4571.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2023 05:12:31.0814
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1Bx7jxJYn7ZPieSbNY/fezoKjNUa+EXKfd+EB3OnG0W4mOSGKQaU0hfMPYtKXgQe67Lubu+yCjkB9EA4MPVTbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6134
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v2] virtio-tee: Reserve device ID 46 for TEE
+ device
 
-On Tue, Sep 26, 2023 at 10:24=E2=80=AFAM Chen, Jiqian <Jiqian.Chen@amd.com>=
- wrote:
+++virtio-comment@lists.oasis-open.org
+
+On 25-Sep-23 9:08 PM, Parav Pandit wrote:
 >
-> On 2023/9/25 10:52, Jason Wang wrote:
-> > On Fri, Sep 22, 2023 at 4:07=E2=80=AFPM Chen, Jiqian <Jiqian.Chen@amd.c=
-om> wrote:
-> >>
-> >> Hi Jason,
-> >>
-> >> On 2023/9/22 11:17, Jason Wang wrote:
-> >>> On Thu, Sep 21, 2023 at 2:28=E2=80=AFPM Chen, Jiqian <Jiqian.Chen@amd=
-.com> wrote:
-> >>>>
-> >>>> Hi Jason,
-> >>>>
-> >>>> On 2023/9/21 12:22, Jason Wang wrote:
-> >>>>> On Tue, Sep 19, 2023 at 7:43=E2=80=AFPM Jiqian Chen <Jiqian.Chen@am=
-d.com> wrote:
-> >>>>>>
-> >>>>>> When guest vm does S3, Qemu will reset and clear some things of vi=
-rtio
-> >>>>>> devices, but guest can't aware that, so that may cause some proble=
-ms.
-> >>>>>> For excample, Qemu calls virtio_reset->virtio_gpu_gl_reset when gu=
-est
-> >>>>>> resume, that function will destroy render resources of virtio-gpu.=
- As
-> >>>>>> a result, after guest resume, the display can't come back and we o=
-nly
-> >>>>>> saw a black screen. Due to guest can't re-create all the resources=
-, so
-> >>>>>> we need to let Qemu not to destroy them when S3.
-> >>>>>>
-> >>>>>> For above purpose, we need a mechanism that allows guests and QEMU=
- to
-> >>>>>> negotiate their reset behavior. So this patch add a new parameter
-> >>>>>> named freeze_mode to struct virtio_pci_common_cfg. And when guest
-> >>>>>> suspends, it can write freeze_mode to be FREEZE_S3, and then virti=
-o
-> >>>>>> devices can change their reset behavior on Qemu side according to
-> >>>>>> freeze_mode. What's more, freeze_mode can be used for all virtio
-> >>>>>> devices to affect the behavior of Qemu, not just virtio gpu device=
-.
-> >>>>>
-> >>>>> A simple question, why is this issue specific to pci?
-> >>>> I thought you possibly missed the previous version patches. At the b=
-eginning, I just wanted to add a new feature flag VIRTIO_GPU_F_FREEZE_S3 fo=
-r virtio-gpu since I encountered virtio-gpu issue during guest S3, so that =
-the guest and qemu can negotiate and change the reset behavior during S3. B=
-ut Parav and Mikhail hoped me can improve the feature to a pci level, then =
-other virtio devices can also benefit from it. Although I am not sure if ex=
-panding its influence is appropriate, I have not received any feedback from=
- others, so I change it to the pci level and made this version.
-> >>>> If you are interested, please see the previous version: https://list=
-s.oasis-open.org/archives/virtio-comment/202307/msg00209.html, thank you.
-> >>>
-> >>> This is not a good answer. Let me ask you differently, why don't you
-> >>> see it in other forms of transport like virtio-gpu-mmio?
-> >> Sorry for not understanding your question before. Did you mean why did=
- I add freeze_mode for virtio-pci type devices instead of virtio-mmio type =
-devices?
-> >
-> > Yes.
-> >
-> >> If that's the case, it isn't well thought out by me, because there is =
-only virtio-gpu with pci support in my environment, so I, as a matter of co=
-urse, improve it from virtio-gpu-pci to a virtio-pci level instead of virti=
-o-mmio.
-> >> Do you think I need to add freeze_mode for virtio-mmio too?
-> >
-> > Because the function you describe is to preserve the render resources
-> > which have nothing specific to PCI. It's a core virtio function.
-> >
-> > I'd suggest fixing it at the virtio level instead of PCI level.
-> Yes, you are right, I will change to describe it to the virtio level in n=
-ext version.
+>> From: virtio-dev@lists.oasis-open.org <virtio-dev@lists.oasis-open.org> On
+>> Behalf Of jeshwank
+>> Sent: Monday, September 25, 2023 4:47 PM
+>> To: virtio-dev@lists.oasis-open.org
+> I notice this repeated occurs error of choosing the mailing list as virtio-dev for spec work.
+> I will fix the OASIS document references.
 >
-> >
-> >> Or improve it to a higher level, like virtio-bus? I am looking forward=
- to getting your suggestions, thanks.
-> >
-> > As pointed out in other thread, reusing the existing status state
-> > machine is a perfect way for doing this.
-> >
-> > We can tweak the state machine to be able to do both migration and S3.
-> I noticed the other thread you said, it will add a SUSPEND status to into=
- device_status field, but it seems not enough to meet all scenarios, like w=
-e need to set the unfreeze state of guest,
-
-It's just a resume by clearing the suspend bit?
-
+> In the meant time, the mailing list should be virtio-comment@lists... For this patch.
 >
-
-> the S3 state of the guest, the S4 state of the guest etc.
-
-Hibernation is different from suspending, it probably requires
-setting/getting device states. And I don't get how this patch can help
-with hibernation.
-
-> So, one bit is not enough to indicate what status the guest is, since the=
- freeze mode is a series,
-
-We can tweak the existing status state machine, otherwise you need to
-explain the interaction between the two. For example what happens if
-we freeze after reset etc.
-
-And if you do that, it is actually a single state machine.
-
-Thanks
-
->I think add a new field to describe it is more reasonable.
 >
-> >
-> > Thanks
-> >
-> >>
-> >>>
-> >>> Thanks
-> >>>
-> >>>>
-> >>>>>
-> >>>>> Thanks
-> >>>>>
-> >>>>>
-> >>>>>>
-> >>>>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> >>>>>> ---
-> >>>>>>  transport-pci.tex | 7 +++++++
-> >>>>>>  1 file changed, 7 insertions(+)
-> >>>>>>
-> >>>>>> diff --git a/transport-pci.tex b/transport-pci.tex
-> >>>>>> index a5c6719..2543536 100644
-> >>>>>> --- a/transport-pci.tex
-> >>>>>> +++ b/transport-pci.tex
-> >>>>>> @@ -319,6 +319,7 @@ \subsubsection{Common configuration structure =
-layout}\label{sec:Virtio Transport
-> >>>>>>          le64 queue_desc;                /* read-write */
-> >>>>>>          le64 queue_driver;              /* read-write */
-> >>>>>>          le64 queue_device;              /* read-write */
-> >>>>>> +        le16 freeze_mode;               /* read-write */
-> >>>>>>          le16 queue_notif_config_data;   /* read-only for driver *=
-/
-> >>>>>>          le16 queue_reset;               /* read-write */
-> >>>>>>
-> >>>>>> @@ -393,6 +394,12 @@ \subsubsection{Common configuration structure=
- layout}\label{sec:Virtio Transport
-> >>>>>>  \item[\field{queue_device}]
-> >>>>>>          The driver writes the physical address of Device Area her=
-e.  See section \ref{sec:Basic Facilities of a Virtio Device / Virtqueues}.
-> >>>>>>
-> >>>>>> +\item[\field{freeze_mode}]
-> >>>>>> +        The driver writes this to set the freeze mode of virtio p=
-ci.
-> >>>>>> +        VIRTIO_PCI_FREEZE_MODE_UNFREEZE - virtio-pci is running;
-> >>>>>> +        VIRTIO_PCI_FREEZE_MODE_FREEZE_S3 - guest vm is doing S3, =
-and virtio-pci enters S3 suspension;
-> >>>>>> +        Other values are reserved for future use, like S4, etc.
-> >>>>>> +
-> >>>>>>  \item[\field{queue_notif_config_data}]
-> >>>>>>          This field exists only if VIRTIO_F_NOTIF_CONFIG_DATA has =
-been negotiated.
-> >>>>>>          The driver will use this value when driver sends availabl=
-e buffer
-> >>>>>> --
-> >>>>>> 2.34.1
-> >>>>>>
-> >>>>>
-> >>>>>
-> >>>>> -------------------------------------------------------------------=
---
-> >>>>> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> >>>>> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.o=
-rg
-> >>>>>
-> >>>>
-> >>>> --
-> >>>> Best regards,
-> >>>> Jiqian Chen.
-> >>>
-> >>
-> >> --
-> >> Best regards,
-> >> Jiqian Chen.
-> >
-> >
-> > ---------------------------------------------------------------------
-> > To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
-> > For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
-> >
+>> In a virtual environment, an application running in guest VM may want to
+>> delegate security sensitive tasks to a Trusted Application (TA) running within a
+>> Trusted Execution Environment (TEE). A TEE is a trusted OS running in some
+>> secure environment, for example, TrustZone on ARM CPUs, or a separate secure
+>> co-processor etc.
+>>
+>> A virtual TEE device emulates a TEE within a guest VM. Such a virtual TEE device
+>> supports multiple operations such as:
+>>
+>> VIRTIO_TEE_CMD_OPEN_DEVICE – Open a communication channel with virtio
+>>                               TEE device.
+>> VIRTIO_TEE_CMD_CLOSE_DEVICE – Close communication channel with virtio
+>>                                TEE device.
+>> VIRTIO_TEE_CMD_GET_VERSION – Get version of virtio TEE.
+>> VIRTIO_TEE_CMD_OPEN_SESSION – Open a session to communicate with
+>>                                trusted application running in TEE.
+>> VIRTIO_TEE_CMD_CLOSE_SESSION – Close a session to end communication
+>>                                 with trusted application running in TEE.
+>> VIRTIO_TEE_CMD_INVOKE_FUNC – Invoke a command or function in trusted
+>>                               application running in TEE.
+>> VIRTIO_TEE_CMD_CANCEL_REQ – Cancel an ongoing command within TEE.
+>>
+>> We would like to reserve device ID 46 for Virtio-TEE device.
+>>
+>> Signed-off-by: Jeshwanth Kumar <jeshwanthkumar.nk@amd.com>
+> Reviewed-by: Parav Pandit <parav@nvidia.com>
 >
-> --
-> Best regards,
-> Jiqian Chen.
+>> ---
+>>   content.tex | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/content.tex b/content.tex
+>> index 0a62dce..644aa4a 100644
+>> --- a/content.tex
+>> +++ b/content.tex
+>> @@ -739,6 +739,8 @@ \chapter{Device Types}\label{sec:Device Types}  \hline
+>>   45         &   SPI master \\
+>>   \hline
+>> +46         &   TEE device \\
+>> +\hline
+>>   \end{tabular}
+>>
+>>   Some of the devices above are unspecified by this document,
+>> --
+>> 2.25.1
+>>
+>>
+>> ---------------------------------------------------------------------
+>> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+>> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
 
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
