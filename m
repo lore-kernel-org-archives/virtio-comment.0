@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7578-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7579-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFFFDE748E9
-	for <virtio-comment@archiver.kernel.org>; Sun,  1 Oct 2023 10:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F26B6E748ED
+	for <virtio-comment@archiver.kernel.org>; Sun,  1 Oct 2023 10:59:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E76D56846D
-	for <virtio-comment@archiver.kernel.org>; Sun,  1 Oct 2023 10:58:23 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5BEB6799A9
+	for <virtio-comment@archiver.kernel.org>; Sun,  1 Oct 2023 10:59:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D045398669C
-	for <virtio-comment@archiver.kernel.org>; Sun,  1 Oct 2023 10:58:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4B5739866AC
+	for <virtio-comment@archiver.kernel.org>; Sun,  1 Oct 2023 10:59:19 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B8C31983D6F; Sun,  1 Oct 2023 10:58:23 +0000 (UTC)
+	id 423F8983D6F; Sun,  1 Oct 2023 10:59:19 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,16 +24,16 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AA2BD98652B
-	for <virtio-comment@lists.oasis-open.org>; Sun,  1 Oct 2023 10:58:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 34DA598652B
+	for <virtio-comment@lists.oasis-open.org>; Sun,  1 Oct 2023 10:59:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MN0URjo3aQ3wuKC15u+ufRoz+CcbnDo3I+ov4s3CWg07heYndQteQ7nnQHvcY4PCh7lpjp1KmF85+iBbvMmmjwfrXnToG04rAu0M5jo7mSX/edA2CamsGJ+4biHl/foGkyKCu2F6lSKR+Us7dTZeK0A5dPWiXBH24Dx6zxniRweNqiKEAsE6MyrjXN91JK1eM9grnI97qomoKmLdNMsfJQEQnRLoeKa3oL5tfILNCEI+fjo7KMC2AKrqis9p7fAV0UEfrYvlerE3QVSJ4KHuXCVxe/+1vpm/AxruDuR2F/4Aquib7j7BoVYjCE4giEb1pCHq6mJSdNRo/gvjWMmjrw==
+ b=BJ8vvMmUKHgF2BzieX3C+0YiOBoiNgYgBqv6m8yB37mg43eNWN1eTJp0WS1R30O271JpBLQ93hb8E3mriv+Hlt3VJhySoTC2nP/dVIDwabxwjT4UC+XDFP7r4qKvLwThmMtTTAES74FIvo1MUH/4drs4M6MAQCuvXipfX+n+AqJUeiak033AzXnUkNkDjq98QSKkq5S0P/uzzBOoDGIoHVL5ljRvWvF0PEhtGwXEBirqv1VvOYO7NaurL1mGM1uol5UHoP+K8LtNLd2BU2V/bY1WFBByYm4lKwIXrSeTWqFtaio7ajmYbaCEuEL1FiTW5FOiO56Vy+0eh+9EEHcxHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6RZEvxl7feIeIpkICSoTIzcRGftkgx/Sy0bF1ybdIWk=;
- b=b+NnURRNbvIGLRqimoJgn4KXIxyeueEh4Yq9EHvMualxnfM4wtsFw8G35WSacyDRN1b4pRWiEGCRLFuDkLSYZGiNT9mWxi9HQvW2jbmmAlutcQmgoPbPemgSRBjDrOFxdzaznOpju6iG7NExR0X9ptebmQVmMAg5SMjrNjrq6x/YSa+CobEZ2Dn042r5aIKgbAj32MiycRBKrC/mpwXDn0GI47cflh1g09ISQ08kec2+FkY55PY8ktfR7rKBGONatqad7zHgaU5YV/Oy5U0ycvL3lNOO+IFg8oE/d8HNUIlwd300l8/g9yjYLF4Jhc2sh56ou0svkP8Mpx8Ud2TrVA==
+ bh=eI68gt5cSZYQ5/uU3t8kvB3QlrxSuMiPDHjD8KJLyqk=;
+ b=RNVr8wRMNsD1TAmim8EYQvIzHxQ63Vd+UqtzydRNyyyFdh03D0hZmxUzvoRQNcLsPufGM0BSa9qvkNeZC69U/uwhb6vlnpSuo8b187dA6EgXco/Q/5MuzIt0L37Y3+wikVisP0Etc90ICdk9i8BKT/WEZlbg96jWVDav8ijF8Jski6/7drqsiXPIkcYx4zOVdiCiGLTZTtyGngcXJphOWA0jd6iqZ/fANXTQ5trCO3cx8UNwNgI5kBW2wBB1PYwt1QAKJJT1EZFRj7/0JwvwlKDgUtFYpXx4/5q0uZFpbw6ph+1dOTVZ7P0Lacp8WqfTRkJHkjdpRrh/IdDn9RN6Rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
@@ -44,16 +44,17 @@ To: Satananda Burla <sburla@marvell.com>,
 CC: Shahaf Shuler <shahafs@nvidia.com>, "si-wei.liu@oracle.com"
 	<si-wei.liu@oracle.com>, "xuanzhuo@linux.alibaba.com"
 	<xuanzhuo@linux.alibaba.com>, Heng Qi <hengqi@linux.alibaba.com>
-Thread-Topic: [EXT] [PATCH 6/7] virtio-net: Add flow filter requests
-Thread-Index: AQHZ7VuahXGvMTAT0EG3s+HMuBuyLLA0vIGAgAAQbTA=
-Date: Sun, 1 Oct 2023 10:58:21 +0000
+Thread-Topic: [EXT] [PATCH 2/7] virtio-net: Add flow filter capabilities read
+ commands
+Thread-Index: AQHZ7VuO2QsQ6gxZqEqNFzMaOTBTBLA0vF6AgAAVcbA=
+Date: Sun, 1 Oct 2023 10:59:16 +0000
 Message-ID:
- <PH0PR12MB548173860F1BFC2282056F12DCC6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <PH0PR12MB548197DBB690BFF5EC0DE550DCC6A@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20230922134838.3718-1-parav@nvidia.com>
- <20230922134838.3718-7-parav@nvidia.com>
- <SJ0PR18MB4477626C269A031890BB6782C3C6A@SJ0PR18MB4477.namprd18.prod.outlook.com>
+ <20230922134838.3718-3-parav@nvidia.com>
+ <SJ0PR18MB44779AF95836749B77949A7DC3C6A@SJ0PR18MB4477.namprd18.prod.outlook.com>
 In-Reply-To:
- <SJ0PR18MB4477626C269A031890BB6782C3C6A@SJ0PR18MB4477.namprd18.prod.outlook.com>
+ <SJ0PR18MB44779AF95836749B77949A7DC3C6A@SJ0PR18MB4477.namprd18.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -62,139 +63,203 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|PH0PR12MB5632:EE_
-x-ms-office365-filtering-correlation-id: bb308b14-1624-4563-45e9-08dbc26d538e
+x-ms-office365-filtering-correlation-id: b4b5061a-2c3c-4c10-675c-08dbc26d7444
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- 8uYCS7b8ZKJGEMJpNqZvlvxAR39KCcBCwsvZcuhyM8nD7Bljp0Xp/Mv8cEe1Tt1VGjr8KMJJCnf2GjC5fs2DmIf1W87MXup547VfJJYJlJ8AHfSxydHt+vixI8rMh555wn4htU3scr/r0QUZ5NrzDLX+aZG0AUXj0b7i3T+NfsQZS+1tWGhgUUda36TBDU4HHXFn81macieC9wY2b+F/7C1M/JDwH/LfsavW43YeTIa/uQxKyvwwpZAj2lG3YNWyYkHp1xfkRbL1evgAZivtWA5IUEOlo/ezqTgZlpA7gy83M5T5IAbSyYmq4uc7GNijHTWWo7cQZJL92ug4iHnH+xTth52vQe2A0xiHteUQUJq7l9CMkl/3sgrKQSv5XcOd3hnHN2xl4iIoE4GNvi2qE97YvYOEXK72A3+P7YLsPrpfwGu1+KiYMmDy418vjUrX9z1qVGvlSogw10SLf5vPPMz2+Q+3UQcuyAfOdH7hHj1I2qsfK2tt4phm/tIHdGIknH/DlIsa8Mx+RzPqHrZdrgiE8XEQ8J2SglV+5bSCYRYo+2UgARqr+e9uvlrT68W4fpMiEL25Xtid6IJ2CqQOLAVh+bRD4q0gnp9Zj3d9LOgYIJmHkyc1G355tr9pYcv88wR8xjggjo4mog0mBkmRGA==
+ 1HcVAhqrkInTmbpJe/K/uj6snComxYdBg7erk1fYDI1FtmwoD68jhxqazqYy7PInNA5cUCgtOUINYwENJGKnZ+jNXLO9xOcbhQPVjG+lYvanbHrVMU3Y/5wS+YyXhE7L++J6/kkR+58rX5D0IpHdcsKlkAK/wUFQBRTZY1sxNLH+ukTnkEXlGLY1cizKRHEez1xz3u/+ZfBtIu6inAyFHxyjZuJZZCGuBivpYmyYX0lX+qAVIUgNWzBLKmjnRV/FqpanccXmFg75TfHrNB/PE+jpiW7JhEaEZYCXGCL2FPC0StkZ5qhQhgxi3CPMFHao70cOGPLzVXfEJ1qp69N3gNguEMOfi7fxmZuLQJChBEk4TNYcbRdp9uezNSAF+jVFlAjgpJqJv7841fD6dd3jYRFgXgmkA8ijtuZ4HOyUz8uZFq1P9ZMy9XQcqzH++58GN/kAJQhwgR03Zj5Jj0TpefixNCSLYSdMv1EdtsQPoi6r8liA4OFy+S6LYI+ikmDulPcrr7e94FIu7CiTIiSmMAn6t5SRGE/6+cNSmQ1AjXNHmZHMLEMl994u5j4jXHUaZ8sJ2wYTo2sQEn7EYhSkil8TcUvHcbd3bzgtJqJOXDl4ELcHDTzNYO+p504HqtUwlItuV3aRqGqHkVEVnUe+hulNQ4Nqw01DdHSVOCt4ZD4=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(376002)(136003)(346002)(396003)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(110136005)(478600001)(83380400001)(8676002)(55236004)(7696005)(71200400001)(6506007)(52536014)(66556008)(9686003)(55016003)(5660300002)(26005)(66946007)(66446008)(66476007)(4326008)(41300700001)(76116006)(64756008)(54906003)(122000001)(8936002)(38070700005)(86362001)(33656002)(38100700002)(316002)(2906002)(87944015);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(376002)(136003)(346002)(396003)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(110136005)(478600001)(83380400001)(8676002)(55236004)(7696005)(71200400001)(6506007)(53546011)(52536014)(66556008)(19627235002)(9686003)(55016003)(5660300002)(26005)(66946007)(66446008)(66476007)(4326008)(41300700001)(76116006)(64756008)(54906003)(122000001)(8936002)(38070700005)(86362001)(33656002)(38100700002)(966005)(316002)(2906002);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?B/PnUrF2f0LtmfsOI/2kdBTscAyAgSNcQRO4CigZJ7tMdtUJEZQk/pNoO3Db?=
- =?us-ascii?Q?qekg+YGh7HozV5uYu0mlDGk6JIXtO95myHPGQr55bSYqNXu5OhZqVj9RpBOF?=
- =?us-ascii?Q?HK3XYNIvea3jGuALQQp9fBzFFV4krZn/VnJuKjqkGz+F5f9G22hzTlPgRvk5?=
- =?us-ascii?Q?oTCE1N/wPm8IMMIPVA+U1TgL5q45nprTu+8BUz9SxDBhGwHULJa6khZTmgPz?=
- =?us-ascii?Q?FDSfbwIgdUahj1uHnf67VRHkWFXnvHZb09JLdUXdxY+mLgRPOeUbHv4o1x3F?=
- =?us-ascii?Q?R5rlq7Blb3Wrd5t9TB0DnEntauTFa2eRuA6SVs5FtmKmCUTfxCrrhRIvNwnX?=
- =?us-ascii?Q?XRjx4xmDd7PalQj1a/gUuW7Sy1ii5ppNGAJRt1WrZNVBuuSZtlg6KfZ0Ty63?=
- =?us-ascii?Q?dfao3U6ST5ktLOMwKRkiaU26T42CULn+0UpicEFUuQ/JqPGyDOFGnxP0NRQD?=
- =?us-ascii?Q?vuC79Tkhn04ZRz0qeM0psg7Myau8G3a7OWhDVaOyTcVn7lG4Mf+mBs5JGS3z?=
- =?us-ascii?Q?tRYpDbz9jcZb5sd+i7U8fZVC+gnbLUQ2zktuX1rs+kymXUqZfdcg6GUCYfxs?=
- =?us-ascii?Q?w0ukPv5bmjCFcZkFW5tr94z0Xt8OG1ASF3HIvCTtJCbhR1UI3HISD4O2F3we?=
- =?us-ascii?Q?tvLLt54/VQANIQiMZvR9QA0Q6UQ3tx7jbZscI8ocqhkqSjZK/sejZWyfCu+Z?=
- =?us-ascii?Q?z9CYo16GzKWcPfxW/+WnWvf3hr3OaicFj2u4vC5C/ASPssWEf1J/KQ/b2CoC?=
- =?us-ascii?Q?siStYq1gzBL4/y52M8zffMGmeqciJKn33I2BGyX3t1BfopZby7bOTNQL3tWP?=
- =?us-ascii?Q?Yw6DqpyGJCmgcPBKWpxuizfotULvmFhjklWfMix1l+xrd8zyLcFC41Iz5fTz?=
- =?us-ascii?Q?+nmq6N/mmpDqFU294sqzF2bv5QviMggZBl0JKMDJRCrocnwj9wbDE6TG/glD?=
- =?us-ascii?Q?ZMZ0hfXmBOKgXOSQSM2IS96iRcs3hb8IF2HK9HOPEX9x2nTDqHdjre84f95w?=
- =?us-ascii?Q?ApuE9xhdvfBBHX3xTCWnll2opi+KET+tMT0kT5Z2XdmxuDDA2I7PFnKTvEOd?=
- =?us-ascii?Q?7/qDFTt4tEBOm3xXp4ztwWq+wN6V7gW9+klHT5RGMf5cENfQrwRpAWFgXH79?=
- =?us-ascii?Q?emGK86EKqwI06tFRVVugWbkvdSvnm+3o6PsVuj1C54ZoCjzy/shxUhgDr8Vj?=
- =?us-ascii?Q?Gx8QwZ/gB4p0qLyNtP9jxTJ/rZkNOlqUxnuOHkBNmw/XJNcAjnDola+ryXW+?=
- =?us-ascii?Q?tcfgobTgDUBnmIpWxvVdz4Kp6EUD3NTd3ytEWS0VXpr4XlImaTyX7/y1ptSM?=
- =?us-ascii?Q?3Fe9nnbpZzjWamT5brmzX/QEiFVSdPVgOVimZarLm2aV1wdfz8DwEmlZ7Y9p?=
- =?us-ascii?Q?sXgE0vtdAgEQwAtCx3AnNEA0CH6ZkhNLk2r5yjoeUPx2fwE/s/QN8Rmk4tjk?=
- =?us-ascii?Q?t83Fq5w/OIiPO/lvL2VPKil5znfLEopxUWMuwXGpB3+0Jgd76oERRMPucLzz?=
- =?us-ascii?Q?pLfsOy1CyTQkGgokUJgmscv/flH/Vf6NKOaoCX1IjTMupBhxp5svY8HAv2ws?=
- =?us-ascii?Q?qAl7dVn8WmZJerTV6kE=3D?=
+ =?us-ascii?Q?TwieZ+0474HowdlzAEzA3rUfVEk0eM+oWuI8MP23+gY3wPkA+pW39cpRIcP6?=
+ =?us-ascii?Q?X6LQP8EC5xbe5MaQg6H6Ug0O+vS4TlCkqft71k8sijKZxA2HAAuJ5Fq7wKTs?=
+ =?us-ascii?Q?g4sin3lvj86iQyNdc/3Mz+eBO9jr5WhmclW1yNuMp/vmj02eot8CPhRdFqv6?=
+ =?us-ascii?Q?jQkhiO/gdXulql0gSlzfVgC6cNY6Q5al1XYnzh4P/yy+1vlajS2KBbd58Acg?=
+ =?us-ascii?Q?TdHX3o2XUSv4T7X3RnozmKcJ2CospYymXEEwh4efuXv9DrjVkat0wnEqNMpu?=
+ =?us-ascii?Q?pURB7v9qPGNjXW6Gj2ByL3Ewl8LOzE1ix72wbLHFzjF5suC74DWehmjOIchj?=
+ =?us-ascii?Q?XbyJ82tH9mYKonKic3vyKCm+vVlLyM9uwe1BeBjCd2bfjGA+Yt7jljpqEm2W?=
+ =?us-ascii?Q?PSQY0tySEaj9uK6hslpwoF3qAiXf7H6rO51VZE2NGtqKgp9CF0RG4z8vI0Rb?=
+ =?us-ascii?Q?WSva4wegF8K+N/MGB/1eeJWOsGrZmZGaozLagG4J3nUwLp7aC75qSrtbZE9V?=
+ =?us-ascii?Q?mFLeIFfJuM8+DVUJuKKni3Xh5QoqkophfogpJGsDtjqfc6dpchLGoN5ietkD?=
+ =?us-ascii?Q?5le68skjLl/dqetjVDz6axxI0tGwmZtU0RjzB77inoYhXYmF+whZgc7oQGTc?=
+ =?us-ascii?Q?uk9k//u/LKK46xA38Z17lwW6oJlxyLgmPPoLqUshQXw35e/slZwtRA5DdfDa?=
+ =?us-ascii?Q?r6WaS7SQgtDk8v/SwvFNHFCdySQb0m8DuMDjAZNM62FhNW2ZrQC8Tzsxx+zq?=
+ =?us-ascii?Q?MhMMiR7jfgdQRrOYhypVUGuThtkiiXNG9O8bBUtQn+PU5DMwR7vfGXbbHXlf?=
+ =?us-ascii?Q?iE1OoexZi8QK1fePgMvg9xkqBSOEwoxu2mQWJTWMsQ1XDJd31eSFrSOyd6Hp?=
+ =?us-ascii?Q?UFiha8vPOrRSddDDsF2ChKGHqiFsLH1nZztm0twXp55KgKlswc7SrppcAaPV?=
+ =?us-ascii?Q?w4sgo+pF7/XC50VX+vZ4wgvlTSazZhGTcEUEpN9EmkjfyQfQ8h2N5OElYNw5?=
+ =?us-ascii?Q?Kq2+Kjde4bdVy6FxMxogAFt9DA0PmBQZwg6dh3Ba74GdQC6rWPzuOwNKYxam?=
+ =?us-ascii?Q?1e4YGqkD08SbJj5X48kBx+Gigyh14V+BFc2VuWJOAchPnnxrrSlCEEi8nvRM?=
+ =?us-ascii?Q?y2K4sTTSU5XSOoF4AqhyyiaaMNLsHqOqIokHr0fwJJWPrU+bMbluBywganpL?=
+ =?us-ascii?Q?pakjE6pcFZ52Xh6Fp6Ny8gxf0D5w+FgzvHY4p9VrS5Bxs+W8Fq4YIltu6P9F?=
+ =?us-ascii?Q?zuRNPoGwAlzCwTtq+3s/oWwLjG7h4hVAwp/vbUD3cCuvfX0Ej9sHTaJ1CfWS?=
+ =?us-ascii?Q?/FDgRYf8W9qxgUWzsP1RAzxkUhYM/6jZB+vixHZJAMVSBcKYCNG+a/kRSExA?=
+ =?us-ascii?Q?O8gc77Ez5l22Jff5X3h0t+wAEh+zhJ3Cp3bK3BlEiZ4r2FGXFIMSCboA7oJ4?=
+ =?us-ascii?Q?EeA6WkULYd589mKedlaZ28TEPqB2qPMY0MUtER611nwW/4QnEZ1bmuU4+cMp?=
+ =?us-ascii?Q?/OKrOPMOSJjl9aZ5RVeBhC/6rBwR3lfORJExbmMC3JDUWoq6R9shObAgGRwh?=
+ =?us-ascii?Q?M0Oyrtty7cr9uP0yNYo=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb308b14-1624-4563-45e9-08dbc26d538e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2023 10:58:21.1852
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4b5061a-2c3c-4c10-675c-08dbc26d7444
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2023 10:59:16.0536
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VvvdqV9+2SwqGwyN02yOo9pODlIIxmjat3jc5xyGGUL1rh9fcg2kjjsEqk0Wp8JHgHeyDM3X0lsVytTRAXGxmg==
+X-MS-Exchange-CrossTenant-userprincipalname: lwJivYPC+YssiH0cyhrjRM6HyTP7Z12EdWpaETjPrfQtYUhNA/uJIb/WSr5ZXbmS6AUpRSpESGz2eX6WAgRz8Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5632
-Subject: [virtio-comment] RE: [EXT] [PATCH 6/7] virtio-net: Add flow filter requests
+Subject: [virtio-comment] RE: [EXT] [PATCH 2/7] virtio-net: Add flow filter capabilities read
+ commands
 
 
 
 > From: Satananda Burla <sburla@marvell.com>
-> Sent: Sunday, October 1, 2023 3:13 PM
-
-
-> > +struct virtio_net_ff_match_fields {
-> > +        le32 num_entries;
-> > +        struct virtio_net_ff_match_field match_entries[]; };
-> It is better to fix the network protocol order here.(l2,l3,l4).
-
-It is recommended but I am not sure if we should enforce it.
-
-How about writing it as order SHOULD follow the packet field order..
-This will cover across L2, L3 and within a given header type too.
-
+> Sent: Sunday, October 1, 2023 3:12 PM
+>=20
+> Hi Parav,
+>=20
+> > -----Original Message-----
+> > From: Parav Pandit <parav@nvidia.com>
+> > Sent: Friday, September 22, 2023 6:49 AM
+> > To: virtio-comment@lists.oasis-open.org; mst@redhat.com;
+> > cohuck@redhat.com
+> > Cc: Satananda Burla <sburla@marvell.com>; shahafs@nvidia.com; si-
+> > wei.liu@oracle.com; xuanzhuo@linux.alibaba.com; Parav Pandit
+> > <parav@nvidia.com>; Heng Qi <hengqi@linux.alibaba.com>
+> > Subject: [EXT] [PATCH 2/7] virtio-net: Add flow filter capabilities
+> > read commands
+> >
+> > External Email
+> >
+> > ----------------------------------------------------------------------
+> > The device responds flow filter capabilities using two commands.
+> > One command indicates generic flow filter device limits such as number
+> > of flow filters, number of flow filter groups, support or multiple
+> > transports etc.
+> >
+> > The second command indicates supported match types, and fields of the
+> > packet.
+> >
+> > Fixes: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-
+> > 3A__github.com_oasis-2Dtcs_virtio-
+> >
+> 2Dspec_issues_179&d=3DDwIDAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DNHDPsfcAYl
+> N2z-
+> > NXHHG4WB09qqS0voo_nf6_kGS625A&m=3DVZgMfa4Q2vc_6OSqt-
+> >
+> i7ptCKmBnBVtPWeB8zGHF4AuU0LWpisRhRLj4K4W3GE8VX&s=3DCxdwZkCbr1ldzL
+> QMEVrv4
+> > F0Bc
+> > euW1z-y9HJ4uYkYGiQ&e=3D
+> > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > ---
+> >  device-types/net/description.tex | 194
+> > ++++++++++++++++++++++++++++++-
+> >  1 file changed, 192 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/device-types/net/description.tex b/device-
+> > types/net/description.tex index c9a8c52..bf6d4c5 100644
+> > --- a/device-types/net/description.tex
+> > +++ b/device-types/net/description.tex
+> > @@ -1168,7 +1168,11 @@ \subsubsection{Flow Filter}\label{sec:Device
+> > Types / Network Device / Device Ope  The device indicates the flow
+> > filter capabilities to the driver, which  includes various maximum
+> > device limits, supported transports and  supported packet match
+> > fields. The driver enables the transport for flow -filter requests
+> > using a control virtqueue command.
+> > +filter requests using a control virtqueue command. These control
+> > virtqueue
+> > +commands are:
+> > +\ref{sec:Device Types / Network Device / Device Operation / Control
+> > Virtqueue / Flow Filter / Flow Filter Capabilities Get}
+> > +and
+> > +\ref{sec:Device Types / Network Device / Device Operation / Control
+> > Virtqueue / Flow Filter / Flow Filter Match Capabilities Get}.
+> >
+> >  The device support transporting flow filter requests on either the
+> > control  virtqueue or on the flow filter virtqueues or on both.
+> > However, device @@ -1252,7 +1256,111 @@ \subsubsection{Flow
+> > Filter}\label{sec:Device Types / Network Device / Device Ope
+> >        the flow filters in group_C, the flow filters of next level
+> > group_B are applied.
+> >  \end{itemize}
+> >
+> > -\label{sec:Device Types / Network Device / Device Operation / Control
+> > Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
+> > +\paragraph{Match Types and Fields}\label{sec:Device Types / Network
+> > Device / Device Operation / Flow Filter / Match Types and Fields}
 > > +
-> > +#define VIRTIO_NET_FF_DEST_RQ 0
-> > +
-> > +struct virtio_net_ff_dest {
-> > +        u8 dest_type;
-> > +        u8 reserved[3];
-> > +        union {
-> > +                le16 vq_index;
-> > +                le32 reserved1;
-> > +        };
+> > +\begin{lstlisting}
+> > +struct virtio_net_ff_match_type {
+> > +        le32 type;
+> > +        le32 reserved;
+> > +        le64 fields_bmap;
 > > +};
+> > +\end{lstlisting}
 > > +
-> > +struct virtio_net_ff_action {
-> > +        u8 action;
-> > +        u8 reserved[7];
-> > +};
+> > +The \field{type} corresponds to following table:
 > > +
-> > +#define VIRTIO_NET_FF_ACTION_DROP 0
-> > +#define VIRTIO_NET_FF_ACTION_FORWARD 1
+> > +\begin{tabular}{|l|l|l|}
+> > +\hline
+> > +Type & Name & Description \\
+> > +\hline \hline
+> > +0   & VIRTIO_NET_FF_ETH_HDR & Ethernet header of the packet  \\
+> > +\hline
+> How about vlan?
+> > +1   & VIRTIO_NET_FF_IPV4_HDR & IPv4 header of the packet \\
+> > +\hline
+> > +2   & VIRTIO_NET_FF_IPV6_HDR & IPv6 header of the packet \\
+> > +\hline
+> > +3   & VIRTIO_NET_FF_TCP_HDR & TCP header of the packet \\
+> > +\hline
+> > +4   & VIRTIO_NET_FF_UDP_HDR & UDP header of the packet \\
+> > +\hline
+> > +other   & -    & reserved  \\
+> > +\hline
+> > +\end{tabular}
 > > +
-> > +struct virtio_net_ff_add {
-> > +        u8 op;
-> > +        u8 priority;	/* higher the value, higher priority */
-> > +        u16 group_id;
-> > +        le32 id;
-> > +        struct virtio_net_ff_match_fields match;
-> > +        struct virtio_net_ff_dest dest;
-> > +        struct virtio_net_ff_action action;
-> Isn't dest also an action ? for instance, if ACTION is drop, there is no =
-point in
-> adding destination, similarly if ACTION is forward, can we not add the vq=
-_index
-> to the action itself using the reserved bytes? based on action type, the
-> additional bytes could be interpreted.
+> > +For the \field{type} of VIRTIO_NET_FF_ETH_HDR, header fields are
+> > +represented by a bitmap in \field{fields_bmap} are following:
 > > +
-> > +        struct virtio_net_ff_match_fields mask;	/* optional */
-> How is the presence of this field indicated if it is optional ?
-> Does it need a field like has_mask?
-Yes. I missed it.
-
-> Can this be not added into struct virtio_net_ff_match_field ?
-I think yes, the issue is not all use cases (like ARFS) needs mask, who alw=
-ays uses exact values.
-So communicating and setting mask is redundant (also the struct is bit larg=
-e).
-
-But I like your suggestion that we can have mask defined as, just match_val=
-ue.
-Since value cannot live without its supporting type, finding it hard to hav=
-e only value for the mask.
-
-> The mask only applies to struct virtio_net_ff_match_value. So it may be b=
-etter
-> to just use struct virtio_net_ff_match_field {
-> 	struct virtio_net_ff_match_type type;
-> 	struct virtio_net_ff_match_value value;
-> 	struct virtio_net_ff_match_value mask;
-> };
-> instead of repeating the type again.
+> > +\begin{tabular}{|l|l|l|}
+> > +\hline
+> > +Bit & Name & Description \\
+> > +\hline \hline
+> > +0   & VIRTIO_NET_FF_DST_MAC & Destination MAC address in the packet  \=
+\
+> > +\hline
+> > +1   & VIRTIO_NET_FF_SRC_MAC & Source MAC address in the packet \\
+> > +\hline
+> > +2   & VIRTIO_NET_FF_ETHER_TYPE & Ether type in the packet \\
+> > +\hline
+> > +\end{tabular}
 > > +
-How about encoding has_mask in the type, so that mask can be optional in th=
-e above struct you proposed?
-With that we get both the benefits of size saving and computation too.
-
+> > +For the \field{type} of VIRTIO_NET_FF_IPV4_HDR, header fields are
+> > +represented by a bitmap in \field{fields_bmap} are following:
+> > +
+> > +\begin{tabular}{|l|l|l|}
+> > +\hline
+> > +Bit & Name & Description \\
+> > +\hline \hline
+> > +0   & VIRTIO_NET_FF_SRC_IPV4 & Source IPV4 address in the packet \\
+> > +\hline
+> > +1   & VIRTIO_NET_FF_DST_IPV4 & Destination IPV4 address in the packet =
+\\
+> > +\hline
+> > +other   & -    & reserved  \\
+> > +\hline
+> > +\end{tabular}
+> I think it would be good to indicate the how the fields_bmap can be expan=
+ded
+> in future for adding additional fields in header.
+Yes. I will add an example or a note to indicate this in v1.
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
