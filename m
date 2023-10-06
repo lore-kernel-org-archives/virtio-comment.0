@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7591-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7592-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AE78E81E19
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0CA0E81E17
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B37487BB14
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:30 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 25D41C611E
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4C867986840
+	by lists.oasis-open.org (Postfix) with ESMTP id A26D69868A3
 	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 1FC61986883; Fri,  6 Oct 2023 16:14:30 +0000 (UTC)
+	id 629FA9868C0; Fri,  6 Oct 2023 16:14:30 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,26 +24,26 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 927E4986829
-	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Oct 2023 16:14:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4337E986842
+	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Oct 2023 16:14:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696608862; x=1697213662;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=eU6AosuaNHaMkkH/9jNVQPOHT9OC12xRDzrjaV/W4VU=;
-        b=DziqJgLTVFnJQkh0SPXyG72P6zXP2khmSxkPpRmRKgBZbP5G4hBXFtu2Ixk7G0rgxr
-         SUPOGCsZlTGzlSCv0BNVA6XhxtrJN2hiM8XYWbOnufF9+as6shAI2gn9LO/BV62CVdsd
-         HE7OthkPt7fauyXdrO+xXWMPPg17ZyYfBwAOK9ZvMFTLad69Pp3foMo2xB+AWTNysyky
-         ybzw/oqyj/ExkodZvuAyzESvTfWjVwjrk6iBGR0JCelIx6JQqCgN3dkyQy2P8Tdqt4IA
-         AEsGbxb1bKDDZc4EXprMrIQhMImNYak4wMROeesg5KKMCwk01j2iQC/kb31tXz7gVEQg
-         +qIQ==
-X-Gm-Message-State: AOJu0Yz3EEFfS2skY/91y0+pvx3ra+9U+aPK2HP+6T5kXB7+jM1y2u0M
-	Pehw8v44s26Vg2IdjQ/AR4GbiTcynD4njL/jumE=
-X-Google-Smtp-Source: AGHT+IGnd6p+NM14WzrTE9dU/uqM7E0ZjmK+8/50OwhB5e/oalRb2F8VlvNVJ5In76CFaW3QkhQaAA==
-X-Received: by 2002:a05:6000:109:b0:320:9e2:b3a2 with SMTP id o9-20020a056000010900b0032009e2b3a2mr7912699wrx.33.1696608862495;
-        Fri, 06 Oct 2023 09:14:22 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1696608864; x=1697213664;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jMwc/8xDQR0EbpCDNYWQPB2TpVrZXvf8vLYfIdouC18=;
+        b=KZvTtf31AI8IDEuozsa7H5/m4M69d1nlsRgV8J71j3Uo0/acJJIxgoTvGiCoaxPsUf
+         V9dzTZO3GwwjVLF0VSIvD/Cvv8JB07oJ7L3WD1w0BdnIpswRJMpxCChfQjYRspWPE5oc
+         +w2CcaGDBTss1LkJ5SJQke5WiwlCNYxGUqrGRvp3IfSE67pJNZQo0K63hi6LdO08AkeB
+         gQg3JdNLEc6C6Y0Mi/bbNMXj4rpbM2hVf25EwWlaM8RUt6hVbK6Gn9GGZ91BZg9BUIaL
+         /RXz2uhlfamWhghxpGpiHvxA9In5EbvUYfl8OuwiEROWJQ3b9llG6+tlo1zHrof0gIe+
+         vtrQ==
+X-Gm-Message-State: AOJu0Yxe3+xDiEQ9qyhTkdWik3E7H+aj5AvzrHoEL3C2KsrLXUKmYFnh
+	+BNismEypG+wZSzRJe+6IWvEWviSDViD+borI6k=
+X-Google-Smtp-Source: AGHT+IFvFS0Sx7V4IE8zFBdLDq7xW+T9BD4BYAkNuTojXkwCbIRJaHXde1cHGqm3z1qjHZh6pktD8w==
+X-Received: by 2002:a05:6000:109:b0:321:5d87:5f7c with SMTP id o9-20020a056000010900b003215d875f7cmr8073626wrx.30.1696608864030;
+        Fri, 06 Oct 2023 09:14:24 -0700 (PDT)
 From: Jean-Philippe Brucker <jean-philippe@linaro.org>
 To: virtio-comment@lists.oasis-open.org
 Cc: vivek.gautam@arm.com,
@@ -53,113 +53,241 @@ Cc: vivek.gautam@arm.com,
 	eric.auger@redhat.com,
 	kevin.tian@intel.com,
 	Jean-Philippe Brucker <jean-philippe@linaro.org>
-Date: Fri,  6 Oct 2023 17:09:40 +0100
-Message-ID: <20231006160947.2227396-3-jean-philippe@linaro.org>
+Date: Fri,  6 Oct 2023 17:09:43 +0100
+Message-ID: <20231006160947.2227396-6-jean-philippe@linaro.org>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231006160947.2227396-3-jean-philippe@linaro.org>
+References: <20231006160947.2227396-3-jean-philippe@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v2 0/9] virtio-iommu: Support page tables
+Subject: [virtio-comment] [PATCH v2 3/9] virtio-iommu: Add Arm SMMUv3 support
 
-Add page table support to the virtio-iommu specification. The main
-advantage of page tables over the MAP/UNMAP interface is sharing virtual
-address spaces (SVA aka SVM), where an endpoint with PASID and I/O page
-fault support can directly access process address spaces, and
-application don't have to explicitly deal with DMA buffers. Using page
-tables for regular DMA is also faster than MAP/UNMAP because it removes
-the context switch on MAP (while UNMAP is replaced by INVALIDATE), but
-requires pinning all guest memory which prevents the host from
-over-committing memory. Some endpoints support I/O page faults (PCIe PRI)
-which removes the need for pinning guest memory, but also has a runtime
-cost.
+Allow a driver to detect support for Arm page tables and attach a set of
+tables. When the hardware IOMMU is an Arm SMMUv3, an intermediate
+"Context Descriptor" (CD) table has to be attached. That table is
+indexed by PASID and contains multiple pointers to page directories:
 
-The best compromise for managing DMA for any endpoint probably remains DMA
-pools in the guest (for example Linux' page_pool) managed with MAP/UNMAP,
-since it works with all systems and endpoints, provides ideal runtime
-performance while allowing the host to overcommit most guest memory. For
-assigned endpoints, support for page table isn't necessarily a net gain
-outside of SVA but is certainly worth exploring. And for virtual
-endpoints, page tables are more efficient than MAP/UNMAP.
+                 CD table          Page directory
+                +-------+   ,------->+-------+
+                :       :   |        :       :
+                +-------+   |        +-------+
+         PASID->|  CD   |---'    VA->|  PTE  |--> GPA
+                +-------+            +-------+
+                :       :            :       :
+                +-------+            +-------+
 
+The driver detects support for this table format in a PROBE request and
+sends an ATTACH_TABLE request with a pointer to the context descriptor
+table. It populates the tables, and sends INVALIDATE requests after
+removing entries that may have been cached by the hardware.
 
-Some reasons to add page tables to virtio-iommu:
-
-* Although it can be done with emulated IOMMUs (vSMMU, VT-d, etc), several
-  VMMs aim to avoid complex emulations and need this support in
-  virtio-iommu (crosvm, cloud-hypervisor, kvmtool). Ideally those VMMs
-  just transfer IOMMU commands between the virtqueue and the host API
-  without having to deal with too much vendor detail. A VMM can also
-  offload this to a vhost-iommu implementations.
-
-* Ability to support a mix of hardware and software IOMMUs with differing
-  configuration. The virtio-iommu driver discovers properties of the
-  underlying IOMMU for each endpoint, for example the platform could have
-  an IOMMU that supports nesting translation, an IOMMU that doesn't, and
-  several virtual endpoints implemented by the VMM. One virtio-iommu
-  instance can handle all of them and use the most advanced feature for
-  each endpoint.
-
-* Possibility of paravirtualized extensions (more efficient TLB
-  management, optimized page requests). For virtual endpoints, even the
-  basic page table support in virtio-iommu seemed more efficient than
-  emulated IOMMUs in my tests.
-
-
-This is the second version of the page table support for virtio-iommu, and
-is quite different from v1 [1]. Mainly we added support for Intel, RISC-V
-and AMD IOMMUs in addition to Arm. Although they don't need to be merged
-at the same time, it's good to have an idea of the whole page table
-support, since those architectures differ significantly.
-
-The PROBE properties now contains raw ID registers (sanitized to only
-contain information relevant to the guest). As a consequence SMMUv2 is not
-supported anymore, would need to be added separately. ATTACH_TABLE is
-also a little less generic, though I did try to describe the general
-PASID table / page table model in the ATTACH_TABLE section rather than
-in each format description. INVALIDATE is mostly unchanged.
-
-
-You can find a PDF with these changes and diff colors here:
-
-https://jpbrucker.net/virtio-iommu/spec/virtio-iommu-pt-v1.6-diff.pdf
-https://jpbrucker.net/virtio-iommu/spec/virtio-iommu-pt-v1.6.pdf
-https://jpbrucker.net/git/virtio/log/?h=viommu/tables
-
-Please prototype and review!
-
-It would also be good to involve some AMD folks, I didn't know who to Cc
-and the AMD support is mostly illustrative for now. 
-
-And do subscribe to the virtio-comment list [2] before replying,
-otherwise your mail won't reach the list.
-
-[1] https://lore.kernel.org/virtio-dev/20210205175812.143886-1-jean-philippe@linaro.org/
-[2] https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=virtio
-
-Jean-Philippe Brucker (8):
-  virtio-iommu: Add ATTACH_TABLE request
-  virtio-iommu: Add INVALIDATE request
-  virtio-iommu: Add Arm SMMUv3 support
-  virtio-iommu: Add PASID field to DETACH
-  virtio-iommu: Add RISC-V page tables
-  virtio-iommu: Add AMD page tables
-  virtio-iommu: Add VIRTIO_IOMMU_RESV_MEM_T_IDENTITY
-  virtio-iommu: Add PASID information to fault report
-
-Tina Zhang (1):
-  virtio-iommu: Add VT-d IO page table
-
- device-types/iommu/description.tex   | 369 +++++++++++++++++++++++++--
- device-types/iommu/pgtable-amd.tex   | 187 ++++++++++++++
- device-types/iommu/pgtable-arm.tex   | 148 +++++++++++
- device-types/iommu/pgtable-intel.tex |  98 +++++++
- device-types/iommu/pgtable-riscv.tex | 111 ++++++++
- introduction.tex                     |   9 +
- 6 files changed, 895 insertions(+), 27 deletions(-)
- create mode 100644 device-types/iommu/pgtable-amd.tex
+Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+---
+ device-types/iommu/description.tex |   9 +-
+ device-types/iommu/pgtable-arm.tex | 148 +++++++++++++++++++++++++++++
+ introduction.tex                   |   3 +
+ 3 files changed, 159 insertions(+), 1 deletion(-)
  create mode 100644 device-types/iommu/pgtable-arm.tex
- create mode 100644 device-types/iommu/pgtable-intel.tex
- create mode 100644 device-types/iommu/pgtable-riscv.tex
 
+diff --git a/device-types/iommu/description.tex b/device-types/iommu/description.tex
+index 2a2184a..58edaad 100644
+--- a/device-types/iommu/description.tex
++++ b/device-types/iommu/description.tex
+@@ -405,6 +405,8 @@ \subsubsection{ATTACH_TABLE request}\label{ref:Device Types / IOMMU Device / Dev
+ 	u8   descriptor[111];
+ 	struct virtio_iommu_req_tail tail;
+ };
++
++#define VIRTIO_IOMMU_ATTACH_TABLE_ARM_SMMU3       1
+ \end{lstlisting}
+ 
+ Attach an endpoint to a domain, in the same way as an ATTACH
+@@ -995,7 +997,8 @@ \subsubsection{PROBE request}\label{sec:Device Types / IOMMU Device / Device ope
+ \subsubsection{PROBE properties}\label{sec:Device Types / IOMMU Device / Device operations / PROBE properties}
+ 
+ \begin{lstlisting}
+-#define VIRTIO_IOMMU_PROBE_T_RESV_MEM   1
++#define VIRTIO_IOMMU_PROBE_T_RESV_MEM       1
++#define VIRTIO_IOMMU_PROBE_T_HW_ARM_SMMU3   2
+ \end{lstlisting}
+ 
+ \paragraph{Property RESV_MEM}\label{sec:Device Types / IOMMU Device / Device operations / PROBE properties / RESVMEM}
+@@ -1143,3 +1146,7 @@ \subsubsection{Fault reporting}\label{sec:Device Types / IOMMU Device / Device o
+ \footnotetext{This would happen for example if the device implements a
+ more recent version of this specification, whose fault report contains
+ additional fields.}
++
++\subsection{Acceleration}\label{sec:Device Types / IOMMU Device / Acceleration}
++
++\input{device-types/iommu/pgtable-arm}
+diff --git a/device-types/iommu/pgtable-arm.tex b/device-types/iommu/pgtable-arm.tex
+new file mode 100644
+index 0000000..2f41218
+--- /dev/null
++++ b/device-types/iommu/pgtable-arm.tex
+@@ -0,0 +1,148 @@
++\subsubsection{Arm SMMUv3 tables}\label{sec:Device Types / IOMMU Device / Acceleration / Arm SMMUv3}
++
++Attach Context Descriptor tables (PASID tables) in the format described in the
++\hyperref[intro:SMMUv3]{Arm System Memory Management Unit v3 specification}.
++The table contains context descriptors indexed by PASID, each pointing to a
++page directory.
++
++\paragraph{PROBE property for Arm SMMUv3}\label{sec:Device Types / IOMMU Device / Acceleration / Arm SMMUv3 / PROBE}
++
++The PROBE property VIRTIO_IOMMU_PROBE_T_HW_ARM_SMMU3 provides information about
++an Arm SMMU v3.
++
++\begin{lstlisting}
++struct virtio_iommu_probe_hw_arm_smmu3 {
++  struct virtio_iommu_probe_property head;
++  u8    reserved[4];
++  le64  idr0;
++  le64  idr1;
++  le64  reserved;
++  le64  idr3;
++  le64  reserved;
++  le64  idr5;
++};
++
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TTF_32           (1 << 2)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TTF_64           (1 << 3)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_COHACC           (1 << 4)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_BTM              (1 << 5)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_HTTU_SHIFT       6
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_HTTU_MASK        0x3
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_HTTU_HA          1
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_HTTU_HA_HD       2
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_ASID16           (1 << 12)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_CD2L             (1 << 19)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TTENDIAN_SHIFT   21
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TTENDIAN_MASK    0x3
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TTENDIAN_MIXED   0
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TTENDIAN_LE      2
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TTENDIAN_BE      3
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_STALL_SHIFT      24
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_STALL_MASK       0x3
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_STALL_SUPPORTED  0
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_STALL_FORCE      2
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR0_TERM_MODEL       (1 << 26)
++
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR1_SSIDSIZE_SHIFT   6
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR1_SSIDSIZE_MASK    0x1f
++
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR3_HAD              (1 << 2)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR3_PBHA             (1 << 3)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR3_STT              (1 << 9)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR3_BBML_SHIFT       11
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR3_BBML_MASK        0x3
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR3_E0PD             (1 << 13)
++
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_SHIFT        0
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_MASK         0x7
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_32           0
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_36           1
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_40           2
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_42           3
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_44           4
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_48           5
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_OAS_52           6
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_GRAN4K           (1 << 4)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_GRAN16K          (1 << 5)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_GRAN64K          (1 << 6)
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_VAX_SHIFT        10
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_VAX_MASK         0x3
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_VAX_48           0
++#define VIRTIO_IOMMU_HW_ARM_SMMU3_IDR5_VAX_52           1
++\end{lstlisting}
++
++The \field{idr0-idr5} fields correspond to Arm SMMUv3 ID
++registers. Fields described here affect the context descriptor
++and page table formats. Other fields might be set to zero.
++
++\begin{description}
++  \item[IDR0_TTF] Translation table format.
++  \item[IDR0_COHACC] Coherent page table access.
++  \item[IDR0_BTM] Broadcast TLB maintenance.
++  \item[IDR0_HTTU] Hardware access and dirty bit update.
++  \item[IDR0_ASID16] 16-bit ASID (otherwise 8-bit).
++  \item[IDR0_CD2L] 2-level Context Descriptor table.
++  \item[IDR0_TTENDIAN] Translation tables endianness.
++  \item[IDR0_STALL_MODEL] Stall support for faulting
++    transactions.
++  \item[IDR0_TERM_MODEL] Configurable transaction termination.
++  \item[IDR1_SSIDSIZE] Substream ID (PASID) size.
++  \item[IDR3_HAD] Hierarchical attributes disable.
++  \item[IDR3_PBHA] Page-Based Hardware Attributes.
++  \item[IDR3_STT] Small translation tables.
++  \item[IDR3_E0PD] Disable unprivileged access.
++  \item[IDR5_OAS] Output address size.
++  \item[IDR5_GRAN] 4kB, 16kB, 64kB pages support.
++  \item[IDR5_VAX] Virtual address size.
++\end{description}
++
++\paragraph{ATTACH_TABLE request for Arm SMMUv3}\label{sec:Device Types / IOMMU Device / Acceleration / Arm SMMUv3 / ATTACH_TABLE}
++
++\begin{lstlisting}
++struct virtio_iommu_req_attach_table_arm_smmu3 {
++  struct virtio_iommu_req_head head;
++  le32  domain;
++  le32  endpoint;
++  u8    format;
++  u8    reserved[3];
++  le64  ste0;
++  le64  ste1;
++  u8    reserved[51];
++  struct virtio_iommu_req_tail tail;
++};
++
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1FMT_SHIFT      4
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1FMT_MASK       0x3
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1FMT_LINEAR     0
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1FMT_4KL2       1
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1FMT_64KL2      2
++
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1PTR_MASK       0xfffffffffffc0
++
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1CDMAX_SHIFT    59
++#define VIRTIO_IOMMU_HW_ARM_STE0_S1CDMAX_MASK     0x1f
++
++#define VIRTIO_IOMMU_HW_ARM_STE1_S1DSS_SHIFT      0
++#define VIRTIO_IOMMU_HW_ARM_STE1_S1DSS_MASK       0x3
++#define VIRTIO_IOMMU_HW_ARM_STE1_S1DSS_TERM       0
++#define VIRTIO_IOMMU_HW_ARM_STE1_S1DSS_BYPASS     1
++#define VIRTIO_IOMMU_HW_ARM_STE1_S1DSS_SSZERO     2
++\end{lstlisting}
++
++Field \field{format} is VIRTIO_IOMMU_ATTACH_TABLE_ARM_SMMU3.
++
++Configuration fields have the same meaning as the SMMUv3 Stream
++Table Entry format:
++
++\begin{description}
++  \item[S1FMT] Layout of the context descriptor table.
++  \item[S1PTR] Address of the context descriptor table.
++  \item[S1CDMAX] Size of the table. $2^\field{s1cdmax}$
++    is the number of context descriptors.
++  \item[S1DSS] Behavior for transactions without PASID.
++\end{description}
++
++\paragraph{INVALIDATE request for Arm SMMUv3}\label{sec:Device Types / IOMMU Device / Acceleration / Arm SMMUv3 / INVALIDATE}
++
++Bits [15:0] of \field{id} in an INVALIDATE request correspond to
++the address space ID (ASID) in the Context Descriptor entry.
+diff --git a/introduction.tex b/introduction.tex
+index 1e39a4b..636fb1b 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -101,6 +101,9 @@ \section{Normative References}\label{sec:Normative References}
+ 	\phantomsection\label{intro:SEC1}\textbf{[SEC1]} &
+     Standards for Efficient Cryptography Group(SECG), ``SEC1: Elliptic Cureve Cryptography'', Version 1.0, September 2000.
+ 	\newline\url{https://www.secg.org/sec1-v2.pdf}\\
++	\phantomsection\label{intro:SMMUv3}\textbf{[SMMUv3]} &
++	Arm System Memory Management Unit version 3
++	\newline\url{https://developer.arm.com/documentation/ihi0070/latest} \\
+ 
+ 	\phantomsection\label{intro:rfc2784}\textbf{[RFC2784]} &
+     Generic Routing Encapsulation. This protocol is only specified for IPv4 and used as either the payload or delivery protocol.
 -- 
 2.42.0
 
