@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7597-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7598-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD49BE81E1A
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A93CCE81E17
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:52 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id EDD9F2AC5D
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:35 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9FDE429FE6
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DCEF6986825
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 89AC5986825
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D09C398681B; Fri,  6 Oct 2023 16:14:35 +0000 (UTC)
+	id 80DE798681B; Fri,  6 Oct 2023 16:14:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,26 +24,26 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C2BD798681C
-	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Oct 2023 16:14:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7349798681C
+	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Oct 2023 16:14:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696608866; x=1697213666;
+        d=1e100.net; s=20230601; t=1696608864; x=1697213664;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=bmnpYjXBpNkaTztUoAxVKdhTnxqX4uwkCYqq7CjhQRk=;
-        b=JaczXc+g0dlmwHnA8I+VtmYLanuTRZcg3EjV6jRwT+ASICpc3r/SgOfn0yDdMrXQl7
-         vhzDbQUP/a1XI4s1eh2x4dFcJQ8CCl4y0UUckhhIyCHNA65O9HHzMeXfaUXgU1O8+DSf
-         Ez0XifdOBieKf6sstw3lIZGU3B8nqZISTgluF7cRUaXlujCtzrm2mfDvE72NVNSN23aY
-         K7h+YYcTjaxLX4QHCmwJ/P/tNlhgG/muFpJIFgndWVrw4PwdS6/nGkuPJBz97uuXUYFB
-         D5Oe6v+MBdESoE6A8qK2j2U0BGARfbKrwDTi2W4vWoXP2y5LTi3VR1efZYrsExw/rJq4
-         EstA==
-X-Gm-Message-State: AOJu0YwCwMiheCmQQfadXwY8VP1iyhzS9T9xedA9f9kZqCh/SVwOWdkW
-	j7Rs/J9b7fcvGWmsa6pahC7RDHOGqj71vqr18/U=
-X-Google-Smtp-Source: AGHT+IHCsqM+wH9fNDhn1W9BmIV+1yltpcRLVAysNGv0q1E05sXiI376SJmdiW1Sww+dT/vCmARTbg==
-X-Received: by 2002:adf:e74e:0:b0:321:504a:bc9a with SMTP id c14-20020adfe74e000000b00321504abc9amr7286643wrn.71.1696608865924;
-        Fri, 06 Oct 2023 09:14:25 -0700 (PDT)
+        bh=wq5/K3oMCVsUdRmOKYlU42jsX3W8m7/NMyFb5YSqHq4=;
+        b=tY5HkkeyJW6YiNhN3yJHpFks8Uc5IarsV4OIwYCRL6GbgnyMjyZhX9tvZamGD1sZBd
+         uytrXjAWeVJzWiCM8S3/KUavrbUqBAg5ew9kkTM6OSRHSumf8WhxJK139MiZMccvVEqT
+         gLmxgC5H3GsosrBCQMeXjCuUYL6mU55g4yPXcQcn1Jymggh6K8B3CglynHvhiDZbDjss
+         t7urq2nGK89DVzxAqLuFvLDzIwUY1Jf/ytd79jV9gTeR4PJ3rOes3ghFL1llkijJPERp
+         GB5CP82BHmmFFukgZ+s7F4dJa6WIykP5b1MfIlatyY3HPiOMNx5u8TUKLUYqNFzUtqZX
+         uZEQ==
+X-Gm-Message-State: AOJu0YyxA8lCdi1DzvgstFoaih7EnA3AI++qhkDhduRKw1S43QuoeI64
+	eVnIIgLwtKOTVSjpRh8q2rob4Ksp6FDRNQko7y0=
+X-Google-Smtp-Source: AGHT+IFT7uw5jOoME9ZIr5/g867VhGcv36+dwrYCSMoPZfTzR56hnQeMU07vxSzByI7uJm+CgEXzfA==
+X-Received: by 2002:a5d:4b04:0:b0:319:6d91:28bf with SMTP id v4-20020a5d4b04000000b003196d9128bfmr7346376wrq.60.1696608863524;
+        Fri, 06 Oct 2023 09:14:23 -0700 (PDT)
 From: Jean-Philippe Brucker <jean-philippe@linaro.org>
 To: virtio-comment@lists.oasis-open.org
 Cc: vivek.gautam@arm.com,
@@ -52,248 +52,212 @@ Cc: vivek.gautam@arm.com,
 	sameo@rivosinc.com,
 	eric.auger@redhat.com,
 	kevin.tian@intel.com,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>
-Date: Fri,  6 Oct 2023 17:09:47 +0100
-Message-ID: <20231006160947.2227396-10-jean-philippe@linaro.org>
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
+Date: Fri,  6 Oct 2023 17:09:42 +0100
+Message-ID: <20231006160947.2227396-5-jean-philippe@linaro.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231006160947.2227396-3-jean-philippe@linaro.org>
 References: <20231006160947.2227396-3-jean-philippe@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v2 7/9] virtio-iommu: Add AMD page tables
+Subject: [virtio-comment] [PATCH v2 2/9] virtio-iommu: Add INVALIDATE request
 
-Mostly for illustration for the moment. It has several interesting
-features, like HW acceleration of queues, so this patch tries to
-show how that could be supported with virtio-iommu. The interface is
-straightforward, the difficulty lies in abstracting the guest AMD IOMMU
-driver well enough to be reused by virtio-iommu.
+Add a request that invalidates mappings of a domain attached with table.
 
-Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+Signed-off-by: Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
 ---
- device-types/iommu/description.tex |   4 +
- device-types/iommu/pgtable-amd.tex | 187 +++++++++++++++++++++++++++++
- 2 files changed, 191 insertions(+)
- create mode 100644 device-types/iommu/pgtable-amd.tex
+ device-types/iommu/description.tex | 170 +++++++++++++++++++++++++++++
+ 1 file changed, 170 insertions(+)
 
 diff --git a/device-types/iommu/description.tex b/device-types/iommu/description.tex
-index a50dd21..38f94f8 100644
+index f81d96d..2a2184a 100644
 --- a/device-types/iommu/description.tex
 +++ b/device-types/iommu/description.tex
-@@ -409,6 +409,8 @@ \subsubsection{ATTACH_TABLE request}\label{ref:Device Types / IOMMU Device / Dev
- #define VIRTIO_IOMMU_ATTACH_TABLE_ARM_SMMU3       1
- #define VIRTIO_IOMMU_ATTACH_TABLE_INTEL_PT        2
- #define VIRTIO_IOMMU_ATTACH_TABLE_RISCV           4
-+#define VIRTIO_IOMMU_ATTACH_TABLE_AMD_GCR3        5
-+#define VIRTIO_IOMMU_ATTACH_TABLE_AMD_PT          6
+@@ -180,6 +180,7 @@ \subsection{Device operations}\label{sec:Device Types / IOMMU Device / Device op
+ #define VIRTIO_IOMMU_T_UNMAP          4
+ #define VIRTIO_IOMMU_T_PROBE          5
+ #define VIRTIO_IOMMU_T_ATTACH_TABLE   6
++#define VIRTIO_IOMMU_T_INVALIDATE     7
  \end{lstlisting}
  
- Attach an endpoint to a domain, in the same way as an ATTACH
-@@ -1013,6 +1015,7 @@ \subsubsection{PROBE properties}\label{sec:Device Types / IOMMU Device / Device
- #define VIRTIO_IOMMU_PROBE_T_HW_ARM_SMMU3   2
- #define VIRTIO_IOMMU_PROBE_T_HW_INTEL_VTD   3
- #define VIRTIO_IOMMU_PROBE_T_HW_RISCV       4
-+#define VIRTIO_IOMMU_PROBE_T_HW_AMD         5
- \end{lstlisting}
+ A few general-purpose status codes are defined here.
+@@ -717,6 +718,175 @@ \subsubsection{UNMAP request}\label{sec:Device Types / IOMMU Device / Device ope
+ mapping, then the device SHOULD remove all mappings affected by the range
+ and set the request \field{status} to VIRTIO_IOMMU_S_OK.
  
- \paragraph{Property RESV_MEM}\label{sec:Device Types / IOMMU Device / Device operations / PROBE properties / RESVMEM}
-@@ -1166,3 +1169,4 @@ \subsection{Acceleration}\label{sec:Device Types / IOMMU Device / Acceleration}
- \input{device-types/iommu/pgtable-arm}
- \input{device-types/iommu/pgtable-intel}
- \input{device-types/iommu/pgtable-riscv}
-+\input{device-types/iommu/pgtable-amd}
-diff --git a/device-types/iommu/pgtable-amd.tex b/device-types/iommu/pgtable-amd.tex
-new file mode 100644
-index 0000000..81e3af2
---- /dev/null
-+++ b/device-types/iommu/pgtable-amd.tex
-@@ -0,0 +1,187 @@
-+\subsubsection{AMD GCR3 table}\label{sec:Device Types / IOMMU Device / Acceleration / AMD GCR3}
-+
-+The AMD IOMMU distinguishes two modes: the GCR3 table may be in
-+system physical memory, managed entirely by the host platform, or
-+in guest physical memory, managed by the guest driver.
-+GCR3TRPMode indicates support for GPA based GCR3 table.
-+
-+The driver first configures a GCR3 table using the
-+virtio_iommu_req_attach_pst_amd_gcr3 request. If GPA based GCR3 table is
-+supported, then the driver can provide a pointer to a GCR3 table.
-+
-+Otherwise, the driver provides GCR3 configuration, and populates the
-+device-managed GCR3 table using VIRTIO_IOMMU_ATTACH_TABLE_AMD_PT
-+requests. Field \field{domain} in page table ATTACH_TABLE
-+requests is the same as the one used to configure GCR3.
-+
-+\paragraph{PROBE properties for AMD GCR3 table}\label{sec:Device Types / IOMMU Device / Acceleration / AMD GCR3 / PROBE}
-+
-+The PROBE property VIRTIO_IOMMU_PROBE_T_HW_AMD provides
-+information about an AMD IOMMU.
++\subsubsection{INVALIDATE request}\label{sec:Device Types / IOMMU Device / Device operations / INVALIDATE request}
 +
 +\begin{lstlisting}
-+struct virtio_iommu_probe_hw_amd {
-+  struct virtio_iommu_probe_property head;
-+  le32	cap;
-+  le64	efr;
-+  le64	efr2;
-+
-+  u8    viommu_mmio_bar;
-+  u8    reserved[7];
-+  le64  viommu_mmio_offset;
-+
-+};
-+\end{lstlisting}
-+
-+Valid ID register fields are:
-+
-+\begin{itemize}
-+  \item EFR.GLXSup
-+  \item EFR.NXSup
-+  \item EFR.USSup
-+  \item EFR.GATS
-+
-+  \item EFR.PASmax
-+  \item EFR.GIoSup
-+  \item EFR.GAUpdateDisSup
-+  \item EFR.vIOMMUSup
-+\end{itemize}
-+
-+\todo{reserve cap and efr2 if we're not using them? Probably
-+some missing. Also, declare bitfields.}
-+
-+When vIOMMUSup is 1, fields \field{viommu_mmio_bar} and
-+\field{viommu_mmio_offset} indicate the location of the 4kB
-+Virtual Function MMIO Registers. When using the virtio-pci
-+transport the combination of bar and offset locate the MMIO
-+region. Otherwise the \field{viommu_mmio_offset} is from the
-+start of the device MMIO region.
-+
-+\todo{Interrupt injection for vIOMMU. When passing the VF
-+control MMIO registers, we also pass the index of the two MSIs
-+used for event/general and PPR virtual queues, so the host can
-+setup routing. If not using virtio-pci then the platform could in
-+theory reserve two IRQ lines, but we can just mandate PCI and
-+MSIs. However, the spec also requires us to support Guest Virtual
-+APIC features, which looks like a can of worms.}
-+
-+\paragraph{ATTACH_TABLE request for AMD GCR3 table}\label{sec:Device Types / IOMMU Device / Acceleration / AMD GCR3 / ATTACH_TABLE / GCR3}
-+
-+The driver attaches a GCR3 table with the following structure,
-+whose fields correspond to Device Table Entry fields.
-+
-+\begin{lstlisting}
-+struct virtio_iommu_req_attach_table_amd_gcr3 {
++struct virtio_iommu_req_invalidate {
 +  struct virtio_iommu_req_head head;
++  u8    scope;
++  u8    caches;
++  le16  flags;
 +  le32  domain;
-+  le32  endpoint;
-+  u8    format;
-+  u8    reserved[3];
-+
-+  le64  gcr3_table_root_pointer;
-+  u8    glx;
-+  u8    giov;
-+  u8    guest_paging_mode;
-+  u8    vimuen;
-+  u8    gaupdatedis;
-+  u8    reserved[3]
-+
-+  le64  guest_command_control;
-+  le64  guest_event_control;
-+  le64  guest_event_logb;
-+  le64  guest_ppr_control;
-+  le64  guest_pprb_control;
-+  le32  domain_id;
-+
-+  u8    reserved[48];
-+  struct virtio_iommu_req_tail tail;
-+};
-+\end{lstlisting}
-+
-+\todo{Change this to DTE bitfields if the Linux UAPI goes that
-+way, to ease impedance matching. Nicer this way, because the GCR3
-+pointer is split in three in the DTE.}
-+
-+\begin{description}
-+  \item[\field{format}] VIRTIO_IOMMU_ATTACH_TABLE_AMD_GCR3
-+  \item[\field{glx}] The layout used for the GC3 table. When GPA
-+    based GCR3 is not supported, this field is ignored.
-+  \item[\field{giov}] Behavior for requests without PASID.
-+  \item[\field{guest_paging_mode}] Layout used for the page
-+    tables.
-+  \item[\field{gaupdatedis}] Disable hardware update of page
-+    tables.
-+  \item[\field{gcr3_table_root_pointer}] When GPA based GCR3 table is
-+    supported, the pointer to the GCR3 root table. Otherwise 0.
-+  \item[\field{vimuen}] Enable IOMMU virtualization acceleration.
-+\end{description}
-+
-+The following fields attach command, event and ppr queues to the
-+hardware IOMMU, when \field{vimuen} is 1.
-+
-+\todo{These five regs may need a separate request than
-+virtio_iommu_req_attach_table_amd_gcr3, because these registers
-+are shared between all endpoints that share a (viommu_mmio_bar,
-+viommu_mmio_offset), ie a GuestID within one IOMMU (could there
-+be multiple ones in the system?). Or we can just require that all
-+attach_table requests use the same registers.}
-+
-+\begin{description}
-+  \item[\field{guest_command_control}]
-+  \item[\field{guest_event_control}]
-+  \item[\field{guest_event_logb}]
-+  \item[\field{guest_ppr_control}]
-+  \item[\field{guest_pprb_control}]
-+  \item[\field{domain_id}] Guest DomainID, used by the driver in
-+    invalidation commands. Assuming TLB entries are formed with
-+    the DomainID allocated and written by the host in DTE, this
-+    provides a virtual domain ID space to the guest, and the
-+    IOMMU translates it in virtual invalidation commands.
-+
-+    Guest DeviceID corresponds to virtio-iommu endpoint ID, which
-+    the host already knows.
-+\end{description}
-+
-+\paragraph{ATTACH_TABLE request for AMD page table}\label{sec:Device Types / IOMMU Device / Acceleration / AMD GCR3 / ATTACH_TABLE / page table}
-+
-+When GPA based GCR3 table is not supported, the driver sends this
-+request to update the device-managed GCR3 table. The
-+\field{device} and \field{domain} have already been attached with
-+a VIRTIO_IOMMU_ATTACH_TABLE_AMD_GCR3 request.
-+
-+\todo{this applies to all endpoints attached to the GCR3 table,
-+hence only one request needed per domain and \field{endpoint} is
-+meaningless}
-+
-+The driver sends DETACH requests with PASID to clear GCR3 table
-+entries.
-+
-+\begin{lstlisting}
-+struct virtio_iommu_req_attach_table_amd_pt {
-+  struct virtio_iommu_req_head head;
-+  le32  domain;
-+  le32  endpoint;
-+  u8    format;
-+  u8    reserved[3];
-+  le64  guest_page_table_pointer;
 +  le32  pasid;
-+
-+  u8    reserved[XX];
++  le64  id;
++  le64  address;
++  le64  nr_pages;
++  u8    page_size;
++  u8    reserved[19];
 +  struct virtio_iommu_req_tail tail;
-+}
++};
++
++#define VIRTIO_IOMMU_INVAL_S_DOMAIN   1
++#define VIRTIO_IOMMU_INVAL_S_PASID    2
++#define VIRTIO_IOMMU_INVAL_S_ADDRESS  3
++
++#define VIRTIO_IOMMU_INVAL_C_PASID    (1 << 0)
++#define VIRTIO_IOMMU_INVAL_C_TLB      (1 << 1)
++
++#define VIRTIO_IOMMU_INVAL_F_LEAF     (1 << 0)
++#define VIRTIO_IOMMU_INVAL_F_PASID    (1 << 1)
++#define VIRTIO_IOMMU_INVAL_F_ID       (1 << 2)
++#define VIRTIO_IOMMU_INVAL_F_GLOBAL   (1 << 3)
 +\end{lstlisting}
 +
++Invalidate a mapping or configuration. When using PASID or page
++tables, the driver sends an INVALIDATE request to signal changes
++to table entries that might have been cached by the device, and
++to synchronize with table walkers.
++
++Field \field{scope} specifies which entries to invalidate:
 +\begin{description}
-+  \item[\field{format}] VIRTIO_IOMMU_ATTACH_TABLE_AMD_PT
-+  \item[\field{pasid}] Index into the GCR3 table.
-+  \item[\field{guest_page_table_pointer}] Pointer to the page
-+    table.
++  \item[VIRTIO_IOMMU_INVAL_S_DOMAIN] invalidates all cached
++    entries for the given \field{domain}.
++  \item[VIRTIO_IOMMU_INVAL_S_PASID] invalidates all cached
++    entries for the given \field{domain} and \field{pasid}.
++  \item[VIRTIO_IOMMU_INVAL_S_ADDRESS] invalidates all cached
++    entries for the given \field{domain}, \field{pasid} and
++    virtual address range.
 +\end{description}
 +
-+\todo{arch-specific ATC invalidation: INVALIDATE_IOTLB_PAGES (ATC
-+inv) has a custom inval types that avoid flushing dependent
-+transactions, and one that flushes all transactions. It's
-+endpoint-specific. Do we need to support it? First one seems like
-+just an optimization that can be replaced by a standard ATC inv,
-+but the second one may not have an equivalent in standard
-+invalidation flags.}
++Field \field{caches} specifies which caches to invalidate:
++\begin{description}
++  \item[VIRTIO_IOMMU_INVAL_C_PASID] Invalidate entries cached
++    from the PASID table.
++  \item[VIRTIO_IOMMU_INVAL_C_TLB] Invalidate entries from the
++    Translation Lookaside Buffers (TLBs), including device TLBs
++    such as those implemented with the PCIe ATS extension.
++\end{description}
++
++For example, when the driver removes a mapping from a table
++attached to the \field{domain}, it sends an INVALIDATE request
++for \field{scope} ADDRESS and \field{caches} TLB. To invalidate
++the whole address space the driver sets the \field{scope} to
++DOMAIN, or to PASID when using a PASID table. When removing a
++page directory from a PASID table entry, the driver sends an
++INVALIDATE request with \field{scope} PASID, and all
++\field{caches} flags set.
++
++Field \field{flags} specifies additional information:
++\begin{description}
++  \item[VIRTIO_IOMMU_INVAL_F_LEAF] Only invalidate TLB entries
++    cached from leaf table entries.
++  \item[VIRTIO_IOMMU_INVAL_F_PASID] The \field{pasid} field is
++    valid.
++  \item[VIRTIO_IOMMU_INVAL_F_ID] The \field{id} field is valid.
++  \item[VIRTIO_IOMMU_INVAL_F_GLOBAL] In addition to TLB entries
++    targeted by the invalidation, also invalidate global entries.
++    For example PCIe ATS may create global entries if the IOMMU
++    sets the Global mapping bit in a Translation Completion.
++\end{description}
++
++Use of field \field{id} is specific to the table format. Some
++formats use only the PASID to identify address spaces within a
++domain, others use a separate ID for TLB entries.
++
++For a \field{scope} of VIRTIO_IOMMU_INVAL_S_ADDRESS, the
++invalidation affects the range of virtual addresses of size
++$\field{nr\_pages} \times 2^\field{page\_size}$, starting at
++\field{address}. Specifying the range size this way allows the
++device to efficiently remove TLB entries. For example a page
++table format could allow a 2MiB range to be mapped with either
++512 4KiB pages, or a single 2MiB block. In the latter case a
++single TLB entry is used, so the driver specifies a
++\field{page_size} of 21 and the device does not need to iterate
++over all 4KiB multiples to invalidate the range.
++
++The following table describes valid \field{caches}, \field{flags}
++and fields for each \field{scope}:
++
++\begin{tabular}{|l|c|c|c|}
++\hline
++  \field{scope}       & DOMAIN      & PASID               & ADDRESS \\
++\hline
++  \field{caches}      & PASID, TLB  & PASID, TLB          & TLB \\
++  \field{flags}       & ID          & LEAF, PASID, ID     & LEAF, PASID, ID, GLOBAL \\
++  \field{domain}      & Y           & Y                   & Y \\
++  \field{pasid}       & N           & Y                   & Y \\
++  \field{id}          & Y           & Y                   & Y \\
++  \field{address}     & N           & N                   & Y \\
++  \field{nr_pages}    & N           & N                   & Y \\
++  \field{page_size}   & N           & N                   & Y \\
++\hline
++\end{tabular}
++
++When using a PASID table, an invalidation of \field{scope}
++PASID or ADDRESS without VIRTIO_IOMMU_INVAL_F_PASID targets cache
++entries that were created by DMA transactions without PASID.
++\todo{Note that this is inconsistent with DETACH (when the PASID
++table is managed by the device) where the lack of F_PASID
++detaches everything. We can still change that one but then we
++wouldn't have a detach-all method for a domain (not sure if we
++actually need one).}
++Depending on the hardware implementation, this may behave in the
++same way as an invalidation of \field{scope} DOMAIN, clearing all
++cached entries including those with PASID. Notably, it is the
++behavior specified by the PCIe ATS extension.
++
++\devicenormative{\paragraph}{INVALIDATE request}{Device Types / IOMMU Device / Device operations / INVALIDATE request}
++
++After handling an INVALIDATE request, the device SHOULD NOT let
++endpoints attached to \field{domain} access virtual address in
++the invalidated range, unless the range is valid in the table
++attached to the \field{domain}. In other words, the device SHOULD
++access the virtual address through the attached tables instead of
++a cache.
++
++For a \field{scope} of VIRTIO_IOMMU_INVAL_S_DOMAIN, the device
++SHOULD ignore fields \field{pasid}, \field{address},
++\field{nr_pages} and \field{page_size}.
++
++For a \field{scope} of VIRTIO_IOMMU_INVAL_S_PASID, the device
++SHOULD ignore fields \field{address}, \field{nr_pages},
++\field{page_size},
++
++If no cache entry exist for the given parameters, the device
++SHOULD set the \field{status} field to VIRTIO_IOMMU_S_OK. In
++other words, spurious invalidations are allowed.
++
++The device MAY invalidate more entries and caches than requested,
++and MAY ignore flag VIRTIO_IOMMU_INVAL_F_LEAF. Over-invalidation
++is allowed, but under-invalidation is not.
++
++\drivernormative{\paragraph}{INVALIDATE request}{Device Types / IOMMU Device / Device operations / INVALIDATE request}
++
++\field{domain} MUST have been created with an ATTACH_TABLE
++request.
++
++For a \field{scope} of VIRTIO_IOMMU_INVAL_S_DOMAIN, the driver
++SHOULD set fields \field{pasid}, \field{address},
++\field{nr_pages} and \field{page_size} to zero.
++
++For a \field{scope} of VIRTIO_IOMMU_INVAL_S_PASID, the driver
++SHOULD set fields \field{address}, \field{nr_pages},
++\field{page_size} to zero.
++
++An invalidation with \field{scope} VIRTIO_IOMMU_INVAL_S_PASID or
++VIRTIO_IOMMU_INVAL_S_ADDRESS that targets cache entries created
++by transactions with PASID SHOULD have a valid \field{pasid} field,
++not solely a valid \field{id} field. This is because a platform can
++enable device caches such as PCIe ATS implicitly, requiring a PASID in
++the invalidation.
++
+ \subsubsection{PROBE request}\label{sec:Device Types / IOMMU Device / Device operations / PROBE request}
+ 
+ If the VIRTIO_IOMMU_F_PROBE feature bit is present, the driver sends a
 -- 
 2.42.0
 
