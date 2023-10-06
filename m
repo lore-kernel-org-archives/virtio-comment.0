@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7589-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7590-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 096F4E92FF7
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 08:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA1AE81E1B
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 328F91318CA
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 08:00:47 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0D08C7A096
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 10180986813
-	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 08:00:47 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B25B9986832
+	for <virtio-comment@archiver.kernel.org>; Fri,  6 Oct 2023 16:14:29 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id ECAE798680B; Fri,  6 Oct 2023 08:00:46 +0000 (UTC)
+	id 7BAC398681B; Fri,  6 Oct 2023 16:14:29 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,141 +24,121 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D84B598680C
-	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Oct 2023 08:00:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C4F58986825
+	for <virtio-comment@lists.oasis-open.org>; Fri,  6 Oct 2023 16:14:28 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696579246; x=1697184046;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0oVIBg0bBR7OezktmdZUVe+VpoAMqQTM3s9pABHnIOE=;
-        b=l+847ttMqZddlSjx6HkTzHpF6nFr0/aeTgXfU15CGpSRDSitoVqLKPmCo+8Zh79MW3
-         eOBAHUBq6Bhy6b8Mjcmy00oiEh/OALO2M7EG/IJEEB7ENtddAzNbpN3718CCl05to+pi
-         C/m89cwPwj/OuEaqjhQTfG3/rkDGkwuiIVeg/xXni/jmPMl3RdMQk82UPy49Vsl6z69D
-         9XUthXkeswVZFNzylM50apuXQp8vdkI80Mot7L8npRKMobxaYSfGa5GpDDk3cH90Wml0
-         eOJ6ls5rHv3rlCBn3yqweiPSWsjBnh8MBfdDt3nrr9IifPIPwtCpGullE+NkjanQCpS2
-         ug9w==
-X-Gm-Message-State: AOJu0YyX6zomLcTNLEN3BPMWIlD/178F4/OOLNIuu+cKjpwY+TATeSwI
-	4oMaFRkW/ljlIMP6CNidSbqwmdT2IqVj+lsBw6kd5w==
-X-Google-Smtp-Source: AGHT+IHka+zR3jH+qJhGOQmqR1nSX9AbBMdj8Dil3zHSO3ddXzsQPwKcSNnLxHo22WS2cdnO877Jgei3wnQu21BTrP4=
-X-Received: by 2002:a05:6102:274e:b0:452:85eb:e36d with SMTP id
- p14-20020a056102274e00b0045285ebe36dmr7508663vsu.20.1696579245669; Fri, 06
- Oct 2023 01:00:45 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1696608864; x=1697213664;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=d/WmOAUZQ3650EM5MP77D+jZsk7QToIA1yfZVlwSeTs=;
+        b=XcM7It5M/nVw3as/d3cUU+A7gTe8e/GOZ9i+D+rWfmVouGv2GkPASWeEmvuiLDpmnn
+         awIYfUhOaJcQAogjJEJVSTAng4jP44FUoUFAv6yFYM7X+SrIcgJsQQkhzW+4ztKZh/v7
+         gpLc/UXu2JRyg1wXKlttNMK+uTBanyA2uqR5yVIP73z1JCvkPutK0GYRawn/CbxH9PSV
+         NfbASg7w4WBXfI/MjPmmfntniy+axbwtpvuNB1VBMaZbK/5TJ6hl+kqtpJbiRXY9bhza
+         /gVe1gcmYWCwSaYQRW5Hlmk/EmNH72iGU4AnsRcX8J0+fOwRNmfq2ltd0E7B7qL1TyH/
+         nV5A==
+X-Gm-Message-State: AOJu0Yw32i7vaIM25WzFF4tN2nzlLdrViPUEfuoDartdEFERRFa1Cufy
+	7KFoByZ2f92ja2s7dSYoemT6JEOhuJsOeJQ5kNQ=
+X-Google-Smtp-Source: AGHT+IFq8k+An/fa5rCrPzNx9elhygfZnrYgD8b1eiVH63w8bEQ1J0Luojxp46Hk6Mf/GbzUebogjA==
+X-Received: by 2002:a5d:4e8f:0:b0:319:79b4:a8ba with SMTP id e15-20020a5d4e8f000000b0031979b4a8bamr8735679wru.41.1696608864487;
+        Fri, 06 Oct 2023 09:14:24 -0700 (PDT)
+From: Jean-Philippe Brucker <jean-philippe@linaro.org>
+To: virtio-comment@lists.oasis-open.org
+Cc: vivek.gautam@arm.com,
+	tina.zhang@intel.com,
+	seb@rivosinc.com,
+	sameo@rivosinc.com,
+	eric.auger@redhat.com,
+	kevin.tian@intel.com,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>
+Date: Fri,  6 Oct 2023 17:09:44 +0100
+Message-ID: <20231006160947.2227396-7-jean-philippe@linaro.org>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231006160947.2227396-3-jean-philippe@linaro.org>
+References: <20231006160947.2227396-3-jean-philippe@linaro.org>
 MIME-Version: 1.0
-References: <80a2e4337affb043909c348395fb45aeeb693dc7.1695640593.git.JESHWANTHKUMAR.NK@amd.com>
- <904049f9-3ddf-7e88-c6f3-785a29a08210@linaro.org> <CAHUa44GzHPkntr=sFYYzokW0=9CCN7n6Ch1i6J7L7Uhh5U5P3A@mail.gmail.com>
- <CAFA6WYOsPhFkyrG0P7B6Ec=AnDvoUaerLocM89KtmybLmKbsaw@mail.gmail.com>
- <CAKWjNY-tixKn=N2_5vcjZHEuh0bBE9BpFXwRV7Y5MDDLsPYzfw@mail.gmail.com>
- <CAFA6WYMraufRMwK=u+5pn4r2a4g-RzcLFiJiNa+t=CjjAE+_xA@mail.gmail.com>
- <CAKWjNY-Gf-Kf1Ldsni6oXp2+POghFWWg36WYtvZcnUXqhurcLw@mail.gmail.com>
- <CAFA6WYP65bR7a8teOo0tDVVgaVQx-1xg=pyJqTtoAKzmOs4TPQ@mail.gmail.com> <8124dd4b-d69d-46ca-8b39-7d0aacb078f7@app.fastmail.com>
-In-Reply-To: <8124dd4b-d69d-46ca-8b39-7d0aacb078f7@app.fastmail.com>
-From: Sumit Garg <sumit.garg@linaro.org>
-Date: Fri, 6 Oct 2023 13:30:34 +0530
-Message-ID: <CAFA6WYNyA_ZD1Ca=cHokOjRpuTX59kjFiG46UJ8HtGOBWk2=_w@mail.gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, mst@redhat.com
-Cc: Arnd Bergmann <arnd@linaro.org>, jeshwanthkumar.nk@amd.com, Devaraj.Rangasamy@amd.com, 
-	Mythri.Pandeshwarakrishna@amd.com, Nimesh.Easow@amd.com, 
-	Rijo-john.Thomas@amd.com, babulu.ellune@amd.com, 
-	virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, 
-	Arnd Bergmann <arnd.bergmann@linaro.org>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	Jens Wiklander <jens.wiklander@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH v2] virtio-tee: Reserve device ID 46 for TEE device
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] [PATCH v2 4/9] virtio-iommu: Add PASID field to DETACH
 
-On Tue, 3 Oct 2023 at 19:06, Arnd Bergmann <arnd@arndb.de> wrote:
->
-> On Thu, Sep 28, 2023, at 16:48, Sumit Garg wrote:
-> > On Wed, 27 Sept 2023 at 21:39, Arnd Bergmann <arnd@linaro.org> wrote:
-> >> On Wed, 27 Sept 2023 at 16:09, Sumit Garg <sumit.garg@linaro.org> wrote:
-> >>
-> >> I don't know if there is a limit on the size of the virtio shared
-> >> memory area other than the PCI MMIO space size, could
-> >> this just be made (much) larger?
-> >
-> > Actually it's a double edged sword. You wouldn't like to block too
-> > much host memory which remains unused and on the other hand not too
-> > less that can't serve guest application needs. That's the reason we
-> > should provide an option to dynamically share guest memory with a TEE.
->
-> To clarify: the address space in the virtio-shmem segment
-> does not have to be permanently backed by host memory, it
-> just provides a part of the guest-physical mmio space and
-> could be populated as needed. So you might have a 1TB
-> shmem region in the device itself but only use a single 4KB
-> page in it.
+Some page table extensions (Intel scalable mode and some AMD
+implementations) require populating host-managed PASID tables with
+ATTACH_TABLE and DETACH requests. To mirror the PASID parameter in the
+ATTACH_TABLE request, add a PASID parameter to DETACH.
 
-Thanks for the clarification. It makes sense to use this approach for
-TEE shared memory allocation purposes. The guest client application
-should be able to mmap() the buffer allocated from virtio-shmem space.
+This could later be used if we generalize PASID support to the ATTACH
+request, but there is not plan for that at the moment.
 
->
-> The restriction here is that the address of the shmem segment
-> itself is fixed on the PCI bus (or whichever virtio transport
-> is used), rather than decided by the guest from its memory.
->
+Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+---
+ device-types/iommu/description.tex | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
-I can understand this restriction.
+diff --git a/device-types/iommu/description.tex b/device-types/iommu/description.tex
+index 58edaad..c057cdf 100644
+--- a/device-types/iommu/description.tex
++++ b/device-types/iommu/description.tex
+@@ -486,27 +486,36 @@ \subsubsection{DETACH request}
+   struct virtio_iommu_req_head head;
+   le32 domain;
+   le32 endpoint;
+-  u8   reserved[8];
++  le32 flags;
++  le32 pasid;
+   struct virtio_iommu_req_tail tail;
+ };
++
++#define VIRTIO_IOMMU_DETACH_F_PASID   (1 << 0)
+ \end{lstlisting}
+ 
+-Detach an endpoint from a domain. When this request completes,
+-the endpoint cannot access any mapping from that domain anymore.
+-However the endpoint may then be in bypass mode and access the
+-guest-physical address space.
++Detach an address space from an endpoint. When this request
++completes, the endpoint cannot access any mapping from the
++address space anymore. However the endpoint may then be in bypass
++mode and access the guest-physical address space.
+ 
+ After all endpoints have been successfully detached from a domain, it
+ ceases to exist and its ID can be reused by the driver for another domain.
+ 
++When flag VIRTIO_IOMMU_DETACH_F_PASID is set, field \field{pasid}
++contains the identifier of the address space to detach from the
++device. This is only supported with some table formats, attached
++with a VIRTIO_IOMMU_T_ATTACH_TABLE request. When flag
++VIRTIO_IOMMU_DETACH_F_PASID is not set, detach all address spaces
++from the device.
++
+ \drivernormative{\paragraph}{DETACH request}{Device Types / IOMMU Device / Device operations / DETACH request}
+ 
+-The driver SHOULD set \field{reserved} to zero.
++The driver SHOULD set field \field{pasid} and flag
++VIRTIO_IOMMU_DETACH_F_PASID to zero if PASID is not supported.
+ 
+ \devicenormative{\paragraph}{DETACH request}{Device Types / IOMMU Device / Device operations / DETACH request}
+ 
+-The device MUST ignore \field{reserved}.
+-
+ If the endpoint identified by \field{endpoint} doesn't exist, then the
+ device MUST reject the request and set \field{status} to
+ VIRTIO_IOMMU_S_NOENT.
+@@ -516,8 +525,9 @@ \subsubsection{DETACH request}
+ then the device MAY set the request \field{status} to
+ VIRTIO_IOMMU_S_INVAL.
+ 
+-The device MUST ensure that after being detached from a domain, the
+-endpoint cannot access any mapping from that domain.
++The device MUST ensure that after being detached from an address
++space, the endpoint cannot access any mapping from that address
++space.
+ 
+ \subsubsection{MAP request}\label{sec:Device Types / IOMMU Device / Device operations / MAP request}
+ 
+-- 
+2.42.0
 
-> >> > The TEE communication protocol has to support INOUT shared memory
-> >> > buffers. So it will be quite tricky to support it via TX only and RX
-> >> > only buffers (many more buffer copies).
-> >>
-> >> I don't remember if you can just list the same address in
-> >> virtio for both directions, but that could solve this problem.
-> >
-> > Okay in that case I think following approach can work:
-> >
-> > - Issue VIRTIO_TEE_CMD_REGISTER_MEM to register an additional buffer
-> > passed through virtqueue.
-> > - Instruct TEE to perform operations on it via VIRTIO_TEE_CMD_INVOKE_FUNC.
-> > - Issue VIRTIO_TEE_CMD_UNREGISTER_MEM to unregister that additional
-> > buffer passed through virtqueue.
-> >
-> > I suppose we can pass either guest user-space or kernel reference in
-> > that virtqueue. Does this approach make sense to you?
->
-> No, I'm not sure what you are suggesting here, i.e. which address
-> space VIRTIO_TEE_CMD_REGISTER_MEM would operate on. This would
-> normally be guest physical memory, which might correspond to pinned
-> userspace pages, but I don't think that makes sense in the context
-> of virtio, as we discussed before.
-
-I suppose this is a similar situation with DMA buffers too, correct?
-Is it not allowed to share DMA buffers backed by guest physical memory
-with virtio devices?
-
-As otherwise, in case of VIRTIO-TEE we will be reluctant to maintain
-shadow/bounce buffers in virtio-shmem space which will be inefficient.
-
-> If you would use the virtio
-> shmem backing, VIRTIO_TEE_CMD_REGISTER_MEM could refer to an offset
-> within the device shmem address space, which would then become
-> backed by host memory.
-
-Yeah that sounds like a sensible approach for buffers allocated from
-virtio-shmem space.
-
->
-> IIRC the way we had discussed this before was that the virtio-tee
-> driver would not register memory at all, but instead pass all
-> requests through virtqueues. When the device (host) passes the
-> request up to the actual TEE, it could transparently register
-> the buffer before the transaction and unregister it afterwards,
-> or copy the data to a pre-registered area.
-
-This refers to temporary shared memory in TEE terms. It is the least
-efficient approach. It may turn a single VIRTIO_TEE_CMD_INVOKE_FUNC
-into at max 9 transactions underneath among host and TEE: 8
-register/unregister shared memory invocations and 1 actual invoke
-command. This can be turned into a single transaction among host and
-TEE if we can make the above discussed approaches to work.
-
--Sumit
-
->
->     Arnd
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
