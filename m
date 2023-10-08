@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7618-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7619-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 573CBE95A82
-	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:41:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15AF2E95A67
+	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:53:07 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 98BB6190907
-	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:41:50 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5CC2C1CA24E
+	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:53:06 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7FE5F9864C6
-	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:41:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 30012986510
+	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:53:06 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 6E3D4986380; Sun,  8 Oct 2023 11:41:50 +0000 (UTC)
+	id 0A4C0986380; Sun,  8 Oct 2023 11:53:06 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,242 +24,306 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5DA8C986481
-	for <virtio-comment@lists.oasis-open.org>; Sun,  8 Oct 2023 11:41:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EE85D986481
+	for <virtio-comment@lists.oasis-open.org>; Sun,  8 Oct 2023 11:53:05 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: vKYl-7hTM0ao07a-h5NuNw-1
+X-MC-Unique: DmXmDsX5Me-F_q5EiH6Ycg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696765306; x=1697370106;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=98wDZNsyuqMKeO31aOUmbE/X/lvw9UMJmENU7nfRK7c=;
-        b=uRsdmNpc9Ra6Y9sR/esfZbCJhV0FPZcLMaqFHxpJAAsPIaha1KS1W/XSWAlD51lcI6
-         zrvpFFvsdCsVSzgrFiKNRCPPkyGZMqgyauYFSImCfXSO4y+NjVy2v6i2m6glFEdXO8JW
-         koKJlpNIUr01KD3FRxk5CwRINJk4YJlIRfE/fw63ig+yYUC86hMN3cqZ8/+nVAtK8u5v
-         3g71Nv58mZAcx6OjokJySM6QX1H8KQ+WvkK5LMFvuwHgYSQ3I18/FvOK+2juMGwdhKKJ
-         +VEQaRaSMGNKIgSQschvgIdt2DenO6/lZCaIGgFsNuyZrsGgg8WkiD5CAnO2fPiY8tZq
-         xRjg==
-X-Gm-Message-State: AOJu0YziaeqwWlChSwLD7mHMANiIx9h9Ih04VPql/Grot7cxDr4BzfPe
-	k7+Elr4HBiOpEtJUJncijbV7Kd33zr9Bw0SS59kmPamTA58w8pCmtQoQ5pfTQQ623g9P2hOM2WM
-	Q9c8YuFYWOcgO+EMvw1mIr8mqIBjG+llQ5Q==
-X-Received: by 2002:aa7:c547:0:b0:530:d8df:afaa with SMTP id s7-20020aa7c547000000b00530d8dfafaamr11163262edr.41.1696765306221;
-        Sun, 08 Oct 2023 04:41:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHLLZkksq79znL03jjXfEE5P9GScPdD5xTXkN4HyRXGtJsnjJHGp5CXf2oy1TZYYlQeSmj/Ww==
-X-Received: by 2002:aa7:c547:0:b0:530:d8df:afaa with SMTP id s7-20020aa7c547000000b00530d8dfafaamr11163249edr.41.1696765305817;
-        Sun, 08 Oct 2023 04:41:45 -0700 (PDT)
-Date: Sun, 8 Oct 2023 07:41:40 -0400
+        d=1e100.net; s=20230601; t=1696765982; x=1697370782;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=62dOOEt4fUKA1sm+/lVTiZLz4ORKBqwr5tUoahllNEA=;
+        b=CmIl0iZQST6KQV12YtyAhZUwsDvc36GdZasB1caaa/tPgR3F4jB7he0sDeakSomPkX
+         0jHIYyxdvwoa9Hhie5zZpV3LATLYsIfKqjX7VRA0MA+yuFqsaid5bdTzpXCxgeX9vzww
+         5YZWO4E9+gPMSCHnHXINQx2LgMvAGmEoOw+1RgpObDqjcHNydVz/s9HtW/lGhXdy/g+s
+         feaDYZnmU1oTqSgJqPL+DtRSka47ATk4kta2nBikX8FNgjmvSPjWGDJ7UPmvtGeMDEEc
+         tUcD/pOpp2IvubPGtmHxiURG/hq8HAzFiHblWoval/Uj8O11ES1PVY9HaHEjCLHtp5eu
+         BcQg==
+X-Gm-Message-State: AOJu0YwZt5PsmuqrBcXBxFJuafqGUYGtQeGkt666cdg6AnjcveIQ96Na
+	97mo++8ebdat6hTGJDgjccXEjHnNtkzq+3Wxy8/6RTsL5UdwIqZPP8VlHLXXv0i5Y1umHKdPq6C
+	usP7zzbNFOb/LKqhodyy+ys7SgfHAP23BJQ==
+X-Received: by 2002:a17:907:78c5:b0:9b2:ffca:3890 with SMTP id kv5-20020a17090778c500b009b2ffca3890mr11355966ejc.19.1696765982044;
+        Sun, 08 Oct 2023 04:53:02 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH2aJ4FuX7xS7GlHpWifP2PyGVDLs+pbpLaXdMbLlKBh333aojK+37/VpzzKsVnb1W0z/oB+A==
+X-Received: by 2002:a17:907:78c5:b0:9b2:ffca:3890 with SMTP id kv5-20020a17090778c500b009b2ffca3890mr11355961ejc.19.1696765981704;
+        Sun, 08 Oct 2023 04:53:01 -0700 (PDT)
+Date: Sun, 8 Oct 2023 07:52:56 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com,
 	sburla@marvell.com, shahafs@nvidia.com, maorg@nvidia.com,
 	yishaih@nvidia.com
-Message-ID: <20231008073912-mutt-send-email-mst@kernel.org>
+Message-ID: <20231008074404-mutt-send-email-mst@kernel.org>
 References: <20231008112555.473895-1-parav@nvidia.com>
- <20231008112555.473895-4-parav@nvidia.com>
+ <20231008112555.473895-8-parav@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20231008112555.473895-4-parav@nvidia.com>
+In-Reply-To: <20231008112555.473895-8-parav@nvidia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the device context fields
- for device migration
+Subject: [virtio-comment] Re: [PATCH v1 7/8] admin: Add write recording commands
 
-On Sun, Oct 08, 2023 at 02:25:50PM +0300, Parav Pandit wrote:
-> Define the device context and its fields for purpose of device
-> migration. The device context is read and written by the owner driver
-> on source and destination hypervisor respectively.
+On Sun, Oct 08, 2023 at 02:25:54PM +0300, Parav Pandit wrote:
+> When migrating a virtual machine with passthrough
+> virtio devices, the virtio device may write into the guest
+> memory. Some systems may not be able to keep track of these
+> pages efficiently.
 > 
-> Device context fields will experience a rapid growth post this initial
-> version to cover many details of the device.
+> To facilitate such a system, a device provides the record
+> of pages which are written by the device. In one use case, this
+> commands connect to the vfio framework at [1].
+> 
+> The owner driver configures the member device for list of address
+> ranges for which it expects write recording and reporting by the device.
+> 
+> The owner driver periodically queries the written pages address record
+> which gets cleared from the device upon reading it.
+> 
+> When the write records reduces over the time, at one point write recording
+> is stopped after the device mode is set to FREEZE.
+> 
+> [1] https://elixir.bootlin.com/linux/v6.4-rc1/source/include/uapi/linux/vfio.h#L1207
 > 
 > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
 > Signed-off-by: Parav Pandit <parav@nvidia.com>
 > Signed-off-by: Satananda Burla <sburla@marvell.com>
 > ---
-> changelog:
-> v0->v1:
-> - enrich device context to cover feature bits, device configuration
->   fields
-> - corrected alignment of device context fields
-> ---
->  content.tex        |   1 +
->  device-context.tex | 142 +++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 143 insertions(+)
->  create mode 100644 device-context.tex
+>  admin-cmds-device-migration.tex | 146 ++++++++++++++++++++++++++++++--
+>  admin.tex                       |  10 ++-
+>  2 files changed, 146 insertions(+), 10 deletions(-)
 > 
-> diff --git a/content.tex b/content.tex
-> index 0a62dce..2698931 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -503,6 +503,7 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
->  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+> diff --git a/admin-cmds-device-migration.tex b/admin-cmds-device-migration.tex
+> index e98d552..49835eb 100644
+> --- a/admin-cmds-device-migration.tex
+> +++ b/admin-cmds-device-migration.tex
+> @@ -97,15 +97,16 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+>  During the device migration flow, a passthrough device may write data to the
+>  guest virtual machine memory, a source hypervisor needs to keep track of these
+>  written memory to migrate such memory to destination hypervisor.
+> -Some systems may not be able to keep track of such memory write addresses at
+> -hypervisor level. In such a scenario, a device records and reports these
+> -written memory addresses to the owner device. Such an address is named as
+> -IO virtual address (IOVA). The owner driver enables write recording for one or
+> -more IOVA ranges per device during device migration flow. The owner driver
+> -periodically queries these written IOVA records from the device. As the driver
+> -reads the written IOVA records, the device clears those records from the device.
+> -Once the device reports zero or small number of written IOVA records, the device
+> -mode is set to \field{Stop} or \field{Freeze}. Once the device is set to \field{Stop}
+> +Some systems may not be able to keep track of such
+> +memory writes at addresses at hypervisor level. In such a scenario, a device
+> +records and reports these written memory addresses to the owner device.
+
+
+what does it mean to record them?
+
+> Such an
+> +address is named as IO virtual address (IOVA).
+
+I don't know what does this have to do with IOVA. For that matter
+everything would have to be "IOVA". Spec calls these physical
+address and let's stick to that.
+
+
+> The owner driver enables write
+> +recording for one or more IOVA ranges per device during device migration
+> +flow. The owner driver periodically queries these written IOVA records from
+> +the device.
+
+periodical reads without any indication are the only option then?
+
+> As the driver reads the written IOVA records,
+> +the device clears those records from the device. Once the device reports
+> +zero or small number of written IOVA records, the device is set to
+> +\field{Stop} or \field{Freeze} mode. Once the device is set to \field{Stop}
+>  or \field{Freeze} mode, and once all the IOVA records are read, the driver stops
+>  the write recording in the device.
+
+
+it is not great that you are rewriting text you just wrote in patch 1
+here. pls find a way not to make reviewers read everything twice.
+
+> @@ -118,6 +119,10 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+>  \item Device Context Read Command
+>  \item Device Context Write Command
+>  \item Device Context Discard Command
+> +\item Device Write Record Capabilities Query Command
+> +\item Device Write Records Start Command
+> +\item Device Write Records Stop Command
+> +\item Device Write Records Read Command
+>  \end{enumerate}
 >  
->  \input{admin.tex}
-> +\input{device-context.tex}
+>  These commands are currently only defined for the SR-IOV group type.
+> @@ -307,6 +312,129 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+>  discarded, subsequent VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command writes a new device
+>  context.
 >  
->  \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
->  
-> diff --git a/device-context.tex b/device-context.tex
-> new file mode 100644
-> index 0000000..5611382
-> --- /dev/null
-> +++ b/device-context.tex
-> @@ -0,0 +1,142 @@
-> +\section{Device Context}\label{sec:Basic Facilities of a Virtio Device / Device Context}
+> +\paragraph{Device Write Record Capabilities Query Command}
+> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Record Capabilities Query Command}
 > +
-> +The device context holds the information that a owner driver can use
-> +to setup a member device and resume its operation. The device context
-> +of a member device is read or written by the owner driver using
-> +administration commands.
+> +This command reads the device write record capabilities.
+> +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORD_CAP_QUERY, \field{opcode}
+> +is set to 0xd.
+> +The \field{group_member_id} refers to the member device to be accessed.
 > +
 > +\begin{lstlisting}
-> +struct virtio_dev_ctx_field_tlv {
-> +        le32 type;
-> +        le32 reserved;
+> +struct virtio_admin_cmd_dev_write_record_cap_result {
+> +        le32 supported_iova_page_size_bitmap;
+> +        le32 supported_iova_ranges;
+> +};
+> +\end{lstlisting}
+> +
+> +When the command completes successfully, \field{command_specific_result}
+> +is in the format \field{struct virtio_admin_cmd_dev_write_record_cap_result}
+> +returned by the device. The \field{supported_iova_page_size_bitmap} indicates
+> +the granularity at which the device can record IOVA ranges. the minimum
+> +granularity can be 4KB. Bit 0 corresponds to 4KB, bit 1 corresponds to 8KB, bit 31
+> +corresponds to 4TB. The device supports at least one page granularity.
+> +The device support one or more IOVA page granularity; for each IOVA page
+> +granularity, the device sets corresponding bit in the
+> +\field{supported_iova_page_size_bitmap}. The \field{supported_iova_ranges}
+> +indicates how many unique (non overlapping) IOVA ranges can be recorded by
+> +the device.
+
+what role does this granularity play? i see no mention of it down the
+road.
+
+
+> +
+> +\paragraph{Device Write Records Start Command}
+> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Records Start Command}
+> +
+> +This command starts the write recording in the device for the specified IOVA
+> +ranges.
+> +
+> +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START, \field{opcode}
+> +is set to 0xe.
+> +The \field{group_member_id} refers to the member device to be accessed.
+> +
+> +The \field{command_specific_data} is in the format
+> +\field{struct virtio_admin_cmd_write_record_start_data}.
+> +
+> +\begin{lstlisting}
+> +struct virtio_admin_cmd_write_record_start_entry {
+> +        le64 iova;
+> +        le64 page_count;
+> +};
+> +
+> +struct virtio_admin_cmd_write_record_start_data {
+> +        le64 page_size;
+> +        le32 count;
+> +        u8 reserved[4];
+> +        struct virtio_admin_cmd_write_record_start_entry entries[];
+> +};
+> +
+> +\end{lstlisting}
+> +
+> +The \field{count} is set to indicate number of valid \field{entries}.
+> +The \field{iova} indicates the start IOVA address. The \field{page_count}
+> +indicates number of pages of size \field{page_size} starting from \field{iova}
+> +to record for write reporting. VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START
+> +command contains unique i.e. non overlapping IOVA range entries.
+> +Whenever a memory write occurs by the device in the supplied IOVA range, the
+> +device records the actual IOVA and number of bytes written to the IOVA.
+> +These write records can be read by the
+> +the driver using VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ command.
+> +
+> +This command has no command specific result.
+> +
+> +\paragraph{Device Write Record Stop Command}
+> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Record Stop Command}
+> +
+> +This command stops the write recording in the device for IOVA ranges
+> +which were previously started using VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START
+> +command.
+> +
+> +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_STOP, \field{opcode}
+> +is set to 0xf.
+> +The \field{group_member_id} refers to the member device to be accessed.
+> +
+> +This command does not have any command specific data.
+> +This command has no command specific result.
+> +
+> +\paragraph{Device Write Records Read Command}
+> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Records Read Command}
+> +
+> +This command reads the device write records for which the write recording is
+> +previously started using VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START command.
+> +
+> +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ, \field{opcode}
+> +is set to 0x10.
+> +The \field{group_member_id} refers to the member device to be accessed.
+> +
+> +\begin{lstlisting}
+> +struct virtio_admin_cmd_write_records_read_data {
+> +        le64 iova;
 > +        le64 length;
-> +        u8 value[];
 > +};
 > +
-> +struct virtio_dev_ctx {
-> +        le32 field_count;
-> +        struct virtio_dev_ctx_field_tlv fields[];
+> +struct virtio_admin_cmd_dev_write_records_cnt {
+> +        le32 count;
 > +};
 > +
-> +\end{lstlisting}
-> +
-> +The \field{struct virtio_dev_ctx} is the device context of a member device.
-> +The \field{field_count} indicates how many instances of
-> +\field{struct virtio_dev_ctx_field_tlv} are present.
-> +
-> +The \field{struct virtio_dev_ctx_field_tlv} consist of \field{type} indicating
-> +what data is contained in the \field{value} of length \field{length}.
-> +The valid values for \field{type} can be found in the following table:
-> +
-> +\begin{tabularx}{\textwidth}{ |l||l|X| }
-> +\hline
-> +type & Name & Description \\
-> +\hline \hline
-> +0x0 & VIRTIO_DEV_CTX_PCI_COMMON_RUNTIME_CFG & Provides common configuration space of device for PCI transport \\
-> +\hline
-> +0x1 & VIRTIO_DEV_CTX_DEV_CFG_LAYOUT & Provides device specific configuration layout \\
-> +\hline
-> +0x2 & VIRTIO_DEV_CTX_DEV_FEATURES & Provides device features \\
-> +\hline
-> +0x3 & VIRTIO_DEV_CTX_PCI_VQ_CFG & Provides Virtqueue configuration for PCI transport \\
-> +\hline
-> +0x4 & VIRTIO_DEV_CTX_VQ_SPLIT_RUNTIME_CFG & Provides Queue run time state \\
-> +\hline
-> +0x5 & VIRTIO_DEV_CTX_VQ_SPLIT_DEV_OWN_DESC & Provides list of virtqueue descriptors owned by device  \\
-> +\hline
-> +0x6 - 0xFFFFFFFF & - & Reserved for future types \\
-> +\hline
-> +\end{tabularx}
-
-
-I don't think this is enough, e.g. virtio net has internal state
-controlled thought CVQ commands. how do you intend to address/migrate
-these?
-
-> +\subsubsection{Device Context Fields}\label{sec:Basic Facilities of a Virtio Device / Device Context / Device Context Fields}
-> +
-> +\paragraph{PCI Common Configuration Context}
-> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ PCI Common Configuration Context}
-> +
-> +For the field VIRTIO_DEV_CTX_PCI_COMMON_RUNTIME_CFG, \field{type} is set to 0x0.
-> +The \field{value} is in format of \field{struct virtio_pci_common_cfg}.
-> +The \field{length} is the length of \field{struct virtio_pci_common_cfg}.
-> +
-> +\paragraph{Device Configuration Layout Context}
-> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Device Configuration Layout Context}
-> +
-> +For the field VIRTIO_DEV_CTX_DEV_CFG_LAYOUT, \field{type} is set to 0x1.
-> +The \field{value} is in format of device specific configuration layout listed
-> +in each of the device's device configuration layout section.
-> +The \field{length} is the length of the device configuration layout data.
-
-Unclear. I am guessing it's doing things like setting up RO
-fields? This needs to be specified per device really.
-Also how some fields behave might depend on features.
-
-> +
-> +\paragraph{Device Features Context}
-> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Device Features Context}
-> +
-> +For the field VIRTIO_DEV_CTX_DEV_FEATURES, \field{type} is set to 0x2.
-> +The \field{value} is in format of device feature bits listed in
-> +\ref{sec:Basic Facilities of a Virtio Device / Feature Bits} in the format of \field{struct virtio_dev_ctx_features}.
-> +The \field{length} is the length of the device features.
-> +
-> +\begin{lstlisting}
-> +struct virtio_dev_ctx_pci_vq_cfg {
-> +        le64 feature_bits[];
+> +struct virtio_admin_cmd_dev_write_records_result {
+> +        le64 iova_entries[];
 > +};
 > +\end{lstlisting}
 > +
-> +\paragraph{PCI Virtqueue Configuration Context}
-> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ PCI Virtqueue Configuration Context}
+> +The \field{command_specific_data} is in the format
+> +\field{struct virtio_admin_cmd_write_records_read_data}. The driver
+> +sets the \field {iova} indicating the start IOVA address for up to the
+> +\field{length} number of bytes. The supplied IOVA range same or smaller
+> +than the range supplied when write recording is started by the driver
+> +in VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START command.
+
+Seems pretty sparse. Lots of hypervisors chose to implement
+a bit per page strategy.
+
 > +
-> +For the field VIRTIO_DEV_CTX_PCI_VQ_CFG, \field{type} is set to 0x3.
-> +The \field{value} is in format of \field{struct virtio_dev_ctx_pci_vq_cfg}.
-> +The \field{length} is the length of \field{struct virtio_dev_ctx_pci_vq_cfg}.
+> +When the command completes successfully, \field{command_specific_result}
+> +is in the format \field{struct virtio_admin_cmd_dev_write_records_result}
+> +and \field{command_specific_result} is in format of
+> +\field{struct virtio_admin_cmd_dev_write_records_cnt} containing number
+> +of write records returned by the device.
+
+what are these records though? 
+
+
+> When the command completes
+> +successfully, the write records which are returned in the result are
+> +cleared from the device and same records cannot be read again. When new
+> +writes occur at same IOVA range or at different once, those records can be read
+> +as new write records.
+
+
+this last sentence just confuses.
+
 > +
-> +\begin{lstlisting}
-> +struct virtio_dev_ctx_pci_vq_cfg {
-> +        le16 vq_index;
-> +        le16 queue_size;
-> +        le16 queue_msix_vector;
-> +        le64 queue_desc;
-> +        le64 queue_driver;
-> +        le64 queue_device;
-> +};
-> +\end{lstlisting}
-> +
-> +One or multiple entries of PCI Virtqueue Configuration Context may exist, each such
-> +entry corresponds to a unique virtqueue identified by the \field{vq_index}.
-> +
-> +\paragraph{Virtqueue Split Mode Runtime Context}
-> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Virtqueue Split Mode Runtime Context}
-> +
-> +For the field VIRTIO_DEV_CTX_VQ_SPLIT_RUNTIME_CFG, \field{type} is set to 0x4.
-> +The \field{value} is in format of \field{struct virtio_dev_ctx_vq_split_runtime}.
-> +The \field{length} is the length of \field{struct virtio_dev_ctx_vq_split_runtime}.
-> +
-> +\begin{lstlisting}
-> +struct virtio_dev_ctx_vq_split_runtime {
-> +        le16 vq_index;
-> +        le16 dev_avail_idx;
-> +        u8 enabled;
-> +};
-> +\end{lstlisting}
-> +
-> +The \field{dev_avail_idx} indicates the next available index of the virtqueue from which
-> +the device must start processing the available ring.
-> +
-> +One or multiple entries of Virtqueue Split Mode Runtime Context may exist, each such
-> +entry corresponds to a unique virtqueue identified by the \field{vq_index}.
-> +
-> +\paragraph{Virtqueue Split Mode Device owned Descriptors Context}
-> +
-> +For the field VIRTIO_DEV_CTX_VQ_SPLIT_DEV_OWN_DESC, \field{type} is set to 0x5.
-> +The \field{value} is in format of \field{struct virtio_dev_ctx_vq_split_runtime}.
-> +The \field{length} is the length of \field{struct virtio_dev_ctx_vq_split_dev_descs}.
-> +
-> +\begin{lstlisting}
-> +struct virtio_dev_ctx_vq_split_dev_descs {
-> +        le16 vq_index;
-> +        le16 desc_count;
-> +        le16 desc_idx[];
-> +};
-> +\end{lstlisting}
-> +
-> +The \field{desc_idx} contains indices of the descriptors in \field{desc_count} of a
-> +virtqueue identified by \field{vq_index} which is owned by the device.
-> +
-> +One or multiple entries of Virtqueue Split Mode Device owned Descriptors Context may exist, each such
-> +entry corresponds to a unique virtqueue identified by the \field{vq_index}.
+>  \devicenormative{\paragraph}{Device Migration}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration}
+>  
+>  A device MUST either support all of, or none of
+> diff --git a/admin.tex b/admin.tex
+> index 3429c4e..cffd85e 100644
+> --- a/admin.tex
+> +++ b/admin.tex
+> @@ -138,7 +138,15 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
+>  \hline
+>  0x000c & VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD & Clear the device context data \\
+>  \hline
+> -0x000d - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
+> +0x000d & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORD_CAP_QUERY & Query Write recording capabilities \\
+> +\hline
+> +0x000e & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START & Start Write recording in the device \\
+> +\hline
+> +0x000f & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_STOP & Stop all write recording in the device \\
+> +\hline
+> +0x0010 & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ & Read and clear write records from the device \\
+> +\hline
+> +0x0011 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
+>  \hline
+>  0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
+>  \hline
 > -- 
 > 2.34.1
 
