@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7608-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7609-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B067E81E1E
-	for <virtio-comment@archiver.kernel.org>; Sat,  7 Oct 2023 05:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B543E95A67
+	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:26:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9479772348
-	for <virtio-comment@archiver.kernel.org>; Sat,  7 Oct 2023 05:15:54 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9F56942A6D
+	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:26:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8BFB7986834
-	for <virtio-comment@archiver.kernel.org>; Sat,  7 Oct 2023 05:15:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8DBE99864AF
+	for <virtio-comment@archiver.kernel.org>; Sun,  8 Oct 2023 11:26:20 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 819E7986351; Sat,  7 Oct 2023 05:15:54 +0000 (UTC)
+	id 79B33986380; Sun,  8 Oct 2023 11:26:20 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,16 +24,16 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7212E98682B
-	for <virtio-comment@lists.oasis-open.org>; Sat,  7 Oct 2023 05:15:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 65E43986481
+	for <virtio-comment@lists.oasis-open.org>; Sun,  8 Oct 2023 11:26:20 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tt+/yLLdI2j6q8mOalehDEHvBSZCnhlORJB0lqwF57/jjNKnpd1bLiBb27wdXraOJ04w/68MxtCFbivxy5cxnNJ5v2GlB7gSsyRPq35XAUMF9lwhCXjNRbNYA/72Eot2sjfW7rK1i6vESY+fbRFWgzz67amo//hUEju/8KfQ2tT2urpxe527n38Fuowms84AIvNDWqjWW572vWGo9MlgOLGVfsxjFZ+ev/laoOrUgJs+VKEoFQbiinKUCrM7/+WUsTI+1X/V/eGHM7iwTQP3dlbaA6PDBDLcly42ijA5SVj6n8DDVzJ582e3ETANiWDg5XzSBVn346ebSLDwvfpXkg==
+ b=Z/DWCpXQcUhWm4m9/MnAJinEGuOySsnkOfFeW7xpbTh9fvoYsCdOOxCctEIQoTKbB7UGwLt8hMaA/pGOwvE+9l6XJGDudfrg88D+aKcUsk0HalLunxCV70zH26KTH/hTxRUa9UB9gM1aVoDX+4+FpsLtj3qju9TKEiOc+V+tncKwsing+sIVOcafN9rOMXIKcO2S7FLafaWsMsOXkZ3RR5En3+7VeKqj0uKxhtDB+rUpnQmVf+iau5Wq59puLFm5aqgza733VTLBpkHZO1YZSfdLS0pP90f0cpr2xbMi3MBNUnAGoj2LX94VhHpgja8SQ+DbGF95PBESt8K/ncFrJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aJF5BunjlGMgJMeV46yilOoj+34PSMn5SRMD/bVU/kE=;
- b=ahrOxDGQEcHn8cd5lgvp9ULhLqIQnwgKLs2KG86KLdk1+D+FQ7G13uiF0Wyc0XA+krFyUhpw2b11J7Dg8GFQ3vqGRusP7avGYnd8mdQ8AYsMRTAyFU/fDzaqzTscJg0qWAyc4JSBNhgiYa5TCu4SH0tCXCdlAAaqKJohktNIzoIVs3T6LbC0Qk+VKQ+RLLRY33WIprDfXpxEeNBOSa698/VSqeQhr5aZI01XKhrBiS3zI4qbQOqgEN71q5Qu/rXeB6CjF9xhAAg+bGZS0K3HfVhqXU+aeAkMDYN2VhxNiEPBzx823QKI99lcq1T8A7YhqQGmuVrsYQ/52POlxhhhVA==
+ bh=dOArr/fjEDxIFzxZf9Tdtv5/yHVInAveXkvEQOPUaBs=;
+ b=cv+Mu5khlN1za1LR1at5IrynV4zGz6U4Hf1tnCzKhhpTzjsWM3KNLTdFREYtKZATq6i0pN5XWSd4qnU2Lu/hfMS4OUjeLGGI+nIyPTFUBa42gofaCXLahBClyusDU6We9Db8f81pYgw6qAi+tK3duL2+vKcz9rr0TDPy9uce8lKgpNk6H5p4lsFOyCvcLPQ9sseluHk9o18g9OEkKIdALR9f6qTI5tRcbBGIRvGumYUUu3mXabMXfV+LotMKXMB/Gh5iECam7FoRf1vO7YX1p3TUvEREN0ph9WL5yf+zspKYhpDe/elv4FF7HvcZbDFO1kP7ktDTtLYQbEhQErWk3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
@@ -47,14 +47,11 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 	<cohuck@redhat.com>
-CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <si-wei.liu@oracle.com>,
-	<xuanzhuo@linux.alibaba.com>, Parav Pandit <parav@nvidia.com>, Heng Qi
-	<hengqi@linux.alibaba.com>
-Date: Sat, 7 Oct 2023 08:14:43 +0300
-Message-ID: <20231007051443.460148-8-parav@nvidia.com>
+CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <maorg@nvidia.com>,
+	<yishaih@nvidia.com>, Parav Pandit <parav@nvidia.com>
+Date: Sun, 8 Oct 2023 14:25:47 +0300
+Message-ID: <20231008112555.473895-1-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231007051443.460148-1-parav@nvidia.com>
-References: <20231007051443.460148-1-parav@nvidia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -63,195 +60,137 @@ X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|BL1PR12MB5352:EE_
-X-MS-Office365-Filtering-Correlation-Id: c547e9c3-3f6c-4eff-5aa9-08dbc6f477d3
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|DM4PR12MB5376:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6764850-6708-45b6-582b-08dbc7f16236
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	/TWi1yXUBUYgyTMSNeY9yu4oyi4uvF4vp77aWF/cyIDjOopDOyujwmPYrxz14nTLFnuv6sTLMaesc6pfZBL0gHsJHb9nWMJgtBIzQAtl4Xk6XVb/x+vIjyq+IyXe6KK84la4EyAKIa+WZCDBjLtPIKwjltM0z/QmzG0Ew9mU9jiQmnmeUvO/3hNnKTckhGzYG8SR+LFyRRC2TlJwv7BK21xAfsd6Tvi5J3KaO5PdBXckvoeHnB7OJy8opUYrjsg8rHOH+YVKTpGJ1v5R8/OjBHM8UaNps5wHaqGIiuHbNoKkNT/iJxPUlx2/7sr7/0qsyFfCu/o0DntlmGVKfOr3sJhA+ODwWllA+oOBtAikeVTyDTycLL1scGDiR4cI02AmsLPvgd1KNUhVnrL01ZFYEZLNcztbxEbEcH4UODNdIiOjvkzgXnv/mk3uzlb/nzKbehX3bg9e40DzDgfW9zR//wbY+hu0ipqK53t4nnjkNB779f+ecZozEJa40GYfprjy0lXp0egYNbC6M5aXOwi6RDaJIJr8s0fy0e+exu3fpBrFGZbdeZ4weHXBk8NoXm7y2//1WNS2eWs3wKJnM0pdvHUlSYD3RLM3eeWBci3UiVdavQykJxcf+bY+DGgVL38Miz9IffUeGgAgb9odIJeBty0k60auxjeYrh06Zn7UDiMJQuR0TlWLmop8UE+5nYxLmLWnoIp4zoDS+tsbW5teNkTGTT/8VnSlvub+w5KeoLazwYuCpyPhhnb9K6fKbpgG/6JRPtk6u780ivcAJs9DwE1h7fr91G+GK16UcFyKmCM=
+	wnR7fKxrNVWvJPz1kRQnZLSC9Tnz30U8KGQcVA+9pT2RBkF1bQF4CDikibZK9btUKuCjkLpFHbMhL5xQ89uIdRCXHTK/PQd1T8X/p0wVNijyK+Hv2qMAsv3Rt2x2WZzkXjmM/tKZBvNXJMcOdNTLj02w8RHneaftPoW+IfcQYb4OhjQnK5uhjpCQHMkuXyCZHtl0zz/BKv5+A0aPMCNJu6iw03ZDit0yib12iai2R2uXNAhypBUDBM6KNk9b3pOja3iwTEVtR7DFj1iCHtma0iCLdk4SFEMWHD292XL6qy0/T9vlOXBnMditmnn5VrJ3JqFGJdnEDXo8055cv0egtJJjG2p7XvgU6BRMesV39sOHaEONTcfwEwmNO2Ply6uR5hiZt1L5gZst/JTzO3T/cg/Mfgb8WeVS0qooMeYvciFVxTvzFrfb9KhSeYaekPBJOSO1NKPzQse1vDSSpOHOX8VIYjSZ8wYdFIGhpKV67SvES1M5XB7EX6h4rvCiIdGI93sTtJQ7Uxi8KGeOncrzGAE+REIQlax/vh5Cl/n02QwVVzGepjYVXbMML97jgPaL6ly51bu6CV1dQW14WiYvkmDb/+3gZxn8xaw6/JNNImQ7HTmal280lYEHIa0/0IYnqDbwevmQBH1j/qJImMBUbdfE3VJmqFVo18O6QOxowOVkHDYufWNZLT1g/UKSvN/gZexRR0ZUQyer8luJ4/lFDiBXC3aa/gx2Bh7DKFiYeFpL9brXJweKC1s9ulZfk+ISEuVlKde0/xZtl9IsdBpwATHtMK0fnorFS0gvgRvgqTM=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(136003)(396003)(39860400002)(230922051799003)(64100799003)(82310400011)(1800799009)(186009)(451199024)(36840700001)(40470700004)(46966006)(36860700001)(86362001)(2906002)(41300700001)(83380400001)(47076005)(40460700003)(26005)(16526019)(426003)(336012)(82740400003)(7636003)(356005)(40480700001)(8936002)(8676002)(4326008)(110136005)(316002)(6666004)(54906003)(70586007)(70206006)(5660300002)(966005)(2616005)(1076003)(478600001)(36756003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(396003)(136003)(376002)(230922051799003)(451199024)(186009)(64100799003)(82310400011)(1800799009)(40470700004)(46966006)(36840700001)(40480700001)(40460700003)(83380400001)(1076003)(107886003)(2616005)(336012)(426003)(16526019)(26005)(47076005)(36860700001)(316002)(110136005)(54906003)(70206006)(70586007)(8936002)(8676002)(4326008)(5660300002)(41300700001)(6666004)(2906002)(82740400003)(966005)(478600001)(36756003)(356005)(7636003)(86362001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2023 05:15:48.6310
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2023 11:26:15.1050
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c547e9c3-3f6c-4eff-5aa9-08dbc6f477d3
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6764850-6708-45b6-582b-08dbc7f16236
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000989E9.namprd02.prod.outlook.com
+	CO1PEPF000042AE.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5352
-Subject: [virtio-comment] [PATCH v1 7/7] virtio-net: Add flow filter device and driver requirements
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5376
+Subject: [virtio-comment] [PATCH v1 0/8] Introduce device migration support commands
 
-The flow filter functionality consists of the following
-four components.
-Add driver and device requirements for it.
+This series introduces administration commands for member device migration
+for PCI transport; when needed it can be extended for other transports
+too.
 
-1. Device capabilities query for commands VIRTIO_NET_CTRL_FF_CAP_GET,
-   VIRTIO_NET_CTRL_FF_MATCH_CAP_GET.
-2. Flow filter group operation commands VIRTIO_NET_CTRL_FF_GROUP_ADD
-   and VIRTIO_NET_CTRL_FF_GROUP_DEL.
-3. Flow filter transport mode set command
-   VIRTIO_NET_CTRL_FF_TRANSPORT_MODE_SET.
-4. Flow filter requests using command VIRTIO_NET_CTRL_FF_REQ and
-   the structure virtio_net_ff_op for the flow filter virtqueue.
+Use case requirements:
+======================
+1. A hypervisor system needs to provide a PCI VF as passthrough
+   device to the guest virtual machine and also support live
+   migration of this virtual machine.
+2. A virtual machine may have one or more such passthrough
+   virtio devices.
+3. A virtual machine may have other PCI passthrough device
+   which may also interact with virtio device.
+4. A hypervisor runs a vendor agnostic driver with extension
+   to support device migration.
+5. A PCI VF passthrough device needs to support transparent
+   device reset and PCI FLR must while the device migration is
+   ongoing.
+6. A owner driver do not involve in device operations mediation
+   for the passthrough device at virtio interface level.
+7. Mechanism is generic enough that applies to large family of
+   virtio devices and it does not involve trapping any virtio
+   device interfaces for the passthrough devices.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
-Signed-off-by: Parav Pandit <parav@nvidia.com>
-Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
----
-changelog:
-v0->v1:
-- addressed comments from Satananda
-- added device requirement to return non zero value in fields_bmap
-- added device requirement to not repeat filter type in response
-- added driver requirement to order filter match field as it
-  appears in the packet
-- added device requirement to fail group delete command on existing
-  flow entries
----
- device-types/net/description.tex | 126 +++++++++++++++++++++++++++++++
- 1 file changed, 126 insertions(+)
+Overview:
+=========
+Above usecase requirements is solved by PCI PF group owner driver
+facilitating the member device migration functionality using
+administration commands.
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index cf2836d..1a3ce63 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -2364,6 +2364,132 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \field{command-specific-result} is in format of
- \field{struct virtio_net_ff_req_result}.
- 
-+\devicenormative{\subparagraph}{Flow Filter}{Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter}
-+
-+When the VIRTIO_NET_F_FLOW_FILTER is negotiated, the device MUST support
-+VIRTIO_NET_CTRL_FF_CAP_GET, VIRTIO_NET_CTRL_FF_MATCH_CAP_GET, VIRTIO_NET_CTRL_FF_GROUP_ADD,
-+VIRTIO_NET_CTRL_FF_GROUP_DEL, VIRTIO_NET_CTRL_FF_TRANSPORT_MODE_SET and
-+VIRTIO_NET_CTRL_FF_REQ commands.
-+
-+When the VIRTIO_NET_F_FLOW_FILTER is not negotiated, the device MUST respond
-+with error VIRTIO_NET_ERR for
-+VIRTIO_NET_CTRL_FF_CAP_GET, VIRTIO_NET_CTRL_FF_MATCH_CAP_GET, VIRTIO_NET_CTRL_FF_GROUP_ADD,
-+VIRTIO_NET_CTRL_FF_GROUP_DEL, VIRTIO_NET_CTRL_FF_TRANSPORT_MODE_SET and
-+VIRTIO_NET_CTRL_FF_REQ commands.
-+
-+When the command VIRTIO_NET_CTRL_FF_CAP_GET completes successfully, the device
-+MUST set either \field{max_vqs} to be non zero or set
-+\field{cvq_supports_ff_ops} to 1; the device MUST set non zero value for fields
-+\field{max_groups}, \field{max_ff_per_group}, \field{max_ff},
-+\field{max_match_fields} and \field{max_flow_priorities_per_group}.
-+
-+When the command VIRTIO_NET_CTRL_FF_MATCH_CAP_GET completes successfully, 
-+\begin{itemize}
-+\item the device MUST set non zero value for fields \field{num_entries}, \field{fields_bmap}
-+and set corresponding number of valid entries.
-+\item the device MUST NOT repeat \field{type} in the \field{types}.
-+\end{itemize}
-+
-+The device MUST set VIRTIO_NET_ERROR for the command
-+VIRTIO_NET_CTRL_FF_GROUP_ADD if there are existing flow filters for the
-+supplied group \field{id} or for the supplied \field{priority}.
-+
-+The device MUST set VIRTIO_NET_ERROR for the command
-+VIRTIO_NET_CTRL_FF_GROUP_DEL if the group identified with \field{id}
-+does not exist in the device.
-+
-+The device MUST set VIRTIO_NET_ERROR for the command
-+VIRTIO_NET_CTRL_FF_GROUP_DEL if the group identified with \field{id}
-+has one or more flow filters present in the group.
-+
-+If there are active flow filters already added in the device, the device
-+MUST respond VIRTIO_NET_ERROR for the command
-+VIRTIO_NET_CTRL_FF_TRANSPORT_MODE_SET.
-+
-+The device MUST respond VIRTIO_NET_ERROR for the command
-+VIRTIO_NET_CTRL_FF_TRANSPORT_MODE_SET when \field{mode} is set to
-+VIRTIO_NET_FF_TRANSPORT_CVQ and \field{cvq_supports_ff_ops} is set to zero;
-+or when \field{mode} is set to VIRTIO_NET_FF_TRANSPORT_FFVQ and
-+\field{max_vqs} is zero.
-+
-+The device MUST fail the operation VIRTIO_NET_FF_OP_ADD if the
-+\field{match} contains duplicate \field{type}.
-+
-+The device MUST fail the operation VIRTIO_NET_FF_OP_DEL if the
-+requested flow filter of identifier \field{id} do not exist in the
-+the device.
-+
-+The device MUST fail the operation VIRTIO_NET_FF_OP_ADD if the
-+\field{vq_index} in the \field{dest} is outside of the range.
-+
-+When the flow filter forwards the packet to the \field{vq_index} and
-+if the receiveq is reset, the device MUST drop such packets.
-+
-+When the flow filter \field{action} is VIRTIO_NET_FF_ACTION_DROP,
-+the device MUST ignore fields of \field{struct virtio_net_ff_dest}.
-+
-+When the driver has added multiple flow filters with same \field{priority}
-+and for a packet if multiple flow filters MAY match such that it MAY result
-+in different \field{action} or different \field{dest}, the device
-+MAY apply any of the matching flow filters.
-+
-+The device MUST follow received packet processing ordering chain as following:
-+
-+The device SHOULD set \field{device_status} to DEVICE_NEEDS_RESET when
-+the driver has not set the flow filter transport mode to
-+VIRTIO_NET_FF_TRANSPORT_FFVQ and if the driver enables the flow filter
-+virtqueue.
-+
-+\begin{itemize}
-+\item Device configuration done using control virtqueue commands VIRTIO_NET_CTRL_RX,
-+   VIRTIO_NET_CTRL_MAC and VIRTIO_NET_CTRL_VLAN.
-+\item Flow filters programmed using flow filters functionality.
-+\item Device configuration done using VIRTIO_NET_CTRL_MQ_RSS_CONFIG command.
-+\end{itemize}
-+
-+When the device drops the packet due to the configuration done using the control
-+virtqueue commands VIRTIO_NET_CTRL_RX or VIRTIO_NET_CTRL_MAC or VIRTIO_NET_CTRL_VLAN,
-+the device MUST stop processing this packet for flow filters processing.
-+
-+When the device matches the flow filter for the packet and if the match is successful,
-+the filter processing chain MUST stop, i.e. next level of processing MUST not be done.
-+
-+When the device matches the flow filter for the packet and if no match entry is found
-+for the packet, the receive packet processing continues to next level, i.e. to apply
-+configuration done using VIRTIO_NET_CTRL_MQ_RSS_CONFIG command.
-+
-+The device MUST support enabling \field{max_vqs} number of flow filters
-+virtqueues after device initializaton phase if VIRTIO_F_RING_DYNAMIC
-+feature is negotiated.
-+
-+When \field{max_vqs} is non zero, the device MUST report \field{start_vq_index},
-+such that it does not overlap with any other virtqueues indices.
-+
-+\drivernormative{\subparagraph}{Flow Filters}{Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filters}
-+
-+The driver MUST NOT change the flow filters transport mode using
-+VIRTIO_NET_CTRL_FF_TRANSPORT_MODE_SET when the device has flow filters
-+added.
-+
-+The driver MUST NOT set transport mode of VIRTIO_NET_FF_TRANSPORT_CVQ
-+if \field{cvq_supports_ff_ops} is set to zero.
-+
-+The driver MUST NOT set transport mode of VIRTIO_NET_FF_TRANSPORT_FFVQ
-+if \field{max_vqs} is set to zero in the command response of
-+VIRTIO_NET_CTRL_FF_CAP_GET.
-+
-+The driver MUST NOT send any flow filters specific commands having class code
-+of VIRTIO_NET_CTRL_FF when VIRTIO_NET_F_FLOW_FILTER is not negotiated.
-+
-+The driver SHOULD NOT add multiple flow filters with same \field{priority}
-+in a flow filter group, with overlapping match values.
-+
-+The driver SHOULD use different priority for different flow filters
-+if multiple of the flow filters MAY match for a packet.
-+
-+The driver SHOULD set the \field{type} in \field{match_entries} as that of
-+the order appears in the packet.
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
- 
+There are three major functionalities.
+
+1. Suspend and resume the device operation
+2. Read and Write the device context containing all the information
+   that can be transferred from source to destination to migrate to
+   a member device
+3. Track pages written by the device during device migration is
+   ongoing
+
+This comprehensive series introduces 4 infrastructure pieces
+covering PCI transport, peer to peer PCI devices, page tracking (aka dirty page
+tracking) and generic device context.
+
+1. Device mode get,set (active, stop, freeze)
+2. Device context read and write
+3. Defines device context
+4. Write reporting to track page addresses
+
+This series enables virtio PCI SR-IOV member device to member device
+migration. It can also be used to/from migrate from PCI SR-IOV member
+device to software composed PCI device if/when needed which can
+parse and compose software based PCI virtio device.
+
+Example flow:
+=============
+Source hypervisor:
+1. Instructs device to start tracking pages it is writing
+2. Periodically query the addresses of the written pages
+3. Suspend the device operation
+4. Read the device context and transfer to destination hypervisor
+
+Destination hypervisor:
+5. Write the device context received from source
+6. Resume the device that has newly written device context
+
+Patch summary:
+==============
+patch-1: Adds theory of operation for device migration commands 
+patch-2: Redefine reserved2 to command output field
+patch-3: Defines short device context for split virtqueues
+patch-4: Adds device migration commands
+patch-5: Adds requirements for device migration commands
+patch-6: Adds theory of operation for write reporting commands
+patch-7: Adds write reporting commands
+patch-8: Adds requirements for write reporting commands
+
+It also takes inspiration from the similar idea presented at KVM Forum
+at [1].
+
+Changelog:
+==========
+1. Enrich device context to cover device configuration layout, feature bits
+2. Fixed alignment of device context fields
+3. Added missing Sign-off for the joint work done with Satananda
+4. Added link to the github issue
+
+Please review.
+
+[1] https://static.sched.com/hosted_files/kvmforum2022/3a/KVM22-Migratable-Vhost-vDPA.pdf
+
+
+Parav Pandit (8):
+  admin: Add theory of operation for device migration
+  admin: Redefine reserved2 as command specific output
+  device-context: Define the device context fields for device migration
+  admin: Add device migration admin commands
+  admin: Add requirements of device migration commands
+  admin: Add theory of operation for write recording commands
+  admin: Add write recording commands
+  admin: Add requirements of write reporting commands
+
+ admin-cmds-device-migration.tex | 574 ++++++++++++++++++++++++++++++++
+ admin.tex                       |  38 ++-
+ content.tex                     |   1 +
+ device-context.tex              | 142 ++++++++
+ 4 files changed, 748 insertions(+), 7 deletions(-)
+ create mode 100644 admin-cmds-device-migration.tex
+ create mode 100644 device-context.tex
+
 -- 
 2.34.1
 
