@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7628-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7629-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17706E95A8E
-	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 10:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78648E95A8E
+	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 10:35:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 863A71922E2
-	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 10:08:02 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C58EC33578
+	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 10:35:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6975C986514
-	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 10:08:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A8E44986512
+	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 10:35:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 5CDB29864CE; Mon,  9 Oct 2023 10:08:02 +0000 (UTC)
+	id 8D1699864CE; Mon,  9 Oct 2023 10:35:30 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,154 +24,264 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4C0D09864D3;
-	Mon,  9 Oct 2023 10:08:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6604C9864D3
+	for <virtio-comment@lists.oasis-open.org>; Mon,  9 Oct 2023 10:34:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gG7203Uq3BHKyLQaAWLRNCUIBTOON6exQ5hHh5XF+v9odJ/Xp08NzR8sFUVejYUkVlkoSQ5DbYxw0xZhdQI5M1taf7fkhkmoGBZJuid1TXhQW0owkrDXznzSk0c5RW9/kpeRLzHoOXAHilQi9P2zTVkz7/uqYK14c7nWUYuxd5D4wwmrsEllRXbdcPKmNJOEzNbKfVzefS17UEPIlxELW/4gYjhTChM5eswl4hUtcJFQKvys4KY+ti/sc5DLJQDHren8VdljoJSU8wGUy8nLCEor9tUevXEIsEqR1I9mhW57aUXnQzMjFAsHyMyCqvpUIXahxLDD1hnczTKdOFanPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TFSQN6QWi0FzddoWiDVRccZlujjZZNlOdcML7uqSFuc=;
- b=PKtcKR3OfHcrBIBLSHTahoL2tNOsFxW4uF4QeLB+PA7f/h2NHdP2shVgk1fyOsTIHKSqR0wrK/ROhAfQox3PMETS3j4FMwpWTlaohh2+pV/CRmSMomo8N9pAeebHP3/mp/4icNxtv8hufCQ/CfWEp5UtFeL+e0lKCL6Gji/X86YbV2Ipl97+HDDHTjl6dSmVf9qyIalE4fKDO+xgyRN4HcrNnLLpJTzdcfsWf5VYwaGLH6Ju/8nHLVCDeUloCDuQsfRuxQXbNiArip8g3iTr/VNdTXNhW+BwYWMW6YjZ4qqlEkFZn0Iu03lkL/hLHWU2APPfVq6/3n3e9HkT7k10gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin"
-	<mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
-CC: Jason Wang <jasowang@redhat.com>, "eperezma@redhat.com"
-	<eperezma@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
-Thread-Topic: [virtio-dev] Re: [PATCH 0/5] virtio: introduce SUSPEND bit and
- vq state
-Thread-Index:
- AQHZ540fvvI9R/h+mUufqKbomRy5frAegLUwgAFrbQCAABUsgIAAD5cAgAAA+ACAABKeIIAABNaAgAAAXmCAAC3dgIAAl98QgAADDoCAAk+KgIAAS2wAgAEX5ACAAAnDsIAABJcAgAAA3ECAAYB3gIAFKIMAgAEae4CAAAfOcIAAKAeAgAADn6CAADxKAIAAF0QAgAFot4CAACROoIAS1T8AgAAASoA=
-Date: Mon, 9 Oct 2023 10:07:56 +0000
-Message-ID:
- <DM8PR12MB5480708567861AD8DDEC0EC0DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
-References:
- <PH0PR12MB5481830365A80EF4583A3FFADCF8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEshxAU3Mjo7vczBNRb=P=FnenO4mPb9HJL0Ma3ZRbe-oA@mail.gmail.com>
- <PH0PR12MB548172996D62E37714A9776BDCF8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtW88zJkDQL58NqLzzudq=f+SmzJ8bha55Dd2fd=FRGBQ@mail.gmail.com>
- <PH0PR12MB5481573D6EE3BE03FB7C3D70DCFCA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvOxraeVB-5g7dJ-KBN=63kpmDfDdqaiQVyDh8egDjsGw@mail.gmail.com>
- <PH0PR12MB5481C11F6D68A892A091E2AFDCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e9c482d5-1441-fec5-b55b-f1ac6e81f85b@intel.com>
- <PH0PR12MB5481C57B255B0D5EA6FB109DDCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <ddbd47c8-6985-2d08-bf98-0e7516f0c3c4@intel.com>
- <20230926064201-mutt-send-email-mst@kernel.org>
- <305d9907-9668-d362-1ff2-49a5e9f90e42@intel.com>
- <PH0PR12MB54816B064AD08754C7D86AD8DCC2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <3539f99f-2770-428f-2b44-b7ac5a1a0407@intel.com>
-In-Reply-To: <3539f99f-2770-428f-2b44-b7ac5a1a0407@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5480:EE_|MW6PR12MB8705:EE_
-x-ms-office365-filtering-correlation-id: d4a1d3cb-ffb1-4155-a0d8-08dbc8af9bdc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- w+NZrZ7VX7bJQOb+Qfkaaf1xoXoEBjEqFwmLegIJ91UUKnoHl849kBjnnJ7RIivRzd85GIWriQDgMQjke/pA/4dxJPlkiHknSH+3KIvxyZbc6ps8mghGQvVlItqKGYBHPWJmXzukyxDiKnjynGMSsRDNEYTstOMk+r7Nps9cd/z2ZtFXgcnTfouf4jqmSO2UmsirIkDI5pSIk77bDstq86gP4a32L4ZyEUcBtV2O4w9f2FC1Inpkiin861c4dqQfasdRalDuudBLMjvW4SnEp4JGRdRnW0vL26aZT1gFNGz/ESKNkfjBMe00aXTrDcm/x2ASr8xIBejPs2pA6YvKjFyXAY0oz2xpnBqT0mK5q4GnJ+roajNq8GlBuILFk508ptjPIzb4VzMHYGn84rsAvohe+xUo5SjfGbQG50lzaf8lt1AcF3GUt41S0aVsJFrDsd99RfRCHq3YSyZ4FD9YM0HylszRqPBIUXF2JWoVds/HrJj3lNFQfO4FINWZbftG5GNrirZsFSKMBMzdDYFg+O1tgHLhmJVSgfZ0jS7q2XL0iBHyrm/QzVTZx9RHatf/xjCom53d6xOn0Xp3HpbCln3a7ysjEhHNh10eOiH25LMoiwcQbDxbOVuKMdwI1QJm
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR12MB5480.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(366004)(396003)(136003)(39860400002)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(6506007)(53546011)(7696005)(9686003)(55016003)(38070700005)(33656002)(86362001)(122000001)(38100700002)(26005)(83380400001)(2906002)(15650500001)(71200400001)(478600001)(41300700001)(8676002)(4326008)(52536014)(8936002)(316002)(66476007)(5660300002)(66446008)(110136005)(76116006)(66556008)(64756008)(66946007)(54906003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ait3eU5vcXd3Z0NQRlI1ZFRqUVI3eTFRRkt5OWVDZVNteHR6R1BHSkZFOGV6?=
- =?utf-8?B?cVVJOVVtbjd5dTBRWkpyZDlEV0x4SjdqMnpuK3FZNjlsL2phbjU4WjdGbTVQ?=
- =?utf-8?B?cEtxazh4dU1YR2F1UGRrRDVVY1h5Wm9yQ3lBMkNhR3Z0aUVVbUtYM2xuaGIv?=
- =?utf-8?B?RlFsTmpLdnRjemtuRUw3dGpCRUpTdjQvQUZCRysrazB3Z29DQ1ZNME4wajI5?=
- =?utf-8?B?SHRQenIrYTRoS1plRWI2M1h6OHozQ3gya1JMWnBQQ0o5Q0Z1SjN3bmVxcFpu?=
- =?utf-8?B?L1E4QUlVYlF2dk13b3cwWlVkK1BVRWIwTkNwV2FhS015cy9rNGgyRDNMU1F1?=
- =?utf-8?B?bFdWU2hJZ0Q2bUZieVVnVEg3ZGlDTHBDV0hkNzF5WTV1cmZRS2h4RFZnMjNP?=
- =?utf-8?B?VzhvRWRCdWErbHJ2MFlTcytwVi9KT2NRdTZlQjBnamtRd1NmSW8vSGZFbjBT?=
- =?utf-8?B?YkVOUlc0SVQxRTlQdkVOVjRUdFk2cTY0enczaTdoNUt2dXQ4ditJTmFvY0l6?=
- =?utf-8?B?SzBqeVk3WUE0bG9IRnlVVXNvK3poR0NOY3BCL1VVcDBvVDBMSkFsTVg1MVla?=
- =?utf-8?B?S3YzdXpETFpvZXNSOHhBeDQyaTR2dklFUUZTOHNDOEk0VWRVbVFxSjkxU3dU?=
- =?utf-8?B?cUtXSldVY1ZwZnJOZHlrbDFpQ1BWdzJNSGRTRDdneW8xTUNTTDVkN0syc2dw?=
- =?utf-8?B?MldsODNYRVpXZXl3R2Q5VTdRZkVkZU9pUXNWTkF6UnNWTkpPLy9BeVovWFAz?=
- =?utf-8?B?amx5cGIxRERtM1V4YzVVa3JZbU92aDNYanhQK2dmVjNwamZlc2RFeGVTclBX?=
- =?utf-8?B?Wi96aS9hTEd3NXlHK3dRQlpFem1XWFlYL0x6ck4rWHp3OXhkRlVyV2FRZG1L?=
- =?utf-8?B?Q3Nnc3FCaXRPdmU0M1FCOVBuclhMUHVUeEh1OVZtVXhaT2dLeWY5bkFBWG02?=
- =?utf-8?B?dFFtaWQ1NlhCL0xuMFMxR3h5Y0xwOFRBNWVSZ1RmRUJSdFNIVDZ4ME9FNnNh?=
- =?utf-8?B?bHQvRzhYb2M3dmFMYjJhY3JNN3dwKzBjRWJaME45Q3A5U3RObGhhZ0R2WUFJ?=
- =?utf-8?B?UHdpRnp0WXBicWd4L2hHa0tlZlVJSHNVUnBPa2gveUhZeGg0MVpZSlJwTkNX?=
- =?utf-8?B?VFRHYVMvZHJkMW9mZGw3c3hLbnRqejFYUlFzcnc0YjhTT1VUOEpsN0d1cmV5?=
- =?utf-8?B?M1EvU3RSUnpiRGJmU2d4ZjU4Z3p2YUtCREd6bjF0OHE4Rm95WlcyREdiK3J2?=
- =?utf-8?B?V0FRVzZkdFRDUFZwQklxRFZqQWZPbWJvbWZJUUtxcmNhL21kWXFraXp3aWVF?=
- =?utf-8?B?U1RJejg0WVZ5WWpyU3N0Y3REaXI2QjJOd2ZKRDdqc1M0UzJZSzg4eGRCMVdp?=
- =?utf-8?B?S1YxQ2t4b3NSN3haVVk1RGpTdHV6bkd4MjNoRk9pNzVacmNHejQ0K2JaWm1Q?=
- =?utf-8?B?YU0yR2s0cVpZSjRLbkdqa0hSbFRScHdhSXBDTkFCQVNqNFVpaFBEZjJ0alA0?=
- =?utf-8?B?QkRIUjJ2WkIva3UrNG9QdEpHUFdUTzkrZ1lRMEs4bVBrR1dkK05STEo3QTVX?=
- =?utf-8?B?UWo5UkRmNHFIVzRrL1YwQldqcGRpMy83NXNNZFB0Zmw4ZnEzc3R2V0R2dTNt?=
- =?utf-8?B?QUNmbXBnWDFtWUJ6NDNNUnpCbGs3TDFRYVA3bDFOUWFnais4anQ5S05WOFRB?=
- =?utf-8?B?YTRNS0MwekpqNlBQbERFR1Mvb2FlYXl3VTZWbmxpeGhzOUZIR29zazQ5MUpu?=
- =?utf-8?B?a05IaVRpdlo5ZTk1NkJkbXVhK09zR3d2d3IrcWZoOGxBWjBMSXh6Z3U3M2tx?=
- =?utf-8?B?N010bzRzaFZIdHdkQVE0VlhVaEl3MXhsaFVxRlpkZFY4dnJYWmh6ODFjT2kx?=
- =?utf-8?B?YkRXUkRLdHpBbTNFOUNUMXdIa1YzZ1dVR3A3eHVjYWlTVSt6d2hjVTJ1M3Uy?=
- =?utf-8?B?QUk1NEFSUnpGd0w4bmRhc2pMZkxUbitZem4zYkZ3MStYNkZRSGJYTXlkcE5W?=
- =?utf-8?B?QzU5R1pMYjNNWHY4Wjg1dmduVnJ0NXFXQU5kSTkrbXhaelJ3M1RIUG96dGFB?=
- =?utf-8?B?YzVmN1pxeXkvVTdvemVTMjVtQ21udEJwQWQ5akdEVSthUjhqL1JiNFNydThk?=
- =?utf-8?Q?XJMo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="2712054"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; 
+   d="scan'208";a="2712054"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10857"; a="1000156453"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; 
+   d="scan'208";a="1000156453"
+Message-ID: <2fa89e37-a097-d785-e1ee-cda151b0d872@intel.com>
+Date: Mon, 9 Oct 2023 18:34:21 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5480.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4a1d3cb-ffb1-4155-a0d8-08dbc8af9bdc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2023 10:07:56.2227
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FBzcbE+v4K/Zz9QKyW6Umg0BHtGpTQx/4N/T1FFrV7c3fwCxrwiF4o8c8KuZ1Z+WAxW3tjl4MjSGXgmnQEEGOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8705
-Subject: [virtio-comment] RE: [virtio-dev] Re: [PATCH 0/5] virtio: introduce SUSPEND bit and vq
- state
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.15.1
+Content-Language: en-US
+To: "Michael S. Tsirkin" <mst@redhat.com>, Parav Pandit <parav@nvidia.com>
+Cc: virtio-comment@lists.oasis-open.org, cohuck@redhat.com,
+ sburla@marvell.com, shahafs@nvidia.com, maorg@nvidia.com, yishaih@nvidia.com
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-4-parav@nvidia.com>
+ <20231008073912-mutt-send-email-mst@kernel.org>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <20231008073912-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
+ device context fields for device migration
 
-DQo+IEZyb206IFpodSwgTGluZ3NoYW4gPGxpbmdzaGFuLnpodUBpbnRlbC5jb20+DQo+IFNlbnQ6
-IE1vbmRheSwgT2N0b2JlciA5LCAyMDIzIDM6MzYgUE0NCj4gDQo+IE9uIDkvMjcvMjAyMyA2OjM5
-IFBNLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQo+ID4NCj4gPj4gRnJvbTogWmh1LCBMaW5nc2hhbiA8
-bGluZ3NoYW4uemh1QGludGVsLmNvbT4NCj4gPj4gU2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIg
-MjcsIDIwMjMgMTo1MCBQTSBJIHNlZSBoaXMgcHJvcG9zYWwgY2FuOg0KPiA+PiAxKSBtZWV0IHNv
-bWUgY3VzdG9tZXJzIHJlcXVpcmVtZW50cyB3aXRob3V0IG5lc3RlZCBhbmQgYmFyZS1tZXRhbA0K
-PiA+PiAyKSBhbGlnbiB3aXRoIE52aWRpYSBwcm9kdWN0aW9uDQo+ID4gU2xpZ2h0bHkgaW5hY2N1
-cmF0ZS4NCj4gPiBUaGUgd29yayBwcm9kdWNlZCBpcyBmb3IgdGhlIHZpcnRpbyBzcGVjIHVwZGF0
-ZSBmb3IgdGhlIHVzZXJzLg0KPiA+DQo+ID4gSSBoYXZlIG1pc3NlZCBhZGRpbmcgb3RoZXIgY29u
-dHJpYnV0b3JzIFNpZ24tb2ZmIHdobyBhbHNvIHNoYXJlIHNpbWlsYXIgdXNlDQo+IGNhc2VzLCB3
-aGljaCBJIHdpbGwgYWRkIGluIHYxLg0KPiA+DQo+ID4+IDMpIGVhc2llciB0byBlbXVsYXRlIGJ5
-IG9uYm9hcmQgU09DDQo+ID4+DQo+ID4+IFRoZSBnZW5lcmFsIHB1cnBvc2Ugb2YgaGlzIHByb3Bv
-c2FsIGFuZCBtaW5lIGFyZSBhbGlnbmVkOiBtaWdyYXRlIHZpcnRpbw0KPiANCj4gPj4gZGV2aWNl
-cy4NCj4gPj4NCj4gPiBHcmVhdC4NCj4gPg0KPiA+PiBKYXNvbiBoYXMgZXZlciBwcm9wb3NlZCB0
-byBjb2xsYWJvcmF0ZSwgcGxlYXNlIGFsbG93IG1lIHF1b3RlIGhpcyBwcm9wb3NhbDoNCj4gPj4N
-Cj4gPj4gIg0KPiA+PiBMZXQgbWUgcmVwZWF0IG9uY2UgYWdhaW4gaGVyZSBmb3IgdGhlIHBvc3Np
-YmxlIHN0ZXBzIHRvIGNvbGxhYm9yYXRpb246DQo+ID4+DQo+ID4+IDEpIGRlZmluZSB2aXJ0cXVl
-dWUgc3RhdGUsIGluZmxpZ2h0IGRlc2NyaXB0b3JzIGluIHRoZSBzZWN0aW9uIG9mDQo+ID4+IGJh
-c2ljIGZhY2lsaXR5IGJ1dCBub3QgdW5kZXIgdGhlIGFkbWluIGNvbW1hbmRzDQo+ID4+IDIpIGRl
-ZmluZSB0aGUgZGlydHkgcGFnZSB0cmFja2luZywgZGV2aWNlIGNvbnRleHQvc3RhdGVzIGluIHRo
-ZQ0KPiA+PiBzZWN0aW9uIG9mIGJhc2ljIGZhY2lsaXR5IGJ1dCBub3QgdW5kZXIgdGhlIGFkbWlu
-IGNvbW1hbmRzDQo+ID4+IDMpIGRlZmluZSB0cmFuc3BvcnQgc3BlY2lmaWMgaW50ZXJmYWNlcyBv
-ciBhZG1pbiBjb21tYW5kcyB0byBhY2Nlc3MNCj4gPj4gdGhlbSAiDQo+ID4+DQo+ID4+IEkgdG90
-YWxseSBhZ3JlZSB3aXRoIGhpcyBwcm9wb3NhbC4NCj4gPiBXZSBzdGFydGVkIGRpc2N1c3Npbmcg
-c29tZSBvZiB0aGUgaXQuDQo+ID4gSWYgSSBkcmF3IHBhcmFsbGVscywgb25lIHNob3VsZCBub3Qg
-c2F5ICJkZXRhY2ggZGVzY3JpcHRvcnMgZnJvbSB2aXJ0cXVldWUiIGZvcg0KPiB0aGUgaW5mcmFz
-dHJ1Y3R1cmUgdGhhdCBleGlzdHMgaW4gdGhlIGJhc2ljIGZhY2lsaXRpZXMuDQo+ID4gSWYgc28s
-IG9uZSBzaG91bGQgZXhwbGFpbiB0aGUgdGVjaG5pY2FsIGRlc2lnbiByZWFzb24gYW5kIGl0IHdv
-dWxkIG1ha2Ugc2Vuc2UuDQo+IG5vdCBzdXJlIHdoYXQgaXPCoCAiZGV0YWNoIGRlc2NyaXB0b3Jz
-IGZyb20gdmlydHF1ZXVlIiwgYnV0IGFkbWluIHZxIGNhcnJpZXMNCj4gY29tbWFuZHMgYW55d2F5
-Lg0KPiA+DQo+ID4gU28gbGV0J3MgZGlzY3VzcyBpdC4NCj4gPiBJIGxpa2UgdG8gYmV0dGVyIHVu
-ZGVyc3RhbmQgdGhlIF9yZWFsXyB0ZWNobmljYWwgcmVhc29uIGZvciBkZXRhY2hpbmcgaXQuDQo+
-IHNvIHBsZWFzZSB0byBvciBjYyBtZSBpbiB5b3VyIHNlcmllcy4NClN1cmUsIHdpbGwgZG8gaXQg
-aW4gdGhlIHYyLg0KSmFzb24gYWxyZWFkeSBhZGRlZCB5b3UgaW4gdGhlIHYxLg0KSXQgaXMgYWxy
-ZWFkeSBpbiB0aGUgdmlydGlvLWNvbW1lbnQgbWFpbGluZyBsaXN0LCBzbyBmb3Igbm93IHlvdSBj
-YW4gcmVzcG9uZCB0byB2MS4NCg==
+
+
+On 10/8/2023 7:41 PM, Michael S. Tsirkin wrote:
+> On Sun, Oct 08, 2023 at 02:25:50PM +0300, Parav Pandit wrote:
+>> Define the device context and its fields for purpose of device
+>> migration. The device context is read and written by the owner driver
+>> on source and destination hypervisor respectively.
+>>
+>> Device context fields will experience a rapid growth post this initial
+>> version to cover many details of the device.
+>>
+>> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
+>> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>> Signed-off-by: Satananda Burla <sburla@marvell.com>
+>> ---
+>> changelog:
+>> v0->v1:
+>> - enrich device context to cover feature bits, device configuration
+>>    fields
+>> - corrected alignment of device context fields
+>> ---
+>>   content.tex        |   1 +
+>>   device-context.tex | 142 +++++++++++++++++++++++++++++++++++++++++++++
+>>   2 files changed, 143 insertions(+)
+>>   create mode 100644 device-context.tex
+>>
+>> diff --git a/content.tex b/content.tex
+>> index 0a62dce..2698931 100644
+>> --- a/content.tex
+>> +++ b/content.tex
+>> @@ -503,6 +503,7 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
+>>   UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+>>   
+>>   \input{admin.tex}
+>> +\input{device-context.tex}
+>>   
+>>   \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
+>>   
+>> diff --git a/device-context.tex b/device-context.tex
+>> new file mode 100644
+>> index 0000000..5611382
+>> --- /dev/null
+>> +++ b/device-context.tex
+>> @@ -0,0 +1,142 @@
+>> +\section{Device Context}\label{sec:Basic Facilities of a Virtio Device / Device Context}
+>> +
+>> +The device context holds the information that a owner driver can use
+>> +to setup a member device and resume its operation. The device context
+>> +of a member device is read or written by the owner driver using
+>> +administration commands.
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_dev_ctx_field_tlv {
+>> +        le32 type;
+>> +        le32 reserved;
+>> +        le64 length;
+>> +        u8 value[];
+>> +};
+>> +
+>> +struct virtio_dev_ctx {
+>> +        le32 field_count;
+>> +        struct virtio_dev_ctx_field_tlv fields[];
+>> +};
+>> +
+>> +\end{lstlisting}
+so this still doesn't work for nested
+>> +
+>> +The \field{struct virtio_dev_ctx} is the device context of a member device.
+>> +The \field{field_count} indicates how many instances of
+>> +\field{struct virtio_dev_ctx_field_tlv} are present.
+>> +
+>> +The \field{struct virtio_dev_ctx_field_tlv} consist of \field{type} indicating
+>> +what data is contained in the \field{value} of length \field{length}.
+>> +The valid values for \field{type} can be found in the following table:
+>> +
+>> +\begin{tabularx}{\textwidth}{ |l||l|X| }
+>> +\hline
+>> +type & Name & Description \\
+>> +\hline \hline
+>> +0x0 & VIRTIO_DEV_CTX_PCI_COMMON_RUNTIME_CFG & Provides common configuration space of device for PCI transport \\
+>> +\hline
+>> +0x1 & VIRTIO_DEV_CTX_DEV_CFG_LAYOUT & Provides device specific configuration layout \\
+>> +\hline
+>> +0x2 & VIRTIO_DEV_CTX_DEV_FEATURES & Provides device features \\
+>> +\hline
+>> +0x3 & VIRTIO_DEV_CTX_PCI_VQ_CFG & Provides Virtqueue configuration for PCI transport \\
+>> +\hline
+>> +0x4 & VIRTIO_DEV_CTX_VQ_SPLIT_RUNTIME_CFG & Provides Queue run time state \\
+>> +\hline
+>> +0x5 & VIRTIO_DEV_CTX_VQ_SPLIT_DEV_OWN_DESC & Provides list of virtqueue descriptors owned by device  \\
+>> +\hline
+>> +0x6 - 0xFFFFFFFF & - & Reserved for future types \\
+>> +\hline
+>> +\end{tabularx}
+>
+> I don't think this is enough, e.g. virtio net has internal state
+> controlled thought CVQ commands. how do you intend to address/migrate
+> these?
+>
+>> +\subsubsection{Device Context Fields}\label{sec:Basic Facilities of a Virtio Device / Device Context / Device Context Fields}
+>> +
+>> +\paragraph{PCI Common Configuration Context}
+>> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ PCI Common Configuration Context}
+>> +
+>> +For the field VIRTIO_DEV_CTX_PCI_COMMON_RUNTIME_CFG, \field{type} is set to 0x0.
+>> +The \field{value} is in format of \field{struct virtio_pci_common_cfg}.
+>> +The \field{length} is the length of \field{struct virtio_pci_common_cfg}.
+>> +
+>> +\paragraph{Device Configuration Layout Context}
+>> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Device Configuration Layout Context}
+>> +
+>> +For the field VIRTIO_DEV_CTX_DEV_CFG_LAYOUT, \field{type} is set to 0x1.
+>> +The \field{value} is in format of device specific configuration layout listed
+>> +in each of the device's device configuration layout section.
+>> +The \field{length} is the length of the device configuration layout data.
+> Unclear. I am guessing it's doing things like setting up RO
+> fields? This needs to be specified per device really.
+> Also how some fields behave might depend on features.
+>
+>> +
+>> +\paragraph{Device Features Context}
+>> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Device Features Context}
+>> +
+>> +For the field VIRTIO_DEV_CTX_DEV_FEATURES, \field{type} is set to 0x2.
+>> +The \field{value} is in format of device feature bits listed in
+>> +\ref{sec:Basic Facilities of a Virtio Device / Feature Bits} in the format of \field{struct virtio_dev_ctx_features}.
+>> +The \field{length} is the length of the device features.
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_dev_ctx_pci_vq_cfg {
+>> +        le64 feature_bits[];
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +\paragraph{PCI Virtqueue Configuration Context}
+>> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ PCI Virtqueue Configuration Context}
+>> +
+>> +For the field VIRTIO_DEV_CTX_PCI_VQ_CFG, \field{type} is set to 0x3.
+>> +The \field{value} is in format of \field{struct virtio_dev_ctx_pci_vq_cfg}.
+>> +The \field{length} is the length of \field{struct virtio_dev_ctx_pci_vq_cfg}.
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_dev_ctx_pci_vq_cfg {
+>> +        le16 vq_index;
+>> +        le16 queue_size;
+>> +        le16 queue_msix_vector;
+>> +        le64 queue_desc;
+>> +        le64 queue_driver;
+>> +        le64 queue_device;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +One or multiple entries of PCI Virtqueue Configuration Context may exist, each such
+>> +entry corresponds to a unique virtqueue identified by the \field{vq_index}.
+>> +
+>> +\paragraph{Virtqueue Split Mode Runtime Context}
+>> +\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Virtqueue Split Mode Runtime Context}
+>> +
+>> +For the field VIRTIO_DEV_CTX_VQ_SPLIT_RUNTIME_CFG, \field{type} is set to 0x4.
+>> +The \field{value} is in format of \field{struct virtio_dev_ctx_vq_split_runtime}.
+>> +The \field{length} is the length of \field{struct virtio_dev_ctx_vq_split_runtime}.
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_dev_ctx_vq_split_runtime {
+>> +        le16 vq_index;
+>> +        le16 dev_avail_idx;
+>> +        u8 enabled;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The \field{dev_avail_idx} indicates the next available index of the virtqueue from which
+>> +the device must start processing the available ring.
+>> +
+>> +One or multiple entries of Virtqueue Split Mode Runtime Context may exist, each such
+>> +entry corresponds to a unique virtqueue identified by the \field{vq_index}.
+>> +
+>> +\paragraph{Virtqueue Split Mode Device owned Descriptors Context}
+>> +
+>> +For the field VIRTIO_DEV_CTX_VQ_SPLIT_DEV_OWN_DESC, \field{type} is set to 0x5.
+>> +The \field{value} is in format of \field{struct virtio_dev_ctx_vq_split_runtime}.
+>> +The \field{length} is the length of \field{struct virtio_dev_ctx_vq_split_dev_descs}.
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_dev_ctx_vq_split_dev_descs {
+>> +        le16 vq_index;
+>> +        le16 desc_count;
+>> +        le16 desc_idx[];
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The \field{desc_idx} contains indices of the descriptors in \field{desc_count} of a
+>> +virtqueue identified by \field{vq_index} which is owned by the device.
+>> +
+>> +One or multiple entries of Virtqueue Split Mode Device owned Descriptors Context may exist, each such
+>> +entry corresponds to a unique virtqueue identified by the \field{vq_index}.
+>> -- 
+>> 2.34.1
+>
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
+>
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
