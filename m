@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7621-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7622-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D53CE95A8E
-	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 01:38:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12943E95A8D
+	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 04:14:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id CA9E9217DE
-	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 01:38:00 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1C7442AFEB
+	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 04:14:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A384198654A
-	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 01:38:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F39BD9864CD
+	for <virtio-comment@archiver.kernel.org>; Mon,  9 Oct 2023 04:14:27 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7EF759864AF; Mon,  9 Oct 2023 01:38:00 +0000 (UTC)
+	id D4BE39864AF; Mon,  9 Oct 2023 04:14:27 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,652 +24,414 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 704789864CC
-	for <virtio-comment@lists.oasis-open.org>; Mon,  9 Oct 2023 01:38:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BF77F9864CC
+	for <virtio-comment@lists.oasis-open.org>; Mon,  9 Oct 2023 04:14:27 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046060;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0VtfFwk1_1696815474;
-Message-ID: <1696815305.6087027-2-xuanzhuo@linux.alibaba.com>
-Date: Mon, 9 Oct 2023 09:35:05 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: jasowang@redhat.com, "Michael S. Tsirkin" <mst@redhat.com>,
-	Parav Pandit <parav@nvidia.com>,
-	David Edmondson <david.edmondson@oracle.com>,
-	"Cornelia Huck <cohuck@redhat.com>"@lists.oasis-open.org,
-	virtio-comment@lists.oasis-open.org
-References: <20231009013135.55890-1-xuanzhuo@linux.alibaba.com>
-In-Reply-To: <20231009013135.55890-1-xuanzhuo@linux.alibaba.com>
-Subject: Re: [virtio-comment] [PATCH v19] virtio-net: support device stats
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MY+1bz6nPtDQgScC2jHjSo8YsnnEtP86hLBn6xivIQFi1Dasc2TpZ+K66wNAX5r9UPoUF4Faclja/hPsOAinngrYgA4Hm34Fy7sSX4i4b8KMW3hWWVKPB27gkFDoJKt9Iqg3goiwAGx47Pfxwy4QRjYr0mB4hAHeg3R89dzbcbIRJK+h/ARmnQBePGZvoNaD09y6gdzGKu/ytfcrlvl2/GHCBoTkcQHQY2CEMu+MRQ81hXpoEebs4mY9lVlC3t87Je8DAVymBPJh0Mic2CaniT/YG7YwoWWYD3QHPIT/4tYJfhOTztjJnKgLL3UtmrHUm2ovhN+u7fWTlPZmXRpAOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s6d7/y47F2x0eYdFHj83AaNqoFMWYrOM4CRN+RT98fs=;
+ b=k5HuPAEiURvQrMZvV+0EDf4QwJ/xndhyULOvtriHdwoCQJr2VuxXg3WvYSmw3hebwO9hXYJZ8Aylh3pwwLmfPtAttVEN8GLkC9DwVmnu0Q62g4xCXxRgcmK7xe1gq+VljVww3Ul+R7Na+IM1BxrshCK3rcCqGA0MtbJBgTHa1rr1qJ12Q5enO4DEz/twMobgRZ9z4iPjR45cxQEy0HnllDNI1+dK4ozXfmnbFYwMoTVmfurX2QJ5Oowfy9BYljbyzM6Z2pWYun5hqr26wYp+BzVb1lebWI/Vu/OE4aalCsJ+mt9OQgv0+iXtZDDoPJyQAi3zXv3IrmwRvV/WLmOubA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>
+Thread-Topic: [PATCH v1 7/8] admin: Add write recording commands
+Thread-Index: AQHZ+dpSq9nJAWUDjkaN0yzGClzvNLA/yD8AgAENvNA=
+Date: Mon, 9 Oct 2023 04:14:22 +0000
+Message-ID:
+ <PH0PR12MB54818D738BCD0E634517B3ABDCCEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-8-parav@nvidia.com>
+ <20231008074404-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231008074404-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CY5PR12MB6647:EE_
+x-ms-office365-filtering-correlation-id: 88cc9f67-816a-40bc-1ed2-08dbc87e375b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ fX6U+deHxzvcQ1Nk3WZlzheTm/ojkgqu314xPzaC2TU0BYdeiYLB8xmBeiL9fhBJZkmhzcVe0e07ziW7jKXns2VzzP0UhOek3bc2T8DLGbKNuai96MmKkWV2Lbq0ZUYIPahYEmbwvWw6IKFWN3yTlj3jJ/JpnkNERJIgQz+9O1uJIrtNPXqPgpuDOqO4VHT4JW99Oy5c5X6L0JKgm4XtG2hCj4lHhRtD5m2W1O4l+38mBBpzC/HZwVYXwG/bBAx44DKwa/rJJNcNjC7bhDWWno2pYrOdaDWMkZGkV9WysiOFsfNWf4EH3QdiJQ7G1jhQycE1cm5Sdirl0CDvx1ODVhdvGzoH/ZF1FEgAEQLbsuCOGY2YVPaabJ6fIh8Uk0waa61pmZqeq/5x/XMu271hS9ZSRCtontRAkmhLaXX14iCVtBx9Voo+nwrGI/UWm2RbqKsUBU1F71/JPKDS924fOH+aEFEuC76j/jgrQhpKPtA2yiuHfTW42N5j2EOywOksquLQswYQesT6q+Fd9vV2aVGebfpPMrmam39KZ/rSzZpAC2/ddDdBuMSRYZPBd1rY38YA9ejsEiReUV+UJQet//OhR1ar74qdf44q5MLtO6YFZpk81TWq22SBB8fNRkuReLdanVXXlava4ToiyzOU2NqSWbMU8VZzdfWnr3SA/9k=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(136003)(39860400002)(366004)(346002)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(41300700001)(83380400001)(30864003)(8676002)(52536014)(316002)(66476007)(966005)(5660300002)(4326008)(8936002)(76116006)(66946007)(64756008)(38100700002)(66556008)(66446008)(478600001)(2906002)(33656002)(38070700005)(86362001)(71200400001)(54906003)(6916009)(55016003)(26005)(107886003)(6506007)(7696005)(122000001)(9686003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Cj3Nd3+CpPAZTMcqcxMu6F7YIj6Gpd+kHDBHNsrdEpfI02rZ3R6m5J/d9Z0y?=
+ =?us-ascii?Q?oPsyqlSBv8blVpYebk3C3cPEwEh8ykVlLNAq8M7+vmtRpi4S7aGqRWG4QQex?=
+ =?us-ascii?Q?2dAzf4nIQqvrcFcMzLP0yhUNtxl8yvpcbw4T04c7lxsPX9B+EFpmSI91czgi?=
+ =?us-ascii?Q?BrVS/QARLbnhGks86VoGdM2+kxJNWvacJOzEsONh0IPZfFDx99O+lHuRVXw3?=
+ =?us-ascii?Q?iIaCIv0Yq+ROOFyJ6TwVkG89v4f8XMmE8fEhc8KnAx7oVXYOA7DHd1ch1wyb?=
+ =?us-ascii?Q?hgW2pEm+I1jbe+/yN8Kv3mkhf1eeLekk5bxyhxOIzOmNB2hjv0l72GRt0I+p?=
+ =?us-ascii?Q?Qtw+5RjKDKIZrIPZA7N/ke/z4RwEL5fc7iAxiyj88US4hp/lY5PqDDoIQmCx?=
+ =?us-ascii?Q?RuizI2Ga72aB0GzZf0crRJazTu45ka5q8r22kS39oxArI+sljQY//FC1tnU3?=
+ =?us-ascii?Q?SImAZn0CXArFieN9sid1yDxQqjI0pnNUXWG89cm/ZsWFOd0FtkxrvFDQje1F?=
+ =?us-ascii?Q?sg1DsjbIhx5Vt6ppYuvGfSdw0nfbQcDVvKa3PPBeV0cAI5DsZc/AKmalPBrK?=
+ =?us-ascii?Q?e1lye19TSdBg2p31kRLGZfMSvwVSzulcPdjB4t1K/08mTcHq+DASeQnbC5Y6?=
+ =?us-ascii?Q?dkyuKHiTHyq7nfyJJFfmNvsVTxuxWDZotIGKCayE8mPSyqIk9hw0sq+HHuSI?=
+ =?us-ascii?Q?gL1EMLVDr2q9BmJsIjMWFcoWpzrms6w/2z3x+yPGZxGQznunU+4L70709oxO?=
+ =?us-ascii?Q?/pAgwEol8XC3OQeOsdrTpy02UX1pgYQZzJSRbpLkTSSLn2N1KrA2yzkk9VpG?=
+ =?us-ascii?Q?+oK8XG1uNOdLZRh7g1ajnwW57zGL7AfnP0WsQ3IxFNIVnwj10iqCjcKDneEw?=
+ =?us-ascii?Q?brlFFjzluWBOrjIB2J13h8o1wjwQ39Lf1Fme9n+lN9nMix2K8/dViUY+/fKn?=
+ =?us-ascii?Q?GhKEU5nsuWbq0BbOjp/jTjEZMBu4r9lYmY+dmp8ZTAU98DhS8vTQ2y7cMYzh?=
+ =?us-ascii?Q?gKPEOso5p6VuMaZtxrFKySR+Qpvhs9kmJ7C7JIU8kahtEOuNLMvD3qn6UNpI?=
+ =?us-ascii?Q?mknMjv126kYImaG54jZ4EbGrxceC5Q9XwTIRamA4JlUcASyuCga8HTKkgMzS?=
+ =?us-ascii?Q?7jJZyeSVZeyMoPnSXABqjVqZ5JbmyD8X9kIXbCxrceY8ZoRpiK7Kk1l1CKmy?=
+ =?us-ascii?Q?q9cG689GniCoLsJSERF1Vw7K+SAkAtOXTZLvVg7LUgEDU1nU0FzN2bxfoe9G?=
+ =?us-ascii?Q?GEnjIMb6Qx8Us0afgZcmyMs09BCPwcNr2ww25pzOh45oKIItIJzSqCVN0F3a?=
+ =?us-ascii?Q?ROgGl1grcw10ma1zruTwYbWDrE0Y1rmjYoqVNLPkoqIrvkZRsIbJaOilFDIB?=
+ =?us-ascii?Q?wdoeoIOGbJonBfz72p1iFqaJ/ZX7JgA8CzQIc4eY1qX3k+hPwzGlbnzAiEJ4?=
+ =?us-ascii?Q?znNVZxrTrDYDLpUt0D8ZFjeaHTzqFWkBgSJs+pn/tOFaxqnPxSyIh9qAwf8I?=
+ =?us-ascii?Q?YvI183dx/AvowCIXrLfP5MA/lwHXJ4zNUNgN0ZqBz0aA5zKrkN0de5kUKxIE?=
+ =?us-ascii?Q?2hjUNpJfPh5lJVMzQzk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88cc9f67-816a-40bc-1ed2-08dbc87e375b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2023 04:14:22.2845
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FF6MxiFGUip60wGF7GVKvaaqeoVRi2S7AHjLFUz/TAaLuOiab/ZjVdlgL/+AeTGzfALfszzrFsC70P2SE3Intg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6647
+Subject: [virtio-comment] RE: [PATCH v1 7/8] admin: Add write recording commands
 
-On Mon,  9 Oct 2023 09:31:35 +0800, Xuan Zhuo <xuanzhuo@linux.alibaba.com> wrote:
-> This patch allows the driver to obtain some statistics from the device.
->
-> In the device implementation, we can count a lot of such information,
-> which can be used for debugging and judging the running status of the
-> device. We hope to directly display it to the user through ethtool.
->
-> To get stats atomically, try to get stats for all/multiple queue pairs
-> in one command.
->
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/180
 
 
-Hi Cornelia,
+> From: Michael S. Tsirkin <mst@redhat.com>
+> Sent: Sunday, October 8, 2023 5:23 PM
+>=20
+> On Sun, Oct 08, 2023 at 02:25:54PM +0300, Parav Pandit wrote:
+> > When migrating a virtual machine with passthrough virtio devices, the
+> > virtio device may write into the guest memory. Some systems may not be
+> > able to keep track of these pages efficiently.
+> >
+> > To facilitate such a system, a device provides the record of pages
+> > which are written by the device. In one use case, this commands
+> > connect to the vfio framework at [1].
+> >
+> > The owner driver configures the member device for list of address
+> > ranges for which it expects write recording and reporting by the device=
+.
+> >
+> > The owner driver periodically queries the written pages address record
+> > which gets cleared from the device upon reading it.
+> >
+> > When the write records reduces over the time, at one point write
+> > recording is stopped after the device mode is set to FREEZE.
+> >
+> > [1]
+> > https://elixir.bootlin.com/linux/v6.4-rc1/source/include/uapi/linux/vf
+> > io.h#L1207
+> >
+> > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
+> > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > Signed-off-by: Satananda Burla <sburla@marvell.com>
+> > ---
+> >  admin-cmds-device-migration.tex | 146
+> ++++++++++++++++++++++++++++++--
+> >  admin.tex                       |  10 ++-
+> >  2 files changed, 146 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/admin-cmds-device-migration.tex
+> > b/admin-cmds-device-migration.tex index e98d552..49835eb 100644
+> > --- a/admin-cmds-device-migration.tex
+> > +++ b/admin-cmds-device-migration.tex
+> > @@ -97,15 +97,16 @@ \subsubsection{Device Migration}\label{sec:Basic
+> > Facilities of a Virtio Device /  During the device migration flow, a
+> > passthrough device may write data to the  guest virtual machine
+> > memory, a source hypervisor needs to keep track of these  written memor=
+y to
+> migrate such memory to destination hypervisor.
+> > -Some systems may not be able to keep track of such memory write
+> > addresses at -hypervisor level. In such a scenario, a device records
+> > and reports these -written memory addresses to the owner device. Such
+> > an address is named as -IO virtual address (IOVA). The owner driver
+> > enables write recording for one or -more IOVA ranges per device during
+> > device migration flow. The owner driver -periodically queries these
+> > written IOVA records from the device. As the driver -reads the written =
+IOVA
+> records, the device clears those records from the device.
+> > -Once the device reports zero or small number of written IOVA records,
+> > the device -mode is set to \field{Stop} or \field{Freeze}. Once the
+> > device is set to \field{Stop}
+> > +Some systems may not be able to keep track of such memory writes at
+> > +addresses at hypervisor level. In such a scenario, a device records
+> > +and reports these written memory addresses to the owner device.
+>=20
+>=20
+> what does it mean to record them?
+>
+May be we can use a different verb than record. May be tracking?
+Record means, device accumulates these written pages addresses, and when dr=
+iver queries, it returns these addresses and clears it internally within th=
+e device.
+=20
+> > Such an
+> > +address is named as IO virtual address (IOVA).
+>=20
+> I don't know what does this have to do with IOVA. For that matter everyth=
+ing
+> would have to be "IOVA". Spec calls these physical address and let's stic=
+k to
+> that.
+>=20
+Make sense.
+At device level it does not have knowledge of IOVA.
+I will rename it.
 
-Can we push this to the vote process?
+>=20
+> > The owner driver enables write
+> > +recording for one or more IOVA ranges per device during device
+> > +migration flow. The owner driver periodically queries these written
+> > +IOVA records from the device.
+>=20
+> periodical reads without any indication are the only option then?
+>
+At least for now, this is starting point. Software stack such as QEMU does =
+it periodically.
+When new use case arise, may be it can be extended.
+=20
+> > As the driver reads the written IOVA records,
+> > +the device clears those records from the device. Once the device
+> > +reports zero or small number of written IOVA records, the device is
+> > +set to \field{Stop} or \field{Freeze} mode. Once the device is set to
+> > +\field{Stop}
+> >  or \field{Freeze} mode, and once all the IOVA records are read, the
+> > driver stops  the write recording in the device.
+>=20
+>=20
+> it is not great that you are rewriting text you just wrote in patch 1 her=
+e. pls find
+> a way not to make reviewers read everything twice.
+>=20
+There is small duplication of one line explaining mode change, rest is cont=
+extual to the write recording.
+Merging with text of patch_1 was slightly complicated to read, so one sente=
+nce is duplicated.
 
+I will again check if patch_1 text extension is easier to read.
 
-Thanks.
+> > @@ -118,6 +119,10 @@ \subsubsection{Device Migration}\label{sec:Basic
+> > Facilities of a Virtio Device /  \item Device Context Read Command
+> > \item Device Context Write Command  \item Device Context Discard
+> > Command
+> > +\item Device Write Record Capabilities Query Command \item Device
+> > +Write Records Start Command \item Device Write Records Stop Command
+> > +\item Device Write Records Read Command
+> >  \end{enumerate}
+> >
+> >  These commands are currently only defined for the SR-IOV group type.
+> > @@ -307,6 +312,129 @@ \subsubsection{Device Migration}\label{sec:Basic
+> > Facilities of a Virtio Device /  discarded, subsequent
+> > VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command writes a new device
+> context.
+> >
+> > +\paragraph{Device Write Record Capabilities Query Command}
+> > +\label{par:Basic Facilities of a Virtio Device / Device groups /
+> > +Group administration commands / Device Migration / Device Write
+> > +Record Capabilities Query Command}
+> > +
+> > +This command reads the device write record capabilities.
+> > +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORD_CAP_QUERY,
+> > +\field{opcode} is set to 0xd.
+> > +The \field{group_member_id} refers to the member device to be accessed=
+.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_admin_cmd_dev_write_record_cap_result {
+> > +        le32 supported_iova_page_size_bitmap;
+> > +        le32 supported_iova_ranges;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +When the command completes successfully,
+> > +\field{command_specific_result} is in the format \field{struct
+> > +virtio_admin_cmd_dev_write_record_cap_result}
+> > +returned by the device. The \field{supported_iova_page_size_bitmap}
+> > +indicates the granularity at which the device can record IOVA ranges.
+> > +the minimum granularity can be 4KB. Bit 0 corresponds to 4KB, bit 1
+> > +corresponds to 8KB, bit 31 corresponds to 4TB. The device supports at =
+least
+> one page granularity.
+> > +The device support one or more IOVA page granularity; for each IOVA
+> > +page granularity, the device sets corresponding bit in the
+> > +\field{supported_iova_page_size_bitmap}. The
+> > +\field{supported_iova_ranges} indicates how many unique (non
+> > +overlapping) IOVA ranges can be recorded by the device.
+>=20
+> what role does this granularity play? i see no mention of it down the roa=
+d.
+>=20
+The page_size in struct virtio_admin_cmd_write_record_start_data must match=
+ to the granularity supplied above.
+I missed it. Will add in v2.
+This is very useful comment.
 
+>=20
+> > +
+> > +\paragraph{Device Write Records Start Command} \label{par:Basic
+> > +Facilities of a Virtio Device / Device groups / Group administration
+> > +commands / Device Migration / Device Write Records Start Command}
+> > +
+> > +This command starts the write recording in the device for the
+> > +specified IOVA ranges.
+> > +
+> > +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START,
+> > +\field{opcode} is set to 0xe.
+> > +The \field{group_member_id} refers to the member device to be accessed=
+.
+> > +
+> > +The \field{command_specific_data} is in the format \field{struct
+> > +virtio_admin_cmd_write_record_start_data}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_admin_cmd_write_record_start_entry {
+> > +        le64 iova;
+> > +        le64 page_count;
+> > +};
+> > +
+> > +struct virtio_admin_cmd_write_record_start_data {
+> > +        le64 page_size;
+> > +        le32 count;
+> > +        u8 reserved[4];
+> > +        struct virtio_admin_cmd_write_record_start_entry entries[];
+> > +};
+> > +
+> > +\end{lstlisting}
+> > +
+> > +The \field{count} is set to indicate number of valid \field{entries}.
+> > +The \field{iova} indicates the start IOVA address. The
+> > +\field{page_count} indicates number of pages of size
+> > +\field{page_size} starting from \field{iova} to record for write
+> > +reporting. VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START
+> > +command contains unique i.e. non overlapping IOVA range entries.
+> > +Whenever a memory write occurs by the device in the supplied IOVA
+> > +range, the device records the actual IOVA and number of bytes written =
+to the
+> IOVA.
+> > +These write records can be read by the the driver using
+> > +VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ command.
+> > +
+> > +This command has no command specific result.
+> > +
+> > +\paragraph{Device Write Record Stop Command} \label{par:Basic
+> > +Facilities of a Virtio Device / Device groups / Group administration
+> > +commands / Device Migration / Device Write Record Stop Command}
+> > +
+> > +This command stops the write recording in the device for IOVA ranges
+> > +which were previously started using
+> > +VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START
+> > +command.
+> > +
+> > +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_STOP,
+> > +\field{opcode} is set to 0xf.
+> > +The \field{group_member_id} refers to the member device to be accessed=
+.
+> > +
+> > +This command does not have any command specific data.
+> > +This command has no command specific result.
+> > +
+> > +\paragraph{Device Write Records Read Command} \label{par:Basic
+> > +Facilities of a Virtio Device / Device groups / Group administration
+> > +commands / Device Migration / Device Write Records Read Command}
+> > +
+> > +This command reads the device write records for which the write
+> > +recording is previously started using
+> VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START command.
+> > +
+> > +For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ,
+> > +\field{opcode} is set to 0x10.
+> > +The \field{group_member_id} refers to the member device to be accessed=
+.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_admin_cmd_write_records_read_data {
+> > +        le64 iova;
+> > +        le64 length;
+> > +};
+> > +
+> > +struct virtio_admin_cmd_dev_write_records_cnt {
+> > +        le32 count;
+> > +};
+> > +
+> > +struct virtio_admin_cmd_dev_write_records_result {
+> > +        le64 iova_entries[];
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +The \field{command_specific_data} is in the format \field{struct
+> > +virtio_admin_cmd_write_records_read_data}. The driver sets the \field
+> > +{iova} indicating the start IOVA address for up to the \field{length}
+> > +number of bytes. The supplied IOVA range same or smaller than the
+> > +range supplied when write recording is started by the driver in
+> > +VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START command.
+>=20
+> Seems pretty sparse. Lots of hypervisors chose to implement a bit per pag=
+e
+> strategy.
+This command result addresses will feed into such bit.
 
+>=20
+> > +
+> > +When the command completes successfully,
+> > +\field{command_specific_result} is in the format \field{struct
+> > +virtio_admin_cmd_dev_write_records_result}
+> > +and \field{command_specific_result} is in format of \field{struct
+> > +virtio_admin_cmd_dev_write_records_cnt} containing number of write
+> > +records returned by the device.
+>=20
+> what are these records though?
+>=20
+It is struct virtio_admin_cmd_dev_write_records_result.
+I will rephrase it to link to struct virtio_admin_cmd_dev_write_records_res=
+ult.
 
-> Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-> Reviewed-by: Parav Pandit <parav@nvidia.com>
-> ---
->  device-types/net/description.tex        | 512 +++++++++++++++++++++++-
->  device-types/net/device-conformance.tex |   1 +
->  device-types/net/driver-conformance.tex |   1 +
->  3 files changed, 511 insertions(+), 3 deletions(-)
->
-> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> index 76585b0..aff5e08 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -88,6 +88,9 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
->  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
->      channel.
->
-> +\item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
-> +    to the driver through the control virtqueue.
-> +
->  \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
->
->  \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
-> @@ -1156,6 +1159,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->          u8 command;
->          u8 command-specific-data[];
->          u8 ack;
-> +        u8 command-specific-result[];
->  };
->
->  /* ack values */
-> @@ -1164,9 +1168,12 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->  \end{lstlisting}
->
->  The \field{class}, \field{command} and command-specific-data are set by the
-> -driver, and the device sets the \field{ack} byte. There is little it can
-> -do except issue a diagnostic if \field{ack} is not
-> -VIRTIO_NET_OK.
-> +driver, and the device sets the \field{ack} byte and optionally
-> +\field{command-specific-result}. There is little the driver can
-> +do except issue a diagnostic if \field{ack} is not VIRTIO_NET_OK.
-> +
-> +The command VIRTIO_NET_CTRL_STATS_QUERY and VIRTIO_NET_CTRL_STATS_GET contain
-> +\field{command-specific-result}.
->
->  \paragraph{Packet Receive Filtering}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Packet Receive Filtering}
->  \label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
-> @@ -1805,6 +1812,505 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->
->  Upon reset, a device MUST initialize all coalescing parameters to 0.
->
-> +\paragraph{Device Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
-> +
-> +If the VIRTIO_NET_F_DEVICE_STATS feature is negotiated, the driver can obtain
-> +device statistics from the device by using the following command.
-> +
-> +Different types of virtqueues have different statistics. The statistics of the
-> +receiveq are different from those of the transmitq.
-> +
-> +The statistics of a certain type of virtqueue are also divided into multiple types
-> +because different types require different features. This enables the expansion
-> +of new statistics.
-> +
-> +In one command, the driver can obtain the statistics of one or multiple virtqueues.
-> +Additionally, the driver can obtain multiple type statistics of each virtqueue.
-> +
-> +\subparagraph{Query Statistic Capabilities}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Query Statistic Capabilities}
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_NET_CTRL_STATS         8
-> +#define VIRTIO_NET_CTRL_STATS_QUERY   0
-> +#define VIRTIO_NET_CTRL_STATS_GET     1
-> +
-> +struct virtio_net_stats_capabilities {
-> +
-> +#define VIRTIO_NET_STATS_TYPE_CVQ       (1 << 32)
-> +
-> +#define VIRTIO_NET_STATS_TYPE_RX_BASIC  (1 << 0)
-> +#define VIRTIO_NET_STATS_TYPE_RX_CSUM   (1 << 1)
-> +#define VIRTIO_NET_STATS_TYPE_RX_GSO    (1 << 2)
-> +#define VIRTIO_NET_STATS_TYPE_RX_SPEED  (1 << 3)
-> +
-> +#define VIRTIO_NET_STATS_TYPE_TX_BASIC  (1 << 16)
-> +#define VIRTIO_NET_STATS_TYPE_TX_CSUM   (1 << 17)
-> +#define VIRTIO_NET_STATS_TYPE_TX_GSO    (1 << 18)
-> +#define VIRTIO_NET_STATS_TYPE_TX_SPEED  (1 << 19)
-> +
-> +    le64 supported_stats_types[1];
-> +}
-> +\end{lstlisting}
-> +
-> +To obtain device statistic capability, use the VIRTIO_NET_CTRL_STATS_QUERY
-> +command. When the command completes successfully, \field{command-specific-result}
-> +is in the format of \field{struct virtio_net_stats_capabilities}.
-> +
-> +\subparagraph{Get Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Get Statistics}
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_ctrl_queue_stats {
-> +       struct {
-> +           le16 vq_index;
-> +           le16 reserved[3];
-> +           le64 types_bitmap[1];
-> +       } stats[];
-> +};
-> +
-> +struct virtio_net_stats_reply_hdr {
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_CVQ       32
-> +
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_BASIC  0
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_CSUM   1
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_GSO    2
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_RX_SPEED  3
-> +
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_BASIC  16
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_CSUM   17
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_GSO    18
-> +#define VIRTIO_NET_STATS_TYPE_REPLY_TX_SPEED  19
-> +    u8 type;
-> +    u8 reserved;
-> +    le16 vq_index;
-> +    le16 reserved1;
-> +    le16 size;
-> +}
-> +\end{lstlisting}
-> +
-> +To obtain device statistics, use the VIRTIO_NET_CTRL_STATS_GET command with the
-> +\field{command-specific-data} which is in the format of
-> +\field{struct virtio_net_ctrl_queue_stats}. When the command completes
-> +successfully, \field{command-specific-result} contains multiple statistic
-> +results, each statistic result has the \field{struct virtio_net_stats_reply_hdr}
-> +as the header.
-> +
-> +The fields of the \field{struct virtio_net_ctrl_queue_stats}:
-> +\begin{description}
-> +    \item [vq_index]
-> +        The index of the virtqueue to obtain the statistics.
-> +
-> +    \item [types_bitmap]
-> +        This is a bitmask of the types of statistics to be obtained. Therefore, a
-> +        \field{stats} inside \field{struct virtio_net_ctrl_queue_stats} may
-> +        indicate multiple statistic replies for the virtqueue.
-> +\end{description}
-> +
-> +The fields of the \field{struct virtio_net_stats_reply_hdr}:
-> +\begin{description}
-> +    \item [type]
-> +        The type of the reply statistic.
-> +
-> +    \item [vq_index]
-> +        The virtqueue index of the reply statistic.
-> +
-> +    \item [size]
-> +        The number of bytes for the statistics entry including size of \field{struct virtio_net_stats_reply_hdr}.
-> +
-> +\end{description}
-> +
-> +\subparagraph{Controlq Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Controlq Statistics}
-> +
-> +The structure corresponding to the controlq statistics is
-> +\field{struct virtio_net_stats_cvq}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_CVQ. This is for the controlq.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_cvq {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 command_num;
-> +    le64 ok_num;
-> +};
-> +\end{lstlisting}
-> +
-> +\begin{description}
-> +    \item [command_num]
-> +        The number of commands received by the device including the current command.
-> +
-> +    \item [ok_num]
-> +        The number of commands completed successfully by the device including the current command.
-> +\end{description}
-> +
-> +
-> +\subparagraph{Receiveq Basic Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq Basic Statistics}
-> +
-> +The structure corresponding to the receiveq basic statistics is
-> +\field{struct virtio_net_stats_rx_basic}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_RX_BASIC. This is for the receiveq.
-> +
-> +Receiveq basic statistics do not require any feature. As long as the device supports
-> +VIRTIO_NET_F_DEVICE_STATS, the following are the receiveq basic statistics.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_rx_basic {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 rx_notifications;
-> +
-> +    le64 rx_packets;
-> +    le64 rx_bytes;
-> +
-> +    le64 rx_interrupts;
-> +
-> +    le64 rx_drops;
-> +    le64 rx_drop_overruns;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below were all presented on the specified virtqueue.
-> +\begin{description}
-> +    \item [rx_notifications]
-> +        The number of driver notifications received by the device for this
-> +        receiveq.
-> +
-> +    \item [rx_packets]
-> +        This is the number of packets passed to the driver by the device.
-> +
-> +    \item [rx_bytes]
-> +        This is the bytes of packets passed to the driver by the device.
-> +
-> +    \item [rx_interrupts]
-> +        The number of interrupts generated by the device for this receiveq.
-> +
-> +    \item [rx_drops]
-> +        This is the number of packets dropped by the device. The count includes
-> +        all types of packets dropped by the device.
-> +
-> +    \item [rx_drop_overruns]
-> +        This is the number of packets dropped by the device when no more
-> +        descriptors were available.
-> +
-> +\end{description}
-> +
-> +\subparagraph{Transmitq Basic Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq Basic Statistics}
-> +
-> +The structure corresponding to the transmitq basic statistics is
-> +\field{struct virtio_net_stats_tx_basic}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_TX_BASIC. This is for the transmitq.
-> +
-> +Transmitq basic statistics do not require any feature. As long as the device supports
-> +VIRTIO_NET_F_DEVICE_STATS, the following are the transmitq basic statistics.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_tx_basic {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 tx_notifications;
-> +
-> +    le64 tx_packets;
-> +    le64 tx_bytes;
-> +
-> +    le64 tx_interrupts;
-> +
-> +    le64 tx_drops;
-> +    le64 tx_drop_malformed;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below are all for a specific virtqueue.
-> +\begin{description}
-> +    \item [tx_notifications]
-> +        The number of driver notifications received by the device for this
-> +        transmitq.
-> +
-> +    \item [tx_packets]
-> +        This is the number of packets sent by the device (not the packets
-> +        got from the driver).
-> +
-> +    \item [tx_bytes]
-> +        This is the number of bytes sent by the device for all the sent packets
-> +        (not the bytes sent got from the driver).
-> +
-> +    \item [tx_interrupts]
-> +        The number of interrupts generated by the device for this transmitq.
-> +
-> +    \item [tx_drops]
-> +        The number of packets dropped by the device. The count includes all
-> +        types of packets dropped by the device.
-> +
-> +    \item [tx_drop_malformed]
-> +        The number of packets dropped by the device, when the descriptors are
-> +        malformed. For example, the buffer is too short.
-> +\end{description}
-> +
-> +\subparagraph{Receiveq CSUM Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq CSUM Statistics}
-> +
-> +The structure corresponding to the receiveq checksum statistics is
-> +\field{struct virtio_net_stats_rx_csum}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_RX_CSUM. This is for the receiveq.
-> +
-> +Only after the VIRTIO_NET_F_GUEST_CSUM is negotiated, the receiveq checksum
-> +statistics can be obtained.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_rx_csum {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 rx_csum_valid;
-> +    le64 rx_needs_csum;
-> +    le64 rx_csum_none;
-> +    le64 rx_csum_bad;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below were all presented on the specified virtqueue.
-> +\begin{description}
-> +    \item [rx_csum_valid]
-> +        The number of packets with VIRTIO_NET_HDR_F_DATA_VALID.
-> +
-> +    \item [rx_needs_csum]
-> +        The number of packets with VIRTIO_NET_HDR_F_NEEDS_CSUM.
-> +
-> +    \item [rx_csum_none]
-> +        The number of packets without hardware checksum. The packet here refers
-> +        to the non-TCP/UDP packet that the device cannot recognize.
-> +
-> +    \item [rx_csum_bad]
-> +        The number of packets with checksum mismatch.
-> +
-> +\end{description}
-> +
-> +\subparagraph{Transmitq CSUM Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq CSUM Statistics}
-> +
-> +The structure corresponding to the transmitq checksum statistics is
-> +\field{struct virtio_net_stats_tx_csum}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_TX_CSUM. This is for the transmitq.
-> +
-> +Only after the VIRTIO_NET_F_CSUM is negotiated, the transmitq checksum
-> +statistics can be obtained.
-> +
-> +The following are the transmitq checksum statistics:
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_tx_csum {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 tx_csum_none;
-> +    le64 tx_needs_csum;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below are all for a specific virtqueue.
-> +\begin{description}
-> +    \item [tx_csum_none]
-> +        The number of packets which do not require hardware checksum.
-> +
-> +    \item [tx_needs_csum]
-> +        The number of packets which require checksum calculation by the device.
-> +
-> +\end{description}
-> +
-> +\subparagraph{Receiveq GSO Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq GSO Statistics}
-> +
-> +The structure corresponding to the receivq GSO statistics is
-> +\field{struct virtio_net_stats_rx_gso}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_RX_GSO. This is for the receiveq.
-> +
-> +If one or more of the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6
-> +have been negotiated, the receiveq GSO statistics can be obtained.
-> +
-> +GSO packets refer to packets passed by the device to the driver where
-> +\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_rx_gso {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 rx_gso_packets;
-> +    le64 rx_gso_bytes;
-> +    le64 rx_gso_packets_coalesced;
-> +    le64 rx_gso_bytes_coalesced;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below were all presented on the specified virtqueue.
-> +\begin{description}
-> +    \item [rx_gso_packets]
-> +        The number of the GSO packets received by the device.
-> +
-> +    \item [rx_gso_bytes]
-> +        The bytes of the GSO packets received by the device.
-> +        This includes the header size of the GSO packet.
-> +
-> +    \item [rx_gso_packets_coalesced]
-> +        The number of the GSO packets coalesced by the device.
-> +
-> +    \item [rx_gso_bytes_coalesced]
-> +        The bytes of the GSO packets coalesced by the device.
-> +        This includes the header size of the GSO packet.
-> +\end{description}
-> +
-> +\subparagraph{Transmitq GSO Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq GSO Statistics}
-> +
-> +The structure corresponding to the transmitq GSO statistics is
-> +\field{struct virtio_net_stats_tx_gso}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_TX_GSO. This is for the transmitq.
-> +
-> +If one or more of the VIRTIO_NET_F_HOST_TSO4, VIRTIO_NET_F_HOST_TSO6,
-> +VIRTIO_NET_F_HOST_USO options have been negotiated, the transmitq GSO statistics
-> +can be obtained.
-> +
-> +GSO packets refer to packets passed by the driver to the device where
-> +\field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE.
-> +See more \ref{sec:Device Types / Network Device / Device Operation / Packet
-> +Transmission}.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_tx_gso {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 tx_gso_packets;
-> +    le64 tx_gso_bytes;
-> +    le64 tx_gso_segments;
-> +    le64 tx_gso_segments_bytes;
-> +    le64 tx_gso_packets_noseg;
-> +    le64 tx_gso_bytes_noseg;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below are all for a specific virtqueue.
-> +\begin{description}
-> +    \item [tx_gso_packets]
-> +        The number of the GSO packets sent by the device.
-> +
-> +    \item [tx_gso_bytes]
-> +        The bytes of the GSO packets sent by the device.
-> +
-> +    \item [tx_gso_segments]
-> +        The number of segments prepared from GSO packets.
-> +
-> +    \item [tx_gso_segments_bytes]
-> +        The bytes of segments prepared from GSO packets.
-> +
-> +    \item [tx_gso_packets_noseg]
-> +        The number of the GSO packets without segmentation.
-> +
-> +    \item [tx_gso_bytes_noseg]
-> +        The bytes of the GSO packets without segmentation.
-> +
-> +\end{description}
-> +
-> +\subparagraph{Receiveq Speed Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Receiveq Speed Statistics}
-> +
-> +The structure corresponding to the receiveq speed statistics is
-> +\field{struct virtio_net_stats_rx_speed}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_RX_SPEED. This is for the receiveq.
-> +
-> +The device has the allowance for the speed. If VIRTIO_NET_F_SPEED_DUPLEX has
-> +been negotiated, the driver can get this by \field{speed}. When the received
-> +packets bitrate exceeds the \field{speed}, some packets may be dropped by the
-> +device.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_rx_speed {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 rx_packets_allowance_exceeded;
-> +    le64 rx_bytes_allowance_exceeded;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below were all presented on the specified virtqueue.
-> +\begin{description}
-> +    \item [rx_packets_allowance_exceeded]
-> +        The number of the packets dropped by the device due to the received
-> +        packets bitrate exceeding the \field{speed}.
-> +
-> +    \item [rx_bytes_allowance_exceeded]
-> +        The bytes of the packets dropped by the device due to the received
-> +        packets bitrate exceeding the \field{speed}.
-> +
-> +\end{description}
-> +
-> +\subparagraph{Transmitq Speed Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics / Transmitq Speed Statistics}
-> +
-> +The structure corresponding to the transmitq speed statistics is
-> +\field{struct virtio_net_stats_tx_speed}. The corresponding type is
-> +VIRTIO_NET_STATS_TYPE_TX_SPEED. This is for the transmitq.
-> +
-> +The device has the allowance for the speed. If VIRTIO_NET_F_SPEED_DUPLEX has
-> +been negotiated, the driver can get this by \field{speed}. When the transmit
-> +packets bitrate exceeds the \field{speed}, some packets may be dropped by the
-> +device.
-> +
-> +\begin{lstlisting}
-> +struct virtio_net_stats_tx_speed {
-> +    struct virtio_net_stats_reply_hdr hdr;
-> +
-> +    le64 tx_packets_allowance_exceeded;
-> +    le64 tx_bytes_allowance_exceeded;
-> +};
-> +\end{lstlisting}
-> +
-> +The packets described below were all presented on the specified virtqueue.
-> +\begin{description}
-> +    \item [tx_packets_allowance_exceeded]
-> +        The number of the packets dropped by the device due to the transmit packets
-> +        bitrate exceeding the \field{speed}.
-> +
-> +    \item [tx_bytes_allowance_exceeded]
-> +        The bytes of the packets dropped by the device due to the transmit packets
-> +        bitrate exceeding the \field{speed}.
-> +
-> +\end{description}
-> +
-> +\devicenormative{\subparagraph}{Device Statistics}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
-> +
-> +When the VIRTIO_NET_F_DEVICE_STATS feature is negotiated, the device MUST reply
-> +to the command VIRTIO_NET_CTRL_STATS_QUERY with the
-> +\field{struct virtio_net_stats_capabilities}. \field{supported_stats_types}
-> +includes all the statistic types supported by the device.
-> +
-> +If \field{struct virtio_net_ctrl_queue_stats} is incorrect (such as the
-> +following), the device MUST set \field{ack} to VIRTIO_NET_ERR. Even if there is
-> +only one error, the device MUST fail the entire command.
-> +\begin{itemize}
-> +    \item \field{vq_index} exceeds the queue range.
-> +    \item \field{types_bitmap} contains unknown types.
-> +    \item One or more of the bits present in \field{types_bitmap} is not valid
-> +        for the specified virtqueue.
-> +    \item The feature corresponding to the specified \field{types_bitmap} was
-> +        not negotiated.
-> +\end{itemize}
-> +
-> +The device MUST set the actual size of the bytes occupied by the reply to the
-> +\field{size} of the \field{hdr}. And the device MUST set the \field{type} and
-> +the \field{vq_index} of the statistic header.
-> +
-> +The \field{command-specific-result} buffer allocated by the driver may be
-> +smaller or bigger than all the statistics specified by
-> +\field{struct virtio_net_ctrl_queue_stats}. The device MUST fill up only upto
-> +the valid bytes.
-> +
-> +The statistics counter replied by the device MUST wrap around to zero by the
-> +device on the overflow.
-> +
-> +\drivernormative{\subparagraph}{Device Statistics}{Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
-> +
-> +The types contained in the \field{types_bitmap} MUST be queried from the device
-> +via command VIRTIO_NET_CTRL_STATS_QUERY.
-> +
-> +\field{types_bitmap} in \field{struct virtio_net_ctrl_queue_stats} MUST be valid to the
-> +vq specified by \field{vq_index}.
-> +
-> +The \field{command-specific-result} buffer allocated by the driver MUST have
-> +enough capacity to store all the statistics reply headers defined in
-> +\field{struct virtio_net_ctrl_queue_stats}. If the
-> +\field{command-specific-result} buffer is fully utilized by the device but some
-> +replies are missed, it is possible that some statistics may exceed the capacity
-> +of the driver's records. In such cases, the driver should allocate additional
-> +space for the \field{command-specific-result} buffer.
-> +
->  \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
->  Types / Network Device / Legacy Interface: Framing Requirements}
->
-> diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-> index f88f48b..52526e4 100644
-> --- a/device-types/net/device-conformance.tex
-> +++ b/device-types/net/device-conformance.tex
-> @@ -15,4 +15,5 @@
->  \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) / RSS processing}
->  \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
->  \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
-> +\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
->  \end{itemize}
-> diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-> index 9d853d9..c693c4f 100644
-> --- a/device-types/net/driver-conformance.tex
-> +++ b/device-types/net/driver-conformance.tex
-> @@ -15,4 +15,5 @@
->  \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) }
->  \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
->  \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
-> +\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
->  \end{itemize}
-> --
-> 2.32.0.3.g01195cf9f
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->
+>=20
+> > When the command completes
+> > +successfully, the write records which are returned in the result are
+> > +cleared from the device and same records cannot be read again. When
+> > +new writes occur at same IOVA range or at different once, those
+> > +records can be read as new write records.
+>=20
+>=20
+> this last sentence just confuses.
+>=20
+How about just keeping below text rewrite?
+When the command completes successfully, the write records returned in the =
+result are cleared from the device.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
