@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7650-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7651-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB1EACD80CA
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 13:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EC8CCD80D5
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 14:00:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3AAF429FC9
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 13:08:27 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 68966747CB
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 14:00:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0DF5498657D
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 13:08:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4CCA198657D
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 14:00:25 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id EAAE798655C; Tue, 10 Oct 2023 13:08:26 +0000 (UTC)
+	id 3958398655D; Tue, 10 Oct 2023 14:00:25 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,33 +24,41 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DA34298655D
-	for <virtio-comment@lists.oasis-open.org>; Tue, 10 Oct 2023 13:08:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 29975986561
+	for <virtio-comment@lists.oasis-open.org>; Tue, 10 Oct 2023 14:00:25 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nhUUe9zpHi9TOS9jBnqXgFtc+/dSLpUBicbBXK29c8qVpzJyRTqlqx7s5SyFf4K3MJbMtPN+6bDBuuQYBO8T+Q5IabNnLfVX0WJChuH7THwCrhLBVdJr2Uz27YuBarqf/kbA3eb+uyAv7iA/wNxSNECa7GqZxFHhvST35g+THa7foGfmNiWB6voX6XPy2OgqhnkibEzjRMWEFOIY3J+6056fMDoXuilUR3moBmQjv88VSJICAn49nT14zxRJC6Emtv184DxF9Aen7fls/Dx9pWZB38FpNVAV3qjc0utaQfOkNVluyMByd2zn/XPMUmobVZzKoC8Kc8VAFDC+pgsBrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WSEaiLFQgUtaQblwjmrtWeGc02rF6/YdT/AXIgpnIXs=;
- b=bLrvRwsU2gsO/DlFYuOAoyIGW3GUlX6hhyJRH5gyt2Tg5HdRNj8NI7QeO5AALPRrv7SJE67n5ZcKN37HHxNlfZLMsAa04G61G/csITE/qMwSfzjnfdeSoenQHMcbJMgB7bxaoj0PH8Idcwk4WcQHgBON78D6kaINy808oE1kICA+S/QYdl6NxcQB2fMGAhBzcqCpwIZ8rM3raVad4tkBAyvS9dXZtLauXGLi0mIwT4MADhW9hwFS/d01AAC6o/zfxedk8dagKeE0RuDkfnyg4oNqF7ZiW0lwuEiVNxxCvHeSniEUZzjbjFdF4vk9TqRjZoVAZmWGAOkk5ZgOVGyNUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
-	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
-	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
-	<yishaih@nvidia.com>, Zhu Lingshan <lingshan.zhu@intel.com>
-Thread-Topic: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
-Thread-Index:
- AQHZ+dpD+jj/KUeLHUaMn2y+w39Cb7BBJzcAgAAHNXCAAVl+AIAABSzAgABtXQCAAASCoA==
-Date: Tue, 10 Oct 2023 13:08:22 +0000
-Message-ID:
- <PH0PR12MB5481E43F008C4BB0A906074FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-MC-Unique: MA-DiGVtPs2DAsuLQaEVQA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696946420; x=1697551220;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FGYVeRbJ1CnBvVTaGomdXttdFazBqUTyHqVBGw3PtQI=;
+        b=CG4ouT4ecOQpFW3FZExtcC1BjozROm/bVe9EeofhPwytABMuIzRhKLq3FwYvFRMTcI
+         O4/L6e+YmhsGCjk3OEXwTgjTU4c2oSRzbtvYZxwtGAV1STQQJLJZkpihJl5Q27NUK0n4
+         jPCSoMHnCUlyqSE7hTh/TZq0k1WHP6a6xrH5WW88fEMICyqolNTERYqe6IbnzJhIN0BG
+         eFGRoStMofg3O2jJqSfQXJIY573awYCEIEavIMjHwLIgVUPmw45rQhwbArabjhKOumJd
+         /BCeIm4zgrVFPWKy/F98mc/kQjNSH2aGvCmq+uad2yX94aDtIOxgPXz0S9KbyCCZfNCC
+         J5eg==
+X-Gm-Message-State: AOJu0YyzGOrv0tcP2ZFlwT6UCghNsDluqEygC8nNSBr+fECDnN7yWwzF
+	WWgnthaZ3ZI9hkMfV62T8fl85BoBXZSOD1hIHt5bN3cYpZ83UCFhxzcOmjEVg+HXF7hEqdrL07e
+	tb8QTYkxglQjNN8SwLBdZSgM7UaGHTYeCew==
+X-Received: by 2002:a5d:6daf:0:b0:32d:62e7:8ff9 with SMTP id u15-20020a5d6daf000000b0032d62e78ff9mr1403742wrs.34.1696946419588;
+        Tue, 10 Oct 2023 07:00:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGmImZqHh5jK2hSSHmKXAXg5UcOhPqQoz2DPZIDDcBKvMG0sA1KBGX1ro6SnwE8an7QGMKXmg==
+X-Received: by 2002:a5d:6daf:0:b0:32d:62e7:8ff9 with SMTP id u15-20020a5d6daf000000b0032d62e78ff9mr1403694wrs.34.1696946418944;
+        Tue, 10 Oct 2023 07:00:18 -0700 (PDT)
+Date: Tue, 10 Oct 2023 10:00:15 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>
+Message-ID: <20231010095713-mutt-send-email-mst@kernel.org>
 References: <20231008112555.473895-1-parav@nvidia.com>
  <20231008112555.473895-2-parav@nvidia.com>
  <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
@@ -58,385 +66,485 @@ References: <20231008112555.473895-1-parav@nvidia.com>
  <CACGkMEswD2XLjRNzyqo9M-yT77PsOJqJmDLxSKd2ZOgqLYjjZQ@mail.gmail.com>
  <PH0PR12MB548143D2AB83CA90E7F1C9D6DCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
  <20231010083331-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20231010083331-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH0PR12MB5267:EE_
-x-ms-office365-filtering-correlation-id: 931d1f20-b6c8-439e-b0a1-08dbc991fb76
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- g3Q8RuwCHy1x+eMJ97EKYGNP3cd8PG6kLe4boeRTkwNn7agVbf3V2hU3EZ8B/MMTY0oLPO3SF9R/CZfe1Ty3vsRolQb6TV9fW8KJXQlxbe/tRG+KxTQuPaOmI22WQo+1TPAhA3bIdTUTGPvggvuf425fCBBS2AoEPd4+WcqtCm2NFj47j/4e54lFQiXDSt7NZlYO+gB1BlD5ouBGYtNoeB5/qXf0xJ+5PHyPl7GlAhEA0fNldoNxjd3KTH0vu1LeZGXC1ad7LgmmtAbcEHYZ5Zs36NWkWGC8r3mjNDE17TFs3iDgKgs5JgHu0IET7C/LOLuswFxiWCHxF9G+UTB6dPSJ0/k5QC8cF6SZdCh54c+ZhiU8OHLZ4CbSEpWazz+jp2MLAm1PV/0uwOrs4nOEWbrLYwn0UbYF4LccYsaFxJFDsDYUINJv0jSDF3e8EZ6ri8VAPCwcPnLXS+gNKz2wLqQfG8K+OpNuheeGTqwSFXPdsnhjL/UFO2I/zhNkrkxIkDR+by1vu8Be7t/66HjrsYhJx9NHnZvsLyhcjewJxcQOjF9uq0KKAUNqgT52JgFr3+9jCugKI+37ZRk4QVwLiI4dOhjMpLzzrv4wSE80R+dcoJtJ7ZJ90ps3AxLSh1ev
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(39860400002)(396003)(366004)(376002)(346002)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(9686003)(6506007)(7696005)(478600001)(71200400001)(26005)(83380400001)(30864003)(2906002)(5660300002)(66476007)(66446008)(66556008)(316002)(54906003)(64756008)(76116006)(66946007)(8676002)(8936002)(6916009)(4326008)(41300700001)(52536014)(33656002)(122000001)(55016003)(38070700005)(38100700002)(86362001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bjVCTkt2c3pldGRjWHl2Z1ZYampZL1hzZ0F3MjIybU5mbjZyc0RjREVBZ0NM?=
- =?utf-8?B?cG1RSzNROS9HVjhjbTdyYmpabzF1cGd1M2dpNXBhNUI5VmJmS2xYSzU1SkFn?=
- =?utf-8?B?TUJTZWpIVVFqTGlnMGhUUGZ0T0lWbkZvU0VIL0hsdHhvTmRHSXlFTEtDUDc5?=
- =?utf-8?B?TXlVbmVLWFR0RXhMc1dPRXptNWtzVnJxZnZoMEdNVUhJQ3VxU0cxZWpaY05m?=
- =?utf-8?B?U0ZIR201YVpDUml6ZnFPbzUwaUgvYWNCMmFhNk9NL1oyUXZ1UzBwYVNnSmZN?=
- =?utf-8?B?Tnc5eEJiQnVSTktVbGRFeVhVbVhFbndQWmNaWjlEeTBIeEkyZmZpWXJiWUkx?=
- =?utf-8?B?R3BjZ2NwL0ptNjZzUldRS0ZKNEhoWlBZU1U5VnVEcDhhODY4SUgwbWp5YllY?=
- =?utf-8?B?TXNRMUQrbitkUm5KVUFXNUpXaGRBbXZ3TUZFYW5NSFA0aXp0YzRNK2liQ2hJ?=
- =?utf-8?B?WDAzK2YyMTdFci84WDJ2Y1ZJTVRreXJXQW5mLzlNUkJxWDFLaXVxUzJnM0VD?=
- =?utf-8?B?VG1YakVxUk0yM1RMWjlqYkFhTWgwZGQvN0F3K3FkL2t4L3Z1S3JBeTdwYmhr?=
- =?utf-8?B?TTZqakw5NmVjWktLNUxwcVBobUZoK3BybzB1a09TWXBsWUcvcGdWM0cxWmdG?=
- =?utf-8?B?VHZZU0RsWjRrc3Q4OVpka21KN0JQMkJCck1PbzhXdUVoQytuc1hUV1Zyc2Zz?=
- =?utf-8?B?UVQ2WEp0aGtoZ2c3dmRxYVFQTmV1MVlWTjVrOHh1OTBWMnNRakx4NzRwcFlU?=
- =?utf-8?B?YzAvNTJyQTVqVVUyMjNnUlR5eXZ5YlFOM1piTm5tQVp3cVB5QzVlNyt4UTlJ?=
- =?utf-8?B?TVg0OXNtSHJMMFphU1hFQ3lNNWJqWU5PcXo3dzl6QXZpSGhubHVKZDZEK1cw?=
- =?utf-8?B?ZTFWRllGYTgzcHhwemNnWmNTZEwyd1BNVDdLK24wa1UwZzJrWXdsTnQyMkJi?=
- =?utf-8?B?WEYweW83NTZySEQ3UWRCb0h6QW91b3dIblJDYXdxV2JyZXhpZkhhaGI3cSta?=
- =?utf-8?B?a3QvZHNxN3JBZFdZWEM3WC85eWtKNFF1RkFqcUVvTk1KalVwT1Q3UmY4ZFZE?=
- =?utf-8?B?ZmlVL3hYaVhwN3hRZHhqS2U0Q01rL3Uvbk96MEx5SlJsWS9pT1ZxRnpBWTVu?=
- =?utf-8?B?K2ZoZnNKMGdSTExxWlVZdDhzWk85aWFKWVRlTUR0MU5NTlBleTlrSmZYOERY?=
- =?utf-8?B?QmNoVmlQSm01TS9hOWVCRS9veXBlSk8vSXh6cUtUWnNrZHdFREhqZE5kVU1y?=
- =?utf-8?B?TkR2bm1venBBaDZJTmo2WEZFcXhRTHpVaENDQXdlK2o4aXRvN0I3NHVUVThU?=
- =?utf-8?B?d2ZCWklVaTdRdEJ0SmZ6cGRmNWpLc2duYW9BMklIUG1nbXY5clBwTzhPaVEy?=
- =?utf-8?B?VExLZTM1SVpyZ0V6OUpPeUdHMkt0QXRuTnRjNStVdjlYdmhLZnhZbUdBejJj?=
- =?utf-8?B?emcvNENYcFpuVDNZSkVMVXRUNE9JQ2MzQWhaaGxGVnpORVdYcm16dCtma1RC?=
- =?utf-8?B?WGgyVllYSCtqTGE3dkRtd01aQ0tuVDU1WVRWck4rTndVRW1kWEp5RHhKd2RM?=
- =?utf-8?B?ZkVCNktmdDVYb2ZtREpiWjNGSnd5blhQUTlxcEZTM3ZYellrNFFBZnJLUm55?=
- =?utf-8?B?UFJva0M1empqMXBZWUJaV2luSTNsbnU1QUZjaTJKRDQwQWQ1VVZaaTFwSEk0?=
- =?utf-8?B?Y0ZqMFdVYXlTZm5WcmRPUVlFZmRZVk9pVlpsZm1qM3dmQi9Yd0ZYb1REYWtG?=
- =?utf-8?B?NDlyMy9jN1YycnRXY1FZMUlVQ1QxRDVvb0tJU0VpMmwzNllJZnlhMmlzV09M?=
- =?utf-8?B?ekpZaGdYYmpMS3h3ODkyamdqUHlVNTdNMU4zYkVrWmkxaHp3eWx4TkZCN1dQ?=
- =?utf-8?B?Ly84ZGcwUVVZbWdRd3NFaW9GQ1BWc3M4Z2ZkeGhodkxlaHJOSEtPN2ltejEv?=
- =?utf-8?B?azlPZno5bktBaVI4bkNnZVJOYUduT21RNitZcHJ5anJ2VzllaVRiNWNwUEJh?=
- =?utf-8?B?TUMwMHY2ZUtBbGFtdDZrdndSckZEcnhvRWxPbGxUUXJzM3RqZHo5SWUrWFRn?=
- =?utf-8?B?ZEFDVDhBWUc5WkQxalc1bTI1YUpDcFlrSHZnR0NLN2RPRmxyY2gwbXVGSzNs?=
- =?utf-8?Q?YxFU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <PH0PR12MB5481E43F008C4BB0A906074FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 931d1f20-b6c8-439e-b0a1-08dbc991fb76
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2023 13:08:22.9028
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: C7VHIjOZZoBPHaK1iHt4e7mZXIqBb87vkSiMOUDe88LXPtMBS9SHCXT65ZvC3tWKYwprK0Zw2JfTP8qGGSuDCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5267
-Subject: RE: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+In-Reply-To: <PH0PR12MB5481E43F008C4BB0A906074FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
  for device migration
 
-DQo+IEZyb206IE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5jb20+DQo+IFNlbnQ6IFR1
-ZXNkYXksIE9jdG9iZXIgMTAsIDIwMjMgNjoxMSBQTQ0KDQo+IEFsbCB0aGlzIGRvZXMgYmVnIHRo
-ZSBxdWVzdGlvbiBvZiBob3cgaXMgZGV2aWNlIHVuZGVyZ29pbmcgZmxyIHRob3VnaCBhbmQgdGhh
-dA0KPiBoYXMgdG8gYmUgaW4gYSBub3JtYXRpdmUgc3RhdGVtZW50Lg0KPiANClllcywgd2lsbCBh
-ZGQuDQoNCj4gPiBGdXJ0aGVyIHBhdGNoLTMgYWRkcyB0aGUgZGV2aWNlIGNvbnRleHQgYW5kIGFs
-c28gYWRkIHRoZSBsaW5rIHRvIGl0IGluIHRoZQ0KPiB0aGVvcnkgb2Ygb3BlcmF0aW9uIHNlY3Rp
-b24gc28gcmVhZGVyIGNhbiByZWFkIG1vcmUgZGV0YWlsIGFib3V0IGl0Lg0KPiANCj4gbWVudGlv
-biB0aGlzIGluIHRoZSBjb21taXQgbG9nIHBscw0KPiANCkFjay4gV2lsbCBhZGQuDQoNCj4gPiA+
-ICJBbnkiIGlzIHByb2JhYmx5IHRvbyBoYXJkIGZvciB2ZW5kb3JzIHRvIGltcGxlbWVudC4gQW5k
-IGluIHBhdGNoIDMNCj4gPiA+IEkgb25seSBzZWUgdmlydGlvIGRldmljZSBjb250ZXh0LiBEb2Vz
-IHRoaXMgbWVhbiB3ZSBkb24ndCBuZWVkDQo+ID4gPiB0cmFuc3BvcnQNCj4gPiA+IChQQ0kpIGNv
-bnRleHQgYXQgYWxsPyBJZiB5ZXMsIGhvdyBjYW4gaXQgd29yaz8NCj4gPiA+DQo+ID4gUmlnaHQu
-IFBDSSBtZW1iZXIgZGV2aWNlIGlzIHByZXNlbnQgYXQgc291cmNlIGFuZCBkZXN0aW5hdGlvbiB3
-aXRoIGl0cyBsYXlvdXQsDQo+IG9ubHkgdGhlIHZpcnRpbyBkZXZpY2UgY29udGV4dCBpcyB0cmFu
-c2ZlcnJlZC4NCj4gPiBXaGljaCBwYXJ0IGNhbm5vdCB3b3JrPw0KPiANCj4gDQo+IHdhaXQgZG9u
-J3Qgd2UgbmVlZCB0byB0cmFuc2ZlciBwY2kgc3RhdGUgdG9vPyBob3cgaXMgdGhhdCBtaWdyYXRl
-ZD8NCj4gDQpUaGUgaHlwZXJ2aXNvciBkcml2ZXIgY29tcG9zZXMgdGhlIHZQQ0kgZGV2aWNlLiBT
-byB0aGVyZSBpc27igJl0IGEgbmVlZCB0byBtaWdyYXRlIHRoZSBwY2kgc3RhdGUuDQpPbmx5IGV4
-Y2VwdGlvbiBpcyBWSVJUSU9fUENJX0NBUF9QQ0lfQ0ZHLCB3aGljaCBpcyBjb3ZlcmVkIGluIHRo
-aXMgdjEuDQoNCg0KPiA+ID4gPg0KPiA+ID4gPiA+ID5hbmQgZGV2aWNlIGNvbmZpZ3VyYXRpb24g
-c3BhY2UgbWF5IGNoYW5nZS4gXFwNCj4gPiA+ID4gPiA+ICtcaGxpbmUNCj4gPiA+ID4gPg0KPiA+
-ID4gPiA+IEkgc3RpbGwgZG9uJ3QgZ2V0IHdoeSB3ZSBuZWVkIGEgInN0b3AiIHN0YXRlIGluIHRo
-ZSBtaWRkbGUuDQo+ID4gPiA+ID4NCj4gPiA+ID4gQWxsIHBjaSBkZXZpY2VzIHdoaWNoIGJlbG9u
-ZyB0byBhIHNpbmdsZSBndWVzdCBWTSBhcmUgbm90IHN0b3BwZWQNCj4gYXRvbWljYWxseS4NCj4g
-PiA+ID4gSGVuY2UsIG9uZSBkZXZpY2Ugd2hpY2ggaXMgaW4gZnJlZXplIG1vZGUsIG1heSBzdGls
-bCByZWNlaXZlDQo+ID4gPiA+IGRyaXZlciBub3RpZmljYXRpb25zIGZyb20gb3RoZXIgcGNpIGRl
-dmljZSwNCj4gPiA+DQo+ID4gPiBEZXZpY2UgbWF5IGNob29zZSB0byBpZ25vcmUgdGhvc2Ugbm90
-aWZpY2F0aW9ucywgbm8/DQo+ID4gPg0KPiA+ID4gPiBvciBpdCBtYXkgZXhwZXJpZW5jZSBhIHJl
-YWQgZnJvbSB0aGUgc2hhcmVkIG1lbW9yeSBhbmQgZ2V0IGdhcmJhZ2UNCj4gZGF0YS4NCj4gPiA+
-DQo+ID4gPiBDb3VsZCB5b3UgZ2l2ZSBtZSBhbiBleGFtcGxlIGZvciB0aGlzPw0KPiA+ID4NCj4g
-PiBTZWN0aW9uIDIuMTAgU2hhcmVkIE1lbW9yeSBSZWdpb25zLg0KPiA+DQo+ID4gPiA+IEFuZCB0
-aGluZ3MgY2FuIGJyZWFrLg0KPiA+ID4gPiBIZW5jZSB0aGUgc3RvcCBtb2RlLCBlbnN1cmVzIHRo
-YXQgYWxsIHRoZSBkZXZpY2VzIGdldCBlbm91Z2gNCj4gPiA+ID4gY2hhbmNlIHRvIHN0b3ANCj4g
-PiA+IHRoZW1zZWx2ZXMsIGFuZCBsYXRlciB3aGVuIGZyZWV6ZWQsIHRvIG5vdCBjaGFuZ2UgYW55
-dGhpbmcgaW50ZXJuYWxseS4NCj4gPiA+ID4NCj4gPiA+ID4gPiA+ICsweDIgICAmIEZyZWV6ZSAm
-DQo+ID4gPiA+ID4gPiArIEluIHRoaXMgbW9kZSwgdGhlIG1lbWJlciBkZXZpY2UgZG9lcyBub3Qg
-YWNjZXB0IGFueSBkcml2ZXINCj4gPiA+ID4gPiA+ICtub3RpZmljYXRpb25zLA0KPiA+ID4gPiA+
-DQo+ID4gPiA+ID4gVGhpcyBpcyB0b28gdmFndWUuIElzIHRoZSBkZXZpY2UgYWxsb3dlZCB0byBi
-ZSBmcmVlemVkIGluIHRoZQ0KPiA+ID4gPiA+IG1pZGRsZSBvZiBhbnkgdmlydGlvIG9yIFBDSSBv
-cGVyYXRpb25zPw0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gRm9yIGV4YW1wbGUsIGluIHRoZSBtaWRk
-bGUgb2YgZmVhdHVyZSBuZWdvdGlhdGlvbiBldGMuIEl0IG1heQ0KPiA+ID4gPiA+IGNhdXNlIGlt
-cGxlbWVudGF0aW9uIHNwZWNpZmljIHN1Yi1zdGF0ZXMgd2hpY2ggY2FuJ3QgYmUgbWlncmF0ZWQg
-ZWFzaWx5Lg0KPiA+ID4gPiA+DQo+ID4gPiA+IFllcy4gaXQgaXMgYWxsb3dlZCBpbiBtaWRkbGUg
-b2YgZmVhdHVyZSBuZWdvdGlhdGlvbiwgZm9yIHN1cmUuDQo+ID4gPiA+IEl0IGlzIHBhc3N0aHJv
-dWdoIGRldmljZSwgaGVuY2UgaHlwZXJ2aXNvciBsYXllciBkbyBub3QgZ2V0IHRvIHNlZSBzdWIt
-DQo+IHN0YXRlLg0KPiA+ID4gPg0KPiA+ID4gPiBOb3Qgc3VyZSB3aHkgeW91IGNvbW1lbnQsIHdo
-eSBpdCBjYW5ub3QgYmUgbWlncmF0ZWQgZWFzaWx5Lg0KPiA+ID4gPiBUaGUgZGV2aWNlIGNvbnRl
-eHQgYWxyZWFkeSBjb3ZlcnMgdGhpcyBzdWItc3RhdGUuDQo+ID4gPg0KPiA+ID4gMSkgZHJpdmVy
-IHdyaXRlcyBkcml2ZXJfZmVhdHVyZXMNCj4gPiA+IDIpIGRyaXZlciBzZXRzIEZFQVVUUkVTX09L
-DQo+ID4gPg0KPiA+ID4gMykgZGV2aWNlIHJlY2VpdmUgZHJpdmVyX2ZlYXR1cmVzDQo+ID4gPiA0
-KSBkZXZpY2UgdmFsaWRhdGluZyBkcml2ZXJfZmVhdHVyZXMNCj4gPiA+IDUpIGRldmljZSBjbGVh
-cnMgRkVBVFVSRVNfT0sNCj4gPiA+DQo+ID4gPiA2KSBkcml2ZXIgcmVhZCBzdGF0cyBhbmQgcmVh
-bGl6ZSBGRUFUVVJFU19PSyBpcyBiZWluZyBjbGVhcmVkDQo+ID4gPg0KPiA+ID4gSXMgaXQgdmFs
-aWQgdG8gYmUgZnJvemVuIG9mIHRoZSBhYm92ZT8NCj4gPiBOby4gZGV2aWNlIG1vZGUgaXMgZnJv
-emVuIHdoZW4gaHlwZXJ2aXNvciBpcyBzdXJlIHRoYXQgbm8gbW9yZSBhY2Nlc3MgYnkgdGhlDQo+
-IGd1ZXN0IHdpbGwgYmUgZG9uZS4NCj4gPiBXaGF0IGNhbiBoYXBwZW4gYmV0d2VlbiAjMiBhbmQg
-IzMsIGlzIGRldmljZSBtb2RlIG1heSBjaGFuZ2UgdG8gc3RvcC4NCj4gPiBBbmQgaW4gc3RvcCBt
-b2RlLCBkZXZpY2UgY29udGV4dCB3b3VsZCBjYXB0dXJlICM1IG9yICM0LCBkZXBlbmRpbmcgd2hl
-cmUgaXMNCj4gZGV2aWNlIGF0IHRoYXQgcG9pbnQuDQo+ID4NCj4gPiA+ID4NCj4gPiA+ID4gPiBB
-bmQgd2hhdCdzIG1vcmUsIHRoZSBhYm92ZSBzdGF0ZSBtYWNoaW5lIHNlZW1zIHRvIGJlIHZpcnRp
-bw0KPiA+ID4gPiA+IHNwZWNpZmljLCBidXQgeW91IGRvbid0IGV4cGxhaW4gdGhlIGludGVyYWN0
-aW9uIHdpdGggdGhlIGRldmljZQ0KPiA+ID4gPiA+IHN0YXR1cyBzdGF0ZQ0KPiA+ID4gbWFjaGlu
-ZS4NCj4gPiA+ID4gRmlyc3QsIGFib3ZlIGlzIG5vdCBhIHN0YXRlIG1hY2hpbmUuDQo+ID4gPg0K
-PiA+ID4gU28gaG93IGRvIHJlYWRlcnMga25vdyBpZiBhIHN0YXRlIGNhbiBnbyB0byBhbm90aGVy
-IHN0YXRlIGFuZCB3aGVuPw0KPiA+ID4NCj4gPiBOb3Qgc3VyZSB3aGF0IHlvdSBtZWFuIGJ5IHJl
-YWRlci4gQ2FuIHlvdSBwbGVhc2UgZXhwbGFpbi4NCj4gPg0KPiA+ID4gPiBTZWNvbmQsIGl0IGlz
-IG5vdCB2aXJ0aW8gc3BlY2lmaWMuDQo+ID4gPg0KPiA+ID4gSXQncyBzb21laG93IGZvciBzdXJl
-LCBmb3IgZXhhbXBsZSB5b3Ugc2FpZCBkZXZpY2UgY29udGV4dCBuZWVkIHRvDQo+ID4gPiBiZSBw
-cmVzZXJ2ZWQuIEFuZCBhcyBmYXIgYXMgSSBzZWUgdGhlIGRldmljZSBjb250ZXh0IGlzIGFsbCB2
-aXJ0aW8gc3BlY2lmaWMgaW4NCj4gcGF0Y2ggMy4NCj4gPiA+DQo+ID4gU3VyZSwgZGV2aWNlIGNv
-bnRleHQgaXMgdmlydGlvIHNwZWNpZmljLiA6KSBEZXZpY2UgY29udGV4dCB3aWxsDQo+ID4gcmVm
-bGVjdCBpZiB0aGluZ3MgY2hhbmdlZCBpbiB0aGUgc3RvcCBtb2RlLg0KPiA+DQo+ID4gPiA+IEl0
-IGlzIHByZXNlbnQgaW4gbGVhZGluZyBPUyB0aGF0IGhhcyBmdW5kYW1lbnRhbCByZXF1aXJlbWVu
-dCB0bw0KPiA+ID4gPiBzdXBwb3J0IFAyUA0KPiA+ID4gZGV2aWNlcy4NCj4gPiA+DQo+ID4gPiBJ
-ZiBpdCdzIFBDSSBzcGVjaWZpYywgaW5zdGVhZCBvZiB0cnlpbmcgdG8gZG8gYSB3b3JrYXJvdW5k
-IGluDQo+ID4gPiB2aXJ0aW8sIHdoeSBub3QgaW52ZW50IGEgbWVjaGFuaXNtIHRoZXJlPw0KPiA+
-ID4NCj4gPiBJdCBpcyBub3QgYSB3b3JrYXJvdW5kIGluIHZpcnRpby4NCj4gPiBJdCBpcyB0aGUg
-d2F5IHBjaSBwMnAgZGV2aWNlcyB3b3JrIGZvciB3aGljaCBvbmUgbmVlZHMgdG8gYmUgcmVjZXB0
-aXZlIHRvDQo+IGhhbmRsZSB0aGUgaW50ZXJhY3Rpb24uDQo+ID4NCj4gPg0KPiA+ID4gPiBUaGly
-ZCwgaXQgaXMgbm90LCBpbnRlcmFjaW5nIHdpdGggdGhlIF9hY3R1YV8gZGV2aWNlIHN0YXR1cy4N
-Cj4gPiA+ID4NCj4gPiA+ID4gSW4gIlNVU1BFTkQiIHBhdGNoLTUsIHlvdSBhbHJlYWR5IGFza2Vk
-IHRoaXMgcXVlc3Rpb24uIEkgYXNzdW1lDQo+ID4gPiA+IHlvdSBhc2tlZA0KPiA+ID4gYWdhaW4g
-c28gdGhhdCB0aGlzIHNlcmllcyBpcyBjb21wbGV0ZS4NCj4gPiA+ID4NCj4gPiA+ID4gPiBGb3Ig
-ZXhhbXBsZSwNCj4gPiA+ID4gPiB3aGF0IGhhcHBlbnMgaWYgdGhlIGRyaXZlciB3YW50cyB0byBy
-ZXNldCBidXQgdGhlIGRldmljZSBpcyBpbg0KPiA+ID4gPiA+IHN0b3AgbW9kZT8gWW91IHRvbGQg
-bWUgaXQgaXMgYWRkcmVzc2VkIGluIHlvdXIgc2VyaWVzIGJ1dCBsb29rcw0KPiA+ID4gPiA+IG5v
-dC4gT25jZSB5b3UgdHJ5IHRvIGRlc2NyaWJlIHRoYXQsIHlvdSdyZSBhY3R1YWxseSB0cnkgdG8N
-Cj4gPiA+ID4gPiBjb25uZWN0IHN0YXRlcyBiZXR3ZWVuIHRoZQ0KPiA+ID4gdHdvIHN0YXRlIG1h
-Y2hpbmVzLg0KPiA+ID4gPiA+DQo+ID4gPiA+IEFzIGxpc3RlZCBpbiB0aGUgZGVmaW5pdGlvbiBv
-ZiB0aGUgc3RvcCBtb2RlLCB0aGUgZGV2aWNlIGRvIG5vdA0KPiA+ID4gPiBhY3Qgb24gdGhlDQo+
-ID4gPiBpbmNvbWluZyB3cml0ZXMsIGl0IG9ubHkga2VlcCB0cmFja3Mgb2YgaXRzIGludGVybmFs
-IGRldmljZSBjb250ZXh0DQo+ID4gPiBjaGFuZ2UgYXMgcGFydCBvZiB0aGlzLg0KPiA+ID4NCj4g
-PiA+IFNvIG9ubHkgdGhlIGRyaXZlciBub3RpZmljYXRpb24gaXMgYWxsb3dlZCBieSBub3QgY29u
-ZmlnIHdyaXRlPw0KPiA+ID4gV2hhdCdzIHRoZSBjb25zaWRlcmF0aW9uIGZvciBhbGxvd2luZyBk
-cml2ZXIgbm90aWZpY2F0aW9uPw0KPiA+ID4NCj4gPiBCZWNhdXNlIGZvciBtb3N0IHByYWN0aWNh
-bCBwdXJwb3NlcywgcGVlciBkZXZpY2Ugd2FudHMgdG8gcXVldWUgYmxrLCBuZXQNCj4gb3RoZXIg
-cmVxdWVzdHMgYW5kIG5vdCBkbyBkZXZpY2UgY29uZmlndXJhdGlvbi4NCj4gPg0KPiA+IERvIHlv
-dSBrbm93IGFueSBkZXZpY2UgY29uZmlndXJhdGlvbiBzcGFjZSB3aGljaCBpcyBSVz8NCj4gPiBG
-b3IgbmV0IGFuZCBibGsgSSByZWNhbGwgaXQgYXMgUk8/DQo+IA0KPiBObyBpdCBpc24ndC4gUGxz
-IGxvb2sgYXQgdGhlIHNwZWMgaWYgeW91IG5lZWQgdG8gY2hlY2sgdGhhdCA7KQ0KPiANCk9rLiB3
-aWxsIGNoZWNrLiBCdXQgcmVnYXJkbGVzcywgaXQgaXMgZmluZSwgYmVjYXVzZSB3aGVuIFNUT1Ag
-aXMgZG9uZSwgY29uZmlnIHdyaXRlcyBzaG91bGQgbm90IG9jY3VyIGFueXdheS4NCg0KPiANCj4g
-PiA+IExldCBtZSBhc2sgZGlmZmVyZW50bHksIHNpbWlsYXIgdG8gRkxSLCB3aGF0IGhhcHBlbnMg
-aWYgdGhlIGRyaXZlcg0KPiA+ID4gd2FudHMgYSB2aXJ0aW8gcmVzZXQgYnV0IHRoZSBoeXBlcnZp
-c29yIHdhbnRzIHRvIHN0b3Agb3IgZnJlZXplPw0KPiA+ID4NCj4gPiBUaGUgZGV2aWNlIHdvdWxk
-IHJlc3BvbmQgdG8gc3RvcC9mcmVlemUgcmVxdWVzdCB3aGVuIGl0IGhhcyBpbnRlcm5hbGx5DQo+
-IHN0YXJ0ZWQgdGhlIHJlc2V0LCBhcyBkZXZpY2UgaXMgdGhlIHNpbmdsZSBzeW5jaHJvbml6YXRp
-b24gcG9pbnQgd2hpY2gga25vd3MgaG93DQo+IHRvIGhhbmRsZSBib3RoIGluIHBhcmFsbGVsLg0K
-PiA+DQo+ID4gPiA+IFdlIHdvdWxkIGVucmljaCB0aGUgZGV2aWNlIGNvbnRleHQgZm9yIHRoaXMs
-IGJ1dCBubyBuZWVkIHRvDQo+ID4gPiA+IGNvbm5lY3RzIHRoZQ0KPiA+ID4gYWRtaW4gbW9kZSBj
-b250cm9sbGVkIGJ5IHRoZSBvd25lciBkZXZpY2Ugd2l0aCBvcGVyYXRpb25hbCBzdGF0ZQ0KPiA+
-ID4gKGRldmljZV9zdGF0dXMpIG93bmVkIGJ5IHRoZSBtZW1iZXIgZGV2aWNlLg0KPiA+ID4gPg0K
-PiA+ID4gPiA+ID4gKyBpdCBpZ25vcmVzIGFueSBkZXZpY2UgY29uZmlndXJhdGlvbiBzcGFjZSB3
-cml0ZXMsDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBIb3cgYWJvdXQgcmVhZCBhbmQgdGhlIGRldmlj
-ZSBjb25maWd1cmF0aW9uIGNoYW5nZXM/DQo+ID4gPiA+ID4NCj4gPiA+ID4gQXMgbGlzdGVkLCBk
-ZXZpY2UgZG8gbm90IGhhdmUgYW55IGNoYW5nZXMuDQo+ID4gPiA+IFNvIGRldmljZSBjb25maWd1
-cmF0aW9uIGNoYW5nZSBjYW5ub3Qgb2NjdXIuDQo+ID4gPg0KPiA+ID4gSXQncyBub3QgbmVjZXNz
-YXJpbHkgY2F1c2VkIGJ5IGNvbmZpZyB3cml0ZSwgaXQgY291bGQgYmUgdGhpbmdzIGxpa2UNCj4g
-PiA+IGxpbmsgc3RhdHVzIG9yIGdlb21ldHJ5IGNoYW5nZXMgdGhhdCBhcmUgaW5pdGlhdGVkIGZy
-b20gdGhlIGRldmljZS4NCj4gPiA+DQo+ID4gSSB1bmRlcnN0YW5kIGl0LiBMaW5rIHN0YXR1cyB3
-YXMgb25lIGV4YW1wbGUsIHlvdSBsaXN0ZWQgb3RoZXIgZXhhbXBsZXMgdG9vLg0KPiA+IFRoZSBw
-b2ludCBpcywgd2hlbiBpbiBmcmVlemUgbW9kZSwgdGhlIG1lbWJlciBkZXZpY2UgaXMgZnJvemVu
-LCBoZW5jZSwNCj4gZGV2aWNlIHdvbid0IGluaXRpYXRlIHRob3NlIGNoYW5nZXMuDQo+ID4NCj4g
-PiA+ID4NCj4gPiA+ID4gVGhlIGRldmljZSByZXF1aXJlbWVudHMgY292ZXIgdGhpcyBjb250ZW50
-IG1vcmUgZXhwbGljaXRseToNCj4gPiA+ID4NCj4gPiA+ID4gRm9yIHRoZSBTUi1JT1YgZ3JvdXAg
-dHlwZSwgcmVnYXJkbGVzcyBvZiB0aGUgbWVtYmVyIGRldmljZSBtb2RlLA0KPiA+ID4gPiBhbGwg
-dGhlIFBDSSB0cmFuc3BvcnQgbGV2ZWwgcmVnaXN0ZXJzIE1VU1QgYmUgYWx3YXlzIGFjY2Vzc2li
-bGUNCj4gPiA+ID4gYW5kIHRoZSBtZW1iZXIgZGV2aWNlIE1VU1QgZnVuY3Rpb24gdGhlIHNhbWUg
-d2F5IGZvciBhbGwgdGhlIFBDSQ0KPiA+ID4gPiB0cmFuc3BvcnQgbGV2ZWwNCj4gPiA+IHJlZ2lz
-dGVycyByZWdhcmRsZXNzIG9mIHRoZSBtZW1iZXIgZGV2aWNlIG1vZGUuDQo+ID4gPiA+DQo+ID4g
-PiA+ID4gPiArIHRoZSBkZXZpY2UgZG8gbm90IGhhdmUgYW55IGNoYW5nZXMgaW4gdGhlIGRldmlj
-ZSBjb250ZXh0Lg0KPiA+ID4gPiA+ID4gKyBUaGUgbWVtYmVyIGRldmljZSBpcyBub3QgYWNjZXNz
-ZWQgaW4gdGhlIHN5c3RlbSB0aHJvdWdoIHRoZQ0KPiA+ID4gPiA+ID4gKyB2aXJ0aW8NCj4gPiA+
-IGludGVyZmFjZS4NCj4gPiA+ID4gPiA+ICsgXFwNCj4gPiA+ID4gPg0KPiA+ID4gPiA+IEJ1dCBh
-Y2Nlc3NpYmxlIHZpYSBQQ0kgaW50ZXJmYWNlPw0KPiA+ID4gPiA+DQo+ID4gPiA+IFllcywgYXMg
-dXN1YWwuDQo+ID4gPiA+DQo+ID4gPiA+ID4gRm9yIGV4YW1wbGUsIHdoYXQgaGFwcGVucyBpZiB3
-ZSB3YW50IHRvIGZyZWV6ZSBkdXJpbmcgRkxSPyBEb2VzDQo+ID4gPiA+ID4gdGhlIGh5cGVydmlz
-b3IgbmVlZCB0byB3YWl0IGZvciB0aGUgRkxSIHRvIGJlIGNvbXBsZXRlZD8NCj4gPiA+ID4gPg0K
-PiA+ID4gPiBIeXBlcnZpc29yIGRvIG5vdCBuZWVkIHdhaXQgZm9yIHRoZSBGTFIgdG8gYmUgY29t
-cGxldGVkLg0KPiA+ID4NCj4gPiA+IFNvIGRvZXMgRkxSIGNoYW5nZSBkZXZpY2UgY29udGV4dD8N
-Cj4gPiBZZXMuDQo+ID4NCj4gPiA+DQo+ID4gPiA+DQo+ID4gPiA+ID4gPiArXGhsaW5lDQo+ID4g
-PiA+ID4gPiArXGhsaW5lDQo+ID4gPiA+ID4gPiArMHgwMy0weEZGICAgJiAtICAgICYgcmVzZXJ2
-ZWQgZm9yIGZ1dHVyZSB1c2UgXFwNCj4gPiA+ID4gPiA+ICtcaGxpbmUNCj4gPiA+ID4gPiA+ICtc
-ZW5ke3RhYnVsYXJ4fQ0KPiA+ID4gPiA+ID4gKw0KPiA+ID4gPiA+ID4gK1doZW4gdGhlIG93bmVy
-IGRyaXZlciB3YW50cyB0byBzdG9wIHRoZSBvcGVyYXRpb24gb2YgdGhlDQo+ID4gPiA+ID4gPiAr
-ZGV2aWNlLCB0aGUgb3duZXIgZHJpdmVyIHNldHMgdGhlIGRldmljZSBtb2RlIHRvDQo+ID4gPiA+
-ID4gPiArXGZpZWxke1N0b3B9LiBPbmNlIHRoZSBkZXZpY2UgaXMgaW4gdGhlIFxmaWVsZHtTdG9w
-fSBtb2RlLA0KPiA+ID4gPiA+ID4gK3RoZSBkZXZpY2UgZG9lcyBub3QgaW5pdGlhdGUgYW55IG5v
-dGlmaWNhdGlvbnMgb3IgZG9lcyBub3QNCj4gPiA+ID4gPiA+ICthY2Nlc3MgYW55IGRyaXZlciBt
-ZW1vcnkuIFNpbmNlIHRoZSBtZW1iZXIgZHJpdmVyIG1heSBiZQ0KPiA+ID4gPiA+ID4gK3N0aWxs
-IGFjdGl2ZSB3aGljaCBtYXkgc2VuZCBmdXJ0aGVyIGRyaXZlciBub3RpZmljYXRpb25zIHRvIHRo
-ZSBkZXZpY2UsDQo+IHRoZSBkZXZpY2UgY29udGV4dCBtYXkgYmUgdXBkYXRlZC4NCj4gPiA+ID4g
-PiA+ICtXaGVuIHRoZSBtZW1iZXIgZHJpdmVyIGhhcyBzdG9wcGVkIGFjY2Vzc2luZyB0aGUgZGV2
-aWNlLCB0aGUNCj4gPiA+ID4gPiA+ICtvd25lciBkcml2ZXIgc2V0cyB0aGUgZGV2aWNlIHRvIFxm
-aWVsZHtGcmVlemV9IG1vZGUNCj4gPiA+ID4gPiA+ICtpbmRpY2F0aW5nIHRvIHRoZSBkZXZpY2Ug
-dGhhdCBubyBtb3JlIGRyaXZlciBhY2Nlc3Mgb2NjdXJzLg0KPiA+ID4gPiA+ID4gK0luIHRoZSBc
-ZmllbGR7RnJlZXplfSBtb2RlLCBubyBtb3JlIGNoYW5nZXMgb2NjdXIgaW4gdGhlIGRldmljZQ0K
-PiBjb250ZXh0Lg0KPiA+ID4gPiA+ID4gK0F0IHRoaXMgcG9pbnQsIHRoZSBkZXZpY2UgZW5zdXJl
-cyB0aGF0DQo+ID4gPiA+ID4gdGhlcmUgd2lsbCBub3QgYmUgYW55IHVwZGF0ZSB0byB0aGUgZGV2
-aWNlIGNvbnRleHQuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBXaGF0IGlzIG1pc3NlZCBoZXJlIGFy
-ZToNCj4gPiA+ID4gPg0KPiA+ID4gPiA+IDEpIGl0IGlzIGEgdmlydGlvIHNwZWNpZmljIHN0YXRl
-cyBvciBub3QNCj4gPiA+ID4gSXQgaXMgbm90Lg0KPiA+ID4gPg0KPiA+ID4gPiA+IDIpIGlmIGl0
-IGlzIGEgdmlydGlvIHNwZWNpZmljIHN0YXRlLCBpZiBvciBob3cgdG8gc3luY2hyb25pemUNCj4g
-PiA+ID4gPiB3aXRoIHRyYW5zcG9ydCBzcGVjaWZpYyBpbnRlcmZhY2VzIGFuZCB3aHkNCj4gPiA+
-ID4gPiAzKSBjYW4gYWN0aXZlIGdvIGRpcmVjdGx5IHRvIGZyZWV6ZSBhbmQgd2h5DQo+ID4gPiA+
-ID4NCj4gPiA+ID4gWWVzLiBkb27igJl0IHNlZSBhIHJlYXNvbiB0byBub3QgYWxsb3cgaXQuDQo+
-ID4gPiA+IEFjdGl2ZSB0byBmcmVlemUgbW9kZSBjYW4gY2hhbmdlIGlzIHVzZWZ1bCBvbiB0aGUg
-ZGVzdGluYXRpb24NCj4gPiA+ID4gc2lkZSwgd2hlcmUNCj4gPiA+IGRlc3RpbmF0aW9uIGh5cGVy
-dmlzb3Iga25vd3MgZm9yIHN1cmUgdGhhdCB0aGVyZSBpcyBubyBvdGhlciBlbnRpdHkNCj4gPiA+
-IGFjY2Vzc2luZyB0aGUgZGV2aWNlLg0KPiA+ID4gPiBBbmQgaXQgbmVlZHMgdG8gc2V0dXAgdGhl
-IGRldmljZSBjb250ZXh0LCBpdCByZWNlaXZlZCBmcm9tIHRoZSBzb3VyY2Ugc2lkZS4NCj4gPiA+
-ID4gU28gc2V0dGluZyBmcmVlemUgbW9kZSBjYW4gYmUgZG9uZSBkaXJlY3RseS4NCj4gPiA+ID4N
-Cj4gPiA+ID4gPiA+ICsNCj4gPiA+ID4gPiA+ICtUaGUgbWVtYmVyIGRldmljZSBoYXMgYSBkZXZp
-Y2UgY29udGV4dCB3aGljaCB0aGUgb3duZXIgZHJpdmVyDQo+ID4gPiA+ID4gPiArY2FuIGVpdGhl
-ciByZWFkIG9yIHdyaXRlLiBUaGUgbWVtYmVyIGRldmljZSBjb250ZXh0IGNvbnNpc3QNCj4gPiA+
-ID4gPiA+ICtvZiBhbnkgZGV2aWNlIHNwZWNpZmljIGRhdGEgd2hpY2ggaXMgbmVlZGVkIGJ5IHRo
-ZSBkZXZpY2UgdG8NCj4gPiA+ID4gPiA+ICtyZXN1bWUgaXRzIG9wZXJhdGlvbiB3aGVuIHRoZSBk
-ZXZpY2UgbW9kZQ0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gVGhpcyBpcyB0b28gdmFndWUuIFRoZXJl
-J3JlIHN0YXRlcyB0aGF0IGFyZSBub3Qgc3VpdGFibGUgZm9yDQo+ID4gPiA+ID4gY21kL3F1ZXVl
-IGZvcg0KPiA+ID4gc3VyZS4NCj4gPiA+ID4gPiBJJ2Qgc3BsaXQgaXQgaW50bw0KPiA+ID4gPiA+
-DQo+ID4gPiA+ID4gMSkgY29tbW9uIHN0YXRlczogdmlydHF1ZXVlLCBkaXJ0eSBwYWdlcw0KPiA+
-ID4gPiA+IDIpIGRldmljZSBzcGVjaWZpYyBzdGF0ZXM6IGRlZmluZWQgYmUgZWFjaCBkZXZpY2UN
-Cj4gPiA+ID4gPg0KPiA+ID4gPiBUaGlzIGlzIHRoZW9yeSBvZiBvcGVyYXRpb24gc2VjdGlvbi4g
-U28gaXQgY2FwdHVyaW5nIHN1Y2ggZGV0YWlscy4NCj4gPiA+ID4gQWN0dWFsIGRldmljZSBjb250
-ZXh0IGRlZmluaXRpb24gaXMgb3V0c2lkZSBvZiB0aGVvcnksIGFuZCBwcmVjaXNlDQo+ID4gPiA+
-IHN0YXRlcyBvZg0KPiA+ID4gdmlydHF1ZXVlLCBkZXZpY2Ugc3BlY2lmaWMsIGV0YyBhcmUgaW4g
-aXQuDQo+ID4gPg0KPiA+ID4gU2VlIG15IGNvbW1lbnQgYWJvdmUgcmVnYXJkaW5nIHRvIHRoZSBk
-ZXZpY2UgY29udGV4dC4NCj4gPiA+DQo+ID4gSSByZXBsaWVkIGFib3ZlLCBkZXZpY2UgY29udGV4
-dCBsaW5rIGlzIGFkZGVkIGluIHRoZSBwYXRjaC0zIGluIHRoZSB0aGVvcnkgb2YNCj4gb3BlcmF0
-aW9uLg0KPiA+IFNvIHJlYWRlciBnZXRzIHRoZSBjb21wbGV0ZSB2aWV3Lg0KPiA+DQo+ID4gPiA+
-DQo+ID4gPiA+ID4gPiAraXMgY2hhbmdlZCBmcm9tIFxmaWVsZHtTdG9wfSB0byBcZmllbGR7QWN0
-aXZlfSBvciBmcm9tDQo+ID4gPiA+ID4gPiArXGZpZWxke0ZyZWV6ZX0gdG8gXGZpZWxke0FjdGl2
-ZX0uDQo+ID4gPiA+ID4gPiArDQo+ID4gPiA+ID4gPiArT25jZSB0aGUgZGV2aWNlIGNvbnRleHQg
-aXMgcmVhZCwgaXQgaXMgY2xlYXJlZCBmcm9tIHRoZSBkZXZpY2UuDQo+ID4gPiA+ID4NCj4gPiA+
-ID4gPiBUaGlzIGlzIGhvcnJpYmxlLCBpdCBtZWFucyB3ZSBjYW4ndCBlYXNpbHkNCj4gPiA+ID4g
-Pg0KPiA+ID4gPiA+IDEpIHJlLXRyeSB0aGUgbWlncmF0aW9uDQo+ID4gPiA+ID4gMikgcmVjb3Zl
-ciBmcm9tIG1pZ3JhdGlvbiBmYWlsdXJlDQo+ID4gPiA+ID4NCj4gPiA+ID4gQ2FuIHlvdSBwbGVh
-c2UgZXhwbGFpbiB0aGUgZmxvdz8NCj4gPiA+DQo+ID4gPiBXaGVuIG1pZ3JhdGlvbiBmYWlscywg
-bWFuYWdlbWVudCBjYW4gY2hvb3NlIHRvIHJlc3VtZSB0aGUgZGV2aWNlKFZNKQ0KPiA+ID4gb24g
-dGhlIHNvdXJjZS4NCj4gPiA+DQo+ID4gb2suIFRoaXMgc2hvdWxkIGJlIHBvc3NpYmxlIGFzIHRo
-ZSBtYW5hZ2VtZW50IHdoaWNoIGhhcyB0aGUgZGV2aWNlDQo+ID4gY29udGV4dCwgaXQgY2FuIHJl
-c3RvcmUgaXQgb24gdGhlIHNvdXJjZSBhbmQgbW92ZSB0aGUgZGV2aWNlIG1vZGUgdG8gYWN0aXZl
-Lg0KPiA+DQo+ID4gPiBJZiB0aGUgc3RhdGUgd2VyZSBjbGVhcmVkLCBpdCBtZWFucyB0aGVyZSdz
-IG5vdCBzaW1wbGUgd2F5IHRvIHJlc3VtZQ0KPiA+ID4gdGhlIGRldmljZSBidXQgcmVzdG9yaW5n
-IHRoZSB3aG9sZSBjb250ZXh0Lg0KPiA+ID4NCj4gPiBZZXMsIGFzIHlvdSBzYXksIGJ5IHJlc3Rv
-cmluZyB0aGUgd2hvbGUgY29udGV4dCB3aWxsIHN1ZmZpY2UgdGhpcyBjb3JuZXIvcmFyZQ0KPiBj
-YXNlIHNjZW5hcmlvLg0KPiA+DQo+ID4gPiBXaGF0J3MgdGhlIGNvbnNpZGVyYXRpb24gZm9yIHN1
-Y2ggY2xlYXJpbmc/DQo+ID4gPg0KPiA+IFRoZXJlIGFyZSB0d28gY29uc2lkZXJhdGlvbnMuDQo+
-ID4gMS4gIElmIG9uZSBkb2VzIG5vdCBjbGVhciwgdGlsbCBob3cgbG9uZyBzaG91bGQgaXQgYmUg
-a2VwdCBvbiB0aGUgZGV2aWNlPw0KPiA+IDIuIGRldmljZSBjb250ZXh0IHJldHVybnMgaW5jcmVt
-ZW50YWwgdmFsdWUgZnJvbSB0aGUgcHJldmlvdXMgcmVhZC4gU28sIGl0DQo+IG5lZWRzIHRvIGNs
-ZWFyIGl0Lg0KPiA+DQo+ID4gPiA+IEFuZCB3aGljaCBzb2Z0d2FyZSBzdGFjayBtYXkgZmluZCB0
-aGlzIHVzZWZ1bD8NCj4gPiA+ID4gSXMgdGhlcmUgYW55IGV4aXN0aW5nIHNvZnR3YXJlIHRoYXQg
-Y2FuIHV0aWxpemUgaXQ/DQo+ID4gPg0KPiA+ID4gTGlidmlydC4NCj4gPiA+DQo+ID4gRG9lcyBs
-aWJ2aXJ0IHJlc3RvcmUgb24gbWlncmF0aW9uIGZhaWx1cmU/DQo+IA0KPiB5ZXMNCj4gDQpPay4g
-dGhlIG1hbmFnZW1lbnQgc3cgaGFzIGFjY2VzcyB0byB0aGUgY29udGV4dCB0byByZXN0b3JlLg0K
-QWx0ZXJuYXRpdmVseSwgaXQgaXMgdGhlIGluY3JlbWVudGFsIGNvbnRleHQgbm90IGF2YWlsYWJs
-ZSBhcyBpdCBpcyByZWFkLCBidXQgdGhlIGZyZWV6ZSBkZXZpY2Ugc3RpbGwgaGFzIHRoZSBmcm96
-ZW4gY29udGV4dC4NClNvIGl0IGNhbiBiZSBtYXJrZWQgYWN0aXZlIHRvby4NCkkgd2lsbCBkb3Vi
-bGUgY2hlY2sgaWYgSSBjYXB0dXJlZCB0aGlzIGluIHRoZSBub3JtYXRpdmUgb3Igbm90Lg0KDQo+
-ID4gPiA+IFdoeSB0aGF0IGRldmljZSBjb250ZXh0IHByZXNlbnQgd2l0aCB0aGUgc29mdHdhcmUg
-dmFuaXNoZWQsIGluDQo+ID4gPiA+IHlvdXINCj4gPiA+IGFzc3VtcHRpb24sIGlmIGl0IGlzPw0K
-PiA+ID4gPg0KPiA+ID4gPiA+ID4gVHlwaWNhbGx5LCBvbg0KPiA+ID4gPiA+ID4gK3RoZSBzb3Vy
-Y2UgaHlwZXJ2aXNvciwgdGhlIG93bmVyIGRyaXZlciByZWFkcyB0aGUgZGV2aWNlDQo+ID4gPiA+
-ID4gPiArY29udGV4dCBvbmNlIHdoZW4gdGhlIGRldmljZSBpcyBpbiBcZmllbGR7QWN0aXZlfSBv
-cg0KPiA+ID4gPiA+ID4gK1xmaWVsZHtTdG9wfSBtb2RlIGFuZCBsYXRlciBvbmNlIHRoZSBtZW1i
-ZXIgZGV2aWNlIGlzIGluDQo+IFxmaWVsZHtGcmVlemV9IG1vZGUuDQo+ID4gPiA+ID4NCj4gPiA+
-ID4gPiBXaHkgbmVlZCB0aGUgcmVhZCB3aGlsZSBkZXZpY2UgY29udGV4dCBjb3VsZCBiZSBjaGFu
-Z2VkPyBPciBpcw0KPiA+ID4gPiA+IHRoZSBkaXJ0eSBwYWdlIHBhcnQgb2YgdGhlIGRldmljZSBj
-b250ZXh0Pw0KPiA+ID4gPiA+DQo+ID4gPiA+IEl0IGlzIG5vdCBwYXJ0IG9mIHRoZSBkaXJ0eSBw
-YWdlLg0KPiA+ID4gPiBJdCBuZWVkcyB0byByZWFkIGluIHRoZSBhY3RpdmUvc3RvcCBtb2RlLCBz
-byB0aGF0IGl0IGNhbiBiZSBzaGFyZWQNCj4gPiA+ID4gd2l0aA0KPiA+ID4gZGVzdGluYXRpb24g
-aHlwZXJ2aXNvciwgd2hpY2ggd2lsbCBwcmUtc2V0dXAgdGhlIGNvbXBsZXggY29udGV4dCBvZg0K
-PiA+ID4gdGhlIGRldmljZSwgd2hpbGUgaXQgaXMgc3RpbGwgcnVubmluZyBvbiB0aGUgc291cmNl
-IHNpZGUuDQo+ID4gPg0KPiA+ID4gSXMgc3VjaCBhIG1ldGhvZCB1c2VkIGJ5IGFueSBoeXBlcnZp
-c29yPw0KPiA+IFllcy4gcWVtdSB3aGljaCB1c2VzIHZmaW8gaW50ZXJmYWNlIHVzZXMgaXQuDQo+
-ID4NCj4gPiA+DQo+ID4gPiA+DQo+ID4gPiA+ID4gPiArDQo+ID4gPiA+ID4gPiArVHlwaWNhbGx5
-LCB0aGUgZGV2aWNlIGNvbnRleHQgaXMgcmVhZCBhbmQgd3JpdHRlbiBvbmUgdGltZSBvbg0KPiA+
-ID4gPiA+ID4gK3RoZSBzb3VyY2UgYW5kIHRoZSBkZXN0aW5hdGlvbiBoeXBlcnZpc29yIHJlc3Bl
-Y3RpdmVseSBvbmNlDQo+ID4gPiA+ID4gPiArdGhlIGRldmljZSBpcyBpbiBcZmllbGR7RnJlZXpl
-fSBtb2RlLiBPbiB0aGUgZGVzdGluYXRpb24NCj4gPiA+ID4gPiA+ICtoeXBlcnZpc29yLCBhZnRl
-ciB3cml0aW5nIHRoZSBkZXZpY2UgY29udGV4dCwgd2hlbiB0aGUgZGV2aWNlDQo+ID4gPiA+ID4g
-PiArbW9kZSBzZXQgdG8gXGZpZWxke0FjdGl2ZX0sIHRoZSBkZXZpY2UgdXNlcyB0aGUgbW9zdCBy
-ZWNlbnRseQ0KPiA+ID4gPiA+ID4gK3NldCBkZXZpY2UgY29udGV4dCBhbmQgcmVzdW1lcyB0aGUg
-ZGV2aWNlDQo+ID4gPiA+ID4gb3BlcmF0aW9uLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gVGhlcmUn
-cyBubyBjb250ZXh0IHNlcXVlbmNlLCBzbyB0aGlzIGlzIG9idmlvdXMuIEl0J3MgdGhlDQo+ID4g
-PiA+ID4gc2VtYW50aWMgb2YgYWxsIG90aGVyIGV4aXN0aW5nIGludGVyZmFjZXMuDQo+ID4gPiA+
-ID4NCj4gPiA+ID4gQ2FuIHlvdSBwbGVhc2Ugd2hhdCB3aGljaCBleGlzdGluZyBpbnRlcmZhY2Vz
-IGRvIHlvdSBtZWFuIGhlcmU/DQo+ID4gPg0KPiA+ID4gRm9yIGFueSBjb21tb24gY2ZnIG1lbWJl
-ci4gRS5nIHF1ZXVlX2FkZHIuDQo+ID4gPg0KPiA+ID4gVGhlIGRyaXZlciB3cm90ZSAxMDAgZGlm
-ZmVyZW50IHZhbHVlcyB0byBxdWV1ZV9hZGRyIGFuZCB0aGUgZGV2aWNlDQo+ID4gPiB1c2VkIHRo
-ZSB2YWx1ZSB3cml0dGVuIGxhc3QgdGltZS4NCj4gPiA+DQo+ID4gby5rLiBJIGRvbuKAmXQgc2Vl
-IGFueSBwcm9ibGVtIGluIHN0YXRpbmcgd2hhdCBpcyBkb25lLCB3aGljaCBpcyBsZXNzDQo+ID4g
-dmFndWUuIPCfmIoNCj4gPg0KPiA+ID4gPg0KPiA+ID4gPiA+ID4gKw0KPiA+ID4gPiA+ID4gK0lu
-IGFuIGFsdGVybmF0aXZlIGZsb3csIG9uIHRoZSBzb3VyY2UgaHlwZXJ2aXNvciB0aGUgb3duZXIN
-Cj4gPiA+ID4gPiA+ICtkcml2ZXIgbWF5IGNob29zZSB0byByZWFkIHRoZSBkZXZpY2UgY29udGV4
-dCBmaXJzdCB0aW1lIHdoaWxlDQo+ID4gPiA+ID4gPiArdGhlIGRldmljZSBpcyBpbiBcZmllbGR7
-QWN0aXZlfSBtb2RlIGFuZCBzZWNvbmQgdGltZSBvbmNlIHRoZQ0KPiA+ID4gPiA+ID4gK2Rldmlj
-ZSBpcyBpbiBcZmllbGR7RnJlZXplfQ0KPiA+ID4gPiA+IG1vZGUuDQo+ID4gPiA+ID4NCj4gPiA+
-ID4gPiBXaG8gaXMgZ29pbmcgdG8gc3luY2hyb25pemUgdGhlIGRldmljZSBjb250ZXh0IHdpdGgg
-cG9zc2libGUNCj4gPiA+ID4gPiBjb25maWd1cmF0aW9uIGZyb20gdGhlIGRyaXZlcj8NCj4gPiA+
-ID4gPg0KPiA+ID4gPiBOb3Qgc3VyZSBJIHVuZGVyc3RhbmQgdGhlIHF1ZXN0aW9uLg0KPiA+ID4g
-PiBJZiBJIHVuZGVyc3RhbmQgeW91IHJpZ2h0LCBkbyB5b3UgbWVhbiB0aGF0LCBXaGVuIGNvbmZp
-Z3VyYXRpb24NCj4gPiA+ID4gY2hhbmdlIGlzIGRvbmUgYnkgdGhlIGd1ZXN0IGRyaXZlciwgaG93
-IGRvZXMgZGV2aWNlIGNvbnRleHQgY2hhbmdlPw0KPiA+ID4gPg0KPiA+ID4NCj4gPiA+IFllcy4N
-Cj4gPiA+DQo+ID4gPiA+IElmIHNvLCBkZXZpY2UgY29udGV4dCByZWFkaW5nIHdpbGwgcmVmbGVj
-dCB0aGUgbmV3IGNvbmZpZ3VyYXRpb24uDQo+ID4gPg0KPiA+ID4gSG93IGRvIHlvdSBkbyB0aGF0
-PyBGb3IgZXhhbXBsZToNCj4gPiA+DQo+ID4gPiBzdGF0aWMgaW5saW5lIHZvaWQgdnBfaW93cml0
-ZTY0X3R3b3BhcnQodTY0IHZhbCwNCj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBfX2xlMzIgX19pb21lbSAqbG8sDQo+ID4gPiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgX19sZTMyIF9faW9tZW0gKmhpKSB7DQo+ID4gPiAgICAgICAg
-IHZwX2lvd3JpdGUzMigodTMyKXZhbCwgbG8pOw0KPiA+ID4gICAgICAgICB2cF9pb3dyaXRlMzIo
-dmFsID4+IDMyLCBoaSk7IH0NCj4gPiA+DQo+ID4gPiBJcyBpdCBvayB0byBiZSBmcmVlemVkIGlu
-IHRoZSBtaWRkbGUgb2YgdHdvIHZwX2lvd3JpdGUoKT8NCj4gPiA+DQo+ID4gWWVzLiB0aGUgZGV2
-aWNlIGNvbnRleHQgVklSVElPX0RFVl9DVFhfUENJX0NPTU1PTl9SVU5USU1FX0NGRw0KPiBzZWN0
-aW9uIGNhcHR1cmVzIHRoZSBwYXJ0aWFsIHZhbHVlLg0KPiA+DQo+ID4gPiA+DQo+ID4gPiA+ID4g
-PiBTaW1pbGFybHksIG9uIHRoZQ0KPiA+ID4gPiA+ID4gK2Rlc3RpbmF0aW9uIGh5cGVydmlzb3Ig
-d3JpdGVzIHRoZSBkZXZpY2UgY29udGV4dCBmaXJzdCB0aW1lDQo+ID4gPiA+ID4gPiArd2hpbGUg
-dGhlIGRldmljZSBpcyBzdGlsbCBydW5uaW5nIGluIFxmaWVsZHtBY3RpdmV9IG1vZGUgb24NCj4g
-PiA+ID4gPiA+ICt0aGUgc291cmNlIGh5cGVydmlzb3IgYW5kIHdyaXRlcyB0aGUgZGV2aWNlIGNv
-bnRleHQgc2Vjb25kDQo+ID4gPiA+ID4gPiArdGltZSB3aGlsZSB0aGUgZGV2aWNlIGlzIGluDQo+
-ID4gPiA+ID4gXGZpZWxke0ZyZWV6ZX0gbW9kZS4NCj4gPiA+ID4gPiA+ICtUaGlzIGZsb3cgbWF5
-IHJlc3VsdCBpbiB2ZXJ5IHNob3J0IHNldHVwIHRpbWUgYXMgdGhlIGRldmljZQ0KPiA+ID4gPiA+
-ID4gK2NvbnRleHQgbGlrZWx5IGhhdmUgbWluaW1hbCBjaGFuZ2VzIGZyb20gdGhlIHByZXZpb3Vz
-bHkNCj4gPiA+ID4gPiA+ICt3cml0dGVuIGRldmljZQ0KPiA+ID4gY29udGV4dC4NCj4gPiA+ID4g
-Pg0KPiA+ID4gPiA+IElzIHRoZSBoeXBlcnZpc29yIHdobyBpcyBpbiBjaGFyZ2Ugb2YgZG9pbmcg
-dGhlIGNvbXBhcmlzb24gYW5kDQo+ID4gPiA+ID4gd3JpdGluZyBvbmx5IHRoZSBkZWx0YT8NCj4g
-PiA+ID4gPg0KPiA+ID4gPiBUaGUgc3BlYyBjb21tYW5kcyBhbGxvdyB0byBkbyBzby4gU28gcG9z
-c2liaWxpdHkgZXhpc3RzIGZyb20gc3BlYyB3aXNlLg0KPiA+ID4NCj4gPiA+IFRoZXJlIGFyZSB2
-YXJpb3VzIG9wdGltaXphdGlvbnMgZm9yIG1pZ3JhdGlvbiBmb3Igc3VyZSwgSSBkb24ndA0KPiA+
-ID4gdGhpbmsgbWVudGlvbmluZyBhbnkgc3BlY2lmaWMgb25lIGlzIGdvb2QuDQo+ID4gPg0KPiA+
-IFRoZSB0ZXh0IGlzIGluZm9ybWF0aXZlIHRleHQgc2ltaWxhciB0bywNCj4gPg0KPiA+ICIgSG93
-ZXZlciwgc29tZSBkZXZpY2VzIGJlbmVmaXQgZnJvbSB0aGUgYWJpbGl0eSB0byBmaW5kIG91dCB0
-aGUNCj4gPiBhbW91bnQgb2YgYXZhaWxhYmxlIGRhdGEgaW4gdGhlIHF1ZXVlIHdpdGhvdXQgYWNj
-ZXNzaW5nIHRoZSB2aXJ0cXVldWUgaW4NCj4gbWVtb3J5Ig0KPiA+DQo+ID4gIiBUbyBoZWxwIHdp
-dGggdGhlc2Ugb3B0aW1pemF0aW9ucywgd2hlbiBWSVJUSU9fRl9OT1RJRklDQVRJT05fREFUQSBo
-YXMNCj4gYmVlbiBuZWdvdGlhdGVkIi4NCj4gPg0KPiA+IElzIHRoaXMgdGhlIG9ubHkgb3B0aW1p
-emF0aW9uIGluIHZpcnRpbz8gTm8sIGJ1dCB3ZSBzdGlsbCBtZW50aW9uIHRoZSByYXRpb25hbGUg
-b2YNCj4gd2h5IGl0IGV4aXN0cy4NCj4gPiBBcyBsb25nIGFzIHRoZSByYXRpb25hbGUgZG8gbm90
-IGNvbmZ1c2UgdGhlIHJlYWRlciwgYW5kIGFkZHMgdGhlIHZhbHVlDQo+IGV4cGxhaW5pbmcgaG93
-IHRoaW5ncyB3b3JrLCBpdCBpcyBmaW5lIHRvIGFkZC4NCj4gPiBXaGljaCBpcyB3aGF0IGFib3Zl
-IGZldyBsaW5lcyBkaWQuDQo+ID4gU28gbGV0J3Mga2VlcCBpdC4NCj4gPg0KPiA+IFRoZSBlYXNp
-ZXN0IGlzIHRvIGN1dCBvdXQgdGhlIHdob2xlIHRoZW9yeSBvZiBvcGVyYXRpb24gYW5kIGp1c3Qg
-d3JpdGUNCj4gY29tbWFuZHMgbGlrZSBob3cgUlNTIGNvbW1hbmQgZGlkLCB3aXRob3V0IGV2ZW4g
-d3JpdGluZyBhIHNpbmdsZSBsaW5lIGFib3V0DQo+IFJTUy4NCj4gPiBJIHRoaW5rIHdlIGNhbiBk
-byBiZXR0ZXIgZXhwbGFuYXRpb24gdGhhbiB0aGF0IGZvciBuZXcgdGhpbmdzIHdlIGFkZC4NCj4g
-DQo+IHllcyBpIGZpbmQgaXQgdXNlZnVsLiBvZiBjb3Vyc2Ugbm93IHdlIGFyZSB3cml0aW5nIGl0
-LCB3ZSBhbHNvIG5lZWQgaXQgbm90IHRvIGJlDQo+IGNvbmZ1c2luZyBvciBwYXJ0aWFsLg0KT2su
-IFRoYW5rcy4NCg==
+On Tue, Oct 10, 2023 at 01:08:22PM +0000, Parav Pandit wrote:
+> 
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Tuesday, October 10, 2023 6:11 PM
+> 
+> > All this does beg the question of how is device undergoing flr though and that
+> > has to be in a normative statement.
+> > 
+> Yes, will add.
+> 
+> > > Further patch-3 adds the device context and also add the link to it in the
+> > theory of operation section so reader can read more detail about it.
+> > 
+> > mention this in the commit log pls
+> > 
+> Ack. Will add.
+> 
+> > > > "Any" is probably too hard for vendors to implement. And in patch 3
+> > > > I only see virtio device context. Does this mean we don't need
+> > > > transport
+> > > > (PCI) context at all? If yes, how can it work?
+> > > >
+> > > Right. PCI member device is present at source and destination with its layout,
+> > only the virtio device context is transferred.
+> > > Which part cannot work?
+> > 
+> > 
+> > wait don't we need to transfer pci state too? how is that migrated?
+> > 
+> The hypervisor driver composes the vPCI device. So there isn’t a need to migrate the pci state.
+> Only exception is VIRTIO_PCI_CAP_PCI_CFG, which is covered in this v1.
+> 
+
+yes but what seems implicit is that device is in some reasonable state
+when thing thing happens. e.g. are there no limitations at all e.g. in which
+order things happen? can you really first configure virtio
+then pci config? for sure?
+
+> > > > >
+> > > > > > >and device configuration space may change. \\
+> > > > > > > +\hline
+> > > > > >
+> > > > > > I still don't get why we need a "stop" state in the middle.
+> > > > > >
+> > > > > All pci devices which belong to a single guest VM are not stopped
+> > atomically.
+> > > > > Hence, one device which is in freeze mode, may still receive
+> > > > > driver notifications from other pci device,
+> > > >
+> > > > Device may choose to ignore those notifications, no?
+> > > >
+> > > > > or it may experience a read from the shared memory and get garbage
+> > data.
+> > > >
+> > > > Could you give me an example for this?
+> > > >
+> > > Section 2.10 Shared Memory Regions.
+> > >
+> > > > > And things can break.
+> > > > > Hence the stop mode, ensures that all the devices get enough
+> > > > > chance to stop
+> > > > themselves, and later when freezed, to not change anything internally.
+> > > > >
+> > > > > > > +0x2   & Freeze &
+> > > > > > > + In this mode, the member device does not accept any driver
+> > > > > > > +notifications,
+> > > > > >
+> > > > > > This is too vague. Is the device allowed to be freezed in the
+> > > > > > middle of any virtio or PCI operations?
+> > > > > >
+> > > > > > For example, in the middle of feature negotiation etc. It may
+> > > > > > cause implementation specific sub-states which can't be migrated easily.
+> > > > > >
+> > > > > Yes. it is allowed in middle of feature negotiation, for sure.
+> > > > > It is passthrough device, hence hypervisor layer do not get to see sub-
+> > state.
+> > > > >
+> > > > > Not sure why you comment, why it cannot be migrated easily.
+> > > > > The device context already covers this sub-state.
+> > > >
+> > > > 1) driver writes driver_features
+> > > > 2) driver sets FEAUTRES_OK
+> > > >
+> > > > 3) device receive driver_features
+> > > > 4) device validating driver_features
+> > > > 5) device clears FEATURES_OK
+> > > >
+> > > > 6) driver read stats and realize FEATURES_OK is being cleared
+> > > >
+> > > > Is it valid to be frozen of the above?
+> > > No. device mode is frozen when hypervisor is sure that no more access by the
+> > guest will be done.
+> > > What can happen between #2 and #3, is device mode may change to stop.
+> > > And in stop mode, device context would capture #5 or #4, depending where is
+> > device at that point.
+> > >
+> > > > >
+> > > > > > And what's more, the above state machine seems to be virtio
+> > > > > > specific, but you don't explain the interaction with the device
+> > > > > > status state
+> > > > machine.
+> > > > > First, above is not a state machine.
+> > > >
+> > > > So how do readers know if a state can go to another state and when?
+> > > >
+> > > Not sure what you mean by reader. Can you please explain.
+> > >
+> > > > > Second, it is not virtio specific.
+> > > >
+> > > > It's somehow for sure, for example you said device context need to
+> > > > be preserved. And as far as I see the device context is all virtio specific in
+> > patch 3.
+> > > >
+> > > Sure, device context is virtio specific. :) Device context will
+> > > reflect if things changed in the stop mode.
+> > >
+> > > > > It is present in leading OS that has fundamental requirement to
+> > > > > support P2P
+> > > > devices.
+> > > >
+> > > > If it's PCI specific, instead of trying to do a workaround in
+> > > > virtio, why not invent a mechanism there?
+> > > >
+> > > It is not a workaround in virtio.
+> > > It is the way pci p2p devices work for which one needs to be receptive to
+> > handle the interaction.
+> > >
+> > >
+> > > > > Third, it is not, interacing with the _actua_ device status.
+> > > > >
+> > > > > In "SUSPEND" patch-5, you already asked this question. I assume
+> > > > > you asked
+> > > > again so that this series is complete.
+> > > > >
+> > > > > > For example,
+> > > > > > what happens if the driver wants to reset but the device is in
+> > > > > > stop mode? You told me it is addressed in your series but looks
+> > > > > > not. Once you try to describe that, you're actually try to
+> > > > > > connect states between the
+> > > > two state machines.
+> > > > > >
+> > > > > As listed in the definition of the stop mode, the device do not
+> > > > > act on the
+> > > > incoming writes, it only keep tracks of its internal device context
+> > > > change as part of this.
+> > > >
+> > > > So only the driver notification is allowed by not config write?
+> > > > What's the consideration for allowing driver notification?
+> > > >
+> > > Because for most practical purposes, peer device wants to queue blk, net
+> > other requests and not do device configuration.
+> > >
+> > > Do you know any device configuration space which is RW?
+> > > For net and blk I recall it as RO?
+> > 
+> > No it isn't. Pls look at the spec if you need to check that ;)
+> > 
+> Ok. will check. But regardless, it is fine, because when STOP is done, config writes should not occur anyway.
+
+
+i don't see a statement like this but maybe i missed it.
+
+> > 
+> > > > Let me ask differently, similar to FLR, what happens if the driver
+> > > > wants a virtio reset but the hypervisor wants to stop or freeze?
+> > > >
+> > > The device would respond to stop/freeze request when it has internally
+> > started the reset, as device is the single synchronization point which knows how
+> > to handle both in parallel.
+> > >
+> > > > > We would enrich the device context for this, but no need to
+> > > > > connects the
+> > > > admin mode controlled by the owner device with operational state
+> > > > (device_status) owned by the member device.
+> > > > >
+> > > > > > > + it ignores any device configuration space writes,
+> > > > > >
+> > > > > > How about read and the device configuration changes?
+> > > > > >
+> > > > > As listed, device do not have any changes.
+> > > > > So device configuration change cannot occur.
+> > > >
+> > > > It's not necessarily caused by config write, it could be things like
+> > > > link status or geometry changes that are initiated from the device.
+> > > >
+> > > I understand it. Link status was one example, you listed other examples too.
+> > > The point is, when in freeze mode, the member device is frozen, hence,
+> > device won't initiate those changes.
+> > >
+> > > > >
+> > > > > The device requirements cover this content more explicitly:
+> > > > >
+> > > > > For the SR-IOV group type, regardless of the member device mode,
+> > > > > all the PCI transport level registers MUST be always accessible
+> > > > > and the member device MUST function the same way for all the PCI
+> > > > > transport level
+> > > > registers regardless of the member device mode.
+> > > > >
+> > > > > > > + the device do not have any changes in the device context.
+> > > > > > > + The member device is not accessed in the system through the
+> > > > > > > + virtio
+> > > > interface.
+> > > > > > > + \\
+> > > > > >
+> > > > > > But accessible via PCI interface?
+> > > > > >
+> > > > > Yes, as usual.
+> > > > >
+> > > > > > For example, what happens if we want to freeze during FLR? Does
+> > > > > > the hypervisor need to wait for the FLR to be completed?
+> > > > > >
+> > > > > Hypervisor do not need wait for the FLR to be completed.
+> > > >
+> > > > So does FLR change device context?
+> > > Yes.
+> > >
+> > > >
+> > > > >
+> > > > > > > +\hline
+> > > > > > > +\hline
+> > > > > > > +0x03-0xFF   & -    & reserved for future use \\
+> > > > > > > +\hline
+> > > > > > > +\end{tabularx}
+> > > > > > > +
+> > > > > > > +When the owner driver wants to stop the operation of the
+> > > > > > > +device, the owner driver sets the device mode to
+> > > > > > > +\field{Stop}. Once the device is in the \field{Stop} mode,
+> > > > > > > +the device does not initiate any notifications or does not
+> > > > > > > +access any driver memory. Since the member driver may be
+> > > > > > > +still active which may send further driver notifications to the device,
+> > the device context may be updated.
+> > > > > > > +When the member driver has stopped accessing the device, the
+> > > > > > > +owner driver sets the device to \field{Freeze} mode
+> > > > > > > +indicating to the device that no more driver access occurs.
+> > > > > > > +In the \field{Freeze} mode, no more changes occur in the device
+> > context.
+> > > > > > > +At this point, the device ensures that
+> > > > > > there will not be any update to the device context.
+> > > > > >
+> > > > > > What is missed here are:
+> > > > > >
+> > > > > > 1) it is a virtio specific states or not
+> > > > > It is not.
+> > > > >
+> > > > > > 2) if it is a virtio specific state, if or how to synchronize
+> > > > > > with transport specific interfaces and why
+> > > > > > 3) can active go directly to freeze and why
+> > > > > >
+> > > > > Yes. don’t see a reason to not allow it.
+> > > > > Active to freeze mode can change is useful on the destination
+> > > > > side, where
+> > > > destination hypervisor knows for sure that there is no other entity
+> > > > accessing the device.
+> > > > > And it needs to setup the device context, it received from the source side.
+> > > > > So setting freeze mode can be done directly.
+> > > > >
+> > > > > > > +
+> > > > > > > +The member device has a device context which the owner driver
+> > > > > > > +can either read or write. The member device context consist
+> > > > > > > +of any device specific data which is needed by the device to
+> > > > > > > +resume its operation when the device mode
+> > > > > >
+> > > > > > This is too vague. There're states that are not suitable for
+> > > > > > cmd/queue for
+> > > > sure.
+> > > > > > I'd split it into
+> > > > > >
+> > > > > > 1) common states: virtqueue, dirty pages
+> > > > > > 2) device specific states: defined be each device
+> > > > > >
+> > > > > This is theory of operation section. So it capturing such details.
+> > > > > Actual device context definition is outside of theory, and precise
+> > > > > states of
+> > > > virtqueue, device specific, etc are in it.
+> > > >
+> > > > See my comment above regarding to the device context.
+> > > >
+> > > I replied above, device context link is added in the patch-3 in the theory of
+> > operation.
+> > > So reader gets the complete view.
+> > >
+> > > > >
+> > > > > > > +is changed from \field{Stop} to \field{Active} or from
+> > > > > > > +\field{Freeze} to \field{Active}.
+> > > > > > > +
+> > > > > > > +Once the device context is read, it is cleared from the device.
+> > > > > >
+> > > > > > This is horrible, it means we can't easily
+> > > > > >
+> > > > > > 1) re-try the migration
+> > > > > > 2) recover from migration failure
+> > > > > >
+> > > > > Can you please explain the flow?
+> > > >
+> > > > When migration fails, management can choose to resume the device(VM)
+> > > > on the source.
+> > > >
+> > > ok. This should be possible as the management which has the device
+> > > context, it can restore it on the source and move the device mode to active.
+> > >
+> > > > If the state were cleared, it means there's not simple way to resume
+> > > > the device but restoring the whole context.
+> > > >
+> > > Yes, as you say, by restoring the whole context will suffice this corner/rare
+> > case scenario.
+> > >
+> > > > What's the consideration for such clearing?
+> > > >
+> > > There are two considerations.
+> > > 1.  If one does not clear, till how long should it be kept on the device?
+> > > 2. device context returns incremental value from the previous read. So, it
+> > needs to clear it.
+> > >
+> > > > > And which software stack may find this useful?
+> > > > > Is there any existing software that can utilize it?
+> > > >
+> > > > Libvirt.
+> > > >
+> > > Does libvirt restore on migration failure?
+> > 
+> > yes
+> > 
+> Ok. the management sw has access to the context to restore.
+> Alternatively, it is the incremental context not available as it is read, but the freeze device still has the frozen context.
+> So it can be marked active too.
+> I will double check if I captured this in the normative or not.
+
+preferable if context is not erased on the device IMHO.
+less of a chance of a failure to resume.
+
+> > > > > Why that device context present with the software vanished, in
+> > > > > your
+> > > > assumption, if it is?
+> > > > >
+> > > > > > > Typically, on
+> > > > > > > +the source hypervisor, the owner driver reads the device
+> > > > > > > +context once when the device is in \field{Active} or
+> > > > > > > +\field{Stop} mode and later once the member device is in
+> > \field{Freeze} mode.
+> > > > > >
+> > > > > > Why need the read while device context could be changed? Or is
+> > > > > > the dirty page part of the device context?
+> > > > > >
+> > > > > It is not part of the dirty page.
+> > > > > It needs to read in the active/stop mode, so that it can be shared
+> > > > > with
+> > > > destination hypervisor, which will pre-setup the complex context of
+> > > > the device, while it is still running on the source side.
+> > > >
+> > > > Is such a method used by any hypervisor?
+> > > Yes. qemu which uses vfio interface uses it.
+> > >
+> > > >
+> > > > >
+> > > > > > > +
+> > > > > > > +Typically, the device context is read and written one time on
+> > > > > > > +the source and the destination hypervisor respectively once
+> > > > > > > +the device is in \field{Freeze} mode. On the destination
+> > > > > > > +hypervisor, after writing the device context, when the device
+> > > > > > > +mode set to \field{Active}, the device uses the most recently
+> > > > > > > +set device context and resumes the device
+> > > > > > operation.
+> > > > > >
+> > > > > > There's no context sequence, so this is obvious. It's the
+> > > > > > semantic of all other existing interfaces.
+> > > > > >
+> > > > > Can you please what which existing interfaces do you mean here?
+> > > >
+> > > > For any common cfg member. E.g queue_addr.
+> > > >
+> > > > The driver wrote 100 different values to queue_addr and the device
+> > > > used the value written last time.
+> > > >
+> > > o.k. I don’t see any problem in stating what is done, which is less
+> > > vague. 😊
+> > >
+> > > > >
+> > > > > > > +
+> > > > > > > +In an alternative flow, on the source hypervisor the owner
+> > > > > > > +driver may choose to read the device context first time while
+> > > > > > > +the device is in \field{Active} mode and second time once the
+> > > > > > > +device is in \field{Freeze}
+> > > > > > mode.
+> > > > > >
+> > > > > > Who is going to synchronize the device context with possible
+> > > > > > configuration from the driver?
+> > > > > >
+> > > > > Not sure I understand the question.
+> > > > > If I understand you right, do you mean that, When configuration
+> > > > > change is done by the guest driver, how does device context change?
+> > > > >
+> > > >
+> > > > Yes.
+> > > >
+> > > > > If so, device context reading will reflect the new configuration.
+> > > >
+> > > > How do you do that? For example:
+> > > >
+> > > > static inline void vp_iowrite64_twopart(u64 val,
+> > > >                                         __le32 __iomem *lo,
+> > > >                                         __le32 __iomem *hi) {
+> > > >         vp_iowrite32((u32)val, lo);
+> > > >         vp_iowrite32(val >> 32, hi); }
+> > > >
+> > > > Is it ok to be freezed in the middle of two vp_iowrite()?
+> > > >
+> > > Yes. the device context VIRTIO_DEV_CTX_PCI_COMMON_RUNTIME_CFG
+> > section captures the partial value.
+> > >
+> > > > >
+> > > > > > > Similarly, on the
+> > > > > > > +destination hypervisor writes the device context first time
+> > > > > > > +while the device is still running in \field{Active} mode on
+> > > > > > > +the source hypervisor and writes the device context second
+> > > > > > > +time while the device is in
+> > > > > > \field{Freeze} mode.
+> > > > > > > +This flow may result in very short setup time as the device
+> > > > > > > +context likely have minimal changes from the previously
+> > > > > > > +written device
+> > > > context.
+> > > > > >
+> > > > > > Is the hypervisor who is in charge of doing the comparison and
+> > > > > > writing only the delta?
+> > > > > >
+> > > > > The spec commands allow to do so. So possibility exists from spec wise.
+> > > >
+> > > > There are various optimizations for migration for sure, I don't
+> > > > think mentioning any specific one is good.
+> > > >
+> > > The text is informative text similar to,
+> > >
+> > > " However, some devices benefit from the ability to find out the
+> > > amount of available data in the queue without accessing the virtqueue in
+> > memory"
+> > >
+> > > " To help with these optimizations, when VIRTIO_F_NOTIFICATION_DATA has
+> > been negotiated".
+> > >
+> > > Is this the only optimization in virtio? No, but we still mention the rationale of
+> > why it exists.
+> > > As long as the rationale do not confuse the reader, and adds the value
+> > explaining how things work, it is fine to add.
+> > > Which is what above few lines did.
+> > > So let's keep it.
+> > >
+> > > The easiest is to cut out the whole theory of operation and just write
+> > commands like how RSS command did, without even writing a single line about
+> > RSS.
+> > > I think we can do better explanation than that for new things we add.
+> > 
+> > yes i find it useful. of course now we are writing it, we also need it not to be
+> > confusing or partial.
+> Ok. Thanks.
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
