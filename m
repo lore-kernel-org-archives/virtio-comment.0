@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7648-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7649-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C29CD691F
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 09:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2F41CD80C0
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 12:41:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 836F81922EC
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 09:58:48 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 41FC92AD51
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 12:41:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 627FC986589
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 09:58:48 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3216D986572
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 12:41:45 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3F6F198654B; Tue, 10 Oct 2023 09:58:48 +0000 (UTC)
+	id 1B76198655C; Tue, 10 Oct 2023 12:41:45 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,215 +24,780 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2F8A498655C
-	for <virtio-comment@lists.oasis-open.org>; Tue, 10 Oct 2023 09:58:48 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0901998655D
+	for <virtio-comment@lists.oasis-open.org>; Tue, 10 Oct 2023 12:41:45 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BdKhsMsvw8crM6uPepAOkPLqHEUpiaU4NOwPqn+xAfzsapnr2jmE/dQppiqHS1dY7ke/VFQf6tBCiwaq8jnBGX0V9/Dtyo10SsdGihL2FoHzIeoRIa5eFbL50+kFgiSCZljhYUDw7HAx+4AG0gX84+1RMGrmOO+xEUsQPlFXGKht/DwwxK8Fuf3/VKL34H8dkTfwHsRE8ByfNpFkZhSEqkE3KE/R+MMRkzRRA7/lSPdCRsrXbsvvhki+74BPIj8q5WZsIBty0Vjc0xYv+AhDeBhAyY9QKZbjoMEMfEOldPEQS1dTxDyEntLqLl/UxmCB9IUkUByH1XTdZ17r4HCi2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M5pSimbVg7uO2RsmjvvXSci91NelMGcVIj7o06IaNsg=;
- b=gLCAmS7L63tMxxTUug7ujByokAvdmUNMx9zPYuuIxQQvhiAmaxfuKtqop1eyyYMJ2r5bBcp0/eWISsXnKUo/ifl/8zS2rGgnt4sYPeuS7NJBV7mjAknRp8c/dN67jMpIGLBrAl9uHL9tRSRGpFIua77F+Tgrq/Sqgc7Buu3//fMqo699U5wMcIcPod5cU1H0PLECbWMK2Wf/5TFqonygVrnsqrMalVfkazoaCCss2hXTHHennI2F3xoA2/kiAgWXu90jLo7zViuV8rTAFOVo7O110WN9qB3o8j2nAwc6E+RcESKiFYGEJrLRrxIZ+ZDu0sQtc4ctlpQdEEiDUtYqSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin"
-	<mst@redhat.com>, Jason Wang <jasowang@redhat.com>
-CC: "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
-	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
-	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
-	<yishaih@nvidia.com>
-Thread-Topic: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
-Thread-Index: AQHZ+dpHSUrTyyDEA0quapQP8C0hdbA/xRkAgAF/hoCAACxh4IABSWcAgAANqrA=
-Date: Tue, 10 Oct 2023 09:58:44 +0000
-Message-ID:
- <PH0PR12MB548135EDA034FDF7AE77C5FDDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-MC-Unique: Z4-ckm2nOQu7tVrwMsAsbQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696941690; x=1697546490;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=R4PZT0t88XA7srG3dOk/QKV8dUYn2qydLT3g8dI63VY=;
+        b=IJ8eM7x4p/pdcBoscQD1u+J1sDcWjF63UOuyhbzogTiTWw0SDiMgPX4GIlm1PAPN+y
+         FWtJ9n/gEefnMJZZq4/Qf1EPWhaUQZLPrhOPtK3mOWpVMKHdPrcZ5sskNcrv3bYflEFD
+         WgHIQfgI27y0w7F8XYfAf0wDgNLyL2654o5pkvGhU2j0EPObivV/tu3hLb7++aXvLyG4
+         3Urz+7VOGvI/lBw7DLXnHBloc1ww36wJXywcXCa8oTYqNvrfVAeOULAQ139LSkE1eHtI
+         46U8VW/xTGETfd/dAaRqy2xtaVRzfrR5OMGY699rdw47s7/BBMVMAuNxp0ccMy60G0oq
+         wRpg==
+X-Gm-Message-State: AOJu0Yw8oGbpmFtiRxRQypsDQr1/jF1ovXlxPi8Q02HXmX/E/A2+pI9i
+	M2qm0cB2P5/9CROuDbujJ/bZR7WO/Bbuw1d2/BzEe2mvDJOa06jamvwCaYz9HfXuTyvNc2NSZeU
+	syUZ27KYcTfp5A5VO8z7wgO0wxC4y7KqQHQ==
+X-Received: by 2002:a7b:c4cb:0:b0:401:cb45:3fb8 with SMTP id g11-20020a7bc4cb000000b00401cb453fb8mr16051893wmk.38.1696941690044;
+        Tue, 10 Oct 2023 05:41:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGpCFdBCZxn2vAMsab5AQDvS0TA7awNR79zUdjAkES/Obx+wD6Ca8UpcDTT9EdeVD9PjbR6XA==
+X-Received: by 2002:a7b:c4cb:0:b0:401:cb45:3fb8 with SMTP id g11-20020a7bc4cb000000b00401cb453fb8mr16051870wmk.38.1696941689305;
+        Tue, 10 Oct 2023 05:41:29 -0700 (PDT)
+Date: Tue, 10 Oct 2023 08:41:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>
+Message-ID: <20231010083331-mutt-send-email-mst@kernel.org>
 References: <20231008112555.473895-1-parav@nvidia.com>
- <20231008112555.473895-4-parav@nvidia.com>
- <20231008073912-mutt-send-email-mst@kernel.org>
- <2fa89e37-a097-d785-e1ee-cda151b0d872@intel.com>
- <DM8PR12MB548001B88B5FA72B403A2AC9DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <85c59856-b68e-940c-08ed-a14e5a02554d@intel.com>
-In-Reply-To: <85c59856-b68e-940c-08ed-a14e5a02554d@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_
-x-ms-office365-filtering-correlation-id: a6054b75-8a48-468d-93dd-08dbc9777d85
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- PPrK5jGUBh7kPX5ArSrR2FICX02F5dUCOB2/5KMrG5KZT0408bt+HAgJfOnbi7sxkQcS//PF0znvznCebxygrXmWx3lWpzZ6q4eHGVujUNln4YM+p5v17xvDnHwZwmGllPnBC6y/GlODvD+XM5h0oPl2qotV3w6U+w4Jlsfzt4lXiTRrMqnIGXVOvZtJOeZ/sZItIqpKQBP1sHHUP2iu57OX4tZAMa8I5e4C7i5KymXKW6rGAvgWKkiyVDhjK1MrpU/KeZiBQ3TnOyaniyU4uR5cDj5KzmAxGo/Gk1KkYD4Rtt4smeYFrqkPIz+kS9BHYb0gyb6SM2s6hySiXAnhEV87w/EXGv3E8pNtTjpjTt36RqeN+pd3rmIExZ5mWmXWV1cCBTHpxV5mCkn7Yrjryzo29pWXGNrtxIFf45RHVldAtEiTIOEQ2DgL5TtmIZ6mbXUy5Aj2bb6lNil2gK3sTs8Ig0OLVJ6xLZqb/Eb0X6zhDdYSPmPdfC1HIdS0BXNDotfpCz2zYZEYzXzgnJzdhWbe85TjI3ta2GMmbwgJ/NXSM1SCIiiSUextxmJ4m+Fv913cN6uYw1YV3S3qcg0CckLWyl4yuSOUtisyj+bPzNnbjZQRf3zUI+SdJ2ujeIV2RAzk8e1h2a0S30H3RMH7SJ75u0zdXJ36q+4iwX4lkKU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(396003)(39860400002)(366004)(136003)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(33656002)(86362001)(38070700005)(55016003)(9686003)(5660300002)(107886003)(53546011)(2906002)(41300700001)(478600001)(64756008)(66476007)(66946007)(110136005)(66446008)(66556008)(76116006)(52536014)(54906003)(7696005)(6506007)(71200400001)(316002)(26005)(966005)(4326008)(8936002)(8676002)(83380400001)(122000001)(38100700002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bDBmRkhTekw4WU45K3pQNy9WN1E4RmEvZ2dFKzhyaytmTmFiT0lLYkRoTFdz?=
- =?utf-8?B?SWhjSWRCN3BGQXM5MXdFaVZhTFBmS3BCZGtCWm82UGROa2svMGpmajNtV2JQ?=
- =?utf-8?B?dTE2K0l0V21FQXIrZ3YySmhxeTIwZ3ZueDQrK0JmMHQrakEzTzBkVTNxeU5I?=
- =?utf-8?B?ZFhFWks2NlYzcXE3aVhpcGZFbXl4OVd6SVQwNVp0ZUo5ejl5Z2RJN3R6UnQ0?=
- =?utf-8?B?cFBTSUFhYS8zOFdpVWk3dEhNb2c5bHMvQlFCQTBPanpPVitLL0RVQ3M0Z21x?=
- =?utf-8?B?TGJ0emN6NFFYeGp0aDVoeDVqdEZDZ2p4dkhhbmtoRzdwQy92UlNMTmVNLzdS?=
- =?utf-8?B?bEI3NmpveE50UWdoZW5EVUx5SWZGby9QRTdqSGFWcFRuclJGR0VTeW5uVFFr?=
- =?utf-8?B?dG95a0RYMGhJcXluTW9YdkVhVUNqcG5GdTJac0xvakNTUmkwTFFxdEtnU3RL?=
- =?utf-8?B?bkREbUtQQTQvUTgvcmFTa1VWaXp2dGRkN0doNUsvZ29GTVFocSs3ZFZjU3pY?=
- =?utf-8?B?SmlydGhBeWJFZ0o4czV5YVNPRWQ0eG5LL0VIU28vMWN0YURLVWRQaTF6Tnky?=
- =?utf-8?B?QUUvd3Ntd25ZWWVRejE5V3haVC9aR1dEMlo3c3MrNk5obWk1ZDUwVUMyREhV?=
- =?utf-8?B?MUhYSWpJU0N0VWhYKzlRdysyOXNhb3VaY2tleUwxN2kxTWs4cEZqbkxWOHFs?=
- =?utf-8?B?ZWVmQzljWTVRdHV4aG9EZWxYclkvbjRuUjhOSzU2MjE0RWhSaElMT1RJU3N6?=
- =?utf-8?B?cXVXL1hoanp0NHlDRHJzR0FQNEJxV1VyMDUrcWNrR3owTFlIT1Q2RTJ5d0Fn?=
- =?utf-8?B?em1lb21iUFZqa1RjZWo3MTJLOWJlRmhGTHc3Y3JDQTFrOERjRk9ibCsvdDFh?=
- =?utf-8?B?eFc1WHpEaGZTU0Ewdys3dmN4T0U4RGNqMXVpNkdWSnQybTJvRzJjMGlPUi91?=
- =?utf-8?B?Z0dPaHhiRnU2N1NodDFFQkRKTCtCRFZORWNTL1dCYjl6OXVINzlhdFFNSmha?=
- =?utf-8?B?T0pwZno3ZC9qdVZOckJHK25XeDNqbndmU1ZvaitpZ3IzT3hXZkUrUG5Qa2VP?=
- =?utf-8?B?WmpacjZBbC9EU0NnQmRua2JRenpKckR6SWloOFg5OEdWUTdVeldNS1pRbG5u?=
- =?utf-8?B?TUJWM3lVQzlyeElvbkNlZWJ3MEJSTHY3dUdwVnQxVFh0dWRTK2V5NktJODR2?=
- =?utf-8?B?ZzVuVUNJTjA4Wm9yaFZ2Y3R6OERmYVB4cmYwYlhRc2oweTEwTXc2dTlVS1R1?=
- =?utf-8?B?cFR4TE4rbXNITWRiZG1zalp1MzJ2T2x1TUh1d2hDNThYQnFTOTc2MTlTaHIy?=
- =?utf-8?B?WkdLVE94a3BlblhoMStVMEJZK3FScUplQVJkQzA3aU92UzNDTTNKUU1PV1VN?=
- =?utf-8?B?N2dsVjB5czJyTThXbVJrUXZaTUVoVnVNazkzQUdPK1VnRGV5eWp3WG5jcG13?=
- =?utf-8?B?bWY4Yzg0SDNENkJGbWpTNGx5Rm8yWWdOZjdscG9wdkE0QjVzSmhmYkpIME5h?=
- =?utf-8?B?ZTJFb0lGM2xDRUZ0Q0E2NXNDR3VyY3hRMmFGTzNmOXlJUEpVMmxNYjB5TkJj?=
- =?utf-8?B?MElkVUdYd0Vjd1VDbGx2VGNYc0VHdmh4OTNEbWFvbGcvNzZCKzFQcnJPcTVN?=
- =?utf-8?B?SXkxcDRvaVN6YVRFZmJhNGx6YlA1UXNEaUdObVY1N2p4NGRIT0N5WkZXeVhx?=
- =?utf-8?B?SW5XK3ZucVRKSU45dDhaL2x0aWVNVUh3UG1PYkNhamtNcmp3bTUycFdpdldN?=
- =?utf-8?B?ZDFlSFovMlFYd0p1cWQzRDNUYUZHUDg1VjgzQ2VoUW41ckQ0dHBqdUd2MEoz?=
- =?utf-8?B?dythZThWTDc0ZW1uV20rd3VUcmZ6YUJidkR0Y1p0UVFCVVNKUzZUUWtoU0px?=
- =?utf-8?B?UzNHNGJiQ3NHU1d2NkZzRXNCSnlFOUVzWlRLRk1Eck4vaGtBQXYzUzJ0V0Ew?=
- =?utf-8?B?WWNQdFZBVWh5NVZOcGd3SjA3UDR4aS8yVU5BUFQ3YkQ4YXBqNWtJNEZzVmxO?=
- =?utf-8?B?bmwwRW0ray8xcEJNY3ZIdzhSQVUrZ1RKM05vL0JEZDN5TVVTcU9LWlJ0RnRH?=
- =?utf-8?B?cnk4VmMzTlJOVGtyRmE3MFJpdjB2MlpHNDdEVVhpWVpZQitxQndCT0FuenhY?=
- =?utf-8?Q?9YLc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <20231008112555.473895-2-parav@nvidia.com>
+ <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
+ <DM8PR12MB548029E1AAB8529339D22D4DDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEswD2XLjRNzyqo9M-yT77PsOJqJmDLxSKd2ZOgqLYjjZQ@mail.gmail.com>
+ <PH0PR12MB548143D2AB83CA90E7F1C9D6DCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6054b75-8a48-468d-93dd-08dbc9777d85
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2023 09:58:44.6642
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RJgWOpqQMTSwbShxpLtOZHJo5qghxYJEfHPWBjalDngpt3+fgFZLZ1B4Jh9C0gbxzIqhr6RCQM0VyJ0DBbzN4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5481
-Subject: RE: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+In-Reply-To: <PH0PR12MB548143D2AB83CA90E7F1C9D6DCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-DQo+IEZyb206IFpodSwgTGluZ3NoYW4gPGxpbmdzaGFuLnpodUBpbnRlbC5jb20+DQo+IFNlbnQ6
-IFR1ZXNkYXksIE9jdG9iZXIgMTAsIDIwMjMgMjoyMiBQTQ0KPiANCj4gT24gMTAvOS8yMDIzIDEw
-OjMwIFBNLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQo+ID4NCj4gPj4gRnJvbTogWmh1LCBMaW5nc2hh
-biA8bGluZ3NoYW4uemh1QGludGVsLmNvbT4NCj4gPj4gU2VudDogTW9uZGF5LCBPY3RvYmVyIDks
-IDIwMjMgNDowNCBQTQ0KPiA+Pg0KPiA+PiBPbiAxMC84LzIwMjMgNzo0MSBQTSwgTWljaGFlbCBT
-LiBUc2lya2luIHdyb3RlOg0KPiA+Pj4gT24gU3VuLCBPY3QgMDgsIDIwMjMgYXQgMDI6MjU6NTBQ
-TSArMDMwMCwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KPiA+Pj4+IERlZmluZSB0aGUgZGV2aWNlIGNv
-bnRleHQgYW5kIGl0cyBmaWVsZHMgZm9yIHB1cnBvc2Ugb2YgZGV2aWNlDQo+ID4+Pj4gbWlncmF0
-aW9uLiBUaGUgZGV2aWNlIGNvbnRleHQgaXMgcmVhZCBhbmQgd3JpdHRlbiBieSB0aGUgb3duZXIN
-Cj4gPj4+PiBkcml2ZXIgb24gc291cmNlIGFuZCBkZXN0aW5hdGlvbiBoeXBlcnZpc29yIHJlc3Bl
-Y3RpdmVseS4NCj4gPj4+Pg0KPiA+Pj4+IERldmljZSBjb250ZXh0IGZpZWxkcyB3aWxsIGV4cGVy
-aWVuY2UgYSByYXBpZCBncm93dGggcG9zdCB0aGlzDQo+ID4+Pj4gaW5pdGlhbCB2ZXJzaW9uIHRv
-IGNvdmVyIG1hbnkgZGV0YWlscyBvZiB0aGUgZGV2aWNlLg0KPiA+Pj4+DQo+ID4+Pj4gRml4ZXM6
-IGh0dHBzOi8vZ2l0aHViLmNvbS9vYXNpcy10Y3MvdmlydGlvLXNwZWMvaXNzdWVzLzE3Ng0KPiA+
-Pj4+IFNpZ25lZC1vZmYtYnk6IFBhcmF2IFBhbmRpdCA8cGFyYXZAbnZpZGlhLmNvbT4NCj4gPj4+
-PiBTaWduZWQtb2ZmLWJ5OiBTYXRhbmFuZGEgQnVybGEgPHNidXJsYUBtYXJ2ZWxsLmNvbT4NCj4g
-Pj4+PiAtLS0NCj4gPj4+PiBjaGFuZ2Vsb2c6DQo+ID4+Pj4gdjAtPnYxOg0KPiA+Pj4+IC0gZW5y
-aWNoIGRldmljZSBjb250ZXh0IHRvIGNvdmVyIGZlYXR1cmUgYml0cywgZGV2aWNlIGNvbmZpZ3Vy
-YXRpb24NCj4gPj4+PiAgICAgZmllbGRzDQo+ID4+Pj4gLSBjb3JyZWN0ZWQgYWxpZ25tZW50IG9m
-IGRldmljZSBjb250ZXh0IGZpZWxkcw0KPiA+Pj4+IC0tLQ0KPiA+Pj4+ICAgIGNvbnRlbnQudGV4
-ICAgICAgICB8ICAgMSArDQo+ID4+Pj4gICAgZGV2aWNlLWNvbnRleHQudGV4IHwgMTQyDQo+ID4+
-ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPiA+Pj4+ICAg
-IDIgZmlsZXMgY2hhbmdlZCwgMTQzIGluc2VydGlvbnMoKykNCj4gPj4+PiAgICBjcmVhdGUgbW9k
-ZSAxMDA2NDQgZGV2aWNlLWNvbnRleHQudGV4DQo+ID4+Pj4NCj4gPj4+PiBkaWZmIC0tZ2l0IGEv
-Y29udGVudC50ZXggYi9jb250ZW50LnRleCBpbmRleCAwYTYyZGNlLi4yNjk4OTMxDQo+ID4+Pj4g
-MTAwNjQ0DQo+ID4+Pj4gLS0tIGEvY29udGVudC50ZXgNCj4gPj4+PiArKysgYi9jb250ZW50LnRl
-eA0KPiA+Pj4+IEBAIC01MDMsNiArNTAzLDcgQEAgXHNlY3Rpb257RXhwb3J0aW5nIE9iamVjdHN9
-XGxhYmVse3NlYzpCYXNpYw0KPiA+Pj4+IEZhY2lsaXRpZXMNCj4gPj4gb2YgYSBWaXJ0aW8gRGV2
-aWNlIC8gRXhwbw0KPiA+Pj4+ICAgIFVVSURzIGFzIHNwZWNpZmllZCBieSBcaHlwZXJyZWZbaW50
-cm86cmZjNDEyMl17W1JGQzQxMjJdfS4NCj4gPj4+Pg0KPiA+Pj4+ICAgIFxpbnB1dHthZG1pbi50
-ZXh9DQo+ID4+Pj4gK1xpbnB1dHtkZXZpY2UtY29udGV4dC50ZXh9DQo+ID4+Pj4NCj4gPj4+PiAg
-ICBcY2hhcHRlcntHZW5lcmFsIEluaXRpYWxpemF0aW9uIEFuZCBEZXZpY2UNCj4gPj4+PiBPcGVy
-YXRpb259XGxhYmVse3NlYzpHZW5lcmFsIEluaXRpYWxpemF0aW9uIEFuZCBEZXZpY2UgT3BlcmF0
-aW9ufQ0KPiA+Pj4+DQo+ID4+Pj4gZGlmZiAtLWdpdCBhL2RldmljZS1jb250ZXh0LnRleCBiL2Rl
-dmljZS1jb250ZXh0LnRleCBuZXcgZmlsZSBtb2RlDQo+ID4+Pj4gMTAwNjQ0IGluZGV4IDAwMDAw
-MDAuLjU2MTEzODINCj4gPj4+PiAtLS0gL2Rldi9udWxsDQo+ID4+Pj4gKysrIGIvZGV2aWNlLWNv
-bnRleHQudGV4DQo+ID4+Pj4gQEAgLTAsMCArMSwxNDIgQEANCj4gPj4+PiArXHNlY3Rpb257RGV2
-aWNlIENvbnRleHR9XGxhYmVse3NlYzpCYXNpYyBGYWNpbGl0aWVzIG9mIGEgVmlydGlvDQo+ID4+
-Pj4gK0RldmljZSAvIERldmljZSBDb250ZXh0fQ0KPiA+Pj4+ICsNCj4gPj4+PiArVGhlIGRldmlj
-ZSBjb250ZXh0IGhvbGRzIHRoZSBpbmZvcm1hdGlvbiB0aGF0IGEgb3duZXIgZHJpdmVyIGNhbg0K
-PiA+Pj4+ICt1c2UgdG8gc2V0dXAgYSBtZW1iZXIgZGV2aWNlIGFuZCByZXN1bWUgaXRzIG9wZXJh
-dGlvbi4gVGhlIGRldmljZQ0KPiA+Pj4+ICtjb250ZXh0IG9mIGEgbWVtYmVyIGRldmljZSBpcyBy
-ZWFkIG9yIHdyaXR0ZW4gYnkgdGhlIG93bmVyIGRyaXZlcg0KPiA+Pj4+ICt1c2luZyBhZG1pbmlz
-dHJhdGlvbiBjb21tYW5kcy4NCj4gPj4+PiArDQo+ID4+Pj4gK1xiZWdpbntsc3RsaXN0aW5nfQ0K
-PiA+Pj4+ICtzdHJ1Y3QgdmlydGlvX2Rldl9jdHhfZmllbGRfdGx2IHsNCj4gPj4+PiArICAgICAg
-ICBsZTMyIHR5cGU7DQo+ID4+Pj4gKyAgICAgICAgbGUzMiByZXNlcnZlZDsNCj4gPj4+PiArICAg
-ICAgICBsZTY0IGxlbmd0aDsNCj4gPj4+PiArICAgICAgICB1OCB2YWx1ZVtdOw0KPiA+Pj4+ICt9
-Ow0KPiA+Pj4+ICsNCj4gPj4+PiArc3RydWN0IHZpcnRpb19kZXZfY3R4IHsNCj4gPj4+PiArICAg
-ICAgICBsZTMyIGZpZWxkX2NvdW50Ow0KPiA+Pj4+ICsgICAgICAgIHN0cnVjdCB2aXJ0aW9fZGV2
-X2N0eF9maWVsZF90bHYgZmllbGRzW107IH07DQo+ID4+Pj4gKw0KPiA+Pj4+ICtcZW5ke2xzdGxp
-c3Rpbmd9DQo+ID4+IHNvIHRoaXMgc3RpbGwgZG9lc24ndCB3b3JrIGZvciBuZXN0ZWQNCj4gPiBJ
-biBvbmUgdXNlIGNhc2Ugb2YgbmVzdGluZywgdGhhdCB3ZSBjYW1lIGFjcm9zcyBpczoNCj4gPiB0
-aGVyZSBpcyBsYXJnZSBob3N0X1ZNIHdoaWNoIGlzIGhvc3RpbmcgYW5vdGhlciBndWVzdF9WTXMu
-DQo+ID4gSW4gc3VjaCBjYXNlLCB0aGUgb3duZXIgUEYgaXMgcGFzc3Rocm91Z2ggdG8gdGhpcyBo
-b3N0X1ZNIGFuZCBjdXJyZW50DQo+IHByb3Bvc2VkIHNjaGVtZSBjb250aW51ZSB0byBmdW5jdGlv
-biBmb3IgbmVzdGluZyBhcyB3ZWxsIGZvciBuZXN0ZWQNCj4gZ3Vlc3RfVk1zLg0KPiBUaGUgc3lz
-dGVtIGFkbWluIGNhbiBjaG9vc2Ugb25seSBwYXNzdGhyb3VnaCBzb21lIG9mIHRoZSBkZXZpY2Vz
-IGZvciBuZXN0ZWQNCj4gZ3Vlc3RzLCBzbyBwYXNzdGhyb3VnaCB0aGUgUEYgdG8gTDEgZ3Vlc3Qg
-aXMgbm90IGEgZ29vZCBpZGVhLCBiZWNhdXNlIHRoZXJlIGNhbg0KPiBiZSBtYW55IGRldmljZXMg
-c3RpbGwgd29yayBmb3IgdGhlIGhvc3Qgb3IgTDEuDQpQb3NzaWJsZS4gT25lIHNpemUgZG9lcyBu
-b3QgZml0IGFsbC4NCldoYXQgSSBleHByZXNzZWQgaXMgbW9zdCBjb21tb24gc2NlbmFyaW9zIHRo
-YXQgdXNlciBjYXJlIGFib3V0Lg0KDQo+ID4NCj4gPiBJbiBzZWNvbmQgdXNlIGNhc2UsIHdoZXJl
-IG9uZSB3YW50IHRvIGJpbmQgb25seSBvbmUgbWVtYmVyIGRldmljZSB0bw0KPiA+IG9uZSBWTSwg
-SSB0aGluayBzYW1lIHBsdW1iaW5nIGNhbiBiZSBleHRlbmRlZCB0byBoYXZlIGFub3RoZXIgVkYs
-IHRvIHRha2UNCj4gdGhlIHJvbGUgb2YgbWlncmF0aW9uIGRldmljZSBpbnN0ZWFkIG9mIG93bmVy
-IGRldmljZS4NCj4gPg0KPiA+IEkgZG9u4oCZdCBzZWUgYSBnb29kIHdheSB0byBwYXNzdGhyb3Vn
-aCBhbmQgYWxzbyBkbyBpbi1iYW5kIG1pZ3JhdGlvbiB3aXRob3V0DQo+IGxvdCBvZiBkZXZpY2Ug
-c3BlY2lmaWMgdHJhcCBhbmQgZW11bGF0aW9uLg0KPiA+IEkgYWxzbyBkb27igJl0IGtub3cgdGhl
-IGNwdSBwZXJmb3JtYW5jZSBudW1iZXJzIHdpdGggMyBsZXZlbHMgb2YgbmVzdGVkIHBhZ2UNCj4g
-dGFibGUgdHJhbnNsYXRpb24gd2hpY2ggdG8gbXkgdW5kZXJzdGFuZGluZyBjYW5ub3QgYmUgYWNj
-ZWxlcmF0ZWQgYnkgdGhlDQo+IGN1cnJlbnQgY3B1Lg0KPiBob3N0X1BBLT5MMV9RRU1VX1ZBLT5M
-MV9HdWVzdF9QQS0+TDFfUUVNVV9WQS0+TDJfR3Vlc3RfUEEgYW5kIHNvDQo+IG9uLCB0aGVyZSBj
-YW4gYmUgcGVyZm9ybWFuY2Ugb3ZlcmhlYWQsIGJ1dCBjYW4gYmUgZG9uZS4NCj4gDQo+IFNvIGFk
-bWluIHZxIG1pZ3JhdGlvbiBzdGlsbCBkb24ndCB3b3JrIGZvciBuZXN0ZWQsIHRoaXMgaXMgc3Vy
-ZWx5IGEgYmxvY2tlci4NCkluIHNwZWNpZmljIGNhc2Ugb2YgbWVtYmVyIGRldmljZXMgYXJlIGxv
-Y2F0ZWQgYXQgZGlmZmVyZW50IG5lc3QgbGV2ZWwsIGl0IGRvZXMgbm90Lg0KDQpXaHkgcHJldmVu
-dHMgeW91IGhhdmUgYSBwZWVyIFZGIGRvIHRoZSByb2xlIG9mIG1pZ3JhdGlvbiBkcml2ZXI/DQpC
-YXNpY2FsbHksIHdoYXQgSSBhbSBwcm9wb3NpbmcgaXMsIGNvbm5lY3QgdHdvIFZGcyB0byB0aGUg
-TDEgZ3Vlc3QuIE9uZSBWRiBpcyBtaWdyYXRpb24gZHJpdmVyLCBvbmUgVkYgaXMgcGFzc3Rocm91
-Z2ggdG8gTDIgZ3Vlc3QuDQpBbmQgc2FtZSBzY2hlbWUgd29ya3MuDQoNCk9uIHRoZSBvdGhlciBo
-YW5kLA0KTWFueSBwYXJ0cyBvZiB0aGUgY3B1IHN1YnN5c3RlbSBzdWNoIGFzIFBNTCwgcGFnZSB0
-YWJsZXMgZG8gbm90IGhhdmUgTiBsZXZlbCBuZXN0aW5nIHN1cHBvcnQgZWl0aGVyLg0KVGhleSBh
-bGwgd29yayBvbiB0b3Agb2YgZW11bGF0aW9uIGFuZCBwYXkgdGhlIHByaWNlIGZvciBlbXVsYXRp
-b24gd2hlbiBuZXN0aW5nIGlzIGRvbmUuDQpNYXkgYmUgdGhhdCBpcyB0aGUgZmlyc3QgdmVyc2lv
-biBmb3IgdmlydGlvIHRvby4NCg0KSSBmcmFua2x5IGZlZWwgdGhhdCBuZXN0aW5nIHN1cHBvcnQg
-cmVxdWlyZXMgaW5kdXN0cnkgbGV2ZWwgZWNvIHN5c3RlbSBzdXBwb3J0IG5vdCBqdXN0IGluIHZp
-cnRpby4NClZpcnRpbyBhdHRlbXB0aW5nIHRvIGZvY3VzIG9uIG5lc3RlZCBhbmQgaGF2aW5nIG5l
-YXJseSBzYW1lIGxldmVsIHBlcmZvcm1hbmNlIGFzIGJhcmUgbWV0YWwgc2VlbXMgZmFyZmV0Y2hl
-ZC4NCk1heWJlIEkgYW0gd3JvbmcsIGFzIHdlIGhhdmUgbm90IHNlZW4gc3VjaCBoaWdoIHBlcmYg
-bmVzdGVkIGVudiBldmVuIHdpdGggc3cgYmFzZWQgZGV2aWNlLg0KDQpXaGF0IGNhbiBiZSBwb3Nz
-aWJseSBkb25lIGlzLCANCjEuIFdoYXQgYWRtaW4gY29tbWFuZHMgYXJlIHVzZWZ1bCBmcm9tIHRo
-aXMgc2VyaWVzIHRoYXQgY2FuIGJlIHVzZWZ1bCBmb3IgbmVzdGluZz8NCjIuIFdoYXQgYWRtaW4g
-Y29tbWFuZHMgZnJvbSBjdXJyZW50IHNlcmllcyBuZWVkcyBleHRlbnNpb24gZm9yIG5lc3Rpbmc/
-DQozLiBXaGF0IGFkbWluIGNvbW1hbmRzIGRvIG5vdCB3b3JrIGF0IGFsbCBmb3IgbmVzdGluZywg
-YW5kIGhlbmNlLCBuZWVkIHRvIGhhdmUgbmV3IGNvbW1hbmRzLg0KDQpJZiB3ZSBjYW4gZm9jdXMg
-b24gdGhvc2UsIG1heWJlIHdlIGNhbiBmaW5kIGNvbW1vbiBhcHByb2FjaCB0aGF0IGNhdGVyIHRv
-IGJvdGggY29tbWFuZHMuDQoNCj4gPiBEbyB5b3Uga25vdyBob3cgZG9lcyBpdCB3b3JrIGZvciBJ
-bnRlbCB4ODZfNjQ/DQo+ID4gQ2FuIGl0IGRvID4gMiBsZXZlbCBvZiBuZXN0ZWQgcGFnZSB0YWJs
-ZXM/IElmIG5vLCB3aGF0IGlzIHRoZSBwZXJmIGNoYXJhY3RlcmlzdGljcw0KPiB0byBleHBlY3Q/
-DQo+IG9mIGNvdXJzZSB0aGF0IGNhbiBiZSBkb25lLCBQYWdlIHRhYmxlIGlzIG5vdCBhIHByb2Js
-ZW0sIHRoZXJlIGFyZSBzb2Z0IG1tdQ0KPiBlbXVsYXRpb24gYW5kIHZpb21tdSwgdGhyb3VnaCBw
-ZXJmb3JtYW5jZSBvdmVyaGVhZC4NCg0KRHVlIHRvIHRoZSBwZXJmb3JtYW5jZSBvdmVyaGVhZHMs
-IEkgcmVhbGx5IGRvdWJ0IGFueSBjbG91ZCBvcGVyYXRvciB3b3VsZCB1c2UgcGFzc3Rocm91Z2gg
-dmlydGlvIGRldmljZSBmb3IgYW55IHNlbnNpYmxlIHdvcmtsb2FkLg0KQnV0IHlvdSBtYXkga25v
-dyBhbHJlYWR5IGhvdyBuZXN0ZWQgcGVyZm9ybWFuY2UgbG9va3MgbGlrZSB0aGF0IG1heSBiZSBh
-Y2NlcHRhYmxlIHRvIHVzZXJzLg0K
+On Tue, Oct 10, 2023 at 07:19:45AM +0000, Parav Pandit wrote:
+> 
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Tuesday, October 10, 2023 11:21 AM
+> > 
+> > On Mon, Oct 9, 2023 at 6:06 PM Parav Pandit <parav@nvidia.com> wrote:
+> > >
+> > > > From: Jason Wang <jasowang@redhat.com>
+> > > > Sent: Monday, October 9, 2023 2:19 PM
+> > > >
+> > > > Adding LingShan.
+> > > >
+> > > Thanks for adding him.
+> > >
+> > > > Parav, if you want any specific people to comment, please do cc them.
+> > > >
+> > > Sure, will cc them in v2 as now I see there is interest in the review.
+> > >
+> > > > On Sun, Oct 8, 2023 at 7:26 PM Parav Pandit <parav@nvidia.com> wrote:
+> > > > >
+> > > > > One or more passthrough PCI VF devices are ubiquitous for virtual
+> > > > > machines usage using generic kernel framework such as vfio [1].
+> > > >
+> > > > Mentioning a specific subsystem in a specific OS may mislead the
+> > > > user to think it can only work in that setup. Let's not do that,
+> > > > virtio is not only used for Linux and VFIO.
+> > > >
+> > > Not really. it is an example in the cover letter.
+> > > It is not the only use case.
+> > > A use case gives a crisp clarity of what UAPI it needs to fulfil.
+> > > So I will keep it. It is anyway written as one use case.
+> > >
+> > > > >
+> > > > > A passthrough PCI VF device is fully owned by the virtual machine
+> > > > > device driver.
+> > > >
+> > > > Is this true? Even VFIO needs to mediate PCI stuff. Or how do you
+> > > > define "passthrough" here?
+> > > >
+> > > Other than PCI config registers and due to some legacy, msix.
+> > > The "device interface" side is not mediated.
+> > > The definition of passthrough here is: To not mediate a device type specific
+> > and virtio specific interfaces for modern and future devices.
+> > 
+> > Ok, but what's the difference between "device type specific" and "virtio specific
+> > interfaces". Maybe an example for this?
+> > 
+> Virtio device specific means: cvq of crypto device, cvq of net device, flow filter vqs of net device etc.
+> Virtio specific interface: virtio driver notifications, virtio virtqueue and configuration mediation etc.
+> 
+> > >
+> > > > > This passthrough device controls its own device reset flow, basic
+> > > > > functionality as PCI VF function level reset
+> > > >
+> > > > How about other PCI stuff? Or Why is FLR special?
+> > > FLR is special for the readers to get the clarity that FLR is also done by the
+> > guest driver hence, the device migration commands do not interact/depend
+> > with FLR flow.
+> > 
+> > It's still not clear to me how this is done.
+> > 
+> > 1) guest starts FLR
+> > 2) adminq freeze the VF
+> > 3) FLR is done
+> > 
+> > If the freezing doesn't wait for the FLR, does it mean we need to migrate to a
+> > state like FLR is pending? If yes, do we need to migrate the other sub states like
+> > this? If not, why?
+> > 
+> In most practical cases #2 followed by #1 should not happen as on the source side the expected is mode change to stop from active.
+> But ok, since we active to freeze mode change is allowed, lets discuss above.
+> 
+> A device is the single synchronization point for any device reset, FLR or admin command operation.
+> So, the migration driver do not need to wait for FLR to complete.
+> When admin cmd freeze the VF it can expect FLR_completed VF.
+> Secondly since the FLR is local to the source, intermediate sub state does not migrate.
+> 
+> But I agree, it is worth to have the text capturing this.
+> 
+> > >
+> > > >
+> > > > > and rest of the virtio device functionality such as control vq,
+> > > >
+> > > > What do you mean by "rest of"?
+> > > >
+> > > As given in the example cvq.
+> > >
+> > > > Which part is not controlled and why?
+> > > Not controlled because as states, it is passthrough device.
+> > >
+> > > > > config space access, data path descriptors handling.
+> > > > >
+> > > > > Additionally, VM live migration using a precopy method is also widely
+> > used.
+> > > >
+> > > > Why is this mentioned here?
+> > > >
+> > > Huh. You should be positive for bringing clarity to the readers on
+> > understanding the use case.
+> > > And you seem opposite, but ok.
+> > >
+> > > As stated, it for the reader to understand the use case and see how proposed
+> > commands addresses the use case.
+> > 
+> > The problem is that the hardware features should be designed for a general
+> > purpose instead of a specific technology if it can. The only missing part for post
+> > copy is the page fault.
+> > 
+> Ok. The use case and requirement of member device passthrough is clear to most reviewers now.
+> So I will remove it from commit log.
+> 
+> > >
+> > > > >
+> > > > > To support a VM live migration for such passthrough virtio
+> > > > > devices, the owner PCI PF device administers the device migration flow.
+> > > >
+> > > > Well, if this is specific only to PCI SR-IOV, I'd move it to the PCI transport
+> > part.
+> > > > But I guess not.
+> > > We took the decision to not do so, for other group commands as well.
+> > > After Michael's suggestion we moved it to group commands.
+> > > So I will not debate this further.
+> > >
+> > > >
+> > > > >
+> > > > > This patch introduces the basic theory of operation which
+> > > > > describes the flow and supporting administration commands.
+> > > > >
+> > > > > [1]
+> > > > > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/t
+> > > > > ree/
+> > > > > include/uapi/linux/vfio.h?h=v6.1.47
+> > > > >
+> > > > > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
+> > > > > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > > > > ---
+> > > > >  admin-cmds-device-migration.tex | 94
+> > > > +++++++++++++++++++++++++++++++++
+> > > > >  admin.tex                       |  1 +
+> > > > >  2 files changed, 95 insertions(+)  create mode 100644
+> > > > > admin-cmds-device-migration.tex
+> > > > >
+> > > > > diff --git a/admin-cmds-device-migration.tex
+> > > > > b/admin-cmds-device-migration.tex new file mode 100644 index
+> > > > > 0000000..f839af4
+> > > > > --- /dev/null
+> > > > > +++ b/admin-cmds-device-migration.tex
+> > > > > @@ -0,0 +1,94 @@
+> > > > > +\subsubsection{Device Migration}\label{sec:Basic Facilities of a
+> > > > > +Virtio Device / Device groups / Group administration commands /
+> > > > > +Device Migration}
+> > > > > +
+> > > > > +In some systems, there is a need to migrate a running virtual
+> > > > > +machine from one to another system. A running virtual machine has
+> > > > > +one or more passthrough virtio member devices attached to it. A
+> > > > > +passthrough device is entirely operated by the guest virtual
+> > > > > +machine. For example, with the SR-IOV group type, group member
+> > > > > +(VF) may undergo virtio device initialization and reset flow
+> > > >
+> > > > What do you mean by "reset flow"? It looks not like a terminology
+> > > > defined in the PCI spec. And Google gives me nothing about this.
+> > > >
+> > > "reset flow" = virtio specification section 2.4 Device Reset flow.
+> > 
+> > My git repo show it's still called "device reset" and I see you use "FLR flow"
+> > which is also not very clear to me.
+> > 
+> Ok. I assume "reset flow" is clear to you now that it points to section 2.4.
+> This section is not normative section, so using an extra word like "flow" does not confuse anyone.
+> I will link to the section anyway.
+> 
+> > >
+> > > > > and may also undergo PCI function level
+> > > > > +reset(FLR) flow.
+> > > >
+> > > > Why is only FLR special here? I've asked FRS but you ignore the question.
+> > > >
+> > > FLR is special to bring clarity that guest owns the VF doing FLR, hence
+> > hypervisor cannot mediate any registers of the VF.
+> > 
+> > It's not about mediation at all, it's about how the device can implement what
+> > you want here correctly.
+> > 
+> > See my above question.
+> > 
+> Ok. it is clear that live migration commands cannot stay on the member device because the member device can undergo device reset and FLR flows owned by the guest.
+> (and hypervisor is not involved in these two flows, hence the admin command interface is designed such that it can fullfil above requirements).
+> 
+> Theory of operation brings out this clarity. Please notice that it is in introductory section with an example.
+> Not normative line.
+
+All this does beg the question of how is device undergoing flr though
+and that has to be in a normative statement.
+
+> > >
+> > > > > Such flows must comply to the PCI standard and also
+> > > > > +virtio specification;
+> > > >
+> > > > This seems unnecessary and obvious as it applies to all other PCI
+> > > > and virtio functionality.
+> > > >
+> > > Great. But your comment is contradicts.
+> > >
+> > > > What's more, for the things that need to be synchronized, I don't
+> > > > see any descriptions in this patch. And if it doesn't need, why?
+> > > With which operation should it be synchronized and why?
+> > > Can you please be specific?
+> > 
+> > See my above question regarding FLR. And it may have others which I haven't
+> > had time to audit.
+> > 
+> Ok. when you get chance to audit, lets discuss that time.
+> 
+> > >
+> > > It is not written in this series, because we believe it must not be synchronized
+> > as it is fully controlled by the guest.
+> > >
+> > > >
+> > > > > at the same time such flows must not obstruct
+> > > > > +the device migration flow. In such a scenario, a group owner
+> > > > > +device can provide the administration command interface to
+> > > > > +facilitate the device migration related operations.
+> > > > > +
+> > > > > +When a virtual machine migrates from one hypervisor to another
+> > > > > +hypervisor, these hypervisors are named as source and destination
+> > > > hypervisor respectively.
+> > > > > +In such a scenario, a source hypervisor administers the member
+> > > > > +device to suspend the device and preserves the device context.
+> > > > > +Subsequently, a destination hypervisor administers the member
+> > > > > +device to setup a device context and resumes the member device.
+> > > > > +The source hypervisor reads the member device context and the
+> > > > > +destination hypervisor writes the member device context. The
+> > > > > +method to transfer the member device context from the source to
+> > > > > +the destination hypervisor is
+> > > > outside the scope of this specification.
+> > > > > +
+> > > > > +The member device can be in any of the three migration modes. The
+> > > > > +owner driver sets the member device in one of the following modes
+> > > > > +during
+> > > > device migration flow.
+> > > > > +
+> > > > > +\begin{tabularx}{\textwidth}{ |l||l|X| } \hline Value & Name &
+> > > > > +Description \\ \hline \hline
+> > > > > +0x0   & Active &
+> > > > > +  It is the default mode after instantiation of the member
+> > > > > +device. \\
+> > > >
+> > > > I don't think we ever define "instantiation" anywhere.
+> > > >
+> > > Well a transport has implicit definition of the instantiation already.
+> > > May be a text can be added, but don’t see a value in duplicating PCI spec
+> > here.
+> > 
+> > Ok, maybe something like "transport specific instantiation"
+> > 
+> Ok. that’s a good text. I will change to it.
+> 
+> > >
+> > > > > +\hline
+> > > > > +0x1   & Stop &
+> > > > > + In this mode, the member device does not send any notifications,
+> > > > > +and it does not access any driver memory.
+> > > >
+> > > > What's the meaning of "driver memory"?
+> > > >
+> > > May be guest memory? Or do you suggest a better naming for the memory
+> > allocated by the guest driver?
+> > 
+> > Virtqueue?
+> > 
+> Virtqueue and any memory referred by the virtqueue.
+> 
+> This is good text, I will change to it.
+> 
+> > >
+> > > > And stop seems to be a source of inflight buffers.
+> > > >
+> > > I didn’t follow it.
+> > > If you mean without stop there are no inflight buffer, then I don’t agree.
+> > > We don’t want to violate the spec by having descriptors with zero size
+> > returned.
+> > > Stop is not the source of inflight descriptors.
+> > 
+> > I think not since you forbid access to the used ring here. So even if the buffer
+> > were processed by the device it can't be added back to the used ring thus
+> > became inflight ones.
+> > 
+> > >
+> > > There are inflight descriptors with the device that are not yet returned to the
+> > driver, and device wont return them as zero size wrong completions.
+> > >
+> > > > > + The member device may receive driver notifications in this mode,
+> > > >
+> > > > What's the meaning of "receive"? For example if the device can still
+> > > > process buffers, "stop" is not accurate.
+> > > >
+> > > Receive means, driver can send the notification as PCIe TLP that device may
+> > receive as incoming PCIe TLP.
+> > 
+> > Ok, so this is the transport level. But the device can keep processing the queue?
+> > 
+> Device cannot process the queue because it does not initiate any read/write towards the virtqueue.
+> 
+> > >
+> > > In "stop" mode, the device wont process descriptors.
+> > 
+> > If the device won't process descriptors, why still allow it to receive notifications?
+> Because notification may still arrive and if the device may update any counters as part of it which needs to be migrated or store the received notification.
+> 
+> > Or does it really matter if the device can receive or not here?
+> > 
+> From device point of view, the device is given the chance to update its device context as part of notifications or access to it.
+> 
+> > >
+> > > > > + the member device context
+> > > >
+> > > > I don't think we define "device context" anywhere.
+> > > >
+> > > It is defined further in the description.
+> > 
+> > Like this?
+> > 
+> > """
+> >  +The member device has a device context which the owner driver can  +either
+> > read or write. The member device context consist of any device  +specific data
+> > which is needed by the device to resume its operation  +when the device mode
+> > """
+> > 
+> Yes.
+> Further patch-3 adds the device context and also add the link to it in the theory of operation section so reader can read more detail about it.
+
+mention this in the commit log pls
+
+> > "Any" is probably too hard for vendors to implement. And in patch 3 I only see
+> > virtio device context. Does this mean we don't need transport
+> > (PCI) context at all? If yes, how can it work?
+> > 
+> Right. PCI member device is present at source and destination with its layout, only the virtio device context is transferred.
+> Which part cannot work?
+
+
+wait don't we need to transfer pci state too? how is that migrated?
+
+> > >
+> > > > >and device configuration space may change. \\
+> > > > > +\hline
+> > > >
+> > > > I still don't get why we need a "stop" state in the middle.
+> > > >
+> > > All pci devices which belong to a single guest VM are not stopped atomically.
+> > > Hence, one device which is in freeze mode, may still receive driver
+> > > notifications from other pci device,
+> > 
+> > Device may choose to ignore those notifications, no?
+> > 
+> > > or it may experience a read from the shared memory and get garbage data.
+> > 
+> > Could you give me an example for this?
+> > 
+> Section 2.10 Shared Memory Regions.
+> 
+> > > And things can break.
+> > > Hence the stop mode, ensures that all the devices get enough chance to stop
+> > themselves, and later when freezed, to not change anything internally.
+> > >
+> > > > > +0x2   & Freeze &
+> > > > > + In this mode, the member device does not accept any driver
+> > > > > +notifications,
+> > > >
+> > > > This is too vague. Is the device allowed to be freezed in the middle
+> > > > of any virtio or PCI operations?
+> > > >
+> > > > For example, in the middle of feature negotiation etc. It may cause
+> > > > implementation specific sub-states which can't be migrated easily.
+> > > >
+> > > Yes. it is allowed in middle of feature negotiation, for sure.
+> > > It is passthrough device, hence hypervisor layer do not get to see sub-state.
+> > >
+> > > Not sure why you comment, why it cannot be migrated easily.
+> > > The device context already covers this sub-state.
+> > 
+> > 1) driver writes driver_features
+> > 2) driver sets FEAUTRES_OK
+> > 
+> > 3) device receive driver_features
+> > 4) device validating driver_features
+> > 5) device clears FEATURES_OK
+> > 
+> > 6) driver read stats and realize FEATURES_OK is being cleared
+> > 
+> > Is it valid to be frozen of the above? 
+> No. device mode is frozen when hypervisor is sure that no more access by the guest will be done.
+> What can happen between #2 and #3, is device mode may change to stop.
+> And in stop mode, device context would capture #5 or #4, depending where is device at that point.
+> 
+> > >
+> > > > And what's more, the above state machine seems to be virtio
+> > > > specific, but you don't explain the interaction with the device status state
+> > machine.
+> > > First, above is not a state machine.
+> > 
+> > So how do readers know if a state can go to another state and when?
+> >
+> Not sure what you mean by reader. Can you please explain.
+> 
+> > > Second, it is not virtio specific.
+> > 
+> > It's somehow for sure, for example you said device context need to be
+> > preserved. And as far as I see the device context is all virtio specific in patch 3.
+> > 
+> Sure, device context is virtio specific. :)
+> Device context will reflect if things changed in the stop mode.
+> 
+> > > It is present in leading OS that has fundamental requirement to support P2P
+> > devices.
+> > 
+> > If it's PCI specific, instead of trying to do a workaround in virtio, why not invent
+> > a mechanism there?
+> > 
+> It is not a workaround in virtio.
+> It is the way pci p2p devices work for which one needs to be receptive to handle the interaction.
+> 
+> 
+> > > Third, it is not, interacing with the _actua_ device status.
+> > >
+> > > In "SUSPEND" patch-5, you already asked this question. I assume you asked
+> > again so that this series is complete.
+> > >
+> > > > For example,
+> > > > what happens if the driver wants to reset but the device is in stop
+> > > > mode? You told me it is addressed in your series but looks not. Once
+> > > > you try to describe that, you're actually try to connect states between the
+> > two state machines.
+> > > >
+> > > As listed in the definition of the stop mode, the device do not act on the
+> > incoming writes, it only keep tracks of its internal device context change as part
+> > of this.
+> > 
+> > So only the driver notification is allowed by not config write? What's the
+> > consideration for allowing driver notification?
+> > 
+> Because for most practical purposes, peer device wants to queue blk, net other requests and not do device configuration.
+> 
+> Do you know any device configuration space which is RW?
+> For net and blk I recall it as RO?
+
+No it isn't. Pls look at the spec if you need to check that ;)
+
+
+> > Let me ask differently, similar to FLR, what happens if the driver wants a virtio
+> > reset but the hypervisor wants to stop or freeze?
+> > 
+> The device would respond to stop/freeze request when it has internally started the reset, as device is the single synchronization point which knows how to handle both in parallel.
+> 
+> > > We would enrich the device context for this, but no need to connects the
+> > admin mode controlled by the owner device with operational state
+> > (device_status) owned by the member device.
+> > >
+> > > > > + it ignores any device configuration space writes,
+> > > >
+> > > > How about read and the device configuration changes?
+> > > >
+> > > As listed, device do not have any changes.
+> > > So device configuration change cannot occur.
+> > 
+> > It's not necessarily caused by config write, it could be things like link status or
+> > geometry changes that are initiated from the device.
+> > 
+> I understand it. Link status was one example, you listed other examples too.
+> The point is, when in freeze mode, the member device is frozen, hence, device won't initiate those changes.
+> 
+> > >
+> > > The device requirements cover this content more explicitly:
+> > >
+> > > For the SR-IOV group type, regardless of the member device mode, all
+> > > the PCI transport level registers MUST be always accessible and the
+> > > member device MUST function the same way for all the PCI transport level
+> > registers regardless of the member device mode.
+> > >
+> > > > > + the device do not have any changes in the device context. The
+> > > > > + member device is not accessed in the system through the virtio
+> > interface.
+> > > > > + \\
+> > > >
+> > > > But accessible via PCI interface?
+> > > >
+> > > Yes, as usual.
+> > >
+> > > > For example, what happens if we want to freeze during FLR? Does the
+> > > > hypervisor need to wait for the FLR to be completed?
+> > > >
+> > > Hypervisor do not need wait for the FLR to be completed.
+> > 
+> > So does FLR change device context?
+> Yes.
+> 
+> > 
+> > >
+> > > > > +\hline
+> > > > > +\hline
+> > > > > +0x03-0xFF   & -    & reserved for future use \\
+> > > > > +\hline
+> > > > > +\end{tabularx}
+> > > > > +
+> > > > > +When the owner driver wants to stop the operation of the device,
+> > > > > +the owner driver sets the device mode to \field{Stop}. Once the
+> > > > > +device is in the \field{Stop} mode, the device does not initiate
+> > > > > +any notifications or does not access any driver memory. Since the
+> > > > > +member driver may be still active which may send further driver
+> > > > > +notifications to the device, the device context may be updated.
+> > > > > +When the member driver has stopped accessing the device, the
+> > > > > +owner driver sets the device to \field{Freeze} mode indicating to
+> > > > > +the device that no more driver access occurs. In the
+> > > > > +\field{Freeze} mode, no more changes occur in the device context.
+> > > > > +At this point, the device ensures that
+> > > > there will not be any update to the device context.
+> > > >
+> > > > What is missed here are:
+> > > >
+> > > > 1) it is a virtio specific states or not
+> > > It is not.
+> > >
+> > > > 2) if it is a virtio specific state, if or how to synchronize with
+> > > > transport specific interfaces and why
+> > > > 3) can active go directly to freeze and why
+> > > >
+> > > Yes. don’t see a reason to not allow it.
+> > > Active to freeze mode can change is useful on the destination side, where
+> > destination hypervisor knows for sure that there is no other entity accessing the
+> > device.
+> > > And it needs to setup the device context, it received from the source side.
+> > > So setting freeze mode can be done directly.
+> > >
+> > > > > +
+> > > > > +The member device has a device context which the owner driver can
+> > > > > +either read or write. The member device context consist of any
+> > > > > +device specific data which is needed by the device to resume its
+> > > > > +operation when the device mode
+> > > >
+> > > > This is too vague. There're states that are not suitable for cmd/queue for
+> > sure.
+> > > > I'd split it into
+> > > >
+> > > > 1) common states: virtqueue, dirty pages
+> > > > 2) device specific states: defined be each device
+> > > >
+> > > This is theory of operation section. So it capturing such details.
+> > > Actual device context definition is outside of theory, and precise states of
+> > virtqueue, device specific, etc are in it.
+> > 
+> > See my comment above regarding to the device context.
+> > 
+> I replied above, device context link is added in the patch-3 in the theory of operation.
+> So reader gets the complete view.
+> 
+> > >
+> > > > > +is changed from \field{Stop} to \field{Active} or from
+> > > > > +\field{Freeze} to \field{Active}.
+> > > > > +
+> > > > > +Once the device context is read, it is cleared from the device.
+> > > >
+> > > > This is horrible, it means we can't easily
+> > > >
+> > > > 1) re-try the migration
+> > > > 2) recover from migration failure
+> > > >
+> > > Can you please explain the flow?
+> > 
+> > When migration fails, management can choose to resume the device(VM) on
+> > the source.
+> > 
+> ok. This should be possible as the management which has the device context, it can restore it on the source
+> and move the device mode to active.
+> 
+> > If the state were cleared, it means there's not simple way to resume the device
+> > but restoring the whole context.
+> > 
+> Yes, as you say, by restoring the whole context will suffice this corner/rare case scenario.
+> 
+> > What's the consideration for such clearing?
+> > 
+> There are two considerations.
+> 1.  If one does not clear, till how long should it be kept on the device?
+> 2. device context returns incremental value from the previous read. So, it needs to clear it.
+> 
+> > > And which software stack may find this useful?
+> > > Is there any existing software that can utilize it?
+> > 
+> > Libvirt.
+> > 
+> Does libvirt restore on migration failure?
+
+yes
+
+> > > Why that device context present with the software vanished, in your
+> > assumption, if it is?
+> > >
+> > > > > Typically, on
+> > > > > +the source hypervisor, the owner driver reads the device context
+> > > > > +once when the device is in \field{Active} or \field{Stop} mode
+> > > > > +and later once the member device is in \field{Freeze} mode.
+> > > >
+> > > > Why need the read while device context could be changed? Or is the
+> > > > dirty page part of the device context?
+> > > >
+> > > It is not part of the dirty page.
+> > > It needs to read in the active/stop mode, so that it can be shared with
+> > destination hypervisor, which will pre-setup the complex context of the device,
+> > while it is still running on the source side.
+> > 
+> > Is such a method used by any hypervisor? 
+> Yes. qemu which uses vfio interface uses it.
+> 
+> > 
+> > >
+> > > > > +
+> > > > > +Typically, the device context is read and written one time on the
+> > > > > +source and the destination hypervisor respectively once the
+> > > > > +device is in \field{Freeze} mode. On the destination hypervisor,
+> > > > > +after writing the device context, when the device mode set to
+> > > > > +\field{Active}, the device uses the most recently set device
+> > > > > +context and resumes the device
+> > > > operation.
+> > > >
+> > > > There's no context sequence, so this is obvious. It's the semantic
+> > > > of all other existing interfaces.
+> > > >
+> > > Can you please what which existing interfaces do you mean here?
+> > 
+> > For any common cfg member. E.g queue_addr.
+> > 
+> > The driver wrote 100 different values to queue_addr and the device used the
+> > value written last time.
+> > 
+> o.k. I don’t see any problem in stating what is done, which is less vague. 😊
+> 
+> > >
+> > > > > +
+> > > > > +In an alternative flow, on the source hypervisor the owner driver
+> > > > > +may choose to read the device context first time while the device
+> > > > > +is in \field{Active} mode and second time once the device is in
+> > > > > +\field{Freeze}
+> > > > mode.
+> > > >
+> > > > Who is going to synchronize the device context with possible
+> > > > configuration from the driver?
+> > > >
+> > > Not sure I understand the question.
+> > > If I understand you right, do you mean that, When configuration change
+> > > is done by the guest driver, how does device context change?
+> > >
+> > 
+> > Yes.
+> > 
+> > > If so, device context reading will reflect the new configuration.
+> > 
+> > How do you do that? For example:
+> > 
+> > static inline void vp_iowrite64_twopart(u64 val,
+> >                                         __le32 __iomem *lo,
+> >                                         __le32 __iomem *hi) {
+> >         vp_iowrite32((u32)val, lo);
+> >         vp_iowrite32(val >> 32, hi);
+> > }
+> > 
+> > Is it ok to be freezed in the middle of two vp_iowrite()?
+> > 
+> Yes. the device context VIRTIO_DEV_CTX_PCI_COMMON_RUNTIME_CFG section captures the partial value.
+> 
+> > >
+> > > > > Similarly, on the
+> > > > > +destination hypervisor writes the device context first time while
+> > > > > +the device is still running in \field{Active} mode on the source
+> > > > > +hypervisor and writes the device context second time while the
+> > > > > +device is in
+> > > > \field{Freeze} mode.
+> > > > > +This flow may result in very short setup time as the device
+> > > > > +context likely have minimal changes from the previously written device
+> > context.
+> > > >
+> > > > Is the hypervisor who is in charge of doing the comparison and
+> > > > writing only the delta?
+> > > >
+> > > The spec commands allow to do so. So possibility exists from spec wise.
+> > 
+> > There are various optimizations for migration for sure, I don't think mentioning
+> > any specific one is good.
+> > 
+> The text is informative text similar to,
+> 
+> " However, some devices benefit from the ability to find out the amount of available data in the queue without
+> accessing the virtqueue in memory"
+> 
+> " To help with these optimizations, when VIRTIO_F_NOTIFICATION_DATA has been negotiated".
+> 
+> Is this the only optimization in virtio? No, but we still mention the rationale of why it exists.
+> As long as the rationale do not confuse the reader, and adds the value explaining how things work, it is fine to add.
+> Which is what above few lines did.
+> So let's keep it.
+> 
+> The easiest is to cut out the whole theory of operation and just write commands like how RSS command did, without even writing a single line about RSS.
+> I think we can do better explanation than that for new things we add.
+
+yes i find it useful. of course now we are writing it, we also need
+it not to be confusing or partial.
+
+-- 
+MST
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
