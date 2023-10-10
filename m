@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7641-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7642-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6101CD68E3
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 02:15:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3462CD68EC
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 04:57:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 122202AC4B
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 02:15:03 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 37F047C3CA
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 04:57:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E3A1598655D
-	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 02:15:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2579098654A
+	for <virtio-comment@archiver.kernel.org>; Tue, 10 Oct 2023 04:57:28 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C676C9864C6; Tue, 10 Oct 2023 02:15:02 +0000 (UTC)
+	id 11BED986478; Tue, 10 Oct 2023 04:57:28 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,319 +24,144 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AE3F9986512;
-	Tue, 10 Oct 2023 02:15:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EF429986512
+	for <virtio-comment@lists.oasis-open.org>; Tue, 10 Oct 2023 04:57:27 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046060;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0Vtqy34A_1696904096;
-Message-ID: <52146d75-6110-476a-b157-ec6c20bbb2c1@linux.alibaba.com>
-Date: Tue, 10 Oct 2023 10:14:50 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aoWr8H3Y5/tUQEDYWNzoG6nXuqHHX++lsZMiFYVXhGrRkEaMTR5+vZLeNaPCbqs1mjpydQwMAnIFeOKeeUw9ABGvxKQ6f616FTv6251q6x6B6pk+1Quk/OSTs2z9/DVQMqZe3wxdKIK9hlq7Bs/dHjJbnHTSIZG4G9+sQvzs6hvRvmYgqj2yzd5UQq0UF8SkHGC6xJugWdPCFSex01HrWj6q6F8O7Dhs1a4b4WYgSXjsmiN0ot6YC+xRk/Zybz69/iu9i6FGbD0xyuHcfcam79S/WqmigIbwrLSK6XxjoXA3vJ+4D8Kd/64A8doCSpwFZ0Y29H0qQ/oq9C8fQS+Y2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8rfpcRuF28OXgSu7aCg9Wa5KuppPARiZIqhPc3zOOqw=;
+ b=OinF7zK12xx3PuBbzEwStX4TZ+drXRa/iAQLNuoE78eGzDhnM1EF9a+ywXOvIuFtTc0nYlHobQE03dR0168sqPj/iTfQOCcpmge4TP/vceq0UeK+zXgyMw5217+rjN/a+4d93sJB+KN4y8lltTPQyaERU7snbxchQZuc2Gq6H6Z675gJuJBH6Qj4dFiES/iIgxIbN8MCFn3we1UDoPEGTW0QT4rMVCjXUe/rDu4LSoYITUxe3fnqOuYuzffQfoLqyWt0anOpWlnrdubLpgKcLgSTordZ3FzizWWfUa/UT5ezfjkrBd8FSm3tOUAe/XZOuaw1KY3DesEUzQs7RmJ5TA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Parav Pandit <parav@nvidia.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>
+CC: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>,
+	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>, Shahaf Shuler
+	<shahafs@nvidia.com>
+Thread-Topic: [PATCH v3 0/2] Support enabling virtqueue after DRIVER_OK
+Thread-Index: AQHZ9O+aMt9Foa96jkaKzO+VCfy5erA19cYggAyMF4A=
+Date: Tue, 10 Oct 2023 04:57:24 +0000
+Message-ID:
+ <PH0PR12MB54817941AFA95235ECEE745ADCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231002051601.6626-1-parav@nvidia.com>
+ <PH0PR12MB5481828A211C0EE78AB63113DCC5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To:
+ <PH0PR12MB5481828A211C0EE78AB63113DCC5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|IA0PR12MB7774:EE_
+x-ms-office365-filtering-correlation-id: fc5f47fa-f51e-4a5c-a7eb-08dbc94d64f8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 3QCCak39Cd1ZaUf5znAnI+oHyGgZT5vZNGoyxbPYLsJR7QUP/GH5r8pVviqzzdTge3FHqujpVpx/fFGiu5nmtUssAB/DS/b5Arbu253EbA1/3Hl1HAkki4lf9o9J631S0AC03OP6hnAleCfbX1nbC5pEWLUl3vT3VATlWDc1UxOFqSr8nsTSHNEbg7vZMmpBa8nrUP+NXYuhRYtyRUpkofI0AM/v7Os02/nruPtQ+GKPAfUZyB17EO8WOhrBhpSnlmkncOa2YQzAjVDF+I6UX2T3WbAUsupAZ/hL1tuoX4vsBPDTzgQudRT+53ulYsvL9ougPjq2t22K9sADTnev1F+FHov4PWggvgDGOW1PeXlVZxCG0gQhpBZUsgqVE/hO2vuVUpOipElPkmYFgfNubeovcPjTmE4hMfcpQjphDMOawQ3DsR17c91zvMwJTn4CAmuco9iOYWK9d40tlfaYiMxAnIDOCHDvEmPVfiQwpS/rDO4yOxNRJbnYdAFJ1uPhIEm365406fkqF7UudM7rr5kvAw0NSE0Rjrlx3bXrGxLOgrh4Lk/Cwwv5Z2+zJLaldikQv94kwSehM2UZ4MlVxsRcXKqXmW3/S7RxSn3MPW9HGpVB/fP4tDRAKhj+h/pDtnXMF16y2oAt0524obGYbNlubcwvKU/Mllp6U0W8THk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(136003)(376002)(366004)(396003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(38100700002)(7696005)(6506007)(478600001)(966005)(71200400001)(26005)(107886003)(9686003)(66946007)(2906002)(54906003)(5660300002)(52536014)(4326008)(8936002)(76116006)(110136005)(8676002)(66446008)(64756008)(66476007)(66556008)(38070700005)(122000001)(33656002)(316002)(86362001)(41300700001)(83380400001)(55016003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?aFdSOUxYa2x5UEhDeFhRMUN4U01uVzRMVDYrNlVPVW1JZXpTYllDZUdwbi9Y?=
+ =?utf-8?B?bHJLZVpaTjlMcU1kSHc5VXhFYzRtUUVBajRvdWs0eVo5Q05PQnpJRkdwYm9Z?=
+ =?utf-8?B?blVCTTRTMEkvdFNGeTgwVXMrM3pmTmZNRWROeDNSd3NRTXhIMmlHUEpGb2di?=
+ =?utf-8?B?WnJTbnJ1UzZnVy9Na3VXV3Zndy9YUlR5ajM1cEQzYzZVNmRNU0dzeEM2UGFm?=
+ =?utf-8?B?YU11TTV5bkZ2NGVXeFRHd3RSclI0dnE0TWwzZzlWUHdzWGgyVFQ2WkF3Szlp?=
+ =?utf-8?B?WnhWeGd5ak9oaC9zREpJOFpndlhZeWE4Z3JzanN5YVUzdjgvTUJOdHdxYWlr?=
+ =?utf-8?B?ZkdKUGVtYjk4SEk3L3czcDNpUGkreVkwWVVGSHZGWisvcEtCdWtuQkh3czlB?=
+ =?utf-8?B?U1o1bzJlZkF3WXcycHg4c2JSZzRIOW81Mm5WVUYwUjRtdzUzWU12YVJ4d01y?=
+ =?utf-8?B?VXNaWHk2dXdHc2huMFJ2K0dMUmJodTQveU9mWnFxQ0VBakpvWk9FaEtQcy94?=
+ =?utf-8?B?WTEyMDZmcllxMENMNnkyL3FxSkozd3pDWnRBcmYzK2xRUVpHSTF3WXpya25p?=
+ =?utf-8?B?MXdweE9IMTVONytUenIySDkrSE5uYTdFb0FZTWdERnVMR1d0ekhwcGhJaUV1?=
+ =?utf-8?B?Z2NBclh2Zk9lQWNJb3hDdEwrUTU3am1tQWUxcktCL1kvZEJtVWxpT0Z5TmtT?=
+ =?utf-8?B?Z1hkS2NTOXdMMEdFR0hYelByZFUrclBRUm1uN1pwRlo5VTl5eUtueXZkTW9G?=
+ =?utf-8?B?cktaSVZnK2JJdGJZazRIUnM1aGNSZXFKUUo1RlBNVUpmZlpxTkREdTRPamdX?=
+ =?utf-8?B?QXlmQmdxZlJkNkVhcFdsemtVWTIwem1JZGxGbUt2ZWozbG55b2JJVUhNMU5L?=
+ =?utf-8?B?N1RJZGhuQTl6V2J1WUxBclBPcjdjRTNYWWRNR3Vxa0ppV2RFM203TmFWTXZL?=
+ =?utf-8?B?bXZZdnMwbWZ3SGhzdU04bnE5S2d5cnd4VWk1T2laa01SUkFSNm5PdDU4UzVV?=
+ =?utf-8?B?b2ZZeW5GVTVvTVh6b0NCN0J3RGM2aFIrV0UxWDNzM0twQVArQ2wva1R6M1VW?=
+ =?utf-8?B?ei9sUTBXenJVTnVyNHRtblNtT0dzVU9nOG4yR3RlWmxyaFVlcXJFT3hGMkw5?=
+ =?utf-8?B?OGRFSmhMZkRndFNUaW5qSTQ3UG4rYXV3THpPUkVTbGlEakhJdmVNT1AxRTQv?=
+ =?utf-8?B?VE15SHY1Z3Q3U1FIVExIYisrRWpQVW9sNEV4a1MvaEFYUUZ5RDBhd3JQNC8w?=
+ =?utf-8?B?RTFIOGhkT2lMVFNQME9EaUc1NWNLNXk4VW55QTlJeVpVME9kQU5kUDkzNlV0?=
+ =?utf-8?B?c0VyV1RURWlyaXN0bVpNSnk1NWZiVXc4UlNtcVRzbDZUZnA4ai9jeU05Smw1?=
+ =?utf-8?B?SThiS3dGeVRVYWJwaE90cWh5S2ZDaEFJNVFWNDJ4cnBHTU5TRitPRkNwaS9B?=
+ =?utf-8?B?VVhpV1FhUXc5ODhjcjB5N2QvQ0lGT1UzR1hFelAxcnczRFphaHQxaU5JQTFZ?=
+ =?utf-8?B?MHVRS0diR29lWldibDAwVGZTSjBLUFljWmFjWGkwRVcvb3hjb3pKOVllYm1v?=
+ =?utf-8?B?dVpkM2VwZERKcXdWQ092QWdLOVByazZHS0Q3MVdkSHhLRUJXS2QvS1NIRW9u?=
+ =?utf-8?B?TUtXd2lHVndBZlBvS2ltc0x3TWtaUjZFMURmS05GQ2x3YW5RU1RsWkZ5ZGxJ?=
+ =?utf-8?B?S215U3NHb1F3NmwvR2x1b05CRXlsbE9NUnNLV0hnWkpHM1JPdGtQaU9nUHUx?=
+ =?utf-8?B?RGlpMlBlam40RW9ocWFNOVA4S1FndytDZ29KRWZSSDhiUml2ZUFiMmJDcC9h?=
+ =?utf-8?B?blBDNWNWeGJteHR5ZGc2b3oySFUvc0dUOVhrcDVxaW1BekNJcGh0b2ZNdUdM?=
+ =?utf-8?B?azNsS0YvR2p6eXFqekY0L202UExqTmR2dVFsUTlWQWpvSzlTQ0EvbThRdkJE?=
+ =?utf-8?B?RFpYMWJKdDVGdmxxdWMyd1cyaWRQK1YzaytRUEJrVERad2FEQ2pEWHQ2aDZu?=
+ =?utf-8?B?UnNIdGczNkRFc0tNZjJiZEVSc3RDVDRqNnV3T0hmUnN5bDFWN2p5VHpvakQ2?=
+ =?utf-8?B?bkhteUgxSk1OeXcyQjFDc2pnRjlRemtJcVpjWVNpcVkvK1VqbVg4WHlzdzdK?=
+ =?utf-8?Q?DdIw=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Satananda Burla <sburla@marvell.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, Parav Pandit <parav@nvidia.com>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Yuri Benditovich <yuri.benditovich@daynix.com>
-References: <20230901093444.115447-1-hengqi@linux.alibaba.com>
- <bb6078ab-cba8-467c-85f4-ef7a4d2f3371@linux.alibaba.com>
- <SJ0PR18MB4477DECDA07697C306531080C3CEA@SJ0PR18MB4477.namprd18.prod.outlook.com>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <SJ0PR18MB4477DECDA07697C306531080C3CEA@SJ0PR18MB4477.namprd18.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [virtio-dev] RE: [EXT] [virtio-dev] Re: [virtio-comment] [PATCH
- v2] virtio-net: support the RSS context
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc5f47fa-f51e-4a5c-a7eb-08dbc94d64f8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2023 04:57:24.6547
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: G1CnVfOEpADQNkJOdFTY4erKXwnr1IHnyXs+iOwYiD0HV1P8nlQ2s0Q/qOAsaQe90uiZfxxegEMn80MpJTyIMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7774
+Subject: [virtio-comment] RE: [PATCH v3 0/2] Support enabling virtqueue after DRIVER_OK
 
-Hi Satananda!
-
-在 2023/10/10 上午7:46, Satananda Burla 写道:
->
->> -----Original Message-----
->> From: virtio-dev@lists.oasis-open.org <virtio-dev@lists.oasis-open.org>
->> On Behalf Of Heng Qi
->> Sent: Tuesday, September 5, 2023 7:04 PM
->> To: virtio-comment@lists.oasis-open.org; virtio-dev@lists.oasis-open.org
->> Cc: Michael S . Tsirkin <mst@redhat.com>; Parav Pandit
->> <parav@nvidia.com>; Jason Wang <jasowang@redhat.com>; Xuan Zhuo
->> <xuanzhuo@linux.alibaba.com>; Yuri Benditovich
->> <yuri.benditovich@daynix.com>
->> Subject: [EXT] [virtio-dev] Re: [virtio-comment] [PATCH v2] virtio-net:
->> support the RSS context
->>
->> External Email
->>
->> ----------------------------------------------------------------------
->> Hi all!
->>
->> Do you have any comments on this?
->>
->> Thanks!
->>
->> 在 2023/9/1 下午5:34, Heng Qi 写道:
->>> Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support RSS
->> spreading of
->>> filter matches") adds support for RSS context as a destination for
->> receive flow filters
->>> (see WIP work: https://urldefense.proofpoint.com/v2/url?u=https-
->> 3A__lists.oasis-2Dopen.org_archives_virtio-
->> 2Dcomment_202308_msg00194.html&d=DwIDaQ&c=nKjWec2b6R0mOyPaz7xtfQ&r=NHDPs
->> fcAYlN2z-
->> NXHHG4WB09qqS0voo_nf6_kGS625A&m=4OCN2dGMPgHxDFGtU81zZGzzaFYjTALBtQsWL230
->> DoinsHzHA-
->> RVOOoF4XqITQuy&s=8MdvZRKdXb3tdMZuldE3Ed6VGmaKPPxc8vGxVyRb_Qc&e= ).
->>> An RSS context consists of configurable parameters specified by
->> receive-side scaling.
->>> Use case:
->>> When users want some data flows to be steered to specific multiple
->> rxqs, they can set
->>> receive flow filter rules for these data flows to an RSS context with
->> desired rxqs.
->>> How to set/configure an RSS context:
->>> Assuming no RSS context has been created before.
->>> 1. ethtool -X eth0 context new start 5 equal 8
->>>
->>> This command creates an RSS context with an id=1 for eth0, and fills
->> in the indirection
->>> table with rxq indexes 5-8 circularly. The hash key and hash types
->> reuse the default
->>> RSS configuration.
->>>
->>> Then, we can use 'ethtool -x eth0 context 1' to query the above
->> configuration.
->>> 2. ethtool -X eth0 context new start 6 equal 7 \
->>>      hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
->>>
->> 1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:
->> f3
->>> This command creates an RSS context with an id=2 for eth0, and fills
->> in the indirection
->>> table with rxq indexes 6-7 circularly. The hash key is
->> 8f:bf:dd:11:23:58:d2:8a:00:31:d0\
->> :32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f
->> :18:dd:4d:c8:f3.
->>> Hash types reuse the default RSS configuration.
->>>
->>> 3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
->>>
->>> This command specifies the hash types for the RSS context whose id=1
->> on eth0.
->>> Now this RSS context only has the hash key to reuse the default RSS
->> configuration.
->>> 4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
->>>
->>> This command configures a receive flow filter rule for eth0, and the
->> data flow matching
->>> this rule will continue to select the final rxq according to the RSS
->> context configuration
->>> with id=1.
->>>
->>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
->>> Signed-off-by: Parav Pandit <parav@nvidia.com>
->>> ---
->>> v1->v2:
->>>       1. u8 to le16 for field rss_ctx_id.
->>>       2. Add normativation when device resetting. @Yuri Benditovich
->>>       3. Use ctrlq cmd to query rss context capability instead of
->> reading config space. @Parav Pandit
->>>    device-types/net/description.tex        | 85
->> +++++++++++++++++++++++++
->>>    device-types/net/device-conformance.tex |  1 +
->>>    device-types/net/driver-conformance.tex |  1 +
->>>    3 files changed, 87 insertions(+)
->>>
->>> diff --git a/device-types/net/description.tex b/device-
->> types/net/description.tex
->>> index 76585b0..55cd86d 100644
->>> --- a/device-types/net/description.tex
->>> +++ b/device-types/net/description.tex
->>> @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types /
->> Network Device / Feature bits
->>>    \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through
->> control
->>>        channel.
->>>
->>> +\item[VIRTIO_NET_F_RSS_CONTEXT(50)] Device supports multiple RSS
->> contexts.
->>> +
->>>    \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header
->> hash for encapsulated packets.
->>>    \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue
->> notification coalescing.
->>> @@ -150,6 +152,7 @@ \subsubsection{Feature bit
->> requirements}\label{sec:Device Types / Network Device
->>>    \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
->>>    \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
->>>    \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along
->> with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
->>> +\item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and
->> VIRTIO_NET_F_RSS.
->>>    \end{description}
->>>
->>>    \subsubsection{Legacy Interface: Feature bits}\label{sec:Device
->> Types / Network Device / Feature bits / Legacy Interface: Feature bits}
->>> @@ -1606,6 +1609,88 @@ \subsubsection{Control
->> Virtqueue}\label{sec:Device Types / Network Device / Devi
->>>    \item If the destination receive queue is being reset (See
->> \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue
->> Reset}), the device MUST drop the packet.
->>>    \end{itemize}
->>>
->>> +\paragraph{RSS Context}\label{sec:Device Types / Network Device /
->> Device Operation / Control Virtqueue / RSS Context}
->>> +
->>> +An RSS context consists of configurable parameters specified by
->> \ref{sec:Device Types / Network Device
->>> +/ Device Operation / Control Virtqueue / Receive-side scaling (RSS)}.
->>> +
->>> +The RSS configuration supported by VIRTIO_NET_F_RSS is considered the
->> default RSS configuration.
->>> +
->>> +The device offers the feature VIRTIO_NET_F_RSS_CONTEXT if it supports
->> one or multiple RSS contexts
->>> +(excluding the default RSS configuration) and configurable
->> parameters.
->>> +
->>> +\subparagraph{Querying RSS Context Capability}\label{sec:Device Types
->> / Network Device / Device Operation / Control Virtqueue / RSS Context /
->> Querying RSS Context Capability}
->>> +
->>> +\begin{lstlisting}
->>> +#define VIRTNET_RSS_CTX_CTRL 8
->>> + #define VIRTNET_RSS_CTX_CTRL_CAP_GET  0
->>> + #define VIRTNET_RSS_CTX_CTRL_ADD      1
->>> + #define VIRTNET_RSS_CTX_CTRL_MOD      2
->>> + #define VIRTNET_RSS_CTX_CTRL_DEL      3
->>> +
->>> +struct virtnet_rss_ctx_cap {
->>> +    le16 max_rss_contexts;
->>> +}
->>> +\end{lstlisting}
->>> +
->>> +Field \field{max_rss_contexts} specifies the maximum number of RSS
->> contexts \ref{sec:Device Types / Network Device /
->>> +Device Operation / Control Virtqueue / RSS Context} supported by the
->> device.
->>> +
->>> +The driver queries the RSS context capability of the device by
->> sending the command VIRTNET_RSS_CTX_CTRL_CAP_GET
->>> +with the structure virtnet_rss_ctx_cap.
->>> +
->>> +For the command VIRTNET_RSS_CTX_CTRL_CAP_GET, the structure
->> virtnet_rss_ctx_cap is write-only for the device.
->>> +
->>> +\subparagraph{Setting RSS Context Parameters}\label{sec:Device Types
->> / Network Device / Device Operation / Control Virtqueue / RSS Context /
->> Setting RSS Context Parameters}
->>> +
->>> +\begin{lstlisting}
->>> +struct virtnet_rss_ctx_add_modify {
->>> +    le16 rss_ctx_id;
->>> +    le16 padding;
->>> +    struct virtio_net_rss_config rss;
->>> +};
->>> +
->>> +struct virtnet_rss_ctx_del {
->>> +    le16 rss_ctx_id;
->>> +};
->>> +\end{lstlisting}
->>> +
->>> +RSS context parameters:
->>> +\begin{itemize}
->>> +\item  \field{rss_ctx_id}: ID of the specific RSS context.
->>> +\item  \field{rss}: RSS context parameters of the specific RSS
->> context whose id is \field{rss_ctx_id}.
->>> +\end{itemize}
->>> +
->>> +\field{padding} is reserved and it is ignored by the device.
->>> +
->>> +If the feature VIRTIO_NET_F_RSS_CONTEXT has been negotiated, the
->> driver can send the following
->>> +VIRTNET_RSS_CTX_CTRL class commands:
->>> +\begin{enumerate}
->>> +\item VIRTNET_RSS_CTX_CTRL_ADD: use the structure
->> virtnet_rss_ctx_add_modify to
->>> +       add an RSS context configured as \field{rss} and id as
->> \field{rss_ctx_id} for the device.
->>> +\item VIRTNET_RSS_CTX_CTRL_MOD: use the structure
->> virtnet_rss_ctx_add_modify to
->>> +       configure parameters of the RSS context whose id is
->> \field{rss_ctx_id} as \field{rss} for the device.
->>> +\item VIRTNET_RSS_CTX_CTRL_DEL: use the structure virtnet_rss_ctx_del
->> to delete
->>> +       the RSS context whose id is \field{rss_ctx_id} for the device.
->>> +\end{enumerate}
->>> +
->>> +For commands VIRTNET_RSS_CTX_CTRL_ADD and VIRTNET_RSS_CTX_CTRL_MOD,
->> the structure virtnet_rss_ctx_add_modify is read-only for the device.
->>> +For the command VIRTNET_RSS_CTX_CTRL_DEL, the structure
->> virtnet_rss_ctx_del is read-only for the device.
->>> +
->>> +\devicenormative{\subparagraph}{RSS Context}{Device Types / Network
->> Device / Device Operation / Control Virtqueue / RSS Context}
->>> +
->>> +The device MUST set \field{max_rss_contexts} to at least 1 if it
->> offers VIRTIO_NET_F_RSS_CONTEXT.
->>> +
->>> +Upon reset, the device MUST clear all previously configured RSS
->> contexts.
->>> +
->>> +\drivernormative{\subparagraph}{RSS Context}{Device Types / Network
->> Device / Device Operation / Control Virtqueue / RSS Context}
->>> +
->>> +The driver MUST have negotiated the VIRTIO_NET_F_RSS_CONTEXT feature
->> when issuing the VIRTNET_RSS_CTX_CTRL class commands.
->>> +
->>> +The driver MUST set \field{rss_ctx_id} to between 1 and
->> \field{max_rss_contexts} inclusive.
->>> +
->>> +The driver MUST NOT send the command VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET
->> when the device has successfully configured at least one RSS context.
->>> +
-> What happens if a rss context with flow classification rules associated
-> with it is deleted? Are the rules are also then deleted?
-> Or is such a delete operation not allowed? Can we add a statement describing
-
-The RSS context cannot be deleted when it is referenced by a rule in RFF.
-The RSS context can then be deleted when all rules that referenced it 
-have been removed.
-
-Why is this not added to the requirement:
-RSS context is not yet referenced by RFF (i.e. the destination of RFF is 
-a single rxq). This is because
-we keep the RSS context and RFF orthogonal for the time being. So that 
-the RSS context does
-not block the advancement of RFF.
-
-Also, RFF is not merged into mainline now. When the RSS context is 
-complete, we can update
-the statement in the RFF requirements; or when the RFF is complete, we 
-can update the statement
-in both the RFF and RSS context.
-
-Thanks!
-
-> the behavior?
-> Otherwise looks good to me.
->
-> Regards
-> Satananda
->
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+SGkgTWljaGFlbCwgQ29ybmVsaWEsDQoNCj4gRnJvbTogdmlydGlvLWNvbW1lbnRAbGlzdHMub2Fz
+aXMtb3Blbi5vcmcgPHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLQ0KPiBvcGVuLm9yZz4gT24g
+QmVoYWxmIE9mIFBhcmF2IFBhbmRpdA0KPiBTZW50OiBNb25kYXksIE9jdG9iZXIgMiwgMjAyMyAx
+MDo1MCBBTQ0KDQo+IEhpIE1pY2hhZWwsIENvcm5lbGlhLA0KPiANCj4gDQo+ID4gRnJvbTogUGFy
+YXYgUGFuZGl0IDxwYXJhdkBudmlkaWEuY29tPg0KPiA+IFNlbnQ6IE1vbmRheSwgT2N0b2JlciAy
+LCAyMDIzIDEwOjQ2IEFNDQo+ID4NCj4gPiBTdW1tYXJ5Og0KPiA+ID09PT09PT09DQo+ID4gVGhp
+cyBwYXRjaCBlbmFibGVzIGRyaXZlciB0byBjcmVhdGUgdmlydHF1ZXVlcyBhZnRlciBEUklWRVJf
+T0sgc3RhdHVzIGJpdCBpcw0KPiBzZXQuDQo+ID4NCj4gPiBUaGlzIHBhdGNoIHRha2UgdGhlIGlu
+c3BpcmF0aW9uIGZyb20gdGhlIHRocmVhZCBbMl0gd2l0aCBjcmVkaXRzIHRvIEV1Z2VuaW8NCj4g
+UMODcmV6Lg0KPiA+DQo+ID4NCj4gPiBVc2UgY2FzZXM6DQo+ID4gPT09PT09PT09DQo+ID4gMS4g
+RHluYW1pY2FsbHkgY3JlYXRlIGFxIHdoZW4gYWRtaW5pc3RyYXRpdmUgY29tbWFuZHMgdG8gYmUg
+dXNlZC4NCj4gPiBhdGUgdGhlIG5ldCBkZXZpY2UgdHgvcnhxIHdoZW4gZGV2aWNlIGlzDQo+ID4g
+ICAgb3BlbmVkIHdoZW4gZGVwbG95aW5nIGZvciBhIGNvbnRhaW5lci4NCj4gPiAgICBJbiBhIGNv
+bnRhaW5lciwgbnVtYmVyIG9mIHZpcnRxdWV1ZXMgdG8gYmUgdXNlZCBtYXkgYmUgPD0gbWF4IHF1
+ZXVlcy4NCj4gPiAzLiBEeW5hbWljYWxseSBjcmVhdGUgZmxvdyBmaWx0ZXIgcXVldWVzIG9mIG5l
+dGRldmljZSB3aGVuDQo+ID4gICAgQVJGUyBvciBldGh0b29sIGZpbHRlcnMgYXJlIGVuYWJsZWQg
+YXMgbGlzdGVkIGluIFsxXS4NCj4gPiA0LiBEeW5hbWljYWxseSBjcmVhdGUgcnRjIGZ1bmN0aW9u
+YWxpdHkgcmVsYXRlZCByZWFkIHZpcnRxdWV1ZSBvbmx5DQo+ID4gICAgd2hlbiBuZXQgZGV2aWNl
+IHdoZW4gdGltZXN0YW1waW5nIHRvIGJlIHVzZWQuDQo+ID4gNS4gV2hlbiBYRFAgcHJvZ3JhbSBp
+cyBzZXQsIG9uZSBjYW4gY3JlYXRlIGFkZGl0aW9uYWwgWERQIHNwZWNpZmljDQo+ID4gICAgcXVl
+dWVzIHdpdGhvdXQgYWZmZWN0aW5nIGV4aXN0aW5nIHF1ZXVlcy4NCj4gPg0KPiA+IEhlbmNlLCBU
+aGlzIHBhdGNoIGludHJvZHVjZXMgYW4gZXhpc3RpbmcgcXVldWUgZW5hYmxlIGFuZCBkaXNhYmxl
+IChha2ENCj4gPiByZXNldCkgZmFjaWxpdHkgYW5kIGEgbmV3IGZlYXR1cmUgYml0IHRvIGV4cGxp
+Y2l0bHkgaW5kaWNhdGUgc3VjaCBzdXBwb3J0IGJ5IHRoZQ0KPiBkZXZpY2UuDQo+ID4NCj4gPiBX
+aXRoIHRoaXMgZmVhdHVyZSwgZHJpdmVycyBjYW4gc2tpcCBvcHRpb25hbCBxdWV1ZXMgY3JlYXRp
+b24gZHVyaW5nDQo+ID4gZHJpdmVyIGluaXQgdGltZS4gRm9yIGV4YW1wbGUsIGEgTGludXggbmV0
+IGRldmljZSBkcml2ZXIgY2FuDQo+ID4gY3JlYXRlL2Rlc3Ryb3kgdGhlIHRyYW5zbWl0IGFuZCBy
+ZWNlaXZlIHF1ZXVlcyB3aGVuIG5ldCBkZXZpY2Uncw0KPiA+IG5kb19vcGVuKCkgYW5kIG5kb19z
+dG9wKCkgY2FsbGJhY2tzIGFyZSBpbnZva2VkIHJlc3BlY3RpdmVseS4NCj4gPg0KPiA+IFsxXSBo
+dHRwczovL2xpc3RzLm9hc2lzLW9wZW4ub3JnL2FyY2hpdmVzL3ZpcnRpby0NCj4gPiBjb21tZW50
+LzIwMjMwOC9tc2cwMDI2My5odG1sDQo+ID4gWzJdIGh0dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5v
+cmcvYXJjaGl2ZXMvdmlydGlvLQ0KPiA+IGNvbW1lbnQvMjAyMzA2L21zZzAwMDk3Lmh0bWwNCj4g
+Pg0KPiA+IFBhdGNoIHN1bW1hcnk6DQo+ID4gPT09PT09PT09PT09PT0NCj4gPiBwYXRjaC0xIGZp
+eGVzIHRvIGFkZCB2aXJ0cXVldWUgcmVzZXQgY29uZm9ybWFuY2UgcmVmZXJlbmNlcw0KPiA+IHBh
+dGNoLTIgYWRkcyBWSVJUSU9fRl9SSU5HX0RZTkFNSUMgZmVhdHVyZSBiaXQsIHJlcXVpcmVtZW50
+cw0KPiA+DQo+ID4gUGxlYXNlIHJldmlldy4NCj4gPg0KPiA+IEZpeGVzOiBodHRwczovL2dpdGh1
+Yi5jb20vb2FzaXMtdGNzL3ZpcnRpby1zcGVjL2lzc3Vlcy8xNzcNCiANCj4gSSBoYXZlIHVwZGF0
+ZWQgdjMgdG8gbGluayB0byB0aGUgZ2l0aHViIGlzc3VlLg0KPiBOb3cgdGhhdCB0aGlzIHNtYWxs
+IGZlYXR1cmUgd2FzIHVwIGZvciBmZXcgd2Vla3MsIGNhbiB5b3UgcGxlYXNlIGNyZWF0ZSB0aGUN
+Cj4gYmFsbG90IHJldmlldz8NCg0KQ2FuIHlvdSBwbGVhc2UgY3JlYXRlIGJhbGxvdCByZXZpZXcg
+Zm9yIDEuND8NCg==
 
