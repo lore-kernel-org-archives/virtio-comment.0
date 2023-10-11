@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7657-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7658-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E9CDCD98C7
-	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 06:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE91CD6E56
+	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 10:08:08 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 48364330A1
-	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 06:43:24 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3C38D42D79
+	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 10:08:07 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2619A986828
-	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 06:43:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 192E698660D
+	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 10:08:07 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 054119865E0; Wed, 11 Oct 2023 06:43:24 +0000 (UTC)
+	id EABFE986602; Wed, 11 Oct 2023 10:08:06 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,174 +24,181 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E7D0B9865E9
-	for <virtio-comment@lists.oasis-open.org>; Wed, 11 Oct 2023 06:43:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DAC50986603
+	for <virtio-comment@lists.oasis-open.org>; Wed, 11 Oct 2023 10:08:06 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046059;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0VtvZTXm_1697006598;
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: virtio-comment@lists.oasis-open.org
-Cc: Jason Wang <jasowang@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Parav Pandit <parav@nvidia.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Date: Wed, 11 Oct 2023 14:43:18 +0800
-Message-Id: <40b847baf9158cac8c23cb97dd643f768e3a6e05.1697006458.git.hengqi@linux.alibaba.com>
-X-Mailer: git-send-email 2.19.1.6.gb485710b
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="388495224"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; 
+   d="scan'208";a="388495224"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="730440196"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; 
+   d="scan'208";a="730440196"
+Message-ID: <cbf6b0b4-c49f-6809-cac8-2d8336a8cc76@intel.com>
+Date: Wed, 11 Oct 2023 18:07:58 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.15.1
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+ <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>,
+ Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-4-parav@nvidia.com>
+ <20231008073912-mutt-send-email-mst@kernel.org>
+ <2fa89e37-a097-d785-e1ee-cda151b0d872@intel.com>
+ <DM8PR12MB548001B88B5FA72B403A2AC9DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <85c59856-b68e-940c-08ed-a14e5a02554d@intel.com>
+ <PH0PR12MB548135EDA034FDF7AE77C5FDDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB548135EDA034FDF7AE77C5FDDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH] virtio-net: support distinguishing between partial and full checksum
+Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
+ device context fields for device migration
 
-virtio-net works in a virtualized system and is somewhat different from
-physical nics. One of the differences is that to save virtio device
-resources, rx may receive packets with partial checksum. However, XDP may
-cause partially checksummed packets to be dropped. So XDP loading conflicts
-with the feature VIRTIO_NET_F_GUEST_CSUM.
 
-This patch lets the device to supply fully checksummed packets to the driver.
-Then XDP can coexist with VIRTIO_NET_F_GUEST_CSUM to enjoy the benefits of
-device verification checksum.
 
-In addition, implementation of some performant devices do not generate partially
-checksummed packets, but the standard driver still need to clear
-VIRTIO_NET_F_GUEST_CSUM when loading XDP. If these devices negotiate the
-new feature provided by this patch, then the driver can load XDP.
-
-A new feature bit VIRTIO_NET_F_GUEST_FULL_CSUM is added to solve the above
-situation, which forces the device to supply fully checksummed packets
-to the driver.
-
-Use case example:
-If VIRTIO_NET_F_GUEST_FULL_CSUM is negotiated and after XDP processes a packet
-with full checksum, the VIRTIO_NET_HDR_F_DATA_VALID bit is still retained,
-resulting in the stack not needing to validate the checksum again. This is
-useful for guests with performant devices: e.g. bringing the driver advantages
-such as cpu savings.
-
-Several solutions have been discussed in the previous proposal[1].
-After historical discussion, we have tried the method proposed by Jason[2],
-but some complex scenarios and challenges are difficult to deal with.
-We now return to the method suggested in [1].
-
-[1] https://lists.oasis-open.org/archives/virtio-dev/202305/msg00291.html
-[2] https://lore.kernel.org/all/20230628030506.2213-1-hengqi@linux.alibaba.com/
-
-Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
----
- device-types/net/description.tex | 38 +++++++++++++++++++++++++++-----
- 1 file changed, 32 insertions(+), 6 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 76585b0..a63d497 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-     channel.
- 
-+\item[VIRTIO_NET_F_GUEST_FULL_CSUM (50)] Driver handles packets with full checksum.
-+
- \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
- 
- \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
-@@ -133,6 +135,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
-+\item[VIRTIO_NET_F_GUEST_FULL_CSUM] Requires VIRTIO_NET_F_GUEST_CSUM.
- 
- \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
-@@ -390,6 +393,11 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
- \ref{sec:Device Types / Network Device / Device Operation /
- Processing of Incoming Packets}~\nameref{sec:Device Types /
- Network Device / Device Operation / Processing of Incoming Packets} below.
-+
-+\item The VIRTIO_NET_F_GUEST_FULL_CSUM feature indicates that the driver handles
-+  packets with full checksum and does not handle packets with partial checksum,
-+  which means that partially checksummed packets can not be received by the driver
-+  and the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} can not be set by the device.
- \end{enumerate}
- 
- A truly minimal driver would only accept VIRTIO_NET_F_MAC and ignore
-@@ -720,7 +728,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   \field{num_buffers} is one, then the entire packet will be
-   contained within this buffer, immediately following the struct
-   virtio_net_hdr.
--\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
-+\item If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
-+  VIRTIO_NET_F_GUEST_FULL_CSUM was negotiated) was negotiated, the
-   VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
-   set: if so, device has validated the packet checksum.
-   In case of multiple encapsulated protocols, one level of checksums
-@@ -744,7 +753,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   number of coalesced TCP segments in \field{csum_start} field and
-   number of duplicated ACK segments in \field{csum_offset} field
-   and sets bit VIRTIO_NET_HDR_F_RSC_INFO in \field{flags}.
--\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
-+\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated but the
-+  VIRTIO_NET_F_GUEST_FULL_CSUM feature was not negotiated, the
-   VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} can be
-   set: if so, the packet checksum at offset \field{csum_offset}
-   from \field{csum_start} and any preceding checksums
-@@ -802,8 +812,9 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- device MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
- \field{gso_type}.
- 
--If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
--device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
-+If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated but
-+the VIRTIO_NET_F_GUEST_FULL_CSUM feature has not been negotiated,
-+the device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
- \field{flags}, if so:
- \begin{enumerate}
- \item the device MUST validate the packet checksum at
-@@ -819,11 +830,24 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- 	fully checksummed packet;
- \end{enumerate}
- 
-+If the VIRTIO_NET_F_GUEST_FULL_CSUM feature has been negotiated, the device
-+MUST NOT set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} and
-+MUST supply a fully checksummed packet to the driver.
-+If a partially checksummed packet is received by the device, the device MUST
-+calculate full checksum for the packet and then supply it to the driver
-+\ref{sec:Device Types / Network Device / Device Operation / Packet Transmission}.
-+
- If none of the VIRTIO_NET_F_GUEST_TSO4, TSO6, UFO, USO4 or USO6 options have
- been negotiated, the device MUST set \field{gso_type} to
- VIRTIO_NET_HDR_GSO_NONE.
- 
--If \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
-+If the VIRTIO_NET_F_GUEST_FULL_CSUM feature has been negotiated and
-+\field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then the device
-+MUST NOT set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} and
-+MUST calculate full checksum for the packet and then supply it to the driver.
-+
-+If the VIRTIO_NET_F_GUEST_FULL_CSUM feature has not been negotiated and
-+\field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
- the device MUST also set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
- \field{flags} MUST set \field{gso_size} to indicate the desired MSS.
- If VIRTIO_NET_F_RSC_EXT was negotiated, the device MUST also
-@@ -839,7 +863,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- not less than the length of the headers, including the transport
- header.
- 
--If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
-+If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
-+VIRTIO_NET_F_GUEST_FULL_CSUM has been negotiated) has been negotiated, the
- device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
- \field{flags}, if so, the device MUST validate the packet
- checksum (in case of multiple encapsulated protocols, one level
-@@ -1624,6 +1649,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- #define VIRTIO_NET_F_GUEST_TSO6       8
- #define VIRTIO_NET_F_GUEST_ECN        9
- #define VIRTIO_NET_F_GUEST_UFO        10
-+#define VIRTIO_NET_F_GUEST_FULL_CSUM  50
- #define VIRTIO_NET_F_GUEST_USO4       54
- #define VIRTIO_NET_F_GUEST_USO6       55
- 
--- 
-2.19.1.6.gb485710b
+On 10/10/2023 5:58 PM, Parav Pandit wrote:
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Tuesday, October 10, 2023 2:22 PM
+>>
+>> On 10/9/2023 10:30 PM, Parav Pandit wrote:
+>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>> Sent: Monday, October 9, 2023 4:04 PM
+>>>>
+>>>> On 10/8/2023 7:41 PM, Michael S. Tsirkin wrote:
+>>>>> On Sun, Oct 08, 2023 at 02:25:50PM +0300, Parav Pandit wrote:
+>>>>>> Define the device context and its fields for purpose of device
+>>>>>> migration. The device context is read and written by the owner
+>>>>>> driver on source and destination hypervisor respectively.
+>>>>>>
+>>>>>> Device context fields will experience a rapid growth post this
+>>>>>> initial version to cover many details of the device.
+>>>>>>
+>>>>>> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
+>>>>>> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>>>>>> Signed-off-by: Satananda Burla <sburla@marvell.com>
+>>>>>> ---
+>>>>>> changelog:
+>>>>>> v0->v1:
+>>>>>> - enrich device context to cover feature bits, device configuration
+>>>>>>      fields
+>>>>>> - corrected alignment of device context fields
+>>>>>> ---
+>>>>>>     content.tex        |   1 +
+>>>>>>     device-context.tex | 142
+>>>> +++++++++++++++++++++++++++++++++++++++++++++
+>>>>>>     2 files changed, 143 insertions(+)
+>>>>>>     create mode 100644 device-context.tex
+>>>>>>
+>>>>>> diff --git a/content.tex b/content.tex index 0a62dce..2698931
+>>>>>> 100644
+>>>>>> --- a/content.tex
+>>>>>> +++ b/content.tex
+>>>>>> @@ -503,6 +503,7 @@ \section{Exporting Objects}\label{sec:Basic
+>>>>>> Facilities
+>>>> of a Virtio Device / Expo
+>>>>>>     UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
+>>>>>>
+>>>>>>     \input{admin.tex}
+>>>>>> +\input{device-context.tex}
+>>>>>>
+>>>>>>     \chapter{General Initialization And Device
+>>>>>> Operation}\label{sec:General Initialization And Device Operation}
+>>>>>>
+>>>>>> diff --git a/device-context.tex b/device-context.tex new file mode
+>>>>>> 100644 index 0000000..5611382
+>>>>>> --- /dev/null
+>>>>>> +++ b/device-context.tex
+>>>>>> @@ -0,0 +1,142 @@
+>>>>>> +\section{Device Context}\label{sec:Basic Facilities of a Virtio
+>>>>>> +Device / Device Context}
+>>>>>> +
+>>>>>> +The device context holds the information that a owner driver can
+>>>>>> +use to setup a member device and resume its operation. The device
+>>>>>> +context of a member device is read or written by the owner driver
+>>>>>> +using administration commands.
+>>>>>> +
+>>>>>> +\begin{lstlisting}
+>>>>>> +struct virtio_dev_ctx_field_tlv {
+>>>>>> +        le32 type;
+>>>>>> +        le32 reserved;
+>>>>>> +        le64 length;
+>>>>>> +        u8 value[];
+>>>>>> +};
+>>>>>> +
+>>>>>> +struct virtio_dev_ctx {
+>>>>>> +        le32 field_count;
+>>>>>> +        struct virtio_dev_ctx_field_tlv fields[]; };
+>>>>>> +
+>>>>>> +\end{lstlisting}
+>>>> so this still doesn't work for nested
+>>> In one use case of nesting, that we came across is:
+>>> there is large host_VM which is hosting another guest_VMs.
+>>> In such case, the owner PF is passthrough to this host_VM and current
+>> proposed scheme continue to function for nesting as well for nested
+>> guest_VMs.
+>> The system admin can choose only passthrough some of the devices for nested
+>> guests, so passthrough the PF to L1 guest is not a good idea, because there can
+>> be many devices still work for the host or L1.
+> Possible. One size does not fit all.
+> What I expressed is most common scenarios that user care about.
+don't block existing usecases, don't break the userspace, nested is common.
+>
+>>> In second use case, where one want to bind only one member device to
+>>> one VM, I think same plumbing can be extended to have another VF, to take
+>> the role of migration device instead of owner device.
+>>> I don’t see a good way to passthrough and also do in-band migration without
+>> lot of device specific trap and emulation.
+>>> I also don’t know the cpu performance numbers with 3 levels of nested page
+>> table translation which to my understanding cannot be accelerated by the
+>> current cpu.
+>> host_PA->L1_QEMU_VA->L1_Guest_PA->L1_QEMU_VA->L2_Guest_PA and so
+>> on, there can be performance overhead, but can be done.
+>>
+>> So admin vq migration still don't work for nested, this is surely a blocker.
+> In specific case of member devices are located at different nest level, it does not.
+so you got the point, so this series should not be merged.
+>
+> Why prevents you have a peer VF do the role of migration driver?
+> Basically, what I am proposing is, connect two VFs to the L1 guest. One VF is migration driver, one VF is passthrough to L2 guest.
+> And same scheme works.
+A peer VF? A management VF? still break the existing usecase. and how do 
+you transfer ownership of L2 VF from PF to L1 VF?
+>
+> On the other hand,
+> Many parts of the cpu subsystem such as PML, page tables do not have N level nesting support either.
+page tables could be emulated, as showed to you before, just PA to VA, 
+nested PA to nested VA
+> They all work on top of emulation and pay the price for emulation when nesting is done.
+> May be that is the first version for virtio too.
+there are performance overhead, but can be done.
+>
+> I frankly feel that nesting support requires industry level eco system support not just in virtio.
+> Virtio attempting to focus on nested and having nearly same level performance as bare metal seems farfetched.
+> Maybe I am wrong, as we have not seen such high perf nested env even with sw based device.
+>
+> What can be possibly done is,
+> 1. What admin commands are useful from this series that can be useful for nesting?
+> 2. What admin commands from current series needs extension for nesting?
+> 3. What admin commands do not work at all for nesting, and hence, need to have new commands.
+>
+> If we can focus on those, maybe we can find common approach that cater to both commands.
+virtio support nested now, dont let your admin vq LM break this.
+>
+>>> Do you know how does it work for Intel x86_64?
+>>> Can it do > 2 level of nested page tables? If no, what is the perf characteristics
+>> to expect?
+>> of course that can be done, Page table is not a problem, there are soft mmu
+>> emulation and viommu, through performance overhead.
+> Due to the performance overheads, I really doubt any cloud operator would use passthrough virtio device for any sensible workload.
+> But you may know already how nested performance looks like that may be acceptable to users.
+Many tenants run their nested cluster. Don't break this.
 
 
 This publicly archived list offers a means to provide input to the
