@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7664-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7665-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83662CD6E5A
-	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 11:32:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61947CD6E5A
+	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 11:39:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BE1881318CC
-	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 11:32:18 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B3568159D2E
+	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 11:39:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A6E52986828
-	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 11:32:18 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8A8D7986835
+	for <virtio-comment@archiver.kernel.org>; Wed, 11 Oct 2023 11:39:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8F79E986602; Wed, 11 Oct 2023 11:32:18 +0000 (UTC)
+	id 6F9CC986602; Wed, 11 Oct 2023 11:39:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,30 +24,30 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 808EC986603
-	for <virtio-comment@lists.oasis-open.org>; Wed, 11 Oct 2023 11:32:18 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5F58A986603
+	for <virtio-comment@lists.oasis-open.org>; Wed, 11 Oct 2023 11:39:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="384488049"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="381884820"
 X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; 
-   d="scan'208";a="384488049"
+   d="scan'208";a="381884820"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="703698534"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="824124173"
 X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; 
-   d="scan'208";a="703698534"
+   d="scan'208";a="824124173"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l4VfGLkhyXR96b8yQF4fuRC4mm5Ys8iZEIi5eu+yyTRkJT2Y2cpNgHv1k7M9b0ZKAzCHRa+JvYSeIHKIdZiIn3GehFeuCXgTxRVyF5XEydIYnhUQ31SrYqeoetcOHOkDLuBvY4GANc9PjeEncUp6QPub/kiVf+FPa60zg+q4KA0ef3mVT9vpLak+BTsxLOECXXFB15VGfFST60LpKXHM5EAFlo8n/wpc8+gITvhI9ME1xl3ULoUWVjhs+ITqPlXGIhlKXgyDzkJqI3hiWtlvef9Z2nHP/Ma3RMnnRwSh8+nCJ+9XVj4H6CvK0ozmArBkT1YN+6QMN1Bo7nKrejXkkA==
+ b=FbMVQmj8s9PzeVkX0oGg5LIKf2GAN0mkKY02SMPfFuuOz6zagpdZ+uIcCfhk32qRxyGroJdBAlIIDSp11y1eru+E7Kw6XIldI/eV1jmA6gV5MZf6qKoPjZBaxLQ84N5dadrYSdR1SdrCBl49ld4AGOrihmV4dGgLYP1+SrlvAATSYqcYwd6m9VsnuOmGzwKiODJvUX/ePoBMZgdF/TOG+du5BXRic4cEv7D/cE4jPzp72jVB/gNZlhFwjQM/h0QW+74kWtLJCSaOZVtv5+4vi+H6ISSZiQUiBWy66LK3O6KybVfo/GgybitGUQ5VZOpg3ZK5w2BPog8NoD2kwhHBQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6o7KilVRQ85GzOErbST4uKLL5JTHLGZ42o77YNyAqcA=;
- b=Icxtq+r4pQM2lFKJJY2kA8xUU3bcdJohIGSrJfuTI0O5qM6K/wy9ard8HGTd5q2V2+9v+Kj3TzRe6does8QQ1PH+b5fV5XH676cNGDjTo03+djXb/Gg+wcps9DR+gEeOoSgsIO1ViOsNppkHnYH/Me6eMFSF9ymfhrukLJyi4khPu7sHMsz7bNAC8meZPkzbYCBr7mcflW3Wlu+YlqmGTJ/RfWmd4sz7KvyfOMjiM3m/iuX3sybvaPI3xDJcwnTBTji14jB2rv7vKPLsy8b55sZXM8J16NM50JGbS+dHDmLYtCuXg2wh20ytYAcuXCCQ5/gRJxhaf+/fJl3Qm8gRvw==
+ bh=J/xs84NJZZP/622Y4fqj5Ap8DukgVITcz8PG9fTQEZc=;
+ b=kzRsR+VWzZmQNXCMywkC7ZxAIBREgDhzjmJgQwTCpVxGCQ7NhHlVQjlREFufaACnYORKTizUya8vdX/uSR6IFgnakjRdcXwOX/xqske4mBeji9k3ArCAK2Rb+S3kF1gyUEIa+w8sKz+UO6cYjYJ8mfg5v5oJQCjNZdINaR0SIQ00cuUSTzBva/NrhmlQFauuhZ4VaLbrfwjdtxq+oPE9DyHXhazMhYOy+ECV0fUxN6kLALJOKSaLc6hXU875TmQRALGBEvoPK6UiwIHJ6etp2gStY4uMAFYyvl6/8RWpJzqdTmI1FhiDz7cImqdYZMESusirWoA5qrQhenszlIcrTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
-Message-ID: <b905a036-199c-47b7-ab51-4c31f39193a1@intel.com>
-Date: Wed, 11 Oct 2023 19:32:01 +0800
+Message-ID: <b8d6172e-88c5-4f4d-8738-6ec6c90fdab4@intel.com>
+Date: Wed, 11 Oct 2023 19:39:02 +0800
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: Jean-Philippe Brucker <jean-philippe@linaro.org>,
@@ -56,301 +56,308 @@ CC: <vivek.gautam@arm.com>, <seb@rivosinc.com>, <sameo@rivosinc.com>,
 	<eric.auger@redhat.com>, <kevin.tian@intel.com>, "Kumar, Sanjay K"
 	<sanjay.k.kumar@intel.com>
 References: <20231006160947.2227396-3-jean-philippe@linaro.org>
- <20231006160947.2227396-8-jean-philippe@linaro.org>
+ <20231006160947.2227396-4-jean-philippe@linaro.org>
 From: Tina Zhang <tina.zhang@intel.com>
-In-Reply-To: <20231006160947.2227396-8-jean-philippe@linaro.org>
+In-Reply-To: <20231006160947.2227396-4-jean-philippe@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: KL1PR01CA0081.apcprd01.prod.exchangelabs.com
- (2603:1096:820:2::21) To MW5PR11MB5881.namprd11.prod.outlook.com
+X-ClientProxiedBy: SI1PR02CA0026.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::11) To MW5PR11MB5881.namprd11.prod.outlook.com
  (2603:10b6:303:19d::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW5PR11MB5881:EE_|PH7PR11MB6859:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7b7ce1d-b37e-43b8-3c65-08dbca4db450
+X-MS-TrafficTypeDiagnostic: MW5PR11MB5881:EE_|SA3PR11MB7653:EE_
+X-MS-Office365-Filtering-Correlation-Id: a534e785-be95-49e7-b661-08dbca4eb565
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1V3kaOwR6oDRbmsko+2t/ACGqTcGMP/Ruy45eKW1xInhUDVhmeSzjw/1Ma5QiTJLGf9oq1PZiT9GJHvwXR1JFbbX6eYEEaU2rrIMH8K4+KNEkgw1+RJQ8JmCNBEgeoDqrtdVgDIbGIx6db1syk8d1rXCzaQOdA36iCiaAJRuNJNMxE7u7Tr1OQob0SxnS7mWvsnAqGV2F2xKui+nTtMZD3GIxsCP5NsmK11kryORvEoHKLD1TdbC+teshZaXi2oxxojk1ip4JY5FiaR5sNBHvDChLLW9/+2w+KW3V2Fl7AOJ0gAn5k3ryVIuqz8vW2vpyoRb3+3mqn3vD7u9Exz1gCIL54UriMnP5GP4G0aWgOP6a8OpoJ31paelHZZuyL/LZkSXeGK0sITkYJQsHd3q2qQ+qNyaXQMTLdR6DgNt46i1kY2k1x+zq6cYYwIOqgsPprfbnsDlCDf7GhQviWviyrR6lZ2ZmEw+QFa21cGlXDK6yLy5uHDUACf9HiI9sJ4m1Q+zQSJawHLLAVvu4Lx/lBOseFQ0UUcULPyHOnxitUuNTXAKXBOrmyEZjx3ffBAjyUQL0+/Vrh0UT2iLT+hC7rtV7krjy2O5aJps2S1dhfInKQ9gaarvZrCP4DmLopz7o4s67CKGHpkufiINTcBITvQ6k5TOM5+3gMKe5QiDLBNHADaaYET1vnrHOtExhqKK
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW5PR11MB5881.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(396003)(366004)(136003)(39860400002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(107886003)(83380400001)(2616005)(53546011)(6666004)(478600001)(6512007)(6486002)(31696002)(86362001)(6506007)(31686004)(66946007)(316002)(66476007)(66556008)(26005)(5660300002)(38100700002)(44832011)(41300700001)(8936002)(8676002)(4326008)(2906002)(82960400001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1102;
+X-Microsoft-Antispam-Message-Info: Vi+mju8Ro5Uol1gnv5q3bllJcTzil+FgcY4Jiog/IVWjTi5wXMED2ViG2x5ZwzmKJ4x4dXdNjCDl4DHj3tL7uSKB3DgxZErauY99ObEHZOYJ8RgPIcgkukAVZsg+ijuu/qewO5qwjpSli2SyzpFR2Pn1kogGe2z1Ke6GvtUEDEZqD8MZIiLsawIofjsj8JB6HTv6rbs81x5bL0NcbalffRPXT4ZOld+u5SizHeJ7BE4zOjaIdSMcb2shaMIXtljbvqSukic9H3AZOtl5ZQJNMTPnWB4Urupv610qdwsPTanQ17rduiNdeVsfb3PN+LF380BiZrFvrJkg7roKRVYZ/SaBr//Bcrd00TkDZ57MLEuZBPrif7FPp0qy8PQ4n6eVptcZzR8A+K2SmLSzLqWMen/4HU3a/+7Tlt4ENmiXb0NoOIvJZ95APLzAiknCxXZCDBgyAC53vATE2SqhFqFHcsW9HKJn3A5Bc0u8XHXUbWdrwKjdQFxxPq30nOAxIb0KjznZEF2GwpgJLEScXlNdCEuOWbA/T/RJ6u69vEV3Vyy8Xex4Z7AjhL+sms7DKhddUBDPp7KB6QTYvb9EtdeHvbyWVBr3V5VVuDlqc4OhkO2b98NKUz1ekVYwZly8eWBrphflgKlbZmgMewag4vqZ/w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW5PR11MB5881.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(396003)(376002)(39860400002)(136003)(230922051799003)(451199024)(1800799009)(64100799003)(186009)(31686004)(66899024)(6506007)(2616005)(107886003)(53546011)(6666004)(6512007)(36756003)(86362001)(31696002)(82960400001)(38100700002)(316002)(30864003)(2906002)(44832011)(41300700001)(478600001)(6486002)(66946007)(83380400001)(26005)(8936002)(66556008)(4326008)(5660300002)(66476007)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2tWb0JtSVl1SG9IQnBnN29CRzcrY2NGMTdRWEZGU3Rza1lPUUZqOUhyYWdo?=
- =?utf-8?B?TnVrbnFWbUo3Y2hqUmRFdGtpb29aZHF6Z0dGQTJkRlphMFp1a3UvQ0FMY1do?=
- =?utf-8?B?OVM0c0o5VllDaHEzMG52bTYxZmhqdk55b2dUcEliaHB4aXhYTklRSlhNODdZ?=
- =?utf-8?B?aXpIa1AxZGNwRys0cDJUMHg0RUJRVGxCNERnb2FzcVB5T2VlMnlYcmVWQTRN?=
- =?utf-8?B?OStYZjBETlhGd2kveFlNQWJKUUx0STczRzJQcW4vbHlselcwK3VYdVpkRFdp?=
- =?utf-8?B?T3gwTFNVQWgwM3pDcndMdHEyellKUGljU0c0SnAvSCtiUkZaS1NvSWc5SXJk?=
- =?utf-8?B?cTQ3aUkxYkRMYUR4L1VkOXJEdHVENkRZN0FLVVVhdEZ0OVJUOWYwekpGcHVh?=
- =?utf-8?B?K2k0cVlidXdhdGFsM3hXd05BZlF2b1RxVU9MWDlyc2VGcTYwZGhGSG5CQm0y?=
- =?utf-8?B?aTkrdXBpZjdQWUlXb1p0aUpFbGZvRFB2Y3VLZ3lSRGtabHo1Mk9WQkNtNUt6?=
- =?utf-8?B?QjZ0TXFKNEVsMUI4cUJreCt5UENaNEdUZnRIc1BGZkM0V2NuRG9ZNU1KamRp?=
- =?utf-8?B?emRpN0VhVGU0QkJEWUNuRmpseFUrSHhUdDdrNDZIUjhnNjhzYklDd3Q3ZXF2?=
- =?utf-8?B?RHcrUUJFWTFBWUN2cGRaQURBY3JDQk5YL3JSenloKzZBMGlWN09pTU40U3I5?=
- =?utf-8?B?RUtaYjlrcDNZaGNLVCt5MlFlMjh6NDZnaTBWaGFQYW55NXA1a2dySUFlTVk1?=
- =?utf-8?B?Z25GWUlpeU91UkF3WjhodDl3QW16dDZ1UHhxajhRNC9iNDJDbm9Zcm1ja2FU?=
- =?utf-8?B?SFN0TjhkRldtMGptbXpFcmFTMWFJd25HcXRaVE1lTURUWUFQWUJpR0hESmJu?=
- =?utf-8?B?eEQyVGdPdWxoTjlOYi80QUlIWi9VNjlYQkx1YkpKMEI2bVJFb1NUVWxnUHNM?=
- =?utf-8?B?Ly9HVHhzUUdONHo5TFRmWU1La1ZiWU1YbFBSRUcvUXVlMjg0UTFBc2FJQkZE?=
- =?utf-8?B?RFRXcVljajNMQTY3V2IyTktwNm5KTkVqWk5paElCcm9Rb0d6YWIzVjhhUktv?=
- =?utf-8?B?L3hTSjZnNC8xNHRmczg5V3hJRHdLbUdUOVBFL2g0R3RBM3VWOXcydEVnalRF?=
- =?utf-8?B?dUw4S3NYSHA0SkJWT1AvQzdUTVZHWkQvK0pjZHVuYUR5VmZLLzh3ektNYkJw?=
- =?utf-8?B?WVZLZERQMTY2NWtZR0FZMUxuc1FNRXMrUWtldTQ4KzFEampyT0NLYTdqYUpF?=
- =?utf-8?B?dnlMUUdLcUhYVFRRcElGdmZPTXNlUlpMMHFYT2VReHBpeGEvSzhKNVFmUVBO?=
- =?utf-8?B?WkowaFl3cWg4VmZUYnhtbmpES1ViVEpFeHBKY1dweXpXZmNJeFd5TXVyYkY3?=
- =?utf-8?B?KytEUS9TVDU3c2I0TDhpWGZFbWtxM3gvcWpiVHFLc1hxcnNXby9JaGxkTXZN?=
- =?utf-8?B?K3RXbWYzTndlQXBKVDdkTmlGSkZadjh1RzNGODRtOVFzaGFpOGlxcDhwL2wz?=
- =?utf-8?B?MGtPcE1kLzFvSUQrbG5mM3pxLytnanRqZkQzVkNGVDRNbGdabGFZcXlKdTkr?=
- =?utf-8?B?SUU2T0ZCWk9YNmFSaGhHTkw1Y3BUUFdiQ2xnbFNzK3BCQTFQM20rVFZFbmJw?=
- =?utf-8?B?TG81T05VU2dnbFBXMlV0cUpuSXRKNElqQXlSaUdaR1lzSmppbXJVOHBVbVJw?=
- =?utf-8?B?NmZFTmhYK1dzNlNXQ0MzZTZGNnFVcld1WTFoMlFCL0RUN282YWhYWXBnSkMz?=
- =?utf-8?B?Q0FNWlZ2VWhpRHIzbFJpQ1NIb2Q1WEtldDlJVG5GS3RZUU5CZExVaS9VSFp1?=
- =?utf-8?B?MENUZHJaTkRZanhGT0NkMG5vYmpwdmFCZ1BEMHUwTW1SYzBHWW0wUnhJeHE1?=
- =?utf-8?B?TjF1UWkzV0tpOGZnWlRzSXc3N3A1UVJXaVVPamxhekJzOTZvMGtMdkxDS0xF?=
- =?utf-8?B?WTBFbGJqb09nUGJHZHY0aFRDWVlQejk4MTloZ244N296Szd0ZW5FTytIaE9R?=
- =?utf-8?B?Q3I2Z1BYSkxuYnUwb1ZLaE9RdE02NllydXUzVGdQV1lqa1BnVVgwcXg2cUZQ?=
- =?utf-8?B?Yzd0S0MyWE1BUEhEZnlhSlpWNzA5Y0tPREErU055QVB6UTh2L1hSSFJxbHd4?=
- =?utf-8?Q?cWBCXtXkEd8bUNlLNYmIDknBl?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7b7ce1d-b37e-43b8-3c65-08dbca4db450
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?enZQVURjdWFrVjNGb0RXeVJJbUg1L2tIOEdvcjE0c1FmWFBLdy9oaTlGMkl6?=
+ =?utf-8?B?WGZNOWdzV21KUFh0cnJ2Y2NZYWM0M09qSWdibmtGd0N6ZVZiZWtjZTMySlVI?=
+ =?utf-8?B?QmZuK1BqWVMxRm5wK1owTEx1czMvbktlcGJ0NE1hMHB3UDhHNmpJbXpiQy9p?=
+ =?utf-8?B?RWIzRGNSMk1nYkJHaVpiaVorME8zakd3cXplY0N3OFJPc3JQV0haT0lQdktx?=
+ =?utf-8?B?Tml4aHAzV2E2ZXJHWlB3aGx5UkFkcERlWkdRWE5UVm56OTZ6SXZMTTF2NDhX?=
+ =?utf-8?B?LzlpOWlweklqR0MwM0xTU2lhM3RFY2dWYzNzbTBzTm5oT3F4TG5yY29wM1BY?=
+ =?utf-8?B?R3Fsa01nellVWXJOZzR2QlorcmpTMlBQakhRRTYyRDYrMlAvaS8zYjlhdnZy?=
+ =?utf-8?B?SXluZnN3cUQrSkkvSUN1empZbVZpWGF2b3JHcEVabmh6bFNBdDFvKzhuOUZG?=
+ =?utf-8?B?WG9FVFVSVmZYTzRyTm1hdGV3TXBsQzBRQ1ppVEgyZVM2UW9FaThLclk4ZEg5?=
+ =?utf-8?B?U0tMWkxLMjZHWWNHTFJPdGovdTV1L1dVTml5dUh4dlhTNGhzK2JyL2J0NlVR?=
+ =?utf-8?B?YkZiN1Y3ZUZCRkZEVTRpTkFjMTV6NWlKQ0NCQzh5WVE4SHYxU2FjaUZIcFI5?=
+ =?utf-8?B?OFpGZjFXU2NwVkwxeVhETWJsMWhzM2N4cDJtbnRqOWNFTVE1cHhsQzh2RDlW?=
+ =?utf-8?B?TDNscGVINGRaV04vVXljYVBIdDM3ZDZyZDBSNjZ1bFpyUjFoc1czN2xURC9j?=
+ =?utf-8?B?dkx0QS91MTNGL1FsWkYrdDVoUWNaWDZWUlJlZ2lHVE9TczRlWnJjVmsvWkhX?=
+ =?utf-8?B?NDZEaUlQZ1dsUStoQW1DKytoTCsrdHdrMmhDYTRQNjhrdGswSURlQnlBRFBq?=
+ =?utf-8?B?SWN6ZXBUbGwvbzlyKzlMU1pVNy9XTDlBR293ZkE3ZDRtMnI4TkJOZGdVVWtH?=
+ =?utf-8?B?RlIvOVF0YjBIdnBDWDdTVEptU2thTFJkejRibFpKdUNubTVhSWVPbDVGNGJM?=
+ =?utf-8?B?dmlXdWQ5dFlkMHo0a2h0Ull1UG4vS2ZTVzZEdnpwTzgwWXVlRTVkRVpvMkdI?=
+ =?utf-8?B?bktGZml4UDB2YWRUQURVcGxmRVZuUFB0TkFjZXJid0FMSUxQckhKaW53WFAz?=
+ =?utf-8?B?Q0hFTEhOQlRHNm0rVDYvUDlOUHlCMlpmSTk4Snd1ci9ZY2k5SEIzQmpVdDMv?=
+ =?utf-8?B?RXBQY0tScG1VUVJNdzNmSWM3czlDa2hQY3JTTWFiNUJzR256cURUUXlEd1R3?=
+ =?utf-8?B?eW1Ia3ZtQ3Z1KzlTTGtMcWtEWXJrWUlrQ0FGV2JBN1dGQWM3TEdSemlqQ2lH?=
+ =?utf-8?B?U3pjNkJ5NGx5QUg5WXFEZ1dVYjdZcnUxQnJsbVJscHdraDJzbmsyTXNkZWh2?=
+ =?utf-8?B?MDhoMGI1NE96azg0N0VhM3NRQThpQm5pR2wrZG1DVmlnNGdLSHlBMGk0cDNk?=
+ =?utf-8?B?Z1JmRzV4cEw0NmlmMmFTTnRJVCtTbzNYbVIwSDl3V3BOcG9jOVRDNHZVYlF4?=
+ =?utf-8?B?MUtZU25pUnN4b05YRDdHcDRjVFdXUW1JaS9kWTA0dHM4OC9BMmptVHpZNTl5?=
+ =?utf-8?B?MnRjQkFaVll5YWZ3NWQyTnFPeTRFNzhPempTRkFjaDNlbVhrRWFFTTcrYlZ6?=
+ =?utf-8?B?RG5MS1hlekx5L0F6bmMwT0RTajVTdEFqYWVjVnRMT1RLNmZNS1lUVnhhZ0ND?=
+ =?utf-8?B?Uk5ic1Z4SWVPc0EwTU9HMk5GMDlFaEgrclFRNHJOQnQzWFdlN1oxQk5lT1hz?=
+ =?utf-8?B?MGJkTzl3UWVIUEh2dkVpa0tIMzJGck4rS3NFcXdFdzBWMWhtdEgwTCtsZ0h5?=
+ =?utf-8?B?VVhqSUV0VlVMdWx4L082K0lmME12bDNsdXIvZXQrMzJXbG1BSXBrQTBCemlB?=
+ =?utf-8?B?WUt1K0lVTnJlTGJodUY5SklnNllEMFgzT25LbEpDUmdNc3pwUGVRTFVJR09L?=
+ =?utf-8?B?ZnZpWmR3S3FlM0x5L002ajNkblI0dFRmcFhLU01DTkowQVhTVnNEcWNhQ0JN?=
+ =?utf-8?B?QjBTZHFDZEc4S2FORm44Mks5dm40a05UaWo2Z09RNjM1NDFaVGVFNklqaFdT?=
+ =?utf-8?B?TERCb0tUNlp0cnpUd0VudVhTM1ZnT1UvYlRjSnVPa0ROM0xhblBkMlI4YWR4?=
+ =?utf-8?Q?YKAg6qmtgu3qCwPKJVJ8Gei9S?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: a534e785-be95-49e7-b661-08dbca4eb565
 X-MS-Exchange-CrossTenant-AuthSource: MW5PR11MB5881.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2023 11:32:09.2362
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2023 11:39:20.3701
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5foZ9I10elAIngQM5z9hc0r07ypXlRnrhXIOWxIy1svp6AilyTTM7qEI5wRC6WgqvP0zshMc/CDICcOHKvJKzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6859
+X-MS-Exchange-CrossTenant-UserPrincipalName: hM4HkTj1eqc37Bw5GgnNzoBDa/Xb45GwRon7/m78j6L+fuTyP+0oCL4Tbj72rrKSIb5KdSt+Foud9lV6sDOCqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7653
 X-OriginatorOrg: intel.com
-Subject: [virtio-comment] Re: [PATCH v2 5/9] virtio-iommu: Add VT-d IO page table
+Subject: [virtio-comment] Re: [PATCH v2 1/9] virtio-iommu: Add ATTACH_TABLE request
 
 Resend the reply and CC virtio-comment list.
 
 Hi,
 
 On 10/7/23 00:09, Jean-Philippe Brucker wrote:
-> From: Tina Zhang <tina.zhang@intel.com>
+> Add a way to attach page tables to a domain. Only introduces the feature
+> bit and the ATTACH_TABLE request. We'll also need new PROBE properties
+> and INVALIDATE requests.
 > 
-> Allow a driver of a device behind virtio-iommu to detect support for
-> VT-d IO page table.
+> It could also be ATTACH followed by "SET_TABLE", or "ALLOC_WITH_TABLE"
+> followed by ATTACH, but this leads to fewer domain states. With
+> ATTACH_TABLE a domain can be free, attached-with-map or
+> attached-with-pgtable.
 > 
-> The driver detects support for VT-d IO page table format in a PROBE
-> request and sends an ATTACH_TABLE request with a pointer to the first
-> stage page translation table.
-> 
-> The definition of first stage page translation table ATTACH_TABLE
-> request references the fields defined in VT-d scalable-mode PASID table
-> entry.
-> * attributes defined in ATTACH_TABLE request:
->    FSPTPTR got from pgtbl_addr field.
->    SRE/EAFE/WPE defined in pgtbl_flags field.
->    FSPM calculated through addr_width field.
->    PASID got from pasid field.
-> 
-> * attributes not defined in ATTACH_TABLE request, as their
->    configurations need to be decided by host:
->    Memory type features, PAT/EMTE/CD/PGSNP/PWSNP.
->    Snoop Behavior, PGSNP/PWSNP.
-> 
-> Support for any new attributes could easily be added by adding flags to
-> the PROBE property and fields in the ATTACH_TABLE config.
-> 
-> Signed-off-by: Tina Zhang <tina.zhang@intel.com>
-> [JPB: moved to pgtable-intel.tex, rework formatting]
 > Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
 > ---
->   device-types/iommu/description.tex   |  3 +
->   device-types/iommu/pgtable-intel.tex | 98 ++++++++++++++++++++++++++++
->   introduction.tex                     |  3 +
->   3 files changed, 104 insertions(+)
->   create mode 100644 device-types/iommu/pgtable-intel.tex
+>   device-types/iommu/description.tex | 113 +++++++++++++++++++++++++----
+>   1 file changed, 100 insertions(+), 13 deletions(-)
 > 
 > diff --git a/device-types/iommu/description.tex b/device-types/iommu/description.tex
-> index c057cdf..a4eb492 100644
+> index d9d484c..f81d96d 100644
 > --- a/device-types/iommu/description.tex
 > +++ b/device-types/iommu/description.tex
-> @@ -407,6 +407,7 @@ \subsubsection{ATTACH_TABLE request}\label{ref:Device Types / IOMMU Device / Dev
->   };
+> @@ -54,9 +54,7 @@ \subsection{Feature bits}\label{sec:Device Types / IOMMU Device / Feature bits}
+>     The number of domains supported is described in \field{domain_range}.
 >   
->   #define VIRTIO_IOMMU_ATTACH_TABLE_ARM_SMMU3       1
-> +#define VIRTIO_IOMMU_ATTACH_TABLE_INTEL_PT        2
->   \end{lstlisting}
+>   \item[VIRTIO_IOMMU_F_MAP_UNMAP (2)]
+> -  Map and unmap requests are available.\footnote{Future extensions may add
+> -  different modes of operations. At the moment, only
+> -  VIRTIO_IOMMU_F_MAP_UNMAP is supported.}
+> +  Map and unmap requests are available.
 >   
->   Attach an endpoint to a domain, in the same way as an ATTACH
-> @@ -1009,6 +1010,7 @@ \subsubsection{PROBE properties}\label{sec:Device Types / IOMMU Device / Device
+>   \item[VIRTIO_IOMMU_F_BYPASS (3)]
+>     Endpoints that are not attached to a domain are in bypass mode.
+> @@ -74,6 +72,8 @@ \subsection{Feature bits}\label{sec:Device Types / IOMMU Device / Feature bits}
+>     whether endpoints that are attached to a domain are in bypass
+>     mode.
+>   
+> +\item[VIRTIO_IOMMU_F_ATTACH_TABLE (7)]
+> +  The ATTACH_TABLE and INVALIDATE requests are available.
+>   \end{description}
+>   
+>   \drivernormative{\subsubsection}{Feature bits}{Device Types / IOMMU Device / Feature bits}
+> @@ -84,7 +84,8 @@ \subsection{Feature bits}\label{sec:Device Types / IOMMU Device / Feature bits}
+>   
+>   \devicenormative{\subsubsection}{Feature bits}{Device Types / IOMMU Device / Feature bits}
+>   
+> -The device SHOULD offer feature bit VIRTIO_IOMMU_F_MAP_UNMAP.
+> +The device MUST offer at least one of the
+> +VIRTIO_IOMMU_F_MAP_UNMAP or VIRTIO_IOMMU_F_ATTACH_TABLE features.
+>   
+>   The VIRTIO_IOMMU_F_BYPASS_CONFIG feature supersedes
+>   VIRTIO_IOMMU_F_BYPASS. New devices SHOULD NOT offer
+> @@ -142,10 +143,6 @@ \subsection{Device initialization}\label{sec:Device Types / IOMMU Device / Devic
+>   
+>   When the device is reset, endpoints are not attached to any domain.
+>   
+> -Future devices might support more modes of operation besides MAP/UNMAP.
+> -Drivers verify that devices set VIRTIO_IOMMU_F_MAP_UNMAP and fail
+> -gracefully if they don't.
+> -
+>   \drivernormative{\subsubsection}{Device Initialization}{Device Types / IOMMU Device / Device Initialization}
+>   
+>   The driver MUST NOT negotiate VIRTIO_IOMMU_F_MAP_UNMAP if it is incapable
+> @@ -177,11 +174,12 @@ \subsection{Device operations}\label{sec:Device Types / IOMMU Device / Device op
+>   Type may be one of:
+>   
 >   \begin{lstlisting}
->   #define VIRTIO_IOMMU_PROBE_T_RESV_MEM       1
->   #define VIRTIO_IOMMU_PROBE_T_HW_ARM_SMMU3   2
-> +#define VIRTIO_IOMMU_PROBE_T_HW_INTEL_VTD   3
+> -#define VIRTIO_IOMMU_T_ATTACH     1
+> -#define VIRTIO_IOMMU_T_DETACH     2
+> -#define VIRTIO_IOMMU_T_MAP        3
+> -#define VIRTIO_IOMMU_T_UNMAP      4
+> -#define VIRTIO_IOMMU_T_PROBE      5
+> +#define VIRTIO_IOMMU_T_ATTACH         1
+> +#define VIRTIO_IOMMU_T_DETACH         2
+> +#define VIRTIO_IOMMU_T_MAP            3
+> +#define VIRTIO_IOMMU_T_UNMAP          4
+> +#define VIRTIO_IOMMU_T_PROBE          5
+> +#define VIRTIO_IOMMU_T_ATTACH_TABLE   6
 >   \end{lstlisting}
 >   
->   \paragraph{Property RESV_MEM}\label{sec:Device Types / IOMMU Device / Device operations / PROBE properties / RESVMEM}
-> @@ -1160,3 +1162,4 @@ \subsubsection{Fault reporting}\label{sec:Device Types / IOMMU Device / Device o
->   \subsection{Acceleration}\label{sec:Device Types / IOMMU Device / Acceleration}
+>   A few general-purpose status codes are defined here.
+> @@ -395,6 +393,89 @@ \subsubsection{ATTACH request}\label{sec:Device Types / IOMMU Device / Device op
+>   attached to the domain, the device SHOULD reject the request and
+>   set \field{status} to VIRTIO_IOMMU_S_UNSUPP.
 >   
->   \input{device-types/iommu/pgtable-arm}
-> +\input{device-types/iommu/pgtable-intel}
-> diff --git a/device-types/iommu/pgtable-intel.tex b/device-types/iommu/pgtable-intel.tex
-> new file mode 100644
-> index 0000000..90a3410
-> --- /dev/null
-> +++ b/device-types/iommu/pgtable-intel.tex
-> @@ -0,0 +1,98 @@
-> +\subsubsection{Intel VT-d tables}\label{sec:Device Types / IOMMU Device / Acceleration / Intel}
-> +
-> +Attach first-level translation tables in the format described by
-> +the \hyperref[intro:VT-Directed-IO]{Intel Virtualization
-> +Technology for Directed I/O specification}.
-> +
-> +\paragraph{PROBE property for VT-d page tables}\label{sec:Device Types / IOMMU Device / Acceleration / Intel / PROBE}
-> +
-> +The PROBE property VIRTIO_IOMMU_PROBE_T_HW_INTEL_VTD provides
-> +information about an Intel VT-d IOMMU.
+> +\subsubsection{ATTACH_TABLE request}\label{ref:Device Types / IOMMU Device / Device operations / ATTACH_TABLE request}
 > +
 > +\begin{lstlisting}
-> +struct virtio_iommu_probe_hw_intel_vtd {
-> +  struct virtio_iommu_probe_property head;
-> +  u8   reserved[4];
-> +  le64 cap_reg;
-> +  le64 ecap_reg;
+> +struct virtio_iommu_req_attach_table {
+> +	struct virtio_iommu_req_head head;
+> +	le32 domain;
+> +	le32 endpoint;
+> +	u8   format;
+> +	u8   descriptor[111];
+> +	struct virtio_iommu_req_tail tail;
 > +};
-> +
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_RWBF        (1 << 4)
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_SAGAW_SHIFT 8
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_SAGAW_MASK  0x1f
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_MGAW_SHIFT  16
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_MGAW_MASK   0x1f
-The size of MGAW is 6 bits. So, it should be:
-#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_MGAW_MASK   0x3f
-
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_ZLR         (1 << 22)
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_FL1GP       (1 << 56)
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_5LP         (1 << 60)
-> +
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_SC         (1 << 7)
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_MTS        (1 << 25)
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_EAFS       (1 << 34)
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_PSS_SHIFT  35
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_PSS_MASK   0x1f
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_SMTS       (1 << 43)
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_VCS        (1 << 44)
-I don't think we need VCS defined here any more. In the old design, VCS 
-was used as a channel for guest asking host to allocate a PASID for it. 
-In the current design, we drop this and let host mediate guest PASIDs 
-when necessary (which is agnostic to guest viommu driver). So basically, 
-there are two cases:
-1) For device assignment of I/O device, the PASIDs of the device are 
-managed by guest. Host doesn't need to do any mediation.
-2) For I/O Device sharing case, one device is used by multiple guests. 
-So we cannot let one guest directly manage the PASIDs of that device. In 
-this case, with the help of virtualization, host can trap the guest's 
-first DMA access requiring a PASID and assign a host-side PASID for it. 
-Guest viommu driver doesn't need to know the host-side PASID value.
-
-> +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_SMPWC      (1 << 48)
-> +\end{lstlisting}
-I think two more definitions are needed:
-#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_NEST    (1 << 26)
-#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_FSTS    (1 << 47)
-
-The ECAP_NEST tells if VT-d hardware supports nested translations.
-The ECAP_FSTS tells if VT-d hardware supports PASID granular translation 
-type of first-stage.
-> +
-> +\todo{check that these are necessary and sufficient to support
-> +page table assignement in scalable mode.}
-The cap_reg & ecap_reg expose VT-d hardware capability to guest. And 
-it's expected to have virtio-iommu working with VT-d IO page table when 
-the platform hardware at least has the capability of nested-translation 
-(i.e., hardware must have scalable mode support and first-stage 
-translation support and second-stage translation support.). So, we only 
-pick definitions of the bits from VT-d spec which are related to the 
-first-stage page table and the basic capability of nested-translation.
-
-> +\todo{Need to support non-PASID assignment? non-scalable?}
-I didn't see any difference between the non-PASID assignment case and 
-the PASID assignment case, in terms of virtio-iommu support VT-d. Any ideas?
-
-The non-scalable doesn't seem so interesting right now. Any thoughts 
-about it?
-
-> +
-> +\begin{description}
-> +  \item[\field{cap_reg}] Capability Register.
-> +  \item[\field{ecap_reg}] Extended Capability Register.
-> +\end{description}
-> +
-> +\paragraph{ATTACH_TABLE request for VT-d page table}\label{sec:Device Types / IOMMU Device / Acceleration / Intel / ATTACH_TABLE}
-> +
-> +Attach a single set of page tables to an endpoint.
-> +
-> +\begin{lstlisting}
-> +/* Vt-d I/O Page Table Descriptor */
-> +struct virtio_iommu_req_attach_table_intel {
-> +  struct virtio_iommu_req_head          head;
-> +  le32                                  domain;
-> +  le32                                  endpoint;
-> +  u8                                    format;
-> +  u8                                    reserved[7];
-> +  le32                                  pasid;
-> +  le64                                  pgtbl_addr;
-> +  le64                                  pgtbl_flags;
-> +  le32                                  addr_width;
-> +  u8                                    reserved[80];
-> +  struct virtio_iommu_req_tail          tail;
-> +};
-> +
-> +/* Intel VT-d stage-1 page table entry attributes */
-> +#define	VIRTIO_IOMMU_HW_INTEL_VTD_SRE             0x01
-> +#define	VIRTIO_IOMMU_HW_INTEL_VTD_EAFE            0x02
-> +#define	VIRTIO_IOMMU_HW_INTEL_VTD_WPE             0x40
-> +#define	VIRTIO_IOMMU_HW_INTEL_VTD_LAST            0x80
 > +\end{lstlisting}
 > +
-> +\begin{description}
-> +  \item[\field{format}] VIRTIO_IOMMU_ATTACH_TABLE_INTEL_PT.
-> +  \item[\field{pasid}] Process Address Space Identifier.
-> +    \todo{don't we need to allocate these with alloc/free
-> +    commands to the host?}
-No, we don't need guest viommu driver to explicitly ask host's help for 
-guest PASID alloc/free now. In the current design, guest viommu driver 
-doesn't need to know the host-side PASID.
+> +Attach an endpoint to a domain, in the same way as an ATTACH
+> +request. In addition, provide the address of a table describing
+> +the mappings. Instead of using MAP and UNMAP requests, the driver
+> +creates and removes mappings by writing into the tables. When a
+> +mapping that may have been cached in a TLB is removed, the driver
+> +sends an INVALIDATE request.
+> +
+> +The driver discovers with a PROBE request the table formats
+> +supported by the device for each endpoint. The driver chooses a
+> +format it recognises, and sends the ATTACH_TABLE request.
+> +
+> +Apart from \field{domain}, \field{endpoint} and \field{format},
+> +each table format uses different parameters in field
+> +\field{descriptor}. Table formats and their associated parameters
+> +are described in section \ref{sec:Device Types / IOMMU Device /
+> +Acceleration}.
+> +
+> +Some formats support \emph{page tables}, where the ATTACH_TABLE
+> +request contains the address of a \emph{page directory}, the root
+> +of a page table tree which describe mappings of a single address
+> +space. Other formats support \emph{PASID tables}, which contain
+> +multiple page directory addresses, indexed by a 20-bit identifier
+> +called PASID (Process Address Space ID), providing multiple
+> +address spaces per endpoint. Field \field{domain} corresponds to
+> +one PASID table: a second ATTACH_TABLE request with the same
+> +\field{domain} and a different \field{endpoint} has the PASID
+> +table address. The device is not required to support attaching
+> +multiple endpoints to the same domain.
+> +
+> +For some formats, the PASID table is managed by the device rather
+> +than driver. The ATTACH_TABLE request contains a \field{pasid}
+This is what VT-d hardware expects when working with viommu (no matter 
+it's virtual VT-d iommu or virtual-iommu) with VT-d IO page table 
+support. If a device is directly assigned to a guest, the guest viommu 
+driver fully manages the PASIDs of that device. If a device is providing 
+I/O device sharing service for multiple guests, the PASIDs value are 
+assigned by host. But, in either case, the PASID table is filled by host 
+VT-d driver, not guest viommu driver. So, from viommu front-end's point 
+of view, the PASID table of that device is managed by viommu device 
+(i.e., viommu back-end).
+
+> +field and a page directory. Similarly to when the driver manages
+> +the PASID table, \field{domain} corresponds to one PASID table.
+> +The driver uses the same \field{domain} for each ATTACH_TABLE
+> +request with PASID. Issuing a DETACH request without PASID
+ >
+Here are some thoughts about domain id interception with VT-d IO page 
+format:
+
+Virtual VT-d driver uses the same domain id for first-stage translation 
+is because it's required by the VT-d specification, though guest domain 
+id never gets to hardware (i.e., host doesn't populate PASID table with 
+guest domain id value).
+
+According to VT-d specification (section 6.2.3.1):
+"Scalable-mode PASID table entries programmed for first-
+stage translation or pass-through (PGTT equal to 001b or 100b) must be 
+programmed with a DID value that is different from those used in any 
+PASID table entries that are programmed for second-stage or nested 
+translation (PGTT equal to 010b or 011b). This is required since 
+hardware implementations tag various caches with domain-id as described 
+in Section 6.2.1. Scalable-mode PASID-table entries with PGTT value of 
+001b or 100b are recommended to use the same domain-id value for best 
+hardware efficiency."
+
+When VT-d IO page table comes to virtual-iommu, the definition of domain 
+id doesn't need to be exactly the same with the one defined in VT-d 
+specification as the viommu providing the service is virtual-iommu, not 
+virtual VT-d and only VT-d IO page table is being used (domain id is 
+defined in PASID table which isn't being used).
+
+So, it seems more reasonable to define the domain id as an identifier 
+for an unique domain for each address space for virtual-iommu back-end 
+interception. Any ideas?
 
 Regards,
 -Tina
 
-> +  \item[\field{pgtbl_addr}] Stage-1 page table base address.
-> +  \item[\field{pgtbl_flags}] Stage-1 page table entry attributes:
-> +    \begin{description}
-> +      \item{SRE} Supervisor request,
-> +      \item{EAFE} Extended access enable,
-> +      \item{WPE} Write protect enable.
-> +    \end{description}
-> +  \item[\field{pat}] Page attribute table data to compute
-> +    effective memory type.
-> +  \item[\field{addr_width}] The address width of the untranslated
-> +    addresses that are subjected to the stage-1 page table.
-> +\end{description}
+> +detaches all address spaces that were attached with PASID for the
+> +given \field{domain}.
 > +
-> +\paragraph{INVALIDATE request for VT-d page table}\label{sec:Device Types / IOMMU Device / Acceleration / Intel / INVALIDATE}
+> +An endpoint that supports issuing DMA with PASID can also issue
+> +DMA without PASID. The configuration method of the address space
+> +without PASID depends on the table format, but typically consists
+> +in reserving the first entry of the PASID table for DMA without
+> +PASID. In this case, for a format where the device manages PASID
+> +tables, ATTACH_TABLE requests with \field{pasid} 0 attaches a
+> +page directory for DMA without PASID, and DETACH request with
+> +\field{pasid} 0 detaches it. A DETACH request without
+> +VIRTIO_IOMMU_DETACH_F_PASID, on the other hand, detaches all page
+> +directories for the given \field{domain}.
 > +
-> +Supported values for field \field{scope} are
-> +VIRTIO_IOMMU_INVAL_S_PASID and VIRTIO_IOMMU_INVAL_S_ADDRESS.
-> +The only supported value for field \field{caches} is
-> +VIRTIO_IOMMU_INVAL_C_TLB. Field \field{id} is not used.
-> diff --git a/introduction.tex b/introduction.tex
-> index 636fb1b..d0d5086 100644
-> --- a/introduction.tex
-> +++ b/introduction.tex
-> @@ -104,6 +104,9 @@ \section{Normative References}\label{sec:Normative References}
->   	\phantomsection\label{intro:SMMUv3}\textbf{[SMMUv3]} &
->   	Arm System Memory Management Unit version 3
->   	\newline\url{https://developer.arm.com/documentation/ihi0070/latest} \\
-> +	\phantomsection\label{intro:VT-Directed-IO}\textbf{[VT-Directed-IO]} &
-> +	Intel Virtualization Technology for Directed I/O
-> +	\newline\url{https://cdrdv2.intel.com/v1/dl/getContent/671081} \\
+> +\drivernormative{\paragraph}{ATTACH_TABLE request}{Device Types / IOMMU Device / Device operations / ATTACH_TABLE request}
+> +
+> +The driver SHOULD NOT send ATTACH_TABLE requests if the
+> +VIRTIO_IOMMU_F_ATTACH_TABLE feature was not negotiated.
+> +
+> +The driver SHOULD NOT send ATTACH_TABLE requests with a
+> +\field{domain} currently attached without table. It SHOULD NOT
+> +send ATTACH requests with a \field{domain} currently attached
+> +with table.
+> +
+> +\devicenormative{\paragraph}{ATTACH_TABLE request}{Device Types / IOMMU Device / Device operations / ATTACH_TABLE request}
+> +
+> +If the endpoint identified by \field{endpoint} is already
+> +attached to another domain, then the device SHOULD first detach
+> +it from that domain and attach it to the one identified by
+> +\field{domain}. In that case the device SHOULD behave as if the
+> +driver issued a DETACH request with this \field{endpoint},
+> +followed by the ATTACH_TABLE request. If the device cannot do so,
+> +it MUST reject the request and set \field{status} to
+> +VIRTIO_IOMMU_S_UNSUPP.
+> +
+>   \subsubsection{DETACH request}
 >   
->   	\phantomsection\label{intro:rfc2784}\textbf{[RFC2784]} &
->       Generic Routing Encapsulation. This protocol is only specified for IPv4 and used as either the payload or delivery protocol.
+>   \begin{lstlisting}
+> @@ -512,6 +593,9 @@ \subsubsection{MAP request}\label{sec:Device Types / IOMMU Device / Device opera
+>   If the VIRTIO_IOMMU_F_MMIO feature isn't negotiated, the driver MUST NOT
+>   use the VIRTIO_IOMMU_MAP_F_MMIO flag.
+>   
+> +\field{domain} SHOULD NOT have been created with an ATTACH_TABLE
+> +request.
+> +
+>   \devicenormative{\paragraph}{MAP request}{Device Types / IOMMU Device / Device operations / MAP request}
+>   
+>   If \field{virt_start}, \field{phys_start} or (\field{virt_end} + 1) is
+> @@ -609,6 +693,9 @@ \subsubsection{UNMAP request}\label{sec:Device Types / IOMMU Device / Device ope
+>   
+>   The driver SHOULD NOT send UNMAP requests on a bypass domain.
+>   
+> +\field{domain} SHOULD NOT have been created with an ATTACH_TABLE
+> +request.
+> +
+>   \devicenormative{\paragraph}{UNMAP request}{Device Types / IOMMU Device / Device operations / UNMAP request}
+>   
+>   If the \field{reserved} field of an UNMAP request is not zero, the device
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
