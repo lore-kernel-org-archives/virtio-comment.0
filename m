@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7694-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7695-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C0FCDB46E
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 13:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30599CDB482
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 13:05:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5C7DB157EE9
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 13:03:42 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 991EF190923
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 13:05:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3985A986835
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 13:03:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7CED6986838
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 13:05:27 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 25FF798660E; Thu, 12 Oct 2023 13:03:42 +0000 (UTC)
+	id 6F91798660E; Thu, 12 Oct 2023 13:05:27 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,31 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 153B298660F
-	for <virtio-comment@lists.oasis-open.org>; Thu, 12 Oct 2023 13:03:41 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6F5D298660F
+	for <virtio-comment@lists.oasis-open.org>; Thu, 12 Oct 2023 13:05:13 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: _chUCeEsPz6PmxlagMmCLg-1
+X-MC-Unique: yp2apzd7Mhq_-y96J8wLmg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697115817; x=1697720617;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OAUA3wejEbzM3z976uWY0z4/78TvETVCG+qCzDcy/YU=;
-        b=T2wdoXiRInIvnLCONG9nKRDPciay0Iqegk5AI1Atl+sAbOUy2QTeNd07DlHl7UhYxO
-         +QwRqT7tLASmmG0sM3nWz+Cici0ZHFA1oItXe3dzVwynnwte1rlKvFxkO7mLKpYJ+bFO
-         byfrNw5xF5nyQxWO3NytquuP/t9G5IDI6vMlhdEbdStqjf0aCILJGKilS20bYEMXEUG8
-         FlgMoC7yPT/QCmkPVb7gQlk7MNTc9Ts1pthLOvVfn0TdJ1mBLsTargOLEhPe5WPMmGOz
-         UQZNFizeX0TzMAjwZ37yDYQUC3vYdim6WIZe4koE1alPM/0EQkT/XcOhiLWgTnUB1fWJ
-         hg9Q==
-X-Gm-Message-State: AOJu0Yyn4oUvQpfP9nogjATSNnW1wJu5SjbFb+3JJoJ8AjNj9M2Bd91v
-	IHDqevPDsZSzkQbcOm5fz/1T6c8jQCY+cgqxVWyUlqt3CqLYCVSe+9Yy8ViGKCoShtKbeTUp5yw
-	JkWJwb47JuqbitQc2I1ywRNoreMalnNT4ig==
-X-Received: by 2002:a17:903:443:b0:1c5:ce3c:c391 with SMTP id iw3-20020a170903044300b001c5ce3cc391mr20377517plb.12.1697115817052;
-        Thu, 12 Oct 2023 06:03:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG60sAZmDodYZpTTwMrKsSpHUNnnr4+FC4HMKFjpPjFZinX87mWKDjqo8s6WXMoFZEXxrebCA==
-X-Received: by 2002:a17:903:443:b0:1c5:ce3c:c391 with SMTP id iw3-20020a170903044300b001c5ce3cc391mr20377476plb.12.1697115816419;
-        Thu, 12 Oct 2023 06:03:36 -0700 (PDT)
-Date: Thu, 12 Oct 2023 09:03:24 -0400
+        d=1e100.net; s=20230601; t=1697115910; x=1697720710;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DgQsDR68yHUgWFAQWrqCyW6XN4Rk0evSHuMUwQPbojc=;
+        b=kRCeCh/46aVJt/KHX68c8Kehz6LPFfLSaT7RgDLpRXEFK5tqB4Lxq3+NHs5kcritGE
+         AXi76XnZvNF9WvIqFUBeZadmQwWNteOgnyzYcBaoTQ4jzmwSuwaY4GXWI4i7GBi0HrHQ
+         F9fsuaoIntEvZrZND/+YbsIuU8z2dWSBuKdbnPW7tQ7b84UWaCRh5Ehx2cgTb9jqSpH0
+         JfsCOGauHYEtoo4DrNhqANUS3qIKm2hvE2FqNvNMaNjqOnDzSb6elrohtaqwSbEIEvuO
+         +g0pkSfOio9D4n8Yti/QMavz9XaPNJ0rBP21n4qKWY9uzhqqk/xR+KKraigaIPHXsg3e
+         siDg==
+X-Gm-Message-State: AOJu0YxP2ARqWQJGwgrfb7w+M/s8p4WPmHLf1xMH2qMAZBcIyRCDmx/a
+	7ZpEArogWQSPovt+IzsbR02VYGxPJRYEp6GpoXlceYklTdQIg+qd9EN/I7WBLgypKcYo+iD0l0J
+	uu2gZzbrBgH6RL74xBRQ2TFotOYNXlX0KqA==
+X-Received: by 2002:adf:e852:0:b0:315:9e1b:4ea6 with SMTP id d18-20020adfe852000000b003159e1b4ea6mr20268903wrn.58.1697115909847;
+        Thu, 12 Oct 2023 06:05:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEV4dcUQQBSKW9E++vjLdAOR/4OEH/u4Urp9lQVqczDUvLyo0p7mr5A8+Dm/fB2P8lj1dGFwQ==
+X-Received: by 2002:adf:e852:0:b0:315:9e1b:4ea6 with SMTP id d18-20020adfe852000000b003159e1b4ea6mr20268886wrn.58.1697115909530;
+        Thu, 12 Oct 2023 06:05:09 -0700 (PDT)
+Date: Thu, 12 Oct 2023 09:05:06 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
@@ -58,39 +58,49 @@ Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
 	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231012085859-mutt-send-email-mst@kernel.org>
-References: <2fa89e37-a097-d785-e1ee-cda151b0d872@intel.com>
- <DM8PR12MB548001B88B5FA72B403A2AC9DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <85c59856-b68e-940c-08ed-a14e5a02554d@intel.com>
- <PH0PR12MB548135EDA034FDF7AE77C5FDDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <cbf6b0b4-c49f-6809-cac8-2d8336a8cc76@intel.com>
- <PH0PR12MB5481A03DDF43FCBD4184693FDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e2696020-8444-0ff3-a774-0b41151a18fb@intel.com>
- <PH0PR12MB548184740ED3C1011C2A85DEDCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <6fc4af28-67d9-781b-a243-a6c2ebf0244c@intel.com>
- <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Message-ID: <20231012090407-mutt-send-email-mst@kernel.org>
+References: <20231009121638-mutt-send-email-mst@kernel.org>
+ <DM8PR12MB5480E0F15A1BBDD745EE3AF4DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <25375529-9c40-9ea9-692e-f557c514c72f@intel.com>
+ <PH0PR12MB54812E59B581546FFB118F3FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <f875fa3b-4b33-71c2-e612-bc2a674a1e59@intel.com>
+ <PH0PR12MB548171A06CCE458C913E4961DCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <97aa9108-0715-2483-f5cf-02698c745d60@intel.com>
+ <PH0PR12MB5481F4F3B4FADD79770ADEA6DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231012071355-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481B9BBAF8141F1C606AA1BDCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481B9BBAF8141F1C606AA1BDCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-On Thu, Oct 12, 2023 at 11:37:01AM +0000, Parav Pandit wrote:
-> As Michael said, software based nesting is used.. 
-> See if actual hw based devices can implement it or not. Many components of cpu cannot do N level nesting either, but may be virtio can.
-> I don’t know how yet.
+On Thu, Oct 12, 2023 at 11:47:05AM +0000, Parav Pandit wrote:
+> 
+> > From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+> > open.org> On Behalf Of Michael S. Tsirkin
+> > Sent: Thursday, October 12, 2023 4:48 PM
+> > On Thu, Oct 12, 2023 at 10:58:14AM +0000, Parav Pandit wrote:
+> > > Sure, as I explained the config register method do not work for passthrough
+> > mode, and does not scale.
+> > 
+> > And on the flip side, to be frank not everyone has huge guests and numbers of
+> > VMs and a slower memory mapped interface for small devices might make
+> > sense.  What we need to do though is make this a small non-intrusive part since
+> > it's not clear such embedded cases even need live migration.
+> 
+> I almost sure, I am misunderstanding your point.
+> 
+> If the VM is small who may not need a performance, may be hypervisor can just offer
+> VIRTIO_NET_F_STANDBY.
+> 
+> I recollect we even accelerated VIRTIO_NET_F_STANDBY flow as well.
 
-It is worth pondering though. Can you give it some thought?
-I am thinking of a special bar region (or a couple) through which admin
-command structure can be exposed, and a special group type that
-refers to same pci function.
-
--- 
-MST
+standby hack is frankly problematic in that vm can not just be
+migrated at any time.
 
 
 This publicly archived list offers a means to provide input to the
