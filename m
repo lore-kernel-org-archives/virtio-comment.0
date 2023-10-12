@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7673-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7674-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F1ECDB46E
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 09:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA74CDB482
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 10:00:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9A20477B3C
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 09:59:45 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 66CC0799A6
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 10:00:18 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F28A698686E
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 09:59:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5DA53986837
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 10:00:18 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8FB98986872; Thu, 12 Oct 2023 09:59:44 +0000 (UTC)
+	id 54CFA986474; Thu, 12 Oct 2023 10:00:18 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,246 +24,150 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 709F6986843
-	for <virtio-comment@lists.oasis-open.org>; Thu, 12 Oct 2023 09:59:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 46F4F98660E
+	for <virtio-comment@lists.oasis-open.org>; Thu, 12 Oct 2023 10:00:18 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: o743BCQtOi2W0zire1Ma1w-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697104780; x=1697709580;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jKXLchiWN9cxSFNH/uAw6BjF5FTBg1Yi/KiDE8wDnOk=;
-        b=GIK9HOHbmz/uxGzUDKF+/mt8/DweOhQbsXccf6H/47FoJ5c2p/g4CBcbmUab1cjt28
-         czPUiR7ZZ5c4JtkPeqXOARpwtPfk6oaQInqojGox1fVcc+YlBcuoDsmuZ+sx61Jo2IXy
-         i3jIs1Ir/JLHQMXWl0LrSTqZAMyBmuxbz60DbfOpSTUEod5sb9p3bd6ZhW//KWyP16Vr
-         g6huz6qTa+teVNy5JejSn2CIV+LShxIgQsztj/cYayyMaEQhoJT5mxcvmr2TRmKzt8cy
-         PBf1ozld2U8qIoPundHbrvtaO8H73RrpqRlvTC2P7vYYQuLgEG+MTZ4AgbduFOXmW3DX
-         aZPA==
-X-Gm-Message-State: AOJu0YyU3RjLTQHVApbqzxW5Sk6fv4rWFYnRZT7giBpAzbbDd0pc8W8z
-	BaQego+VC9cr8yFyFA+qFgZjz42C9d9tCxHTuDcxZVpk3wfM6yqR5iYOgNvns/O1V5SY74nEoHP
-	heKGWnQOmLJmXRrE8AqmfYK7Nc2dBzU628w==
-X-Received: by 2002:a05:600c:1d22:b0:407:4993:984c with SMTP id l34-20020a05600c1d2200b004074993984cmr10499244wms.30.1697104780323;
-        Thu, 12 Oct 2023 02:59:40 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEDay0hW53ER5lFEnSRBal2GFaroxlVbyM2hDWt4KKmyDxN2h7mpCkf6+8y0BLSJA2LpRNQUA==
-X-Received: by 2002:a05:600c:1d22:b0:407:4993:984c with SMTP id l34-20020a05600c1d2200b004074993984cmr10499220wms.30.1697104779838;
-        Thu, 12 Oct 2023 02:59:39 -0700 (PDT)
-Date: Thu, 12 Oct 2023 05:59:26 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
-	Jason Wang <jasowang@redhat.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
-Message-ID: <20231012054804-mutt-send-email-mst@kernel.org>
-References: <PH0PR12MB5481C11F6D68A892A091E2AFDCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e9c482d5-1441-fec5-b55b-f1ac6e81f85b@intel.com>
- <PH0PR12MB5481C57B255B0D5EA6FB109DDCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <ddbd47c8-6985-2d08-bf98-0e7516f0c3c4@intel.com>
- <20230926064201-mutt-send-email-mst@kernel.org>
- <305d9907-9668-d362-1ff2-49a5e9f90e42@intel.com>
- <20230927113510-mutt-send-email-mst@kernel.org>
- <558fe3d6-0b81-4def-7256-52ac3cbffa8f@intel.com>
- <20231011061508-mutt-send-email-mst@kernel.org>
- <373821b2-1a1e-3bf3-51dc-8af54db85d00@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="383744936"
+X-IronPort-AV: E=Sophos;i="6.03,218,1694761200"; 
+   d="scan'208";a="383744936"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="783636798"
+X-IronPort-AV: E=Sophos;i="6.03,218,1694761200"; 
+   d="scan'208";a="783636798"
+Message-ID: <e2696020-8444-0ff3-a774-0b41151a18fb@intel.com>
+Date: Thu, 12 Oct 2023 18:00:09 +0800
 MIME-Version: 1.0
-In-Reply-To: <373821b2-1a1e-3bf3-51dc-8af54db85d00@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [PATCH 0/5] virtio:
- introduce SUSPEND bit and vq state
-
-On Wed, Oct 11, 2023 at 06:38:32PM +0800, Zhu, Lingshan wrote:
-> 
-> 
-> On 10/11/2023 6:20 PM, Michael S. Tsirkin wrote:
-> > On Mon, Oct 09, 2023 at 06:01:42PM +0800, Zhu, Lingshan wrote:
-> > > 
-> > > On 9/27/2023 11:40 PM, Michael S. Tsirkin wrote:
-> > > > On Wed, Sep 27, 2023 at 04:20:01PM +0800, Zhu, Lingshan wrote:
-> > > > > On 9/26/2023 6:48 PM, Michael S. Tsirkin wrote:
-> > > > > > On Tue, Sep 26, 2023 at 05:25:42PM +0800, Zhu, Lingshan wrote:
-> > > > > > > We don't want to repeat the discussions, it looks like endless circle with
-> > > > > > > no direction.
-> > > > > > OK let me try to direct this discussion.
-> > > > > > You guys were speaking past each other, no dialog is happening.
-> > > > > > And as long as it goes on no progress will be made and you
-> > > > > > will keep going in circles.
-> > > > > > 
-> > > > > > Parav here made an effort and attempted to summarize
-> > > > > > use-cases addressed by your proposal but not his.
-> > > > > > He couldn't resist adding "a yes but" in there oh well.
-> > > > > > But now I hope you know he knows about your use-cases?
-> > > > > > 
-> > > > > > So please do the same. Do you see any advantages to Parav's
-> > > > > > proposal as compared to yours? Try to list them and
-> > > > > > if possible try not to accompany the list with "yes but"
-> > > > > > (put it in a separate mail if you must ;) ).
-> > > > > > If you won't be able to see any, let me know and I'll try to help.
-> > > > > > 
-> > > > > > Once each of you and Parav have finally heard the other and
-> > > > > > the other also knows he's been heard, that's when we can
-> > > > > > try to make progress by looking for something that addresses
-> > > > > > all use-cases as opposed to endlessly repeating same arguments.
-> > > > > Sure Michael, I will not say "yes but" here.
-> > > > > 
-> > > > >   From Parav's proposal, he intends to migrate a member device by its owner
-> > > > > device through the admin vq,
-> > > > > thus necessary admin vq commands are introduced in his series.
-> > > > > 
-> > > > > 
-> > > > > I see his proposal can:
-> > > > > 1) meet some customers requirements without nested and bare-metal
-> > > > > 2) align with Nvidia production
-> > > > > 3) easier to emulate by onboard SOC
-> > > > Is that all you can see?
-> > > > 
-> > > > Hint: there's more.
-> > > please help provide more.
-> > Just a small subset off the top of my head:
-> > Error handling.
-> handle failed live migration? how?
-
-For example you can try restarting VM on source.
-Or at least report an error to hypervisor.
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.15.1
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+ <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>,
+ Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-4-parav@nvidia.com>
+ <20231008073912-mutt-send-email-mst@kernel.org>
+ <2fa89e37-a097-d785-e1ee-cda151b0d872@intel.com>
+ <DM8PR12MB548001B88B5FA72B403A2AC9DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <85c59856-b68e-940c-08ed-a14e5a02554d@intel.com>
+ <PH0PR12MB548135EDA034FDF7AE77C5FDDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <cbf6b0b4-c49f-6809-cac8-2d8336a8cc76@intel.com>
+ <PH0PR12MB5481A03DDF43FCBD4184693FDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB5481A03DDF43FCBD4184693FDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
+ device context fields for device migration
 
 
-> and for other errors, we have mature error handling solutions
-> in virtio for years, like re-read, NEEDS_RESET.
 
-facepalm
+On 10/11/2023 6:54 PM, Parav Pandit wrote:
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Wednesday, October 11, 2023 3:38 PM
+>>
+>>>> The system admin can choose only passthrough some of the devices for
+>>>> nested guests, so passthrough the PF to L1 guest is not a good idea,
+>>>> because there can be many devices still work for the host or L1.
+>>> Possible. One size does not fit all.
+>>> What I expressed is most common scenarios that user care about.
+>> don't block existing usecases, don't break the userspace, nested is common.
+> Nothing is broken as virtio spec do not have any single construct to support migration.
+> If nested is common, can you share the performance number with real virtio device with/without 2 level nesting?
+> I frankly don’t know how they look like.
+virtio devices support nested, I mean don't break this usecase
+And end user accept performance overhead in nested, this is not related 
+to this topic.
 
-Are you aware of the fact that Linux still doesn't support
-it since it turned out to be an extremely awkward interface
-to use?
+>
+>>>>> In second use case, where one want to bind only one member device to
+>>>>> one VM, I think same plumbing can be extended to have another VF, to
+>>>>> take
+>>>> the role of migration device instead of owner device.
+>>>>> I don’t see a good way to passthrough and also do in-band migration
+>>>>> without
+>>>> lot of device specific trap and emulation.
+>>>>> I also don’t know the cpu performance numbers with 3 levels of
+>>>>> nested page
+>>>> table translation which to my understanding cannot be accelerated by
+>>>> the current cpu.
+>>>> host_PA->L1_QEMU_VA->L1_Guest_PA->L1_QEMU_VA->L2_Guest_PA and so
+>> on,
+>>>> there can be performance overhead, but can be done.
+>>>>
+>>>> So admin vq migration still don't work for nested, this is surely a blocker.
+>>> In specific case of member devices are located at different nest level, it does
+>> not.
+>> so you got the point, so this series should not be merged.
+>>> Why prevents you have a peer VF do the role of migration driver?
+>>> Basically, what I am proposing is, connect two VFs to the L1 guest. One VF is
+>> migration driver, one VF is passthrough to L2 guest.
+>>> And same scheme works.
+>> A peer VF? A management VF? still break the existing usecase. and how do you
+>> transfer ownership of L2 VF from PF to L1 VF?
+> A peer management VF which services admin command (like PF).
+> Ownership of admin command is delegated to the management VF.
+interesting, do you plan to cook a patch implementing this?
+Really make sense?
 
-> If that is not good enough, then the corollary is:
-> admin vq is better than config space,
-
-
-You keep confusing admin vq with admin commands.
-
-
-> then the further corollary could be:
-> we should refactor virito-pci interfaces to admin vq commands,
-> like how we handle features
-> 
-> Is that true?
-> > Extendable to other group types such as SIOV.
-> For SIOV, the admin vq is a transport, but for SR-IOV
-> the admin vq is a control channel, that is different,
-> and admin vq can be a side channel.
-> 
-> For example, for SIOV, we config and migrate MSIX through
-> admin vq. For SRIOV, they are in config space.
-
-And that's a mess. FYI we already got feedback from Linux devs
-who are wondering why we can't come up with a consistent
-interface that does everything.
-
-
-> > Batching of commands
-> > less pci transactioons
-> so this can still be a QOS issue.
-> If batching, others to starve?
-
-And if you block CPU since you are not accepting
-a posted write this is better?
-
-> > Support for keeping some data off-device
-> I don't get it, what is off-device?
-> The live migration facilities need to fetch data from the device anyway
-
-Heh this is what was driving nvidia to use DMA so heavily all this time.
-no - if data is not in registers, device can fetch the data from
-across pci express link, presumably with a local cache.
-
-
-> > 
-> > which does not mean it's better unconditionally.
-> > are above points clear?
-> The thing is, what blocks the config space solution?
-> Why admin vq is a must for live migration?
-> What's wrong in config space solution?
-
-Whan you say what's wrong do you mean you still see no
-advantages to doing DMA at all? config space is just better
-with no drawbacks?
-
-> Shall we refactor everything in virtio-pci to use admin vq?
-
-> > 
-> > as long as you guys keep not hearing each other we will keep
-> > seeing these flame wars. if you expect everyone on virtio-comment
-> > to follow a 300 message thread you are imo very much mistaken.
-> I am sure I have not ignored any questions.
-> I am saying admin vq is problematic for live migration,
-> at least it doesn't work for nested, so why admin vq is a must for live
-> migration?
-
-
-My suggestion for you was to add admin command support to
-VF memory, as an alternative to admin vq. It looks like that
-will address the nested virt usecase.
-
-> > 
-> > > > 
-> > > > 
-> > > > 
-> > > > 
-> > > > > The general purpose of his proposal and mine are aligned: migrate virtio
-> > > > > devices.
-> > > > > 
-> > > > > Jason has ever proposed to collaborate, please allow me quote his proposal:
-> > > > > 
-> > > > > "
-> > > > > Let me repeat once again here for the possible steps to collaboration:
-> > > > > 
-> > > > > 1) define virtqueue state, inflight descriptors in the section of
-> > > > > basic facility but not under the admin commands
-> > > > > 2) define the dirty page tracking, device context/states in the
-> > > > > section of basic facility but not under the admin commands
-> > > > > 3) define transport specific interfaces or admin commands to access them
-> > > > > "
-> > > > > 
-> > > > > I totally agree with his proposal.
-> > > > > 
-> > > > > Does this work for you Michael?
-> > > > > 
-> > > > > Thanks
-> > > > > Zhu Lingshan
-> > > > I just doubt very much this will work.  What will "define" mean then -
-> > > > not an interface, just a description in english? I think you
-> > > > underestimate the difficulty of creating such definitions that
-> > > > are robust and precise.
-> > > I think we can review the patch to correct the words.
-> > > > 
-> > > > Instead I suggest you define a way to submit admin commands that works
-> > > > for nested and bare-metal (i.e. not admin vq, and not with sriov group
-> > > > type). And work with Parav to make live migration admin commands work
-> > > > reasonably will through this interface and with this type.
-> > > why admin commands are better than registers?
-> > > 
-> > > This publicly archived list offers a means to provide input to the
-> > > OASIS Virtual I/O Device (VIRTIO) TC.
-> > > 
-> > > In order to verify user consent to the Feedback License terms and
-> > > to minimize spam in the list archive, subscription is required
-> > > before posting.
-> > > 
-> > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> > > List help: virtio-comment-help@lists.oasis-open.org
-> > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> > > Committee: https://www.oasis-open.org/committees/virtio/
-> > > Join OASIS: https://www.oasis-open.org/join/
-> > > 
+How do you transfer the ownership?
+How to you maintain a different group?
+How do you isolate the groups?
+How to you keep the guest or host secure?
+How do you manage the overlaps?
+How do you implement the hardware support that?
+How do you change the PCI routing?
+>
+>>> On the other hand,
+>>> Many parts of the cpu subsystem such as PML, page tables do not have N
+>> level nesting support either.
+>> page tables could be emulated, as showed to you before, just PA to VA, nested
+>> PA to nested VA
+>>> They all work on top of emulation and pay the price for emulation when
+>> nesting is done.
+>>> May be that is the first version for virtio too.
+>> there are performance overhead, but can be done.
+>>> I frankly feel that nesting support requires industry level eco system support
+>> not just in virtio.
+>>> Virtio attempting to focus on nested and having nearly same level
+>> performance as bare metal seems farfetched.
+>>> Maybe I am wrong, as we have not seen such high perf nested env even with
+>> sw based device.
+>>> What can be possibly done is,
+>>> 1. What admin commands are useful from this series that can be useful for
+>> nesting?
+>>> 2. What admin commands from current series needs extension for nesting?
+>>> 3. What admin commands do not work at all for nesting, and hence, need to
+>> have new commands.
+>>> If we can focus on those, maybe we can find common approach that cater to
+>> both commands.
+>> virtio support nested now, dont let your admin vq LM break this.
+> New spec addition is not breaking existing virtio implementation in sw.
+don't break nested, again.
+> New spec additions of owner and member devices do not apply to non member and non owner devices.
+if so, no member no owner, so no admin vq? then this proposal doesn't 
+make any sense?
+>
+>>>>> Do you know how does it work for Intel x86_64?
+>>>>> Can it do > 2 level of nested page tables? If no, what is the perf
+>>>>> characteristics
+>>>> to expect?
+>>>> of course that can be done, Page table is not a problem, there are
+>>>> soft mmu emulation and viommu, through performance overhead.
+>>> Due to the performance overheads, I really doubt any cloud operator would
+>> use passthrough virtio device for any sensible workload.
+>>> But you may know already how nested performance looks like that may be
+>> acceptable to users.
+>> Many tenants run their nested cluster. Don't break this.
+> How new spec addition such as crypto device addition broke net device?
+> Or how net vq interrupt moderation breaks existing sw?
+> It does not.
+> They are driven through their own feature bits and admin command capabilities.
+> It does not break any existing deployments.
+we are talking about nested, don't break nested
 
 
 This publicly archived list offers a means to provide input to the
