@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7672-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7673-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84688CDB46E
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 07:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F1ECDB46E
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 09:59:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A3E8E613D4
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 07:47:54 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9A20477B3C
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 09:59:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 85A26986836
-	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 07:47:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F28A698686E
+	for <virtio-comment@archiver.kernel.org>; Thu, 12 Oct 2023 09:59:44 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 70DDE986474; Thu, 12 Oct 2023 07:47:54 +0000 (UTC)
+	id 8FB98986872; Thu, 12 Oct 2023 09:59:44 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,219 +24,246 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 60D6898660E
-	for <virtio-comment@lists.oasis-open.org>; Thu, 12 Oct 2023 07:47:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 709F6986843
+	for <virtio-comment@lists.oasis-open.org>; Thu, 12 Oct 2023 09:59:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045192;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0VtzpkNN_1697096867;
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: virtio-comment@lists.oasis-open.org
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
+X-MC-Unique: o743BCQtOi2W0zire1Ma1w-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697104780; x=1697709580;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jKXLchiWN9cxSFNH/uAw6BjF5FTBg1Yi/KiDE8wDnOk=;
+        b=GIK9HOHbmz/uxGzUDKF+/mt8/DweOhQbsXccf6H/47FoJ5c2p/g4CBcbmUab1cjt28
+         czPUiR7ZZ5c4JtkPeqXOARpwtPfk6oaQInqojGox1fVcc+YlBcuoDsmuZ+sx61Jo2IXy
+         i3jIs1Ir/JLHQMXWl0LrSTqZAMyBmuxbz60DbfOpSTUEod5sb9p3bd6ZhW//KWyP16Vr
+         g6huz6qTa+teVNy5JejSn2CIV+LShxIgQsztj/cYayyMaEQhoJT5mxcvmr2TRmKzt8cy
+         PBf1ozld2U8qIoPundHbrvtaO8H73RrpqRlvTC2P7vYYQuLgEG+MTZ4AgbduFOXmW3DX
+         aZPA==
+X-Gm-Message-State: AOJu0YyU3RjLTQHVApbqzxW5Sk6fv4rWFYnRZT7giBpAzbbDd0pc8W8z
+	BaQego+VC9cr8yFyFA+qFgZjz42C9d9tCxHTuDcxZVpk3wfM6yqR5iYOgNvns/O1V5SY74nEoHP
+	heKGWnQOmLJmXRrE8AqmfYK7Nc2dBzU628w==
+X-Received: by 2002:a05:600c:1d22:b0:407:4993:984c with SMTP id l34-20020a05600c1d2200b004074993984cmr10499244wms.30.1697104780323;
+        Thu, 12 Oct 2023 02:59:40 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEDay0hW53ER5lFEnSRBal2GFaroxlVbyM2hDWt4KKmyDxN2h7mpCkf6+8y0BLSJA2LpRNQUA==
+X-Received: by 2002:a05:600c:1d22:b0:407:4993:984c with SMTP id l34-20020a05600c1d2200b004074993984cmr10499220wms.30.1697104779838;
+        Thu, 12 Oct 2023 02:59:39 -0700 (PDT)
+Date: Thu, 12 Oct 2023 05:59:26 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
 	Jason Wang <jasowang@redhat.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Parav Pandit <parav@nvidia.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Yuri Benditovich <yuri.benditovich@daynix.com>,
-	Satananda Burla <sburla@marvell.com>
-Date: Thu, 12 Oct 2023 15:47:47 +0800
-Message-Id: <6d62175fc237e79c1a985c58eee303d5b214656b.1697014234.git.hengqi@linux.alibaba.com>
-X-Mailer: git-send-email 2.19.1.6.gb485710b
+	"eperezma@redhat.com" <eperezma@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
+Message-ID: <20231012054804-mutt-send-email-mst@kernel.org>
+References: <PH0PR12MB5481C11F6D68A892A091E2AFDCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <e9c482d5-1441-fec5-b55b-f1ac6e81f85b@intel.com>
+ <PH0PR12MB5481C57B255B0D5EA6FB109DDCC3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <ddbd47c8-6985-2d08-bf98-0e7516f0c3c4@intel.com>
+ <20230926064201-mutt-send-email-mst@kernel.org>
+ <305d9907-9668-d362-1ff2-49a5e9f90e42@intel.com>
+ <20230927113510-mutt-send-email-mst@kernel.org>
+ <558fe3d6-0b81-4def-7256-52ac3cbffa8f@intel.com>
+ <20231011061508-mutt-send-email-mst@kernel.org>
+ <373821b2-1a1e-3bf3-51dc-8af54db85d00@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH RESEND v3] virtio-net: support the RSS context
+In-Reply-To: <373821b2-1a1e-3bf3-51dc-8af54db85d00@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [PATCH 0/5] virtio:
+ introduce SUSPEND bit and vq state
 
-Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support RSS spreading of
-filter matches") adds support for RSS context as a destination for receive flow filters
-(see WIP work: https://lists.oasis-open.org/archives/virtio-comment/202308/msg00194.html).
+On Wed, Oct 11, 2023 at 06:38:32PM +0800, Zhu, Lingshan wrote:
+> 
+> 
+> On 10/11/2023 6:20 PM, Michael S. Tsirkin wrote:
+> > On Mon, Oct 09, 2023 at 06:01:42PM +0800, Zhu, Lingshan wrote:
+> > > 
+> > > On 9/27/2023 11:40 PM, Michael S. Tsirkin wrote:
+> > > > On Wed, Sep 27, 2023 at 04:20:01PM +0800, Zhu, Lingshan wrote:
+> > > > > On 9/26/2023 6:48 PM, Michael S. Tsirkin wrote:
+> > > > > > On Tue, Sep 26, 2023 at 05:25:42PM +0800, Zhu, Lingshan wrote:
+> > > > > > > We don't want to repeat the discussions, it looks like endless circle with
+> > > > > > > no direction.
+> > > > > > OK let me try to direct this discussion.
+> > > > > > You guys were speaking past each other, no dialog is happening.
+> > > > > > And as long as it goes on no progress will be made and you
+> > > > > > will keep going in circles.
+> > > > > > 
+> > > > > > Parav here made an effort and attempted to summarize
+> > > > > > use-cases addressed by your proposal but not his.
+> > > > > > He couldn't resist adding "a yes but" in there oh well.
+> > > > > > But now I hope you know he knows about your use-cases?
+> > > > > > 
+> > > > > > So please do the same. Do you see any advantages to Parav's
+> > > > > > proposal as compared to yours? Try to list them and
+> > > > > > if possible try not to accompany the list with "yes but"
+> > > > > > (put it in a separate mail if you must ;) ).
+> > > > > > If you won't be able to see any, let me know and I'll try to help.
+> > > > > > 
+> > > > > > Once each of you and Parav have finally heard the other and
+> > > > > > the other also knows he's been heard, that's when we can
+> > > > > > try to make progress by looking for something that addresses
+> > > > > > all use-cases as opposed to endlessly repeating same arguments.
+> > > > > Sure Michael, I will not say "yes but" here.
+> > > > > 
+> > > > >   From Parav's proposal, he intends to migrate a member device by its owner
+> > > > > device through the admin vq,
+> > > > > thus necessary admin vq commands are introduced in his series.
+> > > > > 
+> > > > > 
+> > > > > I see his proposal can:
+> > > > > 1) meet some customers requirements without nested and bare-metal
+> > > > > 2) align with Nvidia production
+> > > > > 3) easier to emulate by onboard SOC
+> > > > Is that all you can see?
+> > > > 
+> > > > Hint: there's more.
+> > > please help provide more.
+> > Just a small subset off the top of my head:
+> > Error handling.
+> handle failed live migration? how?
 
-An RSS context consists of configurable parameters specified by receive-side scaling.
+For example you can try restarting VM on source.
+Or at least report an error to hypervisor.
 
-Some use cases:
-1. When users want some data flows to be steered to specific multiple rxqs, they can set
-   receive flow filter rules for these data flows to an RSS context with desired rxqs.
-2. Traffic isolation. Used when users want the traffic of certain applications to occupy
-   several queues without being distubed.
 
-How to set/configure an RSS context:
-Assuming no RSS context has been created before.
-1. ethtool -X eth0 context new start 5 equal 8
+> and for other errors, we have mature error handling solutions
+> in virtio for years, like re-read, NEEDS_RESET.
 
-This command creates an RSS context with an id=1 for eth0, and fills in the indirection
-table with rxq indexes 5-8 circularly. The hash key and hash types reuse the default
-RSS configuration.
+facepalm
 
-Then, we can use 'ethtool -x eth0 context 1' to query the above configuration.
+Are you aware of the fact that Linux still doesn't support
+it since it turned out to be an extremely awkward interface
+to use?
 
-2. ethtool -X eth0 context new start 6 equal 7 \
-   hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
-   1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3
+> If that is not good enough, then the corollary is:
+> admin vq is better than config space,
 
-This command creates an RSS context with an id=2 for eth0, and fills in the indirection
-table with rxq indexes 6-7 circularly. The hash key is 8f:bf:dd:11:23:58:d2:8a:00:31:d0\
-:32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3.
-Hash types reuse the default RSS configuration.
 
-3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
+You keep confusing admin vq with admin commands.
 
-This command specifies the hash types for the RSS context whose id=1 on eth0.
-Now this RSS context only has the hash key to reuse the default RSS configuration.
 
-4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
+> then the further corollary could be:
+> we should refactor virito-pci interfaces to admin vq commands,
+> like how we handle features
+> 
+> Is that true?
+> > Extendable to other group types such as SIOV.
+> For SIOV, the admin vq is a transport, but for SR-IOV
+> the admin vq is a control channel, that is different,
+> and admin vq can be a side channel.
+> 
+> For example, for SIOV, we config and migrate MSIX through
+> admin vq. For SRIOV, they are in config space.
 
-This command configures a receive flow filter rule for eth0, and the data flow matching
-this rule will continue to select the final rxq according to the RSS context configuration
-with id=1.
+And that's a mess. FYI we already got feedback from Linux devs
+who are wondering why we can't come up with a consistent
+interface that does everything.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/178
-Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
-Acked-by: Satananda Burla <sburla@marvell.com>
----
-v2->v3:
-  1. Add Satananda's ack tag.
-  2. Add link to fix issue and optimize commit log.
 
-v1->v2:
-  1. u8 to le16 for field rss_ctx_id.
-  2. Add normativation when device resetting. @Yuri Benditovich
-  3. Use ctrlq cmd to query rss context capability instead of reading config space. @Parav Pandit
+> > Batching of commands
+> > less pci transactioons
+> so this can still be a QOS issue.
+> If batching, others to starve?
 
- device-types/net/description.tex        | 85 +++++++++++++++++++++++++
- device-types/net/device-conformance.tex |  1 +
- device-types/net/driver-conformance.tex |  1 +
- 3 files changed, 87 insertions(+)
+And if you block CPU since you are not accepting
+a posted write this is better?
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 76585b0..55cd86d 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-     channel.
- 
-+\item[VIRTIO_NET_F_RSS_CONTEXT(50)] Device supports multiple RSS contexts.
-+
- \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
- 
- \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
-@@ -150,6 +152,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
- \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
- \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
-+\item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and VIRTIO_NET_F_RSS.
- \end{description}
- 
- \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
-@@ -1606,6 +1609,88 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
- \end{itemize}
- 
-+\paragraph{RSS Context}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-+
-+An RSS context consists of configurable parameters specified by \ref{sec:Device Types / Network Device
-+/ Device Operation / Control Virtqueue / Receive-side scaling (RSS)}.
-+
-+The RSS configuration supported by VIRTIO_NET_F_RSS is considered the default RSS configuration.
-+
-+The device offers the feature VIRTIO_NET_F_RSS_CONTEXT if it supports one or multiple RSS contexts
-+(excluding the default RSS configuration) and configurable parameters.
-+
-+\subparagraph{Querying RSS Context Capability}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Querying RSS Context Capability}
-+
-+\begin{lstlisting}
-+#define VIRTNET_RSS_CTX_CTRL 8
-+ #define VIRTNET_RSS_CTX_CTRL_CAP_GET  0
-+ #define VIRTNET_RSS_CTX_CTRL_ADD      1
-+ #define VIRTNET_RSS_CTX_CTRL_MOD      2
-+ #define VIRTNET_RSS_CTX_CTRL_DEL      3
-+
-+struct virtnet_rss_ctx_cap {
-+    le16 max_rss_contexts;
-+}
-+\end{lstlisting}
-+
-+Field \field{max_rss_contexts} specifies the maximum number of RSS contexts \ref{sec:Device Types / Network Device /
-+Device Operation / Control Virtqueue / RSS Context} supported by the device.
-+
-+The driver queries the RSS context capability of the device by sending the command VIRTNET_RSS_CTX_CTRL_CAP_GET
-+with the structure virtnet_rss_ctx_cap.
-+
-+For the command VIRTNET_RSS_CTX_CTRL_CAP_GET, the structure virtnet_rss_ctx_cap is write-only for the device.
-+
-+\subparagraph{Setting RSS Context Parameters}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Setting RSS Context Parameters}
-+
-+\begin{lstlisting}
-+struct virtnet_rss_ctx_add_modify {
-+    le16 rss_ctx_id;
-+    le16 padding;
-+    struct virtio_net_rss_config rss;
-+};
-+
-+struct virtnet_rss_ctx_del {
-+    le16 rss_ctx_id;
-+};
-+\end{lstlisting}
-+
-+RSS context parameters:
-+\begin{itemize}
-+\item  \field{rss_ctx_id}: ID of the specific RSS context.
-+\item  \field{rss}: RSS context parameters of the specific RSS context whose id is \field{rss_ctx_id}.
-+\end{itemize}
-+
-+\field{padding} is reserved and it is ignored by the device.
-+
-+If the feature VIRTIO_NET_F_RSS_CONTEXT has been negotiated, the driver can send the following
-+VIRTNET_RSS_CTX_CTRL class commands:
-+\begin{enumerate}
-+\item VIRTNET_RSS_CTX_CTRL_ADD: use the structure virtnet_rss_ctx_add_modify to
-+       add an RSS context configured as \field{rss} and id as \field{rss_ctx_id} for the device.
-+\item VIRTNET_RSS_CTX_CTRL_MOD: use the structure virtnet_rss_ctx_add_modify to
-+       configure parameters of the RSS context whose id is \field{rss_ctx_id} as \field{rss} for the device.
-+\item VIRTNET_RSS_CTX_CTRL_DEL: use the structure virtnet_rss_ctx_del to delete
-+       the RSS context whose id is \field{rss_ctx_id} for the device.
-+\end{enumerate}
-+
-+For commands VIRTNET_RSS_CTX_CTRL_ADD and VIRTNET_RSS_CTX_CTRL_MOD, the structure virtnet_rss_ctx_add_modify is read-only for the device.
-+For the command VIRTNET_RSS_CTX_CTRL_DEL, the structure virtnet_rss_ctx_del is read-only for the device.
-+
-+\devicenormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-+
-+The device MUST set \field{max_rss_contexts} to at least 1 if it offers VIRTIO_NET_F_RSS_CONTEXT.
-+
-+Upon reset, the device MUST clear all previously configured RSS contexts.
-+
-+\drivernormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-+
-+The driver MUST have negotiated the VIRTIO_NET_F_RSS_CONTEXT feature when issuing the VIRTNET_RSS_CTX_CTRL class commands.
-+
-+The driver MUST set \field{rss_ctx_id} to between 1 and \field{max_rss_contexts} inclusive.
-+
-+The driver MUST NOT send the command VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET when the device has successfully configured at least one RSS context.
-+
- \paragraph{Offloads State Configuration}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Offloads State Configuration}
- 
- If the VIRTIO_NET_F_CTRL_GUEST_OFFLOADS feature is negotiated, the driver can
-diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-index f88f48b..f517b00 100644
---- a/device-types/net/device-conformance.tex
-+++ b/device-types/net/device-conformance.tex
-@@ -15,4 +15,5 @@
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) / RSS processing}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
-+\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \end{itemize}
-diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-index 9d853d9..22ff5c3 100644
---- a/device-types/net/driver-conformance.tex
-+++ b/device-types/net/driver-conformance.tex
-@@ -15,4 +15,5 @@
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) }
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
-+\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \end{itemize}
--- 
-2.19.1.6.gb485710b
+> > Support for keeping some data off-device
+> I don't get it, what is off-device?
+> The live migration facilities need to fetch data from the device anyway
+
+Heh this is what was driving nvidia to use DMA so heavily all this time.
+no - if data is not in registers, device can fetch the data from
+across pci express link, presumably with a local cache.
+
+
+> > 
+> > which does not mean it's better unconditionally.
+> > are above points clear?
+> The thing is, what blocks the config space solution?
+> Why admin vq is a must for live migration?
+> What's wrong in config space solution?
+
+Whan you say what's wrong do you mean you still see no
+advantages to doing DMA at all? config space is just better
+with no drawbacks?
+
+> Shall we refactor everything in virtio-pci to use admin vq?
+
+> > 
+> > as long as you guys keep not hearing each other we will keep
+> > seeing these flame wars. if you expect everyone on virtio-comment
+> > to follow a 300 message thread you are imo very much mistaken.
+> I am sure I have not ignored any questions.
+> I am saying admin vq is problematic for live migration,
+> at least it doesn't work for nested, so why admin vq is a must for live
+> migration?
+
+
+My suggestion for you was to add admin command support to
+VF memory, as an alternative to admin vq. It looks like that
+will address the nested virt usecase.
+
+> > 
+> > > > 
+> > > > 
+> > > > 
+> > > > 
+> > > > > The general purpose of his proposal and mine are aligned: migrate virtio
+> > > > > devices.
+> > > > > 
+> > > > > Jason has ever proposed to collaborate, please allow me quote his proposal:
+> > > > > 
+> > > > > "
+> > > > > Let me repeat once again here for the possible steps to collaboration:
+> > > > > 
+> > > > > 1) define virtqueue state, inflight descriptors in the section of
+> > > > > basic facility but not under the admin commands
+> > > > > 2) define the dirty page tracking, device context/states in the
+> > > > > section of basic facility but not under the admin commands
+> > > > > 3) define transport specific interfaces or admin commands to access them
+> > > > > "
+> > > > > 
+> > > > > I totally agree with his proposal.
+> > > > > 
+> > > > > Does this work for you Michael?
+> > > > > 
+> > > > > Thanks
+> > > > > Zhu Lingshan
+> > > > I just doubt very much this will work.  What will "define" mean then -
+> > > > not an interface, just a description in english? I think you
+> > > > underestimate the difficulty of creating such definitions that
+> > > > are robust and precise.
+> > > I think we can review the patch to correct the words.
+> > > > 
+> > > > Instead I suggest you define a way to submit admin commands that works
+> > > > for nested and bare-metal (i.e. not admin vq, and not with sriov group
+> > > > type). And work with Parav to make live migration admin commands work
+> > > > reasonably will through this interface and with this type.
+> > > why admin commands are better than registers?
+> > > 
+> > > This publicly archived list offers a means to provide input to the
+> > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > 
+> > > In order to verify user consent to the Feedback License terms and
+> > > to minimize spam in the list archive, subscription is required
+> > > before posting.
+> > > 
+> > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > List help: virtio-comment-help@lists.oasis-open.org
+> > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > Join OASIS: https://www.oasis-open.org/join/
+> > > 
 
 
 This publicly archived list offers a means to provide input to the
