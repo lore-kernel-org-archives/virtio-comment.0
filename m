@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7706-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7707-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C96CDB482
-	for <virtio-comment@archiver.kernel.org>; Fri, 13 Oct 2023 07:40:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD9EDCDB483
+	for <virtio-comment@archiver.kernel.org>; Fri, 13 Oct 2023 09:06:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7F82042A6F
-	for <virtio-comment@archiver.kernel.org>; Fri, 13 Oct 2023 07:40:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 10F65749E9
+	for <virtio-comment@archiver.kernel.org>; Fri, 13 Oct 2023 09:06:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5DFE998683F
-	for <virtio-comment@archiver.kernel.org>; Fri, 13 Oct 2023 07:40:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E8FD398683E
+	for <virtio-comment@archiver.kernel.org>; Fri, 13 Oct 2023 09:06:19 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 40894986475; Fri, 13 Oct 2023 07:40:36 +0000 (UTC)
+	id D0DB9986835; Fri, 13 Oct 2023 09:06:19 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,298 +24,448 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 329E9986835
-	for <virtio-comment@lists.oasis-open.org>; Fri, 13 Oct 2023 07:40:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BE671986836
+	for <virtio-comment@lists.oasis-open.org>; Fri, 13 Oct 2023 09:06:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B1qPjYc0g/M16phl4h9neZp5X4R0HNKXiDFROvo2k8CeM5zw6j/cWtvK/xNWa+Ewmwxg6kj6BKN++1FS4DS7Db4FMZmh9FQZku3Vvd4kWDNJ9DhSoQMbPvp++34OLswoQU+Qsx6/71Mja0TQdEp3B3qzE0S1MmkR5h6lrFXYHYX9lmknTT1yEUGEpXYaKUWgxqWNsTL95Czaib2hQ5jmHMBr4UEJHMqODpkDBeMEFbglEUtzkALTLmxcR1/5MlPmS9sLKxVsSSRvOKstYZbvBlo5MELJ6DNwtMxGjuSSzGocoR753TgTNbCpSifWR7x/8rJ1NYXjkDBvOH9Q46Gwuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ejF5hZLui7NVEmSlWKtr8DLyIvM6qv76MgdKuY/Py+w=;
- b=fYGAtnfF4K4vt+Tmccup9cvhMhilT3UJ51vwCaGDj+RpFqRD4CmIWpLH2ukzMrBmvMUgfQLuF461Jd4f+C8IB+pVBFeq4K7aH6AwqszAutsnWvov9hEr1xsZV5rAEpdgHxh/k1z2KTR4zufuK2KsHg+oPI5RWLSIZaBhsup9gkEr6OzvJz5FAqr8nkkZkKsDuqTrExwFKzddx40DT99vrO/EFTAFGX5zf9Tcg5RiITsl32XDZC8mAlC2Co1TeJcGgdOnhKtMcO3Az5teNAKV/5yyDW1Dho7RX9Ue0+oJGRtCBZvfOGa0+pajweJqBpKFcebAE9bIU/1kpbfZzFAqSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Peter Hilber <peter.hilber@opensynergy.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-CC: Cornelia Huck <cohuck@redhat.com>
-Thread-Topic: [virtio-comment] [RFC PATCH v2] virtio-rtc: Add device
- specification.
-Thread-Index:
- AQHZqzWn01mUtnPGCUaCuESJ+zAzFa+nCBEQgCaJjICABcqYEIAHKR+AgBoD7sCAJGLqgIAS3pNwgAbnOwCAApCdYIARXF8AgAFYInA=
-Date: Fri, 13 Oct 2023 07:40:31 +0000
-Message-ID:
- <PH0PR12MB54815BDBEA7E4DE1074B167DDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20230630092959.392381-1-peter.hilber@opensynergy.com>
- <PH0PR12MB548182C0D5EB0C6273F30E9CDC28A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fb5b1603-68eb-3301-9e5c-6bb81e9bc594@opensynergy.com>
- <PH0PR12MB5481CA116DBB424005B0B5D1DC05A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <766e94a2-2592-d3ca-2ddf-164022df05da@opensynergy.com>
- <PH0PR12MB5481F7AD21A871DE5660A948DC1EA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <b59a7dda-06fe-cff9-df61-b90aa4e50836@opensynergy.com>
- <PH0PR12MB5481BA022FC2CA834264CC47DCFCA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <9da5f426-0099-8b58-bb24-fdbfeb02b4fc@opensynergy.com>
- <PH0PR12MB5481DDD6D022617D6F615429DCC6A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <026c8242-7dae-4ee9-b9e9-bb52af07c063@opensynergy.com>
-In-Reply-To: <026c8242-7dae-4ee9-b9e9-bb52af07c063@opensynergy.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS0PR12MB8344:EE_
-x-ms-office365-filtering-correlation-id: e978276f-f252-4f5a-306f-08dbcbbfadcd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- G4ly7bHwjZcY7D+2+HyCmYAOYJjZa47fjb8pAw/rajXlNLZb7pCbU3MPM4GLuJDPdpW8G709wKBD2zklkAsZaaSuNFPirLiMDf3Pho63OXJRblxT+C26QEqaR215AFgedo9PyZ7ZTVnz2eDXDcysE0FoHactGmQGbmZIIIl1qbmC9kZh5EDxuD874Sk7lnsdjTmTF9myQc++G+etBAzmCB9YpQQKAkghev49eXXAuAeZGapppsf6b3TZyD06hH6GFiJJ/7YaS3sjslmorzvXMvqxh2oPV1Q3jjV/OL2roIPE29Gc7M8d9O9XfosyAGdXhVoYs+yAGno2t5GNUXJpcIHafA27kb4IPnFVnVFkZsSLZWmX5TtUo0Fu0zigkyRKV8k6gH3ogCMViZfgu1Og6dzk96FPEFUEK23wO7H/Rh1Xw5rdh87ydA+VMX8DPpuNMPxYdGZTzvX7ER1iRT9YiZOSoqkPaNEJk0rluc5b7LiBlLBJY323+A9BqrMY0qn9unLmpJ+kJB6k06CJPfxw3P8RLXSaBYA7uIJ1FW++0Dpvi18jqehbCm4Usyb6pHT38tBD0Ph78i0RSrNPlqY/zF1w7fRGGfwZM8Ml5DE+0msS6fB/SRQlRNtZhgNiaBEM
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(39860400002)(366004)(136003)(396003)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(110136005)(55016003)(76116006)(66476007)(66446008)(64756008)(66556008)(66946007)(38070700005)(52536014)(33656002)(316002)(7696005)(6506007)(66899024)(71200400001)(38100700002)(2906002)(8676002)(5660300002)(4326008)(30864003)(8936002)(478600001)(86362001)(41300700001)(122000001)(9686003)(83380400001)(26005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bEZmaHBCeUxXaHZ1aEpXUVh3Y0w2U2wzbGlJVFhJZWV1SWZYUFhlQmdSRW5C?=
- =?utf-8?B?V0ZISEtKRWMzVkFpeUJnZng4QS9OdUhRT0hUeEtqQURHUlBPWTZpRVJPYlZw?=
- =?utf-8?B?U2NQcHZjVmZPcDUxSW93bTFmeEFldjhHeUxxQ3V4b0NuWjBvNmFTOXJtcUYz?=
- =?utf-8?B?Q0FMKzZ4a3RCRFFHVHd4SjRvUGg5d3hHd2ZMbWpsb3BHdktIZ3hMNmk2eTRI?=
- =?utf-8?B?eVlkNkdXT0Q5Z0xGTkRhT3VzM1UxaDhkNmRmekNMMkY5LzNBcHorRTNTU2FG?=
- =?utf-8?B?MVNnNVEwMWYvYzFMZnBsQXdRbjN1b1JYMUYzT1FwUENsemh1MUVRYW85dTM3?=
- =?utf-8?B?TlBZOVdsRlhLbWNuYjhtUExDL3FOZ0hUeDJuWHRSUlJVdjI4NUFzbUpzYW9L?=
- =?utf-8?B?V3MyTnlZUFBxM05FZUJ5V1B3K2Zyck5TS0V6amZwNVlLaThJTW4ydGdIOXVN?=
- =?utf-8?B?VHI5T3RFOTFWNHF5TzYybkhFMHJ0VytSTW9tb1Z3YkFzUnFpSXJSSC9odFpi?=
- =?utf-8?B?ZjVjdlBFT2E4dE9QUWNUbi9HTk5tNjZIVk1lQ24xdmR1OElqUUpWNi9VdUhU?=
- =?utf-8?B?RFhHZzFJaDVWUjBvQzBSa1dLTllVanpQWXlUSXQrVlBtQlJYbjFjNURtaFNQ?=
- =?utf-8?B?VnYwei94Nm9zQ21BYVoyUWtoNDEwMXlvS2wweFI5ZG50MzJTWmxqMnRtazJi?=
- =?utf-8?B?VmlJY3dJZWJwcHdqMnlFbnRWMnBJWVA5SlFaUGVmZjUwc0ZsQXI0ZzlyMUdH?=
- =?utf-8?B?cFVUSERpQldpckxCbGllVVJ2S1cvNjdteVpFdHQ5VVR1VmFSd1dkQk5Lcmxw?=
- =?utf-8?B?bHFCM3lGSEJ1VXRteE55V01jNk5nMHp6UUw5dWwzc1hmOVB4RzFJRFQvbjAv?=
- =?utf-8?B?c0xVRVpraEFFQnV6OS9SNDNneTJTZEJxOW1wTWJnS2lpSlhITlVUZ0R2R3dS?=
- =?utf-8?B?UGxSck0ya1pCQVpOMCt5TzRUUzVDY3J2aXJiejY1RU9weEphN2gvMHQ3WlBY?=
- =?utf-8?B?VkV4aHU0L2JzYlZqZ0pndGZCNHV4UE0wMzdseSt2VkozTmwrdE1TWWxMYWNL?=
- =?utf-8?B?VURuTWpHcVNlRnpJN0ZQK1p5am1zeU1SOE9Zc2E3TWxTQWsyS0VaS29NQTJ4?=
- =?utf-8?B?OGNMK0dNQVJaM1dLcTdsRk90aGNGMUpKSnBtMndKRXdKSU9GeFlqRTlLWHpm?=
- =?utf-8?B?NkQxaUtNMy9YZUhmems0YjdVamtPYjJGbHI3eGVhbjNxVE8zbTg3THVHMkVU?=
- =?utf-8?B?VzlYMjBrQnA5aGZMdjhtMnY2RzlsbzFsRjdwQ2VCSEhHSG9CcktBTm5TQmRY?=
- =?utf-8?B?SHBoa2YxRk1RUm81aGNNaHVFQnNKbll2OXV6SmU5SmlDZ2tsSUhDU3pmajFD?=
- =?utf-8?B?aGh0cWZxZ1ZubWZHYXU4K1g1NEwva2J3YXpPamFiZEN4ZjhBbDBwWGRvbUdV?=
- =?utf-8?B?UloxcFcwY0JiNlRwTlBqbHA3TTZRRm1Ja0wxTDdZeVEzUnNPWHZtbkVHT1U4?=
- =?utf-8?B?THRUQjd6V3ZKTlV6UVdDV1FXdG94Ukh0clNWaFlKQW5JeHJ3czBDWnM4OHVI?=
- =?utf-8?B?NDFQL2pNN2pyNG1VY1FDM3ZISUkvY3B5TUxmZlhoZmtYa0huT1BBVWEzRGJr?=
- =?utf-8?B?OWFTUlkvMXlKRFkvYzFLSnZCbm5DWnMySVpZZUV3d1FsZ3FGSjdVazg1cUU2?=
- =?utf-8?B?dWs2Z3FBOWplelNDVlhGUCt0VTlFUWRjd0duWVEwSTltWDkrQ1c2U3NaVncw?=
- =?utf-8?B?b3htVDI4WFNrWHJ0Y0c1dHF3Y3RUbmdKTjZSeWs0NnhvZWY2TFJ2dEtOTjdu?=
- =?utf-8?B?TXFSby9GOEFwYUdyUEp6NkVCdlFkR2U4Y1F6MWJrdjBTTWJXVFJiVkl0VmI4?=
- =?utf-8?B?M3ZwMmVhTkZuTjJ6V0dhem4veFg3MnpybWRqcW5vendrdTJMY2dpWWJ1Zm91?=
- =?utf-8?B?YlRjc1RPWStTNzh0ek9ETlBaQjl0RENOYUJtdGE5NlBWM09McnNxZjUvWHBM?=
- =?utf-8?B?bnFhdVpkSVBJRWJnZ1lOcytIejk2QjJKWnFuTlMvWlV2RGc4S0FjaEdjNjZl?=
- =?utf-8?B?c2dDNTYwZUE4d0FuQ0ZLY0VvZXhOOTRWMkpaeDkzVXNjK0lkR3VKdDRtTXlH?=
- =?utf-8?Q?9B3s=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="365399428"
+X-IronPort-AV: E=Sophos;i="6.03,221,1694761200"; 
+   d="scan'208";a="365399428"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="1086063000"
+X-IronPort-AV: E=Sophos;i="6.03,221,1694761200"; 
+   d="scan'208";a="1086063000"
+Message-ID: <4a8bf09e-9aa3-4aec-a20e-8c92f3da3d3c@intel.com>
+Date: Fri, 13 Oct 2023 17:06:02 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e978276f-f252-4f5a-306f-08dbcbbfadcd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2023 07:40:31.7593
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Zj+SfkRbvPHzNL6boVSvxjlTL/BAl2t7kx1CRAywtz4i/bzLtHtXqvTop1/o2I2ErbTpZTnn4rI1vX8o9yOywQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8344
-Subject: RE: [virtio-comment] [RFC PATCH v2] virtio-rtc: Add device
- specification.
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+ <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-2-parav@nvidia.com>
+ <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
+ <DM8PR12MB54801E873241AA02CC32CDCBDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20231009121638-mutt-send-email-mst@kernel.org>
+ <DM8PR12MB5480E0F15A1BBDD745EE3AF4DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <25375529-9c40-9ea9-692e-f557c514c72f@intel.com>
+ <PH0PR12MB54812E59B581546FFB118F3FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <f875fa3b-4b33-71c2-e612-bc2a674a1e59@intel.com>
+ <PH0PR12MB548171A06CCE458C913E4961DCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <97aa9108-0715-2483-f5cf-02698c745d60@intel.com>
+ <PH0PR12MB5481F4F3B4FADD79770ADEA6DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB5481F4F3B4FADD79770ADEA6DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-DQo+IEZyb206IFBldGVyIEhpbGJlciA8cGV0ZXIuaGlsYmVyQG9wZW5zeW5lcmd5LmNvbT4NCj4g
-U2VudDogVGh1cnNkYXksIE9jdG9iZXIgMTIsIDIwMjMgNDoyNiBQTQ0KDQo+ID4gSWYgSSB1bmRl
-cnN0YW5kIGNvcnJlY3RseSwgaW52MiB3ZSBkb27igJl0IGhhdmUgYSB3YXkgdG8gZHluYW1pY2Fs
-bHkgaG90cGx1ZyBhbmQNCj4gdW5wbHVnIHRoZSBjbG9ja3Mgb2YgX29uZV8gdmlydGlvLXJ0YyBk
-ZXZpY2UuDQo+IA0KPiBIaSBQYXJhdiwNCj4gDQo+IGNvcnJlY3QuDQo+IA0KPiA+IFNvIGFtIEkg
-bWlzc2luZyBzb21ldGhpbmc/DQo+ID4gSW4gYW4gYXJiaXRyYXJ5LCBpbnRlcmZhY2UsIG9uY2Ug
-dW5wbHVnIGlzIHN1Y2Nlc3NmdWwsIGkuZS4gd2hlbiB0aGUNCj4gPiBkZXZpY2UgZXhhY3RseSBr
-bm93IHRoYXQgdW5wbHVnIGlzIGNvbXBsZXRlZCBieSB0aGUgZHJpdmVyLCBJdCBjYW4gcmUtdXNl
-IHRoZQ0KPiBpZC4NCj4gDQo+IEJ1dCB0aGlzIHdvdWxkIHJlcXVpcmUgdGhlIGRldmljZSB0byBy
-ZW1lbWJlciBwcmV2aW91c2x5IHVucGx1Z2dlZCBjbG9ja3MuDQo+IA0KTm90IGFsd2F5cywgaXQg
-Y2FuIGRvIHdoZW4gdGhlIGNsb2NrIHdyYXAgYXJvdW5kcy4NClNpbmNlIHRoaXMgaW50ZXJmYWNl
-IGRvZXMgbm90IGhhdmUgdGhlIGNvbXBsZXhpdHkgb2YgaG90cGx1ZyBhbmQgdW5wbHVnIG9mIHRo
-ZSBjbG9ja3MsIHdlIHNob3VsZCBqdXN0IGtlZXAgaXQgc2ltcGxlIHRvIGEgcmVhc29uYWJsZSBu
-dW1iZXIgb2YgY2xvY2tzLg0KVGhlIDY0LWJpdCB2YWx1ZSBpcyBub3QgaHVydGluZyBhdCBhbGws
-IEkganVzdCBmZWVsIGl0IGlzIGJ1aWx0IGZvciB1bmtub3duLg0KDQpBbnkgcmVhc29uIHRvIG5v
-dCBkbyBob3QgcGx1Zy91bnBsdWcgb2YgY2xvY2tzIG5vdz8NCg0KPiA+DQo+ID4gVGhpcyB3b3Vs
-ZCB3b3JrIHdpdGggOC1iaXQgdG9vLg0KPiA+IE5vdCB0aGF0IEkgaGF2ZSBpc3N1ZSB3aXRoIDY0
-LWJpdHMsIGJ1dCB0aGUgdXNlIGNhc2UgZm9yIGxhcmdlIG51bWJlciBvZiBjbG9ja3MNCj4gdW5k
-ZXIgc2luZ2xlIHZpcnRpby1ydGMgZGV2aWNlIGlzIHVuY2xlYXIuDQo+ID4gQW5kIGlmIHRoZXJl
-IGlzIG5vIHVzZSBjYXNlLCB3ZSBzaG91bGQgaGF2ZSByZWFzb25hYmxlIHJhbmdlLg0KPiA+DQo+
-IA0KPiBVc2luZyBhIGxhcmdlIGlkIHJhbmdlIG1pZ2h0IGhlbHAgaW4gdGhlIGZ1dHVyZSB0byBh
-dm9pZCBkZWFsaW5nIHdpdGggdGhlIHdob2xlDQo+IGNsYXNzIG9mIGlkIEFCQSBwcm9ibGVtcywg
-Y2YuIHRoZSBhYm92ZSBleGFtcGxlLg0KSW4gbXkgdmlldyB0aGUgY2xvY2tzIGFyZSBleHBlY3Rl
-ZCB0byBnaXZlIHByZWNpc2lvbiBhbmQgYWNjdXJhY3ksIHNvIG51bWJlciBvZiBjbG9ja3MgaW4g
-YSBzeXN0ZW0gdGhhdCBvY2N1cGllcyA2NC1iaXQgd2lkZSBzb3VuZHMgZGlzdGFudC4NCklmIGl0
-IGlzIHVzZWQgdG8gbm90X2NhcmUgYWJvdXQgZmluZGluZyB0aGUgZnJlZSBpZCwgaXQgaXMgb2su
-DQoNCklzIGhvdHBsdWcgdW5wbHVnIHRoZSBjbG9jayAoaW5zdGVhZCBvZiBkZXZpY2UpIGlzIGNy
-aXRpY2FsIHRoYXQgZHJpdmVzIHRoZSBjbG9jayBpZD8NCg0KPiANCj4gVG8gbWUgdXNpbmcgNjQg
-Yml0cyB0byBhdm9pZCB0aGUgcG90ZW50aWFsIGZ1dHVyZSBBQkEgcHJvYmxlbXMgbG9va3MNCj4g
-cmVhc29uYWJsZSwgYnV0IGlmIG90aGVycyBkaXNhZ3JlZSwgSSBjYW4gcmVkdWNlIHRvIDggYml0
-cy4NCj4gDQpJdCBpcyBub3QgbXVzdCwgSSBqdXN0IGZpbmQgdGhlIDY0LWJpdCBsZXZlbCBjbG9j
-a3MgYSBiaXQgdG9vIG11Y2ggc3BlY2lhbGx5IGF0IGhvdHBsdWcvdW5wbHVnIHBhcnQuDQoNCj4g
-Pj4gVGhpcyBhbmQgc2ltaWxhciBzY2VuYXJpb3MgY2FuIGJlIHByZXZlbnRlZCBieSB1c2luZyA2
-NCBiaXQgaWRzLg0KPiA+Pg0KPiA+IExldHMgZmlyc3QgZXN0YWJsaXNoIGEgdXNlIGNhc2UgaWYg
-aXQgZXhpc3RzLg0KPiA+DQo+IA0KPiBUaGUgYmVuZWZpdCB3b3VsZCBiZSB0byBhdm9pZCBwb3Rl
-bnRpYWwgZnV0dXJlIGlkIEFCQSBwcm9ibGVtcywgYXMgcGVyIGFib3ZlLg0KPiANCj4gPj4NCj4g
-Pj4gSSB1bmRlcnN0YW5kLiBJIGFtIGp1c3Qgc3RpbGwgY29uY2VybmVkIGFib3V0IHRoZSBkdWFs
-IHVzZSBvZiB0aGUNCj4gPj4gc3BlYyBmb3IgdGhlIHJlYXNvbnMgd2hpY2ggSSBnYXZlIGJlbG93
-Lg0KPiA+Pg0KPiA+IEl0IGlzIG5vdCB0aGUgZHVhbCB1c2Ugb2YgdGhlIHNwZWMuDQo+ID4gSXQg
-aXMgdGhlIGRyYWZ0IHRoYXQgZW5hYmxlcyBjb21tb24gZnVuY3Rpb25hbGl0eSBmb3IgdXNpbmcg
-aW4gdHdvIHVzZSBjYXNlcy4NCj4gPg0KPiA+Pg0KPiA+PiBJIGRvbid0IGtub3cgaG93IHNwZWMg
-c2hhcmluZyB3b3VsZCBiZSBqdWRnZWQgYnkgdGhlIFRDLiBBdCB0aGUNCj4gPj4gbW9tZW50LCBu
-byBvdGhlciBkZXZpY2VzIGRvIHRoaXMuDQo+ID4+DQo+ID4gVGhpcyBpcyB0aGUgZmlyc3QgdGlt
-ZSB0d28gdXNlIGNhc2VzIGhhcyBzdWNoIGEgY29tbW9uIGZ1bmN0aW9uYWxpdHkgdGhhdA0KPiBi
-cmluZ3MuDQo+ID4gU28gaXQgaXMgZmluZSB0byBpbnRyb2R1Y2UuDQo+ID4gVEMgd2lsbCBldmFs
-dWF0ZSBhbmQgZ2l2ZSB0aGVpciBmZWVkYmFjayB0aGF0IHdlIGNhbiBpbmNvcnBvcmF0ZSBmdXJ0
-aGVyLg0KPiA+IFNpbmNlIHRoaXMgcmVkdWNlcw0KPiA+IGEuIGR1YWwgc3BlYw0KPiA+IGIuIGR1
-YWwgaW1wbGVtZW50YXRpb24NCj4gPg0KPiA+IGFuZCBpbXByb3ZlcyBiZXR0ZXIgZGV2aWNlIHNj
-YWxpbmcsIGl0IGlzIGxvZ2ljYWwgdG8gY292ZXIgYm90aCB1c2UgY2FzZXMuDQo+ID4NCj4gPg0K
-PiA+Pj4+IC0gYSBtb3JlIGNvbXBsZXggc3BlYyBpbXBhY3RpbmcgdHdvIGRldmljZXMNCj4gPj4+
-Pg0KPiA+Pj4gV2VsbCBpdCBpcyB0aGUgZnVuY3Rpb25hbGl0eSwgc28gb25jZSB5b3UgbG9vayBm
-b3Igc2xpZ2h0bHkgbGFyZ2VyDQo+ID4+PiB1c2UgY2FzZXMsIG92ZXJhbGwNCj4gPj4gaXQgaXMg
-c3RpbGwgbGVzcyBjb21wbGV4aXR5IHRoYW4gd3JpdGluZyB0d28gZGlmZmVyZW50IHNwZWNzLCBv
-bmUgZm9yDQo+ID4+IG5ldCBhbmQgb25lIGZvciBydGMgb25seSBkZXZpY2UuDQo+ID4NCj4gPg0K
-PiA+Pj4NCj4gPj4NCj4gPj4gQ29tcGxleGl0eS13aXNlIGl0IHdvdWxkIGJlIGJlc3QgdG8gaGF2
-ZSBvbmUgUlRDIHNwZWMsIGFuZCBsaW5rIHRoZQ0KPiA+PiBSVEMgZGV2aWNlIHRvIG90aGVyIGRl
-dmljZXMgdGhyb3VnaCBVVUlEIGlmIG5lZWRlZC4NCj4gPj4NCj4gPiBJIGFtIGxvb2tpbmcgYXQg
-bGFyZ2VyIHVzZSBjYXNlIHRoYW4ganVzdCBydGMgZGV2aWNlLg0KPiA+IEhlbmNlLCB0b3RhbCBj
-b21wbGV4aXR5IG9mIG5ldCBkZXZpY2UgYW5kIHJ0YyBpcyBjb3VudGVkIGluIHNwZWMsIGFuZCBh
-bHNvIGluDQo+IGltcGxlbWVudGF0aW9uLg0KPiA+DQo+ID4gU28gaXQgbG9va3MgYmV0dGVyIHRv
-IGRvIG9uZSB0aW1lLg0KPiA+DQo+ID4NCj4gPg0KPiA+Pj4+IC0gc3Ryb25nIGNvdXBsaW5nIGJl
-dHdlZW4gbmV0IGFuZCBSVEMgZHJpdmVyIGltcGxlbWVudGF0aW9uIChvciBjb2RlDQo+ID4+Pj4g
-ICBkdXBsaWNhdGlvbikNCj4gPj4+Pg0KPiA+Pj4gTW9zdGx5IG5vLiBpdCBpcyB0aGUgc29mdHdh
-cmUgbGF5ZXIuIFJUQyBsYXllciBvcGVyYXRlcyBvdmVyIGNvbnRyb2wgVlEuDQo+ID4+PiBTbyBu
-ZXQgZGV2aWNlIHdpbGwgcHJvdmlkZSB0aGUgbmVlZGVkIEFQSS4gU2FtZSBBUEkgd291bGQgYmUN
-Cj4gPj4+IGF2YWlsYWJsZSBmb3INCj4gPj4gZGVkaWNhdGVkIHJ0YyBkZXZpY2UgbG93ZXIgbGF5
-ZXIgdG9vLg0KPiA+Pj4gTm8gcHJvYmxlbS4NCj4gPj4+DQo+ID4+DQo+ID4+IEJ1dCBWaXJ0aW8g
-QVBJIHdpbGwgdXN1YWxseSBiZSB0aW1lLXByb3Zlbiwgd2hpbGUgZHJpdmVycyBjZXJ0YWlubHkN
-Cj4gPj4gaGF2ZSBvcHBvcnR1bml0aWVzIHRvIGdldCB0aGUgY3VzdG9tIEFQSSB3cm9uZy4NCj4g
-Pj4NCj4gPiBJIGRvIG5vdCB1bmRlcnN0YW5kIHRoaXMgbXVjaC4NCj4gPiBUaGUgYm90dG9tIGxp
-bmUgaXMgY29tbW9uIGZ1bmN0aW9uYWxpdHkgZXhpc3RzLCBkcml2ZXIgbWFpbnRhaW5lcnMgY2Fu
-IGNyYWZ0DQo+IGdvb2QgQVBJcyBpbiB0aGVpciBPUy4NCj4gPiBUaGVyZSBhcmUgbW9yZSB0aGFu
-IDEzIGRyaXZlcnMgaW4gb25lIE9TIHRoYXQgSSBpbnNwZWN0ZWQsIHdoaWNoIGhhcyBiZWVuDQo+
-IHBlZXIgcmV2aWV3ZWQuDQo+ID4gU28gSSB3b3VsZG7igJl0IGNsYWltIHRoYXQgdGhleSBhbGwg
-Z290IGl0IHdyb25nLg0KPiA+DQo+ID4+Pj4gLSB1c2luZyBjdXN0b20gaW50ZXJmYWNlcyAoYmV0
-d2VlbiBuZXQgYW5kIFJUQyBkcml2ZXIpLCByYXRoZXIgdGhhbg0KPiBnZW5lcmljDQo+ID4+Pj4g
-ICBpbnRlcmZhY2VzDQo+ID4+Pj4NCj4gPj4+IE11bHRpIGZ1bmN0aW9uIGRldmljZXMgYXJlIGNv
-bW1vbiBpbiBuYXR1cmUgZm9yIGZ1bmN0aW9uYWxpdHkgYW5kIHNjYWxlLg0KPiA+Pj4gQW5kIE9T
-ZXMgc3VwcG9ydHMgaXQgYWxyZWFkeS4NCj4gPj4+DQo+ID4+DQo+ID4+IENmLiBhYm92ZSByZXBs
-eS4NCj4gPj4NCj4gPj4+PiAtIFJUQyBjb3VsZCBub3QgdXNlIGRldmljZSBjb25maWd1cmF0aW9u
-DQo+ID4+Pj4NCj4gPj4+IEluIHlvdXIgcHJvcG9zYWwgYWxsIHRoaW5ncyBhcmUgb3ZlciBjdnEg
-YWxyZWFkeS4NCj4gPj4+DQo+ID4+DQo+ID4+IEJ1dCBpdCB3b3VsZCBwcmV2ZW50IGZ1dHVyZSB1
-c2Ugb2YgdGhlIGRldmljZSBjb25maWd1cmF0aW9uLg0KPiA+Pg0KPiA+IE5vdCByZWFsbHkuIGN2
-cSBoYXMgdGhlIGNvbW1hbmRzIHRvIGRvIHRoZSBkZXZpY2UgY29uZmlnIGluIHlvdXIgcGF0Y2gN
-Cj4gYWxyZWFkeS4NCj4gPiBFdmVuIGZvciBuZXQgZGV2aWNlLCBpbXBsZW1lbnRpbmcgUlcgcmVn
-aXN0ZXJzIGFyZSBoYXJkLg0KPiA+IFRoZSBpbmR1c3RyeSBpbiB2YXJpb3VzIGFzcGVjdHMgYXJl
-IG1vdmluZyBhd2F5IGZyb20gZGV2aWNlIHNwZWNpZmljDQo+IGNvbmZpZ3VyYXRpb25zLg0KPiA+
-DQo+ID4+Pj4gLSB1bnJlY29nbml6ZWQgaXNzdWVzLCBvciBmdXR1cmUgZ2VuZXJpYyBjaGFuZ2Vz
-IHRvIHRoZSBWaXJ0aW8gc3RhbmRhcmQsDQo+ID4+Pj4gICBtYXkgaW5oaWJpdCBmdXR1cmUgZGV2
-ZWxvcG1lbnQgb2YgdGhlIFJUQyBkZXZpY2Ugb3IgdGhlIG5ldA0KPiA+Pj4+IGRldmljZQ0KPiA+
-Pj4+DQo+ID4+PiBVbmxpa2VseSBhcyB0aGUgcmV2aWV3cyBlbGltaW5hdGUgc3VjaCBpc3N1ZXMu
-DQo+ID4+Pg0KPiA+Pj4+IC0gdW5jbGVhciByZXNwb25zaWJpbGl0eSBhbmQgdGltZWxpbmUgZm9y
-IG5ldCBkZXZpY2UgcmVsYXRlZCBzcGVjIGFuZA0KPiA+Pj4+ICAgcHJvb2Ytb2YtY29uY2VwdA0K
-PiA+Pj4+DQo+ID4+PiBBbGwgdGhlIHJlc3BvbnNpYmxlIHBlb3BsZSBvZiB0aGUgdGVjaG5pY2Fs
-IGNvbW1pdHRlZSBhcmUgaGVyZS4NCj4gPj4+IEluIGZhY3QgdGhlIHJlcXVpcmVtZW50cyBhcmUg
-bW9yZSBjbG9zZWx5IHRyYWNrZWQgYnkgaXRzIHN0YWtlDQo+ID4+PiBvd25lcnMgZm9yIG5ldA0K
-PiA+PiBjb21wYXJlZCB0byBvdGhlciBkZXZpY2VzLg0KPiA+Pj4gU28gaWYgeW91IG5lZWQgaGVs
-cCB0byBmaW5kIG5ldCBzaWRlIG93bmVyLCBsZXQgbWUga25vdy4gT3RoZXJzIGFuZA0KPiA+Pj4g
-SSBhcmUNCj4gPj4gaW50ZXJlc3RlZCB0byBoYXZlIGl0IGluIHRoZSBuZXQgc2lkZS4NCj4gPj4+
-DQo+ID4+DQo+ID4+IFdpdGggInVuY2xlYXIgcmVzcG9uc2liaWxpdHkiIEkgbWVhbnQgdG8gcmVm
-ZXIgdG8gdGhlIHJlc3BvbnNpYmlsaXR5DQo+ID4+IGZvciBkcmFmdGluZyBhIHNwZWMgZXh0ZW5z
-aW9uIGZvciB2aXJ0aW8tbmV0LA0KPiA+DQo+ID4gWW91IGNhbiBjb3VudCBtZSB0byBkcmFmdCB0
-aGUgdmlydGlvLW5ldCBzcGVjIGZvciByZXNwb25zaWJpbGl0eS4NCj4gPiBJIGFtIHN1cmUgb3Ro
-ZXJzIHdvdWxkIGpvaW4gYXMgdGhlcmUgaXMgY29tbW9uIGludGVyZXN0IGFjcm9zcyBtdWx0aXBs
-ZSBkZXZpY2UNCj4gaW1wbGVtZW50b3JzIHRvIHN1cHBvcnQgaXQuDQo+ID4gV2Uga25vdyBhdCBs
-ZWFzdCA0IHN0YWtlIGhvbGRlcnMgaGF2ZSBpbnRlcmVzdHMgaW4gaXQgaW4gdmlydGlvLW5ldCAo
-QWxpYmFiYSwNCj4gZ29vZ2xlLCBtYXJ2ZWxsLCBudmlkaWEpLg0KPiA+DQo+IA0KPiBPSywgdGhh
-bmsgeW91IGZvciB0aGUgaW5mb3JtYXRpb24uDQo+IA0KPiBJIHRoaW5rIHRoZSBhcmd1bWVudHMg
-b24gaG93IHRvIGhhdmUgdGhlIFJUQyBzcGVjIGludGVyYWN0IHdpdGggdGhlIG5ldCBkZXZpY2UN
-Cj4gYXJlIG5vdyBvbiB0aGUgdGFibGUuIE1heWJlIHRoZSBkaXNjdXNzaW9uIGNvdWxkIGNvbnRp
-bnVlIG9uIGEgZHJhZnQgc3BlYw0KPiBleHRlbnNpb24gZm9yIHRoZSBuZXQgZGV2aWNlPw0KPiAN
-CkkgZGlkbuKAmXQgZm9sbG93IHRoZSBjb21tZW50Lg0KTXkgc3VnZ2VzdGlvbiBpcyBsZXRzIGRy
-YWZ0IHRoZSBzcGVjIF9ub3dfIHRoYXQgY292ZXJzIHJ0YyBmdW5jdGlvbmFsaXR5IGFzIHBhcnQg
-b2YgdmlydGlvLW5ldCBkZXZpY2UgYW5kIGFzIGluZGVwZW5kZW50IHJ0YyBkZXZpY2UuDQpBbmQg
-aWYgdGhhdCByZXF1aXJlcyBtZSB0byB3b3JrIGFuZCBkcmFmdCB0aGUgbmV0IHBhcnQgZm9yIHlv
-dSwgSSBhbSBoZXJlIHRvIGRyYWZ0IGl0Lg0KDQpXb3VsZCBpdCB3b3JrIGZvciB5b3U/DQoNCj4g
-Pj4NCj4gPj4+IEkgd291bGQgcHJlZmVyIHRvIGZpcnN0IHRyeSB0byB1cHN0cmVhbSB0aGUgUlRD
-IHNwZWMgd2l0aG91dA0KPiA+Pj4gYWx0ZXJpbmcgdGhlIG5ldCBzcGVjLCB3aGlsZSB0cnlpbmcg
-dG8gYXZvaWQgY29uZmxpY3RzIHdpdGggdGhlIG5ldA0KPiA+Pj4gc3BlYy4gTWF5YmUgbW9zdCBv
-ZiB0aGUgUlRDIHNwZWMgY291bGQgdGhlbiwgYXMgYSBzZWNvbmQgc3RlcCwgYWxzbw0KPiA+Pj4g
-YmUgYXBwbGllZCB0byB0aGUgbmV0IGRldmljZS4gVGhlIHJlc3BvbnNpYmlsaXR5IGZvciB0aGlz
-IHNlY29uZA0KPiA+Pj4gc3RlcCBhbmQgdGhlIHJlbGF0ZWQgcHJvb2Ygb2YgY29uY2VwdCB3b3Jr
-IHdvdWxkIG5lZWQgdG8gYmUNCj4gPj4+IGNsYXJpZmllZC4gVG8gbWUgaXQgc3RpbGwgc2VlbXMg
-YmV0dGVyIHRvIG5vdCBzaGFyZSB0aGUgc3BlYyBhbmQNCj4gPj4+IGFkZHJlc3MgcmVzb3VyY2Ug
-cHJvYmxlbXMgYXQgdGhlDQo+ID4+IHRyYW5zcG9ydCBsZXZlbC4NCj4gPj4NCj4gPj4+Pj4+Pj4g
-TWF5YmUgdGhlIGFib3ZlIHVzZSBjYXNlIGNvdWxkIGFsc28gYmUgYWRkcmVzc2VkIGJ5IGENCj4g
-Pj4+Pj4+Pj4gc3RhbmRhbG9uZSBSVEMgZGV2aWNlIGFzIGZvbGxvd3M6DQo+ID4+Pj4+Pj4+DQo+
-ID4+Pj4+Pj4+IDEpIFRoZSBuZXQgZGV2aWNlIGV4cG9ydHMgYSBVVUlEIG9iamVjdCB0byB3aGlj
-aCB0aGUgUlRDIGRldmljZQ0KPiA+Pj4+Pj4+PiBjYW4gcmVmZXIgdG8gKHNvIHRoZSBkcml2ZXJz
-IGNhbiBsaW5rIHRoZSBuZXQgZGV2aWNlIHRvIHRoZSBSVEMgY2xvY2spLg0KPiA+Pj4+Pj4+Pg0K
-PiA+Pj4+Pj4+PiAyKSBJZiBuZWVkZWQsIHRoZSBSVEMgZGV2aWNlIGFsaWducyB0aGUgbGlmZXRp
-bWUgb2YgdGhlIGNsb2NrDQo+ID4+Pj4+Pj4+IHRvIHRoZSBuZXQNCj4gPj4+PiBkZXZpY2UuDQo+
-ID4+Pj4+Pj4+IFRoZW4sIGNsb2NrIGxpZmV0aW1lcyBhcmUgbm8gbG9uZ2VyIHN0YXRpYywgYW5k
-IGNhbiBiZSBhbGlnbmVkDQo+ID4+Pj4+Pj4+IHdpdGggdGhlIG5ldCBkZXZpY2UuIFRocm91Z2gg
-YW4gZXZlbnRxICh0byBiZSBhZGRlZCksIHRoZSBSVEMNCj4gPj4+Pj4+Pj4gZGV2aWNlIGFubm91
-bmNlcyBjbG9jayBjcmVhdGlvbi9kZXN0cnVjdGlvbiwgd2hpY2ggY2FuIGJlDQo+ID4+Pj4+Pj4+
-IHN5bmNocm9uaXplZCB0byB0aGUgbmV0DQo+ID4+Pj4+PiBkZXZpY2Ugc3RhdGUuDQo+ID4+Pj4+
-Pj4+DQo+ID4+Pj4+Pj4gQWxsIG9mIHRoZSBpbmZyYXN0cnVjdHVyZSwgY3Jvc3MgZGV2aWNlIHN5
-bmNocm9uaXphdGlvbiwgaXRzDQo+ID4+Pj4+Pj4gZGV2aWNlIHNpZGUNCj4gPj4+Pj4+IG1hbmFn
-ZW1lbnQgd2lsbCBjb21lIHdpdGggZXF1YWwgY29tcGxleGl0eS4NCj4gPj4+Pj4+PiBBbmQgd2Ug
-d2lsbCBlbmQgdXAgd2l0aCBzdWItb3B0aW1hbCB3YXkgdG8gdXNpbmcgbXVsdGlwbGUgUENJIGRl
-dmljZXMuDQo+ID4+Pj4+Pj4NCj4gPj4+Pj4+DQo+ID4+Pj4+PiBBcyBwZXIgbXkgYWJvdmUgcmVw
-bHksIEkgdGhpbmsgaXQgd291bGQgYmUgYmV0dGVyIHRvIHRhY2tsZSB0aGUNCj4gPj4+Pj4+IHBy
-b2JsZW0gYXQgdGhlIFBDSSB0cmFuc3BvcnQgbGV2ZWwuLi4NCj4gPj4+Pj4+DQo+ID4+Pj4+Pj4g
-TmV0IGFscmVhZHkgaGFzIGN2cSByZXF1aXJlZCBieSBSVEMuIFNvIGN2cSBjb21tYW5kcyBjYW4g
-YmUNCj4gY29tbW9uLg0KPiA+Pj4+Pj4+IFJlYWRxIGlzIGFkZGl0aW9uYWwsIHdlIG5lZWQgdG8g
-ZGVmaW5lIGNvbW1vbiBiZXR3ZWVuIHRoZSB0d28NCj4gPj4+Pj4+PiBhbmQgd2F5IHRvDQo+ID4+
-Pj4+PiBkaXNjb3ZlciBpdC4NCj4gPj4+Pj4+Pg0KPiA+Pj4+Pj4NCj4gPj4+Pj4+ICBJIHdvdWxk
-IHN0aWxsIHRyeSB0byBhdm9pZCBtaXhpbmcgbmV0IGFuZCBSVEMgZGV0YWlscy4gUlRDDQo+ID4+
-Pj4+PiBzaG91bGQga2VlcCBhIGRlZGljYXRlZCBjdnEuDQo+ID4+Pj4+IENhbiB5b3UgcGxlYXNl
-IGV4cGxhaW4gd2h5IGEgZGVkaWNhdGUgY3ZxIGlzIG5lZWRlZCBvbiBuZXQgZGV2aWNlPw0KPiA+
-Pj4+DQo+ID4+Pj4gSSB0aGluayB0aGUgY29uY2VybiBhYm91dCByZWR1bmRhbnQgcXVldWVzIGNv
-dWxkIGJlIGFkZHJlc3NlZCBieQ0KPiA+Pj4+IG1lcmdpbmcgdGhlIFJUQyByZWFkcSBhbmQgY29u
-dHJvbHEuIEF0IHRoZSBtb21lbnQgc2VwYXJhdGluZyB0aGVzZQ0KPiA+Pj4+IHF1ZXVlcyB3b3Vs
-ZCBub3QgeWllbGQgcGVyZm9ybWFuY2UgYmVuZWZpdHMsIHNvIEkgdGhpbmsgSSB3aWxsIGp1c3QN
-Cj4gPj4+PiBtZXJnZSB0aGUgcmVhZHEgYW5kIGNvbnRyb2xxIFJUQyBxdWV1ZXMgaW4gdGhlIG5l
-eHQgc3BlYyBpdGVyYXRpb24uDQo+ID4+Pj4NCj4gPj4+IE5pY2UuIE9rLiBsZXRzIGhhdmUgc2lu
-Z2xlIGN2cSBhbmQgcmVsYXRlZCBvcGNvZGUgcmFuZ2UgZm9yIFJUQw0KPiA+Pj4gZGV2aWNlIGFu
-ZCB3ZQ0KPiA+PiB3aWxsIHBsYWNlIHRoZW0gaW4gdGhlIG5ldCBzaWRlIHRvby4NCj4gPj4+DQo+
-ID4+DQo+ID4+IE9LLiBJbiB0aGUgbmV0IGRldmljZSwgdGhpcyBxdWV1ZSBzaG91bGQgc3RpbGwg
-YmUgZGlzdGluY3QgZnJvbSB0aGUNCj4gPj4gbmV0IGNvbnRyb2xxLCB3aGljaCBoYXMgYSBsZXNz
-IHByZWRpY3RhYmxlIHVzYWdlIHBhdHRlcm4gdGhhbiBSVEMgY29udHJvbA0KPiByZXF1ZXN0cy4N
-Cj4gPj4NCj4gPiBBcyB5b3UgZGVzY3JpYmUgdGhhdCB3aXRoIGNyb3NzIHRpbWVzdGFtcGluZywg
-dGhlIHByZWRpY3RhYmlsaXR5IGlzIG5vdA0KPiBpbXBvcnRhbnQuDQo+ID4gT3IgZGlkIEkgbWlz
-dW5kZXJzdGFuZCB5b3U/DQo+IA0KPiBDcm9zcy10aW1lc3RhbXBpbmcgaXMgdmVyeSByb2J1c3Qg
-dG8gcmVzcG9uc2UgbGF0ZW5jeSwgaWYgdGhlIGRyaXZlciB0aW1la2VlcGluZw0KPiBpcyBnb29k
-IGVub3VnaC4gV2hlbiBub3QgdXNpbmcgY3Jvc3MtdGltZXN0YW1waW5nLCB0aGUgcmVzcG9uc2Ug
-bGF0ZW5jeSBpcyBzdGlsbA0KPiBpbXBvcnRhbnQuDQo+IA0KPiBUaGUgZXhwZWN0ZWQgUlRDIGNv
-bnRyb2wgcmVxdWVzdHMgcGF0dGVybiBpcyB0aGF0IHRoZSBkcml2ZXIgaXNzdWVzIGFsbCBvZiB0
-aGVtDQo+IGR1cmluZyBkZXZpY2UgcHJvYmluZy4gRm9yIHRoZSBuZXQgZGV2aWNlLCBpdCBzaG91
-bGQgbm90IGJlIGFzc3VtZWQgdGhhdCB0aGUNCj4gZHJpdmVyIG1ha2VzIGFsbCBuZXQgY29udHJv
-bCByZXF1ZXN0cyBkdXJpbmcgZGV2aWNlIHByb2JpbmcuDQo+IA0KPiBTbyBpbiBzb21lIHVzZSBj
-YXNlcyBzaGFyaW5nIHRoZSBuZXQgY29udHJvbHEgd2l0aCBSVEMgbm9uLWNvbnRyb2wgcmVxdWVz
-dHMNCj4gY291bGQgc3RpbGwgYmUgcHJvYmxlbWF0aWMuDQo+IA0KTmV0IGNhbiBpc3N1ZSB3aGVu
-IGl0IHByZWZlcnMgdG8gb24gdGhlIGN0cmxxLg0KUnRjIGNhbiBpc3N1ZSBhdCBkcml2ZXIgcHJv
-YmUgdGltZSBvbiB0aGUgY3RybHEuDQoNCj4gUGx1cywgdGhlIG5hbWUgImNvbnRyb2xxIiBpc24n
-dCByZWFsbHkgYXBwcm9wcmlhdGUgZm9yIG5vbi1jb250cm9sIGNsb2NrIHJlYWRpbmcNCj4gcmVx
-dWVzdHMsIHdoaWNoIHRoZSBkcml2ZXIgbWlnaHQgaXNzdWUgc2V2ZXJhbCB0aW1lcyBwZXIgc2Vj
-b25kLg0KTmV0IGhhcyBjb250cm9sIHEgZm9yIHF1ZXJ5IGFuZCBzZXQuDQpTdGF0aXN0aWNzIGNv
-bW1hbmRzIGFyZSBhZGRlZCB0byB0aGUgY3RybHEgYXMgd2VsbC4NCkl0IGlzIHNpbmdsZSBxdWV1
-ZSBzeW1tZXRyaWMgaW50ZXJmYWNlIGZvciBnZXQgYW5kIHNldC4NCg0KPiBFeGlzdGluZyBuZXQg
-Y29udHJvbHEgaW1wbGVtZW50YXRpb25zIG1pZ2h0IG5vdCBtYXRjaCBzdWNoIGEgdXNlIGNhc2Ug
-d2VsbA0KPiAodGhlIExpbnV4IGRyaXZlciBpcyBidXN5IHdhaXRpbmcgb24gY29udHJvbHEgcmVz
-cG9uc2VzKS4NCj4gDQpPaCwgdGhhdCBjYW4gY2hhbmdlIHN1cmVseSBjaGFuZ2UgZm9yIHRoZSBu
-ZXcgdXNlIGNhc2VzLiBTaG91bGQgbm90IGJlIGEgcHJvYmxlbS4NCkkgcmVtZW1iZXIgdGhlcmUg
-d2VyZSBzb21lIHBhdGNoZXMgdG9vIHRvIGltcHJvdmUgdGhhdC4NCg0KPiBUaGFuayB5b3UgZm9y
-IHlvdXIgY29tbWVudHMhDQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IA0KPiBQZXRlcg0K
+
+
+On 10/12/2023 6:58 PM, Parav Pandit wrote:
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Thursday, October 12, 2023 3:51 PM
+>>
+>> On 10/11/2023 7:43 PM, Parav Pandit wrote:
+>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>> Sent: Wednesday, October 11, 2023 3:55 PM
+>>>>>>>>> I don’t have any strong opinion to keep it or remove it as most
+>>>>>>>>> stakeholders
+>>>>>>>> has the clear view of requirements now.
+>>>>>>>>> Let me know.
+>>>>>>>> So some people use VFs with VFIO. Hence the module name.  This
+>>>>>>>> sentence by itself seems to have zero value for the spec. Just drop it.
+>>>>>>> Ok. Will drop.
+>>>>>> So why not build your admin vq live migration on our config space
+>>>>>> solution, get out of the troubles, to make your life easier?
+>>>>>>
+>>>>> Your this question is completely unrelated to this reply or you
+>>>>> misunderstood
+>>>> what dropping commit log means.
+>>>> if you can rebase admin vq LM on our basic facilities, I think you
+>>>> dont need to talk about vfio in the first place, so I ask you to re-consider
+>> Jason's proposal.
+>>> I don’t really know why you are upset with the vfio term.
+>>> It is the use case of the cloud operator and it is listed to indicate how proposal
+>> fits in a such use case.
+>>> If for some reason, you don’t like vfio, fine. Ignore it and move on.
+>>>
+>>> I already answered that I will remove from the commit log, because the
+>> requirements are well understood now by the committee.
+>>> Your comment is again unrelated (repeated) to your past two questions.
+>>>
+>>> I explained you the technical problem that admin command (not admin VQ)
+>> of basic facilities cannot be done using config registers without any mediation
+>> layer.
+>> OK, I pop-ed Jason's proposal to make everything easier, and I see it is refused.
+> Because it does not work for passthrough mode.
+what are you talking about?
+Config space does not work passthrough?
+Have you ever tried pass through a virtio device to a guest?
+>
+>>>>> Dropping link to vfio does not drop the requirement.
+>>>>> I am ok to drop because requirements are clear of passthrough of
+>>>>> member
+>>>> device.
+>>>>> Vfio is not a trouble at all.
+>>>>> Admin command is not a trouble either.
+>>>>>
+>>>>> The pure technical reason is: all the functionalities proposed
+>>>>> cannot be done
+>>>> in any other existing way.
+>>>>> Why? For below reasons.
+>>>>> 1. device context, and write records (aka dirty page addresses) is
+>>>>> huge which cannot be shared using config registers at scale of 4000
+>>>>> member devices
+>>>> dirty page tracking will be implmemented in V2, actually I have the
+>>>> patch right now.
+>>> That is yet again the invitation to non_colloboration mode.
+>>> Without reviewing, v0 and v1, you want to show dirty page tracking in some
+>> other way.
+>>> But ok, that is your non_coperative mode of working. Cannot help further.
+>> I believe both me and Jason have proposed a solution, I see it is rejected.
+>> But don't take it personal and please keep professional.
+> Sure, as I explained the config register method do not work for passthrough mode, and does not scale.
+Let me repeat again, these live migration facilities are 
+per-device(per-VF) facility, so it only migrates itself.
+
+And for pass through, you can try passthrough a virito device to a 
+guest, see how the guest initialize the device
+through the config space.
+
+That is really basic virtualization, not hard to test.
+>
+>>>> inflight descriptor tracking will be implemented by Eugenio in V2.
+>>> When we have near complete proposal from two device vendors, you want
+>>> to push something to unknown future without reviewing the work; does not
+>> make sense.
+>> Didn't I ever provide feedback to you? Really?
+> No. I didn’t see why you need to post a new patch for dirty page tracking, when it is already present in this series.
+> I would like to understand and review this aspects.
+> Same for the device context.
+you will see dirty page tracking in my V2, as I repeated for many times.
+For device context, we have discussed this in other threads, did you 
+ignored that again?
+Hint: how do you define device context for every device type, e.g, 
+virtio-fs.
+Don't say you only migrate virito-net or blk.
+>
+>>> You are still in the mode of _take_ what we did with near zero explanation.
+>>> You asked question of why passthrough proposal cannot advantage of in_band
+>> config registers.
+>>> I explained technical reason listed here.
+>> I have answered the questions, and asked questions for many times.
+>> What do you mean by "why passthrough proposal cannot advantage of in_band
+>> config registers."?
+>> Config space work for passthrough for sure.
+> Config space registers are passthrough the guest VM.
+> Hence hypervisor messing it with, programming some address would result in either security issue.
+> Or functionally broken, to sustain the functionality, each nested layer needs one copy of these registers for each nest level.
+> So they must be trapped somehow.
+trap and emulated are basic virtualization.
+>
+> Secondly I don’t see how one can read 1M flows using config registers.
+Not sure what you are talking about, beyond the spec?
+>
+>>> So please don’t jump to conclusions before finishing the discussion on how
+>> both side can take advantage of each other.
+>>> Lets please do that.
+>> We have proposed a solution, right?
+>>
+> Which one? To do something in future?
+> I don’t see a suggestion on how one can use device context and dirty page tracking for nested and passthrough uniformly.
+> I see a technical difficulty in making both work with uniform interface.
+Please don't ignore previous answers, don't force us repeat again and again.
+
+It is Jason's proposal. Please refer to previous threads, also for 
+device context and dirty pages.
+>
+>> I still need to point out: admin vq LM does not work, one example is nested.
+> As Michael said, please don’t confuse between admin commands and admin vq.
+anyway, admin vq live migration don't work for nested.
+>
+>>>> There are no scale problem as I repeated for many time, they are
+>>>> per-device basic facilities, just migrate the VF by its own facility,
+>>>> so there are no 40000 member devices, this is not per PF.
+>>>>
+>>> I explained that device reset, flr etc flow cannot work when controlling and
+>> controlled functions are single entity for passthrough mode.
+>>> The scale problem is, one needs to duplicate the registers on each VF.
+>>> The industry is moving away from the register interface in many _real_ hw
+>> devices implementation.
+>>> Some of the examples are IMS, SIOV, NVMe and more.
+>> we have discussed this for many times, please refer to previous threads, even
+>> with Jason.
+> I do not agree for any registers to add to the VF which are reset on device_reset and FLR.
+> As it does not work for passthrough mode.
+Jason has answered your these FLR questions for many times, I don't want 
+to repeat his words,
+even myself have answered many times. If you keep ignoring the answers, 
+and ask again and again,
+what is the point?
+
+So please refer to the previous threads.
+>
+>>>> The device context can be read from config space or trapped, like
+>>>> shadow
+>>> There are 1 million flows of the net device flow filters in progress.
+>>> Each flow is 64B in size.
+>>> Total size is 64MB.
+>>> I don’t see how one can read such amount of memory using config registers.
+>> control vq?
+> The control vq and flow filter vqs are owned by the guest driver, not the hypervisor.
+> So no, cvq cannot be used.
+first, don't cut off the threads, don't delete words, that really 
+confusing readers.
+
+And I think you misunderstand a lot of virtualization fundamentals,
+at least have a look at how shadow control vq works.
+
+And the parameters set to config vq are also device context as we 
+discussed for many times.
+>
+>> Or do you want to migrate non-virtio context?
+> Every thing is virtio device context.
+see above
+>
+>>>> control vq which is already done, that is basic virtualization.
+>>> There is nothing like "basic virtualization".
+>>> What is proposed here is fulfilling the requirement of passthrough mode.
+>>>
+>>> Your comment is implying, "I don’t care for passthrough requirements, do
+>> non_passthrough".
+>> that is your understanding, and you misunderstood it. Config space servers
+>> passthrough for many years.
+> "Config space servers" ?
+> I do not understand it, can you please explain what does that mean?
+>
+> I do not see your suggestion on how one can implement passthrough member device when passthrough device does the dma and migration framework also need to do the dma.
+Try pass through a virtio device to a guest and learn how the guest take 
+advantage the config space before you comment.
+>
+>>> The discussion should be,
+>>> How can we leverage common framework for passthrough and mediated
+>> mode?
+>>> Can we? If so, which are the pieces?
+>> config space is a common framework, right?
+>>> For me it is frankly very weird to take native virtio member device, convert
+>> into a medicated device using a giant software, and after that convolution get
+>> virtio device.
+>>> But for nested case you have the use case.
+>>> So if we focus positively on how two use cases can use some common
+>> functionality, that will be great.
+>> why config space need a giant sw to work?
+> You can count the number of lines of code for existing and rest 30+ devices to see how much does it take.
+> Which is still missing some of the code for small downtime.
+> And compare it with passthrough driver code.
+>
+> Regardless, I just don’t see how config registers work.
+again, please try pass through a device to a guest. Try to understand 
+how config space work.
+>
+>> So both Jason and I suggest you build admin vq solution based on our basic
+>> facilities.
+> :)
+> That basic facility is missing dirty page tracking, P2P support, device context, FLR, device reset support.
+> Hence, it is unusable right now for passthough member device.
+> And 6th problemetic thing in it is, it does not scale with member devices.
+Please refer to previous discussions, it is meaningless if you keep 
+ignoring our answers and keep asking the same
+questions.
+>
+>>>> If you want to migrate device context, you need to specify device
+>>>> context for every type of device, net maybe easy, how do you see virtio-fs?
+>>> Virtio-fs will have its on device context too.
+>>> Every device has some sort of backend in varied degree.
+>>> Net being widely used and moderate complex device.
+>>> Fs being slightly stateful but less complex than net, as it has far less control
+>> operations.
+>> so, do you say you have implement a live migration solution which can migrate
+>> device context, but only work for net or block?
+> I don’t think this question about implementation has any relevance.
+> Frankly feels like a court to me. :(
+> No. I dint say that.
+> We have implemented net, fs, block devices and single framework proposed here can support all 3 and rest 28+.
+> The device context part in this series do not cover special/optional things of all the device type.
+> This is something I promised to do gradually, once the framework looks good.
+If you don't define them, only talking about "migrate the device 
+context" but don't tell us what do migrate,
+does this make sense to anybody?
+>> Then you should call it virtio net/blk migration and implement in net/block
+>> section.
+> No. you misunderstood. My point was showing orthogonal complexities of net vs fs.
+> I likely failed to explain that.
+see above, anyway you need to define them, how about starting form 
+virito FS?
+>
+>>> In fact virtio-fs device already discusses the migrating the device side state, as
+>> listed in device context.
+>>> So virtio-fs device will have its own device-context defined.
+>> if you want to migrate it, you need to define it
+> Sure.
+> Only device specific things to be defined in future.
+Now, not future if you want to migrate device context.
+> Rest is already present.
+> We are not going to define all the device context in one patch series that no one can review reliably.
+> It will be done incrementally.
+so you agree at least for now we should migrate stateless devices, right?
+>
+> But the feedback, I am taking is, we need to add a command that indicates which TLVs are supported in the device migration.
+> So virtio-fs or other device migration capabilities can be discovered.
+> I will cover this in v2.
+so you propose a solution as "virtio migration", but only migrate 
+selective types of devices?
+You should rename it to be "virtio-net live migration".
+>
+> Thanks a lot for this thoughts.
+>
+>>> The infrastructure and basic facilities are setup in this series, that one can
+>> easily extend for all the current and new device types.
+>> really? how?
+>>>> And we are migrating stateless devices, or no? How do you migrate virtio-fs?
+>>>>> 2. sharing such large context and write addresses in parallel for
+>>>>> multiple devices cannot be done using single register file
+>>>> see above
+>>>>> 3. These registers cannot be residing in the VF because VF can
+>>>>> undergo FLR, and device reset which must clear these registers
+>>>> do you mean you want to audit all PCI features? When FLR, the device
+>>>> is rested, do you expect a device remember anything after FLR?
+>>> Not at all. VF member device will not remember anything after FLR.
+>>>> Do you want to trap FLR? Why?
+>>> This proposal does _not_ want to trap the FLR in the hypervisor virtio driver.
+>>>
+>>> When one does the mediation-based design, it must trap/emulate/fake the
+>> FLR.
+>>> It helps to address the case of nested as you mentioned.
+>> once passthrough, the guest driver can access the config space to reset the
+>> device, right?
+>>>> Why FLR block or conflict with live migration?
+>>> It does not block or conflict.
+>> OK, cool, so let's make this a conclusion
+>>> The whole point is, when you put live migration functionality on the VF itself,
+>> you just cannot FLR this device.
+>>> One must trap the FLR and do fake FLR and build the whole infrastructure to
+>> not FLR The device.
+>>> Above is not passthrough device.
+>> No, the guest can reset the device, even causing a failed live migration.
+> Not in the proposal here.
+> Can you please prove how in the current v1 proposal, device reset will fail the migration?
+> I would like to fix it.
+if the device is reset, it forgets everything right?
+>
+>>>>> 4. When VF does the DMA, all dma occurs in the guest address space,
+>>>>> not in
+>>>> hypervisor space; any flr and device reset must stop such dma.
+>>>>> And device reset and flr are controlled by the guest (not mediated
+>>>>> by
+>>>> hypervisor).
+>>>> if the guest reset the device, it is totally reasonable operation,
+>>>> and the guest own the risk, right?
+>>> Sure, but the guest still expects its dirty pages and device context to be
+>> migrated across device_reset.
+>>> Device_reset will lose all this information within the device if done without
+>> mediation and special care.
+>> No, if the guest reset a device, that means the device should be RESET, to forget
+>> its config, that would be really wired to migrate a fresh device at the source
+>> side, to be a running device at the destination side.
+> Device reset not doing the role of reset is just a plain broken spec.
+why? The reset behavior is well defined in the spec, and works fine for 
+years.
+>
+>>> So, to avoid that now one needs to have fake device reset too and build that
+>> infrastructure to not reset.
+>>> The passthrough proposal fundamental concept is:
+>>>
+>>> all the native virtio functionalities are between guest driver and the actual
+>> device.
+>> see above.
+>>>> and still, do you want to audit every PCI features? at least you
+>>>> didn't do that in your series.
+>>> Can you please list which PCI features audit you are talking about?
+>> you audit FLR, then do you want to check everyone?
+>> If no, how to decide which one should be audited, why others not?
+> I really find it hard to follow your question.
+>
+> I explained in patch 5 and 8 about interactions with the FLR and its support.
+> Not sure what you want me to check.
+>
+> You mentioned that "I didn’t audit every PCI features"? So can you please list which one and in relation to which admin commands?
+Your job to audit everyone if you talk about FLR. Because FLR is PCI 
+spec, not virtio, you need to explain why other PCI features not
+need to be audited.
+
+We have explained why FLR is not a concern for many times, and I don't 
+want to repeat, please refer to previous discussions.
+>
+>>> Keep in mind, that will all the mediation, one now must equally audit all this
+>> giant software stack too.
+>>> So maybe it is fine for those who are ok with it.
+>> so you agree FLR is not a problem, at least for config space solution?
+> I don’t know what you mean "FLR is not a problem".
+>
+> FLR on the VF must work as it works without live migration for passthrough device as today.
+> And admin commands have some interactions with it.
+> And this proposal covers it.
+> I am missing some text that Michael and Jason pointed out.
+> I am working on v2 to annotate or better word them.
+When guest reset the device, the device should be reset for sure. then 
+it forgets everything,
+how do you expect the reset-ed device still work for live migration? is 
+it a race?
+>
+>>>> For migration, you know the hypervisor takes the ownership of the
+>>>> device in the stop_window.
+>>> I do not know what stop_window means.
+>>> Do you mean stop_copy of vfio or it is qemu term?
+>> when guest freeze.
+>>>>> 5. Any PASID to separate out admin vq on the VF does not work for
+>>>>> two
+>>>> reasons.
+>>>>> R_1: device flr and device reset must stop all the dmas.
+>>>>> R_2: PASID by most leading vendors is still not mature enough
+>>>>> R_3: One also needs to do inversion to not expose PASID capability
+>>>>> of the member PCI device to not expose
+>>>> see above and what if guest shutdown? the same answer, right?
+>>> Not sure, I follow.
+>>> If the guest shutdown, the guest specific shutdown APIs are called.
+>>>
+>>> With passthrough device, R_1 just works as is.
+>>> R_3 is not needed as they are directly given to the guest.
+>>> R_2 platform dependency is not needed either.
+>> I think we already have a concussion for FLR.
+> I don’t have any concussion.
+> I wrote what to be supported for the FLR above.
+OK, again, our discussions has been ignored again, and all start over again.
+
+Would you please read our previous discussions?
+>
+>> For PASID, what blocks the solution?
+> When the device is passthrough, PASID capabilities cannot be emulated.
+> PASID space is owned fully by the guest.
+>
+> There is no single known cpu vendor support splitting pasid between hypervisor and guest.
+> I can double check, but last I recall that Linux kernel removed such weird support.
+do you know there is something called vIOMMU?
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
