@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7758-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7759-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF98CDB474
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 14:32:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F04DCDB482
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 15:20:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 109826E6CA
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 14:32:15 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id D137A77864
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 15:20:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0515D986874
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 14:32:15 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C7B8F98686F
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 15:20:31 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id F05DA986865; Tue, 17 Oct 2023 14:32:14 +0000 (UTC)
+	id BCEDA986866; Tue, 17 Oct 2023 15:20:31 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,253 +24,93 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BECA79868A3
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 14:32:12 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DE7AE986867
+	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 15:19:48 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lYLEY+SkCLqkU7yV4D7ho63dQJ9e3HJuK9EX4tZ4f3/QZjk6lBl4RQ/wN1LgELI2cmYprPXico3tcLA0Ne4GaglIMmj6ahwv1U8RAsBpcHDOdt1nW/T5d0o4aMIGKcDfrkmo0N8xdMJOOFGyOaKXeKfMwUdNnzH29j+fuDUWULyx7PwJcsQD5iMH2IYEFiMKC/jpqrv5Q3JKiwXxpy5fSmzM3feNoJN4d/0Iwbb1MoFNYqj24jp3BWJodagnIyJ5xFW40TxhP/PzbMllYikej7YD5ea7xIRd+W9bLbda1jXMEtJs/LEmidqk3+24Xrg1nJe5lhOaUuESSW1MHvziuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yDy6Y/Z6l5qi2Y8ij+W4Aortq/qPxCc7mM1AYxvZUiA=;
- b=oD9nttVCh88wN86XcHaqw46+JxlM2mO0PyvN237Xov+nbuUojoCxLtxEZhSvdtVwA3CQS3h+HI4/hQuFq/8i/PQy8Z9hVy0QDY37LsBt+aM0oNusr+Tl4g4oshH5jp5LK/WPr3CVp2hjlIcp41jey20SuooXsrMCIaBN7PWhWwsvSrM7fZWqPForY4ZTnn6l+y/tjMfONLwLgmH2BEVDhcpsLbMEfFpdsf/grrHwGfB2ttr2S8CekbwPY9YFofQs84FgbTuCMNQamyB8N4snUgkd1/0rGAWin4cquq/jSyspRt35t3WClFJTMisIfTp5czuhiVwbH1DfHbxXGyApIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
-	<cohuck@redhat.com>
-CC: <hengqi@linux.alibaba.com>, <xuanzhuo@linux.alibaba.com>,
-	<shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Date: Tue, 17 Oct 2023 17:31:35 +0300
-Message-ID: <20231017143135.758523-3-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231017143135.758523-1-parav@nvidia.com>
-References: <20231017143135.758523-1-parav@nvidia.com>
+X-MC-Unique: v1XfJMaCNVG-ikzVL_o8Kw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697555975; x=1698160775;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hEljbdfa7bD86OhYFUOYvSGcltkQSYot0oEUAqeyQEA=;
+        b=USMI1cSNjgFFyJrQ9y2D+D46IWjIEwqsUVV91iuF3TP1rH6euwVcBN1LXecyGaLmhx
+         rjVDGrtz6wdO76sf2japG4xRfvseFxL/WGkaDGvAZDHqmNrPdKKwf36WLaDsqkRzA5ar
+         2QMzAQx8lWlPbGpJVgM0yiGHbnIt7+5lW1MczuwJPvj60apOHTrPvs6pdiIIaqLvTgL4
+         wzGzeeCRlXeA1azReH6CTnq5Bzg4ghD2VXz7I0AWSMzVk44p6q5gmzQjkq2zrhxfc34d
+         fbpzRGm0LFJmknCTEVKt+stZbtVSyl9N62M8r25hVBp9Arm8AoIqlUU+NXpdk6dlMCSg
+         L4uA==
+X-Gm-Message-State: AOJu0YxgYmYRYEy3/Zn1t3dMVyZP3X+X0UuvWbZjYyFYov4aAkllBEIu
+	Nbt5Q3y2mCDa8CGVooPnTrnZ1HlfnFGNwHczuawT+H6mRyDEGotQwUxeNqcrazBgPYp40lA/8mu
+	Kzjl/flypsNc3O+Je+u0tDewWTc+8aXaoCA==
+X-Received: by 2002:a05:6830:3d18:b0:6b9:9cc0:537f with SMTP id eu24-20020a0568303d1800b006b99cc0537fmr2449340otb.33.1697555975555;
+        Tue, 17 Oct 2023 08:19:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHygDzbf4FkOeZ5yzPHHp7dRoGWcri/Y9cHl/OSOwJOx3WBZoAenk49HB/I4yIkDgS7/InpTA==
+X-Received: by 2002:a05:6830:3d18:b0:6b9:9cc0:537f with SMTP id eu24-20020a0568303d1800b006b99cc0537fmr2449321otb.33.1697555975333;
+        Tue, 17 Oct 2023 08:19:35 -0700 (PDT)
+Date: Tue, 17 Oct 2023 17:19:31 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: virtualization@lists.linux-foundation.org
+Cc: virtio-comment@lists.oasis-open.org, anton.yakovlev@opensynergy.com,
+	stefanha@redhat.com, mst@redhat.com, jasowang@redhat.com,
+	sgarzare@redhat.com, manos.pitsidianakis@linaro.org
+Message-ID: <ZS6mA6/EsmvDVlTC@fedora>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.126.230.35]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|CH2PR12MB5018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e5dac97-b133-4e95-0b58-08dbcf1dd7dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	UGdlFl2AB5M5z11r3nBZh0JpI+qoRAE6y5AW0PQDlg29ee6WaCk+cOB3tw+K/Z8CdPFiwpApkBe6NIliBAaIdudYGA9R7GkXDUdGnPSlr+lH+B8phvo9X7GdirpDwelddxZU6t03nF8kkKa9ngaSzhEjUMST+Frf0EZIU7SYtkC7ZSnEKpqxkUb+pNbhoKQ455BoXYYfiwvsoDFWpIMqk7VNM2Qxj5A5TB4sIT3M0K3TFPvcFx0+4TuA8q7O2PeHxm2ERNcSatMGc+jmk9Ob0Mc91mM3gzLDbHSHVFApTv+1cckyH7wbM18kTC5u9yhQpuf8Sf9m5LZhxCSWsH21WgnS9L32mNS8MdqokVqpdagCne9RvT4zMzIsF98iwbfr+/0RcsoWQrn2ZMrShHgShbP3k4fNE1TvrEJbRPPh6Tt6rvl74W+gOM3M9LBTX8SvioyfEYZ7/QX2BtMnjbS0hbNjGi2y1SpsksLjBIhzLkcdUS8L5OgF7+RoUh3gXqdCGLmijK0irKtbWPdxYRubmHaH3wXezQ3+vyyBL46ZjcnlHqlMNIAilVW+ypubPuxCIU1PM5pkvLb2HY/1qNR+RCP3VibZ9KEQEJbe5DxCPG1WYaQw2845JKG46PZLxwnpVfy40kYJj9yuHG+GMvjyvxg7uwinF02tBoxNqRoB3GNfv3+M2Qc1oesZEw1DkCNmDm9aSia/UNS1redlbC+HHmsRTEnLJxLc2lhQGtTbGLkAEwOxFUMBiPao1NEFX1LuPG74olyqu9ftcjopnZnUaP0POnFIAJ7quqIrhaLDYv8=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(376002)(396003)(346002)(136003)(230922051799003)(186009)(64100799003)(451199024)(82310400011)(1800799009)(46966006)(40470700004)(36840700001)(40460700003)(2616005)(26005)(16526019)(426003)(82740400003)(1076003)(336012)(8676002)(8936002)(4326008)(5660300002)(47076005)(83380400001)(7636003)(40480700001)(41300700001)(356005)(478600001)(2906002)(966005)(86362001)(110136005)(36860700001)(316002)(6666004)(70206006)(36756003)(54906003)(70586007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 14:32:08.4083
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e5dac97-b133-4e95-0b58-08dbcf1dd7dd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE33.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5018
-Subject: [virtio-comment] [PATCH v4 2/2] content: Support enabling virtqueue after DRIVER_OK stage
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] virtio-sound: release control request clarification
 
-Currently, a virtqueue must be enabled before driver has set the
-DRIVER_OK status bit.
+Hello,
 
-spec citation to section "Driver Requirements: Device Initialization"
+This email is to clarify the VirtIO specification regarding the RELEASE
+control request. Section 5.14.6.6.5.1 [1] states the following device
+requirements for the RELEASE control request: 
+1. The device MUST complete all pending I/O messages for the specified
+stream ID.
+2. The device MUST NOT complete the control request while there are
+pending I/O messages for the specified stream ID.
 
-"Perform device-specific setup, including discovery of virtqueues
-for the device, optional per-bus setup, reading and possibly writing
-the device’s virtio configuration space, and population of virtqueues."
+The 1) requirement does not indicate what "complete" means. Does it mean
+that the pending I/O messages in the tx queue shall be outputted in the
+host, i.e., consumed by the audio backend? Or, completion means simply
+to put the requests in the used-ring without consuming them?
 
-This implies that a virtqueue must be enabled before reaching the
-DRIVER_OK stage. There was no explicit mention about ability to
-enable the virtqueue after DRIVER_OK stage.
+Regarding 2), I interpret it as "the device shall wait until all I/O
+messages are proceeded to complete the RELEASE control request".
 
-In following usecases, creating a virtqueue after DRIVER_OK phase is
-desired.
+Currently, the kernel driver seems not expecting such a delay when the
+RELEASE command is sent. If I understand correctly, the kernel driver
+first sends the RELEASE command and waits a fixed amount of time until
+the device can process it. Then, the driver waits a fixed amount of time
+until all pending IO messages are completed. If the device follows the
+specification and waits until all messages IO are completed to issue the
+completion of the RELEASE command, the kernel driver may timeout. The
+time to complete N IO messages in the TX queue could be proportional
+with the number of pending messages.
 
-1. Dynamically create aq when administrative commands to be used.
-2. Dynamically create the net device tx/rxq when device is
-   opened when deploying for a container.
-   In a container, number of virtqueues to be used may be <= max queues.
-3. Dynamically create flow filter queues of netdevice when
-   ARFS or ethtool filters are enabled as listed in [1].
-4. Dynamically create rtc functionality related read virtqueue only
-   when net device when timestamping to be used.
-5. When XDP program is set, one can create additional XDP specific
-   queues without affecting existing queues.
+In our device implementation [2], RELEASE is handled as follows:
+- Drop all messages in the TX queue without outputting in the host.
+- Complete the RELEASE control request.
 
-Hence, This patch introduces an existing queue enable and disable
-(aka reset) facility and a new feature bit to explicitly indicate such
-support by the device.
+This seems to be working, however, I can observe that sometimes there
+are still requests in the TX queue when we get RELEASE. Those requests
+are never reproduced in the host.
 
-With this feature, drivers can skip optional queues creation during
-driver init time. For example, a Linux net device driver
-can create/destroy the transmit and receive queues when net device's
-ndo_open() and ndo_stop() callbacks are invoked respectively.
+My questions are:
+- In the specification, should we modify it to clarify that all pending
+  IO messages in the device are discarded during RELEASE, that is, not
+  output to the host, but signaled to the guest as completed?
+- According to the specification, should the driver wait in RELEASE an
+  amount of time proportional to the number of periods yet to be
+  reproduced?
 
-[1] https://lists.oasis-open.org/archives/virtio-comment/202308/msg00263.html
+Thanks, Matias.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/177
-Acked-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Acked-by: Eugenio Pérez <eperezma@redhat.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
-changelog:
-v3->v4:
-- addressed comments from Cornelia
-- reworded description for _DYNAMIC negotiated case
-- replaced article the to a
-- reworded driver normative for _DYNAMIC negotiated case
-- replaced 'required' with 'desired'
-- extended description for skip entirely to skip or do partial init
-- removed article the on plural virtqueues
-v2->v3:
-- github fixes tag added
-v1->v2:
-- fixed comments from Michael
-- reduced device and driver normatives (simplified)
-- replace 'a virtqueue' to 'the virtqueues'
-- reworded to remove 'interested'
-- avoided repeated 'device initialization text', replaced with
-  DRIVER_OK status bit language
-- avoided confusing text around 'MAY' in the requirements
-- replaced 'the queue' to 'specific virtqueues'
-- replaced queue to virtqueue
-- simplified commit log to talk about msix
-v0->v1:
-- fixed comments from Xuan
-- removed blank lines
-- fixed wrong requirement link to device in driver section
----
- conformance.tex |  2 ++
- content.tex     | 44 +++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 43 insertions(+), 3 deletions(-)
-
-diff --git a/conformance.tex b/conformance.tex
-index 863f9c5..75de58c 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -77,6 +77,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device Configuration Space}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue Reset}
-+\item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues / Dynamic Virtqueues / Enable Virtqueues}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Message Framing}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
-@@ -164,6 +165,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device Reset}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device Configuration Space}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue Reset}
-+\item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / Dynamic Virtqueues / Enable Virtqueues}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Message Framing}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
-diff --git a/content.tex b/content.tex
-index 0a62dce..ab9aebb 100644
---- a/content.tex
-+++ b/content.tex
-@@ -102,7 +102,7 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
- \item[24 to 41] Feature bits reserved for extensions to the queue and
-   feature negotiation mechanisms
- 
--\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
-+\item[43 to 49, and 128 and above] Feature bits reserved for future extensions.
- \end{description}
- 
- \begin{note}
-@@ -440,6 +440,32 @@ \subsubsection{Virtqueue Re-enable}\label{sec:Basic Facilities of a Virtio Devic
- as during initial virtqueue discovery, but optionally with different
- parameters.
- 
-+\subsection{Dynamic Virtqueues}\label{sec:Basic Facilities of a Virtio Device / Virtqueues / Dynamic Virtqueues}
-+
-+When VIRTIO_F_RING_DYNAMIC is not negotiated, the driver enables the virtqueues
-+during the device initialization sequence, i.e. after the device sets the
-+FEATURES_OK status bit and before the driver setting the DRIVER_OK status bit.
-+
-+When VIRTIO_F_RING_DYNAMIC is negotiated, the driver is not required to enable
-+every virtqueue it wants to use before setting the DRIVER_OK status bit; the
-+driver can choose to enable a virtqueue even after the driver has set the
-+DRIVER_OK status bit. The virtqueue enable mechanism is transport specific.
-+
-+\devicenormative{\paragraph}{Enable Virtqueues}{Basic Facilities of a Virtio Device / Virtqueues / Dynamic Virtqueues / Enable Virtqueues}
-+
-+When VIRTIO_F_RING_DYNAMIC is negotiated, the device MUST allow enabling a
-+virtqueue which was not enabled during the device initialization phase
-+i.e. after the device has set the FEATURES_OK status bit and before the
-+driver has set the DRIVER_OK status bit.
-+
-+\drivernormative{\paragraph}{Enable Virtqueues}{Basic Facilities of a Virtio Device / Virtqueues / Dynamic Virtqueues / Enable Virtqueues}
-+
-+When VIRTIO_F_RING_DYNAMIC is negotiated, the driver MAY enable any virtqueue either
-+before or after it has set the DRIVER_OK status bit.
-+
-+When VIRTIO_F_RING_DYNAMIC is not negotiated, the driver MUST enable the
-+desired number of virtqueues before setting the DRIVER_OK status bit.
-+
- \input{split-ring.tex}
- 
- \input{packed-ring.tex}
-@@ -537,7 +563,9 @@ \section{Device Initialization}\label{sec:General Initialization And Device Oper
- 
- \item\label{itm:General Initialization And Device Operation / Device Initialization / Device-specific Setup} Perform device-specific setup, including discovery of virtqueues for the
-    device, optional per-bus setup, reading and possibly writing the
--   device's virtio configuration space, and population of virtqueues.
-+   device's virtio configuration space.
-+
-+\item\label{itm:General Initialization And Device Operation / Device Initialization / Virtqueue Setup} Configure and enable the virtqueues.
- 
- \item\label{itm:General Initialization And Device Operation / Device Initialization / Set DRIVER-OK} Set the DRIVER_OK status bit.  At this point the device is
-    ``live''.
-@@ -551,6 +579,11 @@ \section{Device Initialization}\label{sec:General Initialization And Device Oper
- The driver MUST NOT send any buffer available notifications to
- the device before setting DRIVER_OK.
- 
-+when driver has negotiated VIRTIO_F_RING_DYNAMIC feature, the driver MAY skip
-+step
-+\ref{itm:General Initialization And Device Operation / Device Initialization / Virtqueue Setup}
-+entirely or it may enable only a subset of the virtqueues.
-+
- \subsection{Legacy Interface: Device Initialization}\label{sec:General Initialization And Device Operation / Device Initialization / Legacy Interface: Device Initialization}
- Legacy devices did not support the FEATURES_OK status bit, and thus did
- not have a graceful way for the device to indicate unsupported feature
-@@ -569,7 +602,7 @@ \subsection{Legacy Interface: Device Initialization}\label{sec:General Initializ
- Initialization / Re-read FEATURES-OK} were omitted, and steps
- \ref{itm:General Initialization And Device Operation /
- Device Initialization / Read feature bits},
--\ref{itm:General Initialization And Device Operation / Device Initialization / Device-specific Setup} and \ref{itm:General Initialization And Device Operation / Device Initialization / Set DRIVER-OK}
-+\ref{itm:General Initialization And Device Operation / Device Initialization / Device-specific Setup}, \ref{itm:General Initialization And Device Operation / Device Initialization / Virtqueue Setup} and \ref{itm:General Initialization And Device Operation / Device Initialization / Set DRIVER-OK}
- were conflated.
- 
- Therefore, when using the legacy interface:
-@@ -872,6 +905,11 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
- 	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
- 	handling features reserved for future use.
- 
-+  \item[VIRTIO_F_RING_DYNAMIC(42)] This feature indicates
-+  that the driver can enable virtqueues individually after the driver has
-+  set the DRIVER_OK status bit.
-+  See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Dynamic Virtqueues}.
-+
- \end{description}
- 
- \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
--- 
-2.34.1
+[1]
+https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html
+[2]
+https://github.com/rust-vmm/vhost-device/tree/main/staging/vhost-device-sound
 
 
 This publicly archived list offers a means to provide input to the
