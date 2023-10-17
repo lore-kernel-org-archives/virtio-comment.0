@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7746-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7747-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C443BCDB465
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 02:10:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23130CDB465
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 03:20:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 256A177B29
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 02:10:51 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 61AB5941EC
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 03:20:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0159C98684A
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 02:10:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3C09198684D
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 03:20:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E0B37986580; Tue, 17 Oct 2023 02:10:50 +0000 (UTC)
+	id 1F6CD9863B5; Tue, 17 Oct 2023 03:20:30 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,209 +24,131 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D0C84986843
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 02:10:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 69BF5986843
+	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 03:19:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 2-OkWwxkP0O43AGgIrE2kA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697508647; x=1698113447;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=sApYy5vIdl1U10wPBgfOQaDNUb0ugBVoWL03G8TYrBA=;
-        b=v65KUA/GJV26BCLEYQn6d8wJ11dfXeVyH9ZbNoZEn0mJ7Mt5ogeFTHGhp5XvLqFxgO
-         hPEy85fBXi9zmg6uXfi0V7ATdN+ujT/dWqqlqvYnGlQsD/uPw0zEJvG1SlmOoucpLaEF
-         UKvIwe0IRBelpQUjWNqc089I05D7Q/kbDBXB7HQhLf/6pg7sbSf/fw3l3zcnL1vJKWDG
-         5+ueTqskd67EDf3du4jCg1dJjik9RIbB8Ck8pg5RNJsW+RB22EqvS451xiq1a7v9ggrk
-         jZcmvehaWaxGT29xdLuBlilWX0SOvJ5Dg47UNmJ2Tp34bQRwEMR2u5MqeCOnDuICXwBO
-         6zUw==
-X-Gm-Message-State: AOJu0YyFmX8SiJb4ikcRtmd9EgYOjiUB6TZ7aTr/n5RlOBoQDejtynM5
-	BWQ2u23SbpSt86qSZFv5YcmlwVGVyDiaAjQZO89g4pEjnAnUQZQXqYggnY/kXgbFds6jNKR0Cbr
-	iYomBi9ADlnVM9lLvgHw30vaSjIjiimsLRfKNRLYyn7f1C/sklw==
-X-Received: by 2002:a19:6703:0:b0:4fb:94c6:fd63 with SMTP id b3-20020a196703000000b004fb94c6fd63mr686935lfc.17.1697508646993;
-        Mon, 16 Oct 2023 19:10:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEaTxU8vl9uq8zbBinKNG3NJLn4kxucVytxgMrptNJc1i+OIODnVfmlG6M7arWkbIe+1dE4Xx3IDDSghdQBLLg=
-X-Received: by 2002:a19:6703:0:b0:4fb:94c6:fd63 with SMTP id
- b3-20020a196703000000b004fb94c6fd63mr686925lfc.17.1697508646676; Mon, 16 Oct
- 2023 19:10:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ElE60Ywx9H5aBYaMeYJmVssHb7oHtlfHidJnrnbXpP7nD+AEla60+sB6wlFb563nZT0zzey8NSIvd4FZhnWNxa8ioUchqs/xLCxrpsaosdQQwX2UzFEi2cIHdxXP8BOsTj9xdO5LRHG3Dibvv4dwHixyoxts54IOjhHzcluGGII8ZwtvsP5gwkLReFlAdTeCRtA5urrdQGQ5foEZ+ZIJYC3TSSXb8BbPwbUBsgEeN6STrcNFMZruVVZzM3s6ifOpoKAj61MZkwRIoymnws8PuoNhL56LUFSoY3ylZPdIZtlg7IYSvsqp86W25F8qZH/f0YXeG5hLvoSh+bvwxqGYYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bLupU5BWMIDD8GyUN2kYf9Wr65WTELS0L/IaxYyY/Yw=;
+ b=GDo/TNtH2HxmyRJax5u2rcgntJQXITwEOXpEIxn8aimRSKcNIP/K5OgGPq/ZGoUifLDacCKWuvJGx5EHUDzuo+BMvCICPSqmAQPWO00Uv2HVeXo5GrH8j9hDPIp58Zhcy3T01O/s9PzhDp6jaJAPjW8gUB7rAQ0ups5UOYkRsU0yfSv2dxR+XHXAG7eEnVvUCezeMrk1i3eY8NP3qmuGdXpdQMqKgXu7Z0q6hlsN7ESm0DTwX4wYVEVdr3JTcAd78r2cisggatU36Ms6AhP+nxEJpowSOWjle3n0S8p8KO5eJxTRnATpoW4ZYDV8KEg2AbDyv9CCmfaTK9m1oNEjpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Jason Wang <jasowang@redhat.com>
+CC: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin"
+	<mst@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>
+Thread-Topic: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
+Thread-Index:
+ AQHZ+dpD+jj/KUeLHUaMn2y+w39Cb7BBJzcAgAA1HlCAAEi6gIAAERjwgAEF2ACAAAjm4IABoeMAgAAIQWCAAYjxAIAAAHqAgAD5sYCAAEjPkIAGCquAgAACpwCAABTB0A==
+Date: Tue, 17 Oct 2023 03:19:16 +0000
+Message-ID:
+ <PH0PR12MB548186EF837972BE1C15EBD1DCD6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-2-parav@nvidia.com>
+ <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
+ <DM8PR12MB54801E873241AA02CC32CDCBDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20231009121638-mutt-send-email-mst@kernel.org>
+ <DM8PR12MB5480E0F15A1BBDD745EE3AF4DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <25375529-9c40-9ea9-692e-f557c514c72f@intel.com>
+ <PH0PR12MB54812E59B581546FFB118F3FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <f875fa3b-4b33-71c2-e612-bc2a674a1e59@intel.com>
+ <PH0PR12MB548171A06CCE458C913E4961DCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <97aa9108-0715-2483-f5cf-02698c745d60@intel.com>
+ <PH0PR12MB5481F4F3B4FADD79770ADEA6DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEt-pUSazfjfROukZdaLdmeX1xP7_OxQaQ=Se=jV5NXkDA@mail.gmail.com>
+ <PH0PR12MB5481F8312139BB197CEB024BDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtihTxYADd1dbG=vX9=VLp0xfRJSQ4jd_m0UiuZNz_2sg@mail.gmail.com>
+ <CACGkMEu2RdhUeeG-WNcrPqbQpHaeU06t32516ihv72uN99=mfQ@mail.gmail.com>
+In-Reply-To:
+ <CACGkMEu2RdhUeeG-WNcrPqbQpHaeU06t32516ihv72uN99=mfQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|PH7PR12MB6833:EE_
+x-ms-office365-filtering-correlation-id: edbf6d75-ce83-4a29-eabf-08dbcebfd826
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ bXdU8F93sd936Aq05O0vnoJ4ta0xsfPca28TL61elRPou11sM+fy/EGDInCeA6cW1XL6r0pdMJlcx6y1VTU4n8c5zmYjWW7lHI5Bx8jf1oZRmKhaZGGzA4qDsmukpzQ3G6HDM6rY94KQMGGLKWzcQKMa+gAXwREBSW9rswaAaVUjD0HYm9du42NVHFzO5I0g+htuRe3Tm8/NS4mbn8G/Trz71tTh2sDU7i6WvlAg8s7lJIPaqdiWTmF9ztUitRSBGTD8G6wciWaU5Kbzyz6DTGHbKvC6xDvDwr0TBuQmaCUPXugrUpNqFdkxOH0dON0dPUGTdQA8EAOuth8nvH0CquPPQoz9fsiwwKaAHRZIjqNJVpepMkAMm9uu4TATcqm9akfXOSvtODXZM3+i5vifmMK3PssAGhxcpa+SvfnR7biURFeAdkdF2ME9l7v6iZl1Sv0KArFoofIYGSCKvuSs6WFq8M7L+vaLSkNykk6ccNNkXfI3jRrPWB2jL8eDMxtMwLgUCw5kJp5Xc+2Fz4DY7Jf8IdpOqbsTikPU5v2XW0NtMvTVAf6q1XbuwlNHfr/Vp4/gnKo61b1MjCj31GP/XUAV1koITNCJNls3oEOtHT4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(396003)(136003)(366004)(376002)(230922051799003)(1800799009)(64100799003)(451199024)(186009)(55016003)(86362001)(4744005)(2906002)(41300700001)(4326008)(8676002)(54906003)(64756008)(66446008)(66476007)(66556008)(316002)(8936002)(6916009)(76116006)(66946007)(52536014)(5660300002)(33656002)(107886003)(122000001)(26005)(9686003)(71200400001)(38100700002)(38070700005)(7696005)(6506007)(478600001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Sm9oN3dUUVdsSVpmS1RHSk82bkdNS3lEWm85Nk03NUxwVGlWaE0vcWIyMmRa?=
+ =?utf-8?B?WTY3NXFGR0QzNnpVdXh3cG5GOHdkekRKQ2dlUDNWM0x1QW9Wb09ETXVPYk1R?=
+ =?utf-8?B?bHFNeVhGbS9xVUtOU3c4NEp4cnE0dzc2ekV5VlBVZ0VLSlVmSGl4VnU5Wm1I?=
+ =?utf-8?B?QVJvbXFlR25jTFU4TG83NTJOK04xSGttVzRoUFRRbFJ3dGlsc2VrbzFCM3dh?=
+ =?utf-8?B?cG5abUpkQXViTVhsK1lxVDZNOHZHRkFxcDhvZ0lZWEZUZDVMczI1dzAyQVhS?=
+ =?utf-8?B?OG1qb0h3Q2NGRzVWb05uWXhJK3F4ZTk5TmlJby9qNmxEc25Gc25lNmRoUHJo?=
+ =?utf-8?B?NjdYNG9KcU5RenoydmpFSXJIbU9GOFBxNmJGY2pwM2tKZjdYSmNzYmJ6RU44?=
+ =?utf-8?B?ekh5dmVsRUczcHFuaWxBbmZPeThGWUhpMThvdTJVclU3empIazRpSnlsMGZ4?=
+ =?utf-8?B?NHFpQUFRbjRXV1hRREptTXM0MlRZeHdZZ3EvTnNhRU5ueW5mQVdRNmZjWmRr?=
+ =?utf-8?B?ZDNnTjlMZDhDaTBTY0lHMWxMWnZudERuUEg0bWlmT0JYL21FVmJVbmdiTGNU?=
+ =?utf-8?B?RXVLZFJPQnczYkJ4b21wd3RsVlE1NHEycnp0SnRzMk8yRnhYZXA2NktJdjFJ?=
+ =?utf-8?B?V2ZRRDJjaG1FWHpQUVJSYUNFeXQ5VmFXRVBhVC80cGtvR1AyVENHQStJR05j?=
+ =?utf-8?B?emRnMUFjNG1OZ2tNeE1ZbkNDRUdYUWdkcDdmYWlKNDB1WThLa2V2NkNSakow?=
+ =?utf-8?B?VmxxNzRJRGMrb2pzMU03SnlLbWswT01uR0I5bHBTN0hLTWVEc3VDZnNFUkp5?=
+ =?utf-8?B?S2N0TXRlNlFld0lHdWptNmx2M3g2NnJhRmxQZjNENnVhWEJFbjlrQVFoZHVi?=
+ =?utf-8?B?VWJJcjcrYkpVUUVJT3hhT3htQWJmOEo0MHNsTEMwVUVQaXUybjdZV0dHVnph?=
+ =?utf-8?B?dTFYT2ZmOVViZGJCYmFod3c1dXdPd25YSzVicFFOdEtDM2lYZTFrZDlzbGtU?=
+ =?utf-8?B?ZXRScHVOY01DNmFBSFJ5RzRDRmlWYTRrZnF6cmlGY2JNSDBOWm51aGRYT09I?=
+ =?utf-8?B?OXZRUUczRjBLQU81WnZJeU4rZ0ZlLyticTMrdkM1U2hpeXJTSUhJalFDcFVS?=
+ =?utf-8?B?cENwTmFBSEdEd0lSZmhQaHlpT09ObEZXVVhCTjdMM2NVa3p1SjlJZmM0WmpF?=
+ =?utf-8?B?eWc1dmpEVDREaER1clZTemlwbG93TlpEVmluQjNQdUU2cTl3Y2pkU1pnOUhu?=
+ =?utf-8?B?R3VSWVhjNUpTYWFPKzJCMGlXbndTc2ZvcnN5dGNwNHIvRWNvN2dOd1ZwODJ1?=
+ =?utf-8?B?bWEyRWs2OGhtZTJPcVVnVVFMOU8yVjlNcHc1d2JNdWoxY0Z3dHFBMjVEa3BO?=
+ =?utf-8?B?RnN0ZG0yc0RpU1JHZnA1UGJJd0MyQkRySC9qNy84WFIzcHNWM3hOcHkzSERo?=
+ =?utf-8?B?V0UzbnBUQnZPOEMxS0JacjZRNmdkaXRwWUxWSHdoUCtONm1DVi83bFR5aWYr?=
+ =?utf-8?B?dm1MZjhNdG1BOG1aeVpINFRQNnJ3c1hWVEFhR21JUVR5WFpCWC9CSm0rbjZO?=
+ =?utf-8?B?YVBTZGQ1MDFvTFRPd0F4SWhJWkxONDJyeDdDQWZNczdkbElJS1ZtSncySjBp?=
+ =?utf-8?B?NzlzR1pLOTRYZ0pLZ2hDYW9GSTBXMWdyVHJDSkt0U0piNDlPWmJoZHJmelVV?=
+ =?utf-8?B?RWZ2dEtBWUlZZHFjNWdCK1cwb2Jaa3NqSUU5VGFsS2ZiQ0ZpN2UwVWs4d2t2?=
+ =?utf-8?B?aFZBb2ZmaXEzWVllZDJaZXNOaVhhazd6MHRXeTJmcHNXRTVGQzFlek0wZ2g1?=
+ =?utf-8?B?SEVKSkxQcXBmdnkvUTYrcTlZSCsrcnRWNncwWVlhUytBZkNCTGVDV0VOVzc5?=
+ =?utf-8?B?TUd3NktjK3FBOTYrMjRxV2wyV0h1QVBtZnpxZUpkbzFaZVpGWkFJTk9XRTFO?=
+ =?utf-8?B?TGdoS1RYQnYzWXk1clRnWUF5eU5VSGkyeHp6STNqeEdQbkcrVFJRMklWRktX?=
+ =?utf-8?B?YkUwNTFqdFlqNUE1ODQwQ3ZDaXpsdUxveVlMUkJJNnUxbmpCM1E5NTVaTklH?=
+ =?utf-8?B?OHFUUkNmWFo0VGZ2RGEwbERKd0k1U0FLaDdpY1duUm8vM3FnU0x1aWM0b3BK?=
+ =?utf-8?Q?pXXM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20231008112555.473895-1-parav@nvidia.com> <20231008112555.473895-4-parav@nvidia.com>
- <20231008073912-mutt-send-email-mst@kernel.org> <2fa89e37-a097-d785-e1ee-cda151b0d872@intel.com>
- <DM8PR12MB548001B88B5FA72B403A2AC9DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <85c59856-b68e-940c-08ed-a14e5a02554d@intel.com> <PH0PR12MB548135EDA034FDF7AE77C5FDDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <cbf6b0b4-c49f-6809-cac8-2d8336a8cc76@intel.com> <PH0PR12MB5481A03DDF43FCBD4184693FDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e2696020-8444-0ff3-a774-0b41151a18fb@intel.com> <PH0PR12MB548184740ED3C1011C2A85DEDCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <6fc4af28-67d9-781b-a243-a6c2ebf0244c@intel.com> <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEuw0qvrVSLXfT2KaCX-GYiw4o9=FifcYDnDHFidGhq23Q@mail.gmail.com> <PH0PR12MB5481691682222F6A7E495A7DDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5481691682222F6A7E495A7DDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 17 Oct 2023 10:10:35 +0800
-Message-ID: <CACGkMEsLSW-_dTwWD8RJn+wudQL1itDFfZZV15GH9NXy=bLbCw@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: edbf6d75-ce83-4a29-eabf-08dbcebfd826
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Oct 2023 03:19:16.2943
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: sxvVRR5+2Om4DIGvaGiEhwt2D6E3fiLmEbGA2tCRTscFy9keDmqBGJJY7KnQQ7vnKNQ4w5gO6/7doFqpaIh9EQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6833
+Subject: RE: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-On Fri, Oct 13, 2023 at 2:40=E2=80=AFPM Parav Pandit <parav@nvidia.com> wro=
-te:
->
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Friday, October 13, 2023 6:48 AM
-> >
-> > On Thu, Oct 12, 2023 at 7:37=E2=80=AFPM Parav Pandit <parav@nvidia.com>=
- wrote:>
-> > > As Michael said, software based nesting is used..
-> >
-> > I've pointed out in another thread when hardware has less abstraction l=
-evel
-> > than nesting, trap/emulation is a must.
-> >
-> > > See if actual hw based devices can implement it or not. Many componen=
-ts of
-> > cpu cannot do N level nesting either, but may be virtio can.
-> > > I don=E2=80=99t know how yet.
-> >
-> > I would not repeat the lessons given by Gerald J. Popek and Robert P.
-> > Goldberg[1] in 1976, but I think you miss a lot of fundamental things i=
-n the
-> > methodology of virtualization.
-> Weekend is coming. I will read it.
->
-> > For example, nesting is a very important criteria
-> > to examine whether an architecture is well designed for virtualization.
-> >
->
-> In my reading of a leading OS vendor documentation, I leant that OS vendo=
-r do not recommend nested virtualization for production at [1].
-> Snippet:
-> "In addition, Red Hat does not recommend using nested virtualization in p=
-roduction user environments, due to various limitations in functionality. I=
-nstead, nested virtualization is primarily intended for development and tes=
-ting scenarios."
->
-> [1] https://access.redhat.com/documentation/en-us/red_hat_enterprise_linu=
-x/8/html/configuring_and_managing_virtualization/creating-nested-virtual-ma=
-chines_configuring-and-managing-virtualization
->
-> 2nd leading hypervisor listed nested virtualization to be not used for "p=
-erformance sensitive applications".
-
-Another concept shift.
-
-I'm not going to comment on the choice for individual distros. But the
-points are whether we can deploy a nesting virtualization easily under
-a specific hardware architecture. In this regard, the above is a good
-example.
-
-Again, just a simple google will tell you the instances that support
-nesting have been available for almost all the major cloud vendors for
-a while.
-
->
-> I want to repeat and emphasize that I am not ignoring the nested case.
->
-> An extension for nesting would be the VF presented to the guest itself wi=
-th SR-IOV capability can work as_is as proposed here.
-
-How can a VF have the SR-IOV capability?
-
-> Michael presented the idea of the dummy PF, which is to represent the VF =
-as dummy PF which can do the SR-IOV with one VF.
-
-Why do we need the complicated SR-IOV emulation at the nesting level?
-How can you make sure such a design can result in a live migration to
-be done at any levels?
-
-E.g in LN, you had a PF and a VF. How to migrate the PF to this level?
-You want two PFs in the L(N-1) level?
-
-> You need the support from the platform too, I guess TC can extend it.
-> May be a different interface more suitable for nested case which do not h=
-ave performance needs.
-
-I disagree, it's about if the performance can satisfy the requirement
-at N level.
-
->
-> How about a nested user to have AQ located on the VF so that mediation sw=
- can operate admin commands over self?
-
-I would go with such complicated architecture.
-
-> Device mode commands will not be applicable there, instead some other thi=
-ngs to be done.
-> So non passthrough mode software possibly can make use of it?
-
-It would be a great burden if you
-
-1) use passthrough in L0
-2) use trap/emulation in L(N+1)
-
->
-> > That is to say for any CPU/hypervisor vendors, the architecture should =
-be
-> > designed to run any levels of nesting instead of just an awkward 2 leve=
-ls (but
-> > what you proposed can not work for even 2).
-> Huh, some missing text for corner case as making claim, _not_working in n=
-ot a healthy discussion.
->
-> > For x86 and KVM, any level of
-> > nesting has been done for about 10 years ago.
-> >
-> I didn=E2=80=99t find hw for PML support in x86 for N or 3 level nesting.=
- Did I miss?
-> I didn=E2=80=99t find hw for nested page tables upto N level walking on t=
-he PCIe read/writes in any cpu. Did I miss?
-
-You need first asking why it is a must to achieve nested
-virtualization. All of those obstacles come only if you want to use
-"passthrough" for any levels.
-
-> Have you seen nesting in hw works at N level?
-
-Again, hardware can't have endless resources for endless levels. Trap
-and emulation is a must for achieving nesting virtualization. If you
-try to invent a passthrough method that can work for any level, you
-will probably fail
-
-Thanks
-
->
-> > For virtio, it can do any level. So did for vhost/vDPA. For example, I =
-usually
-> > develop and test virtio/vDPA/vhost in a nesting environment.
-> >
-> Great.
-> Can you share the performance test results relative number with 2 and 3 l=
-evel nesting covering the cpu utilization, latency?
->
-> > Thanks
-> >
-> > [1] https://dl.acm.org/doi/pdf/10.1145/361011.361073
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+DQo+IEZyb206IHZpcnRpby1jb21tZW50QGxpc3RzLm9hc2lzLW9wZW4ub3JnIDx2aXJ0aW8tY29t
+bWVudEBsaXN0cy5vYXNpcy0NCj4gb3Blbi5vcmc+IE9uIEJlaGFsZiBPZiBKYXNvbiBXYW5nDQo+
+IFNlbnQ6IFR1ZXNkYXksIE9jdG9iZXIgMTcsIDIwMjMgNzozMyBBTQ0KDQo+IEkgZG9uJ3QgdW5k
+ZXJzdGFuZCwgd2UgdHJhcCBSU1MgY29tbWFuZHMgYWxyZWFkeS4NClRoZSBkZWZpbml0aW9uIG9m
+ICJ3ZSIgaXMgc3ViamVjdGl2ZSBkZXBlbmRpbmcgb24gd2hpY2ggc3RhY2sgeW91IHNlZS4gU28g
+bGV0cyBzdGF5IGF3YXkgZnJvbSB0aGF0LiA6KQ0KDQpGb3IgcGFzc3Rocm91Z2ggbWVtYmVyIGRl
+dmljZXMgUlNTIGNvbW1hbmRzIGFyZSBub3QgdHJhcHBlZC4NCkFuZCBkbyBub3Qgd2FudCB0byB0
+cmFwIG1vcmUgY29tbWFuZHMgb2YgZGlmZmVyZW50IHR5cGUgb2YgdnFzLg0KQW5kIHRoZSB1c2Vy
+IGRvIG5vdCB3YW50IHRvIGtlZXAgYWRkaW5nIG5ldyB0eXBlIG9mIHNvZnR3YXJlIGZvciBuZXcg
+ZGV2aWNlIHR5cGUgaW4gaHlwZXJ2aXNvciBmb3IgdHJhcHBpbmcuDQoNCg==
 
