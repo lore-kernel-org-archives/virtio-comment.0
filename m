@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7765-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7766-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17E75CDB474
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64FCCDB482
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7D7582AF7B
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:35 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 285BF7BAF7
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 761C6986899
+	by lists.oasis-open.org (Postfix) with ESMTP id D313A9868C3
 	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 6B4AB9861CC; Tue, 17 Oct 2023 20:07:35 +0000 (UTC)
+	id C73BE9861CC; Tue, 17 Oct 2023 20:07:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,16 +24,16 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4AA12986888
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 20:07:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 77129986880
+	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 20:07:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n6Sou0lSSilm7Ic5RlXOgNr7U6eyV56MSSgOviOlx8VVNgJdZ2cWM4RzoDEsLSQitHmzgU4HXvSx34FViSWGoOA7qL1LgnbWrTzGcTZm8UsUcSNObxGBg/S+Vmyyrd9hBvc4IoVuxTrgPMuDFvU0Ay58OKXfzVaaaBqkA3Kn2xiQjkc3h3/lCa017Qbh47iryjICHIuRR+PkPIN7f11zW57fJwrjHmHshqxrd/qt/SFijPRMfQ7uRX47wTc9WmA67BjPfS/Oll4jJGjxHc11qbAPeL0NeKr01N6XFI82ZfvL0NA/tVJa3oHB2DEyg349+O4smFmIuLQVoS9vzhoBKA==
+ b=h2RU5LBcdhkbTsK7l0Nx+YsFCL3xgTnSFlqOOQ0Q7El7bv6pE4X3JKjYMLfda9pRxM+cYmDp5ccQnH52XzLhJdRWJtfmK5qWgmxEQNzx9LUDqQRLjL9DXgPfUTy5dgtphPbYsYaJB7lIYR5wLZnYe4XNoF3QVD03qx/W7HdH+Ga6VJhEfECFT4HpUbxgZI5O1NFOyJbGsmD5QG2TehdqgJYD+6pIbvEx+HBVkypwFngQvBGoVsuvHdPB/eWjjaPlRBNuyDtU6Bw0x+EPdPKCVhyHyB2yP/Rx8729kBI6YxdBBilNiPwgR6hXpSveZ4VIkUmd1htAmNCUjze1vMQUkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=htol/1HDNU2phMnOP8MtwvmF5NKa/6t1G4a9gbFQmKY=;
- b=nWI9OxDJ01hFp2wsjESEBU3M0yGkKShuZ8JDZj1u7sRYIPm3TvA4BoHQWSHFTjPJ5DL0N/c0NvuLkm6PSui7ks01aTaGU4e5eFARw0sOK3B4UJR9D7kMHKGdae/ILX6Zh3MtEVpE0ACeU9TCzbUcfKWNj17t0egDCm4X5zFzJfqOp12ZSp5A+rIQ8IDOdZufGhLkFZ7H9mSU+H+aKKvzNnqs4VbJS2dECoGDyfJAOsiUmXNFETblz8BRWKtqbBD/EgcGOzWQOn6aN5g4DeMklw8msyBlqJWeZ2oBu7WcBXN6ceJmCfDJMSuhvCrG23gTczP/LB4cUKdMvRZjRDojlw==
+ bh=/gtBAl4tiPSM1bVvwH/Nomw/kBzuj5/Yy3YwgUqo65o=;
+ b=R3g0ND9AYJWv5cEWBp3c0MYkjXvcDphxO92QwJiTPbPdK+pOPiylj7FckFBf/pEVW3chMvr99dbnj21HYOTTxsAGMgnyVU0ZQLfHQxe9Fix3rk2Orau5JJLHZjt5ZQBuTrNxH9wP0SaBDqqNBbDzo6wDht5WFOdZqcpRMEMdPcT+/In1CNMQ+7F9ICRQ9+Yjp8VMUAonrSaS3GhAGKZV6ura4RgrIJvfvsmJx+TBPZsa+UchjBwdbl7QD5mET0lmL6yLf+Ofgo9TioEasyOLLnmYF0qOIv+eMXGmPg9eJZLJdx/XfM2nWtnSmQ9PgfpEjY2cA/hTar8G0WDeEoErtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
@@ -50,8 +50,8 @@ To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <maorg@nvidia.com>,
 	<yishaih@nvidia.com>, <lingshan.zhu@intel.com>, <jasowang@redhat.com>, "Parav
  Pandit" <parav@nvidia.com>
-Date: Tue, 17 Oct 2023 23:06:38 +0300
-Message-ID: <20231017200645.779222-2-parav@nvidia.com>
+Date: Tue, 17 Oct 2023 23:06:42 +0300
+Message-ID: <20231017200645.779222-6-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231017200645.779222-1-parav@nvidia.com>
 References: <20231017200645.779222-1-parav@nvidia.com>
@@ -63,173 +63,198 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|BY5PR12MB4853:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1aabaf16-69b3-4c2b-8691-08dbcf4ca8ee
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|SJ2PR12MB8652:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7139d4f-9d8c-4507-1ca2-08dbcf4cafa2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	vWeZALWwG70IFh5Qt6jn4w9tH0/a9U6X4P/mTYW0SoANhvgWBoqc2wpHVMtz6x3Z4u666RDkGeIgd7Iv9BlG62wnlVSBJhaXhJ9QYIPfItBz0tJ5SMZSI07sRfEePjxyCeTIVdEOena1FiH5+I0dsyJZQXVqSb/XwYJ9K3x5M4JQ3HJdyUwPAk5bOYaFWznVZo0WixpqUhU/Ynhvxqf+4ZUCnmitNVc8VZKyf5lvC2C413eDnNMd4/l7/sG7aUMGjd8qsgoyWNS8PWFE638nE+BfxWVniBLtft8a8UmT4TlCuf9vA/rM1Wv12T112h93RTFrZKMi73NfO84Z9RxlGAqc2Hq088r5ey/R+2SAfRVrKxZsfl0oSFWJs3fVA5ZVfBg78KyoXGEsjFpRbBoREZc42txtibBoP9U/owIP6B1Zgg9qcbH5SmBs7qkV+X8VsfBAtG2TEy7Q8VmiHRQaVVLXM/9A3in9MdSDdR5B2XW2x4SshBeezNmk1E0fawG22c8yVgHk8dCH/ttgeHQdGXrS9R0oGW5Mzi9NygJLk5opyFQz4kkdF7x3ta5Ei3iSjN8LT4ixkbmDtw9QRVmkxJ28Fb+MF+KhxR3kmewmztilwy4DllAdPhA+GfRjgZFKBjftOerQAtYg29PT67XcieOo+9WT3UfvlXUUx91lIvHHePWzMG3rem+xqR3Qyv98fhqg0YM/lGNNjUicvH4EjKqVr4uleLWzOpL137rtN2dgzX4tmOhbXAxRWk3QsucV6rrlfCcAL/sEDl/5yLC0cDlpT9qAUSNYkgJWX/5VCMQ=
+	gxd+HJ2ExQIpUj/F54zaR9fBfAH891oiYB471hhVyL4hEhNaY2g0Ji2WLgdmPuu4wtkdfYGzKxkMNJOcf4ZVsYZCbZtQt+uCoBz3eqb+w/soQPoh12XsBglfRPUmht2NtM7jbPzs7bwXYiUPekkAWjFiYQbWm9115RetyYXyQnMHZQDw3UwWawQk5sBJ6X/sQIH736FmGCule3m+pTbrCOAp7+1D9nN2j3IhnUl8P2QkV/6nwi0dMtNkXhqqAkE62ZU/nygTq5jg+OdPkxxKMea35/ErlJoF+1AAzWR9MaXnO/UYKVnpJeHzLLp1YKIi0hpNAg4gBro+mTeiQVddUWDHomnasnY+l8pfCFa+/8deBS8cEJ4vnG8EryRgNJc6+zMO6xuFfHeS7Gx1J2jHTDNpUvnZrGEG851lzY782Usu4+i0sUsNId7ZJnx1lb3AHx+sfUl7mWVY59ARmOnRuGbQhd7p8yMgESFAE/kSwrwl78hnFrZkxSKrLfENeb77uYVP14Ui8jhaFU/vOqDC5J8cjy6TAfVMVqvEJfzE3r8C5cM+CtdZULqUgZ+j4+D+MYUTG6cg9TyTMSTg0y9EELM/Z16TrFVJ68rV+gfUuqURe2sS8edQaA/lij+4w4E+ziYBfSI0nuF+qTUjMubu9JNorbpdcZcrhYLgQ1CpW5cQOLnYEt1AsH6mc1K9HkSFXtowKiBXh9RisvDb5fLrMOoBv0vGWS9i7nTcinLOK9s3IPDWlPyTogwR4FVbJxY3P0Kz/cqKsF6rIiSYLgjotQ==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(396003)(376002)(136003)(230922051799003)(64100799003)(82310400011)(451199024)(1800799009)(186009)(36840700001)(40470700004)(46966006)(110136005)(966005)(478600001)(6666004)(82740400003)(36756003)(356005)(7636003)(86362001)(1076003)(40460700003)(426003)(26005)(107886003)(36860700001)(83380400001)(16526019)(2616005)(316002)(41300700001)(5660300002)(54906003)(336012)(70586007)(8936002)(8676002)(70206006)(4326008)(2906002)(40480700001)(47076005);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(346002)(136003)(396003)(39860400002)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(82310400011)(36840700001)(46966006)(40470700004)(316002)(966005)(40460700003)(70206006)(70586007)(54906003)(110136005)(16526019)(2616005)(1076003)(426003)(336012)(107886003)(26005)(47076005)(83380400001)(40480700001)(356005)(86362001)(7636003)(82740400003)(36860700001)(36756003)(478600001)(6666004)(2906002)(41300700001)(5660300002)(8676002)(4326008)(8936002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 20:07:16.0163
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 20:07:27.2283
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1aabaf16-69b3-4c2b-8691-08dbcf4ca8ee
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7139d4f-9d8c-4507-1ca2-08dbcf4cafa2
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003446.namprd04.prod.outlook.com
+	DS2PEPF00003448.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4853
-Subject: [virtio-comment] [PATCH v2 1/8] admin: Add theory of operation for device migration
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8652
+Subject: [virtio-comment] [PATCH v2 5/8] admin: Add requirements of device migration commands
 
-One or more passthrough PCI VF devices are ubiquitous for virtual
-machines usage using generic kernel framework.
-
-A passthrough PCI VF device is fully owned by the virtual machine
-device driver. This passthrough device controls its own device
-reset flow, basic functionality as PCI VF function level reset
-and rest of the virtio device functionality such as control vq,
-config space access, data path descriptors handling.
-
-Additionally, VM live migration using a precopy method is also widely used.
-
-To support a VM live migration for such passthrough virtio member devices,
-the owner PCI PF device administers the device migration flow.
-
-This patch introduces the basic theory of operation which describes the flow
-and supporting administration commands.
+Add device and driver side requirements for the device migration
+commands.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
 changelog:
-v0->v1:
-- addressed comments from Jason
-- simplified commit log to remove wording of flow
-- added link to the device reset section
-- addressed comments from Michael
+v1->v2:
+- fixed spelling from membe to member
+- removed device requirement line of FLR making the device active
+  as it was incorrectly written to mix operational and admin state
+- added requirements to clarify flr, device reset, pm and admin commands
+- group sriov requirements
+- added description for device config space access in stop mode
+- removed stale requirement around pci ids
+- made device context write command requirements more robust
+  for future and backward compatibility
 ---
- admin-cmds-device-migration.tex | 95 +++++++++++++++++++++++++++++++++
- admin.tex                       |  1 +
- 2 files changed, 96 insertions(+)
- create mode 100644 admin-cmds-device-migration.tex
+ admin-cmds-device-migration.tex | 141 ++++++++++++++++++++++++++++++++
+ 1 file changed, 141 insertions(+)
 
 diff --git a/admin-cmds-device-migration.tex b/admin-cmds-device-migration.tex
-new file mode 100644
-index 0000000..d172130
---- /dev/null
+index bbe5902..5cd9ec7 100644
+--- a/admin-cmds-device-migration.tex
 +++ b/admin-cmds-device-migration.tex
-@@ -0,0 +1,95 @@
-+\subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group
-+administration commands / Device Migration}
+@@ -324,3 +324,144 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+ the device returns new device context entry. Once the device context is
+ discarded, subsequent VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command writes a new device
+ context.
 +
-+In some systems, there is a need to migrate a running virtual machine
-+from one to another system. A running virtual machine has one or more
-+passthrough virtio member devices attached to it. A passthrough device
-+is entirely operated by the guest virtual machine. For example, with
-+the SR-IOV group type, group member device VF undergos device reset
-+\ref{sec:Basic Facilities of a Virtio Device / Device Reset}
-+and may also undergo PCI function level reset(FLR). Such operations
-+are in control of the guest virtual machine which must comply to the
-+device reset requirements and the PCI standard; at the same time those
-+operations must not obstruct the device migration. In such a scenario,
-+a group owner device can provide the administration command interface
-+to facilitate the device migration related operations.
++\devicenormative{\paragraph}{Device Migration}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration}
 +
-+When a virtual machine migrates from one hypervisor to another hypervisor,
-+these hypervisors are named as source and destination hypervisor respectively.
-+In such a scenario, a source hypervisor administers the
-+member device to suspend the device and preserves the device context.
-+Subsequently, a destination hypervisor administers the member device to
-+setup a device context and resumes the member device. The source hypervisor
-+reads the member device context and the destination hypervisor writes the member
-+device context. The method to transfer the member device context from the source
-+to the destination hypervisor is outside the scope of this specification.
++A device MUST either support all of, or none of
++VIRTIO_ADMIN_CMD_DEV_MODE_GET,
++VIRTIO_ADMIN_CMD_DEV_MODE_SET,
++VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET,
++VIRTIO_ADMIN_CMD_DEV_READ,
++VIRTIO_ADMIN_CMD_DEV_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD commands.
 +
-+The member device can be in any of the three migration modes. The owner driver
-+sets the member device in one of the following modes during device migration flow.
++When the device \field{mode} supplied in the command
++VIRTIO_ADMIN_CMD_DEV_MODE_SET is same as what the mode in the device, the device
++MUST complete the command successfully.
 +
-+\begin{tabularx}{\textwidth}{ |l||l|X| }
-+\hline
-+Value & Name & Description \\
-+\hline \hline
-+0x0   & Active &
-+  It is the default mode after instantiation of the member device. \\
-+\hline
-+0x1   & Stop &
-+ In this mode, the member device does not send any notifications,
-+ and it does not access any driver memory.
-+ The member device may receive driver notifications in this mode,
-+ the member device context and device configuration space may change. \\
-+\hline
-+0x2   & Freeze &
-+ In this mode, the member device does not accept any driver notifications,
-+ it ignores any device configuration space writes,
-+ the device do not have any changes in the device context. The
-+ member device is not accessed in the system through the virtio interface. \\
-+\hline
-+\hline
-+0x03-0xFF   & -    & reserved for future use \\
-+\hline
-+\end{tabularx}
++The device MUST fail the command VIRTIO_ADMIN_CMD_DEV_MODE_SET when the \field{mode}
++is other than \field{Active} or \field{Stop} or \field{Freeze}.
 +
-+When the owner driver wants to stop the operation of the
-+device, the owner driver sets the device mode to \field{Stop}. Once the
-+device is in the \field{Stop} mode, the device does not initiate any notifications
-+or does not access any driver memory. Since the member driver may be still
-+active which may send further driver notifications to the device, the device
-+context may be updated. When the member driver has stopped accessing the
-+device, the owner driver sets the device to \field{Freeze} mode indicating
-+to the device that no more driver access occurs. In the \field{Freeze} mode,
-+no more changes occur in the device context. At this point, the device ensures
-+that there will not be any update to the device context.
++When changing the device mode using the command VIRTIO_ADMIN_CMD_DEV_MODE_SET,
++if the command fails, the device MUST retain the current device mode.
 +
-+The member device has a device context which the owner driver can either
-+read or write. The member device context consist of any device specific
-+data which is needed by the device to resume its operation when the device mode
-+is changed from \field{Stop} to \field{Active} or from \field{Freeze}
-+to \field{Active}.
++The device MUST fail VIRTIO_ADMIN_CMD_DEV_MODE_SET command when \field{mode}
++is set to \field{Active} or \field{Stop} and if the device context is
++partially read or written using VIRTIO_ADMIN_CMD_DEV_CTX_READ and
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE commands respectively.
 +
-+Once the device context is read, it is cleared from the device. Typically, on
-+the source hypervisor, the owner driver reads the device context once when
-+the device is in \field{Active} or \field{Stop} mode and later once the member
-+device is in \field{Freeze} mode.
++When VIRTIO_ADMIN_CMD_DEV_CTX_READ command is received multiple times
++in a given mode, and when the complete device context is already read by the
++driver, on subsequent reception of command VIRTIO_ADMIN_CMD_DEV_CTX_READ,
++the device MUST complete the command successfully with
++\field{context_len} set to zero.
 +
-+Typically, the device context is read and written one time on the source and
-+the destination hypervisor respectively once the device is in \field{Freeze}
-+mode. On the destination hypervisor, after writing the device context,
-+when the device mode set to \field{Active}, the device uses the most recently
-+set device context and resumes the device operation.
++The device MUST support reading the device context when the device is
++in any mode \field{Active} or \field{Stop} or \field{Freeze} using command
++VIRTIO_ADMIN_CMD_DEV_CTX_READ.
 +
-+In an alternative flow, on the source hypervisor the owner driver may choose
-+to read the device context first time while the device is in \field{Active} mode
-+and second time once the device is in \field{Freeze} mode. Similarly, on the
-+destination hypervisor writes the device context first time while the device
-+is still running in \field{Active} mode on the source hypervisor and writes
-+the device context second time while the device is in \field{Freeze} mode.
-+This flow may result in very short setup time as the device context likely
-+have minimal changes from the previously written device context. This flow may
-+reduce the device migration time significantly and may have near constant
-+device activation time regardless of number of virtqueues, resources and
-+passthough devices in use by the migrating virtual machine.
++When the device is in any of the mode, and if the device context is read
++partially using VIRTIO_ADMIN_CMD_DEV_CTX_READ command, the device MUST discard
++the device context when VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD command is executed;
++In subsequent execution of VIRTIO_ADMIN_CMD_DEV_CTX_READ and
++VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET, the device MUST return the remaining
++estimated device context size and the device context respectively for the
++current mode as if VIRTIO_ADMIN_CMD_DEV_CTX_READ was never received by the
++device for the current device mode.
 +
-+The owner driver can discard any partially read or written device context when
-+any of the device migration flow should be aborted.
-diff --git a/admin.tex b/admin.tex
-index 0803c26..6eeef58 100644
---- a/admin.tex
-+++ b/admin.tex
-@@ -297,6 +297,7 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- might differ between different group types.
- 
- \input{admin-cmds-legacy-interface.tex}
-+\input{admin-cmds-device-migration.tex}
- 
- \devicenormative{\subsubsection}{Group administration commands}{Basic Facilities of a Virtio Device / Device groups / Group administration commands}
- 
++The device MUST support writing the complete device context multiple times
++by the command VIRTIO_ADMIN_CMD_DEV_CTX_WRITE.
++
++The device MUST fail VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command when the device
++mode is not \field{Freeze}.
++
++For the SR-IOV group type,
++\begin{itemize}
++\item the device MUST not initiate any PCI transaction
++      when the device mode is not \field{Active}.
++\item the device MUST finish all the outstanding PCI transactions before completing
++      the command VIRTIO_ADMIN_CMD_DEV_MODE_SET.
++\item when the device mode is \field{Stop}, the device MUST accept driver
++       notifications and the device MAY update any fields of the device context.
++\item the device MUST respond with valid values for PCI read requests when
++      the device mode is \field{Stop}.
++\item the device MUST function same for the PCI architected interfaces
++      regardless of the device mode.
++\item the device MUST not generate any PCI PME when the device is
++      not in \field{Active} state.
++\item the device MUST NOT update any fields of the device context when the
++      device is in \field{Freeze} mode, the device MAY update fields of the
++      device context when the device transitions from \field{Stop} to
++      \field{Freeze} mode.
++\end{itemize}
++
++When the device mode is not \field{Active},
++\begin{itemize}
++\item the device MUST not access any virtqueue memory or any memory referred
++      by the virtqueue when the device mode is not \field{Active}.
++
++\item the device MUST not generate any configuration change notification. 
++\end{itemize}
++
++When the device is in \field{Freeze} mode, and if any device context is
++written partially by VIRTIO_ADMIN_CMD_DEV_CTX_WRITE, the device MUST discard
++the device context when VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD
++command is executed, i.e. the device functions as if the command
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE was never received.
++
++For the SR-IOV group type,
++\begin{itemize}
++\item when the device is in \field{Freeze} mode, any
++write access to virtio configuration space MUST not update any fields and any
++configuration space read MAY return any value.
++
++\item for the VIRTIO_PCI_CAP_PCI_CFG capability area,
++the device MUST ignore writes when the device mode is set to \field{Freeze}
++and on receiving the reads, the device MUST function same regardless of the
++device mode is \field{Active} or \field{Stop} or \field{Freeze}.
++
++\item the VF device MUST respond to commands
++VIRTIO_ADMIN_CMD_DEV_MODE_SET, VIRTIO_ADMIN_CMD_DEV_CTX_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_READ after the VF FLR completes in the device, if the VF FLR
++is in progress when the device receives any of these commands.
++
++\item the VF device MUST respond to commands
++VIRTIO_ADMIN_CMD_DEV_MODE_SET, VIRTIO_ADMIN_CMD_DEV_CTX_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_READ after the device reset completes in the device, if the
++device reset is in progress when the device receives any of these commands.
++
++\item the VF device MUST respond to commands
++VIRTIO_ADMIN_CMD_DEV_MODE_SET, VIRTIO_ADMIN_CMD_DEV_CTX_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_READ after the device power management state transition completes
++in the device, if the power management state transition is in progress
++when the device receives any of these commands.
++\end{itemize}
++
++The device MUST respond with an error for the command
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE, if there is a mismatch in the
++device context field length between the field provided in the
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE data and the length of the field
++in the device.
++
++\drivernormative{\paragraph}{Device Migration}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration}
++
++The driver SHOULD read the complete device context using one or multiple
++VIRTIO_ADMIN_CMD_DEV_CTX_READ commands.
++
++The driver MAY write the device context before changing the device mode from
++\field{Freeze} to \field{Stop} or from \field{Freeze} to \field{Active};
++the driver MUST write a complete device context using one or multiple
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE commands.
++
++The driver MUST NOT change the device mode to \field{Stop} or \field{Active}
++in the command VIRTIO_ADMIN_CMD_DEV_MODE_SET when device context is
++partially written.
++
++For the SR-IOV group type, the driver SHOULD NOT access device configuration
++space described in section
++\ref{sec:Basic Facilities of a Virtio Device / Device Configuration Space}
++when the device mode is set to \field{Freeze} or \field{Stop}.
++
++For the SR-IOV group type, the driver MUST NOT write into the
++VIRTIO_PCI_CAP_PCI_CFG capability area when the device mode is set to
++\field{Freeze}.
 -- 
 2.34.1
 
