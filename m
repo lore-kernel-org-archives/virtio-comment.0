@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7767-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7768-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E540CDB474
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC3ACCDB483
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:42 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9FC1A7E2CF
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2C787874E4
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5E59A986922
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 22BF8986894
+	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 3EFF89868DD; Tue, 17 Oct 2023 20:07:36 +0000 (UTC)
+	id 16B2D98687F; Tue, 17 Oct 2023 20:07:37 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,34 +24,34 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 28EEF98687F
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 20:07:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 04395986887
+	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 20:07:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XNiPJ4dwKGh6BHI5jgP67YiT+fiPRBCmf/UtSZK9bxG6zrxUU9fbl0P3ZoMvFCGrrk90/iW5Y+lM2CCL25jiOo49Qz5IbobACR0y90jSY1xis0W2IF7Kcbw5wb2QD+soIrLRw5P+yOPN9ra7JQdnO/dMQ0dlEyWxws8ApxN65n3LNApcH/UqiOUpJ9WJ3J+YvYZe0pYLUbZvxodGJuaShk3I1PhC0d+jEh20Qs46zk9x4MK119K1Ehe8b60Prx68eRiK7O3xmsVt6uN9NtBE+ig6xppjodSeLx8r3JvkbnMVt4nHHeSFCkBKx9ApCDDcgHKww+w0jN4c60WwFwHsBg==
+ b=cdRJiiUkkoMF+5wIrlH6G5aGZmucfEm8opClCQKyMaPL6fQ1F7uwyap8KCbnnkM+zgflpnZYHqZJGU3dR26ejv6VPlCVRA0kg1QL7tHmtTzmILCGoOyWiM4aup9m2jJ5DM3Wj2qwKzOHKV42gK5IItUmjc3iNVZ+Qebwi82F/OV7SdB5zxAvxtGhNNAoUM1atKoT1f9z2rnem5KRsN7hWjjnO6y/j0OSBUOg/bzqio9IMjBgmoGDsH1mjcvlQj/DfQKIpVLAx/+kXR54zDEl7LpOz+xAtTsFUwDXvDFhmJXrOPHu8G9JpISyxpxBfdkjWlzlhu8bNy12L+vjda6drA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IBzD+USHQxe7FoIbIwwlircFOjozy+cXmAnEpC/STd4=;
- b=Q0i5COP6rlveMaD1YHn6lhv6Pf6abo2MSqzmAp8DpDxmE4Lv9DspWx1bKZ4ktFFmx3RHbKa7oz11mkN1YXeZ3GM6H29a83kfcZw0ToEGzHHsURC6/FWcsuXOcNunhdo5jMJDm1FkItFXpKgxL6BeKPPxvif0hF6iqcR5DrmxNGfiu+V38USZ2f8pUAVHz39w87j44MGJpSAVV3ZcHnuMf1g/pvhqgM1QCNSQaWXFVBas4I7SAxdxww+YjXZwqgrgBQvt7syJeOBJ+JpoCEhI622cAlzI47XooNcfYmWZdXGX2Jf95Yq3qG2wDGmRntGoiP+XOERXc2lTXVU7GQs80g==
+ bh=RmDMQCwVtCyOaxdybrtMQMNkvFjMYeEgn6sTmrFiLSk=;
+ b=YP5bi14yR9UCVoGVY5puFUZ5VTL8rxMTfTcYWQfNV8PUa/Og7pWVQbxgKDA7jR+Ferj8g+RCFtuDj945NLoCk4d6OLRk8BoHrN3IrbrDyRf9CTh6wi+QMOv76Z311IltBNLJUohpUpn/i4w9AiU30TB3hsKrMnJPghycbD1ERtiRzUpcAnBhocg5cCVNoT0qffRL4ntux1Ag/1wUgLuyuuPQKLBeOkkKHlOWm43r7J6dAQyjFivpJmiW6DrkF1Rb1Eah0OdAaibIbCNBMnnTDMYAXVUWFM+s+VnkdxCzVMe2d2WY7iI4/J8TPQT5g1IBG5qmrUnTwVIms7MtYZMxBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
+ 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
  header.from=nvidia.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 	<cohuck@redhat.com>
 CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <maorg@nvidia.com>,
 	<yishaih@nvidia.com>, <lingshan.zhu@intel.com>, <jasowang@redhat.com>, "Parav
  Pandit" <parav@nvidia.com>
-Date: Tue, 17 Oct 2023 23:06:43 +0300
-Message-ID: <20231017200645.779222-7-parav@nvidia.com>
+Date: Tue, 17 Oct 2023 23:06:41 +0300
+Message-ID: <20231017200645.779222-5-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231017200645.779222-1-parav@nvidia.com>
 References: <20231017200645.779222-1-parav@nvidia.com>
@@ -63,37 +63,44 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|SN7PR12MB6742:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2506df69-3185-4236-a791-08dbcf4cb26a
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|BL3PR12MB6522:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85a8472c-d613-4562-9498-08dbcf4cb06d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ElgXqrAHtPMgm1L0sQDPYZ5lCgKQEZFVKEGKuAwrIN88q6bxdLtMd+I/RjlYyKbAgmYTLa6OVgNrdOfmwpFRQ0hx5leVinsDe+QD3lbtrZLdNPbFv6ztgXZQWBe/wF0Wj6EX2NhHCLnmFqutmC+FkzoIM1hWYZShMxRXjVyN3qE8uGo66wvV1zg9GeC+doabOlH/uvxRycOUCHaw4E+PRj0moxzylNz7DuIpMrRKbNGL05kFmVGpTzaq6PpJPPo1j2+MWubCMSbPhIrupTP5NNonaiqvITXiIZqDW0q5QitVLxfkHoWdiR5WQhwLYsDMv4zF0JnsjOCqb7KGBRqhQ4bz/KI3t82K8JKJvJgqu8V+3iFdtq9UtZf4/bLcKL/ERIjwhBIU9qjPFAcEkhFsZREAtG5QpHwAeutB7juYBKBeMWuDcJ3DpQ9WIL0MZWgczttukc5mFfTz/DUHdnocx/+wz8KjLdN713iLoe7Isp2NV7ucQILHa72EeBaMTf6COG3NJ3q9ZRBsCn+uQHdV0F17w4wEZuiXLmCbvwP5LykImjcNutcN1MaMLvbTmVSADhjCTwRFCRLWC2DC5k98n71QPDSBKUgmfMfh5eO0EKtgd3XkmD7mzq21WKjugoyqkTxWAtSF8tvfKsTe5ve7tr/lkTlCzpQQ6FFCOzByxMmlxjAXm3jhBjcwCRnHhUSrJyIKaiGkpIqlApmNws8BdTw7y3NGZ8iI/uYkL7YPtWqOYwNSX53b6eYtFwqJsoShhwNtl8yuRVgBov+akoubQw==
+	HxEpKNAx5y+cpyv0iW+EQcqQXtTcg94OqWmr34Q1LFRBLbdgX0woymTmWw5YA6d8mhgZidhUohwXr27CG8XTWZ1SX+RpQJo9Yx0o8B1APDP6SetRhPDJdsss/HeHfSZNSNzwPfZ67RHLvFocxtHTiTx/i38xG4vJPrO2L6JK/1xwATPTSvMvaHKLrGyWbRe6G5Ce1kG0fieWk1Jv/Aj665odVAIepD4769Ur+RpQTjaWtq4vLAIzCmioZImSz0YyHCns8KV47u739PfJElhgHakdk+C2uRhhpvceWvRtcg0oadlpTSnMc9PdmFrzNzaK7lyab7tUQPME0GLSrFpDvS9FlfqWYE6wgJEYtsujyVZweSSiRJCkpvUrP914O795VZZUBaaqkNcDkqNY/TI8GEKnZTeIg2EUDIiO05MlWn8fAuw2tdB6kIIi2HLVfjYcRa3mnb+FdxVIewS9y40lNve0rP8LkYsBiFlA9yDOrDrUEhrXxilhVwlQAhzZbW4XmnAWQXOfj3yA8mw/YdqDX/pZeRtoQ0fjh6zmd0kL2olAgQpsNycX2Q1+d5hhN6gaHq4pwHflM0RC/DNDV7OoX1PKHKz1Qo/p1kOKdchRanix+bKaUbGbfhCsWFT74Palbjijg3HyFRs6WLyAtHU37oXr8v6rZDiSjx341ShdxRpHg+fmPl+iHLROFZ4CVmBX5Z84fItAQ/6hQODy6Z1xa3YUlo+/EkWwLULcQcV/ituzgXxXs7M5Judlq6I3w2Nq8uixo7eBVEyaNycHt8hZH7AX6fVYrGebm4rc/FM9V1s=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(346002)(396003)(39860400002)(376002)(230922051799003)(186009)(82310400011)(1800799009)(64100799003)(451199024)(46966006)(36840700001)(40470700004)(40460700003)(70206006)(316002)(70586007)(110136005)(54906003)(16526019)(40480700001)(86362001)(1076003)(36756003)(426003)(83380400001)(82740400003)(7636003)(356005)(47076005)(36860700001)(2616005)(107886003)(966005)(478600001)(6666004)(41300700001)(5660300002)(336012)(26005)(2906002)(8676002)(4326008)(8936002);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(346002)(136003)(39860400002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(82310400011)(36840700001)(46966006)(40470700004)(86362001)(426003)(82740400003)(7636003)(356005)(478600001)(336012)(966005)(70586007)(47076005)(26005)(70206006)(1076003)(6666004)(16526019)(107886003)(83380400001)(36860700001)(110136005)(316002)(54906003)(2616005)(41300700001)(8676002)(8936002)(4326008)(5660300002)(2906002)(40460700003)(40480700001)(36756003)(30864003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 20:07:31.9292
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 20:07:28.5617
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2506df69-3185-4236-a791-08dbcf4cb26a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85a8472c-d613-4562-9498-08dbcf4cb06d
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003447.namprd04.prod.outlook.com
+	MN1PEPF0000F0DE.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6742
-Subject: [virtio-comment] [PATCH v2 6/8] admin: Add theory of operation for write recording commands
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6522
+Subject: [virtio-comment] [PATCH v2 4/8] admin: Add device migration admin commands
 
-During a device migration flow (typically in a precopy phase of the
-live migration), a device may write to the guest memory. Some
-iommu/hypervisor may not be able to track these written pages.
-These pages to be migrated from source to destination hypervisor.
+A passthrough device is mapped to the guest VM. A passthrough device
+accessed by the driver can undergo its own device reset and for PCI
+transport it can undergo its PCI FLR while the guest VM migration is
+ongoing.
+The passhtrough device may not have any direct channel through which
+device migration related administrative tasks can be done, and even if
+it may have such adminstative task must not be interrupted by the
+device reset or VF FLR flow initiated by the passthrough device.
 
-A device which writes to these pages, provides the page address record
-of the to the owner device. The owner device starts write
-recording for the device and queries all the page addresses written by
-the device.
+Hence, the owner driver which administers the member devices,
+facilitate the device migration flow.
+
+Add device migration administration commands that owner driver can use
+for the passthrough device.
+
+Subsequent patch defines the device context in detail.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
 Signed-off-by: Parav Pandit <parav@nvidia.com>
@@ -102,37 +109,289 @@ Signed-off-by: Satananda Burla <sburla@marvell.com>
 changelog:
 v1->v2:
 - addressed comments from Michael
-- replaced iova with physical address
+- updated commit log to refer to device context in later patch
+- moved admin command table opcode to this (right) patch
+- added command to query supported fields of the device context
 ---
- admin-cmds-device-migration.tex | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ admin-cmds-device-migration.tex | 233 +++++++++++++++++++++++++++++++-
+ admin.tex                       |  16 ++-
+ 2 files changed, 247 insertions(+), 2 deletions(-)
 
 diff --git a/admin-cmds-device-migration.tex b/admin-cmds-device-migration.tex
-index 5cd9ec7..fba3a6b 100644
+index d172130..bbe5902 100644
 --- a/admin-cmds-device-migration.tex
 +++ b/admin-cmds-device-migration.tex
-@@ -95,6 +95,21 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+@@ -66,7 +66,8 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+ read or write. The member device context consist of any device specific
+ data which is needed by the device to resume its operation when the device mode
+ is changed from \field{Stop} to \field{Active} or from \field{Freeze}
+-to \field{Active}.
++to \field{Active}. The device context is described in section
++\ref{sec:Basic Facilities of a Virtio Device / Device Context}.
+ 
+ Once the device context is read, it is cleared from the device. Typically, on
+ the source hypervisor, the owner driver reads the device context once when
+@@ -93,3 +94,233 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+ 
  The owner driver can discard any partially read or written device context when
  any of the device migration flow should be aborted.
- 
-+During the device migration flow, a passthrough device may write data to the
-+guest virtual machine's memory, a source hypervisor needs to keep track of these
-+written memory to migrate such memory to destination hypervisor.
-+Some systems may not be able to keep track of such memory write addresses at
-+hypervisor level. In such a scenario, a device records and reports these
-+written memory addresses to the owner device. The owner driver enables write
-+recording for one or more physical address ranges per device during device
-+migration flow. The owner driver periodically queries these written physical
-+address records from the device. As the driver reads the written address records,
-+the device clears those records from the device.
-+Once the device reports zero or small number of written address records, the device
-+mode is set to \field{Stop} or \field{Freeze}. Once the device is set to \field{Stop}
-+or \field{Freeze} mode, and once all the IOVA records are read, the driver stops
-+the write recording in the device.
 +
- The owner driver uses following device migration group administration commands.
- 
- \begin{enumerate}
++The owner driver uses following device migration group administration commands.
++
++\begin{enumerate}
++\item Device Mode Get Command
++\item Device Mode Set Command
++\item Device Context Size Get Command
++\item Device Context Read Command
++\item Device Context Write Command
++\item Device Context Supported Fields Query Command
++\item Device Context Discard Command
++\end{enumerate}
++
++These commands are currently only defined for the SR-IOV group type.
++
++\paragraph{Device Mode Get Command}
++\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Mode Get Command}
++
++This command reads the mode of the device.
++For the command VIRTIO_ADMIN_CMD_DEV_MODE_GET, \field{opcode}
++is set to 0x7.
++The \field{group_member_id} refers to the member device to be accessed.
++This command has no command specific data.
++
++\begin{lstlisting}
++struct virtio_admin_cmd_dev_mode_get_result {
++        u8 mode;
++};
++\end{lstlisting}
++
++When the command completes successfully, \field{command_specific_result}
++is in the format \field{struct virtio_admin_cmd_dev_mode_get_result}
++returned by the device where the device returns the \field{mode} value to
++either \field{Active} or \field{Stop} or \field{Freeze}.
++
++\paragraph{Device Mode Set Command}
++\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Mode Set Command}
++
++This command sets the mode of the device.
++The \field{command_specific_data} is in the format
++\field{struct virtio_admin_cmd_dev_mode_set_data} describing the new device mode.
++
++\begin{lstlisting}
++struct virtio_admin_cmd_dev_mode_set_data {
++        u8 mode;
++};
++\end{lstlisting}
++
++For the command VIRTIO_ADMIN_CMD_DEV_MODE_SET, \field{opcode} is set to 0x8.
++The \field{group_member_id} refers to the member device to be accessed.
++The \field{mode} is set to either \field{Active} or \field{Stop} or
++\field{Freeze}.
++
++This command has no command specific result. When the command completes
++successfully, device is set in the new \field{mode}. When the command fails
++the device stays in the previous mode.
++
++\paragraph{Device Context Size Get Command}
++\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Context Size Get Command}
++
++This command returns the remaining estimated device context size. The 
++driver can query the remaining estimated device context size
++for the current mode or for the \field{Freeze} mode. While
++reading the device context using VIRTIO_ADMIN_CMD_DEV_CTX_READ command, the
++actual device context size may differ than what is being returned by
++this command. After reading the device context using command
++VIRTIO_ADMIN_CMD_DEV_CTX_READ, the remaining estimated context size
++usually reduces by amount of device context read by the driver using
++VIRTIO_ADMIN_CMD_DEV_CTX_READ command. If the device context is updated
++rapidly the remaining estimated context size may also increase even after
++reading the device context using VIRTIO_ADMIN_CMD_DEV_CTX_READ command.
++
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET, \field{opcode} is set to 0x9.
++The \field{group_member_id} refers to the member device to be accessed.
++
++\begin{lstlisting}
++struct virtio_admin_cmd_dev_ctx_size_get_data {
++        u8 freeze_mode;
++};
++\end{lstlisting}
++
++The \field{command_specific_data} is in the format
++\field{struct virtio_admin_cmd_dev_ctx_size_get_data}.
++When \field{freeze_mode} is set to 1, the device returns the estimated
++device context size when the device will be in \field{Freeze} mode.
++As the device context is read from the device, the remaining estimated
++context size may decrease. For example, member device mode is
++\field{Stop}, the device has estimated total device context size
++as 12KB; the device would return 12KB for the first
++VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET command, once the driver has
++already read 8KB of device context data using
++VIRTIO_ADMIN_CMD_DEV_CTX_READ command, and the remaining data is
++4KB, hence the device returns 4KB in the subsequent
++VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET command.
++
++\begin{lstlisting}
++struct virtio_admin_cmd_dev_ctx_size_get_result {
++        le64 size;
++};
++\end{lstlisting}
++
++When the command completes successfully, \field{command_specific_result} is in
++the format \field{struct virtio_admin_cmd_dev_ctx_size_get_result}.
++
++Once the device context is fully read, this command returns zero for
++\field{size} until the new device context is generated.
++
++\paragraph{Device Context Read Command}
++\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Context Read Command}
++
++This command reads the current device context.
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_READ, \field{opcode} is set to 0xa.
++The \field{group_member_id} refers to the member device to be accessed.
++
++This command has no command specific data.
++
++\begin{lstlisting}
++struct virtio_admin_cmd_dev_ctx_rd_len {
++        le32 context_len;
++};
++
++struct virtio_admin_cmd_dev_ctx_rd_result {
++        u8 data[];
++};
++\end{lstlisting}
++
++When the command completes successfully, \field{command_specific_result}
++is in the format \field{struct virtio_admin_cmd_dev_ctx_rd_result}
++returned by the device containing the device context data and
++\field{command_specific_output} is in format of
++\field{struct virtio_admin_cmd_dev_ctx_rd_len} containing length of
++context data returned by the device in the command response. When the length
++returned is zero or when the returned context data is less the data requested by
++the driver, the device do not have any device context data left that the device
++can report, at this point the device context stream ends.
++
++The driver can read the whole device context data using one or multiple
++commands. When the device context does not fit in the
++\field{command_specific_result}, driver reads the subsequent remaining
++bytes using one or more subsequent commands.
++
++\paragraph{Device Context Write Command}
++\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Context Write Command}
++
++This command writes the device context data. The device context can be written
++only when the device mode is \field{Freeze}.
++
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_WRITE, \field{opcode}
++is set to 0xb.
++The \field{group_member_id} refers to the member device to be accessed.
++
++\begin{lstlisting}
++struct virtio_admin_cmd_dev_ctx_wr_data {
++        u8 data[];
++};
++\end{lstlisting}
++
++The \field{command_specific_data} is in the format
++\field{struct virtio_admin_cmd_legacy_common_cfg_wr_data} describing
++the access to be performed.
++
++This command has no command specific result.
++The device fails the command when command is executed when the device mode
++is other than \field{Freeze}.
++
++The written device context is effective when the device mode is changed
++from \field{Freeze} to \field{Stop} or from \field{Freeze} to \field{Active}.
++
++The driver can write the whole device context using one or multiple
++commands. When the device context does not fit in one command result the
++driver writes the subsequent remaining bytes using one or more subsequent
++commands.
++
++\paragraph{Device Context Supported Fields Query Command}
++\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Context Supported Fields Query Command}
++
++This command reads supported fields in the device context.
++Each listed \field{type} of the device context of
++\ref{sec:Basic Facilities of a Virtio Device / Device Context} is represented
++as one entry the command response. When the device support a given \field{type} for the member
++device, corresponding entry is set in the command response.
++
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_FIELDS_QUERY, \field{opcode} is set to 0xc.
++The \field{group_member_id} refers to the member device to be accessed.
++
++This command has no command specific data.
++
++\begin{lstlisting}
++struct virtio_admin_cmd_dev_ctx_supported_field {
++        le16 type;
++        u8 reserved[6];
++        le64 length;
++};
++
++struct virtio_admin_cmd_dev_ctx_supported_fields_result {
++        struct virtio_admin_cmd_dev_ctx_supported_field fields[];
++};
++\end{lstlisting}
++
++When the command completes successfully, \field{command_specific_result}
++is in the format \field{struct virtio_admin_cmd_dev_ctx_supported_fields_result}.
++Each entry in array \field{fields} represents the supported \field{type}
++and its length as described in \ref{tab:Device Context Fields}.
++
++\paragraph{Device Context Discard Command}
++\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Context Discard Command}
++
++This command discards any partial device context that is yet to be read
++by the driver and it also discards any device context that is partially written.
++This command can be used by the driver to abort any device context migration
++flow when there may have been any partial context read or write operations
++have occurred.
++
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD, \field{opcode}
++is set to 0xd.
++The \field{group_member_id} refers to the member device to be accessed.
++
++This command has no command specific data.
++This command has no command specific result.
++
++Once this command completes successfully, the device context is
++discarded. If the device context that is discarded was part of the write
++operation, once this command completes, the device functions as if the device
++context was never written. If the device context that is discarded was part
++of the read operation, once this command completes, the device functions as if
++the device context was never read in the given device mode. Once the device
++context is discarded, in subsequent VIRTIO_ADMIN_CMD_DEV_CTX_READ command,
++the device returns new device context entry. Once the device context is
++discarded, subsequent VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command writes a new device
++context.
+diff --git a/admin.tex b/admin.tex
+index c86813d..142692c 100644
+--- a/admin.tex
++++ b/admin.tex
+@@ -126,7 +126,21 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
+ \hline
+ 0x0006 & VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO & Query the notification region information \\
+ \hline
+-0x0007 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
++0x0007 & VIRTIO_ADMIN_CMD_DEV_MODE_GET & Query the device mode \\
++\hline
++0x0008 & VIRTIO_ADMIN_CMD_DEV_MODE_SET & Set the device mode \\
++\hline
++0x0009 & VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET & Query the device context size \\
++\hline
++0x000a & VIRTIO_ADMIN_CMD_DEV_CTX_READ & Read the device context data \\
++\hline
++0x000b & VIRTIO_ADMIN_CMD_DEV_CTX_WRITE & Write the device context data \\
++\hline
++0x000c & VIRTIO_ADMIN_CMD_DEV_CTX_FIELDS_QUERY & Query Supported fields of device context \\
++\hline
++0x000d & VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD & Clear the device context data \\
++\hline
++0x000e - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
+ \hline
+ 0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
+ \hline
 -- 
 2.34.1
 
