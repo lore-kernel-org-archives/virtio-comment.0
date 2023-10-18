@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7821-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7822-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB1F0CDB47E
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 17:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 849DDCDB483
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 17:10:03 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 02716790F0
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 17:00:15 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CB4C97DD69
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 17:10:02 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C95869868B1
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 17:00:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B380B9868B4
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 17:10:02 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A4C2B9868AB; Wed, 18 Oct 2023 17:00:14 +0000 (UTC)
+	id 9ED129868AB; Wed, 18 Oct 2023 17:10:02 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,29 +24,30 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 94B4E9868AC
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 17:00:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8DAF89868AC
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 17:10:02 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1697648412.184000
-X-TM-MAIL-UUID: 229924e8-32a3-443b-b702-b06232ac618e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PqB2jr4tpK8U0PzQ1uiCXJ/4VojjV8RBwvBloG5DvkLQem30zgWG2XFTIpW1aprPmI7zgCff81y5JgYmFLnFhcUqtC/ZTg18+0bM6tOGl3ipcLtHBA5qngEOtOWEBGbEbo6Px4lY3PEOBh50Aa5Keki0kpeN4gyg4Ah6hA3gAGEyPGDCYm+Gx9zboqsC6UhgRIHZ/jgtGc0GXnV/LV05xIAigbwDWgaEjRHYgnWsbRO+DnHWyiwVkCKGJopJV3EeB6rrgMkVr98bfou3WVcUbw9+Y0o/XUI/oQc6v/TDmlgfkqp2VuXSjK8dJLQV18HbBdmM+GEIt/hCoDCts2Lkgw==
+ b=Kh6+f8L7jrKq17QmF0bSTSLTbW7zQJ9kBIudtIvRkowyDLfWgLk+VlUUt30wGTjpB1MVnM2XU8d38d3zOHyBBCmKgRHhIpNA82TIlTrM9zlTMwtZ5kRHHoeRmeGbVZhLP1SiuyFw2lGs2tv+ALOC5L5q5ZsKUxi0GphY/Xmti7mhX3Rl2hya1Y8ClzGhTVoshdG1Esdy1qCm+Syvn0foh81xt1jOXAFC/BeTt/QrdkRmVfkAAtxw4HFhn+aGquYlxlHgQWwzx8wpIEXDtSopF2sXbcRYn1JlZSttVXhHx4GDkxBpV3siXu1q5iDeuWAoVOZxYL86giLs90ugKQ2how==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yw9Z482StjdEhekY6gZefm+6MkPXuERnBSOgtysUcpI=;
- b=cPPYcX3bk1fJlTTfqRrphtacFOLqFQJJv641sTZKfmfPx9P6BmN+K42+AiZ3cH0ErkKk2osvcrwt+9GKRWABJGDboye0MuzlcnOmr8WvQIc7XV2uQSgU9+e3sz6t/2jT0hdUQpkY6elquDDfqC1/hirOo+U6sFxDq+RBzig2yR4ZbPXFf4/c6l2s55x2otlgYcmZrxAXw8DCdmialwsMsxU3WiDCwJ3QbhjANyR7sIiPSFZFU88QbodE50slOztJz08Pes6B8w2HsnNEgG92qaAsWjRxBYk9Ytnhehj6yyCEGAfZcINnzzL+/XWDZWUtJQaeeXI+NIyiJcon34W1lQ==
+ bh=L1SWwhnVxMY3/gH+2XwgXy0KS5UbtmLDuksZyTp5nX8=;
+ b=AKDKryJb7Tm6WlEuWHaObP3jspVJy5UpMjrlKhBr+CaP1vRU86Zw59Qdw99XHtaQDGH2tGi8FQR/VTZGm2GaiFf3dTbANJ5Fv7rwnxuPQB/gpWtUmKm4AaX+LJ4boKUIOHxvK5WT5uUFGO5mHS1Ln7GsLm9egJYCM9w/BrBcMhBj/0jwNFVKvCzEU8G4GLDwMjdbWpCilIMeaegZL1//F2K43dEYTSpt+cVwuIjx7+0AI4G/7Z7w8ZO3x4qW3XTjER8CjQRrYyFyRtfH92ZwL6logdbMsvQV56eale0mSwipeJaZtr/5vAtGz6T9qKwc7srdKD1DZeNSNiedzuBZdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <520b95c5-0295-4d36-85cd-48e5021f0579@opensynergy.com>
-Date: Wed, 18 Oct 2023 19:00:09 +0200
-Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Cc: Cornelia Huck <cohuck@redhat.com>
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Peter Hilber <peter.hilber@opensynergy.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+CC: Cornelia Huck <cohuck@redhat.com>
+Thread-Topic: [virtio-comment] [RFC PATCH v2] virtio-rtc: Add device
+ specification.
+Thread-Index:
+ AQHZqzWn01mUtnPGCUaCuESJ+zAzFa+nCBEQgCaJjICABcqYEIAHKR+AgBoD7sCAJGLqgIAS3pNwgAbnOwCAApCdYIARXF8AgAFYInCAAIbcgIAFiSGwgADKLQCAAOEKgIAAs4wAgAACEPCAAArGgIAAAkrQ
+Date: Wed, 18 Oct 2023 17:09:58 +0000
+Message-ID:
+ <PH0PR12MB548184F98B9F300D17C06322DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20230630092959.392381-1-peter.hilber@opensynergy.com>
  <PH0PR12MB5481F7AD21A871DE5660A948DC1EA@PH0PR12MB5481.namprd12.prod.outlook.com>
  <b59a7dda-06fe-cff9-df61-b90aa4e50836@opensynergy.com>
@@ -61,250 +62,100 @@ References: <20230630092959.392381-1-peter.hilber@opensynergy.com>
  <PH0PR12MB54816E8AEE2AE89148076542DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <6d6f0c19-9a08-4b1f-9796-bf9c1ce09eb8@opensynergy.com>
  <PH0PR12MB54812685ED1723B7049FF6E4DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Peter Hilber <peter.hilber@opensynergy.com>
-Autocrypt: addr=peter.hilber@opensynergy.com; keydata=
- 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
-In-Reply-To: <PH0PR12MB54812685ED1723B7049FF6E4DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0018.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f1::18) To BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:77::8)
+ <520b95c5-0295-4d36-85cd-48e5021f0579@opensynergy.com>
+In-Reply-To: <520b95c5-0295-4d36-85cd-48e5021f0579@opensynergy.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS0PR12MB6462:EE_
+x-ms-office365-filtering-correlation-id: d64016e2-5ac2-4d35-b000-08dbcffd0f16
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ FpG9q3LCN1bSlFOZ2lokDqp+FgzvK3ruDhF9JfYIzzr/W4mlLuo56mwV+G95tPULgU6T1VZ0nLEclciIdmNqbs8Voje7RqcQLG29LoG6v6OBiaxlezRPOcMqG0bas1S3pAJbFCxi5yX9w8lKq+c3gAA/Fc5n5lt068TY+03wZ7PbmOUCIeVrOpJ9EARtbJ1yinv+mTPQN2UifYNQmEKfcQKbABUSWRuSNeb0ylyjJytRmo9b7FJXLN5aeTQ8pSXEFhc9t38K6ZaVMGVis1FL7If7qCspyQaj0nbYhg7Bd9vU6gwxwdF0LoApHKsHsa3rA56HXEYrLhUQsLj4bTVZUA0buxPTmzw1+vWYoIITXUkGuHm4SIXDIbzjPKnBasuwJsddMHS6QJXRxkZwBu9pkC9qErWZP9bOAAUFG3U9EFxrzgXiZZOSeivmUBOMyI5gOqeIAq68ppkn5yvY8R3JbwDY8DNGZLqUlHjibDGOaO65byWViVSHYav6obVB5pZ+I+zL3duEG02ILn3Z2ylobW+EUNfalPHgXNl2At/u8P1JuUueEGbr3JcRigiAP8t4ntk/Afx4Nmq8dcKJmoNaB0a6hAAQfgdP1KMIjCPASp8bpDexkZ3CxIlj+L7v6Qs1
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(396003)(136003)(346002)(39860400002)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(55016003)(66946007)(71200400001)(110136005)(76116006)(478600001)(64756008)(66446008)(66476007)(66556008)(7696005)(38100700002)(83380400001)(9686003)(316002)(5660300002)(6506007)(122000001)(26005)(86362001)(38070700005)(2906002)(33656002)(8936002)(41300700001)(4326008)(8676002)(52536014);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QnlPQUthcTQwSXk4K25Yb0g3SmNqdU8xTmdUOHVFK1ZiMnpXbFVXVndLUkpO?=
+ =?utf-8?B?U21BSWxtbjZHWjFRa0hVUnYwa0dhVHlTNGVGMnZVNnlCTk1LZDdXcGtOM1l5?=
+ =?utf-8?B?V21ybnNabitvWFlIVVhha0Erdm1hRnZwTW0zcXBIdHdrUHh3bzRsNVBoOWdZ?=
+ =?utf-8?B?Z3JTRW54eGZseUtLelcrekNEVlBKNEV4bWVjRS9jejU0eFd5eWU2SFNnaWxi?=
+ =?utf-8?B?SWJoNnl4bVRNamNPUWtXaVA1clpaZWI3MUpmZVkrZHJHckhiS0ZmMjdBMDhp?=
+ =?utf-8?B?NytLalVickNMbVpvd0FmaDQvYlMyVmZudW9aNkJWa2JKUWdGbEpGN0R5bENL?=
+ =?utf-8?B?a1F6M0xDOHJJRThIVjFlZllxNDhBczhyemNRYythUnBkZ1pDN0hsRmp2UHJF?=
+ =?utf-8?B?S2VOajJaTlNZZmZIZVNSOEM1QSt4cFB6KytLZis1bHUzKzVuM3JSL0NkNzEw?=
+ =?utf-8?B?NEN2ZG1jT1Vpc3MyZS91clE5MnFNWHdmR2J2QnhtcE9ZY0xYUjZWTzEzZElO?=
+ =?utf-8?B?MWNqYlpIMkFBYlNRMnJ3RnRXZVVrejJ1K0JlTFhhRm9KeHFoT1RiazNsWlhF?=
+ =?utf-8?B?MjdydkxnM2prc09yY3JYOFA1TC9wN1VnU0xCd29VSW5qRk5DcWI1a0VUYURs?=
+ =?utf-8?B?ZVZtRFJ0YWs5eTBDeFRUN0grem5NNHpleUFhd0FFTlJTaU9jTXdyWHV1RVRj?=
+ =?utf-8?B?RjdwUjlCOThrTVZGK2RWRmt0NEVHN1dLM2luaHoxRUhRb2hnRUxjaEY4NU1h?=
+ =?utf-8?B?YlFvNUpDNE9pTWIwOStmbFpBRGt6cWZ6UU9hY2RmcFZRbGYxL0VSQ0tJenhw?=
+ =?utf-8?B?RWNwSG1lNHQrWTJac2cxejF5T2diZTl5dDVvQ21Ybm4veTFhOURiaWR6STlz?=
+ =?utf-8?B?clErN3BQcGhDN25nWml4Ym5ZcUN1QlltaE5DellkOFZQR3pheWt2bXBPdFJq?=
+ =?utf-8?B?M3RYb3p1Wi8rWWt3d05YSG5VdTZCZHZJMmRNUTVRK0QvanpHTkZJenVMaEN1?=
+ =?utf-8?B?aitaeGIyNEhlWUJDUUFHSmR4TWdib3k3WHRiK3pDbjhIL21jK3crNnh0V3pW?=
+ =?utf-8?B?ekozaDRlQnovNW5DaExwdlNBSHZHWWQ2dnVPekZzdE5oVkVGeFl2cGlReENM?=
+ =?utf-8?B?bkRpbjlheG1sS3pzTE13V1FJYmRWOW0xTm1pMkhjWEtzVG5od0dLYitaTVpL?=
+ =?utf-8?B?ck8xRnRKVXRGVXRMc1pTaEJ0MWIwbGMzM2Z0a0dLWi9IK0x3RnJrVTFEa3M3?=
+ =?utf-8?B?b2R0NkQxZ3ZXaFFZQ3dWZmsweTNyckExVTJ3eWEyMVNJeXBPTVBjc2tuRDJy?=
+ =?utf-8?B?S0VxdHVPVHJKME5GdHJGaFFuSE54WDVYdzlBeXBqUWhuUHlMZFZmbnYzVWdC?=
+ =?utf-8?B?T2pFa3g4aGsvM2daRnUzeGVpdWxKY0dubkVuNTlweDI2WUhFV0tXekY2WjNo?=
+ =?utf-8?B?djRBYjZCL2NaMm1zZDR3WWF3UzhYVmhEZXRzT1VkNUhsYWRxMitKay85ZHlO?=
+ =?utf-8?B?eDZDNFA3b2NHcWwvSkg4QU9HbWFKdTFPZ1huTm1zWEczR0pHWUlINXVJRnl6?=
+ =?utf-8?B?YkZnbDNZS283djZOZ2MvRENJTU5HSFZaYmFITDhjZUtudkM5ditTY2hXNWRQ?=
+ =?utf-8?B?WnZvZE5zQ0ZxWUk2RnZxTTVOaDZFWThyNExxTUdGcDJOby9uV2VvZVdMSWtD?=
+ =?utf-8?B?K2hsSDBvMWFqaWlRS1pDWGsvbldEeU15Z1NEUzREMGUzQ25JamY3RFkvQ0FO?=
+ =?utf-8?B?bkZ3MFNnSzNRak00SGdBY1JXMFk5K1FyRmx3dTVPZ2xsdmNiVGNLN3lXWWdI?=
+ =?utf-8?B?cElveHBFaDZYSnhBMU1jSldqSlNHWGdEM2hnVFVMYThTWC9WVElGd0paZ1dT?=
+ =?utf-8?B?Sk5PN2tWNXFVbFJyM3BPRGFIamk0VFpaVnRpbTU2OGRTazBRT20ycjRIZ0RW?=
+ =?utf-8?B?MTk3UnBEWGo4YlVDYnFaZXZnT1ZIVzBMaGp4RFFkNEpSamYzeGpTaXBBbVBJ?=
+ =?utf-8?B?Zm5jSUlGaDRFY2VBdUpOVGJDRjRCMEtLY2k5TTQ3T1NBSkgwa3ZCSzMzNjBh?=
+ =?utf-8?B?T2dza280SUROMGJyME95b0h2RmlnNERhOGRrckRsR1VGTXZMY29JSTV3a1pD?=
+ =?utf-8?Q?ECB0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BEZP281MB3267:EE_|BEUP281MB3544:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fa16241-62e4-4915-f6c0-08dbcffbb055
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	HOF1PylPQaoQKvVzrQwbsYMw36xj9ou6Ny9BTdv9ragfnyxtmMHGQJ08bEnI3Z5cDTmnZplJKSuT8wO6VGLEi20oy9SK2RLI2FE/lwmnsu0kmyt2UjRgQP26NTKVivK3H0V6VyGI6yF/Enx+VVEjXAiO6sTqJR8JQ/tWY7vHqtLmnKXa3WO66FrHvdcQ1EJPTzk643e8saZrTp4OVep9QIMt6xdH7OiZsLVRqQrDfNCtngWd5iAlhGgryh6QdIIdr3n0jYxrDxwgS/TcUooBGmIlZUMu+jVtFjh5Z6jFqmeAsj7JxyEVYKA44MAzia/MYQX+maxa1LJNE2GxY5ledSxrkH+w1KdVVBh1jyBtBuDrdfzeLPe9fYu9O2pC7Hy7oz4MFHF1nDM+yCF5TZK1j1Gw9pPMIKCI+twE2YiaU6LsqGKj6bxodeCOuIfWX6i3S1ynqGO3kV2mMsiRUyoov2h6A+2q0ZbM2I6IwXKScmabqmee/DVhqqZTJTv74zU23aFSuwMBUA78vJzfJcfdkoWAc0WDkualZdOle9OxfstSUGyT3x19khMkp3dbJKEEDM7MVYrgpVdiKFEyiJiE4el52wupt01jjhsr8NfBIyw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(396003)(39840400004)(376002)(366004)(136003)(346002)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(26005)(83380400001)(2616005)(41300700001)(44832011)(53546011)(31686004)(38100700002)(966005)(478600001)(316002)(66556008)(66476007)(66946007)(42186006)(110136005)(2906002)(36756003)(86362001)(4326008)(8936002)(8676002)(31696002)(5660300002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bnkvaGFGaENOSUcxaWdsYVJBUHRoV1dxaFNGM1U4QnJNQmZ6ZTdNYm9nMUIx?=
- =?utf-8?B?eUZGYVZsck1udXB3M2REUTFOZkVndklXUFpweGd5elNNUDlBeFRKNWs3R25E?=
- =?utf-8?B?d3pNYjcxditvb3lKYUF0QUtGQkEwQUxyelJCbm1qMkM5OG5IaHB5UXJrd2gy?=
- =?utf-8?B?V2dRZjNGZ0dpT0RsU2ErK1J3N2kvL3JIZk5qdW5NQ0hNekpBZUZjZkpvMDB0?=
- =?utf-8?B?YjRUNTBNNkhVSEtlcWt3MnoxMjIvbGlORUprZ1dZbTRYQ1FoSDcwMGNXV3FR?=
- =?utf-8?B?ZVJRVmNLVnFIVURNTnhUWVFqeGJYdld0cDVIblMxWXBLbWNVUldtbFFnLzMr?=
- =?utf-8?B?akltUmhzRVViMVZuR2lIN0hicWgyaHFkUW05bXYyclVLK2E5U1J6MHoyd1VG?=
- =?utf-8?B?QTBzZUtORXhIUkkvbmkxOUpibWNTVDBJdWMwRjh0ZUhxZkRiS0I1aGxsMnlH?=
- =?utf-8?B?T0MydFRwVmx2a2RXRmFaM3V2bVpYYjhTSGZpaHRqWE1jcE5TNUo4cjgxQSs4?=
- =?utf-8?B?RHQyRGZybjVleW1jL0tiUmkzbnlhNENzeDlJVzBFSENJZlRuODNWZTA1QzFs?=
- =?utf-8?B?K01TUkhuUVF1UlNwbFJNa3ZTTkRpdGZZa2ZIT3pTUmp4QWdVQUpJY1RiK25T?=
- =?utf-8?B?ei84TGh6QllJU2Fpd0pIV28rbWhETlB0TXJSV1hYTUFNSlV6NnNRc0tDRHRM?=
- =?utf-8?B?anE2anpmY2l6YjM3Z3FGSDlOOHhRYSs2MHpIazQ0d2ptdXNPRDJvL0N6MnZu?=
- =?utf-8?B?QVBRUjRZa0F1ZEEvSjZnR0pNYUI0RUhRTndaNy8zb1VabHlJR2l6a3AxZjRW?=
- =?utf-8?B?NTJhSkYwY0o0MDZ3bXBXN2N2N1A0V3BpQnVVaXJUSmdaUzVaa2NMbkxqdFVw?=
- =?utf-8?B?eURmNEUva1pYR0pRTHNRMG5PaVdoTmdSRnFJQzR0YUR1NWlnaC9Mczl1Z0NE?=
- =?utf-8?B?bWRNY2w3a0pGSitrWkRUdUw5aXRIYWxTbFNkUWlvby9GV2lFWHh4RU94VE9w?=
- =?utf-8?B?Sm5ZZDRDUzF4OHM3UEQ4TWRoeEtEUkpZTUlqYlc0WUtUQXZoMis0VGphS0Yy?=
- =?utf-8?B?emg2NTBOQlYvWDV4ZzN1OGVCeFNTQ3UyZ3AwbkZGelc3c2xjZ3BFQktKU1Ur?=
- =?utf-8?B?MWhmR1RNYWFEZWkvYlBNMHZoWTBRV0Yzd2YvSEZ3MTBvemlreU9nZnphb0tL?=
- =?utf-8?B?eDdRRzBqS0xWSzh4ZWhQMTJGeXZmblhxTEpuY0JONWxSUFdKVGFZdVRNN0dW?=
- =?utf-8?B?UTBuWHI3Y3NpN0dxdkpwWWM3Y3RNcmhMUTV6cGs4Q2QyNkgvMXJ0Z1BYMGNz?=
- =?utf-8?B?NjRCODYrMER6N3QrZys3cXdmYUZFa0dURGlWUlBudmpLdEhibnNvbTNpVzRq?=
- =?utf-8?B?UHh5WUhxOGU1dGNVWm8raEdyTHJBazVmaDJ1bytVNTdiZGYyVmdvVHg4NE1m?=
- =?utf-8?B?MGRDUXhTNDR6Vk1rYldPYTlPVm9oWm5HSk5KUzFqSVI1c2hSbVhuV2NUTC9X?=
- =?utf-8?B?YjFjMEdNMGJoQ09NN1U5aFV0T0c5UVN4TEpMVllCTUxYdk9xMlRlNUwzKzlU?=
- =?utf-8?B?ZVhTNGVSU1hibnp4VHA0Wis0N2wrYnliUVpHenVZTnVSRlZXZDdNSWRSOFhF?=
- =?utf-8?B?VG4ya0p2R2lUdERDcU02WVkrZUNFaklsYXgyS1JRZjh0MEFMODRVM1Q1MXZT?=
- =?utf-8?B?S2RVenpiZitUT1BoTGljL0F3NDRnT0dhY1Vsa0ptdXVISTJPUytPWTRoM3o1?=
- =?utf-8?B?VC9kYUlhTTJla0taOGRwSnZ0M3JKaFpOSGNzUWxqRWx2UHRGV0hGLzA4Nkdx?=
- =?utf-8?B?WUtLNk9HeE13T0FtSVBQcTBxTHBHZHNDRFBmZ1NzWEsvK2VkZmcyUFZzeEEv?=
- =?utf-8?B?SXFBb2xXZWZ5UjhCbDB5ai9KOFhtWFV5YzRFcG9zdTFEY04yc1pXQkpuVXpX?=
- =?utf-8?B?Sk1Qd1I4OUpPc3hyT3gvc3ZRTnZFbUwwSTNtZkErbFB2YmlDUXBPZHRDaUVY?=
- =?utf-8?B?WGRYM2hwUnVnUUVvc3Z2UDFzMW1nOGNrSW0rcVVaaUg1YTBRSzJ2RXM5SGtP?=
- =?utf-8?B?QWR2ay8zVmt6UER6OGhYQ3JVbDUxeDRnQVp6L0JKQnNDWC9qSC9GUHQxM1Bj?=
- =?utf-8?Q?69fsoPiHFOavvgQHeucgkGMbm?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fa16241-62e4-4915-f6c0-08dbcffbb055
-X-MS-Exchange-CrossTenant-AuthSource: BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM
+X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 17:00:10.7060
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d64016e2-5ac2-4d35-b000-08dbcffd0f16
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2023 17:09:58.9301
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: grr7gPduAK9zfZjjxkeP3vOKq8DKv7mozMFc4nmsRN3N67QxEgJtq04jcpTHsLD9R+BFoWHZuyvekxdzxwjESQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEUP281MB3544
-X-TM-AS-ERS: 104.47.11.168-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-27944.000
-X-TMASE-Result: 10--22.694200-4.000000
-X-TMASE-MatchedRID: 9d2LtCNB3NL5ETspAEX/non73EnA6dC3lR7tN56aWVW0sdSrJZyyxtgR
-	BrBRegKW/j56JLOIRjdEQu05apQ9ObpPJQ7/EpmFemm/1TaRdd00G+oRqSgejmNukPSmYL0qZnF
-	tz4+XvXJ1xglApGAkmssLlBdcaQrmMHEJTrZQlmixfhoVgAwhgwIBZV+EzjMyFEzixQQX0lGZoJ
-	He3NJpJWrQQL9WwbaWn7ZnyvecgshCQ2VgO+URvA6YSU90/Qbk1ZiTRyv0xwFiWXoT/A/ILwgVY
-	uX4aS1DZFxFbHf2Iod6ubm5QV1rgOO8RSyDDOVDrA4NI70W5zVLwhl1oBS9nhxt8J0TFx3mHE1y
-	HPxjKoZIUPusmNDDlwXKMY/zPSGZSTmG+cbqzLhtcb+ehWKUy4lrr1+rqm9aB+MucjuBARtnBat
-	pBzLKGtkBXXtskDpbHnt1uo9OfSSONV4SA046N4ruruLIWfnxcnxszfxH2Ckmx8kl1Wnd+q+eCS
-	MeOiOkA/lH/MvdoiYmkrgX3CciJpBlLa6MK1y4
-X-TMASE-XGENCLOUD: 0c30328c-e7fb-4b73-9078-682bba1c0882-0-0-200-0
-X-TM-Deliver-Signature: CC5F0F95BA553826FBC3A85F578F3B7B
-X-TM-Addin-Auth: OkokZDx23qFrIDwsbxrvWg6Td0WE/FkpD2x4i2q825ymkv8X7vdCE+gj1Uc
-	ZCZPKSE0JjKLV1mzK5UpggJCIriGMdCKL7ngrZvvmH9QTWB0DANSenhdeLSD9v0PQE9MALMD0qS
-	3FJp9b3bLpkMXMwveF+55sZVnzvVGaiGpjaWpwxSed71x5R9H9Nv9lxCK5ENLuqOAwvqJIS0gwH
-	tW8Q85CO+LbYiwLt6lKPFnlZd+lTUPgaFv5yI+fkUT8TRC+lW7+W4BADzfojduJL2//+kInoqGO
-	RXF+1ymqjes+f1g=.C/WPXj+toSB4i200mBPdeazlhH9lG6IqftdeEBD4exicRiYUj2UMXU6AWi
-	HWtgA1ozQA5m+ObcqAnsCBWPjYdqaD6A35KgRtKAaE3/OQfcPbjhfFxon3ydRLo7VGPaY8yKNay
-	ZmKFompeVXCn7ScA2XjB6EkVsaTE+4rp2ZHdaddR/neben1MGHzVtWcy5Z9BC04SsZ++OhOgUX1
-	cENWFGFMyCnIZ7kcD+O+P/gj7Bf+nsBwCtqJMV4jjOQd8uR10LTjeZkvGGKDdiF3LcNKTqtpBoE
-	qUiGWSjXbvzd5Aylv2gA1r1zZx+pWKQG7l1EtGK2JS7B2BxFnmcMS/tKMNA==
-X-TM-Addin-ProductCode: EMS
-Subject: Re: [virtio-comment] [RFC PATCH v2] virtio-rtc: Add device
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QfHcpa2qDFr7bJqJUfHnbDWIDd4Qqc8GXGClyBlKAH4pVsAqzCtd/huReMoYJDmtks8JktFIOrXk4Ulg8LA//w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6462
+Subject: RE: [virtio-comment] [RFC PATCH v2] virtio-rtc: Add device
  specification.
 
-On 18.10.23 18:24, Parav Pandit wrote:
-> 
-> 
->> From: Peter Hilber <peter.hilber@opensynergy.com>
->> Sent: Wednesday, October 18, 2023 9:44 PM
->>
->> On 18.10.23 07:36, Parav Pandit wrote:
->>>
->>>>>>>>>> With "unclear responsibility" I meant to refer to the
->>>>>>>>>> responsibility for drafting a spec extension for virtio-net,
->>>>>>>>>
->>>>>>>>> You can count me to draft the virtio-net spec for responsibility.
->>>>>>>>> I am sure others would join as there is common interest across
->>>>>>>>> multiple device
->>>>>>>> implementors to support it.
->>>>>>>>> We know at least 4 stake holders have interests in it in
->>>>>>>>> virtio-net (Alibaba,
->>>>>>>> google, marvell, nvidia).
->>>>>>>>>
->>>>>>>>
->>>>>>>> OK, thank you for the information.
->>>>>>>>
->>>>>>>> I think the arguments on how to have the RTC spec interact with
->>>>>>>> the net device are now on the table. Maybe the discussion could
->>>>>>>> continue on a draft spec extension for the net device?
->>>>>>>>
->>>>>>> I didn’t follow the comment.
->>>>>>> My suggestion is lets draft the spec _now_ that covers rtc
->>>>>>> functionality as part
->>>>>> of virtio-net device and as independent rtc device.
->>>>>>> And if that requires me to work and draft the net part for you, I
->>>>>>> am here to
->>>>>> draft it.
->>>>>>>
->>>>>>> Would it work for you?
->>>>>>>
->>>>>>
->>>>>> Of course, work on the net part could also start now.
->>>>>>
->>>>>> I would prefer if the net part could be discussed as a dedicated
->>>>>> patch, on top of the patch(es) introducing the RTC device (and
->>>>>> referring to
->>>> those).
->>>>>>
->>>>> It will be separate patch (or patches) in device-type/net/description.tex.
->>>>> It should be part of same patch series as rtc and net so both
->>>>> devices agree
->>>> and reserve necessary opcode ranges etc to utilize same infra.
->>>>>
->>>>
->>>> I plan to send out RTC spec RFC v3, which should contain all the
->>>> agreed changes from the v2 discussion, in November. Maybe the net
->>>> related changes could then be put on top of that (and become part of a
->> common RFC v4)?
->>>>
->>> Sure, we can possibly converge before posting v3 itself so that v4 does not
->> require rewrite due to net.
->>> This can be done by drafting v3 in such a way that it fits the v4 scenario.
->>
->> AFAIU the only interoperability issue which was brought up in this discussion so
->> far, for which there was no explicit agreement on resolution, is how to
->> encapsulate RTC messages in the net controlq.
->>
->> For this I propose to encapsulate the RTC requests resp. responses in the net
->> controlq pseudo-fields command-specific-data resp.
->> command-specific-result. (command-specific-result is being introduced through
->> [1].)
->>
->> This handles natural alignment of the payload in a way which is compatible with
->>
->> - existing virtio-net controlq commands (including those being introduced
->>   by [1]), and
->>
->> - with the standalone virtio-rtc messages.
-> 
-> I will need to re-read the rtc v2, but the generic approach I had in mind is to take the ctrl vq opcode being common between net and rtc.
-> And follow the net's cvq command response format (don’t recall if fullfils rtc or not).
-> And that’s it. Rtc and net gets both same command, same response.
-> Net will have feature bit to indicate this functionality exists, for rtc it is implicit as its being and rtc device.
->  
-
-But that would force virtio-rtc to use the not padded request/reply headers
-which the virtio-net controlq has, implying dedicated descriptors for
-class/command and ack to still have natural alignment in
-command-specific-data and command-specific-result.
-
-	struct virtio_net_ctrl {
-		u8 class;
-		u8 command;
-		u8 command-specific-data[];
-		u8 ack;
-		u8 command-specific-result[];
-	};
-
-To me, this looks like a net legacy issue, so it should be addressed in net
-by encapsulating the aligned RTC request/response.
-
-Thanks for your feedback,
-
-Peter
-
->> [1] https://lore.kernel.org/virtio-comment/20231009013135.55890-1-
->> xuanzhuo@linux.alibaba.com/#iZ31device-types:net:description.tex
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogdmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmcgPHZpcnRpby1j
+b21tZW50QGxpc3RzLm9hc2lzLQ0KPiBvcGVuLm9yZz4gT24gQmVoYWxmIE9mIFBldGVyIEhpbGJl
+cg0KPiBTZW50OiBXZWRuZXNkYXksIE9jdG9iZXIgMTgsIDIwMjMgMTA6MzAgUE0NCg0KPiA+IEkg
+d2lsbCBuZWVkIHRvIHJlLXJlYWQgdGhlIHJ0YyB2MiwgYnV0IHRoZSBnZW5lcmljIGFwcHJvYWNo
+IEkgaGFkIGluIG1pbmQgaXMgdG8NCj4gdGFrZSB0aGUgY3RybCB2cSBvcGNvZGUgYmVpbmcgY29t
+bW9uIGJldHdlZW4gbmV0IGFuZCBydGMuDQo+ID4gQW5kIGZvbGxvdyB0aGUgbmV0J3MgY3ZxIGNv
+bW1hbmQgcmVzcG9uc2UgZm9ybWF0IChkb27igJl0IHJlY2FsbCBpZiBmdWxsZmlscyBydGMNCj4g
+b3Igbm90KS4NCj4gPiBBbmQgdGhhdOKAmXMgaXQuIFJ0YyBhbmQgbmV0IGdldHMgYm90aCBzYW1l
+IGNvbW1hbmQsIHNhbWUgcmVzcG9uc2UuDQo+ID4gTmV0IHdpbGwgaGF2ZSBmZWF0dXJlIGJpdCB0
+byBpbmRpY2F0ZSB0aGlzIGZ1bmN0aW9uYWxpdHkgZXhpc3RzLCBmb3IgcnRjIGl0IGlzIGltcGxp
+Y2l0DQo+IGFzIGl0cyBiZWluZyBhbmQgcnRjIGRldmljZS4NCj4gPg0KPiANCj4gQnV0IHRoYXQg
+d291bGQgZm9yY2UgdmlydGlvLXJ0YyB0byB1c2UgdGhlIG5vdCBwYWRkZWQgcmVxdWVzdC9yZXBs
+eSBoZWFkZXJzDQo+IHdoaWNoIHRoZSB2aXJ0aW8tbmV0IGNvbnRyb2xxIGhhcywgaW1wbHlpbmcg
+ZGVkaWNhdGVkIGRlc2NyaXB0b3JzIGZvcg0KPiBjbGFzcy9jb21tYW5kIGFuZCBhY2sgdG8gc3Rp
+bGwgaGF2ZSBuYXR1cmFsIGFsaWdubWVudCBpbiBjb21tYW5kLXNwZWNpZmljLQ0KPiBkYXRhIGFu
+ZCBjb21tYW5kLXNwZWNpZmljLXJlc3VsdC4NCj4gDQo+IAlzdHJ1Y3QgdmlydGlvX25ldF9jdHJs
+IHsNCj4gCQl1OCBjbGFzczsNCj4gCQl1OCBjb21tYW5kOw0KPiAJCXU4IGNvbW1hbmQtc3BlY2lm
+aWMtZGF0YVtdOw0KPiAJCXU4IGFjazsNCj4gCQl1OCBjb21tYW5kLXNwZWNpZmljLXJlc3VsdFtd
+Ow0KPiAJfTsNCj4gDQo+IFRvIG1lLCB0aGlzIGxvb2tzIGxpa2UgYSBuZXQgbGVnYWN5IGlzc3Vl
+LCBzbyBpdCBzaG91bGQgYmUgYWRkcmVzc2VkIGluIG5ldCBieQ0KPiBlbmNhcHN1bGF0aW5nIHRo
+ZSBhbGlnbmVkIFJUQyByZXF1ZXN0L3Jlc3BvbnNlLg0KPg0KUmlnaHQuIEl0IG1ha2VzIHNlbnNl
+IHRvIGhhdmUgcnRjIHJlcXVlc3QgYXMgY29tbWFuZC1zcGVjaWZpYy1kYXRhIGFuZCBydGMgcmVz
+cG9uc2UgYXMgY29tbWFuZC1zcGVjaWZpYy1yZXN1bHQuIA0KDQo=
 
