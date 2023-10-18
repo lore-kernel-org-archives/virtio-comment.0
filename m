@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7803-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7804-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D75F7CDB47E
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 09:56:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A569CDB482
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:20:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1DA15866A5
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 09:56:23 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id F3170109D04
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:20:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F299098689E
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 09:56:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D4E219868A0
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:20:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id DD84B986895; Wed, 18 Oct 2023 09:56:22 +0000 (UTC)
+	id BD5EB986898; Wed, 18 Oct 2023 10:20:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,234 +24,89 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CF152986896
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 09:56:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DBB34986899
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 10:19:45 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: -HmD1x-lNr-cuNqWyKhEWA-1
+X-MC-Unique: yWbA2apjPpeECjqo1G0XQQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697622979; x=1698227779;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KpRDnDyDwmJZdlPjETenueKNb2+41m9xORDu4TlDANE=;
-        b=DqtcSG9FAVojubZs07inxianxpPz62PPmxbw2b7qBsDCLxKZjo8IqPPZkPbpKHmJPc
-         zqe3XTlvz1e2wjvPcqFAR5afSjfOCkXPw8xoc4tHaTCyndduKYTWG1u88kpLUAepCn77
-         pNVghBWpH0fkt4P/k7cLXf65LpABi1A9ltkmYm1VrAF2umOjBWvaDn9KdVJ51pEZEiD5
-         ZAmPHOy0bboT5QD/XuK7snAT6njEmGVNm6icze/EZ5krpcym7TffqDBlp1CcQem93J+v
-         NUm9JZvozvkS8RhSumJHEcC8qzELSQjd00zRpE/KQHbGOONN3IRehYSqDPS3j+8CFKev
-         9NQQ==
-X-Gm-Message-State: AOJu0Ywy3LhsQqjuPglpN9T24KhPcEWjhEP6c4jfCActGbmoPGSv/nWm
-	e4GrgozRxreAmy5NgVsJK7siLBAOYp9IbyyOEO5/evQUN1pawT+JWD2sfD//ps1Egqy0CmloajO
-	+dzT0olCAFO/cM7PxM9oXzKNUtUDWBjTgLg==
-X-Received: by 2002:a17:907:705:b0:9ae:406c:3420 with SMTP id xb5-20020a170907070500b009ae406c3420mr4015238ejb.30.1697622978900;
-        Wed, 18 Oct 2023 02:56:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFHu2v8T7SjluUTNGcELpaPXCGo7KdtnhV+i3AmsFH95MXIt6X38tZ/j/Clyihu0kOnG+CGjw==
-X-Received: by 2002:a17:907:705:b0:9ae:406c:3420 with SMTP id xb5-20020a170907070500b009ae406c3420mr4015217ejb.30.1697622978474;
-        Wed, 18 Oct 2023 02:56:18 -0700 (PDT)
-Date: Wed, 18 Oct 2023 05:56:12 -0400
+        d=1e100.net; s=20230601; t=1697624382; x=1698229182;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6eIDqTNgZ6stM+dmqWFfuYp47okjx6LvAGknX4ZR1uU=;
+        b=Rf1jCeHEa9ZuRqWNMRnA2cwv7nuVfIq6BCZXAI9gSRHvAxIbngK3yUZMKFKDe7DpTa
+         e8XU6Yq9rKuSHyz0mCOImEMbdxTI/8x7VHb012j4MKazuXRc/JEN9UnTv1VpPhMEfsUL
+         jDGiL8MBdIfFL0tWqJQQiMQL5ab3zLZ/+oabs27qavfgUw1xF52OnawvpkY/aM2n2OIT
+         VnilCg9FadhVtqkMbbt26kJ57OpgaV4Nup5k8G3uG1K7JiDGe6RsHirPF2bzzrzMdSeV
+         U8sfGLYb+mMEXwatfsf9mk945xEubl4DI2xXEovIIXEAhCmBP/WSio6YYnuTdowHYHi/
+         n4gQ==
+X-Gm-Message-State: AOJu0Yw7TVLMEMmbM5dqfTOHvorHqrGOWE58z9dCPMrv5E98kT/8gLHA
+	DOSXAgBSlR1nHX0yuxWKvYCVEgxT6VqTrHshzPX61ckVXa33VrOJXI8qHoLJWmsT5zgDzlPSTmC
+	b72a4bY+ISWqObb/oSY7PXQ/BI1WlXfPBFw==
+X-Received: by 2002:a05:6402:5186:b0:53e:3ba1:d40e with SMTP id q6-20020a056402518600b0053e3ba1d40emr3897494edd.26.1697624382591;
+        Wed, 18 Oct 2023 03:19:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF0uZbGcdwTXqLsjTfO5QVZdpoLnOxu8SAdXwpSYxIvAfZ9y5fQ/cXSRqFHRoO8hKgR2iXSpw==
+X-Received: by 2002:a05:6402:5186:b0:53e:3ba1:d40e with SMTP id q6-20020a056402518600b0053e3ba1d40emr3897480edd.26.1697624382242;
+        Wed, 18 Oct 2023 03:19:42 -0700 (PDT)
+Date: Wed, 18 Oct 2023 06:19:35 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	Jason Wang <jasowang@redhat.com>,
+Cc: Jason Wang <jasowang@redhat.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231018055422-mutt-send-email-mst@kernel.org>
-References: <db0719f9-7dc2-4a96-b10b-ecc3dac1a82b@intel.com>
- <PH0PR12MB548139B50AD2D1B86AC9A127DCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <f7083379-e76c-42f4-8355-ea4ae28eb52c@intel.com>
- <PH0PR12MB548119E2C2EDB212B56E9FACDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <829d27f8-1d9b-4a1e-93a8-a14da626f4a7@intel.com>
- <PH0PR12MB54819FC5A77A46C649CD5B6DDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <0948cfa4-da02-43d5-a099-424f209f814f@intel.com>
- <PH0PR12MB5481546E859578DE97D9E152DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
- <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>
+Message-ID: <20231018061343-mutt-send-email-mst@kernel.org>
+References: <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
+ <DM8PR12MB548029E1AAB8529339D22D4DDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEswD2XLjRNzyqo9M-yT77PsOJqJmDLxSKd2ZOgqLYjjZQ@mail.gmail.com>
+ <PH0PR12MB548143D2AB83CA90E7F1C9D6DCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsk7ZgmWuqm9U_Tych8+Ceu7X9RymQASeSS_ayB2PGTgg@mail.gmail.com>
+ <PH0PR12MB54817B050D97CC7123DE30ECDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEux-kXQ=d_6CVyfhNit4TMJ=V1p8C6XRDXhCLAJDD5kRA@mail.gmail.com>
+ <PH0PR12MB5481CD04EF5122C041D63CCDDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEustM=iejjJhGz0DW1iT9qJpha4zLbMJ-cVO2VU4Kq2Kg@mail.gmail.com>
+ <PH0PR12MB5481FD2FAFC2C58AE0E9A58BDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481FD2FAFC2C58AE0E9A58BDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-On Wed, Oct 18, 2023 at 09:48:55AM +0000, Parav Pandit wrote:
-> > From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > Sent: Wednesday, October 18, 2023 2:13 PM
+On Wed, Oct 18, 2023 at 08:16:01AM +0000, Parav Pandit wrote:
+> > This doesn't happen yet. For example, a VF with adminq that can be isolated
+> > with PASID makes some sense.
+> PASID is for the process of user space.
+> Kernel space do not consume a PASID.
+
+It could if we need it to.
+
+> Depending on the PASID can work for mediation approach only.
+> Last I heard is the cpu or kernel took the support out of it as some special instruction did not work for that cpu.
+
+Are you talking about ENQCMD things? That's nice but I don't think it's
+necessary for isolation here.
+
+...
+
+> > The reason why I see it is different from FLR is that
 > > 
-> > On 10/18/2023 3:20 PM, Parav Pandit wrote:
-> > >> From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > >> Sent: Wednesday, October 18, 2023 12:22 PM
-> > >>
-> > >> On 10/18/2023 2:41 PM, Parav Pandit wrote:
-> > >>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > >>>> Sent: Wednesday, October 18, 2023 12:06 PM
-> > >>>>
-> > >>>> On 10/18/2023 1:02 PM, Parav Pandit wrote:
-> > >>>>>> From: virtio-comment@lists.oasis-open.org
-> > >>>>>> <virtio-comment@lists.oasis- open.org> On Behalf Of Zhu, Lingshan
-> > >>>>>> Sent: Monday, October 16, 2023 3:18 PM
-> > >>>>>>
-> > >>>>>> On 10/13/2023 7:54 PM, Parav Pandit wrote:
-> > >>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > >>>>>>>> Sent: Friday, October 13, 2023 3:14 PM
-> > >>>>>>>>>>>> How do you transfer the ownership?
-> > >>>>>>>>>>> An additional ownership deletgation by a new admin command.
-> > >>>>>>>>>> if you think this can work, do you want to cook a patch to
-> > >>>>>>>>>> implement this before you submitting this live migration series?
-> > >>>>>>>>> I answered this already above.
-> > >>>>>>>> talk is cheap, show me your patch
-> > >>>>>>> Huh. We presented the infrastructure that migrates, 30+ device
-> > >>>>>>> types,
-> > >>>>>> covering device context ideas from Oracle.
-> > >>>>>>> Covering P2P, supporting device_reset, FLR, dirty page tracking.
-> > >>>>>>>
-> > >>>>>>> Please have some respect for other members who covered more
-> > >>>>>>> ground than
-> > >>>>>> your series.
-> > >>>>>>> What more? Apply the same nested concept on the member device as
-> > >>>>>> Michael suggested, it is nested virtualization maintain exact
-> > >>>>>> same
-> > >> semantics.
-> > >>>>>>> So a VF is mapped as PF to the L1 guest.
-> > >>>>>>> L1 guest can enable SR-IOV on it, and map one VF to L2 guest.
-> > >>>>>>>
-> > >>>>>>> This nested work can be extended in future, once first level
-> > >>>>>>> nesting is
-> > >>>>>> covered.
-> > >>>>>>>> Answer all questions above, if you think a management VF can
-> > >>>>>>>> work, please show me your patch.
-> > >>>>>>> The idea evolves from technical debate then pointing fingers
-> > >>>>>>> like your
-> > >>>>>> comment.
-> > >>>>>>> I think a positive discussion with Michael and a pointer to the
-> > >>>>>>> paper from
-> > >>>>>> Jason gave a good direction of doing _right_ nesting that follows
-> > >>>>>> two
-> > >>>> principles.
-> > >>>>>>> a. efficiency property
-> > >>>>>>> b. equivalence property
-> > >>>>>>>
-> > >>>>>>> (c. resource control is natural already)
-> > >>>>>>>
-> > >>>>>>> Both apply at VMM and at VM level enabling recursive
-> > >>>>>>> virtualization, by
-> > >>>>>> having VF that can act as PF inside the guest.
-> > >>>>>>> [1] https://dl.acm.org/doi/pdf/10.1145/361011.361073
-> > >>>>>> Please just show me your patch resolving these opens, how about
-> > >>>>>> start from defining virito-fs device context and your management VF?
-> > >>>>> As answered, device context infrastructure is done, per device
-> > >>>>> specific device-
-> > >>>> context will be defined incrementally.
-> > >>>>> I will not be including virtio-fs in this series. It will be done
-> > >>>>> incrementally in
-> > >>>> future utilizing the infrastructure build in this series.
-> > >>>> Done? How do you conclude this? You just tell me what is the full
-> > >>>> set of virito-fs device context now and how to migrate them.
-> > >>>>
-> > >>>> You cant? you refuse or you don't? Do you expect the HW designer to
-> > >>>> figure out by themself?
-> > >>> I wont be able to tell now as I don’t think it is necessary for this series.
-> > >>> If one out of 30 devices cannot migrate because of unimaginable
-> > >>> amount of
-> > >> complexity has been placed there, may be one will not implement it as
-> > >> member device.
-> > >>>   From experience of migratable complex gpu devices, rdma devices
-> > >>> (stateful
-> > >> having hundred thousand of stateful QPs), my understanding is complex
-> > >> state of virtio-fs can be defined and migratable.
-> > >>> Mlx5 driver consist of 150,000 lines of code and that device is
-> > >>> migratable
-> > >> with complex state.
-> > >>> So I am optimistic that virtio-fs can be migratable too.
-> > >>> It does not have to limited by my limited creativity of 2023.
-> > >>> May be I am wrong, in that case one will not implement passthrough
-> > >>> virtio-fs
-> > >> device.
-> > >> your series wants to migrate device context, but doesn't define
-> > >> device context, does this sounds reasonable?
-> > > Device generic context is defined at [1] and also the infrastructure for defining
-> > the device context in parallel by multiple people can be done post the work of
-> > [1].
-> > >
-> > > Per each device type context will be defined incrementally post this work.
-> > >
-> > > [1]
-> > > https://lists.oasis-open.org/archives/virtio-comment/202310/msg00190.h
-> > > tml
-> > This is not post of the work, you should define them before you use them in this
-> > series.
+> > 1) D3cold requires the VF to be off the power
+> > 2) State transition might takes more than what FLR did, PCI seems only cover
+> > the minimum delay but not maximum which may have implications for
+> > downtime
 > > 
-> I don’t agree to cook ocean in this patch series.
-> No practical spec devel community does it.
-> As long as we feel comfortable that device context framework is extendible, it is fine.
-> If virtio-fs seems very hard, may be one will come with a new light weight FS device. I really don’t know.
-> 
-> > And you need to prove why admin vq are better than registers solution if you
-> > want a merge.
-> Michael already responded the practical aspects.
-> Since you may claim, I didn’t answer, below is the technical details.
-> 
-> Why admin commands and aq is better is because of below reasons in my view:
-> 
-> Functionally better:
-> 1. When the live migration registers are located on the VF itself, VMM does not have control of it.
-> These registers reset, on FLR and device reset because these are virtio registers of the device.
-> Hence, VMM lost the state for the job that VMM was supposed to do.
-> Therefore, passthrough mode cannot depend on these registers.
-> 
-> 2. Any bulk data transfer of device context and dirty page tracking requires DMA.
-> Hence those DMA must happen to the device which is different than VF itself.
-> If it is on the VF itself, it has two problems.
-> 2.a. VF device reset and FLR will clear them, and device context is lost.
-> 
-> 2.b. the DMA occurs at the PCI RID level.
-> IOMMU cannot bifurcate the DMA of one RID to two different address space of guest and hypervisor.
-> This requires PASID support.
-> Using PASID has following problems.
-> 2.b.1 PASID typically not used by the kernel software. It is only meant for the user processes.
-> Hence for kernel work a reserving PASID won't be acceptable upstream kernel.
-> 2.b.2 Somehow if this is done, When the VF itself supports PASID, it required now vPASID support.
-> This is again not where industry is going in other forums where I am part of. Hence, it will be failure for virtio. Hence, I do not recommend vPASID route.
-> 2.b.3 One of the widely used cpu seems to have dropped the support due to limitation of an instruction around PASID.
-> So it cannot be used there, this further limits virtio passthrough users.
-> 
-> Even if somehow 2.b.2 and 2.b.3 is overcome in theory, #1 and 2.a is functional problems.
-> 
-> Scale wise better:
-> 3. Admin command and admin vq are used _only_ when one does device migration command.
-> One does not migrate VMs every few msec.
-> Hence such functionality to be better be done which is efficient for performance, but without consuming on-chip memory.
-> Admin command and admin vq satisfy those.
-> 
-> 4. Once the software matures further, admin command would prefer completion interrupt, instead of poll.
-> How to get notification/interrupt? Well, virtqueue defines this already.
-> Should we replicate that in some PF registers?
-> It can be. But once you put all the functionalities of admin command and aq in registers the whole thing becomes yet another register_q.
-> 
-> 5. Can these registers be placed in the PF to overcome #1 and #2 for passthrough?
-> In theory yes.
-> In practice, no, as there are many commands that flow, which needs to scale to reasonable number of VFs.
-> Admin commands over admin vq provides this generic facility.
-> 
-> 6. Most modern devices who attempts to scale, cut down their register footprint, registers are used only for main bootstap, init time config work.
-> Even in virtio spec, one can read:
-> "Device configuration space is generally used for rarely changing or initialization-time parameters."
-> 
-> Adding some additional registers to a PF device config space for non init time parameters does not make sense.
-> 
-> 7. Additionally, a nested virtualization should be done by truly nesting the device at right abstraction point of owner-member relationship.
-> This follows two principles of (a) efficiency and (b) equivalency of what Jason paper pointed.
-> And we ask for nested VF extension we will get our guidance from PCI-SIG, of why it should be done if it is matching with rest of the ecosystem components that support/don’t support the nesting.
+> D3cold is not controlled by the guest driver.
+> PM register can change D0 to D3hot.
 
+It likely makes sense to document how all this interacts with things
+like PM and other pci config. maybe you did in v2 didn't look at it yet.
 
-For completeness, and to shorten the thread, can you please list known
-issues/use cases that are addressed by the status bit interface and how
-you plan for them to be addressed?
 
 
 This publicly archived list offers a means to provide input to the
