@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7774-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7775-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F71CDB474
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B63CDB474
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:56:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C602677B3A
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:06:25 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0EEDF7DD65
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:56:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9CD39986887
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:06:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EF1FD98688B
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:56:40 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 6D0C1986885; Wed, 18 Oct 2023 01:06:25 +0000 (UTC)
+	id DC7A0986885; Wed, 18 Oct 2023 01:56:40 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,214 +24,168 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5CEFA986886
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 01:06:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CAD1D986886
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 01:56:40 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1697591182.581000
-X-TM-MAIL-UUID: 557525c0-dffe-4ecd-a061-c9d39afa9af1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hzd6TuKCP9ja7swjkDrcN18qOb4ZRC5oFeXKN8J7CXh40cx8BpQxxzWDQ5Jmp1tA0OB/arBI6c5Eho0sHd+eQ6qSl0ZelekCaKoEz6WswzpAyA9FzykpsFjCrvSeHz12RlSpP1fIM9YO0QOOGRfHtDORpgzQtT10xl6gHYhv1dXzbVzRIUMQXVhKCPqPKbNTArcUdIqaG+hesor0gJwMCw9hTdJLeRVYbCkPMlCy7AVUhlvJJrL8OPZ9X6Sk+rkCNQ2KB7wFBcVwUNf3JQO5f8lE9773UQjnCrcynEgqyE6qn+sGfe5BjNj6vibQjS94z611Zd5qGEBLViuMtunojw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dq5FZgTVfjRVIE1Cjh6KU6dt7v+5CbRIL9SYhL5CW5w=;
- b=bJB3N2eQXfq1fhziJnuMfzi3ld8rDz06TT44kKFlmWV+VbX7e6rkUyGsp6KWKmKQ8PuSToHFHRWuKfiHrN6hw9gwHd/ivxKWBCCcKEdIjrG29/FMKsOOD6FQHiRZIQkWFrEP5vQf0pKMpDqamlIJhHC6oka79kLHMvAd+vXmXRyevwceRFKE8ASajbl1yr8e6DtialAe3szrjgViWsfgeTHkrH5iTGCJ+P3hVibNnEou03LFjAPwdsYJcSXuG0l5RjlfLq/xC/vbayQHfDK37kdrRP8D+gWNRsyUZAa/bBccGpDEIOoMgr4JjGci/jG6zgzdAuq/Ei/Rh0RcUQIR4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <1a54feab-5de9-4b39-a4ce-7ff22e23cf52@opensynergy.com>
-Date: Wed, 18 Oct 2023 10:06:05 +0900
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="450138548"
+X-IronPort-AV: E=Sophos;i="6.03,233,1694761200"; 
+   d="scan'208";a="450138548"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="791418365"
+X-IronPort-AV: E=Sophos;i="6.03,233,1694761200"; 
+   d="scan'208";a="791418365"
+Message-ID: <216b7799-9449-4271-b50f-1faead34bd9d@intel.com>
+Date: Wed, 18 Oct 2023 09:56:32 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Parav Pandit <parav@nvidia.com>, virtio-comment@lists.oasis-open.org,
+ mst@redhat.com, cohuck@redhat.com
+Cc: sburla@marvell.com, shahafs@nvidia.com, maorg@nvidia.com,
+ yishaih@nvidia.com, jasowang@redhat.com
+References: <20231017200645.779222-1-parav@nvidia.com>
 Content-Language: en-US
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
- virtualization@lists.linux-foundation.org
-Cc: virtio-comment@lists.oasis-open.org, stefanha@redhat.com, mst@redhat.com,
- jasowang@redhat.com, sgarzare@redhat.com, manos.pitsidianakis@linaro.org
-References: <ZS6mA6/EsmvDVlTC@fedora>
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-In-Reply-To: <ZS6mA6/EsmvDVlTC@fedora>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <20231017200645.779222-1-parav@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BE1P281CA0090.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:78::14) To FR0P281MB2382.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:22::9)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: FR0P281MB2382:EE_|BEZP281MB2390:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2d834c5-a7cd-472a-68f6-08dbcf7670cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0vlL8iUqsiyRlLFmLvljUn8zZEu87EBwCJfP3YgpQgA7sav5n0O1+StkURGrwgKCqwI7s9NRw80l5sg8dFHZ0JYDVN+ow/Jn3eLiwa9PGwV9iPEv1kqA7oyhNag4PZMQf+Xv9XGKq5PVTvED/rs0xJZVO0IP3PV0MQHvuyrWT4QFxWFxBIJTBwIT6icjF8w1+4RbzD31gBUisFSP4wEUzYmGzIJ99Q0UoDPRRYWOgDFJdeoEyP6P46XZSAERyQp6QMqrsucKg1I1jSMm9qTeBAQyi17k1k1XZj+azZ3GVoQS1TtmblPmqNZOcrs03KREJWDh/CjqQdmdLAtwtIHctljriRHgDnZ54l7w31xUMXHvfYooEMkVz4LlqiBTnQBqXWKQwr7IvLcrij7n28acqzFe3d7E25O+zXnO9aEbSM/M93epmjFU/yb1SgaFF958HH56KrHgNtv/Jo6MeIMdS0p7ktG8xH/GdQzesT0T85w6QFSkimEu1ju+yGkOikzNReBD0Qrz4b6rt0suEwW1wpOBYNnXmuylpap+rhE5dKM0mnX9et93bCogPcwAKe6x0leqbNOslTiaL6YhB0UnDSOqJ1amERlKskF+sRmBua7yoqIicGJnFoDBHwDp6uH/
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR0P281MB2382.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(136003)(376002)(346002)(39840400004)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(53546011)(478600001)(966005)(83380400001)(2616005)(42186006)(2906002)(41300700001)(8936002)(8676002)(66946007)(66476007)(66556008)(5660300002)(4326008)(44832011)(316002)(36756003)(31696002)(86362001)(38100700002)(26005)(31686004);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUM2TUZ6WUhUcEtjd2RUYXZqOUg3VnJHakN2YzBBanFaeEs0bTZYcThzdG83?=
- =?utf-8?B?eXFJa3lFdDBvOWt6L1ZzZit2WFpuY21SKzh3TEgrS25zNnVtWHpyWkZ3aVRD?=
- =?utf-8?B?dDNuaHFXUEE1Q2hKK0t5VDB0bTZlSFhtOTVETGI3N3lPSytkQTRrMDdvNytV?=
- =?utf-8?B?SXZMNi9rTjcxKzdDemI1a21CQkhOZjhZUUkwWWJpTlVlRWlkYVVYSWEwRFhn?=
- =?utf-8?B?NWJOQXBoNFU0cGd0ZnhTcndta2EyTDZuVjBpYkRobUFKMjN4bnFUQ0ZEUEQw?=
- =?utf-8?B?RzZLVUlrbXBiYTR5V2tjb2VkQXlCc1VMNi93WkRxV3dpeW9sUDlRb2k4a2Ju?=
- =?utf-8?B?SXUzWUZPQnd0dWJLLy8rOGFFRlhBdGFGSFd5WFpDbFFFVTEyZmdCcDhybDBW?=
- =?utf-8?B?eFdDa3c0cGNLRDg1dmVJZWNpZ0NwNnRkL3ZRSjBLKzhzZi9JcFk2eFc5RmNh?=
- =?utf-8?B?a1doMGZYL0NDOWdVdjhKcDRwcUs1Z2ljV000ditUUTRWZVZNU1BESDZTLzdS?=
- =?utf-8?B?aW5GVTdGT0VOdG1lQzdMbFBsc0xOcHk2Z0ZmekxrZHAxMlNhbFVXMmpFalhS?=
- =?utf-8?B?SmdNcW4vYUtTVHJUQzNvSkhlTFBxYURaZitINnYxQlloWkdiWTdZZkszcUlj?=
- =?utf-8?B?aHdTSWFkSmsrVWR1SkszR1BpNDlyNk9DSWlZeWVpVno5ak84Mm83TnpJbExC?=
- =?utf-8?B?aUlkb1dUa3NFcnNBeXRDZHM3WFk4NzJqQjNqZmNzcENVWmRYbEhOR1NnOGtR?=
- =?utf-8?B?bGtiZmhZd0dwRlN1R3JWaCtPcS91WXQ5eW1qM3VxK2xlZWFOckIrUkplaGpH?=
- =?utf-8?B?emNQMnExbGo1V2h2QUhZRkpnaUVKQ0lwWm9kMjRzVmtSSmltbGVNVTBYTnM2?=
- =?utf-8?B?M096aG05YkhrUEtYWCt2NWp1TGVaTkU3M25GWXJLRlFMQmFQUVFwbXBEczJG?=
- =?utf-8?B?UUNOUVJIamZMQTI5a3RCYkdVRGdWV09qM3FNMStkMUVIdFREeWVUbWR5QUhp?=
- =?utf-8?B?L2pIZFE1T25UaDIyU3lXYkc4YitqeStUYU1mSUsxaXh6bTZXKzRobHB2Q2Vz?=
- =?utf-8?B?dHViYTNkTVMzZlFZWjdzYzJQYXZOSjFLNTdvanpMNFpqZnlDUm9TWXlhWjZn?=
- =?utf-8?B?bFRENG0xdWZRbEFDcFE1MWRaZmkwK3BncVp6Nk9vNDRyVnJwTDFHay9hei90?=
- =?utf-8?B?OFp5ZHZmMGxSaHNmME0yVjM2dDduOUplZzM0NHBGaXNjdmp1eU0veFE4aDc1?=
- =?utf-8?B?QzdTOGFCcktMejc5V1lSNEkxUVAwZTFYZmttQnUyaWh1NHQ4QkFieVNLSFpC?=
- =?utf-8?B?cmxhSU5MWG1SbjdncnovdVo1RXFKUUtLQWdYNjNaeHMrT1dzMFZIU3Nka1pX?=
- =?utf-8?B?VElGTmdzMGNSQ2Vaajl0bjlBeGk4cEh4RGl3dHdlN0tyRkFqY2tsVnBrV3Uw?=
- =?utf-8?B?SmZueGc5Y2NQVTc5VVFwd1ExNG4xWDNOUmJyelJjcm5oWE5QOGYyVnJBSmhL?=
- =?utf-8?B?cjZYNkEzcGs1MlpqWUxaN2t2OFZFdkFkalQzRnFOcGg3WllsN1VMaG9ETnRp?=
- =?utf-8?B?NFVDaUlYZWZzME9PUGVCa0ZYbEV4NlhjTGdvbW0zZUcyWU9nenZvbm1sdDhQ?=
- =?utf-8?B?VVRlRnROU3FvOU9JMkFFZ0JHVmlRc085WmMvZ2NvakRiVXpxcHFleGUrZGZ5?=
- =?utf-8?B?Zm9uSDZBdWVKOHFQMGJhZjN1R3F6ejNUR0lmVmRodDBHU3g2ZHdJSWdFNU00?=
- =?utf-8?B?TW5IMi9rL2QxN0hydlErYUVhd21tZjFGemtEL0NTL1dUVDNLZHB0VG9KeS9n?=
- =?utf-8?B?V0VjaTBreTZMWGJLMWw3U2NiZFVlZnVMNGNwblBOQWpFM1hlWkdtM1ROa2VT?=
- =?utf-8?B?VU9OTmZDelBvek55YUk5ajJxbXY5VFdhdWpQL0hZS0FYUDcwRGRSNTY4eDdp?=
- =?utf-8?B?Rlk2Mm91RUREV2dqcEVWSm91VWY2bEVqVjNkUTFvdDRzR1dNUTdBMkkwYnV1?=
- =?utf-8?B?eHZsNUlSM3hzMklNbFNmakMzOUJVOVZhUWppQytWUzB4R2lzMkh2eUZ4RkNM?=
- =?utf-8?B?MWJJSWFicmRKaFh3byt6WUxVakxTZFd1QWJ4MEllc2cvbGtTMU9Tb3FYUVlU?=
- =?utf-8?Q?ngrf2KDjfYynH3Arp/CbIOx1d?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2d834c5-a7cd-472a-68f6-08dbcf7670cb
-X-MS-Exchange-CrossTenant-AuthSource: FR0P281MB2382.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 01:06:20.9430
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o9U0HfcIWgKzcEZqIgW3gzIaRGRZV2iTDlfy9F1djMRlYBiA1WzINqEtHKaxduudghxJThWsbUTObsVe/9djlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEZP281MB2390
-X-TM-AS-ERS: 104.47.7.169-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-27942.003
-X-TMASE-Result: 10--23.246000-4.000000
-X-TMASE-MatchedRID: C/snMIRQLS1TzAVQ78TKJRhvdi92BBAuMKBMviil9LKKMQwAakyaVyMy
-	182qkOvS4oxXoEV1CmSIGwa8HKVS+zEo/j9IWJ0hgeiGYvM7ol7yQ6dAmPdzEg/vgpq6rRaAX4n
-	1oiCc8om+VUvWDdd5wwukPjTxMOtXI4c3C+5nuZ2K7q7iyFn58b6JFLmgip31l2KBmLXt0eq3k4
-	kdd7zhZFwMy5GGxrdrK2RhJ2Wdc2AUm1NPF16gQjfKfE3iPHU3VhKZogdsCNvKAd0YkM9ab7RvS
-	IF4L27/qY1FFaUQdQWq+oRn9TlAHE3CnMPBXN22H7WbjGX5tklCKdqcEPNeCwJbjXe6/CO3OAwx
-	jOvsJG3aJrCAW8AFlNOJtkUhH1HpfxxKoPpscnOHSpOq1C5m8FbWfhsdMehBo1QwDrAdWsqOLfK
-	nBtebPoGwjJO9Z+9p6xA0Ava73nAPm15xyht8lcTvQx6Ny2Cru55PhDswmTUKP+E/IoeAkjcabh
-	krpnaCv9rSd36EgUI+Mqg+CyrtwA==
-X-TMASE-XGENCLOUD: 7553c3ab-7ae8-445e-bfa3-08311f32a93a-0-0-200-0
-X-TM-Deliver-Signature: AED24FFB4B914A1EB02EAF898552E59C
-X-TM-Addin-Auth: aVwFb155ygBMvYjy9AAcnH5fsztuzpzOPDrxHvU75gDl647Arz+Q23e39I5
-	foS57EDPE3qLKSZlIt9LrzqvNxIfHneA//apKzEQa3A2g/1qZNr9ope/efo5zR51O27nbcYei91
-	4qHbF+QURTgzBWEWs6UcbUkPnhEswYi33sJY0CIZGpHN8F1Nrt2ePdCAnH8HWeE7EeHo/3rhJt+
-	t/6bIVvXH3TB6p7MQ2/qrUS7rJuwl8XRiylGZViqdPDHXfAA8kszIOvqHZDnj75ZMtBsZ04Rsbi
-	fkV6V7Br2aF0uuw=.npuCXmvmQOQSUZLquFvIjeKt1bsgyO/1xVbKwSr/DwGjFKPx/ophIz1RGH
-	D/n7Z/ZMrdS6HWCUClv2hSxdNvmd1aKiyNlC0lnHYhDKRGE72gS0oME+W03OxtcahTExiBnDt6C
-	5tDLuWZ6XRnrpiB8nwtMegYH9Z7bgIRby7YmrUquoPAvXyj2l9x8o3+SuLGqELGVF4i4E6mvQvF
-	E2HrDQ6G0rUpvcdLIYhixJkG8EoHIC9kx6JKHeHLMYJ732LPFKIkzA7vsbUySGmEXElTJhRxnzL
-	7mRZX3IOdtk6pRxQZH0cHqmBUFIbnK1Rxs6bVT2j1jwYsXyjgEoGHIy/NTw==
-X-TM-Addin-ProductCode: EMS
-Subject: [virtio-comment] Re: virtio-sound: release control request clarification
-
-Hi Matias,
+Subject: Re: [virtio-comment] [PATCH v2 0/8] Introduce device migration
+ support commands
 
 
-On 18.10.2023 00:19, Matias Ezequiel Vara Larsen wrote:
-> Hello,
-> 
-> This email is to clarify the VirtIO specification regarding the RELEASE
-> control request. Section 5.14.6.6.5.1 [1] states the following device
-> requirements for the RELEASE control request:
-> 1. The device MUST complete all pending I/O messages for the specified
-> stream ID.
-> 2. The device MUST NOT complete the control request while there are
-> pending I/O messages for the specified stream ID.
-> 
-> The 1) requirement does not indicate what "complete" means. Does it mean
-> that the pending I/O messages in the tx queue shall be outputted in the
-> host, i.e., consumed by the audio backend? Or, completion means simply
-> to put the requests in the used-ring without consuming them?
 
-Here "to complete" means moving the buffers to the used list in vring.
-Technically, the specification only requires that the device "return" all
-referenced DMA memory to the guest before completing the RELEASE control
-request. What the device actually does with these I/O messages is
-implementation dependent and is not within the scope of the specification.
-Thus...
+On 10/18/2023 4:06 AM, Parav Pandit wrote:
+> This series introduces administration commands for member device migration
+> for PCI transport; when needed it can be extended for other transports
+> too.
+>
+> Use case requirements:
+> ======================
+> 1. A hypervisor system needs to provide a PCI VF as passthrough
+>     device to the guest virtual machine and also support live
+>     migration of this virtual machine.
+>     A passthrough device has typically only PCI configuration space
+>     and MSI-X table emulated. No virtio native interface offered
+>     by the virtio member device is trapped and/or emulated.
+> 2. A virtual machine may have one or more such passthrough
+>     virtio devices.
+> 3. A virtual machine may have other PCI passthrough device
+>     which may also interact with virtio device.
+> 4. A hypervisor runs a generic device type agnostic driver with
+>     extension to support device migration.
+> 5. A PCI VF passthrough device needs to support transparent
+>     device reset and PCI FLR while the device migration is
+>     ongoing.
+> 6. A owner driver do not involve in device operations mediation
+>     for the passthrough device at virtio interface level.
+> 7. Mechanism is generic enough that applies to large family of
+>     virtio devices and it does not involve trapping any virtio
+>     device interfaces for the passthrough devices.
+>
+> Overview:
+> =========
+> Above usecase requirements is solved by PCI PF group owner driver
+> facilitating the member device migration functionality using
+> administration commands.
+>
+> There are three major functionalities.
+>
+> 1. Suspend and resume the device operation
+> 2. Read and Write the device context containing all the information
+>     that can be transferred from source to destination to migrate to
+>     a member device
+> 3. Track pages written by the device during device migration is
+>     ongoing
+>
+> This comprehensive series introduces 4 infrastructure pieces
+> covering PCI transport, peer to peer PCI devices, page write tracking
+> (aka dirty page tracking) and generic virtio device context.
+>
+> 1. Device mode get,set (active, stop, freeze)
+> 2. Device context read and write
+> 3. Defines device context and compatibility command
+> 4. Write reporting to track page addresses
+>
+> This series enables virtio PCI SR-IOV member device to member device
+> migration. It can also be used to/from migrate from PCI SR-IOV member
+> device to software composed PCI device if/when needed which can
+> parse and compose software based PCI virtio device.
+>
+> Example flow:
+> =============
+> Source hypervisor:
+> 1. Instructs device to start tracking pages it is writing
+> 2. Periodically query the addresses of the written pages
+> 3. Suspend the device operation
+> 4. Read the device context and transfer to destination hypervisor
+>
+> Destination hypervisor:
+> 5. Write the device context received from source
+> 6. Resume the device that has newly written device context
+>
+> Patch summary:
+> ==============
+> patch-1: Adds theory of operation for device migration commands
+> patch-2: Redefine reserved2 to command output field
+> patch-3: Defines short device context for split virtqueues
+> patch-4: Adds device migration commands
+> patch-5: Adds requirements for device migration commands
+> patch-6: Adds theory of operation for write reporting commands
+> patch-7: Adds write reporting commands
+> patch-8: Adds requirements for write reporting commands
+>
+> It also takes inspiration from the similar idea presented at KVM Forum
+> at [1].
+>
+> Please review.
+>
+> Changelog:
+> ==========
+> v1->v2:
+> - Addressed comments from Michael and Jason
+> - replaced iova to page/physical address range in write recording commands
+> - several device specific requirements added to clarify, interaction of
+>    device reset, FLR, PCI PM and admin commands
+> - added device context fields query command to learn compatibility
+> - split device context field type range into generic and device specific
+> - added device context extension section to maintain backward and future
+>    compatibility
+> - several rewording in theory of operation
+> - added requirements to cover config space read/write interaction with
+>    device context commands
+> - added assumption about pci config space and msix table not present in
+>    device context, which can be added when hypervisor need them
+> v0->v1:
+> - enrich device context to cover device configuration layout, feature bits
+> - fixed alignment of device context fields
+> - added missing Sign-off for the joint work done with Satananda
+> - added link to the github issue
+>
+> [1] https://static.sched.com/hosted_files/kvmforum2022/3a/KVM22-Migratable-Vhost-vDPA.pdf
+>
+> Parav Pandit (8):
+>    admin: Add theory of operation for device migration
+>    admin: Redefine reserved2 as command specific output
+>    device-context: Define the device context fields for device migration
+>    admin: Add device migration admin commands
+>    admin: Add requirements of device migration commands
+>    admin: Add theory of operation for write recording commands
+>    admin: Add write recording commands
+>    admin: Add requirements of write reporting commands
+>
+>   admin-cmds-device-migration.tex | 641 ++++++++++++++++++++++++++++++++
+>   admin.tex                       |  40 +-
+>   content.tex                     |   1 +
+>   device-context.tex              | 189 ++++++++++
+>   4 files changed, 864 insertions(+), 7 deletions(-)
+>   create mode 100644 admin-cmds-device-migration.tex
+>   create mode 100644 device-context.tex
+There were many discussions and questions on your V1 that did not 
+receive effective answers from you.
+We also didn't see these issues addressed in your V2. So, what's the 
+purpose of releasing this V2?
 
+Thanks
 
-> Regarding 2), I interpret it as "the device shall wait until all I/O
-> messages are proceeded to complete the RELEASE control request".
-
-...you can do this way if you really need to.
-
-
-> Currently, the kernel driver seems not expecting such a delay when the
-> RELEASE command is sent. If I understand correctly, the kernel driver
-> first sends the RELEASE command and waits a fixed amount of time until
-> the device can process it. Then, the driver waits a fixed amount of time
-> until all pending IO messages are completed. If the device follows the
-> specification and waits until all messages IO are completed to issue the
-> completion of the RELEASE command, the kernel driver may timeout. The
-> time to complete N IO messages in the TX queue could be proportional
-> with the number of pending messages.
-
-The default timeout for control requests in the ALSA driver is 1 second. In
-theory, this time should be enough to completely reproduce/fill the 500ms
-buffer, and complete all requests, including the RELEASE control request. If
-the device fails to do this, then most likely there are some problems with the
-implementation.
-
-
-> In our device implementation [2], RELEASE is handled as follows:
-> - Drop all messages in the TX queue without outputting in the host.
-> - Complete the RELEASE control request.
-> 
-> This seems to be working, however, I can observe that sometimes there
-> are still requests in the TX queue when we get RELEASE. Those requests
-> are never reproduced in the host.
-> 
-> My questions are:
-> - In the specification, should we modify it to clarify that all pending
->    IO messages in the device are discarded during RELEASE, that is, not
->    output to the host, but signaled to the guest as completed?
-
-No, we shouldn't. See comment above.
-
-
-> - According to the specification, should the driver wait in RELEASE an
->    amount of time proportional to the number of periods yet to be
->    reproduced?
-
-This is purely a matter of driver implementation. It is possible to implement
-the driver without timeouts, but this would be a bad idea. Because bugs in the
-device could lead to an infinite wait in the kernel.
-
-
-Best regards,
-
-> 
-> Thanks, Matias.
-> 
-> [1]
-> https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=https%3a%2f%2fdocs.oasis%2dopen.org%2fvirtio%2fvirtio%2fv1.2%2fcsd01%2fvirtio%2dv1.2%2dcsd01.html&umid=31e1136e-6322-4698-9f1d-d631ac36403e&auth=53c7c7de28b92dfd96e93d9dd61a23e634d2fbec-586f0596c89224a3bc9e20df81eaea8933bb129a
-> [2]
-> https://github.com/rust-vmm/vhost-device/tree/main/staging/vhost-device-sound
-
--- 
-Anton Yakovlev
-Senior Software Engineer
-
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
