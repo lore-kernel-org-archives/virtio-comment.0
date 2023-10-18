@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7817-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7818-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58BCCCDB47E
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 14:41:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90FB4CDB482
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 14:54:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id AB92C74106
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 14:41:05 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CF9D1749F1
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 14:54:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9B0BF9868AF
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 14:41:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A3D449868B4
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 14:54:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 856CE9868A7; Wed, 18 Oct 2023 14:41:05 +0000 (UTC)
+	id 882D99868A7; Wed, 18 Oct 2023 14:54:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,185 +24,318 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 756929868A8
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 14:41:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 77CF09868A8
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 14:54:58 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697640063; x=1698244863;
+        d=1e100.net; s=20230601; t=1697640896; x=1698245696;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rt/ss29CJe/9frHUxa5b1wD1OSXPxRIJavasTojsBsk=;
-        b=ew8L7qN8Cwk1s/juqH7ss76gkyym3BUO0m8G6pSJ2x7/u36c0dz37nPOBfZ1OT6aYB
-         2zvAozW0wWKB/DomCL0jkMVr8fZX7E1hfjbARHZbmTgJmggFccLULxdipiVYA4tnzvWU
-         2CZAgTvr1KbeU3QTGVULEMBooQR+kxFv0W1wlNT+tfuD6tEoxwqoBMJeOdKCf3rzqzuY
-         WRt2WlGsKr1NUa5hssyqY/zeE6knR1gxjWK9aBZjKix4oLJi+Zzefz6B/RhcCwafk1Fi
-         TqMX1A6GMyLTROumYxjbI9qhJeGZLgYU1Ty2goTxR70hP9Dkanho//3m4ibuklXCs+3n
-         P+7w==
-X-Gm-Message-State: AOJu0YzYYs5QkLrm+mIU71BiFFk9EmfjBeSAzUO94YiJYuQpguJ6xaao
-	szYiuG1Dm1ANzxGZ5Z5bd2LnCg==
-X-Google-Smtp-Source: AGHT+IHPa925AjAqXBkqkdxNLaqlRN2gl8/u14DJPHr6oBEcsrpqsJdjaFxT+JE2n5RjDqRYM3i+fw==
-X-Received: by 2002:a7b:c44c:0:b0:405:95c3:e79d with SMTP id l12-20020a7bc44c000000b0040595c3e79dmr4268715wmi.40.1697640063297;
-        Wed, 18 Oct 2023 07:41:03 -0700 (PDT)
-Date: Wed, 18 Oct 2023 15:41:08 +0100
+        bh=OEPCWa/zfCWpZuip10/ur8Aqjw0PKOjjXDqiGWP0IRI=;
+        b=h8F3DC2an+bZEZJnrndqfriKbM8IWQIU5YJq/BK6GlhacouEMXF8asYGqu6x/8rICN
+         aV92WPbNp7QD4vm1xcmchJ5z3RE4OdGVVGR8PseA6Jkrxflxl0gm/wtHHBS9PXtla1yi
+         jGc6SFRh771W1AUmPEWChUoZK6PLwYicReZsmv1FWEog/oWpEp/K1idHDr9L2WwTnYGY
+         aoBjWgpyh1swD7LFFllEYYcnIMWqNfD+KIFQdN8FokY+heO2wNRfOQMytMvaUAtiKuUA
+         BS16QkQxuiPoqsKq2NuQPo0Ct3Qf9r76dFOYMbtnx68tkKoJtVcHip4pFTuNqqx6Oq5S
+         V+3Q==
+X-Gm-Message-State: AOJu0YyT9T+/74I3Kb70xOBSMR06eg8wGyuEr+FJgKByfaVZnqXU8N9X
+	BdTPM/YiNhdXsGCUhBr+VkoDPQ==
+X-Google-Smtp-Source: AGHT+IFjtfw3VvKXgp3MbJAOTmMaVzPGlBV7vQZ93zRZsJyMD5GG0sIvQ1IoHdU54xMwoI81PL03+g==
+X-Received: by 2002:adf:f349:0:b0:32d:c0c9:f661 with SMTP id e9-20020adff349000000b0032dc0c9f661mr5356277wrp.51.1697640896209;
+        Wed, 18 Oct 2023 07:54:56 -0700 (PDT)
+Date: Wed, 18 Oct 2023 15:55:01 +0100
 From: Jean-Philippe Brucker <jean-philippe@linaro.org>
 To: Tina Zhang <tina.zhang@intel.com>
 Cc: virtio-comment@lists.oasis-open.org, vivek.gautam@arm.com,
 	seb@rivosinc.com, sameo@rivosinc.com, eric.auger@redhat.com,
 	kevin.tian@intel.com, "Kumar, Sanjay K" <sanjay.k.kumar@intel.com>
-Message-ID: <20231018144108.GA1229555@myrica>
+Message-ID: <20231018145501.GB1229555@myrica>
 References: <20231006160947.2227396-3-jean-philippe@linaro.org>
- <20231006160947.2227396-4-jean-philippe@linaro.org>
- <b8d6172e-88c5-4f4d-8738-6ec6c90fdab4@intel.com>
+ <20231006160947.2227396-8-jean-philippe@linaro.org>
+ <b905a036-199c-47b7-ab51-4c31f39193a1@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b8d6172e-88c5-4f4d-8738-6ec6c90fdab4@intel.com>
-Subject: [virtio-comment] Re: [PATCH v2 1/9] virtio-iommu: Add ATTACH_TABLE request
+In-Reply-To: <b905a036-199c-47b7-ab51-4c31f39193a1@intel.com>
+Subject: [virtio-comment] Re: [PATCH v2 5/9] virtio-iommu: Add VT-d IO page table
 
 Hi Tina,
 
-On Wed, Oct 11, 2023 at 07:39:02PM +0800, Tina Zhang wrote:
-> > +For some formats, the PASID table is managed by the device rather
-> > +than driver. The ATTACH_TABLE request contains a \field{pasid}
-> This is what VT-d hardware expects when working with viommu (no matter it's
-> virtual VT-d iommu or virtual-iommu) with VT-d IO page table support. If a
-> device is directly assigned to a guest, the guest viommu driver fully
-> manages the PASIDs of that device. If a device is providing I/O device
-> sharing service for multiple guests, the PASIDs value are assigned by host.
-> But, in either case, the PASID table is filled by host VT-d driver, not
-> guest viommu driver. So, from viommu front-end's point of view, the PASID
-> table of that device is managed by viommu device (i.e., viommu back-end).
+Thank you for the review
 
-Ok, so there are two cases of device assignment:
-
-* whole devices (eg PCIe VF) assigned to one guest. In that case,
-  PASIDs used by the guest (vPASID) could be identical to PASIDs assigned
-  by the host (hPASID)
-
-* device is shared between multiple guests, sub-devices are assigned to
-  guests. In that case vPASID is different from hPASID.
-
-> > +field and a page directory. Similarly to when the driver manages
-> > +the PASID table, \field{domain} corresponds to one PASID table.
-> > +The driver uses the same \field{domain} for each ATTACH_TABLE
-> > +request with PASID. Issuing a DETACH request without PASID
-> >
-> Here are some thoughts about domain id interception with VT-d IO page
-> format:
+On Wed, Oct 11, 2023 at 07:32:01PM +0800, Tina Zhang wrote:
+> Resend the reply and CC virtio-comment list.
 > 
-> Virtual VT-d driver uses the same domain id for first-stage translation is
-> because it's required by the VT-d specification, though guest domain id
-> never gets to hardware (i.e., host doesn't populate PASID table with guest
-> domain id value).
+> Hi,
+> 
+> On 10/7/23 00:09, Jean-Philippe Brucker wrote:
+> > From: Tina Zhang <tina.zhang@intel.com>
+> > 
+> > Allow a driver of a device behind virtio-iommu to detect support for
+> > VT-d IO page table.
+> > 
+> > The driver detects support for VT-d IO page table format in a PROBE
+> > request and sends an ATTACH_TABLE request with a pointer to the first
+> > stage page translation table.
+> > 
+> > The definition of first stage page translation table ATTACH_TABLE
+> > request references the fields defined in VT-d scalable-mode PASID table
+> > entry.
+> > * attributes defined in ATTACH_TABLE request:
+> >    FSPTPTR got from pgtbl_addr field.
+> >    SRE/EAFE/WPE defined in pgtbl_flags field.
+> >    FSPM calculated through addr_width field.
+> >    PASID got from pasid field.
+> > 
+> > * attributes not defined in ATTACH_TABLE request, as their
+> >    configurations need to be decided by host:
+> >    Memory type features, PAT/EMTE/CD/PGSNP/PWSNP.
+> >    Snoop Behavior, PGSNP/PWSNP.
+> > 
+> > Support for any new attributes could easily be added by adding flags to
+> > the PROBE property and fields in the ATTACH_TABLE config.
+> > 
+> > Signed-off-by: Tina Zhang <tina.zhang@intel.com>
+> > [JPB: moved to pgtable-intel.tex, rework formatting]
+> > Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+> > ---
+> >   device-types/iommu/description.tex   |  3 +
+> >   device-types/iommu/pgtable-intel.tex | 98 ++++++++++++++++++++++++++++
+> >   introduction.tex                     |  3 +
+> >   3 files changed, 104 insertions(+)
+> >   create mode 100644 device-types/iommu/pgtable-intel.tex
+> > 
+> > diff --git a/device-types/iommu/description.tex b/device-types/iommu/description.tex
+> > index c057cdf..a4eb492 100644
+> > --- a/device-types/iommu/description.tex
+> > +++ b/device-types/iommu/description.tex
+> > @@ -407,6 +407,7 @@ \subsubsection{ATTACH_TABLE request}\label{ref:Device Types / IOMMU Device / Dev
+> >   };
+> >   #define VIRTIO_IOMMU_ATTACH_TABLE_ARM_SMMU3       1
+> > +#define VIRTIO_IOMMU_ATTACH_TABLE_INTEL_PT        2
+> >   \end{lstlisting}
+> >   Attach an endpoint to a domain, in the same way as an ATTACH
+> > @@ -1009,6 +1010,7 @@ \subsubsection{PROBE properties}\label{sec:Device Types / IOMMU Device / Device
+> >   \begin{lstlisting}
+> >   #define VIRTIO_IOMMU_PROBE_T_RESV_MEM       1
+> >   #define VIRTIO_IOMMU_PROBE_T_HW_ARM_SMMU3   2
+> > +#define VIRTIO_IOMMU_PROBE_T_HW_INTEL_VTD   3
+> >   \end{lstlisting}
+> >   \paragraph{Property RESV_MEM}\label{sec:Device Types / IOMMU Device / Device operations / PROBE properties / RESVMEM}
+> > @@ -1160,3 +1162,4 @@ \subsubsection{Fault reporting}\label{sec:Device Types / IOMMU Device / Device o
+> >   \subsection{Acceleration}\label{sec:Device Types / IOMMU Device / Acceleration}
+> >   \input{device-types/iommu/pgtable-arm}
+> > +\input{device-types/iommu/pgtable-intel}
+> > diff --git a/device-types/iommu/pgtable-intel.tex b/device-types/iommu/pgtable-intel.tex
+> > new file mode 100644
+> > index 0000000..90a3410
+> > --- /dev/null
+> > +++ b/device-types/iommu/pgtable-intel.tex
+> > @@ -0,0 +1,98 @@
+> > +\subsubsection{Intel VT-d tables}\label{sec:Device Types / IOMMU Device / Acceleration / Intel}
+> > +
+> > +Attach first-level translation tables in the format described by
+> > +the \hyperref[intro:VT-Directed-IO]{Intel Virtualization
+> > +Technology for Directed I/O specification}.
+> > +
+> > +\paragraph{PROBE property for VT-d page tables}\label{sec:Device Types / IOMMU Device / Acceleration / Intel / PROBE}
+> > +
+> > +The PROBE property VIRTIO_IOMMU_PROBE_T_HW_INTEL_VTD provides
+> > +information about an Intel VT-d IOMMU.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_iommu_probe_hw_intel_vtd {
+> > +  struct virtio_iommu_probe_property head;
+> > +  u8   reserved[4];
+> > +  le64 cap_reg;
+> > +  le64 ecap_reg;
+> > +};
+> > +
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_RWBF        (1 << 4)
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_SAGAW_SHIFT 8
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_SAGAW_MASK  0x1f
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_MGAW_SHIFT  16
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_MGAW_MASK   0x1f
+> The size of MGAW is 6 bits. So, it should be:
+> #define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_MGAW_MASK   0x3f
 
-(To make things clearer I'll use "DID" for the HW VT-d identifier and
-"domain" for the virtio-iommu one)
+Good catch, thanks
 
-Do you know if the host is more likely to assign a unique DID for each VM,
-for each virtual device, or some other scheme?  There was a discussion
-recently about the Linux host, but I don't know where it landed. I'm
-trying to understand what hosts and guests could implement, so that
-virtio-iommu can be supported without too much modification to host and
+> 
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_ZLR         (1 << 22)
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_FL1GP       (1 << 56)
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_CAP_5LP         (1 << 60)
+> > +
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_SC         (1 << 7)
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_MTS        (1 << 25)
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_EAFS       (1 << 34)
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_PSS_SHIFT  35
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_PSS_MASK   0x1f
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_SMTS       (1 << 43)
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_VCS        (1 << 44)
+> I don't think we need VCS defined here any more. In the old design, VCS was
+> used as a channel for guest asking host to allocate a PASID for it. In the
+> current design, we drop this and let host mediate guest PASIDs when
+> necessary (which is agnostic to guest viommu driver). So basically, there
+> are two cases:
+> 1) For device assignment of I/O device, the PASIDs of the device are managed
+> by guest. Host doesn't need to do any mediation.
+> 2) For I/O Device sharing case, one device is used by multiple guests. So we
+> cannot let one guest directly manage the PASIDs of that device. In this
+> case, with the help of virtualization, host can trap the guest's first DMA
+> access requiring a PASID and assign a host-side PASID for it. Guest viommu
+> driver doesn't need to know the host-side PASID value.
+
+Makes sense, I'll drop VCS
+
+> 
+> > +#define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_SMPWC      (1 << 48)
+> > +\end{lstlisting}
+> I think two more definitions are needed:
+> #define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_NEST    (1 << 26)
+> #define VIRTIO_IOMMU_HW_INTEL_VTD_ECAP_FSTS    (1 << 47)
+> 
+> The ECAP_NEST tells if VT-d hardware supports nested translations.
+> The ECAP_FSTS tells if VT-d hardware supports PASID granular translation
+> type of first-stage.
+
+It doesn't hurt to add them. Would the guest behave differently if NEST or
+FSTS is set or clear?  I didn't add them because I assumed NEST is a
+prerequisite for supporting guest page tables, and it requires FSTS. 
+
+More generally there are several ways we could describe these registers in
+the specification:
+
+(1) Don't describe any fields.
+(2) Describe only fields that directly influence the configuration of
+    ATTACH_TABLE and INVALIDATE.
+(3) Describe fields related in any way to page table support.
+(4) Describe all fields.
+
+(1) is the easiest from a spec point of view. I tried doing (2) to ease
+writing driver and device code, but without explaining in detail what the
+fields mean because I think that's best left to the hardware
+specification. (3) would include NEST, FSTS and possibly others. (4)
+wouldn't really be useful, we may as well do (1).
+
+Maybe (3) is better. This way the device can use this description to
+sanitize the registers before passing them to the guest, and the values
+read by the guest still make sense. Because if we only describe (2), and
+then the device decides to only provide those bits and clear everything
+else, then it may be confusing for the driver to find NEST and FSTS clear
+in the cap registers. Should it then even attach tables?  Maybe in the
+future there will be a use-case for presenting NEST and FSTS clear to the
 guest.
 
-We should design virtio-iommu such that it's possible to share an address
-space between multiple devices. For example the guest could use a single
-PASID space, assign a unique PASID to each process address space, and if
-the host assigns the same DID to devices in a VM, then DMA from devices
-bound to the same guest address space will share TLB entries.
-
-TLB entries are tagged with DID+PASID. So in theory, in order to share TLB
-entries between multiple virtual devices, a guest that uses virtual VT-d
-would write the same vDID into each virtual device's virtual PASID table,
-into entries indexed by the same vPASID. That would allow the host to
-understand that they are the same address space, and assign the same hDID
-to entries in the HW PASID table indexed by the same hPASID, and they
-would share TLB entries.
-
-         Dev1 PASID table                     vDev1 PASID table
-            +-----------+                     +-----------+
-            :           :                     :           :
- hPASID=12->+-----------+                     +-----------+<-vPASID=1
-            |   hDID=24 |-+-> First stage <-+-|    vDID=8 |
-            +-----------+ |   page table    | +-----------+
-            :           : |                 | :           :
-                          |                 |
-                          |                 |
-         Dev2 PASID table |                 | vDev2 PASID table
-            +-----------+ |                 | +-----------+
-            :           : |                 | :           :
- hPASID=12->+-----------+ |                 | +-----------+<-vPASID=1
-            |   hDID=24 |-+                 +-|    vDID=8 |
-            +-----------+                     +-----------+
-            :           :                     :           :
-
-Conversely, a guest can use different vPASIDs to isolate address spaces,
-but it could also rely on using different vDIDs, right?  It could program
-the virtual VT-d PASID tables for two devices with overlapping vPASID
-spaces, and different vDIDs for isolation. Which implies that the host
-can't assign a unique DID for each VM, it needs to be able to use a unique
-DID for each virtual devices.
-
-That's also needed for requests-without-PASID: the guest most likely wants
-to isolate no-PASID address spaces of different devices, which requires
-separate DIDs.
-
-> According to VT-d specification (section 6.2.3.1):
-> "Scalable-mode PASID table entries programmed for first-
-> stage translation or pass-through (PGTT equal to 001b or 100b) must be
-> programmed with a DID value that is different from those used in any PASID
-> table entries that are programmed for second-stage or nested translation
-> (PGTT equal to 010b or 011b). This is required since hardware
-> implementations tag various caches with domain-id as described in Section
-> 6.2.1. Scalable-mode PASID-table entries with PGTT value of 001b or 100b are
-> recommended to use the same domain-id value for best hardware efficiency."
+> > +
+> > +\todo{check that these are necessary and sufficient to support
+> > +page table assignement in scalable mode.}
+> The cap_reg & ecap_reg expose VT-d hardware capability to guest. And it's
+> expected to have virtio-iommu working with VT-d IO page table when the
+> platform hardware at least has the capability of nested-translation (i.e.,
+> hardware must have scalable mode support and first-stage translation support
+> and second-stage translation support.). So, we only pick definitions of the
+> bits from VT-d spec which are related to the first-stage page table and the
+> basic capability of nested-translation.
 > 
-> When VT-d IO page table comes to virtual-iommu, the definition of domain id
-> doesn't need to be exactly the same with the one defined in VT-d
-> specification as the viommu providing the service is virtual-iommu, not
-> virtual VT-d and only VT-d IO page table is being used (domain id is defined
-> in PASID table which isn't being used).
+> > +\todo{Need to support non-PASID assignment? non-scalable?}
+> I didn't see any difference between the non-PASID assignment case and the
+> PASID assignment case, in terms of virtio-iommu support VT-d. Any ideas?
 
-Yes, even if they have the same name they don't have to mean the same
-thing, we can pick for virtio-iommu the usage that's most convenient.
+No, I don't remember what I meant by this... I think non-PASID (for
+requests-without-PASID) is already supported in this draft.
 
-However, hosts have to support IOMMU emulations such as virtual VT-d as
-well, so in order to reuse those host interfaces for virtio-iommu, the
-safest is to specify it close to the hardware design.
+> 
+> The non-scalable doesn't seem so interesting right now. Any thoughts about
+> it?
 
-Staying close to the hardware also allows supporting hardware acceleration
-later, like AMD's invalidation and fault queues that can be assigned
-directly to a guest. 
+Agree, if needed it could be added later.
 
-> So, it seems more reasonable to define the domain id as an identifier for an
-> unique domain for each address space for virtual-iommu back-end
-> interception. Any ideas?
+> 
+> > +
+> > +\begin{description}
+> > +  \item[\field{cap_reg}] Capability Register.
+> > +  \item[\field{ecap_reg}] Extended Capability Register.
+> > +\end{description}
+> > +
+> > +\paragraph{ATTACH_TABLE request for VT-d page table}\label{sec:Device Types / IOMMU Device / Acceleration / Intel / ATTACH_TABLE}
+> > +
+> > +Attach a single set of page tables to an endpoint.
+> > +
+> > +\begin{lstlisting}
+> > +/* Vt-d I/O Page Table Descriptor */
+> > +struct virtio_iommu_req_attach_table_intel {
+> > +  struct virtio_iommu_req_head          head;
+> > +  le32                                  domain;
+> > +  le32                                  endpoint;
+> > +  u8                                    format;
+> > +  u8                                    reserved[7];
+> > +  le32                                  pasid;
+> > +  le64                                  pgtbl_addr;
+> > +  le64                                  pgtbl_flags;
+> > +  le32                                  addr_width;
+> > +  u8                                    reserved[80];
+> > +  struct virtio_iommu_req_tail          tail;
+> > +};
+> > +
+> > +/* Intel VT-d stage-1 page table entry attributes */
+> > +#define	VIRTIO_IOMMU_HW_INTEL_VTD_SRE             0x01
+> > +#define	VIRTIO_IOMMU_HW_INTEL_VTD_EAFE            0x02
+> > +#define	VIRTIO_IOMMU_HW_INTEL_VTD_WPE             0x40
+> > +#define	VIRTIO_IOMMU_HW_INTEL_VTD_LAST            0x80
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +  \item[\field{format}] VIRTIO_IOMMU_ATTACH_TABLE_INTEL_PT.
+> > +  \item[\field{pasid}] Process Address Space Identifier.
+> > +    \todo{don't we need to allocate these with alloc/free
+> > +    commands to the host?}
+> No, we don't need guest viommu driver to explicitly ask host's help for
+> guest PASID alloc/free now. In the current design, guest viommu driver
+> doesn't need to know the host-side PASID.
 
-Do you mean that domain would represent an address space uniquely within a
-guest?
-
-One concern I have is about reducing the number of address spaces.
-DID+PASID allows for 2^36 unique address spaces, but domain alone only
-allows for 2^32. Both are more than enough for current use-cases, but it
-would be better not to impose such limitations.
-
-To be compatible with DID+PASID support of hosts, maybe we should use
-domain+PASID to identify an address space?  domain wouldn't represent a
-PASID table as in this current draft, but it would be an arbitrary ID like
-DID, that the guest can use as it wants. That would keep the design close
-to virtual VT-d, which would be good for compatibility. If the host
-expects a (vDID, vPASID) pair in attach and invalidate calls, then
-supporting virtio-iommu would be easier with a similar interface.
-
-If domain uniquely represents a guest address space, then the INVALIDATE
-request wouldn't take a PASID field. For a host that is implemented to
-support vDID+vPASID, it would then be difficult to translate
-virtio-iommu's domain into hDID+hPASID in order to invalidate TLBs.
+Ok, that makes the interface simpler
 
 Thanks,
 Jean
 
+> 
+> Regards,
+> -Tina
+> 
+> > +  \item[\field{pgtbl_addr}] Stage-1 page table base address.
+> > +  \item[\field{pgtbl_flags}] Stage-1 page table entry attributes:
+> > +    \begin{description}
+> > +      \item{SRE} Supervisor request,
+> > +      \item{EAFE} Extended access enable,
+> > +      \item{WPE} Write protect enable.
+> > +    \end{description}
+> > +  \item[\field{pat}] Page attribute table data to compute
+> > +    effective memory type.
+> > +  \item[\field{addr_width}] The address width of the untranslated
+> > +    addresses that are subjected to the stage-1 page table.
+> > +\end{description}
+> > +
+> > +\paragraph{INVALIDATE request for VT-d page table}\label{sec:Device Types / IOMMU Device / Acceleration / Intel / INVALIDATE}
+> > +
+> > +Supported values for field \field{scope} are
+> > +VIRTIO_IOMMU_INVAL_S_PASID and VIRTIO_IOMMU_INVAL_S_ADDRESS.
+> > +The only supported value for field \field{caches} is
+> > +VIRTIO_IOMMU_INVAL_C_TLB. Field \field{id} is not used.
+> > diff --git a/introduction.tex b/introduction.tex
+> > index 636fb1b..d0d5086 100644
+> > --- a/introduction.tex
+> > +++ b/introduction.tex
+> > @@ -104,6 +104,9 @@ \section{Normative References}\label{sec:Normative References}
+> >   	\phantomsection\label{intro:SMMUv3}\textbf{[SMMUv3]} &
+> >   	Arm System Memory Management Unit version 3
+> >   	\newline\url{https://developer.arm.com/documentation/ihi0070/latest} \\
+> > +	\phantomsection\label{intro:VT-Directed-IO}\textbf{[VT-Directed-IO]} &
+> > +	Intel Virtualization Technology for Directed I/O
+> > +	\newline\url{https://cdrdv2.intel.com/v1/dl/getContent/671081} \\
+> >   	\phantomsection\label{intro:rfc2784}\textbf{[RFC2784]} &
+> >       Generic Routing Encapsulation. This protocol is only specified for IPv4 and used as either the payload or delivery protocol.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
