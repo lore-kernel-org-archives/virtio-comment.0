@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7800-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7801-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87FF3CDB47E
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 08:43:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73F48CDB47E
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 08:53:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C7C983309B
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 08:43:01 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id BB7476E6CD
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 08:53:29 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AB6AB98689C
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 08:43:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8DC4498689D
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 08:53:29 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 98DAB986892; Wed, 18 Oct 2023 08:43:01 +0000 (UTC)
+	id 76EA7986892; Wed, 18 Oct 2023 08:53:29 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,35 +24,41 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 88AD0986893
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 08:43:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 67476986893
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 08:53:29 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="376339913"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; 
-   d="scan'208";a="376339913"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="706351037"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; 
-   d="scan'208";a="706351037"
-Message-ID: <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
-Date: Wed, 18 Oct 2023 16:42:53 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>
-Cc: "virtio-comment@lists.oasis-open.org"
- <virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
- <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>,
- Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-References: <20231008112555.473895-1-parav@nvidia.com>
- <cbf6b0b4-c49f-6809-cac8-2d8336a8cc76@intel.com>
- <PH0PR12MB5481A03DDF43FCBD4184693FDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e2696020-8444-0ff3-a774-0b41151a18fb@intel.com>
- <PH0PR12MB548184740ED3C1011C2A85DEDCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <6fc4af28-67d9-781b-a243-a6c2ebf0244c@intel.com>
- <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-MC-Unique: lN2ukWA0OLyUuDFAsghVuA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697619196; x=1698223996;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lyS2BwkhuxEII65Z+pMdFMku7sutcB30uuqItuV21Ow=;
+        b=UBU1oRo+sosAA0Ljl/JiR7i83E3/lzIhJVRHPlwm3mDSYB9MISpADKu+Ed5FbZ6bej
+         n+5c6ObQOgiLcyrGuYlDTzClpd3L/So27KTUUZXqJuqflHcjRs4YGpbSuU2j1cuciN+i
+         dNSMQk9Xzg69k2cFWGkxk+ouOUHZGiRlHJmlO9ueYJ0lySwYcckLocNj3dRgAlb/UPFI
+         4qkd1f+b8q65B90jdYOcTx77jsN9r/6kPNSweiuHvI3FT/JkRu4ZXF4ylH34FBo7JWt/
+         +YK7LxKFHeGwnThurbXVsNcSCdugxZz/M4iN6Gvjk1THl2zP8FLeUk9KzgRVqba/sMsA
+         Y/UA==
+X-Gm-Message-State: AOJu0YwfNkEeF7xeiLSFAGnVY6lTW8H/uFVeZMEbipfwQoaaGt+vcX46
+	DVi81TvIjMghXnW5rHjxH9rHbKlHnS5mf+/BlaqINBpMKoCQ3Jy2cJS/51O338B8cnFQsy93eTC
+	RIlry7lcvHiJwIkLcHRm0ao3nHK3jiKeqJA==
+X-Received: by 2002:a17:907:3da2:b0:9a1:b85d:c952 with SMTP id he34-20020a1709073da200b009a1b85dc952mr4155178ejc.12.1697619196328;
+        Wed, 18 Oct 2023 01:53:16 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFU2i8OtGC8DEQBFIRSe8EWAtoKTaTswDesJXcRpSpunNmxMlzKfAj0G+Qnu5GwEWkzNrpfuA==
+X-Received: by 2002:a17:907:3da2:b0:9a1:b85d:c952 with SMTP id he34-20020a1709073da200b009a1b85dc952mr4155159ejc.12.1697619195992;
+        Wed, 18 Oct 2023 01:53:15 -0700 (PDT)
+Date: Wed, 18 Oct 2023 04:53:10 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+Message-ID: <20231018044500-mutt-send-email-mst@kernel.org>
+References: <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <db0719f9-7dc2-4a96-b10b-ecc3dac1a82b@intel.com>
  <PH0PR12MB548139B50AD2D1B86AC9A127DCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <f7083379-e76c-42f4-8355-ea4ae28eb52c@intel.com>
@@ -61,111 +67,33 @@ References: <20231008112555.473895-1-parav@nvidia.com>
  <PH0PR12MB54819FC5A77A46C649CD5B6DDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <0948cfa4-da02-43d5-a099-424f209f814f@intel.com>
  <PH0PR12MB5481546E859578DE97D9E152DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB5481546E859578DE97D9E152DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
+MIME-Version: 1.0
+In-Reply-To: <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
  device context fields for device migration
 
+On Wed, Oct 18, 2023 at 04:42:53PM +0800, Zhu, Lingshan wrote:
+> And you need to prove why admin vq are better than registers solution if you
+> want a merge.
 
+First, no one seems to want a register based solution for tracking
+memory changes.  So I feel the point should rather be to prove why is
+sticking some migration features in registers and using dma for others
+makes sense.  Second I guess we could have a register based interface
+for admin commands, no?
 
-On 10/18/2023 3:20 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Wednesday, October 18, 2023 12:22 PM
->>
->> On 10/18/2023 2:41 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Wednesday, October 18, 2023 12:06 PM
->>>>
->>>> On 10/18/2023 1:02 PM, Parav Pandit wrote:
->>>>>> From: virtio-comment@lists.oasis-open.org
->>>>>> <virtio-comment@lists.oasis- open.org> On Behalf Of Zhu, Lingshan
->>>>>> Sent: Monday, October 16, 2023 3:18 PM
->>>>>>
->>>>>> On 10/13/2023 7:54 PM, Parav Pandit wrote:
->>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>>>> Sent: Friday, October 13, 2023 3:14 PM
->>>>>>>>>>>> How do you transfer the ownership?
->>>>>>>>>>> An additional ownership deletgation by a new admin command.
->>>>>>>>>> if you think this can work, do you want to cook a patch to
->>>>>>>>>> implement this before you submitting this live migration series?
->>>>>>>>> I answered this already above.
->>>>>>>> talk is cheap, show me your patch
->>>>>>> Huh. We presented the infrastructure that migrates, 30+ device
->>>>>>> types,
->>>>>> covering device context ideas from Oracle.
->>>>>>> Covering P2P, supporting device_reset, FLR, dirty page tracking.
->>>>>>>
->>>>>>> Please have some respect for other members who covered more ground
->>>>>>> than
->>>>>> your series.
->>>>>>> What more? Apply the same nested concept on the member device as
->>>>>> Michael suggested, it is nested virtualization maintain exact same
->> semantics.
->>>>>>> So a VF is mapped as PF to the L1 guest.
->>>>>>> L1 guest can enable SR-IOV on it, and map one VF to L2 guest.
->>>>>>>
->>>>>>> This nested work can be extended in future, once first level
->>>>>>> nesting is
->>>>>> covered.
->>>>>>>> Answer all questions above, if you think a management VF can
->>>>>>>> work, please show me your patch.
->>>>>>> The idea evolves from technical debate then pointing fingers like
->>>>>>> your
->>>>>> comment.
->>>>>>> I think a positive discussion with Michael and a pointer to the
->>>>>>> paper from
->>>>>> Jason gave a good direction of doing _right_ nesting that follows
->>>>>> two
->>>> principles.
->>>>>>> a. efficiency property
->>>>>>> b. equivalence property
->>>>>>>
->>>>>>> (c. resource control is natural already)
->>>>>>>
->>>>>>> Both apply at VMM and at VM level enabling recursive
->>>>>>> virtualization, by
->>>>>> having VF that can act as PF inside the guest.
->>>>>>> [1] https://dl.acm.org/doi/pdf/10.1145/361011.361073
->>>>>> Please just show me your patch resolving these opens, how about
->>>>>> start from defining virito-fs device context and your management VF?
->>>>> As answered, device context infrastructure is done, per device
->>>>> specific device-
->>>> context will be defined incrementally.
->>>>> I will not be including virtio-fs in this series. It will be done
->>>>> incrementally in
->>>> future utilizing the infrastructure build in this series.
->>>> Done? How do you conclude this? You just tell me what is the full set
->>>> of virito-fs device context now and how to migrate them.
->>>>
->>>> You cant? you refuse or you don't? Do you expect the HW designer to
->>>> figure out by themself?
->>> I wont be able to tell now as I don’t think it is necessary for this series.
->>> If one out of 30 devices cannot migrate because of unimaginable amount of
->> complexity has been placed there, may be one will not implement it as member
->> device.
->>>   From experience of migratable complex gpu devices, rdma devices (stateful
->> having hundred thousand of stateful QPs), my understanding is complex state of
->> virtio-fs can be defined and migratable.
->>> Mlx5 driver consist of 150,000 lines of code and that device is migratable
->> with complex state.
->>> So I am optimistic that virtio-fs can be migratable too.
->>> It does not have to limited by my limited creativity of 2023.
->>> May be I am wrong, in that case one will not implement passthrough virtio-fs
->> device.
->> your series wants to migrate device context, but doesn't define device context,
->> does this sounds reasonable?
-> Device generic context is defined at [1] and also the infrastructure for defining the device context in parallel by multiple people can be done post the work of [1].
->
-> Per each device type context will be defined incrementally post this work.
->
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202310/msg00190.html
-This is not post of the work, you should define them before you use them 
-in this series.
+I really wish both of you guys started looking for solutions that
+satisfy all use-cases instead of just going head to head. Lingshan that
+is why I asked you to try and list advantages of the architecture in
+Parav's patches. Do you think you could try and address more use-cases?
 
-And you need to prove why admin vq are better than registers solution if 
-you want a merge.
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
