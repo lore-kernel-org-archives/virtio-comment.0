@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7783-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7784-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AFE8CDB482
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:05:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA331CDB47E
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:13:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 629DB45B2E
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:05:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1B7C268471
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:13:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 38101986898
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:05:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E819B986894
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:13:23 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 188B098688B; Wed, 18 Oct 2023 06:05:29 +0000 (UTC)
+	id CFC2798688B; Wed, 18 Oct 2023 06:13:23 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,85 +24,74 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7BB1B98688C
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 06:04:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BFA2B98688C
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 06:13:23 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: kF2bBsVdMs-3xHojb5kikA-1
+X-MC-Unique: re7qTqnVPUWwJ-TdpzqUOA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697609075; x=1698213875;
+        d=1e100.net; s=20230601; t=1697609600; x=1698214400;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gevqtTzrOJX/EWXP27dh4mudLfYT5/DKVoGVfG+aqDw=;
-        b=EwyvbZU9OJfwjYg9yf2Y0mvWvoyKqbjtyn62FRfqutyEUgNC7vonoK40sXakdI3GPb
-         O7NaieBAQytkubo4ZN6WY0Sy1+mtuGFFolBqe3rQyuH5OEUkyncPjjRdL1T4ik2J1vlQ
-         s7IapT7v8xK6/sW0Ds96VNfeFfC2bLu8qVsN7BrV0k9UMcaTgdTdAcE+pkVxUdYfPNS5
-         fp0Zmgb+KCs8U6fzpWWsCp8pIuHMI3S/qPHmJtDY+L3LqbnYdhqpdiFEQCOE+Nw60a1C
-         3E3vXquR9cRUon0K4gGu7sjp9+3LAzi+GEOHP4Yq2Iv0goy6TPCVW/vzgm6kcwjzIr/2
-         +aEQ==
-X-Gm-Message-State: AOJu0YyqrDgRtiTN5DXNG21Tvgm6l2Q5Hpg3Qz2j/7zwFBFo89t6WtPt
-	1Nvs/suYp21E7ZGgfqVFqm9M3v+SS1/GF1eY3J8r9eVZC6/tvFxygEoya8kJfzd7sinfLT/veyK
-	SXv6oFGPme+C/MiSmChge59OGHDNXwOtp6Q==
-X-Received: by 2002:a5d:51c1:0:b0:32d:9f1b:3a1f with SMTP id n1-20020a5d51c1000000b0032d9f1b3a1fmr3632256wrv.31.1697609074945;
-        Tue, 17 Oct 2023 23:04:34 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFv6lWN/M9RKNokQ5pLhjT+HGsiUYQus/JiYBZ+ZKRrNMIuQkuxDqrWM9zYXMo+56+v1U4dxQ==
-X-Received: by 2002:a5d:51c1:0:b0:32d:9f1b:3a1f with SMTP id n1-20020a5d51c1000000b0032d9f1b3a1fmr3632240wrv.31.1697609074633;
-        Tue, 17 Oct 2023 23:04:34 -0700 (PDT)
-Date: Wed, 18 Oct 2023 02:04:18 -0400
+        bh=dFcCbj2FMbp9dxqvo+Nkzw95lKMarHZadIvqIPXf/UU=;
+        b=RRDPSyN1TlJZt8ZP0uZngqsQBLjBoM2E5OEwA8GxKo7KJ4TsnSaOHKLevLNxs+URP2
+         3kmw4E65xA62i0kOtMe1co0JBOIcKKr4ikrkfqHJ533XDHZasRYmqmvuhF292y3nsHJJ
+         u9Ajs12tyZutPvcyEA6SsRcy/ppEsxfT8JYJM18lUMPX6TKcBdQHiGzVjMph602yneGw
+         SAtnBdJcL/OANxoWYUlAVyiRa19rZ3AYkKP78RtdRnYWVuJXDGzVTlgR3YW/xKB1/GLz
+         wdu8bfTDg5FtaEnsZXrdG7gs6hyQlZlUYzcBgerZOfB1+gUi8QyZ1LMrSeAw4U7E1Ub1
+         wPJg==
+X-Gm-Message-State: AOJu0Yz/+1kglNNiV5GC0zy4BeKai1dV0TBHjA0QrmYbIxn7/4aefmnT
+	NFVLw6tDOev0/OluLJLQ+2/Fzpg7NNf+/vw8IhoosenY95syJ71PC6UjYi6EuGlD8pU2Q+BiHaa
+	U93FVfgPNkNVnxDM7EmDqdZVK10LCzTFK6g==
+X-Received: by 2002:a05:600c:35cd:b0:407:39ea:d926 with SMTP id r13-20020a05600c35cd00b0040739ead926mr3334331wmq.9.1697609600120;
+        Tue, 17 Oct 2023 23:13:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEuIoLDvZ0mlKrl+W6wRLZPMOUt1cOJOQsIknXp12lME2ohScFjJl+8og+nFV702B44GhG97Q==
+X-Received: by 2002:a05:600c:35cd:b0:407:39ea:d926 with SMTP id r13-20020a05600c35cd00b0040739ead926mr3334317wmq.9.1697609599719;
+        Tue, 17 Oct 2023 23:13:19 -0700 (PDT)
+Date: Wed, 18 Oct 2023 02:13:14 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
+To: Jason Wang <jasowang@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>
-Message-ID: <20231018020403-mutt-send-email-mst@kernel.org>
-References: <20231017200645.779222-1-parav@nvidia.com>
- <216b7799-9449-4271-b50f-1faead34bd9d@intel.com>
- <PH0PR12MB54818B90249B51BC2803BB9DDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+Message-ID: <20231018020744-mutt-send-email-mst@kernel.org>
+References: <PH0PR12MB5481A03DDF43FCBD4184693FDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <e2696020-8444-0ff3-a774-0b41151a18fb@intel.com>
+ <PH0PR12MB548184740ED3C1011C2A85DEDCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <6fc4af28-67d9-781b-a243-a6c2ebf0244c@intel.com>
+ <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEuw0qvrVSLXfT2KaCX-GYiw4o9=FifcYDnDHFidGhq23Q@mail.gmail.com>
+ <PH0PR12MB5481691682222F6A7E495A7DDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsLSW-_dTwWD8RJn+wudQL1itDFfZZV15GH9NXy=bLbCw@mail.gmail.com>
+ <PH0PR12MB5481B064B44E165949A127EFDCD6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEuz8wyT5vkt7s+fQA7x=r92KP2886dDdzW82y7NUa9zRg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB54818B90249B51BC2803BB9DDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <CACGkMEuz8wyT5vkt7s+fQA7x=r92KP2886dDdzW82y7NUa9zRg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] [PATCH v2 0/8] Introduce device migration
- support commands
+Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
+ device context fields for device migration
 
-On Wed, Oct 18, 2023 at 04:04:15AM +0000, Parav Pandit wrote:
+On Wed, Oct 18, 2023 at 08:52:51AM +0800, Jason Wang wrote:
+> What's more you design is incomplete as it can't be used for migrating:
 > 
-> 
-> > From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > Sent: Wednesday, October 18, 2023 7:27 AM
-> > 
-> > > Changelog:
-> > > ==========
-> > > v1->v2:
-> > > - Addressed comments from Michael and Jason
-> > > - replaced iova to page/physical address range in write recording
-> > > commands
-> > > - several device specific requirements added to clarify, interaction of
-> > >    device reset, FLR, PCI PM and admin commands
-> > > - added device context fields query command to learn compatibility
-> > > - split device context field type range into generic and device
-> > > specific
-> > > - added device context extension section to maintain backward and future
-> > >    compatibility
-> > > - several rewording in theory of operation
-> > > - added requirements to cover config space read/write interaction with
-> > >    device context commands
-> > > - added assumption about pci config space and msix table not present in
-> > >    device context, which can be added when hypervisor need them
-> 
-> > We also didn't see these issues addressed in your V2. So, what's the purpose of
-> > releasing this V2?
-> The purpose to cover comments and improvements from Michael and Jason as listed above.
-> Only questions from 10/16 and 10/17 are yet to cover.
-> I will answer them this week.
+> 1) owner
+> 2) virtio devices that doesn't structure as owner/member
 
-Maybe mention this in the cover letter next time. Thanks!
+Fundamentally, the alternative proposed seems to be using PASID for
+sub-function partitioning. All well and good and forward looking but
+there are vendors who want to actually ship hardware right now and that
+means at least not ignoring SRIOV.
+
+
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
