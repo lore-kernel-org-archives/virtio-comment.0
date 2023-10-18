@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7775-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7776-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B63CDB474
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B681CCDB47E
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 04:02:23 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0EEDF7DD65
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:56:41 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E646385092
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 04:02:22 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EF1FD98688B
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 01:56:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BA3FC986896
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 04:02:22 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id DC7A0986885; Wed, 18 Oct 2023 01:56:40 +0000 (UTC)
+	id 8CC1E986887; Wed, 18 Oct 2023 04:02:22 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,182 +24,116 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CAD1D986886
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 01:56:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 77D36986888
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 04:02:22 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="450138548"
-X-IronPort-AV: E=Sophos;i="6.03,233,1694761200"; 
-   d="scan'208";a="450138548"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="791418365"
-X-IronPort-AV: E=Sophos;i="6.03,233,1694761200"; 
-   d="scan'208";a="791418365"
-Message-ID: <216b7799-9449-4271-b50f-1faead34bd9d@intel.com>
-Date: Wed, 18 Oct 2023 09:56:32 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Parav Pandit <parav@nvidia.com>, virtio-comment@lists.oasis-open.org,
- mst@redhat.com, cohuck@redhat.com
-Cc: sburla@marvell.com, shahafs@nvidia.com, maorg@nvidia.com,
- yishaih@nvidia.com, jasowang@redhat.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bC6U3JmnNc+8p2GUIbkiQMTkVv4TPvL0gA8+ogRdkT2oT0msn1w9Fd43UjKCc2lopPXxPCbH4l1MqZmy/we2rPew+Ddp7oMcr4GS0hIA7IhxhtOk85zXSwF+Tqsk7Ol08y4YcKd6AIK0p5Wy47nyuA2MTRlRwO5H5KMDKZxECPGD+w/riOAOQx9fwrFbycFhIIZZ5lt0P03mxwId1/jsXucECnknfWVUN1gjvUwE7SPOj4Qc0o3ZP0Flo1mozAeESost9m+cNn+bTeiTKZkh85OQ4I8QLdoOSUZJy4SbR+qgHJ7P2KwDMRg3oKoMBUeCNaqNckj5cbuNHNKmXHgyjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5WZxyVOJO/CQiX57CBVu2A1r0UZEACjaf5AxjEkQpqM=;
+ b=EvhYDP4IXYYSccFep53Pk46aveH7xKZeHcLuJJ0+P7idFNBMQ/7/qWIwLtCHn28CrDqkP6k8fQRx8ZkkdxVKEgCd9jbIvxZrVivsyPasiEzRisAJ2/I8KZrc/H493uvkXcpj6M7LYJHU6z1YVA204PYZY2iwHbPXU24/XcHY9DIVoqES/zQl37f6yQc6//03Xht6oOswr5eVfLNQvDIRSgm8+VrYvyYzC5ThU37Ddez9Cq3a/DkRrOJXoFSitI9aghrc8zgfT2opGgqg4hOzWtliAiXhEPCgJ4PbfEWgDBXdBk+NK+XECbShIeb3Npvb/aC1wVGIWCgk48fsECX8OQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Jason Wang <jasowang@redhat.com>
+CC: "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com"
+	<sburla@marvell.com>, Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb
+	<maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Thread-Topic: [virtio-comment] [PATCH v2 0/8] Introduce device migration
+ support commands
+Thread-Index: AQHaATWGrPsaHC6gFE6bswcyyPm03bBOuKqAgAA0H1A=
+Date: Wed, 18 Oct 2023 04:02:19 +0000
+Message-ID:
+ <PH0PR12MB5481001C00D459EF30FB0BA3DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20231017200645.779222-1-parav@nvidia.com>
+ <CACGkMEtr7HWPQ+LRX1pR9EVq7Pe13OVjbQbdrGshZBsh_Rv_2A@mail.gmail.com>
+In-Reply-To:
+ <CACGkMEtr7HWPQ+LRX1pR9EVq7Pe13OVjbQbdrGshZBsh_Rv_2A@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231017200645.779222-1-parav@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] [PATCH v2 0/8] Introduce device migration
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SN7PR12MB8171:EE_
+x-ms-office365-filtering-correlation-id: 883e6d31-938d-4643-9a52-08dbcf8f0656
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ FHv0Mnahj18xC6yQxJD7W/MGnKd+mDKgmuet4/alO4fzt7yu/BC5pgrH7MKQ6gf6BcB2WoMSd+3AIet/wBQlQASInwyJvgXXO5DqOKHaPBS8cTjT0vRVg+JSMRzTO9zXsL4Vcs8x9LFX96BtY1/jT1B8GAjlbo32oaqcK8IgJw8sQLzNpvky21iUq4CxUBGIcS5jwU4Ir86QRa75JqNz+kHskcmMqd6IEftA8xM3a0lj6QfNQpnnfepPoqhPwYnYnC8gkSCVSlywpkCu9Dm+wa+DStUY6FDRmz794kzQaP8Ew9kz3mwtjuscL1QAtueTYIBTPYUjj7sG3FryHjJI4ncPXAqVnX4pDwCOO2KCgpk5V0m6CJMptuO4lHYsdzU3xaPFCeVyj/iwmpFLGO6Blm6ok99FbHAPUCLDCgJa25ipWF52wCVN/pM5cVMkGdgRl++hcC9p6VkHwJceV/NywLmY+52es4Pe+2MXFYH3bC1ExKSY9BP2NGwSC84xYoRKOc1/reCxOKGYOuc9A1GZ6/HJ5N1TuyB47BkNW8eWiGNjIkbC+WgNlf3JyRXZmPKe4hmxT+SxMzD8ToC/htZSs7RhHeN/5vbc6QOH3rhc84WHPQwQnX4vyLIDnDDJqBLt
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(366004)(39860400002)(376002)(396003)(346002)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(55016003)(478600001)(6506007)(41300700001)(7696005)(9686003)(71200400001)(316002)(5660300002)(26005)(122000001)(54906003)(64756008)(66476007)(66946007)(76116006)(66446008)(6916009)(66556008)(38070700005)(86362001)(38100700002)(33656002)(4326008)(4744005)(8676002)(52536014)(8936002)(2906002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?WE96OGN5dXIyVjN3UUhEZ3Z1RnRuQzh1TWd3V2NmaDJVTTE1NXVJLzhSNmgw?=
+ =?utf-8?B?TDdMeHJ6WktEOGtXMTRqUTdqRkhpMzhnREFtTzBReFVkR0YvU0RLTFdlUDZr?=
+ =?utf-8?B?WDZaQmcwNGlZYVpsWDcyZW9HVWJmMndRSnRrSnJnMXJtSFUzb1Y3aFZ6Mnl5?=
+ =?utf-8?B?MkJ3QUFQVlVMVEhZUXdUbFVNK0wzd2FXeVRZc0hpSXRqQXlhM2syaDZMRnZC?=
+ =?utf-8?B?WHlqbll4M1lvdUQvdkJaSXd2WFNJdXhyMklOSkJqcE15SkVRdEdJZkI2bmJR?=
+ =?utf-8?B?eVJwdFppUkZjTEEvK2xEVzdqVHpBSll1VnBuckloL2xHem5VMnZCaXd5Yzhs?=
+ =?utf-8?B?UGxTMC9xMTZ6NWNIREM1aDRDKzdlTGg3WUMzOXNiWVRIVlQyNE1kQmluZTda?=
+ =?utf-8?B?OWFEMUNEc290ODRKTmZsV0VhRnNwbFZsNklHUHI4RytpS3daN2s5YzgxamN4?=
+ =?utf-8?B?TUN1WjlxL3RkMmtPRUNnMjY5SkViYm9HZFVnQkd5UXlDK1ZtNWkyL0JEVGgx?=
+ =?utf-8?B?S0Y2bHdqeDJCaXArbmltS0RHNExoYnZqTUNBakVSNm5OdjB2cVV3aXZHeU8x?=
+ =?utf-8?B?bXMzSzNWMDBINmtWMDNCeHRZQlhBcmxUU21qb3RvcDdjZG9uSlJJeklxT2ZX?=
+ =?utf-8?B?aEdsZUJpSWFMMjlFbEVRc2dBRG5XZ2c4NTlWV1g5ZllIWThvbmxvV2xrRVVk?=
+ =?utf-8?B?MTYycENQTWFPR1Ivd3l1S2hJVHpxclhyTnIyTkNqNTljb25mY2ZBUFRONjVI?=
+ =?utf-8?B?RlFHQ2Rzc25uQU9RbmdMSlpYWkNUcTY4R1FET2NIc29lL0podzVFVEp1c2N2?=
+ =?utf-8?B?bFlCbEM1dHl0bzJUamtPWlg5enBLYjZKNGNTZVNwMXI1cWU1YWNNbEVObUdM?=
+ =?utf-8?B?U05SUXZlcjEwa2RQWjVBY1pPT3hCS1QzRlpub1ZtVGZRVkJFUFRZanN3UnYv?=
+ =?utf-8?B?elF0TjhQL3AyYzNtSlJjZDJWZ2gvYWtabUVxNmsvQkdHZXhTaVNHNEsxWXZN?=
+ =?utf-8?B?Q0l3NXZubCtVMVZpQ01FUDh6ZXJEajM2L3l0WnFvY2pHK25ydm9JYy9iL05k?=
+ =?utf-8?B?YStHaG9BTFdZbDdnLzYyM3dIQVZLUmlQWVdHWmVRUkk3TmpYUzBoTHUyWnhC?=
+ =?utf-8?B?c1ZBM3JnR0N3cHlYdkdITEQzZVY0VmZDaW04cHpURnc3L1A2dUV0Q0FPNmFj?=
+ =?utf-8?B?TW1NODdpNDQzTG5GVGxSVUZ3NTVZOGFDZ3dqNlZFamg1cXErVE4xMnYyTldD?=
+ =?utf-8?B?R3NqTWpWdlZ0Y05RK0NxMFFMY0E4ZnZJemRYYjU0Q2NBQzJxaFNzRVVpaW9i?=
+ =?utf-8?B?aSthWGJBL0pIS1BuVGF0MHpuR3RkVkV4RVhhZjJhUkx4RDRaMHFHelBpZ3JD?=
+ =?utf-8?B?cU5GRlpuWE9HRjBzRU55QTBwajB1WHgwRzZmRHhrMmR1eFZ6WW56WmRXaUMz?=
+ =?utf-8?B?NGdUUVpoalJNUHk0eWc1UEtBcngvVEN5cURYNkYxNlR4Sk5lTnBRMVJoNHVG?=
+ =?utf-8?B?NGFnc2pubTVwWkNveEdkRmlxcGk3ZzFoOHpkR0JCNk5mZ1RRVzNNU1lGem5o?=
+ =?utf-8?B?NHhCTy9NVUtsdmYrdFI5UnpIekttTmNubVhOSXFjWUZlV3BXRkhtKzRoUTRG?=
+ =?utf-8?B?OFFYa2RIS0FEOCtqNVRWM2g3WmxUMVlqYS83UUs5Q1BKZGFqVDE3OEN0ZU5B?=
+ =?utf-8?B?MlRRcnZnSkhJQnBTM3ZSam9WK2VRV1IwTlRITU50MkcrYTQ2Q0JXaDdFeDN1?=
+ =?utf-8?B?NGMxS05mU3diTUhRN3pSdW1IWWVjNWNrSUk1VWdmRC9jQzhZY3NlNlNsQjE5?=
+ =?utf-8?B?Rm9ZOFlQV1U2Vm8zZUFSWkxMTWozai9HdkRDMENsZFplc1Y3VmpLTEpIU1Vm?=
+ =?utf-8?B?TTFtNFlJc0Z2Qk9jWUU1bytSdnJIV2NNVkE4NnJUMUVYVFE5azQza1VBSW1E?=
+ =?utf-8?B?VjJieVhML2FUKzhwRjRIL3Y3WjNVTTgrVm4rSWF1ZWJ0c0FxT2ZmanlMV0E1?=
+ =?utf-8?B?RzJpZWdWTUh5aThMM1FTL1J1YnR0MjNQZFVFVm5Oc3gvU290YlQ5RW1KTERy?=
+ =?utf-8?B?T1VPR1gvUTdpR2JicmNVQks5R1I2V0FOTUFCNlAyeld6ZEowb0ZBQUpZT0da?=
+ =?utf-8?Q?KPL0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 883e6d31-938d-4643-9a52-08dbcf8f0656
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2023 04:02:19.6117
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vh3DEUjydu5OkEZQQYAW9QZ0/2ogB93ImqpiEiY+PuQEkcYd9+9wFOKh8m9YP8gteOsGV1Z+VYQe3FN7QmJ+eQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8171
+Subject: RE: [virtio-comment] [PATCH v2 0/8] Introduce device migration
  support commands
 
-
-
-On 10/18/2023 4:06 AM, Parav Pandit wrote:
-> This series introduces administration commands for member device migration
-> for PCI transport; when needed it can be extended for other transports
-> too.
->
-> Use case requirements:
-> ======================
-> 1. A hypervisor system needs to provide a PCI VF as passthrough
->     device to the guest virtual machine and also support live
->     migration of this virtual machine.
->     A passthrough device has typically only PCI configuration space
->     and MSI-X table emulated. No virtio native interface offered
->     by the virtio member device is trapped and/or emulated.
-> 2. A virtual machine may have one or more such passthrough
->     virtio devices.
-> 3. A virtual machine may have other PCI passthrough device
->     which may also interact with virtio device.
-> 4. A hypervisor runs a generic device type agnostic driver with
->     extension to support device migration.
-> 5. A PCI VF passthrough device needs to support transparent
->     device reset and PCI FLR while the device migration is
->     ongoing.
-> 6. A owner driver do not involve in device operations mediation
->     for the passthrough device at virtio interface level.
-> 7. Mechanism is generic enough that applies to large family of
->     virtio devices and it does not involve trapping any virtio
->     device interfaces for the passthrough devices.
->
-> Overview:
-> =========
-> Above usecase requirements is solved by PCI PF group owner driver
-> facilitating the member device migration functionality using
-> administration commands.
->
-> There are three major functionalities.
->
-> 1. Suspend and resume the device operation
-> 2. Read and Write the device context containing all the information
->     that can be transferred from source to destination to migrate to
->     a member device
-> 3. Track pages written by the device during device migration is
->     ongoing
->
-> This comprehensive series introduces 4 infrastructure pieces
-> covering PCI transport, peer to peer PCI devices, page write tracking
-> (aka dirty page tracking) and generic virtio device context.
->
-> 1. Device mode get,set (active, stop, freeze)
-> 2. Device context read and write
-> 3. Defines device context and compatibility command
-> 4. Write reporting to track page addresses
->
-> This series enables virtio PCI SR-IOV member device to member device
-> migration. It can also be used to/from migrate from PCI SR-IOV member
-> device to software composed PCI device if/when needed which can
-> parse and compose software based PCI virtio device.
->
-> Example flow:
-> =============
-> Source hypervisor:
-> 1. Instructs device to start tracking pages it is writing
-> 2. Periodically query the addresses of the written pages
-> 3. Suspend the device operation
-> 4. Read the device context and transfer to destination hypervisor
->
-> Destination hypervisor:
-> 5. Write the device context received from source
-> 6. Resume the device that has newly written device context
->
-> Patch summary:
-> ==============
-> patch-1: Adds theory of operation for device migration commands
-> patch-2: Redefine reserved2 to command output field
-> patch-3: Defines short device context for split virtqueues
-> patch-4: Adds device migration commands
-> patch-5: Adds requirements for device migration commands
-> patch-6: Adds theory of operation for write reporting commands
-> patch-7: Adds write reporting commands
-> patch-8: Adds requirements for write reporting commands
->
-> It also takes inspiration from the similar idea presented at KVM Forum
-> at [1].
->
-> Please review.
->
-> Changelog:
-> ==========
-> v1->v2:
-> - Addressed comments from Michael and Jason
-> - replaced iova to page/physical address range in write recording commands
-> - several device specific requirements added to clarify, interaction of
->    device reset, FLR, PCI PM and admin commands
-> - added device context fields query command to learn compatibility
-> - split device context field type range into generic and device specific
-> - added device context extension section to maintain backward and future
->    compatibility
-> - several rewording in theory of operation
-> - added requirements to cover config space read/write interaction with
->    device context commands
-> - added assumption about pci config space and msix table not present in
->    device context, which can be added when hypervisor need them
-> v0->v1:
-> - enrich device context to cover device configuration layout, feature bits
-> - fixed alignment of device context fields
-> - added missing Sign-off for the joint work done with Satananda
-> - added link to the github issue
->
-> [1] https://static.sched.com/hosted_files/kvmforum2022/3a/KVM22-Migratable-Vhost-vDPA.pdf
->
-> Parav Pandit (8):
->    admin: Add theory of operation for device migration
->    admin: Redefine reserved2 as command specific output
->    device-context: Define the device context fields for device migration
->    admin: Add device migration admin commands
->    admin: Add requirements of device migration commands
->    admin: Add theory of operation for write recording commands
->    admin: Add write recording commands
->    admin: Add requirements of write reporting commands
->
->   admin-cmds-device-migration.tex | 641 ++++++++++++++++++++++++++++++++
->   admin.tex                       |  40 +-
->   content.tex                     |   1 +
->   device-context.tex              | 189 ++++++++++
->   4 files changed, 864 insertions(+), 7 deletions(-)
->   create mode 100644 admin-cmds-device-migration.tex
->   create mode 100644 device-context.tex
-There were many discussions and questions on your V1 that did not 
-receive effective answers from you.
-We also didn't see these issues addressed in your V2. So, what's the 
-purpose of releasing this V2?
-
-Thanks
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogdmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmcgPHZpcnRpby1j
+b21tZW50QGxpc3RzLm9hc2lzLQ0KPiBvcGVuLm9yZz4gT24gQmVoYWxmIE9mIEphc29uIFdhbmcN
+Cj4gU2VudDogV2VkbmVzZGF5LCBPY3RvYmVyIDE4LCAyMDIzIDY6MjQgQU0NCj4gDQo+IEEgbG90
+IG9mIHF1ZXN0aW9ucyB3ZXJlIG5vdCBhbnN3ZXJlZCBpbiBWMSwgZG8geW91IGV4cGVjdCBtZSB0
+byByZXBlYXQgaXQgYWdhaW4NCj4gaGVyZT8NCj4NCk5vLCBxdWVzdGlvbnMgcG9zdGVkIG9uIDEw
+LzE3IGFuZCAxMC8xNiB3aWxsIGJlIGFuc3dlcmVkLg0KVGhlcmUgd2VyZSBhbHJlYWR5IG1hbnkg
+c3VnZ2VzdGlvbnMgZnJvbSB5b3UgYW5kIE1pY2hhZWwgdG8gdGFrZSBjYXJlIG9mIGJlZm9yZSBs
+b3NpbmcgdGhlbSBpbiAxMDAgbG9uZyBlbWFpbHMsIHNvIHBhdGNoZXMgbXVzdCBwcm9ncmVzcy4N
+CkhlbmNlLCB2MiBjb3ZlcmVkIG1vc3QgY29tbWVudHMgYW5kIHN1Z2dlc3Rpb25zIHVwdG8gMTAv
+MTUuDQo=
 
