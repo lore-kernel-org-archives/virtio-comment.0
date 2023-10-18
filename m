@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7809-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7810-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4672CDB482
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:33:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8C77CDB482
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:41:29 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C8A3E1A672F
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:33:30 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id F02D52B056
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:41:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A166E9868A5
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:33:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B9D879868A4
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 10:41:28 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 948D4986898; Wed, 18 Oct 2023 10:33:30 +0000 (UTC)
+	id 9A4CB986898; Wed, 18 Oct 2023 10:41:28 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,46 +24,37 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 87410986899
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 10:33:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8B1CF986899
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 10:41:28 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BLfvTBFQ63gKt7VwXbfoxevlIuQNJscUX9VWoOo4DCrijodR4ziB1gARxowAPOWbQc7EByptOuMSSxQl+nku4AUjO0U0u8wk5s79O2E5v85doLfE9wJeDq6BKyaKoXFpZ3pP4qUWuN4qztzmBpExUu5DaA/VZFYf9H62faAY7k+GTlvaBNTjwmg+I8y/KBiJ5JYaaikKzkFnoepvpyCKM9mCVxo+einv07Oqj3p3G9qlmHU3cH8GfNb2X//xRQDMTM2xnBCSivvD9g7GsD2sok9RM2jPrrPXPO3Vw23/sID+6W1yU2J/6LfW6LyopBrFNsYLkCUF/Q9JxpmYQaOG9w==
+ b=l9GRnOQ2k1bgUWtURwxyIT6V2u01Vf0nUZFmiLxxbARurTF+VdW8WueTEQbOlgbQ3VGbhkPzJiVnREdDAwOthsmklVTxxDt+extQVPuaiUg4dG2G6q+g5CBWV/cBa/QNsIgI/oI/csRs+c0pnWHta896JkjlfnTjqpIKfbtg/xq1OmJ1+JTc3sNu6tJjwQgmI16RBropJZghJMJRW5HjI7jGv9PV+SZkVFb4XBEKItPwfjKEHkBDEbGJUwzOow5fRafkej4n9o6DPq0ysghp188E82UeeQ0E0UPnadLrMP4kqYdT65xInvi+9erFXVh5ZOkHJTaZHUknuepEDFS09w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cv7/mmlVFsdwKE7ZsjkSBeEYc9FGua8A4Ryc+ciRdXI=;
- b=mxxY77ngbFGZc/Bjj8rFek+43bhv5QIuesr+YdEMX26pxgSDclUzH60NyRtCgrdoBzrZIBEWkTkbzFt0haUF3Tr4JeLreCkrfh7CDdaI2E34ZAoJCEJuAxE9i/cI6iFEIiPybq3o63RmtQcu/4ZOc80fjoy0CaS1OcNe5vTW+jhURbKG+13CNk+9Is3874m4ZQRKqh/kBo3XM4IAi8sqdENt3vOcQpN1PEvPnrMZ3gQMznmFsXWegv82WsOZ33XyaG4lwIleQaPhbl8aNLcx6188RwXV6U6w5YPyoTwp8ZaNp3U1NIlCu/wTMvKCNyqFGfrwcuZEykLEojOXx23p1g==
+ bh=wifgxlF0pHJvkvbLEohiORndvl+N+edbjO76EB96fEA=;
+ b=h7WNcNVxjgTb3zD7+El8AsrNiXFIZ7b5MY5iYhvsAVfle+dObguUd4RXCzcPvR4HiCVk5dD346CM4kIefzdPWUvtgU9+MDuVZdT62ZsabvaWhQ+vAh3Ju6XqvslMT9qSmI0UO9VimqdpDeP9h4EjtjLM7GtG0oUkNWZu+wRD0vnmtGs+pU4ZTUTKywYpdxFbSj0JEVjZjGEcukQ0/zQCjDbBSgaYGv7zUcxnCL/5wen/7kMbtVPXk/gXI8Ncj4I4BCX4myqF0+ltPprjyIWjQ1+vX4SrX2Q+UGvDFDxP2lHLWMm/94cxpPjxcNlBstwFDhc8dp1AbzehO3wdN49BPA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
+CC: "virtio-comment@lists.oasis-open.org"
 	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
 	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
 	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
-	<yishaih@nvidia.com>, Zhu Lingshan <lingshan.zhu@intel.com>
-Thread-Topic: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
-Thread-Index:
- AQHZ+dpD+jj/KUeLHUaMn2y+w39Cb7BBJzcAgAAHNXCAAVl+AIAABSzAgAFhOwCAAAW5UIAC/cWAgAAsnSCABiQaAIAB1DtQgABOuYCAAANrEA==
-Date: Wed, 18 Oct 2023 10:33:27 +0000
+	<yishaih@nvidia.com>
+Thread-Topic: [PATCH v1 4/8] admin: Add device migration admin commands
+Thread-Index: AQHZ+dpI2732gBmw4k+Ms+IYHvK027BPKhAAgAAY/MCAACQ/gIAAAnwQ
+Date: Wed, 18 Oct 2023 10:41:24 +0000
 Message-ID:
- <PH0PR12MB54819A0061621A1A940B01D6DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
- <DM8PR12MB548029E1AAB8529339D22D4DDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEswD2XLjRNzyqo9M-yT77PsOJqJmDLxSKd2ZOgqLYjjZQ@mail.gmail.com>
- <PH0PR12MB548143D2AB83CA90E7F1C9D6DCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsk7ZgmWuqm9U_Tych8+Ceu7X9RymQASeSS_ayB2PGTgg@mail.gmail.com>
- <PH0PR12MB54817B050D97CC7123DE30ECDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEux-kXQ=d_6CVyfhNit4TMJ=V1p8C6XRDXhCLAJDD5kRA@mail.gmail.com>
- <PH0PR12MB5481CD04EF5122C041D63CCDDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEustM=iejjJhGz0DW1iT9qJpha4zLbMJ-cVO2VU4Kq2Kg@mail.gmail.com>
- <PH0PR12MB5481FD2FAFC2C58AE0E9A58BDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231018061343-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20231018061343-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481C901829C27B1B2D1A704DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-5-parav@nvidia.com>
+ <20231018022502-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548141412C409813A4203DCDDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231018061958-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231018061958-mutt-send-email-mst@kernel.org>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -71,102 +62,264 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BY5PR12MB4227:EE_
-x-ms-office365-filtering-correlation-id: 75bcc3ef-4dd1-4f2b-4127-08dbcfc5aa33
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|PH0PR12MB7472:EE_
+x-ms-office365-filtering-correlation-id: 1eb8bb12-dc5b-41fb-37c1-08dbcfc6c6c5
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- +yg505K6dmQWPSHeL3M/+cN2XiJmJkihPzJM+2CU/yy9HKBw/HQ31yo7PB/3NJvKm4vku/6PNxqsl7XbmEbkKm3RVYUHJJqXN+SV2CRE023l8wHMXGrpzAPNwNdh2bG9KzBon7E4D63M7gL5BboqC3+o48/f+a0UP6VlosJozrrUnHjdzZwlLcGMemuf1IQkoEZ6NBbWDsNM7CXMOxw75vncT/rdgLU4o5R4yZa2SLHSQJeA7+M9pD4lc24KwjzolY+dqZs7MhF1fKhNgcuo9W0f2ASsBkrA7iXc/vIsXEzPJW7QssUFtXpbEfbou1ulNltvywV5UvWwD09ft8+i63YKC6uu0g+E+PR9NIGBd9zTxKNjjjKbCxMWW990wJIVzKFcHID/qLhG/eORbACBTtUp0mV1mZWmCjirKgi/A8mx9/09J1BHAKXap3KLvKmCbyI3utwuxT0Vvzr/JpcNZYQk7u6s+Z4k5HWRgohhrZgXIhEyP0cer4m+rnMAu9N3ZgOx6I8zvnKf0NJbpsnfG0qrUV0B5AUDPHOS2Rs+TFdId6wQNRCAjM3uXjvoSv6z/WKevrElTRHyxUZhhfjlsbPU6ddlLXGs9FagvcV58xoHSG3gIhWpXkpX31ZePgbA
+ /d1r+RIyoN1gGkbikMYBXfoDapHApg/xu6t9PxYWvIzu65JlArEOpghZ/HLpRQzUFSpdwzrcdRf03yfuZeZ7RJdmmo/WVyhwqv8NNtLmeQPE+WPMqZw7oT8i7IWp7nqLI6NjvqcVyQTmCDuR+zugpGmcfb1RItt52lSiNxYi0rC/YzlrjlREnK4DFJcHornVHN0SrYOx06u2rMEgO/bbz6HhUa3mFHrrrQNO4gvneYU+iKLOWhg9OOjPNnouHM+PGEYyK9T1iwcfcPOmX70tCRB1LqJsNYM1ERHCLQl4p+ZX4O66M1FUOCwYjmJara+kFQvstC3Y9Hb3MQXDuC9OKDy9sGODlyfoCUm7iVCNa6N36LzwVQilbi+5DmLSMOHanpIF/XjucqNbwg2U4hSVMiEyHK5BhHWxOU9Jm4uWe9Y8N9lGljfenHZlq6VUt36alWRubTRsGEA1hXgmI1plTmvOAVmxjx8OBu7A2hpYRgPsyPTzWHhFTLBsNKddfczPKh9p5mC0K8APQoGjcrMIwh7B9OuGgQ9fnFxNDptJKqljWTy8S/BygRU1B1tyNDp8mmTWwhyP4VvXkFj42k7v7AGvssfWbFX4kX0gr7v4Doiw6NE29+BFUfY+rVRHX+hAk4snZE4L3dAGQ4ePwqB39n53HKgLMI8nBZpihPzgP5g=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(136003)(376002)(366004)(346002)(396003)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(2906002)(7696005)(83380400001)(26005)(38070700005)(71200400001)(122000001)(33656002)(86362001)(55016003)(38100700002)(478600001)(9686003)(66556008)(8936002)(8676002)(41300700001)(6916009)(54906003)(64756008)(5660300002)(66476007)(52536014)(66446008)(4326008)(76116006)(6506007)(66946007)(316002);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(366004)(396003)(39860400002)(346002)(230922051799003)(186009)(451199024)(1800799009)(64100799003)(55016003)(64756008)(966005)(76116006)(66946007)(478600001)(54906003)(71200400001)(6916009)(66476007)(66556008)(6506007)(86362001)(66446008)(107886003)(83380400001)(38100700002)(9686003)(316002)(26005)(7696005)(4326008)(122000001)(38070700005)(33656002)(52536014)(2906002)(8936002)(5660300002)(8676002)(41300700001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?eIulgc5jwsA+IY3zmuA8zLMK/EqUh+aqIIUrYwZmhRqXgD63z5qXOBkcQDRa?=
- =?us-ascii?Q?fqPr2iCwYZQgGW5btOq4Smzml0c+RvIV0KcIwXUzeTrf/GyYDijx5f2bTePE?=
- =?us-ascii?Q?r4Ny5SabdUMZpbVLNzwqpJ7ghDEOJfa8vTxSCm7SJstqKKmdJp8HdJF5nlXE?=
- =?us-ascii?Q?jcERwsc3vSE60OmD0QdO9vmqkd6H4bxcKNF+2BR8S5ihDKmqhGTrrFc88QNd?=
- =?us-ascii?Q?HQiAA4J0tm9ajr44xsfJVq6TCoC42ngAgMgdtyvBw8Ohnt0VEEhv5LKDHhJ3?=
- =?us-ascii?Q?+apK7vuXc2QF2cthSqIz2UbDPoOhYG5vPmtUfA1w/PzWNmRo/jiwflGGE594?=
- =?us-ascii?Q?sOxKwp+/yMn2OrtMOKrV8FExI86aFtmTcSw73JeO+ej0+V/L172IiiuuIMFQ?=
- =?us-ascii?Q?wB1/T62s8NrQnOIq2G76glBgGerZv+ilNeNsABoyW4+Vcy03VQlXix6pwotr?=
- =?us-ascii?Q?00e+MQynrEJyxXdKrAeJOqWTUolsBDfQ0SLjx6mtpQlUBfsH9dCzzCZyx+L8?=
- =?us-ascii?Q?ezCRzaL06/tu5hJkwxLo/LtiXbQy2CSwYJogoZTv598hSryDmKExxMMTR15j?=
- =?us-ascii?Q?MD4TlRASIhDXXlBgbckVV8yDfymp3H+is3nMJNQ5yyVcag/CLTlq3ursY5RT?=
- =?us-ascii?Q?F9mEX6KX8A1CKpoFPjXeaDrKb0gn1zO+2Nv3fFimtvLwsZ2mFravnqlkzy4/?=
- =?us-ascii?Q?wQcedURiKf61Do6WBhtU/CgpgxIWxah9cL7BMMmiPfsS1slYz3YzMNzH1tQs?=
- =?us-ascii?Q?zMOYyt28adreJxdZHoFgsKM+Mti1Tpd6QD8ng7Agjr51OXNQEkQ0uT+2wi50?=
- =?us-ascii?Q?2J8UVIzCUuXB7LKpFhWwTLP1nXPqjaakt0lvBeNX1y3eW8/KdzX81wEHqpHu?=
- =?us-ascii?Q?+6d+4CQrY/FIvSqlFDjR89fonJZN3Rm0yap97wwrGrkyaxbFvacZpwv+2U6j?=
- =?us-ascii?Q?2arEZENcNYILHqArWDB2NEpKHEO6PeIVqw6JXyYK2/oA4drPGca4F6lLUGJD?=
- =?us-ascii?Q?F07RwTLXDvDZDnKTDMZ3baGEtQ9Uj3hwZ9F6lEFDRu0tElDe3eeKuWUwVbLo?=
- =?us-ascii?Q?zmQwkwq8IFttea5E/8dPpnv5Ek1y9I2X9XJ1Jk1N7P7zF/flrl1C3CggPIyi?=
- =?us-ascii?Q?X24ixPiR3lOIvsY+LSC9ajNzNFhkqZyTUK0JpqPcViWFD05Vgbkg0kZz95Aa?=
- =?us-ascii?Q?2o/yWRb80x+1HiJCrAcNenFZPslEEPFATy34pIPRftFI5eSp3S+NaZOU3R99?=
- =?us-ascii?Q?jvnHyx/h494qbKcY/weLx6VKtw1UfxBmbwVWM7sdQ6pRn2SQX5WW6MKOdIUO?=
- =?us-ascii?Q?09CkmVu6CMo9o/VSH96TqZKyu+CdSB3/Mxl+jioLEC+E0Mxi8f1aHLBOWnc8?=
- =?us-ascii?Q?QVlJhOMqRQdhBjOh/SqNOg7DZLo3FIPFMU8VGqoGugcWi4R1YchjwtaX8i2i?=
- =?us-ascii?Q?mAfXNyw0svQwnu0szdm2roP3f4FpcI0To5lqj6DCd2u8rF9eEf6WDr3m2C/5?=
- =?us-ascii?Q?53UVfMSfNy82lkZFrOegYe3JSy83vpbK2cIMKv7tDB3JNbwWk8KBzznFYJEF?=
- =?us-ascii?Q?eMdJJS+NmwNrF1eOKEQ=3D?=
+ =?us-ascii?Q?E+YGI7r9XqYTWnacRK+/zZ6wURToJEsibWNhKHu4Osj0upEzp+ZifD3JYJ5L?=
+ =?us-ascii?Q?7ZSXO0aM846sxowt8YxpmFFgYkc68gTZvAR3YTMrbVFVBxDDJKToZurNZUAj?=
+ =?us-ascii?Q?VE+8PBYlc28LBh6dq0kKY+cehcYFbN9s/jbQBwdGjmhLD6QWRDmUqw2Yav9h?=
+ =?us-ascii?Q?V7tA66uv97swgPn2JLbxibH5y/hyauGL15L35nW060JxNS0ukEpUYvblh6jz?=
+ =?us-ascii?Q?HbgrieRAEvTIGp2TDAjWm4CB8OFgOg4+YxIgoq8od8Ao5f1tyW1CpUFP+01Y?=
+ =?us-ascii?Q?b4no4lytT3/WkFZOOEpolXNQVuTGgq76AFDWm00W/SkjGIlV43rVVu/gxjKM?=
+ =?us-ascii?Q?p0Vt5KF4AvyGQwEQjJSP2crPf+3kdp6vrgr76ty85UqGU933B1HP1Iu5tD62?=
+ =?us-ascii?Q?FXePCq9V9rXig2f1HI92wg+VGecSGExM+yHddj1Kp4S470sp/wXOSgquJpn9?=
+ =?us-ascii?Q?CCiqTvyoAMWpANBXI3nD0D4DBRwKU8XZOjQl19U12m3O8JDysZXpAIRDOq5R?=
+ =?us-ascii?Q?x7Eksrn8SFnRsvlY80y9ZyKjMmoB4FqeDybfLSUWOxLT0zH76BFI03WtzYwA?=
+ =?us-ascii?Q?zCRwa6aT76iIYbUS+pLsaBKAK62X15Et8tT+3uylx03yInPoniMLFSv1Xim5?=
+ =?us-ascii?Q?ic9OZ/99Xr6qsMwrVWoFD5ZslWuK+L+nifrFoU/dJx0ElKyCcCPhlyyoVXZX?=
+ =?us-ascii?Q?9aZAFeTm1trcAPcdXGUbFmBEoMqOSa18EW+iqhb72jT2kfZWTntBlda9Xjve?=
+ =?us-ascii?Q?yEPo0xIPQEJhU1Je8C2Sxl6Xo7uQIhXXmOaKwOQPREHA84L54Vus4AwVHeDM?=
+ =?us-ascii?Q?bDS6gG2Mtl6n6fsMWUQblKQkTmw7zySsbDOzx93cOCSGyZMLkqBF+yYGamxA?=
+ =?us-ascii?Q?vYwA/C0qsIEvm3U50zKE+DfwcY4l1aWc+eykrjSjqlye0iAnDrmHO5yOMuvL?=
+ =?us-ascii?Q?PbGjXM5+cd5SyI4GlRD0hBfBjqucpzhCrRA+U7waD3T7ybIipwh/7RskXdYH?=
+ =?us-ascii?Q?gadpLC2PobMOunQI+Uj9U4rE3efybaE/S7AvGNzeH1e0wPrEGg6qmrtXuE5r?=
+ =?us-ascii?Q?IlLMtbaYeTNPZOqVieFIeTZrbR+2riVAALR6sHFug/xxuveVy0UI4/ZEiMpc?=
+ =?us-ascii?Q?3Eg4btIxeDWBiAMc/+BsjCN7IzuOJ23j8DfRtKuYAouaeSThuOu5i7pspD/o?=
+ =?us-ascii?Q?x3hLEG9FhvF5XiY2228C7RCPaZcJl30DufQ4maqXj68tN+ADrzppPfuOaViI?=
+ =?us-ascii?Q?PkMuIcZFe+2L0Src6sbEcfX6gy47CiMUKNTUg494B5lDTuSbPXflAUO7r6qR?=
+ =?us-ascii?Q?HZalmQkzK3Z/NUTKRn94kd5vwdT1o8VQIgkAWJrnLKyiMQsRRZOv+lQsx2ps?=
+ =?us-ascii?Q?2jFOARMB5jtamfoTL6fzr43cevBD7FxXEUfh0Qn+AAKEE3XIDQoXjl7reRIi?=
+ =?us-ascii?Q?Ahbd3hxv0XsuNRIhqQUg89whH+HNsR+ekFNSidUBsMSH3e9MITFFh3Vki+Kt?=
+ =?us-ascii?Q?7Onu5oH3bpO5XjtW6FsfPlKwY1B6D5WCNiJRfK5hQkK+yvXmZi70ac8NNV7t?=
+ =?us-ascii?Q?/+0pB/fdiWpOA+nFbVI=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75bcc3ef-4dd1-4f2b-4127-08dbcfc5aa33
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2023 10:33:27.3612
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1eb8bb12-dc5b-41fb-37c1-08dbcfc6c6c5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2023 10:41:24.8334
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6IQsUHHQB4Lu/qWvtF2UKdYbwfC/9xe3UgPaN9qK7fV08rMGzq1bGDi+KQpJKZ4HP1y6zdawWCIvzObS9sD48Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4227
-Subject: RE: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
+X-MS-Exchange-CrossTenant-userprincipalname: P/bYHIWQvYyI+KIDRIpJYgGIpdcuDNJfIlZozVDmNaM22YvJfQ6XfhpHEgbtVnFJf0fVQcD3vcBEFgdCl19fUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7472
+Subject: [virtio-comment] RE: [PATCH v1 4/8] admin: Add device migration admin commands
 
 
 
 > From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Wednesday, October 18, 2023 3:50 PM
+> Sent: Wednesday, October 18, 2023 3:56 PM
+
+> On Wed, Oct 18, 2023 at 08:24:56AM +0000, Parav Pandit wrote:
+> >
+> > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > Sent: Wednesday, October 18, 2023 12:17 PM
+> > >
+> > > On Sun, Oct 08, 2023 at 02:25:51PM +0300, Parav Pandit wrote:
+> > >
+> > > ...
+> > >
+> > > > +\paragraph{Device Context Size Get Command} \label{par:Basic
+> > > > +Facilities of a Virtio Device / Device groups / Group
+> > > > +administration commands / Device Migration / Device Context Size
+> > > > +Get Command}
+> > > > +
+> > > > +This command returns the remaining estimated device context size.
+> > > > +The driver can query the remaining estimated device context size
+> > > > +for the current mode or for the \field{Freeze} mode. While
+> > > > +reading the device context using VIRTIO_ADMIN_CMD_DEV_CTX_READ
+> > > > +command, the actual device context size may differ than what is
+> > > > +being returned by this command. After reading the device context
+> > > > +using command VIRTIO_ADMIN_CMD_DEV_CTX_READ, the remaining
+> > > > +estimated context
+> > > size
+> > > > +usually reduces by amount of device context read by the driver
+> > > > +using VIRTIO_ADMIN_CMD_DEV_CTX_READ command. If the device
+> > > > +context is updated rapidly the remaining estimated context size
+> > > > +may also increase even after reading the device context using
+> > > VIRTIO_ADMIN_CMD_DEV_CTX_READ command.
+> > > > +
+> > > > +For the command VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET,
+> \field{opcode}
+> > > is set to 0x9.
+> > > > +The \field{group_member_id} refers to the member device to be
+> accessed.
+> > > > +
+> > > > +\begin{lstlisting}
+> > > > +struct virtio_admin_cmd_dev_ctx_size_get_data {
+> > > > +        u8 freeze_mode;
+> > > > +};
+> > > > +\end{lstlisting}
+> > > > +
+> > > > +The \field{command_specific_data} is in the format \field{struct
+> > > > +virtio_admin_cmd_dev_ctx_size_get_data}.
+> > > > +When \field{freeze_mode} is set to 1, the device returns the
+> > > > +estimated device context size when the device will be in \field{Fr=
+eeze}
+> mode.
+> > > > +As the device context is read from the device, the remaining
+> > > > +estimated context size may decrease. For example, member device
+> > > > +mode is \field{Stop}, the device has estimated total device
+> > > > +context size as 12KB; the device would return 12KB for the first
+> > > > +VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET command, once the driver
+> has
+> > > > +already read 8KB of device context data using
+> > > > +VIRTIO_ADMIN_CMD_DEV_CTX_READ command, and the remaining
+> data is
+> > > 4KB,
+> > > > +hence the device returns 4KB in the subsequent
+> > > > +VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET command.
+> > > > +
+> > > > +\begin{lstlisting}
+> > > > +struct virtio_admin_cmd_dev_ctx_size_get_result {
+> > > > +        le64 size;
+> > > > +};
+> > > > +\end{lstlisting}
+> > >
+> > > So we have a 64 bit size? How are we going to return so much?
+> > >
+> > I agree it is a lot.
+> > But this is the case because one has defined struct virtio_pci_cap64.
 >=20
-> On Wed, Oct 18, 2023 at 08:16:01AM +0000, Parav Pandit wrote:
-> > > This doesn't happen yet. For example, a VF with adminq that can be
-> > > isolated with PASID makes some sense.
-> > PASID is for the process of user space.
-> > Kernel space do not consume a PASID.
+> Good point.
 >=20
-> It could if we need it to.
+> That's there so we can define 64 bit resources.
 >=20
-> > Depending on the PASID can work for mediation approach only.
-> > Last I heard is the cpu or kernel took the support out of it as some sp=
-ecial
-> instruction did not work for that cpu.
->=20
-> Are you talking about ENQCMD things? That's nice but I don't think it's
-> necessary for isolation here.
+> But if you have them and you want to migrate then you need change trackin=
+g
+> and incremental state save, you can not do it in one shot with device con=
+text.
 >
-Yes. I believe SVA is disabled.
+Each read of the device context would return different incremental state.
+It would be good possibly to have explicit signal on the device context rea=
+d to indicate end of stream, instead of relying on the size.
 =20
-> ...
 >=20
-> > > The reason why I see it is different from FLR is that
 > > >
-> > > 1) D3cold requires the VF to be off the power
-> > > 2) State transition might takes more than what FLR did, PCI seems
-> > > only cover the minimum delay but not maximum which may have
-> > > implications for downtime
+> > > > +
+> > > > +When the command completes successfully,
+> > > > +\field{command_specific_result} is in the format \field{struct
+> > > virtio_admin_cmd_dev_ctx_size_get_result}.
+> > > > +
+> > > > +Once the device context is fully read, this command returns zero
+> > > > +for \field{size} until the new device context is generated.
+> > > > +
+> > > > +\paragraph{Device Context Read Command} \label{par:Basic
+> > > > +Facilities of a Virtio Device / Device groups / Group
+> > > > +administration commands / Device Migration / Device Context Read
+> > > > +Command}
+> > > > +
+> > > > +This command reads the current device context.
+> > > > +For the command VIRTIO_ADMIN_CMD_DEV_CTX_READ, \field{opcode}
+> is
+> > > set to 0xa.
+> > > > +The \field{group_member_id} refers to the member device to be
+> accessed.
+> > > > +
+> > > > +This command has no command specific data.
 > > >
-> > D3cold is not controlled by the guest driver.
-> > PM register can change D0 to D3hot.
+> > > So I am not sure this is wise. Multi-year experience with QEMU
+> > > taught us that we are likely to make mistakes when defining
+> > > migration format - forget some fields, validate them incorrectly, and=
+ so on.
+> > > Making a somewhat safe assumption that we'll make mistakes in the
+> > > spec, too, I'd like to see some kind of idea of how we'll support
+> > > compatibility and/or graceful failure if/when we do.
+> > >
+> > Very valid point. In v2 I added the compatibility command at [1] as "De=
+vice
+> Context Supported Fields Query Command"
+> >
+> > [1]
+> > https://lists.oasis-open.org/archives/virtio-comment/202310/msg00195.h
+> > tml
+> > >
+> > > > +\begin{lstlisting}
+> > > > +struct virtio_admin_cmd_dev_ctx_rd_len {
+> > > > +        le32 context_len;
+> > > > +};
+> > > > +
+> > > > +struct virtio_admin_cmd_dev_ctx_rd_result {
+> > > > +        u8 data[];
+> > > > +};
+> > > > +\end{lstlisting}
+> > >
+> > > so callers needs to pin whatever device tells it to?
+> > >
+> > How much memory to pin is driver choice, it can pin 4K and keep reading=
+ 1MB
+> memory by 1MB/4K size calls.
+> > Or it can pin 1MB and read full.
+> >
+> > > admin commands support truncation intentionally.
+> > >
+> > > it is not clear, to me, that it's ok to have device just save as
+> > > much state as it wants to.
+> > Why would device store some unreasonable amount of state?
 >=20
-> It likely makes sense to document how all this interacts with things like=
- PM and
-> other pci config. maybe you did in v2 didn't look at it yet.
+> Because I know how hardware vendor minds work: oh we can request a bunch
+> of memory, let's do that just in case ;)
+
+For a device that has large memory, it is unlikely it can store it in secon=
+d copy.
+
 >=20
-Yeah, v2 covered it. Please see.
-I didn't repeat what pci already covers for D3hot and D3 cold.
+> > >
+> > > > +
+> > > > +When the command completes successfully,
+> > > > +\field{command_specific_result} is in the format \field{struct
+> > > > +virtio_admin_cmd_dev_ctx_rd_result}
+> > > > +returned by the device containing the device context data and
+> > > > +\field{command_specific_output} is in format of \field{struct
+> > > > +virtio_admin_cmd_dev_ctx_rd_len} containing length of context
+> > > > +data returned by the device in the command response. When the
+> > > > +length returned is zero or when the returned context data is less
+> > > > +the data requested by the driver, the device do not have any
+> > > > +device context data left that the device can report, at this
+> > > > +point the device context stream
+> > > ends.
+> > > > +
+> > > > +The driver can read the whole device context data using one or
+> > > > +multiple commands. When the device context does not fit in the
+> > > > +\field{command_specific_result}, driver reads the subsequent
+> > > > +remaining bytes using one or more subsequent commands.
+> > >
+> > > how?
+> > For example, driver requested 100 bytes.
+> > a. Device returned 40 bytes. So the whole context fit, nothing more to =
+be
+> done.
+> > Or
+> > b. Device returned 100 bytes, so driver does not know if there is more =
+or not.
+> > Hence, driver request again for additional 100 bytes in 2nd call.
+> > If there is nothing, device returns success with zero bytes.
+> > If the device has 30 bytes more it returns 30 bytes. The returned bytes=
+ <
+> requested bytes hence the read stream ends.
+>=20
+> do you then expect device to maintain all data in some internal buffer, t=
+hen
+> keep an offset internally and each following command returns a different
+> chunk?  all this sounds rather fragile, not to mention wasteful wrt using
+> memory for that internal buffer.
+
+For small device in range of few hundred KB that changes the context often =
+should be fine this way as this is only transient memory.
+For device with large memory, an internal buffer may not work (depends on d=
+evice implementation), it can fetch from the running hw context and return =
+without another copy.
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
