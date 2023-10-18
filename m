@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7770-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7771-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DAC9CDB474
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11077CDB474
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 00:53:05 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 97E4CF3F4F
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:50 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 368AF747CB
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 00:53:05 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4AEF99868AA
-	for <virtio-comment@archiver.kernel.org>; Tue, 17 Oct 2023 20:07:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0ACC5986887
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 00:53:05 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 2A24D9868F6; Tue, 17 Oct 2023 20:07:50 +0000 (UTC)
+	id E5DE3983C26; Wed, 18 Oct 2023 00:53:04 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,292 +24,221 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B1EFB9861CC
-	for <virtio-comment@lists.oasis-open.org>; Tue, 17 Oct 2023 20:07:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id CE4CD986885
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 00:53:04 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=McIPoDC3j64f+QsRFsYHdepvv6QiRdeuIE59n+fwz1fnucBmgNLORjL7Kj5RxOQTD+C/nPopF7i0vZtPM/q/9HTsTs7kIXn9cXEvJixCRwCM7QisbvHM3WC3km/vAWb3lJI689zyRdjtZHU3fzB2u22JqNy27LscQsQBvNiUZkTPN50tsc/PWWfaK/Nsn7NEHfoRgXopvI0dydPzYfjZL5ZCpRyB/Tx/XqOsAXkPdtUt/jluGcHi1o79XAZdmRTbd/1aZlVe0bqFhungypv2Q9YhKIoxD3Q+UvmG0EHVVqteMW3Xjdiy+V6fFV0kdKVFY1LF9mON4CEJsZOiTLRPIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m630fQizxAqJ4rowlacmNfZQA6vgr/PeWVD0cNjnRTg=;
- b=dlC9668HcUNeIrAuIcanw3XA9J1t3kVHSZpglsjRkF61L7jTG+yalloxbmHonKM+Fn08PJxbYtWhOxyjnS4FE0+2hAcFJHsOkGqtn8AsUAKxfyV3UyS2M6vbHkZa7OV4gmtFoUmJFbjxnGe7aFKIiBEW0UGnSWTcPEdaAcmVSgPw97IcUZjACIchZOdMIB9Mat8g5x0CCOAsUZKrRob+QMcK97VKPhRJWzgfRpr3Ly6QmGfPUQ04KQ1uIFZLkPMfsRf0HSg1zzpirLCpCzxsJKPXFZk/7ccQwTYiNfLoMpdoXqKWxEeQTk/x0KRCItiFz3twLIeE0dLApegR7TMKMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
-	<cohuck@redhat.com>
-CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <maorg@nvidia.com>,
-	<yishaih@nvidia.com>, <lingshan.zhu@intel.com>, <jasowang@redhat.com>, "Parav
- Pandit" <parav@nvidia.com>
-Date: Tue, 17 Oct 2023 23:06:44 +0300
-Message-ID: <20231017200645.779222-8-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231017200645.779222-1-parav@nvidia.com>
-References: <20231017200645.779222-1-parav@nvidia.com>
+X-MC-Unique: 1TF-Q9s0Oo-vYnKT8npW8g-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697590371; x=1698195171;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EMsQUjgBLdLIX9YO5IhUrnxrRzrpTTGfsvcUYRLd6i0=;
+        b=EzfSIi7BFQYtH6hVBA3hU8uD3abJC64v53QHXlGsTjauowS+XoEaCJS2HklerR/7vj
+         hwWvhytdxHszOZeVmKSB9Au+8cJbjdxibmJfMjWZGWJlfnCFvWoWsI288YI5YoRrySwX
+         ErCvCC1vp5BSuMRw9KRN62Gdqwu/LYqI/JZLzeRWIGz6fDOInBeP/3itOI1AGJUiBCRe
+         JG376SMpG+78ngxwH+xQo1ANDc4TJeJQ8b1ygvw/6r+j/jGR7jTIEdrQR0XxgH8VxkS5
+         jIt3zu3wDtl+75rbsEBT947GG4TE3uUKXi0yjGpFssF6YqnBWYUwGODeeaHIbPO6ltrb
+         bqqw==
+X-Gm-Message-State: AOJu0YxbxD+9BDo8qyX8QyHtPurIPGUN+hUyXpi1MWmhc/wk5Ryecx/N
+	9EKk9pbuexH5nxqg3fSVub0t3pdCBtMPo+DlKWL8h8WoCetTa7XRYusR1qtymz5+1mjz0znhwLt
+	Tt94QMbujUy41N2B0JBMhxa8iWxrA+tv5kb6ODRE8sHfUW55OxA==
+X-Received: by 2002:ac2:5a04:0:b0:500:99a9:bc40 with SMTP id q4-20020ac25a04000000b0050099a9bc40mr2721945lfn.69.1697590370902;
+        Tue, 17 Oct 2023 17:52:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IElEpU47Rc/jlOI4xDJ/qcfwxTo8WCwEvWXcf0FPybqbJkpB97xngIuPlvU893Uryiqdl3EpWhJEoOXW/+xPE4=
+X-Received: by 2002:ac2:5a04:0:b0:500:99a9:bc40 with SMTP id
+ q4-20020ac25a04000000b0050099a9bc40mr2721930lfn.69.1697590370580; Tue, 17 Oct
+ 2023 17:52:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.35]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003444:EE_|DS0PR12MB6438:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57f0f93c-49c5-417f-d59d-08dbcf4cb3e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	siXD3qybVu/PiGjSlXerZ7mwkOcUy/U2Afr9WruEMm67dzuw3qEtYwY+tdFtuZ0BOmHeI8GzhUEzNQpvO8JHmCIOade3rOdmO92nfRogHKTyWKaEdWXI5smMQGFR/0SggdTqNa6ghMbt1+6NMM+95YhYcuOGwHWpy50FvPM5RNnH/8JlpH9RW0FWPQzj2Lk3QLjy2K4KuNyy96XB1GHELiH4F/YXkWB79YdqMEm2vlTm5LFU+/HjysFcU8UWcNLo1EY6vD8gY4KGVbWaGiiNue92tac1kjeq2+sHIJ+2nSROKImXraQT0NJ2Uucy8raBKJqVLD3Ay/TKYZ6cMZjA1EyiAyvKE7Rw7Z1C3t2Rk9ZddG9uxtondE8w1XP4l47SjsxVsWnX2ahwkjbFKL3EuTtMgd94YalzJIdIt38EiDppqQ8ArxGfqgJAnu3/FAi2cWtty5vAhcmBjm+2lyMA61z+3SQ9EB6TmSokP0Th6oK16ZJFrPuBaWJWk+G7OayKQElNvT1SVKRI2ZsN3Kh+KUK715KydqHSV6bXA2VBuFuS9z9BkvYgfY0fqAC9FCWjmRCX3lHeYYzwuaHzS9QrHkbpSco55auaLUp+arZE4NzHlz8+vaM3fQwZ3dyMYmcQClpvB5fUQ0+4R6BzHAuhT6/kBnO89jXTEBHGYEeeYArG/+xQwuq23v2EbZpHsYpFnxnmnBQFvR2ovSQ/PGKTHwR64icrAk1QeEfndYI1+ImMgJGyozM/6VgKoy/9ZolCb05mjS1LHd5P4v8RiF7UGp4h0OqohaUOhMxDHdERWPc=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(136003)(376002)(39860400002)(396003)(230922051799003)(82310400011)(451199024)(1800799009)(64100799003)(186009)(40470700004)(36840700001)(46966006)(40480700001)(5660300002)(2906002)(40460700003)(26005)(36756003)(336012)(107886003)(36860700001)(16526019)(6666004)(83380400001)(2616005)(426003)(7636003)(86362001)(47076005)(356005)(82740400003)(1076003)(966005)(41300700001)(316002)(54906003)(110136005)(70586007)(70206006)(8676002)(4326008)(8936002)(478600001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 20:07:34.4339
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57f0f93c-49c5-417f-d59d-08dbcf4cb3e8
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003444.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6438
-Subject: [virtio-comment] [PATCH v2 7/8] admin: Add write recording commands
+References: <20231008112555.473895-1-parav@nvidia.com> <20231008112555.473895-2-parav@nvidia.com>
+ <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
+ <DM8PR12MB54801E873241AA02CC32CDCBDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20231009121638-mutt-send-email-mst@kernel.org> <DM8PR12MB5480E0F15A1BBDD745EE3AF4DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <25375529-9c40-9ea9-692e-f557c514c72f@intel.com> <PH0PR12MB54812E59B581546FFB118F3FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <f875fa3b-4b33-71c2-e612-bc2a674a1e59@intel.com> <PH0PR12MB548171A06CCE458C913E4961DCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <97aa9108-0715-2483-f5cf-02698c745d60@intel.com> <PH0PR12MB5481F4F3B4FADD79770ADEA6DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEt-pUSazfjfROukZdaLdmeX1xP7_OxQaQ=Se=jV5NXkDA@mail.gmail.com>
+ <PH0PR12MB5481F8312139BB197CEB024BDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtihTxYADd1dbG=vX9=VLp0xfRJSQ4jd_m0UiuZNz_2sg@mail.gmail.com> <PH0PR12MB5481E85F17F9D22CBCC9FDF8DCD6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481E85F17F9D22CBCC9FDF8DCD6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Wed, 18 Oct 2023 08:52:39 +0800
+Message-ID: <CACGkMEu_uRcL293Dd+vo2VvYJfUiCaPYF0dAjk-s6=RUtw-PEQ@mail.gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
+	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
+	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-When migrating a virtual machine with passthrough
-virtio devices, the virtio device may write into the guest
-memory. Some systems may not be able to keep track of these
-pages efficiently.
+On Tue, Oct 17, 2023 at 11:26=E2=80=AFAM Parav Pandit <parav@nvidia.com> wr=
+ote:
+>
+>
+>
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Tuesday, October 17, 2023 7:23 AM
+> >
+> > On Fri, Oct 13, 2023 at 2:36=E2=80=AFPM Parav Pandit <parav@nvidia.com>=
+ wrote:
+> > >
+> > >
+> > > > From: Jason Wang <jasowang@redhat.com>
+> > > > Sent: Friday, October 13, 2023 6:47 AM
+> > > >
+> > > > On Thu, Oct 12, 2023 at 6:58=E2=80=AFPM Parav Pandit <parav@nvidia.=
+com> wrote:
+> > > > >
+> > > > >
+> > > > > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
+> > > > > > Sent: Thursday, October 12, 2023 3:51 PM
+> > > > > >
+> > > > > > On 10/11/2023 7:43 PM, Parav Pandit wrote:
+> > > > > > >> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+> > > > > > >> Sent: Wednesday, October 11, 2023 3:55 PM
+> > > > > > >>>>>>> I don=E2=80=99t have any strong opinion to keep it or r=
+emove it
+> > > > > > >>>>>>> as most stakeholders
+> > > > > > >>>>>> has the clear view of requirements now.
+> > > > > > >>>>>>> Let me know.
+> > > > > > >>>>>> So some people use VFs with VFIO. Hence the module name.
+> > > > > > >>>>>> This sentence by itself seems to have zero value for the
+> > > > > > >>>>>> spec. Just
+> > > > drop it.
+> > > > > > >>>>> Ok. Will drop.
+> > > > > > >>>> So why not build your admin vq live migration on our confi=
+g
+> > > > > > >>>> space solution, get out of the troubles, to make your life=
+ easier?
+> > > > > > >>>>
+> > > > > > >>> Your this question is completely unrelated to this reply or
+> > > > > > >>> you misunderstood
+> > > > > > >> what dropping commit log means.
+> > > > > > >> if you can rebase admin vq LM on our basic facilities, I
+> > > > > > >> think you dont need to talk about vfio in the first place, s=
+o
+> > > > > > >> I ask you to re-consider
+> > > > > > Jason's proposal.
+> > > > > > > I don=E2=80=99t really know why you are upset with the vfio t=
+erm.
+> > > > > > > It is the use case of the cloud operator and it is listed to
+> > > > > > > indicate how proposal
+> > > > > > fits in a such use case.
+> > > > > > > If for some reason, you don=E2=80=99t like vfio, fine. Ignore=
+ it and move on.
+> > > > > > >
+> > > > > > > I already answered that I will remove from the commit log,
+> > > > > > > because the
+> > > > > > requirements are well understood now by the committee.
+> > > > > > >
+> > > > > > > Your comment is again unrelated (repeated) to your past two
+> > questions.
+> > > > > > >
+> > > > > > > I explained you the technical problem that admin command (not
+> > > > > > > admin VQ)
+> > > > > > of basic facilities cannot be done using config registers
+> > > > > > without any mediation layer.
+> > > > > > OK, I pop-ed Jason's proposal to make everything easier, and I
+> > > > > > see it is
+> > > > refused.
+> > > > > Because it does not work for passthrough mode.
+> > > >
+> > > > How and why? What's wrong with just passing through the newly
+> > > > introduced 2 or 3 registers to guests?
+> > > >
+> > > If passed to the guest who is not involved in the live migration flow=
+, cannot
+> > operate the device.
+> > > VF =3D member device =3D controlled function PF =3D owner device =3D
+> > > controlling function Device migration commands from the hypervisor ar=
+e
+> > > not forwarded inside the guest.
+> >
+> > I don't see why.
+> >
+> > For example, can you explain how a virtio reset in guests can survive w=
+ith your
+> > proposal but not a virtio suspend?
+> >
+> In this proposal virtio reset goes directly from guest to the device with=
+out intervention of hypervisor.
 
-To facilitate such a system, a device provides the record
-of pages which are written by the device.
+Why can suspend go directly from guest to device then?
 
-The owner driver configures the member device for list of address
-ranges for which it expects write recording and reporting by the device.
+> When such device reset is done, it does not reset the device context, nor=
+ it clears the dirty page records, because they are done by the controlling=
+ function.
+>
+> > I'm not convinced that the scalability is broken by just having 2 or 3 =
+more
+> > registers. We all know MSIX requires much more than this.
+> >
+> Saying there is some other high resource consumer method exists, so lets =
+consume more in new interface we do now, is not good approach.
 
-The owner driver periodically queries the written pages address record
-which gets cleared from the device upon reading it.
+This is self-contradictory and double standard. You allow #MSI-X
+vectors to grow but not config?
 
-When the write records reduces over the time, at one point write recording
-is stopped after the device mode is set to FREEZE.
+> MSI-X on its v2 is underway. Hopefully it will be finished this year, whi=
+ch is already cutting down O(N) resources.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
-Signed-off-by: Parav Pandit <parav@nvidia.com>
-Signed-off-by: Satananda Burla <sburla@marvell.com>
----
-changelog:
-v1->v2:
-- addressed comments from Michael
-- merged theory of operation changes to previous patch
-- replaced iova with physical address
-- renamed iova range with a page
-- reworded and simplified wording using page
----
- admin-cmds-device-migration.tex | 129 +++++++++++++++++++++++++++++++-
- admin.tex                       |  10 ++-
- 2 files changed, 135 insertions(+), 4 deletions(-)
+Why couldn't such a method be applied to config registers and others?
 
-diff --git a/admin-cmds-device-migration.tex b/admin-cmds-device-migration.tex
-index fba3a6b..992d6ec 100644
---- a/admin-cmds-device-migration.tex
-+++ b/admin-cmds-device-migration.tex
-@@ -106,9 +106,8 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
- address records from the device. As the driver reads the written address records,
- the device clears those records from the device.
- Once the device reports zero or small number of written address records, the device
--mode is set to \field{Stop} or \field{Freeze}. Once the device is set to \field{Stop}
--or \field{Freeze} mode, and once all the IOVA records are read, the driver stops
--the write recording in the device.
-+mode is set to \field{Stop} or \field{Freeze}. Once all the physical address records
-+are read, the driver stops the write recording in the device.
- 
- The owner driver uses following device migration group administration commands.
- 
-@@ -120,6 +119,9 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
- \item Device Context Write Command
- \item Device Context Supported Fields Query Command
- \item Device Context Discard Command
-+\item Device Write Records Start Command
-+\item Device Write Records Stop Command
-+\item Device Write Records Read Command
- \end{enumerate}
- 
- These commands are currently only defined for the SR-IOV group type.
-@@ -340,6 +342,127 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
- discarded, subsequent VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command writes a new device
- context.
- 
-+\paragraph{Device Write Record Capabilities Query Command}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Record Capabilities Query Command}
-+
-+This command reads the device write record capabilities.
-+For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORD_CAP_QUERY, \field{opcode}
-+is set to 0xd.
-+The \field{group_member_id} refers to the member device to be accessed.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_dev_write_record_cap_result {
-+        le32 supported_page_size_bitmap;
-+        le32 supported_ranges;
-+};
-+\end{lstlisting}
-+
-+When the command completes successfully, \field{command_specific_result}
-+is in the format \field{struct virtio_admin_cmd_dev_write_record_cap_result}
-+returned by the device. The \field{supported_page_size_bitmap} indicates
-+the physical address range named as page size granularity at which the device can record.
-+The minimum page size granularity is of 4KB. Each bit represents a
-+supported page size. Bit 0 corresponds to 4KB, bit 1 corresponds to 8KB,
-+bit 31 corresponds to 4TB. The device support one or more page sizes.
-+For page size, the device sets corresponding bit in the
-+\field{supported_page_size_bitmap}. The \field{supported_ranges}
-+indicates unique (non overlapping) physical address ranges in page granularity
-+can be recorded by the device.
-+
-+\paragraph{Device Write Records Start Command}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Records Start Command}
-+
-+This command starts the write recording in the device for the specified
-+physical address ranges.
-+
-+For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START, \field{opcode}
-+is set to 0xe.
-+The \field{group_member_id} refers to the member device to be accessed.
-+
-+The \field{command_specific_data} is in the format
-+\field{struct virtio_admin_cmd_write_record_start_data}.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_write_record_start_entry {
-+        le64 page_address;
-+        le64 page_count;
-+};
-+
-+struct virtio_admin_cmd_write_record_start_data {
-+        le64 page_size;
-+        le32 count;
-+        u8 reserved[4];
-+        struct virtio_admin_cmd_write_record_start_entry entries[];
-+};
-+
-+\end{lstlisting}
-+
-+The \field{count} is set to indicate number of valid \field{entries}.
-+The \field{page_address} indicates the start physical address.
-+The \field{page_count} indicates number of pages of size \field{page_size}
-+starting from \field{page_address} to record. All the \field{entries}
-+are unique non overlapping page entries.
-+Whenever a memory write occurs by the device in the supplied address range, the
-+device records the physical address of the page in which the write occurred
-+by the device. These write records can be read by the driver using
-+VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ command.
-+
-+This command has no command specific result.
-+
-+\paragraph{Device Write Record Stop Command}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Record Stop Command}
-+
-+This command stops the write recording in the device for which was
-+previously started using VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START command.
-+
-+For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_STOP, \field{opcode}
-+is set to 0xf.
-+The \field{group_member_id} refers to the member device to be accessed.
-+
-+This command does not have any command specific data.
-+This command has no command specific result.
-+
-+\paragraph{Device Write Records Read Command}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration / Device Write Records Read Command}
-+
-+This command reads the device write records for which the write recording is
-+previously started using VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START command.
-+
-+For the command VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ, \field{opcode}
-+is set to 0x10.
-+The \field{group_member_id} refers to the member device to be accessed.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_write_records_read_data {
-+        le64 page_address;
-+        le64 length;
-+};
-+
-+struct virtio_admin_cmd_dev_write_records_cnt {
-+        le32 count;
-+};
-+
-+struct virtio_admin_cmd_dev_write_records_result {
-+        le64 address_entries[];
-+};
-+\end{lstlisting}
-+
-+The \field{command_specific_data} is in the format
-+\field{struct virtio_admin_cmd_write_records_read_data}. The driver
-+sets the \field {page_address} indicating the start page address for up to the
-+\field{length} number of bytes. The supplied physical address range can be
-+same or smaller than the range supplied when write recording is started by
-+the driver in VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START command. The \field{length}
-+must be same or multiple of any of the page size reported by the device in the
-+\field{supported_page_size_bitmap}.
-+
-+When the command completes successfully, \field{command_specific_result} is in
-+format of \field{struct virtio_admin_cmd_dev_write_records_cnt} containing number
-+of write records returned by the device and \field{command_specific_result} is
-+in the format of \field{struct virtio_admin_cmd_dev_write_records_result}
-+When the command completes successfully, the write records which are returned
-+in the result are cleared from the device.
-+
- \devicenormative{\paragraph}{Device Migration}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration}
- 
- A device MUST either support all of, or none of
-diff --git a/admin.tex b/admin.tex
-index 142692c..41cabfe 100644
---- a/admin.tex
-+++ b/admin.tex
-@@ -140,7 +140,15 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline
- 0x000d & VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD & Clear the device context data \\
- \hline
--0x000e - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
-+0x000f & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORD_CAP_QUERY & Query Write recording capabilities \\
-+\hline
-+0x0010 & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_START & Start Write recording in the device \\
-+\hline
-+0x0011 & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_STOP & Stop write recording in the device \\
-+\hline
-+0x0012 & VIRTIO_ADMIN_CMD_DEV_WRITE_RECORDS_READ & Read and clear write records from the device \\
-+\hline
-+0x0013 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
- \hline
- 0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
- \hline
--- 
-2.34.1
+>
+> > You can't solve all the issues in one series. As stated many times,
+> I am not solving all issues in one series. This series builds the infrast=
+ructure.
+
+It's you that is raising the scalability issue, and what you've
+ignored is that such an "issue" has existed for many years and various
+hardware has been built on top of that.
+
+Again, we should make sure the function is correct before we can talk
+about others, otherwise it would be an endless discussion.
+
+>
+> > if you really
+> > care about the scalability, the correct way is to behave like a real tr=
+ansport
+> > through virtqueue instead of trying to duplicate the functionality of t=
+ransport
+> > virtqueue slowly.
+> >
+> This will be impossible because no device will transport driver notificat=
+ions using a virtqueue.
+> Therefore, virtqueue is not some generic transport that does everything -=
+ as simple as that. hence there is no transport virtqueue.
+
+You won't get such a wrong conclusion if you read that proposal.
+
+>
+> And virtqueue for bulk data transfer exists so no need to invent yet anot=
+her thing without a good reason.
+
+I don't understand why this is related to transport virtqueue anyhow,
+it's also a queue interface, no?
+
+Thanks
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
