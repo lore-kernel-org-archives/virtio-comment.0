@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7789-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7790-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 687BCCDB482
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:32:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F33CBCDB47E
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:35:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BCDB2795BA
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:32:31 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5FA7E7A089
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:35:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 892CC98689B
-	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:32:31 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 366D1986893
+	for <virtio-comment@archiver.kernel.org>; Wed, 18 Oct 2023 06:35:31 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 6870A98688C; Wed, 18 Oct 2023 06:32:31 +0000 (UTC)
+	id 1D2FD98688C; Wed, 18 Oct 2023 06:35:31 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,30 +24,34 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4E65C98688D
-	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 06:32:31 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D992598688D
+	for <virtio-comment@lists.oasis-open.org>; Wed, 18 Oct 2023 06:34:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="7500758"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; 
-   d="scan'208,217";a="7500758"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="733025124"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; 
-   d="scan'208,217";a="733025124"
-Content-Type: multipart/alternative;
- boundary="------------QGhz6TO5bKPYGwp1SCSRbApl"
-Message-ID: <b5e21dd5-1aee-4ad1-9833-ceca8c18c461@intel.com>
-Date: Wed, 18 Oct 2023 14:32:18 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
- <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QC6kCGi39/9J3ox2tEVn9fSiSU4m2gXZs0yCXcu2e9ENQ3vidNRvIag+7zkIeHrLnEUPqNiAttJxZq278XxHP2UknVY+lPdTLRd2E+jSKVJj4UyBX83xY5TWcL5yef7/vcIjFM337WXM+H0TPzTycRS1ac9pRLznd5ktvOEtZTZ1tDUIq4qlNhvGYsgZJx0Qzlus8eWw1DsNCUH+yn6QkoH2WKOrubSVdTOxrl5bjvG4AlskCahK+rfvDBVtXhxz5ygwsAB+xPXzhUx5CDD7cfy6OeakI7d9AJAl3Ocd0orh0O2Cahg8bYE0fBJtpLyHY4oTUUkgjKTFnM1BMs97wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ykcVPVWTQwzmSKOcSz/WTCagVDlB6ftHT3hKGeq/qeo=;
+ b=grpyjC4EXunaCPZgDsFo1pHgMHn54ImkbtE32i1hS/v+GgP+CAoE43BX5g6UWyY0EoSmYcRxMoSji/72KYj8EwWN0IJk8xNHAmLOsosuuHkPykJKVGgEj5xY0w7MhWUeHfw9OLSEzWqvhjX65cbFJhwI7edU8M7q6ASosacGtWN4b2tvKw8Kr5729t0eemOvMvTM2ovh4eiTnRqLalPM25HBH2ZcRDBrUx2EtvQpsqgyIu3W8m+iVi6up0BydeBkq4aS9AUfQSg8DW1pnrqaDtCYM7miLkwlWRrMXnL7Oe24rlyMYhuvEeM/CSUyW3J56mi+wnlqJB1osGHzmleqfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin"
+	<mst@redhat.com>
+CC: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>
+Thread-Topic: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
+Thread-Index:
+ AQHZ+dpD+jj/KUeLHUaMn2y+w39Cb7BBJzcAgAA1HlCAAEi6gIAAERjwgAEF2ACAAAjm4IABoeMAgAAIQWCAAYjxAIAAAHqAgAF80QCAABwfUIAEpX2AgALOxwCAACBSAIAAAGyg
+Date: Wed, 18 Oct 2023 06:34:31 +0000
+Message-ID:
+ <PH0PR12MB54818BA768CA5554A6D3CE1ADCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20231008112555.473895-1-parav@nvidia.com>
  <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
  <DM8PR12MB54801E873241AA02CC32CDCBDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
@@ -63,2197 +67,585 @@ References: <20231008112555.473895-1-parav@nvidia.com>
  <PH0PR12MB5481F0C9549BFCD2EF1C175BDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <ad2900a5-3e11-4c2d-bb5b-be37d42b76e6@intel.com>
  <PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ <b5e21dd5-1aee-4ad1-9833-ceca8c18c461@intel.com>
+In-Reply-To: <b5e21dd5-1aee-4ad1-9833-ceca8c18c461@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS0PR12MB8295:EE_
+x-ms-office365-filtering-correlation-id: 5f037aae-3b30-45ee-844c-08dbcfa44951
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ +dqXtXAGlZ+/KAB+RbEbDoC4u+FlionhDsslD9boskI/rY5mnGlhvG9mxsDbU+N3YbN3g77cWTIOTh6lkMYRCrswmCigRETjnjJ0T9gqE5jSokdIvIiJGPQSFfMqy3AlUN3hHx73el2Zjqkdlq324T6xTpYmrn1lSBG1/6Heuj9U56B983/qBYsI0tEVx4NmOpIwa8zT9KRYH5OCcNS7j6u1Nw1/YJIeMY+pFNmxfGA/8uK/dRix6DVQBY8Kd8b8ziXSBVlnQT86RtqdWA+iskIiwSumTtRxchgVEJiTCZ4X9f/G4CzKCdnY4sm430zOIQYWTkTWqQvF/xFp5W6n6Qb7AOAxWTEscEJF2dyrcy8RmwFNE3t1448l+1kPM5q0C5alj/pMs1yd+Uf8Pe8dvt7he2e1JrcF23vJ2L7TkLs7AIte+3+WylxrmbrrbGBl69q0q6JHR0xC0xC17gULoF9j9UOl0nYcTPmlEq/V+KBDcFCBQqOHinsxGZPGm7zLRM4dWyHMzaa1GeV+LcV6ivQngbk1fI16NXjIYvKDxT2YXM5Eqcv9r+YkV9q/mxllFXU7fjst/If9STOsU5HP+GP8LxYzS9reLqmfED7F77sI+fnTatIDQYIqjD1eoMhE
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(376002)(366004)(346002)(39860400002)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(55016003)(107886003)(66556008)(66946007)(66446008)(54906003)(76116006)(110136005)(478600001)(64756008)(66476007)(83380400001)(38100700002)(71200400001)(316002)(26005)(9686003)(86362001)(7696005)(6506007)(53546011)(122000001)(38070700005)(30864003)(33656002)(41300700001)(5660300002)(52536014)(8936002)(8676002)(2906002)(4326008)(559001)(579004);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?c254NVJwSFR3cnN0dHl2NTlUOXl5RG1jcUpYL25aMWZCNVY0VU1MNC9DZkcy?=
+ =?utf-8?B?eGxsVGpFaWtPZVZSL3ZKZkVGeVcwWmNUcWd5cDFjMTQvQ2VQSFc1YjFKaExo?=
+ =?utf-8?B?NmdpUUxTVXBicGlmckVJQnVtZW1WWGpkdXFyZ0FKN3Z1WnN0eFNqZVFidDkx?=
+ =?utf-8?B?T1lpTWpwbDFHdmJOdWkrM2lGeGMySFpsSFhOVGhqMU5KVnFZL0F1NmFhTThv?=
+ =?utf-8?B?UldONEZJakJlVlRnTGhzc0QyZUdUMFUvZ3dvdCs3OWNvdFVKVXU0WXJsVlJR?=
+ =?utf-8?B?VFZVaDBJOE9OR0Q3WWpxTG9mUzhEWGNFQTFhd0NnZkhRckk4V2JpV0xnSi9R?=
+ =?utf-8?B?VTdTT25kTWRjb1pVZ1VoOC9OQ0xOU05BMExHOWFyOTk4NlVjYm1YSFZoOFh6?=
+ =?utf-8?B?cVlCaENIMzROTGQ5bk13dWFKYkpkVkNhMGlRV1NlZFNlRStzdHIrbkkrSFJW?=
+ =?utf-8?B?U01WVUZFaVMyVDlOWkZyUGhXdEQwSGpLbGlqNHBZWmF6QkVBYVIrUHBTaUJj?=
+ =?utf-8?B?eUtRNXZTcnlXL1BqZDJmOEE1NGFZdzFZNTRXNnhtUWFHNk1EV3JITHpJRTUy?=
+ =?utf-8?B?VTI5dm5MSlVpNHIxYjI4RzlOM05oSG44WkVaREFSUXc4RjMyR24xYUxsbTBM?=
+ =?utf-8?B?NytjUWVLUm5IUXYvTjhXeDNXNjhiWTFieXU0ZXlyWlVWaG1HMHd3RVE2eEhj?=
+ =?utf-8?B?NmVsRFNWUG8rTVNnTVNaMVZaeE5Lb21MS3FwRjkvU20xT2N5TW5sODhZVDRL?=
+ =?utf-8?B?VlVLQi9BSThnc1l0U1JFblF5SG1Eb1hlcmN5VGlNcVk2YUxVNkxrN3pvbVl6?=
+ =?utf-8?B?ajA3aUxGZDFKbzZ3WUtETUl6TXhwRWZnSHhXYk5GSktFblhuYkhIMWhHbDE4?=
+ =?utf-8?B?WkFFN1NBdi9KY0czZUVBVDQvSHFPMVlqUEFNM1VqaWdibE5FL0VaY3IrR2Ni?=
+ =?utf-8?B?OTJIN3E0Nmwrd2NmdEFPUFlvWmtKYzErR2FYaFArQnpxOE9qL09MS3hZbWYx?=
+ =?utf-8?B?RWdQUEkxREJVMk5oYUx3ekwvZ0o3aEh6MllYVWxCcEZKVWcvM0QrVS9QOEtQ?=
+ =?utf-8?B?eXJnTlM0YzVkNlkxd3BFbGJZMS9Hajkxbk1RY2RlSHVraE1aQUVlRkEvQzkz?=
+ =?utf-8?B?VE5JUjhwYnJSZE1mTTJXSHRMWmJiUzVDNGlYaVkvWm4rYWg1UkJvS0h2U3dK?=
+ =?utf-8?B?MUR4TW42WHd6UVdHR3FrbDgyTW9QVHdSMXdjTVdEQTFRRzZGRHovVE5INVVt?=
+ =?utf-8?B?dk1JOUJBVjR3VjBFUCtFU0FRT2drN0FPMW5vNXFZRklNNHVKUDViQ29BQXVQ?=
+ =?utf-8?B?Q1Jha3lhVlB4N05hZW1oTlM5cml4TEhVR1VoWkJZNElxMWN2NTB3dzM4bFdF?=
+ =?utf-8?B?eHZRbTZiUHFSeDBOMlBWbFhnRG5HOTVyZk1WOCt2TURzblZFdnRXZU9QU2U2?=
+ =?utf-8?B?aElsc2tlZVZlempnMVdQMlRuU002L0NDMUlQK2NGVXRHOEgrMWN0V3pubEV6?=
+ =?utf-8?B?VjBtWVh5Tk5iQUY4eWV6MnpiODRROEVXcks4S0hsL2wyb2M5Q2o2V2Q3SmQ4?=
+ =?utf-8?B?MnVRRWorTEZKekRiVHZWRFdsblRUU3QzTnhCeHlyTHpjYnBIWERNK1ovMTlq?=
+ =?utf-8?B?dEtZdHZON3o3UGFMNWpuM2FXL20vUHdBcW1UNFVNRmxMWjczYndMOGNGSHNI?=
+ =?utf-8?B?cCtwL2paMFFlSEYySlNHK0o4d24rckxzY3g4d0pGcFZMS1JMSXhyRWFaYlQz?=
+ =?utf-8?B?N0NMckxEL0k4eVRPQnFBMXhodDV4ZFkwbFVMbExCVmdZODQ4bkkzTHl3S1ph?=
+ =?utf-8?B?anpVN21zZjFpSXNHWUwwTnpjWkF4Rjh1ZE5IZXdIUDV6VVFjQlloWEkrVjlo?=
+ =?utf-8?B?c0swTUk3R3lYUFZrbjZqUWE0YXpSengvVEk2STQ4T0ZmZGRRTzFuSldoOWVK?=
+ =?utf-8?B?akVpMUs4OFBycjRsanIxcEtVSFkrTkk3UHRZRlFnaXlBMnRGU0Y4QlA0d3Y5?=
+ =?utf-8?B?Yy82Y3FWamNkUEtDNmlTL2hUbmh0S2taallLSlVzTkFuZzF1cHZoaVIzQi9T?=
+ =?utf-8?B?ajhROFJWWEx1UGpkRWRSc2xhSWtqdnBIN0Q4dmkrQS9SL0x2U2ZEYlA2eWdZ?=
+ =?utf-8?Q?VBP0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f037aae-3b30-45ee-844c-08dbcfa44951
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2023 06:34:31.4677
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: spiEKkkJJlRBVZKB3ep1K0vGgGGtuUdSP9CAVFl1akA3Si/+GVL/WBJ+6ylbkW5LSiyehtkhCpCgfkKsz5Idjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8295
+Subject: RE: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
  for device migration
 
---------------QGhz6TO5bKPYGwp1SCSRbApl
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 10/18/2023 1:00 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan<lingshan.zhu@intel.com>
->> Sent: Monday, October 16, 2023 3:14 PM
->>
->> On 10/13/2023 7:28 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan<lingshan.zhu@intel.com>
->>>> Sent: Friday, October 13, 2023 2:36 PM
->>> [..]
->>>>> Because it does not work for passthrough mode.
->>>> what are you talking about?
->>>> Config space does not work passthrough?
->>> Once the register space of the VF that is supposed to be used by the live
->> migration is passed to the guest, it is under guest control.
->>> Hence, live migration driver won't be able to use it.
->> Does guest control device status to reset itself? harmful?
-> No. it is not harmful.
-> Is owner device reseting itself, harmful? No.
-> Is member device resetting isetlf, harmful? No.
-> Should member device reset
-good
->> These facilities can be trapped and emulated, even the feature bits, right?
->> You know the guest actually don't direct access the device config space, there is
->> a vfio/vdpa driver, right?
-> You can practically trap and emulated everything.
-> If you continue to ignore passthrough requirements and keep repeating that do trap and emulate, this discussion does not go anywhere.
-Clearly I did not ignore passthrough and keep answering your question 
-for many times.
-Maybe you didn't get it, so I would ask how you define your "passthrough"?
-
-You may find that the guest vCPUs(guest vRC) actually are not privileged 
-to access to
-host pci device(host CPU RC), that's why a pass-through driver like vfio 
-is a must.
-
-Therefore the device config space can be trapped. Is that clear now?
->
->
->>>> Have you ever tried pass through a virtio device to a guest?
->>> :)
->>> Please explain how the question is relevant to this discussion in separate
->> thread, so that one can keep technical focus.
->>> (Please keep your discussion technical, instead of derogatory to other
->> members).
->> if you want me to answer your question, at least you SHOULD NOT cut off the
->> context, or you are trying to confuse everyone.
->> Or did you try to avoid or hide anything? I am not sure this is a good practice.
->>
->> The context in last discussion is:
->>
->> me: OK, I pop-ed Jason's proposal to make everything easier, and I see it is
->> refused.
->> you: Because it does not work for passthrough mode.
->> me: what are you talking about?
->>       Config space does not work passthrough?
->>       Have you ever tried pass through a virtio device to a guest?
->>
->> So I ask you try to pass through a virito-pci device to a guest, then check
->> whether the config space work for pass-through mode.
->>
->> again, don't cut off threads before the discussion is closed.
->>>> Let me repeat again, these live migration facilities are
->>>> per-device(per-VF) facility, so it only migrates itself.
->>>>
->>> Since they are per device (per VF), they reside in the guest VM. Hence, VMM
->> cannot live migrate it.
->> you know the config space can be trapped and emulated, and the hypervisor
->> takes the ownership of the device once the guest freeze in the stop window.
-> When you say config space, do you mean PCI config space of 4K size?
-you can take an example of virito common config cap.
->
->>>> And for pass through, you can try passthrough a virito device to a
->>>> guest, see how the guest initialize the device through the config space.
->>>>
->>>> That is really basic virtualization, not hard to test.
->>> Repeated points, I am omitting.
->> ok, if you get it, let's close it.
->>>>>>>> inflight descriptor tracking will be implemented by Eugenio in V2.
->>>>>>> When we have near complete proposal from two device vendors, you
->>>>>>> want to push something to unknown future without reviewing the
->>>>>>> work; does not
->>>>>> make sense.
->>>>>> Didn't I ever provide feedback to you? Really?
->>>>> No. I didn’t see why you need to post a new patch for dirty page
->>>>> tracking,
->>>> when it is already present in this series.
->>> This is plain ignorance and shows non_cooperative mode of working in
->> technical committee.
->> you have cut off the tread again, so I can't read the context.
-> Enjoy long threads. 😊
-you skip finished discussions for sure, but don't do that to on-going 
-discussions.
->>>>> I would like to understand and review this aspects.
->>>>> Same for the device context.
->>>> you will see dirty page tracking in my V2, as I repeated for many times.
->>> Since you are not co-operative, I have less sympathy to see V2.
->>> I don’t see a reason to see when, it is fully presented here.
->> Again, please don't take it personal and please be professional.
->>
->> Speaking of collaboration, please at least respect others' time and answers.
->> Both Jason and I have responded to you multiple times on the same
->> questions(for example, FLR, nested, passthrough).
->> If our answers are ignored again and again, and then after a few days or hours
->> you come back asking the same question again, what's the point?
->>
-> I didn’t ask questions in area of FLR and passthrough, please check again.
-OK, then please don't force us answer the same questions anymore, for 
-example no FLR anymore.
->
->> And please don't cut off any threads before we close the discussion.
->>>> For device context, we have discussed this in other threads, did you
->>>> ignored that again?
->>> No. I didn’t. I replied that the generic infrastructure is built the enables every
->> device type to migrate by defining their device context.
->> don't we have a conclusion there or did you miss anything? Since you refuse to
->> define device context for every device type, how do you migrate stateful
->> devices?
->>
->> So we should implement a stateless live migration solution, right?
-> No. device context is basic facility that intent to cover most virtio devices.
-not most, instead it should be "all", if you are implementing a virtio 
-live migration.
-> I didn’t not refuse to define context.
-> I said, device context will be incrementally defined subsequently.
-just define what we have now, for example, define virito-fs as it is now.
-> Like Michael said, I expect every device to define device context section in coming months for 1.4 time frame.
-as MST said, do you expect the implementation to figure out the device 
-context by themselves?
-If you want to migrate device context, you should define them.
->
->>>> Hint: how do you define device context for every device type, e.g, virtio-fs.
->>>> Don't say you only migrate virito-net or blk.
->>> I didn’t say it. I said to migrate all 30+ device types.
->>> And infrastructure is presented here.
->> so please define device context for all the devices.
->> how about starting from virtio-fs?
-> Should be done incrementally.
-show me your patch
->
->>>>>>> You are still in the mode of _take_ what we did with near zero
->> explanation.
->>>>>>> You asked question of why passthrough proposal cannot advantage of
->>>>>>> in_band
->>>>>> config registers.
->>>>>>> I explained technical reason listed here.
->>>>>> I have answered the questions, and asked questions for many times.
->>>>>> What do you mean by "why passthrough proposal cannot advantage of
->>>>>> in_band config registers."?
->>>>>> Config space work for passthrough for sure.
->>>>> Config space registers are passthrough the guest VM.
->>>>> Hence hypervisor messing it with, programming some address would
->>>>> result in
->>>> either security issue.
->>>>> Or functionally broken, to sustain the functionality, each nested
->>>>> layer needs
->>>> one copy of these registers for each nest level.
->>>>> So they must be trapped somehow.
->>>> trap and emulated are basic virtualization.
->>> Not for passthrough devices, sorry.
->>> See the paper that Jason pointed out.
->>> Control program/vmm is trap is involved only on the privileged operation of
->> the VMM.
->>> Virtio cvqs, virtio registers are not the privileged operation of the VMM,
->> because they are of the native virtio device itself.
->>> Period.
->> since the context is cut of again, I failed to read the context.
->>
->> But config space can be trapped and emulated, right?
-> Answered above.
->
->> When guest accessing device config space, actually it access the hypervisor-
->> presented config space.
->>>>> Secondly I don’t see how one can read 1M flows using config registers.
->>>> Not sure what you are talking about, beyond the spec?
->>> The spec which is under works for few months by multiple technical
->> members.
->>> Please subscribe to virtio-comment mailing list.
->>> How come you changed your point from cvq to different argument of out
->>> of spec? :)
->> I mean, what is your 1M flows? is it beyond spec?
-> No. it is not beyond the spec.
-> It is the spec in work for several months by multiple device, OS and cloud operators.
-then, again, what is your 1M flow? if not defined in the spec, then it 
-is beyond spec.
->
->>>>>>> So please don’t jump to conclusions before finishing the
->>>>>>> discussion on how
->>>>>> both side can take advantage of each other.
->>>>>>> Lets please do that.
->>>>>> We have proposed a solution, right?
->>>>>>
->>>>> Which one? To do something in future?
->>>>> I don’t see a suggestion on how one can use device context and dirty
->>>>> page
->>>> tracking for nested and passthrough uniformly.
->>>>> I see a technical difficulty in making both work with uniform interface.
->>>> Please don't ignore previous answers, don't force us repeat again and again.
->>>>
->>> You didn’t answer, how.
->>> Your answer was "you will post dirty page tracking without reviewing current"
->> and Eugenio will post v2....
->> Yes, will do. and you can check the patch when it posted.
->>
-> Does not make sense to me at all.
-tracking dirty pages does not make sense to you?
->   
->> Eugenio will cook a patch for in-flight descriptors, not dirty page, that is mine.
->>>> It is Jason's proposal. Please refer to previous threads, also for
->>>> device context and dirty pages.
->>>>>> I still need to point out: admin vq LM does not work, one example is
->> nested.
->>>>> As Michael said, please don’t confuse between admin commands and
->>>>> admin
->>>> vq.
->>>> anyway, admin vq live migration don't work for nested.
->>> I am convicned with the paper that Jason pointed out.
->>>
->>> A nested solution involves a member device supporting the nesting without
->> trap and emulation so that it follows the two properties:
->>> The efficiency property and equivalence property.
->>>
->>> Hence a member device which wants to support nested case, should present
->> itself with attributes to support nesting.
->> failed to process the sentence, but I am glad you are convinced by the paper.
->>>
->>>>>>>> There are no scale problem as I repeated for many time, they are
->>>>>>>> per-device basic facilities, just migrate the VF by its own
->>>>>>>> facility, so there are no 40000 member devices, this is not per PF.
->>>>>>>>
->>>>>>> I explained that device reset, flr etc flow cannot work when
->>>>>>> controlling and
->>>>>> controlled functions are single entity for passthrough mode.
->>>>>>> The scale problem is, one needs to duplicate the registers on each VF.
->>>>>>> The industry is moving away from the register interface in many
->>>>>>> _real_ hw
->>>>>> devices implementation.
->>>>>>> Some of the examples are IMS, SIOV, NVMe and more.
->>>>>> we have discussed this for many times, please refer to previous
->>>>>> threads, even with Jason.
->>>>> I do not agree for any registers to add to the VF which are reset on
->>>> device_reset and FLR.
->>>>> As it does not work for passthrough mode.
->>>> Jason has answered your these FLR questions for many times, I don't
->>>> want to repeat his words, even myself have answered many times. If
->>>> you keep ignoring the answers, and ask again and again, what is the point?
->>>>
->>>> So please refer to the previous threads.
->>> I don’t think I asked the question above. Please re-read.
->> you cut if off again, what question? if about FLR, I believe Jason has answered
->> for many times.
-> Again, please read. I didn’t ask the question for FLR.
-> You keep saying "what question".
-I failed to read the context because you have cut them off.
->
->>>>>>>> The device context can be read from config space or trapped, like
->>>>>>>> shadow
->>>>>>> There are 1 million flows of the net device flow filters in progress.
->>>>>>> Each flow is 64B in size.
->>>>>>> Total size is 64MB.
->>>>>>> I don’t see how one can read such amount of memory using config
->>>> registers.
->>>>>> control vq?
->>>>> The control vq and flow filter vqs are owned by the guest driver,
->>>>> not the
->>>> hypervisor.
->>>>> So no, cvq cannot be used.
->>>> first, don't cut off the threads, don't delete words, that really confusing
->> readers.
->>> Your comments are so long that it is hard to follow such a long thread.
->>> Hence only the related comments are kept.
->>> But I understand, will try to avoid.
->>>
->>>> And I think you misunderstand a lot of virtualization fundamentals,
->>>> at least have a look at how shadow control vq works.
->>>>
->>> In case if you don’t know, the shadow cvq acceleration for Nvidia ConnectX6-
->> DX is done jointly with Dragos and me, with recent patches from Sie-Wei.
->>> I don’t think so I missed.
->>>
->>> Shadow vq is great when you don’t have underlying support from the device.
->>>
->>> When you have passthrough member devices, they are not trapped or
->> emulated.
->>> The future hypervisor must not be able to see things of cvq, datavq or
->> addressed programmed by the guest.
->>> And hence the infrastructure is geared towards such approach.
->> I failed to read the full context as you cut off them. I can't even read your
->> original questions, they are truncated.
->>
->> Anyway, lets migrate device without device-context first.
-> Passthrough device cannot migrate without device-context as listed.
-so please define the device context.
->
->>>> And the parameters set to config vq are also device context as we
->>>> discussed for many times.
->>>>>> Or do you want to migrate non-virtio context?
->>>>> Every thing is virtio device context.
->>>> see above
->>>>>>>> control vq which is already done, that is basic virtualization.
->>>>>>> There is nothing like "basic virtualization".
->>>>>>> What is proposed here is fulfilling the requirement of passthrough mode.
->>>>>>>
->>>>>>> Your comment is implying, "I don’t care for passthrough
->>>>>>> requirements, do
->>>>>> non_passthrough".
->>>>>> that is your understanding, and you misunderstood it. Config space
->>>>>> servers passthrough for many years.
->>>>> "Config space servers" ?
->>>>> I do not understand it, can you please explain what does that mean?
->>>>>
->>>>> I do not see your suggestion on how one can implement passthrough
->>>>> member
->>>> device when passthrough device does the dma and migration framework
->>>> also need to do the dma.
->>>> Try pass through a virtio device to a guest and learn how the guest
->>>> take advantage the config space before you comment.
->>> Right. It does not work. The guest is doing the device_reset and flr.
->>> Hence, it is resetting everything. All the dirty page log is lost.
->>> All the device context is lost.
->>> Hypervisor didn’t see any of this happening, because it didn’t do the trap.
->>>
->>> Look, if you are going to continue to argue that you must do trap +
->>> emulation and don’t talk about passthrough, Please stop here, because
->> discussion won't go anywhere.
->>> I made my best to answer the limitations in very first email where you asked.
->> OK, I see the gap, and I am sure we can help you here.
->> Try consider a question:
->> how do you define pass-through?
-> As defined in the cover letter and theory of operation.
-> Repeat here:
-> A device whose virtio interfaces are not intercepted by VMM.
-> In future, may be even MSI-X and MSI-X_v2 or newer interrupt method will be passthrough at device level too.
-> (only cpu level interrupt remapping will be hypercall at interrupt controller level).
->
-> A PCI spec defined config space to stay as emulated as it is generic and not supposed to have any virtio specific things in it as directed by the PCI-SIG.
-how guest access device config space in your "passthrough"?
->
->> Can a guest access the device without a host driver helper?
-> Yes for all the virtio interfaces which includes, virtio device common and device config space, cvq, data vq, flow filter vqs, shared memory and anything new of the future.
-interesting, if so, let me ask you a question, Is a guest privileged to 
-access any devices on the host?
->
->>>>> That basic facility is missing dirty page tracking, P2P support,
->>>>> device context,
->>>> FLR, device reset support.
->>>>> Hence, it is unusable right now for passthough member device.
->>>>> And 6th problemetic thing in it is, it does not scale with member devices.
->>>> Please refer to previous discussions, it is meaningless if you keep
->>>> ignoring our answers and keep asking the same questions.
->>> Again, please re-read, I didn’t ask the question.
->>> I replied 6 problems that are not solved.
->> I believe we have answered for many times. The questions are cut off again, but
->> how about search for previous answers?
->>>>>>>> If you want to migrate device context, you need to specify device
->>>>>>>> context for every type of device, net maybe easy, how do you see virtio-
->> fs?
->>>>>>> Virtio-fs will have its on device context too.
->>>>>>> Every device has some sort of backend in varied degree.
->>>>>>> Net being widely used and moderate complex device.
->>>>>>> Fs being slightly stateful but less complex than net, as it has
->>>>>>> far less control
->>>>>> operations.
->>>>>> so, do you say you have implement a live migration solution which
->>>>>> can migrate device context, but only work for net or block?
->>>>> I don’t think this question about implementation has any relevance.
->>>>> Frankly feels like a court to me. :( No. I dint say that.
->>>>> We have implemented net, fs, block devices and single framework
->>>>> proposed
->>>> here can support all 3 and rest 28+.
->>>>> The device context part in this series do not cover special/optional
->>>>> things of
->>>> all the device type.
->>>>> This is something I promised to do gradually, once the framework looks
->> good.
->>>> If you don't define them, only talking about "migrate the device
->>>> context" but don't tell us what do migrate, does this make sense to anybody?
->>>>>> Then you should call it virtio net/blk migration and implement in
->>>>>> net/block section.
->>>>> No. you misunderstood. My point was showing orthogonal complexities
->>>>> of net
->>>> vs fs.
->>>>> I likely failed to explain that.
->>>> see above, anyway you need to define them, how about starting form virito
->> FS?
->>>>>>> In fact virtio-fs device already discusses the migrating the
->>>>>>> device side state, as
->>>>>> listed in device context.
->>>>>>> So virtio-fs device will have its own device-context defined.
->>>>>> if you want to migrate it, you need to define it
->>>>> Sure.
->>>>> Only device specific things to be defined in future.
->>>> Now, not future if you want to migrate device context.
->>> It is not mandatory, and it is impractical do everything in one series.
->>> It is planned for 1.4.
->> really, you want to define device context for every device time?
->>
-> Yes.
->   
->> Remember don't migrate device-context before you define them or how can
->> the HW implementions know how to do.
-> I disagree. The infrastructure is defined. And incrementally device context will also be defined.
-> See an example work from Michael, i.e. admin command and aq generic facility is defined.
-> And device migration is able to utilize it incrementally. The lower layer fulfill the requirements.
-> This is exactly what is done here.
->
-> Device context framework is defined and many device spec owners will be easily define their device context making it migratable.
-see above answers for device context.
->
->>>>> Rest is already present.
->>>>> We are not going to define all the device context in one patch
->>>>> series that no
->>>> one can review reliably.
->>>>> It will be done incrementally.
->>>> so you agree at least for now we should migrate stateless devices, right?
->>>>> But the feedback, I am taking is, we need to add a command that
->>>>> indicates
->>>> which TLVs are supported in the device migration.
->>>>> So virtio-fs or other device migration capabilities can be discovered.
->>>>> I will cover this in v2.
->>>> so you propose a solution as "virtio migration", but only migrate
->>>> selective types of devices?
->>>> You should rename it to be "virtio-net live migration".
->>> Sorry, I wont. Because infrastructure is for majority device types.
->>>
->>> Which field did you observe which is net specific?
->>> We want to cover all the device types.
->>> Don’t need to cook their context in one series.
->> so, not work for all device types? limited to some specific types?
->> you still need to rename it what ever.
-> No. framework works for all device types.
-without defining them?
->
->>>>> Thanks a lot for this thoughts.
->>>>>
->>>>>>> The infrastructure and basic facilities are setup in this series,
->>>>>>> that one can
->>>>>> easily extend for all the current and new device types.
->>>>>> really? how?
->>>>>>>> And we are migrating stateless devices, or no? How do you migrate
->>>>>>>> virtio-
->>>> fs?
->>>>>>>>> 2. sharing such large context and write addresses in parallel
->>>>>>>>> for multiple devices cannot be done using single register file
->>>>>>>> see above
->>>>>>>>> 3. These registers cannot be residing in the VF because VF can
->>>>>>>>> undergo FLR, and device reset which must clear these registers
->>>>>>>> do you mean you want to audit all PCI features? When FLR, the
->>>>>>>> device is rested, do you expect a device remember anything after FLR?
->>>>>>> Not at all. VF member device will not remember anything after FLR.
->>>>>>>> Do you want to trap FLR? Why?
->>>>>>> This proposal does _not_ want to trap the FLR in the hypervisor virtio
->> driver.
->>>>>>> When one does the mediation-based design, it must
->>>>>>> trap/emulate/fake the
->>>>>> FLR.
->>>>>>> It helps to address the case of nested as you mentioned.
->>>>>> once passthrough, the guest driver can access the config space to
->>>>>> reset the device, right?
->>>>>>>> Why FLR block or conflict with live migration?
->>>>>>> It does not block or conflict.
->>>>>> OK, cool, so let's make this a conclusion
->>>>>>> The whole point is, when you put live migration functionality on
->>>>>>> the VF itself,
->>>>>> you just cannot FLR this device.
->>>>>>> One must trap the FLR and do fake FLR and build the whole
->>>>>>> infrastructure to
->>>>>> not FLR The device.
->>>>>>> Above is not passthrough device.
->>>>>> No, the guest can reset the device, even causing a failed live migration.
->>>>> Not in the proposal here.
->>>>> Can you please prove how in the current v1 proposal, device reset
->>>>> will fail the
->>>> migration?
->>>>> I would like to fix it.
->>>> if the device is reset, it forgets everything right?
->>> Right. This is why all dirty page track; device context is lost on device reset.
->>> Hence, the controlling function and controlled function are two different
->> entities.
->> so there can be inconsistent migrations and races, right? And if the guest reset
->> the device, actually the hypervisor should let it be, right?
-> No. it should not be in because hypervisor has not composed the member device. It is in the hw controlled function itself.
-interesting, do you mean when the guest reset the device, the hypervisor 
-should refuse?
-
-This actually conflict with your statement of your "passthrough" by " 
-not intercepted by VMM". So you actually understand trap and emulate and 
-passthrough.
->
->>>>>>>>> 4. When VF does the DMA, all dma occurs in the guest address
->>>>>>>>> space, not in
->>>>>>>> hypervisor space; any flr and device reset must stop such dma.
->>>>>>>>> And device reset and flr are controlled by the guest (not
->>>>>>>>> mediated by
->>>>>>>> hypervisor).
->>>>>>>> if the guest reset the device, it is totally reasonable
->>>>>>>> operation, and the guest own the risk, right?
->>>>>>> Sure, but the guest still expects its dirty pages and device
->>>>>>> context to be
->>>>>> migrated across device_reset.
->>>>>>> Device_reset will lose all this information within the device if
->>>>>>> done without
->>>>>> mediation and special care.
->>>>>> No, if the guest reset a device, that means the device should be
->>>>>> RESET, to forget its config, that would be really wired to migrate
->>>>>> a fresh device at the source side, to be a running device at the
->>>>>> destination
->>>> side.
->>>>> Device reset not doing the role of reset is just a plain broken spec.
->>>> why? The reset behavior is well defined in the spec, and works fine for years.
->>> So any new construct that one adds, it will be reset as well and dirty page
->> track is lost.
->> Yes and do you want to prevent that? You may surprise the guest.
-> Yes, want to prevent that.
-> Not sure what you mean by surprise the guest. Unlikely.
-> Why because guest did the reset, it knows what it is doing.
-> (Keep in mind that guest does not expect to lose its dirty pages).
-Shocked...
-
-This statement conflict with basic virtualization.
->
->>>>>>> So, to avoid that now one needs to have fake device reset too and
->>>>>>> build that
->>>>>> infrastructure to not reset.
->>>>>>> The passthrough proposal fundamental concept is:
->>>>>>>
->>>>>>> all the native virtio functionalities are between guest driver and
->>>>>>> the actual
->>>>>> device.
->>>>>> see above.
->>>>>>>> and still, do you want to audit every PCI features? at least you
->>>>>>>> didn't do that in your series.
->>>>>>> Can you please list which PCI features audit you are talking about?
->>>>>> you audit FLR, then do you want to check everyone?
->>>>>> If no, how to decide which one should be audited, why others not?
->>>>> I really find it hard to follow your question.
->>>>>
->>>>> I explained in patch 5 and 8 about interactions with the FLR and its support.
->>>>> Not sure what you want me to check.
->>>>>
->>>>> You mentioned that "I didn’t audit every PCI features"? So can you
->>>>> please list
->>>> which one and in relation to which admin commands?
->>>> Your job to audit everyone if you talk about FLR. Because FLR is PCI
->>>> spec, not virtio, you need to explain why other PCI features not need to be
->> audited.
->>> Sure, but when you point figure as I didn’t audit, please mention what is not
->> audited.
->> well, we are migrating virtio devices, but you keep talking PCI, so do you want to
->> take every PCI functionalities into considerations>
-> For pci transport, yes.
-First, that is out of virtio spec.
-Second, if so, you should audit every pci feature, state.
-Don't say you want me to define them, this is your statement.
->
->>>> We have explained why FLR is not a concern for many times, and I
->>>> don't want to repeat, please refer to previous discussions.
->>> You seem to ignore the first paragraph of theory of operation that FLR is not
->> trapped.
->> this is the guest issue FLR, right? If so the guest owns the risks and the
->> hypervisor should not prevent that.
-> Exactly, hypervisor do not prevent it.
-> The owner device still has the ownership to not lose previously logged dirty pages addresses.
-> And device still need to report device reset occurred, so that destination side can wipe off and start fresh.
-OK, so you know the answer now. This answers your own question above.
->
->>>>>>> Keep in mind, that will all the mediation, one now must equally
->>>>>>> audit all this
->>>>>> giant software stack too.
->>>>>>> So maybe it is fine for those who are ok with it.
->>>>>> so you agree FLR is not a problem, at least for config space solution?
->>>>> I don’t know what you mean "FLR is not a problem".
->>>>>
->>>>> FLR on the VF must work as it works without live migration for
->>>>> passthrough
->>>> device as today.
->>>>> And admin commands have some interactions with it.
->>>>> And this proposal covers it.
->>>>> I am missing some text that Michael and Jason pointed out.
->>>>> I am working on v2 to annotate or better word them.
->>>> When guest reset the device, the device should be reset for sure.
->>>> then it forgets everything, how do you expect the reset-ed device still work
->> for live migration?
->>>> is it a race?
->>> I don’t expect it live migration to work at all with such a approach.
->>> This is why in my proposal live migration occurs on the owner device, while
->> controlled function (member device) is undergoing the device reset.
->> see above
->>>>>>>> For migration, you know the hypervisor takes the ownership of the
->>>>>>>> device in the stop_window.
->>>>>>> I do not know what stop_window means.
->>>>>>> Do you mean stop_copy of vfio or it is qemu term?
->>>>>> when guest freeze.
->>>>>>>>> 5. Any PASID to separate out admin vq on the VF does not work
->>>>>>>>> for two
->>>>>>>> reasons.
->>>>>>>>> R_1: device flr and device reset must stop all the dmas.
->>>>>>>>> R_2: PASID by most leading vendors is still not mature enough
->>>>>>>>> R_3: One also needs to do inversion to not expose PASID
->>>>>>>>> capability of the member PCI device to not expose
->>>>>>>> see above and what if guest shutdown? the same answer, right?
->>>>>>> Not sure, I follow.
->>>>>>> If the guest shutdown, the guest specific shutdown APIs are called.
->>>>>>>
->>>>>>> With passthrough device, R_1 just works as is.
->>>>>>> R_3 is not needed as they are directly given to the guest.
->>>>>>> R_2 platform dependency is not needed either.
->>>>>> I think we already have a concussion for FLR.
->>>>> I don’t have any concussion.
->>>>> I wrote what to be supported for the FLR above.
->>>> OK, again, our discussions has been ignored again, and all start over again.
->>>>
->>>> Would you please read our previous discussions?
->>> You asked the question about why it wont work, I answered.
->>> I don’t see a point of debating same thing over again.
->> Is that cut off again?
->>
-> No it is not cut off here.
->
->> if still about FLR, so please see above comments.
->> And I agree if the answers are ignored again, we don't need to repeat.
-> I didn’t ask questions. Please re-read.
->
->>>>>> For PASID, what blocks the solution?
->>>>> When the device is passthrough, PASID capabilities cannot be emulated.
->>>>> PASID space is owned fully by the guest.
->>>>>
->>>>> There is no single known cpu vendor support splitting pasid between
->>>> hypervisor and guest.
->>>>> I can double check, but last I recall that Linux kernel removed such
->>>>> weird
->>>> support.
->>>> do you know there is something called vIOMMU?
->>> Probably yes.
-
---------------QGhz6TO5bKPYGwp1SCSRbApl
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <font face="monospace"><br>
-      <br>
-    </font>
-    <div class="moz-cite-prefix"><font face="monospace">On 10/18/2023
-        1:00 PM, Parav Pandit wrote:<br>
-      </font></div>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
-Sent: Monday, October 16, 2023 3:14 PM
-
-On 10/13/2023 7:28 PM, Parav Pandit wrote:
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
-Sent: Friday, October 13, 2023 2:36 PM
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">[..]
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Because it does not work for passthrough mode.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">what are you talking about?
-Config space does not work passthrough?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Once the register space of the VF that is supposed to be used by the live
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">migration is passed to the guest, it is under guest control.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Hence, live migration driver won't be able to use it.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">Does guest control device status to reset itself? harmful?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">No. it is not harmful.
-Is owner device reseting itself, harmful? No.
-Is member device resetting isetlf, harmful? No.
-Should member device reset</pre>
-    </blockquote>
-    <font face="monospace">good</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">These facilities can be trapped and emulated, even the feature bits, right?
-You know the guest actually don't direct access the device config space, there is
-a vfio/vdpa driver, right?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">You can practically trap and emulated everything.
-If you continue to ignore passthrough requirements and keep repeating that do trap and emulate, this discussion does not go anywhere.</pre>
-    </blockquote>
-    <font face="monospace">Clearly I did not ignore passthrough and keep
-      answering your question for many times.<br>
-      Maybe you didn't get it, so </font><font face="monospace">I would
-      ask how you define your "passthrough"?<br>
-      <br>
-      You may find that the guest vCPUs(guest vRC) actually are not
-      privileged to access to<br>
-      host pci device(host CPU RC), that's why a pass-through driver
-      like vfio is a must.<br>
-      <br>
-      Therefore the device config space can be trapped. Is that clear
-      now?<br>
-    </font>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Have you ever tried pass through a virtio device to a guest?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">:)
-Please explain how the question is relevant to this discussion in separate
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">thread, so that one can keep technical focus.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">(Please keep your discussion technical, instead of derogatory to other
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">members).
-if you want me to answer your question, at least you SHOULD NOT cut off the
-context, or you are trying to confuse everyone.
-Or did you try to avoid or hide anything? I am not sure this is a good practice.
-
-The context in last discussion is:
-
-me: OK, I pop-ed Jason's proposal to make everything easier, and I see it is
-refused.
-you: Because it does not work for passthrough mode.
-me: what are you talking about?
-     Config space does not work passthrough?
-     Have you ever tried pass through a virtio device to a guest?
-
-So I ask you try to pass through a virito-pci device to a guest, then check
-whether the config space work for pass-through mode.
-
-again, don't cut off threads before the discussion is closed.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Let me repeat again, these live migration facilities are
-per-device(per-VF) facility, so it only migrates itself.
-
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Since they are per device (per VF), they reside in the guest VM. Hence, VMM
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">cannot live migrate it.
-you know the config space can be trapped and emulated, and the hypervisor
-takes the ownership of the device once the guest freeze in the stop window.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">When you say config space, do you mean PCI config space of 4K size?</pre>
-    </blockquote>
-    <font face="monospace">you can take an example of virito common
-      config cap.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">And for pass through, you can try passthrough a virito device to a
-guest, see how the guest initialize the device through the config space.
-
-That is really basic virtualization, not hard to test.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Repeated points, I am omitting.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">ok, if you get it, let's close it.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">inflight descriptor tracking will be implemented by Eugenio in V2.
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">When we have near complete proposal from two device vendors, you
-want to push something to unknown future without reviewing the
-work; does not
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">make sense.
-Didn't I ever provide feedback to you? Really?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">No. I didn’t see why you need to post a new patch for dirty page
-tracking,
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">when it is already present in this series.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">This is plain ignorance and shows non_cooperative mode of working in
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">technical committee.
-you have cut off the tread again, so I can't read the context.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Enjoy long threads. 😊</pre>
-    </blockquote>
-    <font face="monospace">you skip finished discussions for sure, but
-      don't do that to on-going discussions.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">I would like to understand and review this aspects.
-Same for the device context.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">you will see dirty page tracking in my V2, as I repeated for many times.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Since you are not co-operative, I have less sympathy to see V2.
-I don’t see a reason to see when, it is fully presented here.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">Again, please don't take it personal and please be professional.
-
-Speaking of collaboration, please at least respect others' time and answers.
-Both Jason and I have responded to you multiple times on the same
-questions(for example, FLR, nested, passthrough).
-If our answers are ignored again and again, and then after a few days or hours
-you come back asking the same question again, what's the point?
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">I didn’t ask questions in area of FLR and passthrough, please check again.</pre>
-    </blockquote>
-    <font face="monospace">OK, then please don't force us answer the
-      same questions anymore, for example no FLR anymore.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">And please don't cut off any threads before we close the discussion.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">For device context, we have discussed this in other threads, did you
-ignored that again?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">No. I didn’t. I replied that the generic infrastructure is built the enables every
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">device type to migrate by defining their device context.
-don't we have a conclusion there or did you miss anything? Since you refuse to
-define device context for every device type, how do you migrate stateful
-devices?
-
-So we should implement a stateless live migration solution, right?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">No. device context is basic facility that intent to cover most virtio devices.</pre>
-    </blockquote>
-    <font face="monospace">not most, instead it should be "all", if you
-      are implementing a virtio live migration.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-I didn’t not refuse to define context.
-I said, device context will be incrementally defined subsequently.</pre>
-    </blockquote>
-    <font face="monospace">just define what we have now, for example,
-      define virito-fs as it is now.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-Like Michael said, I expect every device to define device context section in coming months for 1.4 time frame.</pre>
-    </blockquote>
-    <font face="monospace">as MST said, do you expect the implementation
-      to figure out the device context by themselves?<br>
-      If you want to migrate device context, you should define them.<br>
-    </font>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Hint: how do you define device context for every device type, e.g, virtio-fs.
-Don't say you only migrate virito-net or blk.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I didn’t say it. I said to migrate all 30+ device types.
-And infrastructure is presented here.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">so please define device context for all the devices.
-how about starting from virtio-fs?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Should be done incrementally.</pre>
-    </blockquote>
-    <font face="monospace">show me your patch</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">You are still in the mode of _take_ what we did with near zero
-</pre>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">explanation.
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">You asked question of why passthrough proposal cannot advantage of
-in_band
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">config registers.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">I explained technical reason listed here.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">I have answered the questions, and asked questions for many times.
-What do you mean by "why passthrough proposal cannot advantage of
-in_band config registers."?
-Config space work for passthrough for sure.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Config space registers are passthrough the guest VM.
-Hence hypervisor messing it with, programming some address would
-result in
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">either security issue.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Or functionally broken, to sustain the functionality, each nested
-layer needs
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">one copy of these registers for each nest level.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">So they must be trapped somehow.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">trap and emulated are basic virtualization.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Not for passthrough devices, sorry.
-See the paper that Jason pointed out.
-Control program/vmm is trap is involved only on the privileged operation of
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">the VMM.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Virtio cvqs, virtio registers are not the privileged operation of the VMM,
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">because they are of the native virtio device itself.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Period.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">since the context is cut of again, I failed to read the context.
-
-But config space can be trapped and emulated, right?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Answered above.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">When guest accessing device config space, actually it access the hypervisor-
-presented config space.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Secondly I don’t see how one can read 1M flows using config registers.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Not sure what you are talking about, beyond the spec?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">The spec which is under works for few months by multiple technical
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">members.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Please subscribe to virtio-comment mailing list.
-How come you changed your point from cvq to different argument of out
-of spec? :)
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I mean, what is your 1M flows? is it beyond spec?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-No. it is not beyond the spec.
-It is the spec in work for several months by multiple device, OS and cloud operators.</pre>
-    </blockquote>
-    <font face="monospace">then, again, what is your 1M flow? if not
-      defined in the spec, then it is beyond spec.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">So please don’t jump to conclusions before finishing the
-discussion on how
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">both side can take advantage of each other.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">Lets please do that.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">We have proposed a solution, right?
-
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Which one? To do something in future?
-I don’t see a suggestion on how one can use device context and dirty
-page
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">tracking for nested and passthrough uniformly.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">I see a technical difficulty in making both work with uniform interface.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Please don't ignore previous answers, don't force us repeat again and again.
-
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">You didn’t answer, how.
-Your answer was "you will post dirty page tracking without reviewing current"
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">and Eugenio will post v2....
-Yes, will do. and you can check the patch when it posted.
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Does not make sense to me at all.</pre>
-    </blockquote>
-    <font face="monospace">tracking dirty pages does not make sense to
-      you?</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
- 
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Eugenio will cook a patch for in-flight descriptors, not dirty page, that is mine.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">It is Jason's proposal. Please refer to previous threads, also for
-device context and dirty pages.
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">I still need to point out: admin vq LM does not work, one example is
-</pre>
-              </blockquote>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">nested.
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">As Michael said, please don’t confuse between admin commands and
-admin
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">vq.
-anyway, admin vq live migration don't work for nested.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I am convicned with the paper that Jason pointed out.
-
-A nested solution involves a member device supporting the nesting without
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">trap and emulation so that it follows the two properties:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">The efficiency property and equivalence property.
-
-Hence a member device which wants to support nested case, should present
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">itself with attributes to support nesting.
-failed to process the sentence, but I am glad you are convinced by the paper.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">There are no scale problem as I repeated for many time, they are
-per-device basic facilities, just migrate the VF by its own
-facility, so there are no 40000 member devices, this is not per PF.
-
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">I explained that device reset, flr etc flow cannot work when
-controlling and
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">controlled functions are single entity for passthrough mode.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">The scale problem is, one needs to duplicate the registers on each VF.
-The industry is moving away from the register interface in many
-_real_ hw
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">devices implementation.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">Some of the examples are IMS, SIOV, NVMe and more.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">we have discussed this for many times, please refer to previous
-threads, even with Jason.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">I do not agree for any registers to add to the VF which are reset on
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">device_reset and FLR.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">As it does not work for passthrough mode.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Jason has answered your these FLR questions for many times, I don't
-want to repeat his words, even myself have answered many times. If
-you keep ignoring the answers, and ask again and again, what is the point?
-
-So please refer to the previous threads.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I don’t think I asked the question above. Please re-read.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">you cut if off again, what question? if about FLR, I believe Jason has answered
-for many times.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Again, please read. I didn’t ask the question for FLR.
-You keep saying "what question".</pre>
-    </blockquote>
-    <font face="monospace">I failed to read the context because you have
-      cut them off.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">The device context can be read from config space or trapped, like
-shadow
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">There are 1 million flows of the net device flow filters in progress.
-Each flow is 64B in size.
-Total size is 64MB.
-I don’t see how one can read such amount of memory using config
-</pre>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">registers.
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">control vq?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">The control vq and flow filter vqs are owned by the guest driver,
-not the
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">hypervisor.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">So no, cvq cannot be used.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">first, don't cut off the threads, don't delete words, that really confusing
-</pre>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">readers.
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Your comments are so long that it is hard to follow such a long thread.
-Hence only the related comments are kept.
-But I understand, will try to avoid.
-
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">And I think you misunderstand a lot of virtualization fundamentals,
-at least have a look at how shadow control vq works.
-
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">In case if you don’t know, the shadow cvq acceleration for Nvidia ConnectX6-
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">DX is done jointly with Dragos and me, with recent patches from Sie-Wei.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-I don’t think so I missed.
-
-Shadow vq is great when you don’t have underlying support from the device.
-
-When you have passthrough member devices, they are not trapped or
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">emulated.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">The future hypervisor must not be able to see things of cvq, datavq or
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">addressed programmed by the guest.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">And hence the infrastructure is geared towards such approach.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I failed to read the full context as you cut off them. I can't even read your
-original questions, they are truncated.
-
-Anyway, lets migrate device without device-context first.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Passthrough device cannot migrate without device-context as listed.</pre>
-    </blockquote>
-    <font face="monospace">so please define the device context.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">And the parameters set to config vq are also device context as we
-discussed for many times.
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">Or do you want to migrate non-virtio context?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Every thing is virtio device context.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">see above
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">control vq which is already done, that is basic virtualization.
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">There is nothing like "basic virtualization".
-What is proposed here is fulfilling the requirement of passthrough mode.
-
-Your comment is implying, "I don’t care for passthrough
-requirements, do
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">non_passthrough".
-that is your understanding, and you misunderstood it. Config space
-servers passthrough for many years.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">"Config space servers" ?
-I do not understand it, can you please explain what does that mean?
-
-I do not see your suggestion on how one can implement passthrough
-member
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">device when passthrough device does the dma and migration framework
-also need to do the dma.
-Try pass through a virtio device to a guest and learn how the guest
-take advantage the config space before you comment.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Right. It does not work. The guest is doing the device_reset and flr.
-Hence, it is resetting everything. All the dirty page log is lost.
-All the device context is lost.
-Hypervisor didn’t see any of this happening, because it didn’t do the trap.
-
-Look, if you are going to continue to argue that you must do trap +
-emulation and don’t talk about passthrough, Please stop here, because
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">discussion won't go anywhere.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-I made my best to answer the limitations in very first email where you asked.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">OK, I see the gap, and I am sure we can help you here.
-Try consider a question:
-how do you define pass-through? 
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">As defined in the cover letter and theory of operation.
-Repeat here:
-A device whose virtio interfaces are not intercepted by VMM.
-In future, may be even MSI-X and MSI-X_v2 or newer interrupt method will be passthrough at device level too.
-(only cpu level interrupt remapping will be hypercall at interrupt controller level).
-
-A PCI spec defined config space to stay as emulated as it is generic and not supposed to have any virtio specific things in it as directed by the PCI-SIG.</pre>
-    </blockquote>
-    <font face="monospace">how guest access device config space in your
-      "passthrough"? </font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Can a guest access the device without a host driver helper?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Yes for all the virtio interfaces which includes, virtio device common and device config space, cvq, data vq, flow filter vqs, shared memory and anything new of the future.</pre>
-    </blockquote>
-    <font face="monospace">interesting, if so, let me ask you a
-      question, Is a guest privileged to access any devices on the host?</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">That basic facility is missing dirty page tracking, P2P support,
-device context,
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">FLR, device reset support.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Hence, it is unusable right now for passthough member device.
-And 6th problemetic thing in it is, it does not scale with member devices.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Please refer to previous discussions, it is meaningless if you keep
-ignoring our answers and keep asking the same questions.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Again, please re-read, I didn’t ask the question.
-I replied 6 problems that are not solved.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I believe we have answered for many times. The questions are cut off again, but
-how about search for previous answers?
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">If you want to migrate device context, you need to specify device
-context for every type of device, net maybe easy, how do you see virtio-
-</pre>
-                  </blockquote>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">fs?
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">Virtio-fs will have its on device context too.
-Every device has some sort of backend in varied degree.
-Net being widely used and moderate complex device.
-Fs being slightly stateful but less complex than net, as it has
-far less control
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">operations.
-so, do you say you have implement a live migration solution which
-can migrate device context, but only work for net or block?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">I don’t think this question about implementation has any relevance.
-Frankly feels like a court to me. :( No. I dint say that.
-We have implemented net, fs, block devices and single framework
-proposed
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">here can support all 3 and rest 28+.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">The device context part in this series do not cover special/optional
-things of
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">all the device type.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">This is something I promised to do gradually, once the framework looks
-</pre>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">good.
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">If you don't define them, only talking about "migrate the device
-context" but don't tell us what do migrate, does this make sense to anybody?
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">Then you should call it virtio net/blk migration and implement in
-net/block section.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">No. you misunderstood. My point was showing orthogonal complexities
-of net
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">vs fs.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">I likely failed to explain that.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">see above, anyway you need to define them, how about starting form virito
-</pre>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">FS?
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">In fact virtio-fs device already discusses the migrating the
-device side state, as
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">listed in device context.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">So virtio-fs device will have its own device-context defined.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">if you want to migrate it, you need to define it
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Sure.
-Only device specific things to be defined in future.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Now, not future if you want to migrate device context.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">It is not mandatory, and it is impractical do everything in one series.
-It is planned for 1.4.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">really, you want to define device context for every device time?
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Yes.
- 
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Remember don't migrate device-context before you define them or how can
-the HW implementions know how to do.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">I disagree. The infrastructure is defined. And incrementally device context will also be defined.
-See an example work from Michael, i.e. admin command and aq generic facility is defined.
-And device migration is able to utilize it incrementally. The lower layer fulfill the requirements.
-This is exactly what is done here.
-
-Device context framework is defined and many device spec owners will be easily define their device context making it migratable.</pre>
-    </blockquote>
-    <font face="monospace">see above answers for device context.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Rest is already present.
-We are not going to define all the device context in one patch
-series that no
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">one can review reliably.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">It will be done incrementally.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">so you agree at least for now we should migrate stateless devices, right?
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">But the feedback, I am taking is, we need to add a command that
-indicates
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">which TLVs are supported in the device migration.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">So virtio-fs or other device migration capabilities can be discovered.
-I will cover this in v2.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">so you propose a solution as "virtio migration", but only migrate
-selective types of devices?
-You should rename it to be "virtio-net live migration".
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Sorry, I wont. Because infrastructure is for majority device types.
-
-Which field did you observe which is net specific?
-We want to cover all the device types.
-Don’t need to cook their context in one series.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">so, not work for all device types? limited to some specific types?
-you still need to rename it what ever.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">No. framework works for all device types.</pre>
-    </blockquote>
-    <font face="monospace">without defining them?</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Thanks a lot for this thoughts.
-
-</pre>
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">The infrastructure and basic facilities are setup in this series,
-that one can
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">easily extend for all the current and new device types.
-really? how?
-</pre>
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">And we are migrating stateless devices, or no? How do you migrate
-virtio-
-</pre>
-                  </blockquote>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">fs?
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">2. sharing such large context and write addresses in parallel
-for multiple devices cannot be done using single register file
-</pre>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">see above
-</pre>
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">3. These registers cannot be residing in the VF because VF can
-undergo FLR, and device reset which must clear these registers
-</pre>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">do you mean you want to audit all PCI features? When FLR, the
-device is rested, do you expect a device remember anything after FLR?
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">Not at all. VF member device will not remember anything after FLR.
-</pre>
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">Do you want to trap FLR? Why?
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">This proposal does _not_ want to trap the FLR in the hypervisor virtio
-</pre>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">driver.
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">
-When one does the mediation-based design, it must
-trap/emulate/fake the
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">FLR.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">It helps to address the case of nested as you mentioned.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">once passthrough, the guest driver can access the config space to
-reset the device, right?
-</pre>
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">Why FLR block or conflict with live migration?
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">It does not block or conflict.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">OK, cool, so let's make this a conclusion
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">The whole point is, when you put live migration functionality on
-the VF itself,
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">you just cannot FLR this device.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">One must trap the FLR and do fake FLR and build the whole
-infrastructure to
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">not FLR The device.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">Above is not passthrough device.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">No, the guest can reset the device, even causing a failed live migration.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Not in the proposal here.
-Can you please prove how in the current v1 proposal, device reset
-will fail the
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">migration?
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">I would like to fix it.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">if the device is reset, it forgets everything right?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Right. This is why all dirty page track; device context is lost on device reset.
-Hence, the controlling function and controlled function are two different
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">entities.
-so there can be inconsistent migrations and races, right? And if the guest reset
-the device, actually the hypervisor should let it be, right?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">No. it should not be in because hypervisor has not composed the member device. It is in the hw controlled function itself.</pre>
-    </blockquote>
-    <font face="monospace">interesting, do you mean when the guest reset
-      the device, the hypervisor should refuse?<br>
-      <br>
-      This actually conflict with your statement of your "passthrough"
-      by " <span style="white-space: pre-wrap">not intercepted by VMM<font
-      style="white-space: normal;">".
-
-So you actually understand trap and emulate and passthrough.
-</font></span></font>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">4. When VF does the DMA, all dma occurs in the guest address
-space, not in
-</pre>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">hypervisor space; any flr and device reset must stop such dma.
-</pre>
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">And device reset and flr are controlled by the guest (not
-mediated by
-</pre>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">hypervisor).
-if the guest reset the device, it is totally reasonable
-operation, and the guest own the risk, right?
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">Sure, but the guest still expects its dirty pages and device
-context to be
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">migrated across device_reset.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">Device_reset will lose all this information within the device if
-done without
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">mediation and special care.
-No, if the guest reset a device, that means the device should be
-RESET, to forget its config, that would be really wired to migrate
-a fresh device at the source side, to be a running device at the
-destination
-</pre>
-              </blockquote>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">side.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Device reset not doing the role of reset is just a plain broken spec.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">why? The reset behavior is well defined in the spec, and works fine for years.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">So any new construct that one adds, it will be reset as well and dirty page
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">track is lost.
-Yes and do you want to prevent that? You may surprise the guest.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Yes, want to prevent that.
-Not sure what you mean by surprise the guest. Unlikely.
-Why because guest did the reset, it knows what it is doing.
-(Keep in mind that guest does not expect to lose its dirty pages).</pre>
-    </blockquote>
-    <font face="monospace">Shocked...<br>
-      <br>
-      This statement conflict with basic virtualization. <br>
-    </font>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">So, to avoid that now one needs to have fake device reset too and
-build that
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">infrastructure to not reset.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">The passthrough proposal fundamental concept is:
-
-all the native virtio functionalities are between guest driver and
-the actual
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">device.
-see above.
-</pre>
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">and still, do you want to audit every PCI features? at least you
-didn't do that in your series.
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">Can you please list which PCI features audit you are talking about?
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">you audit FLR, then do you want to check everyone?
-If no, how to decide which one should be audited, why others not?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">I really find it hard to follow your question.
-
-I explained in patch 5 and 8 about interactions with the FLR and its support.
-Not sure what you want me to check.
-
-You mentioned that "I didn’t audit every PCI features"? So can you
-please list
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">which one and in relation to which admin commands?
-Your job to audit everyone if you talk about FLR. Because FLR is PCI
-spec, not virtio, you need to explain why other PCI features not need to be
-</pre>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">audited.
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Sure, but when you point figure as I didn’t audit, please mention what is not
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">audited.
-well, we are migrating virtio devices, but you keep talking PCI, so do you want to
-take every PCI functionalities into considerations&gt;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">For pci transport, yes.</pre>
-    </blockquote>
-    <font face="monospace">First, that is out of virtio spec.<br>
-      Second, if so, you should audit every pci feature, state.<br>
-      Don't say you want me to define them, this is your statement.<br>
-    </font>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">We have explained why FLR is not a concern for many times, and I
-don't want to repeat, please refer to previous discussions.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">You seem to ignore the first paragraph of theory of operation that FLR is not
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">trapped.
-this is the guest issue FLR, right? If so the guest owns the risks and the
-hypervisor should not prevent that.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Exactly, hypervisor do not prevent it.
-The owner device still has the ownership to not lose previously logged dirty pages addresses.
-And device still need to report device reset occurred, so that destination side can wipe off and start fresh.</pre>
-    </blockquote>
-    <font face="monospace">OK, so you know the answer now. This answers
-      your own question above.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481EBA856D74951069F3DD1DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">Keep in mind, that will all the mediation, one now must equally
-audit all this
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">giant software stack too.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">So maybe it is fine for those who are ok with it.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">so you agree FLR is not a problem, at least for config space solution?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">I don’t know what you mean "FLR is not a problem".
-
-FLR on the VF must work as it works without live migration for
-passthrough
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">device as today.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">And admin commands have some interactions with it.
-And this proposal covers it.
-I am missing some text that Michael and Jason pointed out.
-I am working on v2 to annotate or better word them.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">When guest reset the device, the device should be reset for sure.
-then it forgets everything, how do you expect the reset-ed device still work
-</pre>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">for live migration?
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">is it a race?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I don’t expect it live migration to work at all with such a approach.
-This is why in my proposal live migration occurs on the owner device, while
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">controlled function (member device) is undergoing the device reset.
-see above
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">For migration, you know the hypervisor takes the ownership of the
-device in the stop_window.
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">I do not know what stop_window means.
-Do you mean stop_copy of vfio or it is qemu term?
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">when guest freeze.
-</pre>
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">5. Any PASID to separate out admin vq on the VF does not work
-for two
-</pre>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">reasons.
-</pre>
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">R_1: device flr and device reset must stop all the dmas.
-R_2: PASID by most leading vendors is still not mature enough
-R_3: One also needs to do inversion to not expose PASID
-capability of the member PCI device to not expose
-</pre>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">see above and what if guest shutdown? the same answer, right?
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">Not sure, I follow.
-If the guest shutdown, the guest specific shutdown APIs are called.
-
-With passthrough device, R_1 just works as is.
-R_3 is not needed as they are directly given to the guest.
-R_2 platform dependency is not needed either.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">I think we already have a concussion for FLR.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">I don’t have any concussion.
-I wrote what to be supported for the FLR above.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">OK, again, our discussions has been ignored again, and all start over again.
-
-Would you please read our previous discussions?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">You asked the question about why it wont work, I answered.
-I don’t see a point of debating same thing over again.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">Is that cut off again?
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">No it is not cut off here.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">if still about FLR, so please see above comments.
-And I agree if the answers are ignored again, we don't need to repeat.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">I didn’t ask questions. Please re-read.
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">For PASID, what blocks the solution?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">When the device is passthrough, PASID capabilities cannot be emulated.
-PASID space is owned fully by the guest.
-
-There is no single known cpu vendor support splitting pasid between
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">hypervisor and guest.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">I can double check, but last I recall that Linux kernel removed such
-weird
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">support.
-do you know there is something called vIOMMU?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Probably yes.
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-    <font face="monospace"><br>
-    </font>
-  </body>
-</html>
-
---------------QGhz6TO5bKPYGwp1SCSRbApl--
+WW91ciByZXBseSBpcyBub3QgaW4gdGhlIHRleHQgZm9ybWF0LiBQbGVhc2UgcmVzZW5kIHdpdGgg
+dGV4dCBmb3JtYXQgdG8gY29udGludWUgZGlzY3Vzc2lvbi4NCg0KRnJvbTogWmh1LCBMaW5nc2hh
+biA8bGluZ3NoYW4uemh1QGludGVsLmNvbT4gDQpTZW50OiBXZWRuZXNkYXksIE9jdG9iZXIgMTgs
+IDIwMjMgMTI6MDIgUE0NClRvOiBQYXJhdiBQYW5kaXQgPHBhcmF2QG52aWRpYS5jb20+OyBNaWNo
+YWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQuY29tPg0KQ2M6IEphc29uIFdhbmcgPGphc293YW5n
+QHJlZGhhdC5jb20+OyB2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1vcGVuLm9yZzsgY29odWNr
+QHJlZGhhdC5jb207IHNidXJsYUBtYXJ2ZWxsLmNvbTsgU2hhaGFmIFNodWxlciA8c2hhaGFmc0Bu
+dmlkaWEuY29tPjsgTWFvciBHb3R0bGllYiA8bWFvcmdAbnZpZGlhLmNvbT47IFlpc2hhaSBIYWRh
+cyA8eWlzaGFpaEBudmlkaWEuY29tPg0KU3ViamVjdDogUmU6IFt2aXJ0aW8tY29tbWVudF0gW1BB
+VENIIHYxIDEvOF0gYWRtaW46IEFkZCB0aGVvcnkgb2Ygb3BlcmF0aW9uIGZvciBkZXZpY2UgbWln
+cmF0aW9uDQoNCg0KT24gMTAvMTgvMjAyMyAxOjAwIFBNLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQoN
+CkZyb206IFpodSwgTGluZ3NoYW4gbWFpbHRvOmxpbmdzaGFuLnpodUBpbnRlbC5jb20NClNlbnQ6
+IE1vbmRheSwgT2N0b2JlciAxNiwgMjAyMyAzOjE0IFBNDQoNCk9uIDEwLzEzLzIwMjMgNzoyOCBQ
+TSwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KRnJvbTogWmh1LCBMaW5nc2hhbiBtYWlsdG86bGluZ3No
+YW4uemh1QGludGVsLmNvbQ0KU2VudDogRnJpZGF5LCBPY3RvYmVyIDEzLCAyMDIzIDI6MzYgUE0N
+ClsuLl0NCkJlY2F1c2UgaXQgZG9lcyBub3Qgd29yayBmb3IgcGFzc3Rocm91Z2ggbW9kZS4NCndo
+YXQgYXJlIHlvdSB0YWxraW5nIGFib3V0Pw0KQ29uZmlnIHNwYWNlIGRvZXMgbm90IHdvcmsgcGFz
+c3Rocm91Z2g/DQpPbmNlIHRoZSByZWdpc3RlciBzcGFjZSBvZiB0aGUgVkYgdGhhdCBpcyBzdXBw
+b3NlZCB0byBiZSB1c2VkIGJ5IHRoZSBsaXZlDQptaWdyYXRpb24gaXMgcGFzc2VkIHRvIHRoZSBn
+dWVzdCwgaXQgaXMgdW5kZXIgZ3Vlc3QgY29udHJvbC4NCkhlbmNlLCBsaXZlIG1pZ3JhdGlvbiBk
+cml2ZXIgd29uJ3QgYmUgYWJsZSB0byB1c2UgaXQuDQpEb2VzIGd1ZXN0IGNvbnRyb2wgZGV2aWNl
+IHN0YXR1cyB0byByZXNldCBpdHNlbGY/IGhhcm1mdWw/DQpOby4gaXQgaXMgbm90IGhhcm1mdWwu
+DQpJcyBvd25lciBkZXZpY2UgcmVzZXRpbmcgaXRzZWxmLCBoYXJtZnVsPyBOby4NCklzIG1lbWJl
+ciBkZXZpY2UgcmVzZXR0aW5nIGlzZXRsZiwgaGFybWZ1bD8gTm8uDQpTaG91bGQgbWVtYmVyIGRl
+dmljZSByZXNldA0KZ29vZA0KDQoNClRoZXNlIGZhY2lsaXRpZXMgY2FuIGJlIHRyYXBwZWQgYW5k
+IGVtdWxhdGVkLCBldmVuIHRoZSBmZWF0dXJlIGJpdHMsIHJpZ2h0Pw0KWW91IGtub3cgdGhlIGd1
+ZXN0IGFjdHVhbGx5IGRvbid0IGRpcmVjdCBhY2Nlc3MgdGhlIGRldmljZSBjb25maWcgc3BhY2Us
+IHRoZXJlIGlzDQphIHZmaW8vdmRwYSBkcml2ZXIsIHJpZ2h0Pw0KWW91IGNhbiBwcmFjdGljYWxs
+eSB0cmFwIGFuZCBlbXVsYXRlZCBldmVyeXRoaW5nLg0KSWYgeW91IGNvbnRpbnVlIHRvIGlnbm9y
+ZSBwYXNzdGhyb3VnaCByZXF1aXJlbWVudHMgYW5kIGtlZXAgcmVwZWF0aW5nIHRoYXQgZG8gdHJh
+cCBhbmQgZW11bGF0ZSwgdGhpcyBkaXNjdXNzaW9uIGRvZXMgbm90IGdvIGFueXdoZXJlLg0KQ2xl
+YXJseSBJIGRpZCBub3QgaWdub3JlIHBhc3N0aHJvdWdoIGFuZCBrZWVwIGFuc3dlcmluZyB5b3Vy
+IHF1ZXN0aW9uIGZvciBtYW55IHRpbWVzLg0KTWF5YmUgeW91IGRpZG4ndCBnZXQgaXQsIHNvIEkg
+d291bGQgYXNrIGhvdyB5b3UgZGVmaW5lIHlvdXIgInBhc3N0aHJvdWdoIj8NCg0KWW91IG1heSBm
+aW5kIHRoYXQgdGhlIGd1ZXN0IHZDUFVzKGd1ZXN0IHZSQykgYWN0dWFsbHkgYXJlIG5vdCBwcml2
+aWxlZ2VkIHRvIGFjY2VzcyB0bw0KaG9zdCBwY2kgZGV2aWNlKGhvc3QgQ1BVIFJDKSwgdGhhdCdz
+IHdoeSBhIHBhc3MtdGhyb3VnaCBkcml2ZXIgbGlrZSB2ZmlvIGlzIGEgbXVzdC4NCg0KVGhlcmVm
+b3JlIHRoZSBkZXZpY2UgY29uZmlnIHNwYWNlIGNhbiBiZSB0cmFwcGVkLiBJcyB0aGF0IGNsZWFy
+IG5vdz8NCg0KDQoNCg0KDQpIYXZlIHlvdSBldmVyIHRyaWVkIHBhc3MgdGhyb3VnaCBhIHZpcnRp
+byBkZXZpY2UgdG8gYSBndWVzdD8NCjopDQpQbGVhc2UgZXhwbGFpbiBob3cgdGhlIHF1ZXN0aW9u
+IGlzIHJlbGV2YW50IHRvIHRoaXMgZGlzY3Vzc2lvbiBpbiBzZXBhcmF0ZQ0KdGhyZWFkLCBzbyB0
+aGF0IG9uZSBjYW4ga2VlcCB0ZWNobmljYWwgZm9jdXMuDQooUGxlYXNlIGtlZXAgeW91ciBkaXNj
+dXNzaW9uIHRlY2huaWNhbCwgaW5zdGVhZCBvZiBkZXJvZ2F0b3J5IHRvIG90aGVyDQptZW1iZXJz
+KS4NCmlmIHlvdSB3YW50IG1lIHRvIGFuc3dlciB5b3VyIHF1ZXN0aW9uLCBhdCBsZWFzdCB5b3Ug
+U0hPVUxEIE5PVCBjdXQgb2ZmIHRoZQ0KY29udGV4dCwgb3IgeW91IGFyZSB0cnlpbmcgdG8gY29u
+ZnVzZSBldmVyeW9uZS4NCk9yIGRpZCB5b3UgdHJ5IHRvIGF2b2lkIG9yIGhpZGUgYW55dGhpbmc/
+IEkgYW0gbm90IHN1cmUgdGhpcyBpcyBhIGdvb2QgcHJhY3RpY2UuDQoNClRoZSBjb250ZXh0IGlu
+IGxhc3QgZGlzY3Vzc2lvbiBpczoNCg0KbWU6IE9LLCBJIHBvcC1lZCBKYXNvbidzIHByb3Bvc2Fs
+IHRvIG1ha2UgZXZlcnl0aGluZyBlYXNpZXIsIGFuZCBJIHNlZSBpdCBpcw0KcmVmdXNlZC4NCnlv
+dTogQmVjYXVzZSBpdCBkb2VzIG5vdCB3b3JrIGZvciBwYXNzdGhyb3VnaCBtb2RlLg0KbWU6IHdo
+YXQgYXJlIHlvdSB0YWxraW5nIGFib3V0Pw0KIMKgwqDCoCBDb25maWcgc3BhY2UgZG9lcyBub3Qg
+d29yayBwYXNzdGhyb3VnaD8NCiDCoMKgwqAgSGF2ZSB5b3UgZXZlciB0cmllZCBwYXNzIHRocm91
+Z2ggYSB2aXJ0aW8gZGV2aWNlIHRvIGEgZ3Vlc3Q/DQoNClNvIEkgYXNrIHlvdSB0cnkgdG8gcGFz
+cyB0aHJvdWdoIGEgdmlyaXRvLXBjaSBkZXZpY2UgdG8gYSBndWVzdCwgdGhlbiBjaGVjaw0Kd2hl
+dGhlciB0aGUgY29uZmlnIHNwYWNlIHdvcmsgZm9yIHBhc3MtdGhyb3VnaCBtb2RlLg0KDQphZ2Fp
+biwgZG9uJ3QgY3V0IG9mZiB0aHJlYWRzIGJlZm9yZSB0aGUgZGlzY3Vzc2lvbiBpcyBjbG9zZWQu
+DQoNCkxldCBtZSByZXBlYXQgYWdhaW4sIHRoZXNlIGxpdmUgbWlncmF0aW9uIGZhY2lsaXRpZXMg
+YXJlDQpwZXItZGV2aWNlKHBlci1WRikgZmFjaWxpdHksIHNvIGl0IG9ubHkgbWlncmF0ZXMgaXRz
+ZWxmLg0KDQpTaW5jZSB0aGV5IGFyZSBwZXIgZGV2aWNlIChwZXIgVkYpLCB0aGV5IHJlc2lkZSBp
+biB0aGUgZ3Vlc3QgVk0uIEhlbmNlLCBWTU0NCmNhbm5vdCBsaXZlIG1pZ3JhdGUgaXQuDQp5b3Ug
+a25vdyB0aGUgY29uZmlnIHNwYWNlIGNhbiBiZSB0cmFwcGVkIGFuZCBlbXVsYXRlZCwgYW5kIHRo
+ZSBoeXBlcnZpc29yDQp0YWtlcyB0aGUgb3duZXJzaGlwIG9mIHRoZSBkZXZpY2Ugb25jZSB0aGUg
+Z3Vlc3QgZnJlZXplIGluIHRoZSBzdG9wIHdpbmRvdy4NCldoZW4geW91IHNheSBjb25maWcgc3Bh
+Y2UsIGRvIHlvdSBtZWFuIFBDSSBjb25maWcgc3BhY2Ugb2YgNEsgc2l6ZT8NCnlvdSBjYW4gdGFr
+ZSBhbiBleGFtcGxlIG9mIHZpcml0byBjb21tb24gY29uZmlnIGNhcC4NCg0KDQoNCg0KQW5kIGZv
+ciBwYXNzIHRocm91Z2gsIHlvdSBjYW4gdHJ5IHBhc3N0aHJvdWdoIGEgdmlyaXRvIGRldmljZSB0
+byBhDQpndWVzdCwgc2VlIGhvdyB0aGUgZ3Vlc3QgaW5pdGlhbGl6ZSB0aGUgZGV2aWNlIHRocm91
+Z2ggdGhlIGNvbmZpZyBzcGFjZS4NCg0KVGhhdCBpcyByZWFsbHkgYmFzaWMgdmlydHVhbGl6YXRp
+b24sIG5vdCBoYXJkIHRvIHRlc3QuDQpSZXBlYXRlZCBwb2ludHMsIEkgYW0gb21pdHRpbmcuDQpv
+aywgaWYgeW91IGdldCBpdCwgbGV0J3MgY2xvc2UgaXQuDQoNCmluZmxpZ2h0IGRlc2NyaXB0b3Ig
+dHJhY2tpbmcgd2lsbCBiZSBpbXBsZW1lbnRlZCBieSBFdWdlbmlvIGluIFYyLg0KV2hlbiB3ZSBo
+YXZlIG5lYXIgY29tcGxldGUgcHJvcG9zYWwgZnJvbSB0d28gZGV2aWNlIHZlbmRvcnMsIHlvdQ0K
+d2FudCB0byBwdXNoIHNvbWV0aGluZyB0byB1bmtub3duIGZ1dHVyZSB3aXRob3V0IHJldmlld2lu
+ZyB0aGUNCndvcms7IGRvZXMgbm90DQptYWtlIHNlbnNlLg0KRGlkbid0IEkgZXZlciBwcm92aWRl
+IGZlZWRiYWNrIHRvIHlvdT8gUmVhbGx5Pw0KTm8uIEkgZGlkbuKAmXQgc2VlIHdoeSB5b3UgbmVl
+ZCB0byBwb3N0IGEgbmV3IHBhdGNoIGZvciBkaXJ0eSBwYWdlDQp0cmFja2luZywNCndoZW4gaXQg
+aXMgYWxyZWFkeSBwcmVzZW50IGluIHRoaXMgc2VyaWVzLg0KVGhpcyBpcyBwbGFpbiBpZ25vcmFu
+Y2UgYW5kIHNob3dzIG5vbl9jb29wZXJhdGl2ZSBtb2RlIG9mIHdvcmtpbmcgaW4NCnRlY2huaWNh
+bCBjb21taXR0ZWUuDQp5b3UgaGF2ZSBjdXQgb2ZmIHRoZSB0cmVhZCBhZ2Fpbiwgc28gSSBjYW4n
+dCByZWFkIHRoZSBjb250ZXh0Lg0KRW5qb3kgbG9uZyB0aHJlYWRzLiDwn5iKDQp5b3Ugc2tpcCBm
+aW5pc2hlZCBkaXNjdXNzaW9ucyBmb3Igc3VyZSwgYnV0IGRvbid0IGRvIHRoYXQgdG8gb24tZ29p
+bmcgZGlzY3Vzc2lvbnMuDQoNCg0KDQpJIHdvdWxkIGxpa2UgdG8gdW5kZXJzdGFuZCBhbmQgcmV2
+aWV3IHRoaXMgYXNwZWN0cy4NClNhbWUgZm9yIHRoZSBkZXZpY2UgY29udGV4dC4NCnlvdSB3aWxs
+IHNlZSBkaXJ0eSBwYWdlIHRyYWNraW5nIGluIG15IFYyLCBhcyBJIHJlcGVhdGVkIGZvciBtYW55
+IHRpbWVzLg0KU2luY2UgeW91IGFyZSBub3QgY28tb3BlcmF0aXZlLCBJIGhhdmUgbGVzcyBzeW1w
+YXRoeSB0byBzZWUgVjIuDQpJIGRvbuKAmXQgc2VlIGEgcmVhc29uIHRvIHNlZSB3aGVuLCBpdCBp
+cyBmdWxseSBwcmVzZW50ZWQgaGVyZS4NCkFnYWluLCBwbGVhc2UgZG9uJ3QgdGFrZSBpdCBwZXJz
+b25hbCBhbmQgcGxlYXNlIGJlIHByb2Zlc3Npb25hbC4NCg0KU3BlYWtpbmcgb2YgY29sbGFib3Jh
+dGlvbiwgcGxlYXNlIGF0IGxlYXN0IHJlc3BlY3Qgb3RoZXJzJyB0aW1lIGFuZCBhbnN3ZXJzLg0K
+Qm90aCBKYXNvbiBhbmQgSSBoYXZlIHJlc3BvbmRlZCB0byB5b3UgbXVsdGlwbGUgdGltZXMgb24g
+dGhlIHNhbWUNCnF1ZXN0aW9ucyhmb3IgZXhhbXBsZSwgRkxSLCBuZXN0ZWQsIHBhc3N0aHJvdWdo
+KS4NCklmIG91ciBhbnN3ZXJzIGFyZSBpZ25vcmVkIGFnYWluIGFuZCBhZ2FpbiwgYW5kIHRoZW4g
+YWZ0ZXIgYSBmZXcgZGF5cyBvciBob3Vycw0KeW91IGNvbWUgYmFjayBhc2tpbmcgdGhlIHNhbWUg
+cXVlc3Rpb24gYWdhaW4sIHdoYXQncyB0aGUgcG9pbnQ/DQoNCkkgZGlkbuKAmXQgYXNrIHF1ZXN0
+aW9ucyBpbiBhcmVhIG9mIEZMUiBhbmQgcGFzc3Rocm91Z2gsIHBsZWFzZSBjaGVjayBhZ2Fpbi4N
+Ck9LLCB0aGVuIHBsZWFzZSBkb24ndCBmb3JjZSB1cyBhbnN3ZXIgdGhlIHNhbWUgcXVlc3Rpb25z
+IGFueW1vcmUsIGZvciBleGFtcGxlIG5vIEZMUiBhbnltb3JlLg0KDQoNCg0KQW5kIHBsZWFzZSBk
+b24ndCBjdXQgb2ZmIGFueSB0aHJlYWRzIGJlZm9yZSB3ZSBjbG9zZSB0aGUgZGlzY3Vzc2lvbi4N
+Cg0KRm9yIGRldmljZSBjb250ZXh0LCB3ZSBoYXZlIGRpc2N1c3NlZCB0aGlzIGluIG90aGVyIHRo
+cmVhZHMsIGRpZCB5b3UNCmlnbm9yZWQgdGhhdCBhZ2Fpbj8NCk5vLiBJIGRpZG7igJl0LiBJIHJl
+cGxpZWQgdGhhdCB0aGUgZ2VuZXJpYyBpbmZyYXN0cnVjdHVyZSBpcyBidWlsdCB0aGUgZW5hYmxl
+cyBldmVyeQ0KZGV2aWNlIHR5cGUgdG8gbWlncmF0ZSBieSBkZWZpbmluZyB0aGVpciBkZXZpY2Ug
+Y29udGV4dC4NCmRvbid0IHdlIGhhdmUgYSBjb25jbHVzaW9uIHRoZXJlIG9yIGRpZCB5b3UgbWlz
+cyBhbnl0aGluZz8gU2luY2UgeW91IHJlZnVzZSB0bw0KZGVmaW5lIGRldmljZSBjb250ZXh0IGZv
+ciBldmVyeSBkZXZpY2UgdHlwZSwgaG93IGRvIHlvdSBtaWdyYXRlIHN0YXRlZnVsDQpkZXZpY2Vz
+Pw0KDQpTbyB3ZSBzaG91bGQgaW1wbGVtZW50IGEgc3RhdGVsZXNzIGxpdmUgbWlncmF0aW9uIHNv
+bHV0aW9uLCByaWdodD8NCk5vLiBkZXZpY2UgY29udGV4dCBpcyBiYXNpYyBmYWNpbGl0eSB0aGF0
+IGludGVudCB0byBjb3ZlciBtb3N0IHZpcnRpbyBkZXZpY2VzLg0Kbm90IG1vc3QsIGluc3RlYWQg
+aXQgc2hvdWxkIGJlICJhbGwiLCBpZiB5b3UgYXJlIGltcGxlbWVudGluZyBhIHZpcnRpbyBsaXZl
+IG1pZ3JhdGlvbi4NCg0KDQpJIGRpZG7igJl0IG5vdCByZWZ1c2UgdG8gZGVmaW5lIGNvbnRleHQu
+DQpJIHNhaWQsIGRldmljZSBjb250ZXh0IHdpbGwgYmUgaW5jcmVtZW50YWxseSBkZWZpbmVkIHN1
+YnNlcXVlbnRseS4NCmp1c3QgZGVmaW5lIHdoYXQgd2UgaGF2ZSBub3csIGZvciBleGFtcGxlLCBk
+ZWZpbmUgdmlyaXRvLWZzIGFzIGl0IGlzIG5vdy4NCg0KDQpMaWtlIE1pY2hhZWwgc2FpZCwgSSBl
+eHBlY3QgZXZlcnkgZGV2aWNlIHRvIGRlZmluZSBkZXZpY2UgY29udGV4dCBzZWN0aW9uIGluIGNv
+bWluZyBtb250aHMgZm9yIDEuNCB0aW1lIGZyYW1lLg0KYXMgTVNUIHNhaWQsIGRvIHlvdSBleHBl
+Y3QgdGhlIGltcGxlbWVudGF0aW9uIHRvIGZpZ3VyZSBvdXQgdGhlIGRldmljZSBjb250ZXh0IGJ5
+IHRoZW1zZWx2ZXM/DQpJZiB5b3Ugd2FudCB0byBtaWdyYXRlIGRldmljZSBjb250ZXh0LCB5b3Ug
+c2hvdWxkIGRlZmluZSB0aGVtLg0KDQoNCg0KDQpIaW50OiBob3cgZG8geW91IGRlZmluZSBkZXZp
+Y2UgY29udGV4dCBmb3IgZXZlcnkgZGV2aWNlIHR5cGUsIGUuZywgdmlydGlvLWZzLg0KRG9uJ3Qg
+c2F5IHlvdSBvbmx5IG1pZ3JhdGUgdmlyaXRvLW5ldCBvciBibGsuDQpJIGRpZG7igJl0IHNheSBp
+dC4gSSBzYWlkIHRvIG1pZ3JhdGUgYWxsIDMwKyBkZXZpY2UgdHlwZXMuDQpBbmQgaW5mcmFzdHJ1
+Y3R1cmUgaXMgcHJlc2VudGVkIGhlcmUuDQpzbyBwbGVhc2UgZGVmaW5lIGRldmljZSBjb250ZXh0
+IGZvciBhbGwgdGhlIGRldmljZXMuDQpob3cgYWJvdXQgc3RhcnRpbmcgZnJvbSB2aXJ0aW8tZnM/
+DQpTaG91bGQgYmUgZG9uZSBpbmNyZW1lbnRhbGx5Lg0Kc2hvdyBtZSB5b3VyIHBhdGNoDQoNCg0K
+DQoNCllvdSBhcmUgc3RpbGwgaW4gdGhlIG1vZGUgb2YgX3Rha2VfIHdoYXQgd2UgZGlkIHdpdGgg
+bmVhciB6ZXJvDQpleHBsYW5hdGlvbi4NCllvdSBhc2tlZCBxdWVzdGlvbiBvZiB3aHkgcGFzc3Ro
+cm91Z2ggcHJvcG9zYWwgY2Fubm90IGFkdmFudGFnZSBvZg0KaW5fYmFuZA0KY29uZmlnIHJlZ2lz
+dGVycy4NCkkgZXhwbGFpbmVkIHRlY2huaWNhbCByZWFzb24gbGlzdGVkIGhlcmUuDQpJIGhhdmUg
+YW5zd2VyZWQgdGhlIHF1ZXN0aW9ucywgYW5kIGFza2VkIHF1ZXN0aW9ucyBmb3IgbWFueSB0aW1l
+cy4NCldoYXQgZG8geW91IG1lYW4gYnkgIndoeSBwYXNzdGhyb3VnaCBwcm9wb3NhbCBjYW5ub3Qg
+YWR2YW50YWdlIG9mDQppbl9iYW5kIGNvbmZpZyByZWdpc3RlcnMuIj8NCkNvbmZpZyBzcGFjZSB3
+b3JrIGZvciBwYXNzdGhyb3VnaCBmb3Igc3VyZS4NCkNvbmZpZyBzcGFjZSByZWdpc3RlcnMgYXJl
+IHBhc3N0aHJvdWdoIHRoZSBndWVzdCBWTS4NCkhlbmNlIGh5cGVydmlzb3IgbWVzc2luZyBpdCB3
+aXRoLCBwcm9ncmFtbWluZyBzb21lIGFkZHJlc3Mgd291bGQNCnJlc3VsdCBpbg0KZWl0aGVyIHNl
+Y3VyaXR5IGlzc3VlLg0KT3IgZnVuY3Rpb25hbGx5IGJyb2tlbiwgdG8gc3VzdGFpbiB0aGUgZnVu
+Y3Rpb25hbGl0eSwgZWFjaCBuZXN0ZWQNCmxheWVyIG5lZWRzDQpvbmUgY29weSBvZiB0aGVzZSBy
+ZWdpc3RlcnMgZm9yIGVhY2ggbmVzdCBsZXZlbC4NClNvIHRoZXkgbXVzdCBiZSB0cmFwcGVkIHNv
+bWVob3cuDQp0cmFwIGFuZCBlbXVsYXRlZCBhcmUgYmFzaWMgdmlydHVhbGl6YXRpb24uDQpOb3Qg
+Zm9yIHBhc3N0aHJvdWdoIGRldmljZXMsIHNvcnJ5Lg0KU2VlIHRoZSBwYXBlciB0aGF0IEphc29u
+IHBvaW50ZWQgb3V0Lg0KQ29udHJvbCBwcm9ncmFtL3ZtbSBpcyB0cmFwIGlzIGludm9sdmVkIG9u
+bHkgb24gdGhlIHByaXZpbGVnZWQgb3BlcmF0aW9uIG9mDQp0aGUgVk1NLg0KVmlydGlvIGN2cXMs
+IHZpcnRpbyByZWdpc3RlcnMgYXJlIG5vdCB0aGUgcHJpdmlsZWdlZCBvcGVyYXRpb24gb2YgdGhl
+IFZNTSwNCmJlY2F1c2UgdGhleSBhcmUgb2YgdGhlIG5hdGl2ZSB2aXJ0aW8gZGV2aWNlIGl0c2Vs
+Zi4NClBlcmlvZC4NCnNpbmNlIHRoZSBjb250ZXh0IGlzIGN1dCBvZiBhZ2FpbiwgSSBmYWlsZWQg
+dG8gcmVhZCB0aGUgY29udGV4dC4NCg0KQnV0IGNvbmZpZyBzcGFjZSBjYW4gYmUgdHJhcHBlZCBh
+bmQgZW11bGF0ZWQsIHJpZ2h0Pw0KQW5zd2VyZWQgYWJvdmUuDQoNCldoZW4gZ3Vlc3QgYWNjZXNz
+aW5nIGRldmljZSBjb25maWcgc3BhY2UsIGFjdHVhbGx5IGl0IGFjY2VzcyB0aGUgaHlwZXJ2aXNv
+ci0NCnByZXNlbnRlZCBjb25maWcgc3BhY2UuDQoNClNlY29uZGx5IEkgZG9u4oCZdCBzZWUgaG93
+IG9uZSBjYW4gcmVhZCAxTSBmbG93cyB1c2luZyBjb25maWcgcmVnaXN0ZXJzLg0KTm90IHN1cmUg
+d2hhdCB5b3UgYXJlIHRhbGtpbmcgYWJvdXQsIGJleW9uZCB0aGUgc3BlYz8NClRoZSBzcGVjIHdo
+aWNoIGlzIHVuZGVyIHdvcmtzIGZvciBmZXcgbW9udGhzIGJ5IG11bHRpcGxlIHRlY2huaWNhbA0K
+bWVtYmVycy4NClBsZWFzZSBzdWJzY3JpYmUgdG8gdmlydGlvLWNvbW1lbnQgbWFpbGluZyBsaXN0
+Lg0KSG93IGNvbWUgeW91IGNoYW5nZWQgeW91ciBwb2ludCBmcm9tIGN2cSB0byBkaWZmZXJlbnQg
+YXJndW1lbnQgb2Ygb3V0DQpvZiBzcGVjPyA6KQ0KSSBtZWFuLCB3aGF0IGlzIHlvdXIgMU0gZmxv
+d3M/IGlzIGl0IGJleW9uZCBzcGVjPw0KDQpOby4gaXQgaXMgbm90IGJleW9uZCB0aGUgc3BlYy4N
+Ckl0IGlzIHRoZSBzcGVjIGluIHdvcmsgZm9yIHNldmVyYWwgbW9udGhzIGJ5IG11bHRpcGxlIGRl
+dmljZSwgT1MgYW5kIGNsb3VkIG9wZXJhdG9ycy4NCnRoZW4sIGFnYWluLCB3aGF0IGlzIHlvdXIg
+MU0gZmxvdz8gaWYgbm90IGRlZmluZWQgaW4gdGhlIHNwZWMsIHRoZW4gaXQgaXMgYmV5b25kIHNw
+ZWMuDQoNCg0KDQoNClNvIHBsZWFzZSBkb27igJl0IGp1bXAgdG8gY29uY2x1c2lvbnMgYmVmb3Jl
+IGZpbmlzaGluZyB0aGUNCmRpc2N1c3Npb24gb24gaG93DQpib3RoIHNpZGUgY2FuIHRha2UgYWR2
+YW50YWdlIG9mIGVhY2ggb3RoZXIuDQpMZXRzIHBsZWFzZSBkbyB0aGF0Lg0KV2UgaGF2ZSBwcm9w
+b3NlZCBhIHNvbHV0aW9uLCByaWdodD8NCg0KV2hpY2ggb25lPyBUbyBkbyBzb21ldGhpbmcgaW4g
+ZnV0dXJlPw0KSSBkb27igJl0IHNlZSBhIHN1Z2dlc3Rpb24gb24gaG93IG9uZSBjYW4gdXNlIGRl
+dmljZSBjb250ZXh0IGFuZCBkaXJ0eQ0KcGFnZQ0KdHJhY2tpbmcgZm9yIG5lc3RlZCBhbmQgcGFz
+c3Rocm91Z2ggdW5pZm9ybWx5Lg0KSSBzZWUgYSB0ZWNobmljYWwgZGlmZmljdWx0eSBpbiBtYWtp
+bmcgYm90aCB3b3JrIHdpdGggdW5pZm9ybSBpbnRlcmZhY2UuDQpQbGVhc2UgZG9uJ3QgaWdub3Jl
+IHByZXZpb3VzIGFuc3dlcnMsIGRvbid0IGZvcmNlIHVzIHJlcGVhdCBhZ2FpbiBhbmQgYWdhaW4u
+DQoNCllvdSBkaWRu4oCZdCBhbnN3ZXIsIGhvdy4NCllvdXIgYW5zd2VyIHdhcyAieW91IHdpbGwg
+cG9zdCBkaXJ0eSBwYWdlIHRyYWNraW5nIHdpdGhvdXQgcmV2aWV3aW5nIGN1cnJlbnQiDQphbmQg
+RXVnZW5pbyB3aWxsIHBvc3QgdjIuLi4uDQpZZXMsIHdpbGwgZG8uIGFuZCB5b3UgY2FuIGNoZWNr
+IHRoZSBwYXRjaCB3aGVuIGl0IHBvc3RlZC4NCg0KRG9lcyBub3QgbWFrZSBzZW5zZSB0byBtZSBh
+dCBhbGwuDQp0cmFja2luZyBkaXJ0eSBwYWdlcyBkb2VzIG5vdCBtYWtlIHNlbnNlIHRvIHlvdT8N
+Cg0KDQogDQpFdWdlbmlvIHdpbGwgY29vayBhIHBhdGNoIGZvciBpbi1mbGlnaHQgZGVzY3JpcHRv
+cnMsIG5vdCBkaXJ0eSBwYWdlLCB0aGF0IGlzIG1pbmUuDQoNCkl0IGlzIEphc29uJ3MgcHJvcG9z
+YWwuIFBsZWFzZSByZWZlciB0byBwcmV2aW91cyB0aHJlYWRzLCBhbHNvIGZvcg0KZGV2aWNlIGNv
+bnRleHQgYW5kIGRpcnR5IHBhZ2VzLg0KSSBzdGlsbCBuZWVkIHRvIHBvaW50IG91dDogYWRtaW4g
+dnEgTE0gZG9lcyBub3Qgd29yaywgb25lIGV4YW1wbGUgaXMNCm5lc3RlZC4NCkFzIE1pY2hhZWwg
+c2FpZCwgcGxlYXNlIGRvbuKAmXQgY29uZnVzZSBiZXR3ZWVuIGFkbWluIGNvbW1hbmRzIGFuZA0K
+YWRtaW4NCnZxLg0KYW55d2F5LCBhZG1pbiB2cSBsaXZlIG1pZ3JhdGlvbiBkb24ndCB3b3JrIGZv
+ciBuZXN0ZWQuDQpJIGFtIGNvbnZpY25lZCB3aXRoIHRoZSBwYXBlciB0aGF0IEphc29uIHBvaW50
+ZWQgb3V0Lg0KDQpBIG5lc3RlZCBzb2x1dGlvbiBpbnZvbHZlcyBhIG1lbWJlciBkZXZpY2Ugc3Vw
+cG9ydGluZyB0aGUgbmVzdGluZyB3aXRob3V0DQp0cmFwIGFuZCBlbXVsYXRpb24gc28gdGhhdCBp
+dCBmb2xsb3dzIHRoZSB0d28gcHJvcGVydGllczoNClRoZSBlZmZpY2llbmN5IHByb3BlcnR5IGFu
+ZCBlcXVpdmFsZW5jZSBwcm9wZXJ0eS4NCg0KSGVuY2UgYSBtZW1iZXIgZGV2aWNlIHdoaWNoIHdh
+bnRzIHRvIHN1cHBvcnQgbmVzdGVkIGNhc2UsIHNob3VsZCBwcmVzZW50DQppdHNlbGYgd2l0aCBh
+dHRyaWJ1dGVzIHRvIHN1cHBvcnQgbmVzdGluZy4NCmZhaWxlZCB0byBwcm9jZXNzIHRoZSBzZW50
+ZW5jZSwgYnV0IEkgYW0gZ2xhZCB5b3UgYXJlIGNvbnZpbmNlZCBieSB0aGUgcGFwZXIuDQoNCg0K
+VGhlcmUgYXJlIG5vIHNjYWxlIHByb2JsZW0gYXMgSSByZXBlYXRlZCBmb3IgbWFueSB0aW1lLCB0
+aGV5IGFyZQ0KcGVyLWRldmljZSBiYXNpYyBmYWNpbGl0aWVzLCBqdXN0IG1pZ3JhdGUgdGhlIFZG
+IGJ5IGl0cyBvd24NCmZhY2lsaXR5LCBzbyB0aGVyZSBhcmUgbm8gNDAwMDAgbWVtYmVyIGRldmlj
+ZXMsIHRoaXMgaXMgbm90IHBlciBQRi4NCg0KSSBleHBsYWluZWQgdGhhdCBkZXZpY2UgcmVzZXQs
+IGZsciBldGMgZmxvdyBjYW5ub3Qgd29yayB3aGVuDQpjb250cm9sbGluZyBhbmQNCmNvbnRyb2xs
+ZWQgZnVuY3Rpb25zIGFyZSBzaW5nbGUgZW50aXR5IGZvciBwYXNzdGhyb3VnaCBtb2RlLg0KVGhl
+IHNjYWxlIHByb2JsZW0gaXMsIG9uZSBuZWVkcyB0byBkdXBsaWNhdGUgdGhlIHJlZ2lzdGVycyBv
+biBlYWNoIFZGLg0KVGhlIGluZHVzdHJ5IGlzIG1vdmluZyBhd2F5IGZyb20gdGhlIHJlZ2lzdGVy
+IGludGVyZmFjZSBpbiBtYW55DQpfcmVhbF8gaHcNCmRldmljZXMgaW1wbGVtZW50YXRpb24uDQpT
+b21lIG9mIHRoZSBleGFtcGxlcyBhcmUgSU1TLCBTSU9WLCBOVk1lIGFuZCBtb3JlLg0Kd2UgaGF2
+ZSBkaXNjdXNzZWQgdGhpcyBmb3IgbWFueSB0aW1lcywgcGxlYXNlIHJlZmVyIHRvIHByZXZpb3Vz
+DQp0aHJlYWRzLCBldmVuIHdpdGggSmFzb24uDQpJIGRvIG5vdCBhZ3JlZSBmb3IgYW55IHJlZ2lz
+dGVycyB0byBhZGQgdG8gdGhlIFZGIHdoaWNoIGFyZSByZXNldCBvbg0KZGV2aWNlX3Jlc2V0IGFu
+ZCBGTFIuDQpBcyBpdCBkb2VzIG5vdCB3b3JrIGZvciBwYXNzdGhyb3VnaCBtb2RlLg0KSmFzb24g
+aGFzIGFuc3dlcmVkIHlvdXIgdGhlc2UgRkxSIHF1ZXN0aW9ucyBmb3IgbWFueSB0aW1lcywgSSBk
+b24ndA0Kd2FudCB0byByZXBlYXQgaGlzIHdvcmRzLCBldmVuIG15c2VsZiBoYXZlIGFuc3dlcmVk
+IG1hbnkgdGltZXMuIElmDQp5b3Uga2VlcCBpZ25vcmluZyB0aGUgYW5zd2VycywgYW5kIGFzayBh
+Z2FpbiBhbmQgYWdhaW4sIHdoYXQgaXMgdGhlIHBvaW50Pw0KDQpTbyBwbGVhc2UgcmVmZXIgdG8g
+dGhlIHByZXZpb3VzIHRocmVhZHMuDQpJIGRvbuKAmXQgdGhpbmsgSSBhc2tlZCB0aGUgcXVlc3Rp
+b24gYWJvdmUuIFBsZWFzZSByZS1yZWFkLg0KeW91IGN1dCBpZiBvZmYgYWdhaW4sIHdoYXQgcXVl
+c3Rpb24/IGlmIGFib3V0IEZMUiwgSSBiZWxpZXZlIEphc29uIGhhcyBhbnN3ZXJlZA0KZm9yIG1h
+bnkgdGltZXMuDQoNCkFnYWluLCBwbGVhc2UgcmVhZC4gSSBkaWRu4oCZdCBhc2sgdGhlIHF1ZXN0
+aW9uIGZvciBGTFIuDQpZb3Uga2VlcCBzYXlpbmcgIndoYXQgcXVlc3Rpb24iLg0KSSBmYWlsZWQg
+dG8gcmVhZCB0aGUgY29udGV4dCBiZWNhdXNlIHlvdSBoYXZlIGN1dCB0aGVtIG9mZi4NCg0KDQoN
+ClRoZSBkZXZpY2UgY29udGV4dCBjYW4gYmUgcmVhZCBmcm9tIGNvbmZpZyBzcGFjZSBvciB0cmFw
+cGVkLCBsaWtlDQpzaGFkb3cNClRoZXJlIGFyZSAxIG1pbGxpb24gZmxvd3Mgb2YgdGhlIG5ldCBk
+ZXZpY2UgZmxvdyBmaWx0ZXJzIGluIHByb2dyZXNzLg0KRWFjaCBmbG93IGlzIDY0QiBpbiBzaXpl
+Lg0KVG90YWwgc2l6ZSBpcyA2NE1CLg0KSSBkb27igJl0IHNlZSBob3cgb25lIGNhbiByZWFkIHN1
+Y2ggYW1vdW50IG9mIG1lbW9yeSB1c2luZyBjb25maWcNCnJlZ2lzdGVycy4NCmNvbnRyb2wgdnE/
+DQpUaGUgY29udHJvbCB2cSBhbmQgZmxvdyBmaWx0ZXIgdnFzIGFyZSBvd25lZCBieSB0aGUgZ3Vl
+c3QgZHJpdmVyLA0Kbm90IHRoZQ0KaHlwZXJ2aXNvci4NClNvIG5vLCBjdnEgY2Fubm90IGJlIHVz
+ZWQuDQpmaXJzdCwgZG9uJ3QgY3V0IG9mZiB0aGUgdGhyZWFkcywgZG9uJ3QgZGVsZXRlIHdvcmRz
+LCB0aGF0IHJlYWxseSBjb25mdXNpbmcNCnJlYWRlcnMuDQoNCllvdXIgY29tbWVudHMgYXJlIHNv
+IGxvbmcgdGhhdCBpdCBpcyBoYXJkIHRvIGZvbGxvdyBzdWNoIGEgbG9uZyB0aHJlYWQuDQpIZW5j
+ZSBvbmx5IHRoZSByZWxhdGVkIGNvbW1lbnRzIGFyZSBrZXB0Lg0KQnV0IEkgdW5kZXJzdGFuZCwg
+d2lsbCB0cnkgdG8gYXZvaWQuDQoNCkFuZCBJIHRoaW5rIHlvdSBtaXN1bmRlcnN0YW5kIGEgbG90
+IG9mIHZpcnR1YWxpemF0aW9uIGZ1bmRhbWVudGFscywNCmF0IGxlYXN0IGhhdmUgYSBsb29rIGF0
+IGhvdyBzaGFkb3cgY29udHJvbCB2cSB3b3Jrcy4NCg0KSW4gY2FzZSBpZiB5b3UgZG9u4oCZdCBr
+bm93LCB0aGUgc2hhZG93IGN2cSBhY2NlbGVyYXRpb24gZm9yIE52aWRpYSBDb25uZWN0WDYtDQpE
+WCBpcyBkb25lIGpvaW50bHkgd2l0aCBEcmFnb3MgYW5kIG1lLCB3aXRoIHJlY2VudCBwYXRjaGVz
+IGZyb20gU2llLVdlaS4NCg0KSSBkb27igJl0IHRoaW5rIHNvIEkgbWlzc2VkLg0KDQpTaGFkb3cg
+dnEgaXMgZ3JlYXQgd2hlbiB5b3UgZG9u4oCZdCBoYXZlIHVuZGVybHlpbmcgc3VwcG9ydCBmcm9t
+IHRoZSBkZXZpY2UuDQoNCldoZW4geW91IGhhdmUgcGFzc3Rocm91Z2ggbWVtYmVyIGRldmljZXMs
+IHRoZXkgYXJlIG5vdCB0cmFwcGVkIG9yDQplbXVsYXRlZC4NClRoZSBmdXR1cmUgaHlwZXJ2aXNv
+ciBtdXN0IG5vdCBiZSBhYmxlIHRvIHNlZSB0aGluZ3Mgb2YgY3ZxLCBkYXRhdnEgb3INCmFkZHJl
+c3NlZCBwcm9ncmFtbWVkIGJ5IHRoZSBndWVzdC4NCkFuZCBoZW5jZSB0aGUgaW5mcmFzdHJ1Y3R1
+cmUgaXMgZ2VhcmVkIHRvd2FyZHMgc3VjaCBhcHByb2FjaC4NCkkgZmFpbGVkIHRvIHJlYWQgdGhl
+IGZ1bGwgY29udGV4dCBhcyB5b3UgY3V0IG9mZiB0aGVtLiBJIGNhbid0IGV2ZW4gcmVhZCB5b3Vy
+DQpvcmlnaW5hbCBxdWVzdGlvbnMsIHRoZXkgYXJlIHRydW5jYXRlZC4NCg0KQW55d2F5LCBsZXRz
+IG1pZ3JhdGUgZGV2aWNlIHdpdGhvdXQgZGV2aWNlLWNvbnRleHQgZmlyc3QuDQoNClBhc3N0aHJv
+dWdoIGRldmljZSBjYW5ub3QgbWlncmF0ZSB3aXRob3V0IGRldmljZS1jb250ZXh0IGFzIGxpc3Rl
+ZC4NCnNvIHBsZWFzZSBkZWZpbmUgdGhlIGRldmljZSBjb250ZXh0Lg0KDQoNCg0KDQpBbmQgdGhl
+IHBhcmFtZXRlcnMgc2V0IHRvIGNvbmZpZyB2cSBhcmUgYWxzbyBkZXZpY2UgY29udGV4dCBhcyB3
+ZQ0KZGlzY3Vzc2VkIGZvciBtYW55IHRpbWVzLg0KT3IgZG8geW91IHdhbnQgdG8gbWlncmF0ZSBu
+b24tdmlydGlvIGNvbnRleHQ/DQpFdmVyeSB0aGluZyBpcyB2aXJ0aW8gZGV2aWNlIGNvbnRleHQu
+DQpzZWUgYWJvdmUNCmNvbnRyb2wgdnEgd2hpY2ggaXMgYWxyZWFkeSBkb25lLCB0aGF0IGlzIGJh
+c2ljIHZpcnR1YWxpemF0aW9uLg0KVGhlcmUgaXMgbm90aGluZyBsaWtlICJiYXNpYyB2aXJ0dWFs
+aXphdGlvbiIuDQpXaGF0IGlzIHByb3Bvc2VkIGhlcmUgaXMgZnVsZmlsbGluZyB0aGUgcmVxdWly
+ZW1lbnQgb2YgcGFzc3Rocm91Z2ggbW9kZS4NCg0KWW91ciBjb21tZW50IGlzIGltcGx5aW5nLCAi
+SSBkb27igJl0IGNhcmUgZm9yIHBhc3N0aHJvdWdoDQpyZXF1aXJlbWVudHMsIGRvDQpub25fcGFz
+c3Rocm91Z2giLg0KdGhhdCBpcyB5b3VyIHVuZGVyc3RhbmRpbmcsIGFuZCB5b3UgbWlzdW5kZXJz
+dG9vZCBpdC4gQ29uZmlnIHNwYWNlDQpzZXJ2ZXJzIHBhc3N0aHJvdWdoIGZvciBtYW55IHllYXJz
+Lg0KIkNvbmZpZyBzcGFjZSBzZXJ2ZXJzIiA/DQpJIGRvIG5vdCB1bmRlcnN0YW5kIGl0LCBjYW4g
+eW91IHBsZWFzZSBleHBsYWluIHdoYXQgZG9lcyB0aGF0IG1lYW4/DQoNCkkgZG8gbm90IHNlZSB5
+b3VyIHN1Z2dlc3Rpb24gb24gaG93IG9uZSBjYW4gaW1wbGVtZW50IHBhc3N0aHJvdWdoDQptZW1i
+ZXINCmRldmljZSB3aGVuIHBhc3N0aHJvdWdoIGRldmljZSBkb2VzIHRoZSBkbWEgYW5kIG1pZ3Jh
+dGlvbiBmcmFtZXdvcmsNCmFsc28gbmVlZCB0byBkbyB0aGUgZG1hLg0KVHJ5IHBhc3MgdGhyb3Vn
+aCBhIHZpcnRpbyBkZXZpY2UgdG8gYSBndWVzdCBhbmQgbGVhcm4gaG93IHRoZSBndWVzdA0KdGFr
+ZSBhZHZhbnRhZ2UgdGhlIGNvbmZpZyBzcGFjZSBiZWZvcmUgeW91IGNvbW1lbnQuDQpSaWdodC4g
+SXQgZG9lcyBub3Qgd29yay4gVGhlIGd1ZXN0IGlzIGRvaW5nIHRoZSBkZXZpY2VfcmVzZXQgYW5k
+IGZsci4NCkhlbmNlLCBpdCBpcyByZXNldHRpbmcgZXZlcnl0aGluZy4gQWxsIHRoZSBkaXJ0eSBw
+YWdlIGxvZyBpcyBsb3N0Lg0KQWxsIHRoZSBkZXZpY2UgY29udGV4dCBpcyBsb3N0Lg0KSHlwZXJ2
+aXNvciBkaWRu4oCZdCBzZWUgYW55IG9mIHRoaXMgaGFwcGVuaW5nLCBiZWNhdXNlIGl0IGRpZG7i
+gJl0IGRvIHRoZSB0cmFwLg0KDQpMb29rLCBpZiB5b3UgYXJlIGdvaW5nIHRvIGNvbnRpbnVlIHRv
+IGFyZ3VlIHRoYXQgeW91IG11c3QgZG8gdHJhcCArDQplbXVsYXRpb24gYW5kIGRvbuKAmXQgdGFs
+ayBhYm91dCBwYXNzdGhyb3VnaCwgUGxlYXNlIHN0b3AgaGVyZSwgYmVjYXVzZQ0KZGlzY3Vzc2lv
+biB3b24ndCBnbyBhbnl3aGVyZS4NCg0KSSBtYWRlIG15IGJlc3QgdG8gYW5zd2VyIHRoZSBsaW1p
+dGF0aW9ucyBpbiB2ZXJ5IGZpcnN0IGVtYWlsIHdoZXJlIHlvdSBhc2tlZC4NCk9LLCBJIHNlZSB0
+aGUgZ2FwLCBhbmQgSSBhbSBzdXJlIHdlIGNhbiBoZWxwIHlvdSBoZXJlLg0KVHJ5IGNvbnNpZGVy
+IGEgcXVlc3Rpb246DQpob3cgZG8geW91IGRlZmluZSBwYXNzLXRocm91Z2g/IA0KQXMgZGVmaW5l
+ZCBpbiB0aGUgY292ZXIgbGV0dGVyIGFuZCB0aGVvcnkgb2Ygb3BlcmF0aW9uLg0KUmVwZWF0IGhl
+cmU6DQpBIGRldmljZSB3aG9zZSB2aXJ0aW8gaW50ZXJmYWNlcyBhcmUgbm90IGludGVyY2VwdGVk
+IGJ5IFZNTS4NCkluIGZ1dHVyZSwgbWF5IGJlIGV2ZW4gTVNJLVggYW5kIE1TSS1YX3YyIG9yIG5l
+d2VyIGludGVycnVwdCBtZXRob2Qgd2lsbCBiZSBwYXNzdGhyb3VnaCBhdCBkZXZpY2UgbGV2ZWwg
+dG9vLg0KKG9ubHkgY3B1IGxldmVsIGludGVycnVwdCByZW1hcHBpbmcgd2lsbCBiZSBoeXBlcmNh
+bGwgYXQgaW50ZXJydXB0IGNvbnRyb2xsZXIgbGV2ZWwpLg0KDQpBIFBDSSBzcGVjIGRlZmluZWQg
+Y29uZmlnIHNwYWNlIHRvIHN0YXkgYXMgZW11bGF0ZWQgYXMgaXQgaXMgZ2VuZXJpYyBhbmQgbm90
+IHN1cHBvc2VkIHRvIGhhdmUgYW55IHZpcnRpbyBzcGVjaWZpYyB0aGluZ3MgaW4gaXQgYXMgZGly
+ZWN0ZWQgYnkgdGhlIFBDSS1TSUcuDQpob3cgZ3Vlc3QgYWNjZXNzIGRldmljZSBjb25maWcgc3Bh
+Y2UgaW4geW91ciAicGFzc3Rocm91Z2giPyANCg0KDQoNCkNhbiBhIGd1ZXN0IGFjY2VzcyB0aGUg
+ZGV2aWNlIHdpdGhvdXQgYSBob3N0IGRyaXZlciBoZWxwZXI/DQpZZXMgZm9yIGFsbCB0aGUgdmly
+dGlvIGludGVyZmFjZXMgd2hpY2ggaW5jbHVkZXMsIHZpcnRpbyBkZXZpY2UgY29tbW9uIGFuZCBk
+ZXZpY2UgY29uZmlnIHNwYWNlLCBjdnEsIGRhdGEgdnEsIGZsb3cgZmlsdGVyIHZxcywgc2hhcmVk
+IG1lbW9yeSBhbmQgYW55dGhpbmcgbmV3IG9mIHRoZSBmdXR1cmUuDQppbnRlcmVzdGluZywgaWYg
+c28sIGxldCBtZSBhc2sgeW91IGEgcXVlc3Rpb24sIElzIGEgZ3Vlc3QgcHJpdmlsZWdlZCB0byBh
+Y2Nlc3MgYW55IGRldmljZXMgb24gdGhlIGhvc3Q/DQoNCg0KDQoNClRoYXQgYmFzaWMgZmFjaWxp
+dHkgaXMgbWlzc2luZyBkaXJ0eSBwYWdlIHRyYWNraW5nLCBQMlAgc3VwcG9ydCwNCmRldmljZSBj
+b250ZXh0LA0KRkxSLCBkZXZpY2UgcmVzZXQgc3VwcG9ydC4NCkhlbmNlLCBpdCBpcyB1bnVzYWJs
+ZSByaWdodCBub3cgZm9yIHBhc3N0aG91Z2ggbWVtYmVyIGRldmljZS4NCkFuZCA2dGggcHJvYmxl
+bWV0aWMgdGhpbmcgaW4gaXQgaXMsIGl0IGRvZXMgbm90IHNjYWxlIHdpdGggbWVtYmVyIGRldmlj
+ZXMuDQpQbGVhc2UgcmVmZXIgdG8gcHJldmlvdXMgZGlzY3Vzc2lvbnMsIGl0IGlzIG1lYW5pbmds
+ZXNzIGlmIHlvdSBrZWVwDQppZ25vcmluZyBvdXIgYW5zd2VycyBhbmQga2VlcCBhc2tpbmcgdGhl
+IHNhbWUgcXVlc3Rpb25zLg0KQWdhaW4sIHBsZWFzZSByZS1yZWFkLCBJIGRpZG7igJl0IGFzayB0
+aGUgcXVlc3Rpb24uDQpJIHJlcGxpZWQgNiBwcm9ibGVtcyB0aGF0IGFyZSBub3Qgc29sdmVkLg0K
+SSBiZWxpZXZlIHdlIGhhdmUgYW5zd2VyZWQgZm9yIG1hbnkgdGltZXMuIFRoZSBxdWVzdGlvbnMg
+YXJlIGN1dCBvZmYgYWdhaW4sIGJ1dA0KaG93IGFib3V0IHNlYXJjaCBmb3IgcHJldmlvdXMgYW5z
+d2Vycz8NCg0KSWYgeW91IHdhbnQgdG8gbWlncmF0ZSBkZXZpY2UgY29udGV4dCwgeW91IG5lZWQg
+dG8gc3BlY2lmeSBkZXZpY2UNCmNvbnRleHQgZm9yIGV2ZXJ5IHR5cGUgb2YgZGV2aWNlLCBuZXQg
+bWF5YmUgZWFzeSwgaG93IGRvIHlvdSBzZWUgdmlydGlvLQ0KZnM/DQpWaXJ0aW8tZnMgd2lsbCBo
+YXZlIGl0cyBvbiBkZXZpY2UgY29udGV4dCB0b28uDQpFdmVyeSBkZXZpY2UgaGFzIHNvbWUgc29y
+dCBvZiBiYWNrZW5kIGluIHZhcmllZCBkZWdyZWUuDQpOZXQgYmVpbmcgd2lkZWx5IHVzZWQgYW5k
+IG1vZGVyYXRlIGNvbXBsZXggZGV2aWNlLg0KRnMgYmVpbmcgc2xpZ2h0bHkgc3RhdGVmdWwgYnV0
+IGxlc3MgY29tcGxleCB0aGFuIG5ldCwgYXMgaXQgaGFzDQpmYXIgbGVzcyBjb250cm9sDQpvcGVy
+YXRpb25zLg0Kc28sIGRvIHlvdSBzYXkgeW91IGhhdmUgaW1wbGVtZW50IGEgbGl2ZSBtaWdyYXRp
+b24gc29sdXRpb24gd2hpY2gNCmNhbiBtaWdyYXRlIGRldmljZSBjb250ZXh0LCBidXQgb25seSB3
+b3JrIGZvciBuZXQgb3IgYmxvY2s/DQpJIGRvbuKAmXQgdGhpbmsgdGhpcyBxdWVzdGlvbiBhYm91
+dCBpbXBsZW1lbnRhdGlvbiBoYXMgYW55IHJlbGV2YW5jZS4NCkZyYW5rbHkgZmVlbHMgbGlrZSBh
+IGNvdXJ0IHRvIG1lLiA6KCBOby4gSSBkaW50IHNheSB0aGF0Lg0KV2UgaGF2ZSBpbXBsZW1lbnRl
+ZCBuZXQsIGZzLCBibG9jayBkZXZpY2VzIGFuZCBzaW5nbGUgZnJhbWV3b3JrDQpwcm9wb3NlZA0K
+aGVyZSBjYW4gc3VwcG9ydCBhbGwgMyBhbmQgcmVzdCAyOCsuDQpUaGUgZGV2aWNlIGNvbnRleHQg
+cGFydCBpbiB0aGlzIHNlcmllcyBkbyBub3QgY292ZXIgc3BlY2lhbC9vcHRpb25hbA0KdGhpbmdz
+IG9mDQphbGwgdGhlIGRldmljZSB0eXBlLg0KVGhpcyBpcyBzb21ldGhpbmcgSSBwcm9taXNlZCB0
+byBkbyBncmFkdWFsbHksIG9uY2UgdGhlIGZyYW1ld29yayBsb29rcw0KZ29vZC4NCklmIHlvdSBk
+b24ndCBkZWZpbmUgdGhlbSwgb25seSB0YWxraW5nIGFib3V0ICJtaWdyYXRlIHRoZSBkZXZpY2UN
+CmNvbnRleHQiIGJ1dCBkb24ndCB0ZWxsIHVzIHdoYXQgZG8gbWlncmF0ZSwgZG9lcyB0aGlzIG1h
+a2Ugc2Vuc2UgdG8gYW55Ym9keT8NClRoZW4geW91IHNob3VsZCBjYWxsIGl0IHZpcnRpbyBuZXQv
+YmxrIG1pZ3JhdGlvbiBhbmQgaW1wbGVtZW50IGluDQpuZXQvYmxvY2sgc2VjdGlvbi4NCk5vLiB5
+b3UgbWlzdW5kZXJzdG9vZC4gTXkgcG9pbnQgd2FzIHNob3dpbmcgb3J0aG9nb25hbCBjb21wbGV4
+aXRpZXMNCm9mIG5ldA0KdnMgZnMuDQpJIGxpa2VseSBmYWlsZWQgdG8gZXhwbGFpbiB0aGF0Lg0K
+c2VlIGFib3ZlLCBhbnl3YXkgeW91IG5lZWQgdG8gZGVmaW5lIHRoZW0sIGhvdyBhYm91dCBzdGFy
+dGluZyBmb3JtIHZpcml0bw0KRlM/DQpJbiBmYWN0IHZpcnRpby1mcyBkZXZpY2UgYWxyZWFkeSBk
+aXNjdXNzZXMgdGhlIG1pZ3JhdGluZyB0aGUNCmRldmljZSBzaWRlIHN0YXRlLCBhcw0KbGlzdGVk
+IGluIGRldmljZSBjb250ZXh0Lg0KU28gdmlydGlvLWZzIGRldmljZSB3aWxsIGhhdmUgaXRzIG93
+biBkZXZpY2UtY29udGV4dCBkZWZpbmVkLg0KaWYgeW91IHdhbnQgdG8gbWlncmF0ZSBpdCwgeW91
+IG5lZWQgdG8gZGVmaW5lIGl0DQpTdXJlLg0KT25seSBkZXZpY2Ugc3BlY2lmaWMgdGhpbmdzIHRv
+IGJlIGRlZmluZWQgaW4gZnV0dXJlLg0KTm93LCBub3QgZnV0dXJlIGlmIHlvdSB3YW50IHRvIG1p
+Z3JhdGUgZGV2aWNlIGNvbnRleHQuDQpJdCBpcyBub3QgbWFuZGF0b3J5LCBhbmQgaXQgaXMgaW1w
+cmFjdGljYWwgZG8gZXZlcnl0aGluZyBpbiBvbmUgc2VyaWVzLg0KSXQgaXMgcGxhbm5lZCBmb3Ig
+MS40Lg0KcmVhbGx5LCB5b3Ugd2FudCB0byBkZWZpbmUgZGV2aWNlIGNvbnRleHQgZm9yIGV2ZXJ5
+IGRldmljZSB0aW1lPw0KDQpZZXMuDQogDQpSZW1lbWJlciBkb24ndCBtaWdyYXRlIGRldmljZS1j
+b250ZXh0IGJlZm9yZSB5b3UgZGVmaW5lIHRoZW0gb3IgaG93IGNhbg0KdGhlIEhXIGltcGxlbWVu
+dGlvbnMga25vdyBob3cgdG8gZG8uDQpJIGRpc2FncmVlLiBUaGUgaW5mcmFzdHJ1Y3R1cmUgaXMg
+ZGVmaW5lZC4gQW5kIGluY3JlbWVudGFsbHkgZGV2aWNlIGNvbnRleHQgd2lsbCBhbHNvIGJlIGRl
+ZmluZWQuDQpTZWUgYW4gZXhhbXBsZSB3b3JrIGZyb20gTWljaGFlbCwgaS5lLiBhZG1pbiBjb21t
+YW5kIGFuZCBhcSBnZW5lcmljIGZhY2lsaXR5IGlzIGRlZmluZWQuDQpBbmQgZGV2aWNlIG1pZ3Jh
+dGlvbiBpcyBhYmxlIHRvIHV0aWxpemUgaXQgaW5jcmVtZW50YWxseS4gVGhlIGxvd2VyIGxheWVy
+IGZ1bGZpbGwgdGhlIHJlcXVpcmVtZW50cy4NClRoaXMgaXMgZXhhY3RseSB3aGF0IGlzIGRvbmUg
+aGVyZS4NCg0KRGV2aWNlIGNvbnRleHQgZnJhbWV3b3JrIGlzIGRlZmluZWQgYW5kIG1hbnkgZGV2
+aWNlIHNwZWMgb3duZXJzIHdpbGwgYmUgZWFzaWx5IGRlZmluZSB0aGVpciBkZXZpY2UgY29udGV4
+dCBtYWtpbmcgaXQgbWlncmF0YWJsZS4NCnNlZSBhYm92ZSBhbnN3ZXJzIGZvciBkZXZpY2UgY29u
+dGV4dC4NCg0KDQoNCg0KUmVzdCBpcyBhbHJlYWR5IHByZXNlbnQuDQpXZSBhcmUgbm90IGdvaW5n
+IHRvIGRlZmluZSBhbGwgdGhlIGRldmljZSBjb250ZXh0IGluIG9uZSBwYXRjaA0Kc2VyaWVzIHRo
+YXQgbm8NCm9uZSBjYW4gcmV2aWV3IHJlbGlhYmx5Lg0KSXQgd2lsbCBiZSBkb25lIGluY3JlbWVu
+dGFsbHkuDQpzbyB5b3UgYWdyZWUgYXQgbGVhc3QgZm9yIG5vdyB3ZSBzaG91bGQgbWlncmF0ZSBz
+dGF0ZWxlc3MgZGV2aWNlcywgcmlnaHQ/DQpCdXQgdGhlIGZlZWRiYWNrLCBJIGFtIHRha2luZyBp
+cywgd2UgbmVlZCB0byBhZGQgYSBjb21tYW5kIHRoYXQNCmluZGljYXRlcw0Kd2hpY2ggVExWcyBh
+cmUgc3VwcG9ydGVkIGluIHRoZSBkZXZpY2UgbWlncmF0aW9uLg0KU28gdmlydGlvLWZzIG9yIG90
+aGVyIGRldmljZSBtaWdyYXRpb24gY2FwYWJpbGl0aWVzIGNhbiBiZSBkaXNjb3ZlcmVkLg0KSSB3
+aWxsIGNvdmVyIHRoaXMgaW4gdjIuDQpzbyB5b3UgcHJvcG9zZSBhIHNvbHV0aW9uIGFzICJ2aXJ0
+aW8gbWlncmF0aW9uIiwgYnV0IG9ubHkgbWlncmF0ZQ0Kc2VsZWN0aXZlIHR5cGVzIG9mIGRldmlj
+ZXM/DQpZb3Ugc2hvdWxkIHJlbmFtZSBpdCB0byBiZSAidmlydGlvLW5ldCBsaXZlIG1pZ3JhdGlv
+biIuDQpTb3JyeSwgSSB3b250LiBCZWNhdXNlIGluZnJhc3RydWN0dXJlIGlzIGZvciBtYWpvcml0
+eSBkZXZpY2UgdHlwZXMuDQoNCldoaWNoIGZpZWxkIGRpZCB5b3Ugb2JzZXJ2ZSB3aGljaCBpcyBu
+ZXQgc3BlY2lmaWM/DQpXZSB3YW50IHRvIGNvdmVyIGFsbCB0aGUgZGV2aWNlIHR5cGVzLg0KRG9u
+4oCZdCBuZWVkIHRvIGNvb2sgdGhlaXIgY29udGV4dCBpbiBvbmUgc2VyaWVzLg0Kc28sIG5vdCB3
+b3JrIGZvciBhbGwgZGV2aWNlIHR5cGVzPyBsaW1pdGVkIHRvIHNvbWUgc3BlY2lmaWMgdHlwZXM/
+DQp5b3Ugc3RpbGwgbmVlZCB0byByZW5hbWUgaXQgd2hhdCBldmVyLg0KTm8uIGZyYW1ld29yayB3
+b3JrcyBmb3IgYWxsIGRldmljZSB0eXBlcy4NCndpdGhvdXQgZGVmaW5pbmcgdGhlbT8NCg0KDQoN
+Cg0KVGhhbmtzIGEgbG90IGZvciB0aGlzIHRob3VnaHRzLg0KDQpUaGUgaW5mcmFzdHJ1Y3R1cmUg
+YW5kIGJhc2ljIGZhY2lsaXRpZXMgYXJlIHNldHVwIGluIHRoaXMgc2VyaWVzLA0KdGhhdCBvbmUg
+Y2FuDQplYXNpbHkgZXh0ZW5kIGZvciBhbGwgdGhlIGN1cnJlbnQgYW5kIG5ldyBkZXZpY2UgdHlw
+ZXMuDQpyZWFsbHk/IGhvdz8NCkFuZCB3ZSBhcmUgbWlncmF0aW5nIHN0YXRlbGVzcyBkZXZpY2Vz
+LCBvciBubz8gSG93IGRvIHlvdSBtaWdyYXRlDQp2aXJ0aW8tDQpmcz8NCjIuIHNoYXJpbmcgc3Vj
+aCBsYXJnZSBjb250ZXh0IGFuZCB3cml0ZSBhZGRyZXNzZXMgaW4gcGFyYWxsZWwNCmZvciBtdWx0
+aXBsZSBkZXZpY2VzIGNhbm5vdCBiZSBkb25lIHVzaW5nIHNpbmdsZSByZWdpc3RlciBmaWxlDQpz
+ZWUgYWJvdmUNCjMuIFRoZXNlIHJlZ2lzdGVycyBjYW5ub3QgYmUgcmVzaWRpbmcgaW4gdGhlIFZG
+IGJlY2F1c2UgVkYgY2FuDQp1bmRlcmdvIEZMUiwgYW5kIGRldmljZSByZXNldCB3aGljaCBtdXN0
+IGNsZWFyIHRoZXNlIHJlZ2lzdGVycw0KZG8geW91IG1lYW4geW91IHdhbnQgdG8gYXVkaXQgYWxs
+IFBDSSBmZWF0dXJlcz8gV2hlbiBGTFIsIHRoZQ0KZGV2aWNlIGlzIHJlc3RlZCwgZG8geW91IGV4
+cGVjdCBhIGRldmljZSByZW1lbWJlciBhbnl0aGluZyBhZnRlciBGTFI/DQpOb3QgYXQgYWxsLiBW
+RiBtZW1iZXIgZGV2aWNlIHdpbGwgbm90IHJlbWVtYmVyIGFueXRoaW5nIGFmdGVyIEZMUi4NCkRv
+IHlvdSB3YW50IHRvIHRyYXAgRkxSPyBXaHk/DQpUaGlzIHByb3Bvc2FsIGRvZXMgX25vdF8gd2Fu
+dCB0byB0cmFwIHRoZSBGTFIgaW4gdGhlIGh5cGVydmlzb3IgdmlydGlvDQpkcml2ZXIuDQoNCldo
+ZW4gb25lIGRvZXMgdGhlIG1lZGlhdGlvbi1iYXNlZCBkZXNpZ24sIGl0IG11c3QNCnRyYXAvZW11
+bGF0ZS9mYWtlIHRoZQ0KRkxSLg0KSXQgaGVscHMgdG8gYWRkcmVzcyB0aGUgY2FzZSBvZiBuZXN0
+ZWQgYXMgeW91IG1lbnRpb25lZC4NCm9uY2UgcGFzc3Rocm91Z2gsIHRoZSBndWVzdCBkcml2ZXIg
+Y2FuIGFjY2VzcyB0aGUgY29uZmlnIHNwYWNlIHRvDQpyZXNldCB0aGUgZGV2aWNlLCByaWdodD8N
+CldoeSBGTFIgYmxvY2sgb3IgY29uZmxpY3Qgd2l0aCBsaXZlIG1pZ3JhdGlvbj8NCkl0IGRvZXMg
+bm90IGJsb2NrIG9yIGNvbmZsaWN0Lg0KT0ssIGNvb2wsIHNvIGxldCdzIG1ha2UgdGhpcyBhIGNv
+bmNsdXNpb24NClRoZSB3aG9sZSBwb2ludCBpcywgd2hlbiB5b3UgcHV0IGxpdmUgbWlncmF0aW9u
+IGZ1bmN0aW9uYWxpdHkgb24NCnRoZSBWRiBpdHNlbGYsDQp5b3UganVzdCBjYW5ub3QgRkxSIHRo
+aXMgZGV2aWNlLg0KT25lIG11c3QgdHJhcCB0aGUgRkxSIGFuZCBkbyBmYWtlIEZMUiBhbmQgYnVp
+bGQgdGhlIHdob2xlDQppbmZyYXN0cnVjdHVyZSB0bw0Kbm90IEZMUiBUaGUgZGV2aWNlLg0KQWJv
+dmUgaXMgbm90IHBhc3N0aHJvdWdoIGRldmljZS4NCk5vLCB0aGUgZ3Vlc3QgY2FuIHJlc2V0IHRo
+ZSBkZXZpY2UsIGV2ZW4gY2F1c2luZyBhIGZhaWxlZCBsaXZlIG1pZ3JhdGlvbi4NCk5vdCBpbiB0
+aGUgcHJvcG9zYWwgaGVyZS4NCkNhbiB5b3UgcGxlYXNlIHByb3ZlIGhvdyBpbiB0aGUgY3VycmVu
+dCB2MSBwcm9wb3NhbCwgZGV2aWNlIHJlc2V0DQp3aWxsIGZhaWwgdGhlDQptaWdyYXRpb24/DQpJ
+IHdvdWxkIGxpa2UgdG8gZml4IGl0Lg0KaWYgdGhlIGRldmljZSBpcyByZXNldCwgaXQgZm9yZ2V0
+cyBldmVyeXRoaW5nIHJpZ2h0Pw0KUmlnaHQuIFRoaXMgaXMgd2h5IGFsbCBkaXJ0eSBwYWdlIHRy
+YWNrOyBkZXZpY2UgY29udGV4dCBpcyBsb3N0IG9uIGRldmljZSByZXNldC4NCkhlbmNlLCB0aGUg
+Y29udHJvbGxpbmcgZnVuY3Rpb24gYW5kIGNvbnRyb2xsZWQgZnVuY3Rpb24gYXJlIHR3byBkaWZm
+ZXJlbnQNCmVudGl0aWVzLg0Kc28gdGhlcmUgY2FuIGJlIGluY29uc2lzdGVudCBtaWdyYXRpb25z
+IGFuZCByYWNlcywgcmlnaHQ/IEFuZCBpZiB0aGUgZ3Vlc3QgcmVzZXQNCnRoZSBkZXZpY2UsIGFj
+dHVhbGx5IHRoZSBoeXBlcnZpc29yIHNob3VsZCBsZXQgaXQgYmUsIHJpZ2h0Pw0KTm8uIGl0IHNo
+b3VsZCBub3QgYmUgaW4gYmVjYXVzZSBoeXBlcnZpc29yIGhhcyBub3QgY29tcG9zZWQgdGhlIG1l
+bWJlciBkZXZpY2UuIEl0IGlzIGluIHRoZSBodyBjb250cm9sbGVkIGZ1bmN0aW9uIGl0c2VsZi4N
+CmludGVyZXN0aW5nLCBkbyB5b3UgbWVhbiB3aGVuIHRoZSBndWVzdCByZXNldCB0aGUgZGV2aWNl
+LCB0aGUgaHlwZXJ2aXNvciBzaG91bGQgcmVmdXNlPw0KDQpUaGlzIGFjdHVhbGx5IGNvbmZsaWN0
+IHdpdGggeW91ciBzdGF0ZW1lbnQgb2YgeW91ciAicGFzc3Rocm91Z2giIGJ5ICIgbm90IGludGVy
+Y2VwdGVkIGJ5IFZNTSIuIFNvIHlvdSBhY3R1YWxseSB1bmRlcnN0YW5kIHRyYXAgYW5kIGVtdWxh
+dGUgYW5kIHBhc3N0aHJvdWdoLiANCg0KDQoNCjQuIFdoZW4gVkYgZG9lcyB0aGUgRE1BLCBhbGwg
+ZG1hIG9jY3VycyBpbiB0aGUgZ3Vlc3QgYWRkcmVzcw0Kc3BhY2UsIG5vdCBpbg0KaHlwZXJ2aXNv
+ciBzcGFjZTsgYW55IGZsciBhbmQgZGV2aWNlIHJlc2V0IG11c3Qgc3RvcCBzdWNoIGRtYS4NCkFu
+ZCBkZXZpY2UgcmVzZXQgYW5kIGZsciBhcmUgY29udHJvbGxlZCBieSB0aGUgZ3Vlc3QgKG5vdA0K
+bWVkaWF0ZWQgYnkNCmh5cGVydmlzb3IpLg0KaWYgdGhlIGd1ZXN0IHJlc2V0IHRoZSBkZXZpY2Us
+IGl0IGlzIHRvdGFsbHkgcmVhc29uYWJsZQ0Kb3BlcmF0aW9uLCBhbmQgdGhlIGd1ZXN0IG93biB0
+aGUgcmlzaywgcmlnaHQ/DQpTdXJlLCBidXQgdGhlIGd1ZXN0IHN0aWxsIGV4cGVjdHMgaXRzIGRp
+cnR5IHBhZ2VzIGFuZCBkZXZpY2UNCmNvbnRleHQgdG8gYmUNCm1pZ3JhdGVkIGFjcm9zcyBkZXZp
+Y2VfcmVzZXQuDQpEZXZpY2VfcmVzZXQgd2lsbCBsb3NlIGFsbCB0aGlzIGluZm9ybWF0aW9uIHdp
+dGhpbiB0aGUgZGV2aWNlIGlmDQpkb25lIHdpdGhvdXQNCm1lZGlhdGlvbiBhbmQgc3BlY2lhbCBj
+YXJlLg0KTm8sIGlmIHRoZSBndWVzdCByZXNldCBhIGRldmljZSwgdGhhdCBtZWFucyB0aGUgZGV2
+aWNlIHNob3VsZCBiZQ0KUkVTRVQsIHRvIGZvcmdldCBpdHMgY29uZmlnLCB0aGF0IHdvdWxkIGJl
+IHJlYWxseSB3aXJlZCB0byBtaWdyYXRlDQphIGZyZXNoIGRldmljZSBhdCB0aGUgc291cmNlIHNp
+ZGUsIHRvIGJlIGEgcnVubmluZyBkZXZpY2UgYXQgdGhlDQpkZXN0aW5hdGlvbg0Kc2lkZS4NCkRl
+dmljZSByZXNldCBub3QgZG9pbmcgdGhlIHJvbGUgb2YgcmVzZXQgaXMganVzdCBhIHBsYWluIGJy
+b2tlbiBzcGVjLg0Kd2h5PyBUaGUgcmVzZXQgYmVoYXZpb3IgaXMgd2VsbCBkZWZpbmVkIGluIHRo
+ZSBzcGVjLCBhbmQgd29ya3MgZmluZSBmb3IgeWVhcnMuDQpTbyBhbnkgbmV3IGNvbnN0cnVjdCB0
+aGF0IG9uZSBhZGRzLCBpdCB3aWxsIGJlIHJlc2V0IGFzIHdlbGwgYW5kIGRpcnR5IHBhZ2UNCnRy
+YWNrIGlzIGxvc3QuDQpZZXMgYW5kIGRvIHlvdSB3YW50IHRvIHByZXZlbnQgdGhhdD8gWW91IG1h
+eSBzdXJwcmlzZSB0aGUgZ3Vlc3QuDQpZZXMsIHdhbnQgdG8gcHJldmVudCB0aGF0Lg0KTm90IHN1
+cmUgd2hhdCB5b3UgbWVhbiBieSBzdXJwcmlzZSB0aGUgZ3Vlc3QuIFVubGlrZWx5Lg0KV2h5IGJl
+Y2F1c2UgZ3Vlc3QgZGlkIHRoZSByZXNldCwgaXQga25vd3Mgd2hhdCBpdCBpcyBkb2luZy4NCihL
+ZWVwIGluIG1pbmQgdGhhdCBndWVzdCBkb2VzIG5vdCBleHBlY3QgdG8gbG9zZSBpdHMgZGlydHkg
+cGFnZXMpLg0KU2hvY2tlZC4uLg0KDQpUaGlzIHN0YXRlbWVudCBjb25mbGljdCB3aXRoIGJhc2lj
+IHZpcnR1YWxpemF0aW9uLiANCg0KDQoNCg0KU28sIHRvIGF2b2lkIHRoYXQgbm93IG9uZSBuZWVk
+cyB0byBoYXZlIGZha2UgZGV2aWNlIHJlc2V0IHRvbyBhbmQNCmJ1aWxkIHRoYXQNCmluZnJhc3Ry
+dWN0dXJlIHRvIG5vdCByZXNldC4NClRoZSBwYXNzdGhyb3VnaCBwcm9wb3NhbCBmdW5kYW1lbnRh
+bCBjb25jZXB0IGlzOg0KDQphbGwgdGhlIG5hdGl2ZSB2aXJ0aW8gZnVuY3Rpb25hbGl0aWVzIGFy
+ZSBiZXR3ZWVuIGd1ZXN0IGRyaXZlciBhbmQNCnRoZSBhY3R1YWwNCmRldmljZS4NCnNlZSBhYm92
+ZS4NCmFuZCBzdGlsbCwgZG8geW91IHdhbnQgdG8gYXVkaXQgZXZlcnkgUENJIGZlYXR1cmVzPyBh
+dCBsZWFzdCB5b3UNCmRpZG4ndCBkbyB0aGF0IGluIHlvdXIgc2VyaWVzLg0KQ2FuIHlvdSBwbGVh
+c2UgbGlzdCB3aGljaCBQQ0kgZmVhdHVyZXMgYXVkaXQgeW91IGFyZSB0YWxraW5nIGFib3V0Pw0K
+eW91IGF1ZGl0IEZMUiwgdGhlbiBkbyB5b3Ugd2FudCB0byBjaGVjayBldmVyeW9uZT8NCklmIG5v
+LCBob3cgdG8gZGVjaWRlIHdoaWNoIG9uZSBzaG91bGQgYmUgYXVkaXRlZCwgd2h5IG90aGVycyBu
+b3Q/DQpJIHJlYWxseSBmaW5kIGl0IGhhcmQgdG8gZm9sbG93IHlvdXIgcXVlc3Rpb24uDQoNCkkg
+ZXhwbGFpbmVkIGluIHBhdGNoIDUgYW5kIDggYWJvdXQgaW50ZXJhY3Rpb25zIHdpdGggdGhlIEZM
+UiBhbmQgaXRzIHN1cHBvcnQuDQpOb3Qgc3VyZSB3aGF0IHlvdSB3YW50IG1lIHRvIGNoZWNrLg0K
+DQpZb3UgbWVudGlvbmVkIHRoYXQgIkkgZGlkbuKAmXQgYXVkaXQgZXZlcnkgUENJIGZlYXR1cmVz
+Ij8gU28gY2FuIHlvdQ0KcGxlYXNlIGxpc3QNCndoaWNoIG9uZSBhbmQgaW4gcmVsYXRpb24gdG8g
+d2hpY2ggYWRtaW4gY29tbWFuZHM/DQpZb3VyIGpvYiB0byBhdWRpdCBldmVyeW9uZSBpZiB5b3Ug
+dGFsayBhYm91dCBGTFIuIEJlY2F1c2UgRkxSIGlzIFBDSQ0Kc3BlYywgbm90IHZpcnRpbywgeW91
+IG5lZWQgdG8gZXhwbGFpbiB3aHkgb3RoZXIgUENJIGZlYXR1cmVzIG5vdCBuZWVkIHRvIGJlDQph
+dWRpdGVkLg0KDQpTdXJlLCBidXQgd2hlbiB5b3UgcG9pbnQgZmlndXJlIGFzIEkgZGlkbuKAmXQg
+YXVkaXQsIHBsZWFzZSBtZW50aW9uIHdoYXQgaXMgbm90DQphdWRpdGVkLg0Kd2VsbCwgd2UgYXJl
+IG1pZ3JhdGluZyB2aXJ0aW8gZGV2aWNlcywgYnV0IHlvdSBrZWVwIHRhbGtpbmcgUENJLCBzbyBk
+byB5b3Ugd2FudCB0bw0KdGFrZSBldmVyeSBQQ0kgZnVuY3Rpb25hbGl0aWVzIGludG8gY29uc2lk
+ZXJhdGlvbnM+DQpGb3IgcGNpIHRyYW5zcG9ydCwgeWVzLg0KRmlyc3QsIHRoYXQgaXMgb3V0IG9m
+IHZpcnRpbyBzcGVjLg0KU2Vjb25kLCBpZiBzbywgeW91IHNob3VsZCBhdWRpdCBldmVyeSBwY2kg
+ZmVhdHVyZSwgc3RhdGUuDQpEb24ndCBzYXkgeW91IHdhbnQgbWUgdG8gZGVmaW5lIHRoZW0sIHRo
+aXMgaXMgeW91ciBzdGF0ZW1lbnQuDQoNCg0KDQoNCldlIGhhdmUgZXhwbGFpbmVkIHdoeSBGTFIg
+aXMgbm90IGEgY29uY2VybiBmb3IgbWFueSB0aW1lcywgYW5kIEkNCmRvbid0IHdhbnQgdG8gcmVw
+ZWF0LCBwbGVhc2UgcmVmZXIgdG8gcHJldmlvdXMgZGlzY3Vzc2lvbnMuDQpZb3Ugc2VlbSB0byBp
+Z25vcmUgdGhlIGZpcnN0IHBhcmFncmFwaCBvZiB0aGVvcnkgb2Ygb3BlcmF0aW9uIHRoYXQgRkxS
+IGlzIG5vdA0KdHJhcHBlZC4NCnRoaXMgaXMgdGhlIGd1ZXN0IGlzc3VlIEZMUiwgcmlnaHQ/IElm
+IHNvIHRoZSBndWVzdCBvd25zIHRoZSByaXNrcyBhbmQgdGhlDQpoeXBlcnZpc29yIHNob3VsZCBu
+b3QgcHJldmVudCB0aGF0Lg0KRXhhY3RseSwgaHlwZXJ2aXNvciBkbyBub3QgcHJldmVudCBpdC4N
+ClRoZSBvd25lciBkZXZpY2Ugc3RpbGwgaGFzIHRoZSBvd25lcnNoaXAgdG8gbm90IGxvc2UgcHJl
+dmlvdXNseSBsb2dnZWQgZGlydHkgcGFnZXMgYWRkcmVzc2VzLg0KQW5kIGRldmljZSBzdGlsbCBu
+ZWVkIHRvIHJlcG9ydCBkZXZpY2UgcmVzZXQgb2NjdXJyZWQsIHNvIHRoYXQgZGVzdGluYXRpb24g
+c2lkZSBjYW4gd2lwZSBvZmYgYW5kIHN0YXJ0IGZyZXNoLg0KT0ssIHNvIHlvdSBrbm93IHRoZSBh
+bnN3ZXIgbm93LiBUaGlzIGFuc3dlcnMgeW91ciBvd24gcXVlc3Rpb24gYWJvdmUuDQoNCg0KDQoN
+CktlZXAgaW4gbWluZCwgdGhhdCB3aWxsIGFsbCB0aGUgbWVkaWF0aW9uLCBvbmUgbm93IG11c3Qg
+ZXF1YWxseQ0KYXVkaXQgYWxsIHRoaXMNCmdpYW50IHNvZnR3YXJlIHN0YWNrIHRvby4NClNvIG1h
+eWJlIGl0IGlzIGZpbmUgZm9yIHRob3NlIHdobyBhcmUgb2sgd2l0aCBpdC4NCnNvIHlvdSBhZ3Jl
+ZSBGTFIgaXMgbm90IGEgcHJvYmxlbSwgYXQgbGVhc3QgZm9yIGNvbmZpZyBzcGFjZSBzb2x1dGlv
+bj8NCkkgZG9u4oCZdCBrbm93IHdoYXQgeW91IG1lYW4gIkZMUiBpcyBub3QgYSBwcm9ibGVtIi4N
+Cg0KRkxSIG9uIHRoZSBWRiBtdXN0IHdvcmsgYXMgaXQgd29ya3Mgd2l0aG91dCBsaXZlIG1pZ3Jh
+dGlvbiBmb3INCnBhc3N0aHJvdWdoDQpkZXZpY2UgYXMgdG9kYXkuDQpBbmQgYWRtaW4gY29tbWFu
+ZHMgaGF2ZSBzb21lIGludGVyYWN0aW9ucyB3aXRoIGl0Lg0KQW5kIHRoaXMgcHJvcG9zYWwgY292
+ZXJzIGl0Lg0KSSBhbSBtaXNzaW5nIHNvbWUgdGV4dCB0aGF0IE1pY2hhZWwgYW5kIEphc29uIHBv
+aW50ZWQgb3V0Lg0KSSBhbSB3b3JraW5nIG9uIHYyIHRvIGFubm90YXRlIG9yIGJldHRlciB3b3Jk
+IHRoZW0uDQpXaGVuIGd1ZXN0IHJlc2V0IHRoZSBkZXZpY2UsIHRoZSBkZXZpY2Ugc2hvdWxkIGJl
+IHJlc2V0IGZvciBzdXJlLg0KdGhlbiBpdCBmb3JnZXRzIGV2ZXJ5dGhpbmcsIGhvdyBkbyB5b3Ug
+ZXhwZWN0IHRoZSByZXNldC1lZCBkZXZpY2Ugc3RpbGwgd29yaw0KZm9yIGxpdmUgbWlncmF0aW9u
+Pw0KaXMgaXQgYSByYWNlPw0KSSBkb27igJl0IGV4cGVjdCBpdCBsaXZlIG1pZ3JhdGlvbiB0byB3
+b3JrIGF0IGFsbCB3aXRoIHN1Y2ggYSBhcHByb2FjaC4NClRoaXMgaXMgd2h5IGluIG15IHByb3Bv
+c2FsIGxpdmUgbWlncmF0aW9uIG9jY3VycyBvbiB0aGUgb3duZXIgZGV2aWNlLCB3aGlsZQ0KY29u
+dHJvbGxlZCBmdW5jdGlvbiAobWVtYmVyIGRldmljZSkgaXMgdW5kZXJnb2luZyB0aGUgZGV2aWNl
+IHJlc2V0Lg0Kc2VlIGFib3ZlDQoNCkZvciBtaWdyYXRpb24sIHlvdSBrbm93IHRoZSBoeXBlcnZp
+c29yIHRha2VzIHRoZSBvd25lcnNoaXAgb2YgdGhlDQpkZXZpY2UgaW4gdGhlIHN0b3Bfd2luZG93
+Lg0KSSBkbyBub3Qga25vdyB3aGF0IHN0b3Bfd2luZG93IG1lYW5zLg0KRG8geW91IG1lYW4gc3Rv
+cF9jb3B5IG9mIHZmaW8gb3IgaXQgaXMgcWVtdSB0ZXJtPw0Kd2hlbiBndWVzdCBmcmVlemUuDQo1
+LiBBbnkgUEFTSUQgdG8gc2VwYXJhdGUgb3V0IGFkbWluIHZxIG9uIHRoZSBWRiBkb2VzIG5vdCB3
+b3JrDQpmb3IgdHdvDQpyZWFzb25zLg0KUl8xOiBkZXZpY2UgZmxyIGFuZCBkZXZpY2UgcmVzZXQg
+bXVzdCBzdG9wIGFsbCB0aGUgZG1hcy4NClJfMjogUEFTSUQgYnkgbW9zdCBsZWFkaW5nIHZlbmRv
+cnMgaXMgc3RpbGwgbm90IG1hdHVyZSBlbm91Z2gNClJfMzogT25lIGFsc28gbmVlZHMgdG8gZG8g
+aW52ZXJzaW9uIHRvIG5vdCBleHBvc2UgUEFTSUQNCmNhcGFiaWxpdHkgb2YgdGhlIG1lbWJlciBQ
+Q0kgZGV2aWNlIHRvIG5vdCBleHBvc2UNCnNlZSBhYm92ZSBhbmQgd2hhdCBpZiBndWVzdCBzaHV0
+ZG93bj8gdGhlIHNhbWUgYW5zd2VyLCByaWdodD8NCk5vdCBzdXJlLCBJIGZvbGxvdy4NCklmIHRo
+ZSBndWVzdCBzaHV0ZG93biwgdGhlIGd1ZXN0IHNwZWNpZmljIHNodXRkb3duIEFQSXMgYXJlIGNh
+bGxlZC4NCg0KV2l0aCBwYXNzdGhyb3VnaCBkZXZpY2UsIFJfMSBqdXN0IHdvcmtzIGFzIGlzLg0K
+Ul8zIGlzIG5vdCBuZWVkZWQgYXMgdGhleSBhcmUgZGlyZWN0bHkgZ2l2ZW4gdG8gdGhlIGd1ZXN0
+Lg0KUl8yIHBsYXRmb3JtIGRlcGVuZGVuY3kgaXMgbm90IG5lZWRlZCBlaXRoZXIuDQpJIHRoaW5r
+IHdlIGFscmVhZHkgaGF2ZSBhIGNvbmN1c3Npb24gZm9yIEZMUi4NCkkgZG9u4oCZdCBoYXZlIGFu
+eSBjb25jdXNzaW9uLg0KSSB3cm90ZSB3aGF0IHRvIGJlIHN1cHBvcnRlZCBmb3IgdGhlIEZMUiBh
+Ym92ZS4NCk9LLCBhZ2Fpbiwgb3VyIGRpc2N1c3Npb25zIGhhcyBiZWVuIGlnbm9yZWQgYWdhaW4s
+IGFuZCBhbGwgc3RhcnQgb3ZlciBhZ2Fpbi4NCg0KV291bGQgeW91IHBsZWFzZSByZWFkIG91ciBw
+cmV2aW91cyBkaXNjdXNzaW9ucz8NCllvdSBhc2tlZCB0aGUgcXVlc3Rpb24gYWJvdXQgd2h5IGl0
+IHdvbnQgd29yaywgSSBhbnN3ZXJlZC4NCkkgZG9u4oCZdCBzZWUgYSBwb2ludCBvZiBkZWJhdGlu
+ZyBzYW1lIHRoaW5nIG92ZXIgYWdhaW4uDQpJcyB0aGF0IGN1dCBvZmYgYWdhaW4/DQoNCk5vIGl0
+IGlzIG5vdCBjdXQgb2ZmIGhlcmUuDQoNCmlmIHN0aWxsIGFib3V0IEZMUiwgc28gcGxlYXNlIHNl
+ZSBhYm92ZSBjb21tZW50cy4NCkFuZCBJIGFncmVlIGlmIHRoZSBhbnN3ZXJzIGFyZSBpZ25vcmVk
+IGFnYWluLCB3ZSBkb24ndCBuZWVkIHRvIHJlcGVhdC4NCkkgZGlkbuKAmXQgYXNrIHF1ZXN0aW9u
+cy4gUGxlYXNlIHJlLXJlYWQuDQoNCg0KRm9yIFBBU0lELCB3aGF0IGJsb2NrcyB0aGUgc29sdXRp
+b24/DQpXaGVuIHRoZSBkZXZpY2UgaXMgcGFzc3Rocm91Z2gsIFBBU0lEIGNhcGFiaWxpdGllcyBj
+YW5ub3QgYmUgZW11bGF0ZWQuDQpQQVNJRCBzcGFjZSBpcyBvd25lZCBmdWxseSBieSB0aGUgZ3Vl
+c3QuDQoNClRoZXJlIGlzIG5vIHNpbmdsZSBrbm93biBjcHUgdmVuZG9yIHN1cHBvcnQgc3BsaXR0
+aW5nIHBhc2lkIGJldHdlZW4NCmh5cGVydmlzb3IgYW5kIGd1ZXN0Lg0KSSBjYW4gZG91YmxlIGNo
+ZWNrLCBidXQgbGFzdCBJIHJlY2FsbCB0aGF0IExpbnV4IGtlcm5lbCByZW1vdmVkIHN1Y2gNCndl
+aXJkDQpzdXBwb3J0Lg0KZG8geW91IGtub3cgdGhlcmUgaXMgc29tZXRoaW5nIGNhbGxlZCB2SU9N
+TVU/DQpQcm9iYWJseSB5ZXMuDQoNCg0K
 
