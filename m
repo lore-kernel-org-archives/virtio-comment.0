@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7868-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7869-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4250C41513
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 12:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6446ECDB465
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 13:57:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E30AC71C83
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 12:02:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8DA1B1318C9
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 13:57:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D60F69868E3
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 12:02:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5D1EC9868F7
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 13:57:19 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C4B0B9868E1; Thu, 19 Oct 2023 12:02:29 +0000 (UTC)
+	id 41FA89868ED; Thu, 19 Oct 2023 13:57:19 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,47 +24,41 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B23279868E2
-	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Oct 2023 12:02:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 324F49868EE
+	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Oct 2023 13:57:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CAnWC+iRD4DDxdI2Z4o5V+7tROb1/e5X2H6d4QV3mMvxSWBrUm9iaO/FvkjmWqUlOic3FmBHG3m7E8yBDy0YI6yHpQKu/fXkVrPLuydc47rdImplz7XQmpPA5qumX9Z6RsaHM8Y6ZeVyP2wwv2+GFIR5Uk3COYWxqF5PnLqxiewIsjmidpE6ytfY53xqEPvpo8Z29DLeYwmaiDP/kim5VqRiwVxZr6k29b1EsAhC46685Lf2BKZC7LZuWgiuHwZbjaxacOqwMsQeDAaepFXkDEB7ZFXC4Qu50fngVl5o3MucG/LCpqd/YZYH8Lev7BfRJa0wNGn61oFiyQ1T2VS6sw==
+ b=eGD3quE3KQ8+diaEkEktQa98c92Gac8BOwxNhiuorER3K5csxYCC1n86J5QLFoi95+QxLlC+EeUvP2+ShduRQJWQsdIzOMnDXyeViUqV4NWYIf4URWHX27w2MDOSW7Nr1xwPkruD34ZcL5uAZmEz1WwqVRp9agioKNzcRM/z5p6l+BpKJqZJc7bGZESdpla6rmLTKWcsBk1Zv0cU/D8sSUuuM0K1BjzxGXRKiyTvbLLPsqhfdE1zJWVYbydviM6XRNQ7vZfVav9VN4tDBAkft9HtgRfM0BtZ/L+eR1jQlz3uSeSLl7do+3mnBBu8OJibT3r8DifmWTJGC3ki4gRASQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UvIXbs83KXw0G6PLewYNeL04CYibRapxnxDVyxGYa+Y=;
- b=WQUuSKWjGRkPKAYthtJKigC7mUoKT8iZvxEzYW+mXsFW+Qtqs0eQckFO1FxsKe/cOwE/QgGw4QFopjI8eIaLBR1emWouSrdO+7CHXwcwJHJDjhsH2ix49OOZSfHdE4Nsz2VQULzSjSNxt34YBSJmHtpZCdNMAo0Z0YvsCjwR8AoT31PGsrq6tL6RQoPfNqaJkY4KRNKjOuSKmuIhv6n0aIYG1tWc13GMcv33Zd1yrsRpiwzcqTCfWcJRhHoUl08UvFke3tWwBek0jEqeXLFIwDvGqD1RCIzf20YMe/A4ezA+tDr+l1n5krzA5HXUeLivhaGLCjBAJ0Gjfw6YVVhgew==
+ bh=E1j+2h6wyyViDrna5V7utLwSO+vXaScCoWoYz+2tbMg=;
+ b=CjIxDc1SeUPxnoU8kA3cQe7eX3qIC5MU0bQu/fBkVhtTXt0E9fy0d7/Wlo8VXCkNuvxzyQ3e6DKXy5fuXGVcrZSJV8PJIsdfR+zjVgoixKzQbjtRk6mQlKUwwohf0iscYCV3MOfTUr66nSv5EMEsva8FochVRzO9ViuLNwjyt0eH8ixEHpKP/SdyvkeB58LRv4wKabHub37qxPXvPVt+A2O0xsDb3OY1GwZ4veG/FPKw9KE6Q6XBGHZZ/Ye+r8yVYPZWeBitzsNl2yRNlaEj4Ta0ejUUNi9ago71SRGNqhGdQ7I+c23Boyup/27oHVLqa3tZJRIpdqQPk5AU9Dw2iQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: "Zhu, Lingshan" <lingshan.zhu@intel.com>, Jason Wang
-	<jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
-	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
-	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
-	<yishaih@nvidia.com>
-Thread-Topic: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+To: Parav Pandit <parav@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>
+CC: "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "hengqi@linux.alibaba.com"
+	<hengqi@linux.alibaba.com>, "xuanzhuo@linux.alibaba.com"
+	<xuanzhuo@linux.alibaba.com>, Shahaf Shuler <shahafs@nvidia.com>
+Thread-Topic: [virtio-comment] RE: [PATCH v3 2/2] content: Support enabling
+ virtqueue after DRIVER_OK stage
 Thread-Index:
- AQHZ+dpHSUrTyyDEA0quapQP8C0hdbA/xRkAgAF/hoCAACxh4IABSWcAgAANqrCAAZnYAIAACyKAgAGFBICAAACFkIAAEwWAgAAD8yCAAXZ1gIAAIYLAgASWeYCAAtRh8IAAGoeAgAAAUKCAAARLAIAAB5cQgAAXYICAAABqYIABiiSAgAAMdcCAAALCgIAAADWggAABTwCAAAD9AIAAAmrwgAAfaICAAAqWkA==
-Date: Thu, 19 Oct 2023 12:02:27 +0000
+ AQHZ9O+eNF50SoOX0EKV5RZKM+E/zrBOABmAgAAC7YCAAW3ogIAAANSAgAAJ84CAAAB/0IABwd9w
+Date: Thu, 19 Oct 2023 13:57:15 +0000
 Message-ID:
- <PH0PR12MB548150A3AB3EA78F8C90DFD0DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <PH0PR12MB5481546E859578DE97D9E152DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
- <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <cd9431cc-a5ed-4b11-a341-dc129e8ea630@intel.com>
- <PH0PR12MB54819087A0B542F587A4BEC2DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <7bc82c01-19ad-4180-914b-9304e10ef7c3@intel.com>
- <PH0PR12MB5481E858791CA8FD97C7F35EDCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231019051406-mutt-send-email-mst@kernel.org>
- <daea1f54-1c85-4a4a-ac3a-c5ae97180e03@intel.com>
- <PH0PR12MB5481BE51210D429FA12EAB45DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231019070411-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20231019070411-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548188345E2CF3B8AA5E2DEDDCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231002051601.6626-1-parav@nvidia.com>
+ <20231002051601.6626-3-parav@nvidia.com> <871qdte8r6.fsf@redhat.com>
+ <PH0PR12MB54812DF4DB53917D4895FFCADCD6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <87sf68cjn0.fsf@redhat.com> <20231018062704-mutt-send-email-mst@kernel.org>
+ <87pm1cchuq.fsf@redhat.com>
+ <PH0PR12MB5481DB9D38E58522F0B15EEFDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To:
+ <PH0PR12MB5481DB9D38E58522F0B15EEFDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -72,93 +66,152 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA1PR12MB6848:EE_
-x-ms-office365-filtering-correlation-id: 7bd3b115-d9df-4936-2b3b-08dbd09b4378
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA1PR12MB6680:EE_
+x-ms-office365-filtering-correlation-id: 4a610470-c1bc-4c9a-6044-08dbd0ab4d25
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- 6evc7jHoyl90KP6bBBmh2edlnPf56GJ+gU2P1fy2KqyDd1p8r03hwoj0xGJ11MK3co/pTiAnuTsa4Jdf7DLeBL+DzWaLi4LxPzcobyZ2i2FmYYMOTBBDiNMMZkYFE1dgglbY9/UwtArl7QHce954cgKD37R4ZZmuMrrwLDfuDkfKDsYCXdTNbf8CS3GhiRCqocAD8E80gqUwCaVP5az5qcE6FZPcwtv7YqPcNjYjqJCRBkQkhrIII27Pnstrk1s9A2qNmXtsejG9wgFaCRXa6MdFi3Vi12Q1vAJSQt4+ozJugy3XoUWJUEO/4K0zl+8jbQqVg/c1zxPW8+++Mus9reKBHBMmdJgOpkUuO2RvvOH5h3yA0VA/wq+YHygJZ2H5knm/hj4vSRtQDHcy0DuG5YNfLg0k3LGeSDobR9bwuY3emiGq3ixWZ7LEu9pBJiudqdsy+Q6LZufUzSB/MPMtV5NbhBG6G5FcnH2q062hrfiGIvrNlclbgclPHAA390xpIU9c7g+Red79bS/cPrbsDclMO13TA+tscQS5tJohRXUR0kCEpCRACQbNuaKTVoZhf/1t0K8JJQkpaH4ZY9SGeLyr2nAmlQGu/bhhBaKSl8KS5bspT7tmwyyzv+sqPLy9D3SwuHI+I+Nn/N0JNGDTZtNUCh/IivkJ+3Ug9QupMpM=
+ Hj2TzF/dfNqMhKcr8LWiHd+VDW2YdO7fjL03WnoAlPJ7N5eGFyUrkywy1w2AXYaKALxwOpYwvWH9mCSvHWt0G6hkavDhK57/2mSpEmxbPeHQW42RTwn+qr9irvQxMlxpq3508vHH+PfljWZkblnf4+NSHAn4UTcZawawYKo0w5ZAaAz29iO0pKw1QZOj+SErgQnASTEQozNeCHBjIT0r10PaVnc/a6ytume7RsheLM2ewJWQ6XbM6mdRN6c9M2qTQv787OED+hNrI3s48MZlHRQFC8+53hPwEVMkpKi4H5gbTTDHzeCJgVzaYw8qwxroAqz0P04RQ0LxNwvBsjjwEpXznF4G3xjS1eD1ZAsD3VpRsVY+IHfGL1Kwyk+jsUZ6HMLZaNVkV0PpMqstos6jhoz52dQrJuCf0M2OlQZoWzOrWTdY7DRQM7ROT+ZDMGuk6d9fiWN9Mj3Mg0JecDR6+4Fl0LvuHzyAoCQtNOsnV+xFSSny2ALTJ+Nm1PnrDPxP46ExX/W+YUFG179YF4VLYn+fMuOqytO8ITn3QfodgzvcP/dwlLqFjedXSLZDzR54yzOcA2thJty4pGT/OYHCWOhv2sMfe/iNj+VFNZ9iBYPYtQZjaJkZA7n5VMWSAlVwDYZ8MvocAogZW/evpJlZvrAuLCkcy5lnpjsdGmu6SvA=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(376002)(366004)(396003)(39860400002)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(55016003)(316002)(54906003)(64756008)(966005)(66946007)(6916009)(478600001)(66556008)(66446008)(66476007)(76116006)(71200400001)(55236004)(7696005)(83380400001)(5660300002)(38100700002)(9686003)(107886003)(6506007)(26005)(86362001)(122000001)(33656002)(38070700005)(8936002)(2906002)(4326008)(41300700001)(8676002)(52536014);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(39860400002)(396003)(366004)(376002)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(71200400001)(66946007)(41300700001)(316002)(76116006)(66476007)(966005)(110136005)(54906003)(66556008)(2906002)(52536014)(478600001)(4326008)(8936002)(122000001)(8676002)(66446008)(5660300002)(86362001)(64756008)(38070700005)(7696005)(33656002)(55236004)(6506007)(38100700002)(55016003)(9686003)(26005)(107886003);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dWxsdWV1K0lLMXNzQU5YMkhSU1ZESXVkb1JlUmtPM0VkV0ZSVjVhUnRlVGda?=
- =?utf-8?B?YnpiWmFKR3pXTDhSZUFnaUYrZmJnZCtjV1ZkR2EyV0l3N3hJc2d6MmpCbmFE?=
- =?utf-8?B?a1F2MXRoMHpTVHhnRlFIaTBYeitLd29aUmZwQlZlMUc3THcxQVM3Q1ovNkUv?=
- =?utf-8?B?QW52V3lTd2lpY1lkbDhDS3lqa3Y1SFE0T05TamtZY1NFd1V4S3E2ditNckhk?=
- =?utf-8?B?Q3RWWmpYMmw1V2FwVzlMM0d4bFBLc0wrMUlabEdSU3Y2M0JQZVBHKzBJbytn?=
- =?utf-8?B?bUhCeHBEdmJ4NDJtcDRwd2JuWW1FSE42Mm41SG5ZREZESkkwTmZ0MUxHT0tX?=
- =?utf-8?B?K2EyNVg2ZGZDQmFFSTdpQjc2Rll3NHg0STAxRm5Qa2FjTDUxY01jeklaSk9u?=
- =?utf-8?B?THp4SUZVeVZBdU1vaVE5SnphQW5CKzcrVzY4a0xrQzVYU3VKa0VMQ01CaWx0?=
- =?utf-8?B?UE56cTkxcmNwbDA0YnVmUVJhTnNWNXJOby80TzFVNkhxOHAwYTlleXRsd1lI?=
- =?utf-8?B?NmJFelIrajBsOGRBbVFBclo4b1R5UWJWTDlwS2tJaDlRMWFxa2xJRnp1ZXNq?=
- =?utf-8?B?dVIrNnJSOE1aWkFMejJPWjd6WE9PVkpZY25Pd09FakpXRVFEU0NNbVU3a09H?=
- =?utf-8?B?cGtCbDBZZmZsQXNIZXNSQ0tEcG80aUNuWFlIVGdBY1dudklnWGtubmgxTFhK?=
- =?utf-8?B?ZEpzN3MyWEF4WWp4M0l6SWsvTVF1Q0JwSENIMWFhaEpWUmp2ckdGNzRWL216?=
- =?utf-8?B?RXRJbk1OaDREN2hqNzJ0em0ralIrU1FTUmQ3M05hTnFTVE5uenRQeWxTWlFG?=
- =?utf-8?B?cGhDQVVJOW1Nb05Tb2YxNm5sellVL2pvTnNEQWZETWlsZzhEVFc3VnlxT0l5?=
- =?utf-8?B?SzlCNFpZcWJ3K1NuZG5GQjV0b2gwSVM2ZFNJZHdzellEZlZZdldwRGhuWTVI?=
- =?utf-8?B?cU90NzRZOUhwUUdPeFEwL0hDL2xNNWcrSllRSXhjaTY4QUFEOGtuNzRtSzlP?=
- =?utf-8?B?K0ZHWjFnbFhoQnhJSHF0S2RVbWpxQXl0S0hUZktTbWdTYitUOGt6djNSZTZQ?=
- =?utf-8?B?blZJTnNnY1MrQ05QMUtURHNqMHpXVVhSZWtzSVBPenQrSVZmZlBKTEV0d0xL?=
- =?utf-8?B?aGRkdXBGbDh4SXgvT0V4clYyU05WMmJ0UUxrMnZKVVZNNThwR3N2aFR4aWlj?=
- =?utf-8?B?a3MzNHFUMk1vbTNSdkRzQ1JDK0EvMVJVcjJRMlR3cDBjU2hoNFUyUVBMVk4y?=
- =?utf-8?B?b3JOTlA0d3Vnbi9CQlFWWTJ4Q3MzT1NQbFNselBHNXF0QXo5K2IrdFVMYTdm?=
- =?utf-8?B?Unc1eVIwV09Cb3BoekZBY2xobmYzTFBrNFNvU3ZZNzlSbzZpdTIzR1AzdHlT?=
- =?utf-8?B?WVNmZzRVTGMyQVdtc0MwS1U0Z1NaOHV6SFhvOXhQbHJpdjhyTzhWb2RuOFNC?=
- =?utf-8?B?a21SQzkwVmVrRlE3b1RVUlF4SVREYTJjeURpb1Q0RU56NHZlTzFsemFqRWo0?=
- =?utf-8?B?c3JzUTkzeld3WDRsT0R4RElKQ04rOTRabTlqTGMwSGFvbEF0eWs3WXBRNjI3?=
- =?utf-8?B?MUtsS09xT3Bqb2tpL2UwOHJwMGFvRDBURkgydWRHekRkeitCVkZPZlYwT2lM?=
- =?utf-8?B?NXc3bmR4QW54a0VVb25ZVUtydVhDYUV2b25VSm9Vbk05SXpiOUI0NGgzSlpV?=
- =?utf-8?B?aUZOQjhTN0J5dFloaThNUTVPVzhVOXFibUt1RFJTOVoraTIvengzcTh0bTVh?=
- =?utf-8?B?azFNekFzVmYySTZ1RG1JQkFyaG9nOUJseTJwblpJdzNDWVBlYVdDQ2dZVnJG?=
- =?utf-8?B?S1FYRnJhMklYcW5CQnErdWZjT0YxRys1RFNid1UrVFBCaWRjN3RNaSsxQmFz?=
- =?utf-8?B?UVVIQ1JxUzE1eTMxYk9VOVdTaGpJZnBpZXNObzh6d1ArditHdWZuU0MvU3hW?=
- =?utf-8?B?M2dhbWhDSVlYQWsrYjd0Tmg2TW40NTZicElNdHV3eDNGdyt3QktObTVrODlE?=
- =?utf-8?B?NW9mMU5jNTZqYU9EQVFiREw1dWQ4MHN5YjNDSkxKSU8zakZiVk1uaTEvc3NP?=
- =?utf-8?B?MFFrTHNKOUxkamo3eHpNZERWZzJLamNRUkZ5WFh0bVNpcCtpMVdEekdCUks3?=
- =?utf-8?Q?Kfqo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ =?us-ascii?Q?uk28n5OLN+O0mDfAADTRij4gfWDCjj8L49CcAiJkVE3RlfOjyvQflmswh/+b?=
+ =?us-ascii?Q?DZW5p4tDrtANLD+wiY60nCU4D2VlAosgVW6q7xleqfF44sB1wrQaXwp36l/X?=
+ =?us-ascii?Q?xZvIWOm5uYGLmetDl0yJsRzYCo0ZYrBtMwrFGbj4pp6lGpS6ygu9BPGevUiK?=
+ =?us-ascii?Q?fGltwV/bDmG3JEoqG7VRcBVxKxoHEEFrlsrmbTs0pDVNXLGHqWHisA59kacj?=
+ =?us-ascii?Q?4N7wNwTL05U0Lt+jn8yAbgZdCmyQfkstF1zul3l2ZayOGzE4VPgr/Ehc8FhC?=
+ =?us-ascii?Q?wl15FtnDm+hbw98YP0e9kUhILWrSBGZ+/TuregH+8NNwcm95u2ga1K+pT+tO?=
+ =?us-ascii?Q?1gvNbWC/BFAvI9Up7rT4gQHmhe4Pe9HNvArskz8XqJQVfJA6xZbI8fxa0m9S?=
+ =?us-ascii?Q?ujNxrsqnMvhqsX7LuqgZkKYdH3jGse2s4rpgrl+Arjqz1E/6yAEyMZXGMLJb?=
+ =?us-ascii?Q?vIg33lba/ksUNRuOtFpl96bgfWEms+70g1R9AmRgb959tIlCr/NWmXj6zXK2?=
+ =?us-ascii?Q?mMBZ3W4cQqMVEqruNbowT8LOgaEztKenObv2hc/pbfCpNRMPNAnysa4JJ0RP?=
+ =?us-ascii?Q?WPwHF0mUHDf5D94U3/wMswTIK+RXWEvXFvM/Mj9B7shzuq7+BaNpyhnwhTgu?=
+ =?us-ascii?Q?YWvjFkMOiQfBSByUAfT1+DaVDQod6zveBRsBWB/PfUpY5yZfSsUwrgmGbZs/?=
+ =?us-ascii?Q?iv8Kd9Ffp+EAklmQNT9bQsOjQ09+GK7TPPjUF58bta6MEinT7z9do/3unHHa?=
+ =?us-ascii?Q?dq0VxAJTxKOIvmoi2U5/rTuGQyrYv+ME7Dczc4YjePXq+kftvTiZj1ZQo/mC?=
+ =?us-ascii?Q?HfB/4RyLYSnQp1brddau//L48Hde1hY5lFLELtDoyQpFeIui2KpW94UVAhxa?=
+ =?us-ascii?Q?qVfpiYem5VhYBy0I5eNsJ9PBhllXpCQVQlcspkoXpuWIDF1UJivfYwxPyEs0?=
+ =?us-ascii?Q?303MUmlBrqCf1k3QYHq95xlvO34q1rYTiGlWBr5c72Gf0KRKaJQIfemSSoic?=
+ =?us-ascii?Q?Z/SYkd9ecP0iZZ0BZ2r+BJr6ACjwZDubqBWCCN/7SoJqgU+6hLOREcgGU9Kf?=
+ =?us-ascii?Q?CuVNWiPl895PAJnJf8ztpiTc1I3vBY738hH9DyE2UvVaP5VItwRF3alQibuT?=
+ =?us-ascii?Q?DEQnvitbqgGRqGiUlF4AGVnpIaqYZRs7BDF8XKexLlbZdk1eMvAmrWTuYTLE?=
+ =?us-ascii?Q?fnBKT4LFzGc3pUbv0BO6wM8WYrpnw+sFjoDnQ4BwDMaVWo8KMdznjA49ti1Q?=
+ =?us-ascii?Q?e4jwksrHpN/hR9DUcRoBN84/XmEin5P+crkrqVahj/bFtQ3sHpeDxpITQSsH?=
+ =?us-ascii?Q?0yHSHNUgK5IfdEiQLGsPyMyO15QZOg9uuYqRzKsz6cW1SfFrMmTOnDp79v38?=
+ =?us-ascii?Q?mh92QoHurCj6DSSJ9Tf9blFna1mniS0oOm5idxS20NnryqQ6U0Jj08Ty1giy?=
+ =?us-ascii?Q?7hWbkmqAEHt5TqU7jkm5Wi96L5dSFvb8Bh73Izy3xpqhXB+ChFS+138ABduM?=
+ =?us-ascii?Q?FV/C5iV+sXdY6ZJyM6rBlTHoMZo0qK59asJ8IKxhzGMnEzrSdBT12moDzZni?=
+ =?us-ascii?Q?YyMF1bKVIXkrgs9rPw8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bd3b115-d9df-4936-2b3b-08dbd09b4378
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2023 12:02:27.3182
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a610470-c1bc-4c9a-6044-08dbd0ab4d25
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2023 13:57:15.4743
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bIM50qkcZcsu/hUHc6JMKV8x4GYj3iyqZ71olOeqyWXZe34nsMS7oMUCivAkwy2uj+PcVXpueGBE2O9A5XLDkA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6848
-Subject: RE: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+X-MS-Exchange-CrossTenant-userprincipalname: tw+3TStOY1e4/fAUnFAT3DTK5V9MdpV8AC7GFBW0QLD25sl0TiYEw65GjRQVuOaqV8o1qeEq5zPWH7dqscWNLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6680
+Subject: RE: [virtio-comment] RE: [PATCH v3 2/2] content: Support enabling
+ virtqueue after DRIVER_OK stage
 
-PiBGcm9tOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQuY29tPg0KPiBTZW50OiBUaHVy
-c2RheSwgT2N0b2JlciAxOSwgMjAyMyA0OjUwIFBNDQoNCj4gPiBOb3csIHdpdGggdGhhdCwgaWYg
-dGhpcyBjYW4gYmUgdXNlZnVsIG9ubHkgZm9yIG5vbl9wYXNzdGhyb3VnaCwgSSBtYWRlIGh1bWJs
-ZQ0KPiByZXF1ZXN0IHRvIHRyYW5zcG9ydCB0aGVtIHVzaW5nIEFRLCB0aGlzIHdheSwgeW91IGdl
-dCBhbGwgYmVuZWZpdHMgb2YgQVEuDQo+ID4gQW5kIHRyeWluZyB0byB1bmRlcnN0YW5kLCB3aHkg
-QVEgY2Fubm90IHBvc3NpYmxlIG9yIGluZmVyaW9yPw0KPiANCj4gSSB0aGluayB0aGUgcmVhbCBs
-aW1pdGF0aW9uIGlzIHdpdGggdGhlIFNSSU9WIGdyb3VwIHR5cGUuIElmIHVzaW5nIFBBU0lEIGlu
-c3RlYWQgb2YNCj4gc291cmNlIGlkIGZvciBpc29sYXRpb24gdGhlbiB3ZSdkIG5lZWQgYSBuZXcg
-Z3JvdXAgdHlwZS4NClJJRCtQQVNJRCBpcyB0aGUgaXNvbGF0aW9uIG9iamVjdC4NCkhhdmVu4oCZ
-dCBzZWVuIGp1c3QgUEFTSUQuDQoNCj4gQW5kIG1heWJlIGEgc2ltcGxlciBpbnRlcmZhY2UgdGhh
-biB2aXJ0cXVldWUgc2luY2UgaXQncyBhbGwgc2xvdyBwYXRoIGFueXdheS4NCj4gDQpQb3N0IGZ1
-bmN0aW9uYWxseSB3b3JraW5nLCBvbmUgd2lsbCBuZWVkIGFsbCBmZWF0dXJlcyBvZiB2cSBpbmNs
-dWRpbmcgaW50ZXJydXB0IG5vdGlmaWNhdGlvbi4NCg0KPiANCj4gPiBJZiB5b3UgaGF2ZSBjb21t
-YW5kcyBsaWtlIHN1c3BlbmQvcmVzdW1lIGRldmljZSwgcmVnaXN0ZXIgb3IgcXVldWUNCj4gdHJh
-bnNwb3J0IHNpbXBseSBkb27igJl0IHdvcmssIGJlY2F1c2UgaXQncyB3cm9uZyB0byBiaWZ1cmNh
-dGUgdGhlIGRldmljZSB3aXRoDQo+IHN1Y2ggd2VpcmQgQVBJLg0KPiA+IElmIHlvdSB3YW50IHRv
-IGJpZmVyYWNhdGUgZm9yIG1lZGlhdGlvbiBzb2Z0d2FyZSwgaXQgcHJvYmFibHkgbWFrZXMgc2Vu
-c2UgdG8NCj4gb3BlcmF0ZSBhdCBlYWNoIFZRIGxldmVsLCBjb25maWcgc3BhY2UgbGV2ZWwuIFN1
-Y2ggYXJlIHZlcnkgZGlmZmVyZW50IGNvbW1hbmRzDQo+IHRoYW4gcGFzc3Rocm91Z2guDQo+ID4g
-SSB0aGluayB2ZHBhIGhhcyBkZW1vbnN0cmF0ZWQgdGhhdCB2ZXJ5IHdlbGwgb24gaG93IHRvIGRv
-IHNwZWNpZmljIHdvcmsgZm9yDQo+IHNwZWNpZmljIGRldmljZSB0eXBlLiBTbyBzb21lIG9mIHRo
-b3NlIHdvcmsgY2FuIGJlIGRvbmUgdXNpbmcgQVEuDQo+ID4NCj4gPiBbMV0NCj4gPiBodHRwczov
-L2xvcmUua2VybmVsLm9yZy92aXJ0aW8tY29tbWVudC84NzBhY2UwMi1mOTljLTQ1ODItOTMyZi1i
-ZDEwMzM2DQo+ID4gMmRhZTlAaW50ZWwuY29tL1QvI20zNzc0M2FhOTI0NTM2ZDAyNTZkNmIzYjhl
-ODNhMTFjNzUwZjI4Nzk0DQoNCg==
+Hi Cornelia, Michael,
+
+> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+> open.org> On Behalf Of Parav Pandit
+> Sent: Wednesday, October 18, 2023 4:43 PM
+>=20
+> > From: Cornelia Huck <cohuck@redhat.com>
+> > Sent: Wednesday, October 18, 2023 4:34 PM
+>=20
+> > On Wed, Oct 18 2023, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> >
+> > > On Wed, Oct 18, 2023 at 12:25:23PM +0200, Cornelia Huck wrote:
+> > >> On Tue, Oct 17 2023, Parav Pandit <parav@nvidia.com> wrote:
+> > >>
+> > >> >> From: Cornelia Huck <cohuck@redhat.com>
+> > >> >> Sent: Tuesday, October 17, 2023 5:55 PM
+> > >> >>
+> > >> >> On Mon, Oct 02 2023, Parav Pandit <parav@nvidia.com> wrote:
+> > >> >> > +When VIRTIO_F_RING_DYNAMIC is not negotiated, the driver MUST
+> > >> >> > +enable the required number of virtqueues before setting the
+> > DRIVER_OK status bit.
+> > >> >>
+> > >> >> What does "required" mean here? It just chooses to enable the
+> > >> >> queues it wants to use, right?
+> > >> > Right.
+> > >> > Required meaning, whatever number of queues that driver choose to
+> > enable, those must be enabled before driver_ok.
+> > >> > So it is "required by the driver".
+> > >> > Would that be ok?
+> > >>
+> > >> I'd write it as "the driver MUST enable any virtqueue it plans to us=
+e"
+> > >> or something like that.
+> > >>
+> > >> (...)
+> > >
+> > > It would have to be SHOULD - we can't add new MUST requirements not
+> > > contingent on a feature bit, we can give recommendation based on
+> > > existing installed base.
+> >
+> It is not just installed base.
+> Spec clearly says that:
+> "Perform device-specific setup, including discovery of virtqueues for the=
+ device,
+> optional per-bus setup, reading and possibly writing the device's virtio
+> configuration space, and population of virtqueues."
+>=20
+> There is no feature bit or any text that says "population of virtqueues" =
+can be
+> done later outside of the device initialization phase.
+> Only reference is _F_RESET bit which is only for re-enabling. (not enabli=
+ng).
+>=20
+> > Then I wonder whether we need to add any normative statement at all --
+> > prior to the introduction of this new feature, the driver had to
+> > enable anything it wanted to use before DRIVER_OK, and if it does not
+> > negotiate the new feature, nothing changes. Spelling that out in
+> > non-normative sections should be enough?
+> It is already implied in the spec that queues must be enabled before
+> DRIVER_OK.
+> So what is written in normative is not changing any behavior.
+> It is only making the implied behavior explicit.
+>=20
+> If it says SHOULD, that means, one can enable the queue for the first tim=
+e after
+> DRIVER_OK stage too.
+> And that would violate the "Driver Requirements: Device Initialization".
+>=20
+
+I have addressed the comments of v3 in v4 at [1].
+The device requirement is kept as MUST to keep it aligned with the "driver =
+requirements section".'
+
+[1] https://lore.kernel.org/virtio-comment/20231017143135.758523-1-parav@nv=
+idia.com/T/#mc49b6e54186c5f1b1e8c743bc440ca0cc0938212
+
+Please review.
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
