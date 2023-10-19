@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7846-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7847-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 313DACDB483
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 09:09:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B439C46CA1
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 09:11:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 844ED42D6F
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 09:09:41 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9C9F668468
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 09:11:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 741649868D1
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 09:09:41 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 85C0D9868D0
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 09:11:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 661409868CE; Thu, 19 Oct 2023 09:09:41 +0000 (UTC)
+	id 774FD9868CE; Thu, 19 Oct 2023 09:11:43 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,254 +24,104 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 585C59868CF
-	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Oct 2023 09:09:41 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 686A29868CF
+	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Oct 2023 09:11:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="385081542"
-X-IronPort-AV: E=Sophos;i="6.03,236,1694761200"; 
-   d="scan'208";a="385081542"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="791926777"
-X-IronPort-AV: E=Sophos;i="6.03,236,1694761200"; 
-   d="scan'208";a="791926777"
-Message-ID: <7bc82c01-19ad-4180-914b-9304e10ef7c3@intel.com>
-Date: Thu, 19 Oct 2023 17:09:31 +0800
+X-MC-Unique: XAu4KG0yMJK-tmKA3NfNNA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697706680; x=1698311480;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8ZgZDsKkYz2bIbeU8abfQQXrDFSCVL5PKfWwKPH1Q5Q=;
+        b=DZbuKVaZo38KOQ9IN7UCzv51Ix5g1z9vOxf/+rrNoSct4hXYW+FAn9hOlGGYA5SAhh
+         ErHlnLZnsZ/jUW/ENbOaYUrt4tu5J1Cjs4ENuVZbnD4zlRbG0iG0I7fmpqj3FmZnmkWU
+         09aHY4vlf2SERkpdr8FeO8Sdv7GVPZMQBbkTP5WtbShb32Nw4fvbVhMzHZ8maKpvVtX0
+         V3w2sIMWpejUC1zJs855+gnKx67Xakffcohv1kYATwpFRqn4gvkiMxx7CY7yQ4YxQOmn
+         uL7UZsJGIrodKsnRzaia2VzNEIXrJqKsBrG2HOh8/5VoCm6wXsINEag7n/x1EAzMT1vu
+         snbg==
+X-Gm-Message-State: AOJu0YyWKqGwPoJGXy323OZ4ppJeY6JCeURnTk7maksfrIJrj3IMssDL
+	FcMnZAA2P4nVCFR2diUz4rXx0x2dCdzkMfaSN6Neu9yRdh9sEaEUW6Cj6C6pCK0cALHQLYDEDwa
+	a9oOI3CXHorMD8lW48lKbtgGTXmmuiRcM0Q==
+X-Received: by 2002:adf:9d86:0:b0:32d:a781:111 with SMTP id p6-20020adf9d86000000b0032da7810111mr1097214wre.15.1697706680185;
+        Thu, 19 Oct 2023 02:11:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFTX/+SYSybAw73uDsRn6vyYdrVSdmdZGlVQeIGU8fo0EuMNKl+/rhSyJcMFrCXMR0cJXYz5Q==
+X-Received: by 2002:adf:9d86:0:b0:32d:a781:111 with SMTP id p6-20020adf9d86000000b0032da7810111mr1097196wre.15.1697706679819;
+        Thu, 19 Oct 2023 02:11:19 -0700 (PDT)
+Date: Thu, 19 Oct 2023 05:11:14 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+Message-ID: <20231019050553-mutt-send-email-mst@kernel.org>
+References: <CACGkMEu_uRcL293Dd+vo2VvYJfUiCaPYF0dAjk-s6=RUtw-PEQ@mail.gmail.com>
+ <PH0PR12MB54813820D9800B4F62C5784FDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsMF4JVEQJ6skT2DrEWjop6wjKS6ad6dW2UNOA1oRuPKQ@mail.gmail.com>
+ <PH0PR12MB548109DEAE4B6C76025BD57ADCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEv2fNa_vqbqQmu3ys5tbB4-S-onXvr-pT9U9cd8iut7sA@mail.gmail.com>
+ <PH0PR12MB5481EA6A4D0C64C5AF6D3A57DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231019020413-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54810A5AA248384392FC8169DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231019041629-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481373C657AE3EFA123D1C4DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>
-Cc: "virtio-comment@lists.oasis-open.org"
- <virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
- <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>,
- Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-References: <20231008112555.473895-1-parav@nvidia.com>
- <6fc4af28-67d9-781b-a243-a6c2ebf0244c@intel.com>
- <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <db0719f9-7dc2-4a96-b10b-ecc3dac1a82b@intel.com>
- <PH0PR12MB548139B50AD2D1B86AC9A127DCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <f7083379-e76c-42f4-8355-ea4ae28eb52c@intel.com>
- <PH0PR12MB548119E2C2EDB212B56E9FACDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <829d27f8-1d9b-4a1e-93a8-a14da626f4a7@intel.com>
- <PH0PR12MB54819FC5A77A46C649CD5B6DDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <0948cfa4-da02-43d5-a099-424f209f814f@intel.com>
- <PH0PR12MB5481546E859578DE97D9E152DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
- <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <cd9431cc-a5ed-4b11-a341-dc129e8ea630@intel.com>
- <PH0PR12MB54819087A0B542F587A4BEC2DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB54819087A0B542F587A4BEC2DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+In-Reply-To: <PH0PR12MB5481373C657AE3EFA123D1C4DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
+On Thu, Oct 19, 2023 at 08:58:10AM +0000, Parav Pandit wrote:
+> It cannot be in the PCI 4K config space for sure.
+> It must reside in the virtio config space.
 
+Why? My concern with virtio config space would be
+that it's not orthogonal to other things in the
+config space. E.g. you need to look at feature bits
+to discover presence. How does this work while you are
+documenting that device can undergo reset at any time?
+With a capability you can discover it without poking at features.
 
-On 10/19/2023 5:01 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Thursday, October 19, 2023 1:45 PM
->>
->> On 10/18/2023 5:48 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Wednesday, October 18, 2023 2:13 PM
->>>>
->>>> On 10/18/2023 3:20 PM, Parav Pandit wrote:
->>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>> Sent: Wednesday, October 18, 2023 12:22 PM
->>>>>>
->>>>>> On 10/18/2023 2:41 PM, Parav Pandit wrote:
->>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>>>> Sent: Wednesday, October 18, 2023 12:06 PM
->>>>>>>>
->>>>>>>> On 10/18/2023 1:02 PM, Parav Pandit wrote:
->>>>>>>>>> From: virtio-comment@lists.oasis-open.org
->>>>>>>>>> <virtio-comment@lists.oasis- open.org> On Behalf Of Zhu,
->>>>>>>>>> Lingshan
->>>>>>>>>> Sent: Monday, October 16, 2023 3:18 PM
->>>>>>>>>>
->>>>>>>>>> On 10/13/2023 7:54 PM, Parav Pandit wrote:
->>>>>>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>>>>>>>> Sent: Friday, October 13, 2023 3:14 PM
->>>>>>>>>>>>>>>> How do you transfer the ownership?
->>>>>>>>>>>>>>> An additional ownership deletgation by a new admin
->> command.
->>>>>>>>>>>>>> if you think this can work, do you want to cook a patch to
->>>>>>>>>>>>>> implement this before you submitting this live migration series?
->>>>>>>>>>>>> I answered this already above.
->>>>>>>>>>>> talk is cheap, show me your patch
->>>>>>>>>>> Huh. We presented the infrastructure that migrates, 30+ device
->>>>>>>>>>> types,
->>>>>>>>>> covering device context ideas from Oracle.
->>>>>>>>>>> Covering P2P, supporting device_reset, FLR, dirty page tracking.
->>>>>>>>>>>
->>>>>>>>>>> Please have some respect for other members who covered more
->>>>>>>>>>> ground than
->>>>>>>>>> your series.
->>>>>>>>>>> What more? Apply the same nested concept on the member device
->>>>>>>>>>> as
->>>>>>>>>> Michael suggested, it is nested virtualization maintain exact
->>>>>>>>>> same
->>>>>> semantics.
->>>>>>>>>>> So a VF is mapped as PF to the L1 guest.
->>>>>>>>>>> L1 guest can enable SR-IOV on it, and map one VF to L2 guest.
->>>>>>>>>>>
->>>>>>>>>>> This nested work can be extended in future, once first level
->>>>>>>>>>> nesting is
->>>>>>>>>> covered.
->>>>>>>>>>>> Answer all questions above, if you think a management VF can
->>>>>>>>>>>> work, please show me your patch.
->>>>>>>>>>> The idea evolves from technical debate then pointing fingers
->>>>>>>>>>> like your
->>>>>>>>>> comment.
->>>>>>>>>>> I think a positive discussion with Michael and a pointer to
->>>>>>>>>>> the paper from
->>>>>>>>>> Jason gave a good direction of doing _right_ nesting that
->>>>>>>>>> follows two
->>>>>>>> principles.
->>>>>>>>>>> a. efficiency property
->>>>>>>>>>> b. equivalence property
->>>>>>>>>>>
->>>>>>>>>>> (c. resource control is natural already)
->>>>>>>>>>>
->>>>>>>>>>> Both apply at VMM and at VM level enabling recursive
->>>>>>>>>>> virtualization, by
->>>>>>>>>> having VF that can act as PF inside the guest.
->>>>>>>>>>> [1] https://dl.acm.org/doi/pdf/10.1145/361011.361073
->>>>>>>>>> Please just show me your patch resolving these opens, how about
->>>>>>>>>> start from defining virito-fs device context and your management VF?
->>>>>>>>> As answered, device context infrastructure is done, per device
->>>>>>>>> specific device-
->>>>>>>> context will be defined incrementally.
->>>>>>>>> I will not be including virtio-fs in this series. It will be
->>>>>>>>> done incrementally in
->>>>>>>> future utilizing the infrastructure build in this series.
->>>>>>>> Done? How do you conclude this? You just tell me what is the full
->>>>>>>> set of virito-fs device context now and how to migrate them.
->>>>>>>>
->>>>>>>> You cant? you refuse or you don't? Do you expect the HW designer
->>>>>>>> to figure out by themself?
->>>>>>> I wont be able to tell now as I don’t think it is necessary for this series.
->>>>>>> If one out of 30 devices cannot migrate because of unimaginable
->>>>>>> amount of
->>>>>> complexity has been placed there, may be one will not implement it
->>>>>> as member device.
->>>>>>>     From experience of migratable complex gpu devices, rdma devices
->>>>>>> (stateful
->>>>>> having hundred thousand of stateful QPs), my understanding is
->>>>>> complex state of virtio-fs can be defined and migratable.
->>>>>>> Mlx5 driver consist of 150,000 lines of code and that device is
->>>>>>> migratable
->>>>>> with complex state.
->>>>>>> So I am optimistic that virtio-fs can be migratable too.
->>>>>>> It does not have to limited by my limited creativity of 2023.
->>>>>>> May be I am wrong, in that case one will not implement passthrough
->>>>>>> virtio-fs
->>>>>> device.
->>>>>> your series wants to migrate device context, but doesn't define
->>>>>> device context, does this sounds reasonable?
->>>>> Device generic context is defined at [1] and also the infrastructure
->>>>> for defining
->>>> the device context in parallel by multiple people can be done post
->>>> the work of [1].
->>>>> Per each device type context will be defined incrementally post this work.
->>>>>
->>>>> [1]
->>>>> https://lists.oasis-open.org/archives/virtio-comment/202310/msg00190
->>>>> .h
->>>>> tml
->>>> This is not post of the work, you should define them before you use
->>>> them in this series.
->>>>
->>> I don’t agree to cook ocean in this patch series.
->>> No practical spec devel community does it.
->>> As long as we feel comfortable that device context framework is extendible, it
->> is fine.
->>> If virtio-fs seems very hard, may be one will come with a new light weight FS
->> device. I really don’t know.
->> so you want to migrate device context, but refuse to define them?
->>>> And you need to prove why admin vq are better than registers solution
->>>> if you want a merge.
->>> Michael already responded the practical aspects.
->>> Since you may claim, I didn’t answer, below is the technical details.
->>>
->>> Why admin commands and aq is better is because of below reasons in my
->> view:
->>> Functionally better:
->>> 1. When the live migration registers are located on the VF itself, VMM does
->> not have control of it.
->>> These registers reset, on FLR and device reset because these are virtio
->> registers of the device.
->>> Hence, VMM lost the state for the job that VMM was supposed to do.
->>> Therefore, passthrough mode cannot depend on these registers.
->>>
->>> 2. Any bulk data transfer of device context and dirty page tracking requires
->> DMA.
->>> Hence those DMA must happen to the device which is different than VF itself.
->>> If it is on the VF itself, it has two problems.
->>> 2.a. VF device reset and FLR will clear them, and device context is lost.
->>>
->>> 2.b. the DMA occurs at the PCI RID level.
->>> IOMMU cannot bifurcate the DMA of one RID to two different address space
->> of guest and hypervisor.
->>> This requires PASID support.
->>> Using PASID has following problems.
->>> 2.b.1 PASID typically not used by the kernel software. It is only meant for the
->> user processes.
->>> Hence for kernel work a reserving PASID won't be acceptable upstream
->> kernel.
->>> 2.b.2 Somehow if this is done, When the VF itself supports PASID, it required
->> now vPASID support.
->>> This is again not where industry is going in other forums where I am part of.
->> Hence, it will be failure for virtio. Hence, I do not recommend vPASID route.
->>> 2.b.3 One of the widely used cpu seems to have dropped the support due to
->> limitation of an instruction around PASID.
->>> So it cannot be used there, this further limits virtio passthrough users.
->>>
->>> Even if somehow 2.b.2 and 2.b.3 is overcome in theory, #1 and 2.a is
->> functional problems.
->>> Scale wise better:
->>> 3. Admin command and admin vq are used _only_ when one does device
->> migration command.
->>> One does not migrate VMs every few msec.
->>> Hence such functionality to be better be done which is efficient for
->> performance, but without consuming on-chip memory.
->>> Admin command and admin vq satisfy those.
->>>
->>> 4. Once the software matures further, admin command would prefer
->> completion interrupt, instead of poll.
->>> How to get notification/interrupt? Well, virtqueue defines this already.
->>> Should we replicate that in some PF registers?
->>> It can be. But once you put all the functionalities of admin command and aq
->> in registers the whole thing becomes yet another register_q.
->>> 5. Can these registers be placed in the PF to overcome #1 and #2 for
->> passthrough?
->>> In theory yes.
->>> In practice, no, as there are many commands that flow, which needs to scale
->> to reasonable number of VFs.
->>> Admin commands over admin vq provides this generic facility.
->>>
->>> 6. Most modern devices who attempts to scale, cut down their register
->> footprint, registers are used only for main bootstap, init time config work.
->>> Even in virtio spec, one can read:
->>> "Device configuration space is generally used for rarely changing or
->> initialization-time parameters."
->>> Adding some additional registers to a PF device config space for non init time
->> parameters does not make sense.
->>> 7. Additionally, a nested virtualization should be done by truly nesting the
->> device at right abstraction point of owner-member relationship.
->>> This follows two principles of (a) efficiency and (b) equivalency of what Jason
->> paper pointed.
->>> And we ask for nested VF extension we will get our guidance from PCI-SIG, of
->> why it should be done if it is matching with rest of the ecosystem components
->> that support/don’t support the nesting.
->> It they are true, shall we refactor virtio-pci common cfg functionalities to use
->> admin vq?
-> For non-backward compatible SIOV device of the future, yes, virtio-pci common config (non init registers) should be moved to a vq, located on the member device directly.
-Oh, really? Quite interesting, do you want to move all config space 
-fields in VF to admin vq? Have a plan?
+> I am sure that this is used for passthrough mode of #1.
+> So, can you please confirm to write this up for mode #2 only?
+
+To me it sounds like a generally useful capability that could be
+used as basis e.g. for admin command transport.
+
+> > > A variation of that for the member device, there is owner device, hence
+> > admin command on the AQ can be used.
+> > >
+> > > If we can converge on common virtio interface between #1 and #2, great.
+> > > If we cannot be due to technical issues, we shouldn't step on each other's
+> > toes, instead build the two interfaces for two different use cases overcoming its
+> > own technical challenges.
+> > >
+> > > And when in future, someone want to implement different kind of bisections,
+> > they can propose the extensions.
+> > 
+> > Not good at all, this means the interface is very narrow.
+> > Your "propose an extension" just doesn't work practically.
+> > It takes years for things to be widely deployed in the field, by the time they are
+> > there are more use-cases.
+> 
+> We usually see it getting deployed in < 1 year time with new spec advancement pace for many features.
+> Building something for unreasonable amount of time without use case results in missing the immediate deployments that happens in 2024 to 2027 of 1.4 spec time frame.
+> 
+> > We need something universal and admin commands were supposed to be just
+> > this.
+> I don't see a universal solution for all problems for above #1 and #2.
+> 
+> Solving above #2 will cover large part of deployments that users are doing.
+
+OK. But additionally, if an interface can cover a couple of use-cases
+we can be reasonably sure it's going to cover more going forward.
 
 
 This publicly archived list offers a means to provide input to the
