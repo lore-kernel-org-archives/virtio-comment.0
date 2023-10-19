@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7826-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7827-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B772CDB482
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 02:41:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82AC7CDB465
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 04:30:06 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 08EE37956C
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 02:41:50 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B814F2B01B
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 04:30:05 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F05B19868C8
-	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 02:41:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 91A5B9868C9
+	for <virtio-comment@archiver.kernel.org>; Thu, 19 Oct 2023 04:30:05 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E7C689868C0; Thu, 19 Oct 2023 02:41:49 +0000 (UTC)
+	id 75CDA9868C2; Thu, 19 Oct 2023 04:30:05 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,601 +24,288 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D99D99868C1
-	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Oct 2023 02:41:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 571C29868C3
+	for <virtio-comment@lists.oasis-open.org>; Thu, 19 Oct 2023 04:30:05 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: -MlYCMRuMbeSEpPP3BSrfg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697683305; x=1698288105;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SZcHocLcA0JfhDd+RyrdVqgzbwSaGxF0dygR1AHrXVE=;
-        b=PdIU1JaVKwAQIQFdZu0LfqfY+Bidjhyy1BCDv+2y0Khts0gJxIuSfjgoSDVCsk54nr
-         vj9fcZC/2n1a+O0TF3TRlnafJC/1NxFIvY4ZXUKR6VkH2qZ0x7onryTXsFsRjKyPM9i0
-         xFJs8P5cievUvgcubNnVzK/hWiLG+UFFcdRPhrQ+OIkGNabUrOIAlhXgdyVuvrLQBjrg
-         fjoOKHvf9g29x3uGnCp0crBqzr2hRIhPI291jcaONw4bZRGpx7h5neT8YXa4QxsWpEQw
-         zP1vykiC0amJH6RrcZryot+AzEf4i7i215AnRi52WLdccWJYpYc8cACiJvkwWyOpi/YL
-         QAGQ==
-X-Gm-Message-State: AOJu0Yx6gX0qIVKzy8EwaAxJuvAYEtNT/GZ81F67FWsJxxNetQkVoLnO
-	HJWczRAW81u7FrigElE4ZDWnt5bHNx2avfXBxSBhCZeAKQeWqVrRkQLrBjtFE+h2GX/gwTCDjYh
-	kEQrlTz4UrVgCnvg1v5URz09g8qVgaomRdhBxVWXbVyFutiZXgg==
-X-Received: by 2002:a05:6512:3047:b0:507:a62c:5d0c with SMTP id b7-20020a056512304700b00507a62c5d0cmr550123lfb.19.1697683305041;
-        Wed, 18 Oct 2023 19:41:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFV2IWScHqxtApUpnfxpxJmCSQsqV7Hx7v9athnS36qyL3+iN35QwdvyiV7uP6SZH7IzxLJoKOIeb7ubOr41iE=
-X-Received: by 2002:a05:6512:3047:b0:507:a62c:5d0c with SMTP id
- b7-20020a056512304700b00507a62c5d0cmr550106lfb.19.1697683304591; Wed, 18 Oct
- 2023 19:41:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VMLVG5729flsTlg9JzULcyIfMF8qso2e5seB9X1WcTfukyg2VE68eneChTsqtsKwUFU9v1yBA+r2+USbGe39czZY+IJGUzxUddhxl8aAVgTr4jr5qZRqiI/jWtlR8K+Gfu3mOolxmUnVj+Vk7D+4SvhW5IqHGORknsowQCceBSdzGH8Ff+c5P8NLMlJbLMM+DC/0EEnTS6LK5Zw/uwPX8sLXoDZkvyVI3LjPwhHzJ8hhQOh0kHLmfTcMC1tRoNwSXIe5vviuFvkdjoHCCJoxgQIUIfBh9VxyH8iuAUH2S1L/VE1SAdF1BDfu6Wq6rSHCAvBMv7RVmyqHZCq8s5KHBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bFEvGp42bOIyBGMvBV/ufOIjF/ykzz34KnGwvzjkaKk=;
+ b=RD99uO45RfzCP9ZpMY8MCcJwejEHl7ZV1fcYuo6CTqqP/OWRAw298YC0VhNeTRgNMyU/3pg4NqdWdG3/CpKrF+Kb7oxj5e20Z3MDfFUVsgb4CLbTRQa6+TILtIkIeJKFYoAdqAL7AoS0FlMVTlBJc+22Jddow1E1I4G2FU8GcuKV8BNMTWUeS2sjiyMtYUz5vW4M3vL0JoelrsD/UY3PTcRwr6uOW61hc+nMEux7+PETkVNQngeIUCNB05fVEGW+SD1uVwbiSPCwxjzdcn4jAE8Nw7L3hZla4v9bYGGuUTmtPV1QUZVmn5R8hDM9B44JIPrlhHMtJplYVOAEIz9FwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Jason Wang <jasowang@redhat.com>
+CC: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin"
+	<mst@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>
+Thread-Topic: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
+Thread-Index:
+ AQHZ+dpD+jj/KUeLHUaMn2y+w39Cb7BBJzcAgAA1HlCAAEi6gIAAERjwgAEF2ACAAAjm4IABoeMAgAAIQWCAAYjxAIAAAHqAgAD5sYCAAEjPkIAGCquAgAAYNlCAAWk/gIAAN7kQgAF48YCAABlCkA==
+Date: Thu, 19 Oct 2023 04:29:59 +0000
+Message-ID:
+ <PH0PR12MB548109DEAE4B6C76025BD57ADCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231008112555.473895-1-parav@nvidia.com>
+ <20231008112555.473895-2-parav@nvidia.com>
+ <CACGkMEt0PNFUoVEYDtgziE5scYqauADX6PF-_f0NSCcWB_FrCA@mail.gmail.com>
+ <DM8PR12MB54801E873241AA02CC32CDCBDCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20231009121638-mutt-send-email-mst@kernel.org>
+ <DM8PR12MB5480E0F15A1BBDD745EE3AF4DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <25375529-9c40-9ea9-692e-f557c514c72f@intel.com>
+ <PH0PR12MB54812E59B581546FFB118F3FDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <f875fa3b-4b33-71c2-e612-bc2a674a1e59@intel.com>
+ <PH0PR12MB548171A06CCE458C913E4961DCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <97aa9108-0715-2483-f5cf-02698c745d60@intel.com>
+ <PH0PR12MB5481F4F3B4FADD79770ADEA6DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEt-pUSazfjfROukZdaLdmeX1xP7_OxQaQ=Se=jV5NXkDA@mail.gmail.com>
+ <PH0PR12MB5481F8312139BB197CEB024BDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtihTxYADd1dbG=vX9=VLp0xfRJSQ4jd_m0UiuZNz_2sg@mail.gmail.com>
+ <PH0PR12MB5481E85F17F9D22CBCC9FDF8DCD6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEu_uRcL293Dd+vo2VvYJfUiCaPYF0dAjk-s6=RUtw-PEQ@mail.gmail.com>
+ <PH0PR12MB54813820D9800B4F62C5784FDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsMF4JVEQJ6skT2DrEWjop6wjKS6ad6dW2UNOA1oRuPKQ@mail.gmail.com>
+In-Reply-To:
+ <CACGkMEsMF4JVEQJ6skT2DrEWjop6wjKS6ad6dW2UNOA1oRuPKQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|BL1PR12MB5731:EE_
+x-ms-office365-filtering-correlation-id: 2b68c7d3-e182-4883-97f2-08dbd05c0e48
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 8RFcNF5GwC9Jv/x19Zw3KXUwXrXRujssFv+KigDVefw83Du4191CO+/iTDosTkZ8HWDy4Mx1BiNmj901EQ7gSWMP7GsAmSwtv76vVkW2nVZslrhQivzuqgV+QM/aJVAc2eiTrJD2nLnlco/Fumf5v4g8agAOlp+/ZuHmP/MNVxfbOb+3vT3J2E35agC7CVEJ9NCrGMHyCNAqW1lxCgxCtkXD+EzP/CFEDnTBiXSDcBBFpj4AoZO9Ux8qp3w656IWldW5N4mZL65//br7WtnQV7EyQu4NySyAAPgICrphnNpJ9/zTlJXKSviVaenOWF14wUotguCxPviW/X8uLGFd1YvsP1Vqu9IgyTLYhLusjf0gqXM1FHiT4s+8MPlzGVBi6hzxTjUrjHI4r5u3Txg02CaYiha/j3imZnlxkcAw/6ZRTqs/E8UV2Ipl/+O9VAW1uAelsn1fruYS7wAIHasVT7Iu9vl/zut4I9QZU/VrwLTdGLR0DYkxdBaMCpj/FuGojcWpyZ8Vo9Bh8oebOdDcY4ZQOfVq6ofBdlUELp/OvCZExUeTO2suavLNgL0FkVx4DU9IipCBIXYINbp3ieswE9dSklObSkhRQx/ovKHyVh8w2DZgUh3VZfUkAy+5H6g07Eoeff+0Dy/YeRgrVQBDah8Y/+yoRYLIGQrJjM/VSKo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(366004)(346002)(136003)(376002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(33656002)(86362001)(38070700005)(55016003)(66556008)(66446008)(316002)(41300700001)(66476007)(966005)(66946007)(6916009)(54906003)(38100700002)(122000001)(7696005)(64756008)(5660300002)(55236004)(71200400001)(9686003)(26005)(107886003)(52536014)(478600001)(8936002)(83380400001)(8676002)(6506007)(76116006)(2906002)(4326008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RkNVZ2pQTVJVOTdJOUxxMDZ6cVc3SFkxUVhIQUtDK21XaGRnOWsrYnhaSkli?=
+ =?utf-8?B?QkZ3M0Rmb2tsdUxMTXNaL29WTDZPVHhrY3Z1Qml5TUJjUlJOQzF6amN5dnRy?=
+ =?utf-8?B?d0ZSTm8yN3BBSTk3Qm9uSTkxRHFqRDVrVG81UWtsTEFoUUNkbmNZTVBDdXFa?=
+ =?utf-8?B?MWZjbTdXSXRuTXVNY3RCaVJ2WlpybUZvMGo5SWErclhDekJFaWhGWU90anBx?=
+ =?utf-8?B?ekZROHM2RG5wN3U5WFNnbHdGaEtzeG9NNjFoSE5tSDBBTXZVc3N4bGZXR1lE?=
+ =?utf-8?B?LzZZUW4yb1dkUHFJMlZCcFgwY0NLT3E1QUswZXM2UHpxbXA5S1NwcVNiUW51?=
+ =?utf-8?B?S1o5amdBenFsa0J4cC9SUStUQzVPMVZmZlZRZkFnc3htRHVJWWx0VlQ1UC9K?=
+ =?utf-8?B?aTFBVzIrUUhmSEtGWVI2V29iTy9SbmtQQkJCVHA3S2J3ZWJtZ3Q2MFBsbFky?=
+ =?utf-8?B?MndtcEMva1Jqb3pHSnZCZFdzVHkwZk1RcWE5K05FZU5BZmNoMStmZnhRbEZn?=
+ =?utf-8?B?WEtBOUdaenZ2ZXhnM2VKaWJCWjVWaExNdHNFRkt5OGhmYXluaS9oampoYkR0?=
+ =?utf-8?B?eU8rV3JXWk84ODBGS0pCdzNjeFBidThJQllIT0NkN3ZHV0JITnpmd0NvNkF1?=
+ =?utf-8?B?S2pJdU9Hb2E0TEsrcDN6dHAvSHhvZUpDdlNmb3Y5bEk4azljWGpLTGM2UEkr?=
+ =?utf-8?B?am91bFJmTTQxcnluR2JEMWdkaGJTNW4vUTBWb0o3RUFLc0Y1L1JGak9hSGwy?=
+ =?utf-8?B?VGFpYlJWZE9yd1ZRU1F3VnJEWEc4UlYrNlhReC9xYVdjbVlGd2dLNjRYdG53?=
+ =?utf-8?B?R2pUcXpHY0dKbWZ4ZXpZYUEva2VJbDFveUIvYWVrdDdxS0JoTW9aR25ERnly?=
+ =?utf-8?B?TGJUeldJeTJVbmY2ZTRYelZBM2ZIMklnaU5GWUhla1EyWFJxRy9BWDhxTnFY?=
+ =?utf-8?B?UEQrY2R3NkxtVzhyMDI1TGVSNmFKeHJ2TFNHZTdlNzFmQUh1TmNJbFRnZk40?=
+ =?utf-8?B?RkRwUk5jSm5kbVVSSFk0NFNiblh2cVJKRmxCcllHQ21zdkNNQ3ZicnRlcWVQ?=
+ =?utf-8?B?NTFuWlA4UWt6N3JCODlkN3FuK1U3OUMrVTRUR1kwR21SVmljNFl5aDhTUFJL?=
+ =?utf-8?B?MDBHZHJtQjhZMklpUGZDRzlTOVQ0MHF2V2tQb2lBYXlLRW0wNU15ZWFsbHA5?=
+ =?utf-8?B?WEZkRFpmWnBjazRDRHEvQWROdldTWnAveDVjSzZadWkxT1pTb2xFNmIxZmRm?=
+ =?utf-8?B?QkhKMjNKL2x0dFRGZVh4b0pEbmdTVUx0dzU5bmMyMWU0bVNvMmFNaW8rcXZy?=
+ =?utf-8?B?RkFXT2dyTTZBL0NZV1JnVlZWZ2NkY1ljSmE0bVNOdzJoVmZaOUY5QmpTSVBY?=
+ =?utf-8?B?ajhpNkVhb0ZGSDJQQVB6ZEFvTDhvSEtxV3RsQ3o0U0xEMjFadEk5K2haMnFY?=
+ =?utf-8?B?S3c3TGttMUthbDM5ak9HbjhoR3BwRVFiQncvU0dLYWtPejhEcDAzenB0VzJN?=
+ =?utf-8?B?VWxQc2UrcGZ4bDZ5Mm5kUlBXcjBKdXhwTVVreUFZNWFPNkY0dGdGSWhQeVhJ?=
+ =?utf-8?B?YThEZVhmVW5hU2RNTmtqV0s1YWpLeFVZME9vaGN6dXh5YjlCTERhZEc4cGgr?=
+ =?utf-8?B?UHNhT0FIcGpoMkt1bUs0VXNRaE9qdVVrM2NQS2o0WFF6UGZiVFE4Z3NTbGM0?=
+ =?utf-8?B?d2d3T1B5aVo1WDZObVQzMGVqcWNZdHE2QkRDTTVhK1lIUjd3OTNIYmFlaVJH?=
+ =?utf-8?B?SnRvQ2NBZWlyak44eVFhdW1Xc0hpeWFhRlhoRUwrMExUVWxSUjVZZmZsOGFP?=
+ =?utf-8?B?ZVA4Q0t1TVZWMkpYSURJaVBNZk9vNi9Oa0FzbHp1Z0p2Rmt4SFgzcXhvL2VX?=
+ =?utf-8?B?WW1HTlp0Y3laaEF4RzdoVTZSZy9pZnMrZi9pV3pub3EyWUtzR3ZzbHN3Vjd2?=
+ =?utf-8?B?OWV0b2JMbzNZSXRUdHlnZWxhdHBmTkVndU5GUHIvdHo0UE8xcUNrSUlMejNr?=
+ =?utf-8?B?NnBzbU56L0V0TWgrOFYwdldWTDlrbnU1UTlaTDZiSnJhdFNlaXlPWGRSS1p3?=
+ =?utf-8?B?MlNYR2FxMnFEOWY1RkFCOVJZcnlNYlNoMlg2TlpGQ0tnampybDJCR2Z5QXRi?=
+ =?utf-8?Q?ua6M=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20231008112555.473895-1-parav@nvidia.com> <20231008112555.473895-4-parav@nvidia.com>
- <20231008073912-mutt-send-email-mst@kernel.org> <2fa89e37-a097-d785-e1ee-cda151b0d872@intel.com>
- <DM8PR12MB548001B88B5FA72B403A2AC9DCCEA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <85c59856-b68e-940c-08ed-a14e5a02554d@intel.com> <PH0PR12MB548135EDA034FDF7AE77C5FDDCCDA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <cbf6b0b4-c49f-6809-cac8-2d8336a8cc76@intel.com> <PH0PR12MB5481A03DDF43FCBD4184693FDCCCA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e2696020-8444-0ff3-a774-0b41151a18fb@intel.com> <PH0PR12MB548184740ED3C1011C2A85DEDCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <6fc4af28-67d9-781b-a243-a6c2ebf0244c@intel.com> <PH0PR12MB548125EFC96DE6640F9F4A34DCD3A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEuw0qvrVSLXfT2KaCX-GYiw4o9=FifcYDnDHFidGhq23Q@mail.gmail.com>
- <PH0PR12MB5481691682222F6A7E495A7DDCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsLSW-_dTwWD8RJn+wudQL1itDFfZZV15GH9NXy=bLbCw@mail.gmail.com>
- <PH0PR12MB5481B064B44E165949A127EFDCD6A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEuz8wyT5vkt7s+fQA7x=r92KP2886dDdzW82y7NUa9zRg@mail.gmail.com> <PH0PR12MB5481083E35E16FA311F59D21DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5481083E35E16FA311F59D21DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Thu, 19 Oct 2023 10:41:32 +0800
-Message-ID: <CACGkMEvgub4E__L8GT_4UYym2w6WVPiwgZF9DR_v=TPh5-EtGw@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b68c7d3-e182-4883-97f2-08dbd05c0e48
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2023 04:29:59.8003
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IhePBH3Lzi8PERz+opA+LDpBE/W9pN2hR++7E2FqUkiXj4xmlDo3blOUzyND7bce1/nYqxLD/SuOR8mc+fJHuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5731
+Subject: RE: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-On Wed, Oct 18, 2023 at 1:28=E2=80=AFPM Parav Pandit <parav@nvidia.com> wro=
-te:
->
->
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Wednesday, October 18, 2023 6:23 AM
-> >
-> > On Tue, Oct 17, 2023 at 11:46=E2=80=AFAM Parav Pandit <parav@nvidia.com=
-> wrote:
-> > >
-> > >
-> > >
-> > > > From: Jason Wang <jasowang@redhat.com>
-> > > > Sent: Tuesday, October 17, 2023 7:41 AM
-> > > >
-> > > > On Fri, Oct 13, 2023 at 2:40=E2=80=AFPM Parav Pandit <parav@nvidia.=
-com> wrote:
-> > > > >
-> > > > >
-> > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > Sent: Friday, October 13, 2023 6:48 AM
-> > > > > >
-> > > > > > On Thu, Oct 12, 2023 at 7:37=E2=80=AFPM Parav Pandit <parav@nvi=
-dia.com>
-> > > > > > wrote:>
-> > > > > > > As Michael said, software based nesting is used..
-> > > > > >
-> > > > > > I've pointed out in another thread when hardware has less
-> > > > > > abstraction level than nesting, trap/emulation is a must.
-> > > > > >
-> > > > > > > See if actual hw based devices can implement it or not. Many
-> > > > > > > components of
-> > > > > > cpu cannot do N level nesting either, but may be virtio can.
-> > > > > > > I don=E2=80=99t know how yet.
-> > > > > >
-> > > > > > I would not repeat the lessons given by Gerald J. Popek and Rob=
-ert P.
-> > > > > > Goldberg[1] in 1976, but I think you miss a lot of fundamental
-> > > > > > things in the methodology of virtualization.
-> > > > > Weekend is coming. I will read it.
-> > > > >
-> > > > > > For example, nesting is a very important criteria to examine
-> > > > > > whether an architecture is well designed for virtualization.
-> > > > > >
-> > > > >
-> > > > > In my reading of a leading OS vendor documentation, I leant that
-> > > > > OS vendor
-> > > > do not recommend nested virtualization for production at [1].
-> > > > > Snippet:
-> > > > > "In addition, Red Hat does not recommend using nested
-> > > > > virtualization in
-> > > > production user environments, due to various limitations in functio=
-nality.
-> > > > Instead, nested virtualization is primarily intended for developmen=
-t
-> > > > and testing scenarios."
-> > > > >
-> > > > > [1]
-> > > > > https://access.redhat.com/documentation/en-us/red_hat_enterprise_=
-l
-> > > > > inux
-> > > > > /8/html/configuring_and_managing_virtualization/creating-nested-v=
-i
-> > > > > rtua l-machines_configuring-and-managing-virtualization
-> > > > >
-> > > > > 2nd leading hypervisor listed nested virtualization to be not use=
-d
-> > > > > for
-> > > > "performance sensitive applications".
-> > > >
-> > > > Another concept shift.
-> > > >
-> > > > I'm not going to comment on the choice for individual distros. But
-> > > > the points are whether we can deploy a nesting virtualization easil=
-y
-> > > > under a specific hardware architecture. In this regard, the above i=
-s a good
-> > example.
-> > > >
-> > > And most of such nesting seems for non production use, helpful for
-> > debugging and more.
-> >
-> > I'm asking you to google, but you refuse to spent 1 minutes to do that =
-but
-> > spending several days to debate on this fact:
-> >
-> > https://cloud.google.com/compute/docs/instances/nested-
-> > virtualization/overview
-> >
-> > Please don't waste the time of both of us.
->
-> I showed the link of Redhat and another one is Hyper-V.
-> You showed link of google cloud.
-
-The reason is that Red Hat is not offering IAAS, so a IAAS vendor
-should be more convincing.
-
-And,
-
-Firstly, it's not about whether or not it is used in a production
-environment. It usually takes many years before new technologies land
-in production. For example, we all know it may take time for adminq to
-be productiion ready, no?
-Secondly, the link you show me is RHEL8 which is at the end of its
-life cycle? It is supported in RHEL9 AFAIK, and it is supported more
-than just x86.
-Lastly, where is the Hyper-V link you've mentioned above? Google gives
-me a good link for Azure:
-https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-gu=
-ide/nested-virtualization
-
->
-> There are no representatives from Google and Microsoft here to support ne=
-sted here in the discussion.
-
-Shouldn't we trust the link published from the official website of a
-cloud vendor? We can't involve people from every aspect here.
-
-I meant why not just play with a nested VM? It won't take you too much
-time and you will see how seamless it would be now (and actually it
-has been very there for many years).
-
->
-> I assume you as part of Redhat show some production use, but in public do=
-cumentation of Redhat it said non production.
->
-> Regardless, I want to emphasize that I am not against the use case of nes=
-ted.
-
-This is not what I read from you. Or why do you keep wanting me to
-prove it has real use but refuse to do a simple Google search?
-
->
-> I am highlighting that any L2 nesting involves today hw emulation in the =
-ecosystem.
-
-How do you define emulation? Emulation does mean it needs to emulate
-all? If yes, why don't you start using L1?
-
-> If this is incorrect, please point to the datasheet. (not user documentat=
-ion at high level).
->
-> And for L2 nesting, virtio doing hw emulation is fine to me.
-> And one wants to improve that too, lets have the proper nested VF.
-> Lets discuss in other thread, where you have many questions.
-
-While I don't see why we need to discuss it here, the nested issues
-were raised for this series in this thread.
-
->
->
-> >
-> > >
-> > > And the nesting is not working without trap + emulation for > 2 level=
- of
-> > nesting outside of virtio as far as I understand.
-> >
-> > Read the above link.
-> >
-> > > Like Intel PML. How many levels of nesting is done by hw for PML?
-> > >
-> > > > Again, just a simple google will tell you the instances that suppor=
-t
-> > > > nesting have been available for almost all the major cloud vendors =
-for a
-> > while.
-> > > >
-> > > From cpu data sheets, it does not appear that hw is able to do such n=
-esting.
-> >
-> > For PML, it's up to the CPU vendor to consider a good way to be self vi=
-rtualized.
-> > If it's not, it's a design defect. This is not the place to discuss the=
- design choice
-> > of a specific CPU vendor, if you are really interested in this, you can=
- go back in
-> > the archive to figure out why AMD nesting is done much earlier than Int=
-el.
->
-> In the google link you posted, I read "VMs powered by AMD processors are =
-not supported".
-> I wish they should have been able to utilize it.
-
-How is it related to the discussion here? A good design may simplify
-nesting a lot, that's the point. A specific vendor hardware may choose
-to do something to complicate at their will and at their risk. But it
-is not the case for virtio. We have a way to achieve nesting easily
-already.
-
->
-> >
-> > >
-> > > > >
-> > > > > I want to repeat and emphasize that I am not ignoring the nested =
-case.
-> > > > >
-> > > > > An extension for nesting would be the VF presented to the guest
-> > > > > itself with
-> > > > SR-IOV capability can work as_is as proposed here.
-> > > >
-> > > > How can a VF have the SR-IOV capability?
-> > > >
-> > > One option is by trap + emulation.
-> >
-> > Great.
-> >
-> > > Second is having it actually on the VF, which will follow the true de=
-finition of
-> > nesting.
-> >
-> > How is VF allowed to have SR-IOV capability by the spec?
-> >
-> To support nesting, PCI-SIG can extend it.
-
-How many layers do you want then?
-
->
-> > >
-> > > > > Michael presented the idea of the dummy PF, which is to represent
-> > > > > the VF as
-> > > > dummy PF which can do the SR-IOV with one VF.
-> > > >
-> > > > Why do we need the complicated SR-IOV emulation at the nesting leve=
-l?
-> > > You have to complicate one way or the other.
-> >
-> > How? I've demonstrated that you won't end up with such complications if
-> > everything is self contained.
-> The primary problem with self-contained is it is not fitting the requirem=
-ents of passthrough.
-
-Why not?
-
-> How can we do self-contained interface without mediation where device con=
-text, dirty pages are lost, when device reset/flr occurs?
-
-Michael demonstread one possible method via admin command, and I
-pointed out a per VF adminq in another thread? How can't them work?
-
-> Also the dma occurs in the guest.
-> We need facility like PML where PML logs the pages in the VMM level, in v=
-irtio case to the owner PF.
-
-Pages do not belong to a device, it's fine to depend on other
-entities, that's also my point so dirty page tracking is optional in
-the migration.
-
->
-> >
-> > > And here it does not look complicated because it uses all existing de=
-fined
-> > constructs available at VMM and GVM level.
-> > > It follows both the principles you listed in the paper, i.e. (a) effi=
-ciency and (b)
-> > equivalence property.
-> >
-> > In order to achieve (b), you need to have many PFs and many levels whic=
-h is an
-> > obvious unnecessary complication.
-> >
-> This is what you wanted to follow the paper.
-> It does not need many PFs, at L0 there is one PF and N VFs.
-> At L1, one VF is given with emulated config space that consist of SR-IOV =
-capability.
-
-How can you use this "PF" in L1 to migrate the VF in L2?
-
-> This L1 VF allows creating new VF, one of the VF will be passed to L2.
->
-> > >
-> > > > How can you make sure such a design can result in a live migration
-> > > > to be done at any levels?
-> > > >
-> > > I will propose design that is practical and has some use case.
-> > > I will not propose theoretical work that no one will implement.
-> >
-> > Again, it's only a matter if you want to do everything in a passthrough=
- mode,
-> > this is not to the methodology proven by [1]. It's not a matter if you =
-stick to
-> > trapping.
-> >
-> I didn=E2=80=99t understand, but I don=E2=80=99t see a point of discussin=
-g passthrough vs non_passthrough.
-
-Well, my point is, trap/emulation has been well studied but not
-passthrough. For passthrough, we need to know if it can work or not.
-For example, do we need to disable all the sensitive instructions like
-PM/FLR etc.
-
->
->
-> > >
-> > > > E.g in LN, you had a PF and a VF. How to migrate the PF to this lev=
-el?
-> > > > You want two PFs in the L(N-1) level?
-> > > >
-> > > Likely yes as dummy PF with emulated caps.
-> >
-> > Ok, so you will have N PFs in L0 which is unrealistic. Not only because=
- of the
-> > limitation of the resources but also because there's no way for the hyp=
-ervisor to
-> > know how many levels of nesting are being used.
-> >
-> Only one PF in L0. Emulated PF in L1. Similar to how rest of the eco-syst=
-em platform components are doing it.
-
-See my above question.
-
-> When whole platform commit to do N level nesting, it make sense for virti=
-o to align.
-> For example cpu vendors to commit to do N level nested page table travers=
-al on pci read/writes, posted interrupts at N level, PML logging at N level=
-.
-> At that point virtio for N level nesting make sense.
->
-> > >
-> > > > > You need the support from the platform too, I guess TC can extend=
- it.
-> > > > > May be a different interface more suitable for nested case which
-> > > > > do not have
-> > > > performance needs.
-> > > >
-> > > > I disagree, it's about if the performance can satisfy the requireme=
-nt at N
-> > level.
-> > > >
-> > > > >
-> > > > > How about a nested user to have AQ located on the VF so that
-> > > > > mediation sw
-> > > > can operate admin commands over self?
-> > > >
-> > > > I would go with such complicated architecture.
-> > > >
-> > > You like meant, you wouldn't, Right?
-> >
-> > Right.
-> >
-> > >
-> > > Also, following your paper which clearly highlights, "execution of pr=
-ivileged
-> > instruction in vm occurs, which would have effect of changing machine
-> > resources".
-> > > In the passthrough case it is not the privileged instruction because =
-the
-> > resource is not composed by the the machine, it is already done by the =
-device".
-> >
-> > How do you know that? With save/load of a device state, you can
-> > schedule/share a VF among multiple VMs. Then you still want to pass thr=
-ough
-> > everything?
-> You cannot share a VF among multiple VMs as each VM has its own isolated =
-memory boundary, isolated by the IOMMU and MMU.
-> PCI incoming requests of a specific RID cannot split to two different gue=
-st VMs.
-
-All of the modern IOMMUs have a table to map RID to the I/O page
-table, do you know why?
-
->
-> > Let's just not invent a mechanism that can only work for a very
-> > limited use case.
-> >
-> The use case you are quoting as limited is common one for passthrough use=
-rs.
-
-No, see my above question. It is just one case that is beyond what you
-can have. There are for sure a lot of others.
-
->
-> > > Hence for such cvq operation trap is not to be done for member virtio=
- device.
-> > >
-> > > It would make sense to trap cvq for non virtio device, where cvq is c=
-omposed
-> > as part of the machine resource.
-> > >
-> > > > > Device mode commands will not be applicable there, instead some
-> > > > > other
-> > > > things to be done.
-> > > > > So non passthrough mode software possibly can make use of it?
-> > > >
-> > > > It would be a great burden if you
-> > > >
-> > > > 1) use passthrough in L0
-> > > > 2) use trap/emulation in L(N+1)
-> > > >
-> > > How is this different than Intel PML hw?
-> >
-> > Let me clarify my points, I meant.
-> >
-> > You can't simply use pass through in order to live migrate at any level=
-. So what
-> > you can did is:
-> >
-> > 1) using passthrough to VF in L0
-> > 2) using trap/emulation for PF/VF in L1 and LN
-> >
-> > Isn't this much more complicated than simply having a self contained de=
-vice for
-> > VF, then you don't need the composition of PF in any level.
-> > No?
-> >
-> The problem in self-contained is it is not able to do even #1.
-
-Well, you know at least the CPU virtualization is self-contained? If
-it can do that, why not a simple virtio can't?
-
->
-> > >
-> > > > >
-> > > > > > That is to say for any CPU/hypervisor vendors, the architecture
-> > > > > > should be designed to run any levels of nesting instead of just
-> > > > > > an awkward 2 levels (but what you proposed can not work for eve=
-n 2).
-> > > > > Huh, some missing text for corner case as making claim,
-> > > > > _not_working in not a
-> > > > healthy discussion.
-> > > > >
-> > > > > > For x86 and KVM, any level of
-> > > > > > nesting has been done for about 10 years ago.
-> > > > > >
-> > > > > I didn=E2=80=99t find hw for PML support in x86 for N or 3 level =
-nesting. Did I miss?
-> > > > > I didn=E2=80=99t find hw for nested page tables upto N level walk=
-ing on
-> > > > > the PCIe
-> > > > read/writes in any cpu. Did I miss?
-> > > >
-> > > > You need first asking why it is a must to achieve nested
-> > > > virtualization. All of those obstacles come only if you want to use
-> > "passthrough" for any levels.
-> > > >
-> > > > > Have you seen nesting in hw works at N level?
-> > > >
-> > > > Again, hardware can't have endless resources for endless levels.
-> > > Can you please list two or 3 hw features that are in hw, for > 2 leve=
-ls?
-> >
-> > Why do I need to do this? What I'm saying is that hardware doesn't need=
- to be
-> > designed for N levels. What it needs to make sure to satisfy the requir=
-ement
-> > proved by [1].
-> >
-> You need it because you want to follow the 3 principles listed in the pap=
-er, i.e. efficiency, equivalency and resource control.
-
-Let's not shift concepts again.
-
-Using the terminology in the papare and it said:
-
-"The efficiency property. All innocuous instructions are executed by
-the hardware directly, with no intervention at all on the part of the
-control program."
-
-The current trap/emulation model satisfies the requirement as it
-treats the virtio/PCI control path as sensitive, so efficiency is not
-a requirement.
-
-Looking at your proposal, you keep saying you have good performance
-but you still fail to prove why in your proposal e.g the PM
-instruction is innocuous (or can run natively).
-
-That's the point.
-
->
-> > >
-> > > > Trap and
-> > > > emulation is a must for achieving nesting virtualization. If you tr=
-y
-> > > > to invent a passthrough method that can work for any level, you wil=
-l
-> > > > probably fail
-> > >
-> > > It at least follows the design principle of the paper you suggested.
-> >
-> > I don't see it this way, see the above reply. The paper is for trap and=
- emulation
-> > for sure but you propose to pass through everything.
-> >
-> > > I don=E2=80=99t see a point of designing something for N level nestin=
-g in first go when
-> > rest eco system is not there to support it at hw level.
-> >
-> > Your design complicates the nesting a lot. We have hands-on methodology
-> > which has been well studied since the 1970s where you refuse to start w=
-ith.
-> > Then you may end up with a lot of issues.
-> >
-> I don=E2=80=99t think so. When the hw eco-system is built for nesting, it=
- make sense for virtio to do nesting acceleration.
-> Otherwise method done in other nesting is enough for virtio.
->
-> > What's more you design is incomplete as it can't be used for migrating:
-> >
-> > 1) owner
-> Owner migration is not requirement. That is just silly.
-
-Why? VFIO allows you to assign PF, is it also silly?
-
-> If one wants to migrate owner, an admin virtio device can be present outs=
-ide of owner to migrate.
-
-Then we end up with a recursion, no?
-
->
-> > 2) virtio devices that doesn't structure as owner/member
-> >
-> As with spec 1.3. they are structured for PCI SR-IOV group type.
-
-1.3 should be transport independent, no?
-
-Thanks
-
-
-
-
-
-
-> MMIO transport is just missing out on the advancement happening on the PC=
-I transport.
-> If there is user interest, one will do for MMIO too.
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogSmFzb24gV2FuZyA8amFzb3dhbmdAcmVkaGF0LmNvbT4NCj4gU2VudDogVGh1
+cnNkYXksIE9jdG9iZXIgMTksIDIwMjMgODoxMSBBTQ0KPiA+ID4gRnJvbTogSmFzb24gV2FuZyA8
+amFzb3dhbmdAcmVkaGF0LmNvbT4NCj4gPiA+IFNlbnQ6IFdlZG5lc2RheSwgT2N0b2JlciAxOCwg
+MjAyMyA2OjIzIEFNDQo+ID4NCj4gPiA+IFdoeSBjYW4gc3VzcGVuZCBnbyBkaXJlY3RseSBmcm9t
+IGd1ZXN0IHRvIGRldmljZSB0aGVuPw0KPiA+ID4NCj4gPiBCZWNhdXNlIGFsbCB0aGUgdmlydGlv
+IHJlZ2lzdGVycyBhcmUgdHJlYXRlZCBlcXVhbGx5IGJ5IHRoZSBsaXZlIG1pZ3JhdGlvbiBkcml2
+ZXIuDQo+ID4gU28gd2h5IG5vdD8NCj4gDQo+IEdvb2QsIHNvIHlvdSBhZ3JlZSB0aGF0IGlmIGEg
+bmV3IHN0YXR1cyBiaXQgaXMgaW50cm9kdWNlZCB0aGVuIGl0IGNhbiB3b3JrIHdpdGgNCj4gcGFz
+c3Rocm91Z2g/IFNvIGRpZCB0aGUgcmVnaXN0ZXIgZm9yIGluZGljZXMuDQo+DQpOby4gSSByZXBs
+aWVkIHRvIE1pY2hhZWwgb2Ygd2hhdCBhcmUgdGhlIHVzZSBjYXNlIG9mIHN0YXR1cyBiaXQgbWV0
+aG9kIHRoYXQgY2FuIHdvcmsgZm9yIG5vbl9wYXNzdGhyb3VnaC4NCiANCj4gPiBBcyBleHBsYWlu
+ZWQgZGV2aWNlIHN5bmNocm9uaXppbmcgYWxsIHRoZSBvcGVyYXRpb25zIHdoaWNoIGFyZSBub3Qg
+bWVkaWF0ZWQNCj4gYnkgVk1NLg0KPiA+DQo+ID4gSWYgc29tZWhvdyB5b3UgY2xhaW0gdGhhdCBh
+bGwgdGhlIHN5bmNocm9uaXphdGlvbiBpcyBwb3NzaWJsZSBfb25seV8NCj4gPiBpbiBzb2Z0d2Fy
+ZSBpbiB2YXJpb3VzIG1lZGlhdGlvbiBsYXllciwgQW5kIGl0IGlzIGltcG9zc2libGUgaW4gc2lu
+Z2xlIHBsYWNlIGluDQo+IGRldmljZSwgdGhhbiBJIGRvIG5vdCBhZ3JlZS4NCj4gPiBWMiBsaXN0
+ZWQgbW9zdCBvZiB0aGUgc3luY2hyb25pemF0aW9uIHBvaW50cyBvZiB0aGUgZGV2aWNlLg0KPiA+
+DQo+ID4gPiA+IFdoZW4gc3VjaCBkZXZpY2UgcmVzZXQgaXMgZG9uZSwgaXQgZG9lcyBub3QgcmVz
+ZXQgdGhlIGRldmljZQ0KPiA+ID4gPiBjb250ZXh0LCBub3IgaXQNCj4gPiA+IGNsZWFycyB0aGUg
+ZGlydHkgcGFnZSByZWNvcmRzLCBiZWNhdXNlIHRoZXkgYXJlIGRvbmUgYnkgdGhlIGNvbnRyb2xs
+aW5nDQo+IGZ1bmN0aW9uLg0KPiA+ID4gPg0KPiA+ID4gPiA+IEknbSBub3QgY29udmluY2VkIHRo
+YXQgdGhlIHNjYWxhYmlsaXR5IGlzIGJyb2tlbiBieSBqdXN0IGhhdmluZw0KPiA+ID4gPiA+IDIg
+b3INCj4gPiA+ID4gPiAzIG1vcmUgcmVnaXN0ZXJzLiBXZSBhbGwga25vdyBNU0lYIHJlcXVpcmVz
+IG11Y2ggbW9yZSB0aGFuIHRoaXMuDQo+ID4gPiA+ID4NCj4gPiA+ID4gU2F5aW5nIHRoZXJlIGlz
+IHNvbWUgb3RoZXIgaGlnaCByZXNvdXJjZSBjb25zdW1lciBtZXRob2QgZXhpc3RzLA0KPiA+ID4g
+PiBzbyBsZXRzDQo+ID4gPiBjb25zdW1lIG1vcmUgaW4gbmV3IGludGVyZmFjZSB3ZSBkbyBub3cs
+IGlzIG5vdCBnb29kIGFwcHJvYWNoLg0KPiA+ID4NCj4gPiA+IFRoaXMgaXMgc2VsZi1jb250cmFk
+aWN0b3J5IGFuZCBkb3VibGUgc3RhbmRhcmQuIFlvdSBhbGxvdyAjTVNJLVgNCj4gPiA+IHZlY3Rv
+cnMgdG8gZ3JvdyBidXQgbm90IGNvbmZpZz8NCj4gPiA+DQo+ID4NCj4gPg0KPiA+ID4gPiBNU0kt
+WCBvbiBpdHMgdjIgaXMgdW5kZXJ3YXkuIEhvcGVmdWxseSBpdCB3aWxsIGJlIGZpbmlzaGVkIHRo
+aXMNCj4gPiA+ID4geWVhciwgd2hpY2ggaXMNCj4gPiA+IGFscmVhZHkgY3V0dGluZyBkb3duIE8o
+TikgcmVzb3VyY2VzLg0KPiA+ID4NCj4gPiA+IFdoeSBjb3VsZG4ndCBzdWNoIGEgbWV0aG9kIGJl
+IGFwcGxpZWQgdG8gY29uZmlnIHJlZ2lzdGVycyBhbmQgb3RoZXJzPw0KPiA+ID4NCj4gPiBCZWNh
+dXNlIGNvbmZpZyByZWdpc3RlcnMgYXJlIG5vdCBkZS1kdXBsaWNhdGluZyB0eXBlLg0KPiA+IE1l
+YW5pbmcgZWFjaCBjb25maWcgcmVnaXN0ZXIgaXMgdW5pcXVlIGluIG5hdHVyZS4NCj4gDQo+IElu
+IG5hdHVyZSBmcm9tIHRoZSB2aWV3IG9mIHRoZSBkZXZpY2UgbG9naWMgYnV0IG5vdCB0aGUgdHJh
+bnNwb3J0IGxpa2UgUENJRS4NCkRvZXMgbm90IG1hdHRlci4NCg0KPiANCj4gPiBGb3Igc3VjaCB3
+b3JrIGEgcXVldWUvZG1hIGFwcHJvYWNoIGlzIHRha2VuLg0KPiA+IFNvIGl0IGlzIGFwcGxpZWQg
+dG8gY29uZmlnIHJlZ2lzdGVycyBhbmQgb3RoZXJzIHRvIG5vdCBwbGFjZSBhcyBfYWx3YXlzX2F2
+YWlsYWJsZQ0KPiByZWdpc3RlcnMuDQo+ID4gV2UganVzdCBuZWVkIHRvIGRvIHRoYXQgaW4gdmly
+dGlvIHRvby4NCj4gPiBBbGwgdGhlIHJlY2VudCB3b3JrIG9mIGZsb3cgZmlsdGVycywgY291bnRl
+cnMgbm8gbG9uZ2VyIHJlbHkgb24gdGhlDQo+ID4gY29uZmlnIHJlZ2lzdGVycyBhcyB3ZSBib3Ro
+IGFncmVlZCBpbiBkaXNjdXNzaW9uIFsxXSB3aXRoIHlvdXIgY29tbWVudA0KPiANCj4gWWVzIGJ1
+dCBpdCBzZXJ2ZXMgYSBkaWZmZXJlbnQgcHVycG9zZSBDVlEgY2FuJ3Qgd29yayBiZWZvcmUgcHJv
+YmluZywgbm8/IE9yIGFyZQ0KPiB5b3Ugc2F5aW5nIHlvdSB3YW50IHRvIHRyYXAgQ1ZRIGZvciBt
+aWdyYXRpb24/DQo+DQpGb3IgcGFzc3Rocm91Z2ggbm90aGluZyBvZiB0aGUgdmlydGlvIGludGVy
+ZmFjZSAoY29uZmlnLCBjdnEsIGRhdGF2cXMpIGlzIHRyYXBwZWQuDQpGb3Igbm9uX3Bhc3N0aHJv
+dWdoIGN2cSBjb25maWcgcmVnaXN0ZXJzLCBldGMgbmVlZCB0byBiZSBzb2Z0d2FyZSBjb21wb3Nl
+ZC4NCiANCj4gPg0KPiA+ICJBZGRpbmcgY3ZxIGlzIG11Y2ggZWFzaWVyIHRoYW4gaW52ZW50aW5n
+KGR1cGxpY2F0aW5nKSB0aGUgd29yayBvZiBhDQo+IHRyYW5zcG9ydC4iDQpJZiB0aGF0IGN2cSBp
+cyBvbiB0aGUgUEYsIHllcywgd2hpY2ggaXMgdGhlIGFxLg0KU2Vjb25kIGN2cSBjYW5ub3QgYmUg
+cGxhY2VkIG9uIHRoZSBWRiwgd2hpY2ggaHlwZXJ2aXNvciBkbyBub3QgaGF2ZSBhY2Nlc3MgdG8u
+DQoNCj4gPg0KPiA+IFsxXQ0KPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3ZpcnRpby1jb21t
+ZW50L0NBQ0drTUVzZVplVDRWWDhVdC0NCj4gN0tyYXhMS05PTUtPDQo+ID4gZ0ZETnhxS29mWFNG
+VDh5SGZnLXdAbWFpbC5nbWFpbC5jb20vI3QNCj4gPiA+ID4NCj4gPiA+ID4gPiBZb3UgY2FuJ3Qg
+c29sdmUgYWxsIHRoZSBpc3N1ZXMgaW4gb25lIHNlcmllcy4gQXMgc3RhdGVkIG1hbnkNCj4gPiA+
+ID4gPiB0aW1lcywNCj4gPiA+ID4gSSBhbSBub3Qgc29sdmluZyBhbGwgaXNzdWVzIGluIG9uZSBz
+ZXJpZXMuIFRoaXMgc2VyaWVzIGJ1aWxkcyB0aGUNCj4gaW5mcmFzdHJ1Y3R1cmUuDQo+ID4gPg0K
+PiA+ID4gSXQncyB5b3UgdGhhdCBpcyByYWlzaW5nIHRoZSBzY2FsYWJpbGl0eSBpc3N1ZSwgYW5k
+IHdoYXQgeW91J3ZlDQo+ID4gPiBpZ25vcmVkIGlzIHRoYXQgc3VjaCBhbiAiaXNzdWUiIGhhcyBl
+eGlzdGVkIGZvciBtYW55IHllYXJzIGFuZA0KPiA+ID4gdmFyaW91cyBoYXJkd2FyZSBoYXMgYmVl
+biBidWlsdCBvbiB0b3Agb2YgdGhhdC4NCj4gPiA+DQo+ID4gVGhhdCBkb2VzIG5vdCBtZWFuIG9u
+ZSBzaG91bGQgY29udGludWUgd2l0aCBzdWNoIGlzc3VlLg0KPiANCj4gVGhlbiBob3cgbWFueSBN
+U0ktWCB2ZWN0b3JzIGRvIHlvdSBleHBlY3QgdG8gaGF2ZSBmb3IgZWFjaCBWRj8gV2h5IGRpZCB5
+b3UNCj4gY2hvb3NlIHRoYXQgdmFsdWU/IFdoeSBmb3JiaWQgYSB2ZW5kb3IgdG8gaGF2ZSBtb3Jl
+IHRoYW4gdGhhdD8NCj4NClRoZSBkZXZpY2UgaGFzIGZpbml0ZSBudW1iZXIgb2YgTVNJLVggdmVj
+dG9ycy4gVGhlIGNsb3VkIG9wZXJhdG9ycyBydW5uaW5nIFZNcywgcHJvdmlzaW9ucyBNU0ktWCB2
+ZWN0b3JzIHRvIHRoZSBWRiBkZXBlbmRpbmcgb24gaXRzIHZjcHVzLCBxdWV1ZXMsIGV0YyBTTEEg
+Y29uZmlnLg0KIA0KPiA+IEFuZCB0aGF0IGhhcmR3YXJlIGNvbnN1bWVzIG1vcmUgcG93ZXIgYW5k
+IG1lbW9yeSB0aGF0IHJlc3VsdHMgaW4gb3ZlcmFsbA0KPiBkZXZpY2UgaW5lZmZpY2llbmN5Lg0K
+PiA+IFlvdSBzaG91bGQgaGF2ZSBvYmplY3RlZCB0aGUgSU1TIHBhdGNoZXMgaW4gTGludXgga2Vy
+bmVsLCB5b3Ugc2hvdWxkIGFsc28NCj4gb2JqZWN0IG5ldyBNU0ktWCBwcm9wb3NhbCBhbmQgc2F5
+IGp1c3QgdXNlIHJlZ2lzdGVycy4NCj4gDQo+IEFjdHVhbGx5IHRoZSByZXZlcnNlLCB3aHkgY2Fu
+J3Qgd2UgdXNlIHNvbWV0aGluZyBzaW1pbGFyIHRvIElNUz8gSU1TIGFsbG93cw0KPiBzdG9yYWdl
+IGluIGFyYml0cmFyeSBwbGFjZXMsIG5vPw0KPiANCk9uZSB3YW50cyB0byBzdGF5IGF3YXkgZnJv
+bSByZWdpc3RlcnMsIHlvdSBkaWRu4oCZdCBvYmplY3Qgbm9uX3JlZ2lzdGVyIGludGVyZmFjZSB3
+aXRoIGFuIGFyZ3VtZW50IHRoYXQgInJlZ2lzdGVycyBhcmUgZG9uZSBmb3IgeWVhcnMsIHNvIHdo
+eSBJTVMsIHdoeSBNU0ktWCBpbXByb3ZlbWVudD8iLg0KSGVyZSwgeW91IGFyZSBvYmplY3Rpbmcg
+bm9uX3JlZ2lzdGVyIGludGVyZmFjZS4NCg0KPiA+DQo+ID4gPiBBZ2Fpbiwgd2Ugc2hvdWxkIG1h
+a2Ugc3VyZSB0aGUgZnVuY3Rpb24gaXMgY29ycmVjdCBiZWZvcmUgd2UgY2FuDQo+ID4gPiB0YWxr
+IGFib3V0IG90aGVycywgb3RoZXJ3aXNlIGl0IHdvdWxkIGJlIGFuIGVuZGxlc3MgZGlzY3Vzc2lv
+bi4NCj4gPiA+DQo+ID4gQW5kIHVzaW5nIHJlZ2lzdGVycyBpcyBub3QgdGhlIHdheSB0byBtYWtl
+IGl0IGNvcnJlY3QuDQo+IA0KPiBDb3JyZWN0IGluIHdoYXQgc2Vuc2U/IFlvdSBhcmUgYWN0dWFs
+bHkNCj4gDQo+IDEpIGRvaW5nIGEgY29tcGxldGUgTkFDSyBvZiB0aGUgZXhpc3RpbmcgUENJIHRy
+YW5zcG9ydCBkZXNpZ24NCg0KVGhlcmUgaXMgbm8gc3VjaCBkZXNpZ24gZXhpc3RpbmcuDQoNCj4g
+MikgcHJldmVudCBuZXcgZmVhdHVyZXMgZnJvbSBkZXZlbG9waW5nIGJhc2VkIG9uIHRoZSBtYXR1
+cmUgb2YgYSBzb2Z0d2FyZQ0KPiBkZXZpY2UgaW1wbGVtZW50YXRpb24NCg0KPiAzKSB0aWUgYWxs
+IG5ldyBmZWF0dXJlcyB0byB0aGUgb3duZXIvbWVtYmVyIHN0cnVjdHVyZSB3aGljaCBkb2Vzbid0
+IGV4aXN0IGFuZA0KPiB1bm5lY2Vzc2FyeSBmb3IgdHJhbnNwb3J0IG90aGVyIHRoYW4gUENJDQo+
+DQpPdGhlciB0cmFuc3BvcnRzIGhhdmUgbWlzc2VkIHRoZSBub3Rpb24gb2Ygb3duZXIgYW5kIG1l
+bWJlciBpcyBwdXJlbHkgdGhlaXIgbGFjay4NCk9uY2UgdGhleSBpbXByb3ZlIGl0IHdpbGwgd29y
+ayBmaW5lLg0KIA0KPiA+IExldHMgbWFrZSBzdXJlIHRoYXQgYmFzaWMgZnVuY3Rpb24gZm9yIHRo
+ZSBtZW1iZXIgZGV2aWNlIHRvIGZpcnN0IGxldmVsIGlzDQo+IGNvcnJlY3QuDQo+IA0KDQo+IElz
+bid0IHRoaXMgd2hhdCBJJ20gY3VycmVudGx5IGRvaW5nPw0KPg0KWW91IGFyZSBkb2luZyBvbmx5
+IGZvciBub25fcGFzc3Rocm91Z2ggbW9kZS4NCldlIGFyZSBkb2luZyBmb3IgZmlyc3QgbGV2ZWwg
+Zm9yIHBhc3N0aHJvdWdoIG1vZGUuDQoNCllvdXIgY2xhaW0gd2hhdCBJIHNlZSBpcyBvbmx5IHdh
+eSB0byBkbyBpcyBub25fcGFzc3Rocm91Z2ggdmlhIHJlZ2lzdGVycyBiZWNhdXNlIHlvdSBzdWdn
+ZXN0IHRvIHNheSAiY3ZxIGlzIGVhc3kgZXRjIi4NCkFuZCB0aGlzIGlzIHdoZXJlIG1haW4gZGlz
+YWdyZWVtZW50IGlzIHByZXNlbnQuDQoNCkxldCBtZSBhc2sgYmFzaWMgcXVlc3Rpb24uDQpEbyB5
+b3UgYWdyZWUgdGhhdCB0aGVyZSBhcmUgdHdvIHVzZSBjYXNlcz8NCjEuIGRldmljZSBwYXNzdGhy
+b3VnaCB0aGF0IGRvZXMgbm90IHRyYXAgdmlydGlvIGludGVyZmFjZSAoPSBjb25maWcgc3BhY2Us
+IGN2cSwgZGF0YSB2cXMsIGZsb3cgZmlsdGVyIHZxcywgZmxyIGFuZCBtb3JlKQ0KDQoyLiBvbmx5
+IGRhdGEgcGF0aCBpcyBpbiBkZXZpY2UsIGFuZCByZXN0IGlzIHNvZnR3YXJlIGNvbXBvc2VkLg0K
+DQo+ID4NCj4gPg0KPiA+ID4gPg0KPiA+ID4gPiA+IGlmIHlvdSByZWFsbHkNCj4gPiA+ID4gPiBj
+YXJlIGFib3V0IHRoZSBzY2FsYWJpbGl0eSwgdGhlIGNvcnJlY3Qgd2F5IGlzIHRvIGJlaGF2ZSBs
+aWtlIGENCj4gPiA+ID4gPiByZWFsIHRyYW5zcG9ydCB0aHJvdWdoIHZpcnRxdWV1ZSBpbnN0ZWFk
+IG9mIHRyeWluZyB0byBkdXBsaWNhdGUNCj4gPiA+ID4gPiB0aGUgZnVuY3Rpb25hbGl0eSBvZiB0
+cmFuc3BvcnQgdmlydHF1ZXVlIHNsb3dseS4NCj4gPiA+ID4gPg0KPiA+ID4gPiBUaGlzIHdpbGwg
+YmUgaW1wb3NzaWJsZSBiZWNhdXNlIG5vIGRldmljZSB3aWxsIHRyYW5zcG9ydCBkcml2ZXINCj4g
+PiA+ID4gbm90aWZpY2F0aW9ucw0KPiA+ID4gdXNpbmcgYSB2aXJ0cXVldWUuDQo+ID4gPiA+IFRo
+ZXJlZm9yZSwgdmlydHF1ZXVlIGlzIG5vdCBzb21lIGdlbmVyaWMgdHJhbnNwb3J0IHRoYXQgZG9l
+cw0KPiA+ID4gPiBldmVyeXRoaW5nIC0gYXMNCj4gPiA+IHNpbXBsZSBhcyB0aGF0LiBoZW5jZSB0
+aGVyZSBpcyBubyB0cmFuc3BvcnQgdmlydHF1ZXVlLg0KPiA+ID4NCj4gPiA+IFlvdSB3b24ndCBn
+ZXQgc3VjaCBhIHdyb25nIGNvbmNsdXNpb24gaWYgeW91IHJlYWQgdGhhdCBwcm9wb3NhbC4NCj4g
+PiBJIGhhdmUgcmVhZCB0aG9zZSA0IG9yIDUgcGF0Y2hlcyBwb3N0ZWQgYnkgTGluZ3NoYW4gYW5k
+IHNob3dlZCB5b3UgdGhhdA0KPiB0aW1lIHRoYXQgZHJpdmVyIG5vdGlmaWNhdGlvbnMgYXJlIG5v
+dCBjb21pbmcgdmlhIHZpcnRxdWV1ZS4NCj4gPiBBbmQgaWYgSSBtaXNzZWQgaXQsIGFuZCBpZiB0
+aGV5IGFyZSBjb21pbmcgdmlhIHZpcnRxdWV1ZSwgaXQgZG9lcyBub3QgbWVldCB0aGUNCj4gcGVy
+Zm9ybWFuY2UgYW5kICJlZmZpY2llbmN5IHByaW5jaXBsZSIgZnJvbSB0aGUgcGFwZXIgeW91IHBv
+aW50ZWQuDQo+IA0KPiBHb29kIGFuZCBpZiB5b3UgcmVhZCB0aGUgcGF0Y2hlcywgeW91IHNob3Vs
+ZCBrbm93IGl0IGFsbG93cyB0cmFuc3BvcnQgc3BlY2lmaWMNCj4gbm90aWZpY2F0aW9uIG9yIHlv
+dSBtZWFudDoNCj4gDQpJZiB5b3UgY2xhaW0gdnEgYXMgdHJhbnNwb3J0LCBkcml2ZXIgbm90aWZp
+Y2F0aW9ucyBtdXN0IGJlIGNvbWluZyB1c2luZyB2cSBkZXNjcmlwdG9ycy4NCkluIHRoZSB0cmFu
+c3BvcnQgdnEgcHJvcG9zYWwsIHRoYXQgaXMgbm90IHRoZSBjYXNlLg0KDQo+IE1NSU8gZGV2aWNl
+IG5vdGlmaWNhdGlvbiBpcyBub3QgY29taW5nIHZpYSB0aGUgTU1JTywgc28gIk1NSU8iDQo+IHRy
+YW5zcG9ydCBpcyBub3QgZWZmaWNpZW50Pw0KPiANCj4gPg0KPiA+ID4NCj4gPiA+ID4NCj4gPiA+
+ID4gQW5kIHZpcnRxdWV1ZSBmb3IgYnVsayBkYXRhIHRyYW5zZmVyIGV4aXN0cyBzbyBubyBuZWVk
+IHRvIGludmVudA0KPiA+ID4gPiB5ZXQgYW5vdGhlcg0KPiA+ID4gdGhpbmcgd2l0aG91dCBhIGdv
+b2QgcmVhc29uLg0KPiA+ID4NCj4gPiA+IEkgZG9uJ3QgdW5kZXJzdGFuZCB3aHkgdGhpcyBpcyBy
+ZWxhdGVkIHRvIHRyYW5zcG9ydCB2aXJ0cXVldWUNCj4gPiA+IGFueWhvdywgaXQncyBhbHNvIGEg
+cXVldWUgaW50ZXJmYWNlLCBubz8NCj4gPiBUcmFuc3BvcnQgdmlydHF1ZXVlIGlzIGRpdmVyc2lv
+biBvZiB1bnJlbGF0ZWQgdG9waWMgaGVyZS4NCj4gDQo+IFlvdSdyZSB0YWxraW5nIGFib3V0IHNj
+YWxhYmlsaXR5LCBhbmQgeW91IGFyZSBzYXlpbmcgcmVnaXN0ZXJzIGFyZSB0aGUgbWFqb3INCj4g
+YmxvY2tlciwgYnV0IHlvdSBzdGljayB0byByZWdpc3RlcnMgZm9yIGd1ZXN0IHRvIHVzZSBhbmQg
+dGhpbmsgaXQgaXMgc2NhbGFibGUuDQo+DQpXZSBjYW5ub3QgY2hhbmdlIHRoZSBwYXN0IG9mIHdo
+YXQgaXMgYWxyZWFkeSBwcmVzZW50IGluIHRoZSBzcGVjLg0KV2hpY2ggbmV3IHJlZ2lzdGVycz8N
+CldlIGFyZSBub3QgaW50cm9kdWNpbmcgYW55IG5ldyByZWdpc3RlcnMgaW4gdGhpcyBwcm9wb3Nh
+bC4NCg0KPiBIb3cgY2FuIEkgdW5kZXJzdGFuZCB5b3VyIHBvaW50IGZyb20gdGhlIHNlbGYgY29u
+dHJhZGljdG9yeSBzdGF0ZW1lbnQgYWJvdmU/DQo+IA0KPiBNeSBwb2ludCBpcyBzaW1wbGUsIGlm
+IHlvdXIgY29tcGxhaW50IGFib3V0IHJlZ2lzdGVycyBpcyB0cnVlIGFuZCBpZiB5b3UgcmVhbGx5
+IGNhcmUNCj4gYWJvdXQgc2NhbGFiaWxpdHksIHlvdSBzaG91bGQgbm90IHVzZSBhbnkgcmVnaXN0
+ZXIgZm9yIHZpcnRpbyBhdCBhbGwsIGFuZCB0aGVuIHlvdQ0KPiB3aWxsIGVuZCB1cCB3aXRoIHRo
+ZSB0cmFuc3BvcnQgdmlydHF1ZXVlLg0KUGVyZmVjdCwgd2UgYXJlIG5vdCBpbnRyb2R1Y2luZyBh
+bnkgbmV3IHJlZ2lzdGVycywgd2hhdCBpcyB0aGVyZSwgaXMgdGhlcmUsIHRoYXQgY2Fubm90IGJl
+IGNoYW5nZWQuDQpJbiBTSU9WIHByb3Bvc2FsIHRoYXQgd2UgYnVpbGQsIHdpbGwgbm90IGhhdmUg
+YW55IG5ldyByZWdpc3RlcnMgb3RoZXIgdGhhbiBuZWVkZWQgZm9yIGluaXQgdGltZS4NCg0KPiAN
+Cj4gPg0KPiA+IEEgZ3Vlc3Qgdm0gZHJpdmVyIG11c3QgYmUgYWJsZSB0byB0YWxrIHRvIHRoZSBt
+ZW1iZXIgZGV2aWNlIGZvciBhbGwgcXVldWUNCj4gY29uZmlndXJhdGlvbiBldGMgdGhyb3VnaCBp
+dHMgb3duIGNoYW5uZWwgbm90IG1lZGlhdGVkIGJ5IHRoZSBoeXBlcnZpc29yLg0KPiANCj4gWW91
+IGp1c3QgaW52ZW50ZWQgYSBsZWdhY3kgdHVubmVsIHdoaWNoIHJlcXVpcmVzIG1lZGlhdGlvbiwg
+bm8/DQo+IA0KSXQgaXMgZm9yIGxlZ2FjeS4NCk5vdGhpbmcgaXMgZG9uZSBmb3IgbmV3IGludGVy
+ZmFjZS4NCg0KPiA+IE90aGVyd2lzZSBzdWNoIHBsdW1iaW5nIGRvZXMgbm90IHdvcmsgZm9yIGFu
+eSBjb25maWRlbnRpYWwgY29tcHV0ZQ0KPiB3b3JrbG9hZC4NCj4gDQo+IEknbSBwcmV0dHkgc3Vy
+ZSB5b3VyIGNvbmNsdXNpb24gaGVyZSBpcyB3cm9uZy4gTGV0J3Mgbm90IGtlZXAgcmFpc2luZyB1
+bnJlbGF0ZWQNCj4gaXNzdWVzIGhlcmUgb3IgeW91IGRvbid0IHdhbnQgdG8gY29udmVyZ2UgdGhp
+cyBzZXJpZXMuIExldCdzIG9wZW4gYSBuZXcgdGhyZWFkDQo+IHdpdGggQ0MgZ3V5cyBpZiB5b3Ug
+d2lzaC4NCj4gDQo+ID4gSGVuY2UsIEkgd291bGRu4oCZdCBkaXNjdXNzIHRyYW5zcG9ydCB2aXJ0
+cXVldWUgZm9yIG5vdy4NCj4gDQo+IEFnYWluLCBpZiB5b3UgZG9uJ3Qgd2FudCB0byB0YWxrIGFi
+b3V0IHRyYW5zcG9ydCB2aXJ0cXVldWUsIHRoYXQncyBmaW5lLiBCdXQgbGV0J3MNCj4gbGVhdmUg
+dGhlIHNjYWxhYmlsaXR5IGlzc3VlIGFzaWRlIGFzIHdlbGwuDQo+DQpSZWdpc3RlcnMgYXJlIHJl
+bGF0ZWQgZm9yIGZ1bmN0aW9uYWxpdHkgYW5kIHNjYWxlLg0KDQpMZXRzIGZpcnN0IGFncmVlIG9u
+IHVzZSBjYXNlIGJlZm9yZSB0aGUgZGVzaWduLCB0aGF0IEkgYXNrZWQgYWJvdmUuDQoNCkkgd2ls
+bCB3YWl0IHRvIHJlc3BvbmQgdG8gYW55IG90aGVyIGVtYWlscyB1bnRpbCB3ZSBhZ3JlZSBvbiB1
+c2UgY2FzZSByZXF1aXJlbWVudHMuDQo=
 
