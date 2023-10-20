@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7878-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7877-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D4B1C0032E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26566CDB474
 	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 177D888E14
-	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:44 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 44B1B8508C
+	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0EF3198694A
-	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3D31C986946
+	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 05A8E986935; Fri, 20 Oct 2023 12:33:44 +0000 (UTC)
+	id 3408E986933; Fri, 20 Oct 2023 12:33:43 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,34 +24,34 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EC7C598693A
+	by lists.oasis-open.org (Postfix) with ESMTP id 2682F98693A
 	for <virtio-comment@lists.oasis-open.org>; Fri, 20 Oct 2023 12:33:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R08s7fl6Y4/3H5LNhNuKiAoZkKE1kucGPiARKonqrZzYjOco9bNrlwKXlBMv1LQbsdoaq+KKqF01XYz1E9INBwTBezCYFfKF/qooPW2bNCMWAIgAzhrWW3+sNxORX83tJAP7wXgaCg7Hy6wFY9S5omRecBJ8BMpiNyH+kUJv1q58Ny2GzGJHvGiIt0w/IJaWeNz5o4oSiWa5J+2XZVa/T7DBRrckIUag5Di00ZbXrZUwp8y/75km/fBu3MjvbIr+rvuD5pDj9p+mMWI1XEvTTgRCS3jX9Pk5FwC6ogGQYD+lnLQPuJwxqFfFHDQ7C4z6BtA377lbZyTgGdcjM61scQ==
+ b=COkQipyqAxhaZiow56yuPVuaEKgPlxkKSYz7BdbYjUxuF40qFtbB4MRtN/9/O/Sd7LgK46/opjDFQK4V+f2HQKBToAdee1JwcLOe5WIqcdHBU8RxsYvll9DzyHVo1/wttNG+ZT4cRY2Km/ReAP5eElMSLBJl5864pjqXkLjk+jg8PUBgDaZCrdMBBivBKbVfWHguHb3Ky/HiWzASKGmDX0aPeCEPumdEqLS2B20sPg4JKT8kMjTLUkyz/QMC/9o+x512nkrIGfRKPqhiF+JuNh/rfWApvGtrdpiNqVhZVac3ipbDQCaM6tU6iQoWA6nlpI4FOGcT+hAk/PWcG+qdVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tIn9lzOblxCgtKxNPLERQCVfscXWpJEMvxEv2LJuvD8=;
- b=ddOLOrlRHHeVobjCOoldimYGH9UxovcTyxal2UGCS5PhXxnbTGeGgVp+7nCcMW2sYnOMnHBSz7Y3r/BlC8MQBpr4DgaR1Zrzu8dqgSy9yCRegAIkoT6oHu6smUzn3Ffo9/q3JiT2g2FFV2ElPoC7dfj8Q2tEoGmstvPyjlc0/nxLoPzIzwrsmd8cCqgm7iR4QUqWKJQFY5ipgHXd9suXRHWfozgEAaFf1WYSePQSU1LVMpSx2zbTaGChPcchDthoNkb2yY9ipRbejuEflTPFMEZLPB7OqGBTxHBkgfyC7jaHIthYGRMdcxvgufhGviAcxJSm4pAj9q2Gxr0RxTpiEA==
+ bh=d/uHL5BFpe7qadlt7b8ZsUyjdJs/2T3HMt3Gj22g6OM=;
+ b=MYlUW1kushgVE+eQM1keaOIjErdOGpF9/1kI6FGmvaYx7pnN59oxVDEetEBxcdgBP5SkR7ZsH+msx5IUfobnvCM2bdU949Q9a4/7y3cJx1/3F/kZekRdnYayeil6o6HHWVnefFx+fQ7ePAo1AZU0DSneyFogClimkDH1i458gvr4Yv71SxvJtTUt+s0guHUa3lV9KBEDqWhSaoFULluYS1H/LI7VFHbgbzVl5evMeML7ar6c6DQpqtb4DuGFyYRAQ9Z0V5e9EQGnbXuOh5JLlNLXE/dn3tFUy4KgX5mv2FC08zF8wBT1Gu6MIBrGMG9CmMb6Usf5SKbVwQGQk3k6RQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
+ 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
  header.from=nvidia.com; dkim=none (message not signed); arc=none
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 	<cohuck@redhat.com>
 CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <si-wei.liu@oracle.com>,
 	<xuanzhuo@linux.alibaba.com>, Parav Pandit <parav@nvidia.com>, Heng Qi
 	<hengqi@linux.alibaba.com>
-Date: Fri, 20 Oct 2023 15:32:59 +0300
-Message-ID: <20231020123303.1209289-3-parav@nvidia.com>
+Date: Fri, 20 Oct 2023 15:32:58 +0300
+Message-ID: <20231020123303.1209289-2-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231020123303.1209289-1-parav@nvidia.com>
 References: <20231020123303.1209289-1-parav@nvidia.com>
@@ -63,35 +63,67 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E4:EE_|LV8PR12MB9449:EE_
-X-MS-Office365-Filtering-Correlation-Id: d75d3dad-f161-4557-2ed5-08dbd168ca18
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|SN7PR12MB7884:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac2c10a1-f84c-40af-12b6-08dbd168c958
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	mEk4wDXxwFB6Qeg0IMKDV1uQ4ifUAtVXf5KyKtgOq444/FMW4vLg/eICjUBPlrP2kMwtALEy/GIAZEzXTxGLLm4BdyEiOSLHswXVBmyXaVK1g0oTL+exNQmueZZpm/T96+5z9hnWBUamAKbLycGk/xisiemQ4g3q7jtN44hLT3/LNaiiNa6kFFHs07cGDxj6kZdKXqqoFOp+pN2ZuxTbOaLD4Hr4n297sB11H2dGCg1DQjZHPbPJTPEubDzz5LGhFR/F1NwbyzyUhaO1eSDcaFjhzbOGrAX0A2qHdNpT9+IlvtOMUH6CCJQir84iG4GOvhNJaSxBToqUGYjBdLh05jFb1jP6nzoWjuQwN4nIgF2wmbf5dwALMx2Ywp29Je6jOjNI6RHoSpEQpceG7bBrPsbPHsBGIQB9A9eJSvF2Ed7sVqAH5yklVSIfouOEusi9ludo59dVnpq7meZW44cG37G5oAv5QivH21PiD2clVadH+2lFnhffWBngPuwmF7lE1oWOZxgxJF+qLcwCo1P4rCMD1mDpg6Jf893DJTwW162ZweTa+eLUoCVAN2C6nj0QA2ygk4Cyfu9hHor4YUlQIJa3ydvsbjpQEyMnVZACFtTPATjiEr3NpLUXQpg9ng0fym/UDAo+tVvPN9lqhXXSq32ALs4o08B9HKFNVaF+xVIImZKJKQHCmcnr29PsxsFgeClUCRa5PK+zRft7AC452Znk7FstXG1cjhEVd6OzXQOR0z1q6ESE9aZB/DwI9OPzKizcCgOBrOIDlDWDr0ecEzigEbTxcvmu8rvhEGTenWs=
+	Ggm66HCekfPa/H7fiyBcW9XC9Dmuro+eqF5cNIXYlqkPVrtCgpnBLKD6HgyBEdAJHltxymTvBs6vVwZ2xmiBAn+1en0Ujwnj7cNncitzutBEekWin2CLX5qCQXaQg63ZpDh+YOmBroKQbtPsY9+ZTo5UXGYr3cEYNrXngLRmeFUJYwCNf+Xbz3ZorW5g7l97utdoZD/EQX7CVeRa7jmnztapB8gUQWocXaeGAz8kKdZqzgj9nknKOiq9IO/2XCtBHCzVd54ANPhsIXoqI8qrnZ96g8fx1bF0vjFnob3mtQp1wF7b1f5REQ4oiwAoZLj4T7sCq+CQ+0pLf7x+3eT7CXmxRJeSh3BNcDHmPTyUGC4iiYc3RwgmVOV++lfy8WisUVrG2YVR/kh29o8A/J0bTGMW1X825tUbkNsnjAjzwwfBRKJocAGYcJ//f6vB8myjY2thP+Xzwqn0QfGDCOJCAGSQ39GHVZjYLNd0u4f7x/bLV+ski2U1SzoIQcqCKq9Ole0hM5sSZVLGsu3T/4EhoNY3AMg4tVDgO0hWJPCptFC6qqhR+wKrH2XjXR1PJLg78NtxLIauNK2GmXWEFsIW/Q6pLVignhLGxNSvzSayz8mVwSj7WF2movGvdrjvRff7xjCH/ASOOSgjIcqpZxp+YNewcDbFAXsJUd/U1SkQWrTyFZWMeFX9PI9j35EXFm/ooHIQjcmdqIB6oRdEfX+4otbes2U1/zJuIbDZgNY129OklSQtKUWnJ6RLOmW8mJPnzJe3o7RIopZiL25VpQ1Msw==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(346002)(376002)(396003)(230922051799003)(82310400011)(64100799003)(186009)(451199024)(1800799009)(40470700004)(36840700001)(46966006)(40460700003)(2906002)(86362001)(41300700001)(30864003)(5660300002)(16526019)(47076005)(336012)(426003)(83380400001)(82740400003)(356005)(7636003)(1076003)(4326008)(36756003)(36860700001)(2616005)(26005)(8676002)(40480700001)(70206006)(8936002)(478600001)(6666004)(966005)(110136005)(316002)(54906003)(70586007);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(64100799003)(82310400011)(451199024)(1800799009)(186009)(40470700004)(36840700001)(46966006)(86362001)(966005)(5660300002)(70586007)(70206006)(110136005)(83380400001)(54906003)(40460700003)(7636003)(356005)(336012)(2906002)(36756003)(8676002)(4326008)(316002)(26005)(1076003)(2616005)(47076005)(8936002)(6666004)(478600001)(16526019)(426003)(41300700001)(82740400003)(36860700001)(40480700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 12:33:39.9506
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 12:33:38.6291
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d75d3dad-f161-4557-2ed5-08dbd168ca18
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac2c10a1-f84c-40af-12b6-08dbd168c958
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000971E4.namprd02.prod.outlook.com
+	DS2PEPF00003441.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9449
-Subject: [virtio-comment] [PATCH v2 2/6] virtio-net: Add flow filter capabilities read commands
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7884
+Subject: [virtio-comment] [PATCH v2 1/6] virtio-net: Add theory of operation for flow filter
 
-The device responds flow filter capabilities using two commands.
-One command indicates generic flow filter device limits such as
-number of flow filters, number of flow filter groups, support or
-multiple transports etc.
+Currently packet allow/drop interface has following limitations.
 
-The second command indicates supported match types, and fields
-of the packet.
+1. Driver can either select which MAC and VLANs to consider
+for allowing/dropping packets, here, the driver has a
+limitation that driver needs to supply full mac
+table or full vlan table for each type. Driver cannot add or
+delete an individual entry.
+
+2. Driver cannot select mac+vlan combination for which
+to allow/drop packet.
+
+3. Driver cannot not set other commonly used packet match fields
+such as IP header fields, TCP, UDP, SCP header fields.
+
+4. Driver cannot steer specific packets based on the match
+fields to specific receiveq.
+
+5. Driver do not have multiple or dedicated virtqueues to
+   perform flow filter requests in accelerated manner in
+   the device.
+
+Flow filter as a generic framework overcome above limitations.
+
+As starting point it is useful to support at least two use cases.
+a. ARFS
+b. ethtool ntuple steering
+
+In future it can be further extended for usecases such as
+switching device, connection tracking or may be more.
+
+The flow filter has following properties.
+
+1. It is an extendible object that driver can add or delete.
+2. It belongs to a flow filter group (group has priority).
+3. Each flow filter is identified using a unique identifier(id),
+   has priority, match fields, destination(rq) and action(allow/drop).
+4. Flow filter has optionally mask too.
+
+This patch adds theory of operation for flow filter functionality.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
@@ -100,277 +132,168 @@ Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
 changelog:
 v1->v2:
-- addressed comments from Satananda
-- added vlan type match field
-- kept space for types between l2, l3, l4 header match types
-- renamed mask to mask_supported with shorter width
-- made more fields reserved for future
-- addressed comments from Heng
-- grammar correction
-- added field to indicate supported number of actions per flow
-  filter match entry
-- added missing documentation for max_flow_priorities_per_group
-v0->v1:
-- added mask field in the type to indicate supported mask by device
-  and also in later patch to use it to indicate mask on adding
-  flow filter. As a result removed the mask_supported capability
-  field
+- fixed comments from Heng
+- grammar corrections
+- spelling corrections
 ---
- device-types/net/description.tex | 220 ++++++++++++++++++++++++++++++-
- 1 file changed, 218 insertions(+), 2 deletions(-)
+ device-types/net/description.tex | 116 ++++++++++++++++++++++++++++++-
+ 1 file changed, 115 insertions(+), 1 deletion(-)
 
 diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index b7adfb8..b94daed 100644
+index 76585b0..b7adfb8 100644
 --- a/device-types/net/description.tex
 +++ b/device-types/net/description.tex
-@@ -1173,7 +1173,11 @@ \subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Ope
- The device indicates the flow filter capabilities to the driver. These
- capabilities include various maximum device limits, supported transports and
- supported packet match fields. The driver enables the transport for flow
--filter requests using a control virtqueue command.
-+filter requests using a control virtqueue command. These control virtqueue
-+commands are:
-+\ref{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Capabilities Get}
-+and
-+\ref{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Match Capabilities Get}.
+@@ -10,7 +10,9 @@ \section{Network Device}\label{sec:Device Types / Network Device}
+ removes these packets from the transmit virtqueue and sends them to
+ the link. The device may have a control virtqueue. The driver
+ uses the control virtqueue to dynamically manipulate various
+-features of the initialized device.
++features of the initialized device. The device may have flow filter
++virtqueues. The driver uses flow filter virtqueues to steer specific
++receive packets to a specific destination such as specified receiveq.
  
- The device supports transporting flow filter requests on either the control
- virtqueue or on the flow filter virtqueues or on both. However, device
-@@ -1181,6 +1185,8 @@ \subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Ope
- at a time, i.e. either control virtqueue or flow filter virtqueues.
- Once the driver sets the flow filter request transport in the device,
- the driver can send flow filter request using the enabled transport.
-+The driver enables the transport for flow filter requests using a control
-+virtqueue command.
+ \subsection{Device ID}\label{sec:Device Types / Network Device / Device ID}
  
- The flow filters are grouped using a flow filter group. Each flow filter
- group has a priority. The device first applies the flow filters of the highest
-@@ -1254,7 +1260,136 @@ \subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Ope
-       the flow filters in group_C, the flow filters of next level group_B are applied.
- \end{itemize}
+@@ -33,6 +35,9 @@ \subsection{Virtqueues}\label{sec:Device Types / Network Device / Virtqueues}
+ controlq is optional; it only exists if VIRTIO_NET_F_CTRL_VQ is
+ negotiated.
  
--\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
-+\paragraph{Match Types and Fields}\label{sec:Device Types / Network Device / Device Operation / Flow Filter / Match Types and Fields}
++The flow filter virtqueues are optional; it may exists only if VIRTIO_NET_F_FLOW_FILTER
++is negotiated and if the device reports such capability.
 +
-+\begin{lstlisting}
-+struct virtio_net_ff_match_type_cap {
-+        le16 type;
-+        u8 mask_supported;
-+        u8 reserved[5];
-+        le64 fields_bmap;
-+};
-+\end{lstlisting}
+ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits}
+ 
+ \begin{description}
+@@ -119,6 +124,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+     device with the same MAC address.
+ 
+ \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and duplex.
 +
-+The \field{type} corresponds to following table:
++\item[VIRTIO_NET_F_FLOW_FILTER(64)] Device supports flow filter requests.
+ \end{description}
+ 
+ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
+@@ -150,6 +157,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
+ \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
++\item[VIRTIO_NET_F_FLOW_FILTER] Requires VIRTIO_NET_F_CTRL_VQ.
+ \end{description}
+ 
+ \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
+@@ -1141,6 +1149,112 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+ #define VIRTIO_NET_HASH_REPORT_UDPv6_EX        9
+ \end{lstlisting}
+ 
++\subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Operation / Flow Filter}
 +
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Type & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_ETH_HDR & Ethernet header of the packet \\
-+\hline
-+0x1   & VIRTIO_NET_FF_VLAN_TAG_HDR & VLAN tag of the packet \\
-+\hline
-+0x200   & VIRTIO_NET_FF_IPV4_HDR & IPv4 header of the packet \\
-+\hline
-+0x300   & VIRTIO_NET_FF_IPV6_HDR & IPv6 header of the packet \\
-+\hline
-+0x400   & VIRTIO_NET_FF_TCP_HDR & TCP header of the packet \\
-+\hline
-+0x500   & VIRTIO_NET_FF_UDP_HDR & UDP header of the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
++To forward a received packet to a specific receiveq or to drop the packet based
++on one or more fields of the packet, the device supports flow filter
++functionality. The flow filter can match the packet for a flow, take an action
++such as forward the packet to the specific receiveq or drop the packet.
++For example, the driver can request the device to forward received packets
++which match to a specific source and destination IP addresses and
++TCP ports to a specific receiveq.
 +
-+When the \field{mask_supported} is set, for the specific \field{type}, the
-+device can perform masking packet fields with the mask supplied in the flow
-+filter match entry.
++Each flow filter consists of one or more match key, a flow filter priority,
++a flow filter identifier, an action to forward a packet to the destination
++or to drop the packet.
 +
-+For each \field{type} the \field{fields_bmap} indicates supported fields
-+of the packet header which can be matched.
++The match fields also optionally consist of a match mask. When a mask is
++specified for the flow filter, first the packet fields are masked before
++matching with the fields of the flow filter.
 +
-+For the \field{type} of VIRTIO_NET_FF_ETH_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} are following:
++Each flow filter is independent of each other. The driver can add, replace
++and delete a flow filter in the device using a flow filter request.
 +
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_DST_MAC & Destination MAC address in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_SRC_MAC & Source MAC address in the packet \\
-+\hline
-+2   & VIRTIO_NET_FF_ETHER_TYPE & Ether type in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
++The device indicates the flow filter capabilities to the driver. These
++capabilities include various maximum device limits, supported transports and
++supported packet match fields. The driver enables the transport for flow
++filter requests using a control virtqueue command.
 +
-+For the \field{type} of VIRTIO_NET_FF_VLAN_TAG_HDR, VLAN tag fields
-+are represented by a bitmap in \field{fields_bmap} are following:
++The device supports transporting flow filter requests on either the control
++virtqueue or on the flow filter virtqueues or on both. However, device
++supports enabling flow filter request only on one type of virtqueue
++at a time, i.e. either control virtqueue or flow filter virtqueues.
++Once the driver sets the flow filter request transport in the device,
++the driver can send flow filter request using the enabled transport.
 +
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_VLAN_TAG_TCI & Vlan tag TCI 16-bit field \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
++The flow filters are grouped using a flow filter group. Each flow filter
++group has a priority. The device first applies the flow filters of the highest
++priority group to the received packet. If there is no match for the
++flow filters of such a group for the packet, the flow filters of the next
++priority group are applied, until there is a match for the packet from such
++a group or the last group has reached.
 +
-+For the \field{type} of VIRTIO_NET_FF_IPV4_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} are following:
++The flow filter group can have one or more flow filters. Within a flow
++filter group, a packet may find a match to multiple flow filters. In such
++scenario, a flow filter with the highest priority is applied first to the
++packet, if there is no match, the next higher priority flow filter is applied.
 +
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_IPV4 & Source IPV4 address in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_IPV4 & Destination IPV4 address in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
++\paragraph{Flow Filter Virtqueue}\label{sec:sec:Device Types / Network Device / Device Operation / Flow Filter / Flow Filter Virtqueue}
 +
-+For the \field{type} of VIRTIO_NET_FF_IPV6_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} are following:
++The flow filter virtqueues are dedicated virtqueues which transport the
++flow filter requests. The driver adds flow filter request to the flow
++filter virtqueue, the device removes such a request from the virtqueue
++and executes it, when the request is completed by the device, the device
++updates the result of it to the driver.
 +
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_IPV6 & Source IPV6 address in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_IPV6 & Destination IPV6 address in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
++The flow filter virtqueues are optional. The device may choose to support
++flow filters requests either on the control virtqueue or on the flow filter
++virtqueues or both.
 +
-+For the \field{type} of VIRTIO_NET_FF_TCP_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} are following:
++If the VIRTIO_F_RING_DYNAMIC is negotiated, the driver can create the
++flow filter virtqueues after the driver has finished the device
++initialization.
 +
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_TCP_PORT & Source TCP port in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_TCP_PORT & Destination TCP port in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
++The device can support one or more flow filter virtqueues. The driver
++can choose one to up to supported number of virtqueues to send 
++flow filter requests.
 +
-+For the \field{type} of VIRTIO_NET_FF_UDP_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} are following:
++If the VIRTIO_F_RING_DYNAMIC is not negotiated, the flow filter
++virtqueues must be created during device initialization phase.
 +
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_UDP_PORT & Source UDP port in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_UDP_PORT & Destination UDP port in the packet \\
-+\hline
-+other   & -    & reserved  \\
-+\hline
-+\end{tabular}
++\paragraph{Packet Processing Order}\label{sec:sec:Device Types / Network Device / Device Operation / Flow Filter / Packet Processing Order}
 +
++Whichever filtering and steering functionality is enabled, they are
++applied in the following order for the received packet:
++
++\begin{itemize}
++\item apply device configuration done using control virtqueue commands
++      VIRTIO_NET_CTRL_RX, VIRTIO_NET_CTRL_MAC and VIRTIO_NET_CTRL_VLAN.
++\item apply flow filter configuration done using flow filter requests.
++\item apply device configuration done using command
++      VIRTIO_NET_CTRL_MQ_RSS_CONFIG.
++\end{itemize}
++
++While processing a received packet, at any stage if the packet is dropped,
++the next level of processing is omitted.
++
++When a flow filter is matched for the packet, it also stops the processing
++of the packet for next stage.
++
++Few examples are:
++\begin{itemize}
++\item If the packet is dropped by the flow filter configuration, RSS
++      configuration is not applied to such a packet.
++\item If the packet is forwarded to a specific receiveq using flow filters,
++      RSS configuration is not applied to such a packet due to a match on the
++      flow filter request.
++\item If the packet is dropped due to VIRTIO_NET_CTRL_MAC configuration,
++      flow filters or RSS configuration is not applied to such a packet.
++\item If the packet does not find any match in any of the flow filter groups,
++      next level RSS device configuration is applied if its exists.
++\item If there are three flow filter groups configured as group_A, group_B
++      and group_C with respective priorities as 4, 5, and 6; flow filters of
++      group_C is applied first having highest group priority, if there is a match,
++      flow filters of group_B and group_A are skipped; if there is no match for
++      the flow filters in group_C, the flow filters of next level group_B are applied.
++\end{itemize}
++
++\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
  \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue}
  
  The driver uses the control virtqueue (if VIRTIO_NET_F_CTRL_VQ is
-@@ -1919,6 +2054,87 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- Upon reset, a device MUST initialize all coalescing parameters to 0.
- 
-+\paragraph{Flow Filter}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter}
-+
-+If the VIRTIO_NET_F_FLOW_FILTERS feature is negotiated, the driver can
-+send commands VIRTIO_NET_CTRL_FF_CAP_GET and
-+VIRTIO_NET_CTRL_FF_MATCH_CAP_GET to query the flow filter
-+capabilities of the device.
-+
-+\begin{lstlisting}
-+#define VIRTIO_NET_CTRL_FF 7
-+ #define VIRTIO_NET_CTRL_FF_CAP_GET 0
-+ #define VIRTIO_NET_CTRL_FF_MATCH_CAP_GET 1
-+\end{lstlisting}
-+
-+\subparagraph{Flow Filter Capabilities Get}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Capabilities Get}
-+
-+The command VIRTIO_NET_CTRL_FF_CAP_GET provides the flow filter device capabilities.
-+
-+\begin{lstlisting}
-+struct virtio_net_ctrl_ff_caps {
-+        le16 max_vqs;
-+        le16 start_vq_index;
-+        le16 max_match_fields;
-+        le16 max_groups; /* valid group id = max_groups - 1 */
-+        le32 max_ff_per_group;
-+        le32 max_ff; /* max flow_id in add/del = max_ff - 1 */
-+        le16 max_actions;
-+        u8 max_flow_priorities_per_group;
-+        u8 cvq_supports_ff_req;
-+};
-+\end{lstlisting}
-+
-+The \field{max_vqs} indicates total number of flow filter virtqueues supported
-+by the device. When the device does not support flow filter requests over flow
-+filter virtqueues, \field{max_vqs} is zero. When \field{max_vqs} is non zero,
-+the driver can enable maximum of \field{max_vqs} number of flow filter
-+virtqueues starting from virtqueue index \field{start_vq_index}.
-+
-+The \field{max_groups} indicates total number of flow filter groups supported
-+by the device whose group identifier can be any value in the range from 0 to
-+\field{max_groups - 1}. The flow filter group can have any priority in range
-+of 0 to \field{max_groups - 1}.
-+
-+The \field{max_ff_per_group} indicates maximum number of
-+flow filter per flow filter group which can be added by the driver.
-+
-+The \field{max_ff} indicates maximum number of flow filters across
-+all the flow groups which can be added by the driver.
-+
-+The \field{max_ff_priorities_per_group} indicates maximum priority value
-+of a flow filter within a group. A flow filter within a group can have any
-+priority in range of zero to \field{max_ff_priorities_per_group - 1}.
-+
-+The \field{max_match_fields} indicates maximum number of fields of the packet
-+which can be matched by the device for a flow filter.
-+
-+The \field{max_actions} indicates maximum number of actions for a flow filter
-+match entry can be supplied by the driver.
-+
-+The \field{max_flow_priorities_per_group} indicates maximum number of
-+priorities supported by the device per flow filter group.
-+
-+When the \field{cvq_supports_ff_req} is set, the device supports
-+flow filter requests using a control virtqueue. The device may support flow
-+filter requests on control virtqueue or using flow filter virtqueues or both.
-+
-+\subparagraph{Flow Filter Match Capabilities Get}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Match Capabilities Get}
-+
-+The command VIRTIO_NET_CTRL_FF_MATCH_CAP_GET indicates which fields
-+from the packet can be matched.
-+
-+\begin{lstlisting}
-+struct virtio_net_ctrl_ff_match_types {
-+        le32 num_entries;
-+        struct virtio_net_ff_match_type_cap types[];
-+};
-+\end{lstlisting}
-+
-+The \field{num_entries} indicates the length of an array \field{types}.
-+Each array entry of \field{types} represents supported match fields of
-+the packet by the device.
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
- 
 -- 
 2.34.1
 
