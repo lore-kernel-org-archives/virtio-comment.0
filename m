@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7875-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7876-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B28CDB474
-	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 11:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5383C001DF
+	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E3A1B77E8B
-	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 11:12:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1F8DC7C92D
+	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DB24F986934
-	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 11:12:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E8348986936
+	for <virtio-comment@archiver.kernel.org>; Fri, 20 Oct 2023 12:33:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D129E98692A; Fri, 20 Oct 2023 11:12:29 +0000 (UTC)
+	id D045498692F; Fri, 20 Oct 2023 12:33:37 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,137 +24,181 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C3D2398692B
-	for <virtio-comment@lists.oasis-open.org>; Fri, 20 Oct 2023 11:12:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BFF86986930
+	for <virtio-comment@lists.oasis-open.org>; Fri, 20 Oct 2023 12:33:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10868"; a="383692858"
-X-IronPort-AV: E=Sophos;i="6.03,238,1694761200"; 
-   d="scan'208";a="383692858"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10868"; a="750883407"
-X-IronPort-AV: E=Sophos;i="6.03,238,1694761200"; 
-   d="scan'208";a="750883407"
-Message-ID: <3932dd54-f43a-40b6-8dba-962f997f7122@intel.com>
-Date: Fri, 20 Oct 2023 19:11:49 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kcUyXUZOtO+J11/0WaU7JN0ygbhmPwKOqZ45Cjt5fNPY9CzyejoKJrEQoexSCBf8bBwCPbPZHEdsKH768lC1lxhmABwCaZ2bLB5pqqZkC9wjmfmI4j9h+Q7zNrNU5LWD8TYZNCiu1qhr8/IKZH/WQwGU45I4qJoCeQYevxQBY+35bhzCl0PJLWWRc19UelOFt7eKISwyithGwp+JilFySW56/qXZRnZQMJohwEAoR7sHPivKvretxnlTf5CE3TKmhY3LQUvak3/cQZkOfWLKmkoyW6xg4Hqg7j6mJL6l3Mwrs+jbjdlgge45czszL6+eW2N++MiQpDeVfgDam58B/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pbJhs1XxJH13OG3kMx0DnjjPSOs+wdbBx3BoxzaKG+I=;
+ b=jPhmg/kzTPTUW+lDYbV38q42RDaXdT43/I3Fa401t7a47yWpk8XESuJE+eQ1K4JjmvhuhJ41teAwgDefQ1UjaW726Jmj0xsxNbrH/1pqzC4RAxHPK1iz/XTBWs84MljY0WHLAUgbrrnCxxeJ/BK9fHA/kXWAIIUl+zdQDvfJPZe2B7Pnc8Tux0eL3REnFHr7My0MUglwj9+U9s8azQCPTUgj8mIrva0lBpTrfFSUPiOwe6xeWeXIu+d8YAalD40iN/45N3EyC9lkVCRK3iumWuLch8msEvTfBDnnes3/r3MC2DTcF/UvkLkPbom62QraPZ1JjnADF28zEQN4Aq6dHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+From: Parav Pandit <parav@nvidia.com>
+To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
+	<cohuck@redhat.com>
+CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <si-wei.liu@oracle.com>,
+	<xuanzhuo@linux.alibaba.com>, Parav Pandit <parav@nvidia.com>
+Date: Fri, 20 Oct 2023 15:32:57 +0300
+Message-ID: <20231020123303.1209289-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
- <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-References: <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
- <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <cd9431cc-a5ed-4b11-a341-dc129e8ea630@intel.com>
- <PH0PR12MB54819087A0B542F587A4BEC2DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <7bc82c01-19ad-4180-914b-9304e10ef7c3@intel.com>
- <PH0PR12MB5481E858791CA8FD97C7F35EDCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231019051406-mutt-send-email-mst@kernel.org>
- <daea1f54-1c85-4a4a-ac3a-c5ae97180e03@intel.com>
- <PH0PR12MB5481BE51210D429FA12EAB45DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fb012148-a71e-4856-95fe-6e75f011f3fb@intel.com>
- <20231020053534-mutt-send-email-mst@kernel.org>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231020053534-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+Content-Type: text/plain
+X-Originating-IP: [10.126.230.35]
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|DS7PR12MB5767:EE_
+X-MS-Office365-Filtering-Correlation-Id: c23876d7-ba3c-493e-3be3-08dbd168c5e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	3w08nfDNAUrlbGapaWzudYkhr4cDH4htlzUAJbc3kB7tKYLB4V1iVWy6u20e3VVM2hfQJs0birc5QmeznWO5AhvOYgHEJHPCzXIY6hrHGmxmnhB8qXvtTLYUVHX7d9ch2OlRKK0OOYuLKUjB5UGQDdqvL2GSqnwdSWz+H7aMSyk8YXu/DooPDc9ei/dW8FEFHSovpUC+Dd+XeS2kHZFn0t0sD55WHP0ZhyRJWBt3IVQYWXHbC4oed4ZIZYDELwXBAlTcIu06DCXLh1QTPbidS/JbBiU75sFSrbOETutS5c3UG8vivTqzwXzPqgi2NB+quMqNw/PPTKNzNri+xBQgcZeFL+rV3/uS8grDOkAyZKLcmTMo447jbMXe/8iQEe3zFwJyoYa1akO3r4CU9XF/lJKeZLBnALv3hPleominkgG5KNcV1i4xFMrnCd0vVTDCCSl9P1AOc1Hp68a22P0Zs7YOO4yLKpB9dFJEBYAhgeJ8sWAbJzDHakTX1t09Um76TMo7cyW3+s2G9x3Rzcz68vS6+MzhRahIBr7XsxeVTrbzVlFQp15e2gyX9mL9z8ad4BP8PKDAogxkF7+tjFRj65e9Fy3se+hIRkw1Cy6yRCA/4+dhGMXBXk+7s9szqDc4dcEspxwmIdjXn8Q+OmYFmQisv2DoP8OW8VSXOOhE/SZovQu5qhCbvp5xxz2Pz7Kbre2ha0SmtRMSdPKGr9BgRKT53ny2j9tWtA3BFeHczFspnNVi2XKmGWKCo1HPChLMVasX+NGf8jC2F276I3X7z/5IhIkCNwpbFYODhjCf4VE=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(396003)(39860400002)(346002)(376002)(230922051799003)(186009)(82310400011)(64100799003)(451199024)(1800799009)(36840700001)(40470700004)(46966006)(40480700001)(36756003)(8936002)(26005)(40460700003)(1076003)(110136005)(54906003)(70586007)(86362001)(6666004)(82740400003)(356005)(426003)(7636003)(336012)(316002)(2906002)(83380400001)(16526019)(2616005)(107886003)(8676002)(478600001)(966005)(4326008)(70206006)(41300700001)(36860700001)(47076005)(5660300002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 12:33:32.9123
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c23876d7-ba3c-493e-3be3-08dbd168c5e6
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000971E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5767
+Subject: [virtio-comment] [PATCH v2 0/6] virtio-net: Support flow filter for receive packets
 
+Summary:
+========
+This series improves virtio net receive packet steering to forward/steer
+packets to specific RQ.
 
+This basic functionality will enable Linux ethtool steering, Accelerated
+receive flow steering (ARFS) as starting point, and more use cases in
+future.
 
-On 10/20/2023 5:41 PM, Michael S. Tsirkin wrote:
-> On Fri, Oct 20, 2023 at 05:31:01PM +0800, Zhu, Lingshan wrote:
->>
->> On 10/19/2023 6:33 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Thursday, October 19, 2023 2:48 PM
->>>>
->>>> On 10/19/2023 5:14 PM, Michael S. Tsirkin wrote:
->>>>> On Thu, Oct 19, 2023 at 09:13:16AM +0000, Parav Pandit wrote:
->>>>>>> Oh, really? Quite interesting, do you want to move all config space
->>>>>>> fields in VF to admin vq? Have a plan?
->>>>>> Not in my plan for spec 1.4 time frame.
->>>>>> I do not want to divert the discussion, would like to focus on device
->>>> migration phases.
->>>>>> Lets please discuss in some other dedicated thread.
->>>>> Possibly, if there's a way to send admin commands to vf itself then
->>>>> Lingshan will be happy?
->>>> still need to prove why admin commands are better than registers.
->>> Virtio spec development is not proof based approach. Please stop asking for it.
->>>
->>> I tried my best to have technical answer in [1].
->>> I explained that registers simply do not work for passthrough mode
->>> (if this is what you are asking when you are asking prove its better).
->>> They can work for non_passthrough mediated mode.
->>>
->>> A member device may do admin commands using registers. Michael and I are discussing presently in the same thread.
->>>
->>> Since there are multiple things to be done for device migration, dedicated register set for each functionality do not scale well, hard to maintain and extend.
->>> A register holding a command content make sense.
->>>
->>> Now, with that, if this can be useful only for non_passthrough, I made humble request to transport them using AQ, this way, you get all benefits of AQ.
->>> And trying to understand, why AQ cannot possible or inferior?
->>>
->>> If you have commands like suspend/resume device, register or queue transport simply don’t work, because it's wrong to bifurcate the device with such weird API.
->>> If you want to biferacate for mediation software, it probably makes sense to operate at each VQ level, config space level. Such are very different commands than passthrough.
->>> I think vdpa has demonstrated that very well on how to do specific work for specific device type. So some of those work can be done using AQ.
->>>
->>> [1] https://lore.kernel.org/virtio-comment/870ace02-f99c-4582-932f-bd103362dae9@intel.com/T/#m37743aa924536d0256d6b3b8e83a11c750f28794
->> We have been through your statement for many times.
->> This is not about how many times you repeated, if you think this is true,
->> you need to prove that with solid evidence.
->>
->>
->> For pass-through, I still recommend you to take a reference of current
->> virito-pci implementation, it works for pass-through, right?
-> Current migration implementation in e.g. QEMU? It does but it
-> traps data path accesses. That, I think we can agree,
-> should not be the only option to migrate.
-OK, I am glad we agree that config space work for pass-through,
-hope we don't need to discuss this anymore.
->
->> For scale, I already told you for many times that they are per-device
->> facilities. How can a per-device facility not scale?
->> vDPA works fine on config space.
->>
->> So, if you still insist admin vq is better than config space like in other
->> thread you have concluded, you may imply that config space interfaces should
->> be re-factored to admin vq.
-> There are good arguments that yes, virtio needs a transport for config space
-> that is DMA based as opposed to memory mapped based.  This is one of the
-> things all vendors seem to prefer in IDPF so virtio should have the option.
-Do you really want to refactor virtio-pci common config fields to PF's 
-admin vq?
-E.g, do you really want to move queue_enable in virtio-pci common config 
-fields to PF's admin vq?
+Problem statement:
+==================
+Currently packet allow/drop interface has few limitations.
 
-Config space is control path, DMA is data-path, let's better not mix 
-them, we never expect to use config space to transfer data.
+1. Driver cannot add or delete an individual entry for mac and vlan.
+2. Driver cannot select mac+vlan combination for which
+    to allow/drop packet.
+3. Driver cannot not set other commonly used packet match fields
+    such as IP header fields, TCP, UDP, SCP header fields.
+4. Driver cannot steer specific packets based on the match
+   fields to specific receiveq.
+5. Driver do not have multiple or dedicated virtqueues to
+    perform flow filter requests in accelerated manner in
+    the device.
 
-So we need DMA to transfer data, for example I take advantages of device 
-DMA to logging dirty pages, This also applies to in-flight descriptors.
+Solution:
+=========
+Flow filter as a generic framework to overcome above limitations.
 
-And we are implementing virito live migration, not only for PCI.
+Overview:
+=========
+A flow filter defines the flow based on one or more match fields
+of the packet, defines an action like drop/forward to RQ.
 
-So both me and Jason keep repeating: We are implementing basic 
-facilities, and the implementation is transport specific.
+The flow filters are organized in flow filter groups so that their
+processing can be ordered when multiple applications wants to use it.
 
-We have proposed to build admin vq based on our register solution, this 
-can somehow even help tp resolve the nested issue.
+Flow filters requests can be transported via control vq or dedicated
+flow filter virtqueue so that it does not get intermixed with other
+slow operations of cvq.
 
-But I see the proposed has been rejected.
+Flow filter requirements addressed by this series is worked by virtio
+community at [1].
 
-I still believe the goal is to build a best spec, not "just can work" 
-with limitations.
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 
+This series utilizes enhancements proposed in [2] and [3].
+It uses updated control vq command format from [3].
+It uses new _DYNAMIC feature to create queues when needed and
+saves guest and device resources.
 
+[1] https://lists.oasis-open.org/archives/virtio-comment/202308/msg00263.html
+[2] https://lists.oasis-open.org/archives/virtio-comment/202310/msg00183.html
+[3] https://lists.oasis-open.org/archives/virtio-comment/202310/msg00047.html
 
->
->
+Patch summary:
+==============
+patch-1 adds theory of operation description for flow filter
+patch-2 adds device capabilities cvq commands
+patch-3 adds group add/delete commands
+patch-4 adds transport set command
+patch-5 adds flow filter match key, action and requests to transport via vq
+patch-6 adds device and driver requirements
+
+Please review.
+
+Changelog:
+==========
+v1->v2:
+- addressed comments from Satananda
+- squashed with match fields definition patch of v1
+- added length to the flexible array definition struct to benefit
+  from future runtime length bound checkers listed in
+  https://people.kernel.org/kees/bounded-flexible-arrays-in-c
+- renamed value to key
+- addressed comments from Satananda
+- merged destination and action to one struct
+- added vlan type match field
+- kept space for types between l2, l3, l4 header match types
+- renamed mask to mask_supported with shorter width
+- made more fields reserved for future
+- addressed comments from Heng
+- grammar correction
+- added field to indicate supported number of actions per flow
+  filter match entry
+- added missing documentation for max_flow_priorities_per_group
+- fixed comments from Heng
+- grammar corrections
+- spelling corrections
+- fixed spelling from initializaton to initialization
+- added more requirements for multiple actions
+
+v0->v1:
+- addressed comments from Satananda
+- added device requirement to return non zero value in fields_bmap
+- added device requirement to not repeat filter type in response
+- added driver requirement to order filter match field as it
+  appears in the packet
+- added device requirement to fail group delete command on existing
+  flow entries
+- added mask field in the type to indicate supported mask by device
+  and also in later patch to use it to indicate mask on adding
+  flow filter. As a result removed the mask_supported capability
+  field
+
+Parav Pandit (6):
+  virtio-net: Add theory of operation for flow filter
+  virtio-net: Add flow filter capabilities read commands
+  virtio-net: Add flow filter group life cycle commands
+  virtio-net: Add flow filter transport set command
+  virtio-net: Add flow filter match entry, action and requests
+  virtio-net: Add flow filter device and driver requirements
+
+ device-types/net/description.tex | 730 ++++++++++++++++++++++++++++++-
+ 1 file changed, 729 insertions(+), 1 deletion(-)
+
+-- 
+2.34.1
 
 
 This publicly archived list offers a means to provide input to the
