@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7900-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7901-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC92DC001E0
-	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7026CC001E0
+	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:14:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 19358941EA
-	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:09:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C9934C6104
+	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:14:12 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ED27D986674
-	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:09:33 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B724C98666B
+	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:14:12 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D40C5986669; Mon, 23 Oct 2023 10:09:33 +0000 (UTC)
+	id A3F56986669; Mon, 23 Oct 2023 10:14:12 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,20 +24,20 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C3B5098666A
-	for <virtio-comment@lists.oasis-open.org>; Mon, 23 Oct 2023 10:09:33 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9528498666A
+	for <virtio-comment@lists.oasis-open.org>; Mon, 23 Oct 2023 10:14:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10871"; a="377180995"
+X-IronPort-AV: E=McAfee;i="6600,9927,10871"; a="473021545"
 X-IronPort-AV: E=Sophos;i="6.03,244,1694761200"; 
-   d="scan'208";a="377180995"
+   d="scan'208";a="473021545"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10871"; a="707894315"
 X-IronPort-AV: E=Sophos;i="6.03,244,1694761200"; 
-   d="scan'208";a="707894315"
-Message-ID: <f2707430-bb1e-4dcd-b0b3-2b9a705e555a@intel.com>
-Date: Mon, 23 Oct 2023 18:09:26 +0800
+   d="scan'208";a="6018911"
+Message-ID: <2b7e3aac-e238-4056-bf8c-80640d631a1f@intel.com>
+Date: Mon, 23 Oct 2023 18:14:05 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Content-Language: en-US
 To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Jason Wang <jasowang@redhat.com>,
  "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
@@ -45,11 +45,7 @@ Cc: Jason Wang <jasowang@redhat.com>,
  "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
  <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
  Yishai Hadas <yishaih@nvidia.com>
-References: <829d27f8-1d9b-4a1e-93a8-a14da626f4a7@intel.com>
- <PH0PR12MB54819FC5A77A46C649CD5B6DDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <0948cfa4-da02-43d5-a099-424f209f814f@intel.com>
- <PH0PR12MB5481546E859578DE97D9E152DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
+References: <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
  <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <cd9431cc-a5ed-4b11-a341-dc129e8ea630@intel.com>
  <PH0PR12MB54819087A0B542F587A4BEC2DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
@@ -59,95 +55,85 @@ References: <829d27f8-1d9b-4a1e-93a8-a14da626f4a7@intel.com>
  <daea1f54-1c85-4a4a-ac3a-c5ae97180e03@intel.com>
  <PH0PR12MB5481BE51210D429FA12EAB45DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <fb012148-a71e-4856-95fe-6e75f011f3fb@intel.com>
- <PH0PR12MB54819C3A4BC9BB419715AB73DCDBA@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Language: en-US
+ <20231020053534-mutt-send-email-mst@kernel.org>
+ <3932dd54-f43a-40b6-8dba-962f997f7122@intel.com>
+ <PH0PR12MB54813F96D29B2D2ACEADD62ADCDBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <b9ac0893-be30-41d9-8898-2a60e8e909aa@intel.com>
+ <PH0PR12MB5481735CC313D32DBAA054E6DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB54819C3A4BC9BB419715AB73DCDBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481735CC313D32DBAA054E6DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
  device context fields for device migration
 
 
 
-On 10/20/2023 8:54 PM, Parav Pandit wrote:
+On 10/23/2023 6:01 PM, Parav Pandit wrote:
+>
 >> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Friday, October 20, 2023 3:01 PM
+>> Sent: Monday, October 23, 2023 3:18 PM
+>
+>>> No. Please read the response carefully.
+>>> I said 'For non-backward compatible SIOV device of the future, yes, virtio-pci
+>> common config (non init registers) should be moved to a vq, located on the
+>> member device directly.'
+>>> Notice the 'member device directly'.
+>>> Not the PF admin vq.
+>> I think this is a question to Michael and he answered.
 >>
->> On 10/19/2023 6:33 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Thursday, October 19, 2023 2:48 PM
+>> We are talking about PCI, not SIOV, for SIOV we need transport vq.
+>>
+> Hypervisor for future device and future functionality must not get involved in looking the device configuration.
+> Hence, as long as transport vq is located on the SIOV device itself for non-backward items, it is fine to transport SIOV configuration.
+> For backward compatibility purpose, one will be able to use the aq of the owner device. No need to create a new transport VQ.
+> To create a another transport vq, need to clarify the limitations of aq that transport vq can overcome, and why aq cannot be extended to overcome it.
+SIOV and transport vq is not related to this topic, don't mix them.
+
+and admin vq is not a must for live migration.
+
+and we are not introducing a new device type here.
+
+For future device and future functionalities, let's discuss when they 
+are implementing, on their series.
+>   
+>> Here again, we are introducing basic facilities for live migration, and the
+>> implementation is transport-specific.
+> Not relevant comment.
+>
+>>>> Config space is control path, DMA is data-path, let's better not mix
+>>>> them, we never expect to use config space to transfer data.
 >>>>
->>>> On 10/19/2023 5:14 PM, Michael S. Tsirkin wrote:
->>>>> On Thu, Oct 19, 2023 at 09:13:16AM +0000, Parav Pandit wrote:
->>>>>>> Oh, really? Quite interesting, do you want to move all config
->>>>>>> space fields in VF to admin vq? Have a plan?
->>>>>> Not in my plan for spec 1.4 time frame.
->>>>>> I do not want to divert the discussion, would like to focus on
->>>>>> device
->>>> migration phases.
->>>>>> Lets please discuss in some other dedicated thread.
->>>>> Possibly, if there's a way to send admin commands to vf itself then
->>>>> Lingshan will be happy?
->>>> still need to prove why admin commands are better than registers.
->>> Virtio spec development is not proof based approach. Please stop asking for it.
+>>> And that control path is only for the init time configuration as
+>>> correctly listed in the virtio spec as,
 >>>
->>> I tried my best to have technical answer in [1].
->>> I explained that registers simply do not work for passthrough mode (if
->>> this is what you are asking when you are asking prove its better).
->>> They can work for non_passthrough mediated mode.
->>>
->>> A member device may do admin commands using registers. Michael and I are
->> discussing presently in the same thread.
->>> Since there are multiple things to be done for device migration, dedicated
->> register set for each functionality do not scale well, hard to maintain and
->> extend.
->>> A register holding a command content make sense.
->>>
->>> Now, with that, if this can be useful only for non_passthrough, I made humble
->> request to transport them using AQ, this way, you get all benefits of AQ.
->>> And trying to understand, why AQ cannot possible or inferior?
->>>
->>> If you have commands like suspend/resume device, register or queue
->> transport simply don’t work, because it's wrong to bifurcate the device with
->> such weird API.
->>> If you want to biferacate for mediation software, it probably makes sense to
->> operate at each VQ level, config space level. Such are very different commands
->> than passthrough.
->>> I think vdpa has demonstrated that very well on how to do specific work for
->> specific device type. So some of those work can be done using AQ.
->>> [1]
->>> https://lore.kernel.org/virtio-comment/870ace02-f99c-4582-932f-bd10336
->>> 2dae9@intel.com/T/#m37743aa924536d0256d6b3b8e83a11c750f28794
->> We have been through your statement for many times.
->> This is not about how many times you repeated, if you think this is true, you
->> need to prove that with solid evidence.
->>
-> I will not respond to this comment anymore.
-Ok if you choose not to respond.
+>>> " Device configuration space should only be used for initialization-time
+>> parameters.".
+>> don't you know new field reset_vq is introduced to virtio common cfg?
+>> This is not only for initialization, right?
+> Right. It was unfortunate and also it was last moment entry that we had fixed in reset register polarity.
+Appendix B. Creating New Device Types, and we are not introducing new 
+device type.
 >
->> For pass-through, I still recommend you to take a reference of current
->> virito-pci implementation, it works for pass-through, right?
-> What do you mean by current virtio-pci implementation?
-current virito-pci works for pass-through
+>> and your citation is from Appendix B. Creating New Device Types, are we
+>> creating a new device type?
+> That is guidance for the new device creation on "how to use config space?"
+> It equally applied to existing devices too to not grow.
+> The section is equally helpful for new creators and for extending devices like you and me to understand what not to put in config space.
+this does not make any sense, if you stick to the wording, then let me 
+repeat again "Appendix B. Creating New Device Types"!!!!!!
 >
->> For scale, I already told you for many times that they are per-device
->> facilities. How can a per-device facility not scale?
-> Each VF device must implement new set of on-chip memory-based registers which demands more power, die area which does not scale efficiently to thousands of VFs.
-that can be fpga gates or SOC implementing new features, you think that 
-is a waste?
->
->> vDPA works fine on config space.
->>
->> So, if you still insist admin vq is better than config space like in
->> other thread you have concluded, you may imply that config space
->> interfaces should be re-factored to admin vq.
-> Whatever is done in past is done, there is no way to change history.
-> An new non init time registers should not be placed in device specific config space as virtio spec has clear guideline on it for good.
-> Device context reading, dirty page address reading, changing vf device modes, all of these are clearly not a init time settings.
-> Hence, they do not belong to the registers.
-reset vq? and you get it from Appendix B. Creating New Device Types, are 
-we implementing a new type of device???
+>>>> So we need DMA to transfer data, for example I take advantages of
+>>>> device DMA to logging dirty pages, This also applies to in-flight descriptors.
+>>>>
+>>> Can you please explain via virtqueue cannot be used for DMA bulk data
+>> transfer as listed in virtio spec.
+>>> " The mechanism for bulk data transport on virtio devices is pretentiously
+>> called a virtqueue"
+>> what is your point? vq can do DMA, so what?
+> I am asking,
+> If there is AQ on the member device, can you use it? If not, what is the technical reason(s) to not use it.
+Repeated for many times, QOS, nested and so on.
 
 
 This publicly archived list offers a means to provide input to the
