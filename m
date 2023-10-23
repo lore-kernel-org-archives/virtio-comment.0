@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7912-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7913-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 262E6C001E0
-	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D8AC004C0
+	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 11:21:54 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 963E845B2D
-	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:51:55 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id BA4EA613D7
+	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 11:21:53 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 87F73986980
-	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 10:51:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 97CD298667A
+	for <virtio-comment@archiver.kernel.org>; Mon, 23 Oct 2023 11:21:53 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7ED93986671; Mon, 23 Oct 2023 10:51:55 +0000 (UTC)
+	id 808E998666C; Mon, 23 Oct 2023 11:21:53 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,163 +24,225 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 716F7986674
-	for <virtio-comment@lists.oasis-open.org>; Mon, 23 Oct 2023 10:51:55 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 700E898666D
+	for <virtio-comment@lists.oasis-open.org>; Mon, 23 Oct 2023 11:21:53 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-MC-Unique: h2FReyP3NhSLIFItt1Ouow-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698058313; x=1698663113;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=XG9o5NY5xnksPTLIfNu2X2UkGzW9DSM62Qvd4LpwZL8=;
-        b=PJO82nhu5iJ6wzETHn+i70m4WL84oozF/ylbNm0Kaxvsi1cSR5Ql+WwmdpodRRy8MW
-         5z9L1XdygiTTjTk9d+P3pcit3BvPwq9z/YlpvRePSQBME3AwiwCcAyukkIH5SBmKntsk
-         qi5jLZ6tT8Y361m+UmQwPKf4SC/AxnjMhZEaUiOGgEceC9xmD5vjF7ThzQwCRtyR7Cb4
-         YLJtcK8UYbZm5HniyTk5PrsAnDqGmXv8L0fzpYoQCAyxxBIpyJPbB9Duv0B/8IYPhwfA
-         0T+z3pAc2ZB63LSNRdu+3BIF+8J59TIxwnzK8CGEg/hX0DTIJiwMIxlkAm7fSW6B5JPc
-         WNCQ==
-X-Gm-Message-State: AOJu0YzCC7sVPOPajttKp2AUS3bBYWqXBO0P2F/Sgjw8b6dWdXR/hSq8
-	g9kLuguGXEwPEwdqvbWxSA3nze/P2IFeCdbZXFk=
-X-Google-Smtp-Source: AGHT+IFueqnVs2k9X2vmQKGI1ya2fF9GYTxuiXy3RSulgjhD3XakF+Xu17eHEu43JyhfZj33aX0tBQ==
-X-Received: by 2002:a05:6a00:248e:b0:6bd:b7c5:f776 with SMTP id c14-20020a056a00248e00b006bdb7c5f776mr7293129pfv.8.1698058313540;
-        Mon, 23 Oct 2023 03:51:53 -0700 (PDT)
-From: zhenwei pi <pizhenwei@bytedance.com>
-To: stefanha@redhat.com,
-	parav@nvidia.com,
-	mst@redhat.com,
-	jasowang@redhat.com
-Cc: virtio-comment@lists.oasis-open.org,
-	houp@yusur.tech,
-	zhouhuaping.san@bytedance.com,
-	xinhao.kong@duke.edu,
-	raphael.norwitz@nutanix.com,
-	zhenwei pi <pizhenwei@bytedance.com>
-Date: Mon, 23 Oct 2023 18:46:47 +0800
-Message-Id: <20231023104647.290759-8-pizhenwei@bytedance.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231023104647.290759-1-pizhenwei@bytedance.com>
-References: <20231023104647.290759-1-pizhenwei@bytedance.com>
+        d=1e100.net; s=20230601; t=1698060109; x=1698664909;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0k+n+zrZ+tBv/MuB4I65TfUJJBDLhyJ+iUBXkpy4ohM=;
+        b=PBXtiHQhN7NcCYjOz1tTcEeKlFoGgOsvoDA6EWcYQJSG5Yte1N7sq1/miDcPgBHwaY
+         Ea1qO9iVk4HTKYD7WON6dGli1EHoUJzHZ411kZldeLVsS2QqXpFBa7DQZF/kgL1Ck5JM
+         L/fZ1eSip6obBNk3UzbXzoU+MOTgyh7d2QRoXrMWaqjAITa5cQA0SY358dURNbvt5X0u
+         NgJjoiul2ZX2WaF05BjjUBnQsV+yQiqh3VeqKQWmE18HXo4/gaAXGphl7CZG3l53euSC
+         h0dsLoOAF6SsASVJhWQGUZJvFYZ8EKzqSrAphbD1dEmUFVy5X0GiDgR29uB1G/tUKuIu
+         fniw==
+X-Gm-Message-State: AOJu0YxZgVP15ZaxY3Gy0GdJ2zDCHDNQN1DMfFl5c76OkTf3/AblfetN
+	Vj6UnapSdNjyR4z07Tvrh/EDkI3/DwVAX6U7A/fQH9ZdR35Z204KREgR+3UP7cqjA71pfQsYHLz
+	+EtndqTaTdUXLhEdo1wCR/pOePdF/tQEWBg==
+X-Received: by 2002:adf:a151:0:b0:32d:cb04:829b with SMTP id r17-20020adfa151000000b0032dcb04829bmr10040395wrr.12.1698060109341;
+        Mon, 23 Oct 2023 04:21:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGmrFZly2hgf4I1aIqZTKvvFVg7tT/xO/N0KehMvsbOuQFAgzVYzJOWarIQxtYFf32kCzV2jg==
+X-Received: by 2002:adf:a151:0:b0:32d:cb04:829b with SMTP id r17-20020adfa151000000b0032dcb04829bmr10040374wrr.12.1698060108935;
+        Mon, 23 Oct 2023 04:21:48 -0700 (PDT)
+Date: Mon, 23 Oct 2023 07:21:43 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jasper Haag <jasper@bedrocksystems.com>
+Cc: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org,
+	Awais Masood <awais@bedrocksystems.com>,
+	Gordon Stewart <gordon@bedrocksystems.com>
+Message-ID: <20231023071953-mutt-send-email-mst@kernel.org>
+References: <CA+c=0WfFVugbBN_fTeQb0RP6U+kQNO+uuC1L2wyb2rVAWeniaQ@mail.gmail.com>
+ <878r7xd1e0.fsf@redhat.com>
+ <20231020070230-mutt-send-email-mst@kernel.org>
+ <CA+c=0WdA6-9NQs0jESN905nyU2k+mZThwnibavegQ616sY+QoQ@mail.gmail.com>
 MIME-Version: 1.0
+In-Reply-To: <CA+c=0WdA6-9NQs0jESN905nyU2k+mZThwnibavegQ616sY+QoQ@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v5 7/7] transport-fabrics: introduce keyed eager buffers
+Subject: Re: [virtio-comment] [virtio-queue] CLARIFICATION: "free
+ descriptors" External
 
-The Virtio-oF device instance can expose keyed eager buffers, the Virtio-oF
-initiator can write device-readable virtqueue buffers and send VQ command
-in a single RTT on the fabric, this makes better performance.
+On Fri, Oct 20, 2023 at 01:35:00PM -0400, Jasper Haag wrote:
+> Folks,
+> 
+> Thank you kindly for the thoughtful responses! From the point of view
+> of formal modelling/verification I think there is a lot of benefit to be had
+> from tightening the language in the VIRTIO specification. I also think
+> that the formal methods work we do at BedRock Systems puts us in a
+> position to contribute on this front - although I need to coordinate with
+> my managers regarding the logistics of such contributions, including sponsoring
+> membership(s) to the "OASIS Virtual I/O Device (VIRTIO) Technical Committee"
+> <https://www.oasis-open.org/committees/membership.php?wg_abbrev=virtio>.
+> 
+> > Maybe we should add some text like "free entries in the
+> > descriptor table, henceforth referred to as 'free descriptors'".
+> This clarified text seems like an improvement, but it still leaves some
+> open questions in my mind - which Michael's response helps to tease
+> out.
+> 
+> > Yes I think descriptors means free entries in the descriptor table.
+> > I don't think the MUST there is right - in theory
+> > I think the same descriptor chain can be used by multiple
+> > buffers, though I am not aware of any drivers that do this.
+> Overall, we're interested in understanding the ownership discipline
+> involved with the descriptor-entry/payload "resources" (in the sense of
+> linear logic). Our operational model will need to codify this discipline in
+> order to track/cede ownership of these "resources" at the appropriate
+> times, and aliasing will complicate the story here. To wit:
+> 1) If a Device owns two buffers which alias each other's descriptors, and
+>    sends one of the buffers back to the Driver, does the Device still own
+>    the other buffer it hasn't yet returned, including the buffer's descriptors?
+> 2) If a Device owns two buffers which alias payload memory, and sends one
+>    of the buffers back to the Driver, does the Device still own the payload
+>    memory referred to by the buffer it hasn't yet returned?
 
-Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
----
- transport-fabrics.tex | 81 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+I would say yes.
 
-diff --git a/transport-fabrics.tex b/transport-fabrics.tex
-index 4e571be..8969f23 100644
---- a/transport-fabrics.tex
-+++ b/transport-fabrics.tex
-@@ -196,6 +196,8 @@ \subsubsection{Opcodes}\label{sec:Virtio Transport Options / Virtio Over Fabrics
- #define virtio_of_op_get_feature           0x0004
- #define virtio_of_op_set_feature           0x0005
- #define virtio_of_op_get_keyed_num_descs   0x0100
-+#define virtio_of_op_get_keyed_eager_buf   0x0102
-+#define virtio_of_op_vq_keyed_eager_buf    0x0ffe
- #define virtio_of_op_vq                    0x0fff
- #define virtio_of_op_get_vendor_id         0x1000
- #define virtio_of_op_get_device_id         0x1001
-@@ -351,6 +353,9 @@ \subsubsection{Opcodes}\label{sec:Virtio Transport Options / Virtio Over Fabrics
- \begin{lstlisting}
- /* support virtio_of_op_get_keyed_num_descs to get the maximum number of keyed descriptors */
- #define VIRTIO_OF_F_KEYED_NUM_DESCS            0
-+
-+/* support virtio_of_op_get_keyed_eager_buf to get the eager buffers of the Virtio-oF virtqueues */
-+#define VIRTIO_OF_F_KEYED_EAGER_BUF            1
- \end{lstlisting}
- 
- \paragraph{Set Feature Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Commands Definition / Opcodes / Set Feature Command}
-@@ -409,6 +414,82 @@ \subsubsection{Opcodes}\label{sec:Virtio Transport Options / Virtio Over Fabrics
- };
- \end{lstlisting}
- 
-+\paragraph{Get Keyed Eager Buffers Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Commands Definition / Opcodes / Get Keyed Eager Buffers Command}
-+A Virtio-oF virtqueue may expose 0 or more keyed buffers that allow the Virtio-oF initiator to write directly to the Virtio-oF device instance.
-+The Keyed Eager Buffers mechanism reduces round-trip time on the fabrics.
-+The Get Keyed Eager Buffers Command is used to get the eager buffers of a Virtio-oF virtqueue,
-+and it is executed on the Virtio-oF control queue.
-+
-+The structure of the Get Keyed Deager Buffers Command structure is as follows:
-+\begin{lstlisting}
-+struct virtio_of_command_get_keyed_eager_buf {
-+        /* opcode is virtio_of_op_get_keyed_eager_buf */
-+        le16 opcode;
-+        /* unique ID for all in-flight commands */
-+        le16 command_id;
-+        /* the Virtio-oF virtqueue index */
-+        le16 vq_index;
-+        /* the maximum number of eager buffer descriptors to obtain */
-+        u8 descs;
-+        u8 reserved[9];
-+};
-+\end{lstlisting}
-+
-+The Get Keyed Eager Buffers Body is a contiguous memory of \texttt{descs} elements (virtio_of_keyed_desc type).
-+
-+The structure of the Get Keyed Eager Buffers Completion is as follows:
-+\begin{lstlisting}
-+struct virtio_of_completion_get_keyed_eager_buf {
-+        le16 status;
-+        le16 command_id;
-+        /* the number of eager buffer descriptors */
-+        u8 descs;
-+        u8 reserved[11];
-+};
-+\end{lstlisting}
-+
-+Note: multiple keyed eager buffers compose a logical memory range sequentially.
-+To locate a position within the range, use the offset and length values as follows:
-+\begin{lstlisting}
-+    +-----------+-----------+     +-----------+
-+    |addr0, len0|addr1, len1| ... |addrN, lenN|
-+    +-----------+-----------+     +-----------+
-+                   |                    |
-+                   \---offset, length---/
-+\end{lstlisting}
-+
-+\paragraph{VQ Keyed Eager Buffers Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Commands Definition / Opcodes / VQ Keyed Eager Buffers Command}
-+The Virtio-oF initiator must write device-readable virtqueue buffers into the Virtio-oF virtqueue eager buffers,
-+then issue The VQ Keyed Eager Buffers Command to transmit virtqueue buffers.
-+This command is executed on the Virtio-oF virtqueue only.
-+
-+The structure of the VQ Keyed Eager Buffers Command structure is as follows:
-+\begin{lstlisting}
-+struct virtio_of_command_vq_keyed_eager_buf {
-+        /* opcode is virtio_of_op_vq_keyed_eager_buf */
-+        le16 opcode;
-+        /* unique ID for all in-flight commands */
-+        le16 command_id;
-+        /* the offset of Virtio-oF virtqueue eager buffers */
-+        le32 out_offset;
-+        /* the length of device-readable virtqueue buffers */
-+        le32 out_length;
-+        /* the length of device-writable virtqueue buffers */
-+        le32 in_length;
-+};
-+\end{lstlisting}
-+
-+The structure of the VQ Keyed Eager Buffers Completion is as follows:
-+\begin{lstlisting}
-+struct virtio_of_completion_vq_keyed_eager_buf {
-+        le16 status;
-+        le16 command_id;
-+        /* the length of virtqueue buffers from Virtio-oF target */
-+        le32 length;
-+        u8 reserved[8];
-+};
-+\end{lstlisting}
-+
- \paragraph{VQ Command}\label{sec:Virtio Transport Options / Virtio Over Fabrics / Commands Definition / Opcodes / VQ Command}
- The VQ Command is used to transmit virtqueue buffers for Virtio-oF virtqueue only.
- 
--- 
-2.25.1
+> Along these lines, a few clarifications:
+> i)   Are Drivers allowed to alias descriptor chain suffixes, or only complete
+>      descriptor chains?
+> ii)  May a Driver /simultaneously expose/ multiple buffers which share
+> descriptor
+>      chain (suffixes)?
+> iii) May a Driver /simultaneously expose/ multiple buffers which (partially)
+> alias
+>      the same payload memory?
+
+Nothing seems to disallow this. iii actually happens sometimes.
+
+> 
+> I look forward to continuing this discussion.
+> 
+> ~Jasper
+> 
+> On Fri, Oct 20, 2023 at 7:12 AM Michael S. Tsirkin <mst@redhat.com> wrote:
+> 
+>     On Fri, Oct 20, 2023 at 12:38:47PM +0200, Cornelia Huck wrote:
+>     > On Thu, Oct 12 2023, Jasper Haag <jasper@bedrocksystems.com> wrote:
+>     >
+>     > > To whom it may concern,
+>     > >
+>     > > BedRock Systems is working to formally model VIRTIO Queues and formally
+>     > > verify our implementation of VIRTIO Queues <
+>     > > https://github.com/bedrocksystems/vml/tree/main/devices/virtio_base>.
+>     One
+>     > > question which we've been unable to answer solely using the Standard
+>     text
+>     > > relates to "free descriptors" - as referred to within "2.7.13 -
+>     Supplying
+>     > > Buffers to The Device" <
+>     > > https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/
+>     virtio-v1.2-csd01.html#x1-6400013>.
+>     > > In particular, the text states:
+>     > >
+>     > > | 2.7.13 - Supplying Buffers to The Device
+>     > > | The driver offers buffers to one of the device’s virtqueues as
+>     follows:
+>     > > |     1. The driver places the buffer into free descriptor(s) in the
+>     > > descriptor table, chaining as necessary (see 2.7.5 The Virtqueue
+>     Descriptor
+>     > > Table).
+>     > > |      .....
+>     > > |
+>     > > | 2.7.13.1 - Placing Buffers Into The Descriptor Table
+>     > > | A buffer consists of zero or more device-readable
+>     physically-contiguous
+>     > > elements followed by zero or more physically-contiguous device-writable
+>     > > elements (each has at least one element).
+>     > > | This algorithm maps it into the descriptor table to form a descriptor
+>     > > chain:
+>     > > | for each buffer element, b:
+>     > > |     1. Get the next free descriptor table entry, d
+>     > > |     2. Set d.addr to the physical address of the start of b
+>     > > |     3. Set d.len to the length of b.
+>     > > |     4. If b is device-writable, set d.flags to VIRTQ_DESC_F_WRITE,
+>     > > otherwise 0.
+>     > > |     5. If there is a buffer element after this:
+>     > > |         a. Set d.next to the index of the next free descriptor
+>     element.
+>     > > |         b. Set the VIRTQ_DESC_F_NEXT bit in d.flags.
+>     > > | In practice, d.next is usually used to chain free descriptors, and a
+>     > > separate count kept to check there are enough free descriptors before
+>     > > beginning the mappings.
+>     > >
+>     > > However, the term "free descriptor" doesn't appear to be defined
+>     anywhere
+>     > > within the Standard text. What characterizes such a "free descriptor",
+>     and
+>     > > does the use of the term "free descriptor" imply that the Driver MUST
+>     NOT <
+>     > > https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/
+>     virtio-v1.2-csd01.html#x1-50003>
+>     > > use the same descriptor within multiple chains?
+>     > >
+>     > > I look forward to hearing your clarification.
+>     >
+>     > My guess is that this is mostly a case of a bit of sloppyness in a very
+>     > old part of the spec. A better term might be "free entries in the
+>     > descriptor table" (or even "unused entries..."), although that would be
+>     > a bit unwieldy. Maybe we should add some text like "free entries in the
+>     > descriptor table, henceforth referred to as 'free descriptors'".
+>     >
+>     > Michael, what do you think?
+> 
+>     Yes I think descriptors means free entries in the descriptor table.
+>     I don't think the MUST there is right - in theory
+>     I think the same descriptor chain can be used by multiple
+>     buffers, though I am not aware of any drivers that do this.
+>     So I feel "free" here merely means "not used for some other
+>     purpose". E.g. entries not referenced by any chains can be used
+>     by driver to keep some data for its internal purposes
+>     (and sometimes is) - if an entry is used like this and the driver
+>     needs the data there then I guess it should not be used for
+>     descriptors.
+> 
+>     We do say:
+>             A driver MUST NOT alter virtqueue entries for exposed buffers,
+>             i.e., buffers which have been
+>             made available to the device (and not been used by the device)
+>             of a live virtqueue.
+>     So such chains must not be modified while available to device.
+> 
+> 
+> 
+> 
+> 
+> 
+>     I also think we still need a lot of cleanup in the buffer/descriptor/entry
+>     area. And I feel we should just bite the bullet and talk about entries
+>     here though - descriptors are widely used to mean valid/available
+>     entries.
+> 
+> 
+>     --
+>     MST
+> 
+> 
+>     This publicly archived list offers a means to provide input to the
+>     OASIS Virtual I/O Device (VIRTIO) TC.
+> 
+>     In order to verify user consent to the Feedback License terms and
+>     to minimize spam in the list archive, subscription is required
+>     before posting.
+> 
+>     Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>     Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>     List help: virtio-comment-help@lists.oasis-open.org
+>     List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>     Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>     List Guidelines: https://www.oasis-open.org/policies-guidelines/
+>     mailing-lists
+>     Committee: https://www.oasis-open.org/committees/virtio/
+>     Join OASIS: https://www.oasis-open.org/join/
+> 
+> 
 
 
 This publicly archived list offers a means to provide input to the
