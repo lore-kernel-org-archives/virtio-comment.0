@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7934-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7935-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14DCEC00A8F
-	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F020BC07545
+	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:27:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 91685747EA
-	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:18:27 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 55A7D774EE
+	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:27:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 891BB9869A9
-	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:18:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2F8C69869AB
+	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:27:13 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7C61798699F; Tue, 24 Oct 2023 10:18:27 +0000 (UTC)
+	id 11EEE98699F; Tue, 24 Oct 2023 10:27:13 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,210 +24,402 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6C5229869A2
-	for <virtio-comment@lists.oasis-open.org>; Tue, 24 Oct 2023 10:18:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 01CE69869A0
+	for <virtio-comment@lists.oasis-open.org>; Tue, 24 Oct 2023 10:27:13 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: LKCXXy3_NrKn6XRI20NKtg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698142701; x=1698747501;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xzN50NopadfX2PtaVpeWi7LfapJHtHKLFLLL7j1Ta+I=;
-        b=BolrMhor84WF5/qCGCIn/kUeJKtrN1n4drWCbRWIGSTF+26vf9o5qfvNn4LoihBPwO
-         qx71MUWbyFmJWeHPoVdKXRLvx92FE+Xz4/ggdmZ5JpzxEJCKf8I2mdW56o2P6vmD9sBK
-         BAztRlp/mglcsEgWOYU+npqDeY+RPkU+BKnkm3WvtWHox6uC2D5pyEgwUk54exTf70i2
-         eYTPsJ+Hq85LS+JuLRNfjsVqoYku/8v/QVJ7WJfBXwGVMRIMppYfFN4D+ioWcdmkR88i
-         CN7hdKdiBXedRCKkDmPNm+R54HBkAzKT0ezLcHBx1FqrVP5SXCrprCPyKJdBLu5obMLJ
-         IxNQ==
-X-Gm-Message-State: AOJu0YxL1i+vjzZRp72/o2j2UZekUgu1YcEGWAkCXIpQVeh1vbTYI+BE
-	an0/rQ3cuuWEwifU0Wl5fVsvfaj7vi7fIAcvqOnH0OUu99oXq7gOrj2lzt4ARKeBK6aiR1jMlM1
-	4atDXHARu8ZNo9p51+IDTigPTg6dzPWySyQ==
-X-Received: by 2002:a05:6808:1395:b0:3b2:ee69:800b with SMTP id c21-20020a056808139500b003b2ee69800bmr15257790oiw.55.1698142700934;
-        Tue, 24 Oct 2023 03:18:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEE45sVDPwadtbC19Yk1dX90YX3zm95cAdBhowFxCoW/go9ttTjide7gJtAAiQ2MJ3V9aqNXw==
-X-Received: by 2002:a05:6808:1395:b0:3b2:ee69:800b with SMTP id c21-20020a056808139500b003b2ee69800bmr15257780oiw.55.1698142700639;
-        Tue, 24 Oct 2023 03:18:20 -0700 (PDT)
-Date: Tue, 24 Oct 2023 12:18:17 +0200
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Radu Ocica <rocica@blackberry.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	virtio-dev@lists.oasis-open.org, anton.yakovlev@opensynergy.com
-Message-ID: <ZTeZ6YjyR0BJOylw@fedora>
-References: <02725a6508584ed2aa8b31c9e9f4264a@blackberry.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="367255232"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; 
+   d="scan'208,217";a="367255232"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="932002080"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; 
+   d="scan'208,217";a="932002080"
+Content-Type: multipart/alternative;
+ boundary="------------b0BIRwhRb0hHVbh5hdv00VjM"
+Message-ID: <8d601578-2083-4f45-a700-6b67d0c5b789@intel.com>
+Date: Tue, 24 Oct 2023 18:27:04 +0800
 MIME-Version: 1.0
-In-Reply-To: <02725a6508584ed2aa8b31c9e9f4264a@blackberry.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [virtio-dev] virtio-snd comments/questions
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+ <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+References: <7bc82c01-19ad-4180-914b-9304e10ef7c3@intel.com>
+ <PH0PR12MB5481E858791CA8FD97C7F35EDCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231019051406-mutt-send-email-mst@kernel.org>
+ <daea1f54-1c85-4a4a-ac3a-c5ae97180e03@intel.com>
+ <PH0PR12MB5481BE51210D429FA12EAB45DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <fb012148-a71e-4856-95fe-6e75f011f3fb@intel.com>
+ <20231020053534-mutt-send-email-mst@kernel.org>
+ <3932dd54-f43a-40b6-8dba-962f997f7122@intel.com>
+ <20231021112420-mutt-send-email-mst@kernel.org>
+ <2cc0d8fc-8ed5-4b98-b5e7-3a86d3da80b0@intel.com>
+ <20231023072519-mutt-send-email-mst@kernel.org>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <20231023072519-mutt-send-email-mst@kernel.org>
+Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
+ device context fields for device migration
 
-Hello Radu,=20
-
-I CC Anton too. This email responds part of the questions.
-
-On Wed, Oct 18, 2023 at 03:32:21PM +0000, Radu Ocica wrote:
-> Hi,
-> I am working on implementing a virtio-snd vdev. During my work on differe=
-nt aspects of the implementation I stumbled across the following issues wit=
-h the virtio sound device specification (that is part of the virtio 1.3 dra=
-ft). In some cases additional clarifications might be enough to address the=
- issue, in others additional features might be required. Below is a list of=
- the issues, with some suggestions on how the issues could be addressed.
-> PCM playback and capture
-> Unclear semantics of PCM_STOP/PCM_START operations
-> The virtio-snd specification is not clear on the expectations on how the =
-PCM_STOP control request is to be handled by the vdev, in terms of whether =
-to:
->=20
->   *   drop the remaining buffered audio in the host pcm stream and return=
- pending io messages to the guest driver
->   *   drop the remaining buffered audio in the host pcm stream and keep p=
-ending io messages in order to be able to prime the host pcm stream in case=
- PCM_STOP is followed by PCM_START; return pending io messages only when re=
-ceiving PCM_RELEASE
->   *   drain the remaining buffered audio in the host pcm stream and send =
-a PCM_STOP response upon drain completion, return pending io messages to th=
-e guest driver as they are completed (before PCM_STOP response); drain capa=
-bility might or might not be available for the host pcm stream
->   *   start draining the remaining buffered audio in the host pcm stream =
-and send a PCM_STOP response immediately, return pending io messages to the=
- guest driver as they are completed (after PCM_STOP response); if receiving=
- PCM_RELEASE before drain completion hold off the response until all pendin=
-g io messages are completed and returned to the guest driver; drain capabil=
-ity might or might not be available for the host pcm stream
->   *   pause the host pcm stream and maintain buffered audio / pending io =
-messages as is; pause capability might or might not be available for the ho=
-st pcm stream
->=20
-
-I agree that the STOP command could be better explain it. In our
-implementation[1], we implemented as your last point defines it, i.e.,
-stop host's pcm stream and keep messages in tx/rx. The STOP control
-command is marked as completed immediately. The virtio spec does not
-indicate that STOP requires to mark pending io messages as completed
-thus we do not do that. A note about this in the spec would help.
-
-> If the thinking is that the vdev on the host can decide on how to impleme=
-nt PCM_STOP based on the host stream capabilities, the guest driver has no =
-information about the choice made by the vdev. In our opinion the choice ma=
-de by the vdev in implementing PCM_STOP dictates what the possible transiti=
-ons after PCM_STOP can be (if PCM_STOP is implemented as pause, PCM_START a=
-nd PCM_RELEASE are possible transitions, but if PCM_STOP is implemented as =
-drain, the only valid transition is PCM_RELEASE and if PCM_STOP is implemen=
-ted as drop and all pending io messages have been returned to the guest dri=
-ver, again the only valid transition seems to be PCM_RELEASE), but the gues=
-t driver is the one issuing the next request and it might at the best be ab=
-le to make an educated guess how the vdev implemented PCM_STOP based on whe=
-ther all the pending io messages are returned or not to the guest driver. T=
-o make such a guess possible, more clarifications would be required in the =
-spec to identify which of the scenarios listed above are considered by the =
-spec.
-
-Checking the Linux kernel driver, the STOP cmd is issued when getting
-SNDRV_PCM_TRIGGER_PAUSE_PUSH. Documentation does not indicate when this
-msg is sent though. The RELEASE cmd is issued only during
-virtsnd_pcm_sync_stop(). In this sense, I would guess that STOP behaves
-like a PAUSE whereas RELEASE behaves like a STOP and dropping all
-pending IO messages. The spec left for the implementation if device
-would still playback those buffer or just drop them. I think you may
-find interesting the discussion we started at this thread[2] regarding
-the RELEASE control cmd semantics.
-
-> Note 1:  The reference virtio-snd linux/android guest driver explicitly d=
-oesn't support the ALSA SNDRV_PCM_INFO_DRAIN_TRIGGER feature flag, which mi=
-ght indicate there was no intent to support drain semantics.
-> Note 2: The reference virtio-snd linux/android guest driver explicitly do=
-es support the ALSA SNDRV_PCM_INFO_PAUSE feature flag, which seems to indic=
-ate intent to support pause semantics, along with drop semantics.
-> Note 3: The Android Audio HAL and tinyalsa/tinyplay don't have any notion=
- of drain or pause. At the end of a playback session there is a wait for pr=
-eviously buffered data to complete playing using the tinyalsa pcm_wait() fu=
-nction, and then a PCM_STOP request is issued after the buffered audio has =
-completed playing. Drop semantics are assumed for PCM_STOP in this context.
-> Information on period alignment and max audio buffer size
-> No information about period alignment and min/max audio buffer/period siz=
-e is currently available in struct virtio_snd_pcm_info. Ideally the period =
-size used for io messages should match the period size used on the host. Th=
-at will guarantee consistency in timing, precise accounting of available ro=
-om to write more data or available data to read, across host and guest. A w=
-orkaround is possible, where the device will fail a PCM_SET_PARAMETERS requ=
-est that specifies an unsupported period alignment or audio buffer/period s=
-ize and the guest is forced to use a period and buffer size that is known t=
-o be supported by the host device (this can be done in an Android guest, by=
- hard coding the android audio HAL period size and the number of periods an=
-d thus effectively the audio buffer size that is used for the virtio sound =
-devices in the guest; in android and linux guests it can be done also by se=
-tting the virtio_snd module parameters, to the effect of locking down the p=
-eriod and buffer size).
-> General Issues
->=20
->   *   There is no statement regarding the endianness of PCM data exchange=
-d via txq and rxq queues and the virtio sound PCM format definitions do not=
- include endianness.
->   *   There is currently no requirement for the guest driver to enqueue a=
-n io message only after it has completed writing data to it (playback) or r=
-eading data from it (capture). The linux/android guest driver currently enq=
-ueues an io message for playback immediately after calling snd_pcm_period_e=
-lapsed(). snd_pcm_period_elapsed() makes it possible for the guest client a=
-pp to write new data, but upon the return of this function there is no guar=
-antee that the guest client app has already written new data. If the vdev d=
-equeues the io message immediately and copies the PCM data for that io requ=
-est before the guest client app has actually written new data to it, it res=
-ults in out-of-sequence/stale data being played back.
-
-Right, we discussed about this issue at [3]. I've recently proposed the
-following patch to fix that: '[PATCH v3] ALSA: virtio: use ack callback'
-
->   *   There is no statement how the guest driver should react to a contro=
-l request failing.
->=20
->      *   For PCM control requests the spec details what the "possible tra=
-nsitions" are after each control request. It doesn't specify whether this a=
-pplies only to successful control requests, or irrespective of the success =
-of the control requests. For instance for PCM_START only PCM_STOP is listed=
- as a valid transition. What happens if PCM_START fails though? Is PCM_STOP=
- still a valid transition? Is a repeat of PCM_START valid, since the previo=
-us PCM_START failed? Is a PCM_RELEASE required in order for the guest drive=
-r to recover the io request descriptors that were sent to the vdev before P=
-CM_START? Is a PCM_STOP required in this case, in order to be able to send =
-PCM_RELEASE (because of valid sequences considerations)? It was seen that t=
-he reference linux/android guest driver ignores a PCM_START failure and sti=
-ll sends io requests after the failed PCM_START.
-
-We've also spotted that the spec does not specify what to do with
-invalid transitions. I think in those cases the transition cannot be
-taken and thus spec only refers to successful transitions. IIUC, in
-Crosvm, for example, if a cmd is executed in a invalid state, the device
-returns error to the guest but the transition does not happen.=20
-
-I will send a second email to address the remainder points.
-
-Thanks, Matias.
-
-[1] https://github.com/rust-vmm/vhost-device/tree/main/staging/vhost-device=
--sound
-[2] https://lore.kernel.org/all/1a54feab-5de9-4b39-a4ce-7ff22e23cf52@opensy=
-nergy.com/T/
-[3] https://lore.kernel.org/all/f28d4604-b169-4583-b9ab-d53e6d08ce63@opensy=
-nergy.com/T/.
+--------------b0BIRwhRb0hHVbh5hdv00VjM
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
 
+On 10/23/2023 7:32 PM, Michael S. Tsirkin wrote:
+> On Mon, Oct 23, 2023 at 06:03:10PM +0800, Zhu, Lingshan wrote:
+>> config space, MMIO, registers work for years, what is wrong with them?
+> Nothing as such. They don't seem to be appropriate for all use-case
+> where people want to utilize virtio. I think a new transport
+> will be needed to address these.
+New transport for new type of devices for sure, like transport vq for SIOV.
+
+I agree admin vq or admin cmds are useful in some use cases, that is
+another story, should be case by case.
+
+For now, let's don't talk about all-use cases, just for current task, 
+for live migration.
+
+So IMHO, I still think we should use config space registers to control 
+live migration process.
+>
+>>>> Config space is control path, DMA is data-path, let's better not mix them,
+>>>> we never expect to use config space to transfer data.
+>>>>
+>>>> So we need DMA to transfer data, for example I take advantages of device DMA
+>>>> to logging dirty pages, This also applies to in-flight descriptors.
+>>> As long as you do, I personally see little benefit to retrieve parts of
+>>> state with memory mapped accesses.
+>> registers only control, and I personally believe a single register is much
+>> better
+>> than processing admin commands, more light-weight, more reliable, working
+>> for years.
+> Yea. It would be, if we could do everything through that register.
+> But we can't really. Migration has too much data to pass around
+> for that to be reasonable.
+data are not transferred by registers, they only control.
+
+We transfer data by DMA, the device writes DMA dirty pages 
+information(bitmap)
+to host isolated memory region.
+>
+>> Config space interfaces are fundamental for virtio-pci.
+>
+> They are in fact fundamental to virtio. Multiple transports to
+> use config space are also fundamental.
+I agree. So I also agree to build admin vq live migration solution based 
+on our
+basic facilities, as Jason ever proposed.
+>
+>
+>>>> And we are implementing virito live migration, not only for PCI.
+>>>>
+>>>> So both me and Jason keep repeating: We are implementing basic facilities,
+>>>> and the implementation is transport specific.
+>>> But the register based facilities you proposed are extremely limited and
+>>> seem to only work for migration. For example, it seems mostly useless for
+>>> debugging because retrieving state is rather complex and would
+>>> interfere with normal working of the device.
+>> If you want to prove the register controlling interfaces are extremely
+>> limited than admin vq or admin cmds,
+>> you are also proving config space registers are extremely limited than
+>> admin vq.
+> Yes. Migration needs ability to pass large amounts of data around, and
+> is too complex a functionality to work reliably without ability to
+> report errors.
+what errors? when device DMA?
+missing some dirty pages? If the device can detect such errors, it can 
+recover by itself,
+or how can driver fix this?
+
+for control path, virtio uses re-read for many years and it works well. 
+I believe we have
+went through this issue before.
+
+>
+>> So the question still here: do you want to replace current virtio-pci common
+>> cfg
+>> with admin vq or admin cmds?
+> I think we need to add a new transport that will use admin commands.
+> Which one to use would be up to a specific device.
+For new device type like SIOV, yes we need a new transport, transport vq.
+
+Let's focus on this live migration feature, if there are new features in 
+the future
+requires admin vq, let's discuss when they proposed.
+>
+>
+>> And debug what? If you want to introduce more functionalities, we should
+>> discuss
+>> case by case.
+>>
+>> If debugging vq state, it is as easy as read queue_size, I don't see the
+>> limitations
+>> as queue_size work for years.
+> No one reads queue_size. In fact for years we didn't have any debugging
+> functionality and we are fine. If we are adding it, it really needs to
+> be accessible when driver and device are wedged.
+OK, I don't disagree to implement new device debugging features.
+
+But let's focus on current live migration task.
+>
+>
+>> I still believe our goal is to do our best, with our capabilities, to build
+>> the most optimal virtio spec
+>> as we can do. Not other goals.
+>>
+>> Thanks
+>> Zhu Lingshan
+>>>
+>>>> We have proposed to build admin vq based on our register solution, this can
+>>>> somehow even help tp resolve the nested issue.
+>>>>
+>>>> But I see the proposed has been rejected.
+>>>>
+>>>> I still believe the goal is to build a best spec, not "just can work" with
+>>>> limitations.
+>>>>
+>>>>
+>>>>
+
+--------------b0BIRwhRb0hHVbh5hdv00VjM
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <font face="monospace"><br>
+      <br>
+    </font>
+    <div class="moz-cite-prefix"><font face="monospace">On 10/23/2023
+        7:32 PM, Michael S. Tsirkin wrote:<br>
+      </font></div>
+    <blockquote type="cite"
+      cite="mid:20231023072519-mutt-send-email-mst@kernel.org">
+      <pre class="moz-quote-pre" wrap="">On Mon, Oct 23, 2023 at 06:03:10PM +0800, Zhu, Lingshan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">config space, MMIO, registers work for years, what is wrong with them?
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Nothing as such. They don't seem to be appropriate for all use-case
+where people want to utilize virtio. I think a new transport
+will be needed to address these.</pre>
+    </blockquote>
+    <font face="monospace">New transport for new type of devices for
+      sure, like transport vq for SIOV.<br>
+      <br>
+      I agree admin vq or admin cmds are useful in some use cases, that
+      is<br>
+      another story, should be case by case.<br>
+      <br>
+      For now, let's don't talk about all-use cases, just for current
+      task, for live migration.<br>
+      <br>
+      So IMHO, I still think we should use config space registers to
+      control live migration process.<br>
+    </font><span style="white-space: pre-wrap">
+</span>
+    <blockquote type="cite"
+      cite="mid:20231023072519-mutt-send-email-mst@kernel.org">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">
+</pre>
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">Config space is control path, DMA is data-path, let's better not mix them,
+we never expect to use config space to transfer data.
+
+So we need DMA to transfer data, for example I take advantages of device DMA
+to logging dirty pages, This also applies to in-flight descriptors.
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">As long as you do, I personally see little benefit to retrieve parts of
+state with memory mapped accesses.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">registers only control, and I personally believe a single register is much
+better
+than processing admin commands, more light-weight, more reliable, working
+for years.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Yea. It would be, if we could do everything through that register.
+But we can't really. Migration has too much data to pass around
+for that to be reasonable.</pre>
+    </blockquote>
+    <font face="monospace">data are not transferred by registers, they
+      only control.<br>
+      <br>
+      We transfer data by DMA, the device writes DMA dirty pages
+      information(bitmap)<br>
+      to host isolated memory region.<br>
+    </font>
+    <blockquote type="cite"
+      cite="mid:20231023072519-mutt-send-email-mst@kernel.org">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Config space interfaces are fundamental for virtio-pci.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+
+They are in fact fundamental to virtio. Multiple transports to
+use config space are also fundamental.</pre>
+    </blockquote>
+    <font face="monospace">I agree. So I also agree to build admin vq
+      live migration solution based on our<br>
+      basic facilities, as Jason ever proposed.<br>
+    </font>
+    <blockquote type="cite"
+      cite="mid:20231023072519-mutt-send-email-mst@kernel.org">
+      <pre class="moz-quote-pre" wrap="">
+
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">
+</pre>
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">And we are implementing virito live migration, not only for PCI.
+
+So both me and Jason keep repeating: We are implementing basic facilities,
+and the implementation is transport specific.
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">But the register based facilities you proposed are extremely limited and
+seem to only work for migration. For example, it seems mostly useless for
+debugging because retrieving state is rather complex and would
+interfere with normal working of the device.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">If you want to prove the register controlling interfaces are extremely
+limited than admin vq or admin cmds,
+you are also proving config space registers are extremely limited than
+admin vq.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Yes. Migration needs ability to pass large amounts of data around, and
+is too complex a functionality to work reliably without ability to
+report errors.</pre>
+    </blockquote>
+    <font face="monospace">what errors? when device DMA?<br>
+      missing some dirty pages? If the device can detect such errors, it
+      can recover by itself,<br>
+      or how can driver fix this?<br>
+      <br>
+      for control path, virtio uses re-read for many years and it works
+      well. I believe we have<br>
+      went through this issue before.<br>
+       </font><br>
+    <blockquote type="cite"
+      cite="mid:20231023072519-mutt-send-email-mst@kernel.org">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">So the question still here: do you want to replace current virtio-pci common
+cfg
+with admin vq or admin cmds?
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I think we need to add a new transport that will use admin commands.
+Which one to use would be up to a specific device.</pre>
+    </blockquote>
+    <font face="monospace">For new device type like SIOV, yes we need a
+      new transport, transport vq.<br>
+      <br>
+      Let's focus on this live migration feature, if there are new
+      features in the future<br>
+      requires admin vq, let's discuss when they proposed.<br>
+    </font>
+    <blockquote type="cite"
+      cite="mid:20231023072519-mutt-send-email-mst@kernel.org">
+      <pre class="moz-quote-pre" wrap="">
+
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">And debug what? If you want to introduce more functionalities, we should
+discuss
+case by case.
+
+If debugging vq state, it is as easy as read queue_size, I don't see the
+limitations
+as queue_size work for years.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+No one reads queue_size. In fact for years we didn't have any debugging
+functionality and we are fine. If we are adding it, it really needs to
+be accessible when driver and device are wedged.</pre>
+    </blockquote>
+    <font face="monospace">OK, I don't disagree to implement new device
+      debugging features.<br>
+      <br>
+      But let's focus on current live migration task.<br>
+    </font>
+    <blockquote type="cite"
+      cite="mid:20231023072519-mutt-send-email-mst@kernel.org">
+      <pre class="moz-quote-pre" wrap="">
+
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">I still believe our goal is to do our best, with our capabilities, to build
+the most optimal virtio spec
+as we can do. Not other goals.
+
+Thanks
+Zhu Lingshan
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">
+
+</pre>
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">We have proposed to build admin vq based on our register solution, this can
+somehow even help tp resolve the nested issue.
+
+But I see the proposed has been rejected.
+
+I still believe the goal is to build a best spec, not "just can work" with
+limitations.
+
+
+
+</pre>
+            <blockquote type="cite">
+              <pre class="moz-quote-pre" wrap="">
+</pre>
+            </blockquote>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+    </blockquote>
+    <font face="monospace"><br>
+    </font>
+  </body>
+</html>
+
+--------------b0BIRwhRb0hHVbh5hdv00VjM--
