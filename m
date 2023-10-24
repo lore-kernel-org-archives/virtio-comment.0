@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7932-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7933-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E06CC00A8F
-	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36D7C07545
+	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:11:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 87D5E42D6A
-	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:10:13 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 395AD45B2B
+	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:11:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 696BB9869A8
-	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:10:13 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2EC2C9869A8
+	for <virtio-comment@archiver.kernel.org>; Tue, 24 Oct 2023 10:11:28 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 53F2B98699F; Tue, 24 Oct 2023 10:10:13 +0000 (UTC)
+	id 25EAD98699F; Tue, 24 Oct 2023 10:11:28 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,30 +24,34 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 459F59869A0
-	for <virtio-comment@lists.oasis-open.org>; Tue, 24 Oct 2023 10:10:13 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 183E69869A0
+	for <virtio-comment@lists.oasis-open.org>; Tue, 24 Oct 2023 10:11:28 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="390900621"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; 
-   d="scan'208,217";a="390900621"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="882076661"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; 
-   d="scan'208,217";a="882076661"
-Content-Type: multipart/alternative;
- boundary="------------ZnBYA8bzjK4E0lp6gec24Icg"
-Message-ID: <739fac26-15c8-4b5d-8206-656cbd423e7f@intel.com>
-Date: Tue, 24 Oct 2023 18:10:04 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
- <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Gg4w372Uk6rTq0SPjPnoGITXKsxZAQt+pKwl/a0sfQcqgdqL7IHaoxdx2M2ZJ4fNf+RVUC3gJS0vufE5TDKtJJ+X0J7qEJLJKq1Mierc1CLIMPEOKa+po+v9KOE+raM0u6fiCMOnDdUcBZVjo2jogkieikORtx0FY6DamiQ44Uw2YWyv1X8PCwSt0kXG8vCgy5cNbcz+bnplaNm9NFsomdHwg7QVkI72BT5m0YRLKvl+66AbFhhaXcPlt4TnuZbiTfaKIA7Oo+i4dlD2CLFWL025Jhn2SPq3SUvy9kV+J2eqZUZ6YUqiB5/CtjzhkzWEMTmjLPhWrLZXOauqYG1kng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S4nTPlEBwTxiTJx2/0ssvtphod1BZUQixpXiWfL4fqw=;
+ b=Trh7SVCy8CNOY+ZQOkOgo8oTzKVcq7XVcNIQkPL/OTniqFZYoZefiFYgGiFDMWF4tfSDGgNlbCVN01ak1RV6oKhKXcY8X78ducDnPhs6N5GK4uVR3yvrnxXwJvJVHNMxhdL4ywAgbAKn0L/76JZlWMyqKZsY9ai4WoTRJGoxd4PHCJqn0tJf7IX3iNo3UZEY93rMrEju9Km4ffTtn65DdAC6+99K5fjD/FeugygRqpC47aJtUpshMzw7izcXxzwY49EDasKUBEpDnsZhE9xBqO9SvHVNxwbISdHJEIqVAmSqe7ewWcjio2Y8EBEKopexXaNMXqw1vfFEF1IAARNBQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin"
+	<mst@redhat.com>
+CC: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>
+Thread-Topic: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
+ device context fields for device migration
+Thread-Index:
+ AQHZ+dpHSUrTyyDEA0quapQP8C0hdbA/xRkAgAF/hoCAACxh4IABSWcAgAANqrCAAZnYAIAACyKAgAGFBICAAACFkIAAEwWAgAAD8yCAAXZ1gIAAIYLAgASWeYCAAtRh8IAAGoeAgAAAUKCAAARLAIAAB5cQgAAXYICAAABqYIABiiSAgAAMdcCAAALCgIAAADWggAABTwCAAAD9AIAAAmrwgAGTbICAAALdAIAAGU2AgAAZUrCABIZTgIAAAScQgAAGEYCAAABSUIABkOMAgAAAPEA=
+Date: Tue, 24 Oct 2023 10:11:24 +0000
+Message-ID:
+ <PH0PR12MB5481FE3FEAA350CEA105CDF8DCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
  <cd9431cc-a5ed-4b11-a341-dc129e8ea630@intel.com>
  <PH0PR12MB54819087A0B542F587A4BEC2DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
@@ -64,382 +68,423 @@ References: <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com>
  <PH0PR12MB5481735CC313D32DBAA054E6DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <2b7e3aac-e238-4056-bf8c-80640d631a1f@intel.com>
  <PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
+ <739fac26-15c8-4b5d-8206-656cbd423e7f@intel.com>
+In-Reply-To: <739fac26-15c8-4b5d-8206-656cbd423e7f@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH2PR12MB4924:EE_
+x-ms-office365-filtering-correlation-id: 13234102-343b-4bc2-ae68-08dbd47993f6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ UK3sYFY0c7gWkRAdVvAuFbUGgN99S/lYuEiOAUSyrsemuX5aM7o2egDoFjMGRsZPBpCNnQQkqpoYLtMvk0C4clGIXXnIFtNU3esX5tL0oaW2HQG+zrr/V+Dlf27m5LpgKdEa9XY5HoGWg9M1eR5b/Jcp2sPjWPV7Esp+Sgvk3rXJiMiB8GNZN8xBab8YDGCX/Xw/vCKY44x0sG1Ge0fOMQz1ETpKNoXEjqUAvdQsuKhB+Q2+cRS70eXtaAIR4BD9GuvjwaN5cqljIlCZ/b7wykd6rHBcFf79APu3e2l+jUQH+zDBBcX78n6gG7P2a2vCaglv11iudf0nxH6Fci+zHzAKOLO1LxMHKhlRt75NNiydu5ETKXZ4UEKxCLAcIVk2d7vWtIJGl/ecS+PCyJHlhm5WGThImetwI9ouidOmYLpwPIH1uqAP7IwvjJftxzgaagCS8VnVrNIU+U6OKnSTsCd2QmFsWaqfebFhtkXWCfzz9tjfjAvfyaTJtpnA8kFOwxjLHD+P/hlUzOSeqAhqB7JLXdjM3JBkUVRYcatM199pw0c4xP4pLunqTG9sLZ+Nhen/7KSAhxDTYyL3aXSv3YHMyYDTbDnV+pbGObNgB2VDj5aGkLrDalc0RDKWXmdb
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(366004)(39860400002)(136003)(396003)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(55016003)(83380400001)(76116006)(86362001)(66446008)(110136005)(66476007)(64756008)(66556008)(66946007)(41300700001)(54906003)(316002)(6506007)(9686003)(7696005)(5660300002)(478600001)(8676002)(4326008)(8936002)(38100700002)(71200400001)(2906002)(52536014)(122000001)(33656002)(53546011)(26005)(107886003)(38070700009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?eEV0ZTBuWFdPZzdGRDBlbENmODdNMVF3U0V2bkhucGZ3WTI2UWdUUzhNL0RP?=
+ =?utf-8?B?cWI0aWpFWFV2c2lxcC9JWVRVY0RJYzZnejlUOU5YS09WbDNaZlNsbzkyN2da?=
+ =?utf-8?B?ZThBUzJwK3pvaVhpeG1KY2hsRDhkTCtSOEpzMTZ1SG1WbUlMZmp0QlVnbXNr?=
+ =?utf-8?B?ZXp1d1NnWUZuWXlUd3pPL1RPcW5vSytSOFlIa3A5QzVLYjIxSlJiOTZVRE9Q?=
+ =?utf-8?B?Z25PYWRFS1FzWVJJbEhyQkdtK0FFbTZKTGlFcEJxUzZ2dnlaZlZVMWx5Q3Rj?=
+ =?utf-8?B?cXd3NmljUFRBdy9uZEpSSVBXSkNXd25IcUJiQ0hVbTZBSXN6TjJ6YzR3Zzhz?=
+ =?utf-8?B?cUVWRlRwUjg3R3BzVWlnMG5pOVVabExMdnk5dnAxRjlKUEJCSCtuTWJ6SkJ4?=
+ =?utf-8?B?TzZUdTJXN0YydithV20rY3lqaDBXK3ppK2lkekN1Y25NQlZuU3JXeUdWUkNZ?=
+ =?utf-8?B?d242anVPR05NcCt6YnBpWXpWK2plMURER3Y3endRUlI0cmZOMncwazUxdEda?=
+ =?utf-8?B?MGJ5VS9sNDY3ZHhjZjE1UnBFODR4YUJXWExMSy9JN2Vva0pqYW1seldIQmd3?=
+ =?utf-8?B?QjFnY0UxemJ3NWpYV1A5MVhZWlhrVW5ma3ZiZWZzNVdQNnB5Smc2Z1dSM1Ez?=
+ =?utf-8?B?Wk9mdmg5b252Z0xVR3BjMVRpaHQ5dTFHWTBOazFsRkN6S004RDRDUzh0UGlv?=
+ =?utf-8?B?bkJ0N3VqNDV6U2JsVGtEWXhUaHY1eGNML1h1b0tPQUwzNHBHZ3BSalhzRWNE?=
+ =?utf-8?B?NGV4aEIrSWtHZGZCNFhNdTViNk9yY1RKK2xwUDQxQVZ2U214SUpZM3FVakY5?=
+ =?utf-8?B?ZE4ySFRUUjFCR0hpSkh4S0J1OG9hSWtiNlBwMTE1anVaMkRsSzJaM3lvd2NG?=
+ =?utf-8?B?Tks3VUM3VUlybndXNW51L25ZTHdjdTAwRG1GcGFadUJrNjlmWkdocEtjTE8y?=
+ =?utf-8?B?enBiUkZLaC9DOU95ZS93alJSY0RoZ1VtckRCcklDQzZYYjlJRDNtZmFIZ0l0?=
+ =?utf-8?B?T0ZnRzB0bk1LOTVrNzlpa2FPL2p1dkUrNnVhcUM5RUFvOG5FdTY4QkxJVFdu?=
+ =?utf-8?B?ckRCNTBwSlV5ci9UZGpNbURhWUQ5c1VXRGhKZm9mOVp5QzR0Ny9LcEFtZzhB?=
+ =?utf-8?B?ZmxSQ1c4K05FNjkrcC90ZXlOekpoeTJqVGJ4UG81QXhzZURJTU9yS0RTVzFo?=
+ =?utf-8?B?T3VGczR0aDExRDhzQkhqaUlIVVcwMDI2TEJKRldIQXArbmdUY2RkZnhqSW4z?=
+ =?utf-8?B?YVpKc3c3KzRQbUpYcWR2d3BvT2RRR3JMNWhhWm91eklFRnhCWXNVd0locUhp?=
+ =?utf-8?B?cXRKZGoyNkZtT09SNVBudzcvZ1JVcVg4bC9FQ3F6QWJ0YXkyN25hSFlxVG45?=
+ =?utf-8?B?YzRrb0lWSloycXM2TER0WC8rNlVUZ004MUpRRWhrWkFybkxXTGpIN29oQy9h?=
+ =?utf-8?B?NW5CZm56eC92YVNiS1lVL0prUi9DVndsdXJZYmlVdGI1Y3pCSFJyeGdTVGEv?=
+ =?utf-8?B?Vi9HbXh1cksvVnpKOHBYVVpZYzdNaTk3eWVQR2VYSnJiZWtXenZoSkU1Z1Yr?=
+ =?utf-8?B?R2k1Mk5ZMGFVYldBeFZvSG94NlY2QndleFlDKzUyR1VuMWxQTlFURTNpL2xY?=
+ =?utf-8?B?b3A5ZHovM3BSTlpVdXNLbnM5cEkzK09aSjBXbWpCLy9QRHJiZ3ZnQklnUXc4?=
+ =?utf-8?B?Qi9iVmJKbGRXMTFlQ3pRRUZTRldRZEMzQUExdkt5ZGZKayt2dkY2TnI1Y3JX?=
+ =?utf-8?B?czZCL1hZUkgyS216dStjREV1TlVMeGZ0U3FSQlQxNUFPc3BmNXVpeXc1VGtm?=
+ =?utf-8?B?K1R4VElBaW0zNEwrOS80bjBic1ZiNE1EdS9GWVdhaGxlMkNkNUltd21XS2lv?=
+ =?utf-8?B?UUtubjJEV05RdnFTdUlQNWdveEVWeEpIQThTQ2gzK1E2RVp4WkYyUmc1d3Ja?=
+ =?utf-8?B?QUlLcmNKRk41VUVpTEhhSkF2cWFsUnA0eEVESE9uS0JiZTlpazVEazdqaFRm?=
+ =?utf-8?B?MlF4ajVQVXB0eDBBaEVWZFZJN0dKUm1adVgwalVvdjQ4VjhrWnFHREpRdkh5?=
+ =?utf-8?B?SWh2bHczVVBhdk5ZNTJhMnEvZ05TdjZJZ1pmUkhONEkyUU5BbzRFWGxmcC96?=
+ =?utf-8?Q?iN2c=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_PH0PR12MB5481FE3FEAA350CEA105CDF8DCDFAPH0PR12MB5481namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13234102-343b-4bc2-ae68-08dbd47993f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Oct 2023 10:11:24.1407
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7RCQnCRD/IaQ0I5Zw4HiQ3Dbwgr8e0cvXU0UamzESZk486fI/nPr8oFZi6kONMzrSf7iFBQeEJJ4z/MEcQeF+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4924
+Subject: RE: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
  device context fields for device migration
 
---------------ZnBYA8bzjK4E0lp6gec24Icg
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_PH0PR12MB5481FE3FEAA350CEA105CDF8DCDFAPH0PR12MB5481namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+UGxlYXNlIGZpeCB0aGUgZW1haWwgY2xpZW50LiBUaGUgZW1haWwgaXMgaW4gbm9uLXRleHQgZm9y
+bWF0Lg0KDQpGcm9tOiBaaHUsIExpbmdzaGFuIDxsaW5nc2hhbi56aHVAaW50ZWwuY29tPg0KU2Vu
+dDogVHVlc2RheSwgT2N0b2JlciAyNCwgMjAyMyAzOjQwIFBNDQpUbzogUGFyYXYgUGFuZGl0IDxw
+YXJhdkBudmlkaWEuY29tPjsgTWljaGFlbCBTLiBUc2lya2luIDxtc3RAcmVkaGF0LmNvbT4NCkNj
+OiBKYXNvbiBXYW5nIDxqYXNvd2FuZ0ByZWRoYXQuY29tPjsgdmlydGlvLWNvbW1lbnRAbGlzdHMu
+b2FzaXMtb3Blbi5vcmc7IGNvaHVja0ByZWRoYXQuY29tOyBzYnVybGFAbWFydmVsbC5jb207IFNo
+YWhhZiBTaHVsZXIgPHNoYWhhZnNAbnZpZGlhLmNvbT47IE1hb3IgR290dGxpZWIgPG1hb3JnQG52
+aWRpYS5jb20+OyBZaXNoYWkgSGFkYXMgPHlpc2hhaWhAbnZpZGlhLmNvbT4NClN1YmplY3Q6IFJl
+OiBbdmlydGlvLWNvbW1lbnRdIFJlOiBbUEFUQ0ggdjEgMy84XSBkZXZpY2UtY29udGV4dDogRGVm
+aW5lIHRoZSBkZXZpY2UgY29udGV4dCBmaWVsZHMgZm9yIGRldmljZSBtaWdyYXRpb24NCg0KDQpP
+biAxMC8yMy8yMDIzIDY6MjYgUE0sIFBhcmF2IFBhbmRpdCB3cm90ZToNCg0KDQoNCkZyb206IFpo
+dSwgTGluZ3NoYW4gPGxpbmdzaGFuLnpodUBpbnRlbC5jb20+PG1haWx0bzpsaW5nc2hhbi56aHVA
+aW50ZWwuY29tPg0KDQpTZW50OiBNb25kYXksIE9jdG9iZXIgMjMsIDIwMjMgMzo0NCBQTQ0KDQoN
+Cg0KT24gMTAvMjMvMjAyMyA2OjAxIFBNLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQoNCg0KDQpGcm9t
+OiBaaHUsIExpbmdzaGFuIDxsaW5nc2hhbi56aHVAaW50ZWwuY29tPjxtYWlsdG86bGluZ3NoYW4u
+emh1QGludGVsLmNvbT4NCg0KU2VudDogTW9uZGF5LCBPY3RvYmVyIDIzLCAyMDIzIDM6MTggUE0N
+Cg0KDQoNCk5vLiBQbGVhc2UgcmVhZCB0aGUgcmVzcG9uc2UgY2FyZWZ1bGx5Lg0KDQpJIHNhaWQg
+J0ZvciBub24tYmFja3dhcmQgY29tcGF0aWJsZSBTSU9WIGRldmljZSBvZiB0aGUgZnV0dXJlLCB5
+ZXMsDQoNCnZpcnRpby1wY2kNCg0KY29tbW9uIGNvbmZpZyAobm9uIGluaXQgcmVnaXN0ZXJzKSBz
+aG91bGQgYmUgbW92ZWQgdG8gYSB2cSwgbG9jYXRlZA0KDQpvbiB0aGUgbWVtYmVyIGRldmljZSBk
+aXJlY3RseS4nDQoNCk5vdGljZSB0aGUgJ21lbWJlciBkZXZpY2UgZGlyZWN0bHknLg0KDQpOb3Qg
+dGhlIFBGIGFkbWluIHZxLg0KDQpJIHRoaW5rIHRoaXMgaXMgYSBxdWVzdGlvbiB0byBNaWNoYWVs
+IGFuZCBoZSBhbnN3ZXJlZC4NCg0KDQoNCldlIGFyZSB0YWxraW5nIGFib3V0IFBDSSwgbm90IFNJ
+T1YsIGZvciBTSU9WIHdlIG5lZWQgdHJhbnNwb3J0IHZxLg0KDQoNCg0KSHlwZXJ2aXNvciBmb3Ig
+ZnV0dXJlIGRldmljZSBhbmQgZnV0dXJlIGZ1bmN0aW9uYWxpdHkgbXVzdCBub3QgZ2V0IGludm9s
+dmVkIGluDQoNCmxvb2tpbmcgdGhlIGRldmljZSBjb25maWd1cmF0aW9uLg0KDQpIZW5jZSwgYXMg
+bG9uZyBhcyB0cmFuc3BvcnQgdnEgaXMgbG9jYXRlZCBvbiB0aGUgU0lPViBkZXZpY2UgaXRzZWxm
+IGZvciBub24tDQoNCmJhY2t3YXJkIGl0ZW1zLCBpdCBpcyBmaW5lIHRvIHRyYW5zcG9ydCBTSU9W
+IGNvbmZpZ3VyYXRpb24uDQoNCkZvciBiYWNrd2FyZCBjb21wYXRpYmlsaXR5IHB1cnBvc2UsIG9u
+ZSB3aWxsIGJlIGFibGUgdG8gdXNlIHRoZSBhcSBvZiB0aGUNCg0Kb3duZXIgZGV2aWNlLiBObyBu
+ZWVkIHRvIGNyZWF0ZSBhIG5ldyB0cmFuc3BvcnQgVlEuDQoNClRvIGNyZWF0ZSBhIGFub3RoZXIg
+dHJhbnNwb3J0IHZxLCBuZWVkIHRvIGNsYXJpZnkgdGhlIGxpbWl0YXRpb25zIG9mIGFxIHRoYXQN
+Cg0KdHJhbnNwb3J0IHZxIGNhbiBvdmVyY29tZSwgYW5kIHdoeSBhcSBjYW5ub3QgYmUgZXh0ZW5k
+ZWQgdG8gb3ZlcmNvbWUgaXQuDQoNClNJT1YgYW5kIHRyYW5zcG9ydCB2cSBpcyBub3QgcmVsYXRl
+ZCB0byB0aGlzIHRvcGljLCBkb24ndCBtaXggdGhlbS4NCg0KDQoNCmFuZCBhZG1pbiB2cSBpcyBu
+b3QgYSBtdXN0IGZvciBsaXZlIG1pZ3JhdGlvbi4NCg0KDQoNCk9rLiBZb3UgcmFpc2VkIHRoZSBw
+b2ludCBvZiB0cmFuc3BvcnQgdnEuLi4NCg0KDQoNCg0KDQpBbGwgcmVwZWF0IHBvaW50cywgbm90
+IGxlYWRpbmcgYW55d2hlcmUgZm9yIHlvdSBub3IgbWUuDQpzbywgbGV0J3Mgbm90IHRha2UgU0lP
+ViBpbnRvIGNvbnNpZGVyYXRpb24gZm9yIHRoaXMgdG9waWMuDQoNCg0KDQoNCg0KDQphbmQgd2Ug
+YXJlIG5vdCBpbnRyb2R1Y2luZyBhIG5ldyBkZXZpY2UgdHlwZSBoZXJlLg0KDQoNCg0KSXQgZG9l
+cyBub3QgbWF0dGVyLg0KeW91IGNpdGF0aW9uIGlzIGluIHRoYXQgc2VjdGlvbi4NCg0KDQoNCg0K
+DQoNCkZvciBmdXR1cmUgZGV2aWNlIGFuZCBmdXR1cmUgZnVuY3Rpb25hbGl0aWVzLCBsZXQncyBk
+aXNjdXNzIHdoZW4gdGhleSBhcmUNCg0KaW1wbGVtZW50aW5nLCBvbiB0aGVpciBzZXJpZXMuDQoN
+ClRoZSBuZXcgZGV2aWNlIHdpbGwgaW5oZXJpdCB0aGUgImJhc2ljIGZ1bmN0aW9uYWxpdHkgbm9u
+IGluaXQgdGltZSByZWdpc3RlciIuLi4NCg0KU28gcGxlYXNlIGRvbuKAmXQgcHJvcG9zZSB0byBp
+bXBsZW1lbnQgc3VjaC4NCnNvLCBzdGlsbCwgSSBhbSBub3QgaW50cm9kdWNpbmcgYSBuZXcgdHlw
+ZSBvZiBkZXZpY2UsIHJpZ2h0Pw0KDQoNCg0KDQoNCg0KDQoNCkhlcmUgYWdhaW4sIHdlIGFyZSBp
+bnRyb2R1Y2luZyBiYXNpYyBmYWNpbGl0aWVzIGZvciBsaXZlIG1pZ3JhdGlvbiwNCg0KYW5kIHRo
+ZSBpbXBsZW1lbnRhdGlvbiBpcyB0cmFuc3BvcnQtc3BlY2lmaWMuDQoNCk5vdCByZWxldmFudCBj
+b21tZW50Lg0KDQoNCg0KQ29uZmlnIHNwYWNlIGlzIGNvbnRyb2wgcGF0aCwgRE1BIGlzIGRhdGEt
+cGF0aCwgbGV0J3MgYmV0dGVyIG5vdA0KDQptaXggdGhlbSwgd2UgbmV2ZXIgZXhwZWN0IHRvIHVz
+ZSBjb25maWcgc3BhY2UgdG8gdHJhbnNmZXIgZGF0YS4NCg0KDQoNCkFuZCB0aGF0IGNvbnRyb2wg
+cGF0aCBpcyBvbmx5IGZvciB0aGUgaW5pdCB0aW1lIGNvbmZpZ3VyYXRpb24gYXMNCg0KY29ycmVj
+dGx5IGxpc3RlZCBpbiB0aGUgdmlydGlvIHNwZWMgYXMsDQoNCg0KDQoiIERldmljZSBjb25maWd1
+cmF0aW9uIHNwYWNlIHNob3VsZCBvbmx5IGJlIHVzZWQgZm9yDQoNCmluaXRpYWxpemF0aW9uLXRp
+bWUNCg0KcGFyYW1ldGVycy4iLg0KDQpkb24ndCB5b3Uga25vdyBuZXcgZmllbGQgcmVzZXRfdnEg
+aXMgaW50cm9kdWNlZCB0byB2aXJ0aW8gY29tbW9uIGNmZz8NCg0KVGhpcyBpcyBub3Qgb25seSBm
+b3IgaW5pdGlhbGl6YXRpb24sIHJpZ2h0Pw0KDQpSaWdodC4gSXQgd2FzIHVuZm9ydHVuYXRlIGFu
+ZCBhbHNvIGl0IHdhcyBsYXN0IG1vbWVudCBlbnRyeSB0aGF0IHdlIGhhZCBmaXhlZA0KDQppbiBy
+ZXNldCByZWdpc3RlciBwb2xhcml0eS4NCg0KQXBwZW5kaXggQi4gQ3JlYXRpbmcgTmV3IERldmlj
+ZSBUeXBlcywgYW5kIHdlIGFyZSBub3QgaW50cm9kdWNpbmcgbmV3IGRldmljZQ0KDQp0eXBlLg0K
+DQpUaGUgY29uY2VwdCBzdGlsbCBhcHBsaWVzIHRvIGV4aXN0aW5nIGRldmljZSB0eXBlLg0KDQpJ
+dCBpcyBpbGxvZ2ljYWwgb3RoZXJ3aXNlLg0KSW4gdGhlIHRpdGxlICJuZXcgZGV2aWNlIg0KDQoN
+Cg0KDQoNCg0KDQoNCmFuZCB5b3VyIGNpdGF0aW9uIGlzIGZyb20gQXBwZW5kaXggQi4gQ3JlYXRp
+bmcgTmV3IERldmljZSBUeXBlcywgYXJlDQoNCndlIGNyZWF0aW5nIGEgbmV3IGRldmljZSB0eXBl
+Pw0KDQpUaGF0IGlzIGd1aWRhbmNlIGZvciB0aGUgbmV3IGRldmljZSBjcmVhdGlvbiBvbiAiaG93
+IHRvIHVzZSBjb25maWcgc3BhY2U/Ig0KDQpJdCBlcXVhbGx5IGFwcGxpZWQgdG8gZXhpc3Rpbmcg
+ZGV2aWNlcyB0b28gdG8gbm90IGdyb3cuDQoNClRoZSBzZWN0aW9uIGlzIGVxdWFsbHkgaGVscGZ1
+bCBmb3IgbmV3IGNyZWF0b3JzIGFuZCBmb3IgZXh0ZW5kaW5nIGRldmljZXMgbGlrZQ0KDQp5b3Ug
+YW5kIG1lIHRvIHVuZGVyc3RhbmQgd2hhdCBub3QgdG8gcHV0IGluIGNvbmZpZyBzcGFjZS4NCg0K
+dGhpcyBkb2VzIG5vdCBtYWtlIGFueSBzZW5zZSwgaWYgeW91IHN0aWNrIHRvIHRoZSB3b3JkaW5n
+LCB0aGVuIGxldCBtZSByZXBlYXQNCg0KYWdhaW4gIkFwcGVuZGl4IEIuIENyZWF0aW5nIE5ldyBE
+ZXZpY2UgVHlwZXMiISEhISEhDQoNClNvcnJ5LCB5b3VyIGltcGx5aW5nIGlzOiBuZXcgZGV2aWNl
+IHR5cGUgc2hvdWxkIGJlIGVmZmljaWVudCBhbmQgZXhpc3Rpbmcgb25lIGNhbiBtYWtlIGl0IGZ1
+cnRoZXIgYmFkLiBEb2VzIG5vdCBtYWtlIHNlbnNlIHRvIG1lLg0KDQoNCg0KSXQgaXMgZnVsbHkg
+bG9naWNhbCB0byBoYXZlIG9ubHkgaW5pdCB0aW1lIHRoaW5ncyBpbiB0aGUgY29uZmlnIHJlZ2lz
+dGVycyBhcyBkb25lIHRvZGF5IGluIHRoZSBzcGVjIGZvciBleGlzdGluZyBhbmQgbmV3IGRldmlj
+ZXMuDQoNCg0KDQpJIHdvdWxkIGJlIGhhcHB5IHRvIGV4dGVuZCBCLjUgRGV2aWNlIGltcHJvdmVt
+ZW50cyB0byBjYXB0dXJlIGl0IHRvby4NClRoYXQgc2VjdGlvbiBhcHBsaWVzIHRvIG5ldyBkZXZp
+Y2Ugd2l0aCBpdHMgdGl0bGUgIkFwcGVuZGl4IEIuIENyZWF0aW5nIE5ldyBEZXZpY2UgVHlwZXMi
+DQoNCkFuZCBJIGFncmVlIHdlIHNob3VsZCBtb2RpZnkgdGhpcyBzZWN0aW9uLCBzaG91bGQgcmVt
+b3ZlIHRoaXMgbGltaXRhdGlvbi4NCg0KDQoNCg0KDQoNCg0KDQpTbyB3ZSBuZWVkIERNQSB0byB0
+cmFuc2ZlciBkYXRhLCBmb3IgZXhhbXBsZSBJIHRha2UgYWR2YW50YWdlcyBvZg0KDQpkZXZpY2Ug
+RE1BIHRvIGxvZ2dpbmcgZGlydHkgcGFnZXMsIFRoaXMgYWxzbyBhcHBsaWVzIHRvIGluLWZsaWdo
+dCBkZXNjcmlwdG9ycy4NCg0KDQoNCkNhbiB5b3UgcGxlYXNlIGV4cGxhaW4gdmlhIHZpcnRxdWV1
+ZSBjYW5ub3QgYmUgdXNlZCBmb3IgRE1BIGJ1bGsNCg0KZGF0YQ0KDQp0cmFuc2ZlciBhcyBsaXN0
+ZWQgaW4gdmlydGlvIHNwZWMuDQoNCiIgVGhlIG1lY2hhbmlzbSBmb3IgYnVsayBkYXRhIHRyYW5z
+cG9ydCBvbiB2aXJ0aW8gZGV2aWNlcyBpcw0KDQpwcmV0ZW50aW91c2x5DQoNCmNhbGxlZCBhIHZp
+cnRxdWV1ZSINCg0Kd2hhdCBpcyB5b3VyIHBvaW50PyB2cSBjYW4gZG8gRE1BLCBzbyB3aGF0Pw0K
+DQpJIGFtIGFza2luZywNCg0KSWYgdGhlcmUgaXMgQVEgb24gdGhlIG1lbWJlciBkZXZpY2UsIGNh
+biB5b3UgdXNlIGl0PyBJZiBub3QsIHdoYXQgaXMgdGhlDQoNCnRlY2huaWNhbCByZWFzb24ocykg
+dG8gbm90IHVzZSBpdC4NCg0KUmVwZWF0ZWQgZm9yIG1hbnkgdGltZXMsIFFPUywgbmVzdGVkIGFu
+ZCBzbyBvbi4NCg0KV2h5IHdvdWxkIHRoZXJlIGJlIGFueSBRb1Mgd2hlbiB0aGUgQVEgaXMgb24g
+dGhlIG1lbWJlciBkZXZpY2UgZm9yIG5vbi1wYXNzdGhyb3VnaCB1c2UgY2FzZT8NCg0KV2h5IG5l
+c3RlZCB3b24ndCB3b3JrIHdoZW4gdGhlIEFRIGlzIG9uIHRoZSBtZW1iZXIgZGV2aWNlIGZvciBu
+b24tcGFzc3Rocm91Z2ggdXNlIGNhc2U/DQpIYXZlIG5vdCB3ZSBkaXNjdXNzZWQgdGhlc2UgYmVm
+b3JlPw0KDQoNCg0KDQo=
 
+--_000_PH0PR12MB5481FE3FEAA350CEA105CDF8DCDFAPH0PR12MB5481namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 10/23/2023 6:26 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan<lingshan.zhu@intel.com>
->> Sent: Monday, October 23, 2023 3:44 PM
->>
->> On 10/23/2023 6:01 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan<lingshan.zhu@intel.com>
->>>> Sent: Monday, October 23, 2023 3:18 PM
->>>>> No. Please read the response carefully.
->>>>> I said 'For non-backward compatible SIOV device of the future, yes,
->>>>> virtio-pci
->>>> common config (non init registers) should be moved to a vq, located
->>>> on the member device directly.'
->>>>> Notice the 'member device directly'.
->>>>> Not the PF admin vq.
->>>> I think this is a question to Michael and he answered.
->>>>
->>>> We are talking about PCI, not SIOV, for SIOV we need transport vq.
->>>>
->>> Hypervisor for future device and future functionality must not get involved in
->> looking the device configuration.
->>> Hence, as long as transport vq is located on the SIOV device itself for non-
->> backward items, it is fine to transport SIOV configuration.
->>> For backward compatibility purpose, one will be able to use the aq of the
->> owner device. No need to create a new transport VQ.
->>> To create a another transport vq, need to clarify the limitations of aq that
->> transport vq can overcome, and why aq cannot be extended to overcome it.
->> SIOV and transport vq is not related to this topic, don't mix them.
->>
->> and admin vq is not a must for live migration.
-> Ok. You raised the point of transport vq...
->
-> All repeat points, not leading anywhere for you nor me.
-so, let's not take SIOV into consideration for this topic.
->   
->> and we are not introducing a new device type here.
->>
-> It does not matter.
-you citation is in that section.
->
->> For future device and future functionalities, let's discuss when they are
->> implementing, on their series.
-> The new device will inherit the "basic functionality non init time register"...
-> So please don’t propose to implement such.
-so, still, I am not introducing a new type of device, right?
->
->>>> Here again, we are introducing basic facilities for live migration,
->>>> and the implementation is transport-specific.
->>> Not relevant comment.
->>>
->>>>>> Config space is control path, DMA is data-path, let's better not
->>>>>> mix them, we never expect to use config space to transfer data.
->>>>>>
->>>>> And that control path is only for the init time configuration as
->>>>> correctly listed in the virtio spec as,
->>>>>
->>>>> " Device configuration space should only be used for
->>>>> initialization-time
->>>> parameters.".
->>>> don't you know new field reset_vq is introduced to virtio common cfg?
->>>> This is not only for initialization, right?
->>> Right. It was unfortunate and also it was last moment entry that we had fixed
->> in reset register polarity.
->> Appendix B. Creating New Device Types, and we are not introducing new device
->> type.
-> The concept still applies to existing device type.
-> It is illogical otherwise.
-In the title "new device"
->
->>>> and your citation is from Appendix B. Creating New Device Types, are
->>>> we creating a new device type?
->>> That is guidance for the new device creation on "how to use config space?"
->>> It equally applied to existing devices too to not grow.
->>> The section is equally helpful for new creators and for extending devices like
->> you and me to understand what not to put in config space.
->> this does not make any sense, if you stick to the wording, then let me repeat
->> again "Appendix B. Creating New Device Types"!!!!!!
-> Sorry, your implying is: new device type should be efficient and existing one can make it further bad. Does not make sense to me.
->
-> It is fully logical to have only init time things in the config registers as done today in the spec for existing and new devices.
->
-> I would be happy to extend B.5 Device improvements to capture it too.
-That section applies to new device with its title "Appendix B. Creating 
-New Device Types"
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDb25zb2xhczsNCglwYW5vc2UtMToyIDEx
+IDYgOSAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWws
+IGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCWZvbnQtc2l6ZTox
+MS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KYTpsaW5rLCBzcGFu
+Lk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1ZTsNCgl0
+ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnByZQ0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7
+DQoJbXNvLXN0eWxlLWxpbms6IkhUTUwgUHJlZm9ybWF0dGVkIENoYXIiOw0KCW1hcmdpbjowaW47
+DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7DQoJZm9udC1mYW1p
+bHk6IkNvdXJpZXIgTmV3Ijt9DQpzcGFuLkhUTUxQcmVmb3JtYXR0ZWRDaGFyDQoJe21zby1zdHls
+ZS1uYW1lOiJIVE1MIFByZWZvcm1hdHRlZCBDaGFyIjsNCgltc28tc3R5bGUtcHJpb3JpdHk6OTk7
+DQoJbXNvLXN0eWxlLWxpbms6IkhUTUwgUHJlZm9ybWF0dGVkIjsNCglmb250LWZhbWlseTpDb25z
+b2xhczt9DQpzcGFuLkVtYWlsU3R5bGUyMA0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBs
+eTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0
+O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQt
+c2l6ZToxMC4wcHQ7DQoJbXNvLWxpZ2F0dXJlczpub25lO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0K
+CXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0K
+ZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1b
+aWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1h
+eD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0K
+PG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9
+IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9k
+eSBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIgdmxpbms9InB1cnBsZSIgc3R5bGU9IndvcmQtd3Jh
+cDpicmVhay13b3JkIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj5QbGVhc2UgZml4IHRoZSBlbWFpbCBjbGllbnQuIFRoZSBlbWFpbCBpcyBpbiBub24t
+dGV4dCBmb3JtYXQuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZu
+YnNwOzwvbzpwPjwvcD4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlk
+IGJsdWUgMS41cHQ7cGFkZGluZzowaW4gMGluIDBpbiA0LjBwdCI+DQo8ZGl2Pg0KPGRpdiBzdHls
+ZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLXRvcDpzb2xpZCAjRTFFMUUxIDEuMHB0O3BhZGRpbmc6My4w
+cHQgMGluIDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGI+RnJvbTo8L2I+IFpodSwg
+TGluZ3NoYW4gJmx0O2xpbmdzaGFuLnpodUBpbnRlbC5jb20mZ3Q7IDxicj4NCjxiPlNlbnQ6PC9i
+PiBUdWVzZGF5LCBPY3RvYmVyIDI0LCAyMDIzIDM6NDAgUE08YnI+DQo8Yj5Ubzo8L2I+IFBhcmF2
+IFBhbmRpdCAmbHQ7cGFyYXZAbnZpZGlhLmNvbSZndDs7IE1pY2hhZWwgUy4gVHNpcmtpbiAmbHQ7
+bXN0QHJlZGhhdC5jb20mZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBKYXNvbiBXYW5nICZsdDtqYXNvd2Fu
+Z0ByZWRoYXQuY29tJmd0OzsgdmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmc7IGNv
+aHVja0ByZWRoYXQuY29tOyBzYnVybGFAbWFydmVsbC5jb207IFNoYWhhZiBTaHVsZXIgJmx0O3No
+YWhhZnNAbnZpZGlhLmNvbSZndDs7IE1hb3IgR290dGxpZWIgJmx0O21hb3JnQG52aWRpYS5jb20m
+Z3Q7OyBZaXNoYWkgSGFkYXMgJmx0O3lpc2hhaWhAbnZpZGlhLmNvbSZndDs8YnI+DQo8Yj5TdWJq
+ZWN0OjwvYj4gUmU6IFt2aXJ0aW8tY29tbWVudF0gUmU6IFtQQVRDSCB2MSAzLzhdIGRldmljZS1j
+b250ZXh0OiBEZWZpbmUgdGhlIGRldmljZSBjb250ZXh0IGZpZWxkcyBmb3IgZGV2aWNlIG1pZ3Jh
+dGlvbjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdp
+bi1ib3R0b206MTIuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVv
+dDsiPk9uIDEwLzIzLzIwMjMgNjoyNiBQTSwgUGFyYXYgUGFuZGl0IHdyb3RlOjwvc3Bhbj48bzpw
+PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7
+bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8Ymxv
+Y2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxw
+cmU+RnJvbTogWmh1LCBMaW5nc2hhbiA8YSBocmVmPSJtYWlsdG86bGluZ3NoYW4uemh1QGludGVs
+LmNvbSI+Jmx0O2xpbmdzaGFuLnpodUBpbnRlbC5jb20mZ3Q7PC9hPjxvOnA+PC9vOnA+PC9wcmU+
+DQo8cHJlPlNlbnQ6IE1vbmRheSwgT2N0b2JlciAyMywgMjAyMyAzOjQ0IFBNPG86cD48L286cD48
+L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8L286cD48L3ByZT4NCjxwcmU+T24gMTAvMjMvMjAyMyA2
+OjAxIFBNLCBQYXJhdiBQYW5kaXQgd3JvdGU6PG86cD48L286cD48L3ByZT4NCjxibG9ja3F1b3Rl
+IHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT48bzpw
+PiZuYnNwOzwvbzpwPjwvcHJlPg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7
+bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJlPkZyb206IFpodSwgTGluZ3NoYW4gPGEgaHJlZj0i
+bWFpbHRvOmxpbmdzaGFuLnpodUBpbnRlbC5jb20iPiZsdDtsaW5nc2hhbi56aHVAaW50ZWwuY29t
+Jmd0OzwvYT48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5TZW50OiBNb25kYXksIE9jdG9iZXIgMjMs
+IDIwMjMgMzoxOCBQTTxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPjxvOnA+
+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDtt
+YXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0
+O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5Oby4gUGxlYXNlIHJlYWQgdGhlIHJlc3BvbnNl
+IGNhcmVmdWxseS48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5JIHNhaWQgJ0ZvciBub24tYmFja3dh
+cmQgY29tcGF0aWJsZSBTSU9WIGRldmljZSBvZiB0aGUgZnV0dXJlLCB5ZXMsPG86cD48L286cD48
+L3ByZT4NCjxwcmU+dmlydGlvLXBjaTxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8
+cHJlPmNvbW1vbiBjb25maWcgKG5vbiBpbml0IHJlZ2lzdGVycykgc2hvdWxkIGJlIG1vdmVkIHRv
+IGEgdnEsIGxvY2F0ZWQ8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5vbiB0aGUgbWVtYmVyIGRldmlj
+ZSBkaXJlY3RseS4nPG86cD48L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4t
+dG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5Ob3RpY2UgdGhlICdtZW1iZXIg
+ZGV2aWNlIGRpcmVjdGx5Jy48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5Ob3QgdGhlIFBGIGFkbWlu
+IHZxLjxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPkkgdGhpbmsgdGhpcyBp
+cyBhIHF1ZXN0aW9uIHRvIE1pY2hhZWwgYW5kIGhlIGFuc3dlcmVkLjxvOnA+PC9vOnA+PC9wcmU+
+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8cHJlPldlIGFyZSB0YWxraW5nIGFib3V0
+IFBDSSwgbm90IFNJT1YsIGZvciBTSU9WIHdlIG5lZWQgdHJhbnNwb3J0IHZxLjxvOnA+PC9vOnA+
+PC9wcmU+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJl
+Pkh5cGVydmlzb3IgZm9yIGZ1dHVyZSBkZXZpY2UgYW5kIGZ1dHVyZSBmdW5jdGlvbmFsaXR5IG11
+c3Qgbm90IGdldCBpbnZvbHZlZCBpbjxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8
+cHJlPmxvb2tpbmcgdGhlIGRldmljZSBjb25maWd1cmF0aW9uLjxvOnA+PC9vOnA+PC9wcmU+DQo8
+YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4N
+CjxwcmU+SGVuY2UsIGFzIGxvbmcgYXMgdHJhbnNwb3J0IHZxIGlzIGxvY2F0ZWQgb24gdGhlIFNJ
+T1YgZGV2aWNlIGl0c2VsZiBmb3Igbm9uLTxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+
+DQo8cHJlPmJhY2t3YXJkIGl0ZW1zLCBpdCBpcyBmaW5lIHRvIHRyYW5zcG9ydCBTSU9WIGNvbmZp
+Z3VyYXRpb24uPG86cD48L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9w
+OjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5Gb3IgYmFja3dhcmQgY29tcGF0aWJp
+bGl0eSBwdXJwb3NlLCBvbmUgd2lsbCBiZSBhYmxlIHRvIHVzZSB0aGUgYXEgb2YgdGhlPG86cD48
+L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwcmU+b3duZXIgZGV2aWNlLiBObyBuZWVkIHRv
+IGNyZWF0ZSBhIG5ldyB0cmFuc3BvcnQgVlEuPG86cD48L286cD48L3ByZT4NCjxibG9ja3F1b3Rl
+IHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5UbyBj
+cmVhdGUgYSBhbm90aGVyIHRyYW5zcG9ydCB2cSwgbmVlZCB0byBjbGFyaWZ5IHRoZSBsaW1pdGF0
+aW9ucyBvZiBhcSB0aGF0PG86cD48L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwcmU+dHJh
+bnNwb3J0IHZxIGNhbiBvdmVyY29tZSwgYW5kIHdoeSBhcSBjYW5ub3QgYmUgZXh0ZW5kZWQgdG8g
+b3ZlcmNvbWUgaXQuPG86cD48L286cD48L3ByZT4NCjxwcmU+U0lPViBhbmQgdHJhbnNwb3J0IHZx
+IGlzIG5vdCByZWxhdGVkIHRvIHRoaXMgdG9waWMsIGRvbid0IG1peCB0aGVtLjxvOnA+PC9vOnA+
+PC9wcmU+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8cHJlPmFuZCBhZG1pbiB2cSBp
+cyBub3QgYSBtdXN0IGZvciBsaXZlIG1pZ3JhdGlvbi48bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9j
+a3F1b3RlPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPHByZT5Pay4gWW91IHJhaXNl
+ZCB0aGUgcG9pbnQgb2YgdHJhbnNwb3J0IHZxLi4uPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86
+cD4mbmJzcDs8L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0
+O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPC9i
+bG9ja3F1b3RlPg0KPHByZT5BbGwgcmVwZWF0IHBvaW50cywgbm90IGxlYWRpbmcgYW55d2hlcmUg
+Zm9yIHlvdSBub3IgbWUuPG86cD48L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZx
+dW90OyI+c28sIGxldCdzIG5vdCB0YWtlIFNJT1YgaW50byBjb25zaWRlcmF0aW9uIGZvciB0aGlz
+IHRvcGljLjwvc3Bhbj48YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0
+eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT48bzpwPiZu
+YnNwOzwvbzpwPjwvcHJlPg0KPHByZT4gPG86cD48L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0
+eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5hbmQgd2Ug
+YXJlIG5vdCBpbnRyb2R1Y2luZyBhIG5ldyBkZXZpY2UgdHlwZSBoZXJlLjxvOnA+PC9vOnA+PC9w
+cmU+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPkl0
+IGRvZXMgbm90IG1hdHRlci48bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3
+JnF1b3Q7Ij55b3UgY2l0YXRpb24gaXMgaW4gdGhhdCBzZWN0aW9uLg0KPC9zcGFuPjxicj4NCjxi
+cj4NCjxvOnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7
+bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8cHJl
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1
+LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwcmU+Rm9yIGZ1dHVyZSBkZXZpY2UgYW5kIGZ1
+dHVyZSBmdW5jdGlvbmFsaXRpZXMsIGxldCdzIGRpc2N1c3Mgd2hlbiB0aGV5IGFyZTxvOnA+PC9v
+OnA+PC9wcmU+DQo8cHJlPmltcGxlbWVudGluZywgb24gdGhlaXIgc2VyaWVzLjxvOnA+PC9vOnA+
+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPlRoZSBuZXcgZGV2aWNlIHdpbGwgaW5oZXJpdCB0
+aGUgJnF1b3Q7YmFzaWMgZnVuY3Rpb25hbGl0eSBub24gaW5pdCB0aW1lIHJlZ2lzdGVyJnF1b3Q7
+Li4uPG86cD48L286cD48L3ByZT4NCjxwcmU+U28gcGxlYXNlIGRvbuKAmXQgcHJvcG9zZSB0byBp
+bXBsZW1lbnQgc3VjaC48bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1
+b3Q7Ij5zbywgc3RpbGwsIEkgYW0gbm90IGludHJvZHVjaW5nIGEgbmV3IHR5cGUgb2YgZGV2aWNl
+LCByaWdodD88L3NwYW4+PGJyPg0KPGJyPg0KPG86cD48L286cD48L3A+DQo8YmxvY2txdW90ZSBz
+dHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwcmU+PG86cD4m
+bmJzcDs8L286cD48L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8L286cD48L3ByZT4NCjxibG9ja3F1
+b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPGJsb2Nr
+cXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJl
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1
+LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwcmU+SGVyZSBhZ2Fpbiwgd2UgYXJlIGludHJv
+ZHVjaW5nIGJhc2ljIGZhY2lsaXRpZXMgZm9yIGxpdmUgbWlncmF0aW9uLDxvOnA+PC9vOnA+PC9w
+cmU+DQo8cHJlPmFuZCB0aGUgaW1wbGVtZW50YXRpb24gaXMgdHJhbnNwb3J0LXNwZWNpZmljLjxv
+OnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPk5vdCByZWxldmFudCBjb21tZW50
+LjxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8YmxvY2tx
+dW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxibG9j
+a3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPGJs
+b2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8
+cHJlPkNvbmZpZyBzcGFjZSBpcyBjb250cm9sIHBhdGgsIERNQSBpcyBkYXRhLXBhdGgsIGxldCdz
+IGJldHRlciBub3Q8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5taXggdGhlbSwgd2UgbmV2ZXIgZXhw
+ZWN0IHRvIHVzZSBjb25maWcgc3BhY2UgdG8gdHJhbnNmZXIgZGF0YS48bzpwPjwvbzpwPjwvcHJl
+Pg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHByZT5BbmQg
+dGhhdCBjb250cm9sIHBhdGggaXMgb25seSBmb3IgdGhlIGluaXQgdGltZSBjb25maWd1cmF0aW9u
+IGFzPG86cD48L286cD48L3ByZT4NCjxwcmU+Y29ycmVjdGx5IGxpc3RlZCBpbiB0aGUgdmlydGlv
+IHNwZWMgYXMsPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8L286cD48L3ByZT4N
+CjxwcmU+JnF1b3Q7IERldmljZSBjb25maWd1cmF0aW9uIHNwYWNlIHNob3VsZCBvbmx5IGJlIHVz
+ZWQgZm9yPG86cD48L286cD48L3ByZT4NCjxwcmU+aW5pdGlhbGl6YXRpb24tdGltZTxvOnA+PC9v
+OnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPnBhcmFtZXRlcnMuJnF1b3Q7LjxvOnA+PC9v
+OnA+PC9wcmU+DQo8cHJlPmRvbid0IHlvdSBrbm93IG5ldyBmaWVsZCByZXNldF92cSBpcyBpbnRy
+b2R1Y2VkIHRvIHZpcnRpbyBjb21tb24gY2ZnPzxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPlRoaXMg
+aXMgbm90IG9ubHkgZm9yIGluaXRpYWxpemF0aW9uLCByaWdodD88bzpwPjwvbzpwPjwvcHJlPg0K
+PC9ibG9ja3F1b3RlPg0KPHByZT5SaWdodC4gSXQgd2FzIHVuZm9ydHVuYXRlIGFuZCBhbHNvIGl0
+IHdhcyBsYXN0IG1vbWVudCBlbnRyeSB0aGF0IHdlIGhhZCBmaXhlZDxvOnA+PC9vOnA+PC9wcmU+
+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPmluIHJlc2V0IHJlZ2lzdGVyIHBvbGFyaXR5LjxvOnA+PC9v
+OnA+PC9wcmU+DQo8cHJlPkFwcGVuZGl4IEIuIENyZWF0aW5nIE5ldyBEZXZpY2UgVHlwZXMsIGFu
+ZCB3ZSBhcmUgbm90IGludHJvZHVjaW5nIG5ldyBkZXZpY2U8bzpwPjwvbzpwPjwvcHJlPg0KPHBy
+ZT50eXBlLjxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPlRoZSBjb25jZXB0
+IHN0aWxsIGFwcGxpZXMgdG8gZXhpc3RpbmcgZGV2aWNlIHR5cGUuPG86cD48L286cD48L3ByZT4N
+CjxwcmU+SXQgaXMgaWxsb2dpY2FsIG90aGVyd2lzZS48bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9j
+a3F1b3RlPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZx
+dW90O0NvdXJpZXIgTmV3JnF1b3Q7Ij5JbiB0aGUgdGl0bGUgJnF1b3Q7bmV3IGRldmljZSZxdW90
+Ozwvc3Bhbj48YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJt
+YXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT48bzpwPiZuYnNwOzwv
+bzpwPjwvcHJlPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPGJsb2NrcXVvdGUgc3R5
+bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8YmxvY2txdW90ZSBz
+dHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwcmU+PG86cD4m
+bmJzcDs8L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21h
+cmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5hbmQgeW91ciBjaXRhdGlvbiBpcyBmcm9tIEFwcGVu
+ZGl4IEIuIENyZWF0aW5nIE5ldyBEZXZpY2UgVHlwZXMsIGFyZTxvOnA+PC9vOnA+PC9wcmU+DQo8
+cHJlPndlIGNyZWF0aW5nIGEgbmV3IGRldmljZSB0eXBlPzxvOnA+PC9vOnA+PC9wcmU+DQo8L2Js
+b2NrcXVvdGU+DQo8cHJlPlRoYXQgaXMgZ3VpZGFuY2UgZm9yIHRoZSBuZXcgZGV2aWNlIGNyZWF0
+aW9uIG9uICZxdW90O2hvdyB0byB1c2UgY29uZmlnIHNwYWNlPyZxdW90OzxvOnA+PC9vOnA+PC9w
+cmU+DQo8cHJlPkl0IGVxdWFsbHkgYXBwbGllZCB0byBleGlzdGluZyBkZXZpY2VzIHRvbyB0byBu
+b3QgZ3Jvdy48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5UaGUgc2VjdGlvbiBpcyBlcXVhbGx5IGhl
+bHBmdWwgZm9yIG5ldyBjcmVhdG9ycyBhbmQgZm9yIGV4dGVuZGluZyBkZXZpY2VzIGxpa2U8bzpw
+PjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHByZT55b3UgYW5kIG1lIHRvIHVuZGVyc3Rh
+bmQgd2hhdCBub3QgdG8gcHV0IGluIGNvbmZpZyBzcGFjZS48bzpwPjwvbzpwPjwvcHJlPg0KPHBy
+ZT50aGlzIGRvZXMgbm90IG1ha2UgYW55IHNlbnNlLCBpZiB5b3Ugc3RpY2sgdG8gdGhlIHdvcmRp
+bmcsIHRoZW4gbGV0IG1lIHJlcGVhdDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPmFnYWluICZxdW90
+O0FwcGVuZGl4IEIuIENyZWF0aW5nIE5ldyBEZXZpY2UgVHlwZXMmcXVvdDshISEhISE8bzpwPjwv
+bzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHByZT5Tb3JyeSwgeW91ciBpbXBseWluZyBpczog
+bmV3IGRldmljZSB0eXBlIHNob3VsZCBiZSBlZmZpY2llbnQgYW5kIGV4aXN0aW5nIG9uZSBjYW4g
+bWFrZSBpdCBmdXJ0aGVyIGJhZC4gRG9lcyBub3QgbWFrZSBzZW5zZSB0byBtZS48bzpwPjwvbzpw
+PjwvcHJlPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPHByZT5JdCBpcyBmdWxseSBs
+b2dpY2FsIHRvIGhhdmUgb25seSBpbml0IHRpbWUgdGhpbmdzIGluIHRoZSBjb25maWcgcmVnaXN0
+ZXJzIGFzIGRvbmUgdG9kYXkgaW4gdGhlIHNwZWMgZm9yIGV4aXN0aW5nIGFuZCBuZXcgZGV2aWNl
+cy48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPHByZT5J
+IHdvdWxkIGJlIGhhcHB5IHRvIGV4dGVuZCBCLjUgRGV2aWNlIGltcHJvdmVtZW50cyB0byBjYXB0
+dXJlIGl0IHRvby48bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7
+Ij5UaGF0IHNlY3Rpb24gYXBwbGllcyB0byBuZXcgZGV2aWNlIHdpdGggaXRzIHRpdGxlICZxdW90
+O0FwcGVuZGl4IEIuIENyZWF0aW5nIE5ldyBEZXZpY2UgVHlwZXMmcXVvdDs8YnI+DQo8YnI+DQpB
+bmQgSSBhZ3JlZSB3ZSBzaG91bGQgbW9kaWZ5IHRoaXMgc2VjdGlvbiwgc2hvdWxkIHJlbW92ZSB0
+aGlzIGxpbWl0YXRpb24uPGJyPg0KPGJyPg0KPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPGJsb2Nr
+cXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJl
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8
+YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4N
+CjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQi
+Pg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdp
+bi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFy
+Z2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxibG9ja3F1b3RlIHN0eWxlPSJt
+YXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5TbyB3ZSBuZWVkIERN
+QSB0byB0cmFuc2ZlciBkYXRhLCBmb3IgZXhhbXBsZSBJIHRha2UgYWR2YW50YWdlcyBvZjxvOnA+
+PC9vOnA+PC9wcmU+DQo8cHJlPmRldmljZSBETUEgdG8gbG9nZ2luZyBkaXJ0eSBwYWdlcywgVGhp
+cyBhbHNvIGFwcGxpZXMgdG8gaW4tZmxpZ2h0IGRlc2NyaXB0b3JzLjxvOnA+PC9vOnA+PC9wcmU+
+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPkNhbiB5
+b3UgcGxlYXNlIGV4cGxhaW4gdmlhIHZpcnRxdWV1ZSBjYW5ub3QgYmUgdXNlZCBmb3IgRE1BIGJ1
+bGs8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5kYXRhPG86cD48L286cD48L3ByZT4NCjwvYmxvY2tx
+dW90ZT4NCjxwcmU+dHJhbnNmZXIgYXMgbGlzdGVkIGluIHZpcnRpbyBzcGVjLjxvOnA+PC9vOnA+
+PC9wcmU+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9t
+OjUuMHB0Ij4NCjxwcmU+JnF1b3Q7IFRoZSBtZWNoYW5pc20gZm9yIGJ1bGsgZGF0YSB0cmFuc3Bv
+cnQgb24gdmlydGlvIGRldmljZXMgaXM8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5wcmV0ZW50aW91
+c2x5PG86cD48L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwcmU+Y2FsbGVkIGEgdmlydHF1
+ZXVlJnF1b3Q7PG86cD48L286cD48L3ByZT4NCjxwcmU+d2hhdCBpcyB5b3VyIHBvaW50PyB2cSBj
+YW4gZG8gRE1BLCBzbyB3aGF0PzxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJl
+PkkgYW0gYXNraW5nLDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPklmIHRoZXJlIGlzIEFRIG9uIHRo
+ZSBtZW1iZXIgZGV2aWNlLCBjYW4geW91IHVzZSBpdD8gSWYgbm90LCB3aGF0IGlzIHRoZTxvOnA+
+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlPnRlY2huaWNhbCByZWFzb24ocykgdG8g
+bm90IHVzZSBpdC48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5SZXBlYXRlZCBmb3IgbWFueSB0aW1l
+cywgUU9TLCBuZXN0ZWQgYW5kIHNvIG9uLjxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+
+DQo8cHJlPldoeSB3b3VsZCB0aGVyZSBiZSBhbnkgUW9TIHdoZW4gdGhlIEFRIGlzIG9uIHRoZSBt
+ZW1iZXIgZGV2aWNlIGZvciBub24tcGFzc3Rocm91Z2ggdXNlIGNhc2U/PG86cD48L286cD48L3By
+ZT4NCjxwcmU+V2h5IG5lc3RlZCB3b24ndCB3b3JrIHdoZW4gdGhlIEFRIGlzIG9uIHRoZSBtZW1i
+ZXIgZGV2aWNlIGZvciBub24tcGFzc3Rocm91Z2ggdXNlIGNhc2U/PG86cD48L286cD48L3ByZT4N
+CjwvYmxvY2txdW90ZT4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LWZh
+bWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90OyI+SGF2ZSBub3Qgd2UgZGlzY3Vzc2VkIHRoZXNl
+IGJlZm9yZT88L3NwYW4+PGJyPg0KPGJyPg0KPG86cD48L286cD48L3A+DQo8YmxvY2txdW90ZSBz
+dHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwcmU+PG86cD4m
+bmJzcDs8L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxv
+OnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-And I agree we should modify this section, should remove this limitation.
->
->>>>>> So we need DMA to transfer data, for example I take advantages of
->>>>>> device DMA to logging dirty pages, This also applies to in-flight descriptors.
->>>>>>
->>>>> Can you please explain via virtqueue cannot be used for DMA bulk
->>>>> data
->>>> transfer as listed in virtio spec.
->>>>> " The mechanism for bulk data transport on virtio devices is
->>>>> pretentiously
->>>> called a virtqueue"
->>>> what is your point? vq can do DMA, so what?
->>> I am asking,
->>> If there is AQ on the member device, can you use it? If not, what is the
->> technical reason(s) to not use it.
->> Repeated for many times, QOS, nested and so on.
-> Why would there be any QoS when the AQ is on the member device for non-passthrough use case?
-> Why nested won't work when the AQ is on the member device for non-passthrough use case?
-Have not we discussed these before?
-
---------------ZnBYA8bzjK4E0lp6gec24Icg
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <font face="monospace"><br>
-      <br>
-    </font>
-    <div class="moz-cite-prefix"><font face="monospace">On 10/23/2023
-        6:26 PM, Parav Pandit wrote:<br>
-      </font></div>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
-Sent: Monday, October 23, 2023 3:44 PM
-
-On 10/23/2023 6:01 PM, Parav Pandit wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
-Sent: Monday, October 23, 2023 3:18 PM
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">No. Please read the response carefully.
-I said 'For non-backward compatible SIOV device of the future, yes,
-virtio-pci
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">common config (non init registers) should be moved to a vq, located
-on the member device directly.'
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Notice the 'member device directly'.
-Not the PF admin vq.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">I think this is a question to Michael and he answered.
-
-We are talking about PCI, not SIOV, for SIOV we need transport vq.
-
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Hypervisor for future device and future functionality must not get involved in
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">looking the device configuration.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Hence, as long as transport vq is located on the SIOV device itself for non-
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">backward items, it is fine to transport SIOV configuration.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">For backward compatibility purpose, one will be able to use the aq of the
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">owner device. No need to create a new transport VQ.
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">To create a another transport vq, need to clarify the limitations of aq that
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">transport vq can overcome, and why aq cannot be extended to overcome it.
-SIOV and transport vq is not related to this topic, don't mix them.
-
-and admin vq is not a must for live migration.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Ok. You raised the point of transport vq...
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">All repeat points, not leading anywhere for you nor me.</pre>
-    </blockquote>
-    <font face="monospace">so, let's not take SIOV into consideration
-      for this topic.</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
- 
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">and we are not introducing a new device type here.
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">It does not matter.</pre>
-    </blockquote>
-    <font face="monospace">you citation is in that section. </font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">For future device and future functionalities, let's discuss when they are
-implementing, on their series.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">The new device will inherit the "basic functionality non init time register"...
-So please don’t propose to implement such.</pre>
-    </blockquote>
-    <font face="monospace">so, still, I am not introducing a new type of
-      device, right?</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Here again, we are introducing basic facilities for live migration,
-and the implementation is transport-specific.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Not relevant comment.
-
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">Config space is control path, DMA is data-path, let's better not
-mix them, we never expect to use config space to transfer data.
-
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">And that control path is only for the init time configuration as
-correctly listed in the virtio spec as,
-
-" Device configuration space should only be used for
-initialization-time
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">parameters.".
-don't you know new field reset_vq is introduced to virtio common cfg?
-This is not only for initialization, right?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Right. It was unfortunate and also it was last moment entry that we had fixed
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">in reset register polarity.
-Appendix B. Creating New Device Types, and we are not introducing new device
-type.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">The concept still applies to existing device type.
-It is illogical otherwise.</pre>
-    </blockquote>
-    <font face="monospace">In the title "new device"</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">and your citation is from Appendix B. Creating New Device Types, are
-we creating a new device type?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">That is guidance for the new device creation on "how to use config space?"
-It equally applied to existing devices too to not grow.
-The section is equally helpful for new creators and for extending devices like
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">you and me to understand what not to put in config space.
-this does not make any sense, if you stick to the wording, then let me repeat
-again "Appendix B. Creating New Device Types"!!!!!!
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Sorry, your implying is: new device type should be efficient and existing one can make it further bad. Does not make sense to me.
-
-It is fully logical to have only init time things in the config registers as done today in the spec for existing and new devices.
-
-I would be happy to extend B.5 Device improvements to capture it too.</pre>
-    </blockquote>
-    <font face="monospace">That section applies to new device with its
-      title "<span style="white-space: pre-wrap">Appendix B. Creating New Device Types</span>"<br>
-      <br>
-      And I agree we should modify this section, should remove this
-      limitation.<br>
-    </font>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">So we need DMA to transfer data, for example I take advantages of
-device DMA to logging dirty pages, This also applies to in-flight descriptors.
-
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Can you please explain via virtqueue cannot be used for DMA bulk
-data
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">transfer as listed in virtio spec.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">" The mechanism for bulk data transport on virtio devices is
-pretentiously
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">called a virtqueue"
-what is your point? vq can do DMA, so what?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I am asking,
-If there is AQ on the member device, can you use it? If not, what is the
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">technical reason(s) to not use it.
-Repeated for many times, QOS, nested and so on.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Why would there be any QoS when the AQ is on the member device for non-passthrough use case?
-Why nested won't work when the AQ is on the member device for non-passthrough use case?</pre>
-    </blockquote>
-    <font face="monospace">Have not we discussed these before?</font><br>
-    <blockquote type="cite"
-cite="mid:PH0PR12MB5481CC7678B3FF95776CFCE3DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-    <font face="monospace"><br>
-    </font>
-  </body>
-</html>
-
---------------ZnBYA8bzjK4E0lp6gec24Icg--
+--_000_PH0PR12MB5481FE3FEAA350CEA105CDF8DCDFAPH0PR12MB5481namp_--
