@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7946-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7947-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52E79C07545
-	for <virtio-comment@archiver.kernel.org>; Wed, 25 Oct 2023 01:29:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02CD5C07545
+	for <virtio-comment@archiver.kernel.org>; Wed, 25 Oct 2023 03:51:46 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9C79F2AC4E
-	for <virtio-comment@archiver.kernel.org>; Wed, 25 Oct 2023 01:29:01 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 31C752B03B
+	for <virtio-comment@archiver.kernel.org>; Wed, 25 Oct 2023 03:51:46 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8A41D9869DC
-	for <virtio-comment@archiver.kernel.org>; Wed, 25 Oct 2023 01:29:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 121019869DD
+	for <virtio-comment@archiver.kernel.org>; Wed, 25 Oct 2023 03:51:46 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7EAF49869D3; Wed, 25 Oct 2023 01:29:01 +0000 (UTC)
+	id F20D59869D6; Wed, 25 Oct 2023 03:51:45 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,396 +24,225 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6F3949869D4
-	for <virtio-comment@lists.oasis-open.org>; Wed, 25 Oct 2023 01:29:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DA9EB9869D7;
+	Wed, 25 Oct 2023 03:51:45 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: Ljz94nUGNF6JyESL28Lf9w-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698197327; x=1698802127;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=UdEjp7P3YFaQy7owhYYTq5mzup5xogpDXUtYytz/MXc=;
-        b=aAEQRlEIvwIHsUm7BvNs15UkCyXw9jQYstfx+9H/RagObg+QIL3u94M1fPXqGQJ2te
-         WjRvE4RfTi2ieADGadWsYlDiMr4R3v97Q9mm8pbHF5kWeDEvntuZTcP1JapuHTxpeS/b
-         Gfwgd3ucAhXvyFHjVPPzUyDQ6EODbyn9MWVOXGU6pTAx3aD1/0tN6DA6/A176lZLXfZE
-         eRrCgPzATPv/Uwg06L8vj0zNOvqruzRmKZA9XL19NbAl/mlT5cSJE8KphmnNU+5KgzIj
-         n63WuaL7n8jrB7ZdEQ+g/capDUTjO9f+YNhzlu7C0w+vplkazHJsfrkxtWXeiQjmNbGC
-         oX8Q==
-X-Gm-Message-State: AOJu0Yzqsih17bx4do41xfzU1uXW4woYAkMl0j1pRx4RkklPM/L5LNVI
-	JQxfsJe5y4u5V5VN7HUEQVjV5hw9M/Dmj15WJ0lrBeqfx+Ulf8L9NWTvbw142pq0jeg9FRiSVqd
-	yDuhQex+5NEhyOFYRup9fJzhEGnINvBtPgg85LA/j0K5iwxYoQQ==
-X-Received: by 2002:a05:6512:1243:b0:507:b14f:e3bc with SMTP id fb3-20020a056512124300b00507b14fe3bcmr9830233lfb.33.1698197327459;
-        Tue, 24 Oct 2023 18:28:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEY43OL2rWKth2uHGang/p/PerzeI9L2zMgFL47Jbcdz9zlCncCOfOeegILn5cAaF9+ofA/6vBxGYv4SC2VNNA=
-X-Received: by 2002:a05:6512:1243:b0:507:b14f:e3bc with SMTP id
- fb3-20020a056512124300b00507b14fe3bcmr9830222lfb.33.1698197327164; Tue, 24
- Oct 2023 18:28:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z4P9htu1WTTpzsdQL8l5h8Yy+ut6pCYwKx8VuBANRF6WfKy+W0vOyx0NEs8PIrbph8/MAvC0HfbrvziR/XSIc/Tn0YYZ1c1eKh0JsvqEuszC3M+pAdQZccoYBpwhacCslQn6lDiHXBtICb64pxIIWQHBnEdQmIfc5MFn3KOHZqChNZNsfIvqWhiJQkYvbRJq69bx4FrhFlqEO7sSkZr6drsA2JhoPU/QZ5/x0QE8R5uDORwI7iHkVeN3tCqPNm7hilGyTTcbQdBMfglH4ctgFWd0ZSkh4TBo7q/CbIh0Hl9DbeHyE9/oYiyjZytTPksFsPLCmJVh7jgDUF34VUHuug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nzitWXmhiiXKSASiKQXoO24DsWi5TfmpPfJWss5NaX4=;
+ b=QwQyIn2CwkhxzezBFihYM+u5iVqjybR+ON1RkBNd+7UF+r2G8QZ7v6bcK/tEz1tHoj3t+nUSsmL/zwqO/yh9qBKUFTksZOqiIFq3ZK2zCucW5Oyz4uSmUE/H//81tZhyxGrE64AUwOOX1e94lXxMKj/GUuroXaxvAfQErjMgUT0YHFM/auD+X9JVnOnZZIGjDOBDJnwu65toaNV0TwjOpDqhgO0goR90uD9lqDBS4n3Fqg5vYSvz98TzFJBBzEgOrOmKaqNYjxA7L2H4cIhCO+gI1XICF8l20unHro//dxtwrqWYlmUZsfNPqiwiEfPbuYrTZ+jtcAjdC1I3pRZWZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+CC: "Michael S . Tsirkin" <mst@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+	Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	David Airlie <airlied@redhat.com>, Gurchetan Singh
+	<gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>,
+	=?utf-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>, Robert
+ Beckett <bob.beckett@collabora.com>, Mikhail Golubev-Ciuchea
+	<Mikhail.Golubev-Ciuchea@opensynergy.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, "Huang,
+ Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+Thread-Topic: [PATCH v6 1/1] content: Add new feature
+ VIRTIO_F_PRESERVE_RESOURCES
+Thread-Index:
+ AQHaA9H0ua9xMq0gbkqU60djCdCUsrBW4XZQgABREYCAAC/xEIABYZmAgAADs4CAABezgIABBRDQ
+Date: Wed, 25 Oct 2023 03:51:41 +0000
+Message-ID:
+ <PH0PR12MB5481A43D8E5A0F580B785E1EDCDEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231021035111.650248-1-Jiqian.Chen@amd.com>
+ <20231021035111.650248-2-Jiqian.Chen@amd.com>
+ <PH0PR12MB548182FF345FE7D1DE0D89C1DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <BL1PR12MB584997339FBFF8E8DF007755E7D8A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <PH0PR12MB5481DBD22233808AA9497ADBDCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <BL1PR12MB584959DE2A88F4968ECC6740E7DFA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <PH0PR12MB5481BAA4566F77FBEA8B712CDCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <BL1PR12MB584921B4DFE8A074107904EEE7DFA@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To:
+ <BL1PR12MB584921B4DFE8A074107904EEE7DFA@BL1PR12MB5849.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SN7PR12MB8145:EE_
+x-ms-office365-filtering-correlation-id: 4875ab9a-d46b-4d8c-03a4-08dbd50db2bd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ A+KB4c89Poqt4Z3smne0sJDmQmGiRvY1kn0TnK8rbDjTS8KiU20L30Lmc5NxYhetZeOHchJ5tVZccH+dhGvhmtDHDM2kkB9qqkZzZglqgC205EyGXlYPQcyVdh6yzczdF77H2lVbDGjjetjn7VBhkEJ8/fMiooiaJ6BfFpwWPFL39Edd39WcwejxTvFMMf+MqN9VPI/Huu3RgHwjAUnaKSfP9jUvtaR6Rci3dR8vSPyRzoPu6eas821SNVtrJ0G/9oJC43dFvOzmYmwMYNNXcvEz9dkoYegm1ZxHIpKlZii30sGjkX/Pziu+3sJlA//NSO5i+MDR15kjY3bTqMeL/uOSEBOKp7Xvi+UdXinTK9TKh3qTTjVHAF3tv1IeTHpr533HxRWhqDDazrw5UR9RRcb8vtf3xfaq+nhgTN84HPrakFiYJJQs0JX+IIVwTPYlvRCt78eOY2i+XhCXsJHM+2XVHtYrtH/DLX0PJLr39QfhtW/4SNxXOSrRFLkrlJCVemaYF8o/DrjahC7VG/3ctjrkkp9uaJ/dpqucHeMfyvJmnZ8qW4yvL2EtgsbGuaGCn0Pw373bV8r1voaPmP2Yi1DHTNzZ9CRepXypl6CZ1VFHAdyJ+xDDB/MO1cUWQseC
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(39860400002)(376002)(396003)(136003)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(55016003)(2906002)(38100700002)(6916009)(316002)(66446008)(66476007)(66556008)(64756008)(9686003)(478600001)(76116006)(6506007)(7696005)(54906003)(71200400001)(66946007)(26005)(53546011)(122000001)(83380400001)(41300700001)(7416002)(52536014)(5660300002)(86362001)(33656002)(8676002)(8936002)(4326008)(38070700009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?OUNNaE92MDZYVUY5azluTjJ3NkNmUmY2TElYa3JkQmFYYTBRN2U2aDdhK3Mv?=
+ =?utf-8?B?OGh5YkhqNDd4Tk1pbHNyajVKYnQ3R0dpVzBRYkNMd0FoY3J5eGFZeWlPbzUv?=
+ =?utf-8?B?U0o0NFNQNXE4enN6MVRMTHlTZVQ3cTM5VW9aM2x3YUZQUFZqWWVraUttUzdS?=
+ =?utf-8?B?Q3NzSWRTN0RyVUkyUm0vMjBnZ1dDbWFWTGNqL3MwejBHNzF3cnZTaUtpVjV3?=
+ =?utf-8?B?TDBzbjZWUVYxdzhYVnZsVXlBb1loNUlmRWY0aWNNSnduTUdOTEs4TG40Smts?=
+ =?utf-8?B?a1hlU1A2U3U2Sm42NHdNNW5hTUFTbDZYR0pRdFFhT2lQRWhieENrUXBBYmNB?=
+ =?utf-8?B?LzlZNStNVU9BVk1saGt0T1Q4QVlmV2hsdlF4b1VYSmwwc2l6bjgyVXJ2U2JC?=
+ =?utf-8?B?WjBuUk1SdE9JQktHWmViQWQzTFlZek5hc3ZsakVwYjA3STVVSzMvUjNMMlo0?=
+ =?utf-8?B?dkd1Um1QNFBaQ2dDd1VtNUN5OE0yMURiMzlWZEZqcUlNMUZmY3hQSGIxQk5D?=
+ =?utf-8?B?NWhMKzBZNHJIaTJBN3RyMHQ5NWpmd3RYR0V1ai9CKy9tT05lek9xWXc1RGtB?=
+ =?utf-8?B?MXZiTnFHSmd1bFVYUWd4Mi9ELyszTjhTOU5XdzltWHZ5OVcxK2RmYlhNakV1?=
+ =?utf-8?B?dnNIc3RKQVo0UyszMDVISHJDcHlCWVVVeHJubVl6clJTZ0FHWm05Tmx2RWEv?=
+ =?utf-8?B?dXdFcnFSeUYwcE9zYVFXS1dEZ3hpL3lMbHdEbUViZnRqcHowK2I5Nm1ES3Mr?=
+ =?utf-8?B?RVZzR2hGWnROVGxucGNrU2JBOTlUSVBOWkhyendQM3ZFbitDWVpEc1BQWVRW?=
+ =?utf-8?B?UmZIemdyR2tpZWNGWEYxWGY4NzRIV2doZHI4OFhPait3WithV1I1UG1mSnVK?=
+ =?utf-8?B?aVp2Ny9EcmRmYU5IRzFTVWgwL2txaXYxOFpuVDNMT2o5dTBOUFFUb1ZmTVd5?=
+ =?utf-8?B?T2FLeTk5SkgxWDlESXlnVXBUQ1ZZYmRxektvN1VBcnVieDd5ZGsrbzZOdlRq?=
+ =?utf-8?B?ZlE2NXArbWFVd3VuVGNWVlo3VDlheXN4RkNoWSsyUVo0dW10ZHNFQyt2WG9x?=
+ =?utf-8?B?V0ZBNktMUlBRZGl0S250d2lVY0x1bndMdUhuS25KTFBpcklzV1NxR2pHOE42?=
+ =?utf-8?B?TUhGSW8wVTZhbnREOVlzVHpVdm9xZE9RMXp2Qm83Y3FJRHhranplcTA3QkNu?=
+ =?utf-8?B?Q04wZHpSUEo3WSttcDBGQ1E5S1pIU2JkUjRwS0wva3pBelo3YmFUc3hMU2FY?=
+ =?utf-8?B?WnVuUTYyYWVpY2JUQlMrTFY5V0ViQmZSa0FOUFdXZ3FtTnp6cW5ZeXZiZm9j?=
+ =?utf-8?B?UDFzKythaHQwcjIxR200N3B4cHFTbVRGYXdFKzdsaStUL3VySzJ5eDg2RTVh?=
+ =?utf-8?B?VFBnbTRHSjhqTEIrdk4wOGJKN29LbXlMbVlHdjNnZTk5ai8wTFhNczlTZTBZ?=
+ =?utf-8?B?ZUhqLzIwZGxjUmF3K0l2ZURydzNIQXFyUm9VUG1YZnF2U0NkNmhvbHVMS1dx?=
+ =?utf-8?B?TEFXNlpITVRlMjAyL2lJZ3pxZXArT1Fjc0xhaHkzUnhOb0R2czY5SUwycVJx?=
+ =?utf-8?B?Ly8rTmU1OXRvQ3lGRDdPSmRvUGRSU0VGS09UVTBFSlEzZ1dJMVFtam05Y0s4?=
+ =?utf-8?B?Q2hxeUR0RGxFb0pMRVYzS1BKSms1U2Z0L1lZSU5abCtEeEI3eW45NTJuUmVa?=
+ =?utf-8?B?eVB0NWN3UmZnSCt6ejlPNGVTRVVtWTI2cjR1N0Y0ZWFIK3h5NTdycWhnbUhx?=
+ =?utf-8?B?NnQ5a0IzQXhxZmdyWXJwc1pyOEttcnVVOWxiaXMvenJYcGJHQVFBcnNJMGky?=
+ =?utf-8?B?YnNwNlh6TGtWY21xRmoyL1VUeDcvekNjWEM0TjUzTEpCYk91RGwrazlWRkVU?=
+ =?utf-8?B?ZEdGcXFjdFk3V2gxcHpudVVsakRPaWQ0N0RtU25xWXkvUGR1SWo1ZFgwYXpK?=
+ =?utf-8?B?T2krRTlNb05KNC9TZWZsQUJlRk9YN0JoYjZYbzEyVVJPUzJ0elJWWlZYTFFz?=
+ =?utf-8?B?Z0ZtU2pFZkVUdW9pVDNIbkdtK1pVL09xODh0ak4vSGxkUlVDM0xUOVlRREtM?=
+ =?utf-8?B?S1RoUVkwOGI2WVhka29KU0cxREhtUGpDVE41cmNlYjVzSk8vWVNWMDFkdG8r?=
+ =?utf-8?Q?lEEU=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <db0719f9-7dc2-4a96-b10b-ecc3dac1a82b@intel.com>
- <PH0PR12MB548139B50AD2D1B86AC9A127DCD2A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <f7083379-e76c-42f4-8355-ea4ae28eb52c@intel.com> <PH0PR12MB548119E2C2EDB212B56E9FACDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <829d27f8-1d9b-4a1e-93a8-a14da626f4a7@intel.com> <PH0PR12MB54819FC5A77A46C649CD5B6DDCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <0948cfa4-da02-43d5-a099-424f209f814f@intel.com> <PH0PR12MB5481546E859578DE97D9E152DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com> <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231018055422-mutt-send-email-mst@kernel.org> <PH0PR12MB548106B7225BAF351241EA8ADCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsJVxPuxCGjKs3R-kaVGfDMNjtAovM7PpBt3TVd8HON0g@mail.gmail.com>
- <PH0PR12MB5481DD16B25251BAC25AA908DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEthURdu4UNYXPseA-5g6mci2CFDP_UKKC1qFy+n7NHAKg@mail.gmail.com> <PH0PR12MB5481BBC4E48145A02C8963ABDCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5481BBC4E48145A02C8963ABDCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 25 Oct 2023 09:28:35 +0800
-Message-ID: <CACGkMEu3nC8G3Xo2EaunQ4k4rnB27UQMUvruXaf81_sZF7w-cQ@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Zhu, Lingshan" <lingshan.zhu@intel.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4875ab9a-d46b-4d8c-03a4-08dbd50db2bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Oct 2023 03:51:41.2810
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MD2mA3VJBqyZqWQuuCywAc0z1/L1gpDZm0A46pa1Jv8l2w5yLisyWfHvI3bxXnpO+yw2ymXsicrDn9eiLqz6QQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8145
+Subject: [virtio-comment] RE: [PATCH v6 1/1] content: Add new feature
+ VIRTIO_F_PRESERVE_RESOURCES
 
-On Tue, Oct 24, 2023 at 6:02=E2=80=AFPM Parav Pandit <parav@nvidia.com> wro=
-te:
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Tuesday, October 24, 2023 10:27 AM
-> >
-> > On Mon, Oct 23, 2023 at 12:43=E2=80=AFPM Parav Pandit <parav@nvidia.com=
-> wrote:
-> > >
-> > >
-> > >
-> > > > From: Jason Wang <jasowang@redhat.com>
-> > > > Sent: Monday, October 23, 2023 9:15 AM
-> > > >
-> > > > On Wed, Oct 18, 2023 at 6:23=E2=80=AFPM Parav Pandit <parav@nvidia.=
-com> wrote:
-> > > > >
-> > > > >
-> > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > Sent: Wednesday, October 18, 2023 3:26 PM
-> > > > >
-> > > > > > For completeness, and to shorten the thread, can you please lis=
-t
-> > > > > > known issues/use cases that are addressed by the status bit
-> > > > > > interface and how you plan for them to be addressed?
-> > > > >
-> > > > > I will avoid listing known issues for a moment for status bit in =
-this email.
-> > > > >
-> > > > > Status bit interface helps in following good ways.
-> > > > > 1. suspend/resume the device fully by the guest by negotiating th=
-e
-> > > > > new
-> > > > feature.
-> > > > > This can be useful in the guest-controlled PM flows of suspend/re=
-sume.
-> > > > > I still think for this, only feature bit is necessary, and
-> > > > > device_status
-> > > > modification is not needed.
-> > > >
-> > > > Which feature bit did you mean here?
-> > > >
-> > > A new feature bit to indicate the guest that device supports suspend =
-and
-> > resume, hence, there is no need to reset the device and destroy resourc=
-es like
-> > how it is done today.
-> >
-> > Well, I don't see how it is different from what LingShan proposed.
-> The difference is, in passthrough mode, it will be fully controlled by th=
-e guest VM without involving hypervisor.
-
-How does a rest in guest work but not suspend? You can choose to pass
-through the suspend to the guest, and use save/load to migrate it.
-
-> It will work even when device migration is ongoing.
-> What Lingshan proposed involved messing with the device status.
-
-Your proposal messes with the PCI semantics (as you want to rule the
-behaviours like P2P).
-
-> It should be separate register like how Jingchen proposed or not have reg=
-ister at all if the pci transport support it.
-
-It should not, then you will end up defining the interaction with the
-status state machine.
-
-> >
-> > >
-> > > > > D0->D3 and D3->D0 transition of the pci can suspend and resume th=
-e
-> > > > > D0->device
-> > > > which can preserve the last device_status value before entering D3.
-> > > >
-> > > > It's not only about the device status. I would not repeat the
-> > > > question I've asked in another thread.
-> > > >
-> > > > What's more, if you really want to suspend/freeze at PCI level and
-> > > > deal with PCI specific issues like P2P.  You should really try to
-> > > > leverage or invent a PCI mechanism instead of trying to carry such
-> > > > semantics via a virtio specific stuff like adminq. Solving transpor=
-t
-> > > > specific problems at the virtio level is a layer violation.
-> > > >
-> > > PCI spec has already defined what it needs to.
-> >
-> > If PCI spec has good support for suspend/resume, why bother inventing
-> > mechanisms in virtio?
-> >
-> Because virtio today does not know if the PCI level suspend/resume will a=
-ctually work or not,
-
-It's not the charge of virtio to know about this. Otherwise how many
-PCI stuffs needs virtio to understand? PCIE supports various
-capabilities.
-
-> because in past it has not worked even if the PM capability was exposed.
-
-Let's fix the hypervisor but last time I checked, suspend/hibernation
-works at least for virtio-net.
-
-> So only a feature bit is needed.
->
-> > > SR-PCIM interface is already concluded being outside of PCI-spec by t=
-he pci-
-> > sig.
-> > > And no, there is no layer violation.
-> > >
-> > > Any non PCI member device can always implement necessary STOP mode as
-> > no-op.
-> > >
-> > > And all of those talk make sense when one creates MMIO based member
-> > device, until that point is just objections...
-> >
-> > They are different layers:
-> >
-> > 1) suspend/resume at virtio level
-> > 2) suspend/resume at transport level
-> >
-> > We need both of them to satisfy different cases. Just as we need to res=
-et at both
-> > virtio and VF(FLR). Lingshan proposes 1) while it looks to me you propo=
-se 2) via
-> > virtio adminq but you said it has been supported by PCI which is then a
-> > duplication.
-> >
-> #1 is needed and to be owned by the guest driver in passthrough
-> I didn=E2=80=99t propose #2.
-> I proposed #2 be controlled by the vmm/hypervisor (via admin cmd) who is =
-in charge of vm suspend/resume flow.
-
-So you're saying it's the virtio level suspend but you want to limit
-PCI transactions in P2P. That's not the suspend/resume at virtio level
-for sure.
-
->
-> > >
-> > > > > (Like preserving all rest of the fields of common and other devic=
-e config).
-> > > > > This is orthogonal and needed regardless of device migration.
-> > > > >
-> > > > > 2. If one does not want to passthrough a member device, but build
-> > > > > a mediation-based device on top of existing virtio device, It can
-> > > > > be useful with
-> > > > mediating software.
-> > > > > Here the mediating software has ample duplicated knowledge of wha=
-t
-> > > > > the
-> > > > member device already has.
-> > > >
-> > > > It is the way the hypervisors are doing for not only virtio but als=
-o
-> > > > for CPU and MMU as well.
-> > > >
-> > > Not really, vcpus and VMCS and more are part of the hardware support.
-> >
-> > That's not the context here. Hypervisors need to know almost every deta=
-il to
-> > make CPU virtualization work.
-> Cpu virtualization is accelerated for 1st level nesting including interru=
-pts.
->
-> > That's the fact, and it works for virio as well for years.
-> >
-> > What's more, nothing prevents us from inventing something similar in vi=
-rtio to
-> > speed up the context switch or migration if necessary.
-> The major difference with cpu virtualization with nw device virtualizatio=
-n is, former flow is controlled by the sw, the later one is controlled by t=
-he network which is not predictable.
-
-The guest behaviour is also unpredictable, and guests may share
-memories with others. I don't see your point.
-
-> Hence, and context switching can mostly work in theory and not perform we=
-ll with varied workload.
-
-I don't think so, vCPU context is much more complicated than most of
-the virtio devices. I don't see why it can't work for simple virtio
-devices.
-
-> Most production users prefer dedicated/isolated non_context switched rx.
-
-I don't think you can cover "most production users" here. Such use
-cases are limited with the missing save/load mechanism.
-
->
-> >
-> > > 2 level nested page tables is hw support.
-> > > Anything beyond 2 level nesting, likely involves hypervisor.
-> >
-> > Needs emulation/trap for sure. That's the point.
-> >
-> > >
-> > > > > This can fulfil the nested requirement differently provided a
-> > > > > platform support
-> > > > it.
-> > > > > (PASID limitation will be practical blocker here).
-> > > >
-> > > > I don't think PASID is a blocker. It is only a blocker if you want =
-to do
-> > passthrough.
-> > > >
-> > > Even without passthrough, one needs to steer the hypervisor DMA to no=
-n
-> > guest memory.
-> > > And guest driver must not be able to attack (read/write) from that me=
-mory.
-> > > I don=E2=80=99t see how one can do this without PASID. As all DMAs ar=
-e tagged using
-> > only RID.
-> >
-> > There are a lot of other ways, but in order to converge, we can leave i=
-t for
-> > future discussions.
-> >
-> So, first level passthrough seems a basic requirement to support to opera=
-te from vmm control.
->
-> 2nd level nesting can be emulated or accelerated to follow the principles=
- of the paper you pointed.
->
-> > What's more, if we design virtio for the future, PASID must be consider=
-ed as a
-> > way as we all know it would come for sure.
-> >
-> For future PASID be fully controlled by the guest to continue like today.
-> PASID based bifurcation is still open question to me.
-
-It is by design, e.g devices can have secondary PASID. It's not hard
-to understand. And it's much simpler than doing "bifurcation" in PF.
-
->
-> > >
-> > > > >
-> > > > > How to I plan to address above two?
-> > > > > a. #1 to be addressed by having the _F_PM bit, when the bit is
-> > > > > negotiated PCI
-> > > > PM drives the state.
-> > > >
-> > > > We can't duplicate every transport specific feature in virtio. This
-> > > > is a layer violation again. We should reuse the PCI facility here.
-> > > >
-> > > It is reused by having the feature bit to indicate that device suppor=
-ts
-> > suspend/resume.
-> > > If from Day_1, if the PCI PM bits used, it would not require the feat=
-ure bit.
-> > > But that was not the case.
-> > > So the guest driver do not know if using the PCI PM bit is enough to =
-decide, if
-> > suspend/resume by guest will work or not.
-> > > Hence the feature bit.
-> >
-> > Anyhow you need to update the driver if it has an issue. In the update,=
- you can
-> > check and use PCI PM. If it doesn't have PCI PM, you can only suspend/r=
-esume
-> > at virtio level. Defining transport semantics at the virtio level break=
-s the layers.
-> >
-> This series does not define transport semantics at virtio level.
-
-Don't you want to limit P2P in those states?
-
-> It only defines virtio level semantics of what to be done/not done.
->
-> > >
-> > > > > This will work orthogonal to VMM side migration and will co-exist
-> > > > > with VMM
-> > > > based device migration.
-> >
-> > Actually not, if PF can suspend VF via PCI facilities, that would be no=
- layer
-> > violation any more.
-> >
-> There is no such PCI facility.
-
-If you want to make passthrough work without layer violation, you need eith=
-er:
-
-1) invent them in the PCI
-
-or
-
-2) Trap and let hypervisor to control how to implement the suspend,
-for example hypervisor can choose to control the PM of VF
-
-> PCI capabilities is not supposed to contain device migration kind of comp=
-lex commands.
-
-We're discussing suspending here, no? Talking about PCI, even if
-capabilities are not, it doesn't mean we can't extend PCI to use
-others. Anyhow, this is really ir-revelant to the discussion here.
-Virtio does virtio not PCI, you can't invent new features in virtio in
-order to be able to extend or fix the function of PCI.
-
-> I explained in the discussion with Michael.
->
-> > > > >
-> > > > > b. nested use case:
-> > > > > L0 VMM maps a VF to L1 guest as PF with emulated SR-IOV capabilit=
-y.
-> > > > > L1 guest to enable SR-IOV and mapping the VF to L2 guest.
-> > > >
-> > > > Let me ask it again here, how can you migrate L2 using L1 "emulated=
-"
-> > > > PF? Emulation?
-> > > >
-> > > Emulation is one way as most nested platform components do.
-> >
-> > That's the point, you can't avoid emulation.
-> It is applicable only after first level.
-> First level must be able to take the benefit without emulation like rest =
-of the system modules do today.
-
-You can't avoid traps and emulation. So the key is what/when/where to
-trap, this is my logic of questions .
-
-You want to pass through virtio facilities without trap and emulation,
-you need to justify that.
-
-Thanks
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogQ2hlbiwgSmlxaWFuIDxKaXFpYW4uQ2hlbkBhbWQuY29tPg0KPiBTZW50OiBU
+dWVzZGF5LCBPY3RvYmVyIDI0LCAyMDIzIDU6NDQgUE0NCj4gDQo+IE9uIDIwMjMvMTAvMjQgMTg6
+NTEsIFBhcmF2IFBhbmRpdCB3cm90ZToNCj4gPg0KPiA+PiBGcm9tOiBDaGVuLCBKaXFpYW4gPEpp
+cWlhbi5DaGVuQGFtZC5jb20+DQo+ID4+IFNlbnQ6IFR1ZXNkYXksIE9jdG9iZXIgMjQsIDIwMjMg
+NDowNiBQTQ0KPiA+Pg0KPiA+PiBPbiAyMDIzLzEwLzIzIDIxOjM1LCBQYXJhdiBQYW5kaXQgd3Jv
+dGU6DQo+ID4+Pg0KPiA+Pj4+IEZyb206IENoZW4sIEppcWlhbiA8SmlxaWFuLkNoZW5AYW1kLmNv
+bT4NCj4gPj4+PiBTZW50OiBNb25kYXksIE9jdG9iZXIgMjMsIDIwMjMgNDowOSBQTQ0KPiA+Pj4N
+Cj4gPj4+Pj4gSSB0aGluayB0aGlzIGNhbiBiZSBkb25lIHdpdGhvdXQgaW50cm9kdWNpbmcgdGhl
+IG5ldyByZWdpc3Rlci4NCj4gPj4+Pj4gQ2FuIHlvdSBwbGVhc2UgY2hlY2sgaWYgdGhlIFBNIHJl
+Z2lzdGVyIGl0c2VsZiBjYW4gc2VydmUgdGhlDQo+ID4+Pj4+IHB1cnBvc2UgaW5zdGVhZA0KPiA+
+Pj4+IG9mIG5ldyB2aXJ0aW8gbGV2ZWwgcmVnaXN0ZXI/DQo+ID4+Pj4gRG8geW91IG1lYW4gdGhl
+IHN5c3RlbSBQTSByZWdpc3Rlcj8NCj4gPj4+IE5vLCB0aGUgZGV2aWNlJ3MgUE0gcmVnaXN0ZXIg
+YXQgdHJhbnNwb3J0IGxldmVsLg0KPiA+PiBJIHRyaWVkIHRvIGZpbmQgdGhpcyByZWdpc3Rlcihw
+Y2kgbGV2ZWwgb3IgdmlydGlvIHBjaSBsZXZlbCBvciB2aXJ0aW8NCj4gPj4gZHJpdmVyIGxldmVs
+KSwgYnV0IEkgZGlkbid0IGZpbmQgaXQgaW4gTGludXgga2VybmVsIG9yIFFlbXUgY29kZXMuDQo+
+ID4+IE1heSBJIGtub3cgd2hpY2ggcmVnaXN0ZXIgeW91IGFyZSByZWZlcnJpbmcgdG8gc3BlY2lm
+aWNhbGx5PyBPciB3aGljaA0KPiA+PiBQTSBzdGF0ZSBiaXQgeW91IG1lbnRpb25lZCBiZWxvdz8N
+Cj4gPj4NCj4gPiBQQ0kgc3BlYydzIFBDSSBQb3dlciBNYW5hZ2VtZW50IENhcGFiaWxpdHkgU3Ry
+dWN0dXJlIGluIHNlY3Rpb24gNy41LjIuDQo+IFllcywgd2hhdCB5b3UgcG9pbnQgdG8gaXMgUE0g
+Y2FwYWJpbGl0eSBmb3IgUENJZSBkZXZpY2UuDQo+IEJ1dCB0aGUgcHJvYmxlbSBpcyBzdGlsbCB0
+aGF0IGluIFFlbXUgY29kZSwgaXQgd2lsbCBjaGVjayB0aGUNCj4gY29uZGl0aW9uKHBjaV9idXNf
+aXNfZXhwcmVzcyBvciBwY2lfaXNfZXhwcmVzcykgb2YgYWxsIHZpcnRpby1wY2kgZGV2aWNlcyBp
+bg0KPiBmdW5jdGlvbiB2aXJ0aW9fcGNpX3JlYWxpemUoKSwgaWYgdGhlIHZpcnRpbyBkZXZpY2Vz
+IGFyZW4ndCBhIFBDSWUgZGV2aWNlLCBpdCB3aWxsIG5vdA0KPiBhZGQgUE0gY2FwYWJpbGl0eSBm
+b3IgdGhlbS4NClBDSSBQTSBjYXBhYmlsaXR5IGlzIG11c3QgZm9yIFBDSWUgZGV2aWNlcy4gU28g
+bWF5IGJlIFFFTVUgY29kZSBoYXMgcHV0IGl0IG9ubHkgdW5kZXIgaXNfcGNpZSBjaGVjay4NCkJ1
+dCBpdCBjYW4gYmUgZG9uZSBvdXRzaWRlIG9mIHRoYXQgY2hlY2sgYXMgd2VsbCBiZWNhdXNlIHRo
+aXMgY2FwYWJpbGl0eSBleGlzdHMgb24gUENJIHRvbyBmb3IgbG9uZyB0aW1lIGFuZCBpdCBpcyBi
+YWNrd2FyZCBjb21wYXRpYmxlLg0KDQo+IEFuZCBhbm90aGVyIHByb2JsZW0gaXMgaG93IGFib3V0
+IHRoZSBNTUlPIHRyYW5zcG9ydCBkZXZpY2VzPyBTaW5jZQ0KPiBwcmVzZXJ2ZSByZXNvdXJjZXMg
+aXMgbmVlZCBmb3IgYWxsIHRyYW5zcG9ydCB0eXBlIGRldmljZXMuDQo+IA0KTU1JTyBsYWNrcyBz
+dWNoIHJpY2ggUE0gZGVmaW5pdGlvbnMuIElmIGluIGZ1dHVyZSBNTUlPIHdhbnRzIHRvIHN1cHBv
+cnQsIGl0IHdpbGwgYmUgZXh0ZW5kZWQgdG8gbWF0Y2ggdG8gb3RoZXIgdHJhbnNwb3J0cyBsaWtl
+IFBDSS4NCg0KPiA+Pj4NCj4gPj4+PiBJIHRoaW5rIGl0IGlzIHVucmVhc29uYWJsZSB0byBsZXQg
+dmlydGlvLSBkZXZpY2UgbGlzdGVuIHRoZSBQTQ0KPiA+Pj4+IHN0YXRlIG9mIEd1ZXN0IHN5c3Rl
+bS4NCj4gPj4+IEd1ZXN0IGRyaXZlciBwZXJmb3JtcyBhbnkgd29yayBvbiB0aGUgZ3Vlc3Qgc3lz
+dGVtcyBQTSBjYWxsYmFjaw0KPiA+Pj4gZXZlbnRzIGluDQo+ID4+IHRoZSB2aXJ0aW8gZHJpdmVy
+Lg0KPiA+PiBJIGRpZG4ndCBmaW5kIGFueSBQTSBzdGF0ZSBjYWxsYmFjayBpbiB0aGUgdmlydGlv
+IGRyaXZlci4NCj4gPj4NCj4gPiBUaGVyZSBhcmUgdmlydGlvX3N1c3BlbmQgYW5kIHZpcnRpb19y
+ZXN1bWUgaW4gY2FzZSBvZiBMaW51eC4NCj4gSSB0aGluayB3aGF0IHlvdSBzYWlkIHZpcnRpb19z
+dXNwZW5kL3Jlc3VtZSBpcyBmcmVlemUvcmVzdG9yZSBjYWxsYmFjayBmcm9tDQo+ICJzdHJ1Y3Qg
+dmlydGlvX2RyaXZlciIgb3Igc3VzcGVuZC9yZXN1bWUgY2FsbGJhY2sgZnJvbSAic3RhdGljIGNv
+bnN0IHN0cnVjdA0KPiBkZXZfcG1fb3BzIHZpcnRpb19wY2lfcG1fb3BzIi4NCj4gQW5kIHllcywg
+SSBhZ3JlZSwgaWYgdmlydGlvIGRldmljZXMgaGF2ZSBQTSBjYXBhYmlsaXR5LCBtYXliZSB3ZSBj
+YW4gc2V0IFBNIHN0YXRlDQo+IGluIHRob3NlIGNhbGxiYWNrIGZ1bmN0aW9ucy4NCj4gDQo+ID4N
+Cj4gPj4+DQo+ID4+Pj4gSXQncyBtb3JlIHN1aXRhYmxlIHRoYXQgZWFjaCBkZXZpY2UgZ2V0cyBu
+b3RpZmljYXRpb25zIGZyb20gZHJpdmVyLA0KPiA+Pj4+IGFuZCB0aGVuIGRvIHByZXNlcnZpbmcg
+cmVzb3VyY2VzIG9wZXJhdGlvbi4NCj4gPj4+IEkgYWdyZWUgdGhhdCBlYWNoIGRldmljZSBnZXRz
+IHRoZSBub3RpZmljYXRpb24gZnJvbSBkcml2ZXIuDQo+ID4+PiBUaGUgcXVlc3Rpb24gaXMsIHNo
+b3VsZCBpdCBiZSB2aXJ0aW8gZHJpdmVyLCBvciBleGlzdGluZyBwY2kgZHJpdmVyDQo+ID4+PiB3
+aGljaA0KPiA+PiB0cmFuc2l0aW9ucyB0aGUgc3RhdGUgZnJvbSBkMC0+ZDMgYW5kIGQzLT5kMCBp
+cyBlbm91Z2guDQo+ID4+IEl0IHNlZW1zIHRoZXJlIGlzbid0IGV4aXN0aW5nIHBjaSBkcml2ZXIg
+dG8gdHJhbnNpdGlvbnMgZDAgb3IgZDMNCj4gPj4gc3RhdGUuIENvdWxkIHlvdSBwbGVhc2UgdGVs
+bCBtZSB3aGljaCBvbmUgaXQgaXMgc3BlY2lmaWNhbGx5PyBJIGFtIHZlcnkgd2lsbGluZyB0bw0K
+PiBnaXZlIGEgdHJ5Lg0KPiA+Pg0KPiA+IFZpcnRpby1wY2kgbW9kZXJuIGRyaXZlciBvZiBMaW51
+eCBzaG91bGQgYmUgYWJsZSB0by4NCj4gWWVzLCBJIGtub3csIGl0IGlzIHRoZSBWSVJUSU9fUENJ
+X0ZMQUdfSU5JVF9QTV9CSVQuIEJ1dCBzdGlsbCB0aGUgdHdvIHByb2JsZW1zIEkNCj4gc2FpZCBh
+Ym92ZS4NCj4NCkJvdGggY2FuIGJlIHJlc29sdmVkIHdpdGhvdXQgc3dpdGNoaW5nIHRvIHBjaWUu
+DQogDQo+ID4NCj4gPj4+IENhbiB5b3UgcGxlYXNlIGNoZWNrIHRoYXQ/DQo+ID4+Pg0KPiA+Pj4+
+Pj4gLS0tIGEvdHJhbnNwb3J0LXBjaS50ZXgNCj4gPj4+Pj4+ICsrKyBiL3RyYW5zcG9ydC1wY2ku
+dGV4DQo+ID4+Pj4+PiBAQCAtMzI1LDYgKzMyNSw3IEBAIFxzdWJzdWJzZWN0aW9ue0NvbW1vbiBj
+b25maWd1cmF0aW9uDQo+IHN0cnVjdHVyZQ0KPiA+Pj4+Pj4gbGF5b3V0fVxsYWJlbHtzZWM6Vmly
+dGlvIFRyYW5zcG9ydA0KPiA+Pj4+Pj4gICAgICAgICAgLyogQWJvdXQgdGhlIGFkbWluaXN0cmF0
+aW9uIHZpcnRxdWV1ZS4gKi8NCj4gPj4+Pj4+ICAgICAgICAgIGxlMTYgYWRtaW5fcXVldWVfaW5k
+ZXg7ICAgICAgICAgLyogcmVhZC1vbmx5IGZvciBkcml2ZXIgKi8NCj4gPj4+Pj4+ICAgICAgICAg
+IGxlMTYgYWRtaW5fcXVldWVfbnVtOyAgICAgICAgIC8qIHJlYWQtb25seSBmb3IgZHJpdmVyICov
+DQo+ID4+Pj4+PiArICAgICAgICBsZTE2IHByZXNlcnZlX3Jlc291cmNlczsgICAgICAgIC8qIHJl
+YWQtd3JpdGUgKi8NCj4gPj4+Pj4gUHJlc2VydmluZyB0aGVzZSByZXNvdXJjZXMgaW4gdGhlIGRl
+dmljZSBpbXBsZW1lbnRhdGlvbiB0YWtlcw0KPiA+Pj4+PiBmaW5pdGUgYW1vdW50DQo+ID4+Pj4g
+b2YgdGltZS4NCj4gPj4+Pj4gUG9zc2libHkgbW9yZSB0aGFuIDQwbnNlYyAodGltZSBvZiBQQ0ll
+IHdyaXRlIFRMUCkuDQo+ID4+Pj4+IEhlbmNlIHRoaXMgcmVnaXN0ZXIgbXVzdCBiZSBhIHBvbGxp
+bmcgcmVnaXN0ZXIgdG8gaW5kaWNhdGUgdGhhdA0KPiA+Pj4+IHByZXNlcnZhdGlvbl9kb25lLg0K
+PiA+Pj4+PiBUaGlzIHdpbGwgdGVsbCB0aGUgZ3Vlc3Qgd2hlbiB0aGUgcHJlc2VydmF0aW9uIGlz
+IGRvbmUsIGFuZCB3aGVuDQo+ID4+Pj4+IHJlc3RvcmF0aW9uIGlzDQo+ID4+Pj4gZG9uZSwgc28g
+dGhhdCBpdCBjYW4gcmVzdW1lIHVwcGVyIGxheWVycy4NCj4gPj4+Pj4NCj4gPj4+Pj4gUGxlYXNl
+IHJlZmVyIHRvIHF1ZXVlX3Jlc2V0IGRlZmluaXRpb24gdG8gbGVhcm4gbW9yZSBhYm91dCBzdWNo
+DQo+ID4+Pj4+IHJlZ2lzdGVyDQo+ID4+Pj4gZGVmaW5pdGlvbi4NCj4gPj4+PiBUaGFua3MsIEkg
+d2lsbCByZWZlciB0byAicXVldWVfcmVzZXQiLiBTbywgSSBuZWVkIHRocmVlIHZhbHVlcywNCj4g
+Pj4+PiBkcml2ZXIgd3JpdGUgMSB0byBsZXQgZGV2aWNlIGRvIHByZXNlcnZpbmcgcmVzb3VyY2Vz
+LCBkcml2ZXIgd3JpdGUNCj4gPj4+PiAyIHRvIGxldCBkZXZpY2UgZG8gcmVzdG9yaW5nIHJlc291
+cmNlcywgZGV2aWNlIHdyaXRlIDAgdG8gdGVsbA0KPiA+Pj4+IGRyaXZlciB0aGF0IHByZXNlcnZp
+bmcgb3IgcmVzdG9yaW5nIGRvbmUsIGFtIEkgcmlnaHQ/DQo+ID4+Pj4NCj4gPj4+IFJpZ2h0Lg0K
+PiA+Pj4NCj4gPj4+IEFuZCBpZiB0aGUgZXhpc3RpbmcgcGNpZSBwbSBzdGF0ZSBiaXRzIGNhbiBk
+bywgd2UgY2FuIGxldmVyYWdlIHRoYXQuDQo+ID4+PiBJZiBpdCBjYW5ub3QgYmUgdXNlZCwgbGV0
+cyBhZGQgdGhhdCByZWFzb25pbmcgaW4gdGhlIGNvbW1pdCBsb2cgdG8NCj4gPj4+IGRlc2NyaWJl
+IHRoaXMNCj4gPj4gcmVnaXN0ZXIuDQo+ID4+Pg0KPiA+Pj4+Pg0KPiA+Pj4+PiBMZXRzIHBsZWFz
+ZSBtYWtlIHN1cmUgdGhhdCBQQ0llIFBNIGxldmVsIHJlZ2lzdGVycyBhcmUNCj4gPj4+Pj4gc3Vm
+ZmljaWVudC9ub3Qtc3VmZmljaWVudA0KPiA+Pj4+IHRvIGRlY2lkZSB0aGUgYWRkaXRpb24gb2Yg
+dGhpcyByZWdpc3Rlci4NCj4gPj4+PiBCdXQgaWYgdGhlIGRldmljZSBpcyBub3QgYSBQQ0llIGRl
+dmljZSwgaXQgZG9lc24ndCBoYXZlIFBNDQo+ID4+Pj4gY2FwYWJpbGl0eSwgdGhlbiB0aGlzIHdp
+bGwgbm90IHdvcmsuIEFjdHVhbGx5IGluIG15IGxvY2FsDQo+ID4+Pj4gZW52aXJvbm1lbnQsIHBj
+aV9pc19leHByZXNzKCkgcmV0dXJuIGZhbHNlIGluIFFlbXUsIHRoZXkgYXJlIG5vdA0KPiA+Pj4+
+IFBDSWUNCj4gPj4gZGV2aWNlLg0KPiA+Pj4gSXQgaXMgcmVhc29uYWJsZSB0byBhc2sgdG8gcGx1
+ZyBpbiBhcyBQQ0llIGRldmljZSBpbiAyMDIzIHRvIGdldCBuZXcNCj4gPj4+IGZ1bmN0aW9uYWxp
+dHkgdGhhdCB0b28geW91IG1lbnRpb25lZCBhIGdwdSBkZXZpY2UuIPCfmIoNCj4gPj4+IFdoaWNo
+IGRvZXMgbm90IGhhdmUgdmVyeSBsb25nIGhpc3Rvcnkgb2YgYW55IGJhY2t3YXJkIGNvbXBhdGli
+aWxpdHkuDQo+ID4+IERvIHlvdSBzdWdnZXN0IG1lIHRvIGFkZCBQTSBjYXBhYmlsaXR5IGZvciB2
+aXJ0aW8tZ3B1IG9yIGNoYW5nZQ0KPiA+PiB2aXJ0aW8tZ3B1IHRvIGEgUENJZSBkZXZpY2U/DQo+
+ID4+DQo+ID4gUENJIFBvd2VyIE1hbmFnZW1lbnQgQ2FwYWJpbGl0eSBTdHJ1Y3R1cmUgZG9lcyBu
+b3Qgc2VlbSB0byBiZSBsaW1pdGVkIHRvDQo+IFBDSWUuDQo+IEkgYW0gbm90IHN1cmUsIGJ1dCBp
+biBjdXJyZW50IFFlbXUgY29kZSwgSSBjYW4gc2VlIHRoZSBjaGVjayAicGNpX2lzX2V4cHJlc3Mi
+DQo+IGZvciBhbGwgdmlydGlvLXBjaSBkZXZpY2VzLiBJZiB3ZSB3YW50IHRvIGFkZCBQTSBjYXBh
+YmlsaXR5IGZvciB2aXJ0aW8tcGNpIGRldmljZXMsDQo+IHdlIG5lZWQgdG8gY2hhbmdlIHRoZW0g
+dG8gUENJZSBkZXZpY2UgSSB0aGluay4NCj4gDQpUaGF0IGlzIG9uZSBvcHRpb24uDQpTZWNvbmQg
+b3B0aW9uIHRvIGV4dGVuZCBQQ0kgUE0gY2FwIGZvciBub24gcGNpIGRldmljZSBiZWNhdXNlIGl0
+IGlzIHN1cHBvcnRlZC4NCg0KPiA+DQo+IA0KPiAtLQ0KPiBCZXN0IHJlZ2FyZHMsDQo+IEppcWlh
+biBDaGVuLg0K
 
