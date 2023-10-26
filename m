@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7972-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7973-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF9F6C25B48
-	for <virtio-comment@archiver.kernel.org>; Thu, 26 Oct 2023 06:23:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42561C25B6B
+	for <virtio-comment@archiver.kernel.org>; Thu, 26 Oct 2023 06:24:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0EC362B143
-	for <virtio-comment@archiver.kernel.org>; Thu, 26 Oct 2023 06:23:04 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 98A0D2A828
+	for <virtio-comment@archiver.kernel.org>; Thu, 26 Oct 2023 06:24:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E4052986A4D
-	for <virtio-comment@archiver.kernel.org>; Thu, 26 Oct 2023 06:23:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8183C986A4F
+	for <virtio-comment@archiver.kernel.org>; Thu, 26 Oct 2023 06:24:47 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D01DC986A46; Thu, 26 Oct 2023 06:23:03 +0000 (UTC)
+	id 74907986A46; Thu, 26 Oct 2023 06:24:47 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,108 +24,119 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BFF7F986A47
-	for <virtio-comment@lists.oasis-open.org>; Thu, 26 Oct 2023 06:23:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 65FAF986A47
+	for <virtio-comment@lists.oasis-open.org>; Thu, 26 Oct 2023 06:24:47 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: zIEk8VSSO76ZnREU2RnGtg-1
+X-MC-Unique: -hU7Ohf4MxOkWsULBD_YAg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698301378; x=1698906178;
+        d=1e100.net; s=20230601; t=1698301451; x=1698906251;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Hvw4TPmjVM+Z9qxwdGepxYvouba/E9xBHKqRc4LUtgk=;
-        b=kK8swdiB/nkYa7QODzX9hL2cHfH/g+XWf5HXWyGp90muXxcdmUYcWd6N1QbLUQULgK
-         h2XlVmFyGwcstJIx6YaWQwRt53/QqHDNegnu/DrqNJgTe0AX+1tP9XnM2g/sLq1lyK4T
-         md8hItfRl2x8fPbt119sHkkRGdIyWmaCcKdRo/VlKgZ38myPTBZR7AH+yPLujR+CI9KY
-         k3/RwnxK7M2Mc9wQmJI44C1BZ2aqx0UlO8XXg1KOy+JYqxH95KQPFM+TSZmKLOSQCDOk
-         EjVBEenaownzBp8MDump4mPI6yLttqtuIiZM0ltHLk0Q/GgL8hPc9kXZZqjcOrJDGosn
-         sVXw==
-X-Gm-Message-State: AOJu0YyPurvMUKBAUgQhJEmxOOZpuiqFEfDl7zlbswKm3Og9viD86UBA
-	JKcpG1Y/5mAVY7e4PT6ExEnxvsUN7iMLJ2QYr5L6WlZQ0QK0+qhgQ6Io3HHK4AVt8l90bFrtLTo
-	9fft32aHv1DlLvP/XP1sBomsUAGaYsN1UUQ==
-X-Received: by 2002:a2e:2e06:0:b0:2be:54b4:ff87 with SMTP id u6-20020a2e2e06000000b002be54b4ff87mr12518365lju.40.1698301378816;
-        Wed, 25 Oct 2023 23:22:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG4Sw+yQ4NMRzNqSqxIW4PCjL/LtQ+EzQU3fIXD23oS7nvEckot3ghrDYQAt6zqNpDnxnFeVw==
-X-Received: by 2002:a2e:2e06:0:b0:2be:54b4:ff87 with SMTP id u6-20020a2e2e06000000b002be54b4ff87mr12518353lju.40.1698301378452;
-        Wed, 25 Oct 2023 23:22:58 -0700 (PDT)
-Date: Thu, 26 Oct 2023 02:22:54 -0400
+        bh=NLdsBO7JBK/0anQJHAtgoGvEQhyQwoRYwBVJpVbdAGY=;
+        b=nwia0yKPrKYrVn7QjJyR84m67PVb++m+tmqasVpJD9mcFsgZP4DcfLbPMNr5IE3rIe
+         jIY5MxNluWRQUjAUxw57gzqvSeOo5E7nnCdng8pmYxxUGNjJ2hEm80Qp7ettrCBfKPLN
+         5c5ao9232Vs9dq7okJq4X570C1icrm/TOaG5Kk9Tnse82p/fYhwHdIZfyDtuRT2FNa83
+         7qk6P15vTubAtOAEIBHrRUaVvFgqdYV/4I8ZaEDjnoVx1Qmo3TlpQyjL9ln5fQhWbVPe
+         N8grb0D/GX836QioErEUNlH76HRDwbgH095RyNDBasv2Hw10/hKrJ0NniHfI2RjMJDzv
+         49dA==
+X-Gm-Message-State: AOJu0YxgLdTjaY95qns+QJOkYFK8B8kBhXO25FlmBITYeoV3lOul1nrq
+	akKZiNa2u0ZWX6f979+z+GxM+uCOtXfOgqXqv7ipZs3nG++eGgCH34cQH7Hp00M1WzcN+PBV14y
+	if+sJ89O/T3MzsoN/tz+OZPgZ30tQ8NgFng==
+X-Received: by 2002:a05:600c:198a:b0:408:40e2:773b with SMTP id t10-20020a05600c198a00b0040840e2773bmr13356415wmq.34.1698301451536;
+        Wed, 25 Oct 2023 23:24:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGkpC0X/onri7JsN2JP/+jmWO90nyta4weGQlQ/Lii/zn8t51fz2l+gZzvHUwNcb8CmBltETQ==
+X-Received: by 2002:a05:600c:198a:b0:408:40e2:773b with SMTP id t10-20020a05600c198a00b0040840e2773bmr13356400wmq.34.1698301451130;
+        Wed, 25 Oct 2023 23:24:11 -0700 (PDT)
+Date: Thu, 26 Oct 2023 02:24:06 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	Parav Pandit <parav@nvidia.com>,
+To: Parav Pandit <parav@nvidia.com>
+Cc: Cornelia Huck <cohuck@redhat.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231026020352-mutt-send-email-mst@kernel.org>
-References: <PH0PR12MB5481BE51210D429FA12EAB45DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fb012148-a71e-4856-95fe-6e75f011f3fb@intel.com>
- <20231020053534-mutt-send-email-mst@kernel.org>
- <3932dd54-f43a-40b6-8dba-962f997f7122@intel.com>
- <20231021112420-mutt-send-email-mst@kernel.org>
- <2cc0d8fc-8ed5-4b98-b5e7-3a86d3da80b0@intel.com>
- <20231023072519-mutt-send-email-mst@kernel.org>
- <8d601578-2083-4f45-a700-6b67d0c5b789@intel.com>
- <20231025042512-mutt-send-email-mst@kernel.org>
- <CACGkMEtaw-DKy7vwWj8wgG8-_9Kg4SV3=pS1djntOEYM62Dg-g@mail.gmail.com>
+	"hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>,
+	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
+	Shahaf Shuler <shahafs@nvidia.com>
+Message-ID: <20231026022349-mutt-send-email-mst@kernel.org>
+References: <PH0PR12MB5481A3846046A484EFE20408DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <87wmvdbehg.fsf@redhat.com>
+ <PH0PR12MB548172C89C0213867F765012DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <87ttqhbcy7.fsf@redhat.com>
+ <PH0PR12MB5481723C85AF5B80689C9084DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <PH0PR12MB548149234F6B8F894387FAAADCDEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231025062207-mutt-send-email-mst@kernel.org>
+ <DM8PR12MB5480246A4E61D071C4C60A69DCDDA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20231026013059-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54811806D9195E8611DBF7F3DCDDA@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <CACGkMEtaw-DKy7vwWj8wgG8-_9Kg4SV3=pS1djntOEYM62Dg-g@mail.gmail.com>
+In-Reply-To: <PH0PR12MB54811806D9195E8611DBF7F3DCDDA@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+Subject: Re: [virtio-comment] RE: [PATCH v3 2/2] content: Support enabling
+ virtqueue after DRIVER_OK stage
 
-On Thu, Oct 26, 2023 at 08:56:47AM +0800, Jason Wang wrote:
-> > > We transfer data by DMA, the device writes DMA dirty pages information(bitmap)
-> > > to host isolated memory region.
-> > >
-> >
-> >
-> > If you do that then I don't see any reason not to use admin
-> > commands for that - either through a vq or a simpler
-> > interface.
+On Thu, Oct 26, 2023 at 06:02:28AM +0000, Parav Pandit wrote:
 > 
-> I think we need to agree that admin commands are the only interface
-> for any future features before we can have an agreement here.
-
-I don't think that needs to be the case. I do think that if
-your goal is a separate channel from normal device operation
-then this is what admin commands have been designed for.
-
-> My understanding is that it is optional for the transport that
-> requires administrative commands like provisioning etc. It is not
-> necessarily the interface for new features.
-
-Yes. And migration is IMO sufficiently "like provisioning".
-
-> >
-> >
-> > >
-> > >         Config space interfaces are fundamental for virtio-pci.
-> > >
-> > >
-> > >     They are in fact fundamental to virtio. Multiple transports to
-> > >     use config space are also fundamental.
-> > >
-> > > I agree. So I also agree to build admin vq live migration solution based on our
-> > > basic facilities, as Jason ever proposed.
-> >
-> >
-> > I'm not sure it's even a vq. I suggest a minimal interface to send
-> > admin commands. Could be used by migration, as transport, and more.
-> >
 > 
-> It's better if we can do that below the layer of admin commands. For
-> example, we don't stick device status with any specific interface. We
-> can keep doing things like this.
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Thursday, October 26, 2023 11:10 AM
 > 
-> Thanks
+> > 
+> > shorter: i.e. after FEATURES_OK is set and before DRIVER_OK is set.
+> 
+> Ok.
+> 
+> > If VIRTIO_F_RING_DYNAMIC is negotiated,
+> > the driver can choose to enable some virtqueues after DRIVER_OK is set.
+> Ok. will take this simpler version.
+> 
+> > 
+> > 
+> > >
+> > > > > > +enable every virtqueue it wants to use before setting the
+> > > > > > +DRIVER_OK status bit; the driver can choose to enable a
+> > > > > > +virtqueue even after the driver has set the DRIVER_OK status bit.
+> > 
+> > 
+> > 
+> > 
+> > >> The virtqueue enable
+> > > > > > +mechanism is
+> > > > > > transport specific.
+> > 
+> > 
+> > 
+> > 
+> > I still feel there is no real explanation in a transport agnostic manner what does
+> > it mean to "enable" virtqueue. Do you maybe just mean "configure virtqueue"?
+> > 
+> There is explanation of "re-enabling" a virtqueue in section " Virtqueue Re-enable".
+> 
+> There is no good example of "configured" in generic section either, other than cleanup and mmio section.
+> 
+> > 
+> > Can we just avoid talking about "enabling"?
+> > Is it true that you can basically change anything you want about the vq not just
+> > the enable bit? If so talking about enabling is just confusing I think.
+> Not really.
+> Enabling sequence of a virtqueue for pci and mmio transport is:
+> 
+> 1. select a q
+> 2. program the addresses
+> 3. set the enable bit
+> 
+> However, as I think more, this one-way interface of driver instructing the device without any error code and without any response is just too limiting interface.
+> I will be dropping this series that misuses the config registers beyond its intended init time use.
+> 
+> Let me work on more mature interface that solves following challenges.
+> 1. ability to create a virtqueue dynamically after driver_ok
+> 2. ability to create virtqueue with one or multiple physical addresses
+> 3. ability for the device to return error if it cannot create dynamic vq creation
+> 
+> The question is, do we need this generic facility beyond virtio-net?
 
-Could go either way, but complex functionality like live migration
-can benefit from a rich interface.
+Wow, sounds rather complex.
 
 -- 
 MST
