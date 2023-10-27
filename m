@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-7990-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-7991-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EEEC25B48
-	for <virtio-comment@archiver.kernel.org>; Fri, 27 Oct 2023 02:32:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 773FFC25B6B
+	for <virtio-comment@archiver.kernel.org>; Fri, 27 Oct 2023 02:35:57 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 256C22AC7B
-	for <virtio-comment@archiver.kernel.org>; Fri, 27 Oct 2023 02:32:04 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C45113357B
+	for <virtio-comment@archiver.kernel.org>; Fri, 27 Oct 2023 02:35:56 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F1BC8986A8E
-	for <virtio-comment@archiver.kernel.org>; Fri, 27 Oct 2023 02:32:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A8768986A89
+	for <virtio-comment@archiver.kernel.org>; Fri, 27 Oct 2023 02:35:56 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D567B986A81; Fri, 27 Oct 2023 02:32:03 +0000 (UTC)
+	id 93377986A81; Fri, 27 Oct 2023 02:35:56 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,222 +24,205 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C6005986A82
-	for <virtio-comment@lists.oasis-open.org>; Fri, 27 Oct 2023 02:32:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 837B8986A82
+	for <virtio-comment@lists.oasis-open.org>; Fri, 27 Oct 2023 02:35:56 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046049;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0VuzAdhO_1698373917;
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: virtio-comment@lists.oasis-open.org
-Cc: Parav Pandit <parav@nvidia.com>,
-	Yuri Benditovich <yuri.benditovich@daynix.com>,
-	Satananda Burla <sburla@marvell.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Cornelia Huck <cohuck@redhat.com>
-Date: Fri, 27 Oct 2023 10:31:57 +0800
-Message-Id: <418d429358d79747976328ac10d62718e284df71.1698373045.git.hengqi@linux.alibaba.com>
-X-Mailer: git-send-email 2.19.1.6.gb485710b
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046056;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0VuzHkqv_1698374151;
+Message-ID: <3841cce3-a2de-4fca-a422-896c21b05c28@linux.alibaba.com>
+Date: Fri, 27 Oct 2023 10:35:48 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Heng Qi <hengqi@linux.alibaba.com>
+To: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.oasis-open.org
+Cc: "Michael S . Tsirkin" <mst@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Parav Pandit <parav@nvidia.com>
+References: <fac1080d10df30450e889379b8da2a6db6523c23.1697695970.git.hengqi@linux.alibaba.com>
+In-Reply-To: <fac1080d10df30450e889379b8da2a6db6523c23.1697695970.git.hengqi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v4] virtio-net: support the RSS context
+Subject: Re: [virtio-comment] [PATCH v2] virtio-net: support distinguishing
+ between partial and full checksum
 
-Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support RSS spreading of
-filter matches") adds support for RSS context as a destination for receive flow filters
-(see WIP work: https://lists.oasis-open.org/archives/virtio-comment/202308/msg00194.html).
+Hi Jason and all, do you have any more comments on this version?^^
 
-An RSS context consists of configurable parameters specified by receive-side scaling.
+This feature is important for users using XDP on Alibaba Cloud.
 
-Some use cases:
-1. When users want some data flows to be steered to specific multiple rxqs, they can set
-   receive flow filter rules for these data flows to an RSS context with desired rxqs.
-2. Traffic isolation. Used when users want the traffic of certain applications to occupy
-   several queues without being distubed.
+Thanks!
 
-How to set/configure an RSS context:
-Assuming no RSS context has been created before.
-1. ethtool -X eth0 context new start 5 equal 8
-
-This command creates an RSS context with an id=1 for eth0, and fills in the indirection
-table with rxq indexes 5-8 circularly. The hash key and hash types reuse the default
-RSS configuration.
-
-Then, we can use 'ethtool -x eth0 context 1' to query the above configuration.
-
-2. ethtool -X eth0 context new start 6 equal 7 \
-   hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
-   1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3
-
-This command creates an RSS context with an id=2 for eth0, and fills in the indirection
-table with rxq indexes 6-7 circularly. The hash key is 8f:bf:dd:11:23:58:d2:8a:00:31:d0\
-:32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3.
-Hash types reuse the default RSS configuration.
-
-3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
-
-This command specifies the hash types for the RSS context whose id=1 on eth0.
-Now this RSS context only has the hash key to reuse the default RSS configuration.
-
-4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
-
-This command configures a receive flow filter rule for eth0, and the data flow matching
-this rule will continue to select the final rxq according to the RSS context configuration
-with id=1.
-
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/178
-Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
-Acked-by: Satananda Burla <sburla@marvell.com>
----
-v3->v4:
-  1. Rebase to Xuan's device stats patch.
-
-v2->v3:
-  1. Add Satananda's ack tag.
-  2. Add link to fix issue and optimize commit log.
-
-v1->v2:
-  1. u8 to le16 for field rss_ctx_id.
-  2. Add normativation when device resetting. @Yuri Benditovich
-  3. Use ctrlq cmd to query rss context capability instead of reading config space. @Parav Pandit
-
- device-types/net/description.tex        | 85 +++++++++++++++++++++++++
- device-types/net/device-conformance.tex |  1 +
- device-types/net/driver-conformance.tex |  1 +
- 3 files changed, 87 insertions(+)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index aff5e08..f0b5d18 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -122,6 +122,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
-     device with the same MAC address.
- 
- \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and duplex.
-+
-+\item[VIRTIO_NET_F_RSS_CONTEXT(64)] Device supports multiple RSS contexts.
- \end{description}
- 
- \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
-@@ -153,6 +155,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
- \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
- \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
-+\item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and VIRTIO_NET_F_RSS.
- \end{description}
- 
- \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
-@@ -1613,6 +1616,88 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
- \end{itemize}
- 
-+\paragraph{RSS Context}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-+
-+An RSS context consists of configurable parameters specified by \ref{sec:Device Types / Network Device
-+/ Device Operation / Control Virtqueue / Receive-side scaling (RSS)}.
-+
-+The RSS configuration supported by VIRTIO_NET_F_RSS is considered the default RSS configuration.
-+
-+The device offers the feature VIRTIO_NET_F_RSS_CONTEXT if it supports one or multiple RSS contexts
-+(excluding the default RSS configuration) and configurable parameters.
-+
-+\subparagraph{Querying RSS Context Capability}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Querying RSS Context Capability}
-+
-+\begin{lstlisting}
-+#define VIRTNET_RSS_CTX_CTRL 9
-+ #define VIRTNET_RSS_CTX_CTRL_CAP_GET  0
-+ #define VIRTNET_RSS_CTX_CTRL_ADD      1
-+ #define VIRTNET_RSS_CTX_CTRL_MOD      2
-+ #define VIRTNET_RSS_CTX_CTRL_DEL      3
-+
-+struct virtnet_rss_ctx_cap {
-+    le16 max_rss_contexts;
-+}
-+\end{lstlisting}
-+
-+Field \field{max_rss_contexts} specifies the maximum number of RSS contexts \ref{sec:Device Types / Network Device /
-+Device Operation / Control Virtqueue / RSS Context} supported by the device.
-+
-+The driver queries the RSS context capability of the device by sending the command VIRTNET_RSS_CTX_CTRL_CAP_GET
-+with the structure virtnet_rss_ctx_cap.
-+
-+For the command VIRTNET_RSS_CTX_CTRL_CAP_GET, the structure virtnet_rss_ctx_cap is write-only for the device.
-+
-+\subparagraph{Setting RSS Context Parameters}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Setting RSS Context Parameters}
-+
-+\begin{lstlisting}
-+struct virtnet_rss_ctx_add_modify {
-+    le16 rss_ctx_id;
-+    le16 padding;
-+    struct virtio_net_rss_config rss;
-+};
-+
-+struct virtnet_rss_ctx_del {
-+    le16 rss_ctx_id;
-+};
-+\end{lstlisting}
-+
-+RSS context parameters:
-+\begin{itemize}
-+\item  \field{rss_ctx_id}: ID of the specific RSS context.
-+\item  \field{rss}: RSS context parameters of the specific RSS context whose id is \field{rss_ctx_id}.
-+\end{itemize}
-+
-+\field{padding} is reserved and it is ignored by the device.
-+
-+If the feature VIRTIO_NET_F_RSS_CONTEXT has been negotiated, the driver can send the following
-+VIRTNET_RSS_CTX_CTRL class commands:
-+\begin{enumerate}
-+\item VIRTNET_RSS_CTX_CTRL_ADD: use the structure virtnet_rss_ctx_add_modify to
-+       add an RSS context configured as \field{rss} and id as \field{rss_ctx_id} for the device.
-+\item VIRTNET_RSS_CTX_CTRL_MOD: use the structure virtnet_rss_ctx_add_modify to
-+       configure parameters of the RSS context whose id is \field{rss_ctx_id} as \field{rss} for the device.
-+\item VIRTNET_RSS_CTX_CTRL_DEL: use the structure virtnet_rss_ctx_del to delete
-+       the RSS context whose id is \field{rss_ctx_id} for the device.
-+\end{enumerate}
-+
-+For commands VIRTNET_RSS_CTX_CTRL_ADD and VIRTNET_RSS_CTX_CTRL_MOD, the structure virtnet_rss_ctx_add_modify is read-only for the device.
-+For the command VIRTNET_RSS_CTX_CTRL_DEL, the structure virtnet_rss_ctx_del is read-only for the device.
-+
-+\devicenormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-+
-+The device MUST set \field{max_rss_contexts} to at least 1 if it offers VIRTIO_NET_F_RSS_CONTEXT.
-+
-+Upon reset, the device MUST clear all previously configured RSS contexts.
-+
-+\drivernormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-+
-+The driver MUST have negotiated the VIRTIO_NET_F_RSS_CONTEXT feature when issuing the VIRTNET_RSS_CTX_CTRL class commands.
-+
-+The driver MUST set \field{rss_ctx_id} to between 1 and \field{max_rss_contexts} inclusive.
-+
-+The driver MUST NOT send the command VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET when the device has successfully configured at least one RSS context.
-+
- \paragraph{Offloads State Configuration}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Offloads State Configuration}
- 
- If the VIRTIO_NET_F_CTRL_GUEST_OFFLOADS feature is negotiated, the driver can
-diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-index 52526e4..c71341e 100644
---- a/device-types/net/device-conformance.tex
-+++ b/device-types/net/device-conformance.tex
-@@ -16,4 +16,5 @@
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
-+\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \end{itemize}
-diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-index c693c4f..7081ec3 100644
---- a/device-types/net/driver-conformance.tex
-+++ b/device-types/net/driver-conformance.tex
-@@ -16,4 +16,5 @@
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
-+\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \end{itemize}
--- 
-2.19.1.6.gb485710b
+在 2023/10/19 下午2:17, Heng Qi 写道:
+> virtio-net works in a virtualized system and is somewhat different from
+> physical nics. One of the differences is that to save virtio device
+> resources, rx may receive packets with partial checksum. However, XDP may
+> cause partially checksummed packets to be dropped. So XDP loading conflicts
+> with the feature VIRTIO_NET_F_GUEST_CSUM.
+>
+> This patch lets the device to supply fully checksummed packets to the driver.
+> Then XDP can coexist with VIRTIO_NET_F_GUEST_CSUM to enjoy the benefits of
+> device verification checksum.
+>
+> In addition, implementation of some performant devices do not generate
+> partially checksummed packets, but the standard driver still need to clear
+> VIRTIO_NET_F_GUEST_CSUM when loading XDP. If these devices enable the
+> full checksum offloading, then the driver can load XDP without clearing
+> VIRTIO_NET_F_GUEST_CSUM.
+>
+> A new feature bit VIRTIO_NET_F_GUEST_FULL_CSUM is added to solve the above
+> situation, which provides the driver with configurable receive full checksum
+> offload. If the offload is enabled, then the device must supply fully
+> checksummed packets to the driver.
+>
+> Use case example:
+> If VIRTIO_NET_F_GUEST_FULL_CSUM is negotiated and receive full checksum
+> offload is enabled, after XDP processes a packet with full checksum, the
+> VIRTIO_NET_HDR_F_DATA_VALID bit is still retained, resulting in the stack
+> not needing to validate the checksum again. This is useful for guests:
+>    1. Bring the driver advantages such as cpu savings.
+>    2. For devices that do not generate partially checksummed packets themselves,
+>       XDP can be loaded in the driver without modifying the hardware behavior.
+>
+> Several solutions have been discussed in the previous proposal[1].
+> After historical discussion, we have tried the method proposed by Jason[2],
+> but some complex scenarios and challenges are difficult to deal with.
+> We now return to the method suggested in [1].
+>
+> [1] https://lists.oasis-open.org/archives/virtio-dev/202305/msg00291.html
+> [2] https://lore.kernel.org/all/20230628030506.2213-1-hengqi@linux.alibaba.com/
+>
+> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+> ---
+> v1->v2:
+>      1. Modify full checksum functionality as a configurable offload
+>         that is initially turned off. @Jason
+>
+>   device-types/net/description.tex | 54 ++++++++++++++++++++++++++++----
+>   1 file changed, 48 insertions(+), 6 deletions(-)
+>
+> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+> index 76585b0..3c34f27 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+>   \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+>       channel.
+>   
+> +\item[VIRTIO_NET_F_GUEST_FULL_CSUM (50)] Driver handles packets with full checksum.
+> +
+>   \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
+>   
+>   \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
+> @@ -133,6 +135,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
+>   \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
+>   \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
+>   \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
+> +\item[VIRTIO_NET_F_GUEST_FULL_CSUM] Requires VIRTIO_NET_F_GUEST_CSUM and VIRTIO_NET_F_CTRL_GUEST_OFFLOADS.
+>   
+>   \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
+>   \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
+> @@ -390,6 +393,13 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
+>   \ref{sec:Device Types / Network Device / Device Operation /
+>   Processing of Incoming Packets}~\nameref{sec:Device Types /
+>   Network Device / Device Operation / Processing of Incoming Packets} below.
+> +
+> +\item The VIRTIO_NET_F_GUEST_FULL_CSUM feature indicates that the driver handles
+> +  packets with full checksum and does not handle packets with partial checksum,
+> +  which means that partially checksummed packets can not be received by the driver
+> +  and the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} can not be set by the device.
+> +  The driver can send the VIRTIO_NET_CTRL_GUEST_OFFLOADS_SET command to control
+> +  the receive full checksum offload state.
+>   \end{enumerate}
+>   
+>   A truly minimal driver would only accept VIRTIO_NET_F_MAC and ignore
+> @@ -720,7 +730,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>     \field{num_buffers} is one, then the entire packet will be
+>     contained within this buffer, immediately following the struct
+>     virtio_net_hdr.
+> -\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+> +\item If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
+> +  VIRTIO_NET_F_GUEST_FULL_CSUM was negotiated) was negotiated, the
+>     VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
+>     set: if so, device has validated the packet checksum.
+>     In case of multiple encapsulated protocols, one level of checksums
+> @@ -744,7 +755,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>     number of coalesced TCP segments in \field{csum_start} field and
+>     number of duplicated ACK segments in \field{csum_offset} field
+>     and sets bit VIRTIO_NET_HDR_F_RSC_INFO in \field{flags}.
+> -\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+> +\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated but the
+> +  VIRTIO_NET_F_GUEST_FULL_CSUM feature was not negotiated, the
+>     VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} can be
+>     set: if so, the packet checksum at offset \field{csum_offset}
+>     from \field{csum_start} and any preceding checksums
+> @@ -802,8 +814,9 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>   device MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
+>   \field{gso_type}.
+>   
+> -If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
+> -device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
+> +If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated but
+> +the VIRTIO_NET_F_GUEST_FULL_CSUM feature has not been negotiated,
+> +the device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
+>   \field{flags}, if so:
+>   \begin{enumerate}
+>   \item the device MUST validate the packet checksum at
+> @@ -819,11 +832,38 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>   	fully checksummed packet;
+>   \end{enumerate}
+>   
+> +The driver MUST NOT enable receive full checksum offload for which
+> +VIRTIO_NET_F_GUEST_FULL_CSUM has not been negotiated.
+> +
+> +Initially (before the device receives any VIRTIO_NET_CTRL_GUEST_OFFLOADS_SET
+> +command carrying the VIRTIO_NET_F_GUEST_FULL_CSUM feature parameter) receive
+> +full checksum offload MUST be disabled.
+> +
+> +Upon the device reset, the device MUST disable receive full checksum offload.
+> +
+> +If VIRTIO_NET_F_GUEST_FULL_CSUM has been negotiated and receive full checksum
+> +offload has not been enabled, the device MUST NOT perform any of the
+> +functionality provided by VIRTIO_NET_F_GUEST_FULL_CSUM.
+> +
+> +If receive full checksum offload has been enabled, the device MUST NOT set
+> +the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} and MUST supply a
+> +fully checksummed packet to the driver.
+> +
+> +If a partially checksummed packet is received by the device, the device MUST
+> +calculate full checksum for the packet and then supply it to the driver
+> +\ref{sec:Device Types / Network Device / Device Operation / Packet Transmission}.
+> +
+>   If none of the VIRTIO_NET_F_GUEST_TSO4, TSO6, UFO, USO4 or USO6 options have
+>   been negotiated, the device MUST set \field{gso_type} to
+>   VIRTIO_NET_HDR_GSO_NONE.
+>   
+> -If \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
+> +If receive full checksum offload has been enabled and \field{gso_type}
+> +differs from VIRTIO_NET_HDR_GSO_NONE, then the device MUST NOT set
+> +the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} and MUST calculate
+> +full checksum for the packet and then supply it to the driver.
+> +
+> +If the VIRTIO_NET_F_GUEST_FULL_CSUM feature has not been negotiated and
+> +\field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
+>   the device MUST also set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
+>   \field{flags} MUST set \field{gso_size} to indicate the desired MSS.
+>   If VIRTIO_NET_F_RSC_EXT was negotiated, the device MUST also
+> @@ -839,7 +879,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>   not less than the length of the headers, including the transport
+>   header.
+>   
+> -If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
+> +If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
+> +VIRTIO_NET_F_GUEST_FULL_CSUM has been negotiated) has been negotiated, the
+>   device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
+>   \field{flags}, if so, the device MUST validate the packet
+>   checksum (in case of multiple encapsulated protocols, one level
+> @@ -1624,6 +1665,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+>   #define VIRTIO_NET_F_GUEST_TSO6       8
+>   #define VIRTIO_NET_F_GUEST_ECN        9
+>   #define VIRTIO_NET_F_GUEST_UFO        10
+> +#define VIRTIO_NET_F_GUEST_FULL_CSUM  50
+>   #define VIRTIO_NET_F_GUEST_USO4       54
+>   #define VIRTIO_NET_F_GUEST_USO6       55
+>   
 
 
 This publicly archived list offers a means to provide input to the
