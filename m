@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8045-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8046-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CCDEC4332F
-	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64131C4332F
+	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:54 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id E3835613C3
-	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:48 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C75FD71C8D
+	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:53 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DF09A986B49
-	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:48 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BB8B7986B3C
+	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:53 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D3B92986B37; Mon, 30 Oct 2023 13:20:48 +0000 (UTC)
+	id AFCC8986B34; Mon, 30 Oct 2023 13:20:53 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,365 +24,272 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C46D0986B38
-	for <virtio-comment@lists.oasis-open.org>; Mon, 30 Oct 2023 13:20:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A28DE986B36
+	for <virtio-comment@lists.oasis-open.org>; Mon, 30 Oct 2023 13:20:53 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ebh7fV+9AOXqyIk6tvTR7d594jw2JfH4zmXgVazhqOobpptoOi/jKVUqDgRRb/cR0fCIRvmEB84otqG24U2M7BAx1VpT3bNqmC5AGLyIkaUsdAG4M0NAtQ2SM245Xf4bpJf+PM+wEKKf/WEV7cYa7UxLCwLQa2kUpY9t0u39YR7+Op6pmjO/D08RQFb/MmLPCpa9+bu5smHBj835+EszIntHF8py0OGwnxDQGVr5c7TOBLyHNQLtOFVxoPQzzGyulKoKBllmIFMpHmPAzaYmqG+hpuQsbKd2KGrcBrfM/ikU/gltuDdelyvLV6qxdfNk49yx0wyOK6Mnyfw50vnn7A==
+ b=Xpn8+aSCIiuoe8zVrzfSOStjtyxTSxYHW+bg2o9qQdE+ov8J3ymbyAmKtSgQC6as5IGae5gBWWzIzWo6RhwCOYPnu+m74hv12ezZpLpZ+SwNypS21/Trm+bqMbentBK2lKSjKHI0CsCc3C/AifVKNXiEFyzgb7kKEJTUenOvqfd3FIVGfPSUHcQlLwGUpjvtBxtnErL4mfI3RQl1ZXlLQ44NqD6+Nw62OS4TXh5fOQxKhNr1qNnjWI7Kgp96cxB8JulEgVgDtpcrQqNlN17ucsGfeYRyVlAFTkeMD7koKLfw3Uyr920FXiMI9JcZB9BT0TrYZp1CcDl9Ojh33V36mQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RR+zVpBHXe+KGjrzr2ugwEUk8fmzzpVhb+z/+kd16qQ=;
- b=NtqST2+qqzKf2ysuHBd+R1woZ7FEdeWofk5S9l697VrqaY1wuu1W9uADX9mmWKOu/d5bjsKmhd7ErUPNGXD1v1cD1h9DKsA+soXtlnlTfzapWmMapK5JAm6G/6be/MFJGE9Y8GpRlhFHXBI29x+xsvlEr51fNvItbux71pDGSGz+mTSn2oc9SD4Ey6HlERceY9Pk3DesjUQcusDGsnsboiAvGbRJn9XYCtU6KvbUFSNq+oJwhqZ9TEK8gb9751V++jsJ9BJR1LjUscrzYhzgXarjJ0valbU2nk3t00TBRxWGxKglLvQk8UhuKSZVO9J4Dg3soEoAcaABBMD4WC0D+g==
+ bh=fQ+tD5kiFWXTopo2aId6NZcjcjpML70F2ToUXoTbvFw=;
+ b=FXTgktvs+Uiwp4pm8/ql7mnieLpkzSfJ0PLB/Vg2dXz3JlfDMCFOI0yp0hP6PZ3ZqQuhMcdEHdXuyGm10c0MUj636DTkg+SYFA1FdSrBEYIuSpPr5y3jSOEP2tmswHfV8MLH8XuBvmQITxgia7jkQDldxEBMe5EYVxHPO21LsnMz/ZMIsiXJhOVeVqIywHkOXPv3B2GMdBTl6rtBpI2NyZRhcyKhzIoJAuQRBSIN/ibznkeTL1pOScSvSbNuf1NADHeh5vMJ1d61yeewS6SbrFEF6eHWCv0iCIghHhrA8vphF6aRLK+I8jgip+bEMpzPSu/+7FIqfCPbq9PQ75ar4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
+ 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
  header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 	<cohuck@redhat.com>
 CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <maorg@nvidia.com>,
 	<yishaih@nvidia.com>, <lingshan.zhu@intel.com>, <jasowang@redhat.com>, "Parav
  Pandit" <parav@nvidia.com>
-Date: Mon, 30 Oct 2023 15:19:54 +0200
-Message-ID: <20231030131959.1386107-4-parav@nvidia.com>
+Date: Mon, 30 Oct 2023 15:19:56 +0200
+Message-ID: <20231030131959.1386107-6-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231030131959.1386107-1-parav@nvidia.com>
 References: <20231030131959.1386107-1-parav@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.126.231.35]
 X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017095:EE_|SA3PR12MB7830:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4788da9-921a-41f7-f52f-08dbd94b0507
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DA:EE_|PH7PR12MB5998:EE_
+X-MS-Office365-Filtering-Correlation-Id: df3e3a53-d77f-4edc-7055-08dbd94b080f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Hp/tsjArEOQSKtofN9RmXACH8m69pr6/cYEh1rFfZRsmrOEN7KyZ54lS6oohPOjPuJkcAYp7CohVtoYaLEn9DhLEITzy/YYMtpZM+N1EP1/8JEJMPvHXqic1LruYOvpW3UAImRYYy8HknWJj2srmRSVny5AMoKLS8SEZ3u5h8AkyoSTXxQncPIl7KIrE5q8gQ9ApFc7RHkEy2YWJiKouruFedmRh6qC0DCZ9xJF76d+qDyZQUgqtOuvbzALw334dPbZiVNuc5jZ0OsCmNVLRCkthQxQ91kqzDhWdY8sl8kJv/1YzM/h1WvRilqpH+oRVP0cB0/gG+y3CYrgnwO9ChXSs/SvBl9072xrPNSRd7GSihRiJUD6mdz0YDK8+xkx/wf5BD0LUkpRce+TViBrnoQ1npsVLczuVjE95ze4Wlhi/i+qSQ/ygZwgUwkZDH0sfy77/m96eXtXTRMmm/EgnL9DoYt58NjAIgboCxFkZiV9nd+lrkjlGVLEypV5Lqwb8Smy6p5k3ofzUQ0jT6fiOHr9OK6raptBtch5rfeeBqHTxnz/pOlgkY4W95uyrzkJT6ZXolAxizWFpFp80+BTAMeD6bWoAQKKyGJh7PZAzzpQDVDYq3+nf98DIVgZFawitYR9x0dtcOJFfMNV0g+1m82dk53jjy2+ilSKr3sHyNAtjXXndBtjnH8MLjHKNvSBij0P2SbxUhZdLxG5Ju2P5MOVP3yJfJk26u4r7gLRsXKqLCXe+/Z++w8f1mmKWzQ4tbl6wDkafR21jP6V/O9afwQyfcxyTJcYtiJkwqsB+1E0=
+	1TxCzGmBE5LlD/a2hzFxqUuPHzzREfQT0jHVQkWT6pngTNUODdBTDh1nkCsKPl/4vlVKnyaX2ZyhTG3EMBacn/67LwIhtOWphE51YvJLQ/c7POJd9Ve+djmuXyRLY7vdI4fQCF24m9jbq1RXy7hfStskG5HUiyp60AVW2gRA9v1+/hnRI1rR7NmgCqBNbFpliUMdE5sIo3zS9+XiWWlAqNGpqKeQqkHKkfO3xRr4js3j+VtCDboqSmlY6rmOdFtSx+W90UT3iaPhP8XBxcH0W36gKWz8jsLLs7q/1kcRo7wp/yXMdd63Pg7kp9eWkjozDGaLxO19nmYicE6N9BGWcYOXafxNRwTwDb5L1asgxK0MW+h5refRg6HGI1K5ypWstztS46bUNPRGls0PS1pOLNX8FPMKkF+9hjeaRtLNcDspyvbRGimJCnjghOlJu/TnEwjnijgOMwrd4es+mSGU924srQbuz+2fdyYZJ436LnqcfReyK7fnyIMbUpMzoZXIJTl3ha7hmK3clnGZSk4lUP5qjNy+fhL+0DyOO2vdS2YOYDebBewH5ftZXYaGudkt/qZVgGN3a0j8tQjXZ1rZOENDDKmvkRn9vh8s1SEKnZstdyEO6VuLWmvC+xq1g3xJj/3g18t5QZJM7xmydRmbObcovMrvYKtLE+u6w7PmKEfek32PZ84QHkNT6iHSa92UOtGBb9TH9iweyIl8JOL+4Sy5sbUvexmfRjjayDfWduT7GfRilXgqEOTY4xj3ExFUkNJcGZj0bozHIrD1uXgqzA==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(396003)(346002)(376002)(136003)(39860400002)(230922051799003)(451199024)(64100799003)(186009)(82310400011)(1800799009)(40470700004)(46966006)(36840700001)(2906002)(40460700003)(36860700001)(54906003)(70586007)(70206006)(47076005)(7636003)(356005)(82740400003)(316002)(26005)(107886003)(6666004)(966005)(478600001)(110136005)(83380400001)(2616005)(1076003)(336012)(426003)(16526019)(41300700001)(5660300002)(30864003)(8936002)(8676002)(4326008)(86362001)(40480700001)(36756003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(39860400002)(136003)(396003)(230922051799003)(82310400011)(1800799009)(186009)(64100799003)(451199024)(36840700001)(40470700004)(46966006)(2616005)(1076003)(26005)(107886003)(5660300002)(8676002)(8936002)(16526019)(4326008)(36756003)(7636003)(54906003)(70586007)(36860700001)(110136005)(82740400003)(70206006)(47076005)(41300700001)(2906002)(356005)(316002)(966005)(478600001)(336012)(426003)(40480700001)(40460700003)(86362001)(83380400001)(6666004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 13:20:43.1676
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 13:20:48.2967
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4788da9-921a-41f7-f52f-08dbd94b0507
+X-MS-Exchange-CrossTenant-Network-Message-Id: df3e3a53-d77f-4edc-7055-08dbd94b080f
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017095.namprd03.prod.outlook.com
+	CY4PEPF0000E9DA.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7830
-Subject: [virtio-comment] [PATCH v3 3/8] device-context: Define the device context fields for device migration
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5998
+Subject: [virtio-comment] [PATCH v3 5/8] admin: Add requirements of device migration commands
 
-Define the device context and its fields for purpose of device
-migration. The device context is read and written by the owner driver
-on source and destination hypervisor respectively.
-
-Device context fields will experience a rapid growth post this initial
-version to cover many details of the device.
+Add device and driver side requirements for the device migration
+commands.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
 Signed-off-by: Parav Pandit <parav@nvidia.com>
-Signed-off-by: Satananda Burla <sburla@marvell.com>
 ---
 changelog:
 v2->v3:
-- drop fields_count to support dynamic size device context
-- instead, define start and end marker context fields
-- added split virtqueue's used ring fields at they are read only
-  fields for the device, so the device may not be able to read them
-  after device is moved to active mode
-- added device context invalidate tlv to speed up context migration
-  under device reset flow
-- split context types in 3 categories, marker, device common and device
-  specific
+- added device and driver normatives for {_START,_END}_MARKER fields
+- wrote member VF device instead of VF device
 v1->v2:
-- addressed comments from Michael
-- dropped layout from the enums and definition
-- defined more practical fields type range of 16-bit
-- split the range to generic and device type range
-- added assumptions and device context extension sections for future
-  proofing
-v0->v1:
-- enrich device context to cover feature bits, device configuration
-  fields
-- corrected alignment of device context fields
+- fixed spelling from membe to member
+- removed device requirement line of FLR making the device active
+  as it was incorrectly written to mix operational and admin state
+- added requirements to clarify flr, device reset, pm and admin commands
+- group sriov requirements
+- added description for device config space access in stop mode
+- removed stale requirement around pci ids
+- made device context write command requirements more robust
+  for future and backward compatibility
 ---
- content.tex        |   1 +
- device-context.tex | 241 +++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 242 insertions(+)
- create mode 100644 device-context.tex
+ admin-cmds-device-migration.tex | 173 ++++++++++++++++++++++++++++++++
+ 1 file changed, 173 insertions(+)
 
-diff --git a/content.tex b/content.tex
-index 0a62dce..2698931 100644
---- a/content.tex
-+++ b/content.tex
-@@ -503,6 +503,7 @@ \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Expo
- UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
- 
- \input{admin.tex}
-+\input{device-context.tex}
- 
- \chapter{General Initialization And Device Operation}\label{sec:General Initialization And Device Operation}
- 
-diff --git a/device-context.tex b/device-context.tex
-new file mode 100644
-index 0000000..06ed43d
---- /dev/null
-+++ b/device-context.tex
-@@ -0,0 +1,241 @@
-+\section{Device Context}\label{sec:Basic Facilities of a Virtio Device / Device Context}
+diff --git a/admin-cmds-device-migration.tex b/admin-cmds-device-migration.tex
+index c5030d2..ed911e4 100644
+--- a/admin-cmds-device-migration.tex
++++ b/admin-cmds-device-migration.tex
+@@ -323,3 +323,176 @@ \subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device /
+ the device returns new device context entry. Once the device context is
+ discarded, subsequent VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command writes a new device
+ context.
 +
-+The device context holds the information that a owner driver can use
-+to setup a member device and resume its operation. The device context
-+of a member device is read or written by the owner driver using
-+administration commands.
++\devicenormative{\paragraph}{Device Migration}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration}
 +
-+\begin{lstlisting}
-+struct virtio_dev_ctx_field_tlv {
-+        le16 type;
-+        u8 reserved[6];
-+        le64 length;
-+        u8 value[];
-+};
++A device MUST either support all of, or none of
++VIRTIO_ADMIN_CMD_DEV_MODE_GET,
++VIRTIO_ADMIN_CMD_DEV_MODE_SET,
++VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET,
++VIRTIO_ADMIN_CMD_DEV_READ,
++VIRTIO_ADMIN_CMD_DEV_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD commands.
 +
-+struct virtio_dev_ctx {
-+        struct virtio_dev_ctx_field_tlv fields[];
-+};
++When the device \field{mode} supplied in the command
++VIRTIO_ADMIN_CMD_DEV_MODE_SET is same as what the mode in the device, the device
++MUST complete the command successfully.
 +
-+\end{lstlisting}
++The device MUST fail the command VIRTIO_ADMIN_CMD_DEV_MODE_SET when the \field{mode}
++is other than \field{Active} or \field{Stop} or \field{Freeze}.
 +
-+The \field{struct virtio_dev_ctx} is the device context of a member device.
-+It consist of two or more \field{struct virtio_dev_ctx_field_tlv} fields in it.
++When changing the device mode using the command VIRTIO_ADMIN_CMD_DEV_MODE_SET,
++if the command fails, the device MUST retain the current device mode.
 +
-+The \field{struct virtio_dev_ctx_field_tlv} consist of \field{type} indicating
-+what data is contained in the \field{value} of length \field{length}.
-+The valid values for \field{type} can be found in the following table:
++The device MUST fail VIRTIO_ADMIN_CMD_DEV_MODE_SET command when \field{mode}
++is set to \field{Active} or \field{Stop} and if the device context is
++partially read or written using VIRTIO_ADMIN_CMD_DEV_CTX_READ and
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE commands respectively.
 +
-+\begin{table}
-+\caption{\label{tab:Device Context Fields} Device Context Fields}
-+\begin{tabularx}{\textwidth}{ |l||l|X| }
-+\hline
-+Type & Name & Description \\
-+\hline \hline
-+\hline
-+0x0 & VIRTIO_DEV_CTX_START_MARKER & Indicates start of the device context \\
-+\hline
-+0x1 & VIRTIO_DEV_CTX_END_MARKER & Indicates end of the device context \\
-+\hline
-+0x3 - 0xFF & - & device context markers \\
-+\hline
-+\hline
-+0x100 & VIRTIO_DEV_CTX_DISCARD & Indicates to discard device context \\
-+\hline
-+0x101 & VIRTIO_DEV_CTX_DEV_FEATURES & Provides device features \\
-+\hline
-+0x102 & VIRTIO_DEV_CTX_PCI_COMMON_CFG & Provides common configuration space of device for PCI transport \\
-+\hline
-+0x103 & VIRTIO_DEV_CTX_PCI_VQ_CFG & Provides Virtqueue configuration for PCI transport \\
-+\hline
-+0x104 & VIRTIO_DEV_CTX_VQ_SPLIT_RUNTIME_CFG & Provides Queue run time state \\
-+\hline
-+0x105 & VIRTIO_DEV_CTX_VQ_SPLIT_DEV_OWN_DESC & Provides list of virtqueue descriptors owned by device  \\
-+\hline
-+0x106 - 0xFFF & - & Generic device agnostic range reserved for future \\
-+\hline
-+\hline
-+0x1000 & VIRTIO_DEV_CTX_DEV_CFG & Provides device specific configuration \\
-+\hline
-+0x1001 - 0x1FFF & - & Device type specific range reserved for future \\
-+\hline
-+\hline
-+0x2000 - 0xFFFF & - & Reserved for future \\
-+\hline
-+\end{tabularx}
-+\end{table}
++When VIRTIO_ADMIN_CMD_DEV_CTX_READ command is received multiple times
++in a given mode, and when the complete device context is already read by the
++driver, on subsequent reception of command VIRTIO_ADMIN_CMD_DEV_CTX_READ,
++the device MUST complete the command successfully with
++\field{context_len} set to zero.
 +
-+\subsection{Device Context Fields}\label{sec:Basic Facilities of a Virtio Device / Device Context / Device Context Fields}
++The device MUST support reading the device context when the device is
++in any mode \field{Active} or \field{Stop} or \field{Freeze} using command
++VIRTIO_ADMIN_CMD_DEV_CTX_READ.
 +
-+Device Context Fields are of three types:
++When the device is in any of the mode, and if the device context is read
++partially using VIRTIO_ADMIN_CMD_DEV_CTX_READ command, the device MUST discard
++the device context when VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD command is executed;
++In subsequent execution of VIRTIO_ADMIN_CMD_DEV_CTX_READ and
++VIRTIO_ADMIN_CMD_DEV_CTX_SIZE_GET, the device MUST return the remaining
++estimated device context size and the device context respectively for the
++current mode as if VIRTIO_ADMIN_CMD_DEV_CTX_READ was never received by the
++device for the current device mode.
 +
-+\begin{description}
-+\item[Context Marker] type indicates the fields to describe the device context itself.
-+     They are in the range 0 to 0xFF.
-+\item[Device Common] type indicates the fields which are common across all devices.
-+     They are in the range 0x100 to 0x1FFF.
-+\item[Device Specific] type indicates the fields which are device type specific.
-+     They are in the range 0x1000 to 0x2FFF.
-+\end{description}
++The device MUST set VIRTIO_DEV_CTX_START_MARKER, VIRTIO_DEV_CTX_END_MARKER
++and VIRTIO_DEV_CTX_DISCARD in VIRTIO_ADMIN_CMD_DEV_CTX_FIELDS_QUERY
++command result.
 +
-+\subsubsection{Device Context Start Marker}
-+For the field VIRTIO_DEV_CTX_START_MARKER, \field{type} is set to 0x0.
-+The \field{value} is empty. The \field{length} is set to 0x0.
++The device MUST support writing the complete device context multiple times
++by the command VIRTIO_ADMIN_CMD_DEV_CTX_WRITE.
 +
-+\field{Device Context Start Marker} indicates the start of the device context.
-+All the other device context fields are located after this field.
++The device MUST fail VIRTIO_ADMIN_CMD_DEV_CTX_WRITE command when the device
++mode is not \field{Freeze}.
 +
-+\subsubsection{Device Context End Marker}
-+For the field VIRTIO_DEV_CTX_END_MARKER, \field{type} is set to 0x1.
-+The \field{value} is empty. The \field{length} is set to 0x0.
++For the SR-IOV group type,
++\begin{itemize}
++\item the device MUST not initiate any PCI transaction
++      when the device mode is not \field{Active}.
++\item the device MUST finish all the outstanding PCI transactions before completing
++      the command VIRTIO_ADMIN_CMD_DEV_MODE_SET.
++\item when the device mode is \field{Stop}, the device MUST accept driver
++       notifications and the device MAY update any fields of the device context.
++\item the device MUST respond with valid values for PCI read requests when
++      the device mode is \field{Stop}.
++\item the device MUST function same for the PCI architected interfaces
++      regardless of the device mode.
++\item the device MUST not generate any PCI PME when the device is
++      not in \field{Active} state.
++\item the device MUST NOT update any fields of the device context when the
++      device is in \field{Freeze} mode, the device MAY update fields of the
++      device context when the device transitions from \field{Stop} to
++      \field{Freeze} mode.
++\end{itemize}
 +
-+\field{Device Context End Marker} indicates the end of the device context.
-+All the other device context fields are located before this field.
++When the device mode is not \field{Active},
++\begin{itemize}
++\item the device MUST not access any virtqueue memory or any memory referred
++      by the virtqueue when the device mode is not \field{Active}.
 +
-+\subsubsection{Device Context Discard}
-+For the field VIRTIO_DEV_CTX_DISCARD, \field{type} is set to 0x100.
-+The \field{value} is empty. The \field{length} is set to 0x0.
++\item the device MUST not generate any configuration change notification. 
++\end{itemize}
 +
-+\field{Device Context Invalidate} indicates that any previous device context
-+fields of in \field{Device Common} and in \field{Device Specific} range are invalid.
++When the device is in \field{Freeze} mode, and if any device context is
++written partially by VIRTIO_ADMIN_CMD_DEV_CTX_WRITE, the device MUST discard
++the device context when VIRTIO_ADMIN_CMD_DEV_CTX_DISCARD
++command is executed, i.e. the device functions as if the command
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE was never received.
 +
-+\subsubsection{Device Features Context}
-+\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Device Features Context}
++For the SR-IOV group type,
++\begin{itemize}
++\item when the device is in \field{Freeze} mode, any
++write access to virtio configuration space MUST not update any fields and any
++configuration space read MAY return any value.
 +
-+For the field VIRTIO_DEV_CTX_DEV_FEATURES, \field{type} is set to 0x101.
-+The \field{value} is in format of device feature bits listed in
-+\ref{sec:Basic Facilities of a Virtio Device / Feature Bits} in the format of \field{struct virtio_dev_ctx_features}.
-+The \field{length} is the length of the \field{value}.
++\item for the VIRTIO_PCI_CAP_PCI_CFG capability area,
++the device MUST ignore writes when the device mode is set to \field{Freeze}
++and on receiving the reads, the device MUST function same regardless of the
++device mode is \field{Active} or \field{Stop} or \field{Freeze}.
 +
-+\begin{lstlisting}
-+struct virtio_dev_ctx_pci_vq_cfg {
-+        le64 feature_bits[];
-+};
-+\end{lstlisting}
++\item the member VF device MUST respond to commands
++VIRTIO_ADMIN_CMD_DEV_MODE_SET, VIRTIO_ADMIN_CMD_DEV_CTX_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_READ after the member VF device FLR completes in the
++device, if the member VF device FLR is in progress when the device receives
++any of these commands.
 +
-+\subsubsection{PCI Common Configuration Context}
-+\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ PCI Common Configuration Context}
++\item the member device MUST respond to commands
++VIRTIO_ADMIN_CMD_DEV_MODE_SET, VIRTIO_ADMIN_CMD_DEV_CTX_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_READ after the device reset completes in the device, if the
++device reset is in progress when the device receives any of these commands.
 +
-+For the field VIRTIO_DEV_CTX_PCI_COMMON_CFG, \field{type} is set to 0x102.
-+The \field{value} is in format of \field{struct virtio_pci_common_cfg}.
-+The \field{length} is the length of \field{struct virtio_pci_common_cfg}.
++\item the member device MUST respond to commands
++VIRTIO_ADMIN_CMD_DEV_MODE_SET, VIRTIO_ADMIN_CMD_DEV_CTX_WRITE and
++VIRTIO_ADMIN_CMD_DEV_CTX_READ after the device power management state transition completes
++in the device, if the power management state transition is in progress
++when the device receives any of these commands.
++\end{itemize}
 +
-+\subsubsection{PCI Virtqueue Configuration Context}
-+\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ PCI Virtqueue Configuration Context}
++The device MUST respond with an error for the command
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE, if there is a mismatch between the
++device context field length supplied in the
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE data and the length of the field
++in the device.
 +
-+For the field VIRTIO_DEV_CTX_PCI_VQ_CFG, \field{type} is set to 0x103.
-+The \field{value} is in format of \field{struct virtio_dev_ctx_pci_vq_cfg}.
-+The \field{length} is the length of \field{struct virtio_dev_ctx_pci_vq_cfg}.
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_READ,
++\begin{itemize}
++\item when there is valid context to respond at the start, the device MUST respond
++\field{field[0]} in \field{struct virtio_dev_ctx} of type
++VIRTIO_DEV_CTX_START_MARKER.
 +
-+\begin{lstlisting}
-+struct virtio_dev_ctx_pci_vq_cfg {
-+        le16 vq_index;
-+        le16 queue_size;
-+        le16 queue_msix_vector;
-+        le16 reserved;
-+        le64 queue_desc;
-+        le64 queue_driver;
-+        le64 queue_device;
-+};
-+\end{lstlisting}
++\item the device MUST end the device context \field{struct virtio_dev_ctx},
++with last entry of \field{fields[]} with type VIRTIO_DEV_CTX_END_MARKER.
 +
-+One or multiple entries of PCI Virtqueue Configuration Context may exist, each such
-+entry corresponds to a unique virtqueue identified by the \field{vq_index}.
++\item the device MUST NOT respond VIRTIO_DEV_CTX_END_MARKER followed by
++VIRTIO_DEV_CTX_START_MARKER in single command response.
 +
-+\subsubsection{Virtqueue Split Mode Runtime Context}
-+\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Virtqueue Split Mode Runtime Context}
++\item the device MAY respond VIRTIO_DEV_CTX_START_MARKER followed by
++VIRTIO_DEV_CTX_END_MARKER in two different command responses.
 +
-+For the field VIRTIO_DEV_CTX_VQ_SPLIT_RUNTIME_CFG, \field{type} is set to 0x104.
-+The \field{value} is in format of \field{struct virtio_dev_ctx_vq_split_runtime}.
-+The \field{length} is the length of \field{struct virtio_dev_ctx_vq_split_runtime}.
++\item the device MAY respond VIRTIO_DEV_CTX_START_MARKER followed by
++VIRTIO_DEV_CTX_END_MARKER in single command response.
++\end{itemize}
 +
-+\begin{lstlisting}
-+struct virtio_dev_ctx_vq_split_runtime {
-+        le16 vq_index;
-+        le16 dev_avail_idx;
-+        le16 used_flags;
-+        le16 used_idx;
-+        le16 used_avail_event;
-+        u8 enabled;
-+        u8 reserved[7];
-+};
-+\end{lstlisting}
++\drivernormative{\paragraph}{Device Migration}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Migration}
 +
-+One or multiple entries of \field{struct virtio_dev_ctx_vq_split_runtime}
-+may exist, each such entry corresponds to a virtqueue identified
-+by the \field{vq_index}.
++The driver SHOULD read the complete device context using one or multiple
++VIRTIO_ADMIN_CMD_DEV_CTX_READ commands.
 +
-+The \field{dev_avail_idx} indicates the next available index of the virtqueue from which
-+the device must start processing the available ring.
++The driver MAY write the device context before changing the device mode from
++\field{Freeze} to \field{Stop} or from \field{Freeze} to \field{Active};
++the driver MUST write a complete device context using one or multiple
++VIRTIO_ADMIN_CMD_DEV_CTX_WRITE commands.
 +
-+The \field{used_flags} indicates the last value written by the device for the
-+field \field{flags} in the used ring \field{struct virtq_used}.
++The driver MUST NOT change the device mode to \field{Stop} or \field{Active}
++in the command VIRTIO_ADMIN_CMD_DEV_MODE_SET when device context is
++partially written.
 +
-+The \field{used_idx} indicates the last value written by the device for the field
-+\field{idx} in the used ring \field{struct virtq_used}.
++For the SR-IOV group type, the driver SHOULD NOT access device configuration
++space described in section
++\ref{sec:Basic Facilities of a Virtio Device / Device Configuration Space}
++when the device mode is set to \field{Freeze} or \field{Stop}.
 +
-+The \field{used_avail_event} indicates the last value written by the device in the
-+field \field{avail_event} in the used ring \field{struct virtq_used}.
++For the SR-IOV group type, the driver MUST NOT write into the
++VIRTIO_PCI_CAP_PCI_CFG capability area when the device mode is set to
++\field{Freeze}.
 +
-+\subsubsection{Virtqueue Split Mode Device owned Descriptors Context}
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_WRITE, at start, the driver MUST
++set \field{field[0]} in \field{struct virtio_dev_ctx} of type
++VIRTIO_DEV_CTX_START_MARKER.
 +
-+For the field VIRTIO_DEV_CTX_VQ_SPLIT_DEV_OWN_DESC, \field{type} is set to 0x105.
-+The \field{value} is in format of \field{struct virtio_dev_ctx_vq_split_runtime}.
-+The \field{length} is the length of \field{struct virtio_dev_ctx_vq_split_dev_descs}.
-+
-+\begin{lstlisting}
-+struct virtio_dev_ctx_vq_split_dev_descs {
-+        le16 vq_index;
-+        le16 desc_count;
-+        le16 desc_idx[];
-+};
-+\end{lstlisting}
-+
-+The \field{desc_idx} contains indices of the descriptors in \field{desc_count} of a
-+virtqueue identified by \field{vq_index} which is owned by the device.
-+
-+One or multiple entries of \field{struct virtio_dev_ctx_vq_split_dev_descs} may exist, each such
-+entry corresponds to a virtqueue identified by the \field{vq_index}.
-+
-+\subsubsection{Device Configuration Context}
-+\label{par:Basic Facilities of a Virtio Device / Device Context / Device Context Fields/ Device Configuration Context}
-+
-+For the field VIRTIO_DEV_CTX_DEV_CFG, \field{type} is set to 0x1000.
-+The \field{value} is in format of device specific configuration listed
-+in each of the device's device configuration layout section.
-+For example, for File System Device, \field{value} is in format of
-+\field{struct virtio_fs_config}.
-+The \field{length} is the length of the device configuration data of
-+\field {value}.
-+
-+\subsubsection{Device Context Extensions}
-+Various considerations are necessary when creating new device context field or
-+when extending the device context field structure.
-+
-+1. How to define a new device context field? \\
-+If the new field is generic for all the device types or most of the device types,
-+it should be added under the generic field range. If the new field is unique to
-+a device type, it should be added under the device range type. \\
-+
-+2. When to define a new device context field? \\
-+When the device context field for a specific field does not exists, one should
-+define a new device context field. \\
-+
-+3. How to avoid duplication of device context field definition with device
-+   specific structures which may be present as control vq data structures? \\
-+Each device should reuse any existing field definition that may exists as part
-+of device control virtqueue or any other request structure. \\
-+
-+4. How to extend the existing device context field definition? \\
-+When a element is missing in already defined field, a new field must be added at
-+the end of the device context field. New field MUST not be added at beginning or in
-+the middle of the field structure. Any field which is already present MUST NOT
-+be removed. \\
-+
-+\subsubsection{Assumptions}
-+For the SR-IOV group type, some hypervisor do not permit the driver to access
-+PCI configuration space and MSI-X Table space directly. Such hypervisor handles the
-+query and saving of these fields without the need of its existence in device context.
-+Hence, this version of the specification do not have it in the device context. A future
-+extension of the device context may further include them with new field type for
-+each of the field.
++For the command VIRTIO_ADMIN_CMD_DEV_CTX_WRITE, the driver MUST
++end the device context \field{struct virtio_dev_ctx}, with last
++entry of \field{fields[]} with type VIRTIO_DEV_CTX_END_MARKER.
 -- 
 2.34.1
 
