@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8042-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8043-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E05FC4332F
-	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADB61C4167D
+	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DE70C26A44
-	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:35 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1B57A1FF99
+	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B2341986B42
-	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 16849986B56
+	for <virtio-comment@archiver.kernel.org>; Mon, 30 Oct 2023 13:20:40 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 92088986B34; Mon, 30 Oct 2023 13:20:35 +0000 (UTC)
+	id 0CB22986B34; Mon, 30 Oct 2023 13:20:40 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,16 +24,16 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 82482986B35
-	for <virtio-comment@lists.oasis-open.org>; Mon, 30 Oct 2023 13:20:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F370C986B35
+	for <virtio-comment@lists.oasis-open.org>; Mon, 30 Oct 2023 13:20:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mKEo9Y1YwvjCuAvTQDswtWjJWMa5XsfFnV5rNlkzjQxSbC1y45k1UUdC8H5O58onY7kYDlEEQieYig/yCqqNY92Rli4ZnIqS7wCfqvw1NtNskO5Z2UM5DW7DRqcDQHAhhJ5tSSfFezmS0RtFgdmtHA6yOkxWH6BNe5lGuS0zIQRkWhtc/kWU7w6sCSfYDrmOIf8uPl4HHWu+kShJsrpZ95mJ95sifMC1/uQLZojaxfj3ZRY8LIBoqAzhrykr85kB2eVkSJZh0huq2opSrz9kGOZhGv6Wk3NqDgpWyIbaL0lZlmUiotQQq5Uc5EVye5cHP49B2Y+iShQya6zFdNFT6g==
+ b=NR9xEQ218FeWvN3+MvHFrtGsh7RGLGiA/a2nFM4GFk0ABFsgwx2wYqT8xOV8+GOOP7diqtnuwMtKPFW0T7WwwQSywht+xHynxbp2SHbKAmOQGvskwX/NObJr32/8UKON1OfS4qLSoar6YzjUrkhEpjPAdXeiedqpNrhBcknWx3hM5c0Phts6gplVkN1hBVINrEHYAnk3TNNUfVEN2lfTZXqjk3wkJZcW52YsXEd9w53L6S4jog7zd6V6lcsIJ3RGM9WofjFMSXXrysQ+I87nekBe/fqwvAk1h4pFBvFiyRyEgZ5kb1jwAN7HzZFc0awp82wbDVacaF3syhkZH9PQow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KuDqw71JPPqXpC2N5rF2n+LtmgRzPOfo9XbQNVd2fq8=;
- b=kCA/JeKLhddQktA4P8TB0QeUPZ3fdkE5fQjHi52E9PvU1hiBE015fO61jrxNBh/C60ioj0tJK9Yq6OWk3Nnqr5F7cWVP9acsRocXOiu6746Wqdw+7LZNj5RxMQmXmFZkBVvDsnLMLAOMtcURnB0er/cmVHJDVGYkwlSBEd2GrLKiPF3ck113wXY6yoJcHrQDixmHs6AuosY4psjo8jgchmDgHgvEC3WVP4YRN9T+kogYsY8PXXOcCjYzGBw2hejwEuNOC4PWeMvtx7pfVGMooGh+Lrf4GpsTOzuCTatIS45gcw5vHpwwIZt5xx/9+Q8tjwZybyn4D8M4qv7sjhzDSQ==
+ bh=htol/1HDNU2phMnOP8MtwvmF5NKa/6t1G4a9gbFQmKY=;
+ b=YZQupmyfWcUcM8FIv4P6Mwzy6jm77uPtX1026l1ZeE9fk68lBLzLHrXk6yM+6nGBVM9rgXRGm4tS8/V+Clw6dhpj7VdE9mYph+MB4noEdHZAb/I+2L101bSBxVr13DIadtN6okihznSW9xK01Q9/CsmGqIroIdY5zYjkZR5wED01TjbrntakbvgVR4xW8/j+unlDACaID90SyZljA7OG8WA3Tdu90O9OpuJrQEZEBTTUA385LTa5uYOxmfBxOWLcu/atODe48c2tNC/zF3sB6kbzI8nWl5zZyroJKy2sKlJOcsw2E7+xDJfQoKBh2J28ZTgTWGXKb99LJ/t663UMnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
@@ -50,9 +50,11 @@ To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <maorg@nvidia.com>,
 	<yishaih@nvidia.com>, <lingshan.zhu@intel.com>, <jasowang@redhat.com>, "Parav
  Pandit" <parav@nvidia.com>
-Date: Mon, 30 Oct 2023 15:19:51 +0200
-Message-ID: <20231030131959.1386107-1-parav@nvidia.com>
+Date: Mon, 30 Oct 2023 15:19:52 +0200
+Message-ID: <20231030131959.1386107-2-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231030131959.1386107-1-parav@nvidia.com>
+References: <20231030131959.1386107-1-parav@nvidia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -61,178 +63,173 @@ X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017094:EE_|CYYPR12MB8872:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc700220-ecbe-4b2e-b198-08dbd94afec2
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017090:EE_|LV3PR12MB9402:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7db89fa-7648-4ad7-bade-08dbd94b009f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	00cPR6mhX50cm1T56yBhtDTbFaznM49M7vayeRoX38DXyGi2BZNfS0lOOLHu8OsnCELjNvlJ3lNQZB0r6IJMPPZTZuNOkYFrm7LxKFkGEXs+8nEX4nfN6TAps1FBZJzJb1SaN4q+3Kg+6YqPxv3My/KSGaZOfUWrfQe5MkX9BSVQqwPL2zhzy2ZNtRpg8FZjLFDOWbDNmv2G0yt9P12mCB/Oi/a9fX/e3A6MTNCt1lCnmo9z3gKRY3li0/tQ4o4WPx7m+lpFV7nVuJfkRiKtVs4jqlpjdEIG4kmd3W1kPuSGgzBnthU5c8v8icuLki/OzrAtz6Q78olgfxsuIby4hDzwfVug+lBp6d7JIsRBzoSNdagJTP6848NtshAxaFiTKJHbJprKxmJWsJcenvpjTESla6fxz9NWJws+WBy9mjew4Pc8xzKL19n7fmVpLc8alUHVsB9MezKPY4WL4m01H6s7yNsoi1mdwcHBBur5K/eY+B8IUDBU87Omgevw3nfRZcPUeNE62XCIHZZnk7lGUkNQ7sTyzXXyfmCW0Hk9WUlmDx8+LiRsQzapIr4HxiNeY5RFO3ZS2cfPHNMnETQ7+iYFXWkU/OHEtvbX5nqpGD9RNJUMos1B1vA2OSD+DQIvacfCXhjY0LzRrtnMeVB0lqsxFtTXM9cBbIShGx6jceL83BJjsTMNNq0Mm3hC/adib7zOfLgLJqTvDsSZVHJma7h+nuZdXltbvMSBdnQ9vLlTsXyrD1+XVz5LWMNOa07JxJKVCX9ky14d6ZOjKnfAirYWkIAnQt2xazNKdPBnKPU=
+	UJVScQ+IkmdKZlnhYWi+kNKR8RKdzc8JXcYcvhb4dLJisZDZmtAPzB05Kz8m2caHMUg/bRBGhxUpPdbOg8Zi0yDljYlEiLEtz1sMl+MD7bjPLRHmM8Sv17g6sGjcSsV5etSrtDnF1AnbXK9XHDfArNUlLKXvS0MqZK49pBhjIUNb1GWRUhUlnodY11iJ5qk4vBrD1BZjIVeVtEwOR0CmEyr82nYoHxO6FFwIfbaT4sAxj1weXi+CiepC4rzrsOI5LfsFkftVqRAX86Mrj5KCXbPsuAtNvLoEgSfXuz2YpQ0CyKcLvPjslJ1MqnWc8shSFpo7X1f/QYTAOTNIoK3dWTBf/XYn2TArxcTh3VEPUqMR9+PH3BfdU1EZea49GUrsRMXElV0v2lCLOcMG1reQd01VACeezDKXo1YvmIQccGc0caQRSWPCxJpefKqRjB5VixqIXFcfOgnPYA2xbxv++U95Uuuc9jIG9GJJ1WnJ5T9YYAIhMQC6u7jf2ARVOQgCeswWt/pqq45j43olsJKPJoYSGB2xmWIbmHAAIDOSxD6IK/2qcumtbM9xAeGDamN+Qp+ofkZLH/OYog+rdpPammOcw8H74Ol5T30iCfeZZ+0aK+aN+2gIP8TCf+fcLNkWqPGd1FxdPUzD568znl9SpuwdOM0l8DDeJ2EhFu/FyQoeLZe4RfXJh9CuMU2O6gnfdGFEQJmaprxT2sfL5Mmqc44ri9NsDByIVe6T33Eedbvn2g6b2DT7fBsv3jJ7mcLCit9Yw/GzOkbvcTnT6eyAgq5pTlkW1CcUZckvxbLYYrA=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(136003)(39860400002)(346002)(230922051799003)(82310400011)(64100799003)(186009)(451199024)(1800799009)(36840700001)(40470700004)(46966006)(66899024)(1076003)(26005)(16526019)(2616005)(40480700001)(40460700003)(86362001)(36756003)(7636003)(356005)(82740400003)(426003)(47076005)(83380400001)(336012)(2906002)(478600001)(107886003)(36860700001)(6666004)(8936002)(4326008)(8676002)(54906003)(316002)(110136005)(70586007)(41300700001)(5660300002)(966005)(70206006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(136003)(39860400002)(346002)(230922051799003)(64100799003)(82310400011)(1800799009)(451199024)(186009)(40470700004)(46966006)(36840700001)(1076003)(16526019)(26005)(40460700003)(36756003)(86362001)(40480700001)(356005)(82740400003)(7636003)(2616005)(336012)(426003)(83380400001)(2906002)(478600001)(107886003)(36860700001)(6666004)(47076005)(8936002)(8676002)(966005)(4326008)(316002)(54906003)(5660300002)(41300700001)(70586007)(110136005)(70206006);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 13:20:32.6474
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 13:20:35.7424
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc700220-ecbe-4b2e-b198-08dbd94afec2
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7db89fa-7648-4ad7-bade-08dbd94b009f
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017094.namprd03.prod.outlook.com
+	DS1PEPF00017090.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8872
-Subject: [virtio-comment] [PATCH v3 0/8] Introduce device migration support commands
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9402
+Subject: [virtio-comment] [PATCH v3 1/8] admin: Add theory of operation for device migration
 
-This series introduces administration commands for member device migration
-for PCI transport; when needed it can be extended for other transports
-too.
+One or more passthrough PCI VF devices are ubiquitous for virtual
+machines usage using generic kernel framework.
 
-It takes inspiration from the similar idea presented at KVM Forum at [1].
+A passthrough PCI VF device is fully owned by the virtual machine
+device driver. This passthrough device controls its own device
+reset flow, basic functionality as PCI VF function level reset
+and rest of the virtio device functionality such as control vq,
+config space access, data path descriptors handling.
 
-Use case requirements:
-======================
-1. A hypervisor system needs to provide a PCI VF as passthrough
-   device to the guest virtual machine and also support live
-   migration of this virtual machine.
-   A passthrough device has typically only PCI configuration space
-   and MSI-X table emulated by hypervisor. No virtio native interface
-   offered by the virtio member device is trapped and/or emulated.
-   This includes utilizing member device's native virtio common and
-   device config region, device specific cvq, data vqs without any
-   VMEXIT from the guest virtual machine and without any device type
-   specific code in hypervisor; this is because it is already present
-   in the owner and member device natively as unified interface for
-   guest virtual machines, containers and may be more use cases.
-2. A virtual machine may have one or more such passthrough
-   virtio devices.
-3. A virtual machine may have other PCI passthrough device
-   which may also interact with virtio device.
-4. A hypervisor runs a generic device type agnostic driver with
-   extension to support device migration.
-5. A PCI VF passthrough device needs to support transparent
-   device reset and PCI FLR while the device migration is
-   ongoing.
-6. A owner driver do not involve in device operations mediation
-   for the passthrough device at virtio interface level.
-7. Mechanism is generic enough that applies to large family of
-   virtio devices and it does not involve trapping any virtio
-   device interfaces for the passthrough devices.
+Additionally, VM live migration using a precopy method is also widely used.
 
-Overview:
-=========
-Above usecase requirements is solved by PCI PF group owner driver
-facilitating the member device migration functionality using
-administration commands.
+To support a VM live migration for such passthrough virtio member devices,
+the owner PCI PF device administers the device migration flow.
 
-There are three major functionalities.
+This patch introduces the basic theory of operation which describes the flow
+and supporting administration commands.
 
-1. Suspend and resume the device operation
-2. Read and Write the device context containing all the information
-   that can be transferred from source to destination to migrate to
-   a member device
-3. Track pages written by the device during device migration is
-   ongoing
-
-This comprehensive series introduces 4 infrastructure pieces
-covering PCI transport, peer to peer PCI devices, page write tracking
-(aka dirty page tracking) and generic virtio device context.
-
-1. Device mode get,set (active, stop, freeze)
-2. Device context read and write
-3. Defines device context and compatibility command
-4. Write reporting to track page addresses
-
-This series enables virtio PCI SR-IOV member device to member device
-migration. It can also be used to/from migrate from PCI SR-IOV member
-device to software composed PCI device if/when needed which can
-parse and compose software based PCI virtio device.
-
-This can also be useful for accessing member devices using some variant
-of only data path acceleration instead of of major passthrough functionality.
-
-In future, for nested environment may be able to utilize the same
-infrastructure with VF capable of supporting nested VF with SR-IOV
-capability.
-
-Example flow:
-=============
-Source hypervisor:
-1. Instructs device to start tracking pages it is writing
-2. Periodically query the addresses of the written pages
-3. Suspend the device operation
-4. Read the device context and transfer to destination hypervisor
-
-Destination hypervisor:
-5. Write the device context received from source
-6. Resume the device that has newly written device context
-
-Patch summary:
-==============
-patch-1: Adds theory of operation for device migration commands 
-patch-2: Redefine reserved2 to command output field
-patch-3: Defines short device context for split virtqueues
-patch-4: Adds device migration commands
-patch-5: Adds requirements for device migration commands
-patch-6: Adds theory of operation for write reporting commands
-patch-7: Adds write reporting commands
-patch-8: Adds requirements for write reporting commands
-
-Please review.
-
-Changelog:
-==========
-v2->v3:
-- updated cover letter to reflect the use for passthrough and for
-  only data path acceleration
-- updated cover letter to utilize same infra for nested
-- Addressed comments from Michael
-- updated read context command to not depend on returned data
-  length for closing the read context stream, instead depend on
-  explicit read response with zero length
-- fixed copy paste errors in write context command for fields
-  description
-- added device and driver normatives for {_START,_END}_MARKER fields
-- wrote member VF device instead of VF device
-v1->v2:
-- Addressed comments from Michael and Jason
-- replaced iova to page/physical address range in write recording commands
-- several device specific requirements added to clarify, interaction of
-  device reset, FLR, PCI PM and admin commands
-- added device context fields query command to learn compatibility
-- split device context field type range into generic and device specific
-- added device context extension section to maintain backward and future
-  compatibility
-- several rewording in theory of operation
-- added requirements to cover config space read/write interaction with
-  device context commands
-- added assumption about pci config space and msix table not present in
-  device context, which can be added when hypervisor need them
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+---
+changelog:
 v0->v1:
-- enrich device context to cover device configuration layout, feature bits
-- fixed alignment of device context fields
-- added missing Sign-off for the joint work done with Satananda
-- added link to the github issue
-
-[1] https://static.sched.com/hosted_files/kvmforum2022/3a/KVM22-Migratable-Vhost-vDPA.pdf
-
-Parav Pandit (8):
-  admin: Add theory of operation for device migration
-  admin: Redefine reserved2 as command specific output
-  device-context: Define the device context fields for device migration
-  admin: Add device migration admin commands
-  admin: Add requirements of device migration commands
-  admin: Add theory of operation for write recording commands
-  admin: Add write recording commands
-  admin: Add requirements of write reporting commands
-
- admin-cmds-device-migration.tex | 672 ++++++++++++++++++++++++++++++++
- admin.tex                       |  40 +-
- content.tex                     |   1 +
- device-context.tex              | 241 ++++++++++++
- 4 files changed, 947 insertions(+), 7 deletions(-)
+- addressed comments from Jason
+- simplified commit log to remove wording of flow
+- added link to the device reset section
+- addressed comments from Michael
+---
+ admin-cmds-device-migration.tex | 95 +++++++++++++++++++++++++++++++++
+ admin.tex                       |  1 +
+ 2 files changed, 96 insertions(+)
  create mode 100644 admin-cmds-device-migration.tex
- create mode 100644 device-context.tex
 
+diff --git a/admin-cmds-device-migration.tex b/admin-cmds-device-migration.tex
+new file mode 100644
+index 0000000..d172130
+--- /dev/null
++++ b/admin-cmds-device-migration.tex
+@@ -0,0 +1,95 @@
++\subsubsection{Device Migration}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group
++administration commands / Device Migration}
++
++In some systems, there is a need to migrate a running virtual machine
++from one to another system. A running virtual machine has one or more
++passthrough virtio member devices attached to it. A passthrough device
++is entirely operated by the guest virtual machine. For example, with
++the SR-IOV group type, group member device VF undergos device reset
++\ref{sec:Basic Facilities of a Virtio Device / Device Reset}
++and may also undergo PCI function level reset(FLR). Such operations
++are in control of the guest virtual machine which must comply to the
++device reset requirements and the PCI standard; at the same time those
++operations must not obstruct the device migration. In such a scenario,
++a group owner device can provide the administration command interface
++to facilitate the device migration related operations.
++
++When a virtual machine migrates from one hypervisor to another hypervisor,
++these hypervisors are named as source and destination hypervisor respectively.
++In such a scenario, a source hypervisor administers the
++member device to suspend the device and preserves the device context.
++Subsequently, a destination hypervisor administers the member device to
++setup a device context and resumes the member device. The source hypervisor
++reads the member device context and the destination hypervisor writes the member
++device context. The method to transfer the member device context from the source
++to the destination hypervisor is outside the scope of this specification.
++
++The member device can be in any of the three migration modes. The owner driver
++sets the member device in one of the following modes during device migration flow.
++
++\begin{tabularx}{\textwidth}{ |l||l|X| }
++\hline
++Value & Name & Description \\
++\hline \hline
++0x0   & Active &
++  It is the default mode after instantiation of the member device. \\
++\hline
++0x1   & Stop &
++ In this mode, the member device does not send any notifications,
++ and it does not access any driver memory.
++ The member device may receive driver notifications in this mode,
++ the member device context and device configuration space may change. \\
++\hline
++0x2   & Freeze &
++ In this mode, the member device does not accept any driver notifications,
++ it ignores any device configuration space writes,
++ the device do not have any changes in the device context. The
++ member device is not accessed in the system through the virtio interface. \\
++\hline
++\hline
++0x03-0xFF   & -    & reserved for future use \\
++\hline
++\end{tabularx}
++
++When the owner driver wants to stop the operation of the
++device, the owner driver sets the device mode to \field{Stop}. Once the
++device is in the \field{Stop} mode, the device does not initiate any notifications
++or does not access any driver memory. Since the member driver may be still
++active which may send further driver notifications to the device, the device
++context may be updated. When the member driver has stopped accessing the
++device, the owner driver sets the device to \field{Freeze} mode indicating
++to the device that no more driver access occurs. In the \field{Freeze} mode,
++no more changes occur in the device context. At this point, the device ensures
++that there will not be any update to the device context.
++
++The member device has a device context which the owner driver can either
++read or write. The member device context consist of any device specific
++data which is needed by the device to resume its operation when the device mode
++is changed from \field{Stop} to \field{Active} or from \field{Freeze}
++to \field{Active}.
++
++Once the device context is read, it is cleared from the device. Typically, on
++the source hypervisor, the owner driver reads the device context once when
++the device is in \field{Active} or \field{Stop} mode and later once the member
++device is in \field{Freeze} mode.
++
++Typically, the device context is read and written one time on the source and
++the destination hypervisor respectively once the device is in \field{Freeze}
++mode. On the destination hypervisor, after writing the device context,
++when the device mode set to \field{Active}, the device uses the most recently
++set device context and resumes the device operation.
++
++In an alternative flow, on the source hypervisor the owner driver may choose
++to read the device context first time while the device is in \field{Active} mode
++and second time once the device is in \field{Freeze} mode. Similarly, on the
++destination hypervisor writes the device context first time while the device
++is still running in \field{Active} mode on the source hypervisor and writes
++the device context second time while the device is in \field{Freeze} mode.
++This flow may result in very short setup time as the device context likely
++have minimal changes from the previously written device context. This flow may
++reduce the device migration time significantly and may have near constant
++device activation time regardless of number of virtqueues, resources and
++passthough devices in use by the migrating virtual machine.
++
++The owner driver can discard any partially read or written device context when
++any of the device migration flow should be aborted.
+diff --git a/admin.tex b/admin.tex
+index 0803c26..6eeef58 100644
+--- a/admin.tex
++++ b/admin.tex
+@@ -297,6 +297,7 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
+ might differ between different group types.
+ 
+ \input{admin-cmds-legacy-interface.tex}
++\input{admin-cmds-device-migration.tex}
+ 
+ \devicenormative{\subsubsection}{Group administration commands}{Basic Facilities of a Virtio Device / Device groups / Group administration commands}
+ 
 -- 
 2.34.1
 
