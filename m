@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8062-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8063-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D77E8C4332F
-	for <virtio-comment@archiver.kernel.org>; Tue, 31 Oct 2023 09:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3CB4C4332F
+	for <virtio-comment@archiver.kernel.org>; Tue, 31 Oct 2023 09:47:54 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2F64F6E6C7
-	for <virtio-comment@archiver.kernel.org>; Tue, 31 Oct 2023 09:45:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4F518749ED
+	for <virtio-comment@archiver.kernel.org>; Tue, 31 Oct 2023 09:47:54 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 172FE986B6A
-	for <virtio-comment@archiver.kernel.org>; Tue, 31 Oct 2023 09:45:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 31410986B6B
+	for <virtio-comment@archiver.kernel.org>; Tue, 31 Oct 2023 09:47:54 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 02AAC986B68; Tue, 31 Oct 2023 09:45:39 +0000 (UTC)
+	id 1E1E2986B68; Tue, 31 Oct 2023 09:47:54 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,81 +24,107 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E72A7986B69
-	for <virtio-comment@lists.oasis-open.org>; Tue, 31 Oct 2023 09:45:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0EAC0986B69
+	for <virtio-comment@lists.oasis-open.org>; Tue, 31 Oct 2023 09:47:54 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="419363612"
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="419363900"
 X-IronPort-AV: E=Sophos;i="6.03,265,1694761200"; 
-   d="scan'208";a="419363612"
+   d="scan'208";a="419363900"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="830992528"
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="830992713"
 X-IronPort-AV: E=Sophos;i="6.03,265,1694761200"; 
-   d="scan'208";a="830992528"
-Message-ID: <2d10d1c9-3bbd-43c5-be98-2ac7c4066b9f@intel.com>
-Date: Tue, 31 Oct 2023 17:45:33 +0800
+   d="scan'208";a="830992713"
+Message-ID: <2de53b77-ad90-48a8-b004-9b1884acc385@intel.com>
+Date: Tue, 31 Oct 2023 17:47:46 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>, Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
  "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
  "cohuck@redhat.com" <cohuck@redhat.com>,
  "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
  <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
  Yishai Hadas <yishaih@nvidia.com>
-References: <daea1f54-1c85-4a4a-ac3a-c5ae97180e03@intel.com>
- <PH0PR12MB5481BE51210D429FA12EAB45DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fb012148-a71e-4856-95fe-6e75f011f3fb@intel.com>
- <PH0PR12MB54819C3A4BC9BB419715AB73DCDBA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <f2707430-bb1e-4dcd-b0b3-2b9a705e555a@intel.com>
- <PH0PR12MB5481033BB7C0BCABAE329B13DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <f9a604b2-7bc9-49ce-bd28-59909f0a5fec@intel.com>
- <PH0PR12MB54815B589B8F5489FB493465DCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <9604eb82-8efd-46cd-8b15-90fc637eff0c@intel.com>
- <PH0PR12MB5481E6F72E2F15AC88E6E24ADCDDA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231030071652-mutt-send-email-mst@kernel.org>
+References: <20231030131959.1386107-1-parav@nvidia.com>
+ <20231030131959.1386107-7-parav@nvidia.com>
+ <CACGkMEuHBRwH9LqC+_jBX5OFrzhJw88AZeAQBou+G_hZK1F2Ug@mail.gmail.com>
+ <PH0PR12MB54811B1D566FA64E693E20D6DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231031034117-mutt-send-email-mst@kernel.org>
+ <debc2788-9482-43d0-a1ff-4a3fa35d1813@intel.com>
+ <20231031053926-mutt-send-email-mst@kernel.org>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231030071652-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231031053926-mutt-send-email-mst@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
 
 
 
-On 10/30/2023 7:27 PM, Michael S. Tsirkin wrote:
-> On Thu, Oct 26, 2023 at 07:04:38AM +0000, Parav Pandit wrote:
->> 1. It breaks the future TDISP model
-> I really think brinding in TDISP muddies the waters a lot and
-> should be avoided. We simply won't know until someone does the
-> legwork and proposed the necessary spec extensions.
-> In particular current legacy access commands are I thn
->
->
->> 2. Without hypervisor getting involved, all the member device MMIO space is accessible which follows the efficiency and equivalency principle of Jason listed paper
+On 10/31/2023 5:41 PM, Michael S. Tsirkin wrote:
+> On Tue, Oct 31, 2023 at 05:32:01PM +0800, Zhu, Lingshan wrote:
 >>
->> I hope you are not implying to trap+emulate virtio interfaces (which is not listed in the pci-spec) in hypervisor for member passthrough devices.
-> I feel this discussion will keep meandering because the terminology is
-> vague. There's no single thing that is called "passthrough" -
-> vendors just build what is expedient with current hardware and
-> software. Nvidia has a bunch of people working on vfio so they
-> call that passthrough, Red Hat has people working on VDPA and
-> they call that passthrough, etc.
->
->
-> Before I mute this discussion for good, does anyone here have any
-> feeling progress is made? What kind of progress?
-I agree, please no future discussions of passthrough and TDISP. Really 
-not helpful.
-
-I am really feel wasting time here explaining what is pass-through, the 
-use-case and
-why TDISP is not related here. What is the point talking about something 
-not present right now?
-
-Just to keep the discussion open????
-
-Please!!!!
+>> On 10/31/2023 3:45 PM, Michael S. Tsirkin wrote:
+>>> On Tue, Oct 31, 2023 at 03:27:12AM +0000, Parav Pandit wrote:
+>>>>> From: Jason Wang <jasowang@redhat.com>
+>>>>> Sent: Tuesday, October 31, 2023 7:13 AM
+>>>>>
+>>>>> On Mon, Oct 30, 2023 at 9:21 PM Parav Pandit <parav@nvidia.com> wrote:
+>>>>>> During a device migration flow (typically in a precopy phase of the
+>>>>>> live migration), a device may write to the guest memory. Some
+>>>>>> iommu/hypervisor may not be able to track these written pages.
+>>>>>> These pages to be migrated from source to destination hypervisor.
+>>>>>>
+>>>>>> A device which writes to these pages, provides the page address record
+>>>>>> of the to the owner device. The owner device starts write recording
+>>>>>> for the device and queries all the page addresses written by the
+>>>>>> device.
+>>>>>>
+>>>>>> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/176
+>>>>>> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>>>>>> Signed-off-by: Satananda Burla <sburla@marvell.com>
+>>>>>> ---
+>>>>>> changelog:
+>>>>>> v1->v2:
+>>>>>> - addressed comments from Michael
+>>>>>> - replaced iova with physical address
+>>>>>> ---
+>>>>>>    admin-cmds-device-migration.tex | 15 +++++++++++++++
+>>>>>>    1 file changed, 15 insertions(+)
+>>>>>>
+>>>>>> diff --git a/admin-cmds-device-migration.tex
+>>>>>> b/admin-cmds-device-migration.tex index ed911e4..2e32f2c 100644
+>>>>>> --- a/admin-cmds-device-migration.tex
+>>>>>> +++ b/admin-cmds-device-migration.tex
+>>>>>> @@ -95,6 +95,21 @@ \subsubsection{Device Migration}\label{sec:Basic
+>>>>>> Facilities of a Virtio Device /  The owner driver can discard any
+>>>>>> partially read or written device context when  any of the device migration flow
+>>>>> should be aborted.
+>>>>>> +During the device migration flow, a passthrough device may write data
+>>>>>> +to the guest virtual machine's memory, a source hypervisor needs to
+>>>>>> +keep track of these written memory to migrate such memory to destination
+>>>>> hypervisor.
+>>>>>> +Some systems may not be able to keep track of such memory write
+>>>>>> +addresses at hypervisor level. In such a scenario, a device records
+>>>>>> +and reports these written memory addresses to the owner device. The
+>>>>>> +owner driver enables write recording for one or more physical address
+>>>>>> +ranges per device during device migration flow. The owner driver
+>>>>>> +periodically queries these written physical address records from the device.
+>>>>> I wonder how PA works in this case. Device uses untranslated requests so it can
+>>>>> only see IOVA. We can't mandate ATS anyhow.
+>>>> Michael suggested to keep the language uniform as PA as this is ultimately what the guest driver is supplying during vq creation and in posting buffers as physical address.
+>>> Yes the spec calls the address accessed by the device "physical
+>>> address". Granted, this is pointless - there is only one
+>>> type of address device can access. We can if we want to
+>>> replace that with just "address" or "memory address".
+>>> I don't think this ever caused confusion though and worth the
+>>> churn.
+>> But you know PA means disable IOMMU and always enable ATS on both the device
+>> and host
+> That is not how virtio uses the term.  Just grep "physical address" in the spec.
+> This patch should be consistent.
+OK, I use other terms in my series, let's see whether it is better.
 >
 
 
