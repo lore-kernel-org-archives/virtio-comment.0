@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8105-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8106-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB14C4332F
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 04:28:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DCDBC4332F
+	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 04:40:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 883182CADB
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 04:28:05 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 757B82ACFF
+	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 04:40:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 74985986BEC
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 04:28:05 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 533C2986BEE
+	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 04:40:20 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 59F41986BE3; Thu,  2 Nov 2023 04:28:05 +0000 (UTC)
+	id 3B357986BE5; Thu,  2 Nov 2023 04:40:20 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,182 +24,199 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EF710986BE8
-	for <virtio-comment@lists.oasis-open.org>; Thu,  2 Nov 2023 04:24:49 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2B2BD986BE6
+	for <virtio-comment@lists.oasis-open.org>; Thu,  2 Nov 2023 04:40:20 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: yem2cps7Ml-Rty28H2qdmQ-1
+X-MC-Unique: QJ7Y8_UnOeafE4QJ_X88EQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698899086; x=1699503886;
+        d=1e100.net; s=20230601; t=1698900015; x=1699504815;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=U+3Ji5LhRAhVCg5OD5Ufkf4bHgG9J0lrBCjPgCHBXYA=;
-        b=TjquqJxMO/BOqM61NvHFLZoxmBSPjbOk5+9EXzMDeWX8q8slkRmXIt1eWRiFZWyIJ7
-         enc/jrdRiC2QvUqEuItjY5tsdMIhhDCcNc7uR0tFY2oz6YCzH+XhRj41+gWgfiYmAwwP
-         0i7ZxisNcNR4yHbcs8vSfolhgvlOmT+aq7+jF49vwwcveSPop3qvBltRqB0b1bXDGINY
-         er2aWqjkpb69Aw9d/jndhl5Hv8Ffl+CAVVq0HfB3eBx3nKp6Vn8h6NJK+wiWxwFTb+mD
-         NryGCK3yc4+VB/5/2ComQxTAjLKQPgVsiACnl9Q8wJb1yBPaK8AetWpGNa/bXlQapMAs
-         m38w==
-X-Gm-Message-State: AOJu0YyZhDoRp/PHhkaod0R9tg0c91UoUk+cb6gL31Uq50vVoa3aZ/WR
-	hf69clQjrhKgAtOB736raHxLv3zRMcB5Mx8Y/LDPEElVHypaPvQaM6OK1Xwr+sXDPVdDBEtu/63
-	iKjyEESFVK4XOK0oycnZ5O/Mq/6hHqhKdLaMOvBJ+Pe6678vMLA==
-X-Received: by 2002:a05:6214:d6f:b0:65a:fc2a:c2ab with SMTP id 15-20020a0562140d6f00b0065afc2ac2abmr18597333qvs.49.1698899086717;
-        Wed, 01 Nov 2023 21:24:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGdIwr0BPx4I7E8qAwypf0e8Ksuq5y3hUdn+zDNMEUJtC/+ennxtrkd+kJidtS5ONNfD7DfUoHDB1pc6mhAsMs=
-X-Received: by 2002:a05:6214:d6f:b0:65a:fc2a:c2ab with SMTP id
- 15-20020a0562140d6f00b0065afc2ac2abmr18597324qvs.49.1698899086481; Wed, 01
- Nov 2023 21:24:46 -0700 (PDT)
+        bh=NjREIGHtZrT7S1BlSGWJ/pBdbLecQLjdgjaSD6HAX9U=;
+        b=DB8Cqouxjswlh2hCiQDONQa8zo+fmrIA4I5cToViskJ3P7AWR26A0xiJaU2Zz6xZ9Z
+         IpvhIloqr0jCjohfjYpzC+ptNtQk5ZjzAcsPZulKtxC7qQO0KKV7XRZ5omVKJo//CdeL
+         VX92WAf+IdYZ2XWSpxDhj779vwNgEnX4+42N5tLAeGlITfZTM7WAy+ntEht0JZBeFn1Z
+         DydlZn5127DQeHZICvOJ/iShDzWsI2XngtUKiG+iKEZnYFFSRWFpFHTXcA2yyN1KM0QP
+         4BT8Vk3RJIkpu4NDMCEYP1dvoZGllPrUS5qRphQxsnKBJid1BFnBgsrV3vKI4ZMY45W1
+         aV/g==
+X-Gm-Message-State: AOJu0YzyUm1wMCCjr7VW6W/nFNoQXQFNH+lNAD+1bg8zMhFOZRsTTKdH
+	5PiMSYRoiT5PJMAMJ7tJ2oSBojE1SIdFqUAK16K4K4sjbnMjws2aI7D88TODYQDGLxGkX6frz/9
+	fIvei4dvdUH/7Xs7J+lctHmp1PgnA3VE+1Hfi2s4W/TVN+NhTag==
+X-Received: by 2002:a05:690c:18:b0:59f:72a6:da0e with SMTP id bc24-20020a05690c001800b0059f72a6da0emr21204833ywb.41.1698900015521;
+        Wed, 01 Nov 2023 21:40:15 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFxds9q9b8N/5MWVNmTqs1MX2DmaH6rJZenJDOX0ccxeJLyqqWQL7BFWpPfB7jes5IsQvCkfL/uLMDcHmA3KeA=
+X-Received: by 2002:a05:690c:18:b0:59f:72a6:da0e with SMTP id
+ bc24-20020a05690c001800b0059f72a6da0emr21204824ywb.41.1698900015159; Wed, 01
+ Nov 2023 21:40:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <db0719f9-7dc2-4a96-b10b-ecc3dac1a82b@intel.com>
- <860e52ef-8cfc-408a-b3cc-2551ef6118d1@intel.com> <PH0PR12MB5481F6F9BC5158481EC36AE9DCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231018055422-mutt-send-email-mst@kernel.org> <PH0PR12MB548106B7225BAF351241EA8ADCD5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsJVxPuxCGjKs3R-kaVGfDMNjtAovM7PpBt3TVd8HON0g@mail.gmail.com>
- <PH0PR12MB5481DD16B25251BAC25AA908DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEthURdu4UNYXPseA-5g6mci2CFDP_UKKC1qFy+n7NHAKg@mail.gmail.com>
- <PH0PR12MB5481BBC4E48145A02C8963ABDCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEu3nC8G3Xo2EaunQ4k4rnB27UQMUvruXaf81_sZF7w-cQ@mail.gmail.com>
- <PH0PR12MB548120210DC4AC23382D8A99DCDEA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvwFno6ynKzi1WPAj=fF2xmzRS_kUKfL8UJU8sTcjDHbA@mail.gmail.com>
- <PH0PR12MB548140823FA205FA06597692DCDDA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <d3b029a0-5a50-c697-066a-e4f8e85b807c@redhat.com> <PH0PR12MB5481CE2BD779F1D96914FB6EDCA1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsC9F0SY=ydOSe+nV11L7d2t1Ypzr6nz_UoUc3w632VUQ@mail.gmail.com>
- <PH0PR12MB5481F7BE5C7F4430D1F26B06DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEt_HnZ26ZySCt8w58-OdH+UDzqveqZ2=LN3mK3Z3oy4EA@mail.gmail.com> <DM8PR12MB548082010AC006539B04CB16DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
-In-Reply-To: <DM8PR12MB548082010AC006539B04CB16DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
+References: <fac1080d10df30450e889379b8da2a6db6523c23.1697695970.git.hengqi@linux.alibaba.com>
+ <20231027032707-mutt-send-email-mst@kernel.org> <79a89ece-f931-4a59-ac5c-25b60c4102a1@linux.alibaba.com>
+ <CACGkMEvzAyQmO=YBzqNjxjkCMyFw42bWD+RQ1Audb06WpeG6EA@mail.gmail.com> <20231101013634-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231101013634-mutt-send-email-mst@kernel.org>
 From: Jason Wang <jasowang@redhat.com>
-Date: Thu, 2 Nov 2023 12:24:14 +0800
-Message-ID: <CACGkMEuh+9h9nwGbv63onEh2MgGoCEkKmCwsLEvJ9O5NqtFs-Q@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Zhu, Lingshan" <lingshan.zhu@intel.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+Date: Thu, 2 Nov 2023 12:40:03 +0800
+Message-ID: <CACGkMEucwwx2p1Y-3DN3yBAA6_Mu6pdmKxpCj8pDbD6YxjvFPg@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Heng Qi <hengqi@linux.alibaba.com>, virtio-comment@lists.oasis-open.org, 
+	Parav Pandit <parav@nvidia.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the
- device context fields for device migration
+Subject: Re: [virtio-comment] [PATCH v2] virtio-net: support distinguishing
+ between partial and full checksum
 
-On Wed, Nov 1, 2023 at 11:07=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
-te:
+On Wed, Nov 1, 2023 at 1:37=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
+wrote:
 >
->
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Wednesday, November 1, 2023 6:03 AM
-> >
-> > On Tue, Oct 31, 2023 at 1:17=E2=80=AFPM Parav Pandit <parav@nvidia.com>=
- wrote:
+> On Wed, Nov 01, 2023 at 12:16:23PM +0800, Jason Wang wrote:
+> > On Sat, Oct 28, 2023 at 10:36=E2=80=AFAM Heng Qi <hengqi@linux.alibaba.=
+com> wrote:
 > > >
 > > >
 > > >
-> > > > From: virtio-comment@lists.oasis-open.org
-> > > > <virtio-comment@lists.oasis- open.org> On Behalf Of Jason Wang
-> > > > Sent: Tuesday, October 31, 2023 7:07 AM
+> > > =E5=9C=A8 2023/10/27 =E4=B8=8B=E5=8D=883:39, Michael S. Tsirkin =E5=
+=86=99=E9=81=93:
+> > > > On Thu, Oct 19, 2023 at 02:17:20PM +0800, Heng Qi wrote:
+> > > >> virtio-net works in a virtualized system and is somewhat different=
+ from
+> > > >> physical nics. One of the differences is that to save virtio devic=
+e
+> > > >> resources, rx may receive packets with partial checksum. However, =
+XDP may
+> > > >> cause partially checksummed packets to be dropped. So XDP loading =
+conflicts
+> > > >> with the feature VIRTIO_NET_F_GUEST_CSUM.
+> > > >>
+> > > >> This patch lets the device to supply fully checksummed packets to =
+the driver.
+> > > >> Then XDP can coexist with VIRTIO_NET_F_GUEST_CSUM to enjoy the ben=
+efits of
+> > > >> device verification checksum.
+> > > >>
+> > > >> In addition, implementation of some performant devices do not gene=
+rate
+> > > >> partially checksummed packets, but the standard driver still need =
+to clear
+> > > >> VIRTIO_NET_F_GUEST_CSUM when loading XDP. If these devices enable =
+the
+> > > >> full checksum offloading, then the driver can load XDP without cle=
+aring
+> > > >> VIRTIO_NET_F_GUEST_CSUM.
+> > > >>
+> > > >> A new feature bit VIRTIO_NET_F_GUEST_FULL_CSUM is added to solve t=
+he above
+> > > >> situation, which provides the driver with configurable receive ful=
+l checksum
+> > > >> offload. If the offload is enabled, then the device must supply fu=
+lly
+> > > >> checksummed packets to the driver.
+> > > >>
+> > > >> Use case example:
+> > > >> If VIRTIO_NET_F_GUEST_FULL_CSUM is negotiated and receive full che=
+cksum
+> > > >> offload is enabled, after XDP processes a packet with full checksu=
+m, the
+> > > >> VIRTIO_NET_HDR_F_DATA_VALID bit is still retained, resulting in th=
+e stack
+> > > >> not needing to validate the checksum again. This is useful for gue=
+sts:
+> > > >>    1. Bring the driver advantages such as cpu savings.
+> > > >>    2. For devices that do not generate partially checksummed packe=
+ts themselves,
+> > > >>       XDP can be loaded in the driver without modifying the hardwa=
+re behavior.
+> > > >>
+> > > >> Several solutions have been discussed in the previous proposal[1].
+> > > >> After historical discussion, we have tried the method proposed by =
+Jason[2],
+> > > >> but some complex scenarios and challenges are difficult to deal wi=
+th.
+> > > >> We now return to the method suggested in [1].
+> > > >>
+> > > >> [1] https://lists.oasis-open.org/archives/virtio-dev/202305/msg002=
+91.html
+> > > >> [2] https://lore.kernel.org/all/20230628030506.2213-1-hengqi@linux=
+.alibaba.com/
+> > > >>
+> > > >> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> > > >> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+> > > >> ---
+> > > >> v1->v2:
+> > > >>      1. Modify full checksum functionality as a configurable offlo=
+ad
+> > > >>         that is initially turned off. @Jason
+> > > >>
+> > > >>   device-types/net/description.tex | 54 ++++++++++++++++++++++++++=
+++----
+> > > >>   1 file changed, 48 insertions(+), 6 deletions(-)
+> > > >>
+> > > >> diff --git a/device-types/net/description.tex b/device-types/net/d=
+escription.tex
+> > > >> index 76585b0..3c34f27 100644
+> > > >> --- a/device-types/net/description.tex
+> > > >> +++ b/device-types/net/description.tex
+> > > >> @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types=
+ / Network Device / Feature bits
+> > > >>   \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through co=
+ntrol
+> > > >>       channel.
+> > > >>
+> > > >> +\item[VIRTIO_NET_F_GUEST_FULL_CSUM (50)] Driver handles packets w=
+ith full checksum.
+> > > >> +
+> > > >>   \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header=
+ hash for encapsulated packets.
+> > > >>
+> > > >>   \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue n=
+otification coalescing.
+> > > >> @@ -133,6 +135,7 @@ \subsubsection{Feature bit requirements}\label=
+{sec:Device Types / Network Device
+> > > >>   \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
+> > > >>   \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
+> > > >>   \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
+> > > >> +\item[VIRTIO_NET_F_GUEST_FULL_CSUM] Requires VIRTIO_NET_F_GUEST_C=
+SUM and VIRTIO_NET_F_CTRL_GUEST_OFFLOADS.
+> > > >>
+> > > >>   \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
+> > > >>   \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
+> > > > What about all of these:
 > > > >
-> > > > On Mon, Oct 30, 2023 at 12:28=E2=80=AFPM Parav Pandit <parav@nvidia=
-.com> wrote:
-> > > > >
-> > > > >
-> > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > Sent: Monday, October 30, 2023 9:35 AM
-> > > > > >
-> > > > > > =E5=9C=A8 2023/10/26 11:50, Parav Pandit =E5=86=99=E9=81=93:
-> > > > > > >> From: virtio-comment@lists.oasis-open.org
-> > > > > > >> <virtio-comment@lists.oasis- open.org> On Behalf Of Jason
-> > > > > > >> Wang For example, you still haven't succeeded in defining
-> > passthrough.
-> > > > > > > It was defined on 19th Oct in [1].
-> > > > > > > What part is not clear to you in definition of passthrough de=
-vice?
-> > > > > > >
-> > > > > > > [1]
-> > > > > > > https://lore.kernel.org/virtio-
-> > > > > > comment/PH0PR12MB5481EA6A4D0C64C5AF6D3A
-> > > > > > > 57DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com/
-> > > > > >
-> > > > > >
-> > > > > > Let me copy-paste it again:
-> > > > > >
-> > > > > > For example, assuming you are correct, you still fail to explai=
-n
-> > > > > >
-> > > > > > 1) what is trapped and what's not, or what's the boundary
-> > > > > Passthrough definition was replied few times.
-> > > > > One of them is here,
-> > > > > https://lore.kernel.org/virtio-
-> > > > comment/PH0PR12MB5481EA6A4D0C64C5AF6D3A
-> > > > > 57DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com/
-> > > > > I don=E2=80=99t know what you mean by 'explain'. What do you want=
- to be
-> > explained?
-> > > > > What is trapped is listed in
-> > > > > https://lore.kernel.org/virtio-
-> > > > comment/PH0PR12MB5481EA6A4D0C64C5AF6D3A
-> > > > > 57DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com/
-> > > > > What is not trapped is also listed in
-> > > > > https://lore.kernel.org/virtio-
-> > > > comment/PH0PR12MB5481EA6A4D0C64C5AF6D3A
-> > > > > 57DCD4A@PH0PR12MB5481.namprd12.prod.outlook.com/
-> > > > > So what more do you want to explain in there?
+> > > > device-types/net/description.tex:\item[VIRTIO_NET_F_GUEST_TSO4] Req=
+uires VIRTIO_NET_F_GUEST_CSUM.
+> > > > device-types/net/description.tex:\item[VIRTIO_NET_F_GUEST_TSO6] Req=
+uires VIRTIO_NET_F_GUEST_CSUM.
+> > > > device-types/net/description.tex:\item[VIRTIO_NET_F_GUEST_UFO] Requ=
+ires VIRTIO_NET_F_GUEST_CSUM.
+> > > > device-types/net/description.tex:\item[VIRTIO_NET_F_GUEST_USO4] Req=
+uires VIRTIO_NET_F_GUEST_CSUM.
+> > > > device-types/net/description.tex:\item[VIRTIO_NET_F_GUEST_USO6] Req=
+uires VIRTIO_NET_F_GUEST_CSUM.
 > > > >
-> > > > You explained that MSI-X is trapped but not the others. People may =
-know
-> > why.
-> > > > or what's the boundary to choose to trap or not.
 > > > >
-> > > If a platform can support without trapping, it can be avoided as well=
- and can
-> > be added in the future.
-> >
-> > Who is going to do that synchronization?
-> Lets first bring that hypervisor sw design before discussing phantom prob=
-lem solving.
-> All necessary modules will be involved in synchronization depending on ho=
-w its done in future.
-
-It's not the charge of the virtio spec to mandate any type of
-hypervisor design. But it looks to me you want to do that.
-
->
-> >
+> > > >
+> > > > can TSO/UFO/USO work with VIRTIO_NET_F_GUEST_FULL_CSUM as opposed t=
+o VIRTIO_NET_F_GUEST_CSUM?
 > > >
-> > > > >
-> > > > > > 2) if the hypervisor is not developed with those assumptions,
-> > > > > > things can work
-> > > > > What to explain in #2. :)
-> > > > > Things can expand when such hypervisor is born.
-> > > >
-> > > > So the point is still, to make your proposal to be useful in more u=
-se cases.
-> > > >
-> > > When a use case arise, device context can be expanded.
+> > > Both GUEST_FULL_CSUM and GUEST_CSUM can work with GUEST_TSO/USO/UFO.
 > >
-> > It's not device context.
-> >
-> I don=E2=80=99t see why not. It is stored in the device.
-> Remapping part will be hypervisor specific, so it may be stored in platfo=
-rm specific migration data.
-
-The point is, device context should work for all type of hypervisors.
-You can't claim it can only work with your "passthrough" model.
-
+> > Yes. For software devices I guess it will have a lot of performance
+> > penalty. So it should be disabled by default anyhow. The idea is to
+> > delay the csum as late as possible.
 >
-> > > No point in making things no one implements or not present in hypervi=
-sor.
-> > > The infrastructure is extendible so spec is covered for it.
-> >
-> > It would be problematic if you stick to claim "passthrough" but not.
->
-> I don=E2=80=99t know what this means. I am not debating passthrough/non-p=
-assthrough.
-> What is inside the device, will be part of device-context.
-> What is part of the platform content, will be part of platform context.
-> Since this is generic to all types of PCI devices, I don=E2=80=99t see a =
-need to over-solve it now in virtio.
+> But for hardware it's actually better.
 
-Ok, so you agree it can work even if hypervisor want to trap?
+I can't think of a case where it might be better than XDP.
+
+Most userspace doesn't care about the checksum though.
+
+> Maybe we need a flag
+> to say which offloads are expensive?
+>
+
+That exposes some device details which seem not good (e.g we may want
+to do migration among hardware and software).
 
 Thanks
 
