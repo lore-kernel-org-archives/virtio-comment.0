@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8115-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8116-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FC81C0018A
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 11:52:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31CA5C4332F
+	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 13:20:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id F1F38613CE
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 11:52:06 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5C0682AD4C
+	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 13:20:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EC791986C10
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 11:52:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 41CF5986C03
+	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 13:20:38 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E2250986BF6; Thu,  2 Nov 2023 11:52:06 +0000 (UTC)
+	id 2CC41986BFE; Thu,  2 Nov 2023 13:20:38 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,227 +24,174 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CE631986C09
-	for <virtio-comment@lists.oasis-open.org>; Thu,  2 Nov 2023 11:52:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5AF95986BFF
+	for <virtio-comment@lists.oasis-open.org>; Thu,  2 Nov 2023 13:20:18 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: bIPVctVUO2K5KTbfOJAd4g-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698925914; x=1699530714;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HJ9xqBtYc2rWmsm0D7Ca/Qpk+gkOSS9WJYD032j+xk4=;
-        b=sqgDM34hVFVStJ9t5rgknuSvBgNo997cjLy1vvbEuccreewtEnR0HCU8pNleA5IDTE
-         iIQl3HM7ojelIbAr92LR3z6D5mTQ0BtcUAZ8ITMzn5irr64VzpG7UFXOWsL33l+kbidv
-         dJ1vc+FOfUq4x2oRKyFjaqor7Qe55sSe4HQEGKy8DAW3pqjKvt24MTtX/VeXTzWEzvIr
-         7DznQI7j7sel4F5c6gfeiz2X7OgmB3jDSjgFUz0b6GkthoMVUrcnhftDrwztAKlx4ENF
-         jsIzMkBQWSYwAqKWqf3nS/QdW8JxOndggaqnKbYZT6cftuwiBkGo0LdcIqhm8jF8iJZo
-         69Uw==
-X-Gm-Message-State: AOJu0YxhYyYCYJFsWXFzI6ODVn69jTSVWabeHn37sYhI+ku3ePzdx5Qg
-	Zy6dT4YHTIB+EZbVXpuJYUm0haDhaHVfGIekM+e0lCflRiwkjqe2Qd1QmeM+gCn6GLknDoemsFV
-	xxt5ZATy027q2q5ksHRbkG2biiIVJbPl/4Q==
-X-Received: by 2002:a05:600c:1d24:b0:406:45c1:4dd with SMTP id l36-20020a05600c1d2400b0040645c104ddmr5935402wms.14.1698925914253;
-        Thu, 02 Nov 2023 04:51:54 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEEGniqpOXN9+9Q9JQneRwKsJYdv/KfIVgnCANQfhNVQ0FpivK2AmruZHmiz7YxKD/M0e2JWA==
-X-Received: by 2002:a05:600c:1d24:b0:406:45c1:4dd with SMTP id l36-20020a05600c1d2400b0040645c104ddmr5935375wms.14.1698925913813;
-        Thu, 02 Nov 2023 04:51:53 -0700 (PDT)
-Date: Thu, 2 Nov 2023 07:51:49 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Babis Chalios <bchalios@amazon.es>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
-	"Cali, Marco" <xmarcalx@amazon.co.uk>,
-	"Graf (AWS), Alexander" <graf@amazon.de>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>, aams@amazon.de
-Message-ID: <20231102074645-mutt-send-email-mst@kernel.org>
-References: <20230919055811-mutt-send-email-mst@kernel.org>
- <4c6d6710-43c8-402b-9ae6-d2f4cafbe9a7@amazon.es>
- <20230922110329-mutt-send-email-mst@kernel.org>
- <c0c5b159-997f-4ddf-ab3e-1c749ad93e10@amazon.es>
- <20230922115920-mutt-send-email-mst@kernel.org>
- <19967fde-8893-4fe8-9f9a-7ce49bf38772@amazon.es>
- <20230927174611-mutt-send-email-mst@kernel.org>
- <4d22d699-b9f3-4d67-940a-8f11bcd29819@amazon.es>
- <20231102071934-mutt-send-email-mst@kernel.org>
- <23ca2091-efd8-498d-8ed6-9ac4fb905f1d@amazon.es>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Yk/9QGxEhyWzhLayqwOAW0T4pHNz9Amcz3GJ1WcaEax92FM9z+59AxUetgooEd6vnf6yuL0rxKudKwHt1LpxWdOeBXUvn0u+kJVoKO0DDEUN0zBFsYvSDGmqtAYISboo1Y4HBnkRqk2ehuXmnnSG056qZ1RRFDZLrVPH6329FYRCs1UCjWoya5LMKWlPl+nuGNHdTbOJ6NJ2s3AwtUurNJbTc0K1u9zLDEnXP1SRZFYhXtiztPmIowWipM+dsQq23/+l3xMEe9m/6A+kN1qaBkdpShYEDVfR4OAFt3nKyc5LPmH22xfjEl9XE2ucDarsbxM8giY6eG+P7vNpXFkXvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nFlxOOjXIcqX5qogWpFZmbJwMWQfUGrJTXnU6pu6F1E=;
+ b=KVOO0D9jHcdFv4abd/08pul0GtzO7sl9k5NK/qVWADjci7aHzzEjznpRTU6H2hKpjnDrKHGYzVEqfjm0d/ncsgNsKwx6twmIjf9XX7x7M2KKaRwD9CTxVpkgSaMiFdN6LwMem9ZTFT8cNk/PuyDPJ0D5/q5kEIJ0TnAhSL3Deyfka9QuqQi63BvbCci2IEWEcD+gfiigHzJAZsQcOly6zPYLNi405I5HB2Sc0NExNg+FvuQ5/yGP6c/CMBzNwXdtOzojGKFFSPK7JMAXnRT7bCsAR6OOfL1Oj0KqNLwPW/A+MoFqK8jihY80zyVTF8SSwAmZlVH0gNgHajkozuU8XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+From: Parav Pandit <parav@nvidia.com>
+To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
+	<cohuck@redhat.com>
+CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <maorg@nvidia.com>,
+	<yishaih@nvidia.com>, <lingshan.zhu@intel.com>, <jasowang@redhat.com>, "Parav
+ Pandit" <parav@nvidia.com>
+Date: Thu, 2 Nov 2023 15:19:46 +0200
+Message-ID: <20231102131946.1864886-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <23ca2091-efd8-498d-8ed6-9ac4fb905f1d@amazon.es>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH RFC 3/3] rng: leak detection support
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.126.231.35]
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD0:EE_|BY5PR12MB4258:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1f3b2ac-dace-4c80-cb50-08dbdba67314
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	wr/eLA7md0E5eF3rAq/KrPu7i7Q07JxurdxfDVc7AQBNU+HTutR5vgjH4fXIAkV4Vglv4dvk+Lhp+T9f574LDBck/+WyoAVLEDMKgHhBAMeo1iS/MPo4Nmy/MpIhVKfFrkd9vmq2FHCgh3OjJvwIAmE+y+MUf7MS7dul/05/HCdN3m1c4TFQhHD6ZmmgupDavR16aFgKqp+swtY+OFkljPhaWnYtsppB8GWbrbIwRVwE5Kk6Tcz0O8wzmSs2nqLJNrPeMx+c7Qqsb4+vuZeoJh0ok7hvVhUKuLUSoBlfHaU/uZH2q95M8SrE1ZUk71BNXt7Bcw50MRUX2y4LVM6QPJVh8FaouTLjpciRhEutLuuUVz0XCis7+imXBJ4b5v6h5p08R4c2EU8b8Zu8rxQpmeIYVRmecUQVaMmUVKxWmel3SSHb0ntpNoOEjR4Hwqzbr7xVRSh/wApeoIa486/kRWYzg8rJOtFfaa3Ew4/DmVVBwOm/T0Ch/24w6lP7JY8XgTTFk24vEdQQNrwNb3T7ZbBLofMrvKLdpcy36rUbgmNpYSxnfMUDV2kY78oRvQ9H5Du0YPyjDE3jYjTpJ4j8wHp4nlk4raTx92om0bPBVnM6At1z8DPb7IsV8JrY4yOE9ZyDh7vp6U3b+5Cm/khaXLliinGdQDIwZkryIheUpS8+esdzI68SRlmY8pvCoiENA/uI21l7rYgFg7PFiok1TIYExepeBz8/lNhThMaQ5LHj4y7mLyfl5m9vLlIlN7SPPSw2PLGOvEDHebmHE3VBsg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(136003)(346002)(376002)(230922051799003)(186009)(64100799003)(82310400011)(451199024)(1800799009)(46966006)(40470700004)(36840700001)(316002)(26005)(40460700003)(1076003)(16526019)(6666004)(36860700001)(8676002)(478600001)(47076005)(107886003)(2906002)(8936002)(5660300002)(70206006)(70586007)(110136005)(966005)(54906003)(83380400001)(4326008)(336012)(426003)(41300700001)(40480700001)(356005)(7636003)(82740400003)(36756003)(86362001)(2616005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2023 13:20:14.3447
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1f3b2ac-dace-4c80-cb50-08dbdba67314
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EDD0.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4258
+Subject: [virtio-comment] [PATCH] virtio-net: Add device migration context fields
 
-On Thu, Nov 02, 2023 at 12:38:28PM +0100, Babis Chalios wrote:
-> 
-> On 2/11/23 12:20, Michael S. Tsirkin wrote:
-> > 
-> > On Thu, Sep 28, 2023 at 08:16:11PM +0200, Babis Chalios wrote:
-> > > 
-> > > On 27/9/23 23:47, Michael S. Tsirkin wrote:
-> > > > On Wed, Sep 27, 2023 at 12:43:20PM +0200, Babis Chalios wrote:
-> > > > > On 22/9/23 18:01, Michael S. Tsirkin wrote:
-> > > > > > On Fri, Sep 22, 2023 at 05:40:50PM +0200, Babis Chalios wrote:
-> > > > > > > On 22/9/23 17:06, Michael S. Tsirkin wrote:
-> > > > > > > > On Tue, Sep 19, 2023 at 12:11:37PM +0200, Babis Chalios wrote:
-> > > > > > > > > On 19/9/23 12:01, Michael S. Tsirkin wrote:
-> > > > > > > > > > On Tue, Sep 19, 2023 at 09:32:08AM +0200, Babis Chalios wrote:
-> > > > > > > > > > > Resending to fix e-mail formatting issues (sorry for the spam)
-> > > > > > > > > > > 
-> > > > > > > > > > > On 18/9/23 18:30, Babis Chalios wrote:
-> > > > > > > > > > > > > > > > Yes, that's what the driver does now in the RFC patch.
-> > > > > > > > > > > > > > > > However, this just
-> > > > > > > > > > > > > > > > decreases
-> > > > > > > > > > > > > > > > the race window, it doesn't eliminate it. If a third
-> > > > > > > > > > > > > > > > leak event happens it
-> > > > > > > > > > > > > > > > might not
-> > > > > > > > > > > > > > > > find any buffers to use:
-> > > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > > 1. available buffers to queue 1-X
-> > > > > > > > > > > > > > > > 2. available buffers to queue X
-> > > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > > 3. poll queue X
-> > > > > > > > > > > > > > > > 4. used buffers in queue X       <- leak event 1 will
-> > > > > > > > > > > > > > > > use buffers in X
-> > > > > > > > > > > > > > > > 5. avail buffers in queue X
-> > > > > > > > > > > > > > > > 6. poll queue 1-X                <- leak event 2 will
-> > > > > > > > > > > > > > > > use buffers in 1-X
-> > > > > > > > > > > > > > > > 7. used buffers in queue 1-X
-> > > > > > > > > > > > > > > > 8. avail buffers in queue 1-X
-> > > > > > > > > > > > > > > >                                         <- leak event 3 (it
-> > > > > > > > > > > > > > > > needs buffers in X, race with step 5)
-> > > > > > > > > > > > > > > > 9. goto 3
-> > > > > > > > > > > > > > > I don't get it. we added buffers in step 5.
-> > > > > > > > > > > > > > What if the leak event 3 arrives before step 5 had time to
-> > > > > > > > > > > > > > actually add the
-> > > > > > > > > > > > > > buffers in X and make
-> > > > > > > > > > > > > > them visible to the device?
-> > > > > > > > > > > > > Then it will see a single event in 1-X instead of two events.  A leak is
-> > > > > > > > > > > > > a leak though, I don't see does it matter how many triggered.
-> > > > > > > > > > > > > 
-> > > > > > > > > > > So the scenario I have in mind is the following:
-> > > > > > > > > > > 
-> > > > > > > > > > > (Epoch here is terminology that I used in the Linux RFC. It is a value
-> > > > > > > > > > > maintained by random.c
-> > > > > > > > > > > that changes every time a leak event happens).
-> > > > > > > > > > > 
-> > > > > > > > > > > 1. add buffers to 1-X
-> > > > > > > > > > > 2. add buffers to X
-> > > > > > > > > > > 3. poll queue X
-> > > > > > > > > > > 4. vcpu 0: get getrandom() entropy and cache epoch value
-> > > > > > > > > > > 5. Device: First snapshot, uses buffers in X
-> > > > > > > > > > > 6. vcpu 1: sees used buffers
-> > > > > > > > > > > 7. Device: Second snapshot, uses buffers in 1-X
-> > > > > > > > > > > 8. vcpu 0: getrandom() observes new  epoch value & caches it
-> > > > > > > > > > > 9. Device: Third snapshot, no buffers in either queue, (vcpu 1 from step 6
-> > > > > > > > > > > has not yet finished adding new buffers).
-> > > > > > > > > > > 10. vcpu 1 adds new buffer in X
-> > > > > > > > > > > 11. vcpu 0: getrandom() will not see new epoch and gets stale entropy.
-> > > > > > > > > > > 
-> > > > > > > > > > > 
-> > > > > > > > > > > In this succession of events, when the third snapshot will happen, the
-> > > > > > > > > > > device won't find
-> > > > > > > > > > > any buffers in either queue, so it won't increase the RNG epoch value. So,
-> > > > > > > > > > > any entropy
-> > > > > > > > > > > gathered after step 8 will be the same across all snapshots. Am I missing
-> > > > > > > > > > > something?
-> > > > > > > > > > > 
-> > > > > > > > > > > Cheers,
-> > > > > > > > > > > Babis
-> > > > > > > > > > > 
-> > > > > > > > > > Yes but notice how this is followed by:
-> > > > > > > > > > 
-> > > > > > > > > > 12. vcpu 1: sees used buffers in 1-X
-> > > > > > > > > > 
-> > > > > > > > > > Driver can notify getrandom I guess?
-> > > > > > > > > It could, but then we have the exact race condition that VMGENID had,
-> > > > > > > > > userspace has already consumed stale entropy and there's nothing we
-> > > > > > > > > can do about that.
-> > > > > > > > > 
-> > > > > > > > > Although this is indeed a corner case, it feels like it beats the purpose
-> > > > > > > > > of having the hardware update directly userspace (via copy on leak).
-> > > > > > > > > 
-> > > > > > > > > How do you feel about the proposal a couple of emails back? It looks to
-> > > > > > > > > me that it avoids completely the race condition.
-> > > > > > > > > 
-> > > > > > > > > Cheers,
-> > > > > > > > > Babis
-> > > > > > > > It does. The problem of course is that this means that e.g.
-> > > > > > > > taking a snapshot of a guest that is stuck won't work well.
-> > > > > > > That is true, but does it matter? The intention of the proposal
-> > > > > > > is that if it is not safe to take snapshots (i.e. no buffers in the
-> > > > > > > queue) don't take snapshots.
-> > > > > > > 
-> > > > > > > > I have been thinking of adding MAP/UNMAP descriptors for
-> > > > > > > > a while now. Thus it will be possible to modify
-> > > > > > > > userspace memory without consuming buffers.
-> > > > > > > > Would something like this solve the problem?
-> > > > > > > I am not familiar with MAP/UNMAP descriptors. Is there
-> > > > > > > a link where I can read about them?
-> > > > > > > 
-> > > > > > > Cheers,
-> > > > > > > Babis
-> > > > > > Heh no I just came up with the name. Will write up in a couple
-> > > > > > of days, but the idea is that driver does get_user_pages,
-> > > > > > adds buffer to queue, and device will remember the address
-> > > > > > and change that memory on a snapshot. If there are buffers
-> > > > > > in the queue it will also use these to tell driver,
-> > > > > > but if there are no buffers then it won't.
-> > > > > That sounds like a nice mechanism. However in our case the page
-> > > > > holding the counter that gets increased by the hardware is a kernel
-> > > > > page.
-> > > > > 
-> > > > > The reason for that is that things other than us (virtio-rng) might
-> > > > > want to notify for leak events. For example, I think that Jason
-> > > > > intended to use this mechanism to periodically notify user-space
-> > > > > PRNGs that they need to reseed.
-> > > > > 
-> > > > > Cheers,
-> > > > > Babis
-> > > > Now I'm lost.
-> > > > when you write, e.g.:
-> > > > 4. vcpu 0: get getrandom() entropy and cache epoch value
-> > > > how does vcpu access the epoch?
-> > > The kernel provides a user space API to map a pointer to the epoch
-> > > value. User space then caches its value and checks it every time it
-> > > needs to make sure that no entropy leak has happened before using
-> > > cached kernel entropy.
-> > > 
-> > > virtio-rng driver adds a copy on leak command to the queue for
-> > > increasing this value (that's what we are speaking about in this thread).
-> > > But other systems might want to report "leaks", such as random.c
-> > > itself.
-> > > 
-> > > Cheers,
-> > > Babis
-> > 
-> > This idea would be fine but I don't see how it's so different
-> > from VMGENID. Care to explain?
-> > 
-> It is different in that the memory is owned by the guest kernel, not
-> the hardware. In this case, random.c maintains it. This allows, systems
-> other than the hardware, e.g. virtio-rng to notify about entropy leak
-> events. For example, random.c itself can periodically do that (I think
-> Jason had that use-case in mind).
+Expand device migration context for fields such as
+mac table, vlan table, mq config, rss config.
 
-No sure I understand. Example?
+All of them utilizes already defined infrastructure.
 
-> 
-> The fact that we as well mmap that memory to the user-space is just
-> for giving user space a mechanism that allows it to know when it needs
-> to reseed its PRNGs. We _could_ have done the same with VMGENID,
-> but the fact that, in this case, the underlying physical memory is owned
-> by the ACPI device blocks us from letting other systems sending
-> notifications
-> as well.
-> 
-> Maybe it makes sense to have this discussion in the patch we sent for
-> Linux on LKML [1]?
-> 
-> Cheers,
-> Babis
-> 
-> [1] https://lore.kernel.org/lkml/20230823090107.65749-3-bchalios@amazon.es/T/#mb1242999d8296169d9a4ee1a0805005633ec146a
+This patch is on top of [1].
+
+[1] https://lists.oasis-open.org/archives/virtio-comment/202310/msg00469.html
+
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+---
+ device-context.tex                  |  2 +-
+ device-types/net/description.tex    |  2 +
+ device-types/net/device-context.tex | 58 +++++++++++++++++++++++++++++
+ 3 files changed, 61 insertions(+), 1 deletion(-)
+ create mode 100644 device-types/net/device-context.tex
+
+diff --git a/device-context.tex b/device-context.tex
+index ab19fc9..348bb25 100644
+--- a/device-context.tex
++++ b/device-context.tex
+@@ -57,7 +57,7 @@ \section{Device Context}\label{sec:Basic Facilities of a Virtio Device / Device
+ \hline
+ 0x1000 & VIRTIO_DEV_CTX_DEV_CFG & Provides device specific configuration \\
+ \hline
+-0x1001 - 0x1FFF & - & Device type specific range reserved for future \\
++0x1001 - 0x1FFF & - & Device type specific range defined by the specific device type \\
+ \hline
+ \hline
+ 0x2000 - 0xFFFF & - & Reserved for future \\
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 76585b0..13490ec 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -1805,6 +1805,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ 
+ Upon reset, a device MUST initialize all coalescing parameters to 0.
+ 
++\input{device-types/net/device-context.tex}
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
+ 
+diff --git a/device-types/net/device-context.tex b/device-types/net/device-context.tex
+new file mode 100644
+index 0000000..b78cf37
+--- /dev/null
++++ b/device-types/net/device-context.tex
+@@ -0,0 +1,58 @@
++\subsection{Device Context}\label{sec:Device Types / Network Device / Device Operation / Device Context}
++
++\begin{table}
++\caption{\label{tab:Network Device Context Fields} Network Device Context Fields}
++\begin{tabularx}{\textwidth}{ |l||l|X| }
++\hline
++Type & Name & Description \\
++\hline \hline
++\hline
++0x1001 & VIRTIO_DEV_CTX_NET_MAC_ADDR_FILTER_TABLE & Provides MAC Address filter table \\
++\hline
++0x1002 & VIRTIO_DEV_CTX_NET_VLAN_FILTER_TABLE & Provides VLAN filter table \\
++\hline
++0x1003 & VIRTIO_DEV_CTX_NET_MQ_PAIRS & Provides multi queue configuration \\
++\hline
++0x1004 & VIRTIO_DEV_CTX_NET_RSS_CONFIG & Provides RSS configuration \\
++\hline
++0x1005 - 0x1FFF & - & reserved for future \\
++\hline
++\hline
++\end{tabularx}
++\end{table}
++
++\subsubsection{MAC Address Filter Table Context}\label{sec:Device Types / Network Device / Device Operation / Device Context / MAC Address Filter Table Context}
++
++For the field VIRTIO_DEV_CTX_NET_MAC_TABLE, \field{type} is set to 0x1001.
++The \field{value} is in format of \field{struct virtio_net_ctrl_mac} as listed
++in section
++\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Setting MAC Address Filtering}.
++The \field{length} is the length of \field{struct virtio_net_ctrl_mac}.
++
++\subsubsection{VLAN Filter Table Context}\label{sec:Device Types / Network Device / Device Operation / Device Context / VLAN Filter Table Context}
++
++For the field VIRTIO_DEV_CTX_NET_VLAN_FILTER_TABLE, \field{type} is set to 0x1002.
++The \field{value} is in format of \field{struct virtio_dev_ctx_net_vlan_table}.
++The \field{length} is the length of \field{struct virtio_dev_ctx_net_vlan_table}.
++
++\begin{lstlisting}
++struct virtio_dev_ctx_net_vlan_table {
++        le16 vlan[];
++};
++\end{lstlisting}
++
++\subsubsection{Multiqueue Pairs Context}\label{sec:Device Types / Network Device / Device Operation / Device Context / Multiqueue Pairs Context}
++
++For the field VIRTIO_DEV_CTX_NET_MQ_PAIRS, \field{type} is set to 0x1003.
++The \field{value} is in format of \field{struct virtio_net_ctrl_mq_pairs_set} as listed
++in section
++\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Automatic receive steering in multiqueue mode}.
++The \field{length} is the length of \field{struct virtio_net_ctrl_mq_pairs_set}.
++
++\subsubsection{Receive Side Scaling Context}\label{sec:Device Types / Network Device / Device Operation / Device Context / Receive Side Scaling Context}
++
++For the field VIRTIO_DEV_CTX_NET_RSS_CONFIG, \field{type} is set to 0x1004.
++The \field{value} is in format of \field{struct virtio_net_rss_config} as listed
++in section
++\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Receive-side scaling (RSS) / Setting RSS parameters}.
++The \field{length} is the length of \field{struct virtio_net_rss_config}.
+-- 
+2.34.1
 
 
 This publicly archived list offers a means to provide input to the
