@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8153-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8154-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B37DDC4332F
-	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 13:33:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E84C4167D
+	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 13:33:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0989945B33
-	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 13:33:22 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CF7986E6CA
+	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 13:33:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F3595986C47
-	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 13:33:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C0F04986C55
+	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 13:33:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E7A04986C3A; Fri,  3 Nov 2023 13:33:21 +0000 (UTC)
+	id B34DB986C3A; Fri,  3 Nov 2023 13:33:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,54 +24,40 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D6DEF986C3C
-	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Nov 2023 13:33:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 900F3986C3B
+	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Nov 2023 13:33:11 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: sw8tZPMtOrK9-eD84uWdsg-1
+X-MC-Unique: Zt_qPnCGOUOdgnncxIirbA-1
 From: Cornelia Huck <cohuck@redhat.com>
 To: virtio@lists.oasis-open.org
 Cc: virtio-comment@lists.oasis-open.org,
-	Cornelia Huck <cohuck@redhat.com>,
-	Paul Knight <paul.knight@oasis-open.org>
-Date: Fri,  3 Nov 2023 14:33:01 +0100
-Message-ID: <20231103133304.681157-3-cohuck@redhat.com>
-In-Reply-To: <20231103133304.681157-1-cohuck@redhat.com>
-References: <20231103133304.681157-1-cohuck@redhat.com>
+	Cornelia Huck <cohuck@redhat.com>
+Date: Fri,  3 Nov 2023 14:32:59 +0100
+Message-ID: <20231103133304.681157-1-cohuck@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH 2/3] editorial: update "Computer Language Definitions" URL
+Subject: [virtio-comment] [PATCH 0/3] some editorial patches for 1.3-csd01
 
-Split out from the other fixes for 1.3-csd01 so that we can fixup the
-diff.
+Incorporate some feedback, and work around a possible bug in latexdiff --
+should hopefully be ready now for public review, keeping fingers crossed...
 
-- In "Status", (fourth paragraph) change the hyperlink under (Computer
-Language Definitions) to be "
-https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang
-"
+Cornelia Huck (3):
+  editorial: various fixes for 1.3-csd01
+  editorial: update "Computer Language Definitions" URL
+  makediff: update list of cherry-picks
 
-Reported-by: Paul Knight <paul.knight@oasis-open.org>
-Signed-off-by: Cornelia Huck <cohuck@redhat.com>
----
- title.tex | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ REVISION         |  2 +-
+ REVISION-DATE    |  2 +-
+ changelog.tex    |  2 +-
+ introduction.tex | 11 +++++++++--
+ makediff.sh      |  3 +--
+ title.tex        | 15 ++++++---------
+ 6 files changed, 19 insertions(+), 16 deletions(-)
 
-diff --git a/title.tex b/title.tex
-index f3c8f97a361f..bf08d33d4a52 100644
---- a/title.tex
-+++ b/title.tex
-@@ -101,7 +101,7 @@
- \input{ipr.tex}
- 
- Note that any machine-readable content
--(\href{https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsCompLang}
-+(\href{https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang}
- {Computer Language Definitions}) declared Normative for this Work
- Product is provided in separate plain text files. In the event of
- a discrepancy between any such plain text file and display
 -- 
 2.41.0
 
