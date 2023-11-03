@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8133-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8134-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D369C0018A
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 17:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1633C4332F
+	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 06:36:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7A8712AC6B
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 17:05:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C34842A888
+	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 06:36:29 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 65976986C11
-	for <virtio-comment@archiver.kernel.org>; Thu,  2 Nov 2023 17:05:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 968C7986C2A
+	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 06:36:29 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 50013986C0A; Thu,  2 Nov 2023 17:05:39 +0000 (UTC)
+	id 6FE7E986C26; Fri,  3 Nov 2023 06:36:29 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,182 +24,225 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ABBB0986C0B
-	for <virtio-comment@lists.oasis-open.org>; Thu,  2 Nov 2023 17:05:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 59BF6986C27
+	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Nov 2023 06:36:29 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: -KqB0lhkNTub1vyPPTr0SA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698944732; x=1699549532;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VXz8oAS9et8vr5/ysffxEpk6lsMojBfT/MTKXmsAu+o=;
-        b=ZDhf4y792NJvbTiuef/s4QOLXhqIwMZfDN3Hzw4OGTihAVvfY9hrs4ANrVmy9/VNZq
-         h47cezmK29236XYYL8szvTHIsHzDy8v5U1IJv6oKb2rabvf0vD3QUUifDjwXUDJEM1YJ
-         YBMSf/VeIhRTmpnMMOciLhN7czk5f04tCCoqFIAYbou/Ao7M217HmBytitUj9VBBjbEF
-         9MuIH1dQv4oV5AvMDyk/uOjk8BN0WWq4asaiu5K/6CKxSH1pZHXpfcYmJe+ePedEp2Mg
-         hz5UfF3GrAuq7roybILuIhytn5nDGDF1MCWl0B5ykuheZ/cTffkV4JwnVvkmHqJKU8WW
-         17Fg==
-X-Gm-Message-State: AOJu0Ywxs9Ck7dBYDzIDsJUrK3673pPxpz6xqrbt8BKwWhOt0uLKQDY0
-	aJFe48UqyW86SWm50alnZw7FyaE76GgSikpHIBhKEHxa4srGza0qGC3uUVkwQSymPZ+2tKinmfN
-	vTReag5lptmwJtCIWAnDVLlfo4ghjj1PS4Q==
-X-Received: by 2002:a5d:690c:0:b0:32d:6031:2824 with SMTP id t12-20020a5d690c000000b0032d60312824mr14277741wru.24.1698944731994;
-        Thu, 02 Nov 2023 10:05:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFGowMewvxFsDEGbrorjrtqNiXIxgzqxey3QuKqwEgITr+ngI9WtSVpaEWK5IpIF4Er4wG0cg==
-X-Received: by 2002:a5d:690c:0:b0:32d:6031:2824 with SMTP id t12-20020a5d690c000000b0032d60312824mr14277724wru.24.1698944731622;
-        Thu, 02 Nov 2023 10:05:31 -0700 (PDT)
-Date: Thu, 2 Nov 2023 13:05:16 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231102125927-mutt-send-email-mst@kernel.org>
-References: <20231008112555.473895-1-parav@nvidia.com>
- <20231008112555.473895-4-parav@nvidia.com>
- <20231102101727-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481021BC87009ED7D8F5C6DDCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231102104628-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481E02C73180D7E4C1DC624DCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R591e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045192;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0VvYZOOP_1698993383;
+From: Heng Qi <hengqi@linux.alibaba.com>
+To: virtio-comment@lists.oasis-open.org
+Cc: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Cornelia Huck <cohuck@redhat.com>,
+	Yuri Benditovich <yuri.benditovich@daynix.com>,
+	Satananda Burla <sburla@marvell.com>,
+	Parav Pandit <parav@nvidia.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Date: Fri,  3 Nov 2023 14:36:23 +0800
+Message-Id: <d8aa405e0aa02043e486e3ac782c2680abeff9f7.1698992387.git.hengqi@linux.alibaba.com>
+X-Mailer: git-send-email 2.19.1.6.gb485710b
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481E02C73180D7E4C1DC624DCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH v1 3/8] device-context: Define the device context fields
- for device migration
+Subject: [virtio-comment] [PATCH v5] virtio-net: support the RSS context
 
-On Thu, Nov 02, 2023 at 03:06:49PM +0000, Parav Pandit wrote:
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Thursday, November 2, 2023 8:24 PM
-> > 
-> > On Thu, Nov 02, 2023 at 02:40:57PM +0000, Parav Pandit wrote:
-> > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > Sent: Thursday, November 2, 2023 7:52 PM
-> > > >
-> > > > On Sun, Oct 08, 2023 at 02:25:50PM +0300, Parav Pandit wrote:
-> > > > > +\begin{lstlisting}
-> > > > > +struct virtio_dev_ctx_pci_vq_cfg {
-> > > > > +        le16 vq_index;
-> > > > > +        le16 queue_size;
-> > > > > +        le16 queue_msix_vector;
-> > > > > +        le64 queue_desc;
-> > > > > +        le64 queue_driver;
-> > > > > +        le64 queue_device;
-> > > > > +};
-> > > > > +\end{lstlisting}
-> > > > > +
-> > > > > +One or multiple entries of PCI Virtqueue Configuration Context
-> > > > > +may exist, each such entry corresponds to a unique virtqueue
-> > > > > +identified by the
-> > > > \field{vq_index}.
-> > > >
-> > > > So consider this example. In practice it is quite possible that
-> > > > driver is in the process of specifying e.g. queue_desc, and it set
-> > > > queue_desc_hi but not queue_desc_lo. Then what is queue_desc?
-> > > > Just a combination of a legal value of queue_desc_hi and illegal one
-> > > > of queue_desc_lo? This makes no sense.
-> > > > queue_desc is fundamentally undefined until queue is enabled.
-> > >
-> > > Sure, in next read of the device context the updated value will reflect.
-> > > The destination will not work on this vq anyway as the device mode is freeze.
-> > > The whole device context is not atomic, so having one field like this as
-> > nonatomic similar to others is ok.
-> > >
-> > > In this example queue_enabled with the partial write should be still set to 0.
-> > >
-> > > >
-> > > > This is why I suggest that we have records that match the transport.
-> > > > Offset in structure can then we used as a tag and so we do not need
-> > > > to come up with new definitions for each single thing.
-> > > >
-> > > If I understood you correctly, you prefer to transfer virtio config space as offset
-> > and value as tag?
-> > > If so, how tag helps if it still transfers partial value?
-> > 
-> > For example:
-> > 
-> > struct virtio_pci_common_cfg {
-> >         /* About the whole device. */
-> >         __le32 device_feature_select;   /* read-write */
-> >         __le32 device_feature;          /* read-only */
-> >         __le32 guest_feature_select;    /* read-write */
-> >         __le32 guest_feature;           /* read-write */
-> >         __le16 msix_config;             /* read-write */
-> >         __le16 num_queues;              /* read-only */
-> >         __u8 device_status;             /* read-write */
-> >         __u8 config_generation;         /* read-only */
-> > 
-> >         /* About a specific virtqueue. */
-> >         __le16 queue_select;            /* read-write */
-> > 
-> >         __le16 queue_size;              /* read-write, power of 2. */
-> >         __le16 queue_msix_vector;       /* read-write */
-> >         __le16 queue_enable;            /* read-write */
-> >         __le16 queue_notify_off;        /* read-only */
-> >         __le32 queue_desc_lo;           /* read-write */
-> >         __le32 queue_desc_hi;           /* read-write */
-> >         __le32 queue_avail_lo;          /* read-write */
-> >         __le32 queue_avail_hi;          /* read-write */
-> >         __le32 queue_used_lo;           /* read-write */
-> >         __le32 queue_used_hi;           /* read-write */
-> > };
-> > 
-> > We would have:
-> >     tag: 32 (queue_desc_lo), len: 4
-> >     tag: 34 (queue_desc_hi), len: 4
-> > 
-> So tag is offset. Ok.
-> > 
-> > The point is that the values programmed just map 1:1 to what is exposed in the
-> > transport.
-> > 
-> For queue addresses, 
-> > This means that the structure is different for different transports btw.
-> > 
-> > 
-> > 
-> > 
-> > 
-> > 
-> > > > And, this is only an instance of the general principle: do not have
-> > > > two definitions of the same thing. In fact I'd argue our transport
-> > > > structures are an example of a bad design and the cost is that less
-> > > > used ones like mmio and ccw sometimes lag behind on features.
-> > >
-> > > I totally agree on not duplicating it.
-> > >
-> > > For 64 VQs their content of struct virtio_dev_ctx_pci_vq_cfg is behind 8
-> > registers.
-> > > So for them there has contained in their own struct such as struct
-> > virtio_dev_ctx_pci_vq_cfg, right?
-> > >
-> > > And current struct virtio_pci_common_cfg is giving the current snap shot of
-> > register file.
-> > >
-> > > This is why there is some duplication.
-> > > To avoid duplication of this registers, we will have to bisect each field of it and
-> > omit these 3 address registers.
-> > >
-> > > Not able to see the gain of that overhead. Do you?
-> > 
-> > Not bisect. My idea is to just have each register in its own tag+length field. And
-> > the gain is that we easily add fields without any pain and any duplication and
-> > special documentation effort.
-> We have to transport all the vq fields located behind the common config registers as struct anyway, isn’t it?
-> And if we use tag for virtio common config space (instead of struct), why there won't be duplication? This is the part I still miss.
+Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support RSS spreading of
+filter matches") adds support for RSS context as a destination for receive flow filters
+(see WIP work: https://lists.oasis-open.org/archives/virtio-comment/202308/msg00194.html).
 
-Not sure I understand the question.  The point is that when we add a new
-field to common config we don't need to also add it to the migration
-format - it has an offset and that automatically defines the format.
+An RSS context consists of configurable parameters specified by receive-side scaling.
 
+Some use cases:
+1. When users want some data flows to be steered to specific multiple rxqs, they can set
+   receive flow filter rules for these data flows to an RSS context with desired rxqs.
+2. Traffic isolation. Used when users want the traffic of certain applications to occupy
+   several queues without being distubed.
+
+How to set/configure an RSS context:
+Assuming no RSS context has been created before.
+1. ethtool -X eth0 context new start 5 equal 8
+
+This command creates an RSS context with an id=1 for eth0, and fills in the indirection
+table with rxq indexes 5-8 circularly. The hash key and hash types reuse the default
+RSS configuration.
+
+Then, we can use 'ethtool -x eth0 context 1' to query the above configuration.
+
+2. ethtool -X eth0 context new start 6 equal 7 \
+   hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
+   1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3
+
+This command creates an RSS context with an id=2 for eth0, and fills in the indirection
+table with rxq indexes 6-7 circularly. The hash key is 8f:bf:dd:11:23:58:d2:8a:00:31:d0\
+:32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3.
+Hash types reuse the default RSS configuration.
+
+3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
+
+This command specifies the hash types for the RSS context whose id=1 on eth0.
+Now this RSS context only has the hash key to reuse the default RSS configuration.
+
+4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
+
+This command configures a receive flow filter rule for eth0, and the data flow matching
+this rule will continue to select the final rxq according to the RSS context configuration
+with id=1.
+
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/178
+Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+Acked-by: Satananda Burla <sburla@marvell.com>
+---
+v4->v5:
+  1. Use 'u8 reserved[6]' instead of u16 padding to align the structure.
+
+v3->v4:
+  1. Rebase to Xuan's device stats patch.
+
+v2->v3:
+  1. Process Satananda's comments and add his ack tag.
+  2. Add link to fix issue and optimize commit log.
+
+v1->v2:
+  1. u8 to le16 for field rss_ctx_id.
+  2. Add normativation when device resetting. @Yuri Benditovich
+  3. Use ctrlq cmd to query rss context capability instead of reading config space. @Parav Pandit
+
+ device-types/net/description.tex        | 85 +++++++++++++++++++++++++
+ device-types/net/device-conformance.tex |  1 +
+ device-types/net/driver-conformance.tex |  1 +
+ 3 files changed, 87 insertions(+)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index aff5e08..61cce1f 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -122,6 +122,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+     device with the same MAC address.
+ 
+ \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and duplex.
++
++\item[VIRTIO_NET_F_RSS_CONTEXT(64)] Device supports multiple RSS contexts.
+ \end{description}
+ 
+ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
+@@ -153,6 +155,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
+ \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
+ \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
++\item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and VIRTIO_NET_F_RSS.
+ \end{description}
+ 
+ \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
+@@ -1613,6 +1616,88 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
+ \end{itemize}
+ 
++\paragraph{RSS Context}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
++
++An RSS context consists of configurable parameters specified by \ref{sec:Device Types / Network Device
++/ Device Operation / Control Virtqueue / Receive-side scaling (RSS)}.
++
++The RSS configuration supported by VIRTIO_NET_F_RSS is considered the default RSS configuration.
++
++The device offers the feature VIRTIO_NET_F_RSS_CONTEXT if it supports one or multiple RSS contexts
++(excluding the default RSS configuration) and configurable parameters.
++
++\subparagraph{Querying RSS Context Capability}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Querying RSS Context Capability}
++
++\begin{lstlisting}
++#define VIRTNET_RSS_CTX_CTRL 9
++ #define VIRTNET_RSS_CTX_CTRL_CAP_GET  0
++ #define VIRTNET_RSS_CTX_CTRL_ADD      1
++ #define VIRTNET_RSS_CTX_CTRL_MOD      2
++ #define VIRTNET_RSS_CTX_CTRL_DEL      3
++
++struct virtnet_rss_ctx_cap {
++    le16 max_rss_contexts;
++}
++\end{lstlisting}
++
++Field \field{max_rss_contexts} specifies the maximum number of RSS contexts \ref{sec:Device Types / Network Device /
++Device Operation / Control Virtqueue / RSS Context} supported by the device.
++
++The driver queries the RSS context capability of the device by sending the command VIRTNET_RSS_CTX_CTRL_CAP_GET
++with the structure virtnet_rss_ctx_cap.
++
++For the command VIRTNET_RSS_CTX_CTRL_CAP_GET, the structure virtnet_rss_ctx_cap is write-only for the device.
++
++\subparagraph{Setting RSS Context Parameters}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Setting RSS Context Parameters}
++
++\begin{lstlisting}
++struct virtnet_rss_ctx_add_modify {
++    le16 rss_ctx_id;
++    u8 reserved[6];
++    struct virtio_net_rss_config rss;
++};
++
++struct virtnet_rss_ctx_del {
++    le16 rss_ctx_id;
++};
++\end{lstlisting}
++
++RSS context parameters:
++\begin{itemize}
++\item  \field{rss_ctx_id}: ID of the specific RSS context.
++\item  \field{rss}: RSS context parameters of the specific RSS context whose id is \field{rss_ctx_id}.
++\end{itemize}
++
++\field{reserved} is reserved and it is ignored by the device.
++
++If the feature VIRTIO_NET_F_RSS_CONTEXT has been negotiated, the driver can send the following
++VIRTNET_RSS_CTX_CTRL class commands:
++\begin{enumerate}
++\item VIRTNET_RSS_CTX_CTRL_ADD: use the structure virtnet_rss_ctx_add_modify to
++       add an RSS context configured as \field{rss} and id as \field{rss_ctx_id} for the device.
++\item VIRTNET_RSS_CTX_CTRL_MOD: use the structure virtnet_rss_ctx_add_modify to
++       configure parameters of the RSS context whose id is \field{rss_ctx_id} as \field{rss} for the device.
++\item VIRTNET_RSS_CTX_CTRL_DEL: use the structure virtnet_rss_ctx_del to delete
++       the RSS context whose id is \field{rss_ctx_id} for the device.
++\end{enumerate}
++
++For commands VIRTNET_RSS_CTX_CTRL_ADD and VIRTNET_RSS_CTX_CTRL_MOD, the structure virtnet_rss_ctx_add_modify is read-only for the device.
++For the command VIRTNET_RSS_CTX_CTRL_DEL, the structure virtnet_rss_ctx_del is read-only for the device.
++
++\devicenormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
++
++The device MUST set \field{max_rss_contexts} to at least 1 if it offers VIRTIO_NET_F_RSS_CONTEXT.
++
++Upon reset, the device MUST clear all previously configured RSS contexts.
++
++\drivernormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
++
++The driver MUST have negotiated the VIRTIO_NET_F_RSS_CONTEXT feature when issuing the VIRTNET_RSS_CTX_CTRL class commands.
++
++The driver MUST set \field{rss_ctx_id} to between 1 and \field{max_rss_contexts} inclusive.
++
++The driver MUST NOT send the command VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET when the device has successfully configured at least one RSS context.
++
+ \paragraph{Offloads State Configuration}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Offloads State Configuration}
+ 
+ If the VIRTIO_NET_F_CTRL_GUEST_OFFLOADS feature is negotiated, the driver can
+diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
+index 52526e4..c71341e 100644
+--- a/device-types/net/device-conformance.tex
++++ b/device-types/net/device-conformance.tex
+@@ -16,4 +16,5 @@
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
++\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
+ \end{itemize}
+diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
+index c693c4f..7081ec3 100644
+--- a/device-types/net/driver-conformance.tex
++++ b/device-types/net/driver-conformance.tex
+@@ -16,4 +16,5 @@
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
++\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
+ \end{itemize}
 -- 
-MST
+2.19.1.6.gb485710b
 
 
 This publicly archived list offers a means to provide input to the
