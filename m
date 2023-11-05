@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8166-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8167-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E2D8C4167D
-	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 15:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D08C4332F
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 13:13:57 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8BAA82A89A
-	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 15:54:27 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 72F742B03F
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 13:13:56 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 66609986C48
-	for <virtio-comment@archiver.kernel.org>; Fri,  3 Nov 2023 15:54:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 53A3F9866B6
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 13:13:56 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4D3FF986C3F; Fri,  3 Nov 2023 15:54:27 +0000 (UTC)
+	id 3C06298669B; Sun,  5 Nov 2023 13:13:56 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,225 +24,133 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3D157986C40
-	for <virtio-comment@lists.oasis-open.org>; Fri,  3 Nov 2023 15:54:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 26FF798669C
+	for <virtio-comment@lists.oasis-open.org>; Sun,  5 Nov 2023 13:13:56 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XnF5VBTrVBhFseObg02/bm25Sm09mEhZqQWXmkRsmilO6HeDhiNuJxQ1y73N8UtyPDDSXw3T3cum2yklnvYRoR81VvI0rEIJa6IDmhxXkVl8NKSmDvrhOyXV1bgM5zAgec2GYDJQi3Y8ifskX4jqErEyzRkUFqBzo/OjohFVg6WVOLDBQdq17bySpyZLII1cEZSEo0ldNrReGgJpJq7K3egL+kT/Byj9CQHLfh7oYT8t04YsHO3aCXri1B9Y4q8hIIIOkJ+a8f7QT3DSaUu8OKPUl6Njl/QnWKkKR6tINJPcs4Zv/TdSJcGthERFuoRR95ZLO9agJXIAYBOVw16WUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PFcOG8RacFfVHvdS3jBI1USGXByxrmACW/5DgQnihpE=;
- b=RlFa/Sj67A0q04WVJev0+pxVbULcJTe51FEeCPMPyuRivm5pk9SzQkeiKnI3QZFSQbtw/z6foDORe8tSzylgMeQPm7KWQy8wLxmLlQmHrWsNEG7GXO3iy/K4KBe3f9aKlPa2pwKwfIxkAU8rQfZTN9IF3ldIZJp2rLyvT+3AB71kktAvOHKbSyuF8Ogw+q1pclw/mnDXbuXMzez5KgUruqks8K6jqDqko5Z4XO6ZHNCYLccVGxKMu7V9fvndPMNOSu3dXA7o56BKk7gF4BDRMyLU3GqH7dazuC6fm9rbMfCoeDejNKpCO0Ou8tkUk2RIr8AyOm/73qzEx/sBZjavyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "jasowang@redhat.com"
-	<jasowang@redhat.com>, "mst@redhat.com" <mst@redhat.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>, "cohuck@redhat.com"
-	<cohuck@redhat.com>, "stefanha@redhat.com" <stefanha@redhat.com>
-CC: "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>
-Thread-Topic: [PATCH V2 2/6] virtio: introduce SUSPEND bit in device status
-Thread-Index: AQHaDkFjjjC0DC7RqE21KFAcdDb+trBob5HQgAA/agCAAA+P0A==
-Date: Fri, 3 Nov 2023 15:54:24 +0000
-Message-ID:
- <PH0PR12MB5481F05E5A952E9A43B96F73DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20231103103437.72784-1-lingshan.zhu@intel.com>
- <20231103103437.72784-3-lingshan.zhu@intel.com>
- <PH0PR12MB54814E8B9E7D16C9EF421C82DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <78f206cd-1e07-4c20-a281-1ddf74cf4d84@intel.com>
-In-Reply-To: <78f206cd-1e07-4c20-a281-1ddf74cf4d84@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|IA0PR12MB8423:EE_
-x-ms-office365-filtering-correlation-id: f25be569-a652-4ede-f05e-08dbdc8526cd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 7l7q32g2RWFVtY6oelSLuiRI84p339oQKaxvD9qdEDZ7dk09QErvSDKPAKzy7jmKgkS4s77ZB/QbJtnMT5WQ5T/rmUY5pdnK2jLWNWmq7vV1j0ErQ86qGwdB41goqil4NjiPn33fzbTHIpXNcCyGq+/Hge0yiFYXnc5v8btBcP9BvW1h+PhJ76T6vlWK/0lruBnV5tDgwzuQ1RhHGEr/9FSq93niG4fuDOmA/qmvXFXqqqENTjO3+MwfoqHmpiQUKXP3ea68NwAgnTTQ2f5awyw1GpzKLb/E4UknnmIXjNx/EnXMl8ErRbRbHhbPG6PSXMvN/DamPON2VzlhnovP00ZpVm6r+HRthqKckkcoXgcTeixAGdD41oPJiQyHbxxJuyjN51iBchiqkr+BTghIpLX7ZndDVULEVZmG3TmBzRcNVB4UMCFNMfJLA4v1Jzrm2K0T/0YlVqP9ouysZ8PeEc6xpYUKriac8S0469vcDm10f6bowTOZtZLu1WRSCkRB4+VIjp1G5k3VdtPg4++Dn9FiSSntd6Cz3w94nVtxj6kw01AntRglYVishqIyiQyHeQgqVFQZ2LQjZibbuKJdTabTNvGETL3v8oE+fgDvquF1NafK4ulPLeBd2UmzdAqx29JduV6VJ2dCBpVS80FzxY8dlw4hvrtyd2vnxLPVKzM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(366004)(39860400002)(136003)(346002)(376002)(230922051799003)(186009)(451199024)(1800799009)(64100799003)(9686003)(8676002)(8936002)(4326008)(53546011)(52536014)(5660300002)(41300700001)(122000001)(2906002)(66899024)(15650500001)(86362001)(38100700002)(38070700009)(26005)(33656002)(83380400001)(966005)(478600001)(66574015)(7696005)(6506007)(55016003)(64756008)(66446008)(66476007)(316002)(66556008)(76116006)(66946007)(110136005)(71200400001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VzIxRGo0ci9iOXd3dDdlMHlCclJOZDAwdldDemVzcFdPQ0FNSmxGSjlrbWJN?=
- =?utf-8?B?dXhTVC9RYWhQdUd1d1dVNzlzaUV5V2wvZ0tSdnIxb1VIdnJNZFI5QVNHekpu?=
- =?utf-8?B?Z1VzMjE2c3VTdGJrVEZod1pENnN0a1VPc0dHcjFaYlhUQ25ITlhSTmpvUDZo?=
- =?utf-8?B?cG00bTVlanJWZHBBYkZSYXpwMVF5ejgvREhteE04STBZclhWYTNBS2dxOUxP?=
- =?utf-8?B?S1JHS0lxMzdtWnVLZ0pqTmF6Qi9UMXVHYWlqaWVjQjhwVVZSS2F3cm5VYkF5?=
- =?utf-8?B?STcvdlNFK2NkaDFpMlE0ZDYwVU9JOHg5b1dNd3dDNGFZTlc0NEptSTBIb1Ju?=
- =?utf-8?B?Z0ltUnE5ZGEzYzBWR3MzU2xGRGhrckMyVnIzOFFwajNERWJ5d2hZSytyRXAx?=
- =?utf-8?B?NmF3bVFpK2N2YUlIc3lvYlVoN1Y4WlBDVlhucEM0azU5b2l1QmY2TlB1SjBG?=
- =?utf-8?B?L2dEdVR4S1BNWWVjUnVxQm0yRWh1dExZemJMdkVEU25DMzhQSGEvMmw1cG5C?=
- =?utf-8?B?N0xBRG9YRDlKVVRheVY4TisyaS9DRnZYcDZaY1czK0R6ZDFFc0VpN1AwMG5v?=
- =?utf-8?B?bXlnaWxpTmpJb1orL2xCYWQ0QlJnSnpIVExIYlVGdmlCS2IxRVQzY2l0MWJT?=
- =?utf-8?B?dHdRYkYwRGxHVHpKSFJVZEZSbVJqSlkvbUVnWHZxZ091ai9vSTZmd012OHBC?=
- =?utf-8?B?TjFpVWRKVm1IVEdraDhOQjBUaTR1NHpjeXR3Q1NRRGNQTG1EYjFOR0pGOEtU?=
- =?utf-8?B?ajVsYTAvOCt6TmFLM0lCUllVajJKM25IT01JRFhWRUMxRGFNUlZUMnVxUk94?=
- =?utf-8?B?cnNIdjdEeHY0QmtzaDFMNXpZR3lHYzRlbCtEbVhjMHlYQ0c2VVdQL2dVeEVx?=
- =?utf-8?B?WnorT1NkVHpJUE9kaWlUVUJ6OCt6NlNocFY5ZFI5c1lSTzhYd0pReXc5WExr?=
- =?utf-8?B?c2kyVFJKeTBJMC94bnd5UFFaWkJLQ0dCZTNSRFZUbEJsWTRkM2tiMHRvUnBs?=
- =?utf-8?B?d2lpODNtTGhua0FEOGg4ZDR4M3l6QVo1UFkydmtoZnZiNHdXd0JlcmJ4QUxX?=
- =?utf-8?B?TmF3dlhZMXF6U0RvdUhiZElJeVM0SFQyb2FVK1R4WHFZZklZS0lGOHVGZUxr?=
- =?utf-8?B?Z3hHVkFLTnIrOHAva3VNQ0d2dFd6MUJoeWQwYWZ1b2QxWi9FVFV2T2FtTUVq?=
- =?utf-8?B?WU96ZWNPcWp1dThnTStMRGhDdDg3QWpnbGxXQVhZK2VaRlR5NFhTUXdFZkJv?=
- =?utf-8?B?TC92Y0V6VHVyT0RZd0dEQ0Q4U0NUT09LZEF5ZzM3V1NBOERBSXRYNnVzclVl?=
- =?utf-8?B?UUlyRytvcmhVUGw5MGlFQk5wRUpIN092QkRVUVZNU0lMSEFmZUpVVlhremVx?=
- =?utf-8?B?YktNZjlsdnErY3lsRkZ2TWREdkdmNkhMeExzZHdMOFY4TDNKcUhxdHRDVW5X?=
- =?utf-8?B?V0lJb2d3VVh0a3prTzdUVktmK3lnaWVtNWllMjBSQmRyTkJKS0J2TjhqTlBu?=
- =?utf-8?B?NnBjamYvano1eFVsSjlzQUR4cWpnb1NxU2kxNmpGRmZVOEsyZ3VRNUlmaUNN?=
- =?utf-8?B?MHF0RzhiOG5mWW9nazBaTXdkeGk4MHl1OGxCS0dQdy9yRmFlZjFoMTVIbUVr?=
- =?utf-8?B?VmU3VDQrYnpBbFF6aXZDZDJ4bzA0ckozTTNNa2JZZGpyTGdrWTdZZmo3aE11?=
- =?utf-8?B?Q2dHSmUwVDV4bUtneE95QnJ6R25XVzZtMVNYdVFDN1FIQUlQekYvaXIrM095?=
- =?utf-8?B?TlU0M1RxdnZFSHh6Y09EZitqNDZQZ3A5MmJjRUxBS2tIZHNwdk1XdmFnaU95?=
- =?utf-8?B?eC8rTWNwamxXQkJDdWhWR0RoZDloQVZqSjNZNlFodndtSHEwQ3g1L21XVE9V?=
- =?utf-8?B?TE5tZlE2TDBKTkNDRVcvM29CQ0dCMHZ4cE1rbVhUaE1pNSs2SjMrekhsb3Bm?=
- =?utf-8?B?dWU5Uk5yeWZDSE9JZ0tMRTVDUXVGanVMdkwxdTFYWVl6NzVGYVhBZkdyQVJK?=
- =?utf-8?B?UURSZGFZcUIwYklZYkNnN1EyNTd3WTY2ajdzOENQMXZzUmNZZzhjZEpDUVNC?=
- =?utf-8?B?OUNxK3M5bXJJYVppV3dQWnJ3WkdSN040T2NsazFxWEFIeXZ3R3BXWnpTYVVk?=
- =?utf-8?Q?rJrM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046049;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0VvefH73_1699190030;
+Message-ID: <03dfc1d5-bb88-45b3-8617-d1f77726afbd@linux.alibaba.com>
+Date: Sun, 5 Nov 2023 21:13:44 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f25be569-a652-4ede-f05e-08dbdc8526cd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2023 15:54:24.2285
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pFBOSO8AqiEJ4LCxZE83iY6rwQX1faNbqy9CgShaB1P2tuExGT7a161aLEQveDEqHdLIs9S3DDJjUISB+eF8Yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8423
-Subject: [virtio-comment] RE: [PATCH V2 2/6] virtio: introduce SUSPEND bit in device status
+User-Agent: Mozilla Thunderbird
+To: Cornelia Huck <cohuck@redhat.com>, virtio-comment@lists.oasis-open.org
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Yuri Benditovich <yuri.benditovich@daynix.com>,
+ Satananda Burla <sburla@marvell.com>, Parav Pandit <parav@nvidia.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+References: <d8aa405e0aa02043e486e3ac782c2680abeff9f7.1698992387.git.hengqi@linux.alibaba.com>
+ <87cywrq6kh.fsf@redhat.com>
+From: Heng Qi <hengqi@linux.alibaba.com>
+In-Reply-To: <87cywrq6kh.fsf@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] [PATCH v5] virtio-net: support the RSS context
 
-DQo+IEZyb206IFpodSwgTGluZ3NoYW4gPGxpbmdzaGFuLnpodUBpbnRlbC5jb20+DQo+IFNlbnQ6
-IEZyaWRheSwgTm92ZW1iZXIgMywgMjAyMyA4OjI1IFBNDQo+IA0KPiBPbiAxMS8zLzIwMjMgNzoz
-NSBQTSwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KPiA+PiBGcm9tOiBaaHUgTGluZ3NoYW4gPGxpbmdz
-aGFuLnpodUBpbnRlbC5jb20+DQo+ID4+IFNlbnQ6IEZyaWRheSwgTm92ZW1iZXIgMywgMjAyMyA0
-OjA1IFBNDQo+ID4+DQo+ID4+IFRoaXMgcGF0Y2ggaW50cm9kdWNlcyBhIG5ldyBzdGF0dXMgYml0
-IGluIHRoZSBkZXZpY2Ugc3RhdHVzOiBTVVNQRU5ELg0KPiA+Pg0KPiA+PiBUaGlzIFNVU1BFTkQg
-Yml0IGNhbiBiZSB1c2VkIGJ5IHRoZSBkcml2ZXIgdG8gc3VzcGVuZCBhIGRldmljZSwgaW4NCj4g
-Pj4gb3JkZXIgdG8gc3RhYmlsaXplIHRoZSBkZXZpY2Ugc3RhdGVzIGFuZCB2aXJ0cXVldWUgc3Rh
-dGVzLg0KPiA+Pg0KPiA+PiBJdHMgbWFpbiB1c2UgY2FzZSBpcyBsaXZlIG1pZ3JhdGlvbi4NCj4g
-Pj4NCj4gPj4gU2lnbmVkLW9mZi1ieTogWmh1IExpbmdzaGFuIDxsaW5nc2hhbi56aHVAaW50ZWwu
-Y29tPg0KPiA+PiBTaWduZWQtb2ZmLWJ5OiBKYXNvbiBXYW5nIDxqYXNvd2FuZ0ByZWRoYXQuY29t
-Pg0KPiA+IFlvdSBjb25zdGFudGx5IGNvbXBsYWluZWQgdGhhdCB3aGF0ZXZlciB3YXMgcHJvcG9z
-ZWQgdXNpbmcgYWRtaW4NCj4gY29tbWFuZHMgbWV0aG9kIGluIFsxXSBtdXN0IHdvcmsgZm9yIHBh
-c3N0aHJvdWdoIGFuZCBub24tcGFzc3Rocm91Z2guDQo+ID4NCj4gPiBBbmQgaGFsZndheSBpbiB0
-aGUgZGlzY3Vzc2lvbiB5b3UgcHJvcG9zZSBhIG1ldGhvZCBhZnRlciBsZWFybmluZyBhbGwgdGhl
-DQo+IGxpbWl0YXRpb25zIG9mIGluLWJhbmQsIHlvdSBwcm9wb3NlIGEgc29sdXRpb24gb25seSB3
-b3JrcyBmb3Igbm9uLXBhc3N0aHJvdWdoDQo+IG1vZGUuDQo+ID4NCj4gPiBZb3UgYXNrZWQgc29t
-ZW9uZSB0byBoYXZlIGNvbXByZWhlbnNpdmUgcHJvcG9zYWwgYW5kIHdoZW4gaXQgY29tZXMgdG8N
-Cj4geW91IGZvbGxvd2luZyBpdCwgeW91IGp1c3QgZG9u4oCZdC4NCj4gbm90IHN1cmUgd2hhdCB5
-b3UgYXJlIHRhbGtpbmcgYWJvdXQuDQo+ID4gQW5kIGhhdmUgbW9zdCBzaGFsbG93IGNvbW1pdCBt
-ZXNzYWdlIHRvIG5vdCBldmVuIG1lbnRpb24gaXQuDQo+ID4NCj4gPiBQbGVhc2UgYmUgY29uc2lz
-dGVudCBpbiBkZXNpZ24gYXBwcm9hY2guDQo+ID4gQW5kIGlmIHlvdSBkb27igJl0IHdhbnQgdG8g
-YmUsIHN0b3AgYXNraW5nIG90aGVycy4NCj4gdGhpcyBTVVNQRU5EL1JFU1VNRSBkb2Vzbid0IGNo
-YW5nZSBzaW5jZSB0aGUgUkZDIHNlcmllcywgaG93IGNhbiBpdCBub3QgYmUNCj4gaW5jb25zaXN0
-ZW50Pz8/DQo+ID4NCj4gPiBUaGlzIGlzIG5vdCB0aGUgd2F5IFRDIGNvbGxhYm9yYXRpb24gd29y
-a3MuDQo+ID4gSSBwcm9iYWJseSBzaG91bGRu4oCZdCBldmVuIGV4cGVjdCB0aGlzIGZyb20geW91
-Lg0KDQpZb3VyIHByb3Bvc2FsIGRvZXMgbm90IGNvdmVyIGJvdGggdGhlIHVzZSBjYXNlcyBvZiBw
-YXNzdGhyb3VnaCBhbmQgbm9uLXBhc3N0aHJvdWdoLg0KWWV0IHlvdSBrZXB0IGRlbWFuZGluZyB0
-aGVtIGZvciBvdGhlcnMuDQpUaGlzIGlzIGp1c3Qgd3JvbmcuDQoNCkkgYW0gYXdhcmUgdGhhdCBi
-b3RoIG1vZGVscyBhcyB0ZWNobmljYWwgcHJvcyBhbmQgY29ucy4NCg0KPiA+DQo+ID4gWzFdDQo+
-ID4gaHR0cHM6Ly9saXN0cy5vYXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0aW8tY29tbWVudC8y
-MDIzMTAvbXNnMDA0NzIuaA0KPiA+IHRtbA0KPiBQbGVhc2UgZG9uJ3QgYmUgc28gZW1vdGlvbmFs
-IGFuZCBwbGVhc2UgYmUgcHJvZmVzc2lvbmFsLg0KPiANCj4gV2h5IHRoaXMgc29sdXRpb24gY2Fu
-IG5vdCB3b3JrIGZvciBwYXNzLXRocm91Z2g/IERvIHlvdSBrbm93IHRoZSBkZXZpY2UNCj4gb3du
-ZXJzaGlwIHdpbGwgYmUgdHJhbnNmZXJyZWQgdG8gdGhlIGh5cGVydmlzb3Igd2hlbiBndWVzdCBz
-dXNwZW5kZWQgaW4gbGl2ZQ0KPiBtaWdyYXRpb24/DQpJIGV4cGxhaW5lZCA1IHJlYXNvbnMgd2h5
-IGl0IGRvZXMgbm90IHdvcmsgaW4gcHJldmlvdXMgcmVwbHkuDQoNCkFzIHRoZSB3b3JkIGluZGlj
-YXRlcyAibGl2ZSBtaWdyYXRpb24iLCB0aGUgaHlwZXJ2aXNvciBuZWVkcyB0byBhY2Nlc3MgdGhl
-IGRldmljZSB3aGVuIGl0IGlzICJsaXZlIiAobm90IGp1c3QgYWZ0ZXIpLg0KSGVuY2UsIHBhc3N0
-aHJvdWdoIG1vZGUgbXVzdCBiZSBhYmxlIHRvIGNhcHR1cmUgdGhlIHN0YXRlIG9mIHRoZSBkZXZp
-Y2UgYW5kIGRpcnR5IHBhZ2VzIGRhdGFiYXNlIHdoZW4gaXRzIGxpdmUuDQooYW5kIGFmdGVyIHRo
-ZSBzb3VyY2UgaXMgc3VzcGVuZGVkKS4NCg0KPiA+DQo+ID4+IFNpZ25lZC1vZmYtYnk6IEV1Z2Vu
-aW8gUMOpcmV6IDxlcGVyZXptYUByZWRoYXQuY29tPg0KPiA+PiAtLS0NCj4gPj4gICBjb250ZW50
-LnRleCB8IDM2ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLQ0KPiA+PiAgIDEg
-ZmlsZSBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPiA+Pg0KPiA+
-PiBkaWZmIC0tZ2l0IGEvY29udGVudC50ZXggYi9jb250ZW50LnRleCBpbmRleCA3NjgxM2I1Li5i
-Y2M5ZDRiIDEwMDY0NA0KPiA+PiAtLS0gYS9jb250ZW50LnRleA0KPiA+PiArKysgYi9jb250ZW50
-LnRleA0KPiA+PiBAQCAtNDksNiArNDksMTAgQEAgXHNlY3Rpb257XGZpZWxke0RldmljZSBTdGF0
-dXN9DQo+ID4+IEZpZWxkfVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbyBE
-ZXYNCj4gPj4NCj4gPj4gICBcaXRlbVtERVZJQ0VfTkVFRFNfUkVTRVQgKDY0KV0gSW5kaWNhdGVz
-IHRoYXQgdGhlIGRldmljZSBoYXMNCj4gZXhwZXJpZW5jZWQNCj4gPj4gICAgIGFuIGVycm9yIGZy
-b20gd2hpY2ggaXQgY2FuJ3QgcmVjb3Zlci4NCj4gPj4gKw0KPiA+PiArXGl0ZW1bU1VTUEVORCAo
-MTYpXSBXaGVuIFZJUlRJT19GX1NVU1BFTkQgaXMgbmVnb3RpYXRlZCwgaW5kaWNhdGVzDQo+ID4+
-ICt0aGF0IHRoZQ0KPiA+PiArICBkZXZpY2UgaGFzIGJlZW4gc3VzcGVuZGVkIGJ5IHRoZSBkcml2
-ZXIuDQo+ID4+ICsNCj4gPj4gICBcZW5ke2Rlc2NyaXB0aW9ufQ0KPiA+Pg0KPiA+PiAgIFRoZSBc
-ZmllbGR7ZGV2aWNlIHN0YXR1c30gZmllbGQgc3RhcnRzIG91dCBhcyAwLCBhbmQgaXMNCj4gPj4g
-cmVpbml0aWFsaXplZCB0byAwIGJ5IEBAIC0NCj4gPj4gNzMsNiArNzcsMTAgQEAgXHNlY3Rpb257
-XGZpZWxke0RldmljZSBTdGF0dXN9IEZpZWxkfVxsYWJlbHtzZWM6QmFzaWMNCj4gPj4gRmFjaWxp
-dGllcyBvZiBhIFZpcnRpbyBEZXYgIHJlY292ZXIgYnkgaXNzdWluZyBhIHJlc2V0Lg0KPiA+PiAg
-IFxlbmR7bm90ZX0NCj4gPj4NCj4gPj4gK1RoZSBkcml2ZXIgU0hPVUxEIE5PVCBzZXQgU1VTUEVO
-RCBpZiBGRUFUVVJFU19PSyBpcyBub3Qgc2V0Lg0KPiA+PiArDQo+ID4+ICtXaGVuIHNldHRpbmcg
-U1VTUEVORCwgdGhlIGRyaXZlciBNVVNUIHJlLXJlYWQgXGZpZWxke2RldmljZSBzdGF0dXN9DQo+
-ID4+ICt0byBlbnN1cmUNCj4gPj4gdGhlIFNVU1BFTkQgYml0IGlzIHNldC4NCj4gPj4gKw0KPiA+
-PiAgIFxkZXZpY2Vub3JtYXRpdmV7XHN1YnNlY3Rpb259e0RldmljZSBTdGF0dXMgRmllbGR9e0Jh
-c2ljIEZhY2lsaXRpZXMNCj4gPj4gb2YgYSBWaXJ0aW8gRGV2aWNlIC8gRGV2aWNlIFN0YXR1cyBG
-aWVsZH0NCj4gPj4NCj4gPj4gICBUaGUgZGV2aWNlIE1VU1QgTk9UIGNvbnN1bWUgYnVmZmVycyBv
-ciBzZW5kIGFueSB1c2VkIGJ1ZmZlciBAQA0KPiA+PiAtODIsNg0KPiA+PiArOTAsMjYgQEAgXHNl
-Y3Rpb257XGZpZWxke0RldmljZSBTdGF0dXN9IEZpZWxkfVxsYWJlbHtzZWM6QmFzaWMNCj4gPj4g
-K0ZhY2lsaXRpZXMgb2YgYQ0KPiA+PiBWaXJ0aW8gRGV2ICB0aGF0IGEgcmVzZXQgaXMgbmVlZGVk
-LiAgSWYgRFJJVkVSX09LIGlzIHNldCwgYWZ0ZXIgaXQNCj4gPj4gc2V0cyBERVZJQ0VfTkVFRFNf
-UkVTRVQsIHRoZSBkZXZpY2UgIE1VU1Qgc2VuZCBhIGRldmljZSBjb25maWd1cmF0aW9uDQo+ID4+
-IGNoYW5nZSBub3RpZmljYXRpb24gdG8gdGhlIGRyaXZlci4NCj4gPj4NCj4gPj4gK1RoZSBkZXZp
-Y2UgTVVTVCBpZ25vcmUgU1VTUEVORCBpZiBGRUFUVVJFU19PSyBpcyBub3Qgc2V0Lg0KPiA+PiAr
-DQo+ID4+ICtUaGUgZGV2aWNlIE1VU1QgaWdub3JlIFNVU1BFTkQgaWYgVklSVElPX0ZfU1VTUEVO
-RCBpcyBub3QgbmVnb3RpYXRlZC4NCj4gPj4gKw0KPiA+PiArVGhlIGRldmljZSBTSE9VTEQgYWxs
-b3cgc2V0dGluZ3MgdG8gXGZpZWxke2RldmljZSBzdGF0dXN9IGV2ZW4gd2hlbg0KPiA+PiArU1VT
-UEVORA0KPiA+PiBpcyBzZXQuDQo+ID4+ICsNCj4gPj4gK0lmIFZJUlRJT19GX1NVU1BFTkQgaXMg
-bmVnb3RpYXRlZCBhbmQgU1VTUEVORCBpcyBzZXQsIHRoZSBkZXZpY2UNCj4gPj4gK1NIT1VMRCBj
-bGVhciBTVVNQRU5EIGFuZCByZXN1bWVzIG9wZXJhdGlvbiB1cG9uIERSSVZFUl9PSy4NCj4gPj4g
-Kw0KPiA+PiArSWYgVklSVElPX0ZfU1VTUEVORCBpcyBuZWdvdGlhdGVkLCB3aGVuIHRoZSBkcml2
-ZXIgc2V0cyBTVVNQRU5ELCB0aGUNCj4gPj4gK2RldmljZSBTSE9VTEQgcGVyZm9ybSB0aGUgZm9s
-bG93aW5nIGFjdGlvbnMgYmVmb3JlIHByZXNlbnRpbmcNCj4gPj4gK1NVU1BFTkQgYml0DQo+ID4+
-IGluIHRoZSBcZmllbGR7ZGV2aWNlIHN0YXR1c306DQo+ID4+ICsNCj4gPj4gK1xiZWdpbntpdGVt
-aXplfQ0KPiA+PiArXGl0ZW0gU3RvcCBjb25zdW1pbmcgYnVmZmVycyBvZiBhbnkgdmlydHF1ZXVl
-cyBhbmQgbWFyayBhbGwgZmluaXNoZWQNCj4gPj4gZGVzY3JpdG9ycyBhcyB1c2VkLg0KPiA+PiAr
-XGl0ZW0gV2FpdCB1bnRpbCBhbGwgZGVzY3JpcHRvcnMgdGhhdCBiZWluZyBwcm9jZXNzZWQgdG8g
-ZmluaXNoIGFuZA0KPiA+PiArbWFyayB0aGVtDQo+ID4+IGFzIHVzZWQuDQo+ID4+ICtcaXRlbSBG
-bHVzaCBhbGwgdXNlZCBidWZmZXIgYW5kIHNlbmQgdXNlZCBidWZmZXIgbm90aWZpY2F0aW9ucyB0
-byB0aGUgZHJpdmVyLg0KPiA+PiArXGl0ZW0gUmVjb3JkIFZpcnRxdWV1ZSBTdGF0ZSBvZiBlYWNo
-IGVuYWJsZWQgdmlydHF1ZXVlLCBzZWUgc2VjdGlvbg0KPiA+PiArXHJlZntzZWM6VmlydHF1ZXVl
-cyAvIFZpcnRxdWV1ZSBTdGF0ZX0gXGl0ZW0gUGF1c2UgaXRzIG9wZXJhdGlvbg0KPiA+PiArZXhj
-ZXB0IFxmaWVsZHtkZXZpY2Ugc3RhdHVzfSBhbmQgcHJlc2VydmUgY29uZmlndXJhdGlvbnMgaW4g
-aXRzDQo+ID4+ICtEZXZpY2UgQ29uZmlndXJhdGlvbiBTcGFjZSwgc2VlIFxyZWZ7c2VjOkJhc2lj
-IEZhY2lsaXRpZXMgb2YgYQ0KPiA+PiArVmlydGlvIERldmljZSAvIERldmljZSBDb25maWd1cmF0
-aW9uIFNwYWNlfSBcZW5ke2l0ZW1pemV9DQo+ID4+ICsNCj4gPj4gICBcc2VjdGlvbntGZWF0dXJl
-IEJpdHN9XGxhYmVse3NlYzpCYXNpYyBGYWNpbGl0aWVzIG9mIGEgVmlydGlvDQo+ID4+IERldmlj
-ZSAvIEZlYXR1cmUgQml0c30NCj4gPj4NCj4gPj4gICBFYWNoIHZpcnRpbyBkZXZpY2Ugb2ZmZXJz
-IGFsbCB0aGUgZmVhdHVyZXMgaXQgdW5kZXJzdGFuZHMuICBEdXJpbmcNCj4gPj4gQEAgLTk5LDEw
-DQo+ID4+ICsxMjcsMTAgQEAgXHNlY3Rpb257RmVhdHVyZSBCaXRzfVxsYWJlbHtzZWM6QmFzaWMg
-RmFjaWxpdGllcyBvZiBhDQo+ID4+ICtWaXJ0aW8gRGV2aWNlIC8NCj4gPj4gRmVhdHVyZSBCICBc
-YmVnaW57ZGVzY3JpcHRpb259DQo+ID4+ICAgXGl0ZW1bMCB0byAyMywgYW5kIDUwIHRvIDEyN10g
-RmVhdHVyZSBiaXRzIGZvciB0aGUgc3BlY2lmaWMgZGV2aWNlDQo+ID4+IHR5cGUNCj4gPj4NCj4g
-Pj4gLVxpdGVtWzI0IHRvIDQyXSBGZWF0dXJlIGJpdHMgcmVzZXJ2ZWQgZm9yIGV4dGVuc2lvbnMg
-dG8gdGhlIHF1ZXVlDQo+ID4+IGFuZA0KPiA+PiArXGl0ZW1bMjQgdG8gNDNdIEZlYXR1cmUgYml0
-cyByZXNlcnZlZCBmb3IgZXh0ZW5zaW9ucyB0byB0aGUgcXVldWUNCj4gPj4gK2FuZA0KPiA+PiAg
-ICAgZmVhdHVyZSBuZWdvdGlhdGlvbiBtZWNoYW5pc21zDQo+ID4+DQo+ID4+IC1caXRlbVs0MyB0
-byA0OSwgYW5kIDEyOCBhbmQgYWJvdmVdIEZlYXR1cmUgYml0cyByZXNlcnZlZCBmb3IgZnV0dXJl
-DQo+IGV4dGVuc2lvbnMuDQo+ID4+ICtcaXRlbVs0NCB0byA0OSwgYW5kIDEyOCBhbmQgYWJvdmVd
-IEZlYXR1cmUgYml0cyByZXNlcnZlZCBmb3IgZnV0dXJlDQo+ID4+IGV4dGVuc2lvbnMuDQo+ID4+
-ICAgXGVuZHtkZXNjcmlwdGlvbn0NCj4gPj4NCj4gPj4gICBcYmVnaW57bm90ZX0NCj4gPj4gQEAg
-LTg3NSw2ICs5MDMsMTAgQEAgXGNoYXB0ZXJ7UmVzZXJ2ZWQgRmVhdHVyZQ0KPiA+PiBCaXRzfVxs
-YWJlbHtzZWM6UmVzZXJ2ZWQgRmVhdHVyZSBCaXRzfQ0KPiA+PiAgICAgXGl0ZW1bVklSVElPX0Zf
-UVVFVUVfU1RBVEUoNDIpXSBUaGlzIGZlYXR1cmUgaW5kaWNhdGVzIHRoYXQgdGhlDQo+ID4+IGRl
-dmljZSBhbGxvd3MgdGhlIGRyaXZlcg0KPiA+PiAgICAgdG8gYWNjZXNzIGl0cyBpbnRlcm5hbCB2
-aXJ0cXVldWUgc3RhdGUuDQo+ID4+DQo+ID4+ICsgIFxpdGVtW1ZJUlRJT19GX1NVU1BFTkQoNDMp
-XSBUaGlzIGZlYXR1cmUgaW5kaWNhdGVzIHRoYXQgdGhlIGRyaXZlciBjYW4NCj4gPj4gKyAgIFNV
-U1BFTkQgdGhlIGRldmljZS4NCj4gPj4gKyAgIFNlZSBccmVme3NlYzpCYXNpYyBGYWNpbGl0aWVz
-IG9mIGEgVmlydGlvIERldmljZSAvIERldmljZSBTdGF0dXMgRmllbGR9Lg0KPiA+PiArDQo+ID4+
-ICAgXGVuZHtkZXNjcmlwdGlvbn0NCj4gPj4NCj4gPj4gICBcZHJpdmVybm9ybWF0aXZle1xzZWN0
-aW9ufXtSZXNlcnZlZCBGZWF0dXJlIEJpdHN9e1Jlc2VydmVkIEZlYXR1cmUNCj4gPj4gQml0c30N
-Cj4gPj4gLS0NCj4gPj4gMi4zNS4zDQoNCg==
+
+
+在 2023/11/3 下午10:01, Cornelia Huck 写道:
+> On Fri, Nov 03 2023, Heng Qi <hengqi@linux.alibaba.com> wrote:
+>
+>> Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support RSS spreading of
+>> filter matches") adds support for RSS context as a destination for receive flow filters
+>> (see WIP work: https://lists.oasis-open.org/archives/virtio-comment/202308/msg00194.html).
+>>
+>> An RSS context consists of configurable parameters specified by receive-side scaling.
+>>
+>> Some use cases:
+>> 1. When users want some data flows to be steered to specific multiple rxqs, they can set
+>>     receive flow filter rules for these data flows to an RSS context with desired rxqs.
+>> 2. Traffic isolation. Used when users want the traffic of certain applications to occupy
+>>     several queues without being distubed.
+>>
+>> How to set/configure an RSS context:
+>> Assuming no RSS context has been created before.
+>> 1. ethtool -X eth0 context new start 5 equal 8
+>>
+>> This command creates an RSS context with an id=1 for eth0, and fills in the indirection
+>> table with rxq indexes 5-8 circularly. The hash key and hash types reuse the default
+>> RSS configuration.
+>>
+>> Then, we can use 'ethtool -x eth0 context 1' to query the above configuration.
+>>
+>> 2. ethtool -X eth0 context new start 6 equal 7 \
+>>     hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
+>>     1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3
+>>
+>> This command creates an RSS context with an id=2 for eth0, and fills in the indirection
+>> table with rxq indexes 6-7 circularly. The hash key is 8f:bf:dd:11:23:58:d2:8a:00:31:d0\
+>> :32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3.
+>> Hash types reuse the default RSS configuration.
+>>
+>> 3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
+>>
+>> This command specifies the hash types for the RSS context whose id=1 on eth0.
+>> Now this RSS context only has the hash key to reuse the default RSS configuration.
+>>
+>> 4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
+>>
+>> This command configures a receive flow filter rule for eth0, and the data flow matching
+>> this rule will continue to select the final rxq according to the RSS context configuration
+>> with id=1.
+>>
+>> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/178
+>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+>> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>> Acked-by: Satananda Burla <sburla@marvell.com>
+>> ---
+>> v4->v5:
+>>    1. Use 'u8 reserved[6]' instead of u16 padding to align the structure.
+>>
+>> v3->v4:
+>>    1. Rebase to Xuan's device stats patch.
+>>
+>> v2->v3:
+>>    1. Process Satananda's comments and add his ack tag.
+>>    2. Add link to fix issue and optimize commit log.
+>>
+>> v1->v2:
+>>    1. u8 to le16 for field rss_ctx_id.
+>>    2. Add normativation when device resetting. @Yuri Benditovich
+>>    3. Use ctrlq cmd to query rss context capability instead of reading config space. @Parav Pandit
+>>
+>>   device-types/net/description.tex        | 85 +++++++++++++++++++++++++
+>>   device-types/net/device-conformance.tex |  1 +
+>>   device-types/net/driver-conformance.tex |  1 +
+>>   3 files changed, 87 insertions(+)
+> So, what's the status here? The github issue still points to the
+> previous version (where you had asked for opening a vote.)
+
+Hi, Cornelia.
+
+Currently this version has been acked by Satananda and Parav, I will 
+modify the link
+in the github issue and this will require a vote. Could you please 
+initiate a vote?
+
+> There's only
+> the padding change in this version... can I get some ack from net folks
+> on whether this is ready for a vote?
+
+I don't understand what this means, what do I need to do?
+Aren’t Parav and Satananda the net folks :)?
+
+Thanks!
+
+
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
