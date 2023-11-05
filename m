@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8169-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8170-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8990C4332F
-	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:17:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7EEC4167D
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:20:42 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 10711330A9
-	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:17:10 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C064821190
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:20:41 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EB5319866C8
-	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:17:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A35D09866BD
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:20:41 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C9BA19866B4; Sun,  5 Nov 2023 16:17:09 +0000 (UTC)
+	id 9084E9866B4; Sun,  5 Nov 2023 16:20:41 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,119 +24,56 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B9D879866B5
-	for <virtio-comment@lists.oasis-open.org>; Sun,  5 Nov 2023 16:17:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E5A6E9866B5
+	for <virtio-comment@lists.oasis-open.org>; Sun,  5 Nov 2023 16:20:11 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: aFfIoYr8Me-ldD_dBPdy7A-1
+X-MC-Unique: D-9fuuSEOcie0k3d7qsB1g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699201024; x=1699805824;
+        d=1e100.net; s=20230601; t=1699201208; x=1699806008;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=muiD4F4OI11xsGm4x5e3srvMzxg6XkyHyT0IVI/tVIY=;
-        b=aDgLWvd3c5RC7lU5rmNmOxaJKyEQNlzihJMv3DJ+UEw0jB5BdQuU0RHs6BMoPFZUjt
-         Pa0bjeFGFTJhMNHC4s00YnliPqDIANGgaiJ1fZ7n2OpnAY6y6trx7XYIqNbUHMo0ETZv
-         wF8uC+C21a+jePoicjyQaqBkbaYocd9qyP+YNdzfHBhupKOii3ezILoDw5qdkoQLYQ84
-         B4A7bgFhaDn3orniInRxthVhb6Eo0xnA7AJau+L1+sxxclEwiLKI9cZ9u5oxi5y9geUV
-         1PPAoNP17WnH5GjIJAuUDQEuhIkOHpqBznQD0zgemYGiUwuffG01GYuQLY0r63rhb3qj
-         KZ+Q==
-X-Gm-Message-State: AOJu0Yz6zpzemtUW7VKBQp/2vORyFbZq4QMXni036LtPp9QJycjFN+WV
-	1BC/4yVs5mknhAllRm43xdxYayjUvgqkh4NfBMhYh9kLllKxtMMIyJfl33LYaeFBKYL91CAqJWs
-	bzDc9JWGk+kXw1W3++wjjkHMuFuCvDjTwBg==
-X-Received: by 2002:a17:907:3d89:b0:9ae:699d:8a2a with SMTP id he9-20020a1709073d8900b009ae699d8a2amr12047535ejc.5.1699201024297;
-        Sun, 05 Nov 2023 08:17:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGOyIFuIO3grhNAPykoPimN8X+7qr3rD7Yj47v2gVTx/n8pSuKwaXIUkoF0x7+EzfsRm6JAXA==
-X-Received: by 2002:a17:907:3d89:b0:9ae:699d:8a2a with SMTP id he9-20020a1709073d8900b009ae699d8a2amr12047518ejc.5.1699201023967;
-        Sun, 05 Nov 2023 08:17:03 -0800 (PST)
-Date: Sun, 5 Nov 2023 11:16:54 -0500
+        bh=/b4oN7B9cDvUDtHJlOnBu+hrunTbxPNvcWVdfl6+pvs=;
+        b=BJYCYum/+x5rEvjhhsRFdXBBJilnZyS+1JBFL5Cq2FsgPwyIy4zqINXIhGH/k5aNNL
+         9M3fvQt55NuK6hovLdjToEQFpvFEV/ecztNuosUeTPyYoJxOmEDw5Id/LXT4XTr7KXNe
+         mCo4WPRzCHHQOZyh/OLQD/HTo/nHkh7nkJFtBoBw78PdRvZedipRf/1nJ9kszRfDlI1J
+         Z6Mb6QmapGBueG0xE3P6lz8HhEooAtvu3rgaJyNp/fJswVz/12lKnftSl7w5kqwnthd7
+         MOG9fO7Eu3po1BKS53mhTjEyzxvkQ/6jF3ckQE7w4dk9VEityLZa02srsvbzlNxDjELR
+         kYnA==
+X-Gm-Message-State: AOJu0YxoP7QfPGNQ+kGQV7aJrGhe/MhvAyQDVRu9v+8pWQ60xIMJcBbW
+	8FU+O+g95yBqKNuST0uuEPjRwcMMwrXnmzXVgG8dZRYn0zBmu07X9dRAed1XE2I/gTSCyetss98
+	CJT2us6sp5ohdk7my46nkxDGTTRkcrDJpxQ==
+X-Received: by 2002:a17:907:26c7:b0:9c4:4b20:44a9 with SMTP id bp7-20020a17090726c700b009c44b2044a9mr13481122ejc.65.1699201208325;
+        Sun, 05 Nov 2023 08:20:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHg2746VbSIhC0Y4dqr14SSSt8LMjyhQy3MeUM7LTLsWbm9VyV/18qWyYSLDrXHSI/U0c+dpg==
+X-Received: by 2002:a17:907:26c7:b0:9c4:4b20:44a9 with SMTP id bp7-20020a17090726c700b009c44b2044a9mr13481106ejc.65.1699201208016;
+        Sun, 05 Nov 2023 08:20:08 -0800 (PST)
+Date: Sun, 5 Nov 2023 11:20:02 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
-	stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
-	parav@nvidia.com
-Message-ID: <20231105111232-mutt-send-email-mst@kernel.org>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Zhu Lingshan <lingshan.zhu@intel.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	"eperezma@redhat.com" <eperezma@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"stefanha@redhat.com" <stefanha@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Message-ID: <20231105111935-mutt-send-email-mst@kernel.org>
 References: <20231103103437.72784-1-lingshan.zhu@intel.com>
  <20231103103437.72784-7-lingshan.zhu@intel.com>
  <20231103064730-mutt-send-email-mst@kernel.org>
- <a9103f82-c95e-47a6-9284-667c1c991aba@intel.com>
+ <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <a9103f82-c95e-47a6-9284-667c1c991aba@intel.com>
+In-Reply-To: <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Subject: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty page tracking
 
-On Fri, Nov 03, 2023 at 10:32:59PM +0800, Zhu, Lingshan wrote:
-> 
-> 
-> On 11/3/2023 6:50 PM, Michael S. Tsirkin wrote:
-> 
->     On Fri, Nov 03, 2023 at 06:34:37PM +0800, Zhu Lingshan wrote:
-> 
->         +\item[\field{bitmap_addr}]
->         +       The driver use this to set the address of the bitmap which records the dirty pages
->         +       caused by the device.
->         +       Each bit in the bitmap represents one memory page, bit 0 in the bitmap
->         +       reprsents page 0 at address 0, bit 1 represents page 1, and so on in a linear manner.
->         +       When \field{enable} is set to 1 and the device writes to a memory page,
->         +       the device MUST set the corresponding bit to 1 which indicating the page is dirty.
->         +\item[\field{bitmap_length}]
->         +       The driver use this to set the length in bytes of the bitmap.
->         +\end{description}
->         +
->         +\devicenormative{\subsubsection}{Memory Dirty Pages Tracker Capability}{Virtio Transport Options / Virtio Over PCI Bus / Memory Dirty Pages Tracker Capability}
->         +
->         +The device MUST NOT set any bits beyond bitmap_length when reporting dirty pages.
->         +
->         +To prevent a read-modify-write procedure, if a memory page is dirty,
->         +optionally the device is permitted to set the entire byte, which encompasses the relevant bit, to 1.
->         +
->         +The device MAY increase \field{gra_power} to reduce \field{bitmap_length}.
->         +
->         +The device must ignore any writes to \field{pasid} if PASID Extended Capability is absent or
->         +the PASID functionality is disabled in PASID Extended Capability
-> 
-> 
->     I have to say this is going to work very badly when the number of dirty
->     pages is small: you will end up scanning and re-scanning all of bitmap.
-> 
-> The driver needs to scan anyway,
+On Fri, Nov 03, 2023 at 11:35:03AM +0000, Parav Pandit wrote:
+> And you never commented with sheer ignorance.
 
-Not with e.g. Parav's proposal - device reports individual pages
-changed. This is analogous to PML.
-
-> Intel production work with similar bitmap
-> based dirty page tracking solution for years.
-
-and then VMs became bigger and PML was introduced.
-
-> Otherwise the device should report PFN which is not very practical.
-
-Why not?
-
->     And the resolution is apparently 8 pages? You have just multiplied
->     the migration bandwidth by a factor of 8.
-> 
-> No, as described in the comments, the tacking granularity is controlled by \
-> field{gra_power}, one bit represents a page with page_size = 2^(12 +
-> gra_power). This can also be used to reduce the size of the bitmap.
-
-.. at the cost of increasing migration bandwidth.
-
-> "To prevent a read-modify-write procedure, if a memory page is dirty,
-> optionally the device is permitted to set the entire byte, which encompasses the relevant bit, to 1."
-> 
-> This is optional and DMA is very likely to write a neighbor page, and the device transmit a whole byte anyway
-> when a bit is dirty.
-> 
-> How about we use platform dirty page tracking facility then implement this in virtio, as Jason suggested?
-> 
-
-Without something like PML it likely won't scale either.
-
--- 
-MST
+I think you mean ignoring here. ignorance is something else entirely.
 
 
 This publicly archived list offers a means to provide input to the
