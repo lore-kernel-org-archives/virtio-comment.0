@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8168-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8169-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D45FC4332F
-	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8990C4332F
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:17:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 60ECA2AEE2
-	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:12:26 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 10711330A9
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:17:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2DCFF9866C7
-	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:12:26 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EB5319866C8
+	for <virtio-comment@archiver.kernel.org>; Sun,  5 Nov 2023 16:17:09 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0B03D9866B4; Sun,  5 Nov 2023 16:12:26 +0000 (UTC)
+	id C9BA19866B4; Sun,  5 Nov 2023 16:17:09 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,123 +24,119 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EEA559866B5
-	for <virtio-comment@lists.oasis-open.org>; Sun,  5 Nov 2023 16:12:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B9D879866B5
+	for <virtio-comment@lists.oasis-open.org>; Sun,  5 Nov 2023 16:17:09 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: zsF00c5yOlCFOgMgSxeR9A-1
+X-MC-Unique: aFfIoYr8Me-ldD_dBPdy7A-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699200740; x=1699805540;
+        d=1e100.net; s=20230601; t=1699201024; x=1699805824;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UcYhQj4UJ8JQLTfJODneDeQb6IvWQtFg6tuSqQNv2j8=;
-        b=fIjHtlQUy/QWXVi84xehPmi9E4iGwzZLqTcoq8RwF47pADRhi9BjWWp6c5mVtS5hWs
-         AFJKfpDvAJduhQ31c7vgzuqPYn2l854aiiJclRXiX9/yTHB+LP6HZUB//lielvvGngVC
-         OuRqIDoWT1K0okpcjerbm80IxNO4P0pXMl+exd2o8eJR8MRU1RKMoAfP9Ltp4xmiaC82
-         L8zGN0LgVVHvFLUh6lw3ZRPQ5zwLxR3ihKsGiajbvWdiUlbbsdtYw++F+PuoyQMJTNZL
-         uzoLAzyoWGpYY0BHvn+H8SdOm8Dgd4bKsbsCpQcNU3WLqJQtG8Ee8P+zGIjAG/jWg3tJ
-         uD7A==
-X-Gm-Message-State: AOJu0Ywa0PT8S0lBLPC+sVvxf0vJ6ANmTE5JCdrFWAHrBVjInmr3vfLk
-	jYGDt4dUEMjELcp9fPGOm2+l7f/W53zM3T+DGREFL2kijoKF9EOjgSTfBH3YTRsHecFaG7mJMB6
-	QgEpPFE/grGOIdVt6Nl364hFLqekIIhLBhQ==
-X-Received: by 2002:a17:907:9306:b0:9c7:5667:5643 with SMTP id bu6-20020a170907930600b009c756675643mr12961983ejc.72.1699200740338;
-        Sun, 05 Nov 2023 08:12:20 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFDnsduOPiMYyH6C3QMI44GI+EXf8hspmNNwMfGqSAT4atAYe00UphHb0N/z2cI8Hk51BrmnQ==
-X-Received: by 2002:a17:907:9306:b0:9c7:5667:5643 with SMTP id bu6-20020a170907930600b009c756675643mr12961974ejc.72.1699200740055;
-        Sun, 05 Nov 2023 08:12:20 -0800 (PST)
-Date: Sun, 5 Nov 2023 11:12:13 -0500
+        bh=muiD4F4OI11xsGm4x5e3srvMzxg6XkyHyT0IVI/tVIY=;
+        b=aDgLWvd3c5RC7lU5rmNmOxaJKyEQNlzihJMv3DJ+UEw0jB5BdQuU0RHs6BMoPFZUjt
+         Pa0bjeFGFTJhMNHC4s00YnliPqDIANGgaiJ1fZ7n2OpnAY6y6trx7XYIqNbUHMo0ETZv
+         wF8uC+C21a+jePoicjyQaqBkbaYocd9qyP+YNdzfHBhupKOii3ezILoDw5qdkoQLYQ84
+         B4A7bgFhaDn3orniInRxthVhb6Eo0xnA7AJau+L1+sxxclEwiLKI9cZ9u5oxi5y9geUV
+         1PPAoNP17WnH5GjIJAuUDQEuhIkOHpqBznQD0zgemYGiUwuffG01GYuQLY0r63rhb3qj
+         KZ+Q==
+X-Gm-Message-State: AOJu0Yz6zpzemtUW7VKBQp/2vORyFbZq4QMXni036LtPp9QJycjFN+WV
+	1BC/4yVs5mknhAllRm43xdxYayjUvgqkh4NfBMhYh9kLllKxtMMIyJfl33LYaeFBKYL91CAqJWs
+	bzDc9JWGk+kXw1W3++wjjkHMuFuCvDjTwBg==
+X-Received: by 2002:a17:907:3d89:b0:9ae:699d:8a2a with SMTP id he9-20020a1709073d8900b009ae699d8a2amr12047535ejc.5.1699201024297;
+        Sun, 05 Nov 2023 08:17:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGOyIFuIO3grhNAPykoPimN8X+7qr3rD7Yj47v2gVTx/n8pSuKwaXIUkoF0x7+EzfsRm6JAXA==
+X-Received: by 2002:a17:907:3d89:b0:9ae:699d:8a2a with SMTP id he9-20020a1709073d8900b009ae699d8a2amr12047518ejc.5.1699201023967;
+        Sun, 05 Nov 2023 08:17:03 -0800 (PST)
+Date: Sun, 5 Nov 2023 11:16:54 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20231105075906-mutt-send-email-mst@kernel.org>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
+	stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
+	parav@nvidia.com
+Message-ID: <20231105111232-mutt-send-email-mst@kernel.org>
 References: <20231103103437.72784-1-lingshan.zhu@intel.com>
  <20231103103437.72784-7-lingshan.zhu@intel.com>
  <20231103064730-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fdfda658-e89c-41f4-9f4c-77d5d9b1b642@intel.com>
- <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <a9103f82-c95e-47a6-9284-667c1c991aba@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <a9103f82-c95e-47a6-9284-667c1c991aba@intel.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Subject: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty page tracking
 
-On Fri, Nov 03, 2023 at 03:47:34PM +0000, Parav Pandit wrote:
-> > > [1]
-> > > https://lists.oasis-open.org/archives/virtio-comment/202310/msg00475.h
-> > > tml
-> > you still need to explain why this does not work for pass-through. 
-> It does not work for following reasons.
-> 1. Because all the fields that put on the member device are not in direct control of the hypervisor.
-> The device is directly controlled by the guest including the device status and when it resets the device all the things stored in the device are lost.
-
-I think the idea is that when this gateway is in the device then
-device reset has to trap. At a high level, ok. But then what?
-Is a full scan of all memory required until device reset is complete?
-Drivers currently tend to busy poll the reset register,
-if this takes very long we might start seeing soft lockup
-messages. What is the idea then? Maybe for this we need a separate
-weaker reset that does not touch this capability?
-
->
-> 2. the PCI FLR is clearing all the registers you exposed here.
-
-Same problem, though FLR at least is expected to take a long time.
-
-
-> 3. Endless expansion of config registers of dirty tracking is not scalable, as they are not init time registers not following the Appendix B guidelines.
-
-> 4. bitmap based dirty tracking is not atomic between cpu and device.
-> Hence, it is racy.
-
-Well pcie atomics exist. Not sure whether it's reasonable to rely on
-them. Any data on who common implementations are?
-
-> 5. All the device context needed for passthrough based hypervisor for a device type specific is missing.
-> All of those can be used for non-passthrough as well.
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202311/msg00085.html
+On Fri, Nov 03, 2023 at 10:32:59PM +0800, Zhu, Lingshan wrote:
 > 
-> > And I
-> > remember this is a point-less topic as MST ever wants to mute another "pass-
-> > through" thread.
-> No. he did not say that.
-> He meant to not endlessly debate which one is better.
-> He clearly said, try to see if you can make multiple hypervisor model work.
-> And your series shows a clear ignorance of his guidance.
-
-I think you mean "ignoring" :)
-
-
 > 
-> > >
-> > >>> +optionally the device is permitted to set the entire byte, which
-> > >>> +encompasses
-> > >> the relevant bit, to 1.
-> > >>> +
-> > >>> +The device MAY increase \field{gra_power} to reduce
-> > \field{bitmap_length}.
-> > >>> +
-> > >>> +The device must ignore any writes to \field{pasid} if PASID
-> > >>> +Extended Capability is absent or the PASID functionality is
-> > >>> +disabled in PASID Extended Capability
-> > >>
-> > >> I have to say this is going to work very badly when the number of
-> > >> dirty pages is
-> > >> small: you will end up scanning and re-scanning all of bitmap.
-> > >> And the resolution is apparently 8 pages? You have just multiplied
-> > >> the migration bandwidth by a factor of 8.
-> > > Yeah.
-> > > And device does not even know previously reported pages are read by driver
-> > or not. All guess work game for driver and device.
-> > see my reply to him
-> Please see above reply.
+> On 11/3/2023 6:50 PM, Michael S. Tsirkin wrote:
+> 
+>     On Fri, Nov 03, 2023 at 06:34:37PM +0800, Zhu Lingshan wrote:
+> 
+>         +\item[\field{bitmap_addr}]
+>         +       The driver use this to set the address of the bitmap which records the dirty pages
+>         +       caused by the device.
+>         +       Each bit in the bitmap represents one memory page, bit 0 in the bitmap
+>         +       reprsents page 0 at address 0, bit 1 represents page 1, and so on in a linear manner.
+>         +       When \field{enable} is set to 1 and the device writes to a memory page,
+>         +       the device MUST set the corresponding bit to 1 which indicating the page is dirty.
+>         +\item[\field{bitmap_length}]
+>         +       The driver use this to set the length in bytes of the bitmap.
+>         +\end{description}
+>         +
+>         +\devicenormative{\subsubsection}{Memory Dirty Pages Tracker Capability}{Virtio Transport Options / Virtio Over PCI Bus / Memory Dirty Pages Tracker Capability}
+>         +
+>         +The device MUST NOT set any bits beyond bitmap_length when reporting dirty pages.
+>         +
+>         +To prevent a read-modify-write procedure, if a memory page is dirty,
+>         +optionally the device is permitted to set the entire byte, which encompasses the relevant bit, to 1.
+>         +
+>         +The device MAY increase \field{gra_power} to reduce \field{bitmap_length}.
+>         +
+>         +The device must ignore any writes to \field{pasid} if PASID Extended Capability is absent or
+>         +the PASID functionality is disabled in PASID Extended Capability
+> 
+> 
+>     I have to say this is going to work very badly when the number of dirty
+>     pages is small: you will end up scanning and re-scanning all of bitmap.
+> 
+> The driver needs to scan anyway,
+
+Not with e.g. Parav's proposal - device reports individual pages
+changed. This is analogous to PML.
+
+> Intel production work with similar bitmap
+> based dirty page tracking solution for years.
+
+and then VMs became bigger and PML was introduced.
+
+> Otherwise the device should report PFN which is not very practical.
+
+Why not?
+
+>     And the resolution is apparently 8 pages? You have just multiplied
+>     the migration bandwidth by a factor of 8.
+> 
+> No, as described in the comments, the tacking granularity is controlled by \
+> field{gra_power}, one bit represents a page with page_size = 2^(12 +
+> gra_power). This can also be used to reduce the size of the bitmap.
+
+.. at the cost of increasing migration bandwidth.
+
+> "To prevent a read-modify-write procedure, if a memory page is dirty,
+> optionally the device is permitted to set the entire byte, which encompasses the relevant bit, to 1."
+> 
+> This is optional and DMA is very likely to write a neighbor page, and the device transmit a whole byte anyway
+> when a bit is dirty.
+> 
+> How about we use platform dirty page tracking facility then implement this in virtio, as Jason suggested?
+> 
+
+Without something like PML it likely won't scale either.
+
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
