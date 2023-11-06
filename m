@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8173-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8174-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F714C4332F
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 02:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 297F7C4332F
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:29:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9817B2CADF
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 02:06:20 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5E89C2AEE1
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:29:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7B714986706
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 02:06:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 41CE7986712
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:29:38 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 648AF9866FA; Mon,  6 Nov 2023 02:06:20 +0000 (UTC)
+	id 1E0E39866FB; Mon,  6 Nov 2023 03:29:38 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,230 +24,220 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4F6309866FB
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 02:06:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 07B639866FC
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 03:29:38 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R271e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046056;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0VvfsnAl_1699236374;
-Message-ID: <1699236363.9568102-1-xuanzhuo@linux.alibaba.com>
-Date: Mon, 6 Nov 2023 10:06:03 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: Heng Qi <hengqi@linux.alibaba.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>,
- Cornelia Huck <cohuck@redhat.com>,
- Yuri Benditovich <yuri.benditovich@daynix.com>,
- Satananda Burla <sburla@marvell.com>,
- Parav Pandit <parav@nvidia.com>,
- virtio-comment@lists.oasis-open.org
-References: <d8aa405e0aa02043e486e3ac782c2680abeff9f7.1698992387.git.hengqi@linux.alibaba.com>
-In-Reply-To: <d8aa405e0aa02043e486e3ac782c2680abeff9f7.1698992387.git.hengqi@linux.alibaba.com>
-Subject: [virtio-comment] Re: [PATCH v5] virtio-net: support the RSS context
-
-On Fri,  3 Nov 2023 14:36:23 +0800, Heng Qi <hengqi@linux.alibaba.com> wrote:
-> Commit 84a1d9c48200 ("net: ethtool: extend RXNFC API to support RSS spreading of
-> filter matches") adds support for RSS context as a destination for receive flow filters
-> (see WIP work: https://lists.oasis-open.org/archives/virtio-comment/202308/msg00194.html).
->
-> An RSS context consists of configurable parameters specified by receive-side scaling.
->
-> Some use cases:
-> 1. When users want some data flows to be steered to specific multiple rxqs, they can set
->    receive flow filter rules for these data flows to an RSS context with desired rxqs.
-> 2. Traffic isolation. Used when users want the traffic of certain applications to occupy
->    several queues without being distubed.
->
-> How to set/configure an RSS context:
-> Assuming no RSS context has been created before.
-> 1. ethtool -X eth0 context new start 5 equal 8
->
-> This command creates an RSS context with an id=1 for eth0, and fills in the indirection
-> table with rxq indexes 5-8 circularly. The hash key and hash types reuse the default
-> RSS configuration.
->
-> Then, we can use 'ethtool -x eth0 context 1' to query the above configuration.
->
-> 2. ethtool -X eth0 context new start 6 equal 7 \
->    hkey 8f:bf:dd:11:23:58:d2:8a:00:31:d0:32:a3:b5:1f:\
->    1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3
->
-> This command creates an RSS context with an id=2 for eth0, and fills in the indirection
-> table with rxq indexes 6-7 circularly. The hash key is 8f:bf:dd:11:23:58:d2:8a:00:31:d0\
-> :32:a3:b5:1f:1f:e4:d1:fe:47:7f:64:42:fd:d0:61:16:b8:b0:f9:71:e8:2d:36:7f:18:dd:4d:c8:f3.
-> Hash types reuse the default RSS configuration.
->
-> 3. ethtool -N eth0 rx-flow-hash tcp4 sdfn context 1
->
-> This command specifies the hash types for the RSS context whose id=1 on eth0.
-> Now this RSS context only has the hash key to reuse the default RSS configuration.
->
-> 4. ethtool -N eth0 flow-type udp4 src-ip 1.1.1.1 context 1
->
-> This command configures a receive flow filter rule for eth0, and the data flow matching
-> this rule will continue to select the final rxq according to the RSS context configuration
-> with id=1.
->
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/178
-> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
-> Acked-by: Satananda Burla <sburla@marvell.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="2109857"
+X-IronPort-AV: E=Sophos;i="6.03,280,1694761200"; 
+   d="scan'208";a="2109857"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="712074918"
+X-IronPort-AV: E=Sophos;i="6.03,280,1694761200"; 
+   d="scan'208";a="712074918"
+Message-ID: <8eb1a4c5-eb7d-4f8d-8afd-4aab5559a8d6@intel.com>
+Date: Mon, 6 Nov 2023 11:29:30 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
+ <jasowang@redhat.com>, "mst@redhat.com" <mst@redhat.com>,
+ "eperezma@redhat.com" <eperezma@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "stefanha@redhat.com" <stefanha@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>
+References: <20231103103437.72784-1-lingshan.zhu@intel.com>
+ <20231103103437.72784-3-lingshan.zhu@intel.com>
+ <PH0PR12MB54814E8B9E7D16C9EF421C82DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <78f206cd-1e07-4c20-a281-1ddf74cf4d84@intel.com>
+ <PH0PR12MB5481F05E5A952E9A43B96F73DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB5481F05E5A952E9A43B96F73DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH V2 2/6] virtio: introduce SUSPEND bit in device status
 
 
-Acked-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 
-> ---
-> v4->v5:
->   1. Use 'u8 reserved[6]' instead of u16 padding to align the structure.
+On 11/3/2023 11:54 PM, Parav Pandit wrote:
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Friday, November 3, 2023 8:25 PM
+>>
+>> On 11/3/2023 7:35 PM, Parav Pandit wrote:
+>>>> From: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>> Sent: Friday, November 3, 2023 4:05 PM
+>>>>
+>>>> This patch introduces a new status bit in the device status: SUSPEND.
+>>>>
+>>>> This SUSPEND bit can be used by the driver to suspend a device, in
+>>>> order to stabilize the device states and virtqueue states.
+>>>>
+>>>> Its main use case is live migration.
+>>>>
+>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>> Signed-off-by: Jason Wang <jasowang@redhat.com>
+>>> You constantly complained that whatever was proposed using admin
+>> commands method in [1] must work for passthrough and non-passthrough.
+>>> And halfway in the discussion you propose a method after learning all the
+>> limitations of in-band, you propose a solution only works for non-passthrough
+>> mode.
+>>> You asked someone to have comprehensive proposal and when it comes to
+>> you following it, you just don’t.
+>> not sure what you are talking about.
+>>> And have most shallow commit message to not even mention it.
+>>>
+>>> Please be consistent in design approach.
+>>> And if you don’t want to be, stop asking others.
+>> this SUSPEND/RESUME doesn't change since the RFC series, how can it not be
+>> inconsistent???
+>>> This is not the way TC collaboration works.
+>>> I probably shouldn’t even expect this from you.
+> Your proposal does not cover both the use cases of passthrough and non-passthrough.
+> Yet you kept demanding them for others.
+> This is just wrong.
 >
-> v3->v4:
->   1. Rebase to Xuan's device stats patch.
+> I am aware that both models as technical pros and cons.
+Why this doesn't work? the device status byte has been working for many 
+years,
+and do you know when guest freeze, the hypervisor owns the device????
 >
-> v2->v3:
->   1. Process Satananda's comments and add his ack tag.
->   2. Add link to fix issue and optimize commit log.
+>>> [1]
+>>> https://lists.oasis-open.org/archives/virtio-comment/202310/msg00472.h
+>>> tml
+>> Please don't be so emotional and please be professional.
+>>
+>> Why this solution can not work for pass-through? Do you know the device
+>> ownership will be transferred to the hypervisor when guest suspended in live
+>> migration?
+> I explained 5 reasons why it does not work in previous reply.
 >
-> v1->v2:
->   1. u8 to le16 for field rss_ctx_id.
->   2. Add normativation when device resetting. @Yuri Benditovich
->   3. Use ctrlq cmd to query rss context capability instead of reading config space. @Parav Pandit
+> As the word indicates "live migration", the hypervisor needs to access the device when it is "live" (not just after).
+> Hence, passthrough mode must be able to capture the state of the device and dirty pages database when its live.
+> (and after the source is suspended).
+No, the hypervisor should only collect dirty pages when the device alive.
+As you can see, the dirty page tracking facility has a PASID for 
+isolation. But still, the
+question is, we should better use platform dirty page tracking
+
+Then suspend the device after guest freeze, to stabilize the device 
+status, then read the status.
+
+How can you say this does not work???
 >
->  device-types/net/description.tex        | 85 +++++++++++++++++++++++++
->  device-types/net/device-conformance.tex |  1 +
->  device-types/net/driver-conformance.tex |  1 +
->  3 files changed, 87 insertions(+)
->
-> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> index aff5e08..61cce1f 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -122,6 +122,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
->      device with the same MAC address.
->
->  \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and duplex.
-> +
-> +\item[VIRTIO_NET_F_RSS_CONTEXT(64)] Device supports multiple RSS contexts.
->  \end{description}
->
->  \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
-> @@ -153,6 +155,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
->  \item[VIRTIO_NET_F_RSS] Requires VIRTIO_NET_F_CTRL_VQ.
->  \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
->  \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
-> +\item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and VIRTIO_NET_F_RSS.
->  \end{description}
->
->  \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
-> @@ -1613,6 +1616,88 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->  \item If the destination receive queue is being reset (See \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}), the device MUST drop the packet.
->  \end{itemize}
->
-> +\paragraph{RSS Context}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-> +
-> +An RSS context consists of configurable parameters specified by \ref{sec:Device Types / Network Device
-> +/ Device Operation / Control Virtqueue / Receive-side scaling (RSS)}.
-> +
-> +The RSS configuration supported by VIRTIO_NET_F_RSS is considered the default RSS configuration.
-> +
-> +The device offers the feature VIRTIO_NET_F_RSS_CONTEXT if it supports one or multiple RSS contexts
-> +(excluding the default RSS configuration) and configurable parameters.
-> +
-> +\subparagraph{Querying RSS Context Capability}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Querying RSS Context Capability}
-> +
-> +\begin{lstlisting}
-> +#define VIRTNET_RSS_CTX_CTRL 9
-> + #define VIRTNET_RSS_CTX_CTRL_CAP_GET  0
-> + #define VIRTNET_RSS_CTX_CTRL_ADD      1
-> + #define VIRTNET_RSS_CTX_CTRL_MOD      2
-> + #define VIRTNET_RSS_CTX_CTRL_DEL      3
-> +
-> +struct virtnet_rss_ctx_cap {
-> +    le16 max_rss_contexts;
-> +}
-> +\end{lstlisting}
-> +
-> +Field \field{max_rss_contexts} specifies the maximum number of RSS contexts \ref{sec:Device Types / Network Device /
-> +Device Operation / Control Virtqueue / RSS Context} supported by the device.
-> +
-> +The driver queries the RSS context capability of the device by sending the command VIRTNET_RSS_CTX_CTRL_CAP_GET
-> +with the structure virtnet_rss_ctx_cap.
-> +
-> +For the command VIRTNET_RSS_CTX_CTRL_CAP_GET, the structure virtnet_rss_ctx_cap is write-only for the device.
-> +
-> +\subparagraph{Setting RSS Context Parameters}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context / Setting RSS Context Parameters}
-> +
-> +\begin{lstlisting}
-> +struct virtnet_rss_ctx_add_modify {
-> +    le16 rss_ctx_id;
-> +    u8 reserved[6];
-> +    struct virtio_net_rss_config rss;
-> +};
-> +
-> +struct virtnet_rss_ctx_del {
-> +    le16 rss_ctx_id;
-> +};
-> +\end{lstlisting}
-> +
-> +RSS context parameters:
-> +\begin{itemize}
-> +\item  \field{rss_ctx_id}: ID of the specific RSS context.
-> +\item  \field{rss}: RSS context parameters of the specific RSS context whose id is \field{rss_ctx_id}.
-> +\end{itemize}
-> +
-> +\field{reserved} is reserved and it is ignored by the device.
-> +
-> +If the feature VIRTIO_NET_F_RSS_CONTEXT has been negotiated, the driver can send the following
-> +VIRTNET_RSS_CTX_CTRL class commands:
-> +\begin{enumerate}
-> +\item VIRTNET_RSS_CTX_CTRL_ADD: use the structure virtnet_rss_ctx_add_modify to
-> +       add an RSS context configured as \field{rss} and id as \field{rss_ctx_id} for the device.
-> +\item VIRTNET_RSS_CTX_CTRL_MOD: use the structure virtnet_rss_ctx_add_modify to
-> +       configure parameters of the RSS context whose id is \field{rss_ctx_id} as \field{rss} for the device.
-> +\item VIRTNET_RSS_CTX_CTRL_DEL: use the structure virtnet_rss_ctx_del to delete
-> +       the RSS context whose id is \field{rss_ctx_id} for the device.
-> +\end{enumerate}
-> +
-> +For commands VIRTNET_RSS_CTX_CTRL_ADD and VIRTNET_RSS_CTX_CTRL_MOD, the structure virtnet_rss_ctx_add_modify is read-only for the device.
-> +For the command VIRTNET_RSS_CTX_CTRL_DEL, the structure virtnet_rss_ctx_del is read-only for the device.
-> +
-> +\devicenormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-> +
-> +The device MUST set \field{max_rss_contexts} to at least 1 if it offers VIRTIO_NET_F_RSS_CONTEXT.
-> +
-> +Upon reset, the device MUST clear all previously configured RSS contexts.
-> +
-> +\drivernormative{\subparagraph}{RSS Context}{Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
-> +
-> +The driver MUST have negotiated the VIRTIO_NET_F_RSS_CONTEXT feature when issuing the VIRTNET_RSS_CTX_CTRL class commands.
-> +
-> +The driver MUST set \field{rss_ctx_id} to between 1 and \field{max_rss_contexts} inclusive.
-> +
-> +The driver MUST NOT send the command VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET when the device has successfully configured at least one RSS context.
-> +
->  \paragraph{Offloads State Configuration}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Offloads State Configuration}
->
->  If the VIRTIO_NET_F_CTRL_GUEST_OFFLOADS feature is negotiated, the driver can
-> diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-> index 52526e4..c71341e 100644
-> --- a/device-types/net/device-conformance.tex
-> +++ b/device-types/net/device-conformance.tex
-> @@ -16,4 +16,5 @@
->  \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
->  \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
->  \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
-> +\item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
->  \end{itemize}
-> diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-> index c693c4f..7081ec3 100644
-> --- a/device-types/net/driver-conformance.tex
-> +++ b/device-types/net/driver-conformance.tex
-> @@ -16,4 +16,5 @@
->  \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing}
->  \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
->  \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
-> +\item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
->  \end{itemize}
-> --
-> 2.19.1.6.gb485710b
->
+>>>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
+>>>> ---
+>>>>    content.tex | 36 ++++++++++++++++++++++++++++++++++--
+>>>>    1 file changed, 34 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/content.tex b/content.tex index 76813b5..bcc9d4b 100644
+>>>> --- a/content.tex
+>>>> +++ b/content.tex
+>>>> @@ -49,6 +49,10 @@ \section{\field{Device Status}
+>>>> Field}\label{sec:Basic Facilities of a Virtio Dev
+>>>>
+>>>>    \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has
+>> experienced
+>>>>      an error from which it can't recover.
+>>>> +
+>>>> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates
+>>>> +that the
+>>>> +  device has been suspended by the driver.
+>>>> +
+>>>>    \end{description}
+>>>>
+>>>>    The \field{device status} field starts out as 0, and is
+>>>> reinitialized to 0 by @@ -
+>>>> 73,6 +77,10 @@ \section{\field{Device Status} Field}\label{sec:Basic
+>>>> Facilities of a Virtio Dev  recover by issuing a reset.
+>>>>    \end{note}
+>>>>
+>>>> +The driver SHOULD NOT set SUSPEND if FEATURES_OK is not set.
+>>>> +
+>>>> +When setting SUSPEND, the driver MUST re-read \field{device status}
+>>>> +to ensure
+>>>> the SUSPEND bit is set.
+>>>> +
+>>>>    \devicenormative{\subsection}{Device Status Field}{Basic Facilities
+>>>> of a Virtio Device / Device Status Field}
+>>>>
+>>>>    The device MUST NOT consume buffers or send any used buffer @@
+>>>> -82,6
+>>>> +90,26 @@ \section{\field{Device Status} Field}\label{sec:Basic
+>>>> +Facilities of a
+>>>> Virtio Dev  that a reset is needed.  If DRIVER_OK is set, after it
+>>>> sets DEVICE_NEEDS_RESET, the device  MUST send a device configuration
+>>>> change notification to the driver.
+>>>>
+>>>> +The device MUST ignore SUSPEND if FEATURES_OK is not set.
+>>>> +
+>>>> +The device MUST ignore SUSPEND if VIRTIO_F_SUSPEND is not negotiated.
+>>>> +
+>>>> +The device SHOULD allow settings to \field{device status} even when
+>>>> +SUSPEND
+>>>> is set.
+>>>> +
+>>>> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device
+>>>> +SHOULD clear SUSPEND and resumes operation upon DRIVER_OK.
+>>>> +
+>>>> +If VIRTIO_F_SUSPEND is negotiated, when the driver sets SUSPEND, the
+>>>> +device SHOULD perform the following actions before presenting
+>>>> +SUSPEND bit
+>>>> in the \field{device status}:
+>>>> +
+>>>> +\begin{itemize}
+>>>> +\item Stop consuming buffers of any virtqueues and mark all finished
+>>>> descritors as used.
+>>>> +\item Wait until all descriptors that being processed to finish and
+>>>> +mark them
+>>>> as used.
+>>>> +\item Flush all used buffer and send used buffer notifications to the driver.
+>>>> +\item Record Virtqueue State of each enabled virtqueue, see section
+>>>> +\ref{sec:Virtqueues / Virtqueue State} \item Pause its operation
+>>>> +except \field{device status} and preserve configurations in its
+>>>> +Device Configuration Space, see \ref{sec:Basic Facilities of a
+>>>> +Virtio Device / Device Configuration Space} \end{itemize}
+>>>> +
+>>>>    \section{Feature Bits}\label{sec:Basic Facilities of a Virtio
+>>>> Device / Feature Bits}
+>>>>
+>>>>    Each virtio device offers all the features it understands.  During
+>>>> @@ -99,10
+>>>> +127,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a
+>>>> +Virtio Device /
+>>>> Feature B  \begin{description}
+>>>>    \item[0 to 23, and 50 to 127] Feature bits for the specific device
+>>>> type
+>>>>
+>>>> -\item[24 to 42] Feature bits reserved for extensions to the queue
+>>>> and
+>>>> +\item[24 to 43] Feature bits reserved for extensions to the queue
+>>>> +and
+>>>>      feature negotiation mechanisms
+>>>>
+>>>> -\item[43 to 49, and 128 and above] Feature bits reserved for future
+>> extensions.
+>>>> +\item[44 to 49, and 128 and above] Feature bits reserved for future
+>>>> extensions.
+>>>>    \end{description}
+>>>>
+>>>>    \begin{note}
+>>>> @@ -875,6 +903,10 @@ \chapter{Reserved Feature
+>>>> Bits}\label{sec:Reserved Feature Bits}
+>>>>      \item[VIRTIO_F_QUEUE_STATE(42)] This feature indicates that the
+>>>> device allows the driver
+>>>>      to access its internal virtqueue state.
+>>>>
+>>>> +  \item[VIRTIO_F_SUSPEND(43)] This feature indicates that the driver can
+>>>> +   SUSPEND the device.
+>>>> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
+>>>> +
+>>>>    \end{description}
+>>>>
+>>>>    \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature
+>>>> Bits}
+>>>> --
+>>>> 2.35.3
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
