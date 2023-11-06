@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8192-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8193-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E6BC4332F
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 09:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E02ADC4332F
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 09:27:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0751A330AE
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 09:21:28 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 20B903E573
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 09:27:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D48C7986720
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 09:21:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0621C986728
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 09:27:34 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B7438986708; Mon,  6 Nov 2023 09:21:27 +0000 (UTC)
+	id E067F98670A; Mon,  6 Nov 2023 09:27:33 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,18 +24,17 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A751098670A
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 09:21:27 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D0361986712
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 09:27:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="10775000"
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="455722784"
 X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; 
-   d="scan'208";a="10775000"
+   d="scan'208";a="455722784"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="765894547"
 X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; 
-   d="scan'208";a="765894547"
-Message-ID: <850caea9-f7dc-4dee-ae00-936766287ba3@intel.com>
-Date: Mon, 6 Nov 2023 17:21:20 +0800
+   d="scan'208";a="10046326"
+Message-ID: <b8d51cd3-33fe-4167-a87b-ae662609c5d8@intel.com>
+Date: Mon, 6 Nov 2023 17:27:27 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -47,115 +46,96 @@ To: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
 Cc: "virtio-comment@lists.oasis-open.org"
  <virtio-comment@lists.oasis-open.org>
 References: <20231103103437.72784-1-lingshan.zhu@intel.com>
- <20231103103437.72784-3-lingshan.zhu@intel.com>
- <PH0PR12MB54814E8B9E7D16C9EF421C82DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <78f206cd-1e07-4c20-a281-1ddf74cf4d84@intel.com>
- <PH0PR12MB5481F05E5A952E9A43B96F73DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <8eb1a4c5-eb7d-4f8d-8afd-4aab5559a8d6@intel.com>
- <PH0PR12MB5481CD22F4AFF3DFA7F53B91DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231103103437.72784-5-lingshan.zhu@intel.com>
+ <PH0PR12MB5481085F6E84FD2786FCD60BDCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <705607e3-39c3-47da-a688-80bbee31c48d@intel.com>
+ <PH0PR12MB54814F9EEDD69ED434BF7994DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <b0506d9f-37de-43c9-b99d-b00bb88c0d36@intel.com>
+ <PH0PR12MB548174AF58B6ADDDA215123DDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB5481CD22F4AFF3DFA7F53B91DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB548174AF58B6ADDDA215123DDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] RE: [PATCH V2 2/6] virtio: introduce SUSPEND bit
- in device status
+Subject: Re: [virtio-comment] Re: [PATCH V2 4/6] virtio-pci: implement
+ VIRTIO_F_QUEUE_STATE
 
 
 
-On 11/6/2023 12:07 PM, Parav Pandit wrote:
+On 11/6/2023 12:12 PM, Parav Pandit wrote:
 >> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Monday, November 6, 2023 9:00 AM
+>> Sent: Monday, November 6, 2023 9:01 AM
 >>
->> On 11/3/2023 11:54 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Friday, November 3, 2023 8:25 PM
+>> On 11/3/2023 11:50 PM, Parav Pandit wrote:
+>>>> From: virtio-comment@lists.oasis-open.org
+>>>> <virtio-comment@lists.oasis- open.org> On Behalf Of Zhu, Lingshan
+>>>> Sent: Friday, November 3, 2023 8:27 PM
 >>>>
 >>>> On 11/3/2023 7:35 PM, Parav Pandit wrote:
 >>>>>> From: Zhu Lingshan <lingshan.zhu@intel.com>
 >>>>>> Sent: Friday, November 3, 2023 4:05 PM
 >>>>>>
->>>>>> This patch introduces a new status bit in the device status: SUSPEND.
->>>>>>
->>>>>> This SUSPEND bit can be used by the driver to suspend a device, in
->>>>>> order to stabilize the device states and virtqueue states.
->>>>>>
->>>>>> Its main use case is live migration.
+>>>>>> This patch adds two new le16 fields to common configuration
+>>>>>> structure to support VIRTIO_F_QUEUE_STATE in PCI transport layer.
 >>>>>>
 >>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>> Signed-off-by: Jason Wang <jasowang@redhat.com>
->>>>> You constantly complained that whatever was proposed using admin
->>>> commands method in [1] must work for passthrough and non-passthrough.
->>>>> And halfway in the discussion you propose a method after learning
->>>>> all the
->>>> limitations of in-band, you propose a solution only works for
->>>> non-passthrough mode.
->>>>> You asked someone to have comprehensive proposal and when it comes
->>>>> to
->>>> you following it, you just don’t.
->>>> not sure what you are talking about.
->>>>> And have most shallow commit message to not even mention it.
->>>>>
->>>>> Please be consistent in design approach.
->>>>> And if you don’t want to be, stop asking others.
->>>> this SUSPEND/RESUME doesn't change since the RFC series, how can it
->>>> not be inconsistent???
->>>>> This is not the way TC collaboration works.
->>>>> I probably shouldn’t even expect this from you.
->>> Your proposal does not cover both the use cases of passthrough and non-
->> passthrough.
->>> Yet you kept demanding them for others.
->>> This is just wrong.
->>>
->>> I am aware that both models as technical pros and cons.
->> Why this doesn't work? the device status byte has been working for many
->> years, and do you know when guest freeze, the hypervisor owns the device????
-> When the guest is not frozen and during the pre-copy phase, hypervisor needs to access the device (context, dirty pages).
-> How does it work if the guest owns the device?
-Have you seen PASID there?
+>>>>>> ---
+>>>>>>     transport-pci.tex | 18 ++++++++++++++++++
+>>>>>>     1 file changed, 18 insertions(+)
+>>>>>>
+>>>>>> diff --git a/transport-pci.tex b/transport-pci.tex index
+>>>>>> a5c6719..3161519 100644
+>>>>>> --- a/transport-pci.tex
+>>>>>> +++ b/transport-pci.tex
+>>>>>> @@ -325,6 +325,10 @@ \subsubsection{Common configuration
+>> structure
+>>>>>> layout}\label{sec:Virtio Transport
+>>>>>>             /* About the administration virtqueue. */
+>>>>>>             le16 admin_queue_index;         /* read-only for driver */
+>>>>>>             le16 admin_queue_num;         /* read-only for driver */
+>>>>>> +
+>>>>>> +	/* Virtqueue state */
+>>>>>> +        le16 queue_avail_state;         /* read-write */
+>>>>>> +        le16 queue_used_state;          /* read-write */
+>>>>> This tiny interface for 128 virtio net queues through register read
+>>>>> writes, does
+>>>> not work effectively.
+>>>>> There are inflight out of order descriptors for block also.
+>>>>> Hence toy registers like this do not work.
+>>>> Do you know there is a queue_select? Why this does not work? Do you
+>>>> know how other queue related fields work?
+>>> :)
+>>> Yes. If you notice queue_reset related critical spec bug fix was done when it
+>> was introduced so that live migration can _actually_ work.
+>>> When queue_select is done for 128 queues serially, it take a lot of time to
+>> read those slow register interface for this + inflight descriptors + more.
+>> interesting, virtio work in this pattern for many years, right?
+> All these years 400Gbps and 800Gbps virtio was not present, number of queues were not in hw.
+The registers are control path in config space, how 400G or 800G affect??
+See the virtio common cfg, you will find the max number of vqs is there, 
+num_queues.
+> Device didn’t support LM.
+> Many limitations existed all these years and TC is improving and expanding them.
+> So all these years do not matter.
+Not sure what are you talking about, haven't we initialize the device 
+and vqs
+in config space for years?????? What's wrong with this mechanism?
+Are you questioning virito-pci fundamentals???
 >
->>>>> [1]
->>>>> https://lists.oasis-open.org/archives/virtio-comment/202310/msg00472
->>>>> .h
->>>>> tml
->>>> Please don't be so emotional and please be professional.
->>>>
->>>> Why this solution can not work for pass-through? Do you know the
->>>> device ownership will be transferred to the hypervisor when guest
->>>> suspended in live migration?
->>> I explained 5 reasons why it does not work in previous reply.
->>>
->>> As the word indicates "live migration", the hypervisor needs to access the
->> device when it is "live" (not just after).
->>> Hence, passthrough mode must be able to capture the state of the device and
->> dirty pages database when its live.
->>> (and after the source is suspended).
->> No, the hypervisor should only collect dirty pages when the device alive.
-> It is needed during both the times.
-> When the device and guest is live during pre-copy phase.
-> And after the device is frozen, to get the final round of pages.
-With PASID, dirty page tracking facility can be isolated from the guest,
-means the hypervisor owns this facility. So the hypervisor
-can collect the dirty pages.
+>>>> Like how to set a queue size and enable it?
+>>> Those are meant to be used before DRIVER_OK stage as they are init time
+>> registers.
+>>> Not to keep abusing them..
+>> don't you need to set queue_size at the destination side?
+> No.
+> But the src/dst does not matter.
+> Queue_size to be set before DRIVER_OK like rest of the registers, as all queues must be created before the driver_ok phase.
+> Queue_reset was last moment exception.
+create a queue? Nvidia specific?
 
-When the device suspended, it should report the last round of dirty pages
-through dirty page tracking facility as expected.
-
-This can work, right?
+For standard virtio, you need to read the number of enabled vqs at the 
+source side, then enable them at the dst, so queue_size matters,
+not to create.
 >
->> As you can see, the dirty page tracking facility has a PASID for isolation. But still,
->> the question is, we should better use platform dirty page tracking
->>
-> Nothing to do with PASID, as PASID is owned by the guest.
-It looks you don't know how PASID work.
-
-Host can setup PASID to isolate some facilities, right?
->   
->> Then suspend the device after guest freeze, to stabilize the device status, then
->> read the status.
->>
->> How can you say this does not work???
-> I explained above.
-see above
 
 
 This publicly archived list offers a means to provide input to the
