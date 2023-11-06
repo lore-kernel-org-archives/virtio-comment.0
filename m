@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8177-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8178-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC335C4332F
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:52:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31062C4332F
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:58:11 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4AAA733583
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:52:28 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7C68A3E56D
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:58:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3DDD2986717
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:52:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5D94098670A
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 03:58:10 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 333F79866FB; Mon,  6 Nov 2023 03:52:28 +0000 (UTC)
+	id 4826F9866FB; Mon,  6 Nov 2023 03:58:10 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,22 +24,22 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 255349866FC
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 03:52:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 382E69866FC
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 03:58:10 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="368539111"
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="455686765"
 X-IronPort-AV: E=Sophos;i="6.03,280,1694761200"; 
-   d="scan'208";a="368539111"
+   d="scan'208";a="455686765"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="832594080"
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="791340550"
 X-IronPort-AV: E=Sophos;i="6.03,280,1694761200"; 
-   d="scan'208";a="832594080"
-Message-ID: <445ff573-72c3-4fe4-9e07-e7fdd2dc5750@intel.com>
-Date: Mon, 6 Nov 2023 11:52:21 +0800
+   d="scan'208";a="791340550"
+Message-ID: <b672e459-30be-49b1-91d6-c4461d8475ed@intel.com>
+Date: Mon, 6 Nov 2023 11:58:03 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Parav Pandit <parav@nvidia.com>
 Cc: "jasowang@redhat.com" <jasowang@redhat.com>,
  "eperezma@redhat.com" <eperezma@redhat.com>,
  "cohuck@redhat.com" <cohuck@redhat.com>,
@@ -51,169 +51,86 @@ References: <20231103103437.72784-1-lingshan.zhu@intel.com>
  <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
  <fdfda658-e89c-41f4-9f4c-77d5d9b1b642@intel.com>
  <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231105075906-mutt-send-email-mst@kernel.org>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <20231105075906-mutt-send-email-mst@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Subject: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty page tracking
 
 
 
-On 11/3/2023 11:47 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Friday, November 3, 2023 8:33 PM
+On 11/6/2023 12:12 AM, Michael S. Tsirkin wrote:
+> On Fri, Nov 03, 2023 at 03:47:34PM +0000, Parav Pandit wrote:
+>>>> [1]
+>>>> https://lists.oasis-open.org/archives/virtio-comment/202310/msg00475.h
+>>>> tml
+>>> you still need to explain why this does not work for pass-through.
+>> It does not work for following reasons.
+>> 1. Because all the fields that put on the member device are not in direct control of the hypervisor.
+>> The device is directly controlled by the guest including the device status and when it resets the device all the things stored in the device are lost.
+> I think the idea is that when this gateway is in the device then
+> device reset has to trap. At a high level, ok. But then what?
+No, when device reset, the device is expected to forget everything and
+re-intialize.
+> Is a full scan of all memory required until device reset is complete?
+Who scan the memory? The device tracks its own dirty pages.
+> Drivers currently tend to busy poll the reset register,
+> if this takes very long we might start seeing soft lockup
+> messages. What is the idea then? Maybe for this we need a separate
+> weaker reset that does not touch this capability?
+When reset, how can we expect the LM progress continue running.
+
+For example, when the device DMA writes something, then reset before 
+sending an interrupt,
+the DMA-ed pages should be lost as expected, right?
+>
+>> 2. the PCI FLR is clearing all the registers you exposed here.
+> Same problem, though FLR at least is expected to take a long time.
+If FLR, then whole device reset, and this is PCI, not virtio.
+As Jason pointed out, do you want to audit every PCI functionality?
+>
+>
+>> 3. Endless expansion of config registers of dirty tracking is not scalable, as they are not init time registers not following the Appendix B guidelines.
+>> 4. bitmap based dirty tracking is not atomic between cpu and device.
+>> Hence, it is racy.
+> Well pcie atomics exist. Not sure whether it's reasonable to rely on
+> them. Any data on who common implementations are?
+>
+>> 5. All the device context needed for passthrough based hypervisor for a device type specific is missing.
+>> All of those can be used for non-passthrough as well.
+>> [1] https://lists.oasis-open.org/archives/virtio-comment/202311/msg00085.html
 >>
->> On 11/3/2023 7:35 PM, Parav Pandit wrote:
->>>> From: Michael S. Tsirkin <mst@redhat.com>
->>>> Sent: Friday, November 3, 2023 4:20 PM
->>>>
->>>> On Fri, Nov 03, 2023 at 06:34:37PM +0800, Zhu Lingshan wrote:
->>>>> +\item[\field{bitmap_addr}]
->>>>> +	The driver use this to set the address of the bitmap which records
->>>>> +the
->>>> dirty pages
->>>>> +	caused by the device.
->>>>> +	Each bit in the bitmap represents one memory page, bit 0 in the bitmap
->>>>> +	reprsents page 0 at address 0, bit 1 represents page 1, and so on
->>>>> +in a
->>>> linear manner.
->>>>> +	When \field{enable} is set to 1 and the device writes to a memory page,
->>>>> +	the device MUST set the corresponding bit to 1 which indicating
->>>>> +the
->>>> page is dirty.
->>>>> +\item[\field{bitmap_length}]
->>>>> +	The driver use this to set the length in bytes of the bitmap.
->>>>> +\end{description}
->>>>> +
->>>>> +\devicenormative{\subsubsection}{Memory Dirty Pages Tracker
->>>>> +Capability}{Virtio Transport Options / Virtio Over PCI Bus / Memory
->>>>> +Dirty Pages Tracker Capability}
->>>>> +
->>>>> +The device MUST NOT set any bits beyond bitmap_length when
->>>>> +reporting
->>>> dirty pages.
->>>>> +
->>>>> +To prevent a read-modify-write procedure, if a memory page is
->>>>> +dirty,
->>> It is not to prevent; it is just not possible to do racy RMW. 😊
->> if you understand what is a atomic routine, you will not call it racy.
->>> Hence to work around you propose to mark all pages dirty. Too bad.
->>> This just does not work.
->> why? and this is optional.
-> Because device cannot set individual bits in atomic way for same byte read by the cpu.
-> 1. device read the byte that had bit 0 and 4 set.
-> 2. cpu atomically clear these bits.
-> 3. device wrote bits 0, 4, and new bits 2 and 3.
-> 4. cpu now transferred page 0 and 4 again.
->
-> Optional thing also needs to work. :)
-Do you know both CPU and device actually don't read bit, they read bytes????
-Do you know RC connected to memory controller????
-Do you know there are locked transaction and atomic operations in PCI???
-Do you know there are atomic read/write/clear even read and clear and so 
-on in CPU ISA????
->
->>> Secondly the bitmap array is function is for full guest memory size, while
->> there is lot of sparce region now and also in future.
->>> This is the second problem.
->> did you see gra_power and its comments?
-> gra_power says the page size.
-> Not the sparce multiple ranges of the guest memory.
-> Device endup tracking uninterested area as well.
-increase gra_power can reduce bitmap size, right?
-Totally up to the hypervisor, right?
->
->>> This is exactly why I asked you to review the page write recording series of
->> admin commands and comment.
->>> And you never commented with sheer ignorance.
->>>
->>> So clearly the start stop method for specific range and without bandwidth
->> explosion, admin commands of [1] stands better.
->>> If you do [1] on the member device also using its AQ in future, it will work for
->> non-passthrough case.
->>> If you build non-passthrough live migration using [1], also it will work.
->>> So I don’t see any point of this series anymore.
->> As Jason pointed out, there are many problems in your proposal, you should
->> answer there. I don't need to repeat his words and duplicate the discussions.
-> Many are already addressed in v3.
-interesting, does your V3 support nested?
->
->>> [1]
->>> https://lists.oasis-open.org/archives/virtio-comment/202310/msg00475.h
->>> tml
->> you still need to explain why this does not work for pass-through.
-> It does not work for following reasons.
-> 1. Because all the fields that put on the member device are not in direct control of the hypervisor.
-> The device is directly controlled by the guest including the device status and when it resets the device all the things stored in the device are lost.
-have you seen PASID? and if the device reset, it has to forget 
-everything as expected, right?
->
-> 2. the PCI FLR is clearing all the registers you exposed here.
-see above
->
-> 3. Endless expansion of config registers of dirty tracking is not scalable, as they are not init time registers not following the Appendix B guidelines.
-endless expansion?? It is a complete set of dirty page tracking, right????
-have you see this cap only controls? The device DMA writes the bitmap, 
-not by registers.
-
-Again, if you want to fix Appendix B, OK.
->
-> 4. bitmap based dirty tracking is not atomic between cpu and device.
-> Hence, it is racy.
-see above, the first reply.
->
-> 5. All the device context needed for passthrough based hypervisor for a device type specific is missing.
-> All of those can be used for non-passthrough as well.
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202311/msg00085.html
-If you want to discuss this again, I don't want to wast time but only 
-asking you whether you want to define
-virtio-fs device context
->
->> And I
->> remember this is a point-less topic as MST ever wants to mute another "pass-
->> through" thread.
-> No. he did not say that.
-> He meant to not endlessly debate which one is better.
-> He clearly said, try to see if you can make multiple hypervisor model work.
-> And your series shows a clear ignorance of his guidance.
-
-Let me quote MST's reply here:
-"I feel this discussion will keep meandering because the terminology is
-vague. There's no single thing that is called "passthrough" -
-vendors just build what is expedient with current hardware and
-software. Nvidia has a bunch of people working on vfio so they
-call that passthrough, Red Hat has people working on VDPA and
-they call that passthrough, etc.
-
-
-Before I mute this discussion for good, does anyone here have any
-feeling progress is made? What kind of progress? "
-
-So please don't discuss on pass-through anymore.
-It seems only you need to develop the knowledge
+>>> And I
+>>> remember this is a point-less topic as MST ever wants to mute another "pass-
+>>> through" thread.
+>> No. he did not say that.
+>> He meant to not endlessly debate which one is better.
+>> He clearly said, try to see if you can make multiple hypervisor model work.
+>> And your series shows a clear ignorance of his guidance.
+> I think you mean "ignoring" :)
 >
 >
->>>>> +optionally the device is permitted to set the entire byte, which
->>>>> +encompasses
->>>> the relevant bit, to 1.
->>>>> +
->>>>> +The device MAY increase \field{gra_power} to reduce
->> \field{bitmap_length}.
->>>>> +
->>>>> +The device must ignore any writes to \field{pasid} if PASID
->>>>> +Extended Capability is absent or the PASID functionality is
->>>>> +disabled in PASID Extended Capability
->>>> I have to say this is going to work very badly when the number of
->>>> dirty pages is
->>>> small: you will end up scanning and re-scanning all of bitmap.
->>>> And the resolution is apparently 8 pages? You have just multiplied
->>>> the migration bandwidth by a factor of 8.
->>> Yeah.
->>> And device does not even know previously reported pages are read by driver
->> or not. All guess work game for driver and device.
->> see my reply to him
-> Please see above reply.
-see above
+>>>>>> +optionally the device is permitted to set the entire byte, which
+>>>>>> +encompasses
+>>>>> the relevant bit, to 1.
+>>>>>> +
+>>>>>> +The device MAY increase \field{gra_power} to reduce
+>>> \field{bitmap_length}.
+>>>>>> +
+>>>>>> +The device must ignore any writes to \field{pasid} if PASID
+>>>>>> +Extended Capability is absent or the PASID functionality is
+>>>>>> +disabled in PASID Extended Capability
+>>>>> I have to say this is going to work very badly when the number of
+>>>>> dirty pages is
+>>>>> small: you will end up scanning and re-scanning all of bitmap.
+>>>>> And the resolution is apparently 8 pages? You have just multiplied
+>>>>> the migration bandwidth by a factor of 8.
+>>>> Yeah.
+>>>> And device does not even know previously reported pages are read by driver
+>>> or not. All guess work game for driver and device.
+>>> see my reply to him
+>> Please see above reply.
 
 
 This publicly archived list offers a means to provide input to the
