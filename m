@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8200-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8201-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0267FC4167D
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 10:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28E48C4332F
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 10:22:54 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3825F44551
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 10:15:41 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id EAA6560D3F
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 10:22:52 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 117BC98672E
-	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 10:15:41 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ADC6298671D
+	for <virtio-comment@archiver.kernel.org>; Mon,  6 Nov 2023 10:22:52 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id EA2FA986717; Mon,  6 Nov 2023 10:15:40 +0000 (UTC)
+	id 8D897986717; Mon,  6 Nov 2023 10:22:52 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,141 +24,112 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DAF43986718
-	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 10:15:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7D432986718
+	for <virtio-comment@lists.oasis-open.org>; Mon,  6 Nov 2023 10:22:52 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: g8EkCWWQMi6RGu94XUIakw-1
+X-MC-Unique: YBi_PJ1TPVS8IzLhKQaA8w-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699265737; x=1699870537;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=za4pxzMc5AhcjWDNg3Xmr8GGLB6GOjuUTDe0N/gqfjU=;
-        b=YwZWx1LgVkifcXtJsdh/hok3aLU4RrtL/trfauhU8lPYpA4uxoxEp26xivsUiTz0tZ
-         X/IfmJ/xASICxDWIEls9qMQkV0gddkthaV26c/Y7exa+YL1nFbo3YA2wDDb6BQktftjp
-         hv4ABxAj+s58gPN/KTp3WQNoylEeygPq+1f2TeLlrV7TYvhq9CUFQlTl57XJV2w/iIge
-         b8ORt2MzttHLnzDaXRfxkzIi7Ov42+7u7QjtHOToOW1HoaHtso710jW6ICIYWihOQ1JV
-         KVV+AHp5rtt3JzLNnj8FOQnYWIM1+2LJVg5dPl1Aw5sgHR/fw6iNuIEOy4bKD5AYObmi
-         bWNg==
-X-Gm-Message-State: AOJu0YxFEOaxFnYcJZ69NNYudCJxQtVlXtnsGFnOLg+L54kwyvsg0AzE
-	fkLu4Rr989CSWpN19FO96ROo6Vzm+jvh1tU4hx5557a8qMeleiL1RpLe50GlQfMaUEmDJplou0B
-	xdVZ4rqt4Hv1OhrCsu3ndIJWo4FLikW5xWQ==
-X-Received: by 2002:a05:600c:4e94:b0:408:febf:831f with SMTP id f20-20020a05600c4e9400b00408febf831fmr22927235wmq.28.1699265737291;
-        Mon, 06 Nov 2023 02:15:37 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHQoERnrMojIdMJpDFZUPKlq+HIfI2HoPzgqGaud2ls3qBUlqnKUdtpGU6XCV2HRDLib9th+A==
-X-Received: by 2002:a05:600c:4e94:b0:408:febf:831f with SMTP id f20-20020a05600c4e9400b00408febf831fmr22927219wmq.28.1699265736960;
-        Mon, 06 Nov 2023 02:15:36 -0800 (PST)
-Date: Mon, 6 Nov 2023 05:15:33 -0500
+        d=1e100.net; s=20230601; t=1699266169; x=1699870969;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hpWxMtbJSv+jIBiWzwM3j5DM6Sa9AZpqZ4Q8aITaE64=;
+        b=LRGRKqo0ZCj8zfTzXpb85gyHTHPuhAJDxx5eFLqSu2ME4gaoCvy3PDMUpvEmhojLeN
+         RFYmygACgvPZjV+ZpTmNoNc8N5qxjOdiVWPYR8ySNPBX+7RZeE7dX+0wb7SzHNu3SmFP
+         LuO3HwMynmBgcEnmHMC2yRgynkBjAcfG6PEjO2ulGfjYdMxOxbIAjqV3DmgiPBRAiEmn
+         Ud0A8eIXKB/yY7XNlHlnLNlM6Ih7QDBKLWsXozNl0XKqLaPQVoWGlqcFzOTm/+N9py5w
+         6cUNJCmwHFRG8+jaE2G3Cq3NJhnQOjauIR7aYq5ui7Igtmp3SRbUifRKt61Q9C5KTGDW
+         wpwg==
+X-Gm-Message-State: AOJu0YwWwMkFcZF1fWf+YPtFA7IhZ04DpDazJqHuf4YzE9A0fEHeMWbq
+	+/QAdHq78KEp0fUFTfGUp+8tZPIfs0yVPNvqwfF+C1f/KebbY+1MY3EBIKfY8jeOLAz1yEryEPc
+	nxNW+h0qVJHIgoR9n+NG5y7sHbnRbwAJMZg==
+X-Received: by 2002:a2e:9116:0:b0:2c5:56b:cbd1 with SMTP id m22-20020a2e9116000000b002c5056bcbd1mr22898454ljg.10.1699266168864;
+        Mon, 06 Nov 2023 02:22:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFbETBJ9QeZbuXFx5mnEafmouvBolYnE3JdN3RpXerfyeqFIzYbd5SdRonWuCBtu8XfBlebtg==
+X-Received: by 2002:a2e:9116:0:b0:2c5:56b:cbd1 with SMTP id m22-20020a2e9116000000b002c5056bcbd1mr22898437ljg.10.1699266168549;
+        Mon, 06 Nov 2023 02:22:48 -0800 (PST)
+Date: Mon, 6 Nov 2023 05:22:44 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
 Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
 	stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
 	parav@nvidia.com
-Message-ID: <20231106045022-mutt-send-email-mst@kernel.org>
+Message-ID: <20231106051550-mutt-send-email-mst@kernel.org>
 References: <20231103103437.72784-1-lingshan.zhu@intel.com>
  <20231103103437.72784-7-lingshan.zhu@intel.com>
- <20231103064352-mutt-send-email-mst@kernel.org>
- <378a54b3-1dd6-4626-95af-5485727923e2@intel.com>
- <6162be60-a539-4f42-89c1-edaaf90f3c45@intel.com>
+ <20231103064730-mutt-send-email-mst@kernel.org>
+ <a9103f82-c95e-47a6-9284-667c1c991aba@intel.com>
+ <20231105111232-mutt-send-email-mst@kernel.org>
+ <e139335c-3d51-4f75-b686-34681120e4ff@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <6162be60-a539-4f42-89c1-edaaf90f3c45@intel.com>
+In-Reply-To: <e139335c-3d51-4f75-b686-34681120e4ff@intel.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty page tracking
+Subject: Re: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty
+ page tracking
 
-On Mon, Nov 06, 2023 at 05:16:43PM +0800, Zhu, Lingshan wrote:
-> 
-> 
-> On 11/3/2023 10:21 PM, Zhu, Lingshan wrote:
+On Mon, Nov 06, 2023 at 12:06:39PM +0800, Zhu, Lingshan wrote:
+> > > Intel production work with similar bitmap
+> > > based dirty page tracking solution for years.
+> > and then VMs became bigger and PML was introduced.
+> So you agree we should track dirty pages through the platform facilities?
+> I am glad to hear that!
+
+I just said that I thought there's no PML in platform facilities and that
+might be a problem. Am I wrong?
+
 > > 
+> > > Otherwise the device should report PFN which is not very practical.
+> > Why not?
+> Really? the device report PFN?
+> What can happen if the device keep writing a small piece of memory???
+
+then you just report the PFN once. Should work like PML really -
+IOW devices maintains a bit per page internally and reports
+PFN when bit is set.
+
 > > 
-> > On 11/3/2023 6:46 PM, Michael S. Tsirkin wrote:
-> > > On Fri, Nov 03, 2023 at 06:34:37PM +0800, Zhu Lingshan wrote:
-> > > > +\begin{lstlisting}
-> > > > +struct virtio_pci_dity_page_track {
-> > > > +        u8 enable;               /* Read-Write */
-> > > > +        u8 gra_power;            /* Read-Write */
-> > > > +        u8 reserved[2];
-> > > > +        le32 {
-> > > > +            pasid: 20;           /* Read-Write */
-> > > > +            reserved: 12;
-> > > > +        };
-> > > > +        le64 bitmap_addr;        /* Read-Write */
-> > > > +        le64 bitmap_length;      /* Read-Write */
-> > > > +};
-> > > > +\end{lstlisting}
-> > > Okay, so it's a simple mailbox in config space.  Which by itself is
-> > > probably a very reasonable idea - more or less what I suggested.
-> > > However, using such a generic facility just for the dirty bitmap seems
-> > > too limited.  Please make it accept arbitrary commands. Reusing admin
-> > > command structure with a special "device itself" group sounds like one
-> > > way to do it.
-> > processing admin cmds in a cap may be too complex and overkill.
-> > we need to handle variable length of cmds, handle async returned
-> > results, and so on.
+> > >      And the resolution is apparently 8 pages? You have just multiplied
+> > >      the migration bandwidth by a factor of 8.
+> > > 
+> > > No, as described in the comments, the tacking granularity is controlled by \
+> > > field{gra_power}, one bit represents a page with page_size = 2^(12 +
+> > > gra_power). This can also be used to reduce the size of the bitmap.
+> > .. at the cost of increasing migration bandwidth.
+> The device is very likely to write a neighbor page,
+
+how likely? and e.g. with slab randomization too? please collect some
+data and show it.
+
+> and this happens
+> everywhere for example CPU read 64 bytes aligned data.
+
+CPUs don't need to send their cache across a bandwidth constrained
+shared network.
+
+> 
+> This is a tradeoff
+
+tradeoff between which two options?
+
 > > 
-> > This struct seems easy and simple. And shall we use platform facilities
-> > like vt-d
-> > to track dirty pages?
-> To demonstrate these issues, suppose we have a struct in a bar to process
-> admin cmds:
-> 
-> struct virtio_admin_cmd {
->         u64 in_data_length;
->         u8 cmd_in_data[];
->         u64 out_data_length;
->         u8 cmd_out_data[];
->         u8 ret;
-> };
+> > > "To prevent a read-modify-write procedure, if a memory page is dirty,
+> > > optionally the device is permitted to set the entire byte, which encompasses the relevant bit, to 1."
+> > > 
+> > > This is optional and DMA is very likely to write a neighbor page, and the device transmit a whole byte anyway
+> > > when a bit is dirty.
+> > > 
+> > > How about we use platform dirty page tracking facility then implement this in virtio, as Jason suggested?
+> > > 
+> > Without something like PML it likely won't scale either.
+> So that would be platform issue which we don't need to take care of?
+> Intel VT-d can do this for sure.
 
-An alternative is do same as you did here, e.g.:
-struct virtio_admin_cmd {
-         u64 admin_cmd_pa; /* an out descriptor followed by an in descriptor */
-         u32 pasid : 20;
-	 u8 reserved : 11;
-	 u8 hardware : 1;
-};
-
-or we can stick two lengths and addresses straight in the capability.
-
-
-> The problems are:
-> 1) command_in_data and command_out data have variable length, so how many HW
-> resource should be reserved in the bar?
-
-actually admin commands are truncated by device so just
-set to length that device understands.
-
-> 2) To process the cmds in the bar, the device MAY need to read many
-> registers in cmd_in_data[] and write many registers in cmd_out_data[],
-> which can be ineffective, this is not DMA.
-
-True. Again if you don't want to depend on pasid that's the
-only option.
-
-
-> 3) a bar can only process one cmd at a time, and the driver can only issue
-> another cmd after received an ret.
-> This process has to be synchronous IO, one cmd blocks another.
-
-Exactly same as what you did though.
-
-> 4) VF implementing a bar processing admin cmds conflicts with PF's admin vq.
-
-So just don't create conflicts. It's same as multiple admin vqs
-really which we already support.
-
-
-> 
-> So I think a bar or a cap processing admin cmds is way to complex and
-> overkill.
-> 
-> Thanks
-
-Sounds like a straw man argument.
+Intel VT-d supports PML from the IOMMU? I didn't realize. Could you help
+me find it in the doc please? Which hardware supports this in the field?
+What about other vendors?
 
 -- 
 MST
