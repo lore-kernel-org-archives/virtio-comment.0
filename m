@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8237-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8238-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11F80C4167B
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 10:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 783C9C4332F
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 10:43:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4696926A42
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 10:25:30 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id BE7AF2CAF7
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 10:43:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 303E7986A81
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 10:25:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 82D48986826
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 10:43:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 167709867FA; Tue,  7 Nov 2023 10:25:30 +0000 (UTC)
+	id 6082B9867FB; Tue,  7 Nov 2023 10:43:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,132 +24,202 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 050159867FB
-	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Nov 2023 10:25:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4FC539867FC
+	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Nov 2023 10:43:32 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: Qa8Gh5i_M1-iBPH3eFR_4w-1
+X-MC-Unique: 33F80tqOMtKoOel21GwKNQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699352725; x=1699957525;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hpjHZ2hMoJnACid/KSdDeoTaPPXabhNypigYa5r8BMc=;
-        b=VUayFYCSbZAi/825LcCpdlqMWD0a554Gum9ID9XOek11z+T0krWdoio8d0j2hoaNbx
-         0xtwtm1gDPekPILgCUMd8ZpEngypaDiHghwAaDCkOcNNNTMpj2N9DT7wOwtOvhgVz1a1
-         8ecR63jf5Ks4Azb5s0+y49eGnBaJi7R2H4bqDuFl6zSeodF0dk/viqK5bL/7tpMfZQnf
-         nrX346WlBgNb+MwA6GNCOIrc/9OhnLvJXdnHeXa/cQQEYwwY7nXN3fR1mVByzRxNc9VC
-         ox6QF9Bh7L1LPCVZZeCqZaewrnDa3VNNY1Xqf0JBUKpOUidLO/+b19CNP+QuAjQMN+kO
-         0DoQ==
-X-Gm-Message-State: AOJu0Yw/j4Ft+9jt2Kh9LatlOJCG38GYXmKLcKkWNsPdeko9JeUpA7ut
-	hrs871Ok9s6h3rOp02OXKMbGxn3GfATnqA5b3qgZhSF4ifdpC00UZdmsLPfi+wBq5+Le4SwY8OT
-	GJ5ZcG4QYbUMaru02PVdgGvPwwWM2EKPVcg==
-X-Received: by 2002:a5d:6dad:0:b0:32f:762f:7f9f with SMTP id u13-20020a5d6dad000000b0032f762f7f9fmr24891239wrs.16.1699352725330;
-        Tue, 07 Nov 2023 02:25:25 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFZXGj/samoDq8Iyp6tsMoYiRAedKmImhG+kEXG0DZZtoiaCIT8LNG+I95iQB48ltRHD+BwAQ==
-X-Received: by 2002:a5d:6dad:0:b0:32f:762f:7f9f with SMTP id u13-20020a5d6dad000000b0032f762f7f9fmr24891225wrs.16.1699352724939;
-        Tue, 07 Nov 2023 02:25:24 -0800 (PST)
-Date: Tue, 7 Nov 2023 05:25:16 -0500
+        d=1e100.net; s=20230601; t=1699353808; x=1699958608;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=MGF1eyHrEQDXo7Kfkp6xWoxsT7bdFHVF4BAyuz1REE8=;
+        b=uDTdvU+djsLRPwVJ5UtKdZ61HCMg5bREk48GIDXxyN7EFk/v38tm1EHMN6EUvJaHwZ
+         AMw7V6fDHmIqYrxboxzuRc2wxCr4hbn7W01z/3hW/OPje/uimKQJeIoEgze1I1s2Ees9
+         yiRni1y/T4bAAlbkqWW/zSbeScTyglQLNW4BJe7aakMwtQ5i6pL7F+/Qe+jp3IeHpjAv
+         uNICU8xp8nHwGO3sCLxnJTJkMcTJ08u9JMvjO1T6cE3kSSbxxDVJUij18/m1LBkWgGGG
+         25D903HTcsJbOINovy+RymKav3V/Fiuked6EqCbVYoVyr+WiSIUreYE3SuVHKdfwaQHQ
+         VMRw==
+X-Gm-Message-State: AOJu0YwFsF9f3g4xx0Cmg2/HnZZ2OOilc2T4ET8ShDreGr5gMGa+DYNb
+	Ttqfh7cHnSA5G05nYlmYESskI+VtpzXOxouCxMlLFYy1YjmjT/oq2/VQkljBpOnqRX3k/HGygF0
+	WVssrmknL3El3ihHM4pxVzPaOKTTiyvAoEg==
+X-Received: by 2002:a7b:c051:0:b0:404:4b6f:d70d with SMTP id u17-20020a7bc051000000b004044b6fd70dmr2161313wmc.17.1699353808184;
+        Tue, 07 Nov 2023 02:43:28 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFzJMhA9M/L/itgIFYMCYmXrB/PLEeMINbvD/PGQnSVl8fxEV8fCRm9dlvFjcTIn/kaVC0Ctg==
+X-Received: by 2002:a7b:c051:0:b0:404:4b6f:d70d with SMTP id u17-20020a7bc051000000b004044b6fd70dmr2161295wmc.17.1699353807715;
+        Tue, 07 Nov 2023 02:43:27 -0800 (PST)
+Date: Tue, 7 Nov 2023 05:43:21 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20231107051012-mutt-send-email-mst@kernel.org>
-References: <20231103103437.72784-7-lingshan.zhu@intel.com>
- <20231103064730-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fdfda658-e89c-41f4-9f4c-77d5d9b1b642@intel.com>
- <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <445ff573-72c3-4fe4-9e07-e7fdd2dc5750@intel.com>
- <PH0PR12MB54818BAE4BD33983E6108FE5DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2615baa2-9450-4504-aa8a-e46fdbb332b8@intel.com>
- <PH0PR12MB54810847007367DD75FA3D60DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <431c0495-f0d9-46d6-8336-cc2bd293cc35@intel.com>
+Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
+	stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
+	parav@nvidia.com
+Message-ID: <20231107052534-mutt-send-email-mst@kernel.org>
+References: <20231103103437.72784-1-lingshan.zhu@intel.com>
+ <20231103103437.72784-7-lingshan.zhu@intel.com>
+ <20231103064352-mutt-send-email-mst@kernel.org>
+ <378a54b3-1dd6-4626-95af-5485727923e2@intel.com>
+ <6162be60-a539-4f42-89c1-edaaf90f3c45@intel.com>
+ <20231106045022-mutt-send-email-mst@kernel.org>
+ <67002d08-481e-40b6-8f23-05799b2b8f03@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <431c0495-f0d9-46d6-8336-cc2bd293cc35@intel.com>
+In-Reply-To: <67002d08-481e-40b6-8f23-05799b2b8f03@intel.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty page tracking
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty
+ page tracking
 
-On Tue, Nov 07, 2023 at 06:01:27PM +0800, Zhu, Lingshan wrote:
+On Tue, Nov 07, 2023 at 05:43:44PM +0800, Zhu, Lingshan wrote:
 > 
 > 
-> On 11/6/2023 7:13 PM, Parav Pandit wrote:
-> > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > > Sent: Monday, November 6, 2023 3:04 PM
-> > > So, please no pass-through discussion anymore.
-> > If you comment like this, nothing can progress.
+> On 11/6/2023 6:15 PM, Michael S. Tsirkin wrote:
+> > On Mon, Nov 06, 2023 at 05:16:43PM +0800, Zhu, Lingshan wrote:
+> > > 
+> > > On 11/3/2023 10:21 PM, Zhu, Lingshan wrote:
+> > > > 
+> > > > On 11/3/2023 6:46 PM, Michael S. Tsirkin wrote:
+> > > > > On Fri, Nov 03, 2023 at 06:34:37PM +0800, Zhu Lingshan wrote:
+> > > > > > +\begin{lstlisting}
+> > > > > > +struct virtio_pci_dity_page_track {
+> > > > > > +        u8 enable;               /* Read-Write */
+> > > > > > +        u8 gra_power;            /* Read-Write */
+> > > > > > +        u8 reserved[2];
+> > > > > > +        le32 {
+> > > > > > +            pasid: 20;           /* Read-Write */
+> > > > > > +            reserved: 12;
+> > > > > > +        };
+> > > > > > +        le64 bitmap_addr;        /* Read-Write */
+> > > > > > +        le64 bitmap_length;      /* Read-Write */
+> > > > > > +};
+> > > > > > +\end{lstlisting}
+> > > > > Okay, so it's a simple mailbox in config space.  Which by itself is
+> > > > > probably a very reasonable idea - more or less what I suggested.
+> > > > > However, using such a generic facility just for the dirty bitmap seems
+> > > > > too limited.  Please make it accept arbitrary commands. Reusing admin
+> > > > > command structure with a special "device itself" group sounds like one
+> > > > > way to do it.
+> > > > processing admin cmds in a cap may be too complex and overkill.
+> > > > we need to handle variable length of cmds, handle async returned
+> > > > results, and so on.
+> > > > 
+> > > > This struct seems easy and simple. And shall we use platform facilities
+> > > > like vt-d
+> > > > to track dirty pages?
+> > > To demonstrate these issues, suppose we have a struct in a bar to process
+> > > admin cmds:
+> > > 
+> > > struct virtio_admin_cmd {
+> > >          u64 in_data_length;
+> > >          u8 cmd_in_data[];
+> > >          u64 out_data_length;
+> > >          u8 cmd_out_data[];
+> > >          u8 ret;
+> > > };
+> > An alternative is do same as you did here, e.g.:
+> > struct virtio_admin_cmd {
+> >           u64 admin_cmd_pa; /* an out descriptor followed by an in descriptor */
+> PA depends on IOMMU and ATS
+
+Not how virtio spec uses it. grep spec for physical address.
+
+
+> >           u32 pasid : 20;
+> > 	 u8 reserved : 11;
+> > 	 u8 hardware : 1;
+> > };
 > > 
-> > What you are implying with above language is:
-> > "hey a virtio can do live migration ONLY by creating vdpa device on top of ALREADY virtio device, and you get another virtio device by running through 3 layers of stack you get virtio device on other side!".
-> I never say that right? I keep explaining how pass-through and "trap and
-> emulate work", I even explained how PASID work.
+> > or we can stick two lengths and addresses straight in the capability.
+> Still can only process only one cmd at a time and others are blocked.
 
-Parav, Lingshan can we please stop the "what is pass through" arguments?
+Point being? Your patch is the same - thought you wanted simplicity?
+We could stick a full queue there for sure - does this seem like
+a good idea to you?
 
-I think thatthe term is vague, as
-(almost?) no hypervisor passes all accesses without exemption through.
-And the fact you are speaking past enough other on this subject
-for how long now? seems to demonstrate I'm right.
+> > 
+> > 
+> > > The problems are:
+> > > 1) command_in_data and command_out data have variable length, so how many HW
+> > > resource should be reserved in the bar?
+> > actually admin commands are truncated by device so just
+> > set to length that device understands.
+> How the framework know the length? How can the vendor know how many
+> HW resource they should place here? I am not sure it is a good
+> idea to guess.
 
-Describing migration in the spec as opposed to leaving it up to
-hypervisors seems valuable at least to me since historically hypervisors
-did such a bad job of it. So I personally feel it's nice if it's there,
-and the SUSPEND bit only works after DRIVER_OK. So that's an example
-argument that makes sense to me.  But number of layers involved in control
-path seems completely irrelevant to most people. *That* is an nvidia
-thing, something very specific about vfio and vdpa and whatnot.
-Nothing to do with the spec, wrong list for this.
+I really don't want to repeat the whole admin command infrastructure
+explanation I thought it's pretty clear. device knows the length
+and truncates. Let's not get started on frameworks please.
 
 
 > > 
-> > Then for sure, I disagree to it for 100% for such a single-minded design.
-> > 
-> > At least I am trying to propose if a solution can work for generic passthrough where least amount of hypervisor mediation is done.
-> > 
-> > And an extension where hypervisor has choice to more medication layers as it finds suitable.
-> > And if there are technical issues, may be two different interfaces or more admin commands needed for two modes.
-> > The idea is to attempt to converge and discuss those details, not the opposite.
-> > 
-> > Your above comment shows a clear sign of non-collaboration to make both mode works.
-> Well, I see you are emotional, please take a deep breath and calm down, to
-> be professional,
-> give yourself a break, and really not necessary to be mad at me.
-> 
-> As you know I am just a Junior Engineer in Intel, not like you a Senior
-> Principle Engineer who has spent many years and
-> have developed knowledge in this area. So I am quite technical focusing,
-> they are all technical discussions till now.
+> > > 2) To process the cmds in the bar, the device MAY need to read many
+> > > registers in cmd_in_data[] and write many registers in cmd_out_data[],
+> > > which can be ineffective, this is not DMA.
+> > True. Again if you don't want to depend on pasid that's the
+> > only option.
+> Yes, this exactly shows how complex and overkill to use
+> a cap to handle admin cmds. And maybe admin cmds is not a must.
 
-It looks more like a passive-agressive flamewar from the side.
-So maybe try to see other's point of view. I asked what's the advantage of
-admin vq thing for migration and you said "it's an nvidia thing".
-And when people try to point them out to you, you go well tough.
-Maybe but we are wasting time here.
-
-> We always welcome collaboration, remember Jason has proposed a solution to
-> build admin vq based on these basic facilities,
-> and I am fully agree on his proposal.
-
-I didn't see anything specific frankly, I can easily see how Parav could
-get mad if he posts a reasonably fleshed out patchset (which admittedly,
-needs work with wording etc) and instead of review gets back
-"rework this on top of these basic facilities which we don't yet know
-how they will work but maybe will". We'll be stuck in this loop for
-how long?
+I don't know. But this patch in question is really just impractical.
+We can't implement silly one-off gateways for each new random thing.
+You work on this thing so it looks like it's the most important feature
+to you maybe, but virtio works very well for most people than you
+very much.
 
 
-> > At one point I may probably stop responding to your comments that repeatedly says:
 > > 
-> > "Go read QEMU code, Do you know what is PASID?, Do you know num_queues, Go read PCI spec"...
-> With all respect, you should do these because they are text book knowledge.
 > > 
-> > Taking deep breath now to do some productive work in TC...
+> > > 3) a bar can only process one cmd at a time, and the driver can only issue
+> > > another cmd after received an ret.
+> > > This process has to be synchronous IO, one cmd blocks another.
+> > Exactly same as what you did though.
+> We have implemented a cap in PCI for dirty page tracking, there are no admin
+> cmds.
+
+"implemented" as in "posted v1 of a very rough draft". with tradeoffs
+like increasing migration payload by a factor of x8. Or try to use
+AtomicOps, if you try you will I believe see commands can actually
+fail and so you need to report errors.
+
+So maybe it's great for CXL. Should we be able to use platform
+capabilities if there?  Of course. This is right in the charter.  Must
+we limit ourselves to specific platforms with specific capabilities? if
+there are tc members interested in supported limited platforms without
+said capabilities, I don't see why we must.
+
+
+> And for dirty page tracking, we still believe it is better to use platform
+> facilities,
+> as Jason explained.
+
+So pls don't waste everyone's time trying to review stuff you don't think can work.
+
+
+> > 
+> > > 4) VF implementing a bar processing admin cmds conflicts with PF's admin vq.
+> > So just don't create conflicts. It's same as multiple admin vqs
+> > really which we already support.
+> How to tell the SW don't create conflict?
+
+It's like a single mutex in software or something no?
+We already say 
+	It is the responsibility of the driver to ensure
+	strict request ordering for commands, because they will be
+	consumed with no order constraints. 
+seems enough for me.
+
+
+> > 
+> > 
+> > > So I think a bar or a cap processing admin cmds is way to complex and
+> > > overkill.
+> > > 
+> > > Thanks
+> > Sounds like a straw man argument.
+> > 
 
 
 This publicly archived list offers a means to provide input to the
