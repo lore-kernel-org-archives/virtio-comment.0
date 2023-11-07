@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8226-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8227-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42653C4332F
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 08:23:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A5ABC4332F
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 08:33:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9A7BD26A46
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 08:23:01 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5AB992B146
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 08:33:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 881A5986B5C
-	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 08:23:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2DCD1986B5D
+	for <virtio-comment@archiver.kernel.org>; Tue,  7 Nov 2023 08:33:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7D12F9867F0; Tue,  7 Nov 2023 08:23:01 +0000 (UTC)
+	id 0A25D9867F0; Tue,  7 Nov 2023 08:33:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,131 +24,122 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6DD479867F1
-	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Nov 2023 08:23:01 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EE3B69867F1
+	for <virtio-comment@lists.oasis-open.org>; Tue,  7 Nov 2023 08:33:38 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 4yZSx4B1MDWD_rmAOPD82Q-1
+X-MC-Unique: iBsiLsfjN8mowkkVIPzyJg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699345378; x=1699950178;
+        d=1e100.net; s=20230601; t=1699346011; x=1699950811;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cUoJx2nlkGcRls07lFfndZuDRkRhEp4Vb165DbyB/uo=;
-        b=rhuvDJXbxy6A/waRIT5gMzzQYaFVESM7eMtHUgteT9KVLV4G3VmGJ0Wr7x6N+TpU2g
-         UKbO2F3e3n2yihJbA3Q6uRs9ah284Bq5ASS8gztT2vBdYCYKNRZDlND9r2RZ2rT0VOKs
-         FcNu4ym5VFuPkmaEVh9mjXlSIUURluUixmJddRx8akmH1XW+Zb6GJ7y/cCLS3BdNJRmr
-         lHVR/D13XTTK6DxWvwf6g/IXChdElbHPSh5jOKKLePtw8Aw1FKwnbfx8rVU+0K5+IjIN
-         7DHSKKq+uQedENJETaGgkc5wnBW0lcD1jep2/cHjnm4054fpVP17Taze/QWdIG2JNjq7
-         WRXA==
-X-Gm-Message-State: AOJu0Yz2TB6UDe0+GLDpiooPB6RvNIwcJSBk5pMuJ2k4y/uMRG0Wt/se
-	X4hDLDPt6IeeX6w1e8mt425Z5aWs4/ZkHlI36iZXOw7Ymplz5koOjr6sBnGjaoFuVg7CYExFOv/
-	XCLfnr6JrDlLerKvTajIxmLqTFDGfsCAoCg==
-X-Received: by 2002:ac2:555b:0:b0:503:eae:4896 with SMTP id l27-20020ac2555b000000b005030eae4896mr21770765lfk.39.1699345377805;
-        Tue, 07 Nov 2023 00:22:57 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGIWHvQlMLR1xTmbjxMfzIUd8j2iFao6pNEDsp9svW7FZEZtUANzAQvY+VqzfSbRMrycXMLWA==
-X-Received: by 2002:ac2:555b:0:b0:503:eae:4896 with SMTP id l27-20020ac2555b000000b005030eae4896mr21770747lfk.39.1699345377382;
-        Tue, 07 Nov 2023 00:22:57 -0800 (PST)
-Date: Tue, 7 Nov 2023 03:22:53 -0500
+        bh=r2fb8GRF7wLNhCpE3e8qsDzfUt38whwzSY4uTXH9xkQ=;
+        b=nTVjM2Je1pOeKRtBh6y6xCWQ15r91F26LRrG+7eP2tZ8UuA0nt1ALHX74JDwlXI352
+         PXav3qvdDqRTPgW8xUHXF6r3Tzw2BkCeZKSFd6AID/qM0N8x1Qxwgcu6/J94ZiCCC37x
+         7rmyPe0/rl3yUWpZ304tLdAmUtYYCIiCBRtG1IJjxX/rZyv2c5ocgWsBpslYA6VNKvH8
+         QzvpyVCXgVfeJaXaLJ5dVxgjAGfZCxtZcTggUYEQzqdaBqQxWvuGVimr2EjGeNtHqtG7
+         yaksPmeSJgZeHdTomGLpI1dsQWZk0D9119A58DhoxkXK33r6ql0hDSXH/ToNroPB9Vy3
+         7/rg==
+X-Gm-Message-State: AOJu0Yw4rudP4AxM6CmZgVqERYsMla5iPGs99MSr7OtrmQ5GL6DxOOOh
+	yXELuchoPeezX1u8dlUMt9C//tr8FdXgArW6xeZpNlh+99adFEbOLuknB5nEZKfH0iuKzNadBeD
+	ZToXIcWhscXeExcNKJnbK5WGmfTzSOJIDAQ==
+X-Received: by 2002:a05:600c:4587:b0:3fe:1232:93fa with SMTP id r7-20020a05600c458700b003fe123293famr1603859wmo.22.1699346011263;
+        Tue, 07 Nov 2023 00:33:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IENobNi8htCh1uGSfd/vObBFzAnM4xnuyu7zBDQ9C2JXYcfxPqZbAoiOKByymVjXqGd/px4gQ==
+X-Received: by 2002:a05:600c:4587:b0:3fe:1232:93fa with SMTP id r7-20020a05600c458700b003fe123293famr1603846wmo.22.1699346010917;
+        Tue, 07 Nov 2023 00:33:30 -0800 (PST)
+Date: Tue, 7 Nov 2023 03:33:25 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
-	stefanha@redhat.com, virtio-comment@lists.oasis-open.org,
-	parav@nvidia.com
-Message-ID: <20231107031405-mutt-send-email-mst@kernel.org>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	"eperezma@redhat.com" <eperezma@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"stefanha@redhat.com" <stefanha@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Message-ID: <20231107032314-mutt-send-email-mst@kernel.org>
 References: <20231103103437.72784-1-lingshan.zhu@intel.com>
- <20231103103437.72784-2-lingshan.zhu@intel.com>
- <20231103065138-mutt-send-email-mst@kernel.org>
- <d2f3c5cd-0376-460a-9230-4098863f1bb7@intel.com>
- <20231106042108-mutt-send-email-mst@kernel.org>
- <dfeba16d-8bfc-438a-8968-ab03d05cce75@intel.com>
- <20231106044347-mutt-send-email-mst@kernel.org>
- <8f3f0112-1ebb-4eda-ba92-46b9941e2e30@intel.com>
+ <20231103103437.72784-3-lingshan.zhu@intel.com>
+ <PH0PR12MB54814E8B9E7D16C9EF421C82DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <78f206cd-1e07-4c20-a281-1ddf74cf4d84@intel.com>
+ <PH0PR12MB5481F05E5A952E9A43B96F73DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <8eb1a4c5-eb7d-4f8d-8afd-4aab5559a8d6@intel.com>
+ <PH0PR12MB5481CD22F4AFF3DFA7F53B91DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <850caea9-f7dc-4dee-ae00-936766287ba3@intel.com>
+ <PH0PR12MB54810A60FD26411387DBC7D9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <5c659db2-9263-4f9c-b1ac-073de5c01446@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <8f3f0112-1ebb-4eda-ba92-46b9941e2e30@intel.com>
+In-Reply-To: <5c659db2-9263-4f9c-b1ac-073de5c01446@intel.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH V2 1/6] virtio: introduce virtqueue state
+Subject: Re: [virtio-comment] RE: [PATCH V2 2/6] virtio: introduce SUSPEND
+ bit in device status
 
-On Tue, Nov 07, 2023 at 04:11:25PM +0800, Zhu, Lingshan wrote:
-> 
-> 
-> On 11/6/2023 5:45 PM, Michael S. Tsirkin wrote:
-> > On Mon, Nov 06, 2023 at 05:42:10PM +0800, Zhu, Lingshan wrote:
-> > > 
-> > > On 11/6/2023 5:35 PM, Michael S. Tsirkin wrote:
-> > > > On Fri, Nov 03, 2023 at 10:49:42PM +0800, Zhu, Lingshan wrote:
-> > > > >           +When SUSPEND is set, the device MUST record the Available State of every enabled splited virtqueue
-> > > > >           +in \field{Available State} field,
-> > > > >           +and correspondingly restore the Available State of every enabled splited virtqueue
-> > > > >           +from \field{Available State} field when DRIVER_OK is set.
-> > > > >           +
-> > > > >           +The device SHOULD reset \field{Available State} field upon a device reset.
-> > > > > 
-> > > > >       At this point I have no idea
-> > > > >       - how can a state of a virtqueue at a random time be represented
-> > > > >         by a 16 bit integer
-> > > > > 
-> > > > > not sure what is a random time, this is to request the device to reset
-> > > > > its avail state, for example, it is "le16 queue_avail_state" in virtio-pci
-> > > > > common cfg. Resetting this so the device will not recover from a wrong value of
-> > > > > the last run.
-> > > > You simply never bother to say what is "Available State" and what
-> > > > does it mean to restore it.  Not to mention words like "splited"
-> > > > which just adds to the confusion.
-> > > It says:
-> > > +The available state field is two bytes of virtqueue state that is used by
-> > > +the device to read the next available buffer. It is presented in the
-> > > following format:
-> > > 
-> > > Do you want me to add more descriptions?
-> > maybe start with an example
-> I think they are already in the spec, I can add:
-> see also "2.7.6 The Virtqueue Available Ring" and "2.7.13.1 Placing Buffers
-> Into The Descriptor Table"
+On Tue, Nov 07, 2023 at 04:21:13PM +0800, Zhu, Lingshan wrote:
+> > > This can work, right?
+> > Unfortunately no, as non atomic bitmap cannot reside in the host memory,
+> as explained before, PCI and CPU supports atomic read/write. Please refer to
+> PCI spec and CPU ISA.
+
+I don't see how atomic read or write does anything useful here but maybe.
+You need to explain how you are using atomics in your proposal then.
+
+
+> > And whatever is in the device gets reset on device reset and/or FLR. So the dirty map detail is lost.
+> > Similarly the device context is also lost on these two events triggered by guest.
+> we explained before, when reset, the device should clear everything.
+
+then migration will corrupt memory. Not great.
+
+
+
 > > 
-> > > > >       - if it's not at a random time then why do you even need an integer -
-> > > > >         synchronize queue to memory and then all state is in memory
+> > > > > As you can see, the dirty page tracking facility has a PASID for
+> > > > > isolation. But still, the question is, we should better use platform
+> > > > > dirty page tracking
 > > > > > 
-> > > > > Not sure what is a sync queue, but for example, "le16 queue_avail_state" for
-> > > > > PCI transport exists in a cap.
-> > > > I just point out that normally a lot of ring state is in memory.
-> > > > So you need to be much more specific about how you are augmenting that.
-> > > > For example, if buffers are used exactly in order for a split ring
-> > > > then used index seems to be exactly the same as last available index
-> > > > you describe - it's a free running counter. OTOH if they are not
-> > > > used in order then I don't see how is a single index sufficient to
-> > > > describe which ones have been used and which not.
-> > > I am not sure I get it.
-> > > 
-> > > Used idx(not like packed vq, no over-writing descriptors) and other states
-> > > are in guest memory, so migrated with guest migration.
-> > yes and so? why is that not enough and what is this available state then?
-> The spec has illustrated how available index work and has given an
-> example(see above cited sections)
-> And this patch even has given a more clear description for it.
+> > > > Nothing to do with PASID, as PASID is owned by the guest.
+> > > It looks you don't know how PASID work.
+> > > Host can setup PASID to isolate some facilities, right?
+> > There are few limitations with PASID.
+> > a. All platforms do not have PASID and
+> As we have explained for many times, this is a basic facility,
+> and the implementation is transport-specific.
 > 
-> Other states are in guest memory and migrated with guest memory.
+> We given an example of PCI implementation, and PCI support PASID, right?
 
-Yea I wrote large parts of it and I know how the available index works.
-
-And sorry no idea what you are talking about.
-
-At any time, there can be up to 2^16 buffers that have been made
-available, and a random subset of these have been used. There is no
-chance in the world a single 16 bit index describes even that part of
-state, never mind device type specific processing that might be going
-on.
-
-As a wild guest this proposal is making a bunch of unstated assumptions
-about device being in a very specific state where this *is* possible.
-For people to be able to implement devices and drivers these
-need to be spelled out.
+Yes it's a limitation but maybe one we can live with
+for this feature.  It does mean that we might need solutions
+for systems without this support. virtio use is not limited
+to servers or high end systems.
 
 
--- 
-MST
+> > b. I explained above PASID do not work always as PASID only bifurcates DMA not the device _functionality_.
+> With a PASID, a cap can be considered to be placed in another logical
+> address space, which is not accessible to the guest.
+> > c. PASID to be available to guest as_is what is present on the device
+> host hypervisor sets the PASID, transparent to the guest.
+
+Lingshan whenever people ask you a ton of questions in response to
+your spec proposal then respose should not be to simply
+answer on the mailing list and then repost without a lot of changes
+since spec readers will likely have questions exactly like these
+and we can not make them go and read this flame war.
+And frankly, most of this TC stopped following this thread a while ago,
+it seems to be going nowhere.
+The response should be to add the explanation in the spec.
+Look at Parav's live migration proposals with "theory of operation" chapters
+for an example of how this can be done.
+
+> > 
+> > > > > Then suspend the device after guest freeze, to stabilize the device
+> > > > > status, then read the status.
+> > > > > 
+> > > > > How can you say this does not work???
+> > > > I explained above.
+> > > see above
 
 
 This publicly archived list offers a means to provide input to the
