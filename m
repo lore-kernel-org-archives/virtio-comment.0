@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8274-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8275-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CE71C4332F
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 18:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F3AC4332F
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 19:33:22 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6514C26A37
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 18:37:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B4E3333591
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 19:33:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3CF46986CC4
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 18:37:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id AA19C986CBC
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 19:33:21 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 1CC18986CAA; Wed,  8 Nov 2023 18:37:29 +0000 (UTC)
+	id 9F6DA986CAC; Wed,  8 Nov 2023 19:33:21 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,177 +24,220 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0DA02986CAC
-	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Nov 2023 18:37:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8C3B5986CB0
+	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Nov 2023 19:33:17 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1699468641.053000
-X-TM-MAIL-UUID: ec4e90c5-ec92-4d13-84d5-53fd1c03a333
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GTofLBVAiT4jiKaS2NMxWTf4PF7HFx6159lXD3kf1HTWAdUFlxihgcfxkhxMZIWJ1Px8gKMSENEnRQS8G3mv86lDeAGVrDRJRspohN4WL1ce3Mifb89h6M8JQ69sin4J8wS5d9gN8qGS8SdxV/DFG2Ad//nQ1TCtp7m7d9PFlYtf/7qQifKYS03GlFmv79wkd5tmg0N4Oh5zNQf/dA2lTf+oO84jfbPrnUNtelRinP4uIrAr7915C0EFnhay7VWoGTYmsSfMG2N9ikSI9MDMBJADckjbqYUVHZxkh/JQvcLLPul+bH8X9hok1u4rC/8u/1/jqhGMFxGw3OLp7bGwpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=seybNV6AgblQmR5oLT4HC2gMbS5YOQ9EO7EkbEFKce0=;
- b=OPJeC/a1P+3c7dT+6Xii2aqMSMVV/FEqbYh0eX+EMZEy5GUU8UgFAmj8cMbtg/bDvn9fsO3lQ9+eokd5hIVFrM2GnIzXxAsvyysXYsbIHM32Cot4fQBQrXD4BZ/0FSSMxbWix/8+2ikVD3EeO4G9cHstqGcknj9pha7VO6Wmsf/zERYyWE2GHGOA0yTw+legWfxVURiPM/IBf/pVhCdTXvIiDvWoa5FJW1w54S3zO7YVaD7Uma/hCD7CuJdtrBADBB428Bu/KAdaYaTckO+Y1mQ/0Yh0nXpYiS9nP7vkWS5mPfqWhJCG7gaOOVYcuIqByvtfq1czfJ1YO/QN8eyaug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <59a014d3-5027-4a5c-836c-3a433dfad994@opensynergy.com>
-Date: Wed, 8 Nov 2023 19:37:18 +0100
-To: Mark Brown <broonie@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>
-Cc: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org,
- cohuck@redhat.com, quic_ztu@quicinc.com
-References: <20231024125346.23546-1-quic_haixcui@quicinc.com>
- <ZUjrDjHpFVReDSgk@finisterre.sirena.org.uk>
- <c08f1b37-51e8-4126-9e1c-40530f468df4@quicinc.com>
- <ZUuxfbkSboAFQIQF@finisterre.sirena.org.uk>
-Content-Language: en-US
-From: Harald Mommer <harald.mommer@opensynergy.com>
-In-Reply-To: <ZUuxfbkSboAFQIQF@finisterre.sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0136.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::10) To BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:4a::9)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699471995; x=1700076795;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9I12sN3bYvArj8wrZUCoYQV5h7w6GNNiyJck2N4AIgU=;
+        b=GmsDAvbCc02Zp3YruhQ4GHPujP8BPO94NSp2ItEQUfCS8aVesddh8f3Tcdd/hLMvp+
+         Q8QJvJBnCzNVeu+/5nru9IRJPbPYcz358QzpI67o1Det19SwQX8+t//ax6YYpSwHzGNp
+         DDN7U0fda4EuYo6e5OkgKJl+2XHTpE4+jlURsH5yybX/RjX3N5tGWgJaTKRwxMW/53ZL
+         Km9wNSQ9Sa4cpwz2TpdEdfItvQOMEfxT9QLnTnPczw6qXth0oMry6XYQ5USI2SrtsePi
+         yhc/u+3+K4xhcWnMBuCIIsNRNZFiGV+KYf0D0sJ9ZyQpUjVYPZ3gJ+Ldd9kuxdGcwqLE
+         l54A==
+X-Gm-Message-State: AOJu0YwH3X19qCRyOunLzsITvY3v6Pja3/BORbNDH53u5tQu9T1G6htB
+	VZZa63bGGXqEIN9c40biXWIuEpATKcwf6B0vO4XUQ0S2
+X-Google-Smtp-Source: AGHT+IElanGZ5BTlx6OBcuOpjBD5A1wBi/8drWr/XXiU6HZgTAvgz7DH/f5Dt9UYFKLuSxTphVf5HilF3qEd/+6rT/8=
+X-Received: by 2002:a05:6602:3812:b0:786:25a3:ef30 with SMTP id
+ bb18-20020a056602381200b0078625a3ef30mr3962649iob.7.1699471994336; Wed, 08
+ Nov 2023 11:33:14 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BE1P281MB3400:EE_|FR2P281MB3375:EE_
-X-MS-Office365-Filtering-Correlation-Id: b912f233-cf8a-439d-d063-08dbe089bd87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	CqS3ojD3VgzWe10TMeT3AoiIaHu9jgNjg8mHgCUqclvBlBjzOf3wuLr+ZmIxRAR/RwF949v49wlveijV5P0YYeuwx/ME9t4M3oC1mLSVLyPeP5v0MHu8OHQ9PaPQtXHoT/KdlHJlyQTMD8nmvoi0mmm8SdMMhMC73ZBTjMKcx5CjFvPIHI55D1ZzxcVBrvdTmELGGQTvsVjH2oxZ6iTiRVK4GHQWwVi+9I057G2mZ5pwQoHn3VPjiKRljsRxBAPUp5zvkHTGQ4cCZEBpYBGwkrB6sW34ykc8eOa9ErGN0sVGFUW7V2XERVGhqopOrRnS36zBl7vzBCUdq1LMQLUe4ZWTgiGAXYvKc6Ewgq6bxQkgoUoRyu6P+/KTyohXsvo3aK0rfRjcQLYe9gHL3eTOAi4+hyOFR9d2ummv6sMJ8Xfqz50ojsae3KHEIlOMRL4zUbtiATNzlanPpM8U71P8GN+P/4ymZuMZbed27GXqDHMClYngmbo6GSCtEkoALOxYVZzR8J5ukaaBu8JAlfcJOOaoXngmfhe+ohPquhz13aY/ghnGDMQXrviTf2b9hoZnV2eSazg+m7vVpQFoXhhe4VXlrLXVReztPNcyZ4iCqmU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(366004)(376002)(136003)(39830400003)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(44832011)(41300700001)(86362001)(31696002)(5660300002)(66946007)(2906002)(66476007)(66556008)(316002)(110136005)(8676002)(8936002)(4326008)(36756003)(42186006)(478600001)(2616005)(53546011)(38100700002)(83380400001)(31686004)(26005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RitVS0djYVJTR2llWHNGVmlCMkt1SkpkeVlIUTBzb2R3ZmVSR3J3V09kUzdF?=
- =?utf-8?B?dlQwbzNQU1ZSWEpHdStKSDYwVldhamVKT1dBK1JqeC9kcVltSUQwNmdYWERj?=
- =?utf-8?B?ZnprR1JmK2lWclA0SWtCaUFxT0R1QlZuOXBsMWZmMTBkMjR5UFl6cCtkNFp1?=
- =?utf-8?B?dzRPL2R4bVp2ZU1IUWdHckhrY0pnRnJqUHFqdzU1WWd1d04rbmd0Mi9CbHMy?=
- =?utf-8?B?K0tDUnhWc0JpYjNpNGdXUG81QWo3T05WREJIYTd2MlZLSFZXeTZLeWo2UjdM?=
- =?utf-8?B?TzQ2MUpqVEpCRmoxVHQvUnd1RnJuMDJRNmVib25BU2hoU3ZNdk53anJVeEJ6?=
- =?utf-8?B?eUtjUHorTElRYmVId0pmWTlzMU1jNlFuTjFBaG4yMU0xL2VhZ0tQaC92eFRQ?=
- =?utf-8?B?aExXUi8rOHFiTHdraTlQbDhQN0Q1U05IZ1VhY042RTV5eGNoREhBWTFvUXlX?=
- =?utf-8?B?SkkrRk1HMGllL1YyZlVjK0JTb0JBVXhmYzBiVnNheEhKV21yOEtSOWl6Qmpo?=
- =?utf-8?B?QzIzeWJ2TCt1ZzBXVHpWNXpQcEVyckdMb2ZYUE9KTjZESDhJU01QeERaeGRQ?=
- =?utf-8?B?Znh2VFl3V1FQdjNtbFZwU3FaZ2laaUpFd3RIT1NHQ1RQYnU1Zzdmd2xhNUc1?=
- =?utf-8?B?ckh6OTk2ak1ZS2ROelZyTit5c0cvTk90T1VMZ0FCZUU2VEswMk8yaThFd0VS?=
- =?utf-8?B?cGJhK1BqemdsVmp0ZDZKRmVydkplKzVZbmdlc01ndDZaemNYNEtEZGxoWlpi?=
- =?utf-8?B?NWtjU2szVDVYY21GNW1aNlhsZ2ZocmlPUVF2OFF5eFN2cG91WTZmN3hDU2tV?=
- =?utf-8?B?TDZNZDlyRE9hRkEyMHVwTGVpZzZ0SEdJUTJMemJHYlZyMzJnczFTbWdaN0la?=
- =?utf-8?B?TFIvSVhvVnVEMTRFSHNOZnBNVjdja1h4VnZWVFNuRVd3aTUrYVhkY0g5ejRX?=
- =?utf-8?B?bFdaSXRleVgveENYQzdYZE1iamMySVNBVDVzaUNSd1BOVDZSUmZaUnJVYXdz?=
- =?utf-8?B?SjJGczBUalo4blNuUGhtMFo5a2NNSzA4c09TV05FVjQ4allvcFJZS1RscG1x?=
- =?utf-8?B?bU1UcGg3VlhDVWJ5QkdwZVhtWmVuUHdETEpBNWhMR01LWktLSmZuQlo2ZzdZ?=
- =?utf-8?B?anhtUkhMM0llUEs2djFSdVJ1THVqWkxReURPR2FsNW1tbW1JSWZnUmw5RTNI?=
- =?utf-8?B?UjZ0V2laMHoyL0FNRzc0QTRwWHhUS0RySDJCQkkxeVUzUFFaV25RWlJwbTIv?=
- =?utf-8?B?cE84cnZvV1JvT1JhM3phZXBpWU1xdStRMmFPNDJmQjNTajRiWndkendNYXlT?=
- =?utf-8?B?anU4cE5tcTl0MlNTTThTYmRVbWRzemVQRHZpM25tUTJGdHNnTkhheitrTFFu?=
- =?utf-8?B?djB5T1RxSkUxL1J6UGRnTHBCVmNrNEZLM1dQRWEvRE8rcWNyV1JLMmhEbTcy?=
- =?utf-8?B?K2w1UHI1MWRSZFhEUFpJUWMxSlY2dm1GSGdqd1F1NGNsSVR2TjJCOVVRTE45?=
- =?utf-8?B?REVHOTE2SGNZL0V2a2hZUTlBRUF3cW5IOHpPRm5lWTAvdmhzVG9CSThJMkFR?=
- =?utf-8?B?ejhkenl1OFhtYTliMmUveUR1Y3ZUbTZzNzlJOXUvTDZjbi8xWUx5eEdNT0lx?=
- =?utf-8?B?cHlMcHE3MTdvN1JpRzVWQXZraTM5VGVTWFRFU0xOZFN6TWNXcW1OWE14S2xQ?=
- =?utf-8?B?WkM1cFJnTDF5ckV5dGVVVUtyQmtyS0xpQVdjZ0J5am00Q0tOZkVvUGN0TmYz?=
- =?utf-8?B?d1Fnc1JJcTZ2ZDdZWmZLVXNrZWQ3enRKUCswOXRzT1hwZmMvaW8rV2pCdVJk?=
- =?utf-8?B?VjlZVVlkZVk2V1lRQ3hNcFE0T0xJMng2RjdCUk4zeVRXaEV5MC85WlVFQ05V?=
- =?utf-8?B?eVkxTjhCU01oSFlLZVJqbTZhdytVd25FU2hSTDRCZzRnOXZaRmhLOUhjZUs2?=
- =?utf-8?B?YU1aNitjUEIzaTdvOEpTQ0RoZmNQbjg2VFVNcXVsaEsyNDIwM0ZZcForUEhp?=
- =?utf-8?B?WXNScDlNZ2w5N2JZTzZKSmkwY2QvVThmNmlydFdGTEQ4TnNhOVRMdTZPV29n?=
- =?utf-8?B?OExFUmRuS1RLNy91NHpuaTVjMW5LOS9HUExBZVY5Ty9aQVdMcDM3dkxsR0t3?=
- =?utf-8?Q?zlrAODWKc7cu0k7DF9kvld5EY?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b912f233-cf8a-439d-d063-08dbe089bd87
-X-MS-Exchange-CrossTenant-AuthSource: BE1P281MB3400.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 18:37:19.9109
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fWr5vdn91FEjPzSpWTZzdONV4fxO5mzXY3KTmFyWPOr+AbRrUogXux03wkk0wMPiFAlaIL3qrrIXU1EFYpNG9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR2P281MB3375
-X-TM-AS-ERS: 104.47.7.169-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-27986.001
-X-TMASE-Result: 10--1.838400-4.000000
-X-TMASE-MatchedRID: L8tZF6zWW2r5ETspAEX/non73EnA6dC3lR7tN56aWVW0sdSrJZyyxuEj
-	oSIzkyAfmFXyOSJV59cJKnveCf4VKUUYpGrxdWcJRYNhzuZZjRDyQ6dAmPdzEid215hBfPs441j
-	+2o0U8UFlO3VzrWrwQBqLh06qdvlxNlZlVlqsTSQKKqGMl1rHbDdF+uIxstnWYll6E/wPyC/jEt
-	1EiGuYH1znfwhOc7kT3JNhpEek5UX/vMMOhcmhDTvQG0xdFpDCcnxszfxH2Ckmx8kl1Wnd+q+eC
-	SMeOiOkrlXFGRYMxXC59u66wM4v4jTMjv56Jlnw98LoxdSuPzOUbZ46ZsZ1f4rKwnKf3vNUGQE3
-	kpRzZ/ShZyGOQxGUMw==
-X-TMASE-XGENCLOUD: 21017da3-bdb8-4c0f-8675-aa60e02ac6d9-0-0-200-0
-X-TM-Deliver-Signature: 00421642DD7E36AB63BB37B5B2C524FD
-X-TM-Addin-Auth: F39QHoRxIgZpsQGG800XxUQuGpSMwqzQW+9Zicxqbz060xkHWZM+m/v3fLE
-	IOjSy2mwjtWor+FusIKorE93O5NIaLUi94giJQgOsKUmnxZ7XBDjWvghwy6S1885jIiVjbzuYqj
-	cMcYGsPRt/wb0KLKzRlEicm13UWm64DLfx9M3e1+ThxRvfXRXrs1V7XrAzl/CzjjDeI/vH5MSAg
-	O7jTlPvB/SU/+b6fdTh5IFUoSmYbtmo5HC6o/uJ6xxNzQsjEddaB3SQJEtzEsdy6INiPcdoMWRF
-	WhKTDIPzgzr/TZ4=.PK/OiTcG+YVI8m55L/WtlYmvqF2WCHqiRYSlPtyfoue1jcW/ZkzJg4y8wt
-	ivxteSLnyU1Az1hgthvC9lsr8iASW6koJNjhG6fn/xOUkdoeGyuCdV4HQDg9H0FOJOUStfQ0Vg8
-	UIzwmYpbXMYgCQINHazpqTgFO22UXrxncbWJyk9g5SUkjlOE40njtWrX5qkQLLjnaXXzffPtU6O
-	DzL0kSKjrrSVim2C5BEa/yjkwWvCOEta/kO0z9faJdwoZkHE+NEDB12h0uKm4bD706t4yuyfKAv
-	++TCDohXgnWh5CN7gcaElaS3LqM9XpGknoLbQkPLIDfkt3MyUtK/R2kaSig==
-X-TM-Addin-ProductCode: EMS
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH v4] virtio-spi: add the device specification
+From: Paul Knight <paul.knight@oasis-open.org>
+Date: Wed, 8 Nov 2023 14:33:03 -0500
+Message-ID: <CADgeAH_67CQZoVGEB_ddGEZA5+kUzmQe_3yfA1U6-c-K2mJi7g@mail.gmail.com>
+To: project-announce@lists.oasis-open.org, members@lists.oasis-open.org, 
+	virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+Content-Type: multipart/alternative; boundary="0000000000008753570609a9289d"
+Subject: [virtio-comment] Invitation to comment on Virtual I/O Device (VIRTIO) Version 1.3 -
+ ends December 8th
 
-On 08.11.23 17:04, Mark Brown wrote:
-> On Wed, Nov 08, 2023 at 11:42:40PM +0800, Haixu Cui wrote:
->> On 11/6/2023 9:33 PM, Mark Brown wrote:
->>> On Tue, Oct 24, 2023 at 08:53:46PM +0800, Haixu Cui wrote:
->>>> +	le16 bus_num;
->>>> +	le16 chip_select_max_number;
->>> That's a *lot* of potential buses and chip selects...
->> Here you mean the types of bus_num and chip_select_max_number are "le16"?
->> Here I use 16 bits because bus_num and num_chipselect in spi_controller
->> structure are both 16 bits.
-> Yeah, I think that's more for padding/alignment reasons than anything
-> else.  TBH I wondered if just going for a standard int might be better,
-> it's the combination of picking a smaller type but one that's relatively
-> large for the domain.
+--0000000000008753570609a9289d
+Content-Type: text/plain; charset="UTF-8"
 
-We cannot use int at interfaces between device and driver in the virtio 
-world:
+OASIS members and other interested parties,
 
-- "int" is machine dependent, sizeof may be 2, 4 or 8.
+OASIS and the OASIS Virtual I/O Device (VIRTIO) TC are pleased to announce
+that Virtual I/O Device (VIRTIO) Version 1.3 is now available for public
+review and comment.
 
-- It is signed which would be new for the virtio specification. Not done 
-for other devices.
+Specification Overview:
 
-- How are signs represented? 2s complement? Strange machines do not use 
-2s complement. Good is that most of those strange machines have still 
-tubes and are by now obsolete.
+This document describes the specifications of the 'virtio' family of
+devices. These devices are found in virtual environments, yet by design
+they look like physical devices to the guest within the virtual machine -
+and this document treats them as such. This similarity allows the guest to
+use standard drivers and discovery mechanisms. The purpose of virtio and
+this specification is that virtual environments and guests should have a
+straightforward, efficient, standard and extensible mechanism for virtual
+devices, rather than boutique per-environment or per-OS mechanisms.
 
-- The endianess is machine dependent and device and driver may use 
-internally a different native byte ordering. Strange but this is imaginable.
+The documents and related files are available here:
 
-le16 is a well defined unsigned type with sizeof 2 bytes and endianess 
-defined as "little endian".
+Virtual I/O Device (VIRTIO) Version 1.3
+Committee Specification Draft 01
+06 October 2023
 
-> What byte ordering are the multi-byte words in - CPU native or a
-> particular endianness (eg, wire native)?
+Editable source (Authoritative):
+https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/tex/
+HTML:
+https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html
+PDF:
+https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.pdf
+Example driver listing:
+https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/listings/
+PDF file marked to indicate changes from Version 1.2 Committee
+Specification 01:
+https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01-diff-from-v1.2-cs01.pdf
 
-Virtio uses little endian. (Some data structures in the RPMB device use 
-big endian. But this is an exception and there this was done for a good 
-reason.)
+For your convenience, OASIS provides a complete package of the
+specification document and any related files in ZIP distribution files. You
+can download the ZIP file at:
+https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.zip
 
+A public review metadata record documenting this and any previous public
+reviews is available at:
+https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01-public-review-metadata.html
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+How to Provide Feedback
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+OASIS and the OASIS Virtual I/O Device (VIRTIO) TC value your feedback. We
+solicit input from developers, users and others, whether OASIS members or
+not, for the sake of improving the interoperability and quality of its
+technical work.
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+The public review starts 09 November 2023 at 00:00 UTC and ends 08 December
+2023 at 23:59 UTC.
 
+Comments may be submitted to the TC by any person through the use of the
+OASIS TC Comment Facility which can be used by following the instructions
+on the TC's "Send A Comment" page (
+https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=virtio).
+
+Comments submitted by TC non-members for this work and for other work of
+this TC are publicly archived and can be viewed at:
+
+https://lists.oasis-open.org/archives/virtio-comment/
+
+All comments submitted to OASIS are subject to the OASIS Feedback License,
+which ensures that the feedback you provide carries the same obligations at
+least as the obligations of the TC members. In connection with this public
+review, we call your attention to the OASIS IPR Policy [1] applicable
+especially [2] to the work of this technical committee. All members of the
+TC should be familiar with this document, which may create obligations
+regarding the disclosure and availability of a member's patent, copyright,
+trademark and license rights that read on an approved OASIS specification.
+
+OASIS invites any persons who know of any such claims to disclose these if
+they may be essential to the implementation of the above specification, so
+that notice of them may be posted to the notice page for this TC's work.
+
+Additional information about the specification and the VIRTIO TC can be
+found at the TC's public home page:
+https://www.oasis-open.org/committees/virtio/
+
+========== Additional references:
+
+[1] https://www.oasis-open.org/policies-guidelines/ipr/
+
+[2] https://github.com/oasis-tcs/virtio-admin/blob/master/IPR.md
+https://www.oasis-open.org/policies-guidelines/ipr/#Non-Assertion-Mode
+Non-Assertion Mode
+-- 
+Paul Knight <paul.knight@oasis-open.org>....Document Process Analyst
+<https://www.oasis-open.org/people/staff/paul-knight>
+OASIS <https://www.oasis-open.org/>...Setting the standard for open
+collaboration
+
+--0000000000008753570609a9289d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>OASIS members and other interested parties,<br><br>OA=
+SIS and the OASIS Virtual I/O Device (VIRTIO) TC are pleased to announce th=
+at Virtual I/O Device (VIRTIO) Version 1.3 is now available for public revi=
+ew and comment.<br><br>Specification Overview:<br><br>This document describ=
+es the specifications of the &#39;virtio&#39; family of devices. These devi=
+ces are found in virtual environments, yet by design they look like physica=
+l devices to the guest within the virtual machine - and this document treat=
+s them as such. This similarity allows the guest to use standard drivers an=
+d discovery mechanisms. The purpose of virtio and this specification is tha=
+t virtual environments and guests should have a straightforward, efficient,=
+ standard and extensible mechanism for virtual devices, rather than boutiqu=
+e per-environment or per-OS mechanisms.<br><br>The documents and related fi=
+les are available here:<br><br>Virtual I/O Device (VIRTIO) Version 1.3<br>C=
+ommittee Specification Draft 01<br>06 October 2023<br><br>Editable source (=
+Authoritative):<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.=
+3/csd01/tex/">https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/tex/</a>=
+<br>HTML:<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/csd0=
+1/virtio-v1.3-csd01.html">https://docs.oasis-open.org/virtio/virtio/v1.3/cs=
+d01/virtio-v1.3-csd01.html</a><br>PDF:<br><a href=3D"https://docs.oasis-ope=
+n.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.pdf">https://docs.oasis-op=
+en.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.pdf</a><br>Example driver=
+ listing:<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/csd0=
+1/listings/">https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/listings/=
+</a><br>PDF file marked to indicate changes from Version 1.2 Committee Spec=
+ification 01:<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/=
+csd01/virtio-v1.3-csd01-diff-from-v1.2-cs01.pdf">https://docs.oasis-open.or=
+g/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01-diff-from-v1.2-cs01.pdf</a><br=
+><br>For your convenience, OASIS provides a complete package of the specifi=
+cation document and any related files in ZIP distribution files. You can do=
+wnload the ZIP file at:<br><a href=3D"https://docs.oasis-open.org/virtio/vi=
+rtio/v1.3/csd01/virtio-v1.3-csd01.zip">https://docs.oasis-open.org/virtio/v=
+irtio/v1.3/csd01/virtio-v1.3-csd01.zip</a><br><br>A public review metadata =
+record documenting this and any previous public reviews is available at:<br=
+><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.=
+3-csd01-public-review-metadata.html">https://docs.oasis-open.org/virtio/vir=
+tio/v1.3/csd01/virtio-v1.3-csd01-public-review-metadata.html</a><br><br>How=
+ to Provide Feedback<br><br>OASIS and the OASIS Virtual I/O Device (VIRTIO)=
+ TC value your feedback. We solicit input from developers, users and others=
+, whether OASIS members or not, for the sake of improving the interoperabil=
+ity and quality of its technical work.<br><br>The public review starts 09 N=
+ovember 2023 at 00:00 UTC and ends 08 December 2023 at 23:59 UTC.<br><br>Co=
+mments may be submitted to the TC by any person through the use of the OASI=
+S TC Comment Facility which can be used by following the instructions on th=
+e TC&#39;s &quot;Send A Comment&quot; page (<a href=3D"https://www.oasis-op=
+en.org/committees/comments/index.php?wg_abbrev=3Dvirtio">https://www.oasis-=
+open.org/committees/comments/index.php?wg_abbrev=3Dvirtio</a>).<br><br>Comm=
+ents submitted by TC non-members for this work and for other work of this T=
+C are publicly archived and can be viewed at:<br><br><a href=3D"https://lis=
+ts.oasis-open.org/archives/virtio-comment/">https://lists.oasis-open.org/ar=
+chives/virtio-comment/</a><br><br>All comments submitted to OASIS are subje=
+ct to the OASIS Feedback License, which ensures that the feedback you provi=
+de carries the same obligations at least as the obligations of the TC membe=
+rs. In connection with this public review, we call your attention to the OA=
+SIS IPR Policy [1] applicable especially [2] to the work of this technical =
+committee. All members of the TC should be familiar with this document, whi=
+ch may create obligations regarding the disclosure and availability of a me=
+mber&#39;s patent, copyright, trademark and license rights that read on an =
+approved OASIS specification.<br><br>OASIS invites any persons who know of =
+any such claims to disclose these if they may be essential to the implement=
+ation of the above specification, so that notice of them may be posted to t=
+he notice page for this TC&#39;s work.<br><br>Additional information about =
+the specification and the VIRTIO TC can be found at the TC&#39;s public hom=
+e page:<br><a href=3D"https://www.oasis-open.org/committees/virtio/">https:=
+//www.oasis-open.org/committees/virtio/</a><br><br>=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D Additional references:<br><br>[1] <a href=3D"https://www.oasis-open.=
+org/policies-guidelines/ipr/">https://www.oasis-open.org/policies-guideline=
+s/ipr/</a><br><br>[2] <a href=3D"https://github.com/oasis-tcs/virtio-admin/=
+blob/master/IPR.md">https://github.com/oasis-tcs/virtio-admin/blob/master/I=
+PR.md</a><br><a href=3D"https://www.oasis-open.org/policies-guidelines/ipr/=
+#Non-Assertion-Mode">https://www.oasis-open.org/policies-guidelines/ipr/#No=
+n-Assertion-Mode</a><br>Non-Assertion Mode<br></div><span class=3D"gmail_si=
+gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature" da=
+ta-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><di=
+v><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div di=
+r=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><font style=3D"color:rgb(0,0,0)=
+;background-color:rgb(255,255,255)" color=3D"#888888"><a href=3D"mailto:pau=
+l.knight@oasis-open.org" target=3D"_blank">Paul Knight</a>...</font><span s=
+tyle=3D"color:rgb(0,0,0)">.</span><a href=3D"https://www.oasis-open.org/peo=
+ple/staff/paul-knight" target=3D"_blank">Document Process Analyst</a></div>=
+<div dir=3D"ltr"><font style=3D"color:rgb(0,0,0);background-color:rgb(255,2=
+55,255)" color=3D"#888888"><a href=3D"https://www.oasis-open.org/" target=
+=3D"_blank">OASIS</a>...</font><font color=3D"#000000">Setting the standard=
+ for open collaboration</font></div></div></div></div></div></div></div></d=
+iv></div></div></div></div></div></div></div>
+
+--0000000000008753570609a9289d--
