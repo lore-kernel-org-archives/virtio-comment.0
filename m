@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8264-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8265-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12893C4332F
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C8DC4332F
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 10:20:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5737242D75
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 41DD12ACBE
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 10:20:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 33EB7986C9A
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 178F9986CA3
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 10:20:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 19935986C98; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
+	id EDC3B986709; Wed,  8 Nov 2023 10:20:31 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,138 +24,112 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 08A2A986C99
-	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8BD6C986C99
+	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Nov 2023 10:20:07 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10887"; a="2673045"
+X-IronPort-AV: E=McAfee;i="6600,9927,10887"; a="369936033"
 X-IronPort-AV: E=Sophos;i="6.03,285,1694761200"; 
-   d="scan'208";a="2673045"
+   d="scan'208";a="369936033"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10887"; a="739437107"
+X-IronPort-AV: E=McAfee;i="6600,9927,10887"; a="756511975"
 X-IronPort-AV: E=Sophos;i="6.03,285,1694761200"; 
-   d="scan'208";a="739437107"
-Message-ID: <7d6f3e6f-25ea-4b66-84e0-0ece4dbb6d6c@intel.com>
-Date: Wed, 8 Nov 2023 17:36:31 +0800
+   d="scan'208";a="756511975"
+Message-ID: <556f34b4-75a0-45f0-a749-6539c7f2c311@intel.com>
+Date: Wed, 8 Nov 2023 18:19:59 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
- <jasowang@redhat.com>, "eperezma@redhat.com" <eperezma@redhat.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "stefanha@redhat.com" <stefanha@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-References: <20231103103437.72784-7-lingshan.zhu@intel.com>
- <20231103064730-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fdfda658-e89c-41f4-9f4c-77d5d9b1b642@intel.com>
- <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <445ff573-72c3-4fe4-9e07-e7fdd2dc5750@intel.com>
- <PH0PR12MB54818BAE4BD33983E6108FE5DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2615baa2-9450-4504-aa8a-e46fdbb332b8@intel.com>
- <PH0PR12MB54810847007367DD75FA3D60DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <431c0495-f0d9-46d6-8336-cc2bd293cc35@intel.com>
- <20231107051012-mutt-send-email-mst@kernel.org>
+Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
+ stefanha@redhat.com, virtio-comment@lists.oasis-open.org, parav@nvidia.com
+References: <20231103103437.72784-1-lingshan.zhu@intel.com>
+ <20231107023610-mutt-send-email-mst@kernel.org>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231107051012-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231107023610-mutt-send-email-mst@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty
- page tracking
+Subject: Re: [virtio-comment] Re: [PATCH V2 0/6] introduce basic facilities
+ for virito live migration
 
 
 
-On 11/7/2023 6:25 PM, Michael S. Tsirkin wrote:
-> On Tue, Nov 07, 2023 at 06:01:27PM +0800, Zhu, Lingshan wrote:
+On 11/7/2023 4:01 PM, Michael S. Tsirkin wrote:
+> On Fri, Nov 03, 2023 at 06:34:31PM +0800, Zhu Lingshan wrote:
+>> This series introduces basic facilities to support
+>> virtio live migration, includes:
 >>
->> On 11/6/2023 7:13 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Monday, November 6, 2023 3:04 PM
->>>> So, please no pass-through discussion anymore.
->>> If you comment like this, nothing can progress.
->>>
->>> What you are implying with above language is:
->>> "hey a virtio can do live migration ONLY by creating vdpa device on top of ALREADY virtio device, and you get another virtio device by running through 3 layers of stack you get virtio device on other side!".
->> I never say that right? I keep explaining how pass-through and "trap and
->> emulate work", I even explained how PASID work.
-> Parav, Lingshan can we please stop the "what is pass through" arguments?
->
-> I think thatthe term is vague, as
-> (almost?) no hypervisor passes all accesses without exemption through.
-> And the fact you are speaking past enough other on this subject
-> for how long now? seems to demonstrate I'm right.
->
-> Describing migration in the spec as opposed to leaving it up to
-> hypervisors seems valuable at least to me since historically hypervisors
-> did such a bad job of it. So I personally feel it's nice if it's there,
-> and the SUSPEND bit only works after DRIVER_OK. So that's an example
-> argument that makes sense to me.  But number of layers involved in control
-> path seems completely irrelevant to most people. *That* is an nvidia
-> thing, something very specific about vfio and vdpa and whatnot.
-> Nothing to do with the spec, wrong list for this.
-I agree and thanks Micheal for your help.
-It's OK for me to let SUSPEND only work after DRIVER_OK.
->
->
->>> Then for sure, I disagree to it for 100% for such a single-minded design.
->>>
->>> At least I am trying to propose if a solution can work for generic passthrough where least amount of hypervisor mediation is done.
->>>
->>> And an extension where hypervisor has choice to more medication layers as it finds suitable.
->>> And if there are technical issues, may be two different interfaces or more admin commands needed for two modes.
->>> The idea is to attempt to converge and discuss those details, not the opposite.
->>>
->>> Your above comment shows a clear sign of non-collaboration to make both mode works.
->> Well, I see you are emotional, please take a deep breath and calm down, to
->> be professional,
->> give yourself a break, and really not necessary to be mad at me.
+>> 1)a new SUSPEND bit in the device status
+>> Which is used to suspend the device, so that the device states
+>> and virtqueue states are stabilized.
 >>
->> As you know I am just a Junior Engineer in Intel, not like you a Senior
->> Principle Engineer who has spent many years and
->> have developed knowledge in this area. So I am quite technical focusing,
->> they are all technical discussions till now.
-> It looks more like a passive-agressive flamewar from the side.
-> So maybe try to see other's point of view. I asked what's the advantage of
-> admin vq thing for migration and you said "it's an nvidia thing".
-> And when people try to point them out to you, you go well tough.
-> Maybe but we are wasting time here.
-yeah, sorry for that, lets focus on technical opens, get things done,
-release better quality of work as we try our best.
+>> 2)virtqueue state and its accessor, to get and set last_avail_idx
+>> and last_used_idx of virtqueues.
+>>
+>> 3)dirty page tracking
 >
->> We always welcome collaboration, remember Jason has proposed a solution to
->> build admin vq based on these basic facilities,
->> and I am fully agree on his proposal.
-> I didn't see anything specific frankly, I can easily see how Parav could
-> get mad if he posts a reasonably fleshed out patchset (which admittedly,
-> needs work with wording etc) and instead of review gets back
-> "rework this on top of these basic facilities which we don't yet know
-> how they will work but maybe will". We'll be stuck in this loop for
-> how long?
-OK, I did not copy-paste Jason's proposal there.
-Then if needed, lets try work out another approach.
+> So looking at this from 100ft:
+> - SUSPEND bit looks like something that might have value as a generic
+>    component. For example, maybe for NUMA balancing we could suspend,
+>    quickly copy ring to a different node and resume.  However current
+>    restrictions make it very limited, e.g.  apparently you can't change
+>    config space while suspended.
+Maybe don't need to change the source side config space.
+SUSPEND the device to stabilize the device config,
+so that the hypervisor can fetch reliable device states,
+then if any changes are required, just make modifications
+at the destination side before setting SUSPEND there.
+>    As another example, changing config while suspended might be
+>    needed e.g. for net announcements.
+I think link announce should happen after the device back alive, not 
+before.
+>    Also, do we want to suspend individual
+>    queues then? what exactly happens with config changes while suspended
+>    that would happen otherwise is also unclear. Also as is, proposal is
+>    very light on detail. Other patches in the series make it look like
+>    there are more assumptions made about e.g. how vq enters the
+>    suspended state.
+Not sure we need an interface to suspend a individual vq, it suspends 
+all vqs.
+
+I am not sure I totally get you, if you find anything I should add, and 
+any suggestions,
+please let me know. I should provide more details in the cover letter 
+for sure,
+I will add the live migration process in V3 cover letter.
+>
+> - virtqueue state proposal looks very vague. A couple of 16 bit indices
+>    are insufficient to fully describe internal vq state at an arbitrary
+>    time. Some assumptions seem to be made that make this possible and
+>    yes, these would need to be stated and/or lifted.
+>    Preferably lifted since another use-case proposed was debugging -
+>    you do not, while debugging, want to depend on device following
+>    a complex set of assumptions.
+I see there are two kinds of vq states:
+1) on device, the device internal states.
+I see they are avail idx, used idx and in-flight descriptors.
+2) states in the guest memory. This part migrates with guest memory.
+
+I may miss something, please let me what I should add in the vq states,
+and I can improve.
+>    
+> - dirty page tracking as described does not seem practical for
+>    many systems.  increasing page size x8 is just being nasty
+>    towards other network users. CAS + retry could be a solution,
+>    but this needs to be documented thoroughly then and it appears this is not what author expects to implement
+>    anyway - instead, there's an assumption that platform itself
+>    will support dirty tracking. By itself, this is not
+>    an impossible assumption - will possibly result in a cheaper,
+>    slower device. why not have an option like this?
+>    I would probably just drop it from this proposal completely.
+>    Also, tracking memory on the device means we'll lose state
+>    around reset. Solving that could be tricky. Finally,
+>    dependence on PASID can not be removed apparently.
+>    So maybe, people who want to track memory changes on the
+>    device itself should just bite the bullet and use
+>    admin vq in the PF.
 >
 >
->>> At one point I may probably stop responding to your comments that repeatedly says:
->>>
->>> "Go read QEMU code, Do you know what is PASID?, Do you know num_queues, Go read PCI spec"...
->> With all respect, you should do these because they are text book knowledge.
->>> Taking deep breath now to do some productive work in TC...
 >
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
 >
 
 
