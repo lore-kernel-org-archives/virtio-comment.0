@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8263-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8264-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E85C4332F
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12893C4332F
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C7693217DB
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:30:06 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5737242D75
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 952B2986CA3
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:30:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 33EB7986C9A
+	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 75023986C97; Wed,  8 Nov 2023 09:30:06 +0000 (UTC)
+	id 19935986C98; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,17 +24,18 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5BDFA986C98
-	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Nov 2023 09:30:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 08A2A986C99
+	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Nov 2023 09:37:00 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10887"; a="388586216"
+X-IronPort-AV: E=McAfee;i="6600,9927,10887"; a="2673045"
 X-IronPort-AV: E=Sophos;i="6.03,285,1694761200"; 
-   d="scan'208";a="388586216"
+   d="scan'208";a="2673045"
 X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10887"; a="739437107"
 X-IronPort-AV: E=Sophos;i="6.03,285,1694761200"; 
-   d="scan'208";a="10742773"
-Message-ID: <033cad04-6840-420e-a320-051894eb484c@intel.com>
-Date: Wed, 8 Nov 2023 17:30:02 +0800
+   d="scan'208";a="739437107"
+Message-ID: <7d6f3e6f-25ea-4b66-84e0-0ece4dbb6d6c@intel.com>
+Date: Wed, 8 Nov 2023 17:36:31 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -52,39 +53,109 @@ References: <20231103103437.72784-7-lingshan.zhu@intel.com>
  <445ff573-72c3-4fe4-9e07-e7fdd2dc5750@intel.com>
  <PH0PR12MB54818BAE4BD33983E6108FE5DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
  <2615baa2-9450-4504-aa8a-e46fdbb332b8@intel.com>
- <PH0PR12MB54813004E47B8F18DFAC1D57DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <c44782d2-6a87-4536-bd03-cd40d492ee8c@intel.com>
- <20231107063139-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54810847007367DD75FA3D60DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <431c0495-f0d9-46d6-8336-cc2bd293cc35@intel.com>
+ <20231107051012-mutt-send-email-mst@kernel.org>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231107063139-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231107051012-mutt-send-email-mst@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty page tracking
+Subject: Re: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty
+ page tracking
 
 
 
-On 11/7/2023 7:33 PM, Michael S. Tsirkin wrote:
-> On Tue, Nov 07, 2023 at 05:52:41PM +0800, Zhu, Lingshan wrote:
->>>>>>> 2. the PCI FLR is clearing all the registers you exposed here.
->>>>>> see above
->>>>>>> 3. Endless expansion of config registers of dirty tracking is not
->>>>>>> scalable, as they
->>>>>> are not init time registers not following the Appendix B guidelines.
->>>>>> endless expansion?? It is a complete set of dirty page tracking, right????
->>>>>> have you see this cap only controls? The device DMA writes the
->>>>>> bitmap, not by registers.
->>>>> Device dirty page tracking is start/stop command to be done by the
->>>> hypervisor.
->>>>> So when guest is resetting the device, it stopped the DMA initiated by the
->>>> hypervisor.
->>>>> This fundamentally breaks things.
->>>> Why? When device resets, do you want to keep tracking dirty pages????
->>> Yes, when the device resets, before that event occurred, all the pages which were dirtied, must be migrated.
->>> And after reset also new page tracking to continue.
->> That depends on whether there is an interrupt for the dirty pages.
->> If there is an interrupt, then the guest owns the pages
-> Not in the virtio model, guest owns the memory once buffer has been used.
-Yes and even better, interrupt happens after buffers marked as used.
+On 11/7/2023 6:25 PM, Michael S. Tsirkin wrote:
+> On Tue, Nov 07, 2023 at 06:01:27PM +0800, Zhu, Lingshan wrote:
+>>
+>> On 11/6/2023 7:13 PM, Parav Pandit wrote:
+>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>> Sent: Monday, November 6, 2023 3:04 PM
+>>>> So, please no pass-through discussion anymore.
+>>> If you comment like this, nothing can progress.
+>>>
+>>> What you are implying with above language is:
+>>> "hey a virtio can do live migration ONLY by creating vdpa device on top of ALREADY virtio device, and you get another virtio device by running through 3 layers of stack you get virtio device on other side!".
+>> I never say that right? I keep explaining how pass-through and "trap and
+>> emulate work", I even explained how PASID work.
+> Parav, Lingshan can we please stop the "what is pass through" arguments?
+>
+> I think thatthe term is vague, as
+> (almost?) no hypervisor passes all accesses without exemption through.
+> And the fact you are speaking past enough other on this subject
+> for how long now? seems to demonstrate I'm right.
+>
+> Describing migration in the spec as opposed to leaving it up to
+> hypervisors seems valuable at least to me since historically hypervisors
+> did such a bad job of it. So I personally feel it's nice if it's there,
+> and the SUSPEND bit only works after DRIVER_OK. So that's an example
+> argument that makes sense to me.  But number of layers involved in control
+> path seems completely irrelevant to most people. *That* is an nvidia
+> thing, something very specific about vfio and vdpa and whatnot.
+> Nothing to do with the spec, wrong list for this.
+I agree and thanks Micheal for your help.
+It's OK for me to let SUSPEND only work after DRIVER_OK.
+>
+>
+>>> Then for sure, I disagree to it for 100% for such a single-minded design.
+>>>
+>>> At least I am trying to propose if a solution can work for generic passthrough where least amount of hypervisor mediation is done.
+>>>
+>>> And an extension where hypervisor has choice to more medication layers as it finds suitable.
+>>> And if there are technical issues, may be two different interfaces or more admin commands needed for two modes.
+>>> The idea is to attempt to converge and discuss those details, not the opposite.
+>>>
+>>> Your above comment shows a clear sign of non-collaboration to make both mode works.
+>> Well, I see you are emotional, please take a deep breath and calm down, to
+>> be professional,
+>> give yourself a break, and really not necessary to be mad at me.
+>>
+>> As you know I am just a Junior Engineer in Intel, not like you a Senior
+>> Principle Engineer who has spent many years and
+>> have developed knowledge in this area. So I am quite technical focusing,
+>> they are all technical discussions till now.
+> It looks more like a passive-agressive flamewar from the side.
+> So maybe try to see other's point of view. I asked what's the advantage of
+> admin vq thing for migration and you said "it's an nvidia thing".
+> And when people try to point them out to you, you go well tough.
+> Maybe but we are wasting time here.
+yeah, sorry for that, lets focus on technical opens, get things done,
+release better quality of work as we try our best.
+>
+>> We always welcome collaboration, remember Jason has proposed a solution to
+>> build admin vq based on these basic facilities,
+>> and I am fully agree on his proposal.
+> I didn't see anything specific frankly, I can easily see how Parav could
+> get mad if he posts a reasonably fleshed out patchset (which admittedly,
+> needs work with wording etc) and instead of review gets back
+> "rework this on top of these basic facilities which we don't yet know
+> how they will work but maybe will". We'll be stuck in this loop for
+> how long?
+OK, I did not copy-paste Jason's proposal there.
+Then if needed, lets try work out another approach.
+>
+>
+>>> At one point I may probably stop responding to your comments that repeatedly says:
+>>>
+>>> "Go read QEMU code, Do you know what is PASID?, Do you know num_queues, Go read PCI spec"...
+>> With all respect, you should do these because they are text book knowledge.
+>>> Taking deep breath now to do some productive work in TC...
+>
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 >
 
 
