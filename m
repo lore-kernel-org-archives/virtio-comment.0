@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8275-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8276-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F3AC4332F
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 19:33:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A8BC4332F
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 02:52:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B4E3333591
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 19:33:21 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C762C2A81D
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AA19C986CBC
-	for <virtio-comment@archiver.kernel.org>; Wed,  8 Nov 2023 19:33:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A5A8D986CC2
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 9F6DA986CAC; Wed,  8 Nov 2023 19:33:21 +0000 (UTC)
+	id 8AA6A986CB9; Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,220 +24,349 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8C3B5986CB0
-	for <virtio-comment@lists.oasis-open.org>; Wed,  8 Nov 2023 19:33:17 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 74D73986CBA;
+	Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699471995; x=1700076795;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9I12sN3bYvArj8wrZUCoYQV5h7w6GNNiyJck2N4AIgU=;
-        b=GmsDAvbCc02Zp3YruhQ4GHPujP8BPO94NSp2ItEQUfCS8aVesddh8f3Tcdd/hLMvp+
-         Q8QJvJBnCzNVeu+/5nru9IRJPbPYcz358QzpI67o1Det19SwQX8+t//ax6YYpSwHzGNp
-         DDN7U0fda4EuYo6e5OkgKJl+2XHTpE4+jlURsH5yybX/RjX3N5tGWgJaTKRwxMW/53ZL
-         Km9wNSQ9Sa4cpwz2TpdEdfItvQOMEfxT9QLnTnPczw6qXth0oMry6XYQ5USI2SrtsePi
-         yhc/u+3+K4xhcWnMBuCIIsNRNZFiGV+KYf0D0sJ9ZyQpUjVYPZ3gJ+Ldd9kuxdGcwqLE
-         l54A==
-X-Gm-Message-State: AOJu0YwH3X19qCRyOunLzsITvY3v6Pja3/BORbNDH53u5tQu9T1G6htB
-	VZZa63bGGXqEIN9c40biXWIuEpATKcwf6B0vO4XUQ0S2
-X-Google-Smtp-Source: AGHT+IElanGZ5BTlx6OBcuOpjBD5A1wBi/8drWr/XXiU6HZgTAvgz7DH/f5Dt9UYFKLuSxTphVf5HilF3qEd/+6rT/8=
-X-Received: by 2002:a05:6602:3812:b0:786:25a3:ef30 with SMTP id
- bb18-20020a056602381200b0078625a3ef30mr3962649iob.7.1699471994336; Wed, 08
- Nov 2023 11:33:14 -0800 (PST)
+Message-ID: <f4f1013c-a474-4a82-bd7c-e0304d0e37ae@quicinc.com>
+Date: Thu, 9 Nov 2023 10:52:06 +0800
 MIME-Version: 1.0
-From: Paul Knight <paul.knight@oasis-open.org>
-Date: Wed, 8 Nov 2023 14:33:03 -0500
-Message-ID: <CADgeAH_67CQZoVGEB_ddGEZA5+kUzmQe_3yfA1U6-c-K2mJi7g@mail.gmail.com>
-To: project-announce@lists.oasis-open.org, members@lists.oasis-open.org, 
-	virtio@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
-Content-Type: multipart/alternative; boundary="0000000000008753570609a9289d"
-Subject: [virtio-comment] Invitation to comment on Virtual I/O Device (VIRTIO) Version 1.3 -
- ends December 8th
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Qiang Zhang <qiang4.zhang@linux.intel.com>
+CC: <virtio-dev@lists.oasis-open.org>, <virtio-comment@lists.oasis-open.org>,
+        <harald.mommer@opensynergy.com>, <cohuck@redhat.com>,
+        <quic_ztu@quicinc.com>
+References: <20231024125346.23546-1-quic_haixcui@quicinc.com>
+ <ZUnpqRj4c2BbhaLI@qzhang4-desk.sh.intel.com>
+From: Haixu Cui <quic_haixcui@quicinc.com>
+In-Reply-To: <ZUnpqRj4c2BbhaLI@qzhang4-desk.sh.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: q3T2RwaXYLJ3PsIKtBdgtdcgtr2s9Lrv
+X-Proofpoint-ORIG-GUID: q3T2RwaXYLJ3PsIKtBdgtdcgtr2s9Lrv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-09_01,2023-11-08_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 spamscore=0
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ clxscore=1011 mlxlogscore=999 mlxscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311090021
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v4] virtio-spi: add the device specification
 
---0000000000008753570609a9289d
-Content-Type: text/plain; charset="UTF-8"
 
-OASIS members and other interested parties,
 
-OASIS and the OASIS Virtual I/O Device (VIRTIO) TC are pleased to announce
-that Virtual I/O Device (VIRTIO) Version 1.3 is now available for public
-review and comment.
+On 11/7/2023 3:40 PM, Qiang Zhang wrote:
+> On Tue, Oct 24, 2023 at 08:53:46PM +0800, Haixu Cui wrote:
+>> virtio-spi is a virtual SPI master and it allows a guest to operate and
+>> use the physical SPI master controlled by the host.
+>>
+>> This patch adds the specification for virtio-spi.
+>>
+>> Signed-off-by: Haixu Cui <quic_haixcui@quicinc.com>
+>> ---
+>> device-types/spi/description.tex        | 206 ++++++++++++++++++++++++
+>> device-types/spi/device-conformance.tex |   7 +
+>> device-types/spi/driver-conformance.tex |   7 +
+>> 3 files changed, 220 insertions(+)
+>> create mode 100644 device-types/spi/description.tex
+>> create mode 100644 device-types/spi/device-conformance.tex
+>> create mode 100644 device-types/spi/driver-conformance.tex
+>>
+>> diff --git a/device-types/spi/description.tex b/device-types/spi/description.tex
+>> new file mode 100644
+>> index 0000000..5dbceaf
+>> --- /dev/null
+>> +++ b/device-types/spi/description.tex
+>> @@ -0,0 +1,206 @@
+>> +\section{SPI Master Device}\label{sec:Device Types / SPI Master Device}
+>> +
+>> +virtio-spi is a virtual SPI (Serial Peripheral Interface) master and it allows
+>> +a guest to operate and use the physical SPI master controlled by the host.
+>> +
+>> +virtio-spi has a single virtqueue. SPI transfer requests are placed into
+>> +the virtqueue, and serviced by the physical SPI master.
+>> +
+>> +In a typical host and guest architecture with virtio-spi, Virtio SPI driver is
+>> +the front-end existing in the guest kernel, and Virtio SPI device acts as the
+>> +back-end in the host platform.
+>> +
+>> +\subsection{Device ID}\label{sec:Device Types / SPI Master Device / Device ID}
+>> +45
+>> +
+>> +\subsection{Virtqueues}\label{sec:Device Types / SPI Master Device / Virtqueues}
+>> +
+>> +\begin{description}
+>> +\item[0] requestq
+>> +\end{description}
+>> +
+>> +\subsection{Feature bits}\label{sec:Device Types / SPI Master Device / Feature bits}
+>> +
+>> +None
+>> +
+>> +\subsection{Device configuration layout}\label{sec:Device Types / SPI Master Device / Device configuration layout}
+>> +
+>> +All fields of this configuration are always available and read-only for Virtio SPI driver.
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_spi_config {
+>> +	le16 bus_num;
+>> +	le16 chip_select_max_number;
+>> +	le8 cs_timing_setting_enable;
+>> +	le8 reserved[3];
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The \field{bus_num} indicates the physical SPI master assigned to guest.
+> 
+> Does this assume that a Virtio SPI controller always corresponds to a physical
+> SPI controller?
+> What if the backend SPI controller and SPI devices are fully emulated or the
+> SPI devices under the Virtio SPI controller come from multiple physical SPI
+> controllers?
+> 
+> Regards,
+> Qiang
+> 
 
-Specification Overview:
+Hi Qiang,
 
-This document describes the specifications of the 'virtio' family of
-devices. These devices are found in virtual environments, yet by design
-they look like physical devices to the guest within the virtual machine -
-and this document treats them as such. This similarity allows the guest to
-use standard drivers and discovery mechanisms. The purpose of virtio and
-this specification is that virtual environments and guests should have a
-straightforward, efficient, standard and extensible mechanism for virtual
-devices, rather than boutique per-environment or per-OS mechanisms.
+     It's quite possible the host SPI controller is not physical, but 
+virtualized controller. In next patch, I will use "host SPI controller" 
+to replace "physical SPI controller", "host SPI controller" represents 
+all kinds of controller controlled by the host, which is more appropriate.
 
-The documents and related files are available here:
+     A Virtio SPI controller corresponds with a host SPI controller, and 
+the guest can only access the devices under this host SPI controller, 
+with the assigned cs. For devices under other host controllers, the 
+guest cannot access.
 
-Virtual I/O Device (VIRTIO) Version 1.3
-Committee Specification Draft 01
-06 October 2023
+     Thank you for your findings and comments.
 
-Editable source (Authoritative):
-https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/tex/
-HTML:
-https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html
-PDF:
-https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.pdf
-Example driver listing:
-https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/listings/
-PDF file marked to indicate changes from Version 1.2 Committee
-Specification 01:
-https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01-diff-from-v1.2-cs01.pdf
+Best Regards
+Haixu Cui
 
-For your convenience, OASIS provides a complete package of the
-specification document and any related files in ZIP distribution files. You
-can download the ZIP file at:
-https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.zip
 
-A public review metadata record documenting this and any previous public
-reviews is available at:
-https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01-public-review-metadata.html
+>> +
+>> +The \field{chip_select_max_number} is the maximum number of chipselect the physical SPI master supports.
+>> +
+>> +The \field{cs_timing_setting_enable} indicates if the physical SPI master supporting cs timing setting:
+>> +	0: physical SPI master doesn't support cs timing setting;
+>> +	1: physical SPI master supports cs timing setting.
+>> +
+>> +The \field{reserved} is for alignment purpose, also for future extension.
+>> +
+>> +\subsection{Device Initialization}\label{sec:Device Types / SPI Master Device / Device Initialization}
+>> +
+>> +\begin{enumerate}
+>> +\item The Virtio SPI driver configures and initializes the virtqueue.
+>> +\end{enumerate}
+>> +
+>> +\subsection{Device Operation}\label{sec:Device Types / SPI Master Device / Device Operation}
+>> +
+>> +\subsubsection{Device Operation: Request Queue}\label{sec:Device Types / SPI Master Device / Device Operation: Request Queue}
+>> +
+>> +Virtio SPI driver enqueues requests to the virtqueue, and they are used by
+>> +Virtio SPI device. Each request represents one SPI tranfer and is of the form:
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_spi_transfer_head {
+>> +        u8 slave_id;
+>> +        u8 bits_per_word;
+>> +        u8 cs_change;
+>> +        u8 tx_nbits;
+>> +        u8 rx_nbits;
+>> +	 u8 reserved[3];
+>> +        le32 mode;
+>> +        le32 freq;
+>> +        le32 word_delay_ns;
+>> +        le32 cs_setup_ns;
+>> +        le32 cs_delay_hold_ns;
+>> +        le32 cs_change_delay_inactive_ns;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_spi_transfer_result {
+>> +        u8 result;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_spi_transfer_req {
+>> +        struct virtio_spi_transfer_head head;
+>> +        u8 tx_buf[];
+>> +        u8 rx_buf[];
+>> +        struct virtio_spi_transfer_result result;
+>> +};
+>> +\end{lstlisting}
+>> +
+>> +The \field{slave_id} indicates the chipselect index the SPI transfer used.
+>> +
+>> +The \field{bits_per_word} indicates the number of bits in each SPI transfer word.
+>> +
+>> +The \field{cs_change} indicates whether to deselect device before starting the
+>> +next SPI transfer, 0 means chipselect keep asserted and 1 means chipselect deasserted
+>> +then asserted again.
+>> +
+>> +The \field{tx_nbits} indicates bus width for write transfer:
+>> +        0,1: bus width is 1, also known as SINGLE;
+>> +	2  : bus width is 2, also known as DUAL;
+>> +	4  : bus width is 4, also known as QUAD;
+>> +	8  : bus width is 8, also known as OCTAL;
+>> +	other values are invalid.
+>> +
+>> +The \field{rx_nbits} indicates bus width for read transfer:
+>> +        0,1: bus width is 1, also known as SINGLE;
+>> +	2  : bus width is 2, also known as DUAL;
+>> +	4  : bus width is 4, also known as QUAD;
+>> +	8  : bus width is 8, also known as OCTAL;
+>> +	other values are invalid.
+>> +
+>> +The \field{reserved} is for alignement, also for further extension.
+>> +
+>> +The \field{mode} indicates how data is clocked out and in. Bit definitions as follows:
+>> +        bit 0: CPHA, determines the timing (i.e. phase) of the data bits
+>> +	       relative to the clock pulses.
+>> +        bit 1: CPOL, determines the polarity of the clock.
+>> +        bit 2: CS_HIGH, if 1, chipselect active high, else active low.
+>> +	bit 3: LSB_FIRST, determines per-word bits-on-wire, if 0, MSB
+>> +	       first, else LSB first.
+>> +	bit 4: LOOP, if 1, device is in loopback mode, else normal mode.
+>> +
+>> +The \field{freq} indicates the SPI transfer speed in Hz.
+>> +
+>> +The \field{word_delay_ns} indicates delay to be inserted between consecutive
+>> +words of a transfer, in ns unit.
+>> +
+>> +The \field{cs_setup_ns} indicates delay to be introduced after chipselect
+>> +is asserted, in ns unit.
+>> +
+>> +The \field{cs_delay_hold_ns} indicates delay to be introduced before chipselect
+>> +is deasserted, in ns unit.
+>> +
+>> +The \field{cs_change_delay_inactive_ns} indicates delay to be introduced after
+>> +chipselect is deasserted and before next asserted, in ns unit.
+>> +
+>> +The \field{tx_buf} is the buffer for data sent to the device.
+>> +
+>> +The \field{rx_buf} is the buffer for data received to the device.
+>> +
+>> +The final \field{result} is the transfer result, either VIRTIO_SPI_TRANS_OK for success
+>> +or VIRTIO_SPI_TRANS_ERR for error.
+>> +
+>> +\begin{lstlisting}
+>> +#define VIRTIO_SPI_TRANS_OK     0
+>> +#define VIRTIO_SPI_TRANS_ERR    1
+>> +\end{lstlisting}
+>> +
+>> +\subsubsection{Device Operation: Operation Status}\label{sec:Device Types / SPI Master Device / Device Operation: Operation Status}
+>> +
+>> +Fields in structure \field{virtio_spi_transfer_head} are written by Virtio SPI driver, while
+>> +\field{result} in structure \field{virtio_spi_transfer_result} is written by Virtio SPI device.
+>> +
+>> +virtio-spi supports three transfer types:
+>> +        1) half-duplex read;
+>> +        2) half-duplex write;
+>> +        3) full-duplex read and write.
+>> +
+>> +For half-duplex read transfer, \field{rx_buf} is filled by Virtio SPI device and consumed
+>> +by Virtio SPI driver. For half-duplex write transfer, \field{tx_buf} is filled by Virtio
+>> +SPI driver and consumed by Virtio SPI device. And for full-duplex read and write transfer,
+>> +both \field{tx_buf} and \field{rx_buf} are used.
+>> +
+>> +\drivernormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
+>> +
+>> +The Virtio SPI driver MUST send transfer requests on the requestq virtqueue.
+>> +
+>> +Fields in structure \field{virtio_spi_transfer_head} MUST be filled by Virtio SPI driver
+>> +and MUST be readable for Virtio SPI device.
+>> +
+>> +Structure \field{virtio_spi_transfer_result} MUST be filled by Virtio SPI device
+>> +and MUST be writable for Virtio SPI device.
+>> +
+>> +For half-duplex read, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
+>> +\field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
+>> +
+>> +For half-duplex write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
+>> +\field{tx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
+>> +
+>> +For full-duplex read and write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
+>> +\field{tx_buf}, \field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
+>> +
+>> +For half-duplex write or full-duplex read and write transfer, Virtio SPI driver MUST not use \field{rx_buf}
+>> +if the \field{result} returned from Virtio SPI device is VIRTIO_SPI_TRANS_ERR.
+>> +
+>> +If \field{cs_timing_setting_enable} in structure \field{virtio_spi_config} is 0, while \field{cs_setup_ns},
+>> +\field{cs_setup_ns} and \field{cs_change_delay_inactive_ns} of the transfer are not all zero, Virtio
+>> +SPI driver MUST print a warning log to alert that the cs timing won't be set as expected.
+>> +
+>> +\devicenormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
+>> +
+>> +Virtio SPI device MUST set all the fields of the structure \field{virtio_spi_config} before
+>> +they are read by Virtio SPI driver.
+>> +
+>> +Virtio SPI device MUST set the structure \field{virtio_spi_transfer_result} before sending
+>> +it back to Virtio SPI driver.
+>> +
+>> +Virtio SPI device MUST be able to identify the transfer type according to the received
+>> +virtqueue descriptors.
+>> +
+>> +Virtio SPI device MUST NOT change the data in \field{tx_buf} if transfer type is half-duplex write
+>> +or full-duplex read and write.
+>> diff --git a/device-types/spi/device-conformance.tex b/device-types/spi/device-conformance.tex
+>> new file mode 100644
+>> index 0000000..3e771bc
+>> --- /dev/null
+>> +++ b/device-types/spi/device-conformance.tex
+>> @@ -0,0 +1,7 @@
+>> +\conformance{\subsection}{SPI Master Device Conformance}\label{sec:Conformance / Device Conformance / SPI Master Device Conformance}
+>> +
+>> +An SPI Master device MUST conform to the following normative statements:
+>> +
+>> +\begin{itemize}
+>> +\item \ref{devicenormative:Device Types / SPI Master Device / Device Operation}
+>> +\end{itemize}
+>> diff --git a/device-types/spi/driver-conformance.tex b/device-types/spi/driver-conformance.tex
+>> new file mode 100644
+>> index 0000000..3c965ef
+>> --- /dev/null
+>> +++ b/device-types/spi/driver-conformance.tex
+>> @@ -0,0 +1,7 @@
+>> +\conformance{\subsection}{SPI Master Driver Conformance}\label{sec:Conformance / Driver Conformance / SPI Master Driver Conformance}
+>> +
+>> +An SPI Master driver MUST conform to the following normative statements:
+>> +
+>> +\begin{itemize}
+>> +\item \ref{drivernormative:Device Types / SPI Master Device / Device Operation}
+>> +\end{itemize}
+>> -- 
+>> 2.17.1
+>>
+>>
+>> ---------------------------------------------------------------------
+>> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
+>> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
+>>
 
-How to Provide Feedback
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-OASIS and the OASIS Virtual I/O Device (VIRTIO) TC value your feedback. We
-solicit input from developers, users and others, whether OASIS members or
-not, for the sake of improving the interoperability and quality of its
-technical work.
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-The public review starts 09 November 2023 at 00:00 UTC and ends 08 December
-2023 at 23:59 UTC.
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
-Comments may be submitted to the TC by any person through the use of the
-OASIS TC Comment Facility which can be used by following the instructions
-on the TC's "Send A Comment" page (
-https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=virtio).
-
-Comments submitted by TC non-members for this work and for other work of
-this TC are publicly archived and can be viewed at:
-
-https://lists.oasis-open.org/archives/virtio-comment/
-
-All comments submitted to OASIS are subject to the OASIS Feedback License,
-which ensures that the feedback you provide carries the same obligations at
-least as the obligations of the TC members. In connection with this public
-review, we call your attention to the OASIS IPR Policy [1] applicable
-especially [2] to the work of this technical committee. All members of the
-TC should be familiar with this document, which may create obligations
-regarding the disclosure and availability of a member's patent, copyright,
-trademark and license rights that read on an approved OASIS specification.
-
-OASIS invites any persons who know of any such claims to disclose these if
-they may be essential to the implementation of the above specification, so
-that notice of them may be posted to the notice page for this TC's work.
-
-Additional information about the specification and the VIRTIO TC can be
-found at the TC's public home page:
-https://www.oasis-open.org/committees/virtio/
-
-========== Additional references:
-
-[1] https://www.oasis-open.org/policies-guidelines/ipr/
-
-[2] https://github.com/oasis-tcs/virtio-admin/blob/master/IPR.md
-https://www.oasis-open.org/policies-guidelines/ipr/#Non-Assertion-Mode
-Non-Assertion Mode
--- 
-Paul Knight <paul.knight@oasis-open.org>....Document Process Analyst
-<https://www.oasis-open.org/people/staff/paul-knight>
-OASIS <https://www.oasis-open.org/>...Setting the standard for open
-collaboration
-
---0000000000008753570609a9289d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>OASIS members and other interested parties,<br><br>OA=
-SIS and the OASIS Virtual I/O Device (VIRTIO) TC are pleased to announce th=
-at Virtual I/O Device (VIRTIO) Version 1.3 is now available for public revi=
-ew and comment.<br><br>Specification Overview:<br><br>This document describ=
-es the specifications of the &#39;virtio&#39; family of devices. These devi=
-ces are found in virtual environments, yet by design they look like physica=
-l devices to the guest within the virtual machine - and this document treat=
-s them as such. This similarity allows the guest to use standard drivers an=
-d discovery mechanisms. The purpose of virtio and this specification is tha=
-t virtual environments and guests should have a straightforward, efficient,=
- standard and extensible mechanism for virtual devices, rather than boutiqu=
-e per-environment or per-OS mechanisms.<br><br>The documents and related fi=
-les are available here:<br><br>Virtual I/O Device (VIRTIO) Version 1.3<br>C=
-ommittee Specification Draft 01<br>06 October 2023<br><br>Editable source (=
-Authoritative):<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.=
-3/csd01/tex/">https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/tex/</a>=
-<br>HTML:<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/csd0=
-1/virtio-v1.3-csd01.html">https://docs.oasis-open.org/virtio/virtio/v1.3/cs=
-d01/virtio-v1.3-csd01.html</a><br>PDF:<br><a href=3D"https://docs.oasis-ope=
-n.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.pdf">https://docs.oasis-op=
-en.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.pdf</a><br>Example driver=
- listing:<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/csd0=
-1/listings/">https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/listings/=
-</a><br>PDF file marked to indicate changes from Version 1.2 Committee Spec=
-ification 01:<br><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/=
-csd01/virtio-v1.3-csd01-diff-from-v1.2-cs01.pdf">https://docs.oasis-open.or=
-g/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01-diff-from-v1.2-cs01.pdf</a><br=
-><br>For your convenience, OASIS provides a complete package of the specifi=
-cation document and any related files in ZIP distribution files. You can do=
-wnload the ZIP file at:<br><a href=3D"https://docs.oasis-open.org/virtio/vi=
-rtio/v1.3/csd01/virtio-v1.3-csd01.zip">https://docs.oasis-open.org/virtio/v=
-irtio/v1.3/csd01/virtio-v1.3-csd01.zip</a><br><br>A public review metadata =
-record documenting this and any previous public reviews is available at:<br=
-><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.=
-3-csd01-public-review-metadata.html">https://docs.oasis-open.org/virtio/vir=
-tio/v1.3/csd01/virtio-v1.3-csd01-public-review-metadata.html</a><br><br>How=
- to Provide Feedback<br><br>OASIS and the OASIS Virtual I/O Device (VIRTIO)=
- TC value your feedback. We solicit input from developers, users and others=
-, whether OASIS members or not, for the sake of improving the interoperabil=
-ity and quality of its technical work.<br><br>The public review starts 09 N=
-ovember 2023 at 00:00 UTC and ends 08 December 2023 at 23:59 UTC.<br><br>Co=
-mments may be submitted to the TC by any person through the use of the OASI=
-S TC Comment Facility which can be used by following the instructions on th=
-e TC&#39;s &quot;Send A Comment&quot; page (<a href=3D"https://www.oasis-op=
-en.org/committees/comments/index.php?wg_abbrev=3Dvirtio">https://www.oasis-=
-open.org/committees/comments/index.php?wg_abbrev=3Dvirtio</a>).<br><br>Comm=
-ents submitted by TC non-members for this work and for other work of this T=
-C are publicly archived and can be viewed at:<br><br><a href=3D"https://lis=
-ts.oasis-open.org/archives/virtio-comment/">https://lists.oasis-open.org/ar=
-chives/virtio-comment/</a><br><br>All comments submitted to OASIS are subje=
-ct to the OASIS Feedback License, which ensures that the feedback you provi=
-de carries the same obligations at least as the obligations of the TC membe=
-rs. In connection with this public review, we call your attention to the OA=
-SIS IPR Policy [1] applicable especially [2] to the work of this technical =
-committee. All members of the TC should be familiar with this document, whi=
-ch may create obligations regarding the disclosure and availability of a me=
-mber&#39;s patent, copyright, trademark and license rights that read on an =
-approved OASIS specification.<br><br>OASIS invites any persons who know of =
-any such claims to disclose these if they may be essential to the implement=
-ation of the above specification, so that notice of them may be posted to t=
-he notice page for this TC&#39;s work.<br><br>Additional information about =
-the specification and the VIRTIO TC can be found at the TC&#39;s public hom=
-e page:<br><a href=3D"https://www.oasis-open.org/committees/virtio/">https:=
-//www.oasis-open.org/committees/virtio/</a><br><br>=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D Additional references:<br><br>[1] <a href=3D"https://www.oasis-open.=
-org/policies-guidelines/ipr/">https://www.oasis-open.org/policies-guideline=
-s/ipr/</a><br><br>[2] <a href=3D"https://github.com/oasis-tcs/virtio-admin/=
-blob/master/IPR.md">https://github.com/oasis-tcs/virtio-admin/blob/master/I=
-PR.md</a><br><a href=3D"https://www.oasis-open.org/policies-guidelines/ipr/=
-#Non-Assertion-Mode">https://www.oasis-open.org/policies-guidelines/ipr/#No=
-n-Assertion-Mode</a><br>Non-Assertion Mode<br></div><span class=3D"gmail_si=
-gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature" da=
-ta-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><di=
-v><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div di=
-r=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><font style=3D"color:rgb(0,0,0)=
-;background-color:rgb(255,255,255)" color=3D"#888888"><a href=3D"mailto:pau=
-l.knight@oasis-open.org" target=3D"_blank">Paul Knight</a>...</font><span s=
-tyle=3D"color:rgb(0,0,0)">.</span><a href=3D"https://www.oasis-open.org/peo=
-ple/staff/paul-knight" target=3D"_blank">Document Process Analyst</a></div>=
-<div dir=3D"ltr"><font style=3D"color:rgb(0,0,0);background-color:rgb(255,2=
-55,255)" color=3D"#888888"><a href=3D"https://www.oasis-open.org/" target=
-=3D"_blank">OASIS</a>...</font><font color=3D"#000000">Setting the standard=
- for open collaboration</font></div></div></div></div></div></div></div></d=
-iv></div></div></div></div></div></div></div>
-
---0000000000008753570609a9289d--
