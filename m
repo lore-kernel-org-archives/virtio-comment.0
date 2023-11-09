@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8276-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8277-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A8BC4332F
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 02:52:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF542C4167B
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 03:31:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C762C2A81D
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 234132A839
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 03:31:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A5A8D986CC2
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ED821986CC6
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 03:31:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8AA6A986CB9; Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
+	id D4943986CBA; Thu,  9 Nov 2023 03:31:43 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,349 +24,425 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 74D73986CBA;
-	Thu,  9 Nov 2023 02:52:16 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C3335986CBB
+	for <virtio-comment@lists.oasis-open.org>; Thu,  9 Nov 2023 03:31:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-Message-ID: <f4f1013c-a474-4a82-bd7c-e0304d0e37ae@quicinc.com>
-Date: Thu, 9 Nov 2023 10:52:06 +0800
+X-MC-Unique: PEjikSCAOAGZ9jpWvvqSdw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699500699; x=1700105499;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tk92QaHOtuhIHJj5cfOqKtHMhjC5qVA8H0bx1DvnDbU=;
+        b=BtCB/p40S4l8EpMXryxM/L4PYiwzpKOIBGcXVTyQBnpbbET6LkpXpxxbEpoSnjsJ0/
+         i8AtCXD+SuqNm+BOv4wdYVkIXiX4hJAaRL6oTvbD08lMRALNFNwAvl5SlPn4Gw0c5Zuv
+         HwQY9mp1YLFOhlQ3aL7/NmjrO7SAMDzserD67uUo4WxR9iMcX9SMxqAfHgiNTYTjugve
+         4iFTjsN6qa2ud+hRccDQHThK0QRvnB21wYVa8/W+C8y3R9l2eTRlaU2QYgWsAgFeECpJ
+         7nh0Uq7i5OGCwoYc8aIIy5O7Wb/JmwKCaZmyTjpkyWq7Yt9P0X4MB2d4fKom7YliubKU
+         LcyQ==
+X-Gm-Message-State: AOJu0Yzk4HgefapTpDCs0ubd4ioX5/k0+X4z7BCLOnrdGPdUyw+zrzBl
+	aIKXWPDftD8MXjjPlTgX2jclKRmXNDfLxiA0Cg0SC4ui6Ntutee9s+Kp0vmWfL33XukyIHGEV6y
+	O++uoRVhjWoUtEL7hCsfQkphMDJNNILXWibwDZ+4tor8GrZZrJQ==
+X-Received: by 2002:a05:6512:24a:b0:507:9a05:1aed with SMTP id b10-20020a056512024a00b005079a051aedmr339121lfo.4.1699500699293;
+        Wed, 08 Nov 2023 19:31:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEhxsPqjT8wIw/nx4tyEyhVTeKXdCrRkNQEPfDmkFNiPKcn4kP/GiMXPZMwYruIs8hFXBHPUOsBJIBC1FJQtyE=
+X-Received: by 2002:a05:6512:24a:b0:507:9a05:1aed with SMTP id
+ b10-20020a056512024a00b005079a051aedmr339103lfo.4.1699500698859; Wed, 08 Nov
+ 2023 19:31:38 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Qiang Zhang <qiang4.zhang@linux.intel.com>
-CC: <virtio-dev@lists.oasis-open.org>, <virtio-comment@lists.oasis-open.org>,
-        <harald.mommer@opensynergy.com>, <cohuck@redhat.com>,
-        <quic_ztu@quicinc.com>
-References: <20231024125346.23546-1-quic_haixcui@quicinc.com>
- <ZUnpqRj4c2BbhaLI@qzhang4-desk.sh.intel.com>
-From: Haixu Cui <quic_haixcui@quicinc.com>
-In-Reply-To: <ZUnpqRj4c2BbhaLI@qzhang4-desk.sh.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-GUID: q3T2RwaXYLJ3PsIKtBdgtdcgtr2s9Lrv
-X-Proofpoint-ORIG-GUID: q3T2RwaXYLJ3PsIKtBdgtdcgtr2s9Lrv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-09_01,2023-11-08_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 spamscore=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 adultscore=0
- clxscore=1011 mlxlogscore=999 mlxscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311090021
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH v4] virtio-spi: add the device specification
+References: <PH0PR12MB54811B1D566FA64E693E20D6DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEuA6u-EJCsrhvBRKxB6nxG=H28SEh4ihM3Ptgn1FQdGKA@mail.gmail.com>
+ <DM8PR12MB54809F8316720CE5C1BCFF33DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEtFyH_wJAqTz=jwosVM-=SRuO+wpT7NM=Eod8ExsxfTsg@mail.gmail.com>
+ <PH0PR12MB54814420718AB387C0C84C07DCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtGvDxF1Dnb6FJDK8XEAUcast-7OnuzTyfAr7m0LURWMw@mail.gmail.com>
+ <PH0PR12MB548152A30021BEBFFCA62AA9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEv8mccZfcA4n+KVwdkaWAqhM94Qhq8H5Rvw2CocCmt9UA@mail.gmail.com>
+ <20231107015412-mutt-send-email-mst@kernel.org> <CACGkMEv+jir2+f_vHmi_KjFXf0yz+EQmEbvzX0pheHKsVJkWZw@mail.gmail.com>
+ <20231108025854-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231108025854-mutt-send-email-mst@kernel.org>
+From: Jason Wang <jasowang@redhat.com>
+Date: Thu, 9 Nov 2023 11:31:27 +0800
+Message-ID: <CACGkMEvkQawXWCvu7rZHnZk8YsNunS_B-fcQmEHEe_N87Q6y6g@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
+	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
+	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>, 
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write recording commands
+
+On Wed, Nov 8, 2023 at 4:17=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
+wrote:
+>
+> On Wed, Nov 08, 2023 at 12:28:36PM +0800, Jason Wang wrote:
+> > On Tue, Nov 7, 2023 at 3:05=E2=80=AFPM Michael S. Tsirkin <mst@redhat.c=
+om> wrote:
+> > >
+> > > On Tue, Nov 07, 2023 at 12:04:29PM +0800, Jason Wang wrote:
+> > > > > > > Each virtio and non virtio devices who wants to report their =
+dirty page report,
+> > > > > > will do their way.
+> > > > > > >
+> > > > > > > > 3) inventing it in the virtio layer will be deprecated in t=
+he future
+> > > > > > > > for sure, as platform will provide much rich features for l=
+ogging
+> > > > > > > > e.g it can do it per PASID etc, I don't see any reason virt=
+io need
+> > > > > > > > to compete with the features that will be provided by the p=
+latform
+> > > > > > > Can you bring the cpu vendors and committement to virtio tc w=
+ith timelines
+> > > > > > so that virtio TC can omit?
+> > > > > >
+> > > > > > Why do we need to bring CPU vendors in the virtio TC? Virtio ne=
+eds to be built
+> > > > > > on top of transport or platform. There's no need to duplicate t=
+heir job.
+> > > > > > Especially considering that virtio can't do better than them.
+> > > > > >
+> > > > > I wanted to see a strong commitment for the cpu vendors to suppor=
+t dirty page tracking.
+> > > >
+> > > > The RFC of IOMMUFD support can go back to early 2022. Intel, AMD an=
+d
+> > > > ARM are all supporting that now.
+> > > >
+> > > > > And the work seems to have started for some platforms.
+> > > >
+> > > > Let me quote from the above link:
+> > > >
+> > > > """
+> > > > Today, AMD Milan (or more recent) supports it while ARM SMMUv3.2
+> > > > alongside VT-D rev3.x also do support.
+> > > > """
+> > > >
+> > > > > Without such platform commitment, virtio also skipping it would n=
+ot work.
+> > > >
+> > > > Is the above sufficient? I'm a little bit more familiar with vtd, t=
+he
+> > > > hw feature has been there for years.
+> > >
+> > >
+> > > Repeating myself - I'm not sure that will work well for all workloads=
+.
+> >
+> > I think this comment applies to this proposal as well.
+>
+> Yes - some systems might be better off with platform tracking.
+> And I think supporting shadow vq better would be nice too.
+
+For shadow vq, did you mean the work that is done by Eugenio?
+
+>
+> > > Definitely KVM did
+> > > not scan PTEs. It used pagefaults with bit per page and later as VM s=
+ize
+> > > grew switched to PLM.  This interface is analogous to PLM,
+> >
+> > I think you meant PML actually. And it doesn't work like PML. To
+> > behave like PML it needs to
+> >
+> > 1) log buffers were organized as a queue with indices
+> > 2) device needs to suspend (as a #vmexit in PML) if it runs out of the =
+buffers
+> > 3) device need to send a notification to the driver if it runs out of t=
+he buffer
+> >
+> > I don't see any of the above in this proposal. If we do that it would
+> > be less problematic than what is being proposed here.
+>
+> What is common between this and PML is that you get the addresses
+> directly without scanning megabytes of bitmaps or worse -
+> hundreds of megabytes of page tables.
+
+Yes, it has overhead but this is the method we use for vhost and KVM (earli=
+er).
+
+To me the  important advantage of PML is that it uses limited
+resources on the host which
+
+1) doesn't require resources in the device
+2) doesn't scale as the guest memory increases. (but this advantage
+doesn't exist in neither this nor bitmap)
+
+>
+> The data structure is different but I don't see why it is critical.
+>
+> I agree that I don't see out of buffers notifications too which implies
+> device has to maintain something like a bitmap internally.  Which I
+> guess could be fine but it is not clear to me how large that bitmap has
+> to be. How does the device know? Needs to be addressed.
+
+This is the question I asked Parav in another thread. Using host
+memory as a queue with notification (like PML) might be much better.
+
+>
+>
+> > Even if we manage to do that, it doesn't mean we won't have issues.
+> >
+> > 1) For many reasons it can neither see nor log via GPA, so this
+> > requires a traversal of the vIOMMU mapping tables by the hypervisor
+> > afterwards, it would be expensive and need synchronization with the
+> > guest modification of the IO page table which looks very hard.
+>
+> vIOMMU is fast enough to be used on data path but not fast enough for
+> dirty tracking?
+
+We set up SPTEs or using nesting offloading where the PTEs could be
+iterated by hardware directly which is fast.
+
+This is not the case here where software needs to iterate the IO page
+tables in the guest which could be slow.
+
+> Hard to believe.  If true and you want to speed up
+> vIOMMU then you implement an efficient datastructure for that.
+
+Besides the issue of performance, it's also racy, assuming we are logging I=
+OVA.
+
+0) device log IOVA
+1) hypervisor fetches IOVA from log buffer
+2) guest map IOVA to a new GPA
+3) hypervisor traverse guest table to get IOVA to new GPA
+
+Then we lost the old GPA.
+
+>
+> > 2) There are a lot of special or reserved IOVA ranges (for example the
+> > interrupt areas in x86) that need special care which is architectural
+> > and where it is beyond the scope or knowledge of the virtio device but
+> > the platform IOMMU. Things would be more complicated when SVA is
+> > enabled.
+>
+> SVA being what here?
+
+For example, IOMMU may treat interrupt ranges differently depending on
+whether SVA is enabled or not. It's very hard and unnecessary to teach
+devices about this.
+
+>
+> > And there could be other architecte specific knowledge (e.g
+> > PAGE_SIZE) that might be needed. There's no easy way to deal with
+> > those cases.
+>
+> Good point about page size actually - using 4k unconditionally
+> is a waste of resources.
+
+Actually, they are more than just PAGE_SIZE, for example, PASID and others.
+
+>
+>
+> > We wouldn't need to care about all of them if it is done at platform
+> > IOMMU level.
+>
+> If someone logs at IOMMU level then nothing needs to be done
+> in the spec at all. This is about capability at the device level.
+
+True, but my question is where or not it can be done at the device level ea=
+sily.
+
+>
+>
+> > > what Lingshan
+> > > proposed is analogous to bit per page - problem unfortunately is
+> > > you can't easily set a bit by DMA.
+> > >
+> >
+> > I'm not saying bit/bytemap is the best, but it has been used by real
+> > hardware. And we have many other options.
+> >
+> > > So I think this dirty tracking is a good option to have.
+> > >
+> > >
+> > >
+> > > > >
+> > > > > > > i.e. in first year of 2024?
+> > > > > >
+> > > > > > Why does it matter in 2024?
+> > > > > Because users needs to use it now.
+> > > > >
+> > > > > >
+> > > > > > > If not, we are better off to offer this, and when/if platform=
+ support is, sure,
+> > > > > > this feature can be disabled/not used/not enabled.
+> > > > > > >
+> > > > > > > > 4) if the platform support is missing, we can use software =
+or
+> > > > > > > > leverage transport for assistance like PRI
+> > > > > > > All of these are in theory.
+> > > > > > > Our experiment shows PRI performance is 21x slower than page =
+fault rate
+> > > > > > done by the cpu.
+> > > > > > > It simply does not even pass a simple 10Gbps test.
+> > > > > >
+> > > > > > If you stick to the wire speed during migration, it can converg=
+e.
+> > > > > Do you have perf data for this?
+> > > >
+> > > > No, but it's not hard to imagine the worst case. Wrote a small prog=
+ram
+> > > > that dirty every page by a NIC.
+> > > >
+> > > > > In the internal tests we don=E2=80=99t see this happening.
+> > > >
+> > > > downtime =3D dirty_rates * PAGE_SIZE / migration_speed
+> > > >
+> > > > So if we get very high dirty rates (e.g by a high speed NIC), we ca=
+n't
+> > > > satisfy the requirement of the downtime. Or if you see the converge=
+,
+> > > > you might get help from the auto converge support by the hypervisor=
+s
+> > > > like KVM where it tries to throttle the VCPU then you can't reach t=
+he
+> > > > wire speed.
+> > >
+> > > Will only work for some device types.
+> > >
+> >
+> > Yes, that's the point. Parav said he doesn't see the issue, it's
+> > probably because he is testing a virtio-net and so the vCPU is
+> > automatically throttled. It doesn't mean it can work for other virito
+> > devices.
+>
+> Only for TX, and I'm pretty sure they had the foresight to test RX not
+> just TX but let's confirm. Parav did you test both directions?
+
+RX speed somehow depends on the speed of refill, so throttling helps
+more or less.
+
+>
+> > >
+> > >
+> > > > >
+> > > > > >
+> > > > > > > There is no requirement for mandating PRI either.
+> > > > > > > So it is unusable.
+> > > > > >
+> > > > > > It's not about mandating, it's about doing things in the correc=
+t layer. If PRI is
+> > > > > > slow, PCI can evolve for sure.
+> > > > > You should try.
+> > > >
+> > > > Not my duty, I just want to make sure things are done in the correc=
+t
+> > > > layer, and once it needs to be done in the virtio, there's nothing
+> > > > obviously wrong.
+> > >
+> > > Yea but just vague questions don't help to make sure eiter way.
+> >
+> > I don't think it's vague, I have explained, if something in the virito
+> > slows down the PRI, we can try to fix them.
+>
+> I don't believe you are going to make PRI fast. No one managed so far.
+
+So it's the fault of PRI not virito, but it doesn't mean we need to do
+it in virtio.
+
+>
+> > Missing functions in
+> > platform or transport is not a good excuse to try to workaround it in
+> > the virtio. It's a layer violation and we never had any feature like
+> > this in the past.
+>
+> Yes missing functionality in the platform is exactly why virtio
+> was born in the first place.
+
+Well the platform can't do device specific logic. But that's not the
+case of dirty page tracking which is device logic agnostic.
+
+>
+> > >
+> > > > > In the current state, it is mandating.
+> > > > > And if you think PRI is the only way,
+> > > >
+> > > > I don't, it's just an example where virtio can leverage from either
+> > > > transport or platform. Or if it's the fault in virtio that slows do=
+wn
+> > > > the PRI, then it is something we can do.
+> > > >
+> > > > >  than you should propose that in the dirty page tracking series t=
+hat you listed above to not do dirty page tracking. Rather depend on PRI, r=
+ight?
+> > > >
+> > > > No, the point is to not duplicate works especially considering virt=
+io
+> > > > can't do better than platform or transport.
+> > >
+> > > If someone says they tried and platform's migration support does not
+> > > work for them and they want to build a solution in virtio then
+> > > what exactly is the objection?
+> >
+> > The discussion is to make sure whether virtio can do this easily and
+> > correctly, then we can have a conclusion. I've stated some issues
+> > above, and I've asked other questions related to them which are still
+> > not answered.
+> >
+> > I think we had a very hard time in bypassing IOMMU in the past that we
+> > don't want to repeat.
+> >
+> > We've gone through several methods of logging dirty pages in the past
+> > (each with pros/cons), but this proposal never explains why it chooses
+> > one of them but not others. Spec needs to find the best path instead
+> > of just a possible path without any rationale about why.
+>
+> Adding more rationale isn't a bad thing.
+> In particular if platform supplies dirty tracking then how does
+> driver decide which to use platform or device capability?
+> A bit of discussion around this is a good idea.
+>
+>
+> > > virtio is here in the
+> > > first place because emulating devices didn't work well.
+> >
+> > I don't understand here. We have supported emulated devices for years.
+> > I'm pretty sure a lot of issues could be uncovered if this proposal
+> > can be prototyped with an emulated device first.
+> >
+> > Thanks
+>
+> virtio was originally PV as opposed to emulation. That there's now
+> hardware virtio and you call software implementation "an emulation" is
+> very meta.
+
+Yes but I don't see how it relates to dirty page tracking. When we
+find a way it should work for both software and hardware devices.
+
+Thanks
+
+>
+>
+> >
+> >
+> >
+> >
+> > >
+> > > --
+> > > MST
+> > >
+>
 
 
-
-On 11/7/2023 3:40 PM, Qiang Zhang wrote:
-> On Tue, Oct 24, 2023 at 08:53:46PM +0800, Haixu Cui wrote:
->> virtio-spi is a virtual SPI master and it allows a guest to operate and
->> use the physical SPI master controlled by the host.
->>
->> This patch adds the specification for virtio-spi.
->>
->> Signed-off-by: Haixu Cui <quic_haixcui@quicinc.com>
->> ---
->> device-types/spi/description.tex        | 206 ++++++++++++++++++++++++
->> device-types/spi/device-conformance.tex |   7 +
->> device-types/spi/driver-conformance.tex |   7 +
->> 3 files changed, 220 insertions(+)
->> create mode 100644 device-types/spi/description.tex
->> create mode 100644 device-types/spi/device-conformance.tex
->> create mode 100644 device-types/spi/driver-conformance.tex
->>
->> diff --git a/device-types/spi/description.tex b/device-types/spi/description.tex
->> new file mode 100644
->> index 0000000..5dbceaf
->> --- /dev/null
->> +++ b/device-types/spi/description.tex
->> @@ -0,0 +1,206 @@
->> +\section{SPI Master Device}\label{sec:Device Types / SPI Master Device}
->> +
->> +virtio-spi is a virtual SPI (Serial Peripheral Interface) master and it allows
->> +a guest to operate and use the physical SPI master controlled by the host.
->> +
->> +virtio-spi has a single virtqueue. SPI transfer requests are placed into
->> +the virtqueue, and serviced by the physical SPI master.
->> +
->> +In a typical host and guest architecture with virtio-spi, Virtio SPI driver is
->> +the front-end existing in the guest kernel, and Virtio SPI device acts as the
->> +back-end in the host platform.
->> +
->> +\subsection{Device ID}\label{sec:Device Types / SPI Master Device / Device ID}
->> +45
->> +
->> +\subsection{Virtqueues}\label{sec:Device Types / SPI Master Device / Virtqueues}
->> +
->> +\begin{description}
->> +\item[0] requestq
->> +\end{description}
->> +
->> +\subsection{Feature bits}\label{sec:Device Types / SPI Master Device / Feature bits}
->> +
->> +None
->> +
->> +\subsection{Device configuration layout}\label{sec:Device Types / SPI Master Device / Device configuration layout}
->> +
->> +All fields of this configuration are always available and read-only for Virtio SPI driver.
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_config {
->> +	le16 bus_num;
->> +	le16 chip_select_max_number;
->> +	le8 cs_timing_setting_enable;
->> +	le8 reserved[3];
->> +};
->> +\end{lstlisting}
->> +
->> +The \field{bus_num} indicates the physical SPI master assigned to guest.
-> 
-> Does this assume that a Virtio SPI controller always corresponds to a physical
-> SPI controller?
-> What if the backend SPI controller and SPI devices are fully emulated or the
-> SPI devices under the Virtio SPI controller come from multiple physical SPI
-> controllers?
-> 
-> Regards,
-> Qiang
-> 
-
-Hi Qiang,
-
-     It's quite possible the host SPI controller is not physical, but 
-virtualized controller. In next patch, I will use "host SPI controller" 
-to replace "physical SPI controller", "host SPI controller" represents 
-all kinds of controller controlled by the host, which is more appropriate.
-
-     A Virtio SPI controller corresponds with a host SPI controller, and 
-the guest can only access the devices under this host SPI controller, 
-with the assigned cs. For devices under other host controllers, the 
-guest cannot access.
-
-     Thank you for your findings and comments.
-
-Best Regards
-Haixu Cui
-
-
->> +
->> +The \field{chip_select_max_number} is the maximum number of chipselect the physical SPI master supports.
->> +
->> +The \field{cs_timing_setting_enable} indicates if the physical SPI master supporting cs timing setting:
->> +	0: physical SPI master doesn't support cs timing setting;
->> +	1: physical SPI master supports cs timing setting.
->> +
->> +The \field{reserved} is for alignment purpose, also for future extension.
->> +
->> +\subsection{Device Initialization}\label{sec:Device Types / SPI Master Device / Device Initialization}
->> +
->> +\begin{enumerate}
->> +\item The Virtio SPI driver configures and initializes the virtqueue.
->> +\end{enumerate}
->> +
->> +\subsection{Device Operation}\label{sec:Device Types / SPI Master Device / Device Operation}
->> +
->> +\subsubsection{Device Operation: Request Queue}\label{sec:Device Types / SPI Master Device / Device Operation: Request Queue}
->> +
->> +Virtio SPI driver enqueues requests to the virtqueue, and they are used by
->> +Virtio SPI device. Each request represents one SPI tranfer and is of the form:
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_transfer_head {
->> +        u8 slave_id;
->> +        u8 bits_per_word;
->> +        u8 cs_change;
->> +        u8 tx_nbits;
->> +        u8 rx_nbits;
->> +	 u8 reserved[3];
->> +        le32 mode;
->> +        le32 freq;
->> +        le32 word_delay_ns;
->> +        le32 cs_setup_ns;
->> +        le32 cs_delay_hold_ns;
->> +        le32 cs_change_delay_inactive_ns;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_transfer_result {
->> +        u8 result;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_transfer_req {
->> +        struct virtio_spi_transfer_head head;
->> +        u8 tx_buf[];
->> +        u8 rx_buf[];
->> +        struct virtio_spi_transfer_result result;
->> +};
->> +\end{lstlisting}
->> +
->> +The \field{slave_id} indicates the chipselect index the SPI transfer used.
->> +
->> +The \field{bits_per_word} indicates the number of bits in each SPI transfer word.
->> +
->> +The \field{cs_change} indicates whether to deselect device before starting the
->> +next SPI transfer, 0 means chipselect keep asserted and 1 means chipselect deasserted
->> +then asserted again.
->> +
->> +The \field{tx_nbits} indicates bus width for write transfer:
->> +        0,1: bus width is 1, also known as SINGLE;
->> +	2  : bus width is 2, also known as DUAL;
->> +	4  : bus width is 4, also known as QUAD;
->> +	8  : bus width is 8, also known as OCTAL;
->> +	other values are invalid.
->> +
->> +The \field{rx_nbits} indicates bus width for read transfer:
->> +        0,1: bus width is 1, also known as SINGLE;
->> +	2  : bus width is 2, also known as DUAL;
->> +	4  : bus width is 4, also known as QUAD;
->> +	8  : bus width is 8, also known as OCTAL;
->> +	other values are invalid.
->> +
->> +The \field{reserved} is for alignement, also for further extension.
->> +
->> +The \field{mode} indicates how data is clocked out and in. Bit definitions as follows:
->> +        bit 0: CPHA, determines the timing (i.e. phase) of the data bits
->> +	       relative to the clock pulses.
->> +        bit 1: CPOL, determines the polarity of the clock.
->> +        bit 2: CS_HIGH, if 1, chipselect active high, else active low.
->> +	bit 3: LSB_FIRST, determines per-word bits-on-wire, if 0, MSB
->> +	       first, else LSB first.
->> +	bit 4: LOOP, if 1, device is in loopback mode, else normal mode.
->> +
->> +The \field{freq} indicates the SPI transfer speed in Hz.
->> +
->> +The \field{word_delay_ns} indicates delay to be inserted between consecutive
->> +words of a transfer, in ns unit.
->> +
->> +The \field{cs_setup_ns} indicates delay to be introduced after chipselect
->> +is asserted, in ns unit.
->> +
->> +The \field{cs_delay_hold_ns} indicates delay to be introduced before chipselect
->> +is deasserted, in ns unit.
->> +
->> +The \field{cs_change_delay_inactive_ns} indicates delay to be introduced after
->> +chipselect is deasserted and before next asserted, in ns unit.
->> +
->> +The \field{tx_buf} is the buffer for data sent to the device.
->> +
->> +The \field{rx_buf} is the buffer for data received to the device.
->> +
->> +The final \field{result} is the transfer result, either VIRTIO_SPI_TRANS_OK for success
->> +or VIRTIO_SPI_TRANS_ERR for error.
->> +
->> +\begin{lstlisting}
->> +#define VIRTIO_SPI_TRANS_OK     0
->> +#define VIRTIO_SPI_TRANS_ERR    1
->> +\end{lstlisting}
->> +
->> +\subsubsection{Device Operation: Operation Status}\label{sec:Device Types / SPI Master Device / Device Operation: Operation Status}
->> +
->> +Fields in structure \field{virtio_spi_transfer_head} are written by Virtio SPI driver, while
->> +\field{result} in structure \field{virtio_spi_transfer_result} is written by Virtio SPI device.
->> +
->> +virtio-spi supports three transfer types:
->> +        1) half-duplex read;
->> +        2) half-duplex write;
->> +        3) full-duplex read and write.
->> +
->> +For half-duplex read transfer, \field{rx_buf} is filled by Virtio SPI device and consumed
->> +by Virtio SPI driver. For half-duplex write transfer, \field{tx_buf} is filled by Virtio
->> +SPI driver and consumed by Virtio SPI device. And for full-duplex read and write transfer,
->> +both \field{tx_buf} and \field{rx_buf} are used.
->> +
->> +\drivernormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
->> +
->> +The Virtio SPI driver MUST send transfer requests on the requestq virtqueue.
->> +
->> +Fields in structure \field{virtio_spi_transfer_head} MUST be filled by Virtio SPI driver
->> +and MUST be readable for Virtio SPI device.
->> +
->> +Structure \field{virtio_spi_transfer_result} MUST be filled by Virtio SPI device
->> +and MUST be writable for Virtio SPI device.
->> +
->> +For half-duplex read, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
->> +\field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
->> +
->> +For half-duplex write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
->> +\field{tx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
->> +
->> +For full-duplex read and write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
->> +\field{tx_buf}, \field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
->> +
->> +For half-duplex write or full-duplex read and write transfer, Virtio SPI driver MUST not use \field{rx_buf}
->> +if the \field{result} returned from Virtio SPI device is VIRTIO_SPI_TRANS_ERR.
->> +
->> +If \field{cs_timing_setting_enable} in structure \field{virtio_spi_config} is 0, while \field{cs_setup_ns},
->> +\field{cs_setup_ns} and \field{cs_change_delay_inactive_ns} of the transfer are not all zero, Virtio
->> +SPI driver MUST print a warning log to alert that the cs timing won't be set as expected.
->> +
->> +\devicenormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
->> +
->> +Virtio SPI device MUST set all the fields of the structure \field{virtio_spi_config} before
->> +they are read by Virtio SPI driver.
->> +
->> +Virtio SPI device MUST set the structure \field{virtio_spi_transfer_result} before sending
->> +it back to Virtio SPI driver.
->> +
->> +Virtio SPI device MUST be able to identify the transfer type according to the received
->> +virtqueue descriptors.
->> +
->> +Virtio SPI device MUST NOT change the data in \field{tx_buf} if transfer type is half-duplex write
->> +or full-duplex read and write.
->> diff --git a/device-types/spi/device-conformance.tex b/device-types/spi/device-conformance.tex
->> new file mode 100644
->> index 0000000..3e771bc
->> --- /dev/null
->> +++ b/device-types/spi/device-conformance.tex
->> @@ -0,0 +1,7 @@
->> +\conformance{\subsection}{SPI Master Device Conformance}\label{sec:Conformance / Device Conformance / SPI Master Device Conformance}
->> +
->> +An SPI Master device MUST conform to the following normative statements:
->> +
->> +\begin{itemize}
->> +\item \ref{devicenormative:Device Types / SPI Master Device / Device Operation}
->> +\end{itemize}
->> diff --git a/device-types/spi/driver-conformance.tex b/device-types/spi/driver-conformance.tex
->> new file mode 100644
->> index 0000000..3c965ef
->> --- /dev/null
->> +++ b/device-types/spi/driver-conformance.tex
->> @@ -0,0 +1,7 @@
->> +\conformance{\subsection}{SPI Master Driver Conformance}\label{sec:Conformance / Driver Conformance / SPI Master Driver Conformance}
->> +
->> +An SPI Master driver MUST conform to the following normative statements:
->> +
->> +\begin{itemize}
->> +\item \ref{drivernormative:Device Types / SPI Master Device / Device Operation}
->> +\end{itemize}
->> -- 
->> 2.17.1
->>
->>
->> ---------------------------------------------------------------------
->> To unsubscribe, e-mail: virtio-dev-unsubscribe@lists.oasis-open.org
->> For additional commands, e-mail: virtio-dev-help@lists.oasis-open.org
->>
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
