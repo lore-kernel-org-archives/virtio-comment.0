@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8302-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8303-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2479C4332F
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 10:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2197C4332F
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 11:22:08 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3A9343358F
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 10:42:00 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1E67526A5A
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 11:22:08 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1A151986CD5
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 10:42:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E41B9986CD2
+	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 11:22:07 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 00B68986CCD; Thu,  9 Nov 2023 10:42:00 +0000 (UTC)
+	id C6130986CCE; Thu,  9 Nov 2023 11:22:07 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,139 +24,231 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E4BA7986CCE
-	for <virtio-comment@lists.oasis-open.org>; Thu,  9 Nov 2023 10:41:59 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B655B986CCF;
+	Thu,  9 Nov 2023 11:22:07 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: ohSh8HXRN5uzvxahcSCGlA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699526514; x=1700131314;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/NZFbJd08vQZL7JD54HwCrBUCqPlRiLOg4FhmGiSe3w=;
-        b=nvLwnNRj6U25Fs86kUJMJw2enTkJlqOZROy4k442hftMIJ/V4Z0q8NFm8PYx5M6Tm5
-         uBKR5YBrJbyExEsFiTWVIbBRpRtYFLv3l1WcAds10rInwjiqwaQLoIqGVP5JKNgoDW4T
-         mZa9Tf8Bbx5laQQk2hOjvdYZjsrofKoOqF9gRos4sB0i1sM0anBe7hm5763JIFuX2+AM
-         h0+ntyP50D3KaFPyX9hBUZ1ZzgtrNRkUvZU24QirgQDQMkrHp6FyHwRbpEi7892/kN8n
-         diJa57wOzIk6v/+N8xjuiAQgIve2D8q1QOThYO8vBuBEMgpwrhMKdzKJexWKgzum59Mo
-         eCPA==
-X-Gm-Message-State: AOJu0Yz4sQbQSk+u+5DwAK2sSZtfEdOQ8tdg/YdgazRXm+yHHZlW4Dmz
-	nFMWOc1Wmbnt4Yf+W0vGKDUZwYMoZ7wbl21aSsmYOzRW+4mXcN1e9wGAEX3RUcltdKfD20g83nb
-	K/b+TdVi6+58T5YYA7IE//paGX8ibDGTwIw==
-X-Received: by 2002:a17:906:7498:b0:9a1:8993:9532 with SMTP id e24-20020a170906749800b009a189939532mr8153895ejl.30.1699526514540;
-        Thu, 09 Nov 2023 02:41:54 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFT3dh+nwcgT0pVJmpuzNVxIuSH1y0IxYF+qa7rWXtfiRtRqR4u3UnpEa4GvcI+3G+ycowHmg==
-X-Received: by 2002:a17:906:7498:b0:9a1:8993:9532 with SMTP id e24-20020a170906749800b009a189939532mr8153876ejl.30.1699526514123;
-        Thu, 09 Nov 2023 02:41:54 -0800 (PST)
-Date: Thu, 9 Nov 2023 05:41:50 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20231109053050-mutt-send-email-mst@kernel.org>
-References: <20231103064730-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fdfda658-e89c-41f4-9f4c-77d5d9b1b642@intel.com>
- <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231105075906-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54819604160CF0A2566AFB5DDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231107054348-mutt-send-email-mst@kernel.org>
- <4d4dc2fc-7563-4224-b96e-2c82f6248432@intel.com>
- <20231108121710-mutt-send-email-mst@kernel.org>
- <1e92209d-0bb7-4dea-83c2-106ec74e5539@intel.com>
+Message-ID: <ab11fb3c-296f-41a3-92c7-2e8dddb4369f@quicinc.com>
+Date: Thu, 9 Nov 2023 19:21:57 +0800
 MIME-Version: 1.0
-In-Reply-To: <1e92209d-0bb7-4dea-83c2-106ec74e5539@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty
- page tracking
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>,
+        Harald Mommer
+	<harald.mommer@opensynergy.com>
+CC: <virtio-dev@lists.oasis-open.org>, <virtio-comment@lists.oasis-open.org>,
+        <harald.mommer@opensynergy.com>, <cohuck@redhat.com>,
+        <quic_ztu@quicinc.com>
+References: <20231024125346.23546-1-quic_haixcui@quicinc.com>
+ <ZUjrDjHpFVReDSgk@finisterre.sirena.org.uk>
+ <c08f1b37-51e8-4126-9e1c-40530f468df4@quicinc.com>
+ <ZUuxfbkSboAFQIQF@finisterre.sirena.org.uk>
+From: Haixu Cui <quic_haixcui@quicinc.com>
+In-Reply-To: <ZUuxfbkSboAFQIQF@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: f8rkKW4-VagrPrCOH5pbhn_zzxNi9mH2
+X-Proofpoint-ORIG-GUID: f8rkKW4-VagrPrCOH5pbhn_zzxNi9mH2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-09_10,2023-11-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0
+ mlxlogscore=999 impostorscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 malwarescore=0 adultscore=0 mlxscore=0
+ bulkscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311090083
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v4] virtio-spi: add the device specification
 
-On Thu, Nov 09, 2023 at 06:29:59PM +0800, Zhu, Lingshan wrote:
+Hi Mark,
+
+     For the "le16" type and byte ordering issue, Harald replies in 
+another email, let's mainly discuss about checking parameters and 
+exposing the backend supported features.
+
+
+     struct virtio_spi_transfer_head {
+         u8 chip_select;
+         u8 bits_per_word;
+         u8 cs_change;
+         u8 tx_nbits;
+         u8 rx_nbits;
+         u8 reserved[3];
+         le32 mode;
+         le32 freq;
+         le32 word_delay_ns;
+         le32 cs_setup_ns;
+         le32 cs_delay_hold_ns;
+         le32 cs_change_delay_inactive_ns;
+    };
+
+    For checking the parameters above in virtio_spi_transfer_head, I'd 
+like to add these field in config space:
+
+     1. bits_per_word_mask, in Linux spi driver, 
+__spi_validate_bits_per_word will use this field to validate 
+bits_per_word parameters for each transfer
+
+     2. cs_change_supported, 0 for unsupported and 1 for supported
+
+     3. tx_nbits and rx_nbits:
+        bit 0: 2-bit transfer supported;
+        bit 1: 4-bit transfer supported;
+        bit 2: 8-bit transfer supported;
+        other bits reserved as 0, and 1-bit transfer should always 
+supported.
+
+     4. mode_feature_supported:
+        bit 0-1: CPHA supported,
+                 0b00: supports CPHA=0 and CPHA=1
+                 0b01: only supports CPHA=0
+                 0b10: only supports CPHA=1
+                 0b11: invalid, should support as least one CPHA setting
+        bit 2-3: CPOL supported
+                 0b00: supports CPOL=0 and CPOL=1
+                 0b01: only supports CPOL=0
+                 0b10: only supports CPOL=1
+                 0b11: invalid, should support as least one CPOL setting
+        bit 4: CS_HIGH, if 1, supports chipselect active high, else
+                 only supports chepselect active low.
+        bit 3: LSB_FIRST, if 0, only supports MSB first transfer, if 1,
+                 supports LSB first transfer
+        bit 4: LOOP, if 1, support loopback mode, if 0, only supports
+                 normal mode.
+
+     5. freq_max_speed: if non-zero, maximum clock rate support, in Hz
+                 unit. if 0, no limitation.
+
+     6. max_word_delay_ns: if non-zero, the maximum word delay supported.
+                 if 0, word delay is not supported to introduce.
+
+     7. max_delay_after_cs_asserted: if non-zero, the maximum cs setup
+                 delay supported.if 0, cs setup delay is not supported to
+                 introduce
+
+     8. max_delay_before_cs_deassert: if non-zero, the maximum
+                 cs_delay_hold_ns delay supported.if 0, cs setup delay is
+                 not supported to introduce
+
+     9. max_delay_after_cs_deassert: if non-zero, the maximum
+                 cs_change_delay_inactive_ns delay supported.if 0, cs
+                 setup delay is not supported to introduce
+
+
+Driver Requirement：
+
+If Virtio SPI device announce it doesn't support any feature, Virtio SPI 
+driver MUST reject the request if the corresponding feature field in 
+request header is not zero.
+
+Virtio SPI driver MUST reject the request if the freq exceeds the 
+non-zero value of freq_max_speed filed in config space.
+
+If any delay field in config space is set as non-zero, Virtio SPI driver 
+MUST reject the request if the corresponding delay in request header 
+exceeds the value in config space.
+
+
+Do you think this mechanism, backend exposing its supported features and 
+abilities through config space so Virtio SPI driver can filter and check 
+before sending requests, is reasonable? And seems much stronger. A rule 
+to validate seems necessary because the parameters in request header may 
+differ in each transfer.
+
+Looking forward to your advice and suggestion, if you agree that this 
+mechanism is better, I will add it in next patch. Thank you so much.
+
+Best Regard
+Haixu Cui
+
+
+On 11/9/2023 12:04 AM, Mark Brown wrote:
+> On Wed, Nov 08, 2023 at 11:42:40PM +0800, Haixu Cui wrote:
+>> On 11/6/2023 9:33 PM, Mark Brown wrote:
+>>> On Tue, Oct 24, 2023 at 08:53:46PM +0800, Haixu Cui wrote:
 > 
+>>>> +	le16 bus_num;
+>>>> +	le16 chip_select_max_number;
 > 
-> On 11/9/2023 1:18 AM, Michael S. Tsirkin wrote:
-> > On Wed, Nov 08, 2023 at 05:29:00PM +0800, Zhu, Lingshan wrote:
-> > > 
-> > > On 11/7/2023 7:13 PM, Michael S. Tsirkin wrote:
-> > > > On Mon, Nov 06, 2023 at 04:03:42AM +0000, Parav Pandit wrote:
-> > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > Sent: Sunday, November 5, 2023 9:42 PM
-> > > > > > 
-> > > > > > On Fri, Nov 03, 2023 at 03:47:34PM +0000, Parav Pandit wrote:
-> > > > > > > > > [1]
-> > > > > > > > > https://lists.oasis-open.org/archives/virtio-comment/202310/msg004
-> > > > > > > > > 75.h
-> > > > > > > > > tml
-> > > > > > > > you still need to explain why this does not work for pass-through.
-> > > > > > > It does not work for following reasons.
-> > > > > > > 1. Because all the fields that put on the member device are not in direct
-> > > > > > control of the hypervisor.
-> > > > > > > The device is directly controlled by the guest including the device status and
-> > > > > > when it resets the device all the things stored in the device are lost.
-> > > > > > 
-> > > > > > I think the idea is that when this gateway is in the device then device reset has
-> > > > > > to trap. At a high level, ok. But then what?
-> > > > > > Is a full scan of all memory required until device reset is complete?
-> > > > > > Drivers currently tend to busy poll the reset register, if this takes very long we
-> > > > > > might start seeing soft lockup messages. What is the idea then? Maybe for this
-> > > > > > we need a separate weaker reset that does not touch this capability?
-> > > > > > 
-> > > > > You meant the gateway is not in the device, right?
-> > > > > 
-> > > > > I likely didn't understand. I don't see a relation to timing.
-> > > > > 
-> > > > > When the device reset is not trapped by the hypervisor, most things does not work, it requires trapping other things to like cvq, device registers and more.
-> > > > > It may be fine for those use case, but it does not fullfill the requirement of passthrough mode of hw.
-> > > > I wish we'd just stop using the term, it just confuses everyone.
-> > > > 
-> > > > I feel the point worth making is that currently, all this job is done
-> > > > by hypervisors. And they manage fine! vdpa really truly does not need
-> > > > the SUSPEND bit because it knows about devices and it
-> > > > can just use whatever it wants in any vendor specific way it wants.
-> > > So true, this is exact what Intel implements in some productions.
-> > > > where all this migration work comes handy is if we say that
-> > > > we want our device to all just do what the
-> > > > spec says. No vendor specific tricks. And I find it exciting that
-> > > > there are people who want to work on this instead of
-> > > > each vendor wasting man hours on their own almost the same but
-> > > > slightly different driver.
-> > > I agree
-> > > > I personally think this patch is not great for the trap use-case either.
-> > > > Why? For example if device is somewhat slow then it will take it
-> > > > hundreds of milliseconds to synchronize the whole guest memory, and
-> > > > blocking reset means blocking e.g. guest boot.  I was wrong about soft
-> > > > lockup btw - linux does msleep which I think means no soft lockups. But boot is
-> > > > blocked and modules are not loaded.
-> > > I am not sure SUSPEND can block RESET, I think reset can take immediate
-> > > actions, because
-> > > once reset, whether suspended does not matter.
-> > No, because if you don't suspend device will keep changing memory.
-> > You need to
-> > 1. suspend
-> > 2. get all dirty memory synced
-> > 3. reset
-> > 
-> > 
-> > Reset earlier will corrupt guest memory.
-> IMHO, it may be fine to lose the dirty pages during reset,
-> because without an interrupt, the driver won't process the
-> dirty pages, they are still considered as unused(even not all zero pages)
-> by CPU, so nothing corrupted.
+>>> That's a *lot* of potential buses and chip selects...
 > 
-> And if the driver resets the device, it will reinitialize the device
-> and re-config the virtqueue including the ring buffer.
-
-It's too late to invent new consistency semantics for virtio.
-
--- 
-MST
-
+>> Here you mean the types of bus_num and chip_select_max_number are "le16"?
+> 
+>> Here I use 16 bits because bus_num and num_chipselect in spi_controller
+>> structure are both 16 bits.
+> 
+> Yeah, I think that's more for padding/alignment reasons than anything
+> else.  TBH I wondered if just going for a standard int might be better,
+> it's the combination of picking a smaller type but one that's relatively
+> large for the domain.
+> 
+>> The \field{cs_timing_setting_enable} indicates if the host SPI controller
+>> supports cs delay setting when performing transfer:
+>>          bit 0: delay after cs asserted, 0 means doesn't support and 1
+>>                 means support;
+>>          bit 1: delay before cs deasserted, 0 means doesn't support and 1
+>>                 means support;
+>>          bit 2: delay after cs deasserted, 0 means doesn't support and 1
+>>                 means support;
+>>          other bits are reserved and always set as 0.
+> 
+> That looks a lot clearer.  There's still a potential issue with the fact
+> that there might be limited configurability (eg, only a few values
+> supported).  Perhaps we need a discovery mechanism, or perhaps
+> specifying handling of inexact support might be good enough (see below)?
+> 
+>>>> +        le32 mode;
+>>>> +        le32 freq;
+>>>> +        le32 word_delay_ns;
+>>>> +        le32 cs_setup_ns;
+>>>> +        le32 cs_delay_hold_ns;
+>>>> +        le32 cs_change_delay_inactive_ns;
+> 
+>>> All these parameters depend on controller support but weren't included
+>>> in the feature enumeration above and nothing in the spec seems to cover
+>>> what happens when they can't be supported exactly.
+> 
+>> Add another return value:
+>>      #define VIRTIO_SPI_PARAM_ERR    1
+> 
+>> If the parameters in \field{virtio_spi_transfer_head} are not all valid, or
+>> some fields are set as non-zero values but the corresponding features are
+>> not supported by host, then the backend return VIRTIO_SPI_PARAM_ERR to the
+>> frontend.
+> 
+> That looks good for things like the mode, for the frequencies, delays
+> and so on it seems like we need either some specified handling of values
+> that can't be supported exactly (eg, freq is a maximum, delays are a
+> minimum) or an enumeration mechanism so the guest knows what values will
+> be accepted.  The enumeration might be a bit unweildy since you can get
+> huge numbers of values - Linux currently uses the latter approach.
+> 
+>>>> +The \field{tx_buf} is the buffer for data sent to the device.
+>>>> +
+>>>> +The \field{rx_buf} is the buffer for data received to the device.
+>>>
+>>> In what format are these buffers presented?  I note that the spec
+>>> supports more than one byte per word (and non-integer number of bytes).
+>>
+>> In spi_transfer struct:
+>>      @len: size of rx and tx buffers (in bytes)
+>>
+>> Although the bits_per_word can be any value in 0..32, in-memory wordsizes
+>> are powers of two bytes (e.g. 20 bit samples use 32 bits).
+>> So:
+>>      0 < bits_per_word <=8: one word occupies 1 byte in memory;
+>>      8 < bits_per_word <=16: one word occupies 2 bytes in memory;
+>>      16 < bits_per_word <=32: one word occupies 4 bytes in memory.
+>>
+>> In the spec, the format of buffers are u8 array,
+>>      u8 tx_buf[];
+>>      u8 rx_buf[];
+> 
+> What byte ordering are the multi-byte words in - CPU native or a
+> particular endianness (eg, wire native)?
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
