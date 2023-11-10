@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8305-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8306-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD890C4332F
-	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 02:37:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C97C4332F
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 06:22:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 13A76217DE
-	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 02:37:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7DF0F3884
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 06:22:12 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E9CAB986CFA
-	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 02:37:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 569FE986D00
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 06:22:12 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id CEB7B986CF2; Fri, 10 Nov 2023 02:37:38 +0000 (UTC)
+	id 3836C986CF7; Fri, 10 Nov 2023 06:22:12 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,85 +24,112 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BA053986CF3;
-	Fri, 10 Nov 2023 02:37:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 24541986CF8
+	for <virtio-comment@lists.oasis-open.org>; Fri, 10 Nov 2023 06:22:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-Message-ID: <cda9cfc8-1897-4fcf-9b30-1ad9c81185e6@quicinc.com>
-Date: Fri, 10 Nov 2023 10:37:29 +0800
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="8793233"
+X-IronPort-AV: E=Sophos;i="6.03,291,1694761200"; 
+   d="scan'208";a="8793233"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="792783891"
+X-IronPort-AV: E=Sophos;i="6.03,291,1694761200"; 
+   d="scan'208";a="792783891"
+Message-ID: <8e92a16e-2a5d-4c9c-bb85-5a5c6fecbe05@intel.com>
+Date: Fri, 10 Nov 2023 14:22:04 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-CC: Harald Mommer <harald.mommer@opensynergy.com>,
-        <virtio-dev@lists.oasis-open.org>,
-        <virtio-comment@lists.oasis-open.org>, <cohuck@redhat.com>,
-        <quic_ztu@quicinc.com>
-References: <20231024125346.23546-1-quic_haixcui@quicinc.com>
- <ZUjrDjHpFVReDSgk@finisterre.sirena.org.uk>
- <c08f1b37-51e8-4126-9e1c-40530f468df4@quicinc.com>
- <ZUuxfbkSboAFQIQF@finisterre.sirena.org.uk>
- <ab11fb3c-296f-41a3-92c7-2e8dddb4369f@quicinc.com>
- <ZUzaZt4flHQgsBzu@finisterre.sirena.org.uk>
-From: Haixu Cui <quic_haixcui@quicinc.com>
-In-Reply-To: <ZUzaZt4flHQgsBzu@finisterre.sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: gFYCy36jNg9uVGVl9i1BV4MpAd0eigYw
-X-Proofpoint-GUID: gFYCy36jNg9uVGVl9i1BV4MpAd0eigYw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-09_17,2023-11-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
- malwarescore=0 mlxlogscore=711 suspectscore=0 spamscore=0 impostorscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311100020
-Subject: [virtio-comment] Re: [virtio-dev] [PATCH v4] virtio-spi: add the device specification
+To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "jasowang@redhat.com" <jasowang@redhat.com>,
+ "eperezma@redhat.com" <eperezma@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "stefanha@redhat.com" <stefanha@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+References: <20231103103437.72784-1-lingshan.zhu@intel.com>
+ <20231103103437.72784-4-lingshan.zhu@intel.com>
+ <20231106044836-mutt-send-email-mst@kernel.org>
+ <c6cb6e6b-fd2b-43ac-9be5-c4a8cda1ac13@intel.com>
+ <20231108124625-mutt-send-email-mst@kernel.org>
+ <b125da70-a769-4662-876b-43664e39c976@intel.com>
+ <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH V2 3/6] virtio: dont reset vqs when SUSPEND
 
 
 
-On 11/9/2023 9:11 PM, Mark Brown wrote:
-> On Thu, Nov 09, 2023 at 07:21:57PM +0800, Haixu Cui wrote:
-> 
->>     For checking the parameters above in virtio_spi_transfer_head, I'd like
->> to add these field in config space:
-> 
->>      5. freq_max_speed: if non-zero, maximum clock rate support, in Hz
->>                  unit. if 0, no limitation.
+On 11/9/2023 6:15 PM, Parav Pandit wrote:
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Thursday, November 9, 2023 3:28 PM
 >>
->>      6. max_word_delay_ns: if non-zero, the maximum word delay supported.
->>                  if 0, word delay is not supported to introduce.
+>> On 11/9/2023 1:46 AM, Michael S. Tsirkin wrote:
+>>> On Tue, Nov 07, 2023 at 05:27:23PM +0800, Zhu, Lingshan wrote:
+>>>> On 11/6/2023 5:49 PM, Michael S. Tsirkin wrote:
+>>>>> On Fri, Nov 03, 2023 at 06:34:34PM +0800, Zhu Lingshan wrote:
+>>>>>> When SUSPEND is set, device states and virtqueue states should be
+>>>>>> stablized, therefore the driver should not reset vqs when SUSPEND
+>>>>>> is set in device status.
+>>>>>>
+>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>>>> ---
+>>>>>>     content.tex | 3 +++
+>>>>>>     1 file changed, 3 insertions(+)
+>>>>>>
+>>>>>> diff --git a/content.tex b/content.tex index bcc9d4b..060b5c2
+>>>>>> 100644
+>>>>>> --- a/content.tex
+>>>>>> +++ b/content.tex
+>>>>>> @@ -444,6 +444,9 @@ \subsubsection{Virtqueue Reset}\label{sec:Basic
+>> Facilities of a Virtio Device /
+>>>>>>     The device MUST reset any state of a virtqueue to the default state,
+>>>>>>     including the available state and the used state.
+>>>>>> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set in
+>>>>>> +\field{device status}, the driver SHOULD NOT reset any virtqueues.
+>>>>>> +
+>>>>>>     \drivernormative{\paragraph}{Virtqueue Reset}{Basic Facilities of a
+>> Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue Reset}
+>>>>>>     After the driver tells the device to reset a queue, the driver
+>>>>>> MUST verify that
+>>>>> Seems somewhat arbitrary and breaks the claim that the feature is
+>>>>> orthogonal and can have uses besides migration.
+>>>> when suspended, the device is frozen.
+>>>> The driver is aware of this process and so should not reset the vqs I think.
+>>> Again that is only true because you want to use it for migration.
+>>> But then you can't claim it's a generic facility.
+>> I don't get it. The device status is a basic facility.
 >>
->>      7. max_delay_after_cs_asserted: if non-zero, the maximum cs setup
->>                  delay supported.if 0, cs setup delay is not supported to
->>                  introduce
->>
->>      8. max_delay_before_cs_deassert: if non-zero, the maximum
->>                  cs_delay_hold_ns delay supported.if 0, cs setup delay is
->>                  not supported to introduce
->>
->>      9. max_delay_after_cs_deassert: if non-zero, the maximum
->>                  cs_change_delay_inactive_ns delay supported.if 0, cs
->>                  setup delay is not supported to introduce
-> 
-> I think this all makes sense - for the above we probably also need to
-> say that if the value requested by the client can't be met exactly we
-> either treat it as a minimum or maximum depending on the delays and
-> choose the next value (probably a maximum for the clock and minimum for
-> the rest).  So for example if the client requests 21MHz and the
-> controller can only select 20MHz or 25MHz then it should pick 20MHz.
+>> We need to SUSPEND the device by setting SUSPEND bit, to stabilize the device
+>> states for migration.
+> Is the PCI's PM time not enough to suspend the device?
+> For large device I could imagine it could be short.
+As you see, PCI PM, so this is a layer violation, virtio should be self 
+contained, and what about MMIO and CCW?
+This should be a basic facility.
+>
+> In that case if there is suspend the device available, it will be used by the guest driver itself, hypervisor wouldn’t know about it when those registers are not trapped.
+> So we need two ways to suspend.
+> One is guest visible, and guest controlled.
+> Second is hypervisor control to fulfill the device migration needs.
+The guest can eve reset the device.
+>
+> So if you can please take a look if the proposed admin command to freeze/stop mode can be used in the emulated register case or not.
+> It helps to have the suspend bit in guest control as well with/without emulation mode.
+Parav, please believe I have read your series, I didn't comment there 
+because I want to avoid further
+conflicts/debating, we have done these enough.
 
-Sure, I will update to make it more flexible.
+As explained before, freeze/stop the device by PCI is a layer violation.
 
-Thanks a lot.
+And device status can be pass-through(without emulation, just map it to 
+guest) to the guest or trapped(trap and emulate by the hypervisor, for 
+example set_status in vDPA).
+>
+>> This can also be used for debugging I think.
+> As Michael listed, a dedicated debug interface is usually more useful instead of in-band.
+re-using another facility without extra efforts is not a bad thing anyway.
 
-Best Regards
-Haixu Cui
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
