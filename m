@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8310-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8311-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A68C7C4332F
-	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 07:24:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4608C4332F
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 07:52:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id CCB8221697
-	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 07:24:21 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0C5F93E597
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 07:52:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A818B986CFA
-	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 07:24:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DC8CC986D04
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 07:52:12 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 876FC986CF8; Fri, 10 Nov 2023 07:24:21 +0000 (UTC)
+	id C2406986CF9; Fri, 10 Nov 2023 07:52:12 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,122 +24,209 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 78749986CF9
-	for <virtio-comment@lists.oasis-open.org>; Fri, 10 Nov 2023 07:24:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B24D6986CFA
+	for <virtio-comment@lists.oasis-open.org>; Fri, 10 Nov 2023 07:52:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="375187244"
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="476375847"
 X-IronPort-AV: E=Sophos;i="6.03,291,1694761200"; 
-   d="scan'208";a="375187244"
+   d="scan'208";a="476375847"
 X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="834083058"
 X-IronPort-AV: E=Sophos;i="6.03,291,1694761200"; 
-   d="scan'208";a="4964383"
-Message-ID: <45d4a984-a59a-4b4d-b047-527649bcf085@intel.com>
-Date: Fri, 10 Nov 2023 15:24:14 +0800
+   d="scan'208";a="834083058"
+Message-ID: <bb66298e-9ee5-4370-8532-13110f392f41@intel.com>
+Date: Fri, 10 Nov 2023 15:52:04 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
- <jasowang@redhat.com>, "eperezma@redhat.com" <eperezma@redhat.com>,
+To: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
+ <jasowang@redhat.com>, "mst@redhat.com" <mst@redhat.com>,
+ "eperezma@redhat.com" <eperezma@redhat.com>,
  "cohuck@redhat.com" <cohuck@redhat.com>,
- "stefanha@redhat.com" <stefanha@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-References: <20231103064730-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481D028E63E6CB0AA7F4149DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <fdfda658-e89c-41f4-9f4c-77d5d9b1b642@intel.com>
- <PH0PR12MB54818179419B06412D7A9C84DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231105075906-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54819604160CF0A2566AFB5DDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231107054348-mutt-send-email-mst@kernel.org>
- <4d4dc2fc-7563-4224-b96e-2c82f6248432@intel.com>
- <20231108121710-mutt-send-email-mst@kernel.org>
- <1e92209d-0bb7-4dea-83c2-106ec74e5539@intel.com>
- <20231109053050-mutt-send-email-mst@kernel.org>
+ "stefanha@redhat.com" <stefanha@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>
+References: <20231103103437.72784-1-lingshan.zhu@intel.com>
+ <20231103103437.72784-5-lingshan.zhu@intel.com>
+ <PH0PR12MB5481085F6E84FD2786FCD60BDCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <705607e3-39c3-47da-a688-80bbee31c48d@intel.com>
+ <PH0PR12MB54814F9EEDD69ED434BF7994DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <b0506d9f-37de-43c9-b99d-b00bb88c0d36@intel.com>
+ <PH0PR12MB548174AF58B6ADDDA215123DDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <b8d51cd3-33fe-4167-a87b-ae662609c5d8@intel.com>
+ <PH0PR12MB5481BCA941D86E1031D7A5D9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <7a0e7cef-434c-4049-b72f-b8188ecedbaf@intel.com>
+ <DM8PR12MB54801250188E085F6D03869EDCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <5bdc33bb-4ad5-4274-9764-69e1887b0d17@intel.com>
+ <PH0PR12MB54815431B823C54E3231EC5EDCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231109053050-mutt-send-email-mst@kernel.org>
+In-Reply-To: <PH0PR12MB54815431B823C54E3231EC5EDCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] Re: [PATCH V2 6/6] virtio-pci: implement dirty
- page tracking
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH V2 4/6] virtio-pci: implement
+ VIRTIO_F_QUEUE_STATE
 
 
 
-On 11/9/2023 6:41 PM, Michael S. Tsirkin wrote:
-> On Thu, Nov 09, 2023 at 06:29:59PM +0800, Zhu, Lingshan wrote:
+On 11/9/2023 6:25 PM, Parav Pandit wrote:
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Thursday, November 9, 2023 3:39 PM
 >>
->> On 11/9/2023 1:18 AM, Michael S. Tsirkin wrote:
->>> On Wed, Nov 08, 2023 at 05:29:00PM +0800, Zhu, Lingshan wrote:
->>>> On 11/7/2023 7:13 PM, Michael S. Tsirkin wrote:
->>>>> On Mon, Nov 06, 2023 at 04:03:42AM +0000, Parav Pandit wrote:
->>>>>>> From: Michael S. Tsirkin <mst@redhat.com>
->>>>>>> Sent: Sunday, November 5, 2023 9:42 PM
->>>>>>>
->>>>>>> On Fri, Nov 03, 2023 at 03:47:34PM +0000, Parav Pandit wrote:
->>>>>>>>>> [1]
->>>>>>>>>> https://lists.oasis-open.org/archives/virtio-comment/202310/msg004
->>>>>>>>>> 75.h
->>>>>>>>>> tml
->>>>>>>>> you still need to explain why this does not work for pass-through.
->>>>>>>> It does not work for following reasons.
->>>>>>>> 1. Because all the fields that put on the member device are not in direct
->>>>>>> control of the hypervisor.
->>>>>>>> The device is directly controlled by the guest including the device status and
->>>>>>> when it resets the device all the things stored in the device are lost.
->>>>>>>
->>>>>>> I think the idea is that when this gateway is in the device then device reset has
->>>>>>> to trap. At a high level, ok. But then what?
->>>>>>> Is a full scan of all memory required until device reset is complete?
->>>>>>> Drivers currently tend to busy poll the reset register, if this takes very long we
->>>>>>> might start seeing soft lockup messages. What is the idea then? Maybe for this
->>>>>>> we need a separate weaker reset that does not touch this capability?
->>>>>>>
->>>>>> You meant the gateway is not in the device, right?
+>>
+>> On 11/9/2023 2:28 PM, Parav Pandit wrote:
+>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>> Sent: Tuesday, November 7, 2023 3:02 PM
+>>>>
+>>>> On 11/6/2023 6:52 PM, Parav Pandit wrote:
+>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>>>> Sent: Monday, November 6, 2023 2:57 PM
 >>>>>>
->>>>>> I likely didn't understand. I don't see a relation to timing.
->>>>>>
->>>>>> When the device reset is not trapped by the hypervisor, most things does not work, it requires trapping other things to like cvq, device registers and more.
->>>>>> It may be fine for those use case, but it does not fullfill the requirement of passthrough mode of hw.
->>>>> I wish we'd just stop using the term, it just confuses everyone.
+>>>>>> On 11/6/2023 12:12 PM, Parav Pandit wrote:
+>>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>>>>>> Sent: Monday, November 6, 2023 9:01 AM
+>>>>>>>>
+>>>>>>>> On 11/3/2023 11:50 PM, Parav Pandit wrote:
+>>>>>>>>>> From: virtio-comment@lists.oasis-open.org
+>>>>>>>>>> <virtio-comment@lists.oasis- open.org> On Behalf Of Zhu,
+>>>>>>>>>> Lingshan
+>>>>>>>>>> Sent: Friday, November 3, 2023 8:27 PM
+>>>>>>>>>>
+>>>>>>>>>> On 11/3/2023 7:35 PM, Parav Pandit wrote:
+>>>>>>>>>>>> From: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>>>>>>>>>> Sent: Friday, November 3, 2023 4:05 PM
+>>>>>>>>>>>>
+>>>>>>>>>>>> This patch adds two new le16 fields to common configuration
+>>>>>>>>>>>> structure to support VIRTIO_F_QUEUE_STATE in PCI transport layer.
+>>>>>>>>>>>>
+>>>>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>>>>>>>>>> ---
+>>>>>>>>>>>>        transport-pci.tex | 18 ++++++++++++++++++
+>>>>>>>>>>>>        1 file changed, 18 insertions(+)
+>>>>>>>>>>>>
+>>>>>>>>>>>> diff --git a/transport-pci.tex b/transport-pci.tex index
+>>>>>>>>>>>> a5c6719..3161519 100644
+>>>>>>>>>>>> --- a/transport-pci.tex
+>>>>>>>>>>>> +++ b/transport-pci.tex
+>>>>>>>>>>>> @@ -325,6 +325,10 @@ \subsubsection{Common configuration
+>>>>>>>> structure
+>>>>>>>>>>>> layout}\label{sec:Virtio Transport
+>>>>>>>>>>>>                /* About the administration virtqueue. */
+>>>>>>>>>>>>                le16 admin_queue_index;         /* read-only for driver */
+>>>>>>>>>>>>                le16 admin_queue_num;         /* read-only for driver */
+>>>>>>>>>>>> +
+>>>>>>>>>>>> +	/* Virtqueue state */
+>>>>>>>>>>>> +        le16 queue_avail_state;         /* read-write */
+>>>>>>>>>>>> +        le16 queue_used_state;          /* read-write */
+>>>>>>>>>>> This tiny interface for 128 virtio net queues through register
+>>>>>>>>>>> read writes, does
+>>>>>>>>>> not work effectively.
+>>>>>>>>>>> There are inflight out of order descriptors for block also.
+>>>>>>>>>>> Hence toy registers like this do not work.
+>>>>>>>>>> Do you know there is a queue_select? Why this does not work? Do
+>>>>>>>>>> you know how other queue related fields work?
+>>>>>>>>> :)
+>>>>>>>>> Yes. If you notice queue_reset related critical spec bug fix was
+>>>>>>>>> done when it
+>>>>>>>> was introduced so that live migration can _actually_ work.
+>>>>>>>>> When queue_select is done for 128 queues serially, it take a lot
+>>>>>>>>> of time to
+>>>>>>>> read those slow register interface for this + inflight descriptors + more.
+>>>>>>>> interesting, virtio work in this pattern for many years, right?
+>>>>>>> All these years 400Gbps and 800Gbps virtio was not present, number
+>>>>>>> of
+>>>>>> queues were not in hw.
+>>>>>> The registers are control path in config space, how 400G or 800G affect??
+>>>>> Because those are the one in practice requires large number of VQs.
 >>>>>
->>>>> I feel the point worth making is that currently, all this job is done
->>>>> by hypervisors. And they manage fine! vdpa really truly does not need
->>>>> the SUSPEND bit because it knows about devices and it
->>>>> can just use whatever it wants in any vendor specific way it wants.
->>>> So true, this is exact what Intel implements in some productions.
->>>>> where all this migration work comes handy is if we say that
->>>>> we want our device to all just do what the
->>>>> spec says. No vendor specific tricks. And I find it exciting that
->>>>> there are people who want to work on this instead of
->>>>> each vendor wasting man hours on their own almost the same but
->>>>> slightly different driver.
->>>> I agree
->>>>> I personally think this patch is not great for the trap use-case either.
->>>>> Why? For example if device is somewhat slow then it will take it
->>>>> hundreds of milliseconds to synchronize the whole guest memory, and
->>>>> blocking reset means blocking e.g. guest boot.  I was wrong about soft
->>>>> lockup btw - linux does msleep which I think means no soft lockups. But boot is
->>>>> blocked and modules are not loaded.
->>>> I am not sure SUSPEND can block RESET, I think reset can take immediate
->>>> actions, because
->>>> once reset, whether suspended does not matter.
->>> No, because if you don't suspend device will keep changing memory.
->>> You need to
->>> 1. suspend
->>> 2. get all dirty memory synced
->>> 3. reset
+>>>>> You are asking per VQ register commands to modify things dynamically
+>>>>> via
+>>>> this one vq at a time, serializing all the operations.
+>>>>> It does not scale well with high q count.
+>>>> This is not dynamically, it only happens when SUSPEND and RESUME.
+>>>> This is the same mechanism how virtio initialize a virtqueue, working
+>>>> for many years.
+>>> No. when virtio driver initializes it for the first time, there is no active traffic
+>> that gets lost.
+>>> This is because the interface is not yet up and not part of the network yet.
 >>>
->>>
->>> Reset earlier will corrupt guest memory.
->> IMHO, it may be fine to lose the dirty pages during reset,
->> because without an interrupt, the driver won't process the
->> dirty pages, they are still considered as unused(even not all zero pages)
->> by CPU, so nothing corrupted.
->>
->> And if the driver resets the device, it will reinitialize the device
->> and re-config the virtqueue including the ring buffer.
-> It's too late to invent new consistency semantics for virtio.
-I think when reset, the legacy vring buffer can be considered as invalid.
+>>> The resume must be fast enough, because the remote node is sending
+>> packets.
+>>> Hence it is different from driver init time queue enable.
+>> I am not sure any packets arrive before a link announce at the destination side.
+> I think it can.
+> Because there is no notification of member device link down intimation to remote side.
+> The L4 and L5 protocols have no knowledge that node which they are interacting is behind some layers of switches.
 >
+> So keeping this time low is desired.
+The NIC should broad cast itself first, so that other peers in the 
+network know(for example its mac to route it) how to send a message to it.
+
+This is necessary, for example VIRTIO_NET_F_GUEST_ANNOUNCE, similar 
+mechanism work for in-marketing productions
+for years.
+
+This is out of the topic anyway.
+>
+>>>>>> See the virtio common cfg, you will find the max number of vqs is
+>>>>>> there, num_queues.
+>>>>> :)
+>>>>> Sure. those values at high q count affects.
+>>>> the driver need to initialize them anyway.
+>>> That is before the traffic starts from remote end.
+>> see above, that needs a link announce and this is after re-initialization
+>>>>>>> Device didn’t support LM.
+>>>>>>> Many limitations existed all these years and TC is improving and
+>>>>>>> expanding
+>>>>>> them.
+>>>>>>> So all these years do not matter.
+>>>>>> Not sure what are you talking about, haven't we initialize the
+>>>>>> device and vqs in config space for years?????? What's wrong with this
+>> mechanism?
+>>>>>> Are you questioning virito-pci fundamentals???
+>>>>> Don’t point to in-efficient past to establish similar in-efficient future.
+>>>> interesting, you know this is a one-time thing, right?
+>>>> and you are aware of this has been there for years.
+>>>>>>>>>> Like how to set a queue size and enable it?
+>>>>>>>>> Those are meant to be used before DRIVER_OK stage as they are
+>>>>>>>>> init time
+>>>>>>>> registers.
+>>>>>>>>> Not to keep abusing them..
+>>>>>>>> don't you need to set queue_size at the destination side?
+>>>>>>> No.
+>>>>>>> But the src/dst does not matter.
+>>>>>>> Queue_size to be set before DRIVER_OK like rest of the registers,
+>>>>>>> as all
+>>>>>> queues must be created before the driver_ok phase.
+>>>>>>> Queue_reset was last moment exception.
+>>>>>> create a queue? Nvidia specific?
+>>>>>>
+>>>>> Huh. No.
+>>>>> Do git log and realize what happened with queue_reset.
+>>>> You didn't answer the question, does the spec even has defined "create a
+>> vq"?
+>>> Enabled/created = tomato/tomato when discussing the spec in non-normative
+>> email conversation.
+>>> It's irrelevant.
+>> Then lets not debate on this enable a vq or create a vq anymore
+>>> All I am saying is, when we know the limitations of the transport and
+>>> when industry is forwarding to not introduced more and more on-die register
+>> for once in lifetime work of device migration, we just use the optimal command
+>> and queue interface that is native to virtio.
+>> PCI config space has its own limitations, and admin vq has its advantages, but
+>> that does not apply to all use cases.
+>>
+> There was a recent work done emulating the SR-IOV cap and allowing VM to enable SR-IOV in [1].
+> This is the option I mentioned few weeks ago.
+>
+> So with admin commands and admin virtqueues, even nested model will work using [1].
+>
+> [1] https://netdevconf.info/0x17/sessions/talk/unleashing-sr-iov-offload-on-virtual-machines.html
+We should take this into consideration once it is standardized in the 
+spec, maybe not now, there can
+always be many workarounds to solve one problem.
+>
+>> I don't want to repeat why I don't think admin vq is a good idea for migration
+>> again, we have already discussed on that.
 
 
 This publicly archived list offers a means to provide input to the
