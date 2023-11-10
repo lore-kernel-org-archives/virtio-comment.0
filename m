@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8304-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8305-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70E67C4332F
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 15:33:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD890C4332F
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 02:37:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B08C1330B5
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 15:33:37 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 13A76217DE
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 02:37:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 919F5986CE2
-	for <virtio-comment@archiver.kernel.org>; Thu,  9 Nov 2023 15:33:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E9CAB986CFA
+	for <virtio-comment@archiver.kernel.org>; Fri, 10 Nov 2023 02:37:38 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7584C986CD9; Thu,  9 Nov 2023 15:33:37 +0000 (UTC)
+	id CEB7B986CF2; Fri, 10 Nov 2023 02:37:38 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,154 +24,85 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 642F8986CDA
-	for <virtio-comment@lists.oasis-open.org>; Thu,  9 Nov 2023 15:33:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BA053986CF3;
+	Fri, 10 Nov 2023 02:37:38 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-From: "Pape, Andreas (ADITG/ESS3)" <apape@de.adit-jv.com>
-To: "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>
-Thread-Topic: virtio sound: add missing definitions for 12 and 24kHz sampling
- rates
-Thread-Index: AdoTIVOBs7OOlfs8QAyhGScofwk1EA==
-Date: Thu, 9 Nov 2023 15:33:33 +0000
-Message-ID: <329f386ba6214fb4a58e93a771474d2d@de.adit-jv.com>
-Accept-Language: de-DE, en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-x-originating-ip: [10.72.94.141]
-Content-Type: multipart/mixed;
-	boundary="_004_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_"
+Message-ID: <cda9cfc8-1897-4fcf-9b30-1ad9c81185e6@quicinc.com>
+Date: Fri, 10 Nov 2023 10:37:29 +0800
 MIME-Version: 1.0
-Subject: [virtio-comment] virtio sound: add missing definitions for 12 and 24kHz sampling rates
-
---_004_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_
-Content-Type: multipart/alternative;
-	boundary="_000_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_"
-
---_000_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-I'd like to add two more sampling rates to the virtio sound specification.
-
-
-Regards,
-Andreas Pape
-
-
---_000_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:"Yu Gothic";
-	panose-1:2 11 4 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@Yu Gothic";
-	panose-1:2 11 4 0 0 0 0 0 0 0;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 70.85pt 2.0cm 70.85pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-GB" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"DE">Hi,<br>
-<br>
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal">I&#8217;d like to add two more sampling rates to the=
- virtio sound specification.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Andreas Pape<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_--
-
---_004_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_
-Content-Type: application/octet-stream;
-	name="0001-sound-add-sampling-rates-12000Hz-and-24000Hz.patch"
-Content-Description: 0001-sound-add-sampling-rates-12000Hz-and-24000Hz.patch
-Content-Disposition: attachment;
-	filename="0001-sound-add-sampling-rates-12000Hz-and-24000Hz.patch";
-	size=1023; creation-date="Thu, 09 Nov 2023 15:28:09 GMT";
-	modification-date="Thu, 09 Nov 2023 15:25:40 GMT"
-Content-Transfer-Encoding: base64
-
-RnJvbSAwNjdkZTdhNjY3NmRhZDNlY2FhZjIzMTY2NjFiMGYwMDU3YTE5Y2QyIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbmRyZWFzIFBhcGUgPGFwYXBlQGRlLmFkaXQtanYuY29tPgpE
-YXRlOiBUaHUsIDkgTm92IDIwMjMgMTY6MTQ6NTcgKzAxMDAKU3ViamVjdDogW1BBVENIXSBzb3Vu
-ZDogYWRkIHNhbXBsaW5nIHJhdGVzIDEyMDAwSHogYW5kIDI0MDAwSHoKCjI0a0h6IGlzIHVzZWQg
-Zm9yICdzdXBlciB3aWRlYmFuZCcgdm9pY2UgdHJhbnNtaXNzaW9uCjEya0h6IGlzIGFkZGVkICdm
-b3IgY29tcGxldGVuZXNzJwoKU2lnbmVkLW9mZi1ieTogQW5kcmVhcyBQYXBlIDxhcGFwZUBkZS5h
-ZGl0LWp2LmNvbT4KLS0tCiBkZXZpY2UtdHlwZXMvc291bmQvZGVzY3JpcHRpb24udGV4IHwgNCAr
-KystCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
-IC0tZ2l0IGEvZGV2aWNlLXR5cGVzL3NvdW5kL2Rlc2NyaXB0aW9uLnRleCBiL2RldmljZS10eXBl
-cy9zb3VuZC9kZXNjcmlwdGlvbi50ZXgKaW5kZXggNTRjOWM4ZS4uYmFkNDQxNSAxMDA2NDQKLS0t
-IGEvZGV2aWNlLXR5cGVzL3NvdW5kL2Rlc2NyaXB0aW9uLnRleAorKysgYi9kZXZpY2UtdHlwZXMv
-c291bmQvZGVzY3JpcHRpb24udGV4CkBAIC01MDQsNyArNTA0LDkgQEAgXHN1YnN1YnNlY3Rpb257
-UENNIENvbnRyb2wgTWVzc2FnZXN9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBTb3VuZCBEZXZp
-Y2UgLyBEZXYKICAgICBWSVJUSU9fU05EX1BDTV9SQVRFXzk2MDAwLAogICAgIFZJUlRJT19TTkRf
-UENNX1JBVEVfMTc2NDAwLAogICAgIFZJUlRJT19TTkRfUENNX1JBVEVfMTkyMDAwLAotICAgIFZJ
-UlRJT19TTkRfUENNX1JBVEVfMzg0MDAwCisgICAgVklSVElPX1NORF9QQ01fUkFURV8zODQwMDAs
-CisgICAgVklSVElPX1NORF9QQ01fUkFURV8xMjAwMCwKKyAgICBWSVJUSU9fU05EX1BDTV9SQVRF
-XzI0MDAwCiB9OwogCiBzdHJ1Y3QgdmlydGlvX3NuZF9wY21faW5mbyB7Ci0tIAoyLjcuNAoK
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+CC: Harald Mommer <harald.mommer@opensynergy.com>,
+        <virtio-dev@lists.oasis-open.org>,
+        <virtio-comment@lists.oasis-open.org>, <cohuck@redhat.com>,
+        <quic_ztu@quicinc.com>
+References: <20231024125346.23546-1-quic_haixcui@quicinc.com>
+ <ZUjrDjHpFVReDSgk@finisterre.sirena.org.uk>
+ <c08f1b37-51e8-4126-9e1c-40530f468df4@quicinc.com>
+ <ZUuxfbkSboAFQIQF@finisterre.sirena.org.uk>
+ <ab11fb3c-296f-41a3-92c7-2e8dddb4369f@quicinc.com>
+ <ZUzaZt4flHQgsBzu@finisterre.sirena.org.uk>
+From: Haixu Cui <quic_haixcui@quicinc.com>
+In-Reply-To: <ZUzaZt4flHQgsBzu@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-ORIG-GUID: gFYCy36jNg9uVGVl9i1BV4MpAd0eigYw
+X-Proofpoint-GUID: gFYCy36jNg9uVGVl9i1BV4MpAd0eigYw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-09_17,2023-11-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 mlxlogscore=711 suspectscore=0 spamscore=0 impostorscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311100020
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH v4] virtio-spi: add the device specification
 
 
---_004_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_
-Content-Type: text/plain; charset=us-ascii
 
+On 11/9/2023 9:11 PM, Mark Brown wrote:
+> On Thu, Nov 09, 2023 at 07:21:57PM +0800, Haixu Cui wrote:
+> 
+>>     For checking the parameters above in virtio_spi_transfer_head, I'd like
+>> to add these field in config space:
+> 
+>>      5. freq_max_speed: if non-zero, maximum clock rate support, in Hz
+>>                  unit. if 0, no limitation.
+>>
+>>      6. max_word_delay_ns: if non-zero, the maximum word delay supported.
+>>                  if 0, word delay is not supported to introduce.
+>>
+>>      7. max_delay_after_cs_asserted: if non-zero, the maximum cs setup
+>>                  delay supported.if 0, cs setup delay is not supported to
+>>                  introduce
+>>
+>>      8. max_delay_before_cs_deassert: if non-zero, the maximum
+>>                  cs_delay_hold_ns delay supported.if 0, cs setup delay is
+>>                  not supported to introduce
+>>
+>>      9. max_delay_after_cs_deassert: if non-zero, the maximum
+>>                  cs_change_delay_inactive_ns delay supported.if 0, cs
+>>                  setup delay is not supported to introduce
+> 
+> I think this all makes sense - for the above we probably also need to
+> say that if the value requested by the client can't be met exactly we
+> either treat it as a minimum or maximum depending on the delays and
+> choose the next value (probably a maximum for the clock and minimum for
+> the rest).  So for example if the client requests 21MHz and the
+> controller can only select 20MHz or 25MHz then it should pick 20MHz.
+
+Sure, I will update to make it more flexible.
+
+Thanks a lot.
+
+Best Regards
+Haixu Cui
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
@@ -188,4 +119,4 @@ Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
 List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
 Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
---_004_329f386ba6214fb4a58e93a771474d2ddeaditjvcom_--
+
