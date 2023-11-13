@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8345-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8346-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBFEFC4332F
-	for <virtio-comment@archiver.kernel.org>; Mon, 13 Nov 2023 09:25:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9977EC4332F
+	for <virtio-comment@archiver.kernel.org>; Mon, 13 Nov 2023 09:30:01 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id EE76F3E56B
-	for <virtio-comment@archiver.kernel.org>; Mon, 13 Nov 2023 09:25:40 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id B85DF4454E
+	for <virtio-comment@archiver.kernel.org>; Mon, 13 Nov 2023 09:30:00 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E3E82986811
-	for <virtio-comment@archiver.kernel.org>; Mon, 13 Nov 2023 09:25:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8CB77986811
+	for <virtio-comment@archiver.kernel.org>; Mon, 13 Nov 2023 09:30:00 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D95B39867C2; Mon, 13 Nov 2023 09:25:40 +0000 (UTC)
+	id 7298E9867C2; Mon, 13 Nov 2023 09:30:00 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,233 +24,106 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CB99F9867DD
-	for <virtio-comment@lists.oasis-open.org>; Mon, 13 Nov 2023 09:25:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 635949867DD
+	for <virtio-comment@lists.oasis-open.org>; Mon, 13 Nov 2023 09:30:00 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10892"; a="11951599"
+X-IronPort-AV: E=McAfee;i="6600,9927,10892"; a="375430404"
 X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; 
-   d="scan'208";a="11951599"
+   d="scan'208";a="375430404"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10892"; a="854907525"
+X-IronPort-AV: E=McAfee;i="6600,9927,10892"; a="799146306"
 X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; 
-   d="scan'208";a="854907525"
-Message-ID: <4201d1df-100d-495c-97ba-7efbe73d9137@intel.com>
-Date: Mon, 13 Nov 2023 17:25:32 +0800
+   d="scan'208";a="799146306"
+Message-ID: <6b3f5fb9-4e43-4144-9724-8ed11cac4d43@intel.com>
+Date: Mon, 13 Nov 2023 17:29:51 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
- <jasowang@redhat.com>, "mst@redhat.com" <mst@redhat.com>,
- "eperezma@redhat.com" <eperezma@redhat.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "stefanha@redhat.com" <stefanha@redhat.com>
-Cc: "virtio-comment@lists.oasis-open.org"
- <virtio-comment@lists.oasis-open.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: jasowang@redhat.com, eperezma@redhat.com, cohuck@redhat.com,
+ stefanha@redhat.com, virtio-comment@lists.oasis-open.org, parav@nvidia.com
 References: <20231103103437.72784-1-lingshan.zhu@intel.com>
  <20231103103437.72784-5-lingshan.zhu@intel.com>
- <PH0PR12MB5481085F6E84FD2786FCD60BDCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <705607e3-39c3-47da-a688-80bbee31c48d@intel.com>
- <PH0PR12MB54814F9EEDD69ED434BF7994DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <b0506d9f-37de-43c9-b99d-b00bb88c0d36@intel.com>
- <PH0PR12MB548174AF58B6ADDDA215123DDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <b8d51cd3-33fe-4167-a87b-ae662609c5d8@intel.com>
- <PH0PR12MB5481BCA941D86E1031D7A5D9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <7a0e7cef-434c-4049-b72f-b8188ecedbaf@intel.com>
- <DM8PR12MB54801250188E085F6D03869EDCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <5bdc33bb-4ad5-4274-9764-69e1887b0d17@intel.com>
- <PH0PR12MB54815431B823C54E3231EC5EDCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <bb66298e-9ee5-4370-8532-13110f392f41@intel.com>
- <PH0PR12MB548189E49C97E91374B3F514DCAEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231108125515-mutt-send-email-mst@kernel.org>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB548189E49C97E91374B3F514DCAEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <20231108125515-mutt-send-email-mst@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH V2 4/6] virtio-pci: implement
- VIRTIO_F_QUEUE_STATE
+Content-Transfer-Encoding: 7bit
+Subject: [virtio-comment] Re: [PATCH V2 4/6] virtio-pci: implement VIRTIO_F_QUEUE_STATE
 
 
 
-On 11/10/2023 8:31 PM, Parav Pandit wrote:
->> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->> Sent: Friday, November 10, 2023 1:22 PM
+On 11/9/2023 1:56 AM, Michael S. Tsirkin wrote:
+> On Fri, Nov 03, 2023 at 06:34:35PM +0800, Zhu Lingshan wrote:
+>> This patch adds two new le16 fields to common configuration structure
+>> to support VIRTIO_F_QUEUE_STATE in PCI transport layer.
 >>
+>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+>> ---
+>>   transport-pci.tex | 18 ++++++++++++++++++
+>>   1 file changed, 18 insertions(+)
 >>
->> On 11/9/2023 6:25 PM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>> Sent: Thursday, November 9, 2023 3:39 PM
->>>>
->>>>
->>>> On 11/9/2023 2:28 PM, Parav Pandit wrote:
->>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>> Sent: Tuesday, November 7, 2023 3:02 PM
->>>>>>
->>>>>> On 11/6/2023 6:52 PM, Parav Pandit wrote:
->>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>>>> Sent: Monday, November 6, 2023 2:57 PM
->>>>>>>>
->>>>>>>> On 11/6/2023 12:12 PM, Parav Pandit wrote:
->>>>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>>>>>> Sent: Monday, November 6, 2023 9:01 AM
->>>>>>>>>>
->>>>>>>>>> On 11/3/2023 11:50 PM, Parav Pandit wrote:
->>>>>>>>>>>> From: virtio-comment@lists.oasis-open.org
->>>>>>>>>>>> <virtio-comment@lists.oasis- open.org> On Behalf Of Zhu,
->>>>>>>>>>>> Lingshan
->>>>>>>>>>>> Sent: Friday, November 3, 2023 8:27 PM
->>>>>>>>>>>>
->>>>>>>>>>>> On 11/3/2023 7:35 PM, Parav Pandit wrote:
->>>>>>>>>>>>>> From: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>>>>>>>>>> Sent: Friday, November 3, 2023 4:05 PM
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> This patch adds two new le16 fields to common configuration
->>>>>>>>>>>>>> structure to support VIRTIO_F_QUEUE_STATE in PCI transport
->> layer.
->>>>>>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>>>>>>>>>> ---
->>>>>>>>>>>>>>         transport-pci.tex | 18 ++++++++++++++++++
->>>>>>>>>>>>>>         1 file changed, 18 insertions(+)
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> diff --git a/transport-pci.tex b/transport-pci.tex index
->>>>>>>>>>>>>> a5c6719..3161519 100644
->>>>>>>>>>>>>> --- a/transport-pci.tex
->>>>>>>>>>>>>> +++ b/transport-pci.tex
->>>>>>>>>>>>>> @@ -325,6 +325,10 @@ \subsubsection{Common configuration
->>>>>>>>>> structure
->>>>>>>>>>>>>> layout}\label{sec:Virtio Transport
->>>>>>>>>>>>>>                 /* About the administration virtqueue. */
->>>>>>>>>>>>>>                 le16 admin_queue_index;         /* read-only for driver
->> */
->>>>>>>>>>>>>>                 le16 admin_queue_num;         /* read-only for driver
->> */
->>>>>>>>>>>>>> +
->>>>>>>>>>>>>> +	/* Virtqueue state */
->>>>>>>>>>>>>> +        le16 queue_avail_state;         /* read-write */
->>>>>>>>>>>>>> +        le16 queue_used_state;          /* read-write */
->>>>>>>>>>>>> This tiny interface for 128 virtio net queues through
->>>>>>>>>>>>> register read writes, does
->>>>>>>>>>>> not work effectively.
->>>>>>>>>>>>> There are inflight out of order descriptors for block also.
->>>>>>>>>>>>> Hence toy registers like this do not work.
->>>>>>>>>>>> Do you know there is a queue_select? Why this does not work?
->>>>>>>>>>>> Do you know how other queue related fields work?
->>>>>>>>>>> :)
->>>>>>>>>>> Yes. If you notice queue_reset related critical spec bug fix
->>>>>>>>>>> was done when it
->>>>>>>>>> was introduced so that live migration can _actually_ work.
->>>>>>>>>>> When queue_select is done for 128 queues serially, it take a
->>>>>>>>>>> lot of time to
->>>>>>>>>> read those slow register interface for this + inflight descriptors +
->> more.
->>>>>>>>>> interesting, virtio work in this pattern for many years, right?
->>>>>>>>> All these years 400Gbps and 800Gbps virtio was not present,
->>>>>>>>> number of
->>>>>>>> queues were not in hw.
->>>>>>>> The registers are control path in config space, how 400G or 800G
->> affect??
->>>>>>> Because those are the one in practice requires large number of VQs.
->>>>>>>
->>>>>>> You are asking per VQ register commands to modify things
->>>>>>> dynamically via
->>>>>> this one vq at a time, serializing all the operations.
->>>>>>> It does not scale well with high q count.
->>>>>> This is not dynamically, it only happens when SUSPEND and RESUME.
->>>>>> This is the same mechanism how virtio initialize a virtqueue,
->>>>>> working for many years.
->>>>> No. when virtio driver initializes it for the first time, there is
->>>>> no active traffic
->>>> that gets lost.
->>>>> This is because the interface is not yet up and not part of the network yet.
->>>>>
->>>>> The resume must be fast enough, because the remote node is sending
->>>> packets.
->>>>> Hence it is different from driver init time queue enable.
->>>> I am not sure any packets arrive before a link announce at the destination
->> side.
->>> I think it can.
->>> Because there is no notification of member device link down intimation to
->> remote side.
->>> The L4 and L5 protocols have no knowledge that node which they are
->> interacting is behind some layers of switches.
->>> So keeping this time low is desired.
->> The NIC should broad cast itself first, so that other peers in the network
->> know(for example its mac to route it) how to send a message to it.
->>
->> This is necessary, for example VIRTIO_NET_F_GUEST_ANNOUNCE, similar
->> mechanism work for in-marketing productions for years.
->>
->> This is out of the topic anyway.
->>>>>>>> See the virtio common cfg, you will find the max number of vqs is
->>>>>>>> there, num_queues.
->>>>>>> :)
->>>>>>> Sure. those values at high q count affects.
->>>>>> the driver need to initialize them anyway.
->>>>> That is before the traffic starts from remote end.
->>>> see above, that needs a link announce and this is after
->>>> re-initialization
->>>>>>>>> Device didn’t support LM.
->>>>>>>>> Many limitations existed all these years and TC is improving and
->>>>>>>>> expanding
->>>>>>>> them.
->>>>>>>>> So all these years do not matter.
->>>>>>>> Not sure what are you talking about, haven't we initialize the
->>>>>>>> device and vqs in config space for years?????? What's wrong with
->>>>>>>> this
->>>> mechanism?
->>>>>>>> Are you questioning virito-pci fundamentals???
->>>>>>> Don’t point to in-efficient past to establish similar in-efficient future.
->>>>>> interesting, you know this is a one-time thing, right?
->>>>>> and you are aware of this has been there for years.
->>>>>>>>>>>> Like how to set a queue size and enable it?
->>>>>>>>>>> Those are meant to be used before DRIVER_OK stage as they are
->>>>>>>>>>> init time
->>>>>>>>>> registers.
->>>>>>>>>>> Not to keep abusing them..
->>>>>>>>>> don't you need to set queue_size at the destination side?
->>>>>>>>> No.
->>>>>>>>> But the src/dst does not matter.
->>>>>>>>> Queue_size to be set before DRIVER_OK like rest of the
->>>>>>>>> registers, as all
->>>>>>>> queues must be created before the driver_ok phase.
->>>>>>>>> Queue_reset was last moment exception.
->>>>>>>> create a queue? Nvidia specific?
->>>>>>>>
->>>>>>> Huh. No.
->>>>>>> Do git log and realize what happened with queue_reset.
->>>>>> You didn't answer the question, does the spec even has defined
->>>>>> "create a
->>>> vq"?
->>>>> Enabled/created = tomato/tomato when discussing the spec in
->>>>> non-normative
->>>> email conversation.
->>>>> It's irrelevant.
->>>> Then lets not debate on this enable a vq or create a vq anymore
->>>>> All I am saying is, when we know the limitations of the transport
->>>>> and when industry is forwarding to not introduced more and more
->>>>> on-die register
->>>> for once in lifetime work of device migration, we just use the
->>>> optimal command and queue interface that is native to virtio.
->>>> PCI config space has its own limitations, and admin vq has its
->>>> advantages, but that does not apply to all use cases.
->>>>
->>> There was a recent work done emulating the SR-IOV cap and allowing VM to
->> enable SR-IOV in [1].
->>> This is the option I mentioned few weeks ago.
->>>
->>> So with admin commands and admin virtqueues, even nested model will work
->> using [1].
->>> [1]
->>> https://netdevconf.info/0x17/sessions/talk/unleashing-sr-iov-offload-o
->>> n-virtual-machines.html
->> We should take this into consideration once it is standardized in the spec,
->> maybe not now, there can always be many workarounds to solve one problem.
-> Sure, until that point the admin commands are able to suffice the need well.
-> And when the spec changes in transport occurs (if needed), current admin command and admin vq also fits very well that will follow above [1].
-we have pointed lots of problems for admin vq based live migration 
-proposal, I won't repeat them here
+>> diff --git a/transport-pci.tex b/transport-pci.tex
+>> index a5c6719..3161519 100644
+>> --- a/transport-pci.tex
+>> +++ b/transport-pci.tex
+>> @@ -325,6 +325,10 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+>>           /* About the administration virtqueue. */
+>>           le16 admin_queue_index;         /* read-only for driver */
+>>           le16 admin_queue_num;         /* read-only for driver */
+>> +
+>> +	/* Virtqueue state */
+>> +        le16 queue_avail_state;         /* read-write */
+>> +        le16 queue_used_state;          /* read-write */
+>>   };
+>>   \end{lstlisting}
+>>   
+>> @@ -428,6 +432,17 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+>>   	The value 0 indicates no supported administration virtqueues.
+>>   	This field is valid only if VIRTIO_F_ADMIN_VQ has been
+>>   	negotiated.
+>> +
+>> +\item[\field{queue_avail_state}]
+>> +        This field is valid only if VIRTIO_F_QUEUE_STATE has been
+>> +        negotiated. The driver sets and gets the available state of
+>> +        the virtqueue here (see \ref{sec:Virtqueues / Virtqueue State}).
+>> +
+>> +\item[\field{queue_used_state}]
+>> +        This field is valid only if VIRTIO_F_QUEUE_STATE has been
+>> +        negotiated. The driver sets and gets the used state of the
+>> +        virtqueue here (see \ref{sec:Virtqueues / Virtqueue State}).
+>> +
+>>   \end{description}
+>>   
+>>   \devicenormative{\paragraph}{Common configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}
 >
-> Thanks.
->>>> I don't want to repeat why I don't think admin vq is a good idea for
->>>> migration again, we have already discussed on that.
+> Two fields are pointless in the general case.  Fix this to at least
+> support out of order buffer use, then there's something to talk about.
+> I suspect we'll be back to yet another bespoke mailbox and a bitmap for
+> this.
+For split virtqueue, it has available ring, used ring and descriptor table,
+means the device can always tell which descriptor/buffer is in-flight
+or not processed even when out_of_order.
+
+For packed virtqueue, because the descriptors may be overwritten, so when
+out_out_order, the descriptors behind last_avial_idx should be considered
+as in-flight and should be processed at the destination side.
+
+Does this work for you?
+>
+>
+>> @@ -488,6 +503,9 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+>>   present either a value of 0 or a power of 2 in
+>>   \field{queue_size}.
+>>   
+>> +If VIRTIO_F_QUEUE_STATE has not been negotiated, the device MUST ignore
+>> +any accesses to \field{queue_avail_state} and \field{queue_used_state}.
+>> +
+>>   If VIRTIO_F_ADMIN_VQ has been negotiated, the value
+>>   \field{admin_queue_index} MUST be equal to, or bigger than
+>>   \field{num_queues}; also, \field{admin_queue_num} MUST be
+>> -- 
+>> 2.35.3
 
 
 This publicly archived list offers a means to provide input to the
