@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8358-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8359-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E8EC47074
-	for <virtio-comment@archiver.kernel.org>; Wed, 15 Nov 2023 07:52:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 623BFC07548
+	for <virtio-comment@archiver.kernel.org>; Wed, 15 Nov 2023 07:58:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id AFE0A72349
-	for <virtio-comment@archiver.kernel.org>; Wed, 15 Nov 2023 07:52:00 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id AF004749ED
+	for <virtio-comment@archiver.kernel.org>; Wed, 15 Nov 2023 07:58:14 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 99CD9986DA0
-	for <virtio-comment@archiver.kernel.org>; Wed, 15 Nov 2023 07:52:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8189F986D9C
+	for <virtio-comment@archiver.kernel.org>; Wed, 15 Nov 2023 07:58:14 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 80199986D99; Wed, 15 Nov 2023 07:52:00 +0000 (UTC)
+	id 6498A986D99; Wed, 15 Nov 2023 07:58:14 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,52 +24,53 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6CD32986D9A
-	for <virtio-comment@lists.oasis-open.org>; Wed, 15 Nov 2023 07:52:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 54510986D9A
+	for <virtio-comment@lists.oasis-open.org>; Wed, 15 Nov 2023 07:58:14 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: KrZBYKcVPUCEofMHBxVNXA-1
+X-MC-Unique: UVptHd3bM5uLaQNxJlX0oQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700034717; x=1700639517;
+        d=1e100.net; s=20230601; t=1700035089; x=1700639889;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4NPEvH4lO5C1rsexMQFUBIDfNQNLBpnivAn85zHjx+Q=;
-        b=hAUMylI6R98bHvjW/fum2rrga07l5IGxLETvsmtjD1RRo/CQ/Mcz1RTPSQu+0VhHpg
-         vZEV/IQGoBDpmlEdu14uB95AoYUKDkrFfFK95OHauThnZNflkFWE+waboo9+zFhb8mDC
-         aX1aQ5MsHEtvHuT4boz6U/yDrg5RB6uT62+KvnaIuMQlVYXh3banlsdkLne3GSHVEoB/
-         pmtE2U0pPMURsmcgj6VdHgP+dMxvNjkZF02k/oaJRP7oqfVl/e25CzIezhGOC9yC/WJ8
-         +CV2TbDHgWKt6RcBq7FdYsL7VIV2bozUNZWeTnNQTl4PJpeb1ViBwSFdb7MqR1+EJH5I
-         xJnw==
-X-Gm-Message-State: AOJu0Yy5yItWISca+XLgg+Xi48mlV9tR/bLfnkv5OiZstF953RKLROwv
-	vjRwXjFgalReuddpDTr+6oLjex7HyK35SgjuPx/IYx0DzyGNpOILMKfk15auykWCDPh/qVAsx0E
-	kCUcFBXGXYVyO0FiHkiLi77JBW51813084Q==
-X-Received: by 2002:a17:906:ecea:b0:9bf:6200:fe33 with SMTP id qt10-20020a170906ecea00b009bf6200fe33mr8759003ejb.16.1700034716912;
-        Tue, 14 Nov 2023 23:51:56 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEAJWJR12vtt/bA9ZV6tZiwJlpofVXGefJodT8MPvkDQ2FxbPszHZBs0zC1sReap5CwGpEEog==
-X-Received: by 2002:a17:906:ecea:b0:9bf:6200:fe33 with SMTP id qt10-20020a170906ecea00b009bf6200fe33mr8758984ejb.16.1700034716592;
-        Tue, 14 Nov 2023 23:51:56 -0800 (PST)
-Date: Wed, 15 Nov 2023 02:51:52 -0500
+        bh=M+L32pS9VvVR3cShEIA/hAHrl62Mv1eToEj2B92eJCs=;
+        b=acgBSc7Cat7trt/8Q/78N8Mgf7PW29IPwhSw2tDs8sv/flr8iPG4k+OM+I5lM6NP3Y
+         pwep6Lh/VQcOy/sKll/rZLnkiJ+uGMUbGmugroLltwzwdD8v8+wqlb3PNH1XmFFOzRLu
+         7FbI/xw7Q9CbQh6iJwT/ytZv9I0tq6adAT8r/OgC3+HN/HUmvY9UXkei2RP/GG3komu+
+         m2CDnQbMdC+VM6F9psv6sHqaJYPs7zafU6iNEpFzoaJ+cWZtoPOwhFxMEv9HLmLBHRPL
+         xAHIzvtguwmi0l/S1+6jktoex6vSKzQj5rlnWDRboUOwgGmrq9S9cMQB7Rap5WuqgifZ
+         Hcyg==
+X-Gm-Message-State: AOJu0YxoRUv9ngWE5mbDeoSQd30sabhsCq69u+V+ngQXQySDs/3D8+ux
+	fpmpNx8DKMgw//UNLny7gyQ2rGCl0lrGIY90N/DTUaEWNs4CS6dp4qp7sle2NsEfNPtPAVQ4My2
+	VV8kHsniZI1Vp8YtsgX6CSVog88eddTYj0A==
+X-Received: by 2002:a17:907:770d:b0:9ae:5120:5147 with SMTP id kw13-20020a170907770d00b009ae51205147mr7233714ejc.38.1700035089511;
+        Tue, 14 Nov 2023 23:58:09 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFj41AOE3q+6FDDYruIrKUxD2tjvRTm/Wf1T3X+4Netxy8+LI/WRvVSTuEcgxM795MBX7Qhgg==
+X-Received: by 2002:a17:907:770d:b0:9ae:5120:5147 with SMTP id kw13-20020a170907770d00b009ae51205147mr7233699ejc.38.1700035089215;
+        Tue, 14 Nov 2023 23:58:09 -0800 (PST)
+Date: Wed, 15 Nov 2023 02:58:05 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>,
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231115025002-mutt-send-email-mst@kernel.org>
-References: <20231107015412-mutt-send-email-mst@kernel.org>
- <CACGkMEv+jir2+f_vHmi_KjFXf0yz+EQmEbvzX0pheHKsVJkWZw@mail.gmail.com>
- <20231108025854-mutt-send-email-mst@kernel.org>
- <CACGkMEvkQawXWCvu7rZHnZk8YsNunS_B-fcQmEHEe_N87Q6y6g@mail.gmail.com>
- <20231109022647-mutt-send-email-mst@kernel.org>
- <CACGkMEuSpZ0Y8kxXv26b38pvX--OCdvWm5KvMniqo=W10ruBTA@mail.gmail.com>
- <20231113013016-mutt-send-email-mst@kernel.org>
- <9952859f-1b72-46bf-b386-7c3f5c69269f@intel.com>
- <20231114032553-mutt-send-email-mst@kernel.org>
- <b9b8a564-b2eb-4c1c-9ada-975f3833e282@intel.com>
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Message-ID: <20231115025615-mutt-send-email-mst@kernel.org>
+References: <CACGkMEuHBRwH9LqC+_jBX5OFrzhJw88AZeAQBou+G_hZK1F2Ug@mail.gmail.com>
+ <PH0PR12MB54811B1D566FA64E693E20D6DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEuA6u-EJCsrhvBRKxB6nxG=H28SEh4ihM3Ptgn1FQdGKA@mail.gmail.com>
+ <DM8PR12MB54809F8316720CE5C1BCFF33DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEtFyH_wJAqTz=jwosVM-=SRuO+wpT7NM=Eod8ExsxfTsg@mail.gmail.com>
+ <PH0PR12MB54814420718AB387C0C84C07DCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtGvDxF1Dnb6FJDK8XEAUcast-7OnuzTyfAr7m0LURWMw@mail.gmail.com>
+ <PH0PR12MB548152A30021BEBFFCA62AA9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEv8mccZfcA4n+KVwdkaWAqhM94Qhq8H5Rvw2CocCmt9UA@mail.gmail.com>
+ <DM8PR12MB5480A4E02DF988BCDD16E7BEDCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <b9b8a564-b2eb-4c1c-9ada-975f3833e282@intel.com>
+In-Reply-To: <DM8PR12MB5480A4E02DF988BCDD16E7BEDCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
@@ -77,39 +78,14 @@ Content-Disposition: inline
 Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write
  recording commands
 
-On Wed, Nov 15, 2023 at 12:05:59PM +0800, Zhu, Lingshan wrote:
-> 
-> 
-> On 11/14/2023 4:27 PM, Michael S. Tsirkin wrote:
-> > On Tue, Nov 14, 2023 at 03:34:32PM +0800, Zhu, Lingshan wrote:
-> > > > > So I can't
-> > > > > believe it has good performance overall. Logging via IOMMU or using
-> > > > > shadow virtqueue doesn't need any extra PCI transactions at least.
-> > > > On the other hand they have an extra CPU cost.  Personally if this is
-> > > > coming from a hardware vendor, I am inclined to trust them wrt PCI
-> > > > transactions.  But anyway, discussing this at a high level theoretically
-> > > > is pointless - whoever bothers with actual prototyping for performance
-> > > > testing wins, if no one does I'd expect a back of a napkin estimate
-> > > > to be included.
-> > > if so, Intel has released productions implementing these interfaces years
-> > > ago,
-> > > see live migration in 4.1. IFCVF vDPA Implementation,
-> > > https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html
-> > > and
-> > That one is based on shadow queue, right? Which I think this shows
-> > is worth supporting.
-> Yes, it is shadow virtqueue, I assume this is already mostly done,
-> do you see any gaps we need to address in our series that we should work on?
-> 
-> Thanks
+On Thu, Nov 09, 2023 at 06:24:56AM +0000, Parav Pandit wrote:
+> Once PRI is enabled, even without migration, there is basic perf issues.
 
-There were a ton of comments posted on your series.
-
-> > 
-> > > But I still believe we are here try our best to work out an industrial spec
-> > > with better quality, to serve broad interest. This is not competition
-> > > between companies,
-> > > and the spec is not a FIFO, not like a early bird can catch all the worm.
+So you keep saying this and this gives the impression you have a PoC
+that you tested to check performance based on admin commands.
+If so that's great because one of the main points here is performance.
+Could you share these numbers? And, could you compare to shadow
+vq based one which is upstream in qemu?
 
 
 This publicly archived list offers a means to provide input to the
