@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8401-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8402-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 570FBC197A0
-	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 10:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C2EC47071
+	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 10:14:52 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A550494EEA
-	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 10:12:21 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E8CECA432D
+	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 10:14:51 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 99D85986DE4
-	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 10:12:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C65D5986DDC
+	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 10:14:51 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8F226986DDA; Thu, 16 Nov 2023 10:12:21 +0000 (UTC)
+	id B023C986DDA; Thu, 16 Nov 2023 10:14:51 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,221 +24,252 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 81650986DDB
-	for <virtio-comment@lists.oasis-open.org>; Thu, 16 Nov 2023 10:12:21 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A090C986DDB
+	for <virtio-comment@lists.oasis-open.org>; Thu, 16 Nov 2023 10:14:51 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="12609806"
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="393911072"
 X-IronPort-AV: E=Sophos;i="6.03,308,1694761200"; 
-   d="scan'208";a="12609806"
+   d="scan'208";a="393911072"
 X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="758788354"
 X-IronPort-AV: E=Sophos;i="6.03,308,1694761200"; 
-   d="scan'208";a="13506315"
-Message-ID: <ae131832-7e6e-458a-8dde-c4eacddc8d8d@intel.com>
-Date: Thu, 16 Nov 2023 18:12:14 +0800
+   d="scan'208";a="758788354"
+Message-ID: <166b43a5-b301-486f-9cc4-01a1cc80eed4@intel.com>
+Date: Thu, 16 Nov 2023 18:14:43 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+To: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
+ <jasowang@redhat.com>, "mst@redhat.com" <mst@redhat.com>,
  "eperezma@redhat.com" <eperezma@redhat.com>,
  "cohuck@redhat.com" <cohuck@redhat.com>,
- "stefanha@redhat.com" <stefanha@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+ "stefanha@redhat.com" <stefanha@redhat.com>
+Cc: "virtio-comment@lists.oasis-open.org"
+ <virtio-comment@lists.oasis-open.org>
 References: <20231103103437.72784-1-lingshan.zhu@intel.com>
- <20231103103437.72784-4-lingshan.zhu@intel.com>
- <20231106044836-mutt-send-email-mst@kernel.org>
- <c6cb6e6b-fd2b-43ac-9be5-c4a8cda1ac13@intel.com>
- <20231108124625-mutt-send-email-mst@kernel.org>
- <b125da70-a769-4662-876b-43664e39c976@intel.com>
- <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvLYgnLtSqx_G=-KMuANEZ=xtAzJjV3pYqAZhA0qqW0sQ@mail.gmail.com>
- <PH0PR12MB54819A6E470D3ABE4BC1F450DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtxm8M5vKfOPOAS347JAJNeRDyPe+nif1LszuRWS0vShQ@mail.gmail.com>
- <PH0PR12MB54810EF71D0BF925F4F81A65DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <705607e3-39c3-47da-a688-80bbee31c48d@intel.com>
+ <PH0PR12MB54814F9EEDD69ED434BF7994DCA5A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <b0506d9f-37de-43c9-b99d-b00bb88c0d36@intel.com>
+ <PH0PR12MB548174AF58B6ADDDA215123DDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <b8d51cd3-33fe-4167-a87b-ae662609c5d8@intel.com>
+ <PH0PR12MB5481BCA941D86E1031D7A5D9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <7a0e7cef-434c-4049-b72f-b8188ecedbaf@intel.com>
+ <DM8PR12MB54801250188E085F6D03869EDCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <5bdc33bb-4ad5-4274-9764-69e1887b0d17@intel.com>
+ <PH0PR12MB54815431B823C54E3231EC5EDCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <bb66298e-9ee5-4370-8532-13110f392f41@intel.com>
+ <PH0PR12MB548189E49C97E91374B3F514DCAEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <4201d1df-100d-495c-97ba-7efbe73d9137@intel.com>
+ <PH0PR12MB54810113B095063A5B875A03DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <PH0PR12MB54810EF71D0BF925F4F81A65DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54810113B095063A5B875A03DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] RE: [PATCH V2 3/6] virtio: dont reset vqs when
- SUSPEND
+Subject: Re: [virtio-comment] Re: [PATCH V2 4/6] virtio-pci: implement
+ VIRTIO_F_QUEUE_STATE
 
 
 
-On 11/16/2023 1:27 PM, Parav Pandit wrote:
->> From: Jason Wang <jasowang@redhat.com>
->> Sent: Thursday, November 16, 2023 9:50 AM
+On 11/16/2023 1:35 AM, Parav Pandit wrote:
+>
+>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>> Sent: Monday, November 13, 2023 2:56 PM
 >>
->> On Thu, Nov 16, 2023 at 1:39 AM Parav Pandit <parav@nvidia.com> wrote:
->>>
->>>
->>>> From: Jason Wang <jasowang@redhat.com>
->>>> Sent: Monday, November 13, 2023 9:05 AM
+>>
+>>
+>> On 11/10/2023 8:31 PM, Parav Pandit wrote:
+>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>> Sent: Friday, November 10, 2023 1:22 PM
 >>>>
->>>> On Thu, Nov 9, 2023 at 6:16 PM Parav Pandit <parav@nvidia.com> wrote:
->>>>>
+>>>>
+>>>> On 11/9/2023 6:25 PM, Parav Pandit wrote:
 >>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
->>>>>> Sent: Thursday, November 9, 2023 3:28 PM
+>>>>>> Sent: Thursday, November 9, 2023 3:39 PM
 >>>>>>
->>>>>> On 11/9/2023 1:46 AM, Michael S. Tsirkin wrote:
->>>>>>> On Tue, Nov 07, 2023 at 05:27:23PM +0800, Zhu, Lingshan wrote:
->>>>>>>> On 11/6/2023 5:49 PM, Michael S. Tsirkin wrote:
->>>>>>>>> On Fri, Nov 03, 2023 at 06:34:34PM +0800, Zhu Lingshan wrote:
->>>>>>>>>> When SUSPEND is set, device states and virtqueue states
->>>>>>>>>> should be stablized, therefore the driver should not reset
->>>>>>>>>> vqs when SUSPEND is set in device status.
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>>>>>> ---
->>>>>>>>>>     content.tex | 3 +++
->>>>>>>>>>     1 file changed, 3 insertions(+)
->>>>>>>>>>
->>>>>>>>>> diff --git a/content.tex b/content.tex index
->>>>>>>>>> bcc9d4b..060b5c2
->>>>>>>>>> 100644
->>>>>>>>>> --- a/content.tex
->>>>>>>>>> +++ b/content.tex
->>>>>>>>>> @@ -444,6 +444,9 @@ \subsubsection{Virtqueue
->>>>>>>>>> Reset}\label{sec:Basic
->>>>>> Facilities of a Virtio Device /
->>>>>>>>>>     The device MUST reset any state of a virtqueue to the default
->> state,
->>>>>>>>>>     including the available state and the used state.
->>>>>>>>>> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set in
->>>>>>>>>> +\field{device status}, the driver SHOULD NOT reset any
->> virtqueues.
->>>>>>>>>> +
->>>>>>>>>>     \drivernormative{\paragraph}{Virtqueue Reset}{Basic
->>>>>>>>>> Facilities of a
->>>>>> Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue Reset}
->>>>>>>>>>     After the driver tells the device to reset a queue, the
->>>>>>>>>> driver MUST verify that
->>>>>>>>> Seems somewhat arbitrary and breaks the claim that the
->>>>>>>>> feature is orthogonal and can have uses besides migration.
->>>>>>>> when suspended, the device is frozen.
->>>>>>>> The driver is aware of this process and so should not reset the vqs I
->> think.
->>>>>>> Again that is only true because you want to use it for migration.
->>>>>>> But then you can't claim it's a generic facility.
->>>>>> I don't get it. The device status is a basic facility.
 >>>>>>
->>>>>> We need to SUSPEND the device by setting SUSPEND bit, to
->>>>>> stabilize the device states for migration.
->>>>> Is the PCI's PM time not enough to suspend the device?
->>>> Are you saying we don't need virtio reset assuming we had FLR?
+>>>>>> On 11/9/2023 2:28 PM, Parav Pandit wrote:
+>>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>>>>>> Sent: Tuesday, November 7, 2023 3:02 PM
+>>>>>>>>
+>>>>>>>> On 11/6/2023 6:52 PM, Parav Pandit wrote:
+>>>>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>>>>>>>> Sent: Monday, November 6, 2023 2:57 PM
+>>>>>>>>>>
+>>>>>>>>>> On 11/6/2023 12:12 PM, Parav Pandit wrote:
+>>>>>>>>>>>> From: Zhu, Lingshan <lingshan.zhu@intel.com>
+>>>>>>>>>>>> Sent: Monday, November 6, 2023 9:01 AM
+>>>>>>>>>>>>
+>>>>>>>>>>>> On 11/3/2023 11:50 PM, Parav Pandit wrote:
+>>>>>>>>>>>>>> From: virtio-comment@lists.oasis-open.org
+>>>>>>>>>>>>>> <virtio-comment@lists.oasis- open.org> On Behalf Of Zhu,
+>>>>>>>>>>>>>> Lingshan
+>>>>>>>>>>>>>> Sent: Friday, November 3, 2023 8:27 PM
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> On 11/3/2023 7:35 PM, Parav Pandit wrote:
+>>>>>>>>>>>>>>>> From: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>>>>>>>>>>>>>> Sent: Friday, November 3, 2023 4:05 PM
+>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>> This patch adds two new le16 fields to common
+>>>>>>>>>>>>>>>> configuration structure to support VIRTIO_F_QUEUE_STATE
+>>>>>>>>>>>>>>>> in PCI transport
+>>>> layer.
+>>>>>>>>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>>>>          transport-pci.tex | 18 ++++++++++++++++++
+>>>>>>>>>>>>>>>>          1 file changed, 18 insertions(+)
+>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>> diff --git a/transport-pci.tex b/transport-pci.tex index
+>>>>>>>>>>>>>>>> a5c6719..3161519 100644
+>>>>>>>>>>>>>>>> --- a/transport-pci.tex
+>>>>>>>>>>>>>>>> +++ b/transport-pci.tex
+>>>>>>>>>>>>>>>> @@ -325,6 +325,10 @@ \subsubsection{Common
+>> configuration
+>>>>>>>>>>>> structure
+>>>>>>>>>>>>>>>> layout}\label{sec:Virtio Transport
+>>>>>>>>>>>>>>>>                  /* About the administration virtqueue. */
+>>>>>>>>>>>>>>>>                  le16 admin_queue_index;         /* read-only for driver
+>>>> */
+>>>>>>>>>>>>>>>>                  le16 admin_queue_num;         /* read-only for driver
+>>>> */
+>>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>>> +	/* Virtqueue state */
+>>>>>>>>>>>>>>>> +        le16 queue_avail_state;         /* read-write */
+>>>>>>>>>>>>>>>> +        le16 queue_used_state;          /* read-write */
+>>>>>>>>>>>>>>> This tiny interface for 128 virtio net queues through
+>>>>>>>>>>>>>>> register read writes, does
+>>>>>>>>>>>>>> not work effectively.
+>>>>>>>>>>>>>>> There are inflight out of order descriptors for block also.
+>>>>>>>>>>>>>>> Hence toy registers like this do not work.
+>>>>>>>>>>>>>> Do you know there is a queue_select? Why this does not work?
+>>>>>>>>>>>>>> Do you know how other queue related fields work?
+>>>>>>>>>>>>> :)
+>>>>>>>>>>>>> Yes. If you notice queue_reset related critical spec bug fix
+>>>>>>>>>>>>> was done when it
+>>>>>>>>>>>> was introduced so that live migration can _actually_ work.
+>>>>>>>>>>>>> When queue_select is done for 128 queues serially, it take a
+>>>>>>>>>>>>> lot of time to
+>>>>>>>>>>>> read those slow register interface for this + inflight
+>>>>>>>>>>>> descriptors +
+>>>> more.
+>>>>>>>>>>>> interesting, virtio work in this pattern for many years, right?
+>>>>>>>>>>> All these years 400Gbps and 800Gbps virtio was not present,
+>>>>>>>>>>> number of
+>>>>>>>>>> queues were not in hw.
+>>>>>>>>>> The registers are control path in config space, how 400G or
+>>>>>>>>>> 800G
+>>>> affect??
+>>>>>>>>> Because those are the one in practice requires large number of VQs.
+>>>>>>>>>
+>>>>>>>>> You are asking per VQ register commands to modify things
+>>>>>>>>> dynamically via
+>>>>>>>> this one vq at a time, serializing all the operations.
+>>>>>>>>> It does not scale well with high q count.
+>>>>>>>> This is not dynamically, it only happens when SUSPEND and RESUME.
+>>>>>>>> This is the same mechanism how virtio initialize a virtqueue,
+>>>>>>>> working for many years.
+>>>>>>> No. when virtio driver initializes it for the first time, there is
+>>>>>>> no active traffic
+>>>>>> that gets lost.
+>>>>>>> This is because the interface is not yet up and not part of the network
+>> yet.
+>>>>>>> The resume must be fast enough, because the remote node is sending
+>>>>>> packets.
+>>>>>>> Hence it is different from driver init time queue enable.
+>>>>>> I am not sure any packets arrive before a link announce at the
+>>>>>> destination
+>>>> side.
+>>>>> I think it can.
+>>>>> Because there is no notification of member device link down
+>>>>> intimation to
+>>>> remote side.
+>>>>> The L4 and L5 protocols have no knowledge that node which they are
+>>>> interacting is behind some layers of switches.
+>>>>> So keeping this time low is desired.
+>>>> The NIC should broad cast itself first, so that other peers in the
+>>>> network know(for example its mac to route it) how to send a message to it.
 >>>>
->>> No. often FLR timing is not enough. Hence every PCI level device has some
->> sort of its own reset mechanism.
->>>> Suspending at different layers like rest at different layers.
+>>>> This is necessary, for example VIRTIO_NET_F_GUEST_ANNOUNCE, similar
+>>>> mechanism work for in-marketing productions for years.
 >>>>
->>>> We have both FLR and virtio reset. The Virtio level function could
->>>> be reset without FLR. So did suspend.
->>>>
->>>> That's it.
->>> Sure, but wrapping it under some "basic facility" is just does not make sense.
->> Why, device status (e.g reset) belongs to that part.
->>
-> Lingshan claimed that suspending device is for live migration in commit log and in discussion he portray it as some basic facility unrelated to device migration such as debug etc.
-> Instead of claiming it as some non_device_migration facility does not make sense.
-I said live migration is a use-case of the SUSPEND bit. I did not say 
-the SUSPEND bit is only for live migration.
->   
->>>> And if you want to rule P2P behaviours, PCI PM is really the correct
->>>> way to go instead of trying to do it at the virtio layer.
->>>>
->>> PCI PM is supposed to be controlled by the guest and so the suspend.
->> I've listed issues about D3cold and others, I can't believe it can't be controlled
->> totally by guests.
->>
-> D3cold is not controlled by the driver as defined by the PCI spec hence it is not applicable.
-> D3hot is controlled by the driver.
->>> Hypervisor needs its channel to suspend the device, as fundamentally guest is
->> unaware of device migration flow.
->>
->> That's pretty fine, the hypervisor also needs its channel to reset the device. If
->> you think there's a conflict with suspend, there should be one for reset as well.
->>
-> I don’t see a need for hypervisor to reset the device in passthrough mode. Can you explain why is it needed?
-> Do you mean, it is needed in vdpa mode? If yes, the registers are emulated anyway, so why the member device's native channel cannot be used in vdpa mode?
->
->>>>> For large device I could imagine it could be short.
+>>>> This is out of the topic anyway.
+>>>>>>>>>> See the virtio common cfg, you will find the max number of vqs
+>>>>>>>>>> is there, num_queues.
+>>>>>>>>> :)
+>>>>>>>>> Sure. those values at high q count affects.
+>>>>>>>> the driver need to initialize them anyway.
+>>>>>>> That is before the traffic starts from remote end.
+>>>>>> see above, that needs a link announce and this is after
+>>>>>> re-initialization
+>>>>>>>>>>> Device didn’t support LM.
+>>>>>>>>>>> Many limitations existed all these years and TC is improving
+>>>>>>>>>>> and expanding
+>>>>>>>>>> them.
+>>>>>>>>>>> So all these years do not matter.
+>>>>>>>>>> Not sure what are you talking about, haven't we initialize the
+>>>>>>>>>> device and vqs in config space for years?????? What's wrong
+>>>>>>>>>> with this
+>>>>>> mechanism?
+>>>>>>>>>> Are you questioning virito-pci fundamentals???
+>>>>>>>>> Don’t point to in-efficient past to establish similar in-efficient future.
+>>>>>>>> interesting, you know this is a one-time thing, right?
+>>>>>>>> and you are aware of this has been there for years.
+>>>>>>>>>>>>>> Like how to set a queue size and enable it?
+>>>>>>>>>>>>> Those are meant to be used before DRIVER_OK stage as they
+>>>>>>>>>>>>> are init time
+>>>>>>>>>>>> registers.
+>>>>>>>>>>>>> Not to keep abusing them..
+>>>>>>>>>>>> don't you need to set queue_size at the destination side?
+>>>>>>>>>>> No.
+>>>>>>>>>>> But the src/dst does not matter.
+>>>>>>>>>>> Queue_size to be set before DRIVER_OK like rest of the
+>>>>>>>>>>> registers, as all
+>>>>>>>>>> queues must be created before the driver_ok phase.
+>>>>>>>>>>> Queue_reset was last moment exception.
+>>>>>>>>>> create a queue? Nvidia specific?
+>>>>>>>>>>
+>>>>>>>>> Huh. No.
+>>>>>>>>> Do git log and realize what happened with queue_reset.
+>>>>>>>> You didn't answer the question, does the spec even has defined
+>>>>>>>> "create a
+>>>>>> vq"?
+>>>>>>> Enabled/created = tomato/tomato when discussing the spec in
+>>>>>>> non-normative
+>>>>>> email conversation.
+>>>>>>> It's irrelevant.
+>>>>>> Then lets not debate on this enable a vq or create a vq anymore
+>>>>>>> All I am saying is, when we know the limitations of the transport
+>>>>>>> and when industry is forwarding to not introduced more and more
+>>>>>>> on-die register
+>>>>>> for once in lifetime work of device migration, we just use the
+>>>>>> optimal command and queue interface that is native to virtio.
+>>>>>> PCI config space has its own limitations, and admin vq has its
+>>>>>> advantages, but that does not apply to all use cases.
+>>>>>>
+>>>>> There was a recent work done emulating the SR-IOV cap and allowing
+>>>>> VM to
+>>>> enable SR-IOV in [1].
+>>>>> This is the option I mentioned few weeks ago.
 >>>>>
->>>>> In that case if there is suspend the device available, it will be
->>>>> used by the guest
->>>> driver itself, hypervisor wouldn’t know about it when those
->>>> registers are not trapped.
->>>>> So we need two ways to suspend.
->>>>> One is guest visible, and guest controlled.
->>>>> Second is hypervisor control to fulfill the device migration needs.
->>>> Can you explain why suspend is special but not reset or why reset
->>>> can work but not suspend? If reset can work, so does suspend. If
->>>> reset can't, neither does suspend.
->>>>
->>> As long as reset and suspend both are under guest control, I am fine.
->> Well, you seem to ignore my question below. Hypervisor needs to reset the
->> device as well.
->>
-> Why is it needed in passthrough mode?
->
->>>> For example, can you explain how a system_reset in Qemu can work
->>>> with your proposal?
->>>>
->>>>> So if you can please take a look if the proposed admin command to
->>>> freeze/stop mode can be used in the emulated register case or not.
->>>>
->>>> Again, if you design those for PCI, it's a layer violation. You have
->>>> answered
->>> They are used by the PCI layer, just like your suspend bit.
->>> Andy other transport can also use it.
->>>
->>>> yourself that PM is the right way to go.
->>>>
->>>>> It helps to have the suspend bit in guest control as well
->>>>> with/without
->>>> emulation mode.
->>>>
->>>> I won't repeat it again. You will find you need a full transport to
->>>> satisfy all the requirements.
->>> I disagree for full transport.
->> See above and the discussion in another thread.
->>
->>> If you want to get discuss transport for sure it is some other thread
->>> and I want to see "driver notifications via such transport VQ" to fully qualify it
->> as transport, And that would be just sub-optimal for actual working.
->>
->> Sub-optimal since the function is duplicated with a transport but it doesn't
->> claim or design as a transport.
->>
-> It is not sub-optimal because of duplication. It is because you want to transport notifications via virtqueue.
->   
->>> And hence, I wouldn’t call it a transport anymore.
->>>
->>>>>> This can also be used for debugging I think.
->>>>> As Michael listed, a dedicated debug interface is usually more
->>>>> useful instead
->>>> of in-band.
->>>>
->>>> Well, I've shown you the in-band facilities like debugging via
->>>> ethtool and kernel has a lot of other ones. If you have ever tried
->>>> to debug in a real production environment, you will find how useful
->>>> such handy information is where out-of- band facilities are often dangerous
->> and usually prohibited or even unsupported.
->>> Guest driver can always read and write the device status without adding a
->> suspend bit.
->>
->> I don't get here. Suspend make sure the device state is frozen which helps for
->> debugging for sure.
-> You wanted to debug some vq live, you suspend the device, the vq state got changed.
->
-> I just don’t see that suspend is a debug tool. Every feature is a debug feature literally.
-> Classic heisenbug effect.
->
-> Once can change driver notification frequency to see if interrupt rate changed for debugging.
-> One can disabled few RQs and see RSS...
-> Blk can change blk_size to higher value to perf debug..
-> The list continues..
->
->> Thanks
->>
+>>>>> So with admin commands and admin virtqueues, even nested model will
+>>>>> work
+>>>> using [1].
+>>>>> [1]
+>>>>> https://netdevconf.info/0x17/sessions/talk/unleashing-sr-iov-offload
+>>>>> -o
+>>>>> n-virtual-machines.html
+>>>> We should take this into consideration once it is standardized in the
+>>>> spec, maybe not now, there can always be many workarounds to solve one
+>> problem.
+>>> Sure, until that point the admin commands are able to suffice the need well.
+>>> And when the spec changes in transport occurs (if needed), current admin
+>> command and admin vq also fits very well that will follow above [1].
+>> we have pointed lots of problems for admin vq based live migration proposal, I
+>> won't repeat them here
+> I don’t see any.
+> Nested is already solved using above.
+I don't see how, do you mind to work out the patches?
+> Long time ago, you mentioned some QoS issue, which anyway exists in the device register method too.
+> Can you please list them if anything other than QoS and nest?
 
 
 This publicly archived list offers a means to provide input to the
