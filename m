@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8408-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8409-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F17D8C197A0
-	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 12:10:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0A0BC54FB9
+	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 12:18:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 420FC181FEA
-	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 12:10:07 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0904A1922E7
+	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 12:18:15 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F2A49986DE5
-	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 12:10:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E0533986DE9
+	for <virtio-comment@archiver.kernel.org>; Thu, 16 Nov 2023 12:18:14 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C4640986DDD; Thu, 16 Nov 2023 12:10:06 +0000 (UTC)
+	id C7047986DDE; Thu, 16 Nov 2023 12:18:14 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,270 +24,150 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AE500986DDE
-	for <virtio-comment@lists.oasis-open.org>; Thu, 16 Nov 2023 12:10:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B7A2C986DDF
+	for <virtio-comment@lists.oasis-open.org>; Thu, 16 Nov 2023 12:18:14 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 5u3fd3IUOJ2dnaoAUfUsKA-1
+X-MC-Unique: UAa0MVePPkmO3JiFYRUo0g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700136602; x=1700741402;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BObkYjkuntxJskhNobTpuS20HgbnmjfAbhbqVb5ypzg=;
-        b=dWKvbTGtFZd7jqdmbQdStPtKdt4XG4DBwMcfT3GSUEbxJGDXvZ3xKVsO5e97bFdxiP
-         4JFrvWnlTjSXZun5B4H3mEUMfMWS4cYx9kXfE1u4qJHed5axMTKi7jzHDHqVD2MJZn7f
-         Kp3p7M+CGIc3oJw5lVnRVzZgKGt/FiK6d06lGPOUHCmW3+Kdpp9LI9vdHX0CTa3Zvr4Q
-         B0BfQ2tmfrX+EFWZAOdXxO1VbwMWBp5Rn1YwyJdKXd4eneKjE7mCASrLk370Bc1m6e/a
-         hnKFK8SAioLYlGuflQCO7wLP4J5FJVvRz/vc2kQP3/5YLihVSmGtZhsBxKccPls+ELSj
-         dojQ==
-X-Gm-Message-State: AOJu0Yx1fsJ9TZsLXPbz7HyHEsBO+dANu1FOm2UWaHQILxNNQI0U9Ner
-	tIVg2OO06qRBjOzAkRMvqGBMeTOHIB7r25ih+eorywvqcoqKfprNGJ1OOvuKUKYOk4y+IxfPmtC
-	cPMXQKETGUz4p80Cmz2dqkQ/Hj/PKBaZMsw==
-X-Received: by 2002:a19:5017:0:b0:502:ff3b:766f with SMTP id e23-20020a195017000000b00502ff3b766fmr10478851lfb.6.1700136602104;
-        Thu, 16 Nov 2023 04:10:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFv81usGSJF25KALWzSO6vTb3AxzNYanr7pHMBkGH6C1RxSBTRaz1bb8dig6+cB6aejqpIDRg==
-X-Received: by 2002:a19:5017:0:b0:502:ff3b:766f with SMTP id e23-20020a195017000000b00502ff3b766fmr10478816lfb.6.1700136601544;
-        Thu, 16 Nov 2023 04:10:01 -0800 (PST)
-Date: Thu, 16 Nov 2023 07:09:56 -0500
+        d=1e100.net; s=20230601; t=1700137087; x=1700741887;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NxI43PRjs6gkDYrv4N606cizh6M2ui/Z8MzgXbx80qY=;
+        b=v3EPz/14+owuOlpOXHbIB/kUSIH12NXGSgJidVmgPGW9NHfNyXir80Kn7Egta0vnEe
+         LoFOsfNwgvxzwF7K9p3yS0+ykpkeUCvx++/U80T3d8X6kvw+DgymnPvaEX91UZxxSRer
+         xiezFBH8IWWpXo7aITpQcjPEkBCEW87KlQQSnK3Eqq1sLTWMR7lwOJan7tegd5LFsbvj
+         9aueAALI8qCa1zYBErvjicef+AKWp4/yoHMREFjZ3DIAvef8KFgK61DUV8EnIrwH5EXk
+         5C0h2eMgDQEqYgLp6qo3cQOnTqM7c4rNvEhucGzmnJ1lXVID3nc990U9c/fkvgmhga5F
+         EDtg==
+X-Gm-Message-State: AOJu0YwQdTJlU0Mi9JPlLhBaQ0BfrIBNKOmwacFL0QIonBA/Qbr9oWRg
+	mWrOHfAYXWZAPrjaFPltUvZysQFBUXnhDaknbxUGAIeKuboUmVUOpX6yNFkGffUKkZIsnZsS3TK
+	QLKwJA43ROGiA9C0tzjtkclIa+zgOLQVJ4w==
+X-Received: by 2002:a17:907:e8f:b0:9bd:c336:21e5 with SMTP id ho15-20020a1709070e8f00b009bdc33621e5mr15052757ejc.56.1700137087747;
+        Thu, 16 Nov 2023 04:18:07 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHBwSTQacDwFRX3r+ClOt0qNhh2NLC8znEAsVNl/M080fGRs3sNPQRiwGj5mLcVK6HoTjTb1g==
+X-Received: by 2002:a17:907:e8f:b0:9bd:c336:21e5 with SMTP id ho15-20020a1709070e8f00b009bdc33621e5mr15052735ejc.56.1700137087428;
+        Thu, 16 Nov 2023 04:18:07 -0800 (PST)
+Date: Thu, 16 Nov 2023 07:18:03 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>,
+Cc: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20231116070024-mutt-send-email-mst@kernel.org>
-References: <20231106044836-mutt-send-email-mst@kernel.org>
- <c6cb6e6b-fd2b-43ac-9be5-c4a8cda1ac13@intel.com>
- <20231108124625-mutt-send-email-mst@kernel.org>
- <b125da70-a769-4662-876b-43664e39c976@intel.com>
- <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <8e92a16e-2a5d-4c9c-bb85-5a5c6fecbe05@intel.com>
- <PH0PR12MB5481C31027CE6716503F3F24DCAEA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <a28b2c22-a03f-473d-b672-d54e0390b76a@intel.com>
- <PH0PR12MB5481ED082C94A9603DC6BDC8DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <6949173c-29cf-4c49-af82-562c050e40ae@intel.com>
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+Message-ID: <20231116071230-mutt-send-email-mst@kernel.org>
+References: <20231113013016-mutt-send-email-mst@kernel.org>
+ <9952859f-1b72-46bf-b386-7c3f5c69269f@intel.com>
+ <20231114032553-mutt-send-email-mst@kernel.org>
+ <b9b8a564-b2eb-4c1c-9ada-975f3833e282@intel.com>
+ <20231115025002-mutt-send-email-mst@kernel.org>
+ <5c1c6815-f144-4d81-bef7-59a7608936c6@intel.com>
+ <20231115030025-mutt-send-email-mst@kernel.org>
+ <ba5a3fe9-4c2c-4d59-ae99-fdf6ce29927e@intel.com>
+ <20231115063832-mutt-send-email-mst@kernel.org>
+ <e21e91be-4696-4f67-94bd-e1663c85bdb7@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <6949173c-29cf-4c49-af82-562c050e40ae@intel.com>
+In-Reply-To: <e21e91be-4696-4f67-94bd-e1663c85bdb7@intel.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] RE: [PATCH V2 3/6] virtio: dont reset vqs when
- SUSPEND
+Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
 
-On Thu, Nov 16, 2023 at 06:09:38PM +0800, Zhu, Lingshan wrote:
+On Thu, Nov 16, 2023 at 05:38:35PM +0800, Zhu, Lingshan wrote:
 > 
 > 
-> On 11/16/2023 1:35 AM, Parav Pandit wrote:
-> > 
-> > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > > Sent: Monday, November 13, 2023 2:53 PM
+> On 11/15/2023 7:52 PM, Michael S. Tsirkin wrote:
+> > On Wed, Nov 15, 2023 at 04:42:56PM +0800, Zhu, Lingshan wrote:
 > > > 
-> > > On 11/10/2023 2:31 PM, Parav Pandit wrote:
-> > > > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > > > > Sent: Friday, November 10, 2023 11:52 AM
-> > > > > 
-> > > > > On 11/9/2023 6:15 PM, Parav Pandit wrote:
-> > > > > > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > > > > > > Sent: Thursday, November 9, 2023 3:28 PM
+> > > On 11/15/2023 4:05 PM, Michael S. Tsirkin wrote:
+> > > > On Wed, Nov 15, 2023 at 03:59:16PM +0800, Zhu, Lingshan wrote:
+> > > > > On 11/15/2023 3:51 PM, Michael S. Tsirkin wrote:
+> > > > > > On Wed, Nov 15, 2023 at 12:05:59PM +0800, Zhu, Lingshan wrote:
+> > > > > > > On 11/14/2023 4:27 PM, Michael S. Tsirkin wrote:
+> > > > > > > > On Tue, Nov 14, 2023 at 03:34:32PM +0800, Zhu, Lingshan wrote:
+> > > > > > > > > > > So I can't
+> > > > > > > > > > > believe it has good performance overall. Logging via IOMMU or using
+> > > > > > > > > > > shadow virtqueue doesn't need any extra PCI transactions at least.
+> > > > > > > > > > On the other hand they have an extra CPU cost.  Personally if this is
+> > > > > > > > > > coming from a hardware vendor, I am inclined to trust them wrt PCI
+> > > > > > > > > > transactions.  But anyway, discussing this at a high level theoretically
+> > > > > > > > > > is pointless - whoever bothers with actual prototyping for performance
+> > > > > > > > > > testing wins, if no one does I'd expect a back of a napkin estimate
+> > > > > > > > > > to be included.
+> > > > > > > > > if so, Intel has released productions implementing these interfaces years
+> > > > > > > > > ago,
+> > > > > > > > > see live migration in 4.1. IFCVF vDPA Implementation,
+> > > > > > > > > https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html
+> > > > > > > > > and
+> > > > > > > > That one is based on shadow queue, right? Which I think this shows
+> > > > > > > > is worth supporting.
+> > > > > > > Yes, it is shadow virtqueue, I assume this is already mostly done,
+> > > > > > > do you see any gaps we need to address in our series that we should work on?
 > > > > > > > 
-> > > > > > > On 11/9/2023 1:46 AM, Michael S. Tsirkin wrote:
-> > > > > > > > On Tue, Nov 07, 2023 at 05:27:23PM +0800, Zhu, Lingshan wrote:
-> > > > > > > > > On 11/6/2023 5:49 PM, Michael S. Tsirkin wrote:
-> > > > > > > > > > On Fri, Nov 03, 2023 at 06:34:34PM +0800, Zhu Lingshan wrote:
-> > > > > > > > > > > When SUSPEND is set, device states and virtqueue states should
-> > > > > > > > > > > be stablized, therefore the driver should not reset vqs when
-> > > > > > > > > > > SUSPEND is set in device status.
-> > > > > > > > > > > 
-> > > > > > > > > > > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> > > > > > > > > > > ---
-> > > > > > > > > > >       content.tex | 3 +++
-> > > > > > > > > > >       1 file changed, 3 insertions(+)
-> > > > > > > > > > > 
-> > > > > > > > > > > diff --git a/content.tex b/content.tex index bcc9d4b..060b5c2
-> > > > > > > > > > > 100644
-> > > > > > > > > > > --- a/content.tex
-> > > > > > > > > > > +++ b/content.tex
-> > > > > > > > > > > @@ -444,6 +444,9 @@ \subsubsection{Virtqueue
-> > > > > > > > > > > Reset}\label{sec:Basic
-> > > > > > > Facilities of a Virtio Device /
-> > > > > > > > > > >       The device MUST reset any state of a virtqueue to the default
-> > > state,
-> > > > > > > > > > >       including the available state and the used state.
-> > > > > > > > > > > +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set in
-> > > > > > > > > > > +\field{device status}, the driver SHOULD NOT reset any virtqueues.
-> > > > > > > > > > > +
-> > > > > > > > > > >       \drivernormative{\paragraph}{Virtqueue Reset}{Basic
-> > > > > > > > > > > Facilities of a
-> > > > > > > Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue Reset}
-> > > > > > > > > > >       After the driver tells the device to reset a queue, the
-> > > > > > > > > > > driver MUST verify that
-> > > > > > > > > > Seems somewhat arbitrary and breaks the claim that the feature
-> > > > > > > > > > is orthogonal and can have uses besides migration.
-> > > > > > > > > when suspended, the device is frozen.
-> > > > > > > > > The driver is aware of this process and so should not reset the vqs I
-> > > think.
-> > > > > > > > Again that is only true because you want to use it for migration.
-> > > > > > > > But then you can't claim it's a generic facility.
-> > > > > > > I don't get it. The device status is a basic facility.
-> > > > > > > 
-> > > > > > > We need to SUSPEND the device by setting SUSPEND bit, to stabilize
-> > > > > > > the device states for migration.
-> > > > > > Is the PCI's PM time not enough to suspend the device?
-> > > > > > For large device I could imagine it could be short.
-> > > > > As you see, PCI PM, so this is a layer violation, virtio should be
-> > > > > self contained,
-> > > > If you think it is layer violation, than suspend bit for sure is not needed. PCI
-> > > PM interface should suspend/resume the device on D0<->D3 state transitions.
-> > > Doesn't make sense logically, because it is layer violation, so you want it to be
-> > > worse? For example, virito writes 0 to device status to reset a device, not by PCI.
-> > All these layer violation thing is just abstract to me.
-> > Your argument contradicts with your fellow author and yourself.
-> I don't see how, we keep telling you virtio should be self contained, and
-> suspend by PCI PM is a
-> layer volition, this is a fact, right?
+> > > > > > > Thanks
+> > > > > > There were a ton of comments posted on your series.
+> > > > > Hope I didn't miss anything. I see your latest comments are about vq states,
+> > > > > as replied before, I think we can record the states by two le16 and the
+> > > > > in-flight
+> > > > > descriptor tracking facility.
+> > > > I don't know why you need the le16. in-flight tracking should be enough.
+> > > > And given it needs DMA I would try really hard to actually use
+> > > > admin commands for this.
+> > > we need to record the on-device avail_idx and used_idx, or
+> > > how can the destination side know the device internal values.
+> > Again you never documented what state the device is in so I can't really
+> > say for sure.  But generally whenever a buffer is used the internal
+> > values are written out to memory.
+> This is the state of a virtqueue, in my series I have defined what is
+> vq state in [PATCH V2 1/6] virtio: introduce virtqueue state,
+> and give an example of PCI implementation.
+> 
+> In short, for split vq it is last_avail_idx and in-flight descriptors.
+> 
+> I humbly request an explicit list of missing gaps, so that I can improve my
+> V3
+> 
+> Thanks
 
-Not really. Look at the charter - when available we should use platform
-capabilities because it makes it easier to write drivers.
+I don't know how to help you without resorting to writing it instead of
+you, I sent 3 messages in response to that one patch alone. Your patch
+just adds some bits here and there without much in the way of
+documentation. Patch needs to explain what these things are and how do they
+interact with VQ state in memory.
 
 
-> > I don’t want to make it worse.
-> > If you think its layer violation, just depend on the PCI PM, no need to include new suspend bit.
-> Again, virtio should be self-contained, not layer volited, for example, we
-> reset virito devices
-> by writing 0 to device status, not by PCI FLR.
+But besides, Parav needs to do exactly the same too. So why don't you
+let Parav do the work on this and then later just add a small interface
+to send admin commands through VF itself? Looks like this will be good
+enough for VDPA. Meanwhile I feel your energy would be better spend
+working on transport vq which no one else is working on.
 
-There are some advantage to doing it like this, e.g. one does not need
-to save and restore config space. What are advatages of suspend via this
-bit?
 
-> > 
-> > > > > and what about MMIO and CCW?
-> > > > They have largely lacked the richness of PCI transport. So those transport
-> > > needs to evolve.
-> > > I am not sure CCW and MMIO maintainers want to hear this.
-> > > > Otherwise, PCI offers rich transport facilities compared to MMIO, hence, it will
-> > > continue wider use.
-> > > you know this SUSPEND bit work fine on all transport, right? Because
-> > > device_status is transport independent.
-> > I want to emphasize that I am not against the suspend bit as long as it is guest driver controlled without interfering the device migration flow (like rest of the state).
-> When migrate a device, it is the host who suspends the device. The reason is
-> the live migration process should be transparent to
-> the guest, so we should suspend the guest first, then suspend the device(by
-> host).
-> > 
-> > The practical reason for suspending functionality under guest control is, that resuming/suspending the large device can take time.
-> > So let it be in guest driver control. No need to muddy with device migration flow.
-> The time cost is reasonable in O(N) no matter how you suspend/resume the
-> device.
-
-Very much depends. Big O notation can be misleading. If you have to
-repeat an operation 1000 times that's 1000 * N and suddenly you are
-going from milliseconds to seconds.
 
 
 > > 
-> > > > > This should be a basic facility.
-> > > > Other transport can also offer like PCI.
-> > > Do you want to work for these transport? Implementing the new features as
-> > > PCI?
-> > Not presently as PCI as more features than rest of the two.
-> > What I read about ccw is: " S/390 based virtual machines support neither PCI nor MMIO".
+> > > > > For this shadow virtqueue, do you think I should address this in my V4?
+> > > > > Like saying: acknowledged control commands through the control virtqueue
+> > > > > should be recorded, and we want to use shadow virtqueue to track dirty
+> > > > > pages.
+> > > > What you need to do is actually describe what do you expect the device
+> > > > to do when it enters this suspend state. since you mention control
+> > > > virtqueue then it seems that there needs to be a device type
+> > > > specific text explaining the behaviour. If so this implies there
+> > > > needs to be a list of device types that support suspend
+> > > > until someone looks at each type and documents what it does.
+> > > On a second thought, shadow vqs are hypervisor behaviors, maybe should not
+> > > be
+> > > described in this device spec.
+> > > 
+> > > Since SUSPEND is in device status, so for now I see every type of device
+> > > implements
+> > > device_status should support SUSPEND. This should be a general facility.
 > > 
-> > And I also read, "The IBM System/390 is a discontinued mainframe product family implementing".
-> > 
-> > So I don’t know who needs to extend ccw.
-> > And if one needs, those maintainers will extend it to match to PCI standard.
-> So these features are even not planned, so don't depend on them.
-
-But again can one suspend ccw device? If you are adding this feature and
-claiming it's supported for all transports you better find out
-what does it do.
-
-
-> > 
-> > > > > > In that case if there is suspend the device available, it will be
-> > > > > > used by the
-> > > > > guest driver itself, hypervisor wouldn’t know about it when those
-> > > > > registers are not trapped.
-> > > > > > So we need two ways to suspend.
-> > > > > > One is guest visible, and guest controlled.
-> > > > > > Second is hypervisor control to fulfill the device migration needs.
-> > > > > The guest can eve reset the device.
-> > > > > > So if you can please take a look if the proposed admin command to
-> > > > > freeze/stop mode can be used in the emulated register case or not.
-> > > > > > It helps to have the suspend bit in guest control as well
-> > > > > > with/without
-> > > > > emulation mode.
-> > > > > Parav, please believe I have read your series, I didn't comment there
-> > > > > because I want to avoid further conflicts/debating, we have done these
-> > > enough.
-> > > > I believe the series posted in v3 can support vdpa use case as well.
-> > > > So I will progress to post v4.
-> > > > 
-> > > > > As explained before, freeze/stop the device by PCI is a layer violation.
-> > > > I am afraid, we have different vision.
-> > > > I don’t see any layer violation.
-> > > > Suspend is enough in the PCI PM.
-> > > > Our vision is more aligned with rest of the hypervisor knobs that owns the
-> > > migration framework.
-> > > I think I have explained, virito builds on other transport and it should be self-
-> > > contained, so far so good.
-> > Virtio without any transport binding is just blank paper discussion.
-> virtio is built on some transports, but not bind to any.
-
-Binding is an OS specific thing, but e.g. under Linux transport drivers bind to
-devices then virtio drivers bind to virtio bus. No binding -> nothing
-works.
-
-
-> > 
-> > > > > And device status can be pass-through(without emulation, just map it
-> > > > > to
-> > > > > guest) to the guest or trapped(trap and emulate by the hypervisor,
-> > > > > for example set_status in vDPA).
-> > > > When it is pass-through, it is controlled by the guest, so for example, if the
-> > > guest resets the device, hypervisor has lost the control of migration context etc.
-> > > > Hence, hypervisor needs a channel which is not guest owned.
-> > > > 
-> > > > Same channel can work when trap+emulation is done.
-> > > It is the guest owns the device, it can reset the device, once reset, the device
-> > > context are cleared.
-> > Hypervisor do not have the ability to read/write the device context. It lost the channel as hypervisor is not involved in trap+emulation.
-> > So it is not helpful in one use case.
-> > 
-> > Admin commands can work even with trap+emulation mode.
-> > 
-> > What is missing, that should be added?
-> as explained above, when live migration, the guest should be suspended
-> first, at this point,
-> the host owns the device, it has access to the device.
-
-Where do you say this in the spec patch?
-
-
-> > 
-> > > > > > > This can also be used for debugging I think.
-> > > > > > As Michael listed, a dedicated debug interface is usually more
-> > > > > > useful instead
-> > > > > of in-band.
-> > > > > re-using another facility without extra efforts is not a bad thing anyway.
-> > > > I just don’t see how a suspend bit some debug feature.
-> > > > Almost everything with that regard is a debug feature to me.
-> > > suspend then check the device states?
-> > You already suspended the device, so device state is already changed.
-> > All debug information is changed, so not useful now.
-> When suspended, the device should keep and stabilize its device states,
-> at least in my series it should behave like this.
-
-That's vague. What does it mean exactly and what happens if
-some external event causes state change?
-
--- 
-MST
 
 
 This publicly archived list offers a means to provide input to the
