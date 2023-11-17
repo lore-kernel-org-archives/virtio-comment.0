@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8462-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8463-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E189C072A2
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:30:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E4FFC197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:32:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 985C942A6B
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:30:24 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7481745B33
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7E1BC986E21
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:30:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3E385986E30
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 68DFD986E1E; Fri, 17 Nov 2023 12:30:24 +0000 (UTC)
+	id 221AA986E1E; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,260 +24,212 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 593B5986E1F
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 12:30:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 13426986E1F
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: usGjJtR_PNyV1TBqzKFt1g-1
+X-MC-Unique: KiyAzKFdNIy6dxx3BVT8oQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700224218; x=1700829018;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oWdLNDqGIw3obXpyduiziWFcqr/qSCXOhZgzIKZfN6Y=;
-        b=nwy1PohcfxMtGg0J+CeCYe84f/8f/evhL+DmHZL+SdRjkhssPCfphtriMrvUqX8bEk
-         X4mp/4LFaKOp5MuLPfeQfIBcq5VlYxE9bzUrP6U18lZucyScqK+iok3UnpAzIk0nll/t
-         2mcZ+drslRIZZeOpjHjcwdjXp2AuEY6BPVlleUwt38LPMLojx3E/NQXjgRnVu1b4G7FO
-         5QzygUrWFHKKWUgYT/+GmW86HJsKXbSIinrdUIv0j4kAzgH2fwiuYuSIf+1x1j1bNkWp
-         XSk2AxoA13NBTkEBCti2Z/FrluoAFNPQAIvj/SLtl06sVZa+jJjYvLwbhRqW6hLAQxZN
-         VrYw==
-X-Gm-Message-State: AOJu0YxoQSE0qRdyZTozBkFSmg9fZnxPTVR/Q0xJSARaq5DSCIZ2Cd8G
-	4kWLurbd4mLYMjHHSWXJ/xORCJPzJ/naMGm2/MdV54TfImqMAiVh/3R0OcVfpX2omFId5zbCBx3
-	pQaPDxK9aof6wm1wNRfRIyG3TApEEzpGHng==
-X-Received: by 2002:a05:600c:3d86:b0:409:5c2b:43d1 with SMTP id bi6-20020a05600c3d8600b004095c2b43d1mr4213945wmb.20.1700224218062;
-        Fri, 17 Nov 2023 04:30:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEppI2Dopydyg8Ynv2+x9RC/cq1AQIi6HfCuvjeUaJO367mgxxYa/yKHlhHXwKZqs/8CRqKMw==
-X-Received: by 2002:a05:600c:3d86:b0:409:5c2b:43d1 with SMTP id bi6-20020a05600c3d8600b004095c2b43d1mr4213921wmb.20.1700224217474;
-        Fri, 17 Nov 2023 04:30:17 -0800 (PST)
-Date: Fri, 17 Nov 2023 07:30:11 -0500
+        d=1e100.net; s=20230601; t=1700224353; x=1700829153;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LjCAnAbdZri9p3zo3cmNUTXvDFdL0l8do6ldCBMUCHo=;
+        b=u53eF39tF1Ui5vPAtoteS/9GzjNcDQBY4Fzd6FQVwIFk6gVduDEKw06dbklsxNNcVc
+         HO/pmXSia9EtMN38+x+hXZccx5ZSsFxtMXck45IVdxhw5GiMUR35oUhMwCmRc9auyRsh
+         VObfG9kDNFNhvaOCqyW+BsLx+jYPX+2utyPFrmkKi4UHA6P6GDnxUN8dqdCOHHeHUikT
+         xgdb9bKq4DXtBV1wnnWdSFccpjgt4nl10Twr05Qsa1WCovVdXtSVpuw7sFScJh9oRH24
+         3unxJS4Vkv8Q7EL877bIifC+zC0bGMqzJsVd2nKEZ8RY6fidXQv4oqGrODxzAr8uVQkG
+         c76g==
+X-Gm-Message-State: AOJu0Yxa2WiBhkF14qSwCgW60Z2LjR+XINaNztRShNb6HZBzOThfLYKW
+	SVHXXRaXFdJIoQ92E0t5Xka6ZyYPCUBS2yLpr1YYvbvWPjz4xPZbBM1PFylnWYPrL1asup4QZB8
+	P1u1RsFDyv4mkrgssHgfNdQBQv9IAabyyQQ==
+X-Received: by 2002:ac2:58c6:0:b0:504:7bb0:9d7e with SMTP id u6-20020ac258c6000000b005047bb09d7emr10265416lfo.27.1700224352969;
+        Fri, 17 Nov 2023 04:32:32 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFuTCMSzlecWUXl18gvplrsn/gVLQAZTc3sYnPe5j4z1PQwNtViXCQGTlDdgrrWJCGpE+CEMQ==
+X-Received: by 2002:ac2:58c6:0:b0:504:7bb0:9d7e with SMTP id u6-20020ac258c6000000b005047bb09d7emr10265411lfo.27.1700224352609;
+        Fri, 17 Nov 2023 04:32:32 -0800 (PST)
+Date: Fri, 17 Nov 2023 07:32:24 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
-	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
+Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
+	Jason Wang <jasowang@redhat.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
 	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231117070636-mutt-send-email-mst@kernel.org>
-References: <CACGkMEsMzp7DjDkQcO4RZ0H0HfxSrytUJrSyDj6gnPWV9cTZow@mail.gmail.com>
- <DM8PR12MB548085F25849CF1E055826E6DCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
- <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117050357-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54810D15E0897C2435697E39DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117060456-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481AB5ECF613D806C338C54DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117063406-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481089119BAB97C8F4B7CE0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+Message-ID: <20231117073031-mutt-send-email-mst@kernel.org>
+References: <b0ad9991-4372-4900-8baf-a111777f6d92@intel.com>
+ <20231116065416-mutt-send-email-mst@kernel.org>
+ <705e728a-368a-4e28-a7b2-61afddb15ce9@intel.com>
+ <PH0PR12MB5481C2B37901FDBBE672EF98DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117054650-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813446F8F2BBDBC74BF393DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117063304-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548179702B4F7B460E09681CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117065740-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481C905833821171814CB13DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481089119BAB97C8F4B7CE0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481C905833821171814CB13DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
+Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
 
-On Fri, Nov 17, 2023 at 12:02:49PM +0000, Parav Pandit wrote:
+On Fri, Nov 17, 2023 at 12:11:15PM +0000, Parav Pandit wrote:
 > 
 > 
 > > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Friday, November 17, 2023 5:13 PM
+> > Sent: Friday, November 17, 2023 5:35 PM
+> > To: Parav Pandit <parav@nvidia.com>
 > > 
-> > On Fri, Nov 17, 2023 at 11:20:14AM +0000, Parav Pandit wrote:
+> > On Fri, Nov 17, 2023 at 11:45:20AM +0000, Parav Pandit wrote:
 > > >
 > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > Sent: Friday, November 17, 2023 4:41 PM
+> > > > Sent: Friday, November 17, 2023 5:04 PM
 > > > >
-> > > > On Fri, Nov 17, 2023 at 10:20:45AM +0000, Parav Pandit wrote:
+> > > > On Fri, Nov 17, 2023 at 11:05:16AM +0000, Parav Pandit wrote:
 > > > > >
 > > > > >
 > > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > Sent: Friday, November 17, 2023 3:38 PM
+> > > > > > Sent: Friday, November 17, 2023 4:30 PM
 > > > > > >
-> > > > > > On Wed, Nov 15, 2023 at 05:39:43PM +0000, Parav Pandit wrote:
-> > > > > > > > >
-> > > > > > > > > Additionally, if hypervisor has put the trap on virtio
-> > > > > > > > > config, and because the memory device already has the
-> > > > > > > > > interface for virtio config,
-> > > > > > > > >
-> > > > > > > > > Hypervisor can directly write/read from the virtual config
-> > > > > > > > > to the member's
-> > > > > > > > config space, without going through the device context, right?
+> > > > > > On Fri, Nov 17, 2023 at 10:03:47AM +0000, Parav Pandit wrote:
+> > > > > > >
+> > > > > > >
+> > > > > > > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
+> > > > > > > > Sent: Friday, November 17, 2023 3:30 PM
 > > > > > > > >
-> > > > > > > > If it can do it or it can choose to not. I don't see how it
-> > > > > > > > is related to the discussion here.
-> > > > > > > >
-> > > > > > > It is. I don’t see a point of hypervisor not using the native
-> > > > > > > interface provided
-> > > > > > by the member device.
+> > > > > > > > On 11/16/2023 7:59 PM, Michael S. Tsirkin wrote:
+> > > > > > > > > On Thu, Nov 16, 2023 at 06:28:07PM +0800, Zhu, Lingshan wrote:
+> > > > > > > > >>
+> > > > > > > > >> On 11/16/2023 1:51 PM, Michael S. Tsirkin wrote:
+> > > > > > > > >>> On Thu, Nov 16, 2023 at 05:29:54AM +0000, Parav Pandit wrote:
+> > > > > > > > >>>> We should expose a limit of the device in the proposed
+> > > > > > > > WRITE_RECORD_CAP_QUERY command, that how much range it can
+> > > > track.
+> > > > > > > > >>>> So that future provisioning framework can use it.
+> > > > > > > > >>>>
+> > > > > > > > >>>> I will cover this in v5 early next week.
+> > > > > > > > >>> I do worry about how this can even work though. If you
+> > > > > > > > >>> want a generic device you do not get to dictate how much
+> > > > > > > > >>> memory VM
+> > > > has.
+> > > > > > > > >>>
+> > > > > > > > >>> Aren't we talking bit per page? With 1TByte of memory to
+> > > > > > > > >>> track
+> > > > > > > > >>> -> 256Gbit -> 32Gbit -> 8Gbyte per VF?
+> > > > > > > > >>>
+> > > > > > > > >>> And you happily say "we'll address this in the future"
+> > > > > > > > >>> while at the same time fighting tooth and nail against
+> > > > > > > > >>> adding single bit status registers because scalability?
+> > > > > > > > >>>
+> > > > > > > > >>>
+> > > > > > > > >>> I have a feeling doing this completely theoretical like
+> > > > > > > > >>> this is
+> > > > problematic.
+> > > > > > > > >>> Maybe you have it all laid out neatly in your head but I
+> > > > > > > > >>> suspect not all of TC can picture it clearly enough
+> > > > > > > > >>> based just on spec
+> > > > text.
+> > > > > > > > >>>
+> > > > > > > > >>> We do sometimes ask for POC implementation in linux /
+> > > > > > > > >>> qemu to demonstrate how things work before merging code.
+> > > > > > > > >>> We skipped this for admin things so far but I think it's
+> > > > > > > > >>> a good idea to start doing it here.
+> > > > > > > > >>>
+> > > > > > > > >>> What makes me pause a bit before saying please do a PoC
+> > > > > > > > >>> is all the opposition that seems to exist to even using
+> > > > > > > > >>> admin commands in the 1st place. I think once we finally
+> > > > > > > > >>> stop arguing about whether to use admin commands at all
+> > > > > > > > >>> then a PoC will be needed
+> > > > > > before merging.
+> > > > > > > > >> We have POR productions that implemented the approach in
+> > > > > > > > >> my
+> > > > series.
+> > > > > > > > >> They are multiple generations of productions in market
+> > > > > > > > >> and running in customers data centers for years.
+> > > > > > > > >>
+> > > > > > > > >> Back to 2019 when we start working on vDPA, we have sent
+> > > > > > > > >> some samples of production(e.g., Cascade Glacier) and the
+> > > > > > > > >> datasheet, you can find live migration facilities there,
+> > > > > > > > >> includes suspend, vq state and other features.
+> > > > > > > > >>
+> > > > > > > > >> And there is an reference in DPDK live migration, I have
+> > > > > > > > >> provided this page
+> > > > > > > > >> before:
+> > > > > > > > >> https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html, it
+> > > > > > > > >> has been working for long long time.
+> > > > > > > > >>
+> > > > > > > > >> So if we let the facts speak, if we want to see if the
+> > > > > > > > >> proposal is proven to work, I would
+> > > > > > > > >> say: They are POR for years, customers already deployed
+> > > > > > > > >> them for
+> > > > years.
+> > > > > > > > > And I guess what you are trying to say is that this
+> > > > > > > > > patchset we are reviewing here should be help to the same
+> > > > > > > > > standard and there should be a PoC? Sounds reasonable.
+> > > > > > > > Yes and the in-marketing productions are POR, the series
+> > > > > > > > just improves the design, for example, our series also use
+> > > > > > > > registers to track vq state, but improvements than CG or
+> > > > > > > > BSC. So I think they are proven
+> > > > > > to work.
+> > > > > > >
+> > > > > > > If you prefer to go the route of POR and production and proven
+> > > > > > > documents
+> > > > > > etc, there is ton of it of multiple types of products I can dump
+> > > > > > here with open- source code and documentation and more.
+> > > > > > > Let me know what you would like to see.
+> > > > > > >
+> > > > > > > Michael has requested some performance comparisons, not all
+> > > > > > > are ready to
+> > > > > > share yet.
+> > > > > > > Some are present that I will share in coming weeks.
+> > > > > > >
+> > > > > > > And all the vdpa dpdk you published does not have basic CVQ
+> > > > > > > support when I
+> > > > > > last looked at it.
+> > > > > > > Do you know when was it added?
 > > > > > >
-> > > > > > So for example, it seems reasonable to a member supporting both
-> > > > > > existing pci register interface for compatibility and the future
-> > > > > > DMA based one for scale. In such a case, it seems possible that
-> > > > > > DMA will expose more features than pci. And then a hypervisor
-> > > > > > might decide to use
-> > > > that in preference to pci registers.
+> > > > > > It's good enough for PoC I think, CVQ or not.
+> > > > > > The problem with CVQ generally, is that VDPA wants to shadow CVQ
+> > > > > > it at all times because it wants to decode and cache the
+> > > > > > content. But this problem has nothing to do with dirty tracking
+> > > > > > even though it also
+> > > > mentions "shadow":
+> > > > > > if device can report it's state then there's no need to shadow CVQ.
 > > > > >
-> > > > > We don’t find it right to involve owner device for mediating at
-> > > > > current scale
+> > > > > For the performance numbers with the pre-copy and device context
+> > > > > of
+> > > > patches posted 1 to 5, the downtime reduction of the VM is 3.71x
+> > > > with active traffic on 8 RQs at 100Gbps port speed.
 > > > >
-> > > > In this model, device will be its own owner. Should not be a problem.
-> > > >
-> > > I didn’t understand above comment.
-> > 
-> > We'd add a new group type "self". You can then send admin commands through
-> > VF itself not through PF.
-> >
-> How? The device is owned by the guest. FLR and device reset cannot send the admin command reliably.
-
-It's of the "it hurts when I do this - don't do this then" category.
-
-
-> > 
-> > > > > and to not break TDISP efforts in upcoming time by such design.
-> > > >
-> > > > Look you either stop mentioning TDISP as motivation or actually try
-> > > > to address it. Safe migration with TDISP is really hard.
-> > > But that is not an excuse to say that TDISP migration is not present, hence
-> > involve the owner device for config space access.
-> > > This is another hurdle added that further blocks us away from TDISP.
-> > > Hence, we don’t want to take the route of involving owner device for any
-> > config access.
-> > 
-> > This "blocks" is all just wild hunches. hypervisor controls some aspects of TDISP
-> > devices for sure - maybe we actually should use pci config space as that is
-> > generally hypervisor controlled.
-> Even bad to do hypercalls.
-> I showed you last time the role of the PCI config space snippet from the spec.
-
-Yes I remember. This is just an example though. My point is maybe it is
-solvable maybe it is not.
-
-> Do you see we are repeating the discussion again?
-
-One of the reasons is that people bring up irrelevances. TDISP is
-important but has to be addressed or deferred not vaguely referred to.
-
-> > 
-> > > > For example, your current patches are clearly broken for TDISP:
-> > > > owner can control queue state at any time making device modify
-> > > > memory in any way it wants.
-> > > >
-> > > When TDISP migration is needed, the admin device can be another TVM
-> > outside the HV scope.
-> > > Or an alternative would have device context encrypted not visible to HV at all.
-> > 
-> > Maybe. Fact remains your patches do conflict with TDISP and you seem to be
-> > fine with it because you have a hunch you can fix it. But we can't do
-> > development based on your hunches.
-> > 
-> We have different view.
-> My patches do not conflict with TDISP because TDISP has clear definition of not involving hypervisor for transport.
-> And that part is still preserved.
-> Delegating the migration to another TDISP or encrypting is yet to be defined.
-> And current patches will align to both the approaches in future.
-> 
-> So you need to re-evaluate your judgment.
-
-If you like they do not "conflict".  But if used with TDISP they just
-make it insecure and thus completely worthless.  If hypervisor can
-change ring state to make device poke at random guest memory then it
-is game over and all the effort spent was security theater.
-But you know this, don't you? This is why you mentioned encrypting
-device. Maybe that works. It just does not work *as is*.
-
-
-> > 
-> > > Such encryption is not possible, with the trap+emulation method, where HV
-> > will have to decrypt the data coming over MMIO writes.
-> > 
-> > I don't how what trap+emulation has to do with it. Do you refer to the shadow
-> > vq thing? 
-> 
-> The method proposed here does not hinder any TDISP direction.
-
-direction? No, why would it. we can always add more commands that are
-safe for TDISP. commands you propose here are unsafe for TDISP.
-
-> Without my proposal, do you have a method that does not involve hypervisor intervention for virtio common and device config space, cvq and shadow vq?
-> If so, I would like to hear that as well because that will align with TDISP.
-
-I really did not give it much thought.  I suspect for TDISP it just
-might be cleaner to have guest agent migrate device. Certainly removes
-all the messy questions. That, to me impliest there needs to be a way to
-send migration commands through VF itself. Does this
-"involve hypervisor intervention"? No one should care I think.
-
-
-> > I am guessing modern platforms with TDISP support are likely to also
-> > support dirty bit in the IOMMU.
-> > 
-> It will be some day.
-
-What does this mean? Which platforms support TDISP and which IOMMUs
-do they use?
-
-> > 
-> > > > > And for future scale, having new SIOV interface makes more sense
-> > > > > which has
-> > > > its own direct interface to device.
-> > > > >
-> > > > > I finally captured all past discussions in form of a FAQ at [1].
-> > > > >
-> > > > > [1]
-> > > > > https://docs.google.com/document/d/1Iyn-l3Nm0yls3pZaul4lZiVj8x1s73
-> > > > > Ed6r
-> > > > > Osmn6LfXc/edit?usp=sharing
-> > > >
-> > > > Yea skimmed that, "Cons: None". Are you 100% sure? Anyway,
-> > > > discussion will take place on the mailing list please.
+> > > > Sounds good can you please post a bit more detail?
+> > > > which configs are you comparing what was the result on each of them.
 > > >
-> > > We cannot keep discussing the register interface every week.
-> > > I remember we have discussed this many times already in following series.
+> > > Common config: 8+8 tx and rx queues.
+> > > Port speed: 100Gbps
+> > > QEMU 8.1
+> > > Libvirt 7.0
+> > > GVM: Centos 7.4
+> > > Device: virtio VF hardware device
 > > >
-> > > 1. legacy series
-> > > 2. tvq v4 series
-> > > 3. dynamic vq creation series
-> > > 4. again during suspend series under tvq head 5. right now 6. May be
-> > > more that I forgot.
-> > >
-> > > I captured all the direction and options in the doc. One can refer when those
-> > questions arise there.
-> > > If we don’t work cohesively same reasoning repetition does not help.
+> > > Config_1: virtio suspend/resume similar to what Lingshan has, largely
+> > > vdpa stack
+> > > Config_2: Device context method of admin commands
 > > 
-> > It's still the same too, doc or no doc. You want to build a device without
-> > registers fine but don't force it down everyone's throat. 
-> I don’t see any compelling reason for inventing new method really.
-> Nor continuing in register mode.
-> Virtio already has VQ.
-> If CVQ is so problematic, one should put everything on registers and not run on double standards.
+> > OK that sounds good. The weird thing here is that you measure "downtime".
+> > What exactly do you mean here?
+> > I am guessing it's the time to retrieve on source and re-program device state on
+> > destination? And this is 3.71x out of how long?
+> Yes. Downtime is the time during which the VM is not responding or receiving packets, which involves reprogramming the device.
+> 3.71x is relative time for this discussion.
 
-We should not and neither should we put everything behind a VQ.
-
-
-> I captured all the reasoning and thoughts. I don’t have much to say in support of infinite register scale.
-> 
-> People who wants to push SIOV does not show single performance reason on why SIOV to be done.
-> I have upstreamed SIOVs in Linux as SFs without PASID, and in all our scale tests, before the device chocks, the system chocks.
-> 
-> So when someone pushes the SIOV series, I will be the first one interested in reading the performance numbers to proceed with patches.
-> 
-> > And now with 8MBytes
-> > of on-device memory that's needed for migration and that's apparently fine I
-> > am even less interested in saving 256 bytes for config space.
-> 
-> Again, not the right comparison. When and how to use 256 matters.
-> I haven’t come across any device that prefers infinite register scale.
-
-Why resort to hyperbole? 256 bytes is pretty far from infinite.  But
-again, if you don't want it in registers just add an option to move
-*all* of config space out of registers. cheaper devices will require
-newer guests.  Or, 10 years will pass and you will be able to drop
-compat with old guests. I know it's too long a game for you to care but
-I've been virtio spec editor for more than 10 years so to me it seems
-reasonable to plan like that.
+Oh interesting. So VM state movement including reprogramming the CPU is
+dominated by reprogramming this single NIC, by a factor of almost 4?
+CAn we get some absolute numbers too, please?
 
 -- 
 MST
