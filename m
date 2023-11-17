@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8425-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8426-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2063C072A2
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02946C197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:57:56 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 383851336EB
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:55:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 58AD8157EA9
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:57:56 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2C527986E25
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:55:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 34B03986E26
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:57:56 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 225EA986E1A; Fri, 17 Nov 2023 09:55:36 +0000 (UTC)
+	id 1EE43986E1A; Fri, 17 Nov 2023 09:57:56 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,200 +24,204 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 14987986E1B
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 09:55:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0E3BB986E1B
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 09:57:56 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 7Hh8J4rHMWy0Lwqn7jnicw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700214932; x=1700819732;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=n1/tb5Y30rX69auKG6mplE47p8Vi++m6+Cd/h7SQoZA=;
-        b=HJY/JSE0urzE0rFJyMyBybUoyApnRAw8cmsw1XFMpljtJ9XPMU161CgSq1JXyCdxTh
-         2OuI7iUZkDZFxKzLSas7g21YTpS+bH+FkGKHk4ib6MMpPLkIYmaVANN4Eq0sV0vZPCj+
-         F85y8W14ogSwvBNZhFWejU15bDArLgQs6ewqevAnvv8AKEibufNb0rNRp3xjz6yh7/6x
-         Jgjh3pyaTDTw2xdk7tGHuJcjJr69uXVvF959vOoBBEQ66AtWZEdSfGEqOMnF17tTBlnf
-         qKxPluHgwWPtd3MgUvrUV+X+Pqw1Q0RtDZhxFPX4JSdfNFsAaMcHKICldhs9sQd4gyue
-         NyuQ==
-X-Gm-Message-State: AOJu0YyV0vUDe7JyGWVb8sVKBXM+Bmfqh/Juewr1W1uFsI9aIOT9aGYH
-	PYQf3hTWNEmIFpxzbqz1HqngKTzjUJEoNo2LYlXcUVTP6ITQDCj9ORgQGg7pwkepCGzzDw2GLXI
-	iuvMX+G0cQQMcG0fjQg6iKfO4RRRSNBWJbg==
-X-Received: by 2002:a05:600c:154a:b0:401:bdd7:49ae with SMTP id f10-20020a05600c154a00b00401bdd749aemr15795488wmg.18.1700214931758;
-        Fri, 17 Nov 2023 01:55:31 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEA6oBLpZLWdS0AXZgKSMr7mjvftBC7cnBIXK3J5vINa5ZX8AgXfjVwFpQl0p6p+ycedAoM8Q==
-X-Received: by 2002:a05:600c:154a:b0:401:bdd7:49ae with SMTP id f10-20020a05600c154a00b00401bdd749aemr15795465wmg.18.1700214931324;
-        Fri, 17 Nov 2023 01:55:31 -0800 (PST)
-Date: Fri, 17 Nov 2023 04:55:26 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231117045200-mutt-send-email-mst@kernel.org>
-References: <20231114032553-mutt-send-email-mst@kernel.org>
- <b9b8a564-b2eb-4c1c-9ada-975f3833e282@intel.com>
- <20231115025002-mutt-send-email-mst@kernel.org>
- <5c1c6815-f144-4d81-bef7-59a7608936c6@intel.com>
- <20231115030025-mutt-send-email-mst@kernel.org>
- <ba5a3fe9-4c2c-4d59-ae99-fdf6ce29927e@intel.com>
- <20231115063832-mutt-send-email-mst@kernel.org>
- <e21e91be-4696-4f67-94bd-e1663c85bdb7@intel.com>
- <20231116071230-mutt-send-email-mst@kernel.org>
- <37c65584-2d55-4221-8755-dd174476cc3b@intel.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XG92KL0wvHmH4uUNkuWHN9Zf0+FX1xkEJsfW17mi9d6cCJORWKadZqVyxq3Qm+smx7rzgRr55NRWhZsjZd1AliSD2ZabuIfk95ZOZHJf3lMgbTPuuJBS7DgL+89azyN41otNxh3c/XRMqwt2orY/68eya49T0d9lRbOvW6UKg94/2QxnLiITQr2QbekC7vEGIEj3y/oM8Iz2tu0POXWBXAiZ/1ggm316v2DxCTUmBaSOjoAwcqo2vmkMXZJJH98c7pLut4AN3YIYCvn5Luxx61qEc1J66+hdsGK9S6amz7Z9FissWQBC9vJRT/53LiCONP67JvadPxupDgTluE6TCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E+MnHEDomWYa9iv6G/Srm7eHLffvClDS7F+Wwtn0jkI=;
+ b=W5+RPEcfBHwJAxknC07pfW+nrILAmz+uBSXIcjp5SgIrY/cvIGSxpOxofuLFtdu9ZC8HD3XSaHo63GDYmgQP0Qufm6J2CRXvZhaiOS7/j4uQdTqYl/kVYW/YJvPwoOgEiDi5hJU/T4B+8XB77jmCFq3Y8tg7by7C6aa+T4xlRFFeB8soG/1toM9RXXt5H8+ZuAyT6UeqLiJM1tVY8wXKXrwdD4optay6kg8lBQTv8MmMKaQ88wS33AI5DHLwDGVYzjsZEMzqNV0vXfcD7eBbdLILA/almO1ClsBC0vbSedJWikzent5y2d76lZppgvZr7/Hg2P/O4YMcJgQ9GHs/IQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>, "lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Thread-Topic: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
+Thread-Index:
+ AQHaCzPonHREgkZknEiTjfT1JtA3fLBjIMmAgAAcy4CAAWD+gIAAKSfAgAGqygCAABTkAIAGWMEAgAADI2CAAWVPgIACFpEAgAdP4YCAA//WQIAAxB+AgAAJgRCAAA8CgIAAHSmAgAAA6/CAAEWagIAATXNQgAAQ3wCAAAB/YIAADsiAgACQwGCAAGEbgIAAB4aggAAG2gCAAABcQIAAA3mAgAAAL+A=
+Date: Fri, 17 Nov 2023 09:57:52 +0000
+Message-ID:
+ <PH0PR12MB5481E8342B26739B852B592FDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231116064611-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54814EC9577B1197E2A13BDBDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116121958-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481F4D1B07F2809AA7D7C9BDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116131303-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54818DBAE43A566C807E1AE9DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117031251-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481D7C85F006AE7292E1D82DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117042446-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813F2F62F87E42CD5DB4B0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117044428-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231117044428-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH3PR12MB7545:EE_
+x-ms-office365-filtering-correlation-id: 2003f6e0-4c7d-4ae3-9cb2-08dbe753a9e1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ mnwFyzfYK7SUCUk6mo4twn96Nq0mu/C3NjkuB18luhmgna9gxC7IB0863bJXHQO6SVqaQs27L95Y3/niw/mjlLzsVJsMWq65u/mXGqH6Ze7qaHJJs/9elZbBjITPinL+qS9aTRQtgxsjgayI459ELWW7qetLfj2sWNTHUv8z1duCB7gKPJBbHQwoKFRG+OZPDfBia1ODbPN8s7vh1kPqO6KDb8t2YqKyMyuo+DG7hzLa4ahaRHvY42Ho0vOz6OLpN2qpYd75gjsEkmYevSb2pVHwx3zJsxihBQFdrz/qe6K5p3Z57lePfWZM2GCA+5lVWWeBG3anQ1cHk0zC0150gMRAeMOU+z3rzljaeHNnahHz/OYKQAOLv79NkEaqWgsph5HyOXRItunJQdlzgpwlesHGteKvOyoF9cxa6AGuwr8vOGX1ZSBvfLnLF2+qlvwF518YQAbfdUYK7lSB3hEdirMgXZ8vpmm04I33q325zEYPxaBMAwpM+pklE4y2RR0bAZPuVGj6ny0yljahvICIg2oMhO/YkTWPYzGYco3I07gBjzdHIeSgNwpd/+Y3gk3IM/tD5baj+RiH26sVQM7b/89jn2l6ughQZFf5EF/KQQKpMyP7qC92rH7LYLOLoIgV
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(376002)(346002)(136003)(366004)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(122000001)(2906002)(38100700002)(55016003)(86362001)(5660300002)(8936002)(52536014)(4326008)(8676002)(41300700001)(83380400001)(33656002)(9686003)(316002)(26005)(64756008)(66946007)(66556008)(66446008)(66476007)(76116006)(54906003)(55236004)(6916009)(71200400001)(7696005)(6506007)(478600001)(38070700009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?c1RKxaJbd7gHPkAyDLkOtODthMZp7pYvahUyCLJV+WohhKLJAAHp/MvaTJGT?=
+ =?us-ascii?Q?tecC8RW9TercyZBk6yHm97vLxwHYees5sqikjFTJ3ReJ9j1RgBaR+iYFJpHn?=
+ =?us-ascii?Q?29DSVA1epMIzKbigI6EYa9Q0XaCM23Hl2ISNWyLCki6Bjj4OEga5r51VAjkw?=
+ =?us-ascii?Q?n2Ktus7CYzhh1v73TVO4SXgxdg+lPOIzBY3yoTCXS7k992CF4n2kY9ebort1?=
+ =?us-ascii?Q?LTYj36VU3Wq41Jv1mhleUQpHvsHRh+Qce6lSfif5zwOdp2KPCIa5A2ldwIqy?=
+ =?us-ascii?Q?39D/Kdod7ekigBgap/9/nJjJsqiBBVj8AbFmrEYUL2uuqJmFRtA6OXCm3a0G?=
+ =?us-ascii?Q?13LZupbiW8sSa/mZsOVp+AmahjmRVq+tNC/djGAlqyaQDcd4mRL7V80UL3uc?=
+ =?us-ascii?Q?DkKHPFV6ZBEtwfvImN6b+iHboT6SCqIOhj/PbfBYmPIbkKru0BOX1Iu19XDQ?=
+ =?us-ascii?Q?LKPxbOThso56B/QTkedSl8YB22YmAymgx9WxXTtby8ZArDRTRV/siw1SlKhZ?=
+ =?us-ascii?Q?xbfs3zq80CxW1+D+RFt8KwIwxFUX32hRvfXWR5SpmYbTgnUG6JsfrYioqmBy?=
+ =?us-ascii?Q?B+aC46AbTEQB0K+CJCdwUTJag25JuxZkLMVb01WTCAxbjZ2+1NcIoRHWHsUJ?=
+ =?us-ascii?Q?QE+qVzoO0bjSKzwmXDcj6SvRJEJAetK2/Gk8+/1prruEpWYnn3XuVqh86vxB?=
+ =?us-ascii?Q?s7KMAZyfKIHCqkh44GmS2vBIefTAcN5ladM+yVCazHJFE/qE2t4zuPH45RED?=
+ =?us-ascii?Q?9IPCNBfvunCwGGQBBDyw6sP2I4UAE/WlZown5azj5Qh07oW35NMk7vB515Zf?=
+ =?us-ascii?Q?Z2g4FFWPjXaSJeLciubyVEDc8JWvDQoOROPjiwoy3c4aatLvqs5L1u14PrzG?=
+ =?us-ascii?Q?6XyZNksKQqSc7U1AKt3fD1lKdYWCCVLatw0XrS90NngJ68EALMw6Ryo0oHDZ?=
+ =?us-ascii?Q?s9wuTbpC1FaB7HxGgLteDymgGfg02LIoIPZhwjKvP3i5SOz/Pe7EIfGuOAL9?=
+ =?us-ascii?Q?Yst6DnC9wAVeiIhxK6VjHSZUyHX4+PmauXOtV67LkgZd/VWpZBWFY6g2z6zA?=
+ =?us-ascii?Q?RaK8MTb7jPx/rq3o4MXPiaIa33/MTQBMZq3jtLpRiz+px2tQUWYcn7i/NTvC?=
+ =?us-ascii?Q?t8s56/P+791K2fTz7vFyMkme3wDrEGMHTDVZLJsMlVTETSg2sLp+VAoX5urh?=
+ =?us-ascii?Q?Wq3ESrFvteXYezCW9onGd312isLza6oNKntyjvkTfPasrowuYG2zE/vXOeHw?=
+ =?us-ascii?Q?EfjtmN0+vfe+XNZXCrookeehwipbpth0XBvaLVjSP46yCO+VW91WPlAqbt08?=
+ =?us-ascii?Q?6TnUoIHwEWveWLIPnwhYeVK5m+TzYFLfjtPnITxqxEuLh+1FUN+CK2ugLZAB?=
+ =?us-ascii?Q?OQEKDp6qLdA8u0xmADnvRzPX6ZRH4hcO0Y/BvoneUs74zHVFkcLlZYnEFzoF?=
+ =?us-ascii?Q?p6ma/nFPmSKgqchpGi1RQrZTjFrDTwZbU7LB0IK+HMZ+dRzbg7hgGhj5+zP/?=
+ =?us-ascii?Q?w+FLS0MNZRmUBrYl0TxBpk1w6DGqMEyb9p+pB5dpVAwFoDYBuZ0PVm4oNEAT?=
+ =?us-ascii?Q?uy+4ljDIbC7OnNpfzbg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <37c65584-2d55-4221-8755-dd174476cc3b@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2003f6e0-4c7d-4ae3-9cb2-08dbe753a9e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2023 09:57:52.1041
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qq7RAIuc3QEiWGW3+HO2I3zVms38uhJHz1/OTAsdyLfjItBCR06F1DVlcKK6j90o17AOY/M/+1YvC9UL8RJJPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7545
+Subject: RE: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
  operation for write recording commands
 
-On Fri, Nov 17, 2023 at 05:50:24PM +0800, Zhu, Lingshan wrote:
-> 
-> 
-> On 11/16/2023 8:18 PM, Michael S. Tsirkin wrote:
-> > On Thu, Nov 16, 2023 at 05:38:35PM +0800, Zhu, Lingshan wrote:
-> > > 
-> > > On 11/15/2023 7:52 PM, Michael S. Tsirkin wrote:
-> > > > On Wed, Nov 15, 2023 at 04:42:56PM +0800, Zhu, Lingshan wrote:
-> > > > > On 11/15/2023 4:05 PM, Michael S. Tsirkin wrote:
-> > > > > > On Wed, Nov 15, 2023 at 03:59:16PM +0800, Zhu, Lingshan wrote:
-> > > > > > > On 11/15/2023 3:51 PM, Michael S. Tsirkin wrote:
-> > > > > > > > On Wed, Nov 15, 2023 at 12:05:59PM +0800, Zhu, Lingshan wrote:
-> > > > > > > > > On 11/14/2023 4:27 PM, Michael S. Tsirkin wrote:
-> > > > > > > > > > On Tue, Nov 14, 2023 at 03:34:32PM +0800, Zhu, Lingshan wrote:
-> > > > > > > > > > > > > So I can't
-> > > > > > > > > > > > > believe it has good performance overall. Logging via IOMMU or using
-> > > > > > > > > > > > > shadow virtqueue doesn't need any extra PCI transactions at least.
-> > > > > > > > > > > > On the other hand they have an extra CPU cost.  Personally if this is
-> > > > > > > > > > > > coming from a hardware vendor, I am inclined to trust them wrt PCI
-> > > > > > > > > > > > transactions.  But anyway, discussing this at a high level theoretically
-> > > > > > > > > > > > is pointless - whoever bothers with actual prototyping for performance
-> > > > > > > > > > > > testing wins, if no one does I'd expect a back of a napkin estimate
-> > > > > > > > > > > > to be included.
-> > > > > > > > > > > if so, Intel has released productions implementing these interfaces years
-> > > > > > > > > > > ago,
-> > > > > > > > > > > see live migration in 4.1. IFCVF vDPA Implementation,
-> > > > > > > > > > > https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html
-> > > > > > > > > > > and
-> > > > > > > > > > That one is based on shadow queue, right? Which I think this shows
-> > > > > > > > > > is worth supporting.
-> > > > > > > > > Yes, it is shadow virtqueue, I assume this is already mostly done,
-> > > > > > > > > do you see any gaps we need to address in our series that we should work on?
-> > > > > > > > > 
-> > > > > > > > > Thanks
-> > > > > > > > There were a ton of comments posted on your series.
-> > > > > > > Hope I didn't miss anything. I see your latest comments are about vq states,
-> > > > > > > as replied before, I think we can record the states by two le16 and the
-> > > > > > > in-flight
-> > > > > > > descriptor tracking facility.
-> > > > > > I don't know why you need the le16. in-flight tracking should be enough.
-> > > > > > And given it needs DMA I would try really hard to actually use
-> > > > > > admin commands for this.
-> > > > > we need to record the on-device avail_idx and used_idx, or
-> > > > > how can the destination side know the device internal values.
-> > > > Again you never documented what state the device is in so I can't really
-> > > > say for sure.  But generally whenever a buffer is used the internal
-> > > > values are written out to memory.
-> > > This is the state of a virtqueue, in my series I have defined what is
-> > > vq state in [PATCH V2 1/6] virtio: introduce virtqueue state,
-> > > and give an example of PCI implementation.
-> > > 
-> > > In short, for split vq it is last_avail_idx and in-flight descriptors.
-> > > 
-> > > I humbly request an explicit list of missing gaps, so that I can improve my
-> > > V3
-> > > 
-> > > Thanks
-> > I don't know how to help you without resorting to writing it instead of
-> > you, I sent 3 messages in response to that one patch alone. Your patch
-> > just adds some bits here and there without much in the way of
-> > documentation. Patch needs to explain what these things are and how do they
-> > interact with VQ state in memory.
-> Please allow me quote the series:
-> +The available state field is two bytes of virtqueue state that is used by
-> +the device to read the next available buffer. It is presented in the
-> following format:
-> +
-> +\begin{lstlisting}
-> +le16 last_avail_idx;
-> +\end{lstlisting}
-> +
-> +The \field{last_avail_idx} field is the free-running available ring
-> +index where the device will read the next available head of a
-> +descriptor chain.
 
-Next *after what*? The last used buffer? This is exactly the used index.
+> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+> open.org> On Behalf Of Michael S. Tsirkin
+> Sent: Friday, November 17, 2023 3:21 PM
+>=20
+> On Fri, Nov 17, 2023 at 09:41:40AM +0000, Parav Pandit wrote:
+> >
+> >
+> > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > Sent: Friday, November 17, 2023 3:08 PM
+> > >
+> > > On Fri, Nov 17, 2023 at 09:14:21AM +0000, Parav Pandit wrote:
+> > > >
+> > > >
+> > > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > > Sent: Friday, November 17, 2023 2:16 PM In any case you can
+> > > > > safely assume that many users will have migration that takes
+> > > > > seconds and minutes.
+> > > >
+> > > > Strange, but ok. I don't see any problem with current method.
+> > > > 8MB is used for very large VM of 1TB takes minutes. Should be fine.
+> > >
+> > > The problem is simple: vendors selling devices have no idea how
+> > > large the VM will be. So you have to over-provision for the max VM si=
+ze.
+> > > If there was a way to instead allocate that in host memory, that
+> > > would improve on this.
+> >
+> > Not sure what to over provision for max VM size.
+> > Vendor does not know how many vcpus will be needed. It is no different
+> problem.
+> >
+> > When the VM migration is started, the individual tracking range is supp=
+lied by
+> the hypervisor to device.
+> > Device allocates necessary memory on this instruction.
+> >
+> > When the VM with certain size is provisioned, the member device can be
+> provisioned for the VM size.
+> > And if it cannot be provisioned, possibly this may not the right member=
+ device
+> to use at that point in time.
+>=20
+> For someone who keeps arguing against adding single bit registers "becaus=
+e it
+> does not scale" you seem very nonchalant about adding 8Mbytes.
+>=20
+There is fundamental difference on how/when a bit is used.
+One wants to use a bit for non-performance part and keep it always availabl=
+e vs data path.
+Not same comparison.
 
-> 
-> +When SUSPEND is set, the device MUST record the Available State of every
-> enabled splited virtqueue
-> +in \field{Available State} field,
-> +and correspondingly restore the Available State of every enabled splited
-> virtqueue
-> +from \field{Available State} field when DRIVER_OK is set.
-> +
-> +The device SHOULD reset \field{Available State} field upon a device reset
-> 
-> I will add these contents in next series:
-> 1) vq states refer to the device internal states, so have to record and
-> restore them
-> 2) in-flight descriprots tracking.
-> 
-> Not sure whether I should describe how in-guest-memory vq config migrated,
-> because they migrated with guest memory.
-> > 
-> > 
-> > But besides, Parav needs to do exactly the same too. So why don't you
-> > let Parav do the work on this and then later just add a small interface
-> > to send admin commands through VF itself? Looks like this will be good
-> I think this is the topic: shall we process admin cmds in config space.....
-> > enough for VDPA. Meanwhile I feel your energy would be better spend
-> > working on transport vq which no one else is working on.
-> I can start rework on transport vq next week.
-> 
-> Thanks
-> > 
-> > 
-> > 
-> > 
-> > > > > > > For this shadow virtqueue, do you think I should address this in my V4?
-> > > > > > > Like saying: acknowledged control commands through the control virtqueue
-> > > > > > > should be recorded, and we want to use shadow virtqueue to track dirty
-> > > > > > > pages.
-> > > > > > What you need to do is actually describe what do you expect the device
-> > > > > > to do when it enters this suspend state. since you mention control
-> > > > > > virtqueue then it seems that there needs to be a device type
-> > > > > > specific text explaining the behaviour. If so this implies there
-> > > > > > needs to be a list of device types that support suspend
-> > > > > > until someone looks at each type and documents what it does.
-> > > > > On a second thought, shadow vqs are hypervisor behaviors, maybe should not
-> > > > > be
-> > > > > described in this device spec.
-> > > > > 
-> > > > > Since SUSPEND is in device status, so for now I see every type of device
-> > > > > implements
-> > > > > device_status should support SUSPEND. This should be a general facility.
+> I thought we have a nicely contained and orthogonal feature, so if it's o=
+ptional
+> it's not a problem.
+It is optional as always.
 
+>=20
+> But with such costs and corner cases what exactly is the motivation for t=
+he
+> feature here? =20
+New generations DPUs have memory for device data path workloads but not for=
+ bits.
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+> Do you have a PoC showing how this works better than e.g.
+> shadow VQ?
+>=20
+Not yet.
+But I don't think this can be even a criteria to consider as dependency on =
+PASID is nonstarter with other limitations.
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+> Maybe IOMMU based and shadow VQ based tracking are the way to go initiall=
+y,
+> and if there's a problem then we should add this later, on top.
+>
+For the cpus that does not support IOMMU cannot shift to shadow VQ either.
+=20
+> I really want us to finally make progress merging features and anything t=
+hat
+> reduces scope initially is good for that.
+>
+Yes, if you prefer to split the last three patches, I am fine.
+Please let me know.
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
