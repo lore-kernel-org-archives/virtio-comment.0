@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8421-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8422-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BC27C072A2
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6895C197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:51:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A36D0C8FA9
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:50:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 35D73D46F3
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:51:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7B07A986E1F
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:50:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2FF5C986E26
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 09:51:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 5612D986E1A; Fri, 17 Nov 2023 09:50:34 +0000 (UTC)
+	id 24710986E1A; Fri, 17 Nov 2023 09:51:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,168 +24,111 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 42CB9986E1B
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 09:50:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1624F986E1B
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 09:51:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="394121578"
-X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; 
-   d="scan'208";a="394121578"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="856292252"
-X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; 
-   d="scan'208";a="856292252"
-Message-ID: <37c65584-2d55-4221-8755-dd174476cc3b@intel.com>
-Date: Fri, 17 Nov 2023 17:50:24 +0800
+X-MC-Unique: PNKM67IyMcaFKSFacuIO4Q-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700214693; x=1700819493;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FaEq7CE/1naCecb3yAG7H4F8hKMPws7e9uqzw8l+Za0=;
+        b=EoYmBT/m9/lOL4OmOGpkZze0/EQ48BcuR5XpeT8irqOMFqclxWi6PXuaYOYfeMdhpD
+         yRmdqPANMIsdF5p+RDXr7PdU1uJMu/FKKSWM2n007IRbklR/59HqPzBZo9gdI71Sr/U5
+         oIYAeAiMv9m5SilnDQOHP2Zu6I5xRupy3P3EBe2uP1wa3yTaYPvrUvm1rmJBERrZFLxE
+         GzkhajufK5kqqlHJ0Dwgk1Zqkbab3mGfSAGQSrcQ6WFUbp/ARk6sU/+masWUclzH4c6T
+         wchLk/PqfHf7fryvHWa4LdzaWd2EVDCspyJO95eLerSnxk9tkyrvpqlVychX+Os9drgj
+         YC6A==
+X-Gm-Message-State: AOJu0YyvZCYxpzbVfIBsYYof7wbcP6PPYWncxfg+UiYQWqF1HdKWpvLA
+	G0Dh0ykJhdKfYOKQxFnu5YzmUDyRbMdHm74+ENMqyVrplQ0f/XjbJpKhqezSlG6knmT0WF+4h/U
+	MeUhbbpL7n8CCKUQcmxEdec6KBi3Qv6WUhA==
+X-Received: by 2002:a05:600c:1991:b0:405:3e9a:f1e3 with SMTP id t17-20020a05600c199100b004053e9af1e3mr3990551wmq.11.1700214692985;
+        Fri, 17 Nov 2023 01:51:32 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEadrmnKqYynI6YeMzf2Tap7zwjj4jn1avDH+fEUn+IQAtP9k9l4U9THHoA69z8vZAvNwjnsg==
+X-Received: by 2002:a05:600c:1991:b0:405:3e9a:f1e3 with SMTP id t17-20020a05600c199100b004053e9af1e3mr3990527wmq.11.1700214692604;
+        Fri, 17 Nov 2023 01:51:32 -0800 (PST)
+Date: Fri, 17 Nov 2023 04:51:27 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Message-ID: <20231117044428-mutt-send-email-mst@kernel.org>
+References: <20231116064611-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54814EC9577B1197E2A13BDBDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116121958-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481F4D1B07F2809AA7D7C9BDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116131303-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54818DBAE43A566C807E1AE9DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117031251-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481D7C85F006AE7292E1D82DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117042446-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813F2F62F87E42CD5DB4B0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
- <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-References: <20231113013016-mutt-send-email-mst@kernel.org>
- <9952859f-1b72-46bf-b386-7c3f5c69269f@intel.com>
- <20231114032553-mutt-send-email-mst@kernel.org>
- <b9b8a564-b2eb-4c1c-9ada-975f3833e282@intel.com>
- <20231115025002-mutt-send-email-mst@kernel.org>
- <5c1c6815-f144-4d81-bef7-59a7608936c6@intel.com>
- <20231115030025-mutt-send-email-mst@kernel.org>
- <ba5a3fe9-4c2c-4d59-ae99-fdf6ce29927e@intel.com>
- <20231115063832-mutt-send-email-mst@kernel.org>
- <e21e91be-4696-4f67-94bd-e1663c85bdb7@intel.com>
- <20231116071230-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231116071230-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
- operation for write recording commands
+In-Reply-To: <PH0PR12MB54813F2F62F87E42CD5DB4B0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write
+ recording commands
 
+On Fri, Nov 17, 2023 at 09:41:40AM +0000, Parav Pandit wrote:
+> 
+> 
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Friday, November 17, 2023 3:08 PM
+> > 
+> > On Fri, Nov 17, 2023 at 09:14:21AM +0000, Parav Pandit wrote:
+> > >
+> > >
+> > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > Sent: Friday, November 17, 2023 2:16 PM In any case you can safely
+> > > > assume that many users will have migration that takes seconds and
+> > > > minutes.
+> > >
+> > > Strange, but ok. I don't see any problem with current method.
+> > > 8MB is used for very large VM of 1TB takes minutes. Should be fine.
+> > 
+> > The problem is simple: vendors selling devices have no idea how large the VM
+> > will be. So you have to over-provision for the max VM size.
+> > If there was a way to instead allocate that in host memory, that would improve
+> > on this.
+> 
+> Not sure what to over provision for max VM size.
+> Vendor does not know how many vcpus will be needed. It is no different problem.
+> 
+> When the VM migration is started, the individual tracking range is supplied by the hypervisor to device.
+> Device allocates necessary memory on this instruction.
+> 
+> When the VM with certain size is provisioned, the member device can be provisioned for the VM size.
+> And if it cannot be provisioned, possibly this may not the right member device to use at that point in time.
 
+For someone who keeps arguing against adding single bit registers
+"because it does not scale" you seem very nonchalant about adding
+8Mbytes.
 
-On 11/16/2023 8:18 PM, Michael S. Tsirkin wrote:
-> On Thu, Nov 16, 2023 at 05:38:35PM +0800, Zhu, Lingshan wrote:
->>
->> On 11/15/2023 7:52 PM, Michael S. Tsirkin wrote:
->>> On Wed, Nov 15, 2023 at 04:42:56PM +0800, Zhu, Lingshan wrote:
->>>> On 11/15/2023 4:05 PM, Michael S. Tsirkin wrote:
->>>>> On Wed, Nov 15, 2023 at 03:59:16PM +0800, Zhu, Lingshan wrote:
->>>>>> On 11/15/2023 3:51 PM, Michael S. Tsirkin wrote:
->>>>>>> On Wed, Nov 15, 2023 at 12:05:59PM +0800, Zhu, Lingshan wrote:
->>>>>>>> On 11/14/2023 4:27 PM, Michael S. Tsirkin wrote:
->>>>>>>>> On Tue, Nov 14, 2023 at 03:34:32PM +0800, Zhu, Lingshan wrote:
->>>>>>>>>>>> So I can't
->>>>>>>>>>>> believe it has good performance overall. Logging via IOMMU or using
->>>>>>>>>>>> shadow virtqueue doesn't need any extra PCI transactions at least.
->>>>>>>>>>> On the other hand they have an extra CPU cost.  Personally if this is
->>>>>>>>>>> coming from a hardware vendor, I am inclined to trust them wrt PCI
->>>>>>>>>>> transactions.  But anyway, discussing this at a high level theoretically
->>>>>>>>>>> is pointless - whoever bothers with actual prototyping for performance
->>>>>>>>>>> testing wins, if no one does I'd expect a back of a napkin estimate
->>>>>>>>>>> to be included.
->>>>>>>>>> if so, Intel has released productions implementing these interfaces years
->>>>>>>>>> ago,
->>>>>>>>>> see live migration in 4.1. IFCVF vDPA Implementation,
->>>>>>>>>> https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html
->>>>>>>>>> and
->>>>>>>>> That one is based on shadow queue, right? Which I think this shows
->>>>>>>>> is worth supporting.
->>>>>>>> Yes, it is shadow virtqueue, I assume this is already mostly done,
->>>>>>>> do you see any gaps we need to address in our series that we should work on?
->>>>>>>>
->>>>>>>> Thanks
->>>>>>> There were a ton of comments posted on your series.
->>>>>> Hope I didn't miss anything. I see your latest comments are about vq states,
->>>>>> as replied before, I think we can record the states by two le16 and the
->>>>>> in-flight
->>>>>> descriptor tracking facility.
->>>>> I don't know why you need the le16. in-flight tracking should be enough.
->>>>> And given it needs DMA I would try really hard to actually use
->>>>> admin commands for this.
->>>> we need to record the on-device avail_idx and used_idx, or
->>>> how can the destination side know the device internal values.
->>> Again you never documented what state the device is in so I can't really
->>> say for sure.  But generally whenever a buffer is used the internal
->>> values are written out to memory.
->> This is the state of a virtqueue, in my series I have defined what is
->> vq state in [PATCH V2 1/6] virtio: introduce virtqueue state,
->> and give an example of PCI implementation.
->>
->> In short, for split vq it is last_avail_idx and in-flight descriptors.
->>
->> I humbly request an explicit list of missing gaps, so that I can improve my
->> V3
->>
->> Thanks
-> I don't know how to help you without resorting to writing it instead of
-> you, I sent 3 messages in response to that one patch alone. Your patch
-> just adds some bits here and there without much in the way of
-> documentation. Patch needs to explain what these things are and how do they
-> interact with VQ state in memory.
-Please allow me quote the series:
-+The available state field is two bytes of virtqueue state that is used by
-+the device to read the next available buffer. It is presented in the 
-following format:
-+
-+\begin{lstlisting}
-+le16 last_avail_idx;
-+\end{lstlisting}
-+
-+The \field{last_avail_idx} field is the free-running available ring
-+index where the device will read the next available head of a
-+descriptor chain.
+I thought we have a nicely contained and orthogonal feature, so if it's
+optional it's not a problem.
 
-+When SUSPEND is set, the device MUST record the Available State of 
-every enabled splited virtqueue
-+in \field{Available State} field,
-+and correspondingly restore the Available State of every enabled 
-splited virtqueue
-+from \field{Available State} field when DRIVER_OK is set.
-+
-+The device SHOULD reset \field{Available State} field upon a device reset
+But with such costs and corner cases what exactly is the motivation for
+the feature here?  Do you have a PoC showing how this works better than
+e.g. shadow VQ?
 
-I will add these contents in next series:
-1) vq states refer to the device internal states, so have to record and 
-restore them
-2) in-flight descriprots tracking.
+Maybe IOMMU based and shadow VQ based tracking are the way to go
+initially, and if there's a problem then we should add this later, on
+top.
 
-Not sure whether I should describe how in-guest-memory vq config migrated,
-because they migrated with guest memory.
->
->
-> But besides, Parav needs to do exactly the same too. So why don't you
-> let Parav do the work on this and then later just add a small interface
-> to send admin commands through VF itself? Looks like this will be good
-I think this is the topic: shall we process admin cmds in config space.....
-> enough for VDPA. Meanwhile I feel your energy would be better spend
-> working on transport vq which no one else is working on.
-I can start rework on transport vq next week.
+I really want us to finally make progress merging features and anything
+that reduces scope initially is good for that.
 
-Thanks
->
->
->
->
->>>>>> For this shadow virtqueue, do you think I should address this in my V4?
->>>>>> Like saying: acknowledged control commands through the control virtqueue
->>>>>> should be recorded, and we want to use shadow virtqueue to track dirty
->>>>>> pages.
->>>>> What you need to do is actually describe what do you expect the device
->>>>> to do when it enters this suspend state. since you mention control
->>>>> virtqueue then it seems that there needs to be a device type
->>>>> specific text explaining the behaviour. If so this implies there
->>>>> needs to be a list of device types that support suspend
->>>>> until someone looks at each type and documents what it does.
->>>> On a second thought, shadow vqs are hypervisor behaviors, maybe should not
->>>> be
->>>> described in this device spec.
->>>>
->>>> Since SUSPEND is in device status, so for now I see every type of device
->>>> implements
->>>> device_status should support SUSPEND. This should be a general facility.
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
