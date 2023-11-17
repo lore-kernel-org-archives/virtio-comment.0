@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8437-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8438-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7CA9C197A0
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC45C197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:20:50 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4F3AC45B28
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 36A9F613CA
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:20:50 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 20905986E25
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0626A986E24
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:20:50 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 09D50986E1A; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
+	id DF91A986E1B; Fri, 17 Nov 2023 10:20:49 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,659 +24,143 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EDC0B986E1B
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 10:15:57 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D0656986E1C
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 10:20:49 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 5Q1IMfF0OS2DyukqTy1EDw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700216152; x=1700820952;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9xC8rDTnzkbWxJ62PmAzijxFfiIBJ6GQqd9jexoFhw4=;
-        b=PNLohK/3OYKNJ+va1T/oCWRKDLaR0WNC/grUlVwPvIY1wTVQXhNchvwmonYU+opQ8J
-         G4n8FgCnreHE9/zGBGtinLsQOHKgNNco1hBSb9GStqtfXk5ifFOI6U44BkP5jX/QvlGj
-         pgQRcoAAQUfsmB0rLjP5GvxUmtN2TTl/qMus/7LUA8slmcAXsl9Rwv+MZBn8pAsdf7fD
-         AMCccft8ba1N3nmVQpsrBTxJ7QDhnqSjKi3cnw7QljWjuOCy0w2wDlx+tEK8hOiRsDI3
-         iAHcTHDGrtb5cJZl2QRRkAAl4sz2/W+5mSmqfwbLIzifaPqY0ejAw0LIzXIsSSnAI/Jb
-         u53Q==
-X-Gm-Message-State: AOJu0YwMT3pB8THANNvo3FkDJ9W6cjawcSPEkziTh75ggGucF97kO8zu
-	zofdUPCkD0RlIbpR14hLvalDPtUGqGiJgxqcUS/Tv9xd598jkOhAgGtreF9pBoK5U/IE4CDQeLc
-	sK58airMhWfBv61o+SRjetMkz0ERZUx7YiA==
-X-Received: by 2002:a05:600c:2343:b0:405:3d41:5646 with SMTP id 3-20020a05600c234300b004053d415646mr16148075wmq.2.1700216151755;
-        Fri, 17 Nov 2023 02:15:51 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHTRwTiUP5ad1alFk9MaGmztRLKllHPqtgnkVDXcWr6IjMK9gbRoUcehdTdhbIh04Rjw6ny5A==
-X-Received: by 2002:a05:600c:2343:b0:405:3d41:5646 with SMTP id 3-20020a05600c234300b004053d415646mr16148041wmq.2.1700216150901;
-        Fri, 17 Nov 2023 02:15:50 -0800 (PST)
-Date: Fri, 17 Nov 2023 05:15:44 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
-	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
-Message-ID: <20231117050838-mutt-send-email-mst@kernel.org>
-References: <CACGkMEtGvDxF1Dnb6FJDK8XEAUcast-7OnuzTyfAr7m0LURWMw@mail.gmail.com>
- <PH0PR12MB548152A30021BEBFFCA62AA9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEv8mccZfcA4n+KVwdkaWAqhM94Qhq8H5Rvw2CocCmt9UA@mail.gmail.com>
- <20231107015412-mutt-send-email-mst@kernel.org>
- <CACGkMEv+jir2+f_vHmi_KjFXf0yz+EQmEbvzX0pheHKsVJkWZw@mail.gmail.com>
- <20231108025854-mutt-send-email-mst@kernel.org>
- <CACGkMEvkQawXWCvu7rZHnZk8YsNunS_B-fcQmEHEe_N87Q6y6g@mail.gmail.com>
- <20231109022647-mutt-send-email-mst@kernel.org>
- <CACGkMEuSpZ0Y8kxXv26b38pvX--OCdvWm5KvMniqo=W10ruBTA@mail.gmail.com>
- <PH0PR12MB5481170EBDD5A8EBFF6C84C7DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eOGvYppzWbF4Bpbzf2dAetYT2zaKvBppwo2SJQgmCCNl6j/YGeoqNY9LhKMSCHLcdHw/YoNTP5DCULLudDx9/pCtpDzrx/CylcoIsFfvAjtfSWrkoB9DTaJ+59EOhgZFdlNcClbMASf6GPnAVO8DzFlzjga+WYLnUMocZMBtbr3sBC5gLXx8re4IHzX5mrsPcWS4t4fX756zAepLFWTWqieZki5/b3JBZ4UnXKJP1zRMCccclDqRsxVaLpHHDR7qY7bA4xgBJ/cfu5S7wSGWs2mU/LnAB+E7g2C3TofVYBX01rEyeMKXsMRKOkzsbfPSYPQLHQxN1mtc0ckaLIZ8Kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TkCXHcTRhc1rTFHaLHGvrTPDbn6H3n5mLXq+Y1aeZYY=;
+ b=V3pg94fO9o8X/sP3mQG4KRbB9/FZp4oS/h7+NlaAONDnnbq/0VShh/ZcVVWf1THuUpPyRaUuXvFAlQs6i8TEMi6wTpIEvuFoHubpfK8PhwkQ63me3UtqTgppQMVuA4V2HpTAMVbXk2tuz+dfu24/n5EEmOOoXyN2plpv4zPXyb/85pnCgVbZr2IQHEg9yNgKAR7/+iJQMTwh3DVlgLiOjVoqCnSJ5eHFbzAEobkvpD1HRPrwx2ZX0AlNs59JJEld1Jzc/dqd6+bHri73Ek78HAUcSwZmI0oMiL1AHXjpwuKdaNok+lcd2gNOSFft0r1wmagDQKtCIhUdRnnVJ+7Hqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: Jason Wang <jasowang@redhat.com>, "Zhu, Lingshan"
+	<lingshan.zhu@intel.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>
+Thread-Topic: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
+Thread-Index:
+ AQHZ+dpD+jj/KUeLHUaMn2y+w39Cb7BBJzcAgAA1HlCAAEi6gIAAERjwgAEF2ACAAAjm4IABoeMAgAAIQWCAAYjxAIAAAHqAgAD5sYCAAEjPkIAGCquAgAAYNlCAAWk/gIAAN7kQgAF48YCAABlCkIAACTkAgAALvzCABizrAIAAD2aggAGUBACAAABcUIABWsEAgABcQLCAASo6AIAALsiAgAZSfICAAAYzAIABYc4AgAA+ffCAAULTgIAALVPAgAGlyQCAABp/kIAGUuiAgAAFiECAAWL9AIADJo4QgAY+aoCAA+XikIAC0e+AgAABs1A=
+Date: Fri, 17 Nov 2023 10:20:45 +0000
+Message-ID:
+ <PH0PR12MB54810D15E0897C2435697E39DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References:
+ <CACGkMEu0gfw4zNc9KTLm9ekhuWgsgzHLVya_68HajQZObtr3-w@mail.gmail.com>
+ <DM8PR12MB54808B71AA9C0A945D0A3226DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEtKPPudHAXGbrOppwgRP=Umt-F0GNKeoajOGzgs+wvyLA@mail.gmail.com>
+ <PH0PR12MB54815F58F470493FC516CDCCDCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsR56_C2b6-YQFpEOPt4sjJKyqcqrdhi9G0vU9ytezFLQ@mail.gmail.com>
+ <PH0PR12MB54811373EA43BEDB4E159E0BDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsMzp7DjDkQcO4RZ0H0HfxSrytUJrSyDj6gnPWV9cTZow@mail.gmail.com>
+ <DM8PR12MB548085F25849CF1E055826E6DCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
+ <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117050357-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231117050357-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SJ0PR12MB7036:EE_
+x-ms-office365-filtering-correlation-id: 96f7f59c-db85-4313-d646-08dbe756dcb2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ J2Zn8SmdQ18CZnpD+fSgnOYjlat8ZMQBrfqjis76myUdzluRaFVwa1a/LjN3WoiPcbW9naAUFcal23VG1QipwQPwK7rqPC2EmIN0krDpR7IOfzMynF9U0zJyelWcK3y5+21Kjpu1G+2owEx7Nfu9mfNt24/Ld3g06veczA/6xy+AfeUonmAyl32Qe3wzOKuSVkOMflgW2pZOtF6FUnbK9PhScbyY3bDp/dmUBLL+fDTaVffTBS5F/r5wtqP7S6MOTZ9NyzGl1bSfzWmhTW7eO32wncRoUtq5n/T+t0BugnikpdZ6vE3OmzUGF/4BBXJbVsq4N1kd8R++4dMrypata++XrQY1EaJst2ZZzsTsmPWTJnOqlECXUnzVRreNBt0/WUkJ3/grmMH0ow0DA7uY9Z+8uN3jtVT+RPyWP3MWhA3+rsOT00LpsSm1H8Ez6rb8nItzKeTK0T+LmpnEj9jvk9WvH1zLKvXN6HJ7GYNoaoA0FCVfdeNi2neuQ6Glaf1Aq7Zm4b2a4bWLb3a4jsKX2SHfbX/zSTh1xBt0vKtWKoydIKLgR8QbLGpymHEK66fllLWAOg73DpPk73p4vGswkxgXhUcIRwfC4O9U/4YJccbKZg0iTrwVTL3XaKwGVzjwkeQIyiu6U84RFLRUoWKVnJXkVhkeXa3efNYC+/Aq/GmqUnRHrolTY5MuFCr8wuJV
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(376002)(396003)(136003)(39860400002)(346002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(38100700002)(38070700009)(122000001)(55016003)(26005)(107886003)(9686003)(7696005)(6506007)(55236004)(71200400001)(478600001)(966005)(86362001)(5660300002)(4326008)(66446008)(66556008)(66476007)(66946007)(76116006)(41300700001)(54906003)(64756008)(6916009)(316002)(8936002)(52536014)(5930299018)(8676002)(33656002)(2906002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VjhkK2ZRd0h4NHdNbTlnNFYwa1krY1FjdWxDTG55VUw1L0dZOVREUjlLZmJj?=
+ =?utf-8?B?djlSeDRTTmV4TFJMbkxaQzV4WFN3di94NVF2VERQWksrV0RseUlkN1d4UXk5?=
+ =?utf-8?B?TzRUdXNoWW9pb0U0WlBvVkYzanBDd1BuUnVoeU5uWVByVHRJVGVHdkFRR2w4?=
+ =?utf-8?B?N1puSWZaUUU0aFhDRFFSNUJNQXhWRU1XeGc5dy9CZU1vVGVvV0d4Si9HUFhs?=
+ =?utf-8?B?QzE2UUpiOXhLWGh2dDBrK2UxNW5Ka3h0ZmNvRUtqT3FKa0kvckdTSHcrQzkr?=
+ =?utf-8?B?U0phYnA3Nko1YkMzVWpJUGk2SncvcXRMM2tUL3NSYlUxL1hqUUdtQkRHOVBE?=
+ =?utf-8?B?b2ZBRmVFRjF6RzBjWnhVaENRQWYvQlpGS280RXhINlJVUG1jTTRmUkN0UGlj?=
+ =?utf-8?B?WllRTTRsOElqTERHWmdDUTErcVpwV3U3SURoeUl6STMrNFNzOG9CRHJRbnJB?=
+ =?utf-8?B?NG5BOFJNa25PMVFFWko5QVhaY3M0L3I5N3BsN3ZnZlphL0wzelhLa1kwMVlE?=
+ =?utf-8?B?MlZCSXBBRDE0UHJ5N3Uzb0V5ZWdoYWhvcUZQVGVSdnA1Z3plNFhydWQ3Nktk?=
+ =?utf-8?B?UWk1N21GQlpOaDhEdElhaElOSHRYa1M4aHdLL2hYcWZtODVsek0vRU5pL043?=
+ =?utf-8?B?YWRnK2FXcDFrN3dEc21aSENVY29QOFVQVDd1dzlDWGZMOXNKVDZsK1NOWWpB?=
+ =?utf-8?B?a05tV2VBaURUTzRBTlZJUDBPTXNZL3BlMWxDY1dLYnNMd0pML1NGaWtrS3hX?=
+ =?utf-8?B?cXRVbS9vMndPS1pUYUVmNTR5NWdZRVNVcm9NSUw0QWhDS0ZndUQ2M1Z2QnRB?=
+ =?utf-8?B?RjlMbHZOeWRkL2hNYTRRbVBFT1V3cC94T0NPUmQrblh3YWU0UXcvczlOa2xw?=
+ =?utf-8?B?MW9ENEUycDhlTVpxTHZTcWY0KzFyWVBzNVJLRUtQYWhKa3B6YkFabkkzOE4v?=
+ =?utf-8?B?QmEzMXpxS01LWit2MWN6eWJ0MnJZRkJJSVorZTlkajhOcmVYeUlxYjEwZ000?=
+ =?utf-8?B?L0VjZU9JK1ZMSW1kWXdYMzU1VFo5bzA0MzhxbndhY21rdlEyUUcyZHNvWkJv?=
+ =?utf-8?B?bHhRcFZteHQ4Z3NUNGp2YnVGSjhNZUtITmtJdUxOMlNyRFMyaXBPQk43MkJj?=
+ =?utf-8?B?Y3F6NnZDQ2x1TEhXSXZEUGNHblhHWlN4NzFLV1JLL2dFRWNSbTFqa0JGOUNu?=
+ =?utf-8?B?enVRaGU1bGk2bnR4MldPVFBQSHA0cVJsY0NLS09Pb3FHbGhRd3lqUUtIbHFL?=
+ =?utf-8?B?NFRieXlxMFhrOERSVGV4aERrdnZaVVVQZWVnQlZ4S01BNHhRVUtzYzlnMEZV?=
+ =?utf-8?B?MUhZODJEek9IR2U0NE9valpDaXdqdmtvK2tyY2dMMWFPVGExRDBSVTN3REJE?=
+ =?utf-8?B?RW1Va2w5dXFGWjdqOUJzaDhoOG1DN1YwT0w3RGRESU1DUWdLU3hlYjl5Z2Ji?=
+ =?utf-8?B?c2VQdVpxQndJdCtXRm5hT2pZVlc5WnhWbU1reWFqbDVzZmpHZmpTS0lFaUFC?=
+ =?utf-8?B?K0Q5TFdyYm13SE1LWS9HKzdrbVFCVHhXTlNrcXYxY0o3NElISjdnYzYxaFpC?=
+ =?utf-8?B?Z1VnYjNkQWJYTFJYaDkrYkZFYThGZHdSaFBFVnI3VktsYjBKaW5rY2Jxdzhp?=
+ =?utf-8?B?ZG5mY0dFSjd3UDlKR3c2MVY0bzVJaVNQdjJWUDc4MklreWpXY0FnVGNUdGdZ?=
+ =?utf-8?B?anUvVkVPSHZNNFZiMnpPVjlhaktwY0trYTM4c00vT09jZkUzdzFUMmpBYktz?=
+ =?utf-8?B?ZHFvNnFGRHZnNmtiVVdJTlVRNU9seVpTa2VORG0xTlgrNDN1dzc4bk1FdWJ1?=
+ =?utf-8?B?ZVBGTlNWSnByMnZScWJvSzlTZ2pydlA5NXZ3bFErSUV1dkxabmxhOVcyVDZY?=
+ =?utf-8?B?aHgrZ1R6QXRDV3hORzdXWXdmdnBCK1hmRk9ZdGZIV2lrMHNndzZmNDYydml4?=
+ =?utf-8?B?RW5wdFNaRjFCMHlTR0lrTTRielp5OVRXRWFadEpBOGg3M3VnUFRqVW5OdEZY?=
+ =?utf-8?B?YlZVVndBTW1STmF2RnJVQldMYU9JVFg4SHhZNzN3WkxQbzdHUk5nbk8rbDYz?=
+ =?utf-8?B?eHdqcVFzREtKMVgrTERJdHUxbktRMXBMVEp0ZUlKN1ZYUmpuYXBqQktCZGVL?=
+ =?utf-8?Q?AFCA=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481170EBDD5A8EBFF6C84C7DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write
- recording commands
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96f7f59c-db85-4313-d646-08dbe756dcb2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2023 10:20:45.8187
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pyf72U6C865uNU3z+mzVvmXHjqrBxdnFyYFVbtHm9/L4xwI0q2hDnabOsS+fizBM7rU+hL1sjf/X2Gf4y7PEYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7036
+Subject: RE: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-On Wed, Nov 15, 2023 at 05:42:04PM +0000, Parav Pandit wrote:
-> 
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Monday, November 13, 2023 9:02 AM
-> > 
-> > On Thu, Nov 9, 2023 at 3:59 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> > >
-> > > On Thu, Nov 09, 2023 at 11:31:27AM +0800, Jason Wang wrote:
-> > > > On Wed, Nov 8, 2023 at 4:17 PM Michael S. Tsirkin <mst@redhat.com>
-> > wrote:
-> > > > >
-> > > > > On Wed, Nov 08, 2023 at 12:28:36PM +0800, Jason Wang wrote:
-> > > > > > On Tue, Nov 7, 2023 at 3:05 PM Michael S. Tsirkin <mst@redhat.com>
-> > wrote:
-> > > > > > >
-> > > > > > > On Tue, Nov 07, 2023 at 12:04:29PM +0800, Jason Wang wrote:
-> > > > > > > > > > > Each virtio and non virtio devices who wants to report
-> > > > > > > > > > > their dirty page report,
-> > > > > > > > > > will do their way.
-> > > > > > > > > > >
-> > > > > > > > > > > > 3) inventing it in the virtio layer will be
-> > > > > > > > > > > > deprecated in the future for sure, as platform will
-> > > > > > > > > > > > provide much rich features for logging e.g it can do
-> > > > > > > > > > > > it per PASID etc, I don't see any reason virtio need
-> > > > > > > > > > > > to compete with the features that will be provided
-> > > > > > > > > > > > by the platform
-> > > > > > > > > > > Can you bring the cpu vendors and committement to
-> > > > > > > > > > > virtio tc with timelines
-> > > > > > > > > > so that virtio TC can omit?
-> > > > > > > > > >
-> > > > > > > > > > Why do we need to bring CPU vendors in the virtio TC?
-> > > > > > > > > > Virtio needs to be built on top of transport or platform. There's
-> > no need to duplicate their job.
-> > > > > > > > > > Especially considering that virtio can't do better than them.
-> > > > > > > > > >
-> > > > > > > > > I wanted to see a strong commitment for the cpu vendors to
-> > support dirty page tracking.
-> > > > > > > >
-> > > > > > > > The RFC of IOMMUFD support can go back to early 2022. Intel,
-> > > > > > > > AMD and ARM are all supporting that now.
-> > > > > > > >
-> > > > > > > > > And the work seems to have started for some platforms.
-> > > > > > > >
-> > > > > > > > Let me quote from the above link:
-> > > > > > > >
-> > > > > > > > """
-> > > > > > > > Today, AMD Milan (or more recent) supports it while ARM
-> > > > > > > > SMMUv3.2 alongside VT-D rev3.x also do support.
-> > > > > > > > """
-> > > > > > > >
-> > > > > > > > > Without such platform commitment, virtio also skipping it would
-> > not work.
-> > > > > > > >
-> > > > > > > > Is the above sufficient? I'm a little bit more familiar with
-> > > > > > > > vtd, the hw feature has been there for years.
-> > > > > > >
-> > > > > > >
-> > > > > > > Repeating myself - I'm not sure that will work well for all workloads.
-> > > > > >
-> > > > > > I think this comment applies to this proposal as well.
-> > > > >
-> > > > > Yes - some systems might be better off with platform tracking.
-> > > > > And I think supporting shadow vq better would be nice too.
-> > > >
-> > > > For shadow vq, did you mean the work that is done by Eugenio?
-> > >
-> > > Yes.
-> > 
-> > That's exactly why vDPA starts with shadow virtqueue. We've evaluated various
-> > possible approaches, each of them have their shortcomings and shadow
-> > virtqueue is the only one that doesn't require any additional hardware features
-> > to work in every platform.
-> > 
-> > >
-> > > > >
-> > > > > > > Definitely KVM did
-> > > > > > > not scan PTEs. It used pagefaults with bit per page and later
-> > > > > > > as VM size grew switched to PLM.  This interface is analogous
-> > > > > > > to PLM,
-> > > > > >
-> > > > > > I think you meant PML actually. And it doesn't work like PML. To
-> > > > > > behave like PML it needs to
-> > > > > >
-> > > > > > 1) log buffers were organized as a queue with indices
-> > > > > > 2) device needs to suspend (as a #vmexit in PML) if it runs out
-> > > > > > of the buffers
-> > > > > > 3) device need to send a notification to the driver if it runs
-> > > > > > out of the buffer
-> > > > > >
-> > > > > > I don't see any of the above in this proposal. If we do that it
-> > > > > > would be less problematic than what is being proposed here.
-> > > > >
-> > > > > What is common between this and PML is that you get the addresses
-> > > > > directly without scanning megabytes of bitmaps or worse - hundreds
-> > > > > of megabytes of page tables.
-> > > >
-> > > > Yes, it has overhead but this is the method we use for vhost and KVM
-> > (earlier).
-> > > >
-> > > > To me the  important advantage of PML is that it uses limited
-> > > > resources on the host which
-> > > >
-> > > > 1) doesn't require resources in the device
-> > > > 2) doesn't scale as the guest memory increases. (but this advantage
-> > > > doesn't exist in neither this nor bitmap)
-> > >
-> > > it seems 2 exactly exists here.
-> > 
-> > Actually not, Parav said the device needs to reserve sufficient resources in
-> > another thread.
-> The device resource reservation starts only when the device migration starts.
-> i.e. with WRITE_RECORDS_START command of patch 7 in the series.
-
-And now your precious VM can't migrate at all because -ENOSPC.
-
-
-
-> > 
-> > >
-> > >
-> > > > >
-> > > > > The data structure is different but I don't see why it is critical.
-> > > > >
-> > > > > I agree that I don't see out of buffers notifications too which
-> > > > > implies device has to maintain something like a bitmap internally.
-> > > > > Which I guess could be fine but it is not clear to me how large
-> > > > > that bitmap has to be. How does the device know? Needs to be addressed.
-> > > >
-> > > > This is the question I asked Parav in another thread. Using host
-> > > > memory as a queue with notification (like PML) might be much better.
-> > >
-> > > Well if queue is what you want to do you can just do it internally.
-> > 
-> > Then it's not the proposal here, Parav has explained it in another reply, and as
-> > explained it lacks a lot of other facilities.
-> > 
-> PML is yet another option that requires small pci writes.
-> In the current proposal, there are no small PCI writes.
-> It is a query interface from the device.
-> 
-> > > Problem of course is that it might overflow and cause things like
-> > > packet drops.
-> > 
-> > Exactly like PML. So sticking to wire speed should not be a general goal in the
-> > context of migration. It can be done if the speed of the migration interface is
-> > faster than the virtio device that needs to be migrated.
-> May not have to be.
-> Speed of page recording should be fast enough.
-> It usually improves with subsequent generation.
-> > 
-> > >
-> > >
-> > > > >
-> > > > >
-> > > > > > Even if we manage to do that, it doesn't mean we won't have issues.
-> > > > > >
-> > > > > > 1) For many reasons it can neither see nor log via GPA, so this
-> > > > > > requires a traversal of the vIOMMU mapping tables by the
-> > > > > > hypervisor afterwards, it would be expensive and need
-> > > > > > synchronization with the guest modification of the IO page table which
-> > looks very hard.
-> > > > >
-> > > > > vIOMMU is fast enough to be used on data path but not fast enough
-> > > > > for dirty tracking?
-> > > >
-> > > > We set up SPTEs or using nesting offloading where the PTEs could be
-> > > > iterated by hardware directly which is fast.
-> > >
-> > > There's a way to have hardware find dirty PTEs for you quickly?
-> > 
-> > Scanning PTEs on the host is faster and more secure than scanning guests, that's
-> > what I want to say:
-> > 
-> > 1) the guest page could be swapped out but not the host one.
-> > 2) no guest triggerable behavior
-> > 
-> 
-> Device page tracking table to be consulted to flush on mapping change.
-> 
-> > > I don't know how it's done. Do tell.
-> > >
-> > >
-> > > > This is not the case here where software needs to iterate the IO
-> > > > page tables in the guest which could be slow.
-> > > >
-> > > > > Hard to believe.  If true and you want to speed up vIOMMU then you
-> > > > > implement an efficient datastructure for that.
-> > > >
-> > > > Besides the issue of performance, it's also racy, assuming we are logging
-> > IOVA.
-> > > >
-> > > > 0) device log IOVA
-> > > > 1) hypervisor fetches IOVA from log buffer
-> > > > 2) guest map IOVA to a new GPA
-> > > > 3) hypervisor traverse guest table to get IOVA to new GPA
-> > > >
-> > > > Then we lost the old GPA.
-> > >
-> > > Interesting and a good point.
-> > 
-> > Note that PML logs at GPA as it works at L1 of EPT.
-> > 
-> > > And by the way e.g. vhost has the same issue.  You need to flush dirty
-> > > tracking info when changing the mappings somehow.
-> > 
-> > It's not,
-> > 
-> > 1) memory translation is done by vhost
-> > 2) vhost knows GPA and it doesn't log via IOVA.
-> > 
-> > See this for example, and DPDK has similar fixes.
-> > 
-> > commit cc5e710759470bc7f3c61d11fd54586f15fdbdf4
-> > Author: Jason Wang <jasowang@redhat.com>
-> > Date:   Wed Jan 16 16:54:42 2019 +0800
-> > 
-> >     vhost: log dirty page correctly
-> > 
-> >     Vhost dirty page logging API is designed to sync through GPA. But we
-> >     try to log GIOVA when device IOTLB is enabled. This is wrong and may
-> >     lead to missing data after migration.
-> > 
-> >     To solve this issue, when logging with device IOTLB enabled, we will:
-> > 
-> >     1) reuse the device IOTLB translation result of GIOVA->HVA mapping to
-> >        get HVA, for writable descriptor, get HVA through iovec. For used
-> >        ring update, translate its GIOVA to HVA
-> >     2) traverse the GPA->HVA mapping to get the possible GPA and log
-> >        through GPA. Pay attention this reverse mapping is not guaranteed
-> >        to be unique, so we should log each possible GPA in this case.
-> > 
-> >     This fix the failure of scp to guest during migration. In -next, we
-> >     will probably support passing GIOVA->GPA instead of GIOVA->HVA.
-> > 
-> >     Fixes: 6b1e6cc7855b ("vhost: new device IOTLB API")
-> >     Reported-by: Jintack Lim <jintack@cs.columbia.edu>
-> >     Cc: Jintack Lim <jintack@cs.columbia.edu>
-> >     Signed-off-by: Jason Wang <jasowang@redhat.com>
-> >     Acked-by: Michael S. Tsirkin <mst@redhat.com>
-> >     Signed-off-by: David S. Miller <davem@davemloft.net>
-> > 
-> > All of the above is not what virtio did right now.
-> > 
-> > > Parav what's the plan for this? Should be addressed in the spec too.
-> > >
-> > 
-> > AFAIK, there's no easy/efficient way to do that. I hope I was wrong.
-> > 
-> 
-> The query interface in this proposal works on the granular boundary to read and clear.
-> This will ensure that mapping is consistent.
-
-By itself it does not, you have to actually keep querying until you
-flush all dirty info and do it each time there's an invalidation in the
-IOMMU.
-
-
-> > >
-> > >
-> > > > >
-> > > > > > 2) There are a lot of special or reserved IOVA ranges (for
-> > > > > > example the interrupt areas in x86) that need special care which
-> > > > > > is architectural and where it is beyond the scope or knowledge
-> > > > > > of the virtio device but the platform IOMMU. Things would be
-> > > > > > more complicated when SVA is enabled.
-> > > > >
-> > > > > SVA being what here?
-> > > >
-> > > > For example, IOMMU may treat interrupt ranges differently depending
-> > > > on whether SVA is enabled or not. It's very hard and unnecessary to
-> > > > teach devices about this.
-> > >
-> > > Oh, shared virtual memory. So what you are saying here? virtio does
-> > > not care, it just uses some addresses and if you want it to it can
-> > > record writes somewhere.
-> > 
-> > One example, PCI allows devices to send translated requests, how can a
-> > hypervisor know it's a PA or IOVA in this case? We probably need a new bit. But
-> > it's not the only thing we need to deal with.
-> > 
-> > By definition, interrupt ranges and other reserved ranges should not belong to
-> > dirty pages. And the logging should be done before the DMA where there's no
-> > way for the device to know whether or not an IOVA is valid or not. It would be
-> > more safe to just not report them from the source instead of leaving it to the
-> > hypervisor to deal with but this seems impossible at the device level. Otherwise
-> > the hypervisor driver needs to communicate with the (v)IOMMU to be reached
-> > with the
-> > interrupt(MSI) area, RMRR area etc in order to do the correct things or it might
-> > have security implications. And those areas don't make sense at L1 when vSVA
-> > is enabled. What's more, when vIOMMU could be fully offloaded, there's no
-> > easy way to fetch that information.
-> > 
-> There cannot be logging before the DMA.
-> Only requirement is before the mapping changes, the dirty page tracking to be synced.
-> 
-> In most common cases where the perf is critical, such mapping wont change so often dynamically anyway.
-> 
-> > Again, it's hard to bypass or even duplicate the functionality of the platform or
-> > we need to step into every single detail of a specific transport, architecture or
-> > IOMMU to figure out whether or not logging at virtio is correct which is
-> > awkward and unrealistic. This proposal suffers from an exact similar issue when
-> > inventing things like freeze/stop where I've pointed out other branches of issues
-> > as well.
-> > 
-> It is incorrect attribution that platform is duplicated here.
-> It feeds the data to the platform as needed without replicating.
-> 
-> I do agree that there is overlap of IOMMU tracking the dirty and storing it in the per PTE vs device supplying its dirty track via its own interface.
-> Both are consolidated at hypervisor level.
-> 
-> > >
-> > > > >
-> > > > > > And there could be other architecte specific knowledge (e.g
-> > > > > > PAGE_SIZE) that might be needed. There's no easy way to deal
-> > > > > > with those cases.
-> > > > >
-> > > > > Good point about page size actually - using 4k unconditionally is
-> > > > > a waste of resources.
-> > > >
-> > > > Actually, they are more than just PAGE_SIZE, for example, PASID and others.
-> > >
-> > > what does pasid have to do with it? anyway, just give driver control
-> > > over page size.
-> > 
-> > For example, two virtqueues have two PASIDs assigned. How can a hypervisor
-> > know which specific IOVA belongs to which IOVA? For platform IOMMU, they
-> > are handy as it talks to the transport. But I don't think we need to duplicate
-> > every transport specific address space feature in core virtio layer:
-> > 
-> PASID to vq assignment won't be duplicated.
-> It is configured fully by the guest without consulting hypervisor at the device level.
-> Guest IOMMU would consult hypervisor to setup any PASID mapping as part of any mapping method.
-> 
-> > 1) translated/untranslated request
-> > 2) request w/ and w/o PASID
-> > 
-> > >
-> > > > >
-> > > > >
-> > > > > > We wouldn't need to care about all of them if it is done at
-> > > > > > platform IOMMU level.
-> > > > >
-> > > > > If someone logs at IOMMU level then nothing needs to be done in
-> > > > > the spec at all. This is about capability at the device level.
-> > > >
-> > > > True, but my question is where or not it can be done at the device level
-> > easily.
-> > >
-> > > there's no "easily" about live migration ever.
-> > 
-> > I think I've stated sufficient issues to demonstrate how hard virtio wants to do it.
-> > And I've given the link that it is possible to do that in IOMMU without those
-> > issues. So in this context doing it in virtio is much harder.
-> > 
-> > > For example on-device iommus are a thing.
-> > 
-> > I'm not sure that's the way to go considering the platform IOMMU evolves very
-> > quickly.
-> > 
-> > >
-> > > > >
-> > > > >
-> > > > > > > what Lingshan
-> > > > > > > proposed is analogous to bit per page - problem unfortunately
-> > > > > > > is you can't easily set a bit by DMA.
-> > > > > > >
-> > > > > >
-> > > > > > I'm not saying bit/bytemap is the best, but it has been used by
-> > > > > > real hardware. And we have many other options.
-> > > > > >
-> > > > > > > So I think this dirty tracking is a good option to have.
-> > > > > > >
-> > > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > > > i.e. in first year of 2024?
-> > > > > > > > > >
-> > > > > > > > > > Why does it matter in 2024?
-> > > > > > > > > Because users needs to use it now.
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > If not, we are better off to offer this, and when/if
-> > > > > > > > > > > platform support is, sure,
-> > > > > > > > > > this feature can be disabled/not used/not enabled.
-> > > > > > > > > > >
-> > > > > > > > > > > > 4) if the platform support is missing, we can use
-> > > > > > > > > > > > software or leverage transport for assistance like
-> > > > > > > > > > > > PRI
-> > > > > > > > > > > All of these are in theory.
-> > > > > > > > > > > Our experiment shows PRI performance is 21x slower
-> > > > > > > > > > > than page fault rate
-> > > > > > > > > > done by the cpu.
-> > > > > > > > > > > It simply does not even pass a simple 10Gbps test.
-> > > > > > > > > >
-> > > > > > > > > > If you stick to the wire speed during migration, it can converge.
-> > > > > > > > > Do you have perf data for this?
-> > > > > > > >
-> > > > > > > > No, but it's not hard to imagine the worst case. Wrote a
-> > > > > > > > small program that dirty every page by a NIC.
-> > > > > > > >
-> > > > > > > > > In the internal tests we don’t see this happening.
-> > > > > > > >
-> > > > > > > > downtime = dirty_rates * PAGE_SIZE / migration_speed
-> > > > > > > >
-> > > > > > > > So if we get very high dirty rates (e.g by a high speed
-> > > > > > > > NIC), we can't satisfy the requirement of the downtime. Or
-> > > > > > > > if you see the converge, you might get help from the auto
-> > > > > > > > converge support by the hypervisors like KVM where it tries
-> > > > > > > > to throttle the VCPU then you can't reach the wire speed.
-> > > > > > >
-> > > > > > > Will only work for some device types.
-> > > > > > >
-> > > > > >
-> > > > > > Yes, that's the point. Parav said he doesn't see the issue, it's
-> > > > > > probably because he is testing a virtio-net and so the vCPU is
-> > > > > > automatically throttled. It doesn't mean it can work for other
-> > > > > > virito devices.
-> > > > >
-> > > > > Only for TX, and I'm pretty sure they had the foresight to test RX
-> > > > > not just TX but let's confirm. Parav did you test both directions?
-> > > >
-> > > > RX speed somehow depends on the speed of refill, so throttling helps
-> > > > more or less.
-> > >
-> > > It doesn't depend on speed of refill you just underrun and drop
-> > > packets. then your nice 10usec latency becomes more like 10sec.
-> > 
-> > I miss your point here. If the driver can't achieve wire speed without dirty page
-> > tracking, it can neither when dirty page tracking is enabled.
-> > 
-> > >
-> > > > >
-> > > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > There is no requirement for mandating PRI either.
-> > > > > > > > > > > So it is unusable.
-> > > > > > > > > >
-> > > > > > > > > > It's not about mandating, it's about doing things in the
-> > > > > > > > > > correct layer. If PRI is slow, PCI can evolve for sure.
-> > > > > > > > > You should try.
-> > > > > > > >
-> > > > > > > > Not my duty, I just want to make sure things are done in the
-> > > > > > > > correct layer, and once it needs to be done in the virtio,
-> > > > > > > > there's nothing obviously wrong.
-> > > > > > >
-> > > > > > > Yea but just vague questions don't help to make sure eiter way.
-> > > > > >
-> > > > > > I don't think it's vague, I have explained, if something in the
-> > > > > > virito slows down the PRI, we can try to fix them.
-> > > > >
-> > > > > I don't believe you are going to make PRI fast. No one managed so far.
-> > > >
-> > > > So it's the fault of PRI not virito, but it doesn't mean we need to
-> > > > do it in virtio.
-> > >
-> > > I keep saying with this approach we would just say "e1000 emulation is
-> > > slow and encumbered this is the fault of e1000" and never get virtio
-> > > at all.  Assigning blame only gets you so far.
-> > 
-> > I think we are discussing different things. My point is virtio needs to leverage
-> > the functionality provided by transport or platform (especially considering they
-> > evolve faster than virtio). It seems to me it's hard even to duplicate some basic
-> > function of platform IOMMU in virtio.
-> > 
-> Not duplicated. Feeding into the platform.
-
-I mean IOMMU still sets the dirty bit, too. How is that not
-a duplication?
-
-
-> > >
-> > > > >
-> > > > > > Missing functions in
-> > > > > > platform or transport is not a good excuse to try to workaround
-> > > > > > it in the virtio. It's a layer violation and we never had any
-> > > > > > feature like this in the past.
-> > > > >
-> > > > > Yes missing functionality in the platform is exactly why virtio
-> > > > > was born in the first place.
-> > > >
-> > > > Well the platform can't do device specific logic. But that's not the
-> > > > case of dirty page tracking which is device logic agnostic.
-> > >
-> > > Not true platforms have things like NICs on board and have for many
-> > > years. It's about performance really.
-> > 
-> > I've stated sufficient issues above. And one more obvious issue for device
-> > initiated page logging is that it needs a lot of extra or unnecessary PCI
-> > transactions which will throttle the performance of the whole system (and lead
-> > to other issues like QOS). So I can't believe it has good performance overall.
-> > Logging via IOMMU or using shadow virtqueue doesn't need any extra PCI
-> > transactions at least.
-> > 
-> In the current proposal, it does not required PCI transactions, as there is only a hypervisor-initiated query interface.
-> It is a trade off of using svq + pasid vs using something from the device.
-> 
-> Again, both has different use case and value. One uses cpu and one uses device.
-> Depending how much power one wants to spend where..
-
-Also how much effort we want to spend on this virtio specific thing.
-The needs to be a *reason* to do things in virtio as opposed to using
-platform capabilities, this is exactly the same thing I told Lingshan
-wrt using SUSPEND for power management as opposed to using PCI PM -
-relying on platform when we can is right there in the mission statement.
-For some reason I asssumed you guys have done a PoC and that's the
-motivation but if it's a "just in case" feature then I'd suggest
-we focus on merging patches 1-5 first.
-
-
-> > > So I'd like Parav to publish some
-> > > experiment results and/or some estimates.
-> > >
-> > 
-> > That's fine, but the above equation (used by Qemu) is sufficient to demonstrate
-> > how hard to stick wire speed in the case.
-> > 
-> > >
-> > > > >
-> > > > > > >
-> > > > > > > > > In the current state, it is mandating.
-> > > > > > > > > And if you think PRI is the only way,
-> > > > > > > >
-> > > > > > > > I don't, it's just an example where virtio can leverage from
-> > > > > > > > either transport or platform. Or if it's the fault in virtio
-> > > > > > > > that slows down the PRI, then it is something we can do.
-> > > > > > > >
-> > > > > > > > >  than you should propose that in the dirty page tracking series that
-> > you listed above to not do dirty page tracking. Rather depend on PRI, right?
-> > > > > > > >
-> > > > > > > > No, the point is to not duplicate works especially
-> > > > > > > > considering virtio can't do better than platform or transport.
-> > > > > > >
-> > > > > > > If someone says they tried and platform's migration support
-> > > > > > > does not work for them and they want to build a solution in
-> > > > > > > virtio then what exactly is the objection?
-> > > > > >
-> > > > > > The discussion is to make sure whether virtio can do this easily
-> > > > > > and correctly, then we can have a conclusion. I've stated some
-> > > > > > issues above, and I've asked other questions related to them
-> > > > > > which are still not answered.
-> > > > > >
-> > > > > > I think we had a very hard time in bypassing IOMMU in the past
-> > > > > > that we don't want to repeat.
-> > > > > >
-> > > > > > We've gone through several methods of logging dirty pages in the
-> > > > > > past (each with pros/cons), but this proposal never explains why
-> > > > > > it chooses one of them but not others. Spec needs to find the
-> > > > > > best path instead of just a possible path without any rationale about
-> > why.
-> > > > >
-> > > > > Adding more rationale isn't a bad thing.
-> > > > > In particular if platform supplies dirty tracking then how does
-> > > > > driver decide which to use platform or device capability?
-> > > > > A bit of discussion around this is a good idea.
-> > > > >
-> > > > >
-> > > > > > > virtio is here in the
-> > > > > > > first place because emulating devices didn't work well.
-> > > > > >
-> > > > > > I don't understand here. We have supported emulated devices for years.
-> > > > > > I'm pretty sure a lot of issues could be uncovered if this
-> > > > > > proposal can be prototyped with an emulated device first.
-> > > > > >
-> > > > > > Thanks
-> > > > >
-> > > > > virtio was originally PV as opposed to emulation. That there's now
-> > > > > hardware virtio and you call software implementation "an
-> > > > > emulation" is very meta.
-> > > >
-> > > > Yes but I don't see how it relates to dirty page tracking. When we
-> > > > find a way it should work for both software and hardware devices.
-> > > >
-> > > > Thanks
-> > >
-> > > It has to work well on a variety of existing platforms. If it does
-> > > then sure, why would we roll our own.
-> > 
-> > If virtio can do that in an efficient way without any issues, I agree.
-> > But it seems not.
-> > 
-> > Thanks
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogTWljaGFlbCBTLiBUc2lya2luIDxtc3RAcmVkaGF0LmNvbT4NCj4gU2VudDog
+RnJpZGF5LCBOb3ZlbWJlciAxNywgMjAyMyAzOjM4IFBNDQo+IA0KPiBPbiBXZWQsIE5vdiAxNSwg
+MjAyMyBhdCAwNTozOTo0M1BNICswMDAwLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQo+ID4gPiA+DQo+
+ID4gPiA+IEFkZGl0aW9uYWxseSwgaWYgaHlwZXJ2aXNvciBoYXMgcHV0IHRoZSB0cmFwIG9uIHZp
+cnRpbyBjb25maWcsIGFuZA0KPiA+ID4gPiBiZWNhdXNlIHRoZSBtZW1vcnkgZGV2aWNlIGFscmVh
+ZHkgaGFzIHRoZSBpbnRlcmZhY2UgZm9yIHZpcnRpbw0KPiA+ID4gPiBjb25maWcsDQo+ID4gPiA+
+DQo+ID4gPiA+IEh5cGVydmlzb3IgY2FuIGRpcmVjdGx5IHdyaXRlL3JlYWQgZnJvbSB0aGUgdmly
+dHVhbCBjb25maWcgdG8gdGhlDQo+ID4gPiA+IG1lbWJlcidzDQo+ID4gPiBjb25maWcgc3BhY2Us
+IHdpdGhvdXQgZ29pbmcgdGhyb3VnaCB0aGUgZGV2aWNlIGNvbnRleHQsIHJpZ2h0Pw0KPiA+ID4N
+Cj4gPiA+IElmIGl0IGNhbiBkbyBpdCBvciBpdCBjYW4gY2hvb3NlIHRvIG5vdC4gSSBkb24ndCBz
+ZWUgaG93IGl0IGlzDQo+ID4gPiByZWxhdGVkIHRvIHRoZSBkaXNjdXNzaW9uIGhlcmUuDQo+ID4g
+Pg0KPiA+IEl0IGlzLiBJIGRvbuKAmXQgc2VlIGEgcG9pbnQgb2YgaHlwZXJ2aXNvciBub3QgdXNp
+bmcgdGhlIG5hdGl2ZSBpbnRlcmZhY2UgcHJvdmlkZWQNCj4gYnkgdGhlIG1lbWJlciBkZXZpY2Uu
+DQo+IA0KPiBTbyBmb3IgZXhhbXBsZSwgaXQgc2VlbXMgcmVhc29uYWJsZSB0byBhIG1lbWJlciBz
+dXBwb3J0aW5nIGJvdGggZXhpc3RpbmcgcGNpDQo+IHJlZ2lzdGVyIGludGVyZmFjZSBmb3IgY29t
+cGF0aWJpbGl0eSBhbmQgdGhlIGZ1dHVyZSBETUEgYmFzZWQgb25lIGZvciBzY2FsZS4gSW4NCj4g
+c3VjaCBhIGNhc2UsIGl0IHNlZW1zIHBvc3NpYmxlIHRoYXQgRE1BIHdpbGwgZXhwb3NlIG1vcmUg
+ZmVhdHVyZXMgdGhhbiBwY2kuIEFuZA0KPiB0aGVuIGEgaHlwZXJ2aXNvciBtaWdodCBkZWNpZGUg
+dG8gdXNlIHRoYXQgaW4gcHJlZmVyZW5jZSB0byBwY2kgcmVnaXN0ZXJzLg0KDQpXZSBkb27igJl0
+IGZpbmQgaXQgcmlnaHQgdG8gaW52b2x2ZSBvd25lciBkZXZpY2UgZm9yIG1lZGlhdGluZyBhdCBj
+dXJyZW50IHNjYWxlIGFuZCB0byBub3QgYnJlYWsgVERJU1AgZWZmb3J0cyBpbiB1cGNvbWluZyB0
+aW1lIGJ5IHN1Y2ggZGVzaWduLg0KQW5kIGZvciBmdXR1cmUgc2NhbGUsIGhhdmluZyBuZXcgU0lP
+ViBpbnRlcmZhY2UgbWFrZXMgbW9yZSBzZW5zZSB3aGljaCBoYXMgaXRzIG93biBkaXJlY3QgaW50
+ZXJmYWNlIHRvIGRldmljZS4NCg0KSSBmaW5hbGx5IGNhcHR1cmVkIGFsbCBwYXN0IGRpc2N1c3Np
+b25zIGluIGZvcm0gb2YgYSBGQVEgYXQgWzFdLg0KDQpbMV0gaHR0cHM6Ly9kb2NzLmdvb2dsZS5j
+b20vZG9jdW1lbnQvZC8xSXluLWwzTm0weWxzM3BaYXVsNGxaaVZqOHgxczczRWQ2ck9zbW42TGZY
+Yy9lZGl0P3VzcD1zaGFyaW5nDQoNCg==
 
