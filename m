@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8454-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8455-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27DAFC197A0
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 11:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59945C197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 11:45:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 58A40183450
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 11:43:40 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A30EF1922EC
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 11:45:25 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2D17A986E2A
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 11:43:40 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 81C52986E1F
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 11:45:25 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0D02C986E1D; Fri, 17 Nov 2023 11:43:40 +0000 (UTC)
+	id 71A7D986E1D; Fri, 17 Nov 2023 11:45:25 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,185 +24,254 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F0C92986E1E
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 11:43:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 628DC986E1E
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 11:45:25 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: D0c_1LYWOXy-l6ELcanw5w-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700221414; x=1700826214;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gY03DT7ehd6OS9gy65C8w1+CfVNa2AZZc3Xp9SFc378=;
-        b=pqbrx0VbDg+qVCtTI2S2bqNySZy2s47COKJElOJ4KmqVSEN7k89Ji4dNuQGg6/QQC1
-         PzRcyww/qUNY+q9Z8abzrZjw5/A+YG20ZjLEy0+VM6VeD5BAYS8xS2hgMYZ9MkToFSFV
-         lUp/7xDMirgHCBxeNaabOkhvsZH2mpXf614Gv24qEHdjk9OvPlg9wJn8pv4Qfw6UZbIr
-         Y7TNMlFNguSOK4ScaXyJytzswSE6HnHhrmHTv/S9FT6DabzwLwL/EEtloCn0Kg/Fv5tZ
-         bIHDGqQWfsRQU9dph3zxpZIMiUUq9UJ5cqMDwgc17wUrjAAHFYdnH5n5nNVQ6Q7dNBIt
-         Y6cQ==
-X-Gm-Message-State: AOJu0Yxs112PKAfPZ9f7TFUYCqbhfvJKyKHK93hLaNtdElO4EB/Ihk4H
-	bM2aDuu+eKtRI5BFO8LgpoKIhyh88fSPuEHPTUqWl0THLuKxDPp3UCUG8lMAMm8HA4/HXSmzHRO
-	42VyYLoO+CQe5t/4zI0dAccq7JRYct2BR7w==
-X-Received: by 2002:a05:600c:4715:b0:40a:42dd:c82c with SMTP id v21-20020a05600c471500b0040a42ddc82cmr4033255wmo.27.1700221414328;
-        Fri, 17 Nov 2023 03:43:34 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEJkZ8YS1S6cjFohE1jgj3KKBkQl8pFubqNoTd2k9tvnQBvk5cdvhGDd0C9ccOQoyfneVR1/A==
-X-Received: by 2002:a05:600c:4715:b0:40a:42dd:c82c with SMTP id v21-20020a05600c471500b0040a42ddc82cmr4033231wmo.27.1700221413852;
-        Fri, 17 Nov 2023 03:43:33 -0800 (PST)
-Date: Fri, 17 Nov 2023 06:43:28 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
-	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231117063406-mutt-send-email-mst@kernel.org>
-References: <CACGkMEsR56_C2b6-YQFpEOPt4sjJKyqcqrdhi9G0vU9ytezFLQ@mail.gmail.com>
- <PH0PR12MB54811373EA43BEDB4E159E0BDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsMzp7DjDkQcO4RZ0H0HfxSrytUJrSyDj6gnPWV9cTZow@mail.gmail.com>
- <DM8PR12MB548085F25849CF1E055826E6DCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
- <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117050357-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54810D15E0897C2435697E39DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117060456-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481AB5ECF613D806C338C54DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZU5044dtwegKNkFoAd1yxeigzbQYJNB3rtHjZY6NGyoGJ4N3j9zRlcsHRPsQM9eNcWYlplSooacYIEZE6BLc8xKujAqgtBEK5vKyLgXMtEhjfGEqJmonUc2rxjw9n8tbkLMVKqDxmku4/Ob7MATGHEKJSLhrbkvlloQAjwiMgm8bK77M2MSZRKansKqaHm1I/2UllAJzjO1pJjh9k4sVGRoIbC+e+7PNXKpbW4bsR6DpGOOD41R4NX+GjLp/Q+CrsMLeh9cBvuDYlkygEM3tYrOTH+VwBonAg8pMjhh21XKLv8Lqbt1eoLWVMVhVaQjtdjisJI5mm3Tr+fap2XMyGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DDeElDoLEKFfWlYBfxdWG8P+a6pmdBZI2KiOM+IZ3N0=;
+ b=UpXS6s/dkrHpupNlTnYjwKF4xPNVh3aB3Y4LPtGrgdOQ397t1f1PAwO+XH51IJbIZeZlDtEjeUxME/+1hTxcgjXj7RKzLLBav3z2v702tonirth1ItkM4OM+oBWu0RuvvnKipgu057uIdY4ujn00LWqp08NTTWN3hrfR56pm+8Ng7Cn0uJofPISnh7wVy83OVXWlCfr1EOI8J3mDXoSwWPLnB+HVZiqNiN37gz8Y0jZSdwmUJtGORFQIqDE9tKDHyWHg9nMV/2x2j57lo9Y1yhQD+MqY8YG5Wwzx7D+ldD6kOSe9LtaHwckqSVyDaZPI8Qq16Xe8Oqrj80Ng1RZtpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: "Zhu, Lingshan" <lingshan.zhu@intel.com>, Jason Wang
+	<jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
+	<yishaih@nvidia.com>
+Thread-Topic: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
+Thread-Index:
+ AQHaCzPonHREgkZknEiTjfT1JtA3fLBjIMmAgAAcy4CAAWD+gIAAKSfAgAGqygCAABTkAIAGWMEAgAADI2CAAWVPgIACFpEAgAdP4YCAA//WQIAAxB+AgAAJgRCAAA8CgIAATUGAgAAZpoCAAXC2gIAAADIwgAAQrwCAAADWwIAACKCAgAACIJA=
+Date: Fri, 17 Nov 2023 11:45:20 +0000
+Message-ID:
+ <PH0PR12MB548179702B4F7B460E09681CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References:
+ <PH0PR12MB54810AFC15EAC51755CFC045DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtP+W4mdfn5PszoSHW3tNS+KPAMKXvJhpWKa_NchxVpZA@mail.gmail.com>
+ <PH0PR12MB54815F616E0CF024927984C2DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116004037-mutt-send-email-mst@kernel.org>
+ <b0ad9991-4372-4900-8baf-a111777f6d92@intel.com>
+ <20231116065416-mutt-send-email-mst@kernel.org>
+ <705e728a-368a-4e28-a7b2-61afddb15ce9@intel.com>
+ <PH0PR12MB5481C2B37901FDBBE672EF98DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117054650-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813446F8F2BBDBC74BF393DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117063304-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231117063304-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|IA0PR12MB8648:EE_
+x-ms-office365-filtering-correlation-id: afb5bc5f-0e86-4ee7-b2d7-08dbe762ad65
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 8S/RjayBvmOHII5UJezZdqoTmwIzKXHmnpULdwmBDPJc//NX0q5mbPfBqvGaERDl7f7fpPzw0ou5d/913hL5/iEpGUigEIavsEWj+pJ2NPduUKLNu/cQlPS/Zp2+X0B9Tk0iRMN2CQPkD0vwNIlbfU7n0h3qp3UCbQRsJcyDffUxljTRktd7uBfu1Ur/XGxspZBF5PPdexIfZUg4HejnfaXAMQJs0+LKk9lkite739aYFKtcsfazW96eqd0KQLicGUPTXw63zwkWRutjj7IzpyNm2pm8GoQDPV12Kozil8uvQhXtax2eDW0IPyEuZO2N2m2eSmmySqLm6kVQilSpsu9q5VaeYDS5DsCyBOW3Uj2SlCB7GT23ZTK0Xz2UlcKDD9VQeJ6+T+l0g1gd4IbdpJACuHzFFk/gOTZf/jAf9q/FnVOsn4lXre68Nf7h+wnkQTrRwrEIYEAnXDm4tr93iY5uth7CT+j42rqKZECP+pq0orb8ao71BrkwzLKB8vz3S1h9I5RMyAkfzwAuVkOtxCYKnHlf80xEYDbspsjd+iOTLBSNSXxqECM0qbbjJBj/8h2zTZ4tjjyOZG/MU1aksbJVlI0VQQHw6AHzJFMrRBLlxRqYkK0oOakG1026M9nVqTwnX2a63Peya63nfNbNC47x5M9IeujOxfAAoLF4cf7tikLvQaW93PyPhu86bObd
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(376002)(396003)(136003)(39860400002)(346002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(38100700002)(38070700009)(122000001)(55016003)(83380400001)(26005)(107886003)(9686003)(6506007)(55236004)(53546011)(7696005)(71200400001)(478600001)(966005)(86362001)(5660300002)(4326008)(66446008)(66556008)(66476007)(66946007)(76116006)(41300700001)(64756008)(54906003)(6916009)(316002)(8936002)(52536014)(8676002)(33656002)(2906002)(69594002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?n7IBIt6MHMr5dB2bS49cy2bAxRcAuRqi7OE77w8PWMvtvrR0UWiql2hqSAS5?=
+ =?us-ascii?Q?exesyjakC/uBBLSG8sug+B93X3xQOiPslZhc/+sq1gB1GlmNRbtCqoJ7zF7c?=
+ =?us-ascii?Q?3tP1AXuXkPqj4KucVmsy83pExgffqsLTU4X7DBsflQrqJOkmiZw3LFHY8Fap?=
+ =?us-ascii?Q?UH/Unp0HdwjlZZ/WodWA50cPz/c2VuxSbt6Z4N2kGpqJNpvURmWUIDirxW0S?=
+ =?us-ascii?Q?ZF0Et1h0CnYOYgPLeGhXAxye+ieXMwzHRTa+BjKmGK60Fvu57e6tN0rSUyTE?=
+ =?us-ascii?Q?jG3r2MgEnVunGkk1U7mjhJ2+yHAb3LA+wrO5o/cEFL1pzVGObVNbhJCyfTLr?=
+ =?us-ascii?Q?lu3m0I3gjMjoqbuaWBeLFo2or+AeLHIONdPSBAqi8C9h8bS7lssEacIjHTao?=
+ =?us-ascii?Q?la5whKQmXPvH2neUZDJyOp2Bts6OFOjMgtPM+ygtDHAtP9IbqBwgO22a2NYJ?=
+ =?us-ascii?Q?FOagXI+M173LLmcv9POTVfPlfjfCv1l69Qk4BxhTNdzittR+LGMOHFLaenvH?=
+ =?us-ascii?Q?Xd8/INPoh8Ueo5ET8468I5QM4kc1CqF3JxucbeBctq7oX+XCzWfoqlGeE1CW?=
+ =?us-ascii?Q?o2mkxbYesHV1lQ81jXok+/kZ9lLApX8fS6rWWLR6XIYf+3nb8Qfb8dh5DGWG?=
+ =?us-ascii?Q?TEdzdz2IJaceE+Egtp8k0W3eKoJF3neIhAkodctOLpqSnyby+AtA2vQNVv/z?=
+ =?us-ascii?Q?qDPqSEbM3t96aeO/L+nwwFxAQyN9enyRXU5xS8JwSIKnlOPgz6Mv9WqbmLbJ?=
+ =?us-ascii?Q?OJB5OwLbRVxbFR8tTuDSHJQ+ipO/jAepMKq2Axw7CYKbLuQ8m3SgjBY+/VUm?=
+ =?us-ascii?Q?bS4sK5zim2VTrYiEVPAZ1ct7o8NlNAngNoA4L/bTNvlOS7qLM+HXUKtyrktZ?=
+ =?us-ascii?Q?1wLDPxyAfVxPhltVQxTdo8ILJVjYREtGYMJEvUxPkfejAU1kUF5xYEmCicPf?=
+ =?us-ascii?Q?Wec3+75Bntkda1EIUaIX5/PjgJFFwgn4DHmfJFoTVAOusx2xoKgv5G6j/a62?=
+ =?us-ascii?Q?TGvgJ0t6dJwoJH45qzIxZcI9xpum/nDMdZR+I3BbWheFCzUShh4wyD1uHo8a?=
+ =?us-ascii?Q?JTSBi6T1lUQAX0O78Cxf9wLhZRU6S29Lu5ovEi9CpJLxJfkQLkeUMswTWiKl?=
+ =?us-ascii?Q?Ne1xgzWUqPhyeJNFBdwPtrn2u0cmd2z1MCOpHCw8grHFRGgAbqX/Gf2JIHSP?=
+ =?us-ascii?Q?309vk43vSc8XjXLLRUPw3k1r0Dw9AYfWNkAkQNqwiRXp2dWzgqbUp1qxdget?=
+ =?us-ascii?Q?ecjSJsc7YJDkLJMBehgVagtmovjBDPp0H1h5QVGw7vJZuk+VE4V2A0ncj6o9?=
+ =?us-ascii?Q?l6aBIDGZ1HgIWoHwWLSE8aqfmJpFwy5WXrnf5ZVYONuXshIDr9E/ZJa5cKfq?=
+ =?us-ascii?Q?LztgvdjXf6/ZrUFQJYWYlkmqG9u64HG2rVvuyIVry6wof/51E1TNXY3qCyuL?=
+ =?us-ascii?Q?v51NKHdRaQ1uVZLYz7GqFIpEDFmJ0jPfqEx1CIsvQmUzBuzLn4VyXXkxu9Uf?=
+ =?us-ascii?Q?YOVv5qlaBOfND98GyGOcWLnDMfyvDxDmzkx8IAtML4gadfsR7GZDeKa9Pt0/?=
+ =?us-ascii?Q?IRqNrsHEVHk8A9syP08=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481AB5ECF613D806C338C54DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: afb5bc5f-0e86-4ee7-b2d7-08dbe762ad65
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2023 11:45:20.4893
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iDewBwTG2tqvf76m9KPUHUHfU+knurV04UUnYojEg7uTadrTOys/u9b42gman+JRVcdr10bAhcYLqXdY5uSHwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8648
+Subject: RE: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
 
-On Fri, Nov 17, 2023 at 11:20:14AM +0000, Parav Pandit wrote:
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Friday, November 17, 2023 4:41 PM
-> > 
-> > On Fri, Nov 17, 2023 at 10:20:45AM +0000, Parav Pandit wrote:
-> > >
-> > >
-> > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > Sent: Friday, November 17, 2023 3:38 PM
-> > > >
-> > > > On Wed, Nov 15, 2023 at 05:39:43PM +0000, Parav Pandit wrote:
-> > > > > > >
-> > > > > > > Additionally, if hypervisor has put the trap on virtio config,
-> > > > > > > and because the memory device already has the interface for
-> > > > > > > virtio config,
-> > > > > > >
-> > > > > > > Hypervisor can directly write/read from the virtual config to
-> > > > > > > the member's
-> > > > > > config space, without going through the device context, right?
-> > > > > >
-> > > > > > If it can do it or it can choose to not. I don't see how it is
-> > > > > > related to the discussion here.
-> > > > > >
-> > > > > It is. I don’t see a point of hypervisor not using the native
-> > > > > interface provided
-> > > > by the member device.
-> > > >
-> > > > So for example, it seems reasonable to a member supporting both
-> > > > existing pci register interface for compatibility and the future DMA
-> > > > based one for scale. In such a case, it seems possible that DMA will
-> > > > expose more features than pci. And then a hypervisor might decide to use
-> > that in preference to pci registers.
-> > >
-> > > We don’t find it right to involve owner device for mediating at
-> > > current scale
-> > 
-> > In this model, device will be its own owner. Should not be a problem.
+
+> From: Michael S. Tsirkin <mst@redhat.com>
+> Sent: Friday, November 17, 2023 5:04 PM
+>=20
+> On Fri, Nov 17, 2023 at 11:05:16AM +0000, Parav Pandit wrote:
 > >
-> I didn’t understand above comment.
-
-We'd add a new group type "self". You can then send admin commands
-through VF itself not through PF.
-
-
-> > > and to not break TDISP efforts in upcoming time by such design.
-> > 
-> > Look you either stop mentioning TDISP as motivation or actually try to address
-> > it. Safe migration with TDISP is really hard.
-> But that is not an excuse to say that TDISP migration is not present, hence involve the owner device for config space access.
-> This is another hurdle added that further blocks us away from TDISP.
-> Hence, we don’t want to take the route of involving owner device for any config access.
-
-This "blocks" is all just wild hunches. hypervisor controls some
-aspects of TDISP devices for sure - maybe we actually should use
-pci config space as that is generally hypervisor controlled.
-
-> > For example, your current patches are clearly broken for TDISP:
-> > owner can control queue state at any time making device modify memory in
-> > any way it wants.
 > >
-> When TDISP migration is needed, the admin device can be another TVM outside the HV scope.
-> Or an alternative would have device context encrypted not visible to HV at all.
-
-Maybe. Fact remains your patches do conflict with TDISP and you seem to
-be fine with it because you have a hunch you can fix it. But we can't
-do development based on your hunches.
-
-
-> Such encryption is not possible, with the trap+emulation method, where HV will have to decrypt the data coming over MMIO writes.
-
-I don't how what trap+emulation has to do with it. Do you refer to the
-shadow vq thing? I am guessing modern platforms with TDISP support are
-likely to also support dirty bit in the IOMMU.
-
-
-> > > And for future scale, having new SIOV interface makes more sense which has
-> > its own direct interface to device.
+> > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > Sent: Friday, November 17, 2023 4:30 PM
 > > >
-> > > I finally captured all past discussions in form of a FAQ at [1].
+> > > On Fri, Nov 17, 2023 at 10:03:47AM +0000, Parav Pandit wrote:
+> > > >
+> > > >
+> > > > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
+> > > > > Sent: Friday, November 17, 2023 3:30 PM
+> > > > >
+> > > > > On 11/16/2023 7:59 PM, Michael S. Tsirkin wrote:
+> > > > > > On Thu, Nov 16, 2023 at 06:28:07PM +0800, Zhu, Lingshan wrote:
+> > > > > >>
+> > > > > >> On 11/16/2023 1:51 PM, Michael S. Tsirkin wrote:
+> > > > > >>> On Thu, Nov 16, 2023 at 05:29:54AM +0000, Parav Pandit wrote:
+> > > > > >>>> We should expose a limit of the device in the proposed
+> > > > > WRITE_RECORD_CAP_QUERY command, that how much range it can
+> track.
+> > > > > >>>> So that future provisioning framework can use it.
+> > > > > >>>>
+> > > > > >>>> I will cover this in v5 early next week.
+> > > > > >>> I do worry about how this can even work though. If you want
+> > > > > >>> a generic device you do not get to dictate how much memory VM
+> has.
+> > > > > >>>
+> > > > > >>> Aren't we talking bit per page? With 1TByte of memory to
+> > > > > >>> track
+> > > > > >>> -> 256Gbit -> 32Gbit -> 8Gbyte per VF?
+> > > > > >>>
+> > > > > >>> And you happily say "we'll address this in the future" while
+> > > > > >>> at the same time fighting tooth and nail against adding
+> > > > > >>> single bit status registers because scalability?
+> > > > > >>>
+> > > > > >>>
+> > > > > >>> I have a feeling doing this completely theoretical like this =
+is
+> problematic.
+> > > > > >>> Maybe you have it all laid out neatly in your head but I
+> > > > > >>> suspect not all of TC can picture it clearly enough based jus=
+t on spec
+> text.
+> > > > > >>>
+> > > > > >>> We do sometimes ask for POC implementation in linux / qemu
+> > > > > >>> to demonstrate how things work before merging code. We
+> > > > > >>> skipped this for admin things so far but I think it's a good
+> > > > > >>> idea to start doing it here.
+> > > > > >>>
+> > > > > >>> What makes me pause a bit before saying please do a PoC is
+> > > > > >>> all the opposition that seems to exist to even using admin
+> > > > > >>> commands in the 1st place. I think once we finally stop
+> > > > > >>> arguing about whether to use admin commands at all then a
+> > > > > >>> PoC will be needed
+> > > before merging.
+> > > > > >> We have POR productions that implemented the approach in my
+> series.
+> > > > > >> They are multiple generations of productions in market and
+> > > > > >> running in customers data centers for years.
+> > > > > >>
+> > > > > >> Back to 2019 when we start working on vDPA, we have sent some
+> > > > > >> samples of production(e.g., Cascade Glacier) and the
+> > > > > >> datasheet, you can find live migration facilities there,
+> > > > > >> includes suspend, vq state and other features.
+> > > > > >>
+> > > > > >> And there is an reference in DPDK live migration, I have
+> > > > > >> provided this page
+> > > > > >> before:
+> > > > > >> https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html, it has
+> > > > > >> been working for long long time.
+> > > > > >>
+> > > > > >> So if we let the facts speak, if we want to see if the
+> > > > > >> proposal is proven to work, I would
+> > > > > >> say: They are POR for years, customers already deployed them f=
+or
+> years.
+> > > > > > And I guess what you are trying to say is that this patchset
+> > > > > > we are reviewing here should be help to the same standard and
+> > > > > > there should be a PoC? Sounds reasonable.
+> > > > > Yes and the in-marketing productions are POR, the series just
+> > > > > improves the design, for example, our series also use registers
+> > > > > to track vq state, but improvements than CG or BSC. So I think
+> > > > > they are proven
+> > > to work.
+> > > >
+> > > > If you prefer to go the route of POR and production and proven
+> > > > documents
+> > > etc, there is ton of it of multiple types of products I can dump
+> > > here with open- source code and documentation and more.
+> > > > Let me know what you would like to see.
+> > > >
+> > > > Michael has requested some performance comparisons, not all are
+> > > > ready to
+> > > share yet.
+> > > > Some are present that I will share in coming weeks.
+> > > >
+> > > > And all the vdpa dpdk you published does not have basic CVQ
+> > > > support when I
+> > > last looked at it.
+> > > > Do you know when was it added?
 > > >
-> > > [1]
-> > > https://docs.google.com/document/d/1Iyn-l3Nm0yls3pZaul4lZiVj8x1s73Ed6r
-> > > Osmn6LfXc/edit?usp=sharing
-> > 
-> > Yea skimmed that, "Cons: None". Are you 100% sure? Anyway, discussion will
-> > take place on the mailing list please.
-> 
-> We cannot keep discussing the register interface every week.
-> I remember we have discussed this many times already in following series.
-> 
-> 1. legacy series
-> 2. tvq v4 series
-> 3. dynamic vq creation series
-> 4. again during suspend series under tvq head
-> 5. right now
-> 6. May be more that I forgot.
-> 
-> I captured all the direction and options in the doc. One can refer when those questions arise there.
-> If we don’t work cohesively same reasoning repetition does not help.
+> > > It's good enough for PoC I think, CVQ or not.
+> > > The problem with CVQ generally, is that VDPA wants to shadow CVQ it
+> > > at all times because it wants to decode and cache the content. But
+> > > this problem has nothing to do with dirty tracking even though it als=
+o
+> mentions "shadow":
+> > > if device can report it's state then there's no need to shadow CVQ.
+> >
+> > For the performance numbers with the pre-copy and device context of
+> patches posted 1 to 5, the downtime reduction of the VM is 3.71x with act=
+ive
+> traffic on 8 RQs at 100Gbps port speed.
+>=20
+> Sounds good can you please post a bit more detail?
+> which configs are you comparing what was the result on each of them.
 
-It's still the same too, doc or no doc. You want to build a device
-without registers fine but don't force it down everyone's throat. And
-now with 8MBytes of on-device memory that's needed for migration and
-that's apparently fine I am even less interested in saving 256 bytes for
-config space.
+Common config: 8+8 tx and rx queues.
+Port speed: 100Gbps
+QEMU 8.1
+Libvirt 7.0
+GVM: Centos 7.4
+Device: virtio VF hardware device
 
--- 
-MST
+Config_1: virtio suspend/resume similar to what Lingshan has, largely vdpa =
+stack
+Config_2: Device context method of admin commands
 
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
