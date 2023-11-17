@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8463-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8464-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E4FFC197A0
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB22C197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:37:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 7481745B33
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 993B6613D1
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:37:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3E385986E30
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 64FC9986E25
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 12:37:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 221AA986E1E; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
+	id 46CF9986E21; Fri, 17 Nov 2023 12:37:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,212 +24,96 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 13426986E1F
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 12:32:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 37358986E22
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 12:37:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: KiyAzKFdNIy6dxx3BVT8oQ-1
+X-MC-Unique: HJFK06TzPZukbsR3473GPQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700224353; x=1700829153;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LjCAnAbdZri9p3zo3cmNUTXvDFdL0l8do6ldCBMUCHo=;
-        b=u53eF39tF1Ui5vPAtoteS/9GzjNcDQBY4Fzd6FQVwIFk6gVduDEKw06dbklsxNNcVc
-         HO/pmXSia9EtMN38+x+hXZccx5ZSsFxtMXck45IVdxhw5GiMUR35oUhMwCmRc9auyRsh
-         VObfG9kDNFNhvaOCqyW+BsLx+jYPX+2utyPFrmkKi4UHA6P6GDnxUN8dqdCOHHeHUikT
-         xgdb9bKq4DXtBV1wnnWdSFccpjgt4nl10Twr05Qsa1WCovVdXtSVpuw7sFScJh9oRH24
-         3unxJS4Vkv8Q7EL877bIifC+zC0bGMqzJsVd2nKEZ8RY6fidXQv4oqGrODxzAr8uVQkG
-         c76g==
-X-Gm-Message-State: AOJu0Yxa2WiBhkF14qSwCgW60Z2LjR+XINaNztRShNb6HZBzOThfLYKW
-	SVHXXRaXFdJIoQ92E0t5Xka6ZyYPCUBS2yLpr1YYvbvWPjz4xPZbBM1PFylnWYPrL1asup4QZB8
-	P1u1RsFDyv4mkrgssHgfNdQBQv9IAabyyQQ==
-X-Received: by 2002:ac2:58c6:0:b0:504:7bb0:9d7e with SMTP id u6-20020ac258c6000000b005047bb09d7emr10265416lfo.27.1700224352969;
-        Fri, 17 Nov 2023 04:32:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFuTCMSzlecWUXl18gvplrsn/gVLQAZTc3sYnPe5j4z1PQwNtViXCQGTlDdgrrWJCGpE+CEMQ==
-X-Received: by 2002:ac2:58c6:0:b0:504:7bb0:9d7e with SMTP id u6-20020ac258c6000000b005047bb09d7emr10265411lfo.27.1700224352609;
-        Fri, 17 Nov 2023 04:32:32 -0800 (PST)
-Date: Fri, 17 Nov 2023 07:32:24 -0500
+        d=1e100.net; s=20230601; t=1700224653; x=1700829453;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=N7PSl53v5ksH715zl85SvtY9wZ4WkTMU/n46fWXu0Hk=;
+        b=RCDQHsd16zi/hGzd9iZq5ci/WXZzfdnk+94Dt24tEb7z/NUq8FSvET80CSaf67UtV7
+         Dx5j11cwi4r/gE2Ou8y2+dSh7au/hxZu3qo5na7SeTJpoyndjRQh5mQzXL7GADaPVPil
+         4Zw+xHnoM6UyE6wBHQSWYvhqEgApKFkHM6l8J0jqTZQtJv+R7SeS+Gj+f08DCMotFCIT
+         Jp9fe+Yjno09HRzOEX6ZgqdMGTcSzypCIyxn0z2C+Yg34aToznHxwrX6+jeJCRVSs866
+         FX4feW6KO7q1+5KbBQwopb0KKsNWUKDrBj31X77vDcyxpOCp7r8RK8WRgQve2cMRmuET
+         s05A==
+X-Gm-Message-State: AOJu0YwE1nWy0f0bCHZjv6/PPQjfuMfuk/72XiPKIa95SlPM832lJ6V8
+	Q/dNy99mshekYrPTupNxsVKF+ojIDHgHjwsuHxvpIs0NsfUiiFFtCGNmALMJAguTaRIttc7ggj0
+	4hMWrwPWJJl967hqqKgQfau5SMIOT3lzuVw==
+X-Received: by 2002:a05:600c:3595:b0:408:7abb:b0ee with SMTP id p21-20020a05600c359500b004087abbb0eemr15275383wmq.26.1700224653225;
+        Fri, 17 Nov 2023 04:37:33 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHHvpiZdRYEZ4CdQPYHe+tPOpIBJ+M+RD4QCCP0pYe6qEirTjYJi7PqShXIRC+kd+Vmr22Nnw==
+X-Received: by 2002:a05:600c:3595:b0:408:7abb:b0ee with SMTP id p21-20020a05600c359500b004087abbb0eemr15275365wmq.26.1700224652916;
+        Fri, 17 Nov 2023 04:37:32 -0800 (PST)
+Date: Fri, 17 Nov 2023 07:37:26 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	Jason Wang <jasowang@redhat.com>,
+Cc: Jason Wang <jasowang@redhat.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231117073031-mutt-send-email-mst@kernel.org>
-References: <b0ad9991-4372-4900-8baf-a111777f6d92@intel.com>
- <20231116065416-mutt-send-email-mst@kernel.org>
- <705e728a-368a-4e28-a7b2-61afddb15ce9@intel.com>
- <PH0PR12MB5481C2B37901FDBBE672EF98DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117054650-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54813446F8F2BBDBC74BF393DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117063304-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548179702B4F7B460E09681CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117065740-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481C905833821171814CB13DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Message-ID: <20231117073250-mutt-send-email-mst@kernel.org>
+References: <CACGkMEvkQawXWCvu7rZHnZk8YsNunS_B-fcQmEHEe_N87Q6y6g@mail.gmail.com>
+ <20231109022647-mutt-send-email-mst@kernel.org>
+ <CACGkMEuSpZ0Y8kxXv26b38pvX--OCdvWm5KvMniqo=W10ruBTA@mail.gmail.com>
+ <PH0PR12MB5481170EBDD5A8EBFF6C84C7DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117050838-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481101F980800BDAB4EB24CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117061122-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54819ACE638B70505B131B28DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117064344-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481BEBAA57399B3A9CF2795DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481C905833821171814CB13DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481BEBAA57399B3A9CF2795DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
  operation for write recording commands
 
-On Fri, Nov 17, 2023 at 12:11:15PM +0000, Parav Pandit wrote:
-> 
+On Fri, Nov 17, 2023 at 12:15:54PM +0000, Parav Pandit wrote:
+> Hi Alex, Jason,
 > 
 > > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Friday, November 17, 2023 5:35 PM
+> > Sent: Friday, November 17, 2023 5:20 PM
 > > To: Parav Pandit <parav@nvidia.com>
-> > 
-> > On Fri, Nov 17, 2023 at 11:45:20AM +0000, Parav Pandit wrote:
-> > >
-> > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > Sent: Friday, November 17, 2023 5:04 PM
+> 
+> > > > Allocating resources on outgoing migration is a very bad idea.
+> > > > It is common to migrate prcisely because you are out of resources.
+> > > > Incoming is a different story, less of a problem.
 > > > >
-> > > > On Fri, Nov 17, 2023 at 11:05:16AM +0000, Parav Pandit wrote:
-> > > > >
-> > > > >
-> > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > Sent: Friday, November 17, 2023 4:30 PM
-> > > > > >
-> > > > > > On Fri, Nov 17, 2023 at 10:03:47AM +0000, Parav Pandit wrote:
-> > > > > > >
-> > > > > > >
-> > > > > > > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
-> > > > > > > > Sent: Friday, November 17, 2023 3:30 PM
-> > > > > > > >
-> > > > > > > > On 11/16/2023 7:59 PM, Michael S. Tsirkin wrote:
-> > > > > > > > > On Thu, Nov 16, 2023 at 06:28:07PM +0800, Zhu, Lingshan wrote:
-> > > > > > > > >>
-> > > > > > > > >> On 11/16/2023 1:51 PM, Michael S. Tsirkin wrote:
-> > > > > > > > >>> On Thu, Nov 16, 2023 at 05:29:54AM +0000, Parav Pandit wrote:
-> > > > > > > > >>>> We should expose a limit of the device in the proposed
-> > > > > > > > WRITE_RECORD_CAP_QUERY command, that how much range it can
-> > > > track.
-> > > > > > > > >>>> So that future provisioning framework can use it.
-> > > > > > > > >>>>
-> > > > > > > > >>>> I will cover this in v5 early next week.
-> > > > > > > > >>> I do worry about how this can even work though. If you
-> > > > > > > > >>> want a generic device you do not get to dictate how much
-> > > > > > > > >>> memory VM
-> > > > has.
-> > > > > > > > >>>
-> > > > > > > > >>> Aren't we talking bit per page? With 1TByte of memory to
-> > > > > > > > >>> track
-> > > > > > > > >>> -> 256Gbit -> 32Gbit -> 8Gbyte per VF?
-> > > > > > > > >>>
-> > > > > > > > >>> And you happily say "we'll address this in the future"
-> > > > > > > > >>> while at the same time fighting tooth and nail against
-> > > > > > > > >>> adding single bit status registers because scalability?
-> > > > > > > > >>>
-> > > > > > > > >>>
-> > > > > > > > >>> I have a feeling doing this completely theoretical like
-> > > > > > > > >>> this is
-> > > > problematic.
-> > > > > > > > >>> Maybe you have it all laid out neatly in your head but I
-> > > > > > > > >>> suspect not all of TC can picture it clearly enough
-> > > > > > > > >>> based just on spec
-> > > > text.
-> > > > > > > > >>>
-> > > > > > > > >>> We do sometimes ask for POC implementation in linux /
-> > > > > > > > >>> qemu to demonstrate how things work before merging code.
-> > > > > > > > >>> We skipped this for admin things so far but I think it's
-> > > > > > > > >>> a good idea to start doing it here.
-> > > > > > > > >>>
-> > > > > > > > >>> What makes me pause a bit before saying please do a PoC
-> > > > > > > > >>> is all the opposition that seems to exist to even using
-> > > > > > > > >>> admin commands in the 1st place. I think once we finally
-> > > > > > > > >>> stop arguing about whether to use admin commands at all
-> > > > > > > > >>> then a PoC will be needed
-> > > > > > before merging.
-> > > > > > > > >> We have POR productions that implemented the approach in
-> > > > > > > > >> my
-> > > > series.
-> > > > > > > > >> They are multiple generations of productions in market
-> > > > > > > > >> and running in customers data centers for years.
-> > > > > > > > >>
-> > > > > > > > >> Back to 2019 when we start working on vDPA, we have sent
-> > > > > > > > >> some samples of production(e.g., Cascade Glacier) and the
-> > > > > > > > >> datasheet, you can find live migration facilities there,
-> > > > > > > > >> includes suspend, vq state and other features.
-> > > > > > > > >>
-> > > > > > > > >> And there is an reference in DPDK live migration, I have
-> > > > > > > > >> provided this page
-> > > > > > > > >> before:
-> > > > > > > > >> https://doc.dpdk.org/guides-21.11/vdpadevs/ifc.html, it
-> > > > > > > > >> has been working for long long time.
-> > > > > > > > >>
-> > > > > > > > >> So if we let the facts speak, if we want to see if the
-> > > > > > > > >> proposal is proven to work, I would
-> > > > > > > > >> say: They are POR for years, customers already deployed
-> > > > > > > > >> them for
-> > > > years.
-> > > > > > > > > And I guess what you are trying to say is that this
-> > > > > > > > > patchset we are reviewing here should be help to the same
-> > > > > > > > > standard and there should be a PoC? Sounds reasonable.
-> > > > > > > > Yes and the in-marketing productions are POR, the series
-> > > > > > > > just improves the design, for example, our series also use
-> > > > > > > > registers to track vq state, but improvements than CG or
-> > > > > > > > BSC. So I think they are proven
-> > > > > > to work.
-> > > > > > >
-> > > > > > > If you prefer to go the route of POR and production and proven
-> > > > > > > documents
-> > > > > > etc, there is ton of it of multiple types of products I can dump
-> > > > > > here with open- source code and documentation and more.
-> > > > > > > Let me know what you would like to see.
-> > > > > > >
-> > > > > > > Michael has requested some performance comparisons, not all
-> > > > > > > are ready to
-> > > > > > share yet.
-> > > > > > > Some are present that I will share in coming weeks.
-> > > > > > >
-> > > > > > > And all the vdpa dpdk you published does not have basic CVQ
-> > > > > > > support when I
-> > > > > > last looked at it.
-> > > > > > > Do you know when was it added?
-> > > > > >
-> > > > > > It's good enough for PoC I think, CVQ or not.
-> > > > > > The problem with CVQ generally, is that VDPA wants to shadow CVQ
-> > > > > > it at all times because it wants to decode and cache the
-> > > > > > content. But this problem has nothing to do with dirty tracking
-> > > > > > even though it also
-> > > > mentions "shadow":
-> > > > > > if device can report it's state then there's no need to shadow CVQ.
-> > > > >
-> > > > > For the performance numbers with the pre-copy and device context
-> > > > > of
-> > > > patches posted 1 to 5, the downtime reduction of the VM is 3.71x
-> > > > with active traffic on 8 RQs at 100Gbps port speed.
-> > > >
-> > > > Sounds good can you please post a bit more detail?
-> > > > which configs are you comparing what was the result on each of them.
-> > >
-> > > Common config: 8+8 tx and rx queues.
-> > > Port speed: 100Gbps
-> > > QEMU 8.1
-> > > Libvirt 7.0
-> > > GVM: Centos 7.4
-> > > Device: virtio VF hardware device
-> > >
-> > > Config_1: virtio suspend/resume similar to what Lingshan has, largely
-> > > vdpa stack
-> > > Config_2: Device context method of admin commands
+> > > The resource allocated may not be on same system.
+> > > Also the resource allocated while the VM is running, so I don’t see a problem.
 > > 
-> > OK that sounds good. The weird thing here is that you measure "downtime".
-> > What exactly do you mean here?
-> > I am guessing it's the time to retrieve on source and re-program device state on
-> > destination? And this is 3.71x out of how long?
-> Yes. Downtime is the time during which the VM is not responding or receiving packets, which involves reprogramming the device.
-> 3.71x is relative time for this discussion.
+> > > Additionally, this is not what the Linux kernel maintainers of iommu subsystem
+> > told us either.
+> > > Let me know if you check with Alex W and Jason who build this interface.
+> > 
+> > VFIO guys have their own ideas, if they want to talk to virtio guys they can come
+> > here and do that.
+> 
+> Since one of the use cases would have accepted to let dirty tracking to fail, I dont see a problem.
+> This is not the only command on source that fails.
+> So I anticipate that QEMU and libvirt or any vfio user would build the orchestration around the possible failure because the UAPI is well defined.
+>
+> When there is hypervisor, that must have zero failures on src side, such kernel + device can build everything reserved upfront.
+> 
+> Do you say, QEMU has zero memory allocations on source side for migration?
+> That would be interesting to know.
 
-Oh interesting. So VM state movement including reprogramming the CPU is
-dominated by reprogramming this single NIC, by a factor of almost 4?
-CAn we get some absolute numbers too, please?
+More or less yes. More precisely while in theory allocations it's doing
+can fail in practice it happens rarely enough that QEMU does not even
+bother checking and will immediately crash if they do. The reason is
+that it's using virtual memory, so it scales to a huge number of VMs.
+Migrating a single VM at a time is not even worth discussing.
 
 -- 
 MST
