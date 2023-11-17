@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8470-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8471-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48582C197A0
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 13:54:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D04F1C197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 13:58:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 81B57217D8
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 13:54:20 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 2D95541F28
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 13:58:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4CCC2986E2F
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 13:54:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0D54A986E2D
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 13:58:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 2E70A986E21; Fri, 17 Nov 2023 13:54:20 +0000 (UTC)
+	id E9635986E21; Fri, 17 Nov 2023 13:58:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,354 +24,120 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1D7AA986E24
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 13:54:20 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D965A986E24
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 13:58:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: g_mnxk57NDqeE_xLjETg7A-1
+X-MC-Unique: crS659MyMFCD8yO3p_pBmw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700229252; x=1700834052;
+        d=1e100.net; s=20230601; t=1700229512; x=1700834312;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tUOU1FHTZuPhZwj7bUaKIKHHigyyz2xwzRkZj1LuJlM=;
-        b=vGaRs6iMFKC5Ix2Cq4aF70AU3Df3RCzKvbbuIZ4TMrh7RSOlWbmu994h5JClr0cx11
-         zw/L5W2QazFcU9466oZNN/SszVtER4zafR/06niuGWozkEwk85NXm/whoyfyHmGE9eQy
-         xCQtTB3FavUXGEHhRMHclagSxT5QmrEk5JL4wjN0KDMO1EMP4vMLiloIG9vft+qCeUoM
-         blC+s58P6MdWBLLFy96oHDTRBdprweQzHQY74mAEhnf5qtyptv506abzcZxSbjNJ+xjJ
-         B+gFwfffZRRCO0JXGYvsQjbx8mPoeIkPO9aoWTKHOJ62fbX+8CvmM4gi2feDyaskGKfB
-         13lA==
-X-Gm-Message-State: AOJu0Yxi0jsUV1T7REH9OfDPc1UQT9+lPsIlzoz/AbO0raX7SkksAlLU
-	IL5AGgoK2kLul8Uw+W6q47MfjBRtQis/uFS5BTypbGcqGwL1XYf6ztg6NRJ5sob88SQ7Cqt0UJ5
-	V5AOO+bnuL1rg1UaX2HqNafCH/1gR8kxKfQ==
-X-Received: by 2002:a7b:c413:0:b0:406:81e9:ad0c with SMTP id k19-20020a7bc413000000b0040681e9ad0cmr14842090wmi.41.1700229252478;
-        Fri, 17 Nov 2023 05:54:12 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHvfKRnuBuEQo5p6DfcUrR5ysb0jM7pUBjwDodwLrDD+HuJGG+8YBDzC+kQr6A8Ry1yLzufmQ==
-X-Received: by 2002:a7b:c413:0:b0:406:81e9:ad0c with SMTP id k19-20020a7bc413000000b0040681e9ad0cmr14842073wmi.41.1700229251901;
-        Fri, 17 Nov 2023 05:54:11 -0800 (PST)
-Date: Fri, 17 Nov 2023 08:54:07 -0500
+        bh=ACM1TKIgPA9pTXMR2IifAs9QbgzJs67mlDwFcVDGRmk=;
+        b=q0mZHf35+cxYfOhomSUgAI6+5ZqtEWOuRnmDmj5jInfPzOs7Zh02gGFXsWinIH4jot
+         fpiD4M3iY2O9zEusJTn7gOCMd1dwbhtgwptpfLjCUQ+uqRje+FL6/jhf18eUL6Frme3Z
+         57ygBf/MS9JtKu3KtiRT8YkI5gecKh63K2cGeRki+lRAHb1ibwBzIfoPmaAZL/x4Ysvo
+         F0qPUxLepcwWgxu0MU5iM46xamnHk/h+G+bw76U8756QTQjUA846lZz6JbR9leh0Pgvu
+         cauyWpbQMfEX0He0SlXAul5KSZZubHr4bnV3yu/wL6X/oOHoYxDNbS0CtfppFFzC2K9D
+         8oJg==
+X-Gm-Message-State: AOJu0YzKJbfcxphOF8gUjUUz0vaharA5QHIKAZaeGygKBSnA8KravBoI
+	o3hmM7sU34UVQ8Fxfh76MH2uaUzQc9SEl4Uyk5P4+jdlzBS+kgZVOWTMBgdyMtEtP7r1v7mt4G2
+	1cg86ZgIHnd5yQZ8GQQB3QKQ9sDQYpEfq6w==
+X-Received: by 2002:adf:f392:0:b0:32d:570b:c0a4 with SMTP id m18-20020adff392000000b0032d570bc0a4mr12135983wro.27.1700229512666;
+        Fri, 17 Nov 2023 05:58:32 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFZUSLerJt7Jo8iDNGD0pL0uKhKOOkG0i/5Kx97Wxe5PNvpMpvW8NeIiWZ87Xz8KaOtwF2Wcg==
+X-Received: by 2002:adf:f392:0:b0:32d:570b:c0a4 with SMTP id m18-20020adff392000000b0032d570bc0a4mr12135963wro.27.1700229512352;
+        Fri, 17 Nov 2023 05:58:32 -0800 (PST)
+Date: Fri, 17 Nov 2023 08:58:25 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: Jason Wang <jasowang@redhat.com>,
-	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231117084325-mutt-send-email-mst@kernel.org>
-References: <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
- <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117050357-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54810D15E0897C2435697E39DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117060456-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481AB5ECF613D806C338C54DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117063406-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481089119BAB97C8F4B7CE0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117070636-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481B61EF6DE47F2625D0670DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Message-ID: <20231117085422-mutt-send-email-mst@kernel.org>
+References: <CACGkMEuSpZ0Y8kxXv26b38pvX--OCdvWm5KvMniqo=W10ruBTA@mail.gmail.com>
+ <PH0PR12MB5481170EBDD5A8EBFF6C84C7DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117050838-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481101F980800BDAB4EB24CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117061122-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54819ACE638B70505B131B28DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117064344-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481BEBAA57399B3A9CF2795DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117073250-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481473DCF72D2CB13AC61C6DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481B61EF6DE47F2625D0670DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481473DCF72D2CB13AC61C6DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
+Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
 
-On Fri, Nov 17, 2023 at 12:46:21PM +0000, Parav Pandit wrote:
+On Fri, Nov 17, 2023 at 12:49:36PM +0000, Parav Pandit wrote:
+> 
 > 
 > > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Friday, November 17, 2023 6:00 PM
+> > Sent: Friday, November 17, 2023 6:07 PM
 > > To: Parav Pandit <parav@nvidia.com>
 > > 
-> > On Fri, Nov 17, 2023 at 12:02:49PM +0000, Parav Pandit wrote:
-> > >
+> > On Fri, Nov 17, 2023 at 12:15:54PM +0000, Parav Pandit wrote:
+> > > Hi Alex, Jason,
 > > >
 > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > Sent: Friday, November 17, 2023 5:13 PM
-> > > >
-> > > > On Fri, Nov 17, 2023 at 11:20:14AM +0000, Parav Pandit wrote:
-> > > > >
-> > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > Sent: Friday, November 17, 2023 4:41 PM
-> > > > > >
-> > > > > > On Fri, Nov 17, 2023 at 10:20:45AM +0000, Parav Pandit wrote:
-> > > > > > >
-> > > > > > >
-> > > > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > > > Sent: Friday, November 17, 2023 3:38 PM
-> > > > > > > >
-> > > > > > > > On Wed, Nov 15, 2023 at 05:39:43PM +0000, Parav Pandit wrote:
-> > > > > > > > > > >
-> > > > > > > > > > > Additionally, if hypervisor has put the trap on virtio
-> > > > > > > > > > > config, and because the memory device already has the
-> > > > > > > > > > > interface for virtio config,
-> > > > > > > > > > >
-> > > > > > > > > > > Hypervisor can directly write/read from the virtual
-> > > > > > > > > > > config to the member's
-> > > > > > > > > > config space, without going through the device context, right?
-> > > > > > > > > >
-> > > > > > > > > > If it can do it or it can choose to not. I don't see how
-> > > > > > > > > > it is related to the discussion here.
-> > > > > > > > > >
-> > > > > > > > > It is. I don’t see a point of hypervisor not using the
-> > > > > > > > > native interface provided
-> > > > > > > > by the member device.
-> > > > > > > >
-> > > > > > > > So for example, it seems reasonable to a member supporting
-> > > > > > > > both existing pci register interface for compatibility and
-> > > > > > > > the future DMA based one for scale. In such a case, it seems
-> > > > > > > > possible that DMA will expose more features than pci. And
-> > > > > > > > then a hypervisor might decide to use
-> > > > > > that in preference to pci registers.
-> > > > > > >
-> > > > > > > We don’t find it right to involve owner device for mediating
-> > > > > > > at current scale
-> > > > > >
-> > > > > > In this model, device will be its own owner. Should not be a problem.
-> > > > > >
-> > > > > I didn’t understand above comment.
-> > > >
-> > > > We'd add a new group type "self". You can then send admin commands
-> > > > through VF itself not through PF.
-> > > >
-> > > How? The device is owned by the guest. FLR and device reset cannot send the
-> > admin command reliably.
-> > 
-> > It's of the "it hurts when I do this - don't do this then" category.
-> >
-> it is don’t do medication category, yes due all this weirdness that has been asked.
->  
-> > 
-> > > >
-> > > > > > > and to not break TDISP efforts in upcoming time by such design.
-> > > > > >
-> > > > > > Look you either stop mentioning TDISP as motivation or actually
-> > > > > > try to address it. Safe migration with TDISP is really hard.
-> > > > > But that is not an excuse to say that TDISP migration is not
-> > > > > present, hence
-> > > > involve the owner device for config space access.
-> > > > > This is another hurdle added that further blocks us away from TDISP.
-> > > > > Hence, we don’t want to take the route of involving owner device
-> > > > > for any
-> > > > config access.
-> > > >
-> > > > This "blocks" is all just wild hunches. hypervisor controls some
-> > > > aspects of TDISP devices for sure - maybe we actually should use pci
-> > > > config space as that is generally hypervisor controlled.
-> > > Even bad to do hypercalls.
-> > > I showed you last time the role of the PCI config space snippet from the spec.
-> > 
-> > Yes I remember. This is just an example though. My point is maybe it is solvable
-> > maybe it is not.
-> > 
-> > > Do you see we are repeating the discussion again?
-> > 
-> > One of the reasons is that people bring up irrelevances. TDISP is important but
-> > has to be addressed or deferred not vaguely referred to.
-> 
-> So lets continue to follow the current TDISP direction of not involving hypervisor for virtio common and device config.
-> 
-> > 
-> > > >
-> > > > > > For example, your current patches are clearly broken for TDISP:
-> > > > > > owner can control queue state at any time making device modify
-> > > > > > memory in any way it wants.
-> > > > > >
-> > > > > When TDISP migration is needed, the admin device can be another
-> > > > > TVM
-> > > > outside the HV scope.
-> > > > > Or an alternative would have device context encrypted not visible to HV at
-> > all.
-> > > >
-> > > > Maybe. Fact remains your patches do conflict with TDISP and you seem
-> > > > to be fine with it because you have a hunch you can fix it. But we
-> > > > can't do development based on your hunches.
-> > > >
-> > > We have different view.
-> > > My patches do not conflict with TDISP because TDISP has clear definition of
-> > not involving hypervisor for transport.
-> > > And that part is still preserved.
-> > > Delegating the migration to another TDISP or encrypting is yet to be defined.
-> > > And current patches will align to both the approaches in future.
+> > > > Sent: Friday, November 17, 2023 5:20 PM
+> > > > To: Parav Pandit <parav@nvidia.com>
 > > >
-> > > So you need to re-evaluate your judgment.
-> > 
-> > If you like they do not "conflict".  But if used with TDISP they just make it
-> > insecure and thus completely worthless.  If hypervisor can change ring state to
-> > make device poke at random guest memory then it is game over and all the
-> > effort spent was security theater.
-> Not really, I proposed two options.
-> 1. delegate the task of LM to the TVM. (proposed by two cpu vendors).
-> In this case all the infra we build here, just works fine.
-
-I think modification will be needed: currently commands are sent
-through the PF, and that is under hypervisor control.
-You should not assign PF to TVM.
-
-> It also does not require any hypervisor mediation for control plane.
-> 
-> 2. Encrypt the owner device workload to be not seen by hypervisor
-> 
-> Both methods does not affect the current direction.
-> 
-> But if we force trap+emulation, it is 100% broken for TDISP.
-> And I would not promote that.
-> 
-> > But you know this, don't you? This is why you mentioned encrypting device.
-> > Maybe that works. It just does not work *as is*.
-> It works as_is. But current infrastructure does not block the future work.
-> 
-> > 
-> > 
-> > > >
-> > > > > Such encryption is not possible, with the trap+emulation method,
-> > > > > where HV
-> > > > will have to decrypt the data coming over MMIO writes.
-> > > >
-> > > > I don't how what trap+emulation has to do with it. Do you refer to
-> > > > the shadow vq thing?
-> > >
-> > > The method proposed here does not hinder any TDISP direction.
-> > 
-> > direction? No, why would it. we can always add more commands that are safe
-> > for TDISP. commands you propose here are unsafe for TDISP.
-> > 
-> > > Without my proposal, do you have a method that does not involve hypervisor
-> > intervention for virtio common and device config space, cvq and shadow vq?
-> > > If so, I would like to hear that as well because that will align with TDISP.
-> > 	
-> > I really did not give it much thought.  I suspect for TDISP it just might be cleaner
-> > to have guest agent migrate device. Certainly removes all the messy questions.
-> > That, to me impliest there needs to be a way to send migration commands
-> > through VF itself. Does this "involve hypervisor intervention"? No one should
-> > care I think.
-> Too far of the future to envision. May be yes. When such platform is
-> built, for sure whoever migrates need migrate its device side too.
-> Some knowledge of migration driver is needed.
-
-So TDISP migration is so far in the future you do not need to bother
-about it. Fine. Then don't bring it up pls.
-
-> > 
-> > 
-> > > > I am guessing modern platforms with TDISP support are likely to also
-> > > > support dirty bit in the IOMMU.
-> > > >
-> > > It will be some day.
-> > 
-> > What does this mean? Which platforms support TDISP and which IOMMUs do
-> > they use?
-> I said it will be some day, not right now.
-
-That would be a stupid decision by a platform vendor. Let's just hope
-they don't do it.
-
-> > 
-> > > >
-> > > > > > > And for future scale, having new SIOV interface makes more
-> > > > > > > sense which has
-> > > > > > its own direct interface to device.
-> > > > > > >
-> > > > > > > I finally captured all past discussions in form of a FAQ at [1].
-> > > > > > >
-> > > > > > > [1]
-> > > > > > > https://docs.google.com/document/d/1Iyn-l3Nm0yls3pZaul4lZiVj8x
-> > > > > > > 1s73
-> > > > > > > Ed6r
-> > > > > > > Osmn6LfXc/edit?usp=sharing
+> > > > > > Allocating resources on outgoing migration is a very bad idea.
+> > > > > > It is common to migrate prcisely because you are out of resources.
+> > > > > > Incoming is a different story, less of a problem.
 > > > > > >
-> > > > > > Yea skimmed that, "Cons: None". Are you 100% sure? Anyway,
-> > > > > > discussion will take place on the mailing list please.
-> > > > >
-> > > > > We cannot keep discussing the register interface every week.
-> > > > > I remember we have discussed this many times already in following series.
-> > > > >
-> > > > > 1. legacy series
-> > > > > 2. tvq v4 series
-> > > > > 3. dynamic vq creation series
-> > > > > 4. again during suspend series under tvq head 5. right now 6. May
-> > > > > be more that I forgot.
-> > > > >
-> > > > > I captured all the direction and options in the doc. One can refer
-> > > > > when those
-> > > > questions arise there.
-> > > > > If we don’t work cohesively same reasoning repetition does not help.
+> > > > > The resource allocated may not be on same system.
+> > > > > Also the resource allocated while the VM is running, so I don’t see a
+> > problem.
 > > > >
-> > > > It's still the same too, doc or no doc. You want to build a device
-> > > > without registers fine but don't force it down everyone's throat.
-> > > I don’t see any compelling reason for inventing new method really.
-> > > Nor continuing in register mode.
-> > > Virtio already has VQ.
-> > > If CVQ is so problematic, one should put everything on registers and not run
-> > on double standards.
+> > > > > Additionally, this is not what the Linux kernel maintainers of
+> > > > > iommu subsystem
+> > > > told us either.
+> > > > > Let me know if you check with Alex W and Jason who build this interface.
+> > > >
+> > > > VFIO guys have their own ideas, if they want to talk to virtio guys
+> > > > they can come here and do that.
+> > >
+> > > Since one of the use cases would have accepted to let dirty tracking to fail, I
+> > dont see a problem.
+> > > This is not the only command on source that fails.
+> > > So I anticipate that QEMU and libvirt or any vfio user would build the
+> > orchestration around the possible failure because the UAPI is well defined.
+> > >
+> > > When there is hypervisor, that must have zero failures on src side, such kernel
+> > + device can build everything reserved upfront.
+> > >
+> > > Do you say, QEMU has zero memory allocations on source side for migration?
+> > > That would be interesting to know.
 > > 
-> > We should not and neither should we put everything behind a VQ.
-> >
-> Why?
-
-Because simple things should be simple, complex things should be
-possible.
-
-> > 
-> > > I captured all the reasoning and thoughts. I don’t have much to say in support
-> > of infinite register scale.
-> > >
-> > > People who wants to push SIOV does not show single performance reason on
-> > why SIOV to be done.
-> > > I have upstreamed SIOVs in Linux as SFs without PASID, and in all our scale
-> > tests, before the device chocks, the system chocks.
-> > >
-> > > So when someone pushes the SIOV series, I will be the first one interested in
-> > reading the performance numbers to proceed with patches.
-> > >
-> > > > And now with 8MBytes
-> > > > of on-device memory that's needed for migration and that's
-> > > > apparently fine I am even less interested in saving 256 bytes for config
-> > space.
-> > >
-> > > Again, not the right comparison. When and how to use 256 matters.
-> > > I haven’t come across any device that prefers infinite register scale.
-> > 
-> > Why resort to hyperbole? 256 bytes is pretty far from infinite.  But again, if you
-> > don't want it in registers just add an option to move
-> > *all* of config space out of registers. 
-> This does not work in backward compatible way, not brings the predictability.
-
-It will work if we want it to.
-
-> The proposed method and current direction is just fine. No changes needed.
-
-So one of the things that for example I care about is cross-vendor
-compatibility. And if that compatibility is expressed through
-config space then that is a single consistent interface.
-How do you provision? Supply config space context.
-This is what I am looking for, a single place where init time values can
-be mapped, and for all device type. CVQ is not that.
-
-
-> No one is extending the config space or config registers in virtio anymore anyway.
-
-Then you tell me.  How much on-device memory per VF is fine?
-If the answer is "as little as possible" then we can do better than
-the current pci transport. If the answer is "a couple 100 bytes is not a
-problem, as long as it's only be init time stuff" then that is exactly
-what we always had.
-
-> > cheaper devices will require newer guests.
-> > Or, 10 years will pass and you will be able to drop compat with old guests. I
-> > know it's too long a game for you to care but I've been virtio spec editor for
-> > more than 10 years so to me it seems reasonable to plan like that.
+> > More or less yes. More precisely while in theory allocations it's doing can fail in
+> > practice it happens rarely enough that QEMU does not even bother checking
+> > and will immediately crash if they do. The reason is that it's using virtual
+> > memory, so it scales to a huge number of VMs.
+> > Migrating a single VM at a time is not even worth discussing.
 > 
-> Current proposal of using CVQ is just working fine across most* virtio spec contributors.
-> I don’t see technical reason to change it.
+> Wow that is even much worse to crash the running VM, instead of failing the migration.
 
-We have flamewars re-erupting all the time. What I want us to do is
-to draw a line in the sand what is and what is not reasonable in config
-space. It has to have a model behind it too that a reasonable developer
-can understand.
+I am telling you.  It does not practically crash because it does not
+allocate physical memory.
 
+> I have live migrated VMs one by one and have seen customers migrate on hyperconverged systems. Ofcourse it was not QEMU.
+> Single VM migration is real and used by cloud operators.
+> Why would you ignore it?
+
+I guess they only have single tenant hosts then? Because each tenant
+might request migration at any time.
 -- 
 MST
 
