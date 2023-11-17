@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8436-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8437-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF85C197A0
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:13:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7CA9C197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id DBE4F42A70
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:13:58 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4F3AC45B28
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A21FD986E25
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:13:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 20905986E25
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8BC33986E1A; Fri, 17 Nov 2023 10:13:58 +0000 (UTC)
+	id 09D50986E1A; Fri, 17 Nov 2023 10:15:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,770 +24,659 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7BB24986E1B
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 10:13:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EDC0B986E1B
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 10:15:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="371455395"
-X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; 
-   d="scan'208,217";a="371455395"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="1097058229"
-X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; 
-   d="scan'208,217";a="1097058229"
-Content-Type: multipart/alternative;
- boundary="------------b0berctdbpCiiezwunzhbmSr"
-Message-ID: <cd3e331c-8fc0-4f96-b049-dee3c09829c9@intel.com>
-Date: Fri, 17 Nov 2023 18:13:50 +0800
+X-MC-Unique: 5Q1IMfF0OS2DyukqTy1EDw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700216152; x=1700820952;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9xC8rDTnzkbWxJ62PmAzijxFfiIBJ6GQqd9jexoFhw4=;
+        b=PNLohK/3OYKNJ+va1T/oCWRKDLaR0WNC/grUlVwPvIY1wTVQXhNchvwmonYU+opQ8J
+         G4n8FgCnreHE9/zGBGtinLsQOHKgNNco1hBSb9GStqtfXk5ifFOI6U44BkP5jX/QvlGj
+         pgQRcoAAQUfsmB0rLjP5GvxUmtN2TTl/qMus/7LUA8slmcAXsl9Rwv+MZBn8pAsdf7fD
+         AMCccft8ba1N3nmVQpsrBTxJ7QDhnqSjKi3cnw7QljWjuOCy0w2wDlx+tEK8hOiRsDI3
+         iAHcTHDGrtb5cJZl2QRRkAAl4sz2/W+5mSmqfwbLIzifaPqY0ejAw0LIzXIsSSnAI/Jb
+         u53Q==
+X-Gm-Message-State: AOJu0YwMT3pB8THANNvo3FkDJ9W6cjawcSPEkziTh75ggGucF97kO8zu
+	zofdUPCkD0RlIbpR14hLvalDPtUGqGiJgxqcUS/Tv9xd598jkOhAgGtreF9pBoK5U/IE4CDQeLc
+	sK58airMhWfBv61o+SRjetMkz0ERZUx7YiA==
+X-Received: by 2002:a05:600c:2343:b0:405:3d41:5646 with SMTP id 3-20020a05600c234300b004053d415646mr16148075wmq.2.1700216151755;
+        Fri, 17 Nov 2023 02:15:51 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHTRwTiUP5ad1alFk9MaGmztRLKllHPqtgnkVDXcWr6IjMK9gbRoUcehdTdhbIh04Rjw6ny5A==
+X-Received: by 2002:a05:600c:2343:b0:405:3d41:5646 with SMTP id 3-20020a05600c234300b004053d415646mr16148041wmq.2.1700216150901;
+        Fri, 17 Nov 2023 02:15:50 -0800 (PST)
+Date: Fri, 17 Nov 2023 05:15:44 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Message-ID: <20231117050838-mutt-send-email-mst@kernel.org>
+References: <CACGkMEtGvDxF1Dnb6FJDK8XEAUcast-7OnuzTyfAr7m0LURWMw@mail.gmail.com>
+ <PH0PR12MB548152A30021BEBFFCA62AA9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEv8mccZfcA4n+KVwdkaWAqhM94Qhq8H5Rvw2CocCmt9UA@mail.gmail.com>
+ <20231107015412-mutt-send-email-mst@kernel.org>
+ <CACGkMEv+jir2+f_vHmi_KjFXf0yz+EQmEbvzX0pheHKsVJkWZw@mail.gmail.com>
+ <20231108025854-mutt-send-email-mst@kernel.org>
+ <CACGkMEvkQawXWCvu7rZHnZk8YsNunS_B-fcQmEHEe_N87Q6y6g@mail.gmail.com>
+ <20231109022647-mutt-send-email-mst@kernel.org>
+ <CACGkMEuSpZ0Y8kxXv26b38pvX--OCdvWm5KvMniqo=W10ruBTA@mail.gmail.com>
+ <PH0PR12MB5481170EBDD5A8EBFF6C84C7DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>, "jasowang@redhat.com"
- <jasowang@redhat.com>, "eperezma@redhat.com" <eperezma@redhat.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "stefanha@redhat.com" <stefanha@redhat.com>,
- "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-References: <20231106044836-mutt-send-email-mst@kernel.org>
- <c6cb6e6b-fd2b-43ac-9be5-c4a8cda1ac13@intel.com>
- <20231108124625-mutt-send-email-mst@kernel.org>
- <b125da70-a769-4662-876b-43664e39c976@intel.com>
- <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <8e92a16e-2a5d-4c9c-bb85-5a5c6fecbe05@intel.com>
- <PH0PR12MB5481C31027CE6716503F3F24DCAEA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <a28b2c22-a03f-473d-b672-d54e0390b76a@intel.com>
- <PH0PR12MB5481ED082C94A9603DC6BDC8DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <6949173c-29cf-4c49-af82-562c050e40ae@intel.com>
- <20231116070024-mutt-send-email-mst@kernel.org>
-From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-In-Reply-To: <20231116070024-mutt-send-email-mst@kernel.org>
-Subject: Re: [virtio-comment] RE: [PATCH V2 3/6] virtio: dont reset vqs when
- SUSPEND
-
---------------b0berctdbpCiiezwunzhbmSr
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <PH0PR12MB5481170EBDD5A8EBFF6C84C7DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write
+ recording commands
+
+On Wed, Nov 15, 2023 at 05:42:04PM +0000, Parav Pandit wrote:
+> 
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Monday, November 13, 2023 9:02 AM
+> > 
+> > On Thu, Nov 9, 2023 at 3:59 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > >
+> > > On Thu, Nov 09, 2023 at 11:31:27AM +0800, Jason Wang wrote:
+> > > > On Wed, Nov 8, 2023 at 4:17 PM Michael S. Tsirkin <mst@redhat.com>
+> > wrote:
+> > > > >
+> > > > > On Wed, Nov 08, 2023 at 12:28:36PM +0800, Jason Wang wrote:
+> > > > > > On Tue, Nov 7, 2023 at 3:05 PM Michael S. Tsirkin <mst@redhat.com>
+> > wrote:
+> > > > > > >
+> > > > > > > On Tue, Nov 07, 2023 at 12:04:29PM +0800, Jason Wang wrote:
+> > > > > > > > > > > Each virtio and non virtio devices who wants to report
+> > > > > > > > > > > their dirty page report,
+> > > > > > > > > > will do their way.
+> > > > > > > > > > >
+> > > > > > > > > > > > 3) inventing it in the virtio layer will be
+> > > > > > > > > > > > deprecated in the future for sure, as platform will
+> > > > > > > > > > > > provide much rich features for logging e.g it can do
+> > > > > > > > > > > > it per PASID etc, I don't see any reason virtio need
+> > > > > > > > > > > > to compete with the features that will be provided
+> > > > > > > > > > > > by the platform
+> > > > > > > > > > > Can you bring the cpu vendors and committement to
+> > > > > > > > > > > virtio tc with timelines
+> > > > > > > > > > so that virtio TC can omit?
+> > > > > > > > > >
+> > > > > > > > > > Why do we need to bring CPU vendors in the virtio TC?
+> > > > > > > > > > Virtio needs to be built on top of transport or platform. There's
+> > no need to duplicate their job.
+> > > > > > > > > > Especially considering that virtio can't do better than them.
+> > > > > > > > > >
+> > > > > > > > > I wanted to see a strong commitment for the cpu vendors to
+> > support dirty page tracking.
+> > > > > > > >
+> > > > > > > > The RFC of IOMMUFD support can go back to early 2022. Intel,
+> > > > > > > > AMD and ARM are all supporting that now.
+> > > > > > > >
+> > > > > > > > > And the work seems to have started for some platforms.
+> > > > > > > >
+> > > > > > > > Let me quote from the above link:
+> > > > > > > >
+> > > > > > > > """
+> > > > > > > > Today, AMD Milan (or more recent) supports it while ARM
+> > > > > > > > SMMUv3.2 alongside VT-D rev3.x also do support.
+> > > > > > > > """
+> > > > > > > >
+> > > > > > > > > Without such platform commitment, virtio also skipping it would
+> > not work.
+> > > > > > > >
+> > > > > > > > Is the above sufficient? I'm a little bit more familiar with
+> > > > > > > > vtd, the hw feature has been there for years.
+> > > > > > >
+> > > > > > >
+> > > > > > > Repeating myself - I'm not sure that will work well for all workloads.
+> > > > > >
+> > > > > > I think this comment applies to this proposal as well.
+> > > > >
+> > > > > Yes - some systems might be better off with platform tracking.
+> > > > > And I think supporting shadow vq better would be nice too.
+> > > >
+> > > > For shadow vq, did you mean the work that is done by Eugenio?
+> > >
+> > > Yes.
+> > 
+> > That's exactly why vDPA starts with shadow virtqueue. We've evaluated various
+> > possible approaches, each of them have their shortcomings and shadow
+> > virtqueue is the only one that doesn't require any additional hardware features
+> > to work in every platform.
+> > 
+> > >
+> > > > >
+> > > > > > > Definitely KVM did
+> > > > > > > not scan PTEs. It used pagefaults with bit per page and later
+> > > > > > > as VM size grew switched to PLM.  This interface is analogous
+> > > > > > > to PLM,
+> > > > > >
+> > > > > > I think you meant PML actually. And it doesn't work like PML. To
+> > > > > > behave like PML it needs to
+> > > > > >
+> > > > > > 1) log buffers were organized as a queue with indices
+> > > > > > 2) device needs to suspend (as a #vmexit in PML) if it runs out
+> > > > > > of the buffers
+> > > > > > 3) device need to send a notification to the driver if it runs
+> > > > > > out of the buffer
+> > > > > >
+> > > > > > I don't see any of the above in this proposal. If we do that it
+> > > > > > would be less problematic than what is being proposed here.
+> > > > >
+> > > > > What is common between this and PML is that you get the addresses
+> > > > > directly without scanning megabytes of bitmaps or worse - hundreds
+> > > > > of megabytes of page tables.
+> > > >
+> > > > Yes, it has overhead but this is the method we use for vhost and KVM
+> > (earlier).
+> > > >
+> > > > To me the  important advantage of PML is that it uses limited
+> > > > resources on the host which
+> > > >
+> > > > 1) doesn't require resources in the device
+> > > > 2) doesn't scale as the guest memory increases. (but this advantage
+> > > > doesn't exist in neither this nor bitmap)
+> > >
+> > > it seems 2 exactly exists here.
+> > 
+> > Actually not, Parav said the device needs to reserve sufficient resources in
+> > another thread.
+> The device resource reservation starts only when the device migration starts.
+> i.e. with WRITE_RECORDS_START command of patch 7 in the series.
+
+And now your precious VM can't migrate at all because -ENOSPC.
 
 
 
-On 11/16/2023 8:09 PM, Michael S. Tsirkin wrote:
-> On Thu, Nov 16, 2023 at 06:09:38PM +0800, Zhu, Lingshan wrote:
->>
->> On 11/16/2023 1:35 AM, Parav Pandit wrote:
->>>> From: Zhu, Lingshan<lingshan.zhu@intel.com>
->>>> Sent: Monday, November 13, 2023 2:53 PM
->>>>
->>>> On 11/10/2023 2:31 PM, Parav Pandit wrote:
->>>>>> From: Zhu, Lingshan<lingshan.zhu@intel.com>
->>>>>> Sent: Friday, November 10, 2023 11:52 AM
->>>>>>
->>>>>> On 11/9/2023 6:15 PM, Parav Pandit wrote:
->>>>>>>> From: Zhu, Lingshan<lingshan.zhu@intel.com>
->>>>>>>> Sent: Thursday, November 9, 2023 3:28 PM
->>>>>>>>
->>>>>>>> On 11/9/2023 1:46 AM, Michael S. Tsirkin wrote:
->>>>>>>>> On Tue, Nov 07, 2023 at 05:27:23PM +0800, Zhu, Lingshan wrote:
->>>>>>>>>> On 11/6/2023 5:49 PM, Michael S. Tsirkin wrote:
->>>>>>>>>>> On Fri, Nov 03, 2023 at 06:34:34PM +0800, Zhu Lingshan wrote:
->>>>>>>>>>>> When SUSPEND is set, device states and virtqueue states should
->>>>>>>>>>>> be stablized, therefore the driver should not reset vqs when
->>>>>>>>>>>> SUSPEND is set in device status.
->>>>>>>>>>>>
->>>>>>>>>>>> Signed-off-by: Zhu Lingshan<lingshan.zhu@intel.com>
->>>>>>>>>>>> ---
->>>>>>>>>>>>        content.tex | 3 +++
->>>>>>>>>>>>        1 file changed, 3 insertions(+)
->>>>>>>>>>>>
->>>>>>>>>>>> diff --git a/content.tex b/content.tex index bcc9d4b..060b5c2
->>>>>>>>>>>> 100644
->>>>>>>>>>>> --- a/content.tex
->>>>>>>>>>>> +++ b/content.tex
->>>>>>>>>>>> @@ -444,6 +444,9 @@ \subsubsection{Virtqueue
->>>>>>>>>>>> Reset}\label{sec:Basic
->>>>>>>> Facilities of a Virtio Device /
->>>>>>>>>>>>        The device MUST reset any state of a virtqueue to the default
->>>> state,
->>>>>>>>>>>>        including the available state and the used state.
->>>>>>>>>>>> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set in
->>>>>>>>>>>> +\field{device status}, the driver SHOULD NOT reset any virtqueues.
->>>>>>>>>>>> +
->>>>>>>>>>>>        \drivernormative{\paragraph}{Virtqueue Reset}{Basic
->>>>>>>>>>>> Facilities of a
->>>>>>>> Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue Reset}
->>>>>>>>>>>>        After the driver tells the device to reset a queue, the
->>>>>>>>>>>> driver MUST verify that
->>>>>>>>>>> Seems somewhat arbitrary and breaks the claim that the feature
->>>>>>>>>>> is orthogonal and can have uses besides migration.
->>>>>>>>>> when suspended, the device is frozen.
->>>>>>>>>> The driver is aware of this process and so should not reset the vqs I
->>>> think.
->>>>>>>>> Again that is only true because you want to use it for migration.
->>>>>>>>> But then you can't claim it's a generic facility.
->>>>>>>> I don't get it. The device status is a basic facility.
->>>>>>>>
->>>>>>>> We need to SUSPEND the device by setting SUSPEND bit, to stabilize
->>>>>>>> the device states for migration.
->>>>>>> Is the PCI's PM time not enough to suspend the device?
->>>>>>> For large device I could imagine it could be short.
->>>>>> As you see, PCI PM, so this is a layer violation, virtio should be
->>>>>> self contained,
->>>>> If you think it is layer violation, than suspend bit for sure is not needed. PCI
->>>> PM interface should suspend/resume the device on D0<->D3 state transitions.
->>>> Doesn't make sense logically, because it is layer violation, so you want it to be
->>>> worse? For example, virito writes 0 to device status to reset a device, not by PCI.
->>> All these layer violation thing is just abstract to me.
->>> Your argument contradicts with your fellow author and yourself.
->> I don't see how, we keep telling you virtio should be self contained, and
->> suspend by PCI PM is a
->> layer volition, this is a fact, right?
-> Not really. Look at the charter - when available we should use platform
-> capabilities because it makes it easier to write drivers.
-I think that is transport specific implementation, for example pci 
-common cfg.
->
->
->>> I don’t want to make it worse.
->>> If you think its layer violation, just depend on the PCI PM, no need to include new suspend bit.
->> Again, virtio should be self-contained, not layer volited, for example, we
->> reset virito devices
->> by writing 0 to device status, not by PCI FLR.
-> There are some advantage to doing it like this, e.g. one does not need
-> to save and restore config space. What are advatages of suspend via this
-> bit?
-suspend a device by the device status is the same as how we enable a 
-virito device.
+> > 
+> > >
+> > >
+> > > > >
+> > > > > The data structure is different but I don't see why it is critical.
+> > > > >
+> > > > > I agree that I don't see out of buffers notifications too which
+> > > > > implies device has to maintain something like a bitmap internally.
+> > > > > Which I guess could be fine but it is not clear to me how large
+> > > > > that bitmap has to be. How does the device know? Needs to be addressed.
+> > > >
+> > > > This is the question I asked Parav in another thread. Using host
+> > > > memory as a queue with notification (like PML) might be much better.
+> > >
+> > > Well if queue is what you want to do you can just do it internally.
+> > 
+> > Then it's not the proposal here, Parav has explained it in another reply, and as
+> > explained it lacks a lot of other facilities.
+> > 
+> PML is yet another option that requires small pci writes.
+> In the current proposal, there are no small PCI writes.
+> It is a query interface from the device.
+> 
+> > > Problem of course is that it might overflow and cause things like
+> > > packet drops.
+> > 
+> > Exactly like PML. So sticking to wire speed should not be a general goal in the
+> > context of migration. It can be done if the speed of the migration interface is
+> > faster than the virtio device that needs to be migrated.
+> May not have to be.
+> Speed of page recording should be fast enough.
+> It usually improves with subsequent generation.
+> > 
+> > >
+> > >
+> > > > >
+> > > > >
+> > > > > > Even if we manage to do that, it doesn't mean we won't have issues.
+> > > > > >
+> > > > > > 1) For many reasons it can neither see nor log via GPA, so this
+> > > > > > requires a traversal of the vIOMMU mapping tables by the
+> > > > > > hypervisor afterwards, it would be expensive and need
+> > > > > > synchronization with the guest modification of the IO page table which
+> > looks very hard.
+> > > > >
+> > > > > vIOMMU is fast enough to be used on data path but not fast enough
+> > > > > for dirty tracking?
+> > > >
+> > > > We set up SPTEs or using nesting offloading where the PTEs could be
+> > > > iterated by hardware directly which is fast.
+> > >
+> > > There's a way to have hardware find dirty PTEs for you quickly?
+> > 
+> > Scanning PTEs on the host is faster and more secure than scanning guests, that's
+> > what I want to say:
+> > 
+> > 1) the guest page could be swapped out but not the host one.
+> > 2) no guest triggerable behavior
+> > 
+> 
+> Device page tracking table to be consulted to flush on mapping change.
+> 
+> > > I don't know how it's done. Do tell.
+> > >
+> > >
+> > > > This is not the case here where software needs to iterate the IO
+> > > > page tables in the guest which could be slow.
+> > > >
+> > > > > Hard to believe.  If true and you want to speed up vIOMMU then you
+> > > > > implement an efficient datastructure for that.
+> > > >
+> > > > Besides the issue of performance, it's also racy, assuming we are logging
+> > IOVA.
+> > > >
+> > > > 0) device log IOVA
+> > > > 1) hypervisor fetches IOVA from log buffer
+> > > > 2) guest map IOVA to a new GPA
+> > > > 3) hypervisor traverse guest table to get IOVA to new GPA
+> > > >
+> > > > Then we lost the old GPA.
+> > >
+> > > Interesting and a good point.
+> > 
+> > Note that PML logs at GPA as it works at L1 of EPT.
+> > 
+> > > And by the way e.g. vhost has the same issue.  You need to flush dirty
+> > > tracking info when changing the mappings somehow.
+> > 
+> > It's not,
+> > 
+> > 1) memory translation is done by vhost
+> > 2) vhost knows GPA and it doesn't log via IOVA.
+> > 
+> > See this for example, and DPDK has similar fixes.
+> > 
+> > commit cc5e710759470bc7f3c61d11fd54586f15fdbdf4
+> > Author: Jason Wang <jasowang@redhat.com>
+> > Date:   Wed Jan 16 16:54:42 2019 +0800
+> > 
+> >     vhost: log dirty page correctly
+> > 
+> >     Vhost dirty page logging API is designed to sync through GPA. But we
+> >     try to log GIOVA when device IOTLB is enabled. This is wrong and may
+> >     lead to missing data after migration.
+> > 
+> >     To solve this issue, when logging with device IOTLB enabled, we will:
+> > 
+> >     1) reuse the device IOTLB translation result of GIOVA->HVA mapping to
+> >        get HVA, for writable descriptor, get HVA through iovec. For used
+> >        ring update, translate its GIOVA to HVA
+> >     2) traverse the GPA->HVA mapping to get the possible GPA and log
+> >        through GPA. Pay attention this reverse mapping is not guaranteed
+> >        to be unique, so we should log each possible GPA in this case.
+> > 
+> >     This fix the failure of scp to guest during migration. In -next, we
+> >     will probably support passing GIOVA->GPA instead of GIOVA->HVA.
+> > 
+> >     Fixes: 6b1e6cc7855b ("vhost: new device IOTLB API")
+> >     Reported-by: Jintack Lim <jintack@cs.columbia.edu>
+> >     Cc: Jintack Lim <jintack@cs.columbia.edu>
+> >     Signed-off-by: Jason Wang <jasowang@redhat.com>
+> >     Acked-by: Michael S. Tsirkin <mst@redhat.com>
+> >     Signed-off-by: David S. Miller <davem@davemloft.net>
+> > 
+> > All of the above is not what virtio did right now.
+> > 
+> > > Parav what's the plan for this? Should be addressed in the spec too.
+> > >
+> > 
+> > AFAIK, there's no easy/efficient way to do that. I hope I was wrong.
+> > 
+> 
+> The query interface in this proposal works on the granular boundary to read and clear.
+> This will ensure that mapping is consistent.
 
-Doing this by PCI is clearly a layer volition, and does not work for 
-other transports.
->
->>>>>> and what about MMIO and CCW?
->>>>> They have largely lacked the richness of PCI transport. So those transport
->>>> needs to evolve.
->>>> I am not sure CCW and MMIO maintainers want to hear this.
->>>>> Otherwise, PCI offers rich transport facilities compared to MMIO, hence, it will
->>>> continue wider use.
->>>> you know this SUSPEND bit work fine on all transport, right? Because
->>>> device_status is transport independent.
->>> I want to emphasize that I am not against the suspend bit as long as it is guest driver controlled without interfering the device migration flow (like rest of the state).
->> When migrate a device, it is the host who suspends the device. The reason is
->> the live migration process should be transparent to
->> the guest, so we should suspend the guest first, then suspend the device(by
->> host).
->>> The practical reason for suspending functionality under guest control is, that resuming/suspending the large device can take time.
->>> So let it be in guest driver control. No need to muddy with device migration flow.
->> The time cost is reasonable in O(N) no matter how you suspend/resume the
->> device.
-> Very much depends. Big O notation can be misleading. If you have to
-> repeat an operation 1000 times that's 1000 * N and suddenly you are
-> going from milliseconds to seconds.
-I mean enable 100 queues cost more time then enable 1 vq no matter
-how we enable it. that is O(N)
->
->
->>>>>> This should be a basic facility.
->>>>> Other transport can also offer like PCI.
->>>> Do you want to work for these transport? Implementing the new features as
->>>> PCI?
->>> Not presently as PCI as more features than rest of the two.
->>> What I read about ccw is: " S/390 based virtual machines support neither PCI nor MMIO".
->>>
->>> And I also read, "The IBM System/390 is a discontinued mainframe product family implementing".
->>>
->>> So I don’t know who needs to extend ccw.
->>> And if one needs, those maintainers will extend it to match to PCI standard.
->> So these features are even not planned, so don't depend on them.
-> But again can one suspend ccw device? If you are adding this feature and
-> claiming it's supported for all transports you better find out
-> what does it do.
-I am not an expert on CCW, anything block we suspend a CCW device by 
-this bit?
-This seems only controlled by the device itself.
->
->
->>>>>>> In that case if there is suspend the device available, it will be
->>>>>>> used by the
->>>>>> guest driver itself, hypervisor wouldn’t know about it when those
->>>>>> registers are not trapped.
->>>>>>> So we need two ways to suspend.
->>>>>>> One is guest visible, and guest controlled.
->>>>>>> Second is hypervisor control to fulfill the device migration needs.
->>>>>> The guest can eve reset the device.
->>>>>>> So if you can please take a look if the proposed admin command to
->>>>>> freeze/stop mode can be used in the emulated register case or not.
->>>>>>> It helps to have the suspend bit in guest control as well
->>>>>>> with/without
->>>>>> emulation mode.
->>>>>> Parav, please believe I have read your series, I didn't comment there
->>>>>> because I want to avoid further conflicts/debating, we have done these
->>>> enough.
->>>>> I believe the series posted in v3 can support vdpa use case as well.
->>>>> So I will progress to post v4.
->>>>>
->>>>>> As explained before, freeze/stop the device by PCI is a layer violation.
->>>>> I am afraid, we have different vision.
->>>>> I don’t see any layer violation.
->>>>> Suspend is enough in the PCI PM.
->>>>> Our vision is more aligned with rest of the hypervisor knobs that owns the
->>>> migration framework.
->>>> I think I have explained, virito builds on other transport and it should be self-
->>>> contained, so far so good.
->>> Virtio without any transport binding is just blank paper discussion.
->> virtio is built on some transports, but not bind to any.
-> Binding is an OS specific thing, but e.g. under Linux transport drivers bind to
-> devices then virtio drivers bind to virtio bus. No binding -> nothing
-> works.
-I think general facilities are better not only work on a specific transport
->
->>>>>> And device status can be pass-through(without emulation, just map it
->>>>>> to
->>>>>> guest) to the guest or trapped(trap and emulate by the hypervisor,
->>>>>> for example set_status in vDPA).
->>>>> When it is pass-through, it is controlled by the guest, so for example, if the
->>>> guest resets the device, hypervisor has lost the control of migration context etc.
->>>>> Hence, hypervisor needs a channel which is not guest owned.
->>>>>
->>>>> Same channel can work when trap+emulation is done.
->>>> It is the guest owns the device, it can reset the device, once reset, the device
->>>> context are cleared.
->>> Hypervisor do not have the ability to read/write the device context. It lost the channel as hypervisor is not involved in trap+emulation.
->>> So it is not helpful in one use case.
->>>
->>> Admin commands can work even with trap+emulation mode.
->>>
->>> What is missing, that should be added?
->> as explained above, when live migration, the guest should be suspended
->> first, at this point,
->> the host owns the device, it has access to the device.
-> Where do you say this in the spec patch?
-VM live migration is not in this spec.
-If we suspend the device first, then the guest may detect IO errors.
->
->
->>>>>>>> This can also be used for debugging I think.
->>>>>>> As Michael listed, a dedicated debug interface is usually more
->>>>>>> useful instead
->>>>>> of in-band.
->>>>>> re-using another facility without extra efforts is not a bad thing anyway.
->>>>> I just don’t see how a suspend bit some debug feature.
->>>>> Almost everything with that regard is a debug feature to me.
->>>> suspend then check the device states?
->>> You already suspended the device, so device state is already changed.
->>> All debug information is changed, so not useful now.
->> When suspended, the device should keep and stabilize its device states,
->> at least in my series it should behave like this.
-> That's vague. What does it mean exactly and what happens if
-> some external event causes state change?
-it is suspended, somehow like powered-down, so it should not
-respond to the events until resume.
->
-
---------------b0berctdbpCiiezwunzhbmSr
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <font face="monospace"><br>
-      <br>
-    </font>
-    <div class="moz-cite-prefix"><font face="monospace">On 11/16/2023
-        8:09 PM, Michael S. Tsirkin wrote:<br>
-      </font></div>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">On Thu, Nov 16, 2023 at 06:09:38PM +0800, Zhu, Lingshan wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-
-On 11/16/2023 1:35 AM, Parav Pandit wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
-Sent: Monday, November 13, 2023 2:53 PM
-
-On 11/10/2023 2:31 PM, Parav Pandit wrote:
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
-Sent: Friday, November 10, 2023 11:52 AM
-
-On 11/9/2023 6:15 PM, Parav Pandit wrote:
-</pre>
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
-Sent: Thursday, November 9, 2023 3:28 PM
-
-On 11/9/2023 1:46 AM, Michael S. Tsirkin wrote:
-</pre>
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">On Tue, Nov 07, 2023 at 05:27:23PM +0800, Zhu, Lingshan wrote:
-</pre>
-                      <blockquote type="cite">
-                        <pre class="moz-quote-pre" wrap="">On 11/6/2023 5:49 PM, Michael S. Tsirkin wrote:
-</pre>
-                        <blockquote type="cite">
-                          <pre class="moz-quote-pre" wrap="">On Fri, Nov 03, 2023 at 06:34:34PM +0800, Zhu Lingshan wrote:
-</pre>
-                          <blockquote type="cite">
-                            <pre class="moz-quote-pre" wrap="">When SUSPEND is set, device states and virtqueue states should
-be stablized, therefore the driver should not reset vqs when
-SUSPEND is set in device status.
-
-Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@intel.com">&lt;lingshan.zhu@intel.com&gt;</a>
----
-      content.tex | 3 +++
-      1 file changed, 3 insertions(+)
-
-diff --git a/content.tex b/content.tex index bcc9d4b..060b5c2
-100644
---- a/content.tex
-+++ b/content.tex
-@@ -444,6 +444,9 @@ \subsubsection{Virtqueue
-Reset}\label{sec:Basic
-</pre>
-                          </blockquote>
-                        </blockquote>
-                      </blockquote>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">Facilities of a Virtio Device /
-</pre>
-                    <blockquote type="cite">
-                      <blockquote type="cite">
-                        <blockquote type="cite">
-                          <blockquote type="cite">
-                            <pre class="moz-quote-pre" wrap="">      The device MUST reset any state of a virtqueue to the default
-</pre>
-                          </blockquote>
-                        </blockquote>
-                      </blockquote>
-                    </blockquote>
-                  </blockquote>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">state,
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <blockquote type="cite">
-                      <blockquote type="cite">
-                        <blockquote type="cite">
-                          <blockquote type="cite">
-                            <pre class="moz-quote-pre" wrap="">      including the available state and the used state.
-+If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set in
-+\field{device status}, the driver SHOULD NOT reset any virtqueues.
-+
-      \drivernormative{\paragraph}{Virtqueue Reset}{Basic
-Facilities of a
-</pre>
-                          </blockquote>
-                        </blockquote>
-                      </blockquote>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue Reset}
-</pre>
-                    <blockquote type="cite">
-                      <blockquote type="cite">
-                        <blockquote type="cite">
-                          <blockquote type="cite">
-                            <pre class="moz-quote-pre" wrap="">      After the driver tells the device to reset a queue, the
-driver MUST verify that
-</pre>
-                          </blockquote>
-                          <pre class="moz-quote-pre" wrap="">Seems somewhat arbitrary and breaks the claim that the feature
-is orthogonal and can have uses besides migration.
-</pre>
-                        </blockquote>
-                        <pre class="moz-quote-pre" wrap="">when suspended, the device is frozen.
-The driver is aware of this process and so should not reset the vqs I
-</pre>
-                      </blockquote>
-                    </blockquote>
-                  </blockquote>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">think.
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <blockquote type="cite">
-                      <pre class="moz-quote-pre" wrap="">Again that is only true because you want to use it for migration.
-But then you can't claim it's a generic facility.
-</pre>
-                    </blockquote>
-                    <pre class="moz-quote-pre" wrap="">I don't get it. The device status is a basic facility.
-
-We need to SUSPEND the device by setting SUSPEND bit, to stabilize
-the device states for migration.
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">Is the PCI's PM time not enough to suspend the device?
-For large device I could imagine it could be short.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">As you see, PCI PM, so this is a layer violation, virtio should be
-self contained,
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">If you think it is layer violation, than suspend bit for sure is not needed. PCI
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">PM interface should suspend/resume the device on D0&lt;-&gt;D3 state transitions.
-Doesn't make sense logically, because it is layer violation, so you want it to be
-worse? For example, virito writes 0 to device status to reset a device, not by PCI.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">All these layer violation thing is just abstract to me.
-Your argument contradicts with your fellow author and yourself.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I don't see how, we keep telling you virtio should be self contained, and
-suspend by PCI PM is a
-layer volition, this is a fact, right?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Not really. Look at the charter - when available we should use platform
-capabilities because it makes it easier to write drivers.</pre>
-    </blockquote>
-    <font face="monospace">I think that is transport specific
-      implementation, for example pci common cfg.</font><br>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">
+By itself it does not, you have to actually keep querying until you
+flush all dirty info and do it each time there's an invalidation in the
+IOMMU.
 
 
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">I don’t want to make it worse.
-If you think its layer violation, just depend on the PCI PM, no need to include new suspend bit.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">Again, virtio should be self-contained, not layer volited, for example, we
-reset virito devices
-by writing 0 to device status, not by PCI FLR.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-There are some advantage to doing it like this, e.g. one does not need
-to save and restore config space. What are advatages of suspend via this
-bit?</pre>
-    </blockquote>
-    <font face="monospace">suspend a device by the device status is the
-      same as how we enable a virito device.<br>
-      <br>
-      Doing this by PCI is clearly a layer volition, and does not work
-      for other transports. <br>
-    </font>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">
+> > >
+> > >
+> > > > >
+> > > > > > 2) There are a lot of special or reserved IOVA ranges (for
+> > > > > > example the interrupt areas in x86) that need special care which
+> > > > > > is architectural and where it is beyond the scope or knowledge
+> > > > > > of the virtio device but the platform IOMMU. Things would be
+> > > > > > more complicated when SVA is enabled.
+> > > > >
+> > > > > SVA being what here?
+> > > >
+> > > > For example, IOMMU may treat interrupt ranges differently depending
+> > > > on whether SVA is enabled or not. It's very hard and unnecessary to
+> > > > teach devices about this.
+> > >
+> > > Oh, shared virtual memory. So what you are saying here? virtio does
+> > > not care, it just uses some addresses and if you want it to it can
+> > > record writes somewhere.
+> > 
+> > One example, PCI allows devices to send translated requests, how can a
+> > hypervisor know it's a PA or IOVA in this case? We probably need a new bit. But
+> > it's not the only thing we need to deal with.
+> > 
+> > By definition, interrupt ranges and other reserved ranges should not belong to
+> > dirty pages. And the logging should be done before the DMA where there's no
+> > way for the device to know whether or not an IOVA is valid or not. It would be
+> > more safe to just not report them from the source instead of leaving it to the
+> > hypervisor to deal with but this seems impossible at the device level. Otherwise
+> > the hypervisor driver needs to communicate with the (v)IOMMU to be reached
+> > with the
+> > interrupt(MSI) area, RMRR area etc in order to do the correct things or it might
+> > have security implications. And those areas don't make sense at L1 when vSVA
+> > is enabled. What's more, when vIOMMU could be fully offloaded, there's no
+> > easy way to fetch that information.
+> > 
+> There cannot be logging before the DMA.
+> Only requirement is before the mapping changes, the dirty page tracking to be synced.
+> 
+> In most common cases where the perf is critical, such mapping wont change so often dynamically anyway.
+> 
+> > Again, it's hard to bypass or even duplicate the functionality of the platform or
+> > we need to step into every single detail of a specific transport, architecture or
+> > IOMMU to figure out whether or not logging at virtio is correct which is
+> > awkward and unrealistic. This proposal suffers from an exact similar issue when
+> > inventing things like freeze/stop where I've pointed out other branches of issues
+> > as well.
+> > 
+> It is incorrect attribution that platform is duplicated here.
+> It feeds the data to the platform as needed without replicating.
+> 
+> I do agree that there is overlap of IOMMU tracking the dirty and storing it in the per PTE vs device supplying its dirty track via its own interface.
+> Both are consolidated at hypervisor level.
+> 
+> > >
+> > > > >
+> > > > > > And there could be other architecte specific knowledge (e.g
+> > > > > > PAGE_SIZE) that might be needed. There's no easy way to deal
+> > > > > > with those cases.
+> > > > >
+> > > > > Good point about page size actually - using 4k unconditionally is
+> > > > > a waste of resources.
+> > > >
+> > > > Actually, they are more than just PAGE_SIZE, for example, PASID and others.
+> > >
+> > > what does pasid have to do with it? anyway, just give driver control
+> > > over page size.
+> > 
+> > For example, two virtqueues have two PASIDs assigned. How can a hypervisor
+> > know which specific IOVA belongs to which IOVA? For platform IOMMU, they
+> > are handy as it talks to the transport. But I don't think we need to duplicate
+> > every transport specific address space feature in core virtio layer:
+> > 
+> PASID to vq assignment won't be duplicated.
+> It is configured fully by the guest without consulting hypervisor at the device level.
+> Guest IOMMU would consult hypervisor to setup any PASID mapping as part of any mapping method.
+> 
+> > 1) translated/untranslated request
+> > 2) request w/ and w/o PASID
+> > 
+> > >
+> > > > >
+> > > > >
+> > > > > > We wouldn't need to care about all of them if it is done at
+> > > > > > platform IOMMU level.
+> > > > >
+> > > > > If someone logs at IOMMU level then nothing needs to be done in
+> > > > > the spec at all. This is about capability at the device level.
+> > > >
+> > > > True, but my question is where or not it can be done at the device level
+> > easily.
+> > >
+> > > there's no "easily" about live migration ever.
+> > 
+> > I think I've stated sufficient issues to demonstrate how hard virtio wants to do it.
+> > And I've given the link that it is possible to do that in IOMMU without those
+> > issues. So in this context doing it in virtio is much harder.
+> > 
+> > > For example on-device iommus are a thing.
+> > 
+> > I'm not sure that's the way to go considering the platform IOMMU evolves very
+> > quickly.
+> > 
+> > >
+> > > > >
+> > > > >
+> > > > > > > what Lingshan
+> > > > > > > proposed is analogous to bit per page - problem unfortunately
+> > > > > > > is you can't easily set a bit by DMA.
+> > > > > > >
+> > > > > >
+> > > > > > I'm not saying bit/bytemap is the best, but it has been used by
+> > > > > > real hardware. And we have many other options.
+> > > > > >
+> > > > > > > So I think this dirty tracking is a good option to have.
+> > > > > > >
+> > > > > > >
+> > > > > > >
+> > > > > > > > >
+> > > > > > > > > > > i.e. in first year of 2024?
+> > > > > > > > > >
+> > > > > > > > > > Why does it matter in 2024?
+> > > > > > > > > Because users needs to use it now.
+> > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > > If not, we are better off to offer this, and when/if
+> > > > > > > > > > > platform support is, sure,
+> > > > > > > > > > this feature can be disabled/not used/not enabled.
+> > > > > > > > > > >
+> > > > > > > > > > > > 4) if the platform support is missing, we can use
+> > > > > > > > > > > > software or leverage transport for assistance like
+> > > > > > > > > > > > PRI
+> > > > > > > > > > > All of these are in theory.
+> > > > > > > > > > > Our experiment shows PRI performance is 21x slower
+> > > > > > > > > > > than page fault rate
+> > > > > > > > > > done by the cpu.
+> > > > > > > > > > > It simply does not even pass a simple 10Gbps test.
+> > > > > > > > > >
+> > > > > > > > > > If you stick to the wire speed during migration, it can converge.
+> > > > > > > > > Do you have perf data for this?
+> > > > > > > >
+> > > > > > > > No, but it's not hard to imagine the worst case. Wrote a
+> > > > > > > > small program that dirty every page by a NIC.
+> > > > > > > >
+> > > > > > > > > In the internal tests we don’t see this happening.
+> > > > > > > >
+> > > > > > > > downtime = dirty_rates * PAGE_SIZE / migration_speed
+> > > > > > > >
+> > > > > > > > So if we get very high dirty rates (e.g by a high speed
+> > > > > > > > NIC), we can't satisfy the requirement of the downtime. Or
+> > > > > > > > if you see the converge, you might get help from the auto
+> > > > > > > > converge support by the hypervisors like KVM where it tries
+> > > > > > > > to throttle the VCPU then you can't reach the wire speed.
+> > > > > > >
+> > > > > > > Will only work for some device types.
+> > > > > > >
+> > > > > >
+> > > > > > Yes, that's the point. Parav said he doesn't see the issue, it's
+> > > > > > probably because he is testing a virtio-net and so the vCPU is
+> > > > > > automatically throttled. It doesn't mean it can work for other
+> > > > > > virito devices.
+> > > > >
+> > > > > Only for TX, and I'm pretty sure they had the foresight to test RX
+> > > > > not just TX but let's confirm. Parav did you test both directions?
+> > > >
+> > > > RX speed somehow depends on the speed of refill, so throttling helps
+> > > > more or less.
+> > >
+> > > It doesn't depend on speed of refill you just underrun and drop
+> > > packets. then your nice 10usec latency becomes more like 10sec.
+> > 
+> > I miss your point here. If the driver can't achieve wire speed without dirty page
+> > tracking, it can neither when dirty page tracking is enabled.
+> > 
+> > >
+> > > > >
+> > > > > > >
+> > > > > > >
+> > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > > There is no requirement for mandating PRI either.
+> > > > > > > > > > > So it is unusable.
+> > > > > > > > > >
+> > > > > > > > > > It's not about mandating, it's about doing things in the
+> > > > > > > > > > correct layer. If PRI is slow, PCI can evolve for sure.
+> > > > > > > > > You should try.
+> > > > > > > >
+> > > > > > > > Not my duty, I just want to make sure things are done in the
+> > > > > > > > correct layer, and once it needs to be done in the virtio,
+> > > > > > > > there's nothing obviously wrong.
+> > > > > > >
+> > > > > > > Yea but just vague questions don't help to make sure eiter way.
+> > > > > >
+> > > > > > I don't think it's vague, I have explained, if something in the
+> > > > > > virito slows down the PRI, we can try to fix them.
+> > > > >
+> > > > > I don't believe you are going to make PRI fast. No one managed so far.
+> > > >
+> > > > So it's the fault of PRI not virito, but it doesn't mean we need to
+> > > > do it in virtio.
+> > >
+> > > I keep saying with this approach we would just say "e1000 emulation is
+> > > slow and encumbered this is the fault of e1000" and never get virtio
+> > > at all.  Assigning blame only gets you so far.
+> > 
+> > I think we are discussing different things. My point is virtio needs to leverage
+> > the functionality provided by transport or platform (especially considering they
+> > evolve faster than virtio). It seems to me it's hard even to duplicate some basic
+> > function of platform IOMMU in virtio.
+> > 
+> Not duplicated. Feeding into the platform.
 
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">and what about MMIO and CCW?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">They have largely lacked the richness of PCI transport. So those transport
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">needs to evolve.
-I am not sure CCW and MMIO maintainers want to hear this.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Otherwise, PCI offers rich transport facilities compared to MMIO, hence, it will
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">continue wider use.
-you know this SUSPEND bit work fine on all transport, right? Because
-device_status is transport independent.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I want to emphasize that I am not against the suspend bit as long as it is guest driver controlled without interfering the device migration flow (like rest of the state).
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">When migrate a device, it is the host who suspends the device. The reason is
-the live migration process should be transparent to
-the guest, so we should suspend the guest first, then suspend the device(by
-host).
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-The practical reason for suspending functionality under guest control is, that resuming/suspending the large device can take time.
-So let it be in guest driver control. No need to muddy with device migration flow.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">The time cost is reasonable in O(N) no matter how you suspend/resume the
-device.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Very much depends. Big O notation can be misleading. If you have to
-repeat an operation 1000 times that's 1000 * N and suddenly you are
-going from milliseconds to seconds.</pre>
-    </blockquote>
-    <font face="monospace">I mean enable 100 queues cost more time then
-      enable 1 vq no matter<br>
-      how we enable it. that is O(N)<br>
-    </font>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">This should be a basic facility.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Other transport can also offer like PCI.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">Do you want to work for these transport? Implementing the new features as
-PCI?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Not presently as PCI as more features than rest of the two.
-What I read about ccw is: " S/390 based virtual machines support neither PCI nor MMIO".
-
-And I also read, "The IBM System/390 is a discontinued mainframe product family implementing".
-
-So I don’t know who needs to extend ccw.
-And if one needs, those maintainers will extend it to match to PCI standard.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">So these features are even not planned, so don't depend on them.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-But again can one suspend ccw device? If you are adding this feature and
-claiming it's supported for all transports you better find out
-what does it do.</pre>
-    </blockquote>
-    <font face="monospace">I am not an expert on CCW, anything block we
-      suspend a CCW device by this bit?<br>
-      This seems only controlled by the device itself. <br>
-    </font>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">In that case if there is suspend the device available, it will be
-used by the
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">guest driver itself, hypervisor wouldn’t know about it when those
-registers are not trapped.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">So we need two ways to suspend.
-One is guest visible, and guest controlled.
-Second is hypervisor control to fulfill the device migration needs.
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">The guest can eve reset the device.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">So if you can please take a look if the proposed admin command to
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">freeze/stop mode can be used in the emulated register case or not.
-</pre>
-                <blockquote type="cite">
-                  <pre class="moz-quote-pre" wrap="">It helps to have the suspend bit in guest control as well
-with/without
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">emulation mode.
-Parav, please believe I have read your series, I didn't comment there
-because I want to avoid further conflicts/debating, we have done these
-</pre>
-              </blockquote>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">enough.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">I believe the series posted in v3 can support vdpa use case as well.
-So I will progress to post v4.
-
-</pre>
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">As explained before, freeze/stop the device by PCI is a layer violation.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">I am afraid, we have different vision.
-I don’t see any layer violation.
-Suspend is enough in the PCI PM.
-Our vision is more aligned with rest of the hypervisor knobs that owns the
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">migration framework.
-I think I have explained, virito builds on other transport and it should be self-
-contained, so far so good.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Virtio without any transport binding is just blank paper discussion.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">virtio is built on some transports, but not bind to any.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Binding is an OS specific thing, but e.g. under Linux transport drivers bind to
-devices then virtio drivers bind to virtio bus. No binding -&gt; nothing
-works.</pre>
-    </blockquote>
-    <font face="monospace">I think general facilities are better not
-      only work on a specific transport</font><span
-    style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">And device status can be pass-through(without emulation, just map it
-to
-guest) to the guest or trapped(trap and emulate by the hypervisor,
-for example set_status in vDPA).
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">When it is pass-through, it is controlled by the guest, so for example, if the
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">guest resets the device, hypervisor has lost the control of migration context etc.
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">Hence, hypervisor needs a channel which is not guest owned.
-
-Same channel can work when trap+emulation is done.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">It is the guest owns the device, it can reset the device, once reset, the device
-context are cleared.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Hypervisor do not have the ability to read/write the device context. It lost the channel as hypervisor is not involved in trap+emulation.
-So it is not helpful in one use case.
-
-Admin commands can work even with trap+emulation mode.
-
-What is missing, that should be added?
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">as explained above, when live migration, the guest should be suspended
-first, at this point,
-the host owns the device, it has access to the device.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Where do you say this in the spec patch?</pre>
-    </blockquote>
-    <font face="monospace">VM live migration is not in this spec.<br>
-      If we suspend the device first, then the guest may detect IO
-      errors. </font><br>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">
+I mean IOMMU still sets the dirty bit, too. How is that not
+a duplication?
 
 
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre class="moz-quote-pre" wrap="">This can also be used for debugging I think.
-</pre>
-                  </blockquote>
-                  <pre class="moz-quote-pre" wrap="">As Michael listed, a dedicated debug interface is usually more
-useful instead
-</pre>
-                </blockquote>
-                <pre class="moz-quote-pre" wrap="">of in-band.
-re-using another facility without extra efforts is not a bad thing anyway.
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">I just don’t see how a suspend bit some debug feature.
-Almost everything with that regard is a debug feature to me.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">suspend then check the device states?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">You already suspended the device, so device state is already changed.
-All debug information is changed, so not useful now.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">When suspended, the device should keep and stabilize its device states,
-at least in my series it should behave like this.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-That's vague. What does it mean exactly and what happens if
-some external event causes state change?</pre>
-    </blockquote>
-    <font face="monospace">it is suspended, somehow like powered-down,
-      so it should not<br>
-      respond to the events until resume.<br>
-    </font>
-    <blockquote type="cite"
-      cite="mid:20231116070024-mutt-send-email-mst@kernel.org">
-      <pre class="moz-quote-pre" wrap="">
+> > >
+> > > > >
+> > > > > > Missing functions in
+> > > > > > platform or transport is not a good excuse to try to workaround
+> > > > > > it in the virtio. It's a layer violation and we never had any
+> > > > > > feature like this in the past.
+> > > > >
+> > > > > Yes missing functionality in the platform is exactly why virtio
+> > > > > was born in the first place.
+> > > >
+> > > > Well the platform can't do device specific logic. But that's not the
+> > > > case of dirty page tracking which is device logic agnostic.
+> > >
+> > > Not true platforms have things like NICs on board and have for many
+> > > years. It's about performance really.
+> > 
+> > I've stated sufficient issues above. And one more obvious issue for device
+> > initiated page logging is that it needs a lot of extra or unnecessary PCI
+> > transactions which will throttle the performance of the whole system (and lead
+> > to other issues like QOS). So I can't believe it has good performance overall.
+> > Logging via IOMMU or using shadow virtqueue doesn't need any extra PCI
+> > transactions at least.
+> > 
+> In the current proposal, it does not required PCI transactions, as there is only a hypervisor-initiated query interface.
+> It is a trade off of using svq + pasid vs using something from the device.
+> 
+> Again, both has different use case and value. One uses cpu and one uses device.
+> Depending how much power one wants to spend where..
 
-</pre>
-    </blockquote>
-    <font face="monospace"><br>
-    </font>
-  </body>
-</html>
+Also how much effort we want to spend on this virtio specific thing.
+The needs to be a *reason* to do things in virtio as opposed to using
+platform capabilities, this is exactly the same thing I told Lingshan
+wrt using SUSPEND for power management as opposed to using PCI PM -
+relying on platform when we can is right there in the mission statement.
+For some reason I asssumed you guys have done a PoC and that's the
+motivation but if it's a "just in case" feature then I'd suggest
+we focus on merging patches 1-5 first.
 
---------------b0berctdbpCiiezwunzhbmSr--
+
+> > > So I'd like Parav to publish some
+> > > experiment results and/or some estimates.
+> > >
+> > 
+> > That's fine, but the above equation (used by Qemu) is sufficient to demonstrate
+> > how hard to stick wire speed in the case.
+> > 
+> > >
+> > > > >
+> > > > > > >
+> > > > > > > > > In the current state, it is mandating.
+> > > > > > > > > And if you think PRI is the only way,
+> > > > > > > >
+> > > > > > > > I don't, it's just an example where virtio can leverage from
+> > > > > > > > either transport or platform. Or if it's the fault in virtio
+> > > > > > > > that slows down the PRI, then it is something we can do.
+> > > > > > > >
+> > > > > > > > >  than you should propose that in the dirty page tracking series that
+> > you listed above to not do dirty page tracking. Rather depend on PRI, right?
+> > > > > > > >
+> > > > > > > > No, the point is to not duplicate works especially
+> > > > > > > > considering virtio can't do better than platform or transport.
+> > > > > > >
+> > > > > > > If someone says they tried and platform's migration support
+> > > > > > > does not work for them and they want to build a solution in
+> > > > > > > virtio then what exactly is the objection?
+> > > > > >
+> > > > > > The discussion is to make sure whether virtio can do this easily
+> > > > > > and correctly, then we can have a conclusion. I've stated some
+> > > > > > issues above, and I've asked other questions related to them
+> > > > > > which are still not answered.
+> > > > > >
+> > > > > > I think we had a very hard time in bypassing IOMMU in the past
+> > > > > > that we don't want to repeat.
+> > > > > >
+> > > > > > We've gone through several methods of logging dirty pages in the
+> > > > > > past (each with pros/cons), but this proposal never explains why
+> > > > > > it chooses one of them but not others. Spec needs to find the
+> > > > > > best path instead of just a possible path without any rationale about
+> > why.
+> > > > >
+> > > > > Adding more rationale isn't a bad thing.
+> > > > > In particular if platform supplies dirty tracking then how does
+> > > > > driver decide which to use platform or device capability?
+> > > > > A bit of discussion around this is a good idea.
+> > > > >
+> > > > >
+> > > > > > > virtio is here in the
+> > > > > > > first place because emulating devices didn't work well.
+> > > > > >
+> > > > > > I don't understand here. We have supported emulated devices for years.
+> > > > > > I'm pretty sure a lot of issues could be uncovered if this
+> > > > > > proposal can be prototyped with an emulated device first.
+> > > > > >
+> > > > > > Thanks
+> > > > >
+> > > > > virtio was originally PV as opposed to emulation. That there's now
+> > > > > hardware virtio and you call software implementation "an
+> > > > > emulation" is very meta.
+> > > >
+> > > > Yes but I don't see how it relates to dirty page tracking. When we
+> > > > find a way it should work for both software and hardware devices.
+> > > >
+> > > > Thanks
+> > >
+> > > It has to work well on a variety of existing platforms. If it does
+> > > then sure, why would we roll our own.
+> > 
+> > If virtio can do that in an efficient way without any issues, I agree.
+> > But it seems not.
+> > 
+> > Thanks
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
+
