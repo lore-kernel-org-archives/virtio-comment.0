@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8415-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8416-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7903C072A2
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 03:47:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03DBAC197A0
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 08:46:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C5ABC750AB
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 03:47:53 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3B567790E8
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 08:46:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A2A0A986E11
-	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 03:47:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1F68A986E20
+	for <virtio-comment@archiver.kernel.org>; Fri, 17 Nov 2023 08:46:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8BA6D986D61; Fri, 17 Nov 2023 03:47:53 +0000 (UTC)
+	id F3523986E18; Fri, 17 Nov 2023 08:46:25 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,170 +24,158 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 72CDE986E0F
-	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 03:47:53 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DF5C3986E19
+	for <virtio-comment@lists.oasis-open.org>; Fri, 17 Nov 2023 08:46:25 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-MC-Unique: SQwDTpb_N8eWDbFooQLs-Q-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700192871; x=1700797671;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EHvYLZ4jGppDayKAhd1U3wgDzU5CpVjKOJjcNT6B1Z8=;
-        b=njkgxze20hPpirE+7P3eJZvOlKW7C4ExYQZNrP1c4Mcewm9Blrm1A70bZzMfihzI1C
-         IPv/n8hwiE9/hIcAJ6d84Lcu/DosdcUGCSMJjwvFRk8/EjKpbwOBwqfuO89wr+I6bKx8
-         r0vzVDhQbGIKU0uf2UTuZFZmlCPdbep12WTXBrVUQ0OD4aVb7RAG5caRaFEadGKHVhuH
-         NhAQgyJ+4JHNOoKwhZxKOH/mBI/PXfXfo64bgtqoZuA/E0TN+Y+8MpRlteUz98+ItE0j
-         K8RQBwLyCqhu2Ku1u0GXnOusf9aTwPkLC4Bk19OVVEjhk6g7tjoa+HRKdtKOjCK81Bx/
-         6JdQ==
-X-Gm-Message-State: AOJu0YzCqX1BCcWt0XTmcpmjO2A64w0BvCN3Nh2QiDbkwgRb5KDrrC6O
-	ILMdg8Sfs5lfMqT8dxSlyVPDyg==
-X-Google-Smtp-Source: AGHT+IHGrPTFK57FGK9ST9y24MBqOxHpD/a5YmFMPmHUUhBDopo8OkuM3U6bBjkp8F+SfqRFIzqe/g==
-X-Received: by 2002:a05:6a20:914d:b0:15c:b7ba:6a4d with SMTP id x13-20020a056a20914d00b0015cb7ba6a4dmr22154471pzc.50.1700192871348;
-        Thu, 16 Nov 2023 19:47:51 -0800 (PST)
-Message-ID: <2e46e50d-62b2-41f7-82e0-66b3ecf71bae@bytedance.com>
-Date: Fri, 17 Nov 2023 11:43:03 +0800
+        d=1e100.net; s=20230601; t=1700210782; x=1700815582;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2LYNCCUjwz76RF7UpQ9SiebGZk9P6OHamRFQ2rH8iC0=;
+        b=kdiNIybhe2/OwSuTKvkauUMbUPC1hCx8mHLuGZoT5x0r3Uy7JNBo9yAn0kZw61cyUY
+         u67AuN13/ZIt6bsCYMbhwJMIavyNLrhUCEsPk2SP+NszIYKe9FBLe0voa9ZvoIiyZq9K
+         KZxNUB9SOIX+IBMRHZwnVbY4bkfuHWkJ1J872pgvdOtVbj7iL4nB6k8BPIvYKmKmrlyJ
+         BjiDlJAmROr/aNEx1mc4wY3BtOO0tFD81cgAwloUMv8qAz6gbD+eE3ywLL0HJvMeSup0
+         kHUaALn3qWfXQGBE1H71HwPA98p5G4aJ4bjx0EC3ePEWnnQJPrNnj56e1mU+eRufZNDa
+         iwew==
+X-Gm-Message-State: AOJu0YxAp3xjeyN+HDlQ8uM8SHJ84t7qMAkWwT2crcjJzhqqKbd3IxNj
+	1nSsC3Lq6zwkJ+oUvC6EJwTL63k0wSZ2coTRTQkvUVo6zkcI5sf979u4gyE7EIOfU4oTjwZ3Uzo
+	7XovRj9detCu6KVoV4PmfkInPU0nO2fbACw==
+X-Received: by 2002:adf:ffcd:0:b0:32f:93b0:66f8 with SMTP id x13-20020adfffcd000000b0032f93b066f8mr11716879wrs.26.1700210782188;
+        Fri, 17 Nov 2023 00:46:22 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGcsufJewPjCsJB8LdloDHLmLUknYZ/AXykXP+9XLokRbgHZYlV+2vLKQvpmP33TqaZDyJmVw==
+X-Received: by 2002:adf:ffcd:0:b0:32f:93b0:66f8 with SMTP id x13-20020adfffcd000000b0032f93b066f8mr11716867wrs.26.1700210781783;
+        Fri, 17 Nov 2023 00:46:21 -0800 (PST)
+Date: Fri, 17 Nov 2023 03:46:17 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+Message-ID: <20231117031251-mutt-send-email-mst@kernel.org>
+References: <PH0PR12MB54815F616E0CF024927984C2DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116004037-mutt-send-email-mst@kernel.org>
+ <20231116023443-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548118E76BAFD5FA470B92A1DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116064611-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54814EC9577B1197E2A13BDBDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116121958-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481F4D1B07F2809AA7D7C9BDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116131303-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54818DBAE43A566C807E1AE9DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: stefanha@redhat.com, raphael.norwitz@nutanix.com
-Cc: jasowang@redhat.com, virtio-comment@lists.oasis-open.org, mst@redhat.com,
- parav@nvidia.com, houp@yusur.tech, zhouhuaping.san@bytedance.com,
- xinhao.kong@duke.edu
-References: <20231023104647.290759-1-pizhenwei@bytedance.com>
-From: zhenwei pi <pizhenwei@bytedance.com>
-In-Reply-To: <20231023104647.290759-1-pizhenwei@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: [virtio-comment] Re: [PATCH v5 0/7] Introduce Virtio Over Fabrics
+In-Reply-To: <PH0PR12MB54818DBAE43A566C807E1AE9DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write
+ recording commands
 
-Hi Stefan & Raphael,
+On Fri, Nov 17, 2023 at 03:02:20AM +0000, Parav Pandit wrote:
+> 
+> 
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Thursday, November 16, 2023 11:51 PM
+> > 
+> > On Thu, Nov 16, 2023 at 05:29:49PM +0000, Parav Pandit wrote:
+> > >
+> > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > Sent: Thursday, November 16, 2023 10:56 PM
+> > > >
+> > > > On Thu, Nov 16, 2023 at 04:26:53PM +0000, Parav Pandit wrote:
+> > > > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > > > Sent: Thursday, November 16, 2023 5:18 PM
+> > > > > >
+> > > > > > On Thu, Nov 16, 2023 at 07:40:57AM +0000, Parav Pandit wrote:
+> > > > > > >
+> > > > > > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > > > > > Sent: Thursday, November 16, 2023 1:06 PM
+> > > > > > > >
+> > > > > > > > On Thu, Nov 16, 2023 at 12:51:40AM -0500, Michael S. Tsirkin wrote:
+> > > > > > > > > On Thu, Nov 16, 2023 at 05:29:54AM +0000, Parav Pandit wrote:
+> > > > > > > > > > We should expose a limit of the device in the proposed
+> > > > > > > > WRITE_RECORD_CAP_QUERY command, that how much range it can
+> > > > track.
+> > > > > > > > > > So that future provisioning framework can use it.
+> > > > > > > > > >
+> > > > > > > > > > I will cover this in v5 early next week.
+> > > > > > > > >
+> > > > > > > > > I do worry about how this can even work though. If you
+> > > > > > > > > want a generic device you do not get to dictate how much memory
+> > VM has.
+> > > > > > > > >
+> > > > > > > > > Aren't we talking bit per page? With 1TByte of memory to
+> > > > > > > > > track
+> > > > > > > > > -> 256Gbit -> 32Gbit -> 8Gbyte per VF?
+> > > > > > > >
+> > > > > > > > Ugh. Actually of course:
+> > > > > > > > With 1TByte of memory to track -> 256Mbit -> 32Mbit ->
+> > > > > > > > 8Mbyte per VF
+> > > > > > > >
+> > > > > > > > 8Gbyte per *PF* with 1K VFs.
+> > > > > > > >
+> > > > > > > Device may not maintain as a bitmap.
+> > > > > >
+> > > > > > However you maintain it, there's 256Mega bit of information.
+> > > > > There may be other data structures that device may deploy as for
+> > > > > example
+> > > > hash or tree or something else.
+> > > >
+> > > > Point being?
+> > > The device may have some hashing accelerator or other improvements that
+> > may perform better than bitmap as many queues in parallel attempt to update
+> > the shared database.
+> > 
+> > Maybe, I didn't give this thought.
+> > 
+> > My point was that to be able to keep all combinations of dirty/non dirty page
+> > for each 4k page in a 1TByte guest device needs 8MBytes of on-device memory
+> > per VF. As designed the query also has to report it for each VF accurately even if
+> > multiple VFs are accessing same guest.
+> Yes.
+> 
+> > 
+> > > >
+> > > > > And this is runtime memory only during the short live migration
+> > > > > period of
+> > > > 400msec or less.
+> > > > > It is not some _always_ resident memory.
+> > > >
+> > > > No - write tracking is used in the live phase of migration. It can
+> > > > be enabled as long as you wish - it's a question of policy.  There
+> > > > actually exist solutions that utilize this phase for redundancy, permanently
+> > running in this mode.
+> > >
+> > > If such use case exists, one may further improve the device implementation.
+> > 
+> > Yes such use cases exist, there is no limit on how long migration takes.
+> > So go ahead and further improve it please. Do not give us "we did not get
+> > requests for this feature" please.
+> 
+> Please describe the use case more precisely.  If there is any
+> application or OS API etc exists, please point to it where would you
+> like to fit this dirty page tracking beyond device migration.  We may
+> have to draw a line to have reasonable point and not keep discussing
+> infinitely.
 
-Let's continue the discussion in this series, there is a link of 
-multi-path/reconnect discussion with Raphael, please see the link:
-https://lists.oasis-open.org/archives/virtio-comment/202307/msg00259.html
 
+What I had in mind was fault tolerance e.g. the abandoned Kemari
+project.  Even just with KVM people tried several times so we know
+there's interest.
 
-I think current version supports reconnect in several steps:
-1, the transport layer reconnects successfully
-2, virtio device initializes feature negotiation, sets status, setup VQ
-3, retry VQ requests
-
-The question is "which address to re-connect" in step 1?
-a, Raphael pointed out redirection-based iSCSI implementations, this 
-needs a "redirection" response in connect completion(from an agent), 
-then connect to the specific address of target. (this needs 
-specification change)
-b, reconnect to the original address. (this may fail)
-c, the initiator resolves domain name by DNS.
-d, configure address list for a single initiator, the initiator retry 
-one by one during reconnect until success.
-
-
-There is limitation for multi-path, because one TCP or RDMA connection 
-per VQ in current version. what about adding a new concept --- path?
-A virtio-of device instance has one or more virtio-of path, a virtio-of 
-path contains a control queue and several VQ.
-
-On 10/23/23 18:46, zhenwei pi wrote:
-> v4 -> v5:
-> - 2 typo fixes.
-> - use 'length' & 'in_length' in VQ completion.
-> 
-> More discussion with Raphael Norwitz <raphael.norwitz@nutanix.com>:
-> https://lists.oasis-open.org/archives/virtio-comment/202307/msg00259.html
-> 
-> v3 -> v4:
-> [PATCH v3 4/7] transport-fabrics: introduce command set
-> - typo fixes: u16 -> le16, u64 -> le64
-> - fix unaligned struct virtio_of_completion_get_keyed_num_descs
-> - drop duplicated keepalive completion structure
-> 
-> v2 -> v3:
-> [PATCH v2 01/11] transport-fabrics: introduce Virtio Over Fabrics
-> - Drop referring to PCI.
-> - Drop undefined concept 'vring'.
-> - Add 'Virtio-oF'(short for 'Virtio Over Fabrics'), and use this instead.
-> - Add mapping between target and initiator.
-> - Add Virtio-oF queue mapping.
-> - Fix grammar flaws.
-> 
-> [PATCH v2 02/11] transport-fabrics: introduce Virtio Qualified Name
-> - Use 'NUL' instead of 'NULL'.
-> - Add 'including the NUL character' in maximum name.
-> 
-> [PATCH v2 03/11] transport-fabircs: introduce Segment Descriptor
-> [PATCH v2 04/11] transport-fabrics: introduce Stream Transmission
-> [PATCH v2 05/11] transport-fabrics: introduce Keyed Transmission
-> - Merge three patches into one.
-> - Rename this section to 'Virtio-oF Protocol Data Unit' instead of 'Transmission Protocol'.
-> - Remove undefined 'opcode' reference.
-> - Drop common 'struct virtio_of_vring_desc'
-> - For stream data transfers, use a single command/completion instead of descriptors.
-> - For keyed data transport, use a single descriptor instead of multi descriptors. Also support keyed descriptor count probe.
-> 
-> [PATCH v2 06/11] transport-fabrics: introduce command set
-> [PATCH v2 07/11] transport-fabrics: introduce opcodes
-> [PATCH v2 08/11] transport-fabrics: introduce status of completion
-> - Merge three patches into one.
-> - Drop common data structures definition, define data structure for each command.
-> - Drop virtio_of_op_get_num_queues, the Virtio-oF device instance would response error status on invalid virtqueue.
-> - Allow Virtio-oF virtqueue to use empty connect body.
-> - Allow Virtio-oF virtqueue to specify queue size on connecting.
-> - Drop errno like status, define detailed status.
-> - Other minor fixes.
-> 
-> [PATCH v2 09/11] transport-fabrics: add TCP&RDMA binding
-> - Rename TCP to TCP/IP to avoid ambiguity.
-> - Add TLS TCP/IP transport.
-> - Add RDMA opcode usage.
-> 
-> [PATCH v2 10/11] transport-fabrics: add device initialization
-> - Drop PCI reference, describe device initialization instead.
-> - Fix grammar flaws.
-> 
-> [PATCH v2 11/11] transport-fabrics: support inline data for keyed
-> - Use eager buffer instead.
-> 
-> 
-> v1 -> v2:
-> - Suggested by Parav, split a large patch into several small patches.
-> - Small changes for VQN, add "There is no strict style limitation".
-> - Move *bytes* field limitation from get/set config opcode section to
->    Config Command.
-> 
-> 
-> v1:
-> Introduce Virtio-oF specification, include:
-> - overview
-> - Virtio Qualified Name
-> - Segment Descriptor definition
-> - Buffer Mapping definition: Stream Transmission and Keyed Transmission
-> - Command set definition
-> - opcode definition
-> - status definition
-> - transport binding: TCP and RDMA
-> - device initialization
-> 
-> Previous discussion:
-> https://lists.oasis-open.org/archives/virtio-comment/202304/msg00442.html
-> 
-> zhenwei pi (7):
->    transport-fabrics: introduce Virtio Over Fabrics overview
->    transport-fabrics: introduce Virtio-oF Qualified Name
->    transport-fabrics: introduce Virtio-oF Protocol Data Unit
->    transport-fabrics: introduce command set
->    transport-fabrics: introduce transport binding
->    transport-fabrics: add device initialization
->    transport-fabrics: introduce keyed eager buffers
-> 
->   content.tex           |   1 +
->   transport-fabrics.tex | 875 ++++++++++++++++++++++++++++++++++++++++++
->   2 files changed, 876 insertions(+)
->   create mode 100644 transport-fabrics.tex
-> 
+In any case you can safely assume that many users will have migration
+that takes seconds and minutes.
 
 -- 
-zhenwei pi
+MST
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
