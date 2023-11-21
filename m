@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8492-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8493-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EFACC54FB9
-	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 07:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33909C54FB9
+	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 07:24:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9EFA72AC53
-	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 07:15:08 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 832EC2AED9
+	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 07:24:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5FC60986877
-	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 07:15:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6433498688A
+	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 07:24:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 421E3986191; Tue, 21 Nov 2023 07:15:08 +0000 (UTC)
+	id 47DFA986191; Tue, 21 Nov 2023 07:24:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,88 +24,91 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2FB2D986875
-	for <virtio-comment@lists.oasis-open.org>; Tue, 21 Nov 2023 07:15:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2D54C986875
+	for <virtio-comment@lists.oasis-open.org>; Tue, 21 Nov 2023 07:24:32 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 1LM-3iXePtqSheqq9_D-qA-1
+X-MC-Unique: qDukqIT-Oyil6Z0sggUjTw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700550899; x=1701155699;
+        d=1e100.net; s=20230601; t=1700551465; x=1701156265;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=eAjfXKxuemt3FPccFUHSIMUtLCxAhnwxa7zz0Na55qg=;
-        b=CHn/Px93yUznpgXAXBPbGkbPHBUzRnIkoLasE6vvF10PqZnQC+zYVCDoGLWw1ABwrg
-         98vNrwtKEfURjj6V48+zGgYVYQtEkq92E9X6ba1fxk49KXjaVnqhVgWDdO3LpdMIFfpX
-         fH3oCJpweBPgY1elEnz04ltttQEVCjUd0fMJgrvc26zV/paSSoX9MMCyhpNmw0HebzW8
-         RVHew2pAD3dJ5dsyH0c94f1BrVjsgE78PAZdpaPDdP5SnF9edu41mfWmkqzEyf7MynwF
-         D1KmDxhc+bqv7opK3ZWULNsYe2vqA9xQcNHH87Llhi1i0izXf9mpoEdU5OB1Cig9xnQL
-         xv0g==
-X-Gm-Message-State: AOJu0YyaqNlLUBnv9KQPRHVH+K0Z8YzljghJ20ZGW1l6TF/4ZqGYqtaT
-	AwPk/u+Wj16oI+dpDB6T5NotmYbvnXl9Ck7mfrLYDC7gcfjhMauiNolKUaxTv94O5P3m93tfkYw
-	VNSblW6LRYd4TtcTWxvyxHbc0py4uHnSJsQjeFDBB2niRoOWepw==
-X-Received: by 2002:a05:6512:3d21:b0:50a:a9bc:6598 with SMTP id d33-20020a0565123d2100b0050aa9bc6598mr629597lfv.24.1700550899486;
-        Mon, 20 Nov 2023 23:14:59 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFKpPdjyDtvbBQvPm6QI72x/w372TfoHtb0hq9Xantbfnk1A565uwo+z2rT86Ng8XoSOfFlqQNnzVbt0pbbcRo=
-X-Received: by 2002:a05:6512:3d21:b0:50a:a9bc:6598 with SMTP id
- d33-20020a0565123d2100b0050aa9bc6598mr629581lfv.24.1700550898882; Mon, 20 Nov
- 2023 23:14:58 -0800 (PST)
+        bh=T+3yUyVDvipGrx6cqceGganCc3uRc62gMnZ3K+vRi/Q=;
+        b=I/kqhPUSrTRx3jYS+tgefBtPPgF/sz0TgiFoSHGS8j521FeciKeZsWFR5jlkW9fKMH
+         r1rzSRRoyfc0r5CntjbrOhIQUYJR2/sgGhfFmcPPQwSWvxAq9L333O0NIdl5510vSV54
+         frP7BCpViKp1C5lUeXMfUIbAYXUKYaqU88zEO98wVbUsWy618ZiWdwjY4UySOQ9ZZHc9
+         vxif5XCwWHxO+iHZMs47hXXb6tslXTBO27v6H0Dlq54KTXM4uWwz4aZGCgGsyuH1echi
+         XzFT1KmvObGkNSEa1vO88DFVSWy5PVPGYJ/YjMO8tyEbFkUF4O/OyzLuyJuV15MjiRyE
+         vyqA==
+X-Gm-Message-State: AOJu0YwkE//G8hg19jz5n9RLc0NHCj7GE5YKbU5JZKCBZQ3ZOxuLXJG1
+	mvbwPjYlxS/pBxxUltM6TKzOcgr2Pc0mRJhoHpPybb+fO4Ra7SUkGY5NMkepLLjYM9jOhiICbuX
+	vU2M28TnGt2gXsYsNERvhVl8Ixn2j6YySyMFXPYwdY38d0SIdbA==
+X-Received: by 2002:ac2:44a9:0:b0:507:a9b7:f071 with SMTP id c9-20020ac244a9000000b00507a9b7f071mr6263395lfm.1.1700551464932;
+        Mon, 20 Nov 2023 23:24:24 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHpgqUfMR33Ynh9Ck3rmtL5IyvHcKXQeLj2Nj+TQoZxDyP6RIxqzW6NXNkZmKxyCily/+ryikAq7rg+DmVREXg=
+X-Received: by 2002:ac2:44a9:0:b0:507:a9b7:f071 with SMTP id
+ c9-20020ac244a9000000b00507a9b7f071mr6263382lfm.1.1700551464318; Mon, 20 Nov
+ 2023 23:24:24 -0800 (PST)
 MIME-Version: 1.0
-References: <20231030131959.1386107-1-parav@nvidia.com> <20231030131959.1386107-7-parav@nvidia.com>
- <CACGkMEuHBRwH9LqC+_jBX5OFrzhJw88AZeAQBou+G_hZK1F2Ug@mail.gmail.com>
- <PH0PR12MB54811B1D566FA64E693E20D6DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEuA6u-EJCsrhvBRKxB6nxG=H28SEh4ihM3Ptgn1FQdGKA@mail.gmail.com>
- <DM8PR12MB54809F8316720CE5C1BCFF33DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEtFyH_wJAqTz=jwosVM-=SRuO+wpT7NM=Eod8ExsxfTsg@mail.gmail.com>
- <PH0PR12MB54814420718AB387C0C84C07DCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtGvDxF1Dnb6FJDK8XEAUcast-7OnuzTyfAr7m0LURWMw@mail.gmail.com>
- <PH0PR12MB548152A30021BEBFFCA62AA9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEv8mccZfcA4n+KVwdkaWAqhM94Qhq8H5Rvw2CocCmt9UA@mail.gmail.com>
- <DM8PR12MB5480A4E02DF988BCDD16E7BEDCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEsRjdg8-YN1GY1fyRHU8UvCthvDgBUzURmTVB4JdbFGZA@mail.gmail.com>
- <PH0PR12MB54810AFC15EAC51755CFC045DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtP+W4mdfn5PszoSHW3tNS+KPAMKXvJhpWKa_NchxVpZA@mail.gmail.com> <PH0PR12MB54815F616E0CF024927984C2DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB54815F616E0CF024927984C2DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <DM8PR12MB5480FD897C13FCB2CBE15268DCDDA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEuKoamb1bn-9stEsZTA3nHwAw4jrd=jWPS6SGuUzH67FA@mail.gmail.com>
+ <PH0PR12MB548175CD39FA20BE2727E5B6DCA1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEuJySOAGguGvnBA7ftD0mwwM_M0SO0266M1+7d+XRXQ=g@mail.gmail.com>
+ <PH0PR12MB5481ABD71DAF7D82931D57D2DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEu0gfw4zNc9KTLm9ekhuWgsgzHLVya_68HajQZObtr3-w@mail.gmail.com>
+ <DM8PR12MB54808B71AA9C0A945D0A3226DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEtKPPudHAXGbrOppwgRP=Umt-F0GNKeoajOGzgs+wvyLA@mail.gmail.com>
+ <PH0PR12MB54815F58F470493FC516CDCCDCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsR56_C2b6-YQFpEOPt4sjJKyqcqrdhi9G0vU9ytezFLQ@mail.gmail.com>
+ <PH0PR12MB54811373EA43BEDB4E159E0BDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsMzp7DjDkQcO4RZ0H0HfxSrytUJrSyDj6gnPWV9cTZow@mail.gmail.com>
+ <DM8PR12MB548085F25849CF1E055826E6DCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
+ <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEt277yYUHf98dCkypS-PXzu7JrRSVBAQ2cCRg4XzCLPzw@mail.gmail.com> <PH0PR12MB5481DB04DEB1A540185ED1ECDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481DB04DEB1A540185ED1ECDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 21 Nov 2023 15:14:44 +0800
-Message-ID: <CACGkMEt-6Q1NQ9x=Mh_ek8ogLeZXiTMRgHwRk1Bt5Y0XWpQrQw@mail.gmail.com>
+Date: Tue, 21 Nov 2023 15:24:12 +0800
+Message-ID: <CACGkMEsdiCrSwFyC19PVnSCCXSabZ1G=3V-oQ=h=2sMaj=NcmQ@mail.gmail.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>, 
+Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
 	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>, 
-	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write recording commands
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-On Thu, Nov 16, 2023 at 1:30=E2=80=AFPM Parav Pandit <parav@nvidia.com> wro=
+On Thu, Nov 16, 2023 at 1:28=E2=80=AFPM Parav Pandit <parav@nvidia.com> wro=
 te:
 >
+>
 > > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Thursday, November 16, 2023 9:54 AM
+> > Sent: Thursday, November 16, 2023 9:50 AM
 > >
 > > On Thu, Nov 16, 2023 at 1:39=E2=80=AFAM Parav Pandit <parav@nvidia.com>=
  wrote:
 > > >
-> > >
 > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > Sent: Monday, November 13, 2023 9:07 AM
+> > > > Sent: Monday, November 13, 2023 9:03 AM
 > > > >
 > > > > On Thu, Nov 9, 2023 at 2:25=E2=80=AFPM Parav Pandit <parav@nvidia.c=
 om> wrote:
 > > > > >
 > > > > >
 > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > Sent: Tuesday, November 7, 2023 9:34 AM
+> > > > > > Sent: Tuesday, November 7, 2023 9:35 AM
 > > > > > >
-> > > > > > On Mon, Nov 6, 2023 at 2:54=E2=80=AFPM Parav Pandit <parav@nvid=
+> > > > > > On Mon, Nov 6, 2023 at 3:05=E2=80=AFPM Parav Pandit <parav@nvid=
 ia.com>
 > > wrote:
 > > > > > > >
 > > > > > > >
 > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > Sent: Monday, November 6, 2023 12:04 PM
+> > > > > > > > Sent: Monday, November 6, 2023 12:05 PM
 > > > > > > > >
 > > > > > > > > On Thu, Nov 2, 2023 at 2:10=E2=80=AFPM Parav Pandit
 > > > > > > > > <parav@nvidia.com>
@@ -113,755 +116,909 @@ ia.com>
 > > > > > > > > >
 > > > > > > > > >
 > > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > Sent: Thursday, November 2, 2023 9:54 AM
+> > > > > > > > > > Sent: Thursday, November 2, 2023 9:56 AM
 > > > > > > > > > >
-> > > > > > > > > > On Wed, Nov 1, 2023 at 11:02=E2=80=AFAM Parav Pandit
+> > > > > > > > > > On Wed, Nov 1, 2023 at 11:32=E2=80=AFAM Parav Pandit
 > > > > > > > > > > <parav@nvidia.com>
 > > > > > > wrote:
 > > > > > > > > > > >
 > > > > > > > > > > >
 > > > > > > > > > > >
 > > > > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > > > Sent: Wednesday, November 1, 2023 6:00 AM
+> > > > > > > > > > > > Sent: Wednesday, November 1, 2023 6:04 AM
 > > > > > > > > > > > >
-> > > > > > > > > > > > On Tue, Oct 31, 2023 at 11:27=E2=80=AFAM Parav Pand=
-it
+> > > > > > > > > > > > On Tue, Oct 31, 2023 at 1:30=E2=80=AFPM Parav Pandi=
+t
 > > > > > > > > > > > > <parav@nvidia.com>
 > > > > > > > > wrote:
 > > > > > > > > > > > > >
 > > > > > > > > > > > > >
 > > > > > > > > > > > > >
 > > > > > > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > > > > > Sent: Tuesday, October 31, 2023 7:13 AM
+> > > > > > > > > > > > > > Sent: Tuesday, October 31, 2023 7:05 AM
 > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > On Mon, Oct 30, 2023 at 9:21=E2=80=AFPM Parav P=
-andit
+> > > > > > > > > > > > > > On Mon, Oct 30, 2023 at 12:47=E2=80=AFPM Parav =
+Pandit
 > > > > > > > > > > > > > > <parav@nvidia.com>
 > > > > > > > > > > wrote:
 > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > During a device migration flow (typically in =
-a
-> > > > > > > > > > > > > > > precopy phase of the live migration), a devic=
-e
-> > > > > > > > > > > > > > > may write to the guest memory. Some
-> > > > > > > > > > > > > > > iommu/hypervisor may not be able to track
-> > > > > > > > > > > > > > > these
-> > > > > > > > > > written pages.
-> > > > > > > > > > > > > > > These pages to be migrated from source to
-> > > > > > > > > > > > > > > destination
-> > > > > > hypervisor.
 > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > A device which writes to these pages, provide=
-s
-> > > > > > > > > > > > > > > the page address record of the to the owner d=
-evice.
-> > > > > > > > > > > > > > > The owner device starts write recording for
-> > > > > > > > > > > > > > > the device and queries all the page addresses
-> > > > > > > > > > > > > > > written by the
-> > > > device.
 > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > Fixes:
-> > > > > > > > > > > > > > > https://github.com/oasis-tcs/virtio-spec/issu=
+> > > > > > > > > > > > > > > > From: virtio-comment@lists.oasis-open.org
+> > > > > > > > > > > > > > > > <virtio-comment@lists.oasis- open.org> On
+> > > > > > > > > > > > > > > > Behalf Of Jason Wang
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > On Thu, Oct 26, 2023 at 11:45=E2=80=AFAM Pa=
+rav
+> > > > > > > > > > > > > > > > Pandit <parav@nvidia.com>
+> > > > > > > > > > > > wrote:
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
+> > > > > > > > > > > > > > > > > > Sent: Thursday, October 26, 2023 6:16 A=
+M
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > On Wed, Oct 25, 2023 at 3:03=E2=80=AFPM=
+ Parav
+> > > > > > > > > > > > > > > > > > Pandit <parav@nvidia.com>
+> > > > > > > > > > > > > > wrote:
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > From: Jason Wang
+> > > > > > > > > > > > > > > > > > > > <jasowang@redhat.com>
+> > > > > > > > > > > > > > > > > > > > Sent: Wednesday, October 25, 2023
+> > > > > > > > > > > > > > > > > > > > 6:59 AM
+> > > > > > > > > > > > > > > > > > > > > For passthrough PASID assignment
+> > > > > > > > > > > > > > > > > > > > > vq is not
+> > > > needed.
+> > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > How do you know that?
+> > > > > > > > > > > > > > > > > > > Because for passthrough, the
+> > > > > > > > > > > > > > > > > > > hypervisor is not involved in dealing
+> > > > > > > > > > > > > > > > > > > with VQ at
+> > > > > > > > > > > > > > > > > > all.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > Ok, so if I understand correctly, you
+> > > > > > > > > > > > > > > > > > are saying your design can't work for
+> > > > > > > > > > > > > > > > > > the case of PASID
+> > > > assignment.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > No. PASID assignment will happen from the
+> > > > > > > > > > > > > > > > > guest for its own use and device
+> > > > > > > > > > > > > > > > migration will just work fine because devic=
 e
-> > > > > > > > > > > > > > > s/17
-> > > > > > > > > > > > > > > 6
-> > > > > > > > > > > > > > > Signed-off-by: Parav Pandit <parav@nvidia.com=
->
-> > > > > > > > > > > > > > > Signed-off-by: Satananda Burla
-> > > > > > > > > > > > > > > <sburla@marvell.com>
-> > > > > > > > > > > > > > > ---
-> > > > > > > > > > > > > > > changelog:
-> > > > > > > > > > > > > > > v1->v2:
-> > > > > > > > > > > > > > > - addressed comments from Michael
-> > > > > > > > > > > > > > > - replaced iova with physical address
-> > > > > > > > > > > > > > > ---
-> > > > > > > > > > > > > > >  admin-cmds-device-migration.tex | 15
-> > > > > > > > > > > > > > > +++++++++++++++
-> > > > > > > > > > > > > > >  1 file changed, 15 insertions(+)
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > diff --git a/admin-cmds-device-migration.tex
-> > > > > > > > > > > > > > > b/admin-cmds-device-migration.tex index
-> > > > > > > > > > > > > > > ed911e4..2e32f2c
-> > > > > > > > > > > > > > > 100644
-> > > > > > > > > > > > > > > --- a/admin-cmds-device-migration.tex
-> > > > > > > > > > > > > > > +++ b/admin-cmds-device-migration.tex
-> > > > > > > > > > > > > > > @@ -95,6 +95,21 @@ \subsubsection{Device
-> > > > > > > > > > > > > > > Migration}\label{sec:Basic Facilities of a
-> > > > > > > > > > > > > > > Virtio Device / The owner driver can discard
-> > > > > > > > > > > > > > > any partially read or written device context
-> > > > > > > > > > > > > > > when  any of the device migration flow
-> > > > > > > > > > > > > > should be aborted.
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > +During the device migration flow, a
-> > > > > > > > > > > > > > > +passthrough device may write data to the
-> > > > > > > > > > > > > > > +guest virtual machine's memory, a source
-> > > > > > > > > > > > > > > +hypervisor needs to keep track of these
-> > > > > > > > > > > > > > > +written memory to migrate such memory to
-> > > > > > > > > > > > > > > +destination
-> > > > > > > > > > > > > > hypervisor.
-> > > > > > > > > > > > > > > +Some systems may not be able to keep track o=
-f
-> > > > > > > > > > > > > > > +such memory write addresses at hypervisor le=
-vel.
-> > > > > > > > > > > > > > > +In such a scenario, a device records and
-> > > > > > > > > > > > > > > +reports these written memory addresses to th=
-e
-> > > > > > > > > > > > > > > +owner device. The owner driver enables write
-> > > > > > > > > > > > > > > +recording for one or more physical address
-> > > > > > > > > > > > > > > +ranges per device during device
-> > > > > > > > > > migration flow.
-> > > > > > > > > > > > > > > +The owner driver periodically queries these
-> > > > > > > > > > > > > > > +written physical address
-> > > > > > > > > > > > records from the device.
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > I wonder how PA works in this case. Device uses
-> > > > > > > > > > > > > > untranslated requests so it can only see IOVA.
-> > > > > > > > > > > > > > We can't mandate
-> > > > > > ATS anyhow.
-> > > > > > > > > > > > > Michael suggested to keep the language uniform as
-> > > > > > > > > > > > > PA as this is ultimately
-> > > > > > > > > > > > what the guest driver is supplying during vq
-> > > > > > > > > > > > creation and in posting buffers as physical address=
-.
-> > > > > > > > > > > >
-> > > > > > > > > > > > This seems to need some work. And, can you show me
-> > > > > > > > > > > > how it can
-> > > > > > work?
-> > > > > > > > > > > >
-> > > > > > > > > > > > 1) e.g if GAW is 48 bit, is the hypervisor expected
-> > > > > > > > > > > > to do a bisection of the whole range?
-> > > > > > > > > > > > 2) does the device need to reserve sufficient
-> > > > > > > > > > > > internal resources for logging the dirty page and w=
-hy (not)?
-> > > > > > > > > > > No when dirty page logging starts, only at that time,
-> > > > > > > > > > > device will reserve
-> > > > > > > > > > enough resources.
-> > > > > > > > > >
-> > > > > > > > > > GAW is 48bit, how large would it have then?
-> > > > > > > > > Dirty page tracking is not dependent on the size of the G=
-AW.
-> > > > > > > > > It is function of address ranges for the amount of guest
-> > > > > > > > > memory regardless of
-> > > > > > > > GAW.
-> > > > > > > >
-> > > > > > > > The problem is, e.g when vIOMMU is enabled, you can't know
-> > > > > > > > which IOVA is actually used by guests. And even for the cas=
-e
-> > > > > > > > when vIOMMU is not enabled, the guest may have several TBs.
-> > > > > > > > Is it easy to reserve sufficient resources by the device it=
-self?
-> > > > > > > >
-> > > > > > > When page tracking is enabled per device, it knows about the
-> > > > > > > range and it can
-> > > > > > reserve certain resource.
-> > > > > >
-> > > > > > I didn't see such an interface in this series. Anything I miss?
-> > > > > >
-> > > > > Yes, this patch and the next patch is covering the page tracking
-> > > > > start,stop and
-> > > > query commands.
-> > > > > They are named as write recording commands.
-> > > >
-> > > > So I still don't see how the device can reserve sufficient resource=
-s?
-> > > > Guests may map a very large area of memory to IOMMU (or when vIOMMU
-> > > > is disabled, GPA is used). It would be several TBs, how can the
-> > > > device reserve sufficient resources in this case?
-> > > When the map is established, the ranges are supplied to the device to=
- know
-> > how much to reserve.
-> > > If device does not have enough resource, it fails the command.
-> > >
-> > > One can advance it further to provision for the desired range..
-> >
-> > Well, I think I've asked whether or not a bisection is needed, and you =
-told me
-> > not ...
-> >
-> > But at least we need to document this in the proposal, no?
-> >
-> We should expose a limit of the device in the proposed WRITE_RECORD_CAP_Q=
-UERY command, that how much range it can track.
-> So that future provisioning framework can use it.
->
-> I will cover this in v5 early next week.
->
-> > > >
-> > > > >
-> > > > > > Btw, the IOVA is allocated by the guest actually, how can we
-> > > > > > know the
-> > > > range?
-> > > > > > (or using the host range?)
-> > > > > >
-> > > > > Hypervisor would have mapping translation.
-> > > >
-> > > > That's really tricky and can only work in some cases:
-> > > >
-> > > > 1) It requires the hypervisor to traverse the guest I/O page tables
-> > > > which could be very large range
-> > > > 2) It requests the hypervisor to trap the modification of guest I/O
-> > > > page tables and synchronize with the range changes, which is
-> > > > inefficient and can only be done when we are doing shadow PTEs. It
-> > > > won't work when the nesting translation could be offloaded to the
-> > > > hardware
-> > > > 3) It is racy with the guest modification of I/O page tables which
-> > > > is explained in another thread
-> > > Mapping changes with more hw mmu's is not a frequent event and IOTLB
-> > flush is done using querying the dirty log for the smaller range.
-> > >
-> > > > 4) No aware of new features like PASID which has been explained in
-> > > > another thread
-> > > For all the pinned work with non sw based IOMMU, it is typically smal=
-l subset.
-> > > PASID is guest controlled.
-> >
-> > Let's repeat my points:
-> >
-> > 1) vq1 use untranslated request with PASID1
-> > 2) vq2 use untranslated request with PASID2
-> >
-> > Shouldn't we log PASID as well?
-> >
-> Possibly yes, either to request the tracking per PASID or to log the PASI=
+> > > > > > > > > > > > > > > > context will capture
+> > > > > > > > this.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > It's not about device context. We're
+> > > > > > > > > > > > > > > > discussing "passthrough",
+> > > > > > > > no?
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Not sure, we are discussing same.
+> > > > > > > > > > > > > > > A member device is passthrough to the guest,
+> > > > > > > > > > > > > > > dealing with its own PASIDs and
+> > > > > > > > > > > > > > virtio interface for some VQ assignment to PASI=
 D.
-> When in future PASID based VQ are supported, this part should be extended=
+> > > > > > > > > > > > > > > So VQ context captured by the hypervisor, wil=
+l
+> > > > > > > > > > > > > > > have some PASID attached to
+> > > > > > > > > > > > > > this VQ.
+> > > > > > > > > > > > > > > Device context will be updated.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > You want all virtio stuff to be
+> > > > > > > > > > > > > > > > "passthrough", but assigning a PASID to a
+> > > > > > > > > > > > > > > > specific virtqueue in the guest must be
+> > > > > > > > trapped.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > No. PASID assignment to a specific virtqueue
+> > > > > > > > > > > > > > > in the guest must go directly
+> > > > > > > > > > > > > > from guest to device.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > This works like setting CR3, you can't simply
+> > > > > > > > > > > > > > let it go from guest to
+> > > > > > > > host.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > Host IOMMU driver needs to know the PASID to
+> > > > > > > > > > > > > > program the IO page tables correctly.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > This will be done by the IOMMU.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > > When guest iommu may need to communicate
+> > > > > > > > > > > > > > > anything for this PASID, it will
+> > > > > > > > > > > > > > come through its proper IOMMU channel/hypercall=
 .
-
-Who is going to do the extension? They are orthogonal features for sure.
-
->
-> > And
-> >
-> > 1) vq1 is using translated request
-> > 2) vq2 is using untranslated request
-> >
-
-How about this?
-
->
-> > How could we differ?
-> >
-> > >
-> > > >
-> > > > >
-> > > > > > >
-> > > > > > > > Host should always have more resources than device, in that
-> > > > > > > > sense there could be several methods that tries to utilize
-> > > > > > > > host memory instead of the one in the device. I think we've
-> > > > > > > > discussed this when going through the doc prepared by Eugen=
-io.
-> > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > What happens if we're trying to migrate more than 1 dev=
-ice?
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > Let's say using PASID X for queue 0, this
+> > > > > > > > > > > > > > knowledge is beyond the IOMMU scope but belongs
+> > > > > > > > > > > > > > to virtio. Or please explain how it can work
+> > > > > > > > > > > > > > when it goes directly from guest to
+> > > > > > device.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > We are yet to ever see spec for PASID to VQ assig=
+nment.
+> > > > > > > > > > > >
+> > > > > > > > > > > > It has one.
+> > > > > > > > > > > >
+> > > > > > > > > > > > > For ok for theory sake it is there.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Virtio driver will assign the PASID directly from
+> > > > > > > > > > > > > guest driver to device using a
+> > > > > > > > > > > > create_vq(pasid=3DX) command.
+> > > > > > > > > > > > > Same process is somehow attached the PASID by the=
+ guest
+> > OS.
+> > > > > > > > > > > > > The whole PASID range is known to the hypervisor
+> > > > > > > > > > > > > when the device is handed
+> > > > > > > > > > > > over to the guest VM.
+> > > > > > > > > > > >
+> > > > > > > > > > > > How can it know?
+> > > > > > > > > > > >
+> > > > > > > > > > > > > So PASID mapping is setup by the hypervisor IOMMU
+> > > > > > > > > > > > > at this
+> > > > point.
+> > > > > > > > > > > >
+> > > > > > > > > > > > You disallow the PASID to be virtualized here.
+> > > > > > > > > > > > What's more, such a PASID passthrough has security
+> > implications.
+> > > > > > > > > > > >
+> > > > > > > > > > > No. virtio spec is not disallowing. At least for sure=
+,
+> > > > > > > > > > > this series is not the
+> > > > > > > > one.
+> > > > > > > > > > > My main point is, virtio device interface will not be
+> > > > > > > > > > > the source of hypercall to
+> > > > > > > > > > program IOMMU in the hypervisor.
+> > > > > > > > > > > It is something to be done by IOMMU side.
 > > > > > > > > > >
-> > > > > > > > > That is perfectly fine.
-> > > > > > > > > Each device is updating its log of pages it wrote.
-> > > > > > > > > The hypervisor is collecting their sum.
-> > > > > > > >
-> > > > > > > > See above.
-> > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > >
-> > > > > > > > > > > > 3) DMA is part of the transport, it's natural to do
-> > > > > > > > > > > > logging there, why duplicate efforts in the virtio =
-layer?
-> > > > > > > > > > > He he, you have funny comment.
-> > > > > > > > > > > When an abstract facility is added to virtio you say
-> > > > > > > > > > > to do in
-> > > > transport.
-> > > > > > > > > >
-> > > > > > > > > > So it's not done in the general facility but tied to th=
-e admin part.
-> > > > > > > > > > And we all know dirty page tracking is a challenge and
-> > > > > > > > > > Eugenio has a good summary of pros/cons. A revisit of
-> > > > > > > > > > those docs make me think virtio is not the good place
-> > > > > > > > > > for doing that for
-> > > > may reasons:
-> > > > > > > > > >
-> > > > > > > > > > 1) as stated, platform will evolve to be able to
-> > > > > > > > > > tracking dirty pages, actually, it has been supported b=
-y
-> > > > > > > > > > a lot of major IOMMU vendors
-> > > > > > > > >
-> > > > > > > > > This is optional facility in virtio.
-> > > > > > > > > Can you please point to the references? I don=E2=80=99t s=
-ee it in
-> > > > > > > > > the common Linux
-> > > > > > > > kernel support for it.
-> > > > > > > >
-> > > > > > > > Note that when IOMMUFD is being proposed, dirty page
-> > > > > > > > tracking is one of the major considerations.
-> > > > > > > >
-> > > > > > > > This is one recent proposal:
-> > > > > > > >
-> > > > > > > > https://www.spinics.net/lists/kvm/msg330894.html
-> > > > > > > >
-> > > > > > > Sure, so if platform supports it. it can be used from the pla=
-tform.
-> > > > > > > If it does not, the device supplies it.
-> > > > > > >
-> > > > > > > > > Instead Linux kernel choose to extend to the devices.
-> > > > > > > >
-> > > > > > > > Well, as I stated, tracking dirty pages is challenging if
-> > > > > > > > you want to do it on a device, and you can't simply invent
-> > > > > > > > dirty page tracking for each type of the devices.
-> > > > > > > >
-> > > > > > > It is not invented.
-> > > > > > > It is generic framework for all virtio device types as propos=
-ed here.
-> > > > > > > Keep in mind, that it is optional already in v3 series.
-> > > > > > >
-> > > > > > > > > At least not seen to arrive this in any near term in star=
-t
-> > > > > > > > > of
-> > > > > > > > > 2024 which is
-> > > > > > > > where users must use this.
-> > > > > > > > >
-> > > > > > > > > > 2) you can't assume virtio is the only device that can
-> > > > > > > > > > be used by the guest, having dirty pages tracking to be
-> > > > > > > > > > implemented in each type of device is unrealistic
-> > > > > > > > > Of course, there is no such assumption made. Where did yo=
-u
-> > > > > > > > > see a text that
-> > > > > > > > made such assumption?
-> > > > > > > >
-> > > > > > > > So what happens if you have a guest with virtio and other
-> > > > > > > > devices
-> > > > assigned?
-> > > > > > > >
-> > > > > > > What happens? Each device type would do its own dirty page tr=
-acking.
-> > > > > > > And if all devices does not have support, hypervisor knows to
-> > > > > > > fall back to
-> > > > > > platform iommu or its own.
-> > > > > > >
-> > > > > > > > > Each virtio and non virtio devices who wants to report
-> > > > > > > > > their dirty page report,
-> > > > > > > > will do their way.
-> > > > > > > > >
-> > > > > > > > > > 3) inventing it in the virtio layer will be deprecated
-> > > > > > > > > > in the future for sure, as platform will provide much
-> > > > > > > > > > rich features for logging e.g it can do it per PASID
-> > > > > > > > > > etc, I don't see any reason virtio need to compete with
-> > > > > > > > > > the features that will be provided by the platform
-> > > > > > > > > Can you bring the cpu vendors and committement to virtio
-> > > > > > > > > tc with timelines
-> > > > > > > > so that virtio TC can omit?
-> > > > > > > >
-> > > > > > > > Why do we need to bring CPU vendors in the virtio TC? Virti=
+> > > > > > > > > > So unless vPASID can be used by the hardware you need t=
 o
-> > > > > > > > needs to be built on top of transport or platform. There's
-> > > > > > > > no need to duplicate
-> > > > > > their job.
-> > > > > > > > Especially considering that virtio can't do better than the=
-m.
-> > > > > > > >
-> > > > > > > I wanted to see a strong commitment for the cpu vendors to
-> > > > > > > support dirty
-> > > > > > page tracking.
-> > > > > >
-> > > > > > The RFC of IOMMUFD support can go back to early 2022. Intel, AM=
-D
-> > > > > > and ARM are all supporting that now.
-> > > > > >
-> > > > > > > And the work seems to have started for some platforms.
-> > > > > >
-> > > > > > Let me quote from the above link:
-> > > > > >
-> > > > > > """
-> > > > > > Today, AMD Milan (or more recent) supports it while ARM SMMUv3.=
-2
-> > > > > > alongside VT-D rev3.x also do support.
-> > > > > > """
-> > > > > >
-> > > > > > > Without such platform commitment, virtio also skipping it wou=
-ld not
-> > work.
-> > > > > >
-> > > > > > Is the above sufficient? I'm a little bit more familiar with
-> > > > > > vtd, the hw feature has been there for years.
-> > > > > >
-> > > > > Vtd has a sticky D bit that requires synchronization with IOPTE
-> > > > > page caches
-> > > > when sw wants to clear it.
-> > > >
-> > > > This is by design.
-> > > >
-> > > > > Do you know if is it reliable when device does multiple writes,
-> > > > > ie,
-> > > > >
-> > > > > a. iommu write D bit
-> > > > > b. software read it
-> > > > > c. sw synchronize cache
-> > > > > d. iommu write D bit on next write by device
-> > > >
-> > > > What issue did you see here? But that's not even an excuse, if
-> > > > there's a bug, let's report it to IOMMU vendors and let them fix it=
-.
-> > > > The thread I point to you is actually a good space.
-> > > >
-> > > So we cannot claim that it is there in the platform.
-> >
-> > I'm confused, the thread I point to you did the cache synchronization w=
-hich has
-> > been explained in the changelog, so what's the issue?
-> >
-> If the ask is for IOMMU chip to fix something, we cannot claim that dirty=
- page tracking is available already in platform.
-
-Again, can you describe the issue? Why do you think the sticky part is
-an issue? IOTLB needs to be sync with IO page tables, what's wrong
-with this?
-
->
-> > >
-> > > > Again, the point is to let the correct role play.
-> > > >
-> > > How many more years should we block the virtio device migration when
-> > platform do not have it?
-> >
-> > At least for VT-D, it has been used for years.
-> Is this device written pages tracked by KVM for VT-d as dirty page log, i=
-nstead through vfio?
-
-I don't get this question.
-
->
-> >
-> > >
-> > > > >
-> > > > > ARM SMMU based servers to be present with D bit tracking.
-> > > > > It is still early to say platform is ready.
-> > > >
-> > > > This is not what I read from both the series I posted and the spec,
-> > > > dirty bit has been supported several years ago at least for vtd.
-> > > Supported, but spec listed it as sticky bit that may require special =
-handling.
-> >
-> > Please explain why this is "special handling". IOMMU has several differ=
-ent layers
-> > of caching, by design, it can't just open a window for D bit.
-> >
-> > > May be it is working, but not all cpu platforms have it.
-> >
-> > I don't see the point. Migration is not supported for virito as well.
-> >
-> I don=E2=80=99t see a point either to discuss.
->
-> I already acked that platform may have support as well, and not all platf=
-orm has it.
-> So the device feeds the data and its platform's choice to enable/disable.
-
-I've pointed out sufficient issues and I don't want to repeat them.
-
->
-> > >
-> > > >
-> > > > >
-> > > > > It is optional so whichever has the support it will be used.
-> > > >
-> > > > I can't see the point of this, it is already available. And
-> > > > migration doesn't exist in virtio spec yet.
-> > > >
-> > > > >
-> > > > > > >
-> > > > > > > > > i.e. in first year of 2024?
-> > > > > > > >
-> > > > > > > > Why does it matter in 2024?
-> > > > > > > Because users needs to use it now.
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > If not, we are better off to offer this, and when/if
-> > > > > > > > > platform support is, sure,
-> > > > > > > > this feature can be disabled/not used/not enabled.
-> > > > > > > > >
-> > > > > > > > > > 4) if the platform support is missing, we can use
-> > > > > > > > > > software or leverage transport for assistance like PRI
-> > > > > > > > > All of these are in theory.
-> > > > > > > > > Our experiment shows PRI performance is 21x slower than
-> > > > > > > > > page fault rate
-> > > > > > > > done by the cpu.
-> > > > > > > > > It simply does not even pass a simple 10Gbps test.
-> > > > > > > >
-> > > > > > > > If you stick to the wire speed during migration, it can con=
-verge.
-> > > > > > > Do you have perf data for this?
-> > > > > >
-> > > > > > No, but it's not hard to imagine the worst case. Wrote a small
-> > > > > > program that dirty every page by a NIC.
-> > > > > >
-> > > > > > > In the internal tests we don=E2=80=99t see this happening.
-> > > > > >
-> > > > > > downtime =3D dirty_rates * PAGE_SIZE / migration_speed
-> > > > > >
-> > > > > > So if we get very high dirty rates (e.g by a high speed NIC), w=
-e
-> > > > > > can't satisfy the requirement of the downtime. Or if you see th=
-e
-> > > > > > converge, you might get help from the auto converge support by
-> > > > > > the hypervisors like KVM where it tries to throttle the VCPU
-> > > > > > then you can't reach
-> > > > the wire speed.
-> > > > > >
-> > > > > Once PRI is enabled, even without migration, there is basic perf =
-issues.
-> > > >
-> > > > The context is not PRI here...
-> > > >
-> > > > It's about if you can stick to wire speed during live migration.
-> > > > Based on the analysis so far, you can't achieve wirespeed and downt=
-ime at
-> > the same time.
-> > > > That's why the hypervisor needs to throttle VCPU or devices.
-> > > >
-> > > So?
-> > > Device also may throttle itself.
-> >
-> > That's perfectly fine. We are on the same page, no? It's wrong to judge=
- the dirty
-> > page tracking in the context of live migration by measuring whether or =
-not the
-> > device can work at wire speed.
-> >
-> > >
-> > > > For PRI, it really depends on how you want to use it. E.g if you
-> > > > don't want to pin a page, the performance is the price you must pay=
-.
-> > > PRI without pinning does not make sense for device to make large mapp=
-ing
-> > queries.
-> >
-> > That's also fine. Hypervisors can choose to enable and use PRI dependin=
-g on
-> > the different cases.
-> >
-> So PRI is not must for device migration.
-
-I never say it's a must.
-
-> Device migration must be able to work without PRI enabled, as simple as t=
-hat as first base line.
-
-My point is that, you need document
-
-1) why you think dirty page is a must or not
-2) why did you choose one of a specific way instead of others
-
->
-> > >
-> > > >
-> > > > >
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > There is no requirement for mandating PRI either.
-> > > > > > > > > So it is unusable.
-> > > > > > > >
-> > > > > > > > It's not about mandating, it's about doing things in the
-> > > > > > > > correct layer. If PRI is slow, PCI can evolve for sure.
-> > > > > > > You should try.
-> > > > > >
-> > > > > > Not my duty, I just want to make sure things are done in the
-> > > > > > correct layer, and once it needs to be done in the virtio,
-> > > > > > there's nothing obviously
-> > > > wrong.
-> > > > > >
-> > > > > At present, it looks all platforms are not equally ready for page=
- tracking.
-> > > >
-> > > > That's not an excuse to let virtio support that.
-> > > It is wrong attribution as excuse.
-> > >
-> > > > And we need also to figure out if
-> > > > virtio can do that easily. I've pointed out sufficient issues, I'm
-> > > > pretty sure there would be more as the platform evolves.
-> > > >
-> > > I am not sure if virtio feeds the log into the platform.
-> >
-> > I don't understand the meaning here.
-> >
-> I mistakenly merged two sentences.
->
-> Virtio feeds the dirty page details to the hypervisor platform which coll=
-ects and merges the page record.
-> So it is platform choice to use iommu based tracking or device based.
->
-> > >
-> > > > >
-> > > > > > > In the current state, it is mandating.
-> > > > > > > And if you think PRI is the only way,
-> > > > > >
-> > > > > > I don't, it's just an example where virtio can leverage from
-> > > > > > either transport or platform. Or if it's the fault in virtio
-> > > > > > that slows down the PRI, then it is something we can do.
-> > > > > >
-> > > > > Yea, it does not seem to be ready yet.
-> > > > >
-> > > > > > >  than you should propose that in the dirty page tracking
-> > > > > > > series that you listed
-> > > > > > above to not do dirty page tracking. Rather depend on PRI, righ=
-t?
-> > > > > >
-> > > > > > No, the point is to not duplicate works especially considering
-> > > > > > virtio can't do better than platform or transport.
-> > > > > >
-> > > > > Both the platform and virtio work is ongoing.
-> > > >
-> > > > Why duplicate the work then?
-> > > >
-> > > Not all cpu platforms support as far as I know.
-> >
-> > Yes, but we all know the platform is working to support this.
-> >
-> > Supporting this on the device is hard.
-> >
-> This is optional, whichever device would like to implement it, will suppo=
-rt it.
->
-> > >
-> > > > >
-> > > > > > >
-> > > > > > > >
-> > > > > > > > >
+> > > > > > > > > > trap the mapping from a PASID to a virtqueue. Then you
+> > > > > > > > > > need virtio specific
+> > > > > > > > knowledge.
 > > > > > > > > > >
-> > > > > > > > > > > When one does something in transport, you say, this i=
-s
-> > > > > > > > > > > transport specific, do
-> > > > > > > > > > some generic.
+> > > > > > > > > vPASID by hardware is unlikely to be used by hw PCI EP
+> > > > > > > > > devices at least in any
+> > > > > > > > near term future.
+> > > > > > > > > This requires either vPASID to pPASID table in device or =
+in IOMMU.
+> > > > > > > >
+> > > > > > > > So we are on the same page.
+> > > > > > > >
+> > > > > > > > Claiming a method that can only work for passthrough or
+> > > > > > > > emulation is not
+> > > > > > good.
+> > > > > > > > We all know virtualization is passthrough + emulation.
+> > > > > > > Again, I agree but I wont generalize it here.
+> > > > > > >
+> > > > > > > >
+> > > > > > > > >
 > > > > > > > > > > >
-> > > > > > > > > > > Here the device is being tracked is virtio device.
-> > > > > > > > > > > PCI-SIG has told already that PCIM interface is
-> > > > > > > > > > > outside the scope of
-> > > > it.
-> > > > > > > > > > > Hence, this is done in virtio layer here in abstract =
+> > > > > > > > > > > > Again, we are talking about different things, I've
+> > > > > > > > > > > > tried to show you that there are cases that
+> > > > > > > > > > > > passthrough can't work but if you think the only wa=
+y
+> > > > > > > > > > > > for migration is to use passthrough in every case,
+> > > > > > > > > > > > you will
+> > > > > > > > > > probably fail.
+> > > > > > > > > > > >
+> > > > > > > > > > > I didn't say only way for migration is passthrough.
+> > > > > > > > > > > Passthrough is clearly one way.
+> > > > > > > > > > > Other ways may be possible.
+> > > > > > > > > > >
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Virtio device is not the conduit for this exc=
+hange.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > There are works ongoing to make
+> > > > > > > > > > > > > > > > > > > > vPASID work for the guest like
+> > > > > > > > > > > > > > vSVA.
+> > > > > > > > > > > > > > > > > > > > Virtio doesn't differ from other de=
+vices.
+> > > > > > > > > > > > > > > > > > > Passthrough do not run like SVA.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > Great, you find another limitation of
+> > > > > > > > > > > > > > > > > > "passthrough" by
+> > > > > > > > yourself.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > No. it is not the limitation it is just
+> > > > > > > > > > > > > > > > > the way it does not need complex SVA to
+> > > > > > > > > > > > > > > > split the device for unrelated usage.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > How can you limit the user in the guest to =
+not use
+> > vSVA?
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > He he, I am not limiting, again
+> > > > > > > > > > > > > > > misunderstanding or wrong
+> > > > > > > > attribution.
+> > > > > > > > > > > > > > > I explained that hypervisor for passthrough
+> > > > > > > > > > > > > > > does not need
+> > > > SVA.
+> > > > > > > > > > > > > > > Guest can do anything it wants from the guest
+> > > > > > > > > > > > > > > OS with the member
+> > > > > > > > > > > > device.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > Ok, so the point stills, see above.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > I don=E2=80=99t think so. The guest owns its PASI=
+D space
+> > > > > > > > > > > >
+> > > > > > > > > > > > Again, vPASID to PASID can't be done hardware unles=
+s
+> > > > > > > > > > > > I miss some recent features of IOMMUs.
+> > > > > > > > > > > >
+> > > > > > > > > > > Cpu vendors have different way of doing vPASID to pPA=
+SID.
+> > > > > > > > > >
+> > > > > > > > > > At least for the current version of major IOMMU vendors=
+,
+> > > > > > > > > > such translation (aka PASID remapping) is not
+> > > > > > > > > > implemented in the hardware so it needs to be trapped f=
+irst.
+> > > > > > > > > >
+> > > > > > > > > Right. So it is really far in future, atleast few years a=
 way.
+> > > > > > > > >
+> > > > > > > > > > > It is still an early space for virtio.
+> > > > > > > > > > >
+> > > > > > > > > > > > > and directly communicates like any other device a=
+ttribute.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > Each passthrough device has PASID fro=
+m
+> > > > > > > > > > > > > > > > > > > its own space fully managed by the
+> > > > > > > > > > > > > > > > > > guest.
+> > > > > > > > > > > > > > > > > > > Some cpu required vPASID and SIOV is
+> > > > > > > > > > > > > > > > > > > not going this way
+> > > > > > > > > > anmore.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > Then how to migrate? Invent a full set
+> > > > > > > > > > > > > > > > > > of something else through another giant
+> > > > > > > > > > > > > > > > > > series like this to migrate to the SIOV
+> > > > > > > > > > thing?
+> > > > > > > > > > > > > > > > > > That's a mess for
+> > > > > > > > > > > > > > > > sure.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > SIOV will for sure reuse most or all part=
+s
+> > > > > > > > > > > > > > > > > of this work, almost entirely
+> > > > > > > > > > > > as_is.
+> > > > > > > > > > > > > > > > > vPASID is cpu/platform specific things no=
+t
+> > > > > > > > > > > > > > > > > part of the SIOV
+> > > > > > > > devices.
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > > If at all it is done, it will be
+> > > > > > > > > > > > > > > > > > > > > done from the guest by the driver
+> > > > > > > > > > > > > > > > > > > > > using virtio
+> > > > > > > > > > > > > > > > > > > > interface.
+> > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > Then you need to trap. Such things
+> > > > > > > > > > > > > > > > > > > > couldn't be passed through to guest=
+s
+> > > > > > > > > > > > > > > > > > directly.
+> > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > Only PASID capability is trapped.
+> > > > > > > > > > > > > > > > > > > PASID allocation and usage is directl=
+y
+> > > > > > > > > > > > > > > > > > > from
+> > > > > > > > > > > > > > > > > > guest.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > How can you achieve this? Assigning a
+> > > > > > > > > > > > > > > > > > PAISD to a device is completely
+> > > > > > > > > > > > > > > > > > device(virtio) specific. How can you us=
+e
+> > > > > > > > > > > > > > > > > > a general layer without the knowledge o=
+f
+> > > > > > > > > > > > > > > > > > virtio to trap
+> > > > that?
+> > > > > > > > > > > > > > > > > When one wants to map vPASID to pPASID a
+> > > > > > > > > > > > > > > > > platform needs to be
+> > > > > > > > > > > > > > involved.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > I'm not talking about how to map vPASID to
+> > > > > > > > > > > > > > > > pPASID, it's out of the scope of virtio. I'=
+m
+> > > > > > > > > > > > > > > > talking about assigning a vPASID to a
+> > > > > > > > > > > > > > > > specific virtqueue or other virtio function
+> > > > > > > > > > > > > > > > in the
+> > > > > > > > guest.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > That can be done in the guest. The key is
+> > > > > > > > > > > > > > > guest wont know that it is dealing
+> > > > > > > > > > > > > > with vPASID.
+> > > > > > > > > > > > > > > It will follow the same principle from your
+> > > > > > > > > > > > > > > paper of equivalency, where virtio
+> > > > > > > > > > > > > > software layer will assign PASID to VQ and
+> > > > > > > > > > > > > > communicate to
+> > > > > > device.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Anyway, all of this just digression from curr=
+ent series.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > It's not, as you mention that only MSI-X is
+> > > > > > > > > > > > > > trapped, I give you another
+> > > > > > > > > > one.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > PASID access from the guest to be done fully by
+> > > > > > > > > > > > > the guest
+> > > > IOMMU.
+> > > > > > > > > > > > > Not by virtio devices.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > You need a virtio specific queue or
+> > > > > > > > > > > > > > > > capability to assign a PASID to a specific
+> > > > > > > > > > > > > > > > virtqueue, and that can't be done without
+> > > > > > > > > > > > > > > > trapping and without virito specific
+> > > > > > knowledge.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > I disagree. PASID assignment to a virqueue in
+> > > > > > > > > > > > > > > future from guest virtio driver to
+> > > > > > > > > > > > > > device is uniform method.
+> > > > > > > > > > > > > > > Whether its PF assigning PASID to VQ of self,
+> > > > > > > > > > > > > > > Or VF driver in the guest assigning PASID to =
+VQ.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > All same.
+> > > > > > > > > > > > > > > Only IOMMU layer hypercalls will know how to
+> > > > > > > > > > > > > > > deal with PASID assignment at
+> > > > > > > > > > > > > > platform layer to setup the domain etc table.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > And this is way beyond our device migration d=
+iscussion.
+> > > > > > > > > > > > > > > By any means, if you were implying that
+> > > > > > > > > > > > > > > somehow vq to PASID assignment
+> > > > > > > > > > > > > > _may_ need trap+emulation, hence whole device
+> > > > > > > > > > > > > > migration to depend on some
+> > > > > > > > > > > > > > trap+emulation, than surely, than I do not agre=
+e to it.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > See above.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > Yeah, I disagree to such implying.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > PASID equivalent in mlx5 world is ODP_MR+PD
+> > > > > > > > > > > > > > > isolating the guest process and
+> > > > > > > > > > > > > > all of that just works on efficiency and
+> > > > > > > > > > > > > > equivalence principle already for a decade now
+> > > > > > > > > > > > > > without any
+> > > > trap+emulation.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > When virtio passthrough device is in
+> > > > > > > > > > > > > > > > > guest, it has all its PASID
+> > > > > > > > > > > > accessible.
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > All these is large deviation from current
+> > > > > > > > > > > > > > > > > discussion of this series, so I will keep
+> > > > > > > > > > > > > > > > it short.
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > Regardless it is not relevant to
+> > > > > > > > > > > > > > > > > > > passthrough mode as PASID is yet
+> > > > > > > > > > > > > > > > > > > another
+> > > > > > > > > > > > > > > > > > resource.
+> > > > > > > > > > > > > > > > > > > And for some cpu if it is trapped, it
+> > > > > > > > > > > > > > > > > > > is generic layer, that does not
+> > > > > > > > > > > > > > > > > > > require virtio
+> > > > > > > > > > > > > > > > > > involvement.
+> > > > > > > > > > > > > > > > > > > So virtio interface asking to trap
+> > > > > > > > > > > > > > > > > > > something because generic facility ha=
+s
+> > > > > > > > > > > > > > > > > > > done
+> > > > > > > > > > > > > > > > > > in not the approach.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > This misses the point of PASID. How to
+> > > > > > > > > > > > > > > > > > use PASID is totally device
+> > > > > > > > > > > > > > specific.
+> > > > > > > > > > > > > > > > > Sure, and how to virtualize vPASID/pPASID
+> > > > > > > > > > > > > > > > > is platform specific as single PASID
+> > > > > > > > > > > > > > > > can be used by multiple devices and process=
+.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > See above, I think we're talking about diff=
+erent things.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > > Capabilities of #2 is generic
+> > > > > > > > > > > > > > > > > > > > > across all pci devices, so it wil=
+l
+> > > > > > > > > > > > > > > > > > > > > be handled by the
+> > > > > > > > > > > > > > > > > > > > HV.
+> > > > > > > > > > > > > > > > > > > > > ATS/PRI cap is also generic manne=
+r
+> > > > > > > > > > > > > > > > > > > > > handled by the HV and PCI
+> > > > > > > > > > > > > > device.
+> > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > No, ATS/PRI requires the cooperatio=
+n
+> > > > > > > > > > > > > > > > > > > > from the
+> > > > > > vIOMMU.
+> > > > > > > > > > > > > > > > > > > > You can simply do ATS/PRI
+> > > > > > > > > > > > > > > > > > > > passthrough but with an emulated
+> > > > > > > > > > > > vIOMMU.
+> > > > > > > > > > > > > > > > > > > And that is not the reason for virtio
+> > > > > > > > > > > > > > > > > > > device to build
+> > > > > > > > > > > > > > > > > > > trap+emulation for
+> > > > > > > > > > > > > > > > > > passthrough member devices.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > vIOMMU is emulated by hypervisor with a
+> > > > > > > > > > > > > > > > > > PRI queue,
+> > > > > > > > > > > > > > > > > PRI requests arrive on the PF for the VF.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > Shouldn't it arrive at platform IOMMU first=
+?
+> > > > > > > > > > > > > > > > The path should be PRI
+> > > > > > > > > > > > > > > > -> RC -> IOMMU -> host -> Hypervisor ->
+> > > > > > > > > > > > > > > > -> vIOMMU PRI
+> > > > > > > > > > > > > > > > -> -> guest
+> > > > > > > > > > IOMMU.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Above sequence seems write.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > And things will be more complicated when
+> > > > > > > > > > > > > > > > (v)PASID is
+> > > > used.
+> > > > > > > > > > > > > > > > So you can't simply let PRI go directly to
+> > > > > > > > > > > > > > > > the guest with the current
+> > > > > > > > > > > > architecture.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > In current architecture of the pci VF, PRI
+> > > > > > > > > > > > > > > does not go directly to the
+> > > > > > > > > > guest.
+> > > > > > > > > > > > > > > (and that is not reason to trap and emulate o=
+ther things).
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > Ok, so beyond MSI-X we need to trap PRI, and we
+> > > > > > > > > > > > > > will probably trap other things in the future
+> > > > > > > > > > > > > > like PASID
+> > > > assignment.
+> > > > > > > > > > > > > PRI etc all belong to generic PCI 4K config space=
+ region.
+> > > > > > > > > > > >
+> > > > > > > > > > > > It's not about the capability, it's about the whole
+> > > > > > > > > > > > process of PRI request handling. We've agreed that
+> > > > > > > > > > > > the PRI request needs to be trapped by the
+> > > > > > > > > > > > hypervisor and then delivered to the
+> > > > > > vIOMMU.
+> > > > > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > > > Trap+emulation done in generic manner without
+> > > > > > > > > > > > > Trap+involving virtio or other
+> > > > > > > > > > > > device types.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > how can you pass through a hardware PRI
+> > > > > > > > > > > > > > > > > > request to a guest directly without
+> > > > > > > > > > > > > > > > > > trapping it
+> > > > > > > > > > > > > > then?
+> > > > > > > > > > > > > > > > > > What's more, PCIE allows the PRI to be
+> > > > > > > > > > > > > > > > > > done in a vendor
+> > > > > > > > > > > > > > > > > > (virtio) specific way, so you want to b=
+reak this rule?
+> > > > > > > > > > > > > > > > > > Or you want to blacklist ATS/PRI
+> > > > > > > > > > > > > > > > for virtio?
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > I was aware of only pci-sig way of PRI.
+> > > > > > > > > > > > > > > > > Do you have a reference to the ECN that
+> > > > > > > > > > > > > > > > > enables vendor specific way of PRI? I
+> > > > > > > > > > > > > > > > would like to read it.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > I mean it doesn't forbid us to build a
+> > > > > > > > > > > > > > > > virtio specific interface for I/O page faul=
+t report and
+> > recovery.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > So PRI of PCI does not allow. It is ODP kind
+> > > > > > > > > > > > > > > of technique you meant
+> > > > > > > > > > above.
+> > > > > > > > > > > > > > > Yes one can build.
+> > > > > > > > > > > > > > > Ok. unrelated to device migration, so I will
+> > > > > > > > > > > > > > > park this good discussion for
+> > > > > > > > > > > > later.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > That's fine.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > This will be very good to eliminate IOMMU
+> > > > > > > > > > > > > > > > > PRI
+> > > > limitations.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > Probably.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > PRI will directly go to the guest driver,
+> > > > > > > > > > > > > > > > > and guest would interact with IOMMU
+> > > > > > > > > > > > > > > > to service the paging request through IOMMU=
+ APIs.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > With PASID, it can't go directly.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > When the request consist of PASID in it, it c=
+an.
+> > > > > > > > > > > > > > > But again these PCI-SIG extensions of PASID
+> > > > > > > > > > > > > > > are not related to device
+> > > > > > > > > > > > > > migration, so I am differing it.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > For PRI in vendor specific way needs a
+> > > > > > > > > > > > > > > > > separate discussion. It is not related to
+> > > > > > > > > > > > > > > > live migration.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > PRI itself is not related. But the point is=
+,
+> > > > > > > > > > > > > > > > you can't simply pass through ATS/PRI now.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Ah ok. the whole 4K PCI config space where
+> > > > > > > > > > > > > > > ATS/PRI capabilities are located
+> > > > > > > > > > > > > > are trapped+emulated by hypervisor.
+> > > > > > > > > > > > > > > So?
+> > > > > > > > > > > > > > > So do we start emulating virito interfaces to=
+o
+> > > > > > > > > > > > > > > for
+> > > > passthrough?
+> > > > > > > > > > > > > > > No.
+> > > > > > > > > > > > > > > Can one still continue to trap+emulate?
+> > > > > > > > > > > > > > > Sure why not?
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > Then let's not limit your proposal to be used b=
+y
+> > "passthrough"
+> > > > > > only?
+> > > > > > > > > > > > > One can possibly build some variant of the
+> > > > > > > > > > > > > existing virtio member device
+> > > > > > > > > > > > using same owner and member scheme.
+> > > > > > > > > > > >
+> > > > > > > > > > > > It's not about the member/owner, it's about e.g
+> > > > > > > > > > > > whether the hypervisor can trap and emulate.
+> > > > > > > > > > > >
+> > > > > > > > > > > > I've pointed out that what you invent here is
+> > > > > > > > > > > > actually a partial new transport, for example, a
+> > > > > > > > > > > > hypervisor can trap and use things like device
+> > > > > > > > > > > > context in PF to bypass the registers in VF. This i=
+s
+> > > > > > > > > > > > the idea of
+> > > > > > > > > > transport commands/q.
+> > > > > > > > > > > >
+> > > > > > > > > > > I will not mix transport commands which are mainly
+> > > > > > > > > > > useful for actual device
+> > > > > > > > > > operation for SIOV only for backward compatibility that
+> > > > > > > > > > too
+> > > > optionally.
+> > > > > > > > > > > One may still choose to have virtio common and device
+> > > > > > > > > > > config in MMIO
+> > > > > > > > > > ofcourse at lower scale.
+> > > > > > > > > > >
+> > > > > > > > > > > Anyway, mixing migration context with actual SIOV
+> > > > > > > > > > > specific thing is not correct
+> > > > > > > > > > as device context is read/write incremental values.
 > > > > > > > > > >
-> > > > > > > > > > You will end up with a competition with the
-> > > > > > > > > > platform/transport one that will fail.
+> > > > > > > > > > SIOV is transport level stuff, the transport virtqueue
+> > > > > > > > > > is designed in a way that is general enough to cover it=
+.
+> > > > > > > > > > Let's not shift
+> > > > > > concepts.
 > > > > > > > > > >
-> > > > > > > > > I don=E2=80=99t see a reason. There is no competition.
-> > > > > > > > > Platform always have a choice to not use device side page
-> > > > > > > > > tracking when it is
-> > > > > > > > supported.
+> > > > > > > > > Such TVQ is only for backward compatible vPCI composition=
+.
+> > > > > > > > > For ground up work such TVQ must not be done through the
+> > > > > > > > > owner
+> > > > > > device.
 > > > > > > > >
-> > > > > > > > Platform provides a lot of other functionalities for dirty =
-logging:
-> > > > > > > > e.g per PASID, granular, etc. So you want to duplicate them
-> > > > > > > > again in the virtio? If not, why choose this way?
+> > > > > > > > That's the idea actually.
 > > > > > > > >
-> > > > > > > It is optional for the platforms where platform do not have i=
-t.
+> > > > > > > > > Each SIOV device to have its own channel to communicate
+> > > > > > > > > directly to the
+> > > > > > > > device.
+> > > > > > > > >
+> > > > > > > > > > One thing that you ignore is that, hypervisor can use
+> > > > > > > > > > what you invented as a transport for VF, no?
+> > > > > > > > > >
+> > > > > > > > > No. by design,
+> > > > > > > >
+> > > > > > > > It works like hypervisor traps the virito config and
+> > > > > > > > forwards it to admin virtqueue and starts the device via de=
+vice
+> > context.
+> > > > > > > It needs more granular support than the management framework
+> > > > > > > of device
+> > > > > > context.
 > > > > > >
-> > > > > > We are developing new virtio functionalities that are targeted
-> > > > > > for future platforms. Otherwise we would end up with a feature
-> > > > > > with a very narrow use case.
-> > > > > In general I agree that platform is an option too.
-> > > > > Hypervisor will be able to make the decision to use platform when
-> > > > > available
-> > > > and fallback to device method when platform does not have it.
-> > > > >
-> > > > > Future and to be equally usable in near term :)
+> > > > > > It doesn't otherwise it is a design defect as you can't recover
+> > > > > > the device context in the destination.
+> > > > > >
+> > > > > > Let me give you an example:
+> > > > > >
+> > > > > > 1) in the case of live migration, dst receive migration byte
+> > > > > > flows and convert them into device context
+> > > > > > 2) in the case of transporting, hypervisor traps virtio config
+> > > > > > and convert them into the device context
+> > > > > >
+> > > > > > I don't see anything different in this case. Or can you give me=
+ an
+> > example?
+> > > > > In #1 dst received byte flows one or multiple times.
 > > > >
-> > > > Please don't double standard again:
+> > > > How can this be different?
 > > > >
-> > > > When you are talking about TDISP, you want virtio to be designed to
-> > > > fit for the future where the platform is ready in the future When
-> > > > you are talking about dirty tracking, you want it to work now even
-> > > > if
+> > > > Transport can also receive initial state incrementally.
 > > > >
-> > > The proposal of transport VQ is anti-TDISP.
+> > > Transport is just simple register RW interface without any caching la=
+yer in-
+> > between.
+> > > More below.
+> > > > > And byte flows can be large.
+> > > >
+> > > > So when doing transport, it is not that large, that's it. If it can
+> > > > work with large byte flow, why can't it work for small?
+> > > Write context can as used (abused) for different purpose.
+> > > Read cannot because it is meant to be incremental.
 > >
-> > It's nothing about transport VQ, it's about you're saying the adminq ba=
-sed
-> > device context. There's a comment to point out that the current TDISP s=
-pec
-> > forbids modifying device state when TVM is attached. Then you told us t=
-he
-> > TDISP may evolve for that.
-> So? That is not double standard.
-> The proposal is based on main principle that it is not depending on hyper=
-visor traping + emulating which is the baseline of TDISP
+> > Well hypervisor can just cache what it reads since the last, what's wro=
+ng with it?
+> >
+> But hypervisor does not know what changed, so it does do guess work to fi=
+nd out what to query.
 >
+> > > One can invent a cheap command to read it.
 > >
-> > > The proposal of dirty tracking is not anti-platform. It is optional l=
-ike rest of the
-> > platform.
+> > For sure, but it's not the context here.
+> >
+> It is.
 > > >
-> > > > 1) most of the platform is ready now
-> > > Can you list a ARM server CPU in production that has it? (not in some=
- pdf
-> > spec).
+> > >
+> > > >
+> > > > > So it does not always contain everything. It only contains the ne=
+w
+> > > > > delta of the
+> > > > device context.
+> > > >
+> > > > Isn't it just how current PCI transport does?
+> > > >
+> > > No. PCI transport has explicit API between device and driver to read =
+or write
+> > at specific offset and value.
 > >
-> > Then in the context of a dirty page, I've proved you dirty page trackin=
-g has been
-> > supported by all major vendors.
-> Major IP vendor !=3D major cpu chip vendor.
-> I don=E2=80=99t agree with the proof.
-
-So this will be an endless debate. Did I ever ask you about ETA or any
-product for TDISP?
-
->
-> I already acknowledged that I have seen internal test report for dirty tr=
-acking with one cpu and nic.
->
-> I just don=E2=80=99t see all cpus have support for it.
-> Hence, this optional feature.
-
-Repeat myself again.
-
-If it can be done easily and efficiently in virtio, I agree. But I've
-pointed out several issues where it is not answered.
-
->
-> > Where you refuse to use the standard you used
-> > in explaining adminq for device context in TDISP.
+> > The point is that they are functional equivalents.
 > >
-> > So I didn't ask you the ETA of the TDISP support for migration or admin=
-q, but
-> > you want me to give you the production information which is pointless.
-> Because you keep claiming that _all_ cpus in the world has support for ef=
-ficient dirty page tracking.
+> I disagree.
+> There are two different functionalities.
 >
-> > You
-> > might need to ask ARM to get an answer, but a simple google told me the=
- effort
-> > to support dirty page tracking in SMMUv3 could go back to early 2021.
+> Functionality_1: explicit ask for read or write
+> Functionality_2: read what has changed
+
+This needs to be justified. I won't repeat the questions again here.
+
+>
+> Should one merge 1 and 2 and complicate the command?
+> I prefer not to.
+
+Again there're functional duplications. E.g your command duplicates
+common_cfg for sure.
+
+>
+> Now having two different commands help for debugging to differentiate bet=
+ween mgmt. commands and guest initiated commands. :)
+>
+> > >
+> > > > Guest configure the following one by one:
+> > > >
+> > > > 1) vq size
+> > > > 2) vq addresses
+> > > > 3) MSI-X
+> > > >
+> > > > etc?
+> > > >
+> > > I think you interpreted "incremental" differently than I described.
+> > > In the device context read, the incremental is:
+> > >
+> > > If the hypervisor driver has read the device context twice, the secon=
+d read
+> > won't return any new data if nothing changed.
 > >
-> To my knowledge ARM do not produce physical chips.
-> Your proposal is to keep those ARM server vendors to not use virtio devic=
-es.
+> > See above.
+> >
+> Yeah, two separate commands needed.
+>
+> > > For example, if RSS configuration didn=E2=80=99t change between two r=
+eads, the
+> > second read wont return the TLV for RSS Context.
+> > >
+> > > While for transport the need is, when guest asked, one device must re=
+ad it
+> > regardless of the change.
+> > >
+> > > So notion of incremental is not by address, but by the value.
+> > >
+> > > > > For example, VQ configuration is exchanged once between src and d=
+st.
+> > > > > But VQ avail and used index may be updated multiple times.
+> > > >
+> > > > If it can work with multiple times of updating, why can't it work i=
+f
+> > > > we just update it once?
+> > > Functionally it can work.
+> >
+> > I think you answer yourself.
+> >
+> Yes, I don=E2=80=99t like abuse of command.
 
-This arbitrary conclusion makes no sense.
+How did you define abuse or can spec ever need to define that?
 
-I know at least one cloud vendor has used a virtio based device for
-years on ARM. And that vendor has posted patches to support dirty page
-tracking since 2020.
+>
+> > > Performance wise, one does not want to update multiple times, unless =
+there
+> > is a change.
+> > >
+> > > Read as explained above is not meant to return same content again.
+> > >
+> > > >
+> > > > > So here hypervisor do not want to read any specific set of fields
+> > > > > and
+> > > > hypervisor is not parsing them either.
+> > > > > It is just a byte stream for it.
+> > > >
+> > > > Firstly, spec must define the device context format, so hypervisor
+> > > > can understand which byte is what otherwise you can't maintain
+> > > > migration compatibility.
+> > > Device context is defined already in the latest version.
+> > >
+> > > > Secondly, you can't mandate how the hypervisor is written.
+> > > >
+> > > > >
+> > > > > As opposed to that, in case of transport, the guest explicitly
+> > > > > asks to read or
+> > > > write specific bytes.
+> > > > > Therefore, it is not incremental.
+> > > >
+> > > > I'm totally lost. Which part of the transport is not incremental?
+> > > >
+> > > > >
+> > > > > Additionally, if hypervisor has put the trap on virtio config, an=
+d
+> > > > > because the memory device already has the interface for virtio
+> > > > > config,
+> > > > >
+> > > > > Hypervisor can directly write/read from the virtual config to the
+> > > > > member's
+> > > > config space, without going through the device context, right?
+> > > >
+> > > > If it can do it or it can choose to not. I don't see how it is
+> > > > related to the discussion here.
+> > > >
+> > > It is. I don=E2=80=99t see a point of hypervisor not using the native=
+ interface provided
+> > by the member device.
+> >
+> > It really depends on the case, and I see how it duplicates with the fun=
+ctionality
+> > that is provided by both:
+> >
+> > 1) The existing PCI transport
+> >
+> > or
+> >
+> > 2) The transport virtqueue
+> >
+> I would like to conclude that we disagree in our approaches.
+> PCI transport is for member device to directly communicate from guest dri=
+ver to the device.
+> This is uniform across PF, VFs, SIOV.
+
+For "PCi transport" did you mean the one defined in spec? If yes, how
+can it work with SIOV with what you're saying here (a direct
+communication channel)?
+
+>
+> Admin commands are transport independent and their task is device migrati=
+on.
+> One is not replacing the other.
+>
+> Transport virtqueue will never transport driver notifications, hence it d=
+oes not qualify at "transport".
+
+Another double standard.
+
+MMIO will never transport device notification, hence it does not
+qualify as "transport"?
+
+>
+> For the vdpa case, there is no need for extra admin commands as the media=
+tion layer can directly use the interface available from the member device =
+itself.
+>
+> You continue to want to overload admin commands for dual purpose, does no=
+t make sense to me.
+>
+> > >
+> > >  > >
+> > > > > >
+> > > > > > >
+> > > > > > > >
+> > > > > > > > > it is not good idea to overload management commands with
+> > > > > > > > > actual run time
+> > > > > > > > guest commands.
+> > > > > > > > > The device context read writes are largely for incrementa=
+l updates.
+> > > > > > > >
+> > > > > > > > It doesn't matter if it is incremental or not but
+> > > > > > > >
+> > > > > > > It does because you want different functionality only for
+> > > > > > > purpose of backward
+> > > > > > compatibility.
+> > > > > > > That also if the device does not offer them as portion of MMI=
+O BAR.
+> > > > > >
+> > > > > > I don't see how it is related to the "incremental part".
+> > > > > >
+> > > > > > >
+> > > > > > > > 1) the function is there
+> > > > > > > > 2) hypervisor can use that function if they want and virtio
+> > > > > > > > (spec) can't forbid that
+> > > > > > > >
+> > > > > > > It is not about forbidding or supporting.
+> > > > > > > Its about what functionality to use for management plane and
+> > > > > > > guest
+> > > > plane.
+> > > > > > > Both have different needs.
+> > > > > >
+> > > > > > People can have different views, there's nothing we can prevent
+> > > > > > a hypervisor from using it as a transport as far as I can see.
+> > > > > For device context write command, it can be used (or probably
+> > > > > abused) to do
+> > > > write but I fail to see why to use it.
+> > > >
+> > > > The function is there, you can't prevent people from doing that.
+> > > >
+> > > One can always mess up itself. :)
+> > > It is not prevented. It is just not right way to use the interface.
+> > >
+> > > > > Because member device already has the interface to do config
+> > > > > read/write and
+> > > > it is accessible to the hypervisor.
+> > > >
+> > > > Well, it looks self-contradictory again. Are you saying another set
+> > > > of commands that is similar to device context is needed for non-PCI
+> > transport?
+> > > >
+> > > All these non pci transport discussion is just meaning less.
+> > > Let MMIO bring the concept of member device at that point something m=
+ake
+> > sense to discuss.
+> >
+> > It's not necessarily MMIO. For example the SIOV, which I don't think ca=
+n use the
+> > existing PCI transport.
+> >
+> > > PCI SIOV is also the PCI device at the end.
+> >
+> > We don't want to end up with two sets of commands to save/load SRIOV an=
+d
+> > SIOV at least.
+> >
+> This proposal ensures that SRIOV and SIOV devices are treated equally.
+
+How? Did you mean your proposal can work for SIOV? What's the transport the=
+n?
+
+> How brand new non-compatible SIOV device to transport this, is outside of=
+ the scope of this work.
+
+You invented one that can be used for doing this. If you disagree, how
+can we know your proposal can work for SIOV without a transport then?
 
 Thanks
 
-> Does not make sense to me.
->
-> > https://lore.kernel.org/linux-iommu/56b001fa-b4fe-c595-dc5e-
-> > f362d2f07a19@linux.intel.com/t/
-> >
-> > Why is it not merged? It's simply because we agree to do it in the laye=
-r of
-> > IOMMUFD so it needs to wait.
-> >
-> > Thanks
-> >
-> >
-> > >
-> > > > 2) whether or not virtio can log dirty page correctly is still
-> > > > suspicious
-> > > >
-> > > > Thanks
-> > >
-> > > There is no double standard. The feature is optional which co-exists =
-as
-> > explained above.
->
 
 
 This publicly archived list offers a means to provide input to the=0D
