@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8508-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8509-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2218C61D85
-	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 21:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5100DC61D85
+	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 21:18:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 283532AEE4
-	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 21:00:44 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8A1842AEE4
+	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 21:18:42 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 0928998689C
-	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 21:00:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 676E398689F
+	for <virtio-comment@archiver.kernel.org>; Tue, 21 Nov 2023 21:18:42 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E62D0983CFD; Tue, 21 Nov 2023 21:00:43 +0000 (UTC)
+	id 4C49E983CFD; Tue, 21 Nov 2023 21:18:42 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,71 +24,74 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D2F8F986890
-	for <virtio-comment@lists.oasis-open.org>; Tue, 21 Nov 2023 21:00:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3ED37986890
+	for <virtio-comment@lists.oasis-open.org>; Tue, 21 Nov 2023 21:18:42 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: efnJDQSdPX2-hFpbxgbZIg-1
+X-MC-Unique: TzwxubOZOpeJKDMK4FEnKA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700600439; x=1701205239;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0di8ZNYiKWXVuJgS3XtE6wLqmM/UCK2Cop20UdINtWw=;
-        b=WE7w6ihcPAjRcI/RYkLLBg9A5YhVGspXxJjtF56qnW0SpuU9MCaJYJhtBqIXry8nTx
-         kuZjkkwgbh1v+yYGkJ/7kBLPHnPZoeBF7EEsDXLVLrDxT3hfSP80mza/aPYpOoGfTJ5a
-         /d6XRraNV7wcvMWeGMrsbKIFmE1e8c4naUuduyzOd45jNovdH9I8LIcfno54bY9DgUjx
-         GUvy4YxMqO2fuCkaKQOkQkVLSfsKSSaN/nX0AxTW9DDA+twpqYf71IqyZT4yJ7IyF7+k
-         tZP5vDw248VlLQwylRxpzaUBjtUqOJ3mA4SRIWxcyJAAXQr6/v0Thw+0vID66W8ABb3n
-         vm/Q==
-X-Gm-Message-State: AOJu0YxnKZtRiz0lWGso+JWfURNY2GFAlmGwj4isVF01af4xyhgonNad
-	rP5o1/SHlmGLOI8S7miaWVaqLKSpB381WjHnJ1EE9Q7Ore6GDNXXNHO2IVlvaV96CtiFW/fWRBS
-	hXXk5TxGWALXdetsF/RsPQgunBY23YKzKzA==
-X-Received: by 2002:a50:9fa2:0:b0:53e:30dc:ef59 with SMTP id c31-20020a509fa2000000b0053e30dcef59mr482572edf.10.1700600439160;
-        Tue, 21 Nov 2023 13:00:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGwpvMEWX47ncIhBtEbj+j0d5dFP7KXWVjYwYcCXJ1sJG7kN1UT50YIaXBoeLqJVjGyrs06Jg==
-X-Received: by 2002:a50:9fa2:0:b0:53e:30dc:ef59 with SMTP id c31-20020a509fa2000000b0053e30dcef59mr482557edf.10.1700600438773;
-        Tue, 21 Nov 2023 13:00:38 -0800 (PST)
-Date: Tue, 21 Nov 2023 16:00:32 -0500
+        d=1e100.net; s=20230601; t=1700601485; x=1701206285;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=y5gwAsRwvh/D4+v2Xs1/eg2B6G7Q1kyEg70edImpw4A=;
+        b=i883FyXG/kkbCrUBM+7N+4inWcjrEFEgVevQBtUcibSh4NQ5CrOBWqGW2Ah76si0S2
+         XFaFb8ax7FYSxlxIWGUVbIQIra0Np0pb2D5zcHUHOjtvlK/5Qx9HI9QY5gAIOMWGqt0/
+         u9BzcgmeHxO4fK9eHbekJbWVZ3i+dAdI3EUHpSuhna4KLDjxse6roTnEjOYSOkIVtdeo
+         b3noPlMBUdjNYSXnOP0xi6YT27AXR8p80UtgBy4AmzWWDU2yZy9iDUbGhDPuOzD4Fy9y
+         k6GrLrIS+93lVA4dxbV+UoPaIGXTm3dgjjBoMTkhOxHEdWnR51jzSB42K0q38ZT+ZcSW
+         py1w==
+X-Gm-Message-State: AOJu0YyE/GY6S2tQTU9OmRoprMcB8gvTaVr3Pqi5mRFokFIsoSadHlwh
+	EBHrZ/p2ENGe8JxafXbB23WcunmRgYszWCU8UBOqo0b9btlmc8U8OPlckb+oNOWaLwiPUFu4syw
+	tPdqL2btthDzMJ5sIYls+LjPsiUEJdfHpCg==
+X-Received: by 2002:a17:906:b212:b0:9be:e90:5016 with SMTP id p18-20020a170906b21200b009be0e905016mr97736ejz.24.1700601484784;
+        Tue, 21 Nov 2023 13:18:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFd14hidU+zqY7KyQtRZySonqE+TQmLAYcrNNnE+pjPgvi9qzvlopQcCQ7T+lMEtlqhd2Uguw==
+X-Received: by 2002:a17:906:b212:b0:9be:e90:5016 with SMTP id p18-20020a170906b21200b009be0e905016mr97729ejz.24.1700601484425;
+        Tue, 21 Nov 2023 13:18:04 -0800 (PST)
+Date: Tue, 21 Nov 2023 16:18:00 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+To: Jason Wang <jasowang@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
+	"eperezma@redhat.com" <eperezma@redhat.com>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
-	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
-Message-ID: <20231121155805-mutt-send-email-mst@kernel.org>
-References: <20231117044428-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481E8342B26739B852B592FDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117053117-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481632B9E440DDCBEEA7B75DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117062003-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548133582D377B3FE4BB9F6CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117073917-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481CD9329189829A8A6B6D1DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtEEj8jXeE7JHyFk6UkBkEP5vpYzXPHHSGpSjDKQivJAg@mail.gmail.com>
- <PH0PR12MB5481036FE38E03DDFAE1D13CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+	"stefanha@redhat.com" <stefanha@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Message-ID: <20231121161218-mutt-send-email-mst@kernel.org>
+References: <20231106044836-mutt-send-email-mst@kernel.org>
+ <c6cb6e6b-fd2b-43ac-9be5-c4a8cda1ac13@intel.com>
+ <20231108124625-mutt-send-email-mst@kernel.org>
+ <b125da70-a769-4662-876b-43664e39c976@intel.com>
+ <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEvLYgnLtSqx_G=-KMuANEZ=xtAzJjV3pYqAZhA0qqW0sQ@mail.gmail.com>
+ <PH0PR12MB54819A6E470D3ABE4BC1F450DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtxm8M5vKfOPOAS347JAJNeRDyPe+nif1LszuRWS0vShQ@mail.gmail.com>
+ <PH0PR12MB54810EF71D0BF925F4F81A65DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtsMi9+MgDb=tTH=LrkReb3aZdB4wv-MJkxLmLhNmTDAg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481036FE38E03DDFAE1D13CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <CACGkMEtsMi9+MgDb=tTH=LrkReb3aZdB4wv-MJkxLmLhNmTDAg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
- operation for write recording commands
+Subject: Re: [virtio-comment] RE: [PATCH V2 3/6] virtio: dont reset vqs when
+ SUSPEND
 
-On Tue, Nov 21, 2023 at 04:29:36PM +0000, Parav Pandit wrote:
-> Basic test with iperf is not working. Crashing it.
-> All of this is complete unrelated discussion to this series to slow down the work.
-> I don’t see any value.
-> Michael asked to do the test, we did, it does not work. Functionally broken code has no comparison.
+On Tue, Nov 21, 2023 at 03:33:07PM +0800, Jason Wang wrote:
+> > Lingshan claimed that suspending device is for live migration in commit log and in discussion he portray it as some basic facility unrelated to device migration such as debug etc.
+> > Instead of claiming it as some non_device_migration facility does not make sense.
+> 
+> It is used for migration for sure.
 
-It's unfortunate it's unstable for you, if you could show perf
-comparison that would be a strong argument for your case. Reporting
-Linux/qemu failures to virtio TC is not going to help you though, wrong
-forum.
+Well having a generic facility to stop device sounds like a nice thing.
+However the devil is in the detail. A lot of detail here seems very much
+tailored to a very specific implementation in mind.
+So thinking through how it will work e.g. for power management
+would be a good excercise to figure out how it should work in detail.
+Parav did you indicate at some point a virtio specific SUSPEND
+bit can be useful for PM? Could you share how it's better than
+transport level PM and what the requirements are?
+Thanks!
 
 -- 
 MST
