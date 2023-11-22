@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8544-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8545-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 819E3C61D92
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:48:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302F4C61D9C
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 10:05:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D46B52AEE2
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6DEFB2AEEA
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 10:05:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B7FC09868A2
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2E42A9868A8
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 10:05:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A1FAC986894; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
+	id 1110A986895; Wed, 22 Nov 2023 10:05:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,79 +24,75 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 913F2986895
-	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 72974986896
+	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 10:04:11 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: W_jUEEvhOw20q2pSBsFpRQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700639316; x=1701244116;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AY6VUSuIhWPE057SJC/rJ0dKKEJGmgbx1tgL4/DVZiA=;
-        b=mKif9Ojg5dM1KjH5wLMCNm5yQn7IPEDIbngFAOp/QAL607eoMHnnqbF2wd7w/PKFbA
-         CFoBlOrMrtOeusKR6CYvBNutVYiRLH/baR+kwYGZvFiJPZh5tFOXLNgC+AB4lMmyATHh
-         SpwtEU560ufclbMyzhWgghhWDO551kgkqXkSNhklzFpCTdxKaV9pZybsdkZyQdyWAeIU
-         yZpasF1qrrbKmW9a9JzPzvoaOTCkwXGmBEozyTnLpHh+/+jTlxdoSyz0J99iyzgODOIO
-         8dY9N8Pq1vJ/gpc+/SO7wFlx+03+8GxvT25fDFVjtZaBHZDbxV5sDYTGcV87jaox00fl
-         LC2g==
-X-Gm-Message-State: AOJu0YyKfPYeDSNg0d5mro4RV06F7AZUQ/qxh1Ne1tsitO/J/3fsPL+b
-	u1B3Ngm5rS8SeAP1IVltZySngJ7DQHPMTvo2Bp/FwFQ9If+7zRjhnV/YNr4RqmPV7PnJcI7D75r
-	/BgAyLiu31vRnitHfSBTbE+W+YjrgCCrHPA==
-X-Received: by 2002:ac2:52ae:0:b0:509:493d:25a3 with SMTP id r14-20020ac252ae000000b00509493d25a3mr986844lfm.11.1700639316215;
-        Tue, 21 Nov 2023 23:48:36 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IERSYOn6U2fNpoJLmnFYRTTsWrCCjbbzxxby2laqW1waiqb+0U1XldbnFkwSvUXtRIWi5L3fQ==
-X-Received: by 2002:ac2:52ae:0:b0:509:493d:25a3 with SMTP id r14-20020ac252ae000000b00509493d25a3mr986834lfm.11.1700639315884;
-        Tue, 21 Nov 2023 23:48:35 -0800 (PST)
-Date: Wed, 22 Nov 2023 02:48:30 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>,
-	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
-Message-ID: <20231122024459-mutt-send-email-mst@kernel.org>
-References: <DM8PR12MB548085F25849CF1E055826E6DCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
- <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEt277yYUHf98dCkypS-PXzu7JrRSVBAQ2cCRg4XzCLPzw@mail.gmail.com>
- <PH0PR12MB5481DB04DEB1A540185ED1ECDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231116012208-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54811F4CE5686AE4BEA826C1DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvU2sqVXAeEUykia2M-6rP1_nMemPH8eNZTEoHR0wUfog@mail.gmail.com>
- <PH0PR12MB5481FEDBA21656E29452AC78DCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEudhoDfY2ZcuA3J0ww=9Pm7qcMRasvZ8CvBeGVL9SPMDw@mail.gmail.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="478231322"
+X-IronPort-AV: E=Sophos;i="6.04,218,1695711600"; 
+   d="scan'208";a="478231322"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="1014184346"
+X-IronPort-AV: E=Sophos;i="6.04,218,1695711600"; 
+   d="scan'208";a="1014184346"
+Message-ID: <1563eeea-9c8e-45d4-938d-048226f5b2d5@intel.com>
+Date: Wed, 22 Nov 2023 18:03:57 +0800
 MIME-Version: 1.0
-In-Reply-To: <CACGkMEudhoDfY2ZcuA3J0ww=9Pm7qcMRasvZ8CvBeGVL9SPMDw@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ "eperezma@redhat.com" <eperezma@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "stefanha@redhat.com" <stefanha@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+References: <20231108124625-mutt-send-email-mst@kernel.org>
+ <b125da70-a769-4662-876b-43664e39c976@intel.com>
+ <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEvLYgnLtSqx_G=-KMuANEZ=xtAzJjV3pYqAZhA0qqW0sQ@mail.gmail.com>
+ <PH0PR12MB54819A6E470D3ABE4BC1F450DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtxm8M5vKfOPOAS347JAJNeRDyPe+nif1LszuRWS0vShQ@mail.gmail.com>
+ <PH0PR12MB54810EF71D0BF925F4F81A65DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtsMi9+MgDb=tTH=LrkReb3aZdB4wv-MJkxLmLhNmTDAg@mail.gmail.com>
+ <20231121161218-mutt-send-email-mst@kernel.org>
+ <7e440ddc-1765-406c-80b4-6a486ec2a232@intel.com>
+ <20231122013133-mutt-send-email-mst@kernel.org>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <20231122013133-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [virtio-comment] RE: [PATCH V2 3/6] virtio: dont reset vqs when
+ SUSPEND
 
-On Wed, Nov 22, 2023 at 12:13:34PM +0800, Jason Wang wrote:
-> > > What's wrong if we just allow them to be R/W over adminq/cmmands?
-> > >
-> > As explained before,
-> > Each guest has its own dedicated non mediated interface as defined in virtio spec to not involve hypervisor.
-> 
-> So what's wrong with inventing per VF queue to do that? For example
-> transport virtqueue.
 
-Nothing is wrong with this.
 
-But what is problematic is just re-using config space for migration because
-it means we can not just say "don't access device after it is stopped"
-because yes you need to access it to save/restore state.
-And a new interface over admin cmds just for this side-steps the
-issue nicely.
+On 11/22/2023 2:49 PM, Michael S. Tsirkin wrote:
+> On Wed, Nov 22, 2023 at 09:51:45AM +0800, Zhu, Lingshan wrote:
+>>
+>> On 11/22/2023 5:18 AM, Michael S. Tsirkin wrote:
+>>> On Tue, Nov 21, 2023 at 03:33:07PM +0800, Jason Wang wrote:
+>>>>> Lingshan claimed that suspending device is for live migration in commit log and in discussion he portray it as some basic facility unrelated to device migration such as debug etc.
+>>>>> Instead of claiming it as some non_device_migration facility does not make sense.
+>>>> It is used for migration for sure.
+>>> Well having a generic facility to stop device sounds like a nice thing.
+>>> However the devil is in the detail. A lot of detail here seems very much
+>>> tailored to a very specific implementation in mind.
+>>> So thinking through how it will work e.g. for power management
+>>> would be a good excercise to figure out how it should work in detail.
+>>> Parav did you indicate at some point a virtio specific SUSPEND
+>>> bit can be useful for PM? Could you share how it's better than
+>>> transport level PM and what the requirements are?
+>>> Thanks!
+>> Do you mean letting the device enter a new power state when SUSPEND,
+>> and such description in transport-pci.tex? Then resume normal
+>> state on DRIVER_OK.
+> That would be one example.
+OK, I will look into this.
+Roughly say in transport-pci.tex: When SUSPEND, the device MAY 
+optionally enter a
+power-saving state.
 
--- 
-MST
+Please allow me some time working on the details
+>
 
 
 This publicly archived list offers a means to provide input to the
