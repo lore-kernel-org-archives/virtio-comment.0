@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8514-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8515-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC0CC61D92
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 03:46:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F31B3C072A2
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:11:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C37312AEDE
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 03:46:44 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4342F26A35
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:11:43 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A42B398689F
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 03:46:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 22A639868A3
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:11:43 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8628B98413A; Wed, 22 Nov 2023 03:46:44 +0000 (UTC)
+	id 05C55986893; Wed, 22 Nov 2023 04:11:43 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,131 +24,292 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6DFD6986892
-	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 03:46:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E9A96986894
+	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 04:11:42 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GFZcT5toHCnyDJcliZYnADOU1D+WcrcYRN+KxDtPeHFxsT9Z+YKj1NJcxH+91DlowMFeqZ3otQX4/uv3bjbuT06pTzJIKK1AwjdgJBblG0dB4pxDOY2kLgNatEp7mGCV6D6MnDtTv4T+0ZOxoSx5nTZfdGSS/hZGLLA5adp3DD6JnAVZW1KjFalto4PGpaQC0TsVX3oP8ZFEh37d95s2X9gxKbWLhpzYOLYjz1VfPEKiEM/dvtT9In1YT9mbfO7JpoYQ6l1jVGOd5EMPfrLwq0iJhwawNenD1fwNb3/zWuiNyZH+G40GmANpk3DOYhj0WV5igFgW9fM9OmIvMOMDPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HIfjpESWFMd8vdm0Ak9Fi7e247lyafxGsDpU16UUiSs=;
- b=i9jQrPViZEHPwIbNzhlAGzJ5ApngiEWjimfNmoi0qQZvuTdOw6uZGbrv/LyfYIBXeuvTSkjbNSz9z4gg+Nrt43iWQ53XkZ+wVYhvR2ZtO6auhQ89esZU71O6oRds0RwRgHZBwbgtVWxRHlvNfvqzdQv7Lqu/lKeoCKcO3IlpP89I5Pdpi25W5syj4nwgNe+PdWY/eIp6sJL39aHSeWoTXAFmVTQWKAfoWx/3U2di/Q5L3/oqLWex5N92IAC28XdPZONwTaWj6jz/hHlb0GNJk5yHgO00zreGBonGifrI2PeR9Rncov9QvE0kX0Hh6eKWK5FH6JPcZn6EXJlxP8i7og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
-	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
-	<shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas
-	<yishaih@nvidia.com>, "lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
-Thread-Topic: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
- operation for write recording commands
-Thread-Index:
- AQHaCzPonHREgkZknEiTjfT1JtA3fLBjIMmAgAAcy4CAAWD+gIAAKSfAgAGqygCAABTkAIAGWMEAgAADI2CAAWVPgIACFpEAgAdP4YCAA//WQIAAxB+AgAAJgRCAAA8CgIAAHSmAgAAA6/CAAEWagIAATXNQgAAQ3wCAAAB/YIAADsiAgACQwGCAAGEbgIAAB4aggAAG2gCAAABcQIAAA3mAgAAAL+CAAAy2AIAAAzkwgAAMKgCAAA13IIAABX6AgAACmVCABcrCgIAApljQgABhVACAAHDekA==
-Date: Wed, 22 Nov 2023 03:46:41 +0000
-Message-ID:
- <PH0PR12MB5481660D3DC8EA45BFD7AAA3DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20231117044428-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481E8342B26739B852B592FDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117053117-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481632B9E440DDCBEEA7B75DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117062003-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548133582D377B3FE4BB9F6CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117073917-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481CD9329189829A8A6B6D1DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtEEj8jXeE7JHyFk6UkBkEP5vpYzXPHHSGpSjDKQivJAg@mail.gmail.com>
- <PH0PR12MB5481036FE38E03DDFAE1D13CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231121155805-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20231121155805-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|MW4PR12MB6998:EE_
-x-ms-office365-filtering-correlation-id: dd5c8889-fe97-4b8f-50a5-08dbeb0da37d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- lwSzSr4cPhiuJRZ4n+W0NR3bMzpfuMMHQh9NIJMbd7EZA/DbGAq/rXawfbQ/kWudjJz7mt2yVXa7v63N3XzISkuWTIcLXlUD7olnb0BUHpVgQ3ONAIcpQrv6k04lGlThX/iB5rl75nH6T9pLzU7LBehw0a6tqCU/q3KD1x5A0A2j7Y1AR6VnNKHzQhHVoI6LREBw7RgJIy3R0hrMgpA+gxcMhFEYiENEGOG4aGMEj6vDkjqVHneP1jQAsWyXFxvLPYzet7Tw81yyo9Hy6CUiRVROLgASpZgyX0/wyGLMPQvncWWIfa0SwyRe9MEqdkWGjoWvRMX/U8ZnwvvX2kPpaTgeApcd25D7OwrfRZRPXvjsNzkjpZmpST0FHobqSmJCqzdnGRKm1vvB5F1U5sPxFWUuzSvrALn7pw8AITmfJpMxP1R9bjIUPX/zbYixeIq02ZLSnFa9OFd6EPoCtBPwfpddZoEY/nkxUNgY6SUupUR8HS+dA9dDFMEjJRbYMP3HDtWaGzHBkwlABSMZ+MP31W4YE5VV4zRxipI++qkRcB2uFBT+4lpgrLpwGFuk+gdjC/8q4RUdR1lUkbDi7EB7hVWIDBa6bBZB0TgiKws9ex7OEgNYvPk6x4fMQxtyCY6p
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(346002)(39860400002)(366004)(136003)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(83380400001)(2906002)(4744005)(26005)(4326008)(478600001)(38100700002)(8676002)(8936002)(52536014)(41300700001)(5660300002)(6506007)(76116006)(54906003)(7696005)(316002)(66946007)(66556008)(71200400001)(6916009)(64756008)(66476007)(9686003)(66446008)(122000001)(33656002)(86362001)(38070700009)(55016003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?NzBiQ0xtaDZqeEduSmx4cWYxQ1FUTDNyQ3gwRUg3RnZjU25nSzZDUTZEbjRH?=
- =?utf-8?B?QzBvb29tZG1TclUvenhNVlB4L3gwR0h2YUlNZlpoTnpoWTU2SXV6Y1BYNzZx?=
- =?utf-8?B?VEliRy9SdkVPS1QwbzVvZklmWjlaam9sdjh5OHlUa1hmUFprdDNNQzdjTVYz?=
- =?utf-8?B?eTRUWS9qQXNpeUFZTHlJUkFlWDlXZ1hLeDYwWmEzcU5lUDhKZnhXbUNBWk5K?=
- =?utf-8?B?enlKWVVmRW9Td2RZUDh5SWY2d25kWFEvV3F6M1lYcVcwSi84ZzZNM0lSOW5r?=
- =?utf-8?B?QjM1MnZ4QXh5WXJUSnNVZ3FCc2pCd3hSR0IzL2s5RlhFVXZEVFc5MkdzTzNS?=
- =?utf-8?B?RlRSSkVsWXhINUFkY2p5dmV3dXJNSzhxZlduVUtYeC8vQ2R4MUtJelRLT1Zo?=
- =?utf-8?B?VFkyWStycG9nVUpNeWE4ajZoRDR1RWs4NS9PZWVKcVpMREVaem5ETXVVMzFq?=
- =?utf-8?B?K0tHSmZyRHRtZjkrL2pBdkJVUlpKTGY5SzEvOWI5dXhrU3hEOEQrMi9pcmJ3?=
- =?utf-8?B?a2JXdTN4STVOR2U0ZTlWQnRWL2NvY01HU0dLTk53U3Y2elhKaUxSZk5QdjBB?=
- =?utf-8?B?bkNOK3lBcy9sK3BWL0s2bXRsa1lORmVySThzVHoyN2VzeUNpN3lLcnRhZU5Y?=
- =?utf-8?B?YkwvNHRjL1hoOWhFdWZUZHBXaElVRG9qRDZzTVlOTmFaMTRPd0t6Tlc3Q3Ni?=
- =?utf-8?B?cTkveDBJak5ybC8zc0diNTAzaHB6NkptOEJXRy9HN0taNHFvZW9kd1ZIOXIr?=
- =?utf-8?B?OHF6WHpKOVJKWnNDNnh3MlJDQVhPN0JsMjhsRG9zNktjTHVCd0gvRXpoZVZt?=
- =?utf-8?B?aVBxcHVNK2hQU2pPVzF3V1pObU5rL25qUDZUc25teFFOelNOSWFVMDBpUkhG?=
- =?utf-8?B?Q25YdVAwWFlXTmROUko3dVpYRlJTYTJKcnN0Z0xFbTVFbWFDdVB2WmZxZnE5?=
- =?utf-8?B?dFpPbU5Nek83Qnl1bmcvekJZeDd2eEE4RGlLNWRRYmU0WWh5UzVJazcvMUlH?=
- =?utf-8?B?NFJHOUYxQVF5ZVVaNmVCdUNWNW5BYlowczlTaEc0c2VYTDR4eWxnVnNIbFdN?=
- =?utf-8?B?MjIrMjhTOWdLS1hnQW0xRUlhblRTZXNpeGdFWjRvQU0wNHU0WWlLdE1oUHFT?=
- =?utf-8?B?SWo5UnhkZjkxQURna2JJMmlLOFJ3djcwM3h4V2FGZjFKbmpUeWlESUF4MkJs?=
- =?utf-8?B?dVpUWjZhZ29QTFlMbHlUZmhnTzVUS2xkODdoeFNobXl4dE16cFIzanRTbVF1?=
- =?utf-8?B?eGFxdUEzbTZSQzV6Y1FMOHUvZ0p0ZFNsenhaQ1c5d3c4ZFl0WDR2MnVRc0xv?=
- =?utf-8?B?WDJmR1pYbWxsTDViY0JweWZuQ3dSc2RXeHJzTUxQMXdhdFd2YTRITHAxNHFs?=
- =?utf-8?B?VWVZUXJYejBwekNFenhORU9HQ0p2Wm1vOTRiejNidkdNY0Mrd2RRK2NwT09W?=
- =?utf-8?B?WHpKdmVrNTZMcVpWTHhGVjdzS0xQL21uUk5nS0habndBMThSL3F4NjJrdmlE?=
- =?utf-8?B?TzFFdzlPRzdnREIvWTFzMHE1UUlpT0Z2MzkvTzRlMVk3Qm83ZXFtK0pqNjdI?=
- =?utf-8?B?VTNCdXdndWtVdTVuczIzblA4N1VjeGx1T1c5bDdyUUMweEI0cFJEWEJSbnFW?=
- =?utf-8?B?MjFNVmYrRnZMVDV6ajVDeGhWUjlRVDUzdnJoeTRkc044dGNFK0k3U3poYWo0?=
- =?utf-8?B?bzgwWWQzYVdrSVhCVk5oL3JvRkpqeE1SSjU1K1Y4S1I2NFM2N0dRVEF5MHpp?=
- =?utf-8?B?T2FvaitkNk5uS3p0eGlFOGo1dnJsNFl5Ny81Rm1XclJLcnNjdWloYTNvV1Uz?=
- =?utf-8?B?WDA1U2NhUERCK3VETlZGT1JDOEE5bHBVS3BqYmpRa3h4RnpwWXREVXVHUVpG?=
- =?utf-8?B?Q1E2MXRuU25oaHprR2VNckYxVEJsOHR3c1lseUFabFdmTTVscnVrV2hKeTVa?=
- =?utf-8?B?d3d6VlZCMURKbTM2QlJ2aE9qWG81aWQxQUVmR05xVTM2QXhzODJId1ljV0cz?=
- =?utf-8?B?RWpmdjlLU21CelBBYVpsWmJvV2tWcDBScXpJbDhmblFBNWZWSTZBbFQyVWps?=
- =?utf-8?B?aHU1VWR1UTRKZFpkR2FFSVR0WEdNNDhCVGtCc3hZVXBwdnE2ajg2ZmZiSlQ4?=
- =?utf-8?Q?Y9Ok=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-MC-Unique: chb6Gxn0MBWlvSbYKjuldg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700626299; x=1701231099;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PLeYpBGqtlHUT5MxJVEieaIqdPtgDi8CH0EmrNnoUO8=;
+        b=XFe0gPivmtloOnwB1Q4r/q2npExztULBoKp6Olid8341zWUJtPI4PKvN4dLKHKpJkr
+         +IbO9vNMjpddrG3JV3Zn31czDuh/f2hAox9PZAlXOBzoFOoY8Cw2iazKjXqwzVtPgV94
+         WfG7Fp/dT19fIrbkec2N+Hcj/PzsKI69W13eHiUwW4il37VIByfSNFU+wkZMkopX5DhE
+         sTZWLTpwM8cqvg8cAuF3dGBbKT0ElP8NRL6P8GqVxmVR9frBSQ5SlPGeiu5OHHXA0xMP
+         YzLr3r77DhTybcrqqbSa4t9m2DYPEruqNF5Pv114K7e2B6j+6BLO8JuG20h22DxgZPFw
+         tsSQ==
+X-Gm-Message-State: AOJu0YxiEsTE/BOsGiJERtkp/IJgzqNGSJPukqcxXYtKUg+0gTcYppsq
+	BPGbsS7UWiZ3ZGW6S5/i0k9TXDTx9hFfoKLWCbnlZOZaTWxXGBHQYx8TV+Y3SNMUPrIqb0zf/9h
+	5ijE/3arOlZDeQIjMC/TxagMSMxCaOxmdmK81xEqPFo53yYy57w==
+X-Received: by 2002:a19:520c:0:b0:50a:73f0:8535 with SMTP id m12-20020a19520c000000b0050a73f08535mr816033lfb.1.1700626298835;
+        Tue, 21 Nov 2023 20:11:38 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IERd4kz0Ya6u/L8/q8At4H+KxUYG5idhTOZJzuIjxM+t9746MnD3yBA9WPl28ov9XBoikFANZsLgypibriMGC4=
+X-Received: by 2002:a19:520c:0:b0:50a:73f0:8535 with SMTP id
+ m12-20020a19520c000000b0050a73f08535mr816011lfb.1.1700626298368; Tue, 21 Nov
+ 2023 20:11:38 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd5c8889-fe97-4b8f-50a5-08dbeb0da37d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2023 03:46:41.2677
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zvq0ECy46hjpP57nys7kfwDlrT8+Cu0GrepNEkdeLiFxA5Hyq9/gIOxkTkhds3q2hj4LBnOCrdx/3sf2ZuMVyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6998
-Subject: RE: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
- operation for write recording commands
+References: <CACGkMEv8mccZfcA4n+KVwdkaWAqhM94Qhq8H5Rvw2CocCmt9UA@mail.gmail.com>
+ <20231107015412-mutt-send-email-mst@kernel.org> <CACGkMEv+jir2+f_vHmi_KjFXf0yz+EQmEbvzX0pheHKsVJkWZw@mail.gmail.com>
+ <20231108025854-mutt-send-email-mst@kernel.org> <CACGkMEvkQawXWCvu7rZHnZk8YsNunS_B-fcQmEHEe_N87Q6y6g@mail.gmail.com>
+ <20231109022647-mutt-send-email-mst@kernel.org> <PH0PR12MB54813C84CFA5601DB1B47885DCAEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEu-Zs-dxcYRjtV+hLBVy5Tv9JzgT2c83Zjzt7A-a1QR2A@mail.gmail.com>
+ <PH0PR12MB54810DA3AAA7631319B2C1BFDCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEsWN38gptqRBN=50LY6S-yJ0cRQcJk=kih9Dj-7bm0V6Q@mail.gmail.com>
+ <20231116014250-mutt-send-email-mst@kernel.org> <CACGkMEtb6QF=m3n+yp4-NLXoCHSpQb--iN5XKLmGXCCpCoP_Uw@mail.gmail.com>
+ <PH0PR12MB54817F78ED7ADD0CBCE4D3A9DCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54817F78ED7ADD0CBCE4D3A9DCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Wed, 22 Nov 2023 12:11:27 +0800
+Message-ID: <CACGkMEscUHCm0ztyEJ3yEfq2HK_vyn-9DNvofnKHGUdEy6=Dhw@mail.gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
+	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
+	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>, 
+	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write recording commands
 
-DQoNCj4gRnJvbTogTWljaGFlbCBTLiBUc2lya2luIDxtc3RAcmVkaGF0LmNvbT4NCj4gU2VudDog
-V2VkbmVzZGF5LCBOb3ZlbWJlciAyMiwgMjAyMyAyOjMxIEFNDQo+IA0KPiBPbiBUdWUsIE5vdiAy
-MSwgMjAyMyBhdCAwNDoyOTozNlBNICswMDAwLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQo+ID4gQmFz
-aWMgdGVzdCB3aXRoIGlwZXJmIGlzIG5vdCB3b3JraW5nLiBDcmFzaGluZyBpdC4NCj4gPiBBbGwg
-b2YgdGhpcyBpcyBjb21wbGV0ZSB1bnJlbGF0ZWQgZGlzY3Vzc2lvbiB0byB0aGlzIHNlcmllcyB0
-byBzbG93IGRvd24gdGhlDQo+IHdvcmsuDQo+ID4gSSBkb27igJl0IHNlZSBhbnkgdmFsdWUuDQo+
-ID4gTWljaGFlbCBhc2tlZCB0byBkbyB0aGUgdGVzdCwgd2UgZGlkLCBpdCBkb2VzIG5vdCB3b3Jr
-LiBGdW5jdGlvbmFsbHkgYnJva2VuDQo+IGNvZGUgaGFzIG5vIGNvbXBhcmlzb24uDQo+IA0KPiBJ
-dCdzIHVuZm9ydHVuYXRlIGl0J3MgdW5zdGFibGUgZm9yIHlvdSwgaWYgeW91IGNvdWxkIHNob3cg
-cGVyZiBjb21wYXJpc29uIHRoYXQNCj4gd291bGQgYmUgYSBzdHJvbmcgYXJndW1lbnQgZm9yIHlv
-dXIgY2FzZS4gUmVwb3J0aW5nIExpbnV4L3FlbXUgZmFpbHVyZXMgdG8NCj4gdmlydGlvIFRDIGlz
-IG5vdCBnb2luZyB0byBoZWxwIHlvdSB0aG91Z2gsIHdyb25nIGZvcnVtLg0KDQpBcyBJIGV4cGxh
-aW5lZCwgdGhlIGJhc2ljIHJlcXVpcmVtZW50cyBhcmUgbm90IG1ldCBoZW5jZSwgdGhlIGNvbXBh
-cmlzb24gaXMgbm90IGFwcGxpY2FibGUuDQpUaGVyZSBpcyBubyBwb2ludCBpbiBkaXNjdXNzaW5n
-IHNwZWNpZmljIE9TIGltcGxlbWVudGF0aW9uIGFueXdheS4gWW91IGFza2VkIHRvIHJlbW92ZSB2
-ZmlvIGNpdGF0aW9ucyBoZW5jZSB3ZSByZW1vdmUgb3RoZXIgY2l0YXRpb25zIGFzIHdlbGwuDQoN
-ClRoYW5rcy4NCg==
+On Wed, Nov 22, 2023 at 12:25=E2=80=AFAM Parav Pandit <parav@nvidia.com> wr=
+ote:
+>
+>
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Tuesday, November 21, 2023 9:52 AM
+> >
+> > On Thu, Nov 16, 2023 at 2:49=E2=80=AFPM Michael S. Tsirkin <mst@redhat.=
+com>
+> > wrote:
+> > >
+> > > On Thu, Nov 16, 2023 at 12:24:27PM +0800, Jason Wang wrote:
+> > > > On Thu, Nov 16, 2023 at 1:37=E2=80=AFAM Parav Pandit <parav@nvidia.=
+com>
+> > wrote:
+> > > > >
+> > > > >
+> > > > > > From: Jason Wang <jasowang@redhat.com>
+> > > > > > Sent: Monday, November 13, 2023 9:11 AM
+> > > > > >
+> > > > > > On Fri, Nov 10, 2023 at 2:46=E2=80=AFPM Parav Pandit <parav@nvi=
+dia.com>
+> > wrote:
+> > > > > > >
+> > > > > > > Hi Michael,
+> > > > > > >
+> > > > > > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > > > > > Sent: Thursday, November 9, 2023 1:29 PM
+> > > > > > >
+> > > > > > > [..]
+> > > > > > > > > Besides the issue of performance, it's also racy, assumin=
+g
+> > > > > > > > > we are logging
+> > > > > > > > IOVA.
+> > > > > > > > >
+> > > > > > > > > 0) device log IOVA
+> > > > > > > > > 1) hypervisor fetches IOVA from log buffer
+> > > > > > > > > 2) guest map IOVA to a new GPA
+> > > > > > > > > 3) hypervisor traverse guest table to get IOVA to new GPA
+> > > > > > > > >
+> > > > > > > > > Then we lost the old GPA.
+> > > > > > > >
+> > > > > > > > Interesting and a good point. And by the way e.g. vhost has
+> > > > > > > > the same issue.  You need to flush dirty tracking info when
+> > > > > > > > changing the mappings somehow.  Parav what's the plan for
+> > > > > > > > this? Should be addressed in
+> > > > > > the spec too.
+> > > > > > > >
+> > > > > > > As you listed the flush is needed for vhost or device-based D=
+PT.
+> > > > > >
+> > > > > > What does DPT mean? Device Page Table? Let's not invent
+> > > > > > terminology which is not known by others please.
+> > > > > >
+> > > > > Sorry for using the acronym. I meant dirty page tracking.
+> > > > >
+> > > > > > We have discussed it many times. You can't just depend on ATS o=
+r
+> > > > > > reinventing wheels in virtio.
+> > > > > The dependency is on the iommu which would have the mapping of
+> > GIOVA to GPA like any sw implementation.
+> > > > > No dependency on ATS.
+> > > > >
+> > > > > >
+> > > > > > What's more, please try not to give me the impression that the
+> > > > > > proposal is optimized for a specific vendor (like device IOMMU =
+stuffs).
+> > > > > >
+> > > > > You should stop calling this specific vendor thing.
+> > > >
+> > > > Well, as you have explained, the confusion came from "DPT" ...
+> > > >
+> > > > > One can equally say that suspend bit proposal is for the sw_vendo=
+r
+> > device who is forcing virtio hw device to only implement ioqueues + PAS=
+ID +
+> > non_unified interface for PF, VF, SIOVs + non_TDISP based devices.
+> > > > >
+> > > > > > > The necessary plumbing is already covered for this in the
+> > > > > > > query (read and
+> > > > > > clear) command of this v3 proposal.
+> > > > > >
+> > > > > > The issue is logging via IOVA ... I don't see how "read and cle=
+ar" can
+> > help.
+> > > > > >
+> > > > > Read and clear helps that ensures that all the dirty pages are re=
+ported,
+> > hence there is no mapping/unmapping race.
+> > > >
+> > > > Reported as IOVA ...
+> > > >
+> > > > > As everything is reported.
+> > > > >
+> > > > > > > It is listed in Device Write Records Read Command.
+> > > > > >
+> > > > > > Please explain how your proposal can solve the above race.
+> > > > > >
+> > > > > In below manner.
+> > > > > 1. guest has GIOVA to GPA_1 mapping 2. RX packets occurred to
+> > > > > GIOVA 3. device reported dirty page log for GIOVA (hypervisor is
+> > > > > yet to read) 4. guest requested mapping change from GIOVA to GPA_=
+2
+> > > > > 4.1 During this IOTLB is invalidated and dirty page report is
+> > > > > queried ensuring, it can change the mapping
+> > > >
+> > > > It requires
+> > > >
+> > > > 1) hypervisor traps IOTLB invalidation, which doesn't work when
+> > > > nesting could be offloaded (IOMMUFD has started the work to support
+> > > > nesting)
+> > > > 2) query the device about the dirty page on each IOTLB invalidation=
+ which:
+> > > > 2.1) A huge round trip: guest IOTLB invalidation -> trapped by
+> > > > hypervisor -> start the query from the device -> device return ->
+> > > > hypervisor reports IOTLB invalidation is done -> let guest run. Hav=
+e
+> > > > you benchmarked the RTT in this case? There are just too many place=
+s
+> > > > that cause the delay in the middle.
+> > >
+> > > To be fair invalidations are already expensive e.g. with vhost iotlb
+> > > it requires a slow system call.
+> > > This will make them *even more* expensive.
+> >
+> > Yes, a slow syscall plus a virtqueue query RTT.
+> >
+> Only during viommu case.
+
+What's worse, modern IOMMU drivers tend to batch the invalidation via
+a per domain invalidation. I can easily imagine how slow it is.
+
+For vhost, it's still one syscall. But for your proposal, it needs to
+do a query of all the possible IOVA ranges which is horribly slow as
+it needs several queries requests or PCI transactions where guest
+lockup would not be rare.
+
+> Without this is not applicable.
+
+List is a place to discuss the possible issue, no?
+
+>
+> > Need some benchmark. It looks to me currently the invalidation is done =
+via a
+> > queued based interface in vtd. So guests may need to spin where it may =
+trigger
+> > a lockup in the guest.
+> >
+>
+> > >
+> > > Problem for some but not all workloads.  Again I agree motivation,
+> > > tradeoffs and comparison with both dirty tracking by iommu and shadow
+> > > vq approaches really should be included.
+> >
+> Dirty tracking is iommu to be considered.
+> Shadow vq is not in my scope and it does not fit the basic requirements a=
+s explained before.
+
+I don't see a good explanation other than "I meet a bug in Linus tree,
+it's unstable so I wouldn't test anymore".
+
+Thanks
+
+
+
+> So it is different discussion.
+>
+> > +1
+> >
+> > >
+> > >
+> > > > 2.2) Guest triggerable behaviour, malicious guest can simply do
+> > > > endless IOTLB invalidation to DOS the e.g admin virtqueue
+> > >
+> > > I'm not sure how much to worry about it - just don't allow more than
+> > > one in flight per VM.
+> >
+> > That's fine but it may need a note.
+> >
+> > Thanks
+> >
+> >
+> > >
+> > >
+> > >
+> > > > >
+> > > > > > >
+> > > > > > > When the page write record is fully read, it is flushed.
+> > > > > > > How/when to use, I think its hypervisor specific, so we
+> > > > > > > probably better off not
+> > > > > > documenting those details.
+> > > > > >
+> > > > > > Well, as the author of this proposal, at least you need to know
+> > > > > > how a hypervisor can work with your proposal, no?
+> > > > > >
+> > > > > Likely yes, but it is not the scope of the spec to list those pat=
+hs etc.
+> > > >
+> > > > Fine, but as a reviewer I need to know if it can work with a hyperv=
+isor well.
+> > > >
+> > > > >
+> > > > > > > May be such read is needed in some other path too depending o=
+n
+> > > > > > > how
+> > > > > > hypervisor implemented.
+> > > > > >
+> > > > > > What do you mean by "May be ... some other path" here? You're
+> > > > > > inventing a mechanism that you don't know how a hypervisor can =
+use?
+> > > > >
+> > > > > No. I meant hypervisor may have more operations that
+> > map/unmap/flush where it may need to implement it.
+> > > > > Some one may call it set_map(), some may say dma_map()...
+> > > >
+> > > > Ok.
+> > > >
+> > > > Thanks
+> > >
+>
+
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
