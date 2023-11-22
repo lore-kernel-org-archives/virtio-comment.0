@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8543-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8544-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFAF7C072A2
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 819E3C61D92
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:48:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5042B1FF71
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:44:42 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id D46B52AEE2
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2C5FB9868A3
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:44:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B7FC09868A2
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 0F767986894; Wed, 22 Nov 2023 07:44:42 +0000 (UTC)
+	id A1FAC986894; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,88 +24,76 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F30F8986895
-	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 07:44:41 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 913F2986895
+	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 07:48:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: vvi3f7ZvP5CJ6mTI6FYstA-1
+X-MC-Unique: W_jUEEvhOw20q2pSBsFpRQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700639077; x=1701243877;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uQfrpyP0blCTcLDS6Wg1W4L05PK1KjHr5xwAjAzTVQE=;
-        b=rLwjOIuADSxMKkmRcCi6yLl77M6lQTKg4KO90P4zuiFoONx2VqkF8ipZKLKGbkyvm6
-         rF4aJjKL4HZN7x9cAF98TV22hqGaXWBtkWzu8HYO24K8zkOThEKu34Z+SbiQSuUWFBPc
-         Bn6UGvggnej2RXtmczkpO1tKNOQ+ukMTQAdEu02P1uiCiUuDZ6zpjbWfD++RIAY0N1iU
-         lIzKyQ1rm0nxnfwPR3tryXZMjxpRH//JrOVEdaCvL0vieUbmTD+GOzOP+HHJiPusLFWI
-         6iCbggyHa1O3hAJnf5jeclch4n1Nk8n7aiHDZ94tE5nKfkzTQl98c9JOY+BZlcEHkm8O
-         +VtA==
-X-Gm-Message-State: AOJu0YyHPagQRkJbdC7vPFB2B3JlLHeSx67mMK+7c2VUMlxJR+0phZe1
-	ZYRrJdy7z7jBrbzj2Jpefhu+MEEBhooXtRWgWc+Shq8nG2GZOZ7e32vBZCvU8GaJLvEt96z/Q9x
-	SbXJPdJns8ndFhB4cetj7jv78oUw+HF6mvg==
-X-Received: by 2002:a50:d55e:0:b0:540:9d0c:75fc with SMTP id f30-20020a50d55e000000b005409d0c75fcmr961083edj.26.1700639076904;
-        Tue, 21 Nov 2023 23:44:36 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFIWY+N11arVrNgdcOdmyZTcTjxuN3bNr15LR3RZ4lmsKytmbpXVEeGnOA48QOq476nLZNC7A==
-X-Received: by 2002:a50:d55e:0:b0:540:9d0c:75fc with SMTP id f30-20020a50d55e000000b005409d0c75fcmr961060edj.26.1700639076574;
-        Tue, 21 Nov 2023 23:44:36 -0800 (PST)
-Date: Wed, 22 Nov 2023 02:44:31 -0500
+        d=1e100.net; s=20230601; t=1700639316; x=1701244116;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AY6VUSuIhWPE057SJC/rJ0dKKEJGmgbx1tgL4/DVZiA=;
+        b=mKif9Ojg5dM1KjH5wLMCNm5yQn7IPEDIbngFAOp/QAL607eoMHnnqbF2wd7w/PKFbA
+         CFoBlOrMrtOeusKR6CYvBNutVYiRLH/baR+kwYGZvFiJPZh5tFOXLNgC+AB4lMmyATHh
+         SpwtEU560ufclbMyzhWgghhWDO551kgkqXkSNhklzFpCTdxKaV9pZybsdkZyQdyWAeIU
+         yZpasF1qrrbKmW9a9JzPzvoaOTCkwXGmBEozyTnLpHh+/+jTlxdoSyz0J99iyzgODOIO
+         8dY9N8Pq1vJ/gpc+/SO7wFlx+03+8GxvT25fDFVjtZaBHZDbxV5sDYTGcV87jaox00fl
+         LC2g==
+X-Gm-Message-State: AOJu0YyKfPYeDSNg0d5mro4RV06F7AZUQ/qxh1Ne1tsitO/J/3fsPL+b
+	u1B3Ngm5rS8SeAP1IVltZySngJ7DQHPMTvo2Bp/FwFQ9If+7zRjhnV/YNr4RqmPV7PnJcI7D75r
+	/BgAyLiu31vRnitHfSBTbE+W+YjrgCCrHPA==
+X-Received: by 2002:ac2:52ae:0:b0:509:493d:25a3 with SMTP id r14-20020ac252ae000000b00509493d25a3mr986844lfm.11.1700639316215;
+        Tue, 21 Nov 2023 23:48:36 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IERSYOn6U2fNpoJLmnFYRTTsWrCCjbbzxxby2laqW1waiqb+0U1XldbnFkwSvUXtRIWi5L3fQ==
+X-Received: by 2002:ac2:52ae:0:b0:509:493d:25a3 with SMTP id r14-20020ac252ae000000b00509493d25a3mr986834lfm.11.1700639315884;
+        Tue, 21 Nov 2023 23:48:35 -0800 (PST)
+Date: Wed, 22 Nov 2023 02:48:30 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Jason Wang <jasowang@redhat.com>,
+To: Jason Wang <jasowang@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
-	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
-	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
-Message-ID: <20231122023859-mutt-send-email-mst@kernel.org>
-References: <20231117053117-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481632B9E440DDCBEEA7B75DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117062003-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548133582D377B3FE4BB9F6CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231117073917-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481CD9329189829A8A6B6D1DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtEEj8jXeE7JHyFk6UkBkEP5vpYzXPHHSGpSjDKQivJAg@mail.gmail.com>
- <PH0PR12MB5481036FE38E03DDFAE1D13CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231121155805-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481660D3DC8EA45BFD7AAA3DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+	Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+Message-ID: <20231122024459-mutt-send-email-mst@kernel.org>
+References: <DM8PR12MB548085F25849CF1E055826E6DCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
+ <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEt277yYUHf98dCkypS-PXzu7JrRSVBAQ2cCRg4XzCLPzw@mail.gmail.com>
+ <PH0PR12MB5481DB04DEB1A540185ED1ECDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231116012208-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54811F4CE5686AE4BEA826C1DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEvU2sqVXAeEUykia2M-6rP1_nMemPH8eNZTEoHR0wUfog@mail.gmail.com>
+ <PH0PR12MB5481FEDBA21656E29452AC78DCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEudhoDfY2ZcuA3J0ww=9Pm7qcMRasvZ8CvBeGVL9SPMDw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481660D3DC8EA45BFD7AAA3DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <CACGkMEudhoDfY2ZcuA3J0ww=9Pm7qcMRasvZ8CvBeGVL9SPMDw@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
- operation for write recording commands
+Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
+ for device migration
 
-On Wed, Nov 22, 2023 at 03:46:41AM +0000, Parav Pandit wrote:
+On Wed, Nov 22, 2023 at 12:13:34PM +0800, Jason Wang wrote:
+> > > What's wrong if we just allow them to be R/W over adminq/cmmands?
+> > >
+> > As explained before,
+> > Each guest has its own dedicated non mediated interface as defined in virtio spec to not involve hypervisor.
 > 
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Wednesday, November 22, 2023 2:31 AM
-> > 
-> > On Tue, Nov 21, 2023 at 04:29:36PM +0000, Parav Pandit wrote:
-> > > Basic test with iperf is not working. Crashing it.
-> > > All of this is complete unrelated discussion to this series to slow down the
-> > work.
-> > > I don’t see any value.
-> > > Michael asked to do the test, we did, it does not work. Functionally broken
-> > code has no comparison.
-> > 
-> > It's unfortunate it's unstable for you, if you could show perf comparison that
-> > would be a strong argument for your case. Reporting Linux/qemu failures to
-> > virtio TC is not going to help you though, wrong forum.
-> 
-> As I explained, the basic requirements are not met hence, the comparison is not applicable.
-> There is no point in discussing specific OS implementation anyway. You asked to remove vfio citations hence we remove other citations as well.
-> 
-> Thanks.
+> So what's wrong with inventing per VF queue to do that? For example
+> transport virtqueue.
 
-So it crashes, and even if it does not it does not perform well, and even
-if it performs well it does not meet the requirements.
-Really, you are shooting yourself in the foot with stuff like this.
-Does not look good at all.
+Nothing is wrong with this.
+
+But what is problematic is just re-using config space for migration because
+it means we can not just say "don't access device after it is stopped"
+because yes you need to access it to save/restore state.
+And a new interface over admin cmds just for this side-steps the
+issue nicely.
 
 -- 
 MST
