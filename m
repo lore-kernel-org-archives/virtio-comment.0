@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8526-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8527-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9157C61D92
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:29:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EACEFC072A2
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:35:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 44C1B26A36
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:29:08 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 3C6562AEE6
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:35:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3149C9868A2
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:29:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 04D559868A6
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 04:35:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 25D94986893; Wed, 22 Nov 2023 04:29:08 +0000 (UTC)
+	id D9A4A986893; Wed, 22 Nov 2023 04:35:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,1037 +24,232 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 18187986894
-	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 04:29:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3A761986894
+	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 04:35:02 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 1n5GkEDLPAehedFUzZZ8dA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700627342; x=1701232142;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=q3w41euGlLjrldrOEawF2ar9eW8hSAPAyXHnvvo/EUc=;
-        b=RDC7oGXFHT5LVsQAcSkk19fz5ugGn+CRkiwKnyqrqgbYY12udL54WC31/4QESZ4n1u
-         npeWu9fl+fy86y9XSK2nQNa1SSbXJVwTwAYNEyzgtAqDwqjzSig0LJiiCLsM3J2EYQ6M
-         JSOHxHhZ2Oj6FBp6CU/V8+fgNKwr3NYwUq21/LHRssetX4H3v0/OB2YkPzU9sVz8v/VO
-         mv3dqbj53r8p3PAAq05E2r/3o56cg7vFCvyxE3xnb3GtogFGpgrKTNNxpEfcx6FM2kGH
-         YoulFP0M/5vhg9H/78Anludy3fDPyRBQYPur13NU094c9wCyiqcIaDrmhRLW1xuYeSWc
-         HTRQ==
-X-Gm-Message-State: AOJu0YzCQKzXV1FM4gNFmjlVFjNl0xB++jLYA+HsPB6kI03Pmfee7V6R
-	igTUFIEBZdEJ5gjQHDTvZ0XbRuQeZqmjhD+mJEta+qMyrgiUTG0XAYA+lhjorkeK4u6LPU3j2HB
-	VrVi7RWLGjXQ4kQQRHD7TYo7P+bpY4F0jkM4WpsGkJxNcE+s10g==
-X-Received: by 2002:a2e:87d3:0:b0:2c8:790b:cfdb with SMTP id v19-20020a2e87d3000000b002c8790bcfdbmr1669378ljj.16.1700627342021;
-        Tue, 21 Nov 2023 20:29:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH1aIq0q3TkHw0zpxrap2dvcMElXPEonj+/3HLV0p55InJzbXdwzA7hMvWdB+D4ozSnn03iQm3u+MtYZTV94es=
-X-Received: by 2002:a2e:87d3:0:b0:2c8:790b:cfdb with SMTP id
- v19-20020a2e87d3000000b002c8790bcfdbmr1669364ljj.16.1700627341462; Tue, 21
- Nov 2023 20:29:01 -0800 (PST)
-MIME-Version: 1.0
-References: <20231030131959.1386107-1-parav@nvidia.com> <20231030131959.1386107-7-parav@nvidia.com>
- <CACGkMEuHBRwH9LqC+_jBX5OFrzhJw88AZeAQBou+G_hZK1F2Ug@mail.gmail.com>
- <PH0PR12MB54811B1D566FA64E693E20D6DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEuA6u-EJCsrhvBRKxB6nxG=H28SEh4ihM3Ptgn1FQdGKA@mail.gmail.com>
- <DM8PR12MB54809F8316720CE5C1BCFF33DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEtFyH_wJAqTz=jwosVM-=SRuO+wpT7NM=Eod8ExsxfTsg@mail.gmail.com>
- <PH0PR12MB54814420718AB387C0C84C07DCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtGvDxF1Dnb6FJDK8XEAUcast-7OnuzTyfAr7m0LURWMw@mail.gmail.com>
- <PH0PR12MB548152A30021BEBFFCA62AA9DCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEv8mccZfcA4n+KVwdkaWAqhM94Qhq8H5Rvw2CocCmt9UA@mail.gmail.com>
- <DM8PR12MB5480A4E02DF988BCDD16E7BEDCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEsRjdg8-YN1GY1fyRHU8UvCthvDgBUzURmTVB4JdbFGZA@mail.gmail.com>
- <PH0PR12MB54810AFC15EAC51755CFC045DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtP+W4mdfn5PszoSHW3tNS+KPAMKXvJhpWKa_NchxVpZA@mail.gmail.com>
- <PH0PR12MB54815F616E0CF024927984C2DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEt-6Q1NQ9x=Mh_ek8ogLeZXiTMRgHwRk1Bt5Y0XWpQrQw@mail.gmail.com> <PH0PR12MB5481A67DD337E7AA76E0D59CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5481A67DD337E7AA76E0D59CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 22 Nov 2023 12:28:50 +0800
-Message-ID: <CACGkMEsTyYX8mhgrSNP9NCc=FqHh8UN=hs374MV8QLMvZifH9w@mail.gmail.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>, 
-	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>, 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fRZbR1pcY744ITa5gpDWCkcdwcLKNQA2gn9ui4GmxKTyHN05pTrdsr9Vcok//qel2gw6Hl5MJTK0JS5g+vrw+jK2lEvEi+5e9elBryCVJRf2KCbfgzwuMVWqraufI2ZnDRh8yqkCAU9GyNJRTX5jzyWb9wFy054WVULpTQPJE6tr5/TcOIfnpMXydbr9Hg2wsLA+5dIGqQfo1h1VkXGrv1cp0Q2RFpo71YKjhnUNIfhA7I1j+ktfJBZNBFG+uNEye8aGwG8XSCwVmxcaCwwiLvTgI4I+7+9j4vdJcXNOoq4dNaieb9+zWQFqKliETE/rPtwNWeOPyyx6cHdBfGf6HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vReTic88C6hvRYOtZS6fB7W2lQXAFIRLWHZFVE8R75Q=;
+ b=N7wX1qULf30JvYVGQHcczmAK/21Fh+zh0Se3m+x87zVAqfy9hZzuQBEpZ9idzoawD96KtSIhk0XWYRXpbGr0yUFw4uGXVo5gdUSSP7AQVDNbf3but5/V6IAk5z0awN/Mswq4onjjv/EpjYwSeJr3DSXQwPWBnaCHN9gi9tT7vr5PFjwCG82x4lllo6nvlr4eF0tl9+xzw9B/G/Q483WwMDAK64b50poHzazOPVwkpmvV7F/ubGlY4BAAH38yIsz+s2itVdagmrRz05fIqpx6BqJqNA7ZmeD0itrEA85OL13l+1qTu0I2Ww1a6IDiULF6JcfU8oP1Cxvcv7iz502+Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Jason Wang <jasowang@redhat.com>
+CC: "Michael S. Tsirkin" <mst@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com"
+	<sburla@marvell.com>, Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb
+	<maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
 	"lingshan.zhu@intel.com" <lingshan.zhu@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write recording commands
+Thread-Topic: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
+Thread-Index:
+ AQHaCzPonHREgkZknEiTjfT1JtA3fLBjIMmAgAAcy4CAAWD+gIAAKSfAgAGqygCAABTkAIAGWMEAgAADI2CAAWVPgIACFpEAgAdP4YCAA//WQIAAxB+AgAAJgRCAAA8CgIAAHSmAgAAA6/CAAEWagIAATXNQgAAQ3wCAAAB/YIAADsiAgACQwGCAAGEbgIAAB4aggAAG2gCAAABcQIAAA3mAgAAAL+CAAAy2AIAAAzkwgAAMKgCAAA13IIAABX6AgAACmVCABcrCgIAApljQgADbdYCAAAMGAA==
+Date: Wed, 22 Nov 2023 04:34:55 +0000
+Message-ID:
+ <PH0PR12MB5481E84F1DD4C0165B1FDD1EDCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231117031251-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481D7C85F006AE7292E1D82DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117042446-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813F2F62F87E42CD5DB4B0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117044428-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481E8342B26739B852B592FDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117053117-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481632B9E440DDCBEEA7B75DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117062003-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548133582D377B3FE4BB9F6CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117073917-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481CD9329189829A8A6B6D1DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtEEj8jXeE7JHyFk6UkBkEP5vpYzXPHHSGpSjDKQivJAg@mail.gmail.com>
+ <PH0PR12MB5481036FE38E03DDFAE1D13CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtpSFBp2oVtawgs8k7S-kp2DFXBdSW6_y3nrt3L-ZkSSg@mail.gmail.com>
+In-Reply-To:
+ <CACGkMEtpSFBp2oVtawgs8k7S-kp2DFXBdSW6_y3nrt3L-ZkSSg@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DM4PR12MB5245:EE_
+x-ms-office365-filtering-correlation-id: c8db9141-3f8d-418f-b050-08dbeb1460ab
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 9F0YnfevqkkoHWaLU9pVAWaF5mbejkO5Kq2oUgLdO5rn3VhFr18eGmGRN0BNDGm3+ach8RSTl6SQIzhyzvzwSsoZInyVYWGUgsJfRYWda5XJ+6YKIhioDPu5TBPibahA6aSj6trEchjCcV2VnehoynpOp1InysOsckTw1mAxETDEW9lLmHq31Koz09LSvthNGqdrXyWFv36TGgUtwVwI/oDw7zvBGJnXDj5gWm8y+GPC8U8PwD+KmmryjjTy7Jo7d0rlluHn00J6ZiCJQtbc/NnqUA6S8a42BvXyy8XCFPCJ4w4O7K0QCkJJ7PcLCxrZyG9AZfm+tP9yph6l9NCi9z/qkaq9GI9ubtjz3xWlv6eYNA1SLjLeTfK05xTl3tcFLNY63ghMMRtRWkXkVJ/scofwoelHtFSD2Pz/pzeDjEl4aTT3g3mD7YxeDQWq94h3vfBocc6VE+dd6bjdcqRuuX2LQCy3ATAAgL+ll7HyL+ebG/+yafSqSvSxj9UM1d3Roir9jgvYRQZbXmhOHvYc/n6Zjsai5rQbvAUSmWJEIrDjTnKKREA0qkH/HE8hG2T1Gh1br1lfootFGcPfymlyPC8AwsO6100EKqa42pgRDRODeS83CQyJqBD0DpCMRPBSA/3jWJP1rIr4hZHfJVGGqZa4lZZCNNBWBCH0HuyG/Po=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(376002)(136003)(366004)(396003)(230922051799003)(186009)(451199024)(64100799003)(1800799012)(41300700001)(66899024)(86362001)(5660300002)(33656002)(2906002)(38070700009)(52536014)(9686003)(966005)(478600001)(122000001)(6506007)(71200400001)(7696005)(83380400001)(53546011)(26005)(4326008)(8676002)(38100700002)(55016003)(316002)(6916009)(8936002)(64756008)(66946007)(76116006)(54906003)(66446008)(66556008)(66476007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Z1VTMk1YOFFJOWp6OEJ6Ym5SMFNjeDBFV2htcW9iZVg0Q2pYN0d2OHoyKzVO?=
+ =?utf-8?B?QW9xV3dqTytiSm1vS09SdTVRbDNETWxYamFGVE1ndHlIcThqNytyZVQ1RWky?=
+ =?utf-8?B?ZjkvWTkrTjJYY2dRcTZwbGg1S1hOS1h2WUVEZ1ZFeVFXN0I5Q2wvVDJ1VzE3?=
+ =?utf-8?B?SEFjb3gzMDVqTlB5bU80YTdmYlE3QUI0K1NGVzU2VWNsMTRLSU1obzJiMUxW?=
+ =?utf-8?B?ckNlMTlSUXdPMDVhRGlqUnFNbXFWOUJNcWpKZGUwTkJoTmNKcU9PT09tSDlj?=
+ =?utf-8?B?OGdiYXBUSGlKNzFZaXI2QmZZSnBSaEJQNXVJMWMyRGVTSFlZZ3RIUDNRa2F1?=
+ =?utf-8?B?ajdHQkhlQm1iOUMwTjJoV2JLb0s5Y2QrTi90MzN1Ri9CVnR3L21meG9TQVlS?=
+ =?utf-8?B?SENHNFQ2RlNVcU4zblV6cHV1dkRMMDlIN1NNKzM2eXpObXRReDFGZ3ZEQW9P?=
+ =?utf-8?B?blNITStCMjlPeURXczNLY2dCamRWTnoydWRQNkRKa1hSSUp6Skt6aVFmd2Fy?=
+ =?utf-8?B?aklWL0x0eXUvQm9EVTVSMzFES1lyQ3RVQnB2SmdOcEJ1eXhIWFltL0dabklF?=
+ =?utf-8?B?ZkpUbFpxRmdZWlZvaDZHSENVU3hEaVJRMUhKZmVMd00renRKaTVUSUpvalo3?=
+ =?utf-8?B?ZFg0a2ZXZ3JlQXUwNWNCcUJ4a3pweUJ6cUp2UnJOS0tNS2MzRElzbnIxbXFw?=
+ =?utf-8?B?VEZ2cFN5U3ZMWEpINHM3alpaR3ByVlZxYklpcE43TWJvNlFwWThXMDBVOW0z?=
+ =?utf-8?B?aUhUTmttZG90U2dSZFpwUnhOYmhJU3dNbnZNejc4TEd1NDFML2VUZk0zb2pZ?=
+ =?utf-8?B?WFRpNDc4MjdvS2VvYUZKVE94R0lFa3NPTi9QOUd3Q2dEWkRGS0FoRG5xcDlV?=
+ =?utf-8?B?RWFsQVhibTB6ZVMwUkY5bit1TnJ0b0J5WGlZUWZRN2c2djU3eXNaM1lMTEth?=
+ =?utf-8?B?ZkV3ekdKdE16aVozd0gvUlY0N3JXb0FjbnNPalcraE5adGZEWlBtQ2Nxc1Bp?=
+ =?utf-8?B?eUsydkdSTmhBek90cSt6L085dUlRL3ZDS0xDRGRZL1k5ZXlDM3lZa1dlTXR1?=
+ =?utf-8?B?QWRDZDJvS0pZd0lBVDU1RTZWVWlkQkpaczJhTkpZWTFFUkNhT2dqNmxLSjR5?=
+ =?utf-8?B?OWM2SkR3R3dmMU44RkFHUyttb0lHMm00emNnREk5UlZOYm1oUS9YQjd3cnBT?=
+ =?utf-8?B?dnFSRWFrWlg5dUY4V3JPTUhiK0NZVms0eFBDQTdWK1VGL2gvTURiS0RiNmNC?=
+ =?utf-8?B?SGtuVFlFRVppMEZZZ2hBRk1RWGd1bnFoSlUzcmYzdTVrVUdhcU9JbExXNjNH?=
+ =?utf-8?B?VVBsVW9WWENsa1NvRmZGRE05cWNOSXhmMlphWVBjcUtzUWVremlpb0tWYVo3?=
+ =?utf-8?B?c3d5WDBQYzRndnVjUk1QbFJhaTcwOWs5d1hCQkYwd1FMblJQU1hHUi9WYVBl?=
+ =?utf-8?B?cVBxMzZPS2tXVVVrNjRoa0tuM2xrZ0FkV0tsdFFCclhtT3pFLzN0cW93TnIv?=
+ =?utf-8?B?Nm96WjB3b05GRy9FM1ZYTTYwTkhreFpVZ3d0TVRLYUxvdnJRVk9EZGRpazQy?=
+ =?utf-8?B?aUJPcUM3RmdIcmlnN1YzS0h1ZkpFRHgwUGN1V1BxeUc3VnV6YjV2VDF4SmlL?=
+ =?utf-8?B?cnd1bFBQZmtJU1ppY2VRTzdsaVplUG9lMCtjd2NvN21rV2EzWEtYM2dxckhW?=
+ =?utf-8?B?Nnc2ejY3djczNTJnUWJISmcvVERSbUE0NnFwN3h4cHJlVFRpSm1yeHFYUlNR?=
+ =?utf-8?B?ZElyK01sd1pOWmQ2Q08wWjVCNWlUQ0J3MXNOZWwxaXhCcy90TFRwSFlBcExC?=
+ =?utf-8?B?bXp4TWMrdys1QmhQbFBBOEc0bytORlkyYzFNYWwyL0ovK2c1aUFSKzlGRU9Z?=
+ =?utf-8?B?WjJmU1Erb2NzR3lkS3JXWTBZTDN0REliUHJpeXpKM0xNZnJLUW5TZ0pNM1JE?=
+ =?utf-8?B?OVNSYkEyaVhBY0FPUmRMSjlaK1dpckcrdmtPbG1oemRjOXN2UVF4dHhQK2tI?=
+ =?utf-8?B?dWRnL05TVDAybFcwNVBVbWVOTnlkalVLTExtYnVtdmlTUXFwVm9RWXg2Ty93?=
+ =?utf-8?B?ODJUdjFpMzU1UjdML1NGRFE5MlhDL2pQbDVJQ29ISGFJb0dOM1IxcDRlaE1T?=
+ =?utf-8?Q?OQ3E=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8db9141-3f8d-418f-b050-08dbeb1460ab
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2023 04:34:55.6344
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IfEJN+4MR2mFsm3bxJmZj5v1K5/n8bI+VLSY3QYxdjf91bDTzUqIXErxAWZ22fHj3fqOdWUdwbVe4jNlJTtW9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5245
+Subject: RE: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
 
-On Wed, Nov 22, 2023 at 12:31=E2=80=AFAM Parav Pandit <parav@nvidia.com> wr=
-ote:
->
->
-> > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Tuesday, November 21, 2023 12:45 PM
-> >
-> > On Thu, Nov 16, 2023 at 1:30=E2=80=AFPM Parav Pandit <parav@nvidia.com>=
- wrote:
-> > >
-> > > > From: Jason Wang <jasowang@redhat.com>
-> > > > Sent: Thursday, November 16, 2023 9:54 AM
-> > > >
-> > > > On Thu, Nov 16, 2023 at 1:39=E2=80=AFAM Parav Pandit <parav@nvidia.=
-com>
-> > wrote:
-> > > > >
-> > > > >
-> > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > Sent: Monday, November 13, 2023 9:07 AM
-> > > > > >
-> > > > > > On Thu, Nov 9, 2023 at 2:25=E2=80=AFPM Parav Pandit <parav@nvid=
-ia.com>
-> > wrote:
-> > > > > > >
-> > > > > > >
-> > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > Sent: Tuesday, November 7, 2023 9:34 AM
-> > > > > > > >
-> > > > > > > > On Mon, Nov 6, 2023 at 2:54=E2=80=AFPM Parav Pandit
-> > > > > > > > <parav@nvidia.com>
-> > > > wrote:
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > Sent: Monday, November 6, 2023 12:04 PM
-> > > > > > > > > >
-> > > > > > > > > > On Thu, Nov 2, 2023 at 2:10=E2=80=AFPM Parav Pandit
-> > > > > > > > > > <parav@nvidia.com>
-> > > > > > wrote:
-> > > > > > > > > > >
-> > > > > > > > > > >
-> > > > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > > > Sent: Thursday, November 2, 2023 9:54 AM
-> > > > > > > > > > > >
-> > > > > > > > > > > > On Wed, Nov 1, 2023 at 11:02=E2=80=AFAM Parav Pandi=
-t
-> > > > > > > > > > > > <parav@nvidia.com>
-> > > > > > > > wrote:
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > > > > > Sent: Wednesday, November 1, 2023 6:00 AM
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > On Tue, Oct 31, 2023 at 11:27=E2=80=AFAM Parav =
-Pandit
-> > > > > > > > > > > > > > <parav@nvidia.com>
-> > > > > > > > > > wrote:
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > > > > > > > Sent: Tuesday, October 31, 2023 7:13 AM
-> > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > On Mon, Oct 30, 2023 at 9:21=E2=80=AFPM Par=
-av Pandit
-> > > > > > > > > > > > > > > > <parav@nvidia.com>
-> > > > > > > > > > > > wrote:
-> > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > During a device migration flow (typically
-> > > > > > > > > > > > > > > > > in a precopy phase of the live migration)=
-,
-> > > > > > > > > > > > > > > > > a device may write to the guest memory.
-> > > > > > > > > > > > > > > > > Some iommu/hypervisor may not be able to
-> > > > > > > > > > > > > > > > > track these
-> > > > > > > > > > > > written pages.
-> > > > > > > > > > > > > > > > > These pages to be migrated from source to
-> > > > > > > > > > > > > > > > > destination
-> > > > > > > > hypervisor.
-> > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > A device which writes to these pages,
-> > > > > > > > > > > > > > > > > provides the page address record of the t=
-o the owner
-> > device.
-> > > > > > > > > > > > > > > > > The owner device starts write recording
-> > > > > > > > > > > > > > > > > for the device and queries all the page
-> > > > > > > > > > > > > > > > > addresses written by the
-> > > > > > device.
-> > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > Fixes:
-> > > > > > > > > > > > > > > > > https://github.com/oasis-tcs/virtio-spec/=
-i
-> > > > > > > > > > > > > > > > > ssue
-> > > > > > > > > > > > > > > > > s/17
-> > > > > > > > > > > > > > > > > 6
-> > > > > > > > > > > > > > > > > Signed-off-by: Parav Pandit
-> > > > > > > > > > > > > > > > > <parav@nvidia.com>
-> > > > > > > > > > > > > > > > > Signed-off-by: Satananda Burla
-> > > > > > > > > > > > > > > > > <sburla@marvell.com>
-> > > > > > > > > > > > > > > > > ---
-> > > > > > > > > > > > > > > > > changelog:
-> > > > > > > > > > > > > > > > > v1->v2:
-> > > > > > > > > > > > > > > > > - addressed comments from Michael
-> > > > > > > > > > > > > > > > > - replaced iova with physical address
-> > > > > > > > > > > > > > > > > ---
-> > > > > > > > > > > > > > > > >  admin-cmds-device-migration.tex | 15
-> > > > > > > > > > > > > > > > > +++++++++++++++
-> > > > > > > > > > > > > > > > >  1 file changed, 15 insertions(+)
-> > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > diff --git
-> > > > > > > > > > > > > > > > > a/admin-cmds-device-migration.tex
-> > > > > > > > > > > > > > > > > b/admin-cmds-device-migration.tex index
-> > > > > > > > > > > > > > > > > ed911e4..2e32f2c
-> > > > > > > > > > > > > > > > > 100644
-> > > > > > > > > > > > > > > > > --- a/admin-cmds-device-migration.tex
-> > > > > > > > > > > > > > > > > +++ b/admin-cmds-device-migration.tex
-> > > > > > > > > > > > > > > > > @@ -95,6 +95,21 @@ \subsubsection{Device
-> > > > > > > > > > > > > > > > > Migration}\label{sec:Basic Facilities of =
-a
-> > > > > > > > > > > > > > > > > Virtio Device / The owner driver can
-> > > > > > > > > > > > > > > > > discard any partially read or written
-> > > > > > > > > > > > > > > > > device context when  any of the device
-> > > > > > > > > > > > > > > > > migration flow
-> > > > > > > > > > > > > > > > should be aborted.
-> > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > +During the device migration flow, a
-> > > > > > > > > > > > > > > > > +passthrough device may write data to the
-> > > > > > > > > > > > > > > > > +guest virtual machine's memory, a source
-> > > > > > > > > > > > > > > > > +hypervisor needs to keep track of these
-> > > > > > > > > > > > > > > > > +written memory to migrate such memory to
-> > > > > > > > > > > > > > > > > +destination
-> > > > > > > > > > > > > > > > hypervisor.
-> > > > > > > > > > > > > > > > > +Some systems may not be able to keep
-> > > > > > > > > > > > > > > > > +track of such memory write addresses at =
-hypervisor
-> > level.
-> > > > > > > > > > > > > > > > > +In such a scenario, a device records and
-> > > > > > > > > > > > > > > > > +reports these written memory addresses t=
-o
-> > > > > > > > > > > > > > > > > +the owner device. The owner driver
-> > > > > > > > > > > > > > > > > +enables write recording for one or more
-> > > > > > > > > > > > > > > > > +physical address ranges per device durin=
-g
-> > > > > > > > > > > > > > > > > +device
-> > > > > > > > > > > > migration flow.
-> > > > > > > > > > > > > > > > > +The owner driver periodically queries
-> > > > > > > > > > > > > > > > > +these written physical address
-> > > > > > > > > > > > > > records from the device.
-> > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > I wonder how PA works in this case. Device
-> > > > > > > > > > > > > > > > uses untranslated requests so it can only s=
-ee IOVA.
-> > > > > > > > > > > > > > > > We can't mandate
-> > > > > > > > ATS anyhow.
-> > > > > > > > > > > > > > > Michael suggested to keep the language unifor=
-m
-> > > > > > > > > > > > > > > as PA as this is ultimately
-> > > > > > > > > > > > > > what the guest driver is supplying during vq
-> > > > > > > > > > > > > > creation and in posting buffers as physical add=
-ress.
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > This seems to need some work. And, can you show
-> > > > > > > > > > > > > > me how it can
-> > > > > > > > work?
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > 1) e.g if GAW is 48 bit, is the hypervisor
-> > > > > > > > > > > > > > expected to do a bisection of the whole range?
-> > > > > > > > > > > > > > 2) does the device need to reserve sufficient
-> > > > > > > > > > > > > > internal resources for logging the dirty page a=
-nd why
-> > (not)?
-> > > > > > > > > > > > > No when dirty page logging starts, only at that
-> > > > > > > > > > > > > time, device will reserve
-> > > > > > > > > > > > enough resources.
-> > > > > > > > > > > >
-> > > > > > > > > > > > GAW is 48bit, how large would it have then?
-> > > > > > > > > > > Dirty page tracking is not dependent on the size of t=
-he GAW.
-> > > > > > > > > > > It is function of address ranges for the amount of
-> > > > > > > > > > > guest memory regardless of
-> > > > > > > > > > GAW.
-> > > > > > > > > >
-> > > > > > > > > > The problem is, e.g when vIOMMU is enabled, you can't
-> > > > > > > > > > know which IOVA is actually used by guests. And even fo=
-r
-> > > > > > > > > > the case when vIOMMU is not enabled, the guest may have
-> > several TBs.
-> > > > > > > > > > Is it easy to reserve sufficient resources by the devic=
-e itself?
-> > > > > > > > > >
-> > > > > > > > > When page tracking is enabled per device, it knows about
-> > > > > > > > > the range and it can
-> > > > > > > > reserve certain resource.
-> > > > > > > >
-> > > > > > > > I didn't see such an interface in this series. Anything I m=
-iss?
-> > > > > > > >
-> > > > > > > Yes, this patch and the next patch is covering the page
-> > > > > > > tracking start,stop and
-> > > > > > query commands.
-> > > > > > > They are named as write recording commands.
-> > > > > >
-> > > > > > So I still don't see how the device can reserve sufficient reso=
-urces?
-> > > > > > Guests may map a very large area of memory to IOMMU (or when
-> > > > > > vIOMMU is disabled, GPA is used). It would be several TBs, how
-> > > > > > can the device reserve sufficient resources in this case?
-> > > > > When the map is established, the ranges are supplied to the devic=
-e
-> > > > > to know
-> > > > how much to reserve.
-> > > > > If device does not have enough resource, it fails the command.
-> > > > >
-> > > > > One can advance it further to provision for the desired range..
-> > > >
-> > > > Well, I think I've asked whether or not a bisection is needed, and
-> > > > you told me not ...
-> > > >
-> > > > But at least we need to document this in the proposal, no?
-> > > >
-> > > We should expose a limit of the device in the proposed
-> > WRITE_RECORD_CAP_QUERY command, that how much range it can track.
-> > > So that future provisioning framework can use it.
-> > >
-> > > I will cover this in v5 early next week.
-> > >
-> > > > > >
-> > > > > > >
-> > > > > > > > Btw, the IOVA is allocated by the guest actually, how can w=
-e
-> > > > > > > > know the
-> > > > > > range?
-> > > > > > > > (or using the host range?)
-> > > > > > > >
-> > > > > > > Hypervisor would have mapping translation.
-> > > > > >
-> > > > > > That's really tricky and can only work in some cases:
-> > > > > >
-> > > > > > 1) It requires the hypervisor to traverse the guest I/O page
-> > > > > > tables which could be very large range
-> > > > > > 2) It requests the hypervisor to trap the modification of guest
-> > > > > > I/O page tables and synchronize with the range changes, which i=
-s
-> > > > > > inefficient and can only be done when we are doing shadow PTEs.
-> > > > > > It won't work when the nesting translation could be offloaded t=
-o
-> > > > > > the hardware
-> > > > > > 3) It is racy with the guest modification of I/O page tables
-> > > > > > which is explained in another thread
-> > > > > Mapping changes with more hw mmu's is not a frequent event and
-> > > > > IOTLB
-> > > > flush is done using querying the dirty log for the smaller range.
-> > > > >
-> > > > > > 4) No aware of new features like PASID which has been explained
-> > > > > > in another thread
-> > > > > For all the pinned work with non sw based IOMMU, it is typically =
-small
-> > subset.
-> > > > > PASID is guest controlled.
-> > > >
-> > > > Let's repeat my points:
-> > > >
-> > > > 1) vq1 use untranslated request with PASID1
-> > > > 2) vq2 use untranslated request with PASID2
-> > > >
-> > > > Shouldn't we log PASID as well?
-> > > >
-> > > Possibly yes, either to request the tracking per PASID or to log the =
-PASID.
-> > > When in future PASID based VQ are supported, this part should be
-> > extended.
-> >
-> > Who is going to do the extension? They are orthogonal features for sure=
-.
-> Whoever extends the VQ for PASID programming.
->
-> I plan to have generic command for VQ creation over CVQ
-
-Another unrelated issue.
-
-> for the wider use cases we discussed.
-
-CVQ might want a dedicated PASID.
-
-> It can have PASID parameter in future when one wants to add it.
->
-> >
-> > >
-> > > > And
-> > > >
-> > > > 1) vq1 is using translated request
-> > > > 2) vq2 is using untranslated request
-> > > >
-> >
-> > How about this?
-> How did driver program the device for vq1 to translated request and vq2 t=
-o not.
-> And for which use case?
-
-Again, it is allowed by the PCI spec, no? You've explained yourself
-that your design needs to obey PCI spec.
-
-And, if you want to ask. for use case, there are handy:
-
-- ATS
-- When IOMMU_PLATFORM is not negotiated
-- MSI
-
-Let's make sure the function of your proposal is correct before
-talking about any use cases.
-
->
-> >
-> > >
-> > > > How could we differ?
-> > > >
-> > > > >
-> > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > > Host should always have more resources than device, in
-> > > > > > > > > > that sense there could be several methods that tries to
-> > > > > > > > > > utilize host memory instead of the one in the device. I
-> > > > > > > > > > think we've discussed this when going through the doc p=
-repared
-> > by Eugenio.
-> > > > > > > > > >
-> > > > > > > > > > >
-> > > > > > > > > > > > What happens if we're trying to migrate more than 1=
- device?
-> > > > > > > > > > > >
-> > > > > > > > > > > That is perfectly fine.
-> > > > > > > > > > > Each device is updating its log of pages it wrote.
-> > > > > > > > > > > The hypervisor is collecting their sum.
-> > > > > > > > > >
-> > > > > > > > > > See above.
-> > > > > > > > > >
-> > > > > > > > > > >
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > > 3) DMA is part of the transport, it's natural t=
-o
-> > > > > > > > > > > > > > do logging there, why duplicate efforts in the =
-virtio layer?
-> > > > > > > > > > > > > He he, you have funny comment.
-> > > > > > > > > > > > > When an abstract facility is added to virtio you
-> > > > > > > > > > > > > say to do in
-> > > > > > transport.
-> > > > > > > > > > > >
-> > > > > > > > > > > > So it's not done in the general facility but tied t=
-o the admin
-> > part.
-> > > > > > > > > > > > And we all know dirty page tracking is a challenge
-> > > > > > > > > > > > and Eugenio has a good summary of pros/cons. A
-> > > > > > > > > > > > revisit of those docs make me think virtio is not
-> > > > > > > > > > > > the good place for doing that for
-> > > > > > may reasons:
-> > > > > > > > > > > >
-> > > > > > > > > > > > 1) as stated, platform will evolve to be able to
-> > > > > > > > > > > > tracking dirty pages, actually, it has been
-> > > > > > > > > > > > supported by a lot of major IOMMU vendors
-> > > > > > > > > > >
-> > > > > > > > > > > This is optional facility in virtio.
-> > > > > > > > > > > Can you please point to the references? I don=E2=80=
-=99t see it
-> > > > > > > > > > > in the common Linux
-> > > > > > > > > > kernel support for it.
-> > > > > > > > > >
-> > > > > > > > > > Note that when IOMMUFD is being proposed, dirty page
-> > > > > > > > > > tracking is one of the major considerations.
-> > > > > > > > > >
-> > > > > > > > > > This is one recent proposal:
-> > > > > > > > > >
-> > > > > > > > > > https://www.spinics.net/lists/kvm/msg330894.html
-> > > > > > > > > >
-> > > > > > > > > Sure, so if platform supports it. it can be used from the=
- platform.
-> > > > > > > > > If it does not, the device supplies it.
-> > > > > > > > >
-> > > > > > > > > > > Instead Linux kernel choose to extend to the devices.
-> > > > > > > > > >
-> > > > > > > > > > Well, as I stated, tracking dirty pages is challenging
-> > > > > > > > > > if you want to do it on a device, and you can't simply
-> > > > > > > > > > invent dirty page tracking for each type of the devices=
-.
-> > > > > > > > > >
-> > > > > > > > > It is not invented.
-> > > > > > > > > It is generic framework for all virtio device types as pr=
-oposed here.
-> > > > > > > > > Keep in mind, that it is optional already in v3 series.
-> > > > > > > > >
-> > > > > > > > > > > At least not seen to arrive this in any near term in
-> > > > > > > > > > > start of
-> > > > > > > > > > > 2024 which is
-> > > > > > > > > > where users must use this.
-> > > > > > > > > > >
-> > > > > > > > > > > > 2) you can't assume virtio is the only device that
-> > > > > > > > > > > > can be used by the guest, having dirty pages
-> > > > > > > > > > > > tracking to be implemented in each type of device i=
-s
-> > > > > > > > > > > > unrealistic
-> > > > > > > > > > > Of course, there is no such assumption made. Where di=
-d
-> > > > > > > > > > > you see a text that
-> > > > > > > > > > made such assumption?
-> > > > > > > > > >
-> > > > > > > > > > So what happens if you have a guest with virtio and
-> > > > > > > > > > other devices
-> > > > > > assigned?
-> > > > > > > > > >
-> > > > > > > > > What happens? Each device type would do its own dirty pag=
-e
-> > tracking.
-> > > > > > > > > And if all devices does not have support, hypervisor know=
-s
-> > > > > > > > > to fall back to
-> > > > > > > > platform iommu or its own.
-> > > > > > > > >
-> > > > > > > > > > > Each virtio and non virtio devices who wants to repor=
-t
-> > > > > > > > > > > their dirty page report,
-> > > > > > > > > > will do their way.
-> > > > > > > > > > >
-> > > > > > > > > > > > 3) inventing it in the virtio layer will be
-> > > > > > > > > > > > deprecated in the future for sure, as platform will
-> > > > > > > > > > > > provide much rich features for logging e.g it can d=
-o
-> > > > > > > > > > > > it per PASID etc, I don't see any reason virtio nee=
-d
-> > > > > > > > > > > > to compete with the features that will be provided
-> > > > > > > > > > > > by the platform
-> > > > > > > > > > > Can you bring the cpu vendors and committement to
-> > > > > > > > > > > virtio tc with timelines
-> > > > > > > > > > so that virtio TC can omit?
-> > > > > > > > > >
-> > > > > > > > > > Why do we need to bring CPU vendors in the virtio TC?
-> > > > > > > > > > Virtio needs to be built on top of transport or
-> > > > > > > > > > platform. There's no need to duplicate
-> > > > > > > > their job.
-> > > > > > > > > > Especially considering that virtio can't do better than=
- them.
-> > > > > > > > > >
-> > > > > > > > > I wanted to see a strong commitment for the cpu vendors t=
-o
-> > > > > > > > > support dirty
-> > > > > > > > page tracking.
-> > > > > > > >
-> > > > > > > > The RFC of IOMMUFD support can go back to early 2022. Intel=
-,
-> > > > > > > > AMD and ARM are all supporting that now.
-> > > > > > > >
-> > > > > > > > > And the work seems to have started for some platforms.
-> > > > > > > >
-> > > > > > > > Let me quote from the above link:
-> > > > > > > >
-> > > > > > > > """
-> > > > > > > > Today, AMD Milan (or more recent) supports it while ARM
-> > > > > > > > SMMUv3.2 alongside VT-D rev3.x also do support.
-> > > > > > > > """
-> > > > > > > >
-> > > > > > > > > Without such platform commitment, virtio also skipping it
-> > > > > > > > > would not
-> > > > work.
-> > > > > > > >
-> > > > > > > > Is the above sufficient? I'm a little bit more familiar wit=
-h
-> > > > > > > > vtd, the hw feature has been there for years.
-> > > > > > > >
-> > > > > > > Vtd has a sticky D bit that requires synchronization with
-> > > > > > > IOPTE page caches
-> > > > > > when sw wants to clear it.
-> > > > > >
-> > > > > > This is by design.
-> > > > > >
-> > > > > > > Do you know if is it reliable when device does multiple
-> > > > > > > writes, ie,
-> > > > > > >
-> > > > > > > a. iommu write D bit
-> > > > > > > b. software read it
-> > > > > > > c. sw synchronize cache
-> > > > > > > d. iommu write D bit on next write by device
-> > > > > >
-> > > > > > What issue did you see here? But that's not even an excuse, if
-> > > > > > there's a bug, let's report it to IOMMU vendors and let them fi=
-x it.
-> > > > > > The thread I point to you is actually a good space.
-> > > > > >
-> > > > > So we cannot claim that it is there in the platform.
-> > > >
-> > > > I'm confused, the thread I point to you did the cache
-> > > > synchronization which has been explained in the changelog, so what'=
-s the
-> > issue?
-> > > >
-> > > If the ask is for IOMMU chip to fix something, we cannot claim that d=
-irty
-> > page tracking is available already in platform.
-> >
-> > Again, can you describe the issue? Why do you think the sticky part is =
-an
-> > issue? IOTLB needs to be sync with IO page tables, what's wrong with th=
-is?
-> Nothing wrong with it.
-> The text is not affirmative to say it works if the sw clears it.
->
-> >
-> > >
-> > > > >
-> > > > > > Again, the point is to let the correct role play.
-> > > > > >
-> > > > > How many more years should we block the virtio device migration
-> > > > > when
-> > > > platform do not have it?
-> > > >
-> > > > At least for VT-D, it has been used for years.
-> > > Is this device written pages tracked by KVM for VT-d as dirty page lo=
-g,
-> > instead through vfio?
-> >
-> > I don't get this question.
-> You said the VT-d has dirty page tracking for years so it must be used by=
- the sw during device migration.
-
-It's the best way if the platform has the support for that.
-
-> And if that is there, how is these dirty pages of iommu are merged with t=
-he cpu side?
-> Is this done by KVM for passthrough devices for vfio?
-
-I don't see how it is related to the discussion here. IOMMU support is
-sufficient as a start. If you requires CPU support, virtio is clearly
-the wrong forum.
-
->
-> >
-> > >
-> > > >
-> > > > >
-> > > > > > >
-> > > > > > > ARM SMMU based servers to be present with D bit tracking.
-> > > > > > > It is still early to say platform is ready.
-> > > > > >
-> > > > > > This is not what I read from both the series I posted and the
-> > > > > > spec, dirty bit has been supported several years ago at least f=
-or vtd.
-> > > > > Supported, but spec listed it as sticky bit that may require spec=
-ial
-> > handling.
-> > > >
-> > > > Please explain why this is "special handling". IOMMU has several
-> > > > different layers of caching, by design, it can't just open a window=
- for D bit.
-> > > >
-> > > > > May be it is working, but not all cpu platforms have it.
-> > > >
-> > > > I don't see the point. Migration is not supported for virito as wel=
-l.
-> > > >
-> > > I don=E2=80=99t see a point either to discuss.
-> > >
-> > > I already acked that platform may have support as well, and not all p=
-latform
-> > has it.
-> > > So the device feeds the data and its platform's choice to enable/disa=
-ble.
-> >
-> > I've pointed out sufficient issues and I don't want to repeat them.
-> There does not seem to be any that is critical enough for non viommu case=
-.
-
-No, see above.
-
-> Viommu needs to flush the iotlb anyway.
-
-I've explained it in antoher thread.
-
->
-> >
-> > >
-> > > > >
-> > > > > >
-> > > > > > >
-> > > > > > > It is optional so whichever has the support it will be used.
-> > > > > >
-> > > > > > I can't see the point of this, it is already available. And
-> > > > > > migration doesn't exist in virtio spec yet.
-> > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > > > i.e. in first year of 2024?
-> > > > > > > > > >
-> > > > > > > > > > Why does it matter in 2024?
-> > > > > > > > > Because users needs to use it now.
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > If not, we are better off to offer this, and when/if
-> > > > > > > > > > > platform support is, sure,
-> > > > > > > > > > this feature can be disabled/not used/not enabled.
-> > > > > > > > > > >
-> > > > > > > > > > > > 4) if the platform support is missing, we can use
-> > > > > > > > > > > > software or leverage transport for assistance like
-> > > > > > > > > > > > PRI
-> > > > > > > > > > > All of these are in theory.
-> > > > > > > > > > > Our experiment shows PRI performance is 21x slower
-> > > > > > > > > > > than page fault rate
-> > > > > > > > > > done by the cpu.
-> > > > > > > > > > > It simply does not even pass a simple 10Gbps test.
-> > > > > > > > > >
-> > > > > > > > > > If you stick to the wire speed during migration, it can=
- converge.
-> > > > > > > > > Do you have perf data for this?
-> > > > > > > >
-> > > > > > > > No, but it's not hard to imagine the worst case. Wrote a
-> > > > > > > > small program that dirty every page by a NIC.
-> > > > > > > >
-> > > > > > > > > In the internal tests we don=E2=80=99t see this happening=
-.
-> > > > > > > >
-> > > > > > > > downtime =3D dirty_rates * PAGE_SIZE / migration_speed
-> > > > > > > >
-> > > > > > > > So if we get very high dirty rates (e.g by a high speed
-> > > > > > > > NIC), we can't satisfy the requirement of the downtime. Or
-> > > > > > > > if you see the converge, you might get help from the auto
-> > > > > > > > converge support by the hypervisors like KVM where it tries
-> > > > > > > > to throttle the VCPU then you can't reach
-> > > > > > the wire speed.
-> > > > > > > >
-> > > > > > > Once PRI is enabled, even without migration, there is basic p=
-erf issues.
-> > > > > >
-> > > > > > The context is not PRI here...
-> > > > > >
-> > > > > > It's about if you can stick to wire speed during live migration=
-.
-> > > > > > Based on the analysis so far, you can't achieve wirespeed and
-> > > > > > downtime at
-> > > > the same time.
-> > > > > > That's why the hypervisor needs to throttle VCPU or devices.
-> > > > > >
-> > > > > So?
-> > > > > Device also may throttle itself.
-> > > >
-> > > > That's perfectly fine. We are on the same page, no? It's wrong to
-> > > > judge the dirty page tracking in the context of live migration by
-> > > > measuring whether or not the device can work at wire speed.
-> > > >
-> > > > >
-> > > > > > For PRI, it really depends on how you want to use it. E.g if yo=
-u
-> > > > > > don't want to pin a page, the performance is the price you must=
- pay.
-> > > > > PRI without pinning does not make sense for device to make large
-> > > > > mapping
-> > > > queries.
-> > > >
-> > > > That's also fine. Hypervisors can choose to enable and use PRI
-> > > > depending on the different cases.
-> > > >
-> > > So PRI is not must for device migration.
-> >
-> > I never say it's a must.
-> >
-> > > Device migration must be able to work without PRI enabled, as simple =
-as
-> > that as first base line.
-> >
-> > My point is that, you need document
-> >
-> > 1) why you think dirty page is a must or not
-> Explained in the patch already in commit log and in spec theory already.
->
-> > 2) why did you choose one of a specific way instead of others
-> >
-> This is not part of the spec anyway. This is already discussed in mailing=
- list here in community.
-
-It helps the reviewers, it doesn't harm to have a summary in the
-changelog. Or people may ask the same questions endlessly.
-
->
-> > >
-> > > > >
-> > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > There is no requirement for mandating PRI either.
-> > > > > > > > > > > So it is unusable.
-> > > > > > > > > >
-> > > > > > > > > > It's not about mandating, it's about doing things in th=
-e
-> > > > > > > > > > correct layer. If PRI is slow, PCI can evolve for sure.
-> > > > > > > > > You should try.
-> > > > > > > >
-> > > > > > > > Not my duty, I just want to make sure things are done in th=
-e
-> > > > > > > > correct layer, and once it needs to be done in the virtio,
-> > > > > > > > there's nothing obviously
-> > > > > > wrong.
-> > > > > > > >
-> > > > > > > At present, it looks all platforms are not equally ready for =
-page
-> > tracking.
-> > > > > >
-> > > > > > That's not an excuse to let virtio support that.
-> > > > > It is wrong attribution as excuse.
-> > > > >
-> > > > > > And we need also to figure out if virtio can do that easily.
-> > > > > > I've pointed out sufficient issues, I'm pretty sure there would
-> > > > > > be more as the platform evolves.
-> > > > > >
-> > > > > I am not sure if virtio feeds the log into the platform.
-> > > >
-> > > > I don't understand the meaning here.
-> > > >
-> > > I mistakenly merged two sentences.
-> > >
-> > > Virtio feeds the dirty page details to the hypervisor platform which =
-collects
-> > and merges the page record.
-> > > So it is platform choice to use iommu based tracking or device based.
-> > >
-> > > > >
-> > > > > > >
-> > > > > > > > > In the current state, it is mandating.
-> > > > > > > > > And if you think PRI is the only way,
-> > > > > > > >
-> > > > > > > > I don't, it's just an example where virtio can leverage fro=
-m
-> > > > > > > > either transport or platform. Or if it's the fault in virti=
-o
-> > > > > > > > that slows down the PRI, then it is something we can do.
-> > > > > > > >
-> > > > > > > Yea, it does not seem to be ready yet.
-> > > > > > >
-> > > > > > > > >  than you should propose that in the dirty page tracking
-> > > > > > > > > series that you listed
-> > > > > > > > above to not do dirty page tracking. Rather depend on PRI, =
-right?
-> > > > > > > >
-> > > > > > > > No, the point is to not duplicate works especially
-> > > > > > > > considering virtio can't do better than platform or transpo=
-rt.
-> > > > > > > >
-> > > > > > > Both the platform and virtio work is ongoing.
-> > > > > >
-> > > > > > Why duplicate the work then?
-> > > > > >
-> > > > > Not all cpu platforms support as far as I know.
-> > > >
-> > > > Yes, but we all know the platform is working to support this.
-> > > >
-> > > > Supporting this on the device is hard.
-> > > >
-> > > This is optional, whichever device would like to implement it, will s=
-upport it.
-> > >
-> > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > > When one does something in transport, you say,
-> > > > > > > > > > > > > this is transport specific, do
-> > > > > > > > > > > > some generic.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Here the device is being tracked is virtio device=
-.
-> > > > > > > > > > > > > PCI-SIG has told already that PCIM interface is
-> > > > > > > > > > > > > outside the scope of
-> > > > > > it.
-> > > > > > > > > > > > > Hence, this is done in virtio layer here in abstr=
-act way.
-> > > > > > > > > > > >
-> > > > > > > > > > > > You will end up with a competition with the
-> > > > > > > > > > > > platform/transport one that will fail.
-> > > > > > > > > > > >
-> > > > > > > > > > > I don=E2=80=99t see a reason. There is no competition=
-.
-> > > > > > > > > > > Platform always have a choice to not use device side
-> > > > > > > > > > > page tracking when it is
-> > > > > > > > > > supported.
-> > > > > > > > > >
-> > > > > > > > > > Platform provides a lot of other functionalities for di=
-rty logging:
-> > > > > > > > > > e.g per PASID, granular, etc. So you want to duplicate
-> > > > > > > > > > them again in the virtio? If not, why choose this way?
-> > > > > > > > > >
-> > > > > > > > > It is optional for the platforms where platform do not ha=
-ve it.
-> > > > > > > >
-> > > > > > > > We are developing new virtio functionalities that are
-> > > > > > > > targeted for future platforms. Otherwise we would end up
-> > > > > > > > with a feature with a very narrow use case.
-> > > > > > > In general I agree that platform is an option too.
-> > > > > > > Hypervisor will be able to make the decision to use platform
-> > > > > > > when available
-> > > > > > and fallback to device method when platform does not have it.
-> > > > > > >
-> > > > > > > Future and to be equally usable in near term :)
-> > > > > >
-> > > > > > Please don't double standard again:
-> > > > > >
-> > > > > > When you are talking about TDISP, you want virtio to be designe=
-d
-> > > > > > to fit for the future where the platform is ready in the future
-> > > > > > When you are talking about dirty tracking, you want it to work
-> > > > > > now even if
-> > > > > >
-> > > > > The proposal of transport VQ is anti-TDISP.
-> > > >
-> > > > It's nothing about transport VQ, it's about you're saying the admin=
-q
-> > > > based device context. There's a comment to point out that the
-> > > > current TDISP spec forbids modifying device state when TVM is
-> > > > attached. Then you told us the TDISP may evolve for that.
-> > > So? That is not double standard.
-> > > The proposal is based on main principle that it is not depending on
-> > > hypervisor traping + emulating which is the baseline of TDISP
-> > >
-> > > >
-> > > > > The proposal of dirty tracking is not anti-platform. It is
-> > > > > optional like rest of the
-> > > > platform.
-> > > > >
-> > > > > > 1) most of the platform is ready now
-> > > > > Can you list a ARM server CPU in production that has it? (not in
-> > > > > some pdf
-> > > > spec).
-> > > >
-> > > > Then in the context of a dirty page, I've proved you dirty page
-> > > > tracking has been supported by all major vendors.
-> > > Major IP vendor !=3D major cpu chip vendor.
-> > > I don=E2=80=99t agree with the proof.
-> >
-> > So this will be an endless debate. Did I ever ask you about ETA or any =
-product
-> > for TDISP?
-> >
-> ETA for TDISP is not relevant.
-> You claimed for _major_ vendor support based on nonphysical cpu, hence th=
-e disagreement.
-
-How did you define "support"?
-
-Dirty tracking has been wroted into the IOMMU manual for Intel, AMD
-and ARM for years. So you think it's not supported now? I've told you
-it has been shipped by Intel at least then you ask me which ARM vendor
-ships those vIOMMU.
-
-For TDISP live migration, PCI doesn't even have a draft, no? I never
-ask which chip vendor ships the platform.
-
-You want to support dirty page tracking in virtio and keep asking when
-it is supported by all platform vendors.
-
-You want to prove your proposal can work for TDISP and TDISP migration
-but never explain when it would be supported by at least one vendor.
-
-Let's have a unified standard please.
-
-> And that is not the reality.
->
-> > >
-> > > I already acknowledged that I have seen internal test report for dirt=
-y tracking
-> > with one cpu and nic.
-> > >
-> > > I just don=E2=80=99t see all cpus have support for it.
-> > > Hence, this optional feature.
-> >
-> > Repeat myself again.
-> >
-> > If it can be done easily and efficiently in virtio, I agree. But I've p=
-ointed out
-> > several issues where it is not answered.
->
-> I have answered most of your questions.
->
-> The definition of 'easy' is very subjective.
-
-The reason why I don't think it is easy is because I can easily see
-several issues that can't be solved easily.
-
-> At one point RSS was also not easy in some devices and IOMMU dirty page t=
-racking was also not easy.
-
-Yes, but we can offload the IOMMU part to the vendor. Virtio can't do
-anything especially the part that duplicates with the function
-provided by the transport or platform.
-
->
-> >
-> > >
-> > > > Where you refuse to use the standard you used in explaining adminq
-> > > > for device context in TDISP.
-> > > >
-> > > > So I didn't ask you the ETA of the TDISP support for migration or
-> > > > adminq, but you want me to give you the production information whic=
-h is
-> > pointless.
-> > > Because you keep claiming that _all_ cpus in the world has support fo=
-r
-> > efficient dirty page tracking.
-> > >
-> > > > You
-> > > > might need to ask ARM to get an answer, but a simple google told me
-> > > > the effort to support dirty page tracking in SMMUv3 could go back t=
-o early
-> > 2021.
-> > > >
-> > > To my knowledge ARM do not produce physical chips.
-> > > Your proposal is to keep those ARM server vendors to not use virtio d=
-evices.
-> >
-> > This arbitrary conclusion makes no sense.
-> >
-> Your conclusion about "all" and "major" physical cpu vendor supporting di=
-rty page tracking is equally arbitrary.
-> So better to not argue on this.
-
-See above.
-
-Thanks
-
-
->
-> > I know at least one cloud vendor has used a virtio based device for yea=
-rs on
-> > ARM. And that vendor has posted patches to support dirty page tracking =
-since
-> > 2020.
-> >
-> > Thanks
-> >
-> > > Does not make sense to me.
-> > >
-> > > > https://lore.kernel.org/linux-iommu/56b001fa-b4fe-c595-dc5e-
-> > > > f362d2f07a19@linux.intel.com/t/
-> > > >
-> > > > Why is it not merged? It's simply because we agree to do it in the
-> > > > layer of IOMMUFD so it needs to wait.
-> > > >
-> > > > Thanks
-> > > >
-> > > >
-> > > > >
-> > > > > > 2) whether or not virtio can log dirty page correctly is still
-> > > > > > suspicious
-> > > > > >
-> > > > > > Thanks
-> > > > >
-> > > > > There is no double standard. The feature is optional which
-> > > > > co-exists as
-> > > > explained above.
-> > >
->
-
-
-
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
-Join OASIS: https://www.oasis-open.org/join/
+DQoNCj4gRnJvbTogSmFzb24gV2FuZyA8amFzb3dhbmdAcmVkaGF0LmNvbT4NCj4gU2VudDogV2Vk
+bmVzZGF5LCBOb3ZlbWJlciAyMiwgMjAyMyA5OjQ4IEFNDQo+IA0KPiBPbiBXZWQsIE5vdiAyMiwg
+MjAyMyBhdCAxMjoyOeKAr0FNIFBhcmF2IFBhbmRpdCA8cGFyYXZAbnZpZGlhLmNvbT4gd3JvdGU6
+DQo+ID4NCj4gPg0KPiA+ID4gRnJvbTogSmFzb24gV2FuZyA8amFzb3dhbmdAcmVkaGF0LmNvbT4N
+Cj4gPiA+IFNlbnQ6IFR1ZXNkYXksIE5vdmVtYmVyIDIxLCAyMDIzIDEwOjQ3IEFNDQo+ID4gPg0K
+PiA+ID4gT24gRnJpLCBOb3YgMTcsIDIwMjMgYXQgODo1MeKAr1BNIFBhcmF2IFBhbmRpdCA8cGFy
+YXZAbnZpZGlhLmNvbT4gd3JvdGU6DQo+ID4gPiA+DQo+ID4gPiA+DQo+ID4gPiA+ID4gRnJvbTog
+dmlydGlvLWNvbW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gPiA+ID4gPiA8dmlydGlvLWNv
+bW1lbnRAbGlzdHMub2FzaXMtIG9wZW4ub3JnPiBPbiBCZWhhbGYgT2YgTWljaGFlbCBTLg0KPiA+
+ID4gPiA+IFRzaXJraW4NCj4gPiA+ID4gPiBTZW50OiBGcmlkYXksIE5vdmVtYmVyIDE3LCAyMDIz
+IDY6MTEgUE0NCj4gPiA+ID4gPg0KPiA+ID4gPiA+IE9uIEZyaSwgTm92IDE3LCAyMDIzIGF0IDEy
+OjIyOjU5UE0gKzAwMDAsIFBhcmF2IFBhbmRpdCB3cm90ZToNCj4gPiA+ID4gPiA+DQo+ID4gPiA+
+ID4gPg0KPiA+ID4gPiA+ID4gPiBGcm9tOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQu
+Y29tPg0KPiA+ID4gPiA+ID4gPiBTZW50OiBGcmlkYXksIE5vdmVtYmVyIDE3LCAyMDIzIDU6MDMg
+UE0NCj4gPiA+ID4gPiA+ID4gVG86IFBhcmF2IFBhbmRpdCA8cGFyYXZAbnZpZGlhLmNvbT4NCj4g
+PiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gU29tZWhvdyB0aGUgY2xhaW0gb2Ygc2hhZG93IHZx
+IGlzIGdyZWF0IHdpdGhvdXQgc2hhcmluZw0KPiA+ID4gPiA+ID4gPiA+IGFueSBwZXJmb3JtYW5j
+ZQ0KPiA+ID4gPiA+ID4gPiBudW1iZXJzIGlzIHdoYXQgSSBkb24ndCBhZ3JlZSB3aXRoLg0KPiA+
+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiBJdCdzIHVwc3RyZWFtIGluIFFFTVUuIFRlc3QgaXQg
+eW91c2VsZi4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IFdlIGRpZCBmZXcgbWludXRlcyBi
+YWNrLg0KPiA+ID4gPiA+ID4gSXQgcmVzdWx0cyBpbiBhIGNhbGwgdHJhY2UuDQo+ID4gPiA+ID4g
+PiBWaG9zdF92ZHBhX3NldHVwX3ZxX2lycSBjcmFzaGVzIG9uIGxpc3QgY29ycnVwdGlvbiBvbiBu
+ZXQtbmV4dC4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+IFdyb25nIGxpc3QgZm9yIHRoaXMgYnVnIHJl
+cG9ydC4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gV2UgYXJlIHN0b3BwaW5nIGFueSBzaGFkb3cg
+dnEgdGVzdHMgb24gdW5zdGFibGUgc3R1ZmYuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBJZiB5b3Ug
+ZG9uJ3Qgd2FudCB0byBiZW5jaG1hcmsgYWdhaW5zdCBhbHRlcm5hdGl2ZXMgaG93IGFyZSB5b3UN
+Cj4gPiA+ID4gPiBnb2luZyB0byBwcm92ZSB5b3VyIHN0dWZmIGlzIHdvcnRoIGV2ZXJ5b25lJ3Mg
+dGltZT8NCj4gPiA+ID4NCj4gPiA+ID4gQ29tcGFyaW5nIHBlcmZvcm1hbmNlIG9mIHRoZSBmdW5j
+dGlvbmFsIHRoaW5ncyBjb3VudC4NCj4gPiA+ID4gWW91IHN1Z2dlc3Qgc2hhZG93IHZxLCBmcmFu
+a2x5IHlvdSBzaG91bGQgcG9zdCB0aGUgZ3JhbmQgbnVtYmVycw0KPiA+ID4gPiBvZg0KPiA+ID4g
+c2hhZG93IHZxLg0KPiA+ID4NCj4gPiA+IFdlIG5lZWQgYW4gYXBwbGUgdG8gYXBwbGUgY29tcGFy
+aXNvbi4gT3RoZXJ3aXNlIHlvdSBtYXkgYXJndWUgd2l0aA0KPiA+ID4gdGhhdCwgbm8/DQo+ID4g
+Pg0KPiA+IFdoZW4gdGhlIHJlcXVpcmVtZW50cyBhcmUgbWV0IHRoZSBjb21wYXJpc29uIGNhbiBi
+ZSBtYWRlIG9mIHRoZQ0KPiBzb2x1dGlvbi4NCj4gPiBBbmQgSSBkb27igJl0IHNlZSB0aGF0IHRo
+ZSBiYXNpYyByZXF1aXJlbWVudHMgYXJlIG1hdGNoaW5nIGZvciB0d28gZGlmZmVyZW50DQo+IHVz
+ZSBjYXNlcy4NCj4gPiBTbyBubyBwb2ludCBpbiBkaXNjdXNzaW5nIG9uZSBPUyBzcGVjaWZpYyBp
+bXBsZW1lbnRhdGlvbiBhcyByZWZlcmVuY2UNCj4gcG9pbnQuDQo+IA0KPiBTaGFkb3cgdmlydHF1
+ZXVlIGlzIG5vdCBPUyBzcGVjaWZpYywgaXQncyBhIGNvbW1vbiBtZXRob2QuIElmIHlvdSBkaXNh
+Z3JlZSwNCj4gcGxlYXNlIGV4cGxhaW4gd2h5Lg0KPg0KQXMgeW91IGNsYWltIHNoYWRvdyB2aXJ0
+cXVldWUgaXMgZ2VuZXJpYyBub3QgZGVwZW5kZW50IG9uIE9TLCBob3cgZG9lcyBJIGJlbmNobWFy
+ayBvbiBRTlggdG9kYXk/DQoNCj4gPiBPdGhlcndpc2UgSSB3aWxsIGVuZCB1cCBhZGRpbmcgdmZp
+byBsaW5rIGluIHRoZSBjb21taXQgbG9nIGluIG5leHQgdmVyc2lvbiBhcw0KPiB5b3UgYXJlIGFz
+a2luZyBzaW1pbGFyIHRoaW5ncyBoZXJlIGFuZCBiZWluZyBub24gbmV1dHJhbCB0byB5b3VyIGFz
+ay4NCj4gDQo+IFdoZW4gZG9pbmcgYSBiZW5jaG1hcmssIHlvdSBuZWVkIHRvIGRlc2NyaWJlIHlv
+dXIgc2V0dXBzLCBubz8gU28gYW55DQo+IGJlbmNobWFyayBpcyBzZXR1cCBzcGVjaWZpYywgbm90
+aGluZyB3cm9uZy4NCj4gDQo+IEl0IGxvb2tzIHRvIG1lIHlvdSBjbGFpbSB5b3VyIG1ldGhvZCBp
+cyBiZXR0ZXIsIGJ1dCByZWZ1c2UgdG8gZ2l2ZSBwcm9vZnMuDQo+DQpJIGdhdmUgZGV0YWlscyB0
+byBNaWNoYWVsIGluIHRoZSBlbWFpbC4gUGxlYXNlIHJlZmVyLg0KIA0KPiA+DQo+ID4gQW55d2F5
+LCBwbGVhc2UgYnJpbmcgdGhlIHBlcmYgZGF0YSB3aGljaGV2ZXIgeW91IHdhbnQgdG8gY29tcGFy
+ZSBpbg0KPiBhbm90aGVyIGZvcnVtLiBJdCBpcyBub3QgdGhlIGNyaXRlcmlhIGFueXdheS4NCj4g
+DQo+IFNvIGhvdyBjYW4geW91IHByb3ZlIHlvdXIgbWV0aG9kIGlzIHRoZSBiZXN0IG9uZT8gWW91
+IGhhdmUgcG9zdGVkIHRoZQ0KPiBzZXJpZXMgZm9yIG1vbnRocywgYW5kIHNvIGZhciBJIHN0aWxs
+IGRvbid0IHNlZSBhbnkgcmF0aW9uYWxlIGFib3V0IHdoeSB5b3UNCj4gY2hvb3NlIHRvIGdvIHRo
+YXQgd2F5Lg0KSXQgaXMgZXhwbGFpbmVkIGluIHRoZW9yeSBvZiBvcGVyYXRpb24uDQpZb3UgcmVm
+dXNlIHRvIHJlYWQgaXQuDQoNCj4gDQo+IFRoaXMgaXMgdmVyeSBvZGQgYXMgd2UndmUgZ29uZSB0
+aHJvdWdoIHNldmVyYWwgbWV0aG9kcyBvbmUgb3IgdHdvIHllYXJzIGFnbw0KPiB3aGVuIGRpc2N1
+c3NpbmcgdkRQQSBsaXZlIG1pZ3JhdGlvbi4NCj4gDQpJdCBkb2VzIG5vdCBtYXR0ZXIgYXMgdGhp
+cyBpcyBub3QgdmRwYSBmb3J1bS4NCg0KPiA+DQo+ID4gPiA+DQo+ID4gPiA+IEl0IGlzIHJlYWxs
+eSBub3QgbXkgcm9sZSB0byByZXBvcnQgYnVnIG9mIHVuc3RhYmxlIHN0dWZmIGFuZA0KPiA+ID4g
+PiBjb21wYXJlIHRoZSBwZXJmDQo+ID4gPiBhZ2FpbnN0Lg0KPiA+ID4NCj4gPiA+IFFlbXUvS1ZN
+IGlzIGhpZ2hseSByZWxldmFudCBoZXJlIG5vPyBBbmQgaXQncyB0aGUgd2F5IHRvIGRldmVsb3Ag
+dGhlDQo+ID4gPiBjb21tdW5pdHkuIFRoZSBzaGFkb3cgdnEgY29kZSBpcyBoYW5keS4NCj4gPiBJ
+dCBpcyByZWxldmFudCBmb3IgZGlyZWN0IG1hcHBlZCBkZXZpY2UuDQo+IA0KPiBMZXQncyBmb2N1
+cyBvbiB0aGUgZnVuY3Rpb24gdGhlbiBkaXNjdXNzIHRoZSB1c2UgY2FzZXMuIElmIHlvdSBjYW4n
+dCBwcm92ZSB5b3VyDQo+IHByb3Bvc2FsIGhhcyBhIHByb3BlciBmdW5jdGlvbiwgd2hhdCdzIHRo
+ZSBwb2ludCBvZiBkaXNjdXNzaW5nIHRoZSB1c2UgY2FzZXM/DQo+IA0KVGhlIHByb3BlciBmdW5j
+dGlvbiBpcyBkZXNjcmliZWQuDQpZb3UgY2hvb3NlIHRvIG5vdCBhY2NlcHQgaW4gZmF2b3VyIG9m
+IGNvbnNpZGVyaW5nIG9uIHRoZSB2ZHBhLg0KDQo+ID4gVGhlcmUgaXMgYWJzb2x1dGVseSBubyBw
+b2ludCBvZiBjb252ZXJ0aW5nIHZpcnRpbyBkZXZpY2UgdG8gYW5vdGhlcg0KPiB2aXJ0dWFsaXph
+dGlvbiBsYXllciBhbmQgcnVuIGFnYWluIGFuZCBnZXQgYW5vdGhlciB2aXJ0aW8gZGV2aWNlLg0K
+PiA+IFNvIGZvciBkaXJlY3QgbWFwcGluZyB1c2UgY2FzZSBzaGFkb3cgdnEgaXMgbm90IHJlbGV2
+YW50Lg0KPiANCj4gSXQgaXMgbmVlZGVkIGJlY2F1c2Ugc2hhZG93IHZpcnRxdWV1ZSBpcyB0aGUg
+YmFzZWxpbmUuIE1vc3Qgb2YgdGhlIGlzc3Vlcw0KPiBkb24ndCBleGlzdCBpbiB0aGUgY2FzZSBv
+ZiBzaGFkb3cgdmlydHF1ZXVlLg0KPiANCkkgZGlzYWdyZWUuDQpGb3IgZGlyZWN0IG1hcHBpbmcg
+dGhlcmUgaXMgbm8gdmlydGlvIHNwZWNpZmljIE9TIGxheWVyIGludm9sdmVkLg0KSGVuY2Ugc2hh
+ZG93IHZxIHNwZWNpZmljIGltcGxlbWVudGF0aW9uIGlzIG5vdCBhcHBsaWFibGUuDQoNCj4gV2Ug
+ZG9uJ3Qgd2FudCB0byBlbmQgdXAgd2l0aCBhIHNvbHV0aW9uIHRoYXQNCj4gDQo+IDEpIGNhbid0
+IG91dHBlcmZvcm0gc2hhZG93IHZpcnRxdWV1ZQ0KRGlzYWdyZWUuIFRoZXJlIGlzIG5vIHNoYWRv
+dyB2cSBpbiBkaXJlY3QgbWFwcGluZy4gTm8gY29tcGFyaXNvbi4NCg0KPiAyKSBoYXZlIG1vcmUg
+aXNzdWVzIHRoYW4gc2hhZG93IHZpcnRxdWV1ZQ0KPg0KVGhlcmUgYXJlIG5vbmUuDQogDQo+ID4g
+Rm9yIG90aGVyIHVzZSBjYXNlcywgcGxlYXNlIGNvbnRpbnVlLg0KPiA+DQo+ID4gPg0KPiA+ID4g
+SnVzdCBhbiBlbWFpbCB0byBRZW11IHNob3VsZCBiZSBmaW5lLCB3ZSdyZSBub3QgYXNraW5nIHlv
+dSB0byBmaXggdGhlIGJ1Zy4NCj4gPiA+DQo+ID4gPiBCdHcsIGhvdyBkbyB5b3UgZGVmaW5lIHN0
+YWJsZT8gRS5nIGRvIHlvdSB0aGluayB0aGUgTGludXMgdHJlZSBpcyBzdGFibGU/DQo+ID4gPg0K
+PiA+IEJhc2ljIHRlc3Qgd2l0aCBpcGVyZiBpcyBub3Qgd29ya2luZy4gQ3Jhc2hpbmcgaXQuDQo+
+IA0KPiBBcyBhIGtlcm5lbCBkZXZlbG9wZXIsIGRlYWxpbmcgd2l0aCBjcmFzaGluZyBhdCBhbnkg
+bGF5ZXIgaXMgcHJldHR5IGNvbW1vbi4NCj4gTm8/DQo+IA0KU28sIGtlcm5lbCBkZXZlbG9wZXJz
+IGRvIG5vdCBhc2sgdG8gY29tcGFyZSB0aGUgY3Jhc2hpbmcgY29kZS4NCg0KPiBUaGFua3MNCj4g
+DQo+IA0KPiA+IEFsbCBvZiB0aGlzIGlzIGNvbXBsZXRlIHVucmVsYXRlZCBkaXNjdXNzaW9uIHRv
+IHRoaXMgc2VyaWVzIHRvIHNsb3cgZG93biB0aGUNCj4gd29yay4NCj4gPiBJIGRvbuKAmXQgc2Vl
+IGFueSB2YWx1ZS4NCj4gPiBNaWNoYWVsIGFza2VkIHRvIGRvIHRoZSB0ZXN0LCB3ZSBkaWQsIGl0
+IGRvZXMgbm90IHdvcmsuIEZ1bmN0aW9uYWxseSBicm9rZW4NCj4gY29kZSBoYXMgbm8gY29tcGFy
+aXNvbi4NCj4gPg0KPiA+ID4gVGhhbmtzDQo+ID4gPg0KPiA+ID4gPg0KPiA+ID4gPiBXZSBwcm9w
+b3NlIGRldmljZSBjb250ZXh0IGFuZCBwcm92aWRlZCB0aGUgbnVtYmVycyB5b3UgYXNrZWQuDQo+
+ID4gPiA+IE1vc3RseQ0KPiA+ID4gd29udCBiZSBhYmxlIHRvIGdvIGZhcnRoZXIgdGhhbiB0aGlz
+Lg0KPiA+ID4gPg0KPiA+ID4gPiBUaGlzIHB1YmxpY2x5IGFyY2hpdmVkIGxpc3Qgb2ZmZXJzIGEg
+bWVhbnMgdG8gcHJvdmlkZSBpbnB1dCB0byB0aGUNCj4gPiA+ID4gT0FTSVMgVmlydHVhbCBJL08g
+RGV2aWNlIChWSVJUSU8pIFRDLg0KPiA+ID4gPg0KPiA+ID4gPiBJbiBvcmRlciB0byB2ZXJpZnkg
+dXNlciBjb25zZW50IHRvIHRoZSBGZWVkYmFjayBMaWNlbnNlIHRlcm1zIGFuZA0KPiA+ID4gPiB0
+byBtaW5pbWl6ZSBzcGFtIGluIHRoZSBsaXN0IGFyY2hpdmUsIHN1YnNjcmlwdGlvbiBpcyByZXF1
+aXJlZA0KPiA+ID4gPiBiZWZvcmUgcG9zdGluZy4NCj4gPiA+ID4NCj4gPiA+ID4gU3Vic2NyaWJl
+OiB2aXJ0aW8tY29tbWVudC1zdWJzY3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gPiA+ID4g
+VW5zdWJzY3JpYmU6IHZpcnRpby1jb21tZW50LXVuc3Vic2NyaWJlQGxpc3RzLm9hc2lzLW9wZW4u
+b3JnDQo+ID4gPiA+IExpc3QgaGVscDogdmlydGlvLWNvbW1lbnQtaGVscEBsaXN0cy5vYXNpcy1v
+cGVuLm9yZw0KPiA+ID4gPiBMaXN0IGFyY2hpdmU6DQo+ID4gPiA+IGh0dHBzOi8vbGlzdHMub2Fz
+aXMtb3Blbi5vcmcvYXJjaGl2ZXMvdmlydGlvLWNvbW1lbnQvDQo+ID4gPiA+IEZlZWRiYWNrIExp
+Y2Vuc2U6DQo+ID4gPiA+IGh0dHBzOi8vd3d3Lm9hc2lzLW9wZW4ub3JnL3doby9pcHIvZmVlZGJh
+Y2tfbGljZW5zZS5wZGYNCj4gPiA+ID4gTGlzdCBHdWlkZWxpbmVzOg0KPiA+ID4gPiBodHRwczov
+L3d3dy5vYXNpcy1vcGVuLm9yZy9wb2xpY2llcy1ndWlkZWxpbmVzL21haWxpbmctbGlzdHMNCj4g
+PiA+ID4gQ29tbWl0dGVlOiBodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9jb21taXR0ZWVzL3Zp
+cnRpby8NCj4gPiA+ID4gSm9pbiBPQVNJUzogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvam9p
+bi8NCj4gPiA+ID4NCj4gPg0KDQo=
 
