@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8529-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8530-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7857C072A2
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 05:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39950C61D92
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 05:28:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 0D8B32AEEB
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 05:27:37 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 77C082A8EE
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 05:28:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C97BC9868A2
-	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 05:27:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 700AD9868A4
+	for <virtio-comment@archiver.kernel.org>; Wed, 22 Nov 2023 05:28:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A409A9843C0; Wed, 22 Nov 2023 05:27:36 +0000 (UTC)
+	id 64E939843C0; Wed, 22 Nov 2023 05:28:30 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,76 +24,65 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 933F8986894
-	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 05:27:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 56F8A986894
+	for <virtio-comment@lists.oasis-open.org>; Wed, 22 Nov 2023 05:28:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: GPmACEkkOpm2dv0rCZuzVQ-1
+X-MC-Unique: bEBH5xvwNoCN0TY8iCh2_g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700630852; x=1701235652;
+        d=1e100.net; s=20230601; t=1700630906; x=1701235706;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Uut4AyG+QcMBTMF8/42uJHKiIh8GBg3VjKsGyL/8CRU=;
-        b=muxffkmy8Ua/GoLyhEII95iumnv7KWeqDSB0mV15/UzZuF4K7eFeUkQEmHwkYFcMN8
-         oSlbyExwGbAr/TkDEp8qMqfKPq3cNN4JolReKj050ueEOey/okpQWkcZby0YUVdX/0gf
-         sLafk/eSTSscsbMLxHSQ0XntxOsLczny9IutjqEYS98VW9PkQvlUTzZ6grBstHvUTFT7
-         VV+WaoLxA+nfltZX6ykAH++mkvTvfQ2uKOujC0aWysp7kOqVZqMjNaFqNWaEH8Vg5bks
-         vh0zEIPU98F6UbSLHclbn7eVBfujxL/zaT6aHXTnWSSRvZP+prKGl0yAbJjIJPvZzWfj
-         oxXg==
-X-Gm-Message-State: AOJu0YygYnTHajMIJX1jTaAMRmV9H13eHdL6m2swKWKakuEQ35SBfJjP
-	BJBWUovab6cEd73VcwTeDkb6UOqTybwOpgkTpnpfT5A5zlcKW8cGDFty0IjCW3QloXfdkRTwGKV
-	vFxzO3i9SEca+ixyzTRataj1qPJw9Q1WOv4ahKt//crJDvqmXPA==
-X-Received: by 2002:a19:5f19:0:b0:50a:9f0e:6409 with SMTP id t25-20020a195f19000000b0050a9f0e6409mr421337lfb.20.1700630852226;
-        Tue, 21 Nov 2023 21:27:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGPHId9qDzARmb5+n8yLS5u8jkxSQMoU+oCQQdG69msekw1oWkgi9KIlm7syHI3I8c9ZtUupfS0LdrJYbD7Vws=
-X-Received: by 2002:a19:5f19:0:b0:50a:9f0e:6409 with SMTP id
- t25-20020a195f19000000b0050a9f0e6409mr421335lfb.20.1700630851786; Tue, 21 Nov
- 2023 21:27:31 -0800 (PST)
+        bh=0/agp0W/Zs3vmgmjsJVMIflehV/bbJ8Gze+E1nBlH3E=;
+        b=AVOVd5k6lF4GrpLQztzq66NnfafH5Q6L5kqfLyJmvLi74RDs6Z7WmU3B3akSS7EzzV
+         9ElcmI6zE0ZiwqrBPcQtXCWTEWPJRa59tz0xCN78qkkQUGN0HMVqHd31aeUweZPPuY9X
+         kPfuhd1zElsOO6RWjRecOYB4GeQ1AFhRCYuV78DbmqmC6hl44Ag016FujEkaHXqES8EC
+         rWOVaVJLB24TeSeh4Sigv1SxT9VycU9ZF7NVpdl256B5W5griqahV/tl69XA/2px2mvE
+         yG9pgX/WtMrRaCOOO3z/fYIJPu2Uj3N3mTUZkiUh4/u/pD6dPQgBRKjThmrj5bGO5q/c
+         8Xmw==
+X-Gm-Message-State: AOJu0YxEb8ueHlD2oCgdqFz+Hr5XUyaBI3DO3vPZpC0imLmsi4CCKK0w
+	7cO22VefiXJ2RFr2xlc7m8yRiOejnkvMihdKZy5KoucRnfIYisUz7yZP7w3NusXtQ3LXRkO6SV0
+	xtQo0SIWdYBWVfW01IyLCawUaZrBS/2STSiR8u56BUYAJzK2tjA==
+X-Received: by 2002:a05:6512:1242:b0:509:47e1:6ebe with SMTP id fb2-20020a056512124200b0050947e16ebemr1032632lfb.14.1700630905822;
+        Tue, 21 Nov 2023 21:28:25 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEPQeQG4FOLXsrrztJlxhpy/bRFDpKbAYCS5GIA6QH3yM87w3m2IkIPA+DmPUcdXaco8fynsnKdGZExPk2duto=
+X-Received: by 2002:a05:6512:1242:b0:509:47e1:6ebe with SMTP id
+ fb2-20020a056512124200b0050947e16ebemr1032618lfb.14.1700630905436; Tue, 21
+ Nov 2023 21:28:25 -0800 (PST)
 MIME-Version: 1.0
-References: <DM8PR12MB5480FD897C13FCB2CBE15268DCDDA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEuKoamb1bn-9stEsZTA3nHwAw4jrd=jWPS6SGuUzH67FA@mail.gmail.com>
- <PH0PR12MB548175CD39FA20BE2727E5B6DCA1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEuJySOAGguGvnBA7ftD0mwwM_M0SO0266M1+7d+XRXQ=g@mail.gmail.com>
- <PH0PR12MB5481ABD71DAF7D82931D57D2DCA0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEu0gfw4zNc9KTLm9ekhuWgsgzHLVya_68HajQZObtr3-w@mail.gmail.com>
- <DM8PR12MB54808B71AA9C0A945D0A3226DCA7A@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEtKPPudHAXGbrOppwgRP=Umt-F0GNKeoajOGzgs+wvyLA@mail.gmail.com>
- <PH0PR12MB54815F58F470493FC516CDCCDCA6A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsR56_C2b6-YQFpEOPt4sjJKyqcqrdhi9G0vU9ytezFLQ@mail.gmail.com>
- <PH0PR12MB54811373EA43BEDB4E159E0BDCAAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsMzp7DjDkQcO4RZ0H0HfxSrytUJrSyDj6gnPWV9cTZow@mail.gmail.com>
- <DM8PR12MB548085F25849CF1E055826E6DCAFA@DM8PR12MB5480.namprd12.prod.outlook.com>
- <CACGkMEsfcEjue1UZmuNs8k65o3HSM94VsweSbWLH3383STR97A@mail.gmail.com>
- <PH0PR12MB548149E1E51DA9C1C094ABCADCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEt277yYUHf98dCkypS-PXzu7JrRSVBAQ2cCRg4XzCLPzw@mail.gmail.com>
- <PH0PR12MB5481DB04DEB1A540185ED1ECDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEsdiCrSwFyC19PVnSCCXSabZ1G=3V-oQ=h=2sMaj=NcmQ@mail.gmail.com> <PH0PR12MB54819E748C4D128711A4D4A4DCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB54819E748C4D128711A4D4A4DCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231103103437.72784-1-lingshan.zhu@intel.com>
+ <20231103103437.72784-4-lingshan.zhu@intel.com> <20231106044836-mutt-send-email-mst@kernel.org>
+ <c6cb6e6b-fd2b-43ac-9be5-c4a8cda1ac13@intel.com> <20231108124625-mutt-send-email-mst@kernel.org>
+ <b125da70-a769-4662-876b-43664e39c976@intel.com> <PH0PR12MB5481577C0492D45C20CF9C62DCAFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEvLYgnLtSqx_G=-KMuANEZ=xtAzJjV3pYqAZhA0qqW0sQ@mail.gmail.com>
+ <PH0PR12MB54819A6E470D3ABE4BC1F450DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtxm8M5vKfOPOAS347JAJNeRDyPe+nif1LszuRWS0vShQ@mail.gmail.com>
+ <PH0PR12MB54810EF71D0BF925F4F81A65DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtsMi9+MgDb=tTH=LrkReb3aZdB4wv-MJkxLmLhNmTDAg@mail.gmail.com> <PH0PR12MB54816D26CE3B22CA84CAAE2ADCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54816D26CE3B22CA84CAAE2ADCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 22 Nov 2023 13:27:19 +0800
-Message-ID: <CACGkMEv54ijx-qM66e01JBC7kYOQ3rCzJi22HuLWkPAifLhFVg@mail.gmail.com>
+Date: Wed, 22 Nov 2023 13:28:14 +0800
+Message-ID: <CACGkMEvqB0Q3N6UBuVXad7GLGRWB_YS1rbdNZy8h85jkXGePtg@mail.gmail.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"cohuck@redhat.com" <cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, 
-	Shahaf Shuler <shahafs@nvidia.com>, Maor Gottlieb <maorg@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+	"eperezma@redhat.com" <eperezma@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>, 
+	"stefanha@redhat.com" <stefanha@redhat.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [PATCH v1 1/8] admin: Add theory of operation
- for device migration
+Subject: Re: [virtio-comment] RE: [PATCH V2 3/6] virtio: dont reset vqs when SUSPEND
 
 On Wed, Nov 22, 2023 at 12:32=E2=80=AFAM Parav Pandit <parav@nvidia.com> wr=
 ote:
 >
 >
 > > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Tuesday, November 21, 2023 12:54 PM
+> > Sent: Tuesday, November 21, 2023 1:03 PM
 > >
-> > On Thu, Nov 16, 2023 at 1:28=E2=80=AFPM Parav Pandit <parav@nvidia.com>=
+> > On Thu, Nov 16, 2023 at 1:27=E2=80=AFPM Parav Pandit <parav@nvidia.com>=
  wrote:
-> > >
 > > >
 > > > > From: Jason Wang <jasowang@redhat.com>
 > > > > Sent: Thursday, November 16, 2023 9:50 AM
@@ -102,340 +91,373 @@ ote:
 com>
 > > wrote:
 > > > > >
+> > > > >
+> > > > >
 > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > Sent: Monday, November 13, 2023 9:03 AM
+> > > > > > Sent: Monday, November 13, 2023 9:05 AM
 > > > > > >
-> > > > > > On Thu, Nov 9, 2023 at 2:25=E2=80=AFPM Parav Pandit <parav@nvid=
+> > > > > > On Thu, Nov 9, 2023 at 6:16=E2=80=AFPM Parav Pandit <parav@nvid=
 ia.com>
 > > wrote:
 > > > > > > >
 > > > > > > >
-> > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > Sent: Tuesday, November 7, 2023 9:35 AM
+> > > > > > > > From: Zhu, Lingshan <lingshan.zhu@intel.com>
+> > > > > > > > Sent: Thursday, November 9, 2023 3:28 PM
 > > > > > > > >
-> > > > > > > > On Mon, Nov 6, 2023 at 3:05=E2=80=AFPM Parav Pandit
-> > > > > > > > <parav@nvidia.com>
-> > > > wrote:
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > Sent: Monday, November 6, 2023 12:05 PM
-> > > > > > > > > >
-> > > > > > > > > > On Thu, Nov 2, 2023 at 2:10=E2=80=AFPM Parav Pandit
-> > > > > > > > > > <parav@nvidia.com>
-> > > > > > wrote:
-> > > > > > > > > > >
-> > > > > > > > > > >
-
-[...]
-
-> > > >
-> > > I disagree.
-> > > There are two different functionalities.
-> > >
-> > > Functionality_1: explicit ask for read or write
-> > > Functionality_2: read what has changed
-> >
-> > This needs to be justified. I won't repeat the questions again here.
-> >
-> As explained the use case in theory of operation already.
->
-> > >
-> > > Should one merge 1 and 2 and complicate the command?
-> > > I prefer not to.
-> >
-> > Again there're functional duplications. E.g your command duplicates
-> > common_cfg for sure.
-> Nop. it is not.
-> Common cfg is accessed directly by guest member driver.
-
-It can be accessed directly, if we have adminq per VF.
-
->
-> >
-> > >
-> > > Now having two different commands help for debugging to differentiate
-> > > between mgmt. commands and guest initiated commands. :)
-> > >
-> > > > >
-> > > > > > Guest configure the following one by one:
-> > > > > >
-> > > > > > 1) vq size
-> > > > > > 2) vq addresses
-> > > > > > 3) MSI-X
-> > > > > >
-> > > > > > etc?
-> > > > > >
-> > > > > I think you interpreted "incremental" differently than I describe=
-d.
-> > > > > In the device context read, the incremental is:
-> > > > >
-> > > > > If the hypervisor driver has read the device context twice, the
-> > > > > second read
-> > > > won't return any new data if nothing changed.
-> > > >
-> > > > See above.
-> > > >
-> > > Yeah, two separate commands needed.
-> > >
-> > > > > For example, if RSS configuration didn=E2=80=99t change between t=
-wo reads,
-> > > > > the
-> > > > second read wont return the TLV for RSS Context.
-> > > > >
-> > > > > While for transport the need is, when guest asked, one device mus=
-t
-> > > > > read it
-> > > > regardless of the change.
-> > > > >
-> > > > > So notion of incremental is not by address, but by the value.
-> > > > >
-> > > > > > > For example, VQ configuration is exchanged once between src a=
-nd
-> > dst.
-> > > > > > > But VQ avail and used index may be updated multiple times.
-> > > > > >
-> > > > > > If it can work with multiple times of updating, why can't it
-> > > > > > work if we just update it once?
-> > > > > Functionally it can work.
-> > > >
-> > > > I think you answer yourself.
-> > > >
-> > > Yes, I don=E2=80=99t like abuse of command.
-> >
-> > How did you define abuse or can spec ever need to define that?
-> I don=E2=80=99t have any different definition than dictionary definition =
-for abuse. :)
-
-"Abuse" is pretty subjective. Spec have driver normative, please
-explain how and if you can use that.
-
->
-> >
-> > >
-> > > > > Performance wise, one does not want to update multiple times,
-> > > > > unless there
-> > > > is a change.
-> > > > >
-> > > > > Read as explained above is not meant to return same content again=
-.
-> > > > >
-> > > > > >
-> > > > > > > So here hypervisor do not want to read any specific set of
-> > > > > > > fields and
-> > > > > > hypervisor is not parsing them either.
-> > > > > > > It is just a byte stream for it.
-> > > > > >
-> > > > > > Firstly, spec must define the device context format, so
-> > > > > > hypervisor can understand which byte is what otherwise you can'=
-t
-> > > > > > maintain migration compatibility.
-> > > > > Device context is defined already in the latest version.
-> > > > >
-> > > > > > Secondly, you can't mandate how the hypervisor is written.
-> > > > > >
-> > > > > > >
-> > > > > > > As opposed to that, in case of transport, the guest explicitl=
-y
-> > > > > > > asks to read or
-> > > > > > write specific bytes.
-> > > > > > > Therefore, it is not incremental.
-> > > > > >
-> > > > > > I'm totally lost. Which part of the transport is not incrementa=
-l?
-> > > > > >
-> > > > > > >
-> > > > > > > Additionally, if hypervisor has put the trap on virtio config=
-,
-> > > > > > > and because the memory device already has the interface for
-> > > > > > > virtio config,
-> > > > > > >
-> > > > > > > Hypervisor can directly write/read from the virtual config to
-> > > > > > > the member's
-> > > > > > config space, without going through the device context, right?
-> > > > > >
-> > > > > > If it can do it or it can choose to not. I don't see how it is
-> > > > > > related to the discussion here.
-> > > > > >
-> > > > > It is. I don=E2=80=99t see a point of hypervisor not using the na=
-tive
-> > > > > interface provided
-> > > > by the member device.
-> > > >
-> > > > It really depends on the case, and I see how it duplicates with the
-> > > > functionality that is provided by both:
-> > > >
-> > > > 1) The existing PCI transport
-> > > >
-> > > > or
-> > > >
-> > > > 2) The transport virtqueue
-> > > >
-> > > I would like to conclude that we disagree in our approaches.
-> > > PCI transport is for member device to directly communicate from guest
-> > driver to the device.
-> > > This is uniform across PF, VFs, SIOV.
-> >
-> > For "PCi transport" did you mean the one defined in spec? If yes, how c=
-an it
-> > work with SIOV with what you're saying here (a direct communication
-> > channel)?
-> >
-> SIOV device may have same MMIO as VF.
-
-We circle back, SIOV is for scalability. If you claim registers don't
-scale, SVIO via MMIO doesn't scale either.
-
->
-> > >
-> > > Admin commands are transport independent and their task is device
-> > migration.
-> > > One is not replacing the other.
-> > >
-> > > Transport virtqueue will never transport driver notifications, hence =
-it does
-> > not qualify at "transport".
-> >
-> > Another double standard.
-> I disagree. You coined the term transport vq, so stand behind it to trans=
-port everything.
-
-Nope, it works like other transport. It doesn't aim to replace any
-existing transport.
-
->
-> >
-> > MMIO will never transport device notification, hence it does not qualif=
-y as
-> > "transport"?
-> >
-> How does interrupts work?
-
-It depends on the platform, no?
-
-> Seems like missing basic functionality in transport.
-
-Not necessarily the charge of a transport. Virtio transport can't fly
-without a platform.
-
->
-> > >
-> > > For the vdpa case, there is no need for extra admin commands as the
-> > mediation layer can directly use the interface available from the membe=
-r
-> > device itself.
-> > >
-> > > You continue to want to overload admin commands for dual purpose, doe=
+> > > > > > > > On 11/9/2023 1:46 AM, Michael S. Tsirkin wrote:
+> > > > > > > > > On Tue, Nov 07, 2023 at 05:27:23PM +0800, Zhu, Lingshan
+> > wrote:
+> > > > > > > > >>
+> > > > > > > > >> On 11/6/2023 5:49 PM, Michael S. Tsirkin wrote:
+> > > > > > > > >>> On Fri, Nov 03, 2023 at 06:34:34PM +0800, Zhu Lingshan
+> > wrote:
+> > > > > > > > >>>> When SUSPEND is set, device states and virtqueue state=
 s
-> > not make sense to me.
+> > > > > > > > >>>> should be stablized, therefore the driver should not
+> > > > > > > > >>>> reset vqs when SUSPEND is set in device status.
+> > > > > > > > >>>>
+> > > > > > > > >>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> > > > > > > > >>>> ---
+> > > > > > > > >>>>    content.tex | 3 +++
+> > > > > > > > >>>>    1 file changed, 3 insertions(+)
+> > > > > > > > >>>>
+> > > > > > > > >>>> diff --git a/content.tex b/content.tex index
+> > > > > > > > >>>> bcc9d4b..060b5c2
+> > > > > > > > >>>> 100644
+> > > > > > > > >>>> --- a/content.tex
+> > > > > > > > >>>> +++ b/content.tex
+> > > > > > > > >>>> @@ -444,6 +444,9 @@ \subsubsection{Virtqueue
+> > > > > > > > >>>> Reset}\label{sec:Basic
+> > > > > > > > Facilities of a Virtio Device /
+> > > > > > > > >>>>    The device MUST reset any state of a virtqueue to
+> > > > > > > > >>>> the default
+> > > > state,
+> > > > > > > > >>>>    including the available state and the used state.
+> > > > > > > > >>>> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set
+> > > > > > > > >>>> +in \field{device status}, the driver SHOULD NOT reset
+> > > > > > > > >>>> +any
+> > > > virtqueues.
+> > > > > > > > >>>> +
+> > > > > > > > >>>>    \drivernormative{\paragraph}{Virtqueue Reset}{Basic
+> > > > > > > > >>>> Facilities of a
+> > > > > > > > Virtio Device / Virtqueues / Virtqueue Reset / Virtqueue
+> > > > > > > > Reset}
+> > > > > > > > >>>>    After the driver tells the device to reset a queue,
+> > > > > > > > >>>> the driver MUST verify that
+> > > > > > > > >>> Seems somewhat arbitrary and breaks the claim that the
+> > > > > > > > >>> feature is orthogonal and can have uses besides migrati=
+on.
+> > > > > > > > >> when suspended, the device is frozen.
+> > > > > > > > >> The driver is aware of this process and so should not
+> > > > > > > > >> reset the vqs I
+> > > > think.
+> > > > > > > > > Again that is only true because you want to use it for mi=
+gration.
+> > > > > > > > > But then you can't claim it's a generic facility.
+> > > > > > > > I don't get it. The device status is a basic facility.
+> > > > > > > >
+> > > > > > > > We need to SUSPEND the device by setting SUSPEND bit, to
+> > > > > > > > stabilize the device states for migration.
+> > > > > > > Is the PCI's PM time not enough to suspend the device?
+> > > > > >
+> > > > > > Are you saying we don't need virtio reset assuming we had FLR?
+> > > > > >
+> > > > > No. often FLR timing is not enough. Hence every PCI level device
+> > > > > has some
+> > > > sort of its own reset mechanism.
+> > > > >
+> > > > > > Suspending at different layers like rest at different layers.
+> > > > > >
+> > > > > > We have both FLR and virtio reset. The Virtio level function
+> > > > > > could be reset without FLR. So did suspend.
+> > > > > >
+> > > > > > That's it.
+> > > > > Sure, but wrapping it under some "basic facility" is just does no=
+t make
+> > sense.
+> > > >
+> > > > Why, device status (e.g reset) belongs to that part.
+> > > >
+> > > Lingshan claimed that suspending device is for live migration in comm=
+it log
+> > and in discussion he portray it as some basic facility unrelated to dev=
+ice
+> > migration such as debug etc.
+> > > Instead of claiming it as some non_device_migration facility does not=
+ make
+> > sense.
+> >
+> > It is used for migration for sure.
+> This is why it is not working when device is directly mapped.
+
+We circle back. It works for the case of trap/emulation.
+
+For direct mapping:
+
+You claim guest reset can work but suspend can't?
+
+> The hypervisor messing this bit and guest is also doing power management =
+with it.
+
+So I don't see how it differs from: virtio reset and FLR is under the
+control of guests.
+
+>
+> Both of them needs separate channel to do their own work.
+>
+> >
 > > >
 > > > > >
-> > > > >  > >
-> > > > > > > >
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > it is not good idea to overload management commands
-> > > > > > > > > > > with actual run time
-> > > > > > > > > > guest commands.
-> > > > > > > > > > > The device context read writes are largely for increm=
-ental
-> > updates.
-> > > > > > > > > >
-> > > > > > > > > > It doesn't matter if it is incremental or not but
-> > > > > > > > > >
-> > > > > > > > > It does because you want different functionality only for
-> > > > > > > > > purpose of backward
-> > > > > > > > compatibility.
-> > > > > > > > > That also if the device does not offer them as portion of=
- MMIO
-> > BAR.
-> > > > > > > >
-> > > > > > > > I don't see how it is related to the "incremental part".
-> > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > 1) the function is there
-> > > > > > > > > > 2) hypervisor can use that function if they want and
-> > > > > > > > > > virtio
-> > > > > > > > > > (spec) can't forbid that
-> > > > > > > > > >
-> > > > > > > > > It is not about forbidding or supporting.
-> > > > > > > > > Its about what functionality to use for management plane
-> > > > > > > > > and guest
-> > > > > > plane.
-> > > > > > > > > Both have different needs.
-> > > > > > > >
-> > > > > > > > People can have different views, there's nothing we can
-> > > > > > > > prevent a hypervisor from using it as a transport as far as=
- I can see.
-> > > > > > > For device context write command, it can be used (or probably
-> > > > > > > abused) to do
-> > > > > > write but I fail to see why to use it.
 > > > > > >
-> > > > > > The function is there, you can't prevent people from doing that=
-.
+> > > > > > And if you want to rule P2P behaviours, PCI PM is really the
+> > > > > > correct way to go instead of trying to do it at the virtio laye=
+r.
 > > > > > >
-> > > > > One can always mess up itself. :)
-> > > > > It is not prevented. It is just not right way to use the interfac=
-e.
+> > > > > PCI PM is supposed to be controlled by the guest and so the suspe=
+nd.
+> > > >
+> > > > I've listed issues about D3cold and others, I can't believe it can'=
+t
+> > > > be controlled totally by guests.
+> > > >
+> > > D3cold is not controlled by the driver as defined by the PCI spec hen=
+ce it is
+> > not applicable.
+> >
+> > Have you seen the link I give you? Even if you are right, there still c=
+ould be such
+> > a request from the firmware, no?
+> I may have missed the link.
+> You have 10 replies, so it is easy to miss important things in rest of th=
+e comments.
+
+I meant there still could be D3cold requests from the guest via
+virtual firmware.
+
+So it's not necessarily related to the guest driver.
+
+>
+> >
+> > > D3hot is controlled by the driver.
+> >
+> > So, it requires the device context to be preserved, which is not docume=
+nted in
+> > your patch.
+> PCI PM interactions is covered in v4 in the device requirements section.
+>
+> >
 > > > > >
-> > > > > > > Because member device already has the interface to do config
-> > > > > > > read/write and
-> > > > > > it is accessible to the hypervisor.
-> > > > > >
-> > > > > > Well, it looks self-contradictory again. Are you saying another
-> > > > > > set of commands that is similar to device context is needed for
-> > > > > > non-PCI
-> > > > transport?
-> > > > > >
-> > > > > All these non pci transport discussion is just meaning less.
-> > > > > Let MMIO bring the concept of member device at that point
-> > > > > something make
-> > > > sense to discuss.
+> > > > > Hypervisor needs its channel to suspend the device, as
+> > > > > fundamentally guest is
+> > > > unaware of device migration flow.
 > > > >
-> > > > It's not necessarily MMIO. For example the SIOV, which I don't thin=
+> > > > That's pretty fine, the hypervisor also needs its channel to reset
+> > > > the device. If you think there's a conflict with suspend, there sho=
+uld be one
+> > for reset as well.
+> > > >
+> > > I don=E2=80=99t see a need for hypervisor to reset the device in pass=
+through mode.
+> > Can you explain why is it needed?
+> >
+> > Qemu has a command "system_reset".
+> >
+> I mean, what does this translate to reset the device in passthrough mode?
+
+It needs to reset the virtio device.
+
+> If this is FLR, it is there.
+
+Please explain how it works. (It's not only a FLR, it also need virtio
+level reset)
+
+>
+> > > Do you mean, it is needed in vdpa mode? If yes, the registers are emu=
+lated
+> > anyway, so why the member device's native channel cannot be used in vdp=
+a
+> > mode?
+> > >
+> > > > >
+> > > > > > > For large device I could imagine it could be short.
+> > > > > > >
+> > > > > > > In that case if there is suspend the device available, it wil=
+l
+> > > > > > > be used by the guest
+> > > > > > driver itself, hypervisor wouldn=E2=80=99t know about it when t=
+hose
+> > > > > > registers are not trapped.
+> > > > > > > So we need two ways to suspend.
+> > > > > > > One is guest visible, and guest controlled.
+> > > > > > > Second is hypervisor control to fulfill the device migration =
+needs.
+> > > > > >
+> > > > > > Can you explain why suspend is special but not reset or why
+> > > > > > reset can work but not suspend? If reset can work, so does
+> > > > > > suspend. If reset can't, neither does suspend.
+> > > > > >
+> > > > > As long as reset and suspend both are under guest control, I am f=
+ine.
+> > > >
+> > > > Well, you seem to ignore my question below. Hypervisor needs to
+> > > > reset the device as well.
+> > > >
+> > > Why is it needed in passthrough mode?
+> > >
+> > > > >
+> > > > > > For example, can you explain how a system_reset in Qemu can wor=
 k
-> > > > can use the existing PCI transport.
+> > > > > > with your proposal?
+> > > > > >
+> > > > > > >
+> > > > > > > So if you can please take a look if the proposed admin comman=
+d
+> > > > > > > to
+> > > > > > freeze/stop mode can be used in the emulated register case or n=
+ot.
+> > > > > >
+> > > > > > Again, if you design those for PCI, it's a layer violation. You
+> > > > > > have answered
+> > > > > They are used by the PCI layer, just like your suspend bit.
+> > > > > Andy other transport can also use it.
+> > > > >
+> > > > > > yourself that PM is the right way to go.
+> > > > > >
+> > > > > > > It helps to have the suspend bit in guest control as well
+> > > > > > > with/without
+> > > > > > emulation mode.
+> > > > > >
+> > > > > > I won't repeat it again. You will find you need a full transpor=
+t
+> > > > > > to satisfy all the requirements.
+> > > > > I disagree for full transport.
 > > > >
-> > > > > PCI SIOV is also the PCI device at the end.
+> > > > See above and the discussion in another thread.
 > > > >
-> > > > We don't want to end up with two sets of commands to save/load SRIO=
-V
-> > > > and SIOV at least.
-> > > >
-> > > This proposal ensures that SRIOV and SIOV devices are treated equally=
+> > > > > If you want to get discuss transport for sure it is some other
+> > > > > thread and I want to see "driver notifications via such transport
+> > > > > VQ" to fully qualify it
+> > > > as transport, And that would be just sub-optimal for actual working=
 .
+> > > >
+> > > > Sub-optimal since the function is duplicated with a transport but i=
+t
+> > > > doesn't claim or design as a transport.
+> > > >
+> > > It is not sub-optimal because of duplication. It is because you want =
+to
+> > transport notifications via virtqueue.
 > >
-> > How? Did you mean your proposal can work for SIOV? What's the transport
-> > then?
-> Yes. All majority of the device contexts should work for SIOV device as_i=
-s.
-> Member id would be different.
-> Some device context TLVs may be new as SIOV may have some simplifications=
- as it may not have the giant register space like current one.
+> > Have you ever read the series of tvq? You won't get this conclusion if =
+you do
+> > that.
+> >
+> I have read those 4 patches and I have seen that transportvq do not want =
+to transport notifications.
+> Hence it does not qualify as transport vq.
 
-You only explain the migration part but not the transport part.
+It exposes the platform MMIO area for driver notification. This is
+sufficient. Any issue you see?
 
 >
-> >
-> > > How brand new non-compatible SIOV device to transport this, is outsid=
-e of
-> > the scope of this work.
-> >
-> > You invented one that can be used for doing this. If you disagree, how =
-can we
-> > know your proposal can work for SIOV without a transport then?
->
-> I don=E2=80=99t understand your comment.
->
-> All I am saying is, most pieces of device contexts are reusable across VF=
-s and SIOVs.
-> When SIOV is defined, we can relook at what may need to be added.
+> Frankly, transport vq seems a way to formalize mediation forever in virti=
+o.
 
-I've explained several times. Transport virtqueue is not solely
-designed for SIOV. SIOV could be one of the use cases.
+Nope, it can be accessed by a guest driver directly.
+
+> It is very weird way to build new SIOV device.
+> For most things it should be the direct channel that virtio has already f=
+rom driver to the device.
+
+See above. SIOV might require a new transport or not.
+
+>
+>
+> > >
+> > > > > And hence, I wouldn=E2=80=99t call it a transport anymore.
+> > > > >
+> > > > > >
+> > > > > > >
+> > > > > > > > This can also be used for debugging I think.
+> > > > > > >
+> > > > > > > As Michael listed, a dedicated debug interface is usually mor=
+e
+> > > > > > > useful instead
+> > > > > > of in-band.
+> > > > > >
+> > > > > > Well, I've shown you the in-band facilities like debugging via
+> > > > > > ethtool and kernel has a lot of other ones. If you have ever
+> > > > > > tried to debug in a real production environment, you will find
+> > > > > > how useful such handy information is where out-of- band
+> > > > > > facilities are often dangerous
+> > > > and usually prohibited or even unsupported.
+> > > > > Guest driver can always read and write the device status without
+> > > > > adding a
+> > > > suspend bit.
+> > > >
+> > > > I don't get here. Suspend make sure the device state is frozen whic=
+h
+> > > > helps for debugging for sure.
+> > > You wanted to debug some vq live, you suspend the device, the vq stat=
+e got
+> > changed.
+> > >
+> > > I just don=E2=80=99t see that suspend is a debug tool.
+> >
+> > It's not a tool, it's a function that can be used as a debug tool.
+> >
+> > > Every feature is a debug feature literally.
+> > > Classic heisenbug effect.
+> > >
+> > > Once can change driver notification frequency to see if interrupt rat=
+e
+> > changed for debugging.
+> > > One can disabled few RQs and see RSS...
+> > > Blk can change blk_size to higher value to perf debug..
+> > > The list continues..
+> >
+> > Let's not shift concepts.
+> >
+> Your comment to attribute device migration as debug feature is actually s=
+hifting the concept.
+
+It's not.
+
+Ling Shan put it in the basic facilities as part of device status. You
+wonder why, we explained it can be used beyond migration. You asked
+where, we told you for example things like debugging. We never claim
+it can only be used in debug. Then you shift the concept to say debug
+could be achieved by a lot of other facilities. For sure this is
+correct, but it doesn't have any relationship with the discussion
+here.
+
+>
+> > Obviously, suspend is not the only way to debug. But that's not the con=
+text
+> > here.
+> >
+> I have no further comments on the claim that suspending a device a debug =
+feature.
+> If it, add a debug section and put it under that.
+> You also know that it is not, so let's not waste our time.
+>
+> I just don=E2=80=99t suspend bit as debug interface that undergoes classi=
+c heisenbug effect.
+
+I never say it can be used for solving all problems. Anyhow that's
+another topic right?
 
 Thanks
 
+>
+> > Thanks
+> >
+> > >
+> > > >
+> > > > Thanks
+> > > >
+> > > > >
+> > >
 >
 
 
