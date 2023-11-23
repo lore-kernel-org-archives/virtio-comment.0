@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8569-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8570-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B94C61D85
-	for <virtio-comment@archiver.kernel.org>; Thu, 23 Nov 2023 09:22:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD629C61D85
+	for <virtio-comment@archiver.kernel.org>; Thu, 23 Nov 2023 10:22:22 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B7BEF42D76
-	for <virtio-comment@archiver.kernel.org>; Thu, 23 Nov 2023 09:22:28 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E50F12AEEA
+	for <virtio-comment@archiver.kernel.org>; Thu, 23 Nov 2023 10:22:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9B0A59868A9
-	for <virtio-comment@archiver.kernel.org>; Thu, 23 Nov 2023 09:22:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BF82D9868A6
+	for <virtio-comment@archiver.kernel.org>; Thu, 23 Nov 2023 10:22:21 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8B98E9868A5; Thu, 23 Nov 2023 09:22:28 +0000 (UTC)
+	id A23F79868A2; Thu, 23 Nov 2023 10:22:21 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,355 +24,128 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6E58B9868A3
-	for <virtio-comment@lists.oasis-open.org>; Thu, 23 Nov 2023 09:22:11 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 92D079868A3
+	for <virtio-comment@lists.oasis-open.org>; Thu, 23 Nov 2023 10:22:21 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XwqBmHFHmJg3eCyjs5z4mwmnUj/uMiojajsHxnP5dW1c27AAcAtzfjCC8d8Pj/050bxAZo3vZj5UG94jpSIapegQ6EZhYOC2m7fffaxHA3ercCQ0aSuNQbQOo0gyF4tqyRed1VaaE0MyDyCVfoJq7pmncW8YgBRgNKxLLMeBQpnwSKu4JeFmLxYW1r7kP3qPsUYL4e9w+eEz4nHITYA6XqmN/TIUgg6Ydf9j2HrAwnDHcwcybF2h6FY2rWxgpFajLhYn/CTe0cSpt0eTxDTj25vnRMM7Qpf8IKXcbTYIml8Xt4OFhi55trPWha8+F7+VPrU9btdzmMvbFxEkGSqEtQ==
+ b=LLH/apTU+RyCXIrQ8zxJZG8r6YFAi62RheP5UH6k48vsdnSkiHJ3A2F9zcDT4/WJkQIkm1sYMFWNoVRfZbSfIz1SRlKa7ob7Zd+qOwGkF1OzdTCunNNYv4hGhVoCS+0tQR7VG4V7GfwGciH1GPJLDIWm6/7cjrgOdZulR6bPq41ZzQtpZKl/fnTzsPEydQxS4C5v2KPaU367UtUI+K29UCsQmMaWrKaAcjE4Se/fhot/uglVOU4iASH+lrOa1YrSGIyzwZ4ID2MioEyCqpgfecCMoqX3Si0/s7AzcChsDv0+PLPdw7fmK9cSUtwMJU9gMIg5kWbfaQNuc+dvsgeJ7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Olz8GtoFWfkSKRNNSlbEWKeuxRguYzcu7+bBRLr931k=;
- b=aeH5jMtNL0OSiSKRshVmJwYfyYwsQvKInSCZANwzF2cmEr58FvyQfwZk2lHOZVTF40IAr/XLoOnjxD6KzJRFGIfLR/yTX/6dbWS09TeP2qJwfNswE8rkQ1UKSplku/s7U3oi14UfmaXHvWhXn1CTqjQDqLnGUPRGXjILRwKJyyY+H4vHgB33ljJ2hOCYS8hyMG7xKSIt/64mACKNVrEXuQiB39rjGlND490GRFtm1xwSiTI4MXlu5ONHZQfCfK4XW+jk/EJZKXcPBuhIB9ejIwyXdDS7v9lpg34WX5psP4GHL1JsMOTuSZhYm9VKW9zisdLk7+2NjTJB6YWbyUoI3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+ bh=H82t5kaTWr93fXXYPA/OyrrMtiz+s4ZYtCXalxhlFME=;
+ b=JuXigN9GiJO4T2s9dY7HcKNmi76gOg923PYrf+Ku88Q9RyC6TE56G9UkNHl/sTAnYX2tejqf2Rw/KkJ1UKx0lpcDNsPVkvpP8WKKTroeQ+EkWbL2BnzuROTqcUhB1RPc/qHHtNEBdiB8duUXXG73fO46TsTNH7EYgKS4L39OlYk1sWA4wZwB2nNx+mMcRoGdBVvRbN53zjKlcNiDE+alllPyNQCVKwJDRthN2yW3ffv6hJf9aOrWqFrAsNH3picyeUhC5LR9P4mQylLktE3nGkg9NvT5DS4tRkeOSpGkfDf2cHKljT5FVtfPtUmr4Glo8xqwOvl0ehaW/HDrHng4QQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
-	<cohuck@redhat.com>
-CC: <sburla@marvell.com>, <shahafs@nvidia.com>, <si-wei.liu@oracle.com>,
-	<xuanzhuo@linux.alibaba.com>, Parav Pandit <parav@nvidia.com>, Heng Qi
-	<hengqi@linux.alibaba.com>
-Date: Thu, 23 Nov 2023 11:21:16 +0200
-Message-ID: <20231123092119.2718448-3-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231123092119.2718448-1-parav@nvidia.com>
-References: <20231123092119.2718448-1-parav@nvidia.com>
+To: Cornelia Huck <cohuck@redhat.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>
+CC: "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, "si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
+	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>
+Thread-Topic: [PATCH v6 0/5] virtio-net: Support flow filter for receive
+ packets
+Thread-Index: AQHaE9LvQ+6uKAfIN0Kopom3Mm7xhLCC0snAgANzHgCAAX/Q8A==
+Date: Thu, 23 Nov 2023 10:22:17 +0000
+Message-ID:
+ <PH0PR12MB548169D2C55CB67D7E486952DCB9A@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231110123853.2093309-1-parav@nvidia.com>
+ <PH0PR12MB54817956B291856378B4B013DCB4A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <87cyw2kozt.fsf@redhat.com>
+In-Reply-To: <87cyw2kozt.fsf@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA1PR12MB6846:EE_
+x-ms-office365-filtering-correlation-id: 67fc3963-9574-41df-c43c-08dbec0e11f1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 7uN6Xmdt18JViFwDgYA47dJy2ANvGIBgrsyzpm0S7iE9MyBemiSEFnqylT9H3Pps4/o65HdEYw+R3YJaT86q/08OIYSah8wx+aAFc8eVAuUhrpw1zqrTkApx5acnW1uTb344N9t0oPs6yzT4FieizxiFTUbJGCb5W3zw1hXqGeUqBuKXJDo9Sok1TS9WnazhcMjQBaqZSUsGQVtoNa1yDnCkhcWQgp+nQv1yX6lJAfgdFSY7yAH4HrJp8OxN36UQKPVLJFkVmJGtpO9NqEN4SEYUZVf4CS9xqvvHUMBMOPIHUaLDpUySPr9jwu/248NiO9YeEWYZo/OBVjD0K04DUHPs0lEQKoZ6B8UbTmdWFVezCjOS5kQKKeGFGFD6B9fJyXHrs+WuKAqcDo1DCDGaqqz0nFdOYIXj/toso9T7HD2lIxna9LpcZjUlOZltVCzi5DuSc0de06wIOklkSIQ33jtYPpNOtyGPl45erpP/yAZNttBmqyz0BVGPR9M3qcRBP3lMoVVk1c1W1ujJR1caDa3At83gj+lERQVy98rtH/BN7ftYTA+wgruwgt8q289sjp6VxvElvIbMnPWZmFAMzyHlq4YPAwtJeP168NmXEIbx4L9Gbalq6Qx78hLccAeaHXipVJVInlxOCdOtPy1fyNCiMt7MBIsVBL0rSpShFaM=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(376002)(136003)(366004)(396003)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(4744005)(5660300002)(2906002)(52536014)(4326008)(41300700001)(66556008)(316002)(76116006)(64756008)(110136005)(8676002)(66446008)(8936002)(66476007)(55016003)(966005)(71200400001)(7696005)(6506007)(478600001)(66946007)(9686003)(54906003)(26005)(83380400001)(38100700002)(86362001)(38070700009)(122000001)(33656002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?MXXLGnX/I+8KXFkl9q6cVlvrgNnTJf20Xtk87kctTb2zQWP+Go6t5eH//cks?=
+ =?us-ascii?Q?1jEOdVknFBeLIY6rYFf4xC+Csrstx2AbjLPLYaaRn5z8VCNbkCwJ6eHiY7pQ?=
+ =?us-ascii?Q?AW2aQyoOGM80TwvwgYV/Q0k2Mry85oG+lFSttMKU6LLBL5S8/3hDp9+hA5pv?=
+ =?us-ascii?Q?+/3iEeK5sEUNrM+YjzRnsDaeV1pclAJmukUNE9hx7kjGdot3+4mYZ1N1B+i7?=
+ =?us-ascii?Q?qTWZ3yjrxjZ165sTj343RQB+C1uplZ9C0c4tpdMPngn65jMJ64N/thPhGj68?=
+ =?us-ascii?Q?4pihKu7ftGH8PbIftT0nuGjbLyX+4NUvqVpIEQfa+hQFumxuWVqnzRme4ddI?=
+ =?us-ascii?Q?gMJFIO1G7Rp4uO5/Z9pOAD7GlGggb/FYq2eDdpEgQHk7gAE5qnLgOUiMyW51?=
+ =?us-ascii?Q?kjk8pTX6pH2mX8/bya9yGyraqxGZaTz+BLgWIzArm0nrAqkgb5l16TCO0fOy?=
+ =?us-ascii?Q?WnoFdd+lHb8jMQ1F5N0G/gY01bxJvhHC6PD4COu7VJHm8z8o5MsJ2AfbFZ9X?=
+ =?us-ascii?Q?IcR+9DhNu49ok69fZtNzMPZeDLKyb7iom10tIWfY444I4IplX4waSfDGRAc1?=
+ =?us-ascii?Q?4cIncdMkF1wGrI8Q4mQs0MgXZn/u8WvKrX3dsDcgrgcts/+YFMRZY/oAN5Dk?=
+ =?us-ascii?Q?QRbVpHyjzDuCbsTEj5GFlCEGSd4Y78msTsS1BHKX6X5MIDPxb4kFZe6PiiDV?=
+ =?us-ascii?Q?iL07S878t/I4hIYymVjiqgpKZm69gQ4jbVs9PZ6z4A/p4PmtaSzBJU5RTyXU?=
+ =?us-ascii?Q?BhLU22MACQbA5bt1Mqj6nESJ2FIUEu+FPLkjr/Izwos4OH1TdhRIsC5RET2q?=
+ =?us-ascii?Q?Y+xnmf+TdPjf1TUE7a9Ue6bIB801QYknvYql5QP386jWUft1D6xW3MEb2LY8?=
+ =?us-ascii?Q?OzsMC/fEL90c7UBC3Cx5cabedUIABXvq+QIhyLesRXXAUMBKfUXD7qhajJqu?=
+ =?us-ascii?Q?uNTr4Cw9q2CoCc5wmTZq/OzlpKmPdNXRDKznPi/eE62ykimnM+g2XgxSTHbW?=
+ =?us-ascii?Q?YhjlJVZqm/hA6DUiLmRphTMR2cH85IaNhPCTTFGIKtYKfOrjmIvjL+6k7DuG?=
+ =?us-ascii?Q?MrYYzhvq0QkS0Q7Xlkrek4BGtYpq7AEC4CznUgZbZbbROzGwH+OrAtEa/BFJ?=
+ =?us-ascii?Q?VMEeO0DzE3OgpvIq+P+WDNRC5tji6KrA+sQ3+y1zJ8b/LQSQpyd89/Dso1Rp?=
+ =?us-ascii?Q?g3ngXt4Bwnfu7FOB9G1VcXWL7ptyf9/GPsIms3FBKioOk4Qfr3un8PRn3mzZ?=
+ =?us-ascii?Q?n/xZLYtTaykNUxrcPLZ5/3d+9osPf8/ij3g9jLYpPqvAgwr0yySiQ0cs64Aq?=
+ =?us-ascii?Q?BGuCFU+zdFXiHlvawdRnnUIfo7DjBEq9rjYR0ECyV9rQdJZ4rP5SlBb2XZOI?=
+ =?us-ascii?Q?O57LtKLoKcxvt64/fxwnabFAOVWcfNCeXNOamwq43yPidiWRzUjS7s/BV/9d?=
+ =?us-ascii?Q?oSlIvP1L3JG4jTOhQjoJ16/Dxe3R6gk7oNRu9WtcI9q4Sue2Npz1iSZ2SrI2?=
+ =?us-ascii?Q?oyFo87+7WisyvKjW3Qi18Q/kaMpe5tF4Y6Q/+s9iP7316ktNSs23p+Yws45N?=
+ =?us-ascii?Q?ErSxuD8GzT6VrkZFoBk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.35]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|IA0PR12MB7625:EE_
-X-MS-Office365-Filtering-Correlation-Id: 977b818c-86f9-4d92-2b8c-08dbec05a9ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GBj9Jw0GOz3mheQZ3Uma7Mo3msbytvnTayuoMIcDWjUrA/8WOHShjGQy5BuSglHbrjy+MjJNzzQe3CorjU90GMbu2oecmKCiSTG776UK3oYpqdPlCdFguq3C4qFZ8adyR2b+IgGPU6egfdb+ZzW36xTF2bTnxLPI1wdW9DdolyoP8AVR+HcOEs2QDvedxMTPH2VDzMhTJNDKCm/UfrUpvyRDx8to9wB4K0bv/Wt/yRWyqnDPnWRRl+mgQfHLPWfPmHQqpes9RACuzJ/GQ/WhuLkmD2KN2Ry9R7g4khm5U5c/4rqk3+2WXYeE8AKKfxgl3w9sGvfw6s5K9l4ngJ1v8TheDGQz0dpexMkp7SiNdZm/zBPMePBvbtsZ15CkUX2OkslUiiwf3pW3YL0CFV21KF/k58h0i7FwU9dPSVUEAubJ6JbyQKEkG8mJfe+YPg2vmc76e1OkJVJfCbU0Pn5TB5cK35zGpA1L0mbVV4+y/TLIr8+0xnUmDW7K+LVlwQdCWHlVzIBXryxI0Jmpb7JyNK2jSK4IJCTSuHO/gFsL9tQhDGOPqJhwcPQCoTwA4FWpFer5MeYvFu9mSPwhq5Y/jkFkudvMOrEZlZZEo9V1dSciwknojjTj5cWQld5LY8jopzG609itVeRczt+sZ9SVniWilQ9ugEsAn6jJcg/FApdNAav0qnh1s+QTNzCMe0tIynRdElyQY3/K2YWPAwJUvWkv3pVj4s3+om97sthwimtfmksOLVzN/OVUr2YpX9ZDlgccGkCPrtiX+YqW+nRYt5hBZIEjXjRk1sbUScoNMkI=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(376002)(346002)(136003)(230922051799003)(451199024)(82310400011)(1800799012)(186009)(64100799003)(46966006)(36840700001)(40470700004)(40460700003)(26005)(54906003)(1076003)(336012)(83380400001)(6666004)(2616005)(36860700001)(47076005)(5660300002)(4326008)(8676002)(8936002)(41300700001)(426003)(966005)(2906002)(478600001)(316002)(16526019)(70206006)(110136005)(70586007)(86362001)(82740400003)(36756003)(356005)(7636003)(40480700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 09:22:06.7340
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67fc3963-9574-41df-c43c-08dbec0e11f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2023 10:22:17.7212
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 977b818c-86f9-4d92-2b8c-08dbec05a9ad
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002529F.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7625
-Subject: [virtio-comment] [PATCH v7 2/5] virtio-net: Add flow filter capabilities read commands
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gNRPXJG/AwpKrK6JXkx+TxY9WfRoctHCMhrqiyjPr7QKh6E82f09afjch35tJqDrhSIKZPlN/lonl4JJPetNaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6846
+Subject: [virtio-comment] RE: [PATCH v6 0/5] virtio-net: Support flow filter for receive
+ packets
 
-The device responds flow filter capabilities using two commands.
-One command indicates generic flow filter device limits such as
-number of flow filters, number of flow filter groups, support or
-multiple transports etc.
+Hi Cornelia,
 
-The second command indicates supported match types, and fields
-of the packet.
+> From: Cornelia Huck <cohuck@redhat.com>
+> Sent: Wednesday, November 22, 2023 4:57 PM
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
-Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
+[..]
 
----
-changelog:
-v6->v7:
-- plenty of grammar corrections suggested by Cornelia
-v2->v3:
-- rebased on virtio-1.4 branch
-- removed reference for flow filter virtqueue
-v1->v2:
-- addressed comments from Satananda
-- added vlan type match field
-- kept space for types between l2, l3, l4 header match types
-- renamed mask to mask_supported with shorter width
-- made more fields reserved for future
-- addressed comments from Heng
-- grammar correction
-- added field to indicate supported number of actions per flow
-  filter match entry
-- added missing documentation for max_flow_priorities_per_group
-v0->v1:
-- added mask field in the type to indicate supported mask by device
-  and also in later patch to use it to indicate mask on adding
-  flow filter. As a result removed the mask_supported capability
-  field
----
- device-types/net/description.tex | 207 ++++++++++++++++++++++++++++++-
- 1 file changed, 206 insertions(+), 1 deletion(-)
+> etc.) Would you prefer a respin, or a vote now and an editorial patch on =
+top?
+> I can either comment now, or start voting.
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 03909ae..10d92d9 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -1170,7 +1170,11 @@ \subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Ope
- 
- The device indicates the flow filter capabilities to the driver. These
- capabilities include various maximum device limits and
--supported packet match fields.
-+supported packet match fields. These control virtqueue
-+commands are:
-+\ref{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Capabilities Get}
-+and
-+\ref{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Match Capabilities Get}.
- 
- The flow filters are grouped using a flow filter group. Each flow filter
- group has a priority. The device first applies the flow filters of the highest
-@@ -1222,6 +1226,136 @@ \subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Ope
-       the flow filters in group_C, the flow filters of next level group_B are applied.
- \end{itemize}
- 
-+\paragraph{Match Types and Fields}\label{sec:Device Types / Network Device / Device Operation / Flow Filter / Match Types and Fields}
-+
-+\begin{lstlisting}
-+struct virtio_net_ff_match_type_cap {
-+        le16 type;
-+        u8 mask_supported;
-+        u8 reserved[5];
-+        le64 fields_bmap;
-+};
-+\end{lstlisting}
-+
-+The \field{type} corresponds to following table:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Type & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_ETH_HDR & Ethernet header of the packet \\
-+\hline
-+0x1   & VIRTIO_NET_FF_VLAN_TAG_HDR & VLAN tag of the packet \\
-+\hline
-+0x200   & VIRTIO_NET_FF_IPV4_HDR & IPv4 header of the packet \\
-+\hline
-+0x300   & VIRTIO_NET_FF_IPV6_HDR & IPv6 header of the packet \\
-+\hline
-+0x400   & VIRTIO_NET_FF_TCP_HDR & TCP header of the packet \\
-+\hline
-+0x500   & VIRTIO_NET_FF_UDP_HDR & UDP header of the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
-+
-+When \field{mask_supported} is set, for the specific \field{type}, the
-+device can mask packet fields with the mask supplied in the flow
-+filter match entry.
-+
-+For each \field{type} the \field{fields_bmap} indicates supported fields
-+of the packet header which can be matched.
-+
-+For the \field{type} of VIRTIO_NET_FF_ETH_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} as follows:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_DST_MAC & Destination MAC address in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_SRC_MAC & Source MAC address in the packet \\
-+\hline
-+2   & VIRTIO_NET_FF_ETHER_TYPE & Ether type in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
-+
-+For the \field{type} of VIRTIO_NET_FF_VLAN_TAG_HDR, VLAN tag fields
-+are represented by a bitmap in \field{fields_bmap} as follows:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_VLAN_TAG_TCI & Vlan tag TCI 16-bit field \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
-+
-+For the \field{type} of VIRTIO_NET_FF_IPV4_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} as follows:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_IPV4 & Source IPV4 address in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_IPV4 & Destination IPV4 address in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
-+
-+For the \field{type} of VIRTIO_NET_FF_IPV6_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} as follows:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_IPV6 & Source IPV6 address in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_IPV6 & Destination IPV6 address in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
-+
-+For the \field{type} of VIRTIO_NET_FF_TCP_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} as follows:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_TCP_PORT & Source TCP port in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_TCP_PORT & Destination TCP port in the packet \\
-+\hline
-+other   & -    & reserved \\
-+\hline
-+\end{tabular}
-+
-+For the \field{type} of VIRTIO_NET_FF_UDP_HDR, header fields
-+are represented by a bitmap in \field{fields_bmap} as follows:
-+
-+\begin{tabular}{|l|l|l|}
-+\hline
-+Bit & Name & Description \\
-+\hline \hline
-+0   & VIRTIO_NET_FF_SRC_UDP_PORT & Source UDP port in the packet \\
-+\hline
-+1   & VIRTIO_NET_FF_DST_UDP_PORT & Destination UDP port in the packet \\
-+\hline
-+other   & -    & reserved  \\
-+\hline
-+\end{tabular}
-+
- \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue}
- 
- The driver uses the control virtqueue (if VIRTIO_NET_F_CTRL_VQ is
-@@ -2389,6 +2523,77 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- of the driver's records. In such cases, the driver should allocate additional
- space for the \field{command-specific-result} buffer.
- 
-+\paragraph{Flow Filter}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter}
-+
-+If the VIRTIO_NET_F_FLOW_FILTER feature is negotiated,
-+
-+\begin{itemize}
-+\item the driver can send commands VIRTIO_NET_CTRL_FF_CAP_GET and
-+VIRTIO_NET_CTRL_FF_MATCH_CAP_GET to query the flow filter
-+capabilities of the device.
-+\end{itemize}
-+
-+\begin{lstlisting}
-+#define VIRTIO_NET_CTRL_FF 7
-+ #define VIRTIO_NET_CTRL_FF_CAP_GET 0
-+ #define VIRTIO_NET_CTRL_FF_MATCH_CAP_GET 1
-+\end{lstlisting}
-+
-+\subparagraph{Flow Filter Capabilities Get}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Capabilities Get}
-+
-+The command VIRTIO_NET_CTRL_FF_CAP_GET provides the flow filter device capabilities.
-+
-+\begin{lstlisting}
-+struct virtio_net_ctrl_ff_caps {
-+        le16 max_match_fields;
-+        le16 max_groups; /* valid group id = max_groups - 1 */
-+        le32 max_ff_per_group;
-+        le32 max_ff; /* max flow_id in add/del = max_ff - 1 */
-+        le16 max_actions;
-+        u8 max_flow_priorities_per_group;
-+};
-+\end{lstlisting}
-+
-+\field{max_groups} indicates total number of flow filter groups supported
-+by the device whose group identifiers can be any value in the range from 0 to
-+\field{max_groups - 1}. The flow filter group can have any priority in range
-+of 0 to \field{max_groups - 1}.
-+
-+\field{max_ff_per_group} indicates the maximum number of
-+flow filters per flow filter group which can be added by the driver.
-+
-+\field{max_ff} indicates the maximum number of flow filters across
-+all the flow groups which can be added by the driver.
-+
-+\field{max_ff_priorities_per_group} indicates the maximum priority value
-+of a flow filter within a group. A flow filter within a group can have any
-+priority in range of zero to \field{max_ff_priorities_per_group - 1}.
-+
-+\field{max_match_fields} indicates maximum number of fields of a packet
-+which can be matched by the device for a flow filter.
-+
-+\field{max_actions} indicates maximum number of actions for a flow filter
-+that can be supplied.
-+
-+\field{max_flow_priorities_per_group} indicates maximum number of
-+priorities supported by the device per flow filter group.
-+
-+\subparagraph{Flow Filter Match Capabilities Get}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Flow Filter / Flow Filter Match Capabilities Get}
-+
-+The command VIRTIO_NET_CTRL_FF_MATCH_CAP_GET indicates which fields
-+of the packet can be matched.
-+
-+\begin{lstlisting}
-+struct virtio_net_ctrl_ff_match_types {
-+        le32 num_entries;
-+        struct virtio_net_ff_match_type_cap types[];
-+};
-+\end{lstlisting}
-+
-+\field{num_entries} indicates the length of the array \field{types}.
-+Each array entry of \field{types} represents the fields of the packet
-+which are supported for matching by the device.
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
- 
--- 
-2.34.1
+I fixed all your comments in v7 at [1].
+They are bit better now.
+Updated the change log of v7 and github link too.
 
+[1] https://lists.oasis-open.org/archives/virtio-comment/202311/msg00500.ht=
+ml
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
