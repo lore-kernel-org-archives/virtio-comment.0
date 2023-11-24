@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8623-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8624-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A793C61DF4
-	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 14:45:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 795E5C61D97
+	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 15:46:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 38B4A23575
-	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 14:45:15 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A9FFC2AC54
+	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 15:46:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 027FC986905
-	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 14:45:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 6F4289868B1
+	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 15:46:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C93899868A5; Fri, 24 Nov 2023 14:45:14 +0000 (UTC)
+	id 4B1149868A5; Fri, 24 Nov 2023 15:46:37 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,260 +24,466 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B9AD59868A6
-	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Nov 2023 14:45:14 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3B6089868A7
+	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Nov 2023 15:46:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: BPpO_WQjN1GsAmGrjQDOBQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700837111; x=1701441911;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BwX5BNJimjT7eWl6+gSuos3pc4KgouTMDgg/auLAX60=;
-        b=F1rHAZKZhATlGgkmk7LMXLKIM3WH/kgSNBlRc5e4LFuaSyQfXfFqQoZJOXRZbsse2D
-         58J2AJugTQax9nf+kTMz8JMkHLwehn+22QmI9Iwl9FA8EF7NSV2PaFMIJd/Hn6xvbgXt
-         lzD4uToYzVZDtIAkJYt0exHBUTg9vtYbXLvsJKWZK32EXu9duh/W1RHQw8wzD4YGVQow
-         Ce6OZYZqcVQV+kkeMfjmTU6bw1XtYMrsBSnbo2TcsKQ9XGQltZOLdH157vNkzneuCZfP
-         KBJiDS111tRfsh6mYlCVPBIU3wYkIK8ehM7Z81SkDGZAoEEBeWCWBdA013NKYAfVOxsn
-         6HKw==
-X-Gm-Message-State: AOJu0Yx4phr7arx1TfhxgwhKMWNrezvwaHKRcMRgDgl2Wsga6VGCPFgK
-	S4uqFTD9CHplD6fbSu+6hMOzJkJdBbihmx5oJqtgMExbxjWmR8FTHGm0yl8R08i5BDUL40wz3d1
-	rMJ2L446w1Zd3YBAFrkooEwU0iccJx5j/jg==
-X-Received: by 2002:a17:906:80c2:b0:a03:90a3:b775 with SMTP id a2-20020a17090680c200b00a0390a3b775mr2409444ejx.27.1700837111083;
-        Fri, 24 Nov 2023 06:45:11 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE/hTLVKSqkGGfdrWtZrOURgzN1+gH78ePNQ0Lm9hW42x2adTdYmboCY341XKHjBgewQ+Hm1g==
-X-Received: by 2002:a17:906:80c2:b0:a03:90a3:b775 with SMTP id a2-20020a17090680c200b00a0390a3b775mr2409424ejx.27.1700837110638;
-        Fri, 24 Nov 2023 06:45:10 -0800 (PST)
-Date: Fri, 24 Nov 2023 09:45:04 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	"Zhu, Lingshan" <lingshan.zhu@intel.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"stefanha@redhat.com" <stefanha@redhat.com>,
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
-Message-ID: <20231124092334-mutt-send-email-mst@kernel.org>
-References: <PH0PR12MB54810EF71D0BF925F4F81A65DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtsMi9+MgDb=tTH=LrkReb3aZdB4wv-MJkxLmLhNmTDAg@mail.gmail.com>
- <PH0PR12MB54816D26CE3B22CA84CAAE2ADCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvqB0Q3N6UBuVXad7GLGRWB_YS1rbdNZy8h85jkXGePtg@mail.gmail.com>
- <PH0PR12MB5481EEAEDFECA480BB3D69DCDCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEu3vSyVo6O4TvahiQYqZymnK7m+SWY9nzaQHFBEAbUpMA@mail.gmail.com>
- <20231124035211-mutt-send-email-mst@kernel.org>
- <CACGkMEtHhf2KTHeYcfRndh7GMu22R_Q4ABNb__zv_cn0na2N6Q@mail.gmail.com>
- <20231124071048-mutt-send-email-mst@kernel.org>
- <CACGkMEuLCHccVTWxT=DWDJRK3XGC_8wQW6AvuZ2kpTa8C-WeQQ@mail.gmail.com>
+X-MC-Unique: YSghXnfCMmK-NwkKx0sdkg-1
+From: Cornelia Huck <cohuck@redhat.com>
+To: Haixu Cui <quic_haixcui@quicinc.com>, virtio-dev@lists.oasis-open.org,
+ virtio-comment@lists.oasis-open.org, harald.mommer@opensynergy.com,
+ broonie@kernel.org, qiang4.zhang@linux.intel.com
+Cc: quic_ztu@quicinc.com, Haixu Cui <quic_haixcui@quicinc.com>
+In-Reply-To: <20231124072015.12655-1-quic_haixcui@quicinc.com>
+Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
+ Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
+ 153243,
+ =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
+ Michael O'Neill, Amy
+ Ross"
+References: <20231124072015.12655-1-quic_haixcui@quicinc.com>
+User-Agent: Notmuch/0.37 (https://notmuchmail.org)
+Date: Fri, 24 Nov 2023 16:46:29 +0100
+Message-ID: <87ttpbxiga.fsf@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CACGkMEuLCHccVTWxT=DWDJRK3XGC_8wQW6AvuZ2kpTa8C-WeQQ@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] RE: [PATCH V2 3/6] virtio: dont reset vqs when
- SUSPEND
+Content-Type: text/plain
+Subject: [virtio-comment] Re: [PATCH] [PATCH v5] virtio-spi: add the device specification
 
-On Fri, Nov 24, 2023 at 09:01:53PM +0800, Jason Wang wrote:
-> On Fri, Nov 24, 2023 at 8:17 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> >
-> > On Fri, Nov 24, 2023 at 07:50:42PM +0800, Jason Wang wrote:
-> > > > I frankly don't see how a bit which is completely non-orthogonal with
-> > > > device and driver state can be useful for debug.
-> > >
-> > > The bit is to make sure the state of a device doesn't change. It may
-> > > help or not just like if you want to pause a cpu/process during the
-> > > debug.
-> >
-> > Heh. But it would be much better to have an orthogonal state
-> > that driver can just set without worrying much about
-> > device being broken somehow.
-> 
-> In that case we still need a preise definition of the state. So I
-> don't see the difference here.
+On Fri, Nov 24 2023, Haixu Cui <quic_haixcui@quicinc.com> wrote:
 
-You don't? If you can inspect state without perturbing it, that is
-better for debugging than an intrusive interface that perturbs state.
+> virtio-spi is a virtual SPI (Serial Peripheral Interface) controller and it allows
+> a guest to operate and use the host SPI controller.
+>
+> This patch adds the specification for virtio-spi.
 
+As Mark has already reviewed it from the SPI POV (thanks!), I'm now
+looking at the virtio side.
 
-> Anyhow, we can leave debugging aside.
-> 
-> >
-> >
-> > > > For debug you want something that just always works.
-> > > > Not an interface that has so many requirements it will break if
-> > > > you look at it sidewise.
-> > > >
-> > > >
-> > > > > > >
-> > > > > > I don’t see wasting time here.
-> > > > > > If its debug, its debug.
-> > > > > > If its migration, it is migration.
-> > > > > > If its pm, its pm.
-> > > > >
-> > > > > Obviously not. Migration should leverage existing facilities as much
-> > > > > as possible instead of duplicating them.
-> > > >
-> > > > I don't think there's anything obvious here.  A lot of device state
-> > > > can't be easily accessed with existing facilities.
-> > >
-> > > Then we can invent new things.
-> >
-> > So the approach this patchset takes is a single interface for
-> > all state introspection. Some duplication of functionality
-> > for the sake of consistency.
-> > You don't like it fine but
-> 
-> The (partial) duplication should be fine as long as it doesn't have
-> any issue, but I do see a lot of issues. So I can't say I like it.
+>
+> Signed-off-by: Haixu Cui <quic_haixcui@quicinc.com>
+> ---
+>  device-types/spi/description.tex        | 281 ++++++++++++++++++++++++
+>  device-types/spi/device-conformance.tex |   7 +
+>  device-types/spi/driver-conformance.tex |   7 +
+>  3 files changed, 295 insertions(+)
+>  create mode 100644 device-types/spi/description.tex
+>  create mode 100644 device-types/spi/device-conformance.tex
+>  create mode 100644 device-types/spi/driver-conformance.tex
+>
+> diff --git a/device-types/spi/description.tex b/device-types/spi/description.tex
+> new file mode 100644
+> index 0000000..8ca8c0d
+> --- /dev/null
+> +++ b/device-types/spi/description.tex
+> @@ -0,0 +1,281 @@
+> +\section{SPI Master Device}\label{sec:Device Types / SPI Master Device}
+> +
+> +virtio-spi is a virtual SPI (Serial Peripheral Interface) controller and it allows
+> +a guest to operate and use the host SPI controller. Host SPI controller may be a
+> +physical controller, or a virtual one(e.g. controller emulated by the software
 
-Let's focus on issue really instead of endless high level
-architecture discussions.
+Missing space before the opening bracket.
 
-> > there is nothing obvious that it's a bad thing. It's a tradeoff.
-> >
-> > > > The logical
-> > > > continuation of your reasoning would be to add state introspection
-> > > > commands e.g. to cvq in virtio net and then use tricks like shadow vq to
-> > > > issue these.
-> > >
-> > > For the device state, yes. Because it is device logic and it is not
-> > > what platform or transport can know.
-> >
-> > Exactly as I thought. Don't think shadow VQ is something we
-> > can reasonably make a single migration mechanism though.
-> 
-> That's my understanding as well. It's up to the hypervisor, spec needs
-> to focus on the mechanism but not policy.
-> 
-> > It feels fragile and heavyweight. It's more of a work
-> > around hardware limitations.
-> >
-> >
-> > > > Yea, possible, but can we not go there please?  Nothing is
-> > > > wrong with just building commands that do exactly what we want them to
-> > > > do instead of trying to build a ship in a bottle.
-> > >
-> > > But it's not the case for others.
-> > >
-> > > E.g in Parav's proposal, it tries to rule P2P behaviour via virtio
-> > > admin commands when there is a duplication
-> >
-> > Yes there's some duplication. Advantage is consistency.
-> 
-> Just to clarify, we do need things like suspend but I don't see
-> dealing with PCI P2P in virtio as consistent (e.g we don't imply any
-> PCI stuff in virtio reset).
+> +running in the host).
+> +
+> +virtio-spi has a single virtqueue. SPI transfer requests are placed into
+> +the virtqueue, and serviced by the host SPI controller.
 
-I think I can clarify.  The consistency is that there's a single chapter
-that deals with migration, also hypervisors will all do exactly the same
-instead of each hypervisor guessing how to do migration and going its
-own way.
+Is there any way to express all of this without referring to "host" and
+"guest" here? (The paragraph below giving it as an example is fine.)
 
+Something like "The virtio-spi device is a virtual SPI controller. It
+allows the driver to operate and use an SPI controller under the control
+of the device, either a physical controller, or an emulated one."
 
+> +
+> +In a typical host and guest architecture with virtio-spi, Virtio SPI driver is
+> +the front-end running in the guest kernel, and Virtio SPI device acts as the
+> +back-end in the host.
+> +
+> +\subsection{Device ID}\label{sec:Device Types / SPI Master Device / Device ID}
+> +45
+> +
+> +\subsection{Virtqueues}\label{sec:Device Types / SPI Master Device / Virtqueues}
+> +
+> +\begin{description}
+> +\item[0] requestq
+> +\end{description}
+> +
+> +\subsection{Feature bits}\label{sec:Device Types / SPI Master Device / Feature bits}
+> +
+> +None
+> +
+> +\subsection{Device configuration layout}\label{sec:Device Types / SPI Master Device / Device configuration layout}
+> +
+> +All fields of this configuration are always available and read-only for Virtio SPI driver.
+> +The config space shows the features and settings supported by the host SPI controller.
+> +
+> +\begin{lstlisting}
+> +struct virtio_spi_config {
+> +	u8 chip_select_max_number;
+> +	u8 cs_change_supported;
+> +	u8 tx_nbits_supported;
+> +	u8 rx_nbits_supported;
+> +	le32 bits_per_word_mask;
+> +	le32 mode_func_supported;
+> +	le32 max_freq_hz;
+> +	le32 max_word_delay_ns;
+> +	le32 max_cs_setup_ns;
+> +	le32 max_cs_hold_ns;
+> +	le32 max_cs_inactive_ns;
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{chip_select_max_number} is the maximum number of chipselect the host SPI controller supports.
 
+"chipselect" is probably a known term for people familiar with SPI -- is
+there any definition of those terms that the spec can point to?
 
-> >  I actually
-> > suggested ways to reduce duplication, by using transport offsets as
-> > tags.
-> 
-> I don't see a connection with P2P here. Or I may miss something.
+Also, it should be either "The field \field{whatever}" or
+"\field{whatever}"; "The \field{whatever}" looks good in the LaTeX
+source, but not in the end result.
 
-I don't even know what P2P is in this context. Or why we are
-discussing it. Is this going to be another distraction that
-no one knows how it will work, just like mentioning TD randomly?
+> +
+> +The \field{cs_change_supported} indicates if the host SPI controller supports to toggle chipselect
+> +after each transfer in one message:
+> +        0: supported;
+> +        1: unsupported, means chipselect will keep active when executing the message transaction.
+> +Note: Message here contains a sequence of SPI transfer.
+> +
+> +The \field{tx_nbits_supported} indicates the supported number of bit for writing:
+> +        bit 0: 2-bit transfer, 0 for unsupported and 1 for supported;
+> +        bit 1: 4-bit transfer, 0 for unsupported and 1 for supported;
+> +        bit 2: 8-bit transfer, 0 for unsupported and 1 for supported;
+> +        other bits are reserved as 0, 1-bit transfer is always supported.
+> +
+> +The \field{rx_nbits_supported} indicates the supported number of bit for reading:
+> +        bit 0: 2-bit transfer, 0 for unsupported and 1 for supported;
+> +        bit 1: 4-bit transfer, 0 for unsupported and 1 for supported;
+> +        bit 2: 8-bit transfer, 0 for unsupported and 1 for supported;
+> +        other bits are reserved as 0, 1-bit transfer is always supported.
+> +
+> +The \field{bits_per_word_mask} is a mask indicating which values of bits_per_word
+> +are supported. If not set, no limitation for bits_per_word.
+> +Note: bits_per_word corresponds to \field{bits_per_word} field in
+> +structure \field{virtio_spi_transfer_head}, see below.
+> +
+> +The \field{mode_func_supported} indicates the following features are supported or not:
 
-> > Finding a right balance means we all need to stop going to
-> > extremes, I wish you and lingshan would stop trying to force everyone
-> > to use registers and parav would stop trying to force dma.
-> 
-> There is a misunderstanding. Actually. I don't want to force
-> registers.
+s/indicates/indicates whether/
 
-You keep insisting on overlaying suspend functionality
-over the existing transport. For pci that is going to be
-in a register.
+Can we point to some documentation that explains CPHA and CPOL?
 
-> Which kind of interface is the best way to go is really
-> implementation specific. In some implementations, registers are cheap
-> but not virtqueue, in others, virtqueue is cheap but not register.
-> They are all fine. But we can't not claim one proposal that is
-> optimized for a specific implementation to be the best way. What I
-> want to do is not limit the facilities that are used for live
-> migration to any specific transport. I think Ling Shan agreed with me
-> in this part. It needs to work on all interfaces regardless of
-> registers, DMA, CMA or others. That's why I suggest we focus on what
-> needs to be migrated first. That is define the following things
-> 
-> 1) way to suspend/resume a device
-> 2) virtqueue states, indices or inflight ones
-> 3) device states
-> 
-> It is just like how we define virtqueues/features/status and other
-> basic facilities where we do not tie it to any specific interfaces
-> like DMA, CMA, registers or admin commands. Virtio benefited from the
-> flexibility like this in the past so why not stick to that?
+> +        bit 0-1: CPHA feature,
+> +            0b00: supports CPHA=0 and CPHA=1;
+> +            0b01: supports CPHA=0 only;
+> +            0b10: supports CPHA=1 only;
+> +            0b11: invalid, should support as least one CPHA setting.
+> +
+> +        bit 2-3: CPOL feature,
+> +            0b00: supports CPOL=0 and CPOL=1;
+> +            0b01: supports CPOL=0 only;
+> +            0b10: supports CPOL=1 only;
+> +            0b11: invalid, should support as least one CPOL setting.
+> +
+> +        bit 4: chipselect active high feature, 0 for unsupported and 1 for supported,
+> +            chipselect active low should always be supported.
+> +
+> +        bit 5: LSB first feature, 0 for unsupported and 1 for supported, MSB first should always be
+> +            supported.
 
-Because migration is a complex enough topic that we simply know
-from experience that
-- things like error handling are needed
-- passing big arrays around is needed
-these just do not work reasonably well over registers and
-this is why admin commands were invented.
+Probably better to expand the LSB/MSB acronyms, just to avoid any
+possible confusion. What data does this apply to?
 
+> +
+> +        bit 6: loopback mode feature, 0 for unsupported and 1 for supported, normal mode
+> +            should always be supported.
+> +
+> +The \field{max_freq_hz} is the maximum clock rate supported in Hz unit, 0 means no
+> +limitation for transfer speed.
+> +
+> +The \field{max_word_delay_ns} is the maximum word delay supported in ns unit, 0 means
+> +word delay feature is unsupported.
+> +Note: Just as one message contains a sequence of transfers, one transfer may contain
+> +a sequence of word.
 
+s/word/words/
 
-> After this, each transport can choose to implement it in their own
-> way. For example, if there's a proposal to use those via admin
-> virtqueue that's fine.
-> And registers also fine and other transports.
-> That's why only the last patch of this series is dealing with the PCI
-> specific part.
+> +
+> +The \field{max_cs_setup_ns} is the maximum delay supported after chipselect is asserted, in ns unit,
+> +0 means delay is not supported to introduce after chipselect is asserted.
+> +
+> +The \field{max_cs_hold_ns} is the maximum delay supported before chipselect is deasserted, in ns unit,
+> +0 means delay is not supported to introduce before chipselect is deasserted.
+> +
+> +The \field{max_cs_incative_ns} is the maximum delay supported after chipselect is deasserted, in ns unit,
+> +0 means delay is not supported to introduce after chipselect is deasserted.
+> +
+> +\subsection{Device Initialization}\label{sec:Device Types / SPI Master Device / Device Initialization}
+> +
+> +\begin{enumerate}
+> +\item The Virtio SPI driver configures and initializes the virtqueue.
+> +\end{enumerate}
+> +
+> +\subsection{Device Operation}\label{sec:Device Types / SPI Master Device / Device Operation}
+> +
+> +\subsubsection{Device Operation: Request Queue}\label{sec:Device Types / SPI Master Device / Device Operation: Request Queue}
+> +
+> +Virtio SPI driver enqueues requests to the virtqueue, and they are used by Virtio SPI device.
+> +Each request represents one SPI tranfer and is of the form:
 
-Maybe they are fine in theory. So far I didn't see anything cohesive
-that is close functionally being even to Parav's proposal of migration
-over admin commands. There's no specific *reason* not to do that,
-practically - I don't see why 
+s/tranfer/transfer/
 
+> +
+> +\begin{lstlisting}
+> +struct virtio_spi_transfer_head {
+> +        u8 chip_select_id;
+> +        u8 bits_per_word;
+> +        u8 cs_change;
+> +        u8 tx_nbits;
+> +        u8 rx_nbits;
+> +        u8 reserved[3];
+> +        le32 mode;
+> +        le32 freq;
+> +        le32 word_delay_ns;
+> +        le32 cs_setup_ns;
+> +        le32 cs_delay_hold_ns;
+> +        le32 cs_change_delay_inactive_ns;
+> +};
+> +\end{lstlisting}
+> +
+> +\begin{lstlisting}
+> +struct virtio_spi_transfer_result {
+> +        u8 result;
+> +};
+> +\end{lstlisting}
+> +
+> +\begin{lstlisting}
+> +struct virtio_spi_transfer_req {
+> +        struct virtio_spi_transfer_head head;
+> +        u8 tx_buf[];
+> +        u8 rx_buf[];
+> +        struct virtio_spi_transfer_result result;
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{chip_select_id} indicates the chipselect index the SPI transfer used.
+> +
+> +The \field{bits_per_word} indicates the number of bits in each SPI transfer word.
+> +
+> +The \field{cs_change} indicates whether to deselect device before starting the
+> +next SPI transfer, 0 means chipselect keep asserted and 1 means chipselect deasserted
+> +then asserted again.
+> +
+> +The \field{tx_nbits} indicates number of bits used for writing:
+> +        0,1: 1-bit transfer, also known as SINGLE;
+> +        2  : 2-bit transfer, also known as DUAL;
+> +        4  : 4-bit transfer, also known as QUAD;
+> +        8  : 8-bit transfer, also known as OCTAL;
+> +        other values are invalid.
+> +
+> +The \field{rx_nbits} indicates number of bits used for reading:
+> +        0,1: 1-bit transfer, also known as SINGLE;
+> +        2  : 2-bit transfer, also known as DUAL;
+> +        4  : 4-bit transfer, also known as QUAD;
+> +        8  : 8-bit transfer, also known as OCTAL;
+> +        other values are invalid.
+> +
+> +The \field{reserved} is for alignement, also for further extension.
 
-> 
-> >
-> > > and a layer violation.
-> >
-> > layers are only good if they make sense.
-> 
-> Case by case, for example, PCI PM has defined the state and the
-> interaction with P2P. Reusing that seems much cleaner than inventing a
-> mechanism in the virtio layer. Or if it needs a side channel, it needs
-> to be invented in PCI not virtio.
-> 
-> Thanks
+Maybe "\field{reserved} is currently unused and might be used for
+further extensions in the future." ?
 
-There's no *if* in my opinion - migration is way easier for hypervisors
-to implement as a side channel so any device state can be migrated. And
-this is uniform across transports. Is it harder or easier for hardware
-to implement? We have a hardware vendor pushing a side channel approach
-so it seems likely they know what is good for hardware? If it is somehow
-nvidia specific - can we please have other vendors with actual
-plans implementing this hardware (and note this has nothing to do with
-VDPA - all this SUSPEND bit work is only useful for full offload) come
-forward and say "we don't support this, we support that"?  Or is this
-for some unnamed vendors not on the TC? Maybe they should join the TC to
-influence the direction then.  Because right now it looks like software
-guys telling hardware guys what is good for hardware and I don't see how
-this makes any sense.
+> +
+> +The \field{mode} indicates some transfer settings. Bit definitions as follows:
+> +        bit 0: CPHA, determines the timing (i.e. phase) of the data bits
+> +	       relative to the clock pulses.
+> +        bit 1: CPOL, determines the polarity of the clock.
+> +        bit 2: CS_HIGH, if 1, chipselect active high, else active low.
+> +        bit 3: LSB_FIRST, determines per-word bits-on-wire, if 0, MSB
+> +	       first, else LSB first.
+> +        bit 4: LOOP, if 1, device is in loopback mode, else normal mode.
+> +
+> +The \field{freq} indicates the SPI transfer speed in Hz.
+> +
+> +The \field{word_delay_ns} indicates delay to be inserted between consecutive
+> +words of a transfer, in ns unit.
+> +
+> +The \field{cs_setup_ns} indicates delay to be introduced after chipselect
+> +is asserted, in ns unit.
+> +
+> +The \field{cs_delay_hold_ns} indicates delay to be introduced before chipselect
+> +is deasserted, in ns unit.
+> +
+> +The \field{cs_change_delay_inactive_ns} indicates delay to be introduced after
+> +chipselect is deasserted and before next asserted, in ns unit.
+> +
+> +The \field{tx_buf} is the buffer for data sent to the device.
+> +
+> +The \field{rx_buf} is the buffer for data received from the device.
+> +
+> +The final \field{result} is the transfer result, VIRTIO_SPI_TRANS_OK for success,
+> +VIRTIO_SPI_PARAM_ERR for parameter error, which means the parameters in 
+> +\field{virtio_spi_transfer_head} are not all valid, or some fields are set as non-zero values
+> +but the corresponding features are not supported by host, while
+> +VIRTIO_SPI_TRANS_ERR for transfer error, means that the parameters are all
+> +valid but trasnfer process failed.
 
+This is quite a complicated sentence, can we maybe rewrite it to
 
+"\field{result} contains the transfer result. It may have the following
+values:"
 
-> >
-> > > Thanks
-> > >
-> > >
-> > > >
-> > > > --
-> > > > MST
-> > > >
-> >
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_SPI_TRANS_OK     0
+> +#define VIRTIO_SPI_PARAM_ERR    1
+> +#define VIRTIO_SPI_TRANS_ERR    2
+> +\end{lstlisting}
+
+"VIRTIO_SPI_TRANS_OK indicates successful completion of the transfer.
+
+VIRTIO_SPI_PARAM_ERR indicates a parameter error: Some of the parameters
+in \field{virtio_spi_transfer_head} are not valid, or some fields are
+set as non-zero values, but the corresponding features are not supported
+by the device.
+
+VIRTIO_SPI_TRANS_ERR indicates a transfer error: The parameters are all
+valid, but the transfer process failed."
+
+> +
+> +\subsubsection{Device Operation: Operation Status}\label{sec:Device Types / SPI Master Device / Device Operation: Operation Status}
+> +
+> +Fields in structure \field{virtio_spi_transfer_head} are written by Virtio SPI driver, while
+> +\field{result} in structure \field{virtio_spi_transfer_result} is written by Virtio SPI device.
+> +
+> +virtio-spi supports three transfer types:
+> +        1) half-duplex read;
+> +        2) half-duplex write;
+> +        3) full-duplex read and write. 
+
+Can you make this either an enumerate or an itemize?
+
+> +
+> +For half-duplex read transfer, \field{rx_buf} is filled by Virtio SPI device and consumed
+> +by Virtio SPI driver. For half-duplex write transfer, \field{tx_buf} is filled by Virtio 
+> +SPI driver and consumed by Virtio SPI device. And for full-duplex read and write transfer,
+> +both \field{tx_buf} and \field{rx_buf} are used.
+> +
+> +\drivernormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
+> +
+> +The Virtio SPI driver MUST send transfer requests on the requestq virtqueue.
+
+I don't think this makes sense as a normative statement: the driver
+sending transfer requests on the request queue is the whole point of
+this setup.
+
+> +
+> +Fields in structure \field{virtio_spi_transfer_head} MUST be filled by Virtio SPI driver
+> +and MUST be readable for Virtio SPI device.
+
+Likewise, I think we can assume this from the general idea of how
+virtio-spi is supposed to work.
+
+> +
+> +Structure \field{virtio_spi_transfer_result} MUST be filled by Virtio SPI device
+> +and MUST be writable for Virtio SPI device.
+
+Likewise.
+
+> +
+> +For half-duplex read, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
+> +\field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
+> +
+> +For half-duplex write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head},
+> +\field{tx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
+> +
+> +For full-duplex read and write, Virtio SPI driver MUST send structure \field{virtio_spi_transfer_head}, 
+> +\field{tx_buf}, \field{rx_buf} and structure \field{virtio_spi_transfer_result} to SPI Virtio Device in order.
+> +
+> +For half-duplex read or full-duplex read and write transfer, Virtio SPI driver MUST not use \field{rx_buf}
+> +if the \field{result} returned from Virtio SPI device is not VIRTIO_SPI_TRANS_OK.
+> +
+> +For each transfer request, Virtio SPI driver MUST check the fields in structure \field{virtio_spi_transfer_head}
+> +and MUST reject the request if any filed is invalid or enabling the features not supported by host.
+
+s/filed/field/
+s/host/device/
+
+Also, isn't the rejecting supposed to be done by the device, as the
+driver is the party enqueueing the requests? Or do I have some kind of
+fundamental misunderstanding?
+
+> +For example, if \field{freq} in structure \field{virtio_spi_transfer_head} is greater than \field{max_freq_hz}
+> +in config space, or if \field{max_cs_setup_ns} in config space is 0 while \field{cs_setup_ns} in structure
+> +\field{virtio_spi_transfer_head} is non-zero, Virtio SPI driver will reject such request.
+
+An example like this should be in the non-normative section (probably
+where you describe the potential errors indicated in result.) (And
+again, I think it is the device that rejects requests?)
+
+> +
+> +\devicenormative{\subsubsection}{Device Operation}{Device Types / SPI Master Device / Device Operation}
+> +
+> +Virtio SPI device MUST set all the fields of the structure \field{virtio_spi_config} before
+> +they are read by Virtio SPI driver.
+
+This follows from basic virtio operation requirements and does not need
+a normative statement.
+
+> +
+> +Virtio SPI device MUST set the structure \field{virtio_spi_transfer_result} before sending
+> +it back to Virtio SPI driver.
+> +
+> +Virtio SPI device MUST be able to identify the transfer type according to the received
+> +virtqueue descriptors.
+
+I'm not sure what this statement means -- doesn't the driver need to set
+up the request in a way that the device understands what to do? The
+device actually looking at the driver's requests and processing them is
+basic virtqueue operation, no need for a normative statement.
+
+> +
+> +Virtio SPI device MUST NOT change the data in \field{tx_buf} if transfer type is half-duplex write
+> +or full-duplex read and write.
+> +
+> +Virtio SPI device MUST verify the parameters in \field{virtio_spi_transfer_head} after receiving the request,
+> +and MUST set \field{virtio_spi_transfer_result} as VIRTIO_SPI_PARAM_ERR if not all parameters are valid or
+> +some host SPI controller unsupported features are set.
+> diff --git a/device-types/spi/device-conformance.tex b/device-types/spi/device-conformance.tex
+> new file mode 100644
+> index 0000000..3e771bc
+> --- /dev/null
+> +++ b/device-types/spi/device-conformance.tex
+> @@ -0,0 +1,7 @@
+> +\conformance{\subsection}{SPI Master Device Conformance}\label{sec:Conformance / Device Conformance / SPI Master Device Conformance}
+> +
+> +An SPI Master device MUST conform to the following normative statements:
+
+This one is still using the "SPI Master" term.
+
+> +
+> +\begin{itemize}
+> +\item \ref{devicenormative:Device Types / SPI Master Device / Device Operation}
+> +\end{itemize}
+> diff --git a/device-types/spi/driver-conformance.tex b/device-types/spi/driver-conformance.tex
+> new file mode 100644
+> index 0000000..3c965ef
+> --- /dev/null
+> +++ b/device-types/spi/driver-conformance.tex
+> @@ -0,0 +1,7 @@
+> +\conformance{\subsection}{SPI Master Driver Conformance}\label{sec:Conformance / Driver Conformance / SPI Master Driver Conformance}
+> +
+> +An SPI Master driver MUST conform to the following normative statements:
+
+Likewise.
+
+> +
+> +\begin{itemize}
+> +\item \ref{drivernormative:Device Types / SPI Master Device / Device Operation}
+> +\end{itemize}
 
 
 This publicly archived list offers a means to provide input to the
