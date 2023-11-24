@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8582-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8583-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1043DC61D97
-	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 03:09:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 687AAC61DF4
+	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 03:15:59 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 66B4444550
-	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 03:09:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A1B0160D2B
+	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 03:15:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4DFCD9868B7
-	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 03:09:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 85CBF9868B3
+	for <virtio-comment@archiver.kernel.org>; Fri, 24 Nov 2023 03:15:58 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 394D798660F; Fri, 24 Nov 2023 03:09:36 +0000 (UTC)
+	id 6C47E986890; Fri, 24 Nov 2023 03:15:58 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,47 +24,46 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 293289868A5
-	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Nov 2023 03:09:36 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5B3739868A5
+	for <virtio-comment@lists.oasis-open.org>; Fri, 24 Nov 2023 03:15:58 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: bDu7fQINNsGNSOk9656ghg-1
+X-MC-Unique: muEbC6ocPi-4qeX17P-hdw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700795372; x=1701400172;
+        d=1e100.net; s=20230601; t=1700795754; x=1701400554;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qd1bVf9zY2/THEnaM37qqqpPWSfHqByQ+hg83AO0S7w=;
-        b=KcdWngiVNYHuk4+vTN4httWOgOhzSdLO+SI8v5LO+zxgOeV61ap4rYnMrmKCrKPpOc
-         sNayzY0Iw7+j+eRn0DZALjLfBl+YJHfQ5cawSIGewtIrXwC9ZbKSgeTMpjUZ/mGQTnNf
-         KFIFvqNJMc4chMZOM1OsPT6Zmb2uU3PknOR+ys68oQSj+J5KZv4+ynv9iJ0WEB0ddf7s
-         Z15CDtvPRC26Zp/btvuglDQL8NcVOs/ie6xy+yt20gOYrmNxqlFyKIQbTjXniconCoW+
-         lLAtE4p/rak10+r3vyKQAHV2wsv4J73ltvRHT8EDiQTALKVJ/0e/CZuOz5K4mnkEQunV
-         3u1w==
-X-Gm-Message-State: AOJu0YwnArhAguFUseTUJqdPOtcnpkXNNI3i6Rqqi5mHuie1Fx3YOFsZ
-	3o9QKBeQ7QlwMhH5fsd885EGx2YCZlzHBXTW9DTXJp2CSgBZiiKE6KY3RtuwciAHULBXiA4t/vE
-	5DN755Qpf3F75Xkk4Au/fJwPoTqD7vgrY8UOoViocOv6jkp1Gew==
-X-Received: by 2002:ac2:46ca:0:b0:509:4a02:49f7 with SMTP id p10-20020ac246ca000000b005094a0249f7mr723672lfo.44.1700795371916;
-        Thu, 23 Nov 2023 19:09:31 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFQ9VhcWSZZDg8Br6dKv46KcYt5m192Dorei69dBDwNJ00568CVWHJ3uHnD5owo2EQUse/+hrF2qryJCllAr8M=
-X-Received: by 2002:ac2:46ca:0:b0:509:4a02:49f7 with SMTP id
- p10-20020ac246ca000000b005094a0249f7mr723663lfo.44.1700795371555; Thu, 23 Nov
- 2023 19:09:31 -0800 (PST)
+        bh=QnPQTXU8oGF78Gex+E2IWdkQC2UPmoJdrZwUXQfF14Q=;
+        b=IEBAkOh1E1HWaTaA9Z3lV3V1s1u9buthnhPKkDiXkt1EvntTg6NGpK+4Dmj0ysmPR6
+         9SAaCBYmQHQK4Xw8alLx2l0IJMbX/aLxl3x6+nX+yLvLGA+Vb8JMS0khrWaOoaGMxGc6
+         jB4anB4Y9ADAemx66mmp8R0fUTPET+HhChIb/sKpODthF8q0Nnavjr+krbgJWreMA15F
+         LD/KDRBU4NwucH4FK0/oEo+4xy9/rzlJAYg04JTR1VmSdJrPZRcNQz74HYYXTXlEtNch
+         CwxJJv/FXUDPuR6l5lYvLvpVKY0aAsrdr5D9ingIz1Elst93TNW+4Q9Z98QhP6J7aYy8
+         cztQ==
+X-Gm-Message-State: AOJu0Yw3Y5AKBYVPVNJaKI8Pr1bGVsbM+PFPWe2kzXZdNNygzoDetdB8
+	ulIJhl3gCAgZ0GboBf1kCyWgMVX/CarF5zW22RRcCNSUq1xgcxQV+PFCRxcjSzty2W0WvbXBkWy
+	tFKER7vrvR/oE/Cta40r7g22Ce0+x9wjBVeuNxmNL/vOVsXOxyQ==
+X-Received: by 2002:ac2:53a7:0:b0:508:12f5:f808 with SMTP id j7-20020ac253a7000000b0050812f5f808mr695427lfh.57.1700795754076;
+        Thu, 23 Nov 2023 19:15:54 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEnqp/S7kLv4dBAh1bQVIHfz0Z3OcRuEx3fp7WRCxx5MXGgBVMfZlxsA8udR+1xQZYu7JQzY8BaPpOiQ2Py0CY=
+X-Received: by 2002:ac2:53a7:0:b0:508:12f5:f808 with SMTP id
+ j7-20020ac253a7000000b0050812f5f808mr695415lfh.57.1700795753742; Thu, 23 Nov
+ 2023 19:15:53 -0800 (PST)
 MIME-Version: 1.0
-References: <PH0PR12MB54810AFC15EAC51755CFC045DCB1A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEtP+W4mdfn5PszoSHW3tNS+KPAMKXvJhpWKa_NchxVpZA@mail.gmail.com>
- <PH0PR12MB54815F616E0CF024927984C2DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231116004037-mutt-send-email-mst@kernel.org> <20231116023443-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548118E76BAFD5FA470B92A1DCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231116064611-mutt-send-email-mst@kernel.org> <PH0PR12MB54814EC9577B1197E2A13BDBDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231116121958-mutt-send-email-mst@kernel.org> <PH0PR12MB5481F4D1B07F2809AA7D7C9BDCB0A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231116131303-mutt-send-email-mst@kernel.org> <PH0PR12MB54818DBAE43A566C807E1AE9DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEvWK65GY_U4MMa6=43wqnM8T4-ALK07d7zEHp8Aa36wGg@mail.gmail.com>
- <PH0PR12MB5481D5A3FF96B355348A7F2ADCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <CACGkMEurz8kxONQPTBcXzjnVLpBazNdjJwC6LQr-+Wm96fG=Hw@mail.gmail.com> <PH0PR12MB5481CFFD246EDAFE51304848DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5481CFFD246EDAFE51304848DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231117031251-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481D7C85F006AE7292E1D82DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117042446-mutt-send-email-mst@kernel.org> <PH0PR12MB54813F2F62F87E42CD5DB4B0DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117044428-mutt-send-email-mst@kernel.org> <PH0PR12MB5481E8342B26739B852B592FDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117053117-mutt-send-email-mst@kernel.org> <PH0PR12MB5481632B9E440DDCBEEA7B75DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117062003-mutt-send-email-mst@kernel.org> <PH0PR12MB548133582D377B3FE4BB9F6CDCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231117073917-mutt-send-email-mst@kernel.org> <PH0PR12MB5481CD9329189829A8A6B6D1DCB7A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtEEj8jXeE7JHyFk6UkBkEP5vpYzXPHHSGpSjDKQivJAg@mail.gmail.com>
+ <PH0PR12MB5481036FE38E03DDFAE1D13CDCBBA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <CACGkMEtpSFBp2oVtawgs8k7S-kp2DFXBdSW6_y3nrt3L-ZkSSg@mail.gmail.com> <PH0PR12MB5481E84F1DD4C0165B1FDD1EDCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5481E84F1DD4C0165B1FDD1EDCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Fri, 24 Nov 2023 11:09:20 +0800
-Message-ID: <CACGkMEv5e_c9A8OuQX=4C1h-Pq+E04fx3_SnQKdOUJ0k78Rt6A@mail.gmail.com>
+Date: Fri, 24 Nov 2023 11:15:42 +0800
+Message-ID: <CACGkMEuaLieCAZOiCHc15_YLCxmergbAO9pDJw58pQE9nztHkQ@mail.gmail.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
 	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
@@ -75,185 +74,218 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of operation for write recording commands
+Subject: Re: [virtio-comment] Re: [PATCH v3 6/8] admin: Add theory of
+ operation for write recording commands
 
-On Wed, Nov 22, 2023 at 12:19=E2=80=AFPM Parav Pandit <parav@nvidia.com> wr=
+On Wed, Nov 22, 2023 at 12:35=E2=80=AFPM Parav Pandit <parav@nvidia.com> wr=
 ote:
 >
 >
 >
 > > From: Jason Wang <jasowang@redhat.com>
-> > Sent: Wednesday, November 22, 2023 9:45 AM
+> > Sent: Wednesday, November 22, 2023 9:48 AM
 > >
-> > On Wed, Nov 22, 2023 at 12:26=E2=80=AFAM Parav Pandit <parav@nvidia.com=
+> > On Wed, Nov 22, 2023 at 12:29=E2=80=AFAM Parav Pandit <parav@nvidia.com=
 > wrote:
 > > >
 > > >
 > > > > From: Jason Wang <jasowang@redhat.com>
-> > > > Sent: Tuesday, November 21, 2023 9:55 AM
+> > > > Sent: Tuesday, November 21, 2023 10:47 AM
 > > > >
-> > > > On Fri, Nov 17, 2023 at 11:02=E2=80=AFAM Parav Pandit <parav@nvidia=
-.com>
-> > wrote:
+> > > > On Fri, Nov 17, 2023 at 8:51=E2=80=AFPM Parav Pandit <parav@nvidia.=
+com> wrote:
 > > > > >
 > > > > >
-> > > > >
-> > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > Sent: Thursday, November 16, 2023 11:51 PM
+> > > > > > From: virtio-comment@lists.oasis-open.org
+> > > > > > <virtio-comment@lists.oasis- open.org> On Behalf Of Michael S.
+> > > > > > Tsirkin
+> > > > > > Sent: Friday, November 17, 2023 6:11 PM
 > > > > > >
-> > > > > > On Thu, Nov 16, 2023 at 05:29:49PM +0000, Parav Pandit wrote:
+> > > > > > On Fri, Nov 17, 2023 at 12:22:59PM +0000, Parav Pandit wrote:
+> > > > > > >
 > > > > > > >
 > > > > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > > > Sent: Thursday, November 16, 2023 10:56 PM
+> > > > > > > > Sent: Friday, November 17, 2023 5:03 PM
+> > > > > > > > To: Parav Pandit <parav@nvidia.com>
+> > > > > > >
+> > > > > > > > > Somehow the claim of shadow vq is great without sharing
+> > > > > > > > > any performance
+> > > > > > > > numbers is what I don't agree with.
 > > > > > > > >
-> > > > > > > > On Thu, Nov 16, 2023 at 04:26:53PM +0000, Parav Pandit wrot=
-e:
-> > > > > > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > > > > > Sent: Thursday, November 16, 2023 5:18 PM
-> > > > > > > > > >
-> > > > > > > > > > On Thu, Nov 16, 2023 at 07:40:57AM +0000, Parav Pandit
-> > wrote:
-> > > > > > > > > > >
-> > > > > > > > > > > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > > > > > > > Sent: Thursday, November 16, 2023 1:06 PM
-> > > > > > > > > > > >
-> > > > > > > > > > > > On Thu, Nov 16, 2023 at 12:51:40AM -0500, Michael S=
-.
-> > > > > > > > > > > > Tsirkin
-> > > > wrote:
-> > > > > > > > > > > > > On Thu, Nov 16, 2023 at 05:29:54AM +0000, Parav
-> > > > > > > > > > > > > Pandit
-> > > > wrote:
-> > > > > > > > > > > > > > We should expose a limit of the device in the
-> > > > > > > > > > > > > > proposed
-> > > > > > > > > > > > WRITE_RECORD_CAP_QUERY command, that how much
-> > range
-> > > > > > > > > > > > it can
-> > > > > > > > track.
-> > > > > > > > > > > > > > So that future provisioning framework can use i=
+> > > > > > > > It's upstream in QEMU. Test it youself.
+> > > > > > > >
+> > > > > > > We did few minutes back.
+> > > > > > > It results in a call trace.
+> > > > > > > Vhost_vdpa_setup_vq_irq crashes on list corruption on net-nex=
 t.
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > I will cover this in v5 early next week.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > I do worry about how this can even work though. I=
-f
-> > > > > > > > > > > > > you want a generic device you do not get to
-> > > > > > > > > > > > > dictate how much memory
-> > > > > > VM has.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Aren't we talking bit per page? With 1TByte of
-> > > > > > > > > > > > > memory to track
-> > > > > > > > > > > > > -> 256Gbit -> 32Gbit -> 8Gbyte per VF?
-> > > > > > > > > > > >
-> > > > > > > > > > > > Ugh. Actually of course:
-> > > > > > > > > > > > With 1TByte of memory to track -> 256Mbit -> 32Mbit
-> > > > > > > > > > > > -> 8Mbyte per VF
-> > > > > > > > > > > >
-> > > > > > > > > > > > 8Gbyte per *PF* with 1K VFs.
-> > > > > > > > > > > >
-> > > > > > > > > > > Device may not maintain as a bitmap.
-> > > > > > > > > >
-> > > > > > > > > > However you maintain it, there's 256Mega bit of informa=
-tion.
-> > > > > > > > > There may be other data structures that device may deploy
-> > > > > > > > > as for example
-> > > > > > > > hash or tree or something else.
-> > > > > > > >
-> > > > > > > > Point being?
-> > > > > > > The device may have some hashing accelerator or other
-> > > > > > > improvements that
-> > > > > > may perform better than bitmap as many queues in parallel
-> > > > > > attempt to update the shared database.
 > > > > > >
-> > > > > > Maybe, I didn't give this thought.
+> > > > > > Wrong list for this bug report.
 > > > > > >
-> > > > > > My point was that to be able to keep all combinations of
-> > > > > > dirty/non dirty page for each 4k page in a 1TByte guest device
-> > > > > > needs 8MBytes of on-device memory per VF. As designed the query
-> > > > > > also has to report it for each VF accurately even if multiple V=
-Fs are
-> > accessing same guest.
-> > > > > Yes.
+> > > > > > > We are stopping any shadow vq tests on unstable stuff.
+> > > > > >
+> > > > > > If you don't want to benchmark against alternatives how are you
+> > > > > > going to prove your stuff is worth everyone's time?
 > > > > >
-> > > > > >
-> > > > > > > >
-> > > > > > > > > And this is runtime memory only during the short live
-> > > > > > > > > migration period of
-> > > > > > > > 400msec or less.
-> > > > > > > > > It is not some _always_ resident memory.
+> > > > > Comparing performance of the functional things count.
+> > > > > You suggest shadow vq, frankly you should post the grand numbers
+> > > > > of
+> > > > shadow vq.
 > > > >
-> > > > When developing the spec, we should not have any assumption for the
-> > > > implementation. For example, you can't just assume virtio is always
-> > > > emulated in the software in the DPU.
+> > > > We need an apple to apple comparison. Otherwise you may argue with
+> > > > that, no?
 > > > >
-> > > There is no such assumption.
-> > > It is supported on non DPU devices too.
+> > > When the requirements are met the comparison can be made of the
+> > solution.
+> > > And I don=E2=80=99t see that the basic requirements are matching for =
+two different
+> > use cases.
+> > > So no point in discussing one OS specific implementation as reference
+> > point.
 > >
-> > You meant e.g a 8MB on-chip resource per VF is good to go?
+> > Shadow virtqueue is not OS specific, it's a common method. If you disag=
+ree,
+> > please explain why.
 > >
-> It is the device implementation detail. Maybe it uses 8MB, may be not.
+> As you claim shadow virtqueue is generic not dependent on OS, how does I =
+benchmark on QNX today?
 
-So you leave a pandora box for the vendor to open and see? You are
-debating 16 bit on chip resources but now you're saying 8MB can work
-or not?
-
-> And if you are going to compare again with slow registers memory, it is n=
-ot apple to apple comparison anyway.
-
-I never say using a register is a better way. Register is a transport
-specific concept, you can't say it can work for all transports.
+You know Qemu is portable? How did you benchmark QNX with your proposal?
 
 >
-> Non DPU device may have such memory for data path acceleration.
+> > > Otherwise I will end up adding vfio link in the commit log in next ve=
+rsion as
+> > you are asking similar things here and being non neutral to your ask.
+> >
+> > When doing a benchmark, you need to describe your setups, no? So any
+> > benchmark is setup specific, nothing wrong.
+> >
+> > It looks to me you claim your method is better, but refuse to give proo=
+fs.
+> >
+> I gave details to Michael in the email. Please refer.
 >
 > > >
-> > > > How can you make sure you can converge in 400ms without having a
-> > > > interface for the driver to set the correct parameter like dirty ra=
-tes?
-> > >
-> > > 400msec is also written anywhere as requirement if this is what you w=
-ant to
-> > argue about.
+> > > Anyway, please bring the perf data whichever you want to compare in
+> > another forum. It is not the criteria anyway.
 > >
-> > No, the downtime needs to coordinate with the hypervisor, that is what =
-I
-> > want to say. Unfortunately, I don't see any interface in this series.
-> >
-> What do you mean by coordinated?
+> > So how can you prove your method is the best one? You have posted the
+> > series for months, and so far I still don't see any rationale about why=
+ you
+> > choose to go that way.
+> It is explained in theory of operation.
+> You refuse to read it.
 
-I've given the equation that is used by Qemu to calculate the
-downtime. It needs knowledge beyond the virtio, no?
+Can you tell me which part in your v4 explains why you choose to go this wa=
+y?
 
-Device needs to be throttled in a way that is under the expectation of
-a hypervisor, otherwise the downtime can't be satisfied.
-
-> This series has mechanism to eliminate the downtime on src and dst side d=
-uring device migration during pre-copy phase.
-
-I don't see how it can "eliminate" the downtime.
+"""
++During the device migration flow, a passthrough device may write data to t=
+he
++guest virtual machine's memory, a source hypervisor needs to keep
+track of these
++written memory to migrate such memory to destination hypervisor.
++Some systems may not be able to keep track of such memory write addresses =
+at
++hypervisor level. In such a scenario, a device records and reports these
++written memory addresses to the owner device. The owner driver enables wri=
+te
++recording for one or more physical address ranges per device during device
++migration flow. The owner driver periodically queries these written physic=
+al
++address records from the device. As the driver reads the written
+address records,
++the device clears those records from the device.
++Once the device reports zero or small number of written address
+records, the device
++mode is set to \field{Stop} or \field{Freeze}. Once the device is set
+to \field{Stop}
++or \field{Freeze} mode, and once all the IOVA records are read, the
+driver stops
++the write recording in the device.
+"""
 
 >
-> > > There is nothing prevents to extend the interface to define the SLA a=
-s
-> > additional commands in the future to improve the solution.
+> >
+> > This is very odd as we've gone through several methods one or two years=
+ ago
+> > when discussing vDPA live migration.
+> >
+> It does not matter as this is not vdpa forum.
+>
 > > >
-> > > There is no need to boil the ocean now. Once the base infrastructure =
-is
-> > built, we will improve it further.
-> > > And proposed patches are reasonably well covered to our knowledge.
+> > > > >
+> > > > > It is really not my role to report bug of unstable stuff and
+> > > > > compare the perf
+> > > > against.
+> > > >
+> > > > Qemu/KVM is highly relevant here no? And it's the way to develop th=
+e
+> > > > community. The shadow vq code is handy.
+> > > It is relevant for direct mapped device.
 > >
-> > Well, it is not me but you that claims it can be done in 400ms. I'm won=
-dering
-> > how and you told me it could be done in the future?
+> > Let's focus on the function then discuss the use cases. If you can't pr=
+ove your
+> > proposal has a proper function, what's the point of discussing the use =
+cases?
 > >
-> In our tests it is near to this number.
+> The proper function is described.
+> You choose to not accept in favour of considering on the vdpa.
 
-You need to explain why it can, especially under heavy load.
+Is the discussion here any relevant to vDPA. I'm telling you to use
+the platform IOMMU, how is it related to vDPA?
 
-> The discussion is about programming the SLA and that can be an extension.
+>
+> > > There is absolutely no point of converting virtio device to another
+> > virtualization layer and run again and get another virtio device.
+> > > So for direct mapping use case shadow vq is not relevant.
+> >
+> > It is needed because shadow virtqueue is the baseline. Most of the issu=
+es
+> > don't exist in the case of shadow virtqueue.
+> >
+> I disagree.
+> For direct mapping there is no virtio specific OS layer involved.
 
-Migrations have SLA naturally that is the downtime, you can't just
-bypass it from the start of the design.
+Again, you need to prove if direct mapping can work.
+
+And I've pointed out the "direct mapping" of vq for dirty page
+tracking can work with "direct mapping" of vIOMMU.
+
+> Hence shadow vq specific implementation is not appliable.
+>
+> > We don't want to end up with a solution that
+> >
+> > 1) can't outperform shadow virtqueue
+> Disagree. There is no shadow vq in direct mapping. No comparison.
+>
+> > 2) have more issues than shadow virtqueue
+> >
+> There are none.
+
+I think I've pointed out sufficient issues, if you choose to ignore
+those issues, the discussion is going nowhere.
+
+>
+> > > For other use cases, please continue.
+> > >
+> > > >
+> > > > Just an email to Qemu should be fine, we're not asking you to fix t=
+he bug.
+> > > >
+> > > > Btw, how do you define stable? E.g do you think the Linus tree is s=
+table?
+> > > >
+> > > Basic test with iperf is not working. Crashing it.
+> >
+> > As a kernel developer, dealing with crashing at any layer is pretty com=
+mon.
+> > No?
+> >
+> So, kernel developers do not ask to compare the crashing code.
+
+Report it and let the community fix it then compare again.
+
+This is how the community runs.
 
 Thanks
 
