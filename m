@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8635-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8636-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BDA0C4167B
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:22:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBDE3C4167B
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:28:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D5AF9217AE
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:22:43 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1D52E3E577
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:28:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BF3C89863A4
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:22:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DC5B89863D8
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:28:16 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B026B98638E; Mon, 27 Nov 2023 11:22:43 +0000 (UTC)
+	id B5FF398638E; Mon, 27 Nov 2023 11:28:16 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,305 +24,164 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A1B56986394
-	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Nov 2023 11:22:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A7E48986394
+	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Nov 2023 11:28:16 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: Nv96i-IxMPOBwoWbUbMrYg-1
+X-MC-Unique: 5CNX0A9MNs6jZQKj2yaNlQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701084159; x=1701688959;
+        d=1e100.net; s=20230601; t=1701084491; x=1701689291;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OgzyiEUCZH/nPAXprvVeBZ5aHqlWscZryrxBedHDsWE=;
-        b=qP4/b5pGXYf5JM/SlcaccC4Xv2YVd47gVFQ7zLvgl1BepeF5fG/RxcY/22AN7J5wFm
-         K85jxFXVWPpmaDJXEjW7Am1LsHGp2ni/ipwhTr/g+4RM5TGh/rpQu197a1mf/96wJQcH
-         g/1HJRoSh1pWb3rU9E2eoZ70XGGkz69glPLmhNILF8lSMIJln1W9n/NEUvspHvSLrogI
-         tOT0Px4jh5JMxQtKYf5ApcyP/3G/TEsoqgVM9JfpoKGH4thmF3fLmhNM3tC+TxT1uf/y
-         KuJCIYIAOcSeBmDd7phh37HBFDvD7lkpHQ1+SU305sRvxTBuEfpASgg/Vfgz1TJDKXcw
-         goFg==
-X-Gm-Message-State: AOJu0Yz3WSLqGCyDdcWuMb33UkoINrgulZONRykqDAH45XGthJINmAob
-	jsf18TCjLojjxq9hJq0+/M7badiv0DHtdYCPi7pxM527fRIfD2SnUvj9oRBiDK49Hr8ZhMsAqLB
-	5ag7iwxVWPhUNhtf11xbQMc7kTvvLPtwH3pckLCv7dA==
-X-Received: by 2002:a17:907:2da9:b0:9fe:38b7:4278 with SMTP id gt41-20020a1709072da900b009fe38b74278mr10597732ejc.16.1701084159535;
-        Mon, 27 Nov 2023 03:22:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGBu4WmytReWO1zw8/DVJzt83VwYUrE76Di3pBJKWDlhVRjFWA1wMET55yrCKSa6hNC/2JdUw==
-X-Received: by 2002:a17:907:2da9:b0:9fe:38b7:4278 with SMTP id gt41-20020a1709072da900b009fe38b74278mr10597700ejc.16.1701084159056;
-        Mon, 27 Nov 2023 03:22:39 -0800 (PST)
-Date: Mon, 27 Nov 2023 06:22:35 -0500
+        bh=7ngxi6z1Lv9plKIMezJS8QgcaY2bgVa8MJURVLVx9e0=;
+        b=nQMUKmArTtUowPBAiS55uGhSqVObkGHqw4xeyYQOUwj5aD8arG21jGK1hyRMYI/VhP
+         rWla2y/T9RXmJNOADx6AiMw7CwwojbTl4wL/gahpMQr3LDpVSuyAAWT2M9wzUJuNumcJ
+         yWgPXn+bifLoeNh8cMeHWBteE16ZB8KFM2/7xmStMvv6i0yq0k8cnBqXbzX3QvKjx25q
+         +49oLf/BR7ZB+JobCnS97iKZE4WNXZYfkntp5MSmH+m8LjvviAGeG2T2UvhVwICpDpi8
+         hoPxtFULpAz82SkSjTg4UWzNIunK8Yo1TwUyeJOYK4lGAJogPQNlSgjOLcGkfmGUqHVd
+         VEQg==
+X-Gm-Message-State: AOJu0YwCs6VJrYcs55jfdzJg6qT1aR8o8UTESH8E3fcib0eU+5HkcsGy
+	AdyM+g7C9WtdDJgjAtb2nvcSkbQs26nOMUARsDPGSFdb7ZGRZJ9qqE0L0dAm4MwLKmTVcIa3/Ok
+	0AJ+PWaNIJ0yj9mCeJSh0Kt+gZoRc843rPQ==
+X-Received: by 2002:a17:906:6811:b0:a02:f424:f817 with SMTP id k17-20020a170906681100b00a02f424f817mr7568663ejr.30.1701084491036;
+        Mon, 27 Nov 2023 03:28:11 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFWLWhNC50m4xnNEy4eWXqafqhI/CnUbq0aGEkzmwFLYfQb8VoH4t9i8deHOaYi0xTOz6S2OA==
+X-Received: by 2002:a17:906:6811:b0:a02:f424:f817 with SMTP id k17-20020a170906681100b00a02f424f817mr7568649ejr.30.1701084490743;
+        Mon, 27 Nov 2023 03:28:10 -0800 (PST)
+Date: Mon, 27 Nov 2023 06:28:06 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+Cc: Jason Wang <jasowang@redhat.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
 	"cohuck@redhat.com" <cohuck@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>,
 	Shahaf Shuler <shahafs@nvidia.com>,
 	"si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
 	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
 	Heng Qi <hengqi@linux.alibaba.com>
-Message-ID: <20231127061203-mutt-send-email-mst@kernel.org>
-References: <20231123092119.2718448-1-parav@nvidia.com>
- <20231123092119.2718448-3-parav@nvidia.com>
- <20231123091129-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481584836D0FD5025B8874EDCB9A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231123174947-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481A6DFAEBD321707E31BDDDCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231124004105-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54818AFAE1E2B943C9104B59DCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231124042824-mutt-send-email-mst@kernel.org>
- <PH0PR12MB548126B6C07BFA6271020982DCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+Message-ID: <20231127062256-mutt-send-email-mst@kernel.org>
+References: <PH0PR12MB5481FF2A00B58060D9D69812DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231122094431-mutt-send-email-mst@kernel.org>
+ <CACGkMEuEFsByRwTf_hAAZ+7-UuyYz-1wCP4vTpMAW6DbHQzVag@mail.gmail.com>
+ <PH0PR12MB5481592754EE68E6F6A79EEEDCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231124002357-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54812482A68AC708A4E0764BDCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231124011125-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481437B4AA6C4CD4F1CED5BDCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231124062907-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548179FEF8CEFA3D509FF471DCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB548126B6C07BFA6271020982DCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB548179FEF8CEFA3D509FF471DCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH v7 2/5] virtio-net: Add flow filter capabilities read
- commands
+Subject: Re: [virtio-comment] Re: [PATCH v6 2/5] virtio-net: Add flow filter
+ capabilities read commands
 
-On Mon, Nov 27, 2023 at 10:19:47AM +0000, Parav Pandit wrote:
-> > > > It appears that's not what you meant.
-> > > > I can try and guess what you meant but I'd rather have you rewrite
-> > > > this in a way that makes the meaning explicit.
-> > > >
-> > > If you insist, I can duplicate in driver requirements too.
-> > > >
-> > > > > There are many capabilities here each with a different use.
-> > > >
-> > > > And you are under the impression that dumping all kind of stuff in a
-> > > > single place is good somehow?
-> > > It is not dumped.
-> > > It is structured based on the functionality.
-> > > The config space proposal tends to dump everything in unstructured way at
-> > single place that cannot extended elegantly.
+On Mon, Nov 27, 2023 at 10:19:49AM +0000, Parav Pandit wrote:
+> 
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Friday, November 24, 2023 5:04 PM
+> > 
+> > On Fri, Nov 24, 2023 at 06:31:03AM +0000, Parav Pandit wrote:
 > > >
-> > > For example, Xuan's dynamic array cannot be placed next to other dynamic
-> > array of flow filter.
-> > 
-> > I don't know what "dynamic array" is exactly but generally, Any kind of a big
-> > array is not appropriate in config space - I don't see any of these here, though.
-> Ah, now I see the disconnect.
-> 
-> There is.
-> struct virtio_net_ctrl_ff_match_types
-
-Now I think I don't understand what this array does at all.
-Why are there multiple entries with each entry also including
-a mask of multiple fields?
-
-
-> > 
-> > 
+> > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > Sent: Friday, November 24, 2023 11:48 AM
 > > > >
-> > > > > For many caps, it is to know what is supported/not to decide in the
-> > driver.
-> > > >
-> > > > I can't parse this sentence.
-> > > >
-> > > The driver checks things upfront what is supported while serving the
-> > command, instead of random trial and error guess work game with he device.
-> > 
-> > There's no real guesswork with these specific commands: user types an
-> > ethtool command, driver sends it on, it either succeeds or fails.
-> It is a guess work without driver knowing if its supported or not.
-
-What we do not need is both driver and device checking
-these values.
-
-
-> > However if you feel it important to do checks in driver - OK.
-> Yes, because there are many parsing fields and good to know.
-> 
-> > But that makes cap query an init time thing.
-> Yes, caps does not change dynamically.
-> But sure it is different among different member devices and owner too.
-> 
-> > 
-> > 
-> > > > > Certain caps are max to know what is the range of id that driver
-> > > > > can use like
-> > > > flow filter id, group id.
-> > > >
-> > > > Maybe then. But there's apparently no requirement for either device
-> > > > or driver to put it in this range.
-> > > >
-> > >
-> > > I will add this requirement statements in device requirements and that will
-> > make things clear.
-> > > Good point.
-> > >
-> > > > > > For what benefit?
-> > > > > >
-> > > > > For functional work.
-> > > >
-> > > > You don't really explain what kind of work in this patchset, or in
-> > > > the commit logs. Maybe it's obvious for you but not for everyone.
-> > > What text are you expecting?
-> > > We have undergone all the requirements study that you conveniently
-> > choose to not participate for 2 months.
-> > 
-> > Yea ... I'm sorry. Things have been going on here, man.
-> > I'm glad I'm back and able to participate though.
-> > 
-> Great.
-> 
-> > > >
-> > > > > > > In future one may want to provision certain max limits that
-> > > > > > > device can have
-> > > > > > as they eventually will consume certain device hardware resources.
-> > > > > >
-> > > > > > I don't exactly see how this helps provisioning.
-> > > > > >
-> > > > > Provisioning side will set parameters which will reflect these
-> > > > > limits to be same
-> > > > on src and dst hypervisor when device migration is used.
-> > > >
-> > > > But making provisioning depend on driver being fully loaded and
-> > > > accessing the command is creating a chicken and egg problem.
-> > > I didn't explain well likely.
-> > > Provisioning as you described, will be on owner device.
-> > > This command tells driver what is provisioned.
-> > >
-> > > > Provisioning is much more likely to use some new admin commands over
-> > > > an owner device. So this command is useless for it.
-> > > >
-> > > Provisioning owner device will use exact same structure while provisioning.
-> > 
-> > So the advantage of using config space is that we can have a single generic
-> > provision command that gets device config space format. Your approach will
-> > need some kind of net device specific thing.
-> > 
-> 
-> I see the advantage. But it very small and largely hidden beneath the sw layers how a provisioning command sets things.
-> A provisioning command sets the value, it surfaces at different level.
-> 
-> Multiple device vendors want to follow the design pattern to use " most uses it is better to use a virtqueue to
-> update configuration information"
-> 
-> Instead of RO = config space, RW = cvq.
-> 
-> The more pragmatic design pattern is:
-> driver initialization time => feature bit + virtio config space.
-> Driver runtime => cvq.
-
-yes. capability check is initialization time though.
-
-
-> > 
-> > > >
-> > > >
-> > > > > >
-> > > > > > > > Patch 5/5 mandates that device validates all fields already.
-> > > > > > >
-> > > > > > > > Are there guests that will actually look at these caps as
-> > > > > > > > opposed to just sending commands and looking at the return
-> > status?
-> > > > > > > When the device reaches the limit it would not even send the
-> > command.
-> > > > > >
-> > > > > >
-> > > > > > That's more logic for the driver to implement. Why should it
-> > > > > > bother when it can just send it?
-> > > > > >
-> > > > > It can just send it and fail and flood with error logs.
-> > > >
-> > > > If the spec says device can fail and that is expected then it won't flood.
-> > > > If you don't want driver to send some commands you should say that
-> > > > instead of saying device should filter them.
-> > > I will add the normative in the driver requirement section.
-> > >
-> > > >
-> > > > > Also it cannot just send some random id based numbers that device
-> > > > > does
-> > > > not support.
-> > > >
-> > > > Aha. I think I'm beginning to guess. You wrote:
-> > > > 	field{max_groups} indicates total number of flow filter groups
-> > > > supported
-> > > > 	by the device whose group identifiers can be any value in the range
-> > > > from 0 to
-> > > > 	\field{max_groups - 1}.
-> > > > and you think this implies that it can't be out of that range.
-> > > > That's not how logic works though ;)
-> > > >
-> > > Which logic?
-> > 
-> > The aristotelian logic we commonly use.  You say "group identifiers can be any
-> > value in the range".  You seem to mean "group identifiers can not be any value
-> > not in the range". These two statements are not equivalent and neither implies
-> > the other.
-> I fail to see the difference between the two English sentence you wrote.
-> Can you please have an example, how second is any different?
-> 
-> In my example max_groups = 5, so group id must be from 0 to 4.
-
-No, your sentence does not say it must. It says it can be in range.
-Can it be out of range, e.g. 5? You don't state either way.
-The second sentence says it can not be out of range so 5 is illegal.
-Are there illegal values inside the range? E.g. might 3 be illegal?
-According to second sentence, maybe. According to 1st sentence, 3
-is legal.
-
-> It can be any value.
-
-:(
-
-
-> In device and driver requirements, I will write the explicit line that it MUST be in this range.
-
-Then it will be different.
-
-> > 
-> > 
-> > > The driver will honor the limit given to him.
-> > > The device will also naturally honor what it published to driver.
-> > > >
-> > > > > > > For example if the device supports only one group, it wont
-> > > > > > > implement
-> > > > > > ethtool ntuple and will chose only arfs as one example.
-> > > > > >
-> > > > > > Sounds like a contrived example why does device even expose flow
-> > > > > > steering then?
-> > > > > It is not contrived at all.
+> > > > On Fri, Nov 24, 2023 at 05:40:26AM +0000, Parav Pandit wrote:
+> > > > > > we
+> > > > > > strongly suggest that *drivers* support both old and new
+> > > > > > mechanism, and then *devices* will only implement what's required.
+> > > > > There are other examples in the same document that makes things
+> > > > > worst
+> > > > with old and new.
 > > > > >
-> > > > > A device may be support one or multiple groups. Each group in the
-> > > > > OS has
-> > > > multiple users.
-> > > > > One group is enough for either ARFS or ethool but not both.
-> > > > > Two groups can allow ARFS and ethtool to co-exists.
-> > > > > 3 groups will allow in future to expose some queues to user apps.
+> > > > > Also there is literally no way to enforce that driver supports
+> > > > > both and new. It is just sounds like an excuse to force infinite
+> > > > > config space.
 > > > >
-> > > > Oh I misunderstood.
-> > > > Then why would driver decide to force a decision to ARFS specifically?
-> > > > It will likely leave this to the user.
-> > > It is the driver implementation choice, For example:
-> > > if there is only one group, driver can choose to give strong preference, say for
-> > ARFS only.
-> > >
-> > > Or it can let it be on first come first usage, for example, if ethtool wants to
-> > use first, it will allow it, not letting ARFS to work.
-> > >
+> > > > There is a very simple method though.  We allow devices to expose a
+> > > > subset of features when DMA is not used. So drivers that want
+> > > > maximum features will always opt for DMA. We can also strongly
+> > > > recommend that all drivers support DMA if available.
+> > > Yeah, don't see how this is elegant at all with all mixed bits.
 > > 
-> > Practically, drivers are highly unlikely to make the choice.
-> It will make the choice when there is only one group available.
-> 
-> > That is why it is reasonable not to have checks in the driver if device is doing
-> > them anyway.
-> The groups particularly have the priority as well. So the check in device does not work.
-
-I don't know what that means.
-
-> > But OTOH if you want driver to do the checks then I don't see why we should
-> > also add them to device unless there's a good reason to.
-> > Less checks in devices -> cheaper simpler devices.
+> > It's elegant because simple low end devices can cheaply implement MMIO and
+> > not worry about DMA.
 > > 
-> The cheaper devices can always place UINT_32 max values and ignore any checking etc.
-
-Then won't driver expect inifinite # of groups to be supported?
-
-> The check in the device will be done as it uses such an id for its own bookkeeping.
+> It is not of much help in this case because any low end cheap device which want to support flow filter commands need to have CVQ anyway.
+> And hence reusing the same CVQ is more elegant that already does the DMA.
 > 
-I don't know what that means.
-> > --
-> > MST
+> So CVQ is fulfilling all the below needs.
+> 1. Single interface for the get/set config flow filters
+> 2. DMA the data
+> 3. Not have any partial issues
+
+I don't know what these are.
+
+> 4. provides consistent structures that provisioning side will be able to use
+
+Problem for provisioning is extra definitions will be needed, in a
+device specific way.
+
+> > > Nor do I see any enforcement, single method via cvq still holds strong.
+> > 
+> > You don't need to enforce things, if people want to put a lot of RAM on device
+> > and put it in a register let them.
+> > 
+> Not enforced. It uses the CVQ for flow group and flow filter life cycles and for the sharing this config as well.
+> Also aligns with stats that rest also agreed on.
+
+I am talking about your attempt to generally say "no more config fields
+everything must be in CVQ". I think it's wrong definitiely for non
+network devices must sometimes for network too and generally we need
+a solution for config over DMA. This specific thing - whether it
+fits in CVQ is a separate discussion.
+
+
+> > >
+> > > >
+> > > >
+> > > >
+> > > > > The method proposed here is elegant and clearly promote one way to
+> > > > > do
+> > > > things for driver and device with predictability.
+> > > > >
+> > > >
+> > > > I don't see it as elegant at all. What is elegant is *a single tag*
+> > > > that describes each property of the device. And this single tag should be
+> > good for everything:
+> > > > driver, provisioning, migration. And config space offset serves as such.
+> > > The single tag is the set of structures.
+> > 
+> > I have no idea how this will work. If migration format i started reviewing is
+> > anything to go by then there will be a huge elaborate structure nothing single
+> > or simple. By comparison there's already a proposal how provisioning can
+> > work by supplying config space.
+> > it is just a clean model to grasp.
+> > 
+> The provisioning model is simple is to supply all the configuration.
+> To draw parallels to some sw side,
+> 
+> There is per functionality socket option to set things, instead of one giant structure.
+> There is per functionality ethtool option/cmd instead of Set ALL/get ALL enforcement.
+
+I'm not sure how much of a parallel one can draw.
+Do not see a lot of similarity.
+Devices commonly use register map. Everyone understands
+this paradigm.
+
+
+I am not altogether happy with the way you are making
+migration generate duplicate definitions for lots of
+things we already have definitions for.
+Having a 3rd one for provisioning? Gimme a break.
+
+
+> > > Provisioning access them via owner device.
+> > > Member driver access them via CVQ or 1.2 legacy config space.
+> > 
 
 
 This publicly archived list offers a means to provide input to the
