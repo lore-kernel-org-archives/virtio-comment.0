@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8642-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8643-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E971C4167B
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F00A3C4167B
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:50:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A6F5B120D46
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:48:00 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 636FD19090A
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:50:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A30699863B5
-	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:48:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 36C419863B4
+	for <virtio-comment@archiver.kernel.org>; Mon, 27 Nov 2023 11:50:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 995B498638E; Mon, 27 Nov 2023 11:48:00 +0000 (UTC)
+	id 1EE7E98638E; Mon, 27 Nov 2023 11:50:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,46 +24,46 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 8C0DC986394
-	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Nov 2023 11:48:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ADA2E986394
+	for <virtio-comment@lists.oasis-open.org>; Mon, 27 Nov 2023 11:50:29 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=APk1x0rk+0ALwWvEcdcgi8omBlVNqlh4nrOUYlcdUOxXZOrhUmf90+iAMHOECgmEPAM48/YOUiGMZZcyGczymh7sdWmvN20U1vXxzVWjTD/f8oSZ4ao9IhuylcCMG6pOYV81QmAUeVnq5vPxRFkJvVvgc9+5r38W0IJIQUWErDFKK8urbanVO4UKdVlbsvXxdv5uEbBXHNd1xAXB7b2hHBcmZ8+XBtaofK8FwKdDkLl+S5ZY8M65PLlyj9Zgb9WvE4Ayt5HOM8nOUaXxszf6Y2fypuLa1L0a8OJ6JEKB70+haQOF349jZ2n5dYOdXpQN4P7lK23P5ntOAzovlC7ESQ==
+ b=cqgz+zlzEe9/NRlLGJeq2NnXgPgEIvh0iOVGf35xDY4MUZVxYwk2xiUpMaLHO7YJCmkAjppj7aHpF11D8IMz0kyAQRbruY47ERXc0lVDooi/6mRJ/vDtaeYeCCtr7fWGXa5a45Rtzx8V8itMzc48j2JQ711kUhHi2xqE6mXS1GeBa0L8zlo3IyrDRhwpYPa3/nHK60G1pKYnFkJ4YR8D5QN9+8pGa2hh7fyTG0BnpMRBokFCTrndekLSRbNTHC1K1T9KSevZhwj7RB+X9xWwI9jexPs7je6PGKXjIsNnur6e9SNnYoWV6juG4jwxNYV3zjy10n5MoHr51yzmnB8v5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G48OcaYMSr7YzChe1YyGLLXKe5DNYKduAsAwrXKT8lM=;
- b=ikNU6qXykqq0LLvBb5t0/jRSVC36ov0s4+diCcmQqV8hjHZ7O+drF6j39j4mvbcd9KlD3RXtNBdh+130ydGWjkxfoccsmSkds8+/gLcqtvf42AyPTO68+Rr0J2TN19c0iRU8YNyAeEk/YVecvpM7tNaRrbbAMWr15cVRw4cnhVXtUjM8bdYB9/khy06C/JFLALYrrHGYGmasIa1K/51bLBSNqTNJ3Jk154oeVDM1KdsNLYHqv56CP3DHmBi7rkl8yWdd8tZFD1RB1GJodij4gkojC1Iqg5hW5KpITHAaBjfH7DfCjNFgtPKZyZjZIzquMCLD36DICCD4iH48A8aiLA==
+ bh=iGCI3ChOEt701VPovRPR8RHPRuehMznFEP4wkg2SNkg=;
+ b=nRxFqM+0ts7xZOAsFO+NHsec54F4+FW+pITGjVc2Oo8hoTelpCjPmdo3TER0fxtVucwDuTagcTDU6x8qVug7PWRgqFIHEd+4kDMfUdAK9g606HLF4a97QnWqbHE7tpx4xV/Wh8Xa9zySsTnbTH0k29oOiiFG0C6bmVdvuD7cOLfgttIccSetSoJzyYEV9AGd9Owa284ZzUwt/n4IwGpj8T/nlq3Y/p4uRa2AulZmILJoXmfPRyX3ZEzKgB/EGE68g4UsfNUPDzNeNTPRgYlDFo6P8Hb7Fmkp2E/1iosNJnsclxNV78RbiR8vFNhuFhBTRiFUW6ZCrpNPqxXoX7mD8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Jason Wang <jasowang@redhat.com>, "virtio-comment@lists.oasis-open.org"
+CC: "virtio-comment@lists.oasis-open.org"
 	<virtio-comment@lists.oasis-open.org>, "cohuck@redhat.com"
 	<cohuck@redhat.com>, "sburla@marvell.com" <sburla@marvell.com>, Shahaf Shuler
 	<shahafs@nvidia.com>, "si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
 	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>, Heng Qi
 	<hengqi@linux.alibaba.com>
-Thread-Topic: [virtio-comment] Re: [PATCH v6 2/5] virtio-net: Add flow filter
- capabilities read commands
+Thread-Topic: [PATCH v7 2/5] virtio-net: Add flow filter capabilities read
+ commands
 Thread-Index:
- AQHaE9L2DjdkCoB6dUewtbJsrpd4HbCGcWKAgAAAe3CAAA00AIACb1eAgAAZSACAAAMmQIAABmCAgAABCuCAAEfKgIAErlLwgAAcR4CAAADN4A==
-Date: Mon, 27 Nov 2023 11:47:54 +0000
+ AQHaHe6IXCl5jgtp9E+7xZjgBxzICbCH8raAgABJqFCAAEiugIAAQZKwgAA0KACAAATDEIAAQqGAgASfUpCAACqxgIAAAEkggAAEngCAAAJGkA==
+Date: Mon, 27 Nov 2023 11:50:24 +0000
 Message-ID:
- <PH0PR12MB54818A18B36FDAB0BCA079C7DCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20231122084105-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481FF2A00B58060D9D69812DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231122094431-mutt-send-email-mst@kernel.org>
- <CACGkMEuEFsByRwTf_hAAZ+7-UuyYz-1wCP4vTpMAW6DbHQzVag@mail.gmail.com>
- <20231124003129-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481E538B7BBFB907CC6BBE1DCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231124005921-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54817AC1DD6C5386A138D5BADCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231124051534-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481826794DE29ECFF0B5713DCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20231127062840-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20231127062840-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481FD7F68E535A99F51D36ADCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20231123091129-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481584836D0FD5025B8874EDCB9A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231123174947-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481A6DFAEBD321707E31BDDDCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231124004105-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54818AFAE1E2B943C9104B59DCB8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231124042824-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB548126B6C07BFA6271020982DCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231127061203-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481E1567D7D27A9BF18D9ACDCBDA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231127063810-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20231127063810-mutt-send-email-mst@kernel.org>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -72,255 +72,402 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|MN0PR12MB6030:EE_
-x-ms-office365-filtering-correlation-id: 63d0f23c-c970-437a-6dac-08dbef3eb12e
+x-ms-office365-filtering-correlation-id: b533380d-bf1a-4deb-bb6f-08dbef3f0afe
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- t7Maq58s6HNW/VrmsFY+2RFUxHcF3jaXbmbPXYOBXfJkGz9NYdx5wIupstkxFcT7Z4tbtnitYvQRNDTfGsWATPLinDenaqLnFiQe4E4MXuPaVq0Ch+pScho4JK2hCwdMbuzdvj9pcqI0/c/oPV77+Ywtdl7ELy4Y8TJHbhch1WRi+GrvvozAXsz6ZQu2Kz1wckvkohW/XM36UKS3Orabs7jE615t8bcCCeI6xXckcjWIuIPjBga/qRADj+e0Kb+5qxN2evpzqMS96hOln7jeSZEFVQz00kLmrXqyDG+mEb50Wf/P9fFhdRM9iijMj8j+5siA4dHIVNS5VPnN9VU3PfIg53SlSyTOc+vRL/U3+keFTYjZAttPYhAxueqnCqVRGWaD1IIGN0YCJxBriwqwBO3YLKBYaGQFvE8t6YCjAE+C1WMHcaZxnM8wyt2XxhFYNAhWNr7eC2DgJTDlCshpoKE2ed/sEp+/48DW7Gd+rz4zFEg9+nPbFay+4+tS/zv7d9Nhq2zQt9fUyInf9DE8L69d04OySgWfxHUpirF5WKxmWAEFco7oYY57h46YHjCUZsRh2PJ/6St2nWlLfXJu03NWHCGBuosdZulUaMYJmciYn/phXDizH5ONyK1V89jy
+ qgvcOY8X+LYsmSpXuAQMzkTAf0ede6RZigo9EnhOl9H1NgiL9sl4XzLAwh6dLAYZI30mY0d3poJB/p/vXu6PIgAQqeKMbq1pf9naKEUmQm0w5rrX3L2JvXBSj0F2Of5ry6f9XH/B7hxnIxSmV5foB4TB+fR0o8pSfIOtZiw7sq3JIOzLzFQElfWUndLsRLT5R/AW1Hb3M8SdJjqOeSGM+jvqZeUhbjlABEyd50m6FJBBQOX0ygbdk1+LfXOVwLZe2GVbk7ksTvJv41HLKJCt8mZutP8TqVLgTMSPnWLgNmWtdUVvBwpu1PtJuWntPQIGSRRcVuuRStGH9+wX2nX3iqtg/v7WdYv21CXkH1reoImoFpabAtdnf84wge09yRjoPn+Sv5r7LcPDdnNpPzyqOPBzvpkX8+ioW5ACFeEJkO4ezPgJ5VyGbzdXQGGrD5greOz56/iooOmIyi+8XArMGotrrlcqXJeyaaFuDrUr82diKE6GGieRkKpKtctKWtpHYeMHnZtfw1sE/QYQvP6JIdD760c4xvrxfmjnLectst5J2vOxz3SLi1jjy4SzUj6bmkOf37V8+xnS7HKoFvHUl+jEW3NJWo7WiqyJj41lqxU4USFpxR1PKaHSWZTZcPxc
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(136003)(396003)(39860400002)(346002)(376002)(230922051799003)(186009)(451199024)(64100799003)(1800799012)(52536014)(71200400001)(8936002)(8676002)(45080400002)(4326008)(9686003)(6506007)(7696005)(53546011)(55236004)(64756008)(76116006)(66946007)(66556008)(316002)(66899024)(6916009)(54906003)(478600001)(2906002)(122000001)(55016003)(33656002)(38100700002)(41300700001)(38070700009)(86362001)(26005)(66476007)(83380400001)(5660300002)(66446008);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(136003)(396003)(39860400002)(346002)(376002)(230922051799003)(186009)(451199024)(64100799003)(1800799012)(52536014)(71200400001)(8936002)(8676002)(4326008)(9686003)(6506007)(7696005)(55236004)(64756008)(76116006)(66946007)(66556008)(316002)(6916009)(54906003)(478600001)(2906002)(122000001)(30864003)(55016003)(33656002)(38100700002)(41300700001)(38070700009)(86362001)(26005)(66476007)(83380400001)(5660300002)(66446008);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ZIV3F95mapI+fbAJAO61GOLHdmYif+KetsLvWvXUSI0VUwdx+ppLR9KmNOmw?=
- =?us-ascii?Q?s8Gf1l/2DQttWrPFU9mDKsUaqU11iIMpcICCQD3NdlmFd0fsDedcTnt5Gyqq?=
- =?us-ascii?Q?f0nNG6B9xPrAroTK+z+GujsuYixGZpqJJ4WzShFMah42SAs7a9/qik3o49S9?=
- =?us-ascii?Q?RzOPLX0LuATI8qXPiS0ZRl7NpDgGfZoZlJh9QliDdfRlFHPcRgvguogB4d/L?=
- =?us-ascii?Q?nA3k7CZRnTncrEEEdWaAzA7F6yGKS+pfE3+Dx0PhPHDHk36DxczaVT7LWQSk?=
- =?us-ascii?Q?E4xVCOVlasShPO2K3tZtvEbQzuEd96FaiI8KSYrSREWzV1iy3FJ1iMAgyhY8?=
- =?us-ascii?Q?IHEKZo5/Lj7Xc4F02edgsZaWbsi/9uGZ7IeSF1u02WdLsBdiInTPGfADhb9y?=
- =?us-ascii?Q?D5xzl9RLu1aKOMqgYd+QJgXgpxQAXR2/cFBIcB3CvrAtH+Ys3UYDzghGX5DG?=
- =?us-ascii?Q?dq5x5dV7KfVZpPpaREYnm6k/eJwErLPOnTR+AubKvW5Zmpq9B3ebjrSHSTu/?=
- =?us-ascii?Q?AAB67ernWGXSa5PH0zOc76Nr2GmvY0rpBPGZ9hFrmG18OcEFY2jPVC4xoqQJ?=
- =?us-ascii?Q?i6MFX7IWmFc51rflpVmTpLx7S7EGn6eZk3okYV4n8mpllLYD4xzp7kzma49B?=
- =?us-ascii?Q?y7lP8CpGezVKLYpe4lpmh78WGNR9NL6wylyz1P4p9p294BE6OElNBY0QMPsy?=
- =?us-ascii?Q?tZqs4CZo1GkWzeX73OK8Af64Zety+1c+tboV4/g2FG+v9g5StHfAc8NNtmdH?=
- =?us-ascii?Q?bOvlXXMrhV3x+SJA6E7AyUYK++gXBH8lxOXsvaYeaUcyOwCQKRYdse01sj/J?=
- =?us-ascii?Q?ODKrxXe2eeI1WbxNqbc7FSeSiViJzL8LEzyDterLeatNMjylumHoX/j40vER?=
- =?us-ascii?Q?ZSt6gz1+jhZSuanj22VKh6AtPhWMsRET5pkb6/qadNO3RkCD081KIjMG99MN?=
- =?us-ascii?Q?jQHtAYb87rFwfmEgpx36E+qrmWGBSM5SxmMNT93my6bphnkBRGoa6jTvXltC?=
- =?us-ascii?Q?XfK8UJ7hxpyavYVMO7wphlaCc3QOZS938lHmShJgX0fxCGfBwgeFdZwyJjD0?=
- =?us-ascii?Q?bGoAKx9medVL0lNWHYiomFC7J4oJNG4XS6TV6PbVk76KnTLbAVYm8eT2p9rz?=
- =?us-ascii?Q?yXXOiv33YUYl9FfXm6Am7HtLrPJYhlVlZtNN9ECIdwZpYx7lcLkSFIH2fGGg?=
- =?us-ascii?Q?x5LhHSfbDN+s58pfPay2ntuBcVS0+u47w4tQ9zP44quaOtr6ghP+Nc9mDsQt?=
- =?us-ascii?Q?Ag9pWJ5972mNPJ72mDjucfVWJrfhVUhhCbgn1bdTdkULALDr7SfGK6rCRNUs?=
- =?us-ascii?Q?a9IBmUFX3WuqmQNFPf45YC3/X1QY0D5ntWyz6dFQKIztkXQ3xbjAK7dbr2Zm?=
- =?us-ascii?Q?qJ8jw9DBcCe0avv7MJ1rCQQUwUKwxohvMYSAiMVqwWCOB+Snj+KhMRprilhG?=
- =?us-ascii?Q?Xl60xJEG21Kug08oRUJwxFCffZ3Nw7FqcQr3rcRuPmjXznglzvdSEZNMYmps?=
- =?us-ascii?Q?8t40iS9pTRzRMwcShMTA4YcYptI2Wri9MJRs54opBvFpZS9m/dd2/i55u4cZ?=
- =?us-ascii?Q?Xu9tNOQ6guuehBs7C9s=3D?=
+ =?us-ascii?Q?uCJFlQp++l+12oQqIwhAKvcmuc054biCQj9Efs+92GdiwOW2YWtuV8pXNgyw?=
+ =?us-ascii?Q?fW8hBmmvGdKkx9DhTYkRcQnH0Wr55zoNgUDRN385jdhgREFTD8MFu3VwGVC1?=
+ =?us-ascii?Q?eReURiqqQ6iAXftGBcmq3UaFyRhCAqNkh3V8HmoibsnYL2DyN81S1pTCSqgE?=
+ =?us-ascii?Q?Xchwis8xRfsKXFkyO3GZRu/GV5XygMHc+RUCfVJ+K8zlZj1NzwZuqJfcoQr1?=
+ =?us-ascii?Q?3x4qnVifNzTqWVjr5K7g+Zl02QZCstCtQtzIVmJ8i9KBvOpl4IqE16VsjmmS?=
+ =?us-ascii?Q?J53bNJ5L6s+IxfQOxrSS6Qut0mTZSi4AbvS/CwbNGmktG5yOcYh/kmRU1ik5?=
+ =?us-ascii?Q?SLtjgKervPCgwnQp9k0GWMPCKjW7tJhZZv21gN9eN1nXOPLZMDyANEzVr42V?=
+ =?us-ascii?Q?l5dgqfA7GpHHaOcV2c8AXsmtM00wo2sxA3B8iJY5GuPHHR1Y0r/cOxsf6V+K?=
+ =?us-ascii?Q?wYz3MbwBjuIhRX3D+otZ5D3hacELvsfl9DHl6riKZnDZzOovBqCq2TDdbKH5?=
+ =?us-ascii?Q?ts3J6KcH0tv3QjmOyp2mX6TpwERryu8WVIhQk34RtVmb4bZ+hoxS2wcKxiPD?=
+ =?us-ascii?Q?E7CGFflvKXCNLXAUJk1Fcj1hbC7SIGpJ1id/d7Ea49ZFkd39X53OpxQNUS5Z?=
+ =?us-ascii?Q?oOh+A6Wxlq2x8uON4CCxELlIsKM888A7JrTWvYmGwEf1KeOkTFiE7jkCcENl?=
+ =?us-ascii?Q?nNYIj50tI5S1MW5jMTIOiluDBW2UuEuHxjSEaRC4HsIBo1re3IQnuvW0gTic?=
+ =?us-ascii?Q?VDdiXpqUzekzl0MAlNe4nKSnk0oXzYPxExG5UR/StwNafIKMhoNn5c8c0IaW?=
+ =?us-ascii?Q?Dklj6jUZHFpmcO+i3bgoSXBSDE0RR+EeCkpM4Hb6UvtIxK6I/yoBsrtTGLwM?=
+ =?us-ascii?Q?x7T8HMBvinY34zpSgLB1JAuwYNR4IiDCa0gCgNeaF/Fz0sv7RpR7tG2RH8D4?=
+ =?us-ascii?Q?8tEyAbtzQKCrC00zhqPqumHveZcKSX4jX32hmq3mtKKRWrC25vKDMG3lPfQX?=
+ =?us-ascii?Q?PJY/Eb4RyPn/0rT+j1/wS6Pp/W083MxYXdiUSf3ZYFFatooa1RTPMTyEK1cd?=
+ =?us-ascii?Q?C/D6njE4EpbMKd0Jf4sQtnP2fx0hOBxr5g5ZzUhpkgTdXC0x9l3qjI2Mu9uV?=
+ =?us-ascii?Q?HvHfCvKNnfA4U8xJBLTzkE4mDTzJ2Cvct2Xwy5ocRnO+NJvkSDuEb+E5ww/O?=
+ =?us-ascii?Q?cFZyBXgekyj2W4/xgO1Q8O8RnrQycsMWyvLnhnx3Po/r76J40j2V1r2h5pxM?=
+ =?us-ascii?Q?k57EBG65+4MlYRrZ0IUUDVIcITtJt8X3i5to9VCjkO8DVy+3QZpD8oddDIkV?=
+ =?us-ascii?Q?94RHgGsJr4sx2mKsaj+TetjCAuw8UT8GJEK299c6juqUu6CuQBJtzIHE5y5R?=
+ =?us-ascii?Q?AUFmHmer0poyVGcdHyqCUsbAiQSfDBffuP05O/Y7TQdZCcXhbedJ6DpAChkx?=
+ =?us-ascii?Q?7cJiKNkZcpHbBnZsYwyLdptWH7nyM50AWDpj9/mVwkGJ2XXtZgSy4MR6pNle?=
+ =?us-ascii?Q?84dY6xUiwTcHlSSpYdFSl6dtKUcGZh478HKkfoZ+dFpv6kiuIg81UlC03Y0y?=
+ =?us-ascii?Q?VwSggPzj6w2PH3X0nmY=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63d0f23c-c970-437a-6dac-08dbef3eb12e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2023 11:47:54.2536
+X-MS-Exchange-CrossTenant-Network-Message-Id: b533380d-bf1a-4deb-bb6f-08dbef3f0afe
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2023 11:50:24.9178
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0PwRQScdsXax4WrvYT62s1qeCVSCeQG9rhIJtFe1OfdLs8LlYxVJHwpSmd5FKPKeIjuDm6KNKZ7LERzpT3BrJw==
+X-MS-Exchange-CrossTenant-userprincipalname: tfZYKLUvAsV4MXDOW5PFSa/f62GDwC6AnRY+WLHkQrMLqibcBb+RPoFS9ACE9WculirynWkYjYq1lZZsIPeuCQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6030
-Subject: RE: [virtio-comment] Re: [PATCH v6 2/5] virtio-net: Add flow filter
- capabilities read commands
+Subject: [virtio-comment] RE: [PATCH v7 2/5] virtio-net: Add flow filter capabilities read
+ commands
 
 
 > From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Monday, November 27, 2023 5:08 PM
-> To: Parav Pandit <parav@nvidia.com>
-> Cc: Jason Wang <jasowang@redhat.com>; virtio-comment@lists.oasis-
-> open.org; cohuck@redhat.com; sburla@marvell.com; Shahaf Shuler
-> <shahafs@nvidia.com>; si-wei.liu@oracle.com; xuanzhuo@linux.alibaba.com;
-> Heng Qi <hengqi@linux.alibaba.com>
-> Subject: Re: [virtio-comment] Re: [PATCH v6 2/5] virtio-net: Add flow fil=
-ter
-> capabilities read commands
+> Sent: Monday, November 27, 2023 5:10 PM
 >=20
-> On Mon, Nov 27, 2023 at 10:19:51AM +0000, Parav Pandit wrote:
-> > > runtime configuration, absolutely. We found out writeable config
-> > > space field are painful for a variety of ways, the main one being dev=
-ice can't
-> report errors.
-> > > So we generally avoid writeable config space.  But read only - no
-> > > good reason to avoid them for init time things.
-> > >
-> > The good reason as explained in the doc is to not place them based on
-> > the policy of read_only vs read-write, Instead based on the access patt=
-ern
-> whether it is needed in early driver initialization time or can it be rea=
-d at later
-> point over.
+> On Mon, Nov 27, 2023 at 11:33:45AM +0000, Parav Pandit wrote:
 > >
-> > And the based on the access pattern has given more flexibility to
-> implementations across sw and hw based devices without any lose.
->=20
-> Right. Whatever is done in driver probe.
-> And why? Basically because this makes initialization robust, simple, and =
-no
-> parallelizm is used during probe anyway, so a queue makes no sense - it g=
-ives 0
-> advantage.
->=20
-I listed all advantages.
-
->=20
-> And if you are going to require that driver allow or disallow ethtool com=
-mands
-> based on this info then it is clearly initialization time in my book.
-
-I understood your view.
-It is less efficient and works well over cvq with listed advantages.
-
->=20
->=20
-> > >From the device side it has consistent view of get/set via single chan=
-nel =3D
-> cvq when dealing with the guest driver.
-> >
-> > The two non nvidia examples of these devices are Microsoft MANA nic and
-> Amazon ENA nic.
-> >
+> > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > Sent: Monday, November 27, 2023 4:53 PM
 > > >
+> > > On Mon, Nov 27, 2023 at 10:19:47AM +0000, Parav Pandit wrote:
+> > > > > > > It appears that's not what you meant.
+> > > > > > > I can try and guess what you meant but I'd rather have you
+> > > > > > > rewrite this in a way that makes the meaning explicit.
+> > > > > > >
+> > > > > > If you insist, I can duplicate in driver requirements too.
+> > > > > > >
+> > > > > > > > There are many capabilities here each with a different use.
+> > > > > > >
+> > > > > > > And you are under the impression that dumping all kind of
+> > > > > > > stuff in a single place is good somehow?
+> > > > > > It is not dumped.
+> > > > > > It is structured based on the functionality.
+> > > > > > The config space proposal tends to dump everything in
+> > > > > > unstructured way at
+> > > > > single place that cannot extended elegantly.
+> > > > > >
+> > > > > > For example, Xuan's dynamic array cannot be placed next to
+> > > > > > other dynamic
+> > > > > array of flow filter.
+> > > > >
+> > > > > I don't know what "dynamic array" is exactly but generally, Any
+> > > > > kind of a big array is not appropriate in config space - I don't
+> > > > > see any of these
+> > > here, though.
+> > > > Ah, now I see the disconnect.
+> > > >
+> > > > There is.
+> > > > struct virtio_net_ctrl_ff_match_types
 > > >
+> > > Now I think I don't understand what this array does at all.
+> > > Why are there multiple entries with each entry also including a mask
+> > > of multiple fields?
+> > >
+> > Each entry indicates a bitmask of supported fields that can be filtered=
+.
+> > The type indicates how to interpret each fields_map.
+> > Any new type for MPLS can be added easily by defining its type and mask=
+.
+> > And same type enums and field mask also used by the data path too.
+>=20
+> Oh wait I think I begin to remember now. There are 12 bits defined so far=
+ and
+> you made it this huge array. Right? With code to parse and format it all.=
+ Just
+> add a 64 bit field and it will last us long enough. No parsing and format=
+ting just
+> #define.
+The infrastructure defines 12 bits only because this is first minimal viabl=
+e work.
+There will be more fields to be added for more types.
+It is not good to mix up all the fields and bit definitions.
+
+And there are per device max limits which is way more than 12 bits.
+
+Your attitude to take narrow view and trying to kill this command is not go=
+od either.
+>=20
+>=20
 > > >
 > > > > >
-> > > > > Then hardware offload guys come and say that in PCI spec current
-> > > > > transport is forcing use of on-device memory, and they want to
-> > > > > build cheap offload PCI based devices. Fine, let's build a
-> > > > > transport variant that
-> > > does not force this.
-> > > >
-> > > > All new capabilities and control is over the cvq. What is baked
-> > > > until 1.2 is sort
-> > > of legacy.
-> > >
-> > > Just repeating this will not make everyone agree.
-> > >
-> >
-> > I see that Satananda also is fine for Marvell to use CVQ.
-> >
-> > > > >  And
-> > > > > we want optional compatibility, so let's also find a way to do th=
-at.
-> > > > > This makes much more sense than forcing transport specific
-> > > > > issues on
-> > > everyone.
 > > > > >
-> > > > Trying to attribute as some transport specific issue is just not
-> > > > aligned to the
-> > > spec written today.
+> > > > > > >
+> > > > > > > > For many caps, it is to know what is supported/not to
+> > > > > > > > decide in the
+> > > > > driver.
+> > > > > > >
+> > > > > > > I can't parse this sentence.
+> > > > > > >
+> > > > > > The driver checks things upfront what is supported while
+> > > > > > serving the
+> > > > > command, instead of random trial and error guess work game with
+> > > > > he
+> > > device.
+> > > > >
+> > > > > There's no real guesswork with these specific commands: user
+> > > > > types an ethtool command, driver sends it on, it either succeeds =
+or fails.
+> > > > It is a guess work without driver knowing if its supported or not.
+> > >
+> > > What we do not need is both driver and device checking these values.
+> > >
+> > Driver is mainly to using to know its valid ranges and to fail the comm=
+ands
+> early.
+> > Device is referring it for any validations that it may need to do.
+> >
+> > >
+> > > > > However if you feel it important to do checks in driver - OK.
+> > > > Yes, because there are many parsing fields and good to know.
 > > > >
-> > > > > To add to that, what did not historicall scale well is
-> > > > > transport-specific
-> > > registers.
-> > > > Then you should have put the VQ notification coalescing
-> > > > functionality in a
-> > > horrible virtio_net_config register like how a queue reset in the
-> > > common config space.
-> > >
-> > > No because of the 4 commands: VIRTIO_NET_CTRL_NOTF_COAL_TX_SET
-> > > VIRTIO_NET_CTRL_NOTF_COAL_RX_SET
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET
-> > > VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET none are initialization time.
-> > > They are not capabilities: they control and inspec device runtime sta=
-te.
-> > >
-> > > If we had VIRTIO_NET_CTRL_NOTF_COAL_CAP_GET that would belong in
-> > > config space.
-> > >
-> > I understood you.
-> > As we propose above, those caps reading is not must during initializati=
-on
-> time phase.
->=20
-> Yes, it is a must initialization time.
-Why it is must?
-
-> In my book initialization time is what happens in probe.
-And asking that this initialization time to somehow use the DMA and interru=
-pt is not making the initialization crisper.
-In that case the DMA interface scope must be before driver_ok to strickly f=
-ullfil the need of initialization time.
-And that way it wont be usable for other things.
-And bending that for other work is not helpful either.
-
-So you should let things progress.
-
->=20
-> > Hence, cvq delivers better scale like stats and consistent get/set.
-> >
-> > > > Thank God that mistake was not done and many similar mistakes were
-> > > avoided.
-> > >
-> > > Let's not get emotional here please.
-> > >
-> > > > > That was a bad design, with all transports doing exactly the
-> > > > > same thing is slightly different ways.  And what you are
-> > > > > advocating for with CVQ is exactly replicating the bad design not=
- the
-> good one.
+> > > > > But that makes cap query an init time thing.
+> > > > Yes, caps does not change dynamically.
+> > > > But sure it is different among different member devices and owner t=
+oo.
 > > > >
-> > > > CVQ design is what extends the current spec in good way. Followed
-> > > > by many
-> > > other non nvidia nics listed in the doc for reference.
+> > > > >
+> > > > >
+> > > > > > > > Certain caps are max to know what is the range of id that
+> > > > > > > > driver can use like
+> > > > > > > flow filter id, group id.
+> > > > > > >
+> > > > > > > Maybe then. But there's apparently no requirement for either
+> > > > > > > device or driver to put it in this range.
+> > > > > > >
+> > > > > >
+> > > > > > I will add this requirement statements in device requirements
+> > > > > > and that will
+> > > > > make things clear.
+> > > > > > Good point.
+> > > > > >
+> > > > > > > > > For what benefit?
+> > > > > > > > >
+> > > > > > > > For functional work.
+> > > > > > >
+> > > > > > > You don't really explain what kind of work in this patchset,
+> > > > > > > or in the commit logs. Maybe it's obvious for you but not for
+> everyone.
+> > > > > > What text are you expecting?
+> > > > > > We have undergone all the requirements study that you
+> > > > > > conveniently
+> > > > > choose to not participate for 2 months.
+> > > > >
+> > > > > Yea ... I'm sorry. Things have been going on here, man.
+> > > > > I'm glad I'm back and able to participate though.
+> > > > >
+> > > > Great.
+> > > >
+> > > > > > >
+> > > > > > > > > > In future one may want to provision certain max limits
+> > > > > > > > > > that device can have
+> > > > > > > > > as they eventually will consume certain device hardware
+> resources.
+> > > > > > > > >
+> > > > > > > > > I don't exactly see how this helps provisioning.
+> > > > > > > > >
+> > > > > > > > Provisioning side will set parameters which will reflect
+> > > > > > > > these limits to be same
+> > > > > > > on src and dst hypervisor when device migration is used.
+> > > > > > >
+> > > > > > > But making provisioning depend on driver being fully loaded
+> > > > > > > and accessing the command is creating a chicken and egg probl=
+em.
+> > > > > > I didn't explain well likely.
+> > > > > > Provisioning as you described, will be on owner device.
+> > > > > > This command tells driver what is provisioned.
+> > > > > >
+> > > > > > > Provisioning is much more likely to use some new admin
+> > > > > > > commands over an owner device. So this command is useless for=
+ it.
+> > > > > > >
+> > > > > > Provisioning owner device will use exact same structure while
+> > > provisioning.
+> > > > >
+> > > > > So the advantage of using config space is that we can have a
+> > > > > single generic provision command that gets device config space
+> > > > > format. Your approach will need some kind of net device specific =
+thing.
+> > > > >
+> > > >
+> > > > I see the advantage. But it very small and largely hidden beneath
+> > > > the sw
+> > > layers how a provisioning command sets things.
+> > > > A provisioning command sets the value, it surfaces at different lev=
+el.
+> > > >
+> > > > Multiple device vendors want to follow the design pattern to use "
+> > > > most uses it is better to use a virtqueue to update configuration
+> information"
+> > > >
+> > > > Instead of RO =3D config space, RW =3D cvq.
+> > > >
+> > > > The more pragmatic design pattern is:
+> > > > driver initialization time =3D> feature bit + virtio config space.
+> > > > Driver runtime =3D> cvq.
 > > >
-> > > I don't know what you are referring to here.  Register maps are all
-> > > over the place. It's a simple, standard, well understood practice.
+> > > yes. capability check is initialization time though.
 > > >
-> > I provided various examples of virtio and non nvidia devices which pref=
-ers to
-> avoid registers.
-> > Satananda from Marvell also expressed their view.
+> > Right, for runtime config like this cap, it is not in the initializatio=
+n time
+> needed.
 > >
-> > > We have some niche uses due to need for extreme VF# counts, this
-> > > forces DMA for them, not a good reason to force it for everyone.
-> > PFs are equally benefiting from them. Some of our hw devices has large =
-PF
-> count.
+> > >
+> > > > >
+> > > > > > >
+> > > > > > >
+> > > > > > > > >
+> > > > > > > > > > > Patch 5/5 mandates that device validates all fields a=
+lready.
+> > > > > > > > > >
+> > > > > > > > > > > Are there guests that will actually look at these
+> > > > > > > > > > > caps as opposed to just sending commands and looking
+> > > > > > > > > > > at the return
+> > > > > status?
+> > > > > > > > > > When the device reaches the limit it would not even
+> > > > > > > > > > send the
+> > > > > command.
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > That's more logic for the driver to implement. Why
+> > > > > > > > > should it bother when it can just send it?
+> > > > > > > > >
+> > > > > > > > It can just send it and fail and flood with error logs.
+> > > > > > >
+> > > > > > > If the spec says device can fail and that is expected then it=
+ won't
+> flood.
+> > > > > > > If you don't want driver to send some commands you should
+> > > > > > > say that instead of saying device should filter them.
+> > > > > > I will add the normative in the driver requirement section.
+> > > > > >
+> > > > > > >
+> > > > > > > > Also it cannot just send some random id based numbers that
+> > > > > > > > device does
+> > > > > > > not support.
+> > > > > > >
+> > > > > > > Aha. I think I'm beginning to guess. You wrote:
+> > > > > > > 	field{max_groups} indicates total number of flow filter
+> > > > > > > groups supported
+> > > > > > > 	by the device whose group identifiers can be any value in
+> > > > > > > the range from 0 to
+> > > > > > > 	\field{max_groups - 1}.
+> > > > > > > and you think this implies that it can't be out of that range=
+.
+> > > > > > > That's not how logic works though ;)
+> > > > > > >
+> > > > > > Which logic?
+> > > > >
+> > > > > The aristotelian logic we commonly use.  You say "group
+> > > > > identifiers can be any value in the range".  You seem to mean
+> > > > > "group identifiers can not be any value not in the range". These
+> > > > > two statements are not equivalent and neither implies the other.
+> > > > I fail to see the difference between the two English sentence you w=
+rote.
+> > > > Can you please have an example, how second is any different?
+> > > >
+> > > > In my example max_groups =3D 5, so group id must be from 0 to 4.
+> > >
+> > > No, your sentence does not say it must. It says it can be in range.
+> > > Can it be out of range, e.g. 5? You don't state either way.
+> > I understand. I will that normative in v7.
 > >
-> > > The sooner you just stop forcing this down everyone's throat the
-> > > faster we can make progress on things that matter.
+> > > The second sentence says it can not be out of range so 5 is illegal.
+> > > Are there illegal values inside the range? E.g. might 3 be illegal?
+> > > According to second sentence, maybe. According to 1st sentence, 3 is =
+legal.
+> > >
+> > > > It can be any value.
+> > >
+> > > :(
+> > >
+> > >
+> > > > In device and driver requirements, I will write the explicit line
+> > > > that it MUST be
+> > > in this range.
+> > >
+> > > Then it will be different.
+> > Will write as two different normative respective for each section.
+> > For driver it is SHOULD, for device it is MUST wherever applicable.
 > >
-> > CVQ is established good configuration channel. So we all want to utiliz=
-e
-> instead of being forced to grow config space which is very hard to mainta=
-in
-> and implement.
->=20
-> Specifically this thing or generally?
-
-> This thing - I think I don't understand what this capability is, at this =
-point, so I
-> am asking you to clarify much more.
-> If it's a huge array it can't fit in config space by definition but I don=
-'t
-> understand why it needs to be.
-Each array entry is indicating what it tells.
->=20
->=20
-> Generally - forget it. device config space is one of the few things that =
-virtio
-> driver writers for different OS-es actually get consistently right. It is=
- simple,
-> easy to use and understand.
-
-> Limitations - slow, serialized and small so only
-> probe time and only little amounts of data.
-> Stop trying to kill it as a general capability and replace with a hodge p=
-odge of
-> commands I'm not going to support that.
-For small things that is common across all devices can stay like that.
-Here is it per device unique data values.
-In context of flow filter it is just overkill to put all of this in the con=
-fig space.
-It is bigger content that what we query via stats cap command.
-
->=20
-> > I will fix your comments in v7 regarding the honoring max limits in dri=
-ver and
-> device.
+> > >
+> > > > >
+> > > > >
+> > > > > > The driver will honor the limit given to him.
+> > > > > > The device will also naturally honor what it published to drive=
+r.
+> > > > > > >
+> > > > > > > > > > For example if the device supports only one group, it
+> > > > > > > > > > wont implement
+> > > > > > > > > ethtool ntuple and will chose only arfs as one example.
+> > > > > > > > >
+> > > > > > > > > Sounds like a contrived example why does device even
+> > > > > > > > > expose flow steering then?
+> > > > > > > > It is not contrived at all.
+> > > > > > > >
+> > > > > > > > A device may be support one or multiple groups. Each group
+> > > > > > > > in the OS has
+> > > > > > > multiple users.
+> > > > > > > > One group is enough for either ARFS or ethool but not both.
+> > > > > > > > Two groups can allow ARFS and ethtool to co-exists.
+> > > > > > > > 3 groups will allow in future to expose some queues to user=
+ apps.
+> > > > > > >
+> > > > > > > Oh I misunderstood.
+> > > > > > > Then why would driver decide to force a decision to ARFS
+> specifically?
+> > > > > > > It will likely leave this to the user.
+> > > > > > It is the driver implementation choice, For example:
+> > > > > > if there is only one group, driver can choose to give strong
+> > > > > > preference, say for
+> > > > > ARFS only.
+> > > > > >
+> > > > > > Or it can let it be on first come first usage, for example, if
+> > > > > > ethtool wants to
+> > > > > use first, it will allow it, not letting ARFS to work.
+> > > > > >
+> > > > >
+> > > > > Practically, drivers are highly unlikely to make the choice.
+> > > > It will make the choice when there is only one group available.
+> > > >
+> > > > > That is why it is reasonable not to have checks in the driver if
+> > > > > device is doing them anyway.
+> > > > The groups particularly have the priority as well. So the check in
+> > > > device does
+> > > not work.
+> > >
+> > > I don't know what that means.
+> > >
+> > Packet processing order is defined by the group.
+> > You should have participated in Aug or before when all of these were
+> discussed.
+> > Anyways, next time you can participate in other features.
+> >
+> > > > > But OTOH if you want driver to do the checks then I don't see
+> > > > > why we should also add them to device unless there's a good reaso=
+n to.
+> > > > > Less checks in devices -> cheaper simpler devices.
+> > > > >
+> > > > The cheaper devices can always place UINT_32 max values and ignore
+> > > > any
+> > > checking etc.
+> > >
+> > > Then won't driver expect inifinite # of groups to be supported?
+> > >
+> > A cheaper device can place anything it wants.
+> >
+> > > > The check in the device will be done as it uses such an id for its
+> > > > own
+> > > bookkeeping.
+> > > >
+> > > I don't know what that means.
+> > > > > --
+> > > > > MST
 
 
 This publicly archived list offers a means to provide input to the=0D
