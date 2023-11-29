@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8677-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8678-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B87A2C4167B
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 10:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34BAFC4167B
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 10:00:18 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A863871C80
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 10:00:09 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 969157484B
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 10:00:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D6C9D98666B
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 10:00:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8F37D986874
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 10:00:17 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id A5E89986979; Wed, 29 Nov 2023 10:00:08 +0000 (UTC)
+	id 85777986656; Wed, 29 Nov 2023 10:00:17 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,116 +24,159 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6A868986642
-	for <virtio-comment@lists.oasis-open.org>; Wed, 29 Nov 2023 10:00:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 783A4986655
+	for <virtio-comment@lists.oasis-open.org>; Wed, 29 Nov 2023 10:00:17 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701252005; x=1701856805;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6i+IBX1n1d4i3lENtWCxvP4EawLelczrPAeQYx35Xcg=;
-        b=v+hgwk4uwj09xsiHwgxqdPbbrKSn5lchFj7As5npmrYekKQYOfvbI13rF4KU56B3SX
-         wBCA5K4c8t6IqT7mHvP2pCfcw6tdBBAR6mlvFisWp6qzNXF4Y6BTW5ek4AYoTKSqE+a6
-         6LAU5P5/fOq/YzHWRHCvPLdTupqR0gUCc2Uvdi4uU2O4dEaADgh5y4jO3cJJrCtDb212
-         QhcV69GY9NaAJhUkhdRzJ7wfnt0CegG1gZfLEnElPqPWhhVvnM6JeH3D3v8o0cqnRTYa
-         vJTfW9UpRhyyAzpQjA35rkl1UkANm5LfqTCCuYmCI1NuL4amwzEaF3Nj0bV5cwTEXpwb
-         1zqg==
-X-Gm-Message-State: AOJu0Yz4wGV/GI+8aw6bjEYBPk2XffdHcqft3rIxTSmUQEFTlmZx8pbg
-	pOc+8hWuTirjRq875mc1llSV/Q==
-X-Google-Smtp-Source: AGHT+IHHrsbhZ3apxm1WaYEWmzLWX7OBqB5BTAT6eP4ql6YtJd8FDEORuOygGuwz5IMVu3wRbmXKpg==
-X-Received: by 2002:a17:902:724a:b0:1cf:d2c3:2865 with SMTP id c10-20020a170902724a00b001cfd2c32865mr8960256pll.40.1701252005276;
-        Wed, 29 Nov 2023 02:00:05 -0800 (PST)
-Date: Wed, 29 Nov 2023 15:30:02 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Haixu Cui <quic_haixcui@quicinc.com>
-Cc: Cornelia Huck <cohuck@redhat.com>, virtio-dev@lists.oasis-open.org,
-	virtio-comment@lists.oasis-open.org, harald.mommer@opensynergy.com,
-	broonie@kernel.org, qiang4.zhang@linux.intel.com,
-	quic_ztu@quicinc.com, alex.bennee@linaro.org,
-	vincent.guittot@linaro.org
-Message-ID: <20231129100002.q73wtz6mkfixcbzt@vireshk-i7>
-References: <20231124072015.12655-1-quic_haixcui@quicinc.com>
- <20231127101750.6xmthho6lnppyw3k@vireshk-i7>
- <2ca987a6-eeb2-4ed6-9a12-10ae450eb4bf@quicinc.com>
- <20231129073022.ohxsfuawambvh3hm@vireshk-i7>
- <0674be8e-221f-479a-8da2-8a3e59e45bb9@quicinc.com>
- <871qc9x8k2.fsf@redhat.com>
- <9e0c5e5e-db7b-4634-9423-f4db1800b148@quicinc.com>
+        d=1e100.net; s=20230601; t=1701252012; x=1701856812;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qfFtZZ4e5KrJzE1bpKnJJb6rkwarY3Ik2ZQMR/fVvyQ=;
+        b=NDtRGD3dykBjfU4G13T70rw0lAmbtxwfFZVIpRvbG0UBzqymRJZSTN8NJtQcG6UPCO
+         UAxl5QkDVnKE67qVve55OyO8T3pt8fCrRSqqdLxX1wiDl0pNnxevyM3dd6HAE1pnScIu
+         9XhpShBgK7S0BEFV2f1fQIomBl79m2cChPKnxEKaLnKzBpYxNTGEHq73wEQew9gqY1WK
+         Udb3nmlTk+F12kHXwsTDacGINeUOZtaHIen1CRgEeJkwpFEUw2t8FNGpqEhsDrFE0v4G
+         cZkSU4x7CFJDvjhagGFZO5zzi/j2xrOsj6W4V/uZ746n5jqJkpEDVxh5a7V4IL8Shk32
+         URhg==
+X-Gm-Message-State: AOJu0YwdHoc1c+6W7cUXZ4mk9cVTLT13+XP/KAsJnuMlnApp1bQQQQsD
+	ivSLc2uYAmptksrHanLRcfiYgx1P6/cMh0A8tWCyVQ==
+X-Google-Smtp-Source: AGHT+IH1a/wmVOD9kO+l9WWgzd+MC2Y8EeWcw97RqFXPRWiDqD0iYW9IZXdhsvAwKIcMJsSH1JK8FSeW2fBg8rM4rDM=
+X-Received: by 2002:a05:6512:1054:b0:50b:b588:e5b1 with SMTP id
+ c20-20020a056512105400b0050bb588e5b1mr5756228lfb.24.1701252012534; Wed, 29
+ Nov 2023 02:00:12 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9e0c5e5e-db7b-4634-9423-f4db1800b148@quicinc.com>
-Subject: Re: [virtio-comment] [PATCH] [PATCH v5] virtio-spi: add the device
- specification
+References: <329f386ba6214fb4a58e93a771474d2d@de.adit-jv.com>
+ <40kj9.b1c40ocbzv0u@linaro.org> <f41e5129-3b3e-4e11-9cd1-4eb8f15e60ad@opensynergy.com>
+In-Reply-To: <f41e5129-3b3e-4e11-9cd1-4eb8f15e60ad@opensynergy.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Wed, 29 Nov 2023 11:59:56 +0200
+Message-ID: <CAAjaMXYMzpXB_F63u+isc6=y55k3kdn+xAnN4+hBeDupivFWFA@mail.gmail.com>
+To: "Pape, Andreas (ADITG/ESS3)" <apape@de.adit-jv.com>, Anton Yakovlev <anton.yakovlev@opensynergy.com>
+Cc: virtio-comment@lists.oasis-open.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] virtio sound: add missing definitions for 12 and
+ 24kHz sampling rates
 
-On 29-11-23, 16:54, Haixu Cui wrote:
-> On 11/29/2023 4:33 PM, Cornelia Huck wrote:
-> > On Wed, Nov 29 2023, Haixu Cui <quic_haixcui@quicinc.com> wrote:
-> > > On 11/29/2023 3:30 PM, Viresh Kumar wrote:
-> > > > On 28-11-23, 20:58, Haixu Cui wrote:
-> > > > > On 11/27/2023 6:17 PM, Viresh Kumar wrote:
-> > > > Hmm, I worked with a SPI controller over a decade ago, and I must be forgetting
-> > > > something here I guess. But from whatever little I remember, with full-duplex
-> > > > transfer, data flows on both MOSI and MISO lines as soon as clock signal is
-> > > > applied.  And so amount of data sent is always be equal to amount of data
-> > > > received by both sides.
-> > > > 
-> > > > Also if I see Linux's implementation of the `struct spi_transfer` [1], I see
-> > > > `tx_buf`, `rx_buf` and a single `len` field, which applies to both the buffers.
-> > > > Which I guess is indicating that both buffers are supposed to be of same length.
-> > > > 
-> > > > What am I missing ?
-> > > 
-> > > Oh so sorry for that. And I don't make it clear. Yes, tx_buf and rx_buf
-> > > have the same size, Linux has such restriction. Just as you mention,
-> > > kernel level spi_transfer has single "len", the same for
-> > > spi_ioc_transfer passed from the userland.
-> > > 
-> > > But I am not sure if this is in the scope of the spec. Because this is
-> > > ensured by Linux, but Virtio SPI driver won't also can't verify this.
-> > > This is a prerequisite for virtio spi processing requests.
+On Wed, 29 Nov 2023 at 10:24, Anton Yakovlev
+<anton.yakovlev@opensynergy.com> wrote:
+>
+> Hi Manos, Andreas,
+>
+> Actually, I think it would make sense to add 12kHz, 24kHz and also 352800=
+kHz
+> to the list of supported frame rates.
+>
+>
+> Kind regards,
+>
 
-I don't think this is a Linux only thing. This is how the SPI protocol is
-designed to begin with. A clock is applied, data from FIFOs of both master and
-slaves gets exchanged over the MOSI and MISO lines... And the length is _always_
-the same. We are talking about the full-duplex mode of the hardware here and
-this is how it works AFAICT.
+Andreas, would you mind re-sending the patch inline as a new thread
+with git-send-email instead of an attachment? And we can then review
+it formally.
 
-So the spec should clearly point this out to avoid any mistakes. Or if you have
-a usecase where you can have different lengths for tx and rx buffers, that I am
-not aware of ?
 
-> > > What is your suggestion? How about adding some descriptions here, like
-> > > "for full-duplex, tx_buf and rx_buf are same in size, this is guaranteed
-> > > by the kernel"?
-> > 
-> > We must not really make any assumptions in the spec about concrete
-> > implementations (here, the Linux kernel), as someone implementing it in
-> > a different environment will need to make explicit choices.
 
-I agree. I pointed this out since this is how the protocol works.
+> On 12.11.2023 23:04, Manos Pitsidianakis wrote:
+> > Hello Andreas,
+> >
+> > The spec says it is purposely modeled to be compatible with the HDA spe=
+c. HDA
+> > is optimized for specific multiples or submultiples of 44.1 kHz and 48 =
+kHz.
+> > Specifically, look at "5.4 Handling Stream Independent Sample Rates" an=
+d
+> > "Table 56. Defined Sample Rates". My (unexperienced) understanding of t=
+he
+> > following statement is that using such rates with controller hardware t=
+hat is
+> > made for HDA will result in timing issues:
+> >
+> >> This implies that the controller and link must also provide for an exa=
+ct
+> >> sample-rendering rate at the codec, in order to avoid any long term dr=
+ift
+> >> between sample delivery and rendering and the subsequent over(under)-r=
+un of
+> >> codec buffers.
+> >
+> > https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=3D=
+https%3a%2f%2fwww.intel.com%2fcontent%2fdam%2fwww%2fpublic%2fus%2fen%2fdocu=
+ments%2fproduct%2dspecifications%2fhigh%2ddefinition%2daudio%2dspecificatio=
+n.pdf&umid=3Dd569f403-01a9-4519-8038-4bb35906ff78&auth=3D53c7c7de28b92dfd96=
+e93d9dd61a23e634d2fbec-cb72c66b78900b97f31176a2a470cdf7d28d8f94
+> >
+> > If that is the case, I think the best approach would be to specify a no=
+n-HDA
+> > mode of operation to support more sound hardware. The most straight-for=
+ward
+> > solution though is for you to resample the audio before and after it go=
+es
+> > through virtio-sound.
+> >
+> >
+> > Regards,
+> >
+> > -- Manos Pitsidianakis
+> > Emulation and Virtualization Engineer at Linaro Ltd
+> >
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> >
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> >
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive:
+> > https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=3D=
+https%3a%2f%2flists.oasis%2dopen.org%2farchives%2fvirtio%2dcomment%2f&umid=
+=3Dd569f403-01a9-4519-8038-4bb35906ff78&auth=3D53c7c7de28b92dfd96e93d9dd61a=
+23e634d2fbec-0fef9f465f0a04da9ccd68a483603afa78faeb94
+> > Feedback License:
+> > https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=3D=
+https%3a%2f%2fwww.oasis%2dopen.org%2fwho%2fipr%2ffeedback%5flicense.pdf&umi=
+d=3Dd569f403-01a9-4519-8038-4bb35906ff78&auth=3D53c7c7de28b92dfd96e93d9dd61=
+a23e634d2fbec-0620b2dca8947547caf1be09cb1b9460071d9c3c
+> > List Guidelines:
+> > https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=3D=
+https%3a%2f%2fwww.oasis%2dopen.org%2fpolicies%2dguidelines%2fmailing%2dlist=
+s&umid=3Dd569f403-01a9-4519-8038-4bb35906ff78&auth=3D53c7c7de28b92dfd96e93d=
+9dd61a23e634d2fbec-7f81dc376e1bb26c4ccd422a6585c18e105f677a
+> > Committee:
+> > https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=3D=
+https%3a%2f%2fwww.oasis%2dopen.org%2fcommittees%2fvirtio%2f&umid=3Dd569f403=
+-01a9-4519-8038-4bb35906ff78&auth=3D53c7c7de28b92dfd96e93d9dd61a23e634d2fbe=
+c-e64745d0015d08f4923c010538fce9ec55d679ff
+> > Join OASIS:
+> > https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=3D=
+https%3a%2f%2fwww.oasis%2dopen.org%2fjoin%2f&umid=3Dd569f403-01a9-4519-8038=
+-4bb35906ff78&auth=3D53c7c7de28b92dfd96e93d9dd61a23e634d2fbec-0474f1d3e7241=
+32ee586e990891b08a79f61f539
+>
+> --
+> Anton Yakovlev
+> Senior Software Engineer
+>
+> OpenSynergy GmbH
+> Rotherstr. 20, 10245 Berlin
 
-> > So, if tx_buf and rx_buf are required to be of the same size, it needs
-> > to be explicitly stated in the spec, or an implementation might choose
-> > to do it differently.
-
---
-Viresh
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
