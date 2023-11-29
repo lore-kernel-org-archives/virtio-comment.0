@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8672-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8673-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 043EAC4167B
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 08:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAFEBC4167B
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 08:23:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5A665613C9
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 08:20:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 140A694EE8
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 08:23:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2199A986656
-	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 08:20:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E0A90986663
+	for <virtio-comment@archiver.kernel.org>; Wed, 29 Nov 2023 08:23:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 049139865EB; Wed, 29 Nov 2023 08:20:34 +0000 (UTC)
+	id C6FF19865EB; Wed, 29 Nov 2023 08:23:37 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,120 +24,76 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 486379865ED;
-	Wed, 29 Nov 2023 08:19:39 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B8A0D9865ED
+	for <virtio-comment@lists.oasis-open.org>; Wed, 29 Nov 2023 08:23:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-Message-ID: <0674be8e-221f-479a-8da2-8a3e59e45bb9@quicinc.com>
-Date: Wed, 29 Nov 2023 16:19:22 +0800
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045192;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0VxNWh-Z_1701246212;
+Message-ID: <90ef9ec4-6cce-49c4-a27d-7168990ae3f3@linux.alibaba.com>
+Date: Wed, 29 Nov 2023 16:23:30 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Viresh Kumar <viresh.kumar@linaro.org>
-CC: <virtio-dev@lists.oasis-open.org>, <virtio-comment@lists.oasis-open.org>,
-        <cohuck@redhat.com>, <harald.mommer@opensynergy.com>,
-        <broonie@kernel.org>, <qiang4.zhang@linux.intel.com>,
-        <quic_ztu@quicinc.com>, <alex.bennee@linaro.org>,
-        <vincent.guittot@linaro.org>
-References: <20231124072015.12655-1-quic_haixcui@quicinc.com>
- <20231127101750.6xmthho6lnppyw3k@vireshk-i7>
- <2ca987a6-eeb2-4ed6-9a12-10ae450eb4bf@quicinc.com>
- <20231129073022.ohxsfuawambvh3hm@vireshk-i7>
-Content-Language: en-US
-From: Haixu Cui <quic_haixcui@quicinc.com>
-In-Reply-To: <20231129073022.ohxsfuawambvh3hm@vireshk-i7>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-GUID: C9nbLnuRxjKvv9vG0LBz4f9eDh_o7sym
-X-Proofpoint-ORIG-GUID: C9nbLnuRxjKvv9vG0LBz4f9eDh_o7sym
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-29_06,2023-11-27_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0 bulkscore=0
- malwarescore=0 adultscore=0 spamscore=0 mlxscore=0 lowpriorityscore=0
- clxscore=1015 phishscore=0 priorityscore=1501 impostorscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311290060
-Subject: Re: [virtio-comment] [PATCH] [PATCH v5] virtio-spi: add the device
- specification
+To: Jason Wang <jasowang@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, "Michael S . Tsirkin"
+ <mst@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+References: <cover.1701158152.git.hengqi@linux.alibaba.com>
+ <5490c3b5b2321e13a9344057d02f2ae5fe9ebf56.1701158152.git.hengqi@linux.alibaba.com>
+ <CACGkMEuN20TaSF1OeFgwEF85ZadxPomnsoMmprS3=DpCFPJKhQ@mail.gmail.com>
+From: Heng Qi <hengqi@linux.alibaba.com>
+In-Reply-To: <CACGkMEuN20TaSF1OeFgwEF85ZadxPomnsoMmprS3=DpCFPJKhQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH v4 1/2] virtio-net: update
+ description for VIRTIO_NET_F_GUEST_CSUM.
 
-Hi Viresh,
 
-On 11/29/2023 3:30 PM, Viresh Kumar wrote:
-> On 28-11-23, 20:58, Haixu Cui wrote:
->> On 11/27/2023 6:17 PM, Viresh Kumar wrote:
->>> On 24-11-23, 15:20, Haixu Cui wrote:
->>>> +For half-duplex read transfer, \field{rx_buf} is filled by Virtio SPI device and consumed
->>>> +by Virtio SPI driver. For half-duplex write transfer, \field{tx_buf} is filled by Virtio
->>>> +SPI driver and consumed by Virtio SPI device. And for full-duplex read and write transfer,
->>>> +both \field{tx_buf} and \field{rx_buf} are used.
->>>
->>> Should the length of both the buffers in full-duplex mode be same ? If yes, then
->>> this should be mentioned (in case it is not).
->>>
+
+在 2023/11/29 下午4:00, Jason Wang 写道:
+> On Tue, Nov 28, 2023 at 4:08 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+>> To prevent readers from misunderstanding that the driver can
+>> only handles packets with partial checksum when
+>> VIRTIO_NET_F_GUEST_CSUM is negotiated, we update the description.
 >>
->> No, there is no such limitation. Write and read buffers may be different is
->> size.
-> 
-> Hmm, I worked with a SPI controller over a decade ago, and I must be forgetting
-> something here I guess. But from whatever little I remember, with full-duplex
-> transfer, data flows on both MOSI and MISO lines as soon as clock signal is
-> applied.  And so amount of data sent is always be equal to amount of data
-> received by both sides.
-> 
-> Also if I see Linux's implementation of the `struct spi_transfer` [1], I see
-> `tx_buf`, `rx_buf` and a single `len` field, which applies to both the buffers.
-> Which I guess is indicating that both buffers are supposed to be of same length.
-> 
-> What am I missing ?
-
-Oh so sorry for that. And I don't make it clear. Yes, tx_buf and rx_buf 
-have the same size, Linux has such restriction. Just as you mention, 
-kernel level spi_transfer has single "len", the same for 
-spi_ioc_transfer passed from the userland.
-
-But I am not sure if this is in the scope of the spec. Because this is 
-ensured by Linux, but Virtio SPI driver won't also can't verify this.
-This is a prerequisite for virtio spi processing requests.
-
-What is your suggestion? How about adding some descriptions here, like 
-"for full-duplex, tx_buf and rx_buf are same in size, this is guaranteed 
-by the kernel"?
-
-> 
->>>> +Virtio SPI device MUST NOT change the data in \field{tx_buf} if transfer type is half-duplex write
->>>> +or full-duplex read and write.
->>>
->>> The device MUST NOT change the contents of the tx_buf ever, i.e. for every mode
->>> there is. In half-duplex read mode, there is no tx_buf, but just rx_buf.
->>>
+>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+>> ---
+>>   device-types/net/description.tex | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
 >>
->> Sorry I don'y understand here. In this statement, the transfer type is
->> either half-duplex write or full-duplex read and write. half-duplex read
->> type has no tx_buf, so I didn't mention it.
-> 
-> Sorry for not being clear earlier. I was suggesting you to just write this
-> instead:
-> 
-> The Virtio SPI device MUST NOT change the data in the \field{tx_buf} field.
-> 
-> You don't really need to specify the modes here, as we are talking about tx_buf,
-> which isn't available in the half-duplex read mode but all others.
-> 
+>> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+>> index aff5e08..529f470 100644
+>> --- a/device-types/net/description.tex
+>> +++ b/device-types/net/description.tex
+>> @@ -38,7 +38,7 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+>>   \begin{description}
+>>   \item[VIRTIO_NET_F_CSUM (0)] Device handles packets with partial checksum offload.
+>>
+>> -\item[VIRTIO_NET_F_GUEST_CSUM (1)] Driver handles packets with partial checksum.
+>> +\item[VIRTIO_NET_F_GUEST_CSUM (1)] Driver handles packets with partial checksum or full checksum.
+> So patch 2 said
+>
+> "
+> +\item[VIRTIO_NET_F_GUEST_FULL_CSUM (64)] Driver handles packets with
+> full checksum.
+>   \end{description}
+> "
+>
+> Is there any difference between the two "full checksum" here?
 
-OK, thank you for your explanation. I will remove the "if" statement here.
+There's no difference.
 
-> -- > Viresh
-> 
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/spi/spi.h#n1031
+The core is that VIRTIO_NET_F_GUEST_FULL_CSUM means that the driver "can 
+only" handle packets with full checksum.
 
-Thanks again.
+Thanks!
 
-Best Regards
-Haixu Cui
+>
+> Thanks
+>
+>>   \item[VIRTIO_NET_F_CTRL_GUEST_OFFLOADS (2)] Control channel offloads
+>>           reconfiguration support.
+>> --
+>> 2.19.1.6.gb485710b
+>>
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
