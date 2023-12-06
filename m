@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8747-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8748-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C9B6C4167B
-	for <virtio-comment@archiver.kernel.org>; Wed,  6 Dec 2023 06:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4380DC4167B
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Dec 2023 06:51:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8EB302AC5F
-	for <virtio-comment@archiver.kernel.org>; Wed,  6 Dec 2023 06:08:04 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 909502B244
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Dec 2023 06:51:57 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6679B9867D5
-	for <virtio-comment@archiver.kernel.org>; Wed,  6 Dec 2023 06:08:04 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7AE6C9866AE
+	for <virtio-comment@archiver.kernel.org>; Wed,  6 Dec 2023 06:51:57 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 51498984043; Wed,  6 Dec 2023 06:08:04 +0000 (UTC)
+	id 65EC1984043; Wed,  6 Dec 2023 06:51:57 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,564 +24,399 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4108D98669F;
-	Wed,  6 Dec 2023 06:08:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 56B7F98669F
+	for <virtio-comment@lists.oasis-open.org>; Wed,  6 Dec 2023 06:51:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-Message-ID: <1fe07824-dd0d-4393-8f86-26b494676603@quicinc.com>
-Date: Wed, 6 Dec 2023 14:07:49 +0800
+X-MC-Unique: 2V1aBO_CMB6G3xR3AylWkQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701845513; x=1702450313;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BKUMH23IfL6iypn38u88Vbkd4zyX3B9vAiU/A8gi/Ak=;
+        b=bG3zRh7f5ehCEKXh+iyy9TIdM4+IEK5o9fJaUjvlI0IEdV5IBAHWTGZEPciQwxrT7p
+         hDizeFklFOSEbeEo0mToZ2hHkrvp1xe9kuC0V4MQCEmI8LHtl3xSxrmX/JZ8unP+Lih8
+         q0rQ71Iy6RGoDP62gmpi+N4tbovr5BiFNhjqtsEqgOyFb6fOi0ZJZI1KJdnohcnGnS0Z
+         7X38NQXxtH+cxXuYeoryFo2kmceE3aIe3Gnnv9FuOcBKewOdcmtS7VrPfvveIrcXhvZ3
+         QaLccViDqdcrbzHoa5djI5axtIDDtLYMsStCaNLfaX3QvCtaohLs3KfjrjgdrEPLZsMU
+         SgHw==
+X-Gm-Message-State: AOJu0YwEklNSIucjT2Y9TcvwlaYbtw+zTiJI6Mn4avm9KO/6Ry/dLHmS
+	bxGfMb8eJ2as8v2yukI1ehUcNRvyTT9JzVzz7XAKYqCNOtFDJDdE2gpCk0Ezn7AdLOfQC38sBpT
+	v8M6DKMT3ihlBPukI3yRe3k4yELDm2itDmA==
+X-Received: by 2002:a17:906:3f58:b0:a19:a19a:ea9e with SMTP id f24-20020a1709063f5800b00a19a19aea9emr268618ejj.87.1701845512854;
+        Tue, 05 Dec 2023 22:51:52 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFhn/N7c5rL88wjklUXbq4ffw+8YGTvQpQVgmjKCgfEnI1pVeUDZvocoFnyEhKwlQUy2SA2dg==
+X-Received: by 2002:a17:906:3f58:b0:a19:a19a:ea9e with SMTP id f24-20020a1709063f5800b00a19a19aea9emr268608ejj.87.1701845512373;
+        Tue, 05 Dec 2023 22:51:52 -0800 (PST)
+Date: Wed, 6 Dec 2023 01:51:48 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.oasis-open.org,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Message-ID: <20231206014951-mutt-send-email-mst@kernel.org>
+References: <20231204035211-mutt-send-email-mst@kernel.org>
+ <CACGkMEs=aM1n95xWkwJMCrbT1+sW1kHO=r0eMR-07OhrdPW8kw@mail.gmail.com>
+ <20231204040528-mutt-send-email-mst@kernel.org>
+ <4dee1860-4790-4217-b13f-3259172b653c@linux.alibaba.com>
+ <CACGkMEtDTGafzOo1=-9LDhpQByA9Y=6NtPpUibLc=EVwC4CYXA@mail.gmail.com>
+ <d11b39dc-a74b-4bde-9c2d-d7dae09f3c71@linux.alibaba.com>
+ <20231205094318-mutt-send-email-mst@kernel.org>
+ <bba2c20b-0f61-43f3-81e5-3311144e6208@linux.alibaba.com>
+ <CACGkMEuGvz0xy9aML4oBJoStx-DW93LnGDdh6JMXyw3AhrgExA@mail.gmail.com>
+ <49ede4ec-5882-4e16-a790-c30cc0974280@linux.alibaba.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Harald Mommer <harald.mommer@opensynergy.com>,
-        <virtio-dev@lists.oasis-open.org>,
-        <virtio-comment@lists.oasis-open.org>, <cohuck@redhat.com>,
-        <broonie@kernel.org>, <qiang4.zhang@linux.intel.com>,
-        <viresh.kumar@linaro.org>
-CC: <quic_ztu@quicinc.com>
-References: <20231205082401.18111-1-quic_haixcui@quicinc.com>
- <20231205082401.18111-3-quic_haixcui@quicinc.com>
- <b9d86f18-3e7b-4a51-a7c3-d9044dc567ba@opensynergy.com>
-From: Haixu Cui <quic_haixcui@quicinc.com>
-In-Reply-To: <b9d86f18-3e7b-4a51-a7c3-d9044dc567ba@opensynergy.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+In-Reply-To: <49ede4ec-5882-4e16-a790-c30cc0974280@linux.alibaba.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: PbOyh5xOcudMjUbqNzgfz_GvEGMYO-QD
-X-Proofpoint-GUID: PbOyh5xOcudMjUbqNzgfz_GvEGMYO-QD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-06_04,2023-12-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 clxscore=1015 bulkscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
- mlxlogscore=999 mlxscore=0 priorityscore=1501 adultscore=0 spamscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311290000 definitions=main-2312060048
-Subject: [virtio-comment] Re: [virtio-dev][PATCH V8 2/2] virtio-spi: add the device
- specification
+Subject: Re: [virtio-comment] Re: [PATCH v4 1/2] virtio-net: update
+ description for VIRTIO_NET_F_GUEST_CSUM.
 
-Hello Harald,
+On Wed, Dec 06, 2023 at 12:51:32PM +0800, Heng Qi wrote:
+> 
+> 
+> 在 2023/12/6 下午12:36, Jason Wang 写道:
+> > On Wed, Dec 6, 2023 at 10:21 AM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> > > 
+> > > 
+> > > 在 2023/12/5 下午10:45, Michael S. Tsirkin 写道:
+> > > > On Tue, Dec 05, 2023 at 10:18:32PM +0800, Heng Qi wrote:
+> > > > > 在 2023/12/5 上午11:52, Jason Wang 写道:
+> > > > > > On Mon, Dec 4, 2023 at 5:34 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> > > > > > > 在 2023/12/4 下午5:05, Michael S. Tsirkin 写道:
+> > > > > > > > On Mon, Dec 04, 2023 at 04:59:49PM +0800, Jason Wang wrote:
+> > > > > > > > > On Mon, Dec 4, 2023 at 4:53 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > > > > > > > > On Mon, Dec 04, 2023 at 04:49:46PM +0800, Jason Wang wrote:
+> > > > > > > > > > > On Mon, Dec 4, 2023 at 3:37 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> > > > > > > > > > > > 在 2023/12/4 下午3:18, Jason Wang 写道:
+> > > > > > > > > > > > > On Fri, Dec 1, 2023 at 3:16 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> > > > > > > > > > > > > > 在 2023/12/1 下午3:05, Jason Wang 写道:
+> > > > > > > > > > > > > > > On Fri, Dec 1, 2023 at 2:30 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> > > > > > > > > > > > > > > > 在 2023/12/1 下午2:24, Heng Qi 写道:
+> > > > > > > > > > > > > > > > > 在 2023/12/1 下午1:18, Jason Wang 写道:
+> > > > > > > > > > > > > > > > > > On Wed, Nov 29, 2023 at 4:23 PM Heng Qi <hengqi@linux.alibaba.com>
+> > > > > > > > > > > > > > > > > > wrote:
+> > > > > > > > > > > > > > > > > > > 在 2023/11/29 下午4:00, Jason Wang 写道:
+> > > > > > > > > > > > > > > > > > > > On Tue, Nov 28, 2023 at 4:08 PM Heng Qi <hengqi@linux.alibaba.com>
+> > > > > > > > > > > > > > > > > > > > wrote:
+> > > > > > > > > > > > > > > > > > > > > To prevent readers from misunderstanding that the driver can
+> > > > > > > > > > > > > > > > > > > > > only handles packets with partial checksum when
+> > > > > > > > > > > > > > > > > > > > > VIRTIO_NET_F_GUEST_CSUM is negotiated, we update the description.
+> > > > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > > > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> > > > > > > > > > > > > > > > > > > > > ---
+> > > > > > > > > > > > > > > > > > > > >          device-types/net/description.tex | 2 +-
+> > > > > > > > > > > > > > > > > > > > >          1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > > > diff --git a/device-types/net/description.tex
+> > > > > > > > > > > > > > > > > > > > > b/device-types/net/description.tex
+> > > > > > > > > > > > > > > > > > > > > index aff5e08..529f470 100644
+> > > > > > > > > > > > > > > > > > > > > --- a/device-types/net/description.tex
+> > > > > > > > > > > > > > > > > > > > > +++ b/device-types/net/description.tex
+> > > > > > > > > > > > > > > > > > > > > @@ -38,7 +38,7 @@ \subsection{Feature bits}\label{sec:Device Types
+> > > > > > > > > > > > > > > > > > > > > / Network Device / Feature bits
+> > > > > > > > > > > > > > > > > > > > >          \begin{description}
+> > > > > > > > > > > > > > > > > > > > >          \item[VIRTIO_NET_F_CSUM (0)] Device handles packets with
+> > > > > > > > > > > > > > > > > > > > > partial checksum offload.
+> > > > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > > > -\item[VIRTIO_NET_F_GUEST_CSUM (1)] Driver handles packets with
+> > > > > > > > > > > > > > > > > > > > > partial checksum.
+> > > > > > > > > > > > > > > > > > > > > +\item[VIRTIO_NET_F_GUEST_CSUM (1)] Driver handles packets with
+> > > > > > > > > > > > > > > > > > > > > partial checksum or full checksum.
+> > > > > > > > > > > > > > > > > > > > So patch 2 said
+> > > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > > "
+> > > > > > > > > > > > > > > > > > > > +\item[VIRTIO_NET_F_GUEST_FULL_CSUM (64)] Driver handles packets with
+> > > > > > > > > > > > > > > > > > > > full checksum.
+> > > > > > > > > > > > > > > > > > > >          \end{description}
+> > > > > > > > > > > > > > > > > > > > "
+> > > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > > Is there any difference between the two "full checksum" here?
+> > > > > > > > > > > > > > > > > > > There's no difference.
+> > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > The core is that VIRTIO_NET_F_GUEST_FULL_CSUM means that the driver
+> > > > > > > > > > > > > > > > > > > "can
+> > > > > > > > > > > > > > > > > > > only" handle packets with full checksum.
+> > > > > > > > > > > > > > > > > > This seems to be odd.
+> > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > Driver can always handle packet with full checksum, no?
+> > > > > > > > > > > > > > > > > Yes.
+> > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > I meant it
+> > > > > > > > > > > > > > > > > > will be then to be functional equivalent to !
+> > > > > > > > > > > > > > > > > > VIRTIO_NET_F_GUEST_FULL_CSUM?
+> > > > > > > > > > > > > > > > > Are you referring to
+> > > > > > > > > > > > > > > > > "functional equivalent to !VIRTIO_NET_F_GUEST_CSUM" ?
+> > > > > > > > > > > > > > > > Sorry, this is a typo. I meant
+> > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > Are you referring to
+> > > > > > > > > > > > > > > > "functional equivalent to !VIRTIO_NET_F_GUEST_FULL_CSUM" ?
+> > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > If so, I think it's no.
+> > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > Maybe a description similar to the following would be more clearer:
+> > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > +\item[VIRTIO_NET_F_GUEST_FULL_CSUM (64)] Driver does not handle
+> > > > > > > > > > > > > > > > > packets with partial checksum.
+> > > > > > > > > > > > > > > I may miss something here, but what's the difference between
+> > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > VIRTIO_NET_F_GUEST_FULL_CSUM
+> > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > and
+> > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > !VIRTIO_NET_F_GUEST_CSUM?
+> > > > > > > > > > > > > >       From the device perspective:
+> > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > If !VIRTIO_NET_F_GUEST_CSUM, the device delivers packets with full
+> > > > > > > > > > > > > > checksum to the driver,
+> > > > > > > > > > > > > > but the device can not validate the checksum for these packets. That is,
+> > > > > > > > > > > > > > the flags in virtio-net-hdr
+> > > > > > > > > > > > > > will not contain _DATA_VALID, and the driver or stack needs to validate
+> > > > > > > > > > > > > > these packets.
+> > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > If VIRTIO_NET_F_GUEST_FULL_CSUM, the device delivers packets with full
+> > > > > > > > > > > > > > checksum to the driver,
+> > > > > > > > > > > > > > and the device can validate the checksum for these packets. That is, the
+> > > > > > > > > > > > > > flags in virtio-net-hdr
+> > > > > > > > > > > > > > will contain _DATA_VALID,
+> > > > > > > > > > > > > I think DATA_VALID is optional here as device can't recognize all type
+> > > > > > > > > > > > > of protocols.
+> > > > > > > > > > > > Yes, you are right, so I used "device *can*" here. Which packet types
+> > > > > > > > > > > > the device recognizes or validates
+> > > > > > > > > > > > depends on the device's implementation. This is also the current
+> > > > > > > > > > > > practice of GUEST_CSUM.
+> > > > > > > > > > > > 
+> > > > > > > > > > > > > > and the driver or stack does not need to
+> > > > > > > > > > > > > > validate these packets.
+> > > > > > > > > > > > > Ok, so I think there're something that is subtle here,
+> > > > > > > > > > > > Ok, I see.
+> > > > > > > > > > > > 
+> > > > > > > > > > > > > and that's why
+> > > > > > > > > > > > > I'm asking here:
+> > > > > > > > > > > > > 
+> > > > > > > > > > > > > 1) "Driver does not handle packets with partial checksum" is not
+> > > > > > > > > > > > > accurate, !GUEST_CUSM also fit for this definition.
+> > > > > > > > > > > > > 2) "Driver handles packets with full checksum" is kind of ambiguous as
+> > > > > > > > > > > > > it doesn't say whether or not the packet has been validated or not.
+> > > > > > > > > > > > Maybe the description below would be less subtle?
+> > > > > > > > > > > > +\item[VIRTIO_NET_F_GUEST_CSUM (1)] Driver handles packets with partial
+> > > > > > > > > > > > checksum or full checksum.
+> > > > > > > > > > > I'd suggest to leave it as is. As I didn't find any issue since even
+> > > > > > > > > > > with DATA_VALID. Did you?
+> > > > > > > > > > > 
+> > > > > > > > > > > > +\item[VIRTIO_NET_F_GUEST_FULL_CSUM (64)] The driver handles packets
+> > > > > > > > > > > > with full checksum,
+> > > > > > > > > > > > and the device optionally validates the packet's checksum.
+> > > > > > > > > > > Or maybe something like (not a native speaker)
+> > > > > > > > > > > 
+> > > > > > > > > > > The driver handles packets with full checksum which the device has
+> > > > > > > > > > > already validated.
+> > > > > > > > > > > 
+> > > > > > > > > > > Thanks
+> > > > > > > > > > I feel we just need a proper definition of what does "full checksum"
+> > > > > > > > > > mean in this context. It is used but not defined.
+> > > > > > > > > > Assume this feature was negotiated.
+> > > > > > > > > > My understanding is that this is just like VIRTIO_NET_F_GUEST_CSUM
+> > > > > > > > > > but certain values in the header are then disallowed? Which?
+> > > > > > > > > > This should be in the spec.
+> > > > > > > > > Yes, I think it is probably the headers that DATA_VALID can work. We
+> > > > > > > > > never define it in the past.
+> > > > > > > > > 
+> > > > > > > > > E.g in the Linux we map DATA_VALID to CHECKSUM_UNNECESSARY, but it can
+> > > > > > > > > only work for some specific protocols:
+> > > > > > > > > 
+> > > > > > > > > """
+> > > > > > > > >      *   %CHECKSUM_UNNECESSARY is applicable to following protocols:
+> > > > > > > > >      *
+> > > > > > > > >      *     - TCP: IPv6 and IPv4.
+> > > > > > > > >      *     - UDP: IPv4 and IPv6. A device may apply CHECKSUM_UNNECESSARY to a
+> > > > > > > > >      *       zero UDP checksum for either IPv4 or IPv6, the networking stack
+> > > > > > > > >      *       may perform further validation in this case.
+> > > > > > > > >      *     - GRE: only if the checksum is present in the header.
+> > > > > > > > >      *     - SCTP: indicates the CRC in SCTP header has been validated.
+> > > > > > > > >      *     - FCOE: indicates the CRC in FC frame has been validated.
+> > > > > > > > > """
+> > > > > > > > > 
+> > > > > > > > > I'm not sure whether it's just fine to duplicate the definition or
+> > > > > > > > > it's too late to define any now.
+> > > > > > > > I think it's mostly harmless for other protocols.
+> > > > > > > I'm not sure if this should be defined by a new FULL_CSUM feature.
+> > > > > > > This seems to be an issue with GUEST_CSUM.
+> > > > > > > 
+> > > > > > > I think we should supplement these with a new patch for GUEST_CSUM?
+> > > > > > Probably. My understanding is:
+> > > > > > 
+> > > > > > You want to reuse DATA_VALID here, so we need to stick to a consistent
+> > > > > > semantic for GUEST_CUSM and FULL_CSUM. So we need a definition of
+> > > > > > "full csum" or what kind of packet could DATA_VALID work here.
+> > > > > I agree, we can be clear about what types of packets DATA_VALID might
+> > > > > cover, e.g. TCP/UDP/GRE/SCTP/FoCE.
+> > > > > 
+> > > > > But I think we also need something like \field{supported_validate_types} to
+> > > > > indicate which packet types the device supports validating and setting
+> > > > > DATA_VALID,
+> > > > > otherwise the device driver that negotiates this feature may fail to live
+> > > > > migration.
+> > > > > Am I right?
+> > > > > 
+> > > > > I'm not sure how GUEST_CSUM works now as it should also suffer from the
+> > > > > above
+> > > > > mentioned issues with live migration, but no devices are reporting this
+> > > > > right now.
+> > > > > 
+> > > > > Maybe, each device only supports checksum verification for TCP/UDP by
+> > > > > default? I don't know.
+> > > > > But I hope we can focus on this and get consensus, because our hw release
+> > > > > date is coming soon.
+> > > > > 
+> > > > > Thanks a lot!
+> > > > First, DATA_VALID is not a thing that hardware should ever use.
+> > > > It's a hack when packets are passed within host.
+> > > Get here. Thanks!
+> > So if I understand correctly, we need a new flag here and define the
+> > supported protocols.
+> 
+> Seems not, I understand what Michael means is that we don't need
+> supported_validate_types.
+> Because DATA_VALID is set per packet, similar to streaming. From the
+> perspective of the driver
+> and the device, there is no need to know which packet types the device
+> supports setting DATA_VALID for.
+> We just need to know what packet types DATA_VALID might cover. Is this
+> aligning, Michael?
 
-On 12/6/2023 12:18 AM, Harald Mommer wrote:
-> Hello,
-> 
-> updating my device and driver to V8 and having some comments now.
-> 
-> On 05.12.23 09:24, Haixu Cui wrote:
->> The Virtio SPI (Serial Peripheral Interface) device is a virtual
->> SPI controller that allows the driver to operate and use the SPI
->> controller under the control of the host.
->>
->> This patch adds the specification for virtio-spi.
->>
->> Signed-off-by: Haixu Cui <quic_haixcui@quicinc.com>
->> ---
->>   device-types/spi/description.tex        | 280 ++++++++++++++++++++++++
->>   device-types/spi/device-conformance.tex |   7 +
->>   device-types/spi/driver-conformance.tex |   7 +
->>   3 files changed, 294 insertions(+)
->>   create mode 100644 device-types/spi/description.tex
->>   create mode 100644 device-types/spi/device-conformance.tex
->>   create mode 100644 device-types/spi/driver-conformance.tex
->>
->> diff --git a/device-types/spi/description.tex 
->> b/device-types/spi/description.tex
->> new file mode 100644
->> index 0000000..ef686bd
->> --- /dev/null
->> +++ b/device-types/spi/description.tex
->> @@ -0,0 +1,280 @@
->> +\section{SPI Controller Device}\label{sec:Device Types / SPI 
->> Controller Device}
->> +
->> +The Virtio SPI (Serial Peripheral Interface) device is a virtual SPI 
->> controller that
->> +allows the driver to operate and use the SPI controller under the 
->> control of the host,
->> +either a physical SPI controller, or an emulated one.
->> +
->> +The Virtio SPI device has a single virtqueue. SPI transfer requests 
->> are placed into
->> +the virtqueue by the driver, and are serviced by the device.
->> +
->> +In a typical host and guest architecture with the Virtio SPI device, 
->> the Virtio SPI driver
->> +is the front-end running in the guest, and the Virtio SPI device is 
->> the back-end
->> +in the host.
->> +
->> +\subsection{Device ID}\label{sec:Device Types / SPI Controller Device 
->> / Device ID}
->> +45
->> +
->> +\subsection{Virtqueues}\label{sec:Device Types / SPI Controller 
->> Device / Virtqueues}
->> +
->> +\begin{description}
->> +\item[0] requestq
->> +\end{description}
->> +
->> +\subsection{Feature bits}\label{sec:Device Types / SPI Controller 
->> Device / Feature bits}
->> +
->> +None
->> +
->> +\subsection{Device configuration layout}\label{sec:Device Types / SPI 
->> Controller Device / Device configuration layout}
->> +
->> +All fields of this configuration are mandatory and read-only for the 
->> driver.
->> +The config space shows the features and settings supported by the 
->> device.
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_config {
->> +    u8 cs_max_number;
->> +    u8 cs_change_supported;
->> +    u8 tx_nbits_supported;
->> +    u8 rx_nbits_supported;
->> +    le32 bits_per_word_mask;
->> +    le32 mode_func_supported;
->> +    le32 max_freq_hz;
->> +    le32 max_word_delay_ns;
->> +    le32 max_cs_setup_ns;
->> +    le32 max_cs_hold_ns;
->> +    le32 max_cs_inactive_ns;
->> +};
->> +\end{lstlisting}
->> +
->> +\field{cs_max_number} is the maximum number of chipselect the device 
->> supports.
->> +
->> +Note: chipselect is an electrical signal, which is used to select the 
->> SPI slaves connected
->> +to the controller.
->> +
->> +\field{cs_change_supported} indicates if the device supports to 
->> toggle chipselect
->> +after each transfer in one message:
->> +        0: unsupported, chipselect will be kept in active state 
->> throughout the message transaction;
->> +        1: supported.
->> +
->> +Note: Message here contains a sequence of SPI transfers.
->> +
->> +\field{tx_nbits_supported} and \field{rx_nbits_supported} indicate 
->> the different n-bit transfer
->> +modes supported by the device, for writing and reading respectively. 
->> SINGLE is always supported.
->> +A set bit here indicates that the corresponding n-bit transfer is 
->> supported, otherwise not:
->> +        bit 0: DUAL;
->> +        bit 1: QUAD;
->> +        bit 2: OCTAL;
->> +        other bits are reserved and must be set as 0 by the device.
->> +
->> +Note: The commonly used SPI n-bit transfer options are:
->> +\begin{itemize}
->> +\item SINGLE: 1-bit transfer
->> +\item DUAL: 2-bit transfer
->> +\item QUAD: 4-bit transfer
->> +\item OCTAL: 8-bit transfer
->> +\end{itemize}
->> +
->> +\field{bits_per_word_mask} is a mask indicating which values of 
->> bits_per_word are supported.
->> +If not set, there is no limitation for bits_per_word.
-> 
-> You have not given an exact coding here. Without this it's hard to 
-> understand what is really specified and guesswork is needed.
-> 
-> 1.) In Linux in spi.h there is a definition
-> 
->      /* Bitmask of supported bits_per_word for transfers */
->      u32            bits_per_word_mask;
-> #define SPI_BPW_MASK(bits) BIT((bits) - 1)
-> 
-> which brings us probably on the wrong path. Not sure any more. With this 
-> coding you can have 1..32 as bits per word. 0 is not allowed for 
-> bits_per_word_mask, at least it seems not to be used.
-> 
-> What you probably (guessing around) wanted to have is
-> 
-> #define VIRTIO_SPI_BPW_MASK(bits) ((u32)(1UL << (bits)))
-> 
-> without the - 1 as you specified 0 as "unlimited". In this case you can 
-> define every value from 1 to 31. 32 and above is "unlimited" as for 32 
-> and above (u32)(1UL << (bits)) == 0u.
-> 
-> I'm lost.
-> 
-> 2.) "No limitation" is nonsense on a limited machine. Even the universe 
-> is limited (at least the observable one), for sure your RAM is. And also 
-> the definition in Linux is limited to 32.
-> 
-> ===
-> 
-> *** What Linux can do with it's coding is to define the mask in a way to 
-> indicate that 8, 16 and 32 bit transfers are supported. With the other 
-> coding without the - 1 this cannot be done! ***
-> 
-> => I STRONGLY recommend to use the coding as done by using 
-> SPI_BPW_MASK() in Linux and to specify this clearly!
-> 
-
-Yes, here I want to use the SPI_BPW_MASK method directly but so sorry to 
-make it unclear.
-
-I will update the statement as follows:
-
-"\field{bits_per_word_mask} is a mask indicating which values of 
-bits_per_word are supported.
-If bit n of \field{bits_per_word_mask} is set, the bits_per_word with 
-value (n+1) is supported.
-If all bits are not set, bits_per_word can be any value from 1 to 32."
-
-Do you think that's ok? Looking forward to your comments.
-
->> +
->> +Note: bits_per_word corresponds to \field{bits_per_word} in 
->> \field{struct virtio_spi_transfer_head}.
->> +
->> +\field{mode_func_supported} indicates whether the following features 
->> are supported or not:
->> +        bit 0-1: CPHA feature,
->> +            0b00: supports CPHA=0 and CPHA=1;
->> +            0b01: supports CPHA=0 only;
->> +            0b10: supports CPHA=1 only;
->> +            0b11: invalid, must support as least one CPHA setting.
->> +
->> +        bit 2-3: CPOL feature,
->> +            0b00: supports CPOL=0 and CPOL=1;
->> +            0b01: supports CPOL=0 only;
->> +            0b10: supports CPOL=1 only;
->> +            0b11: invalid, must support as least one CPOL setting.
-> 
-> This definition 0b00 = Support all instead of 0b11 = Support all makes 
-> my code more complicated.
-> 
-> - On the device side as I now query both bits having in the end 0x3 or 
-> 0xC and if both bits are set after querying I've to clear them 
-> afterwards to get the desired coding
-> 
-> - I can also not check by querying a single bit whether for example 
-> CPHA=0 is supported. No, I have to check for both bits being 0 or for 
-> bit 0 set.
-> 
-> => Getting additional and more complicated code by some unlucky coding 
-> choice in the specification.
-> 
-> Proposal: Make 0b00 invalid, allow 0b11 for "everything supported" for 
-> CPHA AND CPOL.
-> 
-
-Fine with me. I will update CPHA and CPOL as follows:
-
-         bit 0-1: CPHA feature,
-             0b00: invalid, must support as least one CPHA setting.
-             0b01: supports CPHA=0 only;
-             0b10: supports CPHA=1 only;
-             0b11: supports CPHA=0 and CPHA=1;
-
-         bit 2-3: CPOL feature,
-             0b00: invalid, must support as least one CPOL setting.
-             0b01: supports CPOL=0 only;
-             0b10: supports CPOL=1 only;
-             0b11: supports CPOL=0 and CPOL=1;
+I don't know if it's even that. IIRC DATA_VALID mostly just means "this
+packet is local, don't worry about checksums".
+That being said I don't see how improving the description here
+is related to the discussion around XDP.
 
 
-Thank you for your comments. Much appreciated.
-
-
-Best Regards
-Haixu Cui
->> +
->> +        bit 4: chipselect active high feature, 0 for unsupported and 
->> 1 for supported,
->> +            chipselect active low must always be supported.
->> +
->> +        bit 5: LSB first feature, 0 for unsupported and 1 for 
->> supported, MSB first must always be
->> +            supported.
->> +
->> +        bit 6: loopback mode feature, 0 for unsupported and 1 for 
->> supported, normal mode
->> +            must always be supported.
->> +
->> +Note: CPOL is clock polarity and CPHA is clock phase. If CPOL is 0, 
->> the clock idles at the logical
->> +low voltage, otherwise it idles at the logical high voltage. CPHA 
->> determines how data is outputted
->> +and sampled.
->> +
->> +Note: LSB first indicates that data is transferred least significant 
->> bit first, and MSB first
->> +indicates that data is transferred most significant bit first.
->> +
->> +\field{max_freq_hz} is the maximum clock rate supported in Hz unit, 0 
->> means no limitation
->> +for transfer speed.
->> +
->> +\field{max_word_delay_ns} is the maximum word delay supported in ns 
->> unit, 0 means word delay
->> +feature is unsupported.
->> +
->> +Note: Just as one message contains a sequence of transfers, one 
->> transfer may contain
->> +a sequence of words.
->> +
->> +\field{max_cs_setup_ns} is the maximum delay supported after 
->> chipselect is asserted, in ns unit,
->> +0 means delay is not supported to introduce after chipselect is 
->> asserted.
->> +
->> +\field{max_cs_hold_ns} is the maximum delay supported before 
->> chipselect is deasserted, in ns unit,
->> +0 means delay is not supported to introduce before chipselect is 
->> deasserted.
->> +
->> +\field{max_cs_incative_ns} is the maximum delay supported after 
->> chipselect is deasserted, in ns unit,
->> +0 means delay is not supported to introduce after chipselect is 
->> deasserted.
->> +
->> +\subsection{Device Initialization}\label{sec:Device Types / SPI 
->> Controller Device / Device Initialization}
->> +
->> +\begin{enumerate}
->> +\item The Virtio SPI driver configures and initializes the virtqueue.
->> +\end{enumerate}
->> +
->> +\subsection{Device Operation}\label{sec:Device Types / SPI Controller 
->> Device / Device Operation}
->> +
->> +\subsubsection{Device Operation: Request Queue}\label{sec:Device 
->> Types / SPI Controller Device / Device Operation: Request Queue}
->> +
->> +The Virtio SPI driver enqueues requests to the virtqueue, and they 
->> are used by the Virtio SPI device.
->> +Each request represents one SPI transfer and is of the form:
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_transfer_head {
->> +        u8 chip_select_id;
->> +        u8 bits_per_word;
->> +        u8 cs_change;
->> +        u8 tx_nbits;
->> +        u8 rx_nbits;
->> +        u8 reserved[3];
->> +        le32 mode;
->> +        le32 freq;
->> +        le32 word_delay_ns;
->> +        le32 cs_setup_ns;
->> +        le32 cs_delay_hold_ns;
->> +        le32 cs_change_delay_inactive_ns;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_transfer_result {
->> +        u8 result;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{lstlisting}
->> +struct virtio_spi_transfer_req {
->> +        struct virtio_spi_transfer_head head;
->> +        u8 tx_buf[];
->> +        u8 rx_buf[];
->> +        struct virtio_spi_transfer_result result;
->> +};
->> +\end{lstlisting}
->> +
->> +\field{chip_select_id} indicates the chipselect index to use for the 
->> SPI transfer.
->> +
->> +\field{bits_per_word} indicates the number of bits in each SPI 
->> transfer word.
->> +
->> +\field{cs_change} indicates whether to deselect device before 
->> starting the next SPI transfer,
->> +0 means chipselect keep asserted and 1 means chipselect deasserted 
->> then asserted again.
->> +
->> +\field{tx_nbits} and \field{rx_nbits} indicate n-bit transfer mode 
->> for writing and reading:
->> +        0,1: SINGLE;
->> +        2  : DUAL;
->> +        4  : QUAD;
->> +        8  : OCTAL;
->> +        other values are invalid.
->> +
->> +\field{reserved} is currently unused and might be used for further 
->> extensions in the future.
->> +
->> +\field{mode} indicates some transfer settings. Bit definitions as 
->> follows:
->> +        bit 0: CPHA, determines the timing (i.e. phase) of the data 
->> bits relative to the
->> +           clock pulses.
->> +        bit 1: CPOL, determines the polarity of the clock.
->> +        bit 2: CS_HIGH, if 1, chipselect active high, else active low.
->> +        bit 3: LSB_FIRST, determines per-word bits-on-wire, if 0, MSB 
->> first, else LSB first.
->> +        bit 4: LOOP, if 1, device is in loopback mode, else normal mode.
->> +
->> +\field{freq} indicates the SPI transfer speed in Hz.
->> +
->> +\field{word_delay_ns} indicates delay to be inserted between 
->> consecutive words of a transfer,
->> +in ns unit.
->> +
->> +\field{cs_setup_ns} indicates delay to be introduced after chipselect 
->> is asserted, in ns unit.
->> +
->> +\field{cs_delay_hold_ns} indicates delay to be introduced before 
->> chipselect is deasserted,
->> +in ns unit.
->> +
->> +\field{cs_change_delay_inactive_ns} indicates delay to be introduced 
->> after chipselect is
->> +deasserted and before next asserted, in ns unit.
->> +
->> +\field{tx_buf} is the buffer for data sent to the device.
->> +
->> +\field{rx_buf} is the buffer for data received from the device.
->> +
->> +\field{result} is the transfer result, it may be one of the following 
->> values:
->> +
->> +\begin{lstlisting}
->> +#define VIRTIO_SPI_TRANS_OK     0
->> +#define VIRTIO_SPI_PARAM_ERR    1
->> +#define VIRTIO_SPI_TRANS_ERR    2
->> +\end{lstlisting}
->> +
->> +VIRTIO_SPI_TRANS_OK indicates successful completion of the transfer.
->> +
->> +VIRTIO_SPI_PARAM_ERR indicates a parameter error, which means the 
->> parameters in
->> +\field{struct virtio_spi_transfer_head} are not all valid, or some 
->> fields are set as
->> +non-zero values but the corresponding features are not supported by 
->> device.
->> +In particular, for full-duplex transfer, VIRTIO_SPI_PARAM_ERR can 
->> also indicate that
->> +\field{tx_buf} and \field{rx_buf} are not of the same length.
->> +
->> +VIRTIO_SPI_TRANS_ERR indicates a transfer error, which means that the 
->> parameters are all
->> +valid but the trasnfer process failed.
->> +
->> +\subsubsection{Device Operation: Operation Status}\label{sec:Device 
->> Types / SPI Controller Device / Device Operation: Operation Status}
->> +
->> +Fields in \field{struct virtio_spi_transfer_head} are written by the 
->> Virtio SPI driver, while
->> +\field{result} in \field{struct virtio_spi_transfer_result} is 
->> written by the Virtio SPI device.
->> +
->> +virtio-spi supports three transfer types:
->> +\begin{itemize}
->> +\item half-duplex read;
->> +\item half-duplex write;
->> +\item full-duplex transfer.
->> +\end{itemize}
->> +
->> +For half-duplex read and full-duplex transfer, \field{rx_buf} is 
->> filled by the Virtio SPI device
->> +and consumed by the Virtio SPI driver. For half-duplex write and 
->> full-duplex transfer, \field{tx_buf}
->> +is filled by the Virtio SPI driver and consumed by the Virtio SPI 
->> device.
->> +
->> +\drivernormative{\subsubsection}{Device Operation}{Device Types / SPI 
->> Controller Device / Device Operation}
->> +
->> +For half-duplex read, the Virtio SPI driver MUST send \field{struct 
->> virtio_spi_transfer_head},
->> +\field{rx_buf} and \field{struct virtio_spi_transfer_result} to the 
->> SPI Virtio Device in that order.
->> +
->> +For half-duplex write, the Virtio SPI driver MUST send \field{struct 
->> virtio_spi_transfer_head},
->> +\field{tx_buf} and \field{struct virtio_spi_transfer_result} to the 
->> SPI Virtio Device in that order.
->> +
->> +For full-duplex transfer, the Virtio SPI driver MUST send 
->> \field{struct virtio_spi_transfer_head},
->> +\field{tx_buf}, \field{rx_buf} and \field{struct 
->> virtio_spi_transfer_result} to the SPI Virtio Device
->> +in that order.
->> +
->> +For full-duplex transfer, the Virtio SPI driver MUST guarantee that 
->> the buffer size of \field{tx_buf}
->> +and \field{rx_buf} is the same.
->> +
->> +The Virtio SPI driver MUST not use \field{rx_buf} if the 
->> \field{result} returned from the Virtio SPI device is
->> +not VIRTIO_SPI_TRANS_OK.
->> +
->> +\devicenormative{\subsubsection}{Device Operation}{Device Types / SPI 
->> Controller Device / Device Operation}
->> +
->> +The Virtio SPI device MUST set all the fields of \field{struct 
->> virtio_spi_config} before they are
->> +read by the Virtio SPI driver.
->> +
->> +The Virtio SPI device MUST NOT change the data in \field{tx_buf}.
->> +
->> +The Virtio SPI device MUST verify the parameters in \field{struct 
->> virtio_spi_transfer_head} after receiving
->> +the request, and MUST set \field{struct virtio_spi_transfer_result} 
->> as VIRTIO_SPI_PARAM_ERR if not all
->> +parameters are valid or some device unsupported features are set.
->> +
->> +For full-duplex transfer, the Virtio SPI device MUST verify that the 
->> buffer size of \field{tx_buf} is equal to
->> +that of \field{rx_buf}. If not, the Virtio SPI device MUST set 
->> \field{struct virtio_spi_transfer_result}
->> +as VIRTIO_SPI_PARAM_ERR.
->> diff --git a/device-types/spi/device-conformance.tex 
->> b/device-types/spi/device-conformance.tex
->> new file mode 100644
->> index 0000000..4509156
->> --- /dev/null
->> +++ b/device-types/spi/device-conformance.tex
->> @@ -0,0 +1,7 @@
->> +\conformance{\subsection}{SPI Controller Device 
->> Conformance}\label{sec:Conformance / Device Conformance / SPI 
->> Controller Device Conformance}
->> +
->> +An SPI Controller device MUST conform to the following normative 
->> statements:
->> +
->> +\begin{itemize}
->> +\item \ref{devicenormative:Device Types / SPI Controller Device / 
->> Device Operation}
->> +\end{itemize}
->> diff --git a/device-types/spi/driver-conformance.tex 
->> b/device-types/spi/driver-conformance.tex
->> new file mode 100644
->> index 0000000..bbd1967
->> --- /dev/null
->> +++ b/device-types/spi/driver-conformance.tex
->> @@ -0,0 +1,7 @@
->> +\conformance{\subsection}{SPI Controller Driver 
->> Conformance}\label{sec:Conformance / Driver Conformance / SPI 
->> Controller Driver Conformance}
->> +
->> +An SPI Controller driver MUST conform to the following normative 
->> statements:
->> +
->> +\begin{itemize}
->> +\item \ref{drivernormative:Device Types / SPI Controller Device / 
->> Device Operation}
->> +\end{itemize}
+> Hi Xuan! WDYT?
 > 
+> Thanks!
+> 
+> > 
+> > Thanks
+> > 
+> > > > Second I don't understand what it has to do with this
+> > > > discussion.
+> > > > Your patch should be more specific and define which
+> > > > header fields are compatible with the new offload option.
+> > > > 
+> > > > 
+> > > > 
+> > > > > > Thanks
+> > > > > > 
+> > > > > > > Thanks!
+> > > > > > > 
+> > > > > > > > > > After this is written up we will come up with a good short
+> > > > > > > > > > description for the feature bit.
+> > > > > > > > > > 
+> > > > > > > > > Thanks
+> > > > > > > > > 
+> > > > > > > > > > > > Thanks!
+> > > > > > > > > > > > 
+> > > > > > > > > > > > > Thanks
+> > > > > > > > > > > > > 
+> > > > > > > > > > > > > > Thanks!
+> > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > Thanks
+> > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > Thanks!
+> > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > Thanks
+> > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > Thanks!
+> > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > > Thanks
+> > > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > > > > > \item[VIRTIO_NET_F_CTRL_GUEST_OFFLOADS (2)] Control channel offloads
+> > > > > > > > > > > > > > > > > > > > >                  reconfiguration support.
+> > > > > > > > > > > > > > > > > > > > > --
+> > > > > > > > > > > > > > > > > > > > > 2.19.1.6.gb485710b
+> > > > > > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > This publicly archived list offers a means to provide input to the
+> > > > > > > > > > > > > > > > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > In order to verify user consent to the Feedback License terms and
+> > > > > > > > > > > > > > > > > to minimize spam in the list archive, subscription is required
+> > > > > > > > > > > > > > > > > before posting.
+> > > > > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > > > > > > > > > > > > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > > > > > > > > > > > > > > > List help: virtio-comment-help@lists.oasis-open.org
+> > > > > > > > > > > > > > > > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > > > > > > > > > > > > > > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > > > > > > > > > > > > > > > > List Guidelines:
+> > > > > > > > > > > > > > > > > https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > > > > > > > > > > > > > > > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > > > > > > > > > > > > > > > Join OASIS: https://www.oasis-open.org/join/
+> > > > > > > > > > > > > > This publicly archived list offers a means to provide input to the
+> > > > > > > > > > > > > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > In order to verify user consent to the Feedback License terms and
+> > > > > > > > > > > > > > to minimize spam in the list archive, subscription is required
+> > > > > > > > > > > > > > before posting.
+> > > > > > > > > > > > > > 
+> > > > > > > > > > > > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > > > > > > > > > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > > > > > > > > > > > > List help: virtio-comment-help@lists.oasis-open.org
+> > > > > > > > > > > > > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > > > > > > > > > > > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > > > > > > > > > > > > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > > > > > > > > > > > > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > > > > > > > > > > > > Join OASIS: https://www.oasis-open.org/join/
+> > > > > > > > > > > > > > 
+> > > > > > > > > > > > This publicly archived list offers a means to provide input to the
+> > > > > > > > > > > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > > > > > > > > > > 
+> > > > > > > > > > > > In order to verify user consent to the Feedback License terms and
+> > > > > > > > > > > > to minimize spam in the list archive, subscription is required
+> > > > > > > > > > > > before posting.
+> > > > > > > > > > > > 
+> > > > > > > > > > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > > > > > > > > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > > > > > > > > > > List help: virtio-comment-help@lists.oasis-open.org
+> > > > > > > > > > > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > > > > > > > > > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > > > > > > > > > > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > > > > > > > > > > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > > > > > > > > > > Join OASIS: https://www.oasis-open.org/join/
+> > > > > > > > > > > > 
+> > > > This publicly archived list offers a means to provide input to the
+> > > > OASIS Virtual I/O Device (VIRTIO) TC.
+> > > > 
+> > > > In order to verify user consent to the Feedback License terms and
+> > > > to minimize spam in the list archive, subscription is required
+> > > > before posting.
+> > > > 
+> > > > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > > > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > > > List help: virtio-comment-help@lists.oasis-open.org
+> > > > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > > > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > > > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > > > Committee: https://www.oasis-open.org/committees/virtio/
+> > > > Join OASIS: https://www.oasis-open.org/join/
+> > 
+> > This publicly archived list offers a means to provide input to the
+> > OASIS Virtual I/O Device (VIRTIO) TC.
+> > 
+> > In order to verify user consent to the Feedback License terms and
+> > to minimize spam in the list archive, subscription is required
+> > before posting.
+> > 
+> > Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> > Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> > List help: virtio-comment-help@lists.oasis-open.org
+> > List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> > Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> > List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+> > Committee: https://www.oasis-open.org/committees/virtio/
+> > Join OASIS: https://www.oasis-open.org/join/
+
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
