@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8762-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8763-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96790C4167B
-	for <virtio-comment@archiver.kernel.org>; Thu,  7 Dec 2023 16:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FEEFC4167B
+	for <virtio-comment@archiver.kernel.org>; Fri,  8 Dec 2023 02:45:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 076B4330B1
-	for <virtio-comment@archiver.kernel.org>; Thu,  7 Dec 2023 16:37:49 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C08682AD6E
+	for <virtio-comment@archiver.kernel.org>; Fri,  8 Dec 2023 02:45:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DF5D098697F
-	for <virtio-comment@archiver.kernel.org>; Thu,  7 Dec 2023 16:37:48 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A5124986917
+	for <virtio-comment@archiver.kernel.org>; Fri,  8 Dec 2023 02:45:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id CFD1298690C; Thu,  7 Dec 2023 16:37:48 +0000 (UTC)
+	id 86FB798690B; Fri,  8 Dec 2023 02:45:30 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,385 +24,228 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3AC28986918
-	for <virtio-comment@lists.oasis-open.org>; Thu,  7 Dec 2023 16:37:45 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7552698690C
+	for <virtio-comment@lists.oasis-open.org>; Fri,  8 Dec 2023 02:45:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1701967054.840000
-X-TM-MAIL-UUID: b414e869-c604-4345-863e-37408b8adc6a
+X-TM-MAIL-RECEIVED-TIME: 1702003527.754000
+X-TM-MAIL-UUID: 61becd43-c7ef-491d-a7e3-b0294bef702f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MM5Kb1t+wAtmkegpdrSr5Ln0zDPMft48SU6L+4YOXF3dqpTydt1fvv24wIoxzamYIWXMEuLqQJfyUmykGBGgBEAcnEOvV+Z59in5GsYPfXdo8F0bY4LLXrL4OgRLYAdcjZcVo2jvSIv6seMlfvY9R35Mb0EDORyFjFwo9z3w9Ot4PhuaU/UT1jLvxNCmOasctUNaKtAKRKRDxEvggD4ZCytGqHe2loiHCzGvjK+u5WiIohfGJEdg6S0g+g+BZgYxdcEiEe/zodJ+nvy8zmN1hLeAcMF0/2Uc7S1OKuLIwCy3T07an0AcLcZd6PGsaD6Tw5YB7BsaeqMxXZjTboXKCw==
+ b=BjNTBRf5rqehmJl8XotmAhd3FcSgYentvDbDfn4HcREei39CbvLuC3F/xAbaf+EFylrBBNISGgcl96EdX2pvFEvd2NMIOX9e4DYuzwT4Zphb1vb2APC3o8fKkKm0Sa97J59rSxrbUeGwnj/CLBstSGwYnFtBMnocLxnmY0gxOmDA75am+S4RA6/JR7gnZWipWhpt/SvoYFtd3govFbK6CqhuJ9k5n16Z8uCjmolrJm1LxXKyYKMXXK6L/dsPg84qWiiFPpfeDmEBmiYwBeHdhEucPvzC9u2XA8MMWnYu8Kdihr4CJWqFXdVvcEThZloP9wwBi8GXED7IJXSoyh261w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f1ahOgTqMHP0J/Y3L09zPZaEvHUaMdWjDT7KXlf/274=;
- b=CceXsXIa2GTo/h2uT7t0piZuhDSuYMDK7NsmU1TnWLTXAJpxInzoZQZufbFHiARg6kbpj7N+Vl8zGK0Oo1X/XgbWRKPDZRMBhAe5UcasZ/C83VlVjO+zD7Lwtva6McLwRjTH6grRkaXimSKpHkZTAZIFVjz0PTwW2dTDEqtVxenCpdUMaKKUDxybQ3DZ+c6bvP7lKLxbhAdGuWyPdCGur6edkVktmHB4IGQ334ieGjD9rmic0D4fnMj/kKISjZVsxlgR/r5p+s5Z8AXaij90xCP/03QA1NHrWv2caZyzCnxHQUB+40hjQ/0ugUc8nWEVtd8igOgaB5W6iA7uxZbBMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 217.66.60.4) smtp.rcpttodomain=gmail.com smtp.mailfrom=opensynergy.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=opensynergy.com; dkim=none (message not signed); arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 217.66.60.4)
- smtp.mailfrom=opensynergy.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=opensynergy.com;
-Received-SPF: Pass (protection.outlook.com: domain of opensynergy.com
- designates 217.66.60.4 as permitted sender) receiver=protection.outlook.com;
- client-ip=217.66.60.4; helo=SR-MAIL-03.open-synergy.com; pr=C
-From: Igor Skalkin <Igor.Skalkin@opensynergy.com>
-To: virtio-dev@lists.oasis-open.org,
-	virtio-comment@lists.oasis-open.org,
-	luiz.dentz@gmail.com,
-	mst@redhat.com
-Cc: marcel@holtmann.org,
-	johan.hedberg@gmail.com,
-	jasowang@redhat.com,
-	boris.le.labousse@opensynergy.com,
-	Igor Skalkin <Igor.Skalkin@opensynergy.com>
-Date: Thu,  7 Dec 2023 17:37:21 +0100
-Message-Id: <20231207163721.26737-2-Igor.Skalkin@opensynergy.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231207163721.26737-1-Igor.Skalkin@opensynergy.com>
-References: <20231207163721.26737-1-Igor.Skalkin@opensynergy.com>
-MIME-Version: 1.0
+ bh=Gn0hHWQKadFzkRJAV9acfBTXzCoVkFH25KRmiVe4wf0=;
+ b=CcW/aPPJjLyGB6WrnZMFp1kCFF0in15/+BW1+Aid+RFSPtqqw6hU+zkFbo4ywgY5OOUtZP1BYWLSCRaMg1IHOdlaLPQpY+HH4sOe0SUaTkQC5mfJi5sL+9zgJao9TzYy7Caa79oUq2mUsYevXQ/zpfrcV1L/KUDCwEVA4dfh900fLGlbwmrmtEfa9K9tguEcSkXA3+/N/0SpXZD+HS47DUi5X8ci08qc2Cgf54B1SMqqYt4EVCSbjKufIC11PPdAkPx6moQFOMj3wWFiFGW1NzEEARhhhd56yzuJtp0I9JMwtRCLQEiWTZUEtvDN5CMG2CPHj7Vpd252rl6z5aHUmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=opensynergy.com; dmarc=pass action=none
+ header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opensynergy.com;
+Message-ID: <cc2648d8-503a-4a09-a9cd-0d7133cf39a3@opensynergy.com>
+Date: Fri, 8 Dec 2023 11:45:18 +0900
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org
+References: <ZR6EzpQb6J1TxbM8@fedora>
+ <CAHYGQ0yw+ejG9TY57gVZeG3ucDxofebW5FDwhwLDS1HM6VfzaQ@mail.gmail.com>
+ <ab659c42-3223-455d-8e22-fad373fa54e5@opensynergy.com>
+ <ZWhoD/1ARedxgQsT@fedora>
+Content-Language: en-US
+From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+In-Reply-To: <ZWhoD/1ARedxgQsT@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR4P281CA0106.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:bb::10) To BEZP281MB2374.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:5c::11)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB8EUR05FT055:EE_|BE1P281MB2289:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 81be74a7-bb46-4251-40fb-08dbf742cfaf
+X-MS-TrafficTypeDiagnostic: BEZP281MB2374:EE_|FR6P281MB3735:EE_
+X-MS-Office365-Filtering-Correlation-Id: dce15cc6-acd4-4e13-fbe2-08dbf797bb99
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	zyfI37pKxJgOL647ATwZNhDHq36N2NrmPHTTmeW9ajC2vko0HAu0W8byF6Ea1TSv/P0Zfm770cjgbA+1IMqp7oNWDMReB9Cbrpa67T/RpcoBBULfhlvb/Bbgqkka/x25Mf9ImUgEDtD5vlZlnx/5OJ2xDOH3MfdbwTNWSfFja1vtXK3kJJHOZLEqwOw2ZVXPh6VttLPGGiZfIYDsbt+8+TW5Q1n70PLePytBl4ND2dGCVOAUmLqWovWQDJX9Uxcqb/E/r/AFyl54kQQslIuEjPGOhoEht4DKZ3GqHLG/W9U5aA5qsVrdHil424C50OUEsu6zHFB/+P/v1FUrtv7zgHxWyadQysoOQo85T7GE5S0foPnbIkOjdIqbkCXjNCUy3i6iahv2VHbRzP02beb4FjJtCqopHxwwBe9cknK0HNLczHl94rvVlV/GgMUGSKmxDohDO0ODXpfwpTfGf8poZtYIC5BjrCltmiLyOplp5wTIRTmKmZBIVmaNvv6pFixyYeMWM/1kvWjxT6rBeN7l7xvpSiuxrTFTje4P/cgD5S4OoBDRpQ8xe6r0+jxKIpY18dwfogU4BADNKt3yrEZPSAmpj1Bmv8GvtRpAEeSU0KWLRX48C7q/4hjlVD0xmJvKicpqFFai7BBka5mCSNq1NtehCdvVLIvwfFP5bn+2bZX204DjkT7bXAE2BpCkoeuK2beHRgDGA11IYu/tWbYSzddRUPnNIK2yGzJXUgRMQ7jFCNbjMvdQlHzpiHBS4+w5GH9xNcqaKQT9H7SM8FI6TtwOHEZVgkCMP1W/QhrZrrQt9+AMq5TdjZUMbZWQZiQV
+	KKxs9H4iwk2mjV1i4kGX+6xGP+OcdVPxSeGETxor7VhUwC0voDx5bLGVi/KRftJRqoHbE+3ex/1wFG3v58y1N9FSctdbquE+dpnFrj3si3BzuJAW3VrkOADVdMr4mowssF+toVwMUn7VZ/0r7Qppz2KvLCa70I/rN6uY9H3sQWOvu2Wmnd+xcYFhVtNfEafhNo4KL1M+iYnLlaru9l+GKp5B2Q4CBAlgj6wHaxuVCe6sXFFaDIZHSF6Bgh6SWuutWV1LRdTAYhzaHZYR7d4glPWQI//pA/WYVIZoaOiYhYmAwTqYYxY+NYXmomLGiykLpR97WuuilZDvkdjIs23so3eWxHZZNEhXCU6d5wJGfyvhW55xTrDPpkieACaghVNxI4FT457lnjmoxQ6ESuUtG9DJ9Mdn70WFBMFPZROwno9OIHBMxwnHAXb8BXyQJDLSZlBNUPXCxOq23/uLQOMYrHUphORQjNacd/+DCoYELyLCqIA2J8CChGIObtx4vVWTba7Us5ICI8+38VOm6ZA36k75JOuFS2Keabw9Fy5ikpAoFfZtyJZtJTCMPpGfJx7vaVaN+A/kFKnWqE/kP7i12duxJN/JTSB6m+9H+ph1bOYLuD8v9I8IgR0cRfFh2J7tfhUkcrWO923LriylY1WaGg==
 X-Forefront-Antispam-Report:
-	CIP:217.66.60.4;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(346002)(39840400004)(396003)(376002)(136003)(230922051799003)(82310400011)(451199024)(186009)(1800799012)(64100799003)(36840700001)(46966006)(47076005)(336012)(66899024)(83380400001)(36756003)(86362001)(36860700001)(81166007)(41300700001)(5660300002)(30864003)(478600001)(8936002)(45080400002)(4326008)(40480700001)(8676002)(107886003)(2616005)(1076003)(26005)(70586007)(70206006)(2906002)(316002)(42186006)(36900700001);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEZP281MB2374.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(376002)(366004)(39840400004)(136003)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(66899024)(316002)(66556008)(66476007)(42186006)(6916009)(86362001)(8936002)(4326008)(8676002)(44832011)(31696002)(66946007)(41300700001)(36756003)(478600001)(2906002)(5660300002)(38100700002)(2616005)(26005)(53546011)(83380400001)(31686004);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UVNDVDBHaWc5bmZDQ2hPOXpBU1hvK0pSVXZwQ3Y3MTJpRWtidXZtalpvUjJ6?=
+ =?utf-8?B?K3BEa3ErRE5rdWhOODFRcjdMNTZZUHlqTW1iLzdGcE1UTnFHUkwzVjhYaklQ?=
+ =?utf-8?B?cVpTQTdTUGdxWE53Y3pueFhiZE9VbjY3VDFISTVnY3JqaVdKTEJmZ0RmcVlq?=
+ =?utf-8?B?TEVHRUVxdDZ3VysydTVkblRNSzRRYkkxK1BSVW9IeWRiSXBlelMzSFNSSVZm?=
+ =?utf-8?B?bXU2RlJpSFQ1MWcwZWhCbWhDNlJTNHhCd2lkTmlGOFB3bHBZa1BUemt2Y2J1?=
+ =?utf-8?B?T2xxNjM0anl1eU1XQS92SEFxZ3Y2THFGUEpoTGpPczlYRkJZblBEMkk4TG1i?=
+ =?utf-8?B?VnNYd3l2Vm1yWGtHOG5RWU85bkxKd0VlTEw5akFFNDJxdlZZNFBiOTErM0M4?=
+ =?utf-8?B?SGYwYmg1RHppNkdKalZaQU5tQzB6RGx2dGphZkhIYkQ4a2pieEJVOWpEbzBN?=
+ =?utf-8?B?Vi9wUDRwZzRORFNJREJhOVpidHczOURkUmUyZDBxMmd6UWV6c2ZxcTEwN1Fa?=
+ =?utf-8?B?QThCNnJqazNTWGVCd3NhTHBwRnZ3SCtFeFloVUk3SVpzSk10UEg2aW9mZEZF?=
+ =?utf-8?B?RFUxUkxFS1JpMWZRNHZ5V2hFWW5BT294eDVBaWFZV29wWVJvMzZjV0RWMVJy?=
+ =?utf-8?B?R2daQzVQTlRZRk51bkF6WnBVTWhzYUJsdDhWa2RwZzNWSUtsTkZVWDJtWmV1?=
+ =?utf-8?B?dWFXV3VJOVc3RkFVTzhieWdRWm9ESVY4T0JJYU4wN01SWXN3TWloT3pNQ3cy?=
+ =?utf-8?B?Vlg4OFJCTDEyY3F6NkFYL2lYTmlYbVhvM3d6TEJMNjRBV2FNd2xRbGtUeTNn?=
+ =?utf-8?B?bFA4dU1MTWtLbTJKa2dWY1BKRGdwZ2U5TzM4d29QSTRxSXlXVEJYbWRHTFNI?=
+ =?utf-8?B?blBldmx2OVZWTnYvRU9RcXh2ajJjY1Q4aEtEbjYxSjZMaEF3Z2RJaGtpbE5P?=
+ =?utf-8?B?aXNyYk9oQTRVK2ZpQXQ3TGZxV1BzOTQ0c2JreWluR251VHR0bG1TVk1FeVZL?=
+ =?utf-8?B?d2l2eUNSL2ZQc0tzc1hzN3E1Y3BuSkdxUk16K1FYeE5YODNwZ3lnYTZBR1dR?=
+ =?utf-8?B?Nm1RVmpuVlpmV0ZReGNyTjVXZElPTG5NVUZqbTllQXFYWUVGRVMySUx5NFV4?=
+ =?utf-8?B?T3gvbTVaZSsvWVFlc29SU0VJbGNBK1NnK2paU0tuRnlvN1hvZStlMzlaSUVa?=
+ =?utf-8?B?dDZncmRvL0N4N3c2MXBVbC9mT1Z0L1dQNVd3d1cxTjJmME9QcGF3Qk1yd1JG?=
+ =?utf-8?B?NGhpZXA4WmlSK0l2WTNPU0xPbVVHWkp2T0NoOUJRaTJINFNIWUN1b0FSNWkz?=
+ =?utf-8?B?dkMwbnc0Uk81U0JLdUhmZDFZbTl6MFIrcEpnb1lCNFFRWklPWm4wMVBBQWhW?=
+ =?utf-8?B?V1BueUx2Qkh6aFQxK0M4dFhpVXBQN0R2REVlYm4xTWFQK3Y2emIyMWN5NDNp?=
+ =?utf-8?B?bWs2Wlh5RUJCSklPdkxPNWNPRmxFY0JSVVVzc0hMeGZ3bWlqcUNwMDZBOFRB?=
+ =?utf-8?B?anRwY05RMklTMjg3S1pNTUYwTXozaVpNeG12WkZjSWZIZCtKODVmT2hCblRj?=
+ =?utf-8?B?N2dXR0VCbWpEQkpUaEN5QmJCQ3dJdmQ2N3hTbW40L0l6ZGNuSERtQWJXenVp?=
+ =?utf-8?B?U1Q4QXdHMTcvZTBsMkFQTlEwYVlMZ2ZlcmpwRkFZYmNQMlc3N0R5bktwR2lO?=
+ =?utf-8?B?aXQyUksyZjBzWi9SS04yeUl5bEVvMDZSWjRMdHAvMU00Y2VJM2Vpd0NoWmMy?=
+ =?utf-8?B?TlUrWGlNU3hESCtXY0NuSXJTcWIrMERHNW51cExGMzBwczhYOWVvbHg2d0ky?=
+ =?utf-8?B?YVZJUkVHeFRKbFV6WUNtQmFrV2kvVGs5cEdkeW1OaUY1d2ZnS0pwY1pHREdJ?=
+ =?utf-8?B?ZVhsM3FGdUV5Y1RrWnoxdWp0R3FjMHhBTmtvK09sMUx3d3FsajJvTzFudkNo?=
+ =?utf-8?B?MmwvakMxY0Y4eHIyK3ZaQzNsTytzZkZ2N2gwemNEaXdUMXU2MGR6VWJ0WEVH?=
+ =?utf-8?B?ZjIzbEdMY3lGTXovTHdCbWZkNlkyN0NhNzRhMVh1aXFvOGluVHkvRzlPcFVl?=
+ =?utf-8?B?cVdlb25VRDgxbmgvWlUxb3dyS1M2SUtwRG1WRU1NMDRTbnJuMHJIZm5RZUhm?=
+ =?utf-8?Q?3K1tYSjUnklxO3gZbq10oDK5R?=
 X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2023 16:37:32.6234
+X-MS-Exchange-CrossTenant-Network-Message-Id: dce15cc6-acd4-4e13-fbe2-08dbf797bb99
+X-MS-Exchange-CrossTenant-AuthSource: BEZP281MB2374.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2023 02:45:26.4778
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81be74a7-bb46-4251-40fb-08dbf742cfaf
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=800fae25-9b1b-4edc-993d-c939c4e84a64;Ip=[217.66.60.4];Helo=[SR-MAIL-03.open-synergy.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB8EUR05FT055.eop-eur05.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB2289
-X-TM-AS-ERS: 104.47.11.168-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-28044.000
-X-TMASE-Result: 10--35.175300-4.000000
-X-TMASE-MatchedRID: 5y2TnboncNGUP+0hdpOx0ibNef8sKf12OPrWgMtHd2vB3i17wva+EvOU
-	koqD+FEZnQvVnz410DyLO9h/kZ7mQnkHMxUIdlxL+DE5zr5ahdzc7b6k5+X69zAsn09lQFCFm7W
-	YZnTau36ijVoxG5GMcAfoZhqt/FSE2J61hi7qqbLWcxHsnT13T+A4l73CwysLkZ43711Uirfnq/
-	Q0Vm6yzduGPRtWbaTwK7Ow+6iMiTXr6eh0XDxDfzZ4NKr/TszHn+UEJ0zQ2RHMfVBYtCwQcbeTi
-	R13vOFkfhf3eCDiLHeugVrhSoK7PfJLPT/yapWgCqJ0RbJ3bb2q0ui/bxZsSfvYtdj1aUP1pBu7
-	zSJhKcy07bmrp95R8gxuj9Z29OajHnfjloPvGDl43vgC6ReA/6AHl/iBl3ALtk6R7Pw8b4BrAiD
-	6bCwinRkj2Su9G0v/9QDF9zcGxfYXnx2NW2tNXebTZJ7LF2rAY4oSzx+h+U5OdtX08uUzypUDUq
-	Gco/jNtuTvK9FM0qMet2W2IEA45pfk3hpXiJaVAuJ1/rls05fYB7h0QmbuTaJ/4hU3LNogAxI+U
-	WxLhU0vRvH+BtCe2q8GpbnL65afpCkfTcAJL1Y+MySqIuP2jBUk9SpeetB1MHiMmW0ZUNss3nAY
-	9fdM9dh5c4TN8zbZ7PVkFWMnCn8N5Rk4kJccyNPDdrro6llroli4ZoiOHT/pP8tMOyYmaA==
-X-TMASE-XGENCLOUD: ddfef9e9-a492-4446-bc24-5c0541839391-0-0-200-0
-X-TM-Deliver-Signature: 149DCB93B5D935003C79A14EE27D9649
-X-TM-Addin-Auth: e7EgHWpakAJTFMWOaJNxE5TL4X8tXvNWYlFRk6CS2VroUZTG5Bgouhv9oCA
-	f+E3eYaNQU4iBOwRUwzKPGom0vNyq7ylwE2rD2MDn9ESGJgpYq1ofUwddMakRyFqqJb8YMfhXTb
-	dHlsFChFxyy9bg8iUzU5ETWwIY0d2Lisa29Da+9hVmX54tulpeRv70QlbwVXqyPWJfSp+YJgJwN
-	WFi+wqwNXlCDcredLBuwMlsnaAPScb1J8hVeXfKnDdNKNQoUXQ8kUWBJ8enwrK9YjOB1iLMcqna
-	McZJdBQy3jZxDa4=.Cf4J3ByHnZ8bsTkGCWZ791HbVraQ4JZXzvm+YjI3Wtpcy6RhNFTao48MuJ
-	E+pjA7qWlP4uS6IydYOSIleWOOlV1Ep+ohvFj4kHguKkTtkgjL22Za3aIGEbXHrTWwrUf5AWlXi
-	QlVBM4x8quaJpLAccD/S19cByiC0fClpHFYQBY7mlgRPKJvVWnorDveHRQjxd+r2G3Rsr3egff7
-	JM/uKkMFXCgNXhHPZSAeHrX3+bTMSFsJhH4ttlsQw25EA4iKHtKee7uXk6dVA2IZ1GZr8X90AEr
-	LwilkyFGrUACsEahd6zM9Hp557APm8aUTAHLhp+CsY87n2OUMWphX9SvCgQ==
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ReKgSpUZmdtQr/6ZiTQ+aMVj/IlYMljVtfyvcSvMJB5KiJG4Xipw5tui0UgaTA1hKDZNHY307A4QvYG8Mf3MZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR6P281MB3735
+X-TM-AS-ERS: 104.47.7.169-0.0.0.0
+X-TMASE-Version: StarCloud-1.3-9.1.1015-28044.004
+X-TMASE-Result: 10--26.843300-4.000000
+X-TMASE-MatchedRID: C/snMIRQLS35ETspAEX/ngw4DIWv1jSVbU+XbFYs1xIhkL0gCMh6DlN3
+	rR14CcOhGEJSQnEWTfKLO9h/kZ7mQr2KMNqfxJkCUlO0zoIcpU6B1fO2o4QGcFkDEupan34PO3n
+	IbkOFysIJGnDj1UHi6wRx6tYvM9b7UAStw10tjyBLviwaHYb1se4HeUqhyIYyZDry68hdbV4VzW
+	aohW2+5KJ/XDloAeUSk9Razjxghkemw67F8Y7edlssdJQrqxMalIhi5GPAGeNrJ2aYUZsUtxXX4
+	JUcjUFdHJi1gReJcwvLq+0RgqIZUfz3BWE0gMZ/ZUfUHA2Laiwa3oXvkaIARpI6syrgZ5ZaSbrM
+	pf8slybQKF5VsFp8yPxwog8i0v7vZ4n57YIG4wBkRDVifPlAcYB1tSnIvF1D3vJmSnAjZBBq5HB
+	BuOg8ziNKtOF0t1j/THxSrgy3rAJloDh19hwAesVNAYApHGPk2j7jyCKpnCcSCDdzAMeX/U7zkl
+	yhPTD9YIyQM4JfnWl4bd6tiMFuXX7cGd19dSFd
+X-TMASE-XGENCLOUD: 51be7257-46fb-492f-971c-851f849a6c07-0-0-200-0
+X-TM-Deliver-Signature: 0033C3FB0A399D917B2D4BFDC71C42B5
+X-TM-Addin-Auth: 3/kvxXM7YxwO8AooIYDMwF70/VZVtwJlYZoh/dfW89ACm3HFQcDkLurSnO0
+	0qd7A/0HODwzy5nGb/ggu6f1fN1kbKb4ZCgkkLOpu6tBM4MRhS6ErRiQFMF7Nq+vE+rYrHFS2/3
+	jNEnQo8goVLD7c0PeST1KcvQyNs4cP51SFdet6V+afdX/PvCXGFN9ocD/lcman4/chWP0DSWEIi
+	hQdq947OhVPB14qUyZKIKoqdrhn69irZY7rBZjGKoHewFX3zjsq3MqucM0WbN2sE9/cC0StKXQC
+	ncM1fTR66ub/yQA=.JzqU+mjqqpjhTAWQEELi74E5elfbpia4XvzX+HXWdWXKieyTbER5D1ClmX
+	l/1OQJFZVrut1sQ5uoQyy+vD3GH5OW9cAd+t8E19qd4iFa5cIOF4wDZ8kcgt7GuWw/dXAoW1nQ3
+	HLpguJm2Vph8nMXUqUYL6BgieuFNzEgJDnViEZ6t7mPFC3FyNMsshKNAGpIy7BhgbAFuJrj/tyV
+	Em2TangTGuN6CU1Yi5TQxJxCy3TXnMdL5OfyGaDLlNZHQrFUfodDmGoUtQKCY5+RnHOVkoqPIjk
+	Fnxf14uEUZoY9HqqhlrTlJ+k1CYBTBD0TEpomYuMzkgB+a4Wp/rXqronnsA==
 X-TM-Addin-ProductCode: EMS
-Subject: [virtio-comment] [PATCH v2 1/1] RFC: virtio-bt: add virtio BT device specification
+Subject: [virtio-comment] Re: [PATCH] virtio-sound: add latency_bytes definition
 
-This PR is aimed as review for comments(RFC) purpose.
+Hi Matias,
 
-* Initial draft version.
----
- conformance.tex                        |  12 +-
- content.tex                            |   1 +
- device-types/bt/description.tex        | 158 +++++++++++++++++++++++++
- device-types/bt/device-conformance.tex |   7 ++
- device-types/bt/driver-conformance.tex |   7 ++
- introduction.tex                       |  15 +++
- 6 files changed, 196 insertions(+), 4 deletions(-)
- create mode 100644 device-types/bt/description.tex
- create mode 100644 device-types/bt/device-conformance.tex
- create mode 100644 device-types/bt/driver-conformance.tex
+On 30.11.2023 19:46, Matias Ezequiel Vara Larsen wrote:
+> Hello Anton,
+> 
+> On Thu, Nov 30, 2023 at 10:30:35AM +0900, Anton Yakovlev wrote:
+>> Hi Matias,
+>>
+>>
+>> On 07.11.2023 19:46, Matias Ezequiel Vara Larsen wrote:
+>>> Ping Anton.
+>>>
+>>> Thanks, Matias.
+>>>
+>>> On Thu, Oct 5, 2023 at 11:41 AM Matias Ezequiel Vara Larsen
+>>> <mvaralar@redhat.com> wrote:
+>>>>
+>>>> This commit aims at providing a better definition of latency_bytes. To
+>>>> do so, this commit defines latency_bytes as is defined in Crosvm.
+>>>>
+>>>> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+>>>> ---
+>>>>    device-types/sound/description.tex | 5 ++++-
+>>>>    1 file changed, 4 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/device-types/sound/description.tex b/device-types/sound/description.tex
+>>>> index 54c9c8e..1349765 100644
+>>>> --- a/device-types/sound/description.tex
+>>>> +++ b/device-types/sound/description.tex
+>>>> @@ -694,7 +694,10 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device / Device
+>>>>    \begin{description}
+>>>>    \item[\field{status}] contains VIRTIO_SND_S_OK if an operation is successful,
+>>>>    and VIRTIO_SND_S_IO_ERR otherwise.
+>>>> -\item[\field{latency_bytes}] indicates the current device latency.
+>>>> +\item[\field{latency_bytes}] indicates the current device latency. For
+>>>> +playback, this is the amount of bytes that must be consumed before
+>>>> +the current request can be played. For capture, this is the latency in terms of
+>>>> +bytes that the capture buffer was recorded.
+>>>>    \end{description}
+>>
+>> Yes, this field definitely needs some clarification.
+>>
+>> If you think about it, from the point of view of the application in the guest,
+>> the size of the current latency is the current contents of the buffer. I.e.
+>> exactly what you added to the description, but without taking into account the
+>> value of this field.
+>>
+>> In the current Linux driver implementation, this "latency_bytes" value is
+>> saved to the "delay" field, which is then passed to user space. And this
+>> "delay", as I understand it, indicates an additional delay caused by the
+>> specifics of the hardware.
+> 
+> Yes, I understood the same. For me, it was not clear how "delay" would
+> be used by user applications. In crosvm, for example, `latency_bytes` is
+> set to 0, but I'm not sure what would happen if it was set to something
+> else. When I played around with different values, I didn't notice any
+> difference in behavior.
 
-diff --git a/conformance.tex b/conformance.tex
-index dc00e84..86c7db1 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -32,8 +32,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
- \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance},
- \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
--\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance} or
--\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
-+\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
-+\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
-+\ref{sec:Conformance / Driver Conformance / BT Driver Conformance}
- 
-     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
-   \end{itemize}
-@@ -59,8 +60,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \ref{sec:Conformance / Device Conformance / Memory Device Conformance},
- \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance},
- \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
--\ref{sec:Conformance / Device Conformance / GPIO Device Conformance} or
--\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
-+\ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
-+\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
-+\ref{sec:Conformance / Device Conformance / BT Device Conformance}
- 
-     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
-   \end{itemize}
-@@ -152,6 +154,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/scmi/driver-conformance.tex}
- \input{device-types/gpio/driver-conformance.tex}
- \input{device-types/pmem/driver-conformance.tex}
-+\input{device-types/bt/driver-conformance.tex}
- 
- \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
- 
-@@ -238,6 +241,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/scmi/device-conformance.tex}
- \input{device-types/gpio/device-conformance.tex}
- \input{device-types/pmem/device-conformance.tex}
-+\input{device-types/bt/device-conformance.tex}
- 
- \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
- A conformant implementation MUST be either transitional or
-diff --git a/content.tex b/content.tex
-index 0a62dce..b67b3e5 100644
---- a/content.tex
-+++ b/content.tex
-@@ -767,6 +767,7 @@ \chapter{Device Types}\label{sec:Device Types}
- \input{device-types/scmi/description.tex}
- \input{device-types/gpio/description.tex}
- \input{device-types/pmem/description.tex}
-+\input{device-types/bt/description.tex}
- 
- \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
- 
-diff --git a/device-types/bt/description.tex b/device-types/bt/description.tex
-new file mode 100644
-index 0000000..98311f4
---- /dev/null
-+++ b/device-types/bt/description.tex
-@@ -0,0 +1,158 @@
-+\section{BT Device}\label{sec:Device Types / BT Device}
-+
-+The virtio-bt device provides an HCI (Host Control Interface) over VirtIO
-+link between the guest HCI device and the host HCI backend.
-+Also, the device can inform the guest driver which operational system / vendor
-+ specific HCI extensions it supports.
-+Host Control Interface is described in Bluetooth Core Specification (see
-+\hyperref[intro:bluetooth-core]{Bluetooth Core Specification}).
-+
-+\subsection{Device ID}\label{sec:Device Types / BT Device / Device ID}
-+
-+40
-+
-+\subsection{Virtqueues}\label{sec:Device Types / BT Device / Virtqueues}
-+
-+\begin{description}
-+\item[0] transmitq
-+\item[1] receiveq
-+\end{description}
-+
-+\subsection{Feature bits}\label{sec:Device Types / BT Device / Feature bits}
-+
-+\begin{description}
-+\item[VIRTIO_BT_F_VND_HCI (0)]  The device supports vendor-specific HCI
-+extensions.
-+\item[VIRTIO_BT_F_MSFT_EXT (1)] The device supports Microsoft HCI Extensions.
-+\item[VIRTIO_BT_F_AOSP_EXT (2)] The device supports Android HCI Extensions.
-+\item[VIRTIO_BT_F_CONFIG_V2 (3)] The device uses the second version of the
-+configuration space structure.
-+\end{description}
-+
-+\devicenormative{\subsubsection}{Feature bits}{Device Types / BT Device / Feature bits}
-+
-+The device MAY require the driver to accept the \field{VIRTIO_BT_F_CONFIG_V2}
-+feature bit and use the second version of the configuration layout, because the
-+first one is unaligned, which violates the specification.
-+
-+The device should offer \field{VIRTIO_BT_F_MSFT_EXT} or
-+\field{VIRTIO_BT_F_AOSP_EXT} feature bit if it supports correspondingly MSFT or
-+AOSP extension command sets (see \hyperref[intro:bluetooth-aosp]{Bluetooth AOSP
-+HCI Extensions}, \hyperref[intro:bluetooth-msft]{Bluetooth MSFT HCI Extensions}
-+). In case of \field{VIRTIO_BT_F_MSFT_EXT}, device should also set configuration
-+field \field{msft_opcode}.
-+
-+The device should offer \field{VIRTIO_BT_F_VND_HCI} feature bit and set
-+configuration field \field{vendor}, if it supports corresponding vendor
-+extensions. Also, in case of second configuration version, fields
-+\field{set_bdaddr_opcode} and \field{quirks} can be set according to this
-+\field{vendor}.
-+
-+\drivernormative{\subsubsection}{Feature bits}{Device Types / BT Device / Feature bits}
-+
-+The driver MUST accept \field{VIRTIO_BT_F_CONFIG_V2} feature bit if offered by
-+the device.
-+
-+The driver SHOULD accept any of the  \field{VIRTIO_BT_F_VND_HCI},
-+\field{VIRTIO_BT_F_MSFT_EXT} or \field{VIRTIO_BT_F_AOSP_EXT} feature bits if
-+offered by the device.
-+
-+\subsection{Device configuration layout}\label{sec:Device Types / BT Device / Device configuration layout}
-+BT device supports two versions of the configuration structure layout.
-+\subsubsection{Device configuration layout: Version 1}\label{sec:Device Types / BT Device / Device configuration layout / Verion 1}
-+
-+All fields of this configuration are always available and read-only for the
-+driver.
-+\begin{lstlisting}
-+struct virtio_bt_config {
-+    u8 type;
-+    le16 vendor;
-+    le16 msft_opcode;
-+} __attribute__((packed));
-+\end{lstlisting}
-+
-+\begin{description}
-+
-+\item[\field{type}] indicates the type of the device, is it "Primary BR/EDR
-+controller" or "Alternate MAC/PHYs (AMP) secondary controller" and can have the
-+following values:
-+\begin{lstlisting}
-+#define VIRTIO_BT_CONFIG_TYPE_PRIMARY 0
-+#define VIRTIO_BT_CONFIG_TYPE_AMP     1
-+\end{lstlisting}
-+
-+\item[\field{vendor}]
-+Indicates the vendor of the BT device and can have the following mutually
-+exclusive values:
-+\begin{lstlisting}
-+#define VIRTIO_BT_CONFIG_VENDOR_NONE     0
-+#define VIRTIO_BT_CONFIG_VENDOR_ZEPHYR   1
-+#define VIRTIO_BT_CONFIG_VENDOR_INTEL    2
-+#define VIRTIO_BT_CONFIG_VENDOR_REALTEK  3
-+\end{lstlisting}
-+The device MUST offer the \field{VIRTIO_BT_F_VND_HCI} feature bit if it sets
-+\field{vendor} to any value other than \field{VIRTIO_BT_CONFIG_VENDOR_NONE}.
-+In the current Linux implementation of virtio-bt, these values are simply
-+hard-coded and point to the hard-coded (\field{manufacturer},
-+\field{set_bdaddr_opcode}, \field{quirks}) parameters, there
-+\field{manufacturer} is a "Company Identifier" from the
-+\hyperref[intro:bluetooth-numbers]{Bluetooth Assigned Numbers}, Chapter 7
-+(Company Identifiers).
-+This approach is not extensible and has been replaced in the second version of
-+the configuration.
-+\item[\field{msft_opcode}]
-+This field is used by the driver if device offers \field{VIRTIO_BT_F_MSFT_EXT}
-+feature bit.
-+\end{description}
-+
-+\subsubsection{Device configuration layout: Version 2}\label{sec:Device Types / BT Device / Device configuration layout / Version 2}
-+All fields of this configuration are always available and read-only for the
-+driver.
-+\begin{lstlisting}
-+struct virtio_bt_config_v2 {
-+    le16 vendor;
-+    le16 set_bdaddr_opcode;
-+    le32 quirks;
-+    le16 msft_opcode;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+
-+\item[\field{vendor}] - Manufacturer identifier, for the possible values see
-+\hyperref[intro:bluetooth-numbers]{Bluetooth Assigned Numbers}, Chapter 7
-+(Company Identifiers).
-+The device MUST offer the VIRTIO_BT_F_VND_HCI feature bit if it sets
-+\field{vendor} to any value other than VIRTIO_BT_CONFIG_VENDOR_NONE.
-+According to the Linux guest driver implementation, devices from different
-+vendors can have different opcodes for the \field{set_bdaddr} (Bluetooth Device
-+Address) command, and the different \field{quirks} bits (list and short
-+description of these \field{quirks} you can find in
-+\hyperref[intro:bluetooth-quirks]{Bluetooth HCI device quirks}.
-+So, next two fields allow us to set these parameters.
-+
-+\item[\field{set_bdaddr_opcode}] - opcode for the set_bdaddr (Bluetooth Device
-+Address) command.
-+\item[\field{quirks}] - Quirks bits supported by the device.
-+\hyperref[intro:bluetooth-quirks]{Bluetooth HCI device quirks}
-+
-+\item[\field{msft_opcode}]
-+This fields is used by the driver if device offers \field{VIRTIO_BT_F_MSFT_EXT}
-+feature bit.
-+\end{description}
-+
-+\subsection{Device initialization}\label{sec:Device Types / BT Device / Device initialization}
-+
-+The virtqueues are initialized.
-+
-+\subsection{Device operations}\label{sec:Device Types / BT Device / Device operations}
-+
-+The driver populates the receive queue with at least one buffer of at
-+least 258 bytes to contain 1 byte "packet type" and HCI event packet (2 bytes
-+of HCI event packet header and up to 255 bytes payload).
-+Synchronous and asynchronous data packets that are longer than the provided
-+buffer will be fragmented.
-+
-+The driver sends to the transmit queue all (command and data) packets, received
-+from the guest HCI device, and transfers to the guest HCI device all (event and
-+data) HCI packets, received from the receive queue.
-diff --git a/device-types/bt/device-conformance.tex b/device-types/bt/device-conformance.tex
-new file mode 100644
-index 0000000..283b0e1
---- /dev/null
-+++ b/device-types/bt/device-conformance.tex
-@@ -0,0 +1,7 @@
-+\conformance{\subsection}{Bluetooth Device Conformance}\label{sec:Conformance / Device Conformance / Bluetooth Device Conformance}
-+
-+A BT device MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{devicenormative:Device Types / BT Device / Feature bits}
-+\end{itemize}
-diff --git a/device-types/bt/driver-conformance.tex b/device-types/bt/driver-conformance.tex
-new file mode 100644
-index 0000000..80bb235
---- /dev/null
-+++ b/device-types/bt/driver-conformance.tex
-@@ -0,0 +1,7 @@
-+\conformance{\subsection}{BT Driver Conformance}\label{sec:Conformance / Driver Conformance / BT Driver Conformance}
-+
-+A BT driver MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{drivernormative:Device Types / BT Device / Feature bits}
-+\end{itemize}
-diff --git a/introduction.tex b/introduction.tex
-index cfa6633..d524fce 100644
---- a/introduction.tex
-+++ b/introduction.tex
-@@ -145,6 +145,21 @@ \section{Normative References}\label{sec:Normative References}
-     Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP
-     14, RFC 8174, DOI 10.17487/RFC8174, May 2017
-         \newline\url{http://www.ietf.org/rfc/rfc8174.txt}\\
-+	\phantomsection\label{intro:bluetooth-core}\textbf{[BT Core]} &
-+    Bluetooth Core Specification
-+	\newline\url{http://www.bluetooth.com/specifications/specs/core-specification-5-4}\\
-+	\phantomsection\label{intro:bluetooth-aosp}\textbf{[BT AOSP]} &
-+    Bluetooth AOSP HCI Extensions
-+	\newline\url{http://source.android.com/docs/core/connect/bluetooth/hci_requirements}\\
-+	\phantomsection\label{intro:bluetooth-msft}\textbf{[BT MSFT]} &
-+    Bluetooth Microsoft HCI Extensions
-+	\newline\url{http://learn.microsoft.com/en-us/windows-hardware/drivers/bluetooth/microsoft-defined-bluetooth-hci-commands-and-events}\\
-+	\phantomsection\label{intro:bluetooth-quirks}\textbf{[BT HCI quirks]} &
-+    Bluetooth HCI device quirks
-+	\newline\url{https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/net/bluetooth/hci.h}\\
-+	\phantomsection\label{intro:bluetooth-numbers}\textbf{[BT vendors]} &
-+    Bluetooth Assigned Numbers Document
-+	\newline\url{https://www.bluetooth.com/specifications/assigned-numbers}\\
- \end{longtable}
- 
- \section{Non-Normative References}
+The value of this delay is reported to user space, and can also be taken into
+account when calculating timestamps for the substream. So the application
+can take this into account if necessary.
+
+
+>> And it turns out that the latency_bytes field either should indicate such an
+>> additional delay (for example, caused by the specific implementation of the
+>> backend on the device side), or does not make sense, since the current latency
+>> value is already known a priori. What do you think?
+> 
+> Do you mean that we could get rid of this field and add it in the future
+> in case we need it? Or, to add to the description the fact that
+> latency_bytes is a specific implementation value that adds additional
+> delay?
+
+I meant that we could add something like: "indicates the current value of the
+additional delay caused by the implementation of the device".
+
+
+> Also I do not understand how the `latency_bytes` value and the
+> completion notification may interact. For example, a device could send
+> completion notification immediately after a request is received and just
+> set the correct value to the `latency_bytes` field to indicate how many
+> bytes would take to the current buffer to be consumed. I can't see any
+> issue with using the `latency_byte` value in that way.
+
+But what is the practical meaning of this?
+
+And, ideally, the completion of requests should coincide with period
+boundaries on the timeline. Otherwise, for example, there will be problems
+with synchronizing video and audio streams when timestamps based on the hw_ptr
+value are used.
+
+
+Best regards,
+
+> 
+> Thanks, Matias.
+> 
+
 -- 
-2.40.1
+Anton Yakovlev
+Senior Software Engineer
 
+OpenSynergy GmbH
+Rotherstr. 20, 10245 Berlin
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
