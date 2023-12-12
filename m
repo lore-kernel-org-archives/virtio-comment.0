@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8785-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8786-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F0B3C4332F
-	for <virtio-comment@archiver.kernel.org>; Tue, 12 Dec 2023 09:30:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5121BC4332F
+	for <virtio-comment@archiver.kernel.org>; Tue, 12 Dec 2023 15:52:31 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id EB8CE217AB
-	for <virtio-comment@archiver.kernel.org>; Tue, 12 Dec 2023 09:30:12 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 82B1E2AC53
+	for <virtio-comment@archiver.kernel.org>; Tue, 12 Dec 2023 15:52:30 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D092698667B
-	for <virtio-comment@archiver.kernel.org>; Tue, 12 Dec 2023 09:30:12 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 22BD59866B3
+	for <virtio-comment@archiver.kernel.org>; Tue, 12 Dec 2023 15:52:30 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B8069983FE6; Tue, 12 Dec 2023 09:30:12 +0000 (UTC)
+	id 06803986637; Tue, 12 Dec 2023 15:52:30 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,549 +24,325 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id AA096986556
-	for <virtio-comment@lists.oasis-open.org>; Tue, 12 Dec 2023 09:30:12 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E83F898667B
+	for <virtio-comment@lists.oasis-open.org>; Tue, 12 Dec 2023 15:52:29 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045192;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0VyM-Esd_1702373406;
-Message-ID: <b739d275-3664-4509-8a91-f19690719475@linux.alibaba.com>
-Date: Tue, 12 Dec 2023 17:30:02 +0800
+X-MC-Unique: yzGQYMBZNoSP11T1-0BvVw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702396344; x=1703001144;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BBvDeP4P2B8lYJeGYJSnVh9py32uiACmBjuluK8xlLc=;
+        b=EJ4FDjn75Xr9th27fDBvcuhToqmTwqAUpji1XPu2Xqp5ZrmLP+V3ihuuZdrL683tT1
+         W34GyZOtj8PjJrMP9nmt0SaUdhTN6DM3Wb47y+YIOyesQTJX+0h2cOLVBJzlPiwfrw36
+         he2u1no/oiZqPqdo+cwXOLfYHa4LlxEfl1QFLWffuNkXJsQrRbAjrbW1B3Y6E+a43d6V
+         XpQLWUdkbpLwq4OK0tOe7CmlGcV04FACOPcxM/0tzfginfZxdOLUsH/LA94HRczEbg5p
+         6bfLiCGRK7UbgpKLvLFFecnYwC0GseVLJaIzh8AuWI/axPFEKLAi2786CopvzkHro4Ss
+         +BwQ==
+X-Gm-Message-State: AOJu0Ywl1mxhxffcfhJBo2CxCCP2UZDRtPFQ7J5xT7ATW/JmKCGEk4ie
+	MMMZgo9UPRXk3tyN7Y2zCSh4PC+t6k/+rwwsXyd+iZfrnNoRLjhwSKBBKWg+NsxLx/pVddP5i2/
+	6v14BU+Zbzti8AI83TL308Xo0mlG5j+7wrg==
+X-Received: by 2002:a5d:5088:0:b0:333:3c1d:5aa6 with SMTP id a8-20020a5d5088000000b003333c1d5aa6mr2643541wrt.72.1702396344333;
+        Tue, 12 Dec 2023 07:52:24 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFMtFP2d1bDZVb0zNmB8z9fXy+3X//czqY3Gtdn7sPRGkvWaZE06vWfIYK/CR/vTyi2IJBV/g==
+X-Received: by 2002:a5d:5088:0:b0:333:3c1d:5aa6 with SMTP id a8-20020a5d5088000000b003333c1d5aa6mr2643531wrt.72.1702396343760;
+        Tue, 12 Dec 2023 07:52:23 -0800 (PST)
+Date: Tue, 12 Dec 2023 10:52:19 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jason Wang <jasowang@redhat.com>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>,
+	Shahaf Shuler <shahafs@nvidia.com>,
+	"si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
+	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
+	Heng Qi <hengqi@linux.alibaba.com>
+Message-ID: <20231212105018-mutt-send-email-mst@kernel.org>
+References: <20231110123853.2093309-1-parav@nvidia.com>
+ <20231110123853.2093309-3-parav@nvidia.com>
+ <20231122084105-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481FF2A00B58060D9D69812DCBAA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20231122094431-mutt-send-email-mst@kernel.org>
+ <CACGkMEuEFsByRwTf_hAAZ+7-UuyYz-1wCP4vTpMAW6DbHQzVag@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Jason Wang <jasowang@redhat.com>,
- Yuri Benditovich <yuri.benditovich@daynix.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <959e1a7ccdfffaaadd865a627924cf492ce22bfa.1702277523.git.hengqi@linux.alibaba.com>
- <20231211110350-mutt-send-email-mst@kernel.org>
- <a8ba676e-de43-45ae-a6a8-a67d0dd41c1f@linux.alibaba.com>
- <20231212032713-mutt-send-email-mst@kernel.org>
- <bfd25f86-4292-45d2-a7a2-fe61bde0edb4@linux.alibaba.com>
-In-Reply-To: <bfd25f86-4292-45d2-a7a2-fe61bde0edb4@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <CACGkMEuEFsByRwTf_hAAZ+7-UuyYz-1wCP4vTpMAW6DbHQzVag@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH v5] virtio-net: device does not
- deliver partially checksummed packet and may validate the checksum
+Subject: Re: [virtio-comment] Re: [PATCH v6 2/5] virtio-net: Add flow filter
+ capabilities read commands
 
+On Fri, Nov 24, 2023 at 12:02:23PM +0800, Jason Wang wrote:
+> On Wed, Nov 22, 2023 at 10:51 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >
+> > On Wed, Nov 22, 2023 at 02:10:29PM +0000, Parav Pandit wrote:
+> > >
+> > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > Sent: Wednesday, November 22, 2023 7:32 PM
+> > > >
+> > > > On Fri, Nov 10, 2023 at 02:38:50PM +0200, Parav Pandit wrote:
+> > > > > The device responds flow filter capabilities using two commands.
+> > > > > One command indicates generic flow filter device limits such as number
+> > > > > of flow filters, number of flow filter groups, support or multiple
+> > > > > transports etc.
+> > > > >
+> > > > > The second command indicates supported match types, and fields of the
+> > > > > packet.
+> > > > >
+> > > > > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
+> > > > > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> > > > > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > > > >
+> > > > > ---
+> > > > > changelog:
+> > > > > v2->v3:
+> > > > > - rebased on virtio-1.4 branch
+> > > > > - removed reference for flow filter virtqueue
+> > > > > v1->v2:
+> > > > > - addressed comments from Satananda
+> > > > > - added vlan type match field
+> > > > > - kept space for types between l2, l3, l4 header match types
+> > > > > - renamed mask to mask_supported with shorter width
+> > > > > - made more fields reserved for furture
+> > > > > - addressed comments from Heng
+> > > > > - grammar correction
+> > > > > - added field to indicate supported number of actions per flow
+> > > > >   filter match entry
+> > > > > - added missing documentation for max_flow_priorities_per_group
+> > > > > v0->v1:
+> > > > > - added mask field in the type to indicate supported mask by device
+> > > > >   and also in later patch to use it to indicate mask on adding
+> > > > >   flow filter. As a result removed the mask_supported capability
+> > > > >   field
+> > > > > ---
+> > > > >  device-types/net/description.tex | 208
+> > > > > ++++++++++++++++++++++++++++++-
+> > > > >  1 file changed, 206 insertions(+), 2 deletions(-)
+> > > > >
+> > > > > diff --git a/device-types/net/description.tex
+> > > > > b/device-types/net/description.tex
+> > > > > index 30220b5..eccd8d6 100644
+> > > > > --- a/device-types/net/description.tex
+> > > > > +++ b/device-types/net/description.tex
+> > > > > @@ -1173,7 +1173,11 @@ \subsubsection{Flow Filter}\label{sec:Device
+> > > > > Types / Network Device / Device Ope
+> > > > >
+> > > > >  The device indicates the flow filter capabilities to the driver.
+> > > > > These  capabilities include various maximum device limits and
+> > > > > -supported packet match fields.
+> > > > > +supported packet match fields. These control virtqueue commands are:
+> > > > > +\ref{sec:Device Types / Network Device / Device Operation / Control
+> > > > > +Virtqueue / Flow Filter / Flow Filter Capabilities Get} and
+> > > > > +\ref{sec:Device Types / Network Device / Device Operation / Control
+> > > > Virtqueue / Flow Filter / Flow Filter Match Capabilities Get}.
+> > > > >
+> > > > >  The flow filters are grouped using a flow filter group. Each flow
+> > > > > filter  group has a priority. The device first applies the flow
+> > > > > filters of the highest @@ -1224,7 +1228,136 @@ \subsubsection{Flow
+> > > > Filter}\label{sec:Device Types / Network Device / Device Ope
+> > > > >        the flow filters in group_C, the flow filters of next level group_B are
+> > > > applied.
+> > > > >  \end{itemize}
+> > > > >
+> > > > > -\label{sec:Device Types / Network Device / Device Operation / Control
+> > > > > Virtqueue / Setting Promiscuous Mode}%old label for latexdiff
+> > > > > +\paragraph{Match Types and Fields}\label{sec:Device Types / Network
+> > > > > +Device / Device Operation / Flow Filter / Match Types and Fields}
+> > > > > +
+> > > > > +\begin{lstlisting}
+> > > > > +struct virtio_net_ff_match_type_cap {
+> > > > > +        le16 type;
+> > > > > +        u8 mask_supported;
+> > > > > +        u8 reserved[5];
+> > > > > +        le64 fields_bmap;
+> > > > > +};
+> > > > > +\end{lstlisting}
+> > > > > +
+> > > > > +The \field{type} corresponds to following table:
+> > > > > +
+> > > > > +\begin{tabular}{|l|l|l|}
+> > > > > +\hline
+> > > > > +Type & Name & Description \\
+> > > > > +\hline \hline
+> > > > > +0   & VIRTIO_NET_FF_ETH_HDR & Ethernet header of the packet \\
+> > > > > +\hline
+> > > > > +0x1   & VIRTIO_NET_FF_VLAN_TAG_HDR & VLAN tag of the packet \\
+> > > > > +\hline
+> > > > > +0x200   & VIRTIO_NET_FF_IPV4_HDR & IPv4 header of the packet \\
+> > > > > +\hline
+> > > > > +0x300   & VIRTIO_NET_FF_IPV6_HDR & IPv6 header of the packet \\
+> > > > > +\hline
+> > > > > +0x400   & VIRTIO_NET_FF_TCP_HDR & TCP header of the packet \\
+> > > > > +\hline
+> > > > > +0x500   & VIRTIO_NET_FF_UDP_HDR & UDP header of the packet \\
+> > > > > +\hline
+> > > > > +other   & -    & reserved \\
+> > > > > +\hline
+> > > > > +\end{tabular}
+> > > > > +
+> > > > > +When the \field{mask_supported} is set, for the specific
+> > > > > +\field{type}, the device can perform masking packet fields with the
+> > > > > +mask supplied in the flow filter match entry.
+> > > > > +
+> > > > > +For each \field{type} the \field{fields_bmap} indicates supported
+> > > > > +fields of the packet header which can be matched.
+> > > > > +
+> > > > > +For the \field{type} of VIRTIO_NET_FF_ETH_HDR, header fields are
+> > > > > +represented by a bitmap in \field{fields_bmap} are following:
+> > > > > +
+> > > > > +\begin{tabular}{|l|l|l|}
+> > > > > +\hline
+> > > > > +Bit & Name & Description \\
+> > > > > +\hline \hline
+> > > > > +0   & VIRTIO_NET_FF_DST_MAC & Destination MAC address in the packet \\
+> > > > > +\hline
+> > > > > +1   & VIRTIO_NET_FF_SRC_MAC & Source MAC address in the packet \\
+> > > > > +\hline
+> > > > > +2   & VIRTIO_NET_FF_ETHER_TYPE & Ether type in the packet \\
+> > > > > +\hline
+> > > > > +other   & -    & reserved \\
+> > > > > +\hline
+> > > > > +\end{tabular}
+> > > > > +
+> > > > > +For the \field{type} of VIRTIO_NET_FF_VLAN_TAG_HDR, VLAN tag fields
+> > > > > +are represented by a bitmap in \field{fields_bmap} are following:
+> > > > > +
+> > > > > +\begin{tabular}{|l|l|l|}
+> > > > > +\hline
+> > > > > +Bit & Name & Description \\
+> > > > > +\hline \hline
+> > > > > +0   & VIRTIO_NET_FF_VLAN_TAG_TCI & Vlan tag TCI 16-bit field \\
+> > > > > +\hline
+> > > > > +other   & -    & reserved \\
+> > > > > +\hline
+> > > > > +\end{tabular}
+> > > > > +
+> > > > > +For the \field{type} of VIRTIO_NET_FF_IPV4_HDR, header fields are
+> > > > > +represented by a bitmap in \field{fields_bmap} are following:
+> > > > > +
+> > > > > +\begin{tabular}{|l|l|l|}
+> > > > > +\hline
+> > > > > +Bit & Name & Description \\
+> > > > > +\hline \hline
+> > > > > +0   & VIRTIO_NET_FF_SRC_IPV4 & Source IPV4 address in the packet \\
+> > > > > +\hline
+> > > > > +1   & VIRTIO_NET_FF_DST_IPV4 & Destination IPV4 address in the packet \\
+> > > > > +\hline
+> > > > > +other   & -    & reserved \\
+> > > > > +\hline
+> > > > > +\end{tabular}
+> > > > > +
+> > > > > +For the \field{type} of VIRTIO_NET_FF_IPV6_HDR, header fields are
+> > > > > +represented by a bitmap in \field{fields_bmap} are following:
+> > > > > +
+> > > > > +\begin{tabular}{|l|l|l|}
+> > > > > +\hline
+> > > > > +Bit & Name & Description \\
+> > > > > +\hline \hline
+> > > > > +0   & VIRTIO_NET_FF_SRC_IPV6 & Source IPV6 address in the packet \\
+> > > > > +\hline
+> > > > > +1   & VIRTIO_NET_FF_DST_IPV6 & Destination IPV6 address in the packet \\
+> > > > > +\hline
+> > > > > +other   & -    & reserved \\
+> > > > > +\hline
+> > > > > +\end{tabular}
+> > > > > +
+> > > > > +For the \field{type} of VIRTIO_NET_FF_TCP_HDR, header fields are
+> > > > > +represented by a bitmap in \field{fields_bmap} are following:
+> > > > > +
+> > > > > +\begin{tabular}{|l|l|l|}
+> > > > > +\hline
+> > > > > +Bit & Name & Description \\
+> > > > > +\hline \hline
+> > > > > +0   & VIRTIO_NET_FF_SRC_TCP_PORT & Source TCP port in the packet \\
+> > > > > +\hline
+> > > > > +1   & VIRTIO_NET_FF_DST_TCP_PORT & Destination TCP port in the packet
+> > > > \\
+> > > > > +\hline
+> > > > > +other   & -    & reserved \\
+> > > > > +\hline
+> > > > > +\end{tabular}
+> > > > > +
+> > > > > +For the \field{type} of VIRTIO_NET_FF_UDP_HDR, header fields are
+> > > > > +represented by a bitmap in \field{fields_bmap} are following:
+> > > > > +
+> > > > > +\begin{tabular}{|l|l|l|}
+> > > > > +\hline
+> > > > > +Bit & Name & Description \\
+> > > > > +\hline \hline
+> > > > > +0   & VIRTIO_NET_FF_SRC_UDP_PORT & Source UDP port in the packet \\
+> > > > > +\hline
+> > > > > +1   & VIRTIO_NET_FF_DST_UDP_PORT & Destination UDP port in the packet
+> > > > \\
+> > > > > +\hline
+> > > > > +other   & -    & reserved  \\
+> > > > > +\hline
+> > > > > +\end{tabular}
+> > > > > +
+> > > >
+> > > > This is such an elaborate structure to report just 12 read only bits.
+> > > > Please let's just follow the example of  le32 supported_tunnel_types and add
+> > > > l32 supported_flow_control.
+> > > >
+> > > supported_tunnel_types was let go because cvq is efficient.
+> > > None of these fields are needed for init time configuration of the driver before DRIVER_OK.
+> >
+> > I really basically disagree. Whether control flow is supported can
+> > easily influence how many VQs are needed.
+> >
+> >
+> > >
+> > > It is a very narrow view of 12 bits. It is going to grow and many.
+> > > This is far more structured for each type done here.
+> > >
+> > > >
+> > > > After you were trying to add kilobytes to megabytes of memory - I see little
+> > > > reason to save 12 RO bits that can be shared by any number of VFs.
+> > > >
+> > > Completely wrong reason and very late review and also does not align with every other command we did.
+> >
+> > which other command? hash and rss are like this: capability in config
+> > space config through cvq. For the same reason.
+> >
+> > > > However, I do think we should create an option to access config space over
+> > > > DMA (preferably admin commands). Let's add this quickly and then we don't
+> > > > need to worry about legacy guests accessing flow filter through MMIO.
+> > >
+> > > CVQ is already there as single interface forget and set for rss, rss context, vq moderation, statistics, flow filter caps and more.
+> > > No reason to bifurcate.
+> >
+> > The reason is so that we have a single consistent view where e.g. you want
+> > to provision a device with a specific capability you just
+> > specify how its config space looks.
+> >
+> > If you start shuffling capabilities off to VQs that will be much
+> > much harder.
+> >
+> > > I won't be able to absorb this comment of DMA interface.
+> > > If I discuss further, I will repeat the whole document [1] and I will avoid that now.
+> > >
+> > > [1] https://docs.google.com/document/d/1Iyn-l3Nm0yls3pZaul4lZiVj8x1s73Ed6rOsmn6LfXc/edit#heading=h.qexbtyc2jpwr
+> >
+> >
+> > I really worry about how provisioning will work. And I do not at all
+> > cherish replicating all of these query capability commands for provisioning.
+> 
+> +1
+> 
+> There's nothing that prevents the config space from being implemented
+> in a way other than registers.
 
+Jason I'm not sure what does your +1 mean here. Are you ok with the
+patchset as is? While I feel config space would be nicer I also find it
+unlikely drivers will actually bother to check the supported commands.
+So from that POV, for this use-case I am not too stressed out.
 
-在 2023/12/12 下午5:23, Heng Qi 写道:
->
->
-> 在 2023/12/12 下午4:44, Michael S. Tsirkin 写道:
->> On Tue, Dec 12, 2023 at 11:28:21AM +0800, Heng Qi wrote:
->>>
->>> 在 2023/12/12 上午12:35, Michael S. Tsirkin 写道:
->>>> On Mon, Dec 11, 2023 at 05:11:59PM +0800, Heng Qi wrote:
->>>>> virtio-net works in a virtualized system and is somewhat different 
->>>>> from
->>>>> physical nics. One of the differences is that to save virtio device
->>>>> resources, rx may receive partially checksummed packets. However, 
->>>>> XDP may
->>>>> cause partially checksummed packets to be dropped.
->>>>> So XDP loading currently conflicts with the feature 
->>>>> VIRTIO_NET_F_GUEST_CSUM.
->>>>>
->>>>> This patch lets the device to supply fully checksummed packets to 
->>>>> the driver.
->>>>> Then XDP can coexist with VIRTIO_NET_F_GUEST_CSUM to enjoy the 
->>>>> benefits of
->>>>> device validation checksum.
->>>>>
->>>>> In addition, implementation of some performant devices always do 
->>>>> not generate
->>>>> partially checksummed packets, but the standard driver still need 
->>>>> to clear
->>>>> VIRTIO_NET_F_GUEST_CSUM when XDP is there.
->>>>> A new feature VIRTIO_NET_F_GUEST_FULLY_CSUM is added to solve the 
->>>>> above
->>>>> situation, which provides the driver with configurable offload.
->>>>> If the offload is enabled, then the device must deliver fully
->>>>> checksummed packets to the driver and may validate the checksum.
->>>>>
->>>>> Use case example:
->>>>> If VIRTIO_NET_F_GUEST_FULLY_CSUM is negotiated and the offload is 
->>>>> enabled,
->>>>> after XDP processes a fully checksummed packet, the 
->>>>> VIRTIO_NET_HDR_F_DATA_VALID bit
->>>>> is retained if the device has validated its checksum, resulting in 
->>>>> the guest
->>>>> not needing to validate the checksum again. This is useful for 
->>>>> guests:
->>>>>     1. Bring the driver advantages such as cpu savings.
->>>>>     2. For devices that do not generate partially checksummed 
->>>>> packets themselves,
->>>>>        XDP can be loaded in the driver without modifying the 
->>>>> hardware behavior.
->>>>>
->>>>> Several solutions have been discussed in the previous proposal[1].
->>>>> After historical discussion, we have tried the method proposed by 
->>>>> Jason[2],
->>>>> but some complex scenarios and challenges are difficult to deal with.
->>>>> We now return to the method suggested in [1].
->>>>>
->>>>> [1] 
->>>>> https://lists.oasis-open.org/archives/virtio-dev/202305/msg00291.html
->>>>> [2] 
->>>>> https://lore.kernel.org/all/20230628030506.2213-1-hengqi@linux.alibaba.com/
->>>>>
->>>>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
->>>>> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
->>>>> ---
->>>>> v4->v5:
->>>>> - Remove the modification to the GUEST_CSUM.
->>>>> - The description of this feature has been reorganized for greater 
->>>>> clarity.
->>>>>
->>>>> v3->v4:
->>>>> - Streamline some repetitive descriptions. @Jason
->>>>> - Add how features should work, when to be enabled, and overhead. 
->>>>> @Jason @Michael
->>>>>
->>>>> v2->v3:
->>>>> - Add a section named "Driver Handles Fully Checksummed Packets"
->>>>>     and more descriptions. @Michael
->>>>>
->>>>> v1->v2:
->>>>> - Modify full checksum functionality as a configurable offload
->>>>>     that is initially turned off. @Jason
->>>>>
->>>>>    device-types/net/description.tex        | 74 
->>>>> +++++++++++++++++++++++--
->>>>>    device-types/net/device-conformance.tex |  1 +
->>>>>    device-types/net/driver-conformance.tex |  1 +
->>>>>    introduction.tex                        |  3 +
->>>>>    4 files changed, 73 insertions(+), 6 deletions(-)
->>>>>
->>>>> diff --git a/device-types/net/description.tex 
->>>>> b/device-types/net/description.tex
->>>>> index aff5e08..ab6c13d 100644
->>>>> --- a/device-types/net/description.tex
->>>>> +++ b/device-types/net/description.tex
->>>>> @@ -122,6 +122,9 @@ \subsection{Feature bits}\label{sec:Device 
->>>>> Types / Network Device / Feature bits
->>>>>        device with the same MAC address.
->>>>>    \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and 
->>>>> duplex.
->>>>> +
->>>>> +\item[VIRTIO_NET_F_GUEST_FULLY_CSUM (64)] Device delivers fully 
->>>>> checksummed packets
->>>>> +    to the driver and may validate the checksum.
->>>>>    \end{description}
->>>> I propose
->>>> VIRTIO_NET_F_GUEST_CSUM_COMPLETE
->>>> instead.
->>> Can I ask here if *complete* in VIRTIO_NET_F_GUEST_CSUM_COMPLETE and
->>> CHECKSUM_COMPLETE mean the same thing?
->>>
->>> If so, it seems that it's no longer the same as the description of this
->>> patch.
->> Oh. I thought it is. Then I guess I misunderstand what this patch is
->> supposed to be doing, again.
->
-> Here's some context:
->
-> From the perspective of the Linux kernel, the GUEST_CSUM feature is 
-> negotiated to support
-> (1)  CHECKSUM_NONE, (2) CHECKSUM_UNNECESSARY, (3) CHECKSUM_PARTIAL, which
-> respectively correspond to (1) the device does not validate the packet 
-> checksum (may not have
-> the ability to validate some protocols or does not recognize the 
-> packet); (2) the device has verified
-> the data packet, then sets DATA_VALID bit in flags; (3) In order to 
-> save device resources, VMs
-> on the same host deliver partially checksummed packets, and NEEDS_CSUM 
-> bit is set in flags.
->
-> GUEST_FULLY_CSUM did not change the above result.
-
-Sorry, GUEST_FULLY_CSUM prohibits the third(3) action.
-
->
->>
->>
->>>>
->>>>>    \subsubsection{Feature bit requirements}\label{sec:Device Types 
->>>>> / Network Device / Feature bits / Feature bit requirements}
->>>>> @@ -136,6 +139,7 @@ \subsubsection{Feature bit 
->>>>> requirements}\label{sec:Device Types / Network Device
->>>>>    \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
->>>>>    \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
->>>>>    \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
->>>>> +\item[VIRTIO_NET_F_GUEST_FULLY_CSUM] Requires 
->>>>> VIRTIO_NET_F_GUEST_CSUM and VIRTIO_NET_F_CTRL_GUEST_OFFLOADS.
->>>>
->>>>
->>>>>    \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
->>>>>    \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
->>>>> @@ -398,6 +402,58 @@ \subsection{Device 
->>>>> Initialization}\label{sec:Device Types / Network Device / Dev
->>>>>    A truly minimal driver would only accept VIRTIO_NET_F_MAC and 
->>>>> ignore
->>>>>    everything else.
->>>>> +\subsubsection{Device Delivers Fully Checksummed 
->>>>> Packets}\label{sec:Device Types / Network Device / Device 
->>>>> Initialization / Device Delivers Fully Checksummed Packets}
->>>>> +
->>>>> +If the feature VIRTIO_NET_F_GUEST_FULLY_CSUM is negotiated, the 
->>>>> driver can
->>>>> +benefit from the device's ability to calculate and validate the 
->>>>> checksum.
->>>>> +
->>>>> +If the feature VIRTIO_NET_F_GUEST_FULLY_CSUM is negotiated,
->>>>> +the device behaves as follows:
->>>>> +\begin{itemize}
->>>>> +  \item The device delivers a fully checksummed packet to the 
->>>>> driver rather than a partially checksummed packet.
->>>> where does "partially checksummed packet" come from?
->>>> I think it comes from:
->>> Yes, you are right.
->>>
->>>>      The VIRTIO_NET_F_GUEST_CSUM feature indicates that partially
->>>>     checksummed packets can be received, and if it can do that then
->>>>     the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
->>>>     VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, 
->>>> VIRTIO_NET_F_GUEST_USO4
->>>>     and VIRTIO_NET_F_GUEST_USO6 are the input equivalents of the 
->>>> features described above.
->>>>     See \ref{sec:Device Types / Network Device / Device Operation /
->>>>
->>>>
->>>> so that one needs to be updated too.
->>> Will update this.
->>>
->>>>
->>>>> +Partially checksummed packets come from TCP/UDP protocols 
->>>>> \ref{devicenormative:Device Types / Network Device / Device 
->>>>> Operation / Processing of Packets}.
->>>>> +  \item The device may validate the packet checksum before 
->>>>> delivering it.
->>>>> +If the packet checksum has been verified, the 
->>>>> VIRTIO_NET_HDR_F_DATA_VALID bit
->>>>> +in \field{flags} is set: in case of multiple encapsulated 
->>>>> protocols, one
->>>>> +level of checksums has been validated (Just like 
->>>>> VIRTIO_NET_F_GUEST_CSUM does.).
->>>>> +  \item The device can not set the VIRTIO_NET_HDR_F_NEEDS_CSUM 
->>>>> bit in \field{flags}.
->>>>> +\end{itemize}
->>>>> +
->>>>> +Note that packet types that the driver or device can recognize 
->>>>> and the device
->>>>> +may verify will not change due to the additional negotiated 
->>>>> VIRTIO_NET_F_GUEST_FULLY_CSUM.
->>>>> +These remain consistent with VIRTIO_NET_F_GUEST_CSUM.
->>>> This part is confusing. "change" and "remain" makes no sense for 
->>>> someone reading
->>>> the spec text as opposed to reviewing the patch.
->>>> also it does not matter whether VIRTIO_NET_F_GUEST_FULLY_CSUM
->>>> is negotiated right? it only matters whether it is enabled.
->>> Right! And following your suggestion, I plan to rewrite it as follows:
->>>
->>> Note that if VIRTIO_NET_F_GUEST_FULLY_CSUM is additionally 
->>> negotiated and
->>> its offload is enabled, packet types that the driver or device can 
->>> recognize
->>> and the
->>> device may verify are consistent with when VIRTIO_NET_F_GUEST_CSUM is
->>> negotiated.
->> This doesn't really clarify.  If you'd like it put more simply: Never
->> imagine yourself not to be otherwise than what it might appear to others
->> that what you were or might have been was not otherwise than what you
->> had been would have appeared to them to be otherwise.
->
-> Sorry, I'm not a native speaker and didn't quite understand this long 
-> sentence.
-> But I think you suggest that I should not explain something from the 
-> perspective
-> of someone who is already familiar with it, but should try to explain 
-> it clearly
-> for readers who are not familiar with it.
->
-> I'll try to explain it more clearly.
->
->>
->>>>
->>>>> +Specific transport protocols that may have 
->>>>> VIRTIO_NET_HDR_F_DATA_VALID set
->>>>> +in \field{flags} include TCP, UDP, GRE (Generic Routing 
->>>>> Encapsulation),
->>>>> +and SCTP (Stream Control Transmission Protocol).
->>>>> +A fully checksummed packet's checksum field for each of the above 
->>>>> protocols
->>>>> +is set to a calculated value that covers the transport header and 
->>>>> payload
->>>>> +(TCP or UDP involves the additional pseudo header) of the packet.
->>>>> +
->>>>> +Delivering fully checksummed packets rather than partially
->>>>> +checksummed packets incurs additional overhead for the device.
->>>>> +The overhead varies from device to device, for example the 
->>>>> overhead of
->>>>> +calculating and validating the packet checksum is a few microseconds
->>>>> +for a hardware device.
->>>> wow really is that standard? There are devices that deliver the whole
->>>> packet in a few microseconds. Maybe "for some hardware devices"?
->>> Ok, I think it's more accurate.
->>>
->>>>> +
->>>>> +The feature VIRTIO_NET_F_GUEST_FULLY_CSUM has a corresponding 
->>>>> offload \ref{sec:Device Types / Network Device / Device Operation 
->>>>> / Control Virtqueue / Offloads State Configuration},
->>>>> +which when enabled means that the device delivers fully 
->>>>> checksummed packets
->>>>> +to the driver and may validate the checksum.
->>>>> +The offload is disabled by default.
->>>> This is unusual, unlike any other offload. So needs to be stressed
->>>> more.  And what does "default" mean here?
->>>> E.g. "Note: unlike other offloads, this offloads is disabled
->>>> even after VIRTIO_NET_F_GUEST_FULLY_CSUM has been negotiation.
->>> Ok. Will rewrite this following your example.
->>>
->>>> The offload has to be enabled ... "
->>>>
->>>>
->>>>> +
->>>>> +The driver can enable the offload by sending the
->>>>> +VIRTIO_NET_CTRL_GUEST_OFFLOADS_SET command with the
->>>>> +VIRTIO_NET_F_GUEST_FULLY_CSUM bit set when, for example,
->>>>> +eXpress Data Path (XDP) \hyperref[intro:xdp]{[XDP]} is functioning.
->>>> It is not worth adding a spec link just to provide an example.
->>>> If you really want to provide it:
->>>> "eXpress Data Path (XDP) in Linux is active".
->>>>
->>>> But this is the problem this patch does not solve in my opinion.
->>>> A device might actually provide a full checksum
->>>> at negligeable extra cost and driver will still keep it off by 
->>>> default.
->>>> So it slows device down - when does it make sense to enable this 
->>>> feature?
->>>> Just giving an example of XDP is not sufficient.
->>> First of all, I think the core purpose of this patch is to support XDP
->>> loading.
->>> Otherwise, I think GUEST_CSUM works just fine.
->>>
->>> 1. The device is performant, even if only GUEST_CSUM is negotiated, the
->>> device only provide fully checksummed packets.
->>> If the offload of GUEST_FULLY_CSUM is disabled, it is equivalent to 
->>> only
->>> GUEST_CSUM working, and the device still
->>> provides fully checksummed packets. This will not slow the device down.
->>>
->>> 2. For example a sw device. If the device only negotiates 
->>> GUEST_CSUM, it may
->>> provide partially checksummed packets.
->>> In the absence of XDP loading requirements, the driver does not need to
->>> enable GUEST_FULLY_CSUM offload.
->> Well first of all I am no longer even sure what this GUEST_FULLY_CSUM
->> does. I thought it is CHECKSUM_COMPLETE.
->> But more generally, is there an assumption driver will not
->> enable this new checksum typically then? Unless what? If we never
->> tell drivers they should not enable it they will, the
->> fact that it's off by default seems to be a hint that it
->> is typically a bad idea to enable it. But when is it a good idea?
->
-> I think the core difference between GUEST_FULLY_CSUM and GUEST_CSUM is 
-> that
-> GUEST_CSUM may generate partially checksummed TCP/UDP packets, causing 
-> xdp to fail to load.
-> GUEST_FULLY_CSUM forces fully checksummed TCP/UDP packets to be 
-> generated so xdp can load.
-> For the rest, I guess there is no difference between GUEST_FULLY_CSUM 
-> and GUEST_CSUM.
->
-> As for when the driver enables the offload, I think I have already 
-> mentioned:
-> Enable this offload in the interface where XDP is loaded,
-> Disable this offload in the interfaces where XDP is unloaded.
->
-> Thanks！
->
->>
->>
->>>>
->>>>
->>>>> +
->>>>> +\drivernormative{\subsubsection}{Device Delivers Fully 
->>>>> Checksummed Packets}{sec:Device Types / Network Device / Device 
->>>>> Initialization / Device Delivers Fully Checksummed Packets}
->>>>> +
->>>>> +The driver MUST NOT enable the offload for which 
->>>>> VIRTIO_NET_F_GUEST_FULLY_CSUM has not been negotiated.
->>>> what does "the offload for which" mean here?
->>> VIRTIO_NET_F_GUEST_FULLY_CSUM's offload
->>>
->>>> and how is this special for VIRTIO_NET_F_GUEST_FULLY_CSUM?
->>> Well, I think this sentence seems a bit redundant and I'll probably 
->>> remove
->>> this.
->>>
->>>>> +\devicenormative{\subsubsection}{Device Delivers Fully 
->>>>> Checksummed Packets}{sec:Device Types / Network Device / Device 
->>>>> Initialization / Device Delivers Fully Checksummed Packets}
->>>>> +
->>>>> +Upon the device reset, the device MUST disable the offload.
->>>>> +
->>>> reset has nothing to do with it I think. it's about feature 
->>>> negotiation.
->>> Will modify this.
->>>
->>> Thanks a lot!
->>>
->>>>
->>>>>    \subsection{Device Operation}\label{sec:Device Types / Network 
->>>>> Device / Device Operation}
->>>>>    Packets are transmitted by placing them in the
->>>>> @@ -723,7 +779,8 @@ \subsubsection{Processing of Incoming 
->>>>> Packets}\label{sec:Device Types / Network
->>>>>      \field{num_buffers} is one, then the entire packet will be
->>>>>      contained within this buffer, immediately following the struct
->>>>>      virtio_net_hdr.
->>>>> -\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
->>>>> +\item If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
->>>>> +  VIRTIO_NET_F_GUEST_FULLY_CSUM was negotiated) was negotiated, the
->>>>>      VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
->>>>>      set: if so, device has validated the packet checksum.
->>>>>      In case of multiple encapsulated protocols, one level of 
->>>>> checksums
->>>>> @@ -747,7 +804,8 @@ \subsubsection{Processing of Incoming 
->>>>> Packets}\label{sec:Device Types / Network
->>>>>      number of coalesced TCP segments in \field{csum_start} field and
->>>>>      number of duplicated ACK segments in \field{csum_offset} field
->>>>>      and sets bit VIRTIO_NET_HDR_F_RSC_INFO in \field{flags}.
->>>>> -\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
->>>>> +\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated but the
->>>>> +  VIRTIO_NET_F_GUEST_FULLY_CSUM feature was not negotiated, the
->>>>>      VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} can be
->>>>>      set: if so, the packet checksum at offset \field{csum_offset}
->>>>>      from \field{csum_start} and any preceding checksums
->>>>> @@ -805,8 +863,9 @@ \subsubsection{Processing of Incoming 
->>>>> Packets}\label{sec:Device Types / Network
->>>>>    device MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
->>>>>    \field{gso_type}.
->>>>> -If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
->>>>> -device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
->>>>> +If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated but
->>>>> +the VIRTIO_NET_F_GUEST_FULLY_CSUM feature has not been negotiated,
->>>>> +the device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
->>>>>    \field{flags}, if so:
->>>>>    \begin{enumerate}
->>>>>    \item the device MUST validate the packet checksum at
->>>>> @@ -826,7 +885,8 @@ \subsubsection{Processing of Incoming 
->>>>> Packets}\label{sec:Device Types / Network
->>>>>    been negotiated, the device MUST set \field{gso_type} to
->>>>>    VIRTIO_NET_HDR_GSO_NONE.
->>>>> -If \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
->>>>> +If the VIRTIO_NET_F_GUEST_FULLY_CSUM feature has not been 
->>>>> negotiated and
->>>>> +\field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
->>>>>    the device MUST also set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
->>>>>    \field{flags} MUST set \field{gso_size} to indicate the desired 
->>>>> MSS.
->>>>>    If VIRTIO_NET_F_RSC_EXT was negotiated, the device MUST also
->>>>> @@ -842,7 +902,8 @@ \subsubsection{Processing of Incoming 
->>>>> Packets}\label{sec:Device Types / Network
->>>>>    not less than the length of the headers, including the transport
->>>>>    header.
->>>>> -If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
->>>>> +If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
->>>>> +VIRTIO_NET_F_GUEST_FULLY_CSUM has been negotiated) has been 
->>>>> negotiated, the
->>>>>    device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
->>>>>    \field{flags}, if so, the device MUST validate the packet
->>>>>    checksum (in case of multiple encapsulated protocols, one level
->>>>> @@ -1633,6 +1694,7 @@ \subsubsection{Control 
->>>>> Virtqueue}\label{sec:Device Types / Network Device / Devi
->>>>>    #define VIRTIO_NET_F_GUEST_UFO        10
->>>>>    #define VIRTIO_NET_F_GUEST_USO4       54
->>>>>    #define VIRTIO_NET_F_GUEST_USO6       55
->>>>> +#define VIRTIO_NET_F_GUEST_FULLY_CSUM 64
->>>>>    #define VIRTIO_NET_CTRL_GUEST_OFFLOADS       5
->>>>>     #define VIRTIO_NET_CTRL_GUEST_OFFLOADS_SET   0
->>>>> diff --git a/device-types/net/device-conformance.tex 
->>>>> b/device-types/net/device-conformance.tex
->>>>> index 52526e4..43b3921 100644
->>>>> --- a/device-types/net/device-conformance.tex
->>>>> +++ b/device-types/net/device-conformance.tex
->>>>> @@ -16,4 +16,5 @@
->>>>>    \item \ref{devicenormative:Device Types / Network Device / 
->>>>> Device Operation / Control Virtqueue / Notifications Coalescing}
->>>>>    \item \ref{devicenormative:Device Types / Network Device / 
->>>>> Device Operation / Control Virtqueue / Inner Header Hash}
->>>>>    \item \ref{devicenormative:Device Types / Network Device / 
->>>>> Device Operation / Control Virtqueue / Device Statistics}
->>>>> +\item \ref{devicenormative:Device Types / Network Device / Device 
->>>>> Initialization / Device Delivers Fully Checksummed Packets}
->>>>>    \end{itemize}
->>>>> diff --git a/device-types/net/driver-conformance.tex 
->>>>> b/device-types/net/driver-conformance.tex
->>>>> index c693c4f..c9b6d1b 100644
->>>>> --- a/device-types/net/driver-conformance.tex
->>>>> +++ b/device-types/net/driver-conformance.tex
->>>>> @@ -16,4 +16,5 @@
->>>>>    \item \ref{drivernormative:Device Types / Network Device / 
->>>>> Device Operation / Control Virtqueue / Notifications Coalescing}
->>>>>    \item \ref{drivernormative:Device Types / Network Device / 
->>>>> Device Operation / Control Virtqueue / Inner Header Hash}
->>>>>    \item \ref{drivernormative:Device Types / Network Device / 
->>>>> Device Operation / Control Virtqueue / Device Statistics}
->>>>> +\item \ref{drivernormative:Device Types / Network Device / Device 
->>>>> Initialization / Device Delivers Fully Checksummed Packets}
->>>>>    \end{itemize}
->>>>> diff --git a/introduction.tex b/introduction.tex
->>>>> index cfa6633..fc99597 100644
->>>>> --- a/introduction.tex
->>>>> +++ b/introduction.tex
->>>>> @@ -145,6 +145,9 @@ \section{Normative 
->>>>> References}\label{sec:Normative References}
->>>>>        Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 
->>>>> Key Words", BCP
->>>>>        14, RFC 8174, DOI 10.17487/RFC8174, May 2017
->>>>> \newline\url{http://www.ietf.org/rfc/rfc8174.txt}\\
->>>>> +    \phantomsection\label{intro:xdp}\textbf{[XDP]} &
->>>>> +    eXpress Data Path(XDP) provides a high performance, 
->>>>> programmable network data path in the Linux kernel.
->>>>> + 
->>>>> \newline\url{https://prototype-kernel.readthedocs.io/en/latest/networking/XDP/}\\
->>>>>    \end{longtable}
->>>>>    \section{Non-Normative References}
->>>>> -- 
->>>>> 2.19.1.6.gb485710b
->>
->> This publicly archived list offers a means to provide input to the
->> OASIS Virtual I/O Device (VIRTIO) TC.
->>
->> In order to verify user consent to the Feedback License terms and
->> to minimize spam in the list archive, subscription is required
->> before posting.
->>
->> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
->> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
->> List help: virtio-comment-help@lists.oasis-open.org
->> List archive: https://lists.oasis-open.org/archives/virtio-comment/
->> Feedback License: 
->> https://www.oasis-open.org/who/ipr/feedback_license.pdf
->> List Guidelines: 
->> https://www.oasis-open.org/policies-guidelines/mailing-lists
->> Committee: https://www.oasis-open.org/committees/virtio/
->> Join OASIS: https://www.oasis-open.org/join/
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: 
-> https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
