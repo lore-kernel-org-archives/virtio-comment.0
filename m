@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8803-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8804-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E5AFC4332F
-	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 16:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5742BC46CA2
+	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 16:05:40 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C9AA82B078
-	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 16:05:37 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 60D1F2CAF3
+	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 16:05:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9612C986717
-	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 16:05:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4FCA4986712
+	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 16:05:39 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 75BDC984088; Fri, 15 Dec 2023 16:05:37 +0000 (UTC)
+	id 3E963984088; Fri, 15 Dec 2023 16:05:39 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,8 +24,8 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CEC159866F7
-	for <virtio-comment@lists.oasis-open.org>; Fri, 15 Dec 2023 16:05:32 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DDA279866F8
+	for <virtio-comment@lists.oasis-open.org>; Fri, 15 Dec 2023 16:05:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Gerd Hoffmann <kraxel@redhat.com>,
@@ -35,51 +35,36 @@ To: Gerd Hoffmann <kraxel@redhat.com>,
 	Sergio Lopez <slp@redhat.com>,
 	Akihiko Odaki <akihiko.odaki@daynix.com>,
 	virtio-comment@lists.oasis-open.org
-Date: Fri, 15 Dec 2023 19:05:10 +0300
-Message-ID: <20231215160512.762757-1-dmitry.osipenko@collabora.com>
+Date: Fri, 15 Dec 2023 19:05:12 +0300
+Message-ID: <20231215160512.762757-3-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20231215160512.762757-1-dmitry.osipenko@collabora.com>
+References: <20231215160512.762757-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v2 1/3] virtio-gpu: Rename GFXSTREAM context capset to GFXSTREAM_VULKAN
+Subject: [virtio-comment] [PATCH v2 3/3] virtio-gpu: Update venus-protocol URL
 
-Initially, the plan was to use a single GFXSTREAM context for all of
-GLES/GL/VK gfxstream sub-contexts. Over time the plan changed and
-GFXSTREAM context became used exclusively for Vulkan, while GLES/GL
-contexts were moved to a new own experimental virtio-gpu contexts.
-Rename GFXSTREAM capset to GFXSTREAM_VULKAN.
+The venus-protocol was moved to the main virgl gitlab group a year ago.
+Update the link in the GPU documentation.
 
-Acked-by: Huang Rui <ray.huang@amd.com>
-Link: https://lore.kernel.org/dri-devel/CAAfnVB=Mki1zEyjByJ_7tRrib74E4KSbjezqQcb_Uia8EQEXHw@mail.gmail.com/
-Link: https://chromium.googlesource.com/chromiumos/platform/crosvm/+/e4c1878733937042111fca58899a3a94002bfef0
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- device-types/gpu/description.tex | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ device-types/gpu/description.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/device-types/gpu/description.tex b/device-types/gpu/description.tex
-index 443524851a05..4b8dd7733c31 100644
+index 29c8a97c3a3f..e633787aacad 100644
 --- a/device-types/gpu/description.tex
 +++ b/device-types/gpu/description.tex
-@@ -530,8 +530,8 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
- 	the first edition of Virgl (Gallium OpenGL) protocol.
-   \item \href{https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/src/virgl_hw.h#L550}{VIRTIO_GPU_CAPSET_VIRGL2} --
+@@ -532,7 +532,7 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
  	the second edition of Virgl (Gallium OpenGL) protocol after the capset fix.
--  \item \href{https://android.googlesource.com/device/generic/vulkan-cereal/+/refs/heads/master/protocols/}{VIRTIO_GPU_CAPSET_GFXSTREAM} --
--	gfxtream's (mostly) autogenerated GLES and Vulkan streaming protocols.
-+  \item \href{https://android.googlesource.com/device/generic/vulkan-cereal/+/refs/heads/android13-release/protocols/vulkan/}{VIRTIO_GPU_CAPSET_GFXSTREAM_VULKAN} --
-+	gfxtream's (mostly) autogenerated Vulkan streaming protocol.
-   \item \href{https://gitlab.freedesktop.org/olv/venus-protocol}{VIRTIO_GPU_CAPSET_VENUS} --
+   \item \href{https://android.googlesource.com/device/generic/vulkan-cereal/+/refs/heads/android13-release/protocols/vulkan/}{VIRTIO_GPU_CAPSET_GFXSTREAM_VULKAN} --
+ 	gfxtream's (mostly) autogenerated Vulkan streaming protocol.
+-  \item \href{https://gitlab.freedesktop.org/olv/venus-protocol}{VIRTIO_GPU_CAPSET_VENUS} --
++  \item \href{https://gitlab.freedesktop.org/virgl/venus-protocol}{VIRTIO_GPU_CAPSET_VENUS} --
  	Mesa's (mostly) autogenerated Vulkan protocol.
    \item \href{https://chromium.googlesource.com/chromiumos/platform/crosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol.rs}{VIRTIO_GPU_CAPSET_CROSS_DOMAIN} --
-@@ -547,7 +547,7 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
- 
- #define VIRTIO_GPU_CAPSET_VIRGL 1
- #define VIRTIO_GPU_CAPSET_VIRGL2 2
--#define VIRTIO_GPU_CAPSET_GFXSTREAM 3
-+#define VIRTIO_GPU_CAPSET_GFXSTREAM_VULKAN 3
- #define VIRTIO_GPU_CAPSET_VENUS 4
- #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
- struct virtio_gpu_resp_capset_info {
+ 	protocol for display virtualization via Wayland proxying.
 -- 
 2.41.0
 
