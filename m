@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8801-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8802-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3201AC4332F
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Dec 2023 17:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F644C4167B
+	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 09:51:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9060384E52
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Dec 2023 17:51:13 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6E6E72B06A
+	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 09:51:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7B3FB986B27
-	for <virtio-comment@archiver.kernel.org>; Thu, 14 Dec 2023 17:51:13 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3CB5F986708
+	for <virtio-comment@archiver.kernel.org>; Fri, 15 Dec 2023 09:51:33 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 63F7D986A80; Thu, 14 Dec 2023 17:51:13 +0000 (UTC)
+	id 1B5AD984088; Fri, 15 Dec 2023 09:51:33 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,480 +24,610 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F3D8D986A86
-	for <virtio-comment@lists.oasis-open.org>; Thu, 14 Dec 2023 17:48:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ECE4B9866F5;
+	Fri, 15 Dec 2023 09:51:32 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702576053; x=1703180853;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pkWYtMgEnmrdwWvabQ3Fap0+LS37RWy5D+UO0HxffFg=;
-        b=qRHu9s3HN3U3UQBas1ODD0qHaw/sKxWfAONcGKFWNviBvU4ivvVo0sbjsoq2hrY+tV
-         n8yYUNDJn1fm3ZNtIFext6kWxw7v+XWmgRHmrTBmhape/GnCCrsuXJfp2n/sce8G6Dr+
-         8w+h4JFnHJH+pVUscbkm2K5E5V+djwPijUv7jRqRqPDQhJypvHCzoVN9VxIECavR4PpN
-         syEs8UpRg0niiBYy0f8AcecMabhGPP2v585zpoCsyda3S6lYIH5+KUeVEBQNd/y2M9+N
-         dit8XioBcpNCqxvQXF0z/Wre/FgPcMnxSW9UBnTYPxsqdxkIcES8p5HFyVNtVKiGH4Y0
-         Z3UA==
-X-Gm-Message-State: AOJu0YxXBm1TmZ4mzWwtfpCV9spgl1aC783l0hWpF+0OvmrY2qBWH7mW
-	YwaVQ8s1J9uSgleBkdc9PoaZXxzV0I7sRLI4dMzR/2P54oEq/UFfVc2gTNxe
-X-Google-Smtp-Source: AGHT+IEfmygIu33ZhefyoRsMJf/vzFmMhTPi4fVMbz0hWjvnLwEspUlesbNRTKbF7giD6VNlAstGqQNlHEotFzqken0=
-X-Received: by 2002:a92:c242:0:b0:35d:57f7:b27a with SMTP id
- k2-20020a92c242000000b0035d57f7b27amr12993112ilo.23.1702576032713; Thu, 14
- Dec 2023 09:47:12 -0800 (PST)
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046049;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0VyXOOwK_1702633886;
+Message-ID: <fafa078b-14f5-460d-b03e-122afb9156ba@linux.alibaba.com>
+Date: Fri, 15 Dec 2023 17:51:26 +0800
 MIME-Version: 1.0
-From: Scott McGrath <scott.mcgrath@oasis-open.org>
-Date: Thu, 14 Dec 2023 12:47:00 -0500
-Message-ID: <CAD2Xst-Pn9OwHsRNJrbe5C1Hfhy9egnDAvnXbK-fEK-+YwcdOg@mail.gmail.com>
-To: amqp-bindmap-comment@lists.oasis-open.org, 
-	amqp-comment@lists.oasis-open.org, arip-comment@lists.oasis-open.org, 
-	asap-comment@lists.oasis-open.org, autorepair-comment@lists.oasis-open.org, 
-	avdl-comment@lists.oasis-open.org, bcm-comment@lists.oasis-open.org, 
-	bdx-comment@lists.oasis-open.org, bdxr-comment@lists.oasis-open.org, 
-	bias-comment@lists.oasis-open.org, biometrics-comment@lists.oasis-open.org, 
-	bioserv-comment@lists.oasis-open.org, 
-	bpel4people-comment@lists.oasis-open.org, 
-	business-transaction-comment@lists.oasis-open.org, 
-	cacao-comment@lists.oasis-open.org, cam-comment@lists.oasis-open.org, 
-	camp-comment@lists.oasis-open.org, ces-specs-comment@lists.oasis-open.org, 
-	ces-tc-comment@lists.oasis-open.org, cgmo-webcgm-comment@lists.oasis-open.org, 
-	ciq-comment@lists.oasis-open.org, cloudauthz-comment@lists.oasis-open.org, 
-	cmis-comment@lists.oasis-open.org, cmis4dam-comment@lists.oasis-open.org, 
-	codelist-comment@lists.oasis-open.org, coel-comment@lists.oasis-open.org, 
-	conformance-comment@lists.oasis-open.org, 
-	controlled-trade-comment@lists.oasis-open.org, 
-	csaf-comment@lists.oasis-open.org, cti-comment@lists.oasis-open.org, 
-	cxs-comment@lists.oasis-open.org, cyber-council-comment@lists.oasis-open.org, 
-	dcml-adoption-comment@lists.oasis-open.org, 
-	dcml-appserv-comment@lists.oasis-open.org, 
-	dcml-frame-comment@lists.oasis-open.org, 
-	dcml-network-comment@lists.oasis-open.org, 
-	dcml-server-comment@lists.oasis-open.org, 
-	dita-adoption-comment@lists.oasis-open.org, dita-comment@lists.oasis-open.org, 
-	docbook-comment@lists.oasis-open.org, dsml-comment@lists.oasis-open.org, 
-	dss-comment@lists.oasis-open.org, dss-x-comment@lists.oasis-open.org, 
-	ebcore-comment@lists.oasis-open.org, ebsoa-comment@lists.oasis-open.org, 
-	ebxml-bp-comment@lists.oasis-open.org, 
-	ebxml-cppa-comment@lists.oasis-open.org, 
-	ebxml-iic-comment@lists.oasis-open.org, ebxml-jc-comment@lists.oasis-open.org, 
-	ebxml-msg-comment@lists.oasis-open.org, 
-	education-comment@lists.oasis-open.org, egov-comment@lists.oasis-open.org, 
-	ekmi-comment@lists.oasis-open.org, 
-	election-services-comment@lists.oasis-open.org, 
-	emergency-adopt-comment@lists.oasis-open.org, 
-	emergency-comment@lists.oasis-open.org, emix-comment@lists.oasis-open.org, 
-	energyinterop-comment@lists.oasis-open.org, 
-	entity-resolution-comment@lists.oasis-open.org, 
-	eps-comment@lists.oasis-open.org, esat-comment@lists.oasis-open.org, 
-	etmf-comment@lists.oasis-open.org, ffm-comment@lists.oasis-open.org, 
-	foo-comment@lists.oasis-open.org, forest-comment@lists.oasis-open.org, 
-	fwsi-comment@lists.oasis-open.org, geolang-comment@lists.oasis-open.org, 
-	humanmarkup-comment@lists.oasis-open.org, ibops-comment@lists.oasis-open.org, 
-	icom-comment@lists.oasis-open.org, id-cloud-comment@lists.oasis-open.org, 
-	idpf-comment@lists.oasis-open.org, ihc-comment@lists.oasis-open.org, 
-	imi-comment@lists.oasis-open.org, kmip-comment@lists.oasis-open.org, 
-	kvdb-comment@lists.oasis-open.org, legalcitem-comment@lists.oasis-open.org, 
-	legaldocml-comment@lists.oasis-open.org, 
-	legalruleml-comment@lists.oasis-open.org, 
-	legalxml-comment@lists.oasis-open.org, 
-	legalxml-courtfiling-comment@lists.oasis-open.org, 
-	legalxml-econtracts-comment@lists.oasis-open.org, 
-	legalxml-enotary-comment@lists.oasis-open.org, 
-	legalxml-intercept-comment@lists.oasis-open.org, 
-	legalxml-intjustice-comment@lists.oasis-open.org, 
-	legalxml-legislative-comment@lists.oasis-open.org, 
-	legalxml-odr-comment@lists.oasis-open.org, 
-	legalxml-sdhi-comment@lists.oasis-open.org, 
-	legalxml-transcripts-comment@lists.oasis-open.org, 
-	lexidma-comment@lists.oasis-open.org, lp-comment@lists.oasis-open.org, 
-	lvcsp-comment@lists.oasis-open.org, materials-comment@lists.oasis-open.org, 
-	mgmtprotocol-comment@lists.oasis-open.org, mqtt-comment@lists.oasis-open.org, 
-	new-comment-sample@lists.oasis-open.org, 
-	oasis-board-comment@lists.oasis-open.org, 
-	oasis-member-practice-comment@lists.oasis-open.org, 
-	oaxal-comment@lists.oasis-open.org, obix-comment@lists.oasis-open.org, 
-	ocpp-comment@lists.oasis-open.org, odata-comment@lists.oasis-open.org, 
-	odf-adoption-comment@lists.oasis-open.org, 
-	office-comment@lists.oasis-open.org, ohdf-comment@lists.oasis-open.org, 
-	oic-comment@lists.oasis-open.org, openc2-comment@lists.oasis-open.org, 
-	openeox-comment@lists.oasis-open.org, orms-comment@lists.oasis-open.org, 
-	oslc-automation-comment@lists.oasis-open.org, 
-	oslc-ccm-comment@lists.oasis-open.org, oslc-core-comment@lists.oasis-open.org, 
-	oslc-domains-comment@lists.oasis-open.org, 
-	oslc-promcode-comment@lists.oasis-open.org, 
-	pbd-se-comment@lists.oasis-open.org, pkcs11-comment@lists.oasis-open.org, 
-	pki-comment@lists.oasis-open.org, pki-tc-comment@lists.oasis-open.org, 
-	plcs-comment@lists.oasis-open.org, pmrm-comment@lists.oasis-open.org, 
-	pps-comment@lists.oasis-open.org, provision-comment@lists.oasis-open.org, 
-	quomos-comment@lists.oasis-open.org, regrep-comment@lists.oasis-open.org, 
-	relax-ng-comment@lists.oasis-open.org, 
-	remote-control-comment@lists.oasis-open.org, 
-	rights-comment@lists.oasis-open.org, s-ramp-comment@lists.oasis-open.org, 
-	saf-comment@lists.oasis-open.org, sam-comment@lists.oasis-open.org, 
-	sarif-comment@lists.oasis-open.org, sca-assembly-comment@lists.oasis-open.org, 
-	sca-bindings-comment@lists.oasis-open.org, 
-	sca-bpel-comment@lists.oasis-open.org, sca-c-cpp-comment@lists.oasis-open.org, 
-	sca-j-comment@lists.oasis-open.org, sca-policy-comment@lists.oasis-open.org, 
-	sdd-comment@lists.oasis-open.org, sdo-comment@lists.oasis-open.org, 
-	search-ws-comment@lists.oasis-open.org, 
-	security-services-comment@lists.oasis-open.org, 
-	semantic-ex-comment@lists.oasis-open.org, set-comment@lists.oasis-open.org, 
-	shoes-markup-comment@lists.oasis-open.org, 
-	soa-blueprints-comment@lists.oasis-open.org, 
-	soa-eerp-comment@lists.oasis-open.org, soa-rm-comment@lists.oasis-open.org, 
-	soa-tel-comment@lists.oasis-open.org, tab-comment@lists.oasis-open.org, 
-	tac-comment@lists.oasis-open.org, tag-comment@lists.oasis-open.org, 
-	tamie-comment@lists.oasis-open.org, tax-comment@lists.oasis-open.org, 
-	tgf-comment@lists.oasis-open.org, tm-pubsubj-comment@lists.oasis-open.org, 
-	topicmaps-comment@lists.oasis-open.org, tosca-comment@lists.oasis-open.org, 
-	trans-ws-comment@lists.oasis-open.org, trust-el-comment@lists.oasis-open.org, 
-	ubl-comment@lists.oasis-open.org, uddi-comment@lists.oasis-open.org, 
-	uddi-spec-comment@lists.oasis-open.org, uima-comment@lists.oasis-open.org, 
-	uiml-comment@lists.oasis-open.org, unitsml-comment@lists.oasis-open.org, 
-	uoml-comment@lists.oasis-open.org, uoml-x-comment@lists.oasis-open.org, 
-	vel-comment@lists.oasis-open.org, virtio-comment@lists.oasis-open.org, 
-	vsmi-comment@lists.oasis-open.org, was-comment@lists.oasis-open.org, 
-	wemi-comment@lists.oasis-open.org, ws-brsp-comment@lists.oasis-open.org, 
-	ws-caf-comment@lists.oasis-open.org, ws-calendar-comment@lists.oasis-open.org, 
-	ws-dd-comment@lists.oasis-open.org, ws-rx-comment@lists.oasis-open.org, 
-	ws-sx-comment@lists.oasis-open.org, ws-tx-comment@lists.oasis-open.org, 
-	wsbpel-comment@lists.oasis-open.org, wsdm-comment@lists.oasis-open.org, 
-	wsfed-comment@lists.oasis-open.org, wsia-comment@lists.oasis-open.org, 
-	wsn-comment@lists.oasis-open.org, wsqm-comment@lists.oasis-open.org, 
-	wsrf-comment@lists.oasis-open.org, wsrm-comment@lists.oasis-open.org, 
-	wsrp-comment@lists.oasis-open.org, wss-comment@lists.oasis-open.org, 
-	wss-m-comment@lists.oasis-open.org, xacml-comment@lists.oasis-open.org, 
-	xcbf-comment@lists.oasis-open.org, xdi-comment@lists.oasis-open.org, 
-	xliff-comment@lists.oasis-open.org, xliff-omos-comment@lists.oasis-open.org, 
-	xmile-comment@lists.oasis-open.org, xmlconf-comment@lists.oasis-open.org, 
-	xmlvoc-comment@lists.oasis-open.org, xri-comment@lists.oasis-open.org, 
-	xslt-conformance-comment@lists.oasis-open.org
-Content-Type: multipart/alternative; boundary="000000000000a22697060c7bdfa0"
-Subject: [virtio-comment] Updated schedule for OASIS mail list system upgrade
+User-Agent: Mozilla Thunderbird
+From: Heng Qi <hengqi@linux.alibaba.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Cc: Yuri Benditovich <yuri.benditovich@daynix.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ "virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>
+References: <959e1a7ccdfffaaadd865a627924cf492ce22bfa.1702277523.git.hengqi@linux.alibaba.com>
+ <20231211110350-mutt-send-email-mst@kernel.org>
+ <a8ba676e-de43-45ae-a6a8-a67d0dd41c1f@linux.alibaba.com>
+ <20231212032713-mutt-send-email-mst@kernel.org>
+ <bfd25f86-4292-45d2-a7a2-fe61bde0edb4@linux.alibaba.com>
+ <b739d275-3664-4509-8a91-f19690719475@linux.alibaba.com>
+In-Reply-To: <b739d275-3664-4509-8a91-f19690719475@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH v5] virtio-net: device does not
+ deliver partially checksummed packet and may validate the checksum
 
---000000000000a22697060c7bdfa0
-Content-Type: text/plain; charset="UTF-8"
+Hi all!
 
-We Recently announced the migration to a new List Mail system for this
-list. We've modified the implementation process to allow the legacy system
-to continue running a bit longer and to have a shorter downtime during
-transition.
+I would like to ask if anyone has any comments on this version, if so 
+please let me know!
+If not, I will collect Michael's comments and publish a new version next 
+Monday.
+
+Since Christmas is coming, I think this feature may be in danger of 
+following the pace of
+our hw version releases, so I sincerely request that you please review 
+it as soon as possible.
+
+Thanks!
+
+在 2023/12/12 下午5:30, Heng Qi 写道:
+>
+>
+> 在 2023/12/12 下午5:23, Heng Qi 写道:
+>>
+>>
+>> 在 2023/12/12 下午4:44, Michael S. Tsirkin 写道:
+>>> On Tue, Dec 12, 2023 at 11:28:21AM +0800, Heng Qi wrote:
+>>>>
+>>>> 在 2023/12/12 上午12:35, Michael S. Tsirkin 写道:
+>>>>> On Mon, Dec 11, 2023 at 05:11:59PM +0800, Heng Qi wrote:
+>>>>>> virtio-net works in a virtualized system and is somewhat 
+>>>>>> different from
+>>>>>> physical nics. One of the differences is that to save virtio device
+>>>>>> resources, rx may receive partially checksummed packets. However, 
+>>>>>> XDP may
+>>>>>> cause partially checksummed packets to be dropped.
+>>>>>> So XDP loading currently conflicts with the feature 
+>>>>>> VIRTIO_NET_F_GUEST_CSUM.
+>>>>>>
+>>>>>> This patch lets the device to supply fully checksummed packets to 
+>>>>>> the driver.
+>>>>>> Then XDP can coexist with VIRTIO_NET_F_GUEST_CSUM to enjoy the 
+>>>>>> benefits of
+>>>>>> device validation checksum.
+>>>>>>
+>>>>>> In addition, implementation of some performant devices always do 
+>>>>>> not generate
+>>>>>> partially checksummed packets, but the standard driver still need 
+>>>>>> to clear
+>>>>>> VIRTIO_NET_F_GUEST_CSUM when XDP is there.
+>>>>>> A new feature VIRTIO_NET_F_GUEST_FULLY_CSUM is added to solve the 
+>>>>>> above
+>>>>>> situation, which provides the driver with configurable offload.
+>>>>>> If the offload is enabled, then the device must deliver fully
+>>>>>> checksummed packets to the driver and may validate the checksum.
+>>>>>>
+>>>>>> Use case example:
+>>>>>> If VIRTIO_NET_F_GUEST_FULLY_CSUM is negotiated and the offload is 
+>>>>>> enabled,
+>>>>>> after XDP processes a fully checksummed packet, the 
+>>>>>> VIRTIO_NET_HDR_F_DATA_VALID bit
+>>>>>> is retained if the device has validated its checksum, resulting 
+>>>>>> in the guest
+>>>>>> not needing to validate the checksum again. This is useful for 
+>>>>>> guests:
+>>>>>>     1. Bring the driver advantages such as cpu savings.
+>>>>>>     2. For devices that do not generate partially checksummed 
+>>>>>> packets themselves,
+>>>>>>        XDP can be loaded in the driver without modifying the 
+>>>>>> hardware behavior.
+>>>>>>
+>>>>>> Several solutions have been discussed in the previous proposal[1].
+>>>>>> After historical discussion, we have tried the method proposed by 
+>>>>>> Jason[2],
+>>>>>> but some complex scenarios and challenges are difficult to deal 
+>>>>>> with.
+>>>>>> We now return to the method suggested in [1].
+>>>>>>
+>>>>>> [1] 
+>>>>>> https://lists.oasis-open.org/archives/virtio-dev/202305/msg00291.html 
+>>>>>>
+>>>>>> [2] 
+>>>>>> https://lore.kernel.org/all/20230628030506.2213-1-hengqi@linux.alibaba.com/
+>>>>>>
+>>>>>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+>>>>>> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+>>>>>> ---
+>>>>>> v4->v5:
+>>>>>> - Remove the modification to the GUEST_CSUM.
+>>>>>> - The description of this feature has been reorganized for 
+>>>>>> greater clarity.
+>>>>>>
+>>>>>> v3->v4:
+>>>>>> - Streamline some repetitive descriptions. @Jason
+>>>>>> - Add how features should work, when to be enabled, and overhead. 
+>>>>>> @Jason @Michael
+>>>>>>
+>>>>>> v2->v3:
+>>>>>> - Add a section named "Driver Handles Fully Checksummed Packets"
+>>>>>>     and more descriptions. @Michael
+>>>>>>
+>>>>>> v1->v2:
+>>>>>> - Modify full checksum functionality as a configurable offload
+>>>>>>     that is initially turned off. @Jason
+>>>>>>
+>>>>>>    device-types/net/description.tex        | 74 
+>>>>>> +++++++++++++++++++++++--
+>>>>>>    device-types/net/device-conformance.tex |  1 +
+>>>>>>    device-types/net/driver-conformance.tex |  1 +
+>>>>>>    introduction.tex                        |  3 +
+>>>>>>    4 files changed, 73 insertions(+), 6 deletions(-)
+>>>>>>
+>>>>>> diff --git a/device-types/net/description.tex 
+>>>>>> b/device-types/net/description.tex
+>>>>>> index aff5e08..ab6c13d 100644
+>>>>>> --- a/device-types/net/description.tex
+>>>>>> +++ b/device-types/net/description.tex
+>>>>>> @@ -122,6 +122,9 @@ \subsection{Feature bits}\label{sec:Device 
+>>>>>> Types / Network Device / Feature bits
+>>>>>>        device with the same MAC address.
+>>>>>>    \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and 
+>>>>>> duplex.
+>>>>>> +
+>>>>>> +\item[VIRTIO_NET_F_GUEST_FULLY_CSUM (64)] Device delivers fully 
+>>>>>> checksummed packets
+>>>>>> +    to the driver and may validate the checksum.
+>>>>>>    \end{description}
+>>>>> I propose
+>>>>> VIRTIO_NET_F_GUEST_CSUM_COMPLETE
+>>>>> instead.
+>>>> Can I ask here if *complete* in VIRTIO_NET_F_GUEST_CSUM_COMPLETE and
+>>>> CHECKSUM_COMPLETE mean the same thing?
+>>>>
+>>>> If so, it seems that it's no longer the same as the description of 
+>>>> this
+>>>> patch.
+>>> Oh. I thought it is. Then I guess I misunderstand what this patch is
+>>> supposed to be doing, again.
+>>
+>> Here's some context:
+>>
+>> From the perspective of the Linux kernel, the GUEST_CSUM feature is 
+>> negotiated to support
+>> (1)  CHECKSUM_NONE, (2) CHECKSUM_UNNECESSARY, (3) CHECKSUM_PARTIAL, 
+>> which
+>> respectively correspond to (1) the device does not validate the 
+>> packet checksum (may not have
+>> the ability to validate some protocols or does not recognize the 
+>> packet); (2) the device has verified
+>> the data packet, then sets DATA_VALID bit in flags; (3) In order to 
+>> save device resources, VMs
+>> on the same host deliver partially checksummed packets, and 
+>> NEEDS_CSUM bit is set in flags.
+>>
+>> GUEST_FULLY_CSUM did not change the above result.
+>
+> Sorry, GUEST_FULLY_CSUM prohibits the third(3) action.
+>
+>>
+>>>
+>>>
+>>>>>
+>>>>>>    \subsubsection{Feature bit requirements}\label{sec:Device 
+>>>>>> Types / Network Device / Feature bits / Feature bit requirements}
+>>>>>> @@ -136,6 +139,7 @@ \subsubsection{Feature bit 
+>>>>>> requirements}\label{sec:Device Types / Network Device
+>>>>>>    \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
+>>>>>>    \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
+>>>>>>    \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
+>>>>>> +\item[VIRTIO_NET_F_GUEST_FULLY_CSUM] Requires 
+>>>>>> VIRTIO_NET_F_GUEST_CSUM and VIRTIO_NET_F_CTRL_GUEST_OFFLOADS.
+>>>>>
+>>>>>
+>>>>>>    \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
+>>>>>>    \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
+>>>>>> @@ -398,6 +402,58 @@ \subsection{Device 
+>>>>>> Initialization}\label{sec:Device Types / Network Device / Dev
+>>>>>>    A truly minimal driver would only accept VIRTIO_NET_F_MAC and 
+>>>>>> ignore
+>>>>>>    everything else.
+>>>>>> +\subsubsection{Device Delivers Fully Checksummed 
+>>>>>> Packets}\label{sec:Device Types / Network Device / Device 
+>>>>>> Initialization / Device Delivers Fully Checksummed Packets}
+>>>>>> +
+>>>>>> +If the feature VIRTIO_NET_F_GUEST_FULLY_CSUM is negotiated, the 
+>>>>>> driver can
+>>>>>> +benefit from the device's ability to calculate and validate the 
+>>>>>> checksum.
+>>>>>> +
+>>>>>> +If the feature VIRTIO_NET_F_GUEST_FULLY_CSUM is negotiated,
+>>>>>> +the device behaves as follows:
+>>>>>> +\begin{itemize}
+>>>>>> +  \item The device delivers a fully checksummed packet to the 
+>>>>>> driver rather than a partially checksummed packet.
+>>>>> where does "partially checksummed packet" come from?
+>>>>> I think it comes from:
+>>>> Yes, you are right.
+>>>>
+>>>>>      The VIRTIO_NET_F_GUEST_CSUM feature indicates that partially
+>>>>>     checksummed packets can be received, and if it can do that then
+>>>>>     the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
+>>>>>     VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, 
+>>>>> VIRTIO_NET_F_GUEST_USO4
+>>>>>     and VIRTIO_NET_F_GUEST_USO6 are the input equivalents of the 
+>>>>> features described above.
+>>>>>     See \ref{sec:Device Types / Network Device / Device Operation /
+>>>>>
+>>>>>
+>>>>> so that one needs to be updated too.
+>>>> Will update this.
+>>>>
+>>>>>
+>>>>>> +Partially checksummed packets come from TCP/UDP protocols 
+>>>>>> \ref{devicenormative:Device Types / Network Device / Device 
+>>>>>> Operation / Processing of Packets}.
+>>>>>> +  \item The device may validate the packet checksum before 
+>>>>>> delivering it.
+>>>>>> +If the packet checksum has been verified, the 
+>>>>>> VIRTIO_NET_HDR_F_DATA_VALID bit
+>>>>>> +in \field{flags} is set: in case of multiple encapsulated 
+>>>>>> protocols, one
+>>>>>> +level of checksums has been validated (Just like 
+>>>>>> VIRTIO_NET_F_GUEST_CSUM does.).
+>>>>>> +  \item The device can not set the VIRTIO_NET_HDR_F_NEEDS_CSUM 
+>>>>>> bit in \field{flags}.
+>>>>>> +\end{itemize}
+>>>>>> +
+>>>>>> +Note that packet types that the driver or device can recognize 
+>>>>>> and the device
+>>>>>> +may verify will not change due to the additional negotiated 
+>>>>>> VIRTIO_NET_F_GUEST_FULLY_CSUM.
+>>>>>> +These remain consistent with VIRTIO_NET_F_GUEST_CSUM.
+>>>>> This part is confusing. "change" and "remain" makes no sense for 
+>>>>> someone reading
+>>>>> the spec text as opposed to reviewing the patch.
+>>>>> also it does not matter whether VIRTIO_NET_F_GUEST_FULLY_CSUM
+>>>>> is negotiated right? it only matters whether it is enabled.
+>>>> Right! And following your suggestion, I plan to rewrite it as follows:
+>>>>
+>>>> Note that if VIRTIO_NET_F_GUEST_FULLY_CSUM is additionally 
+>>>> negotiated and
+>>>> its offload is enabled, packet types that the driver or device can 
+>>>> recognize
+>>>> and the
+>>>> device may verify are consistent with when VIRTIO_NET_F_GUEST_CSUM is
+>>>> negotiated.
+>>> This doesn't really clarify.  If you'd like it put more simply: Never
+>>> imagine yourself not to be otherwise than what it might appear to 
+>>> others
+>>> that what you were or might have been was not otherwise than what you
+>>> had been would have appeared to them to be otherwise.
+>>
+>> Sorry, I'm not a native speaker and didn't quite understand this long 
+>> sentence.
+>> But I think you suggest that I should not explain something from the 
+>> perspective
+>> of someone who is already familiar with it, but should try to explain 
+>> it clearly
+>> for readers who are not familiar with it.
+>>
+>> I'll try to explain it more clearly.
+>>
+>>>
+>>>>>
+>>>>>> +Specific transport protocols that may have 
+>>>>>> VIRTIO_NET_HDR_F_DATA_VALID set
+>>>>>> +in \field{flags} include TCP, UDP, GRE (Generic Routing 
+>>>>>> Encapsulation),
+>>>>>> +and SCTP (Stream Control Transmission Protocol).
+>>>>>> +A fully checksummed packet's checksum field for each of the 
+>>>>>> above protocols
+>>>>>> +is set to a calculated value that covers the transport header 
+>>>>>> and payload
+>>>>>> +(TCP or UDP involves the additional pseudo header) of the packet.
+>>>>>> +
+>>>>>> +Delivering fully checksummed packets rather than partially
+>>>>>> +checksummed packets incurs additional overhead for the device.
+>>>>>> +The overhead varies from device to device, for example the 
+>>>>>> overhead of
+>>>>>> +calculating and validating the packet checksum is a few 
+>>>>>> microseconds
+>>>>>> +for a hardware device.
+>>>>> wow really is that standard? There are devices that deliver the whole
+>>>>> packet in a few microseconds. Maybe "for some hardware devices"?
+>>>> Ok, I think it's more accurate.
+>>>>
+>>>>>> +
+>>>>>> +The feature VIRTIO_NET_F_GUEST_FULLY_CSUM has a corresponding 
+>>>>>> offload \ref{sec:Device Types / Network Device / Device Operation 
+>>>>>> / Control Virtqueue / Offloads State Configuration},
+>>>>>> +which when enabled means that the device delivers fully 
+>>>>>> checksummed packets
+>>>>>> +to the driver and may validate the checksum.
+>>>>>> +The offload is disabled by default.
+>>>>> This is unusual, unlike any other offload. So needs to be stressed
+>>>>> more.  And what does "default" mean here?
+>>>>> E.g. "Note: unlike other offloads, this offloads is disabled
+>>>>> even after VIRTIO_NET_F_GUEST_FULLY_CSUM has been negotiation.
+>>>> Ok. Will rewrite this following your example.
+>>>>
+>>>>> The offload has to be enabled ... "
+>>>>>
+>>>>>
+>>>>>> +
+>>>>>> +The driver can enable the offload by sending the
+>>>>>> +VIRTIO_NET_CTRL_GUEST_OFFLOADS_SET command with the
+>>>>>> +VIRTIO_NET_F_GUEST_FULLY_CSUM bit set when, for example,
+>>>>>> +eXpress Data Path (XDP) \hyperref[intro:xdp]{[XDP]} is functioning.
+>>>>> It is not worth adding a spec link just to provide an example.
+>>>>> If you really want to provide it:
+>>>>> "eXpress Data Path (XDP) in Linux is active".
+>>>>>
+>>>>> But this is the problem this patch does not solve in my opinion.
+>>>>> A device might actually provide a full checksum
+>>>>> at negligeable extra cost and driver will still keep it off by 
+>>>>> default.
+>>>>> So it slows device down - when does it make sense to enable this 
+>>>>> feature?
+>>>>> Just giving an example of XDP is not sufficient.
+>>>> First of all, I think the core purpose of this patch is to support XDP
+>>>> loading.
+>>>> Otherwise, I think GUEST_CSUM works just fine.
+>>>>
+>>>> 1. The device is performant, even if only GUEST_CSUM is negotiated, 
+>>>> the
+>>>> device only provide fully checksummed packets.
+>>>> If the offload of GUEST_FULLY_CSUM is disabled, it is equivalent to 
+>>>> only
+>>>> GUEST_CSUM working, and the device still
+>>>> provides fully checksummed packets. This will not slow the device 
+>>>> down.
+>>>>
+>>>> 2. For example a sw device. If the device only negotiates 
+>>>> GUEST_CSUM, it may
+>>>> provide partially checksummed packets.
+>>>> In the absence of XDP loading requirements, the driver does not 
+>>>> need to
+>>>> enable GUEST_FULLY_CSUM offload.
+>>> Well first of all I am no longer even sure what this GUEST_FULLY_CSUM
+>>> does. I thought it is CHECKSUM_COMPLETE.
+>>> But more generally, is there an assumption driver will not
+>>> enable this new checksum typically then? Unless what? If we never
+>>> tell drivers they should not enable it they will, the
+>>> fact that it's off by default seems to be a hint that it
+>>> is typically a bad idea to enable it. But when is it a good idea?
+>>
+>> I think the core difference between GUEST_FULLY_CSUM and GUEST_CSUM 
+>> is that
+>> GUEST_CSUM may generate partially checksummed TCP/UDP packets, 
+>> causing xdp to fail to load.
+>> GUEST_FULLY_CSUM forces fully checksummed TCP/UDP packets to be 
+>> generated so xdp can load.
+>> For the rest, I guess there is no difference between GUEST_FULLY_CSUM 
+>> and GUEST_CSUM.
+>>
+>> As for when the driver enables the offload, I think I have already 
+>> mentioned:
+>> Enable this offload in the interface where XDP is loaded,
+>> Disable this offload in the interfaces where XDP is unloaded.
+>>
+>> Thanks！
+>>
+>>>
+>>>
+>>>>>
+>>>>>
+>>>>>> +
+>>>>>> +\drivernormative{\subsubsection}{Device Delivers Fully 
+>>>>>> Checksummed Packets}{sec:Device Types / Network Device / Device 
+>>>>>> Initialization / Device Delivers Fully Checksummed Packets}
+>>>>>> +
+>>>>>> +The driver MUST NOT enable the offload for which 
+>>>>>> VIRTIO_NET_F_GUEST_FULLY_CSUM has not been negotiated.
+>>>>> what does "the offload for which" mean here?
+>>>> VIRTIO_NET_F_GUEST_FULLY_CSUM's offload
+>>>>
+>>>>> and how is this special for VIRTIO_NET_F_GUEST_FULLY_CSUM?
+>>>> Well, I think this sentence seems a bit redundant and I'll probably 
+>>>> remove
+>>>> this.
+>>>>
+>>>>>> +\devicenormative{\subsubsection}{Device Delivers Fully 
+>>>>>> Checksummed Packets}{sec:Device Types / Network Device / Device 
+>>>>>> Initialization / Device Delivers Fully Checksummed Packets}
+>>>>>> +
+>>>>>> +Upon the device reset, the device MUST disable the offload.
+>>>>>> +
+>>>>> reset has nothing to do with it I think. it's about feature 
+>>>>> negotiation.
+>>>> Will modify this.
+>>>>
+>>>> Thanks a lot!
+>>>>
+>>>>>
+>>>>>>    \subsection{Device Operation}\label{sec:Device Types / Network 
+>>>>>> Device / Device Operation}
+>>>>>>    Packets are transmitted by placing them in the
+>>>>>> @@ -723,7 +779,8 @@ \subsubsection{Processing of Incoming 
+>>>>>> Packets}\label{sec:Device Types / Network
+>>>>>>      \field{num_buffers} is one, then the entire packet will be
+>>>>>>      contained within this buffer, immediately following the struct
+>>>>>>      virtio_net_hdr.
+>>>>>> -\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+>>>>>> +\item If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
+>>>>>> +  VIRTIO_NET_F_GUEST_FULLY_CSUM was negotiated) was negotiated, the
+>>>>>>      VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
+>>>>>>      set: if so, device has validated the packet checksum.
+>>>>>>      In case of multiple encapsulated protocols, one level of 
+>>>>>> checksums
+>>>>>> @@ -747,7 +804,8 @@ \subsubsection{Processing of Incoming 
+>>>>>> Packets}\label{sec:Device Types / Network
+>>>>>>      number of coalesced TCP segments in \field{csum_start} field 
+>>>>>> and
+>>>>>>      number of duplicated ACK segments in \field{csum_offset} field
+>>>>>>      and sets bit VIRTIO_NET_HDR_F_RSC_INFO in \field{flags}.
+>>>>>> -\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+>>>>>> +\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated but the
+>>>>>> +  VIRTIO_NET_F_GUEST_FULLY_CSUM feature was not negotiated, the
+>>>>>>      VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} can be
+>>>>>>      set: if so, the packet checksum at offset \field{csum_offset}
+>>>>>>      from \field{csum_start} and any preceding checksums
+>>>>>> @@ -805,8 +863,9 @@ \subsubsection{Processing of Incoming 
+>>>>>> Packets}\label{sec:Device Types / Network
+>>>>>>    device MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
+>>>>>>    \field{gso_type}.
+>>>>>> -If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
+>>>>>> -device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
+>>>>>> +If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated but
+>>>>>> +the VIRTIO_NET_F_GUEST_FULLY_CSUM feature has not been negotiated,
+>>>>>> +the device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
+>>>>>>    \field{flags}, if so:
+>>>>>>    \begin{enumerate}
+>>>>>>    \item the device MUST validate the packet checksum at
+>>>>>> @@ -826,7 +885,8 @@ \subsubsection{Processing of Incoming 
+>>>>>> Packets}\label{sec:Device Types / Network
+>>>>>>    been negotiated, the device MUST set \field{gso_type} to
+>>>>>>    VIRTIO_NET_HDR_GSO_NONE.
+>>>>>> -If \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
+>>>>>> +If the VIRTIO_NET_F_GUEST_FULLY_CSUM feature has not been 
+>>>>>> negotiated and
+>>>>>> +\field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, then
+>>>>>>    the device MUST also set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
+>>>>>>    \field{flags} MUST set \field{gso_size} to indicate the 
+>>>>>> desired MSS.
+>>>>>>    If VIRTIO_NET_F_RSC_EXT was negotiated, the device MUST also
+>>>>>> @@ -842,7 +902,8 @@ \subsubsection{Processing of Incoming 
+>>>>>> Packets}\label{sec:Device Types / Network
+>>>>>>    not less than the length of the headers, including the transport
+>>>>>>    header.
+>>>>>> -If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
+>>>>>> +If the VIRTIO_NET_F_GUEST_CSUM feature (regardless of whether
+>>>>>> +VIRTIO_NET_F_GUEST_FULLY_CSUM has been negotiated) has been 
+>>>>>> negotiated, the
+>>>>>>    device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
+>>>>>>    \field{flags}, if so, the device MUST validate the packet
+>>>>>>    checksum (in case of multiple encapsulated protocols, one level
+>>>>>> @@ -1633,6 +1694,7 @@ \subsubsection{Control 
+>>>>>> Virtqueue}\label{sec:Device Types / Network Device / Devi
+>>>>>>    #define VIRTIO_NET_F_GUEST_UFO        10
+>>>>>>    #define VIRTIO_NET_F_GUEST_USO4       54
+>>>>>>    #define VIRTIO_NET_F_GUEST_USO6       55
+>>>>>> +#define VIRTIO_NET_F_GUEST_FULLY_CSUM 64
+>>>>>>    #define VIRTIO_NET_CTRL_GUEST_OFFLOADS       5
+>>>>>>     #define VIRTIO_NET_CTRL_GUEST_OFFLOADS_SET   0
+>>>>>> diff --git a/device-types/net/device-conformance.tex 
+>>>>>> b/device-types/net/device-conformance.tex
+>>>>>> index 52526e4..43b3921 100644
+>>>>>> --- a/device-types/net/device-conformance.tex
+>>>>>> +++ b/device-types/net/device-conformance.tex
+>>>>>> @@ -16,4 +16,5 @@
+>>>>>>    \item \ref{devicenormative:Device Types / Network Device / 
+>>>>>> Device Operation / Control Virtqueue / Notifications Coalescing}
+>>>>>>    \item \ref{devicenormative:Device Types / Network Device / 
+>>>>>> Device Operation / Control Virtqueue / Inner Header Hash}
+>>>>>>    \item \ref{devicenormative:Device Types / Network Device / 
+>>>>>> Device Operation / Control Virtqueue / Device Statistics}
+>>>>>> +\item \ref{devicenormative:Device Types / Network Device / 
+>>>>>> Device Initialization / Device Delivers Fully Checksummed Packets}
+>>>>>>    \end{itemize}
+>>>>>> diff --git a/device-types/net/driver-conformance.tex 
+>>>>>> b/device-types/net/driver-conformance.tex
+>>>>>> index c693c4f..c9b6d1b 100644
+>>>>>> --- a/device-types/net/driver-conformance.tex
+>>>>>> +++ b/device-types/net/driver-conformance.tex
+>>>>>> @@ -16,4 +16,5 @@
+>>>>>>    \item \ref{drivernormative:Device Types / Network Device / 
+>>>>>> Device Operation / Control Virtqueue / Notifications Coalescing}
+>>>>>>    \item \ref{drivernormative:Device Types / Network Device / 
+>>>>>> Device Operation / Control Virtqueue / Inner Header Hash}
+>>>>>>    \item \ref{drivernormative:Device Types / Network Device / 
+>>>>>> Device Operation / Control Virtqueue / Device Statistics}
+>>>>>> +\item \ref{drivernormative:Device Types / Network Device / 
+>>>>>> Device Initialization / Device Delivers Fully Checksummed Packets}
+>>>>>>    \end{itemize}
+>>>>>> diff --git a/introduction.tex b/introduction.tex
+>>>>>> index cfa6633..fc99597 100644
+>>>>>> --- a/introduction.tex
+>>>>>> +++ b/introduction.tex
+>>>>>> @@ -145,6 +145,9 @@ \section{Normative 
+>>>>>> References}\label{sec:Normative References}
+>>>>>>        Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 
+>>>>>> 2119 Key Words", BCP
+>>>>>>        14, RFC 8174, DOI 10.17487/RFC8174, May 2017
+>>>>>> \newline\url{http://www.ietf.org/rfc/rfc8174.txt}\\
+>>>>>> +    \phantomsection\label{intro:xdp}\textbf{[XDP]} &
+>>>>>> +    eXpress Data Path(XDP) provides a high performance, 
+>>>>>> programmable network data path in the Linux kernel.
+>>>>>> + 
+>>>>>> \newline\url{https://prototype-kernel.readthedocs.io/en/latest/networking/XDP/}\\
+>>>>>>    \end{longtable}
+>>>>>>    \section{Non-Normative References}
+>>>>>> -- 
+>>>>>> 2.19.1.6.gb485710b
+>>>
+>>> This publicly archived list offers a means to provide input to the
+>>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>>
+>>> In order to verify user consent to the Feedback License terms and
+>>> to minimize spam in the list archive, subscription is required
+>>> before posting.
+>>>
+>>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>>> List help: virtio-comment-help@lists.oasis-open.org
+>>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>>> Feedback License: 
+>>> https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>>> List Guidelines: 
+>>> https://www.oasis-open.org/policies-guidelines/mailing-lists
+>>> Committee: https://www.oasis-open.org/committees/virtio/
+>>> Join OASIS: https://www.oasis-open.org/join/
+>>
+>>
+>> This publicly archived list offers a means to provide input to the
+>> OASIS Virtual I/O Device (VIRTIO) TC.
+>>
+>> In order to verify user consent to the Feedback License terms and
+>> to minimize spam in the list archive, subscription is required
+>> before posting.
+>>
+>> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+>> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+>> List help: virtio-comment-help@lists.oasis-open.org
+>> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+>> Feedback License: 
+>> https://www.oasis-open.org/who/ipr/feedback_license.pdf
+>> List Guidelines: 
+>> https://www.oasis-open.org/policies-guidelines/mailing-lists
+>> Committee: https://www.oasis-open.org/committees/virtio/
+>> Join OASIS: https://www.oasis-open.org/join/
+>
+>
+> This publicly archived list offers a means to provide input to the
+> OASIS Virtual I/O Device (VIRTIO) TC.
+>
+> In order to verify user consent to the Feedback License terms and
+> to minimize spam in the list archive, subscription is required
+> before posting.
+>
+> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+> List help: virtio-comment-help@lists.oasis-open.org
+> List archive: https://lists.oasis-open.org/archives/virtio-comment/
+> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+> List Guidelines: 
+> https://www.oasis-open.org/policies-guidelines/mailing-lists
+> Committee: https://www.oasis-open.org/committees/virtio/
+> Join OASIS: https://www.oasis-open.org/join/
 
 
-*The system cut-over is now scheduled for the first week of January *
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
 
-Miss the original announcement?  Here it is...
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
+Join OASIS: https://www.oasis-open.org/join/
 
-The legacy list engine in use since 2003 will be replaced in this upgrade.
-You are receiving this message because you are a subscriber to the list
-receiving this message.
-
-This transition will provide significant improvements and will change how
-you interact with your mail lists.  See below for more information about
-the changes, the transition schedule and what you can do to help.
-
-Changes to Expect
-
-The new platform is built in a modern web environment and mail delivery
-mechanism. with a number of new features to improve both your platform user
-experience and ability to engage with the OASIS community.  Key features
-include:
-
-
-   -
-
-   Mail systems that you can depend on!  The new tools support and comply
-   with major deliverability and anti-spoofing standards.  This will eliminate
-   many of the sending and deliverability issues your group may be experiencing
-
-
-
-   -
-
-   Modern web interface and design for your committee internal work and
-   public presentation of your work
-
-
-
-   -
-
-   If you are on this public list in addition to Technical Committees, Open
-   Projects, and other community engagement mail lists you can manage this
-   experience in one cohesive package
-
-
-
-   -
-
-   All archives created in the legacy email system will be migrated and
-   available cohesively with your new work in the new platform.  All URL links
-   for assets in the old platform will redirect to the new location
-
-
-
-   -
-
-   After the cutover starts, you will be directed where to send future
-   messages for this list and where to find the archives. Any message sent to
-   a legacy list address after the cutover begins will receive an auto reply
-   with the new list address and archive location.
-
-
-
-   -
-
-   After the migration you can continue using the mail list as before. If
-   you wish to join additional public lists or modify your delivery to the new
-   digest delivery, you will be required to create or login to an existing
-   OASIS public community or member account to manage your subscriptions.
-   This account system will be used to confirm your email address once (as
-   opposed to each subscription) and will be the same account you may be using
-   now for OASIS membership, submitting e-CLA forms etc. Legacy-style
-   subscribe and unsubscribe email messages to the server will not be
-   respected in the new system.
-
-
-
-The Transition Schedule
-
-During the cut-over the first week of January, There will be some system
-downtime during the cutover. During the downtime you will not receive email
-messages sent to this list or have access to the archive.  All messages
-sent after the cut-over begins will receive an auto reply announcing the
-new list address and archive location.
-
-We will announce the timing specific as we get closer to the transition.
-
-What You Should Do Now
-
-If you no longer wish to subscribe to this list, send a message to
-[listname]-unsubscribe@lists.oasis-open.org
-
-Otherwise, watch for further messages in the coming days to include the new
-list mailing address and archive location.
-
-Feel free to contact me with any questions, and thanks for your patience
-with the inevitable short-term inconvenience implementing these
-improvements will bring.
-
-
--- 
-Scott McGrath
-
-Chief Operating Officer
-
-OASIS Open
-
-
-+1 781-929-7308 Mobile
-scott.mcgrath@oasis-open.org
-www.oasis-open.org
-
---000000000000a22697060c7bdfa0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><span id=3D"gmail-docs-internal-guid-64dc5fe4-7fff-eafa-5d=
-8c-6960ff2ec20d"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;ma=
-rgin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-serif=
-;color:rgb(0,0,0);background-color:transparent;font-variant-numeric:normal;=
-font-variant-east-asian:normal;font-variant-alternates:normal;vertical-alig=
-n:baseline">We Recently announced the migration to a new List Mail system f=
-or this list.  We&#39;ve modified the implementation process to allow the l=
-egacy system to continue running a bit longer and to have a shorter downtim=
-e during transition.</span></p><p dir=3D"ltr" style=3D"line-height:1.38;mar=
-gin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Ar=
-ial,sans-serif;color:rgb(0,0,0);background-color:transparent;font-variant-n=
-umeric:normal;font-variant-east-asian:normal;font-variant-alternates:normal=
-;vertical-align:baseline"><br></span></p><p style=3D"line-height:1.38;margi=
-n-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Aria=
-l,sans-serif;color:rgb(0,0,0);background-color:transparent;font-variant-num=
-eric:normal;font-variant-east-asian:normal;font-variant-alternates:normal;v=
-ertical-align:baseline"><b>The system cut-over is now scheduled for the fir=
-st week of January=C2=A0</b></span></p><div><span><br></span></div><div><sp=
-an><br></span></div>Miss the original announcement?=C2=A0 Here it is...</sp=
-an><div><span><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;m=
-argin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-seri=
-f;color:rgb(0,0,0);background-color:transparent;font-variant-numeric:normal=
-;font-variant-east-asian:normal;font-variant-alternates:normal;vertical-ali=
-gn:baseline">The legacy list engine in use since 2003 will be replaced in t=
-his upgrade.=C2=A0 You are receiving this message because you are a subscri=
-ber to the list receiving this message.</span></p><br><p dir=3D"ltr" style=
-=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-=
-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:tr=
-ansparent;font-variant-numeric:normal;font-variant-east-asian:normal;font-v=
-ariant-alternates:normal;vertical-align:baseline">This transition will prov=
-ide significant improvements and will change how you interact with your mai=
-l lists.=C2=A0 See below for more information about the changes, the transi=
-tion schedule and what you can do to help.</span></p><br><p dir=3D"ltr" sty=
-le=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"fon=
-t-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:=
-transparent;font-weight:700;font-variant-numeric:normal;font-variant-east-a=
-sian:normal;font-variant-alternates:normal;vertical-align:baseline">Changes=
- to Expect</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-to=
-p:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sa=
-ns-serif;color:rgb(0,0,0);background-color:transparent;font-variant-numeric=
-:normal;font-variant-east-asian:normal;font-variant-alternates:normal;verti=
-cal-align:baseline">The new platform is built in a modern web environment a=
-nd mail delivery mechanism. with a number of new features to improve both y=
-our platform user experience and ability to engage with the OASIS community=
-.=C2=A0 Key features include:</span></p><br><ul style=3D"margin-top:0px;mar=
-gin-bottom:0px"><li dir=3D"ltr" style=3D"list-style-type:disc;font-size:11p=
-t;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:transparen=
-t;font-variant-numeric:normal;font-variant-east-asian:normal;font-variant-a=
-lternates:normal;vertical-align:baseline;white-space:pre"><p dir=3D"ltr" st=
-yle=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt" role=3D"presentat=
-ion"><span style=3D"font-size:11pt;background-color:transparent;font-varian=
-t-numeric:normal;font-variant-east-asian:normal;font-variant-alternates:nor=
-mal;vertical-align:baseline">Mail systems that you can depend on!=C2=A0 The=
- new tools support and comply with major deliverability and anti-spoofing s=
-tandards.=C2=A0 This will eliminate many of the sending and deliverability =
-issues your group may be experiencing</span></p></li></ul><br><ul style=3D"=
-margin-top:0px;margin-bottom:0px"><li dir=3D"ltr" style=3D"list-style-type:=
-disc;font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);backgroun=
-d-color:transparent;font-variant-numeric:normal;font-variant-east-asian:nor=
-mal;font-variant-alternates:normal;vertical-align:baseline;white-space:pre"=
-><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"=
- role=3D"presentation"><span style=3D"font-size:11pt;background-color:trans=
-parent;font-variant-numeric:normal;font-variant-east-asian:normal;font-vari=
-ant-alternates:normal;vertical-align:baseline">Modern web interface and des=
-ign for your committee internal work and public presentation of your work</=
-span></p></li></ul><br><ul style=3D"margin-top:0px;margin-bottom:0px"><li d=
-ir=3D"ltr" style=3D"list-style-type:disc;font-size:11pt;font-family:Arial,s=
-ans-serif;color:rgb(0,0,0);background-color:transparent;font-variant-numeri=
-c:normal;font-variant-east-asian:normal;font-variant-alternates:normal;vert=
-ical-align:baseline;white-space:pre"><p dir=3D"ltr" style=3D"line-height:1.=
-38;margin-top:0pt;margin-bottom:0pt" role=3D"presentation"><span style=3D"f=
-ont-size:11pt;background-color:transparent;font-variant-numeric:normal;font=
--variant-east-asian:normal;font-variant-alternates:normal;vertical-align:ba=
-seline">If you are on this public list in addition to Technical Committees,=
- Open Projects, and other community engagement mail lists you can manage th=
-is experience in one cohesive package=C2=A0=C2=A0</span></p></li></ul><br><=
-ul style=3D"margin-top:0px;margin-bottom:0px"><li dir=3D"ltr" style=3D"list=
--style-type:disc;font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,=
-0);background-color:transparent;font-variant-numeric:normal;font-variant-ea=
-st-asian:normal;font-variant-alternates:normal;vertical-align:baseline;whit=
-e-space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin=
--bottom:0pt" role=3D"presentation"><span style=3D"font-size:11pt;background=
--color:transparent;font-variant-numeric:normal;font-variant-east-asian:norm=
-al;font-variant-alternates:normal;vertical-align:baseline">All archives cre=
-ated in the legacy email system will be migrated and available cohesively w=
-ith your new work in the new platform.=C2=A0 All URL links for assets in th=
-e old platform will redirect to the new location</span></p></li></ul><br><u=
-l style=3D"margin-top:0px;margin-bottom:0px"><li dir=3D"ltr" style=3D"list-=
-style-type:disc;font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0=
-);background-color:transparent;font-variant-numeric:normal;font-variant-eas=
-t-asian:normal;font-variant-alternates:normal;vertical-align:baseline;white=
--space:pre"><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-=
-bottom:0pt" role=3D"presentation"><span style=3D"font-size:11pt;background-=
-color:transparent;font-variant-numeric:normal;font-variant-east-asian:norma=
-l;font-variant-alternates:normal;vertical-align:baseline">After the cutover=
- starts, you will be directed where to send future messages for this list a=
-nd where to find the archives.  Any message sent to a legacy list address a=
-fter the cutover begins will receive an auto reply with the new list addres=
-s and archive location.</span></p></li></ul><br><ul style=3D"margin-top:0px=
-;margin-bottom:0px"><li dir=3D"ltr" style=3D"list-style-type:disc;font-size=
-:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:transp=
-arent;font-variant-numeric:normal;font-variant-east-asian:normal;font-varia=
-nt-alternates:normal;vertical-align:baseline;white-space:pre"><p dir=3D"ltr=
-" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt" role=3D"prese=
-ntation"><span style=3D"font-size:11pt;background-color:transparent;font-va=
-riant-numeric:normal;font-variant-east-asian:normal;font-variant-alternates=
-:normal;vertical-align:baseline">After the migration you can continue using=
- the mail list as before.  If you wish to join additional public lists or m=
-odify your delivery to the new digest delivery, you will be required to cre=
-ate or login to an existing OASIS public community or member account to man=
-age your subscriptions.=C2=A0 This account system will be used to confirm y=
-our email address once (as opposed to each subscription) and will be the sa=
-me account you may be using now for OASIS membership, submitting e-CLA form=
-s etc.   Legacy-style subscribe and unsubscribe email messages to the serve=
-r will not be respected in the new system.</span></p></li></ul><br><br><p d=
-ir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><spa=
-n style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);bac=
-kground-color:transparent;font-weight:700;font-variant-numeric:normal;font-=
-variant-east-asian:normal;font-variant-alternates:normal;vertical-align:bas=
-eline">The Transition Schedule</span></p><br><p dir=3D"ltr" style=3D"line-h=
-eight:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;=
-font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:transparent;=
-font-variant-numeric:normal;font-variant-east-asian:normal;font-variant-alt=
-ernates:normal;vertical-align:baseline">During the cut-over the first week =
-of January,  There will be some system downtime during the cutover. During =
-the downtime you will not receive email messages sent to this list or have =
-access to the archive.=C2=A0=C2=A0All messages sent after the cut-over begi=
-ns will receive an auto reply announcing the new list address and archive l=
-ocation.</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:=
-0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans=
--serif;color:rgb(0,0,0);background-color:transparent;font-variant-numeric:n=
-ormal;font-variant-east-asian:normal;font-variant-alternates:normal;vertica=
-l-align:baseline">We will announce the timing specific as we get closer to =
-the transition.</span></p><br><p dir=3D"ltr" style=3D"line-height:1.38;marg=
-in-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Ari=
-al,sans-serif;color:rgb(0,0,0);background-color:transparent;font-weight:700=
-;font-variant-numeric:normal;font-variant-east-asian:normal;font-variant-al=
-ternates:normal;vertical-align:baseline">What You Should Do Now</span></p><=
-br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0p=
-t"><span style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0=
-,0);background-color:transparent;font-variant-numeric:normal;font-variant-e=
-ast-asian:normal;font-variant-alternates:normal;vertical-align:baseline">If=
- you no longer wish to subscribe to this list, send a message to [listname]=
-</span><a href=3D"mailto:-unsubscribe@lists.oasis-open.org" style=3D"text-d=
-ecoration-line:none"><span style=3D"font-size:11pt;font-family:Arial,sans-s=
-erif;background-color:transparent;font-variant-numeric:normal;font-variant-=
-east-asian:normal;font-variant-alternates:normal;text-decoration-line:under=
-line;vertical-align:baseline">-unsubscribe@lists.oasis-open.org</span></a><=
-/p><br><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-botto=
-m:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb=
-(0,0,0);background-color:transparent;font-variant-numeric:normal;font-varia=
-nt-east-asian:normal;font-variant-alternates:normal;vertical-align:baseline=
-">Otherwise, watch for further messages in the coming days to include the n=
-ew list mailing address and archive location.</span></p><br><p dir=3D"ltr" =
-style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"=
-font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-col=
-or:transparent;font-variant-numeric:normal;font-variant-east-asian:normal;f=
-ont-variant-alternates:normal;vertical-align:baseline">Feel free to contact=
- me with any questions, and thanks for your patience with the inevitable sh=
-ort-term inconvenience implementing these improvements will bring.</span></=
-p><br></span><div><br></div><span class=3D"gmail_signature_prefix">-- </spa=
-n><br><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_si=
-gnature"><div dir=3D"ltr"><table cellspacing=3D"0" cellpadding=3D"0" style=
-=3D"font-family:Arial;vertical-align:-webkit-baseline-middle"><tbody><tr><t=
-d width=3D"70" style=3D"vertical-align:middle"><span style=3D"margin-right:=
-5px;display:block"><img width=3D"70" height=3D"70" style=3D"max-width:70px"=
- src=3D"https://ci3.googleusercontent.com/mail-sig/AIorK4wWWvttK4QvAyLjmQRf=
-bisd2jdvX84ncnFeBuJn9NtWvi8WHJIwVlm1HGm8Re2Ji0U6N10brtc"></span></td><td st=
-yle=3D"vertical-align:middle"><h3 style=3D"margin:0px;font-size:16px;color:=
-rgb(0,0,0)">Scott=C2=A0McGrath</h3><p style=3D"margin:0px;color:rgb(0,0,0);=
-font-size:12px;line-height:20px">Chief Operating Officer</p><p style=3D"mar=
-gin:0px;color:rgb(0,0,0);font-size:12px;line-height:20px">OASIS Open</p></t=
-d><td width=3D"30">=C2=A0</td><td width=3D"1" style=3D"width:1px;border-bot=
-tom:none;border-left:1px solid rgb(34,72,229)">=C2=A0</td><td width=3D"30">=
-=C2=A0</td><td style=3D"vertical-align:middle"><table cellspacing=3D"0" cel=
-lpadding=3D"0" style=3D"vertical-align:-webkit-baseline-middle;font-family:=
-Arial"><tbody><tr style=3D"vertical-align:middle"><td width=3D"30" style=3D=
-"vertical-align:middle"><table cellspacing=3D"0" cellpadding=3D"0" style=3D=
-"vertical-align:-webkit-baseline-middle;font-family:Arial"><tbody><tr><td s=
-tyle=3D"vertical-align:bottom"><span style=3D"display:block;background-colo=
-r:rgb(34,72,229)"><img src=3D"https://cdn2.hubspot.net/hubfs/53/tools/email=
--signature-generator/icons/phone-icon-2x.png" width=3D"13" style=3D"display=
-:block"></span></td></tr></tbody></table></td><td style=3D"padding:2px;colo=
-r:rgb(0,0,0)"><br>+1 781-929-7308 Mobile</td></tr><tr style=3D"vertical-ali=
-gn:middle"><td width=3D"30" style=3D"vertical-align:middle"><table cellspac=
-ing=3D"0" cellpadding=3D"0" style=3D"vertical-align:-webkit-baseline-middle=
-;font-family:Arial"><tbody><tr><td style=3D"vertical-align:bottom"><span st=
-yle=3D"display:block;background-color:rgb(34,72,229)"><img src=3D"https://c=
-dn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2=
-x.png" width=3D"13" style=3D"display:block"></span></td></tr></tbody></tabl=
-e></td><td style=3D"padding:2px"><a href=3D"mailto:scott.mcgrath@oasis-open=
-.org" style=3D"color:rgb(0,0,0);font-size:12px" target=3D"_blank">scott.mcg=
-rath@oasis-open.org</a></td></tr><tr style=3D"vertical-align:middle"><td wi=
-dth=3D"30" style=3D"vertical-align:middle"><table cellspacing=3D"0" cellpad=
-ding=3D"0" style=3D"vertical-align:-webkit-baseline-middle;font-family:Aria=
-l"><tbody><tr><td style=3D"vertical-align:bottom"><span style=3D"display:bl=
-ock;background-color:rgb(34,72,229)"><img src=3D"https://cdn2.hubspot.net/h=
-ubfs/53/tools/email-signature-generator/icons/link-icon-2x.png" width=3D"13=
-" style=3D"display:block"></span></td></tr></tbody></table></td><td style=
-=3D"padding:2px"><a href=3D"https://www.oasis-open.org/" style=3D"color:rgb=
-(0,0,0);font-size:12px" target=3D"_blank">www.oasis-open.org</a></td></tr><=
-/tbody></table></td></tr></tbody></table></div></div></div></div>
-
---000000000000a22697060c7bdfa0--
