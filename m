@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8847-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8848-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F7CFC46CD2
-	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 07:48:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8800AC35274
+	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 08:44:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BEF0E2B038
-	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 07:48:37 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DE37E2B01A
+	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 08:44:18 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 907C9986603
-	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 07:48:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id B66059865BA
+	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 08:44:18 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 700FB983DDF; Thu, 21 Dec 2023 07:48:37 +0000 (UTC)
+	id 99C58983DDF; Thu, 21 Dec 2023 08:44:18 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,174 +24,178 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5F8029865B6
-	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Dec 2023 07:48:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 895D19865B6
+	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Dec 2023 08:44:18 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R661e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046059;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0Vyx.1wg_1703144912;
-Message-ID: <cd7d20bb-15b7-4b87-9761-94b5ddd5eb23@linux.alibaba.com>
-Date: Thu, 21 Dec 2023 15:48:31 +0800
+X-MC-Unique: qj0L6TJlPACTCK4bMYcMMA-1
+From: Cornelia Huck <cohuck@redhat.com>
+To: Haixu Cui <quic_haixcui@quicinc.com>, virtio-dev@lists.oasis-open.org,
+ virtio-comment@lists.oasis-open.org, harald.mommer@opensynergy.com,
+ broonie@kernel.org, qiang4.zhang@linux.intel.com, viresh.kumar@linaro.org
+Cc: quic_ztu@quicinc.com
+In-Reply-To: <e076f6b7-595e-4910-96c9-96366faadfe8@quicinc.com>
+Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
+ Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
+ 153243,
+ =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
+ Michael O'Neill, Amy
+ Ross"
+References: <20231212033317.22198-1-quic_haixcui@quicinc.com>
+ <20231212033317.22198-3-quic_haixcui@quicinc.com>
+ <87wmtbg4ad.fsf@redhat.com>
+ <e076f6b7-595e-4910-96c9-96366faadfe8@quicinc.com>
+User-Agent: Notmuch/0.37 (https://notmuchmail.org)
+Date: Thu, 21 Dec 2023 09:44:09 +0100
+Message-ID: <87cyv0eyhy.fsf@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, Jason Wang <jasowang@redhat.com>,
- Yuri Benditovich <yuri.benditovich@daynix.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-References: <fb123ee4ac9e21e6f1d7142149439db74585be8e.1703083096.git.hengqi@linux.alibaba.com>
- <20231221015507-mutt-send-email-mst@kernel.org>
- <e93bf579-16d7-4c25-b05f-575ac756fae8@linux.alibaba.com>
- <20231221020541-mutt-send-email-mst@kernel.org>
- <046a47b8-c816-4c52-abcc-6e1ec3174b32@linux.alibaba.com>
-In-Reply-To: <046a47b8-c816-4c52-abcc-6e1ec3174b32@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH RESEND] virtio-net: support setting
- coalescing params for multiple vqs
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
+Subject: [virtio-comment] Re: [virtio-dev][PATCH V9 2/2] virtio-spi: add the device
+ specification
 
+On Thu, Dec 21 2023, Haixu Cui <quic_haixcui@quicinc.com> wrote:
 
+> Hi Cornelia,
+>      Much appreciated for your comments and please refer to my response.
+>
+> On 12/18/2023 7:04 PM, Cornelia Huck wrote:
+>> On Tue, Dec 12 2023, Haixu Cui <quic_haixcui@quicinc.com> wrote:
+>> 
+>> [BTW: A changelog would be useful, either in the patch or in the cover
+>> letter.]
+>
+> Sure, I summarize the major changes between these versions and will add 
+> in next patch:
+>
+> changelog:
+> v8->v9:
+> - add explanation of bits_per_word_mask in config space
+> v7->v8:
+> - change device to host
+> v6->v7:
+> - fix the format problem, syntax problem
+> v5->v6:
+> - use driver/device instead guest/host
+> - add the definition of some terminologies
+> - use controller instead of master throughout the spec
+> - add buffer length validation for full-duplex transfer
+> v4->v5:
+> - use controller instead of master
+> - fix indentation issue
+> - extend the config space to expose the backend supported features
+> - add another result value to indicate parameter error
+> - add device and driver requirement about parameter checkig
+> v3->v4:
+> - fix the spell error
+> - bus_num is not SOC-specific, remove it
+> - add driver requirement to deal with the situation that the cs delay
+> parameters are not 0 but the backend doesn't support cs timing setting
+> v2->v3
+> - remove unnecessary statements and driver implimentation details
+> - add the parameters about cs timing delay and transfer delay
+> - use "le32" instead of "u32"
+> - swap the rx_buf and tx_buf in the request format
+> - add the parameters about transfer bit width
+> v1->v2:
+> - explain SPI when it is firstly used
+> - update the ambiguous expression of virtqueue
+> v0->v1:
+> - add definition of abbreviation SPI
+> - remove the ID
 
-在 2023/12/21 下午3:19, Heng Qi 写道:
->
->
-> 在 2023/12/21 下午3:08, Michael S. Tsirkin 写道:
->> On Thu, Dec 21, 2023 at 03:01:57PM +0800, Heng Qi wrote:
->>>
->>> 在 2023/12/21 下午2:56, Michael S. Tsirkin 写道:
->>>> On Wed, Dec 20, 2023 at 10:40:34PM +0800, Heng Qi wrote:
->>>>> Currently, when each time the driver attempts to update the 
->>>>> coalescing parameters
->>>>> for a vq, it needs to kick the device and wait for the ctrlq 
->>>>> response to return.
->>>> But there's no fundamental reason for it to do so.
->>> Indeed, please look at the current upstream netdim code:
->>>
->>> static void virtnet_rx_dim_work(struct work_struct *work)
->>> {
->>>          struct dim *dim = container_of(work, struct dim, work);
->>>          struct receive_queue *rq = container_of(dim,
->>>                          struct receive_queue, dim);
->>>          struct virtnet_info *vi = rq->vq->vdev->priv;
->>>          struct net_device *dev = vi->dev;
->>>          struct dim_cq_moder update_moder;
->>>          int i, qnum, err;
->>>
->>>          if (!rtnl_trylock())
->>>                  return;
->>>
->>>          /* Each rxq's work is queued by "net_dim()->schedule_work()"
->>>           * in response to NAPI traffic changes. Note that 
->>> dim->profile_ix
->>>           * for each rxq is updated prior to the queuing action.
->>>           * So we only need to traverse and update profiles for all 
->>> rxqs
->>>           * in the work which is holding rtnl_lock.
->>>           */
->>>          for (i = 0; i < vi->curr_queue_pairs; i++) {
->>> <-----------------
->>>                  rq = &vi->rq[i];
->>>                  dim = &rq->dim;
->>>                  qnum = rq - vi->rq;
->>>
->>>                  if (!rq->dim_enabled)
->>>                          continue;
->>>
->>>                  update_moder = net_dim_get_rx_moderation(dim->mode,
->>> dim->profile_ix);
->>>                  if (update_moder.usec != rq->intr_coal.max_usecs ||
->>>                      update_moder.pkts != rq->intr_coal.max_packets) {
->>>                          err = virtnet_send_rx_ctrl_coal_vq_cmd(vi, 
->>> qnum,
->>> update_moder.usec,
->>> update_moder.pkts);
->>>                          if (err)
->>>                                  pr_debug("%s: Failed to send dim 
->>> parameters
->>> on rxq%d\n",
->>>                                           dev->name, qnum);
->>>                          dim->state = DIM_START_MEASURE;
->>>                  }
->>>          }
->>>
->>>          rtnl_unlock();
->>> }
->>>
->>>> It can just as well submit multiple commands and then wait.
->>> Sending multiple commands and then waiting reduces the number of kicks.
->>> But it does not reduce the number of device DMAs. I already 
->>> responded to
->>> this in a thread to Jason.
->>> please check:
->>>
->>> https://lists.oasis-open.org/archives/virtio-comment/202312/msg00142.html 
->>>
->>>
->>> "
->>> Overall, batch reqs are sufficient. Because the current major 
->>> overhead is
->>> the number of DMAs.
->>> For example, for a device with 256 queues,
->>>
->>> For the current upstream code, the overhead is 256 kicks + 256*8 DMA 
->>> times.
->>> The overhead of batch cmds is 1 kick + 256*8 DMA times.
->>> The overhead of batch reqs is 1 kick + 8 DMA times.
->>>
->>> Below is 8 DMA times:
->>> - get avail idx 1 time
->>> - Pull available ring information 1 time
->>> - Pull the desc pointed to by the avail ring 3 times
->>> - Pull the hdr and out bufs pointed to by avail ring desc 2 times
->>> - Write once to the status buf pointed to by status 1 time "
->>>
->>> Thanks.
->> So there's more DMA but it's all slow path.
->> Why do we need to micro-optimize it?
->
-> On our each DPU, multiple VMs need to be supported. The ctrlq of these 
-> VMs are simulated by software,
-> which consumes limited CPU resources on the DPU.
+Thanks. Might be best to add this in the cover letter.
 
-Each DMA needs to wait for the DMA hw execution to complete. Then the 
-DPU CPU will do other things, and
-it will be scheduled when the DMA execution is completed. Therefore, 
-more DMA times means more CPU scheduling.
-Affects CPU execution efficiency.
+> ---
+>
+>> 
+>>> The Virtio SPI (Serial Peripheral Interface) device is a virtual
+>>> SPI controller that allows the driver to operate and use the SPI
+>>> controller under the control of the host.
+>>>
+>>> This patch adds the specification for virtio-spi.
+>>>
+>>> Signed-off-by: Haixu Cui <quic_haixcui@quicinc.com>
+>>> Reviewed-by: Viresh Kumar <viresh.kumar@linaro.org>
+>>> ---
+>>>   device-types/spi/description.tex        | 281 ++++++++++++++++++++++++
+>>>   device-types/spi/device-conformance.tex |   7 +
+>>>   device-types/spi/driver-conformance.tex |   7 +
+>>>   3 files changed, 295 insertions(+)
+>>>   create mode 100644 device-types/spi/description.tex
+>>>   create mode 100644 device-types/spi/device-conformance.tex
+>>>   create mode 100644 device-types/spi/driver-conformance.tex
+>>>
+>>> diff --git a/device-types/spi/description.tex b/device-types/spi/description.tex
+>> 
+>> Please move inclusion of this new file into content.tex here, instead of
+>> including a not-yet-existing file in the previous patch.
+>> 
+>> (...)
+>
+>
+> Sorry, I don't quite understand here. Maybe I should not add the 
+> following line in content.tex, is that so?
+>
+> \input{device-types/spi/description.tex}
 
-And batch reqs, reducing the number of DMA not only improves DPU CPU 
-execution efficiency, but also optimizes DMA latency.
-This is very meaningful for single DPU multi-VM multi-queue scenarios.
+No, please add this line; but do so in this patch instead of the
+previous one that only changes the wording.
 
+>
+>> 
+>>> +\field{mode_func_supported} indicates whether the following features are supported or not:
+>>> +        bit 0-1: CPHA feature,
+>>> +            0b00: invalid, must support as least one CPHA setting.
+>>> +            0b01: supports CPHA=0 only;
+>>> +            0b10: supports CPHA=1 only;
+>>> +            0b11: supports CPHA=0 and CPHA=1;
+>>> +
+>>> +        bit 2-3: CPOL feature,
+>>> +            0b00: invalid, must support as least one CPOL setting.
+>>> +            0b01: supports CPOL=0 only;
+>>> +            0b10: supports CPOL=1 only;
+>>> +            0b11: supports CPOL=0 and CPOL=1;
+>>> +
+>>> +        bit 4: chipselect active high feature, 0 for unsupported and 1 for supported,
+>>> +            chipselect active low must always be supported.
+>>> +
+>>> +        bit 5: LSB first feature, 0 for unsupported and 1 for supported, MSB first must always be
+>>> +            supported.
+>>> +
+>>> +        bit 6: loopback mode feature, 0 for unsupported and 1 for supported, normal mode
+>>> +            must always be supported.
+>>> +
+>>> +Note: CPOL is clock polarity and CPHA is clock phase. If CPOL is 0, the clock idles at the logical
+>>> +low voltage, otherwise it idles at the logical high voltage. CPHA determines how data is outputted
+>>> +and sampled.
+>> 
+>> Shouldn't you also specify what CPHA==0 and CPHA==1 mean?
+>> 
+>
+> Yes, I will add the following explanation:
+>
+> If CPHA is 0, the first bit is outputted immediately when chipselect is 
+> active and subsequent bits are outputted on the clock edges when clock 
 
-> Therefore, optimizing the response speed of ctrlq for netdim can 
-> better support multiple VMs and the large-queue-sized VM.
+s/when clock/when the clock/
+
+> transitions from active level to idle level. Data is sampled on the 
+> clock edges when clock transitions from idle level to active level.
+
+same
+
 >
->> What is the overhead practically, in milliseconds?
->
-> Latency overhead is only one aspect. More importantly, limited CPU 
-> resources need to support
-> effective command processing of more VMs and large-queue-sized VMs.
->
-> Thanks.
->
->>
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: 
-> https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+> If CPHA is 1, the first bit is outputted on the fist clock edge after 
+> chipselect is active, subsequent bits are outputted on the clock edges 
+> when clock transitions from idle level to active level. Data is sampled 
+
+same
+
+> on the clock edges when clock transitions from active level to idle level.
+
+same
 
 
 This publicly archived list offers a means to provide input to the
