@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8842-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8843-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D3FC35274
-	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 04:55:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0DC2C35274
+	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 06:56:11 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id ABA992B016
-	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 04:55:51 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id DEBF12B06F
+	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 06:56:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7FF619865FF
-	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 04:55:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BBD5A9865B8
+	for <virtio-comment@archiver.kernel.org>; Thu, 21 Dec 2023 06:56:10 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 66C72983DDF; Thu, 21 Dec 2023 04:55:51 +0000 (UTC)
+	id 9B7EE983DDF; Thu, 21 Dec 2023 06:56:10 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,198 +24,56 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 57C709865B6
-	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Dec 2023 04:55:51 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 89FFE9865B6
+	for <virtio-comment@lists.oasis-open.org>; Thu, 21 Dec 2023 06:56:10 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R771e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046056;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0VywHcZb_1703134545;
-Message-ID: <8afe4002-07d0-4571-8410-26edebb042b4@linux.alibaba.com>
-Date: Thu, 21 Dec 2023 12:55:45 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, "Michael S . Tsirkin"
- <mst@redhat.com>, Yuri Benditovich <yuri.benditovich@daynix.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+X-MC-Unique: kWMjOkHFOrS2LC_x2IGWuA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703141764; x=1703746564;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QwNtJZS//oJEgeRkErJ/hRa7C8Q9d5q3T/uUmfnszpk=;
+        b=nvE21yTnn4Mwk0Ap2EnnzX4hW3ZQ8L+mhgex9Log6mC1gNSF0n7c8Crj18KSgXvgWl
+         Fy69jNreeJUlA0dMPgLT0NrLYnep1cBrIb1+V7s78p5HBW70z8vBmHry6v+reAXEc2aI
+         9+ksaZZJiDFNEHS+C8RnnnbBkkzfWBDcxJ1CF8rqFihB1Fh+eBFQ+yW+qdN3Gfhw6b6I
+         ZtdGzrfXVWrXxgDbaobt+xi1CuoyA3W8q/oev5eKsl62aEfaKlwGhIJeUX3z5Cv2GFkk
+         XBppXx5DRMeUbrvrhp6zOPPdEFwFYzqsT2Vnt2DtnSPHPlKDq5ikYtaVmVm14sbNGBXo
+         6Fuw==
+X-Gm-Message-State: AOJu0Yy2dvwLDjmKG91kEVhWFCYVQZdaQnLYK/csXLO4UsIVf1f+OMp9
+	u7Pf3WRJz+2DFTmLsB5tEjaMvoC1qKLO/MSTql3yvFdAUOMOEk8bWcMqxOEzCVD6oOP8Ug7JV7C
+	RU1ahyDk9B7YPEPYxwbHUWSW469NAuPOWtQ==
+X-Received: by 2002:a5d:6546:0:b0:336:6b15:de03 with SMTP id z6-20020a5d6546000000b003366b15de03mr461127wrv.120.1703141764356;
+        Wed, 20 Dec 2023 22:56:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGoO/IFWfn7dKnndywzMSSWrTxTY5ZRb5Dogwd4Sk6LuuDYOOQc39yCDREHNVm4ocwfubwZrQ==
+X-Received: by 2002:a5d:6546:0:b0:336:6b15:de03 with SMTP id z6-20020a5d6546000000b003366b15de03mr461119wrv.120.1703141764015;
+        Wed, 20 Dec 2023 22:56:04 -0800 (PST)
+Date: Thu, 21 Dec 2023 01:56:00 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: virtio-comment@lists.oasis-open.org, Jason Wang <jasowang@redhat.com>,
+	Yuri Benditovich <yuri.benditovich@daynix.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Message-ID: <20231221015507-mutt-send-email-mst@kernel.org>
 References: <fb123ee4ac9e21e6f1d7142149439db74585be8e.1703083096.git.hengqi@linux.alibaba.com>
- <CACGkMEt_kvBbnpNt_cfB8KdKWM9WP8T_wnQBm13yKpe5JYVnAg@mail.gmail.com>
-From: Heng Qi <hengqi@linux.alibaba.com>
-In-Reply-To: <CACGkMEt_kvBbnpNt_cfB8KdKWM9WP8T_wnQBm13yKpe5JYVnAg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [virtio-comment] Re: [PATCH RESEND] virtio-net: support setting
- coalescing params for multiple vqs
+MIME-Version: 1.0
+In-Reply-To: <fb123ee4ac9e21e6f1d7142149439db74585be8e.1703083096.git.hengqi@linux.alibaba.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [virtio-comment] Re: [PATCH RESEND] virtio-net: support setting coalescing params for
+ multiple vqs
 
+On Wed, Dec 20, 2023 at 10:40:34PM +0800, Heng Qi wrote:
+> Currently, when each time the driver attempts to update the coalescing parameters
+> for a vq, it needs to kick the device and wait for the ctrlq response to return.
 
+But there's no fundamental reason for it to do so.
+It can just as well submit multiple commands and then wait.
 
-在 2023/12/21 上午11:37, Jason Wang 写道:
-> On Wed, Dec 20, 2023 at 10:40 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
->> Currently, when each time the driver attempts to update the coalescing parameters
->> for a vq, it needs to kick the device and wait for the ctrlq response to return.
->>
->> If a command can only update one vq parameters, when the parameters are updated
->> frequently (such as netdim), ctrlq on the device is kicked frequently, which will
->> increase the device CPU scheduling overhead, and the number and overhead of device
->> DMA will also increase.
->>
->> Merging multiple vq updated parameters into one command can effectively reduce
->> the number of kick devices and device DMA times.
->>
->> Test results show that this greatly improves the efficiency of the ctrlq in
->> responding to multiple vq coalescing parameter updates issued by the driver.
-> So netdim is per virtqueue, to make use of this, you need to batch the
-> netdim requests first.
-
-Yes. I think the code looks more intuitive.
-Please view the following PoC test code combined with the current code 
-of upstream virtio netdim
-
-+struct ctrl_coal_vq_entry {
-+       u16 vqn;
-+       u16 reserved;
-+       int usecs;
-+       int packets;
-+};
-+
-+struct virtio_net_ctrl_mrg_coal_vq {
-+       int num_entries;
-+       struct ctrl_coal_vq_entry coal_vqs[];
-+};
-+
-
-@@ -313,12 +335,18 @@ struct virtnet_info {
-
-         struct control_buf *ctrl;
-
-+       struct virtio_net_ctrl_mrg_coal_vq *ctrl_coal_vqs;
-+
-
-
-@@ -4390,6 +4586,7 @@ static int virtnet_alloc_queues(struct 
-virtnet_info *vi)
-         if (!vi->rq)
-                 goto err_rq;
-
-+       vi->ctrl_coal_vqs = kzalloc(sizeof(struct 
-virtio_net_ctrl_mrg_coal_vq) + vi->max_queue_pairs * sizeof(struct 
-ctrl_coal_vq_entry), GFP_KERNEL);
-
-
-+       struct scatterlist sg;
-+       for (i = 0; i < vi->curr_queue_pairs; i++) {
-+                vi->ctrl_coal_vqs->coal_vqs[i].vqn = rxq2vq(i);
-+                vi->ctrl_coal_vqs->coal_vqs[i].usecs = 8;
-+                vi->ctrl_coal_vqs->coal_vqs[i].packets = 16;
-+        }
-+        vi->ctrl_coal_vqs->num_entries = i;
-+        sg_init_one(&sg, vi->ctrl_coal_vqs, sizeof(struct 
-virtio_net_ctrl_mrg_coal_vq) + vi->ctrl_coal_vqs->num_entries * 
-sizeof(struct ctrl_coal_vq_entry));
-+        vi->req_num++;
-+        if (!virtnet_send_command(vi, VIRTIO_NET_CTRL_NOTF_COAL,
-+                              VIRTIO_NET_CTRL_NOTF_COAL_*VQS*_SET, &sg))
-
-  #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET               3
-+#define VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET              4
-
->   And if you do that, you can batch the commands
-> as well.
-
-
-Batch commands we have tried:
-
-+               for (i = 0; i < vi->curr_queue_pairs; i++) {
-+                       err = virtnet_pre_send_cmd(vi, &vi->vq_ctrls[i], 
-8, 16);
-+               }
-+
-+               if (unlikely(!virtqueue_kick(vi->cvq)))
-+                       return vi->ctrl->status == VIRTIO_NET_OK;
-+
-+               for (i = 0; i < vi->curr_queue_pairs; i++) {
-+                       while (!virtqueue_is_broken(vi->cvq) && 
-!virtqueue_get_buf(vi->cvq, &tmp))
-+                               cpu_relax();
-+               }
-+       }
-
-
-+
-+static bool virtnet_pre_send_cmd(struct virtnet_info *vi, struct 
-vq_coal *vq_ctrls,
-+                                u32 max_usecs, u32 max_packets)
-+{
-+       struct scatterlist hdr, out, stat;
-+       struct scatterlist *sgs[4];
-+       unsigned out_num = 0;
-+       int ret;
-+
-+       BUG_ON(!virtio_has_feature(vi->vdev, VIRTIO_NET_F_CTRL_VQ));
-+
-+       vq_ctrls->hdr.class = VIRTIO_NET_CTRL_NOTF_COAL;
-+       vq_ctrls->hdr.cmd = VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET;
-+       sg_init_one(&hdr, &vq_ctrls->hdr, sizeof(vq_ctrls->hdr));
-+       sgs[out_num++] = &hdr;
-+
-+       vq_ctrls->coal_vq.vqn = cpu_to_le16(0);
-+       vq_ctrls->coal_vq.coal.max_usecs = cpu_to_le32(max_usecs);
-+       vq_ctrls->coal_vq.coal.max_packets = cpu_to_le32(max_packets);
-+       sg_init_one(&out, &vq_ctrls->ho, sizeof(vq_ctrls->ho));
-+
-+       if (&out)
-+               sgs[out_num++] = &out;
-+
-+       vq_ctrls->status = ~0;
-+       sg_init_one(&stat, &vq_ctrls->status, sizeof(vq_ctrls->status));
-+       sgs[out_num] = &stat;
-+
-+       BUG_ON(out_num + 1 > ARRAY_SIZE(sgs));
-+       ret = virtqueue_add_sgs(vi->cvq, sgs, out_num, 1, vi, GFP_ATOMIC);
-+       if (ret < 0) {
-+               dev_warn(&vi->vdev->dev,
-+                        "Failed to add sgs for command vq: %d\n.", ret);
-+               return false;
-+       }
-
-
-Overall, batch reqs are sufficient. Because the current major overhead 
-is the number of DMAs.
-For example, for a device with 256 queues,
-
-For the current upstream code, the overhead is 256 kicks + 256*8 DMA times.
-The overhead of batch cmds is 1 kick + 256*8 DMA times.
-The overhead of batch reqs is 1 kick + 8 DMA times.
-
-Below is 8 DMA times:
-- get avail idx 1 time
-- Pull avail ring information 1 time
-- Pull the desc pointed to by the avail ring 3 times
-- Pull the hdr and out bufs pointed to by avail ring desc 2 times
-- Write once to the status buf pointed to by status 1 time
-
-Thanks!
-
-> Then you get one kick for sevreal coal requests?
->
-> Or are you saying you run out of ctrl vq?
->
-> Thanks
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
