@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8861-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8862-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3334C3DA6E
-	for <virtio-comment@archiver.kernel.org>; Mon, 25 Dec 2023 04:18:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 361DDC3DA6E
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 02:05:39 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1E7A92AF7F
-	for <virtio-comment@archiver.kernel.org>; Mon, 25 Dec 2023 04:18:36 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6C1D32AF9C
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 02:05:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EE7879863C9
-	for <virtio-comment@archiver.kernel.org>; Mon, 25 Dec 2023 04:18:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 408FC9863E0
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 02:05:38 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id D3230984A5E; Mon, 25 Dec 2023 04:18:35 +0000 (UTC)
+	id 2563C986295; Tue, 26 Dec 2023 02:05:38 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,108 +24,156 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id BEAD998635B
-	for <virtio-comment@lists.oasis-open.org>; Mon, 25 Dec 2023 04:18:35 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D9DDC986378
+	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Dec 2023 02:04:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: _2d0pVZYPBOQuSygvuhspQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703477912; x=1704082712;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=v+7HC5hSj+ldat6kqR2IUM3tyVsYa8bfcQMh+MKc0rI=;
-        b=wFhx1ESKcGoWUYWyj8D9tCa3m4KLxm3BdIrnPh4jn7mTkWE0fvvZAOSX/LViwpxFlM
-         rkJMHIbuKIkZplDgpGu+tTye+ISOyIf79STrV8gVAwUb2OZhIe83NlcYkTgV3NY4lg4H
-         F7WFWjKcmFxf1YDK0zhSLgbmQlCofqYcjVJaq8A5XksmL8BYHGejlQIQ6+5sUuRoumdJ
-         kTmQnRDVQY6M6O1E+55GUkUaO145dWCp0E709EuLGKSl7eS5o9PDx6g3hkCfP10Kqz72
-         DiEPBslAdcxk1EWYrD8mCULMN6k+i4T87cdKce16hH3FlwbvwbKYJ9tSfxSPyhrzqWko
-         pj9Q==
-X-Gm-Message-State: AOJu0Yx5pUfYyErJU596HbHtVanH3QzhrhdunoapMvb5cIi0R/9bMC1p
-	X+tapMFPwdhL9EJeDavWIAgb1Kxm2oOoY22D81pkYBGFt6TLmY33kE9qJBnKg36azZSei5TaQWi
-	dTh+qpkHwbVP86ssrN9ojGNHBCda0VtVAYUo/sTtc8hk3Q/JXMq0URZssFA==
-X-Received: by 2002:a05:6808:2f12:b0:3bb:9fda:2d71 with SMTP id gu18-20020a0568082f1200b003bb9fda2d71mr3115297oib.109.1703477912423;
-        Sun, 24 Dec 2023 20:18:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGXbCFtEZgbj4FSmPvO6snSvWy8WgRR3aFc6FfcjBB1kuEGlF22XvNaIiDN3kjM+TH/ouHXBuGpyy0dJAubnSM=
-X-Received: by 2002:a05:6808:2f12:b0:3bb:9fda:2d71 with SMTP id
- gu18-20020a0568082f1200b003bb9fda2d71mr3115289oib.109.1703477912206; Sun, 24
- Dec 2023 20:18:32 -0800 (PST)
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046050;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0VzFibof_1703556268;
+Message-ID: <0ce41e61-0214-4a1a-8561-a2837cd5f8ad@linux.alibaba.com>
+Date: Tue, 26 Dec 2023 10:04:27 +0800
 MIME-Version: 1.0
-References: <20231218064253.9734-1-peter.hilber@opensynergy.com>
- <20231218064253.9734-4-peter.hilber@opensynergy.com> <87wmt63w1l.fsf@redhat.com>
-In-Reply-To: <87wmt63w1l.fsf@redhat.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Mon, 25 Dec 2023 12:18:21 +0800
-Message-ID: <CACGkMEtCc9n94WCmsPBA2NOMbuXmq9b-M6J02CO9884_5q0nkA@mail.gmail.com>
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: Peter Hilber <peter.hilber@opensynergy.com>, virtio-comment@lists.oasis-open.org, 
-	Parav Pandit <parav@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [virtio-comment] [RFC PATCH v3 3/4] virtio-rtc: Add alarm feature
-
-On Sat, Dec 23, 2023 at 2:57=E2=80=AFAM Cornelia Huck <cohuck@redhat.com> w=
-rote:
->
-> On Mon, Dec 18 2023, Peter Hilber <peter.hilber@opensynergy.com> wrote:
->
-> > Add the VIRTIO_RTC_F_ALARM feature (without normative statements).
-> >
-> > The intended use case is: A driver needs to react when an alarm time ha=
-s
-> > been reached, but the driver may be in a sleep state or powered off at
-> > alarm time. The alarm feature can resume and notify the driver in this
-> > case. Alarms may be retained across device resets (including reset on
-> > boot).
->
-> Does the driver have some kind of control or information about whether
-> alarms are retained? I.e. to start with a clean slate, if wanted.
-
-It might be otherwise we may have security implications?
-
-Userspace driver set the alarm, and the device was shifted to kernel
-driver which may get this alarm accidentally?
-
-Thanks
-
->
-> I'm not familiar with RTC, so I'm not sure if that even makes sense, or
-> if I have missed something in the spec.
->
->
-> This publicly archived list offers a means to provide input to the
-> OASIS Virtual I/O Device (VIRTIO) TC.
->
-> In order to verify user consent to the Feedback License terms and
-> to minimize spam in the list archive, subscription is required
-> before posting.
->
-> Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-> Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-> List help: virtio-comment-help@lists.oasis-open.org
-> List archive: https://lists.oasis-open.org/archives/virtio-comment/
-> Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-> List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-l=
-ists
-> Committee: https://www.oasis-open.org/committees/virtio/
-> Join OASIS: https://www.oasis-open.org/join/
->
+User-Agent: Mozilla Thunderbird
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, Jason Wang <jasowang@redhat.com>,
+ Yuri Benditovich <yuri.benditovich@daynix.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+References: <fb123ee4ac9e21e6f1d7142149439db74585be8e.1703083096.git.hengqi@linux.alibaba.com>
+ <20231221015507-mutt-send-email-mst@kernel.org>
+ <e93bf579-16d7-4c25-b05f-575ac756fae8@linux.alibaba.com>
+ <20231221020541-mutt-send-email-mst@kernel.org>
+ <046a47b8-c816-4c52-abcc-6e1ec3174b32@linux.alibaba.com>
+ <20231222032102-mutt-send-email-mst@kernel.org>
+From: Heng Qi <hengqi@linux.alibaba.com>
+In-Reply-To: <20231222032102-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [virtio-comment] Re: [PATCH RESEND] virtio-net: support setting
+ coalescing params for multiple vqs
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+
+在 2023/12/22 下午4:24, Michael S. Tsirkin 写道:
+> On Thu, Dec 21, 2023 at 03:19:19PM +0800, Heng Qi wrote:
+>>
+>> 在 2023/12/21 下午3:08, Michael S. Tsirkin 写道:
+>>> On Thu, Dec 21, 2023 at 03:01:57PM +0800, Heng Qi wrote:
+>>>> 在 2023/12/21 下午2:56, Michael S. Tsirkin 写道:
+>>>>> On Wed, Dec 20, 2023 at 10:40:34PM +0800, Heng Qi wrote:
+>>>>>> Currently, when each time the driver attempts to update the coalescing parameters
+>>>>>> for a vq, it needs to kick the device and wait for the ctrlq response to return.
+>>>>> But there's no fundamental reason for it to do so.
+>>>> Indeed, please look at the current upstream netdim code:
+>>>>
+>>>> static void virtnet_rx_dim_work(struct work_struct *work)
+>>>> {
+>>>>           struct dim *dim = container_of(work, struct dim, work);
+>>>>           struct receive_queue *rq = container_of(dim,
+>>>>                           struct receive_queue, dim);
+>>>>           struct virtnet_info *vi = rq->vq->vdev->priv;
+>>>>           struct net_device *dev = vi->dev;
+>>>>           struct dim_cq_moder update_moder;
+>>>>           int i, qnum, err;
+>>>>
+>>>>           if (!rtnl_trylock())
+>>>>                   return;
+>>>>
+>>>>           /* Each rxq's work is queued by "net_dim()->schedule_work()"
+>>>>            * in response to NAPI traffic changes. Note that dim->profile_ix
+>>>>            * for each rxq is updated prior to the queuing action.
+>>>>            * So we only need to traverse and update profiles for all rxqs
+>>>>            * in the work which is holding rtnl_lock.
+>>>>            */
+>>>>           for (i = 0; i < vi->curr_queue_pairs; i++) {
+>>>> <-----------------
+>>>>                   rq = &vi->rq[i];
+>>>>                   dim = &rq->dim;
+>>>>                   qnum = rq - vi->rq;
+>>>>
+>>>>                   if (!rq->dim_enabled)
+>>>>                           continue;
+>>>>
+>>>>                   update_moder = net_dim_get_rx_moderation(dim->mode,
+>>>> dim->profile_ix);
+>>>>                   if (update_moder.usec != rq->intr_coal.max_usecs ||
+>>>>                       update_moder.pkts != rq->intr_coal.max_packets) {
+>>>>                           err = virtnet_send_rx_ctrl_coal_vq_cmd(vi, qnum,
+>>>> update_moder.usec,
+>>>> update_moder.pkts);
+>>>>                           if (err)
+>>>>                                   pr_debug("%s: Failed to send dim parameters
+>>>> on rxq%d\n",
+>>>>                                            dev->name, qnum);
+>>>>                           dim->state = DIM_START_MEASURE;
+>>>>                   }
+>>>>           }
+>>>>
+>>>>           rtnl_unlock();
+>>>> }
+>>>>
+>>>>> It can just as well submit multiple commands and then wait.
+>>>> Sending multiple commands and then waiting reduces the number of kicks.
+>>>> But it does not reduce the number of device DMAs. I already responded to
+>>>> this in a thread to Jason.
+>>>> please check:
+>>>>
+>>>> https://lists.oasis-open.org/archives/virtio-comment/202312/msg00142.html
+>>>>
+>>>> "
+>>>> Overall, batch reqs are sufficient. Because the current major overhead is
+>>>> the number of DMAs.
+>>>> For example, for a device with 256 queues,
+>>>>
+>>>> For the current upstream code, the overhead is 256 kicks + 256*8 DMA times.
+>>>> The overhead of batch cmds is 1 kick + 256*8 DMA times.
+>>>> The overhead of batch reqs is 1 kick + 8 DMA times.
+>>>>
+>>>> Below is 8 DMA times:
+>>>> - get avail idx 1 time
+>>>> - Pull available ring information 1 time
+>>>> - Pull the desc pointed to by the avail ring 3 times
+>>>> - Pull the hdr and out bufs pointed to by avail ring desc 2 times
+>>>> - Write once to the status buf pointed to by status 1 time "
+>>>>
+>>>> Thanks.
+>>> So there's more DMA but it's all slow path.
+>>> Why do we need to micro-optimize it?
+>> On our each DPU, multiple VMs need to be supported. The ctrlq of these VMs
+>> are simulated by software,
+>> which consumes limited CPU resources on the DPU.
+>> Therefore, optimizing the response speed of ctrlq for netdim can better
+>> support multiple VMs and the large-queue-sized VM.
+>>
+>>> What is the overhead practically, in milliseconds?
+>> Latency overhead is only one aspect. More importantly, limited CPU resources
+>> need to support
+>> effective command processing of more VMs and large-queue-sized VMs.
+>>
+>> Thanks.
+>>
+> All this is interesting but too handwavy to address. Please work on
+> motivation for your patch. E.g. implement submitting multiple commands
+> in the linux driver and show how in numbers how it's problematic.
+
+
+OK, I will add it in the next version.
+
+Thanks.
+
+>
+
+
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
