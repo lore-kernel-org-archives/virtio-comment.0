@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8867-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8868-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2780CC46CD4
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 04:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FF7CC46CD4
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 09:18:27 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4ACE8120D4E
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 04:16:03 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C4A122ACFD
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 09:18:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 13704986400
-	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 04:16:03 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 95F27986384
+	for <virtio-comment@archiver.kernel.org>; Tue, 26 Dec 2023 09:18:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id E57F7986295; Tue, 26 Dec 2023 04:16:02 +0000 (UTC)
+	id 74000983EFA; Tue, 26 Dec 2023 09:18:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,196 +24,257 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D235B986378;
-	Tue, 26 Dec 2023 04:16:02 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 61D40986378
+	for <virtio-comment@lists.oasis-open.org>; Tue, 26 Dec 2023 09:18:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-Message-ID: <0e8c5a22-ba7e-47db-9f72-f385d8f6d8bb@quicinc.com>
-Date: Tue, 26 Dec 2023 12:15:31 +0800
+X-MC-Unique: DC592HQ_O7Wz4d03VQrkVw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703582302; x=1704187102;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qb44x+N9yRyXykZyfb0HCLUt7o8OzIS8KKjIlreKBsY=;
+        b=E+xWOXPGYpilcdHD3aYPparHB3NXeKBnJljIe0BPjipKIg696ZkjWGXnEe2IoTdK1E
+         g+52v/K90pzW9i1B6M3oe14YgkZWJ6lKR8UWjCSlTcS8pRDqZg/gmDV/TvX4e5zMirOl
+         Bvu4KBmC0oa+vXJrQqtnOCq11/42VEfziHeCfb/lVXCuwORgNetv02r1LF39YmvUCbgR
+         QkRUVDJzHEaMybby7PsOhIScJ1BtOvaqDOatMkr1rev9OUvyaiVCccOy9w0gkehlZ+bN
+         hrZTjSnOKMfSQOSQVNpzz/bkqGxaLzTz0krEIdMTOFKCMP6if/vuS4nwI2sYizhFIs8B
+         WEoQ==
+X-Gm-Message-State: AOJu0YwJFX3Z842pnIZ4GCUqcaZRFoabm4vsmMUJ0ZurG5BPy6U07Caf
+	9oLIojwxgnm8T4Bgzla5+UTEh/oek/A12Py/UnFTAe62dS2qbsgy2QMTmSyh8iLLWP8ElUvdgoj
+	1M8kUXUV2GTPnc1GihpBfv2YuOFjMr3lMxRCC1ey5sQ==
+X-Received: by 2002:a05:600c:2b0e:b0:40c:2417:3b51 with SMTP id y14-20020a05600c2b0e00b0040c24173b51mr2557614wme.74.1703582302151;
+        Tue, 26 Dec 2023 01:18:22 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGBmLdm/n704bwPqcUI1j2TKtxd3pqAfr8Cw3XYs4PKVhuwcA6nh3USo7U8wQ+gaIpiBesy1g==
+X-Received: by 2002:a05:600c:2b0e:b0:40c:2417:3b51 with SMTP id y14-20020a05600c2b0e00b0040c24173b51mr2557607wme.74.1703582301752;
+        Tue, 26 Dec 2023 01:18:21 -0800 (PST)
+Date: Tue, 26 Dec 2023 04:18:17 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jason Wang <jasowang@redhat.com>
+Cc: Heng Qi <hengqi@linux.alibaba.com>, virtio-comment@lists.oasis-open.org,
+	Yuri Benditovich <yuri.benditovich@daynix.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Alvaro Karsz <alvaro.karsz@solid-run.com>,
+	Parav Pandit <parav@nvidia.com>
+Message-ID: <20231226040940-mutt-send-email-mst@kernel.org>
+References: <fb123ee4ac9e21e6f1d7142149439db74585be8e.1703083096.git.hengqi@linux.alibaba.com>
+ <CACGkMEt_kvBbnpNt_cfB8KdKWM9WP8T_wnQBm13yKpe5JYVnAg@mail.gmail.com>
+ <8afe4002-07d0-4571-8410-26edebb042b4@linux.alibaba.com>
+ <CACGkMEsBZ8Egc4D+TUKXngqeyDsMEpDTOQiZjyGbeXYBpHa1ag@mail.gmail.com>
+ <a037dd2f-be0c-4b02-b706-672e9a56497f@linux.alibaba.com>
+ <CACGkMEtCtFvY0rMO0nvpBRL6qQa94jZRJC66YTyRHDoDbSgJ_g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Harald Mommer <harald.mommer@opensynergy.com>,
-        <virtio-dev@lists.oasis-open.org>,
-        <virtio-comment@lists.oasis-open.org>, <cohuck@redhat.com>,
-        <broonie@kernel.org>, <qiang4.zhang@linux.intel.com>,
-        <viresh.kumar@linaro.org>
-CC: <quic_ztu@quicinc.com>
-References: <20231212033317.22198-1-quic_haixcui@quicinc.com>
- <20231212033317.22198-3-quic_haixcui@quicinc.com>
- <95dcd2c7-4b5b-4b04-8748-e9e65374d356@opensynergy.com>
- <d1f7cb96-c95f-4458-9b58-ea1e6335df55@quicinc.com>
- <47dd69ea-ca84-4a17-8cd4-0260e6f117a1@opensynergy.com>
-From: Haixu Cui <quic_haixcui@quicinc.com>
-In-Reply-To: <47dd69ea-ca84-4a17-8cd4-0260e6f117a1@opensynergy.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+In-Reply-To: <CACGkMEtCtFvY0rMO0nvpBRL6qQa94jZRJC66YTyRHDoDbSgJ_g@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-GUID: vPRdEJc4z2dbtU0wrgL0VgMOFs5Gow9u
-X-Proofpoint-ORIG-GUID: vPRdEJc4z2dbtU0wrgL0VgMOFs5Gow9u
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 mlxlogscore=999
- priorityscore=1501 adultscore=0 bulkscore=0 phishscore=0 suspectscore=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 malwarescore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312260028
-Subject: [virtio-comment] Re: [virtio-dev][PATCH V9 2/2] virtio-spi: add the device
- specification
+Subject: Re: [virtio-comment] Re: [PATCH RESEND] virtio-net: support setting
+ coalescing params for multiple vqs
 
-Hello Harald,
+On Tue, Dec 26, 2023 at 11:32:12AM +0800, Jason Wang wrote:
+> On Fri, Dec 22, 2023 at 2:45 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> >
+> >
+> >
+> > 在 2023/12/22 上午10:40, Jason Wang 写道:
+> > > On Thu, Dec 21, 2023 at 12:55 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> > >>
+> > >>
+> > >> 在 2023/12/21 上午11:37, Jason Wang 写道:
+> > >>> On Wed, Dec 20, 2023 at 10:40 PM Heng Qi <hengqi@linux.alibaba.com> wrote:
+> > >>>> Currently, when each time the driver attempts to update the coalescing parameters
+> > >>>> for a vq, it needs to kick the device and wait for the ctrlq response to return.
+> > >>>>
+> > >>>> If a command can only update one vq parameters, when the parameters are updated
+> > >>>> frequently (such as netdim), ctrlq on the device is kicked frequently, which will
+> > >>>> increase the device CPU scheduling overhead, and the number and overhead of device
+> > >>>> DMA will also increase.
+> > >>>>
+> > >>>> Merging multiple vq updated parameters into one command can effectively reduce
+> > >>>> the number of kick devices and device DMA times.
+> > >>>>
+> > >>>> Test results show that this greatly improves the efficiency of the ctrlq in
+> > >>>> responding to multiple vq coalescing parameter updates issued by the driver.
+> > >>> So netdim is per virtqueue, to make use of this, you need to batch the
+> > >>> netdim requests first.
+> > >> Yes. I think the code looks more intuitive.
+> > >> Please view the following PoC test code combined with the current code
+> > >> of upstream virtio netdim
+> > >>
+> > >> +struct ctrl_coal_vq_entry {
+> > >> +       u16 vqn;
+> > >> +       u16 reserved;
+> > >> +       int usecs;
+> > >> +       int packets;
+> > >> +};
+> > >> +
+> > >> +struct virtio_net_ctrl_mrg_coal_vq {
+> > >> +       int num_entries;
+> > >> +       struct ctrl_coal_vq_entry coal_vqs[];
+> > >> +};
+> > >> +
+> > >>
+> > >> @@ -313,12 +335,18 @@ struct virtnet_info {
+> > >>
+> > >>           struct control_buf *ctrl;
+> > >>
+> > >> +       struct virtio_net_ctrl_mrg_coal_vq *ctrl_coal_vqs;
+> > >> +
+> > >>
+> > >>
+> > >> @@ -4390,6 +4586,7 @@ static int virtnet_alloc_queues(struct
+> > >> virtnet_info *vi)
+> > >>           if (!vi->rq)
+> > >>                   goto err_rq;
+> > >>
+> > >> +       vi->ctrl_coal_vqs = kzalloc(sizeof(struct
+> > >> virtio_net_ctrl_mrg_coal_vq) + vi->max_queue_pairs * sizeof(struct
+> > >> ctrl_coal_vq_entry), GFP_KERNEL);
+> > >>
+> > >>
+> > >> +       struct scatterlist sg;
+> > >> +       for (i = 0; i < vi->curr_queue_pairs; i++) {
+> > >> +                vi->ctrl_coal_vqs->coal_vqs[i].vqn = rxq2vq(i);
+> > >> +                vi->ctrl_coal_vqs->coal_vqs[i].usecs = 8;
+> > >> +                vi->ctrl_coal_vqs->coal_vqs[i].packets = 16;
+> > >> +        }
+> > >> +        vi->ctrl_coal_vqs->num_entries = i;
+> > >> +        sg_init_one(&sg, vi->ctrl_coal_vqs, sizeof(struct
+> > >> virtio_net_ctrl_mrg_coal_vq) + vi->ctrl_coal_vqs->num_entries *
+> > >> sizeof(struct ctrl_coal_vq_entry));
+> > >> +        vi->req_num++;
+> > >> +        if (!virtnet_send_command(vi, VIRTIO_NET_CTRL_NOTF_COAL,
+> > >> +                              VIRTIO_NET_CTRL_NOTF_COAL_*VQS*_SET, &sg))
+> > >>
+> > >>    #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET               3
+> > >> +#define VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET              4
+> > >>
+> > >>>    And if you do that, you can batch the commands
+> > >>> as well.
+> > >>
+> > >> Batch commands we have tried:
+> > >>
+> > >> +               for (i = 0; i < vi->curr_queue_pairs; i++) {
+> > >> +                       err = virtnet_pre_send_cmd(vi, &vi->vq_ctrls[i],
+> > >> 8, 16);
+> > >> +               }
+> > >> +
+> > >> +               if (unlikely(!virtqueue_kick(vi->cvq)))
+> > >> +                       return vi->ctrl->status == VIRTIO_NET_OK;
+> > >> +
+> > >> +               for (i = 0; i < vi->curr_queue_pairs; i++) {
+> > >> +                       while (!virtqueue_is_broken(vi->cvq) &&
+> > >> !virtqueue_get_buf(vi->cvq, &tmp))
+> > >> +                               cpu_relax();
+> > >> +               }
+> > >> +       }
+> > >>
+> > >>
+> > >> +
+> > >> +static bool virtnet_pre_send_cmd(struct virtnet_info *vi, struct
+> > >> vq_coal *vq_ctrls,
+> > >> +                                u32 max_usecs, u32 max_packets)
+> > >> +{
+> > >> +       struct scatterlist hdr, out, stat;
+> > >> +       struct scatterlist *sgs[4];
+> > >> +       unsigned out_num = 0;
+> > >> +       int ret;
+> > >> +
+> > >> +       BUG_ON(!virtio_has_feature(vi->vdev, VIRTIO_NET_F_CTRL_VQ));
+> > >> +
+> > >> +       vq_ctrls->hdr.class = VIRTIO_NET_CTRL_NOTF_COAL;
+> > >> +       vq_ctrls->hdr.cmd = VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET;
+> > >> +       sg_init_one(&hdr, &vq_ctrls->hdr, sizeof(vq_ctrls->hdr));
+> > >> +       sgs[out_num++] = &hdr;
+> > >> +
+> > >> +       vq_ctrls->coal_vq.vqn = cpu_to_le16(0);
+> > >> +       vq_ctrls->coal_vq.coal.max_usecs = cpu_to_le32(max_usecs);
+> > >> +       vq_ctrls->coal_vq.coal.max_packets = cpu_to_le32(max_packets);
+> > >> +       sg_init_one(&out, &vq_ctrls->ho, sizeof(vq_ctrls->ho));
+> > >> +
+> > >> +       if (&out)
+> > >> +               sgs[out_num++] = &out;
+> > >> +
+> > >> +       vq_ctrls->status = ~0;
+> > >> +       sg_init_one(&stat, &vq_ctrls->status, sizeof(vq_ctrls->status));
+> > >> +       sgs[out_num] = &stat;
+> > >> +
+> > >> +       BUG_ON(out_num + 1 > ARRAY_SIZE(sgs));
+> > >> +       ret = virtqueue_add_sgs(vi->cvq, sgs, out_num, 1, vi, GFP_ATOMIC);
+> > >> +       if (ret < 0) {
+> > >> +               dev_warn(&vi->vdev->dev,
+> > >> +                        "Failed to add sgs for command vq: %d\n.", ret);
+> > >> +               return false;
+> > >> +       }
+> > >>
+> > >>
+> > >> Overall, batch reqs are sufficient. Because the current major overhead
+> > >> is the number of DMAs.
+> > >> For example, for a device with 256 queues,
+> > >>
+> > >> For the current upstream code, the overhead is 256 kicks + 256*8 DMA times.
+> > >> The overhead of batch cmds is 1 kick + 256*8 DMA times.
+> > > This can furtherly optimized by using IN_ORDER. The DMA can be batched as well.
+> >
+> > DMA batch reduces the number of DMA requests, but not the actual number
+> > of DMAs.
+> 
+> Well, if we do IN_ORDER, then
+> 
+> 1 for avail idx.
+> 
+> At most 2 DMA is needed for all descriptors.
+> 
+> Driver can allocate an array of cvq commands. So CVQ commands could be
+> fetched at most 2 DMA.
+> 
+> etc.
 
-On 12/22/2023 10:32 PM, Harald Mommer wrote:
-> Hello Haixu,
-> 
-> On 22.12.23 03:28, Haixu Cui wrote:
->> Hello Harald,
->>
->> On 12/21/2023 7:25 PM, Harald Mommer wrote:
->>> Hello,
->>>
->>> On 12.12.23 04:33, Haixu Cui wrote:
->>>> +\field{bits_per_word_mask} is a mask indicating which values of 
->>>> bits_per_word are supported.
->>>> +If bit n of \field{bits_per_word_mask} is set, the bits_per_word 
->>>> with value (n+1) is supported.
->>>> +If all bits are not set, bits_per_word can be any value from 1 to 32.
->>>
->>> "If all bits are not set" is not easy to understand as it means "if 
->>> no bit is set".
->>>
->>> You can of course specify the value 0 this way to make code more 
->>> complicated.
->>>
->>> To make code simple, 0 would be not given this special meaning. To 
->>> allow any value between 1 and 32 solely the value 0xFFFFFFFF would be 
->>> allowed. Which is already possible now without this additional 
->>> sentence for 0. Simply checking whether the respective bit is set in 
->>> the mask and done without having to add senseless additional code to 
->>> handle the special case that the mask is 0.
->>>
->>> Giving 0 the same meaning as 0xFFFFFFFF brings nothing except confusion.
->>>
->> Here I refer to the __spi_validate_bits_per_word in drivers/spi/spi.c, 
->> if bits_per_word_mask of spi controller is 0, no check will be done 
->> for bits_per_word parameter.
->>
->> Above is just the Linux mechanism, I agree with you, 0 and 0xFFFFFFFF 
->> have the same meaning will cause confusion in this spec. I prefer 
->> treating 0 as an invalid value because the backend must support at 
->> least one bits_per_word value.
->>
->> How about updating as:
->> For \field{bits_per_word_mask}, 0 is invalid because at least one 
->> bits_per_word value should be supported.
->>
->> Thanks & Regards
->> Haixu Cui
-> 
-> Interesting. I know that I had already a comment on this previously. And 
-> also now. But sometimes I'm wrong. And here probably in both cases but 
-> at least with my last comment.
-> 
->   * @bits_per_word_mask: A mask indicating which values of bits_per_word 
-> are
->   *    supported by the driver. Bit n indicates that a bits_per_word n+1 is
->   *    suported. If set, the SPI core will reject any transfer with an
->   *    unsupported bits_per_word. If not set, this value is simply ignored,
->   *    and it's up to the individual driver to perform any validation.
-> 
-> Tried to find out why this is so in Linux. The function 
-> __spi_validate_bits_per_word() was introduced by commit 63ab645f4d8b. 
-> The member variable bits_per_word_mask in struct spi_master was already 
-> introduced by 543bb255a198. The new variable was introduced in a way so 
-> that if not set the behavior would not change for existing SPI drivers 
-> not (yet) setting the field. At least I deduce that looking into the 
-> commits. Made a lot of sense to introduce bits_per_word_mask in commit 
-> 543bb255a198 in Linux this way to make a change without causing other 
-> changes everywhere. The virtio SPI specification is new, no need to be 
-> backwards compatible here so there is no need to have 0 there as "don't 
-> check" value. So your proposal to make 0 the invalid value is a good 
-> one. So I thought.
-> 
-> On the other hand: The function __spi_validate_bits_per_word() does not 
-> check for anything if bits_per_word_mask is 0. With 0 it does not check 
-> for bits_per_word > 32 and it does not check for bits_per_word being a 
-> power of 2. It never checks for bits_per_word > 0 but this is a 
-> different issue.
-> 
-> 1.) Now I'm looking into a data sheet from Freescale
-> 
-> https://www.manualslib.com/manual/1376296/Freescale-Semiconductor-Mk22fn256vdc12.html?page=1053
-> 
-> and see that the chip can use any frame sizes from 4 to 32. Means also 
-> frame sizes which are not a power of 2. Nothing I've seen before but it 
-> exists. So the value 0 is indeed needed to allow for those values.
-> 
-> The chip can only support 4 to 32 bits, so with the 32 bit restriction 
-> in the V9 draft we would be fine.
-> 
-> 2.) 
-> https://community.nxp.com/t5/S32K/How-to-send-receive-64bit-or-longer-message-using-SPI/m-p/1476343#M15986
-> 
-> There are Bits/frame of 8, 10, 24, 32, 40, 64 mentioned in the example. 
-> Not only that some of those are no power of 2 and cannot be represented 
-> in this bit mask not having 0 but we have also 64 bit frame size. Means 
-> restriction to 32 bits has also to fall to support something like this.
-> 
-> I looked further and found a data sheet from NXP in the internet which 
-> should not be there. Maximum frame size for this chip is everything 
-> between 8 bits and 4096-bits with some values in between excluded. As 
-> bits_per_word is an u8 in Linux and in the draft spec something so 
-> strange like this could not be supported by virtio spi nor in Linux.
-> 
-> => The normal case for the majority of people is 8, 16 and maybe also 32 
-> bit SPI.
-> 
-> => The strange case is non power of 2 values which cannot be represented 
-> in the mask not allowing 0. The V9 draft spec is perfect for this.
-> 
-> => Another strange case is big frame sizes > 32 bit.
-> 
-> The sentence in draft V7 (on which I moaned, sorry for this) was most 
-> probably the perfect one: "If not set, there is no limitation for 
-> bits_per_word."
+For most users, all this happens maybe once per VM start.  It's not
+reasonable to start micro-optimizing this until it is taking so much
+time it slows VM start measureably.  With each DMA taking at most
+of an extra microsecond I just do not see the benefit, even with 1000s
+of DMAs, this will take at most milliseconds.
 
-Thank you very much for your detailed explanations.
 
-There are such strange usage scenarios that frame size exceeds 32 bits, 
-even 4096 bits. For these strange cases, It's impossible to use only 32 
-bits bits_per_word_mask to enumerate all the conditions. Seems that a 
-similar situation exists in Linux spi driver also.
-
-Assume a case where the spi controller supports the frame size to be any 
-value from 16 to 64, 32 bits mask can only cover the 16 ~ 32 conditions.
-
-Even so, it's not a good idea to expand the bits_per_word_mask, 32 bits 
-can cover most of the cases, except for some situations that are not 
-commonly used. Besides, it's hard to determine the bit width to cover 
-all the cases, and expanding will make the logic more complicated. To 
-summarize, I think the following statement is probably proper:
-
-"\field{bits_per_word_mask} is a mask indicating which values of
-bits_per_word are supported. If bit n of \field{bits_per_word_mask} is 
-set, the bits_per_word with value (n+1) is supported. If 
-\field{bits_per_word_mask} is 0, there is no limitation for bits_per_word."
-
-Do you think it is acceptable and appropriate?
-
-Much appreciated, again.
-
-Thanks
-Haixu Cui
-
+> > For out DPU, how much to batch and when to end the batch also need to be
+> > evaluated in detail.
+> >
+> > >
+> > > Or even using packed virtqueue.
+> > >
+> > >> The overhead of batch reqs is 1 kick + 8 DMA times.
+> > > If this is a real issue for your architecture, we should not make it
+> > > only work for coalescing. Any per vq tweaking may suffer from that.
+> >
+> > YES.
+> >
+> > > E.g if you want to do ARFS in the future. So it should a e.g a
+> > > container command for cvq instead of just for coalescing command
+> > > itself.
+> > >
+> > > We need to make sure if the existing facility is sufficient or not.
+> >
+> > We considered to update the generic ctrlq batch command. But so far we
+> > have only seen
+> > this requirement for netdim and aRFS.
 > 
-> Regards
-> Harald
+> Two use cases should be sufficient to justify.
+> 
+> We do have others, for example the vlan/mac filters.
 > 
 > 
+> > At the same time, aRFS has not yet
+> > entered the community.
+> > We will try to add a batch req interface for it and it may have a
+> > dedicated flow vq to ensure that
+> > the number of command issuances larger than netdim is responded to in time.
+> > So we temporarily plan to advance the batch of coalescing parameter
+> > requests first.
+> 
+> Thanks
 
 
 This publicly archived list offers a means to provide input to the
