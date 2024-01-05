@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8890-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8891-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB66C3DA6E
-	for <virtio-comment@archiver.kernel.org>; Fri,  5 Jan 2024 08:01:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FCE0C47079
+	for <virtio-comment@archiver.kernel.org>; Fri,  5 Jan 2024 08:01:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1FCCB2ACA8
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C627B2CADE
 	for <virtio-comment@archiver.kernel.org>; Fri,  5 Jan 2024 08:01:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 12404986686
+	by lists.oasis-open.org (Postfix) with ESMTP id AD23C986602
 	for <virtio-comment@archiver.kernel.org>; Fri,  5 Jan 2024 08:01:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 05683986603; Fri,  5 Jan 2024 08:01:35 +0000 (UTC)
+	id A040B9865D6; Fri,  5 Jan 2024 08:01:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,34 +24,36 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E94C198662A
-	for <virtio-comment@lists.oasis-open.org>; Fri,  5 Jan 2024 08:01:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9305C9865D9
+	for <virtio-comment@lists.oasis-open.org>; Fri,  5 Jan 2024 08:01:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ca7FL2cDjyJAbXangsNS7hy9IASP2kAlajzIcACqlSc1La7/JvZiMV2mO1E73Z2JI0O9avbgBhXhaxKepMUhDqCDJdQdZbtZX3hXuLKrGEQUXHwCt1w6qR2y4lca4Vkia49GkTj3YjkmzPVgNXTfFv68l8CcIl4KkLR/Cnokx9acuKKVDwGlABl0+URp8aC6EGo6cwX4sbfjRgKuv82iymQakmWWw2T2pQ8QtxQwh4SWDarLxJ2bT6g5u9rb5tIXK4s5GjmstetbhSdFqXNxOD9utv3NiIa/NvSgVMJpigtyWxcRqbaxyaFNe16QT+CK7VcwMJVxhTdEDj83yaB6Pw==
+ b=WDiPin9nXwVhb1iwICONUNLfPtLXaGk7UIo68TmDnJG+S/8eGVYR+dpTPIM7P+GPugyrRwh7GuWuIkvpKC8mHHLc0zQ/jLn50ZJnuf1ABxZIwoE1iDqWzdm1WvZpZweurcGW7cKuo1S3sPLBhW9yC9bDiJmYXLcLeRg2LRswBqEGhWpOKeNt58eAI0zbmsGznQxsohXJkYu1sDShBSlo6AuFWAEI7bpGy8HgVevYwlwHOkb058MX/rwnGxVGc+tnXXeTxJjeaaytYLdv3hnht0NB1j5y1uUEEaZX2rNhDzRY1dkYevI3727ZKxvoMVG1/T7/pxJ418R90Od/ti8cDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6Aq/7RZC3RQH2KFPDACBEpQvHuNmhtJtZknLaltWYE8=;
- b=NQGUCm4SHL8SQ3jfXw3yyyN1awW2fYPMOv7DxA38V7JOepFJYLKx0wyD/I/Es1HuilwBnx5l1kPxLEMVXHb1fxK0R6uv+0qNYnCzh7VF++fovUBac6oLzl0RLcIXtUXn5u26MsaY3TD9Dd4zL/kxmLjdZEZ8sJBxd/A0x/yu/kXfs3kn4O6+MxqUoa+KLxgaIgtUqRyyG5Kz4ZvPH9JF5ZSI9cVbb35IKrT1K4gi9S8AbgWGVGTfUbcZFyKsEd4AeVHQxV0TXjuNaAyK7VAz0Of1ACva5yJnpu9cCHxAuWRYJ6EH8XGSw5x5EA3c/pn7pM84i3cKdVztC9p1iqBQDQ==
+ bh=GQtF1uUnXlfTFmAEhMRomSiJ3r4Ku7GB87n9ftblCk8=;
+ b=ZkcbPjLeyH8A5npTiaSIfQRFuKN1aMXGvJyYgUHEXkcyVL9E/vZKg81lKAtJuG7+lxuWz70QVIrKF1puK/XQhQro7WxRY5zX7/t8B6u5S9zrGV1FvfAADFaQ7KDsaiiLy8TusaRB2/z5EdpK+FkJ3Vh9JkBI9A5HvEHXgZmuYg7PKfKtCbmU0PnOiOW+OWKqsqQkLoYa1A7tqOBp9QK4KftOWACCaX1lX+KzbVDgbuDKT4YRyRIuqoTts2ICI0JX6KHGHkzd8Ztsv1MXhc+o8lVquddnhRnBkd/s2zPrShel+xWE1PE5rk+TL1xbu9RkwNPhRLJb6N3claXV7CTbuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
+ 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
  header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 	<cohuck@redhat.com>
 CC: <shahafs@nvidia.com>, <xuanzhuo@linux.alibaba.com>,
 	<yuri.benditovich@daynix.com>, Parav Pandit <parav@nvidia.com>
-Date: Fri, 5 Jan 2024 10:00:53 +0200
-Message-ID: <20240105080055.3459531-1-parav@nvidia.com>
+Date: Fri, 5 Jan 2024 10:00:55 +0200
+Message-ID: <20240105080055.3459531-3-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240105080055.3459531-1-parav@nvidia.com>
+References: <20240105080055.3459531-1-parav@nvidia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -60,63 +62,61 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB52:EE_|DM8PR12MB5446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 116ba428-b4fa-468a-1351-08dc0dc4872f
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F4:EE_|CY5PR12MB6406:EE_
+X-MS-Office365-Filtering-Correlation-Id: f59cbbbc-1240-4039-7848-08dc0dc487c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gHi3YPgHfkTMGSfv1QTUUjVtThsHufkf+FzGFU5OXSHW8TIF06n2pavV/Ih+hasZ5SQ10itrFDO5s+MiZL30xcOqFhX5KicuXhBXzB96p6ZhiAoODnHoPacS9FQWCf9DU2zyDuHQE8N5N/p54LUup9luDfdgPKqpPkL0IZwusstCS6ZfBN72uVm8q27A50gQGVTkgQvKhE28fAB+1CKp8PCPXepietD4B9pSE8DSpDjrSafrKjcOPxgnQT05JpO/X2rbUjXeRyw+S5rIenbp8C6cUdkn4NyoWMblUPd3X3qtyWg4yInEeRpnZX2tidiORTmW81xAmmzYCZ9WVdDCQ8A2kEHtdfnOVjQdZq+1maOSZZvuGuzH7E32jNHcA8Hzhu+pbg2Kq+9G7iuJUioS5Gg44F8RNozoyhPQ9ObUkB1T1zGtG7Tn8nstQBC+7+a2x8Tru8oxwZ3eXlX35/3h8J6pWMsDCjKaU60PoV3qp9laKH7UzuZ1Jc1Y/FGpfKfisqDA0qzutAvgr4fJj7k9clztFe6ZrDPjX+2sNAZpPd9A/Iu9xwdeu3pW5r57pQ0bWb8Pc8tcdoqkIytmI5wV+aIW2RjJxl2ra/LBdIXEIvPtGqGq2OADipmgJRbXLsxs/H/Z+cYjSmKciK4Ge+5vERKUiB/aoNrQglmD7UNBXaXQOwH6zAsdGh3nv8yt6D4qSJTwCZ65ceJS38W4jlYhgt4OaX9RO1Kqap6MT3ldB/o4SkaK3f54ExkK6AZKNJse
+	E1iYHt0l36o0i2xy/iqIpBHMRX1VNVppMgYF0t1+PlYdhkwh7Vzu7Xb9GmRp6lI2y+DH2Mx/xr3FOmjT9ug2GBcqRFM6LpXRBi2YUjkey+o+moTmp/fipdsEawKCCCmrzK0UnvGGavBQuRPDm3ckFkx1CqAgcU2kWwRPp2yYzlLzrB3gPB1g6dXkW0tbABAKNwwz/4bofSdjUL2yezb6OlbXoozLFZGzGRTKPnrbJDyTE4zu7+9NDXzHmJoAOQ83nBGbWmbjSesSi7qyKhBERvEJmy8GVeJt4t2x0cUNkhHKpb8PAyLo1LfzGgtts/dslplZbP9h2DaFQeqtI4isxPnfu8ti/OzsqeMsfXfp8wTInX1bDX1EbdFtua6+10GRMj5iD+Nx5942ZK9SuVIDXBN9KfOHqDf2yODJIB36+bjNy8oxntRuKyhp5MA6ZSCeQO1dyjzN+GfYqztYBi57PkJvLOF83v0wrVbmnaAP7zTdZczUg2gxjCrC8B7P2tXuZHIp7ZIdOM09qYUiBht7Zg9kRBzkZ+FNgkdZ1iTj4LU0Az+sCicaA5YhT+DCMJnRSyPR7dLZI8Ljlj+AGWT0oSXxYXnT0Meo4cj8J51cdbm0GZIr7h9n6ghLZxCZqHgzVoiymdiA8lLzvv+OFogycueoZ9jSOGGo5Jb1WA7G42SS/6PterPAgZ4iQZOA3h5A0OGqQcQ5tOzmwAZ8a9lVPPbCxNtmAEDxHmIdL+i/DM/NsZKa8RpuTEVdQ7PTYdwVQtErCxRsvyJhu+HJ0uf+lDSKQdc8PsYBu0mjBlWgvao=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(39860400002)(396003)(136003)(230922051799003)(451199024)(82310400011)(1800799012)(186009)(64100799003)(46966006)(36840700001)(40470700004)(2616005)(107886003)(336012)(16526019)(426003)(1076003)(26005)(6666004)(86362001)(83380400001)(4326008)(316002)(54906003)(110136005)(8676002)(8936002)(2906002)(36756003)(5660300002)(478600001)(70206006)(70586007)(82740400003)(356005)(7636003)(47076005)(36860700001)(41300700001)(40460700003)(40480700001);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(230922051799003)(186009)(82310400011)(1800799012)(64100799003)(451199024)(36840700001)(46966006)(40470700004)(2906002)(4326008)(36860700001)(8936002)(47076005)(8676002)(5660300002)(36756003)(82740400003)(7636003)(356005)(41300700001)(6666004)(2616005)(478600001)(1076003)(26005)(336012)(426003)(966005)(316002)(107886003)(54906003)(70586007)(16526019)(110136005)(70206006)(40480700001)(40460700003)(86362001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2024 08:01:31.0496
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2024 08:01:32.1709
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 116ba428-b4fa-468a-1351-08dc0dc4872f
+X-MS-Exchange-CrossTenant-Network-Message-Id: f59cbbbc-1240-4039-7848-08dc0dc487c9
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB52.namprd02.prod.outlook.com
+	CO1PEPF000044F4.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5446
-Subject: [virtio-comment] [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx buffer size
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6406
+Subject: [virtio-comment] [PATCH v1 2/2] virtio-net: Clarify the size of the struct virtio_net_hdr for tx
 
-There are few small issues around size of receive buffer and size of the
-struct virtio_net_hdr as following.
+The feature VIRTIO_NET_F_HASH_REPORT only applies to the receive side.
+However, when VIRTIO_NET_F_HASH_REPORT feature was introduced, it was
+not clarified that the size of the struct virtio_net_hdr on the packet
+transmission also uses higher size when VIRTIO_NET_F_HASH_REPORT is
+negotiated.
 
-1. VIRTIO_NET_F_HASH_REPORT is only applicable on the rx side processing.
-   However it changes the size of the struct virtio_net_hdr for the tx side
-   as well. This was not clarified when VIRTIO_NET_F_HASH_REPORT feature was
-   introduced.
+Explicitly clarify this.
 
-2. Receive buffer size calculation description and requirements did not
-   reflect negotiation of VIRTIO_NET_F_HASH_REPORT.
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/183
+Signed-off-by: Parav Pandit <parav@nvidia.com>
 
-3. Receive buffer size calculation was incorrect for ipv6 guest gso feature.
-
-Above issue 2 was reported in [1].
-Since issue 2 and 3 both touches the same set of requirements and description,
-they are updated under a new issue along with tx side fix as well touching the
-clarification needed for VIRTIO_NET_F_HASH_REPORT.
-
-Hence above three issues are fixed under issue of [2].
-
-Patch summary:
-patch-1 fixes receive side description and requirement
-patch-2 adds transmit side clarification for VIRTIO_NET_F_HASH_REPORT
-
+---
 changelog:
 v0->v1:
 - addressed comments from Xuan to rewrite tx normative
+---
+ device-types/net/description.tex | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Parav Pandit (2):
-  virtio-net: Fix receive buffer size calculation text
-  virtio-net: Clarify the size of the struct virtio_net_hdr for tx
-
- device-types/net/description.tex | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
-
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index a1f40f7..d86beee 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -528,6 +528,9 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
+ 
+ \drivernormative{\paragraph}{Packet Transmission}{Device Types / Network Device / Device Operation / Packet Transmission}
+ 
++The driver MUST use the same size of the field \field{struct virtio_net_hdr}
++for transmit and receive packet buffers.
++
+ The driver MUST set \field{num_buffers} to zero.
+ 
+ If VIRTIO_NET_F_CSUM is not negotiated, the driver MUST set
 -- 
 2.34.1
 
