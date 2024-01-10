@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8897-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8898-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A5CC3DA6E
-	for <virtio-comment@archiver.kernel.org>; Mon,  8 Jan 2024 17:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50437C3DA6E
+	for <virtio-comment@archiver.kernel.org>; Wed, 10 Jan 2024 03:46:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id B2FD22AF8D
-	for <virtio-comment@archiver.kernel.org>; Mon,  8 Jan 2024 17:20:33 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 808A22B028
+	for <virtio-comment@archiver.kernel.org>; Wed, 10 Jan 2024 03:46:03 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6A75F98638D
-	for <virtio-comment@archiver.kernel.org>; Mon,  8 Jan 2024 17:20:33 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 678F4986671
+	for <virtio-comment@archiver.kernel.org>; Wed, 10 Jan 2024 03:46:03 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4A17F9862A1; Mon,  8 Jan 2024 17:20:33 +0000 (UTC)
+	id 5B2BF98666F; Wed, 10 Jan 2024 03:46:03 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,561 +24,690 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id EEC219862DD
-	for <virtio-comment@lists.oasis-open.org>; Mon,  8 Jan 2024 17:19:00 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4346C986673
+	for <virtio-comment@lists.oasis-open.org>; Wed, 10 Jan 2024 03:45:59 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1704734333.770000
-X-TM-MAIL-UUID: 9dd5a6cd-d6f9-4918-9930-a76e586ce885
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ghqvVznOF3QGGU8OPIFwNvT9H77VB9+4Ro0yqamBGY6F5FPTRFewxmC+7iwSZvsh9Y0GtSMUCKsRDhaIomsKsK+p6wAq2QvgWspn5siBXe2NdWw8aMUOx1drvpmK65Fws0Mlsk6+cybVzwis5GfaXzEoxfN0b6CAp+gw6hoPhDRcqySIS9LFCcNS8UA5ucyvOObY37yVs0LeWXgdcWJs/ytiLJoofUCOfFsdktHTL2V/8D3vZIhz2JhLF1elHOgkDud4LhQoCAnldI6Dgd3WubA7rLbAl2nZTZpryuTMMYMP339gBhnb8vbLvEiKVcioQeGzYJ2M5inLUcqsi3IpQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=98vkvlxywDsVVLt4vftRW+nvQsQHOwlhzzhSQJPDtcg=;
- b=dyKetupUjqxD59pKL6OSp1/o3LW+SzTxKE1aDNW9+dDppBQsgs58TkG4JQ4U3ZV2Gj2IZRRpZ0C9SocXve7CL/YLzmxzIRWr+re3xtdJvNt3EIuoVDf/uFBW9H1NLKsZxExTNS3R59M0o2+94j7HVph/m6DryuvvmhgFsd3Cq7WtPoZGgpRmPlIQLsCGoNI7nEvhEkaVerZHG2P4jchGdb9Z6L5hGcZhdihZCL2EiKXO23OVCpCTOaSgR+zL006XDqrxKGFdFCjEmqzKVYvfqFkeKZIioU5bXKgksLEDDeD9La8BzZ7OBExfdtvE7GAi8BCxL8oEFzu8IqPtF3WN2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
-Date: Mon, 8 Jan 2024 18:18:50 +0100
-Content-Language: en-US
-To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
- linux-can@vger.kernel.org
-Cc: Harald Mommer <harald.mommer@opensynergy.com>
-References: <20230609142243.199074-1-Mikhail.Golubev-Ciuchea@opensynergy.com>
-From: Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@opensynergy.com>
-In-Reply-To: <20230609142243.199074-1-Mikhail.Golubev-Ciuchea@opensynergy.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BE1P281CA0335.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:7d::28) To FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:55::8)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704858356; x=1705463156;
+        h=to:from:subject:date:message-id:sender:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jDPOPI7xbDD5oA856BhJ16uQs73Xm3jmCz3C/Ve8+xE=;
+        b=DfB+Gd4PwHVK7Go0wXbThu2bg4sTkCtcTnXiKwV5QMlwWidRzJQg7MGTKkLaijUNto
+         L95VaaUHF/9Ym3h/mE/09cSp2FzQuKcpR+qb5XzNYAHScmN3WpB5tkzQgLruJYR2BY0a
+         Tg4D7YZNGucxc/02ivlwEz3eX4GpM9KUf5/O/QMac2Ori/+HODfuptFfwelTdmkG5BSL
+         402XYLkov8EI1sxawnRo6dTeJU+n0E0q4rZlwJxEyJ3fi9ZeeljtcV3RZEEeZb3HU+D9
+         ErsAjeC8o1wDYPawJv1wv38f0Y32g/LI8bHyMi/X/KKabLENvKyF57kMnAb1RFCeTP06
+         o7lw==
+X-Gm-Message-State: AOJu0Yw9+qW89kzhk9X1D+zgHKpuZ4x3OooYJfWVsl6ZHhlu1LHyJXxs
+	xxb2q08dba9xuwOE8Tmt9CP8OwfPigiaeg1WG4Z3CakFOw1ghw==
+X-Google-Smtp-Source: AGHT+IFBpcBlFMkC1kaXib+bsIUiIWtUCE2DEONdP5MsV0mRFEhdMQDFf8tiunLPpMtZLNmpS4T0pteNdBeroJiFVwwd
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: FR0P281MB2861:EE_|BE1P281MB1732:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8528d52a-808c-49d1-8d7b-08dc106de278
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	y57OW5WPXiDVNvE73Dc+141tplxnbN0F5EknpBpvHBeOiqIIsh5HhhZtv16YrwmPCil9/srWoVoH0AoAmKcQpXcdQLm7+x1hhVR2OyUY1HzRJq+BiWLp6+ajwP18SAEZTE9pmdsh1DxhLlnb+nh9n4Y4PucAid838e/bfrsITGBmhq0AiDg1fObF1RU4F0WHMFmc2OL6Ftz6XZDgNSFu4OaM0csIe7msCiEM3T16ad8UfkBVxoABT8kC9LpdcXd7kbZOPGSID6GlqIn2drXS1p6IfN2R0jxUlP6pHFvw18DvEBZPbeDlR1B8rZ0Y8R4EoZ/n2BxkZdB8/ZBxVCjOmloRG+ICU+YCDV7rou5DbPC1edgwuDhvctKYbDR7IiFwPP6qLdbChKHuwThn3MHVcBjvawffqbkJELncO7kFn6yYwDcPvjCLp11+Fj4pM8IFzWGI7wlT71911z1UR0x5dWUa6aoojiLf/cuN4Fu5eYTz+6STSwvSE8S65olrab8G0fS1wKrisAquz95xgU/te4GrqP+NJ/p6C1/hX+UeiGJmKKaYJyn7NZAt1MgMZ3Fhzn3CfRM8fV38HwuhZqJCTmXSNWU2jNXB/mu9L9BMrXs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(396003)(136003)(39840400004)(366004)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(31686004)(966005)(478600001)(66574015)(4326008)(5660300002)(30864003)(107886003)(83380400001)(8676002)(66556008)(8936002)(53546011)(66946007)(2616005)(66476007)(2906002)(38100700002)(36756003)(42186006)(316002)(15974865002)(41300700001)(86362001)(31696002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YUYzZEt6Wm5hbnpiUjJhS0RlV3BQcVF3S2J1a3phTUR6OTJIL3VnUEpYYWxI?=
- =?utf-8?B?MnBST0xhOURkSTBJTkZQVkxXU1FURlo1STd0KzlDbC80cjZNdWM1Qnk5NzE2?=
- =?utf-8?B?RXJIMDVlR0JucWlHMjEybXpwbW54djhlZTd5dE9WY2ZMVE9lak9BYTdpKzJG?=
- =?utf-8?B?R0VqanNkZFp6VFovYzVnNnpnWVVTMkFaMDZ0VnNTcUZuUnlVVUxGR2VRems4?=
- =?utf-8?B?UFEvamZVbUErTzM2Y2Y1anBhL1BKaFkwenZNNVdpYTh2U3hpNG5oMGduV0NK?=
- =?utf-8?B?L3FRbkhsS1R2VzFFR2dIMnFVOGFVeGhzTzYyTzBtb1VoNGo3V0NNWjN5QUgv?=
- =?utf-8?B?dkp3UXM2QkRsVnlIdHJ4aThrdDBFUERjT3hZeml1V29COXNOSk5HSEd1Q3Rw?=
- =?utf-8?B?OEtkcXRwc2phS25uV3d1TkNrcjB3VTFsanRleVl0Um5uUXhaOE05VGkvb1pp?=
- =?utf-8?B?T0ZJM1hQUSs0Y0NMRUw2VHozRkF5RE1mYmFoa1ZwYXUxR2lqekxZYTMrVjJM?=
- =?utf-8?B?OHpBVWN5U2lYQncwTW8yV01nQ3ZmRWdwcHdtM0JBRXU1cCtuZGRsTDRvOTdK?=
- =?utf-8?B?Tmk2azZLK3dzdVNKOWVob0dVNGVlbGUvaFVlTkpjSHVoOVVFMmlsc3hzbTM3?=
- =?utf-8?B?RHFoWEs4Tmw2UHpVaEppOExZVStsWmV6MmRxOXZSUkRSUmY4NEJ0VWNTSEpa?=
- =?utf-8?B?b1drSmVlSWg5NnRlcy9BZDdORHg0Sm5TeUlUSTFKQ0V6TElwRXozRERkTkpv?=
- =?utf-8?B?UnFXWm1jTE12L3R6UlkxbzM1UzdtUjNNTFM0Sk1yMkZjeDM3cjFiaU0wanJq?=
- =?utf-8?B?RFRla2FrTUxDMS95SW9wNmRkM1EzMkU4VzhVK1I4UEozOTUyQy83bDBQM0Fz?=
- =?utf-8?B?UkdacDEySW0zM2JsdSs0VFlZN2kxM3p5TG51ekdBWURqZG81UHlNTnlLZ3NZ?=
- =?utf-8?B?Q280MWsvQjJJVUdmMWoxN3U4NVp1ci9tZEVRSWNsTS9jeDdTdTVCbXBHZ281?=
- =?utf-8?B?WVI0QU1kQmV6NjVwWVlYOVhwcXloK2Znb3VOUUtJZ0VKUXpzaU5ueC9uMHFQ?=
- =?utf-8?B?aGprWU5NLzlnLy9Ta09nQjdlMkhZRmNBL1dYMG8ybjJLbmR5Rk80S004L2lq?=
- =?utf-8?B?M0YvaUROS1pTRFVxeG5jRHpBVmxKdmlCQzUrVmZrSVpXeUxQQ3NPOWxtMDM4?=
- =?utf-8?B?d1p6eG9PdFlLVCtwTFdzbG56S2NXUEJXaVhmeTZzREpaUFVlRGxlZkNHRWt6?=
- =?utf-8?B?cGlHWmp5R3VadXR2S2plMjgwVi9DRytQK05oMFdubGd2VjRUZEVWVDhjQWg2?=
- =?utf-8?B?SndyYmUyWmhoRmF2UG01b2hCOUJCTDFCVlZwQWs3L1hGSUNwbmJmS1MrL0k1?=
- =?utf-8?B?cjFzQVFPNUdNeDZKRERNK004V3MwQlhBVFhra0V6THlTNGIxVWJpbE1iNGIr?=
- =?utf-8?B?MzRnc1o3OEdWcnVqR3FhMG0zT3JRUGRhK0NKRkNwSjlyUU1vTUZ0cFhwbnhp?=
- =?utf-8?B?VUR3RGZqRjA5WnVmZFpHNUlFbXFHQS9BclUzNnFQaUZoUDIvek5xNS9QVjd3?=
- =?utf-8?B?TG1VUGZHOXBBZThLU3NIRTQrZ3ZSOEVHK3dWQnFBNTc0LzhrL0NyVUxxeWU3?=
- =?utf-8?B?cjBGY1haSHhiSThpbkZTSFZ6NGpBR3RxMmVRTk5QemVudjFLdHl4SnQ1Rm85?=
- =?utf-8?B?alNOeHFqN3hFekRMdXlzZXk5amxpOGlhazBnZXROZGJMeUZneE9Sb1hWS1ho?=
- =?utf-8?B?TnZSSk5LVjEwZEc1RGdpUlkzbHVueC9NK2VKYzRlR1YyMk5RbGtSNWZmd3M1?=
- =?utf-8?B?dUNkb0ZSZm1IcWdnWHFTQTRZWHNrR3JhVTNxVnRnV01lOVdWSVZCWnpTMnQv?=
- =?utf-8?B?a1RMNUx0K2VxU1VoWU43UVh2cUZ0S0JETFVjYVRiK2dJcE4rU2UyRTgzQ0Ri?=
- =?utf-8?B?TjE3dHZGSy8zc2llUHNWN2ZDUkJYdlQ2TldHMGxtcGRad3lNdWJKYm4rQmFk?=
- =?utf-8?B?SGRkSmIzUUV3THM5UWNLL09kOHdkVU0rNzk0T3YrUlNKSnBNcVUzUTl1eC9S?=
- =?utf-8?B?QkcyNGx3SUtQME9kWkNoaitTREg4azVZOHJGaUpwdXl2MENiSVhqRU1hUVox?=
- =?utf-8?B?MktWRm13eVc3STJaeGFHcUFKZzF2ODZRVjZsMWxTSUx2aU50QmVEemY3c2JY?=
- =?utf-8?Q?zE9cem54OMJnTjpO85ng2gtKkdNNG4K9z10OFI44oLFI?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8528d52a-808c-49d1-8d7b-08dc106de278
-X-MS-Exchange-CrossTenant-AuthSource: FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 17:18:51.7976
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NayiXsYdYYF21T3NERcack7XFhE6/nn8MGXv1iz081tzIuaYnEPs7d9XhxOVJ20JZsJnitziPs0G8OSZymWosg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB1732
-X-TM-AS-ERS: 104.47.11.168-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-28108.001
-X-TMASE-Result: 10--26.839400-4.000000
-X-TMASE-MatchedRID: IeZYkn8zfFqbPh0YdpLKJrr2u0KWqQKN6BFG8XEpG3o+Jg7sQdznaNvg
-	EYRNbHS3giGMT9+4wgGSZ3SaETHm4d+JF1WYq48KGG92L3YEEC7n0oaU6WM++2l97S/dBhHEMv6
-	3KPkpsVsiV5oa5+FymYHXFo1IeW9XpsOuxfGO3nYI1pqhes/vCZ1VuQ+lOPH3KHGQohQFy180Ri
-	Z6Ct8rIqA2jwJY4wY+0/a3h2+DhqxRskjaGDMQnpIdC0Q5JDAcyiAijCjuVj1rIVA3IGfCC6DED
-	Qa+uiKUWL15ehCslD7JKRtEgA/ITuWnLg8XLS8s4EfJdkIZseqFCkPhi2xezZGeN+9dVIq356v0
-	NFZuss3bhj0bVm2k8Bh/Al+iqFMV2we4/1fEGL8J9830SX03A8hBDBG/yA+OohylTf+BwIwBLhI
-	Ycosb0cclpo1iCSKCjNAvN1oAuKagBHhfl29INyE8raaf46xMzmG9pmg8ncIAs5rNbNSK9e7+wT
-	HUWclzV4o4c6W8jBfLPGh5Ujntipvtu+4NxuXQCqJ0RbJ3bb0nfL6KqKSjb9NP7irnuo/fj7ukk
-	TJcZN/tyngZFy3ttip9kJiO/6Fe52IgFIdChvaxfhoVgAwhg8F5fDL4n8i+c4ZU0JVmUiR5hV2J
-	q9Ki5C7ouhdAH53QSSbqDRkRAeP/sZ5f6dOaSbK65uJPro/PJnEmMUXsLByS/N5DRl1oA5cPFDp
-	4CqCka8saRos4VaFUWoUJy6Nz14OJPzg4sctil70udqm5Uk/z5QXJv66dQ4PQuX9/sTNh73KIEc
-	JGVn9ee4H5J0bLx5Kk87qFGa+bx10k8QqyoAyRw3fxXeYCNqODSWu0oxbKa1P8Ik1zBcVtzZazF
-	rwD0yaSuBfcJyImkGUtrowrXLg=
-X-TMASE-XGENCLOUD: 20941e10-a7d1-4899-9887-a3f12d500a82-0-0-200-0
-X-TM-Deliver-Signature: 91B5E697C46C12F80E656C3FCEFE032D
-X-TM-Addin-Auth: pUknQ5XUZhTfS85jfKYBr3tENF/AQWeXpcAywyKoCoZx3aUqjlY5yhcr1Kv
-	juEd74ahm+vdOm9FMtO80eRu5JvjHDot6+gCdyoD8oCRJB5Pj6zhe0AX1WtQOonLNR4TkQHpJgW
-	/KqfTO3vNud9ZHk1KmZI37MTE/iLVX3BOgARMOjj7lli9fF8lOtGj7yHC+XhDWykOplcaV9Z3fU
-	jB/HSk9JacfrEZnCki3JXM0QTnoMkUazSzz2Lh4QzINU7yVKdrG1AHsd3G7u7B7mLSYoe99qOz/
-	IU0jfu75cYu4R+k=.0NqtNIH8fXkvqSydEUyJkzFA85krkc6bQBg7wHO6/F8ns7jIHFT3/eh0CC
-	R3BO3fVTCSQuoHe0URqjCovN8aHnSO17Oej6bNLXdHn5kZ8zIrMuo5x2tKJBgXWBZuKR7DibFgr
-	Qzy7KHob6EseS17xDqNt1P3cut9aSNZhj0uXKgq7iC7hbPZ0yko7o6o7TUkKLf52n4n9CF/k1qi
-	bcxRHcWjO/Ib0/Nkc+9Id2wBkLhJJwrTiAz/Er9eF1XwnJqQFlVcAQrB8/VRHtCECqa6f6sW3Hr
-	j1i5uwMNmRFmwYED+hZ8tv+V4zUWVn2YrAF9y8OI8vdWtQ1P7acTFVvkL1Q==
-X-TM-Addin-ProductCode: EMS
-Subject: Re: [virtio-comment] [RFC PATCH v3] virtio-can: Device specification.
+X-Received: by 2002:a05:620a:469e:b0:780:e6b9:621a with SMTP id
+ bq30-20020a05620a469e00b00780e6b9621amr595302qkb.67.1704858355092; Tue, 09
+ Jan 2024 19:45:55 -0800 (PST)
+Reply-To: Parav Pandit <parav@nvidia.com>
+Sender: Google Calendar <calendar-notification@google.com>
+Message-ID: <calendar-f31007d9-6ee0-47ad-b2c2-86e16fbe73c4@google.com>
+Date: Wed, 10 Jan 2024 03:45:55 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: hengqi@linux.alibaba.com, sburla@marvell.com, si-wei.liu@oracle.com, 
+	virtio-comment@lists.oasis-open.org, virtio@lists.oasis-open.org, 
+	xuanzhuo@linux.alibaba.com, Parav Pandit <parav@nvidia.com>
+Content-Type: multipart/alternative; boundary="000000000000a5e809060e8f449d"
+Subject: [virtio-comment] virtio-net collaboration bi-weekly
 
-Hi all!
+--000000000000a5e809060e8f449d
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
 
-I kindly request a vote.
+R2VudGxlIHJlbWluZCBhbmQgdGVzdCBtZXNzYWdlIGZvciBuZXcgbWVldGluZyBpbnZpdGUgdGhp
+cyB5ZWFyLg0KDQp2aXJ0aW8tbmV0IGNvbGxhYm9yYXRpb24gYmktd2Vla2x5DQpXZWRuZXNkYXkg
+SmFuIDEwLCAyMDI0IOKLhSAxMDozMGFtIOKAkyAxMToxNWFtDQpJbmRpYSBTdGFuZGFyZCBUaW1l
+IC0gS29sa2F0YQ0KDQpKb2luIHdpdGggR29vZ2xlIE1lZXQNCmh0dHBzOi8vbWVldC5nb29nbGUu
+Y29tL2drai1yYXdpLXVmcD9ocz0yMjQNCg0KDQoJDQpKb2luIGJ5IHBob25lDQooVVMpICsxIDk3
+OC00MDMtMDU4NA0KUElOOiA3NTY5Njk3NjQNCg0KTW9yZSBwaG9uZSBudW1iZXJzDQpodHRwczov
+L3RlbC5tZWV0L2drai1yYXdpLXVmcD9waW49NzU3MzY4MDc4MzMyNiZocz0wDQoNCg0KQXR0YWNo
+bWVudHMNCnZpcnRpby1uZXQgY29sbGFib3JhdGlvbiBiaS13ZWVrbHkgbWVldGluZyBub3RlcyAg
+DQpodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9kb2N1bWVudC91LzEvZC8xTUUtakZuY3ZQTXdIX0d5
+ZUxoaElZZ3FtRmhUQWJsc0lvcHFIQ1paeHVmTS9lZGl0DQoNCkhpIEFsbCxUaGlzIGlzIGEgYmkt
+d2Vla2x5IGNvbGxhYm9yYXRpb24gbWVldGluZyBmb3IgdmlydGlvIG5ldCAgDQpzcGVjaWZpY2F0
+aW9uIGRldmVsb3BlcnMuUmVuZXdpbmcgdGhlIHNlcmllcy7CoE1lZXRpbmcgYWdlbmRhIGFuZCBt
+aW51dGVzICANCmFyZSBjYXB0dXJlZCBhdCBbMV0uWzFdICANCmh0dHBzOi8vZG9jcy5nb29nbGUu
+Y29tL2RvY3VtZW50L2QvMU1FLWpGbmN2UE13SF9HeWVMaGhJWWdxbUZoVEFibHNJb3BxSENaWnh1
+Zk0vZWRpdD91c3A9c2hhcmluZ8KgLS0tLS0tLWEuICANCkFsbCBkZWNpc2lvbnMgYXJlIHN0aWxs
+IG1hZGUgYnkgVEMgZWxlY3Ryb25pYyBiYWxsb3QgYXMgdXN1YWwuIFByb3Bvc2VkICANCmNvbGxh
+Ym9yYXRpb24gbWVldGluZ3MgYXJlIHVucmVsYXRlZCB0byBUQyBiYWxsb3QuYi4gQWxsIGRpc2N1
+c3Npb25zIGZvbGxvdyAgDQpPQVNJUyBmZWVkYmFjayBsaWNlbnNlLiAgDQpodHRwczovL3d3dy5v
+YXNpcy1vcGVuLm9yZy9wb2xpY2llcy1ndWlkZWxpbmVzL2lwci8jYXBwZW5kaXhhDQoNCk9yZ2Fu
+aXplcg0KUGFyYXYgUGFuZGl0DQpwYXJhdkBudmlkaWEuY29tDQoNCkd1ZXN0cw0KUGFyYXYgUGFu
+ZGl0IC0gb3JnYW5pemVyDQpoZW5ncWlAbGludXguYWxpYmFiYS5jb20NCnNidXJsYUBtYXJ2ZWxs
+LmNvbQ0Kc2ktd2VpLmxpdUBvcmFjbGUuY29tDQp2aXJ0aW8tY29tbWVudEBsaXN0cy5vYXNpcy1v
+cGVuLm9yZw0KdmlydGlvQGxpc3RzLm9hc2lzLW9wZW4ub3JnDQp4dWFuemh1b0BsaW51eC5hbGli
+YWJhLmNvbQ0KDQoNCg==
+--000000000000a5e809060e8f449d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/186
+<!doctype html><html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:=
+schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:offi=
+ce"><head><title></title><!--[if !mso]><meta http-equiv=3D"X-UA-Compatible"=
+ content=3D"IE=3Dedge"><![endif]--><meta http-equiv=3D"Content-Type" conten=
+t=3D"text/html; charset=3DUTF-8"><meta name=3D"viewport" content=3D"width=
+=3Ddevice-width,initial-scale=3D1"><meta name=3D"color-scheme" content=3D"l=
+ight dark"><meta name=3D"supported-color-schemes" content=3D"light dark">
+    <style>
+      body, html {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+      }
 
+      body {
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
 
-Best wishes,
-Mikhail Golubev-Ciuchea
+      #outlook a {
+        padding: 0;
+      }
 
+      .ReadMsgBody {
+        width: 100%;
+      }
 
+      .ExternalClass {
+        width: 100%;
+      }
 
-On 6/9/23 16:22, Mikhail Golubev-Ciuchea wrote:
-> From: Harald Mommer <harald.mommer@opensynergy.com>
-> 
-> virtio-can is a virtual CAN device. It provides a way to give access to
-> a CAN controller from a driver guest. The device is aimed to be used by
-> driver guests running a HLOS as well as by driver guests running a
-> typical RTOS as used in controller environments.
-> 
-> Signed-off-by: Harald Mommer <Harald.Mommer@opensynergy.com>
-> Signed-off-by: Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>
-> ---
-> 
-> RFC v3:
-> * Add length fields in CAN RX and TX messages.
-> * Replace bus off indication queue with a config space bit.
-> * Clarify handling of unknown flag bits set in CAN frame.
-> * Remove MISRA C suffixes in constants.
-> * Reserve 16 bits in RX/TX messages for CAN XL priority.
-> * Reserve 8 bits in RX/TX messages for CAN classic DLC.
-> * Rework according to general virtio spec POV.
-> * Implementation:
->    driver: https://lore.kernel.org/all/20230607145613.133203-1-Mikhail.Golubev-Ciuchea@opensynergy.com/
->    QEmu device: https://github.com/OpenSynergy/qemu/tree/virtio-can-spec-rfc-v3
-> 
-> RFC v2:
-> * Add CAN classic feature flag.
-> * Add feature flag VIRTIO_CAN_F_LATE_TX_ACK.
-> * Add feature flag VIRTIO_CAN_F_RTR_FRAMES.
-> * Reserve 32 bits in RX/TX messages.
-> * Remove priorities of messages.
-> 
->   conformance.tex                         |  12 +-
->   content.tex                             |   1 +
->   device-types/can/description.tex        | 249 ++++++++++++++++++++++++
->   device-types/can/device-conformance.tex |   8 +
->   device-types/can/driver-conformance.tex |   7 +
->   introduction.tex                        |   2 +
->   6 files changed, 275 insertions(+), 4 deletions(-)
->   create mode 100644 device-types/can/description.tex
->   create mode 100644 device-types/can/device-conformance.tex
->   create mode 100644 device-types/can/driver-conformance.tex
-> 
-> diff --git a/conformance.tex b/conformance.tex
-> index 01ccd69..a07ef02 100644
-> --- a/conformance.tex
-> +++ b/conformance.tex
-> @@ -32,8 +32,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->   \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
->   \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance},
->   \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
-> -\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance} or
-> -\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
-> +\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
-> +\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
-> +\ref{sec:Conformance / Driver Conformance / CAN Driver Conformance}.
->   
->       \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
->     \end{itemize}
-> @@ -59,8 +60,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->   \ref{sec:Conformance / Device Conformance / Memory Device Conformance},
->   \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance},
->   \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
-> -\ref{sec:Conformance / Device Conformance / GPIO Device Conformance} or
-> -\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
-> +\ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
-> +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
-> +\ref{sec:Conformance / Device Conformance / CAN Device Conformance}.
->   
->       \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
->     \end{itemize}
-> @@ -152,6 +154,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->   \input{device-types/scmi/driver-conformance.tex}
->   \input{device-types/gpio/driver-conformance.tex}
->   \input{device-types/pmem/driver-conformance.tex}
-> +\input{device-types/can/driver-conformance.tex}
->   
->   \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
->   
-> @@ -238,6 +241,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->   \input{device-types/scmi/device-conformance.tex}
->   \input{device-types/gpio/device-conformance.tex}
->   \input{device-types/pmem/device-conformance.tex}
-> +\input{device-types/can/device-conformance.tex}
->   
->   \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
->   A conformant implementation MUST be either transitional or
-> diff --git a/content.tex b/content.tex
-> index d2ab9eb..8806b57 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -765,6 +765,7 @@ \chapter{Device Types}\label{sec:Device Types}
->   \input{device-types/scmi/description.tex}
->   \input{device-types/gpio/description.tex}
->   \input{device-types/pmem/description.tex}
-> +\input{device-types/can/description.tex}
->   
->   \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
->   
-> diff --git a/device-types/can/description.tex b/device-types/can/description.tex
-> new file mode 100644
-> index 0000000..2511d9c
-> --- /dev/null
-> +++ b/device-types/can/description.tex
-> @@ -0,0 +1,249 @@
-> +\section{CAN Device}\label{sec:Device Types / CAN Device}
-> +
-> +virtio-can is a virtio based CAN (Controller Area Network) controller.
-> +It is used to give a virtual machine access to a CAN bus. The CAN bus
-> +might either be a physical CAN bus or a virtual CAN bus between virtual
-> +machines or a combination of both.
-> +
-> +\subsection{Device ID}\label{sec:Device Types / CAN Device / Device ID}
-> +
-> +36
-> +
-> +\subsection{Virtqueues}\label{sec:Device Types / CAN Device / Virtqueues}
-> +
-> +\begin{description}
-> +\item[0] Txq
-> +\item[1] Rxq
-> +\item[2] Controlq
-> +\end{description}
-> +
-> +The \field{Txq} is used to send CAN packets to the CAN bus.
-> +
-> +The \field{Rxq} is used to receive CAN packets from the CAN bus.
-> +
-> +The \field{Controlq} is used to control the state of the CAN controller.
-> +
-> +\subsection{Feature bits}{Device Types / CAN Device / Feature bits}
-> +
-> +Actual CAN controllers support Extended CAN IDs with 29 bits (CAN~2.0B)
-> +as well as Standard CAN IDs with 11 bits (CAN~2.0A). The support of
-> +CAN~2.0B Extended CAN IDs is considered as mandatory for this
-> +specification.
-> +
-> +\begin{description}
-> +
-> +\item[VIRTIO_CAN_F_CAN_CLASSIC (0)]
-> +
-> +The device supports classic CAN frames with a maximum payload size of 8
-> +bytes.
-> +
-> +\item[VIRTIO_CAN_F_CAN_FD (1)]
-> +
-> +The device supports CAN FD frames with a maximum payload size of 64
-> +bytes.
-> +
-> +\item[VIRTIO_CAN_F_RTR_FRAMES (2)]
-> +
-> +The device supports RTR (remote transmission request) frames. RTR frames
-> +are only supported with classic CAN.
-> +
-> +\item[VIRTIO_CAN_F_LATE_TX_ACK (3)]
-> +
-> +The virtio CAN device marks transmission requests from the \field{Txq}
-> +as used after the CAN message has been transmitted on the CAN bus. If
-> +this feature bit has not been negotiated, the device is allowed to mark
-> +transmission requests already as used when the CAN message has been
-> +scheduled for transmission but might not yet have been transmitted on
-> +the CAN bus.
-> +
-> +\end{description}
-> +
-> +\subsubsection{Feature bit requirements}\label{sec:Device Types / CAN Device / Feature bits / Feature bit requirements}
-> +
-> +Some CAN feature bits require other CAN feature bits:
-> +\begin{description}
-> +\item[VIRTIO_CAN_F_RTR_FRAMES] Requires VIRTIO_CAN_F_CAN_CLASSIC.
-> +\end{description}
-> +
-> +It is required that at least one of VIRTIO_CAN_F_CAN_CLASSIC and
-> +VIRTIO_CAN_F_CAN_FD is negotiated.
-> +
-> +\subsection{Device configuration layout}\label{sec:Device Types / CAN Device / Device configuration layout}
-> +
-> +Device configuration fields are listed below, they are read-only for a
-> +driver. The \field{status} always exists. A single read-only bit (for
-> +the driver) is currently defined for \field{status}:
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_config {
-> +#define VIRTIO_CAN_S_CTRL_BUSOFF (1 << 0)
-> +        le16 status;
-> +};
-> +\end{lstlisting}
-> +
-> +The bit VIRTIO_CAN_S_CTRL_BUSOFF in \field{status} is used to indicate
-> +the unsolicited CAN controller state change from started to stopped due
-> +to a detected bus off condition.
-> +
-> +\drivernormative{\subsubsection}{Device Initialization}{Device Types / CAN Device / Device Operation / Initialization}
-> +
-> +The driver MUST populate the \field{Rxq} with empty device-writeable
-> +buffers of at least the size of struct virtio_can_rx, see section
-> +\ref{struct virtio_can_rx}.
-> +
-> +\subsection{Device Operation}\label{sec:Device Types / CAN Device / Device Operation}
-> +
-> +A device operation has an outcome which is described by one of the
-> +following values:
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_CAN_RESULT_OK     0
-> +#define VIRTIO_CAN_RESULT_NOT_OK 1
-> +\end{lstlisting}
-> +
-> +Other values are to be treated like VIRTIO_CAN_RESULT_NOT_OK.
-> +
-> +\subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Operation / Controller Mode}
-> +
-> +The general format of a request in the \field{Controlq} is
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_control_out {
-> +#define VIRTIO_CAN_SET_CTRL_MODE_START  0x0201
-> +#define VIRTIO_CAN_SET_CTRL_MODE_STOP   0x0202
-> +        le16 msg_type;
-> +};
-> +\end{lstlisting}
-> +
-> +To participate in bus communication the CAN controller is started by
-> +sending a VIRTIO_CAN_SET_CTRL_MODE_START control message, to stop
-> +participating in bus communication it is stopped by sending a
-> +VIRTIO_CAN_SET_CTRL_MODE_STOP control message. Both requests are
-> +confirmed by the result of the operation.
-> +
-> +\begin{lstlisting}
-> +struct virtio_can_control_in {
-> +        u8 result;
-> +};
-> +\end{lstlisting}
-> +
-> +If the transition succeeded the \field{result} is VIRTIO_CAN_RESULT_OK
-> +otherwise it is VIRTIO_CAN_RESULT_NOT_OK. If a status update is
-> +necessary, the device updates the configuration \field{status} before
-> +marking the request used. As the configuration \field{status} change is
-> +caused by a request from the driver the device is allowed to omit the
-> +configuration change notification here. The device marks the request
-> +used when the CAN controller has finalized the transition to the
-> +requested controller mode.
-> +
-> +On transition to the STOPPED state the device cancels all CAN messages
-> +already pending for transmission and marks them as used with
-> +\field{result} VIRTIO_CAN_RESULT_NOT_OK. In the STOPPED state the
-> +device marks messages received from the
-> +\field{Txq} as used with \field{result} VIRTIO_CAN_RESULT_NOT_OK without
-> +transmitting them to the CAN bus.
-> +
-> +Initially the CAN controller is in the STOPPED state.
-> +
-> +Control queue messages are processed in order.
-> +
-> +\devicenormative{\subsubsection}{CAN Message Transmission}{Device Types / CAN Device / Device Operation / CAN Message Transmission}
-> +
-> +The driver transmits messages by placing outgoing CAN messages in the
-> +\field{Txq} virtqueue.
-> +
-> +\label{struct virtio_can_tx_out}
-> +\begin{lstlisting}
-> +struct virtio_can_tx_out {
-> +#define VIRTIO_CAN_TX 0x0001
-> +        le16 msg_type;
-> +        le16 length; /* 0..8 CC, 0..64 CAN-FD, 0..2048 CAN-XL, 12 bits */
-> +        u8 reserved_classic_dlc; /* If CAN classic length = 8 then DLC can be 8..15 */
-> +        u8 padding;
-> +        le16 reserved_xl_priority; /* May be needed for CAN XL priority */
-> +#define VIRTIO_CAN_FLAGS_FD            0x4000
-> +#define VIRTIO_CAN_FLAGS_EXTENDED      0x8000
-> +#define VIRTIO_CAN_FLAGS_RTR           0x2000
-> +        le32 flags;
-> +        le32 can_id;
-> +        u8 sdu[];
-> +};
-> +
-> +struct virtio_can_tx_in {
-> +        u8 result;
-> +};
-> +\end{lstlisting}
-> +
-> +The length of the \field{sdu} is determined by the \field{length}.
-> +
-> +The type of a CAN message identifier is determined by \field{flags}. The
-> +3 most significant bits of \field{can_id} do not bear the information
-> +about the type of the CAN message identifier and are 0.
-> +
-> +The device MUST reject any CAN frame type for which support has not been
-> +negotiated with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST NOT
-> +schedule the message for transmission. A CAN frame with an undefined bit
-> +set in \field{flags} is treated like a CAN frame for which support has
-> +not been negotiated.
-> +
-> +The device MUST reject any CAN frame for which \field{can_id} or
-> +\field{sdu} length are out of range or the CAN controller is in an
-> +invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
-> +NOT schedule the message for transmission.
-> +
-> +If the parameters are valid the message is scheduled for transmission.
-> +
-> +If feature VIRTIO_CAN_F_CAN_LATE_TX_ACK has been negotiated the
-> +transmission request MUST be marked as used with \field{result} set to
-> +VIRTIO_CAN_OK after the CAN controller acknowledged the successful
-> +transmission on the CAN bus. If this feature bit has not been negotiated
-> +the transmission request MAY already be marked as used with
-> +\field{result} set to VIRTIO_CAN_OK when the transmission request has
-> +been processed by the virtio CAN device and send down the protocol stack
-> +being scheduled for transmission.
-> +
-> +\subsubsection{CAN Message Reception}\label{sec:Device Types / CAN Device / Device Operation / CAN Message Reception}
-> +
-> +Messages can be received by providing empty incoming buffers to the
-> +virtqueue \field{Rxq}.
-> +
-> +\label{struct virtio_can_rx}
-> +\begin{lstlisting}
-> +struct virtio_can_rx {
-> +#define VIRTIO_CAN_RX 0x0101
-> +        le16 msg_type;
-> +        le16 length; /* 0..8 CC, 0..64 CAN-FD, 0..2048 CAN-XL, 12 bits */
-> +        u8 reserved_classic_dlc; /* If CAN classic length = 8 then DLC can be 8..15 */
-> +        u8 padding;
-> +        le16 reserved_xl_priority; /* May be needed for CAN XL priority */
-> +        le32 flags;
-> +        le32 can_id;
-> +        u8 sdu[];
-> +};
-> +\end{lstlisting}
-> +
-> +If the feature VIRTIO_CAN_F_CAN_FD has been negotiated the maximal
-> +possible \field{sdu} length is 64, if the feature has not been
-> +negotiated the maximal possible \field{sdu} length is 8.
-> +
-> +The actual length of the \field{sdu} is determined by the \field{length}.
-> +
-> +The type of a CAN message identifier is determined by \field{flags} in
-> +the same way as for transmitted CAN messages, see section \ref{struct
-> +virtio_can_tx_out}. The 3 most significant bits of \field{can_id} do not
-> +bear the information about the type of the CAN message identifier and
-> +are 0. The flag bits are exactly the same as for the \field{flags} of
-> +struct virtio_can_tx_out.
-> +
-> +\subsubsection{BusOff Indication}\label{sec:Device Types / CAN Device / Device Operation / BusOff Indication}
-> +
-> +There are certain error conditions so that the physical CAN controller
-> +has to stop participating in CAN communication on the bus. If such an
-> +error condition occurs the device informs the driver about the
-> +unsolicited CAN controller state change by setting the
-> +VIRTIO_CAN_S_CTRL_BUSOFF bit in the configuration \field{status} field.
-> +
-> +After bus-off detection the CAN controller is in STOPPED state. The CAN
-> +controller does not participate in bus communication any more so all CAN
-> +messages pending for transmission are put into the used queue with
-> +\field{result} VIRTIO_CAN_RESULT_NOT_OK.
-> diff --git a/device-types/can/device-conformance.tex b/device-types/can/device-conformance.tex
-> new file mode 100644
-> index 0000000..f944ffd
-> --- /dev/null
-> +++ b/device-types/can/device-conformance.tex
-> @@ -0,0 +1,8 @@
-> +\conformance{\subsection}{CAN Device Conformance}\label{sec:Conformance / Device Conformance / CAN Device Conformance}
-> +
-> +A CAN device MUST conform to the following normative statements:
-> +
-> +\begin{itemize}
-> +\item \ref{devicenormative:Device Types / CAN Device / Feature bits}
-> +\item \ref{devicenormative:Device Types / CAN Device / Device Operation / CAN Message Transmission}
-> +\end{itemize}
-> diff --git a/device-types/can/driver-conformance.tex b/device-types/can/driver-conformance.tex
-> new file mode 100644
-> index 0000000..32e3e87
-> --- /dev/null
-> +++ b/device-types/can/driver-conformance.tex
-> @@ -0,0 +1,7 @@
-> +\conformance{\subsection}{CAN Driver Conformance}\label{sec:Conformance / Driver Conformance / CAN Driver Conformance}
-> +
-> +A CAN driver MUST conform to the following normative statements:
-> +
-> +\begin{itemize}
-> +\item \ref{drivernormative:Device Types / CAN Device / Device Operation / Initialization}
-> +\end{itemize}
-> diff --git a/introduction.tex b/introduction.tex
-> index b7155bf..d560c63 100644
-> --- a/introduction.tex
-> +++ b/introduction.tex
-> @@ -101,6 +101,8 @@ \section{Normative References}\label{sec:Normative References}
->   	\phantomsection\label{intro:SEC1}\textbf{[SEC1]} &
->       Standards for Efficient Cryptography Group(SECG), ``SEC1: Elliptic Cureve Cryptography'', Version 1.0, September 2000.
->   	\newline\url{https://www.secg.org/sec1-v2.pdf}\\
-> +	\phantomsection\label{intro:CAN}\textbf{[CAN]} &
-> +    ISO 11898-1:2015 Road vehicles -- Controller area network (CAN) -- Part 1: Data link layer and physical signalling\\
->   
->   \end{longtable}
->   
+      .ExternalClass * {
+        line-height: 100%;
+      }
 
--- 
-Mikhail Golubev-Ciuchea
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
 
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
-Telefon: +49 (30) 60985400
-EMail: 
-mikhail.golubev-ciuchea@opensynergy.com<mailto:mikhail.golubev-ciuchea@opensynergy.com>
+      img {
+        border: 0;
+        height: auto;
+        line-height: 100%;
+        outline: none;
+        text-decoration: none;
+        -ms-interpolation-mode: bicubic;
+      }
 
-www.opensynergy.com
+      p {
+        display: block;
+        margin: 13px 0;
+      }
+    </style>
+    <!--[if !mso]><!-->
+    <style>
+      @media only screen and (max-width:580px) {
+        @-ms-viewport {
+          width: 320px;
+        }
 
-Handelsregister/Commercial Registry: Amtsgericht Charlottenburg, HRB 108616B
-Geschäftsführer/Managing Director: Regis Adjamah
+        @viewport {
+          width: 320px;
+        }
+      }
+    </style>
+    <!--<![endif]-->
+    <!--[if mso]>
+          <xml>
+          <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+          </o:OfficeDocumentSettings>
+          </xml>
+          <![endif]-->
+    <!--[if lte mso 11]>
+          <style>
+            .outlook-group-fix { width:100% !important; }
+          </style>
+    <![endif]-->
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+    <!--[if !mso]><!-- -->
+  <style>body, html {font-family:Roboto,Helvetica,Arial,sans-serif;}@font-f=
+ace {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxP.ttf) forma=
+t('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc9.ttf) f=
+ormat('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc9.ttf) f=
+ormat('truetype');
+}
+@font-face {
+  font-family: 'Material Icons Extended';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/materialiconsextended/v149/kJEjBvgX7BgnkSr=
+UwT8UnLVc38YydejYY-oE_LvM.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Google Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/googlematerialicons/v137/Gw6kwdfw6UnXLJCcm=
+afZyFRXb3BL9rvi0QZG3g.otf) format('opentype');
+}
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+.google-material-icons {
+  font-family: 'Google Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}
+@font-face {
+  font-family: 'Google Material Icons Filled';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/googlematerialiconsfilled/v113/WWXFlimHYg6=
+HKI3TavMkbKdhBmDvgach8TVpeGsuueSZJH4.otf) format('opentype');
+}
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
+.google-material-icons-filled {
+  font-family: 'Google Material Icons Filled';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Owps=
+.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: url(//fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94Yt=
+zCwM.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLV154t=
+zCwM.ttf) format('truetype');
+}
+</style><!--<![endif]-->
+      <style>
+        .body-container {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+      </style>
+ =20
+      <style>
+        u+.body .body-container,
+        body[data-outlook-cycle] .body-container,
+        #MessageViewBody .body-container {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      </style>
+ =20
+    <style>
+      @media only screen and (min-width:580px) {
+        .column-per-37 {
+          width: 37% !important;
+          max-width: 37%;
+        }
 
+        .column-per-63 {
+          width: 63% !important;
+          max-width: 63%;
+        }
+      }
+    </style>
+ =20
+    <style>
+      .appointment-buttons th {
+        display: block;
+        clear: both;
+        float: left;
+        margin-top: 12px;
+      }
+
+      .appointment-buttons th a {
+        float: left;
+      }
+
+      #MessageViewBody .appointment-buttons th {
+       margin-top: 24px;
+      }
+    </style>
+ =20
+    <style>
+      @media only screen and (max-width:580px) {
+        table.full-width-mobile {
+          width: 100% !important;
+        }
+
+        td.full-width-mobile {
+          width: auto !important;
+        }
+      }
+    </style>
+    <style>
+      .main-container-inner,
+      .info-bar-inner {
+        padding: 12px 16px !important;
+      }
+
+      .main-column-table-ltr {
+        padding-right: 0 !important;
+      }
+
+      .main-column-table-rtl {
+        padding-left: 0 !important;
+      }
+
+      @media only screen and (min-width:580px) {
+        .main-container-inner {
+          padding: 24px 32px !important;
+        }
+
+        .info-bar-inner {
+          padding: 12px 32px !important;
+        }
+
+        .main-column-table-ltr {
+          padding-right: 32px !important;
+        }
+
+        .main-column-table-rtl {
+          padding-left: 32px !important;
+        }
+
+        .appointment-buttons th {
+          display: table-cell;
+          clear: none;
+        }
+      }
+
+      .primary-text {
+        color: #3c4043 !important;
+      }
+
+      .secondary-text,
+      .phone-number a {
+        color: #70757a !important;
+      }
+
+      .accent-text {
+        color: #1a73e8 !important;
+      }
+
+      .accent-text-dark {
+        color: #185abc !important;
+      }
+
+      .grey-button-text,
+      .attachment-chip a {
+        color: #5f6368 !important;
+      }
+
+      .primary-button {
+        background-color: #1a73e8 !important;
+      }
+
+      .primary-button-text {
+        color: #fff !important;
+      }
+
+      .underline-on-hover:hover {
+        text-decoration: underline !important;
+      }
+
+      .grey-infobar-text {
+        color: #202124 !important;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .primary-text:not([class^=3D"x_"]) {
+          color: #e8eaed !important;
+        }
+
+        .secondary-text:not([class^=3D"x_"]),
+        .phone-number:not([class^=3D"x_"]) a {
+          color: #9aa0a6 !important;
+        }
+
+        .grey-button-text:not([class^=3D"x_"]),
+        .attachment-chip:not([class^=3D"x_"]) a {
+          color: #bdc1c6 !important;
+        }
+
+        .accent-text:not([class^=3D"x_"]),
+        .hairline-button-text:not([class^=3D"x_"]) {
+          color: #8ab4f8 !important;
+        }
+
+        .primary-button:not([class^=3D"x_"]) {
+          background-color: #8ab4f8 !important;
+        }
+
+        .primary-button-text:not([class^=3D"x_"]) {
+          color: #202124 !important;
+        }
+      }
+    </style>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        .cse-banner:not([class^=3D"x_"]) {
+          background-color: #3c4043 !important; /* Google Grey 800 */
+        }
+
+        .encryption-icon:not([class^=3D"x_"]) {
+          /* WARNING: This causes the whole style tag to get stripped in Gm=
+ail. */
+          background-image: url('https://fonts.gstatic.com/s/i/googlemateri=
+aliconsfilled/encrypted/v3/gm_grey200-24dp/2x/gm_filled_encrypted_gm_grey20=
+0_24dp.png') !important;
+        }
+      }
+    </style>
+    <!--[if !mso]><!-->
+    <style>
+      .prevent-link a {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+    </style>
+    <!--<![endif]-->
+
+    <!--[if mso | IE]>
+      <style>
+        .main-container-inner {
+          padding: 24px 32px !important;
+        }
+
+        .info-bar-inner {
+          padding: 12px 32px !important;
+        }
+
+        .cse-banner .encryption-icon {
+          /* We use the IE workaround instead. */
+          background-image: none !important;
+        }
+
+        .cse-banner .encryption-icon .ms-fallback {
+          display: block !important;
+        }
+
+        /* NB: Some MS clients ignore dark-scheme styling and apply their o=
+wn, so there's nothing we can do to help there. */
+        @media (prefers-color-scheme: dark) {
+          .cse-banner:not([class^=3D"x_"]) .encryption-icon .ms-fallback {
+            display: none !important;
+          }
+
+          .cse-banner:not([class^=3D"x_"]) .encryption-icon .ms-fallback-da=
+rk {
+            display: block !important;
+          }
+        }
+      </style>
+    <![endif]-->
+  </head><body class=3D"body"><span itemscope itemtype=3D"http://schema.org=
+/InformAction"><span style=3D"display:none" itemprop=3D"about" itemscope it=
+emtype=3D"http://schema.org/EmailMessage"><meta itemprop=3D"description" co=
+ntent=3D"Parav Pandit: Gentle remind and test message for new meeting invit=
+e this year."/></span><span itemprop=3D"object" itemscope itemtype=3D"http:=
+//schema.org/Event"><meta itemprop=3D"eventStatus" content=3D"http://schema=
+.org/EventScheduled"/><span itemprop=3D"publisher" itemscope itemtype=3D"ht=
+tp://schema.org/Organization"><meta itemprop=3D"name" content=3D"Google Cal=
+endar"/></span><meta itemprop=3D"eventId/googleCalendar" content=3D"5kphppm=
+3u089dmnf4bpk46b98a_20240110T050000Z"/><span style=3D"display: none; font-s=
+ize: 1px; color: #fff; line-height: 1px; height: 0; max-height: 0; width: 0=
+; max-width: 0; opacity: 0; overflow: hidden;" itemprop=3D"name">virtio-net=
+ collaboration bi-weekly</span><span aria-hidden=3D"true"><time itemprop=3D=
+"startDate" datetime=3D"20240110T050000Z"></time><time itemprop=3D"endDate"=
+ datetime=3D"20240110T054500Z"></time></span><table border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"center" style=3D"w=
+idth:100%;" class=3D"body-container"><tbody><tr><td style=3D"" class=3D"" a=
+lign=3D"left"><!--[if mso | IE]><table border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" role=3D"presentation"><tr><td height=3D"16" style=3D"height:16=
+px;"><![endif]--><div style=3D"height:16px;" aria-hidden=3D"true"> &nbsp; <=
+/div><!--[if mso | IE]></td></tr></table><![endif]--><table border=3D"0" ce=
+llpadding=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"center" st=
+yle=3D"width:100%;" class=3D""><tbody><tr><td style=3D"" class=3D"" align=
+=3D"left"><span itemscope itemtype=3D"http://schema.org/EmailMessage"><p it=
+emprop=3D"description">Gentle remind and test message for new meeting invit=
+e this year.</p></span></td></tr></tbody></table><table border=3D"0" cellpa=
+dding=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"center" style=
+=3D"width:100%;" class=3D""><tbody><tr><td style=3D"border: solid 1px #dadc=
+e0; border-radius: 8px; direction: rtl; font-size: 0; padding: 24px 32px; t=
+ext-align: left; vertical-align: top;" class=3D"main-container-inner"><!--[=
+if mso | IE]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=
+=3D"presentation"><tr><![endif]--><!--[if mso | IE]><td class=3D"" style=3D=
+"vertical-align:top;width:37%;" ><![endif]--><div class=3D"column-per-37 ou=
+tlook-group-fix" style=3D"font-size: 13px; text-align: left; direction: ltr=
+; display: inline-block; vertical-align: top; width: 100%;overflow: hidden;=
+ word-wrap: break-word;"><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" width=3D"100%"><tbody><tr><td style=3D"vertica=
+l-align:top;padding:0;"><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" width=3D"100%"><tr><td style=3D"font-size: 0; =
+padding: 0; text-align: left; word-break: break-word;;padding-bottom:28px;"=
+><a href=3D"https://meet.google.com/gkj-rawi-ufp?hs=3D224" class=3D"primary=
+-button-text" style=3D"display: inline-block;font-family: &#39;Google Sans&=
+#39;, Roboto, sans-serif;font-size: 14px; letter-spacing: 0.25px; line-heig=
+ht: 20px; mso-line-height-rule: exactly; text-decoration: none; text-transf=
+orm: none; word-wrap: break-word; white-space: nowrap;color: #fff;font-weig=
+ht: 700;white-space: normal;" target=3D"_blank"><table border=3D"0" cellpad=
+ding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"display: inline=
+-block"><tr><td align=3D"center" role=3D"presentation" valign=3D"middle" st=
+yle=3D"background-color: #1a73e8; cursor: auto; padding: 10px 25px; border:=
+ none; border-radius: 4px; margin: 0;" class=3D"primary-button"><!--[if mso=
+]><a href=3D"https://meet.google.com/gkj-rawi-ufp?hs=3D224" class=3D"primar=
+y-button-text" target=3D"_blank"><![endif]--><span class=3D"primary-button-=
+text" style=3D"font-family: &#39;Google Sans&#39;, Roboto, sans-serif;font-=
+size: 14px; letter-spacing: 0.25px; line-height: 20px; mso-line-height-rule=
+: exactly; text-decoration: none; text-transform: none; word-wrap: break-wo=
+rd; white-space: nowrap;color: #fff;font-weight: 700;white-space: normal;">=
+Join with Google Meet</span><!--[if mso]></a><![endif]--></td></tr></table>=
+</a></td></tr><tr><td style=3D"font-size: 0; padding: 0; text-align: left; =
+word-break: break-word;;padding-bottom:24px;"><div style=3D"font-family: Ro=
+boto, sans-serif;font-size: 14px; line-height: 20px; mso-line-height-rule: =
+exactly; text-align: left;"><table border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" role=3D"presentation" style=3D"padding-bottom: 4px;"><tr><td><h2 c=
+lass=3D"primary-text" style=3D"font-size: 14px;color: #3c4043; text-decorat=
+ion: none;font-weight: 700;-webkit-font-smoothing: antialiased;margin: 0; p=
+adding: 0;">Meeting link</h2></td></tr></table><!-- Use grey text for the M=
+eet link--><div><a style=3D"display: inline-block;;color: #70757a; text-dec=
+oration: none;" class=3D"secondary-text underline-on-hover" href=3D"https:/=
+/meet.google.com/gkj-rawi-ufp?hs=3D224">meet.google.com/gkj-rawi-ufp</a></d=
+iv></div></td></tr><tr><td style=3D"font-size: 0; padding: 0; text-align: l=
+eft; word-break: break-word;;padding-bottom:24px;"><div style=3D"font-famil=
+y: Roboto, sans-serif;font-size: 14px; line-height: 20px; mso-line-height-r=
+ule: exactly; text-align: left;"><table border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0" role=3D"presentation" style=3D"padding-bottom: 4px;"><tr><td>=
+<h2 class=3D"primary-text" style=3D"font-size: 14px;color: #3c4043; text-de=
+coration: none;font-weight: 700;-webkit-font-smoothing: antialiased;margin:=
+ 0; padding: 0;">Join by phone</h2></td></tr></table><span class=3D"seconda=
+ry-text" style=3D"color: #70757a; text-decoration: none;;">(US) </span><a h=
+ref=3D"tel:+1-978-403-0584%3B756969764%23" style=3D"display: inline-block;c=
+olor: #1a73e8; text-decoration: none;" target=3D"_blank" class=3D"accent-te=
+xt underline-on-hover">+1 978-403-0584</a> <br><span class=3D"secondary-tex=
+t" style=3D"color: #70757a; text-decoration: none;;">PIN: 756969764</span><=
+br><br><a href=3D"https://tel.meet/gkj-rawi-ufp?pin=3D7573680783326&amp;hs=
+=3D0" style=3D"display: inline-block;color: #1a73e8; text-decoration: none;=
+" target=3D"_blank" class=3D"accent-text underline-on-hover">More phone num=
+bers</a><br></div></td></tr><tr><td style=3D"font-size: 0; padding: 0; text=
+-align: left; word-break: break-word;;padding-bottom:0px;"><div style=3D"fo=
+nt-family: Roboto, sans-serif;font-size: 14px; line-height: 20px; mso-line-=
+height-rule: exactly; text-align: left;" class=3D"primary-text" role=3D"pre=
+sentation"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"=
+presentation" style=3D"padding-bottom: 4px;"><tr><td><h2 class=3D"primary-t=
+ext" style=3D"font-size: 14px;color: #3c4043; text-decoration: none;font-we=
+ight: 700;-webkit-font-smoothing: antialiased;margin: 0; padding: 0;">Attac=
+hments</h2></td></tr></table></div></td></tr><tr><td style=3D"font-size: 0;=
+ padding: 0; text-align: left; word-break: break-word;;padding-bottom:24px;=
+padding-left: 1px; padding-right: 1px;"><table border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" role=3D"presentation" class=3D"attachment-chip" style=
+=3D"border: solid 1px #dadce0; border-radius: 16px; border-collapse: separa=
+te; padding: 4px 0 4px 0;"><tr><td style=3D"padding: 3px 10px; height: 14px=
+; width: 14px;"><img src=3D"https://drive-thirdparty.googleusercontent.com/=
+16/type/application/vnd.google-apps.document" width=3D"14" height=3D"14" al=
+t=3D"" style=3D"display: inline-block; vertical-align: middle;"></td><td al=
+ign=3D"left" style=3D"padding: 0; padding-left: 0; padding-right: 10px; max=
+-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowr=
+ap;"><div style=3D"overflow: hidden; height: 20px;"><a href=3D"https://docs=
+.google.com/document/u/1/d/1ME-jFncvPMwH_GyeLhhIYgqmFhTAblsIopqHCZZxufM/edi=
+t" target=3D"_blank" style=3D"font-weight: 400;font-family: &#39;Google San=
+s&#39;, Roboto, sans-serif;color: #5f6368; font-size: 14px; line-height: 12=
+0%; mso-line-height-rule: exactly; margin: 0; text-decoration: none; text-t=
+ransform: none;;font-family: Roboto, sans-serif;; display: inline-block; he=
+ight: 20px; max-width: 160px; line-height: 20px; overflow: hidden; text-ove=
+rflow: ellipsis; vertical-align: middle; white-space: normal;" class=3D"gre=
+y-button-text" title=3D"virtio-net collaboration bi-weekly meeting notes">v=
+irtio-net collaborati...</a></div></td></tr></table></td></tr></table></td>=
+</tr></tbody></table></div><!--[if mso | IE]></td><![endif]--><!--[if mso |=
+ IE]><td class=3D"" style=3D"vertical-align:top;width:63%;padding-right:32p=
+x;" ><![endif]--><div class=3D"column-per-63 outlook-group-fix" style=3D"fo=
+nt-size: 13px; text-align: left; direction: ltr; display: inline-block; ver=
+tical-align: top; width: 100%;overflow: hidden; word-wrap: break-word;"><ta=
+ble border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" =
+width=3D"100%" class=3D"main-column-table-ltr" style=3D"padding-right: 32px=
+; padding-left: 0;;table-layout: fixed;"><tbody><tr><td class=3D"main-colum=
+n-td" style=3D"padding:0; vertical-align:top;"><table border=3D"0" cellpadd=
+ing=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%" style=3D"t=
+able-layout: fixed;"><tr><td style=3D"font-size: 0; padding: 0; text-align:=
+ left; word-break: break-word;;padding-bottom:2px;"><div style=3D"font-fami=
+ly: &#39;Google Sans&#39;, Roboto, sans-serif;font-weight: 400; font-size: =
+22px; line-height: 28px;color: #3c4043; text-decoration: none;" class=3D"pr=
+imary-text" role=3D"presentation"><span itemprop=3D"name">virtio-net collab=
+oration bi-weekly</span></div></td></tr><tr><td style=3D"font-size: 0; padd=
+ing: 0; text-align: left; word-break: break-word;;padding-bottom:24px;"><di=
+v style=3D"font-family: Roboto, sans-serif;font-style: normal; font-weight:=
+ 400; font-size: 14px; line-height: 20px; letter-spacing: 0.2px;color: #3c4=
+043; text-decoration: none;" class=3D"primary-text" role=3D"presentation"><=
+span aria-hidden=3D"true"><time itemprop=3D"startDate" datetime=3D"20240110=
+T050000Z"></time><time itemprop=3D"endDate" datetime=3D"20240110T054500Z"><=
+/time></span><span>Wednesday Jan 10, 2024 =E2=8B=85 10:30am =E2=80=93 11:15=
+am (India Standard Time - Kolkata)</span></div></td></tr><tr><td style=3D"f=
+ont-size: 0; padding: 0; text-align: left; word-break: break-word;;padding-=
+bottom:24px;"><div style=3D"font-family: Roboto, sans-serif;font-style: nor=
+mal; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: =
+0.2px;color: #3c4043; text-decoration: none;" class=3D"primary-text" role=
+=3D"presentation"><span>Hi All,<br><br>This is a bi-weekly collaboration me=
+eting for virtio net specification developers.<br>Renewing the series.<br>=
+=C2=A0<br>Meeting agenda and minutes are captured at [1].<br><br>[1] <a hre=
+f=3D"https://docs.google.com/document/d/1ME-jFncvPMwH_GyeLhhIYgqmFhTAblsIop=
+qHCZZxufM/edit?usp=3Dsharing" target=3D"_blank">https://docs.google.com/doc=
+ument/d/1ME-jFncvPMwH_GyeLhhIYgqmFhTAblsIopqHCZZxufM/edit?usp=3Dsharing</a>=
+<br>=C2=A0<br>-------<br>a. All decisions are still made by TC electronic b=
+allot as usual. Proposed collaboration <span>meetings are unrelated to TC b=
+allot.</span><br><span>b. All discussions follow OASIS feedback license. </=
+span><a href=3D"https://www.google.com/url?q=3Dhttps%3A%2F%2Fwww.oasis-open=
+.org%2Fpolicies-guidelines%2Fipr%2F%23appendixa&amp;sa=3DD&amp;ust=3D170529=
+0300000000&amp;usg=3DAOvVaw0tLxNc91eE_1z2yZZ2psp8" target=3D"_blank">https:=
+//www.oasis-open.org/policies-guidelines/ipr/#appendixa</a></span><meta ite=
+mprop=3D"description" content=3D"Hi All,This is a bi-weekly collaboration m=
+eeting for virtio net specification developers.Renewing the series.=C2=A0Me=
+eting agenda and minutes are captured at [1].[1] https://docs.google.com/do=
+cument/d/1ME-jFncvPMwH_GyeLhhIYgqmFhTAblsIopqHCZZxufM/edit?usp=3Dsharing=C2=
+=A0-------a. All decisions are still made by TC electronic ballot as usual.=
+ Proposed collaboration meetings are unrelated to TC ballot.b. All discussi=
+ons follow OASIS feedback license. https://www.oasis-open.org/policies-guid=
+elines/ipr/#appendixa"/></div></td></tr><tr><td style=3D"font-size: 0; padd=
+ing: 0; text-align: left; word-break: break-word;;padding-bottom:24px;"><di=
+v style=3D"font-family: Roboto, sans-serif;font-style: normal; font-weight:=
+ 400; font-size: 14px; line-height: 20px; letter-spacing: 0.2px;color: #3c4=
+043; text-decoration: none;" class=3D"primary-text" role=3D"presentation"><=
+table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation=
+" style=3D"padding-bottom: 4px;"><tr><td><h2 class=3D"primary-text" style=
+=3D"font-size: 14px;color: #3c4043; text-decoration: none;font-weight: 700;=
+-webkit-font-smoothing: antialiased;margin: 0; padding: 0;">Guests</h2></td=
+></tr></table><div style=3D"padding-bottom: 4px; text-align: left;;color: #=
+3c4042;"><div><span itemprop=3D"attendee" itemscope itemtype=3D"http://sche=
+ma.org/Person"><span itemprop=3D"name" class=3D"notranslate"><a class=3D"pr=
+imary-text underline-on-hover" style=3D"display: inline-block;;color: #3c40=
+43; text-decoration: none;" href=3D"mailto:parav@nvidia.com">Parav Pandit</=
+a></span><meta itemprop=3D"email" content=3D"parav@nvidia.com"/></span><spa=
+n itemprop=3D"organizer" itemscope itemtype=3D"http://schema.org/Person"><m=
+eta itemprop=3D"name" content=3D"Parav Pandit"/><meta itemprop=3D"email" co=
+ntent=3D"parav@nvidia.com"/></span><span class=3D"secondary-text" style=3D"=
+color: #70757a; text-decoration: none;"> - organizer</span></div><div><span=
+ itemprop=3D"attendee" itemscope itemtype=3D"http://schema.org/Person"><spa=
+n itemprop=3D"name" class=3D"notranslate"><a class=3D"primary-text underlin=
+e-on-hover" style=3D"display: inline-block;;color: #3c4043; text-decoration=
+: none;" href=3D"mailto:hengqi@linux.alibaba.com">hengqi@linux.alibaba.com<=
+/a></span><meta itemprop=3D"email" content=3D"hengqi@linux.alibaba.com"/></=
+span><span class=3D"secondary-text" style=3D"color: #70757a; text-decoratio=
+n: none;"></span></div><div><span itemprop=3D"attendee" itemscope itemtype=
+=3D"http://schema.org/Person"><span itemprop=3D"name" class=3D"notranslate"=
+><a class=3D"primary-text underline-on-hover" style=3D"display: inline-bloc=
+k;;color: #3c4043; text-decoration: none;" href=3D"mailto:sburla@marvell.co=
+m">sburla@marvell.com</a></span><meta itemprop=3D"email" content=3D"sburla@=
+marvell.com"/></span><span class=3D"secondary-text" style=3D"color: #70757a=
+; text-decoration: none;"></span></div><div><span itemprop=3D"attendee" ite=
+mscope itemtype=3D"http://schema.org/Person"><span itemprop=3D"name" class=
+=3D"notranslate"><a class=3D"primary-text underline-on-hover" style=3D"disp=
+lay: inline-block;;color: #3c4043; text-decoration: none;" href=3D"mailto:s=
+i-wei.liu@oracle.com">si-wei.liu@oracle.com</a></span><meta itemprop=3D"ema=
+il" content=3D"si-wei.liu@oracle.com"/></span><span class=3D"secondary-text=
+" style=3D"color: #70757a; text-decoration: none;"></span></div><div><span =
+itemprop=3D"attendee" itemscope itemtype=3D"http://schema.org/Person"><span=
+ itemprop=3D"name" class=3D"notranslate"><a class=3D"primary-text underline=
+-on-hover" style=3D"display: inline-block;;color: #3c4043; text-decoration:=
+ none;" href=3D"mailto:virtio-comment@lists.oasis-open.org">virtio-comment@=
+lists.oasis-open.org</a></span><meta itemprop=3D"email" content=3D"virtio-c=
+omment@lists.oasis-open.org"/></span><span class=3D"secondary-text" style=
+=3D"color: #70757a; text-decoration: none;"></span></div><div><span itempro=
+p=3D"attendee" itemscope itemtype=3D"http://schema.org/Person"><span itempr=
+op=3D"name" class=3D"notranslate"><a class=3D"primary-text underline-on-hov=
+er" style=3D"display: inline-block;;color: #3c4043; text-decoration: none;"=
+ href=3D"mailto:virtio@lists.oasis-open.org">virtio@lists.oasis-open.org</a=
+></span><meta itemprop=3D"email" content=3D"virtio@lists.oasis-open.org"/><=
+/span><span class=3D"secondary-text" style=3D"color: #70757a; text-decorati=
+on: none;"></span></div><div><span itemprop=3D"attendee" itemscope itemtype=
+=3D"http://schema.org/Person"><span itemprop=3D"name" class=3D"notranslate"=
+><a class=3D"primary-text underline-on-hover" style=3D"display: inline-bloc=
+k;;color: #3c4043; text-decoration: none;" href=3D"mailto:xuanzhuo@linux.al=
+ibaba.com">xuanzhuo@linux.alibaba.com</a></span><meta itemprop=3D"email" co=
+ntent=3D"xuanzhuo@linux.alibaba.com"/></span><span class=3D"secondary-text"=
+ style=3D"color: #70757a; text-decoration: none;"></span></div></div></div>=
+</td></tr></table></td></tr></tbody></table></div><!--[if mso | IE]></td><!=
+[endif]--><!--[if mso | IE]></tr></table><![endif]--></td></tr></tbody></ta=
+ble></td></tr></tbody></table></span></span></body></html>
+--000000000000a5e809060e8f449d--
