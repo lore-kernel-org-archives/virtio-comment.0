@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8913-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8914-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65F83C4707B
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 00:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E2CFC3DA79
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 05:59:51 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A27C52AF90
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id ABA222AF78
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 738839865C9
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 95878986468
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 61C249863A8; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
+	id 7710F98403A; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,334 +24,153 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4E3D098636D
-	for <virtio-comment@lists.oasis-open.org>; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 62215986367
+	for <virtio-comment@lists.oasis-open.org>; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: lEKYMFyyP0mrMVvnAIWO0w-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705278369; x=1705883169;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=h/9H6qf/S8HpR/8fGbQcsCsBTLtC18qs4wa+jX39jKA=;
-        b=EnQ+KAJ9UaNxOJ8rMgwOFHsD6ug9eOp/yYT1XQHqrBSnHeleHgQjeJInsOaaDrtr00
-         CzLAKzZy3Jenqtw9TEi2aGLaZqyWGKTciGV0zzEf3+ddIG44x/HRpgs6wgTXfB5q9K2s
-         warfN491vZgJmkI/J23Cjp0nS+ZzYWzyvnZBlb04724ePxQ2/PTGL34pqrGuTDc3hMoj
-         T3aNNOsBRm54ehNZqFD4yE/SOxC6RPOs4+/OyXMBv1F4GJRn6UBerRGT2yLf4svD95lK
-         7hcyt0JxwkUPhbeWv02ych3N3ppgVHidEgfGP7t7CPeVjxqfv+P26zRdASpcEwkBVu53
-         BCxw==
-X-Gm-Message-State: AOJu0YyYIzIL4L8pi5UmyEvLXEAfR+WnGYnXDPuTHZhGvTwzY74/fzNj
-	2eTlxWemVksqQFNMeKfsnBqWp2CWObwTuZ51RRmAAAAkMeZrdyw5eGB4kQeaztUn0mqsFIavXJq
-	VXdyPsu1B8k4FaVl7w6mzygZvodNd7QY6suq28T08Wt5cd2MqpY/uOqy8CQ==
-X-Received: by 2002:a05:6a00:1408:b0:6d9:b9ba:fc7b with SMTP id l8-20020a056a00140800b006d9b9bafc7bmr5702613pfu.33.1705278368961;
-        Sun, 14 Jan 2024 16:26:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFJP283mjK9L3cDXjmWonIllry46Q4nlKee4yLf36EdjAnuyZ5iHCw3RvUeOR4OzJUTkbwFLCrqlCTZRGCKwLs=
-X-Received: by 2002:a05:6a00:1408:b0:6d9:b9ba:fc7b with SMTP id
- l8-20020a056a00140800b006d9b9bafc7bmr5702592pfu.33.1705278368588; Sun, 14 Jan
- 2024 16:26:08 -0800 (PST)
-MIME-Version: 1.0
-References: <20231021035111.650248-1-Jiqian.Chen@amd.com> <20231021035111.650248-2-Jiqian.Chen@amd.com>
- <PH0PR12MB548182FF345FE7D1DE0D89C1DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <BL1PR12MB584997339FBFF8E8DF007755E7D8A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <PH0PR12MB5481DBD22233808AA9497ADBDCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
- <BL1PR12MB584959DE2A88F4968ECC6740E7DFA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <PH0PR12MB5481BAA4566F77FBEA8B712CDCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <BL1PR12MB584921B4DFE8A074107904EEE7DFA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <PH0PR12MB5481A43D8E5A0F580B785E1EDCDEA@PH0PR12MB5481.namprd12.prod.outlook.com>
- <BL1PR12MB58498946F163AFE8AFE7DF94E7DDA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <20231026062805-mutt-send-email-mst@kernel.org> <BL1PR12MB5849D7936DD77FECD1FE971EE7DCA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <BL1PR12MB58499AD7442C0A9FC400D747E76F2@BL1PR12MB5849.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB58499AD7442C0A9FC400D747E76F2@BL1PR12MB5849.namprd12.prod.outlook.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Mon, 15 Jan 2024 08:25:56 +0800
-Message-ID: <CACGkMEu5KV+8V+7x4TC6OQQdJ4FduRrHL9k7qP6VhQi3uTXq1Q@mail.gmail.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Parav Pandit <parav@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, David Airlie <airlied@redhat.com>, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, 
-	=?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>, 
-	Robert Beckett <bob.beckett@collabora.com>, 
-	Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>, 
-	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, 
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>, 
-	"Huang, Ray" <Ray.Huang@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y8koHhxGyF6+vmTlzo9jA9esrqsrolVf2s53W+6w9nD7dlsj3qJZv71rfo2cAFrcfUvGu475ousp02wOQSi0fnDZZOmxHcPi1YGmGU7wTgRS8zdQ8/VNtoHZMvwSF6+J27NcHv5gsnucjlJd3lNBi1QQa3haOhlbD6XC8/WssIVME2KoL7I6JAQWvPnczM01UnfYWwilZfWGH4ufWC63Tu3mEJYW/HFkYV0xHYs22dpY/wtCnVj94l3ltEM3CNPvM+dL/kTox09nZlovJe0zXuFVxwDRNgRhoNQNhoyJpOPmm56dKAdaCkWL4jeXvTZeZ63gAVZiBS3cDpE2ypsTZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ADr+v6K/evIcfNm8b8Rl50Z6Vyvi8aTanJvgSSUO98=;
+ b=hxaetxhv1yWG/hjTukWUgOqRn71DjRYd5X2S5Hz2bTQrk6I5NoZfOGz72yEEW8cmnes+MUYybWtsmDOzSS64Jl3gZKZItCnRU1R5EHdKXs7LOch2f2B5kBlm2+9R/7KLFfKYRTU1JogUBLdW5hgUX+ECPUuXkYsqkkdgbqoqroD4QYH/CcFe/HXvAmuZOtE5ln3AQ2MiNIbwtRYS1J8xDjprHcrSanNgAJGPO0UzsrnAiCpEOdoWwc/3ro7I3x/3o/QKD3Ox0LUp5iUaJAKiOZx2eAczKE7jUNTuOkNKF9qGrFFoM6Lo5iJoKtydptnlmO/sal9iksDb61JqG+b8Uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>
+CC: Shahaf Shuler <shahafs@nvidia.com>, "xuanzhuo@linux.alibaba.com"
+	<xuanzhuo@linux.alibaba.com>, "yuri.benditovich@daynix.com"
+	<yuri.benditovich@daynix.com>
+Thread-Topic: [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx
+ buffer size
+Thread-Index: AQHaP61lKhstNZGX7U+bz+HUOkdEsLDacIBQ
+Date: Mon, 15 Jan 2024 05:59:46 +0000
+Message-ID:
+ <PH0PR12MB54811CB1F5B077F18B5E7225DC6C2@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20240105080055.3459531-1-parav@nvidia.com>
+In-Reply-To: <20240105080055.3459531-1-parav@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS7PR12MB5864:EE_
+x-ms-office365-filtering-correlation-id: 58d14fbf-ec35-4f70-5eff-08dc158f2d40
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ KYzxeuHGM82O9AfRmXnnbpRgOt8DhhN2VmVOyZYB02BkDTcfAXAYAXFThS+iQFozqy3li/8kIYtahZEOu3K8Gz9sCmfNt0SLD3PxVkmgSI1fW++GjAbBO3NAtfwL/U0HBdDgDLxYZXVs184L9XnJf9cyVuPA2HU1YQvtOhzae6tAtz8HjRcPRBb9BBXkZMx6YFmUQImiUOi0PeT1UCONf6R93tjMcnnh5qpFoWOU6tAqtb4E/LL40LAsDUgcdFDwnpTTkikGpKw0/3yxDByf0dDWNZvnULrsqxxGde5Czr9uY9MvlP3qpGZNCEq6E5enH1Y1KNxhZ8DqjbuDzYhAx+fL7koiYJeePd6mdDv/DAf/Pju0UgmqvhiLTVdYfSs1OhgWoCZc2Tsb1cCW1lgYFbZT1Czr2Xw9VRG8qIZyRa4ubMaBS6D4XJne03OiiEXc8ZkSRayG4rL/srbKw0IoTQ2dFEGbkPeUZqxwodPPr+nbDXg6t78fUyuKPl4rT/AoFDP5A5FDW8QRvAy8bax1v/4AV2yKdzTIchvaSjwPnoUDHFPBk9gudELjOjlgrhTmc5RodJpCDqhgFW8o5HQG65+fdmPnsj4VMvLqoOZLVhDiLrsKD/lRmNn1WQrdsTh4
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(136003)(396003)(346002)(366004)(376002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(83380400001)(71200400001)(26005)(41300700001)(38100700002)(122000001)(52536014)(66446008)(66476007)(66556008)(66946007)(76116006)(64756008)(54906003)(316002)(5660300002)(2906002)(4326008)(8676002)(8936002)(110136005)(6506007)(7696005)(9686003)(53546011)(55236004)(478600001)(38070700009)(33656002)(86362001)(55016003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?OCFzbMB3EK/0yFpztURx4hgVCnh6a2EpCzWzW3GuH2d/L0H1tS78YCGo8/h6?=
+ =?us-ascii?Q?mWFUcPLBBnyCxqyluE0lssZBJyNsHxsyuZgcju8L0QaiddZJd0JC5R8Ly/ob?=
+ =?us-ascii?Q?zBiy0pIBc6Fb4Aw3/y0rVyu7mQhujH0ZKzz6TGgWWsy3VzXQvyhmtf9wUeP/?=
+ =?us-ascii?Q?/RaREOgwR2+3FlvpD2vmtyEsNV54B/izRir2tSNs1YM3kOodyV7ZbFdGIQIH?=
+ =?us-ascii?Q?TvhVRZe0et4Sw5s02Dv48AIJ1s0tcYioXL2zmNTHgPnaebW/ZbjfzzPhmzfb?=
+ =?us-ascii?Q?FHEFxfVl7XSsHyquOMLR34KOaIcxehZ+LBfrfZ8/Vzs3yd+rIjdCw8QiYBdO?=
+ =?us-ascii?Q?SZI14YkC3JeliP2vohv4M7fAudgtL/caJEGcNtggTaqy4OKnjMjM15PfAl7A?=
+ =?us-ascii?Q?Nb4vW9jIKdyvXyJDsN4QHkckRz1eGKIbc5wn5a8U6OFIuEtdyHk5Z8jLTIua?=
+ =?us-ascii?Q?OTZVPNC1t9tnVkwM0pTjYf43ESaK71BjLue8ioCbkX0m9lhtOS5v73oy8Xp/?=
+ =?us-ascii?Q?IgSxrRp+xpLcnrYNj4jDFAfQnVioGRf7PibGSme4S8sbMqgvi24NMlMmsfor?=
+ =?us-ascii?Q?UxYH3Tg22tEDqON/Fks0GGVvou4qIh/NxwtXT4Z+tRd4mRJhfPrtP3WE+GXH?=
+ =?us-ascii?Q?P+3IuAYoApmjtu0k23VWoI0LpsVcBgFN043BTjd3rhlwKq72ifrCMDI1tPk2?=
+ =?us-ascii?Q?JdWgxRIiNM4oOBdxczFZnNTuffrwuZRObJ7qij/AF5S4T2KOH3KM4LhFh3L9?=
+ =?us-ascii?Q?D1r9jnsYhqLoZCTQNjjgZoukG59LcygmTcIwIHvGytwjU27gvFAcCQF7Vq8r?=
+ =?us-ascii?Q?vdLUbhcOGbs1aBH7YZ+n/LskgwVruVLxnGNczIC47bQqC+1sz1NmiPsX1vmE?=
+ =?us-ascii?Q?PsNsMTqe5JRUI0X2sXUeQZ1cQdL7T9HiMXJt7wc75JfOCVTzoOhZBJ79SBm6?=
+ =?us-ascii?Q?GNKx2R3n3VkJv2QcbfvFxjGT/6+yWRegbVJ1/GFXSpCBWzl9M1wjo+Sonb9a?=
+ =?us-ascii?Q?+JpyUuQGj1CUlu5O3dI9HpUbAmzYhUTlbXpbKCa80I3UMcLBrRxtNcACyeib?=
+ =?us-ascii?Q?W6aVhDI7bjm6/YKMYOuQb18X8CxIyhXfnd365E7kSq/xN+HaIRndLbt5cRa6?=
+ =?us-ascii?Q?7cKPWab0ANlWdxia0MQ5x39R8YQRMRIF0R3kuoVTkhXN4uYM8pvfcUUSPE3a?=
+ =?us-ascii?Q?dpsl79LcEW9UY6zZe+xY751IcWB5YM6g1YgsRZgW8z+RmgZzeYo8ZIfyOtt5?=
+ =?us-ascii?Q?qP1M4ntVJyu4qKzbAgsl0uO0b8U9Hgi3wLMgzuMEeEw7IndvDKFDMAbjPNAd?=
+ =?us-ascii?Q?3wSS/70TYYZMBCD5ZJlPpjtyDg79CjRGFQDDWq8JenBTQUTkcTddO7kU7Wtn?=
+ =?us-ascii?Q?rbtonHnqCvC5lZXoj94vZz9K9pcKm5ZkvklN4D+QjdW78zf2PFTcrMSBc7a2?=
+ =?us-ascii?Q?S60HWkZ0D824hTf21TJDXeyZzt41GzdF/VonT2yVYjEhHJLHtBv+9Y0oVfM+?=
+ =?us-ascii?Q?XwK7KGxkkkgoiepmiXPrQBVjujkCCQYnzAmx+tPM9yGbbUarcWH3l8UpZlWC?=
+ =?us-ascii?Q?VOHFAiV87UUYCJ6SfQI=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [PATCH v6 1/1] content: Add new feature VIRTIO_F_PRESERVE_RESOURCES
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58d14fbf-ec35-4f70-5eff-08dc158f2d40
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2024 05:59:46.2832
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QlwxNWFR5BsYTl3q6EwmrOU9Jfin7owvSRdcLL617ARBt7gEwyhg+UygCfOZSQYMrZ6DigxlVEGQXHgU9C/Y0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5864
+Subject: [virtio-comment] RE: [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx
+ buffer size
 
-On Fri, Jan 12, 2024 at 3:41=E2=80=AFPM Chen, Jiqian <Jiqian.Chen@amd.com> =
-wrote:
->
-> Hi all,
-> Sorry to reply late.
-> I don't know if you still remember this problem, let me briefly descript =
-it.
-> I am working to implement virtgpu S3 function on Xen.
-> Currently on Xen, if we start a guest through qemu with enabling virtgpu,=
- and then suspend and resume guest. We can find that the guest kernel comes=
- back, but the display doesn't. It just shown a black screen.
-> That is because during suspending, guest called into qemu and qemu destro=
-yed all display resources and reset renderer. This made the display gone af=
-ter guest resumed.
-> So, I add a new command for virtio-gpu that when guest is suspending, it =
-will notify qemu and set parameter(preserver_resource) to 1 and then qemu w=
-ill preserve resources, and when resuming, guest will notify qemu to set pa=
-rameter to 0, and then qemu will keep the normal actions. That can help gue=
-st's display come back.
-> When I upstream above implementation, Parav and MST suggest me to use the=
- PM capability to fix this problem instead of adding a new command or state=
- bit.
-> Now, I have tried the PM capability of virtio-gpu, it can't be used to so=
-lve this problem.
-> The reason is:
-> during guest suspending, it will write D3 state through PM cap, then I ca=
-n save the resources of virtio-gpu on Qemu side(set preserver_resource to 1=
-),
-> but during the process of resuming, the state of PM cap will be cleared b=
-y qemu resetting(qemu_system_wakeup-> qemu_devices_reset-> virtio_vga_base_=
-reset-> virtio_gpu_gl_reset),
-> it causes that when guest reads state from PM cap, it will find the virti=
-o-gpu has already been D0 state, so guest will not write D0 through PM cap,=
- so I can't know when to restore the resources(set preserver_resource to 0)=
-.
+Hi Cornelia,
 
-Looks like a bug to be fixed?
+> From: Parav Pandit <parav@nvidia.com>
+> Sent: Friday, January 5, 2024 1:31 PM
+> To: virtio-comment@lists.oasis-open.org; mst@redhat.com;
+> cohuck@redhat.com
+> Cc: Shahaf Shuler <shahafs@nvidia.com>; xuanzhuo@linux.alibaba.com;
+> yuri.benditovich@daynix.com; Parav Pandit <parav@nvidia.com>
+> Subject: [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx bu=
+ffer size
+>=20
+> There are few small issues around size of receive buffer and size of the =
+struct
+> virtio_net_hdr as following.
+>=20
+> 1. VIRTIO_NET_F_HASH_REPORT is only applicable on the rx side processing.
+>    However it changes the size of the struct virtio_net_hdr for the tx si=
+de
+>    as well. This was not clarified when VIRTIO_NET_F_HASH_REPORT feature
+> was
+>    introduced.
+>=20
+> 2. Receive buffer size calculation description and requirements did not
+>    reflect negotiation of VIRTIO_NET_F_HASH_REPORT.
+>=20
+> 3. Receive buffer size calculation was incorrect for ipv6 guest gso featu=
+re.
+>=20
+> Above issue 2 was reported in [1].
+> Since issue 2 and 3 both touches the same set of requirements and
+> description, they are updated under a new issue along with tx side fix as=
+ well
+> touching the clarification needed for VIRTIO_NET_F_HASH_REPORT.
+>=20
+> Hence above three issues are fixed under issue of [2].
+>=20
+> Patch summary:
+> patch-1 fixes receive side description and requirement
+> patch-2 adds transmit side clarification for VIRTIO_NET_F_HASH_REPORT
+>=20
+> changelog:
+> v0->v1:
+> - addressed comments from Xuan to rewrite tx normative
+>=20
 
-> Do you have any other suggestions?
-> Or can I just fallback to the version that add a new command(VIRTIO_GPU_C=
-MD_PRESERVE_RESOURCE) in virtio-gpu? I think that way is more reasonable an=
-d feasible for virtio-gpu to protect display resources during S3. As for ot=
-her devices, if necessary, they can also refer to the implementation of the=
- virtio-gpu to add new commands to prevent resource loss during S3.
+Can you please raise the voting request for these two small description cha=
+nges?
 
-Note that there's recently a fix for no_soft_reset, a well behaved
-device should not suffer from this issue anymore. If I understand this
-correctly, there's no need for any extension for the spec as well.:
-
-https://lore.kernel.org/lkml/CACGkMEs_MajTFxGVcK5R8oqQzTxuL4Pm=3DuUnOonDczW=
-zqaucsw@mail.gmail.com/T/
-
-Thanks
-
->
-> On 2023/10/27 11:03, Chen, Jiqian wrote:
-> > Hi Michael S. Tsirkin and Parav Pandit,
-> > Thank you for your detailed explanation. I will try to use PM cap to fi=
-x this issue.
-> >
-> > On 2023/10/26 18:30, Michael S. Tsirkin wrote:
-> >> On Thu, Oct 26, 2023 at 10:24:26AM +0000, Chen, Jiqian wrote:
-> >>>
-> >>> On 2023/10/25 11:51, Parav Pandit wrote:
-> >>>>
-> >>>>
-> >>>>> From: Chen, Jiqian <Jiqian.Chen@amd.com>
-> >>>>> Sent: Tuesday, October 24, 2023 5:44 PM
-> >>>>>
-> >>>>> On 2023/10/24 18:51, Parav Pandit wrote:
-> >>>>>>
-> >>>>>>> From: Chen, Jiqian <Jiqian.Chen@amd.com>
-> >>>>>>> Sent: Tuesday, October 24, 2023 4:06 PM
-> >>>>>>>
-> >>>>>>> On 2023/10/23 21:35, Parav Pandit wrote:
-> >>>>>>>>
-> >>>>>>>>> From: Chen, Jiqian <Jiqian.Chen@amd.com>
-> >>>>>>>>> Sent: Monday, October 23, 2023 4:09 PM
-> >>>>>>>>
-> >>>>>>>>>> I think this can be done without introducing the new register.
-> >>>>>>>>>> Can you please check if the PM register itself can serve the
-> >>>>>>>>>> purpose instead
-> >>>>>>>>> of new virtio level register?
-> >>>>>>>>> Do you mean the system PM register?
-> >>>>>>>> No, the device's PM register at transport level.
-> >>>>>>> I tried to find this register(pci level or virtio pci level or vi=
-rtio
-> >>>>>>> driver level), but I didn't find it in Linux kernel or Qemu codes=
-.
-> >>>>>>> May I know which register you are referring to specifically? Or w=
-hich
-> >>>>>>> PM state bit you mentioned below?
-> >>>>>>>
-> >>>>>> PCI spec's PCI Power Management Capability Structure in section 7.=
-5.2.
-> >>>>> Yes, what you point to is PM capability for PCIe device.
-> >>>>> But the problem is still that in Qemu code, it will check the
-> >>>>> condition(pci_bus_is_express or pci_is_express) of all virtio-pci d=
-evices in
-> >>>>> function virtio_pci_realize(), if the virtio devices aren't a PCIe =
-device, it will not
-> >>>>> add PM capability for them.
-> >>>> PCI PM capability is must for PCIe devices. So may be QEMU code has =
-put it only under is_pcie check.
-> >>>> But it can be done outside of that check as well because this capabi=
-lity exists on PCI too for long time and it is backward compatible.
-> >>> Do you suggest me to implement PM capability for virtio devices in
-> >>> Qemu firstly, and then to try if the PM capability can work for this
-> >>> scenario?
-> >>
-> >> virtio devices in qemu already have a PM capability.
-> >>
-> >>
-> >>> If so, we will complicate a simple problem. Because there are no othe=
-r needs to add PM capability for virtio devices for now, if we add it just =
-for preserving resources, it seems unnecessary and unreasonable. And we are=
- not sure if there are other scenarios that are not during the process of P=
-M state changing also need to preserve resources, if have, then the PM regi=
-ster can't cover, but preserve_resources register can.
-> >>
-> >> One of the selling points of virtio is precisely reusing existing
-> >> platform capabilities as opposed to coming up with our own.
-> >> See abstract.tex
-> >>
-> >>
-> >>> Can I add some notes like "If PM capability is implemented for virtio=
- devices, it may cover this scenario, and if there are no other scenarios t=
-hat PM can't cover, then we can remove this register " in commit message or=
- spec description and let us continue to add preserve_resources register?
-> >>
-> >> We can't remove registers.
-> >>
-> >>>>
-> >>>>> And another problem is how about the MMIO transport devices? Since
-> >>>>> preserve resources is need for all transport type devices.
-> >>>>>
-> >>>> MMIO lacks such rich PM definitions. If in future MMIO wants to supp=
-ort, it will be extended to match to other transports like PCI.
-> >>>>
-> >>>>>>>>
-> >>>>>>>>> I think it is unreasonable to let virtio- device listen the PM
-> >>>>>>>>> state of Guest system.
-> >>>>>>>> Guest driver performs any work on the guest systems PM callback
-> >>>>>>>> events in
-> >>>>>>> the virtio driver.
-> >>>>>>> I didn't find any PM state callback in the virtio driver.
-> >>>>>>>
-> >>>>>> There are virtio_suspend and virtio_resume in case of Linux.
-> >>>>> I think what you said virtio_suspend/resume is freeze/restore callb=
-ack from
-> >>>>> "struct virtio_driver" or suspend/resume callback from "static cons=
-t struct
-> >>>>> dev_pm_ops virtio_pci_pm_ops".
-> >>>>> And yes, I agree, if virtio devices have PM capability, maybe we ca=
-n set PM state
-> >>>>> in those callback functions.
-> >>>>>
-> >>>>>>
-> >>>>>>>>
-> >>>>>>>>> It's more suitable that each device gets notifications from dri=
-ver,
-> >>>>>>>>> and then do preserving resources operation.
-> >>>>>>>> I agree that each device gets the notification from driver.
-> >>>>>>>> The question is, should it be virtio driver, or existing pci dri=
-ver
-> >>>>>>>> which
-> >>>>>>> transitions the state from d0->d3 and d3->d0 is enough.
-> >>>>>>> It seems there isn't existing pci driver to transitions d0 or d3
-> >>>>>>> state. Could you please tell me which one it is specifically? I a=
-m very willing to
-> >>>>> give a try.
-> >>>>>>>
-> >>>>>> Virtio-pci modern driver of Linux should be able to.
-> >>>>> Yes, I know, it is the VIRTIO_PCI_FLAG_INIT_PM_BIT. But still the t=
-wo problems I
-> >>>>> said above.
-> >>>>>
-> >>>> Both can be resolved without switching to pcie.
-> >>>>
-> >>>>>>
-> >>>>>>>> Can you please check that?
-> >>>>>>>>
-> >>>>>>>>>>> --- a/transport-pci.tex
-> >>>>>>>>>>> +++ b/transport-pci.tex
-> >>>>>>>>>>> @@ -325,6 +325,7 @@ \subsubsection{Common configuration
-> >>>>> structure
-> >>>>>>>>>>> layout}\label{sec:Virtio Transport
-> >>>>>>>>>>>          /* About the administration virtqueue. */
-> >>>>>>>>>>>          le16 admin_queue_index;         /* read-only for dri=
-ver */
-> >>>>>>>>>>>          le16 admin_queue_num;         /* read-only for drive=
-r */
-> >>>>>>>>>>> +        le16 preserve_resources;        /* read-write */
-> >>>>>>>>>> Preserving these resources in the device implementation takes
-> >>>>>>>>>> finite amount
-> >>>>>>>>> of time.
-> >>>>>>>>>> Possibly more than 40nsec (time of PCIe write TLP).
-> >>>>>>>>>> Hence this register must be a polling register to indicate tha=
-t
-> >>>>>>>>> preservation_done.
-> >>>>>>>>>> This will tell the guest when the preservation is done, and wh=
-en
-> >>>>>>>>>> restoration is
-> >>>>>>>>> done, so that it can resume upper layers.
-> >>>>>>>>>>
-> >>>>>>>>>> Please refer to queue_reset definition to learn more about suc=
-h
-> >>>>>>>>>> register
-> >>>>>>>>> definition.
-> >>>>>>>>> Thanks, I will refer to "queue_reset". So, I need three values,
-> >>>>>>>>> driver write 1 to let device do preserving resources, driver wr=
-ite
-> >>>>>>>>> 2 to let device do restoring resources, device write 0 to tell
-> >>>>>>>>> driver that preserving or restoring done, am I right?
-> >>>>>>>>>
-> >>>>>>>> Right.
-> >>>>>>>>
-> >>>>>>>> And if the existing pcie pm state bits can do, we can leverage t=
-hat.
-> >>>>>>>> If it cannot be used, lets add that reasoning in the commit log =
-to
-> >>>>>>>> describe this
-> >>>>>>> register.
-> >>>>>>>>
-> >>>>>>>>>>
-> >>>>>>>>>> Lets please make sure that PCIe PM level registers are
-> >>>>>>>>>> sufficient/not-sufficient
-> >>>>>>>>> to decide the addition of this register.
-> >>>>>>>>> But if the device is not a PCIe device, it doesn't have PM
-> >>>>>>>>> capability, then this will not work. Actually in my local
-> >>>>>>>>> environment, pci_is_express() return false in Qemu, they are no=
-t
-> >>>>>>>>> PCIe
-> >>>>>>> device.
-> >>>>>>>> It is reasonable to ask to plug in as PCIe device in 2023 to get=
- new
-> >>>>>>>> functionality that too you mentioned a gpu device. =F0=9F=98=8A
-> >>>>>>>> Which does not have very long history of any backward compatibil=
-ity.
-> >>>>>>> Do you suggest me to add PM capability for virtio-gpu or change
-> >>>>>>> virtio-gpu to a PCIe device?
-> >>>>>>>
-> >>>>>> PCI Power Management Capability Structure does not seem to be limi=
-ted to
-> >>>>> PCIe.
-> >>>>> I am not sure, but in current Qemu code, I can see the check "pci_i=
-s_express"
-> >>>>> for all virtio-pci devices. If we want to add PM capability for vir=
-tio-pci devices,
-> >>>>> we need to change them to PCIe device I think.
-> >>>>>
-> >>>> That is one option.
-> >>>> Second option to extend PCI PM cap for non pci device because it is =
-supported.
-> >>>>
-> >>>>>>
-> >>>>>
-> >>>>> --
-> >>>>> Best regards,
-> >>>>> Jiqian Chen.
-> >>>
-> >>> --
-> >>> Best regards,
-> >>> Jiqian Chen.
-> >>
-> >
->
+> Parav Pandit (2):
+>   virtio-net: Fix receive buffer size calculation text
+>   virtio-net: Clarify the size of the struct virtio_net_hdr for tx
+>=20
+>  device-types/net/description.tex | 28 +++++++++++++++++++++-------
+>  1 file changed, 21 insertions(+), 7 deletions(-)
+>=20
 > --
-> Best regards,
-> Jiqian Chen.
+> 2.34.1
 
 
 This publicly archived list offers a means to provide input to the=0D
