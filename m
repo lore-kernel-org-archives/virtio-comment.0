@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8912-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8913-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EF04C4706C
-	for <virtio-comment@archiver.kernel.org>; Fri, 12 Jan 2024 11:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65F83C4707B
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 00:26:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 6642B3E31A
-	for <virtio-comment@archiver.kernel.org>; Fri, 12 Jan 2024 11:24:25 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id A27C52AF90
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2C27F9866FF
-	for <virtio-comment@archiver.kernel.org>; Fri, 12 Jan 2024 11:24:25 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 738839865C9
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id F124A9866DC; Fri, 12 Jan 2024 11:24:24 +0000 (UTC)
+	id 61C249863A8; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,155 +24,349 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E10C19866E4
-	for <virtio-comment@lists.oasis-open.org>; Fri, 12 Jan 2024 11:24:24 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4E3D098636D
+	for <virtio-comment@lists.oasis-open.org>; Mon, 15 Jan 2024 00:26:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: VhAK0IAmPnCtF9Ah5bCWuw-1
-From: Cornelia Huck <cohuck@redhat.com>
-To: Parav Pandit <parav@nvidia.com>, virtio-comment@lists.oasis-open.org,
- mst@redhat.com
-Cc: shahafs@nvidia.com, xuanzhuo@linux.alibaba.com,
- yuri.benditovich@daynix.com, Parav Pandit <parav@nvidia.com>
-In-Reply-To: <20240105080055.3459531-2-parav@nvidia.com>
-Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
- Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
- 153243,
- =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
- Michael O'Neill, Amy
- Ross"
-References: <20240105080055.3459531-1-parav@nvidia.com>
- <20240105080055.3459531-2-parav@nvidia.com>
-User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Fri, 12 Jan 2024 12:24:20 +0100
-Message-ID: <878r4uokuz.fsf@redhat.com>
+X-MC-Unique: lEKYMFyyP0mrMVvnAIWO0w-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705278369; x=1705883169;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=h/9H6qf/S8HpR/8fGbQcsCsBTLtC18qs4wa+jX39jKA=;
+        b=EnQ+KAJ9UaNxOJ8rMgwOFHsD6ug9eOp/yYT1XQHqrBSnHeleHgQjeJInsOaaDrtr00
+         CzLAKzZy3Jenqtw9TEi2aGLaZqyWGKTciGV0zzEf3+ddIG44x/HRpgs6wgTXfB5q9K2s
+         warfN491vZgJmkI/J23Cjp0nS+ZzYWzyvnZBlb04724ePxQ2/PTGL34pqrGuTDc3hMoj
+         T3aNNOsBRm54ehNZqFD4yE/SOxC6RPOs4+/OyXMBv1F4GJRn6UBerRGT2yLf4svD95lK
+         7hcyt0JxwkUPhbeWv02ych3N3ppgVHidEgfGP7t7CPeVjxqfv+P26zRdASpcEwkBVu53
+         BCxw==
+X-Gm-Message-State: AOJu0YyYIzIL4L8pi5UmyEvLXEAfR+WnGYnXDPuTHZhGvTwzY74/fzNj
+	2eTlxWemVksqQFNMeKfsnBqWp2CWObwTuZ51RRmAAAAkMeZrdyw5eGB4kQeaztUn0mqsFIavXJq
+	VXdyPsu1B8k4FaVl7w6mzygZvodNd7QY6suq28T08Wt5cd2MqpY/uOqy8CQ==
+X-Received: by 2002:a05:6a00:1408:b0:6d9:b9ba:fc7b with SMTP id l8-20020a056a00140800b006d9b9bafc7bmr5702613pfu.33.1705278368961;
+        Sun, 14 Jan 2024 16:26:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFJP283mjK9L3cDXjmWonIllry46Q4nlKee4yLf36EdjAnuyZ5iHCw3RvUeOR4OzJUTkbwFLCrqlCTZRGCKwLs=
+X-Received: by 2002:a05:6a00:1408:b0:6d9:b9ba:fc7b with SMTP id
+ l8-20020a056a00140800b006d9b9bafc7bmr5702592pfu.33.1705278368588; Sun, 14 Jan
+ 2024 16:26:08 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
+References: <20231021035111.650248-1-Jiqian.Chen@amd.com> <20231021035111.650248-2-Jiqian.Chen@amd.com>
+ <PH0PR12MB548182FF345FE7D1DE0D89C1DCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <BL1PR12MB584997339FBFF8E8DF007755E7D8A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <PH0PR12MB5481DBD22233808AA9497ADBDCD8A@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <BL1PR12MB584959DE2A88F4968ECC6740E7DFA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <PH0PR12MB5481BAA4566F77FBEA8B712CDCDFA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <BL1PR12MB584921B4DFE8A074107904EEE7DFA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <PH0PR12MB5481A43D8E5A0F580B785E1EDCDEA@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <BL1PR12MB58498946F163AFE8AFE7DF94E7DDA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <20231026062805-mutt-send-email-mst@kernel.org> <BL1PR12MB5849D7936DD77FECD1FE971EE7DCA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <BL1PR12MB58499AD7442C0A9FC400D747E76F2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB58499AD7442C0A9FC400D747E76F2@BL1PR12MB5849.namprd12.prod.outlook.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Mon, 15 Jan 2024 08:25:56 +0800
+Message-ID: <CACGkMEu5KV+8V+7x4TC6OQQdJ4FduRrHL9k7qP6VhQi3uTXq1Q@mail.gmail.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Parav Pandit <parav@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, David Airlie <airlied@redhat.com>, 
+	Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, 
+	=?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>, 
+	Robert Beckett <bob.beckett@collabora.com>, 
+	Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>, 
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>, 
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, 
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>, 
+	"Huang, Ray" <Ray.Huang@amd.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Subject: [virtio-comment] Re: [PATCH v1 1/2] virtio-net: Fix receive buffer size calculation
- text
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v6 1/1] content: Add new feature VIRTIO_F_PRESERVE_RESOURCES
 
-On Fri, Jan 05 2024, Parav Pandit <parav@nvidia.com> wrote:
-
-> Receive buffer size calculation is based on the following
-> negotiated features.
+On Fri, Jan 12, 2024 at 3:41=E2=80=AFPM Chen, Jiqian <Jiqian.Chen@amd.com> =
+wrote:
 >
-> The text has wrong calculation for IPv6 and also it has missed
-> VIRTIO_NET_F_HASH_REPORT.
+> Hi all,
+> Sorry to reply late.
+> I don't know if you still remember this problem, let me briefly descript =
+it.
+> I am working to implement virtgpu S3 function on Xen.
+> Currently on Xen, if we start a guest through qemu with enabling virtgpu,=
+ and then suspend and resume guest. We can find that the guest kernel comes=
+ back, but the display doesn't. It just shown a black screen.
+> That is because during suspending, guest called into qemu and qemu destro=
+yed all display resources and reset renderer. This made the display gone af=
+ter guest resumed.
+> So, I add a new command for virtio-gpu that when guest is suspending, it =
+will notify qemu and set parameter(preserver_resource) to 1 and then qemu w=
+ill preserve resources, and when resuming, guest will notify qemu to set pa=
+rameter to 0, and then qemu will keep the normal actions. That can help gue=
+st's display come back.
+> When I upstream above implementation, Parav and MST suggest me to use the=
+ PM capability to fix this problem instead of adding a new command or state=
+ bit.
+> Now, I have tried the PM capability of virtio-gpu, it can't be used to so=
+lve this problem.
+> The reason is:
+> during guest suspending, it will write D3 state through PM cap, then I ca=
+n save the resources of virtio-gpu on Qemu side(set preserver_resource to 1=
+),
+> but during the process of resuming, the state of PM cap will be cleared b=
+y qemu resetting(qemu_system_wakeup-> qemu_devices_reset-> virtio_vga_base_=
+reset-> virtio_gpu_gl_reset),
+> it causes that when guest reads state from PM cap, it will find the virti=
+o-gpu has already been D0 state, so guest will not write D0 through PM cap,=
+ so I can't know when to restore the resources(set preserver_resource to 0)=
+.
+
+Looks like a bug to be fixed?
+
+> Do you have any other suggestions?
+> Or can I just fallback to the version that add a new command(VIRTIO_GPU_C=
+MD_PRESERVE_RESOURCE) in virtio-gpu? I think that way is more reasonable an=
+d feasible for virtio-gpu to protect display resources during S3. As for ot=
+her devices, if necessary, they can also refer to the implementation of the=
+ virtio-gpu to add new commands to prevent resource loss during S3.
+
+Note that there's recently a fix for no_soft_reset, a well behaved
+device should not suffer from this issue anymore. If I understand this
+correctly, there's no need for any extension for the spec as well.:
+
+https://lore.kernel.org/lkml/CACGkMEs_MajTFxGVcK5R8oqQzTxuL4Pm=3DuUnOonDczW=
+zqaucsw@mail.gmail.com/T/
+
+Thanks
+
 >
-> The problem of igorance of VIRTIO_NET_F_HASH_REPORT is reported
-> in [1], however fix for ipv6 payload length must also be
-> considered.
+> On 2023/10/27 11:03, Chen, Jiqian wrote:
+> > Hi Michael S. Tsirkin and Parav Pandit,
+> > Thank you for your detailed explanation. I will try to use PM cap to fi=
+x this issue.
+> >
+> > On 2023/10/26 18:30, Michael S. Tsirkin wrote:
+> >> On Thu, Oct 26, 2023 at 10:24:26AM +0000, Chen, Jiqian wrote:
+> >>>
+> >>> On 2023/10/25 11:51, Parav Pandit wrote:
+> >>>>
+> >>>>
+> >>>>> From: Chen, Jiqian <Jiqian.Chen@amd.com>
+> >>>>> Sent: Tuesday, October 24, 2023 5:44 PM
+> >>>>>
+> >>>>> On 2023/10/24 18:51, Parav Pandit wrote:
+> >>>>>>
+> >>>>>>> From: Chen, Jiqian <Jiqian.Chen@amd.com>
+> >>>>>>> Sent: Tuesday, October 24, 2023 4:06 PM
+> >>>>>>>
+> >>>>>>> On 2023/10/23 21:35, Parav Pandit wrote:
+> >>>>>>>>
+> >>>>>>>>> From: Chen, Jiqian <Jiqian.Chen@amd.com>
+> >>>>>>>>> Sent: Monday, October 23, 2023 4:09 PM
+> >>>>>>>>
+> >>>>>>>>>> I think this can be done without introducing the new register.
+> >>>>>>>>>> Can you please check if the PM register itself can serve the
+> >>>>>>>>>> purpose instead
+> >>>>>>>>> of new virtio level register?
+> >>>>>>>>> Do you mean the system PM register?
+> >>>>>>>> No, the device's PM register at transport level.
+> >>>>>>> I tried to find this register(pci level or virtio pci level or vi=
+rtio
+> >>>>>>> driver level), but I didn't find it in Linux kernel or Qemu codes=
+.
+> >>>>>>> May I know which register you are referring to specifically? Or w=
+hich
+> >>>>>>> PM state bit you mentioned below?
+> >>>>>>>
+> >>>>>> PCI spec's PCI Power Management Capability Structure in section 7.=
+5.2.
+> >>>>> Yes, what you point to is PM capability for PCIe device.
+> >>>>> But the problem is still that in Qemu code, it will check the
+> >>>>> condition(pci_bus_is_express or pci_is_express) of all virtio-pci d=
+evices in
+> >>>>> function virtio_pci_realize(), if the virtio devices aren't a PCIe =
+device, it will not
+> >>>>> add PM capability for them.
+> >>>> PCI PM capability is must for PCIe devices. So may be QEMU code has =
+put it only under is_pcie check.
+> >>>> But it can be done outside of that check as well because this capabi=
+lity exists on PCI too for long time and it is backward compatible.
+> >>> Do you suggest me to implement PM capability for virtio devices in
+> >>> Qemu firstly, and then to try if the PM capability can work for this
+> >>> scenario?
+> >>
+> >> virtio devices in qemu already have a PM capability.
+> >>
+> >>
+> >>> If so, we will complicate a simple problem. Because there are no othe=
+r needs to add PM capability for virtio devices for now, if we add it just =
+for preserving resources, it seems unnecessary and unreasonable. And we are=
+ not sure if there are other scenarios that are not during the process of P=
+M state changing also need to preserve resources, if have, then the PM regi=
+ster can't cover, but preserve_resources register can.
+> >>
+> >> One of the selling points of virtio is precisely reusing existing
+> >> platform capabilities as opposed to coming up with our own.
+> >> See abstract.tex
+> >>
+> >>
+> >>> Can I add some notes like "If PM capability is implemented for virtio=
+ devices, it may cover this scenario, and if there are no other scenarios t=
+hat PM can't cover, then we can remove this register " in commit message or=
+ spec description and let us continue to add preserve_resources register?
+> >>
+> >> We can't remove registers.
+> >>
+> >>>>
+> >>>>> And another problem is how about the MMIO transport devices? Since
+> >>>>> preserve resources is need for all transport type devices.
+> >>>>>
+> >>>> MMIO lacks such rich PM definitions. If in future MMIO wants to supp=
+ort, it will be extended to match to other transports like PCI.
+> >>>>
+> >>>>>>>>
+> >>>>>>>>> I think it is unreasonable to let virtio- device listen the PM
+> >>>>>>>>> state of Guest system.
+> >>>>>>>> Guest driver performs any work on the guest systems PM callback
+> >>>>>>>> events in
+> >>>>>>> the virtio driver.
+> >>>>>>> I didn't find any PM state callback in the virtio driver.
+> >>>>>>>
+> >>>>>> There are virtio_suspend and virtio_resume in case of Linux.
+> >>>>> I think what you said virtio_suspend/resume is freeze/restore callb=
+ack from
+> >>>>> "struct virtio_driver" or suspend/resume callback from "static cons=
+t struct
+> >>>>> dev_pm_ops virtio_pci_pm_ops".
+> >>>>> And yes, I agree, if virtio devices have PM capability, maybe we ca=
+n set PM state
+> >>>>> in those callback functions.
+> >>>>>
+> >>>>>>
+> >>>>>>>>
+> >>>>>>>>> It's more suitable that each device gets notifications from dri=
+ver,
+> >>>>>>>>> and then do preserving resources operation.
+> >>>>>>>> I agree that each device gets the notification from driver.
+> >>>>>>>> The question is, should it be virtio driver, or existing pci dri=
+ver
+> >>>>>>>> which
+> >>>>>>> transitions the state from d0->d3 and d3->d0 is enough.
+> >>>>>>> It seems there isn't existing pci driver to transitions d0 or d3
+> >>>>>>> state. Could you please tell me which one it is specifically? I a=
+m very willing to
+> >>>>> give a try.
+> >>>>>>>
+> >>>>>> Virtio-pci modern driver of Linux should be able to.
+> >>>>> Yes, I know, it is the VIRTIO_PCI_FLAG_INIT_PM_BIT. But still the t=
+wo problems I
+> >>>>> said above.
+> >>>>>
+> >>>> Both can be resolved without switching to pcie.
+> >>>>
+> >>>>>>
+> >>>>>>>> Can you please check that?
+> >>>>>>>>
+> >>>>>>>>>>> --- a/transport-pci.tex
+> >>>>>>>>>>> +++ b/transport-pci.tex
+> >>>>>>>>>>> @@ -325,6 +325,7 @@ \subsubsection{Common configuration
+> >>>>> structure
+> >>>>>>>>>>> layout}\label{sec:Virtio Transport
+> >>>>>>>>>>>          /* About the administration virtqueue. */
+> >>>>>>>>>>>          le16 admin_queue_index;         /* read-only for dri=
+ver */
+> >>>>>>>>>>>          le16 admin_queue_num;         /* read-only for drive=
+r */
+> >>>>>>>>>>> +        le16 preserve_resources;        /* read-write */
+> >>>>>>>>>> Preserving these resources in the device implementation takes
+> >>>>>>>>>> finite amount
+> >>>>>>>>> of time.
+> >>>>>>>>>> Possibly more than 40nsec (time of PCIe write TLP).
+> >>>>>>>>>> Hence this register must be a polling register to indicate tha=
+t
+> >>>>>>>>> preservation_done.
+> >>>>>>>>>> This will tell the guest when the preservation is done, and wh=
+en
+> >>>>>>>>>> restoration is
+> >>>>>>>>> done, so that it can resume upper layers.
+> >>>>>>>>>>
+> >>>>>>>>>> Please refer to queue_reset definition to learn more about suc=
+h
+> >>>>>>>>>> register
+> >>>>>>>>> definition.
+> >>>>>>>>> Thanks, I will refer to "queue_reset". So, I need three values,
+> >>>>>>>>> driver write 1 to let device do preserving resources, driver wr=
+ite
+> >>>>>>>>> 2 to let device do restoring resources, device write 0 to tell
+> >>>>>>>>> driver that preserving or restoring done, am I right?
+> >>>>>>>>>
+> >>>>>>>> Right.
+> >>>>>>>>
+> >>>>>>>> And if the existing pcie pm state bits can do, we can leverage t=
+hat.
+> >>>>>>>> If it cannot be used, lets add that reasoning in the commit log =
+to
+> >>>>>>>> describe this
+> >>>>>>> register.
+> >>>>>>>>
+> >>>>>>>>>>
+> >>>>>>>>>> Lets please make sure that PCIe PM level registers are
+> >>>>>>>>>> sufficient/not-sufficient
+> >>>>>>>>> to decide the addition of this register.
+> >>>>>>>>> But if the device is not a PCIe device, it doesn't have PM
+> >>>>>>>>> capability, then this will not work. Actually in my local
+> >>>>>>>>> environment, pci_is_express() return false in Qemu, they are no=
+t
+> >>>>>>>>> PCIe
+> >>>>>>> device.
+> >>>>>>>> It is reasonable to ask to plug in as PCIe device in 2023 to get=
+ new
+> >>>>>>>> functionality that too you mentioned a gpu device. =F0=9F=98=8A
+> >>>>>>>> Which does not have very long history of any backward compatibil=
+ity.
+> >>>>>>> Do you suggest me to add PM capability for virtio-gpu or change
+> >>>>>>> virtio-gpu to a PCIe device?
+> >>>>>>>
+> >>>>>> PCI Power Management Capability Structure does not seem to be limi=
+ted to
+> >>>>> PCIe.
+> >>>>> I am not sure, but in current Qemu code, I can see the check "pci_i=
+s_express"
+> >>>>> for all virtio-pci devices. If we want to add PM capability for vir=
+tio-pci devices,
+> >>>>> we need to change them to PCIe device I think.
+> >>>>>
+> >>>> That is one option.
+> >>>> Second option to extend PCI PM cap for non pci device because it is =
+supported.
+> >>>>
+> >>>>>>
+> >>>>>
+> >>>>> --
+> >>>>> Best regards,
+> >>>>> Jiqian Chen.
+> >>>
+> >>> --
+> >>> Best regards,
+> >>> Jiqian Chen.
+> >>
+> >
 >
-> Since for the both the fixes touching same requirements, a
-> new issue is created as [2].
->
-> This patch brings following fixes.
->
-> 1. Fix annotating struct virtio_net_hdr as field
-> 2. Fix receive buffer calculation for guest GSO cases to consider
->    ipv6 payload length
-> 3. small grammar corrections for article
-> 4. reword the requirement to consider the virtio_ndr_hdr which is
->    depends on the negotiated feature, hence first clarify the
->    struct virtio_net_hdr size
->
-> [1] https://github.com/oasis-tcs/virtio-spec/issues/170
-> [2] https://github.com/oasis-tcs/virtio-spec/issues/183
->
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/170
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/183
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
-> ---
->  device-types/net/description.tex | 25 ++++++++++++++++++-------
->  1 file changed, 18 insertions(+), 7 deletions(-)
->
-> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> index aff5e08..a1f40f7 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -657,24 +657,35 @@ \subsubsection{Setting Up Receive Buffers}\label{sec:Device Types / Network Devi
->  If the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
->  VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6
->  features are used, the maximum incoming packet
-> -will be to 65550 bytes long (the maximum size of a
-> -TCP or UDP packet, plus the 14 byte ethernet header), otherwise
-> -1514 bytes.  The 12-byte struct virtio_net_hdr is prepended to this,
-> -making for 65562 or 1526 bytes.
-> +will of size 65589 bytes long (14 bytes of Ethernet header, plus 40 bytes of
-
-Either "will be 65589 bytes long" or "will be of 65589 bytes size" (I'd
-prefer the former.)
-
-> +the IPv6 header, plus 65535 bytes of maximum IPv6 payload including any
-> +extension header) otherwise 1514 bytes.
-
-s/ otherwise/, otherwise/
-
-> +When VIRTIO_NET_F_HASH_REPORT is not negotiated, the required receive buffer
-> +size is either 65601 or 1526 bytes.
-> +When VIRTIO_NET_F_HASH_REPORT is negotiated, the required receive buffer
-> +size is either 65609 or 1534 bytes.
->  
->  \drivernormative{\paragraph}{Setting Up Receive Buffers}{Device Types / Network Device / Device Operation / Setting Up Receive Buffers}
->  
-> +If VIRTIO_NET_F_HASH_REPORT is not negotiated, the size of the field
-> +\field{struct virtio_net_hdr} is 12 bytes.
-> +
-> +If VIRTIO_NET_F_HASH_REPORT is negotiated, the size of the field
-> +\field{struct virtio_net_hdr} is 20 bytes.
-
-This reads a bit odd because these two are not normative statements. I'd
-rather include this information into the actual statements.
-
-> +
->  \begin{itemize}
->  \item If VIRTIO_NET_F_MRG_RXBUF is not negotiated:
->    \begin{itemize}
->      \item If VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6, VIRTIO_NET_F_GUEST_UFO,
->  	VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6 are negotiated, the driver SHOULD populate
-> -      the receive queue(s) with buffers of at least 65562 bytes.
-> +      the receive queue(s) with buffers of at least 65589 bytes plus the size
-> +      of the \field{struct virtio_net_hdr}.
-
-"with buffers of at least 65609 bytes if VIRTIO_NET_F_HASH_REPORT is
-negotiated, and of at least 65601 bytes if not."
-
->      \item Otherwise, the driver SHOULD populate the receive queue(s)
-> -      with buffers of at least 1526 bytes.
-> +      with buffers of at least 1514 bytes plus the size of the
-> +      \field{struct virtio_net_hdr}.
-
-"with buffers of at least 1534 bytes if VIRTIO_NET_F_HASH_REPORT is
-negotiated, and of at least 1526 bytes if not."
-
->    \end{itemize}
->  \item If VIRTIO_NET_F_MRG_RXBUF is negotiated, each buffer MUST be at
-> -least the size of the struct virtio_net_hdr.
-> +least the size of the \field{struct virtio_net_hdr}.
-
-If you reformat it like that, I'd drop the "the", and also state the
-lenght explictly:
-
-"each buffer MUST be at least the size of \field{struct virtio_net_hdr},
-i.e. 20 bytes if VIRTIO_NET_F_HASH_REPORT is negotiated, and 12 bytes if
-not."
+> --
+> Best regards,
+> Jiqian Chen.
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
