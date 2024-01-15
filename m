@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8914-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8915-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E2CFC3DA79
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 05:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ADC4C47258
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 06:47:49 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id ABA222AF78
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id CDB442AF81
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 06:47:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 95878986468
-	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id ACD19986396
+	for <virtio-comment@archiver.kernel.org>; Mon, 15 Jan 2024 06:47:48 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 7710F98403A; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
+	id 9164698403A; Mon, 15 Jan 2024 06:47:48 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,21 +24,21 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 62215986367
-	for <virtio-comment@lists.oasis-open.org>; Mon, 15 Jan 2024 05:59:50 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8143A986367
+	for <virtio-comment@lists.oasis-open.org>; Mon, 15 Jan 2024 06:47:48 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y8koHhxGyF6+vmTlzo9jA9esrqsrolVf2s53W+6w9nD7dlsj3qJZv71rfo2cAFrcfUvGu475ousp02wOQSi0fnDZZOmxHcPi1YGmGU7wTgRS8zdQ8/VNtoHZMvwSF6+J27NcHv5gsnucjlJd3lNBi1QQa3haOhlbD6XC8/WssIVME2KoL7I6JAQWvPnczM01UnfYWwilZfWGH4ufWC63Tu3mEJYW/HFkYV0xHYs22dpY/wtCnVj94l3ltEM3CNPvM+dL/kTox09nZlovJe0zXuFVxwDRNgRhoNQNhoyJpOPmm56dKAdaCkWL4jeXvTZeZ63gAVZiBS3cDpE2ypsTZg==
+ b=Xx9IkPc50XX4y+nd27a99Qz4esQp3gArM4NpHQo8B+g97erIRbWl8mNa7+Sgyx1pDcFkIJJhgQVn7bUW6wcCLaEnpmz4azEs4yTAn828pjJzzYE4h0ZwiHc9nzOAspPbq90DAKzQhC7eF2UFsJEa56sG/mQG/yiVrZjUZzbp2sDKT7wwAfEbB6fg5ywzeoYWTjbyx7vN+6dhxG99k693xva2lwAoIQTPQgJA0Q9ssmG7NlImqLKtEuuOL/y4dqR0rNEGT4jyIH+c2Bcn4IVBCpYiGvNI7VLlap+9p8Nks1Vcdjjl01ZjRHzqiF6Gqs/AhxC3+45soV0kycCsIzfhjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ADr+v6K/evIcfNm8b8Rl50Z6Vyvi8aTanJvgSSUO98=;
- b=hxaetxhv1yWG/hjTukWUgOqRn71DjRYd5X2S5Hz2bTQrk6I5NoZfOGz72yEEW8cmnes+MUYybWtsmDOzSS64Jl3gZKZItCnRU1R5EHdKXs7LOch2f2B5kBlm2+9R/7KLFfKYRTU1JogUBLdW5hgUX+ECPUuXkYsqkkdgbqoqroD4QYH/CcFe/HXvAmuZOtE5ln3AQ2MiNIbwtRYS1J8xDjprHcrSanNgAJGPO0UzsrnAiCpEOdoWwc/3ro7I3x/3o/QKD3Ox0LUp5iUaJAKiOZx2eAczKE7jUNTuOkNKF9qGrFFoM6Lo5iJoKtydptnlmO/sal9iksDb61JqG+b8Uw==
+ bh=bjXMT8P70UyhYUTZP0VPeBXINY/VLP7VLTafwALu+DU=;
+ b=iULoG3wXTr/NthtzTpG+aunsMTfC43NZOcbhzYA+oi1eVcamw11IROd2NhGYxz3D+QSicXjaPzE+g12THAFMr5kih4h7Frt8vAmKjsh2F7BWvQCSm55JJL2UeHWcmnTc3rgiWTmuEX3rxHWjUhlbWekzFAeJ97jBfzHeyaf2v8XzGpG4k68JXXlp5peKnH/+LPHQAKUcDALzXvUD/wxElosIj/7aMtAyWrDX4KHEyY/G1t+fZdp/tGTmq1I8LCTJn84fipkxnOQHTn58wJB5cA4wu3ryR5PsWYGapzcg4mwC0h8GbNiQSCyOjdN99iWxgur+OxkMOvVn+fwbh+s7rQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
-To: "virtio-comment@lists.oasis-open.org"
+To: Parav Pandit <parav@nvidia.com>, "virtio-comment@lists.oasis-open.org"
 	<virtio-comment@lists.oasis-open.org>, "mst@redhat.com" <mst@redhat.com>,
 	"cohuck@redhat.com" <cohuck@redhat.com>
 CC: Shahaf Shuler <shahafs@nvidia.com>, "xuanzhuo@linux.alibaba.com"
@@ -46,12 +46,14 @@ CC: Shahaf Shuler <shahafs@nvidia.com>, "xuanzhuo@linux.alibaba.com"
 	<yuri.benditovich@daynix.com>
 Thread-Topic: [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx
  buffer size
-Thread-Index: AQHaP61lKhstNZGX7U+bz+HUOkdEsLDacIBQ
-Date: Mon, 15 Jan 2024 05:59:46 +0000
+Thread-Index: AQHaP61lKhstNZGX7U+bz+HUOkdEsLDacIBQgAANXcA=
+Date: Mon, 15 Jan 2024 06:47:44 +0000
 Message-ID:
- <PH0PR12MB54811CB1F5B077F18B5E7225DC6C2@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <PH0PR12MB54814D477DC0FA6CF58205B0DC6C2@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20240105080055.3459531-1-parav@nvidia.com>
-In-Reply-To: <20240105080055.3459531-1-parav@nvidia.com>
+ <PH0PR12MB54811CB1F5B077F18B5E7225DC6C2@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To:
+ <PH0PR12MB54811CB1F5B077F18B5E7225DC6C2@PH0PR12MB5481.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -59,119 +61,126 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS7PR12MB5864:EE_
-x-ms-office365-filtering-correlation-id: 58d14fbf-ec35-4f70-5eff-08dc158f2d40
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|PH0PR12MB8800:EE_
+x-ms-office365-filtering-correlation-id: 26bdca71-53b7-407a-3dfe-08dc1595e0ea
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- KYzxeuHGM82O9AfRmXnnbpRgOt8DhhN2VmVOyZYB02BkDTcfAXAYAXFThS+iQFozqy3li/8kIYtahZEOu3K8Gz9sCmfNt0SLD3PxVkmgSI1fW++GjAbBO3NAtfwL/U0HBdDgDLxYZXVs184L9XnJf9cyVuPA2HU1YQvtOhzae6tAtz8HjRcPRBb9BBXkZMx6YFmUQImiUOi0PeT1UCONf6R93tjMcnnh5qpFoWOU6tAqtb4E/LL40LAsDUgcdFDwnpTTkikGpKw0/3yxDByf0dDWNZvnULrsqxxGde5Czr9uY9MvlP3qpGZNCEq6E5enH1Y1KNxhZ8DqjbuDzYhAx+fL7koiYJeePd6mdDv/DAf/Pju0UgmqvhiLTVdYfSs1OhgWoCZc2Tsb1cCW1lgYFbZT1Czr2Xw9VRG8qIZyRa4ubMaBS6D4XJne03OiiEXc8ZkSRayG4rL/srbKw0IoTQ2dFEGbkPeUZqxwodPPr+nbDXg6t78fUyuKPl4rT/AoFDP5A5FDW8QRvAy8bax1v/4AV2yKdzTIchvaSjwPnoUDHFPBk9gudELjOjlgrhTmc5RodJpCDqhgFW8o5HQG65+fdmPnsj4VMvLqoOZLVhDiLrsKD/lRmNn1WQrdsTh4
+ uh76+HPUiwaV/fH3UZydM5Wm0hR9aVfRt02SP4VVt4lTVo70y8+JwwYVI8e4fEHleMPl03HUmFFwJDrXrwHhdunP0CHBsVCLaCWFfep9EWgQVVVskonS37KfHh1MPY5FZ6gWYFzC/z9nwCPnSAY10j0IvFX0fwAbgC6FbCt1xFYxc005pRNqnFfvwDDZG3HiDW2m66nd1DrnWn1yfwF55h0xqPZMO3Qsx8hDkMnvn3Bi9oBWL/9TG6lPA1UuYR1oAKEk2ZgEzzA6Y2Bew5HyQjVMsaBwIn7lTlcCf4iP/YSdnK7qiO/72fqcTua6ulyK4inT7ioJpmXFqISs/B42isLzvzxFCRU9RGkKmjnpAo4FSmFx++FfxSiYxOhQJ087utvZv+mt51JeVReK9FTKHDvPisT0uZkzEMxcsCWFevmNT+EyLKeZOWtRZ9d1f/EdbNDbrJJl3esHYSFuw/v4KlFED08NBh9oMdNCZSBFSoE+3qX6wRhW0Nf+u/9fnS59sb73Wzr/V0nouXEhnj80Qkl4MibQXalPXln3DolOyy4psjKnh4TWFBT3eaeIBEUOdn0ubvUBrhYapClwK9J40CynlO46FHqFsmCpoNmWJJc8tKtzHKzn12hvJX0hH2K+
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(136003)(396003)(346002)(366004)(376002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(83380400001)(71200400001)(26005)(41300700001)(38100700002)(122000001)(52536014)(66446008)(66476007)(66556008)(66946007)(76116006)(64756008)(54906003)(316002)(5660300002)(2906002)(4326008)(8676002)(8936002)(110136005)(6506007)(7696005)(9686003)(53546011)(55236004)(478600001)(38070700009)(33656002)(86362001)(55016003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(39860400002)(376002)(366004)(136003)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(2940100002)(66476007)(7696005)(55236004)(53546011)(9686003)(26005)(2906002)(6506007)(110136005)(41300700001)(4326008)(66946007)(38070700009)(71200400001)(83380400001)(66446008)(54906003)(33656002)(8936002)(5660300002)(8676002)(86362001)(52536014)(64756008)(66556008)(76116006)(316002)(122000001)(478600001)(38100700002)(55016003);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?OCFzbMB3EK/0yFpztURx4hgVCnh6a2EpCzWzW3GuH2d/L0H1tS78YCGo8/h6?=
- =?us-ascii?Q?mWFUcPLBBnyCxqyluE0lssZBJyNsHxsyuZgcju8L0QaiddZJd0JC5R8Ly/ob?=
- =?us-ascii?Q?zBiy0pIBc6Fb4Aw3/y0rVyu7mQhujH0ZKzz6TGgWWsy3VzXQvyhmtf9wUeP/?=
- =?us-ascii?Q?/RaREOgwR2+3FlvpD2vmtyEsNV54B/izRir2tSNs1YM3kOodyV7ZbFdGIQIH?=
- =?us-ascii?Q?TvhVRZe0et4Sw5s02Dv48AIJ1s0tcYioXL2zmNTHgPnaebW/ZbjfzzPhmzfb?=
- =?us-ascii?Q?FHEFxfVl7XSsHyquOMLR34KOaIcxehZ+LBfrfZ8/Vzs3yd+rIjdCw8QiYBdO?=
- =?us-ascii?Q?SZI14YkC3JeliP2vohv4M7fAudgtL/caJEGcNtggTaqy4OKnjMjM15PfAl7A?=
- =?us-ascii?Q?Nb4vW9jIKdyvXyJDsN4QHkckRz1eGKIbc5wn5a8U6OFIuEtdyHk5Z8jLTIua?=
- =?us-ascii?Q?OTZVPNC1t9tnVkwM0pTjYf43ESaK71BjLue8ioCbkX0m9lhtOS5v73oy8Xp/?=
- =?us-ascii?Q?IgSxrRp+xpLcnrYNj4jDFAfQnVioGRf7PibGSme4S8sbMqgvi24NMlMmsfor?=
- =?us-ascii?Q?UxYH3Tg22tEDqON/Fks0GGVvou4qIh/NxwtXT4Z+tRd4mRJhfPrtP3WE+GXH?=
- =?us-ascii?Q?P+3IuAYoApmjtu0k23VWoI0LpsVcBgFN043BTjd3rhlwKq72ifrCMDI1tPk2?=
- =?us-ascii?Q?JdWgxRIiNM4oOBdxczFZnNTuffrwuZRObJ7qij/AF5S4T2KOH3KM4LhFh3L9?=
- =?us-ascii?Q?D1r9jnsYhqLoZCTQNjjgZoukG59LcygmTcIwIHvGytwjU27gvFAcCQF7Vq8r?=
- =?us-ascii?Q?vdLUbhcOGbs1aBH7YZ+n/LskgwVruVLxnGNczIC47bQqC+1sz1NmiPsX1vmE?=
- =?us-ascii?Q?PsNsMTqe5JRUI0X2sXUeQZ1cQdL7T9HiMXJt7wc75JfOCVTzoOhZBJ79SBm6?=
- =?us-ascii?Q?GNKx2R3n3VkJv2QcbfvFxjGT/6+yWRegbVJ1/GFXSpCBWzl9M1wjo+Sonb9a?=
- =?us-ascii?Q?+JpyUuQGj1CUlu5O3dI9HpUbAmzYhUTlbXpbKCa80I3UMcLBrRxtNcACyeib?=
- =?us-ascii?Q?W6aVhDI7bjm6/YKMYOuQb18X8CxIyhXfnd365E7kSq/xN+HaIRndLbt5cRa6?=
- =?us-ascii?Q?7cKPWab0ANlWdxia0MQ5x39R8YQRMRIF0R3kuoVTkhXN4uYM8pvfcUUSPE3a?=
- =?us-ascii?Q?dpsl79LcEW9UY6zZe+xY751IcWB5YM6g1YgsRZgW8z+RmgZzeYo8ZIfyOtt5?=
- =?us-ascii?Q?qP1M4ntVJyu4qKzbAgsl0uO0b8U9Hgi3wLMgzuMEeEw7IndvDKFDMAbjPNAd?=
- =?us-ascii?Q?3wSS/70TYYZMBCD5ZJlPpjtyDg79CjRGFQDDWq8JenBTQUTkcTddO7kU7Wtn?=
- =?us-ascii?Q?rbtonHnqCvC5lZXoj94vZz9K9pcKm5ZkvklN4D+QjdW78zf2PFTcrMSBc7a2?=
- =?us-ascii?Q?S60HWkZ0D824hTf21TJDXeyZzt41GzdF/VonT2yVYjEhHJLHtBv+9Y0oVfM+?=
- =?us-ascii?Q?XwK7KGxkkkgoiepmiXPrQBVjujkCCQYnzAmx+tPM9yGbbUarcWH3l8UpZlWC?=
- =?us-ascii?Q?VOHFAiV87UUYCJ6SfQI=3D?=
+ =?us-ascii?Q?8ET7XQHPSv/vwEJdmnPHmH4LKkG93kZf6ZpCuN4CllRmTy7Y63Lv7qbnEj0p?=
+ =?us-ascii?Q?FTQko5mgInirPBAD4tY1b5TgKZRNQEBqCToTbydK8WFnm3BNR3fumIKA/W/U?=
+ =?us-ascii?Q?Tj6z4SRMf3tnq/6ad6fNfJSH02DNKbWY6LTkAViFkiS4WMs5oJe3dQMhNo5I?=
+ =?us-ascii?Q?tsdvmCgFaIcEWFjhA21SnI5wxJFpcBYzU1hItyf7Ygcgdlz1hEr8AJMAgClc?=
+ =?us-ascii?Q?835/8Vdf0YKoUgS5Ggf7054f1Gc93q5m+iN9sWb9nidm3wWbUGkgZMcIHzUG?=
+ =?us-ascii?Q?pbNBWOGkxextojjl0XmOy2HqqQGjHACiohchFlzr8hCsoRbdYt3JySI3wQH8?=
+ =?us-ascii?Q?Cgd3V6W7eXOT1HWK7FcMghnRlxb1FhLHVRkGGejgHC/TpctAouUBxdDrqaJF?=
+ =?us-ascii?Q?q8fwfK/Tulw1nJ6qMQKh5yKBOGf0p9KZx6jNr4AR4qAbh/MEdsw4+kNSa4KZ?=
+ =?us-ascii?Q?MMAYBQjQRZXeA4GKxnhEoBtpRX5Gti6ePv6BuvlRRuo0v8PdR4NRiopvlZgM?=
+ =?us-ascii?Q?eZRi/HtFI84DSAHl4fv6LCVsnWZkizh5S6Hp4ThTV9aNWDSHQ92lCzulST5Z?=
+ =?us-ascii?Q?7s+hKcuhTkFtbJ5yEPNG1LOkUBqlrheoDe6zg/aw9c5Ahi7ELZ847YtmfOu8?=
+ =?us-ascii?Q?x1g8j8wqFQgTw5LK8/d9iHeyyd6yLE/ISEqABqIjOfaUzj7Ow9FJVjOEGZRi?=
+ =?us-ascii?Q?uowFqXKTjATe9dr0Uxsf4ZrR60t5wQ26WplXotGA9TEyAGH76kk/3zhXfe6Y?=
+ =?us-ascii?Q?GxKNzjVt21TFXLr9VRYNLYS01M9yubhjnc5UddvWyVdtTJVRMTsJDzjK5HtA?=
+ =?us-ascii?Q?lnB60PCgHczbGXh0gW5shaXRJH+BSB6ZpcN4BpD/tD25DFJsAjkWsH2up0I7?=
+ =?us-ascii?Q?9h0UanYxlRxO4CdxH7SPWPmclPLmqbfMZ2tVeZfYsCJf3aAFZ6BV25CWFXJG?=
+ =?us-ascii?Q?8UvDsDbIPjfVkXVwn7OvPLqE9iMsgMO6q0+7DqhDVT1kwat8G46G08nsBjDt?=
+ =?us-ascii?Q?NvQgA0SfVGt8xLHeti4Zf7LTI64T6ns75M2Wmj5/iGhWEHE0hz7NrQWmcQW0?=
+ =?us-ascii?Q?672ijBbl40gnqGixLfBGUaWGG1aW/uDVwH86RrJHTEquff5PjstezFJDgeNy?=
+ =?us-ascii?Q?y2rfbeYBXDJNIcu5hv315HGxoGm6Im7W0K/NqUhlfi8RqieZB4BK7MY3DTEL?=
+ =?us-ascii?Q?+b2e3KWWICfB8vlKt3tVYb262dy2nqFuJ+noKUjyMm9tEjyb7Mb9hjawklCd?=
+ =?us-ascii?Q?RVF+0yRjAj3qSDud3riGm/+/QQKqlpSUyuOX4lV5BYnzMEMjf7ZBLEpoWccH?=
+ =?us-ascii?Q?pTflMqqmABNw9oxZXbnzxcmfqs3QpVp6an0l5ZFVUQpCeUSr/Jk397gldzo8?=
+ =?us-ascii?Q?9k4EifM49QmG9sdMCiCthkfbyYvMVZfiJ2xnnq4f1XRFAHNzlgQZmvLD7NnB?=
+ =?us-ascii?Q?4TaMA6glB6+sx7b3QfWTl9RK7l8y+RuuiODF0aQGPqO+gph7fhh0OpP+uONB?=
+ =?us-ascii?Q?nnXfKPdowoyIUByiarxKuE/yoTOiomtgUYYjkJVV7h9a4A6hb+u6C/llM+tu?=
+ =?us-ascii?Q?/645jXIx8Z2wdaQ1TwI=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58d14fbf-ec35-4f70-5eff-08dc158f2d40
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2024 05:59:46.2832
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26bdca71-53b7-407a-3dfe-08dc1595e0ea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2024 06:47:44.7406
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QlwxNWFR5BsYTl3q6EwmrOU9Jfin7owvSRdcLL617ARBt7gEwyhg+UygCfOZSQYMrZ6DigxlVEGQXHgU9C/Y0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5864
+X-MS-Exchange-CrossTenant-userprincipalname: I+m6vZcEoUPsbnsOMUdDvSs4xjFqkJU7iNOpAE3W98LyVMK5nsLZFYL3OQcXYJEWY1zjb8bnYysu6Vx3oioatw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8800
 Subject: [virtio-comment] RE: [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx
  buffer size
 
 Hi Cornelia,
 
-> From: Parav Pandit <parav@nvidia.com>
-> Sent: Friday, January 5, 2024 1:31 PM
+> From: virtio-comment@lists.oasis-open.org <virtio-comment@lists.oasis-
+> open.org> On Behalf Of Parav Pandit
+> Sent: Monday, January 15, 2024 11:30 AM
 > To: virtio-comment@lists.oasis-open.org; mst@redhat.com;
 > cohuck@redhat.com
 > Cc: Shahaf Shuler <shahafs@nvidia.com>; xuanzhuo@linux.alibaba.com;
-> yuri.benditovich@daynix.com; Parav Pandit <parav@nvidia.com>
-> Subject: [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx bu=
-ffer size
+> yuri.benditovich@daynix.com
+> Subject: [virtio-comment] RE: [PATCH v1 0/2] virtio-net: Clarify virtio_n=
+et_hdr
+> size and rx buffer size
 >=20
-> There are few small issues around size of receive buffer and size of the =
-struct
-> virtio_net_hdr as following.
+> Hi Cornelia,
 >=20
-> 1. VIRTIO_NET_F_HASH_REPORT is only applicable on the rx side processing.
->    However it changes the size of the struct virtio_net_hdr for the tx si=
-de
->    as well. This was not clarified when VIRTIO_NET_F_HASH_REPORT feature
-> was
->    introduced.
+> > From: Parav Pandit <parav@nvidia.com>
+> > Sent: Friday, January 5, 2024 1:31 PM
+> > To: virtio-comment@lists.oasis-open.org; mst@redhat.com;
+> > cohuck@redhat.com
+> > Cc: Shahaf Shuler <shahafs@nvidia.com>; xuanzhuo@linux.alibaba.com;
+> > yuri.benditovich@daynix.com; Parav Pandit <parav@nvidia.com>
+> > Subject: [PATCH v1 0/2] virtio-net: Clarify virtio_net_hdr size and rx
+> > buffer size
+> >
+> > There are few small issues around size of receive buffer and size of
+> > the struct virtio_net_hdr as following.
+> >
+> > 1. VIRTIO_NET_F_HASH_REPORT is only applicable on the rx side processin=
+g.
+> >    However it changes the size of the struct virtio_net_hdr for the tx =
+side
+> >    as well. This was not clarified when VIRTIO_NET_F_HASH_REPORT
+> > feature was
+> >    introduced.
+> >
+> > 2. Receive buffer size calculation description and requirements did not
+> >    reflect negotiation of VIRTIO_NET_F_HASH_REPORT.
+> >
+> > 3. Receive buffer size calculation was incorrect for ipv6 guest gso fea=
+ture.
+> >
+> > Above issue 2 was reported in [1].
+> > Since issue 2 and 3 both touches the same set of requirements and
+> > description, they are updated under a new issue along with tx side fix
+> > as well touching the clarification needed for VIRTIO_NET_F_HASH_REPORT.
+> >
+> > Hence above three issues are fixed under issue of [2].
+> >
+> > Patch summary:
+> > patch-1 fixes receive side description and requirement
+> > patch-2 adds transmit side clarification for VIRTIO_NET_F_HASH_REPORT
+> >
+> > changelog:
+> > v0->v1:
+> > - addressed comments from Xuan to rewrite tx normative
+> >
 >=20
-> 2. Receive buffer size calculation description and requirements did not
->    reflect negotiation of VIRTIO_NET_F_HASH_REPORT.
->=20
-> 3. Receive buffer size calculation was incorrect for ipv6 guest gso featu=
-re.
->=20
-> Above issue 2 was reported in [1].
-> Since issue 2 and 3 both touches the same set of requirements and
-> description, they are updated under a new issue along with tx side fix as=
- well
-> touching the clarification needed for VIRTIO_NET_F_HASH_REPORT.
->=20
-> Hence above three issues are fixed under issue of [2].
->=20
-> Patch summary:
-> patch-1 fixes receive side description and requirement
-> patch-2 adds transmit side clarification for VIRTIO_NET_F_HASH_REPORT
->=20
-> changelog:
-> v0->v1:
-> - addressed comments from Xuan to rewrite tx normative
->=20
+> Can you please raise the voting request for these two small description
+> changes?
 
-Can you please raise the voting request for these two small description cha=
-nges?
+I missed your response to patch_1. Fixing it in v2.
+Please ignore my above request for vote.
+Will ask after posting v2.
 
-> Parav Pandit (2):
->   virtio-net: Fix receive buffer size calculation text
->   virtio-net: Clarify the size of the struct virtio_net_hdr for tx
->=20
->  device-types/net/description.tex | 28 +++++++++++++++++++++-------
->  1 file changed, 21 insertions(+), 7 deletions(-)
->=20
-> --
-> 2.34.1
-
+Thanks.
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
