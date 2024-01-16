@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8947-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8948-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD72C47077
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 Jan 2024 05:51:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C43BC47077
+	for <virtio-comment@archiver.kernel.org>; Tue, 16 Jan 2024 05:52:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 13D894128E
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 Jan 2024 05:51:09 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1223142B0A
+	for <virtio-comment@archiver.kernel.org>; Tue, 16 Jan 2024 05:52:48 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DEBDB9865D0
-	for <virtio-comment@archiver.kernel.org>; Tue, 16 Jan 2024 05:51:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E6077986591
+	for <virtio-comment@archiver.kernel.org>; Tue, 16 Jan 2024 05:52:47 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C562198402B; Tue, 16 Jan 2024 05:51:08 +0000 (UTC)
+	id CEC7D98402B; Tue, 16 Jan 2024 05:52:47 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,115 +24,147 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B5047986561
-	for <virtio-comment@lists.oasis-open.org>; Tue, 16 Jan 2024 05:51:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id BCA11986561;
+	Tue, 16 Jan 2024 05:52:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MFzgiVfGN0D5b9JJHcASob3u/COUXEs8SNc4TkJpwMPUkNknsdRTk9W6ClHyhZILbrgT6/3o/newTS5eqopN/0wpnmSqSv7M5c9CP0M6YYXu4yObEAGzi5zsbapm6ne4Ni60wb/A/aAqF78fDq3MX4IVgymGrZbeG+11TWDFP9Xz1Aa4rMNulHMmEK9tIfVw60e05jeRNF62NUAzKioTbv+XTXV1gtFsHJ9rSpvj2HMUJfaxTl31ktttrfkqdQS61mkasi2X4+KNCpzOYJB9A0zod6Mds9Obwf1jygPaBc6QpHIioYewR/Ay9r/Unf9q/oMCUedy+6/SxNsd5De6HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LJ5TXUStg+jCI6nDIu0ARPbeLhtcw4Z6R+jEikchgs0=;
- b=IxStXrb5tMrQIke5U8De/kjURjrVgC0IxqyWjw7J/vCxZd0aOwpT+xIowRjgGh84RCpb4ZfdZPgZUK1qSyAtScBISB5Jm71ijYT8qrhTMYgrtj7pbXdpwUg1Vpt9vkE6fqsCglWnRm3klWl/T9WZL1dna8R1PIsIfkrbKYlXWMpucOUE5vZBaupcwBx1gDw21ur0Ya6THthzFA7VkJXaiMjRZSGZUKmyT7RzQZTuE0UxpzLt/D0Fo9cLR23GXwtVlVqZ7mw5lc4eiM4+X04DLhwoz6u7rw6ROxS5c5KKRGmMtdukNqBuCMHVM1v+N0Pr62sUz3HIuxCQsIkj8TKYfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
-	<cohuck@redhat.com>
-CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
-Date: Tue, 16 Jan 2024 07:50:30 +0200
-Message-ID: <20240116055030.3546276-1-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.230.35]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|CH0PR12MB8531:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa269621-4a70-4834-a41c-08dc16572130
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	llHWcNV89Zw5QlXUJHQmnd8/xcnOmDsZ1SqyUjyNfnQtbL82ECvsk7FyGu3JFUnWwmqQgofR/7xoSx00pDjAqxyiXZjkmEmnDTaSCP3PyK6cPx9vM9GlgowtjDx512lI/8P/uSjYUACYzAtrHKBmYoUVAe5FIjRnJ3VuHPXxD7SDqas8/6SJ1Z7nP6zE6y2naU4LqCWH+CDdvmIffboRBf8K6BcFfoci2izwwixdXc5GRF3jwOYZXurCpXRPrbksrQHB73zVMh+w0R7/OV49zC8x5WpAE2AD/uhniVJlGxf+fcZymIm8pK4DJDZSRfs21E82DH/PzNEYHXfj1+FCyWzUcgD4hfwD/T0d0FlOlFupkT0rEKvJlYJNzosOIGx97UhcDPwqiYKMDmVCJEJdouDpqVYINANMp6ULHQfUB8EkKjNlPEHbno+lnt3qEl6fZozX8pWTju0MmNvc5dEMf1HCOScGbmu+ZZa4jgAA4uOZJaOHdEgutS4azgugcSwcLpZKndyMIfIDZDDBNoU76vkIhwQSzPgwWkURoY7pznj9fAcG+HQjj1o3I84LCoWEAs8ObRbNgJnKqUOs41IEmnTp8tCmLfLBX9PZeoznKWwcVjndqqilsksa3ZuCdb8rAG3+G5YgRpdXhnXITCF66j0qBWo4CI6Y8zLknkYTl329f/5aySohYY5mjbFG5gSJYrzqwbJhZQ9nASu//k29X5mLxr/ZoMm2b2L2Az8sDlE9ekKjwwH+uueRNur9MIHDmmL/23bZNhW5zWsACyHeTA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(396003)(376002)(39860400002)(136003)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(82310400011)(40470700004)(36840700001)(46966006)(107886003)(47076005)(1076003)(26005)(2616005)(336012)(426003)(16526019)(83380400001)(7636003)(356005)(36860700001)(41300700001)(82740400003)(8676002)(8936002)(110136005)(70206006)(316002)(5660300002)(54906003)(2906002)(6666004)(4326008)(966005)(478600001)(70586007)(36756003)(86362001)(40460700003)(40480700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2024 05:51:05.2694
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa269621-4a70-4834-a41c-08dc16572130
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0DF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8531
-Subject: [virtio-comment] [PATCH] virtio-net: Annotate virtio_net_hdr as field
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045170;MF=xuanzhuo@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0W-kw5ft_1705384359;
+Message-ID: <1705384341.865516-1-xuanzhuo@linux.alibaba.com>
+Date: Tue, 16 Jan 2024 13:52:21 +0800
+From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: Jason Wang <jasowang@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Yuri Benditovich <yuri.benditovich@daynix.com>,
+ Cornelia Huck <cohuck@redhat.com>,
+ virtio-comment@lists.oasis-open.org,
+ virtio-dev@lists.oasis-open.org
+References: <1704263702-50528-1-git-send-email-hengqi@linux.alibaba.com>
+In-Reply-To: <1704263702-50528-1-git-send-email-hengqi@linux.alibaba.com>
+Subject: [virtio-comment] Re: [PATCH v8] virtio-net: correct conditions for devices to validate packet checksum
 
-At several places struct virtio_net_hdr missed out the field
-annotation. Add it.
+On Wed,  3 Jan 2024 14:35:02 +0800, Heng Qi <hengqi@linux.alibaba.com> wrote:
+> There is a historical error in virtio spec:
+>   "If VIRTIO_NET_F_GUEST_CSUM is not negotiated, the device *MUST* set flags
+>    to zero and SHOULD supply a fully checksummed packet to the driver."
+>
+> Currently in Linux and virtio-related implementations, the device validates
+> the packet checksum and sets DATA_VALID regardless of whether
+> VIRTIO_NET_F_GUEST_CSUM is negotiated.
+>
+> Please refer to the following summary and thread[1] for details and reasons:
+>
+> Summary
+> =============
+> 1. GUEST_CSUM at virtio spec 0.95 is intended to be compatible with partially
+> checksummed packets (NEEDS_CSUM <-> CHECKSUM_PARTIAL). So GUEST_CSUM is mapped
+> to NETIF_F_RXCSUM.
+> GUEST_CSUM only indicates whether the driver handles partially checksummed packets.
+> When XDP is loaded, the GUEST_CSUM's offload will be disabled, which means that
+> packets have NEEDS_CSUM set will be dropped, and packets have DATA_VALID set will
+> still be received.
+>
+> 2. When DATA_VALID was added to Linux in 2011[2] and virtio1.0, it was actually
+> expected that rx checksum offload (the driver can set CHECKSUM_UNNECESSARY) had
+> nothing to do with whether GUEST_CSUM was negotiated. But due to an error, below
+> desctiption was added incorrectly:
+>   "If VIRTIO_NET_F_GUEST_CSUM is not negotiated, the device *MUST* set flags
+>    to zero and SHOULD supply a fully checksummed packet to the driver."
+>
+> 3. We now hope to correct this error. Let the setting of DATA_VALID not be
+> controlled by whether GUEST_CSUM is negotiated, but only controlled by whether
+> rx checksum offload is enabled on the OS side. The state of this rx checksum
+> offload is not aware of the device.
+>
+> 4. [Optional] NETIF_F_RXCSUM corresponding to rx checksum offload should be
+> added to dev->hw_features. When the user turns off rx checksum offload through
+> ethtool -K, neither NEEDS_CSUM nor DATA_VALID should be taken care of, that is,
+> all packets will be marked as CHECKSUM_NONE.
+>
+> Related Link
+> =============
+> [1] https://lists.oasis-open.org/archives/virtio-comment/202312/msg00135.html
+> [2] 10a8d94a9574 ("virtio_net: introduce VIRTIO_NET_HDR_F_DATA_VALID")
+>
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/185
+>
+> Suggested-by: Jason Wang <jasowang@redhat.com>
+> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
 
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
-This patch is on top of [1].
+Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 
-[1] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00070.html
-
----
- device-types/net/description.tex | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 294fa62..0cc03fc 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -434,11 +434,11 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
- 
- \subsubsection{Legacy Interface: Device Operation}\label{sec:Device Types / Network Device / Device Operation / Legacy Interface: Device Operation}
- When using the legacy interface, transitional devices and drivers
--MUST format the fields in struct virtio_net_hdr
-+MUST format the fields in \field{struct virtio_net_hdr}
- according to the native endian of the guest rather than
- (necessarily when not using the legacy interface) little-endian.
- 
--The legacy driver only presented \field{num_buffers} in the struct virtio_net_hdr
-+The legacy driver only presented \field{num_buffers} in the \field{struct virtio_net_hdr}
- when VIRTIO_NET_F_MRG_RXBUF was negotiated; without that feature the
- structure was 2 bytes shorter.
- 
-@@ -731,7 +731,7 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   chains them together to form a single packet in a way similar to
-   how it would store it in a single buffer spread over multiple
-   descriptors.
--  The other buffers will not begin with a struct virtio_net_hdr.
-+  The other buffers will not begin with a \field{struct virtio_net_hdr}.
- 
- \item If
-   \field{num_buffers} is one, then the entire packet will be
-@@ -2330,7 +2330,7 @@ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- 
- When using legacy interfaces, transitional drivers which have not
- negotiated VIRTIO_F_ANY_LAYOUT MUST use a single descriptor for the
--struct virtio_net_hdr on both transmit and receive, with the
-+\field{struct virtio_net_hdr} on both transmit and receive, with the
- network data in the following descriptors.
- 
- Additionally, when using the control virtqueue (see \ref{sec:Device
--- 
-2.34.1
-
+> ---
+> v7->v8:
+> - Drop the new FULLY_CSUM feature and optimize the description. @Jason
+>
+> v6->v7:
+> - FULLY_CSUM no longer depends on GUEST_CSUM.
+> - The description related to DATA_VALID has nothing to do with
+>   whether GUEST_CSUM is negotiated or not. @Jason
+>
+> v5->v6:
+> - Rewrite and clarify patch description. @Michael
+>
+> v4->v5:
+> - Remove the modification to the GUEST_CSUM. @Jason
+> - The description of this feature has been reorganized for greater clarity. @Michael
+>
+> v3->v4:
+> - Streamline some repetitive descriptions. @Jason
+> - Add how features should work, when to be enabled, and overhead. @Jason @Michael
+>
+> v2->v3:
+> - Add a section named "Driver Handles Fully Checksummed Packets"
+>   and more descriptions. @Michael
+>
+> v1->v2:
+> - Modify full checksum functionality as a configurable offload
+>   that is initially turned off. @Jason
+>
+>  device-types/net/description.tex | 14 +++-----------
+>  1 file changed, 3 insertions(+), 11 deletions(-)
+>
+> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+> index aff5e08..14978c0 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -723,8 +723,7 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>    \field{num_buffers} is one, then the entire packet will be
+>    contained within this buffer, immediately following the struct
+>    virtio_net_hdr.
+> -\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+> -  VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
+> +\item The VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
+>    set: if so, device has validated the packet checksum.
+>    In case of multiple encapsulated protocols, one level of checksums
+>    has been validated.
+> @@ -783,9 +782,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>  packet together, such that at least \field{num_buffers} are
+>  observed by driver as used.
+>
+> -If VIRTIO_NET_F_GUEST_CSUM is not negotiated, the device MUST set
+> -\field{flags} to zero and SHOULD supply a fully checksummed
+> -packet to the driver.
+> +If VIRTIO_NET_F_GUEST_CSUM is not negotiated, the device SHOULD supply
+> +a fully checksummed packet to the driver.
+>
+>  If VIRTIO_NET_F_GUEST_TSO4 is not negotiated, the device MUST NOT set
+>  \field{gso_type} to VIRTIO_NET_HDR_GSO_TCPV4.
+> @@ -842,12 +840,6 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>  not less than the length of the headers, including the transport
+>  header.
+>
+> -If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
+> -device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
+> -\field{flags}, if so, the device MUST validate the packet
+> -checksum (in case of multiple encapsulated protocols, one level
+> -of checksums is validated).
+> -
+>  \drivernormative{\paragraph}{Processing of Incoming
+>  Packets}{Device Types / Network Device / Device Operation /
+>  Processing of Incoming Packets}
+> --
+> 1.8.3.1
+>
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
