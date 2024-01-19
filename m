@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8965-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8966-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 962F6C4725D
-	for <virtio-comment@archiver.kernel.org>; Fri, 19 Jan 2024 12:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8804C4725D
+	for <virtio-comment@archiver.kernel.org>; Fri, 19 Jan 2024 19:25:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C8B832B01A
-	for <virtio-comment@archiver.kernel.org>; Fri, 19 Jan 2024 12:25:52 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id E81981CAD2
+	for <virtio-comment@archiver.kernel.org>; Fri, 19 Jan 2024 19:25:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A8C7D9867BC
-	for <virtio-comment@archiver.kernel.org>; Fri, 19 Jan 2024 12:25:52 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 836979867BE
+	for <virtio-comment@archiver.kernel.org>; Fri, 19 Jan 2024 19:25:35 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 8E1429867B2; Fri, 19 Jan 2024 12:25:52 +0000 (UTC)
+	id 632CB986484; Fri, 19 Jan 2024 19:25:35 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,233 +24,356 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 7889B9867B3
-	for <virtio-comment@lists.oasis-open.org>; Fri, 19 Jan 2024 12:25:52 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 50FC79867B4
+	for <virtio-comment@lists.oasis-open.org>; Fri, 19 Jan 2024 19:25:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZauoPR9QzF2EX9BrYYqjCNbndZzMLhJeAQ3DlKtG3zWOE2D4zS1gjojyhWy/ZxQPdYeGgYXnLIrGRGkQ8g37IY47vcx3z3vRhmIPIRU4R73kIjFFBuRH8Jb6dnR54aOcrv8yVkK42fn4srbHgkmskz/vlloBCshpvbGV7GEeN5r3X2zSja0x7vonCrIPx/10E7MqX4XsQrwURdUVoTjhjOxJuIwsNMQj3efwbh30/W55HkwXkyvYqR6UFZTdyHrGZf5UNRJrk/3IaPTDtmF94js8FVgfkQLpKYej00X+Vn+TR5d3QzxsqXHgYspFLN3TxMrdE/fYI/Ql4jhZmh85Fg==
+ b=f5p0Qao/1Pdyazs90/RUnMgMSrtHUK0GnDdtcJcI5mUwqkPvf11ycExg9B97ECVt2fd4IVXGgCKx1BaToFh3QbiWi36ls+ih0V4Ad5Fb+fQa+FCEx4X0zGbageHjtxhDP0eP4mpX28pEwYDloA5amg4YwluRttHnUVda3NDEGCYsDjPW/JU7ZggYUtX2b3rrk9w1y+U8BbwyTXG6UWZva6trYU/ae2QAOGWnKWPYR8AOo8Uz97iWs+4daM1LgAtj/8qYmlDFF4mDA6/fzsc/0vR/zqoe8HMBq/shH6EfN8WBRDMrsl9NCvsb05T3detxHEncgxON1p2n8GAwQxdQ2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NvFRuaXgvuF0Z8lVuVd4G/UKpwPjAeNAwZGAke3U+As=;
- b=iJRYciZXiXf5E27PUcCUg3IIXqn+8CXWE6mDtl+tKbWr7VPx/Wa7NSCGlJA8S1dfIPhvtmHXtW+ZJEUhMFyYhsPSBfY1HqCKl7sHC9J9ljkBRpKo1jc7uMBzjuGwN5GcMMRxncQ6kwwoYC/jGr4pO+mun09b/fpD1ZZU86FLlUlfTXvFWxGGTzfeNVE5xCuNfkaIjBrHNI1vryE3jc1ciXrd9sqLHCqTIcuUlftxq5gM2VtPMGUqWWZbPTxmf/xVj/h6h/PHqRJt2cYQwUHsGGwXRFaqo6tG+0yK+4ub2MaMII3psU25nj+QPeilb7EissfMcfwKv4ID4oezOvd/Qw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
+ bh=rYEMzUMl+AKsFHd6kLHpdWoV2/hfqk6n1dRrdnFGD/A=;
+ b=f2zlHBONLGbWjmV20tuqz/C+OgWu6CGhJ5A5K1dumPeO1bRp6WgkEuxzugq+8L9C6TvS+lNBTfq5cEBWIiQwTOOzJbGRqB0h74EQWk4HIVe8izHjVKOL1Pt5n7Gvzfk7n+LFBpvbvGEP/X9A7e0jC9ZYQWHfUYTt34pkEH20wchA27ZNIG0KH/hUiGeYyW3ZfsCGnnjq58pi46q7tLaD1HoSaJ6SVHHENeWQE58fmmOva4cOg45tuniofGjVpwb7ly/ZbxJmnRWakgTedQVGLBKtdFg5aGBwxw5MnURY7I+yWlDpj3S1u25ba4bDZA+OBd2kLaz0+bU80EAJxirTyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Cornelia Huck <cohuck@redhat.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, Shahaf Shuler <shahafs@nvidia.com>,
-	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
-	"yuri.benditovich@daynix.com" <yuri.benditovich@daynix.com>
-Thread-Topic: [PATCH v2 1/2] virtio-net: Fix receive buffer size calculation
- text
-Thread-Index:
- AQHaR5W52J2qfmVC+UWFja2twvUrIrDbFOyAgAC4IFCAAHrbgIAABXdAgAAVRoCAAAmUcIAABKkAgASk8uA=
-Date: Fri, 19 Jan 2024 12:25:48 +0000
-Message-ID:
- <PH0PR12MB5481F74BF29A751E6BC249D4DC702@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20240115093141.3539316-1-parav@nvidia.com>
- <20240115093141.3539316-2-parav@nvidia.com> <87r0iimtrg.fsf@redhat.com>
- <PH0PR12MB548114CE959557968F5124D9DC732@PH0PR12MB5481.namprd12.prod.outlook.com>
- <87o7dlmtgo.fsf@redhat.com>
- <PH0PR12MB54815BB31B88DB812507A8A4DC732@PH0PR12MB5481.namprd12.prod.outlook.com>
- <87le8pmp16.fsf@redhat.com>
- <PH0PR12MB5481E369486C3B9DA686CF74DC732@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240116082825-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20240116082825-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|PH7PR12MB8780:EE_
-x-ms-office365-filtering-correlation-id: 1bf39f73-8976-4f6a-f00a-08dc18e9c465
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- DDFeJ8WbfT5q7MF2XQqX+EJ/q6tD3NPflcytuvzMKt4qJnuOrj5ecyynnRtmxIBHqryOJpApwGY6dTwhnxEIxpKrW50/E4xZtA/fVsmjPOi0aqIt6hZC8q1ZVp0PukJXM/4AK9MSXJfBVWGyaoncTw1Xvh48+SJUxhsCWGfnLNY9Khh3fmkAnkKP1BRWZP1d6VOin3YUFQdOwFGsp6jI/8QN3gFuDD3L9Z/mppq6+L253rveb32JM9bYd9R1Wyuy9bgn/oyGEFjddcJxegNzEF7TcoVwdBsw8RWISjI4ZYaJm9alYPinLJt3G1HwFAAjM2Rb/rvQG66Efgfex87al1HbJ7x1NDvwKUBaauqolytUVlSacKscsHbmHPIYpJIDoUYmnUSDo5Y/O/CLJwn/8OFDJGFDPjyxQ1a0qjc46dJspbGwvL2DALXCCjdDBlKdZ+JbyWIreIpOwHKU3l1J6YhLMMk9GBp60HuQAbcLW26hqqxzNEOX12sl/qgQmgyaLqrD00i48887O7QUUPM9Zjz8jUF6c6zV+FvJVKieFSjT4qlq3ir/x1eXMWLl8qU54cFwmkv+fku9aMXcTIdivGrzVf34OsUA/XaE5n4NX951kwusOYF4OJbF61NQuGMsMTTu2XAiQK+d9VcXmrbVSs236nr4HYQuGsAA/194G3Y=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(366004)(39860400002)(376002)(396003)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(53546011)(7696005)(33656002)(2906002)(6506007)(9686003)(26005)(478600001)(8936002)(316002)(66946007)(38100700002)(4326008)(52536014)(54906003)(66556008)(76116006)(66446008)(66476007)(8676002)(64756008)(122000001)(86362001)(71200400001)(38070700009)(5660300002)(6916009)(966005)(55016003)(41300700001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?pyDoMb3vmLEoyQfE2pWTQkCa4xGw63XBdgHwekAlwTPdzsU/EI7M0islXDH1?=
- =?us-ascii?Q?UQPqdsUXc5eqLIcpa1gEohJpL/qgukYNF0ZtCRPXBC6xUY9fdaV2syVjUYie?=
- =?us-ascii?Q?QJOCVzsbCeWcKK9iH8v3PvS/Abq0YGBm361+8JTAABONkDIjlunwDqdwpP7k?=
- =?us-ascii?Q?7ckU4YEwCXS1Qupmt/ETBF4kQ403TMhD49o3kzMb6Z3p3INzAVd1XAQ3jv9/?=
- =?us-ascii?Q?O/13JZ5uxMNcyFczmlLDg7ujQ4tsAAuf3xZdhvoFJ1uni4vsn3ZvQlsYc9S/?=
- =?us-ascii?Q?kXRZu2EyDppYerHjRZg7qbhDo2QwbjXHCVhrFbVX4y7b3aT89NE+IdnFCn3w?=
- =?us-ascii?Q?Ot1J/6Qyha3MNuYdqJ5ayGPRLVpkIMh/gKHyACTKFrYDWhuNP2JJOcWnlvLF?=
- =?us-ascii?Q?HNbkFKVTp/E46lGYfQjNuGQe0EXErOGRPfSuzS+Id4DFDxpabVDIrQZ71v8M?=
- =?us-ascii?Q?oWqteFbnYk9HMwtGm+LKPY/nikVERY3tR7P7a4xIoMaWkp/WbgSbDO/QYsO7?=
- =?us-ascii?Q?pIHW4eDb7z+fmtyPA0Wy3EoN8DlJg79FMvZvdMfW0WWcMxjZja9aPB30rS21?=
- =?us-ascii?Q?ctGiKnAu368gI0+L0Hklb8HnEYKMTyyO/Z4ogZmAh4WdmB71sdiUb1EZrv/i?=
- =?us-ascii?Q?fwK8x+pUU5xkZm8C2H3mLrU4WjMjDqk8y1/daMQrz6DPuHMbOcQUY1AfZIjU?=
- =?us-ascii?Q?rBGTWreC/2CLWp7iVHMFdey1gFlgY8DTHXwiw2MNUCaQpYn4ZmxqNSv+GzAq?=
- =?us-ascii?Q?3yqL3I5OymfLP5tOtAuE6SIABh1qtYSywYWg2kE+uCmbsEmBMKmpBUBGJ3Nv?=
- =?us-ascii?Q?zPJbZxz2eTPEoZ5ip3mDQ4kIsGaDWXyIfrkg+JrNJmzEynpeC1Ssu8/zX7aO?=
- =?us-ascii?Q?6UcSCtji/Bzz18sts5oz+kRxUZqBeUJaIhnjqwZDxkY+v25RNYK32B9LurIj?=
- =?us-ascii?Q?t4EZArmPDStFz2Ku4ScZpffYG7s60ulO19rLIXyVfmXOf2xwM/fdY8FQaD0g?=
- =?us-ascii?Q?eeZV3YehlqHKSZgku7wAXSuaNpetcgLrCQdCa2up++aVhtMFEt1XaiWi0ADp?=
- =?us-ascii?Q?cOZfDlnZ9TrDQRmfLccnA3FgcKCg98tXvfi0rk5oiOWzNb8CZEWNw1LWbufP?=
- =?us-ascii?Q?6ZYgWCxK03nCcGrWWxJWmzyirmQtPa8ILK+RTW4Eff05J/JM7v/6vO8FUVS9?=
- =?us-ascii?Q?C9HbYGGY91LijSZXfww6ZMJDv8RzOwpLDgGnWuS1cvA9XJFRLui78uOtvqGo?=
- =?us-ascii?Q?UWbPtA3R/ZLTxJwqZLsO+NGn2JOUHKNwviHQAo8I0HIJfRYBSMZa3/gd+qdU?=
- =?us-ascii?Q?EDOmM+baYZhoLYpjzurDcr8uU6mgeNT8fjw9mNh4C/AXatUa4G6KVX4a6t2n?=
- =?us-ascii?Q?DZ1S3biczE8ZWNoEvKd3LMWdDrDpYN0gARlj3hMOVR3mf+JpPrvlroWPOkH7?=
- =?us-ascii?Q?K76Gr+uSGhrvYvroohaS3q+ITK2nwilaAbXI1qgeQgMP7p155Uybak7qhjZY?=
- =?us-ascii?Q?nLjL4jrrzrJqlJCL2AIz0bHbNvNAH0Va4wcjCv24ZxfYvjjlRpH3ddLwuCmD?=
- =?us-ascii?Q?L+ynMdFF4WlD0l8wYUs=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
+	<cohuck@redhat.com>
+CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
+	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
+	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
+	<parav@nvidia.com>
+Date: Fri, 19 Jan 2024 21:24:39 +0200
+Message-ID: <20240119192452.3571467-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.126.231.35]
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|BL0PR12MB4898:EE_
+X-MS-Office365-Filtering-Correlation-Id: a38bd4ed-6b45-4ebd-a87d-08dc192466c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	aWxKRiME7+nYAPMMQQZotbvr4WHmpcq/zJGrWlzVwZiq4jykn02ZyIs9VmgyDxA4Y3yW3T6gvOzzpjJivEtewGBHXJmkiYXkdtSW0ehvmYpPc+7I961hd9Dz7CcjaqP+O7GZEKVXRU76WE7Efap0QgGQn2LzX4ovs1H8yHx62lWYk+/tFwvFw0u1ioEw5D9HOPOe3/SqkEcKjJI+QsJAA2gbitCCt4T1OWzXNZHABxl8NDeuNR5CW2ziJTd+E7CX7zGNXAZQskEpD2hZXbRMpiAzDGmjyuFxpJtlRv2bovmkEt0abDeKA9gLh7JuLbOaU3syLZRv9jkFzpd7OTd1/Ra4vodznu4O9NK3Edw3lPmtqPVL+69UmQjOb+/ZSfmSxgVEgSj9JoGY5FdZkfgsZ0xoWMzAKCu1gtOcRKL2qLVxiyohDIWHQO98d3FFtmZSzLHTZtfo0zWWxmZFcNlDWB7wn44oPtzvwwA11LA3nmD3SSILynkWVl3uHAfSgta0Ke5fJYT40D6yZjBs8XtYDTOzypnaL2HUqJIjZH4mYZlx6oJicDswiqOt5ozp8K2WdKf59VLP//lRZyEN0EPABZza+4u7wCEndrIG/B9/S7ZGP05lYEMFY0ANE4+YT/jygpMYgq3n23tkidwe4k/5j9hoEyMMper37jaqhNa57DMnOi6iqU0lT1I0FW3T8DRlV3OGbpckQVixjHju02jLl04mtGbOgNeaD6qxE3HeGw3sSuy2szhUR27M8PXntjJ8L7uqxToSMfUuGa6LgXhzbNEuBBfZTcuAqBtZD2PaG24=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(396003)(376002)(136003)(230922051799003)(1800799012)(82310400011)(64100799003)(186009)(451199024)(36840700001)(46966006)(40470700004)(1076003)(2906002)(30864003)(36860700001)(36756003)(41300700001)(86362001)(7636003)(356005)(82740400003)(70206006)(110136005)(54906003)(316002)(70586007)(478600001)(107886003)(966005)(2616005)(8936002)(4326008)(83380400001)(26005)(47076005)(6666004)(8676002)(426003)(5660300002)(336012)(16526019)(40480700001)(40460700003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bf39f73-8976-4f6a-f00a-08dc18e9c465
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2024 12:25:48.0797
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2024 19:25:31.1639
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZVLbMA7pCGbgzPPDSIRx163wbG95tCH+DfS+OIk7UTOEzoaQYLFYu1XWS6GnpTCv86SEWDgLwY2ktJB4DGoINA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8780
-Subject: [virtio-comment] RE: [PATCH v2 1/2] virtio-net: Fix receive buffer size calculation
- text
+X-MS-Exchange-CrossTenant-Network-Message-Id: a38bd4ed-6b45-4ebd-a87d-08dc192466c5
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A0FF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4898
+Subject: [virtio-comment] [PATCH v7 00/13] flow filter using basic facilities of capabilities and resources
 
-Hi Cornelia,
+Summary:
+========
+This series improves virtio net receive packet steering to
+forward/steer packets to a specific RQ.
 
-> From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Tuesday, January 16, 2024 6:59 PM
->=20
-> On Tue, Jan 16, 2024 at 01:18:59PM +0000, Parav Pandit wrote:
-> >
-> > > From: Cornelia Huck <cohuck@redhat.com>
-> > > Sent: Tuesday, January 16, 2024 6:08 PM
-> > > To: Parav Pandit <parav@nvidia.com>;
-> > > virtio-comment@lists.oasis-open.org;
-> > > mst@redhat.com
-> > > Cc: Shahaf Shuler <shahafs@nvidia.com>; xuanzhuo@linux.alibaba.com;
-> > > yuri.benditovich@daynix.com
-> > > Subject: RE: [PATCH v2 1/2] virtio-net: Fix receive buffer size
-> > > calculation text
-> > >
-> > > On Tue, Jan 16 2024, Parav Pandit <parav@nvidia.com> wrote:
-> > >
-> > > >> From: Cornelia Huck <cohuck@redhat.com>
-> > > >> Sent: Tuesday, January 16, 2024 4:33 PM
-> > > >> To: Parav Pandit <parav@nvidia.com>;
-> > > >> virtio-comment@lists.oasis-open.org;
-> > > >> mst@redhat.com
-> > > >> Cc: Shahaf Shuler <shahafs@nvidia.com>;
-> > > >> xuanzhuo@linux.alibaba.com; yuri.benditovich@daynix.com
-> > > >> Subject: RE: [PATCH v2 1/2] virtio-net: Fix receive buffer size
-> > > >> calculation text
-> > > >>
-> > > >> On Tue, Jan 16 2024, Parav Pandit <parav@nvidia.com> wrote:
-> > > >>
-> > > >> >> From: Cornelia Huck <cohuck@redhat.com>
-> > > >> >> Sent: Monday, January 15, 2024 10:14 PM
-> > > >> >
-> > > >> >> On Mon, Jan 15 2024, Parav Pandit <parav@nvidia.com> wrote:
-> > > >> >> > +The driver MUST consider size of field \field{struct
-> > > >> >> > +virtio_net_hdr}
-> > > >> >> > +20 bytes if VIRTIO_NET_F_HASH_REPORT is negotiated, and 12
-> > > >> >> > +bytes if
-> > > >> >> not.
-> > > >> >> > +
-> > > >> >>
-> > > >> >> Requiring the driver to consider the size of something to be
-> > > >> >> its actual size seems a bit odd :) I don't think we need this,
-> > > >> >> as the length can be derived from looking at the definitions,
-> > > >> >> and is already spelled out explicitly, if you consider my sugge=
-stion
-> above.
-> > > >> > We need this because tx side also needs to refer to the
-> > > >> > virtio_net_hdr in
-> > > >> patch 2 to be same as that of the rx side.
-> > > >> > And hence, this normative sets base line for tx side too.
-> > > >> > Relying on rest of the
-> > > >> receive packet normative is not enough.
-> > > >>
-> > > >> Hm, why? If struct virtio_net_hdr is well-defined, its size is
-> > > >> well-defined as well, and we do not need to state it explictly?
-> > > > Because,
-> > > > the size of virtio_net_hdr is derived from the rx side features.
-> > > > Today there is no normative line that says that even though you
-> > > > are using A,
-> > > B, C Rx features, due to which your tx side virtio_net_hdr also chang=
-es.
-> > > > The 2nd patch in this series adds this explicit normative as
-> > > > explained in the
-> > > cover letter.
-> > >
-> > > Let's step back a bit.
-> > >
-> > > struct virtio_net_hdr is defined at the beginning of the "Device Oper=
-ation"
-> > > section; the definition clearly says that the last three fields
-> > > depend on VIRTIO_NET_F_HASH_REPORT being negotiated. The device
-> and
-> > > the driver agree on whether HASH_REPORT is negotiated, and therefore
-> > > should also agree on the size of virtio_net_hdr?
-> > >
-> > Do you imply that device operation description is enough to not add
-> normative?
-> > If so, for this case and possibly new things if we write as device oper=
-ation,
-> would it be enough?
-> >
-> > > Or is the problem that we did not state explicitly that the last
-> > > three fields of virtio_net_hdr do not exist without HASH_REPORT (and
-> > > are not merely invalid)? If yes, we should spell this out, instead
-> > > of adding normative statements about what the size of virtio_net_hdr
-> should be considered to be.
-> > This suggested normative is added in this patch.
-> >
-> > > If virtio_net_hdr has a fixed size, we shouldn't need the second patc=
-h,
-> either.
-> > The fact that HASH_REPORT is only for the rx, if we have to go back in =
-time,
-> there is no need for the tx to force also to follow the rx virtio_net_hdr=
-.
-> > There is no explicit normative indicating the virtio_net_hdr for the TX=
- is
-> forced by the RX even though it has no relation to hash report.
-> >
-> > If you say device operation is enough, than I am sort of lost of when
-> normative is needed, and when device operation is enough.
->=20
->=20
-> Generally we start adding normatives when we see that something is unclea=
-r.
-> But I think generally I agree with Parav, if someone has the time to writ=
-e the
-> normative, it's all good.
+This basic functionality will enable Linux ethtool steering,
+accelerated receive flow steering (ARFS) as starting point,
+and more use cases in future.
 
-Are you ok with the v3?
-I kept the clarification for tx and addressed rest of your and Xuan's comme=
-nts in it.
-https://lists.oasis-open.org/archives/virtio-comment/202401/msg00070.html
+It is using new virtio basic facilities of capabilities and
+resources described later in this cover letter.
+
+Those interested only in the capabilities and resources facilities
+can go straight to section "Overview of capabilities and resources".
+
+Net device problem statement:
+=============================
+Currently packet allow/drop interface has few limitations.
+
+1. Driver cannot add or delete an individual entry for mac and vlan.
+2. Driver cannot select mac+vlan combination for which
+   to allow/drop packet.
+3. Driver cannot not set other commonly used packet match fields
+   such as IP header fields, TCP, UDP, SCP header fields.
+4. Driver cannot steer specific packets based on the match
+   fields to specific receiveq.
+5. Driver do not have multiple or dedicated virtqueues to
+   perform flow filter requests in accelerated manner in
+   the device.
+
+Solution:
+=========
+Flow filter as a generic framework to overcome above limitations.
+
+Overview:
+=========
+A flow filter defines the flow based on one or more match fields of the
+packet, defines an action like drop/forward to RQ.
+
+The flow filters are organized in flow filter groups so that their
+processing can be ordered when multiple applications wants to use it.
+For example, user supplied flow filter rules to take precedence over
+kernel stack created rules.
+
+Flow filters are handled as resources and managed via administration commands.
+
+Flow filter requirements addressed by this series is worked by virtio community at [1].
+
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
+
+[1] https://lists.oasis-open.org/archives/virtio-comment/202308/msg00263.html
+
+Overview of capabilities and resources:
+=======================================
+Config space has few advantages as below.
+1. extendible
+2. common way for each device to keep expanding it
+3. provisioning to supply offset, value to set fields
+
+However, the combination of feature bits + common config space +
+device config space + cvq creates four different communication
+channel between driver and device, each with a varied degree of
+limitations and complexities listed below.
+
+1. Feature bits cannot be modified at later stage in the driver.
+2. Feature bits are boolean; it cannot communicate amount of resources and
+   configuration details. For this yet another config space or cvq is needed.
+3. Making configuration space writable and also synchronizing it with device
+   operation is very hard.
+4. Modifying and controlling the device operation using cvq largely works but
+   limited to specific device type and requires per device type cvq.
+5. To provision features, resources, functionalities from the owner device, one
+   still needs new admin commands.
+6. It is hard to maintain and access variable length array in config space.
+   We have to add the fields at the tail, this means if we start with
+   foo1
+   bar1
+   later, to add foo2 it becomes
+   foo1
+   bar1
+   foo2
+   We end up with structure with mix of unrelated fields spoiling the
+   readability/aestethics/maintainability.
+7. Any writeable config space is a problem; for example very
+   inefficient on pci as you have to read after write. It also
+   lacks atomicity across multiple fields. So to avoid writable
+   config space, and to use VQ, things spread around read_only 
+   config space and VQ, creating more mess.
+8. It is not uncommon to have some driver resource and number
+   of resources would normally be in config space. But to write them
+   to use VQ, and without proper resource definition it leads to overflow
+   for example, the overflow we experience with mac table.
+9. Extending config space and having it accessible even before negotiating
+   features when the device does not know if it will be used or not makes it
+   hard to build the devices.
+ 
+Above limitations are overcome using new basic facilities as:
+a. capabilities
+b. resources
+
+Capabilities and resources are an evolution of the (a) feature bits,
+(b, c) common and device configuration space and (d) controlvq mechanism; this new
+basic facilities are intended for managing a large number of diverse
+functionality in a uniform and extensible manner.
+
+a. Capabilities:
+=================
+(1) It consist of device and driver functionalities, resource limits.
+(2) It can be modified anytime using admin command.
+(3) owner and member follows same format to read/write using a selector;
+    simplifying the provisioning and migration commands.
+(4) Accessing capabilities via command interface makes it friendly to
+    both software and hardware based devices; possibly to operate even
+    without admin vq.
+
+b. Resources:
+==============
+(1) Define device functioning in a unified way instead of ad-hoc cvq commands.
+(2) Can create diverse type of resources dynamically.
+(3) Ability to define common and device specific resources and hence behavior.
+
+This series defines flow filter related capabilities. 
+This series defines two resources as flow filter group and rules to
+implement receive packet steering facility.
+
+Limitations/Disadvantages:
+===========================
+1. Device side configuration change notifications are not covered in
+capabilities and resources yet as both are driven by the driver;
+however in future we should be able to add it to query the changes.
+In an alternative when notifications are frequent or multiple outstanding,
+it is better to come up with generic eventq or notificationq like how
+it is needed for alarm feature of RTC in [2].
+
+2. It can be used only after DRIVER_OK phase at present, but when needed
+it can be extended to have admin command interface to be accessible
+after FEATURE_OK and before DRIVER_OK.
+So presently capabilities cannot affect features, but any attempt will
+probably run in some corner case.
+
+3. It is more plumbing than config space and cvq; however it is one time
+generic work that paves the road for mulitiple device types to use in
+common manner, reuse for provisioning and migration.
+
+Future uses of resources:
+=========================
+1. Dynamically create VQs much after DRIVER_OK phase with multiple
+attributes such as multiple page addresses, header data split queues
+for net, with PASID, inline header size.
+
+2. Create dynamic counter resources for specific usage
+
+3. RSS context creation
+
+4. RTC timer capabilities and clock resources query and its
+configuration for [3]
+
+5. RDMA device resources
+
+6. May be more.
+
+[2] https://lists.oasis-open.org/archives/virtio-comment/202312/msg00110.html
+[3] https://lists.oasis-open.org/archives/virtio-comment/202312/msg00112.html
+
+Patch summary:
+==============
+Patches 1 to 6 cover capabilities and resources.
+
+patch-1 adds self group for admin commands
+patch-2 adds new status codes for admin commands
+patch-3 adds theory of operation for capabilities
+patch-4 adds capabilities admin commands
+patch-5 adds theory of operation for resources
+patch-6 adds resources admin commands
+
+Patches 7 to 11 uses capabilities and resources to introduce flow filters.
+
+patch-7 adds theory of operation for flow filter
+patch-8 adds device capabilities
+patch-9 adds flow filter group resource
+patch-10 adds flow filter rule resource, match keys, actions
+patch-11 adds flow filter device and driver requirements
+
+patch-12 clarifies the newdevice section
+patch-13 describes the use of capabilities and resource extension
+
+Please review.
+
+Changelog:
+==========
+v6->v7:
+- fixed plenty of grammar suggestions from Cornelia
+- introduced device/driver capabilities and device resources generic framework
+- rebased flow filter to use capabilities and resources
+v5->v6:
+- pick next unique bit 65 as to avoid conflict with rss context feature
+- fixed missing conformance links
+- removed white spaces at end of line
+v3->v5:
+- removed left over dependencies of flow filter virtqueues
+- removed partial sentence
+v2->v3:
+- removed dependency on dynamic queue infrastucture which is
+  not yet ready
+v1->v2:
+- addressed comments from Satananda
+- squashed with match fields definition patch of v1
+- added length to the flexible array definition struct to benefit
+  from future runtime length bound checkers listed in
+  https://people.kernel.org/kees/bounded-flexible-arrays-in-c
+- renamed value to key
+- addressed comments from Satananda
+- merged destination and action to one struct
+- added vlan type match field
+- kept space for types between l2, l3, l4 header match types
+- renamed mask to mask_supported with shorter width
+- made more fields reserved for future
+- addressed comments from Heng
+- grammar correction
+- added field to indicate supported number of actions per flow
+  filter match entry
+- added missing documentation for max_flow_priorities_per_group
+- fixed comments from Heng
+- grammar corrections
+- spelling corrections
+- fixed spelling from initializaton to initialization
+- added more requirements for multiple actions
+
+v0->v1:
+- addressed comments from Satananda
+- added device requirement to return non zero value in fields_bmap
+- added device requirement to not repeat filter type in response
+- added driver requirement to order filter match field as it
+  appears in the packet
+- added device requirement to fail group delete command on existing
+  flow entries
+- added mask field in the type to indicate supported mask by device
+  and also in later patch to use it to indicate mask on adding
+  flow filter. As a result removed the mask_supported capability
+  field
+
+Parav Pandit (13):
+  admin: Introduce self group
+  admin: Add more admin command status error codes
+  capabilities: Add theory of operation for capabilities
+  admin-cmds-capabilities: Add capabilities admin commands
+  resources: Add theory of operation for device resources
+  admin-cmds-resources: Add device resources admin commands
+  virtio-net: Add theory of operation for flow filter
+  virtio-net: Add flow filter capabilities
+  virtio-net: Add flow filter group resource
+  virtio-net: Add flow filter rule resource
+  virtio-net: Add flow filter device and driver requirements
+  newdevice: Improve the appendix chapter heading to reflect the content
+  newdevice: Extend informative guidance on capabilities, resources
+
+ admin-cmds-capabilities.tex             | 161 +++++++
+ admin-cmds-resources.tex                | 186 ++++++++
+ admin.tex                               |  34 +-
+ capabilities.tex                        |  43 ++
+ conformance.tex                         |   4 +
+ content.tex                             |   2 +
+ device-types/net/description.tex        | 587 ++++++++++++++++++++++++
+ device-types/net/device-conformance.tex |   1 +
+ device-types/net/driver-conformance.tex |   1 +
+ newdevice.tex                           |  41 +-
+ resources.tex                           |  70 +++
+ 11 files changed, 1118 insertions(+), 12 deletions(-)
+ create mode 100644 admin-cmds-capabilities.tex
+ create mode 100644 admin-cmds-resources.tex
+ create mode 100644 capabilities.tex
+ create mode 100644 resources.tex
+
+-- 
+2.34.1
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
