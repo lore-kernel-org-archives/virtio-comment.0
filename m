@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8980-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8981-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B1EC47258
-	for <virtio-comment@archiver.kernel.org>; Sat, 20 Jan 2024 09:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03B04C47258
+	for <virtio-comment@archiver.kernel.org>; Sat, 20 Jan 2024 10:07:12 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A0F3E2AF8A
-	for <virtio-comment@archiver.kernel.org>; Sat, 20 Jan 2024 09:59:08 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 643A82AF8E
+	for <virtio-comment@archiver.kernel.org>; Sat, 20 Jan 2024 10:07:12 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 56C089867B8
-	for <virtio-comment@archiver.kernel.org>; Sat, 20 Jan 2024 09:59:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 409939867C0
+	for <virtio-comment@archiver.kernel.org>; Sat, 20 Jan 2024 10:07:12 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 41B429867B4; Sat, 20 Jan 2024 09:59:08 +0000 (UTC)
+	id 1F3079867B4; Sat, 20 Jan 2024 10:07:12 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,35 +24,31 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 2FDA99867B5;
-	Sat, 20 Jan 2024 09:59:08 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0F9969867B5
+	for <virtio-comment@lists.oasis-open.org>; Sat, 20 Jan 2024 10:07:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jxA2F7D7Rc6cEN8724EhbW2mnwAeskGkSgY1SLL/2dcgNl+ZTPkko4/RCN6mwvz4SGuGnRS6r9BlPy4Wr3UoX6U7M80DFNWW+z0EZFwz0dgwuxy/fRE2qRKwK+OwIIR02wj2hl+n0es1CNNzwm7K/TJBhD+bjW51y/0g4H2Jj6tReswAwazds07mUootWfIMGiEAWF/tLLNdczWCnWc5+R9+jdW7wJnrhyD9wYqSNv7NXHJ+yB0uQaR4dSiQpwh8ZNzxOooOtqNCOPwJ/avNpP3LT7Fckyn2UbyWNGJfKYT5Nzv1WnG7t69kxfZjALJeXfAXXE/epjPPmH3gaDqfAQ==
+ b=THbhRbFMVY3WEdeNHVkKptPUv/JF+cZJy494v0FqO0jbttkSAQEObj+hdHS0Xlam/a1+tfF26REDdxUi6YH54a1XPbBRwPO2xIBMiaKER+TM1VTN6YOhwFtBmlUP92QHe8y0Nqicqp1nfTO6Ut2/+HhXHOouF5h0cZSB5v9Qa+xQWv4u6XxeeLPYH2qWN2DbwqR7bwec1B/kJrFH0J/9qfw6Wb/HcbjMnkSm3KiCZmeAxr4azlUvGjngNpz8AGN+0d1JTzEfSImWUwSu4jCFi7Iu2DDWwWh2dxyhT3Yh9PXk3tlR7VbwX3foW40u/rJ0lcJiEjNmhm0FIgTcH5Q5XA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QzjF4BitWQpf3ax2NzL6J1JI3eeIJ78KS1maoKwI9B8=;
- b=C58OwknN/f+JVAxfdC9hMjm74rrR4XNFmEvN54Z/uhzfnYCg+ePpA8qNASRhrBCXGE8gu7Gcr1bjbYerntTtingk/Xc3tGn53uhlRK3Zxnk9dCWXbkhmBZJjr26ncNg4/oSSiQ6xFoj/uEOh7nQvh/LuGNE0JfCBzSKySgrJys9ne2+/ZITW027/PXCf850lf/bFP3oh1wDtvNwRy8J4DEHoc3Cz5y4eY24dS2lyOdRGtn/jzu+v9CeeFVo3e1Ha+6Zl4qruV+bHhnfyVRae3XCPnjULVLBG5FjYMcRk72xtgTjYpAaHPTFAmsMH8VxQ2UZwMfEULnb8gacZ/xshzw==
+ bh=c2vhM2Ep1hbHLpx5h2wTOl33zvrs52VhraBs3zjuQa8=;
+ b=K1/PGyir7pboKZBxiAUrWc3lpid95rG0I8nWcpuL9NpQmxPdxzBDqoiB7OpXocU6el+AzA22pdmXULEF2ay/OB9X46rdHtd/z9XddJ9YJBizINMa0W7jir7R2u/SKMXHZZQFwbSpF/ti8bECoNAfVD01UHSP/TUzcKav4OtVqG941FGPlvz/q2w49TwqdTFvc1WLurHtbHhC/SLSG9dpWq2rRV1+GdyqJzZCnYxoiNnDvQaIw2c475tXXsOKRbwqOnxruOFCJvjxpvhAgzo5agrDOoj/MrHMRzbGuDyrpdYoUyYxtlxpefumHmGyWbEymaIQHuTJKMhanh0V77McQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 From: Parav Pandit <parav@nvidia.com>
-To: Heng Qi <hengqi@linux.alibaba.com>, "virtio-comment@lists.oasis-open.org"
-	<virtio-comment@lists.oasis-open.org>, "virtio-dev@lists.oasis-open.org"
-	<virtio-dev@lists.oasis-open.org>
-CC: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Thread-Topic: [virtio-dev] RE: [virtio-comment] [PATCH v2] virtio-net: support
- setting coalescing params for multiple vqs
-Thread-Index: AQHaR7Oe9QgTrn5GM0iGz2gHNb3tkrDa2d1ggAKYiwCABQnskA==
-Date: Sat, 20 Jan 2024 09:59:02 +0000
+To: Peter Hilber <peter.hilber@opensynergy.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+CC: Cornelia Huck <cohuck@redhat.com>
+Thread-Topic: [RFC PATCH v3 1/4] virtio-rtc: Add initial device specification
+Thread-Index: AQHaMX2A+oPu50iAtkGxjkjxQ3EfYbDiq7tg
+Date: Sat, 20 Jan 2024 10:07:07 +0000
 Message-ID:
- <DM8PR12MB5480872B5E7A67D65325485BDC772@DM8PR12MB5480.namprd12.prod.outlook.com>
-References: <1705323962-96063-1-git-send-email-hengqi@linux.alibaba.com>
- <PH0PR12MB5481EA21646CEA571FF2D3F9DC6C2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <3977e2c2-f514-4b51-a646-6f729df7403d@linux.alibaba.com>
-In-Reply-To: <3977e2c2-f514-4b51-a646-6f729df7403d@linux.alibaba.com>
+ <DM8PR12MB548058D48443B3B0A89DF05DDC772@DM8PR12MB5480.namprd12.prod.outlook.com>
+References: <20231218064253.9734-1-peter.hilber@opensynergy.com>
+ <20231218064253.9734-2-peter.hilber@opensynergy.com>
+In-Reply-To: <20231218064253.9734-2-peter.hilber@opensynergy.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -60,317 +56,592 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5480:EE_|IA0PR12MB7556:EE_
-x-ms-office365-filtering-correlation-id: 864c27ce-890b-4086-71ec-08dc199e6e44
+x-ms-traffictypediagnostic: DM8PR12MB5480:EE_|SA1PR12MB5616:EE_
+x-ms-office365-filtering-correlation-id: 636b420e-ac0f-43d0-8e3f-08dc199f8f2f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- IHZywnF9U1stO+0KbBg8kfxHK7RNwNZK759FQN+DcCGZRUhV+Z0/81nuM/yUBO+vqhMu/e6aNtTkUbMU7u9pHcaFCv4ifxtJX+aBaXh11rjrODQAvfJMDwQsPUVhe5eMEjgdUB3GDtLB+W7uJ7tXwioX3woAkt5XNHOKDlyitjp1LN/A0YcNt55IuYvli5KZZF+Fxl4D84Qo6fr73NCv4DgVmFB1ItRoDd51qZWGxKgdgxo3m7Dd3VwqJ2jYBQ5KV0c6bHNPHTfiGJLHvUFL2AFsHI3lh2BVQPXzBd8bNUCynRSEEAA82K0lb9veaxhRvl/+XrECRQDzFYiDYPP+YhT9EugLpqpIgGxOkTtAI+SEY74RrXAPbnybUmWqPotLpdEBgoslmT/f8DwyQHJQ1EpQ2esJHrVtAVrDdVc3thj2ss813YOqXEHoSIcR394Ysbl54aMtfiODncIk4lvbSTy+NaKzQbJORoSauFkjJHuhIkQNTWw1MAnlLbJ9MtwWLfUqNDk6pun7XEj1EFw3WUwWJv95MAyCyX5WNUy2r2KH+OxTCfx6syDSBUGYRTKXk1gYGP4HCZtlUDKmIjrpaQuEqG+DI1pIHxI+MmsgJJg4AkmFg8yVRsYdewpcVhgslVUC5MPvunxjDcvTUjI79A==
+ ezTl9qYTk+ax5PUkSEeqqiM6MWhYtQkpQMtgDo3jtMpdXUIAGL938Wrg3+kvPaemPvQFFzrEwvsf0m4RDl9ZZxE17EIUFMzCAnTqmtYFPtD+GFOdL/I5FeyrPOt7n4kUEkouy7A9+k8nBeTy3YV2Sbd+gEqJsyMc2CfnxVPip4vgIMBDtFQrGpFZIGdIArv1Jy5QmrpgzDi/cbrvFNmdSYy1mtrvZPDHGkBRp7vYlZC6FAIX4wL3WemF0xSU52IjTfAnEcZpGPmcT8MBNJli/08SPFoQ6Q7DRXmwwstFPLPWPAoFTjlB2SY3FxhMkLEup9fP2iHH1M/fyICJLwrBV+JOTeOK6s4BewBBP2icWkZ2YfQeZRfgf8/rkJLtu6Xpp8BiL1CsQ+qrsmFfU5bVxw9A3g033HOFOCfYglEocx8cU+WQpcX/XEyVfP8uVxTLpJwAgTNaBW57+KErBRGp1fcmv/FYk8SUN+wlVczCQBTOTja4xDnXmerv42DNZLVKVw97nsN9xj0TLqMoRvLR+0VrlzzJmzn/OEq65ACykn51otVPxZyqt25lz2xsFu75DXinaABnKk4upslWSEeS+hAr5NPJ/5G3C+R/wzKqDKUHO6BIS/nlRjiJrbX75suNicDOFZ6h5rV9F5AmWBOpVXrbOBNiuFVZzdSPZ2LeTQJdEyrQDSmt2VTUkOYLlWKdb3eLwtJkIA+SEuuacESOcw==
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR12MB5480.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(39860400002)(366004)(346002)(396003)(376002)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(26005)(478600001)(86362001)(9686003)(316002)(55016003)(6506007)(7696005)(2906002)(71200400001)(41300700001)(33656002)(38070700009)(966005)(66946007)(5660300002)(76116006)(64756008)(66446008)(30864003)(83380400001)(84970400001)(54906003)(66476007)(66556008)(110136005)(4326008)(8676002)(38100700002)(8936002)(66899024)(52536014)(122000001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR12MB5480.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(396003)(376002)(346002)(136003)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(83380400001)(26005)(316002)(110136005)(2906002)(38100700002)(71200400001)(8676002)(9686003)(64756008)(66476007)(52536014)(966005)(66446008)(8936002)(30864003)(66556008)(478600001)(76116006)(66946007)(41300700001)(4326008)(5660300002)(86362001)(122000001)(33656002)(6506007)(38070700009)(7696005)(55016003);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?MHBrVExIcG5wWFNadVhTaFk2TmN0T3hPVmhZUDRDK2dibnFTUnJyTkVRdjFy?=
- =?utf-8?B?MVB0TnlGQTBIczFUam9vL0JPN1NiWWh0R1RtbnVVcW1EelJiZU9UUVBucVVn?=
- =?utf-8?B?ZWdjbW1vR3dFVG94Z2NZNXB1ck5DOEJxNlFVSHFLYUlzb082OVliaWcvY014?=
- =?utf-8?B?SXJaZWxpeG5pOUcxYXViNUp2QW11ZUFibUxyQldqN3BOQjFPVnk3QUpKazRE?=
- =?utf-8?B?SkIzZFZNNnIvNE5mdGVtNFFtKzFJZUVwTHlNVGVVZHpZaDgvMmlxeHF5Vmhv?=
- =?utf-8?B?cjl5YnZGcGNxMThxekwvZUNRQXNIVXVNVE91TjZpUHBhSStwRm9PaHpMN3ds?=
- =?utf-8?B?WHpWWlhlREU2Z2krUk94cU1pYVE3a1daMUxFdGRVVFdGRlNFejF5L1pFZnpk?=
- =?utf-8?B?cnFaK0lJUWovbEp3cmM1ZjJoblI1dFlycHJZUERjL0JqSHF2OWFFNmsrSHMr?=
- =?utf-8?B?Q3RmeWJtakxGbnF4RDFQMWR2WThMU0F1RnN2dm9DcHhzSzY5WlZIenNZWEc3?=
- =?utf-8?B?WkZuVC9aUWVOb1o3VDBhdEtHd210M2lENFk3UFEwb1NZSXZwU1RpNFJDY1Vr?=
- =?utf-8?B?UDF2djIvMG0zZFJjRDBnK2dvbVdmc1EvTG5RdXAzblZLYWRpa3M1MkFvK0gw?=
- =?utf-8?B?ZWdsakJUeU8yMXIxK2JHdXZTbE53bkdtbWZ2aGhNc0JvRlJiUE9pMG1tZm5k?=
- =?utf-8?B?YWhHQVFuYWZtbWM0VXc4ckI2TFdzVnRqYjZxVldiYkZ6QnZ4RHhTVW0xREVB?=
- =?utf-8?B?K2llc1ljMUNncFVXc2t3VE5PT2QwZng2RnVxK3QxWDFTVzJuSFZzN2VJQmRm?=
- =?utf-8?B?STc2cGptT2Y3WEd1TE5WbHBsR1hPRzEvcmtBT0lqQ1p1SU1obUxSaWw1RmtF?=
- =?utf-8?B?blVXTzZZTFV0U0t0eE5kYmtab21EbTBxVmJtVGtjNk5ZSUZxZURCcVF1U2Rk?=
- =?utf-8?B?RitubVBURGRjaDU1dGZzM2tmeXgxdmx5QTBLcnVUVkkxY3VxbTd1V3ZsNVhX?=
- =?utf-8?B?ZndzT29YNDNCMmxtOTZyZjhzWVBWc3Y0UHBCb3c3bk1WTXNPN3FOKzNoZDJ4?=
- =?utf-8?B?VlUzQURyUkl2SzdoRXBzZk4xeXNBd0l1SU1rcUo0QzFLbGcxSG5ZK1k5Q2Rj?=
- =?utf-8?B?Tm1tS28yNzhxUC9rdkFFdnpWcHAvbXNVWEI3a2E5bEQrdzkvVG1CNG1RNDRQ?=
- =?utf-8?B?R3lndWlwTVRKWCtoYllVTm8rVzRZQjhvVzhlRlZLYkZGVUZJc3JaSzk2QWRF?=
- =?utf-8?B?S2RQTkUxOVpncDRTdlVIRWlnL01qUlFkbzEyaSthMXc5TVI1S3pCS3QreVVQ?=
- =?utf-8?B?elNzZWt1OXlzZjk0djd5TjZia0hzTnR1ZEp3dWk1VGRLK1NKOGtOY1BFSHo1?=
- =?utf-8?B?S0lHT0VnU2YwOEFTak1tS1BHcHh3dkhPNXB5MEFGc0ROV0hGOTA5dlVvMWJU?=
- =?utf-8?B?dWNJdmZ1Z2UwMEpkdkFUYXJGWllSVVlEdG1FSFU2Yno0VzhOa01CNzNKZTM0?=
- =?utf-8?B?MHVLajZyeXl1TmtMK3pEU3doU2NsRG5EUktmQlhHMWZhQ3J5MFg5b2tpLzFH?=
- =?utf-8?B?SmpGeFZLVmF4RTJkbmJzbWNOVksrTWhGWFRDdm96dGZqOFByT1NMSkJDejhG?=
- =?utf-8?B?bFFCNXRYTDczRko1WENxQ2t1N3lWZGZ4bWx5eE5DZFFZVU41ZGdRMXB5cFpN?=
- =?utf-8?B?K1BwbkRpQXFUUGE0bDJrSk8rdmdsSzJLaFNOdlpCa1BxMUJNMUJPWE1TWmN2?=
- =?utf-8?B?WHBsVTQ3M0FHRzk4bzZqbjMvQ0s1MEl5cjVqT2Vya3E4NEIwbWlhUm1yUXV2?=
- =?utf-8?B?YmpOZ1Q2NXpOVmd2UVFQcStRWDdRZ3dSbjdmVmxDOE1xTk5KSXVVZVk4Si82?=
- =?utf-8?B?OXFObzJGOHUzbW9qU1Y3OUw3NGN4YWx4S0hwdzM2U0ZoeTdxQXNQM284UFBH?=
- =?utf-8?B?MFVQZmtReUFzMisyS29lOGxiT1oySk5RZE5iaG13VTF5Rmo3Nm5YOEpkNXFz?=
- =?utf-8?B?dzVZMi9NaVU1clVHVGdPcGo4OVJacFNMY3hDSGtpY21UTDVLVkcxMGV3dVZV?=
- =?utf-8?B?SEVIdk5iMDI4OW9SVzEzYkJPbnIySG96UmFxN3JHc2Y0Si9TZEplRHgrM3NP?=
- =?utf-8?Q?uYnA=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ =?us-ascii?Q?F2zHMDs6t6CMDvCYkd/XpG1JvrCCcsQC6g6YO+PTw5diQpVUC/GQHmDxb1S9?=
+ =?us-ascii?Q?bYYg5SKhyH7IDLISNyNU0IieyUbfirwwpry1nZJtfP3ov+n7IeZ0l9ylW7B8?=
+ =?us-ascii?Q?RVpFAgPVTJa29ecK/PgDMTPfc34EShq2sI62j5OimzSB3EGW65DyLAUBRyTK?=
+ =?us-ascii?Q?qoes1Th1Ai0ZdmHg2GDNzWdJqVRf5vZJ542bru7RTGbjSY0Gwsc+2RVI7ISA?=
+ =?us-ascii?Q?tE6+6Rm0F897hTT7bRydvLztgX+xsFwwNT0FlQgCcoIKEnqa5aWxsFMEMTb3?=
+ =?us-ascii?Q?gUtcdXWjNthoqLY91/zOYa1XW2BZTxuYwoAsfbiinQ7S5s2dA4HXw41idYyb?=
+ =?us-ascii?Q?3NP2zHxvDGN5x1sPnS7eCAm1rUxNeFHjn1ceoDaMFUIRbU1ZQYvlu5QPbvat?=
+ =?us-ascii?Q?jdUsGCZ9PHTEn3B8qpckIUFP70LsUs8mxIjED+RK+hRJ6n09It0pAQvQVuOb?=
+ =?us-ascii?Q?2m9WZA2zNuibxh19fNY27sOmTSXUngMOH3PuC3IZHKiCnUHU4p2faMqyYarP?=
+ =?us-ascii?Q?MzQvN3FwNqQXk00JNLPF0yLH/DSwBwU2zyLlr6jRycxhJXpsFIJ5JEljxvg1?=
+ =?us-ascii?Q?NYMQeNl3mUD7qRu+ujE5Piw+gdpC7626r8ihdAJio1GTfqhYo5N5OZcj/fY8?=
+ =?us-ascii?Q?1BZo0fcy7PF9rGKijjiM/XcIVqr4S6hWV5aSi2q5CLwp0eiweHHSi4F6sm0W?=
+ =?us-ascii?Q?i3Q3m03EzAMeaYr8YGsxSVCGpzrPpkiVTP3AFX169rDZ8N5DIHXBoGOqAdzP?=
+ =?us-ascii?Q?0gha+ZFC9enRKG7UPJGeJHTUpWx1Od/VtigOe7YROUNrpCMZTYvFvDEMVHyb?=
+ =?us-ascii?Q?WXM7sy9H8PcdC3J95yd8oCbHHI2Qa4J0TzFgKssOvQJ1Ck/6dBVrOT3c1FxE?=
+ =?us-ascii?Q?tGiSR+CRziA0pQ6C9bwV02f6Wu3d1rYFIKQOv/WtdIkySJS/skvQmNznbP5a?=
+ =?us-ascii?Q?pVFq+D81t+BLaOsR2f5vPXE/fe1XFJ1vWA41SweAaeSbPPrNoVAWFAu+rdVZ?=
+ =?us-ascii?Q?kNwMc+lP5v+oLheZFjnR8ww18omr15UIqfhxq+NJ721/51a/Olqn6E442hDn?=
+ =?us-ascii?Q?X1C94tQiNb4Q7+iIzXZbWT2VHJwqLKr+xROMHJNCdSOXvrWSPO4DO5ZmNpCJ?=
+ =?us-ascii?Q?0iADUrIUstgYZ4F8H4Hjg8qBJyjKsKkE+wQ3mfqk3hegPHnu7wkDwsfocJFq?=
+ =?us-ascii?Q?McEOeBY2MbiDDIhv4JIhBgrNIjV/FAPBuKoi2IFcemRw4kU42AOYhrM7G9eY?=
+ =?us-ascii?Q?/lnTdf9BZ/WVRIpR2FQ1w35KkQIsxnvSbxEywKy77geF+Dsd2ID8H3kEo9o0?=
+ =?us-ascii?Q?1DQTssSEVvDk+b1vhZo8MNy2zB2vg/WD0e5ahMvFykhJpTQuNb+o/ZMboQ2P?=
+ =?us-ascii?Q?gy8iOAnrjaF6+W8muY+j4tRp2XlsM29bRN5BxJairmUA34ZVPy/a4/DC7KSt?=
+ =?us-ascii?Q?U+uxM7sm9b+VikRBIaIuZX8aDb7jQL1wZfCjWfoBnDMbzq3Q0EOC5zJ5ukQw?=
+ =?us-ascii?Q?20YjekgtidKc/TD3CVf1K0++UDqQjf7+H9UHEPxAvPcPvcmrTp5j5fIkEo3O?=
+ =?us-ascii?Q?xH3yVURNF5Fm7UecVFg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5480.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 864c27ce-890b-4086-71ec-08dc199e6e44
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2024 09:59:02.4871
+X-MS-Exchange-CrossTenant-Network-Message-Id: 636b420e-ac0f-43d0-8e3f-08dc199f8f2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2024 10:07:07.2238
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: x/dNZeXwVrDOGVOzzfPJxgIAvCrs8nDR8W7zrNgXOnY3JaWk9h7jKCQzJoSazG4EhtuDQ1ps+1kO7BReJhLAiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7556
-Subject: [virtio-comment] RE: [virtio-dev] RE: [virtio-comment] [PATCH v2] virtio-net: support
- setting coalescing params for multiple vqs
+X-MS-Exchange-CrossTenant-userprincipalname: t9h1+mGAo7Wj3XGPL7jG2Ygwunmi+Hvnhf9ObIIq2OSmTLJQERummoLd5cGYAHNa8DtiQlDPhJjZ8E2qbdSVnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5616
+Subject: [virtio-comment] RE: [RFC PATCH v3 1/4] virtio-rtc: Add initial device specification
 
-DQo+IEZyb206IEhlbmcgUWkgPGhlbmdxaUBsaW51eC5hbGliYWJhLmNvbT4NCj4gU2VudDogV2Vk
-bmVzZGF5LCBKYW51YXJ5IDE3LCAyMDI0IDEwOjIyIEFNDQo+IA0KPiDlnKggMjAyNC8xLzE1IOS4
-i+WNiDk6MjEsIFBhcmF2IFBhbmRpdCDlhpnpgZM6DQo+ID4NCj4gPj4gRnJvbTogdmlydGlvLWNv
-bW1lbnRAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gPj4gPHZpcnRpby1jb21tZW50QGxpc3RzLm9h
-c2lzLSBvcGVuLm9yZz4gT24gQmVoYWxmIE9mIEhlbmcgUWkNCj4gPj4gU2VudDogTW9uZGF5LCBK
-YW51YXJ5IDE1LCAyMDI0IDY6MzYgUE0NCj4gPj4NCj4gPj4gQ3VycmVudGx5LCB3aGVuIGVhY2gg
-dGltZSB0aGUgZHJpdmVyIGF0dGVtcHRzIHRvIHVwZGF0ZSB0aGUNCj4gPj4gY29hbGVzY2luZyBw
-YXJhbWV0ZXJzIGZvciBhIHZxLCBpdCBuZWVkcyB0byBraWNrIHRoZSBkZXZpY2UgYW5kIHdhaXQN
-Cj4gPj4gZm9yIHRoZSBjdHJscSByZXNwb25zZSB0byByZXR1cm4uDQo+ID4gSXQgZG9lcyBub3Qg
-bmVlZCB0byB3YWl0LiBUaGlzIGlzIHNvbWUgZHJpdmVyIGxpbWl0YXRpb24gdGhhdCBkb2VzIG5v
-dCB1c2UNCj4gdGhlIHF1ZXVlIGFzICJxdWV1ZSIuDQo+ID4gU3VjaCBkcml2ZXIgbGltaXRhdGlv
-biBzaG91bGQgYmUgcmVtb3ZlZCBpbiB0aGUgZHJpdmVyLiBJdCBkb2VzIG5vdCBxdWFsaWZ5DQo+
-IGFzIGxpbWl0YXRpb24uDQo+IA0KPiBZZXMsIHdlIGRvbid0IGhhdmUgdG8gd2FpdC4NCj4gDQo+
-IEJ1dCBpbiBnZW5lcmFsLCBmb3IgdXNlciBjb21tYW5kcywgaXQgaXMgbmVjZXNzYXJ5IHRvIG9i
-dGFpbiB0aGUgZmluYWwgcmVzdWx0cw0KPiBzeW5jaHJvbm91c2x5Lg0KWWVzLiBVc2UgaW5pdGlh
-dGVkIGNvbW1hbmQgY2FuIGVucXVldWUgdGhlIHJlcXVlc3QgdG8gY3ZxLiBHbyB0byBzbGVlcCBm
-b3Igc2V2ZXJhbCBtaWNybyB0byBtaWxsaXNlY29uZHMuDQoNCj4gVGhlIHVzZXIgY29tbWFuZCBj
-YW5ub3QgcmV0dXJuIGJlZm9yZSB0aGUgZmluYWwgcmVzdWx0IGlzIG9idGFpbmVkLg0KPiBBbmQg
-d2FpdCBpcyBub3QgdGhlIHByb2JsZW0gdGhpcyBwYXRjaCBzb2x2ZXMuDQo+IA0KQnkgbm90IGhv
-bGRpbmcgdGhlIHJ0bmwgbG9jaywgcmVzdCBvZiB0aGUgY29udGV4dCB0aGF0IG5lZWRzIHRvIGVu
-cXVldWUgdGhlIHJlcXVlc3QgY2FuIHByb2dyZXNzIHN1Y2ggYXMgdGhhdCBvZiBuZXRkaW0uDQoN
-Cj4gPg0KPiA+IFRoaXMgd2lsbCBlbmFibGUgZHJpdmVyIHRvIGVucXVldWUgbXVsdGlwbGUgY3Zx
-IGNvbW1hbmRzIHdpdGhvdXQgd2FpdGluZw0KPiBmb3IgcHJldmlvdXMgb25lLg0KPiA+IFRoaXMg
-d2lsbCBhbHNvIGVuYWJsZSBkZXZpY2UgdG8gZmluZCBuYXR1cmFsIGNvYWxlc2NpbmcgZG9uZSBv
-biBtdWx0aXBsZQ0KPiBjb21tYW5kcy4NCj4gDQo+IFdoZW4gYmF0Y2ggdXNlciBjb21tYW5kcyBv
-Y2N1ciwgZW5zdXJpbmcgc3luY2hyb25pemF0aW9uIGlzIGEgY29uY2Vybi4NCj4gDQo+ID4NCj4g
-Pj4gVGhlIGZvbGxvd2luZyBwYXRoIGlzIG9ic2VydmVkOiAxLiBEcml2ZXIga2lja3MgdGhlIGRl
-dmljZTsgMi4gQWZ0ZXINCj4gPj4gdGhlIGRldmljZSByZWNlaXZlcyB0aGUga2ljaywgQ1BVIHNj
-aGVkdWxpbmcgb2NjdXJzIGFuZCBETUEgbXVsdGlwbGUNCj4gPj4gYnVmZmVycyBtdWx0aXBsZSB0
-aW1lczsgMy4gVGhlIGRldmljZSBjb21wbGV0ZXMgcHJvY2Vzc2luZyBhbmQgcmVwbGllcw0KPiB3
-aXRoIGEgcmVzcG9uc2UuDQo+ID4+DQo+ID4+IFdoZW4gbGFyZ2UtcXVldWUgZGV2aWNlcyBpc3N1
-ZSBtdWx0aXBsZSByZXF1ZXN0cyBhbmQga2ljayB0aGUgZGV2aWNlDQo+ID4+IGZyZXF1ZW50bHks
-IHRoaXMgb2Z0ZW4gaW50ZXJydXB0IHRoZSB3b3JrIG9mIHRoZSBkZXZpY2Utc2lkZSBDUFUuDQo+
-ID4gV2hlbiB0aGVyZSBpcyBsYXJnZSBkZXZpY2VzIGFuZCBtdWx0aXBsZSBkcml2ZXIgbm90aWZp
-Y2F0aW9ucyBieSBhIGNwdQ0KPiA+IHRoYXQgaXMgTiB0aW1lcyBmYXN0ZXIgdGhhbiB0aGUgZGV2
-aWNlIHNpZGUgY3B1LCB0aGUgZGV2aWNlIG1heSBmaW5kIG5hdHVyYWwNCj4gY29hbGVzY2luZyBv
-biB0aGUgY29tbWFuZHMgb2YgYSBnaXZlbiBjdnEuDQo+IA0KPiBGaXJzdCB3ZSBoYXZlIHRvIHNv
-bHZlIHRoZSBjdHJscSBiYXRjaCBhZGRpbmcgdXNlciAoZXRodG9vbCkgY29tbWFuZC4NCj4gRXZl
-biBpZiBwcm9jZXNzZWQgaW4gYSBiYXRjaCB3YXkgb24gZGV2aWNlIHNpZGUsIHRoZSBudW1iZXIg
-b2Yga2lja3MgYW5kIHRoZQ0KPiBudW1iZXIgb2YgYmFja2VuZCBETUFzIGhhcyBub3QgYmVlbiBy
-ZWR1Y2VkLg0KRHJpdmVyIG5vdGlmaWNhdGlvbnMgYXJlIFBDSSB3cml0ZXMgc28gaXQgc2hvdWxk
-IG5vdCBoYW1wZXIgZGV2aWNlIHNpZGUsIHdoaWNoIGNhbiBpZ25vcmUgdGhlbSB3aGVuIHRoZXkg
-ZG8gbm90IGJvdGhlciBhYm91dCBpdC4NCkJhY2tlbmQgRE1BcyBzaG91bGQgYmUgcmVkdWNlZCBi
-eSBhdm9pZGluZyB0aGUgTElGTyBwYXR0ZXJuIGZvbGxvd2VkIGJ5IHRoZSBzcGxpdHEgZHJpdmVy
-Lg0KUGxhY2luZyB0aGUgZGVzY3JpcHRvcnMgY29udGlndW91c2x5IGxpa2UgcGFja2VkcSByZWR1
-Y2VzIGFtb3VudCBvZiBETUEgbmF0dXJhbGx5Lg0KDQpUaGUgc2Vjb25kIHByZWRpY2FibGUgRE1B
-IHRvIGF2b2lkIGlzIGhhdmluZyA4Qnl0ZXMgb2YgZGF0YSBpbmxpbmUgaW4gdGhlIGRlc2NyaXB0
-b3IsIGluc3RlYWQgb2YgMTZCIGluZGlyZWN0aW9uIGFuZCBleHRyYSBkbWEuDQoNCj4gDQo+ID4N
-Cj4gPiBGb3IgbXVsdGlwbGUgRE1Bcywgd2UgbmVlZCB0byB3YXkgdG8gc2VuZCA4IGJ5dGVzIG9m
-IGRhdGEgd2l0aG91dCAxNg0KPiBieXRlcyBvZiBpbmRpcmVjdGlvbiB2aWEgYSBkZXNjcmlwdG9y
-Lg0KPiA+IFRoaXMgaXMgd2hhdCB3ZSBkaXNjdXNzZWQgYSB3aGlsZSBiYWNrIHRvIGRvIGluIHR4
-cSBhbmQgU3RlZmFuIHN1Z2dlc3RlZCB0bw0KPiBnZW5lcmFsaXplIGZvciBtb3JlIHF1ZXVlcywg
-d2hpY2ggaXMgYWxzbyBhIGdvb2QgaWRlYS4NCj4gDQo+IFllcywgdGhpcyBzb3VuZHMgZ29vZC4N
-Cj4NClRoaXMgdGhlIG5leHQgaXRlbSB0byBmb2N1cyBhcyBzb29uIGFzIGZsb3cgZmlsdGVycyBh
-cmUgc3RhYmxlL21lcmdlZC4NCiANCj4gPg0KPiA+PiBJbiBhZGRpdGlvbiwNCj4gPj4gZWFjaCB2
-cSByZXF1ZXN0IGlzIHByb2Nlc3NlZCBzZXBhcmF0ZWx5LCBjYXVzaW5nIG1vcmUgZGVsYXlzIGZv
-ciB0aGUNCj4gPj4gQ1BVIHRvIHdhaXQgZm9yIHRoZSBETUEgcmVxdWVzdCB0byBjb21wbGV0ZS4N
-Cj4gPj4NCj4gPj4gVGhlc2UgaW50ZXJydXB0aW9ucyBhbmQgb3ZlcmhlYWQgd2lsbCBzdHJhaW4g
-dGhlIENQVSByZXNwb25zaWJsZSBmb3INCj4gPj4gY29udHJvbGxpbmcgdGhlIHBhdGggb2YgdGhl
-IERQVSwgZXNwZWNpYWxseSBpbiBtdWx0aS1kZXZpY2UgYW5kDQo+ID4+IGxhcmdlLXF1ZXVlIHNj
-ZW5hcmlvcy4NCj4gPj4NCj4gPj4gVG8gc29sdmUgdGhlIGFib3ZlIHByb2JsZW1zLCB3ZSBpbnRl
-cm5hbGx5IHRyaWVkIGJhdGNoIHJlcXVlc3QsIHdoaWNoDQo+ID4+IG1lcmdlcyByZXF1ZXN0cyBm
-cm9tIG11bHRpcGxlIHF1ZXVlcyBhbmQgc2VuZHMgdGhlbSBhdCBvbmNlLiBXZQ0KPiA+PiBjb25z
-ZXJ2YXRpdmVseSB0ZXN0ZWQNCj4gPiBUaGUgYmF0Y2hpbmcgZG9uZSBtYXkgZW5kIHVwIG1vZGlm
-eWluZyB0aGUgZ2l2ZW4gVlEncyBwYXJhbWV0ZXJzDQo+IG11bHRpcGxlIHRpbWVzLg0KPiANCj4g
-SW4gcHJhY3RpY2UsIHdlIGRvIG5vdCB0cnkgdG8gYWNjdW11bGF0ZSBtdWx0aXBsZSBwYXJhbWV0
-ZXIgbW9kaWZpY2F0aW9ucyBmb3INCj4gYSBzcGVjaWZpYyB2cW4uDQpJIG1lYW50IHRvIGFjY3Vt
-dWxhdGUgcGFyYW1ldGVycyBvZiBtdWx0aXBsZSBWUXMgdG8gYmF0Y2ggaW4gc2luZ2xlIGNvbW1h
-bmQuDQoNCj4gDQo+ID4gVGhlIHJpZ2h0IHRlc3Qgb24gTGludXggdG8gZG8gd2l0aG91dCBydG5s
-IGxvY2sgd2hpY2ggaXMgYW55d2F5IHVnbHkgYW5kDQo+IHdyb25nIHNlbWFudGljIHRvIHVzZSBi
-bG9ja2luZyB0aGUgd2hvbGUgbmV0ZGV2IHN0YWNrLg0KPiA+IChpbiBjYXNlIGlmIHlvdSB1c2Vk
-IHRoYXQpLg0KPiANCj4gRG8geW91IGhhdmUgYW55IGdvb2QgZGlyZWN0aW9ucyBhbmQgYXR0ZW1w
-dHMgdG8gcmVtb3ZlIHJ0bmxfbG9jaz8NCj4NCkkgdGhpbmsgcGVyIGRldmljZSBsb2NrIGluc3Rl
-YWQgb2YgcnRubCBpcyBmaXJzdCBzdGVwIHRoYXQgd2UgY2FuIHN0YXJ0IHdpdGguDQogDQo+ID4N
-Cj4gPj4gOCBxdWV1ZSBjb21tYW5kcyBhbmQgc2VudCB0aGVtIHRvZ2V0aGVyLiBUaGUgRFBVIHBy
-b2Nlc3NpbmcNCj4gPj4gZWZmaWNpZW5jeSBjYW4gYmUgaW1wcm92ZWQgYnkgOCB0aW1lcywgd2hp
-Y2ggZ3JlYXRseSBlYXNlcyB0aGUgRFBVJ3MNCj4gPj4gc3VwcG9ydCBmb3IgbXVsdGktIGRldmlj
-ZSBhbmQgbXVsdGktcXVldWUgRElNLg0KPiA+Pg0KPiA+IFRoaXMgaXMgZ29vZC4NCj4gDQo+IFlF
-Uy4gTWFrZXMgc2Vuc2UgZm9yIG91ciBEUFVzLg0KPiANCj4gPg0KPiA+PiBNYWludGFpbmVycyBt
-YXkgYmUgY29uY2VybmVkIGFib3V0IHdoZXRoZXIgdGhlIGJhdGNoIGNvbW1hbmQNCj4gbWV0aG9k
-DQo+ID4+IGNhbiBvcHRpbWl6ZSB0aGUgYWJvdmUgcHJvYmxlbXM6IGFjY3VtdWxhdGUgbXVsdGlw
-bGUgcmVxdWVzdA0KPiBjb21tYW5kcw0KPiA+PiB0byBraWNrIHRoZSBkZXZpY2Ugb25jZSwgYW5k
-IG9idGFpbiB0aGUgcHJvY2Vzc2luZyByZXN1bHRzIG9mIHRoZQ0KPiA+PiBjb3JyZXNwb25kaW5n
-IGNvbW1hbmRzIGFzeW5jaHJvbm91c2x5Lg0KPiA+IFRoaXMgaXMgdW5saWtlbHkgdG8gaW1wcm92
-ZSwgcmF0aGVyIGl0IHdpbGwgaGF2ZSBuZWdhdGl2ZSBpbXBhY3QgYXMgaXQgb25seQ0KPiBtZWFu
-cyB0aGF0IG1vZGVyYXRpb24gcGFyYW1ldGVycyBhcmUganVzdCBkZWxheWVkIGJ5IHRoZSBkcml2
-ZXIuDQo+ID4NCj4gDQo+IFdoeSBpcyBpdCBkZWxheWVkIGJ5IHRoZSBkcml2ZXI/IEl0IGlzIG5v
-dCBkZWxheWVkIGJ5IHRoZSBkcml2ZXIsIHRoZSBraWNrIHN0aWxsDQo+IGhhcHBlbnMgZm9yIGV2
-ZXJ5IGNvbW1hbmQuDQpTaW5jZSB0aGUga2ljayBpcyBkZWxheWVkLCB0aGUgZHJpdmVyIGxvc3Qg
-dGhlIGFtb3VudCBvZiB0aW1lIGFuZCBkZXZpY2UgcmVhY3Rpb24gdGltZSBpcyBkcml2ZW4gYnkg
-dGhpcyB3YWl0IHRpbWUuDQpUaGUgZ3Vlc3QgZHJpdmVyIGlzIG5vdCBhd2FyZSBob3cgbXVjaCBh
-IHNoYXJlZCBEUFUgaXMgYnVzeS4NClNvIGlmIGl0IHdhaXRzIHRvbyBtdWNoLCB0aGUgVlFzIG1v
-ZGVyYXRpb24gaXMgc2xvdy4NCg0KPiBJbiB0aGVvcnkgYW5kIHByYWN0aWNlLCBpdCB3aWxsIG5v
-dCBhZmZlY3QgRElNIHBlcmZvcm1hbmNlLCBidXQgaXQgd2lsbA0KPiBzaWduaWZpY2FudGx5IHJl
-ZHVjZSBDUFUgY29uc3VtcHRpb24gY2F1c2VkIGJ5IHdhaXRpbmcuDQo+DQpPbmNlIHRoZSBndWVz
-dCBkcml2ZXIgc2xlZXBzIGFmdGVyIGVucXVldWluZyB0aGUgcmVxdWVzdCwgaXQgc2hvdWxkIGJl
-IGZpbmUuDQpUaGUgRElNIGNhbGxzIGFyZSBpbiBoaWdobHkgcGFyYWxsZWwgd29ya2VyIHRocmVh
-ZHMsIHdoZXJlL2lmIHRoZSB0aHJlYWQgc2xlZXAsIGEgbmV3IHdvcmtlciB0aHJlYWQgaXMgaW52
-b2tlZC4NCg0KQnV0IGZvciBzdXJlIEkgYWdyZWUgdGhhdCB2cSBub3RpZmljYXRpb24gbW9kZXJh
-dGlvbiBzaG91bGQgaGFwcGVuIHF1aWNrbHkgZW5vdWdoIHVuZGVyIDwgMTAwdXNlYyBvciBzby4N
-Ck1heSBiZSBub3cgdGhhdCB3ZSBicmluZyB0aGUgYXEgcmVzb3VyY2VzLCB3ZSBjYW4gc3RhcnQg
-bWlncmF0aW5nIG9uIGl0Lg0KDQo+ID4+IFRoZSBiYXRjaCBjb21tYW5kIG1ldGhvZCBpcyB1c2Vk
-IGJ5IHVzIHRvIG9wdGltaXplIHRoZSBDUFUgb3ZlcmhlYWQNCj4gPj4gb2YgdGhlIERJTSB3b3Jr
-ZXIgY2F1c2VkIGJ5IHRoZSBndWVzdCBiZWluZyBidXN5IHdhaXRpbmcgZm9yIHRoZQ0KPiA+PiBj
-b21tYW5kIHJlc3BvbnNlIHJlc3VsdC4NCj4gPiBJbiB0aGF0IGNhc2UgZml4aW5nIHRoZSBndWVz
-dCBkcml2ZXIgd2hpY2ggaXMgbm90IHlldCB3cml0dGVuIGlzIHRoZSByaWdodCBmaXguDQo+ID4N
-Cj4gPj4gVGhpcyBpcyBhIGRpZmZlcmVudCBmb2N1cyB0aGFuIGJhdGNoIHJlcXVlc3QgdG8gc29s
-dmUgdGhlIHByb2JsZW0uDQo+ID4+DQo+ID4+IFN1Z2dlc3RlZC1ieTogWGlhb21pbmcgWmhhbyA8
-enhtMzc3OTE3QGFsaWJhYmEtaW5jLmNvbT4NCj4gPj4gU2lnbmVkLW9mZi1ieTogSGVuZyBRaSA8
-aGVuZ3FpQGxpbnV4LmFsaWJhYmEuY29tPg0KPiA+PiAtLS0NCj4gPj4gdjEtPnYyOiBVcGRhdGVk
-IGNvbW1pdCBsb2cuIER1ZSB0byBzZW5zaXRpdml0eSwgc29ycnkgdGhhdCBjYW4gbm90DQo+ID4+
-IHYxLT5naXZlIHRoZQ0KPiA+PiAgICAgIGFic29sdXRlIHZhbHVlIGRpcmVjdGx5LiBATWljaGFl
-bA0KPiA+Pg0KPiA+PiAgIGRldmljZS10eXBlcy9uZXQvZGVzY3JpcHRpb24udGV4IHwgMjYgKysr
-KysrKysrKysrKysrKysrKystLS0tLS0NCj4gPj4gICAxIGZpbGUgY2hhbmdlZCwgMjAgaW5zZXJ0
-aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCj4gPj4NCj4gPj4gZGlmZiAtLWdpdCBhL2RldmljZS10
-eXBlcy9uZXQvZGVzY3JpcHRpb24udGV4IGIvZGV2aWNlLQ0KPiA+PiB0eXBlcy9uZXQvZGVzY3Jp
-cHRpb24udGV4IGluZGV4IGFmZjVlMDguLmIzNzY2YzQgMTAwNjQ0DQo+ID4+IC0tLSBhL2Rldmlj
-ZS10eXBlcy9uZXQvZGVzY3JpcHRpb24udGV4DQo+ID4+ICsrKyBiL2RldmljZS10eXBlcy9uZXQv
-ZGVzY3JpcHRpb24udGV4DQo+ID4+IEBAIC0xNjY3LDggKzE2NjcsOCBAQCBcc3Vic3Vic2VjdGlv
-bntDb250cm9sDQo+ID4+IFZpcnRxdWV1ZX1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIE5ldHdv
-cmsgRGV2aWNlIC8gRGV2aSAgZm9yDQo+ID4+IG5vdGlmaWNhdGlvbiBjb2FsZXNjaW5nLg0KPiA+
-Pg0KPiA+PiAgIElmIHRoZSBWSVJUSU9fTkVUX0ZfVlFfTk9URl9DT0FMIGZlYXR1cmUgaXMgbmVn
-b3RpYXRlZCwgdGhlIGRyaXZlcg0KPiA+PiBjYW4gLSBzZW5kIGNvbW1hbmRzIFZJUlRJT19ORVRf
-Q1RSTF9OT1RGX0NPQUxfVlFfU0VUIGFuZA0KPiA+PiBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FM
-X1ZRX0dFVCAtZm9yIHZpcnRxdWV1ZSBub3RpZmljYXRpb24NCj4gPj4gY29hbGVzY2luZy4NCj4g
-Pj4gK3NlbmQgY29tbWFuZHMgVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9WUV9TRVQsDQo+ID4+
-ICtWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRU19TRVQgYW5kDQo+ID4+IFZJUlRJT19ORVRf
-Q1RSTF9OT1RGX0NPQUxfVlFfR0VUIGZvciB2aXJ0cXVldWUgbm90aWZpY2F0aW9uDQo+ID4+IGNv
-YWxlc2NpbmcuDQo+ID4+DQo+ID4gQSBuZXcgZmVhdHVyZSBiaXQgaXMgbmVlZGVkIGZvciB0aGlz
-IGV4dHJhIGZ1bmN0aW9uYWxpdHkuDQo+IA0KPiBJIHRyaWVkIHRvIGV4dGVuZCBpdCB0byB0aGUg
-Y29tbWFuZCBWSVJUSU9fTkVUX0ZfVlFfTk9URl9DT0FMLCBpcyBpdCB0b28NCj4gbGF0ZT8NCj4N
-CkZvciBleGlzdGluZyBjb21tYW5kIGl0IGlzIG5vdC4NCkJ1dCB0aGVyZSBtYXkgYmUgYSBkZXZp
-Y2Ugd2hpY2ggbWF5IG5vdCBzdXBwb3J0IGNvYWxlc2NlZCBjb21tYW5kLg0KQmV0dGVyIHRvIGhh
-dmUgdGhlIGZlYXR1cmUgYml0IGZvciB0aGlzIGNvYWxlc2NlIGNvbW1hbmQsIGluc3RlYWQgb2Yg
-cmFuZG9tIE5PU1VQUCBmYWlsdXJlLg0KDQogDQo+IFRoYW5rcyENCj4gDQo+ID4NCj4gPj4gICBc
-YmVnaW57bHN0bGlzdGluZ30NCj4gPj4gICBzdHJ1Y3QgdmlydGlvX25ldF9jdHJsX2NvYWwgew0K
-PiA+PiBAQCAtMTY4MiwxMSArMTY4MiwxNyBAQCBcc3Vic3Vic2VjdGlvbntDb250cm9sDQo+ID4+
-IFZpcnRxdWV1ZX1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIE5ldHdvcmsgRGV2aWNlIC8gRGV2
-aQ0KPiA+PiAgICAgICBzdHJ1Y3QgdmlydGlvX25ldF9jdHJsX2NvYWwgY29hbDsNCj4gPj4gICB9
-Ow0KPiA+Pg0KPiA+PiArc3RydWN0IHZpcnRpb19uZXRfY3RybF9tcmdfY29hbF92cSB7DQo+ID4+
-ICsgICAgICAgIGxlMTYgbnVtX2VudHJpZXM7IC8qIGluZGljYXRlcyBudW1iZXIgb2YgdmFsaWQg
-ZW50cmllcyAqLw0KPiA+PiArICAgICAgICBzdHJ1Y3QgdmlydGlvX25ldF9jdHJsX2NvYWxfdnEg
-ZW50cmllc1tdOyB9Ow0KPiA+PiArDQo+ID4+ICAgI2RlZmluZSBWSVJUSU9fTkVUX0NUUkxfTk9U
-Rl9DT0FMIDYNCj4gPj4gICAgI2RlZmluZSBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1RYX1NF
-VCAgMA0KPiA+PiAgICAjZGVmaW5lIFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NPQUxfUlhfU0VUIDEN
-Cj4gPj4gICAgI2RlZmluZSBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRX1NFVCAyDQo+ID4+
-ICAgICNkZWZpbmUgVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9WUV9HRVQgMw0KPiA+PiArICNk
-ZWZpbmUgVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9WUVNfU0VUIDQNCj4gPj4gICBcZW5ke2xz
-dGxpc3Rpbmd9DQo+ID4+DQo+ID4+ICAgQ29hbGVzY2luZyBwYXJhbWV0ZXJzOg0KPiA+PiBAQCAt
-MTcwNiw2ICsxNzEyLDcgQEAgXHN1YnN1YnNlY3Rpb257Q29udHJvbA0KPiA+PiBWaXJ0cXVldWV9
-XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBOZXR3b3JrIERldmljZSAvIERldmkgIFxpdGVtIEZv
-cg0KPiA+PiB0aGUgY29tbWFuZCBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRX1NFVCwgdGhl
-IHN0cnVjdHVyZQ0KPiA+PiB2aXJ0aW9fbmV0X2N0cmxfY29hbF92cSBpcyB3cml0ZS1vbmx5IGZv
-ciB0aGUgZHJpdmVyLg0KPiA+PiAgIFxpdGVtIEZvciB0aGUgY29tbWFuZCBWSVJUSU9fTkVUX0NU
-UkxfTk9URl9DT0FMX1ZRX0dFVCwNCj4gPj4gXGZpZWxke3ZxX2luZGV4fSBhbmQgXGZpZWxke3Jl
-c2VydmVkfSBhcmUgd3JpdGUtb25seQ0KPiA+PiAgICAgICAgIGZvciB0aGUgZHJpdmVyLCBhbmQg
-dGhlIHN0cnVjdHVyZSB2aXJ0aW9fbmV0X2N0cmxfY29hbCBpcw0KPiA+PiByZWFkLW9ubHkgZm9y
-IHRoZSBkcml2ZXIuDQo+ID4+ICtcaXRlbSBGb3IgdGhlIGNvbW1hbmQgVklSVElPX05FVF9DVFJM
-X05PVEZfQ09BTF9WUVNfU0VULCB0aGUNCj4gPj4gc3RydWN0dXJlIHZpcnRpb19uZXRfY3RybF9t
-cmdfY29hbF92cSBpcyB3cml0ZS1vbmx5IGZvciB0aGUgZHJpdmVyLg0KPiA+PiAgIFxlbmR7aXRl
-bWl6ZX0NCj4gPj4NCj4gPj4gICBUaGUgY2xhc3MgVklSVElPX05FVF9DVFJMX05PVEZfQ09BTCBo
-YXMgdGhlIGZvbGxvd2luZyBjb21tYW5kczoNCj4gPj4gQEAgLTE3MTYsNiArMTcyMyw5IEBAIFxz
-dWJzdWJzZWN0aW9ue0NvbnRyb2wNCj4gPj4gVmlydHF1ZXVlfVxsYWJlbHtzZWM6RGV2aWNlIFR5
-cGVzIC8gTmV0d29yayBEZXZpY2UgLyBEZXZpDQo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZvciBhbiBlbmFibGVkDQo+ID4+IHRyYW5zbWl0L3JlY2VpdmUg
-dmlydHF1ZXVlIHdob3NlIGluZGV4IGlzIFxmaWVsZHt2cV9pbmRleH0uDQo+ID4+ICAgXGl0ZW0g
-VklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9WUV9HRVQ6IHVzZSB0aGUgc3RydWN0dXJlDQo+ID4+
-IHZpcnRpb19uZXRfY3RybF9jb2FsX3ZxIHRvIGdldCB0aGUgXGZpZWxke21heF91c2Vjc30gYW5k
-DQo+ID4+IFxmaWVsZHttYXhfcGFja2V0c30gcGFyYW1ldGVycw0KPiA+PiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmb3IgYW4gZW5hYmxlZA0KPiA+PiB0cmFuc21p
-dC9yZWNlaXZlIHZpcnRxdWV1ZSB3aG9zZSBpbmRleCBpcyBcZmllbGR7dnFfaW5kZXh9Lg0KPiA+
-PiArXGl0ZW0gVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9WUVNfU0VUOiB1c2UgdGhlIHN0cnVj
-dHVyZQ0KPiA+PiB2aXJ0aW9fbmV0X2N0cmxfbXJnX2NvYWxfdnEgdG8gc2V0IHRoZSBcZmllbGR7
-bWF4X3VzZWNzfSBhbmQNCj4gPj4gXGZpZWxke21heF9wYWNrZXRzfSBwYXJhbWV0ZXJzDQo+ID4+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvciBcZmllbGR7bnVt
-X2VudHJpZXN9DQo+ID4+ICsgZW5hYmxlZCB0cmFuc21pdC9yZWNlaXZlDQo+ID4+IHZpcnRxdWV1
-ZXMuIFRoZSBjb3JyZXNwb25kaW5nIGluZGV4IHZhbHVlDQo+ID4+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIG9mIGVhY2ggY29uZmlndXJlZCB2aXJ0cXVldWUgaXMg
-XGZpZWxke3ZxX2luZGV4fS4NCj4gPj4gICBcZW5ke2VudW1lcmF0ZX0NCj4gPj4NCj4gPj4gICBU
-aGUgZGV2aWNlIG1heSBnZW5lcmF0ZSBub3RpZmljYXRpb25zIG1vcmUgb3IgbGVzcyBmcmVxdWVu
-dGx5IHRoYW4NCj4gPj4gc3BlY2lmaWVkIGJ5IHNldCBjb21tYW5kcyBvZiB0aGUgVklSVElPX05F
-VF9DVFJMX05PVEZfQ09BTCBjbGFzcy4NCj4gPj4gQEAgLTE3ODIsOSArMTc5MiwxMyBAQCBcc3Vi
-c3Vic2VjdGlvbntDb250cm9sDQo+ID4+IFZpcnRxdWV1ZX1cbGFiZWx7c2VjOkRldmljZSBUeXBl
-cyAvIE5ldHdvcmsgRGV2aWNlIC8gRGV2aQ0KPiA+Pg0KPiA+PiAgIFRoZSBkcml2ZXIgTVVTVCBz
-ZXQgXGZpZWxke3ZxX2luZGV4fSB0byB0aGUgdmlydHF1ZXVlIGluZGV4IG9mIGFuDQo+ID4+IGVu
-YWJsZWQgdHJhbnNtaXQgb3IgcmVjZWl2ZSB2aXJ0cXVldWUuDQo+ID4+DQo+ID4+ICtUaGUgZHJp
-dmVyIE1VU1Qgc2V0IFxmaWVsZHtudW1fZW50cmllc30gdG8gYSBub24temVybyB2YWx1ZSBhbmQg
-TVVTVA0KPiA+PiArTk9UIHNldCBcZmllbGR7bnVtX2VudHJpZXN9IHRvIGEgdmFsdWUgZ3JlYXRl
-ciB0aGFuIHRoZSBudW1iZXIgb2YNCj4gPj4gK2VuYWJsZWQNCj4gPj4gdHJhbnNtaXQgYW5kIHJl
-Y2VpdmUgdmlydHF1ZXVlcy4NCj4gPj4gKw0KPiA+PiAgIFRoZSBkcml2ZXIgTVVTVCBoYXZlIG5l
-Z290aWF0ZWQgdGhlIFZJUlRJT19ORVRfRl9OT1RGX0NPQUwNCj4gZmVhdHVyZQ0KPiA+PiB3aGVu
-IGlzc3VpbmcgY29tbWFuZHMgVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9UWF9TRVQgYW5kDQo+
-ID4+IFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NPQUxfUlhfU0VULg0KPiA+Pg0KPiA+PiAtVGhlIGRy
-aXZlciBNVVNUIGhhdmUgbmVnb3RpYXRlZCB0aGUgVklSVElPX05FVF9GX1ZRX05PVEZfQ09BTA0K
-PiA+PiBmZWF0dXJlIHdoZW4gaXNzdWluZyBjb21tYW5kcyBWSVJUSU9fTkVUX0NUUkxfTk9URl9D
-T0FMX1ZRX1NFVA0KPiBhbmQNCj4gPj4gVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9WUV9HRVQu
-DQo+ID4+ICtUaGUgZHJpdmVyIE1VU1QgaGF2ZSBuZWdvdGlhdGVkIHRoZSBWSVJUSU9fTkVUX0Zf
-VlFfTk9URl9DT0FMDQo+ID4+IGZlYXR1cmUNCj4gPj4gK3doZW4gaXNzdWluZyBjb21tYW5kcyBW
-SVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRX1NFVCwNCj4gPj4gVklSVElPX05FVF9DVFJMX05P
-VEZfQ09BTF9WUVNfU0VUIGFuZA0KPiA+PiBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRX0dF
-VC4NCj4gPj4NCj4gPj4gICBUaGUgZHJpdmVyIE1VU1QgaWdub3JlIHRoZSB2YWx1ZXMgb2YgY29h
-bGVzY2luZyBwYXJhbWV0ZXJzIHJlY2VpdmVkDQo+ID4+IGZyb20gdGhlIFZJUlRJT19ORVRfQ1RS
-TF9OT1RGX0NPQUxfVlFfR0VUIGNvbW1hbmQgaWYgdGhlIGRldmljZQ0KPiA+PiByZXNwb25kcyB3
-aXRoIFZJUlRJT19ORVRfRVJSLg0KPiA+Pg0KPiA+PiBAQCAtMTc5NCwxMCArMTgwOCwxMCBAQCBc
-c3Vic3Vic2VjdGlvbntDb250cm9sDQo+ID4+IFZpcnRxdWV1ZX1cbGFiZWx7c2VjOkRldmljZSBU
-eXBlcyAvIE5ldHdvcmsgRGV2aWNlIC8gRGV2aQ0KPiA+Pg0KPiA+PiAgIFRoZSBkZXZpY2UgU0hP
-VUxEIHJlc3BvbmQgdG8gVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9UWF9TRVQNCj4gYW5kDQo+
-ID4+IFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NPQUxfUlhfU0VUIGNvbW1hbmRzIHdpdGgNCj4gVklS
-VElPX05FVF9FUlIgaWYgaXQNCj4gPj4gd2FzIG5vdCBhYmxlIHRvIGNoYW5nZSB0aGUgcGFyYW1l
-dGVycy4NCj4gPj4NCj4gPj4gLVRoZSBkZXZpY2UgTVVTVCByZXNwb25kIHRvIHRoZQ0KPiBWSVJU
-SU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRX1NFVA0KPiA+PiBjb21tYW5kIHdpdGggVklSVElPX05F
-VF9FUlIgaWYgaXQgd2FzIG5vdCBhYmxlIHRvIGNoYW5nZSB0aGUNCj4gcGFyYW1ldGVycy4NCj4g
-Pj4gK1RoZSBkZXZpY2UgTVVTVCByZXNwb25kIHRvIFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NPQUxf
-VlFfU0VUDQo+IGFuZA0KPiA+PiBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRU19TRVQgY29t
-bWFuZHMgd2l0aA0KPiBWSVJUSU9fTkVUX0VSUiBpZiBpdA0KPiA+PiB3YXMgbm90IGFibGUgdG8g
-Y2hhbmdlIHRoZSBwYXJhbWV0ZXJzLg0KPiA+Pg0KPiA+PiAtVGhlIGRldmljZSBNVVNUIHJlc3Bv
-bmQgdG8gVklSVElPX05FVF9DVFJMX05PVEZfQ09BTF9WUV9TRVQNCj4gYW5kDQo+ID4+IFZJUlRJ
-T19ORVRfQ1RSTF9OT1RGX0NPQUxfVlFfR0VUIGNvbW1hbmRzIHdpdGggLQ0KPiBWSVJUSU9fTkVU
-X0VSUiBpZiB0aGUNCj4gPj4gZGVzaWduYXRlZCB2aXJ0cXVldWUgaXMgbm90IGFuIGVuYWJsZWQg
-dHJhbnNtaXQgb3IgcmVjZWl2ZSB2aXJ0cXVldWUuDQo+ID4+ICtUaGUgZGV2aWNlIE1VU1QgcmVz
-cG9uZCB0byBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1ZRX1NFVCwNCj4gPj4gK1ZJUlRJT19O
-RVRfQ1RSTF9OT1RGX0NPQUxfVlFTX1NFVCBhbmQNCj4gPj4gVklSVElPX05FVF9DVFJMX05PVEZf
-Q09BTF9WUV9HRVQgY29tbWFuZHMgd2l0aA0KPiBWSVJUSU9fTkVUX0VSUiBpZiB0aGUNCj4gPj4g
-ZGVzaWduYXRlZCB2aXJ0cXVldWUgaXMgbm90IGFuIGVuYWJsZWQgdHJhbnNtaXQgb3IgcmVjZWl2
-ZSB2aXJ0cXVldWUuDQo+ID4+DQo+ID4+ICAgVXBvbiBkaXNhYmxpbmcgYW5kIHJlLWVuYWJsaW5n
-IGEgdHJhbnNtaXQgdmlydHF1ZXVlLCB0aGUgZGV2aWNlDQo+ID4+IE1VU1Qgc2V0IHRoZSBjb2Fs
-ZXNjaW5nIHBhcmFtZXRlcnMgb2YgdGhlIHZpcnRxdWV1ZSAgdG8gdGhvc2UNCj4gPj4gY29uZmln
-dXJlZCB0aHJvdWdoIHRoZSBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMX1RYX1NFVA0KPiBjb21t
-YW5kLCBvciwNCj4gPj4gaWYgdGhlIGRyaXZlciBkaWQgbm90IHNldCBhbnkgVFggY29hbGVzY2lu
-ZyBwYXJhbWV0ZXJzLCB0byAwLg0KPiA+PiAtLQ0KPiA+PiAxLjguMy4xDQo+ID4+DQo+ID4+DQo+
-ID4+IFRoaXMgcHVibGljbHkgYXJjaGl2ZWQgbGlzdCBvZmZlcnMgYSBtZWFucyB0byBwcm92aWRl
-IGlucHV0IHRvIHRoZQ0KPiA+PiBPQVNJUyBWaXJ0dWFsIEkvTyBEZXZpY2UgKFZJUlRJTykgVEMu
-DQo+ID4+DQo+ID4+IEluIG9yZGVyIHRvIHZlcmlmeSB1c2VyIGNvbnNlbnQgdG8gdGhlIEZlZWRi
-YWNrIExpY2Vuc2UgdGVybXMgYW5kIHRvDQo+ID4+IG1pbmltaXplIHNwYW0gaW4gdGhlIGxpc3Qg
-YXJjaGl2ZSwgc3Vic2NyaXB0aW9uIGlzIHJlcXVpcmVkIGJlZm9yZQ0KPiA+PiBwb3N0aW5nLg0K
-PiA+Pg0KPiA+PiBTdWJzY3JpYmU6IHZpcnRpby1jb21tZW50LXN1YnNjcmliZUBsaXN0cy5vYXNp
-cy1vcGVuLm9yZw0KPiA+PiBVbnN1YnNjcmliZTogdmlydGlvLWNvbW1lbnQtdW5zdWJzY3JpYmVA
-bGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gPj4gTGlzdCBoZWxwOiB2aXJ0aW8tY29tbWVudC1oZWxw
-QGxpc3RzLm9hc2lzLW9wZW4ub3JnDQo+ID4+IExpc3QgYXJjaGl2ZTogaHR0cHM6Ly9saXN0cy5v
-YXNpcy1vcGVuLm9yZy9hcmNoaXZlcy92aXJ0aW8tY29tbWVudC8NCj4gPj4gRmVlZGJhY2sgTGlj
-ZW5zZTogaHR0cHM6Ly93d3cub2FzaXMtDQo+ID4+IG9wZW4ub3JnL3doby9pcHIvZmVlZGJhY2tf
-bGljZW5zZS5wZGYNCj4gPj4gTGlzdCBHdWlkZWxpbmVzOg0KPiA+PiBodHRwczovL3d3dy5vYXNp
-cy1vcGVuLm9yZy9wb2xpY2llcy1ndWlkZWxpbmVzL21haWxpbmctbGlzdHMNCj4gPj4gQ29tbWl0
-dGVlOiBodHRwczovL3d3dy5vYXNpcy1vcGVuLm9yZy9jb21taXR0ZWVzL3ZpcnRpby8NCj4gPj4g
-Sm9pbiBPQVNJUzogaHR0cHM6Ly93d3cub2FzaXMtb3Blbi5vcmcvam9pbi8NCj4gPg0KPiA+IC0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLQ0KPiA+IFRvIHVuc3Vic2NyaWJlLCBlLW1haWw6IHZpcnRpby1kZXYtdW5zdWJz
-Y3JpYmVAbGlzdHMub2FzaXMtb3Blbi5vcmcNCj4gPiBGb3IgYWRkaXRpb25hbCBjb21tYW5kcywg
-ZS1tYWlsOiB2aXJ0aW8tZGV2LWhlbHBAbGlzdHMub2FzaXMtb3Blbi5vcmcNCg0K
+Hi Peter,
+
+> From: Peter Hilber <peter.hilber@opensynergy.com>
+> Sent: Monday, December 18, 2023 12:13 PM
+>=20
+> This is a draft for a Real-Time Clock (RTC) device. The virtio-rtc device
+> provides information about current time through one or more clocks.
+>=20
+> The normative statements for this device follow in the next patch.
+>=20
+> For this device, there is an RFC Linux kernel driver which is being
+> upstreamed, and a proprietary device implementation.
+>=20
+> Open Questions
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> Arm Generic Timer Clock Types
+> -----------------------------
+>=20
+> This spec version still distinguishes the Arm Generic Timer virtual and
+> physical counters:
+>=20
+> 	/* Arm Generic Timer CNTVCT_EL0, Counter-timer Virtual Count
+> register */
+> 	#define VIRTIO_RTC_COUNTER_ARM_VIRT 0
+> 	/* Arm Generic Timer CNTPCT_EL0, Counter-timer Physical Count
+> register */
+> 	#define VIRTIO_RTC_COUNTER_ARM_PHYS 1
+>=20
+> But there might be no benefit distinguishing them, as per a discussion on=
+ the
+> RFC Linux kernel driver [4].
+>=20
+> So unless somebody identifies some use in distinguishing Arm virtual and
+> physical counters, this distinction will be dropped in v4.
+>=20
+> virtio-rtc Functionality for Net Device
+> ---------------------------------------
+>=20
+> There is interest into sharing virtio-rtc functionality with the virtio-n=
+et device
+> [6]. It is proposed to encapsulate the requests resp.
+> responses in the pseudo-fields command-specific-data resp.
+> command-specific-result.
+>=20
+> This handles natural alignment of the payload in a way which is compatibl=
+e
+> with
+>=20
+> - existing virtio-net controlq commands, and
+>=20
+> - with the standalone virtio-rtc messages.
+>=20
+> Additional Information
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> The spec does not specify how a driver should interpret clock readings, e=
+sp.
+> also not how to perform clock synchronization.
+>=20
+> The draft uses the "Timer/Clock" device id which is already part of the
+> specification. This device id was registered a long time ago and should b=
+e
+> unused according to the author's information. The name "RTC" was
+> determined to be the best for a device which focuses on current time, but=
+ is
+> up to discussion.
+>=20
+> Any feedback is appreciated very much.
+>=20
+> Changelog
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> v3:
+>=20
+> - Address comments from Parav Pandit.
+> - Split off normative requirements into a second commit [2].
+> - Merge readq and controlq into requestq [3].
+> - Don't guard cross-timestamping with feature bit [3].
+> - Pad request headers to 64 bit [2].
+> - Rename Virtio status codes to match UNIX error names [2].
+> - Avoid Virtio status code clashes with net controlq ack values.
+> - Reword to refer more to "requests", rather than "messages" [2].
+> - Rephrase some sentences [2].
+> - Use integer data types without "__" prefixes [2].
+> - Reduce clock id width to 16 bits [5].
+> - Make VIRTIO_RTC_FLAG_CROSS_CAP a bit mask rather than a bit index.
+>=20
+> v2:
+>=20
+> - Address comments from Cornelia Huck.
+> - Add VIRTIO_RTC_M_CROSS_CAP message [1].
+> - Fix various minor issues and improve wording [1].
+> - Add several clarifications regarding device error statuses.
+>=20
+> [1] https://lists.oasis-open.org/archives/virtio-
+> comment/202304/msg00523.html
+> [2] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
+> b90aa4e50836@opensynergy.com/t/#mffb93800fea11d6dda9e151078abedd
+> 6ff1c0f1e
+> [3] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
+> b90aa4e50836@opensynergy.com/t/#m94efd0aa9b9c2b96a246b79ef8bfc3bf
+> 64ebe791
+> [4] https://lore.kernel.org/lkml/20230630171052.985577-1-
+> peter.hilber@opensynergy.com/T/#m65fa1d715933360498c4e33d7225e4220
+> 215a9d6
+> [5] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
+> b90aa4e50836@opensynergy.com/t/#mf00ce330228c28556d735eb9597469
+> 048c5d8b62
+> [6] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
+> b90aa4e50836@opensynergy.com/t/#mf00ce330228c28556d735eb9597469
+> 048c5d8b62
+>=20
+> Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
+> ---
+>  content.tex                      |   3 +-
+>  device-types/rtc/description.tex | 328 +++++++++++++++++++++++++++++++
+>  2 files changed, 330 insertions(+), 1 deletion(-)  create mode 100644 de=
+vice-
+> types/rtc/description.tex
+>=20
+> diff --git a/content.tex b/content.tex
+> index 98b9c319a666..f2b534ce97e6 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -683,7 +683,7 @@ \chapter{Device Types}\label{sec:Device Types}
+> \hline
+>  16         &   GPU device       \\
+>  \hline
+> -17         &   Timer/Clock device \\
+> +17         &   RTC (Timer/Clock) device \\
+>  \hline
+>  18         &   Input device \\
+>  \hline
+> @@ -769,6 +769,7 @@ \chapter{Device Types}\label{sec:Device Types}
+> \input{device-types/scmi/description.tex}
+>  \input{device-types/gpio/description.tex}
+>  \input{device-types/pmem/description.tex}
+> +\input{device-types/rtc/description.tex}
+>=20
+>  \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>=20
+> diff --git a/device-types/rtc/description.tex b/device-types/rtc/descript=
+ion.tex
+> new file mode 100644
+> index 000000000000..abfa2206894e
+> --- /dev/null
+> +++ b/device-types/rtc/description.tex
+> @@ -0,0 +1,328 @@
+> +\section{RTC Device}\label{sec:Device Types / RTC Device}
+> +
+> +The RTC (Real Time Clock) device provides information about current
+> +time. The device can provide different clocks, e.g.\ for the UTC or TAI
+> +time standards, or for physical time elapsed since some past epoch. The
+> +driver can read the clocks with simple or more accurate methods.
+> +
+> +\subsection{Device ID}\label{sec:Device Types / RTC Device / Device ID}
+> +
+> +17
+> +
+> +\subsection{Virtqueues}\label{sec:Device Types / RTC Device /
+> +Virtqueues}
+> +
+> +\begin{description}
+> +\item[0] requestq
+> +\end{description}
+> +
+> +The driver enqueues requests to the requestq.
+> +
+> +\subsection{Feature bits}\label{sec:Device Types / RTC Device / Feature
+> +bits}
+> +
+> +No device-specific feature bits are defined yet.
+> +
+> +\subsection{Device configuration layout}\label{sec:Device Types / RTC
+> +Device / Device configuration layout}
+> +
+> +There is no configuration data for the device.
+> +
+> +\subsection{Device Initialization}\label{sec:Device Types / RTC Device
+> +/ Device Initialization}
+> +
+> +The device determines the set of clocks. The device can provide zero or
+> +more clocks.
+> +
+Now that we bring the generic basic facilities to define device capabilitie=
+s and resources in [1],
+Num_clocks can be structured a clock resources.
+
+Please refer to max_limits in [1] as capabilities.
+[1] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00095.ht=
+ml
+
+We should bring a rtc capabilities.
+
+> +\subsection{Device Operation}\label{sec:Device Types / RTC Device /
+> +Device Operation}
+> +
+> +For the requestq, the driver sends a message with a request, and
+> +receives the response in the device-writable part of the message. The
+> +requestq uses common request and response headers.
+> +
+Now without defining any rtc specific structure, we benefit from generic st=
+ructure.
+Only two things needed.
+1. define cap identifier
+2. define cap structure
+
+> +\begin{lstlisting}
+> +/* common request header */
+> +struct virtio_rtc_req_head {
+> +	le16 msg_type;
+> +	u8 reserved[6];
+> +};
+> +
+> +/* common response header */
+> +struct virtio_rtc_resp_head {
+> +	u8 status;
+> +	u8 reserved[7];
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{msg_type} field identifies the message type.
+> +
+> +The \field{status} field indicates whether the device successfully
+> +executed the request. The device sets the \field{status} field to one
+> +of the following values:
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_S_OK 0
+> +#define VIRTIO_RTC_S_EOPNOTSUPP 2
+> +#define VIRTIO_RTC_S_ENODEV 3
+> +#define VIRTIO_RTC_S_EINVAL 4
+> +#define VIRTIO_RTC_S_EIO 5
+> +\end{lstlisting}
+> +
+> +VIRTIO_RTC_S_OK indicates that the device successfully executed the
+> +request.
+> +
+> +If \field{status} is not VIRTIO_RTC_S_OK, the value of other response
+> +fields is undefined.
+> +
+> +VIRTIO_RTC_S_EOPNOTSUPP indicates that the device could not execute
+> the
+> +specific request due to an implementation limitation. The device also
+> +returns status VIRTIO_RTC_S_EOPNOTSUPP for requests with unknown
+> values
+> +in the fields \field{msg_type} or \field{hw_counter}.
+> +
+> +VIRTIO_RTC_S_ENODEV indicates that the \field{clock_id} field value
+> +supplied with the request does not identify a clock.
+> +
+> +VIRTIO_RTC_S_EINVAL indicates that
+> +
+> +\begin{itemize}
+> +\item the driver request values are not allowed by the specification or
+> +\item the device read-only part of the message, or device write-only
+> +	part of the message, is too small.
+> +\end{itemize}
+> +
+> +VIRTIO_RTC_S_EIO indicates that the device did not execute the request
+> +due to an error which was not caused by invalid input from the driver.
+> +
+> +All \field{reserved} fields are written as zero, and their value is
+> +ignored.
+> +
+> +The set of clocks does not change after feature negotiation completion,
+> +until device reset. The set of clocks should not change on device reset
+> +either (similar to negotiated features). Clock identifiers are
+> +zero-based, dense indices. All fields named \field{clock_id} contain
+> +clock identifiers.
+> +
+> +\subsubsection{Control Requests}\label{sec:Device Types / RTC Device /
+> +Device Operation / Control Requests}
+> +
+> +Through \emph{control requests}, the driver requests information about
+> +the device capabilities. The driver enqueues control requests in the
+> +requestq.
+> +
+> +\begin{description}
+> +
+> +\item[VIRTIO_RTC_REQ_CFG] discovers the number of clocks.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_CFG 0x1000 /* message type */
+> +
+> +struct virtio_rtc_req_cfg {
+> +	struct virtio_rtc_req_head head;
+> +	/* no request params */
+> +};
+> +
+> +struct virtio_rtc_resp_cfg {
+> +	struct virtio_rtc_resp_head head;
+> +	le16 num_clocks;
+> +	u8 reserved[6];
+> +};
+> +\end{lstlisting}
+> +
+> +Field \field{num_clocks} contains the number of clocks. A device
+> +provides zero or more clocks. Valid clock ids are those smaller than
+> +\field{num_clocks}.
+> +
+> +\item[VIRTIO_RTC_REQ_CLOCK_CAP] discovers the capabilities of the clock
+> +identified by the \field{clock_id} field.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_CLOCK_CAP 0x1001 /* message type */
+> +
+Each clock identified by unique resource (clock) identifier and this resour=
+ce now has the attributes of time.
+
+> +struct virtio_rtc_req_clock_cap {
+> +	struct virtio_rtc_req_head head;
+> +	le16 clock_id;
+> +	u8 reserved[6];
+> +};
+> +
+> +struct virtio_rtc_resp_clock_cap {
+> +	struct virtio_rtc_resp_head head;
+> +	le16 type;
+> +	u8 reserved[6];
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{type} field identifies the clock type. A device provides
+> +zero or more clocks for a clock type. The following clock types are
+> +defined:
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_CLOCK_UTC 0
+> +#define VIRTIO_RTC_CLOCK_TAI 1
+> +#define VIRTIO_RTC_CLOCK_MONO 2
+> +\end{lstlisting}
+> +
+> +VIRTIO_RTC_CLOCK_UTC uses the UTC (Coordinated Universal Time) time
+> +standard. The device uses the time epoch of January 1, 1970, 00:00 UTC.
+> +This is the same epoch as \emph{Unix time}.
+> +
+> +VIRTIO_RTC_CLOCK_TAI uses the TAI (International Atomic Time) time
+> +standard. The device uses the time epoch of January 1, 1970, 00:00 TAI.
+> +
+> +VIRTIO_RTC_CLOCK_MONO uses monotonic physical time (SI seconds
+> +subdivisions) since some unspecified epoch. The
+> VIRTIO_RTC_CLOCK_MONO
+> +epoch is before or during device reset.
+> +
+> +Additional clock types may be standardized in the future.
+> +Implementation-specific clock type definitions are not recommended and
+> +use a clock type id greater than or equal to 0xF000.
+> +
+> +\item[VIRTIO_RTC_REQ_CROSS_CAP] discovers whether the device
+> supports
+> +cross-timestamping for a particular pair of clock and hardware counter.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_CROSS_CAP 0x1002 /* message type */
+> +
+> +struct virtio_rtc_req_cross_cap {
+> +	struct virtio_rtc_req_head head;
+> +	le16 clock_id;
+> +	le16 hw_counter;
+> +	u8 reserved[4];
+> +};
+> +
+> +#define VIRTIO_RTC_FLAG_CROSS_CAP (1 << 0)
+> +
+> +struct virtio_rtc_resp_cross_cap {
+> +	struct virtio_rtc_resp_head head;
+> +	u8 flags;
+> +	u8 reserved[7];
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{clock_id} field identifies the clock, and the
+> +\field{hw_counter} field identifies the hardware counter, for which
+> +cross-timestamp support is probed. The device sets flag
+> +\field{VIRTIO_RTC_FLAG_CROSS_CAP} in the \field{flags} field if the
+> +clock supports cross-timestamping for the particular clock and hardware
+> +counter, and clears the flag otherwise.
+> +
+Hw_counter is also the resource attribute.
+
+> +\end{description}
+> +
+> +\subsubsection{Read Requests}\label{sec:Device Types / RTC Device /
+> +Device Operation / Read Requests}
+> +
+> +Through \emph{read requests}, the driver requests clock readings from
+> +the device. The driver enqueues read requests in the requestq. The
+> +device obtains device-side clock readings and forwards these clock
+> +readings to the driver. The driver may enhance and interpret the clock
+> +readings through methods which are beyond the scope of this
+> +specification.
+> +
+Reading the resource using generic query resource command of [2] will retur=
+n the time value.
+So only time definition is needed in the resource.
+[2] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00096.ht=
+ml
+
+> +Once DRIVER_OK has been set, the device should support reading every
+> +clock, even when a clock may yet have to be aligned to reference time
+> +sources.
+> +
+> +In general,
+> +
+> +\begin{itemize}
+> +\item clocks may jump backwards or forward, and \item the clock
+> +frequency may change. Clocks may be \emph{slewed},
+> +	i.e.\ clocks may run at a frequency other than their current
+> +	best frequency estimate.
+> +\end{itemize}
+> +
+> +E.g., a clock of type VIRTIO_RTC_CLOCK_UTC can insert UTC leap seconds.
+> +
+> +As long as a clock does not jump backwards, the driver clock readings
+> +increase monotonically:
+> +
+> +\begin{itemize}
+> +\item As long as a clock does not jump backwards in-between device-side
+> +	clock readings, the driver-side readings for that clock increase
+> +	monotonically as well, in the order in which the driver
+> +	marks read requests as available.
+> +
+> +\item The device marks read requests for the same clock as used in
+> +	the order in which the messages were marked as available.
+> +\end{itemize}
+> +
+> +For a clock of type VIRTIO_RTC_CLOCK_MONO, the device always returns
+> +monotonically increasing clock readings.
+> +
+> +The unit of all \field{clock_reading} fields is 1 nanosecond for all
+> +clock types which are part of the device specification so
+> +far.\footnote{For time epochs in year 1970 or later, this means that
+> +time until at least year 2553 can be represented in the \field{le64
+> +clock_reading} fields.}
+> +
+> +\begin{description}
+> +
+> +\item[VIRTIO_RTC_REQ_READ] reads the clock identified by the
+> +\field{clock_id} field. The device supports this message for every
+> +clock.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_READ 0x0001 /* message type */
+> +
+> +struct virtio_rtc_req_read {
+> +	struct virtio_rtc_req_head head;
+> +	le16 clock_id;
+> +	u8 reserved[6];
+> +};
+> +
+> +struct virtio_rtc_resp_read {
+> +	struct virtio_rtc_resp_head head;
+> +	le64 clock_reading;
+> +};
+> +\end{lstlisting}
+> +
+> +\field{clock_reading} is a device-side clock reading obtained after the
+> +message was marked as available.
+> +
+> +\item[VIRTIO_RTC_REQ_READ_CROSS] returns a cross-timestamp for the
+> +clock identified by the \field{clock_id}
+> +field.\footnote{Cross-timestamping
+> +is similar to the ptp_kvm mechanism in the Linux kernel.} This message
+> +may yield better performance than using VIRTIO_RTC_REQ_READ.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_READ_CROSS 0x0002 /* message type */
+> +
+> +struct virtio_rtc_req_read_cross {
+> +	struct virtio_rtc_req_head head;
+> +	le16 clock_id;
+> +	le16 hw_counter;
+> +	u8 reserved[4];
+> +};
+> +
+> +struct virtio_rtc_resp_read_cross {
+> +	struct virtio_rtc_resp_head head;
+> +	le64 clock_reading;
+> +	le64 counter_cycles;
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{hw_counter} field specifies the hardware counter for which
+> +the driver requests a cross-timestamp.
+> +
+> +Cross-timestamping returns a \field{clock_reading}, and an associated
+> +hardware counter value, \field{counter_cycles}. The
+> +\field{counter_cycles} field is the approximate or precise value which
+> +the driver would have read at the \field{clock_reading} time instant
+> +from the hardware counter identified by \field{hw_counter}. How the
+> +device determines the value which the driver would have seen is beyond
+> +the scope of this specification.
+> +
+> +The following hardware counter identifiers are specified:
+> +
+> +\begin{lstlisting}
+> +/* Arm Generic Timer CNTVCT_EL0, Counter-timer Virtual Count register
+> +*/ #define VIRTIO_RTC_COUNTER_ARM_VIRT 0
+> +/* Arm Generic Timer CNTPCT_EL0, Counter-timer Physical Count register
+> +*/ #define VIRTIO_RTC_COUNTER_ARM_PHYS 1
+> +/* x86 Time-Stamp Counter */
+> +#define VIRTIO_RTC_COUNTER_X86_TSC 2
+> +\end{lstlisting}
+> +
+> +Additional hardware counter identifiers may be standardized in the
+> +future. Implementation-specific hardware counter identifiers are not
+> +recommended and are greater than or equal to 0xF000.
+> +
+> +The driver can determine whether the device supports
+> +VIRTIO_RTC_REQ_READ_CROSS for a specific clock and \field{hw_counter}
+> +through VIRTIO_RTC_REQ_CROSS_CAP.
+> +
+> +\end{description}
+> --
+> 2.40.1
+
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
