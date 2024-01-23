@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-8995-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-8996-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73879C47DAF
-	for <virtio-comment@archiver.kernel.org>; Mon, 22 Jan 2024 17:21:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D936C47258
+	for <virtio-comment@archiver.kernel.org>; Tue, 23 Jan 2024 05:07:10 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5F5B26034D
-	for <virtio-comment@archiver.kernel.org>; Mon, 22 Jan 2024 17:21:46 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C23551A98C6
+	for <virtio-comment@archiver.kernel.org>; Tue, 23 Jan 2024 05:07:05 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5647F9866BA
-	for <virtio-comment@archiver.kernel.org>; Mon, 22 Jan 2024 17:21:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0B8AF98680E
+	for <virtio-comment@archiver.kernel.org>; Tue, 23 Jan 2024 05:07:05 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4B9B59865B8; Mon, 22 Jan 2024 17:21:46 +0000 (UTC)
+	id CC5FC9868D3; Tue, 23 Jan 2024 05:07:04 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,103 +24,84 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 5B2709867C3
-	for <virtio-comment@lists.oasis-open.org>; Mon, 22 Jan 2024 17:21:42 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 8AF48986827
+	for <virtio-comment@lists.oasis-open.org>; Tue, 23 Jan 2024 05:07:04 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705944093; x=1706548893;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HnSoUahcRNICLdcqHsmMLhQZ2QzE4Q5mHZK6Kbmm4SA=;
-        b=F25gnOeiNJ3CWWWu8Tkzd793aReRJyYKlGpqrZ15jFgDvVnoSfiitDwZKFD6LE/eEE
-         2sFuk9TGgJvnwgIPA2FjujQoH/nf15YJ+fEWPDLb1TyAgXyfueln7lQKBxxRiVBCo/Mu
-         LbkNpia/GKkBHHU4cV4UipPnHa/KTJE4c2B7mDUekSY9WfNbFnh1nYvxTo+XZ+cfeIJp
-         UfXaRpwySybptsRLrqJ/KDKsG32QMZN0ITREIWKw9ii9Z0j2/xoEItRKOx2T07k1AwmJ
-         T4kc4d+1mmxONg0GBK/l6F+WSfL6L5OCEBlXyyg6dHB5n7/B0a4jcM+vD1JCyEPvLH0L
-         EYuQ==
-X-Gm-Message-State: AOJu0Yyz1Li35EWkiYp6kAtYQVEBrBJJ4Z57HURSJOmKjGyED0PLDh+B
-	DsQ00XjMBAaU9FXJ8vnYIhbxAWB4YyenJWqEqCoBswwEGhSDFTLtLfKMy0drd3x9Xhg8x0bpOp9
-	6
-X-Google-Smtp-Source: AGHT+IGup5nSO6UlqEM6DHsKDjjTDNVYsDnoVRK3BBWikJSbpOZuvjTtsVBbSUw+92Vrkk6ALVx0FQ==
-X-Received: by 2002:a05:600c:4f06:b0:40e:44b5:511e with SMTP id l6-20020a05600c4f0600b0040e44b5511emr2481976wmq.99.1705944093452;
-        Mon, 22 Jan 2024 09:21:33 -0800 (PST)
-From: Jean-Philippe Brucker <jean-philippe@linaro.org>
-To: virtio-comment@lists.oasis-open.org
-Cc: vivek.gautam@arm.com,
-	tina.zhang@intel.com,
-	seb@rivosinc.com,
-	sameo@rivosinc.com,
-	eric.auger@redhat.com,
-	kevin.tian@intel.com,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>
-Date: Mon, 22 Jan 2024 17:14:43 +0000
-Message-ID: <20240122171442.1740297-11-jean-philippe@linaro.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122171442.1740297-2-jean-philippe@linaro.org>
-References: <20240122171442.1740297-2-jean-philippe@linaro.org>
+        d=1e100.net; s=20230601; t=1705986422; x=1706591222;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ayRvHEh7mgSNcAAr26gWZrkEBxtXkBw7EmuPmau9IhU=;
+        b=H5Zzdu9KbIrzBjRtGcjcxHLYzgORV9J+22+UhY3tRV42hnLqGQ5swub+s00+e4fMy5
+         T0gdwwOoEnsxu4ZXTyTUM13roIu9bQe1RFHgNxIuFaUbJa37wEX1deQCAwsGybnTuWyu
+         9RehuYMN4cqpSnlBUXfVNKL4lQ1BpLlVIz1xWHgvleHWCeD6Tw/0Q+tBAUi3j7Ln34Z7
+         V785xaw+7e3blB0hn7VzHhO5d83pvvfeW3VgDFiBdRtUQHsTpvqyjU5+4OWn8Xi5fOFl
+         gbkH4QernC8rYKKdlB/tkcDAmJSxmkpD5HfNTMreelD19msFeI5a/yh1h46HvAvRxj2u
+         uwvA==
+X-Gm-Message-State: AOJu0Yw3fkT/2kcuFZm2CMREiC2pLpjMyW4gNVNUZUN0NqiUlFY3ByKl
+	woQnGFkE4nx4dHc8UeAxr0Z+XIH3VPHYHej1t3NPMbsYNjMNBOL5vDg422aSowqXMYIM3RSPgyK
+	vQtosof1DZ+g8fODFTkQl5/4+mDXTPuEWKtq8Obzl7ld1IfcZma3R
+X-Google-Smtp-Source: AGHT+IEAT9kxXFLH/wFEsmf4yZPjEsXU0SwDPSqTExhtExd8ujZXIVepz9NKe19wOuKv9LQMd/+CxZ1vohe0RoMr8xE=
+X-Received: by 2002:a17:907:d411:b0:a30:49d6:5abf with SMTP id
+ vi17-20020a170907d41100b00a3049d65abfmr2757270ejc.37.1705986422077; Mon, 22
+ Jan 2024 21:07:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v3 9/9] virtio-iommu: Add PASID information to fault report
+From: Shujun Xue <shujunxue@google.com>
+Date: Mon, 22 Jan 2024 21:06:51 -0800
+Message-ID: <CAB6OiKiRAFTXxGExz26ww9P-wEx-26HR+u_-XM=xw-PpVywxfQ@mail.gmail.com>
+To: virtio-dev@lists.oasis-open.org, virtio-comment@lists.oasis-open.org
+Cc: mst@redhat.com, Slava Malyugin <slavamn@google.com>
+Content-Type: multipart/alternative; boundary="000000000000ae931c060f95ea4d"
+Subject: [virtio-comment] [PATCH] Define the DEVICE ID of Virtio Cpu balloon device as 47
 
-With page table support comes PASID support, so it's useful to have the
-faulting address space in error reports.
+--000000000000ae931c060f95ea4d
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+The virtio CPU balloon device is a primitive device for managing guest
+CPU capacity: the device asks for certain CPU cores to be online,
+offlined or throttled, and the driver performs the requested operation.
+This allows the guest to adapt to changes in allowance of underlying CPU
+capacity.
+
+Signed-off-by: Shujun Xue <shujunxue@google.com>
 ---
- device-types/iommu/description.tex | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ content.tex | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/device-types/iommu/description.tex b/device-types/iommu/description.tex
-index 7c81516..7e142bd 100644
---- a/device-types/iommu/description.tex
-+++ b/device-types/iommu/description.tex
-@@ -1111,13 +1111,14 @@ \subsubsection{Fault reporting}\label{sec:Device Types / IOMMU Device / Device o
-   u8    reserved[3];
-   le32  flags;
-   le32  endpoint;
--  le32  reserved1;
-+  le32  pasid;
-   le64  address;
- };
- 
- #define VIRTIO_IOMMU_FAULT_F_READ     (1 << 0)
- #define VIRTIO_IOMMU_FAULT_F_WRITE    (1 << 1)
- #define VIRTIO_IOMMU_FAULT_F_ADDRESS  (1 << 8)
-+#define VIRTIO_IOMMU_FAULT_F_PASID    (1 << 9)
- \end{lstlisting}
- 
- \begin{description}
-@@ -1132,9 +1133,11 @@ \subsubsection{Fault reporting}\label{sec:Device Types / IOMMU Device / Device o
-         access \field{address}, which wasn't mapped in the domain or
-         didn't have the correct protection flags.
-     \end{description}
-+  \item[\field{reserved}] Should be zero.
-   \item[\field{flags}] Information about the fault context.
-   \item[\field{endpoint}] The endpoint causing the fault.
--  \item[\field{reserved} and \field{reserved1}] Should be zero.
-+  \item[\field{pasid}] If VIRTIO_IOMMU_FAULT_F_PASID is set, the
-+    address space ID of the fault.
-   \item[\field{address}] If VIRTIO_IOMMU_FAULT_F_ADDRESS is set, the
-     address causing the fault.
- \end{description}
--- 
-2.43.0
+diff --git a/content.tex b/content.tex
+index 0a62dce..6149612 100644
+--- a/content.tex
++++ b/content.tex
+@@ -739,6 +739,8 @@ \chapter{Device Types}\label{sec:Device Types}
+ \hline
+ 45         &   SPI master \\
+ \hline
++47         &   Cpu balloon device \\
++\hline
+ \end{tabular}
 
+ Some of the devices above are unspecified by this document,
+--
+2.43.0.429.g432eaa2c6b-goog
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
+--000000000000ae931c060f95ea4d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
+<div dir=3D"ltr">The virtio CPU balloon device is a primitive device for ma=
+naging guest<br>CPU capacity: the device asks for certain CPU cores to be o=
+nline,<br>offlined or throttled, and the driver performs the requested oper=
+ation.<br>This allows the guest to adapt to changes in allowance of underly=
+ing CPU<br>capacity.<br><br>Signed-off-by: Shujun Xue &lt;<a href=3D"mailto=
+:shujunxue@google.com" target=3D"_blank">shujunxue@google.com</a>&gt;<br>--=
+-<br>=C2=A0content.tex | 2 ++<br>=C2=A01 file changed, 2 insertions(+)<br><=
+br>diff --git a/content.tex b/content.tex<br>index 0a62dce..6149612 100644<=
+br>--- a/content.tex<br>+++ b/content.tex<br>@@ -739,6 +739,8 @@ \chapter{D=
+evice Types}\label{sec:Device Types}<br>=C2=A0\hline<br>=C2=A045=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0&amp;=C2=A0 =C2=A0SPI master \\<br>=C2=A0\hline<br>=
++47=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;=C2=A0 =C2=A0Cpu balloon device \=
+\<br>+\hline<br>=C2=A0\end{tabular}<br><br>=C2=A0Some of the devices above =
+are unspecified by this document,<font color=3D"#888888"><br>--<br>2.43.0.4=
+29.g432eaa2c6b-goog<br></font></div>
 
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
-
+--000000000000ae931c060f95ea4d--
