@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9011-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9012-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C16C46CD2
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 15:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F70CC46CD2
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 15:40:56 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 195A62AEE5
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 15:39:10 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id BBFDE2A8EF
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 15:40:55 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DF8ED9867DE
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 15:39:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A14839867E1
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 15:40:55 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id C3D4E9867DB; Wed, 24 Jan 2024 15:39:09 +0000 (UTC)
+	id 93B2F9867DB; Wed, 24 Jan 2024 15:40:55 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,32 +24,32 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B442C9867DC
-	for <virtio-comment@lists.oasis-open.org>; Wed, 24 Jan 2024 15:39:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 7694F9867DC
+	for <virtio-comment@lists.oasis-open.org>; Wed, 24 Jan 2024 15:40:55 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1706110746.092000
-X-TM-MAIL-UUID: 23829ee3-67b2-4140-bf05-27bfe989fb7e
+X-TM-MAIL-RECEIVED-TIME: 1706110853.130000
+X-TM-MAIL-UUID: cf807dd5-322c-4a00-94fc-7999dabc3cac
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H7bai4aa7j1xFWKM54OIB1T5S9xE6UtODFeLh39g+TExJ7LqixTUiuL+fI0rsfLVXnkxFa5YAqD4GCJJQ4gcy/PT50eKG+UChetd1rePxDbgiddFo9KEg3IUgbfq/PpTuir4Bf8k1UABAo5AX32exjblucDAPo/0zAVsAUYWF0JAyTMl/vC8AeinmhpkuBgQfdsJN2iV5YF8ncslzJFWj0W18SSEPLuU0/MWkI+Uu/hXQD1GIguD425M1s2TYwJ1ZQ8B5Ehp1eViPEcKbzEsLiI+mTPu6oDDb+avJz/ZWydwTfPdaEPXwjcAt2/QoVkkWbudxZPAVZ0/WxgW7heEtQ==
+ b=LZxo/2DyS6iAS1L5L3Ab5d5Eu2tQDMLu+IMwHFLmcxxOa3ytrPQZ2nuY74Rqf4K1DspMCucX5ynIT1cQxeEgIO3cKh54DWiBCLaTC3PLgUPeQEJXwsEEz5/p5AdFkofudV/2w6SQHPT9wg7ZVHq5taUX/LomRy6zsc2HVrQ8bU2YHbxd6ooD+QtMa7iwRnkR/FGFfUcLOZUwhshoWjmBIT5HqWF8HUEfC/X02I8vNXSdQqqKfLYris/rqc0TG4yHwm7woo6GHpI7U3K9/Y12cnuKE5sMVkB49x7kQJCppNICRcnDyFrNpxRRxQ10mQ8pyrBZ8n5jIb+I0duC0cu9sA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/gg8K07aQ3aWP0WhlTRqsrnAP5ENHODYmg+87vG82jE=;
- b=V4a1ntpQPmTJ/BpN40vz5wZ6XlWxNWrzwBJknV6E3LqDYShOc9mQwt5dJGGJBl5pUrUxYk0XChVKowETQguBWa8aK3ofpBRqKembTvrMUwUohKwKv3x9X58b/2lR/S90fxFwTaU5TI4HxjWBYgKNWl5yAjHdeY+uZNF/r3EY/epa8ZOFfzCadldGB3Z1xAh5VzusL48Wkdl5lvIl96EEdqWMLAgiT6jCg2go4x+6I15feUXPXxWdeHO5Y2d4N9tSrIrw8i9NU2WhzSShPmO2aymLJq4+Ns8kNBI6oNZMjl9nrJwFn2gF3cT0Zt7CexBAL5km17yNFVNnza4+WMciCw==
+ bh=elLbVzNraSBey0zRScRodfm+QbOWLmyZaxP6Ph5nxkE=;
+ b=XTotGmscWzE5xqw4+fpxiZAaFOUDxCaFOFgxAyRRFIXCqSbQm1Q9srj2FgREsj+puBwI371dFKyDkbflFnN9dLBndKQRB9yrif13bzVImHzSTnuWS8obh7jvRHPMkSPSr974MqX+lP7TTLXJDyZlygKgFY4yt0pjvHnYSs1Vh/Whm9L0JaI/WBrhWBDYCKrpIfVtjbc1h9AmdreHzUry0/0jfN/YwY0JmYSCptFS276BVs3B94B4rwF+pBrv0SxU9kBphWgso+B/s9Vf4+52gry3wFAENnd0pVYnSED4e5dObJAsT823MtGgQKiHXKZT41M52RwTIAO3JqGwuyJzdg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=opensynergy.com; dmarc=pass action=none
  header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <810765b7-db87-4854-98c5-3a6cf43b955c@opensynergy.com>
-Date: Wed, 24 Jan 2024 16:39:02 +0100
+Message-ID: <aca3c781-3932-4cc1-aef4-f29fb1297b4a@opensynergy.com>
+Date: Wed, 24 Jan 2024 16:40:50 +0100
 From: Peter Hilber <peter.hilber@opensynergy.com>
 To: Parav Pandit <parav@nvidia.com>,
  "virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
 Cc: Cornelia Huck <cohuck@redhat.com>
 References: <20231218064253.9734-1-peter.hilber@opensynergy.com>
- <20231218064253.9734-2-peter.hilber@opensynergy.com>
- <DM8PR12MB548058D48443B3B0A89DF05DDC772@DM8PR12MB5480.namprd12.prod.outlook.com>
+ <20231218064253.9734-4-peter.hilber@opensynergy.com>
+ <DM8PR12MB5480022FDB88FBCEAA13E2C9DC772@DM8PR12MB5480.namprd12.prod.outlook.com>
 Content-Language: en-US
 Autocrypt: addr=peter.hilber@opensynergy.com; keydata=
  xsDNBFuyHTIBDAClsxKaykR7WINWbw2hd8SjAU5Ft7Vx2qOyRR3guringPRMDvc5sAQeDPP4
@@ -85,431 +85,197 @@ Autocrypt: addr=peter.hilber@opensynergy.com; keydata=
  wHFeXHw4NXR7mYeX/eftz/9GFMVU29c72NTw8UihOy9qJgNo19wroRYKHLz1eWtMVcqS3hbX
  m0/QcrG9+C9qCPXVxpC/L0YLAtmdvEIyaFtXWRyW7UQ3us6klHh4XUvSpsQhOgzLHFJ1Lpfc
  upeBYECJQdxgIYyhgFAwRHeLGIPxjlvUmk22C0ualbekkuPTQs/m
-In-Reply-To: <DM8PR12MB548058D48443B3B0A89DF05DDC772@DM8PR12MB5480.namprd12.prod.outlook.com>
+In-Reply-To: <DM8PR12MB5480022FDB88FBCEAA13E2C9DC772@DM8PR12MB5480.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BE1P281CA0347.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:7d::19) To BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BE1P281CA0089.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:78::12) To BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM
  (2603:10a6:b10:77::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BEZP281MB3267:EE_|FR2P281MB2639:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77f3fb67-5e82-4621-fc49-08dc1cf297e3
+X-MS-Office365-Filtering-Correlation-Id: 121b70a3-9dab-43c2-a033-08dc1cf2d861
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	DdgxbRHEisFn89gYpzG2xpnDjKlyg0CU/kDF+/iVwU1viLu4CVzFaiqasSmODxWmFnuvfGJE4DHBFrlKIlt1Uu2aPjC4GY5lX0DTZwTGC3v/SfvCTQUVBJDUr2P63ZmK/bkzGsuNEdeHJ8NI7tDbFZ5UJ5iVHFYVW2Eag4y4qdMOsjjKQSpSJXTWlsuwpOxyZtyiNaKJBfEIXMyR9OHLWm5tOAQx2kVa1Kf6AYOheH4fIt3//rN+atx+rKEgaaQrXTbXiTgj1iAjc4YxbtUxvoqi3sdZb4zxdMOEzSMaYp4svq0cW24FYSkA4SWFl7i+NFtbgcn4NjHrHOdLpFa0tRgDPi8r9YrO5lT7YRQ3krl9WL22j7RBLGU3jUFV+iXdTGsguBeO8TepuwqOtl3FXEW3iWyEXn/cM/osnCewEzQzA3T8Hxz0HAXQq7kIKZH2wyyqtFP4sd9DsUaWuJzs7oNXGhP+f8vcOVfzDuHul0sx+CaCaSnyJAf7HQ3gwe1fPAWjtqhVCueSnhNdHrG28u6Yut3YFmdUP0cTKdm5I/YuhBGVbFpFUmxPvPNCBK6y9ieQfUc4IS0duSStoDQuJw==
+	XuxiMApziBMUi1Duhl5gE5xWFxmiCp02U5+6894lUhrkNUUMSXEBZ1znHXUl6T7+UVfXGS1ecWlSYIey8p+gpC912pRiFFWJPlEzNBAkzjrn0gjS84cw9gRT18PsXTekjO+1V4vUwBHwE4Tv7qx4gVtuLlkEvPqIF71YMchPCAirVW91Qvs+hKR9Wd/3j8xMS+BoGh8nvRM9FbWfjAN9JFfJlfnehusptNYMmoVp2EGokPx2ajUJW0NlTCr7qEjZK6ofoRF97jqp9oCONCR6QrBo63o0rN8HAWF4nSaD/Oxr5xKIYxLFNdFwnrnMiJRXkOgvaCrvAMoCHwfOwwwUsjJ+i9y2vnm9PJL4DJB+ALenFBzH7+A+ZMLAWeqxI9A7AO27PlQXEGqOcRpdh8mhpwNbizgBhV0szcSVuCV3KT2wxMqbEVCpX8rvCflKmZYEHdcgKJdfzgqTTmDZdAAZ0LYkM1kXcnHapSy5wGGu1C5d0cLAWygoU8khFDoDmJ22zwN09FZMr5BrmTLCO4pTAAHbQf6QAeA60HiqvwttR9dp/Ynjtol8dXitneDDHFrK
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(136003)(39830400003)(366004)(396003)(346002)(376002)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(2906002)(30864003)(5660300002)(31686004)(66476007)(66556008)(53546011)(110136005)(44832011)(966005)(478600001)(8676002)(8936002)(4326008)(2616005)(66946007)(83380400001)(41300700001)(36756003)(86362001)(316002)(31696002)(42186006)(66899024)(38100700002);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(136003)(39830400003)(366004)(396003)(346002)(376002)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(2906002)(5660300002)(31686004)(66476007)(66556008)(53546011)(110136005)(44832011)(478600001)(8676002)(8936002)(4326008)(2616005)(66946007)(83380400001)(41300700001)(36756003)(86362001)(316002)(31696002)(42186006)(38100700002);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S0VQQXcxMFNrWngyR3V3QkEvWE9zQzYwYS9OTlVneDFYYmRJQi9ueHRKcWcv?=
- =?utf-8?B?Zmk3TDhxT1ZsUWFWRml5U01KeG04RitSbzlIMWhPMXFxMWppUnM2a2xmUW5J?=
- =?utf-8?B?bmxVSkd4b0xmWnNLRVNtVW95VytZRmlNbWlOSk0wZ3RCM08zSUVqL1hESGRH?=
- =?utf-8?B?ek1KTDZZOGhCdlFzSFA0Vys5cGRGTmlVSmk4ekZjWlNsY1RzTDcvUC9JV05t?=
- =?utf-8?B?VkQ1S0cyekZSN0hQZE81dHludHV2R2RxdUVXZWxKbkxwd213aWp5SjRlMnlV?=
- =?utf-8?B?TFlMNUVadGI1NVVNYm1sYWozbysxZ0JoakNZOXBVdGVlSHRRdXBIdHR3SU9L?=
- =?utf-8?B?M05IcDRiR3F5bFNsZFlRZlF4MTVXcWpQeCtRbk5VUTl5QWJac3hCOXB0Y1FY?=
- =?utf-8?B?TXA1Vi8rVmJQbkdLamJhRU1Rd0w1RGErNU9iY2FDN2xKZU5kZ1ZYUW42QVEz?=
- =?utf-8?B?YUtreGx5a3p3bkE5V2dFYW80azBGRjBhS0djcWl1SFh0UkhneHJ0YlM4d2hy?=
- =?utf-8?B?cU9mWVVYSFJHak5HaTJBdXBHVDZoM2QvSUVwbjA4ZTl1VXdhdE4yQTdVZmEy?=
- =?utf-8?B?SHpVakV4MDZTZ21JNHNHbVpqd0JyYk1wZDIyNElianlNVnNiQkdsM05HaVhU?=
- =?utf-8?B?dFp1NW5POHh6eTBhK0xETEw2TjQrMzhLdVd4N3cycWhUNVlWSG1EV2VVbW44?=
- =?utf-8?B?QlJsaThKVXlqQTFGQUNDVVpQRWZuSS9GZzFoZVgzYXFWZWJmb0dRVkhicStw?=
- =?utf-8?B?VHdMQzZvazBqS05UVW5XNlpMa215NlZKMitKYjd4cWdMaDBuRU51UDBDUGJZ?=
- =?utf-8?B?WVdUL1FHRFBLWkQyNnE4SUU1bTZaVWJqeWo4QnpiUkpGL2RHSGkyTDdZamNk?=
- =?utf-8?B?a3F0Z3kvSHR2azA1ZVg5cEhxKzc0ZHpOWFBYNGtHUWhiK0JPWTdZVjRLU2hi?=
- =?utf-8?B?Z0g0OXd5dTlTdWRYcjh0NEpNOERVRUVUUVdtblFTL1JNdCt3OXV3WTZSRWd1?=
- =?utf-8?B?M3NGeWE2aUpVRys3NklNUHhwRDFodDZ1STRwbU5KL0JjWEVsc1M4cGtTRzZB?=
- =?utf-8?B?bFpUUG5mVytoeTBMSnFSeGRqeWtwMVpMQk9lWEpXdkc5U0FabFkwcWREMUQ0?=
- =?utf-8?B?d25PbmFzUlFKUThBUlRtcTd1VnZMaXI2N3BnK05WWUdvTy9jc0pyRTZ0SzVU?=
- =?utf-8?B?SUlsejFNWHh1VFpSWTVQS0pmTnhwK3VWSHduNDZURGVtVG5VMERCZ2VpUmUr?=
- =?utf-8?B?OElJNS9tZ2dEY3ZjbklYZDUwci9hR0c3MmMxZkV1SVE5S3d2eU9jTGJXWWNL?=
- =?utf-8?B?TlFGRUpFbkU4eFNQaGFBek9wam1YSStEVHBvemVjUFYzK1RFdnJ3WnYyeDM0?=
- =?utf-8?B?c3d0OU9iRTZSZWZaQSs4K2JBVmpmZy9CWDNtSDd2aWllRE50Wm53UFk3aDdZ?=
- =?utf-8?B?RVkrVnVwYSs2aThsY3YxaEZpMEs5UEg4WHdzY3pVclpFRnRBaXF6eDJDRDlR?=
- =?utf-8?B?V2diZ1JhQWNGZlZsNTAxZzV1SlQ1eGNxaUswUzNYVytIeHlPOEhJblF4aWdv?=
- =?utf-8?B?SUU1bUkyNVE5SW1pUG5QT1R4d1Ara1N4RUtWWmdRUXVEU0s3UHdmYUF0VkpP?=
- =?utf-8?B?eU40WG82VWs3Kzc3dTZQYW5wN1pwdHJFcEs5TDY3ZTRMVlMzUlJBS3k2b2c2?=
- =?utf-8?B?bkY3TG5tZG5Ockw0d01lVHNwNjYwZ3RPVzR6aTVtK0N0NG1ZZ0Z0LzR3cERM?=
- =?utf-8?B?RythMjBjbENXVVR6d0VkWXY0OHlMNEplQnR5M2oyUjM0aUNzSUFZVzhqOTRr?=
- =?utf-8?B?ZkVVekx4dUROMzZ4MWxhNXRzT2l6aVJ6d0tpQXBFUHo0ekFkV3FsUmlCMGFB?=
- =?utf-8?B?YVk2bFVtVFFTRjFGUWlqUXFiWVh2OFIzdGhDWmZaUVRWM3lKdGNST09vWXEw?=
- =?utf-8?B?bS8wV1ZIZDM4Y3FqbTlwRStzN3pWRDRCcXBJSm9jVWdqQ2tyd3FGbXpvaHV0?=
- =?utf-8?B?V2ZZQWYrVUxzc0RvemlPdUU3dDlQWmpEOEZnZUQ5WUlFSlVla0ZMUUNuTTl4?=
- =?utf-8?B?V3N1eCtnVlJKbUdiTXByaW1wSXQ3NzA2VlVEaWlPeUhnT0pSbmM3VmRtdzJF?=
- =?utf-8?B?bkptWkZHZTJvem9vV2dvditRc1ZQeXlDTTBlZkN2MTlXdFowcDNwaFgvZ0Jm?=
- =?utf-8?Q?NNLl241FW1t/kN+wcB+t8XrlXTNZkqL4e+CP37lnmkfg?=
+	=?utf-8?B?c085VkJKVjR2SitmZC9xRlRkeGJxVlhYVVpwVTBBdGpQWmNkSDR0OW9mczlU?=
+ =?utf-8?B?bWhtSnFHUHF5eEYwRHJnQytoOUhKaXIzREVEZkF6ZFE5NEJVbHBlY2YzVVh2?=
+ =?utf-8?B?OFRCSWh0UFZ0SmVrUStWSGxYMi9YOTF3NHJzejR1OWlIZzhNY2pXbERaNFZX?=
+ =?utf-8?B?REh2SlpHamwzQndUQ3lMZ3ZRQ0x3ZUZqaXoxOUwyR2NnMStZNjF0N01URjFj?=
+ =?utf-8?B?OGNsOWhjbndPVVhwcW1qcDZzakpQM3plT0Q4OG5BbTVPWlBEbzJmK0duNFJx?=
+ =?utf-8?B?bklJdXF5NCs1OTdLZndpTFpRNTgvdmVTVnErQWcwMlRwYms4M252azBtTGRB?=
+ =?utf-8?B?K2JSWDlQTDZkRk1QNjhFVDZXUGVtSDBHbzhVeEUrR1Npb3FaZUkwSVpzakdp?=
+ =?utf-8?B?b0lmcGhSVm1PamRwcUo3dndQUHRWT1NLbjJiams4K1dzaHVYQUIrZmlwM1E1?=
+ =?utf-8?B?TmxTOGdlSnRHeHI0K2VraTJRTUw1RHZ2dmlrTzRlTEk1anNsRnMzc3djMmJD?=
+ =?utf-8?B?R0ZhU2g2eUVxUGlkN3NsVEh2R3ZSRTVDOGYzN09sTnZSZ1ZjdWQ0bUJPNi9W?=
+ =?utf-8?B?VnhKdWowZW0rUFRaU2NQMCtJbWp3NUNTN1dYbkxkYS82Vi9HRXdQMms3aWd6?=
+ =?utf-8?B?bVNKWlhqL1BzOVJYZHcyQUlaQ2xlc1hVeitOSkFLYk5GaUNLc2I0WTZ2RWhx?=
+ =?utf-8?B?aDRLWllRMlVoK0FmN29qbFpYSVNKTWJnNVBnV2ZKQnRJOUtFMDNpaGwwVFdG?=
+ =?utf-8?B?bHNXeGU3UER5WWwvWkl4MmxIcTdNOENPNzhtZGRVajZCaDZkU2JJOEdVRUFt?=
+ =?utf-8?B?azN0Zm5lNjJXZmFkaU5VckFjMmxLZFdqdTNzbWFyVXk4Rk9wU3pnOHJIUUp1?=
+ =?utf-8?B?dUVmcUYxRnNtenVUc2NpVDR5a1ZZUklNSkcyZ3JHeE5ycGI2a0pONEM5WU9i?=
+ =?utf-8?B?QUZSbWhmWFoxZEhQakNaUVJjU1NoUEtTK3drRld2OU9IZFVsaVdEeWh0Nm1q?=
+ =?utf-8?B?VnlZTmk3RkZsSnVIQzk5WUZoRHVxUzJYZTBqSi9oZHNobi9DYy93RWtTejZY?=
+ =?utf-8?B?SyswbXpaSWcveW05YzcwZk9oeCtOcjM3N3pyK2NvTFp3MHhGOFRqN2UzU2dm?=
+ =?utf-8?B?dEk5TjFTTFNIUHE5NC8rclRVMkdIdmM3cENuK1YwYTNWSnhEczZWcmE2b1hE?=
+ =?utf-8?B?YXZpK0NKWG5UVFpqUC9vMEowRmhsN05pdkV2OEQyTEhZdmYvN043ZWZTaGpK?=
+ =?utf-8?B?cXVnbEVLcDk4MlFXV1JzTmVNSko3dzdLc3M2WTd2Tzl1WTV1T1NORElkRndO?=
+ =?utf-8?B?UFJ1UmlVRjd6NlVsV3I4YTM5OVBRQnNIaHdSbDJUZlhKRWVXdUtXdzg0bStE?=
+ =?utf-8?B?UjJJa3N0MHVSY084aTdEdFovVFliZXlnQ1JBWWJjUm42SHl1U3l6QnFmOG54?=
+ =?utf-8?B?cnQ0a0dvNGRiRlVGbitUazJSaGNqMUhaNEJBSFEzcGtsUmYvVVZyQ1VSK1VV?=
+ =?utf-8?B?MU1lOXFFQUxLNDhHdjZETnhES0ZxRGM0SlJYbVNoVmNveXI1ZGhhWHdoY25J?=
+ =?utf-8?B?WTBLQ0k5UGRERkVhMnJERHg3bHl3ZmRNQ0h5SHhQTUpRY1J4ZzAwa1djUk5U?=
+ =?utf-8?B?RkNRQm5XamcwWVNEMFFwSG41NjJkUkZzbzhqditkVGFSd1VtTCtVTW84N2JT?=
+ =?utf-8?B?czhhUEdNUDMwSUhoZFZHK3REdE1NZGl1Vndwa1U0TnR5UUVUbERKUDBQWkhn?=
+ =?utf-8?B?YUlaYnBnWjc3UTRKcjlkS1FFN1dUak9OdUp3QUozUlBhTnNtUDh0MDN4cFRB?=
+ =?utf-8?B?bGY5ejJiL2N1M3RVQ3IvZTFvYnRGSFBmVUJlT0dRWnNOWHZNNVZVaUtxNXZr?=
+ =?utf-8?B?eVZRc05QMDNHV05vTjJRODk5ZDJ2Yk80bW5kSWlQMVlvTzhkNFQ0WnF3alNz?=
+ =?utf-8?B?a0QwK05yeEVldjl2TVlGVk5wZDYwdmpiWWExaUtEcG96a2s5czdmbnRFeHBk?=
+ =?utf-8?B?WSs5RTBKQi9ZaGlISDhZVnNlL3FrY3Y5STJFdzkrM3MvQTN1cDE2WlU1Y0s4?=
+ =?utf-8?B?V2k4aDFHNncxZzBIc2N1eElqQjQvcXRHS1drenBDdm04MUUrdjE0RytwQTQ5?=
+ =?utf-8?B?WWpXYlZxZ3VEOXdEUXY5SmlyYTRjQ0hCOGFxN0pxQW1ETGpwWnhoMEp3YnJl?=
+ =?utf-8?Q?oWVSR5NnmW/77aKGCRG5p41chbSoSjYOshR5GgC+ZhVO?=
 X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77f3fb67-5e82-4621-fc49-08dc1cf297e3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 121b70a3-9dab-43c2-a033-08dc1cf2d861
 X-MS-Exchange-CrossTenant-AuthSource: BEZP281MB3267.DEUP281.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2024 15:39:03.7286
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2024 15:40:51.8825
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0utdpuixw/uwVRs9rvdL9HSy4DPe+Jn8omhoM242s5Y/J/dVVxBZtmv5cuHgymZtM0ijoNe2ILmB9sk2xb+ODg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: +ED7a8J88Nhts8d7GSs87GE0+/BA9XI3D64wqMaaYPLjuHCSdZXMsZ0eQm5RJYaP57V1LXvqRaBtajNm3a9Bqw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR2P281MB2639
 X-TM-AS-ERS: 104.47.7.168-0.0.0.0
 X-TMASE-Version: StarCloud-1.3-9.1.1015-28140.000
-X-TMASE-Result: 10--42.467100-4.000000
-X-TMASE-MatchedRID: 7u3eoxEoplDEeENaa6f3ipQ/7SF2k7HSDDgMha/WNJVtT5dsVizXErdQ
-	knz6f/hF0MUfdarQd6I7gHTEZGmeXD1PTjeeEkGGeSSulWf8vyXf2e6voWUFXtjZrAgOUOa6jho
-	OdX+dGp8sSHPSI0C3QKmNRRWlEHUFIU08is3LlKewOGpxEw3l/ESDykrlmEA+R/Lj9ymbWRKJTc
-	kzLq0IkpMgd8Eo2Mj5Xdm0vbRDiASzB94uQgiRBBGEdmQyXwhDcx5gbbFQmwR0NldHHwKh5sRa8
-	GrfKjprogU4pCzqvSTaItgtd7s0PC77M0+ZVDsAefdn9/iBHHCIv5GuVax7Cvb58+rmbjOxIjtA
-	pqR7pXNpzVBQsbvrGcfuAwWgkXFlyLNfcO4pmlYED5HEWCercicOunEIf0eX1S6yX8lVpE0LDzQ
-	JD3kt0JSI/ayzeE2sw7WgdEKEO2PKeq/WFUOWj099ctTf0Y6b6x+Q+uPsJqobq8AXvsawlgLbwV
-	ZWOSEXfTg192v3f2k5CfEddz1WLxqApqfJ2A+2QhHE9wZpzVzWcxHsnT13TzdF+uIxstnWPtCfW
-	UwJAdj+f0UR6Rq9Ay8PmyOaaCJYyH0OETmDt9KYrk8WgbdthgqidEWyd229n+UEJ0zQ2RHBF/Pm
-	u6figK52jH+K6K0cGiooGHoMwPlWB4acUjrpnd3OR0TxMRRdfNX4pFGIMi2ZU9Gs3AyISTS5MUG
-	GiqDRdh4JXqUGEf13eSbZTF71YvOtlt3i5bDMQxzKX2hvjbat/Tca+iJ/95bOkYpZpyLELoBQUM
-	vufAWjLwtxpFXkqV8sHHVIrElnMZzi5G+054Np5LVm+3vYv0I9AEPfED/do4NJa7SjFsoNof8VS
-	2Ruh07zklyhPTD96fRdDQlh5hi/2tJ3foSBQsD3fX6Y132wU9D8gZ7zYu3yMXSQdzxi9A==
-X-TMASE-XGENCLOUD: 107bc477-a47a-4b3a-8a73-1eb7f0023311-0-0-200-0
-X-TM-Deliver-Signature: 5FDDDB37D16CB7925E771BB1927596A0
-X-TM-Addin-Auth: rEoFiJSbn7ncZAiEU7UkGq95+gqV7zZ5kUh8v/7k3h8WJ27Fzui/F8Q6BT4
-	lbQCV3mS4IW2fHTFmrTYhMfzcHpKNenk8UEKhERS24uGYpaYSEmlIjUTZzXNOaVDSbFoWA4D0jz
-	dVym9MEjB+FaW46IlCK5w19bhnH43MeknbE4ZwCPQtVLeD5aIZyS1qslgtl7C9sCufKYtDflxp1
-	bvFRG/6OqerwlMaKvddNgQIjr3AKnetb7Nn16uoURUEs6HRF0SCEX55sMPRg4v8em2HGTdydWac
-	SDKS+SXa+np9B3E=.FNes7ZZnfhKbrNQgMTrQGq6IC4PNioqgtOmXxxHSho2ABNHPfZ1+oXrtQC
-	+O3HuCoSArCO0HEaFf9UmLu544t4xEN4NHsI8gA6YxTecHUI5BA/qyDMM9G70cjcjGBstUxo6nh
-	x42BaZCeiKzY6tCm+rYn41/JTyWeSCPxgrZcSGM5BuukqDFRrlhtxUUxjT8gfB3CDOqEl++aao6
-	ekmNjh+m5s96jVuXiKtNWayozxHzr6crjalKRyyxEp8K1gc/FOdjsBOR0TR3uOfD2jNpT3V6qn+
-	G8eXjgW9Ji5CVGNVudvgfhHWsz1d4vDnw/a12NnQJRu+qtN5/TLIG6/WUig==
+X-TMASE-Result: 10--16.822200-4.000000
+X-TMASE-MatchedRID: Kx0w2sAofbv5ETspAEX/ngw4DIWv1jSVbU+XbFYs1xK9i+/f9tLGG+R5
+	pI4Y+w3PsRle9BeadcNh/hSyPxRTdu7cQoOH30eiITytpp/jrEyHjXoKyXN5xuTyjZldzR9GJQk
+	txNYzOLNcfKlz8KPRQm/eDcdtNcbDRdfrWDZwwm4ftZuMZfm2SU08rDsQdRyexJ4cU7JLxLHlNi
+	A90QUbyZYuYSzej0OUhYnGhQYru3vyfPja8gbdMEYNeTPwDt2P3O2+pOfl+vcwLJ9PZUBQhZu1m
+	GZ02rt+CT4updo+1i3VObO1hMJk6ldZT7t1crk7S74sGh2G9bER0c5dqAbRT3gwJo5QMsV9vlRL
+	48CqMZemX/tHe8XUp2/aDIe+Fn1eeB+Otr7QpAq5kTI8BpRqchSyq/Iqw5xP0Q4oPtWy6eSSlCF
+	G2Upwpk8yTg32dg7vE8Th/HgEY2SKebs9r3MCvfgxOc6+WoXcot3Ofzz1dbiyoiFc5eGt0f1uOC
+	M2va6XDC6BL9Myv6Sw0hmWZriAjWMHn+X7XfLhPjMkqiLj9oz4cCTiPcX39Glk/joU9WBRT0BRZ
+	NI+YwbANog326X8vo19zNGhZoVDsM/3m9ko3ygPgj7ZC2enRaJYuGaIjh0/fiAqrjYtFiTRZa3M
+	d39G8Ftf8WTeoJxGNlxFcSSCTSCQvA3b0VODDn7cGd19dSFd
+X-TMASE-XGENCLOUD: d2cc80f1-43aa-4c7b-8812-e76adcca1d63-0-0-200-0
+X-TM-Deliver-Signature: E67CC5485301B9764CEE2673C48B97C6
+X-TM-Addin-Auth: jq69Q9o0kqh3uyQAsgkTKeCK0mOjJeq2QW5v6Nu+47l6gYRaW0uZY8XDqpB
+	iuBWuCLMvg9dGCfmNQxjLR/ozPMeiB3wdCf4m5ak1xAphfWgM577KmsrqaYjQvbinVkDN96OdT+
+	O+FACPF8NYeFBRDRPdgu5ixoG54kVrFXq0cjXrxiHZ/Ih3vx3vjN8+EOVviOm2wGyOU2lum2njw
+	rFKwJzfdWUNBB3xYaEi0l60mFsGv7myBuIj+2lyMvpuYNLS3OSHUNYXgGVPxu7fV4MzuNV9VRVA
+	Cvz9KGB7MLwF+X8=.g5GJ9CIp2n7Fmyalpg+DKgHRLsYRhSCS1qYODRocxmYbkeh5j7hshb+doq
+	oGoqBV7NsHGkOakbMr/9E9LsELXFkJDIiM61nQ7nwGHHsG9fmh7kHc47cQtM2Sv9ZItVBZ0admF
+	KvQo08hzPPiQYTyaP7+06YrjA5X+MND1jkZl0Tjvd9f3lyqsghuXAPBI8O/oaujWygiUzOL61uZ
+	9UhO7TVXFGeFqe+gCvon2+xMEfmgdSmRyIfanYmUxBgTtbxTIC5mpVq2qq8rilzLmA9ZrwuNjnD
+	4Dmnd9zzU0SpVeeN5UNcvcqGIISywCHZxtTIQKCi2fUsXrMSerau0fBeqFg==
 X-TM-Addin-ProductCode: EMS
-Subject: [virtio-comment] Re: [RFC PATCH v3 1/4] virtio-rtc: Add initial device specification
+Subject: [virtio-comment] Re: [RFC PATCH v3 3/4] virtio-rtc: Add alarm feature
 
-On 20.01.24 11:07, Parav Pandit wrote:
-> Hi Peter,
+On 20.01.24 11:16, Parav Pandit wrote:
+> 
 > 
 >> From: Peter Hilber <peter.hilber@opensynergy.com>
 >> Sent: Monday, December 18, 2023 12:13 PM
 >>
->> This is a draft for a Real-Time Clock (RTC) device. The virtio-rtc device
->> provides information about current time through one or more clocks.
+>> Add the VIRTIO_RTC_F_ALARM feature (without normative statements).
 >>
->> The normative statements for this device follow in the next patch.
+>> The intended use case is: A driver needs to react when an alarm time has
+>> been reached, but the driver may be in a sleep state or powered off at alarm
+>> time. The alarm feature can resume and notify the driver in this case. Alarms
+>> may be retained across device resets (including reset on boot).
 >>
->> For this device, there is an RFC Linux kernel driver which is being
->> upstreamed, and a proprietary device implementation.
+>> Peculiarities
+>> -------------
+>>
+>> Unlike usual alarm clocks, a virtio-rtc alarm-capable clock may step
+>> autonomously at any time: An alarm may change back from "expired" to "not
+>> expired" before the driver has started processing an alarm notification.
+>>
+>> To address the above, and the device resets, define "alarm expiration"
+>> in such a way that the driver always has a chance to react to an alarm, and
+>> make the device always responsible for notifying the driver about an alarm
+>> expiration.
+>>
+>> The VIRTIO_RTC_REQ_SET_ALARM_ENABLED request is there so that the
+>> Linux ioctls RTC_AIE_ON and RTC_AIE_OFF only need to emit one request.
 >>
 >> Open Questions
->> ==============
+>> --------------
 >>
->> Arm Generic Timer Clock Types
->> -----------------------------
+>> - A Linux driver could use the virtio-rtc real-time alarm, through the
+>>   Linux RTC device class, for both CLOCK_REALTIME_ALARM and (monotonic)
+>>   CLOCK_BOOTTIME_ALARM alarms. But then, after a clock step, a
+>>   CLOCK_BOOTTIME_ALARM alarm may be late (or early). Perhaps this can be
+>>   handled by the driver also setting a virtio-rtc monotonic alarm, so
+>>   may not need to be addressed by the spec.
 >>
->> This spec version still distinguishes the Arm Generic Timer virtual and
->> physical counters:
->>
->> 	/* Arm Generic Timer CNTVCT_EL0, Counter-timer Virtual Count
->> register */
->> 	#define VIRTIO_RTC_COUNTER_ARM_VIRT 0
->> 	/* Arm Generic Timer CNTPCT_EL0, Counter-timer Physical Count
->> register */
->> 	#define VIRTIO_RTC_COUNTER_ARM_PHYS 1
->>
->> But there might be no benefit distinguishing them, as per a discussion on the
->> RFC Linux kernel driver [4].
->>
->> So unless somebody identifies some use in distinguishing Arm virtual and
->> physical counters, this distinction will be dropped in v4.
->>
->> virtio-rtc Functionality for Net Device
->> ---------------------------------------
->>
->> There is interest into sharing virtio-rtc functionality with the virtio-net device
->> [6]. It is proposed to encapsulate the requests resp.
->> responses in the pseudo-fields command-specific-data resp.
->> command-specific-result.
->>
->> This handles natural alignment of the payload in a way which is compatible
->> with
->>
->> - existing virtio-net controlq commands, and
->>
->> - with the standalone virtio-rtc messages.
->>
->> Additional Information
->> ======================
->>
->> The spec does not specify how a driver should interpret clock readings, esp.
->> also not how to perform clock synchronization.
->>
->> The draft uses the "Timer/Clock" device id which is already part of the
->> specification. This device id was registered a long time ago and should be
->> unused according to the author's information. The name "RTC" was
->> determined to be the best for a device which focuses on current time, but is
->> up to discussion.
->>
->> Any feedback is appreciated very much.
->>
->> Changelog
->> =========
->>
->> v3:
->>
->> - Address comments from Parav Pandit.
->> - Split off normative requirements into a second commit [2].
->> - Merge readq and controlq into requestq [3].
->> - Don't guard cross-timestamping with feature bit [3].
->> - Pad request headers to 64 bit [2].
->> - Rename Virtio status codes to match UNIX error names [2].
->> - Avoid Virtio status code clashes with net controlq ack values.
->> - Reword to refer more to "requests", rather than "messages" [2].
->> - Rephrase some sentences [2].
->> - Use integer data types without "__" prefixes [2].
->> - Reduce clock id width to 16 bits [5].
->> - Make VIRTIO_RTC_FLAG_CROSS_CAP a bit mask rather than a bit index.
->>
->> v2:
->>
->> - Address comments from Cornelia Huck.
->> - Add VIRTIO_RTC_M_CROSS_CAP message [1].
->> - Fix various minor issues and improve wording [1].
->> - Add several clarifications regarding device error statuses.
->>
->> [1] https://lists.oasis-open.org/archives/virtio-
->> comment/202304/msg00523.html
->> [2] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
->> b90aa4e50836@opensynergy.com/t/#mffb93800fea11d6dda9e151078abedd
->> 6ff1c0f1e
->> [3] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
->> b90aa4e50836@opensynergy.com/t/#m94efd0aa9b9c2b96a246b79ef8bfc3bf
->> 64ebe791
->> [4] https://lore.kernel.org/lkml/20230630171052.985577-1-
->> peter.hilber@opensynergy.com/T/#m65fa1d715933360498c4e33d7225e4220
->> 215a9d6
->> [5] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
->> b90aa4e50836@opensynergy.com/t/#mf00ce330228c28556d735eb9597469
->> 048c5d8b62
->> [6] https://lore.kernel.org/virtio-comment/b59a7dda-06fe-cff9-df61-
->> b90aa4e50836@opensynergy.com/t/#mf00ce330228c28556d735eb9597469
->> 048c5d8b62
+>> - A request returning the minimum and maximum allowed alarm time might
+>>   still be added.
 >>
 >> Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
 >> ---
->>  content.tex                      |   3 +-
->>  device-types/rtc/description.tex | 328 +++++++++++++++++++++++++++++++
->>  2 files changed, 330 insertions(+), 1 deletion(-)  create mode 100644 device-
->> types/rtc/description.tex
->>
->> diff --git a/content.tex b/content.tex
->> index 98b9c319a666..f2b534ce97e6 100644
->> --- a/content.tex
->> +++ b/content.tex
->> @@ -683,7 +683,7 @@ \chapter{Device Types}\label{sec:Device Types}
->> \hline
->>  16         &   GPU device       \\
->>  \hline
->> -17         &   Timer/Clock device \\
->> +17         &   RTC (Timer/Clock) device \\
->>  \hline
->>  18         &   Input device \\
->>  \hline
->> @@ -769,6 +769,7 @@ \chapter{Device Types}\label{sec:Device Types}
->> \input{device-types/scmi/description.tex}
->>  \input{device-types/gpio/description.tex}
->>  \input{device-types/pmem/description.tex}
->> +\input{device-types/rtc/description.tex}
->>
->>  \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>>  device-types/rtc/description.tex | 256 ++++++++++++++++++++++++++++++-
+>>  1 file changed, 254 insertions(+), 2 deletions(-)
 >>
 >> diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
->> new file mode 100644
->> index 000000000000..abfa2206894e
->> --- /dev/null
+>> index 7707472f1663..fcd2f14186e6 100644
+>> --- a/device-types/rtc/description.tex
 >> +++ b/device-types/rtc/description.tex
->> @@ -0,0 +1,328 @@
->> +\section{RTC Device}\label{sec:Device Types / RTC Device}
+>> @@ -4,6 +4,7 @@ \section{RTC Device}\label{sec:Device Types / RTC Device}
+>> time. The device can provide different clocks, e.g.\ for the UTC or TAI  time
+>> standards, or for physical time elapsed since some past epoch. The  driver can
+>> read the clocks with simple or more accurate methods.
+>> +Optionally, the driver can set an alarm.
+>>
+>>  \subsection{Device ID}\label{sec:Device Types / RTC Device / Device ID}
+>>
+>> @@ -13,13 +14,23 @@ \subsection{Virtqueues}\label{sec:Device Types / RTC
+>> Device / Virtqueues}
+>>
+>>  \begin{description}
+>>  \item[0] requestq
+>> +\item[1] alarmq
+>>  \end{description}
+>>
+>>  The driver enqueues requests to the requestq.
+>>
+>> +Through the alarmq, the device notifies the driver about alarm
+>> +expirations. The alarmq exists only if VIRTIO_RTC_F_ALARM was
+>> +negotiated.
 >> +
->> +The RTC (Real Time Clock) device provides information about current
->> +time. The device can provide different clocks, e.g.\ for the UTC or TAI
->> +time standards, or for physical time elapsed since some past epoch. The
->> +driver can read the clocks with simple or more accurate methods.
->> +
->> +\subsection{Device ID}\label{sec:Device Types / RTC Device / Device ID}
->> +
->> +17
->> +
->> +\subsection{Virtqueues}\label{sec:Device Types / RTC Device /
->> +Virtqueues}
->> +
->> +\begin{description}
->> +\item[0] requestq
->> +\end{description}
->> +
->> +The driver enqueues requests to the requestq.
->> +
->> +\subsection{Feature bits}\label{sec:Device Types / RTC Device / Feature
->> +bits}
->> +
->> +No device-specific feature bits are defined yet.
->> +
->> +\subsection{Device configuration layout}\label{sec:Device Types / RTC
->> +Device / Device configuration layout}
->> +
->> +There is no configuration data for the device.
->> +
->> +\subsection{Device Initialization}\label{sec:Device Types / RTC Device
->> +/ Device Initialization}
->> +
->> +The device determines the set of clocks. The device can provide zero or
->> +more clocks.
->> +
-> Now that we bring the generic basic facilities to define device capabilities and resources in [1],
-> Num_clocks can be structured a clock resources.
+> I think is a good example of a need of notification queue from device to driver that has multiple use as generic object.
+> On NIC side also we have been thinking to have VQ that holds only the completions as currently packed and splitvq unaligned and shorter completions are performance reducing areas.
 > 
-> Please refer to max_limits in [1] as capabilities.
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00095.html
+> A queue which has 1 to 8 physical addresses, and which can hold 8 to 64B of notification will be useful.
+> This way per descriptor posting and DMA is not needed.
+> These notifications also work very fast with least amount of descriptor caching on the device.
 > 
-> We should bring a rtc capabilities.
-> 
+> For alarms this may not be concern at all in current form but overall, such a generic infra has multiple uses.
+> So, I suggest we bring the notification queue.
 
-Hi Parav,
+IIUC this notification queue still needs to be described.
 
-thank you for the suggestions! I think that it is a good idea to
-standardize message layouts. But I also think this is late and overly
-complex to become the default RTC interface. In particular, OpenSynergy has
-no plans at the moment to support administration virtqueues (and the newly
-proposed device capabilities and device resources) in the RTC prototype
-implementation.
+The alarmq is a dedicated queue on purpose, to make it less intrusive to
+wake the driver up while the driver may be in sleep mode (by making only
+the corresponding interrupt a wake-up interrupt). Sharing the queue with
+non-alarm notifications might create problems in the future.
 
-At the moment I see the following problems with using device capabilities
-and resources:
+In my reply for patch 1 I proposed to add this as an alternative interface
+protected by a feature bit. This interface could cover the notification
+queue as well. But I am not sure that the alarm feature will be useful for
+net devices.
 
-- Device capabilities and resources were initially proposed last week. It
-  remains to be seen how and when they will be accepted into the standard,
-  and when the Linux kernel driver will support them. Especially the
-  dynamic resource (de-)allocation seems a tricky topic to me.
-
-  By contrast, RTC was originally proposed 10 months ago, and has had an
-  open-source driver available since 7 months. In the past it was discussed
-  that the net device could be supported through the net controlq.
-
-- Administration virtqueues are only defined for Virtio Over PCI Bus. Our
-  use cases also need Virtio Over MMIO, and maybe others in the future.
-
-- The requests VIRTIO_RTC_REQ_CROSS_CAP, VIRTIO_RTC_REQ_READ_CROSS, and
-  likely any requests added in the future do not fit into the current
-  device resource pattern (as detailed below), so would need to get their
-  own virtqueue; or the admin virtqueue would need to allow device-specific
-  commands.
-
-  Also, alarms would need to be addressed, perhaps as dedicated resources.
-
-- For the RTC device, using the device resources adds considerable
-  implementation overhead even for the simplest of implementations, with no
-  direct gain.
-
-  Both capabilities and resources can change dynamically. This would
-  necessitate a number of requirements for RTC how to deal with this. Some
-  extra generic requirements would likely also be required.
-
-  E.g. the device resources draft does not address how resource removal
-  would interact with resource utilization in other queues (e.g. alarmq).
-
-  The only direct improvement I see is that the driver can dynamically
-  indicate which clocks it wants to use, which is not present in RTC RFC
-  spec v3. However, resource-saving features such as negotiating
-  VIRTIO_RTC_REQ_READ_CROSS support (VIRTIO_RTC_F_READ_CROSS) were
-  explicitly requested to be dropped from the spec in the past.
-
-- The admin virtqueue spec says:
-
-          It is the responsibility of the driver to ensure strict request
-          ordering for commands, because they will be consumed with no order
-          constraints.
-
-  But the RTC requirements mandate certain constraints for the RTC (clock)
-  read requests processing order (so that the driver will not see backwards
-  clock jumps where there are none).
-
-  Maybe there are more incompatibilities here; I didn't check this
-  thoroughly.
-
-So I propose to stay with the current interface as default.
-
-It should be possible to introduce the device capabilities and resources as
-an alternative interface, protected with a feature bit. This feature bit
-would then also omit the device-specific virtqueues. The alternative
-interface would need to address at least some of the above issues, such as
-how to dynamically create and destroy clocks. The alternative interface can
-perhaps also omit some features which are not required by its users. 
-
-I added some extra comments below, but I think the above should be
-discussed first.
-
-Best regards,
+Thanks for the comment,
 
 Peter
-
-[snip]
->> +\item[VIRTIO_RTC_REQ_CROSS_CAP] discovers whether the device
->> supports
->> +cross-timestamping for a particular pair of clock and hardware counter.
->> +
->> +\begin{lstlisting}
->> +#define VIRTIO_RTC_REQ_CROSS_CAP 0x1002 /* message type */
->> +
->> +struct virtio_rtc_req_cross_cap {
->> +	struct virtio_rtc_req_head head;
->> +	le16 clock_id;
->> +	le16 hw_counter;
->> +	u8 reserved[4];
->> +};
->> +
->> +#define VIRTIO_RTC_FLAG_CROSS_CAP (1 << 0)
->> +
->> +struct virtio_rtc_resp_cross_cap {
->> +	struct virtio_rtc_resp_head head;
->> +	u8 flags;
->> +	u8 reserved[7];
->> +};
->> +\end{lstlisting}
->> +
->> +The \field{clock_id} field identifies the clock, and the
->> +\field{hw_counter} field identifies the hardware counter, for which
->> +cross-timestamp support is probed. The device sets flag
->> +\field{VIRTIO_RTC_FLAG_CROSS_CAP} in the \field{flags} field if the
->> +clock supports cross-timestamping for the particular clock and hardware
->> +counter, and clears the flag otherwise.
->> +
-> Hw_counter is also the resource attribute.
-> 
-
-But a clock may support multiple hw_counters; therefore the driver provides
-the hw_counter in the request. So it would not fit into the
-VIRTIO_ADMIN_CMD_RESOURCE_QUERY pattern out-of-the-box.
-
->> +\end{description}
->> +
->> +\subsubsection{Read Requests}\label{sec:Device Types / RTC Device /
->> +Device Operation / Read Requests}
->> +
->> +Through \emph{read requests}, the driver requests clock readings from
->> +the device. The driver enqueues read requests in the requestq. The
->> +device obtains device-side clock readings and forwards these clock
->> +readings to the driver. The driver may enhance and interpret the clock
->> +readings through methods which are beyond the scope of this
->> +specification.
->> +
-> Reading the resource using generic query resource command of [2] will return the time value.
-> So only time definition is needed in the resource.
-> [2] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00096.html
-> 
-
-Treating current time as a resource attribute appears questionable. First,
-it continuously changes, while other attributes don't. Second, it could
-also be a slow operation when reading e.g. from a GNSS clock attached over
-a slow interface.
-
-Also, the query resource command does not fit read request
-VIRTIO_RTC_REQ_READ_CROSS, which requires the hw_counter parameter, and
-returns extra results.
 
 This publicly archived list offers a means to provide input to the
 OASIS Virtual I/O Device (VIRTIO) TC.
