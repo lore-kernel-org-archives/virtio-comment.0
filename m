@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9004-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9005-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D6DC47DDF
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 10:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D08BC48260
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 11:16:05 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id CA2B726A34
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 10:52:58 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C7A5C2B06C
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 11:16:04 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id ABCD598680B
-	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 10:52:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A3BF59867F1
+	for <virtio-comment@archiver.kernel.org>; Wed, 24 Jan 2024 11:16:04 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 953689867DF; Wed, 24 Jan 2024 10:52:58 +0000 (UTC)
+	id 963E29867D7; Wed, 24 Jan 2024 11:16:04 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,197 +24,71 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 67CF39867D8
-	for <virtio-comment@lists.oasis-open.org>; Wed, 24 Jan 2024 10:52:58 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 81DDB9867E6
+	for <virtio-comment@lists.oasis-open.org>; Wed, 24 Jan 2024 11:16:04 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: wbp-bHMjMkWQxdLxDsGB1A-1
+X-MC-Unique: SFbn8I4AMFa7hTXRxcaywQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706093569; x=1706698369;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B5OhdqAZPdibFcGl4t/MItssBVyBQeCMYfgb7cNd06A=;
-        b=k2IYrpUySv1XZIEUneqK6G7DmqnWsFoSDxDUNSznZ+NGJizFw+ZNRa/3WZe1r6AljP
-         uYPpR37m/zBytgl0kUiDsyz7ic4YasiZWgZLt8ULW9RhUIJpLxmeBGPEX2uNLHNHrh3/
-         OtLuplJ4+PfdwfZblykQAqTQsslOsa+WK+eyB1V39DNGEswxnui7YsACgOnjifiN4t5q
-         gdmGO6rryxvtroDB23l8mWreJCUF3rRFhFrmQQE+IlSWqLt/xBTURA24aMSwn6slp5R9
-         NT96+PxYWfBzLM9x8E+wRQ7AWLjQUoVIo+OfJvaKeuC0YaiGHr+bZ5bafSb0ey8MlIBJ
-         wF8A==
-X-Gm-Message-State: AOJu0YzzKTz5yGmc8SsZ+qOgW7oBP0/046KS5V7LFTl9XrGgcR9vce22
-	O2zt+2qJz8gt9ds1TsZyKUOkQLYXhFPHVACBmt6MxWmTLx/i44rGOjm+1BtZUGlgUw/NjAHMLYr
-	TO/eXE9jagzrczu+SVTK3wP9/lGtiT00XdAHM4S9M/94jjJa8IzkJLTtiAJ+oG3h6L6rH51o=
-X-Received: by 2002:a17:906:b34d:b0:a30:4e1f:3df3 with SMTP id cd13-20020a170906b34d00b00a304e1f3df3mr659672ejb.98.1706093569185;
-        Wed, 24 Jan 2024 02:52:49 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF9md+xHQ+6B3SiPoBZ0l87riHmvdqNhlLCwJuHp4WTdP1JEtQWv3BIBST6XG/dkDPvu8EdwA==
-X-Received: by 2002:a17:906:b34d:b0:a30:4e1f:3df3 with SMTP id cd13-20020a170906b34d00b00a304e1f3df3mr659663ejb.98.1706093568725;
-        Wed, 24 Jan 2024 02:52:48 -0800 (PST)
-Date: Wed, 24 Jan 2024 05:52:44 -0500
+        d=1e100.net; s=20230601; t=1706094959; x=1706699759;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GwiE2/yz8VhnNvodkElUD2FNEZjMCAX4OtwMgtRG1vQ=;
+        b=GA4q5dHaWM2E8oR+xe4FBFThdVj5UyC0Mi2o8IiMXZi7ZtMLsTb26RTHyMoW0fi7Tn
+         AfAaJTdnheBkpGtZX2aVUzaT42WdBcdxh+P6+6uCmYc5xl5yfB6qXR12FIJfbp218G5G
+         iLoKH8r7C+S9pMfBBHAztor/dfLZouBvcTv7nFk1eioKRa91wjffA8CRISd00gFi2xWo
+         F/JQiyrDRxkz6vmunZSktMx4wM8XGygjanpNChN22t4T969gaMVF7wCWlbFs3TaT7TS6
+         2WOT2p9cQ5rqMzhZG87fgmuX8qv9pIBH74ahXsI4CaF3Grx2Noj25RJXjUQD/sSGlLs/
+         vZ+A==
+X-Gm-Message-State: AOJu0YyFRxAplwEVaBHOAYl7Wb8fckN1WDPHpypy8wofC2GS77PMeNj9
+	4FcmZUvhp9Y8OcwbxI+uUJYwqrC1AZoy75/8I4B4N7KaVskDLPmDF40H5LPQIN1fxMYikHwqYeb
+	Cvxk35NIyK2+O2chK6/4sjhxEbGk76r1KlejxPFnxFOmDgSufBZ4Iu/3zUgjADPTSHnfcCdYw5X
+	JW7d1Zo0q5FJQ4oG8HFTiWLIIVSSAU3yztMbhQDOhZ/8mxSeJB
+X-Received: by 2002:a19:645a:0:b0:50e:6cce:f83 with SMTP id b26-20020a19645a000000b0050e6cce0f83mr2928872lfj.41.1706094959078;
+        Wed, 24 Jan 2024 03:15:59 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHTRHEN8mFK5cqzvzp8Sx8nWHspL6QOzlqLGQIiWfe0VnIgfOIIq4y7deU8ObGip8FGIoxIZQ==
+X-Received: by 2002:a19:645a:0:b0:50e:6cce:f83 with SMTP id b26-20020a19645a000000b0050e6cce0f83mr2928861lfj.41.1706094958581;
+        Wed, 24 Jan 2024 03:15:58 -0800 (PST)
+Date: Wed, 24 Jan 2024 06:15:55 -0500
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Heng Qi <hengqi@linux.alibaba.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Message-ID: <20240124055209-mutt-send-email-mst@kernel.org>
-References: <1705323962-96063-1-git-send-email-hengqi@linux.alibaba.com>
- <20240124054505-mutt-send-email-mst@kernel.org>
+To: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Cc: virtio@lists.oasis-open.org
+Message-ID: <ff9a6d805e7d510cde77b9989bef90aa21ffe4b4.1706094950.git.mst@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20240124054505-mutt-send-email-mst@kernel.org>
+X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
+X-Mutt-Fcc: =sent
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [virtio-comment] Re: [PATCH v2] virtio-net: support setting coalescing params for
- multiple vqs
+Subject: [virtio-comment] [PATCH] virtio-net: clarify error handling for coalescing
 
-On Wed, Jan 24, 2024 at 05:50:28AM -0500, Michael S. Tsirkin wrote:
-> On Mon, Jan 15, 2024 at 09:06:02PM +0800, Heng Qi wrote:
-> > Currently, when each time the driver attempts to update the coalescing parameters
-> > for a vq, it needs to kick the device and wait for the ctrlq response to return.
-> > The following path is observed: 1. Driver kicks the device; 2. After the device
-> > receives the kick, CPU scheduling occurs and DMA multiple buffers multiple times;
-> > 3. The device completes processing and replies with a response.
-> > 
-> > When large-queue devices issue multiple requests and kick the device frequently,
-> > this often interrupt the work of the device-side CPU. In addition, each vq request
-> > is processed separately, causing more delays for the CPU to wait for the DMA
-> > request to complete.
-> > 
-> > These interruptions and overhead will strain the CPU responsible for controlling
-> > the path of the DPU, especially in multi-device and large-queue scenarios.
-> > 
-> > To solve the above problems, we internally tried batch request, which merges
-> > requests from multiple queues and sends them at once. We conservatively tested
-> > 8 queue commands and sent them together. The DPU processing efficiency can be
-> > improved by 8 times, which greatly eases the DPU's support for multi-device
-> > and multi-queue DIM.
-> > 
-> > Maintainers may be concerned about whether the batch command method can optimize
-> > the above problems: accumulate multiple request commands to kick the device once,
-> > and obtain the processing results of the corresponding commands asynchronously.
-> > The batch command method is used by us to optimize the CPU overhead of the DIM
-> > worker caused by the guest being busy waiting for the command response result.
-> > This is a different focus than batch request to solve the problem.
-> > 
-> > Suggested-by: Xiaoming Zhao <zxm377917@alibaba-inc.com>
-> > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-> > ---
-> > v1->v2: Updated commit log. Due to sensitivity, sorry that can not give the
-> >     absolute value directly. @Michael
-> > 
-> >  device-types/net/description.tex | 26 ++++++++++++++++++++------
-> >  1 file changed, 20 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> > index aff5e08..b3766c4 100644
-> > --- a/device-types/net/description.tex
-> > +++ b/device-types/net/description.tex
-> > @@ -1667,8 +1667,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> >  for notification coalescing.
-> >  
-> >  If the VIRTIO_NET_F_VQ_NOTF_COAL feature is negotiated, the driver can
-> > -send commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
-> > -for virtqueue notification coalescing.
-> > +send commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and
-> > +VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET for virtqueue notification coalescing.
-> >  
-> >  \begin{lstlisting}
-> >  struct virtio_net_ctrl_coal {
-> > @@ -1682,11 +1682,17 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> >      struct virtio_net_ctrl_coal coal;
-> >  };
-> >  
-> > +struct virtio_net_ctrl_mrg_coal_vq {
-> > +        le16 num_entries; /* indicates number of valid entries */
-> > +        struct virtio_net_ctrl_coal_vq entries[];
-> > +};
-> > +
-> >  #define VIRTIO_NET_CTRL_NOTF_COAL 6
-> >   #define VIRTIO_NET_CTRL_NOTF_COAL_TX_SET  0
-> >   #define VIRTIO_NET_CTRL_NOTF_COAL_RX_SET 1
-> >   #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET 2
-> >   #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET 3
-> > + #define VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET 4
-> >  \end{lstlisting}
-> >  
-> >  Coalescing parameters:
-> > @@ -1706,6 +1712,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> >  \item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, the structure virtio_net_ctrl_coal_vq is write-only for the driver.
-> >  \item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET, \field{vq_index} and \field{reserved} are write-only
-> >        for the driver, and the structure virtio_net_ctrl_coal is read-only for the driver.
-> > +\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET, the structure virtio_net_ctrl_mrg_coal_vq is write-only for the driver.
-> >  \end{itemize}
-> >  
-> >  The class VIRTIO_NET_CTRL_NOTF_COAL has the following commands:
-> > @@ -1716,6 +1723,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> >                                          for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
-> >  \item VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET: use the structure virtio_net_ctrl_coal_vq to get the \field{max_usecs} and \field{max_packets} parameters
-> >                                          for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
-> > +\item VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET: use the structure virtio_net_ctrl_mrg_coal_vq to set the \field{max_usecs} and \field{max_packets} parameters
-> > +                                         for \field{num_entries} enabled transmit/receive virtqueues. The corresponding index value
-> > +                                         of each configured virtqueue is \field{vq_index}.
-> >  \end{enumerate}
-> >  
-> >  The device may generate notifications more or less frequently than specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-> > @@ -1782,9 +1792,13 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> >  
-> >  The driver MUST set \field{vq_index} to the virtqueue index of an enabled transmit or receive virtqueue.
-> >  
-> > +The driver MUST set \field{num_entries} to a non-zero value and MUST NOT set \field{num_entries} to
-> > +a value greater than the number of enabled transmit and receive virtqueues.
-> > +
-> >  The driver MUST have negotiated the VIRTIO_NET_F_NOTF_COAL feature when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET.
-> >  
-> > -The driver MUST have negotiated the VIRTIO_NET_F_VQ_NOTF_COAL feature when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET.
-> > +The driver MUST have negotiated the VIRTIO_NET_F_VQ_NOTF_COAL feature when issuing commands
-> > +VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET.
-> >  
-> >  The driver MUST ignore the values of coalescing parameters received from the VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET command if the device responds with VIRTIO_NET_ERR.
-> >  
-> > @@ -1794,10 +1808,10 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> >  
-> >  The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if it was not able to change the parameters.
-> >  
-> > -The device MUST respond to the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET command with VIRTIO_NET_ERR if it was not able to change the parameters.
-> > +The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET commands with VIRTIO_NET_ERR if it was not able to change the parameters.
-> 
-> This one however is vague.
-> In fact the addition of VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET made
-> VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET
-> also vague we just missed this.
-> 
-> 
-> 
-> So, it is not clear whether if the device responds with VIRTIO_NET_ERR - it can change
-> parameters for some VQs but not others, or does it have to either
-> change parameters for all VQs or none at all.
-> 
-> I think a better sematic is all or nothing.
-> 
-> So I suggest combining this statement with one of
-> VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET,
-> and adding something like
-> "in this case, coalescing parameters MUST remain unchanged, 
-> for all VQs".
-> 
-> This bug bothers me. Maybe we should fix it before release?
-> 
-> I also don't know why we repeat same text for VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET,
-> VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET.
+This is not a huge deal since it's a SHOULD anyway,
+so make the new requirement SHOULD too.
 
-I figured it out, TX/RX are SHOULD.
-I will fix TX/RX and you can add the text to this one.
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
+ device-types/net/description.tex | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-
-> >  
-> > -The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands with
-> > -VIRTIO_NET_ERR if the designated virtqueue is not an enabled transmit or receive virtqueue.
-> > +The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
-> > +commands with VIRTIO_NET_ERR if the designated virtqueue is not an enabled transmit or receive virtqueue.
-> >  
-> >  Upon disabling and re-enabling a transmit virtqueue, the device MUST set the coalescing parameters of the virtqueue
-> >  to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_TX_SET command, or, if the driver did not set any TX coalescing parameters, to 0.
-> > -- 
-> > 1.8.3.1
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index aff5e08..d1d25fe 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -1792,7 +1792,11 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ 
+ The device MUST ignore \field{reserved}.
+ 
+-The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if it was not able to change the parameters.
++The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
++VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if
++it was not able to change coalescing parameters. In this case,
++the parameters SHOULD remain unchanged, for all VQs.
++
+ 
+ The device MUST respond to the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET command with VIRTIO_NET_ERR if it was not able to change the parameters.
+ 
+-- 
+MST
 
 
 This publicly archived list offers a means to provide input to the
