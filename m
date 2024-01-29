@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9025-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9026-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EA25C47DDB
-	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:51:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94055C47DB3
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:55:38 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9BC8A2AF9D
-	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:51:54 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id D2A2B216A3
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 761C298687D
-	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:51:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C4D1C9868A2
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 5C957983F75; Mon, 29 Jan 2024 16:51:54 +0000 (UTC)
+	id B58FA986873; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,98 +24,76 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4BEB8986871
-	for <virtio-comment@lists.oasis-open.org>; Mon, 29 Jan 2024 16:51:54 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id A3631986871
+	for <virtio-comment@lists.oasis-open.org>; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: GjyMVD-jMNKk4f8Ski_nvw-1
+X-MC-Unique: JmTaaBZPNh6HjKB-Lun6fA-1
 From: Cornelia Huck <cohuck@redhat.com>
-To: Parav Pandit <parav@nvidia.com>, Peter Hilber
- <peter.hilber@opensynergy.com>, "virtio-comment@lists.oasis-open.org"
- <virtio-comment@lists.oasis-open.org>
-In-Reply-To: <PH0PR12MB548136F408DA5F0CA8B2B0E8DC7F2@PH0PR12MB5481.namprd12.prod.outlook.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+ virtio@lists.oasis-open.org
+In-Reply-To: <20240129112559-mutt-send-email-mst@kernel.org>
 Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
  Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
  153243,
  =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
  Michael O'Neill, Amy
  Ross"
-References: <20231218064253.9734-1-peter.hilber@opensynergy.com>
- <20231218064253.9734-4-peter.hilber@opensynergy.com>
- <DM8PR12MB5480022FDB88FBCEAA13E2C9DC772@DM8PR12MB5480.namprd12.prod.outlook.com>
- <aca3c781-3932-4cc1-aef4-f29fb1297b4a@opensynergy.com>
- <PH0PR12MB548136F408DA5F0CA8B2B0E8DC7F2@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <ff9a6d805e7d510cde77b9989bef90aa21ffe4b4.1706094950.git.mst@redhat.com>
+ <87a5ookwme.fsf@redhat.com>
+ <20240129112559-mutt-send-email-mst@kernel.org>
 User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Mon, 29 Jan 2024 17:51:49 +0100
-Message-ID: <874jewkrq2.fsf@redhat.com>
+Date: Mon, 29 Jan 2024 17:55:27 +0100
+Message-ID: <871qa0krk0.fsf@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
-Subject: [virtio-comment] RE: [RFC PATCH v3 3/4] virtio-rtc: Add alarm feature
+Subject: [virtio-comment] Re: [virtio] [PATCH] virtio-net: clarify error handling for coalescing
 
-On Sun, Jan 28 2024, Parav Pandit <parav@nvidia.com> wrote:
+On Mon, Jan 29 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
 
->> From: Peter Hilber <peter.hilber@opensynergy.com>
->> Sent: Wednesday, January 24, 2024 9:11 PM
+> On Mon, Jan 29, 2024 at 04:06:01PM +0100, Cornelia Huck wrote:
+>> On Wed, Jan 24 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
 >> 
->> On 20.01.24 11:16, Parav Pandit wrote:
+>> > This is not a huge deal since it's a SHOULD anyway,
+>> > so make the new requirement SHOULD too.
 >> >
+>> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+>> > ---
+>> >  device-types/net/description.tex | 6 +++++-
+>> >  1 file changed, 5 insertions(+), 1 deletion(-)
 >> >
->> >> From: Peter Hilber <peter.hilber@opensynergy.com>
->> >> Sent: Monday, December 18, 2023 12:13 PM
->> >> @@ -13,13 +14,23 @@ \subsection{Virtqueues}\label{sec:Device Types /
->> >> RTC Device / Virtqueues}
->> >>
->> >>  \begin{description}
->> >>  \item[0] requestq
->> >> +\item[1] alarmq
->> >>  \end{description}
->> >>
->> >>  The driver enqueues requests to the requestq.
->> >>
->> >> +Through the alarmq, the device notifies the driver about alarm
->> >> +expirations. The alarmq exists only if VIRTIO_RTC_F_ALARM was
->> >> +negotiated.
->> >> +
->> > I think is a good example of a need of notification queue from device to
->> driver that has multiple use as generic object.
->> > On NIC side also we have been thinking to have VQ that holds only the
->> completions as currently packed and splitvq unaligned and shorter
->> completions are performance reducing areas.
->> >
->> > A queue which has 1 to 8 physical addresses, and which can hold 8 to 64B
->> of notification will be useful.
->> > This way per descriptor posting and DMA is not needed.
->> > These notifications also work very fast with least amount of descriptor
->> caching on the device.
->> >
->> > For alarms this may not be concern at all in current form but overall, such a
->> generic infra has multiple uses.
->> > So, I suggest we bring the notification queue.
+>> > diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+>> > index aff5e08..d1d25fe 100644
+>> > --- a/device-types/net/description.tex
+>> > +++ b/device-types/net/description.tex
+>> > @@ -1792,7 +1792,11 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+>> >  
+>> >  The device MUST ignore \field{reserved}.
+>> >  
+>> > -The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if it was not able to change the parameters.
+>> > +The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
+>> > +VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if
+>> > +it was not able to change coalescing parameters. In this case,
 >> 
->> IIUC this notification queue still needs to be described.
->>
-> Yes. 
-> What we need is something like,
+>> Hm, if we explicitly specify "coalescing parameters" here, should we add
+>> it below as well? (We probably should keep the "the".)
 >
-> A notification queue is a queue that holds device to driver notifications.
-> The device writes the notification entry, the driver consumes it.
-> Each notification entry consists of N bytes written by the device. Typically N bytes range from 8 to 64B.
-> Posting every descriptor of 16B for such small size entry is very inefficient; hence a notification queue is simpler enough that does not have one to one mapping of notification entry and descriptor.
-> A Notification descriptor points to a page memory. Each page holds one or more notification entries.
-> Number of notification entries in a descriptor = page_size / notification entry size;
-> For example, a notification queue consists of 2 4K pages, with 16B notification entry, can receive 512 notifications, with only two descriptors posting, offering 256X reduction in descriptors management at just 0.39% descriptor table size than current packed vq format.
+> maybe "some of the" and in the next sentence "all of the".
+>
+> so it's atomic: all or nothing.
 
-This looks not entirely unlike ccw two-stage-indicators (which is in
-turn preceded by other uses of adapter interrupts with indicators,
-e.g. in QDIO). Can we learn from those earlier implementations?
+Makes sense.
 
-However, while this looks like an interesting addition, I'm not sure we
-should make rtc wait for all of that (including your other suggestions)
-to be ready and approved -- a simpler rtc implementation has its
-advantages as well (like already being there, for example.) We can
-easily add things via feature bits later.
+>
+>> > +the parameters SHOULD remain unchanged, for all VQs.
+>> > +
+>> >  
+>> >  The device MUST respond to the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET command with VIRTIO_NET_ERR if it was not able to change the parameters.
+
+Also here ^ ?
 
 
 This publicly archived list offers a means to provide input to the
