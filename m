@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9026-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9027-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94055C47DB3
-	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B6A0C47DB3
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 17:08:20 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id D2A2B216A3
-	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4F20DEEA08
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 17:08:18 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C4D1C9868A2
-	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 44C75986886
+	for <virtio-comment@archiver.kernel.org>; Mon, 29 Jan 2024 17:08:18 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B58FA986873; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
+	id 3B4E2986876; Mon, 29 Jan 2024 17:08:18 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,91 +24,145 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id A3631986871
-	for <virtio-comment@lists.oasis-open.org>; Mon, 29 Jan 2024 16:55:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 2B6A6986874
+	for <virtio-comment@lists.oasis-open.org>; Mon, 29 Jan 2024 17:08:18 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: JmTaaBZPNh6HjKB-Lun6fA-1
-From: Cornelia Huck <cohuck@redhat.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
- virtio@lists.oasis-open.org
-In-Reply-To: <20240129112559-mutt-send-email-mst@kernel.org>
-Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
- Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
- 153243,
- =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
- Michael O'Neill, Amy
- Ross"
-References: <ff9a6d805e7d510cde77b9989bef90aa21ffe4b4.1706094950.git.mst@redhat.com>
- <87a5ookwme.fsf@redhat.com>
- <20240129112559-mutt-send-email-mst@kernel.org>
-User-Agent: Notmuch/0.37 (https://notmuchmail.org)
-Date: Mon, 29 Jan 2024 17:55:27 +0100
-Message-ID: <871qa0krk0.fsf@redhat.com>
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706548089; x=1707152889;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lypBhT3rz7nU04OtSUvSngwmDqqZcJ3IQyRBbVq+h9E=;
+        b=Qy8XfBbsTjqBC9yxvxDWOiX5nRFA6Mne0pNTac3N+JkyS+0/sf7Axz1oOcBmxO/Lmc
+         B8linase4I37VP1IR0MzyzrClQhsudK2ycbCF9yhcsBcSKWOCCpbooZiT7tKfrkF6Rmn
+         iKQKJHv7IVMQD05D4UssnV+4ocebCBFohLbmH1bPvzhP2rr+pTy4O1GPQy/1upd5hQtr
+         NipZo1FsapKXnld7aSuTyR0/j8yKYmBJ7rV+PUJIQomHG8vqiazxQSkGAAlwrF9oVX+D
+         C0bfSs336gHhGezjfbFn7SPDiL4HpmjzmMHc0w7YI47OpxrFFK+wAo0FnljcSQSc19F0
+         llMw==
+X-Gm-Message-State: AOJu0Yy1LXxV10seVYlwEVzpy7lSXe3W3Yx22y645ARUvSXB3BCbm2fr
+	6+e19ZRro6Los36Sd+A/rGsfRdw7ftUd2VpFvr+tDB3HO0NVN5lnZq6bPo7QPIBbkORAK5aS3kX
+	w7EOvN3B+KP69ZNopp7Ie/QMzCc+PqaMKPeHQ
+X-Google-Smtp-Source: AGHT+IE5HOmMwAqp1Ebx64dFetiXYNrW8N7X5hAacMyLu0eDKybIabOGjtVPI4uG6VF5cMjnGkWMesHTGju8RCiQfFo=
+X-Received: by 2002:a17:906:560a:b0:a35:74c1:272d with SMTP id
+ f10-20020a170906560a00b00a3574c1272dmr3335106ejq.73.1706548088969; Mon, 29
+ Jan 2024 09:08:08 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Subject: [virtio-comment] Re: [virtio] [PATCH] virtio-net: clarify error handling for coalescing
+References: <CAB6OiKgcWwH_qprNv6Z=F4=Hc2PckoCqQEJCGgkgNVL9Xx4k5A@mail.gmail.com>
+ <87cytkkx48.fsf@redhat.com>
+In-Reply-To: <87cytkkx48.fsf@redhat.com>
+From: Shujun Xue <shujunxue@google.com>
+Date: Mon, 29 Jan 2024 09:07:56 -0800
+Message-ID: <CAB6OiKhLR809jmQXdP8oaXG=pf4N-saMeo5s_pig5aJ_hC+QDw@mail.gmail.com>
+To: Cornelia Huck <cohuck@redhat.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Slava Malyugin <slavamn@google.com>, 
+	virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org
+Content-Type: multipart/alternative; boundary="000000000000a336de061018b016"
+Subject: [virtio-comment] Re: [virtio-dev] [PATCH] Define the DEVICE ID of Virtio Cpu balloon
+ device as 47.
 
-On Mon, Jan 29 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+--000000000000a336de061018b016
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On Mon, Jan 29, 2024 at 04:06:01PM +0100, Cornelia Huck wrote:
->> On Wed, Jan 24 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
->> 
->> > This is not a huge deal since it's a SHOULD anyway,
->> > so make the new requirement SHOULD too.
->> >
->> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
->> > ---
->> >  device-types/net/description.tex | 6 +++++-
->> >  1 file changed, 5 insertions(+), 1 deletion(-)
->> >
->> > diff --git a/device-types/net/description.tex b/device-types/net/description.tex
->> > index aff5e08..d1d25fe 100644
->> > --- a/device-types/net/description.tex
->> > +++ b/device-types/net/description.tex
->> > @@ -1792,7 +1792,11 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
->> >  
->> >  The device MUST ignore \field{reserved}.
->> >  
->> > -The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if it was not able to change the parameters.
->> > +The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
->> > +VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if
->> > +it was not able to change coalescing parameters. In this case,
->> 
->> Hm, if we explicitly specify "coalescing parameters" here, should we add
->> it below as well? (We probably should keep the "the".)
+Is there ETA for the migration?
+
+Bests,
+Shujun
+
+
+Cornelia Huck <cohuck@redhat.com>=E4=BA=8E2024=E5=B9=B41=E6=9C=8829=E6=97=
+=A5 =E5=91=A8=E4=B8=80=E4=B8=8A=E5=8D=886:55=E5=86=99=E9=81=93=EF=BC=9A
+
+> On Tue, Jan 23 2024, Shujun Xue <shujunxue@google.com> wrote:
 >
-> maybe "some of the" and in the next sentence "all of the".
+> > The Virtio CPU balloon device is a primitive device for managing guest
+> > CPU capacity: the device asks for certain CPU cores to be online,
+> > offline or throttled, and the driver performs the requested operation.
+> > This allows the guest to adapt to changes in allowance of underlying
+> > CPU capacity.
 >
-> so it's atomic: all or nothing.
-
-Makes sense.
-
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/187
 >
->> > +the parameters SHOULD remain unchanged, for all VQs.
->> > +
->> >  
->> >  The device MUST respond to the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET command with VIRTIO_NET_ERR if it was not able to change the parameters.
+> >
+> > Signed-off-by: Shujun Xue <shujunxue@google.com>
+> > ---
+> >  content.tex | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/content.tex b/content.tex
+> > index 0a62dce..87f0238 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -739,6 +739,8 @@ \chapter{Device Types}\label{sec:Device Types}
+> >  \hline
+> >  45         &   SPI master \\
+> >  \hline
+> > +47         &   CPU balloon device \\
+> > +\hline
+> >  \end{tabular}
+> >
+> >  Some of the devices above are unspecified by this document,
+>
+> I'm holding off voting for now until the status of the OASIS
+> infrastructure migration is clear (sigh).
+>
+>
 
-Also here ^ ?
+--000000000000a336de061018b016
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"auto">Is there ETA for the migration?=C2=A0<br clear=3D"all"><b=
+r clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartm=
+ail=3D"gmail_signature"><div dir=3D"ltr">Bests,<div>Shujun</div></div></div=
+></div></div><div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D=
+"ltr" class=3D"gmail_attr">Cornelia Huck &lt;<a href=3D"mailto:cohuck@redha=
+t.com">cohuck@redhat.com</a>&gt;=E4=BA=8E2024=E5=B9=B41=E6=9C=8829=E6=97=A5=
+ =E5=91=A8=E4=B8=80=E4=B8=8A=E5=8D=886:55=E5=86=99=E9=81=93=EF=BC=9A<br></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left=
+:1px #ccc solid;padding-left:1ex">On Tue, Jan 23 2024, Shujun Xue &lt;<a hr=
+ef=3D"mailto:shujunxue@google.com" target=3D"_blank">shujunxue@google.com</=
+a>&gt; wrote:<br>
+<br>
+&gt; The Virtio CPU balloon device is a primitive device for managing guest=
+<br>
+&gt; CPU capacity: the device asks for certain CPU cores to be online,<br>
+&gt; offline or throttled, and the driver performs the requested operation.=
+<br>
+&gt; This allows the guest to adapt to changes in allowance of underlying<b=
+r>
+&gt; CPU capacity.<br>
+<br>
+Fixes: <a href=3D"https://github.com/oasis-tcs/virtio-spec/issues/187" rel=
+=3D"noreferrer" target=3D"_blank">https://github.com/oasis-tcs/virtio-spec/=
+issues/187</a><br>
+<br>
+&gt;<br>
+&gt; Signed-off-by: Shujun Xue &lt;<a href=3D"mailto:shujunxue@google.com" =
+target=3D"_blank">shujunxue@google.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 content.tex | 2 ++<br>
+&gt;=C2=A0 1 file changed, 2 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/content.tex b/content.tex<br>
+&gt; index 0a62dce..87f0238 100644<br>
+&gt; --- a/content.tex<br>
+&gt; +++ b/content.tex<br>
+&gt; @@ -739,6 +739,8 @@ \chapter{Device Types}\label{sec:Device Types}<br>
+&gt;=C2=A0 \hline<br>
+&gt;=C2=A0 45=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;=C2=A0 =C2=A0SPI master=
+ \\<br>
+&gt;=C2=A0 \hline<br>
+&gt; +47=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;=C2=A0 =C2=A0CPU balloon dev=
+ice \\<br>
+&gt; +\hline<br>
+&gt;=C2=A0 \end{tabular}<br>
+&gt;<br>
+&gt;=C2=A0 Some of the devices above are unspecified by this document,<br>
+<br>
+I&#39;m holding off voting for now until the status of the OASIS<br>
+infrastructure migration is clear (sigh).<br>
+<br>
+</blockquote></div></div>
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
-Join OASIS: https://www.oasis-open.org/join/
-
+--000000000000a336de061018b016--
