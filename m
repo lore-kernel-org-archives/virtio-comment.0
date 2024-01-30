@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9029-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9030-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CAE1C47DA9
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 04:45:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 409BDC46CD2
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 05:21:18 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 636CB2AEE0
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 04:45:30 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 721BE2AC58
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 05:21:17 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 41D41986882
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 04:45:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4771E98688A
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 05:21:17 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 2812B983F76; Tue, 30 Jan 2024 04:45:30 +0000 (UTC)
+	id 20C38983F76; Tue, 30 Jan 2024 05:21:17 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,144 +24,115 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 10930986876
-	for <virtio-comment@lists.oasis-open.org>; Tue, 30 Jan 2024 04:45:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 10A95986876
+	for <virtio-comment@lists.oasis-open.org>; Tue, 30 Jan 2024 05:21:17 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046050;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0W.exDMT_1706589924;
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: virtio-comment@lists.oasis-open.org
-Cc: Jason Wang <jasowang@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Parav Pandit <parav@nvidia.com>
-Date: Tue, 30 Jan 2024 12:45:24 +0800
-Message-Id: <1706589924-3036-1-git-send-email-hengqi@linux.alibaba.com>
-X-Mailer: git-send-email 1.8.3.1
-Subject: [virtio-comment] [PATCH v3] virtio-net: support setting coalescing params for multiple vqs
+Message-ID: <9b02c7ba-4cab-46bf-8a85-cd34d943a49a@collabora.com>
+Date: Tue, 30 Jan 2024 08:21:08 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Yiwei Zhang <zzyiwei@chromium.org>, Ryan Neph <ryanneph@chromium.org>
+Cc: Gerd Hoffmann <kraxel@redhat.com>, Rob Clark <robdclark@gmail.com>,
+ Huang Rui <ray.huang@amd.com>, Sergio Lopez <slp@redhat.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ virtio-comment@lists.oasis-open.org
+References: <20240128191218.392061-1-dmitry.osipenko@collabora.com>
+ <CAAfnVBnieT4TfahEv6nG-pvSxKSLh7s=Tf1FB=v1mX1oL8QeOg@mail.gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <CAAfnVBnieT4TfahEv6nG-pvSxKSLh7s=Tf1FB=v1mX1oL8QeOg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [virtio-comment] Re: [PATCH v1] virtio-gpu: Document new fence-passing feature
 
-Currently, when each time the driver attempts to update the coalescing parameters
-for a vq, it needs to kick the device and wait for the ctrlq response to return.
-The following path is observed: 1. Driver kicks the device; 2. After the device
-receives the kick, CPU scheduling occurs and DMA multiple buffers multiple times;
-3. The device completes processing and replies with a response.
+On 1/30/24 04:34, Gurchetan Singh wrote:
+> On Sun, Jan 28, 2024 at 11:12 AM Dmitry Osipenko <
+> dmitry.osipenko@collabora.com> wrote:
+> 
+>> Document new virtio-gpu protocol fence-passing feature that extends 3d
+>> submit command with support of in-fences which are passed from guest to
+>> host for waiting. This feature allows to offload waiting for in-fences
+>> from guest to host, where it can be done more efficiently.
+>>
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>> ---
+>>  device-types/gpu/description.tex | 22 +++++++++++++++++++++-
+>>  1 file changed, 21 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/device-types/gpu/description.tex
+>> b/device-types/gpu/description.tex
+>> index 443524851a05..e5e23b5c9072 100644
+>> --- a/device-types/gpu/description.tex
+>> +++ b/device-types/gpu/description.tex
+>> @@ -37,6 +37,8 @@ \subsection{Feature bits}\label{sec:Device Types / GPU
+>> Device / Feature bits}
+>>    resources is supported.
+>>  \item[VIRTIO_GPU_F_CONTEXT_INIT (4)] multiple context types and
+>>    synchronization timelines supported.  Requires VIRTIO_GPU_F_VIRGL.
+>> +\item[VIRTIO_GPU_F_FENCE_PASSING (5)] passing fence IDs from guest to host
+>> +  for waiting supported.  Requires VIRTIO_GPU_F_VIRGL.
+>>  \end{description}
+>>
+>>  \subsection{Device configuration layout}\label{sec:Device Types / GPU
+>> Device / Device configuration layout}
+>> @@ -746,7 +748,25 @@ \subsubsection{Device Operation: controlq
+>> (3d)}\label{sec:Device Types / GPU Dev
+>>
+>>  \item[VIRTIO_GPU_CMD_SUBMIT_3D]
+>>    Submit an opaque command stream.  The type of the command stream is
+>> -  determined when creating a context.
+>> +  determined when creating a context.  Request data is
+>> +  \field{struct virtio_gpu_cmd_submit}.  The \field{size} field describes
+>> +  the size of \field{cmd_data} array in bytes.  The \field{num_in_fences}
+>> +  field is active only if VIRTIO_GPU_F_FENCE_PASSING is enabled, otherwise
+>> +  \field{num_in_fences} is treated as zero.  The array of
+>> \field{in_fences}
+>> +  IDs is placed in between the \field{num_in_fences} field and the
+>> +  \field{cmd_data} array.  The \field{in_fences} array contains virtio-gpu
+>> +  \field{fence_id}'s corresponding to the out-fence IDs of a previous
+>> +  3d submits.
+>> +
+>> +\begin{lstlisting}
+>> +struct virtio_gpu_cmd_submit {
+>> +        struct virtio_gpu_ctrl_hdr hdr;
+>> +        le32 size;
+>> +        le32 num_in_fences;
+>> +        le64 in_fences[num_in_fences];
+>> +        u32 cmd_data[size/4];
+>> +};
+>> +\end{lstlisting}
+>>
+> 
+> Don't you need VIRTIO_GPU_FLAG_FENCE_SHAREABLE somewhere too?
 
-Since Linux ctrlq currently cannot add commands in batches, it can only process
-one request synchronously at a time.
-When a large-queue driver want to issue multiple requests, the subsequent request
-must wait for the previous request to be processed before it can be sent:
-  1. The driver kicks the device frequently, this often interrupt the work of
-     the device-side CPU. In addition, each vq request
-  2. Each request is pipelined and there can always be only one request in the
-     pipeline, causing more delays for the device-side CPU to wait for the DMA
-     request to complete.
+We haven't made use of this flag in the experimental/prototype version
+that was made for the native contexts. The flag is unused by both Qemu
+and CrosVM.
 
-These interruptions and overhead will strain the CPU responsible for controlling
-the path of the DPU, especially in multi-device and large-queue scenarios.
+We added Linux kernel UAPI flag VIRTGPU_EXECBUF_SHARED_FENCE and it's
+deemed to be enough. If the UAPI flag isn't set for a job's out-fence,
+then guest uses guest-side synchronization for this fence when it's
+passed as in-fence for the further jobs.
 
-To solve the above problems, we internally tried batch request, which merges
-requests from multiple queues and sends them at once. We conservatively tested
-8 queue commands and sent them together. The DPU processing efficiency can be
-improved by 8 times, which greatly eases the DPU's support for multi-device
-and multi-queue DIM.
+The FENCE_SHAREABLE flag isn't needed by nctx/virgl/venus protocols. All
+fences are shareable by default. If VMM fails to export fence, it is
+treated like fence was already signaled. In case of Venus, it's up to
+Venus to decide internally which fences can be made shareable, i.e. both
+guest and virglrenderer Venus implementations are responsible for making
+decision whether fence should be made exportable. Venus won't make
+out-fence exportable for internal intermediate jobs and will encode this
+export-info within the Venus protocol.
 
-Suggested-by: Xiaoming Zhao <zxm377917@alibaba-inc.com>
-Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
----
-v2->v3:
-    1. Update some descriptions. @ Michael
-    2. virtio_net_ctrl_mrg_coal_vq -> virtnet_ctrl_mrg_coal_vq
-    3. Reword the commit log.
+Whether FENCE_SHAREABLE virtio-gpu flag will be needed by gfxstream is
+questionable. Gfxstream should be similar to Venus, i.e. you should be
+able to add flag to the gfxstream. We'll need to be certain that the new
+common flag is definitely needed by making use of it before specifying
+it in the stable virtio-gpu protocol.
 
-v1->v2: Updated commit log. Due to sensitivity, sorry that can not give the
-        absolute value directly. @Michael 
-
- device-types/net/description.tex | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index aff5e08..dbca203 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -1667,8 +1667,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- for notification coalescing.
- 
- If the VIRTIO_NET_F_VQ_NOTF_COAL feature is negotiated, the driver can
--send commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
--for virtqueue notification coalescing.
-+send commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and
-+VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET for virtqueue notification coalescing.
- 
- \begin{lstlisting}
- struct virtio_net_ctrl_coal {
-@@ -1682,11 +1682,17 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-     struct virtio_net_ctrl_coal coal;
- };
- 
-+struct virtnet_ctrl_mrg_coal_vq {
-+        le16 num_entries; /* indicates number of valid entries */
-+        struct virtio_net_ctrl_coal_vq entries[];
-+};
-+
- #define VIRTIO_NET_CTRL_NOTF_COAL 6
-  #define VIRTIO_NET_CTRL_NOTF_COAL_TX_SET  0
-  #define VIRTIO_NET_CTRL_NOTF_COAL_RX_SET 1
-  #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET 2
-  #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET 3
-+ #define VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET 4
- \end{lstlisting}
- 
- Coalescing parameters:
-@@ -1706,6 +1712,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- \item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, the structure virtio_net_ctrl_coal_vq is write-only for the driver.
- \item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET, \field{vq_index} and \field{reserved} are write-only
-       for the driver, and the structure virtio_net_ctrl_coal is read-only for the driver.
-+\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET, the structure virtnet_ctrl_mrg_coal_vq is write-only for the driver.
- \end{itemize}
- 
- The class VIRTIO_NET_CTRL_NOTF_COAL has the following commands:
-@@ -1716,6 +1723,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-                                         for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
- \item VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET: use the structure virtio_net_ctrl_coal_vq to get the \field{max_usecs} and \field{max_packets} parameters
-                                         for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
-+\item VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET: use the structure virtnet_ctrl_mrg_coal_vq to set the \field{max_usecs} and \field{max_packets} parameters
-+                                         for \field{num_entries} enabled transmit/receive virtqueues. The corresponding index value
-+                                         of each configured virtqueue is \field{vq_index}.
- \end{enumerate}
- 
- The device may generate notifications more or less frequently than specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-@@ -1782,9 +1792,13 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- The driver MUST set \field{vq_index} to the virtqueue index of an enabled transmit or receive virtqueue.
- 
-+The driver MUST set \field{num_entries} to a non-zero value and MUST NOT set \field{num_entries} to
-+a value greater than the number of enabled transmit and receive virtqueues.
-+
- The driver MUST have negotiated the VIRTIO_NET_F_NOTF_COAL feature when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET.
- 
--The driver MUST have negotiated the VIRTIO_NET_F_VQ_NOTF_COAL feature when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET.
-+The driver MUST have negotiated the VIRTIO_NET_F_VQ_NOTF_COAL feature when issuing commands
-+VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET.
- 
- The driver MUST ignore the values of coalescing parameters received from the VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET command if the device responds with VIRTIO_NET_ERR.
- 
-@@ -1794,10 +1808,12 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- 
- The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if it was not able to change the parameters.
- 
--The device MUST respond to the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET command with VIRTIO_NET_ERR if it was not able to change the parameters.
-+The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET
-+commands with VIRTIO_NET_ERR if it was not able to change some of the coalescing parameters. In
-+this case, all of the parameters MUST remain unchanged, for all virtqueues.
- 
--The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands with
--VIRTIO_NET_ERR if the designated virtqueue is not an enabled transmit or receive virtqueue.
-+The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
-+commands with VIRTIO_NET_ERR if the designated virtqueue is not an enabled transmit or receive virtqueue.
- 
- Upon disabling and re-enabling a transmit virtqueue, the device MUST set the coalescing parameters of the virtqueue
- to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_TX_SET command, or, if the driver did not set any TX coalescing parameters, to 0.
 -- 
-1.8.3.1
+Best regards,
+Dmitry
 
 
 This publicly archived list offers a means to provide input to the
