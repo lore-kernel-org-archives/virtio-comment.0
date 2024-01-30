@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9031-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9032-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6136FC46CD2
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 06:05:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B6B1C47DA9
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 06:11:58 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id A162521698
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 06:05:41 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 9B1C060270
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 06:11:57 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6B4CF986877
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 06:05:41 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 75951986883
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 06:11:57 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 4603D983F76; Tue, 30 Jan 2024 06:05:41 +0000 (UTC)
+	id 58D6B983F76; Tue, 30 Jan 2024 06:11:57 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,320 +24,376 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3D1E1986876
-	for <virtio-comment@lists.oasis-open.org>; Tue, 30 Jan 2024 06:05:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4778A986876
+	for <virtio-comment@lists.oasis-open.org>; Tue, 30 Jan 2024 06:11:57 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zww3uHRbnoQ35drSHgaFjY+NMB8ThBiabG+ty2HjZpFcheoeiibFb/UHSMCU2umtIpucNEorBq1qj0Vu1AyVPiztLfoWp9FX0Xjo9+9HR8b/wdN2teT84bB0fFLciKlok+MLfL8T+5CF8hQ5BKaZ68gmfbaoGIxLMfsJkxxzPYluS1xgD0q0vVI+JSHi7xP9BjbNzs9+d6ZGacxzr7Z6Jaf+MFZbxcB1n97HYB8S/xeS57UUv5myaic3gK4bW6EKoRqyTPKf3wt/I2c8coMm5g1Fnc6DMso0z+2tZOLacsp6dGsdm24x8DAf1rg4cO49XB6eY8m1s7FAl+oUgcJ32A==
+ b=D3arDA83t2r+pPkfPezk1IcJcxeXPEUHfoRx8zyvlutkrXtnPyWDUYCRDdCP8o8sPnLC5mSw+lQWoZAYojnp4bkelhf6N9RoUA/UyWDPcmpXZ4V79+DgpwmFoPl8PAkF0YEh6EUPaVRxew4jT4ZJ+vSKG4vzPJtJ9rKXgHOw/H5Nf0gU8VONmlsnt8VkXRWNEpz8togJWM/WDD2E8AgqnX1B85bZS122trGf9l1wgoyJoKB7p4mI6lOS7m5/n5TRV98H+ytlHs/X1GXR93FMpV4wJtEDahXyKzetK8RLoKPe5d3kZ/Awi3QXjbuYqbmaV9se4nKDXjzaCyF+l/+hgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ujQqJ53NJrk9S0XS4vW/MkET9kChaHxiWdHBcVf5i3o=;
- b=P8DJuOTxiv0GmFXFPFNwbipXLtoGT4W/I+bVq0ybJ6v8zDXE2JD9ay0pibutxUiv/5kgwKde6nNMp0I3Y/UPYqtdLeCAe3Dxjs0Z3acOOLRtGa6CwCO35A1b3cHhez0P8tIMzp0rmpQGFINJuxt/Qdb03XNrDlriouduf4lRZwF1hBOYA5LFZ026LMNv7StLYPJFroKDj5UQ6oxJK88ccWomRBN/4bQplDkzUM9VBJGlPeDNkLhgpu8FYBnXs6r1ohzNW7vVmdT8DdAQ5KARNc3hLh2Pt9VgP4ow9uI+caESmktdEC8dee6y2SQWwp4D2dXpMsVCiZQ/DD4qPX28Qw==
+ bh=ysxVAWios8GlaGt3rY5kefmabOeapg4piky6otMcAOU=;
+ b=mvIum/TZjFXUZqYXszYjVt3CscUzbFBgllD1h105vOdpJ/UKH3rbv5+R4fFLFXWPKIIB0i3XyvyoPZN0+m1Z1jbKROu3r4+P6kOrBWBzSUwYTmemPHfI7bQt+3Uf+y5Nb54OSnuqE25y9xRL8Fvgl8wlf7fqTfcBl1IezvHmHpYAK9J639YTKeIv4tRZ+jVAAogsGnMzLDt7PaZSkdKLDKhUBYaUfXVuiZ/xGFiP5gV7AcocAm49RNQryACJO9lEu8OSPqnfSoqn2ILeQ5LAJMFD961JGC8voWWW1PtMsuunYhPkUEph++Y0YXc6qt78UTcYgphz+oSV+rT+KFyO8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-From: Parav Pandit <parav@nvidia.com>
-To: Heng Qi <hengqi@linux.alibaba.com>, "virtio-comment@lists.oasis-open.org"
+ smtp.mailfrom=jaguarmicro.com; dmarc=pass action=none
+ header.from=jaguarmicro.com; dkim=pass header.d=jaguarmicro.com; arc=none
+From: Lege Wang <lege.wang@jaguarmicro.com>
+To: "virtio-comment@lists.oasis-open.org"
 	<virtio-comment@lists.oasis-open.org>
-CC: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Thread-Topic: [PATCH v3] virtio-net: support setting coalescing params for
- multiple vqs
-Thread-Index: AQHaUzcnrkM0X18jc0WI6GOxP+VtsrDx240g
-Date: Tue, 30 Jan 2024 06:05:03 +0000
+Thread-Topic: [virtio-comment] [RFC PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+ add new used buffer notification suppression mechanism
+Thread-Index: AQHaTzZn/4IbS5Ps60eRQZJfNPdC27Dx5wgw
+Date: Tue, 30 Jan 2024 06:11:46 +0000
 Message-ID:
- <PH0PR12MB5481B81E2D440B8CD7CBD4A4DC7D2@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <1706589924-3036-1-git-send-email-hengqi@linux.alibaba.com>
-In-Reply-To: <1706589924-3036-1-git-send-email-hengqi@linux.alibaba.com>
+ <SI2PR06MB53854A7D9617A6B53EB4A52BFF7D2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+References: <20240125023001.1467-1-lege.wang@jaguarmicro.com>
+In-Reply-To: <20240125023001.1467-1-lege.wang@jaguarmicro.com>
 Accept-Language: en-US
-Content-Language: en-US
+Content-Language: zh-CN
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
+ header.d=none;dmarc=none action=none header.from=jaguarmicro.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA1PR12MB6702:EE_
-x-ms-office365-filtering-correlation-id: 10e176b9-d903-4918-3582-08dc2159668a
+x-ms-traffictypediagnostic: SI2PR06MB5385:EE_|JH0PR06MB6939:EE_
+x-ms-office365-filtering-correlation-id: b8a1070d-b4e1-4b37-1215-08dc215a5684
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- YsCmvi4f60mT7VMxSNtJE2dSJHT3ve2Z3pj8WKKSgf/5JCY3W0702N//H9a3riu8K2Z1BdJZkaiecvQ2QkLuzZDkwMNRzfXJH/y1+9DqNYA2sqog+XQkA+zQbs9MhIhfJwxmh2xo1yoy9l6OMr7ahBDl5SYosmxbs/YZUq5H51mz1LW4PyTnfM2U2AgtWA33jeh2sNwp0NkpHtEHOnqRy+tyISxbwHj8ynUPP79YigiZGZX6VDgGHXy4vMQCMoX1JE40YxMDunJHqmb93HSzi7mdYr1SeC4n1ed2WeLujwBPgCFO37SJM3nDwbn4hmonw1rFkYNnCAfwYTuChaSpHCQ7MVwuUcZ+qPhZQfhvifMtbY1QAGQvQLsVqVnYkf3ekE6d5Aa5yGFMMyuT99iRcztXPCijpDvXRgZiRWOJ8z7rqWscjtD6bGeOFSXRP0Gb9sgVeKkvrnHBn1N9Xi66t4zr+FAGo4HJF2R8glRaTL6w3owWi5/egTJQ4j2vxpT1WcF1vzpJZuuiTE7YP7f6yBrKJLLA7cDhUy74P5Lh2Qzc5/Rumq7pSc3e/s/ocFcV4iO9kMzqHNLkqbtH77WjlweWqTYwBusGDwRtOweGAXVzTwit1WH+OLf4hxE/JKsG+xRibzhLSGceAivNbdk+9bo7SGZH9HrDs39KlWquQH4=
+ zGHPyVQMVM8vlWMkwL0fdepL43wQyMDcL5ja7cWdIWgxc/m6vGCTG+A0ga3eWMs071yhWkmoed9YXsMPbJJdITy39M0Mq1YTbVT2zoXm2pCfgYTXUsorwfjCtjBlf/FU2FDIo+10XzpibMyYh810xR1T5z4mlr1mwclJL5oZ2HsOF9MrybADJuxFc7IX+fedoDD8Z1z3zkN0ar/HGrL92jsvXSAYSWljfgvZo4o/jsHIDtQtYxQMu1eYD8ilHmbpm4AAQEvhXSwr+8/Qqd1fMcsU4TuvPMAeG+SozEK4wF6/wPm9nWwl1cf5gTmycj/He293zU/++DxchlvY55hkgy9qBsrAloXtfO2m9d0TEFyGbKcF1ay7M4rbKrFZiKYP6l/u+CnVkvmJ1N08Ki+Z2NJc2lyxCAASnbThZsIKJxvcmwTk8q7ohrKeukwNTiKaKKiYEEJl4vvwpo6QcdkvLQBGSl6ZQwIeN/cZIc8xMxjIzOc9cQHqnR1Lm4ayPPfJRw2lgf0Bf0+eU5J3vGiQlENq1jd3cPpiqGcMOY7vLw5XARVLXsTaCqHXtZIpAMBuOykbcR8hw8V94Aie11Q6qmp2ZeF7NXLILOkF9RI399JLlwwoPc4eryXRIwXiQuf0
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(366004)(396003)(39860400002)(136003)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(83380400001)(966005)(2906002)(5660300002)(38100700002)(122000001)(66556008)(66946007)(54906003)(41300700001)(110136005)(316002)(71200400001)(7696005)(4326008)(66476007)(64756008)(52536014)(26005)(8676002)(8936002)(9686003)(66446008)(478600001)(53546011)(76116006)(6506007)(33656002)(86362001)(38070700009)(55016003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5385.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(346002)(396003)(366004)(39830400003)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(26005)(41300700001)(55016003)(38070700009)(316002)(6916009)(478600001)(9686003)(7696005)(53546011)(6506007)(83380400001)(71200400001)(64756008)(38100700002)(122000001)(66446008)(66476007)(66899024)(5660300002)(2906002)(30864003)(15650500001)(86362001)(66946007)(66556008)(76116006)(33656002)(44832011)(8676002)(8936002)(52536014);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ifuJGNVX2yMKTIQbl4mFrXT4xh7dI9PpDRGFChjsgomJGViZKPgRp/Y/8Ehv?=
- =?us-ascii?Q?1WmnCY0aYNlMyeYqhj2Io3g/W64VHeyvD+tkxZnucRvWC4pvnsFfQMdA3iJu?=
- =?us-ascii?Q?07/iXPjGwqLecHyjeWJawj/cFOGByS9FY2oSFL7SqviUPi0AisHwifxu/d1M?=
- =?us-ascii?Q?RS/UD/wpKQdacJN0jvJT4Yiun7ELTxh5z9/d1ByLV3bzAdksIUMzixHlcs+W?=
- =?us-ascii?Q?pvawCCyxcCAYu4PblzJJ81JTnQJoAZa2FE9BQHdotdjV5XJZENAR4a2DQGE3?=
- =?us-ascii?Q?Sx/nmWCPcZZ+PEb9Y84Fw3Fhxl8ZgGb13+7VdSqse4h5wjLFApVpUKoXXTsR?=
- =?us-ascii?Q?sKKBbhPnfKr4FjvCdtXT1ybLRSuzahvHFxXfzfIlScNuOqLxEoOd24I5/Pna?=
- =?us-ascii?Q?Dv6zqNjZUleDOgmIQK+2EY3SSGMx9GesnQUXcehQd/d63usifdtkASFTMp96?=
- =?us-ascii?Q?6uiaLnnsWvAprnsmrPqzTHu7JfqR8ibT6bHT43Yl0Ye4JT9Y7W1PBqhQOdSy?=
- =?us-ascii?Q?Qx3AiB/IOAHHahiojDdx0xaupFwAQ6YFtEHJIr6KJ0yaxy8V7PHYoPoOcTz3?=
- =?us-ascii?Q?htSdfNzak22/7jJCWXH6Ymu2nByyqsslHYZBp/1jyhcobo4b2BMTxMg+6HkO?=
- =?us-ascii?Q?If6O9rx6jMNtu+dZKV3Tgh/L0fhIWAwoRvaTld7ncH37vb2cmisrokGr03ZW?=
- =?us-ascii?Q?1A5XVYyQ58e2+6E9Y3QV7w/JXMuUpgsY+iubzbMRQgMRf9sXPlONml2io8aH?=
- =?us-ascii?Q?XMDcBJdUdk4RvcocqdM/6BHpUgxgFlw2ws/FG6cOPZ5glxJsiqgyGhEeiXBH?=
- =?us-ascii?Q?+Iq4qPUInMw/DYh/V28RM4CwsnuCycn1wT41Vz86jq0wd75dHWU+PhuoCC1x?=
- =?us-ascii?Q?UlH6wn8WuTVSOugNKvtxOaehtRFddwHgr3z3an0OxiZa/IduvgR093PGbXiA?=
- =?us-ascii?Q?6Zcjddak/7PLWyT199fCyUjbPH45AZ6a+ox0v/Zsa0oD9UyBecfG5ETTYzTz?=
- =?us-ascii?Q?on6JpbaJMnjK+BbPYCiuzrgI0gkw9Krwx8r24L/OiTtGVfBDr18h7fYoexgv?=
- =?us-ascii?Q?Yk8mSTQzwKhSJKyGGXMO/IC14mEIZAoSvsdBMZ30K9TeIbo/ScOVQRVPDFfk?=
- =?us-ascii?Q?1ejJ4lSuV5C/9Tr2y0QK5aaRXn+tEMeLUo8TrQg/sFTaCauHlXQGHgLbBRo+?=
- =?us-ascii?Q?tPCkte9FnGRoOnNIQ77i/3/roHVQxw/cHxAc1Zi16GovXPe63YfwNA9uM+vG?=
- =?us-ascii?Q?wVHpFyayoHehSgHMN3mebAtO7+Q8gdSoqa5vOPnqEFjNhrn07tiVj2xNC7MA?=
- =?us-ascii?Q?QsatEAmj2wd8BlA+yww/w92lONy8fkrPMRID2kHVsFO/70aU7jSOjBla5z45?=
- =?us-ascii?Q?TtzUILJSfpmwPddP1jeBnEKadscme1K+UBRdacd0MCaER0/NycqOsjxQbVwv?=
- =?us-ascii?Q?TX1RLZxaWdLVDBp+ByG89tvU20h84Hrp1OO1yMyuY/64I4OPKfoW/AKKLHx1?=
- =?us-ascii?Q?C3axi/1sYI/q7bT8DneptojvosOu01RYkXRpPNm/qB2egjlwush2HtJBZtde?=
- =?us-ascii?Q?i4vnKceLXNyri3kjaJY=3D?=
-Content-Type: text/plain; charset="us-ascii"
+ =?Windows-1252?Q?NuvVpYzOPTCdoiBuLHcZ3nfebvwc0ggh1v21t2ROhV4fj8v+iwwuHxvI?=
+ =?Windows-1252?Q?f5qIrkGxSqgchLrthM136DsCeH5P3bPGvMowwyOWzU77q+9j2zXo1ckM?=
+ =?Windows-1252?Q?LnCc3ZmV55vqUu2uzPobpMEPTnI2ec3OHZ+ajqWKFKIZUgF3zCfKyvlJ?=
+ =?Windows-1252?Q?Fk/oQi+iSWgKSfLlyWaVdCtQOXXUj3xMIaVL+et7xGcXxzWtobppJRYV?=
+ =?Windows-1252?Q?r3o1J0XT9fqv12qJ/3hWXj0IWJP7U3qd5EYkQhSyk/Fqlikc2U2Sxkup?=
+ =?Windows-1252?Q?sEmZXdj8MIm3UbUb1/WQe+vxuVdUas+cGkqwj4gJhWUV/f+1cY9di2Ss?=
+ =?Windows-1252?Q?VuLi0qtPqzBcItauQtSiug8eXYFOWN5phzwGzR0W8zrv5GOoKEN2rYBP?=
+ =?Windows-1252?Q?1DLcBgttqcR7m4YAV+zBeiMz9HWPCgVWyRtBNehCm9amgXxrz/JkqhyV?=
+ =?Windows-1252?Q?9wqAkNggEtJhjW16MRSQFXOExCeQRIVfX3u1qFrEitSzytURNo1cTglk?=
+ =?Windows-1252?Q?LaCJCezSgKskGskvkv19ufec/sdkdfY+f5YMZUPoOsR12ZvJ5vvciZAg?=
+ =?Windows-1252?Q?Ua/LaxZ/MrDX8faHdETZ5i0vcQQge4WhVDCedXIX3MICwC3AWBxFh1ZM?=
+ =?Windows-1252?Q?StRy0GUWGCuEx3OWAJInELbLrbtXdx7Sd0/tQ91REjtTXuNs9c1nLLAb?=
+ =?Windows-1252?Q?E7O5tgLkBWjZAuptcblHRyqeD/ReOiv/tO21Dii6RjRTfJZz44ko79+9?=
+ =?Windows-1252?Q?+SQY21n11J+sqm1W3P+PBMalABrfrs7f716aZC8PbtgW+cgTjJDhjEs+?=
+ =?Windows-1252?Q?2Uun1OKaVODar9HL/oDdOx3hXILwjaWJEK6kk4LrsL5P254GouRRmUKL?=
+ =?Windows-1252?Q?KqhW2rAH5QeePkMFZx88NerQLYglEtBirX8+bNT2hxGgooGvSLe3XtGL?=
+ =?Windows-1252?Q?z60TZ+HAqh+mX1q+dJaTFrrWjAUrqukGdniOc9HvSQRQizfqIO6p4Une?=
+ =?Windows-1252?Q?rhjAEthop3ynJOSgmw02D5O0UMBfqltiw6wIZDaw4BQKDnX94K2sN4f/?=
+ =?Windows-1252?Q?2OUIrRwtgW9fPEHUmKHYBxX9m77sI0jzVCXC7Y+6Rah+EPRLSabddhVi?=
+ =?Windows-1252?Q?KUReoDxDQEdKJhZRTH5JrpXbaAr7O0gfvyivukMqOo4Eva5BaF9dq4MG?=
+ =?Windows-1252?Q?gUyW1sFHmn/8pOUrstax/xvN6wk2LysXUEwJ/oOC06mqKjSHQjIWf+c6?=
+ =?Windows-1252?Q?fOs5zbpOTY8FWYp0HXtjPF1p2841XCyxDkbM9RrA5rAH3hUnz0BH7ua3?=
+ =?Windows-1252?Q?3gch+NPFxF7Bn2B4tzL6B1UIeeDDcfVWqqiVYWy3lBq1n0wVfxf/JnBw?=
+ =?Windows-1252?Q?aGU5oeUDflhFqOE5dtm5NnsnTlqaETymp6TwMmmtH2bHNp0ePK6Lk3Rx?=
+ =?Windows-1252?Q?FIAulyDtNxhlTbWPUKiHaTdlJWQ5t12EJGG0TkSNahruy1ARt9+Fparw?=
+ =?Windows-1252?Q?8NJ6InAVwmeO9w0RJXJPw5NWgmHi4xwBxdbpV0s/wNkYwpJdk4xZD5zd?=
+ =?Windows-1252?Q?HmeyGJlYlaDvLKwmNJu+Qul2hc7lxzrHqhrMCyW9m6Ox5MolfiFghyKS?=
+ =?Windows-1252?Q?VEKe30Q0AO7mpRrXlvhukSYbhk25UStomynlJcqZXq4+aYLS8p8e0yLt?=
+ =?Windows-1252?Q?rYOMCimUxHXSxRB1pGJ/IdaB1m5Mrl5I?=
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-OriginatorOrg: jaguarmicro.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10e176b9-d903-4918-3582-08dc2159668a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2024 06:05:03.5595
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5385.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8a1070d-b4e1-4b37-1215-08dc215a5684
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2024 06:11:46.1651
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-id: 1e45a5c2-d3e1-46b3-a0e6-c5ebf6d8ba7b
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: i5Qj+U9C3kJ2suGU0q2+DOiTwy5dBXIdIWYPaxT3Wx/EjfOjwQdSH6ZWKenTIxd1b1uxrTsiQO2/a99T1c/tDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6702
-Subject: [virtio-comment] RE: [PATCH v3] virtio-net: support setting coalescing params for
- multiple vqs
+X-MS-Exchange-CrossTenant-userprincipalname: IAosfPQe+UdJuDQnhoUCXM/MvWj645jwOOs5Iw+GXuVdFYOiV8yhGdr2CgH2poa/qKJE+mErjFT3xqRGoPCvmijYLC8IZxFhaPKgaDIh3Ts=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6939
+Subject: RE: [virtio-comment] [RFC PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+ add new used buffer notification suppression mechanism
 
-Hi Heng,
+hi
 
-> From: Heng Qi <hengqi@linux.alibaba.com>
-> Sent: Tuesday, January 30, 2024 10:15 AM
+Gentle ping, thanks.
+
+Lege.wang
+
+> -----Original Message-----
+> From: Lege Wang <lege.wang@jaguarmicro.com>
+> Sent: Thursday, January 25, 2024 10:30 AM
 > To: virtio-comment@lists.oasis-open.org
-> Cc: Jason Wang <jasowang@redhat.com>; Michael S. Tsirkin
-> <mst@redhat.com>; Xuan Zhuo <xuanzhuo@linux.alibaba.com>; Parav Pandit
-> <parav@nvidia.com>
-> Subject: [PATCH v3] virtio-net: support setting coalescing params for mul=
-tiple
-> vqs
+> Cc: Lege Wang <lege.wang@jaguarmicro.com>
+> Subject: [virtio-comment] [RFC PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+> add new used buffer notification suppression mechanism
 >=20
-> Currently, when each time the driver attempts to update the coalescing
-> parameters for a vq, it needs to kick the device and wait for the ctrlq r=
-esponse
-> to return.
-> The following path is observed: 1. Driver kicks the device; 2. After the =
-device
-> receives the kick, CPU scheduling occurs and DMA multiple buffers multipl=
-e
-> times; 3. The device completes processing and replies with a response.
+> Currently for the PCI transport, used buffer notification suppression
+> informations are located in guest memory, for example, pvirtq_event_suppr=
+ess
+> for packed ring and virtq_avail for split ring, then PCI devices simulate=
+d
+> by hypervisors, such as QEMU, can vist these suppression informations
+> directly before issuing used event, the only overheads may be just proper
+> memory barriers, but for some hardware PCI devices offered by
+> DPU(Data Processing Unit), DPU would need to submit DMAs to copy guest
+> suppression informations to DPU internal cache or memory, then check
+> whether used event should be notified after examing this internal cache
+> or memory, which is obvious expensive and time-consuming. Worsely, if
+> device has written some used descriptors, and the above DMA operation has
+> not been completed yet, device can not determine whether to issue used
+> event, until it gets newest used buffer notification suppression informat=
+ion.
 >=20
-> Since Linux ctrlq currently cannot add commands in batches, it can only
-> process one request synchronously at a time.
-It can. Please refactor the kernel code to not depend on OS global rtnl loc=
-k.
-This cannot be the motivation for spec patch discussed in v2 time.
-
-> When a large-queue driver want to issue multiple requests, the subsequent
-> request must wait for the previous request to be processed before it can =
-be
-> sent:
->   1. The driver kicks the device frequently, this often interrupt the wor=
-k of
->      the device-side CPU. In addition, each vq request
->   2. Each request is pipelined and there can always be only one request i=
-n the
->      pipeline, causing more delays for the device-side CPU to wait for th=
-e DMA
->      request to complete.
+> To help improve this sitiuations, add a new feature:
+> VIRTIO_F_USED_EVENT_AUTO_DISABLE. When this feature bit is negotiated,
+> devices will place new notification area for used buffer event enable
+> notification in PCI bar specfied by virtio_pci_notify_cap, also for bette=
+r
+> used buffer notification coalescing, the device will disable later used
+> buffer notifications automatically after sending one used buffer notifica=
+tion
+> to driver, and after the driver finishes handling current used buffer eve=
+nt,
+> it needs to notify the device to enable used buffer notification again by
+> writing above new notification area in PCI bar. Device will receive
+> this notification reliably, and device knows that it can issue used event
+> now, but it may choose appropriate timing to send used events according t=
+o
+> its notification coalescing policy , now it also does not need to DMA gue=
+st
+> memory to obtain notification suppression.
 >=20
-> These interruptions and overhead will strain the CPU responsible for
-> controlling the path of the DPU, especially in multi-device and large-que=
-ue
-> scenarios.
->=20
-Please remove above line as you acked below that those driver notifications=
- are ignored by the device in [1].
-
-[1] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00132.ht=
-ml
-
-> To solve the above problems, we internally tried batch request, which mer=
-ges
-> requests from multiple queues and sends them at once. We conservatively
-> tested
-> 8 queue commands and sent them together. The DPU processing efficiency
-> can be improved by 8 times, which greatly eases the DPU's support for mul=
-ti-
-> device and multi-queue DIM.
->=20
-> Suggested-by: Xiaoming Zhao <zxm377917@alibaba-inc.com>
-> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> Signed-off-by: Xiaoguang Wang <lege.wang@jaguarmicro.com>
 > ---
-> v2->v3:
->     1. Update some descriptions. @ Michael
->     2. virtio_net_ctrl_mrg_coal_vq -> virtnet_ctrl_mrg_coal_vq
->     3. Reword the commit log.
+>  content.tex       | 34 +++++++++++++++++++++++++++++++++
+>  transport-pci.tex | 48
+> +++++++++++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 80 insertions(+), 2 deletions(-)
 >=20
-> v1->v2: Updated commit log. Due to sensitivity, sorry that can not give
-> v1->the
->         absolute value directly. @Michael
+> diff --git a/content.tex b/content.tex
+> index 0a62dce..5374510 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -448,6 +448,7 @@ \section{Driver Notifications} \label{sec:Basic Facil=
+ities
+> of a Virtio Device /
+>  The driver is sometimes required to send an available buffer
+>  notification to the device.
 >=20
->  device-types/net/description.tex | 28 ++++++++++++++++++++++------
->  1 file changed, 22 insertions(+), 6 deletions(-)
+> +\subsection{Available Buffer Notifications} \label{sec:Basic Facilities =
+of a
+> Virtio Device / Driver notifications / Available Buffer Notifications}
+>  When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,
+>  this notification contains either a virtqueue index if
+>  VIRTIO_F_NOTIF_CONFIG_DATA is not negotiated or device supplied
+> virtqueue
+> @@ -488,6 +489,34 @@ \section{Driver Notifications} \label{sec:Basic
+> Facilities of a Virtio Device /
+>  has been negotiated, these notifications would then have
+>  identical \field{next_off} and \field{next_wrap} values.
 >=20
-> diff --git a/device-types/net/description.tex b/device-
-> types/net/description.tex
-> index aff5e08..dbca203 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -1667,8 +1667,8 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi  for notificati=
-on
-> coalescing.
->=20
->  If the VIRTIO_NET_F_VQ_NOTF_COAL feature is negotiated, the driver can -
-> send commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET -for virtqueue notification
-> coalescing.
-> +send commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET,
-> +VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET for virtqueue notification coalescing.
->=20
->  \begin{lstlisting}
->  struct virtio_net_ctrl_coal {
-> @@ -1682,11 +1682,17 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi
->      struct virtio_net_ctrl_coal coal;
->  };
->=20
-> +struct virtnet_ctrl_mrg_coal_vq {
-Since this doing at batch level, ctrl_coal_vq_batch or ctrl_coal_vqs_batch =
-seems better name.
-
-> +        le16 num_entries; /* indicates number of valid entries */
-> +        struct virtio_net_ctrl_coal_vq entries[]; };
+> +\subsection{Used Buffer Event Enable Notifications} \label{sec:Basic Fac=
+ilities
+> of a Virtio Device / Driver notifications / Used Buffer Event Enable
+> Notifications}
+> +This kind of notification is only necessary when
+> VIRTIO_F_USED_EVENT_AUTO_DISABLE is negotiated.
+> +When this feature bit is negotiated, the device will disable later used =
+buffer
+> notification
+> +automatically after sending one used buffer notification to the driver, =
+and
+> after the driver
+> +finishes handling current used buffer event, it needs to notify the devi=
+ce to
+> enable used
+> +buffer notification again.
 > +
->  #define VIRTIO_NET_CTRL_NOTF_COAL 6
->   #define VIRTIO_NET_CTRL_NOTF_COAL_TX_SET  0
->   #define VIRTIO_NET_CTRL_NOTF_COAL_RX_SET 1
->   #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET 2
->   #define VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET 3
-> + #define VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET 4
-
-A new feature bit is needed as the driver does not know if all the devices =
-support this command or not.
-For example, some device does not support VQS_SET command.
-The device is already out that supports notification features per VQ (witho=
-ut coalescing support) and does not plan to support coalescing because OS l=
-evel enqueue command is optimal for it like rest of the tx and rx q.
-
+> +The notification method and supplying any such virtqueue notification co=
+nfig
+> data
+> +is transport specific, currently driver notifications to the device incl=
+ude
+> +the following information:
+> +
+> +\begin{description}
+> +\item [vq_index or vq_notif_config_data] Either virtqueue index or devic=
+e
+> +      supplied queue notification config data corresponding to a virtque=
+ue.
+> +\item [next_off] Offset
+> +      within the ring where the next used ring entry will be written.
+> +      When VIRTIO_F_RING_PACKED has not been negotiated this refers to
+> the
+> +      15 least significant bits of the used index.
+> +      When VIRTIO_F_RING_PACKED has been negotiated this refers to the
+> offset
+> +      (in units of descriptor entries)
+> +      within the descriptor ring where the next used descriptor will be
+> written.
+> +\item [next_wrap] Wrap Counter.
+> +      With VIRTIO_F_RING_PACKED this is the wrap counter
+> +      referring to the next used descriptor.
+> +      Without VIRTIO_F_RING_PACKED this is the most significant bit
+> +      (bit 15) of the used index.
+> +\end{description}
+> +
+>  \input{shared-mem.tex}
+>=20
+>  \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Devic=
+e /
+> Exporting Objects}
+> @@ -872,6 +901,11 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved
+> Feature Bits}
+>  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits=
+} for
+>  	handling features reserved for future use.
+>=20
+> +  \item[VIRTIO_F_USED_EVENT_AUTO_DISABLE(42)] This feature indicates
+> that the device
+> +  will disable later used buffer notification automatically after sendin=
+g one
+> used buffer
+> +  notification to the driver.
+> +  See \ref{sec:Basic Facilities of a Virtio Device / Driver notification=
+s / Used
+> Buffer Event Enable Notifications}
+> +
+>  \end{description}
+>=20
+>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index a5c6719..21b80dc 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -325,6 +325,8 @@ \subsubsection{Common configuration structure
+> layout}\label{sec:Virtio Transport
+>          /* About the administration virtqueue. */
+>          le16 admin_queue_index;         /* read-only for driver */
+>          le16 admin_queue_num;         /* read-only for driver */
+> +
+> +        le16 queue_intr_notify_off;     /* read-only for driver */
+>  };
 >  \end{lstlisting}
 >=20
->  Coalescing parameters:
-> @@ -1706,6 +1712,7 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi  \item For the
-> command VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET, the structure
-> virtio_net_ctrl_coal_vq is write-only for the driver.
->  \item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET,
-> \field{vq_index} and \field{reserved} are write-only
->        for the driver, and the structure virtio_net_ctrl_coal is read-onl=
-y for the
-> driver.
-> +\item For the command VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET, the
-> structure virtnet_ctrl_mrg_coal_vq is write-only for the driver.
->  \end{itemize}
->=20
->  The class VIRTIO_NET_CTRL_NOTF_COAL has the following commands:
-> @@ -1716,6 +1723,9 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi
->                                          for an enabled transmit/receive =
-virtqueue whose index is
-> \field{vq_index}.
->  \item VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET: use the structure
-> virtio_net_ctrl_coal_vq to get the \field{max_usecs} and \field{max_packe=
-ts}
-> parameters
->                                          for an enabled transmit/receive =
-virtqueue whose index is
-> \field{vq_index}.
-> +\item VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET: use the structure
-> virtnet_ctrl_mrg_coal_vq to set the \field{max_usecs} and \field{max_pack=
-ets}
-> parameters
-> +                                         for \field{num_entries} enabled=
- transmit/receive
-> virtqueues. The corresponding index value
-> +                                         of each configured virtqueue is=
- \field{vq_index}.
->  \end{enumerate}
->=20
->  The device may generate notifications more or less frequently than speci=
-fied
-> by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-> @@ -1782,9 +1792,13 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi
->=20
->  The driver MUST set \field{vq_index} to the virtqueue index of an enable=
-d
-> transmit or receive virtqueue.
->=20
-> +The driver MUST set \field{num_entries} to a non-zero value and MUST
-> +NOT set \field{num_entries} to a value greater than the number of enable=
-d
-> transmit and receive virtqueues.
+> @@ -428,6 +430,14 @@ \subsubsection{Common configuration structure
+> layout}\label{sec:Virtio Transport
+>  	The value 0 indicates no supported administration virtqueues.
+>  	This field is valid only if VIRTIO_F_ADMIN_VQ has been
+>  	negotiated.
 > +
->  The driver MUST have negotiated the VIRTIO_NET_F_NOTF_COAL feature
-> when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_RX_SET.
+> +\item[\field{queue_intr_notify_off}]
+> +        The driver reads this to calculate the offset from start of Used=
+ Buffer
+> Event Enable Notification structure at
+> +        which this virtqueue is located.
+> +        \begin{note} this is \em{not} an offset in bytes.
+> +        See \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PC=
+I
+> Device Layout / Notification capability} below.
+> +        \end{note}
+> +
+>  \end{description}
 >=20
-> -The driver MUST have negotiated the VIRTIO_NET_F_VQ_NOTF_COAL feature
-> when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET.
-> +The driver MUST have negotiated the VIRTIO_NET_F_VQ_NOTF_COAL
-> feature
-> +when issuing commands VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET,
-> VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET.
+>  \devicenormative{\paragraph}{Common configuration structure layout}{Virt=
+io
+> Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common
+> configuration structure layout}
+> @@ -498,7 +508,7 @@ \subsubsection{Common configuration structure
+> layout}\label{sec:Virtio Transport
+>  \drivernormative{\paragraph}{Common configuration structure layout}{Virt=
+io
+> Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common
+> configuration structure layout}
 >=20
->  The driver MUST ignore the values of coalescing parameters received from=
- the
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET command if the device responds
-> with VIRTIO_NET_ERR.
+>  The driver MUST NOT write to \field{device_feature}, \field{num_queues},
+> -\field{config_generation}, \field{queue_notify_off} or
+> +\field{config_generation}, \field{queue_notify_off},
+> \field{queue_intr_notify_off} or
+>  \field{queue_notif_config_data}.
 >=20
-> @@ -1794,10 +1808,12 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi
+>  If VIRTIO_F_RING_PACKED has been negotiated,
+> @@ -541,6 +551,7 @@ \subsubsection{Notification structure
+> layout}\label{sec:Virtio Transport Options
+>  struct virtio_pci_notify_cap {
+>          struct virtio_pci_cap cap;
+>          le32 notify_off_multiplier; /* Multiplier for queue_notify_off. =
+*/
+> +        le32 intr_notify_off_multiplier; /* Multiplier for
+> queue_intr_notify_off. Only if VIRTIO_F_USED_EVENT_AUTO_DISABLE is
+> negotiated. */
+>  };
+>  \end{lstlisting}
 >=20
->  The device SHOULD respond to VIRTIO_NET_CTRL_NOTF_COAL_TX_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_RX_SET commands with VIRTIO_NET_ERR if it
-> was not able to change the parameters.
+> @@ -560,10 +571,26 @@ \subsubsection{Notification structure
+> layout}\label{sec:Virtio Transport Options
+>  the same Queue Notify address for all queues.
+>  \end{note}
 >=20
-> -The device MUST respond to the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET
-> command with VIRTIO_NET_ERR if it was not able to change the parameters.
-> +The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and
-> +VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET commands with VIRTIO_NET_ERR
-> if it
-> +was not able to change some of the coalescing parameters. In this case, =
-all of
-> the parameters MUST remain unchanged, for all virtqueues.
+> +\field{intr_notify_off_multiplier} is combined with the
+> \field{queue_intr_notify_off} to
+> +derive the Queue Used Buffer Event Enable Notify address within a BAR fo=
+r a
+> virtqueue:
+> +
+> +\begin{lstlisting}
+> +        cap.offset + queue_intr_notify_off * intr_notify_off_multiplier
+> +\end{lstlisting}
+> +
+> +The \field{cap.offset} and \field{intr_notify_off_multiplier} are taken =
+from the
+> +notification capability structure above, and the \field{queue_intr_notif=
+y_off}
+> is
+> +taken from the common configuration structure.
+> +
+> +\begin{note}
+> +For example, if \field{intr_notifier_off_multiplier} is 0, the device us=
+es
+> +the same Queue Used Buffer Event Enable Notify address for all queues.
+> +\end{note}
+> +
+>  \devicenormative{\paragraph}{Notification capability}{Virtio Transport
+> Options / Virtio Over PCI Bus / PCI Device Layout / Notification capabili=
+ty}
+>  The device MUST present at least one notification capability.
 >=20
-> -The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands with -VIRTIO_NET_ERR if
-> the designated virtqueue is not an enabled transmit or receive virtqueue.
-> +The device MUST respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET,
-> +VIRTIO_NET_CTRL_NOTF_COAL_VQS_SET and
-> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands with VIRTIO_NET_ERR if
-> the designated virtqueue is not an enabled transmit or receive virtqueue.
+> -For devices not offering VIRTIO_F_NOTIFICATION_DATA:
+> +For devices not offering VIRTIO_F_NOTIFICATION_DATA or
+> VIRTIO_F_USED_EVENT_AUTO_DISABLE:
 >=20
->  Upon disabling and re-enabling a transmit virtqueue, the device MUST set=
- the
-> coalescing parameters of the virtqueue  to those configured through the
-> VIRTIO_NET_CTRL_NOTF_COAL_TX_SET command, or, if the driver did not set
-> any TX coalescing parameters, to 0.
+>  The \field{cap.offset} MUST be 2-byte aligned.
+>=20
+> @@ -596,6 +623,23 @@ \subsubsection{Notification structure
+> layout}\label{sec:Virtio Transport Options
+>  cap.length >=3D queue_notify_off * notify_off_multiplier + 4
+>  \end{lstlisting}
+>=20
+> +For devices offering VIRTIO_F_USED_EVENT_AUTO_DISABLE::
+> +
+> +The device MUST either present \field{intr_notify_off_multiplier} as a
+> +number that is a power of 2 that is also a multiple 4,
+> +or present \field{intr_notify_off_multiplier} as 0.
+> +
+> +The \field{cap.offset} MUST be 4-byte aligned.
+> +
+> +The value \field{cap.length} presented by the device MUST be at least 8
+> +and MUST be large enough to support queue notification offsets
+> +for all supported queues in all possible configurations.
+> +
+> +For all queues, the value \field{cap.length} presented by the device MUS=
+T
+> satisfy:
+> +\begin{lstlisting}
+> +cap.length >=3D queue_intr_notify_off * intr_notify_off_multiplier + 4
+> +\end{lstlisting}
+> +
+>  \subsubsection{ISR status capability}\label{sec:Virtio Transport Options=
+ /
+> Virtio Over PCI Bus / PCI Device Layout / ISR status capability}
+>=20
+>  The VIRTIO_PCI_CAP_ISR_CFG capability
 > --
-> 1.8.3.1
+> 2.43.0
 
 
 This publicly archived list offers a means to provide input to the=0D
