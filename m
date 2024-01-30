@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9044-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9045-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 788CEC46CD2
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 14:07:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9E7C47DDF
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 14:07:50 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 161C6F3F63
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 894AD12EB0D
 	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 14:07:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DD1439868D9
-	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 14:07:44 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 79F71986899
+	for <virtio-comment@archiver.kernel.org>; Tue, 30 Jan 2024 14:07:45 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id CF6E0986876; Tue, 30 Jan 2024 14:07:44 +0000 (UTC)
+	id 6E9A6986876; Tue, 30 Jan 2024 14:07:45 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,26 +24,26 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B361B986892
+	by lists.oasis-open.org (Postfix) with ESMTP id 5F4B5986687
 	for <virtio-comment@lists.oasis-open.org>; Tue, 30 Jan 2024 14:07:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CjMnYzHrlPYmts+YXHlXXmpR+PBULMg4LYkmMHP5nGTRUkXLn8b3KRkWODx8yxh1vgIT5V1lk4oqatm0pXJcEEOeTqeJYjupfzmoMhP9Ajof9l8zR6NZTVCiK5CwJNAh0Jtcr8YIjQdHKJ70CK0q7YaD/t+qekv5YjuSUyLO+nAMwrpvgcUuhMjdx+V3WIHdr3wuVICw1g4kc71/4fojXPEOKrysi+YMt2h1U3YL5sheReWl817qe8AaqIUftOcoaqtXYKjpwJCmfAHzW+gvi4plTwAN5wNWLG0+KCT4TasetLhBBa3owFshk7cfYzBhH/q8zIs0PHR7xT7uVME0FA==
+ b=fPYm7iY6HWNjxlYv6Wu8R7B14aC0xv9ypmFPwgMN3fvs2ZXgVMmDnIoe9RPd3JaOGlCeyUwXNztd53qg2dTywiP3zgOWa4gStvpMiN9PvFnq6whKhKQOvoiqgRTjqVclfm0aa99dw40FyNWo+nWdOAo6MJS81u4ZawMNO3htYU3m44jPtjLC00SnXn9Jqgj60isnmkVfN8RsIoDv5BOZ7PU5wbxmyaSfEAJ02sjAtFK7De4DuMHUM1k6D0VqIMFR4/jAXK/J0F3ZZi04lgbZXMuy1smAcyKrmfw4cDlI3VPEfLzLhAHoKHSvHlSztED49mMEtJa/C095hOIcjyw86A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NSbUDHIcgnMApVY+vMqStLusaLaz9bwUADPTYom0MQY=;
- b=SeW522hJ82X94DNz4xgtWJwwq5Hhc9XFUxfadDgBSAxKyCqKjeKIRnngRmsIwRvPirw5kQt94Lgk7nuSDHd6SSuW2+dULYOpQQl4CbkPo5M2Ux4GAE5MlAX8JntDSQTW66QEUR7lw81PUjEqMLzeVJ+RhDffJ2PQaJi+Sid9Y3EXNlxaD1XAWRKA70QceCVSrgkC15YxfVrk3awj/gxCcMjBY/mMrMXdQMzhod0qnsmQDQoiZHW7k2nMn6ymi8rVpp21S2f6+KZAHDFvfbZ7U1wVst8J94ciHBu4Jr3EcWni/Pt6U75Ziy0cwBGbc4uUX5kIQ5JXe5NHyTL8Il0KQg==
+ bh=9T7pKBPyQgHOwmodIMt3FoHuFYl9u96Y5d0enMtCSsg=;
+ b=oS3otY1IrPROW24PRE3yXaXlG9v7ioQ/BThCjXJMKv8de1KDmzVkcciBEzQ7jq2Jyq7vB94YXa0wp4GyJcj8H9lkyEdjGcTgIPyGcQVPQq2pmaZbRv+f2P6bB2pq0gSofDsMtPljGk8jb3dumEG24+C18au7CkoFiFkNrtxyh70HNMrm68bPB3O4aVh0KAh3I+4O/VNpeajK4tTR6mfN+CxMBn7HqpKEeoSoL4DHjYXt8Mmu+pRkqRnhj6UgigCGiCElfYPdAvvJPYJs7ISt+xPffqVBvOmDhDZX9JFCRwji9jMX0t+MIgl/SI6yFEa3uXv8vF1dVx4Sc+a0j/WvPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.oasis-open.org
+ 216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
  header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.oasis-open.org>, <mst@redhat.com>,
 	<cohuck@redhat.com>
@@ -51,8 +51,8 @@ CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Date: Tue, 30 Jan 2024 16:06:35 +0200
-Message-ID: <20240130140642.406882-7-parav@nvidia.com>
+Date: Tue, 30 Jan 2024 16:06:36 +0200
+Message-ID: <20240130140642.406882-8-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240130140642.406882-1-parav@nvidia.com>
 References: <20240130140642.406882-1-parav@nvidia.com>
@@ -64,308 +64,187 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD5:EE_|SJ0PR12MB5633:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea5e7fca-20ba-424f-20d8-08dc219ccf9d
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4C:EE_|CYXPR12MB9319:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2029496-9b49-4cf7-1fba-08dc219cd035
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	zz0S2u5H0Oi9Icaoq8AD+OnG+v1r/Ocw6pnYqtlAHvwEow3vtHrNOk7i2/jqWOqNAdQK0xYBJcJ1OY5Fw0UTnFNplgtIRTVCyRLKyigVX68x8H1gHCppXjIlQlDC9QJCRpmeVda1apw5/zCM2yfkAjhaTK6d+XVfxxT2wCVUzfFcnf1rw/ul8yVrdrJ7Vm3D9DSjgwdU8vOw244V0Tm5ZJZZARTh1GInOdMkyGDn6Vk0uZiES7DqCK4+63XuqGGuzm5V90EinuDchPctInZdV/ZBw4V425rXnOBQSDNgBY/PxoQGtY375xXhXUveMUMvnmrWITbiOA84BB8J3lAh9P3Yl9SwWhNvEgHgeXaV1wKGHK3vHHDuI1CwJdTd0eBJHVNAYpjyEwBeYTfEzeNFyA2+l9Hi8DSiJ84VbN89w+zHiNu/QJApQY8msgbZ71JTi79mPbrbCSGtjUSJ3NKmNbr7UTwAEyerduVAUcnipOHQ1R0x4IKugA2fNR2EulNFOeZesT4y3d4jY1e5N91wN/jAQqji4j3Gqkit6aJNFeWO++qrGvnZjDBQ+QPQfUtL+XwZFUbUG6zGyW1stJ5Thxyk8nhm7WwjT8xYmCkCp8jQhIIZx5DV9Saa2YdCCh6cL7sC+tBwRazG2U6H86FqXcvVR0MwFT+grrqCl5EHhVZdBJSJO9SQMsYrmXynT5n34pCGJngofvdkBIj1HFhuiCbsZza6Oda37hXHT1o7SnNDo1Ry44jtas0UFJOBYnVQ332rigkQcHqOVdfXP+kk7KAUwqSoPbMUQy44dl1MAlM=
+	igc08XHGf+F1B3GD4ClbpIId1rGQnMth6kx4XIEQCR9H6LREjGXyzZtzOwVO1OKoi1D4vCIGmkGpxe+bqSMcjfhY8jDRLt7D7xTln4T9Qf/ZByOIXgZymsCRw8o3yOSqRfUTKUWV+S56PyQuBx0v5zpKvWzitx16XdglyrKHgJBvGBoGeGUPIqB3ncRhpsiviQ/08eIHbRAg2ZMDK8QpBrIh9fVBvgL+rMpvRO2KVaskuodIuggIyPP++LKjWgM1WoNc4wkP/POAJNF8bVMo8tSfmLGlxsbIL1OHL4nyAKdUf1EZXJrgY78+dWUnakQnUfRM4zRrs4cK05azqLwKTYyazOcITFgH3QT49hrBhVlGCzy3ErwNREtBzBdr1SbqxB8mmTqaXQF/M0gn6YYRb/H+c5pxiMdoEZBBqgMkdGEBFALqaxEnFWH7xlYWJ8C6l89IyQ/tvqwcF/GTjl0FstmUatnupMcnOqDsTlk8AWchfeLGcS6DTeHL8k0Z14+F13dCFjqWRa0VGQpaR3NYc3rmNfxB8tF4gimNZ+clNeVPP7cMmMMrn8hQdWgZetr34pPtF5u8zEYvpmkIsVwT1NR+tDp/7re9pxmQ3voVePO94aW4ACwi4SpQk8BP938HAwbTcKd9NrKF+XXT84TiyOcUK8EeR64cE4MpgFYGqlZqvDVCcUmG/gTequvQ6T/oPgaJsFPkH6Wup/BhR8z7EpU9hqXiAxN3a5cqZJ0gvF8EHIfEqUckcDq82s3TUW/PidOpjytJLDamaoEc99ra5bdtFYjWJljrCra3ubjKHvo=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(39860400002)(346002)(136003)(230922051799003)(451199024)(1800799012)(186009)(82310400011)(64100799003)(46966006)(36840700001)(40470700004)(83380400001)(16526019)(426003)(1076003)(6666004)(336012)(478600001)(36860700001)(316002)(47076005)(8936002)(107886003)(2616005)(30864003)(4326008)(5660300002)(41300700001)(2906002)(966005)(8676002)(70586007)(54906003)(110136005)(70206006)(82740400003)(26005)(36756003)(86362001)(356005)(7636003)(40480700001)(40460700003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(396003)(376002)(346002)(230922051799003)(186009)(82310400011)(64100799003)(451199024)(1800799012)(40470700004)(46966006)(36840700001)(40460700003)(40480700001)(83380400001)(41300700001)(86362001)(356005)(36756003)(110136005)(7636003)(82740400003)(47076005)(2616005)(1076003)(336012)(16526019)(26005)(107886003)(426003)(966005)(2906002)(478600001)(54906003)(70206006)(70586007)(316002)(36860700001)(6666004)(5660300002)(8936002)(8676002)(4326008);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2024 14:07:35.9532
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2024 14:07:36.9962
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea5e7fca-20ba-424f-20d8-08dc219ccf9d
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2029496-9b49-4cf7-1fba-08dc219cd035
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD5.namprd02.prod.outlook.com
+	SN1PEPF0002BA4C.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5633
-Subject: [virtio-comment] [PATCH v8 06/13] admin-cmds-resources: Add device resources admin commands
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9319
+Subject: [virtio-comment] [PATCH v8 07/13] virtio-net: Add theory of operation for flow filter
 
-Add generic administration commands create, modify, query and destroy
-device resources.
+Currently packet allow/drop interface has following limitations.
 
-Each resource defines resource specific attributes for the commands.
-Once the resource is created by the driver, it can be query/modify or
-destroyed by the driver.
+1. Driver can either select which MAC and VLANs to consider
+for allowing/dropping packets, here, the driver has a
+limitation that driver needs to supply full mac
+table or full vlan table for each type. Driver cannot add or
+delete an individual entry.
 
-Each resource is identified using a unique resource identifier per
-resource type.
+2. Driver cannot select mac+vlan combination for which
+to allow/drop packet.
 
-Administration commands for managing resources using administration
-commands are relatively slower operations compared to data path
-operations of transmitq and receiveq of the network device.
+3. Driver cannot not set other commonly used packet match fields
+such as IP header fields, TCP, UDP, SCP header fields.
+
+4. Driver cannot steer specific packets based on the match
+fields to specific receiveq.
+
+5. Driver do not have multiple or dedicated virtqueues to
+   perform flow filter requests in accelerated manner in
+   the device.
+
+Flow filter as a generic framework overcome above limitations.
+
+As starting point it is useful to support at least two use cases.
+a. ARFS
+b. ethtool ntuple steering
+
+In future it can be further extended for usecases such as
+switching device, connection tracking or may be more.
+
+The flow filter has following properties.
+
+1. It is an extendible object that driver can create, destroy.
+2. It belongs to a flow filter group (group has priority).
+3. Each flow filter is identified using a unique identifier(id),
+   has priority, match fields, destination(rq) and action(allow/drop).
+4. Flow filter has optionally mask too.
+
+This patch adds theory of operation for flow filter functionality.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
+Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
- admin-cmds-resources.tex | 186 +++++++++++++++++++++++++++++++++++++++
- admin.tex                |  11 ++-
- conformance.tex          |   2 +
- resources.tex            |   4 +
- 4 files changed, 202 insertions(+), 1 deletion(-)
- create mode 100644 admin-cmds-resources.tex
+changelog:
+v6->v7:
+- addressed comments from Cornelia
+- plenty of grammar corrections suggested by Cornelia
+- removed stale reference to flow filter virtqueue
+- removed incorrect stale hunk of a label
+- removed dependency on feature bit and control vq
+- rebased to use device capabilities and device resources
+v4->v5:
+- to avoid feature bit overlap with rss context patch, pick next
+  unique bit 65
+v3->v4:
+- removed flow filter virtqueue section as dynamic queues are
+  not supported currently
+v2->v3:
+- removed dependency on the dynamic queue creation as the
+  infrastructure is not yet ready
+v1->v2:
+- fixed comments from Heng
+- grammar corrections
+- spelling corrections
+---
+ device-types/net/description.tex | 79 ++++++++++++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
 
-diff --git a/admin-cmds-resources.tex b/admin-cmds-resources.tex
-new file mode 100644
-index 0000000..da4e576
---- /dev/null
-+++ b/admin-cmds-resources.tex
-@@ -0,0 +1,186 @@
-+\subsubsection{Device Resources}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources}
-+
-+The device resource operates the device as described in
-+\ref{sec:Basic Facilities of a Virtio Device / Device Resources}.
-+
-+Following device resource commands are currently defined only for the self
-+group type:
-+
-+\begin{enumerate}
-+\item Device Resource Create Command
-+\item Device Resource Modify Command
-+\item Device Resource Query Command
-+\item Device Resource Destroy Command
-+\end{enumerate}
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_cmd_hdr {
-+        le16 type;
-+        u8 reserved[2];
-+        le32 rid; /* Indicates unique resource id per resource type */
-+};
-+\end{lstlisting}
-+
-+\field{type} refers to the device resource type.
-+\field{rid} uniquely identifies the resource of a specified \field{type}.
-+
-+\paragraph{Device Resource Create Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources / Device Resource Create Command}
-+
-+This command creates the specified resource of \field{type} identified by the
-+resource identifier \field{rid}. The valid range of \field{rid} is defined by the
-+device in the related device capabilities. The driver assigns the unique \field{rid}
-+for the resource for the specified \field{type}.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_create_data {
-+        struct virtio_admin_cmd_resource_cmd_hdr hdr;
-+        le16 length;
-+        u8 reserved[6];
-+        u8 resource_specific_data[];
-+};
-+\end{lstlisting}
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_CREATE, \field{opcode} is set to 0xa.
-+
-+\field{group_member_id} refers to the device itself to be accessed.
-+\field{length} refers to the length of the \field{resource_specific_data}.
-+\field{resource_specific_data} refers to the resource specific data. Each resource
-+uses a different \field{resource_specific_data} and is described separately.
-+
-+When the command completes successfully, the resource is created in the
-+device and in use by the device. This command has no command specific result.
-+
-+\paragraph{Device Resource Modify Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources / Device Resource Modify Command}
-+
-+This command modifies the existing resource of \field{type} identified
-+by \field{rid}, which is previously created using command
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_modify_data {
-+        struct virtio_admin_cmd_resource_cmd_hdr hdr;
-+        le16 length;
-+        le16 reserved[6];
-+        u8 resource_specific_data[];
-+};
-+\end{lstlisting}
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_MODIFY, \field{opcode} is set to 0xb.
-+
-+\field{group_member_id} refers to the device itself to be accessed.
-+\field{type} refers to the device resource type.
-+\field{rid} uniquely identifies the resource of type \field{type} to be created.
-+\field{length} refers to the length of the \field{data}.
-+
-+When the command completes successfully, the resource is modified with
-+updated \field{resource_specific_data}.
-+This command has no command specific result.
-+
-+\paragraph{Device Resource Query Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group
-+administration commands / Device Resources / Device Resource Query Command}
-+
-+This command reads the existing resource of \field{type} identified
-+by \field{rid}, which is previously created using command
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_read_data {
-+        struct virtio_admin_cmd_resource_cmd_hdr hdr;
-+};
-+\end{lstlisting}
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_read_result {
-+        le16 length;
-+        le16 reserved[6];
-+        u8 resource_specific_data[];
-+};
-+\end{lstlisting}
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_QUERY, \field{opcode} is set to 0xc.
-+
-+\field{group_member_id} refers to the device itself to be accessed.
-+\field{type} refers to the device resource type.
-+\field{rid} identifies the existing resource of type \field{type}.
-+\field{length} refers to the length of the \field{data}.
-+
-+When the command completes successfully, the resource information is returned
-+to the driver in \field{resource_specific_data}.
-+
-+\paragraph{Device Resource Remove Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group
-+administration commands / Device Resources / Device Resource Destroy Command}
-+
-+This command reads the specified resource of \field{type} identified
-+by \field{rid}, which is previously created using command
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_destroy_data {
-+        struct virtio_admin_cmd_resource_cmd_hdr hdr;
-+};
-+\end{lstlisting}
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_DESTROY, \field{opcode} is set to 0xd.
-+
-+\field{group_member_id} refers to the device itself to be accessed.
-+\field{type} refers to the device resource type.
-+\field{rid} identifies the existing resource of type \field{type} to be destroyd.
-+
-+When the command completes successfully, the resource is destroyd from the device.
-+This command has no command specific result.
-+
-+\devicenormative{\paragraph}{Device Resources}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources}
-+
-+The device MUST set VIRTIO_ADMIN_STATUS_EEXIST for the command
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE if a resource already exists with supplied
-+resource \field{rid} for the specified \field{type}.
-+
-+The device MUST complete the command with status \field{status}
-+VIRTIO_ADMIN_STATUS_ENXIO for the commands
-+VIRTIO_ADMIN_CMD_RESOURCE_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_QUERY and
-+VIRTIO_ADMIN_CMD_RESOURCE_DESTROY if the specified resource does not exist.
-+
-+The device MUST set \field{status} to VIRTIO_ADMIN_STATUS_ENOSPC for the command
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE if the device fail to create the
-+resource.
-+
-+The device MUST complete the command with \field{status}
-+VIRTIO_ADMIN_STATUS_EBUSY if the resource
-+modified or destroyd is linked to other resource and if the device cannot perform
-+the requested VIRTIO_ADMIN_CMD_RESOURCE_MODIFY or VIRTIO_ADMIN_CMD_RESOURCE_DESTROY
-+commands.
-+
-+The device MUST allow recreating the resource using
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE command which was previously created
-+and destroyed using VIRTIO_ADMIN_CMD_RESOURCE_CREATE and
-+VIRTIO_ADMIN_CMD_RESOURCE_DESTROY command respectively without undergoing
-+a device reset.
-+
-+The device MUST allow creating the resource using
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE command with any resource
-+identifier as long as the resource does not exist and if the resource
-+identifier is less than the device and driver capabilities published resource
-+limit \field{max_limit}.
-+
-+The device MAY fail VIRTIO_ADMIN_CMD_RESOURCE_CREATE command even if the
-+resources within the device have not reached upto the \field{max_limit}
-+but the device MAY have reached an internal limit.
-+
-+On device reset, the device MUST destroy all the resources which driver MAY
-+have created.
-+
-+\drivernormative{\paragraph}{Device Resources}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources}
-+
-+The driver SHOULD NOT create the resource with the \field{rid} which is
-+already created previously by the driver.
-+
-+The driver SHOULD NOT create the resource using command
-+VIRTIO_ADMIN_CMD_RESOURCE_CREATE when maximum resource limit has reached.
-+
-+The driver SHOULD NOT modify, read and destroy the resource which is
-+already destroyd previously by the driver.
-+
-+The driver MUST NOT destroy the resource which is in use by other
-+linked resource; the driver MUST destroy all the linked resources before
-+removing the resource which is used by the linked resources by using
-+command VIRTIO_ADMIN_CMD_RESOURCE_DESTROY.
-diff --git a/admin.tex b/admin.tex
-index c0ba54e..aa4ff59 100644
---- a/admin.tex
-+++ b/admin.tex
-@@ -139,7 +139,15 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline
- 0x0009 & VIRTIO_ADMIN_CMD_CAP_WRITE & Write the device and driver capabilities \\
- \hline
--0x000a - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
-+0x000a & VIRTIO_ADMIN_CMD_RESOURCE_CREATE & Create a device resource \\
-+\hline
-+0x000c & VIRTIO_ADMIN_CMD_RESOURCE_MODIFY & Modify a device resource \\
-+\hline
-+0x000b & VIRTIO_ADMIN_CMD_RESOURCE_QUERY & Query a device resource \\
-+\hline
-+0x000d & VIRTIO_ADMIN_CMD_RESOURCE_DESTROY & Destroy a device resource \\
-+\hline
-+0x000e - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
- \hline
- 0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
- \hline
-@@ -318,6 +326,7 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 0cc03fc..407139b 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -2325,6 +2325,85 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ of the driver's records. In such cases, the driver should allocate additional
+ space for the \field{command-specific-result} buffer.
  
- \input{admin-cmds-legacy-interface.tex}
- \input{admin-cmds-capabilities.tex}
-+\input{admin-cmds-resources.tex}
- 
- \devicenormative{\subsubsection}{Group administration commands}{Basic Facilities of a Virtio Device / Device groups / Group administration commands}
- 
-diff --git a/conformance.tex b/conformance.tex
-index 4782016..fbf63e3 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -96,6 +96,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{drivernormative:General Initialization And Device Operation / Device Cleanup}
- \item \ref{drivernormative:Reserved Feature Bits}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}
-+\item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources}
- \end{itemize}
- 
- \conformance{\subsection}{PCI Driver Conformance}\label{sec:Conformance / Driver Conformance / PCI Driver Conformance}
-@@ -177,6 +178,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
- \item \ref{devicenormative:Reserved Feature Bits}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}
-+\item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources}
- \end{itemize}
- 
- \conformance{\subsection}{PCI Device Conformance}\label{sec:Conformance / Device Conformance / PCI Device Conformance}
-diff --git a/resources.tex b/resources.tex
-index 307308c..4b0efb6 100644
---- a/resources.tex
-+++ b/resources.tex
-@@ -9,6 +9,10 @@ \section{Device Resources}\label{sec:Basic Facilities of a Virtio Device / Devic
- sends the device resource related administration commands, thereby
- instructing the device to operate in a certain way.
- 
-+The device supports resource control using the administration commands
-+described in
++\subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Operation / Flow Filter}
++
++To forward a received packet to a specific receiveq or to drop the packet based
++on one or more fields of the packet, the device supports flow filter
++functionality. The flow filter rule can match the packet for a flow, take
++an action such as forward the packet to the specific receiveq or drop the packet.
++For example, the driver can request the device to forward received packets
++which match to a specific source and destination IP addresses and
++TCP ports to a specific receiveq.
++
++Each flow filter rule is a combination of one or more match keys,
++rule processing priority, a rule identifier and an action to forward
++a packet to the destination or to drop the packet.
++
++The match fields also optionally consist of a match mask. When a mask is
++specified for the flow filter rule, first the packet fields are masked before
++matching with the fields of the flow filter rule.
++
++Each flow filter rule is independent of each other. The driver can create,
++modify, query and destroy a flow filter rule. A flow filter rule is
++a device resource that the driver can operate using device resource
++administration commands described in
 +\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources}.
 +
- Each device resource is identified by a unique resource identifier. The driver
- assigns the resource identifier when creating a device resource. Once the resource
- successfully created, subsequent operations of modifying, querying or destroying
++The device indicates the flow filter capabilities to the driver. These
++capabilities include various maximum device limits and
++supported packet match fields.
++
++Flow filter rules are grouped using a flow filter group. A flow filter
++group is a device resource. Each flow filter group has a priority.
++The device first applies the flow filter rules of the highest
++priority group to the received packet. If there is no match for the
++rules of such a group for the packet, the rules of the next
++priority group are applied, until there is a match for the packet from such
++a group or the last group has reached.
++
++A flow filter group can have one or more flow filters rules. Within a flow
++filter group, a packet may match to multiple flow filters rules. In such a scenario,
++of the matching flow filters rules, the rule with the highest priority is applied,
++skipping any matching filter rules with a lower priority; if there is no match,
++the next higher priority flow filter rule is applied.
++
++\paragraph{Packet Processing Order}\label{sec:sec:Device Types / Network Device / Device Operation / Flow Filter / Packet Processing Order}
++
++If enabled, filtering and steering functionalities are applied to the received
++packet in the following order:
++
++\begin{itemize}
++\item apply device configuration done using control virtqueue commands
++      VIRTIO_NET_CTRL_RX, VIRTIO_NET_CTRL_MAC and VIRTIO_NET_CTRL_VLAN.
++\item apply flow filter configuration done using flow filter rules.
++\item apply device configuration done using command
++      VIRTIO_NET_CTRL_MQ_RSS_CONFIG.
++\end{itemize}
++
++While processing a received packet, if the packet is dropped at any stage,
++the following levels of processing is omitted.
++
++If a flow filter rule is matched for the packet, the following levels of
++processing are omitted as well.
++
++A few examples are:
++\begin{itemize}
++\item If the packet is dropped by the flow filter configuration, RSS
++      configuration is not applied to such a packet.
++\item If the packet is forwarded to a specific receiveq using flow filter rule,
++      RSS configuration is not applied to such a packet due to a match on the
++      flow filter rule.
++\item If the packet is dropped due to VIRTIO_NET_CTRL_MAC configuration,
++      neither flow filters nor RSS configuration are applied to such a packet.
++\item If the packet does not find any match in any of the flow filter groups,
++      next level RSS device configuration is applied if its exists.
++\item If there are three flow filter groups configured as group_A, group_B
++      and group_C with respective priorities as 4, 5, and 6; flow filters of
++      group_C is applied first having highest group priority, if there is a match,
++      the flow filter rules of group_B and group_A are skipped; if there is no match for
++      the flow filter rules in group_C, the flow filter rules of next level group_B are applied.
++\end{itemize}
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
+ 
 -- 
 2.34.1
 
