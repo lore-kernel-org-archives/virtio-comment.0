@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9064-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9065-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0D7C48291
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Feb 2024 18:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E737C48291
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Feb 2024 07:40:45 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 35D6475B88
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Feb 2024 18:16:38 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 668E42AC8D
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Feb 2024 07:40:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 147629868C9
-	for <virtio-comment@archiver.kernel.org>; Fri,  2 Feb 2024 18:16:38 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4D8469863F8
+	for <virtio-comment@archiver.kernel.org>; Mon,  5 Feb 2024 07:40:44 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id F0BC498403A; Fri,  2 Feb 2024 18:16:37 +0000 (UTC)
+	id 3400F983F74; Mon,  5 Feb 2024 07:40:44 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,570 +24,216 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DF75D9868BE
-	for <virtio-comment@lists.oasis-open.org>; Fri,  2 Feb 2024 18:16:37 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 200A99863DF
+	for <virtio-comment@lists.oasis-open.org>; Mon,  5 Feb 2024 07:40:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706897794; x=1707502594;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3HUfE4+dent+4DLlcJnkNIfhXtH9f8d+Gt6xM+kKNuw=;
-        b=SVN0Fucwbaj3PC7U5pZBJU7zJST1kQbLjCe6/GKuyUK091HGVa2NQ8dhQ6g6VmDO1t
-         Zddc6oP/IPL+LBr7sgD3fLPEF3Qdl/QUJCAY1Uj8V1ZtkTqrHYVOKF6YnGIwODM0FnXt
-         aO+PDoQQ4t5F7bne7b4vnCTmxqRdUcMQGbILRVbtDv8JrOh07G4NW0ZXVk1eP85HtVDR
-         Gc5k3iJTG8ydV4a7Cjro6XOUY2+JmyrEJ/+aMuzsp6zTkm5eYlR4U4aU/F4jtFAcbIr4
-         AGhpj07B4eNnN/N8uunKjeVE7h1oluII/fj41iq31yp0kA52WrWM0VpRkxnjwLjxshQE
-         2Kow==
-X-Gm-Message-State: AOJu0YwSWF+NjNRUI2H7yrZrO1zvCPHaWJYHPX+ZE4o5pal/Gbu0+nI3
-	jqF/lkhmvv/bQjXWHli+1dy5LgP1fYe3qwHYlUAg597F+JbFJV1J15nr/J2puBU7m/WB46/0VKC
-	aBg==
-X-Google-Smtp-Source: AGHT+IFj72cZ6UjtysPWfXY+3p/J6J3rfMSllXh8JFZauBrMPG7fLn/otnHTdF+Tr1H6LQQyf6OYAQ==
-X-Received: by 2002:a50:9fe3:0:b0:55f:d7f8:1072 with SMTP id c90-20020a509fe3000000b0055fd7f81072mr442285edf.3.1706897794420;
-        Fri, 02 Feb 2024 10:16:34 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVPfH3imkvAdp6MJRgeouiQEZbRPVNUCVo7YAjxWBJdj1cvirX569UVHm6ZfPZh3ahodXO83g8M1nfBR+XZHSyM0CN0V7btMpMqXaRlJGBfR8q8xQ==
-X-Received: by 2002:a50:9f2f:0:b0:560:1f8:1669 with SMTP id
- b44-20020a509f2f000000b0056001f81669mr64110edf.2.1706897793152; Fri, 02 Feb
- 2024 10:16:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=S8pmno6YtJuck8WW++CjFQIlNN9EYdUIGMMx5xjuMqHFksXUv7qUmrBpiv+60tY+ErQM8cpFRs4u16OMCXLPzLlrT04PjJw6w3yhl8brCWGT6P4rTuYyDApiRLBgCenoNdBnIVyo5mPvcb6XaEv4SMSeyJ3jy+Yz9hk8oRtbbj0MO3ac+V254Lr236kUue5+vKqfxqBp8bm5t8MXCwc2YahAJ/PKOXhBG/+wfpetpBSVgXKztfd+pglk/cF5gObR+uaX6YwPov1TbZyP76YINGfcD/9TMZ6EVFodUpTV0dLjQNLPb1WE6wzIqq+lqYThkqoT9vZ1I3cMknehCYR5FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6CxLPIR3GMNay63cASJev6hi2ioXpyT+qi2Sqok0wOA=;
+ b=jxk/h3/eidDAiCw+a8rJIVBSX4fNe+MitWF6N9IisBPjSyvEsGCFGHDlo+5UJc9UjIeqjDwa6Kg+KoP138rYBDbBWJnyZRXs5F44p//WJCgfBj4rHgtPre849VROY9s+M4DmGW/ASZTQrAAF3HoZTMMvhtso1F6MVRetspbMFpUoUKtWETVvI4jrNjjF3xNRtzg0+R/zUakpStyLwOe+YVYa1hZbaQ/u2zFDrciKENkvI+Dvx5Nl1w4ecagGx99w096h6GJorIhXy5zaRMOJeG95NLJWkThNdWppHurJPE7sGQghej3CXhEvvUA2sz1NN/5jfL9OADLwVuFHxKmv4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Lege Wang <lege.wang@jaguarmicro.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>
+Thread-Topic: [virtio-comment] [RFC PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+ add new used buffer notification suppression mechanism
+Thread-Index: AQHaTzZzkxS4XClcDkWCFLA6ilSUorDx62oAgAG4RACAB8h7QA==
+Date: Mon, 5 Feb 2024 07:40:38 +0000
+Message-ID:
+ <PH0PR12MB5481935584B62FD5ACE5FE3CDC472@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20240125023001.1467-1-lege.wang@jaguarmicro.com>
+ <PH0PR12MB5481C4AE095D48C6241C6366DC7D2@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <SI2PR06MB5385F062A33B53FF56F88DCEFF7C2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+In-Reply-To:
+ <SI2PR06MB5385F062A33B53FF56F88DCEFF7C2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|PH7PR12MB7140:EE_
+x-ms-office365-filtering-correlation-id: 02fb32b7-3998-44cd-42a8-08dc261dbf49
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ JCoC5whzdrMwGT0K2sOAoC4zUzqCxgR/oyDNcT4wfaMw7YAZZTQ0X3HVFATXDik7TaKN0RiCGH88pAI43hnX12wmDG5+M39JOpFasIjMfX7HHvxztrgQX/RokTX1kgnAtLtYB35yVwPNY667mENQzMUsNlmZBD3MGpGyAkXQ8LMkSTOTdz+BwmqeIVmHC52oCkgCxmT8dArHfLEEbvUAFIOlb8EXaUMOfDrs0C81lJJqTnZ22L1lcMUEffa7/LUDqrTqrYXsTqNC0nzf3VKBp4OP/3xqGCv5Y1tYLkTBnT8Evh7Pmr9/Lq23C8VDPPisuTNKiqTZhuGS6NO70KpwBgQizCcpRmTa8VCWnlKQpoy4EJFXRB4NyOAMZgTL90LXtBoYEVh0VFC8QyDlUT6yGe67l4u7XA3K192+vmtsPOdKl6yaGTE/Bt8+trGURA1Z9Q4CFEc6ITXHys9wa09ZjfOfylQ87PBUc1Hv39VtGfKsezMMkDLMPwrzKw+389BFMvi3ZXht2Vs85BKvMoLpQGH9OZNSb6gOhu1Hku3y9qHmAB9YwZ4CNyKVGEjR8wgDGNBY+NZTte46Ld3cN+jxRsDK9BzkKkv4mdEZHDCD4eeXiJeh1rXM2/TmY1pnXUVC
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(396003)(366004)(39860400002)(346002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(66899024)(66556008)(2906002)(8936002)(52536014)(8676002)(5660300002)(15650500001)(110136005)(64756008)(33656002)(86362001)(7696005)(38070700009)(316002)(66476007)(66946007)(66446008)(38100700002)(478600001)(122000001)(9686003)(83380400001)(76116006)(71200400001)(6506007)(26005)(41300700001)(55016003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?LvqgRzGwJni/zLi142hOXp3UOFBFmwzwCIh1BKQIi3hdDKPs0czr25U7sEIG?=
+ =?us-ascii?Q?olqk7+6sO9q4HP2NLcMyF436T/vRe43tCZ1i7h4WaXeAXf7cLip0TwViDma6?=
+ =?us-ascii?Q?O9uz9SEAopd/JeLe5PyzvN8zQ7Svvzn7QUEKSUlg9FVO8HHivFjZBQSYx4Zy?=
+ =?us-ascii?Q?7410HtoFvMPZhDeCYqIFp5TGSk2iIxdHkqoNRJg84ZWsUIdr0ML3Fxupx1G4?=
+ =?us-ascii?Q?ewBILDeHy9Zs0NyMIj5gYcuuIkj/PtWUa2HOhNRJRiYDWUb5zdFAICHG0YGR?=
+ =?us-ascii?Q?QMTQA6eJ5CQwkh11j50o7K3at8kxewQcpGkVPoA+JMHASoDnDGO8PHkcfuUG?=
+ =?us-ascii?Q?STGffS+IHwG1I4RZPdbO2aHSC4INGDsVawpcMSpI20Cnbx294vDlEV4AGCP7?=
+ =?us-ascii?Q?ifmLSZFtkh3rw0ZhT7n8y8Ffwuz6estyBvo1WdrBwwXRvl9cOlPTW8L/wI3K?=
+ =?us-ascii?Q?GRvLA4L+dWzHbnVVAnoLeajQV68CF8tztghkE77yWdW+KlJGcoDxkewOC26q?=
+ =?us-ascii?Q?5XJCx2O5G2gs3tc4YsD0tStjmg2/DAPsw8Elw7OdtBNWdgsiw7sR5iylW8el?=
+ =?us-ascii?Q?Hxwwycieibww447dycZqDZZxXfe1T+4iQUKbDR6Y1wZPc4hyQ/lqzGQdYRI4?=
+ =?us-ascii?Q?q08UnXm0yKLV0cVD0Um+v+KUEY4PR3mLAiABbFeEK9NvkvOO6j4aLOXUQgl1?=
+ =?us-ascii?Q?xrSaHPMqsRFti5RxFCVnm1DOqc3+ynObWRunaTyQotG7LBTWC52RkmdMOKU8?=
+ =?us-ascii?Q?6dMf6QUzNaeA+WB03xoiCUP7Pv1DoHflmVc1xUzQ4lRKV6zkAXdeKY8IsVgi?=
+ =?us-ascii?Q?I6JMHBf1noCgyZbP8RkzJ9dDLfaGeAz68hl5J9aRBwGNxgZcWbioEPlTtb2h?=
+ =?us-ascii?Q?4gafKgm9er1nWRbqFI0/eYWkImev4CGAl2MG1Kidpn/hokCsxLj7Kpoz51v6?=
+ =?us-ascii?Q?amQ9wyAssKlFg6B+kWShWaDfKLHMFJfXoVeH2OjYT4NL4LjuQKAYuJrhb4rI?=
+ =?us-ascii?Q?joGZ9oRN+b/XI1XpfUb3ny0hFOVrFVnN9xNd2Zgx5c0zRXcFTVPgERXRiyon?=
+ =?us-ascii?Q?Yu/QRdUl3taojHpjW1iGfX4T3B5AHzUQb05UtxJs8f5rjoRQNNbFevJS3rcm?=
+ =?us-ascii?Q?Hiwk2xkCW6lVm3eNOMRvDp9xBdZmAq89M+dqzGmZGhjba9ParhAKYB5xNkMc?=
+ =?us-ascii?Q?zUFIoQ5OAxzITSezNSIGtg37j0xnKeoR7r9T9ORBtfEDa0m17GY2HWFtWOLO?=
+ =?us-ascii?Q?YVpN7x2OW3sTxP5pCXQjvyMCsK+SZIBnrmPQ6t0X9Vioia42wy1/hudZuvJj?=
+ =?us-ascii?Q?dLq2hk4BS9N768qevLM0NLERUAfM0hmXwWW1ueKi2yERPBwZr3Bcn1qc64kg?=
+ =?us-ascii?Q?ntPmek16d8yP6G5qacIbiVNIfwg9AVXCqF5Kbpt/03rq9cjDZ9O2RHfYsF5E?=
+ =?us-ascii?Q?DORCCqqzdzKrbjBH36j/yx78DDWNk7RIPJS+4vJhZZJLbHkE6Tk529vlbrVx?=
+ =?us-ascii?Q?+gBjw/IuWI47GZY1etqnFhdk9Q5GRVXPZo9MW6e/WJJh2pXqrc5tJSSLAk6s?=
+ =?us-ascii?Q?BX5zaGUbbQOiNFaiyME=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20240128191218.392061-1-dmitry.osipenko@collabora.com>
- <CAAfnVBnieT4TfahEv6nG-pvSxKSLh7s=Tf1FB=v1mX1oL8QeOg@mail.gmail.com>
- <9b02c7ba-4cab-46bf-8a85-cd34d943a49a@collabora.com> <CAAfnVBnGCP2m2WoXY=NKAQ4vQncB19c4YVMrC51r5KdsSq7uxQ@mail.gmail.com>
- <CAF6AEGtSGULUVVZ-45sdhUpffsqi7yM15aHSyPSt9=TMr8iEHw@mail.gmail.com>
- <CAAfnVBn-8a1kKe9M3RN75D9q9rdzep-=-7ixspmDDJu-Wz4C_Q@mail.gmail.com> <CAF6AEGuQD-zuHjkjeBEuteyvQE33pGeF0XPDjGDZrZBrr=tNJg@mail.gmail.com>
-In-Reply-To: <CAF6AEGuQD-zuHjkjeBEuteyvQE33pGeF0XPDjGDZrZBrr=tNJg@mail.gmail.com>
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Fri, 2 Feb 2024 10:16:19 -0800
-X-Gmail-Original-Message-ID: <CAAfnVBmasMmXRcNnxG3J_8bg8w-Bq3yKZ66sLKxv+Q3gbbgr3g@mail.gmail.com>
-Message-ID: <CAAfnVBmasMmXRcNnxG3J_8bg8w-Bq3yKZ66sLKxv+Q3gbbgr3g@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Yiwei Zhang <zzyiwei@chromium.org>, 
-	Ryan Neph <ryanneph@chromium.org>, Gerd Hoffmann <kraxel@redhat.com>, Huang Rui <ray.huang@amd.com>, 
-	Sergio Lopez <slp@redhat.com>, 
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, virtio-comment@lists.oasis-open.org
-Content-Type: multipart/alternative; boundary="000000000000a1485906106a1c33"
-Subject: [virtio-comment] Re: [PATCH v1] virtio-gpu: Document new fence-passing feature
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02fb32b7-3998-44cd-42a8-08dc261dbf49
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Feb 2024 07:40:38.4908
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EZVPwpXnNK4CGpR6XBR2rx3MXocbsNaz8/Rsid9IvTZCodR6yFUgeNdV0ZNuAod9UWFrC3zUcl1jCV3DzMGsAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7140
+Subject: RE: [virtio-comment] [RFC PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+ add new used buffer notification suppression mechanism
 
---000000000000a1485906106a1c33
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Feb 1, 2024 at 11:19=E2=80=AFAM Rob Clark <robdclark@gmail.com> wro=
-te:
-
-> On Thu, Feb 1, 2024 at 10:08=E2=80=AFAM Gurchetan Singh
-> <gurchetansingh@chromium.org> wrote:
+> From: Lege Wang <lege.wang@jaguarmicro.com>
+> Sent: Wednesday, January 31, 2024 2:10 PM
+>=20
+> hi,
+>=20
+> I'd like to have some more discussions about used buffer notification
+> mechanism, thanks.
+> > > +\item [next_wrap] Wrap Counter.
+> > > +      With VIRTIO_F_RING_PACKED this is the wrap counter
+> > > +      referring to the next used descriptor.
+> > > +      Without VIRTIO_F_RING_PACKED this is the most significant bit
+> > > +      (bit 15) of the used index.
+> > > +\end{description}
+> > > +
+> > This forces the driver to process _all_ used buffer notifications
+> > before enabling them again.
+> > There is a race condition that used ring updates are occurring from
+> > the device (without notification) and driver updates the value.
+> > For example,
+> > 1. driver posted descriptors from index 0 to 9.
+> > 2. Used buffer notification arrived for 0 to 3.
+> > 3. Driver processes used buffer ring from 0 to 3 and enables used
+> > buffer notification for index 4.
+> > 4. While #3 is happening, the device already updated the used buffer en=
+tries.
+> > 5. So device view of used ring entry is messed up as it already passed =
+that
+> point.
 > >
+> > Hence a better driver used buffer notification should be,
 > >
+> > 1. index upto which it has processed
+> I would change it to " index upto which it will process next", the reason=
+ is that
+> virtio core driver codes have already a well-maintained "struct
+> vring_virtqueue->last_used_idx", we can use it for notification, and usin=
+g this
+> value, the device will also be able to learn the driver consumption rate.
+>=20
+It the index upto which the driver _has_ already processed, right?
+
+> > 2. explicit enable/disable bit to enable the notification
+> I wonder if there's a case that the driver just notifies the used index i=
+nfo, but
+> not enable the device notification,=20
+Yes. there is a scenario.
+For example, device has received 28 packets.
+When the driver is polling, it was given budget to poll only 20 packets. In=
+ this case NAPI context will come back again to poll rest of the 8 packets.
+In this scenario, it is desired to still update the polled completions (use=
+d elements), but not enable the notification.
+Notification can be enabled later when remaining 8 or more packets are proc=
+essed.
+
+> the driver will always need one enable
+> operation finally. And the notification data would be similar to:
+> le32 {
+>   union {
+>     vq_index: 16;           /* Used if VIRTIO_F_NOTIF_CONFIG_DATA not
+> negotiated */
+>     vq_notif_config_data: 16; /* Used if VIRTIO_F_NOTIF_CONFIG_DATA
+> negotiated */
+>   };
+>   next_off : 15;
+>   next_wrap : 1;
+> };
+> next_off and next_wrap will denote last_used_idx info, and vq_index or
+> vq_notif_config_data is also necessary, so for one 32-bit register, there=
+'s no
+> room for this enable/disable bit.
+>=20
+Right. There isn't enough room for enable bit.
+I see two options.
+
+1. When device wants to still work with 32-bit doorbells, it can reserve to=
+p bit of vq_index or next_off for enable/disable.
+Here the restriction is the queue depth would be limited to 16K descriptors=
+, which is fairly large enough.
+Or having top bix of vq_index is better as, it may be well within limit for=
+ a device to offer 32K queues.
+For non rdma devices 32K queues is also seems reasonable large value.
+
+2. Device can offer 64-bit format where enable bit is located in the upper =
+32-bit.
+
+3. Or may be option for the device with two different feature bits, because=
+ 64-bit doorbells are relatively new for virtio to adapt to.
+
+>=20
+> Regards,
+> lege.wang
 > >
-> > On Thu, Feb 1, 2024 at 9:14=E2=80=AFAM Rob Clark <robdclark@gmail.com> =
-wrote:
-> >>
-> >> On Thu, Feb 1, 2024 at 9:00=E2=80=AFAM Gurchetan Singh
-> >> <gurchetansingh@chromium.org> wrote:
-> >> >
-> >> >
-> >> >
-> >> >
-> >> > On Mon, Jan 29, 2024 at 9:21=E2=80=AFPM Dmitry Osipenko <
-> dmitry.osipenko@collabora.com> wrote:
-> >> >>
-> >> >> On 1/30/24 04:34, Gurchetan Singh wrote:
-> >> >> > On Sun, Jan 28, 2024 at 11:12=E2=80=AFAM Dmitry Osipenko <
-> >> >> > dmitry.osipenko@collabora.com> wrote:
-> >> >> >
-> >> >> >> Document new virtio-gpu protocol fence-passing feature that
-> extends 3d
-> >> >> >> submit command with support of in-fences which are passed from
-> guest to
-> >> >> >> host for waiting. This feature allows to offload waiting for
-> in-fences
-> >> >> >> from guest to host, where it can be done more efficiently.
-> >> >> >>
-> >> >> >> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> >> >> >> ---
-> >> >> >>  device-types/gpu/description.tex | 22 +++++++++++++++++++++-
-> >> >> >>  1 file changed, 21 insertions(+), 1 deletion(-)
-> >> >> >>
-> >> >> >> diff --git a/device-types/gpu/description.tex
-> >> >> >> b/device-types/gpu/description.tex
-> >> >> >> index 443524851a05..e5e23b5c9072 100644
-> >> >> >> --- a/device-types/gpu/description.tex
-> >> >> >> +++ b/device-types/gpu/description.tex
-> >> >> >> @@ -37,6 +37,8 @@ \subsection{Feature bits}\label{sec:Device
-> Types / GPU
-> >> >> >> Device / Feature bits}
-> >> >> >>    resources is supported.
-> >> >> >>  \item[VIRTIO_GPU_F_CONTEXT_INIT (4)] multiple context types and
-> >> >> >>    synchronization timelines supported.  Requires
-> VIRTIO_GPU_F_VIRGL.
-> >> >> >> +\item[VIRTIO_GPU_F_FENCE_PASSING (5)] passing fence IDs from
-> guest to host
-> >> >> >> +  for waiting supported.  Requires VIRTIO_GPU_F_VIRGL.
-> >> >> >>  \end{description}
-> >> >> >>
-> >> >> >>  \subsection{Device configuration layout}\label{sec:Device Types
-> / GPU
-> >> >> >> Device / Device configuration layout}
-> >> >> >> @@ -746,7 +748,25 @@ \subsubsection{Device Operation: controlq
-> >> >> >> (3d)}\label{sec:Device Types / GPU Dev
-> >> >> >>
-> >> >> >>  \item[VIRTIO_GPU_CMD_SUBMIT_3D]
-> >> >> >>    Submit an opaque command stream.  The type of the command
-> stream is
-> >> >> >> -  determined when creating a context.
-> >> >> >> +  determined when creating a context.  Request data is
-> >> >> >> +  \field{struct virtio_gpu_cmd_submit}.  The \field{size} field
-> describes
-> >> >> >> +  the size of \field{cmd_data} array in bytes.  The
-> \field{num_in_fences}
-> >> >> >> +  field is active only if VIRTIO_GPU_F_FENCE_PASSING is enabled=
-,
-> otherwise
-> >> >> >> +  \field{num_in_fences} is treated as zero.  The array of
-> >> >> >> \field{in_fences}
-> >> >> >> +  IDs is placed in between the \field{num_in_fences} field and
-> the
-> >> >> >> +  \field{cmd_data} array.  The \field{in_fences} array contains
-> virtio-gpu
-> >> >> >> +  \field{fence_id}'s corresponding to the out-fence IDs of a
-> previous
-> >> >> >> +  3d submits.
-> >> >> >> +
-> >> >> >> +\begin{lstlisting}
-> >> >> >> +struct virtio_gpu_cmd_submit {
-> >> >> >> +        struct virtio_gpu_ctrl_hdr hdr;
-> >> >> >> +        le32 size;
-> >> >> >> +        le32 num_in_fences;
-> >> >> >> +        le64 in_fences[num_in_fences];
-> >> >> >> +        u32 cmd_data[size/4];
-> >> >> >> +};
-> >> >> >> +\end{lstlisting}
-> >> >> >>
-> >> >> >
-> >> >> > Don't you need VIRTIO_GPU_FLAG_FENCE_SHAREABLE somewhere too?
-> >> >>
-> >> >> We haven't made use of this flag in the experimental/prototype
-> version
-> >> >> that was made for the native contexts. The flag is unused by both
-> Qemu
-> >> >> and CrosVM.
-> >> >>
-> >> >> We added Linux kernel UAPI flag VIRTGPU_EXECBUF_SHARED_FENCE and it=
-'s
-> >> >> deemed to be enough. If the UAPI flag isn't set for a job's
-> out-fence,
-> >> >> then guest uses guest-side synchronization for this fence when it's
-> >> >> passed as in-fence for the further jobs.
-> >> >>
-> >> >> The FENCE_SHAREABLE flag isn't needed by nctx/virgl/venus protocols=
-.
-> All
-> >> >> fences are shareable by default. If VMM fails to export fence, it i=
-s
-> >> >> treated like fence was already signaled. In case of Venus, it's up =
-to
-> >> >> Venus to decide internally which fences can be made shareable, i.e.
-> both
-> >> >> guest and virglrenderer Venus implementations are responsible for
-> making
-> >> >> decision whether fence should be made exportable. Venus won't make
-> >> >> out-fence exportable for internal intermediate jobs and will encode
-> this
-> >> >> export-info within the Venus protocol.
-> >> >>
-> >> >> Whether FENCE_SHAREABLE virtio-gpu flag will be needed by gfxstream
-> is
-> >> >> questionable. Gfxstream should be similar to Venus, i.e. you should
-> be
-> >> >> able to add flag to the gfxstream. We'll need to be certain that th=
-e
-> new
-> >> >> common flag is definitely needed by making use of it before
-> specifying
-> >> >> it in the stable virtio-gpu protocol.
-> >> >
-> >> >
-> >> > I don't think you've gotten fence passing working with display
-> integration.  Although passing external fences between two GPU instances
-> does happen, the much more common and important case is passing a fence
-> from the virtual GPU to virtual display.
-> >> >
-> >> > Let me describe the use case for you:
-> >> >
-> >> > GPU creates a fence
-> >> > rutabaga exports fence on creation via stream_renderer_export_fence =
-/
-> or virglrenderer_export_fence --> creates [fence_id --> descriptor mappin=
-g]
-> when FLAG_SHAREABLE is set
-> >> > SUBMIT_CMD + CROSS_DOMAIN_SEND --> takes the fence_ids and sends a
-> fence to the compositor
-> >> >
-> >> > You also refer to
-> https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1138#=
-note_1996999
-> .
-> >> >
-> >> > Once you have a working prototype that shares an out_fence with the
-> display, then we can talk about whether FLAG_SHAREABLE is needed or not.
-> So I suggest you focus on that before upstreaming uapis + virtio protocol=
-s.
-> >> >
-> >>
-> >> Why would sharing with display (via a different virtgpu ctx type) be
-> >> any different than sharing with a different GPU context?  I don't
-> >> really see a problem here, either the fence fd still exists on the
-> >> host side, or you know that it is already signaled and you don't have
-> >> to wait on anything.
+> > These two fields clearly communicate to the device, upto how much used
+> > buffer is consumed and understand the driver consumption rate.
+> > This way, there is no ambiguity for device on where to write next used
+> > ring entry.
+> > (where to write next used entry is not driven by the notification
+> enablement).
 > >
+> > And the explicit enable bit indicates notifications are enabled back.
 > >
-> > I'm not a huge fan of the fact that the current implementation uses EGL
-> to create the pre-signalled fence.  Vulkan ... it could work, but I think
-> you'll have to generate some sort of dummy command at startup?  Shouldn't
-> that be implemented too?
+> > Technically, only enable bit is needed, but doing #1 is helpful for
+> > the device to understand driver consumption pace.
+> > And for that may be current notification can be made 64-bits or as
+> > suggested in your patch to have new location.
 > >
-> > Something should use the new "virgl_renderer_export_signalled_fence" AP=
-I
-> to verify everything works.
->
-> ok, so I gather you are talking about the awkwardness with the wayland
-> protocol that we can't just pass -1 for a fence?  Rather than say
-> something using kms.
->
-
-Is there a plan to do a virtio-gpu KMS implementation?  Something like
-RESOURCE_FLUSH (in_fence)?  There are still many virtio-gpu KMS users out
-there.
 
 
->
-> I think this is just an implementation detail.  At any rate, in the
-> later version of the virglrenderer implementation, which got merged,
-> there is no dependency on EGL for this.  Only that there was _some_
-> prior work which created a fence.  Virglrenderer hangs on to a
-> reference to the last signalled fence until it is replaced with a
-> newer one.  If a guest fence is created, by definition the host will
-> have _some_ signaled fence to hand out.
->
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
 
-The implementation does use a static global table (virgl_fence_table) to
-coordinate between the virgl sync thread and the main thread?  This is
-common in C, but discouraged in Rust (and I do have a use case in mind).
-
-Spec-wise, having FLAG_SHAREABLE + another DESTROY_FENCE api would probably
-be the cleanest since it gives explicit lifetimes.  If there were no
-performance concerns we would totally do it.
-
-The concern is that DESTROY_FENCE causes excessive vm-exits as fences are
-attached to the surface every frame.  So that's how we end up with the last
-signalled fence idea, and somewhat undefined lifetime/ownership semantics.
-
-Though, the guest kernel already tracks fence lifetimes through dma_fence.
-What if we add:
-
-- DESTROY_FENCES(fence_ids, num_fences)
-- a virtio-config ("fence_destroy_threshold"), which controls num_fences in
-DESTROY_FENCES
-
-When fence_destroy_threshold =3D=3D 0, this would be the current proposed
-solution (fence lifetimes implementation defined).  However, a user can
-make "fence_destroy_threshold" 100 or something like that, to cause a
-VM-exit everytime 100 fences have been destroyed.
-
-This attempts a tunable compromise between API purity and performance
-concerns.  WDYT?
-
-
->
-> But this is all implementation detail
->
-> BR,
-> -R
->
-> >
-> > Essentially, let's do our due diligence and verify the most important
-> use case (gpu --> display) actually works.
-> >
-> >>
-> >>
-> >> BR,
-> >> -R
-> >>
-> >> >> --
-> >> >> Best regards,
-> >> >> Dmitry
-> >> >>
->
-
---000000000000a1485906106a1c33
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Feb 1, 2024 at 11:19=E2=80=AF=
-AM Rob Clark &lt;<a href=3D"mailto:robdclark@gmail.com" target=3D"_blank">r=
-obdclark@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex">On Thu, Feb 1, 2024 at 10:08=E2=80=AFAM Gurchetan Singh<b=
-r>
-&lt;<a href=3D"mailto:gurchetansingh@chromium.org" target=3D"_blank">gurche=
-tansingh@chromium.org</a>&gt; wrote:<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; On Thu, Feb 1, 2024 at 9:14=E2=80=AFAM Rob Clark &lt;<a href=3D"mailto=
-:robdclark@gmail.com" target=3D"_blank">robdclark@gmail.com</a>&gt; wrote:<=
-br>
-&gt;&gt;<br>
-&gt;&gt; On Thu, Feb 1, 2024 at 9:00=E2=80=AFAM Gurchetan Singh<br>
-&gt;&gt; &lt;<a href=3D"mailto:gurchetansingh@chromium.org" target=3D"_blan=
-k">gurchetansingh@chromium.org</a>&gt; wrote:<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; On Mon, Jan 29, 2024 at 9:21=E2=80=AFPM Dmitry Osipenko &lt;<=
-a href=3D"mailto:dmitry.osipenko@collabora.com" target=3D"_blank">dmitry.os=
-ipenko@collabora.com</a>&gt; wrote:<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; On 1/30/24 04:34, Gurchetan Singh wrote:<br>
-&gt;&gt; &gt;&gt; &gt; On Sun, Jan 28, 2024 at 11:12=E2=80=AFAM Dmitry Osip=
-enko &lt;<br>
-&gt;&gt; &gt;&gt; &gt; <a href=3D"mailto:dmitry.osipenko@collabora.com" tar=
-get=3D"_blank">dmitry.osipenko@collabora.com</a>&gt; wrote:<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; Document new virtio-gpu protocol fence-passing f=
-eature that extends 3d<br>
-&gt;&gt; &gt;&gt; &gt;&gt; submit command with support of in-fences which a=
-re passed from guest to<br>
-&gt;&gt; &gt;&gt; &gt;&gt; host for waiting. This feature allows to offload=
- waiting for in-fences<br>
-&gt;&gt; &gt;&gt; &gt;&gt; from guest to host, where it can be done more ef=
-ficiently.<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; Signed-off-by: Dmitry Osipenko &lt;<a href=3D"ma=
-ilto:dmitry.osipenko@collabora.com" target=3D"_blank">dmitry.osipenko@colla=
-bora.com</a>&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; ---<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 device-types/gpu/description.tex | 22 ++++=
-+++++++++++++++++-<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 1 file changed, 21 insertions(+), 1 deleti=
-on(-)<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; diff --git a/device-types/gpu/description.tex<br=
->
-&gt;&gt; &gt;&gt; &gt;&gt; b/device-types/gpu/description.tex<br>
-&gt;&gt; &gt;&gt; &gt;&gt; index 443524851a05..e5e23b5c9072 100644<br>
-&gt;&gt; &gt;&gt; &gt;&gt; --- a/device-types/gpu/description.tex<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +++ b/device-types/gpu/description.tex<br>
-&gt;&gt; &gt;&gt; &gt;&gt; @@ -37,6 +37,8 @@ \subsection{Feature bits}\labe=
-l{sec:Device Types / GPU<br>
-&gt;&gt; &gt;&gt; &gt;&gt; Device / Feature bits}<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 =C2=A0 resources is supported.<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 \item[VIRTIO_GPU_F_CONTEXT_INIT (4)] multi=
-ple context types and<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 =C2=A0 synchronization timelines supported=
-.=C2=A0 Requires VIRTIO_GPU_F_VIRGL.<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +\item[VIRTIO_GPU_F_FENCE_PASSING (5)] passing f=
-ence IDs from guest to host<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 for waiting supported.=C2=A0 Requires VI=
-RTIO_GPU_F_VIRGL.<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 \end{description}<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 \subsection{Device configuration layout}\l=
-abel{sec:Device Types / GPU<br>
-&gt;&gt; &gt;&gt; &gt;&gt; Device / Device configuration layout}<br>
-&gt;&gt; &gt;&gt; &gt;&gt; @@ -746,7 +748,25 @@ \subsubsection{Device Opera=
-tion: controlq<br>
-&gt;&gt; &gt;&gt; &gt;&gt; (3d)}\label{sec:Device Types / GPU Dev<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 \item[VIRTIO_GPU_CMD_SUBMIT_3D]<br>
-&gt;&gt; &gt;&gt; &gt;&gt;=C2=A0 =C2=A0 Submit an opaque command stream.=C2=
-=A0 The type of the command stream is<br>
-&gt;&gt; &gt;&gt; &gt;&gt; -=C2=A0 determined when creating a context.<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 determined when creating a context.=C2=
-=A0 Request data is<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 \field{struct virtio_gpu_cmd_submit}.=C2=
-=A0 The \field{size} field describes<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 the size of \field{cmd_data} array in by=
-tes.=C2=A0 The \field{num_in_fences}<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 field is active only if VIRTIO_GPU_F_FEN=
-CE_PASSING is enabled, otherwise<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 \field{num_in_fences} is treated as zero=
-.=C2=A0 The array of<br>
-&gt;&gt; &gt;&gt; &gt;&gt; \field{in_fences}<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 IDs is placed in between the \field{num_=
-in_fences} field and the<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 \field{cmd_data} array.=C2=A0 The \field=
-{in_fences} array contains virtio-gpu<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 \field{fence_id}&#39;s corresponding to =
-the out-fence IDs of a previous<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 3d submits.<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +\begin{lstlisting}<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +struct virtio_gpu_cmd_submit {<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct virtio_gpu_c=
-trl_hdr hdr;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 le32 size;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 le32 num_in_fences;=
-<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 le64 in_fences[num_=
-in_fences];<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 cmd_data[size/4=
-];<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +};<br>
-&gt;&gt; &gt;&gt; &gt;&gt; +\end{lstlisting}<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; Don&#39;t you need VIRTIO_GPU_FLAG_FENCE_SHAREABLE s=
-omewhere too?<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; We haven&#39;t made use of this flag in the experimental/=
-prototype version<br>
-&gt;&gt; &gt;&gt; that was made for the native contexts. The flag is unused=
- by both Qemu<br>
-&gt;&gt; &gt;&gt; and CrosVM.<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; We added Linux kernel UAPI flag VIRTGPU_EXECBUF_SHARED_FE=
-NCE and it&#39;s<br>
-&gt;&gt; &gt;&gt; deemed to be enough. If the UAPI flag isn&#39;t set for a=
- job&#39;s out-fence,<br>
-&gt;&gt; &gt;&gt; then guest uses guest-side synchronization for this fence=
- when it&#39;s<br>
-&gt;&gt; &gt;&gt; passed as in-fence for the further jobs.<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; The FENCE_SHAREABLE flag isn&#39;t needed by nctx/virgl/v=
-enus protocols. All<br>
-&gt;&gt; &gt;&gt; fences are shareable by default. If VMM fails to export f=
-ence, it is<br>
-&gt;&gt; &gt;&gt; treated like fence was already signaled. In case of Venus=
-, it&#39;s up to<br>
-&gt;&gt; &gt;&gt; Venus to decide internally which fences can be made share=
-able, i.e. both<br>
-&gt;&gt; &gt;&gt; guest and virglrenderer Venus implementations are respons=
-ible for making<br>
-&gt;&gt; &gt;&gt; decision whether fence should be made exportable. Venus w=
-on&#39;t make<br>
-&gt;&gt; &gt;&gt; out-fence exportable for internal intermediate jobs and w=
-ill encode this<br>
-&gt;&gt; &gt;&gt; export-info within the Venus protocol.<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; Whether FENCE_SHAREABLE virtio-gpu flag will be needed by=
- gfxstream is<br>
-&gt;&gt; &gt;&gt; questionable. Gfxstream should be similar to Venus, i.e. =
-you should be<br>
-&gt;&gt; &gt;&gt; able to add flag to the gfxstream. We&#39;ll need to be c=
-ertain that the new<br>
-&gt;&gt; &gt;&gt; common flag is definitely needed by making use of it befo=
-re specifying<br>
-&gt;&gt; &gt;&gt; it in the stable virtio-gpu protocol.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; I don&#39;t think you&#39;ve gotten fence passing working wit=
-h display integration.=C2=A0 Although passing external fences between two G=
-PU instances does happen, the much more common and important case is passin=
-g a fence from the virtual GPU to virtual display.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Let me describe the use case for you:<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; GPU creates a fence<br>
-&gt;&gt; &gt; rutabaga exports fence on creation via stream_renderer_export=
-_fence / or virglrenderer_export_fence --&gt; creates [fence_id --&gt; desc=
-riptor mapping] when FLAG_SHAREABLE is set<br>
-&gt;&gt; &gt; SUBMIT_CMD + CROSS_DOMAIN_SEND --&gt; takes the fence_ids and=
- sends a fence to the compositor<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; You also refer to <a href=3D"https://gitlab.freedesktop.org/v=
-irgl/virglrenderer/-/merge_requests/1138#note_1996999" rel=3D"noreferrer" t=
-arget=3D"_blank">https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge=
-_requests/1138#note_1996999</a>.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Once you have a working prototype that shares an out_fence wi=
-th the display, then we can talk about whether FLAG_SHAREABLE is needed or =
-not.=C2=A0 So I suggest you focus on that before upstreaming uapis + virtio=
- protocols.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt;<br>
-&gt;&gt; Why would sharing with display (via a different virtgpu ctx type) =
-be<br>
-&gt;&gt; any different than sharing with a different GPU context?=C2=A0 I d=
-on&#39;t<br>
-&gt;&gt; really see a problem here, either the fence fd still exists on the=
-<br>
-&gt;&gt; host side, or you know that it is already signaled and you don&#39=
-;t have<br>
-&gt;&gt; to wait on anything.<br>
-&gt;<br>
-&gt;<br>
-&gt; I&#39;m not a huge fan of the fact that the current implementation use=
-s EGL to create the pre-signalled fence.=C2=A0 Vulkan ... it could work, bu=
-t I think you&#39;ll have to generate some sort of dummy command at startup=
-?=C2=A0 Shouldn&#39;t that be implemented too?<br>
-&gt;<br>
-&gt; Something should use the new &quot;virgl_renderer_export_signalled_fen=
-ce&quot; API to verify everything works.<br>
-<br>
-ok, so I gather you are talking about the awkwardness with the wayland<br>
-protocol that we can&#39;t just pass -1 for a fence?=C2=A0 Rather than say<=
-br>
-something using kms.<br></blockquote><div><br></div><div>Is there a plan to=
- do a virtio-gpu KMS implementation?=C2=A0 Something like RESOURCE_FLUSH (i=
-n_fence)?=C2=A0 There are still many virtio-gpu KMS users out there.</div><=
-div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-I think this is just an implementation detail.=C2=A0 At any rate, in the<br=
->
-later version of the virglrenderer implementation, which got merged,<br>
-there is no dependency on EGL for this.=C2=A0 Only that there was _some_<br=
->
-prior work which created a fence.=C2=A0 Virglrenderer hangs on to a<br>
-reference to the last signalled fence until it is replaced with a<br>
-newer one.=C2=A0 If a guest fence is created, by definition the host will<b=
-r>
-have _some_ signaled fence to hand out.<br></blockquote><div><br></div><div=
->The implementation does use a static global table (virgl_fence_table) to c=
-oordinate between the virgl sync thread and the main thread?=C2=A0 This is =
-common in C, but discouraged in Rust (and I do have a use case in mind).=C2=
-=A0</div><div><br></div><div>Spec-wise, having FLAG_SHAREABLE=C2=A0+ anothe=
-r DESTROY_FENCE api would probably be the cleanest since it gives explicit =
-lifetimes.=C2=A0 If there were no performance concerns we would totally do =
-it.<br></div><div><br></div><div>The concern is that DESTROY_FENCE=C2=A0cau=
-ses excessive vm-exits as fences are attached to the surface every frame.=
-=C2=A0 So that&#39;s how we end up with the last signalled fence idea, and =
-somewhat undefined lifetime/ownership semantics.</div><div><br></div><div>T=
-hough, the guest kernel already tracks fence lifetimes through dma_fence.=
-=C2=A0 What if we add:</div><div><br></div><div>- DESTROY_FENCES(fence_ids,=
- num_fences)</div><div>- a virtio-config (&quot;fence_destroy_threshold&quo=
-t;), which controls num_fences in DESTROY_FENCES</div><div><br></div><div>W=
-hen fence_destroy_threshold =3D=3D 0, this would be the current proposed so=
-lution (fence lifetimes implementation defined).=C2=A0 However, a user can =
-make &quot;fence_destroy_threshold&quot; 100 or something like that, to cau=
-se a VM-exit everytime 100 fences have been destroyed.</div><div><br></div>=
-<div>This attempts a tunable compromise between API purity and performance =
-concerns.=C2=A0 WDYT?</div><div>=C2=A0=C2=A0</div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">
-<br>
-But this is all implementation detail<br>
-<br>
-BR,<br>
--R<br>
-<br>
-&gt;<br>
-&gt; Essentially, let&#39;s do our due diligence and verify the most import=
-ant use case (gpu --&gt; display) actually works.<br>
-&gt;<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; BR,<br>
-&gt;&gt; -R<br>
-&gt;&gt;<br>
-&gt;&gt; &gt;&gt; --<br>
-&gt;&gt; &gt;&gt; Best regards,<br>
-&gt;&gt; &gt;&gt; Dmitry<br>
-&gt;&gt; &gt;&gt;<br>
-</blockquote></div></div>
-
---000000000000a1485906106a1c33--
