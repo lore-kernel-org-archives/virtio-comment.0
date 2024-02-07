@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9081-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9082-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE92C4828D
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Feb 2024 07:24:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92312C4828F
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Feb 2024 07:24:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 8222D77AF2
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Feb 2024 07:24:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 11D217A2F0
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Feb 2024 07:24:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6DA409868F3
-	for <virtio-comment@archiver.kernel.org>; Wed,  7 Feb 2024 07:24:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F0631986928
+	for <virtio-comment@archiver.kernel.org>; Wed,  7 Feb 2024 07:24:32 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 619B29868D7; Wed,  7 Feb 2024 07:24:29 +0000 (UTC)
+	id E3598986902; Wed,  7 Feb 2024 07:24:32 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,16 +24,16 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 51FA698690D
-	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Feb 2024 07:24:23 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id D3D5E9868FB
+	for <virtio-comment@lists.oasis-open.org>; Wed,  7 Feb 2024 07:24:32 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J5aSKCnzQdOn6S1LCtsUSR6v8lIFHMhfdwsL8iTkIKAd4+Olj3j5AHSeRyQwbBX9Na1NNsrcAW4yBpP6JJrRoES5ODpUCYzcEmfY3Cz15BRRiG9/wlR5IlS92QqGNKx0wo/6NpNzymkc052r6dxRMSHGrVDq1xxdTRw2lI1qAtYOCkPl9xJN5uFMBmaMQ+NhqobtlbwDvABSlQMTce4JOtPo2xkwG6A9JG2iigoETrPz+5/gqIOILnKbxcpqx5bLK6RR7dLNs23N9/utgkqpcf6mbMHdhhWWwQdyoANicTe0JMYrrsFO3Bzs1DXj1wFxkFokwIbeehaXfZDPzhY+Yg==
+ b=gB4xGkl8kJzxhm2SSvR1EQuRv7YoNsSwKy/81grXuYXaGkDDJPUFWnagMFYcKdm4RRmX9M6YQ0hCU7OEgSQ7hfrON+NQe7QUgR9g22+Yixir4vOnzBexCzFnqyaLEfe+gTfhgZsTaoyb+l1iyTmPOu5YHvNpjGrF/IEvlgN6aC07Uft+u8cvutc32dWzh7gTLP5gIWn3nwgPA6RFUSQpNuyIYqVagZy/g1EaKVijqKqkFh0TKpVSVnEjv7PDNYMzBrFRpoFumq66NekfyiBn+G77EAPP1l+P8OjE7O9vRp8fT/pNJalGcIysL64SDtq+jmp3p/ZEZiHbBu66QH6dag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PAan++lkTzm8LA5XLS4KPEckSKmLlGQSeJbgUOepc4I=;
- b=LQtSkFovZM9XvEDU3AfqhYN8lsOnevOh0diY+U5TgAzFx9SDTPUVPaCXEghLE7LfJwb/hVftDl+dhyciEiSvEeCZ7mueYJ4vE/aWvIETSDTQ1XkrBG4pWWOr3R42eajDf+PuEQP2S+K0b86ExFg53VnetXgoVoCEysx8i5mjltdampqApbTikvLl04A4yBdi0InJjJfLYSNxvRpImSKSlsgYQ+RPLko2AcW0QpDNwicw18JPWPrkU9JZ7TCrjBWOeWht9+oFVypwUC2d6u3x5TDGKUHmr72Nw5QpKN3Dn/fRhaR5zSVSK8BOcfcDJRNvOkqg9QLTy932eyX2g7RaRw==
+ bh=9T7pKBPyQgHOwmodIMt3FoHuFYl9u96Y5d0enMtCSsg=;
+ b=ImvN9cqgS/uW/swGsQ6LpTsTB4fyhcrnvHl18KF7I2SrCxi+N8WaRKlTVjOaB9Uo+BcSD1vZ3WCXZnMWmNvbpPQ9m6UoKXt9QugGT1ZkvdzJXluUCWi6Xtr4msquMRmGVqtibkTioUEXrQvnM7rp0WbFOZDhVQaqTJ96tqB/2vjK23ZB8YxiytH0t1I0Q9GnPDcNauZAigOlKqK0rD3HVo10lxnKiQhCBAizpzCY2DdZtb/lQzNMs4EwEZTCoqrE8nmdICqRyiGzZ3JrkTEQ0aXOIXM4IvCNTchjCKTVFQ1UwcVaKtUTDeqdCoB7d1CNbFwx7RuYQapfGSxOBQUsEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=lists.oasis-open.org
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
@@ -51,8 +51,8 @@ CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Date: Wed, 7 Feb 2024 09:23:27 +0200
-Message-ID: <20240207072336.477606-5-parav@nvidia.com>
+Date: Wed, 7 Feb 2024 09:23:30 +0200
+Message-ID: <20240207072336.477606-8-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240207072336.477606-1-parav@nvidia.com>
 References: <20240207072336.477606-1-parav@nvidia.com>
@@ -64,272 +64,187 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DD:EE_|MN0PR12MB5883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e3d34fc-8a7d-4418-66f7-08dc27adcae1
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DF:EE_|DS7PR12MB8229:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e3ff96d-a19c-4ee5-5441-08dc27add193
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	kUtSJCE+dW0iiAQAVPnNwERYeVsq9Q/qB9PUxqKyPMyBRuoyhoF6+1ZWzgHtlYvZfqOehflUKMNGLxu3nud3n4RKe31T3+jYjBESryTLyxuLcJW1HpAOWxP1xdXbfSDVbx/EYUYbzV89AZsdhCv6dhedqnhhjZkP4AzN1A/tR9xoFCAQaabpfbiBA+IRI+DnLpth78G15rZGmEkpj8+Es4MJE9vS6D+zdt+NiEN22N4MNO0Tz+tln2YjlN8l9GxAfFs/qWIZqbR122txPPy5dT0C5okejjTD+cy0Jq0EK0a73V+laU9cShgE+ndoJ0GV1lk6g8crCmXotgPWKWuHX/soerh/uSe/paNJ6U7pv/7sjDXHtMBeHGkdyzvGQE52pH53GGqf7ZIBbSLc0Js2A/V3lzuTpfpXFoxcgCAPX7/uWPBuKuwltSIGG6VUTA2cP4i6Kg5arINdA4ZNUorBulSsODkM/njyt7WDve7ED/D+FOE1X3rmLkKEKpkKPUkJfqkMDRtBqyuTY9SmvEKSG58H5TEgqsuVF3bOBn9jpAXmufDjdkPPRBNmg32A00whEMQ+e8rUszx17OS8rNa1pShkN7RYh6Twqkdvr9xb36Ri2iTdelUglgma4LxEKzhgOTSi/6ryeXUVleMsXJKY/hyLMKGbA1r244ImliPE/51ItsdvX4tamoX3qU4lmmhB3q3oTX3cwa6pdNO8SGHNshw1UCX+fXw6gfe3BlghwG4yLOSatarIUKYOjkk+GCIhkSrw3NkymxdcbTc3ExHXgm+kxv511/LIwDWYNzV3ppE=
+	TttOvMp8IcSey/7Xw3owJ2ekQ9Od/wrVWIO+IybfHnfMc5jqkO8k4sg3mFjnQ0hQ2LvYkGbojNloylH0ouVT/Ys86i0ZtG1cpMd76No1OJBdlcdeGp5ff7oS1ZrbFECGQUHmDifJ9XUaZkO3G0mFvVOEGzPjP8X8y+wHvGrNcO1QDZcWKsR8xwUPb/I9oyg9aUSWcuBWXHmMSD4Rlf+sBUrvuz7cZWSRr2FfBWZKasBJbfxvwv+sMphSliirFTyb4WtCtpPTt/tYDk5HIOKNy5kibCqPnU0s9Byf9uZJzYP7u8tC9IPpzl1fXx8nfo8DQ6c0QTOsAUa3Y8IsYXCIVfSGx+TrjwpDE1kWVa/mGsGIcDB1HbgUiGiC0qgc7Q+uARXMy8G3ktcHOSP7NkFNdYqO9QT0sQ8eaRmV6ySW67zmUvrw8ywl4v9i3TjEN950IpNwe3D3txgG7pJcWPVYsaVKl4po8hu7r2tEHH5jRKBPtKE5PP3TMuSeQaZEYbjAY2e/iWriPVh06JUXYpkWa4mxL5dlVwIvTjutciRdpx9Ij7QjJ3Wgr2vlye4NUFHB+tj2aKWMhn04nc4uFNPQnxnew95mQOgNA+qX7+FsXUn6iVL0Gggbv/jR0XZ0bay7vf4FbROkNvKvN1wNZLYo4803JqDNtbdC/q8bSUsPNmrGq2eTAmUDMdZMfdxkAaDpgy2cTbIVAI0KdkAuydSO/z1o8l7dudp3qHO2YMv5llJGKALKsPRxrDL8PZIa9meztmeEFB0m8ka4LrXj7hA4pfuRTeutPJkUQGs1AOnRSxY=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(346002)(396003)(376002)(230922051799003)(64100799003)(82310400011)(1800799012)(451199024)(186009)(46966006)(36840700001)(40470700004)(40460700003)(36756003)(40480700001)(478600001)(966005)(356005)(41300700001)(316002)(82740400003)(2616005)(426003)(54906003)(107886003)(1076003)(16526019)(47076005)(83380400001)(26005)(4326008)(30864003)(36860700001)(5660300002)(6666004)(336012)(8676002)(70206006)(8936002)(70586007)(7636003)(110136005)(86362001)(2906002);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(39860400002)(396003)(346002)(230922051799003)(186009)(82310400011)(1800799012)(451199024)(64100799003)(46966006)(36840700001)(40470700004)(41300700001)(26005)(2616005)(6666004)(8676002)(336012)(2906002)(86362001)(70206006)(16526019)(4326008)(47076005)(426003)(478600001)(1076003)(966005)(70586007)(316002)(54906003)(83380400001)(82740400003)(110136005)(7636003)(356005)(5660300002)(36860700001)(107886003)(36756003)(8936002)(40480700001)(40460700003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 07:24:16.4799
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 07:24:27.7280
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e3d34fc-8a7d-4418-66f7-08dc27adcae1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e3ff96d-a19c-4ee5-5441-08dc27add193
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099DD.namprd04.prod.outlook.com
+	DS3PEPF000099DF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5883
-Subject: [virtio-comment] [PATCH v9 04/13] admin-cmds-capabilities: Add capabilities admin commands
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8229
+Subject: [virtio-comment] [PATCH v9 07/13] virtio-net: Add theory of operation for flow filter
 
-Add three capabilities related commands.
-First to read the device and driver capabilities.
-Second to write the driver capabilities.
-Third for driver to discover which capabilities can be accessed.
+Currently packet allow/drop interface has following limitations.
 
-Write capabilities by the owner driver is not currently supported.
-It will be supported in future by the owner driver to write for
-the member device.
+1. Driver can either select which MAC and VLANs to consider
+for allowing/dropping packets, here, the driver has a
+limitation that driver needs to supply full mac
+table or full vlan table for each type. Driver cannot add or
+delete an individual entry.
+
+2. Driver cannot select mac+vlan combination for which
+to allow/drop packet.
+
+3. Driver cannot not set other commonly used packet match fields
+such as IP header fields, TCP, UDP, SCP header fields.
+
+4. Driver cannot steer specific packets based on the match
+fields to specific receiveq.
+
+5. Driver do not have multiple or dedicated virtqueues to
+   perform flow filter requests in accelerated manner in
+   the device.
+
+Flow filter as a generic framework overcome above limitations.
+
+As starting point it is useful to support at least two use cases.
+a. ARFS
+b. ethtool ntuple steering
+
+In future it can be further extended for usecases such as
+switching device, connection tracking or may be more.
+
+The flow filter has following properties.
+
+1. It is an extendible object that driver can create, destroy.
+2. It belongs to a flow filter group (group has priority).
+3. Each flow filter is identified using a unique identifier(id),
+   has priority, match fields, destination(rq) and action(allow/drop).
+4. Flow filter has optionally mask too.
+
+This patch adds theory of operation for flow filter functionality.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
+Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
- admin-cmds-capabilities.tex | 161 ++++++++++++++++++++++++++++++++++++
- admin.tex                   |   9 +-
- capabilities.tex            |   3 +
- conformance.tex             |   2 +
- 4 files changed, 174 insertions(+), 1 deletion(-)
- create mode 100644 admin-cmds-capabilities.tex
+changelog:
+v6->v7:
+- addressed comments from Cornelia
+- plenty of grammar corrections suggested by Cornelia
+- removed stale reference to flow filter virtqueue
+- removed incorrect stale hunk of a label
+- removed dependency on feature bit and control vq
+- rebased to use device capabilities and device resources
+v4->v5:
+- to avoid feature bit overlap with rss context patch, pick next
+  unique bit 65
+v3->v4:
+- removed flow filter virtqueue section as dynamic queues are
+  not supported currently
+v2->v3:
+- removed dependency on the dynamic queue creation as the
+  infrastructure is not yet ready
+v1->v2:
+- fixed comments from Heng
+- grammar corrections
+- spelling corrections
+---
+ device-types/net/description.tex | 79 ++++++++++++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
 
-diff --git a/admin-cmds-capabilities.tex b/admin-cmds-capabilities.tex
-new file mode 100644
-index 0000000..47394c7
---- /dev/null
-+++ b/admin-cmds-capabilities.tex
-@@ -0,0 +1,161 @@
-+\subsubsection{Device and Driver Capabilities}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}
-+
-+The device and driver capabilities commands are currently defined for self group type and for
-+SR-IOV group type.
-+
-+\begin{enumerate}
-+\item Device Capabilities Support Query Command
-+\item Capabilities Read Command
-+\item Capabilities Write Command
-+\end{enumerate}
-+
-+\paragraph{Device Capabilities Support Query Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities / Device Capabilities Support Query Command}
-+
-+For the command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY, \field{opcode} is set to 0x7.
-+
-+This command queries the supported device capabilities identifiers bitmap in
-+\field{supported_caps}. Each bit in \field{supported_caps} corresponds to the
-+capability identifier. Thus, supported_caps[0] refers to the first 64-bit value
-+in this array corresponding to identifiers 0 to 63, supported_caps[1]
-+is the second 64-bit value corresponding to identifiers 64 to 127, etc.
-+For example, with \field{num_caps = 2}, the array of size 2 including the values
-+0x3 in supported_caps[0], and 0x1 in supported_caps[1] indicates that only 
-+identifiers 0, 1 and 64 are supported.
-+
-+The length of the array \field{supported_caps} depends on the supported
-+identifiers - it is large enough to include bits set for all supported
-+identifiers, that is the length is set by calculating by starting with the
-+largest supported opcode adding one, dividing by 64 and rounding up.
-+
-+The array \field{supported_caps} is also allowed to be larger and to
-+additionally include an arbitrary number of all-zero entries.
-+
-+For each identifier, the driver can read the device capabilities and write
-+the driver capabilities. The driver can also read the written capabilities.
-+
-+This command has no command specific data.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_query_supported_cap_result {
-+        le16 num_caps;
-+        u8 reserved[6];
-+        le64 supported_caps[];
-+};
-+\end{lstlisting}
-+
-+When the command completes successfully, \field{command_specific_result}
-+is in the format \field{struct virtio_admin_cmd_query_supported_cap_result}
-+returned by the device. The number of valid array entries of
-+\field{supported_caps} are indicated in \field{num_caps}.
-+
-+\paragraph{Capabilities Read Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities / Capabilities Read Command}
-+
-+This command reads the device or driver capabilities. It either reads the
-+capability of the own device or the owner device can read the capabilities of
-+the member device.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_cap_read_data {
-+        le16 cid;
-+        u8 type; /* 0 = device cap, 1 = driver cap */
-+        u8 reserved[5];
-+};
-+\end{lstlisting}
-+
-+For the command VIRTIO_ADMIN_CMD_CAP_READ, \field{opcode} is set to 0x8.
-+
-+\field{group_member_id} refers to the device itself or the member device to be accessed.
-+\field{cid} refers to the capability identifier listed in
-+\ref{sec:Basic Facilities of a Virtio Device / Device and Driver Capabilities}.
-+When \field{type} is set to 0, it refers to the device capability, when
-+\field{type} is set to 1, it refers to the driver capability, rest of the
-+values are reserved.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_cap_read_result {
-+        le16 length;
-+        u8 reserved[6];
-+        u8 cap_specific_data[];
-+};
-+\end{lstlisting}
-+
-+When the command completes successfully, \field{command_specific_result}
-+is in the format \field{struct virtio_admin_cmd_cap_read_result} responded
-+by the device. The \field{length} is set to the length of the
-+\field{cap_specific_data}. Each capability uses different capability specific
-+\field{cap_specific_data} and is described separately.
-+
-+\paragraph{Capabilities Write Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities / Capabilities Write Command}
-+
-+This command writes the driver capabilities indicating to the device which
-+capabilities are used by the driver. The driver can write capabilities which
-+are smaller or equal in value than the values published by the device
-+capabilities.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_cap_write_data {
-+        le16 cid;
-+        u8 type; /* 1 = driver cap */
-+        u8 reserved;
-+        le16 length;
-+        u8 reserved1[2];
-+        u8 cap_specific_data[];
-+};
-+\end{lstlisting}
-+
-+For the command VIRTIO_ADMIN_CMD_CAP_WRITE, \field{opcode} is set to 0x9.
-+
-+\field{group_member_id} refers to the the device itself. Currently the owner
-+device cannot write the member device's capabilities. This will be supported
-+in the future.
-+\field{cid} refers to the capability identifier listed in
-+\ref{sec:Basic Facilities of a Virtio Device / Device and Driver Capabilities}.
-+\field{type} is set to 1, refers to the driver capability, when
-+\field{length} refers to the length of the \field{cap_specific_data}.
-+
-+There is no command specific result.
-+When the command completes successfully the driver capabilities are
-+updated to values supplied in \field{cap_specific_data}.
-+
-+\devicenormative{\paragraph}{Device and Driver Capabilities}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}
-+
-+If the device supports capabilities, it MUST support
-+VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY, VIRTIO_ADMIN_CMD_CAP_WRITE and
-+VIRTIO_ADMIN_CMD_CAP_READ commands.
-+
-+The device MUST support writing all the driver capabilities in
-+VIRTIO_ADMIN_CMD_CAP_WRITE command to same or smaller value than what is reported
-+in device capabilities in VIRTIO_ADMIN_CMD_CAP_READ command unless
-+otherwise explicitly stated capability fields as non writeable fields.
-+
-+In VIRTIO_ADMIN_CMD_CAP_WRITE command, if any of the written capability
-+field value is larger than the value reported by the device capability,
-+the device MUST complete VIRTIO_ADMIN_CMD_CAP_WRITE command with \field{status}
-+VIRTIO_ADMIN_STATUS_EINVAL.
-+
-+The device MUST support VIRTIO_ADMIN_CMD_CAP_READ command for the owner
-+device to read capabilities for the member device.
-+
-+The device MUST complete VIRTIO_ADMIN_CMD_CAP_WRITE command with
-+\field{status} VIRTIO_ADMIN_STATUS_EINVAL for the owner device to
-+write the capabilities of the member device.
-+
-+The device MUST complete VIRTIO_ADMIN_CMD_CAP_WRITE command with \field{status}
-+VIRTIO_ADMIN_STATUS_EBUSY if the command requested to disable a capability and
-+the device has any valid resources related to the capability being disabled.
-+
-+On device reset, the device MUST reset all the driver capabilities.
-+
-+\drivernormative{\paragraph}{Device and Driver Capabilities}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}
-+
-+The driver MUST send VIRTIO_ADMIN_CMD_CAP_WRITE command before using
-+any resources related to such capabilities.
-+
-+The driver SHOULD NOT send VIRTIO_ADMIN_CMD_CAP_WRITE command
-+containing values which is larger than
-+the device capabilities reported by the device in
-+VIRTIO_ADMIN_CMD_CAP_READ command.
-+
-+The driver SHOULD NOT disable any of the driver capabilities by sending
-+VIRTIO_ADMIN_CMD_CAP_WRITE command when any functionality related
-+to such capabilities is in use by the device.
-diff --git a/admin.tex b/admin.tex
-index fdf25c5..c0ba54e 100644
---- a/admin.tex
-+++ b/admin.tex
-@@ -133,7 +133,13 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline
- 0x0006 & VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO & Query the notification region information \\
- \hline
--0x0007 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
-+0x0007 & VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY & Query the supported device capabilities bitmap \\
-+\hline
-+0x0008 & VIRTIO_ADMIN_CMD_CAP_READ & Read the device and driver capabilities \\
-+\hline
-+0x0009 & VIRTIO_ADMIN_CMD_CAP_WRITE & Write the device and driver capabilities \\
-+\hline
-+0x000a - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
- \hline
- 0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
- \hline
-@@ -311,6 +317,7 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- might differ between different group types.
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 0cc03fc..407139b 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -2325,6 +2325,85 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ of the driver's records. In such cases, the driver should allocate additional
+ space for the \field{command-specific-result} buffer.
  
- \input{admin-cmds-legacy-interface.tex}
-+\input{admin-cmds-capabilities.tex}
- 
- \devicenormative{\subsubsection}{Group administration commands}{Basic Facilities of a Virtio Device / Device groups / Group administration commands}
- 
-diff --git a/capabilities.tex b/capabilities.tex
-index c375089..77d4aa5 100644
---- a/capabilities.tex
-+++ b/capabilities.tex
-@@ -38,3 +38,6 @@ \section{Device and Driver Capabilities}\label{sec:Basic Facilities of a Virtio
- Whichever device supports the device specific capabilities, such
- capabilities are described in the respective \field{Device and Driver Capabilities}
- section of the device.
++\subsubsection{Flow Filter}\label{sec:Device Types / Network Device / Device Operation / Flow Filter}
 +
-+Device and driver capabilities related administration commands are listed in
-+\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}.
-diff --git a/conformance.tex b/conformance.tex
-index 863f9c5..4782016 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -95,6 +95,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{drivernormative:General Initialization And Device Operation / Device Initialization}
- \item \ref{drivernormative:General Initialization And Device Operation / Device Cleanup}
- \item \ref{drivernormative:Reserved Feature Bits}
-+\item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}
- \end{itemize}
++To forward a received packet to a specific receiveq or to drop the packet based
++on one or more fields of the packet, the device supports flow filter
++functionality. The flow filter rule can match the packet for a flow, take
++an action such as forward the packet to the specific receiveq or drop the packet.
++For example, the driver can request the device to forward received packets
++which match to a specific source and destination IP addresses and
++TCP ports to a specific receiveq.
++
++Each flow filter rule is a combination of one or more match keys,
++rule processing priority, a rule identifier and an action to forward
++a packet to the destination or to drop the packet.
++
++The match fields also optionally consist of a match mask. When a mask is
++specified for the flow filter rule, first the packet fields are masked before
++matching with the fields of the flow filter rule.
++
++Each flow filter rule is independent of each other. The driver can create,
++modify, query and destroy a flow filter rule. A flow filter rule is
++a device resource that the driver can operate using device resource
++administration commands described in
++\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device Resources}.
++
++The device indicates the flow filter capabilities to the driver. These
++capabilities include various maximum device limits and
++supported packet match fields.
++
++Flow filter rules are grouped using a flow filter group. A flow filter
++group is a device resource. Each flow filter group has a priority.
++The device first applies the flow filter rules of the highest
++priority group to the received packet. If there is no match for the
++rules of such a group for the packet, the rules of the next
++priority group are applied, until there is a match for the packet from such
++a group or the last group has reached.
++
++A flow filter group can have one or more flow filters rules. Within a flow
++filter group, a packet may match to multiple flow filters rules. In such a scenario,
++of the matching flow filters rules, the rule with the highest priority is applied,
++skipping any matching filter rules with a lower priority; if there is no match,
++the next higher priority flow filter rule is applied.
++
++\paragraph{Packet Processing Order}\label{sec:sec:Device Types / Network Device / Device Operation / Flow Filter / Packet Processing Order}
++
++If enabled, filtering and steering functionalities are applied to the received
++packet in the following order:
++
++\begin{itemize}
++\item apply device configuration done using control virtqueue commands
++      VIRTIO_NET_CTRL_RX, VIRTIO_NET_CTRL_MAC and VIRTIO_NET_CTRL_VLAN.
++\item apply flow filter configuration done using flow filter rules.
++\item apply device configuration done using command
++      VIRTIO_NET_CTRL_MQ_RSS_CONFIG.
++\end{itemize}
++
++While processing a received packet, if the packet is dropped at any stage,
++the following levels of processing is omitted.
++
++If a flow filter rule is matched for the packet, the following levels of
++processing are omitted as well.
++
++A few examples are:
++\begin{itemize}
++\item If the packet is dropped by the flow filter configuration, RSS
++      configuration is not applied to such a packet.
++\item If the packet is forwarded to a specific receiveq using flow filter rule,
++      RSS configuration is not applied to such a packet due to a match on the
++      flow filter rule.
++\item If the packet is dropped due to VIRTIO_NET_CTRL_MAC configuration,
++      neither flow filters nor RSS configuration are applied to such a packet.
++\item If the packet does not find any match in any of the flow filter groups,
++      next level RSS device configuration is applied if its exists.
++\item If there are three flow filter groups configured as group_A, group_B
++      and group_C with respective priorities as 4, 5, and 6; flow filters of
++      group_C is applied first having highest group priority, if there is a match,
++      the flow filter rules of group_B and group_A are skipped; if there is no match for
++      the flow filter rules in group_C, the flow filter rules of next level group_B are applied.
++\end{itemize}
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
  
- \conformance{\subsection}{PCI Driver Conformance}\label{sec:Conformance / Driver Conformance / PCI Driver Conformance}
-@@ -175,6 +176,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
- \item \ref{devicenormative:Reserved Feature Bits}
-+\item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and Driver Capabilities}
- \end{itemize}
- 
- \conformance{\subsection}{PCI Device Conformance}\label{sec:Conformance / Device Conformance / PCI Device Conformance}
 -- 
 2.34.1
 
