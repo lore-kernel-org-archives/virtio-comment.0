@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9106-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9107-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D48DFC4829D
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Feb 2024 00:20:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29D11C48260
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Feb 2024 04:22:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1B40E2B029
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Feb 2024 00:20:30 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 678382B02A
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Feb 2024 04:22:44 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id D76DA986483
-	for <virtio-comment@archiver.kernel.org>; Tue, 13 Feb 2024 00:20:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 342FB98649D
+	for <virtio-comment@archiver.kernel.org>; Tue, 13 Feb 2024 04:22:44 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id B0A96986318; Tue, 13 Feb 2024 00:20:29 +0000 (UTC)
+	id 1702798642D; Tue, 13 Feb 2024 04:22:44 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,316 +24,314 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C6EE6986420
-	for <virtio-comment@lists.oasis-open.org>; Tue, 13 Feb 2024 00:19:45 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0420D986436
+	for <virtio-comment@lists.oasis-open.org>; Tue, 13 Feb 2024 04:22:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707783583; x=1708388383;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+dH4gigqvQ8H2fzCUakOiRzTn9m/CzDYR85Ns+20STg=;
-        b=aAFRABvNC+NX7u3HwbWOClr1Nhx+wiZ4CCyyR3LlkcyudU6IdcNlGMna7XvOAsZ7Dr
-         mHd8b1c644tBGgQ/vSMSh68Ujt0kDFp5pjLAMg27MqQD5c6nOdg6KcQTkyVPzQJUwIB3
-         JeOhvHwnh8K88lWHx6YqF7CTUA9h3o8iNUmz13iU2IoyuZ7j4e2Ev5qLpXULWobHgbB6
-         Te4XUE33/LpGS39sCoUc7iOOBM1qEc/Jxv2unPz2LP4pX8OFHqZh9yAVdHeDgPxYwMd3
-         MLy1lJRmZbDayH1gAg20moovLAbea3fJcqZlukojfy53lS4vaAM05pGaXse+P6HIpaTh
-         y8Jg==
-X-Gm-Message-State: AOJu0YxC9c1isP75Sk4JLm4YTVpd/NzniNJKut9KKaoRjQK9UnHDsdY1
-	E9XB5vYkWWOALqklfBQzDV35EBrJ6XJURghevOrpThFOcRx3femu/BwPTFQ8pnepWOvtsDS9D+U
-	H2Q==
-X-Google-Smtp-Source: AGHT+IHK3m6UhuiPzUq9YJLoLpwaTWjJJ1l3AKpLE1Co82guGNU7tzVrxuYW6HWqnYQvNGNlkWv0dQ==
-X-Received: by 2002:a05:6512:3d15:b0:511:4fec:b976 with SMTP id d21-20020a0565123d1500b005114fecb976mr6853598lfv.51.1707783582462;
-        Mon, 12 Feb 2024 16:19:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCU/2Qw6jnoq5Xv9Mr03BM8gAWtRK6w9nB8QnK3CTtiaCliR1Qr14u1wA9jy2mBqJmUS4VTI3lihl+kR3lVT82a9MTWxpTpln0wupWcQ0MaU3ir1+A==
-X-Received: by 2002:a50:9fad:0:b0:55f:cb23:1f1b with SMTP id
- c42-20020a509fad000000b0055fcb231f1bmr46794edf.0.1707783581429; Mon, 12 Feb
- 2024 16:19:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Tmv/XCjhT8h1zKnlhuqt5iBGG/OJbHoBPdJec4wBXGjGlmTzV94+aEO79lgjCn071ZYYbT0rNKaippsJaoaIsGjhNf4bDn1PUlbBMy52qtwnOdgmXy/Pje+pH8MacNuauMsgrDTKrRPaVnAsgtfowVlB4831+LIliH/yBXTBFE0XFCY3Ev4bKvRoQvC1ZV1DGKJlqhqYmyWQw7EouNDU2wRTixpLoxb1wVhQlrbJp607iQg+MwmEeH0/rZgd8l2BKzJBSB3ygARd2Mo6oNY3gM936lWB+IPxoeLf35+WoXLKcZiurMWwlvNuZr1aH68/kRdqM0lYnQAuFrqkEgjGcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xqLUNK2YcpyBNjZPejdmIdV6lqHD+q6WwPw44jrh90U=;
+ b=amGbq901dLiMJG3fPvA9cxZMAzSSsjkJ1Bd+F5EE2JWFVJjaPIirzYkpe48y5Ea6bF8kyyDRbhPt59AgMaELzojT45KB7phMRU6bUFwNbfBNZp0tw1oAraSdKCrPJPwNipz0I0do881VNgpAJRlLWmrZE6fZ8ivzYXXFzYjliWTbznB6jEU/kCDqvAm3S0leYllk+d5hyZmIik3fQ90VXpdFmBzeKBMrTKlrnE3sKebz24S69j/YgmWkRf5PzfQiLG5n6CYek2reByTciht21QwUyr89JY2FP3Nb+zmB5D7vC1y8wVeq4CKxoyzFZoIky9h8PJxPPzGdUe3gWIbGxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+From: Parav Pandit <parav@nvidia.com>
+To: Satananda Burla <sburla@marvell.com>,
+	"virtio-comment@lists.oasis-open.org" <virtio-comment@lists.oasis-open.org>,
+	"mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>
+CC: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>, Shahaf Shuler
+	<shahafs@nvidia.com>, "si-wei.liu@oracle.com" <si-wei.liu@oracle.com>,
+	"peter.hilber@opensynergy.com" <peter.hilber@opensynergy.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>, "xuanzhuo@linux.alibaba.com"
+	<xuanzhuo@linux.alibaba.com>
+Thread-Topic: [EXT] [PATCH v9 04/13] admin-cmds-capabilities: Add capabilities
+ admin commands
+Thread-Index: AQHaWZapbbmPdmmqcEOihgSCoyK+ALEFi7iAgACKR1CAAP+LAIAAnmlw
+Date: Tue, 13 Feb 2024 04:22:39 +0000
+Message-ID:
+ <PH0PR12MB548126E200F535B4284A5612DC4F2@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20240207072336.477606-1-parav@nvidia.com>
+ <20240207072336.477606-5-parav@nvidia.com>
+ <SJ0PR18MB4477BB042E38CE59C9F652E8C3492@SJ0PR18MB4477.namprd18.prod.outlook.com>
+ <PH0PR12MB5481732266FD14BA4D0FA520DC482@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <SJ0PR18MB447717547BB03ECA26C99A24C3482@SJ0PR18MB4477.namprd18.prod.outlook.com>
+In-Reply-To:
+ <SJ0PR18MB447717547BB03ECA26C99A24C3482@SJ0PR18MB4477.namprd18.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|IA0PR12MB7531:EE_
+x-ms-office365-filtering-correlation-id: 1cc84c2b-1864-4c4d-8f6d-08dc2c4b6a21
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ jlSGVq4LzGrHsnx3uqeUfnfYevVxVS+RgeE8p/s5xO8YnlLKOi+nBQp2cPACo5bxU/cH5JADAP5UxjhnGjPPBY03/U+9bNQDQ27Wn6zAgYQ0jDQZS9t7xw5nLFX8DGu0h1zjNh0cSPiTu3QsKgQJi9nBzC1Z2kZP4oNxlUT3mhdZMtALvfmpkV1RAQpYhX1ybHoP6OkmF2soCNoeYcgt5gwGWCwJMtESIKAhUZoDQM9G2XXq2zmhR9kTzMC3ZWsQtvfx7pvJe8JYsQJCsN3++9bNz4h+7EPr+Kit2Bz9vG3Q+LgMDy7EQnLdX/WvZN5MoPWLqg6Wq78MNu/mrntxR6hF/hInpaxrHMQp1RWakOr2iDpqgfUwvOvB/D3t8bH09XIY7qqe/lDJ7fsNqA8cNhR4KphQqK5xrC0lfB8+IYn1VVNpPT9CJ+oAcmEwPupW5Ja1XivgI+XM5ifDRRvg5I2xkEZM9OnekJs4fLMojGtEtY9oovIFY6NUB8GtYZp6RakiFUjfWmqDlwB4o31R9zlncf4LMpCCWhuK44D1ndJqzkSchh7A9mEic4MCk1tDaNllkccDfyTqg6Kup5Ue3GQ2XNKmcMiXFH1KHS8+WYmKyqZO2++S7Rxb1yaJtZmETBYkXLj1tVFQ68ayHYoZrkOLei6AW6VPBgqhF971YtI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(366004)(346002)(136003)(39860400002)(376002)(230273577357003)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(8936002)(8676002)(4326008)(316002)(38070700009)(110136005)(66556008)(54906003)(64756008)(66946007)(66446008)(5660300002)(66476007)(76116006)(2906002)(52536014)(38100700002)(71200400001)(122000001)(55236004)(53546011)(7696005)(6506007)(26005)(83380400001)(19627235002)(86362001)(966005)(478600001)(33656002)(9686003)(55016003)(41300700001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?nrk/HN6yg0LTADD61ZpVgtloFU1dOKl43orK+JaBF4GP54S6lblniEC7RfDt?=
+ =?us-ascii?Q?mxf+lkJu0djFoRib3CClGuzcvqjTtEAdfrIbjFMzpSCuUZoyCD/3yFvPfV4S?=
+ =?us-ascii?Q?DJebuicJQijcnividYP3nq5zWKiJFrMsaPsJ4pd6pPT8w4VShHA5HK6lXqyK?=
+ =?us-ascii?Q?02wCa14X5x/+KneDLTLgMwEQidrMEcyDsmAezDUl6VbWjDgUnq8Mg4lpNzN/?=
+ =?us-ascii?Q?DVnTp5sMO39nMQoRq01XcFLzUAJ3VNf8FmEoKq5pKQbrRPA55FXQ9beng46B?=
+ =?us-ascii?Q?tp29/pDWxm27Pywo8zSUEp2vePSbqtqjlk5dWLivUcAhJXVUGCwH2+miq6OP?=
+ =?us-ascii?Q?/8l2vmH1IehF/0aR00+R7v/ffs8lqcDAJpjKft7jO3+oQ8zvCON9e5/EHztb?=
+ =?us-ascii?Q?FPp52RrtHI3k6Dxnz8fWkndPHXUqrmKJ1QC7h/Dq1mYQXg8qTjqFgh5e/hQV?=
+ =?us-ascii?Q?gdqEdOr3bUhw4gsAdyMSLHguVXltMCSPfr1XovGgDd2WXjwL3ZeKxY4DBfAl?=
+ =?us-ascii?Q?VK8xgbXN6ggaxJ18LDb6ko+JGdRdaHGg7dn3ROfiPKtg22r5KJ73uPkkkmr3?=
+ =?us-ascii?Q?oe0PYsaZC7eNqoXDLF3KFvoaFZRqiqb7nocCXVMBcqm5wrwU8YjVGOXCuJJf?=
+ =?us-ascii?Q?Ii53Q9ZgBX1ciolHve+E/JWOwpqumTSTTSNzr9ZVrvXBOUIDQR9aMvML1jkZ?=
+ =?us-ascii?Q?Fm11RKZ4Ea3KdlaJdkoZi720iZwAsLK5HZrb5PzsYa7LboN5DcZDe02cPJM0?=
+ =?us-ascii?Q?+3PyLoN1ZE7GiLiBZAHTSLGB6OBDsaEQgJR/IFJcsn7NbcXADqWF7QQZlVYF?=
+ =?us-ascii?Q?joUg8+KwrgCThu/kcmbpPkj+gn8FwyYYiL46YTIGfU+rEZJxC5gEee446o4o?=
+ =?us-ascii?Q?mkuDYn/gmLIXBqLt7oUBC5Cwf4pzNj2/M92kRoIeDP/Qv7KAoA5t1RtYmrth?=
+ =?us-ascii?Q?JUz5sRecSBvH01aUN+PeJ20gPVpKRV30YPTOW2Dq4yKMUp17ZCzDb3yblt48?=
+ =?us-ascii?Q?4wpgvbEza7GVIJw05gG5jP5TbNDK6ishYpdvA47ZIjg/oNhDzRXRmwD920cJ?=
+ =?us-ascii?Q?fE0q89z/y1HTo/kSoIdNwTh8GAhaRkeYUGa3l93CSsBxItJhkyfvu4GMJl6Y?=
+ =?us-ascii?Q?+mhy+u9RqkN8pSYp+fsH0S3PUk78OUU5QY+Ic1uKD3J0/jdBQayvk1xcgVNU?=
+ =?us-ascii?Q?SPe0KtV3lZdBpz+224iUv8AlQmCEq+qOlLNP2jX2Nc1MXZ3u8Se72HTukhyW?=
+ =?us-ascii?Q?CsbO0qImJfyKXHnexfm2ZkRtv8B/CbrQ3up+VcV8HpHvRzetBd/JVG2rIFzJ?=
+ =?us-ascii?Q?xj2IdHsSeDFcr/wn7oz1XOulWa7pWvzDOmv07QQ35B2H8mGMkbtkOEdk/X42?=
+ =?us-ascii?Q?pbOFsPOLXwkBM4jkTIYHetjv97ErutALWGRaer9vcvL7uWBcolQBXqpE95Qg?=
+ =?us-ascii?Q?r3kJAJ4UBTHp6dQIV2XbOoK+MhngiWUPhGAahK+wOVGBWNr3wywNAJKHqp9n?=
+ =?us-ascii?Q?f6F8QEQzWgp7ViTOzThkmozRaIhn/xjpr9AcrDaC6+I6/5u/FcXrsSv131KV?=
+ =?us-ascii?Q?dtjLeI5WGd6/vf0bHpA=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20240128191218.392061-1-dmitry.osipenko@collabora.com>
- <CAAfnVBnieT4TfahEv6nG-pvSxKSLh7s=Tf1FB=v1mX1oL8QeOg@mail.gmail.com>
- <9b02c7ba-4cab-46bf-8a85-cd34d943a49a@collabora.com> <CAAfnVBnGCP2m2WoXY=NKAQ4vQncB19c4YVMrC51r5KdsSq7uxQ@mail.gmail.com>
- <CAF6AEGtSGULUVVZ-45sdhUpffsqi7yM15aHSyPSt9=TMr8iEHw@mail.gmail.com>
- <CAAfnVBn-8a1kKe9M3RN75D9q9rdzep-=-7ixspmDDJu-Wz4C_Q@mail.gmail.com>
- <CAF6AEGuQD-zuHjkjeBEuteyvQE33pGeF0XPDjGDZrZBrr=tNJg@mail.gmail.com>
- <CAAfnVBmasMmXRcNnxG3J_8bg8w-Bq3yKZ66sLKxv+Q3gbbgr3g@mail.gmail.com>
- <CAF6AEGtmfFuh0iZpnzm9wbROeCcGx5hGU-BnnJKMcj0awhcZFQ@mail.gmail.com>
- <CAAfnVBnb9RcpCX03trdfxOTehUioCOXAkNfuW=5vS26qt_YSdQ@mail.gmail.com>
- <CAF6AEGu4tE5AoE9tjhbPYg94fyEyOLQAHhtsBK-DvC2ULRkgzQ@mail.gmail.com>
- <CAAfnVBkb_xaRcAa9bwiW9GUEiqxQ=UGnW42T5s1JquX4Xw1YwQ@mail.gmail.com> <CAF6AEGsRremaP08tqKOmgfMK+yjgEkBsBpbNcgDkaZVUzE49OA@mail.gmail.com>
-In-Reply-To: <CAF6AEGsRremaP08tqKOmgfMK+yjgEkBsBpbNcgDkaZVUzE49OA@mail.gmail.com>
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Mon, 12 Feb 2024 16:19:28 -0800
-X-Gmail-Original-Message-ID: <CAAfnVBnMwGkX_aLkc2n4TPDwnvt6AqoQxEVB=3owXQnq3pDvdA@mail.gmail.com>
-Message-ID: <CAAfnVBnMwGkX_aLkc2n4TPDwnvt6AqoQxEVB=3owXQnq3pDvdA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Yiwei Zhang <zzyiwei@chromium.org>, 
-	Ryan Neph <ryanneph@chromium.org>, Gerd Hoffmann <kraxel@redhat.com>, Huang Rui <ray.huang@amd.com>, 
-	Sergio Lopez <slp@redhat.com>, 
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, 
-	Colin Downs-Razouk <colindr@google.com>, Kaiyi Li <kaiyili@google.com>, 
-	virtio-comment@lists.oasis-open.org
-Content-Type: multipart/alternative; boundary="000000000000b9c8d506113859ba"
-Subject: [virtio-comment] Re: [PATCH v1] virtio-gpu: Document new fence-passing feature
-
---000000000000b9c8d506113859ba
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Feb 9, 2024 at 1:56=E2=80=AFPM Rob Clark <robdclark@gmail.com> wrot=
-e:
-
-> tbh, I don't think VIRTGPU_EXECBUF_SHARED_FENCE is a good idea either.
-> A non-shareable fence fd is kind of an oxymoron.
->
-
-We can call it VIRTGPU_EXECBUF_HOST_SHAREABLE_FENCE
-and VIRTIO_GPU_FLAG_FENCE_HOST_SHAREABLE to denote the difference.
-Currently, no fences are shareable across host
-contexts/virtio-devices/displays.  With the new feature bit, they are.
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cc84c2b-1864-4c4d-8f6d-08dc2c4b6a21
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Feb 2024 04:22:39.4420
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tD5SNC8WSDY4Z+mnd3bQa5YmS1DTKcbf5AUkgTwjtmw4P0c0qAI7jNicM9797ZpMfx2EK1K/0V9y146SGD8MuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7531
+Subject: [virtio-comment] RE: [EXT] [PATCH v9 04/13] admin-cmds-capabilities: Add capabilities
+ admin commands
 
 
->
-> > So in summary with my review comments:
-> >     - Can we get a FLAG_SHAREABLE in v2?
->
-> We _can_.. I don't think it is a good idea, but a useless bit in the
-> protocol isn't the end of the world.  I prefer that non-shareable
-> fences be handled in context specific protocol.  And I suspect that
-> sooner or later any fence that is visible at the virtgpu level, will
-> need to be shareable.
->
 
-We will definitely use the bit.  We might build some-type of fence LRU
-cache or something using the flag, to avoid the last signalled fence trick.
-
-than within a particular renderer instance.. and in that case it can
-> be handled with context specific protocol.
->
-> >     - Can we get a RESOURCE_FLUSH(in_fence) for KMS integration in v2?
->
-> Nak, and nak for DESTROY_FENCE(S)
->
-
-I think +Kaiyi Li <kaiyili@google.com> +Colin Downs-Razouk
-<colindr@google.com> have a use case for RESOURE_FLUSH with an acquire
-fence.  Hopefully, they can describe it here and the timeline (I think Q2
-.. not far?).
-
-I think all Android VMs "in a box" (not ARCVM-style) would find such an API
-useful.
-
-
-> Lack of fence lifetime built into the protocol isn't a deficiency,
-> it's a feature.  It keeps the design as simple and lightweight and
-> flexible as possible.
->
-> BR,
-> -R
->
-> >     - Regarding transiency:
-> >            - Good idea, but can we add it to the spec level rather than
-> being implementation defined?
-> >            - For it to be transient everywhere, we'll need even
-> virtio-video to take an in-fence at-least?
-> >            - I recommend more research on the transient subject, it
-> *could* work
+> From: Satananda Burla <sburla@marvell.com>
+> Sent: Tuesday, February 13, 2024 12:21 AM
+>=20
+> Hi Parav
+>=20
+> > -----Original Message-----
+> > From: Parav Pandit <parav@nvidia.com>
+> > Sent: Sunday, February 11, 2024 7:42 PM
+> > To: Satananda Burla <sburla@marvell.com>; virtio-comment@lists.oasis-
+> > open.org; mst@redhat.com; cohuck@redhat.com
+> > Cc: hengqi@linux.alibaba.com; Shahaf Shuler <shahafs@nvidia.com>; si-
+> > wei.liu@oracle.com; peter.hilber@opensynergy.com;
+> jasowang@redhat.com;
+> > xuanzhuo@linux.alibaba.com
+> > Subject: RE: [EXT] [PATCH v9 04/13] admin-cmds-capabilities: Add
+> > capabilities admin commands
 > >
-> > [1]
-> https://lists.nongnu.org/archive/html/qemu-devel/2023-05/msg00595.html
+> > Hi Satananda,
 > >
-> >>
-> >> The last_signaled_fence may be a workaround that leads to weird edge
-> >> cases.. but over-complicating transient resource lifetime in the
-> >> protocol is not the answer.
-> >>
-> >> BR,
-> >> -R
-> >>
-> >> > We can probably survive these oddities, but we can probably avoid
-> them too, so that's why it would be nice for the guest to provide the
-> information it has.
-> >> >
-> >> >>
-> >> >> > Though, the guest kernel already tracks fence lifetimes through
-> dma_fence.  What if we add:
-> >> >> >
-> >> >> > - DESTROY_FENCES(fence_ids, num_fences)
-> >> >> > - a virtio-config ("fence_destroy_threshold"), which controls
-> num_fences in DESTROY_FENCES
-> >> >> >
-> >> >> > When fence_destroy_threshold =3D=3D 0, this would be the current
-> proposed solution (fence lifetimes implementation defined).  However, a
-> user can make "fence_destroy_threshold" 100 or something like that, to
-> cause a VM-exit everytime 100 fences have been destroyed.
-> >> >> >
-> >> >> > This attempts a tunable compromise between API purity and
-> performance concerns.  WDYT?
-> >> >>
-> >> >> Tbh, I think the current approach is cleaner from the PoV of what a
-> >> >> fence is.. it is just a seqno, it should not have a lifetime.
-> >> >>
-> >> >> BR,
-> >> >> -R
-> >> >>
-> >> >> >
-> >> >> >>
-> >> >> >>
-> >> >> >> But this is all implementation detail
-> >> >> >>
-> >> >> >> BR,
-> >> >> >> -R
-> >> >> >>
-> >> >> >> >
-> >> >> >> > Essentially, let's do our due diligence and verify the most
-> important use case (gpu --> display) actually works.
-> >> >> >> >
-> >> >> >> >>
-> >> >> >> >>
-> >> >> >> >> BR,
-> >> >> >> >> -R
-> >> >> >> >>
-> >> >> >> >> >> --
-> >> >> >> >> >> Best regards,
-> >> >> >> >> >> Dmitry
-> >> >> >> >> >>
->
+> > > From: Satananda Burla <sburla@marvell.com>
+> > > Sent: Monday, February 12, 2024 12:51 AM
+> > >
+> > > Hi Parav
+> > >
+> > > > -----Original Message-----
+> > > > From: Parav Pandit <parav@nvidia.com>
+> > > > Sent: Tuesday, February 6, 2024 11:23 PM
+> > > > To: virtio-comment@lists.oasis-open.org; mst@redhat.com;
+> > > > cohuck@redhat.com
+> > > > Cc: hengqi@linux.alibaba.com; Satananda Burla
+> > > > <sburla@marvell.com>; shahafs@nvidia.com; si-wei.liu@oracle.com;
+> > > > peter.hilber@opensynergy.com; jasowang@redhat.com;
+> > > > xuanzhuo@linux.alibaba.com; Parav Pandit <parav@nvidia.com>
+> > > > Subject: [EXT] [PATCH v9 04/13] admin-cmds-capabilities: Add
+> > > > capabilities admin commands
+> > > >
+> > > > External Email
+> > > >
+> > > > ------------------------------------------------------------------
+> > > > --
+> > --
+> > > > Add three capabilities related commands.
+> > > > First to read the device and driver capabilities.
+> > > > Second to write the driver capabilities.
+> > > > Third for driver to discover which capabilities can be accessed.
+> > > >
+> > > > Write capabilities by the owner driver is not currently supported.
+> > > > It will be supported in future by the owner driver to write for
+> > > > the member device.
+> > > >
+> > > > Fixes: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-
+> > > > 3A__github.com_oasis-2Dtcs_virtio-
+> > > >
+> > >
+> 2Dspec_issues_179&d=3DDwIDAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DNHDPsfcAY
+> > > lN2z-
+> > > > NXHHG4WB09qqS0voo_nf6_kGS625A&m=3DKI-
+> > > >
+> > >
+> QceHuScbIZDc_Kxteq_nU775BHpY5uMRJiwQuxhrgFOpnAx0SON8L2UXPJqty&
+> > > s=3DjnFn-
+> > > > DDDK_3FuIG5OPXgWud35KVh8KaeUDAro8N3jqU&e=3D
+> > > > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > > > ---
+> > > >  admin-cmds-capabilities.tex | 161
+> > > ++++++++++++++++++++++++++++++++++++
+> > > >  admin.tex                   |   9 +-
+> > > >  capabilities.tex            |   3 +
+> > > >  conformance.tex             |   2 +
+> > > >  4 files changed, 174 insertions(+), 1 deletion(-)  create mode
+> > 100644
+> > > > admin-cmds-capabilities.tex
+> > > >
+> > > > diff --git a/admin-cmds-capabilities.tex b/admin-cmds-
+> > capabilities.tex
+> > > > new file mode 100644 index 0000000..47394c7
+> > > > --- /dev/null
+> > > > +++ b/admin-cmds-capabilities.tex
+> > > > @@ -0,0 +1,161 @@
+> > > > +\subsubsection{Device and Driver Capabilities}\label{sec:Basic
+> > > > Facilities of a Virtio Device / Device groups / Group
+> > > > administration commands / Device and Driver Capabilities}
+> > > > +
+> > > > +The device and driver capabilities commands are currently defined
+> > for
+> > > > self group type and for
+> > > > +SR-IOV group type.
+> > > > +
+> > > > +\begin{enumerate}
+> > > > +\item Device Capabilities Support Query Command \item
+> > > > +Capabilities Read Command \item Capabilities Write Command
+> > > > +\end{enumerate}
+> > > > +
+> > > > +\paragraph{Device Capabilities Support Query
+> > Command}\label{par:Basic
+> > > > Facilities of a Virtio Device / Device groups / Group
+> > > > administration commands / Device and Driver Capabilities / Device
+> > > > Capabilities Support Query Command}
+> > > > +
+> > > > +For the command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY,
+> > > \field{opcode} is
+> > > > set to 0x7.
+> > > > +
+> > > > +This command queries the supported device capabilities
+> > > > +identifiers
+> > > > bitmap in
+> > > > +\field{supported_caps}. Each bit in \field{supported_caps}
+> > > > +corresponds
+> > > > to the
+> > > > +capability identifier. Thus, supported_caps[0] refers to the
+> > > > +first
+> > > > +64-
+> > > > bit value
+> > > > +in this array corresponding to identifiers 0 to 63,
+> > supported_caps[1]
+> > > > +is the second 64-bit value corresponding to identifiers 64 to
+> > > > +127,
+> > etc.
+> > > > +For example, with \field{num_caps =3D 2}, the array of size 2
+> > including
+> > > > the values
+> > > > +0x3 in supported_caps[0], and 0x1 in supported_caps[1] indicates
+> > that
+> > > > only
+> > > > +identifiers 0, 1 and 64 are supported.
+> > > > +
+> > > > +The length of the array \field{supported_caps} depends on the
+> > > > +supported identifiers - it is large enough to include bits set
+> > > > +for all supported identifiers, that is the length is set by
+> > > > +calculating by starting with
+> > > > the
+> > > > +largest supported opcode adding one, dividing by 64 and rounding
+> > up.
+> > > > +
+> > > > +The array \field{supported_caps} is also allowed to be larger and
+> > to
+> > > > +additionally include an arbitrary number of all-zero entries.
+> > > > +
+> > > > +For each identifier, the driver can read the device capabilities
+> > and
+> > > > write
+> > > > +the driver capabilities. The driver can also read the written
+> > > > capabilities.
+> > > > +
+> > > > +This command has no command specific data.
+> > > > +
+> > > > +\begin{lstlisting}
+> > > > +struct virtio_admin_cmd_query_supported_cap_result {
+> > > > +        le16 num_caps;
+> > > > +        u8 reserved[6];
+> > > > +        le64 supported_caps[];
+> > > > +};
+> > > > +\end{lstlisting}
+> > > Since this is not fixed size, what happens if the allocated write
+> > buffer for the
+> > > command cannot fit the result ?
+> > The device returns only the capabilities worth of supplied buffer.
+> >
+> > > Does the device return error with specific  error code?
+> > No. it truncates to the supplied length.
+> > This command relies on the existing admin cmd spec.
+> > Please see the snippet from the spec.
+> >
+> > "Drivers are allowed to submit buffers that are shorter than what the
+> > device expects (that is, shorter than the length of status through
+> > command_specific_result). This allows the device to maintain a single
+> > format structure even if some structure fields are unused by the
+> > driver.
+> > The device compares the length of each part (device-readable and
+> > device-
+> > writeable) of the buffer as submitted
+> > by driver to what it expects and then silently truncates the
+> > structures to either the length submitted by the driver, or the length
+> > described in this specification, whichever is shorter."
+> But how would driver know if it has read in all the capabilities or not ?
 
---000000000000b9c8d506113859ba
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Lets take example:
+The driver interested in capability identifier=3DA,=20
+the driver's view of capability struct =3D X bytes.
+The device view of the capability =3D Y bytes.
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Feb 9, 2024 at 1:56=E2=80=AFP=
-M Rob Clark &lt;<a href=3D"mailto:robdclark@gmail.com" target=3D"_blank">ro=
-bdclark@gmail.com</a>&gt; wrote:</div><blockquote class=3D"gmail_quote" sty=
-le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
-ng-left:1ex">
-tbh, I don&#39;t think VIRTGPU_EXECBUF_SHARED_FENCE is a good idea either.<=
-br>
-A non-shareable fence fd is kind of an oxymoron.<br></blockquote><div><br><=
-/div><div>We can call=C2=A0it VIRTGPU_EXECBUF_HOST_SHAREABLE_FENCE and=C2=
-=A0VIRTIO_GPU_FLAG_FENCE_HOST_SHAREABLE to denote the difference.=C2=A0 Cur=
-rently, no fences are shareable across host contexts/virtio-devices/display=
-s.=C2=A0 With the new feature bit, they are.</div><div>=C2=A0</div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex"><br></blockquote><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex">
-&gt; So in summary with my review comments:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0- Can we get a FLAG_SHAREABLE in v2?<br>
-<br>
-We _can_.. I don&#39;t think it is a good idea, but a useless bit in the<br=
->
-protocol isn&#39;t the end of the world.=C2=A0 I prefer that non-shareable<=
-br>
-fences be handled in context specific protocol.=C2=A0 And I suspect that<br=
->
-sooner or later any fence that is visible at the virtgpu level, will<br>
-need to be shareable.<br></blockquote><div><br></div><div>We will definitel=
-y use the bit.=C2=A0 We might build some-type of fence LRU cache or somethi=
-ng using the flag, to avoid the last signalled fence trick.=C2=A0</div><div=
-><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-than within a particular renderer instance.. and in that case it can<br>
-be handled with context specific protocol.<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0- Can we get a RESOURCE_FLUSH(in_fence) for KMS int=
-egration in v2?<br>
-<br>
-Nak, and nak for DESTROY_FENCE(S)<br></blockquote><div><br></div><div>I thi=
-nk=C2=A0<a class=3D"gmail_plusreply" id=3D"plusReplyChip-0" href=3D"mailto:=
-kaiyili@google.com" tabindex=3D"-1">+Kaiyi Li</a>=C2=A0<a class=3D"gmail_pl=
-usreply" id=3D"plusReplyChip-1" href=3D"mailto:colindr@google.com" tabindex=
-=3D"-1">+Colin Downs-Razouk</a>=C2=A0have=C2=A0a use case for RESOURE_FLUSH=
- with an acquire fence.=C2=A0 Hopefully, they can describe it here and the =
-timeline (I think Q2 .. not far?).=C2=A0=C2=A0</div><div><br></div><div>I t=
-hink all Android VMs &quot;in a box&quot; (not ARCVM-style) would find such=
- an API useful.=C2=A0</div><div><br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
-adding-left:1ex">
-<br>
-Lack of fence lifetime built into the protocol isn&#39;t a deficiency,<br>
-it&#39;s a feature.=C2=A0 It keeps the design as simple and lightweight and=
-<br>
-flexible as possible.<br>
-<br>
-BR,<br>
--R<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0- Regarding transiency:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 - Good idea, but can we add i=
-t to the spec level rather than being implementation defined?<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 - For it to be transient ever=
-ywhere, we&#39;ll need even virtio-video to take an in-fence at-least?<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 - I recommend more research o=
-n the transient subject, it *could* work<br>
-&gt;<br>
-&gt; [1] <a href=3D"https://lists.nongnu.org/archive/html/qemu-devel/2023-0=
-5/msg00595.html" rel=3D"noreferrer" target=3D"_blank">https://lists.nongnu.=
-org/archive/html/qemu-devel/2023-05/msg00595.html</a><br>
-&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; The last_signaled_fence may be a workaround that leads to weird ed=
-ge<br>
-&gt;&gt; cases.. but over-complicating transient resource lifetime in the<b=
-r>
-&gt;&gt; protocol is not the answer.<br>
-&gt;&gt;<br>
-&gt;&gt; BR,<br>
-&gt;&gt; -R<br>
-&gt;&gt;<br>
-&gt;&gt; &gt; We can probably survive these oddities, but we can probably a=
-void them too, so that&#39;s why it would be nice for the guest to provide =
-the information it has.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt; Though, the guest kernel already tracks fence lifeti=
-mes through dma_fence.=C2=A0 What if we add:<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; - DESTROY_FENCES(fence_ids, num_fences)<br>
-&gt;&gt; &gt;&gt; &gt; - a virtio-config (&quot;fence_destroy_threshold&quo=
-t;), which controls num_fences in DESTROY_FENCES<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; When fence_destroy_threshold =3D=3D 0, this would be=
- the current proposed solution (fence lifetimes implementation defined).=C2=
-=A0 However, a user can make &quot;fence_destroy_threshold&quot; 100 or som=
-ething like that, to cause a VM-exit everytime 100 fences have been destroy=
-ed.<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; This attempts a tunable compromise between API purit=
-y and performance concerns.=C2=A0 WDYT?<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; Tbh, I think the current approach is cleaner from the PoV=
- of what a<br>
-&gt;&gt; &gt;&gt; fence is.. it is just a seqno, it should not have a lifet=
-ime.<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; BR,<br>
-&gt;&gt; &gt;&gt; -R<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; But this is all implementation detail<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; BR,<br>
-&gt;&gt; &gt;&gt; &gt;&gt; -R<br>
-&gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt; Essentially, let&#39;s do our due diligence=
- and verify the most important use case (gpu --&gt; display) actually works=
-.<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; BR,<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; -R<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; --<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; Best regards,<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; Dmitry<br>
-&gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt; &gt;&gt;<br>
-</blockquote></div></div>
+Example_1:
+Typically, old driver, new device.
+X < Y.
+Result: Device copies X bytes. So driver will see only capabilities field w=
+orth of X bytes.
 
---000000000000b9c8d506113859ba--
+Example_2:
+Typically, new driver, old device.
+X > Y.
+Result: Device copies Y bytes because device only understands Y bytes .
+So driver will see only capabilities field worth of only Y bytes from the X=
+ bytes it allocated.
+
+
+
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
+Join OASIS: https://www.oasis-open.org/join/
+
