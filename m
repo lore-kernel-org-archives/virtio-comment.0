@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9129-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9130-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033D5C48BC3
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 09:11:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3AEC48BC3
+	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 12:20:35 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 43BD53357E
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 09:11:47 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 818661FF6C
+	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 12:20:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1F36F986561
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 09:11:47 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 4B312986591
+	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 12:20:34 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id EE7399864A3; Tue, 20 Feb 2024 09:11:46 +0000 (UTC)
+	id 20C689864A3; Tue, 20 Feb 2024 12:20:34 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,198 +24,317 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id DED369864BB
-	for <virtio-comment@lists.oasis-open.org>; Tue, 20 Feb 2024 09:11:46 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 028339864CD
+	for <virtio-comment@lists.oasis-open.org>; Tue, 20 Feb 2024 12:19:09 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: iAjQjoDvOq-59NV7f6EACw-1
+X-MC-Unique: 2vCAZ9QeNsy56zwI57fbTw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708420302; x=1709025102;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9q9fOlJJ9uGcC12mc2tMTyWAxS3LHqn9kbS0C3aC43E=;
-        b=SxmpFmredaGm/30NIGIv5kEnlf6Hu4X/TpQxB6vmGCAFgtwEAd61RPNao+DX/MLPS/
-         8sxw0hFsBkIHFaoPkTMfQw6Ut9iP8SjC2EKmO7kEztte7rRqckvyRyJqM47PTOD6SDRc
-         cDbkSfJe7W6QKNWYR2Rz9uq49629pjHxTNrPYNrd2EZ0Iw50YO2H+rkVHVAkGaYbb9Ki
-         wOwGBigGgYiGXolC4ZfZIOt9rEbZdP0ZzFIkOdLbiQ1RgWJJuMSSmAlGUTK2i+tCguNf
-         wmWIrCinbyZsfF+tTVHHrvEgwKgoaU5vbzGFCn9WT9dhXGA5ZLcEv/0EI7Zk+AFQIp1h
-         M2Ug==
-X-Gm-Message-State: AOJu0Yz1sUM5m8SGlBPIVe4EcOjBD4CivQsjQl+FHxCXAdbCQ4NroLTM
-	XEO1lwNPU/VMgDWRaAwvm/qulxkXhq0krVvAHaAzEoDUwDPO62OT54Zzl2o6xisi4waT2pytSNd
-	uadJ9l3RzQZgz0uDoXT5zbaSjYm1n0aUoqwbcSu4SKOD3EiduUYyn7aPkyj+PBk3TgfavG7Jvd8
-	PRg0H056UxnDetekW7NAnJRtyWJZdQSG518p/+8m2diVODgn+lwMoTPb02
-X-Received: by 2002:a67:fa55:0:b0:470:4de7:20a2 with SMTP id j21-20020a67fa55000000b004704de720a2mr4778781vsq.33.1708420302014;
-        Tue, 20 Feb 2024 01:11:42 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGF2eaeEfOodmZpxLJQbzyBRo91vUBZog/6C9MaLw3FMOpfbJB6ty04YZYc+aaBdRPwtebUTr+5bVebi0Vz6DM=
-X-Received: by 2002:a67:fa55:0:b0:470:4de7:20a2 with SMTP id
- j21-20020a67fa55000000b004704de720a2mr4778768vsq.33.1708420301655; Tue, 20
- Feb 2024 01:11:41 -0800 (PST)
-MIME-Version: 1.0
-References: <ZWhq3eOxSZ8a7sd1@fedora>
-In-Reply-To: <ZWhq3eOxSZ8a7sd1@fedora>
+        d=1e100.net; s=20230601; t=1708431544; x=1709036344;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PSvKlxYTJ1WGbSz33qbmvPeGwoubasafQ6TRCDUandk=;
+        b=GpbEhNzF1WjpcMUuMO1VhM5OKoyDA5wh2OTQradZyPqIn5poH6yn3uXuVY3Z3zR2iB
+         bsKUoM6sN3iwckDuUou0qpqyLVJ6SP5j96jTkyZhOLpEKeahRzse6AgFJw4OPyOJ0zmE
+         usNr5O5oH4zHZj5PxWLZwSTBHdf5cD7y6QcrKSWsJiZgQHleZOQ7me9/2YluM6YBqisb
+         +DoOLuA1olIFsuPwh+pe3Nr69HN+am5itqTQKdUbNsmz79r4eIRlr5ZUcCgtUbhsdBsz
+         HHmi3fUM1VDlnq3gP4wbA0SJVVmAJXYYhXwENanO9rAqYTARkqSF6h+L+gtM6cTEMaXy
+         66jA==
+X-Gm-Message-State: AOJu0YydBGUGfX5a5+vFGkhWyp2lhcTTENMLCX1f2K4UvdCfDasOpmoq
+	VHO6s7ZsXmagQsbqSOQKVmSU7Pf7O/XRgSPosYuUn9gVnlYVgwm8EhYg91LzNCeJxX6A0U66ObS
+	phr5bIA9le3YYWicn4p1fU0Rr00lJ2SJ9K2Xg4h66z7M8gATB4J6vQCuX50fqTKQmY4NHrlTx1k
+	9h64k=
+X-Received: by 2002:a05:6214:2245:b0:68e:ecf5:8bdd with SMTP id c5-20020a056214224500b0068eecf58bddmr25668844qvc.9.1708431544161;
+        Tue, 20 Feb 2024 04:19:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFIcand39HCFOjLEqoA7Cqkzmz+CBrXH4h1hJteepwSvSM4zV5FZN3L4vxVwOdNeSL+B/mSlA==
+X-Received: by 2002:a05:6214:2245:b0:68e:ecf5:8bdd with SMTP id c5-20020a056214224500b0068eecf58bddmr25668815qvc.9.1708431543759;
+        Tue, 20 Feb 2024 04:19:03 -0800 (PST)
+Date: Tue, 20 Feb 2024 13:19:00 +0100
 From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Date: Tue, 20 Feb 2024 10:11:30 +0100
-Message-ID: <CAHYGQ0x4fKCaTE1sBmpbBzzjEw_GwFES0f3eg7oeRvWsm4S4ZA@mail.gmail.com>
-To: virtio-comment@lists.oasis-open.org
-Cc: anton.yakovlev@opensynergy.com
+To: Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@opensynergy.com>
+Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+	linux-can@vger.kernel.org,
+	Harald Mommer <harald.mommer@opensynergy.com>
+Message-ID: <ZdSYtPtn5UzKNhAi@fedora>
+References: <20230609142243.199074-1-Mikhail.Golubev-Ciuchea@opensynergy.com>
+ <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
+MIME-Version: 1.0
+In-Reply-To: <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [PATCH] virtio-sound: use 'data buffer' instead of 'buffer'
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [virtio-comment] [RFC PATCH v3] virtio-can: Device specification.
 
-On Thu, Nov 30, 2023 at 11:58=E2=80=AFAM Matias Ezequiel Vara Larsen
-<mvaralar@redhat.com> wrote:
->
-> This commit replaces the wording 'buffer' with 'data buffer' when
-> referring to the payload of PCM messages. The virtio specification
-> defines the word buffer as a set of zero or more device-readable
-> physically-contiguous elements followed by zero or more
-> physically-contiguous device-writable elements. In the virtio-sound
-> section, the word is used only for the data or payload in a request. In
-> this case, the data buffer is sent together with a header, i.e.,
-> device-readable, and the status, i.e., device-writable. To not get
-> confused with the main definition, this commit replaces those usages
-> with the wording 'data buffer'.
->
-> Reviewed-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> ---
->  device-types/sound/description.tex | 26 +++++++++++++-------------
->  1 file changed, 13 insertions(+), 13 deletions(-)
->
-> diff --git a/device-types/sound/description.tex b/device-types/sound/desc=
-ription.tex
-> index 54c9c8e..97151fa 100644
-> --- a/device-types/sound/description.tex
-> +++ b/device-types/sound/description.tex
-> @@ -667,8 +667,8 @@ \subsubsection{PCM Notifications}
->
->  \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device /=
- Device Operation / PCM IO Messages}
->
-> -An I/O message consists of the header part, followed by the buffer, and =
-then
-> -the status part.
-> +An I/O message consists of a buffer that contains a header part, followe=
-d by
-> +the data buffer, and then the status part.
->
->  \begin{lstlisting}
->  /* an I/O header */
-> @@ -697,20 +697,20 @@ \subsubsection{PCM I/O Messages}\label{sec:Device T=
-ypes / Sound Device / Device
->  \item[\field{latency_bytes}] indicates the current device latency.
->  \end{description}
->
-> -Since all buffers in the queue (with one exception) should be of the siz=
-e
-> +Since all data buffers in the queue (with one exception) should be of th=
-e size
->  \field{period_bytes}, the completion of such an I/O request can be consi=
-dered an
->  elapsed period notification.
->
->  \paragraph{Output Stream}
->
-> -In case of an output stream, the header is followed by a device-readable=
- buffer
-> -containing PCM frames for writing to the device. All messages are placed=
- into
-> -the tx queue.
-> +In case of an output stream, the header is followed by a device-readable=
- data
-> +buffer containing PCM frames for writing to the device. All messages are=
- placed
-> +into the tx queue.
->
->  \devicenormative{\subparagraph}{Output Stream}{Device Types / Sound Devi=
-ce / Device Operation / PCM Output Stream}
->
->  \begin{itemize}
-> -\item The device MUST NOT complete the I/O request until the buffer is t=
-otally
-> +\item The device MUST NOT complete the I/O request until the data buffer=
- is totally
->  consumed.
->  \end{itemize}
->
-> @@ -718,13 +718,13 @@ \subsubsection{PCM I/O Messages}\label{sec:Device T=
-ypes / Sound Device / Device
->
->  \begin{itemize}
->  \item The driver SHOULD populate the tx queue with \field{period_bytes} =
-sized
-> -buffers. The only exception is the end of the stream.
-> -\item The driver MUST NOT place device-writable buffers into the tx queu=
-e.
-> +data buffers. The only exception is the end of the stream.
-> +\item The driver MUST NOT place device-writable data buffers into the tx=
- queue.
->  \end{itemize}
->
->  \paragraph{Input Stream}
->
-> -In case of an input stream, the header is followed by a device-writable =
-buffer
-> +In case of an input stream, the header is followed by a device-writable =
-data buffer
->  being populated with PCM frames from the device. All messages are placed=
- into
->  the rx queue.
->
-> @@ -735,7 +735,7 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Typ=
-es / Sound Device / Device
->  \devicenormative{\subparagraph}{Input Stream}{Device Types / Sound Devic=
-e / Device Operation / PCM Input Stream}
->
->  \begin{itemize}
-> -\item The device MUST NOT complete the I/O request until the buffer is f=
-ull.
-> +\item The device MUST NOT complete the I/O request until the data buffer=
- is full.
->  The only exception is the end of the stream.
->  \end{itemize}
->
-> @@ -743,8 +743,8 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Typ=
-es / Sound Device / Device
->
->  \begin{itemize}
->  \item The driver SHOULD populate the rx queue with \field{period_bytes} =
-sized
-> -empty buffers before starting the stream.
-> -\item The driver MUST NOT place device-readable buffers into the rx queu=
-e.
-> +empty data buffers before starting the stream.
-> +\item The driver MUST NOT place device-readable data buffers into the rx=
- queue.
->  \end{itemize}
->
->  \subsubsection{Channel Map Control Messages}\label{sec:Device Types / So=
-und Device / Device Operation / Channel Map Control Messages}
-> --
+Hello Mikail,
 
-Hello Anton,
+On Mon, Jan 08, 2024 at 06:18:50PM +0100, Mikhail Golubev-Ciuchea wrote:
+> Hi all!
+> 
+> I kindly request a vote.
+> 
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/186
+> 
+> 
+> Best wishes,
+> Mikhail Golubev-Ciuchea
+> 
+> 
+> 
+> On 6/9/23 16:22, Mikhail Golubev-Ciuchea wrote:
+> > From: Harald Mommer <harald.mommer@opensynergy.com>
+> > 
+> > virtio-can is a virtual CAN device. It provides a way to give access to
+> > a CAN controller from a driver guest. The device is aimed to be used by
+> > driver guests running a HLOS as well as by driver guests running a
+> > typical RTOS as used in controller environments.
+> > 
+> > Signed-off-by: Harald Mommer <Harald.Mommer@opensynergy.com>
+> > Signed-off-by: Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>
+> > ---
+> > 
+> > RFC v3:
+> > * Add length fields in CAN RX and TX messages.
+> > * Replace bus off indication queue with a config space bit.
+> > * Clarify handling of unknown flag bits set in CAN frame.
+> > * Remove MISRA C suffixes in constants.
+> > * Reserve 16 bits in RX/TX messages for CAN XL priority.
+> > * Reserve 8 bits in RX/TX messages for CAN classic DLC.
+> > * Rework according to general virtio spec POV.
+> > * Implementation:
+> >    driver: https://lore.kernel.org/all/20230607145613.133203-1-Mikhail.Golubev-Ciuchea@opensynergy.com/
+> >    QEmu device: https://github.com/OpenSynergy/qemu/tree/virtio-can-spec-rfc-v3
+> > 
+> > RFC v2:
+> > * Add CAN classic feature flag.
+> > * Add feature flag VIRTIO_CAN_F_LATE_TX_ACK.
+> > * Add feature flag VIRTIO_CAN_F_RTR_FRAMES.
+> > * Reserve 32 bits in RX/TX messages.
+> > * Remove priorities of messages.
+> > 
+> >   conformance.tex                         |  12 +-
+> >   content.tex                             |   1 +
+> >   device-types/can/description.tex        | 249 ++++++++++++++++++++++++
+> >   device-types/can/device-conformance.tex |   8 +
+> >   device-types/can/driver-conformance.tex |   7 +
+> >   introduction.tex                        |   2 +
+> >   6 files changed, 275 insertions(+), 4 deletions(-)
+> >   create mode 100644 device-types/can/description.tex
+> >   create mode 100644 device-types/can/device-conformance.tex
+> >   create mode 100644 device-types/can/driver-conformance.tex
+> > 
+> > diff --git a/conformance.tex b/conformance.tex
+> > index 01ccd69..a07ef02 100644
+> > --- a/conformance.tex
+> > +++ b/conformance.tex
+> > @@ -32,8 +32,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+> >   \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
+> >   \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance},
+> >   \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
+> > -\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance} or
+> > -\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
+> > +\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
+> > +\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
+> > +\ref{sec:Conformance / Driver Conformance / CAN Driver Conformance}.
+> >       \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
+> >     \end{itemize}
+> > @@ -59,8 +60,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+> >   \ref{sec:Conformance / Device Conformance / Memory Device Conformance},
+> >   \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance},
+> >   \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
+> > -\ref{sec:Conformance / Device Conformance / GPIO Device Conformance} or
+> > -\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
+> > +\ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
+> > +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
+> > +\ref{sec:Conformance / Device Conformance / CAN Device Conformance}.
+> >       \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
+> >     \end{itemize}
+> > @@ -152,6 +154,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+> >   \input{device-types/scmi/driver-conformance.tex}
+> >   \input{device-types/gpio/driver-conformance.tex}
+> >   \input{device-types/pmem/driver-conformance.tex}
+> > +\input{device-types/can/driver-conformance.tex}
+> >   \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
+> > @@ -238,6 +241,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+> >   \input{device-types/scmi/device-conformance.tex}
+> >   \input{device-types/gpio/device-conformance.tex}
+> >   \input{device-types/pmem/device-conformance.tex}
+> > +\input{device-types/can/device-conformance.tex}
+> >   \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
+> >   A conformant implementation MUST be either transitional or
+> > diff --git a/content.tex b/content.tex
+> > index d2ab9eb..8806b57 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -765,6 +765,7 @@ \chapter{Device Types}\label{sec:Device Types}
+> >   \input{device-types/scmi/description.tex}
+> >   \input{device-types/gpio/description.tex}
+> >   \input{device-types/pmem/description.tex}
+> > +\input{device-types/can/description.tex}
+> >   \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+> > diff --git a/device-types/can/description.tex b/device-types/can/description.tex
+> > new file mode 100644
+> > index 0000000..2511d9c
+> > --- /dev/null
+> > +++ b/device-types/can/description.tex
+> > @@ -0,0 +1,249 @@
+> > +\section{CAN Device}\label{sec:Device Types / CAN Device}
+> > +
+> > +virtio-can is a virtio based CAN (Controller Area Network) controller.
+> > +It is used to give a virtual machine access to a CAN bus. The CAN bus
+> > +might either be a physical CAN bus or a virtual CAN bus between virtual
+> > +machines or a combination of both.
+> > +
+> > +\subsection{Device ID}\label{sec:Device Types / CAN Device / Device ID}
+> > +
+> > +36
+> > +
+> > +\subsection{Virtqueues}\label{sec:Device Types / CAN Device / Virtqueues}
+> > +
+> > +\begin{description}
+> > +\item[0] Txq
+> > +\item[1] Rxq
+> > +\item[2] Controlq
+> > +\end{description}
+> > +
+> > +The \field{Txq} is used to send CAN packets to the CAN bus.
+> > +
+> > +The \field{Rxq} is used to receive CAN packets from the CAN bus.
+> > +
+> > +The \field{Controlq} is used to control the state of the CAN controller.
+> > +
+> > +\subsection{Feature bits}{Device Types / CAN Device / Feature bits}
+> > +
+> > +Actual CAN controllers support Extended CAN IDs with 29 bits (CAN~2.0B)
+> > +as well as Standard CAN IDs with 11 bits (CAN~2.0A). The support of
+> > +CAN~2.0B Extended CAN IDs is considered as mandatory for this
+> > +specification.
+> > +
+> > +\begin{description}
+> > +
+> > +\item[VIRTIO_CAN_F_CAN_CLASSIC (0)]
+> > +
+> > +The device supports classic CAN frames with a maximum payload size of 8
+> > +bytes.
+> > +
+> > +\item[VIRTIO_CAN_F_CAN_FD (1)]
+> > +
+> > +The device supports CAN FD frames with a maximum payload size of 64
+> > +bytes.
+> > +
+> > +\item[VIRTIO_CAN_F_RTR_FRAMES (2)]
+> > +
+> > +The device supports RTR (remote transmission request) frames. RTR frames
+> > +are only supported with classic CAN.
+> > +
+> > +\item[VIRTIO_CAN_F_LATE_TX_ACK (3)]
+> > +
+> > +The virtio CAN device marks transmission requests from the \field{Txq}
+> > +as used after the CAN message has been transmitted on the CAN bus. If
+> > +this feature bit has not been negotiated, the device is allowed to mark
+> > +transmission requests already as used when the CAN message has been
+> > +scheduled for transmission but might not yet have been transmitted on
+> > +the CAN bus.
+> > +
+> > +\end{description}
+> > +
+> > +\subsubsection{Feature bit requirements}\label{sec:Device Types / CAN Device / Feature bits / Feature bit requirements}
+> > +
+> > +Some CAN feature bits require other CAN feature bits:
+> > +\begin{description}
+> > +\item[VIRTIO_CAN_F_RTR_FRAMES] Requires VIRTIO_CAN_F_CAN_CLASSIC.
+> > +\end{description}
+> > +
+> > +It is required that at least one of VIRTIO_CAN_F_CAN_CLASSIC and
+> > +VIRTIO_CAN_F_CAN_FD is negotiated.
+> > +
+> > +\subsection{Device configuration layout}\label{sec:Device Types / CAN Device / Device configuration layout}
+> > +
+> > +Device configuration fields are listed below, they are read-only for a
+> > +driver. The \field{status} always exists. A single read-only bit (for
+> > +the driver) is currently defined for \field{status}:
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_can_config {
+> > +#define VIRTIO_CAN_S_CTRL_BUSOFF (1 << 0)
+> > +        le16 status;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +The bit VIRTIO_CAN_S_CTRL_BUSOFF in \field{status} is used to indicate
+> > +the unsolicited CAN controller state change from started to stopped due
+> > +to a detected bus off condition.
+> > +
+> > +\drivernormative{\subsubsection}{Device Initialization}{Device Types / CAN Device / Device Operation / Initialization}
+> > +
+> > +The driver MUST populate the \field{Rxq} with empty device-writeable
+> > +buffers of at least the size of struct virtio_can_rx, see section
+> > +\ref{struct virtio_can_rx}.
+> > +
+> > +\subsection{Device Operation}\label{sec:Device Types / CAN Device / Device Operation}
+> > +
+> > +A device operation has an outcome which is described by one of the
+> > +following values:
+> > +
+> > +\begin{lstlisting}
+> > +#define VIRTIO_CAN_RESULT_OK     0
+> > +#define VIRTIO_CAN_RESULT_NOT_OK 1
+> > +\end{lstlisting}
+> > +
+> > +Other values are to be treated like VIRTIO_CAN_RESULT_NOT_OK.
+> > +
+> > +\subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Operation / Controller Mode}
+> > +
+> > +The general format of a request in the \field{Controlq} is
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_can_control_out {
+> > +#define VIRTIO_CAN_SET_CTRL_MODE_START  0x0201
+> > +#define VIRTIO_CAN_SET_CTRL_MODE_STOP   0x0202
+> > +        le16 msg_type;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +To participate in bus communication the CAN controller is started by
+> > +sending a VIRTIO_CAN_SET_CTRL_MODE_START control message, to stop
+> > +participating in bus communication it is stopped by sending a
+> > +VIRTIO_CAN_SET_CTRL_MODE_STOP control message. Both requests are
+> > +confirmed by the result of the operation.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_can_control_in {
+> > +        u8 result;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +If the transition succeeded the \field{result} is VIRTIO_CAN_RESULT_OK
+> > +otherwise it is VIRTIO_CAN_RESULT_NOT_OK. If a status update is
+> > +necessary, the device updates the configuration \field{status} before
+> > +marking the request used. As the configuration \field{status} change is
+> > +caused by a request from the driver the device is allowed to omit the
 
-I apologize for asking again, but could you please add your R-b to
-this patch? you have already reviewed the RFC.
+Is this to indicate that when a driver requests a change, the device can
+omit notifying of the change? As I understand the specification, the
+device can omit the notification, but the change must still occur? Is it
+possible for the device to omit the change as well? What else could have
+triggered the status change if it wasn't the driver?
 
 Thanks.
 
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
+
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
