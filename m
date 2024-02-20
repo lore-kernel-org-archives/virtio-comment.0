@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9128-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9129-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5C42C48BC3
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 07:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033D5C48BC3
+	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 09:11:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 24874157EED
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 07:48:57 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 43BD53357E
+	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 09:11:47 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id C230D9865AA
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 07:48:56 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 1F36F986561
+	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 09:11:47 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 874679864A3; Tue, 20 Feb 2024 07:48:56 +0000 (UTC)
+	id EE7399864A3; Tue, 20 Feb 2024 09:11:46 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,225 +24,198 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 75B199864BB
-	for <virtio-comment@lists.oasis-open.org>; Tue, 20 Feb 2024 07:48:56 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id DED369864BB
+	for <virtio-comment@lists.oasis-open.org>; Tue, 20 Feb 2024 09:11:46 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: dnQggmUpNbmS40frjXn3vQ-1
+X-MC-Unique: iAjQjoDvOq-59NV7f6EACw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708415330; x=1709020130;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WyjQMn8R1+g6iiWR1qlDgnifvYDRCiiqTwdsQ1kNYi8=;
-        b=mgGJ5Xk950XOi/YlXk5cY4+H5+pP9T3LrEWV+hydinD25IAw6H/WRMbCYsU/Sw5Unh
-         9o3byXnHHNDzR+VWF7kATVvcoRHfpaPnInASt8p6p4VTyLSlNQaglpnInOpkSdkRNj1J
-         OngW0qyTCZqEXR6gLnBPEF73G2+A/aLQ0o0Frn2qL7oyzIdPbgaZkEP7WdflirwLFTUQ
-         n2T5YMvZ0P7hXD9doAyh1HsOtDC93Hi9xFcAWw1kGmr1nGvUtsHPiUJJKyngLvxpUJYQ
-         Ij/zKORPY8Ly0LhertZxGNizjVYSqWVMnmoF5g6oy2AmnFga4BfdkgHw1X2H4vkHrUCZ
-         rI0g==
-X-Forwarded-Encrypted: i=1; AJvYcCWxd8UxxZK5wT4QHDW5xiKFY381kDfCgLx1WgCQ1jDHrt/p18C+Iv3BEUPMkUKel9zadqq6DvUAnBxVTNuJ7Vdcq1noZzTAqJW65sLzQwg4hZ7hEg==
-X-Gm-Message-State: AOJu0YzdaiPa2XGxXujaxC9wG+/MzqgMDmD21qybRrcXzNTeCHv+Npx5
-	Me7W4IEzVbdmSZc5NS/QOWMg4w1W0+G59ZL86xSh3oL/w3bndd9urDOnMCbR/VLcitz2o3SJqjr
-	GAb9s5w6vDHbFL3nCchdPG7NxXY3DIsJeeSnre3BkiY/EchDGpDZ+wa5kv91PbTRs95Rx9Z4=
-X-Received: by 2002:adf:f390:0:b0:33d:2474:afd1 with SMTP id m16-20020adff390000000b0033d2474afd1mr6582221wro.20.1708415330593;
-        Mon, 19 Feb 2024 23:48:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHTrJ8ZxJMwJCbG9ozwraNQ0XK9X/eyNgDKgCEEMwg8u0Npo+o6+HG2J4PiSSVF4BZnikRu4A==
-X-Received: by 2002:adf:f390:0:b0:33d:2474:afd1 with SMTP id m16-20020adff390000000b0033d2474afd1mr6582205wro.20.1708415330127;
-        Mon, 19 Feb 2024 23:48:50 -0800 (PST)
-Date: Tue, 20 Feb 2024 02:48:45 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: David Stevens <stevensd@chromium.org>
-Cc: "Zhu, Lingshan" <lingshan.zhu@intel.com>, jasowang@redhat.com,
-	eperezma@redhat.com, cohuck@redhat.com, stefanha@redhat.com,
-	virtio-comment@lists.oasis-open.org,
-	virtio-dev@lists.oasis-open.org
-Message-ID: <20240220024401-mutt-send-email-mst@kernel.org>
-References: <20240218132306.83456-1-lingshan.zhu@intel.com>
- <20240218090935-mutt-send-email-mst@kernel.org>
- <CAD=HUj4b3gLsA2VD4cxmVzLPGRZfaREQcJNb4zfxLH=xv=2X6g@mail.gmail.com>
- <be09ad18-398e-47c0-abea-3f025df40734@intel.com>
- <CAD=HUj6iVc=QpA6kGyNhdM-BrD5tuAj1yUkS6gJtU+hi=QmtLg@mail.gmail.com>
+        d=1e100.net; s=20230601; t=1708420302; x=1709025102;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9q9fOlJJ9uGcC12mc2tMTyWAxS3LHqn9kbS0C3aC43E=;
+        b=SxmpFmredaGm/30NIGIv5kEnlf6Hu4X/TpQxB6vmGCAFgtwEAd61RPNao+DX/MLPS/
+         8sxw0hFsBkIHFaoPkTMfQw6Ut9iP8SjC2EKmO7kEztte7rRqckvyRyJqM47PTOD6SDRc
+         cDbkSfJe7W6QKNWYR2Rz9uq49629pjHxTNrPYNrd2EZ0Iw50YO2H+rkVHVAkGaYbb9Ki
+         wOwGBigGgYiGXolC4ZfZIOt9rEbZdP0ZzFIkOdLbiQ1RgWJJuMSSmAlGUTK2i+tCguNf
+         wmWIrCinbyZsfF+tTVHHrvEgwKgoaU5vbzGFCn9WT9dhXGA5ZLcEv/0EI7Zk+AFQIp1h
+         M2Ug==
+X-Gm-Message-State: AOJu0Yz1sUM5m8SGlBPIVe4EcOjBD4CivQsjQl+FHxCXAdbCQ4NroLTM
+	XEO1lwNPU/VMgDWRaAwvm/qulxkXhq0krVvAHaAzEoDUwDPO62OT54Zzl2o6xisi4waT2pytSNd
+	uadJ9l3RzQZgz0uDoXT5zbaSjYm1n0aUoqwbcSu4SKOD3EiduUYyn7aPkyj+PBk3TgfavG7Jvd8
+	PRg0H056UxnDetekW7NAnJRtyWJZdQSG518p/+8m2diVODgn+lwMoTPb02
+X-Received: by 2002:a67:fa55:0:b0:470:4de7:20a2 with SMTP id j21-20020a67fa55000000b004704de720a2mr4778781vsq.33.1708420302014;
+        Tue, 20 Feb 2024 01:11:42 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGF2eaeEfOodmZpxLJQbzyBRo91vUBZog/6C9MaLw3FMOpfbJB6ty04YZYc+aaBdRPwtebUTr+5bVebi0Vz6DM=
+X-Received: by 2002:a67:fa55:0:b0:470:4de7:20a2 with SMTP id
+ j21-20020a67fa55000000b004704de720a2mr4778768vsq.33.1708420301655; Tue, 20
+ Feb 2024 01:11:41 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAD=HUj6iVc=QpA6kGyNhdM-BrD5tuAj1yUkS6gJtU+hi=QmtLg@mail.gmail.com>
+References: <ZWhq3eOxSZ8a7sd1@fedora>
+In-Reply-To: <ZWhq3eOxSZ8a7sd1@fedora>
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Date: Tue, 20 Feb 2024 10:11:30 +0100
+Message-ID: <CAHYGQ0x4fKCaTE1sBmpbBzzjEw_GwFES0f3eg7oeRvWsm4S4ZA@mail.gmail.com>
+To: virtio-comment@lists.oasis-open.org
+Cc: anton.yakovlev@opensynergy.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] Re: [PATCH] virtio: introduce SUSPEND bit in device status
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH] virtio-sound: use 'data buffer' instead of 'buffer'
 
-On Tue, Feb 20, 2024 at 02:09:18PM +0900, David Stevens wrote:
-> On Tue, Feb 20, 2024 at 1:06 PM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
-> > On 2/19/2024 2:46 PM, David Stevens wrote:
-> > > On Sun, Feb 18, 2024 at 11:11 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> > >> On Sun, Feb 18, 2024 at 09:23:06PM +0800, Zhu Lingshan wrote:
-> > >>> This commit allows the driver to suspend the device by
-> > >>> introducing a new status bit SUSPEND in device_status.
-> > >>>
-> > >>> This commit also introduce a new feature bit VIRTIO_F_SUSPEND
-> > >>> which indicating whether the device support SUSPEND.
-> > >>>
-> > >>> This SUSPEND bit is transport-independent.
-> > >>>
-> > >>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> > >>> Signed-off-by: Jason Wang <jasowang@redhat.com>
-> > >>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
-> > >> Could we get some kind of dscription how this has taken into
-> > >> consideration the proposal from David Stevens?
-> > >>
-> > >> I find it really tiring when there are competing patches with authors
-> > >> ignoring each other's work and leaving it up to reviewers to
-> > >> figure out how do the patches compare.
-> > > This patch looks like it could be used to implement my use case.
-> > > However, parts of it are a bit vague and imprecise, so it's hard to
-> > > actually say whether my use case would actually be covered by a
-> > > specific implementation of this proposal.
-> > I am on vacation till this Friday. Shall we co-work on this and
-> > post something new together?
-> 
-> That works for me.
-> 
-> > >
-> > > To give specifics on what I'm trying to do, I need to allow a guest
-> > > with virtio-pci devices (including stateful devices like virtio-fs and
-> > > virtio-gpu) to be put into S1/S3, and to allow the virtio-pci devices
-> > > to wake up the guest (currently via an ACPI GPE, but eventually via a
-> > > native PCI PME). This is all done on a consumer device, so there is no
-> > > need for snapshotting or for live migration.
-> > Suspending is not dedicated only for live migration.
-> > For your use case, shall we add a new PCI section like saying: when entering
-> > SUSPEND, the device should get into S1/S3 and other PCI specific steps
-> > in PCI transport charter.
-> >
-> > That is because PCI is a transport layer of virtio, controlling virtio
-> > states by PCI sounds like a layer violation.
-> 
-> I don't know if it's really necessary to mandate that in the spec.
-> Sure, most systems are probably going to want to put the virtio-pci
-> device into S1/S3 after suspending virtio operation. But nothing
-> really breaks or goes wrong if we don't do that.
+On Thu, Nov 30, 2023 at 11:58=E2=80=AFAM Matias Ezequiel Vara Larsen
+<mvaralar@redhat.com> wrote:
+>
+> This commit replaces the wording 'buffer' with 'data buffer' when
+> referring to the payload of PCM messages. The virtio specification
+> defines the word buffer as a set of zero or more device-readable
+> physically-contiguous elements followed by zero or more
+> physically-contiguous device-writable elements. In the virtio-sound
+> section, the word is used only for the data or payload in a request. In
+> this case, the data buffer is sent together with a header, i.e.,
+> device-readable, and the status, i.e., device-writable. To not get
+> confused with the main definition, this commit replaces those usages
+> with the wording 'data buffer'.
+>
+> Reviewed-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+> ---
+>  device-types/sound/description.tex | 26 +++++++++++++-------------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
+>
+> diff --git a/device-types/sound/description.tex b/device-types/sound/desc=
+ription.tex
+> index 54c9c8e..97151fa 100644
+> --- a/device-types/sound/description.tex
+> +++ b/device-types/sound/description.tex
+> @@ -667,8 +667,8 @@ \subsubsection{PCM Notifications}
+>
+>  \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device /=
+ Device Operation / PCM IO Messages}
+>
+> -An I/O message consists of the header part, followed by the buffer, and =
+then
+> -the status part.
+> +An I/O message consists of a buffer that contains a header part, followe=
+d by
+> +the data buffer, and then the status part.
+>
+>  \begin{lstlisting}
+>  /* an I/O header */
+> @@ -697,20 +697,20 @@ \subsubsection{PCM I/O Messages}\label{sec:Device T=
+ypes / Sound Device / Device
+>  \item[\field{latency_bytes}] indicates the current device latency.
+>  \end{description}
+>
+> -Since all buffers in the queue (with one exception) should be of the siz=
+e
+> +Since all data buffers in the queue (with one exception) should be of th=
+e size
+>  \field{period_bytes}, the completion of such an I/O request can be consi=
+dered an
+>  elapsed period notification.
+>
+>  \paragraph{Output Stream}
+>
+> -In case of an output stream, the header is followed by a device-readable=
+ buffer
+> -containing PCM frames for writing to the device. All messages are placed=
+ into
+> -the tx queue.
+> +In case of an output stream, the header is followed by a device-readable=
+ data
+> +buffer containing PCM frames for writing to the device. All messages are=
+ placed
+> +into the tx queue.
+>
+>  \devicenormative{\subparagraph}{Output Stream}{Device Types / Sound Devi=
+ce / Device Operation / PCM Output Stream}
+>
+>  \begin{itemize}
+> -\item The device MUST NOT complete the I/O request until the buffer is t=
+otally
+> +\item The device MUST NOT complete the I/O request until the data buffer=
+ is totally
+>  consumed.
+>  \end{itemize}
+>
+> @@ -718,13 +718,13 @@ \subsubsection{PCM I/O Messages}\label{sec:Device T=
+ypes / Sound Device / Device
+>
+>  \begin{itemize}
+>  \item The driver SHOULD populate the tx queue with \field{period_bytes} =
+sized
+> -buffers. The only exception is the end of the stream.
+> -\item The driver MUST NOT place device-writable buffers into the tx queu=
+e.
+> +data buffers. The only exception is the end of the stream.
+> +\item The driver MUST NOT place device-writable data buffers into the tx=
+ queue.
+>  \end{itemize}
+>
+>  \paragraph{Input Stream}
+>
+> -In case of an input stream, the header is followed by a device-writable =
+buffer
+> +In case of an input stream, the header is followed by a device-writable =
+data buffer
+>  being populated with PCM frames from the device. All messages are placed=
+ into
+>  the rx queue.
+>
+> @@ -735,7 +735,7 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Typ=
+es / Sound Device / Device
+>  \devicenormative{\subparagraph}{Input Stream}{Device Types / Sound Devic=
+e / Device Operation / PCM Input Stream}
+>
+>  \begin{itemize}
+> -\item The device MUST NOT complete the I/O request until the buffer is f=
+ull.
+> +\item The device MUST NOT complete the I/O request until the data buffer=
+ is full.
+>  The only exception is the end of the stream.
+>  \end{itemize}
+>
+> @@ -743,8 +743,8 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Typ=
+es / Sound Device / Device
+>
+>  \begin{itemize}
+>  \item The driver SHOULD populate the rx queue with \field{period_bytes} =
+sized
+> -empty buffers before starting the stream.
+> -\item The driver MUST NOT place device-readable buffers into the rx queu=
+e.
+> +empty data buffers before starting the stream.
+> +\item The driver MUST NOT place device-readable data buffers into the rx=
+ queue.
+>  \end{itemize}
+>
+>  \subsubsection{Channel Map Control Messages}\label{sec:Device Types / So=
+und Device / Device Operation / Channel Map Control Messages}
+> --
 
-What I feel is worth mentioning in virtio spec is that just setting the
-status bit does not reduce power by itself, standard pci
-control is required for that.
+Hello Anton,
 
-> > >
-> > >>> ---
-> > >>>   content.tex | 34 ++++++++++++++++++++++++++++++++--
-> > >>>   1 file changed, 32 insertions(+), 2 deletions(-)
-> > >>>
-> > >>> diff --git a/content.tex b/content.tex
-> > >>> index 0a62dce..3d656b5 100644
-> > >>> --- a/content.tex
-> > >>> +++ b/content.tex
-> > >>> @@ -49,6 +49,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
-> > >>>
-> > >>>   \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
-> > >>>     an error from which it can't recover.
-> > >>> +
-> > >>> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that the
-> > >>> +  device has been suspended by the driver.
-> > >>>   \end{description}
-> > >>>
-> > >>>   The \field{device status} field starts out as 0, and is reinitialized to 0 by
-> > >>> @@ -73,6 +76,10 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
-> > >>>   recover by issuing a reset.
-> > >>>   \end{note}
-> > >>>
-> > >>> +The driver SHOULD NOT set SUSPEND if FEATURES_OK is not set.
-> > >>> +
-> > >>> +When setting SUSPEND, the driver MUST re-read \field{device status} to ensure the SUSPEND bit is set.
-> > >>> +
-> > >>>   \devicenormative{\subsection}{Device Status Field}{Basic Facilities of a Virtio Device / Device Status Field}
-> > >>>
-> > >>>   The device MUST NOT consume buffers or send any used buffer
-> > >>> @@ -82,6 +89,25 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
-> > >>>   that a reset is needed.  If DRIVER_OK is set, after it sets DEVICE_NEEDS_RESET, the device
-> > >>>   MUST send a device configuration change notification to the driver.
-> > >>>
-> > >>> +The device MUST ignore SUSPEND if FEATURES_OK is not set.
-> > >>> +
-> > >>> +The device MUST ignore SUSPEND if VIRTIO_F_SUSPEND is not negotiated.
-> > >>> +
-> > >>> +The device SHOULD allow settings to \field{device status} even when SUSPEND is set.
-> > >>> +
-> > >>> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device SHOULD clear SUSPEND
-> > >>> +and resumes operation upon DRIVER_OK.
-> > >>> +
-> > >>> +If VIRTIO_F_SUSPEND is negotiated, when the driver sets SUSPEND,
-> > >>> +the device SHOULD perform the following actions before presenting SUSPEND bit in the \field{device status}:
-> > >>> +
-> > >>> +\begin{itemize}
-> > >>> +\item Stop consuming buffers of any virtqueues and mark all finished descriptors as used.
-> > >>> +\item Wait until all descriptors that being processed to finish and mark them as used.
-> > >>> +\item Flush all used buffer and send used buffer notifications to the driver.
-> > > What's the difference between the previous three lines? They might be
-> > > trying to say different things, but there is a lot of overlap in how
-> > > they're phrased. That makes it hard to figure out exactly what they're
-> > > mandating. Is it something like: "stop processing new buffers",
-> > > "finish processing any buffers that are currently in flight", "mark
-> > > all finished buffers as used and send a used buffer notification"?
-> > sure, the "mark used" parts can merge.
-> > >
-> > > Also, what does this mean for devices where the driver places empty
-> > > buffers into the virtqueue that the device then holds on to for an
-> > > indeterminate period of time (e.g. network receiveq, balloon statsq,
-> > > etc)?
-> > The device doesn't process them.
-> > Oh, I should add: The driver should not make any more buffers available
-> > to the device.
-> > >
-> > >>> +\item Pause its operation except \field{device status} and preserve configurations in its Device Configuration Space, see \ref{sec:Basic Facilities of a Virtio Device / Device Configuration Space}
-> > > What does "Pause its operation except device status" mean? The word
-> > > "operation" is vague, what exactly does it include? Also what does
-> > > "operate its device status" mean?
-> > Because we need to resume the device after suspending it by setting
-> > DRIVER_OK, so we need the device status
-> > filed keel alive.
-> 
-> This doesn't answer what "Pause its operation" means. If the
-> specification is not precise, then the best that can be implemented is
-> for a specific device to be compatible with a specific driver. If we
-> actually want portable, spec-compliant devices, we need explicitly
-> defined MUST/MUST NOT requirements. Presumably we want something like:
-> 
-> A device MUST not send notifications while suspended.
-> A device MUST ignore writes to its device configuration while
-> suspended, except for writes to the device status byte.
-> A driver MUST NOT write to a suspended device's configuration space,
-> except for the device status byte.
-> 
-> We also need to specify what a suspended device is allowed to do with
-> buffers it owns. For my use case of just suspending/resuming a VM, I
-> don't think it particularly matters if a suspended device writes to
-> buffers or descriptors while it is suspended. But based on what you
-> wrote about finishing any in-flight processing of buffers and not
-> processing any empty buffers, presumably you would prefer that the
-> device not be allowed to access buffer/descriptors while it is
-> suspended? That approach is probably cleaner from a pure specification
-> standpoint, but it's also more restrictive for devices and thus harder
-> to properly implement.
-> 
-> -David
+I apologize for asking again, but could you please add your R-b to
+this patch? you have already reviewed the RFC.
 
-Of course it's a bit harder. It does not sound too restrictive
-to me: as driver will not be adding new buffers, if device is
-still processing queues just defer setting the bit until it does not.
+Thanks.
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
