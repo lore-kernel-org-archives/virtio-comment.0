@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9131-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9132-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29136C48BF6
-	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DABE2C48BF6
+	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 13:17:03 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5BA5D21697
-	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1E2F32B014
+	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 13:17:03 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3369598654C
-	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 00BDB986538
+	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 13:17:02 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 13BFA9864A1; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
+	id D4F1C9864A1; Wed, 21 Feb 2024 13:17:02 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,354 +24,85 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F3EE39864B2
-	for <virtio-comment@lists.oasis-open.org>; Wed, 21 Feb 2024 10:38:06 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id C4AA89864B2
+	for <virtio-comment@lists.oasis-open.org>; Wed, 21 Feb 2024 13:17:02 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: J1ZjoW_wMtuXmjWCnAe8tg-1
+X-MC-Unique: 8TLjal75NrqwXFGXldlEJA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708511882; x=1709116682;
+        d=1e100.net; s=20230601; t=1708521417; x=1709126217;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lAVxcOPDEZJxM6i7aQn3XYob29rMeLhU2d9y+FaJgfs=;
-        b=Nt8kTqlk1YVnoHdijIaltCviQlv1phnl4RbR+1ex5iJvmLh5f9lOHe6y2P+7VyF7XO
-         kqQ76x0Fdg+Ls8rk7ka7Xa9ItvM/UaPuieh7zivbzXQKZBmQRGyDCs+b3kg/SgOYL8+P
-         DbVjPZT5UxU7GxBP55aOM7MYTeKRE9G3uekiCYx6JLp5CZrPG+Zl+j2RywQkNukjtQbV
-         Nth3r4IH4XicM8V/JTXZXazxNPIeyU2ZpZRgFSqgzzXAC/OMnbA2QwoLcg6sYAotuv5Q
-         8PFGP77poaEb4zZ/tx2L+MWOgMNiAWJe0mIyY8r7F/8QvYmy6WUhZqH+gO31JguO/Nz5
-         Dghw==
-X-Gm-Message-State: AOJu0Yw1Xbe2UKe5EOFyA2LL08CxwFXWZBkR6XrOC91MDfX312N5+/Yj
-	aN0/nFVaI865AJ0QjH9sLWqYkh+5R+JdFmwtgKFGPfUnPy93yuiEXmYPYWsEV1bnuH8paGa1yP0
-	sYjjgRv/Ip32lUvLHSk8Xf7JgKf//F2V3oYy2wH2n5+u5exhXx6yVUiB17sWkPa+RMldrdkM=
-X-Received: by 2002:a37:e20d:0:b0:787:272a:e298 with SMTP id g13-20020a37e20d000000b00787272ae298mr18443395qki.62.1708511881803;
-        Wed, 21 Feb 2024 02:38:01 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFN64Ep5SwWZRxbcPkzLAjml//d/dR75DPVPcwzfci4T9ZHTk1nZWZnJs+Hbs9gkonawtjI7w==
-X-Received: by 2002:a37:e20d:0:b0:787:272a:e298 with SMTP id g13-20020a37e20d000000b00787272ae298mr18443383qki.62.1708511881413;
-        Wed, 21 Feb 2024 02:38:01 -0800 (PST)
-Date: Wed, 21 Feb 2024 11:37:58 +0100
+        bh=m/w1WDwOHGakhJUAR/C6JZj5tsVNs/vIQZ9PZvXihR0=;
+        b=EgZxkcfURGeRnQK0wSHiVG/E80eRl01/Raq6sxxQ6Cx/cFWkxsPtnZhSQ4M97mvuRp
+         Ih5F2pv9/9ro90Mkr4VCmfKHo0jIdg4GcxW2QFbREBpgC4iZ94mdcxxpSEwPAvJNml48
+         LtQZOJTERyOafJtv3RoC7atYL1rWIRMhcVgvZfYcazhji1YqjmSJZdlLE4lZlQVhHcjR
+         FRfSg/89wOr/8Ol+W8Xfp/3GLcB0pm0cNXi2iO0st9Trb14Tz9VOcz8hywWh0LJS+PAL
+         mhw0+AGlz1vuDxZUjhxR4MhOG1pKqMBBnNMGo9ndD9OlZW0vSrIp5kB/KwJqfvALrzTE
+         Ecsw==
+X-Forwarded-Encrypted: i=1; AJvYcCVDR56e3041AGpBZM7sOpiT03HDv0vphzr/KYoNNkcbs1bkuNWzV8Xwgn2ZXqocsuAcU7EOTKQWD5xho/HcFjKeYuOtj+BHWaGRwZgSG3qi9brGTQ==
+X-Gm-Message-State: AOJu0Yys0JAfqVnPQJVOOqriFjeePgSsvIwcvrUuRxXQ/pZac/doZStN
+	i5WF4i0f1v1wKqePS1ujSQ0jVFeQapqlzU84xi0XgV4B2hl+Gm32QP8IXFtuE1ZVV6AojtgO6ve
+	4RAQl4OkW+i7TKVCy0LMvW8/pMfno1QuaVa0kVufY+7d3ItjlxpAcOpKB0toVoXQiwVzWrVU=
+X-Received: by 2002:a2e:9858:0:b0:2d2:31f4:35c with SMTP id e24-20020a2e9858000000b002d231f4035cmr6596915ljj.25.1708521417002;
+        Wed, 21 Feb 2024 05:16:57 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGqTrtmtAQXm6a084V0K36E+nFmsfirlA7sHCUWcc7J24nFFUapF0/gtS/pp7AUV6Fb2PWRSQ==
+X-Received: by 2002:a2e:9858:0:b0:2d2:31f4:35c with SMTP id e24-20020a2e9858000000b002d231f4035cmr6596894ljj.25.1708521416595;
+        Wed, 21 Feb 2024 05:16:56 -0800 (PST)
+Date: Wed, 21 Feb 2024 14:16:54 +0100
 From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@opensynergy.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
-	linux-can@vger.kernel.org,
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@opensynergy.com>,
+	virtio-comment@lists.oasis-open.org,
+	virtio-dev@lists.oasis-open.org, linux-can@vger.kernel.org,
 	Harald Mommer <harald.mommer@opensynergy.com>
-Message-ID: <ZdXShopKyMYPTUva@fedora>
+Message-ID: <ZdX3xgM36iOVhr3V@fedora>
 References: <20230609142243.199074-1-Mikhail.Golubev-Ciuchea@opensynergy.com>
  <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
+ <ZdXShopKyMYPTUva@fedora>
+ <20240221-acts-decade-76d3d69e8e4d-mkl@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
+In-Reply-To: <20240221-acts-decade-76d3d69e8e4d-mkl@pengutronix.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [virtio-comment] [RFC PATCH v3] virtio-can: Device specification.
+Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] [RFC PATCH v3] virtio-can:
+ Device specification.
 
-On Mon, Jan 08, 2024 at 06:18:50PM +0100, Mikhail Golubev-Ciuchea wrote:
-> Hi all!
+On Wed, Feb 21, 2024 at 01:49:31PM +0100, Marc Kleine-Budde wrote:
+> On 21.02.2024 11:37:58, Matias Ezequiel Vara Larsen wrote:
+> > > > +The length of the \field{sdu} is determined by the \field{length}.
+> > > > +
+> > > > +The type of a CAN message identifier is determined by \field{flags}. The
+> > > > +3 most significant bits of \field{can_id} do not bear the information
+> > > > +about the type of the CAN message identifier and are 0.
+> > > > +
+> > > > +The device MUST reject any CAN frame type for which support has not been
+> > > > +negotiated with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST NOT
+> > > > +schedule the message for transmission. A CAN frame with an undefined bit
+> > > > +set in \field{flags} is treated like a CAN frame for which support has
+> > > > +not been negotiated.
+> > > > +
+> > > > +The device MUST reject any CAN frame for which \field{can_id} or
+> > > > +\field{sdu} length are out of range or the CAN controller is in an
+> > > > +invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
+> > > > +NOT schedule the message for transmission.
+> > > > +
+> > I am not very familiar with CAN but how does the device figure out that
+> > the can_id is out of range?
 > 
-> I kindly request a vote.
+> In classical CAN we have the standard CAN frames, which have an 11 bit
+> ID, and there are extended CAN frames, which have 29 bits ID. Extended
+> frames are signaled with VIRTIO_CAN_FLAGS_EXTENDED set.
 > 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/186
+> So if a standard frame uses more than 11 Bits of CAN-ID, it's considered
+> out of range.
 > 
-> 
-> Best wishes,
-> Mikhail Golubev-Ciuchea
-> 
-> 
-> 
-> On 6/9/23 16:22, Mikhail Golubev-Ciuchea wrote:
-> > From: Harald Mommer <harald.mommer@opensynergy.com>
-> > 
-> > virtio-can is a virtual CAN device. It provides a way to give access to
-> > a CAN controller from a driver guest. The device is aimed to be used by
-> > driver guests running a HLOS as well as by driver guests running a
-> > typical RTOS as used in controller environments.
-> > 
-> > Signed-off-by: Harald Mommer <Harald.Mommer@opensynergy.com>
-> > Signed-off-by: Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>
-> > ---
-> > 
-> > RFC v3:
-> > * Add length fields in CAN RX and TX messages.
-> > * Replace bus off indication queue with a config space bit.
-> > * Clarify handling of unknown flag bits set in CAN frame.
-> > * Remove MISRA C suffixes in constants.
-> > * Reserve 16 bits in RX/TX messages for CAN XL priority.
-> > * Reserve 8 bits in RX/TX messages for CAN classic DLC.
-> > * Rework according to general virtio spec POV.
-> > * Implementation:
-> >    driver: https://lore.kernel.org/all/20230607145613.133203-1-Mikhail.Golubev-Ciuchea@opensynergy.com/
-> >    QEmu device: https://github.com/OpenSynergy/qemu/tree/virtio-can-spec-rfc-v3
-> > 
-> > RFC v2:
-> > * Add CAN classic feature flag.
-> > * Add feature flag VIRTIO_CAN_F_LATE_TX_ACK.
-> > * Add feature flag VIRTIO_CAN_F_RTR_FRAMES.
-> > * Reserve 32 bits in RX/TX messages.
-> > * Remove priorities of messages.
-> > 
-> >   conformance.tex                         |  12 +-
-> >   content.tex                             |   1 +
-> >   device-types/can/description.tex        | 249 ++++++++++++++++++++++++
-> >   device-types/can/device-conformance.tex |   8 +
-> >   device-types/can/driver-conformance.tex |   7 +
-> >   introduction.tex                        |   2 +
-> >   6 files changed, 275 insertions(+), 4 deletions(-)
-> >   create mode 100644 device-types/can/description.tex
-> >   create mode 100644 device-types/can/device-conformance.tex
-> >   create mode 100644 device-types/can/driver-conformance.tex
-> > 
-> > diff --git a/conformance.tex b/conformance.tex
-> > index 01ccd69..a07ef02 100644
-> > --- a/conformance.tex
-> > +++ b/conformance.tex
-> > @@ -32,8 +32,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
-> >   \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
-> >   \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance},
-> >   \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
-> > -\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance} or
-> > -\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
-> > +\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
-> > +\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
-> > +\ref{sec:Conformance / Driver Conformance / CAN Driver Conformance}.
-> >       \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
-> >     \end{itemize}
-> > @@ -59,8 +60,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
-> >   \ref{sec:Conformance / Device Conformance / Memory Device Conformance},
-> >   \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance},
-> >   \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
-> > -\ref{sec:Conformance / Device Conformance / GPIO Device Conformance} or
-> > -\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
-> > +\ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
-> > +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
-> > +\ref{sec:Conformance / Device Conformance / CAN Device Conformance}.
-> >       \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
-> >     \end{itemize}
-> > @@ -152,6 +154,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
-> >   \input{device-types/scmi/driver-conformance.tex}
-> >   \input{device-types/gpio/driver-conformance.tex}
-> >   \input{device-types/pmem/driver-conformance.tex}
-> > +\input{device-types/can/driver-conformance.tex}
-> >   \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
-> > @@ -238,6 +241,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
-> >   \input{device-types/scmi/device-conformance.tex}
-> >   \input{device-types/gpio/device-conformance.tex}
-> >   \input{device-types/pmem/device-conformance.tex}
-> > +\input{device-types/can/device-conformance.tex}
-> >   \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
-> >   A conformant implementation MUST be either transitional or
-> > diff --git a/content.tex b/content.tex
-> > index d2ab9eb..8806b57 100644
-> > --- a/content.tex
-> > +++ b/content.tex
-> > @@ -765,6 +765,7 @@ \chapter{Device Types}\label{sec:Device Types}
-> >   \input{device-types/scmi/description.tex}
-> >   \input{device-types/gpio/description.tex}
-> >   \input{device-types/pmem/description.tex}
-> > +\input{device-types/can/description.tex}
-> >   \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-> > diff --git a/device-types/can/description.tex b/device-types/can/description.tex
-> > new file mode 100644
-> > index 0000000..2511d9c
-> > --- /dev/null
-> > +++ b/device-types/can/description.tex
-> > @@ -0,0 +1,249 @@
-> > +\section{CAN Device}\label{sec:Device Types / CAN Device}
-> > +
-> > +virtio-can is a virtio based CAN (Controller Area Network) controller.
-> > +It is used to give a virtual machine access to a CAN bus. The CAN bus
-> > +might either be a physical CAN bus or a virtual CAN bus between virtual
-> > +machines or a combination of both.
-> > +
-> > +\subsection{Device ID}\label{sec:Device Types / CAN Device / Device ID}
-> > +
-> > +36
-> > +
-> > +\subsection{Virtqueues}\label{sec:Device Types / CAN Device / Virtqueues}
-> > +
-> > +\begin{description}
-> > +\item[0] Txq
-> > +\item[1] Rxq
-> > +\item[2] Controlq
-> > +\end{description}
-> > +
-> > +The \field{Txq} is used to send CAN packets to the CAN bus.
-> > +
-> > +The \field{Rxq} is used to receive CAN packets from the CAN bus.
-> > +
-> > +The \field{Controlq} is used to control the state of the CAN controller.
-> > +
-> > +\subsection{Feature bits}{Device Types / CAN Device / Feature bits}
-> > +
-> > +Actual CAN controllers support Extended CAN IDs with 29 bits (CAN~2.0B)
-> > +as well as Standard CAN IDs with 11 bits (CAN~2.0A). The support of
-> > +CAN~2.0B Extended CAN IDs is considered as mandatory for this
-> > +specification.
-> > +
-> > +\begin{description}
-> > +
-> > +\item[VIRTIO_CAN_F_CAN_CLASSIC (0)]
-> > +
-> > +The device supports classic CAN frames with a maximum payload size of 8
-> > +bytes.
-> > +
-> > +\item[VIRTIO_CAN_F_CAN_FD (1)]
-> > +
-> > +The device supports CAN FD frames with a maximum payload size of 64
-> > +bytes.
-> > +
-> > +\item[VIRTIO_CAN_F_RTR_FRAMES (2)]
-> > +
-> > +The device supports RTR (remote transmission request) frames. RTR frames
-> > +are only supported with classic CAN.
-> > +
-> > +\item[VIRTIO_CAN_F_LATE_TX_ACK (3)]
-> > +
-> > +The virtio CAN device marks transmission requests from the \field{Txq}
-> > +as used after the CAN message has been transmitted on the CAN bus. If
-> > +this feature bit has not been negotiated, the device is allowed to mark
-> > +transmission requests already as used when the CAN message has been
-> > +scheduled for transmission but might not yet have been transmitted on
-> > +the CAN bus.
-> > +
-> > +\end{description}
-> > +
-> > +\subsubsection{Feature bit requirements}\label{sec:Device Types / CAN Device / Feature bits / Feature bit requirements}
-> > +
-> > +Some CAN feature bits require other CAN feature bits:
-> > +\begin{description}
-> > +\item[VIRTIO_CAN_F_RTR_FRAMES] Requires VIRTIO_CAN_F_CAN_CLASSIC.
-> > +\end{description}
-> > +
-> > +It is required that at least one of VIRTIO_CAN_F_CAN_CLASSIC and
-> > +VIRTIO_CAN_F_CAN_FD is negotiated.
-> > +
-> > +\subsection{Device configuration layout}\label{sec:Device Types / CAN Device / Device configuration layout}
-> > +
-> > +Device configuration fields are listed below, they are read-only for a
-> > +driver. The \field{status} always exists. A single read-only bit (for
-> > +the driver) is currently defined for \field{status}:
-> > +
-> > +\begin{lstlisting}
-> > +struct virtio_can_config {
-> > +#define VIRTIO_CAN_S_CTRL_BUSOFF (1 << 0)
-> > +        le16 status;
-> > +};
-> > +\end{lstlisting}
-> > +
-> > +The bit VIRTIO_CAN_S_CTRL_BUSOFF in \field{status} is used to indicate
-> > +the unsolicited CAN controller state change from started to stopped due
-> > +to a detected bus off condition.
-> > +
-> > +\drivernormative{\subsubsection}{Device Initialization}{Device Types / CAN Device / Device Operation / Initialization}
-> > +
-> > +The driver MUST populate the \field{Rxq} with empty device-writeable
-> > +buffers of at least the size of struct virtio_can_rx, see section
-> > +\ref{struct virtio_can_rx}.
-> > +
-> > +\subsection{Device Operation}\label{sec:Device Types / CAN Device / Device Operation}
-> > +
-> > +A device operation has an outcome which is described by one of the
-> > +following values:
-> > +
-> > +\begin{lstlisting}
-> > +#define VIRTIO_CAN_RESULT_OK     0
-> > +#define VIRTIO_CAN_RESULT_NOT_OK 1
-> > +\end{lstlisting}
-> > +
-> > +Other values are to be treated like VIRTIO_CAN_RESULT_NOT_OK.
-> > +
-> > +\subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Operation / Controller Mode}
-> > +
-> > +The general format of a request in the \field{Controlq} is
-> > +
-> > +\begin{lstlisting}
-> > +struct virtio_can_control_out {
-> > +#define VIRTIO_CAN_SET_CTRL_MODE_START  0x0201
-> > +#define VIRTIO_CAN_SET_CTRL_MODE_STOP   0x0202
-> > +        le16 msg_type;
-> > +};
-> > +\end{lstlisting}
-> > +
-> > +To participate in bus communication the CAN controller is started by
-> > +sending a VIRTIO_CAN_SET_CTRL_MODE_START control message, to stop
-> > +participating in bus communication it is stopped by sending a
-> > +VIRTIO_CAN_SET_CTRL_MODE_STOP control message. Both requests are
-> > +confirmed by the result of the operation.
-> > +
-> > +\begin{lstlisting}
-> > +struct virtio_can_control_in {
-> > +        u8 result;
-> > +};
-> > +\end{lstlisting}
-> > +
-> > +If the transition succeeded the \field{result} is VIRTIO_CAN_RESULT_OK
-> > +otherwise it is VIRTIO_CAN_RESULT_NOT_OK. If a status update is
-> > +necessary, the device updates the configuration \field{status} before
-> > +marking the request used. As the configuration \field{status} change is
-> > +caused by a request from the driver the device is allowed to omit the
-> > +configuration change notification here. The device marks the request
-> > +used when the CAN controller has finalized the transition to the
-> > +requested controller mode.
-> > +
-> > +On transition to the STOPPED state the device cancels all CAN messages
-> > +already pending for transmission and marks them as used with
-> > +\field{result} VIRTIO_CAN_RESULT_NOT_OK. In the STOPPED state the
-> > +device marks messages received from the
-> > +\field{Txq} as used with \field{result} VIRTIO_CAN_RESULT_NOT_OK without
-> > +transmitting them to the CAN bus.
-> > +
-> > +Initially the CAN controller is in the STOPPED state.
-> > +
-> > +Control queue messages are processed in order.
-> > +
-> > +\devicenormative{\subsubsection}{CAN Message Transmission}{Device Types / CAN Device / Device Operation / CAN Message Transmission}
-> > +
-> > +The driver transmits messages by placing outgoing CAN messages in the
-> > +\field{Txq} virtqueue.
-> > +
-> > +\label{struct virtio_can_tx_out}
-> > +\begin{lstlisting}
-> > +struct virtio_can_tx_out {
-> > +#define VIRTIO_CAN_TX 0x0001
-> > +        le16 msg_type;
-> > +        le16 length; /* 0..8 CC, 0..64 CAN-FD, 0..2048 CAN-XL, 12 bits */
-> > +        u8 reserved_classic_dlc; /* If CAN classic length = 8 then DLC can be 8..15 */
-> > +        u8 padding;
-> > +        le16 reserved_xl_priority; /* May be needed for CAN XL priority */
-> > +#define VIRTIO_CAN_FLAGS_FD            0x4000
-> > +#define VIRTIO_CAN_FLAGS_EXTENDED      0x8000
-> > +#define VIRTIO_CAN_FLAGS_RTR           0x2000
-> > +        le32 flags;
-> > +        le32 can_id;
-> > +        u8 sdu[];
-> > +};
-> > +
-> > +struct virtio_can_tx_in {
-> > +        u8 result;
-> > +};
-> > +\end{lstlisting}
-> > +
-> > +The length of the \field{sdu} is determined by the \field{length}.
-> > +
-> > +The type of a CAN message identifier is determined by \field{flags}. The
-> > +3 most significant bits of \field{can_id} do not bear the information
-> > +about the type of the CAN message identifier and are 0.
-> > +
-> > +The device MUST reject any CAN frame type for which support has not been
-> > +negotiated with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST NOT
-> > +schedule the message for transmission. A CAN frame with an undefined bit
-> > +set in \field{flags} is treated like a CAN frame for which support has
-> > +not been negotiated.
-> > +
-> > +The device MUST reject any CAN frame for which \field{can_id} or
-> > +\field{sdu} length are out of range or the CAN controller is in an
-> > +invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
-> > +NOT schedule the message for transmission.
-> > +
-I am not very familiar with CAN but how does the device figure out that
-the can_id is out of range?
+Thanks Marc for the explanation. Do you think that it would be
+worthwhile to add that to the spec at some point?
 
-Thanks, Matias.
+Matias.
 
 
 This publicly archived list offers a means to provide input to the
