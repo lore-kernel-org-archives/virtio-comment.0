@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9130-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9131-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3AEC48BC3
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 12:20:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29136C48BF6
+	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 818661FF6C
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 12:20:34 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 5BA5D21697
+	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 4B312986591
-	for <virtio-comment@archiver.kernel.org>; Tue, 20 Feb 2024 12:20:34 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3369598654C
+	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 20C689864A3; Tue, 20 Feb 2024 12:20:34 +0000 (UTC)
+	id 13BFA9864A1; Wed, 21 Feb 2024 10:38:07 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,38 +24,37 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 028339864CD
-	for <virtio-comment@lists.oasis-open.org>; Tue, 20 Feb 2024 12:19:09 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id F3EE39864B2
+	for <virtio-comment@lists.oasis-open.org>; Wed, 21 Feb 2024 10:38:06 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 2vCAZ9QeNsy56zwI57fbTw-1
+X-MC-Unique: J1ZjoW_wMtuXmjWCnAe8tg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708431544; x=1709036344;
+        d=1e100.net; s=20230601; t=1708511882; x=1709116682;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PSvKlxYTJ1WGbSz33qbmvPeGwoubasafQ6TRCDUandk=;
-        b=GpbEhNzF1WjpcMUuMO1VhM5OKoyDA5wh2OTQradZyPqIn5poH6yn3uXuVY3Z3zR2iB
-         bsKUoM6sN3iwckDuUou0qpqyLVJ6SP5j96jTkyZhOLpEKeahRzse6AgFJw4OPyOJ0zmE
-         usNr5O5oH4zHZj5PxWLZwSTBHdf5cD7y6QcrKSWsJiZgQHleZOQ7me9/2YluM6YBqisb
-         +DoOLuA1olIFsuPwh+pe3Nr69HN+am5itqTQKdUbNsmz79r4eIRlr5ZUcCgtUbhsdBsz
-         HHmi3fUM1VDlnq3gP4wbA0SJVVmAJXYYhXwENanO9rAqYTARkqSF6h+L+gtM6cTEMaXy
-         66jA==
-X-Gm-Message-State: AOJu0YydBGUGfX5a5+vFGkhWyp2lhcTTENMLCX1f2K4UvdCfDasOpmoq
-	VHO6s7ZsXmagQsbqSOQKVmSU7Pf7O/XRgSPosYuUn9gVnlYVgwm8EhYg91LzNCeJxX6A0U66ObS
-	phr5bIA9le3YYWicn4p1fU0Rr00lJ2SJ9K2Xg4h66z7M8gATB4J6vQCuX50fqTKQmY4NHrlTx1k
-	9h64k=
-X-Received: by 2002:a05:6214:2245:b0:68e:ecf5:8bdd with SMTP id c5-20020a056214224500b0068eecf58bddmr25668844qvc.9.1708431544161;
-        Tue, 20 Feb 2024 04:19:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFIcand39HCFOjLEqoA7Cqkzmz+CBrXH4h1hJteepwSvSM4zV5FZN3L4vxVwOdNeSL+B/mSlA==
-X-Received: by 2002:a05:6214:2245:b0:68e:ecf5:8bdd with SMTP id c5-20020a056214224500b0068eecf58bddmr25668815qvc.9.1708431543759;
-        Tue, 20 Feb 2024 04:19:03 -0800 (PST)
-Date: Tue, 20 Feb 2024 13:19:00 +0100
+        bh=lAVxcOPDEZJxM6i7aQn3XYob29rMeLhU2d9y+FaJgfs=;
+        b=Nt8kTqlk1YVnoHdijIaltCviQlv1phnl4RbR+1ex5iJvmLh5f9lOHe6y2P+7VyF7XO
+         kqQ76x0Fdg+Ls8rk7ka7Xa9ItvM/UaPuieh7zivbzXQKZBmQRGyDCs+b3kg/SgOYL8+P
+         DbVjPZT5UxU7GxBP55aOM7MYTeKRE9G3uekiCYx6JLp5CZrPG+Zl+j2RywQkNukjtQbV
+         Nth3r4IH4XicM8V/JTXZXazxNPIeyU2ZpZRgFSqgzzXAC/OMnbA2QwoLcg6sYAotuv5Q
+         8PFGP77poaEb4zZ/tx2L+MWOgMNiAWJe0mIyY8r7F/8QvYmy6WUhZqH+gO31JguO/Nz5
+         Dghw==
+X-Gm-Message-State: AOJu0Yw1Xbe2UKe5EOFyA2LL08CxwFXWZBkR6XrOC91MDfX312N5+/Yj
+	aN0/nFVaI865AJ0QjH9sLWqYkh+5R+JdFmwtgKFGPfUnPy93yuiEXmYPYWsEV1bnuH8paGa1yP0
+	sYjjgRv/Ip32lUvLHSk8Xf7JgKf//F2V3oYy2wH2n5+u5exhXx6yVUiB17sWkPa+RMldrdkM=
+X-Received: by 2002:a37:e20d:0:b0:787:272a:e298 with SMTP id g13-20020a37e20d000000b00787272ae298mr18443395qki.62.1708511881803;
+        Wed, 21 Feb 2024 02:38:01 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFN64Ep5SwWZRxbcPkzLAjml//d/dR75DPVPcwzfci4T9ZHTk1nZWZnJs+Hbs9gkonawtjI7w==
+X-Received: by 2002:a37:e20d:0:b0:787:272a:e298 with SMTP id g13-20020a37e20d000000b00787272ae298mr18443383qki.62.1708511881413;
+        Wed, 21 Feb 2024 02:38:01 -0800 (PST)
+Date: Wed, 21 Feb 2024 11:37:58 +0100
 From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 To: Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@opensynergy.com>
 Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
 	linux-can@vger.kernel.org,
 	Harald Mommer <harald.mommer@opensynergy.com>
-Message-ID: <ZdSYtPtn5UzKNhAi@fedora>
+Message-ID: <ZdXShopKyMYPTUva@fedora>
 References: <20230609142243.199074-1-Mikhail.Golubev-Ciuchea@opensynergy.com>
  <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
 MIME-Version: 1.0
@@ -65,8 +64,6 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Subject: Re: [virtio-comment] [RFC PATCH v3] virtio-can: Device specification.
-
-Hello Mikail,
 
 On Mon, Jan 08, 2024 at 06:18:50PM +0100, Mikhail Golubev-Ciuchea wrote:
 > Hi all!
@@ -312,14 +309,69 @@ On Mon, Jan 08, 2024 at 06:18:50PM +0100, Mikhail Golubev-Ciuchea wrote:
 > > +necessary, the device updates the configuration \field{status} before
 > > +marking the request used. As the configuration \field{status} change is
 > > +caused by a request from the driver the device is allowed to omit the
+> > +configuration change notification here. The device marks the request
+> > +used when the CAN controller has finalized the transition to the
+> > +requested controller mode.
+> > +
+> > +On transition to the STOPPED state the device cancels all CAN messages
+> > +already pending for transmission and marks them as used with
+> > +\field{result} VIRTIO_CAN_RESULT_NOT_OK. In the STOPPED state the
+> > +device marks messages received from the
+> > +\field{Txq} as used with \field{result} VIRTIO_CAN_RESULT_NOT_OK without
+> > +transmitting them to the CAN bus.
+> > +
+> > +Initially the CAN controller is in the STOPPED state.
+> > +
+> > +Control queue messages are processed in order.
+> > +
+> > +\devicenormative{\subsubsection}{CAN Message Transmission}{Device Types / CAN Device / Device Operation / CAN Message Transmission}
+> > +
+> > +The driver transmits messages by placing outgoing CAN messages in the
+> > +\field{Txq} virtqueue.
+> > +
+> > +\label{struct virtio_can_tx_out}
+> > +\begin{lstlisting}
+> > +struct virtio_can_tx_out {
+> > +#define VIRTIO_CAN_TX 0x0001
+> > +        le16 msg_type;
+> > +        le16 length; /* 0..8 CC, 0..64 CAN-FD, 0..2048 CAN-XL, 12 bits */
+> > +        u8 reserved_classic_dlc; /* If CAN classic length = 8 then DLC can be 8..15 */
+> > +        u8 padding;
+> > +        le16 reserved_xl_priority; /* May be needed for CAN XL priority */
+> > +#define VIRTIO_CAN_FLAGS_FD            0x4000
+> > +#define VIRTIO_CAN_FLAGS_EXTENDED      0x8000
+> > +#define VIRTIO_CAN_FLAGS_RTR           0x2000
+> > +        le32 flags;
+> > +        le32 can_id;
+> > +        u8 sdu[];
+> > +};
+> > +
+> > +struct virtio_can_tx_in {
+> > +        u8 result;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +The length of the \field{sdu} is determined by the \field{length}.
+> > +
+> > +The type of a CAN message identifier is determined by \field{flags}. The
+> > +3 most significant bits of \field{can_id} do not bear the information
+> > +about the type of the CAN message identifier and are 0.
+> > +
+> > +The device MUST reject any CAN frame type for which support has not been
+> > +negotiated with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST NOT
+> > +schedule the message for transmission. A CAN frame with an undefined bit
+> > +set in \field{flags} is treated like a CAN frame for which support has
+> > +not been negotiated.
+> > +
+> > +The device MUST reject any CAN frame for which \field{can_id} or
+> > +\field{sdu} length are out of range or the CAN controller is in an
+> > +invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
+> > +NOT schedule the message for transmission.
+> > +
+I am not very familiar with CAN but how does the device figure out that
+the can_id is out of range?
 
-Is this to indicate that when a driver requests a change, the device can
-omit notifying of the change? As I understand the specification, the
-device can omit the notification, but the change must still occur? Is it
-possible for the device to omit the change as well? What else could have
-triggered the status change if it wasn't the driver?
-
-Thanks.
+Thanks, Matias.
 
 
 This publicly archived list offers a means to provide input to the
