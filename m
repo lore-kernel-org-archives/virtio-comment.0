@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9133-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9134-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6895DC48BEB
-	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 15:42:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E49C48BEB
+	for <virtio-comment@archiver.kernel.org>; Thu, 22 Feb 2024 01:56:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id C24AD120D60
-	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 15:42:29 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 4A7E62A8E6
+	for <virtio-comment@archiver.kernel.org>; Thu, 22 Feb 2024 01:56:36 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 19561986591
-	for <virtio-comment@archiver.kernel.org>; Wed, 21 Feb 2024 15:42:29 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 249DA9865F6
+	for <virtio-comment@archiver.kernel.org>; Thu, 22 Feb 2024 01:56:36 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id DAC9898668B; Wed, 21 Feb 2024 15:42:28 +0000 (UTC)
+	id 039C3986255; Thu, 22 Feb 2024 01:56:36 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,434 +24,221 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id B7F91986966
-	for <virtio-comment@lists.oasis-open.org>; Wed, 21 Feb 2024 15:42:28 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E42F2986534
+	for <virtio-comment@lists.oasis-open.org>; Thu, 22 Feb 2024 01:56:35 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1708530141.730000
-X-TM-MAIL-UUID: 592f073f-ce6a-4005-9ce9-c1947b27b59c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HwLs37KEeQkkchrbzsKVEoBOhSqgEFA0NMekyhgw1yOTjnjq52h68+XIG/XkHRiRBqJBtvARY+P4ejtoUVIK05lOmR7VjuDY6nZmReqAiaLfjHjlhaXMJPfyakt+5H2mTB6E2V6RH20ZVlXyl+3UYaokYfp4o2z77D/+uwkvKCIS+yLTs2MJ8CSwX5qt3SAInsCBo5HF/8e1pQDZGgAXpaz5ycFTpnmz7p041qXYnfnDan496v0kPMfFuGc6zJbYv5yYC497w6Tia3TxP6brDJWNgKIXPCJrGeGrttiyrnbkiDU4bhQ/Z3ABNjfJTenGIXhrio/VChraxyyFlINrkw==
+ b=LKYV647F8XfHYTGjfvN5Iu3ssJMGJ6jVVxEvRCmesf+FYxFKAZMc1HQOHpPYfIh8KpGb0Q4FGpRj+UP0pRzly5JTokMyXd9k/Pb/uP4gEd3H71vEzJ8dfoCWlULIa+cCq2fK2KkzqpreJEGR0WaDg7U/VT1IgA+gJDKgN44xIs2JRrinGQLOiKI0XZwh4UaNwrRcY8bO0A8MkRzTYwfPhLvR02XukxdUajNw60lrJw+21nPk2W9J0tpZV9dE5tQ3hjQyyuvcOz/h1tuDEBQjY/R3QvmjpcnxYgJm1WWPtAohPS3S7KjFM0Xh1YIvVe9pxB3xTsali6MD0a+0ib5Bfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dlsPmf9YPXrdh8zN3hgB1vMi6NPvbOOuC6eZyPDeUO0=;
- b=mBuFHGI2BoOOR8GzRsMVn5Y33b82PhwS1T4FCdgWzDyjmEGsMO5NRowp2F8T4AtVN1Dk2tyHbK9aICHNgIu/L14gMLwLeOd4R0oNLmixXZpRep18bpUJ3WhbCkSI0rlZCOOgzjYnf0dh1uoLOw04wu7sXqXRqSM4FEoNTi0GHlYodSl7pGm7jrD1nbWmaj4DfgyxLB1SuMd3svfeLPfgY7tW19n3huVyvfjDqJjopV/UbIMj5Ks04ZQwyPQzCj01Nn7g9e3Mjonhxl8XN4dPTM5kU1DF96UmMgIP5PBTVbQGpKL5JOPJZ55lYFF3SX+PHXvlUJup1QF6Hsc6GnpLxQ==
+ bh=UPfmovCaO/c1nOp/vC1QAdVAVoGjT3fcrbGSidA7rNQ=;
+ b=dSfbAK3h29e17TKUn7I43JHyEK6bv6FbTi1Z0HiLU+X2laWfJRd6V0v0yVTsfUWJuUxoFprZd5OzUzmZFNUucMFU/ldUOagveidMtpi0IwE+fQLeaWvs+BcCYq5Qj4fjhXIbfkPLTiB30t1B2EkSf1GnBDM4ZIUcATTiVuSaGmKPgixuHHRfIki/KDP8x0OETCMA5OK6QF89oaVN9pOhCT5ckTrz5uQcVnYEc+680BJqpmrwjZ1yOuyvYvsRhGOhcymNp6INt7QvZGeYTsumVOHeOtV/CuFRXmjt2dFcLbmwaiiuwbArJAtPnAox0J1ICElZ+gt8IG4jlepCHwj01A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <0874278c-9497-414e-b1e5-4ebdf5db6da7@opensynergy.com>
-Date: Wed, 21 Feb 2024 16:42:18 +0100
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Cc: virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
- linux-can@vger.kernel.org, Harald Mommer <harald.mommer@opensynergy.com>
-References: <20230609142243.199074-1-Mikhail.Golubev-Ciuchea@opensynergy.com>
- <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
- <ZdSYtPtn5UzKNhAi@fedora>
-Content-Language: en-US
-From: Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@opensynergy.com>
-In-Reply-To: <ZdSYtPtn5UzKNhAi@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0109.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::8) To FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:55::8)
+ smtp.mailfrom=jaguarmicro.com; dmarc=pass action=none
+ header.from=jaguarmicro.com; dkim=pass header.d=jaguarmicro.com; arc=none
+From: Lege Wang <lege.wang@jaguarmicro.com>
+To: Parav Pandit <parav@nvidia.com>, "virtio-comment@lists.oasis-open.org"
+	<virtio-comment@lists.oasis-open.org>
+Thread-Topic: [virtio-comment] [RFC PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+ add new used buffer notification suppression mechanism
+Thread-Index: AQHaTzZn/4IbS5Ps60eRQZJfNPdC27Dx83kAgAGj2FCAB9d7AIAZEuZQ
+Date: Thu, 22 Feb 2024 01:56:28 +0000
+Message-ID:
+ <SI2PR06MB5385AF3B8EE696B201B95F7CFF562@SI2PR06MB5385.apcprd06.prod.outlook.com>
+References: <20240125023001.1467-1-lege.wang@jaguarmicro.com>
+ <PH0PR12MB5481C4AE095D48C6241C6366DC7D2@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <SI2PR06MB5385F062A33B53FF56F88DCEFF7C2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+ <PH0PR12MB5481935584B62FD5ACE5FE3CDC472@PH0PR12MB5481.namprd12.prod.outlook.com>
+In-Reply-To:
+ <PH0PR12MB5481935584B62FD5ACE5FE3CDC472@PH0PR12MB5481.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=jaguarmicro.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SI2PR06MB5385:EE_|PSAPR06MB4408:EE_
+x-ms-office365-filtering-correlation-id: 3707e324-9774-42fc-b74d-08dc33497bd1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ NErzwsIyeWtqqR/mK2t6og+45rEVOe535BVVerHTxMNF6azx3951hWpMiUZ4oh/xUppLLq7uzS6y/0+9R/GG62sTjF5hjxkqLIkp9e8YKx/LkZC+QTJdhTuoVx9RLlY8asM3Jj1j2RQrEh38HKREGGCuWTldeONf9UYgbg3DN0ROts8TqMvZcy3IuygJ/9DamNlujOHgHcmNGvBv39kmnRSJmKySqU6hV/hCb7l+6xLyeneEAZ+fJI0Y3qFjXa1RaGYB6VI8STgbvc8XS+h9167rf8eMV6wIpcgHzU0T9N49oUxp6Wzn9qNt1eEs9F4Og++XCDRTo1fJseFoFbelincVHxHAluU/6UBpiVJyJBgfgEn0D+EnwQuFnYLeabgYa3bSGWirAUEGeC5TDWSYCKkgqB6Sv3J8/BDO+j2U8TTeakK10HxSsE/56CO4aoIbGwDMIAesXLirHeO0tB65e8HTAlV5mAcoCGOuw74wiTPby0X665SNSpFVlX6DsfDBPyaLKDs3g/723BXEjVpYOo5cR+YSvADhFSxFA27alEv6Pakjo0q0Z0yykMc1kXD8jJWVm6nLIMzhbRaAGYt1pvjjhua0MsOnMjrd3BgY5IZee7lokWnIh/+ryeSfAri2
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5385.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(38070700009);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?Windows-1252?Q?wDA+8wIQPPecwTTMdUQBRTb9/lnzgBUH/6Y8aaRKvRx+RRWwAZ9RWOFW?=
+ =?Windows-1252?Q?tcA3SdxdrDh0F5brp28VR9wBsAzFPVOvZHCFGNlBRfa1YwVr3956zrRl?=
+ =?Windows-1252?Q?kRViKgbZw8QBjKuyxhet8k6KiCKyZGloqNlot1xAGBZZiArLzlnuJsxF?=
+ =?Windows-1252?Q?uAwnihiGeIkwrP3OWhB+IlX+rs5FVLkHyGEGa7KfPYvJBZixg1if+xNt?=
+ =?Windows-1252?Q?jkLlukzhWGKtgmwpKLmNwtWz8rootp4QeLG2vKVLWJsp2ls0ENQ+r3YK?=
+ =?Windows-1252?Q?fxD9vkQDSC98HtZZQMMec/i5vgCSwAM2SYEGQmrYu1zWxZrWh9DBuRV/?=
+ =?Windows-1252?Q?sEdOzLssqrnXTDZr3VlJG8ITShCIyAqKK21MJNO6sGuY2QcC78Ss+h1J?=
+ =?Windows-1252?Q?cMLrYiZYHNeqNdigSiM+MrBZyRY6G8nSdapH6eOnpttugbAAj9x6nSmY?=
+ =?Windows-1252?Q?a0VJ1rvJYayVpja0BIYfqWYuhxyRoXpltA3jHJjBbsh8eGez/5gITeNp?=
+ =?Windows-1252?Q?sY0jLqBKv+LP6m1bwlN1u+YFaDRTkaefi0q1u8tXMKwJFZvoyyw2y0HJ?=
+ =?Windows-1252?Q?SYk5wcBuOuP7NlR/40YbTyGLwzIKyrVmPeuokpN9H2q2O7W51PhXavTw?=
+ =?Windows-1252?Q?Fz1ziCe0FjZJRa0fps7WVZcDH2Zb5FAzPWcycVyxhKwN43F3RXIXBCK/?=
+ =?Windows-1252?Q?Wzunlx+wtjD1FBf2iqce8FcQZq0UeASwNTPNPpGZOGQhqMgtYb1mnHK8?=
+ =?Windows-1252?Q?q/7u6pjgIA764X2c2+T2pffNBqVtQTEiJx+wnqHK4t4SjJ5p8wVuzs9e?=
+ =?Windows-1252?Q?pdCrqJbhydT4rDB5UlEF2qqPN9Yc0l/tSPz1l7BnJeqtykt0vM5Vj4lN?=
+ =?Windows-1252?Q?dZ3uQZ+CQnkf2N96KLD4etsXeAHYY4ngF7GzUgS75Sdvf22vrsEatqwY?=
+ =?Windows-1252?Q?VcINMAJUXNm8j7buUxzPCTjZVg03vTYDMqdtw+LVkPVll0XAQQtXSWQN?=
+ =?Windows-1252?Q?HkAh+ZFRwbu0DV9hDLS6E+vfu8ath3+krnf0shQp8nLEjgk6fg2KV6Bj?=
+ =?Windows-1252?Q?vo87xfkUiO5qjbjfnH+3LDW8LFqCnmkaKahr/j919XKgN4j17zkywWia?=
+ =?Windows-1252?Q?ckRxzVSPt70dlQpp6BPbb0VmcYMbr5PMkTemZcUsLQnU3eEFQHRzQ7D4?=
+ =?Windows-1252?Q?FtR/CAg88HWk57O7BiE3zhoWpkgcAV0XBMg4eHrtRmff+5NWj8OqxCs+?=
+ =?Windows-1252?Q?nUFbAr1FdZHWC6X0DV5ALUQivAgiaKGieauTK+ZYvZAvrEalaWa7VxMv?=
+ =?Windows-1252?Q?wKGKWE4KsRhhdAUD1K/LH29Dl9Kh5FNvsY1k+aUapUWX9F6lD9iLweT3?=
+ =?Windows-1252?Q?NEiAS3aPj2HS6+Mf9fmlAVBndqPkMhZOVexTAuNLLMD9C7mLg7lblDce?=
+ =?Windows-1252?Q?/xz359M5i4wLI5ReO0XzHUi0BiJeyoySZ3+3EHxvc9mxWbfiuiYovbKq?=
+ =?Windows-1252?Q?raLdsYdcsN6/Yn1KhvrRtK26q0bepOGdwuG176dTpW9me7WIFz+WELiw?=
+ =?Windows-1252?Q?jimhgAhXBNEAfvKsDS+8bfIa2911/PYjprmnwUVsHrGyRe8e/IXTYNyu?=
+ =?Windows-1252?Q?37HAgq+y4/+bhEu1DjbMk1sQ2Ta9/ve6YNybw3po+wlaRgf6t1WEUz66?=
+ =?Windows-1252?Q?Uy5iWBdwSJm0DlflLCB4ABI8YMKrM0Sd?=
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: FR0P281MB2861:EE_|BEVP281MB3712:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93efb96e-aaa8-410d-383c-08dc32f3b046
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	QIlTT8ZrFwaIW99TEzpEqZ9RohFotzS/z2NKCf8jb8/jl95w9bqXfUIcsc3fW5bCCXf0Bej0PBAT5rtM11WcTacNrPkIomr42G2hzeeXgYYIzsy5Pr7qIYLkPhwxjyc5/7c5KJS8kdx6ebVmOuVWaA6VWbQfU1ws90CAV4mV29uvZdgCtDuIr9wFAfErLIfi/Z0zWxjQRFaQ1FabNXiJ/4mIRako4PiU9d4lS62FzRPzaDiYJk7TNLWMgIoJHkLjyU/jNxXVnjzHqxhwGKOLgQce1jQHyMV2n6J2QEgKQlMgG4YxKf88ogWDUcXGewxzNWLgB9Fr7FVoJwG0CUs3X94xhgczcdFZOPtS0NFjD7kEHDyv/r+upEVs33Y2PArhkoRfqYEY6EWF75WPqXRqJM8K9jkGrublblWpwKIW2PsGe65ZlyvMhYlA5tjoHcroivOGTK1vaND7x7AzwP9FhQphclfcAwEe9nkxu/IdhufVRHNlt7Js3NgqcmS1KZWagHtsbyuZmJXlWbpbb9U1eQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V21RL3I5aC81eUQ4UlF2SVVKb0JYbVI3MjkzeFYrZmROZUptTzJxa3J0R2VR?=
- =?utf-8?B?T01EV2Vockk2NDYwNzJ1eXhtdy9YTzdLUUNDcjBHbkYvYnZ5RlhpdGRKUWhZ?=
- =?utf-8?B?bGV6U240eUY5Mzg3ZEEwLzNsaXJyUkNrS2ExK0o1N1J4QUVmQ2pLWFlSbUZD?=
- =?utf-8?B?K21iV1JtTUhoa2k1bGhZOUdXcFFnVWhtOHlMMDNUaVpONXcyQzBmdGg4Q0Z2?=
- =?utf-8?B?Z2h0M0VURnFkNWQ1SHBnWVo5bjBuTnlZNFRacmNFb0tybWdCYWVQZnlTM3Nn?=
- =?utf-8?B?Ty9lTDA0NGpBVjVLVmk3aHM2YW9FQkxCeDhZNXl4MGQzOHlDUUdHSjUrT1BN?=
- =?utf-8?B?ZWF3UW9DcHpjL3BvbUNXNDd5a3hLVFE5WEgrMysyU2VjemxQVjgwclYwR2Ft?=
- =?utf-8?B?LzM4ZHRBQUc4VXluWHowYm91eXdqa3pwM0hoSXdTRVprdHZGYncxUG1VNSsw?=
- =?utf-8?B?VS8wR1RaVG9UZkJlem1ibzR2aEVzdEtVMlpvNUVtMGF1MVJsTm9GcUNrVzAy?=
- =?utf-8?B?aXh5dlVvSjJYTVhOMUlicll5QWhQRmJLUmcwQ3lOVmhLUXFFSkdVeUJUd3VN?=
- =?utf-8?B?VVVwdFhLZFVUVlA5YTVGRXJPek9iYjU4NTd5V3U1bStwczR4VFVtSWNlclZO?=
- =?utf-8?B?LzVCcXJGMEhISysvWFlEeS9tWTVLMlZ3enZRMTJhWnBRcmVla2dOWnJpUkhR?=
- =?utf-8?B?dWhRajFBTmNkUzYwamFqRVN3emYwaWg4MHhLWlVOVlNUTkpkMER0KzJOZkJ6?=
- =?utf-8?B?V1BFSFJKZnNnMElYb2h4dXdoNXF2TGFMZzRQaWtDSTJBSE10T2dkRXRrV09M?=
- =?utf-8?B?bkh4STVnbW1uaklneXZhem1OMHVEYjdtdVE0MUtOcDFENkFUS0xHeEZpYmVh?=
- =?utf-8?B?RHIzWjlqUm1xaVNlNDFsRWQrN0dWaG16eFphUWUyM1ZXQ0Zid1F0c1Axa2VU?=
- =?utf-8?B?cnUwakx5Y2FaMVNyOXYyVHRsUXRnbHc1b1haRVBVZGdmcDA0bnh0Y01xMUV6?=
- =?utf-8?B?VG5BRlRXTW9lTzVwU0hIV3ZEc2hEdGpuRVRYMHNYQ1Z3YmRiMXZuYWdTWDBa?=
- =?utf-8?B?SEdibnFFb2owK0FlSTRGc05ZQkJjdUxuVHlBZExQd0tvcGVyTk9wczYwdmly?=
- =?utf-8?B?eElKazZleEJxK0RWM1ZiUWpDR3VpZG5vZjVVTjdJSmlDWkdXdzFtTXY0N3ZF?=
- =?utf-8?B?djlNWnJvZGRnU2pRdkgzYStpVlg2blhRTlgyRkFIQVRwRE15c0ltZUNZMjdy?=
- =?utf-8?B?VFh0MXFGOVQxL3NVT3VnNW9JRGh1NEpVUnl4MG9oL3R5empacWtCODBxQ3lD?=
- =?utf-8?B?cmJzYnVMcnVjT05PQnN2cWZBQUFyZUtHemlOV2JZUnBtSGt3Vm9CeHJaUWlO?=
- =?utf-8?B?NUw3SjdXcWlTdVhIVnRHYlVGR2lyWXdBRGlDRDd6L3hGbFdHbGN2SFFYaTA0?=
- =?utf-8?B?QVVrdE1iZUw5YU9HVWtKSUlMN21TbWEyN2p6TC9oaVVmMk1Ic1BVdWJPWndZ?=
- =?utf-8?B?Ly9ONDdVdG10ZndLUkYzQSsyUVlZNXd3SmcwcGI4MExmMGFTQUhGRXVRYjk3?=
- =?utf-8?B?TjBPUlZKZEswMGpEUHVzbHAvS21kSnpoSW1QWDR0WTlDZWJFeU5RZTgrZmR5?=
- =?utf-8?B?ZFdyVnNPZDRIS3A0T29mRVR3MDdLWTFtWFZrclNoanc5VnJDUm8rYjROUVEr?=
- =?utf-8?B?VnBQbFZKRkJvZHp2b0VkTFNlVmJXcThINUZxSDI3b3dXck41QXNzWERGanZK?=
- =?utf-8?B?M0cwRXZDWVBNRG5tN3liaWdDUG1JVWxCak9HSEttWWVENktzZDUwRWVITU9q?=
- =?utf-8?B?cUhGVnRqYmsyV3hjRThuU0hjYmpkZ1BNNkxXaC9aNm1ibWYyWGVYT0tWQ0tX?=
- =?utf-8?B?dlozSC9aa1VNTDdPRGdvd3VqcThqdGZDb2hvQllKbGZ1aU9yYm96RTMxZE1L?=
- =?utf-8?B?SVdhU1hraVNZRXY5ZVZMdGxJVWExWEhvOGhZTU4zM3dyTkczK3RCQ0huRVJ1?=
- =?utf-8?B?Z1hOUjdDcVlvNmZrMHNtcXV1T0JxQ1Z0NVZXS0g0UDZhQ1ZFbzQzUnJ4aStD?=
- =?utf-8?B?Y3IxNGlSM3Y0SFc2M2Q2SjlxY1p5aWZEZWtpeGFjV1dLZGVMbEIvSURyclA2?=
- =?utf-8?Q?UqZvwLTPHm4242KyhLPk7fDqB?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93efb96e-aaa8-410d-383c-08dc32f3b046
-X-MS-Exchange-CrossTenant-AuthSource: FR0P281MB2861.DEUP281.PROD.OUTLOOK.COM
+X-OriginatorOrg: jaguarmicro.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 15:42:19.7262
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5385.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3707e324-9774-42fc-b74d-08dc33497bd1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Feb 2024 01:56:28.2124
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YWwwNJrdAronoVmdsp9SY0t8hGgIR0A5tk4xxH/SQLeL/w62EHL7kf+QgZlVa5wwiVLpKF3amPpx7+2kj5d3Rg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEVP281MB3712
-X-TM-AS-ERS: 104.47.7.169-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-28206.000
-X-TMASE-Result: 10--35.858700-4.000000
-X-TMASE-MatchedRID: pS5owHKhBO2bPh0YdpLKJgw4DIWv1jSV2rA23rnjZq3mGnpkx4PF3f/G
-	4u3mr5gn+1Az4DPPSQ7ulpUPFNVmlRw/umn41b2EeJchdZcr1K2n2i3kZizDsQamO6yeRcv4Xxu
-	7E3LmFekKkSy+0sJ7WjflegrNxV84IB4QI+RMYET3vtfEQLhtk0Ip2pwQ814L5TQA00qx4JWjxj
-	+USeWICI4Run7ir6ZRizvYf5Ge5kJ5BzMVCHZcS/gxOc6+WoXc3O2+pOfl+vcwLJ9PZUBQhZu1m
-	GZ02rt+oo1aMRuRjHAH6GYarfxUhNietYYu6qmy1nMR7J09d083RfriMbLZ1j7Qn1lMCQHYs8JJ
-	q4jocuLDcEA+w7rkfgbQjJTpuY6ourtb7tuq+cBocGPeyBudkP2OXvUImtUp5jqb/qjiEApz3h/
-	NOzc2C5tPk4+sXOK3/DaN09Cl21zerKG6thXV+p0UyaWO1QCnvP2es7dSq66JJkzvS3iM4iIYB4
-	gb/WaWiXgLtI9HUUTOviDBCiGrJhH4pydzeozMc6MQph12+/rVTpze4vlqBrVhq2KCoRs2NnbX4
-	cMr0CI3zgqPM4M5Fz0K9KJyC2voZ4n57YIG4wAlQx76zly9o2KGUT4Ubc9ShE17EBM1S6J6F1n9
-	vCrdVjptBmu6Eve7vtnFGScenZ1kLSwvYCgXaCQptwyVJHc8bw5Fan+Oqwqs+XNZ1TH4CYhIitX
-	bPvbeFqFHzbNeeDW5rVzLsTlYy0c9f5KYEFBVlEJO70qtU7ZyfGzN/EfYKXvBA9C/1eiFIj4oYG
-	/COlFFq3Di+PoXZtXNOAQ2MSi22anGH/Lzelzz2Ve/9BWrZSJUNkNrt5r93+6k97GsyDiUTGVAh
-	B5EbQ==
-X-TMASE-XGENCLOUD: 846236df-5223-4ed9-bf30-f08e70a28a1a-0-0-200-0
-X-TM-Deliver-Signature: 3334A056FF6743983BBC3A7A11817831
-X-TM-Addin-Auth: Po3YDObs48X940iJO+rvgtNqBbL0/PCh1PIXtSynCIDzO12PGhgr4SQszPv
-	O+PWL4YgWTpprA7TZt4j/NyNe11kWIFOTxLYF/yiOXmH7O03ZBR5X4BHx5cgVeXp794ZDhfiqgL
-	PsWzIURLe0z/Yya9tVP16lsXjQNbF9+pF2EyBdDkQ2HV+E2Chd0b9xhNzr+xAz75tbNJkB3es//
-	Ol51sxDFxh6dUynNs5x1FQEaTlKOkEmxCV4SysoQvpuIQDdRvoJuDy+7veQR37Hmy4MaDksvQ1B
-	8RMuPrWlphlYlkw=.xtgkmV1cErDyiUF9oeHAukyZ+q/dJc1qMvunsMzkaksoDEmzgBSHaLhWeu
-	r8P2bqBE5J+YnnyJo66NvTuylkYttbKakJQKnMTj17bQhN6W47dmdpfmJO4469o0IBPVc01B739
-	FWHWhh7GhLV1lHMFog8yYjKk6fA/rgaDkQl1Mi2frJNH+Him+OMqUVwn9+2Lu9S7yFsDepLxgMJ
-	rXlyZOSPaAztTXNy4u/QAjOwaT0SEcMCDdQop1UI6pDNYEPpbJCgJnfRjcZx969f9kOsv/3OeDw
-	RVJq5EM+wO++bhvUOJjZfH4vwQUxetY3u3MSYCUXT05yUqoWM4K+J3K1xTg==
-X-TM-Addin-ProductCode: EMS
-Subject: Re: [virtio-comment] [RFC PATCH v3] virtio-can: Device specification.
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1e45a5c2-d3e1-46b3-a0e6-c5ebf6d8ba7b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kPxDmaNuqYhUfy5dPQqnYXKkXz19cOObrRjQiw2KOp+hUwby2YpbLfXlHv/ZxDOdWB9jYgQlVmeOQjCCPoyqP2/f8ISRmnzHf8JL6ofdwuU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSAPR06MB4408
+Subject: RE: [virtio-comment] [RFC PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+ add new used buffer notification suppression mechanism
 
-Hi Matias,
+hi,
 
-On 2/20/24 13:19, Matias Ezequiel Vara Larsen wrote:
-> Hello Mikail,
-> 
-> On Mon, Jan 08, 2024 at 06:18:50PM +0100, Mikhail Golubev-Ciuchea wrote:
->> Hi all!
->>
->> I kindly request a vote.
->>
->> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/186
->>
->>
->> Best wishes,
->> Mikhail Golubev-Ciuchea
->>
->>
->>
->> On 6/9/23 16:22, Mikhail Golubev-Ciuchea wrote:
->>> From: Harald Mommer <harald.mommer@opensynergy.com>
->>>
->>> virtio-can is a virtual CAN device. It provides a way to give access to
->>> a CAN controller from a driver guest. The device is aimed to be used by
->>> driver guests running a HLOS as well as by driver guests running a
->>> typical RTOS as used in controller environments.
->>>
->>> Signed-off-by: Harald Mommer <Harald.Mommer@opensynergy.com>
->>> Signed-off-by: Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>
->>> ---
->>>
->>> RFC v3:
->>> * Add length fields in CAN RX and TX messages.
->>> * Replace bus off indication queue with a config space bit.
->>> * Clarify handling of unknown flag bits set in CAN frame.
->>> * Remove MISRA C suffixes in constants.
->>> * Reserve 16 bits in RX/TX messages for CAN XL priority.
->>> * Reserve 8 bits in RX/TX messages for CAN classic DLC.
->>> * Rework according to general virtio spec POV.
->>> * Implementation:
->>>     driver: https://lore.kernel.org/all/20230607145613.133203-1-Mikhail.Golubev-Ciuchea@opensynergy.com/
->>>     QEmu device: https://github.com/OpenSynergy/qemu/tree/virtio-can-spec-rfc-v3
->>>
->>> RFC v2:
->>> * Add CAN classic feature flag.
->>> * Add feature flag VIRTIO_CAN_F_LATE_TX_ACK.
->>> * Add feature flag VIRTIO_CAN_F_RTR_FRAMES.
->>> * Reserve 32 bits in RX/TX messages.
->>> * Remove priorities of messages.
->>>
->>>    conformance.tex                         |  12 +-
->>>    content.tex                             |   1 +
->>>    device-types/can/description.tex        | 249 ++++++++++++++++++++++++
->>>    device-types/can/device-conformance.tex |   8 +
->>>    device-types/can/driver-conformance.tex |   7 +
->>>    introduction.tex                        |   2 +
->>>    6 files changed, 275 insertions(+), 4 deletions(-)
->>>    create mode 100644 device-types/can/description.tex
->>>    create mode 100644 device-types/can/device-conformance.tex
->>>    create mode 100644 device-types/can/driver-conformance.tex
->>>
->>> diff --git a/conformance.tex b/conformance.tex
->>> index 01ccd69..a07ef02 100644
->>> --- a/conformance.tex
->>> +++ b/conformance.tex
->>> @@ -32,8 +32,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>>    \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
->>>    \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance},
->>>    \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
->>> -\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance} or
->>> -\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
->>> +\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
->>> +\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
->>> +\ref{sec:Conformance / Driver Conformance / CAN Driver Conformance}.
->>>        \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
->>>      \end{itemize}
->>> @@ -59,8 +60,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>>    \ref{sec:Conformance / Device Conformance / Memory Device Conformance},
->>>    \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance},
->>>    \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
->>> -\ref{sec:Conformance / Device Conformance / GPIO Device Conformance} or
->>> -\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
->>> +\ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
->>> +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
->>> +\ref{sec:Conformance / Device Conformance / CAN Device Conformance}.
->>>        \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
->>>      \end{itemize}
->>> @@ -152,6 +154,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>>    \input{device-types/scmi/driver-conformance.tex}
->>>    \input{device-types/gpio/driver-conformance.tex}
->>>    \input{device-types/pmem/driver-conformance.tex}
->>> +\input{device-types/can/driver-conformance.tex}
->>>    \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
->>> @@ -238,6 +241,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>>    \input{device-types/scmi/device-conformance.tex}
->>>    \input{device-types/gpio/device-conformance.tex}
->>>    \input{device-types/pmem/device-conformance.tex}
->>> +\input{device-types/can/device-conformance.tex}
->>>    \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
->>>    A conformant implementation MUST be either transitional or
->>> diff --git a/content.tex b/content.tex
->>> index d2ab9eb..8806b57 100644
->>> --- a/content.tex
->>> +++ b/content.tex
->>> @@ -765,6 +765,7 @@ \chapter{Device Types}\label{sec:Device Types}
->>>    \input{device-types/scmi/description.tex}
->>>    \input{device-types/gpio/description.tex}
->>>    \input{device-types/pmem/description.tex}
->>> +\input{device-types/can/description.tex}
->>>    \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
->>> diff --git a/device-types/can/description.tex b/device-types/can/description.tex
->>> new file mode 100644
->>> index 0000000..2511d9c
->>> --- /dev/null
->>> +++ b/device-types/can/description.tex
->>> @@ -0,0 +1,249 @@
->>> +\section{CAN Device}\label{sec:Device Types / CAN Device}
->>> +
->>> +virtio-can is a virtio based CAN (Controller Area Network) controller.
->>> +It is used to give a virtual machine access to a CAN bus. The CAN bus
->>> +might either be a physical CAN bus or a virtual CAN bus between virtual
->>> +machines or a combination of both.
->>> +
->>> +\subsection{Device ID}\label{sec:Device Types / CAN Device / Device ID}
->>> +
->>> +36
->>> +
->>> +\subsection{Virtqueues}\label{sec:Device Types / CAN Device / Virtqueues}
->>> +
->>> +\begin{description}
->>> +\item[0] Txq
->>> +\item[1] Rxq
->>> +\item[2] Controlq
->>> +\end{description}
->>> +
->>> +The \field{Txq} is used to send CAN packets to the CAN bus.
->>> +
->>> +The \field{Rxq} is used to receive CAN packets from the CAN bus.
->>> +
->>> +The \field{Controlq} is used to control the state of the CAN controller.
->>> +
->>> +\subsection{Feature bits}{Device Types / CAN Device / Feature bits}
->>> +
->>> +Actual CAN controllers support Extended CAN IDs with 29 bits (CAN~2.0B)
->>> +as well as Standard CAN IDs with 11 bits (CAN~2.0A). The support of
->>> +CAN~2.0B Extended CAN IDs is considered as mandatory for this
->>> +specification.
->>> +
->>> +\begin{description}
->>> +
->>> +\item[VIRTIO_CAN_F_CAN_CLASSIC (0)]
->>> +
->>> +The device supports classic CAN frames with a maximum payload size of 8
->>> +bytes.
->>> +
->>> +\item[VIRTIO_CAN_F_CAN_FD (1)]
->>> +
->>> +The device supports CAN FD frames with a maximum payload size of 64
->>> +bytes.
->>> +
->>> +\item[VIRTIO_CAN_F_RTR_FRAMES (2)]
->>> +
->>> +The device supports RTR (remote transmission request) frames. RTR frames
->>> +are only supported with classic CAN.
->>> +
->>> +\item[VIRTIO_CAN_F_LATE_TX_ACK (3)]
->>> +
->>> +The virtio CAN device marks transmission requests from the \field{Txq}
->>> +as used after the CAN message has been transmitted on the CAN bus. If
->>> +this feature bit has not been negotiated, the device is allowed to mark
->>> +transmission requests already as used when the CAN message has been
->>> +scheduled for transmission but might not yet have been transmitted on
->>> +the CAN bus.
->>> +
->>> +\end{description}
->>> +
->>> +\subsubsection{Feature bit requirements}\label{sec:Device Types / CAN Device / Feature bits / Feature bit requirements}
->>> +
->>> +Some CAN feature bits require other CAN feature bits:
->>> +\begin{description}
->>> +\item[VIRTIO_CAN_F_RTR_FRAMES] Requires VIRTIO_CAN_F_CAN_CLASSIC.
->>> +\end{description}
->>> +
->>> +It is required that at least one of VIRTIO_CAN_F_CAN_CLASSIC and
->>> +VIRTIO_CAN_F_CAN_FD is negotiated.
->>> +
->>> +\subsection{Device configuration layout}\label{sec:Device Types / CAN Device / Device configuration layout}
->>> +
->>> +Device configuration fields are listed below, they are read-only for a
->>> +driver. The \field{status} always exists. A single read-only bit (for
->>> +the driver) is currently defined for \field{status}:
->>> +
->>> +\begin{lstlisting}
->>> +struct virtio_can_config {
->>> +#define VIRTIO_CAN_S_CTRL_BUSOFF (1 << 0)
->>> +        le16 status;
->>> +};
->>> +\end{lstlisting}
->>> +
->>> +The bit VIRTIO_CAN_S_CTRL_BUSOFF in \field{status} is used to indicate
->>> +the unsolicited CAN controller state change from started to stopped due
->>> +to a detected bus off condition.
->>> +
->>> +\drivernormative{\subsubsection}{Device Initialization}{Device Types / CAN Device / Device Operation / Initialization}
->>> +
->>> +The driver MUST populate the \field{Rxq} with empty device-writeable
->>> +buffers of at least the size of struct virtio_can_rx, see section
->>> +\ref{struct virtio_can_rx}.
->>> +
->>> +\subsection{Device Operation}\label{sec:Device Types / CAN Device / Device Operation}
->>> +
->>> +A device operation has an outcome which is described by one of the
->>> +following values:
->>> +
->>> +\begin{lstlisting}
->>> +#define VIRTIO_CAN_RESULT_OK     0
->>> +#define VIRTIO_CAN_RESULT_NOT_OK 1
->>> +\end{lstlisting}
->>> +
->>> +Other values are to be treated like VIRTIO_CAN_RESULT_NOT_OK.
->>> +
->>> +\subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Operation / Controller Mode}
->>> +
->>> +The general format of a request in the \field{Controlq} is
->>> +
->>> +\begin{lstlisting}
->>> +struct virtio_can_control_out {
->>> +#define VIRTIO_CAN_SET_CTRL_MODE_START  0x0201
->>> +#define VIRTIO_CAN_SET_CTRL_MODE_STOP   0x0202
->>> +        le16 msg_type;
->>> +};
->>> +\end{lstlisting}
->>> +
->>> +To participate in bus communication the CAN controller is started by
->>> +sending a VIRTIO_CAN_SET_CTRL_MODE_START control message, to stop
->>> +participating in bus communication it is stopped by sending a
->>> +VIRTIO_CAN_SET_CTRL_MODE_STOP control message. Both requests are
->>> +confirmed by the result of the operation.
->>> +
->>> +\begin{lstlisting}
->>> +struct virtio_can_control_in {
->>> +        u8 result;
->>> +};
->>> +\end{lstlisting}
->>> +
->>> +If the transition succeeded the \field{result} is VIRTIO_CAN_RESULT_OK
->>> +otherwise it is VIRTIO_CAN_RESULT_NOT_OK. If a status update is
->>> +necessary, the device updates the configuration \field{status} before
->>> +marking the request used. As the configuration \field{status} change is
->>> +caused by a request from the driver the device is allowed to omit the
-> 
-> Is this to indicate that when a driver requests a change, the device can
-> omit notifying of the change? As I understand the specification, the
-> device can omit the notification, but the change must still occur? Is it
-> possible for the device to omit the change as well? What else could have
-> triggered the status change if it wasn't the driver?
-> 
-> Thanks.
-> 
+I'm back from a long vacation, and have some internal work to do, sorry for
+long late response.
 
-The change request notification OK/NOT_OK for every mode transition 
-request is there in any case. In some cases the device would 
-additionally notify the driver about the controller status via 
-'virtio_can_config' in config space (config space change notification 
-mechanism), e.g. in case of a BusOff event on the device side. Although, 
-it is possible to omit the config space notification e.g. when 
-transitioning to stopped mode.
+> > >
+> > > Hence a better driver used buffer notification should be,
+> > >
+> > > 1. index upto which it has processed
+> > I would change it to " index upto which it will process next", the reas=
+on is
+> that
+> > virtio core driver codes have already a well-maintained "struct
+> > vring_virtqueue->last_used_idx", we can use it for notification, and us=
+ing this
+> > value, the device will also be able to learn the driver consumption rat=
+e.
+> >
+> It the index upto which the driver _has_ already processed, right?
+Yes, and your previous comment is right, ignore my comment above.
 
-In the previous draft version of the spec a separate asynchronous queue 
-was used to send BusOff events and the proposal had an issue with races: 
-it was not possible to distinguish whether a received BusOff event was 
-meant to be from an old session or is already from the new session. 
-Hence, the indication queue was removed and a config space status was 
-added instead.
+>=20
+> > > 2. explicit enable/disable bit to enable the notification
+> > I wonder if there's a case that the driver just notifies the used index=
+ info, but
+> > not enable the device notification,
+> Yes. there is a scenario.
+> For example, device has received 28 packets.
+> When the driver is polling, it was given budget to poll only 20 packets. =
+In this
+> case NAPI context will come back again to poll rest of the 8 packets.
+> In this scenario, it is desired to still update the polled completions (u=
+sed
+> elements), but not enable the notification.
+> Notification can be enabled later when remaining 8 or more packets are
+> processed.
+OK, I see.
+
+>=20
+> > the driver will always need one enable
+> > operation finally. And the notification data would be similar to:
+> > le32 {
+> >   union {
+> >     vq_index: 16;           /* Used if VIRTIO_F_NOTIF_CONFIG_DATA
+> not
+> > negotiated */
+> >     vq_notif_config_data: 16; /* Used if VIRTIO_F_NOTIF_CONFIG_DATA
+> > negotiated */
+> >   };
+> >   next_off : 15;
+> >   next_wrap : 1;
+> > };
+> > next_off and next_wrap will denote last_used_idx info, and vq_index or
+> > vq_notif_config_data is also necessary, so for one 32-bit register, the=
+re's no
+> > room for this enable/disable bit.
+> >
+> Right. There isn't enough room for enable bit.
+> I see two options.
+>=20
+> 1. When device wants to still work with 32-bit doorbells, it can reserve =
+top bit
+> of vq_index or next_off for enable/disable.
+> Here the restriction is the queue depth would be limited to 16K descripto=
+rs,
+> which is fairly large enough.
+> Or having top bix of vq_index is better as, it may be well within limit f=
+or a
+> device to offer 32K queues.
+> For non rdma devices 32K queues is also seems reasonable large value.
+I'd like to not add these restrictions, in case some devices need bigger nu=
+mber of
+descriptors or queue depth.=20
+
+>=20
+> 2. Device can offer 64-bit format where enable bit is located in the uppe=
+r
+> 32-bit.
+>=20
+> 3. Or may be option for the device with two different feature bits, becau=
+se
+> 64-bit doorbells are relatively new for virtio to adapt to.
+Sounds feasible, I'll try this way.
+I'll prepare a V1 patch as soon as possible, thanks for your patience.
+
+Regards,
+Lege.wang
+>=20
+> >
+> > Regards,
+> > lege.wang
+> > >
+> > > These two fields clearly communicate to the device, upto how much use=
+d
+> > > buffer is consumed and understand the driver consumption rate.
+> > > This way, there is no ambiguity for device on where to write next use=
+d
+> > > ring entry.
+> > > (where to write next used entry is not driven by the notification
+> > enablement).
+> > >
+> > > And the explicit enable bit indicates notifications are enabled back.
+> > >
+> > > Technically, only enable bit is needed, but doing #1 is helpful for
+> > > the device to understand driver consumption pace.
+> > > And for that may be current notification can be made 64-bits or as
+> > > suggested in your patch to have new location.
+> > >
 
 
-Best regard,
-Mikhail
-
--- 
-Mikhail Golubev-Ciuchea
-
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
-Telefon: +49 (30) 60985400
-EMail: 
-mikhail.golubev-ciuchea@opensynergy.com<mailto:mikhail.golubev-ciuchea@opensynergy.com>
-
-www.opensynergy.com
-
-Handelsregister/Commercial Registry: Amtsgericht Charlottenburg, HRB 108616B
-Geschäftsführer/Managing Director: Regis Adjamah
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
