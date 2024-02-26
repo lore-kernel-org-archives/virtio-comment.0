@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9140-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9141-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 944FFC47DD9
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Feb 2024 02:43:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F46CC48BF6
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Feb 2024 06:42:24 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BA7A42AF8F
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Feb 2024 02:43:22 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 771622AF89
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Feb 2024 06:42:23 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 80D82986445
-	for <virtio-comment@archiver.kernel.org>; Mon, 26 Feb 2024 02:43:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 5F9919863B6
+	for <virtio-comment@archiver.kernel.org>; Mon, 26 Feb 2024 06:42:23 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 611759841A0; Mon, 26 Feb 2024 02:43:22 +0000 (UTC)
+	id 45EC6983FE3; Mon, 26 Feb 2024 06:42:23 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,107 +24,69 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 51C82986339
-	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Feb 2024 02:43:22 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 3342E986339
+	for <virtio-comment@lists.oasis-open.org>; Mon, 26 Feb 2024 06:42:23 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
+X-MC-Unique: S2ZFxm12O1CwYtFEJKE-OA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708915398; x=1709520198;
+        d=1e100.net; s=20230601; t=1708929738; x=1709534538;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xXUn5gTU1kYEBS6NhFbLUDgmoZ07scj8rBDs75VEjTw=;
-        b=fWV73Hi1SWb7YI22KRqvxNGGyxj/SSCoXNS90di1EtzIMsQz64PP7xpv0BHVYtH71z
-         R+dk5ySzs1d15h8QZTrN0CUYBba9fCgf4Dy0RM7JEO6JLIl+oigMgT/dloS4X/StE8ie
-         RGKSAviQp22LnjBHvNjLK8sEDFrXmXtsuIgy0qWNYbeecScPLIgnADCJDFCG/hedB6mk
-         qxmbYiCcfEVNrkkMq2/VQY2Yslx4Md6uXniM1YsvtegNTM041fzCxqEirDyNakgwpBm/
-         ls2F23dL6WfcOH+v44p+W2BDu66OoZvhfPc3IKauxlOY4SBAoD6RH71Vv5iBn4LSVv27
-         YcpA==
-X-Forwarded-Encrypted: i=1; AJvYcCVhqWRg6Ozq7Fy7xuRWTWdKXonisKQZ0rQlCfBp3z6Di5qk2xOiZVLfb8fXowX4qHW1zejassQceQUisLKAcDRBNIij03xaEz4akMsCCgGh8EEVcQ==
-X-Gm-Message-State: AOJu0Yy+3yoRvmbowAy/RIRHQowkJt4we8JfK75LefF40b6e4btD+psm
-	SttiQj+z0rdek8htDsDqSsLH6SHecYBcv9F8SsX2Eltw8ptVYPHffjile/4ODFFfln9D0eXlA5q
-	P/lv8MO6JQYbZSJnaFA3OtRA+I5P6VT96cHVj
-X-Google-Smtp-Source: AGHT+IG0PVW7R1GHDJDJUKrnjtrF35757OgcH8a89DyPeTuGplg5opBDDPshm9s8Uzbs47jfmymqcm95vMUB6SknnKI=
-X-Received: by 2002:a05:6512:2826:b0:512:eb44:1ea1 with SMTP id
- cf38-20020a056512282600b00512eb441ea1mr1852029lfb.21.1708915398329; Sun, 25
- Feb 2024 18:43:18 -0800 (PST)
+        bh=NxDUPagDvVtXFYNQzhzXprsOfNbHn672p3g9URdq+ZU=;
+        b=bivSTzmuli0bwgB3Ge/EINsh9dOVfnWO3kbFciLVHT5QplXJW1ZWPaTuSJZLVDT0G/
+         B+vJjAVAOb/zumuxZtLDy9UbCLZC7NfinJ8oPelvZgyecutElastQz2wv6Tnh/y5NDI5
+         Ux+ETWmBVmtOA8t0Cf1Y7dqaoExJy8yfE665P7egaIis6qsHf/c2eD/7sXwacp/tAbEC
+         dNWF2XctMFOOEAuUPQKcBkUMnQ8i92vq7ICWT8hst0gOP1IWgN3RnUOnDNjf17wneJ4D
+         ypskfuWAtvnUwwLaB1MBkos9MHIQqdGc+zj3JKQ03igTfHRjdYopCU0FYN9TQgxvIWrP
+         ggWA==
+X-Forwarded-Encrypted: i=1; AJvYcCVNfD9y/FHPPJpfireUR6qui6h1/y0qsHUu6RF62u0kQjBwWnK89gTOTBCVnFRSfu9RYiI+sMchsxxSX5o1IKko6AEYT+s0TS4Lx+f1gEZLWgfxkw==
+X-Gm-Message-State: AOJu0YwrIGB9TFBIUEk/Wkf08Exk2f7jVTLvoX0p6TpMQkOIRD4+u5El
+	ZEu8Nl0lX9BiND4BHlFGhcJX6wksuyp4V8nP50h9J7/p3jgHK/0GRtJBqEZ1LAE4Nvay3hCiM7M
+	OiZa3L930wsNi7+tCt3MFTTPIkDXhhom6OnmRTJFgQkwLCnKJf91Gu9TG6Avjdo4Kg+86VfJ89E
+	011M2K7zriwT5KOHYVj+DzY/R60Npu2JCRmjXydW1SMgyOrw==
+X-Received: by 2002:a17:902:ead2:b0:1dc:177b:1d85 with SMTP id p18-20020a170902ead200b001dc177b1d85mr5212139pld.27.1708929738063;
+        Sun, 25 Feb 2024 22:42:18 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFPjqXDqvRSryvZUoHlapsPF8sYJ2LccTIQnf1QlrFDeAAnlVtwK8iyELbez+L0Sh0tF4nraIcdu4TqUhKTGGQ=
+X-Received: by 2002:a17:902:ead2:b0:1dc:177b:1d85 with SMTP id
+ p18-20020a170902ead200b001dc177b1d85mr5212129pld.27.1708929737544; Sun, 25
+ Feb 2024 22:42:17 -0800 (PST)
 MIME-Version: 1.0
-References: <20240218132306.83456-1-lingshan.zhu@intel.com>
- <20240218090935-mutt-send-email-mst@kernel.org> <CAD=HUj4b3gLsA2VD4cxmVzLPGRZfaREQcJNb4zfxLH=xv=2X6g@mail.gmail.com>
- <be09ad18-398e-47c0-abea-3f025df40734@intel.com> <CAD=HUj6iVc=QpA6kGyNhdM-BrD5tuAj1yUkS6gJtU+hi=QmtLg@mail.gmail.com>
- <70693394-289e-42d0-a6da-b41bfab28c44@intel.com> <20240225034902-mutt-send-email-mst@kernel.org>
- <ac18a34e-6d8c-45a3-8c2f-65df0829a60f@intel.com>
-In-Reply-To: <ac18a34e-6d8c-45a3-8c2f-65df0829a60f@intel.com>
-From: David Stevens <stevensd@chromium.org>
-Date: Mon, 26 Feb 2024 11:43:07 +0900
-Message-ID: <CAD=HUj40DFWr=oVZNsO=342xgv0n45SxYx8ex+QwhNq592yfVQ@mail.gmail.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, jasowang@redhat.com, eperezma@redhat.com, 
-	cohuck@redhat.com, stefanha@redhat.com, virtio-comment@lists.oasis-open.org, 
-	virtio-dev@lists.oasis-open.org
+References: <20240216082432.709956-1-stevensd@chromium.org> <20240216082432.709956-2-stevensd@chromium.org>
+In-Reply-To: <20240216082432.709956-2-stevensd@chromium.org>
+From: Jason Wang <jasowang@redhat.com>
+Date: Mon, 26 Feb 2024 14:42:06 +0800
+Message-ID: <CACGkMEuP=ZcbRf4G8O1hBjg0s5uNbrRMO=ESnU0AKWSHmF_fMQ@mail.gmail.com>
+To: David Stevens <stevensd@chromium.org>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, virtio-comment@lists.oasis-open.org, 
+	virtio-dev@lists.oasis-open.org, parav@nvidia.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: [virtio-comment] Re: [PATCH] virtio: introduce SUSPEND bit in device status
+Subject: [virtio-comment] Re: [PATCH v4 1/1] Add suspend support for virtio PCI devices
 
-On Mon, Feb 26, 2024 at 10:36=E2=80=AFAM Zhu, Lingshan <lingshan.zhu@intel.=
-com> wrote:
-> On 2/25/2024 4:52 PM, Michael S. Tsirkin wrote:
-> > On Fri, Feb 23, 2024 at 03:44:41PM +0800, Zhu, Lingshan wrote:
-> >>
-> >> On 2/20/2024 1:09 PM, David Stevens wrote:
-> >>> On Tue, Feb 20, 2024 at 1:06=E2=80=AFPM Zhu, Lingshan <lingshan.zhu@i=
-ntel.com> wrote:
-> >>>> On 2/19/2024 2:46 PM, David Stevens wrote:
-> >>>>> On Sun, Feb 18, 2024 at 11:11=E2=80=AFPM Michael S. Tsirkin <mst@re=
-dhat.com> wrote:
-> >>>>>> On Sun, Feb 18, 2024 at 09:23:06PM +0800, Zhu Lingshan wrote:
-> >>>>>>> This commit allows the driver to suspend the device by
-> >>>>>>> introducing a new status bit SUSPEND in device_status.
-> >>>>>>>
-> >>>>>>> This commit also introduce a new feature bit VIRTIO_F_SUSPEND
-> >>>>>>> which indicating whether the device support SUSPEND.
-> >>>>>>>
-> >>>>>>> This SUSPEND bit is transport-independent.
-> >>>>>>>
-> >>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> >>>>>>> Signed-off-by: Jason Wang <jasowang@redhat.com>
-> >>>>>>> Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
-> >>>>>> Could we get some kind of dscription how this has taken into
-> >>>>>> consideration the proposal from David Stevens?
-> >>>>>>
-> >>>>>> I find it really tiring when there are competing patches with auth=
-ors
-> >>>>>> ignoring each other's work and leaving it up to reviewers to
-> >>>>>> figure out how do the patches compare.
-> >>>>> This patch looks like it could be used to implement my use case.
-> >>>>> However, parts of it are a bit vague and imprecise, so it's hard to
-> >>>>> actually say whether my use case would actually be covered by a
-> >>>>> specific implementation of this proposal.
-> >>>> I am on vacation till this Friday. Shall we co-work on this and
-> >>>> post something new together?
-> >>> That works for me.
-> >> Cool! How about two patches in a new series:
-> >> 1) a general virtio suspending patch describing suspending behaviors f=
-or all
-> >> virtio devices from me, an updating version of this patch
-> >> 2) a PCI transport suspending patch from you, describing PCI specific
-> >> behaviors.
-> >>
-> >> Dose this sound good to you?
-> > Well David's patch was more precise than yours, and also better worded.
-> > So think if there's an agreement you guys would really start with that,
-> > move the functionality to the status bit and make other changes as need=
-ed.
-> I think we plan to cooperate on a new series including both the status
-> bit and
-> PCI transport, collaborations on both of our patches.
+On Fri, Feb 16, 2024 at 4:25=E2=80=AFPM David Stevens <stevensd@chromium.or=
+g> wrote:
 >
-> Let's see whether this looks good to David
+> Add a virtio power management PCI capability to allow drivers to suspend
+> virtio PCI devices. This allows drivers to suspend devices at the virtio
+> level before suspending them at the PCI transport layer. This allows
+> drivers to do a two phase suspend, which prevents notifications from
+> being ignored or lost if interrupts are reconfigured at the PCI
+> transport layer immediately before or after the device is put into the
+> PCI PM D3 low power state.
+> ---
+>  transport-pci.tex | 51 +++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+>
 
-That works for me. I can incorporate the feedback on both proposals
-and send out a combined version in the next day or so.
+I would like to know how the two phase suspend can prevent the loss of
+notification or interrupt. Or for example, if it can be workaround at
+the driver level.
 
-Thanks,
-David
+Thanks
+
 
 This publicly archived list offers a means to provide input to the=0D
 OASIS Virtual I/O Device (VIRTIO) TC.=0D
