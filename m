@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9152-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9153-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC5A2C54798
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 09:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E59FBC54798
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 09:16:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 484F4120D46
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 09:02:52 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 452AF157EEA
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 09:16:13 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 3F2AF986634
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 09:02:52 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 20F739863E4
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 09:16:13 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 35F37983D68; Tue, 27 Feb 2024 09:02:52 +0000 (UTC)
+	id 074E7983D68; Tue, 27 Feb 2024 09:16:13 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,126 +24,156 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 1EAD3986478
-	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Feb 2024 09:02:47 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EC4789863B6
+	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Feb 2024 09:16:12 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: x-NwKOfmOW-bShANDLcuTg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709024557; x=1709629357;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FlpacEWacryyrIlJZOoZ2EmsNR8IKw7FDvlRQtzIliY=;
-        b=ZFJj0GIE4w4QVgK4ILXmjz2kWEXtx6KqDxfDk/u4jFYXEIEo6xtmx1YdQYL7EgxF53
-         8thYVX1bGoIQQSnXnZliylnkvTTsOKXbzadygUSw/W+QpvBizDFGSaUTDnBzJ7iNrObF
-         GRgQUR6aoxzxvtcTjxEg01kfFmdt9GpXGQQbfz3q4Koq5uXtKBl+ufkdz0iWzsZ1BeGl
-         IbLyOHqFz7nQsGA/t/mGVUe0eFBfQl3TqK7jQ8duqhKfA0A2gVMWzHD61JK/t1yBR/3v
-         A8CUPmGr0xVWYjkuOvgfchGYsrFDP9kitTXdGN47Su7l+SRmn6q1yJn4dgAbUW4xw7A/
-         9Xig==
-X-Forwarded-Encrypted: i=1; AJvYcCWOksXGKtFsNHnXS5jAbCUgaWPcGciFecweY4e7DcnJ/S7LvDSob/Pufpkgc2qB04LEAt9wOOI72ignDy2NarehyhfNCHKejZT+mCPw8VHMYdIzTw==
-X-Gm-Message-State: AOJu0YweeD5dPNCnIigLaOuw8ZZou3VYRULW8Jvztd8XLqFjzN796Y9g
-	7LdrUQtnbn8xdAwBqMjp3PoSCy80SBb/s1jnop9O6kqvc8b8HaMCgjBs2rE7kHGNaqRUbw1jfcA
-	rrunoAsMuRsnbhoaV5yu3a/tRKR8kYZ07+JAMNQskbGEkwHq9cWZcrtzssNGl+WSnYc43LxA=
-X-Received: by 2002:ac8:7cb5:0:b0:42e:71bf:fb92 with SMTP id z21-20020ac87cb5000000b0042e71bffb92mr8237056qtv.40.1709024556888;
-        Tue, 27 Feb 2024 01:02:36 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEktM+QuiKRjrNahkKKCp6g6mPsIdmLJBBljJdl/Jpj1OjlZw9vIz8CtyenrJ+CoAmXDtw3rw==
-X-Received: by 2002:ac8:7cb5:0:b0:42e:71bf:fb92 with SMTP id z21-20020ac87cb5000000b0042e71bffb92mr8237041qtv.40.1709024556554;
-        Tue, 27 Feb 2024 01:02:36 -0800 (PST)
-Date: Tue, 27 Feb 2024 10:02:33 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@opensynergy.com>,
-	virtio-comment@lists.oasis-open.org,
-	virtio-dev@lists.oasis-open.org, linux-can@vger.kernel.org,
-	Harald Mommer <harald.mommer@opensynergy.com>
-Message-ID: <Zd2lKYLGT8ZEFzZd@fedora>
-References: <20230609142243.199074-1-Mikhail.Golubev-Ciuchea@opensynergy.com>
- <ebc57e36-d822-4264-a763-b530482b2669@opensynergy.com>
- <ZdXShopKyMYPTUva@fedora>
- <20240221-acts-decade-76d3d69e8e4d-mkl@pengutronix.de>
- <ZdX3xgM36iOVhr3V@fedora>
- <20240221-juggling-uproar-9518b4901f41-mkl@pengutronix.de>
- <877circsh3.fsf@redhat.com>
+X-MC-Unique: MKqflWGUPGyT81HHIY97zg-1
+From: Cornelia Huck <cohuck@redhat.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Yuri Benditovich <yuri.benditovich@daynix.com>,
+ virtio-comment@lists.oasis-open.org, Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>
+In-Reply-To: <601c156a-8647-43b8-8517-3df9df4c529a@linux.alibaba.com>
+Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
+ Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
+ 153243,
+ =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
+ Michael O'Neill, Amy
+ Ross"
+References: <1704263702-50528-1-git-send-email-hengqi@linux.alibaba.com>
+ <1705384341.865516-1-xuanzhuo@linux.alibaba.com>
+ <c4fd63b3-5bdf-45e7-b846-3d858c3bd8ea@linux.alibaba.com>
+ <601c156a-8647-43b8-8517-3df9df4c529a@linux.alibaba.com>
+User-Agent: Notmuch/0.37 (https://notmuchmail.org)
+Date: Tue, 27 Feb 2024 10:16:04 +0100
+Message-ID: <871q8yclnv.fsf@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <877circsh3.fsf@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [virtio-comment] Re: [virtio-dev] Re: [virtio-comment] [RFC PATCH v3] virtio-can:
- Device specification.
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [virtio-comment] Re: [virtio-dev] Re: [PATCH v8] virtio-net:
+ correct conditions for devices to validate packet checksum
 
-On Mon, Feb 26, 2024 at 01:36:40PM +0100, Cornelia Huck wrote:
-> On Wed, Feb 21 2024, Marc Kleine-Budde <mkl@pengutronix.de> wrote:
-> 
-> > On 21.02.2024 14:16:54, Matias Ezequiel Vara Larsen wrote:
-> >> On Wed, Feb 21, 2024 at 01:49:31PM +0100, Marc Kleine-Budde wrote:
-> >> > On 21.02.2024 11:37:58, Matias Ezequiel Vara Larsen wrote:
-> >> > > > > +The length of the \field{sdu} is determined by the \field{length}.
-> >> > > > > +
-> >> > > > > +The type of a CAN message identifier is determined by \field{flags}. The
-> >> > > > > +3 most significant bits of \field{can_id} do not bear the information
-> >> > > > > +about the type of the CAN message identifier and are 0.
-> >> > > > > +
-> >> > > > > +The device MUST reject any CAN frame type for which support has not been
-> >> > > > > +negotiated with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST NOT
-> >> > > > > +schedule the message for transmission. A CAN frame with an undefined bit
-> >> > > > > +set in \field{flags} is treated like a CAN frame for which support has
-> >> > > > > +not been negotiated.
-> >> > > > > +
-> >> > > > > +The device MUST reject any CAN frame for which \field{can_id} or
-> >> > > > > +\field{sdu} length are out of range or the CAN controller is in an
-> >> > > > > +invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
-> >> > > > > +NOT schedule the message for transmission.
-> >> > > > > +
-> >> > > I am not very familiar with CAN but how does the device figure out that
-> >> > > the can_id is out of range?
-> >> > 
-> >> > In classical CAN we have the standard CAN frames, which have an 11 bit
-> >> > ID, and there are extended CAN frames, which have 29 bits ID. Extended
-> >> > frames are signaled with VIRTIO_CAN_FLAGS_EXTENDED set.
-> >> > 
-> >> > So if a standard frame uses more than 11 Bits of CAN-ID, it's considered
-> >> > out of range.
-> >
-> > Another option would be an extended frame (VIRTIO_CAN_FLAGS_EXTENDED
-> > set) and using more than 29 bits.
-> >
-> >> Thanks Marc for the explanation. Do you think that it would be
-> >> worthwhile to add that to the spec at some point?
-> >
-> > Yes that makes sense as it clarifies what's meant by out of range for
-> > CAN-IDs, for the valid length a reference to
-> > \item[VIRTIO_CAN_F_CAN_CLASSIC (0)] and \item[VIRTIO_CAN_F_CAN_FD (1)]
-> > might be added.
-> 
-> [virtio mailing lists are supposedly down for migration right now, I
-> hope there's some kind of backfill happening later...]
-> 
-> If the question comes up, it does make sense to add a
-> clarification... as the virtio-can spec is already voted upon and
-> merged, we'd need a patch on top. Not sure if it would qualify as an
-> editorial update or a vote would be needed, best to see it first :)
-> 
-I will submit two patches regarding the changes proposed in this thread.
+On Tue, Feb 27 2024, Heng Qi <hengqi@linux.alibaba.com> wrote:
 
-Matias
+> =E5=9C=A8 2024/2/20 =E4=B8=8A=E5=8D=8810:38, Heng Qi =E5=86=99=E9=81=93:
+>>
+>>
+>> =E5=9C=A8 2024/1/16 =E4=B8=8B=E5=8D=881:52, Xuan Zhuo =E5=86=99=E9=81=93=
+:
+>>> On Wed,=C2=A0 3 Jan 2024 14:35:02 +0800, Heng Qi=20
+>>> <hengqi@linux.alibaba.com> wrote:
+>>>> There is a historical error in virtio spec:
+>>>> =C2=A0=C2=A0 "If VIRTIO_NET_F_GUEST_CSUM is not negotiated, the device=
+ *MUST*=20
+>>>> set flags
+>>>> =C2=A0=C2=A0=C2=A0 to zero and SHOULD supply a fully checksummed packe=
+t to the=20
+>>>> driver."
+>>>>
+>>>> Currently in Linux and virtio-related implementations, the device=20
+>>>> validates
+>>>> the packet checksum and sets DATA_VALID regardless of whether
+>>>> VIRTIO_NET_F_GUEST_CSUM is negotiated.
+>>>>
+>>>> Please refer to the following summary and thread[1] for details and=20
+>>>> reasons:
+>>>>
+>>>> Summary
+>>>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>>> 1. GUEST_CSUM at virtio spec 0.95 is intended to be compatible with=20
+>>>> partially
+>>>> checksummed packets (NEEDS_CSUM <-> CHECKSUM_PARTIAL). So GUEST_CSUM=
+=20
+>>>> is mapped
+>>>> to NETIF_F_RXCSUM.
+>>>> GUEST_CSUM only indicates whether the driver handles partially=20
+>>>> checksummed packets.
+>>>> When XDP is loaded, the GUEST_CSUM's offload will be disabled, which=
+=20
+>>>> means that
+>>>> packets have NEEDS_CSUM set will be dropped, and packets have=20
+>>>> DATA_VALID set will
+>>>> still be received.
+>>>>
+>>>> 2. When DATA_VALID was added to Linux in 2011[2] and virtio1.0, it=20
+>>>> was actually
+>>>> expected that rx checksum offload (the driver can set=20
+>>>> CHECKSUM_UNNECESSARY) had
+>>>> nothing to do with whether GUEST_CSUM was negotiated. But due to an=20
+>>>> error, below
+>>>> desctiption was added incorrectly:
+>>>> =C2=A0=C2=A0 "If VIRTIO_NET_F_GUEST_CSUM is not negotiated, the device=
+ *MUST*=20
+>>>> set flags
+>>>> =C2=A0=C2=A0=C2=A0 to zero and SHOULD supply a fully checksummed packe=
+t to the=20
+>>>> driver."
+>>>>
+>>>> 3. We now hope to correct this error. Let the setting of DATA_VALID=20
+>>>> not be
+>>>> controlled by whether GUEST_CSUM is negotiated, but only controlled=20
+>>>> by whether
+>>>> rx checksum offload is enabled on the OS side. The state of this rx=20
+>>>> checksum
+>>>> offload is not aware of the device.
+>>>>
+>>>> 4. [Optional] NETIF_F_RXCSUM corresponding to rx checksum offload=20
+>>>> should be
+>>>> added to dev->hw_features. When the user turns off rx checksum=20
+>>>> offload through
+>>>> ethtool -K, neither NEEDS_CSUM nor DATA_VALID should be taken care=20
+>>>> of, that is,
+>>>> all packets will be marked as CHECKSUM_NONE.
+>>>>
+>>>> Related Link
+>>>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>>> [1]=20
+>>>> https://lists.oasis-open.org/archives/virtio-comment/202312/msg00135.h=
+tml
+>>>> [2] 10a8d94a9574 ("virtio_net: introduce VIRTIO_NET_HDR_F_DATA_VALID")
+>>>>
+>>>> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/185
+>>
+>> Hi Cornelia,
+>>
+>> Can this proposal be opened for voting?
+>>
+>> Thank you very much!
+>>
+>>>>
+>>>> Suggested-by: Jason Wang <jasowang@redhat.com>
+>>>> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+>>> Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+>
+> Hi Cornelia.
+>
+> Did you miss this email? :)
+>
+> Both Jason and Xuan have replied to Reviewed-by tag.
+> Can we initiate a vote?
+
+We currently can't do any voting (OASIS infrastructure update), and we
+probably have to sort out the fallout from the new platform once it's
+up.
 
 
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
