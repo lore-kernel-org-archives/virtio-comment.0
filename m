@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9146-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9147-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD62DC48BF6
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 01:54:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DAD1C5478C
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 01:54:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 112762AF89
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 01:54:12 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 1DCAA2AF9C
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 01:54:21 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id F044C9863DE
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 01:54:11 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 14219986676
+	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 01:54:21 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id DA95E9863AB; Tue, 27 Feb 2024 01:54:11 +0000 (UTC)
+	id 057809865E0; Tue, 27 Feb 2024 01:54:21 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,27 +24,27 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id CB0729863B6
-	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Feb 2024 01:54:11 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id EB2DA9865C9
+	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Feb 2024 01:54:20 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708998847; x=1709603647;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ir8KOJyTG35oHOK6cwt0T+Sr/hs8fYARHDnxd5lWN0w=;
-        b=L6WrBgGcRedtQ4Q9SFZQ/RGBFsyqVQ5yr7NvC5Vp6KHw/qtSuoRgIwe9/I7IDOAYsy
-         LGWcwp/1eWythzF+nSvr8OhsXfJkzlColroGrWMezLXCt/6zjEe29yWKlTiuEuGMdEDp
-         aFJowuuJMWdiA+hv8TPGeo1Rngq8Lxv1jllmRl4GZmpUY2fQ3XXatUvlchQUGKOmoxi1
-         1Wa3ttJnCBvZ7DVboYmBmpX6SHu8Mk+8PRVVg1jF1l0SucEX9I3KPkZ9vdaUo5vsv0Jx
-         wtjCixPzITk/FGF6jyxov7a5yuVyzpqnaTCd+gahpAbvMIfvljTpUKShXQi2WTPuyJ+2
-         IplA==
-X-Forwarded-Encrypted: i=1; AJvYcCUjveXEukbMSpyjC0//VdqUdA0hyzvfjmsJEU5vuYsnAmg+EIzwOZbJNWivnQbzRqYD8TXPEvHBZfdig2+pEMOtu7oypW0gPycGIZj7oxDnlPVy3g==
-X-Gm-Message-State: AOJu0YzMeEEy0+1JZUmtl+5xCq3bh17wOBR24Dum2/PgF3qrDhwIYWrJ
-	hfaiEMI0p0/95/sxOVbTUNQ7dXg+bj3+a9gtzy+dRe6ZaBTrU8c4iZcxHFZSfw==
-X-Google-Smtp-Source: AGHT+IG1kghKSW/J7cyRPf0d3dYoN5c3ExOUNsJD2LOk9tDJkqkFCDQ3VlsvmxbPm43kC9SJvvtuyw==
-X-Received: by 2002:a17:902:ec8b:b0:1db:2ad9:9393 with SMTP id x11-20020a170902ec8b00b001db2ad99393mr11736234plg.48.1708998847242;
-        Mon, 26 Feb 2024 17:54:07 -0800 (PST)
+        d=1e100.net; s=20230601; t=1708998852; x=1709603652;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/jxQ3AzAKIjqI1f0zroO9uma63qUVyrefEf06tcyrkg=;
+        b=Adm1dFjehacYhmLJURQeCnnda8+5tSdB/uPG8LJG9LXq/wMs8xl3gzCUXT79Mj55cc
+         PPj0eeV98ZLPB8axLhszOHUMyhl1Li/d8QG6QlS5/7LrHGBYGd2LgCaUHH24eS4WBQ9x
+         6Tef63VUZ+X1A0hJzo+72uJuUtDGBdFE5BxhyYBLj91NG/UjBBemJSrEAOpOZzwPn5Fp
+         RgLUYeAsitZvWvD3fZDkzl3CJpVV0Qr4d3ioH7URprEw4G3xFZVCAfQr/kMNG/8+FTaf
+         9P62QMUaiprVfSANJLTTi0vNwcDCyN5eOjHjAw52bCJLM5aDhenzGulBttLtXdiBLDY/
+         o6ig==
+X-Forwarded-Encrypted: i=1; AJvYcCVS42jnisFw6jjoyFTeylpfsASyCPdC6OoRglYH0wfPnQgXbDcx9/1+RKNCNF/EHQJOx7tkaUbLiiJasAzLVV+7QVoPeufcXRgY7o+QjKbmL6MPNQ==
+X-Gm-Message-State: AOJu0YxR4wsmK0gxVNBQwAEo7vwQhOSXXEKQ4Au3lQDrTzCMhRRVID3K
+	No4M1pZQ4mq7E5RhZb7f96Gd+y+zyLOfsZ+/CkvkqtdtUfBhnxKSxVoJ+HLUMw==
+X-Google-Smtp-Source: AGHT+IEty0WX6n/H3Yya9sxkas81/0zEAzMsAsHCTgGWGPPif1wiMmNHlsfwyRu6lklA0poEch+npg==
+X-Received: by 2002:a05:6a00:9382:b0:6e5:3434:d5e0 with SMTP id ka2-20020a056a00938200b006e53434d5e0mr4919776pfb.2.1708998852004;
+        Mon, 26 Feb 2024 17:54:12 -0800 (PST)
 From: David Stevens <stevensd@chromium.org>
 To: "Michael S . Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowang@redhat.com>,
@@ -53,51 +53,168 @@ To: "Michael S . Tsirkin" <mst@redhat.com>,
 	virtio-dev@lists.oasis-open.org
 Cc: parav@nvidia.com,
 	David Stevens <stevensd@chromium.org>
-Date: Tue, 27 Feb 2024 10:53:44 +0900
-Message-ID: <20240227015345.3614965-1-stevensd@chromium.org>
+Date: Tue, 27 Feb 2024 10:53:45 +0900
+Message-ID: <20240227015345.3614965-2-stevensd@chromium.org>
 X-Mailer: git-send-email 2.44.0.rc1.240.g4c46232300-goog
+In-Reply-To: <20240227015345.3614965-1-stevensd@chromium.org>
+References: <20240227015345.3614965-1-stevensd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [virtio-comment] [PATCH v5 0/1] Define a low power mode for devices
+Subject: [virtio-comment] [PATCH v5 1/1] Add SUSPEND bit to device status
 
-The Linux patch [1] added support for suspending virtio devices using
-native PCI power management. However, Linux does PCI power management
-during the noirq phase of suspend and resume. Without a mechanism to
-suspend/resume virtio devices when the driver is suspended/resumed in
-the early phase of suspend/late phase of resume, there is a window where
-interrupts can be lost.
-
-This revision of the patch tries to reconcile with the similar proposal
-[2], which was pulled out of one of a patch series attempting to add
-live migration support to virtio [3].
-
-[1] https://lore.kernel.org/lkml/20231208070754.3132339-1-stevensd@chromium.org/
-[2] https://lore.kernel.org/all/20240218132306.83456-1-lingshan.zhu@intel.com/
-[3] https://lore.kernel.org/all/20231103103437.72784-1-lingshan.zhu@intel.com/
-
-v4 -> v5:
- - Use a device status bit instead of a pci capability.
- - Reconcile differences with [2] by specifying that devices should
-   finish processing buffers before suspending and that devices
-   shouldn't access virtqueues while suspended.
- - Add more details about state transition acknowledgment.
-v3 -> v4:
- - Define virtio-pci specific power management that can be used in
-   conjunction with PCI power management.
-v2 -> v3:
- - Use different words for some concepts to avoid conflicts with other
-   parts of the spec.
- - Rewrite various sentences to improve clarity.
-v1 -> v2:
- - Define virtio-pci support on top of PCI power management.
- - Add more conformance requirements.
-
-David Stevens (1):
-  Add SUSPEND bit to device status
-
+Add a SUSPEND bit to the device status field to allow drivers to suspend
+virtio devices. On systems where drivers don't directly manage interrupt
+routing (e.g. Linux), this allows the drivers to suspend their devices
+and prevent interrupts from being sent when the interrupt routing system
+does not expect interrupts.
+---
  content.tex | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++---
  1 file changed, 84 insertions(+), 5 deletions(-)
 
+diff --git a/content.tex b/content.tex
+index 0a62dce5f65f..2183c63c45ea 100644
+--- a/content.tex
++++ b/content.tex
+@@ -49,6 +49,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+ 
+ \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
+   an error from which it can't recover.
++
++\item[SUSPEND (16)] Indicates that the device has been suspended by the
++  driver. Only valid when the VIRTIO_F_SUSPEND feature bit is negotiated.
+ \end{description}
+ 
+ The \field{device status} field starts out as 0, and is reinitialized to 0 by
+@@ -60,9 +63,11 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+ initialization sequence specified in
+ \ref{sec:General Initialization And Device Operation / Device
+ Initialization}.
+-The driver MUST NOT clear a
+-\field{device status} bit.  If the driver sets the FAILED bit,
+-the driver MUST later reset the device before attempting to re-initialize.
++
++The driver MUST NOT clear a \field{device status} bit, except for the
++SUSPEND bit as described in \ref{sec:General Initialization And Device
++Operation / Device Suspend}. If the driver sets the FAILED bit, the
++driver MUST later reset the device before attempting to re-initialize.
+ 
+ The driver SHOULD NOT rely on completion of operations of a
+ device if DEVICE_NEEDS_RESET is set.
+@@ -73,6 +78,10 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+ recover by issuing a reset.
+ \end{note}
+ 
++If VIRTIO_F_SUSPEND is negotiated, the driver MUST manage the SUSPEND bit
++as described in \ref{sec:General Initialization And Device Operation /
++Device Suspend}. Otherwise, the driver MUST NOT set the SUSPEND bit.
++
+ \devicenormative{\subsection}{Device Status Field}{Basic Facilities of a Virtio Device / Device Status Field}
+ 
+ The device MUST NOT consume buffers or send any used buffer
+@@ -82,6 +91,10 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+ that a reset is needed.  If DRIVER_OK is set, after it sets DEVICE_NEEDS_RESET, the device
+ MUST send a device configuration change notification to the driver.
+ 
++If VIRTIO_F_SUSPEND is negotiated, the device MUST manage the SUSPEND bit
++as described in \ref{sec:General Initialization And Device Operation /
++Device Suspend}. Otherwise, the device MUST ignore the SUSPEND bit.
++
+ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature Bits}
+ 
+ Each virtio device offers all the features it understands.  During
+@@ -99,10 +112,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+ \begin{description}
+ \item[0 to 23, and 50 to 127] Feature bits for the specific device type
+ 
+-\item[24 to 41] Feature bits reserved for extensions to the queue and
++\item[24 to 42] Feature bits reserved for extensions to the queue and
+   feature negotiation mechanisms
+ 
+-\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
++\item[43 to 49, and 128 and above] Feature bits reserved for future extensions.
+ \end{description}
+ 
+ \begin{note}
+@@ -629,6 +642,67 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
+ 
+ Thus a driver MUST ensure a virtqueue isn't live (by device reset) before removing exposed buffers.
+ 
++\section{Device Suspend}\label{sec:General Initialization And Device Operation / Device Suspend}
++
++When the VIRTIO_F_SUSPEND feature is negotiated, the driver can set the
++SUSPEND bit in \field{device status} to suspend a live device, and can
++clear the SUSPEND bit to resume a suspended device. A suspended device
++should pause its operation, but it must maintain it state such that it
++can immediately continue operation upon being resumed.
++
++Suspending a device via the SUSPEND bit is a seperate process from any
++transport-specific suspend mechanism.
++
++\drivernormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
++
++The driver MUST NOT set the SUSPEND bit if the DRIVER_OK bit is not set.
++
++After writing a new value to the SUSPEND bit, the driver MUST wait for
++the device to acknowledged the transition by reading from \field{device
++status} until the returned value of the SUSPEND bit matches the written
++value. During this period, the driver MAY abort the transition by writing
++a new value to the SUSPEND bit or by resetting the device.
++
++A driver MUST NOT access the device configuration space of a suspended
++device, except for \field{device status}.
++
++A driver MAY suspend a device that has buffers in its virtqueues. While
++the device is suspended, a driver MUST NOT modify any available buffers
++or their descriptors.
++
++A driver MUST NOT make any new buffers available to a suspended device.
++
++If a transport-specific suspend mechanism is available, the driver SHOULD
++use it to put the device into a deeper suspend state after setting the
++SUSPEND bit.
++
++\drivernormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
++
++A device MUST ignore writes to the SUSPEND bit if the DRIVER_OK bit is
++not set.
++
++A device MUST maintain its state while suspended such that all driver
++visible state after resuming exactly matches driver visible state
++before suspending.
++
++A device MUST ignore all writes to its configuration space while
++suspended, except for writes to \field{device status}.
++
++A device MUST NOT send notifications, access any virtqueues, or modify
++any fields in its configuration space while suspended.
++
++A device MAY send notifications, access any virtqueues, or modify its
++configuration space after the driver writes the SUSPEND bit but before
++the device acknowledges the transition by returning a \field{device
++status} value with the SUSPEND bit set. A device SHOULD finish processing
++and send the used buffer notification for any buffers it is able to
++before acknowledging the transition, but MAY retain buffers that cannot
++be immiedately processed (e.g. empty buffers in a network recieveq).
++
++A device SHOULD take steps to minimize its resource consumption while
++suspended, although what this involves is specific to the particular
++device implementation.
++
+ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+ 
+ Virtio can use various different buses, thus the standard is split
+@@ -872,6 +946,11 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ 	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
+ 	handling features reserved for future use.
+ 
++  \item[VIRTIO_F_SUSPEND(42)] This feature indicates that the driver can
++    suspend the device via the SUSPEND bit in \field{device status} (see
++    \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}).
++
++
+ \end{description}
+ 
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
 -- 
 2.44.0.rc0.258.g7320e95886-goog
 
