@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9157-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9158-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D32C5478C
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 11:27:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C82C54798
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 01:18:37 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 79C5D42A68
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 11:27:43 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 539CBF3F69
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 01:18:32 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 59F24986530
-	for <virtio-comment@archiver.kernel.org>; Tue, 27 Feb 2024 11:27:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 9B9569866B6
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 01:18:31 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 42D71983D68; Tue, 27 Feb 2024 11:27:43 +0000 (UTC)
+	id 1C8F79865E9; Wed, 28 Feb 2024 01:18:31 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,139 +24,144 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 339059863DE
-	for <virtio-comment@lists.oasis-open.org>; Tue, 27 Feb 2024 11:27:43 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id E3869986445
+	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Feb 2024 01:18:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-MC-Unique: 5YN-rDzSMySfgrTDtClUMg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709033259; x=1709638059;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Jtw/Pen4U2ZFXE8zotdoYuJqCnMON9/q4K36vHBkdvY=;
-        b=O+Ty8ZGLmkfZjXdtBoY0k4ylyW4/Bs0arEZf1uDtroHvNhH4Iwvk+e3KT/93jECODT
-         fHT0dK7TAUD9eesRo/vaGPgRdhK1lqQPhJ0VJRKxytThNLYzD/dWVAF5pvrxJqohk9UR
-         zl3N8EczJ4UfIXC+p8aFYaJrwA86dPMHlU5Pz7gWf0fNm9HE3p1nfIuh2hIqkv2Cx8Mw
-         ql87EM0LvBGO7Y1qvXs2GKJgNivhHLpK4bUPe7OD7KWJ/h+drWaDqPzZPbj0LdEcnwKp
-         lpFXe66F+/w3iw6FtkSV/B2xgBEvdcT425WTMduMbyzUz+Zf4LG9turvOrxu1WYRqgfT
-         P7oA==
-X-Gm-Message-State: AOJu0YxKKqDSUvg1uwB2pdp83zEgV7e9Nr02CdLriA9PbmSTEO0nM1K2
-	N8oUZS8xTMZtcDhMZKV5zk2m9oUBSJA+vrzNz93+OuR7IIytdSEwOqw3WuLq6mJXfyBArpVxMly
-	VHvlKc1uns7tzO4mdfGzTV7I55CouIK/UvtXSlQ+mwe4lQkdB3AXuuOfpWCFkV8+hOu/YC7qLC0
-	qjVo4scFy8+aw7XDCm1MREHCg9Pvvd22KYO8dcXdDzTdphTODq86OkJUs=
-X-Received: by 2002:a05:6214:418c:b0:68f:e774:d57a with SMTP id ld12-20020a056214418c00b0068fe774d57amr3082840qvb.27.1709033259068;
-        Tue, 27 Feb 2024 03:27:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGk2CQk9EZUqs2Wt+mN0Ti2EDkokr+CbaOIgV2QGkn1UxA6Ra2vVHAZdZw1/CfzR+Qiw+jAwA==
-X-Received: by 2002:a05:6214:418c:b0:68f:e774:d57a with SMTP id ld12-20020a056214418c00b0068fe774d57amr3082822qvb.27.1709033258771;
-        Tue, 27 Feb 2024 03:27:38 -0800 (PST)
-Date: Tue, 27 Feb 2024 12:27:35 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: virtio-comment@lists.oasis-open.org
-Cc: anton.yakovlev@opensynergy.com, mvaralar@redhat.com
-Message-ID: <Zd3HJzN9fG6Pg0lR@fedora>
+        d=1e100.net; s=20230601; t=1709083107; x=1709687907;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=z/3grtq/1UKpSoVKy7leamP4+HFizWuMa5Vs8fRQ1dc=;
+        b=H6isQhlcb8/Fk0V01y7JdBxOtg9kNhyjHEKfriuxYSUuJ+xSgw4i2dpj4WcaEV5eN2
+         VEid0/fTDyj8HDFFKkRpt2CJ54YjbUuiYLn2S4mu0UAFM+HPpdXR8BbLB6R7u+nSWs62
+         KQxMcKkl2HRfIZY3aMtGJODqzIzUS9pu0F6o4uoZSvkKOI6/1KOTsMtmBc9Fk6xpDnUo
+         5ErFSqk2r8DukG7JN6A7ECRHAY0x8jJ1GEp1VRc4J+TRFCX8RpRFU83vQGI7oBQ8K5E+
+         Y3XvbtqWW9RDoIPm+hqbRf68XR781aUO0ujEAwd9nmE+SJHLw0Zl5+sTtIIYdirIAHVQ
+         hNZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWNvnsPnOGCaUTvKhHVxTew25tEshc+2oaQHXNs9NrFr0OKXl+2XXVx4OmWBNL23XCNR6KMnQ+eIYzboMFkQFvrsjNJ2t5gpLrdYZZxSyeXVE220g==
+X-Gm-Message-State: AOJu0Yx+FYMK7ZWUlYBfQariJmSMsP+v8VEUmhNvPhijXy2+4tIwOaP0
+	TSbxtXzwc6qqS7S7SourAUIRzGB+o5WHydkSFWPT+fukVQdpPG8qCvKEKw/XO9rXxkC24TPZQRR
+	ZBJ0ZaAJ6nlwC+Od8S3J4Jx+xGwcsN1uVgcc7
+X-Google-Smtp-Source: AGHT+IFgrN2SxX/0tWl8D6iMmgUW+YfrkNYTC9Rx/hNerG71sZNqTUgm48Q9SktcKlL4ttmuff0lOIVLU8A72aMUlzA=
+X-Received: by 2002:a19:6449:0:b0:513:16a8:4285 with SMTP id
+ b9-20020a196449000000b0051316a84285mr1098136lfj.60.1709083107520; Tue, 27 Feb
+ 2024 17:18:27 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [virtio-comment] [PATCH] virtio-snd: improve PCM command lifecycle description
+References: <20240227015345.3614965-1-stevensd@chromium.org>
+ <20240227015345.3614965-2-stevensd@chromium.org> <e03d003e-ca23-4dd2-aeac-6df79ee5c1e6@intel.com>
+ <CAD=HUj6gM5HUp=gGt1u=OcQRBe3A=ig5ws=ZLkJEy=Jr-caAvQ@mail.gmail.com> <e4caa5e3-2cd3-465e-aa9c-275b4426d31d@intel.com>
+In-Reply-To: <e4caa5e3-2cd3-465e-aa9c-275b4426d31d@intel.com>
+From: David Stevens <stevensd@chromium.org>
+Date: Wed, 28 Feb 2024 10:18:16 +0900
+Message-ID: <CAD=HUj66_gBBbf5EZ2dDrc51hKQ83zJotgS8vRanrxbD0oy_vw@mail.gmail.com>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, 
+	parav@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v5 1/1] Add SUSPEND bit to device status
 
-The PCM command lifecycle can be described as a state-machine in which
-the switching between states is triggered by commands. This commit
-explicitly presents the different states and the commands that are
-allowed in a given state. This commit leaves to the implementation the
-decision the state reached depending on the command.
+On Tue, Feb 27, 2024 at 5:52=E2=80=AFPM Zhu, Lingshan <lingshan.zhu@intel.c=
+om> wrote:
+> On 2/27/2024 3:59 PM, David Stevens wrote:
+> > On Tue, Feb 27, 2024 at 11:22=E2=80=AFAM Zhu, Lingshan <lingshan.zhu@in=
+tel.com> wrote:
+> >> On 2/27/2024 9:53 AM, David Stevens wrote:
+> >>> Add a SUSPEND bit to the device status field to allow drivers to susp=
+end
+> >>> virtio devices. On systems where drivers don't directly manage interr=
+upt
+> >>> routing (e.g. Linux), this allows the drivers to suspend their device=
+s
+> >>> and prevent interrupts from being sent when the interrupt routing sys=
+tem
+> >>> does not expect interrupts.
+> >>> ---
+> >>>    content.tex | 89 +++++++++++++++++++++++++++++++++++++++++++++++++=
++---
+> >>>    1 file changed, 84 insertions(+), 5 deletions(-)
+> >>>
+> >>> diff --git a/content.tex b/content.tex
+> >>> index 0a62dce5f65f..2183c63c45ea 100644
+> >>> --- a/content.tex
+> >>> +++ b/content.tex
+> >>> @@ -49,6 +49,9 @@ \section{\field{Device Status} Field}\label{sec:Bas=
+ic Facilities of a Virtio Dev
+> >>>
+> >>>    \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has exper=
+ienced
+> >>>      an error from which it can't recover.
+> >>> +
+> >>> +\item[SUSPEND (16)] Indicates that the device has been suspended by =
+the
+> >>> +  driver. Only valid when the VIRTIO_F_SUSPEND feature bit is negoti=
+ated.
+> >>>    \end{description}
+> >>>
+> >>>    The \field{device status} field starts out as 0, and is reinitiali=
+zed to 0 by
+> >>> @@ -60,9 +63,11 @@ \section{\field{Device Status} Field}\label{sec:Ba=
+sic Facilities of a Virtio Dev
+> >>>    initialization sequence specified in
+> >>>    \ref{sec:General Initialization And Device Operation / Device
+> >>>    Initialization}.
+> >>> -The driver MUST NOT clear a
+> >>> -\field{device status} bit.  If the driver sets the FAILED bit,
+> >>> -the driver MUST later reset the device before attempting to re-initi=
+alize.
+> >>> +
+> >>> +The driver MUST NOT clear a \field{device status} bit, except for th=
+e
+> >>> +SUSPEND bit as described in \ref{sec:General Initialization And Devi=
+ce
+> >>> +Operation / Device Suspend}. If the driver sets the FAILED bit, the
+> >>> +driver MUST later reset the device before attempting to re-initializ=
+e.
+> >> Comparing to add a new exception, why not just re-setting DRIVER_OK to
+> >> let the device
+> >> clearing SUSPEND? This issue has been addressed when Eugenio working o=
+n
+> >> a similar STOP_BIT
+> >>
+> >> https://lists.oasis-open.org/archives/virtio-dev/202111/msg00020.html
+> > I don't think the device status bit is bit-addressable, so it's not
+> > possible to re-set DRIVER_OK without also either re-setting or
+> > clearing SUSPEND.
+> Please correct me if I misunderstand your point,
+> I think it can be addressed, for example, in PCI it is an u8,
+> the device can clear a bit in it.
+>
+> It may be easier to let the device to clear the SUSPEND bit.
 
-Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
----
- device-types/sound/description.tex | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+If it's a u8, then the driver will be writing all 8 bits at the same
+time. So I don't see how it's possible for the driver to set one bit
+without also setting/clearing all the other bits at the same time.
+When you say the driver can re-set DRIVER_OK, it can either write 0x1F
+or 0xF. If we don't allow clearing the suspend bit, then it has to
+write 0x1F. But that's exactly what the driver wrote to suspend the
+device in the first place - how is the device supposed to tell the
+difference? I guess we could add something to the spec saying that's
+how the device is supposed to interpret it. But at that point, that's
+really the same as allowing the driver to clear the suspend bit, just
+with more complexity.
 
-diff --git a/device-types/sound/description.tex b/device-types/sound/description.tex
-index 54c9c8e..55e93af 100644
---- a/device-types/sound/description.tex
-+++ b/device-types/sound/description.tex
-@@ -397,9 +397,21 @@ \subsubsection{PCM Control Messages}\label{sec:Device Types / Sound Device / Dev
- \item[\field{stream_id}] specifies a PCM stream identifier from 0 to \field{streams} - 1.
- \end{description}
- 
--\paragraph{PCM Command Lifecycle}
-+\paragraph{PCM Command Lifecycle State Machine}
- 
--A PCM stream has the following command lifecycle:
-+A PCM stream can be represented by a state-machine made up of the following
-+states:
-+\begin{description}
-+\item SET PARAMETERS
-+\item PREPARE
-+\item START
-+\item STOP
-+\item RELEASE
-+\end{description}
-+
-+A command triggers the transition between these states. To what state to switch
-+depends on the implementation. Depending on the state, only certain commands
-+are valid. An error may occur if an invalid command is triggered.
- 
- \begin{enumerate}
- \item SET PARAMETERS
-@@ -407,13 +419,13 @@ \subsubsection{PCM Control Messages}\label{sec:Device Types / Sound Device / Dev
- The driver negotiates the stream parameters (format, transport, etc) with
- the device.
- 
--Possible valid transitions: set parameters, prepare.
-+Possible valid commands: set parameters, prepare.
- 
- \item PREPARE
- 
- The device prepares the stream (allocates resources, etc).
- 
--Possible valid transitions: set parameters, prepare, start, release.
-+Possible valid commands: set parameters, prepare, start, release.
- 
- \item Output only: the driver transfers data for pre-buffing.
- 
-@@ -421,7 +433,7 @@ \subsubsection{PCM Control Messages}\label{sec:Device Types / Sound Device / Dev
- 
- The device starts the stream (unmute, putting into running state, etc).
- 
--Possible valid transitions: stop.
-+Possible valid commands: stop.
- 
- \item The driver transfers data to/from the stream.
- 
-@@ -429,13 +441,13 @@ \subsubsection{PCM Control Messages}\label{sec:Device Types / Sound Device / Dev
- 
- The device stops the stream (mute, putting into non-running state, etc).
- 
--Possible valid transitions: start, release.
-+Possible valid commands: start, release.
- 
- \item RELEASE
- 
- The device releases the stream (frees resources, etc).
- 
--Possible valid transitions: set parameters, prepare.
-+Possible valid commands: set parameters, prepare.
- 
- \end{enumerate}
- 
--- 
-2.41.0
+-David
 
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
