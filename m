@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9158-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9159-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C82C54798
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 01:18:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D59B0C47DD9
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 06:45:28 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id 539CBF3F69
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 01:18:32 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id C033078151
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 06:45:26 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9B9569866B6
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 01:18:31 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id AEA989865D0
+	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 06:45:26 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 1C8F79865E9; Wed, 28 Feb 2024 01:18:31 +0000 (UTC)
+	id A3EBE986339; Wed, 28 Feb 2024 06:45:26 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,144 +24,141 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id E3869986445
-	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Feb 2024 01:18:30 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 945EF986445
+	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Feb 2024 06:45:26 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709083107; x=1709687907;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=z/3grtq/1UKpSoVKy7leamP4+HFizWuMa5Vs8fRQ1dc=;
-        b=H6isQhlcb8/Fk0V01y7JdBxOtg9kNhyjHEKfriuxYSUuJ+xSgw4i2dpj4WcaEV5eN2
-         VEid0/fTDyj8HDFFKkRpt2CJ54YjbUuiYLn2S4mu0UAFM+HPpdXR8BbLB6R7u+nSWs62
-         KQxMcKkl2HRfIZY3aMtGJODqzIzUS9pu0F6o4uoZSvkKOI6/1KOTsMtmBc9Fk6xpDnUo
-         5ErFSqk2r8DukG7JN6A7ECRHAY0x8jJ1GEp1VRc4J+TRFCX8RpRFU83vQGI7oBQ8K5E+
-         Y3XvbtqWW9RDoIPm+hqbRf68XR781aUO0ujEAwd9nmE+SJHLw0Zl5+sTtIIYdirIAHVQ
-         hNZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWNvnsPnOGCaUTvKhHVxTew25tEshc+2oaQHXNs9NrFr0OKXl+2XXVx4OmWBNL23XCNR6KMnQ+eIYzboMFkQFvrsjNJ2t5gpLrdYZZxSyeXVE220g==
-X-Gm-Message-State: AOJu0Yx+FYMK7ZWUlYBfQariJmSMsP+v8VEUmhNvPhijXy2+4tIwOaP0
-	TSbxtXzwc6qqS7S7SourAUIRzGB+o5WHydkSFWPT+fukVQdpPG8qCvKEKw/XO9rXxkC24TPZQRR
-	ZBJ0ZaAJ6nlwC+Od8S3J4Jx+xGwcsN1uVgcc7
-X-Google-Smtp-Source: AGHT+IFgrN2SxX/0tWl8D6iMmgUW+YfrkNYTC9Rx/hNerG71sZNqTUgm48Q9SktcKlL4ttmuff0lOIVLU8A72aMUlzA=
-X-Received: by 2002:a19:6449:0:b0:513:16a8:4285 with SMTP id
- b9-20020a196449000000b0051316a84285mr1098136lfj.60.1709083107520; Tue, 27 Feb
- 2024 17:18:27 -0800 (PST)
+X-IronPort-AV: E=McAfee;i="6600,9927,10996"; a="25954145"
+X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; 
+   d="scan'208";a="25954145"
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; 
+   d="scan'208";a="38150305"
+Message-ID: <7050294e-1d62-4487-b74b-b173bc586776@intel.com>
+Date: Wed, 28 Feb 2024 14:45:14 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: David Stevens <stevensd@chromium.org>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org,
+ parav@nvidia.com
 References: <20240227015345.3614965-1-stevensd@chromium.org>
- <20240227015345.3614965-2-stevensd@chromium.org> <e03d003e-ca23-4dd2-aeac-6df79ee5c1e6@intel.com>
- <CAD=HUj6gM5HUp=gGt1u=OcQRBe3A=ig5ws=ZLkJEy=Jr-caAvQ@mail.gmail.com> <e4caa5e3-2cd3-465e-aa9c-275b4426d31d@intel.com>
-In-Reply-To: <e4caa5e3-2cd3-465e-aa9c-275b4426d31d@intel.com>
-From: David Stevens <stevensd@chromium.org>
-Date: Wed, 28 Feb 2024 10:18:16 +0900
-Message-ID: <CAD=HUj66_gBBbf5EZ2dDrc51hKQ83zJotgS8vRanrxbD0oy_vw@mail.gmail.com>
-To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, 
-	parav@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <20240227015345.3614965-2-stevensd@chromium.org>
+ <e03d003e-ca23-4dd2-aeac-6df79ee5c1e6@intel.com>
+ <CAD=HUj6gM5HUp=gGt1u=OcQRBe3A=ig5ws=ZLkJEy=Jr-caAvQ@mail.gmail.com>
+ <e4caa5e3-2cd3-465e-aa9c-275b4426d31d@intel.com>
+ <CAD=HUj66_gBBbf5EZ2dDrc51hKQ83zJotgS8vRanrxbD0oy_vw@mail.gmail.com>
+From: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+In-Reply-To: <CAD=HUj66_gBBbf5EZ2dDrc51hKQ83zJotgS8vRanrxbD0oy_vw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Subject: [virtio-comment] Re: [PATCH v5 1/1] Add SUSPEND bit to device status
 
-On Tue, Feb 27, 2024 at 5:52=E2=80=AFPM Zhu, Lingshan <lingshan.zhu@intel.c=
-om> wrote:
-> On 2/27/2024 3:59 PM, David Stevens wrote:
-> > On Tue, Feb 27, 2024 at 11:22=E2=80=AFAM Zhu, Lingshan <lingshan.zhu@in=
-tel.com> wrote:
-> >> On 2/27/2024 9:53 AM, David Stevens wrote:
-> >>> Add a SUSPEND bit to the device status field to allow drivers to susp=
-end
-> >>> virtio devices. On systems where drivers don't directly manage interr=
-upt
-> >>> routing (e.g. Linux), this allows the drivers to suspend their device=
-s
-> >>> and prevent interrupts from being sent when the interrupt routing sys=
-tem
-> >>> does not expect interrupts.
-> >>> ---
-> >>>    content.tex | 89 +++++++++++++++++++++++++++++++++++++++++++++++++=
-+---
-> >>>    1 file changed, 84 insertions(+), 5 deletions(-)
-> >>>
-> >>> diff --git a/content.tex b/content.tex
-> >>> index 0a62dce5f65f..2183c63c45ea 100644
-> >>> --- a/content.tex
-> >>> +++ b/content.tex
-> >>> @@ -49,6 +49,9 @@ \section{\field{Device Status} Field}\label{sec:Bas=
-ic Facilities of a Virtio Dev
-> >>>
-> >>>    \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has exper=
-ienced
-> >>>      an error from which it can't recover.
-> >>> +
-> >>> +\item[SUSPEND (16)] Indicates that the device has been suspended by =
-the
-> >>> +  driver. Only valid when the VIRTIO_F_SUSPEND feature bit is negoti=
-ated.
-> >>>    \end{description}
-> >>>
-> >>>    The \field{device status} field starts out as 0, and is reinitiali=
-zed to 0 by
-> >>> @@ -60,9 +63,11 @@ \section{\field{Device Status} Field}\label{sec:Ba=
-sic Facilities of a Virtio Dev
-> >>>    initialization sequence specified in
-> >>>    \ref{sec:General Initialization And Device Operation / Device
-> >>>    Initialization}.
-> >>> -The driver MUST NOT clear a
-> >>> -\field{device status} bit.  If the driver sets the FAILED bit,
-> >>> -the driver MUST later reset the device before attempting to re-initi=
-alize.
-> >>> +
-> >>> +The driver MUST NOT clear a \field{device status} bit, except for th=
-e
-> >>> +SUSPEND bit as described in \ref{sec:General Initialization And Devi=
-ce
-> >>> +Operation / Device Suspend}. If the driver sets the FAILED bit, the
-> >>> +driver MUST later reset the device before attempting to re-initializ=
-e.
-> >> Comparing to add a new exception, why not just re-setting DRIVER_OK to
-> >> let the device
-> >> clearing SUSPEND? This issue has been addressed when Eugenio working o=
-n
-> >> a similar STOP_BIT
-> >>
-> >> https://lists.oasis-open.org/archives/virtio-dev/202111/msg00020.html
-> > I don't think the device status bit is bit-addressable, so it's not
-> > possible to re-set DRIVER_OK without also either re-setting or
-> > clearing SUSPEND.
-> Please correct me if I misunderstand your point,
-> I think it can be addressed, for example, in PCI it is an u8,
-> the device can clear a bit in it.
+
+
+On 2/28/2024 9:18 AM, David Stevens wrote:
+> On Tue, Feb 27, 2024 at 5:52 PM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
+>> On 2/27/2024 3:59 PM, David Stevens wrote:
+>>> On Tue, Feb 27, 2024 at 11:22 AM Zhu, Lingshan <lingshan.zhu@intel.com> wrote:
+>>>> On 2/27/2024 9:53 AM, David Stevens wrote:
+>>>>> Add a SUSPEND bit to the device status field to allow drivers to suspend
+>>>>> virtio devices. On systems where drivers don't directly manage interrupt
+>>>>> routing (e.g. Linux), this allows the drivers to suspend their devices
+>>>>> and prevent interrupts from being sent when the interrupt routing system
+>>>>> does not expect interrupts.
+>>>>> ---
+>>>>>     content.tex | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++---
+>>>>>     1 file changed, 84 insertions(+), 5 deletions(-)
+>>>>>
+>>>>> diff --git a/content.tex b/content.tex
+>>>>> index 0a62dce5f65f..2183c63c45ea 100644
+>>>>> --- a/content.tex
+>>>>> +++ b/content.tex
+>>>>> @@ -49,6 +49,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+>>>>>
+>>>>>     \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
+>>>>>       an error from which it can't recover.
+>>>>> +
+>>>>> +\item[SUSPEND (16)] Indicates that the device has been suspended by the
+>>>>> +  driver. Only valid when the VIRTIO_F_SUSPEND feature bit is negotiated.
+>>>>>     \end{description}
+>>>>>
+>>>>>     The \field{device status} field starts out as 0, and is reinitialized to 0 by
+>>>>> @@ -60,9 +63,11 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+>>>>>     initialization sequence specified in
+>>>>>     \ref{sec:General Initialization And Device Operation / Device
+>>>>>     Initialization}.
+>>>>> -The driver MUST NOT clear a
+>>>>> -\field{device status} bit.  If the driver sets the FAILED bit,
+>>>>> -the driver MUST later reset the device before attempting to re-initialize.
+>>>>> +
+>>>>> +The driver MUST NOT clear a \field{device status} bit, except for the
+>>>>> +SUSPEND bit as described in \ref{sec:General Initialization And Device
+>>>>> +Operation / Device Suspend}. If the driver sets the FAILED bit, the
+>>>>> +driver MUST later reset the device before attempting to re-initialize.
+>>>> Comparing to add a new exception, why not just re-setting DRIVER_OK to
+>>>> let the device
+>>>> clearing SUSPEND? This issue has been addressed when Eugenio working on
+>>>> a similar STOP_BIT
+>>>>
+>>>> https://lists.oasis-open.org/archives/virtio-dev/202111/msg00020.html
+>>> I don't think the device status bit is bit-addressable, so it's not
+>>> possible to re-set DRIVER_OK without also either re-setting or
+>>> clearing SUSPEND.
+>> Please correct me if I misunderstand your point,
+>> I think it can be addressed, for example, in PCI it is an u8,
+>> the device can clear a bit in it.
+>>
+>> It may be easier to let the device to clear the SUSPEND bit.
+> If it's a u8, then the driver will be writing all 8 bits at the same
+> time. So I don't see how it's possible for the driver to set one bit
+> without also setting/clearing all the other bits at the same time.
+> When you say the driver can re-set DRIVER_OK, it can either write 0x1F
+> or 0xF. If we don't allow clearing the suspend bit, then it has to
+> write 0x1F. But that's exactly what the driver wrote to suspend the
+> device in the first place - how is the device supposed to tell the
+> difference? I guess we could add something to the spec saying that's
+> how the device is supposed to interpret it. But at that point, that's
+> really the same as allowing the driver to clear the suspend bit, just
+> with more complexity.
+Thanks for the explanation, I get your point now.
+I agree allowing clear a bit can resume the device running. however this
+makes an exception and require the device to examine every bits that the 
+driver set.
+
+Letting the device clear the SUSPEND bit also require the device to examine
+every bits. Based on the device status(Init, Running or SUSPENDED), the 
+device
+can behave differently:
++If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device SHOULD 
+clear SUSPEND
++and resumes operation upon DRIVER_OK.
+
+But no need to make exceptions in the spec. Maybe this is a little less 
+complex?
+
+Allowing clear a bit by the driver also needs to deal with reset:
+https://lists.oasis-open.org/archives/virtio-dev/202111/msg00025.html
+
+Thanks
+
 >
-> It may be easier to let the device to clear the SUSPEND bit.
+> -David
 
-If it's a u8, then the driver will be writing all 8 bits at the same
-time. So I don't see how it's possible for the driver to set one bit
-without also setting/clearing all the other bits at the same time.
-When you say the driver can re-set DRIVER_OK, it can either write 0x1F
-or 0xF. If we don't allow clearing the suspend bit, then it has to
-write 0x1F. But that's exactly what the driver wrote to suspend the
-device in the first place - how is the device supposed to tell the
-difference? I guess we could add something to the spec saying that's
-how the device is supposed to interpret it. But at that point, that's
-really the same as allowing the driver to clear the suspend bit, just
-with more complexity.
 
--David
+This publicly archived list offers a means to provide input to the
+OASIS Virtual I/O Device (VIRTIO) TC.
 
-This publicly archived list offers a means to provide input to the=0D
-OASIS Virtual I/O Device (VIRTIO) TC.=0D
-=0D
-In order to verify user consent to the Feedback License terms and=0D
-to minimize spam in the list archive, subscription is required=0D
-before posting.=0D
-=0D
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
-List help: virtio-comment-help@lists.oasis-open.org=0D
-List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
-Committee: https://www.oasis-open.org/committees/virtio/=0D
+In order to verify user consent to the Feedback License terms and
+to minimize spam in the list archive, subscription is required
+before posting.
+
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
+List help: virtio-comment-help@lists.oasis-open.org
+List archive: https://lists.oasis-open.org/archives/virtio-comment/
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
+Committee: https://www.oasis-open.org/committees/virtio/
 Join OASIS: https://www.oasis-open.org/join/
 
