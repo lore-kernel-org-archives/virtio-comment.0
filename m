@@ -1,20 +1,20 @@
-Return-Path: <virtio-comment-return-9162-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
+Return-Path: <virtio-comment-return-9163-virtio-comment=archiver.kernel.org@lists.oasis-open.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from ws5-mx01.kavi.com (ws5-mx01.kavi.com [34.193.7.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79F3EC47DD9
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 18:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49698C5478C
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Feb 2024 03:20:34 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis.ws5.connectedcommunity.org [10.110.1.242])
-	by ws5-mx01.kavi.com (Postfix) with ESMTP id BDD8971C8C
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 18:15:47 +0000 (UTC)
+	by ws5-mx01.kavi.com (Postfix) with ESMTP id 722B01318CD
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Feb 2024 03:20:33 +0000 (UTC)
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 9A44B9865CD
-	for <virtio-comment@archiver.kernel.org>; Wed, 28 Feb 2024 18:15:47 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 38D0D9865D1
+	for <virtio-comment@archiver.kernel.org>; Thu, 29 Feb 2024 03:20:33 +0000 (UTC)
 Received: from host09.ws5.connectedcommunity.org (host09.ws5.connectedcommunity.org [10.110.1.97])
 	by lists.oasis-open.org (Postfix) with QMQP
-	id 78F2398645C; Wed, 28 Feb 2024 18:15:47 +0000 (UTC)
+	id 1E2EB986530; Thu, 29 Feb 2024 03:20:33 +0000 (UTC)
 Mailing-List: contact virtio-comment-help@lists.oasis-open.org; run by ezmlm
 List-ID: <virtio-comment.lists.oasis-open.org>
 Sender: <virtio-comment@lists.oasis-open.org>
@@ -24,174 +24,180 @@ List-Help: <mailto:virtio-comment-help@lists.oasis-open.org>
 List-Unsubscribe: <mailto:virtio-comment-unsubscribe@lists.oasis-open.org>
 List-Subscribe: <mailto:virtio-comment-subscribe@lists.oasis-open.org>
 Received: from lists.oasis-open.org (oasis-open.org [10.110.1.242])
-	by lists.oasis-open.org (Postfix) with ESMTP id 6A2F5986478
-	for <virtio-comment@lists.oasis-open.org>; Wed, 28 Feb 2024 18:15:47 +0000 (UTC)
+	by lists.oasis-open.org (Postfix) with ESMTP id 0836F986531
+	for <virtio-comment@lists.oasis-open.org>; Thu, 29 Feb 2024 03:20:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at kavi.com
-X-TM-MAIL-RECEIVED-TIME: 1709144143.999000
-X-TM-MAIL-UUID: cb8aa903-350e-438c-99d2-c29586c3ecf1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BJvI5eSld5YISY4e50VA8YwnG946DIHo6xkCq9mqgK50bKMoCO+JToF9G9CEfCwBW1cA0UpOgyzpD0ut/nrxqeUkkpFVwxxEceSSlKyAG0Xaot5KPTDTiN3s0UIYzJRjt25GBlNNwYqdDZ28aWjAWkZHfT72px8iMEBCtcBGuWfNwijiCArQNzNMHoDz7cNVwR9sT4floXxydTNnSHkWzc0qfsMskRX3OiRs681PvdWBXN8KihVzJcVWMDd942XgKduB8oZsmLJDnzVAVgvOYqBx0YYBED3/3PQfa3dRZuDFTjkm0PAbE/rx26jLQeLFOUP1XEvoUUtz9+Eo4Ct2Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sQa0nQHZNEqdENfI8HdXuc2nmQc6xp6vze8UucKUusY=;
- b=gsXVC5s/IzYmrbmtBJJ5d+XZCkita3Vl5D273BNY7g9olgycDz9fgeXAOIpOqAeRJGxq9TKm1KHpsMytW5+THzBfXmvI78A4Xflr/c18/DAPvSBYYEW/4lHlaf01fbwKD4beigeVwfPXMCPdetQE5l2qrOCBwDko+AFy+RvmOloYoUvaKXzKjt9DdPpfyFgYpsNBNimaaErdN8g1uN59B/4QLW/iNIdkTxSo/zcZUUNMEqwAZBLozChzUnwTRT21yOP91PN7FjQ/smqWANRMOQ2vbfjADie1rfQ4xku+yd4oUb4gU09cDsQSc4t602p4HtI7OQqNwXQs80G4ENgJAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <17d6675d-f084-4570-97fd-e9a4ddc7c5c5@opensynergy.com>
-Date: Wed, 28 Feb 2024 19:15:41 +0100
-Content-Language: en-US
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
- virtio-comment@lists.oasis-open.org
-References: <Zd9cMvuPQ8VxKOXY@fedora>
-From: Harald Mommer <harald.mommer@opensynergy.com>
-In-Reply-To: <Zd9cMvuPQ8VxKOXY@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0262.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::6) To BEZP281MB2581.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:2a::7)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709176829; x=1709781629;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=s40kXLQtNsWWpRYX9jsC+IRaxjKIRIaUNNGqcb4YGig=;
+        b=MXJreDpXQu/zi67wyP7iav+kJkdeZk3k7S65rVWYodTwCGaOk84PczRx33EF6sxJ0o
+         epek9++PUNZ51qnctKDxVuUIJVmz04MDmEW2HlUOJpjWgvD9rCOS+xqM2UTzSWRL+L7t
+         WPKTnapYXW6E37vtJ5u/O/O55DfgEGmmGiMWTPLsqr65QtjdzQrXnGFx46p7QzXS9Sfv
+         9WakwvyzCibk3jAJ8TFCy5Q3OTR9vPBiJAwRcO4EAwc0YMGkdSa+Yczi3bwP/80srjlZ
+         Bdr/ei4PW05/rP7Re5VIXgQ88sNC+6h7DVfLmqxJOltU9b2s2Gz3kPSK0+6RXGVs3vTG
+         euWg==
+X-Forwarded-Encrypted: i=1; AJvYcCX7bn+TFbwmZ4vB0hL7XiIIUoBf6gIdWPndi4YzytAk7dkHxtGpY3/F+NXLDr2Rrc2CIbcC9u0cviggcyQHBSu/weRwkYxgeMxz7SqtSYEMRIBM+g==
+X-Gm-Message-State: AOJu0Yx3KkO9RCxD2/Ijhm4wV1dpQFuhXfSnRCgmT1PyW1PnNxStv+6d
+	v/ElrrjCX5o2RaSuu/3CsNM15w6M45Gz+oKQPThR9aOB0RYpZ7DsXRtXgH4b6cUCn7dfn1kftd0
+	dlQ2kYX6YYL4NMBOVWqv3bjroF4ZbqWdM0PN+
+X-Google-Smtp-Source: AGHT+IH5x9bGldc411B6YFD08UlV1BO1dzqK+CYcRn/hGwvVaV5UWA7KQthufRyN4g5o804LnBVTGmfVWnI6xYeY0Hc=
+X-Received: by 2002:a05:6512:3987:b0:513:19ca:df5c with SMTP id
+ j7-20020a056512398700b0051319cadf5cmr811526lfu.45.1709176829262; Wed, 28 Feb
+ 2024 19:20:29 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BEZP281MB2581:EE_|BE1P281MB3237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 375e7bcc-dade-4287-6715-08dc38894686
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GnA9qKivKF5GeX085cdw3M7+w3Y1YUZqpw6to3IpUMR9Jq3MpzrKznZx6ytACN0H7SmY4LFSpuP1Azb8oFSdtRBLpXGOpzHl53ypzSDxXftk8W/wauwadFaKFYxUAPyrttlTKqC1AN9dYpRDczJ9o8X3wHd0UTV83hTCU64AdsK2H+TtwKOSIoIJyFbDndvJDH0PJ36JJM/IyLbPzHJGkUk+8s152WOr4SMel4fKLhhFdrINAzgHEFZL2FGA+fFW90sapZUd7DSUWJdYp3Eel1dCyK5KlgemWDxcLlOWp2kJbC4wZjXrnvbMa7FHFTc9tVPqckVZ9nsnPmRlHkboaLFsZHclUA1UGzUNyRkm09aZHx2lyIxtCQqnCkZXnY4vuRMydBo7mzGomU1xDGFs2ouZz/lqmdZCe001KZddddafdM927UsqHJrw2idV5vc8IHUn6nXlcLyHJL2vRh4l7k7CNAIFDBn1hxPLm35DnOyrkGybWoizJD6QsxTay5CS0ZZdhbCj+mnWpVT/uyhD5as7PgO5GEQu9/Zmf8A85LyVYteszSk1aGbfX59CfnYCVUKB90+jgVa8QCmMSZ02H+nS7VB4325+73Y2i6H0LERvM+E988W9A++kCXk0YC3R
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEZP281MB2581.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tk5pVDlrVVpjTi9hcXlDaW5KRGFMSlV6WFh3c3c1V3crUXJaMjhiQTV2MzB3?=
- =?utf-8?B?YTd3MWRwS1NTRFd4VHg1TjNpRHd6NmhYL043WDdmMzZnZng0YU44NmlQRVZW?=
- =?utf-8?B?eG1CZSs0ZlhtNEFHTllZMXRhWmlrUjc2NEVjNkJ5eXRKb25IQUM1WEZtS1JJ?=
- =?utf-8?B?L3EvOHZjTzlYQkJyMzQ2cm9WeExmenFjUVlTTnRlSVJsQzRtMjNpdFZUSHU0?=
- =?utf-8?B?SGwya2pqZVhrRGdCQktndUdMcmNSZlMyRXVFa1hoSUVlaVNJMDEzU085NUJK?=
- =?utf-8?B?OU94bEJTZ0Fra3EweG9IRDdsaW42L24vVGluS3VFUkdPcTI1V2hWbkVjMTRz?=
- =?utf-8?B?YjZJa3FKUm5pT2VUZU1INE5wTHhQODF5Z0hQL2c2US96aW5kdVNIZFFCWEdp?=
- =?utf-8?B?WmMrem9aYmRZazQrMVpyd0gvVmNHRmNLZ3ArSXpoTEtoTzkyRktCRHozZWk1?=
- =?utf-8?B?d0EzTk1zdW9ZdllpbWVoSjFEcXJYc28rYmFVV0hzVkVQbUtEZ0NmY01XZ2xv?=
- =?utf-8?B?Q2ZVaThrVDFuZjNNZStJa0djSFozUjRieGo0eUtvMitqMDdETUI2cy9HRzdR?=
- =?utf-8?B?cDFFMlh4eS9TdENicUl6WkFnVktwQXI2ZG9UNUZ0MmlXNncxcFdhaGRQMHI0?=
- =?utf-8?B?OW1IdHZqTEFub1hlZi9kR1BHVDI1VThtVldZM2tQeW9sTlphdmVRcXdKVElH?=
- =?utf-8?B?WWdlTXM0RW1BVk9Kc2h5ZVY1MFhIYU55QUZVL3lud0lzV2lHQlJjSnhZUXIy?=
- =?utf-8?B?YjdSMk1BNE1takhqL0pMVXBRaGxVSmdzbFJTWlZRQ0JDVDJyWGdxRHBSNFBu?=
- =?utf-8?B?clNueDQycld6MVdCa2F3ckZhMUsvbGV1YXpDOGM1RUFQbTZvb1kxZ2R6cG1w?=
- =?utf-8?B?NjlKcmVJOUVuZERJQXphWkdxZndxOUNCb3NoNHg1a1R2L2JpKzF6ejVNdTJZ?=
- =?utf-8?B?Rk9oTkg3R3FFZ09PMExpNlZuTGUyT1NhbFJRY1R3VEpMNFhJUTl4ZU9uUEV1?=
- =?utf-8?B?bU9uVmFPeEVublp3Vk5LR2ZzQVI5bGZDTTBsUjM3alFmbVVzWVhaOStTQ2I5?=
- =?utf-8?B?bHRqemJZS0h1SWF1ZzBvRUxyT2ZRby9uc3QxV2xndWhMOXlnQmVNVmRWc0dl?=
- =?utf-8?B?dXd2WGVsS1ZLZG9zK1JrejB6TkphZXAwK3F2NEYwNndSTUQwZFNLVkFEL0pX?=
- =?utf-8?B?RG9HOHhJZU5EdzhRcCtjSDRHa0V1L3VoUTRWdjloTnJQYnF6VEFHUTV6czZN?=
- =?utf-8?B?cUFMUFl1aG41aVp2eVAraVlwTk9Mb3JBU095STBTbzdURjFrVDVNNmlVOFEx?=
- =?utf-8?B?MlMzdDhCdzBCMmpWZ25pVFRldWE2VlZVSEJTSEUxeFZqUjZoVkptQXZwWTB3?=
- =?utf-8?B?NGZrYkN3bW51NEFXS09YVDVKUHRZajRYemhBSGRqdHBUTGVUWk93c3paZlVL?=
- =?utf-8?B?NVdnV25rWjh4bjRIV2xzLy9NQys4VHI2UkZGVkkxeXdkMjRaZExZeVo0NFEz?=
- =?utf-8?B?S0lMRTIzdEhzYzJENmZ3QmxFQ0toVDZienpNSEFqODRIUnBoRzVjSmdQaHNz?=
- =?utf-8?B?MzFPZWNtQ1puT3d2cElqTGYzL3pPaVV1dlBGTUt2QVBFclRlT2hGdkZRWDBW?=
- =?utf-8?B?V01wZ0dFRnc1eHZKZlp6NzByZWJYQkYrdUMreWFVQ0ZobVZ3Ylc5WnJ0akcv?=
- =?utf-8?B?YkdvdmFzY0g0RUdzaEdSbkFMMVJ4Y01PRlBHN0hPSnQvdVQvV3Q5a1BZdzlG?=
- =?utf-8?B?RjRJZVFDQmhDTlRjeVdWWDlDUStvWlg1NlFSZEI4WGFZUlcrV2JlcnoyRnoz?=
- =?utf-8?B?TEMwU1FMd25DUSt0WjdrRjNkajE5OG4yZGhGbjd2OS9PTFpjbzN4SHNoYzgy?=
- =?utf-8?B?OTlpbm5nZlNkQnZ1K0lmaWQ4T0VSQnZtL1YyM1dFN2YwcmQ4T1A0QlBmc3l5?=
- =?utf-8?B?WFBsSTlOVjVaaVpveUttVHFaVVNJUlBvcUVYZ3UrUmdtK1EwbkdPZ3pQR2s4?=
- =?utf-8?B?c3hDZEdQUUtvS2I4U2RnNWpEcEFQR2xQcDhBb1kvOVhWVjFtQWJvNk1qbytC?=
- =?utf-8?B?aUd5MVFHRUN6U25RSlJGZmNnMEhVd2xBdll2K1JGdjdlYXp6SXROVlZPK3Bt?=
- =?utf-8?Q?BSPHUcvc0gWIy+WrYksIVQLyB?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 375e7bcc-dade-4287-6715-08dc38894686
-X-MS-Exchange-CrossTenant-AuthSource: BEZP281MB2581.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 18:15:42.5625
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l6U34iWbCqsrhj83cbZD6LPkfxCZzKiiim3bON5e16aCGIxQWWOSzS6IZn4SNWu77Vsh4YDf0aACe7HFIdhIIg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB3237
-X-TM-AS-ERS: 104.47.11.169-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-28220.001
-X-TMASE-Result: 10--12.551600-4.000000
-X-TMASE-MatchedRID: u7Yf2n7Ca/1TzAVQ78TKJRhvdi92BBAuUd1JKREWJmR4qfOd233bZc8S
-	SyAROkr3Bf+oLr2yQk1bGYt3vomiyzURLmZdK2fKRg15M/AO3Y/c7b6k5+X69zAsn09lQFCFAxH
-	TB+c38up9Xqwfj79e2oDw7ZMKld/Bx5yOAL3addCgbRFHRBZMHjoK7X1W2DKDHyNEnetUnYKIeE
-	4MP8chfOLibDUSUM6Cjb8HgOeu95FiqdmaqPt35eT5AnjO7TXtDXFap8thawEweIyZbRlQ24XrN
-	S+xKlbqsQO6Vch/CfaNfczRoWaFQ7DP95vZKN8o3a10vAUaMQqoENw5WsYKM7C66pzjxPrrJU0n
-	G3tpe+CEbaqKQSlAZTKi+HUKFjEiVP02sUaPeRSTV794sV3abKGtlYnNFLGaHuWZkBo/Lo8=
-X-TMASE-XGENCLOUD: d80a9df5-bcc3-43bd-ab26-c6e4bdd8c45f-5-0-200-0
-X-TM-Deliver-Signature: A5C1DE92DEF15FECC2EC1564E6C29708
-X-TM-Addin-Auth: 0aF9emwq+QrYyTWyztCQ2ZkhOdjGTm9ISoXN7HYLoewzABVyYdzewX4gLWl
-	FykxPGatfxmxzMGo2AHMfD/r2NU7OIgi9qpfzBZyZsuOfoJAy1lDOThJ3+PvNJ/kAsYjBwIS/WE
-	r7UJuC0JyaQwjX79qbZend+vTkzEwhZrcFwp5OSSBhhyLk5jBRwsteddpDDZKZJOpHlOdGH7oSS
-	boVK8Foghq7C4JGFbJKLQwPokA9iWC33e0QdaRUCHSUQAbXKjj8Vh0fgm26P2cZwrl0AORZt59T
-	sQXuEaNQSr2BCAQ=.lP7zN5sGtFyp99GnoOg7qigPg1fLrFz4E8/4mysiRF/m7BuDN8UqgaF4Ie
-	FdFqp4mN2G6xwZIhmPdrqvEG+znfxJvp44ZdiZwjamp6Rk9UCxPT839e5Hb0M7U/PfaEx77xoOx
-	zmoYrCQcQiaVDsgd+3nfd3BvDAjOpx/G0czkOqNYw6iQa2Eclf/NDO6bQqXETABxQy/dtBRxgKp
-	Zfr9axtfS7VAsMoyHDk0zAHuRtpkmNSSlOzodPI7bLzZ4HmgyiRiZ0+gOWqyPWBYJCEQ9SwWRIU
-	jY/Oge/2SdSc3UH3kMYS0tNXBOvpTRoH3BC2FFjk0dp7M8PwEgKHinXzEtw==
-X-TM-Addin-ProductCode: EMS
-Subject: Re: [virtio-comment] [PATCH] virtio-can: define out of rage can-id
+References: <20240227015345.3614965-1-stevensd@chromium.org>
+ <20240227015345.3614965-2-stevensd@chromium.org> <e03d003e-ca23-4dd2-aeac-6df79ee5c1e6@intel.com>
+ <CAD=HUj6gM5HUp=gGt1u=OcQRBe3A=ig5ws=ZLkJEy=Jr-caAvQ@mail.gmail.com>
+ <e4caa5e3-2cd3-465e-aa9c-275b4426d31d@intel.com> <CAD=HUj66_gBBbf5EZ2dDrc51hKQ83zJotgS8vRanrxbD0oy_vw@mail.gmail.com>
+ <7050294e-1d62-4487-b74b-b173bc586776@intel.com>
+In-Reply-To: <7050294e-1d62-4487-b74b-b173bc586776@intel.com>
+From: David Stevens <stevensd@chromium.org>
+Date: Thu, 29 Feb 2024 12:20:18 +0900
+Message-ID: <CAD=HUj60Tz6hyparh_iELO-coyszw9zNjrUu86Wgum753sNkgA@mail.gmail.com>
+To: "Zhu, Lingshan" <lingshan.zhu@intel.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	virtio-comment@lists.oasis-open.org, virtio-dev@lists.oasis-open.org, 
+	parav@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: [virtio-comment] Re: [PATCH v5 1/1] Add SUSPEND bit to device status
 
+On Wed, Feb 28, 2024 at 3:45=E2=80=AFPM Zhu, Lingshan <lingshan.zhu@intel.c=
+om> wrote:
+> On 2/28/2024 9:18 AM, David Stevens wrote:
+> > On Tue, Feb 27, 2024 at 5:52=E2=80=AFPM Zhu, Lingshan <lingshan.zhu@int=
+el.com> wrote:
+> >> On 2/27/2024 3:59 PM, David Stevens wrote:
+> >>> On Tue, Feb 27, 2024 at 11:22=E2=80=AFAM Zhu, Lingshan <lingshan.zhu@=
+intel.com> wrote:
+> >>>> On 2/27/2024 9:53 AM, David Stevens wrote:
+> >>>>> Add a SUSPEND bit to the device status field to allow drivers to su=
+spend
+> >>>>> virtio devices. On systems where drivers don't directly manage inte=
+rrupt
+> >>>>> routing (e.g. Linux), this allows the drivers to suspend their devi=
+ces
+> >>>>> and prevent interrupts from being sent when the interrupt routing s=
+ystem
+> >>>>> does not expect interrupts.
+> >>>>> ---
+> >>>>>     content.tex | 89 ++++++++++++++++++++++++++++++++++++++++++++++=
+++++---
+> >>>>>     1 file changed, 84 insertions(+), 5 deletions(-)
+> >>>>>
+> >>>>> diff --git a/content.tex b/content.tex
+> >>>>> index 0a62dce5f65f..2183c63c45ea 100644
+> >>>>> --- a/content.tex
+> >>>>> +++ b/content.tex
+> >>>>> @@ -49,6 +49,9 @@ \section{\field{Device Status} Field}\label{sec:B=
+asic Facilities of a Virtio Dev
+> >>>>>
+> >>>>>     \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has ex=
+perienced
+> >>>>>       an error from which it can't recover.
+> >>>>> +
+> >>>>> +\item[SUSPEND (16)] Indicates that the device has been suspended b=
+y the
+> >>>>> +  driver. Only valid when the VIRTIO_F_SUSPEND feature bit is nego=
+tiated.
+> >>>>>     \end{description}
+> >>>>>
+> >>>>>     The \field{device status} field starts out as 0, and is reiniti=
+alized to 0 by
+> >>>>> @@ -60,9 +63,11 @@ \section{\field{Device Status} Field}\label{sec:=
+Basic Facilities of a Virtio Dev
+> >>>>>     initialization sequence specified in
+> >>>>>     \ref{sec:General Initialization And Device Operation / Device
+> >>>>>     Initialization}.
+> >>>>> -The driver MUST NOT clear a
+> >>>>> -\field{device status} bit.  If the driver sets the FAILED bit,
+> >>>>> -the driver MUST later reset the device before attempting to re-ini=
+tialize.
+> >>>>> +
+> >>>>> +The driver MUST NOT clear a \field{device status} bit, except for =
+the
+> >>>>> +SUSPEND bit as described in \ref{sec:General Initialization And De=
+vice
+> >>>>> +Operation / Device Suspend}. If the driver sets the FAILED bit, th=
+e
+> >>>>> +driver MUST later reset the device before attempting to re-initial=
+ize.
+> >>>> Comparing to add a new exception, why not just re-setting DRIVER_OK =
+to
+> >>>> let the device
+> >>>> clearing SUSPEND? This issue has been addressed when Eugenio working=
+ on
+> >>>> a similar STOP_BIT
+> >>>>
+> >>>> https://lists.oasis-open.org/archives/virtio-dev/202111/msg00020.htm=
+l
+> >>> I don't think the device status bit is bit-addressable, so it's not
+> >>> possible to re-set DRIVER_OK without also either re-setting or
+> >>> clearing SUSPEND.
+> >> Please correct me if I misunderstand your point,
+> >> I think it can be addressed, for example, in PCI it is an u8,
+> >> the device can clear a bit in it.
+> >>
+> >> It may be easier to let the device to clear the SUSPEND bit.
+> > If it's a u8, then the driver will be writing all 8 bits at the same
+> > time. So I don't see how it's possible for the driver to set one bit
+> > without also setting/clearing all the other bits at the same time.
+> > When you say the driver can re-set DRIVER_OK, it can either write 0x1F
+> > or 0xF. If we don't allow clearing the suspend bit, then it has to
+> > write 0x1F. But that's exactly what the driver wrote to suspend the
+> > device in the first place - how is the device supposed to tell the
+> > difference? I guess we could add something to the spec saying that's
+> > how the device is supposed to interpret it. But at that point, that's
+> > really the same as allowing the driver to clear the suspend bit, just
+> > with more complexity.
+> Thanks for the explanation, I get your point now.
+> I agree allowing clear a bit can resume the device running. however this
+> makes an exception and require the device to examine every bits that the
+> driver set.
 
-On 28.02.24 17:15, Matias Ezequiel Vara Larsen wrote:
-> This commit explains when a message is out of range.
+It needs to do this anyway to detect the SUSPEND bit being set in the
+first place, doesn't it? Why is detecting the SUSPEND bit being
+cleared more difficult than detecting the SUSPEND set being set?
+
+> Letting the device clear the SUSPEND bit also require the device to exami=
+ne
+> every bits. Based on the device status(Init, Running or SUSPENDED), the
+> device
+> can behave differently:
+> +If VIRTIO_F_SUSPEND is negotiated and SUSPEND is set, the device SHOULD
+> clear SUSPEND
+> +and resumes operation upon DRIVER_OK.
 >
-> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> ---
-> * This patch applies on top of virtio-1.4, which has not been released
->    yet.
-> ---
->   device-types/can/description.tex | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/device-types/can/description.tex b/device-types/can/description.tex
-> index 2511d9c..0a5cf02 100644
-> --- a/device-types/can/description.tex
-> +++ b/device-types/can/description.tex
-> @@ -191,6 +191,9 @@ \subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Ope
->   invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
->   NOT schedule the message for transmission.
->   
-> +Note that a message is out of range when a standard frame uses more than 11
-> +bits of can-id or when an extended frame uses more than 29 bits.
+> But no need to make exceptions in the spec. Maybe this is a little less
+> complex?
 
+That is also adding an exception, though? It introduces a single
+situation where the behavior of bits is tied together and a single
+situation where the device instead of the driver is allowed to clear
+bits. It would also complicate adding bit to device status that can be
+set when the device is suspended, since it would be ambiguous as to
+whether a driver writing 0x3F wants to enable bit 0x20 or wants to
+enable 0x20 and also disable SUSPEND. I fail to see how that is
+simpler than just letting the driver clear the SUSPEND bit.
 
-"_" and "-" and missing \field{}: It's "\field{can_id}" in the paragraph 
-above.
+-David
 
-=> "can-id" => "\field{can_id}"
-
-Looked through the spec. I did at least not totally forget to mention 
-the 11 bits for standard CAN and the 29 bits for extended CAN (line 
-28ff). But could have been expressed more clearly, the note makes it 
-clear now.
-
-> +
->   If the parameters are valid the message is scheduled for transmission.
->   
->   If feature VIRTIO_CAN_F_CAN_LATE_TX_ACK has been negotiated the
->
-> base-commit: 37c6a406678a5ee891fdf5671298cb4fcfa517f2
-
-
-This publicly archived list offers a means to provide input to the
-OASIS Virtual I/O Device (VIRTIO) TC.
-
-In order to verify user consent to the Feedback License terms and
-to minimize spam in the list archive, subscription is required
-before posting.
-
-Subscribe: virtio-comment-subscribe@lists.oasis-open.org
-Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org
-List help: virtio-comment-help@lists.oasis-open.org
-List archive: https://lists.oasis-open.org/archives/virtio-comment/
-Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf
-List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists
-Committee: https://www.oasis-open.org/committees/virtio/
+This publicly archived list offers a means to provide input to the=0D
+OASIS Virtual I/O Device (VIRTIO) TC.=0D
+=0D
+In order to verify user consent to the Feedback License terms and=0D
+to minimize spam in the list archive, subscription is required=0D
+before posting.=0D
+=0D
+Subscribe: virtio-comment-subscribe@lists.oasis-open.org=0D
+Unsubscribe: virtio-comment-unsubscribe@lists.oasis-open.org=0D
+List help: virtio-comment-help@lists.oasis-open.org=0D
+List archive: https://lists.oasis-open.org/archives/virtio-comment/=0D
+Feedback License: https://www.oasis-open.org/who/ipr/feedback_license.pdf=0D
+List Guidelines: https://www.oasis-open.org/policies-guidelines/mailing-lists=0D
+Committee: https://www.oasis-open.org/committees/virtio/=0D
 Join OASIS: https://www.oasis-open.org/join/
 
