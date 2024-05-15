@@ -1,232 +1,206 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B588EDF
-	for <virtio-comment@lists.linux.dev>; Wed, 15 May 2024 08:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1715760108; cv=pass; b=oaHgPo/FQIdOoF4A6yFGXjsQiygD529vHN5j6NYu0wP2LvgTNJl+mR/d3LRwIrLHbqZsBvG/6DzwrP3ldSHfglErJuRgU0uhMAeiTUuE/VWdQMroUmNx2QXBJB8Ruj/S/0N2giu1e3qET5OhA7BSIZ07ZGLAdVR5+iaPu+mDXrY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1715760108; c=relaxed/simple;
-	bh=Q3Mt4x6UwMw159lStifoWq9iTkEO1d061MDuLsxqTo0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cjoenKuDxTKgO6a69pTajsDp7FPLjwcrD4hJM3siYbD9uhub3WgA83q4sYSdAEKpy0T9zdvgPb3+Vba1tzW4+DvCcaPMuoL8La982k/fEvn7V5ghVZPqsY+tr0hQdtnURlqcnshOIP3u7qaPweqAfM6vWtoaf1NwPJkjz+xtv3M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=redhat.com; arc=pass smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4107C56458
+	for <virtio-comment@lists.linux.dev>; Wed, 15 May 2024 09:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1715764858; cv=none; b=TxtGrAlbKyI6IFnfTNy1/CKaCkZPLlDioA1mfHXDh5wWp9j9jDItD0kiXYlv9BZqThH/h8pcHZshZ+/hUhyxDm4jSNfzOC+XX1pM012LKpl9rOKH4pdHo71UsMoVbft8dfHTWu7DVx1H8WnyaGm15DQjWHkK+Wi5K5aeSUl372o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1715764858; c=relaxed/simple;
+	bh=uabB7uqUe9IXjQZ4eK6b6mpQuI7IrV6ptziI0mDtiSY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=TnXG1OMX3M9I9nbO2087hebMuhWro4Fh0xOr6XCAsBnlD884eLGgq5jzjxMGmnXXnROz2DhXO/wdgvV8UmFpDYMtjKSiD95b37aOKL6+yYrhh436+ASClS3vNW6GldRj4VUJNLnSQzNc+BofBmVTe2tl4/maNRHwbiISslHH2dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=B/XvYlD5; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4200ee78f35so29417465e9.1
-        for <virtio-comment@lists.linux.dev>; Wed, 15 May 2024 01:01:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715760105; x=1716364905;
-        h=content-transfer-encoding:mime-version:list-unsubscribe
-         :list-subscribe:list-id:precedence:references:in-reply-to:message-id
-         :date:subject:cc:to:from:delivered-to:delivered-to:resent-to
-         :resent-message-id:resent-date:resent-from:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=cRxg9MkOYWKBf3Ixh2HHbi38NEnN7AqilBnEWCQK8T8=;
-        b=D7LCwN0z3K4TA8d92i8Lwhttre2IB+mClAP7GUogV73F3OM3PJO3Nluk7tiFo52hJj
-         VI3UATo6WJOZH3ZcFucyk7Z7sqHPaAtiagKtsHseFRTxMWmCR/kNBxOD+2hzVEFz7v11
-         PG/bB5n7SmHgRC8a+9fBuEEnNVbbvAaF7AwFhRqr9WJIftY1MSiHxJCKIBNqjdxg8JR8
-         Rpj/il9sBHGhOz4iVGqsuPfLovhHjHqUG/nEwSixfmmYPX1R9rEis/79MKDa/SPMr+ct
-         A0xGsEz9TcPJoF03hhqC6tphCDCBIvuY+oz08izUbkRfBKshS9fTWD+yLJNPu1GJpbp1
-         8T+A==
-X-Gm-Message-State: AOJu0YwSUGUAR1YOwhrr+dGpkshKULHVDK3soAkUYo2ad7ghRGnx/K+b
-	Enynv9P+mIv5E6M6iVhXsTfvxF2ZknRMs6n8rMqZlTZkKprg3pXNtK25st/sw2dxegb4PRos6ZX
-	6jE3vA2kh0AdpMojwjCTwY8Oq7t7Ljzyz7GaFLbyNyuNzQNe4NAi0lO8Ckp6Y8AG7w8ZIcqLs+q
-	PIgOJ8M8j+yioncFRGxKsmcvfvD7KgoDNA9696ZyaB
-X-Google-Smtp-Source: AGHT+IH4AC/H/cN7vtJK5wAfp20CCHzaJHW/7N7KM5k+sFBAGe0LWUH9K3yFiaOmrWPfKQsTYI8dfQ==
-X-Received: by 2002:a05:600c:4f0c:b0:420:1f0f:fe19 with SMTP id 5b1f17b1804b1-4201f0fff56mr51599595e9.13.1715760105169;
-        Wed, 15 May 2024 01:01:45 -0700 (PDT)
-Received: from redhat.com ([2a02:14f:175:c01e:6df5:7e14:ad03:85bd])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-41fccee9326sm224023885e9.35.2024.05.15.01.01.43
-        for <virtio-comment@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 May 2024 01:01:44 -0700 (PDT)
-Resent-From: "Michael S. Tsirkin" <mst@redhat.com>
-Resent-Date: Wed, 15 May 2024 04:01:41 -0400
-Resent-Message-ID: <ZkRr5e1oozzZvVLq@redhat.com>
-Resent-To: virtio-comment@lists.linux.dev
-Received: from imap.gmail.com [74.125.133.109]
-	by tuck.redhat.com with IMAP (fetchmail-6.4.38 polling redhat account mtsirkin@redhat.com folder INBOX)
-	for <mst@localhost> (single-drop); Mon, 13 May 2024 09:33:35 -0400 (EDT)
-Received: by 2002:a05:7022:c8d:b0:7a:7b9f:ea34 with SMTP id ek13csp2070739dlb;
- Mon, 13 May 2024 05:21:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=2;
- AJvYcCWAHgZUK9jj6Z4tll06NQntqwE46EuedE7D9dhJ8892+xT7IPiR1yPK/Pb4hv4wBQeacQV6XtcrvLwJPmlGVLMwFCvRdSt0nV8s
-X-Received: by 2002:ac8:5994:0:b0:43a:db0c:ed9e with SMTP id
- d75a77b69052e-43dfdcd71efmr129306061cf.43.1715602884238; Mon, 13 May 2024
- 05:21:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1715602884; cv=none; d=google.com;
- s=arc-20160816;
- b=fK4dCmepAHzcHOelV2hdhSuE6473yYVggkcZ/T7tJVhydmx++sqeCbrm8t1+g/rnxu
- WqOI+CJN5veAPSaDA+zTsUkxc53mPVvHxFTPH84dw1DtYo4GMIZFx/vEPB0epbUPOfu/
- 3DTf3Ff4bvwWti+JYdnhv5iBvYJyzVTifIwWISs2gplneRmio6pYE2S7tz9vaDKZ+e5T
- 1HmFsxA3k2QkJs9OHDJDwRjaIoyNEtaZwBjQ4HPfFWCdm6IYR6+sfqM0V0wlVmwX36nG
- c6QPznAIINeX8Cp5P5/JfT7rFFXowr5spE0V8XUvX8snOTtrKT5h7qo605cBukN1GNSY 32qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20160816; h=content-transfer-encoding:mime-version:list-unsubscribe
- :list-subscribe:list-id:precedence:references:in-reply-to:message-id
- :date:subject:cc:to:from:delivered-to;
- bh=cRxg9MkOYWKBf3Ixh2HHbi38NEnN7AqilBnEWCQK8T8=;
- fh=eYfS26p4bk+FZQPL8VhilQgKGw/bxvwbGho54BggsgE=;
- b=QzdxyMcKOHFtRlZSZkklDVGdnaWTOM5Ucfwcj1zciMhBMHG8eHl/cIV1JL5uuaZsmm
- yumHNKNNfdNszdkHSls8eXPX5oM7yfQ3UIq1VNter+wa98EzrjbMjNWHut0wORpHG6WM
- Sj5Q0nC2+LejzSKJX6vu7Na5MnHpBoDG2do1VPObwynII9Z3LUMB3uMESdXj55Lv7MoJ
- lzV5M+jJuzdUO5vIkHEh8DhDsca1pLInpt093azgQ497zhEui3rTVpMG36uKa83lvY/F
- vzY1T+0Q8/R2KH59f8qISUfIVgE82w4YgrYfJ1eC+oG4AYzNoiLUT2gZOfGmLjemE0+E 4jNQ==;
- dara=google.com
-ARC-Authentication-Results: i=1; mx.google.com; spf=pass (google.com: domain
- of virtio-comment+bounces-4-mst=redhat.com@lists.linux.dev designates
- 147.75.48.161 as permitted sender)
- smtp.mailfrom="virtio-comment+bounces-4-mst=redhat.com@lists.linux.dev"
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com. [170.10.128.131]) by mx.google.com with
- ESMTPS id d75a77b69052e-43df56d162dsi99128961cf.646.2024.05.13.05.21.24 for
- <mtsirkin@gapps.redhat.com> (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384
- bits=256/256); Mon, 13 May 2024 05:21:24 -0700 (PDT)
-Received-SPF: pass (google.com: domain of
- virtio-comment+bounces-4-mst=redhat.com@lists.linux.dev designates
- 147.75.48.161 as permitted sender) client-ip=147.75.48.161;
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="B/XvYlD5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1715764855;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=iTXsZTYVVjRo8+6Pt7h3HVqXiHlT1xQWRIGRXKe+28s=;
+	b=B/XvYlD5jDlUspuU5qzxpLvdR+8OMTIAg6Wx2c4FBSWX6q4GMn0aRqkgTOgaPCCuu2zV7s
+	tyre4mRiW23OSzwweepubSHgDzj/hKeo/bow4fZou/Iok15/tmEaE4wIbCV/kQcFx6zyRU
+	oJAx7ScVoGE22nevTvJu8Q860Wy7GMo=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-277-FDk6Dj4_NSqvCZp4m06dpg-1; Mon, 13 May 2024 08:16:22 -0400
-X-MC-Unique: FDk6Dj4_NSqvCZp4m06dpg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256
- bits) key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested) by mimecast-mx02.redhat.com
- (Postfix) with ESMTPS id 47305101A555 for <mtsirkin@gapps.redhat.com>; Mon,
- 13 May 2024 12:16:22 +0000 (UTC)
-Received: by smtp.corp.redhat.com (Postfix) id 43970400056; Mon, 13 May 2024
- 12:16:22 +0000 (UTC)
-Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25]) by
- smtp.corp.redhat.com (Postfix) with ESMTPS id 0ACAE492BC6 for
- <mtsirkin@redhat.com>; Mon, 13 May 2024 12:16:22 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [170.10.128.131]) (using TLSv1.3 with cipher
- TLS_AES_256_GCM_SHA384 (256/256 bits) key-exchange X25519 server-signature
- RSA-PSS (2048 bits)) (No client certificate requested) by
- mimecast-mx02.redhat.com (Postfix) with ESMTPS id E51C529AA3BE for
- <mtsirkin@redhat.com>; Mon, 13 May 2024 12:16:21 +0000 (UTC)
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-517-LL2q2xv6OGCFMH-95wQHWQ-1; Mon,
- 13 May 2024 08:16:19 -0400
-X-MC-Unique: LL2q2xv6OGCFMH-95wQHWQ-1
-Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org
- [52.25.139.140]) (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384
- (256/256 bits)) (No client certificate requested) by sy.mirrors.kernel.org
- (Postfix) with ESMTPS id 791A7B218C5 for <mst@redhat.com>; Mon, 13 May 2024
- 12:10:18 +0000 (UTC)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1]) by
- smtp.subspace.kernel.org (Postfix) with ESMTP id B95D814F10C; Mon, 13 May
- 2024 12:10:16 +0000 (UTC)
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
- [209.85.166.171]) (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256
- (128/128 bits)) (No client certificate requested) by smtp.subspace.kernel.org
- (Postfix) with ESMTPS id 3AACC14EC6A for <virtio-comment@lists.linux.dev>;
- Mon, 13 May 2024 12:10:15 +0000 (UTC)
-Received: by mail-il1-f171.google.com with SMTP id
- e9e14a558f8ab-36c826d6edeso19943665ab.0 for <virtio-comment@lists.linux.dev>;
- Mon, 13 May 2024 05:10:15 -0700 (PDT)
-X-Received: by 2002:a05:6e02:216c:b0:36b:3c85:8b84 with SMTP id
- e9e14a558f8ab-36cc14f839dmr128452325ab.23.1715602214174; Mon, 13 May 2024
- 05:10:14 -0700 (PDT)
-Received: from always-x1.bytedance.net ([61.213.176.10]) by smtp.gmail.com
- with ESMTPSA id 41be03b00d2f7-63411346d46sm6578498a12.79.2024.05.13.05.10.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256); Mon, 13 May 2024
- 05:10:13 -0700 (PDT)
-From: zhenwei pi <pizhenwei@bytedance.com>
+ us-mta-457-auP2ANVwMkeJkNI6PgsHtg-1; Wed, 15 May 2024 05:20:38 -0400
+X-MC-Unique: auP2ANVwMkeJkNI6PgsHtg-1
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-34dc34c758fso3604909f8f.0
+        for <virtio-comment@lists.linux.dev>; Wed, 15 May 2024 02:20:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715764837; x=1716369637;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iTXsZTYVVjRo8+6Pt7h3HVqXiHlT1xQWRIGRXKe+28s=;
+        b=g+Jq7ScJkwdziN2cmRX8aPxJgqS56a9IZ5sHpoq5nsyuoddMcJ5kKp4jLbcUxvVVy0
+         60xDFhmeDZNynrrCQjavjnAizCaMrr9RzQioKfrEO4Rr0DRrTwT/SMCntDiXomPgxSOZ
+         Bae+14E7O7mtZJosssbT9mkba/kFaHlUiH1cMO6FUcysjpl9TQcyj+GAK7n6hg188/YV
+         qcpV8EfjBQ9HzLg/mfCrdKmkqnVr9lpEGVl2v0vmKqzzBGlff2BOT7N04qU8syaEUo3O
+         mLzMDyVWVGA1ouCOuLLpLVBBKOh6stTSKyFnaTZ5ZAwqJZjJbaGxYY1akbGLuSGUXNcG
+         DRZA==
+X-Gm-Message-State: AOJu0YwL/j+wtpXnl8FDI7WBupXqjHjAG4s2FrCELWDrRpmvmX6myXqS
+	aBak3pIGa85PTPczAiSRlljipse55XbEQ66XIN8/dOiTTWPrIVN4o8r+W35sTNYrqzH0zuilikB
+	yVnZccgXgB2BB474E4Y+r9Z4rqgCE3ihh6UYXg9/r1k9VC9uydPtB7gA8rXBTUzonj59vJjSkpD
+	yG9SizmY+Q5wlgUgZLNG/lHXWVHGGc+QZEvuHMQwPd0w==
+X-Received: by 2002:a05:6000:1370:b0:34c:a95f:1114 with SMTP id ffacd0b85a97d-3504a7375ccmr8605004f8f.40.1715764836643;
+        Wed, 15 May 2024 02:20:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG3up2P0hHaTklD9gYmhk6xsllM9NPFPHX4graXN/12bVruf946hIdGyx5w4qTtIgCPxjVNNg==
+X-Received: by 2002:a05:6000:1370:b0:34c:a95f:1114 with SMTP id ffacd0b85a97d-3504a7375ccmr8604981f8f.40.1715764835894;
+        Wed, 15 May 2024 02:20:35 -0700 (PDT)
+Received: from redhat.com ([2a02:14f:175:c01e:6df5:7e14:ad03:85bd])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3502b79bc99sm15849089f8f.11.2024.05.15.02.20.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 May 2024 02:20:35 -0700 (PDT)
+Date: Wed, 15 May 2024 05:20:33 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
 To: virtio-comment@lists.linux.dev, virtio-dev@lists.linux.dev
-Cc: david@redhat.com, zhenwei pi <pizhenwei@bytedance.com>
-Subject: [PATCH 1/1] balloon: introduce 6 memory statistics
-Date: Mon, 13 May 2024 20:10:05 +0800
-Message-Id: <20240513121005.459013-2-pizhenwei@bytedance.com>
-In-Reply-To: <20240513121005.459013-1-pizhenwei@bytedance.com>
-References: <20240513121005.459013-1-pizhenwei@bytedance.com>
-Precedence: bulk
+Cc: OASIS-virtio@connectedcommunity.org
+Subject: [PATCH] README.md: update mailing list info
+Message-ID: <a7999f18e2112605b167c623f9fe1ab67c535569.1715764807.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition;Similar Internal Domain=false;Similar Monitored External
- Domain=false;Custom External Domain=false;Mimecast External
- Domain=false;Newly Observed Domain=false;Internal User Name=false;Custom
- Display Name List=false;Reply-to Address Mismatch=false;Targeted Threat
- Dictionary=false;Mimecast Threat Dictionary=false;Custom Threat
- Dictionary=false
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
+X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
+X-Mutt-Fcc: =sent
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: bytedance.com
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Expose more memory statistics of the virtual memory subsystem from
-guest, it's helpful to analyze the memory performance and pressure
-from host side.
+As approved by the TC, we are moving to a less formal
+way of discussing the specification, on the mailing lists
+provided by the Linux Foundation:
 
-Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
+https://groups.oasis-open.org/higherlogic/ws/public/ballot?id=3820
+
+Update README.md accordingly.
+
+Use this opportunity to explain when and how to use each
+mailing list.
+
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- device-types/balloon/description.tex | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ README.md | 80 +++++++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 69 insertions(+), 11 deletions(-)
 
-diff --git a/device-types/balloon/description.tex b/device-types/balloon/de=
-scription.tex
-index a1d9603..bc8e109 100644
---- a/device-types/balloon/description.tex
-+++ b/device-types/balloon/description.tex
-@@ -305,6 +305,12 @@ \subsubsection{Memory Statistics}\label{sec:Device Typ=
-es / Memory Balloon Device
- #define VIRTIO_BALLOON_S_CACHES   7
- #define VIRTIO_BALLOON_S_HTLB_PGALLOC 8
- #define VIRTIO_BALLOON_S_HTLB_PGFAIL  9
-+#define VIRTIO_BALLOON_S_OOM_KILL       10
-+#define VIRTIO_BALLOON_S_ALLOC_STALL    11
-+#define VIRTIO_BALLOON_S_ASYNC_SCAN     12
-+#define VIRTIO_BALLOON_S_DIRECT_SCAN    13
-+#define VIRTIO_BALLOON_S_ASYNC_RECLAIM  14
-+#define VIRTIO_BALLOON_S_DIRECT_RECLAIM 15
-         le16 tag;
-         le64 val;
- } __attribute__((packed));
-@@ -399,6 +405,24 @@ \subsubsection{Memory Statistics Tags}\label{sec:Devic=
-e Types / Memory Balloon D
-=20
- \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb page
-   allocations in the guest.
+diff --git a/README.md b/README.md
+index 2bdf485..c06caf6 100644
+--- a/README.md
++++ b/README.md
+@@ -76,11 +76,12 @@ font packages.
+ <dd>
+ </dl>
+ <h4>Providing Feedback</h4>
+-Feedback must be provided the <strong>virtio-comment</strong> mailing list,
+-and archived in the mailing list archives.
+-<p>See <A
+-HREF="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=virtio#feedback">
+-https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=virtio#feedback</A>
++Informal feedback is accepted through the <strong>virtio-comment</strong> mailing list,
++and is archived in <A HREF="https://lore.kernel.org/virtio-comment/">the mailing list archives</A>.
++To provide feedback, subscribe by sending mail to
++<HREF="mailto:virtio-comment+subscribe@lists.linux.dev">virtio-comment+subscribe@lists.linux.dev</A>,
++then after confirming you agree to the IPR sending your feedback to
++<HREF="mailto:virtio-comment@lists.linux.dev">virtio-comment@lists.linux.dev</A>.
+ <p>Note that only plain text part of the message is archived, and all
+ attachments are stripped. Accordingly, messages sent to the
+ mailing list should use text/plain encoding and not
+@@ -106,8 +107,38 @@ Signed-off-by: Name &lt;email&gt;<br>
+ git format-patch -o proposal1/ HEAD~1..<br>
+ ... generates a new directory proposal1/ and a file starting with 0001- ...<br>
+ <p>
+-git send-email --to=virtio-comment@lists.oasis-open.org proposal1/0001-*
++git send-email --to=virtio-comment@lists.linux.dev proposal1/0001-*
+ </code>
 +
-+\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The number of Out-Of-Memory killer
-+  invocations.
++<dl>
++<dt>When to use the virtio-comment mailing list:</dt>
++<dd>
++  questions and change proposals for the Virtio specification,
++  including the specification of basic functionality, transports and
++  devices.
++</dd>
 +
-+\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The number of stall count on memo=
-ry
-+  allocation.
++<dt>When <em>not</em> to use the virtio-comment mailing list:</dt>
++<dd>
++  questions and change proposals for Virtio drivers and devices
++  implementing the specification.
++  (please use the <A HREF="mailto:virtio-dev@lists.linux.dev"> virtio-dev mailing list</A> for this).
++</dd>
 +
-+\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory that has been
-+  scanned asynchronously (in bytes).
++<dt>To do:</dt>
++<dd>
++ send email preferably in text format (best for archiving).
++</dd>
 +
-+\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory that has bee=
-n
-+  scanned directly (in bytes).
++<dt>Not to do:</dt>
++<dd>
++<ul>
++<li> copy both virtio-dev and virtio-comment mailing lists (instead, pick one);
++<li> send full copies of the virtio spec (in any format).
++</ul>
++</dd>
 +
-+\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory that has b=
-een
-+  reclaimed asynchronously (in bytes).
++</dl>
+ <h4>Note for TC Members</h4>
+ <p>TC Members should review TC specific
+ process rules under "Further Description of this Repository"
+@@ -116,16 +147,43 @@ HREF="https://github.com/oasis-tcs/virtio-admin">https://github.com/oasis-tcs/vi
+ 
+ </div>
+ <h4>Implementation discussion</h4>
+-Implementation discussion should take place on the <strong>virtio-dev</strong> mailing list,
+-and be archived in the mailing list archives.
+-<p>See <A
+-HREF="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=virtio#feedback">
+-https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=virtio#feedback</A>
++Implementation discussion takes place on the <strong>virtio-dev</strong> mailing list,
++and is archived in <A HREF="https://lore.kernel.org/virtio-dev/">the mailing list archives</A>.
++To participate in the discussion, subscribe by sending mail to
++<HREF="mailto:virtio-dev+subscribe@lists.linux.dev">
++virtio-dev+subscribe@lists.linux.dev</A>.
++After agreeing to the IPR, to participate in the discussion, send
++mail to <HREF="mailto:virtio-dev@lists.linux.dev">virtio-dev@lists.linux.dev</A>.
+ <p>This is the correct list to copy on Linux virtio UAPI change proposals.
+ <p>Note that only the plain text part of the message is archived, and all
+ attachments are stripped. Accordingly, messages sent to the
+ mailing list should use text/plain encoding and not
+ have any attachments.
 +
-+\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory that has =
-been
-+  reclaimed directly (in bytes).
- \end{description}
-=20
- \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory Balloon =
-Device / Device Operation / Free Page Hinting}
---=20
-2.34.1
++<dl>
++<dt>When to use the virtio-dev mailing list:</dt>
++<dd>
++  questions and change proposals for Virtio drivers and devices
++  implementing the specification.
++</dd>
++
++<dt>When <em>not</em> to use the virtio-dev mailing list:</dt>
++<dd>
++  questions and change proposals for the Virtio specification,
++  including the specification of basic functionality, transports and
++  devices (please use the <A HREF="mailto:virtio-comment@lists.linux.dev"> virtio-comment mailing list</A> for this).
++</dd>
++<dt>To do:</dt>
++<dd>
++ send email preferably in text format (best for archiving).
++</dd>
++
++<dt>Not to do:</dt>
++<dd>
++copy both virtio-dev and virtio-comment mailing lists (instead, pick one).
++</dd>
++</dl>
++
+ <h4>Use of github issues</h4>
+ Note: according to the virtio TC rules, all official TC communication
+ is taking place on one of the TC mailing lists.
+-- 
+MST
 
