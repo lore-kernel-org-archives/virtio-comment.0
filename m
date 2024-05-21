@@ -1,74 +1,74 @@
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2046.outbound.protection.outlook.com [40.107.244.46])
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on2051.outbound.protection.outlook.com [40.107.243.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8834628E7
-	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6DB4C62B
+	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.243.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716294662; cv=fail; b=kV6j2ajGZdhpJOd1LtBXNj/U8EU8ovij/WBI5pOjjxzcaMVVpsM2uZl6CLdXUWnk2mKjhxMeqYKpypwXiyNyuatoehiwzw3q+Nq3JxA+dVA05uQeAqp0KsBzhDz3RUDw2JU9MVrz2KwQ3sfTAadhubdx4hhslXMqj54+OPyqpTE=
+	t=1716294664; cv=fail; b=QpbpXCRKRA+4xdPU2Q0JUsUbjpAnp+8JxcI8EFrP1p+xwbTdZjd2bPSdtAanfhyd9lFL0ikZDPsZa0fX80sEtGfHwTMaN5TxrcyOsdr3z1W40Qwfe2CSSRCtg8lvCh+lKt3HolriNm3AZB7jzOgkKu/6BCRz2cmf7c509dbAqVw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716294662; c=relaxed/simple;
-	bh=xvXc8wvpUJQf2sjAAimpaZzI8nJ4P+PlncYRN92KHZE=;
+	s=arc-20240116; t=1716294664; c=relaxed/simple;
+	bh=RwZe+etIX5uBIlt4by2f66MZLv1rtynYZ9MC4TW22NY=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ughQdxpeXSvreC0HUmtZKTY3kTqNEPO5c87UBlRnx3WlGtKLpH/BKZApoRHA2AFkad04rQQnRaMkaLN7JK9hPREzgtpdGpREtJhM9ABd/aULpVQric0cv09bnTWMReLoxCHWYnIu4fM1dV49iCDBxBKqIK0vyf/P7t1M31z3gp8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Kdnr3GXW; arc=fail smtp.client-ip=40.107.244.46
+	 MIME-Version:Content-Type; b=b5NkN/6Vat32KBJ56aaUuifOeCYN+gdA8IqwEQwpZeOxk+GkTMbcZa5MwGqyUwrMdiJBb+eD/F8kudYjz596Rz79nok/TzIzAGgL1Fl3xPA52IEUXR4dCo4qxjseSfkE7JD1x5s0GDpjvzx0iSqxX2iMQt6CBlluRWj3h82welA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oTMANWJ0; arc=fail smtp.client-ip=40.107.243.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Kdnr3GXW"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oTMANWJ0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bwfTrxW2h2IgscSZiG7eMGyfe3mYhJs6gehqWsROgrLvgJAiniApPJkF89TkRxiay3YA3/2cR8jrOO84tWtW6YsT4s5BEZ2igPcCq5qQ9OH9xeH9Uh+1ibIOIzIsOhjsg6IQG7WpR1etjMp/32eFZa7arsMAKhqKei/DLulDUd+lQLnKBhZ3p/Ta8zUHjU00u7eakzXs5pJ5ktP6Dn8oPP2HDBDQ5rj25QQMDvWjpeI8aP8RBDwAruyDRwA75V1bLwgzql0gatBB45YhceOIpTRsW9Y6wA2nWUmHn94RpWzkITcDRxDg5834gSYukbv3FANfVS+pWIhYJZYmNKcdgQ==
+ b=kwX8Kh7p5F3rKkq2fp3fmRFjQbkUz7p1mpP33ys6RqmaOjdgsB8m8DmXvdylTC98BKKxnd1J+a5WR34ojfmDlBrTS1lc7PjJJHTbzzwOfT7nxcJs8hsRBcMlZNs6xWcfoBK8wO/RjaxcU5dwmlqWM/2KVugmHA8jxWdjtmsKpu+5iMTaL/W5h3daOGtXggJwto8xXi4zD/8LrJML1Bn87zD6U8v57JocQf+2fObsnSkB2eAWzfUN4UhMNsukPzDzhfwFBs3a/Hdn1xwQDeu43Vn42FR+7jeBl+pjk/Biez0IYHAX1Tab2elnCnu0ds6biVyNHXepeA6t9z1sS6YLaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/VUUR7j4/mtEPSb0JSjgbTIkGhkougQ29RvyL3gzVLQ=;
- b=QVn9fYpbKHdXhEJaTSLBh2kuBSl7oRpjNSvyx4vkBWS91hx3ZA4BNNlFG9TIRK3FJwFgTfkQkf2HvHDKzf/0It67lYoZjRoFrZWHOoWwnbHpoA+uXjoXo/qJuurGCH6S3nys6FqPdUCHN+7WHmYqMUiaEfsisWcTMWyYAvbjXfj8quteBaYIe9baKT0N6tBR/JfdHrR/XKUngUSVqzBiuSRYpiWRKashN2zhlB3MCdoQYyxlHjeb6vqmrRGout29eqGxagcS4LMLdYDHoNVdzwpkhuMYSYmL48NhpJY+MZ9bFWJgxVS5VjLQ33yfxjcdLO7EErZvEAExFeOXFSOBQw==
+ bh=ikok1UtQSAZcjlDfV8v1MkSG+8hYd2zt76JkVWHxU0I=;
+ b=Ttk4gjwlcHascB3rEkOMPPcri7jtspATyvw1Ll12f998M7q7iN1l2nwjSyLquy1uNLAreoA57Dd7zpmGkzhsXha4zig6AxB8ruHowvlOHdUbccnlxe5wNXKabBWwdeWqo3uhyb9zjrXdgj59bkP+skS3n037vM91STaiPkSTwz4McPRAUfaEDcdHh9ado15NhJxvQ404TiROsniq1zEXGEcZDSNDczJVc9hLAGtMrvETdGE6+5e/NC5MX+kHtC3UIIBgmbNOgPj7AJt62pRpOqWaWU2A0ep0n1mEii8OcM30O/e+91LLlONnq6T1LClSLfysEtC1sdp6Sa9YB783Hw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/VUUR7j4/mtEPSb0JSjgbTIkGhkougQ29RvyL3gzVLQ=;
- b=Kdnr3GXWa/fI5aZ9RkZ/7R42ro4cXngBPpdWDDDUBvfO1JQ3Jfy5Njlzdx3WeE4gndHJb+RhK5szaOOZzPqs2y06Y6w1Y+DB09KEcccPbrIVEyBgGc1wD+KY49v5Zm8vyvKL7Ku0oqbMO69Zzkqy64ywiL9K6ep0tznfpjQ+vE+oQ7zLsN7JPGO+sm/JTzHuIBYyRXzdl+QS4hDoPm5J8yONeTrg6idnJEU8SX/1RfSr+in98E9+/hUVzjMsfww3JS+2TWCyA4y7pEVTZVM2GZKWsD/5TTSMLwew0VMgx/vzwuzTG7tnibsTcO4ICwk6YITrPfckwA5FLtyOTawx7w==
-Received: from MN2PR15CA0020.namprd15.prod.outlook.com (2603:10b6:208:1b4::33)
- by BL3PR12MB6425.namprd12.prod.outlook.com (2603:10b6:208:3b4::7) with
+ bh=ikok1UtQSAZcjlDfV8v1MkSG+8hYd2zt76JkVWHxU0I=;
+ b=oTMANWJ0AwT0sc4gSrFN525KWsdPUptQzImA+Vo1uErobf18f3UWLnPZItv/8/kCmqMj7Dmn1rTmvhTBic6KIm3vQxOsaLi117L6tt7ouCZbNtyDPJ/CJmqLj49ncZlfhKdODpIIuPfHN7fPaBd1hA5pXAOS7m66buRmjJJCp1/oX44cjsOeNd/1Lwp70yYhLkvmpgC5YmPl7w3phttEp8u7QHf5j2X3fk+tOJYDObWC47yqOCOGgkOzAp/ud3/ELDpj9K0YSFqujl6i+vHtQO0x36PRoQoiELkCq6AhkyQ68IAGl2wPNgYDitGLiuGW/JC32TqHNJcT0WIjs0sh8g==
+Received: from PH8PR02CA0011.namprd02.prod.outlook.com (2603:10b6:510:2d0::10)
+ by CY8PR12MB7562.namprd12.prod.outlook.com (2603:10b6:930:95::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Tue, 21 May
- 2024 12:30:55 +0000
-Received: from BL6PEPF00022575.namprd02.prod.outlook.com
- (2603:10b6:208:1b4:cafe::3a) by MN2PR15CA0020.outlook.office365.com
- (2603:10b6:208:1b4::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35 via Frontend
- Transport; Tue, 21 May 2024 12:30:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ 2024 12:30:58 +0000
+Received: from SN1PEPF0002529F.namprd05.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::e9) by PH8PR02CA0011.outlook.office365.com
+ (2603:10b6:510:2d0::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36 via Frontend
+ Transport; Tue, 21 May 2024 12:30:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SN1PEPF0002529F.mail.protection.outlook.com (10.167.242.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 12:30:55 +0000
+ 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 12:30:57 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 21 May
- 2024 05:30:30 -0700
+ 2024 05:30:33 -0700
 Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.230.35) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 21 May 2024 05:30:26 -0700
+ 15.2.1544.4; Tue, 21 May 2024 05:30:30 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
 CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Subject: [PATCH v10 10/13] virtio-net: Add flow filter group, classifier and rule resource objects
-Date: Tue, 21 May 2024 15:29:34 +0300
-Message-ID: <20240521122937.2004180-11-parav@nvidia.com>
+Subject: [PATCH v10 11/13] virtio-net: Add flow filter device and driver requirements
+Date: Tue, 21 May 2024 15:29:35 +0300
+Message-ID: <20240521122937.2004180-12-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240521122937.2004180-1-parav@nvidia.com>
 References: <20240521122937.2004180-1-parav@nvidia.com>
@@ -84,323 +84,291 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|BL3PR12MB6425:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb1e4c2d-199d-48bc-2180-08dc7991dc73
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|CY8PR12MB7562:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b527b3f-fcb6-484c-a63b-08dc7991ddb6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|36860700004|376005|1800799015;
+	BCL:0;ARA:13230031|82310400017|376005|36860700004|1800799015;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?ZA9mFcyaeCp46xq92FhJgFu6PHFz/Tc6O1vfh7IqzEdu7Wr6yIx3nLIWoonS?=
- =?us-ascii?Q?dLSJw2NgWbPqYznDp2QF4PC/w0/65iOfRbCany8TSWdn1v9V0gKGpFm0A5wn?=
- =?us-ascii?Q?S8lF1MIusEQmwr8tya3XR6du5uj8Z5/5H1/1DbxDbWOLku41knzQcfJUIFIs?=
- =?us-ascii?Q?rWG3F0kPrYgpC9B0F4X4xBjQpLFHaricKMzQc+k+y9OdarHkUA4mAVliFwz7?=
- =?us-ascii?Q?TMU14mHY87ba6CUJcSFqEoOVy1FHHUPHNBA3ZSTBBu4JdH+48sa5nFcJ5pvF?=
- =?us-ascii?Q?6xJEuk8y7BY/+TYjyX4tT3SZZptnwKV8yPCvpvwkgrZPvrI496IssbvQRatc?=
- =?us-ascii?Q?hYrZQRlV4GEkY0iBSlwFFjfSAT6wYQ2dcBDsuakRCnxMFxyrqJWhuAiCdnhE?=
- =?us-ascii?Q?nirCVIvKDEKlrk3CtRfKNQj+PoagI/9oHBaromVMR8E8THU30TrPHMbWXk9w?=
- =?us-ascii?Q?8QGwvCT3xCNAgxGmR/ZVUXRRskcJNxuj8bda8unYPiA+CaHTm/AfctFiZVDS?=
- =?us-ascii?Q?2GkZDLVRsUVT+T1EYh3TkMMWTQMMrYB5QRLb76Zhvnp3KVk4ROjVszYrQEF8?=
- =?us-ascii?Q?131iwt+58lxj0H2yhuFTTXaScNeJCZ1vLCTx5PyaxQiS8Kb0sqwGl+1O5YFb?=
- =?us-ascii?Q?BM93vu5XZFFxDHnXJx2+vrRiG881UCGjhEf+DAIth3R1gz40z9YJ2FAyKA89?=
- =?us-ascii?Q?T+pQ6T/DWZQL1QHn6ZK4aYloVkLm6whvf59SD6cJCEl98gGunNoIbCdRgvAq?=
- =?us-ascii?Q?0besRRKrUj5kzcvkYUdX8Kbqj2XDj737BjuSlsCShtcHGaDM7N062XxMkni7?=
- =?us-ascii?Q?kW39UK4Es+dINu5asQfWjWFyJ0ofq53b+AFbWbOUPqSzP68s3R4Y7VVl+YcR?=
- =?us-ascii?Q?HTkvRD1zUC4PZVV56dl8bU5yEAsyz+83P4oSnBk/pmrdSoVjn+SWf3Vi1VVm?=
- =?us-ascii?Q?IQMVMkIP4XOLHZVqi1omydxPQrXYmQzA7PrfsVZde+UUIL2zPpRHCNu+mnXm?=
- =?us-ascii?Q?KDK0ace2s4QmNHAr5C4V4DBqLFV9WJ5YZYFoOo6MRERnG5UOhsq+Oy2Zwhem?=
- =?us-ascii?Q?7uuFGnyF1OXNDf3FQcouLvkBAeKq4juL4r5YNg/aozMPaiCHtzeLVPH2gEFe?=
- =?us-ascii?Q?mYo2VziZBuC68+OHI5cLE1r6ZvDQ8t57zwGtv3P/OS6Q2EOnAf9o0hhEKDlX?=
- =?us-ascii?Q?vX8x6jtC6EZVVe5q/UGhrCBZDOwnpOX84Ns5weM5/tJt+38SlD6MvoklhElf?=
- =?us-ascii?Q?/JQvb19ZTby/qMAl1COJ7CfoB1FB3nsxbCGmQfczhoOCdELVPx+/qNFZfDhX?=
- =?us-ascii?Q?D08Jhfaa9tz817w/rWdnZ8QcH3TD8kOg3T4N4YRM0dN53Y04KqY7tu93YgAW?=
- =?us-ascii?Q?BoIfJevV4rY6Znm0suyF/z0cPaqH?=
+	=?us-ascii?Q?iglSCPYK37kLxTgpRg7JCwopLG8U6c1HC8JxmGOXM+dvmqiqbjTCK8ID53hG?=
+ =?us-ascii?Q?D9RbK6FKeRFL/ZBMyAUfe/URiFIdOfeVLT+APvAG1k1Q1jR+LiabdEiHVY6P?=
+ =?us-ascii?Q?DiF9zzGqTMYXw+KtfnvQae4CoxNMIQYfC3mhDkF5rUKEia4TnJePOCuhJX6d?=
+ =?us-ascii?Q?LYWkhPWGGpvhxagHu0EahUomPrQci/ipz7artZf3gwFJSY+/AhmM9AcumQvV?=
+ =?us-ascii?Q?pkqxXHQmanhC+oG/aA+yBkS0zNvoK3OuC1DqhtS+bIsvGQknKi6XDNV81ElU?=
+ =?us-ascii?Q?qGMuZLR3FRYNsQPSx/uoSh5A5qb9Vul78/fi31fy8snV5bVzuJUahOUHYZt+?=
+ =?us-ascii?Q?+cWe03dOUWL5XdKRJjjqn+SRpHnWcR2eY+pr8LfYU0+m/2ze5ngC69UY8QjR?=
+ =?us-ascii?Q?MPLguVluyl3mr6gvThL+1QM0/EtSkiE1ONYAUsWkC4Gxn2N0BFcM+cBhhbfm?=
+ =?us-ascii?Q?VZmbe+FBWxggGV1Wsg8P8QR91Nuea61P1BbLErD0+YcC/NhsU+EjUEVfORLs?=
+ =?us-ascii?Q?e2ZKqUiiBG6a1HlrtLnQnFmkNCbSt3HQKTB4ublPZGaayDrCWpzenf2MsO2Z?=
+ =?us-ascii?Q?FS87/W1Crz1Fyp7XuYhcsBXRVWh+BXNjNuN4X5TkKBPDhRUn7hWurDyR/hXQ?=
+ =?us-ascii?Q?uQoA86wwcHjRKuX9gZlpBkR439yFKCZdMKn7Lqj9X5vfg5ge34xUladUTyz1?=
+ =?us-ascii?Q?n/7VwVdf5nkitd268iY98lpHaQURt7VbN0jEpQLpsVLk81eiOj84Vd5YF8pG?=
+ =?us-ascii?Q?ObfHKY/nPBsyDT+G2iq2pQBPlJ2y6Jf8rFmCPdKcYr4qVvWR8cdHH3xRxzcW?=
+ =?us-ascii?Q?UqqF7JYfS4AQltfCUNE6SLtTIITCnZSlEaoEku1b1F3DqdnLpINOiZEnUFpe?=
+ =?us-ascii?Q?yjxNyukcLlQbDRMz2HsMDESNqQpJ39EeGmH1lERld4gTbFYEKDy+v+ijjPv5?=
+ =?us-ascii?Q?/rXLPxnyvqTXkgtcVtnINQBqxvDgCyIZrbfKelg7S2+2LlzfGZ0ncTqEzZnD?=
+ =?us-ascii?Q?75C0oxMj6EMaqxvPXMZSzUIsIIkIOWWKdHoZJFsiBtMKE08t9PdPEXYyWhJ9?=
+ =?us-ascii?Q?bhKe+EiEbZd2Y/IxKwv/FJGrv4HV1VpCI+IfaCSXve0XVBCSpIpZf6RP4En3?=
+ =?us-ascii?Q?R+qScY1c3DSYhLJINPQdj0FgMQkktOMr/Orw7cUT88g/xf5z26JHGZ96OVf8?=
+ =?us-ascii?Q?bhKBV79Qjep8nCB8RQ4YZnqHpoINX+0J5J+NzBDvmg1HtYt3tWvbxNxMW621?=
+ =?us-ascii?Q?ySzT8KQT4sXYH1IYd0ibdEvSvmS/xcCfcGEajPLft8mhMotkcQL7jGUf5/Y2?=
+ =?us-ascii?Q?kP3DoVC5nekgSsJeWbQ7eVt6OzudttBeb2OkQoCPoh1pZikhKcysQ3gzMNp7?=
+ =?us-ascii?Q?JeIsdzvD8i3qAH4nLjwhUaaeX064?=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(82310400017)(36860700004)(376005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(82310400017)(376005)(36860700004)(1800799015);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 12:30:55.3488
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 12:30:57.5471
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb1e4c2d-199d-48bc-2180-08dc7991dc73
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b527b3f-fcb6-484c-a63b-08dc7991ddb6
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022575.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529F.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6425
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7562
 
-Flow filter rules depend on the flow filter group resource object.
-The device can have one or more flow filter groups. Each flow filter
-group has its own order. The group order defines the packet
-processing order in the flow filter domain.
-
-Define flow filter classifier object which consists of one
-or multiple types of packet header fields to consider
-for matching. A mask can match on partial field or whole
-field if the device supports partial masking for a given
-mask type.
-
-Define flow filter rule resource which consists of
-match key, reference to group and mask objects and
-an action.
-
-Currently it covers the most common filter types and value
-of Ethernet header, IPV4 and IPV6 headers and TCP and UDP headers.
+Add device and driver flow filter requirements.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
 ---
 changelog:
 v9->v10:
 - rephrase from 'resource' to 'resource object'
-- renamed and rephrase 'forward' to 'direct'
-- skipped dest_ prefix from the action
-- removed union and kept the reserved1 for future extension
-- added text for reserved and reserved1 future extension for example for switch port
-  or next rule object id or some other object
-- simplified structures for single key and single action
-- flow rule to refer to the flow filter mask resource object
-- removed specific type and key specific fields
 v6->v7:
-- plenty of grammar corrections suggested by Cornelia
-- adapt to generic device resource framework
-- addressed comments from Cornelia
-- reworded the description for group delete command
-- rebased the series on top of generic resource framework
+- added device normatives for valid ranges
+- rebased to use capabilities and resources
+v5->v6:
+- removed white spaces from end of line
+- added missing conformance links
 v2->v3:
-- removed references to flow filter virtqueues
-- removed one partial sentence
-- added text for delete request
-- aligned request and opcode values to just say request in the defines
+- removed dependency on the dynamic queue creation as the
+  infrastructure is not yet ready
 v1->v2:
-- squashed with match fields definition patch of v1
-- added length to the flexible array definition struct to benefit
-  from future runtime length bound checkers listed in
-  https://people.kernel.org/kees/bounded-flexible-arrays-in-c
-- renamed value to key
-- addressed comments from Satananda
-- merged destination and action to one struct
+- fixed comments from Heng
+- fixed spelling from initializaton to initialization
+- added more requirements for multiple actions
 v0->v1:
-- reworded add flow request text to consider optional mask
-- replaced respond with set
-- added mask flag to the type
+- addressed comments from Satananda
+- added device requirement to return non zero value in fields_bmap
+- added device requirement to not repeat filter type in response
+- added driver requirement to order filter match field as it
+  appears in the packet
+- added device requirement to fail group delete command on existing
+  flow entries
 ---
- device-types/net/description.tex | 173 +++++++++++++++++++++++++++++++
- introduction.tex                 |   8 ++
- 2 files changed, 181 insertions(+)
+ device-types/net/description.tex        | 174 ++++++++++++++++++++++++
+ device-types/net/device-conformance.tex |   1 +
+ device-types/net/driver-conformance.tex |   1 +
+ 3 files changed, 176 insertions(+)
 
 diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 1d22503..6168c96 100644
+index 6168c96..a5a3971 100644
 --- a/device-types/net/description.tex
 +++ b/device-types/net/description.tex
-@@ -417,6 +417,22 @@ \subsection{Device and driver capabilities}\label{sec:Device Types / Network Dev
- \hline
- \end{tabularx}
+@@ -2846,6 +2846,180 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
+ Note that at most one action is ever taken for a given packet. If a rule is
+ applied and an action is taken, the action of other rules is not taken.
  
-+\subsection{Device resource objects}\label{sec:Device Types / Network Device / Device resource objects}
++\devicenormative{\paragraph}{Flow filter}{Device Types / Network Device / Device Operation / Flow filter}
 +
-+The network device has the following resource objects.
-+
-+\begin{tabularx}{\textwidth}{ |l||l|X| }
-+\hline
-+type & Name & Description \\
-+\hline \hline
-+0x0200 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_GROUP]{VIRTIO_NET_RESOURCE_OBJ_FF_GROUP} & Flow filter group resource object \\
-+\hline
-+0x0201 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER]{VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER} & Flow filter mask object \\
-+\hline
-+0x0202 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_RULE]{VIRTIO_NET_RESOURCE_OBJ_FF_RULE} & Flow filter rule object \\
-+\hline
-+\end{tabularx}
-+
- \subsection{Device Operation}\label{sec:Device Types / Network Device / Device Operation}
- 
- Packets are transmitted by placing them in the
-@@ -2673,6 +2689,163 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
- \end{tabularx}
- \end{table}
- 
-+\paragraph{Resource objects}
-+\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects}
-+
-+\subparagraph{VIRTIO_NET_RESOURCE_OBJ_FF_GROUP}\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_GROUP}
-+
-+A flow filter group contains between 0 and \field{rules_limit} rules, as specified by the
-+capability VIRTIO_NET_FF_RESOURCE_CAP. For the flow filter group object both
-+\field{resource_obj_specific_data} and
-+\field{resource_obj_specific_result} are in the format
-+\field{struct virtio_net_resource_obj_ff_group}.
-+
-+\begin{lstlisting}
-+struct virtio_net_resource_obj_ff_group {
-+        le16 group_priority;
-+};
-+\end{lstlisting}
-+
-+\field{group_priority} specifies the priority for the group. Each group has a
-+distinct priority. For each incoming packet, the device tries to apply rules
-+from groups from higher \field{group_priority} value to lower, until either a
-+rule matches the packet or all groups have been tried.
-+
-+\subparagraph{VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER}\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER}
-+
-+A classifier is used to match a flow filter key against a packet. The
-+classifier defines the desired packet fields to match, and is represented by
-+the VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER device resource object.
-+
-+For the flow filter classifier object both \field{resource_obj_specific_data} and
-+\field{resource_obj_specific_result} are in the format
-+\field{struct virtio_net_resource_obj_ff_classifier}.
-+
-+\begin{lstlisting}
-+struct virtio_net_resource_obj_ff_classifier {
-+        u8 count;
-+        u8 reserved[7];
-+        struct virtio_net_ff_selector selectors[];
-+};
-+\end{lstlisting}
-+
-+A classifier is an array of \field{selectors}. The number of selectors in the
-+array is indicated by \field{count}. The selector has a type that specifies
-+the header fields to be matched against, and a mask.
-+See \ref{lst:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / virtio_net_ff_selector}
-+for details about selectors.
-+
-+The first selector is always VIRTIO_NET_FF_MASK_TYPE_ETH. When there are multiple
-+selectors, a second selector can be either VIRTIO_NET_FF_MASK_TYPE_IPV4
-+or VIRTIO_NET_FF_MASK_TYPE_IPV6. If the third selector exists, the third
-+selector can be either VIRTIO_NET_FF_MASK_TYPE_UDP or VIRTIO_NET_FF_MASK_TYPE_TCP.
-+For example, to match a Ethernet IPv6 UDP packet,
-+\field{selectors[0].type} is set to VIRTIO_NET_FF_MASK_TYPE_ETH, \field{selectors[1].type}
-+is set to VIRTIO_NET_FF_MASK_TYPE_IPV6 and \field{selectors[2].type} is
-+set to VIRTIO_NET_FF_MASK_TYPE_UDP; accordingly, \field{selectors[0].mask[0-13]} is
-+for Ethernet header fields, \field{selectors[1].mask[0-39]} is set for IPV6 header
-+and \field{selectors[2].mask[0-7]} is set for UDP header.
-+
-+When there are multiple selectors, the type of the (N+1)\textsuperscript{th} selector
-+affects the mask of the (N)\textsuperscript{th} selector. If
-+\field{count} is 2 or more, all the mask bits within \field{selectors[0]}
-+corresponding to \field{EtherType} of an Ethernet header are set.
-+
-+If \field{count} is more than 2:
++When the device supports flow filter operations,
 +\begin{itemize}
-+\item if \field{selector[1].type} is, VIRTIO_NET_FF_MASK_TYPE_IPV4, then, all the mask bits within
-+\field{selector[1]} for \field{Protocol} is set.
-+\item if \field{selector[1].type} is, VIRTIO_NET_FF_MASK_TYPE_IPV6, then, all the mask bits within
-+\field{selector[1]} for \field{Next Header} is set.
++\item the device MUST set VIRTIO_NET_FF_RESOURCE_CAP, VIRTIO_NET_FF_SELECTOR_CAP
++and VIRTIO_NET_FF_ACTION_CAP capability in the \field{supported_caps} in the
++command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY.
++\item the device MUST support the administration commands
++VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
++VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
++VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
++VIRTIO_NET_RESOURCE_OBJ_FF_GROUP, VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER and
++VIRTIO_NET_RESOURCE_OBJ_FF_RULE.
 +\end{itemize}
 +
-+If for a given packet header field, a subset of bits of a field is to be matched,
-+and if the partial mask is supported, the flow filter
-+mask object can specify a mask which has fewer bits set than the packet header
-+field size. For example, a partial mask for the Ethernet header source mac
-+address can be of 1-bit for multicast detection instead of 48-bits.
++When any of the VIRTIO_NET_FF_RESOURCE_CAP, VIRTIO_NET_FF_SELECTOR_CAP, or
++VIRTIO_NET_FF_ACTION_CAP capability is disabled, the device SHOULD set
++\field{status} to VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE for the commands
++VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
++VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
++and VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY. These commands apply to the resource
++\field{type} of VIRTIO_NET_RESOURCE_OBJ_FF_GROUP, VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER, and
++VIRTIO_NET_RESOURCE_OBJ_FF_RULE.
 +
-+\subparagraph{VIRTIO_NET_RESOURCE_OBJ_FF_RULE}\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_RULE}
++The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_EINVAL for the
++command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type}
++is VIRTIO_NET_RESOURCE_OBJ_FF_GROUP, if a flow filter group already exists
++with the supplied \field{group_priority}.
 +
-+Each flow filter rule resource object comprises a key, a priority, and an action.
-+For the flow filter rule object,
-+\field{resource_obj_specific_data} and
-+\field{resource_obj_specific_result} are in the format
-+\field{struct virtio_net_resource_obj_ff_rule}.
++The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_ENOSPC for the
++command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type}
++is VIRTIO_NET_RESOURCE_OBJ_FF_GROUP, if the number of flow filter group
++objects in the device exceeds the lower of the configured driver
++capabilities \field{groups_limit} and \field{rules_per_group_limit}.
 +
-+\begin{lstlisting}
-+struct virtio_net_resource_obj_ff_rule {
-+        le32 group_id;
-+        le32 classifier_id;
-+        u8 rule_priority;
-+        u8 key_length; /* length of key in bytes */
-+        u8 action;
-+        u8 reserved;
-+        le16 vq_index;
-+        u8 reserved1[2];
-+        u8 keys[][];
-+};
-+\end{lstlisting}
++The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_ENOSPC for the
++command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type} is
++VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER, if the number of flow filter selector
++objects in the device exceeds the configured driver capability
++\field{selectors_limit}.
 +
-+\field{group_id} is the resource object ID of the flow filter group to which
-+this rule belongs. \field{classifier_id} is the resource object ID of the
-+classifier used to match a packet against the \field{key}.
++The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_EBUSY for the
++command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for a flow filter group when
++the flow filter group has one or more flow filter rules depending on it.
 +
-+\field{rule_priority} denotes the priority of the rule within the group
-+specified by the \field{group_id}.
-+Rules within the group are applied from the highest to the lowest priority
-+until a rule matches the packet and an
-+action is taken. Rules with the same priority can be applied in any order.
++The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_EBUSY for the
++command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for a flow filter classifier when
++the flow filter classifier has one or more flow filter rules depending on it.
 +
-+\field{reserved} and \field{reserved1} are reserved and set to 0.
++The device SHOULD fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE for the
++flow filter rule resource object if,
++\begin{itemize}
++\item \field{vq_index} is not a valid receive virtqueue index for
++the VIRTIO_NET_FF_ACTION_DIRECT_RX_VQ action,
++\item \field{priority} is greater than or equal to
++      \field{last_rule_priority_per_group},
++\item \field{id} is greater than or equal to \field{rules_limit} or
++      greater than or equal to \field{rules_per_group_limit}, whichever is lower,
++\item the length of \field{keys} and the length of all the mask bytes of
++      \field{selectors[].mask} as referred by \field{classifier_id} differs,
++\item the supplied \field{action} is not supported in the capability VIRTIO_NET_FF_ACTION_CAP.
++\end{itemize}
 +
-+\field{keys[][]} is an array of keys to match against packets, using
-+the classifier specified by \field{classifier_id}. Each entry (key) comprises
-+a byte array, and they are located one immediately after another.
-+The size (number of entries) of the array is exactly the same as that of
-+\field{selectors} in the classifier, or in other words, \field{count}
-+in the classifier.
++When the flow filter directs a packet to the virtqueue identified by
++\field{vq_index} and if the receive virtqueue is reset, the device
++MUST drop such packets.
 +
-+\field{key_length} specifies the total length of \field{keys} in bytes.
-+In other words, it equals the sum total of \field{length} of all
-+selectors in \field{selectors} in the classifier specified by
-+\field{classifier_id}.
++Upon applying a flow filter rule to a packet, the device MUST STOP any further
++application of rules and cease applying any other steering configurations.
 +
-+For example, if a classifier object's \field{selectors[0].type} is
-+VIRTIO_NET_FF_MASK_TYPE_ETH and \field{selectors[1].type} is
-+VIRTIO_NET_FF_MASK_TYPE_IPV6,
-+then selectors[0].length is 14 and selectors[1].length is 40.
-+Accordingly, the \field{key_length} is set to 54.
-+This setting indicates that the \field{key} array's length is 54 bytes
-+comprising a first byte array of 14 bytes for the
-+Ethernet MAC header in bytes 0-13, immediately followed by 40 bytes for the
-+IPv6 header in bytes 14-53.
++For multiple flow filter groups, the device MUST apply the rules from
++the group with the highest priority. If any rule from this group is applied,
++the device MUST ignore the remaining groups. If none of the rules from the
++highest priority group match, the device MUST apply the rules from
++the group with the next highest priority, until either a rule matches or
++all groups have been attempted.
 +
-+When there are multiple selectors in the classifier object, the key bytes
-+for (N)\textsuperscript{th} selector are set so that
-+(N+1)\textsuperscript{th} selector can be matched.
++The device MUST apply the rules within the group from the highest to the
++lowest priority until a rule matches the packet, and the device MUST take
++the action. If an action is taken, the device MUST not take any other
++action for this packet.
 +
-+If \field{count} is 2 or more, key bytes of \field{EtherType}
-+are set according to \hyperref[intro:IEEE 802 Ethertypes]{IEEE 802 Ethertypes}
-+for VIRTIO_NET_FF_MASK_TYPE_IPV4 or VIRTIO_NET_FF_MASK_TYPE_IPV6 respectively.
++The device MAY apply the rules with the same \field{rule_priority} in any
++order within the group.
 +
-+If \field{count} is more than 2, when \field{selector[1].type} is
-+VIRTIO_NET_FF_MASK_TYPE_IPV4 or VIRTIO_NET_FF_MASK_TYPE_IPV6, key
-+bytes of \field{Protocol} or \field{Next Header} is set as per
-+\field{Protocol Numbers} defined \hyperref[intro:IANA Protocol Numbers]{IANA Protocol Numbers}
-+respectively.
++The device MUST process incoming packets in the following order:
++\begin{itemize}
++\item apply the steering configuration received using control virtqueue
++      commands VIRTIO_NET_CTRL_RX, VIRTIO_NET_CTRL_MAC, and
++      VIRTIO_NET_CTRL_VLAN.
++\item apply flow filter rules if any.
++\item if no filter rule is applied, apply the steering configuration
++      received using the command VIRTIO_NET_CTRL_MQ_RSS_CONFIG
++      or according to automatic receive steering.
++\end{itemize}
 +
-+\field{action} is the action to take when a packet matches the
-+\field{key} using the \field{classifier_id}. Supported actions are described in
-+\ref{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP / flow filter rule actions}.
++When processing an incoming packet, if the packet is dropped at any stage, the device
++MUST skip further processing.
 +
-+\field{vq_index} specifies a receive virtqueue. When the \field{action} is set
-+to VIRTIO_NET_FF_ACTION_DIRECT_RX_VQ, and the packet matches the \field{key},
-+the matching packet is directed to this virtqueue.
++When the device drops the packet due to the configuration done using the control
++virtqueue commands VIRTIO_NET_CTRL_RX or VIRTIO_NET_CTRL_MAC or VIRTIO_NET_CTRL_VLAN,
++the device MUST skip flow filter rules for this packet.
 +
-+Note that at most one action is ever taken for a given packet. If a rule is
-+applied and an action is taken, the action of other rules is not taken.
++When the device performs flow filter match operations and if the operation
++result did not have any match in all the groups, the receive packet processing
++continues to next level, i.e. to apply configuration done using
++VIRTIO_NET_CTRL_MQ_RSS_CONFIG command.
++
++The device MUST support the creation of flow filter classifier objects
++using the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with \field{flags}
++set to VIRTIO_NET_FF_MASK_F_PARTIAL_MASK;
++this support is required even if all the bits of the masks are set for
++a field in \field{selectors}, provided that partial masking is supported
++for the selectors.
++
++\drivernormative{\paragraph}{Flow filter}{Device Types / Network Device / Device Operation / Flow filter}
++
++The driver MUST enable VIRTIO_NET_FF_RESOURCE_CAP, VIRTIO_NET_FF_SELECTOR_CAP,
++and VIRTIO_NET_FF_ACTION_CAP capabilities to use flow filter.
++
++The driver SHOULD NOT remove a flow filter group using the command
++VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY when one or more flow filter rules
++depend on that group. The driver SHOULD only destroy the group after
++all the associated rules have been destroyed.
++
++The driver SHOULD NOT remove a flow filter classifier using the command
++VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY when one or more flow filter rules
++depend on the classifier. The driver SHOULD only destroy the classifier
++after all the associated rules have been destroyed.
++
++The driver SHOULD NOT add multiple flow filter rules with the same
++\field{rule_priority} within a flow filter group, as these rules MAY match
++the same packet. The driver SHOULD assign different \field{rule_priority}
++values to different flow filter rules if multiple rules may match a single
++packet.
++
++For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource
++of \field{type} VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER, the driver MUST set:
++\begin{itemize}
++\item \field{selectors[0].type} to VIRTIO_NET_FF_MASK_TYPE_ETH.
++\item \field{selectors[1].type} to VIRTIO_NET_FF_MASK_TYPE_IPV4 or
++      VIRTIO_NET_FF_MASK_TYPE_IPV6 when \field{count} is more than 1,
++\item \field{selectors[2].type} VIRTIO_NET_FF_MASK_TYPE_UDP or
++      VIRTIO_NET_FF_MASK_TYPE_TCP when \field{count} is more than 2.
++\end{itemize}
++
++For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource
++of \field{type} VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER, the driver MUST set:
++\begin{itemize}
++\item \field{selectors[0].mask} bytes to all 1s for the \field{EtherType}
++       when \field{count} is 2 or more.
++\item \field{selectors[1].mask} bytes to all 1s for \field{Protocol} or \field{Next Header}
++       when \field{selector[1].type} is VIRTIO_NET_FF_MASK_TYPE_IPV4 or VIRTIO_NET_FF_MASK_TYPE_IPV6,
++       and when \field{count} is more than 2.
++\end{itemize}
++
++For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, the resource \field{type}
++VIRTIO_NET_RESOURCE_OBJ_FF_RULE, if the corresponding classifier object's
++\field{count} is 2 or more, the driver MUST SET the \field{keys} bytes of
++\field{EtherType} in accordance with
++\hyperref[intro:IEEE 802 Ethertypes]{IEEE 802 Ethertypes}
++for either VIRTIO_NET_FF_MASK_TYPE_IPV4 or VIRTIO_NET_FF_MASK_TYPE_IPV6.
++
++For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource of
++\field{type} VIRTIO_NET_RESOURCE_OBJ_FF_RULE, if the corresponding classifier
++object's \field{count} is more than 2, and the \field{selector[1].type} is either
++VIRTIO_NET_FF_MASK_TYPE_IPV4 or VIRTIO_NET_FF_MASK_TYPE_IPV6, the driver MUST
++set the \field{keys} bytes for the \field{Protocol} or \field{Next Header}
++according to \hyperref[intro:IANA Protocol Numbers]{IANA Protocol Numbers} respectively.
++
++The driver SHOULD set all the bits for a field in the mask of a selector in both the
++capability and the classifier object, unless the VIRTIO_NET_FF_MASK_F_PARTIAL_MASK
++is enabled.
 +
  \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
  Types / Network Device / Legacy Interface: Framing Requirements}
  
-diff --git a/introduction.tex b/introduction.tex
-index 0d84927..9c57af8 100644
---- a/introduction.tex
-+++ b/introduction.tex
-@@ -63,6 +63,14 @@ \section{Normative References}\label{sec:Normative References}
- 	IEEE Standard for Ethernet,
- 	\newline\url{https://doi.org/10.1109/IEEESTD.2022.9844436},
- 	IEEE 802.3-2022\\
-+	\phantomsection\label{intro:IEEE 802 Ethertypes}\textbf{[IEEE 802 Ethertypes]} &
-+	IEEE 802 Ethertypes,
-+	\newline\url{https://www.iana.org/assignments/ieee-802-numbers/ieee-802-numbers.xhtml},
-+	IANA\\
-+	\phantomsection\label{intro:IANA Protocol Numbers}\textbf{[IANA Protocol Numbers]} &
-+	IANA Protocol Numbers,
-+	\newline\url{https://www.iana.org/assignments/protocol-numbers},
-+	IANA\\
- 	\phantomsection\label{intro:SAM}\textbf{[SAM]} &
-         SCSI Architectural Model,
-         \newline\url{http://www.t10.org/cgi-bin/ac.pl?t=f&f=sam4r05.pdf}\\
+diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
+index c71341e..d88484c 100644
+--- a/device-types/net/device-conformance.tex
++++ b/device-types/net/device-conformance.tex
+@@ -17,4 +17,5 @@
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
+ \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
++\item \ref{devicenormative:Device Types / Network Device / Device Operation / Flow filter}
+ \end{itemize}
+diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
+index 7081ec3..d346b88 100644
+--- a/device-types/net/driver-conformance.tex
++++ b/device-types/net/driver-conformance.tex
+@@ -17,4 +17,5 @@
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Inner Header Hash}
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
+ \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
++\item \ref{drivernormative:Device Types / Network Device / Device Operation / Flow filter}
+ \end{itemize}
 -- 
 2.34.1
 
