@@ -1,154 +1,250 @@
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com [209.85.219.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E00D210E4
-	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 04:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.236.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716265176; cv=fail; b=JsKThFMs8TbkMdDX+2O/uBaFmU39JvhDkyUDtSsFANxxO6UMFGK7e2g4Ageky1IGgdS5hemqy6zo3QfuP9wViDNDXI9AFVlQSbnnCZCMhB+AW2mZbpaONRcLniRxfI/8gZA4WhQiD1K/PfPNy9m7c1nbqA4Q6UOQnNg/Ri+uOuk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716265176; c=relaxed/simple;
-	bh=T2FjJZtZooZZFeKySF2vPDap97RyI6cg5OmJ1Umkfhw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rd8E6Q5w6bdJI7caKR5cL3NsMG7yweME9eW7HAZDFmbH97ydcqiSMEItzP05fjUqF0kv3nWJgDJKKOaVaUi3XjtbK1BtJt9lKKg4MDCom2LWz1pw3ECUCm4fFTRhYmmOVd1mqotdzW/WV2cwbInmddngqyP073oUSVeF6ydeahw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AN8v7YaM; arc=fail smtp.client-ip=40.107.236.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DD36125
+	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 04:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1716267432; cv=none; b=jqJ9yHBOjElyiyM0ndUaZutWaNwrMnY5YRBzRQWswuazqmPJx9VGP+RQQqmLxhPtalTP6nJfj6yucy3frqFyMR7J8TuF6N/W3T+lkMmPe6kvZd4IDBklwjShvXCkSSpf3ubYYn4w+4V7TB4M0+g98sXRlvsrQb+rCVpwx77dx0A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1716267432; c=relaxed/simple;
+	bh=YcoL3xwBmQIVyA5vmbK8hlUJKjRX/GI4WnBphIwRd5M=;
+	h=References:From:In-Reply-To:Mime-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DxQdbC2daCOvSKjGyVwQTJspohUw/P+qA2LJu+n0QmumL0G52Vm0Az/bYMCbkceVRXAfeq6pOPnS4ok2ltLOHjimyeFbrHWfUKO7jsmnh+xWUitAUZTi2MJCdi8UkPmPlVTbkVKE2YPjy2YHKMD/6l+8+ZH0mlAKYAGBzlmRbKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Deh3GvHm; arc=none smtp.client-ip=209.85.219.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AN8v7YaM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nZPdKWeZVYhP2PDqR7zK3gUzyEAtKHFievNlSphaxzikq1i6s6lUUPNr585naXwfKxJH28QEhh4CFwFfTUcUcqS5q+O5ptpY+SqqUf2OmY02QxAL2ZP8RAH3YXahk5FZexFIUtyRgy16hPUnQaYvyh6awv5QOR7kGuzMDxls43H7+y3+N2bt8G0L/UuqcsmugLRX9OyokAYn09P0ftce8/AElxNK60Y5/kg/4f48VjgjfC2kWNFMQ2FIotJmAzuyOQ99gYpVatXxjF8m9UITuQ66qfA/fcMbGbYFS0vl3ZMal3upY2qhSx9qGaW2ICoecwv7Yt5Wn963zfsVlQMdXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T2FjJZtZooZZFeKySF2vPDap97RyI6cg5OmJ1Umkfhw=;
- b=YzOMIfmYqRR9prqhLiBVxN/FHw7hi8bm5fmkkuHXB+QxP6G+Y6M92dYs5A658fhp9uwx6OCx9Pn85XKVX22Qg2snhd6h296zRx6MJ/s6/DJJR8uUGOOjYSJK1f0jFAH4jVxvbPBkZOPloeQq0nRtdMxNIy5BQS1v0iskTGgDoDoRiNkx3NaUYYBrD6ztbiW3E+vdN6H0WeZUs0RB8/UP+9zJHPEV20vxgsKg/sKusMil/UtR/LUKQZRIyFX5PwYhAM+V6hsLsU124XHlsjP1z1ytofbtX4y0Gs3uo9Ch4nrc+sSyIko8Fjnt6kZCNV+1wMA0HLq2jH0/onSc3LpPEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T2FjJZtZooZZFeKySF2vPDap97RyI6cg5OmJ1Umkfhw=;
- b=AN8v7YaMJ9C5DF7BvnglsC4tR/u16Bnm3QJsNKJC//JNPqT43/BQY6HUDsr0Utiwi3k96NifOtCsTaQkJGaPxmnl+kF5yTkTMs1Qz4o/gfdIN/Ut5PGeE72Dx5W6EphZHWLaXobl06+Ch8oLlyQ4lhfjWSaWcorZSle9ibmcYuoAbZDviSvp5NtDeOq9xaWlyHV9najL9ndC9nEUFDJ6H6UCpLwHJDKar4WW+XDS27FH16BJn7NIzHAAJJFha2pS/BZdMaVYs4zrmMPSUlLgWosa4n92LkVuAi8Q8a4UfsBcQbz2C2Gnhj8bOg6Bxr9OyZd5J/2743AbroQ3bA95ZA==
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15)
- by IA0PR12MB7724.namprd12.prod.outlook.com (2603:10b6:208:430::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Tue, 21 May
- 2024 04:19:31 +0000
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd]) by PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd%3]) with mapi id 15.20.7587.035; Tue, 21 May 2024
- 04:19:31 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Subject: RE: [PATCH v3] README.md: update mailing list info
-Thread-Topic: [PATCH v3] README.md: update mailing list info
-Thread-Index: AQHapq3cqOwFBT2zLkCXuuWIgQjcxrGYE1qAgAAFLACAAABCoIAAAYUAgAkETgA=
-Date: Tue, 21 May 2024 04:19:31 +0000
-Message-ID:
- <PH0PR12MB5481A1F599028CBFAB58F594DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <8f5db33c96d685fcebca3579b05d09b64dd720d9.1715766697.git.mst@redhat.com>
- <PH0PR12MB54818B506EFE9E4ED61B4294DCEC2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240515062910-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54818853B8A407B6F2A3D463DCEC2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240515063503-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20240515063503-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|IA0PR12MB7724:EE_
-x-ms-office365-filtering-correlation-id: dfa852e2-289d-4291-48d6-08dc794d3678
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230031|366007|1800799015|376005|38070700009;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?9EKg0b81lsfi8DTYqRoZGE426KwIncyxkTRKJs6oPmXuQtkaPvJg2ye0lmbn?=
- =?us-ascii?Q?fUiiIGpoAHN22cP7ANj1hZUXj/1F+ipCU2+WxcwOGNpu/qYZlVV5N2SQ3vv7?=
- =?us-ascii?Q?5NZ3WpY5mHR6+OUWW8BZ9+wiOjT8iJd69Eu7jJPh13zFEaio2pbD8B2RB56X?=
- =?us-ascii?Q?to5ozN7xKZHPtsSrc8I4rMmJJLS5DLLFbKo2ofl6HpTIICbZPhrfb6NQ+c7L?=
- =?us-ascii?Q?oDjgpTZEEuMj1yDG2jJvkycoJEZWKFhiU6n2tppgObZFzvu1vl6PJkWjWX81?=
- =?us-ascii?Q?OFw4F3Aq8Il/+Zs7kfdrLp3/5xkFzrYcNJJ/sMHka+12VmMpHRBW1+BZwY6q?=
- =?us-ascii?Q?4oRS+PBWR53r5MUuX1yQWJ3Qf/ugEKzEA/CuKKucmJAh2z4avD7BKXge/gwV?=
- =?us-ascii?Q?H3HbtEacqxyYhNy1I9TMYpRkY4CCVEbpaQBv6FKyVRCaAnEZeq02fqoUt582?=
- =?us-ascii?Q?oIwIDACywC3ajDtuvVY8YxKsHRA3C9eyy1nXlqNrXx+BvbSpcrrvqtMkoBKt?=
- =?us-ascii?Q?ztB8py872a6USEoqMDRtboOoHvIYrfCN9/IY44JV5/XZLApLM2es2L//qOg4?=
- =?us-ascii?Q?RRl8hxiHUOF7jCnbkFFIYRk+yc0g9AKPEPXYIPW8nxU4bhTuvtNtxxeMmgsA?=
- =?us-ascii?Q?+xC8O3F12fINdFggm7woThXyQOijhn/TuqucxgtjgHt72Ddxy6roqZ1q9Ucp?=
- =?us-ascii?Q?9G97hQstX1V7xJ9w7jPQLek+t/XfSHWocPSRv8WSUvJDp2uJDjx4tBhVggqg?=
- =?us-ascii?Q?ZZu7zNFOwgvfYEHivnrGLg2SXCpC1Ejkx+Ww4qA2/eYTEEPIeOtVvAMgdx+I?=
- =?us-ascii?Q?gSvSkNpLGoShjCltcu/YMs0Zlub6Ggo8vayKrQ+5XHFkcRh+2TO6f3EaKlAI?=
- =?us-ascii?Q?EuHaRh1re8K9+yaffVt9Gl7KWDyma0oVvOCY21lGX8P2B1COV8HURRUBZf53?=
- =?us-ascii?Q?lg4HuxDpD8d+0ZSB6Onw2iren17S7ojdvhGukD1cbVo0T/WgKAw7UwJi6n5m?=
- =?us-ascii?Q?yHaIoYTQPcH683ssTpMB3Q0CK2R2tRsjINYet5/z0Rtv5u0alXxIJO0jCNT+?=
- =?us-ascii?Q?9eT4LtVwGJv9p5F9jDUS3eUfHn1ewB3TYy8TfcvFT85BzURXMZSrTrWPuj0h?=
- =?us-ascii?Q?ryJ3dBg7BIc9GZy656mXghX+gU9RWulqjtygDTqlIdUssVUpZZULRM0blnnd?=
- =?us-ascii?Q?3u9FvSZrN3WKGaavI8iVLmzEQ3zq+3nmN/F27Qp6I4KB4MjNB3MmcKqbRwnr?=
- =?us-ascii?Q?Ba0V1iLkR+euZ+F2xBi4PUDBH6qhgm78SQdJuvYXsq6qU6IY2k8M+p2TbNS6?=
- =?us-ascii?Q?4oLbSU8kwBabU8n9uUXvXNYAmjzatRDEU53r7nuaUb+Ilg=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(376005)(38070700009);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?DAs55Hl+6NwSPZiso5A8L8lyzKXemxZJbCBmbCTI6rrGqIFKLQ6F9sZqApWf?=
- =?us-ascii?Q?fUggOgWMIpBTcB1BJaxps+1qFUaF8DyMhZPVFPun7UviKd99R3Ke6lSLtTpe?=
- =?us-ascii?Q?95ZbD48ySGTImlqDFab8RwqY3iNJKsFqZ02/YZyhkRHHjVKbw3wXGzE753fZ?=
- =?us-ascii?Q?HmhDt9vg6HokbXGHb+wtpcz/7F1arXroS6p6IIOY9ZiENJJ8uemXhBNbj6P8?=
- =?us-ascii?Q?+Tqaf14nSc1raL5bnimjDwUoNB6CApzxBOMDG4/aEsb66ZCyaBVYfejktCdK?=
- =?us-ascii?Q?tDsvedIr5eJhif9P3pq9p3YF4d3KF25N5A3DcYLzH8lHt1oLLFmI+A73+7dJ?=
- =?us-ascii?Q?QbEwOHPYs248eF+mNiRq7JYHDK2evJ5G6N0BZg2t1gitO3Ovn4XThfzlGRBN?=
- =?us-ascii?Q?aExhexngOhNbP451PvG7kFly33kPWeQ2gUVqVGytW8lbawAB4wl/w+KpDc3J?=
- =?us-ascii?Q?oHSu711OvHgYR6HA/6jkZjkqpLMBHUmu/TZ4YgvAWIWwe2IgYLZG7yETk9u5?=
- =?us-ascii?Q?+NMOFpBPi5GIa4PUrVvpcZPt5FXkKuN40kGC1GHbNXr0sjNNOEVHYnrVJWCw?=
- =?us-ascii?Q?js/u+fCReY9XA67eYtA5l2mz0ZDzqWACPiJbR2jslwbcmtGq3HQ0Z8SAkb6B?=
- =?us-ascii?Q?GD921gcRmPpKbHcP51oTDThY7uejsBvtZL6UyNf6IY0lcw6u5KGzxY0rU8rq?=
- =?us-ascii?Q?XXV1raMeBpS48405moqr87ytqKcyibwQS0nWBbFIYEJ06gR3nm7E8qLXui+4?=
- =?us-ascii?Q?2q+IWKy03wsRwkMSW0ZbOfxTJKFRCx2sfW8Bq96lRBKKqSWoLsbfD+GrCBqW?=
- =?us-ascii?Q?moXq/meXHbUYNMDlw3FPLst3eB7N/rJP0ynEOjAfRY652aROhNWuNQxT/jyB?=
- =?us-ascii?Q?F1LfkEDCRHqYo4eFuxusLWDQe6KGxIzEktpVH3LnXH/0vz+6dQ4fiXGMboVH?=
- =?us-ascii?Q?rBUrmVaJ0dOdEapUegxxKFk0zIsGIUYl1WQyJWI8lM4UtgdK0L7vWG6Xz/Xu?=
- =?us-ascii?Q?bMbL4yKbKTlIGkh3kRLuZ2pp3BFaM74qZzuAMYKIkCgLvW31o/1KO0EDfr5o?=
- =?us-ascii?Q?IiZQhYfMy3sQqaR9+IhHKnAv6hFXw2qixnjgd6FXwLKJO4hBHPqMEF6y/5CQ?=
- =?us-ascii?Q?+7U937PyZuZJKx0l5Tr/BpUvGvaimjymx0v+MmlnxpDcj6ORyAiRnYBH9nY1?=
- =?us-ascii?Q?A3wBtEFkY5x2EGzXK2Gh87wmT2xO9RkQI9JFlZnVM/rAHWPf0ZwBjYetLl3D?=
- =?us-ascii?Q?jHpPy/SxjxrrPBYx28XCqAXmRiudPkx2Z8dg5fJPpwhhe6AGw82K+GgnRIFv?=
- =?us-ascii?Q?tiw6Cgo2di3PI8Gq2TGlnqof8F2G2qc2/8Q+q8dO4UI6a8Mk9L+IA9Yn0u4w?=
- =?us-ascii?Q?6Xm7SaIe1al2hf3X1WVN4ThLRwLapYhYaWRhazpZ3nNSNyiAq+asdX6eWA1a?=
- =?us-ascii?Q?OnKtMswVbrl6J9H1Y+fZ7rQnSUE1vTx4AgQipEStCUctseLCDcO0U+AN+OeU?=
- =?us-ascii?Q?ztHwlHhX6hmxLuVbNW5z43K1xyFVw+vCYGmYK4l0Y0J4sJh2ktrJRuEqnTg6?=
- =?us-ascii?Q?fgRrxpGn2+7aSTcGGiI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Deh3GvHm"
+Received: by mail-yb1-f169.google.com with SMTP id 3f1490d57ef6-de61424f478so3162723276.0
+        for <virtio-comment@lists.linux.dev>; Mon, 20 May 2024 21:57:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1716267429; x=1716872229; darn=lists.linux.dev;
+        h=cc:to:subject:message-id:date:mime-version:in-reply-to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=bF7N2GYCiKNZBmuQBd3nX5r9kHBo0QgI7MEZ053lQak=;
+        b=Deh3GvHmPKVkV7l6yxy0ZFX0h0SrJbCDb29gnTTUpkqinL0c89viEx5ZstYeQ++GTz
+         BRa6qxndGQmiklJBvqM42NsAKIAYl4seph+jqvSjqobM+2qfkdqpYYTDdTgB6DEXiklp
+         BUeBvJ9IUu71rBGQ0X4vQkNWw2W+563GCjezO7JkGaYjC2+C8VctsQXMgrAYmW0HLGxL
+         0eBgA8MKScLrJAeRar96eWgAPhzBzdwGAwiGUV8KqGIN6Wd9Eok3t2plkUQXgt6VpAWz
+         ydIC2J0AnID9a6+8w1YqrXsTx9DqYIP3hzeexxTdCr1/GTs/LuZyJ/81DSubBP2ig79w
+         WA6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716267429; x=1716872229;
+        h=cc:to:subject:message-id:date:mime-version:in-reply-to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bF7N2GYCiKNZBmuQBd3nX5r9kHBo0QgI7MEZ053lQak=;
+        b=QjoKmHMSvIpAM46D4v/xRvpyHNF7Z70Y0osBtQD8vFno+s1P+ZCRr1T52IUZ2aaL80
+         qb8nqejbEHCbGVnuxgksjUAplvShAcbnQFp0ZijmrW07WqcUYkFlgJ20pcLM2+dGdyUm
+         6b/0UCaxKXyJhtYaYhSbfUgKo6XCgS9bK7Ar99899U781aigJBVgRl2vDXArWp6R2Hs/
+         ixBgBv1ym1ZddqwJuCK05PeH635k67gWaGr+kcT2NH0XfONwuUnASV1a3XMfMYJOzK44
+         J/N5SFXtFM5817hpsc23sPxeJsEFHeHp3l1NnzUQtaZvqTvYD/6DbzpDpFGuFWFZUqhY
+         bWUw==
+X-Gm-Message-State: AOJu0Yx480sfBkkPD57jsR+eFO0H6mzI5fnJzHE5XJPN5HFK7nqL+vt8
+	Pkuwoxj+0XM8rEeOFcpkdcO+Ae6cMXqIItiANHPg6ljsXPN1eVXkn7n6PkYX5UWU9QyhJsZZDS0
+	OZhHk4ktZEumcW57T7kXdcg46hfXdRnT59/K+kw==
+X-Google-Smtp-Source: AGHT+IH4ZZgxZ+pA9xDbhXD9sBw3IUUN0/rj4BcAuJKSSL/xg9OwD0f/nNBuQR0jHXDqeUOgskZZ6KsMGgt7Q6XQqxo=
+X-Received: by 2002:a25:aa06:0:b0:df0:5c1c:2d59 with SMTP id
+ 3f1490d57ef6-df05c1c3928mr19094978276.39.1716267429536; Mon, 20 May 2024
+ 21:57:09 -0700 (PDT)
+Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 21 May 2024 00:57:09 -0400
+X-Original-From: zhenwei pi <pizhenwei@bytedance.com>
+References: <20240513121005.459013-1-pizhenwei@bytedance.com>
+ <20240513121005.459013-2-pizhenwei@bytedance.com> <20240520234857-mutt-send-email-mst@kernel.org>
+User-Agent: Mozilla Thunderbird
+From: zhenwei pi <pizhenwei@bytedance.com>
+In-Reply-To: <20240520234857-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfa852e2-289d-4291-48d6-08dc794d3678
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2024 04:19:31.2749
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SRoz+vLa0/cle5/Dn0u0Kx1Wmr3s+qM3WJUU/fMfg1JuBBIZfNo9qWIHPKsj//hwD38zZjHgSAelk1HEFelpiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7724
+Mime-Version: 1.0
+Date: Tue, 21 May 2024 00:57:09 -0400
+Message-ID: <CABoGonKv4sjR93dTuxsbnqxAYA4L3EVohM=wsVxWZfu34P=wMQ@mail.gmail.com>
+Subject: Re: Re: [PATCH 1/1] balloon: introduce 6 memory statistics
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.linux.dev, david@redhat.com
+Content-Type: multipart/alternative; boundary="0000000000007a49cb0618efa69b"
+
+--0000000000007a49cb0618efa69b
+Content-Type: text/plain; charset="UTF-8"
 
 Hi Michael,
 
-> From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Wednesday, May 15, 2024 4:07 PM
+Sorry, I received this text, but read that email from my mobile phone
+carelessly.
 
-> > > I would wait until next Monday at least. Give everyone time to
-> > > subscribe to the new list.
+On 5/21/24 11:50, Michael S. Tsirkin wrote:
+> On Mon, May 13, 2024 at 08:10:05PM +0800, zhenwei pi wrote:
+>> Expose more memory statistics of the virtual memory subsystem from
+>> guest, it's helpful to analyze the memory performance and pressure
+>> from host side.
+>>
+>> Signed-off-by: zhenwei pi
+>
+> zhenwei
+>
+> when subsriving to the lists you should have received this text:
+>
+>
+> Not to do:
+> - copy both virtio-dev and virtio-comment mailing lists (instead, pick
+> one)
+>
+> did you not get this text? was this, somehow, unclear that you copied
+both
+> virtip-comment and virtio-dev on your patch?
+>
+>
+>> ---
+>> device-types/balloon/description.tex | 24 ++++++++++++++++++++++++
+>> 1 file changed, 24 insertions(+)
+>>
+>> diff --git a/device-types/balloon/description.tex
+b/device-types/balloon/description.tex
+>> index a1d9603..bc8e109 100644
+>> --- a/device-types/balloon/description.tex
+>> +++ b/device-types/balloon/description.tex
+>> @@ -305,6 +305,12 @@ \subsubsection{Memory Statistics}\label{sec:Device
+Types / Memory Balloon Device
+>> #define VIRTIO_BALLOON_S_CACHES 7
+>> #define VIRTIO_BALLOON_S_HTLB_PGALLOC 8
+>> #define VIRTIO_BALLOON_S_HTLB_PGFAIL 9
+>> +#define VIRTIO_BALLOON_S_OOM_KILL 10
+>> +#define VIRTIO_BALLOON_S_ALLOC_STALL 11
+>> +#define VIRTIO_BALLOON_S_ASYNC_SCAN 12
+>> +#define VIRTIO_BALLOON_S_DIRECT_SCAN 13
+>> +#define VIRTIO_BALLOON_S_ASYNC_RECLAIM 14
+>> +#define VIRTIO_BALLOON_S_DIRECT_RECLAIM 15
+>> le16 tag;
+>> le64 val;
+>> } __attribute__((packed));
+>> @@ -399,6 +405,24 @@ \subsubsection{Memory Statistics
+Tags}\label{sec:Device Types / Memory Balloon D
+>>
+>> \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb
+page
+>> allocations in the guest.
+>> +
+>> +\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The number of Out-Of-Memory
+killer
+>> + invocations.
+>> +
+>> +\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The number of stall count on
+memory
+>> + allocation.
+>> +
+>> +\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory that has
+been
+>> + scanned asynchronously (in bytes).
+>> +
+>> +\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory that has
+been
+>> + scanned directly (in bytes).
+>> +
+>> +\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory that
+has been
+>> + reclaimed asynchronously (in bytes).
+>> +
+>> +\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory that
+has been
+>> + reclaimed directly (in bytes).
+>> \end{description}
+>>
+>> \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory
+Balloon Device / Device Operation / Free Page Hinting}
+>> --
+>> 2.34.1
+>>
+>
 
-Can you please merge this patch?
+-- 
+zhenwei pi
+
+--0000000000007a49cb0618efa69b
+Content-Type: text/html; charset="UTF-8"
+
+<p>Hi Michael,
+<br>
+<br>Sorry, I received this text, but read that email from my mobile phone
+<br>carelessly.
+<br>
+<br>On 5/21/24 11:50, Michael S. Tsirkin wrote:
+<br>&gt; On Mon, May 13, 2024 at 08:10:05PM +0800, zhenwei pi wrote:
+<br>&gt;&gt; Expose more memory statistics of the virtual memory subsystem from
+<br>&gt;&gt; guest, it&#39;s helpful to analyze the memory performance and pressure
+<br>&gt;&gt; from host side.
+<br>&gt;&gt;
+<br>&gt;&gt; Signed-off-by: zhenwei pi 
+<br>&gt; 
+<br>&gt; zhenwei
+<br>&gt; 
+<br>&gt; when subsriving to the lists you should have received this text:
+<br>&gt; 
+<br>&gt; 
+<br>&gt; Not to do:
+<br>&gt; - copy both virtio-dev and virtio-comment mailing lists (instead, pick
+<br>&gt;   one)
+<br>&gt; 
+<br>&gt; did you not get this text? was this, somehow, unclear that you copied both
+<br>&gt; virtip-comment and virtio-dev on your patch?
+<br>&gt; 
+<br>&gt; 
+<br>&gt;&gt; ---
+<br>&gt;&gt;  device-types/balloon/description.tex | 24 ++++++++++++++++++++++++
+<br>&gt;&gt;  1 file changed, 24 insertions(+)
+<br>&gt;&gt;
+<br>&gt;&gt; diff --git a/device-types/balloon/description.tex b/device-types/balloon/description.tex
+<br>&gt;&gt; index a1d9603..bc8e109 100644
+<br>&gt;&gt; --- a/device-types/balloon/description.tex
+<br>&gt;&gt; +++ b/device-types/balloon/description.tex
+<br>&gt;&gt; @@ -305,6 +305,12 @@ \subsubsection{Memory Statistics}\label{sec:Device Types / Memory Balloon Device
+<br>&gt;&gt;  #define VIRTIO_BALLOON_S_CACHES   7
+<br>&gt;&gt;  #define VIRTIO_BALLOON_S_HTLB_PGALLOC 8
+<br>&gt;&gt;  #define VIRTIO_BALLOON_S_HTLB_PGFAIL  9
+<br>&gt;&gt; +#define VIRTIO_BALLOON_S_OOM_KILL       10
+<br>&gt;&gt; +#define VIRTIO_BALLOON_S_ALLOC_STALL    11
+<br>&gt;&gt; +#define VIRTIO_BALLOON_S_ASYNC_SCAN     12
+<br>&gt;&gt; +#define VIRTIO_BALLOON_S_DIRECT_SCAN    13
+<br>&gt;&gt; +#define VIRTIO_BALLOON_S_ASYNC_RECLAIM  14
+<br>&gt;&gt; +#define VIRTIO_BALLOON_S_DIRECT_RECLAIM 15
+<br>&gt;&gt;          le16 tag;
+<br>&gt;&gt;          le64 val;
+<br>&gt;&gt;  } __attribute__((packed));
+<br>&gt;&gt; @@ -399,6 +405,24 @@ \subsubsection{Memory Statistics Tags}\label{sec:Device Types / Memory Balloon D
+<br>&gt;&gt;  
+<br>&gt;&gt;  \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb page
+<br>&gt;&gt;    allocations in the guest.
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The number of Out-Of-Memory killer
+<br>&gt;&gt; +  invocations.
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The number of stall count on memory
+<br>&gt;&gt; +  allocation.
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory that has been
+<br>&gt;&gt; +  scanned asynchronously (in bytes).
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory that has been
+<br>&gt;&gt; +  scanned directly (in bytes).
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory that has been
+<br>&gt;&gt; +  reclaimed asynchronously (in bytes).
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory that has been
+<br>&gt;&gt; +  reclaimed directly (in bytes).
+<br>&gt;&gt;  \end{description}
+<br>&gt;&gt;  
+<br>&gt;&gt;  \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
+<br>&gt;&gt; -- 
+<br>&gt;&gt; 2.34.1
+<br>&gt;&gt;
+<br>&gt; 
+<br>
+<br>-- 
+<br>zhenwei pi</p>
+
+--0000000000007a49cb0618efa69b--
