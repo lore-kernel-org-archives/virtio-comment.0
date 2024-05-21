@@ -1,74 +1,74 @@
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (mail-dm3nam02on2052.outbound.protection.outlook.com [40.107.95.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE3075811
-	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.236.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525056CDAF
+	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.95.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716294622; cv=fail; b=J4UFAKrp8ninvwlixMr19v9sFALPcVM5JCOC5wCakpdKGUdVWjuPsVSztuAC4b7aBRQTPIcd4ph0OngOrXDnb7wvRXVA4cxsWfsamFkWEh5DDRdzZOz6xP08k7h+glfmD2QJHiR7Iim3KQQT5BGlceK8BN1S7RysQ/z65uoxQNA=
+	t=1716294627; cv=fail; b=EM/UCbShwPW8eUHsNwlBv7/y7adSuV+AeX8jR6Tfn13Y1wdaEBXozpWkYKwpyW7gOVDgQJSsx9fQldnpByXwetw13nby2h1YEGi4nyn1iVESPtIrz6dVLGe2nm5s1K4+Ykz+jd8zom6+qJNZQ6njYYIQ9XD4ABSoWZ4K5ZbgUbA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716294622; c=relaxed/simple;
-	bh=y352v9euaOTs22jDKeMmqUOYWhcysTu27ih0JVnSvwY=;
+	s=arc-20240116; t=1716294627; c=relaxed/simple;
+	bh=QEaMVG3AWj8OHarbGgUbF1oyjNbEZ/0f/bzJDdVPVug=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DmDSZVx8IW/FY9449HwCaNWxCsInyrmS7ecc/QcSdp5nU0Uy54oVQZU3K0mfUpgYQ+phhQUhprq8o6z1IN0MjeLxMcHSqgef37OPSg2WUzEJ05YGB1OyJDrB/SweGXqkHlRSHUn3HI6dBrVGPQ12uu45pOnCZKi+CqGiLlC+aGo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WtPnOgGL; arc=fail smtp.client-ip=40.107.236.49
+	 MIME-Version:Content-Type; b=fS1D0IbemlLl+i8ns7+tGm1isSppSzNQnigXgbRM9G49g3+4bMgcdpPqCX9JxW4a0hdV9+w/bLIP0t07a8lIP4pAoSyaU9gq19w65jjXxiTTKlXsi03cbNY673T82YU50o44tdlSXElO0T3SQNV/PrO8rc9YAfHsix2V1eB8mMM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DLOdccgN; arc=fail smtp.client-ip=40.107.95.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WtPnOgGL"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DLOdccgN"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ILqGvgngU04I5Xy5nLoIMvHKAXtjwzC5a/P/UT2poAJ0eymJVW+HjJ79ZhZOfqVf/VukvyJwNc58k6+JCWcCJRqhT5AIbwjvEcmvl2XhOziolOz39s7nmM9MmcK8M1FkLerU7p/4yDWoWSgi7RSH1tsaGl0DwLfCgulshG0IIkhzkaXID6yh4zWiQKtWnOH0XmeiXlV/h0F9at9IIbtU3GdG0RySb2eXMIBEUNpy/TTd9Dtky7rDHTz90rs0pBMgLU7tqsVcm6vjYufS1mvcd7qcjAOoafWnSf8BeZ59VWijABdUIZtNJcpO2309C55c1h4YtSOQDn0H93DmLtdAMg==
+ b=hbrIlbMGYAT0+RIK1JV7ewcGHtNhRKhPmvaEK1JWG4Z6jTXSF081KXAdUcHStxgB8c3CGh2wjsr3L2pqCHmuDxrS6NkDwO522BwYsH85avg64xGQFO9xX0EZEy03OFIUtEXP4N6rjtDTE5iW5a8chL1kEXQ7JvIJJS9mmyq7mQof3wxsi/XTEKxcsjcofCtw/XY7GH0MGLwdHHCqXEXIDouwMnaUls7NGFTqos6zs5NHXZuvMpRxx1jdZLdRwxHUP1ji3omBWyVowMvB7T9UpPmEmUaHJLQdKhYAmYSqDT6YD41K7KD2sp6e1SxqChHHQzz0VVwL83KP/qbzWP+jjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y5T7JgFmFkZ8aQ0rqZk4JpcQh8g21Jgy+7b2uGBQtaI=;
- b=HXNu50LDJnSMjIza4s78WE2GUjc5sJ8vEhQhS0zTUYP3TEAhH6+nxboNW9kirmIRBPUMEoYloH9W64eq6QTnHfKgy6SABBAlJpZP9E1rTR9y0aBNxawNW66U/nQuIu+BA3BzVnUXtgxNfbDO77oBOJuLpC9SE77fmS43kL3I9lEdtgoOG3kFRWfa+yce2/kZVpOcACA/Qv7JyYS8Z8AFFBdn5mGVp1cVrEFzTDk2iqK/jVpTRS4/WkCIWgvW/k1/Qprh1u9wZfphC4aLkeMcWgM6oPHlsDGaMtN2kHKS75mxOgwv3e6JSSmJGCj9MNryT6PsBreQWGFnfXCcWoLlkw==
+ bh=bshnb18KHnGyQkLQ8TeTbWkVp/zWb84xdcfukUKJ3Fo=;
+ b=JAzA0oBYwgucFu1U68KfI8BsYQKfy+DrM9f7ow7yCHM0vcFi8uq67q2gS4dXC/kEiUa9KkTzJxAZOAi8MRrfWh+TEe2tu/RtdTrdmmWvyTwCwS4xEd8thafbM3dRbYgvTjwD2EPqVWUQsyhWMFXx7el74WtJ/ebtNu6OLW9FCG18Zo6Rl2XCSSnmQxgzLeur7EjDXgRwcJE6liEX2yDSkpwGcIkmvcm6GWEkkJyxLEyplyq1qg/vfS2IlVgSdGGufSwuPewBopkjZwX3Zdr5C2VioZjMZvwemvpGL/ILMU8lFJpAG0HnAhZnuFLDdEY4XvZrh7wyYdMUCNIfSwuEvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y5T7JgFmFkZ8aQ0rqZk4JpcQh8g21Jgy+7b2uGBQtaI=;
- b=WtPnOgGLaB/h5HBlsc86FornlIuImaqT+YTt/CB4MKpQS+TnJ4ITanqbRjeTUQkQ0lk0y0txIM3LAkRfPkisIy3yJRuU65hQfc7gSbYtc7u7nU76F+U/wxz8cuvgnd7ucMEgOyhSus98gwbwkTcjI14F6piAJTFB6TPUiWbWfkAkVy7zRIWfrdtnUh9MpeSxw1QekQ47X3HD2DXGzg7tieXn5Kvm1/9/yMmbMiaA3ig/ElKxviMHhCepHEMRWAwpXyU8sXIeQIgu5Vq4sjae0ETxBASn3M6r7hZD8cjkqlEelTGkMpy3vmgL+W44ULGeDYLKw/0WPj4l85zxQfOb7w==
-Received: from MN2PR15CA0017.namprd15.prod.outlook.com (2603:10b6:208:1b4::30)
- by DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) with
+ bh=bshnb18KHnGyQkLQ8TeTbWkVp/zWb84xdcfukUKJ3Fo=;
+ b=DLOdccgNuONu5B6eSlVuO0OTfX4I1VtxXX97T9u8UfP4yXfVangFAaYytOEtCpRnhn/OdVhiPRZERAI4+jC61P0Ge4HyJqzQigDIpifz2O1WwwAIL16A14Tb8Qpj/Pfws3S47BaVa2BXN3eGRqUoNdQh5PC+Tg5xQ4BzZvn8bmttwszZjDuy4r/cvKTzGcf//SEB8tSJ9t/ALgMxFo5PKtAZfl1o+9xqWDn/QRzgz6Rvsitr8Cm7cAOIQEt/TvE+3Pb3GXGqm7wI+R+3O8MfDE2xCqn7Vb+9s3OW07qUJqNvFSD1+4Veybi6844WwtEPsZl6tkRiWgbpxi1Kzv0Nkw==
+Received: from SA9P223CA0006.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::11)
+ by PH7PR12MB5878.namprd12.prod.outlook.com (2603:10b6:510:1d6::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.18; Tue, 21 May
- 2024 12:30:15 +0000
-Received: from BL6PEPF00022575.namprd02.prod.outlook.com
- (2603:10b6:208:1b4:cafe::9a) by MN2PR15CA0017.outlook.office365.com
- (2603:10b6:208:1b4::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.34 via Frontend
- Transport; Tue, 21 May 2024 12:30:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Tue, 21 May
+ 2024 12:30:21 +0000
+Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
+ (2603:10b6:806:26:cafe::fc) by SA9P223CA0006.outlook.office365.com
+ (2603:10b6:806:26::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35 via Frontend
+ Transport; Tue, 21 May 2024 12:30:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 12:30:15 +0000
+ 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 12:30:21 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 21 May
- 2024 05:30:01 -0700
+ 2024 05:30:04 -0700
 Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.230.35) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 21 May 2024 05:29:57 -0700
+ 15.2.1544.4; Tue, 21 May 2024 05:30:01 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
 CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Subject: [PATCH v10 02/13] admin: Use already defined names for the legacy commands
-Date: Tue, 21 May 2024 15:29:26 +0300
-Message-ID: <20240521122937.2004180-3-parav@nvidia.com>
+Subject: [PATCH v10 03/13] admin: Add theory of operation for capability admin commands
+Date: Tue, 21 May 2024 15:29:27 +0300
+Message-ID: <20240521122937.2004180-4-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240521122937.2004180-1-parav@nvidia.com>
 References: <20240521122937.2004180-1-parav@nvidia.com>
@@ -84,159 +84,129 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|DS0PR12MB7512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93057aae-7da7-49fc-7ca7-08dc7991c488
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|PH7PR12MB5878:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6632cd9-a345-4d20-0b8a-08dc7991c848
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|1800799015|376005|36860700004;
+	BCL:0;ARA:13230031|1800799015|82310400017|376005|36860700004;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?w9XWIilD7MS3WVgwS1dLmH0SoZViut+WdpO15AjX61k9qSAMjvo4d6Aw+l56?=
- =?us-ascii?Q?m/8uUIzGVqkmek4iWuvdN+iGx9/8KkTmpfMZhaQLrMVXHemwotLAmYRaiCOV?=
- =?us-ascii?Q?6TOz3X9lMgpkK5I6dCDsSVpVUrpWH5/Qdcj86xlhNMDUIfI1GIO5oTGnIDtI?=
- =?us-ascii?Q?w4r5FO7iv6f9wgGaVHD8xr2aBkN2g43JpjIhh+LdfWxrApoEXeAEKE+tfaEE?=
- =?us-ascii?Q?LqXcmupiCGvMEMBzAiYohpTiI0YXb6ws40RpGpQT8DUd6m5K3dhb4VvRFo3K?=
- =?us-ascii?Q?kv+wK86SV20UcGPv8x3jcqD0PZW25HGjlxo4AyugW7y2HBgtHbuxHEjEfACj?=
- =?us-ascii?Q?tjUvaG3QmTzjoX4vlNg+pnOX/Ny+ZGZ6KXsmNOZwi6VAnRZY1bH5aytz/zME?=
- =?us-ascii?Q?zQsmsu3RbYInUjDu1plYlJmLn+Qz6Qdu+p8Q/siLPuFuyt93EYLQj9LWuAqg?=
- =?us-ascii?Q?AUNp9U0tMiVTDm0ImLpo78Gxb1b85/G0AagdKaKOrO1n3veNcDcZsGfoUiMn?=
- =?us-ascii?Q?sfE3m8Yq4GM7C59j+NUdAtXLYL3ME7tYVjPJdx7NI60xRIqV2doof7mOXYOC?=
- =?us-ascii?Q?VoOQlaxRJwrBwQZMEopZNab7al2qlOOXIkezgIa5nnY7sqUzicp8zwJhaDGO?=
- =?us-ascii?Q?LJYxrmDDPVRdrivTLRz1ozHaqjCtIQBiWV38+9r806xdO9/YUWy3Cg8DyOuA?=
- =?us-ascii?Q?q9SOncO+roase7QSTwWSYsln7VRSRUEEqFbXeK2KnbYwVnMjsgOJR+T1Ze8t?=
- =?us-ascii?Q?hHcQGPsa2pueFe77eZvLy42AZL1AaCXJynMUBgoX26FMXgpYov8plpduOuZr?=
- =?us-ascii?Q?RIHfjSZOFm1ZCabOQRkwA4Pd25UO9Mbq9nxO3+V8FR3LWl8WNH3wxdZ2ru8F?=
- =?us-ascii?Q?waiN9neZAaTyZE++akaK++K4lmrV1NM9iWeUtkaIauwJ0GK2bOrat5mxI3F1?=
- =?us-ascii?Q?m8OgzSyifJAbyPU5cXBiNINJJJKfGCYf0Bo2R7g7mwYoFbX/UtZpjTNg6/ZV?=
- =?us-ascii?Q?G8rzTkiY2YROECHcIOi+svRZQiP1ravZEwE91IPDCxVakhkwtu3y95uQlYpo?=
- =?us-ascii?Q?YQRvoX5tgTv5q6etJQHoaABEvzxAP816L9tVXYtzafhEiIpdiozVcYRrjQRy?=
- =?us-ascii?Q?QLHDzzR41jmF89okjPeQclZtPRV/OIUwTPrBjdcFR1NceK8sweULpIK19zky?=
- =?us-ascii?Q?mi7Lca66Wl1bTmI2lxttwP2Qnloq0VQb3CP+wGGMIX1TA1VGPPvUjcDYhLY/?=
- =?us-ascii?Q?D3WULNiFaAfwkIOntSBmiVwDkEVU8iEiveJ/fZ0rBOCuyIDAi25rK+7MCL9/?=
- =?us-ascii?Q?miuYTcnzlqGBKaE4Fr/0dSRlCz92u9ArDsxP+nqGYjMIRtdtN7uUmVyVo0V8?=
- =?us-ascii?Q?DB8tkN2BvrCEkFnnIc2cHuqQ1JTG?=
+	=?us-ascii?Q?voCKUvQ8xQbw18Z4FxEN566qqE/f/XWf+xQge3pyxlUkPfbEh8c4jDqar3Es?=
+ =?us-ascii?Q?IcMjRw1lLr95HagLuemI0VvnHswZpesJE04H/Pzmitnd+dnJI/qgFHdA1Y4v?=
+ =?us-ascii?Q?3aEOlMmBAG0yIF/A8qOVHLeXwfczbBqMJS5cN4w2StxXFomwR0gbpjig1y7c?=
+ =?us-ascii?Q?SK7Gvs5l0QdloXKmz7e3xKaKNIt3+iJbE0DR9C4BCCjRdmPPHp4hO49IWr81?=
+ =?us-ascii?Q?TzUiWrqfnQwCe2RjvKUCeSOucNvVX2Ey35IdkM4OtePdq6lV87Gko47Jj9p1?=
+ =?us-ascii?Q?5ET8OPGMWfxqNQCZIu5UfiUHVOpkLIlSMpQBohRy3IZQxEq1ZM3tAlj+Fv9G?=
+ =?us-ascii?Q?o0bw+ri5Uak1McEWjH+lW7pFNpiuspOPsUWJS9xgbu8OKkiI2tXGWtBIuV+L?=
+ =?us-ascii?Q?oQMdCnHjFzqUPX3cNDSLoV+8zY5SpXXKQXhRrkbuKGWJNRLuTUA8b1oGPuYa?=
+ =?us-ascii?Q?ux6Hjl3Lkzj+FsWLxtzZF5LLsU6X0kfFyZArfpOEaONhAzRXqZfPc5NjkRJL?=
+ =?us-ascii?Q?wGnGFIjNtsTom8H6I0hbOTkaXTSaCR4ynHmrGKJds+NhsOV0cBpWKUh99KNl?=
+ =?us-ascii?Q?9+Yti12DA6J8r+yVRa9uzOy7Cvh49pd0ObIb1f05M5mZP6Zg2aq83pl41N37?=
+ =?us-ascii?Q?eWWS1h+LHcmrOEGe5VkLRscX61uQKqhUfyAe1rwCXnLc+OJPn0wzd226rF0J?=
+ =?us-ascii?Q?iv5PdJpG2UMapddX79vKTmxk2qQsE+hFagwUxA0dx4UOTZOL08HFLgUfhXxG?=
+ =?us-ascii?Q?uCjEid6iDaxo4gGgXsfvi3qddvwAIBjZO4OPbpfA4PIGd7hQHRzfy19p82s/?=
+ =?us-ascii?Q?6GWd2MdA6U6fI8e7wu1YvkTlp8d4fbj6O749k/TbRoFNCTZNSYc+ZaeLeTgf?=
+ =?us-ascii?Q?KOD+7CJ1mozs9e2ctb2u1+amYasAOV2e6R0Ziv6Fr0pf+ITdxlXb+bMbZanR?=
+ =?us-ascii?Q?UhZDcag4icaG0/gaUCcdwNoNXYE53Ylnn8/mj7UynxXuVdkWVv4vfuz3vmIl?=
+ =?us-ascii?Q?sGH8Tmom2qnq2cx4D8eSAB8FUYVhIc35VRXO/IJA6vv4yEu49TV74rFW3rdR?=
+ =?us-ascii?Q?BXduDWyHG6Fwyg8LxCpVRkstQLPBTzz3umtCfXv0ZhKDxYlZaMmsw238vEFn?=
+ =?us-ascii?Q?XhmBch1nCwETQ3T60Rz3m+bZ370wGL2CrILj09oaQd08WhFbExHEhTj15oBl?=
+ =?us-ascii?Q?zR+GCxUo3jRc1SHICvn2dLVmzhpYGBYWrrzPTaH6E9icg66tfD39kog8PWgj?=
+ =?us-ascii?Q?a0nOhdiBIQhTWo8NXce8c4rHflm5N9pikXqZf57pEMWgDXUSzI+XJXnu15uA?=
+ =?us-ascii?Q?AA24Qo+2rKFvjxjhXHHn07pmBpxgGAUCyvED+XUX3WhgX4sl45ZmA980uI0V?=
+ =?us-ascii?Q?Qkd+D4dWPB2frjD14BB5q/FiH5re?=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 12:30:15.1453
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 12:30:21.5745
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93057aae-7da7-49fc-7ca7-08dc7991c488
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6632cd9-a345-4d20-0b8a-08dc7991c848
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022575.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7512
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5878
 
-Instead of description, use the existing name for defining the legacy
-commands. While at it, prefer the shorter label names which
-are already unique and refer them as hyperreference in the table
-for quick naviation.
+Device capability indicates the supported functionality and
+resources of the device to the driver.
 
-This is editorial change to align to subsequent patches.
+Driver capability indicates the supported functionality
+and resources which driver will be using. Driver capability is
+subset of the device capability.
+
+Add theory of operation describing it.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 Signed-off-by: Parav Pandit <parav@nvidia.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- admin-cmds-legacy-interface.tex | 24 ++++++++++++++----------
- admin.tex                       | 10 +++++-----
- 2 files changed, 19 insertions(+), 15 deletions(-)
+changelog:
+v9->v10:
+- replaced 'functionalities' to 'functionality'
+- added missing article 'the'
+- replaced capabilities to capability
+- rephrase for listing for device type specific capabilities
+- rephrase the first para description of capabilities
+- moved capability type to next patch
+---
+ admin-cmds-capabilities.tex | 34 ++++++++++++++++++++++++++++++++++
+ admin.tex                   |  1 +
+ 2 files changed, 35 insertions(+)
+ create mode 100644 admin-cmds-capabilities.tex
 
-diff --git a/admin-cmds-legacy-interface.tex b/admin-cmds-legacy-interface.tex
-index b9c96d4..7b1ce4e 100644
---- a/admin-cmds-legacy-interface.tex
-+++ b/admin-cmds-legacy-interface.tex
-@@ -17,10 +17,10 @@ \subsubsection{Legacy Interfaces}\label{sec:Basic Facilities of a Virtio Device
- The following commands support such a legacy interface functionality:
- 
- \begin{enumerate}
--\item Legacy Common Configuration Write Command
--\item Legacy Common Configuration Read Command
--\item Legacy Device Configuration Write Command
--\item Legacy Device Configuration Read Command
-+\item VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_WRITE
-+\item VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_READ
-+\item VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_WRITE
-+\item VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_READ
- \end{enumerate}
- 
- These commands are currently only defined for the SR-IOV group type and
-@@ -29,8 +29,8 @@ \subsubsection{Legacy Interfaces}\label{sec:Basic Facilities of a Virtio Device
- Bus / PCI Device Layout / Legacy Interfaces: A Note on PCI Device Layout} except
- that little-endian format is assumed unconditionally.
- 
--\paragraph{Legacy Common Configuration Write Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group
--administration commands / Legacy Interface / Legacy Common Configuration Write Command}
-+\paragraph{VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_WRITE}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_WRITE}
- 
- This command has the same effect as writing into the virtio common configuration
- structure through the legacy interface. The \field{command_specific_data} is in
-@@ -59,7 +59,8 @@ \subsubsection{Legacy Interfaces}\label{sec:Basic Facilities of a Virtio Device
- 
- This command has no command specific result.
- 
--\paragraph{Legacy Common Configuration Read Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / Legacy Common Configuration Read Command}
-+\paragraph{VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_READ}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_READ}
- 
- This command has the same effect as reading from the virtio common configuration
- structure through the legacy interface. The \field{command_specific_data} is in
-@@ -94,7 +95,8 @@ \subsubsection{Legacy Interfaces}\label{sec:Basic Facilities of a Virtio Device
- returned by the device. The length of the data read is simply the length of
- \field{data}.
- 
--\paragraph{Legacy Device Configuration Write Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / Legacy Device Configuration Write Command}
-+\paragraph{VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_WRITE}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_WRITE}
- 
- This command has the same effect as writing into the virtio device-specific
- configuration through the legacy interface. The \field{command_specific_data} is in
-@@ -123,7 +125,8 @@ \subsubsection{Legacy Interfaces}\label{sec:Basic Facilities of a Virtio Device
- 
- This command has no command specific result.
- 
--\paragraph{Legacy Device Configuration Read Command}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / Legacy Device Configuration Read Command}
-+\paragraph{VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_READ}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_READ}
- 
- This command has the same effect as reading from the virtio device-specific
- configuration through the legacy interface. The \field{command_specific_data} is in
-@@ -159,7 +162,8 @@ \subsubsection{Legacy Interfaces}\label{sec:Basic Facilities of a Virtio Device
- 
- The length of the data read is simply the length of \field{data}.
- 
--\paragraph{Legacy Driver Notification}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / Legacy Driver Notifications}
-+\paragraph{VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO}
- 
- The driver of the owner device can send a driver notification to the member
- device operated using the legacy interface by executing
+diff --git a/admin-cmds-capabilities.tex b/admin-cmds-capabilities.tex
+new file mode 100644
+index 0000000..ef9481c
+--- /dev/null
++++ b/admin-cmds-capabilities.tex
+@@ -0,0 +1,34 @@
++\subsubsection{Device and driver capabilities}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
++
++Device and driver capabilities are implemented as structured groupings for
++specific device functionality and their related resource objects. The device exposes
++its supported functionality and resource object limits through an administration
++command, utilizing the 'self group type.' Each capability possesses a
++unique ID. Through an administration command, also employing the
++'self group type,' the driver reports the functionality and
++resource object limits it intends to use. Before executing any operations
++related to the capabilities, the driver communicates these
++capabilities to the device. The driver is allowed to set the
++capability at any time, provided there are no pending operations
++at the device level associated with that capability.
++
++The device presents the supported capability IDs to the driver as a bitmap.
++The driver uses the administration command to learn about the
++supported capabilities bitmap.
++
++A capability consists of one or more fields, where each field can be a
++limit number, a bitmap, or an array of entries. In an array field,
++the structure depends on the specific array and the capability type.
++For each bitmap field, the driver sets the desired bits - but only out of
++those bits in a bitmap that the device has presented.
++The driver sets each limit number field to a desired value that
++is smaller than or equal to the value the device presented.
++Similarly, for an array field, the driver sets the desired capability
++entries but only out of the capability entries that the device has presented.
++
++It is anticipated that any necessary new fields for a capability will be
++appended to the structure's end, ensuring both forward and backward
++compatibility between the device and driver. Furthermore, to avoid
++indefinite growth of a single capability, it is expected that new
++functionality will lead to the creation of new capability rather
++than expanding existing ones.
 diff --git a/admin.tex b/admin.tex
-index 44e0f83..7838301 100644
+index 7838301..56c92a6 100644
 --- a/admin.tex
 +++ b/admin.tex
-@@ -126,15 +126,15 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline
- 0x0001 & VIRTIO_ADMIN_CMD_LIST_USE & Provides to device list of commands used for this group type \\
- \hline
--0x0002 & VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_WRITE & Writes into the legacy common configuration structure \\
-+0x0002 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_WRITE]{VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_WRITE} & Writes into the legacy common configuration structure \\
- \hline
--0x0003 & VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_READ & Reads from the legacy common configuration structure  \\
-+0x0003 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_READ]{VIRTIO_ADMIN_CMD_LEGACY_COMMON_CFG_READ} & Reads from the legacy common configuration structure  \\
- \hline
--0x0004 & VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_WRITE & Writes into the legacy device configuration structure \\
-+0x0004 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_WRITE]{VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_WRITE} & Writes into the legacy device configuration structure \\
- \hline
--0x0005 & VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_READ & Reads into the legacy device configuration structure \\
-+0x0005 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_READ]{VIRTIO_ADMIN_CMD_LEGACY_DEV_CFG_READ} & Reads into the legacy device configuration structure \\
- \hline
--0x0006 & VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO & Query the notification region information \\
-+0x0006 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO]{VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO} & Query the notification region information \\
- \hline
- 0x0007 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
- \hline
+@@ -306,6 +306,7 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
+ might differ between different group types.
+ 
+ \input{admin-cmds-legacy-interface.tex}
++\input{admin-cmds-capabilities.tex}
+ 
+ \devicenormative{\subsubsection}{Group administration commands}{Basic Facilities of a Virtio Device / Device groups / Group administration commands}
+ 
 -- 
 2.34.1
 
