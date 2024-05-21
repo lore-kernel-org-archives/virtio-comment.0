@@ -1,176 +1,192 @@
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298E2524C9
-	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716294246; cv=fail; b=hsY84YC7iz9LMAgy3/gm90c+C0XFoiqJGkJz8sm1xABTL0rX3Aw2tP5wHWRI6uh5RKCBsMwxWr+1ZqSHAjbXELBMnHY/ETEYvYbo0ZU9uFtx+NLkXjr63BJAzsbUh8NG/HpLx7QfGP509LdZ88UrGm8Zrswiw0tPwct+EYumQCg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716294246; c=relaxed/simple;
-	bh=U/F+wUathAB3z/yqR+mEWJEef2i8fBvQ3HIZKJLBhTM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nVDq3KkIRK23gbQKdAM7yKHU+88tYloGQ0o2t1Y2IL0TyR8C/lVt/DAIti1bEr78IcFcjPESJQvN105/OingFIfHVy4UYVX0kBcBrHvFT/PQqclZ0mzXWP8MnMMSBY8UHhPCLYYLP3emvuhyykKt8/PMH4IXkMbU6vfZ8XlWVFM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IbiOpePv; arc=fail smtp.client-ip=40.107.220.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC4542076
+	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1716294340; cv=none; b=b2UhyoFtlwG26vbeDCphj/3VFQhcUj4EdG9FkKhwOMmEPEyWOmTj0Hmad9NN1hkoU37Q92mNk+q42nCGiJ24szLOllT0kbp77vWYR+JS5eMnC/pP4j83k4bzVCXTGREBSAKjYARR8v2XdxW5GStKuqvhepiRWTMijNzQW64D2lA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1716294340; c=relaxed/simple;
+	bh=e/Uf8uIRGGBhrkn+zTT2cPSbNR79BR91ZZsPLEPfDaE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IX9A1m8KzH4BnakxCM1l2fZB4GfQEmAkOkjt05AuCWn/7iOsZXGSP7On2vxP4gysPHr9hYDy1UOtrliRFRoNA9zT6Y9Rs03D1nUSjSv9ibHyBcp1xVebOr9+BgZ/i1xij8SnmYkTdAgmfoCzo2c4U6XKFjxv+wBfqOUOSVbeQ9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=V9sUkvWn; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IbiOpePv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IWZ7+U9joUJvkZeYZm2rHx2615qGAfg33VPqLMRz/L35sIYWibq7y1dRBbyZ6PzFksm2wL2b+XMHHy1HIGg5WYJ9Bp1iQ5Izu+mJOMxCxm90Ocd8LqPgweNLIL6zKckw7lcHoyPVsq6E1qkhbALiS/YVJqYQsG2gE4hiEf5kpBcTlPLtXPvQg1s9Y5sMHutDJAPAhLRhv8M5Bvr8Ej3Fkdx430nm6BwzkomjRx/S3/GIrIw+yAT9oRpBR4Jzb7QR6Tef+iizHjJLte+xzUUYYMRnNkC1CnmzBvStyLIhHGBS2t76PdJ+6OYkj/+EBbHwMIsOHDnSg+pbZdjROoYEeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ndd3CsNgPkm53y7PvSeVBoUERfFyfbf+v1KUIlHzk0=;
- b=EuqnHGyx7FfKz6dzeDTp4d1tmAmiSOkuCNuWJz9zvuO9rubEGueN4NcowfgGBLwdP8+k2FUrftEOfjC8238F1qi3el41R/ap06R/msueSsEX0hdsBGWPcu5Z5NSqGiDyhJ7bVK5JEbEij2Irg8jaypI2W9O529PWQwqvzzTg1kPxqu8DVIIyAvlrEdC3oEkc66Do62nMBaZZ5dUo/3nZQZtN+r+CNeTfW7aWXxx48N0sWL6xbrcvPtRbz7HdQ4jPBhw4TfP1+ylWHsxF3B5ajzNINmnNhbUr95x/kD/UWGSrbE72pVxFHHKAKc258xjQfv/KpFOILx9peMi+w3NtyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ndd3CsNgPkm53y7PvSeVBoUERfFyfbf+v1KUIlHzk0=;
- b=IbiOpePvRCRkUX81D4voPEP4ZMpfXNYR00gWsMSXwYNXxFBQEvt+vsq1DEnAUDSsF6knuLHmXPkwcTHn9MoukUtizcxDVi1TqzlFdNWcAz2FM4zeugiTmvooG9dAwdQCqg9vsVJ2FRkQmtxkLMuBe3oPSj6cJvNIC7546EU7PF/xFKoEBVsH/kMzpL/VRFM0w7uk5F/T4/Z8uyCfVOh57pgpzw6htNtaYQpRBjDwk79sjFXVTpRSs1OXxBx0VapsgF/q8A/lpLSJE0W3pHJ9ESiJeH3Vuc5cAjUFqz+frYDPj49VXXg9T1+iccbiaTNwET45KvsY0MgWWdBboakjiw==
-Received: from SJ0PR05CA0090.namprd05.prod.outlook.com (2603:10b6:a03:332::35)
- by SJ0PR12MB6733.namprd12.prod.outlook.com (2603:10b6:a03:477::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Tue, 21 May
- 2024 12:23:59 +0000
-Received: from CO1PEPF000042A9.namprd03.prod.outlook.com
- (2603:10b6:a03:332:cafe::7c) by SJ0PR05CA0090.outlook.office365.com
- (2603:10b6:a03:332::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.16 via Frontend
- Transport; Tue, 21 May 2024 12:23:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CO1PEPF000042A9.mail.protection.outlook.com (10.167.243.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 12:23:58 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 21 May
- 2024 05:23:41 -0700
-Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.230.35) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 21 May 2024 05:23:39 -0700
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
-CC: <shahafs@nvidia.com>, <xuanzhuo@linux.alibaba.com>,
-	<yuri.benditovich@daynix.com>, Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v5 3/3] virtio-net: Annotate virtio_net_hdr as field
-Date: Tue, 21 May 2024 15:23:03 +0300
-Message-ID: <20240521122303.2004122-4-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240521122303.2004122-1-parav@nvidia.com>
-References: <20240521122303.2004122-1-parav@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="V9sUkvWn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1716294337;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IU5mfPE0ZcCMJ87eYIlY6yNzyMNUO68FxLT1kbFfDpA=;
+	b=V9sUkvWnpo+3/qSJW9G7MV1y95zRefE2gNgtgcoMYGNhOY6Ua5sRuysEObKfDSWBgvzS5g
+	Y9BVL31xE3AWsfdO5sly2ijTTNpYJZHxO7esknNRLXGb6FnQNbitBd5YoHnVZveZRfHVdc
+	/ur78L5r7aLcjfY1RLEVqQJSnZRCleg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-645-x442oFlmPeaRdqI6IdalHw-1; Tue, 21 May 2024 08:25:33 -0400
+X-MC-Unique: x442oFlmPeaRdqI6IdalHw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0133A800994;
+	Tue, 21 May 2024 12:25:33 +0000 (UTC)
+Received: from localhost (dhcp-192-239.str.redhat.com [10.33.192.239])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B895A105480A;
+	Tue, 21 May 2024 12:25:32 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Viresh Kumar
+ <viresh.kumar@linaro.org>
+Cc: virtio-comment@lists.linux.dev, Vincent Guittot
+ <vincent.guittot@linaro.org>, Alex =?utf-8?Q?Benn=C3=A9e?=
+ <alex.bennee@linaro.org>,
+ stratos-dev@op-lists.linaro.org, Manos Pitsidianakis
+ <manos.pitsidianakis@linaro.org>
+Subject: Re: [PATCH V3 Resend] virtio-transport: Clarify requirements
+In-Reply-To: <20240521073925-mutt-send-email-mst@kernel.org>
+Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
+ Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
+ 153243,
+ =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
+ Michael O'Neill, Amy
+ Ross"
+References: <3543c631e29d35a667ca9d9e912d1a6db1feb0ce.1716197180.git.viresh.kumar@linaro.org>
+ <20240520092332-mutt-send-email-mst@kernel.org>
+ <20240521105706.tbyigihommrasdua@vireshk-i7>
+ <20240521073925-mutt-send-email-mst@kernel.org>
+User-Agent: Notmuch/0.38.3 (https://notmuchmail.org)
+Date: Tue, 21 May 2024 14:25:31 +0200
+Message-ID: <871q5v8i84.fsf@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A9:EE_|SJ0PR12MB6733:EE_
-X-MS-Office365-Filtering-Correlation-Id: 511bb7fd-1504-4143-6570-08dc7990e423
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|1800799015|82310400017|376005|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?yiNPdcAluyDAYVAMH/ARan2zDQmALryQGst2xYszEw4cFoC98RlgR1sIf7dk?=
- =?us-ascii?Q?V5qIwfLMPfoJ1rGmqZPsgfdbY3BDp8vec71DqBzsFPyC6iLlvpxt2qKcyh6b?=
- =?us-ascii?Q?vkFyDm9wJftsGQy10cGTWJ3w0DIcAT7NPPcxvnsouEa8zJj6r6tJr2gijZ5Q?=
- =?us-ascii?Q?pFDaqLf/FbTfqmnuCvh7AAolVsLy2HyhIzlxreNFMCLGrYw2QOPK3N3gVaL6?=
- =?us-ascii?Q?Ei0TFjvd9g+dsseGqE9i11ujf5W6zG73za1yKbdtT/Ed6y/mDalKrbYGV7Mv?=
- =?us-ascii?Q?MR7nlL4Af4jLtnpUkCZ/7+IMYmeKcWrY3YbooI3NirQIr0HX6Y6EDFeHHWEU?=
- =?us-ascii?Q?hWLKa8JMlY0bUdPLY19Rcd+7oJdDPvqeXrz0i8XIn5fJpYj1R0hYmv7TSkJr?=
- =?us-ascii?Q?QiKA2ByCpTEv/IdTWV7i4WJKTH+2XlzKREyJ16A2R+XMbLIwnV6Pp+MgW64E?=
- =?us-ascii?Q?Su1Nz7DsKJ2JGoY1riOhvD58A+0i2X2/dfWSGV+vSAqZtsBYJ/JTFb+aPE20?=
- =?us-ascii?Q?FsZ8u65tRUF9QFSsPd+FL8O26ieFmtWdNIzYAA7HB1XVKGtzj1Gyk9ceZ/R2?=
- =?us-ascii?Q?X7mRGXScgv8PY5fR3HGX0c/CGWU8nWYo0JZCnvKDuggr/EjJB2xWGSuwjAJc?=
- =?us-ascii?Q?LtRDtk6QaEo2JJ3i/W2mQHt6Cjpl3jYI/sam2CQgw89NTC0qlXsUnQOXjG3b?=
- =?us-ascii?Q?NnFy3eHAEJurcWQqv7S0CX3FQ0YhAt73WyAug1K+9d2+UrSUUiV963VKTRui?=
- =?us-ascii?Q?HvJ8a/mInd/SrbD0xd7eyp3UpHX9dutz7FX/laZ7L8OcH4P0b937Zb+Ao9TY?=
- =?us-ascii?Q?DQ3S49Hmc8B/IAwqqEuuCwoczxZ9EsSnx0DnNAsrmOVzRF/qgxK6cB3cQA5r?=
- =?us-ascii?Q?igA09ljBDqD+fFlt7Bwro5N+TeLZyFQA/00fqUElpyKwGlULpAXsA3AdHsej?=
- =?us-ascii?Q?xsNJ7aSn0L64TVf9TQsboOvdjlJW70cMTgtxUA68nGPDlaIuDO7O4SZvETTi?=
- =?us-ascii?Q?oOGYvDuH5XOCLhuiB6A3TWoqMB7cHcz1K5K6crmT4/EP3C0mQ7CeEkIg7y+w?=
- =?us-ascii?Q?EGVeYrkfnxjLkMcJnf5Mp761vNWEtKO6zVNB0IIgRAj2aWKYhZgOzXJDZ/IC?=
- =?us-ascii?Q?op1dHf6S8F7sw8F2yOGYXBvg+S9qjGYGMmjpqcV7n9Cujh9glt0aRDLjwC2C?=
- =?us-ascii?Q?U6s66fpp+cO+z5LWUrHiKhFU0b61ZMy4vwui0RGiZHO6ucgNH3tyTE0xQu4N?=
- =?us-ascii?Q?RVPvLrN/2zbwhg6Jl3JLvMx4Ktyoi1zYGxG5fl3nuMYmSNiyoHd2mkwm4+pz?=
- =?us-ascii?Q?ufSm5wqhNZVIAmwv7wuY1zdTWwZCwwuu1/irqygY1WekrYFpinDN2eg6KHWj?=
- =?us-ascii?Q?WM9M6tTADuqkvedcP80lomZwfFRS?=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 12:23:58.8606
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 511bb7fd-1504-4143-6570-08dc7990e423
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000042A9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6733
 
-At several places struct virtio_net_hdr missed out the field
-annotation. Add it.
+On Tue, May 21 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
- device-types/net/description.tex | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> On Tue, May 21, 2024 at 04:27:06PM +0530, Viresh Kumar wrote:
+>> On 20-05-24, 09:27, Michael S. Tsirkin wrote:
+>> > On Mon, May 20, 2024 at 02:59:40PM +0530, Viresh Kumar wrote:
+>> > > diff --git a/content.tex b/content.tex
+>> > > index 0a62dce5f65f..a79993b5ed69 100644
+>> > > --- a/content.tex
+>> > > +++ b/content.tex
+>> > > @@ -631,8 +631,82 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
+>> > >  
+>> > >  \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+>> > >  
+>> > > -Virtio can use various different buses, thus the standard is split
+>> > > -into virtio general and bus-specific sections.
+>> 
+>> > > +Devices and drivers can use different transport methods to enable
+>> > > +interaction, for example PCI, MMIO, or Channel I/O. The transport
+>> > > +methods define various aspects of the communication between the device
+>> > > +and the driver, like device discovery, exchanging capabilities,
+>> > > +interrupt handling, data transfer, etc. For example, in a host/guest
+>> > > +architecture, the host might expose a device to the guest on a PCI bus,
+>> > > +and the guest will use a PCI-specific driver to interact with it.
+>> > > +
+>> > > +The standard is split into sections describing general virtio
+>> > > +implementation and transport-specific sections.
+>> > > +
+>> > 
+>> > This makes it seem like trasport is distinct from both
+>> > device and driver. Makes no sense to me.
+>> 
+>> Yeah, looks wrongly worded. I think we can just retain the earlier
+>> statement here:
+>> 
+>> Virtio can use various different buses, thus the standard is split
+>> into virtio general and bus-specific sections.
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 38992b0..e65cdd5 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -437,11 +437,11 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
- 
- \subsubsection{Legacy Interface: Device Operation}\label{sec:Device Types / Network Device / Device Operation / Legacy Interface: Device Operation}
- When using the legacy interface, transitional devices and drivers
--MUST format the fields in struct virtio_net_hdr
-+MUST format the fields in \field{struct virtio_net_hdr}
- according to the native endian of the guest rather than
- (necessarily when not using the legacy interface) little-endian.
- 
--The legacy driver only presented \field{num_buffers} in the struct virtio_net_hdr
-+The legacy driver only presented \field{num_buffers} in the \field{struct virtio_net_hdr}
- when VIRTIO_NET_F_MRG_RXBUF was negotiated; without that feature the
- structure was 2 bytes shorter.
- 
-@@ -735,7 +735,7 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   chains them together to form a single packet in a way similar to
-   how it would store it in a single buffer spread over multiple
-   descriptors.
--  The other buffers will not begin with a struct virtio_net_hdr.
-+  The other buffers will not begin with a \field{struct virtio_net_hdr}.
- 
- \item If
-   \field{num_buffers} is one, then the entire packet will be
-@@ -2416,7 +2416,7 @@ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- 
- When using legacy interfaces, transitional drivers which have not
- negotiated VIRTIO_F_ANY_LAYOUT MUST use a single descriptor for the
--struct virtio_net_hdr on both transmit and receive, with the
-+\field{struct virtio_net_hdr} on both transmit and receive, with the
- network data in the following descriptors.
- 
- Additionally, when using the control virtqueue (see \ref{sec:Device
--- 
-2.34.1
+I don't really like the "bus" term here: PCI is a bus, but there is no
+need for a transport to be implemented via a bus.
+
+Maybe
+
+"The standard contains sections describing the transport-agnostic parts
+of virtio, and sections describing how individual transports implement
+virtio."
+
+>> 
+>> > > +\devicenormative{\subsection}{Virtio Transport Requirements}{Virtio Transport Options / Virtio Transport Requirements}
+>> > > +
+>> > > +The device MUST keep any data associated with a device-initiated
+>> > > +transaction accessible to the driver until the driver acknowledges the
+>> > > +transaction to be complete.
+>> > > +
+>> > > +The device MUST NOT access the contents of a virtqueue before the
+>> > > +driver notifies, in a transport defined way, the device that the
+>> > > +virtqueue is ready to be accessed.
+>> > > +
+>> > > +The device MUST NOT access or modify buffers on a virtqueue after it has
+>> > > +notified the driver about their availability.
+>> > > +
+>> > > +The device MUST reset the virtqueues if requested by the driver, in a
+>> > > +transport defined way, if the transport provides such a method.
+>> > > +
+>> > > +\drivernormative{\subsection}{Virtio Transport Requirements}{Virtio Transport Options / Virtio Transport Requirements}
+>> > > +
+>> > > +The driver MUST acknowledge device notifications, as mandated by the
+>> > > +transport.
+>> > > +
+>> > > +The driver MUST NOT access virtqueue contents before the device notifies
+>> > > +about the readiness of the same.
+>> > > +
+>> > > +The driver MUST NOT access buffers, after it has added them to the
+>> > > +virtqueue and notified the device about their availability. The driver
+>> > > +MAY access them after the device has processed them and notified the
+>> > > +driver of their availability, in a transport defined way.
+>> > > +
+>> > > +The driver MAY ask the device to reset the virtqueues if, for example,
+>> > > +the driver times out waiting for a notification from the device for a
+>> > > +previously queued request.
+>> > >  
+>> > 
+>> > This makes no sense in a normative section.
+>> 
+>> I am okay with wherever you and Cornelia decide to put this.
+>> 
+>> > Normative statements are for implementations not spec writers.
+>> 
+>> Hmm.
+
+So anyone implementing a transport needs to be able to figure out
+conformance just by looking at the individual transport's normative
+statements? Have we cross-checked whether things are clear? Because
+then...
+
+>> 
+>> > If you think of defining lots of new transports
+>> > (questionable)
+>> 
+>> There is just one in discussion at the moment on the ARM side,
+>> virtio-msg (for communication between the VMs), but nothing is
+>> finalized yet.
+>
+>
+> I feel a non-normative section is enough for this.
+> Just convert should/must to direct speech.
+
+...I think this would be fine.
+
+>
+>> > I think a new non-normative section
+>> > along the lines of newdevice.tex will make sense.
+
+[Generally, I'm not sure how consistent we are for the individual
+transports. PCI is what most people are focusing on; CCW does not really
+see much development anymore (at least in the projects that I'm aware
+of); not sure how well-loved MMIO still is.]
 
