@@ -1,66 +1,66 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC27535B7
-	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 14:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945197F490
+	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 14:12:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716300710; cv=none; b=l703pqp41rvE/hnXPsi4aMEEbyBcDQWAPszR+u+vkmBP4hBgro1eLTXLPa41vUlrTHxKCHFh6TaFSo75HjZqbGMvX7y0xlgIOuEWXR0uBRBB2qBWo4oZ20Zm+Msn9915lQLEz78AY/v/v3oFc2YoIiJotrE7cEs7WAWOAZlCN5s=
+	t=1716300773; cv=none; b=gQFbK0y+rGYnxIZDoGFzcubVnHDidANJ1exwSnZsj4XkDxW6K5Ayj3QTt/ppvaSROuJr8bkNiPGlqJ3LPrL4dfrRk8oYDKCCJU3hI7LnYhgsbsbXcxflXXpnvIS9Nuc0q17VpddffVU1VbVPNSdYSo/4chInagvkR2LfXD5dh0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716300710; c=relaxed/simple;
-	bh=EB4f/jsGkLhfpHL9qITIECnWrksg/+SzdbVHXIMagtI=;
+	s=arc-20240116; t=1716300773; c=relaxed/simple;
+	bh=ZfFX+jHQ403UD/xGYI0qpO9ijYnR8eO0yjOsWa/S1k8=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ifa7Br0hiYdWpaCevUvzoYbEKRdn47lZmqVIl5j1cYUcu2pXuSYULyar/L8uCcRB1+ESIcA8pFKwqYHf7bJljugWwiuffh79JTz7emRQAs4ft5zGDrZD8EiID3xj2ZfKG4HEDynelql+a1hXpU0qAifo9De8m9H6Zvs60fRVWxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iCXGQc1I; arc=none smtp.client-ip=170.10.133.124
+	 Content-Disposition; b=RW/TDHYuBQj2oPqB997kpUwacgkr8eBObqlDutDoGzJ/xRlsGsDTaJa/YBp3hm9F/uT/lxdVIaOBN02IidNRZeLObdoM+dfPZaaes6XJClXKo2l1B3veXW974woFi1r7j8pec4laWm572rQlntHHaMjKxy5HXGtfGxGyhpTa3J4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ad+9rArT; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iCXGQc1I"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ad+9rArT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1716300707;
+	s=mimecast20190719; t=1716300770;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=31jrVpIBbIDTPVOy19wboee1KFbvp5HdGtq/drkBdCA=;
-	b=iCXGQc1Ik57w6+W3BCC6FoWIu/nKrrsxgV5aZQfpXwKeZOdFlrGrOIN1iYJ+Mwp6ZLJLpb
-	heot67PNK1mCOwE4HXjSY6IbMiT01FNGN//IOlz6Fo0jIjOZZErdvupxP0/Baaq4CvEnWH
-	Uu8XsC0SD8BmhmsNSDjnLE+3n0cSIBY=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=idMqshsm9yvK5UtSLcTaDN7vxyLHyVLifZukVue9uJw=;
+	b=Ad+9rArT6FtAgUOIC1LF16xwWoVVvyupX9v4heJacp0IWpxDv8u6io6qWIP8Y3C5Mjk7yh
+	yJfSAPqDxyP13kpMGgL+9dG3utBPr67wlYG/WqjNWS9uQGVruMkxU2eLPwSpV15chHBi7v
+	8sjv058/8wCOFqOJdZunfr0Jxc0rsqY=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-106-7f7OEwM9PAiiispMhTr5eA-1; Tue, 21 May 2024 10:11:46 -0400
-X-MC-Unique: 7f7OEwM9PAiiispMhTr5eA-1
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-794975e4dfdso10855585a.1
-        for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 07:11:46 -0700 (PDT)
+ us-mta-510-Tzwn4NgANwS08C8-438_-g-1; Tue, 21 May 2024 10:12:49 -0400
+X-MC-Unique: Tzwn4NgANwS08C8-438_-g-1
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-6a0e1d67928so161161576d6.3
+        for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 07:12:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716300706; x=1716905506;
+        d=1e100.net; s=20230601; t=1716300769; x=1716905569;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=31jrVpIBbIDTPVOy19wboee1KFbvp5HdGtq/drkBdCA=;
-        b=j5BKYg98mS12ocUMNNiIeTSfG0OR2n758nVCHUGtBSyhpqR67uDfXyFsCY/mqoH+8F
-         qLI6wGPgfkCEKG16HfPSHm7Ae7loGVVBh35bIsMHgXUSq/zXQwv8IG0Zrt9qH3zWuu32
-         3LefP9azeJP7GYxVtED3EWRVyGBWf+iNz5hP4a78b3i9WykmiQuQ4/aXvLn73CVGK7A4
-         oDv9LkrAQboTLeLFTqzX1bXwskRMUiHydthVf0xqVEoxtIJNlNAnPENaZEoD/T9ESYIG
-         LL2gDt9r6SObyPQPIfBw1OJgkBSN2RolACHNrOIQ0PZ13uVNfuiSwC4Au5ZlmZsIC3Zj
-         byew==
-X-Gm-Message-State: AOJu0Yy9+NwIdtC38dT8hduddOqXsENQQ6C1nDEsBiFDjxD8QK7RZ1t7
-	bac2uZJjueAj41VupqZIJQ8PKfkq2UwCAe61lDLzon3pZYkPnBSrJKZA8O5sA8mS4fSsVIvuJ9N
-	y+NlHJu4xQZyNBbGHtGwNSkJr0qyk4EYUxSXz0h0AJRBAyxb1ph/YhoIM5jXUjAFtqHIMMsQG8X
-	Po8M28PgJTW48eYYiFPIOpIU1rYk+YkTQX6B3wePPo1nQpwbol4LA=
-X-Received: by 2002:a05:6214:5092:b0:6aa:a63c:f5b3 with SMTP id 6a1803df08f44-6aaa63cf8e4mr94456026d6.25.1716300705801;
-        Tue, 21 May 2024 07:11:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHIQU1Bo204r1eTXN5Fe+M341ef8gmUHmQ18vWgAkuJxd5sdLzMhTdbyX8XMWW3czvwBo5VPw==
-X-Received: by 2002:a05:6214:5092:b0:6aa:a63c:f5b3 with SMTP id 6a1803df08f44-6aaa63cf8e4mr94455766d6.25.1716300705418;
-        Tue, 21 May 2024 07:11:45 -0700 (PDT)
+        bh=idMqshsm9yvK5UtSLcTaDN7vxyLHyVLifZukVue9uJw=;
+        b=qLxfZQrY4zPsuKVPF/fF/WpfqlRhQJkHs3gd3Dvx6CeB2rQsjOI1NH1fBSHlHmJuO4
+         QzCyT6SrVrLN/djv7AQArVJMRH+hGzSlPXiWiEoIuS9zvK/4Am103P1h8hzNi6WQzPKI
+         b8izt+1Z8P06i2HlMbSaFzvmJ9XDTdN3xIO7/wCONhjyfDatxLGSSg4yU8EQtCtDXX2D
+         kUxFlG+JihVAi/LgCovnJPNqy8tAA8c6GMy4OTHOpEhJ4EtI0EHWix/TaO2QQ9I3yvzh
+         E9Hf0bFcdWDgPzUK/wlNSf7IUKMQDkGRGrfH8bPmSM3pVjk6W7T99Wj0tAWa55qhCKI1
+         2WhA==
+X-Gm-Message-State: AOJu0YxXUlZTuUix+IsbFweri/FZS5ZUV24Dcs2lyPKjiJ9jxo5nfxBC
+	3DzjXWeJMai5D2eUIDIcEKdPUOonpx2lkO8lmD5UyHXk2JSR8xjuTEWIjSg60WCvhy1lMTXQxgY
+	cRnlYm6lMvWoFW8Xc0jC75GyrWFJCgF4hMTFFWXZK6YsC9LXGTiOVzUu8GjrYDfm7sIVVTONnC5
+	Z+HdpYpt20PufHrJ6zbGXIwaDqyzYr4f5XN5sG8PWe8L63tDGhgak=
+X-Received: by 2002:a05:6214:3a85:b0:6a0:936e:4f93 with SMTP id 6a1803df08f44-6a168243ff1mr396577696d6.60.1716300768857;
+        Tue, 21 May 2024 07:12:48 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFE3ikCsNEdEy10l1MnH8F0WIn6Wc1T3HYWOY8ulhhBnWBAi6G0Yx9qB6fZW/+2OrONXg5VIg==
+X-Received: by 2002:a05:6214:3a85:b0:6a0:936e:4f93 with SMTP id 6a1803df08f44-6a168243ff1mr396577326d6.60.1716300768378;
+        Tue, 21 May 2024 07:12:48 -0700 (PDT)
 Received: from fedora (lmontsouris-659-1-55-176.w193-248.abo.wanadoo.fr. [193.248.58.176])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6a36423a92csm52082276d6.112.2024.05.21.07.11.44
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6a15f1cddd9sm123303456d6.75.2024.05.21.07.12.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 May 2024 07:11:45 -0700 (PDT)
-Date: Tue, 21 May 2024 16:11:42 +0200
+        Tue, 21 May 2024 07:12:48 -0700 (PDT)
+Date: Tue, 21 May 2024 16:12:45 +0200
 From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 To: virtio-comment@lists.linux.dev
 Cc: harald.mommer@opensynergy.com, mvaralar@redhat.com
-Subject: [PATCH] virtio-can: define out of rage can-id
-Message-ID: <ZkyrnsCXu8mQpDQI@fedora>
+Subject: [PATCH] virtio-can: rephrase notification mechanism
+Message-ID: <Zkyr3eaCOctSn7BD@fedora>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -72,30 +72,40 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Explain when a message is out of range.
+Rephrase the notification mechanism.
 
 Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 ---
 * This patch applies on top of virtio-1.4, which has not been released
   yet.
 ---
- device-types/can/description.tex | 3 +++
- 1 file changed, 3 insertions(+)
+ device-types/can/description.tex | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/device-types/can/description.tex b/device-types/can/description.tex
-index 2511d9c..98b163b 100644
+index 2511d9c..2931aa9 100644
 --- a/device-types/can/description.tex
 +++ b/device-types/can/description.tex
-@@ -191,6 +191,9 @@ \subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Ope
- invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
- NOT schedule the message for transmission.
+@@ -128,13 +128,12 @@ \subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Ope
+ \end{lstlisting}
  
-+Note that a message is out of range when a standard frame uses more than 11
-+bits of \field{can_id} or when an extended frame uses more than 29 bits.
-+
- If the parameters are valid the message is scheduled for transmission.
+ If the transition succeeded the \field{result} is VIRTIO_CAN_RESULT_OK
+-otherwise it is VIRTIO_CAN_RESULT_NOT_OK. If a status update is
+-necessary, the device updates the configuration \field{status} before
+-marking the request used. As the configuration \field{status} change is
+-caused by a request from the driver the device is allowed to omit the
+-configuration change notification here. The device marks the request
+-used when the CAN controller has finalized the transition to the
+-requested controller mode.
++otherwise it is VIRTIO_CAN_RESULT_NOT_OK. If a status update is necessary, the
++device updates the configuration \field{status} before marking the request
++used. The device may omit the configuration change notification as the
++configuration \field{status} change is requested by the driver. The device
++marks the request used when the CAN controller has finalized the transition to
++the requested controller mode.
  
- If feature VIRTIO_CAN_F_CAN_LATE_TX_ACK has been negotiated the
+ On transition to the STOPPED state the device cancels all CAN messages
+ already pending for transmission and marks them as used with
 
 base-commit: 37c6a406678a5ee891fdf5671298cb4fcfa517f2
 -- 
