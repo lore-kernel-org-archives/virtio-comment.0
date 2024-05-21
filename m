@@ -1,164 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2045.outbound.protection.outlook.com [40.107.236.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F08A74C08
-	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716293237; cv=none; b=edTMn1QlXN1WVFBbe2GTZYx5z9zzFedZyt9owjyuHyzTTNbRO7rAOJrSTEEYwzq+bdMP6U8KDJLr36y2n73Re9v1DoFQY+cIp58fHFxzun7cFCVk8R0tE3vGyozA9V8tLNidFw+6YWimvlGQl1gK9zbRNtAxLQb96dPMnUY+yCA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716293237; c=relaxed/simple;
-	bh=8yflEgci9RJ1rEuokIHgvnSsc0r7dWfYfr9NrhLa9JU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=Qw0A8NA5zmGbxhJOZJ9kD/0QJROwldBQdiacUTACn0z5TH1i3Y0rFFsEaDiAKfHW/w6mxnRbG9mMfqwfCYUFuIeDWJC7eSHADzbZTBmOYp43qHFSjjGFAG/e3Phh2M9BzoNW8jy7CbM+B48BKu11TbjaO3n1Lwoo0YDeMoFjFKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bMFtlKpJ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E183B1CD20
+	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 12:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.236.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1716294126; cv=fail; b=R0t6TyXxPS3HQbk0oZj0io+W5wR0Gt5tc9HiaHjP93cQROXvkB9LMqMRTbuJw2vjGHs9cUwNVojJtMQCxOvbGEpxl641JYEbI+a0Nz3BPhPzsq29dNziuq9PCKsU5Th5aAohEBnxBpQeRnMyJoJVgNrebfhXD6q4EUhBh95+tpQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1716294126; c=relaxed/simple;
+	bh=ioCbe2uiyfsWtVCT7vuRntnoxgGcDCM//HESsV+fMf4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XCrnob28qx4TheuMsu5n8IL3BQscAQI8l9eA+mG5x0/Y5RMlST1VgomyxM5u1m/S3LCxh5ibUlbQwu1AF6PbAK2LHZY3WEle0+lYNx1g/A3Nme80lxnErxN7aK2soejaV617dHrv97+WLG8fRaNe5lfamtm1SsZYsYMmiT3v8nc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fd8xgD4u; arc=fail smtp.client-ip=40.107.236.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bMFtlKpJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1716293234;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vNxtef7wVSAKAp/uYMVVrJVX9c61BxExImvyppOpLhY=;
-	b=bMFtlKpJ26J7oU99EQ13eVSUofB7xr7BL6KejULtweluesRbuQlYRshd0RX+spLIxU3HlB
-	Hj4kdSQPGHACkc7TIYZaL6JJPpy7VM8HXoEvxCqbw72Xnw5R0KS+Hf4C2ZQ9rlrtIHjNOr
-	lRSMKgxsZijZ7jMqYBKxqhNnlWsox/M=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-683-BDC2FJgDPhaOcFbQ7jVXlQ-1; Tue, 21 May 2024 08:07:13 -0400
-X-MC-Unique: BDC2FJgDPhaOcFbQ7jVXlQ-1
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-34f10f6b3aeso8667904f8f.3
-        for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 05:07:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716293232; x=1716898032;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vNxtef7wVSAKAp/uYMVVrJVX9c61BxExImvyppOpLhY=;
-        b=mjuHLbOsvVdM4fRlq8nZafqZEhbzhZp7DYR1dQHzHec5yvS3qwbWVRyZ3rfO2Vx8mz
-         Uikchr3tXnaZR/FxLcc/hqUkYhxAGX/vHMZUADudGMP7YRIjoZUwWoDyjuWI0xh4K+R5
-         6JuFwpATqnjSEGXb2IEGas0yluN5a083J9K0eM8CvZQOlozh1Tm52Re/LZxX8JR5Q+ql
-         lKEGbbW1vj4B1ry1cCDXgpOi7JUJywQZX2Cn/KyfUP+by+qZLMkwPSOOlb122XF8Wdch
-         /2sE7pUcdnQAOZtfGUmrQaDHg/GrAWgWf8+hTed+1Mxh22B1sa87vn/fdzp5O6Ir/bpP
-         /6qw==
-X-Forwarded-Encrypted: i=1; AJvYcCVdAQrjR8SolEP7szR2Cer5Axj6tnwbcRl4bXPk7f7Dz+5kaqXsEy9ZLfJQ5nUK1st5zggdTCPoMEOToSMyhc3d6NT71S/PQryowrWWBy4=
-X-Gm-Message-State: AOJu0YwEAeK86e2veDhE7UKn6LCTxK58ZyGbWM4bxAD4Z9idzfC2kHiK
-	S25XuJc/RkqQ26kI/pFiRiPNXeD781Jb9ZNT9ln7Xu5pMbAgYrINfwrjqdUDt4EjsaEk8e/d5Vp
-	eAFRb29j1IlvvZEDnn7uBMcgL1nY4uyiy7LNvYIpQH2CTs5xK5c08B0BBSMMvW61d
-X-Received: by 2002:adf:ff92:0:b0:34d:a31d:e316 with SMTP id ffacd0b85a97d-3504a736476mr20601613f8f.22.1716293231921;
-        Tue, 21 May 2024 05:07:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFFUahIQG8iExe/NyA1ATbYGcX2scwRQQ5xzDHUNLuHHW6oZBB0hbbUOa8DjWQJhm+X7a/RhA==
-X-Received: by 2002:adf:ff92:0:b0:34d:a31d:e316 with SMTP id ffacd0b85a97d-3504a736476mr20601595f8f.22.1716293231351;
-        Tue, 21 May 2024 05:07:11 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:240:5a20:b565:3672:6f2b:3d2d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3502b895887sm31684481f8f.40.2024.05.21.05.07.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 May 2024 05:07:10 -0700 (PDT)
-Date: Tue, 21 May 2024 08:07:07 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Cornelia Huck <cohuck@redhat.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Subject: Re: [PATCH v3] README.md: update mailing list info
-Message-ID: <20240521080424-mutt-send-email-mst@kernel.org>
-References: <8f5db33c96d685fcebca3579b05d09b64dd720d9.1715766697.git.mst@redhat.com>
- <PH0PR12MB54818B506EFE9E4ED61B4294DCEC2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240515062910-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54818853B8A407B6F2A3D463DCEC2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240515063503-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481A1F599028CBFAB58F594DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240521032438-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481168F6B161E51F8251992DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <874jar8p0v.fsf@redhat.com>
- <PH0PR12MB5481394675923A8A4EE3166DDCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fd8xgD4u"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gi9E4xpjd5ixOxs5VE5kxV7+i77jFK+EDxb3p3TDzfsIPph4WwgpcgzK91y0KX5tIJXbeCpx9QROnP2SJ0MIwIBO7za5BlSDiYadXGRm+dqk+TSGHQ/75LOf1m1iUupV2GD0ghP3IJxg9YdklBYNGV+9Z4o+z6nDqp66hd1+B74XPhE6KNbmqQx3t4R+SUrDtS4Im+moY0MdIHq+YajzlCfWfjb1zLxnTht4o2AaQMSvqNK3w+6V4hBJdXYfByyuGnkXFiFby0PE3C4qdLmxjiR/jYCPS787xXRlVyYMi84cw/CAo71rGkiy7W8cQvCmg4Lwxt0to27IkFhmkfF1sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YVMoFPRIiLGRa7lrOBCJMNieTM9D68iyPYVVCTxI04M=;
+ b=ADIdVXrHz9pkzLb/xLkxKzKyPPvvb8WBuRrRfNVXbInZpRw1TIKdCttefc3qoEDWG+G8VPmMjSxhmluQaADdMOt0g/7zwKWn3hvpL1BHFjOvc7UPTrRrBzfIWmr8nfpgrXr6Elx9BrJoYlcZ9LBsQQdENCDOMyYUy+av22HCVPG2xTyHvpbMem/X8Abglih5sqfonUlnCoWs/s8c0ffIhGIWofSlYWmLa2c0mYbr4vvaPtKQK/L/tTpIvTdz4IJh0lLa6E2OsuOxvKcodw81o0zhnTGtNxKWL1z5nA5MlGDUoQoClPtIXeMQ9JESpvzK+JKgHmtw6ma/ot/F4mcd6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YVMoFPRIiLGRa7lrOBCJMNieTM9D68iyPYVVCTxI04M=;
+ b=fd8xgD4uY+0OcJ+pc3U2xXD45XQvRgdSbWurwsh+chEJUFkJQyDEJeuKWXrdSwImA3nRwzkk5BGZRtiX17lkVBHC/oQDg2Gof3m2mmwrwupEVm6MYUYYRxDszjnsqJcmWe/tPMhA8eZu0bWZoBzmxlk3J5ODSrukcITPtA15ZpC1RCE7maOY2ncqvd3H5wfky7BDRW8aS8I7RRfCIw/4XDRV+QSUlICX8OQmwlmqSQ6lRTGSPMp/wWz+qtH69X+a/rZyzliFaIIpDRxPetaQ/tGkVIZkzG0GrbdaZ0JZf1SO/PLPNn+GOM6Qtn/Un7rVCw181ja2jSHoexaJ9/Qrlw==
+Received: from CH5P223CA0013.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::8)
+ by SA1PR12MB8643.namprd12.prod.outlook.com (2603:10b6:806:387::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Tue, 21 May
+ 2024 12:22:00 +0000
+Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::8f) by CH5P223CA0013.outlook.office365.com
+ (2603:10b6:610:1f3::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.37 via Frontend
+ Transport; Tue, 21 May 2024 12:22:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 12:22:00 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 21 May
+ 2024 05:21:40 -0700
+Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.230.35) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Tue, 21 May 2024 05:21:38 -0700
+From: Parav Pandit <parav@nvidia.com>
+To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
+CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>, Max Gurtovoy
+	<mgurtovoy@nvidia.com>
+Subject: [PATCH] virtio-blk: Fix data type of num_queues field
+Date: Tue, 21 May 2024 15:21:19 +0300
+Message-ID: <20240521122119.2004071-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481394675923A8A4EE3166DDCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|SA1PR12MB8643:EE_
+X-MS-Office365-Filtering-Correlation-Id: eda52720-cd99-4e79-46bb-08dc79909db3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230031|376005|1800799015|82310400017|36860700004;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?+rZ8EH254kmAOjwovl+UGK+j6WJ2j3z8FXBtN8c7z/gTBsaIOnjbSCfJS5Td?=
+ =?us-ascii?Q?shVGEjQU/N1DUiy9dr1dmevkaarBMhyrd3RwxQRQTO1VfRGYkMAkhuvnBmPU?=
+ =?us-ascii?Q?Y9L8LUuQwiWUOXH5U3EjGJMj59KvRbY7Pj9LY2K/mYztqrPXQv2k/dgtLNRC?=
+ =?us-ascii?Q?AAczqChBWzMOXrBIeMe+usToMXncwNjd061W5+7XV7Ic2OHCdbAaQ3fJVk7q?=
+ =?us-ascii?Q?2/yuPGPG0BZzYreVzJM6gfmv8KnfgdWnOVRn+NeYPOOeCYjXBTx83gxUg0N+?=
+ =?us-ascii?Q?fI/KNcQL34z4kWcCPl2EfaJyV5pvXDZFhxr0ilh4it7p7m50kVg9Fv68kfhR?=
+ =?us-ascii?Q?WapwRkjMpiKSWtSD1ERc+PuLVlTW+3ZTQ5ZHYJFm/vLuWh4+Ktyrvmyfzshj?=
+ =?us-ascii?Q?FukOgDCSB2A2T+ZdRFf+rdQA4FbnhR0GZDtTElIIHvRCnB92IeCiN1D/B92O?=
+ =?us-ascii?Q?z3XUAoU3HtVI8tF/wXNyNkrdjfxzLQnInClxsYMggFznGbiHyAv0lSef9R/A?=
+ =?us-ascii?Q?AaRTuLX+jhEguRYM6gR1W1LOwqkepMe2MAKk+uEmilKD0I++GTl91KQcHdo8?=
+ =?us-ascii?Q?AcDmnGPD5VEfivIYD903fvBzfI5uzEozKcvu06rO+XyN//btXQhd/9Fk5Uww?=
+ =?us-ascii?Q?/bMKYBFZ7uPOAJqQbOBgmsbBmu0QbfDG/npY09jWE3S2SjE1uT1cdk+QYmpI?=
+ =?us-ascii?Q?ULtfbJST82AMLzkYO3afBc0a6F4VyqwfA73j+dAzv2deydvT6f9rvKKq34Ok?=
+ =?us-ascii?Q?EQYHk+PhSfCExXcuxyHwUShrlQE+lIgd/BcfhlDCgkR+5YpKjzRkYtEjrhPV?=
+ =?us-ascii?Q?oQ6Nh1DJJET+4t92FjW9S20x5aJcSFSgtnSZqQjUcMsjWgtsIFjaBgiQKeII?=
+ =?us-ascii?Q?yKuc94TgQwExOz3XeN0yYOuofcOfTVty6vUApTH4n5Xl6GkvHU8VtCHDlEmT?=
+ =?us-ascii?Q?ROpdBBNK2UHz8/6bE8W8KbuRcb23MGHxerTrU/KMe2EjYyXk4+wCv+JRi+ps?=
+ =?us-ascii?Q?hI2bMNV+FLeAUw+dw8aKrdYj1FVrlbX2w703i1crcidTzT3hlDBxukbQocIQ?=
+ =?us-ascii?Q?Vaoy5moN6TMCx7BlgvdlOP+IjJj0oW6k0dSIosbo7vjNjIB0p0ZzQlr+Tzhe?=
+ =?us-ascii?Q?u7V4srTdfGGSDA9cAbYRGuYtyhbF0orHEkrQLgBM0G2FRRys1c4TpfeRvT+a?=
+ =?us-ascii?Q?vK7kmIuybztdBo8m4NM8dYciezNMvj7UCBiypIX2KN9aAz0CqguAmHjLMMYq?=
+ =?us-ascii?Q?3iycHo2jhjM1vMi9FREMz6Rk/EhYEqSNl/m+2q8bJMtgxUwZy/v6HEG2eFS4?=
+ =?us-ascii?Q?d2QLGGxcAGIRh8zfQph4WiWHn94DR+QKb+Ogjdaj/HqLwt2dZXmDGr+zVSlM?=
+ =?us-ascii?Q?Qh4fjicbuUFc0npNdcAq8Io/6sc4?=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(376005)(1800799015)(82310400017)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 12:22:00.6228
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eda52720-cd99-4e79-46bb-08dc79909db3
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A34A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8643
 
-On Tue, May 21, 2024 at 12:02:13PM +0000, Parav Pandit wrote:
-> 
-> > From: Cornelia Huck <cohuck@redhat.com>
-> > Sent: Tuesday, May 21, 2024 3:29 PM
-> > 
-> > On Tue, May 21 2024, Parav Pandit <parav@nvidia.com> wrote:
-> > 
-> > >> From: Michael S. Tsirkin <mst@redhat.com>
-> > >> Sent: Tuesday, May 21, 2024 12:55 PM
-> > >>
-> > >> On Tue, May 21, 2024 at 04:19:31AM +0000, Parav Pandit wrote:
-> > >> > Hi Michael,
-> > >> >
-> > >> > > From: Michael S. Tsirkin <mst@redhat.com>
-> > >> > > Sent: Wednesday, May 15, 2024 4:07 PM
-> > >> >
-> > >> > > > > I would wait until next Monday at least. Give everyone time
-> > >> > > > > to subscribe to the new list.
-> > >> >
-> > >> > Can you please merge this patch?
-> > >>
-> > >> Pushed now.
-> > >
-> > > Thanks Michael.
-> > > Cornelia mentioned in [1] that master and 1.4 should be merged.
-> > > 1.4 is 17 patches behind the master including this one.
-> > > And 12 commits behind..
-> > >
-> > > Can you please merge them? Without it, there are conflicts in patches.
-> > >
-> > > Also, we need to update in the README.md on which branch to use for
-> > sending the patches.
-> > >
-> > > [1]
-> > > https://lists.oasis-open.org/archives/virtio-comment/202401/msg00087.h
-> > > tml
-> > 
-> > Repo status is a mess, because the state of the TC is currently a mess...
-> > 
-> > * Before we can merge the branches, we need to do a proper Special
-> >   Majority Vote to release 1.3 (which had been delayed since *last year*
-> >   due to first the threatening migration, and then the actual
-> >   troublesome migration.)
-> > * The platform is still not working properly. For starters, we now know
-> >   that other people besides myself are not getting any mail from the
-> >   main TC list; 
-> Can you please follow up with OASIS?
->
-> > given that the ballot approving use of the new lists has
-> >   not gotten a vote from several usually reliable voters, I fear that
-> >   mail delivery regarding ballots is broken for some people as well...
-> > 
-> I have followed up with OASIS for several of the members to fix their voting and other broken access rights.
-> Are you following up for the rest, or should I? Please let me know.
-> 
-> To my knowledge, voting is broken for Enrico Granata based on the ballot #03820 and previous ballot #184, #189 etc.
-> Which other reliable voters are we missing?
-> 
-> > Before requesting a Special Majority Vote, IMNSHO we need to be sure that
-> > voters actually get notified about it. [We have raised the issues with mail
-> > delivery with OASIS staff, but I'm really unsure about the current status.]
+Correct the endianness of num_queues field to be little endian.
 
-voters actually get notified directly.
+Suggested-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+Reviewed-by: Max Gurtovoy <mgurtovoy@nvidia.com>
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+---
+ device-types/blk/description.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Can you please check the current status with OASIS?
-> The migration by them is completed in March more than 2 months ago.
-> 
-> > virtio-comment subscribers who are TC members as well: if you didn't get any
-> > emails from either the main TC mailing list (you can check the
-> > archives) or from the voting platform, we'd like to hear about it.
-> 
-> Contributors are not blocked anymore as the reviews have started already with new list, which is good.
-> Your previous recommendation of using the branch 1.4 for all the spec patches, likely still stays the same. Right?
-> 
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00087.html
+diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+index f04c932..2712ada 100644
+--- a/device-types/blk/description.tex
++++ b/device-types/blk/description.tex
+@@ -108,7 +108,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Block Device /
+         } topology;
+         u8 writeback;
+         u8 unused0;
+-        u16 num_queues;
++        le16 num_queues;
+         le32 max_discard_sectors;
+         le32 max_discard_seg;
+         le32 discard_sector_alignment;
+-- 
+2.34.1
 
