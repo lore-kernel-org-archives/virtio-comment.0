@@ -1,125 +1,126 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE9C56763
-	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 09:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A4E6CDBD
+	for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 10:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716285528; cv=none; b=DIQKEWVP+/jc60IhHIMQo82RHUVAsyt9GqHS5JNmR9Rh8JiqewUJojVwegNJfaI5ReQthspscByWLfxW5Zi4bwVCW/S5mAxztX8+/VvcT51taAICthDpanWTNor/oV9Pw8JbgwQZKuXcfP50OeXvlE9eGFge4xUKac5ZTIJ2HPs=
+	t=1716286228; cv=none; b=BnmiRp1Zz27sLfcryuM+/5YD2+NZYkLht4Dgms2LL+TtFaa055F8ubP5WwHyqNt9IFqujDgXvKStNMYDhkulWKoz0L2/wzoWNhcLp/gzJmn4Ehd9dQVfRG+WgV+WzdjFSDjVn2TCLxZcThV1bTVxCE/jIiRxL/BB9dPP1jw94O0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716285528; c=relaxed/simple;
-	bh=rukai4ZIuym04zL/ITkaHx3jLcqnpQfYITZOFV5S3ZU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HQvoGHMeJA04KGJDAai8sUa+qGaFQK3lZbkHa625X2psRkYb13leaY42ojE7a/Dvo8dBbF0LJ2FmRLvywuVIR+Np3sLQn/iY6aHEEqWoqrlFOgaFeImmkHh0C+vRZ2C24k9hIPvk/dnr4NjF1PiZE9P9nojyV64R4MuGM/t7bBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iA+dLiut; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1716286228; c=relaxed/simple;
+	bh=D2pSwC+dEaLuwE3H5MVNRWGWMLW/tW0bI+1rMGBqsCE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qd7ecWpEeYvmtEm+G+opVZfP+OObf5cyRW+Bur5PjiwwPVzI0sDh3O8uw2zdJdXCUPLaSyU6YkLKMhcLiHHZ4DFATvPwf3r6YNj7DF7x8ISYW2RgvaOQe6ebjLlkeeaDA5S9ApdJAQ3PaiZRmL+O90KqqEirtIh59SLk2VTqwxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Es3SON+c; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iA+dLiut"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1716285525;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K7tyY9qnGA57YnisgvGJbEQle01h1tAz0HF2oZwj218=;
-	b=iA+dLiutEbnl/t1JGXHo7fEWFLEHDk6iSoY1Q7bw/vR7D4cAKQpy/mkQi+Yx58eAMCN5a5
-	accUIILLoRh2XOo4lLO2sirBnkApp0G9/yegkfm391e8UvX6/R3+uqK7QZmPg/sYW4gqpb
-	GYSnbeFNLW/QTG1mmBT8Rec8VQwGqbs=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-626-4Q6yCFIkMweHOhyH4NqYmA-1; Tue, 21 May 2024 05:58:42 -0400
-X-MC-Unique: 4Q6yCFIkMweHOhyH4NqYmA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1205B8058D1;
-	Tue, 21 May 2024 09:58:42 +0000 (UTC)
-Received: from localhost (dhcp-192-239.str.redhat.com [10.33.192.239])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9676640B90E;
-	Tue, 21 May 2024 09:58:41 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Subject: RE: [PATCH v3] README.md: update mailing list info
-In-Reply-To: <PH0PR12MB5481168F6B161E51F8251992DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
-Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
- Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
- 153243,
- =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
- Michael O'Neill, Amy
- Ross"
-References: <8f5db33c96d685fcebca3579b05d09b64dd720d9.1715766697.git.mst@redhat.com>
- <PH0PR12MB54818B506EFE9E4ED61B4294DCEC2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240515062910-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54818853B8A407B6F2A3D463DCEC2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240515063503-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481A1F599028CBFAB58F594DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240521032438-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481168F6B161E51F8251992DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
-User-Agent: Notmuch/0.38.3 (https://notmuchmail.org)
-Date: Tue, 21 May 2024 11:58:40 +0200
-Message-ID: <874jar8p0v.fsf@redhat.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Es3SON+c"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-1ecddf96313so90125125ad.2
+        for <virtio-comment@lists.linux.dev>; Tue, 21 May 2024 03:10:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1716286226; x=1716891026; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JWEFbbQfCsC8H4Zi/wleszdGxvcLCG1JvRlnDDcuZWk=;
+        b=Es3SON+c8u7E3SaVKIxJ1Vs+L69FSDu4PphMvsL7aZsRJ6zp15EdmVxOzASKrMNoVL
+         1jqO5Q7VBSJDHXI/TIrlmAFHdhFjleW+zkFYaPblyQA8VIoVC2BAhL4HXxfb3+bn13M3
+         HbkLgeNGIai+WYvB9//VdqmCMX/y7XDnVnj4mzkoDgtusyxA6Ig3i3wt9JsPX6Q8Qub8
+         0Dg8unSyt3urr4IaUA0BKkJZF9KbsqiqrNqUXQsBRCE/Tc82gz7fMT8m5PFpplPBMHb7
+         PbO/MZokPqTZGJOq6+85WoKe2DeVkeQPt/FVpoKPXWbbg4mArm7/OF0q+dlUPfKQKDsh
+         TLFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716286226; x=1716891026;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JWEFbbQfCsC8H4Zi/wleszdGxvcLCG1JvRlnDDcuZWk=;
+        b=Ytn95PswbpIHuWwX/nL7fJSRi4fNFSYWotMu0deBBEksct9W0QHh0Vh70FabhCes/d
+         rASxsPffi5AZ34D8lV0meckXQrDra4OPBYmcxObMWs6q4Bl2QfMQCf1tUqWn4s8hb/qS
+         iIh5hQr7Ep/AsZtwtY79ptjue4WiN8LKGFXwn3M3F5Ra1W3ht8x1ZMnypImcE1gdBQGs
+         o+wfe/yYKyqAjdghvy+IxoC+24l0dHkRzcCnONBTucZENgvdRcHgtiFDeY6+1J/UwRBj
+         c7uit28luPqzWTpSJerenADpllNgtrgKDi8MRaWvWvDuFDG1WjhlJCw7c4j5W/q0VYxC
+         Isyw==
+X-Gm-Message-State: AOJu0YyKqXnobSDcKTgJbYldIwnlTiZpaVYmDgRy/e2y8d7u+E1IWZ7i
+	qUbtnEQDdYFVV/weqQYxp0ozltPDrnB0B9O53uEcHMRHPQBLIug0vbTEFzs+JsM=
+X-Google-Smtp-Source: AGHT+IHMzCxhDRStr/8TfyzteCd8wmEuvwK6nlMLtq9hP6vn9jpjTVWvfl33Ia+0RT9Dmc26eoPH4A==
+X-Received: by 2002:a17:90a:780f:b0:2bd:69a4:b886 with SMTP id 98e67ed59e1d1-2bd69a4ba8fmr9416159a91.26.1716286226025;
+        Tue, 21 May 2024 03:10:26 -0700 (PDT)
+Received: from localhost ([122.172.82.13])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2b9f5820ce9sm10561514a91.56.2024.05.21.03.10.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 May 2024 03:10:25 -0700 (PDT)
+Date: Tue, 21 May 2024 15:40:23 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: virtio-comment@lists.linux.dev,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Cornelia Huck <cohuck@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>
+Subject: Re: [PATCH V3 Resend] virtio-transport: Clarify requirements
+Message-ID: <20240521101023.ooesha4uo3fufr3t@vireshk-i7>
+References: <3543c631e29d35a667ca9d9e912d1a6db1feb0ce.1716197180.git.viresh.kumar@linaro.org>
+ <a752usapxpmlwpm5ywvccrrkmumi5aosbzvsxjghsotn4kmgyq@hlmjdhedeqbz>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a752usapxpmlwpm5ywvccrrkmumi5aosbzvsxjghsotn4kmgyq@hlmjdhedeqbz>
 
-On Tue, May 21 2024, Parav Pandit <parav@nvidia.com> wrote:
+Dropped virtio-dev list.
 
->> From: Michael S. Tsirkin <mst@redhat.com>
->> Sent: Tuesday, May 21, 2024 12:55 PM
->> 
->> On Tue, May 21, 2024 at 04:19:31AM +0000, Parav Pandit wrote:
->> > Hi Michael,
->> >
->> > > From: Michael S. Tsirkin <mst@redhat.com>
->> > > Sent: Wednesday, May 15, 2024 4:07 PM
->> >
->> > > > > I would wait until next Monday at least. Give everyone time to
->> > > > > subscribe to the new list.
->> >
->> > Can you please merge this patch?
->> 
->> Pushed now.
->
-> Thanks Michael.
-> Cornelia mentioned in [1] that master and 1.4 should be merged.
-> 1.4 is 17 patches behind the master including this one.
-> And 12 commits behind..
->
-> Can you please merge them? Without it, there are conflicts in patches.
->
-> Also, we need to update in the README.md on which branch to use for sending the patches.
->
-> [1] https://lists.oasis-open.org/archives/virtio-comment/202401/msg00087.html
+On 20-05-24, 12:20, Stefano Garzarella wrote:
+> I haven't followed v1 and v2, so apologies in advance if my comments have
+> already been discussed.
 
-Repo status is a mess, because the state of the TC is currently a
-mess...
+No issues.
 
-* Before we can merge the branches, we need to do a proper Special
-  Majority Vote to release 1.3 (which had been delayed since *last year*
-  due to first the threatening migration, and then the actual
-  troublesome migration.)
-* The platform is still not working properly. For starters, we now know
-  that other people besides myself are not getting any mail from the
-  main TC list; given that the ballot approving use of the new lists has
-  not gotten a vote from several usually reliable voters, I fear that
-  mail delivery regarding ballots is broken for some people as well...
+> On Mon, May 20, 2024 at 02:59:40PM GMT, Viresh Kumar wrote:
+> > +\transportnormative{\subsection}{Virtio Transport Requirements}{Virtio Transport Options / Virtio Transport Requirements}
+> > +The transport MUST provide a mechanism for the driver to discover the
+> > +device.
+> 
+> This seems a little too stringent. For example, does MMIO offer a discovery
+> mechanism? IIRC we have to pass the address via device tree or kernel
+> command line.
 
-Before requesting a Special Majority Vote, IMNSHO we need to be sure
-that voters actually get notified about it. [We have raised the issues
-with mail delivery with OASIS staff, but I'm really unsure about the
-current status.]
+Right. Is converting this to SHOULD okay or do you suggest some other
+change ?
 
-virtio-comment subscribers who are TC members as well: if you didn't get
-any emails from either the main TC mailing list (you can check the
-archives) or from the voting platform, we'd like to hear about it.
+> > +The transport MUST provide a mechanism to implement config space
+> 
+> "configuration space"
 
+Sure.
+
+> > between
+> > +the device and the driver.
+> > +
+> > +\devicenormative{\subsection}{Virtio Transport Requirements}{Virtio Transport Options / Virtio Transport Requirements}
+> > +
+> > +The device MUST keep any data associated with a device-initiated
+> > +transaction accessible to the driver until the driver acknowledges the
+> > +transaction to be complete.
+> > +
+> > +The device MUST NOT access the contents of a virtqueue before the
+> > +driver notifies, in a transport defined way, the device that the
+> > +virtqueue is ready to be accessed.
+> > +
+> > +The device MUST NOT access or modify buffers on a virtqueue after it has
+> > +notified the driver about their availability.
+> > +
+> > +The device MUST reset the virtqueues if requested by the driver, in a
+> 
+> Should we also talk about the possibility of resetting the entire device?
+
+Do we support that today ? Maybe we can if the maintainers agree.
+
+-- 
+viresh
