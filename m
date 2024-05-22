@@ -1,49 +1,47 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1FC17C77
-	for <virtio-comment@lists.linux.dev>; Thu, 23 May 2024 17:49:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656A7145FE4
+	for <virtio-comment@lists.linux.dev>; Wed, 22 May 2024 18:37:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716486603; cv=none; b=ELP41Ezi7ybF/3q5v8sHGivsZyZT7iSvEnx017RS5mvHm5iizhvFuVt3ocNnJhEdIjoRXZI9CeGgE/D/94DC3SVaP5rRaIqnVwyF2BbEHp2YEAe+ioonDeRPQNR4DYew04T+Wx/Vkfwdv7UbcQD4tAdMNmX5ShKoc8CZREn1580=
+	t=1716403059; cv=none; b=m2bVIJFaHGb1ncn3kjl5nO7UujBc08mUNCiD0NTJoB/FcNtxafH9N2QjXMVkUua+a4dSlKBqDvN3gurWS4PfGRYzlHpsUZllQsMIginKwCKAh/t9z1i5zWxRrrEuLGIvaknVy/tKLeSveae3LfLm93kOgKx5ktSkDkA4tbjXb6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716486603; c=relaxed/simple;
-	bh=ui/j2TedP473x+9tDCRftDiaY0l6LcEunTG1pgqqNqM=;
+	s=arc-20240116; t=1716403059; c=relaxed/simple;
+	bh=u7WoznoAqkdvD7zKNNMgYS9lLrtBomkQMRJNrin6kHE=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ARJXoQkIszH1PGgySc2riUoVLCyC6yPD2xjDaxahdATUFdQQeAAumy81g0fVb0RL8lYi7uhaxaPEfOQw6NqzTrPQCPr1y+wElq2C88z2/qZL2bFIEenm4CIOoktP4usaVpAdht9oqhzBSZfMcRtTbstVYKCBQ7Rveb95o9mDx38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=X+UePSaF; arc=none smtp.client-ip=90.155.50.34
+	 Content-Type:MIME-Version; b=IYty24S2c86hhHUs9Y6hffSqhJflzeElJPy2Rnm+jQmpciIz2bkYWW68cfdPjAJl2Jz3pR4hmxkUd/IFvdH/1vTLZImJpeSR6aj5U5onhriCGWl9MBRb8Q9GIWrIyhSH9b3UbERIRv54ceDwN84GT4vFe6s+OaTuMch0yWvTTYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pTvlsf10; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="X+UePSaF"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pTvlsf10"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ui/j2TedP473x+9tDCRftDiaY0l6LcEunTG1pgqqNqM=; b=X+UePSaFk1DEH0V02GQpXWQsh/
-	W2yhNHeg04FlXeX+88keNn2cgXcTY6pRODZCwpW6lBzb/bth0moPdqRtJseudjWZ/gIFdf2zhZrDy
-	3Ydx1MQHRLMZqkyqAUBnXJX2sWRm/4x24H0FuOHZpSDaRzMVOSJk7HeFIGD0/f8eHgscq+Cu6O8aj
-	D7wHOGYH5lZdVUvDUn3NyeDNJPSDUBSTpwN102JhpTglP8MOfO8QcLbQVdSrTehz/N1zEId4K6Wsh
-	q+MbBRV/2kPu7XTftoCP2GTRG3Rei4Z/yGIwg0ZZu+60R3R2W2Iyo9Ce6otoL8v56Y6xaEDqudqyV
-	84wNzVJA==;
-Received: from [205.251.233.238] (helo=iad51-en-hct-f1acc-v1-ge-0-1-303.amazon.com)
+	bh=u7WoznoAqkdvD7zKNNMgYS9lLrtBomkQMRJNrin6kHE=; b=pTvlsf10V+uJC0FFkb7vNm736+
+	EigwnB01B8rRs9pSPNluMiXNKsRJYaILtxaWM20EWDrbexmHfDiMDxAJOC04p+Fx+rweUjT8skYsn
+	AnLoPNvZGD+xEJ4QDUCJ9hFXct9P608P2twvYnzxcuOZGp9vCe4KGj62Rsq3WaHuBdjTeCGwlGpjd
+	YbQ/e/YzHqXSvHLoASuA4mjbXeDfLpuUDQis9PyH5AnqgQWqYQ4DE4iGEEIOQg47hJU2autQb6SKO
+	bAAFpyzrD3zBRTIyBls8DYrGIET+UFVZwJQ7p3LhfAAZCGFNOUckPdDVtU7IjSDip/5m8ufPaZy4I
+	+YCZ3adQ==;
+Received: from [205.251.233.178] (helo=u3832b3a9db3152.ant.amazon.com)
 	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1sACZf-00000001x5Z-2Ek3;
-	Thu, 23 May 2024 17:49:56 +0000
-Message-ID: <019bc484576f978a0b8a2eb62c56abf27bfe730d.camel@infradead.org>
+	id 1s9qqC-00000000uzN-2vpu;
+	Wed, 22 May 2024 18:37:33 +0000
+Message-ID: <b4b198baa16b492a1273131e80d3f80a08835b79.camel@infradead.org>
 Subject: Re: [RFC PATCH v4 0/5] virtio-rtc: Add device specification
 From: David Woodhouse <dwmw2@infradead.org>
 To: Peter Hilber <peter.hilber@opensynergy.com>, 
 	virtio-comment@lists.linux.dev
 Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
 	Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>
-Date: Thu, 23 May 2024 10:49:51 -0700
-In-Reply-To: <46843279-58cb-4ac0-a50b-998ecfcc2c30@opensynergy.com>
+Date: Wed, 22 May 2024 11:37:28 -0700
+In-Reply-To: <20240522170003.52565-1-peter.hilber@opensynergy.com>
 References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
-	 <b4b198baa16b492a1273131e80d3f80a08835b79.camel@infradead.org>
-	 <46843279-58cb-4ac0-a50b-998ecfcc2c30@opensynergy.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-HHpGzRnVNTzh11r7k4qe"
+	boundary="=-BFkcGoDWMDzuz/pNypCr"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -54,28 +52,20 @@ MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-HHpGzRnVNTzh11r7k4qe
+--=-BFkcGoDWMDzuz/pNypCr
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2024-05-23 at 17:26 +0200, Peter Hilber wrote:
-> On 22.05.24 20:37, David Woodhouse wrote:
-> > On Wed, 2024-05-22 at 18:59 +0200, Peter Hilber wrote:
-> > >=20
-> > > - Drop distinction of Arm Generic Timer virtual and physical counter.
-> >=20
-> > Hm, why so? If you're giving out paired readings of the counter and
-> > wallclock time, surely it matters *which* counter?=20
-> >=20
-> > If a guest has access to both, how can it know which is being used?
+On Wed, 2024-05-22 at 18:59 +0200, Peter Hilber wrote:
 >=20
-> I think it should then use the virtual counter. But maybe there are some
-> corner cases where this will not happen, so I could revert this.
+> - Drop distinction of Arm Generic Timer virtual and physical counter.
 
-As long as you explicitly *state* that it shall always use the virtual
-counter, that's probably OK. As long as there is no ambiguity.
+Hm, why so? If you're giving out paired readings of the counter and
+wallclock time, surely it matters *which* counter?=20
 
---=-HHpGzRnVNTzh11r7k4qe
+If a guest has access to both, how can it know which is being used?=20
+
+--=-BFkcGoDWMDzuz/pNypCr
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -167,24 +157,24 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNTIzMTc0OTUxWjAvBgkqhkiG9w0BCQQxIgQgZz+cVTFh
-zc39N0/OeJnWI2J46yQNVtDXusxWnGEva2cwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNTIyMTgzNzI4WjAvBgkqhkiG9w0BCQQxIgQg8aeGJUr1
+WCn6ST2d9zDYvpyMz4mmvi3KfytyHYs5hhMwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgA5GFVP5Xm5DmxvQ0jX4Qu0NgymCoyqBLaC
-Az7cP7EOKAV6pNSwwvCJsflZ+LMMEHvsC5LcaXk6O0Fm02+2Fzy8nFu9HgK3HbvHStTGIu5ywhF9
-cP/Q9Tas4Wx9wdrzP2lbaeiSU7bNbIwbHnVwmdyIobErZeBlODC9WxmwDCaSice/E9xULyrtoMiq
-EHtmrKa/ohAnfvx8F6sCq9X6PwbfdyALUQQI8fGte1V0COwZ0fxeBWhge0vDleCiqY20r2FAbF5q
-VPMmhkVAKWcDpZ7wIiTNxiWja0a0+GC35vM1bg4Tv1ZyfvogRmxzwwkXX4JGVjHj52j0WMTsqGTY
-OapUyQHSJGr/1sl6eqRD9ubCia80/VIQQ3t8W9cy2pLXhE84oEJRqsqwKIksbfBUa2jA2OXv4emL
-UWKu0bbDOZREVUima9qzDkJ80dCN2vUPp1KaUNdHhZoHC9xh+gQH0tHwzXpN5dJpI/+xjbSOcdTp
-BLwGojx1lRHHqJVWAhPN78nIPHDS4jl8XXDkVcCg9TRd56At+6rammRX+H69Lxy/9/4em9aGoDv+
-j/wKgUVfK1RoYVPOKUXMrBOAh9DsNIitr3Lm2POJmKQ2eBbF0ndsbYGWsYhg66R36OnwmX/xk+7c
-MeiDxTd3ZTC0xoME2X23Y4KiQ3Zd9Sjki8CxBB6m+gAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBtDu1+xw338Ve4sTvgpSAnlXTS5Aq1i5V/
+9MvDIJyIHaNVffKcfW4i9yzeKg/5OCg0fHJ8yworkAUOTQPMef8XHtAGP79JzM7dJKYnIdlXe/Xa
+kEQi9VFKciC82II7L3StnyPJ8p43jMYgnSnL0/7g8WL8PnYQcKRmtkVQyIVhNXPavHOoWbKYrMk3
+wh/EWrhHiJHNNAEQwZ36qDL64OSFXSwwjdYf0WHgMk478zN9HoDFO3oFKGsLi05NyEAq5hsjoPI5
+aVuqjWrrxNTQ5L2ybHhzwu2fwWKbul89RZvtjGYemlSu1VjksPKn0NXIpHymHFIUFMLh1E+sKitc
+HJZbLUN56Er6GQZnQL8WvUQBuvu8h/ZZY1CsXWaOIqcT9mT3bA1bsUeG7c32MymyxOR/3vwDErlT
+z3C0AeXK6mJlhjYNhpMcq9Flxh2B2gWW3Cdaov3mtMXcnXZDYwPkGpZn2iRQDh01iPL4RHCl8Kz1
+6viXO/8JHmZdYnyKlYAIiZjnJ2WhbWuz+AGVknC/AiQR/L8GcvqNrquSaA2vTAuu/qJL+UuZlgC2
+EgrzOlzvk9dGAtwohfg6KQiaa4OzH/lqf48Cukh5SFCCzuMF4cYL5+uOIm0McwPOOll3togy410C
+iinDo8rReSnYSzp/UG8xJJRUzSQ8+XmzlB7xSsD9/gAAAAAAAA==
 
 
---=-HHpGzRnVNTzh11r7k4qe--
+--=-BFkcGoDWMDzuz/pNypCr--
