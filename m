@@ -1,39 +1,59 @@
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B604C6D
-	for <virtio-comment@lists.linux.dev>; Wed, 22 May 2024 02:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716345618; cv=none; b=DbqYjtGyZOFu7xd2qOIJtPV94KSJct3DFDMNvkUKjvBpCxk+n8FMrkcDR5IgaB0z5ES6oK/mBwSyHIIgH3jflgZgpkbbrpnSEx6JkUMcK8yCw62kJfsfXXgPUCUlwLFS3oHFy0lQET+2PNReHeI6+lc08wDCpxcRbuY0jsaf978=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716345618; c=relaxed/simple;
-	bh=t7w41bCCGK2ZRt9bp4IA3TbNFuqn1HzJ3lxXefIC9ws=;
-	h=Message-ID:Subject:Date:From:To:Cc:References:In-Reply-To:
-	 Content-Type; b=mHJJML2mlKxQBCCaXPzceONfaLi5b27l1m6FdwB4z27L7vt0whleJks3Io42XYInmnC9j5bzsJor+wn0veftDUNEASByFriBWMonkRthuOTJ+d1YjRC8nT+410SOjbquXEHhfhYrHlogryaxnc3mY+Iy6tnIyYrRPVNYSekS+JQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=AZ5oV+eI; arc=none smtp.client-ip=115.124.30.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6FD60BBE
+	for <virtio-comment@lists.linux.dev>; Wed, 22 May 2024 03:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.80
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1716349494; cv=fail; b=ehbgzTrx9L/qq8YMdGgZLqewebwjjN33zfD7oIttB4dPpuP4eID56CiTNSbAZpvyfpfICZH+cZ1792TUnYGSa4FFGCcHOMhszuWMi4fLKkGncNvWvGaT/A/w4AqIr3ojmrHf2q2+L5Dpxxe2dkvvmV2s87WtZVlmGCCSAi3+RMo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1716349494; c=relaxed/simple;
+	bh=L3qyWgKbqTmUwVZpdIgRVJxEhFY3lT17M2+rHiMfle8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=dVllFit5XMMs80SgFdFNPNOHHjTfs1BFgX4b6lViDhOloB/FThn1697mkzfizuj6fRqpFKCJwKoMf/vsN0ComxRqdoEfP1vf6Xhbw133h7ulevJ4+1GKqsKAtEg4x89TWQaYLnQ3AFZVLyhehSlf0/ltMJMcS7FAaKPFIhl6OTM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SJb6Edmr; arc=fail smtp.client-ip=40.107.244.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="AZ5oV+eI"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1716345612; h=Message-ID:Subject:Date:From:To:Content-Type;
-	bh=CMep1giZvpXO6QyyUwgdEEt+ToHY3DUyDoYpZXQsqY8=;
-	b=AZ5oV+eIF8t0C2C+/sY5Kf/MX3s6szNjOSitA6vt5ot6fYkBnGjqrAUg0yH7ZPdBJhz10JcePR1c5z1j/1mE4xCbp2NPx8fMu4+F9vzta7F4mWkEeTgYfbbtJHGN6gx6d6+RoySNcadvZ75h6TGhWyrZ/O/cdZtZ7kB9FNOXUxQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037067112;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0W6zbpAX_1716345610;
-Received: from localhost(mailfrom:hengqi@linux.alibaba.com fp:SMTPD_---0W6zbpAX_1716345610)
-          by smtp.aliyun-inc.com;
-          Wed, 22 May 2024 10:40:11 +0800
-Message-ID: <1716343906.6530488-1-hengqi@linux.alibaba.com>
-Subject: Re: RE: RE: RE: RE: RE: [PATCH v2] virtio-net: improve description of default coalescing parameters
-Date: Wed, 22 May 2024 10:11:46 +0800
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
- Jason Wang <jasowang@redhat.com>,
- "Michael   S .   Tsirkin" <mst@redhat.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SJb6Edmr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N4/rTivmuLZpz7FLRGQ/7X9Q8Z24VIB8AHu8N8i1ESxhDOXrsaBSoUa/cr1IZ42HTb3nf4zCwinjO7pYfF3BW9kr1zgSoodzd9C7OIQzH3sq6SKVrZlcB8tfIoWbPLsK9c8+P9wp9wiRrYElzMjMc3NAy5UeIKVy+x4Ujd5g3497+rVGVNIrQUPpMP7JZ3qV2Z8QfPlZVaPfqloWlWyyp8zncFFOLQ4ueLWTDw5gXLzpCwDGhOjfa5u33lS6OQLy9frGfqiGsiZqOSXvEPdr84lVEAfWAz96x47J6tuPDj/caebnqP0XQyg/hS8EfRpTt12zAFLVrgGPBil3txXVBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L3qyWgKbqTmUwVZpdIgRVJxEhFY3lT17M2+rHiMfle8=;
+ b=KEK+6ARg1rZ7JGrf3/ej8BtfjOuIRfcKrEjGRe3OtzK8FjiX1lUGP9ci9gOnsEJOPI3xJcvaxaQ4+xAfO/c2baspkfouWTPG8XijHOYoO+XPQmMtKhhNEnpo/bK4oAWqnQ9YzHc/ACDLjMTCmjDrx/OjR29ewqO/70Knv3unxoJZRDZ7yU7GpNAZoqNtpz7M1qRGZplZVg6e0+RFKnrMCpE4MIu0iKeN+UuBUXqbCC06dLPCNDmYMk3A0emxZZWad7NS+2tns/9I6j16ldSsv7VkaGzooWETfjALflCIGKjoNdNf69DZS1aO6miH9Ro7ZyB+BP94OuR14CuM4LmpRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L3qyWgKbqTmUwVZpdIgRVJxEhFY3lT17M2+rHiMfle8=;
+ b=SJb6Edmr1dNdfO5DRvN1LkKkt5fuJbQytQZ96jXGw1mIk7gKxKCkz5IOFZTUi5UI0mPUyn3xFUgh2UvnEGyZlaf3dJHU1Cq1YoODTKFDZtOieSdtfSaH1A1uBfDpZUn2MU8Dcmm0fT1cByayfmXpgtTSmUBH3hOFyhWA5NO2/5mF8cC5LUndCx+eTHIds+efFBZUuckbe6Hcr12tDMsWhcT91s2rXd5zffBHi/5p6j2oeIW+rl33l2glSC+qypXHssCseh6b/Df7tByPU1vgyD8yIbHO0oC1URJ7dFO/2GjVTgW+ohJYRWtQ95GrKQxtUPbw8+VaJVnUkxE18Ur6vA==
+Received: from PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15)
+ by SA1PR12MB7367.namprd12.prod.outlook.com (2603:10b6:806:2b5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19; Wed, 22 May
+ 2024 03:44:45 +0000
+Received: from PH0PR12MB5481.namprd12.prod.outlook.com
+ ([fe80::361d:c9dd:4cf:7ffd]) by PH0PR12MB5481.namprd12.prod.outlook.com
+ ([fe80::361d:c9dd:4cf:7ffd%3]) with mapi id 15.20.7587.035; Wed, 22 May 2024
+ 03:44:45 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+CC: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>, Jason Wang <jasowang@redhat.com>, "Michael
+   S .   Tsirkin" <mst@redhat.com>
+Subject: RE: RE: RE: RE: RE: RE: [PATCH v2] virtio-net: improve description of
+ default coalescing parameters
+Thread-Topic: RE: RE: RE: RE: RE: [PATCH v2] virtio-net: improve description
+ of default coalescing parameters
+Thread-Index:
+ AQHapTUBHitWvp0gtUO4caq6HkVL5LGWGTcwgAAiNACAAByKUIAABTsAgAA4h/CACmvZgIAAN1KAgABJCgCAADs1AIAA00AAgAAXwtA=
+Date: Wed, 22 May 2024 03:44:45 +0000
+Message-ID:
+ <PH0PR12MB548111559E31123D48A63A4CDCEB2@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20240513125634.102955-1-hengqi@linux.alibaba.com>
  <PH0PR12MB54815E887B1010D2AE96CEACDCE32@PH0PR12MB5481.namprd12.prod.outlook.com>
  <1715665954.5198457-1-hengqi@linux.alibaba.com>
@@ -44,640 +64,580 @@ References: <20240513125634.102955-1-hengqi@linux.alibaba.com>
  <PH0PR12MB548164BEB956FA8EA516C5E8DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
  <1716285826.606679-2-hengqi@linux.alibaba.com>
  <PH0PR12MB5481AC22EC51E2FF94B25EBEDCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
-In-Reply-To: <PH0PR12MB5481AC22EC51E2FF94B25EBEDCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <1716343906.6530488-1-hengqi@linux.alibaba.com>
+In-Reply-To: <1716343906.6530488-1-hengqi@linux.alibaba.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA1PR12MB7367:EE_
+x-ms-office365-filtering-correlation-id: b44bdd26-33aa-454e-5873-08dc7a118588
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230031|366007|376005|1800799015|38070700009;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?R0RNUUI3Mld0RWVjdmVjZ205S1Q5M0pweFhpa0NOYmVaN1J4Q1RndmFFY05w?=
+ =?utf-8?B?dHNsdTN0dTNXTEVxWG9RNDhqQWV0eXA3VFp0cS82S2ljREgzbFJPNmp0aUt3?=
+ =?utf-8?B?SUlUZDNQWGozM2pYTDRXcWNhVDIramdBSUsyZ1VCWUJJcmd3K1k0akJuaDVm?=
+ =?utf-8?B?VmZiZ0lwVG9Rdit2UzRMR09XMEZEQXR4R09NV25RSDVMSnJ4NFUwMW9EZ0ts?=
+ =?utf-8?B?blZvSmIwczh4bDk2dnVlakdYNFJKWkFUSVg2OWhHalJhVXZLczgzUWdUWEFT?=
+ =?utf-8?B?MFZnbnM5T1RzdEh6QmozMlRLb0c4cTlWQ2pDdlRuMEpoZVMvSlIyVThyem1N?=
+ =?utf-8?B?YVQ2K01PbHdZOGJrNXZpRFNtTXpqdDVrMUp4ZmdqZjMyM29DR2xoTkJsaFo2?=
+ =?utf-8?B?K3hHRTErbEFUZWpieUhUckVKQXpWUEJGSWJvbVQzUTFYL2VoalpzUk5iRitI?=
+ =?utf-8?B?UXQwdDNYOUdsbmtnSDM1QTBuSXBIbG5abzNCY3JmSVUwZFR3Wnkwell1UFo1?=
+ =?utf-8?B?ZHVMZndvK3pHQUZEQldlcE1WWWRTdDZIRlQ0V2lIMnZMQjNnVzdMMlc2S3Ju?=
+ =?utf-8?B?eTR0ZFFKM3hwOElwTnpwMFBYNWx3RDFUQkthekM4OWNnTThkV056aW9xblVE?=
+ =?utf-8?B?Ky80eUFHa1I1TWswQWNONTVMRFhEWG9FbUQ3bW9jdGh2Sy93VjZvamF3VjZt?=
+ =?utf-8?B?ZmZuakpwNXhmTmxiRnR1K2tZNmJhZERlNFhONW5NaGJPQi9qeThka0xySlRu?=
+ =?utf-8?B?SStVbC9vQ1p4RWNmZmU5aWxQTFdnY0UxTk14N0ZrbGpCUDhDcGsvcy8xWkxo?=
+ =?utf-8?B?SEJ1Q2xtcGVmZUhva2swTWFNd3g5Qjc1VU42VXNxL3NOQXgrTXRRWHc0U1Qy?=
+ =?utf-8?B?WWRNcXhVSUU4YTlCR3c0dHRYcXIxTmtuYloyU2tpQ2FkUElJeC9tZWxwbjFO?=
+ =?utf-8?B?Y1JiUWtrWXU3NlJaT3hNTE56c25NM2d6b1dYRVJsMWRSRFFCWS9qS1pYakxM?=
+ =?utf-8?B?SSswNTVRUkp6Rzg5RFR5cUNseFBtVXk5Rll4UDlrOXJjZXo0aUEwL2pCeXJt?=
+ =?utf-8?B?ZzdoWFk5cXlFRTgxTEhmbzJTOU9JVm5OeVRSRVF6OXV6MTNVMVNDcDNhdldX?=
+ =?utf-8?B?M1R6VnNOVjVwVFQveWFmVXJEUE5valVyY1ZHRzFoZjJYalhMUlNUVUJCTXVi?=
+ =?utf-8?B?dXM4bllTU2JTR2hyTDdpQzlMQi9xV0MxNFZKdEtXSzQ2c3FxKzM2d3JVc0pW?=
+ =?utf-8?B?U3RadmNnUHNjZDFkLzdXSUtYeWRQZEtEblh6c0V3RU9JQnQrQ2tYMG9GYko3?=
+ =?utf-8?B?c1MxeWZKa05lc0xOSS9FZ05aY3EyS1FLd2VPbFJ4VENpM3ZDNmpmTi91YUpk?=
+ =?utf-8?B?YmpJaFZNQU12Z1IxTTRvd3RqSEFVaFc3QlJUdmVzTmJoT0hVeFU1UnU3U292?=
+ =?utf-8?B?Q2JQSFRMYVFNWEJYZGswL1MzcW5iNXFPaVdwZkY5TlVpc2JSeG11Mkw0aEFw?=
+ =?utf-8?B?SFZ1dGd3d2FlcWVLTEZWazNPaDR6ampIMU5lNlpmQXdZakZBRjBNNnUvR014?=
+ =?utf-8?B?c3UxR1dUSFp2RFVocjRPa3pTZmoxN1RsK3pFVWZDellGTHkzUldMUmZLdExJ?=
+ =?utf-8?B?NSsvbUluMmV3U3N0VVhQNDZ3Wnp0bnVqa2EzZUJ6aDhYUHRXNFFQN2ZKb1BN?=
+ =?utf-8?B?M080TjFaZjA0QnV5bEh4eDk5Z2JMaTdnYll6M0QwcGdWZFE0eFRLYld0anpY?=
+ =?utf-8?B?K3BVK1A5VUt1dVd2aDZoRkN2NWVOTHgrRCtMZUdaZ3k3L05yZjJtSVVLbVhL?=
+ =?utf-8?B?TGdxUU1Cd1Fqc0V1K1Zhdz09?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(376005)(1800799015)(38070700009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?aXNGeGNSY3cxNUhnRTNxam1VcTFuZEpXZTdoeFUreVNQcjMvZm1ZNTM0eHpu?=
+ =?utf-8?B?dWRkUFdBWFZvenNoT3FOcUs4YVBFQkdXT1IvalpMWGtrRUVzcWQ5TWNZMkd6?=
+ =?utf-8?B?eWkwTWFqSzdhUUkzcmMraDkyY2Vjdjg1SGxsQ0JaZXVtTnRpOEQybFRrSmtN?=
+ =?utf-8?B?elNOUlZ0VW5xZUtJdkpoTnduQTJRanhmeG5KZVFlaFZoWUsvSjVsM09PQ0tX?=
+ =?utf-8?B?WW8vYlNaSDdGMkMrMThLU2pnNndDQUs1Zk5xK1NiWkNseWpuTXQrV2s4UVFo?=
+ =?utf-8?B?VFc2Lzl4VEc3cDlqQm1sZXR2WUFXYWpBS2pKb2Vrd2J3cG1sdC9ZOHM1Sml5?=
+ =?utf-8?B?bjdwZlhDRWVzQW9yUjBkOElOUEUwaUExNWdoZGRkZHRyem5IUnF0RGJjSU85?=
+ =?utf-8?B?cldjRFRWTkphYUVMNmZHYzdLRjdydTUvVVVUR3F4WE1obUxzMjQ5WXBXdUdE?=
+ =?utf-8?B?ZTV4Q1BQb09SaWJxaUk3cWNzeTZOb296d0VYdlFxY2pud3ViQTNEL1RGOTdp?=
+ =?utf-8?B?SktFR0hTNWpZR1BmSmNoYStWYjJnTHRaWGVZTE8yeXNmRmhiWWg1MFdsbzNU?=
+ =?utf-8?B?bFAxUEt4R254WUpsMjJhSHI2Tm9FQVZHV1BodXRRTE1hc2NNaExyMllKTWZH?=
+ =?utf-8?B?dTVEOGwxNzh3OC9MNU4xbTg4Vk1Yd0UvMzJKNWtwYWFYVG1hNWV6UzlhTzda?=
+ =?utf-8?B?bkxROVpXRVp4cnQrQjBaaUEvbDFiNU1rOTBQWVFIWVBzd24yS1JyaW5ndGI0?=
+ =?utf-8?B?U2syUzZUUDRDbUV5RlhHa3BZMDQzY1o2K0tIWkJUODFYM1U4L0FkNWdHV2VX?=
+ =?utf-8?B?Ykw1Mmw4TlVFbjhpd1FLMytzRC9pUklNZ3dCTjRvMUNMWlk1N1lvY0NlVkwv?=
+ =?utf-8?B?MEY0blgyZWtlcyt0NXdTbnhpQ0tFemw0REJkSFFEbEpIMjdpQm9MLzNvOGQ1?=
+ =?utf-8?B?WGFkNGZNY0lPNm8wOXlncnFpU3NEZGlaVGVaWU4yUWI2a0VJMWJWNEZjWEJs?=
+ =?utf-8?B?QURGRzgwaUU0NWEyMVlVazZuL3FxZll5RDNpRmU0RG1SbElycEx1QXB1OEZq?=
+ =?utf-8?B?NHpkNVUvTSs4RGRGbzhLT2RBYjkwd3VLekNsWFVsMFZmLytJa2s4aWZUMkJr?=
+ =?utf-8?B?N2tweHF2SHpiQ0szVnBGZXVoWjRzSk1QZERnUDZoVEtRR25Ka0UrVVhqVnox?=
+ =?utf-8?B?VjVHcVJVM21vMWd4YjNQenprMDZMcHVPWDlzL2tXcmhyUWlYbzRScFdvVzZq?=
+ =?utf-8?B?Lzc5dnhEaTJ3SFM3akVmS3lwcmxLWGFwbUxoaGhtK2dpZzV2QVZEZ2h1emlC?=
+ =?utf-8?B?dG0ydVZEUVhZZWdLTWNHMWZLcVhMTFF4NXRlR2MrKzNBY0thc2dsQzJpaFdo?=
+ =?utf-8?B?MktmOVlvNXNLNjVUbjNDSS8xVDNWMlFBTDlEUnZJOW1TUFhsSEJzb1JFN091?=
+ =?utf-8?B?UTZmdG1oV2FvK3VOOVlmK2kxa3Y5b2p0Z2M4dUpLSlNQeitkTHNjUktqRU9Q?=
+ =?utf-8?B?cWVCWEdLNzJtRS9rTGNRTTlTL01Ta3ZtdEU0TUFSWlowYi9jRVRCVWpzNVRO?=
+ =?utf-8?B?UTA3dS9YaC9IN2Mzd3VXUDNBTUpSOHJJMmg1cTVybm1SaG43RlBrSWdjRXhn?=
+ =?utf-8?B?TGxoa0J2T3JHQ1R0NU02OTFndjFtT0NsNktsMVdyT1pEQkFoeFh5SXI0eVRT?=
+ =?utf-8?B?TkhJdUVjTWd2T0NNby9GK09BanQyUjlDblJxelI5Y2xkeEc4blBKeW5ZYnlF?=
+ =?utf-8?B?ZjZFdlA1ZEVkUWw4RDFZbjZXTzkvcVdRbGlhRjBBbGRoYTFlcjhUaGgzMUNS?=
+ =?utf-8?B?b3JVMnp2ams1VzRneEZNMC8wTGJzM2xJOWN2NFgxSWxTRUZBNWRQMWF3ZlVv?=
+ =?utf-8?B?bE9yeUl3NjhTa3I5ckJscUZ6V2IwRGlqMklWV0hRalIxTWNYNHBJTmZrY1Jh?=
+ =?utf-8?B?amNJU25rWWF6bloxNkF2TzBrTk93VnJhY2FkTEhTclBKVVlMVWRkVFAvcWFE?=
+ =?utf-8?B?WnRGbldrT1p5WnUzYXlGVFJCRytkTU5tMkZoWTB0R0t3UnZldENjQ0Npb0dp?=
+ =?utf-8?B?ZlcwVXdzbDVnU0RFQlU4eVlpa0JQbkJVUUk1QXZQbVBMVTdsVFZBQmNJUXZE?=
+ =?utf-8?Q?uuXQ=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b44bdd26-33aa-454e-5873-08dc7a118588
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2024 03:44:45.2589
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CFpwcJ5HWC/fl/6c6qJWDs9YMNPvmnDi55KC+gbKYdIHj2+LesppBq9VyueAHn5S3khrelY0csP6qChHQMqYAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7367
 
-On Tue, 21 May 2024 13:55:19 +0000, Parav Pandit <parav@nvidia.com> wrote:
->=20
-> > From: Heng Qi <hengqi@linux.alibaba.com>
-> > Sent: Tuesday, May 21, 2024 3:34 PM
-> >=20
-> > On Tue, 21 May 2024 06:02:15 +0000, Parav Pandit <parav@nvidia.com>
-> > wrote:
-> > >
-> > >
-> > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > Sent: Tuesday, May 21, 2024 7:54 AM
-> > > > On Tue, 14 May 2024 13:09:32 +0000, Parav Pandit <parav@nvidia.com>
-> > > > wrote:
-> > > > >
-> > > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > Sent: Tuesday, May 14, 2024 1:23 PM
-> > > > > >
-> > > > > > On Tue, 14 May 2024 07:48:55 +0000, Parav Pandit
-> > > > > > <parav@nvidia.com>
-> > > > > > wrote:
-> > > > > > >
-> > > > > > >
-> > > > > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > > Sent: Tuesday, May 14, 2024 11:23 AM
-> > > > > > > >
-> > > > > > > > On Tue, 14 May 2024 03:59:52 +0000, Parav Pandit
-> > > > > > > > <parav@nvidia.com>
-> > > > > > > > wrote:
-> > > > > > > > > Hi Heng,
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > > > > Sent: Monday, May 13, 2024 6:27 PM
-> > > > > > > > > >
-> > > > > > > > > > Currently, a device may initialize each vq's coalescing
-> > > > > > > > > > parameters to empirically non-zero values, so the
-> > > > > > > > > > description of this part is supplemented for the virtio=
- spec.
-> > > > > > > > > >
-> > > > > > > > > Currently the spec says to initialize the vq's coalescing
-> > > > > > > > > parameters to
-> > > > zero.
-> > > > > > > > >
-> > > > > > > > > Spec snippet: " Upon reset, a device MUST initialize all
-> > > > > > > > > coalescing
-> > > > > > > > parameters to 0."
-> > > > > > > > >
-> > > > > > > > > So I didn't understand why you say "current the device may
-> > > > initialize".
-> > > > > > > > >
-> > > > > > > > > Do you mean, you want to change the spec to say, by
-> > > > > > > > > default the device has
-> > > > > > > > chosen to set zero or non-zero default parameter as it like=
-s.
-> > > > > > > > > (and not zero).
-> > > > > > > >
-> > > > > > > > Yes.
-> > > > > > > >
-> > > > > > > > If a device supports interrupt coalescing moderation, it
-> > > > > > > > usually has a non- zero default value to provide better per=
-formance.
-> > > > > > > When VIRTIO_NET_F_VQ_NOTF_COAL or VIRTIO_NET_F_NOTF_COAL
-> > is
-> > > > not
-> > > > > > negotiated, the device can apply any notification coalescing va=
-lue.
-> > > > > > > (assuming EVENT_IDX is off).
-> > > > > > >
-> > > > > > > But when they above features are negotiated, it is expected
-> > > > > > > that driver is going to driver it,
-> > > > > >
-> > > > > > The driver drives the runtime parameters without conflicting
-> > > > > > with the initial default values.
-> > > > > > And most users/drivers without dim enable may not drive it.
-> > > > > >
-> > > > > There is no conflict in runtime or default parameters.
-> > > > > For driver it starts after 10msec or 4 minutes, both are runtime
-> > parameters.
-> > > > >
-> > > > > > The device need to be defensive about default performance.
-> > > > > >
-> > > > > The device can surely offer the default performance with non zero
-> > > > > default
-> > > > values.
-> > > >
-> > > > That's what I'm mentioning.
-> > > >
-> > > > >
-> > > > > > >in such case what is the good motivation to start with some
-> > > > > > >arbitrary
-> > > > value?
-> > > > > > >
-> > > > > > > > I'm trying to fix this, and
-> > > > > > > > we shouldn't force the device to always initialize with 0.
-> > > > > > > >
-> > > > > > > If driver is in control, driver decides what values to set.
-> > > > > > > And hence, arbitrary value is
-> > > > > >
-> > > > > > Then maybe the driver is never set and the device uses a 0 which
-> > > > > > messes up most data scenarios.
-> > > > > >
-> > > > > If driver does not want to set it, why did it enable the feature =
-in first
-> > place?
-> > > > > So asking again, is it because driver enabled featured too early
-> > > > > in the driver
-> > > > load sequence, and not DIM is also disabled?
-> > > >
-> > > > I don't see the connection.
-> > > >
-> > > There is a connection.
-> > >
-> > > Basically, what you want is,
-> > >
-> > > 1. Driver negotiates feature bits during driver load.
-> > >
-> > > 2. Driver or user sometimes never configures the right coalescing
-> > parameters.
-> > >
-> > > 3. Device to continue to apply the best coalescing parameters, typica=
-lly keeps
-> > changing based on the workload.
-> >=20
-> > Wait. Why does the device keeping changing the coalescing parameters if=
- the
-> > driver does not modify parameters? Do you mean some kind of hw-DIM
-> > running on the device?
-> >
-> Yes, If the device can choose one sane default one time to reduce perform=
-ance regression, it likely can do few more times too.
-
-Ok, I think we are now on a line:). I agree with this -->
-I saw that some devices have hw-DIM or device-side dim, but in general,
-many devices only have default values and no hardware DIM.
-
-More below.
-
-> =20
-> > > The device to keep doing this until the driver takes the control of d=
-oing it by-
-> > itself.
-> > > For example via net-dim enablement or user doing via ethtool.
-> >=20
-> > Right.
-> >=20
-> > >
-> > > So what is needed is, not just have _one_ default value, but the devi=
-ce ability
-> > to constantly applying notification coalescing as desired.
-> >=20
-> > The "default parameters" I'm talking about is the "initial parameters",=
- are we
-> > on the same line?
-> Yes, but it does not have to be the initial parameters if the intention i=
-s to avoid the performance regression.
-
-I'm not sure if most devices carry hw-dim or device-side dim, but for those
-devices that are not with hw-dim, there will be a default value, whether it=
- is
-0 or non-zero. It is necessary to allow users to query this value.
-
-Right?
-
->=20
-> >=20
-> > >
-> > > When the driver issues the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET
-> > command
-> > > for the first time onwards, at that point, the device receives the
-> > hint/indication, That now on, driver is in the control, hence the devic=
-e should
-> > stop applying its own logic.
-> > >
-> > > Just one default is not enough.
-> > > And feature negotiation is of no help here at such an early stage.
-> > >
-> > > This is the limitation of feature bits negotiation and for now we nee=
-d to live it
-> > it.
-> > >
-> > > And heavy alternative that I prefer to avoid is keep the notification=
- features
-> > disabled at default, re-initialize the driver when user enables the not=
-ification
-> > coaleasing.
-> > > However, this is disruptive enough.
-> > >
-> > > So I propose that we draft the spec in device requirements as:.
-> > >
-> > > The device MAY apply any notification coalescing values when
-> > VIRTIO_NET_F_VQ_NOTF_COAL or VIRTIO_NET_F_NOTF_COAL is negotiated,
-> > until driver instruct the values for the first time.
-> > > Once the driver has performed VIRTIO_NET_F_VQ_NOTF_COAL command
-> > for a VQ or VIRTIO_NET_F_NOTF_COAL command for set of VQs, after that t=
-he
-> > device SHOULD generate notifications based on driver supplied parameter=
-s.
-> >=20
-> > I've always agreed with this.
-> >
-> Ok. so lets please rephase this proposal to define how a devices should b=
-ehave.
-
-Ok. V3 will rephase the text.
-
->=20
-> =20
-> > >
-> > > > >
-> > > > > If feature is negotiated, than DIM can be enabled by default, and
-> > > > > therefore
-> > > > there is no need for the defaults?
-> > > >
-> > > > Right. But if DIM is not enabled (pls remember that DIM is just one
-> > > > of the application scenarios of VQ_NOTF_COAL, right?), the user can
-> > > > query the initial value of the device, which may be any value.
-> > > >
-> > > It is going to be just more than initial value, as device will have t=
-o keep
-> > changing the value.
-> > >
-> > > > >
-> > > > > Or you are saying, that enabling DIM as default has some issue,
-> > > > > and until
-> > > > that point you prefer to have some default in the device?
-> > > >
-> > > > Partly true. The complete purpose is that the device can have any
-> > > > default values
-> > > > (0 or non-zero).
-> > > >
-> > > > >
-> > > > > > Cloud vendors cannot do this. And I don=E2=80=99t seem to see a=
-ny
-> > > > > > interference with other devices from this proposal?
-> > > > > > If the device does not want a non-zero value, a value of 0 can
-> > > > > > be used as the default value.
-> > > > > >
-> > > > > I didn=E2=80=99t understand above.
-> > > > >
-> > > > > > >
-> > > > > > > > Especially when the DIM is disabled from the enabled state,
-> > > > > > > > allowing the driver to restore default parameters for device
-> > > > > > > > will prevent occasional performance degradation.
-> > > > > > > >
-> > > > > > > When DIM is disabled, do you mean driver does not have any
-> > > > > > > good
-> > > > defaults?
-> > > > > >
-> > > > > > DIM is not guaranteed to have a friendly value when disabled.
-> > > > > >
-> > > > > I didn=E2=80=99t follow.
-> > > > >
-> > > > > (a) When DIM is enabled, DIM decides the value.
-> > > > > (b) When DIM is disabled, zero is not good default in the device.
-> > > > > Did I
-> > > > understand right?
-> > > > >
-> > > > > I agree with (a) and (b).
-> > > >
-> > > > Right.
-> > > >
-> > > > >
-> > > > > > > I guess this issue surfaces from the feature negotiation
-> > > > > > > limitation that, it
-> > > > > > must be done early enough before DRIVER_OK.
-> > > > > > > And DIM is still disabled in driver.
-> > > > > >
-> > > > > > We lack the capability filed of default coalescing parameters,
-> > > > > > so GET is used to alleviate this.
-> > > > > >
-> > > > > When GET is not supported, ethtool should get -ENOSUPP instead of=
- 0.
-> > > >
-> > > > We don't have a separate feature bit for GET, right? So if
-> > > > VQ_NOTF_COAL is negotiated, the device supports the GET command.
-> > > >
-> > > Yes, I meant to say that VIRTIO_NET_CTRL_NOTF_COAL and VQ_NOTF_COAL
-> > both may not be offered.
-> > > When only VIRTIO_NET_CTRL_NOTF_COAL is done, the driver can report -
-> > ENOSUPP.
-> > >
-> >=20
-> > I think "VIRTIO_NET_F_NOTF_COAL" and VQ_NOTF_COAL both may not be
-> > offered?
-> >=20
-> Right. Don=E2=80=99t see a value of F_NOTF_COAL, once the VQ_NOTF_COAL is=
- offered.
->=20
-> >=20
-> > >
-> > > > >
-> > > > > > >
-> > > > > > > That explains.
-> > > > > > >
-> > > > > > > Commit log needs to explain this limitation and the gain by
-> > > > > > > relaxing it to be
-> > > > > > non-zero.
-> > > > > > >
-> > > > > > > Any reason DIM is disabled by default in the driver?
-> > > > > > > If VQ_NOTF_COAL is supported by device, DIM should be enabled
-> > > > > > > by
-> > > > > > default.
-> > > > > >
-> > > > > > virtio-net support for netdim needs to be optimized. Of course,
-> > > > > > I also found that other network cards also have optimization po=
-ints.
-> > > > > >
-> > > > > > I'm trying to enable DIM for upstream by default, after I've
-> > > > > > done the profile list tuning etc.
-> > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > > Since the VIRTIO_NET_F_NOTF_COAL feature does not
-> > > > > > > > > > provide a related GET command or config field, we still
-> > > > > > > > > > consider its default values
-> > > > > > to be 0.
-> > > > > > > > > >
-> > > > > > > > > The behavior for VIRTIO_NET_F_NOTF_COAL and
-> > > > > > > > VIRTIO_NET_F_VQ_NOTF_COAL can stay same for the default val=
-ue.
-> > > > > > > > > Can you please explain the motivation for running
-> > > > > > > > > different default values
-> > > > > > > > for two different features in this commit log?
-> > > > > > > >
-> > > > > > > > The current spec leaves coalescing parameters for both feat=
-ures at 0.
-> > > > > > > >
-> > > > > > > > F_VQ_NOTF_COAL provides a GET command, that is, non-zero 0
-> > > > > > > > can be obtained by the driver from the device, but
-> > > > > > > > F_NOTF_COAL does not have a similar GET command.
-> > > > > > > >
-> > > > > > > GET command doesn't give the ability to define the defaults.
-> > > > > > > So both can have non zero defaults.
-> > > > > >
-> > > > > > Makes sense.
-> > > > > >
-> > > > > > >
-> > > > > > > > So when vq reset occurs or dim is disabled from the enabled
-> > > > > > > > state, the driver with F_VQ_NOTF_COAL negotiated has the
-> > > > > > > > ability to restore non-zero values, but only when
-> > > > > > > > F_NOTF_COAL is negotiated, the driver has no path to obtain
-> > > > > > > > the non-zero value, let alone restore non-zero
-> > > > > > values.
-> > > > > > > >
-> > > > > > > When F_NOTF_COAL is negotiated, if the device has its non zero
-> > > > > > > defaults,
-> > > > > > why does driver need to restore anything?
-> > > > > >
-> > > > > > Yes, device will set these.
-> > > > > >
-> > > > > Ok. so no restore needed.
-> > > > >
-> > > > > > > > >
-> > > > > > > > > > Suggested-by: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > > > > ---
-> > > > > > > > > > v1->v2:
-> > > > > > > > > >   - Update description @Jason.
-> > > > > > > > > >
-> > > > > > > > > >  device-types/net/description.tex | 22
-> > > > > > > > > > +++++++++++++++-------
-> > > > > > > > > >  1 file changed, 15 insertions(+), 7 deletions(-)
-> > > > > > > > > >
-> > > > > > > > > > diff --git a/device-types/net/description.tex b/device-
-> > > > > > > > > > types/net/description.tex index 61cce1f..cf4b12c 100644
-> > > > > > > > > > --- a/device-types/net/description.tex
-> > > > > > > > > > +++ b/device-types/net/description.tex
-> > > > > > > > > > @@ -1805,6 +1805,10 @@ \subsubsection{Control
-> > > > > > > > > > Virtqueue}\label{sec:Device Types / Network Device /
-> > > > > > > > > > Devi
-> > > > > > > > > >
-> > > > > > > > > >  The device may generate notifications more or less
-> > > > > > > > > > frequently than specified by set commands of the
-> > > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL
-> > > > > > class.
-> > > > > > > > > >
-> > > > > > > > > > +If the VIRTIO_NET_F_VQ_NOTF_COAL feature is offered,
-> > > > > > > > > > +the device may initialize the coalescing parameters for
-> > > > > > > > > > +each transmit or receive virtqueue to non-zero values,
-> > > > > > > > > > +otherwise, to 0, which are called default
-> > > > > > > > > > coalescing parameters.
-> > > > > > > > > > +
-> > > > > > > > > Instead of 'offered', it should be 'negotiated'. Because
-> > > > > > > > > if may be offered,
-> > > > > > > > but driver may not have enabled it.
-> > > > > > > >
-> > > > > > > > I do not think so.
-> > > > > > > >
-> > > > > > > > Even if the driver does not negotiate, as long as the device
-> > > > > > > > has the ability to adjust coalescing parameters (i.e.
-> > > > > > > > offered), the device will initialize any values.
-> > > > > > > >
-> > > > > > > The device can initialize coalescing parameters regardless of
-> > > > > > > VQ_NOTF_COAL
-> > > > > > offered or not.
-> > > > > > >
-> > > > > >
-> > > > > > Right.
-> > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > >  If coalescing parameters are being set, the device
-> > > > > > > > > > applies the last coalescing parameters set for a
-> > > > > > > > > > virtqueue, regardless of the command used to set the
-> > > > > > > > > > parameters. Use the following command sequence  with two
-> > > > > > > > > > pairs of virtqueues as
-> > > > an example:
-> > > > > > > > > > @@ -1873,6 +1877,10 @@ \subsubsection{Control
-> > > > > > > > > > Virtqueue}\label{sec:Device Types / Network Device /
-> > > > > > > > > > Devi
-> > > > > > > > > >
-> > > > > > > > > >  The driver MUST ignore the values of coalescing
-> > > > > > > > > > parameters received from the
-> > > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
-> > > > command
-> > > > > > > > > > if the device responds with VIRTIO_NET_ERR.
-> > > > > > > > > >
-> > > > > > > > > > +If the VIRTIO_NET_F_VQ_NOTF_COAL feature is negotiated,
-> > > > > > > > > > +the driver
-> > > > > > > > > > MUST
-> > > > > > > > > > +get coalescing parameters for each enabled transmit or
-> > > > > > > > > > +receive virtqueue through the
-> > > > > > > > > > +VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
-> > > > > > > > command
-> > > > > > > > > > after a successful device reset.
-> > > > > > > > > > +
-> > > > > > > > > The driver is free to not call GET call at all. It can al=
-ways just do set.
-> > > > > > > > > So it cannot be must requirement for the driver to get th=
-em.
-> > > > > > > >
-> > > > > > > > This is mainly forced to MUST during the probe phase.
-> > > > > > > > Other timings, the existing spec has already described it c=
-learly.
-> > > > > > > >
-> > > > > > > I don't see it is needed to force driver to read.
-> > > > > > > Why is it must for the driver to read it? It can operate with=
-out read.
-> > > > > >
-> > > > > > Otherwise the device has a non-zero default value, but users
-> > > > > > using ethtool -c see a value of 0.
-> > > > > >
-> > > > > When GET is supported, ethtool callback should query the current =
-value.
-> > > > > Driver can read it once at start time, but it is not a MUST requi=
-rement.
-> > > > > Driver can read it runtime too. It is the driver implementation c=
-hoice.
-> > > > > We don=E2=80=99t need to tell in the spec, when driver MUST read =
-it.
-> > > >
-> > > > I agree with this.
-> > > >
-> > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > The wording should be, the driver MAY get ...
-> > > > > > > > >
-> > > > > > > > > >  \devicenormative{\subparagraph}{Notifications
-> > > > > > > > > > Coalescing}{Device Types / Network Device / Device
-> > > > > > > > > > Operation / Control Virtqueue / Notifications
-> > > > > > > > > > Coalescing}
-> > > > > > > > > >
-> > > > > > > > > >  The device MUST ignore \field{reserved}.
-> > > > > > > > > > @@ -1884,18 +1892,18 @@ \subsubsection{Control
-> > > > > > > > > > Virtqueue}\label{sec:Device Types / Network Device /
-> > > > > > > > > > Devi The device MUST respond to
-> > > > VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET
-> > > > > > > > > > and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands with
-> > > > > > > > VIRTIO_NET_ERR if
-> > > > > > > > > > the designated virtqueue is not an enabled transmit or
-> > > > > > > > > > receive
-> > > > > > virtqueue.
-> > > > > > > > > >
-> > > > > > > > > > -Upon disabling and re-enabling a transmit virtqueue,
-> > > > > > > > > > the device MUST set the coalescing parameters of the
-> > > > > > > > > > virtqueue -to those configured through the
-> > > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL_TX_SET
-> > > > > > > > command, or,
-> > > > > > > > > > if the driver did not set any TX coalescing parameters,=
- to 0.
-> > > > > > > > > > -
-> > > > > > > > > > -Upon disabling and re-enabling a receive virtqueue, the
-> > > > > > > > > > device MUST set the coalescing parameters of the
-> > > > > > > > > > virtqueue -to those configured through the
-> > > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL_RX_SET
-> > > > > > command,
-> > > > > > > > > > or, if the driver did not set any RX coalescing paramet=
-ers, to 0.
-> > > > > > > > > > -
-> > > > > > > > > >  The behavior of the device in response to set commands
-> > > > > > > > > > of the VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
-> > > > > > > > > >  the device MAY generate notifications more or less
-> > > > > > > > > > frequently than specified.
-> > > > > > > > > >
-> > > > > > > > > >  A device SHOULD NOT send used buffer notifications to
-> > > > > > > > > > the driver if the notifications are suppressed, even if
-> > > > > > > > > > the notification conditions are
-> > > > > > > > met.
-> > > > > > > > > >
-> > > > > > > > > > -Upon reset, a device MUST initialize all coalescing
-> > > > > > > > > > parameters to
-> > > > 0.
-> > > > > > > > > > +Upon reset, a device MUST set default coalescing
-> > > > > > > > > > +parameters for all transmit or receive virtqueues.
-> > > > > > > > > > +
-> > > > > > > > > The device MAY set parameters to zero or non zero values..
-> > > > > > > >
-> > > > > > > > Ok.
-> > > > > > > >
-> > > > > > > > > I am still missing the motivation part of why to set non
-> > > > > > > > > zero value, even if
-> > > > > > > > the driver has negotiated the feature.
-> > > > > > > >
-> > > > > > > > Please see the above description.
-> > > > > > > >
-> > > > > > > If I understood is right, the case is:
-> > > > > > > _VQ_NOTF_COAL is negotiated, and DIM is disabled.
-> > > > > > > And device is unable to apply some good non zero defaults.
-> > > > > >
-> > > > > >
-> > > > > > If _VQ_NOTF_COAL is negotiated, and DIM is disabled:
-> > > > > >
-> > > > > > 1. The device wants to set a non-zero value for good perf,
-> > > > > >    but the user sees a value of 0.
-> > > > > >
-> > > > > The only limitation that we want to remove is, on device reset,
-> > > > > the device
-> > > > may have any default value.
-> > > >
-> > > > Right, and the driver may query the value using the GET command.
-> > > >
-> > > > >
-> > > > > > 2. When the user has not actively modified the value, DIM
-> > > > > > switches from
-> > > > the
-> > > > > >    enabled state to the disabled state, then the driver expects=
- to issue a
-> > > > > >    setting command with a default value. To avoid performance
-> > > > degradation
-> > > > > >    caused by a bad value.
-> > > > > >
-> > > > > This #2 seems like some hack. Should I read the Linux code in thi=
-s area?
-> > > >
-> > > > No. This is some kind of performance optimization at the code level.
-> > > > When DIM is turned off, the driver configures default values for the
-> > > > device to avoid any big performance regression.
-> > > >
-> > > If the driver configures the default, we don=E2=80=99t need device to=
- apply any
-> > defaults.
-> >=20
-> > when does the driver configure the default value (actually I mean the i=
-nitial
-> > value) and how does the driver know which default (initial value) value=
- applies
-> > to all devices?
-> >=20
-> I don=E2=80=99t think the driver can apply.
-> I understood that you wanted the driver to configure some default from wh=
-at you wrote as=20
-> " When DIM is turned off, the driver configures default values for the de=
-vice to avoid any big performance regression."
-
-Maybe I didn't describe it clearly, consider the following scenario:
-1. The driver may obtain the initial value. If not, the value is 0. ---> Th=
-is initial value called default value.
-2. User query the coalescing parameters.  ---> Driver return the default va=
-lue.
-3. dim is disabled from enabled state -> Driver restores the device using t=
-he default value obtained from the device.
-
-Thanks.
-
->=20
-> > Thanks.
-> >=20
-> > > I thought your intention was, the driver does not know what is the be=
-st
-> > notification rate to configure and feature is enabled in the device.
-> > > And the device does not have any good defaults (because driver is not
-> > configuring any defaults).
-> > >
-> > > But here you say, the driver configures the drefault. I am lost. =E2=
-=98=B9
-> > >
-> > > > >
-> > > > > > We assume that most users do not have the prerequisite knowledge
-> > > > > > to modify coalecing parameters.
-> > > > > >
-> > > > > Right. Hence the DIM should be used.
-> > > > > When DIM is not used, a non zero default is good to have.
-> > > > > (without forcing the driver to read it).
-> > > >
-> > > > +1
-> > > >
-> > > > Thanks.
-> > > >
-> > > > >
-> > > > > > Thanks.
-> > > > > >
-> > > > > > >
-> > > > > > > Right?
-> > > > > > >
-> > > > > > >
-> > > > > > > > Thanks.
-> > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > +Regardless of whether the coalescing parameters have
-> > > > > > > > > > +been overridden by set commands from the
-> > > > > > VIRTIO_NET_CTRL_NOTF_COAL
-> > > > > > > > > > +class, upon
-> > > > > > > > > > disabling
-> > > > > > > > > > +and re-enabling a transmit or receive virtqueue, the
-> > > > > > > > > > +device MUST set the previous parameters for the virtqu=
-eue.
-> > > > > > > > > >
-> > > > > > > > > >  \paragraph{Device Statistics}\label{sec:Device Types /
-> > > > > > > > > > Network Device / Device Operation / Control Virtqueue /
-> > > > > > > > > > Device Statistics}
-> > > > > > > > > >
-> > > > > > > > > > --
-> > > > > > > > > > 2.32.0.3.g01195cf9f
-> > > > > > > > >
-> > > > >
-> > >
->=20
+DQoNCj4gRnJvbTogSGVuZyBRaSA8aGVuZ3FpQGxpbnV4LmFsaWJhYmEuY29tPg0KPiBTZW50OiBX
+ZWRuZXNkYXksIE1heSAyMiwgMjAyNCA3OjQyIEFNDQo+IA0KPiBPbiBUdWUsIDIxIE1heSAyMDI0
+IDEzOjU1OjE5ICswMDAwLCBQYXJhdiBQYW5kaXQgPHBhcmF2QG52aWRpYS5jb20+DQo+IHdyb3Rl
+Og0KPiA+DQo+ID4gPiBGcm9tOiBIZW5nIFFpIDxoZW5ncWlAbGludXguYWxpYmFiYS5jb20+DQo+
+ID4gPiBTZW50OiBUdWVzZGF5LCBNYXkgMjEsIDIwMjQgMzozNCBQTQ0KPiA+ID4NCj4gPiA+IE9u
+IFR1ZSwgMjEgTWF5IDIwMjQgMDY6MDI6MTUgKzAwMDAsIFBhcmF2IFBhbmRpdCA8cGFyYXZAbnZp
+ZGlhLmNvbT4NCj4gPiA+IHdyb3RlOg0KPiA+ID4gPg0KPiA+ID4gPg0KPiA+ID4gPiA+IEZyb206
+IEhlbmcgUWkgPGhlbmdxaUBsaW51eC5hbGliYWJhLmNvbT4NCj4gPiA+ID4gPiBTZW50OiBUdWVz
+ZGF5LCBNYXkgMjEsIDIwMjQgNzo1NCBBTSBPbiBUdWUsIDE0IE1heSAyMDI0IDEzOjA5OjMyDQo+
+ID4gPiA+ID4gKzAwMDAsIFBhcmF2IFBhbmRpdCA8cGFyYXZAbnZpZGlhLmNvbT4NCj4gPiA+ID4g
+PiB3cm90ZToNCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+IEZyb206IEhlbmcgUWkgPGhlbmdx
+aUBsaW51eC5hbGliYWJhLmNvbT4NCj4gPiA+ID4gPiA+ID4gU2VudDogVHVlc2RheSwgTWF5IDE0
+LCAyMDI0IDE6MjMgUE0NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gT24gVHVlLCAxNCBN
+YXkgMjAyNCAwNzo0ODo1NSArMDAwMCwgUGFyYXYgUGFuZGl0DQo+ID4gPiA+ID4gPiA+IDxwYXJh
+dkBudmlkaWEuY29tPg0KPiA+ID4gPiA+ID4gPiB3cm90ZToNCj4gPiA+ID4gPiA+ID4gPg0KPiA+
+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBGcm9tOiBIZW5nIFFpIDxoZW5ncWlAbGlu
+dXguYWxpYmFiYS5jb20+DQo+ID4gPiA+ID4gPiA+ID4gPiBTZW50OiBUdWVzZGF5LCBNYXkgMTQs
+IDIwMjQgMTE6MjMgQU0NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBPbiBU
+dWUsIDE0IE1heSAyMDI0IDAzOjU5OjUyICswMDAwLCBQYXJhdiBQYW5kaXQNCj4gPiA+ID4gPiA+
+ID4gPiA+IDxwYXJhdkBudmlkaWEuY29tPg0KPiA+ID4gPiA+ID4gPiA+ID4gd3JvdGU6DQo+ID4g
+PiA+ID4gPiA+ID4gPiA+IEhpIEhlbmcsDQo+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4g
+PiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRnJvbTogSGVuZyBRaSA8aGVuZ3FpQGxp
+bnV4LmFsaWJhYmEuY29tPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFNlbnQ6IE1vbmRheSwgTWF5
+IDEzLCAyMDI0IDY6MjcgUE0NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+IEN1cnJlbnRseSwgYSBkZXZpY2UgbWF5IGluaXRpYWxpemUgZWFjaCB2cSdzDQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gY29hbGVzY2luZyBwYXJhbWV0ZXJzIHRvIGVtcGlyaWNhbGx5IG5v
+bi16ZXJvDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gdmFsdWVzLCBzbyB0aGUgZGVzY3JpcHRpb24g
+b2YgdGhpcyBwYXJ0IGlzIHN1cHBsZW1lbnRlZCBmb3INCj4gdGhlIHZpcnRpbyBzcGVjLg0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+IEN1cnJlbnRseSB0aGUgc3Bl
+YyBzYXlzIHRvIGluaXRpYWxpemUgdGhlIHZxJ3MNCj4gPiA+ID4gPiA+ID4gPiA+ID4gY29hbGVz
+Y2luZyBwYXJhbWV0ZXJzIHRvDQo+ID4gPiA+ID4gemVyby4NCj4gPiA+ID4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gU3BlYyBzbmlwcGV0OiAiIFVwb24gcmVzZXQsIGEgZGV2aWNl
+IE1VU1QgaW5pdGlhbGl6ZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiBhbGwgY29hbGVzY2luZw0KPiA+
+ID4gPiA+ID4gPiA+ID4gcGFyYW1ldGVycyB0byAwLiINCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gU28gSSBkaWRuJ3QgdW5kZXJzdGFuZCB3aHkgeW91IHNheSAiY3Vy
+cmVudCB0aGUgZGV2aWNlDQo+ID4gPiA+ID4gPiA+ID4gPiA+IG1heQ0KPiA+ID4gPiA+IGluaXRp
+YWxpemUiLg0KPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiBEbyB5b3Ug
+bWVhbiwgeW91IHdhbnQgdG8gY2hhbmdlIHRoZSBzcGVjIHRvIHNheSwgYnkNCj4gPiA+ID4gPiA+
+ID4gPiA+ID4gZGVmYXVsdCB0aGUgZGV2aWNlIGhhcw0KPiA+ID4gPiA+ID4gPiA+ID4gY2hvc2Vu
+IHRvIHNldCB6ZXJvIG9yIG5vbi16ZXJvIGRlZmF1bHQgcGFyYW1ldGVyIGFzIGl0IGxpa2VzLg0K
+PiA+ID4gPiA+ID4gPiA+ID4gPiAoYW5kIG5vdCB6ZXJvKS4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+
+ID4gPiA+ID4gPiA+ID4gPiBZZXMuDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+
+ID4gSWYgYSBkZXZpY2Ugc3VwcG9ydHMgaW50ZXJydXB0IGNvYWxlc2NpbmcgbW9kZXJhdGlvbiwg
+aXQNCj4gPiA+ID4gPiA+ID4gPiA+IHVzdWFsbHkgaGFzIGEgbm9uLSB6ZXJvIGRlZmF1bHQgdmFs
+dWUgdG8gcHJvdmlkZSBiZXR0ZXINCj4gcGVyZm9ybWFuY2UuDQo+ID4gPiA+ID4gPiA+ID4gV2hl
+biBWSVJUSU9fTkVUX0ZfVlFfTk9URl9DT0FMIG9yDQo+IFZJUlRJT19ORVRfRl9OT1RGX0NPQUwN
+Cj4gPiA+IGlzDQo+ID4gPiA+ID4gbm90DQo+ID4gPiA+ID4gPiA+IG5lZ290aWF0ZWQsIHRoZSBk
+ZXZpY2UgY2FuIGFwcGx5IGFueSBub3RpZmljYXRpb24gY29hbGVzY2luZyB2YWx1ZS4NCj4gPiA+
+ID4gPiA+ID4gPiAoYXNzdW1pbmcgRVZFTlRfSURYIGlzIG9mZikuDQo+ID4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gPiBCdXQgd2hlbiB0aGV5IGFib3ZlIGZlYXR1cmVzIGFyZSBuZWdvdGlh
+dGVkLCBpdCBpcw0KPiA+ID4gPiA+ID4gPiA+IGV4cGVjdGVkIHRoYXQgZHJpdmVyIGlzIGdvaW5n
+IHRvIGRyaXZlciBpdCwNCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gVGhlIGRyaXZlciBk
+cml2ZXMgdGhlIHJ1bnRpbWUgcGFyYW1ldGVycyB3aXRob3V0IGNvbmZsaWN0aW5nDQo+ID4gPiA+
+ID4gPiA+IHdpdGggdGhlIGluaXRpYWwgZGVmYXVsdCB2YWx1ZXMuDQo+ID4gPiA+ID4gPiA+IEFu
+ZCBtb3N0IHVzZXJzL2RyaXZlcnMgd2l0aG91dCBkaW0gZW5hYmxlIG1heSBub3QgZHJpdmUgaXQu
+DQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBUaGVyZSBpcyBubyBjb25mbGljdCBpbiBydW50
+aW1lIG9yIGRlZmF1bHQgcGFyYW1ldGVycy4NCj4gPiA+ID4gPiA+IEZvciBkcml2ZXIgaXQgc3Rh
+cnRzIGFmdGVyIDEwbXNlYyBvciA0IG1pbnV0ZXMsIGJvdGggYXJlDQo+ID4gPiA+ID4gPiBydW50
+aW1lDQo+ID4gPiBwYXJhbWV0ZXJzLg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gVGhlIGRl
+dmljZSBuZWVkIHRvIGJlIGRlZmVuc2l2ZSBhYm91dCBkZWZhdWx0IHBlcmZvcm1hbmNlLg0KPiA+
+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gVGhlIGRldmljZSBjYW4gc3VyZWx5IG9mZmVyIHRoZSBk
+ZWZhdWx0IHBlcmZvcm1hbmNlIHdpdGggbm9uDQo+ID4gPiA+ID4gPiB6ZXJvIGRlZmF1bHQNCj4g
+PiA+ID4gPiB2YWx1ZXMuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBUaGF0J3Mgd2hhdCBJJ20gbWVu
+dGlvbmluZy4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPmluIHN1Y2gg
+Y2FzZSB3aGF0IGlzIHRoZSBnb29kIG1vdGl2YXRpb24gdG8gc3RhcnQgd2l0aCBzb21lDQo+ID4g
+PiA+ID4gPiA+ID5hcmJpdHJhcnkNCj4gPiA+ID4gPiB2YWx1ZT8NCj4gPiA+ID4gPiA+ID4gPg0K
+PiA+ID4gPiA+ID4gPiA+ID4gSSdtIHRyeWluZyB0byBmaXggdGhpcywgYW5kIHdlIHNob3VsZG4n
+dCBmb3JjZSB0aGUNCj4gPiA+ID4gPiA+ID4gPiA+IGRldmljZSB0byBhbHdheXMgaW5pdGlhbGl6
+ZSB3aXRoIDAuDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IElmIGRyaXZlciBp
+cyBpbiBjb250cm9sLCBkcml2ZXIgZGVjaWRlcyB3aGF0IHZhbHVlcyB0byBzZXQuDQo+ID4gPiA+
+ID4gPiA+ID4gQW5kIGhlbmNlLCBhcmJpdHJhcnkgdmFsdWUgaXMNCj4gPiA+ID4gPiA+ID4NCj4g
+PiA+ID4gPiA+ID4gVGhlbiBtYXliZSB0aGUgZHJpdmVyIGlzIG5ldmVyIHNldCBhbmQgdGhlIGRl
+dmljZSB1c2VzIGEgMA0KPiA+ID4gPiA+ID4gPiB3aGljaCBtZXNzZXMgdXAgbW9zdCBkYXRhIHNj
+ZW5hcmlvcy4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IElmIGRyaXZlciBkb2VzIG5vdCB3
+YW50IHRvIHNldCBpdCwgd2h5IGRpZCBpdCBlbmFibGUgdGhlDQo+ID4gPiA+ID4gPiBmZWF0dXJl
+IGluIGZpcnN0DQo+ID4gPiBwbGFjZT8NCj4gPiA+ID4gPiA+IFNvIGFza2luZyBhZ2FpbiwgaXMg
+aXQgYmVjYXVzZSBkcml2ZXIgZW5hYmxlZCBmZWF0dXJlZCB0b28NCj4gPiA+ID4gPiA+IGVhcmx5
+IGluIHRoZSBkcml2ZXINCj4gPiA+ID4gPiBsb2FkIHNlcXVlbmNlLCBhbmQgbm90IERJTSBpcyBh
+bHNvIGRpc2FibGVkPw0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gSSBkb24ndCBzZWUgdGhlIGNvbm5l
+Y3Rpb24uDQo+ID4gPiA+ID4NCj4gPiA+ID4gVGhlcmUgaXMgYSBjb25uZWN0aW9uLg0KPiA+ID4g
+Pg0KPiA+ID4gPiBCYXNpY2FsbHksIHdoYXQgeW91IHdhbnQgaXMsDQo+ID4gPiA+DQo+ID4gPiA+
+IDEuIERyaXZlciBuZWdvdGlhdGVzIGZlYXR1cmUgYml0cyBkdXJpbmcgZHJpdmVyIGxvYWQuDQo+
+ID4gPiA+DQo+ID4gPiA+IDIuIERyaXZlciBvciB1c2VyIHNvbWV0aW1lcyBuZXZlciBjb25maWd1
+cmVzIHRoZSByaWdodCBjb2FsZXNjaW5nDQo+ID4gPiBwYXJhbWV0ZXJzLg0KPiA+ID4gPg0KPiA+
+ID4gPiAzLiBEZXZpY2UgdG8gY29udGludWUgdG8gYXBwbHkgdGhlIGJlc3QgY29hbGVzY2luZyBw
+YXJhbWV0ZXJzLA0KPiA+ID4gPiB0eXBpY2FsbHkga2VlcHMNCj4gPiA+IGNoYW5naW5nIGJhc2Vk
+IG9uIHRoZSB3b3JrbG9hZC4NCj4gPiA+DQo+ID4gPiBXYWl0LiBXaHkgZG9lcyB0aGUgZGV2aWNl
+IGtlZXBpbmcgY2hhbmdpbmcgdGhlIGNvYWxlc2NpbmcgcGFyYW1ldGVycw0KPiA+ID4gaWYgdGhl
+IGRyaXZlciBkb2VzIG5vdCBtb2RpZnkgcGFyYW1ldGVycz8gRG8geW91IG1lYW4gc29tZSBraW5k
+IG9mDQo+ID4gPiBody1ESU0gcnVubmluZyBvbiB0aGUgZGV2aWNlPw0KPiA+ID4NCj4gPiBZZXMs
+IElmIHRoZSBkZXZpY2UgY2FuIGNob29zZSBvbmUgc2FuZSBkZWZhdWx0IG9uZSB0aW1lIHRvIHJl
+ZHVjZQ0KPiBwZXJmb3JtYW5jZSByZWdyZXNzaW9uLCBpdCBsaWtlbHkgY2FuIGRvIGZldyBtb3Jl
+IHRpbWVzIHRvby4NCj4gDQo+IE9rLCBJIHRoaW5rIHdlIGFyZSBub3cgb24gYSBsaW5lOikuIEkg
+YWdyZWUgd2l0aCB0aGlzIC0tPiBJIHNhdyB0aGF0IHNvbWUNCj4gZGV2aWNlcyBoYXZlIGh3LURJ
+TSBvciBkZXZpY2Utc2lkZSBkaW0sIGJ1dCBpbiBnZW5lcmFsLCBtYW55IGRldmljZXMgb25seQ0K
+PiBoYXZlIGRlZmF1bHQgdmFsdWVzIGFuZCBubyBoYXJkd2FyZSBESU0uDQo+IA0KSSBhbSBub3Qg
+c3VyZS4gZWFjaCBvbmUgaGFzIGRpZmZlcmVudCB2aWV3IG9mIGhvdyB0aGV5IHNlZSB0aGUgZGV2
+aWNlIGluIHRoZWlyIG93biBhbmQgb3RoZXIgY2xvdWQgb3BlcmF0b3JzIHBsYWNlLg0KVGhlIGtl
+eSBwYXJ0IHRvIG1lIGlzLCB0aGUgZGV2aWNlIG1heSBhcHBseSBzb21lIGNvYWxlc2NpbmcgdmFs
+dWUgdW50aWwgdGhlIGRyaXZlciB0ZWxscyBoaW0gdG8gc3RvcCBhcHBseWluZyBpdHMgdmFsdWVz
+Lg0KVGhlIGRldmljZSBtYXkgYXBwbHkgc2FtZSB2YWx1ZSBvciBkaWZmZXJlbnQgdmFsdWUsIGl0
+IGlzIGluIHRoZSBkZXZpY2UgYm91bmRhcnkuDQoNCkhlbmNlLCB0aGUgYmVsb3cgc3BlYyB3b3Jk
+aW5nIGlzIHdoYXQgbWF0dGVycy4NCg0KDQo+IE1vcmUgYmVsb3cuDQo+IA0KPiA+DQo+ID4gPiA+
+IFRoZSBkZXZpY2UgdG8ga2VlcCBkb2luZyB0aGlzIHVudGlsIHRoZSBkcml2ZXIgdGFrZXMgdGhl
+IGNvbnRyb2wNCj4gPiA+ID4gb2YgZG9pbmcgaXQgYnktDQo+ID4gPiBpdHNlbGYuDQo+ID4gPiA+
+IEZvciBleGFtcGxlIHZpYSBuZXQtZGltIGVuYWJsZW1lbnQgb3IgdXNlciBkb2luZyB2aWEgZXRo
+dG9vbC4NCj4gPiA+DQo+ID4gPiBSaWdodC4NCj4gPiA+DQo+ID4gPiA+DQo+ID4gPiA+IFNvIHdo
+YXQgaXMgbmVlZGVkIGlzLCBub3QganVzdCBoYXZlIF9vbmVfIGRlZmF1bHQgdmFsdWUsIGJ1dCB0
+aGUNCj4gPiA+ID4gZGV2aWNlIGFiaWxpdHkNCj4gPiA+IHRvIGNvbnN0YW50bHkgYXBwbHlpbmcg
+bm90aWZpY2F0aW9uIGNvYWxlc2NpbmcgYXMgZGVzaXJlZC4NCj4gPiA+DQo+ID4gPiBUaGUgImRl
+ZmF1bHQgcGFyYW1ldGVycyIgSSdtIHRhbGtpbmcgYWJvdXQgaXMgdGhlICJpbml0aWFsDQo+ID4g
+PiBwYXJhbWV0ZXJzIiwgYXJlIHdlIG9uIHRoZSBzYW1lIGxpbmU/DQo+ID4gWWVzLCBidXQgaXQg
+ZG9lcyBub3QgaGF2ZSB0byBiZSB0aGUgaW5pdGlhbCBwYXJhbWV0ZXJzIGlmIHRoZSBpbnRlbnRp
+b24gaXMgdG8NCj4gYXZvaWQgdGhlIHBlcmZvcm1hbmNlIHJlZ3Jlc3Npb24uDQo+IA0KPiBJJ20g
+bm90IHN1cmUgaWYgbW9zdCBkZXZpY2VzIGNhcnJ5IGh3LWRpbSBvciBkZXZpY2Utc2lkZSBkaW0s
+IGJ1dCBmb3IgdGhvc2UNCj4gZGV2aWNlcyB0aGF0IGFyZSBub3Qgd2l0aCBody1kaW0sIHRoZXJl
+IHdpbGwgYmUgYSBkZWZhdWx0IHZhbHVlLCB3aGV0aGVyIGl0IGlzDQo+IDAgb3Igbm9uLXplcm8u
+IEl0IGlzIG5lY2Vzc2FyeSB0byBhbGxvdyB1c2VycyB0byBxdWVyeSB0aGlzIHZhbHVlLg0KPiAN
+Cj4gUmlnaHQ/DQo+IA0KWWVzLCB0aGUgZHJpdmVyIGNhbiBxdWVyeSBhbmQgc3VwcGx5IHRvIHVz
+ZXJzOyB3aGV0aGVyIHRoYXQgdmFsdWUgaXMgZGVmYXVsdCBvciBjdXJyZW50LCBpdCBkZXBlbmRz
+IG9uIHdoZW4gdGhlIGRyaXZlciBxdWVyaWVzIHRoZW0uDQpTbyB0byBrZWVwIGl0IHNpbXBsZSwg
+ZHJpdmVyIGFsd2F5cyBxdWVyaWVzIHRoZSBjdXJyZW50IHZhbHVlIGJlZm9yZSBvciBhZnRlciB0
+aGUgVlFfU0VUIGNvbW1hbmQgZnJvbSBkcml2ZXIgcG9pbnQgb2Ygdmlldy4NClRoZSBkZXZpY2Ug
+bWF5IGFwcGx5IGFueSB2YWx1ZSBiZWZvcmUgdGhlIFZRX1NFVCBjb21tYW5kIGlzIGRvbmUgYW5k
+IGRyaXZlciBzaG91bGQgYmUgYWJsZSB0byBxdWVyeSBpdCBhcyBsb25nIGFzIF9GIGJpdCBpcyBu
+ZWdvdGlhdGVkLg0KSXQgaXMgc3RyYWlnaHQgZm9yd2FyZC4NCg0KPiA+DQo+ID4gPg0KPiA+ID4g
+Pg0KPiA+ID4gPiBXaGVuIHRoZSBkcml2ZXIgaXNzdWVzIHRoZSBWSVJUSU9fTkVUX0NUUkxfTk9U
+Rl9DT0FMX1ZRX1NFVA0KPiA+ID4gY29tbWFuZA0KPiA+ID4gPiBmb3IgdGhlIGZpcnN0IHRpbWUg
+b253YXJkcywgYXQgdGhhdCBwb2ludCwgdGhlIGRldmljZSByZWNlaXZlcyB0aGUNCj4gPiA+IGhp
+bnQvaW5kaWNhdGlvbiwgVGhhdCBub3cgb24sIGRyaXZlciBpcyBpbiB0aGUgY29udHJvbCwgaGVu
+Y2UgdGhlDQo+ID4gPiBkZXZpY2Ugc2hvdWxkIHN0b3AgYXBwbHlpbmcgaXRzIG93biBsb2dpYy4N
+Cj4gPiA+ID4NCj4gPiA+ID4gSnVzdCBvbmUgZGVmYXVsdCBpcyBub3QgZW5vdWdoLg0KPiA+ID4g
+PiBBbmQgZmVhdHVyZSBuZWdvdGlhdGlvbiBpcyBvZiBubyBoZWxwIGhlcmUgYXQgc3VjaCBhbiBl
+YXJseSBzdGFnZS4NCj4gPiA+ID4NCj4gPiA+ID4gVGhpcyBpcyB0aGUgbGltaXRhdGlvbiBvZiBm
+ZWF0dXJlIGJpdHMgbmVnb3RpYXRpb24gYW5kIGZvciBub3cgd2UNCj4gPiA+ID4gbmVlZCB0byBs
+aXZlIGl0DQo+ID4gPiBpdC4NCj4gPiA+ID4NCj4gPiA+ID4gQW5kIGhlYXZ5IGFsdGVybmF0aXZl
+IHRoYXQgSSBwcmVmZXIgdG8gYXZvaWQgaXMga2VlcCB0aGUNCj4gPiA+ID4gbm90aWZpY2F0aW9u
+IGZlYXR1cmVzDQo+ID4gPiBkaXNhYmxlZCBhdCBkZWZhdWx0LCByZS1pbml0aWFsaXplIHRoZSBk
+cml2ZXIgd2hlbiB1c2VyIGVuYWJsZXMgdGhlDQo+ID4gPiBub3RpZmljYXRpb24gY29hbGVhc2lu
+Zy4NCj4gPiA+ID4gSG93ZXZlciwgdGhpcyBpcyBkaXNydXB0aXZlIGVub3VnaC4NCj4gPiA+ID4N
+Cj4gPiA+ID4gU28gSSBwcm9wb3NlIHRoYXQgd2UgZHJhZnQgdGhlIHNwZWMgaW4gZGV2aWNlIHJl
+cXVpcmVtZW50cyBhczouDQo+ID4gPiA+DQo+ID4gPiA+IFRoZSBkZXZpY2UgTUFZIGFwcGx5IGFu
+eSBub3RpZmljYXRpb24gY29hbGVzY2luZyB2YWx1ZXMgd2hlbg0KPiA+ID4gVklSVElPX05FVF9G
+X1ZRX05PVEZfQ09BTCBvciBWSVJUSU9fTkVUX0ZfTk9URl9DT0FMIGlzDQo+IG5lZ290aWF0ZWQs
+DQo+ID4gPiB1bnRpbCBkcml2ZXIgaW5zdHJ1Y3QgdGhlIHZhbHVlcyBmb3IgdGhlIGZpcnN0IHRp
+bWUuDQo+ID4gPiA+IE9uY2UgdGhlIGRyaXZlciBoYXMgcGVyZm9ybWVkIFZJUlRJT19ORVRfRl9W
+UV9OT1RGX0NPQUwNCj4gY29tbWFuZA0KPiA+ID4gZm9yIGEgVlEgb3IgVklSVElPX05FVF9GX05P
+VEZfQ09BTCBjb21tYW5kIGZvciBzZXQgb2YgVlFzLCBhZnRlcg0KPiA+ID4gdGhhdCB0aGUgZGV2
+aWNlIFNIT1VMRCBnZW5lcmF0ZSBub3RpZmljYXRpb25zIGJhc2VkIG9uIGRyaXZlciBzdXBwbGll
+ZA0KPiBwYXJhbWV0ZXJzLg0KPiA+ID4NCj4gPiA+IEkndmUgYWx3YXlzIGFncmVlZCB3aXRoIHRo
+aXMuDQo+ID4gPg0KPiA+IE9rLiBzbyBsZXRzIHBsZWFzZSByZXBoYXNlIHRoaXMgcHJvcG9zYWwg
+dG8gZGVmaW5lIGhvdyBhIGRldmljZXMgc2hvdWxkDQo+IGJlaGF2ZS4NCj4gDQo+IE9rLiBWMyB3
+aWxsIHJlcGhhc2UgdGhlIHRleHQuDQo+IA0KT2suIHRoYW5rcy4NCg0KPiA+DQo+ID4NCj4gPiA+
+ID4NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBJZiBmZWF0dXJlIGlzIG5lZ290aWF0ZWQsIHRo
+YW4gRElNIGNhbiBiZSBlbmFibGVkIGJ5IGRlZmF1bHQsDQo+ID4gPiA+ID4gPiBhbmQgdGhlcmVm
+b3JlDQo+ID4gPiA+ID4gdGhlcmUgaXMgbm8gbmVlZCBmb3IgdGhlIGRlZmF1bHRzPw0KPiA+ID4g
+PiA+DQo+ID4gPiA+ID4gUmlnaHQuIEJ1dCBpZiBESU0gaXMgbm90IGVuYWJsZWQgKHBscyByZW1l
+bWJlciB0aGF0IERJTSBpcyBqdXN0DQo+ID4gPiA+ID4gb25lIG9mIHRoZSBhcHBsaWNhdGlvbiBz
+Y2VuYXJpb3Mgb2YgVlFfTk9URl9DT0FMLCByaWdodD8pLCB0aGUNCj4gPiA+ID4gPiB1c2VyIGNh
+biBxdWVyeSB0aGUgaW5pdGlhbCB2YWx1ZSBvZiB0aGUgZGV2aWNlLCB3aGljaCBtYXkgYmUgYW55
+IHZhbHVlLg0KPiA+ID4gPiA+DQo+ID4gPiA+IEl0IGlzIGdvaW5nIHRvIGJlIGp1c3QgbW9yZSB0
+aGFuIGluaXRpYWwgdmFsdWUsIGFzIGRldmljZSB3aWxsDQo+ID4gPiA+IGhhdmUgdG8ga2VlcA0K
+PiA+ID4gY2hhbmdpbmcgdGhlIHZhbHVlLg0KPiA+ID4gPg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4g
+PiA+IE9yIHlvdSBhcmUgc2F5aW5nLCB0aGF0IGVuYWJsaW5nIERJTSBhcyBkZWZhdWx0IGhhcyBz
+b21lDQo+ID4gPiA+ID4gPiBpc3N1ZSwgYW5kIHVudGlsDQo+ID4gPiA+ID4gdGhhdCBwb2ludCB5
+b3UgcHJlZmVyIHRvIGhhdmUgc29tZSBkZWZhdWx0IGluIHRoZSBkZXZpY2U/DQo+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiBQYXJ0bHkgdHJ1ZS4gVGhlIGNvbXBsZXRlIHB1cnBvc2UgaXMgdGhhdCB0aGUg
+ZGV2aWNlIGNhbiBoYXZlDQo+ID4gPiA+ID4gYW55IGRlZmF1bHQgdmFsdWVzDQo+ID4gPiA+ID4g
+KDAgb3Igbm9uLXplcm8pLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiBD
+bG91ZCB2ZW5kb3JzIGNhbm5vdCBkbyB0aGlzLiBBbmQgSSBkb27igJl0IHNlZW0gdG8gc2VlIGFu
+eQ0KPiA+ID4gPiA+ID4gPiBpbnRlcmZlcmVuY2Ugd2l0aCBvdGhlciBkZXZpY2VzIGZyb20gdGhp
+cyBwcm9wb3NhbD8NCj4gPiA+ID4gPiA+ID4gSWYgdGhlIGRldmljZSBkb2VzIG5vdCB3YW50IGEg
+bm9uLXplcm8gdmFsdWUsIGEgdmFsdWUgb2YgMA0KPiA+ID4gPiA+ID4gPiBjYW4gYmUgdXNlZCBh
+cyB0aGUgZGVmYXVsdCB2YWx1ZS4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IEkgZGlkbuKA
+mXQgdW5kZXJzdGFuZCBhYm92ZS4NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
+ID4gPiA+ID4gPiA+IEVzcGVjaWFsbHkgd2hlbiB0aGUgRElNIGlzIGRpc2FibGVkIGZyb20gdGhl
+IGVuYWJsZWQNCj4gPiA+ID4gPiA+ID4gPiA+IHN0YXRlLCBhbGxvd2luZyB0aGUgZHJpdmVyIHRv
+IHJlc3RvcmUgZGVmYXVsdCBwYXJhbWV0ZXJzDQo+ID4gPiA+ID4gPiA+ID4gPiBmb3IgZGV2aWNl
+IHdpbGwgcHJldmVudCBvY2Nhc2lvbmFsIHBlcmZvcm1hbmNlIGRlZ3JhZGF0aW9uLg0KPiA+ID4g
+PiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBXaGVuIERJTSBpcyBkaXNhYmxlZCwgZG8geW91
+IG1lYW4gZHJpdmVyIGRvZXMgbm90IGhhdmUgYW55DQo+ID4gPiA+ID4gPiA+ID4gZ29vZA0KPiA+
+ID4gPiA+IGRlZmF1bHRzPw0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiBESU0gaXMgbm90
+IGd1YXJhbnRlZWQgdG8gaGF2ZSBhIGZyaWVuZGx5IHZhbHVlIHdoZW4gZGlzYWJsZWQuDQo+ID4g
+PiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBJIGRpZG7igJl0IGZvbGxvdy4NCj4gPiA+ID4gPiA+DQo+
+ID4gPiA+ID4gPiAoYSkgV2hlbiBESU0gaXMgZW5hYmxlZCwgRElNIGRlY2lkZXMgdGhlIHZhbHVl
+Lg0KPiA+ID4gPiA+ID4gKGIpIFdoZW4gRElNIGlzIGRpc2FibGVkLCB6ZXJvIGlzIG5vdCBnb29k
+IGRlZmF1bHQgaW4gdGhlIGRldmljZS4NCj4gPiA+ID4gPiA+IERpZCBJDQo+ID4gPiA+ID4gdW5k
+ZXJzdGFuZCByaWdodD8NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBJIGFncmVlIHdpdGggKGEp
+IGFuZCAoYikuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBSaWdodC4NCj4gPiA+ID4gPg0KPiA+ID4g
+PiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBJIGd1ZXNzIHRoaXMgaXNzdWUgc3VyZmFjZXMgZnJvbSB0
+aGUgZmVhdHVyZSBuZWdvdGlhdGlvbg0KPiA+ID4gPiA+ID4gPiA+IGxpbWl0YXRpb24gdGhhdCwg
+aXQNCj4gPiA+ID4gPiA+ID4gbXVzdCBiZSBkb25lIGVhcmx5IGVub3VnaCBiZWZvcmUgRFJJVkVS
+X09LLg0KPiA+ID4gPiA+ID4gPiA+IEFuZCBESU0gaXMgc3RpbGwgZGlzYWJsZWQgaW4gZHJpdmVy
+Lg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiBXZSBsYWNrIHRoZSBjYXBhYmlsaXR5IGZp
+bGVkIG9mIGRlZmF1bHQgY29hbGVzY2luZw0KPiA+ID4gPiA+ID4gPiBwYXJhbWV0ZXJzLCBzbyBH
+RVQgaXMgdXNlZCB0byBhbGxldmlhdGUgdGhpcy4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+IFdoZW4gR0VUIGlzIG5vdCBzdXBwb3J0ZWQsIGV0aHRvb2wgc2hvdWxkIGdldCAtRU5PU1VQUCBp
+bnN0ZWFkIG9mDQo+IDAuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBXZSBkb24ndCBoYXZlIGEgc2Vw
+YXJhdGUgZmVhdHVyZSBiaXQgZm9yIEdFVCwgcmlnaHQ/IFNvIGlmDQo+ID4gPiA+ID4gVlFfTk9U
+Rl9DT0FMIGlzIG5lZ290aWF0ZWQsIHRoZSBkZXZpY2Ugc3VwcG9ydHMgdGhlIEdFVA0KPiBjb21t
+YW5kLg0KPiA+ID4gPiA+DQo+ID4gPiA+IFllcywgSSBtZWFudCB0byBzYXkgdGhhdCBWSVJUSU9f
+TkVUX0NUUkxfTk9URl9DT0FMIGFuZA0KPiA+ID4gPiBWUV9OT1RGX0NPQUwNCj4gPiA+IGJvdGgg
+bWF5IG5vdCBiZSBvZmZlcmVkLg0KPiA+ID4gPiBXaGVuIG9ubHkgVklSVElPX05FVF9DVFJMX05P
+VEZfQ09BTCBpcyBkb25lLCB0aGUgZHJpdmVyIGNhbg0KPiByZXBvcnQNCj4gPiA+ID4gLQ0KPiA+
+ID4gRU5PU1VQUC4NCj4gPiA+ID4NCj4gPiA+DQo+ID4gPiBJIHRoaW5rICJWSVJUSU9fTkVUX0Zf
+Tk9URl9DT0FMIiBhbmQgVlFfTk9URl9DT0FMIGJvdGggbWF5IG5vdA0KPiBiZQ0KPiA+ID4gb2Zm
+ZXJlZD8NCj4gPiA+DQo+ID4gUmlnaHQuIERvbuKAmXQgc2VlIGEgdmFsdWUgb2YgRl9OT1RGX0NP
+QUwsIG9uY2UgdGhlIFZRX05PVEZfQ09BTCBpcw0KPiBvZmZlcmVkLg0KPiA+DQo+ID4gPg0KPiA+
+ID4gPg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IFRoYXQg
+ZXhwbGFpbnMuDQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBDb21taXQgbG9nIG5l
+ZWRzIHRvIGV4cGxhaW4gdGhpcyBsaW1pdGF0aW9uIGFuZCB0aGUgZ2Fpbg0KPiA+ID4gPiA+ID4g
+PiA+IGJ5IHJlbGF4aW5nIGl0IHRvIGJlDQo+ID4gPiA+ID4gPiA+IG5vbi16ZXJvLg0KPiA+ID4g
+PiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gQW55IHJlYXNvbiBESU0gaXMgZGlzYWJsZWQgYnkg
+ZGVmYXVsdCBpbiB0aGUgZHJpdmVyPw0KPiA+ID4gPiA+ID4gPiA+IElmIFZRX05PVEZfQ09BTCBp
+cyBzdXBwb3J0ZWQgYnkgZGV2aWNlLCBESU0gc2hvdWxkIGJlDQo+ID4gPiA+ID4gPiA+ID4gZW5h
+YmxlZCBieQ0KPiA+ID4gPiA+ID4gPiBkZWZhdWx0Lg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+
+ID4gPiB2aXJ0aW8tbmV0IHN1cHBvcnQgZm9yIG5ldGRpbSBuZWVkcyB0byBiZSBvcHRpbWl6ZWQu
+IE9mDQo+ID4gPiA+ID4gPiA+IGNvdXJzZSwgSSBhbHNvIGZvdW5kIHRoYXQgb3RoZXIgbmV0d29y
+ayBjYXJkcyBhbHNvIGhhdmUNCj4gb3B0aW1pemF0aW9uIHBvaW50cy4NCj4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gSSdtIHRyeWluZyB0byBlbmFibGUgRElNIGZvciB1cHN0cmVhbSBieSBk
+ZWZhdWx0LCBhZnRlciBJJ3ZlDQo+ID4gPiA+ID4gPiA+IGRvbmUgdGhlIHByb2ZpbGUgbGlzdCB0
+dW5pbmcgZXRjLg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gU2luY2UgdGhlIFZJUlRJT19ORVRfRl9OT1RG
+X0NPQUwgZmVhdHVyZSBkb2VzIG5vdA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHByb3ZpZGUgYSBy
+ZWxhdGVkIEdFVCBjb21tYW5kIG9yIGNvbmZpZyBmaWVsZCwgd2UNCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiBzdGlsbCBjb25zaWRlciBpdHMgZGVmYXVsdCB2YWx1ZXMNCj4gPiA+ID4gPiA+ID4gdG8g
+YmUgMC4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiBUaGUgYmVo
+YXZpb3IgZm9yIFZJUlRJT19ORVRfRl9OT1RGX0NPQUwgYW5kDQo+ID4gPiA+ID4gPiA+ID4gPiBW
+SVJUSU9fTkVUX0ZfVlFfTk9URl9DT0FMIGNhbiBzdGF5IHNhbWUgZm9yIHRoZSBkZWZhdWx0DQo+
+IHZhbHVlLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiBDYW4geW91IHBsZWFzZSBleHBsYWluIHRoZSBt
+b3RpdmF0aW9uIGZvciBydW5uaW5nDQo+ID4gPiA+ID4gPiA+ID4gPiA+IGRpZmZlcmVudCBkZWZh
+dWx0IHZhbHVlcw0KPiA+ID4gPiA+ID4gPiA+ID4gZm9yIHR3byBkaWZmZXJlbnQgZmVhdHVyZXMg
+aW4gdGhpcyBjb21taXQgbG9nPw0KPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+
+IFRoZSBjdXJyZW50IHNwZWMgbGVhdmVzIGNvYWxlc2NpbmcgcGFyYW1ldGVycyBmb3IgYm90aA0K
+PiBmZWF0dXJlcyBhdCAwLg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+IEZf
+VlFfTk9URl9DT0FMIHByb3ZpZGVzIGEgR0VUIGNvbW1hbmQsIHRoYXQgaXMsIG5vbi16ZXJvDQo+
+ID4gPiA+ID4gPiA+ID4gPiAwIGNhbiBiZSBvYnRhaW5lZCBieSB0aGUgZHJpdmVyIGZyb20gdGhl
+IGRldmljZSwgYnV0DQo+ID4gPiA+ID4gPiA+ID4gPiBGX05PVEZfQ09BTCBkb2VzIG5vdCBoYXZl
+IGEgc2ltaWxhciBHRVQgY29tbWFuZC4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+
+ID4gR0VUIGNvbW1hbmQgZG9lc24ndCBnaXZlIHRoZSBhYmlsaXR5IHRvIGRlZmluZSB0aGUgZGVm
+YXVsdHMuDQo+ID4gPiA+ID4gPiA+ID4gU28gYm90aCBjYW4gaGF2ZSBub24gemVybyBkZWZhdWx0
+cy4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gTWFrZXMgc2Vuc2UuDQo+ID4gPiA+ID4g
+PiA+DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+IFNvIHdoZW4gdnEgcmVzZXQg
+b2NjdXJzIG9yIGRpbSBpcyBkaXNhYmxlZCBmcm9tIHRoZQ0KPiA+ID4gPiA+ID4gPiA+ID4gZW5h
+YmxlZCBzdGF0ZSwgdGhlIGRyaXZlciB3aXRoIEZfVlFfTk9URl9DT0FMIG5lZ290aWF0ZWQNCj4g
+PiA+ID4gPiA+ID4gPiA+IGhhcyB0aGUgYWJpbGl0eSB0byByZXN0b3JlIG5vbi16ZXJvIHZhbHVl
+cywgYnV0IG9ubHkNCj4gPiA+ID4gPiA+ID4gPiA+IHdoZW4gRl9OT1RGX0NPQUwgaXMgbmVnb3Rp
+YXRlZCwgdGhlIGRyaXZlciBoYXMgbm8gcGF0aA0KPiA+ID4gPiA+ID4gPiA+ID4gdG8gb2J0YWlu
+IHRoZSBub24temVybyB2YWx1ZSwgbGV0IGFsb25lIHJlc3RvcmUgbm9uLXplcm8NCj4gPiA+ID4g
+PiA+ID4gdmFsdWVzLg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBXaGVuIEZf
+Tk9URl9DT0FMIGlzIG5lZ290aWF0ZWQsIGlmIHRoZSBkZXZpY2UgaGFzIGl0cyBub24NCj4gPiA+
+ID4gPiA+ID4gPiB6ZXJvIGRlZmF1bHRzLA0KPiA+ID4gPiA+ID4gPiB3aHkgZG9lcyBkcml2ZXIg
+bmVlZCB0byByZXN0b3JlIGFueXRoaW5nPw0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiBZ
+ZXMsIGRldmljZSB3aWxsIHNldCB0aGVzZS4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IE9r
+LiBzbyBubyByZXN0b3JlIG5lZWRlZC4NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gU3VnZ2VzdGVkLWJ5OiBKYXNvbiBXYW5nIDxqYXNvd2Fu
+Z0ByZWRoYXQuY29tPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IEhlbmcg
+UWkgPGhlbmdxaUBsaW51eC5hbGliYWJhLmNvbT4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAtLS0N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPiB2MS0+djI6DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gICAt
+IFVwZGF0ZSBkZXNjcmlwdGlvbiBASmFzb24uDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiAgZGV2aWNlLXR5cGVzL25ldC9kZXNjcmlwdGlvbi50ZXggfCAyMg0K
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+ICsrKysrKysrKysrKysrKy0tLS0tLS0NCj4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25z
+KC0pDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBkaWZmIC0t
+Z2l0IGEvZGV2aWNlLXR5cGVzL25ldC9kZXNjcmlwdGlvbi50ZXgNCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiBiL2RldmljZS0gdHlwZXMvbmV0L2Rlc2NyaXB0aW9uLnRleCBpbmRleA0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+IDYxY2NlMWYuLmNmNGIxMmMgMTAwNjQ0DQo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gLS0tIGEvZGV2aWNlLXR5cGVzL25ldC9kZXNjcmlwdGlvbi50ZXgNCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiArKysgYi9kZXZpY2UtdHlwZXMvbmV0L2Rlc2NyaXB0aW9uLnRleA0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+IEBAIC0xODA1LDYgKzE4MDUsMTAgQEAgXHN1YnN1YnNlY3Rpb257Q29udHJv
+bA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFZpcnRxdWV1ZX1cbGFiZWx7c2VjOkRldmljZSBUeXBl
+cyAvIE5ldHdvcmsgRGV2aWNlIC8NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBEZXZpDQo+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgVGhlIGRldmljZSBtYXkgZ2Vu
+ZXJhdGUgbm90aWZpY2F0aW9ucyBtb3JlIG9yIGxlc3MNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBm
+cmVxdWVudGx5IHRoYW4gc3BlY2lmaWVkIGJ5IHNldCBjb21tYW5kcyBvZiB0aGUNCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMDQo+ID4gPiA+ID4gPiA+IGNs
+YXNzLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gK0lmIHRo
+ZSBWSVJUSU9fTkVUX0ZfVlFfTk9URl9DT0FMIGZlYXR1cmUgaXMNCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiArb2ZmZXJlZCwgdGhlIGRldmljZSBtYXkgaW5pdGlhbGl6ZSB0aGUgY29hbGVzY2luZw0K
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+ICtwYXJhbWV0ZXJzIGZvciBlYWNoIHRyYW5zbWl0IG9yIHJl
+Y2VpdmUgdmlydHF1ZXVlDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gK3RvIG5vbi16ZXJvIHZhbHVl
+cywgb3RoZXJ3aXNlLCB0byAwLCB3aGljaCBhcmUNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiArY2Fs
+bGVkIGRlZmF1bHQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBjb2FsZXNjaW5nIHBhcmFtZXRlcnMu
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gKw0KPiA+ID4gPiA+ID4gPiA+ID4gPiBJbnN0ZWFkIG9m
+ICdvZmZlcmVkJywgaXQgc2hvdWxkIGJlICduZWdvdGlhdGVkJy4NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gQmVjYXVzZSBpZiBtYXkgYmUgb2ZmZXJlZCwNCj4gPiA+ID4gPiA+ID4gPiA+IGJ1dCBkcml2
+ZXIgbWF5IG5vdCBoYXZlIGVuYWJsZWQgaXQuDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+
+ID4gPiA+ID4gSSBkbyBub3QgdGhpbmsgc28uDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+
+ID4gPiA+ID4gRXZlbiBpZiB0aGUgZHJpdmVyIGRvZXMgbm90IG5lZ290aWF0ZSwgYXMgbG9uZyBh
+cyB0aGUNCj4gPiA+ID4gPiA+ID4gPiA+IGRldmljZSBoYXMgdGhlIGFiaWxpdHkgdG8gYWRqdXN0
+IGNvYWxlc2NpbmcgcGFyYW1ldGVycyAoaS5lLg0KPiA+ID4gPiA+ID4gPiA+ID4gb2ZmZXJlZCks
+IHRoZSBkZXZpY2Ugd2lsbCBpbml0aWFsaXplIGFueSB2YWx1ZXMuDQo+ID4gPiA+ID4gPiA+ID4g
+Pg0KPiA+ID4gPiA+ID4gPiA+IFRoZSBkZXZpY2UgY2FuIGluaXRpYWxpemUgY29hbGVzY2luZyBw
+YXJhbWV0ZXJzIHJlZ2FyZGxlc3MNCj4gPiA+ID4gPiA+ID4gPiBvZiBWUV9OT1RGX0NPQUwNCj4g
+PiA+ID4gPiA+ID4gb2ZmZXJlZCBvciBub3QuDQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+ID4NCj4gPiA+ID4gPiA+ID4gUmlnaHQuDQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgSWYgY29hbGVzY2lu
+ZyBwYXJhbWV0ZXJzIGFyZSBiZWluZyBzZXQsIHRoZSBkZXZpY2UNCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiBhcHBsaWVzIHRoZSBsYXN0IGNvYWxlc2NpbmcgcGFyYW1ldGVycyBzZXQgZm9yIGENCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiB2aXJ0cXVldWUsIHJlZ2FyZGxlc3Mgb2YgdGhlIGNvbW1hbmQg
+dXNlZCB0byBzZXQgdGhlDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gcGFyYW1ldGVycy4gVXNlIHRo
+ZSBmb2xsb3dpbmcgY29tbWFuZCBzZXF1ZW5jZSAgd2l0aA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+IHR3byBwYWlycyBvZiB2aXJ0cXVldWVzIGFzDQo+ID4gPiA+ID4gYW4gZXhhbXBsZToNCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiBAQCAtMTg3Myw2ICsxODc3LDEwIEBAIFxzdWJzdWJzZWN0aW9ue0Nv
+bnRyb2wNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBWaXJ0cXVldWV9XGxhYmVse3NlYzpEZXZpY2Ug
+VHlwZXMgLyBOZXR3b3JrIERldmljZSAvDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRGV2aQ0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIFRoZSBkcml2ZXIgTVVT
+VCBpZ25vcmUgdGhlIHZhbHVlcyBvZiBjb2FsZXNjaW5nDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+cGFyYW1ldGVycyByZWNlaXZlZCBmcm9tIHRoZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFZJUlRJ
+T19ORVRfQ1RSTF9OT1RGX0NPQUxfVlFfR0VUDQo+ID4gPiA+ID4gY29tbWFuZA0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+IGlmIHRoZSBkZXZpY2UgcmVzcG9uZHMgd2l0aCBWSVJUSU9fTkVUX0VSUi4N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICtJZiB0aGUgVklS
+VElPX05FVF9GX1ZRX05PVEZfQ09BTCBmZWF0dXJlIGlzDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+K25lZ290aWF0ZWQsIHRoZSBkcml2ZXINCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBNVVNUDQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gK2dldCBjb2FsZXNjaW5nIHBhcmFtZXRlcnMgZm9yIGVhY2ggZW5h
+YmxlZCB0cmFuc21pdA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICtvciByZWNlaXZlIHZpcnRxdWV1
+ZSB0aHJvdWdoIHRoZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICtWSVJUSU9fTkVUX0NUUkxfTk9U
+Rl9DT0FMX1ZRX0dFVA0KPiA+ID4gPiA+ID4gPiA+ID4gY29tbWFuZA0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+IGFmdGVyIGEgc3VjY2Vzc2Z1bCBkZXZpY2UgcmVzZXQuDQo+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gKw0KPiA+ID4gPiA+ID4gPiA+ID4gPiBUaGUgZHJpdmVyIGlzIGZyZWUgdG8gbm90IGNh
+bGwgR0VUIGNhbGwgYXQgYWxsLiBJdCBjYW4gYWx3YXlzIGp1c3QNCj4gZG8gc2V0Lg0KPiA+ID4g
+PiA+ID4gPiA+ID4gPiBTbyBpdCBjYW5ub3QgYmUgbXVzdCByZXF1aXJlbWVudCBmb3IgdGhlIGRy
+aXZlciB0byBnZXQgdGhlbS4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBU
+aGlzIGlzIG1haW5seSBmb3JjZWQgdG8gTVVTVCBkdXJpbmcgdGhlIHByb2JlIHBoYXNlLg0KPiA+
+ID4gPiA+ID4gPiA+ID4gT3RoZXIgdGltaW5ncywgdGhlIGV4aXN0aW5nIHNwZWMgaGFzIGFscmVh
+ZHkgZGVzY3JpYmVkIGl0IGNsZWFybHkuDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4g
+PiA+IEkgZG9uJ3Qgc2VlIGl0IGlzIG5lZWRlZCB0byBmb3JjZSBkcml2ZXIgdG8gcmVhZC4NCj4g
+PiA+ID4gPiA+ID4gPiBXaHkgaXMgaXQgbXVzdCBmb3IgdGhlIGRyaXZlciB0byByZWFkIGl0PyBJ
+dCBjYW4gb3BlcmF0ZSB3aXRob3V0DQo+IHJlYWQuDQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4g
+PiA+IE90aGVyd2lzZSB0aGUgZGV2aWNlIGhhcyBhIG5vbi16ZXJvIGRlZmF1bHQgdmFsdWUsIGJ1
+dCB1c2Vycw0KPiA+ID4gPiA+ID4gPiB1c2luZyBldGh0b29sIC1jIHNlZSBhIHZhbHVlIG9mIDAu
+DQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBXaGVuIEdFVCBpcyBzdXBwb3J0ZWQsIGV0aHRv
+b2wgY2FsbGJhY2sgc2hvdWxkIHF1ZXJ5IHRoZSBjdXJyZW50DQo+IHZhbHVlLg0KPiA+ID4gPiA+
+ID4gRHJpdmVyIGNhbiByZWFkIGl0IG9uY2UgYXQgc3RhcnQgdGltZSwgYnV0IGl0IGlzIG5vdCBh
+IE1VU1QNCj4gcmVxdWlyZW1lbnQuDQo+ID4gPiA+ID4gPiBEcml2ZXIgY2FuIHJlYWQgaXQgcnVu
+dGltZSB0b28uIEl0IGlzIHRoZSBkcml2ZXIgaW1wbGVtZW50YXRpb24NCj4gY2hvaWNlLg0KPiA+
+ID4gPiA+ID4gV2UgZG9u4oCZdCBuZWVkIHRvIHRlbGwgaW4gdGhlIHNwZWMsIHdoZW4gZHJpdmVy
+IE1VU1QgcmVhZCBpdC4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+IEkgYWdyZWUgd2l0aCB0aGlzLg0K
+PiA+ID4gPiA+DQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4g
+PiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+IFRoZSB3b3JkaW5nIHNob3VsZCBiZSwgdGhlIGRyaXZl
+ciBNQVkgZ2V0IC4uLg0KPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ICBcZGV2aWNlbm9ybWF0aXZle1xzdWJwYXJhZ3JhcGh9e05vdGlmaWNhdGlvbnMNCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiBDb2FsZXNjaW5nfXtEZXZpY2UgVHlwZXMgLyBOZXR3b3JrIERldmljZSAv
+IERldmljZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IE9wZXJhdGlvbiAvIENvbnRyb2wgVmlydHF1
+ZXVlIC8gTm90aWZpY2F0aW9ucw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IENvYWxlc2Npbmd9DQo+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgVGhlIGRldmljZSBN
+VVNUIGlnbm9yZSBcZmllbGR7cmVzZXJ2ZWR9Lg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IEBAIC0x
+ODg0LDE4ICsxODkyLDE4IEBAIFxzdWJzdWJzZWN0aW9ue0NvbnRyb2wNCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiBWaXJ0cXVldWV9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBOZXR3b3JrIERldmlj
+ZSAvDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRGV2aSBUaGUgZGV2aWNlIE1VU1QgcmVzcG9uZCB0
+bw0KPiA+ID4gPiA+IFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NPQUxfVlFfU0VUDQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gYW5kIFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NPQUxfVlFfR0VUIGNvbW1hbmRz
+DQo+IHdpdGgNCj4gPiA+ID4gPiA+ID4gPiA+IFZJUlRJT19ORVRfRVJSIGlmDQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gdGhlIGRlc2lnbmF0ZWQgdmlydHF1ZXVlIGlzIG5vdCBhbiBlbmFibGVkIHRy
+YW5zbWl0DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gb3IgcmVjZWl2ZQ0KPiA+ID4gPiA+ID4gPiB2
+aXJ0cXVldWUuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAt
+VXBvbiBkaXNhYmxpbmcgYW5kIHJlLWVuYWJsaW5nIGEgdHJhbnNtaXQNCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiB2aXJ0cXVldWUsIHRoZSBkZXZpY2UgTVVTVCBzZXQgdGhlIGNvYWxlc2NpbmcNCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiBwYXJhbWV0ZXJzIG9mIHRoZSB2aXJ0cXVldWUgLXRvIHRob3Nl
+IGNvbmZpZ3VyZWQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiB0aHJvdWdoIHRoZSBWSVJUSU9fTkVU
+X0NUUkxfTk9URl9DT0FMX1RYX1NFVA0KPiA+ID4gPiA+ID4gPiA+ID4gY29tbWFuZCwgb3IsDQo+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gaWYgdGhlIGRyaXZlciBkaWQgbm90IHNldCBhbnkgVFggY29h
+bGVzY2luZyBwYXJhbWV0ZXJzLCB0byAwLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0NCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiAtVXBvbiBkaXNhYmxpbmcgYW5kIHJlLWVuYWJsaW5nIGEgcmVjZWl2
+ZSB2aXJ0cXVldWUsDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gdGhlIGRldmljZSBNVVNUIHNldCB0
+aGUgY29hbGVzY2luZyBwYXJhbWV0ZXJzIG9mIHRoZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHZp
+cnRxdWV1ZSAtdG8gdGhvc2UgY29uZmlndXJlZCB0aHJvdWdoIHRoZQ0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+IFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NPQUxfUlhfU0VUDQo+ID4gPiA+ID4gPiA+IGNv
+bW1hbmQsDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gb3IsIGlmIHRoZSBkcml2ZXIgZGlkIG5vdCBz
+ZXQgYW55IFJYIGNvYWxlc2NpbmcgcGFyYW1ldGVycywgdG8NCj4gMC4NCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiAtDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIFRoZSBiZWhhdmlvciBvZiB0aGUgZGV2
+aWNlIGluIHJlc3BvbnNlIHRvIHNldA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGNvbW1hbmRzIG9m
+IHRoZSBWSVJUSU9fTkVUX0NUUkxfTk9URl9DT0FMIGNsYXNzIGlzDQo+IGJlc3QtZWZmb3J0Og0K
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+ICB0aGUgZGV2aWNlIE1BWSBnZW5lcmF0ZSBub3RpZmljYXRp
+b25zIG1vcmUgb3IgbGVzcw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGZyZXF1ZW50bHkgdGhhbiBz
+cGVjaWZpZWQuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAg
+QSBkZXZpY2UgU0hPVUxEIE5PVCBzZW5kIHVzZWQgYnVmZmVyIG5vdGlmaWNhdGlvbnMNCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiB0byB0aGUgZHJpdmVyIGlmIHRoZSBub3RpZmljYXRpb25zIGFyZSBz
+dXBwcmVzc2VkLA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGV2ZW4gaWYgdGhlIG5vdGlmaWNhdGlv
+biBjb25kaXRpb25zIGFyZQ0KPiA+ID4gPiA+ID4gPiA+ID4gbWV0Lg0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gLVVwb24gcmVzZXQsIGEgZGV2aWNlIE1VU1Qg
+aW5pdGlhbGl6ZSBhbGwgY29hbGVzY2luZw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHBhcmFtZXRl
+cnMgdG8NCj4gPiA+ID4gPiAwLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICtVcG9uIHJlc2V0LCBh
+IGRldmljZSBNVVNUIHNldCBkZWZhdWx0IGNvYWxlc2NpbmcNCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiArcGFyYW1ldGVycyBmb3IgYWxsIHRyYW5zbWl0IG9yIHJlY2VpdmUgdmlydHF1ZXVlcy4NCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiArDQo+ID4gPiA+ID4gPiA+ID4gPiA+IFRoZSBkZXZpY2UgTUFZ
+IHNldCBwYXJhbWV0ZXJzIHRvIHplcm8gb3Igbm9uIHplcm8gdmFsdWVzLi4NCj4gPiA+ID4gPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBPay4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+
+ID4gPiA+ID4gPiA+IEkgYW0gc3RpbGwgbWlzc2luZyB0aGUgbW90aXZhdGlvbiBwYXJ0IG9mIHdo
+eSB0byBzZXQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gbm9uIHplcm8gdmFsdWUsIGV2ZW4gaWYNCj4g
+PiA+ID4gPiA+ID4gPiA+IHRoZSBkcml2ZXIgaGFzIG5lZ290aWF0ZWQgdGhlIGZlYXR1cmUuDQo+
+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gUGxlYXNlIHNlZSB0aGUgYWJvdmUg
+ZGVzY3JpcHRpb24uDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IElmIEkgdW5k
+ZXJzdG9vZCBpcyByaWdodCwgdGhlIGNhc2UgaXM6DQo+ID4gPiA+ID4gPiA+ID4gX1ZRX05PVEZf
+Q09BTCBpcyBuZWdvdGlhdGVkLCBhbmQgRElNIGlzIGRpc2FibGVkLg0KPiA+ID4gPiA+ID4gPiA+
+IEFuZCBkZXZpY2UgaXMgdW5hYmxlIHRvIGFwcGx5IHNvbWUgZ29vZCBub24gemVybyBkZWZhdWx0
+cy4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gSWYgX1ZRX05P
+VEZfQ09BTCBpcyBuZWdvdGlhdGVkLCBhbmQgRElNIGlzIGRpc2FibGVkOg0KPiA+ID4gPiA+ID4g
+Pg0KPiA+ID4gPiA+ID4gPiAxLiBUaGUgZGV2aWNlIHdhbnRzIHRvIHNldCBhIG5vbi16ZXJvIHZh
+bHVlIGZvciBnb29kIHBlcmYsDQo+ID4gPiA+ID4gPiA+ICAgIGJ1dCB0aGUgdXNlciBzZWVzIGEg
+dmFsdWUgb2YgMC4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IFRoZSBvbmx5IGxpbWl0YXRp
+b24gdGhhdCB3ZSB3YW50IHRvIHJlbW92ZSBpcywgb24gZGV2aWNlDQo+ID4gPiA+ID4gPiByZXNl
+dCwgdGhlIGRldmljZQ0KPiA+ID4gPiA+IG1heSBoYXZlIGFueSBkZWZhdWx0IHZhbHVlLg0KPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gUmlnaHQsIGFuZCB0aGUgZHJpdmVyIG1heSBxdWVyeSB0aGUgdmFs
+dWUgdXNpbmcgdGhlIEdFVCBjb21tYW5kLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPg0KPiA+ID4g
+PiA+ID4gPiAyLiBXaGVuIHRoZSB1c2VyIGhhcyBub3QgYWN0aXZlbHkgbW9kaWZpZWQgdGhlIHZh
+bHVlLCBESU0NCj4gPiA+ID4gPiA+ID4gc3dpdGNoZXMgZnJvbQ0KPiA+ID4gPiA+IHRoZQ0KPiA+
+ID4gPiA+ID4gPiAgICBlbmFibGVkIHN0YXRlIHRvIHRoZSBkaXNhYmxlZCBzdGF0ZSwgdGhlbiB0
+aGUgZHJpdmVyIGV4cGVjdHMgdG8NCj4gaXNzdWUgYQ0KPiA+ID4gPiA+ID4gPiAgICBzZXR0aW5n
+IGNvbW1hbmQgd2l0aCBhIGRlZmF1bHQgdmFsdWUuIFRvIGF2b2lkDQo+ID4gPiA+ID4gPiA+IHBl
+cmZvcm1hbmNlDQo+ID4gPiA+ID4gZGVncmFkYXRpb24NCj4gPiA+ID4gPiA+ID4gICAgY2F1c2Vk
+IGJ5IGEgYmFkIHZhbHVlLg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gVGhpcyAjMiBzZWVt
+cyBsaWtlIHNvbWUgaGFjay4gU2hvdWxkIEkgcmVhZCB0aGUgTGludXggY29kZSBpbiB0aGlzDQo+
+IGFyZWE/DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBOby4gVGhpcyBpcyBzb21lIGtpbmQgb2YgcGVy
+Zm9ybWFuY2Ugb3B0aW1pemF0aW9uIGF0IHRoZSBjb2RlIGxldmVsLg0KPiA+ID4gPiA+IFdoZW4g
+RElNIGlzIHR1cm5lZCBvZmYsIHRoZSBkcml2ZXIgY29uZmlndXJlcyBkZWZhdWx0IHZhbHVlcyBm
+b3INCj4gPiA+ID4gPiB0aGUgZGV2aWNlIHRvIGF2b2lkIGFueSBiaWcgcGVyZm9ybWFuY2UgcmVn
+cmVzc2lvbi4NCj4gPiA+ID4gPg0KPiA+ID4gPiBJZiB0aGUgZHJpdmVyIGNvbmZpZ3VyZXMgdGhl
+IGRlZmF1bHQsIHdlIGRvbuKAmXQgbmVlZCBkZXZpY2UgdG8NCj4gPiA+ID4gYXBwbHkgYW55DQo+
+ID4gPiBkZWZhdWx0cy4NCj4gPiA+DQo+ID4gPiB3aGVuIGRvZXMgdGhlIGRyaXZlciBjb25maWd1
+cmUgdGhlIGRlZmF1bHQgdmFsdWUgKGFjdHVhbGx5IEkgbWVhbg0KPiA+ID4gdGhlIGluaXRpYWwN
+Cj4gPiA+IHZhbHVlKSBhbmQgaG93IGRvZXMgdGhlIGRyaXZlciBrbm93IHdoaWNoIGRlZmF1bHQg
+KGluaXRpYWwgdmFsdWUpDQo+ID4gPiB2YWx1ZSBhcHBsaWVzIHRvIGFsbCBkZXZpY2VzPw0KPiA+
+ID4NCj4gPiBJIGRvbuKAmXQgdGhpbmsgdGhlIGRyaXZlciBjYW4gYXBwbHkuDQo+ID4gSSB1bmRl
+cnN0b29kIHRoYXQgeW91IHdhbnRlZCB0aGUgZHJpdmVyIHRvIGNvbmZpZ3VyZSBzb21lIGRlZmF1
+bHQgZnJvbQ0KPiA+IHdoYXQgeW91IHdyb3RlIGFzICIgV2hlbiBESU0gaXMgdHVybmVkIG9mZiwg
+dGhlIGRyaXZlciBjb25maWd1cmVzIGRlZmF1bHQNCj4gdmFsdWVzIGZvciB0aGUgZGV2aWNlIHRv
+IGF2b2lkIGFueSBiaWcgcGVyZm9ybWFuY2UgcmVncmVzc2lvbi4iDQo+IA0KPiBNYXliZSBJIGRp
+ZG4ndCBkZXNjcmliZSBpdCBjbGVhcmx5LCBjb25zaWRlciB0aGUgZm9sbG93aW5nIHNjZW5hcmlv
+Og0KPiAxLiBUaGUgZHJpdmVyIG1heSBvYnRhaW4gdGhlIGluaXRpYWwgdmFsdWUuIElmIG5vdCwg
+dGhlIHZhbHVlIGlzIDAuIC0tLT4gVGhpcyBpbml0aWFsDQo+IHZhbHVlIGNhbGxlZCBkZWZhdWx0
+IHZhbHVlLg0KTGV0cyBqdXN0IGtlZXAgaXQgY3VycmVudCB2YWx1ZSBpbiB0aGUgc3BlYyBhbmQg
+a2VlcCBpdCBzaW1wbGUuDQoNCj4gMi4gVXNlciBxdWVyeSB0aGUgY29hbGVzY2luZyBwYXJhbWV0
+ZXJzLiAgLS0tPiBEcml2ZXIgcmV0dXJuIHRoZSBkZWZhdWx0IHZhbHVlLg0KPiAzLiBkaW0gaXMg
+ZGlzYWJsZWQgZnJvbSBlbmFibGVkIHN0YXRlIC0+IERyaXZlciByZXN0b3JlcyB0aGUgZGV2aWNl
+IHVzaW5nIHRoZQ0KPiBkZWZhdWx0IHZhbHVlIG9idGFpbmVkIGZyb20gdGhlIGRldmljZS4NCj4g
+DQpPay4gbG9va3MgZmluZSB0byBtZSBhcyBsb25nIGFzIHdlIGtlZXAgaXQgY3VycmVudCB2YWx1
+ZSBhbmQgc2F5IHRoYXQgdGhlIGRldmljZSBtYXkgaGF2ZSBhbnkgbm9uIHplcm8gb3IgemVybyBu
+b3RpZmljYXRpb24gY29hbGVzY2luZyBwYXJhbWV0ZXJzIGJlZm9yZSBWUV9TRVQgaXMgZG9uZS4N
+Cg0KPiBUaGFua3MuDQo+IA0KPiA+DQo+ID4gPiBUaGFua3MuDQo+ID4gPg0KPiA+ID4gPiBJIHRo
+b3VnaHQgeW91ciBpbnRlbnRpb24gd2FzLCB0aGUgZHJpdmVyIGRvZXMgbm90IGtub3cgd2hhdCBp
+cyB0aGUNCj4gPiA+ID4gYmVzdA0KPiA+ID4gbm90aWZpY2F0aW9uIHJhdGUgdG8gY29uZmlndXJl
+IGFuZCBmZWF0dXJlIGlzIGVuYWJsZWQgaW4gdGhlIGRldmljZS4NCj4gPiA+ID4gQW5kIHRoZSBk
+ZXZpY2UgZG9lcyBub3QgaGF2ZSBhbnkgZ29vZCBkZWZhdWx0cyAoYmVjYXVzZSBkcml2ZXIgaXMN
+Cj4gPiA+ID4gbm90DQo+ID4gPiBjb25maWd1cmluZyBhbnkgZGVmYXVsdHMpLg0KPiA+ID4gPg0K
+PiA+ID4gPiBCdXQgaGVyZSB5b3Ugc2F5LCB0aGUgZHJpdmVyIGNvbmZpZ3VyZXMgdGhlIGRyZWZh
+dWx0LiBJIGFtIGxvc3QuIOKYuQ0KPiA+ID4gPg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
+V2UgYXNzdW1lIHRoYXQgbW9zdCB1c2VycyBkbyBub3QgaGF2ZSB0aGUgcHJlcmVxdWlzaXRlDQo+
+ID4gPiA+ID4gPiA+IGtub3dsZWRnZSB0byBtb2RpZnkgY29hbGVjaW5nIHBhcmFtZXRlcnMuDQo+
+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBSaWdodC4gSGVuY2UgdGhlIERJTSBzaG91bGQgYmUg
+dXNlZC4NCj4gPiA+ID4gPiA+IFdoZW4gRElNIGlzIG5vdCB1c2VkLCBhIG5vbiB6ZXJvIGRlZmF1
+bHQgaXMgZ29vZCB0byBoYXZlLg0KPiA+ID4gPiA+ID4gKHdpdGhvdXQgZm9yY2luZyB0aGUgZHJp
+dmVyIHRvIHJlYWQgaXQpLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gKzENCj4gPiA+ID4gPg0KPiA+
+ID4gPiA+IFRoYW5rcy4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gVGhh
+bmtzLg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gUmln
+aHQ/DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4g
+VGhhbmtzLg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiArUmVnYXJkbGVzcyBvZiB3aGV0aGVyIHRoZSBjb2FsZXNjaW5nIHBhcmFt
+ZXRlcnMNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAraGF2ZSBiZWVuIG92ZXJyaWRkZW4gYnkgc2V0
+IGNvbW1hbmRzIGZyb20gdGhlDQo+ID4gPiA+ID4gPiA+IFZJUlRJT19ORVRfQ1RSTF9OT1RGX0NP
+QUwNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiArY2xhc3MsIHVwb24NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiBkaXNhYmxpbmcNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiArYW5kIHJlLWVuYWJsaW5nIGEg
+dHJhbnNtaXQgb3IgcmVjZWl2ZSB2aXJ0cXVldWUsDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gK3Ro
+ZSBkZXZpY2UgTVVTVCBzZXQgdGhlIHByZXZpb3VzIHBhcmFtZXRlcnMgZm9yIHRoZQ0KPiB2aXJ0
+cXVldWUuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgXHBh
+cmFncmFwaHtEZXZpY2UgU3RhdGlzdGljc31cbGFiZWx7c2VjOkRldmljZQ0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+IFR5cGVzIC8gTmV0d29yayBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9uIC8gQ29u
+dHJvbA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFZpcnRxdWV1ZSAvIERldmljZSBTdGF0aXN0aWNz
+fQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gLS0NCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiAyLjMyLjAuMy5nMDExOTVjZjlmDQo+ID4gPiA+ID4gPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gPg0KPiA+ID4gPg0KPiA+DQo=
