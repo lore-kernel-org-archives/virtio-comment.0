@@ -1,36 +1,39 @@
-Received: from repost01.tmes.trendmicro.eu (repost01.tmes.trendmicro.eu [18.185.115.118])
+Received: from refb02.tmes.trendmicro.eu (refb02.tmes.trendmicro.eu [18.185.115.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424797483
-	for <virtio-comment@lists.linux.dev>; Wed, 22 May 2024 17:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F035E7483
+	for <virtio-comment@lists.linux.dev>; Wed, 22 May 2024 17:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.60
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716397285; cv=fail; b=JCaVIv83WCPKxKbcl6/XOIVakmbO9KFcOINCkxWFsRhFbiGgjFGOvP6T8/ql6W1gxZsAIL8xpS5PrBF5VenhU+CYxvPMpkztGhI8q0DVm8o/g8TdzaTlPMFAD7yVvF5sQZg7WF6pU4dvOUdT0nGL9Yd28KLmXYsvxv43atygBlw=
+	t=1716397290; cv=fail; b=CihfGDq253T/5EptLodLb+vUoCWMDD+sgZbbTDchIP2u3bL1zmklyKCyvhIysvICr/k8gXnyKErwxBJOlVdaGQganrrCZyQMK51r13DCH/DpkWyG2DyuOEO8lOelwuC4FADhXxGbtn5ccUQgQaX4tv0agGxPU8ZCECgk8f5F064=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716397285; c=relaxed/simple;
-	bh=Z5nhWTRVSykI5oDTRthRKsVJZ3AMjNBu/LXI6YdOuxQ=;
+	s=arc-20240116; t=1716397290; c=relaxed/simple;
+	bh=w55xaOMsh7CcIYlldUXywOmXSRKYNCRvwdkRmyRN72Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hH9+e7DXV7VdCwyoZPznGpBgeRy7X9hWRs8OtqATLhn0FI7fKOiMQEAmDHbUbcYeulTvRXUiBzIxKCc0OzCELx/RjjR+4WL2Qg1SXwGOO+8vHKxnz7ZVvJMOOy7htOjXFvITaibVj9YrRRTNjpgXIDwa4BYOrekpAfcKcC3vfBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=xs9hLzVx; arc=fail smtp.client-ip=18.185.115.118
+	 MIME-Version:Content-Type; b=shwreNP6mF2FFusAb3SgAeHHkBIrzrKC7b5iiZ0jxFKTIEMpiTbx6XsgC9JjwwIyLwnjJrb0hk2AAW+SSY7OnyHCPxNPf8xUJ6lX/6V+jmgeBiKcvPcTuCepGqRbxpE3WUM+ZbpaR/QdmixpxrKcX4aDrYCCv60YZAagimxPJZ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=ZzhiKPHj; arc=fail smtp.client-ip=18.185.115.60
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="xs9hLzVx"
-Received: from 104.47.11.169_.trendmicro.com (unknown [172.21.192.213])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 6BB3710000E2B;
-	Wed, 22 May 2024 17:01:15 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1716397274.457000
-X-TM-MAIL-UUID: ca10a204-443f-4ce5-a695-29edd3c765ba
+	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="ZzhiKPHj"
+Received: from 104.47.11.169_.trendmicro.com (unknown [172.21.10.213])
+	by refb02.tmes.trendmicro.eu (Postfix) with ESMTPS id 765C510046990
+	for <virtio-comment@lists.linux.dev>; Wed, 22 May 2024 17:01:20 +0000 (UTC)
+Received: from 104.47.11.169_.trendmicro.com (unknown [172.21.172.8])
+	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 621231000178B;
+	Wed, 22 May 2024 17:01:13 +0000 (UTC)
+X-TM-MAIL-RECEIVED-TIME: 1716397272.999000
+X-TM-MAIL-UUID: 9d0a9df6-b01b-4879-a43a-90a8f9f60575
 Received: from DEU01-FR2-obe.outbound.protection.outlook.com (unknown [104.47.11.169])
-	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 6FA9A10000E26;
-	Wed, 22 May 2024 17:01:14 +0000 (UTC)
+	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id F3FC3100724BA;
+	Wed, 22 May 2024 17:01:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y40MLIW0cCtMxXDqrfohdkI6FPSnOF1e5GePKx77IZxrB+Ir9qCSyjJB/SjdYe9bicQXB4X4YhodzPomXaU9Ws8MudrNMr/ApX7dgvfIyzEJnFfrcd67vnoJSHY7FN5uz5R9t07fd5VZ3NmL2X+HTqmPdd9NKH6mDS9srshhaoqjmVYglA/2nX4LUqNyZRlHkmXlhT739PVbvmPAV3CkH6N7enMgRYD/A5cHnafUfmiuvlANZD+XPWmnvCSq9fittM0KkCnGZ+kerF+MTrWZmr3mWMoVlw/NWYprnv6vjAydYCiCEDE8FLQvc+CcbicxVBozQAZ15eaBPbo91m1u7w==
+ b=XIMxue5+IjDdvImWAuGIrHGyIcS+A5oeIJ4LwPKGyxsl0brAKwYs31ti+yvZG4cp9GbNv5GNDreTlUQTFhgNKUY1pOiFxXVAaVmYhTf3RFEIQmLCW+AfxZnvwAJiHWgq+LTZLgQl6rriAKeDgtufbpdqsOgh9fY1wk8/ao5BkARqWcoAcFMgI9w4fXayGPDl984RhaOPa2108O86ti5cJyZqUQR6MkzuGLubHTN31ILuDqFB3qwbZbKhhEDooehyL7dFN4sZJlHsj8ECYAA9TVl8N1oZ8pTKVRyAygughlYaeYlOAiszxv0yWQxs184ALxlAafdeMSfdCIKcyQgaWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RCFFXNlDoUw/eUNEizaSLVxZem+laNRNjKyyD39ewYI=;
- b=cCpxoCyHQkGEa49VQLcY2kfb8P7rRCkv6Z1bCmoHTBbPPcBAPewmUE8lS9eDqewu1YZ5QXM+sZ2IwoJSOH288Hax+fChjbMDY2ow7pzMCz1lCANZm8f4Pmqa3NkSVIpwmRzjigAj3WiNBCt6HRNciiL+wSk/jeNVbvOeEgcDxKOp+bImtkluiT6Iv+U6syiCs5m4xt+esrKT/52x6vyBsI+8K50yab8CwJS2wef9axue7wvIc99aUIlRzKqVYV3nIimz3eZ23mkMVndWYvJX1/KprMc8vzPS0AxTTYX+qTkWHrN8xv7gyynkCo2R3KbtbUhPWE0cPbQb6JyoK3w/FA==
+ bh=IZTaynP7vQytDhDZs5wW2mittH+xCjJ9FW+jpHeI5tU=;
+ b=kNNN70KAwiT3MdhNuHWATPYUBmsQg/KBsbW97/Mo8uqskQ9+0ZLLMs7gb2Rx2/5SFSVjU6DrE8tK8RD2x4QW9yLHxWt1zdSnBy/jqArjR0YZiWmXlfBwk7NrBtAiHWuV9wQsNl1ZEiZCwWoQ+5Cd11f8CQ9N/tjnob+uTBrzy+xEYN23+BlksABV27a18UF+QyThbkikWwmQYBrwSMvW42sXDUjyEQeu/8KepbxLPk2sbGkZYNYwh0IqK6YtxKX7j31ho7CYnRDpTU5AmaTyLk0GtbT+wE0x5d53ZefRYg1DgtbthnYVip76mgA9TMDT23fZhj2M82G6NVaTOD930w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  213.61.166.92) smtp.rcpttodomain=amazon.com smtp.mailfrom=opensynergy.com;
  dmarc=fail (p=reject sp=reject pct=100) action=oreject
@@ -49,9 +52,9 @@ Cc: Peter Hilber <peter.hilber@opensynergy.com>,
 	Jason Wang <jasowang@redhat.com>,
 	David Woodhouse <dwmw2@infradead.org>,
 	"Ridoux, Julien" <ridouxj@amazon.com>
-Subject: [RFC PATCH v4 5/5] virtio-rtc: Indicate leap seconds and clock performance
-Date: Wed, 22 May 2024 19:00:03 +0200
-Message-ID: <20240522170003.52565-6-peter.hilber@opensynergy.com>
+Subject: [RFC PATCH v4 4/5] virtio-rtc: Add normative statements for alarm feature
+Date: Wed, 22 May 2024 19:00:02 +0200
+Message-ID: <20240522170003.52565-5-peter.hilber@opensynergy.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240522170003.52565-1-peter.hilber@opensynergy.com>
 References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
@@ -64,109 +67,86 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF000001A8:EE_|BEVP281MB3598:EE_
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001AC:EE_|FR0P281MB2985:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: c99c9edf-cd9f-4b38-543b-08dc7a80c8a3
+X-MS-Office365-Filtering-Correlation-Id: c58ff54b-63ad-48bc-2ee2-08dc7a80c828
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|1800799015|376005|36860700004;
+	BCL:0;ARA:13230031|1800799015|82310400017|376005|36860700004;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?pyl/+wB0Io5ewMihbduFyuQcOofOBQXXelsBxC9qq3EhU96YVwVtT6QmlumR?=
- =?us-ascii?Q?o+/nUIJqIeCBy+m466DVElu7/mKGdRfZ95DDdRt7Q8Ey0Pq1UkHPk6LZPuVc?=
- =?us-ascii?Q?z7WtVYfw6+Ruq8irt1TLOb5z066+8q4edHn/wNn91pOvtv3A/1OQKpRcBQKh?=
- =?us-ascii?Q?fq3Y2VL7ELje8DfgacLzqlzMxpjfCtzBRXSwpi0tRbi9DswgmR94dpeXAdDu?=
- =?us-ascii?Q?3Wpv0mH7CqmI8b0/2bDuV2sNE2Pv0PwJGK9djjWISlFMCeHkLbzlAL8YUO0r?=
- =?us-ascii?Q?x2PAGMHBt1W2cAOEY8vO+X48N1eBHoDvZK11H/xi8CThQyg224uzThUhoguF?=
- =?us-ascii?Q?mOIDUJtWpiD0vMaEYpGFtEDWMZWsf3I4M+QIQ43DGx+tmkRZSE+Ho/MA7Mfv?=
- =?us-ascii?Q?O/oU/hNV7YFBh/4SE/Pcktq5rRU+uXcsoKMGvLMqEW9DvqJnUK1NF0jt49RW?=
- =?us-ascii?Q?WrBBeHr4p/vyqU77rTKkMNAW7pqJSraSawnI6ap8MUGBwGDC99+MZjYHnc7k?=
- =?us-ascii?Q?USTHceHjTW5NZwgG+ghcKetBBBa6mHWQq7PAYfzFk2abjDiWX5BnDE93K9+K?=
- =?us-ascii?Q?KtieUJyeOOD6PCYHyav6ikEZa9MUdPKN4HTpsO9SbschjTjvP51co7I/5/zE?=
- =?us-ascii?Q?YZ2pWSg2eo+vjwd4aCmvz6KNsY4GfrvDWkImQH5WXAfDQ/aLpoTp2dImniwy?=
- =?us-ascii?Q?6toTNCkXthl0rB5csB4TDp0GYhv3rqpBV0syyhvB21B+LbhduR0YqJ+Ob3Oq?=
- =?us-ascii?Q?UfaAyu2/mRybaY7EBMF3fWSBQxyYqLEZAjs7HAoy0V5Vl6dJBi+ANQ4NBTus?=
- =?us-ascii?Q?ZRhuMxWFdSkxaEubPVZwtmijb5P50DnMrR03EpluF0IF8zD069TymWnIdekc?=
- =?us-ascii?Q?7LsG5iT0amGPUah3Pm7BOF1rW1qp+rHlP6fxMJ+3oUwB/yaLUx8jXZO5LAH5?=
- =?us-ascii?Q?9IzyMrcVba9hejWUei8IfnHTsnsUoXQAJN8p9mWWCeCPyyIsKx6f72ZvTFP7?=
- =?us-ascii?Q?tSUq7UXlaeAjy9HVgYiJggtL+vxwwkST7tA5x12NWFDfzHpI5aVVIeUpM1Hi?=
- =?us-ascii?Q?jrTOt6syG8l9PW12Z6/Mibdk7Mu2vt4v9+wV5lPmxYbe+dsDRlZ6LNXqAqtD?=
- =?us-ascii?Q?/CITyAnCLP7YPmKeiPmMNoek8/W7QGdpPQ3hEFfEcyFu5Y/w5cu1uFRhesRc?=
- =?us-ascii?Q?02a2BafpdZoj0Fq6cDSj1xWI2VkujDtWQ8SFKLQpnRW2rqc5y7Oue89dniI9?=
- =?us-ascii?Q?BFRNeaitQ9QYSkK0ThGNnOpYJ6qPX8pZzoQy+3xRgUajIefOa9DDWoFtjrTs?=
- =?us-ascii?Q?o4C/bzRwzvYemylDTrWgc4zu?=
+	=?us-ascii?Q?8ltJxH8IMyMsaLXyZsxi+RlJILD4zsxqczMFISA0AngFu1LeDTrniRMTNn6r?=
+ =?us-ascii?Q?QE4ZyyokKk34Kdd+O5ACz22Tkmz47qdLB6KPf0WsoHMdRoaNtE8iDMukDlPh?=
+ =?us-ascii?Q?aJfKWZHaMxCNEnKNCYUU7m81N0f6wnxds2E+XE4EBx+jAigTF4PSvj2vdJV2?=
+ =?us-ascii?Q?UVFn0Br3N70wq5aNwPIx0UKhly5rZ6WP8dmc3kI34xMKA4gf/jam6N0/PkZ2?=
+ =?us-ascii?Q?afPcOoPOuXm4M/FvO3d7qKVLPB8aB6igvpe0zVzcYuFOI3i1Zp3Bg+OLQE1P?=
+ =?us-ascii?Q?cM/o3M6yC/mdXlACTHuJBaUXfhnwdXsbNscqcz88izmzA6vD6j9GI3hvtHa4?=
+ =?us-ascii?Q?4+5peWziw92o9gXaMbACNyoK5z1dNJly95Uexq9lCSNdxoac06s9aVjp7JKJ?=
+ =?us-ascii?Q?ai2Q6VWY6tfW0Q+o82xbBSjnirL+gGJTYwGahpnBkZ/VWiCPR13vKibrJVPx?=
+ =?us-ascii?Q?CNLQyqGx1i77x6MXA6qHznOkbgbG0rzqo4STxrLyVL8l0VvHLrixvdP5z226?=
+ =?us-ascii?Q?2HszSRuaCzKOHszmEx/SU34aowsrTA6Om9bGfcaBIMaXOMwV6WU4gRhkfB+8?=
+ =?us-ascii?Q?w+VNa9/Bgt87qrao2O0BJItUZrMKX62U3gN01R5135y1BwAfFPwa55fRyiC7?=
+ =?us-ascii?Q?uJBSFic42A5sMkggn+q9BS6V90cIgYd9B6tkdGiY9VcAfCSvRDHrRqtMKmA3?=
+ =?us-ascii?Q?QGfLOiWEIOiQtA5NgeYi4HQqg8YzjtxAwaiZXXhCU0mVbFyez/nUDS4PXaGn?=
+ =?us-ascii?Q?g2n4E27QXLHTlgm/YPJGm55x2PMBXpinwtLndNRAuUW4qr82seV+oma1BTpf?=
+ =?us-ascii?Q?bQ01O0Yi+djPxq947cdUlq02qw6cIs5cTBxHv1qPn3j68EY3iWiVO9b7+5jb?=
+ =?us-ascii?Q?jrzcaSAA87duaKuvNgqS5mnCROCecSNft7CiIOIC7r0GdRbdxxOQ/Mq8mbqB?=
+ =?us-ascii?Q?SkH1dPtdYzDPgRyNI10lcEnlGJwN0y6XjDYQ1Ct4ip++AfP4ZsVLUZ32QtUB?=
+ =?us-ascii?Q?Gw+xrkt3dhk9jmgVdYzvnKwcxMRTAdJ7uuz08C3sRtTMplpabyWhgiwTQgZt?=
+ =?us-ascii?Q?9A/K89o4L62GMOOHeIUowiKQ3zn7lEGpWY4TYIbZum3KzzuN2JsOEQ+PALLL?=
+ =?us-ascii?Q?grtRkYgwbAsdlOIJmvWzBm64V+PdQtMQVjpaHM85JdRWFP790nJUF+7KijVk?=
+ =?us-ascii?Q?t1+zkKVtkJB47xtT4VB8WP4n/sCQPMyzupOHNMLujbhpE4Q/uAAuk4MjYaxO?=
+ =?us-ascii?Q?6Z8Jt0F+AutS5jRCdzEyc/HqMNg2ryP/L+hLO1QqOggn3XKm58FXKYfuqmSK?=
+ =?us-ascii?Q?onT6egJmBVSkPsHRQw9OQA/yGsfT94dVw3N6Q16j7HxqlEVxOX2Zwy6kwffh?=
+ =?us-ascii?Q?knYYhH95x+QDIqPCbdOiC+oNgtqN?=
 X-Forefront-Antispam-Report:
-	CIP:213.61.166.92;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:exchangeconnector.opensynergy.com;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1102;
+	CIP:213.61.166.92;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:exchangeconnector.opensynergy.com;CAT:NONE;SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004);DIR:OUT;SFP:1102;
 X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2024 17:01:11.9536
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2024 17:01:11.1465
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c99c9edf-cd9f-4b38-543b-08dc7a80c8a3
+X-MS-Exchange-CrossTenant-Network-Message-Id: c58ff54b-63ad-48bc-2ee2-08dc7a80c828
 X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=800fae25-9b1b-4edc-993d-c939c4e84a64;Ip=[213.61.166.92];Helo=[SR-MAIL-03.open-synergy.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001A8.eurprd05.prod.outlook.com
+	AMS0EPF000001AC.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEVP281MB3598
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR0P281MB2985
 X-TM-AS-ERS: 104.47.11.169-0.0.0.0
 X-TMASE-Version: StarCloud-1.3-9.1.1023-28404.001
-X-TMASE-Result: 10--21.941300-4.000000
-X-TMASE-MatchedRID: MkiWYsDskLbeh+8ysVj6+nQK0rQOCABeJ/4tLvLYXKRNbINBwEGUTdmf
-	OvGYKiTYVk9DqnTjHCo2U+LJPyEBMPn9b+9cQLCkQn2yf4mJaLj0UV/ZiG4vL4kWhfwArNwD2TY
-	wIQ1PBzvaJrCAW8AFlHuQPe95jstz8TtGogaP+hRGDXkz8A7dj9ztvqTn5fr3MCyfT2VAUIWbtZ
-	hmdNq7fsTIlMaEuOS48sle9rUnxemogyEnO5gz+sxxAYHyfn4eoJ9fUBwJTszS/h9BB4Z80z/m+
-	VkiqiersoJqYeYCXpWRTRwpjWZ4ayd0YtbvE2Wa1yM2vzRKo5Ueshpj+MTh86loHyDFpaEsn78+
-	rslXsyftsC3qXuzsthtvw3tIuzZ3x76wsNdk8j6eKdOylUhP2RdZNq3uNiINx38lKQe4nRcq1rs
-	Ou4oISZCIT7u48D3vGyo5Wk6spRujkdSO9oiZzNIvcEdJ714mHCvksspRd47loshKYmxDJbDtns
-	W5p0yX9M5dGmDxlmzMEGZPh92YKOOJ7xlnyEhz1E/oD1SCaPfUwn9kJ2LfxeMwuXDh5T3xf2UTL
-	gTj3e3EfF85JpQVy/Vwv9obTX/T64acMYuwi89CPQBD3xA/3aryV/2jRq/XEgg3cwDHl/384pQl
-	Upw+SMNfdRV2r13Sj7lXNgfN/EY58Sarp97J8yUIayx+Skid
-X-TMASE-XGENCLOUD: 5cb30dd0-4e23-4b47-bc25-0159df079d04-0-0-200-0
-X-TM-Deliver-Signature: A44569BF7190EB19D29A17F45D299E5F
-X-TM-Addin-Auth: RRHrHkZ/mv1en9f1Itoa6IPQEy2Ssqh2QGHxKc6J89wEkuXXAnDi0sU/u7c
-	IX9RTm4GfMXHHRi4/DdyRlioz84XMje7w6hCumuD+goU7qCkzOhvGVLRgJDcArH3jdT8eib1tH0
-	jrOoOTVW8QATP6Jxt4cbqAP3FyMLiMs7VTTcCnPt8tDfHq+1G7eotyWBGX6F1qn44zAEdqMv3pH
-	1MKI1CsVJ65crxyMAIUSF/fBy6X3zOOJ7U4D92ZuksJPG3/jvrvmjY69PEilvg4/fhkQRMxBiuT
-	lhUnSbBYcU06PZY=.B+cRhbpDCfngDto1osj5Qn4tqUxNRMDXVYbvmhhVgNrwi/kc53fADb45N/
-	Jq2csVMCUbW/xnx13CTsI2TFs8EFt3F1YXZ/CgtBks5Josp5ryyFtyprb8/Z/tPi0gCd9lzSMu7
-	vCUk+8dVeQl1KW1taE0Hi4Id9qrKRUOWGeoCRmfZWz51QDzxtkCrrk9m5EuaP6ibd9YDRlxRKuC
-	FE705V6wsxiKi/12doY/eBjhNC3y7nNWpGMSaLs/wCJ5HD/JbRfQDRxWudceqRrz7jbuDZAMl82
-	zWYsGcqbfHqHjQcUL5/4fKuOhJdmbaAKhJGAamnZDAOgjhkRwBbVZsWzpcA==
+X-TMASE-Result: 10--8.573800-4.000000
+X-TMASE-MatchedRID: j6YoQqc1khHJ+P2VFrJmrBbadjTjVCQ24DiXvcLDKwtf1evRo91IncYL
+	JlEwoYGI1VVt0hSRWsaLO9h/kZ7mQnkHMxUIdlxLGQ+246vupTBs2NNIWkvEKNrm58Qo63iffdA
+	yaXqQ6IAq4Wt0or7ue4CMO1rA8xAV3kKjesh9UXU70BtMXRaQwpFx8VBGp0H2lja+I+hTvQI9/c
+	ISaPHCAVK7runmlPSu2XmimB/R1RO8LquwtGVUugGYjCus6WrVw6vYc1H7LGMugFBQy+58BchgY
+	B6FwvDxSsdwRUJiqKwRLatNkiqKZgXVDeskCzLgFnf3P1XcpeDOe9pZzJLe1fsFqaKfjkncaPtg
+	HcfYAJVdzWgwXwRzC+SK55hwcIi7AMr8TtkOkVghPK2mn+OsTNo+48giqZwn+ng65LLRQXGvngk
+	jHjojpKKGxShspZwB+cTHJKophgC/2tJ3foSBQiPzRlrdFGDwRyf16rAzp94tpiTbmgQIetO2UO
+	iwNHiGbyQlI1XQHHF6JJdnsnqNAg==
+X-TMASE-XGENCLOUD: daa71fc1-d2c7-4c7b-a824-e7817830e638-0-0-200-0
+X-TM-Deliver-Signature: 0A3F5DA66C487776E1A580AA7ABE6E76
+X-TM-Addin-Auth: S211MJLUC7aAPPszP2IyD8Z92xURSBbs3awi2wexO5dlCB4vZA97v31BGPe
+	vVMVlcPYkqTFC8TBGueJ4uaeS+sDH2ouyank4jdHhFszP4p331dRhMobNKLHqq19T+QIr7pY3vD
+	7/gTcdh/bir6ZS1CDbaj31m83oRdKnAvSi8PUYkmSZC8RCesoENrrwSFlSLt6xDlKRvqonwgozq
+	tB0yrlAvp8QJjhNIQm3XKqchOsSizevq6PwW+zKcm72O8yAB94W6nk4CnInoY10RZxM4KJGBb9E
+	0KXG8UHrhHq8J5o=.dPIC9wsQgyQ+j8i46aUdrJZRjlqsQKpaQHbCdF3cCNzK4NLUjzcXYPDYtB
+	ZxbY5mbm/KyjoCfbVugL4B1KmEjpo9sbeZx7z9BRFl5fiR4IRwG5ema7SyL+EkgA2cSCL2ZUBnD
+	5ELD+y8DoIlosMSsG66bLuWnPqUsbSbz28OLEWiVi7RD0pWG4H4ScY86PehXekSOfz5bZaImG5r
+	G77WPnIazamDMSIZrC7auZnXigFFLFP15afvguhyJ3HFWKkKa0UXqy7iEOyxk016ayo6UGdvpVT
+	vzT9RUvjQCiNU8EN13FtdCeRUVuV1sqks1QD+IxdGlhBdvBWfwXkWpv7mgw==
 X-TM-Addin-ProductCode: EMS
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1716397275;
-	bh=Z5nhWTRVSykI5oDTRthRKsVJZ3AMjNBu/LXI6YdOuxQ=; l=17802;
+	s=TM-DKIM-20210503141657; t=1716397273;
+	bh=w55xaOMsh7CcIYlldUXywOmXSRKYNCRvwdkRmyRN72Q=; l=11235;
 	h=From:To:Date;
-	b=xs9hLzVxDwxOrWob/y1GyjLMtubyPoRg2d5rVhB+yIDwaHJ4VLSt/Q/LJ5MG1FZK0
-	 82tbyha17ybOjN+DYbc5jouisdoTj2cRHAYN4WySNv+ga81JRj8Lttmmtqg9jDlEG/
-	 r/IoVem9VTxpRy+ROnkoGkc8nqehh/9tp45KCOqD7+NjE9kD2jn5bVDi3a778eB9hQ
-	 oiGy2i8rxXef8P2dgbldGuHnVE+x9rcIWSkxEtJmgakecgY87Hx5lrvBPZ7VW+HZ1O
-	 12skVCeZAXSMKtL6PVAo/EIapn9fprDMiDkCWMTgXpFWDFEYt+8VUDYgN+yb6oumt5
-	 Dc/oMFP+BYpEg==
+	b=ZzhiKPHjQLU9RSLKJNNoGYWt0Gx6KoYHSwHTBjGjG5TZBu7JhXWKzCd+t//vGBXIY
+	 hsjgtMFVLEyl4mb6/WgNd+IA5ncvkT6+xVJCCrGromPDNDV9Mz/Npjno/KjNqDPnBB
+	 8FpGFUQ1DHUabx2PtUUDcFYyR44JjJmeE8TCyGJae+m4xsN5p6UjkddSmradh8ZhF1
+	 165Rg0LYGQ1n3WhxLX/O2scaNJUNt+sh6slDolJMcB7l2CokhqKxJVXdyzt5Rnfm4+
+	 h7MxB9bxpXkvle24cQom/ciAJBDzFjUPGlWnmwwPhu0tK/gl3AxmnywL4dhnTzIfcd
+	 ER5XTaRmIEodQ==
 
-This adds the following capabilities:
-
-1) Distinguish UTC clocks from UTC-like clocks with leap smearing.
-
-2) UTC leap second and TAI offset indication for cross-timestamps.
-
-3) Clock performance information for cross-timestamps.
-
-This is a backwards incompatible change and as such only presented in a
-separate patch for now to ease reviewing.
-
-These additions are an outcome of a Linux kernel mailing list discussion
-[1], which took place while the virtio-comment mailing list was
-unavailable.
-
-As per [2], UTC leap seconds may be abolished in the medium-term future.
-The spec does not address this explicitly and drivers which care about it
-are assumed to know after which date no more leap seconds can be expected.
-
-Normative requirements for 2) and 3) still need to be added.
-
-[1] https://lore.kernel.org/lkml/61364452-bdf5-4bd8-adb1-a9e6236c9d26@opensynergy.com/
-[2] https://www.bipm.org/en/cgpm-2022/resolution-4
+Add the normative statements for the alarm feature added previously.
 
 Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
 ---
@@ -174,396 +154,238 @@ Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
 Notes:
     v4:
     
-    - Distinguish UTC clocks with and without leap smearing (David Woodhouse) [3].
+    - Update normative statements to match v4 changes to non-normative
+      statements (patch 3).
     
-    - Add UTC leap second and TAI offset indication (David Woodhouse) [3].
+    - Driver should read clock to confirm that alarm has expired.
     
-    - Add clock performance information (David Woodhouse) [3].
-    
-    [3] https://lore.kernel.org/lkml/61364452-bdf5-4bd8-adb1-a9e6236c9d26@opensynergy.com/
+    - Formatting and wording improvements.
 
- device-types/rtc/description.tex | 301 +++++++++++++++++++++++++++++--
- 1 file changed, 286 insertions(+), 15 deletions(-)
+ device-types/rtc/description.tex        | 157 ++++++++++++++++++++++++
+ device-types/rtc/device-conformance.tex |   4 +
+ device-types/rtc/driver-conformance.tex |   2 +
+ 3 files changed, 163 insertions(+)
 
 diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
-index 8fbeef33fac9..6fb19f9db022 100644
+index 8a51a70d615b..8fbeef33fac9 100644
 --- a/device-types/rtc/description.tex
 +++ b/device-types/rtc/description.tex
-@@ -263,8 +263,9 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- struct virtio_rtc_resp_clock_cap {
- 	struct virtio_rtc_resp_head head;
- 	le16 type;
-+	le16 subtype;
- 	u8 flags;
--	u8 reserved[5];
-+	u8 reserved[3];
- };
- \end{lstlisting}
+@@ -32,6 +32,11 @@ \subsection{Feature bits}\label{sec:Device Types / RTC Device / Feature bits}
+ VIRTIO_RTC_F_ALARM determines whether the device supports setting an
+ alarm for some of the clocks.
  
-@@ -279,8 +280,10 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- \end{lstlisting}
++\devicenormative{\subsubsection}{Feature bits}{Device Types / RTC Device / Feature bits}
++
++The device SHOULD offer VIRTIO_RTC_F_ALARM if the device can support
++setting an alarm for any of its clocks.
++
+ \subsection{Device configuration layout}\label{sec:Device Types / RTC Device / Device configuration layout}
  
- VIRTIO_RTC_CLOCK_UTC uses the UTC (Coordinated Universal Time) time
--standard. The device uses the time epoch of January 1, 1970, 00:00
--UTC. This is the same epoch as \emph{Unix time}.
-+standard. The device uses the time epoch of January 1, 1970, 00:00 UTC.
-+This is the same epoch as \emph{Unix time}. For VIRTIO_RTC_CLOCK_UTC,
-+the clock \emph{subtype} specifies whether the clock fully adheres to
-+the UTC standard w.r.t.\ leap seconds.
+ There is no configuration data for the device.
+@@ -562,6 +567,12 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
+ this specification, the device MUST use the nanosecond as unit for
+ field \field{clock_reading}.
  
- VIRTIO_RTC_CLOCK_TAI uses the TAI (International Atomic Time) time
- standard. The device uses the time epoch of January 1, 1970, 00:00
-@@ -290,9 +293,62 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- subdivisions) since some unspecified epoch. The VIRTIO_RTC_CLOCK_MONO
- epoch is before or during device reset.
++If VIRTIO_RTC_F_ALARM was negotiated, and the device sent an alarm
++notification N for clock C with alarm time A, the device MUST, for all
++read requests of C which the driver marks as available after the device
++marked N as used, return a \field{clock_reading} which does not precede
++A, unless C stepped backwards to before A.
++
+ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Operation / Alarm Operation}
  
--Additional clock types may be standardized in the future.
--Implementation-specific clock type definitions are not recommended and
--use a clock type id greater than or equal to 0xF000.
-+The \field{subtype} field identifies the clock subtype. The clock
-+subtype provides additional information about the clock behavior. The
-+following clock subtypes are defined:
-+
-+\begin{lstlisting}
-+#define VIRTIO_RTC_SUBTYPE_STRICT 0
-+#define VIRTIO_RTC_SUBTYPE_SMEAR 1
-+#define VIRTIO_RTC_SUBTYPE_SMEAR_NOON_LINEAR 2
-+#define VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED 3
-+\end{lstlisting}
-+
-+VIRTIO_RTC_SUBTYPE_STRICT means that the clock fully adheres to the
-+clock type's time standard (or to the clock type's time scale, if the
-+clock type does not refer to a time standard). This is the only subtype
-+for clocks which are not of type VIRTIO_RTC_CLOCK_UTC.
-+
-+For clocks of type VIRTIO_RTC_CLOCK_UTC, VIRTIO_RTC_SUBTYPE_STRICT
-+means:
-+
-+\begin{itemize}
-+\item The clock fully adheres to the UTC standard.
-+
-+\item The clock will observe positive and negative leap seconds as
-+	announced by standard bodies.
-+
-+\item At the start of leap seconds, the clock steps accordingly.
-+\end{itemize}
-+
-+For clocks of type VIRTIO_RTC_CLOCK_UTC, the following additional
-+subtypes are also defined:
-+
-+\begin{itemize}
-+\item VIRTIO_RTC_SUBTYPE_SMEAR deviates from the UTC standard by
-+	smearing time in the vicinity of the leap second, in a not
-+	precisely defined manner. This avoids clock steps due to UTC
-+	leap seconds.
-+
-+\item VIRTIO_RTC_SUBTYPE_SMEAR_NOON_LINEAR is similar to
-+	VIRTIO_RTC_SUBTYPE_SMEAR, except that the smear is precisely
-+	defined as a linear smear from noon prior to the leap second
-+	until noon after the leap second.
-+
-+\item VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED may deviate from the UTC
-+	standard w.r.t.\ leap second introduction in an unspecified way
-+	(leap seconds may, or may not, be smeared).
-+\end{itemize}
-+
-+In the following, \emph{leap smearing clock} designates any clock of
-+subtype VIRTIO_RTC_SUBTYPE_SMEAR, or
-+VIRTIO_RTC_SUBTYPE_SMEAR_NOON_LINEAR.
-+
-+Additional clock types, and clock subtypes, may be standardized in the
-+future.
-+
-+Implementation-specific definitions of clock type, and clock subtype,
-+are not recommended and use ids greater than or equal to 0xF000.
+ Through the optional alarm feature, the driver can set an alarm time. On
+@@ -675,6 +686,79 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
+ To prevent the above issues, the driver also marks buffers in the alarmq
+ as available only after completing the above steps for all clocks.
  
- The \field{flags} field provides the following information:
++\devicenormative{\paragraph}{Alarm Operation}{Device Types / RTC Device / Device Operation / Alarm Operation}
++
++The device MAY retain both \field{driver_alarm_time} and
++\field{alarm_enabled} of a clock across a device reset.
++
++If the device did not retain \field{driver_alarm_time} and
++\field{alarm_enabled} of a clock across a device reset, the device MUST
++initialize \field{driver_alarm_time} to 0.
++
++If the device did not retain \field{driver_alarm_time} and
++\field{alarm_enabled} of a clock across a device reset, the device MUST
++initialize \field{alarm_enabled} to false.
++
++While \field{alarm_enabled} for a clock is true, the device MUST set the
++alarm time to \field{driver_alarm_time}.
++
++While \field{alarm_enabled} for a clock is false, the device MUST act as
++if the alarm time was in the future.
++
++If VIRTIO_RTC_F_ALARM was negotiated, the device MUST support the alarm
++messages, VIRTIO_RTC_REQ_READ_ALARM, VIRTIO_RTC_REQ_SET_ALARM,
++VIRTIO_RTC_REQ_SET_ALARM_ENABLED, and VIRTIO_RTC_NOTIF_ALARM, for one or
++more clocks.
++
++If VIRTIO_RTC_F_ALARM was not negotiated, the device MUST NOT support the
++alarm messages.
++
++The device MUST set flag VIRTIO_RTC_FLAG_ALARM_CAP in \field{struct
++virtio_rtc_resp_clock_cap.flags} if the respective clock supports alarm
++messages, and clear the flag otherwise.
++
++The device MUST consider it an alarm expiration event when the
++associated clock progresses (also: steps) from a time prior to the alarm
++time to the alarm time, or to a time after the alarm time.
++
++The device MUST consider it an alarm expiration event when the
++driver sets an alarm time which the associated clock has already reached
++or passed.
++
++If the device retained \field{driver_alarm_time} and
++\field{alarm_enabled} of a clock across a device reset, and the clock
++has already reached or passed the alarm time, the device MUST consider
++this device reset an alarm expiration event.
++
++If an alarm expiration event E happens, the device MUST start serving
++the alarm expiration event E.
++
++If the driver successfully requests VIRTIO_RTC_REQ_SET_ALARM, or
++VIRTIO_RTC_REQ_SET_ALARM_ENABLED, for clock C, the device MUST stop
++serving any previous alarm expiration event for C before the device
++marks the message as used.
++
++If a clock C steps to a time previous to C's alarm time, the device MUST
++stop serving any previous alarm expiration event for C, within a grace
++period.
++
++If an alarm expiration event happens for clock C, the device MUST stop
++serving any previous alarm expiration event for C, within a grace
++period.
++
++If the device is currently serving an alarm expiration event E, the
++device MUST send a single VIRTIO_RTC_NOTIF_ALARM notification for E, as
++soon as an alarmq buffer is available for this purpose.
++
++While the device is serving an alarm expiration event, the device MAY
++execute implementation-specific alarm actions.
++
++The device MAY ignore the device status when executing
++implementation-specific alarm actions.
++
++The device MAY ignore whether VIRTIO_RTC_F_ALARM was negotiated when
++executing implementation-specific alarm actions.
++
+ \paragraph{Alarm Control Requests}
  
-@@ -343,11 +399,52 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- \devicenormative{\paragraph}{Control Requests}{Device Types / RTC Device / Device Operation / Control Requests}
- 
- For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST use the UTC
--time standard (Coordinated Universal Time).
-+time standard (Coordinated Universal Time), except as per the following
-+requirements.
- 
- For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST use the time
- epoch of January 1, 1970, 00:00 UTC.
- 
-+For any clock of type VIRTIO_RTC_CLOCK_UTC and subtype
-+VIRTIO_RTC_SUBTYPE_STRICT, the device MUST apply a positive leap second
-+according to the UTC time standard by instantaneously stepping the clock
-+backwards by 1 s at the start of the leap second.
-+
-+For any clock of type VIRTIO_RTC_CLOCK_UTC and subtype
-+VIRTIO_RTC_SUBTYPE_STRICT, the device MUST apply a negative leap second
-+according to the UTC time standard by instantaneously stepping the clock
-+forward by 1 s at the start of the leap second.
-+
-+For any leap smearing clock, the device MUST NOT step the clock due to a
-+leap second.
-+
-+For any leap smearing clock, on a positive leap second, the device MUST
-+slow down the clock during part of the day containing the leap second
-+and/or part of the day after the leap second.
-+
-+For any leap smearing clock, on a negative leap second, the device MUST
-+speed up the clock during part of the day containing the leap second
-+and/or part of the day after the leap second.
-+
-+For any clock of type VIRTIO_RTC_SUBTYPE_SMEAR_NOON_LINEAR, on a leap
-+second, the device MUST change the frequency of the clock exactly from
-+noon prior to the leap second until noon after the leap second.
-+
-+For any clock of type VIRTIO_RTC_SUBTYPE_SMEAR_NOON_LINEAR, while
-+changing the frequency of the clock due to a positive leap second, the
-+device MUST decrease the frequency of the clock by $1/86400$.
-+
-+For any clock of type VIRTIO_RTC_SUBTYPE_SMEAR_NOON_LINEAR, while
-+changing the frequency of the clock due to a negative leap second, the
-+device MUST increase the frequency of the clock by $1/86400$.
-+
-+For any leap smearing clock, the clock MUST correspond to UTC again at
-+the latest at the end of the day after the leap second.
-+
-+For any clock of type VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED, the device
-+MAY deviate from the UTC standard with respect to leap second
-+introduction.
-+
- For any clock of type VIRTIO_RTC_CLOCK_TAI, the device MUST use the TAI
- time standard (International Atomic Time).
- 
-@@ -364,12 +461,172 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- one of the clock types defined in this specification, or to a value
- greater than or equal to 0xF000.
- 
-+For VIRTIO_RTC_REQ_CLOCK_CAP, the device MUST set \field{subtype} to one
-+of the clock subtypes defined in this specification, or to a value
-+greater than or equal to 0xF000.
-+
-+For VIRTIO_RTC_REQ_CLOCK_CAP, and clock types other than
-+VIRTIO_RTC_CLOCK_UTC, the device MUST set \field{subtype} to
-+VIRTIO_RTC_SUBTYPE_STRICT.
-+
- For a VIRTIO_RTC_REQ_CROSS_CAP message M, the device MUST set the
- VIRTIO_RTC_FLAG_CROSS_CAP flag in the \field{flags} field if the device
- would respond to a VIRTIO_RTC_REQ_READ_CROSS message with the same
- \field{hw_counter} and \field{clock_id} values as in M with status
- VIRTIO_RTC_S_OK, and clear the flag otherwise.
- 
-+\subsubsection{Data Structures}
-+
-+This section describes reusable data structures.
-+
-+\paragraph{UTC Specific Data}\label{sec:Device Types / RTC Device / Device Operation / Data Structures / UTC Specific Data}
-+
-+For clocks of type VIRTIO_RTC_CLOCK_UTC, the device reports information
-+about impending and ongoing UTC leap seconds, and about the current UTC
-+offset from TAI, through \field{struct virtio_rtc_data_utc}. This
-+information applies to the clock reading to which the struct is
-+associated to.
-+
-+\begin{lstlisting}
-+struct virtio_rtc_data_utc {
-+	le64 tai_offset;
-+#define VIRTIO_RTC_LEAP_NONE 0
-+#define VIRTIO_RTC_LEAP_PRE_POS 1
-+#define VIRTIO_RTC_LEAP_PRE_NEG 2
-+#define VIRTIO_RTC_LEAP_POS 3
-+#define VIRTIO_RTC_LEAP_NEG 4
-+	u8 leap;
-+#define VIRTIO_RTC_FLAG_SMEAR (1 << 0)
-+#define VIRTIO_RTC_FLAG_TAI_OFFSET (1 << 1)
-+	u8 flags;
-+	u8 reserved[6];
-+};
-+\end{lstlisting}
-+
-+\subparagraph{Leap Second Indication}
-+
-+For subtype VIRTIO_RTC_SUBTYPE_STRICT, the \field{struct
-+virtio_rtc_data_utc.leap} field indicates whether a positive or negative
-+leap second will be introduced at the end of the month resp.\ whether a
-+leap second is currently in progress.
-+
-+For a leap smearing clock, the \field{leap} field indicates whether a
-+leap smear will start around the next turn of the month resp.\ whether
-+the leap second is currently being smeared into the clock.
-+
-+VIRTIO_RTC_LEAP_NONE indicates that the clock is currently not
-+performing leap second related processing, and also not pre-announcing
-+an impending leap second.
-+
-+VIRTIO_RTC_LEAP_PRE_POS resp.\ VIRTIO_RTC_LEAP_PRE_NEG pre-announce a
-+positive resp.\ negative leap second. Pre-announcing starts at the
-+earliest at the 17th day of the month including the leap second.
-+
-+For VIRTIO_RTC_SUBTYPE_STRICT, VIRTIO_RTC_LEAP_POS indicates that a
-+positive leap second is in progress.
-+
-+For a leap smearing clock, VIRTIO_RTC_LEAP_PRE_POS resp.\
-+VIRTIO_RTC_LEAP_PRE_NEG indicate that the clock is currently slowed down
-+resp.\ sped up in order to smear the leap second into the clock.
-+
-+In field \field{flags}, VIRTIO_RTC_FLAG_SMEAR indicates whether a leap
-+second would be, or is being, smeared into the clock, rather than being
-+inserted according to the UTC standard.
-+
-+A clock of subtype VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED can set
-+\field{leap} to VIRTIO_RTC_LEAP_NONE regardless of the clock's actual
-+leap second state. For clocks of subtype
-+VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED, the VIRTIO_RTC_FLAG_SMEAR flag is
-+only guaranteed to be correct while \field{leap} is not
-+VIRTIO_RTC_LEAP_NONE.
-+
-+\subparagraph{TAI Offset}
-+
-+The \field{struct virtio_rtc_data_utc.tai_offset} field indicates the
-+offset of the clock from the TAI standard, in the form
-+$\mbox{tai_offset} = \mbox{TAI} - \mbox{UTC}$. The offset unit is ns.
-+The offset is an integer multiple of a billion ns, i.e.\ corresponds to
-+whole seconds, except while the clock is being smeared.
-+
-+If flag VIRTIO_RTC_FLAG_SMEAR is set, and field \field{leap} equals
-+VIRTIO_RTC_LEAP_POS, or VIRTIO_RTC_LEAP_NEG, the offset from TAI does
-+not correspond to whole seconds.\footnote{This keeps the impact of the
-+	leap second insertion on the UTC offset from TAI unambiguous for
-+	every sample of \field{struct virtio_rtc_data_utc}.}
-+
-+The \field{tai_offset} field is interpreted as a signed integer in
-+little-endian, two's complement, representation.
-+
-+In field \field{flags}, VIRTIO_RTC_FLAG_TAI_OFFSET indicates that the
-+TAI offset is valid. The device may only clear this flag for clocks of
-+subtype VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED.
-+
-+\paragraph{Clock Performance Information}\label{sec:Device Types / RTC Device / Device Operation / Data Structures / Clock Performance Information}
-+
-+The \emph{clock performance} describes the difference between clock
-+readings obtained by the driver from the device, and clock readings
-+obtained from an ideal clock. Through \field{struct virtio_rtc_perf},
-+the device reports the clock performance. \field{struct virtio_rtc_perf}
-+describes the performance of a particular clock reading obtained by the
-+driver.
-+
-+\begin{lstlisting}
-+struct virtio_rtc_perf {
-+	le64 freq_max_error;
-+	le64 freq_est_error;
-+	le64 phase_max_error;
-+	le64 phase_est_error;
-+#define VIRTIO_RTC_FLAG_SYNCHRONIZED (1 << 0)
-+#define VIRTIO_RTC_FLAG_FREQ_MAX_VALID (1 << 1)
-+#define VIRTIO_RTC_FLAG_FREQ_EST_VALID (1 << 2)
-+#define VIRTIO_RTC_FLAG_PHASE_MAX_VALID (1 << 3)
-+#define VIRTIO_RTC_FLAG_PHASE_EST_VALID (1 << 4)
-+	u8 flags;
-+	u8 reserved[7];
-+};
-+\end{lstlisting}
-+
-+Flag VIRTIO_RTC_FLAG_SYNCHRONIZED in field \field{flags} indicates that
-+the device considers the clock synchronized as per the clock type and
-+clock subtype requirements. In case of VIRTIO_RTC_CLOCK_UTC, flag
-+VIRTIO_RTC_FLAG_SYNCHRONIZED also indicates that the clock is
-+synchronized w.r.t.\ the information in \field{struct
-+virtio_rtc_data_utc}, as per the clock subtype requirements.
-+
-+Other fields indicate the accuracy of the clock. Flags indicate whether
-+this information is valid.
-+
-+The clock \emph{frequency error} is the (absolute) drift rate of the
-+clock w.r.t.\ the clock type and subtype definition.
-+
-+Field \field{freq_max_error} is an upper bound to the frequency error of
-+the clock. Field \field{freq_est_error} is the device's point estimate
-+of the frequency error.
-+
-+The unit of the \field{freq_max_error} and \field{freq_est_error} fields
-+is ppm (parts per million) with a 44-bit fractional part (a field value
-+of 1 corresponds to $2^{-44}$ ppm).
-+
-+The device sets the flag VIRTIO_RTC_FLAG_FREQ_MAX_VALID resp.\
-+VIRTIO_RTC_FLAG_FREQ_EST_VALID to indicate that the value of the
-+\field{freq_max_error} resp.\ \field{freq_est_error} field is valid.
-+
-+The clock \emph{phase error} is the absolute value of the offset of the
-+clock to an ideal clock according to the clock type and subtype
-+definition.
-+
-+Field \field{phase_max_error} is an upper bound to the absolute offset
-+of the clock from the clock type and subtype definition. Field
-+\field{phase_est_error} is the device's point estimate of that absolute
-+offset.
-+
-+The unit of the \field{phase_max_error} and \field{phase_est_error}
-+fields is 1 nanosecond.
-+
-+The device sets the flag VIRTIO_RTC_FLAG_PHASE_MAX_VALID resp.\
-+VIRTIO_RTC_FLAG_PHASE_EST_VALID to indicate that the value of the
-+\field{phase_max_error} resp.\ \field{phase_est_error} field is valid.
-+
- \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Operation / Read Requests}
- 
- Through \emph{read requests}, the driver requests clock readings from
-@@ -392,8 +649,6 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
- 	best frequency estimate.
- \end{itemize}
- 
--E.g., a clock of type VIRTIO_RTC_CLOCK_UTC can insert UTC leap seconds.
--
- As long as a clock does not jump backwards, the driver clock readings
- increase monotonically:
- 
-@@ -458,6 +713,11 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
- 	struct virtio_rtc_resp_head head;
- 	le64 clock_reading;
- 	le64 counter_cycles;
-+	union {
-+		u8 reserved[16];
-+		struct virtio_rtc_data_utc utc;
-+	} type_data;
-+	struct virtio_rtc_perf perf;
- };
- \end{lstlisting}
- 
-@@ -492,6 +752,23 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
- VIRTIO_RTC_REQ_READ_CROSS for a specific clock and \field{hw_counter}
- through VIRTIO_RTC_REQ_CROSS_CAP.
- 
-+The field \field{type_data} is a union of clock type-specific extra
-+information:
-+
-+\begin{enumerate}
-+
-+\item For clock type VIRTIO_RTC_CLOCK_UTC, field \field{type_data.utc}
-+	provides information as per
-+	\ref{sec:Device Types / RTC Device / Device Operation / Data Structures / UTC Specific Data}.
-+
-+\item For other clock types, all elements of field
-+	\field{type_data.reserved} are 0.
-+
-+\end{enumerate}
-+
-+The field \field{perf} provides clock performance information as per
-+	\ref{sec:Device Types / RTC Device / Device Operation / Data Structures / Clock Performance Information}.
-+
+ If VIRTIO_RTC_F_ALARM is negotiated,
+@@ -771,6 +855,62 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
+ \field{driver_alarm_time}.
  \end{description}
  
- \drivernormative{\paragraph}{Read Requests}{Device Types / RTC Device / Device Operation / Read Requests}
-@@ -505,12 +782,6 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
- The device SHOULD continuously support reading of all clocks once
- DRIVER_OK has been set.
++\drivernormative{\subparagraph}{Alarm Control Requests}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
++
++For VIRTIO_RTC_REQ_SET_ALARM and for any clock type listed in this
++specification, the driver MUST use the nanosecond as unit for the
++\field{alarm_time} field.
++
++\devicenormative{\subparagraph}{Alarm Control Requests}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
++
++If VIRTIO_RTC_F_ALARM was not negotiated, the device MUST set status
++VIRTIO_RTC_S_ENODEV for VIRTIO_RTC_REQ_READ_ALARM,
++VIRTIO_RTC_REQ_SET_ALARM, and VIRTIO_RTC_REQ_SET_ALARM_ENABLED.
++
++If the clock does not support alarm messages, the device MUST set status
++VIRTIO_RTC_S_ENODEV for VIRTIO_RTC_REQ_READ_ALARM,
++VIRTIO_RTC_REQ_SET_ALARM, and VIRTIO_RTC_REQ_SET_ALARM_ENABLED.
++
++For VIRTIO_RTC_REQ_READ_ALARM, the device MUST set field
++\field{alarm_time} to \field{driver_alarm_time}.
++
++For VIRTIO_RTC_REQ_READ_ALARM, the device MUST set flag
++VIRTIO_RTC_FLAG_ALARM_ENABLED in field \field{flags} if
++\field{alarm_enabled} is true, and clear the flag otherwise.
++
++For VIRTIO_RTC_REQ_READ_ALARM and for any clock type listed in this
++specification, the device MUST use the nanosecond as unit for the
++\field{alarm_time} field.
++
++For VIRTIO_RTC_REQ_SET_ALARM, the device MUST accept any
++\field{alarm_time} value.
++
++If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
++the device MUST set \field{driver_alarm_time} to the time
++represented by field \field{alarm_time}.
++
++If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
++the device MUST set \field{alarm_enabled} to true if flag
++VIRTIO_RTC_FLAG_ALARM_ENABLED is set in field \field{flags}.
++
++If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
++the device MUST set \field{alarm_enabled} to false if flag
++VIRTIO_RTC_FLAG_ALARM_ENABLED is cleared in field \field{flags}.
++
++If the device sets status VIRTIO_RTC_S_OK for
++VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST set
++\field{alarm_enabled} to true if flag VIRTIO_RTC_FLAG_ALARM_ENABLED is
++set in field \field{flags}.
++
++If the device sets status VIRTIO_RTC_S_OK for
++VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST set
++\field{alarm_enabled} to false if flag VIRTIO_RTC_FLAG_ALARM_ENABLED is
++cleared in field \field{flags}.
++
++If the device sets status VIRTIO_RTC_S_OK for
++VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST retain
++\field{driver_alarm_time}.
++
+ \paragraph{Alarm Notifications}
  
--For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MAY insert UTC
--leap seconds.
--
--For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MAY smear UTC
--leap seconds through clock slewing.
--
- For any clock C and read requests \emph{A} and \emph{B} which read C,
- \emph{A} being the message which the driver marks as available before
- \emph{B}, the device MUST obtain the \field{clock_reading} value for the
+ If the alarmq is present, the driver should make buffers available in
+@@ -806,3 +946,20 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
+ 
+ \field{clock_id} identifies the expired alarm through its associated
+ clock.
++
++\drivernormative{\subparagraph}{Alarm Notifications}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
++
++If VIRTIO_RTC_F_ALARM was negotiated, the driver SHOULD populate the
++alarmq with buffers.
++
++The driver MUST allocate enough space for any alarmq message in the
++device-writable part of an alarmq buffer.
++
++If the driver receives a VIRTIO_RTC_NOTIF_ALARM notification, the driver
++SHOULD read the associated clock instead of assuming that the alarm time
++which the driver set last has been reached.
++
++\devicenormative{\subparagraph}{Alarm Notifications}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
++
++The device MUST NOT send a VIRTIO_RTC_NOTIF_ALARM notification for a
++clock which does not support alarm messages.
+diff --git a/device-types/rtc/device-conformance.tex b/device-types/rtc/device-conformance.tex
+index 4303cd450542..705691a7319f 100644
+--- a/device-types/rtc/device-conformance.tex
++++ b/device-types/rtc/device-conformance.tex
+@@ -3,7 +3,11 @@
+ An RTC device MUST conform to the following normative statements:
+ 
+ \begin{itemize}
++\item \ref{devicenormative:Device Types / RTC Device / Feature bits}
+ \item \ref{devicenormative:Device Types / RTC Device / Device Operation}
+ \item \ref{devicenormative:Device Types / RTC Device / Device Operation / Control Requests}
+ \item \ref{devicenormative:Device Types / RTC Device / Device Operation / Read Requests}
++\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation}
++\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
++\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
+ \end{itemize}
+diff --git a/device-types/rtc/driver-conformance.tex b/device-types/rtc/driver-conformance.tex
+index 689c18d158d0..a87c4cde99c2 100644
+--- a/device-types/rtc/driver-conformance.tex
++++ b/device-types/rtc/driver-conformance.tex
+@@ -6,4 +6,6 @@
+ \item \ref{drivernormative:Device Types / RTC Device / Device Operation}
+ \item \ref{drivernormative:Device Types / RTC Device / Device Operation / Control Requests}
+ \item \ref{drivernormative:Device Types / RTC Device / Device Operation / Read Requests}
++\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
++\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
+ \end{itemize}
 -- 
 2.43.0
 
