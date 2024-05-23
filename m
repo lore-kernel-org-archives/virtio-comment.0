@@ -1,830 +1,265 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com (mail-dm6nam04on2069.outbound.protection.outlook.com [40.107.102.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8195933EA
-	for <virtio-comment@lists.linux.dev>; Thu, 23 May 2024 04:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716437049; cv=none; b=jlDs7ZMRD1E00f9EweXlEZliivgLuOFMRMDw40MKPjsthDCS/54AZEVIokjitx7Zc761uW58cPVv9sx9AHEEfuSw5Z/e+LguSPj4czrneU5eeRCXrmDSBZ/7n1Le9m5pPq552knC3Yedy5fBbgl4w9KlC3PUVgT3z8b7E63BPFI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716437049; c=relaxed/simple;
-	bh=+tLgvEwDKMXQ43XRqNc7KHH46xTPNkLRjbHyRSjGNCY=;
-	h=Message-ID:Subject:Date:From:To:Cc:References:In-Reply-To:
-	 Content-Type; b=KZ1spHrmffbQouSIfJ8h67DPf093MkWjeL8xXKZgTAAeIVMfS1Xo7q0bULgHOv8yghDtWLVKkg7kZuq3rpGfAnivEZjMhYrqAP3mZv1uabn+tE1PuUns9lq+h0oE4yynX6e7CEKqF/306aP3SVSIV/hMVtcywaaAOWwut4ToURA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=vX/hSMCo; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C8417F6
+	for <virtio-comment@lists.linux.dev>; Thu, 23 May 2024 05:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.102.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1716440842; cv=fail; b=kYCqbdzxNFZUSQPhKciQSM/2HL6JiLe61YG96SzJeaHEC64wyHb9zpGjkw30SKCRzLszo8mExZeOyHtqdJvsSmH5dUq+ZXX/jobs4pBqW+R8VDI69aM1z85G8w1H61veR4nai4Zw720QWrhbRg3F2i+CYwryFqVcYfU9IE7QAUc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1716440842; c=relaxed/simple;
+	bh=5/JU4NQqqdSFp1nLteydvLCHHppusBcgApvk0t6chH8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ZCp9Jqhffa/QRFm94xoqwWoxOvWFWaYewiTZxX7LlOjpa9qjPFWtBSNUP/EtL6oqA1RxkuKENzifG56MGy42TajTM+czUGPgmiFC4zR/JslSOUu/sEp4PPSG1Bp37hNj31GKFV37wSFDOkeYeepmBZCRYSPsdR4dX71e5nlj5kE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o3ZBzSL5; arc=fail smtp.client-ip=40.107.102.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="vX/hSMCo"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1716437037; h=Message-ID:Subject:Date:From:To:Content-Type;
-	bh=WG7tZuTbTWKOe8lrAlLrZI3zeY0nA9kCtze3FmWXLgw=;
-	b=vX/hSMCoGxUzlIhlIWDOl5bmET0PsAtD8fWbwV5TMoSUwgPyvMpIR6a1d29TRlsNzdiRiaQOZ1qElB984VhGiWyMYiQPZ5vA5GI5LHt8SRZ6iiahRWmzDzPcu+bOAzzkLrIWiyRZkICoxIZX5Ysq/9KsSBb2uo1I7LUeG0G6MJ4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037067112;MF=hengqi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0W71MI09_1716436719;
-Received: from localhost(mailfrom:hengqi@linux.alibaba.com fp:SMTPD_---0W71MI09_1716436719)
-          by smtp.aliyun-inc.com;
-          Thu, 23 May 2024 11:58:40 +0800
-Message-ID: <1716436686.2428358-1-hengqi@linux.alibaba.com>
-Subject: Re: RE: RE: RE: RE: RE: RE: [PATCH v2] virtio-net: improve description of default coalescing parameters
-Date: Thu, 23 May 2024 11:58:06 +0800
-From: Heng Qi <hengqi@linux.alibaba.com>
-To: Heng Qi <hengqi@linux.alibaba.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
- Jason Wang <jasowang@redhat.com>,
- "Michael    S .   Tsirkin" <mst@redhat.com>,
- Parav Pandit <parav@nvidia.com>
-References: <20240513125634.102955-1-hengqi@linux.alibaba.com>
- <PH0PR12MB54815E887B1010D2AE96CEACDCE32@PH0PR12MB5481.namprd12.prod.outlook.com>
- <1715665954.5198457-1-hengqi@linux.alibaba.com>
- <PH0PR12MB5481EAD646ECB0CBF979FFC7DCE32@PH0PR12MB5481.namprd12.prod.outlook.com>
- <1715673206.4680686-3-hengqi@linux.alibaba.com>
- <PH0PR12MB5481CAFB5B39638566238063DCE32@PH0PR12MB5481.namprd12.prod.outlook.com>
- <1716258261.2936878-1-hengqi@linux.alibaba.com>
- <PH0PR12MB548164BEB956FA8EA516C5E8DCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <1716285826.606679-2-hengqi@linux.alibaba.com>
- <PH0PR12MB5481AC22EC51E2FF94B25EBEDCEA2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <1716343906.6530488-1-hengqi@linux.alibaba.com>
- <PH0PR12MB548111559E31123D48A63A4CDCEB2@PH0PR12MB5481.namprd12.prod.outlook.com>
- <1716349740.8213844-2-hengqi@linux.alibaba.com>
-In-Reply-To: <1716349740.8213844-2-hengqi@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o3ZBzSL5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OxmE0qfjPp1NvIETfLjD40MBapYLUbf8hrq8HyFmVWKdEm8TerNmGBFeCN3WOudTLQWsoCxOUnW5lWMlVLEg0/eUUBNxmxi8ALCgG+RUssm3ugzA0vNwu2C7w7uNJSycGnoFSM8Bam0yDxFI6+4AAfiBNBWzeHkGeFnSOzjgYtbc/zB7Bti9SPrglno9wVifi7njCIwkYwKV4aI/o+LQNqcgmYhabSHrAC78Y/TziNxPe26YevCsBNNRDGZ2dSe3JKK/1ZtncuexjTRi8INduOO+zX1VNsGtug5IhX+ADgU2wxxCF7/GPifB0GQNnbbAzjGnaFHTXHywNh1QYILHwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SUVZFggQ089DmrfBu0EMN0BhjBemPeFcweEVWWm5m7Y=;
+ b=nu/TK0oe3Sd1UbEwNDlJl+jov0PnXtDCmF/xa1+PXcvkTDrDOUGQY2thS0alv7FpNxB8dkvd1FyMCuF5+/4OwVmP8Y2bNve5r8Kv7IOVg9/Fj5bA/5Ii1rMqbgnYfRsXCEVW8IUCPatwwEIWDwMB0rEg3Eyc/m9BBUDvnO3fIncS/NWUpa/SI15Nq+xCIhnohuqtfMivuuXnuMGt+Oo/2shZng2Uhma4rL0yRMCdK/+X7B9eJeZeI+mfOA4i/ADO96FszTuffmfHFarmThRdni8bZlAlu8jYDkwe437YsYmfQtTIHLfZ8Z8qs3YPShLB5ji0NJr+vlCrtEwVVfvLwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SUVZFggQ089DmrfBu0EMN0BhjBemPeFcweEVWWm5m7Y=;
+ b=o3ZBzSL5mk/yw+t3of8Tal9J54TvQE+BKFkbvTM2fXdgLOjNi9pcvjQAd5xPkYDFy5R6Z5etY45yd34JqIJ/D4LP409Vi44Cq4LfQ3k37UUArZkNw6nBKpmd29QR5J+2rvas/plpprvp0IhUiE/YtBx/zhKld3r0cmMKhHq/kN28DbsTxPplOyGrqZFNtJMBNgJBU1ddHj0zBSb8lyUiaV3P7CvMiVGddbEzPbwyiYtHnQwiJerEIBMPuRGuij4uTw7ci8lJEIID0rWvq+MI+Afc5mSB5FBL1rRv7rJLkc09APdulIrQdj/gYKBZbC+FKpuyet99uQqE5pT6auU5AQ==
+Received: from PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15)
+ by IA0PR12MB8421.namprd12.prod.outlook.com (2603:10b6:208:40f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.22; Thu, 23 May
+ 2024 05:07:16 +0000
+Received: from PH0PR12MB5481.namprd12.prod.outlook.com
+ ([fe80::361d:c9dd:4cf:7ffd]) by PH0PR12MB5481.namprd12.prod.outlook.com
+ ([fe80::361d:c9dd:4cf:7ffd%3]) with mapi id 15.20.7611.016; Thu, 23 May 2024
+ 05:07:16 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Heng Qi <hengqi@linux.alibaba.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>
+CC: Jason Wang <jasowang@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Subject: RE: [PATCH v3] virtio-net: clarify coalescing parameters settings
+Thread-Topic: [PATCH v3] virtio-net: clarify coalescing parameters settings
+Thread-Index: AQHarMCbnUqLyFy28ke8qx4lXqPGgbGkQSEw
+Date: Thu, 23 May 2024 05:07:16 +0000
+Message-ID:
+ <PH0PR12MB54819F69F8171B823B9D195FDCF42@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20240523032332.50995-1-hengqi@linux.alibaba.com>
+In-Reply-To: <20240523032332.50995-1-hengqi@linux.alibaba.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|IA0PR12MB8421:EE_
+x-ms-office365-filtering-correlation-id: ae6bc159-3ed7-466e-eb6b-08dc7ae63719
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230031|376005|1800799015|366007|38070700009;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?9VUL6ikgsNddUh3z4Et76UIslb5jZbkn068/Tyq0p1rL72vSbxUqtS416QRy?=
+ =?us-ascii?Q?w0m5GGTa7XpXjZgoMQUIjRIu/aHYiopHSRj0bHz07EPG2KiVHGFbv4qkxPqm?=
+ =?us-ascii?Q?EXsqpQMQYSNiHysvOLh0yVbqjgfPAbuOZOj9Au0tQtVg8L8WnFES3qLD+19N?=
+ =?us-ascii?Q?hYvsleJgqMkVaC/8WgvHc7MpVAYXwkHPSMSLm3kjpo7cbfEEg4JVdpRqc3zz?=
+ =?us-ascii?Q?ZWJnih6nMFCXj3MaarO/WeVFe67YDo7FATG0EhomBIGvSqduZD6wj+Wx9uNh?=
+ =?us-ascii?Q?S9pIywawjdOxg/efmJE+MDItjsQidDFt6mgOoYIaxzwZHbDocW87q2R4tEiU?=
+ =?us-ascii?Q?YxtMWppkCyGCf+qlFt6JIO1KaYJkCADmcdz87AnhCJ7+5XKWweJ9kEUaHAz9?=
+ =?us-ascii?Q?0n2APuKLEJg4aYZiOnSKLJC3WY+9eaaZqv4tbVS0ntz6/0rjRQRnp7q1u+uM?=
+ =?us-ascii?Q?BeEAihVWmF2rAvy3/BpaxbPSdWGC3FWPY31axqys8RiBQEYAROmuf2UnDgsg?=
+ =?us-ascii?Q?m50mliwvdXEOMoRODJcYj69zVG0t6uN94A9i7sYcxftVnYR4XPNNeOFU2pdb?=
+ =?us-ascii?Q?8E05hzVgObmn/bmgBUj5atL/I5rdSlM6pCaFfPiwtMCepZJLeuMCvQk13QF8?=
+ =?us-ascii?Q?BSEgUC4iIm7LcjHiUsGujlgJPndyX2jD1lq8uiqf4FOiRQOlhWLCIhXYj2/P?=
+ =?us-ascii?Q?N61Oz80NFLzkp20fSQvba2sOW0BHy/SSFn7/3L6J3hIyw6X3XxObNTD0lizC?=
+ =?us-ascii?Q?PJIb1oc2Tkvgj+5jg/TnqkEDS4XX1RIHmmlzyCWUAjzflRjH30v+mRs7+CBN?=
+ =?us-ascii?Q?I6ysCkO3BzWKUgb5VbzYyL2YxVAIrBu/Hdh418PPwfOXBy/Sys5IZZq4UJYT?=
+ =?us-ascii?Q?QeKzJV535D1bbqwrBLhwo/7CIYiB6PgW7TMbEsHPtVISmu5iOzYSrUiOEw6C?=
+ =?us-ascii?Q?K+lGcXfBAUlRC2PR1CTeErbb5K/kTOldGiJOVIJtgJ4rohS6Q95c1FN+zffv?=
+ =?us-ascii?Q?kz59WEJUYdRjRWE7GB56lHFOGvVq1O5vAIr/dYXKVt8Y5TbEpJlcfG0W/G+W?=
+ =?us-ascii?Q?/l6DYFodoJC5h0zY9Esa6yRg06Lv2xk42mT9WUmH24ewyPGuG77h3ZgjCXUj?=
+ =?us-ascii?Q?Dsy9bRpAEpElIQ1AuImHUcMAUeHe0JCmnmrON6Eo39Q5Cd0+1MS2GiP+F/uN?=
+ =?us-ascii?Q?zde4BxCbO4/OPhP42sKRVYUM4/Qiz0jd0k84BvqEJsmCtd/dzMHsdNIQfmr+?=
+ =?us-ascii?Q?D0iZpYRzrj6fTZNvstS8LsVtEec5xx3/0ReYDxif9BA6ByCDuaGhiCN6U2aq?=
+ =?us-ascii?Q?p9xcgUOOIzFv82n/vOkwqcaPS31MJW9S2L69nfe22cZyyg=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(1800799015)(366007)(38070700009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?/oNd9s0/DUkSWhQMZuj6kvOl6pCXMw0oMU060oSjWd50GxiVWoR0UbNGyFbV?=
+ =?us-ascii?Q?ck1KPEG/xXd4846SvvBOor1sVrQSqnnep7T99m9kUdVAs3R08/wj5Rm+HKiq?=
+ =?us-ascii?Q?8aU4exRhlwqkidzstU0TREbbk2kvZUqy6gxq39JsqTLp/o+73dz44egvdTm6?=
+ =?us-ascii?Q?gQj27Qef4MpD4hOKRCUNyF35T1CQPBx8B2YZVousHLNL0nzn0wWUsx8N9+s7?=
+ =?us-ascii?Q?mcbKFYsBKpaEEHL1yMOMKrct8gtOjqUM3428XahLmvWyEO/QywVZbW7a1OLX?=
+ =?us-ascii?Q?brDwdF5n9uy9+ma/IcqBvzlly8HoUaaGH7tXvfHtb69mf16PvveT/VZnHV0V?=
+ =?us-ascii?Q?nOMNG+YTh5TJoM5mMs4cKC+mRE/FtR/0SWKZUTm/uNy3smvjGJR9KZYpbXfu?=
+ =?us-ascii?Q?9uvmSrboypU2sag0ziNaGgEnmOQ1SdD+QXmHSYGaa9IkJw7AT0GNG8e36cE3?=
+ =?us-ascii?Q?fB/0jHdf6MovWN5VPl4Qg4b6crQoaT0dLlji+Xcdo7z69yUcrWcPglLNMrjS?=
+ =?us-ascii?Q?YbAa9R1xUNI+6wcudA35nkd79y1sOr55DEkmmTalYVVu287KcuJJ5FWbbR1e?=
+ =?us-ascii?Q?+GGNqheuG3FqMUKvmG2+mEFn12L8fwFR7xIDyvhGrem0fHHHvsFmCwhoZjbi?=
+ =?us-ascii?Q?NH+YVaVplc1XBsMUHxeqvHE+pO1Flo8pIf0LpaU0GnDFjtU3ZRuR2RCQ+OTH?=
+ =?us-ascii?Q?UOIm5DVN2PFhod8PGBe6li5tzq4r0OOdFnw+cadyTZuXvaF5gM7G5iuMVfce?=
+ =?us-ascii?Q?WmOJvE6S7PbcGMK9wmMkVzHiWzHxu8gQmicSEQZawFMnUfcZ/7FrDuRYDUXD?=
+ =?us-ascii?Q?+tn5mvfTCVtjYrPN1HIbOydJk5cu2Gu7H8x5pL9QY1jBa69Q+2eFIOXXwn63?=
+ =?us-ascii?Q?ncJP2gFZ1xKqlBTV74pd8a1czTMizU+UBL4Vp3ikTPtNxPha8PHl01LIEBl0?=
+ =?us-ascii?Q?DwwJ4d2sBkSmhH4VwdMzF5nxcLLRPPD26q9pVsaJvNSkkOPdo52colBJL4XD?=
+ =?us-ascii?Q?fdG2GP7lL5/lUZLrSwpEWiq/kYC5tMNVuyBmerfnGQY0c8sO6UqYjstUGV7x?=
+ =?us-ascii?Q?GoKAtRTpjC5LrkNusFrVFPXi5uPz+reQa2kXAPe2NHGLN4VB5YdDPRNHRmeM?=
+ =?us-ascii?Q?QUUDtlRs42QB437hjWkimapCBNvA3QcMoRZJk0yOU2m9f7+RBobqIj10QmfC?=
+ =?us-ascii?Q?qEA/pWUrgczsRhXtcACPkLVSLpeFRbejgBYhXDGl6ukk/RGDxdAfYBLd7PrV?=
+ =?us-ascii?Q?Mmoj9Wui1deO/GfZJ5V4sQWfAIgsmWfhgdWJv4fHKxRs8054pSu08UuAreoa?=
+ =?us-ascii?Q?bMYEO1JDbMqX+UswEL8i/4XbzNKfEQQY4BAxzyxccVPZ+RNamT4pSN714yar?=
+ =?us-ascii?Q?ni4ZCgg5lS6M+lmtGgSrE1Ja203gdofgfrULBWR3ghtJA6UxpcF/t8q0qB3k?=
+ =?us-ascii?Q?te+blo7IvmzLjX7/FtHzafdJdRuCTb5+Zrj8kbeL82ZyWiIKJDADnzMB3rwP?=
+ =?us-ascii?Q?4Zy60fNMzMbBIoUKGBaXqr0Em8BRublzs77qiVgrGMEL1gC2ZjsH+4HUeeVk?=
+ =?us-ascii?Q?Eo/1ZKqZzvOwm6z7ay4=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae6bc159-3ed7-466e-eb6b-08dc7ae63719
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2024 05:07:16.4876
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dgNrgeQnyRc5zOnMExSVEpA+KmZVDyXofbyR75xrOnLHxjZwWJFQLXbHhjYyqm4o3Hhx0NiWDiNsWNyWPyQBVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8421
 
-On Wed, 22 May 2024 11:49:00 +0800, Heng Qi <hengqi@linux.alibaba.com> wrot=
-e:
-> On Wed, 22 May 2024 03:44:45 +0000, Parav Pandit <parav@nvidia.com> wrote:
-> >=20
-> >=20
-> > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > Sent: Wednesday, May 22, 2024 7:42 AM
-> > >=20
-> > > On Tue, 21 May 2024 13:55:19 +0000, Parav Pandit <parav@nvidia.com>
-> > > wrote:
-> > > >
-> > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > Sent: Tuesday, May 21, 2024 3:34 PM
-> > > > >
-> > > > > On Tue, 21 May 2024 06:02:15 +0000, Parav Pandit <parav@nvidia.co=
-m>
-> > > > > wrote:
-> > > > > >
-> > > > > >
-> > > > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > Sent: Tuesday, May 21, 2024 7:54 AM On Tue, 14 May 2024 13:09=
-:32
-> > > > > > > +0000, Parav Pandit <parav@nvidia.com>
-> > > > > > > wrote:
-> > > > > > > >
-> > > > > > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > > > Sent: Tuesday, May 14, 2024 1:23 PM
-> > > > > > > > >
-> > > > > > > > > On Tue, 14 May 2024 07:48:55 +0000, Parav Pandit
-> > > > > > > > > <parav@nvidia.com>
-> > > > > > > > > wrote:
-> > > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > > > > > Sent: Tuesday, May 14, 2024 11:23 AM
-> > > > > > > > > > >
-> > > > > > > > > > > On Tue, 14 May 2024 03:59:52 +0000, Parav Pandit
-> > > > > > > > > > > <parav@nvidia.com>
-> > > > > > > > > > > wrote:
-> > > > > > > > > > > > Hi Heng,
-> > > > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > > From: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > > > > > > > Sent: Monday, May 13, 2024 6:27 PM
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Currently, a device may initialize each vq's
-> > > > > > > > > > > > > coalescing parameters to empirically non-zero
-> > > > > > > > > > > > > values, so the description of this part is supple=
-mented for
-> > > the virtio spec.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > Currently the spec says to initialize the vq's
-> > > > > > > > > > > > coalescing parameters to
-> > > > > > > zero.
-> > > > > > > > > > > >
-> > > > > > > > > > > > Spec snippet: " Upon reset, a device MUST initialize
-> > > > > > > > > > > > all coalescing
-> > > > > > > > > > > parameters to 0."
-> > > > > > > > > > > >
-> > > > > > > > > > > > So I didn't understand why you say "current the dev=
-ice
-> > > > > > > > > > > > may
-> > > > > > > initialize".
-> > > > > > > > > > > >
-> > > > > > > > > > > > Do you mean, you want to change the spec to say, by
-> > > > > > > > > > > > default the device has
-> > > > > > > > > > > chosen to set zero or non-zero default parameter as i=
-t likes.
-> > > > > > > > > > > > (and not zero).
-> > > > > > > > > > >
-> > > > > > > > > > > Yes.
-> > > > > > > > > > >
-> > > > > > > > > > > If a device supports interrupt coalescing moderation,=
- it
-> > > > > > > > > > > usually has a non- zero default value to provide bett=
-er
-> > > performance.
-> > > > > > > > > > When VIRTIO_NET_F_VQ_NOTF_COAL or
-> > > VIRTIO_NET_F_NOTF_COAL
-> > > > > is
-> > > > > > > not
-> > > > > > > > > negotiated, the device can apply any notification coalesc=
-ing value.
-> > > > > > > > > > (assuming EVENT_IDX is off).
-> > > > > > > > > >
-> > > > > > > > > > But when they above features are negotiated, it is
-> > > > > > > > > > expected that driver is going to driver it,
-> > > > > > > > >
-> > > > > > > > > The driver drives the runtime parameters without conflict=
-ing
-> > > > > > > > > with the initial default values.
-> > > > > > > > > And most users/drivers without dim enable may not drive i=
-t.
-> > > > > > > > >
-> > > > > > > > There is no conflict in runtime or default parameters.
-> > > > > > > > For driver it starts after 10msec or 4 minutes, both are
-> > > > > > > > runtime
-> > > > > parameters.
-> > > > > > > >
-> > > > > > > > > The device need to be defensive about default performance.
-> > > > > > > > >
-> > > > > > > > The device can surely offer the default performance with non
-> > > > > > > > zero default
-> > > > > > > values.
-> > > > > > >
-> > > > > > > That's what I'm mentioning.
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > >in such case what is the good motivation to start with s=
-ome
-> > > > > > > > > >arbitrary
-> > > > > > > value?
-> > > > > > > > > >
-> > > > > > > > > > > I'm trying to fix this, and we shouldn't force the
-> > > > > > > > > > > device to always initialize with 0.
-> > > > > > > > > > >
-> > > > > > > > > > If driver is in control, driver decides what values to =
-set.
-> > > > > > > > > > And hence, arbitrary value is
-> > > > > > > > >
-> > > > > > > > > Then maybe the driver is never set and the device uses a 0
-> > > > > > > > > which messes up most data scenarios.
-> > > > > > > > >
-> > > > > > > > If driver does not want to set it, why did it enable the
-> > > > > > > > feature in first
-> > > > > place?
-> > > > > > > > So asking again, is it because driver enabled featured too
-> > > > > > > > early in the driver
-> > > > > > > load sequence, and not DIM is also disabled?
-> > > > > > >
-> > > > > > > I don't see the connection.
-> > > > > > >
-> > > > > > There is a connection.
-> > > > > >
-> > > > > > Basically, what you want is,
-> > > > > >
-> > > > > > 1. Driver negotiates feature bits during driver load.
-> > > > > >
-> > > > > > 2. Driver or user sometimes never configures the right coalesci=
-ng
-> > > > > parameters.
-> > > > > >
-> > > > > > 3. Device to continue to apply the best coalescing parameters,
-> > > > > > typically keeps
-> > > > > changing based on the workload.
-> > > > >
-> > > > > Wait. Why does the device keeping changing the coalescing paramet=
-ers
-> > > > > if the driver does not modify parameters? Do you mean some kind of
-> > > > > hw-DIM running on the device?
-> > > > >
-> > > > Yes, If the device can choose one sane default one time to reduce
-> > > performance regression, it likely can do few more times too.
-> > >=20
-> > > Ok, I think we are now on a line:). I agree with this --> I saw that =
-some
-> > > devices have hw-DIM or device-side dim, but in general, many devices =
-only
-> > > have default values and no hardware DIM.
-> > >=20
-> > I am not sure. each one has different view of how they see the device i=
-n their own and other cloud operators place.
-> > The key part to me is, the device may apply some coalescing value until=
- the driver tells him to stop applying its values.
-> > The device may apply same value or different value, it is in the device=
- boundary.
-> >=20
-> > Hence, the below spec wording is what matters.
-> >=20
-> >=20
-> > > More below.
-> > >=20
-> > > >
-> > > > > > The device to keep doing this until the driver takes the control
-> > > > > > of doing it by-
-> > > > > itself.
-> > > > > > For example via net-dim enablement or user doing via ethtool.
-> > > > >
-> > > > > Right.
-> > > > >
-> > > > > >
-> > > > > > So what is needed is, not just have _one_ default value, but the
-> > > > > > device ability
-> > > > > to constantly applying notification coalescing as desired.
-> > > > >
-> > > > > The "default parameters" I'm talking about is the "initial
-> > > > > parameters", are we on the same line?
-> > > > Yes, but it does not have to be the initial parameters if the inten=
-tion is to
-> > > avoid the performance regression.
-> > >=20
-> > > I'm not sure if most devices carry hw-dim or device-side dim, but for=
- those
-> > > devices that are not with hw-dim, there will be a default value, whet=
-her it is
-> > > 0 or non-zero. It is necessary to allow users to query this value.
-> > >=20
-> > > Right?
-> > >=20
-> > Yes, the driver can query and supply to users; whether that value is de=
-fault or current, it depends on when the driver queries them.
-> > So to keep it simple, driver always queries the current value before or=
- after the VQ_SET command from driver point of view.
-> > The device may apply any value before the VQ_SET command is done and dr=
-iver should be able to query it as long as _F bit is negotiated.
-> > It is straight forward.
+
+> From: Heng Qi <hengqi@linux.alibaba.com>
+> Sent: Thursday, May 23, 2024 8:54 AM
 >=20
-> +1
->=20
-> Everything looks clear.
-
-Hi all!
-
-A new version has been released with a new patch name:
-
-https://lore.kernel.org/virtio-comment/20240523032332.50995-1-hengqi@linux.=
-alibaba.com/T/#u
-
-Thanks.
-
->=20
-> Thanks!
->=20
->=20
-> >=20
-> > > >
-> > > > >
-> > > > > >
-> > > > > > When the driver issues the VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET
-> > > > > command
-> > > > > > for the first time onwards, at that point, the device receives =
+> The device can set any initial coalescing parameters (0 or non-zero) for =
 the
-> > > > > hint/indication, That now on, driver is in the control, hence the
-> > > > > device should stop applying its own logic.
-> > > > > >
-> > > > > > Just one default is not enough.
-> > > > > > And feature negotiation is of no help here at such an early sta=
-ge.
-> > > > > >
-> > > > > > This is the limitation of feature bits negotiation and for now =
-we
-> > > > > > need to live it
-> > > > > it.
-> > > > > >
-> > > > > > And heavy alternative that I prefer to avoid is keep the
-> > > > > > notification features
-> > > > > disabled at default, re-initialize the driver when user enables t=
-he
-> > > > > notification coaleasing.
-> > > > > > However, this is disruptive enough.
-> > > > > >
-> > > > > > So I propose that we draft the spec in device requirements as:.
-> > > > > >
-> > > > > > The device MAY apply any notification coalescing values when
-> > > > > VIRTIO_NET_F_VQ_NOTF_COAL or VIRTIO_NET_F_NOTF_COAL is
-> > > negotiated,
-> > > > > until driver instruct the values for the first time.
-> > > > > > Once the driver has performed VIRTIO_NET_F_VQ_NOTF_COAL
-> > > command
-> > > > > for a VQ or VIRTIO_NET_F_NOTF_COAL command for set of VQs, after
-> > > > > that the device SHOULD generate notifications based on driver sup=
-plied
-> > > parameters.
-> > > > >
-> > > > > I've always agreed with this.
-> > > > >
-> > > > Ok. so lets please rephase this proposal to define how a devices sh=
-ould
-> > > behave.
-> > >=20
-> > > Ok. V3 will rephase the text.
-> > >=20
-> > Ok. thanks.
-> >=20
-> > > >
-> > > >
-> > > > > >
-> > > > > > > >
-> > > > > > > > If feature is negotiated, than DIM can be enabled by defaul=
-t,
-> > > > > > > > and therefore
-> > > > > > > there is no need for the defaults?
-> > > > > > >
-> > > > > > > Right. But if DIM is not enabled (pls remember that DIM is ju=
-st
-> > > > > > > one of the application scenarios of VQ_NOTF_COAL, right?), the
-> > > > > > > user can query the initial value of the device, which may be =
-any value.
-> > > > > > >
-> > > > > > It is going to be just more than initial value, as device will
-> > > > > > have to keep
-> > > > > changing the value.
-> > > > > >
-> > > > > > > >
-> > > > > > > > Or you are saying, that enabling DIM as default has some
-> > > > > > > > issue, and until
-> > > > > > > that point you prefer to have some default in the device?
-> > > > > > >
-> > > > > > > Partly true. The complete purpose is that the device can have
-> > > > > > > any default values
-> > > > > > > (0 or non-zero).
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > Cloud vendors cannot do this. And I don=E2=80=99t seem to=
- see any
-> > > > > > > > > interference with other devices from this proposal?
-> > > > > > > > > If the device does not want a non-zero value, a value of 0
-> > > > > > > > > can be used as the default value.
-> > > > > > > > >
-> > > > > > > > I didn=E2=80=99t understand above.
-> > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > Especially when the DIM is disabled from the enabled
-> > > > > > > > > > > state, allowing the driver to restore default paramet=
-ers
-> > > > > > > > > > > for device will prevent occasional performance degrad=
-ation.
-> > > > > > > > > > >
-> > > > > > > > > > When DIM is disabled, do you mean driver does not have =
-any
-> > > > > > > > > > good
-> > > > > > > defaults?
-> > > > > > > > >
-> > > > > > > > > DIM is not guaranteed to have a friendly value when disab=
-led.
-> > > > > > > > >
-> > > > > > > > I didn=E2=80=99t follow.
-> > > > > > > >
-> > > > > > > > (a) When DIM is enabled, DIM decides the value.
-> > > > > > > > (b) When DIM is disabled, zero is not good default in the d=
-evice.
-> > > > > > > > Did I
-> > > > > > > understand right?
-> > > > > > > >
-> > > > > > > > I agree with (a) and (b).
-> > > > > > >
-> > > > > > > Right.
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > > I guess this issue surfaces from the feature negotiation
-> > > > > > > > > > limitation that, it
-> > > > > > > > > must be done early enough before DRIVER_OK.
-> > > > > > > > > > And DIM is still disabled in driver.
-> > > > > > > > >
-> > > > > > > > > We lack the capability filed of default coalescing
-> > > > > > > > > parameters, so GET is used to alleviate this.
-> > > > > > > > >
-> > > > > > > > When GET is not supported, ethtool should get -ENOSUPP inst=
-ead of
-> > > 0.
-> > > > > > >
-> > > > > > > We don't have a separate feature bit for GET, right? So if
-> > > > > > > VQ_NOTF_COAL is negotiated, the device supports the GET
-> > > command.
-> > > > > > >
-> > > > > > Yes, I meant to say that VIRTIO_NET_CTRL_NOTF_COAL and
-> > > > > > VQ_NOTF_COAL
-> > > > > both may not be offered.
-> > > > > > When only VIRTIO_NET_CTRL_NOTF_COAL is done, the driver can
-> > > report
-> > > > > > -
-> > > > > ENOSUPP.
-> > > > > >
-> > > > >
-> > > > > I think "VIRTIO_NET_F_NOTF_COAL" and VQ_NOTF_COAL both may not
-> > > be
-> > > > > offered?
-> > > > >
-> > > > Right. Don=E2=80=99t see a value of F_NOTF_COAL, once the VQ_NOTF_C=
-OAL is
-> > > offered.
-> > > >
-> > > > >
-> > > > > >
-> > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > That explains.
-> > > > > > > > > >
-> > > > > > > > > > Commit log needs to explain this limitation and the gain
-> > > > > > > > > > by relaxing it to be
-> > > > > > > > > non-zero.
-> > > > > > > > > >
-> > > > > > > > > > Any reason DIM is disabled by default in the driver?
-> > > > > > > > > > If VQ_NOTF_COAL is supported by device, DIM should be
-> > > > > > > > > > enabled by
-> > > > > > > > > default.
-> > > > > > > > >
-> > > > > > > > > virtio-net support for netdim needs to be optimized. Of
-> > > > > > > > > course, I also found that other network cards also have
-> > > optimization points.
-> > > > > > > > >
-> > > > > > > > > I'm trying to enable DIM for upstream by default, after I=
-'ve
-> > > > > > > > > done the profile list tuning etc.
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > > Since the VIRTIO_NET_F_NOTF_COAL feature does not
-> > > > > > > > > > > > > provide a related GET command or config field, we
-> > > > > > > > > > > > > still consider its default values
-> > > > > > > > > to be 0.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > The behavior for VIRTIO_NET_F_NOTF_COAL and
-> > > > > > > > > > > VIRTIO_NET_F_VQ_NOTF_COAL can stay same for the defau=
-lt
-> > > value.
-> > > > > > > > > > > > Can you please explain the motivation for running
-> > > > > > > > > > > > different default values
-> > > > > > > > > > > for two different features in this commit log?
-> > > > > > > > > > >
-> > > > > > > > > > > The current spec leaves coalescing parameters for both
-> > > features at 0.
-> > > > > > > > > > >
-> > > > > > > > > > > F_VQ_NOTF_COAL provides a GET command, that is, non-z=
-ero
-> > > > > > > > > > > 0 can be obtained by the driver from the device, but
-> > > > > > > > > > > F_NOTF_COAL does not have a similar GET command.
-> > > > > > > > > > >
-> > > > > > > > > > GET command doesn't give the ability to define the defa=
-ults.
-> > > > > > > > > > So both can have non zero defaults.
-> > > > > > > > >
-> > > > > > > > > Makes sense.
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > So when vq reset occurs or dim is disabled from the
-> > > > > > > > > > > enabled state, the driver with F_VQ_NOTF_COAL negotia=
-ted
-> > > > > > > > > > > has the ability to restore non-zero values, but only
-> > > > > > > > > > > when F_NOTF_COAL is negotiated, the driver has no path
-> > > > > > > > > > > to obtain the non-zero value, let alone restore non-z=
-ero
-> > > > > > > > > values.
-> > > > > > > > > > >
-> > > > > > > > > > When F_NOTF_COAL is negotiated, if the device has its n=
-on
-> > > > > > > > > > zero defaults,
-> > > > > > > > > why does driver need to restore anything?
-> > > > > > > > >
-> > > > > > > > > Yes, device will set these.
-> > > > > > > > >
-> > > > > > > > Ok. so no restore needed.
-> > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > > Suggested-by: Jason Wang <jasowang@redhat.com>
-> > > > > > > > > > > > > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-> > > > > > > > > > > > > ---
-> > > > > > > > > > > > > v1->v2:
-> > > > > > > > > > > > >   - Update description @Jason.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >  device-types/net/description.tex | 22
-> > > > > > > > > > > > > +++++++++++++++-------
-> > > > > > > > > > > > >  1 file changed, 15 insertions(+), 7 deletions(-)
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > diff --git a/device-types/net/description.tex
-> > > > > > > > > > > > > b/device- types/net/description.tex index
-> > > > > > > > > > > > > 61cce1f..cf4b12c 100644
-> > > > > > > > > > > > > --- a/device-types/net/description.tex
-> > > > > > > > > > > > > +++ b/device-types/net/description.tex
-> > > > > > > > > > > > > @@ -1805,6 +1805,10 @@ \subsubsection{Control
-> > > > > > > > > > > > > Virtqueue}\label{sec:Device Types / Network Devic=
-e /
-> > > > > > > > > > > > > Devi
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >  The device may generate notifications more or le=
-ss
-> > > > > > > > > > > > > frequently than specified by set commands of the
-> > > > > > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL
-> > > > > > > > > class.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > +If the VIRTIO_NET_F_VQ_NOTF_COAL feature is
-> > > > > > > > > > > > > +offered, the device may initialize the coalescing
-> > > > > > > > > > > > > +parameters for each transmit or receive virtqueue
-> > > > > > > > > > > > > +to non-zero values, otherwise, to 0, which are
-> > > > > > > > > > > > > +called default
-> > > > > > > > > > > > > coalescing parameters.
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > Instead of 'offered', it should be 'negotiated'.
-> > > > > > > > > > > > Because if may be offered,
-> > > > > > > > > > > but driver may not have enabled it.
-> > > > > > > > > > >
-> > > > > > > > > > > I do not think so.
-> > > > > > > > > > >
-> > > > > > > > > > > Even if the driver does not negotiate, as long as the
-> > > > > > > > > > > device has the ability to adjust coalescing parameter=
-s (i.e.
-> > > > > > > > > > > offered), the device will initialize any values.
-> > > > > > > > > > >
-> > > > > > > > > > The device can initialize coalescing parameters regardl=
-ess
-> > > > > > > > > > of VQ_NOTF_COAL
-> > > > > > > > > offered or not.
-> > > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > Right.
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > >  If coalescing parameters are being set, the devi=
-ce
-> > > > > > > > > > > > > applies the last coalescing parameters set for a
-> > > > > > > > > > > > > virtqueue, regardless of the command used to set =
-the
-> > > > > > > > > > > > > parameters. Use the following command sequence  w=
-ith
-> > > > > > > > > > > > > two pairs of virtqueues as
-> > > > > > > an example:
-> > > > > > > > > > > > > @@ -1873,6 +1877,10 @@ \subsubsection{Control
-> > > > > > > > > > > > > Virtqueue}\label{sec:Device Types / Network Devic=
-e /
-> > > > > > > > > > > > > Devi
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >  The driver MUST ignore the values of coalescing
-> > > > > > > > > > > > > parameters received from the
-> > > > > > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
-> > > > > > > command
-> > > > > > > > > > > > > if the device responds with VIRTIO_NET_ERR.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > +If the VIRTIO_NET_F_VQ_NOTF_COAL feature is
-> > > > > > > > > > > > > +negotiated, the driver
-> > > > > > > > > > > > > MUST
-> > > > > > > > > > > > > +get coalescing parameters for each enabled trans=
-mit
-> > > > > > > > > > > > > +or receive virtqueue through the
-> > > > > > > > > > > > > +VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
-> > > > > > > > > > > command
-> > > > > > > > > > > > > after a successful device reset.
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > The driver is free to not call GET call at all. It =
-can always just
-> > > do set.
-> > > > > > > > > > > > So it cannot be must requirement for the driver to =
-get them.
-> > > > > > > > > > >
-> > > > > > > > > > > This is mainly forced to MUST during the probe phase.
-> > > > > > > > > > > Other timings, the existing spec has already describe=
-d it clearly.
-> > > > > > > > > > >
-> > > > > > > > > > I don't see it is needed to force driver to read.
-> > > > > > > > > > Why is it must for the driver to read it? It can operat=
-e without
-> > > read.
-> > > > > > > > >
-> > > > > > > > > Otherwise the device has a non-zero default value, but us=
-ers
-> > > > > > > > > using ethtool -c see a value of 0.
-> > > > > > > > >
-> > > > > > > > When GET is supported, ethtool callback should query the cu=
-rrent
-> > > value.
-> > > > > > > > Driver can read it once at start time, but it is not a MUST
-> > > requirement.
-> > > > > > > > Driver can read it runtime too. It is the driver implementa=
-tion
-> > > choice.
-> > > > > > > > We don=E2=80=99t need to tell in the spec, when driver MUST=
- read it.
-> > > > > > >
-> > > > > > > I agree with this.
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > The wording should be, the driver MAY get ...
-> > > > > > > > > > > >
-> > > > > > > > > > > > >  \devicenormative{\subparagraph}{Notifications
-> > > > > > > > > > > > > Coalescing}{Device Types / Network Device / Device
-> > > > > > > > > > > > > Operation / Control Virtqueue / Notifications
-> > > > > > > > > > > > > Coalescing}
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >  The device MUST ignore \field{reserved}.
-> > > > > > > > > > > > > @@ -1884,18 +1892,18 @@ \subsubsection{Control
-> > > > > > > > > > > > > Virtqueue}\label{sec:Device Types / Network Devic=
-e /
-> > > > > > > > > > > > > Devi The device MUST respond to
-> > > > > > > VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET
-> > > > > > > > > > > > > and VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands
-> > > with
-> > > > > > > > > > > VIRTIO_NET_ERR if
-> > > > > > > > > > > > > the designated virtqueue is not an enabled transm=
-it
-> > > > > > > > > > > > > or receive
-> > > > > > > > > virtqueue.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > -Upon disabling and re-enabling a transmit
-> > > > > > > > > > > > > virtqueue, the device MUST set the coalescing
-> > > > > > > > > > > > > parameters of the virtqueue -to those configured
-> > > > > > > > > > > > > through the VIRTIO_NET_CTRL_NOTF_COAL_TX_SET
-> > > > > > > > > > > command, or,
-> > > > > > > > > > > > > if the driver did not set any TX coalescing param=
-eters, to 0.
-> > > > > > > > > > > > > -
-> > > > > > > > > > > > > -Upon disabling and re-enabling a receive virtque=
-ue,
-> > > > > > > > > > > > > the device MUST set the coalescing parameters of =
-the
-> > > > > > > > > > > > > virtqueue -to those configured through the
-> > > > > > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL_RX_SET
-> > > > > > > > > command,
-> > > > > > > > > > > > > or, if the driver did not set any RX coalescing p=
-arameters, to
-> > > 0.
-> > > > > > > > > > > > > -
-> > > > > > > > > > > > >  The behavior of the device in response to set
-> > > > > > > > > > > > > commands of the VIRTIO_NET_CTRL_NOTF_COAL class is
-> > > best-effort:
-> > > > > > > > > > > > >  the device MAY generate notifications more or le=
-ss
-> > > > > > > > > > > > > frequently than specified.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >  A device SHOULD NOT send used buffer notificatio=
-ns
-> > > > > > > > > > > > > to the driver if the notifications are suppressed,
-> > > > > > > > > > > > > even if the notification conditions are
-> > > > > > > > > > > met.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > -Upon reset, a device MUST initialize all coalesc=
-ing
-> > > > > > > > > > > > > parameters to
-> > > > > > > 0.
-> > > > > > > > > > > > > +Upon reset, a device MUST set default coalescing
-> > > > > > > > > > > > > +parameters for all transmit or receive virtqueue=
-s.
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > The device MAY set parameters to zero or non zero v=
-alues..
-> > > > > > > > > > >
-> > > > > > > > > > > Ok.
-> > > > > > > > > > >
-> > > > > > > > > > > > I am still missing the motivation part of why to set
-> > > > > > > > > > > > non zero value, even if
-> > > > > > > > > > > the driver has negotiated the feature.
-> > > > > > > > > > >
-> > > > > > > > > > > Please see the above description.
-> > > > > > > > > > >
-> > > > > > > > > > If I understood is right, the case is:
-> > > > > > > > > > _VQ_NOTF_COAL is negotiated, and DIM is disabled.
-> > > > > > > > > > And device is unable to apply some good non zero defaul=
-ts.
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > If _VQ_NOTF_COAL is negotiated, and DIM is disabled:
-> > > > > > > > >
-> > > > > > > > > 1. The device wants to set a non-zero value for good perf,
-> > > > > > > > >    but the user sees a value of 0.
-> > > > > > > > >
-> > > > > > > > The only limitation that we want to remove is, on device
-> > > > > > > > reset, the device
-> > > > > > > may have any default value.
-> > > > > > >
-> > > > > > > Right, and the driver may query the value using the GET comma=
-nd.
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > 2. When the user has not actively modified the value, DIM
-> > > > > > > > > switches from
-> > > > > > > the
-> > > > > > > > >    enabled state to the disabled state, then the driver e=
-xpects to
-> > > issue a
-> > > > > > > > >    setting command with a default value. To avoid
-> > > > > > > > > performance
-> > > > > > > degradation
-> > > > > > > > >    caused by a bad value.
-> > > > > > > > >
-> > > > > > > > This #2 seems like some hack. Should I read the Linux code =
-in this
-> > > area?
-> > > > > > >
-> > > > > > > No. This is some kind of performance optimization at the code=
- level.
-> > > > > > > When DIM is turned off, the driver configures default values =
-for
-> > > > > > > the device to avoid any big performance regression.
-> > > > > > >
-> > > > > > If the driver configures the default, we don=E2=80=99t need dev=
-ice to
-> > > > > > apply any
-> > > > > defaults.
-> > > > >
-> > > > > when does the driver configure the default value (actually I mean
-> > > > > the initial
-> > > > > value) and how does the driver know which default (initial value)
-> > > > > value applies to all devices?
-> > > > >
-> > > > I don=E2=80=99t think the driver can apply.
-> > > > I understood that you wanted the driver to configure some default f=
-rom
-> > > > what you wrote as " When DIM is turned off, the driver configures d=
-efault
-> > > values for the device to avoid any big performance regression."
-> > >=20
-> > > Maybe I didn't describe it clearly, consider the following scenario:
-> > > 1. The driver may obtain the initial value. If not, the value is 0. -=
---> This initial
-> > > value called default value.
-> > Lets just keep it current value in the spec and keep it simple.
-> >=20
-> > > 2. User query the coalescing parameters.  ---> Driver return the defa=
-ult value.
-> > > 3. dim is disabled from enabled state -> Driver restores the device u=
-sing the
-> > > default value obtained from the device.
-> > >=20
-> > Ok. looks fine to me as long as we keep it current value and say that t=
-he device may have any non zero or zero notification coalescing parameters =
-before VQ_SET is done.
-> >=20
-> > > Thanks.
-> > >=20
-> > > >
-> > > > > Thanks.
-> > > > >
-> > > > > > I thought your intention was, the driver does not know what is =
-the
-> > > > > > best
-> > > > > notification rate to configure and feature is enabled in the devi=
-ce.
-> > > > > > And the device does not have any good defaults (because driver =
-is
-> > > > > > not
-> > > > > configuring any defaults).
-> > > > > >
-> > > > > > But here you say, the driver configures the drefault. I am lost=
-. =E2=98=B9
-> > > > > >
-> > > > > > > >
-> > > > > > > > > We assume that most users do not have the prerequisite
-> > > > > > > > > knowledge to modify coalecing parameters.
-> > > > > > > > >
-> > > > > > > > Right. Hence the DIM should be used.
-> > > > > > > > When DIM is not used, a non zero default is good to have.
-> > > > > > > > (without forcing the driver to read it).
-> > > > > > >
-> > > > > > > +1
-> > > > > > >
-> > > > > > > Thanks.
-> > > > > > >
-> > > > > > > >
-> > > > > > > > > Thanks.
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > Right?
-> > > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > > Thanks.
-> > > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > > +Regardless of whether the coalescing parameters
-> > > > > > > > > > > > > +have been overridden by set commands from the
-> > > > > > > > > VIRTIO_NET_CTRL_NOTF_COAL
-> > > > > > > > > > > > > +class, upon
-> > > > > > > > > > > > > disabling
-> > > > > > > > > > > > > +and re-enabling a transmit or receive virtqueue,
-> > > > > > > > > > > > > +the device MUST set the previous parameters for =
-the
-> > > virtqueue.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >  \paragraph{Device Statistics}\label{sec:Device
-> > > > > > > > > > > > > Types / Network Device / Device Operation / Contr=
-ol
-> > > > > > > > > > > > > Virtqueue / Device Statistics}
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > --
-> > > > > > > > > > > > > 2.32.0.3.g01195cf9f
-> > > > > > > > > > > >
-> > > > > > > >
-> > > > > >
-> > > >
-> >=20
+> receive/send queue before the setting command is executed, not just 0,
+> enhancing device performance even without DIM enabled.
 >=20
+> So we need to clarify descriptions that don't fit the behavior.
+>=20
+> Suggested-by: Jason Wang <jasowang@redhat.com>
+> Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> ---
+> v2->v3:
+>   - Clarify description to be more generic. @Parav
+>=20
+> v1->v2:
+>   - Update description. @Jason
+>=20
+>  device-types/net/description.tex | 20 +++++++++++++-------
+>  1 file changed, 13 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/device-types/net/description.tex b/device-
+> types/net/description.tex
+> index 61cce1f..f51e0d8 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -1803,6 +1803,14 @@ \subsubsection{Control
+> Virtqueue}\label{sec:Device Types / Network Device / Devi
+>                                          for an enabled transmit/receive =
+virtqueue whose index is
+> \field{vq_index}.
+>  \end{enumerate}
+>=20
+> +If the VIRTIO_NET_F_NOTF_COAL or VIRTIO_NET_F_VQ_NOTF_COAL feature
+> is
+> +negotiated, the device may apply any coalescing parameters to each
+> +transmit/receive virtqueue before the driver successfully performs one o=
+f the
+> VIRTIO_NET_CTRL_NOTF_COAL set commands.
+> +
+> +The driver can query the current coalescing parameters of any enabled
+> +transmit/receive virtqueue using the
+> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET
+> +command, before or after any VIRTIO_NET_CTRL_NOTF_COAL set command
+> is done.
+> +
+>  The device may generate notifications more or less frequently than speci=
+fied
+> by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
+>=20
+>  If coalescing parameters are being set, the device applies the last coal=
+escing
+> parameters set for a @@ -1884,18 +1892,16 @@ \subsubsection{Control
+> Virtqueue}\label{sec:Device Types / Network Device / Devi  The device MUS=
+T
+> respond to VIRTIO_NET_CTRL_NOTF_COAL_VQ_SET and
+> VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET commands with  VIRTIO_NET_ERR if
+> the designated virtqueue is not an enabled transmit or receive virtqueue.
+>=20
+> -Upon disabling and re-enabling a transmit virtqueue, the device MUST set=
+ the
+> coalescing parameters of the virtqueue -to those configured through the
+> VIRTIO_NET_CTRL_NOTF_COAL_TX_SET command, or, if the driver did not set
+> any TX coalescing parameters, to 0.
+> -
+> -Upon disabling and re-enabling a receive virtqueue, the device MUST set =
+the
+> coalescing parameters of the virtqueue -to those configured through the
+> VIRTIO_NET_CTRL_NOTF_COAL_RX_SET command, or, if the driver did not set
+> any RX coalescing parameters, to 0.
+> -
+
+These two normative statements are correct, the change should be only for 0=
+ and only for TX and RX commands.
+(no need to extend that to per VQ level commands).
+
+There is no need to burden the device to remember the old value for each qu=
+eue when the q is disabled.
+No point in remember something when the device does not know if it will be =
+ever enabled or not.
+
+So it should be, =20
+
+"or, If the driver did not set any coalescing parameters, the device MAY in=
+itialize it to any value."
+
+>  The behavior of the device in response to set commands of the
+> VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
+>  the device MAY generate notifications more or less frequently than speci=
+fied.
+>=20
+>  A device SHOULD NOT send used buffer notifications to the driver if the
+> notifications are suppressed, even if the notification conditions are met=
+.
+>=20
+> -Upon reset, a device MUST initialize all coalescing parameters to 0.
+
+> +Upon disabling and then re-enabling a transmit or receive virtqueue,
+> +the device MUST apply the same coalescing parameters to the virtqueue
+> +as were set before it was disabled.
+> +
+
+I think it should be,=20
+When VIRTIO_NET_F_VQ_NOTF_COAL feature is negotiated, upon disabling and th=
+en re-enabling a transmit or receive virtqueue, the device MAY set any coal=
+escing parameters for all transmit or
+receive virtqueues.
+
+This clarifies the current behavior and also does not burden the device to =
+remember any values related to VQ resource that is disabled (or destroyed).
+
+> +Upon reset, a device MAY set any coalescing parameters for all transmit =
+or
+> receive virtqueues.
+>=20
+>  \paragraph{Device Statistics}\label{sec:Device Types / Network Device /
+> Device Operation / Control Virtqueue / Device Statistics}
+>=20
+> --
+> 2.32.0.3.g01195cf9f
+
