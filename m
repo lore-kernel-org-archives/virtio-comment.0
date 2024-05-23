@@ -1,47 +1,47 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656A7145FE4
-	for <virtio-comment@lists.linux.dev>; Wed, 22 May 2024 18:37:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDB384A22
+	for <virtio-comment@lists.linux.dev>; Thu, 23 May 2024 21:22:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716403059; cv=none; b=m2bVIJFaHGb1ncn3kjl5nO7UujBc08mUNCiD0NTJoB/FcNtxafH9N2QjXMVkUua+a4dSlKBqDvN3gurWS4PfGRYzlHpsUZllQsMIginKwCKAh/t9z1i5zWxRrrEuLGIvaknVy/tKLeSveae3LfLm93kOgKx5ktSkDkA4tbjXb6A=
+	t=1716499372; cv=none; b=MPZ5PjEw4Z4DWuf4nsXj79XOZVe5rAbd8Rmj5F4fXY0TnqcIV4E+OrX4YycPdDkaSvDI9lGGwQZZsrWKTglaL1dNOWQqtghi/kF06uJ0NfxLrEWCw7KEVq2LtQnIyMqqpUh5NGBCTOIShhjHUBK8ie+f6lijlb3PNvyBLGlbrx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716403059; c=relaxed/simple;
-	bh=u7WoznoAqkdvD7zKNNMgYS9lLrtBomkQMRJNrin6kHE=;
+	s=arc-20240116; t=1716499372; c=relaxed/simple;
+	bh=UiOSAoIEmkQFYdPT5C4mkq+zkKZY1gWFlfwruSIrHbw=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IYty24S2c86hhHUs9Y6hffSqhJflzeElJPy2Rnm+jQmpciIz2bkYWW68cfdPjAJl2Jz3pR4hmxkUd/IFvdH/1vTLZImJpeSR6aj5U5onhriCGWl9MBRb8Q9GIWrIyhSH9b3UbERIRv54ceDwN84GT4vFe6s+OaTuMch0yWvTTYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pTvlsf10; arc=none smtp.client-ip=90.155.50.34
+	 Content-Type:MIME-Version; b=mwV7tPwCup+JuEq4MyeZxhrUblEJ99vAotaVkDr7easaspG4xud3JcH1Rq/xwRMv6KYbIqMBK5tPY/edVK2hLp0zHTjZbmNBzwzVRLP3tpn2NZNWGvg5UfsyYQ2ypt5UZm1qsD+bT9AZk4z6jJyEuo6V4lqJe3Vsd9AMHpqYk8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Ua2Bq7Xg; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pTvlsf10"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Ua2Bq7Xg"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=u7WoznoAqkdvD7zKNNMgYS9lLrtBomkQMRJNrin6kHE=; b=pTvlsf10V+uJC0FFkb7vNm736+
-	EigwnB01B8rRs9pSPNluMiXNKsRJYaILtxaWM20EWDrbexmHfDiMDxAJOC04p+Fx+rweUjT8skYsn
-	AnLoPNvZGD+xEJ4QDUCJ9hFXct9P608P2twvYnzxcuOZGp9vCe4KGj62Rsq3WaHuBdjTeCGwlGpjd
-	YbQ/e/YzHqXSvHLoASuA4mjbXeDfLpuUDQis9PyH5AnqgQWqYQ4DE4iGEEIOQg47hJU2autQb6SKO
-	bAAFpyzrD3zBRTIyBls8DYrGIET+UFVZwJQ7p3LhfAAZCGFNOUckPdDVtU7IjSDip/5m8ufPaZy4I
-	+YCZ3adQ==;
-Received: from [205.251.233.178] (helo=u3832b3a9db3152.ant.amazon.com)
+	bh=UiOSAoIEmkQFYdPT5C4mkq+zkKZY1gWFlfwruSIrHbw=; b=Ua2Bq7XgMsJXM3ma8TkY2rhVGG
+	2iKDpqk7QqnpR6yKvgK4wKUYfo12ERog2FfKxBKSDqW/DXD8PdNKiwLMA9u3JhvEKfkLTq3Kcw52i
+	WrEbeU3mSwMOOV6033KxpWNXveNrRTeNgeu1hJoqqUahJ2Iox5l40VaYD5PBedfKsrsQfhNWEimsk
+	hPShVyW1QaGX7wlnU7GKzNfl6V0ngL1KABSARSnfoZ7BdxGOqt3YMQPVIoYjHziqr2kdbi25J80Kg
+	LUsRBBtC3Rbvqubc+UeNK0sCuoyQa+wTg1F5loNk8uRH0BdNFFGju5TGRYcC1e6clESyBNRebykjV
+	/nWJSWTw==;
+Received: from [205.251.233.238] (helo=iad51-en-hct-f1acc-v1-ge-0-1-303.amazon.com)
 	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1s9qqC-00000000uzN-2vpu;
-	Wed, 22 May 2024 18:37:33 +0000
-Message-ID: <b4b198baa16b492a1273131e80d3f80a08835b79.camel@infradead.org>
+	id 1sAFte-000000026ny-3KXO;
+	Thu, 23 May 2024 21:22:47 +0000
+Message-ID: <dc1b9fba209402563258f7e15e6e04ec79f04063.camel@infradead.org>
 Subject: Re: [RFC PATCH v4 0/5] virtio-rtc: Add device specification
 From: David Woodhouse <dwmw2@infradead.org>
 To: Peter Hilber <peter.hilber@opensynergy.com>, 
 	virtio-comment@lists.linux.dev
 Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
 	Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>
-Date: Wed, 22 May 2024 11:37:28 -0700
+Date: Thu, 23 May 2024 14:22:43 -0700
 In-Reply-To: <20240522170003.52565-1-peter.hilber@opensynergy.com>
 References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-BFkcGoDWMDzuz/pNypCr"
+	boundary="=-6vlwVV6gs8zWyEXXOwXH"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -52,20 +52,66 @@ MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-BFkcGoDWMDzuz/pNypCr
+--=-6vlwVV6gs8zWyEXXOwXH
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, 2024-05-22 at 18:59 +0200, Peter Hilber wrote:
+> This iteration of the virtio-rtc RFC spec adds leap second indication and
+> performance indication. It also incorporates the results of previous
+> discussions.
 >=20
-> - Drop distinction of Arm Generic Timer virtual and physical counter.
+> While the virtio-comment mailing list was unavailable, a discussion about
+> leap second indication and performance indication took place on the Linux
+> kernel mailing list [1]. As an outcome of this discussion [1], the RFC sp=
+ec
+> v4 now adds leap second indication and performance indication. The
+> respective changes are for now gathered in patch 5.
+>=20
+> Summary
+> -------
+>=20
+> The RTC (Real Time Clock) device provides information about current time.
+> The device can provide different clocks, for the UTC or TAI time standard=
+s,
+> or for physical time elapsed since some past epoch. For UTC clocks, the
+> device also indicates when and how leap seconds are handled. The driver c=
+an
+> read the clocks with simple or more accurate methods. Optionally, the
+> driver can set an alarm.
 
-Hm, why so? If you're giving out paired readings of the counter and
-wallclock time, surely it matters *which* counter?=20
+For the benefit of the virtio-comment@ list, my other observation about
+this virtio-rtc proposal as it stands was that it doesn't solve the
+problem of live migration.
 
-If a guest has access to both, how can it know which is being used?=20
+Using virtio-rtc as a PHC to calibrate the underlying oscillator (the
+TSC or arch counter) is all very well... but then you get transparently
+migrated to a new host and there is a step change in the frequency of
+that counter (and perhaps a literal step in the value too, depending on
+the synchronization of the clock between the two hosts).
 
---=-BFkcGoDWMDzuz/pNypCr
+And then your guest clock is wildly inaccurate for a period of time
+without you even knowing, until its calibration recovers.
+
+We also end up in a model where potentially hundreds of guests are all
+duplicating this same work in order to calibrate the *same* underlying
+oscillator which is exposed to them all.
+
+I proposed a model where we expose a shared memory region to the guest,
+with a seqlock data structure reporting the actual relationship between
+the counter and real time ( reference point, frequency, error bounds /
+synchronization stratum, disruption (LM) indicator ). Cleverer people
+than me refer to this as a "feed-forward" clock model, if I understand
+correctly. I think of it more like the vDSO that an OS kernel offers to
+userspace to allow quick conversions from a counter read to real time.
+
+Peter's response, if I may paraphrase, was that this wasn't the problem
+he was trying to solve but I was welcome to come up with a more
+concrete proposal, and he was not fundamentally averse to including
+that as an optional part of the virtio-rtc proposal.
+
+
+--=-6vlwVV6gs8zWyEXXOwXH
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -157,24 +203,24 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNTIyMTgzNzI4WjAvBgkqhkiG9w0BCQQxIgQg8aeGJUr1
-WCn6ST2d9zDYvpyMz4mmvi3KfytyHYs5hhMwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNTIzMjEyMjQzWjAvBgkqhkiG9w0BCQQxIgQg6lRyXAeO
+et2IVmoPb0Vl0jbp0KoKfn79xa3msImaJJ8wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBtDu1+xw338Ve4sTvgpSAnlXTS5Aq1i5V/
-9MvDIJyIHaNVffKcfW4i9yzeKg/5OCg0fHJ8yworkAUOTQPMef8XHtAGP79JzM7dJKYnIdlXe/Xa
-kEQi9VFKciC82II7L3StnyPJ8p43jMYgnSnL0/7g8WL8PnYQcKRmtkVQyIVhNXPavHOoWbKYrMk3
-wh/EWrhHiJHNNAEQwZ36qDL64OSFXSwwjdYf0WHgMk478zN9HoDFO3oFKGsLi05NyEAq5hsjoPI5
-aVuqjWrrxNTQ5L2ybHhzwu2fwWKbul89RZvtjGYemlSu1VjksPKn0NXIpHymHFIUFMLh1E+sKitc
-HJZbLUN56Er6GQZnQL8WvUQBuvu8h/ZZY1CsXWaOIqcT9mT3bA1bsUeG7c32MymyxOR/3vwDErlT
-z3C0AeXK6mJlhjYNhpMcq9Flxh2B2gWW3Cdaov3mtMXcnXZDYwPkGpZn2iRQDh01iPL4RHCl8Kz1
-6viXO/8JHmZdYnyKlYAIiZjnJ2WhbWuz+AGVknC/AiQR/L8GcvqNrquSaA2vTAuu/qJL+UuZlgC2
-EgrzOlzvk9dGAtwohfg6KQiaa4OzH/lqf48Cukh5SFCCzuMF4cYL5+uOIm0McwPOOll3togy410C
-iinDo8rReSnYSzp/UG8xJJRUzSQ8+XmzlB7xSsD9/gAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBRR+EOntm8bDVrQts1umW3jG7djyCidt/l
+gkh2DOhdyYkDtvIvSrKNDmn6JAqJRkOuT6SVDGpzQhNaJ9WjWxTcTGJOhi+YKIGcxAsVmDXKGbfr
+L1/E5b8VjpjehIWxyhrNa/d1txk/xF9g6tE5w/L5BkL7uotuY3xsEwMf6EkTtnp/c9QyAJs1jGyG
+aVKlzPi7Lgz0kSErR1jOdg8gJv/todf/GtgRlbZts3ZOTNkobqDiGwrv/Ow3u/K7vTYAVheNZjq0
+oraBicIUq116pJ/7aRCuDf2FGn+lwkE0GK4AcHRJUjPvYJ3twm+p2E9E9Rt+NCC1tk4zmZ1WTbd7
+0UzAg1uz7wXUW4WaaMH1nfaHRGZ/lxVZ/nRX6JcXADYPcxNxg6KUz+MrqdLh5XYOHlXprBDISD0Y
+6qsAqUcoeGE00Lp8r3bzfP24oeDAKIoy1s3m44wbfWvOjG0MjgJqCLSrzfqvlbLSlycXNFVEC9yN
+mBzdCir09kPmJ0nhdZ1O12dWSm36DybN/ZJqey8Bvp2QSYHVCD3imPpukR4FU1LS9EtxPmWWlWzG
+4xus+4E47hV95ir+Ugnp7CpXr6mDwlcBP1HPTjhjTSv4D89TW3RKi/m+/f1tGT1bs5lKM57bu923
+Bla5BXnjIqwnpU9BEcOT6piCbIfAQC02vI8bo4uSxwAAAAAAAA==
 
 
---=-BFkcGoDWMDzuz/pNypCr--
+--=-6vlwVV6gs8zWyEXXOwXH--
