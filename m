@@ -1,273 +1,163 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906BF1A2C37
-	for <virtio-comment@lists.linux.dev>; Mon, 27 May 2024 03:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6011CEAF0
+	for <virtio-comment@lists.linux.dev>; Mon, 27 May 2024 06:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716780882; cv=none; b=J7haIngETOcAzsyxYvXazm8D6AWmNxtigm6WzSda6U0eTFXcxlpzYXCwb5svTqh6kpv2U5/NG3DX54dYX8sZr148MfmFsm27FnClrtSNBXqyTFR+gMBzPZc9WkqdmcW4OXMOOMe9OnUpWDmEEuEuLlED10mIzwJc3itTf8KidBE=
+	t=1716791849; cv=none; b=i9Qw3HGdgwXReiINdwC9yWIdfhHMfCnsNyzjiouQ8cg4NZWHGxJSgXLi4CghPo6e+XycF1jXfJTuiyx2KQexzgsdswJl/glwPzHuIigT3UQ8eWTE/wfFeWvybePN0jBM+JwsDsfwqa5/iNvKDE98C0y3oHQJrCT+ZpbQzUi7iPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716780882; c=relaxed/simple;
-	bh=HmM5VrIiGVsmtNrWJkPmayplj4oz0e2ZEaJBDGOZ3Ak=;
-	h=References:In-Reply-To:From:Mime-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tQzyRejVv7S5HNHiElo7o2gnpcKz9YuBR+Izv14Yuy7H5d7/lLDJ9ZwZBDSfVoDmZ7jNtqR1F/hjhakyBHnZQ6KWEGV4LQ+PbiTW1AN+g4sPLrcM2WvYLjUrBMhql655l9x2pySG5qoEdaLQrH6Zb3t11Nl5oVUUgiA1/XjybUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=T5D6npaZ; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1716791849; c=relaxed/simple;
+	bh=8piPTfQXXPraaeMy6d1QmVK2UUS15nTdYARIh8MLFKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=j/qNydP1dkNvRLY3T6p3XjXkNuiXfpAEKX7V+c5+DMMdSsBRYexMitDXYyfDJFAI3bGabQDniGJy65exZtVRAoyoKrt7i0CWPU465sXq7HOWtqCHUiVtaDEm77l2z5VJkL5nlrdpIvX/R4Tef0vj0H9rVZT+5ulU6VMWrCoq1A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EW6rocVp; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="T5D6npaZ"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-43f84f53f56so29116261cf.0
-        for <virtio-comment@lists.linux.dev>; Sun, 26 May 2024 20:34:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1716780879; x=1717385679; darn=lists.linux.dev;
-        h=cc:to:subject:message-id:date:user-agent:mime-version:from
-         :in-reply-to:references:from:to:cc:subject:date:message-id:reply-to;
-        bh=LkJB8Bdq3ydHNJBU+Ckh35wWExKM44J6I85iIKrms04=;
-        b=T5D6npaZjGNQFJeSp5gqFHoMm34RETOkhcNfs7snYHp1hfMV7wNQLvRirccjCEivei
-         gxbji1AUKGPwYgrYobSHS6vf4hMgl+z8Xjx9AHxIdnVUX5ug97ikHApz+LLoNcpPPIxU
-         faMfvG6H5CDPWQ0SanO6/3LSXuJqCVR1kMMpZ25v4+rc+VR+5Wq+cEJYRL/P1BSUuJ3U
-         hTY4ihM1hpMk+3vSaVXRE25h4/SSEym/r3E59LwsnSXvZXSGtROZxM2XTIMiaZO+YC+7
-         3oHZOIrMxsKL/Tedfs8yOF4EGT4RPloElxdCpNKHCIsyDecFeHih+PIqyLjZGwQ0RiTx
-         fBHA==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EW6rocVp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1716791846;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SSwsPjEIB0hMcShZyl0M+WsILwKvY1Fut9GXA311knk=;
+	b=EW6rocVpYWKR2HNnjk/LViuMZN4TXCDf0oqkGNrxue8b0Z7HRmfFdJYaKGXSwcI3ojt4q4
+	yPe+xW1kcfkWpLMpamS69hVAB+FlEw7GdEB5K11lg5m1rCy3DrOMHd5KqKl01VSc4wJnts
+	4U8LXivNNw1eC02J047G4e5gMWzNyYo=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-82-sA2Fu1ZfPheEbqvWWcWUWQ-1; Mon, 27 May 2024 02:37:22 -0400
+X-MC-Unique: sA2Fu1ZfPheEbqvWWcWUWQ-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4211131673fso1931705e9.3
+        for <virtio-comment@lists.linux.dev>; Sun, 26 May 2024 23:37:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716780879; x=1717385679;
-        h=cc:to:subject:message-id:date:user-agent:mime-version:from
-         :in-reply-to:references:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1716791841; x=1717396641;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LkJB8Bdq3ydHNJBU+Ckh35wWExKM44J6I85iIKrms04=;
-        b=kc/EQ9Vp0yIiyFW2DV0E9HNiRLEIFb+uiaUztWb0BOUXYhdn40DsyJtxirjx/uAgvm
-         aF0UFXm6xL400U9tUuM5DKKeyibTgwd08ZVT4D4m+RVCwAFHNjQl38FAV7t6fuDQTs8H
-         q3DPzHL4c7Uh62GXwEAc/XfVrZQIMKcKfar25OMwAy4bWyYv3klIJGd94vMv0aOpj2OB
-         ISx5eSufDuZXUc7ANSKpeLRL/mKWpHJq8TFWz3MQQbvv5QNJmzaT2AStw7wL+qxVOqJX
-         XW09p9ayxtK0ZUryNaOFe/QaatIyLu4JDw8eY9yDAkqOkeWFKN+40mB0Yc/Ys6zVL7Ay
-         EHhw==
-X-Gm-Message-State: AOJu0Yz29gGm7omkaJMbFiURiVaSKhixkqqii/wM8YTAUebYDjBpq8bo
-	jntojQ2sn9YGHSXVnEfn6QWYhHp+E3UdtHUCERtUU2viESH3Ztm/LbIDtCUaqRZPuw1sale/tFG
-	Mt2JTXwI4Z9ZqsXTW7w9B4h6kMPjNqAK3Wwaumw==
-X-Google-Smtp-Source: AGHT+IECZejVqsDcRKL/tffXqhiHYbgQRff9DqgTGDKAWOKtAgdEDt4A8ropFjLA0BPH9f1rUqhVajqMxuSEvmeM4kU=
-X-Received: by 2002:ac8:5f89:0:b0:43d:f37a:dbe4 with SMTP id
- d75a77b69052e-43fb0e3f3b9mr110512731cf.8.1716780879457; Sun, 26 May 2024
- 20:34:39 -0700 (PDT)
-Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
- Sun, 26 May 2024 23:34:38 -0400
-X-Original-From: zhenwei pi <pizhenwei@bytedance.com>
+        bh=SSwsPjEIB0hMcShZyl0M+WsILwKvY1Fut9GXA311knk=;
+        b=vhmikXuujwt7rUAUVoTHFkW1UABJpRiQ6S5G9k+cAFQyjCpLidhxEXgTCoYlDgTAbk
+         Jz6i1Gv04EdVLRidrwfD85kGiff90DXC3xGAKtExVOkcz8eFA4ZerkaopGJQPZzr8htN
+         utMvi+fZsKLs3hSdxIYCP2f+LjU7uuSgOCvXkCqqj1aGzzlqYE2gx3FJLd2FFg0p+Y1s
+         yOfKwJoGw7FiHTe3Ifzrm8jF3Rf9vDp6bB/Yvcu/kDNlszjjVjGPhKY1BYBVBzDYHS2m
+         nMthWeAqLV7pZ55mYmNfXrnIDlC1ertjK+r3TR3Zklcg0X5nKqlJzDt1ySe60KCW56Se
+         UACg==
+X-Gm-Message-State: AOJu0YwJ+U1RDNQEfg41SzXpr9amFtDSERL30Qftk+TcHRFDs6CBGPRY
+	yya8WyNjpPlOzC+Kx44Zxlt2no9fUvvEoqj9//9Wq7jHWEP8dZx5EwwbqatsunfXThNGR4gLQS+
+	2x1zPGlTTzDe7EOncMPGOL5YQtOY8mA6r2g4GVwalnpCMVYQSfK/V7ox1gUrC5NURmb7iBb/t
+X-Received: by 2002:a05:600c:1c88:b0:41a:908c:b841 with SMTP id 5b1f17b1804b1-42108a0d459mr86452075e9.32.1716791841269;
+        Sun, 26 May 2024 23:37:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFou9KXqILQHeg7dioGq35cvZ+DpT+ANq/rkW1jAZSFOWYHQymFZsB+KO90rs8fsw4BurmnKw==
+X-Received: by 2002:a05:600c:1c88:b0:41a:908c:b841 with SMTP id 5b1f17b1804b1-42108a0d459mr86451755e9.32.1716791840634;
+        Sun, 26 May 2024 23:37:20 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc7:342:cd82:9c62:7faf:9d73:ba3f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42108970967sm98196685e9.17.2024.05.26.23.37.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 May 2024 23:37:19 -0700 (PDT)
+Date: Mon, 27 May 2024 02:37:16 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: zhenwei pi <pizhenwei@bytedance.com>
+Cc: virtio-comment@lists.linux.dev, david@redhat.com
+Subject: Re: [PATCH 1/1] balloon: introduce 6 memory statistics
+Message-ID: <20240527022424-mutt-send-email-mst@kernel.org>
 References: <20240513121005.459013-1-pizhenwei@bytedance.com>
- <20240513121005.459013-2-pizhenwei@bytedance.com> <20240520234857-mutt-send-email-mst@kernel.org>
- <db3b8a29-db67-4e85-9b2d-314cb2924c88@bytedance.com>
-In-Reply-To: <db3b8a29-db67-4e85-9b2d-314cb2924c88@bytedance.com>
-From: zhenwei pi <pizhenwei@bytedance.com>
+ <20240513121005.459013-2-pizhenwei@bytedance.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Date: Sun, 26 May 2024 23:34:38 -0400
-Message-ID: <CABoGon+hrvp80k02QEY7h1w9m6Mr2jZVdXDq-uxy5Zd9KM+MEQ@mail.gmail.com>
-Subject: PING: [PATCH 1/1] balloon: introduce 6 memory statistics
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.linux.dev, david@redhat.com
-Content-Type: multipart/alternative; boundary="0000000000007a54e6061967326d"
+MIME-Version: 1.0
+In-Reply-To: <20240513121005.459013-2-pizhenwei@bytedance.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---0000000000007a54e6061967326d
-Content-Type: text/plain; charset="UTF-8"
+On Mon, May 13, 2024 at 08:10:05PM +0800, zhenwei pi wrote:
+> Expose more memory statistics of the virtual memory subsystem from
+> guest, it's helpful to analyze the memory performance and pressure
+> from host side.
+> 
+> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
+> ---
+>  device-types/balloon/description.tex | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/device-types/balloon/description.tex b/device-types/balloon/description.tex
+> index a1d9603..bc8e109 100644
+> --- a/device-types/balloon/description.tex
+> +++ b/device-types/balloon/description.tex
+> @@ -305,6 +305,12 @@ \subsubsection{Memory Statistics}\label{sec:Device Types / Memory Balloon Device
+>  #define VIRTIO_BALLOON_S_CACHES   7
+>  #define VIRTIO_BALLOON_S_HTLB_PGALLOC 8
+>  #define VIRTIO_BALLOON_S_HTLB_PGFAIL  9
+> +#define VIRTIO_BALLOON_S_OOM_KILL       10
+> +#define VIRTIO_BALLOON_S_ALLOC_STALL    11
+> +#define VIRTIO_BALLOON_S_ASYNC_SCAN     12
+> +#define VIRTIO_BALLOON_S_DIRECT_SCAN    13
+> +#define VIRTIO_BALLOON_S_ASYNC_RECLAIM  14
+> +#define VIRTIO_BALLOON_S_DIRECT_RECLAIM 15
+>          le16 tag;
+>          le64 val;
+>  } __attribute__((packed));
+> @@ -399,6 +405,24 @@ \subsubsection{Memory Statistics Tags}\label{sec:Device Types / Memory Balloon D
+>  
+>  \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb page
+>    allocations in the guest.
 
-On 5/21/24 12:56, zhenwei pi wrote:
-> Hi Michael,
->
-> Sorry, I received this text, but read that email from my mobile phone
-> carelessly.
->
-> On 5/21/24 11:50, Michael S. Tsirkin wrote:
->> On Mon, May 13, 2024 at 08:10:05PM +0800, zhenwei pi wrote:
->>> Expose more memory statistics of the virtual memory subsystem from
->>> guest, it's helpful to analyze the memory performance and pressure
->>> from host side.
->>>
->>> Signed-off-by: zhenwei pi
->>
->> zhenwei
->>
->> when subsriving to the lists you should have received this text:
->>
->>
->> Not to do:
->> - copy both virtio-dev and virtio-comment mailing lists (instead, pick
->> one)
->>
->> did you not get this text? was this, somehow, unclear that you copied
-> both
->> virtip-comment and virtio-dev on your patch?
->>
->>
->>> ---
->>> device-types/balloon/description.tex | 24 ++++++++++++++++++++++++
->>> 1 file changed, 24 insertions(+)
->>>
->>> diff --git a/device-types/balloon/description.tex
-> b/device-types/balloon/description.tex
->>> index a1d9603..bc8e109 100644
->>> --- a/device-types/balloon/description.tex
->>> +++ b/device-types/balloon/description.tex
->>> @@ -305,6 +305,12 @@ \subsubsection{Memory
-> Statistics}\label{sec:Device Types / Memory Balloon Device
->>> #define VIRTIO_BALLOON_S_CACHES 7
->>> #define VIRTIO_BALLOON_S_HTLB_PGALLOC 8
->>> #define VIRTIO_BALLOON_S_HTLB_PGFAIL 9
->>> +#define VIRTIO_BALLOON_S_OOM_KILL 10
->>> +#define VIRTIO_BALLOON_S_ALLOC_STALL 11
->>> +#define VIRTIO_BALLOON_S_ASYNC_SCAN 12
->>> +#define VIRTIO_BALLOON_S_DIRECT_SCAN 13
->>> +#define VIRTIO_BALLOON_S_ASYNC_RECLAIM 14
->>> +#define VIRTIO_BALLOON_S_DIRECT_RECLAIM 15
->>> le16 tag;
->>> le64 val;
->>> } __attribute__((packed));
->>> @@ -399,6 +405,24 @@ \subsubsection{Memory Statistics
-> Tags}\label{sec:Device Types / Memory Balloon D
->>>
->>> \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb
-> page
->>> allocations in the guest.
->>> +
->>> +\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The number of Out-Of-Memory
-> killer
->>> + invocations.
->>> +
->>> +\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The number of stall count
-> on memory
->>> + allocation.
->>> +
->>> +\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory that
-> has been
->>> + scanned asynchronously (in bytes).
->>> +
->>> +\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory that
-> has been
->>> + scanned directly (in bytes).
->>> +
->>> +\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory that
-> has been
->>> + reclaimed asynchronously (in bytes).
->>> +
->>> +\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory
-> that has been
->>> + reclaimed directly (in bytes).
->>> \end{description}
->>>
->>> \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory
-> Balloon Device / Device Operation / Free Page Hinting}
->>> --
->>> 2.34.1
->>>
->>
->
-> --
-> zhenwei pi
+
+Would it make sense to reference
+https://docs.kernel.org/admin-guide/mm/concepts.html ?
+you seem to be using terminology from there.
+And then pls actually use terminology from there.
+
+
+> +
+> +\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The number of Out-Of-Memory killer
+> +  invocations.
+
+
+What exactly are "invocations"? The number of times a task was killed
+to free memory?
+
+> +
+> +\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The number of stall count on memory
+> +  allocation.
 >
 
--- 
-zhenwei pi
+count and number is mostly the same.
 
---0000000000007a54e6061967326d
-Content-Type: text/html; charset="UTF-8"
+Again what is this counting? pages? stalls? If stalls isn't this always
+the same as direct reclaim?
 
-<p>On 5/21/24 12:56, zhenwei pi wrote:
-<br>&gt; Hi Michael,
-<br>&gt; 
-<br>&gt; Sorry, I received this text, but read that email from my mobile phone
-<br>&gt; carelessly.
-<br>&gt; 
-<br>&gt; On 5/21/24 11:50, Michael S. Tsirkin wrote:
-<br>&gt;&gt; On Mon, May 13, 2024 at 08:10:05PM +0800, zhenwei pi wrote:
-<br>&gt;&gt;&gt; Expose more memory statistics of the virtual memory subsystem from
-<br>&gt;&gt;&gt; guest, it&#39;s helpful to analyze the memory performance and pressure
-<br>&gt;&gt;&gt; from host side.
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;&gt; Signed-off-by: zhenwei pi
-<br>&gt;&gt;
-<br>&gt;&gt; zhenwei
-<br>&gt;&gt;
-<br>&gt;&gt; when subsriving to the lists you should have received this text:
-<br>&gt;&gt;
-<br>&gt;&gt;
-<br>&gt;&gt; Not to do:
-<br>&gt;&gt; - copy both virtio-dev and virtio-comment mailing lists (instead, pick
-<br>&gt;&gt; one)
-<br>&gt;&gt;
-<br>&gt;&gt; did you not get this text? was this, somehow, unclear that you copied
-<br>&gt; both
-<br>&gt;&gt; virtip-comment and virtio-dev on your patch?
-<br>&gt;&gt;
-<br>&gt;&gt;
-<br>&gt;&gt;&gt; ---
-<br>&gt;&gt;&gt; device-types/balloon/description.tex | 24 ++++++++++++++++++++++++
-<br>&gt;&gt;&gt; 1 file changed, 24 insertions(+)
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;&gt; diff --git a/device-types/balloon/description.tex
-<br>&gt; b/device-types/balloon/description.tex
-<br>&gt;&gt;&gt; index a1d9603..bc8e109 100644
-<br>&gt;&gt;&gt; --- a/device-types/balloon/description.tex
-<br>&gt;&gt;&gt; +++ b/device-types/balloon/description.tex
-<br>&gt;&gt;&gt; @@ -305,6 +305,12 @@ \subsubsection{Memory
-<br>&gt; Statistics}\label{sec:Device Types / Memory Balloon Device
-<br>&gt;&gt;&gt; #define VIRTIO_BALLOON_S_CACHES 7
-<br>&gt;&gt;&gt; #define VIRTIO_BALLOON_S_HTLB_PGALLOC 8
-<br>&gt;&gt;&gt; #define VIRTIO_BALLOON_S_HTLB_PGFAIL 9
-<br>&gt;&gt;&gt; +#define VIRTIO_BALLOON_S_OOM_KILL 10
-<br>&gt;&gt;&gt; +#define VIRTIO_BALLOON_S_ALLOC_STALL 11
-<br>&gt;&gt;&gt; +#define VIRTIO_BALLOON_S_ASYNC_SCAN 12
-<br>&gt;&gt;&gt; +#define VIRTIO_BALLOON_S_DIRECT_SCAN 13
-<br>&gt;&gt;&gt; +#define VIRTIO_BALLOON_S_ASYNC_RECLAIM 14
-<br>&gt;&gt;&gt; +#define VIRTIO_BALLOON_S_DIRECT_RECLAIM 15
-<br>&gt;&gt;&gt; le16 tag;
-<br>&gt;&gt;&gt; le64 val;
-<br>&gt;&gt;&gt; } __attribute__((packed));
-<br>&gt;&gt;&gt; @@ -399,6 +405,24 @@ \subsubsection{Memory Statistics
-<br>&gt; Tags}\label{sec:Device Types / Memory Balloon D
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;&gt; \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb
-<br>&gt; page
-<br>&gt;&gt;&gt; allocations in the guest.
-<br>&gt;&gt;&gt; +
-<br>&gt;&gt;&gt; +\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The number of Out-Of-Memory
-<br>&gt; killer
-<br>&gt;&gt;&gt; + invocations.
-<br>&gt;&gt;&gt; +
-<br>&gt;&gt;&gt; +\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The number of stall count
-<br>&gt; on memory
-<br>&gt;&gt;&gt; + allocation.
-<br>&gt;&gt;&gt; +
-<br>&gt;&gt;&gt; +\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory that
-<br>&gt; has been
-<br>&gt;&gt;&gt; + scanned asynchronously (in bytes).
-<br>&gt;&gt;&gt; +
-<br>&gt;&gt;&gt; +\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory that
-<br>&gt; has been
-<br>&gt;&gt;&gt; + scanned directly (in bytes).
-<br>&gt;&gt;&gt; +
-<br>&gt;&gt;&gt; +\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory that
-<br>&gt; has been
-<br>&gt;&gt;&gt; + reclaimed asynchronously (in bytes).
-<br>&gt;&gt;&gt; +
-<br>&gt;&gt;&gt; +\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory
-<br>&gt; that has been
-<br>&gt;&gt;&gt; + reclaimed directly (in bytes).
-<br>&gt;&gt;&gt; \end{description}
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;&gt; \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory
-<br>&gt; Balloon Device / Device Operation / Free Page Hinting}
-<br>&gt;&gt;&gt; --
-<br>&gt;&gt;&gt; 2.34.1
-<br>&gt;&gt;&gt;
-<br>&gt;&gt;
-<br>&gt; 
-<br>&gt; -- 
-<br>&gt; zhenwei pi
-<br>&gt; 
-<br>
-<br>-- 
-<br>zhenwei pi</p>
+> +\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory that has been
+> +  scanned asynchronously (in bytes).
 
---0000000000007a54e6061967326d--
+scanned by what? which memory do you count as "scanned"?
+
+> +
+> +\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory that has been
+> +  scanned directly (in bytes).
+
+what is "scanned directly"?
+
+
+> +
+> +\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory that has been
+> +  reclaimed asynchronously (in bytes).
+
+again reclaimed by what? free? evict?
+
+> +
+> +\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory that has been
+> +  reclaimed directly (in bytes).
+>  \end{description}
+>  
+>  \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
+> -- 
+> 2.34.1
+> 
+
