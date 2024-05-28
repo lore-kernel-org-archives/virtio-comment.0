@@ -1,150 +1,155 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com [209.85.219.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F173EA83
-	for <virtio-comment@lists.linux.dev>; Tue, 28 May 2024 05:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8BFF4EB
+	for <virtio-comment@lists.linux.dev>; Tue, 28 May 2024 05:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716875283; cv=none; b=SCfWJSi29XFw6sbkRWp1wzip8afvoxK4aSGiC6rAEHzvN4YyODSZDJFE8DPkqqtKI5p67hFxt90KCuvHQWFeUfj7qT5KMffhbgOw1QrkP060IlK404eN77SmKI9DzBLhOs0iCUjODtbGFMIptFZSs65u7Axvq40Z2bF+JNlNqbQ=
+	t=1716875440; cv=none; b=pCcVmEGyUOT38slZR09kgTdG5U7aN0aZkSGC/JzJtC32IZUMjnxL9y/OWMXlRyjAPSod2mJuHTpxy9a6R5nOE3vPpl6BYFVQ3wYV3hQJ2IFjuVMPujqAJb88uZdxd5huvEgBYjtYj/ALJ6BxEQdmPmqT52Kn37vHBfnn7DsiYc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716875283; c=relaxed/simple;
-	bh=zRIYvKIZKLQInPBk48quYVrnSlEUlB/DhojLj1Uf17A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RGP/cDOgmjZoWxwuG5IPFIRkk6aBPT21t/8bYUnJtUYe6TGqatYG4J49dwe02LhAc8OW4E4m3APj+3iO57ovLUzxf367mWHqpKrEEBgIg+baSOJOh6Qbyj0mZAg4TGwFhqICuepiSLKXouvA5hqC/VZ/vMKaIJ4Ta7rJqsfPjtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EwVgtb2q; arc=none smtp.client-ip=209.85.210.176
+	s=arc-20240116; t=1716875440; c=relaxed/simple;
+	bh=iYDyWGYP0ENpxjxt2PqaBIwrEXTfMdtM9TWTTsSi1DM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=X2yFOkxgW0oisLpkH1qVozvB/vwdXtTWIip7qT6jdqUoRxJc+CPrNIioOIGVgwr4sFkHF61J5RhpvTka93cmFPXHCENqK8ym4Zzi3DIylHu0t2m+5MqtpD7/ZcrBx3TKvICHs2MGYmfFaBfEeXiRLLRxy1vLqEAbunElhw0U7Ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GUik/6sJ; arc=none smtp.client-ip=209.85.219.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EwVgtb2q"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-6fcbd812b33so338887b3a.3
-        for <virtio-comment@lists.linux.dev>; Mon, 27 May 2024 22:48:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GUik/6sJ"
+Received: by mail-yb1-f179.google.com with SMTP id 3f1490d57ef6-df4e503983fso440459276.2
+        for <virtio-comment@lists.linux.dev>; Mon, 27 May 2024 22:50:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716875281; x=1717480081; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1BLdpBUWPKvhqHqvAGBQRbbtoRUz+rJkOzqDOV3ojiA=;
-        b=EwVgtb2q561MP+vhefD5kUdmhBQconV3a7JKm5UXszautX32IkyueQAxNtGS2hy5rk
-         o9UCixDXunng+fL2rvh1TxDtKLBtdBC+DhDpk3dNskQAFMwwOmt9CfBgb2LQOi8d+CDT
-         2pTJrS44CZPdNA6C6fhWz0YcywvBzp5PXxSh9eJNW/Ko/4XQ7xzsxelYtcvvRe2rB2+M
-         gEtfeJdTOSSAYIAVhzH/8oHBR5Q4jWf04IRNdQ7okvZTMZBQ83bdwZImZWp0jKoEHbyR
-         RNFo95H0x7jKYlt/dlvFCjj/xqxDpCCgzP7JM94vcdPa6IXHlG5jz7zob1iScaPpTx5K
-         r2ow==
+        d=gmail.com; s=20230601; t=1716875437; x=1717480237; darn=lists.linux.dev;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=MoK6y8T+Mu0vVs7vC9q2ywN+/oWeNaa/EhW0nhSy408=;
+        b=GUik/6sJouot/08926g3pP+1GvqVpwuJ2ZqqRf4BTasZUJSoGVoSZahb6MDx8X/l3z
+         Grz+OtbA4UFjwqUl6SsXDDL8BJx2sAtMrIoYgMJ3AMq+m9LuROVgYeeWeoihuJDmwyd5
+         SvRueKFqhuO3LJNtK8xz72h3/Jw4xMmK7dZ1SASEGT7u7yAVtRfrlurNo60nqo4S36TQ
+         Dyg7v4ilj9KP9OWVM22dsD4VjjpJWf1MRKVZKLQDoeGAE17OKopPdWy/ZUhH+D1WSedV
+         x+PVinQIFbCpiDYyLj+w30OQgBqOro8UsZCK8Xw1VdJ7yf+A5Fdt9B4gPysq8Od4LVzX
+         qb2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716875281; x=1717480081;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1BLdpBUWPKvhqHqvAGBQRbbtoRUz+rJkOzqDOV3ojiA=;
-        b=nxB1V5RuKFst95Tmn1W63PIh35G+B6ubl2ZgQQtGuBXtdDYwdKg0AcvDrBxgn/pAdx
-         PBQEUpjNBAF/bKC9N8pt5KF6BeYmL8bxb4UT+i/rxMa8fIdyva4+7/Pyhn6tRa/+kSfy
-         LQTXfHOuCcdfuteVndpR0uNPuk1VEeHtCx++eyPRo8FSE+RExt1AjEqI4WAj0pX+USRs
-         omlvTtnrV3Q/aenISJull7tO26Teyq/vWUOLm8wvmr4jdrq70X6LfBBqtBZFMOlCI+N9
-         CtVGmF+2HeW2GsCI8OY45f+Av0h1TyGGMZrzUYQ5MR3XImTx3/qoBOJNNjr8VO+lPW9S
-         jQig==
-X-Gm-Message-State: AOJu0YwEGKjX917gLgaTp6n/EIFxqGwgHF4rROlZcL6j6QGx5KsbuBdo
-	x6as7Few1XIs1KWyFdKlB80yhB7v3Jn23QrQjkXSOrtJEn4yDlM9
-X-Google-Smtp-Source: AGHT+IG0RiGsHXq0HlLGWtbP4FFnOknsWNalIHRB308L8BKGdOGkXNuoyOsfoII4bctc4ZVWqc4rqQ==
-X-Received: by 2002:a05:6a00:39a2:b0:6f8:fe77:8a0a with SMTP id d2e1a72fcca58-6f8fe778b79mr11168667b3a.32.1716875281534;
-        Mon, 27 May 2024 22:48:01 -0700 (PDT)
-Received: from devant.hz.ali.com ([47.89.83.81])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-6f8fbd3eb67sm5931570b3a.19.2024.05.27.22.47.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 May 2024 22:48:01 -0700 (PDT)
-From: Xuewei Niu <niuxuewei97@gmail.com>
-X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
-To: sgarzare@redhat.com,
-	mst@redhat.com,
-	hi@alyssa.is
-Cc: virtio-comment@lists.linux.dev,
-	Xuewei Niu <niuxuewei.nxw@antgroup.com>
-Subject: [RFC PATCH 2/2] virtio-vsock: Extend the spec with an `order`
-Date: Tue, 28 May 2024 13:47:25 +0800
-Message-Id: <20240528054725.268173-3-niuxuewei.nxw@antgroup.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240528054725.268173-1-niuxuewei.nxw@antgroup.com>
-References: <20240528054725.268173-1-niuxuewei.nxw@antgroup.com>
+        d=1e100.net; s=20230601; t=1716875437; x=1717480237;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MoK6y8T+Mu0vVs7vC9q2ywN+/oWeNaa/EhW0nhSy408=;
+        b=NzCPKri/FvfOHrDqAeRXFdTu3OoUR4wMxxJ+b3Sn2DDctt3bH4t4agTc6fpbkgxfQ2
+         bggmyCyBNKOFhR7a9vpb8B6um+ypjwYQwbA0rP2Mrsn/Y/PE3BJJjN0nqWoVCGCmY7CR
+         riV1ybdwcAf2CIYndPvAXGlpOL+pXU3vP3vFa6CfG903Lks1S66Y2ye480VfHiWujkSo
+         BP2lxZqRzdgL9l9d/fJqao8t0CW0lNT18TUcEmvD9BvulNhlAUF6Guiqab3giAcNld75
+         xPChY62JX/ehrNWPL1kMMUpWRtbZu1Uf2mwC7hW8m1B3CBcttUOKMRImhOb5ImO0rjfG
+         4dZw==
+X-Forwarded-Encrypted: i=1; AJvYcCWePJrNsLc9rSlAq2AwfQ7w8p4mmPNfU2yMXH1Xr8jb6Y56G02jxKVLKDmaKEKVVgpcREyXYeSFRYm42oFDuZobyyAVJcQSNdGBh74w4JM=
+X-Gm-Message-State: AOJu0Yw09ezgyK62jtUlbI0vLCnKayguFzLX7HIALtASZVNurFQoujmx
+	g2MBCIPVDIinp3biunu/aXduscTfQNyhL5gcZBEG2IrjpG/LZ64DPxeZycHa1inuVjrI4sYoigM
+	gQGIUkE+erYnXH2hClckb8pADv60=
+X-Google-Smtp-Source: AGHT+IGF4GW3WC9jtqEpqKAq995yc3lRjsnz8VrGllV+nUEDwiO2m5la9G6BQMO8qikFdHjqXCrOUDEFdra6rwPYNJ0=
+X-Received: by 2002:a25:9190:0:b0:df7:7a90:26c5 with SMTP id
+ 3f1490d57ef6-df77a902879mr10089293276.32.1716875437353; Mon, 27 May 2024
+ 22:50:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240528054725.268173-1-niuxuewei.nxw@antgroup.com>
+In-Reply-To: <20240528054725.268173-1-niuxuewei.nxw@antgroup.com>
+From: Xuewei Niu <niuxuewei97@gmail.com>
+Date: Tue, 28 May 2024 13:50:26 +0800
+Message-ID: <CAF0OVnQm7i4Dhc34nukqWcYNmPNM6iFmUTkAAqMLg3QxPf3VxQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/2] virtio-vsock: Add support for multi-device feature
+To: sgarzare@redhat.com, mst@redhat.com, hi@alyssa.is
+Cc: Xuewei Niu <niuxuewei.nxw@antgroup.com>, virtio-comment@lists.linux.dev, 
+	fupan.lfp@antgroup.com
+Content-Type: multipart/alternative; boundary="00000000000091319b06197d3672"
 
-Add a new field, named `order`, to the `virtio_vsock_config`.
+--00000000000091319b06197d3672
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-There are two questions about the field that are valuable to discuss:
+CCing to Fupan Li
 
-(1) Do we really need the `order` instead of a `default_device`?
+Xuewei Niu <niuxuewei97@gmail.com> =E4=BA=8E2024=E5=B9=B45=E6=9C=8828=E6=97=
+=A5=E5=91=A8=E4=BA=8C 13:47=E5=86=99=E9=81=93=EF=BC=9A
 
-IMHO, the answer is yes.
+> Hi, Virtio TC.
+>
+> I am writing this email to request adding a new field for virtio-vsock sp=
+ec
+> for supporting multi-device feature.
+>
+> The multi-device feature allows a guest to have multiple vsock devices fo=
+r
+> virtio transport (maybe for other transports in the future). I've pushed
+> the first version of the patches to the lkml[1].
+>
+> This is my first time to contribute to the virtio-vsock spec. Please bear
+> with me in case I'm wrong.
+>
+> Thanks!
+>
+> [1]:
+> https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei=
+.nxw@antgroup.com
+>
+> Xuewei Niu (2):
+>   virtio-vsock: Add a `VIRTIO_VSOCK_F_MULTI_DEVICE` feature
+>   virtio-vsock: Extend the spec with an `order`
+>
+>  device-types/vsock/description.tex | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+>
+> --
+> 2.34.1
+>
+>
 
-The `order` is more generic than the `default_device`. The device with the
-lowest order is the default device. Moreover, the `order` field determines
-the sequence of devices in the list. The device list is the same every time
-the system starts.
+--00000000000091319b06197d3672
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The device with lower order means it is more important. Also, it means it
-has more likely to be used. Those devices are placed in the front of the
-list for performance purposes.
+<div dir=3D"ltr"><div dir=3D"ltr">CCing to Fupan Li</div><br><div class=3D"=
+gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Xuewei Niu &lt;<a href=
+=3D"mailto:niuxuewei97@gmail.com">niuxuewei97@gmail.com</a>&gt; =E4=BA=8E20=
+24=E5=B9=B45=E6=9C=8828=E6=97=A5=E5=91=A8=E4=BA=8C 13:47=E5=86=99=E9=81=93=
+=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi, Vi=
+rtio TC.<br>
+<br>
+I am writing this email to request adding a new field for virtio-vsock spec=
+<br>
+for supporting multi-device feature.<br>
+<br>
+The multi-device feature allows a guest to have multiple vsock devices for<=
+br>
+virtio transport (maybe for other transports in the future). I&#39;ve pushe=
+d<br>
+the first version of the patches to the lkml[1].<br>
+<br>
+This is my first time to contribute to the virtio-vsock spec. Please bear<b=
+r>
+with me in case I&#39;m wrong.<br>
+<br>
+Thanks!<br>
+<br>
+[1]: <a href=3D"https://lore.kernel.org/virtualization/20240517144607.25957=
+98-1-niuxuewei.nxw@antgroup.com" rel=3D"noreferrer" target=3D"_blank">https=
+://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@an=
+tgroup.com</a><br>
+<br>
+Xuewei Niu (2):<br>
+=C2=A0 virtio-vsock: Add a `VIRTIO_VSOCK_F_MULTI_DEVICE` feature<br>
+=C2=A0 virtio-vsock: Extend the spec with an `order`<br>
+<br>
+=C2=A0device-types/vsock/description.tex | 22 ++++++++++++++++++++++<br>
+=C2=A01 file changed, 22 insertions(+)<br>
+<br>
+-- <br>
+2.34.1<br>
+<br>
+</blockquote></div></div>
 
-Last but not least, the `order` represents a sort of priority, which might
-be used in the future. For example, assuming that if there are two devices
-that are eligible to be used, the kernel will return a device with higher
-priority.
-
-(2) Why is the type of the `order` `le16`?
-
-The maximum number of devices, in the implementation on the kernel, is 16
-for performance reasons. The users could compile the kernel to support more
-devices. The type of `le16` supports up to 65536 devices, which is enough
-to cover most cases.
-
-Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
----
- device-types/vsock/description.tex | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
-index 3fbc02a..dc3bd66 100644
---- a/device-types/vsock/description.tex
-+++ b/device-types/vsock/description.tex
-@@ -58,6 +58,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
- \begin{lstlisting}
- struct virtio_vsock_config {
- 	le64 guest_cid;
-+	le16 order;
- };
- \end{lstlisting}
- 
-@@ -83,11 +84,26 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
- \hline
- \end{tabular}
- 
-+The \field{order} field is required while the multi-device feature is
-+enabled. A list is used to organize devices. The field is used to determine
-+the order of the device in the list. The device with the lowest order is
-+the default one when no CID is specified.
-+
-+The rules are:
-+
-+\begin{enumerate}
-+\item It doesn't have to be continuous.
-+
-+\item It cannot have conflicts.
-+\end{enumerate}
-+
- \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
- 
- \begin{enumerate}
- \item The guest's cid is read from \field{guest_cid}.
- 
-+\item The device's order is read from the \field{order}.
-+
- \item Buffers are added to the event virtqueue to receive events from the device.
- 
- \item Buffers are added to the rx virtqueue to start receiving packets.
--- 
-2.34.1
-
+--00000000000091319b06197d3672--
