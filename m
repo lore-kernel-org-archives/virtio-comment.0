@@ -1,54 +1,56 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767733D56D
-	for <virtio-comment@lists.linux.dev>; Tue, 28 May 2024 05:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68219F4EB
+	for <virtio-comment@lists.linux.dev>; Tue, 28 May 2024 05:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716875273; cv=none; b=dAN/hiN07Hes8Hdse/n7e0XKjeGro8+zyZdcaUeOQWg1I3QG6ebC96WU3jL+J7kN+C+gkbvUepqhgeH2Hf+nGbmzwa3/oxR+wBSAHkyn/TjD4/lmYfBQ8U1C9hzJNEWadf7j9RBH+gSw5vra/n418L/obu3T0BaEPnVSN2W08Pw=
+	t=1716875281; cv=none; b=mIRMwXh3C7irPRihbHO6Pf1sne+ayk8p3Z4f4itXgDsH7SZCEx2aSVPxZumh3IVg7vnSltRW8eUDa6/0aSI98Q1CnQE3IFc16mS+43+LgWiU3AXmAwywzm/+JZB5QNXb7ZeCn+VY9YdPOKkyGobdxKcbsxN8k43usne8ul1JLZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716875273; c=relaxed/simple;
-	bh=eaLRlwJsXX3UQ8JWFW0fcw968bc7DrXTRvLmHDBr4Z4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=usXTNdNRfVETna0KI1VR6o2BnWNnm9DAelMZPsv9saniPc5Sv95izy1R23CYcCQofZ9uQqhC3XY1Xoy5Yos92lsm5ZZhW0Z/NEdKNnDMbs1iTD+Nu/DbVv7IGl2AeX8utmUwQNEm/fSIqNsWZuL45z+1YQTI0X8aOr4loY56VGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C7kbMMrd; arc=none smtp.client-ip=209.85.167.182
+	s=arc-20240116; t=1716875281; c=relaxed/simple;
+	bh=mwfFGrFxxFRjJBbAVLsJJMLZrwLMCvNBVvHWe5lLNmk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=L41FHiYGswe7tPJ5CsP7focH33ZFfAxmnQ4Q8jqgMl0eL1GwMiL3u5XY26Z+zkjy/cQAA0S78XPgM7cv6Fbq2AzAGwt8xf7o+fjTadAexv8xhqR8J39bb/BBnOVMFxZ4BbbB2YAXa/eIHIdyk0UTlosfhkh1mlFkcZicPgqBsk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WxaEP74w; arc=none smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C7kbMMrd"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-3c9c36db8eeso257942b6e.0
-        for <virtio-comment@lists.linux.dev>; Mon, 27 May 2024 22:47:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WxaEP74w"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-6f6bddf57f6so430539b3a.0
+        for <virtio-comment@lists.linux.dev>; Mon, 27 May 2024 22:48:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716875271; x=1717480071; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=W1BSdxo15QMEn8gWpCK4KniTpLaH2vldbcmsuCZr4Ks=;
-        b=C7kbMMrdXhrWWf6veKHzo6B0m0EM6CqVgITc198z0ZsMFKikgyIF4k723OW1s1vriU
-         1JO4aVhTGu4wXeA9N9b2W3r+DHdL4YYYWhTVIjEZAQ+Tzx8TW3errWl4yv+uj0LZP2ao
-         sE6FhfWV5LMH1J7ZMwSVgqJq4uQRgVZhpMeUmbremgAFnhZUzh9nZNwt84kbR2LA646L
-         9Rs3JDHppOjxKxNB0fSt+KDykQK6yVaZdk7J0vd9ilmMC2m1AJ6sBgiu5eEmTTj9CnEF
-         CJmbyy4Kurll1nm+JVG8V0AbgJKPmwwFoybGQZ00L6FPgudMY9+JqkYQtYrIxtGuzmrZ
-         YOZw==
+        d=gmail.com; s=20230601; t=1716875280; x=1717480080; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oSkN0ohKYwZxI6JddG0Eq/uEpvoLAITCpFFuXs6DrFI=;
+        b=WxaEP74wXqddYgeVpHA6q0FTSmL6NLHX32XysM30Nzlu8hjn7xDEirAu6asvF9VsGH
+         wPL9GAS38CVCa3KFR0AS6CmwAw0Y1sB+FCALHTtqW83Oh0u5qgmykqMMl+phFX2+sRGk
+         bHxaSENI0Ttj+CFpK6uJfyI9CqPKTGvJhOug1QA+OPBx55+l8YB0/BjGBpaJHB9UPcsp
+         B8pODpqTBx7KilXPkjz4QHUtW98VUIEN/1pihwq7Vc5INRN+DWAqC34NS3RYrsHPPl2o
+         y8+rXrhPsLBW9WzVgVuFRHEMffrb8Akt6St8Xc7QoBY2CRFO/4p/Xv3rInNUXAAe9vNS
+         Lh1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716875271; x=1717480071;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=W1BSdxo15QMEn8gWpCK4KniTpLaH2vldbcmsuCZr4Ks=;
-        b=lZiBLvdlt+MeFAGs1AWur6MpXnQbPsS7sWpyL08lKlBt5i+ufzJ+5pTN75lfBfGa7A
-         Yy7Zq0r+CAPROlpP5Y+FEx6FmUf57NaUHNa5e/pjC7JFyZXESlkoO7BhAekHUtTv4j2i
-         Zl1cU9GQ7kNQbwCnjhuYVOCTP0pXfkX/ixd//poKAqgEo0TrW7rrtDIWrhOrrluiJ4Oi
-         JqRJhtXShcyV0vAJLXedGg4obSB1vDGgBcN2k6lPbrMLVA1+PeWF6jFYs7/uogyT3ZVR
-         FMDmwWdM7NFLO6Q0tplO/cmiErIyyEqQgf3KKHg+GxWs8D63tvaNCyrSJ8arxGb4uHbP
-         MGxA==
-X-Gm-Message-State: AOJu0YxgviqFysX8pau0+TDGjgKMBU73tApkFOInmZAsUhtnLEHgmyNF
-	clWBZ01UaGIWD0r3E77X+omJxtv4tElDIP5cND1mdJ+ZrEqMrIVj
-X-Google-Smtp-Source: AGHT+IFKbVBWGleGuPCBYCGaLN5zMdqvyo/SE6BOCnQqoxWZD4L64FxMhO4ai94T+xwQY0wuTQ2TPA==
-X-Received: by 2002:a05:6808:2a88:b0:3c8:311c:ac60 with SMTP id 5614622812f47-3d1a764744bmr11170055b6e.46.1716875271257;
-        Mon, 27 May 2024 22:47:51 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1716875280; x=1717480080;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oSkN0ohKYwZxI6JddG0Eq/uEpvoLAITCpFFuXs6DrFI=;
+        b=eeORC+HQa58XX8GiDzAyDbCgGCnOyA6KQHHprrn0VYNyuGNXHawylOH3AuqBKM85iw
+         97b2TcdSe4Q7nuvr42NemlgbbRuv5BuN9DT46HGFK+YqM/xReeL/leOn5NlpDZmpjhQv
+         ISBFfwKbGDgyNGJMpSo1pCGcMlX62lSOC+aS+PLQQFunwxpaCOzAEpA/5ImZ1yq2XKet
+         uBhnZMwKdmXXNYAjzEWSwwH/M0QAr7KP5Nkl8fWE7YcI3PffZO7ZsDJpIVl0wuh4nX4t
+         lwb1GAZNgnAEGoiL2nkRLnLotjzG5g8VFauHGaZTVtdiIhZqbwJWuKjOdEP4YDKEoueX
+         J29w==
+X-Gm-Message-State: AOJu0YxA4X5YIYe5tcgMZj/D9IS5JrP83dFCwU9VRWQUwcP/oywMV06D
+	9Od3cb15aXhRVVQBS2XSPoZSprPavYd55d4g0vM+uPEcsAxgHRtM2MQ2NgBdPdMz2Q==
+X-Google-Smtp-Source: AGHT+IEmp7+6+LqbvtOmAlp19UD3EZtmGfmvh6sPphc5Wa4if9Uk7vNUQzGA/P3QdPLmoz94PwN4PQ==
+X-Received: by 2002:a05:6a00:8013:b0:6e7:3939:505e with SMTP id d2e1a72fcca58-6f8f2c6dd6cmr10453396b3a.2.1716875279540;
+        Mon, 27 May 2024 22:47:59 -0700 (PDT)
 Received: from devant.hz.ali.com ([47.89.83.81])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-6f8fbd3eb67sm5931570b3a.19.2024.05.27.22.47.49
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-6f8fbd3eb67sm5931570b3a.19.2024.05.27.22.47.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 May 2024 22:47:50 -0700 (PDT)
+        Mon, 27 May 2024 22:47:59 -0700 (PDT)
 From: Xuewei Niu <niuxuewei97@gmail.com>
 X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
 To: sgarzare@redhat.com,
@@ -56,10 +58,12 @@ To: sgarzare@redhat.com,
 	hi@alyssa.is
 Cc: virtio-comment@lists.linux.dev,
 	Xuewei Niu <niuxuewei.nxw@antgroup.com>
-Subject: [RFC PATCH 0/2] virtio-vsock: Add support for multi-device feature
-Date: Tue, 28 May 2024 13:47:23 +0800
-Message-Id: <20240528054725.268173-1-niuxuewei.nxw@antgroup.com>
+Subject: [RFC PATCH 1/2] virtio-vsock: Add a `VIRTIO_VSOCK_F_MULTI_DEVICE` feature
+Date: Tue, 28 May 2024 13:47:24 +0800
+Message-Id: <20240528054725.268173-2-niuxuewei.nxw@antgroup.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240528054725.268173-1-niuxuewei.nxw@antgroup.com>
+References: <20240528054725.268173-1-niuxuewei.nxw@antgroup.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -68,29 +72,45 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi, Virtio TC.
+The feature represents the users want to enable the multi-device feature
+once it is provided by device.
 
-I am writing this email to request adding a new field for virtio-vsock spec
-for supporting multi-device feature.
+Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+---
+ device-types/vsock/description.tex | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-The multi-device feature allows a guest to have multiple vsock devices for
-virtio transport (maybe for other transports in the future). I've pushed
-the first version of the patches to the lkml[1].
-
-This is my first time to contribute to the virtio-vsock spec. Please bear
-with me in case I'm wrong.
-
-Thanks!
-
-[1]: https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
-
-Xuewei Niu (2):
-  virtio-vsock: Add a `VIRTIO_VSOCK_F_MULTI_DEVICE` feature
-  virtio-vsock: Extend the spec with an `order`
-
- device-types/vsock/description.tex | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
+diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+index 7d91d15..3fbc02a 100644
+--- a/device-types/vsock/description.tex
++++ b/device-types/vsock/description.tex
+@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+ \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+ \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+ \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
++\item[VIRTIO_VSOCK_F_MULTI_DEVICE (3)] multi-device is supported.
+ \end{description}
+ 
+ \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+@@ -34,6 +35,9 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+ VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the driver MAY act as if
+ VIRTIO_VSOCK_F_STREAM has also been negotiated.
+ 
++The driver SHOULD accept the VIRTIO_VSOCK_F_MULTI_DEVICE feature and allow
++multiple devices to be registered if offered by the device.
++
+ \devicenormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+ 
+ The device SHOULD offer the VIRTIO_VSOCK_F_NO_IMPLIED_STREAM feature.
+@@ -45,6 +49,8 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+ VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the device MAY act as if
+ VIRTIO_VSOCK_F_STREAM has also been negotiated.
+ 
++The device SHOULD offer the VIRTIO_VSOCK_F_MULTI_DEVICE feature.
++
+ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
+ 
+ Socket device configuration uses the following layout structure:
 -- 
 2.34.1
 
