@@ -1,189 +1,177 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EEF15B0F6
-	for <virtio-comment@lists.linux.dev>; Wed, 29 May 2024 06:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197F516D9DD
+	for <virtio-comment@lists.linux.dev>; Wed, 29 May 2024 10:24:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716964949; cv=none; b=dDGlu+6Fw4L8IRGdIGnGhvlgrd6mXn1m3H89TurBmxymp76VPlf9ym/VVzoJw9aCVPe7eC9a/zLW10CT7lwVKYinPnuKT7UFOcbUBZJbxars+rn+NKMlAMmtVXheDVnMWPomnjo9rUm2n8cYfrJTTRbLwjjjLa6E1hkdc2VvXfk=
+	t=1716978269; cv=none; b=HEPMjvus/BTby34BGPtq2by477yLFBWt8O74usONdiAW6AY0/d3uw7monWzVub9TZdrZc4vM5aGg6vAoTLcXjflaEFmAasdphHMEfofi2ZMFrf/wQIJ+IdUR/WLFh7DnSnbJUPeHoR14QoSbqmhb/xaNmJyE6WO7AoVhyEXdG4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716964949; c=relaxed/simple;
-	bh=QjS7WvPJ/th3guXfV7FJF0Sn1bsmJ8UmaEX3Ew2lmkY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WhqQVGvSVgYhaP0MZr4p6rFbRzK0twb3Y4RE18Y2lW1TtAAphDm5JssxtEGqQOejRV7TuI0mdEB0xBZ7F6QATVwAMoK+WBsFmwJ+DCTKv/U4QggS/cRnTtHvNCk1ZgvzcoET7wbifBNhYstt27XU/Cuf9rgDwjAY4Z5czwgY4ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=koljiuAI; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1716978269; c=relaxed/simple;
+	bh=QRyU80OIbVqpazGZ6UjqjvUWZIBE4IqPfUR3JD0UMOk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R1Eb0Av6+ixIrtkkg2WM5KnLuLnALuaugyzganECS1ZXnjwJCQ8qzPSbb/nufbA+22uCdpoORAqksQQhxEcpF2biZ3SHfFsxU9Go3GCPOj3P/94i6eK0XrdUf0CrT7EITf5zCXwl883hwH2VCvAsR4n1Dms/RyZcidcIz+0Bw24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gp+iMHgE; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="koljiuAI"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-35502a992c9so1782973f8f.3
-        for <virtio-comment@lists.linux.dev>; Tue, 28 May 2024 23:42:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gp+iMHgE"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-1f4a52b94c3so16525915ad.3
+        for <virtio-comment@lists.linux.dev>; Wed, 29 May 2024 03:24:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1716964946; x=1717569746; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N7drlgsCz3KIMlwPUSQKPUBdzwQA6qBula8T0tt7yxg=;
-        b=koljiuAIHlAvxv4qaEV7ak9jrZDLe8tCGU/eYLkS6v1mJ5Nf0dYtQcZgsCWChDzPVb
-         J8WU98EzPYKibIjTJXVPjjhs8wqAYITWFiRR/CBhX/T28TABl6MLmQlfDL4bbnfX3UT3
-         WPz6k8uGj6xMiRgOyxPmSZB1P1Vep8iRnf6NNKVToJi9oXoZ2pPnn9fx3fyeyJsaGWKB
-         M97cgNULIXv2y0YHC0ExK8q58RIcaB2OUve/GjZu+DO8BeNvGk9ObCXN87jJiH8CwVWd
-         541DWWxqoaAwmSVucSvj58KeBQ3A7C67Yqlc5ZkOMSruXVXTo0ZnWlVz8h3kWRB6TRqJ
-         wPiQ==
+        d=linaro.org; s=google; t=1716978267; x=1717583067; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=qUsESC8eNRekMaJKbxGmZa+PFXzNpRo5b5/vI6rgMAo=;
+        b=gp+iMHgEpb0Z7ilrwnhjWuuflE2oq1Nx9YS4jHHs54hGHssnfkkF2vSf3El8YhLLHH
+         lfmYY/c4AZNRFLEZpYzasl1HirtalzLT9SFwlW/7+Q37klfHuPxyPAo9fIpoIJTxta/D
+         0IVWOume7/rMbJb14shSarB1h5lC0mLYLGv0ydPai+9oiLrW1+t6E/iCOomORZq6ZXnF
+         7N0TarOhOX49MOtAbXR/DebcT+H9yuMaJ2sf1GwQL0i5tcZlAFwH/sKFUyFmpuQeg9hA
+         d6bVtfBElNWcBJTdtfrbM961NPHvi8vao9pQXsFbQWkWJB7SGG57j9X0eh8uufnKS8+v
+         ztnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716964946; x=1717569746;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=N7drlgsCz3KIMlwPUSQKPUBdzwQA6qBula8T0tt7yxg=;
-        b=eeJtQtzCz/HNpVVpl1LfcorIxB0173TW75fnPv3xRY/EDPnI321i9LQbFB1yowSviD
-         TrNQyiboBZ77Sxoj+Wj0LKtqnRKWQgeZ4fCxrOj6T9biZ3HP1JSrrLthIyMJ3ngQlLw0
-         /4QqXo4pTgFPxNgOnibNLN61be1KVeNNgBnxhKpzG8TNUQ+zLji6VSUxioO7FTXJYIOz
-         JYg2NKqbm2TtopkVJRBaHv5Boxs7hl93e0gu6jSgVHwU0Uzm1L+tTjlHBc7tmAFerAJ2
-         NlpwtOp9rnPETh1tDxQ19uYQbZE7/HxjhwAVOGSlwU1wkY4sopy5qZGo/rs1GB7Ba6Si
-         Dr4w==
-X-Forwarded-Encrypted: i=1; AJvYcCWWwk0OjtUxBPXPCZjbD4FBQusJe6M18yvKZDf/mg5NXfxVyLFuYJtHMpKhM9mlVBnODdKF+Ur4+G1vkRXyqAy93AK5yUMn9bb+kmKVSuo=
-X-Gm-Message-State: AOJu0YzgauJgExGVQ3DGTzDaYs4f1WYdot1LrDxnrLgfXcF+5TcNZ13T
-	9B0dSb/9nBeB9nfcw/eA4exwc4QpBKgjHF745R3NDbCvb9IcMa72B8A41xiWlMEiIqIQX3k8XQU
-	qE/ZZVe7rjLbSoRJNDu7k8kPObj8mR9RuGRJIBg==
-X-Google-Smtp-Source: AGHT+IH/E0OhnTG/LdRytGI2FXKWJof4rdg97QBkERmRDXgco/aNndzAVczPfMINuzQAgfQRUSrPr1lJ2317L7P3FSw=
-X-Received: by 2002:adf:f74d:0:b0:357:ff92:aada with SMTP id
- ffacd0b85a97d-357ff92aba5mr7231324f8f.13.1716964945687; Tue, 28 May 2024
- 23:42:25 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1716978267; x=1717583067;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qUsESC8eNRekMaJKbxGmZa+PFXzNpRo5b5/vI6rgMAo=;
+        b=sxm2HePbuu/beCTY+PBKiUDxWG/TEtKTGLE/x5ZbKdRrKZdidQVK1KE63+38z/gVh5
+         mSFPPjQd6LXeG3Amvacs1W+FPWZe6Kh4T/1uqTGHV+hQwJMES53A59DQdVU3t7nP8kUm
+         hJhJP/oZIHJ+xPXBxz5tsAbe2oW6K7d6kIUif9bhwRAbONyACrwcH0bxx3jxi3W7kV+m
+         7IyOPmVZzIP98zDNR2swGPDzxu7atqe/2iQcBSkcrt4l3w96IjtHUMknZ7gamnZ9UwqU
+         mF41Dt4asrvSeO3D0vg1KjrJ/XMuD8mIkI0D7erEfzW8ADXxkuQUBNf5/y/JMZDVS/HE
+         c/LA==
+X-Gm-Message-State: AOJu0Yw6tx15zncIBdCULes4gNeYRbRRWHsybZQMV+W163z+gAtMgZk9
+	WKv9tfUVmcHlzVRYp6vGHWwNlZEftmZPq8DwAQGq/1INIpof/7rEji7vyp4Io38=
+X-Google-Smtp-Source: AGHT+IFIjG1jHRGYUcQ3NXQv7gQozQOPXvupQbt382F3wxXyTgqFOpTVPPrsot9ny9VVCH2hHo2EIw==
+X-Received: by 2002:a17:902:f54c:b0:1f4:a008:29d3 with SMTP id d9443c01a7336-1f4a0082e01mr85313955ad.15.1716978267321;
+        Wed, 29 May 2024 03:24:27 -0700 (PDT)
+Received: from localhost ([122.172.82.13])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1f44c97063asm95832865ad.150.2024.05.29.03.24.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 May 2024 03:24:26 -0700 (PDT)
+Date: Wed, 29 May 2024 15:54:24 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.linux.dev,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Cornelia Huck <cohuck@redhat.com>
+Subject: Re: [PATCH V3 Resend] virtio-transport: Clarify requirements
+Message-ID: <20240529102424.s7rnq7zqqjy6bfdw@vireshk-i7>
+References: <3543c631e29d35a667ca9d9e912d1a6db1feb0ce.1716197180.git.viresh.kumar@linaro.org>
+ <20240520092332-mutt-send-email-mst@kernel.org>
+ <20240521105706.tbyigihommrasdua@vireshk-i7>
+ <20240521073925-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <Zky6Disx1ofmETmn@fedora> <l2f7vf2nzrejy5rk7moymxgsrts3jh5pqcubctbzzmzzsoz4u4@4x63sz5u4ovg>
- <ZlSNR+2ysO9vMXhN@fedora> <5gcoinwkhq6n6vd5dtpypykp7gy5wzjyyjy4rfpgdeiwes2b23@i6zlcvat7yw7>
-In-Reply-To: <5gcoinwkhq6n6vd5dtpypykp7gy5wzjyyjy4rfpgdeiwes2b23@i6zlcvat7yw7>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Wed, 29 May 2024 09:42:09 +0300
-Message-ID: <CAAjaMXac=ewL78ceee4cafiiODgug0wXnbezRU6mkJ5C1cKteQ@mail.gmail.com>
-Subject: Re: [PATCH Resend] virtio-snd: improve PCM command lifecycle description
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>, virtio-comment@lists.linux.dev, 
-	anton.yakovlev@opensynergy.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240521073925-mutt-send-email-mst@kernel.org>
 
-This sounds like it is unnecessarily overthought, semantically there's
-only one command, "change state to" and it has a payload of "the new
-desired state to transition to"
+On 21-05-24, 07:40, Michael S. Tsirkin wrote:
+> I feel a non-normative section is enough for this.
+> Just convert should/must to direct speech.
 
-On Tue, 28 May 2024 at 18:13, Stefano Garzarella <sgarzare@redhat.com> wrot=
-e:
->
-> On Mon, May 27, 2024 at 03:40:23PM GMT, Matias Ezequiel Vara Larsen wrote=
-:
-> >On Thu, May 23, 2024 at 01:00:32PM +0200, Stefano Garzarella wrote:
-> >> On Tue, May 21, 2024 at 05:13:18PM GMT, Matias Ezequiel Vara Larsen wr=
-ote:
-> >> > The PCM command lifecycle can be described as a state-machine in whi=
-ch
-> >> > the switching between states is triggered by commands. This commit
-> >> > explicitly presents the different states and the commands that are
-> >> > allowed in a given state. This commit leaves to the implementation t=
-he
-> >> > decision the state reached depending on the command.
-> >> >
-> >> > Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> >> > ---
-> >> > device-types/sound/description.tex | 26 +++++++++++++++++++-------
-> >> > 1 file changed, 19 insertions(+), 7 deletions(-)
-> >> >
-> >> > diff --git a/device-types/sound/description.tex b/device-types/sound=
-/description.tex
-> >> > index 54c9c8e..55e93af 100644
-> >> > --- a/device-types/sound/description.tex
-> >> > +++ b/device-types/sound/description.tex
-> >> > @@ -397,9 +397,21 @@ \subsubsection{PCM Control Messages}\label{sec:=
-Device Types / Sound Device / Dev
-> >> > \item[\field{stream_id}] specifies a PCM stream identifier from 0 to=
- \field{streams} - 1.
-> >> > \end{description}
-> >> >
-> >> > -\paragraph{PCM Command Lifecycle}
-> >> > +\paragraph{PCM Command Lifecycle State Machine}
-> >> >
-> >> > -A PCM stream has the following command lifecycle:
-> >> > +A PCM stream can be represented by a state-machine made up of the f=
-ollowing
-> >> > +states:
-> >>
-> >> I'm not clear about the difference between commands and states. Are th=
-ey the
-> >> same?
-> >>
-> >
-> >AFAIU, a command is a request that comes into the control queue, such as
-> >prepare, set_params, stop, start, etc. State refers to a stream's
-> >current state.  A command triggers a transition over the stream's
-> >states. There is a set of valid commands that are allowed in each state.
-> >The specification does not make such a distinction. I wonder if this was
-> >done on purpose by the authors.
->
-> Okay, so there is a 1:1 overlap between commands and states. Basically,
-> the =E2=80=9Cstop=E2=80=9D command has the action of moving the state fro=
-m the current
-> to the =E2=80=9Cstop=E2=80=9D state, right?
->
-> >
-> >> > +\begin{description}
-> >> > +\item SET PARAMETERS
-> >> > +\item PREPARE
-> >> > +\item START
-> >> > +\item STOP
-> >> > +\item RELEASE
-> >> > +\end{description}
-> >> > +
-> >> > +A command triggers the transition between these states. To what sta=
-te to switch
-> >> > +depends on the implementation. Depending on the state, only certain=
- commands
-> >> > +are valid. An error may occur if an invalid command is triggered.
-> >> >
-> >>
-> >> Should we explain what the following list is?
-> >>
-> >
-> >I think we should. The list is the states and the commands that are
-> >valid in a given state. The specification does not explain the state
-> >that is taken when a command is triggered. I though leaving that for the
-> >implementation.
-> >
-> >> > \begin{enumerate}
-> >> > \item SET PARAMETERS
-> >> > @@ -407,13 +419,13 @@ \subsubsection{PCM Control Messages}\label{sec=
-:Device Types / Sound Device / Dev
-> >> > The driver negotiates the stream parameters (format, transport, etc)=
- with
-> >> > the device.
-> >> >
-> >> > -Possible valid transitions: set parameters, prepare.
-> >> > +Possible valid commands: set parameters, prepare.
-> >> >
-> >
-> >For example, in the SET_PARAMETERS state, there are two valid commands:
-> >set parameters and prepare. Any other command in this state would be
-> >invalid. If the frontend triggers the set_parameters command, the
-> >backend may decide to either keep the stream state in SET_PARAMETERS or
-> >switch to PREPARE.
-> >
-> >In the spec they use the wording `transition` and I think they mean the
-> >valid next stream state. I changed this so now the spec specifies the
-> >valid commands in a given state thus leaving for the implementation the
-> >transition or the next state.
+Like this ?
 
-`Transition` is standard sequential logic terminology.
-In a finite state machine you can just say that a state has next
-states; they are not "valid", they are just the only ones existing.
+diff --git a/content.tex b/content.tex
+index 0a62dce5f65f..8af005398877 100644
+--- a/content.tex
++++ b/content.tex
+@@ -631,8 +631,84 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
+ 
+ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+ 
+-Virtio can use various different buses, thus the standard is split
+-into virtio general and bus-specific sections.
++Devices and drivers can use different transport methods to enable
++interaction, for example PCI, MMIO, or Channel I/O. The transport
++methods define various aspects of the communication between the device
++and the driver, like device discovery, exchanging capabilities,
++interrupt handling, data transfer, etc. For example, in a host/guest
++architecture, the host might expose a device to the guest on a PCI bus,
++and the guest will use a PCI-specific driver to interact with it.
++
++The standard contains sections describing the transport-agnostic parts
++of virtio, and sections describing how individual transports implement
++virtio.
++
++\section{Virtio Transport Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements}
++
++\subsection{Transport Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements / Transport Requirements}
++
++The transport provides a mechanism for the driver to discover the
++device.
++
++The transport provides a mechanism for the driver to identify the device
++type.
++
++The transport provides a mechanism for communicating virtqueue
++configurations between the device and the driver.
++
++The transport allows multiple virtqueues per device. The number of
++virtqueues for a pair of device-driver are governed by the individual
++device protocol.
++
++The transport provides a mechanism that the device and the driver use to
++access memory for implementing virtqueues.
++
++The transport provides a mechanism for the device to notify the driver
++and a mechanism for the driver to notify the device, for example
++regarding availability of a buffer on the virtqueue.
++
++The transport may provide a mechanism for the driver to initiate a reset
++of the virtqueues and device.
++
++The transport provides a mechanism for the driver to read the device
++status. The transport MUST provide a mechanism for the driver to change
++the device status.
++
++The transport provides a mechanism to implement configuration space
++between the device and the driver.
++
++\subsection{Device Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements / Device Requirements}
++
++The device keeps any data associated with a device-initiated transaction
++accessible to the driver until the driver acknowledges the transaction
++to be complete.
++
++The device doesn't access the contents of a virtqueue before the driver
++notifies, in a transport defined way, the device that the virtqueue is
++ready to be accessed.
++
++The device doesn't access or modify buffers on a virtqueue after it has
++notified the driver about their availability.
++
++The device resets the virtqueues if requested by the driver, in a
++transport defined way, if the transport provides such a method.
++
++\subsection{Driver Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements / Driver Requirements}
++
++The driver acknowledges device notifications, as mandated by the
++transport.
++
++The driver doesn't access virtqueue contents before the device notifies
++about the readiness of the same.
++
++The driver doesn't access buffers, after it has added them to the
++virtqueue and notified the device about their availability. The driver
++MAY access them after the device has processed them and notified the
++driver of their availability, in a transport defined way.
++
++The driver may ask the device to reset the virtqueues if, for example,
++the driver times out waiting for a notification from the device for a
++previously queued request.
+ 
+ \input{transport-pci.tex}
+ \input{transport-mmio.tex}
 
-What can be valid or not is the transition.
-
-
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+-- 
+viresh
