@@ -1,146 +1,205 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D2F167DB1
-	for <virtio-comment@lists.linux.dev>; Wed, 29 May 2024 10:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5AF53802
+	for <virtio-comment@lists.linux.dev>; Wed, 29 May 2024 11:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716979352; cv=none; b=XZoifZjY3EG8SUhztvMwH4Hib5Fn8289iCZb4nq3IYoROS9KN5+qovRUUZF68DK2kcvaXIxBzY7bRysgsh1zXJOE0kAhBhD4tK+/KSGihvpphHApq1xgw3gTZIXckmMAgSuJigFkh9t1BppgTfoOFShIt0psstsXngIV4fvkjUI=
+	t=1716981168; cv=none; b=lYywss7DMaB2naIowsDZGvjzXWH2CMGrmonrOciJMOGAt5LUDfvC/3ZY4LjTqiGEQLjovZs+OpIfUIJb3sPWCs1JheQ0VCBTAQuiLVDu7yzRgAnufDh/HCuhTg9S1DCkKX/P73FYsd5pdI19JeY3kCRFO5L7R6J7Gs+AudAXR7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716979352; c=relaxed/simple;
-	bh=3howPi0pQP9OaySuJOolDz8GWHV+qrXxanbZqUvz+HU=;
+	s=arc-20240116; t=1716981168; c=relaxed/simple;
+	bh=DGNj/bfdI1OmlYDcJnbRFJNWUPcFQKVKa/Y2ZUZRABc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=XLikV2CJqOCQ5eWYoVazPztFFmVqqfnFv6ziuLTVUXzwuVoSZK4v7vd9IgMD/jpd6jMSDN4DfBALdQHCw5exAIMJx7Rw6r0+zlMm/fZPwEjRJnjnqyXxqm5jtcLGErGqWLxrlaNPawdwCWisE7bChXralUDiR/A4/uwk2VE28bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H2S3ovpU; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=FlHwdCg+ezEqyszQTWhbyVgWIn0WvfJk7fopR/5/6Pj0i6P7vrNjzewyN9/RZAt3uPhkZGksgMz28m8W2tp6yV//x7mCMQMf3YrIjPkuOOUM7pKJqlh/Uy30HE49Wm6XFNYBRrDs+DVpvArV2Ix8N32QucYUls4uLUwcGPZULQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pt5ImbM4; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H2S3ovpU"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pt5ImbM4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1716979350;
+	s=mimecast20190719; t=1716981165;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=myBJK7LDLyUAW+8IL4UkrFwPERZEn0hsuDcbAlqEtNw=;
-	b=H2S3ovpUAxFIHrymZOqhk11mD1tpu1JagwbwADjyGPosGdhXeb73yl4nU5iLI9lAs1HuwS
-	V+LvXKL2tvwG+NcUmqvab3Dvyvf2dz38lQQw0N2qXabl5UzCl0MiB2v968d7wmt9ajC//c
-	ANDamwFHKnxttaAHxkq0MqcgSPnRzck=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=rint3JVLpW6kOzOCZE0RPtLHqqSbajY1oxRWDU/n10s=;
+	b=Pt5ImbM4MHWbuLafQKapC6IUJ/Jfc1s6ezBtVyP5Wb1ZbudisSgHNSGnjSPS6/hMx8vmfd
+	c+8adSsAcYFqwyVMWCg/vv4XIEaMll8BJIjkIpBUS6YU2aOFP6Z73MBGm4uI0ADBAkzoMu
+	RoxZ0wlEtRYaah4+xristMATtb2nO6w=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-360-HIUrmzrSM82jhGmw2UVXAw-1; Wed, 29 May 2024 06:42:29 -0400
-X-MC-Unique: HIUrmzrSM82jhGmw2UVXAw-1
-Received: by mail-yb1-f198.google.com with SMTP id 3f1490d57ef6-df771bdded1so3066477276.3
-        for <virtio-comment@lists.linux.dev>; Wed, 29 May 2024 03:42:28 -0700 (PDT)
+ us-mta-287-lsrWK0cFMtGSAc4ihXnzJQ-1; Wed, 29 May 2024 07:12:44 -0400
+X-MC-Unique: lsrWK0cFMtGSAc4ihXnzJQ-1
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-354f28306dfso1681626f8f.0
+        for <virtio-comment@lists.linux.dev>; Wed, 29 May 2024 04:12:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716979348; x=1717584148;
+        d=1e100.net; s=20230601; t=1716981163; x=1717585963;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=myBJK7LDLyUAW+8IL4UkrFwPERZEn0hsuDcbAlqEtNw=;
-        b=MydZilJmjWiuSGfpkcI9A9GV+dr2J0+3We5ZYWdalzEbzfKubnSY5q19gZA0UYkasy
-         kBD/06zUOun9TJoQjotnQ74utImzE6n7HaZhAmEuI92z/FUc9rVHVAQAq9sQkYWRrK85
-         MtiN4WWAXw91hPClKWQDXv5aJ4cOQnU9B5KEkrNkdqFV2fIplZiZyYZL/GWNbYZimHtg
-         5PnnVoMBrHP9SwG9QM5+sshspUdYTJzURn0z0+ceUYYhxesbQwJGF8N1C05U0epFuoig
-         EPA9b1Si0663sUPIYfpb8RJZwBdCzKoWeLDskCOcXrZ8/Wru5SMxrjKleFHTvEk5LXB1
-         rCaA==
-X-Gm-Message-State: AOJu0YztMsrTUo/3ukLx7yScx/H3usQOSoDDKPHT3QHdntSuNctZKmsk
-	YAQxrqUfXJLjTGdU+NXDu/UoYss7CJk9TcMv1JPgrn+z4hvEu83qapgiOop7FG9HpUy11pwZYJ2
-	x6ZiAxB1Mkc7xucPJ3dKacpKWOpgcdn48+LYgOVTmBxy5OsKRhvvZHW+KJJSP/zbX
-X-Received: by 2002:a5b:d0d:0:b0:deb:4031:2a5e with SMTP id 3f1490d57ef6-df77218b187mr18038002276.17.1716979348184;
-        Wed, 29 May 2024 03:42:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHnsI3F8Lbq72K4fqINM4XurIPd/C1pnWIYmJ2G8mOgjf8fjqJG6x/JNMC5oZ4wpMRlFyieBA==
-X-Received: by 2002:a5b:d0d:0:b0:deb:4031:2a5e with SMTP id 3f1490d57ef6-df77218b187mr18037970276.17.1716979347740;
-        Wed, 29 May 2024 03:42:27 -0700 (PDT)
-Received: from sgarzare-redhat (host-79-53-30-109.retail.telecomitalia.it. [79.53.30.109])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6ad92f558adsm14649996d6.21.2024.05.29.03.42.25
+        bh=rint3JVLpW6kOzOCZE0RPtLHqqSbajY1oxRWDU/n10s=;
+        b=OjkgZPmnSnJ7bNcLwtaJOE/ULZbFn6x9uedSKDyAlWGonRQeXAeOnPYohUBjQvnxS5
+         Er4zSiGE9+OOl+1Cgz49KjlPYNZcb/luUOP1VchdMWIskm/Wg3OL9tgmLjEP9pyuAykW
+         qvReV50fEhtwWjpTJvChwQ9kuaFMuwCMyrY3tHmY1D6Tunxj7IUgQ5M0w452OUJLaMYK
+         rKjJX0jW7MQcfwyJhep+awDqNkTNt/tvzU1i9NCA56eGQbwHYquCrbNnDkUH3swW22+c
+         CsTyi/SkBl5mAnAI34Oub6ZKZ3MulBlTbR4uGmH8G+SE8/PfJ1TM7772pKq+5By52yve
+         AwXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWYyl+zYqlhESuinsJ/JLKr/guvHBo4KVOvDD85PTiOYehe5mz5EjrtpdPlE3ENtOGsDMCVH/wix11RUMhNvNNXb6LRwnPN4xemIQQ4Abg=
+X-Gm-Message-State: AOJu0YxotUAWxqbg6QCKCfuVD8HuOVRJK01kqkgnWeNv4bUua05gh/+O
+	cAw7ja7V2C55R9oPLw/CJCshyTSIAYoIRm+2/DFcb4SGWVINkmfM+QigHywrMZyCPZcf0xlJTWc
+	eBczOywYjI+Bx6pOBpolsxd/yA9Acyfs08AKB+teUU/ZF+4qDME0e7PUkT6MelZPI
+X-Received: by 2002:a5d:5849:0:b0:356:71d0:3028 with SMTP id ffacd0b85a97d-35671d0323cmr11430594f8f.67.1716981162993;
+        Wed, 29 May 2024 04:12:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF4aiuVVs/CQFayQmGhcDYuDbwPmE6mJgtsTcahPFApz73dYBka0S7XMeun5PQcmjmY2yY1xA==
+X-Received: by 2002:a5d:5849:0:b0:356:71d0:3028 with SMTP id ffacd0b85a97d-35671d0323cmr11430568f8f.67.1716981162494;
+        Wed, 29 May 2024 04:12:42 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3557dcf0871sm14857213f8f.110.2024.05.29.04.12.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 May 2024 03:42:27 -0700 (PDT)
-Date: Wed, 29 May 2024 12:42:21 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
+        Wed, 29 May 2024 04:12:42 -0700 (PDT)
+Date: Wed, 29 May 2024 13:12:40 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: virtio-comment@lists.linux.dev, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>, 
-	stratos-dev@op-lists.linaro.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
-	Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.linux.dev,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Cornelia Huck <cohuck@redhat.com>
 Subject: Re: [PATCH V3 Resend] virtio-transport: Clarify requirements
-Message-ID: <kl3cehxu74h2c7opytdditx6bodpy7clbofivnkr5druswlknz@o2nsukuuipym>
+Message-ID: <ZlcNqO1ZxmGuUhVO@fedora>
 References: <3543c631e29d35a667ca9d9e912d1a6db1feb0ce.1716197180.git.viresh.kumar@linaro.org>
- <a752usapxpmlwpm5ywvccrrkmumi5aosbzvsxjghsotn4kmgyq@hlmjdhedeqbz>
- <20240521101023.ooesha4uo3fufr3t@vireshk-i7>
+ <20240520092332-mutt-send-email-mst@kernel.org>
+ <20240521105706.tbyigihommrasdua@vireshk-i7>
+ <20240521073925-mutt-send-email-mst@kernel.org>
+ <20240529102424.s7rnq7zqqjy6bfdw@vireshk-i7>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20240521101023.ooesha4uo3fufr3t@vireshk-i7>
+In-Reply-To: <20240529102424.s7rnq7zqqjy6bfdw@vireshk-i7>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, May 21, 2024 at 03:40:23PM GMT, Viresh Kumar wrote:
->Dropped virtio-dev list.
->
->On 20-05-24, 12:20, Stefano Garzarella wrote:
->> I haven't followed v1 and v2, so apologies in advance if my comments have
->> already been discussed.
->
->No issues.
->
->> On Mon, May 20, 2024 at 02:59:40PM GMT, Viresh Kumar wrote:
->> > +\transportnormative{\subsection}{Virtio Transport Requirements}{Virtio Transport Options / Virtio Transport Requirements}
->> > +The transport MUST provide a mechanism for the driver to discover the
->> > +device.
->>
->> This seems a little too stringent. For example, does MMIO offer a discovery
->> mechanism? IIRC we have to pass the address via device tree or kernel
->> command line.
->
->Right. Is converting this to SHOULD okay or do you suggest some other
->change ?
+Hello, 
 
-Or MAY ?
+I added very minor comments. 
 
->
->> > +The transport MUST provide a mechanism to implement config space
->>
->> "configuration space"
->
->Sure.
->
->> > between
->> > +the device and the driver.
->> > +
->> > +\devicenormative{\subsection}{Virtio Transport Requirements}{Virtio Transport Options / Virtio Transport Requirements}
->> > +
->> > +The device MUST keep any data associated with a device-initiated
->> > +transaction accessible to the driver until the driver acknowledges the
->> > +transaction to be complete.
->> > +
->> > +The device MUST NOT access the contents of a virtqueue before the
->> > +driver notifies, in a transport defined way, the device that the
->> > +virtqueue is ready to be accessed.
->> > +
->> > +The device MUST NOT access or modify buffers on a virtqueue after it has
->> > +notified the driver about their availability.
->> > +
->> > +The device MUST reset the virtqueues if requested by the driver, in a
->>
->> Should we also talk about the possibility of resetting the entire device?
->
->Do we support that today ? Maybe we can if the maintainers agree.
+On Wed, May 29, 2024 at 03:54:24PM +0530, Viresh Kumar wrote:
+> On 21-05-24, 07:40, Michael S. Tsirkin wrote:
+> > I feel a non-normative section is enough for this.
+> > Just convert should/must to direct speech.
+> 
+> Like this ?
+> 
+> diff --git a/content.tex b/content.tex
+> index 0a62dce5f65f..8af005398877 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -631,8 +631,84 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
+>  
+>  \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+>  
+> -Virtio can use various different buses, thus the standard is split
+> -into virtio general and bus-specific sections.
+> +Devices and drivers can use different transport methods to enable
+> +interaction, for example PCI, MMIO, or Channel I/O. The transport
+> +methods define various aspects of the communication between the device
+> +and the driver, like device discovery, exchanging capabilities,
+> +interrupt handling, data transfer, etc. For example, in a host/guest
+> +architecture, the host might expose a device to the guest on a PCI bus,
+> +and the guest will use a PCI-specific driver to interact with it.
+> +
+> +The standard contains sections describing the transport-agnostic parts
+> +of virtio, and sections describing how individual transports implement
+> +virtio.
+> +
+> +\section{Virtio Transport Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements}
+> +
+> +\subsection{Transport Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements / Transport Requirements}
+> +
+> +The transport provides a mechanism for the driver to discover the
+> +device.
+> +
+> +The transport provides a mechanism for the driver to identify the device
+> +type.
+> +
+> +The transport provides a mechanism for communicating virtqueue
+> +configurations between the device and the driver.
+> +
+> +The transport allows multiple virtqueues per device. The number of
+> +virtqueues for a pair of device-driver are governed by the individual
+> +device protocol.
+> +
+> +The transport provides a mechanism that the device and the driver use to
+> +access memory for implementing virtqueues.
+> +
+> +The transport provides a mechanism for the device to notify the driver
+> +and a mechanism for the driver to notify the device, for example
+> +regarding availability of a buffer on the virtqueue.
+> +
+> +The transport may provide a mechanism for the driver to initiate a reset
+> +of the virtqueues and device.
+> +
+> +The transport provides a mechanism for the driver to read the device
+> +status. The transport MUST provide a mechanism for the driver to change
+> +the device status.
+> +
+> +The transport provides a mechanism to implement configuration space
+> +between the device and the driver.
+> +
+> +\subsection{Device Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements / Device Requirements}
+> +
+> +The device keeps any data associated with a device-initiated transaction
+> +accessible to the driver until the driver acknowledges the transaction
+> +to be complete.
+> +
+> +The device doesn't access the contents of a virtqueue before the driver
+> +notifies, in a transport defined way, the device that the virtqueue is
+> +ready to be accessed.
+> +
+> +The device doesn't access or modify buffers on a virtqueue after it has
+> +notified the driver about their availability.
+> +
+> +The device resets the virtqueues if requested by the driver, in a
+> +transport defined way, if the transport provides such a method.
+> +
+> +\subsection{Driver Requirements}\label{sec:Virtio Transport Options / Virtio Transport Requirements / Driver Requirements}
+> +
+> +The driver acknowledges device notifications, as mandated by the
+> +transport.
+> +
+> +The driver doesn't access virtqueue contents before the device notifies
+> +about the readiness of the same.
+> +
+> +The driver doesn't access buffers, after it has added them to the
+> +virtqueue and notified the device about their availability. The driver
+> +MAY access them after the device has processed them and notified the
+> +driver of their availability, in a transport defined way.
+> +
 
-mmm, I had interpreted this statement as if we could:
+I think last sentence could be rewritten as:
+- The driver accesses queued buffers after the device has processed them
+  and notified the driver of their availability. This mechanism is
+  transport defined.
 
-   The transport MAY provide a mechanism for the driver to initiate a
-   reset of the virtqueues and device.
 
-IIUC device reset is always supported (see `\section{Device Reset}` in 
-content.txt) and it's transport specific. While single virtqueue reset 
-depends on VIRTIO_F_RING_RESET.
+> +The driver may ask the device to reset the virtqueues if, for example,
+> +the driver times out waiting for a notification from the device for a
+> +previously queued request.
+>  
 
-Thanks,
-Stefano
+I would rewrite last sentence as:
+- The driver asks the device to reset the virtqueues if, for example,
+  the driver times out waiting for a notification from the device for a
+  previously queued request.
+
+
+With that, LGTM!
+
+Matias
 
