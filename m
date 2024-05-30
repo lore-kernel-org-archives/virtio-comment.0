@@ -1,54 +1,54 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABFB2137F
-	for <virtio-comment@lists.linux.dev>; Thu, 30 May 2024 16:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6737720B3E
+	for <virtio-comment@lists.linux.dev>; Thu, 30 May 2024 16:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717086263; cv=none; b=f1BwBkkqr2oclTxt7/zMGmJM/4CZWt7KA9/qVG7prqA1GKxYNxJG6gbG5llAcBXBOtiHKO+XX0/izbzlV4fr434xLd3slcFxBWbeDzhcB+OLozoc0x7qTOSiEPO98WTTdG1RYUinV/oOEf1GIyrdWqgsVJFpWDIglcX6Yde8aFM=
+	t=1717086475; cv=none; b=kOLPQPM/DmdM+2Zwb7gudpPiYjW6d61t6wAuWf8cdiXtffh+X7r8A6ErttdQdh5kHVoZWh3slH3++7xp9iXyW51hLfWeWZiYCfY4q4+fE8pj0Ad7+2caHGcIR/cNyeps7sv2wm0UV9hJ6EVqGludPD80pUFXDl3ZjJuD+HbIjt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717086263; c=relaxed/simple;
-	bh=a7Mdx4nH0KX8njF7bBu7km0sqJymAIA7Ot6nE6mSuMU=;
+	s=arc-20240116; t=1717086475; c=relaxed/simple;
+	bh=zCf6wo4t5J9nsLyu+4sxSZlsq+01xYL38PTXrjuLh6o=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XnUACTdnS+hDWPJsDEwGsn+k873dGff/ORlJKYiSx6wVCoW5TcxkH/jT+D+OhsJFBb1m3bTWOphrFChRQICD00DyOt70zKMp3G7QHaqOvfLzWgC6N4JtV6aEf70J4H8fngNgEGFttnoEbsGHxofz8v82IUDrFd43zez9CtLJRlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=zT1ga6Zc; arc=none smtp.client-ip=209.85.160.176
+	 To:Cc:Content-Type; b=e90EDlXKoXgzwuJmrZ2U1841r/kkrMaC/W8+gXw/zvI8M9ImTIHZTURom4/6xfn6YmFbSPAm/htnFgkqYg4AqoKkwsPrw5hD1qGb4H/oGY+aJhv7wSDSEI1kXxjGNjOGvQh88lRec1utyiMC6/547rB7j1rctCM3otnkMG8vvsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NtHKOsqq; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="zT1ga6Zc"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-43e14f0bd75so320511cf.1
-        for <virtio-comment@lists.linux.dev>; Thu, 30 May 2024 09:24:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NtHKOsqq"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-1ee5f3123d8so137435ad.1
+        for <virtio-comment@lists.linux.dev>; Thu, 30 May 2024 09:27:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1717086261; x=1717691061; darn=lists.linux.dev;
+        d=google.com; s=20230601; t=1717086473; x=1717691273; darn=lists.linux.dev;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=a7Mdx4nH0KX8njF7bBu7km0sqJymAIA7Ot6nE6mSuMU=;
-        b=zT1ga6Zcb6nVD3j51CcMUlXfNUeUjuGyKmsrGITFsybfTCfAdySgAK1B8Jyu4wXA9j
-         Yf4jc7QMGkwlFjarJTDLFkuW7RXTO0KrZFI0uC0RDVy8Hd4pS6LSd6QRuvuAK9afA7e/
-         yoCZw9MQpP8DQ8pXKjttuq0eVRpff9F0FwU34tptEGC6M+3TLBNh/dsEzh/HcRtdebUo
-         zehsWAG1uf7ViRNQTejAqAnrG7cPwUEA6sBDOqpMQccUTKULabCCJ+20IBTzSUVZhZM0
-         whd9g0VvvOBLuLHcOwtYWo9Wx7DYVefrKw0RRTIsDSrOVqBv2wSJke7J22wmK2bZFWhK
-         dtsg==
+        bh=zCf6wo4t5J9nsLyu+4sxSZlsq+01xYL38PTXrjuLh6o=;
+        b=NtHKOsqqb6QVaSK6y0CB/Yx3HLKDPp/46O+JuC85s6MghDg8b83RUeOkDU5YJpAVaW
+         JZ8GhOpepmjgBerDw9UrBp6TWE4innIdMsdowsB1gEfa/fWsV/IENHGKV8qWt7w1hT5O
+         8Dd1tKXqIxIvdBSOWjMYtNl3MgzGkd17nFy3ODDJqfIP3ZkxSaJWrRBMEijTBKOsUipL
+         Yoy4wRZRUhXlARlYLC8rik0bz1WgefmNR876QHmcK2Nh9oNjLhRQIAB0Fjpx5j0PNMa+
+         FzwxIVdxrq5+EY1UxLUZ8K0RIkj86EodJz9uFYfgdszQbw4YsD5rA3IXXLiHkZb0xI/S
+         VHJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717086261; x=1717691061;
+        d=1e100.net; s=20230601; t=1717086473; x=1717691273;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=a7Mdx4nH0KX8njF7bBu7km0sqJymAIA7Ot6nE6mSuMU=;
-        b=dRWK1WML7QNXcPNWm1T8dQx9OCsYGbbqYR4ybDS4MwWQA7+0xaQPe5kzoUyWtGIlKY
-         REAn5ImLJfXEyjg7EV4v+/sHv0/yd0yPY62cS/pqq9YFBmtdTbpHydZYCwFh0STpx75K
-         HxBYD+ltVs1yJi4g81LWfgL/D9bjkFhIEtW8GL870eAqGpIA4N0ErAajijnk6PbIT42l
-         woqfYkDpSsqQ0bZmFnzdlpovlX2WaCTzmZtwyDyIm9vuyNsoW5+Nd1SPNARV1PNUI4EF
-         cLDPhtnvIMYdBoIRV2Gvj0+oMf2J65ZWx2r0xJBk4TdXs/hL9781VSKzQHvX2+ihLPAd
-         kkLg==
-X-Forwarded-Encrypted: i=1; AJvYcCUz4BpMyolCIDAe/Mv/9lWwq2t+ddQkyLRvFBLkeX8hh1nMLQIKFfXwV27tSD02xGB4Kquku21qKByUQwfcMA5Om5sSBEMvaS/PJscHd4Q=
-X-Gm-Message-State: AOJu0Yy4AZFGeYZB0SIcuEg4sujEOLqI902o1AzIZdVdvXzt+WJbMCvg
-	fMEMMByX9VGAx8T9h0bOzaTotCSq1TiQxlDB8pahw+ZpuKGbEbfmOYph5Qd/XnwO6XyNI2CuNlQ
-	ly7qjI98sI8BuZ/IsBCR/HVJuVaD8CeS1BJ03
-X-Google-Smtp-Source: AGHT+IE/ggapybSjv94XB3n3JxqJ5Af2wd4FQBHBiPixwUFOTF2wRYZ6eNJXaHOyepYeZz02K1ykQgD+SbRJNEmFbvg=
-X-Received: by 2002:a05:622a:578f:b0:43e:3833:c5e3 with SMTP id
- d75a77b69052e-43feb3a328bmr3283401cf.11.1717086261071; Thu, 30 May 2024
- 09:24:21 -0700 (PDT)
+        bh=zCf6wo4t5J9nsLyu+4sxSZlsq+01xYL38PTXrjuLh6o=;
+        b=GihDHga77SBVOT+5kO5Yvs7zbUgZq8UmDaHsXAfBB8VGWuk8ulVu5n+J03bFoKBD0U
+         sBkK82K4EDdh+gYPv7fPWP38AZIvyYUVzV8W0IyZUeomOLxnrnTz5VdOqZkHD4UIDkIx
+         ON+e1Bnc//c99K7/L61L7BLS8KrcU+tAIMSSYhEFa4y07pP+whi3QZL1DtFnjpJvGy6g
+         Q5rt2423gXbKrumrfCE2Z7WXEPn1z4TXb4p8bWKsort2pLGg0m+Bt4AoUOA0mUGhI5mF
+         3p+rdraz3cnQ3G0IDTDOBjj1mFG3UD/4W3ftDvG61QkpFTkPM+N5/6Wbl5c40kyXhMg4
+         /e/w==
+X-Forwarded-Encrypted: i=1; AJvYcCVkMLBzQ1e+u3ddAVQEVX6zkvbax+UIud6AiUv4GCQPOzheHJ9VQ3L6WRmbQlnwtV16OSk6lnrUY5fDTiPIBMc/C4iuLzw4g8RsQeLOE+8=
+X-Gm-Message-State: AOJu0Yyjq88rSTnt6Y20IB5tyxFIiaFuzLcnbwGG2OyQVvJUlrbqOSjP
+	r6KHjKxuaseuM525QnUGBSb9dd8DwsiqMGswVve7B/1HcMhptewvFC+AMw7R+97084FRdhK0LST
+	9qb09cBIi187i3bMciIBm9bhRwWpAnArNKzIF
+X-Google-Smtp-Source: AGHT+IHzL1w1IItzIHwBj258FSK7muRizvc0EOsljJe5Ixaz9AeK6hQsC9OgKKrMeYyYPvJ9w5qb0uQhfidJ4C/WUKc=
+X-Received: by 2002:a17:903:245:b0:1f2:f6bb:e9c0 with SMTP id
+ d9443c01a7336-1f61a79a4efmr2197495ad.9.1717086473398; Thu, 30 May 2024
+ 09:27:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -58,11 +58,12 @@ MIME-Version: 1.0
 References: <cb89d3d6b6a7e4a7f13e60dd3fded5e950727890.1716448766.git.pabeni@redhat.com>
  <ed730a7e12853339c6f5f298fa6c240a39942a74.camel@redhat.com>
  <CACGkMEtetmg=YUtPW+yL+s5MzhbKKkJyrx3EDOtf2aF=q5_b8g@mail.gmail.com>
- <CA+FuTSfCm-GpLHYztQCxti2adCcFPV7GyKBH1zTDB8tM2w1NNg@mail.gmail.com> <794dd45767bf54385613c5d18c32ee11d474db87.camel@redhat.com>
-In-Reply-To: <794dd45767bf54385613c5d18c32ee11d474db87.camel@redhat.com>
+ <CA+FuTSfCm-GpLHYztQCxti2adCcFPV7GyKBH1zTDB8tM2w1NNg@mail.gmail.com>
+ <794dd45767bf54385613c5d18c32ee11d474db87.camel@redhat.com> <CA+FuTSeDqrQ3FVjpmmQ31UbyGQA-fUsYz3=NmizC1U7Q8w6E3Q@mail.gmail.com>
+In-Reply-To: <CA+FuTSeDqrQ3FVjpmmQ31UbyGQA-fUsYz3=NmizC1U7Q8w6E3Q@mail.gmail.com>
 From: Willem de Bruijn <willemb@google.com>
-Date: Thu, 30 May 2024 12:23:42 -0400
-Message-ID: <CA+FuTSeDqrQ3FVjpmmQ31UbyGQA-fUsYz3=NmizC1U7Q8w6E3Q@mail.gmail.com>
+Date: Thu, 30 May 2024 12:27:16 -0400
+Message-ID: <CA+FuTSfi6uQUqyxUccAL8YxjFh11vDmC5uT16M41_o3QenhzwQ@mail.gmail.com>
 Subject: Re: [PATCH v4] virtio-net: define UDP tunnel offload feature
 To: Paolo Abeni <pabeni@redhat.com>
 Cc: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.linux.dev, 
@@ -70,67 +71,20 @@ Cc: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.linux.dev,
 	Stefano Garzarella <sgarzare@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 
-> > > > > inner transport header offset from the provided information, as it's
-> > > > > currently the case for plain (not UDP tunneled) GSO packets.
-> > > > >
-> > > > > The outer UDP header may carry a second checksum, which can be offloaded
-> > > > > independently from the inner one. Since UDP tunnel checksum offload
+> > Yes, I think the ethernet-only constraint could be removed, but I fear
+> > that will pose some difficulties for H/W implementation - requiring
+> > extra flexibility - and possibly some additional features negotiation
+> > should be needed.
 > >
-> > Just require local checksum offload? Computing the outer checksum is
-> > always cheap. Optional double checksum offload might add complexity
-> > that is not needed, as it is so cheap.
+> > I think that the struct layout can already cope with GUE or the like.
 >
-> The rationale behind the making the outer csum offload manadatory was
-> to keep the specification change simple and prevent the exhaustion of
-> the virtio_net_hdr flags and gso_type exhaustion. With this change,
-> 'flags' has 4 bits used out of 8 and will raise to 5. 'gso_type' has 3
-> 5 bits used and will raise to 6 (even if only 3 of them will be
-> bitfields).
-
-Perhaps we're talking about something different. I'm suggesting that
-the outer checksum is not offloaded at all, because outer checksum
-generation and validation is always cheap in software. This is the
-premise of LCO.
-
-> The complexity problem is only relevant for h/w implementation, right?
-> Is really such a problem for modern H/W?
-
-I'm concerned more about the virtio_net_hdr struct and minimizing
-the combinatorial explosion of allowed flags.
-
-We've had a lot of issues in the past with the Linux implementation,
-in part because we allow combinations of fields that have no practical
-use, but let syzbot go nuts. And then we have to patch up the data
-path with branches that slow down the actual practical cases.
-
-> > Can you reconsider the choice to only allow UDP encap that includes an
-> > inner MAC header?
-> >
-> > There are useful UDP based tunnels that skip that, such as GUE. Virtio
-> > revisions are a long process. If we can accommodate those in the
-> > design from the start, that saves us much work later. Or, at minimum
-> > make sure that the proposed design can easily be extended to such
-> > protocols.
+> Great.
 >
-> I'm surprised about interest in GUE: for years I wondered about
-> deprecating and removing it (together with FOU).
-
-We use it extensively. In fairness, maybe as a result of my choosing
-this protocol when we needed a (UDP based) tunnel protocol with
-custom internal headers. FOU and GUE are well suited to that.
-
-> Yes, I think the ethernet-only constraint could be removed, but I fear
-> that will pose some difficulties for H/W implementation - requiring
-> extra flexibility - and possibly some additional features negotiation
-> should be needed.
+> To be clear, I don't mean to ask for all back-ends to offer support for
+> all these. But that the layout supports it.
 >
-> I think that the struct layout can already cope with GUE or the like.
+> I suppose if we want conditional support, then that would require
+> extra flags on negotiation. E.g., a separate
+> VIRTIO_NET_HDR_GSO_UDP_L4_TUNNEL type.
 
-Great.
-
-To be clear, I don't mean to ask for all back-ends to offer support for
-all these. But that the layout supports it.
-
-I suppose if we want conditional support, then that would require
-extra flags on negotiation. E.g., a separate
-VIRTIO_NET_HDR_GSO_UDP_L4_TUNNEL type.
+Whoops. Meant L3 instead of L4 here, of course.
