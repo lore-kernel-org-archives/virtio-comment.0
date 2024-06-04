@@ -1,28 +1,28 @@
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (mail-sn1nam02on2066.outbound.protection.outlook.com [40.107.96.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF52F146D54
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2ED6146D71
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.96.66
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717507811; cv=fail; b=gL1iO5PUL34k27cbtXP5wiVv2OLWLxd/NLQS+yFZVqP6rtz8VYAeAgbmiuN8ej58Lhy5Pdy7FVbVaF6Vx2IZ4pHbGYkuw9GvGEt9zQjJJO+oUQevyzxn+cKzhjAdsJONtotBCMVc+37vUqTHV0qabzpPZs2rVcAlR0LZudPZiWI=
+	t=1717507812; cv=fail; b=HY+OsxnzIjfnRRsKg9mBvNUazvYAs5F2N28lVXXiNECrS0ER85Zjs/uS169fenUV+pzXMeR4wGA6MUCKTzg6wYQ8rtW6w6SdSvk68Nc7VB796tRFEHOtooHzr0WZkfRy4ICOyy6rnyZopzryg8OurNjR9BDFtyllBIVaS4YCMN4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717507811; c=relaxed/simple;
-	bh=fbghw+0XjuDjtY06IIQsYm9LiNBwmUzobkLNj37mUAA=;
+	s=arc-20240116; t=1717507812; c=relaxed/simple;
+	bh=AQq3Mv4FTMblAoinfajmeb1RnnDuDlyUVUbwZ+Eujo0=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qFgP1qIKG+z3FE7rRorRZlIbdt1Y23Mp8Vjp1FtbA4Y15bsbrAe4Pti5NH7VrIv9y/ytq1hWBjlWATHfFtSnBdlhIWnMY/Uz1aUaVQWjFZ6Vfp/7wvRfwRU3Dg35HYLnVcRJ0pVLxoWkkgjGW53M7Uj9zKfxusGsD1obFOBdfUg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MzKjkaEW; arc=fail smtp.client-ip=40.107.223.61
+	 MIME-Version:Content-Type; b=d5IzP0ZHpVc2wjJiWeuurxaQypH9UHYtxIqoDsTkFnO2r6N5oPjAEEjeu5E6AUoTQbtzHTjiOtEUBytRCvQchPJdSz4jWIugWtJyhJL/JadLvj4qCdicv8YKsYIvBPULfMgdh97V98xjJc6tC0jGPtAjeTB++sd3gTlRx9m3kz4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Geix8zSo; arc=fail smtp.client-ip=40.107.96.66
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MzKjkaEW"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Geix8zSo"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=azZ6fV3gy85jUF9XT9ADQWM0SmtqgiXyYwsfgs5a2Tqr2TIoTJX1oGTzAcl+pBVOJDWISh+He1E4aJUUd0Z2KKkmsv+PTX348570UmOC9RnRaM0yRxh6av5R8TIbHdzz8HI2vbuCfbzFzEhwMRANrL/rUJB5GVoL403HLL/raYXMhjKF1PwY1AqGQw6VMFHWngAjUUjk5qBL2mG3CCZjWG5qvrJpLwbCdYlP7nadQnUlC2Zx/az08LNSniOHNvAzf5ckHCea7JWotJHdmEKHnO4S48A+JcoxjPEmfNP5QDC9eJDQq6IxOUNuw/HcCyM6HQPMx5lFL3fZTdiez6TP7w==
+ b=ZBQPAKjJBPY94NnAwprPx9TykFAywff4kmB/dHCcry0HDFCS8Sw6WYC1hbjEMLqX8tpcBlk+klM81idhRc5dd2D8cIIqlCyTFTdXcC2Ouz0rrrYsDz8Mmw0VmyQHnafjglCxJzAACP7vy4zA4fq6oA3y4Z/unQ6MWr7ABI1Uj33ZXKvgwX+YuTP3zVWEBxTp01CA8Xe1dbZ7ZjpZHn3Y48sNw4CwOtk6RjBoBQhuVZ3caNOwP3KsDUAKScXSh3XkqLXj23LOfRcTZRWhwKrvw9tuz43l1iWW4hXCC8doXVXBPBC2Ut+Eeae3ve+J5wG2yz22PxtTr5GSBPWJCL4Slg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KBIA5hFdAPt0HHmJtf140l8n00G4w08w51C4YMYqXFw=;
- b=MrhyvxVzlpN0oybRwo1R1RQCo1StuWHSBaYSxK21KcbVwibXWjyeJrOlf3xgJCrNkTGS4+z88CIo9coSWN5TBFpb5WBd8exao5xv2GO1Mr5P64b9BXlC9lWcDzXbDmZXC3axQb9ZWxp9zgA90Bl38J3WmOLsKm1ULZQwNX55jgAHNWwX/2pjCePHsOP+9qv441JbcSYN/f95gonkqkBwf7Pc2snuaB0iVzIS0WhWq/nUAABxjZT//pPaaKAhePxR7MkFFVs5guyJt00foo1alcrFUv8ySCGvtMjl0+we8N2nOszQ8eaKmCgk81XTbUAkktFaVWQ92iSM0CdN0f4BPg==
+ bh=tQvx42ar7asP5hpAXBeMQrVJIi+0sKxJk90fJ9HMVPw=;
+ b=cCxUyOnQ7qdgmGtsodob+IydtwCrooItGq8pJ0ouZ1C1DEUOJnO8ADeXc7pWOTMpAgeMjJ9Gw8ZhZry6gEYbop5fAs8KSOw0S+nMTgrEfKhqMneiTcGDT+BM1bLkAA2zWw7ZuBonRRm7WMdodOuO1nMW86JhEdJRjLjNhHh4lLt5vMA+fsqxliT+WMHLqVNZFuexZDD4NKnJo9tv9S5odVew8/A/igGIUHpLRCgU/YABlB4Pdfuoxmy7u9+ygnMnA4FL8FvIS4YGrdIrkRjU7Kcq9yCK1lWQJf/JId8D8q/f1jZw8JUGzCAVmCAh26Vy4ruEE2rD71/AfiWa37weaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,17 +30,17 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KBIA5hFdAPt0HHmJtf140l8n00G4w08w51C4YMYqXFw=;
- b=MzKjkaEWxcNpOiYYZYhcgF1Yi0jAvzhyAMYxqH3Y+A2zXkrCOS8XTlQB+tKaEnWNmRxPqlLNxygNljXS6KtMITjA5ZGNkXobjwY2OfaZAgKmBTf53ygeNYvpTlz0Fn8RxYl9D4KpQXlENl9Si28twTbR/F+nP6ZaRYBfY1BxwOB0rMuN9SnKXYBtPyb13p+ufhV0P7/0Sl7zmdQSBigauieW1KXTxXM/b6/LbQeH0JJZ4wPpNBycNgqBLQTXhfHgLFlxRt2ojupBN0SBzBXyBEHvmKXxG6zlBnH/V/pI2VMJJjwrwtxx+/OBJpNc7VEPu9bLk0ghiJQpARjtOkKqPA==
-Received: from SJ0PR13CA0193.namprd13.prod.outlook.com (2603:10b6:a03:2c3::18)
- by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10) with
+ bh=tQvx42ar7asP5hpAXBeMQrVJIi+0sKxJk90fJ9HMVPw=;
+ b=Geix8zSoerdHIQXXJpXlNP+6CFJrNjyff+/U/11UDwlGPNxj1M6u5JAFAYcwGU48tyclhPtLbYgpQiz4/uc59x1e69N3jAZBat4yvUGve0ivO8gkmLb81QyQjK8ss+bP/g7kQQ8vBMmxq26/XbaVNBkk4jL81KnsGEhZSGErH3CnlwPLPchITyuGEQKeirssSzwoUDXDV7uvk3pmU0Crf3kQeEFfylgNrgbYpcAfs7dZyxqan+AglBpMjLHCrimZ9IZe99CToyll2UcmkMS2U3NNTJm+p9d7QL4blJA2znW7MnzYYyKJT/D8wwqOqL3rqPYBAfF9cGzoHX2QTVFtQg==
+Received: from BY5PR17CA0022.namprd17.prod.outlook.com (2603:10b6:a03:1b8::35)
+ by IA1PR12MB6410.namprd12.prod.outlook.com (2603:10b6:208:38a::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Tue, 4 Jun
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.19; Tue, 4 Jun
  2024 13:30:02 +0000
-Received: from SJ5PEPF000001D7.namprd05.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::94) by SJ0PR13CA0193.outlook.office365.com
- (2603:10b6:a03:2c3::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.14 via Frontend
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:a03:1b8:cafe::51) by BY5PR17CA0022.outlook.office365.com
+ (2603:10b6:a03:1b8::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.29 via Frontend
  Transport; Tue, 4 Jun 2024 13:30:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
@@ -49,26 +49,26 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- SJ5PEPF000001D7.mail.protection.outlook.com (10.167.242.59) with Microsoft
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:30:02 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 4 Jun 2024
- 06:29:50 -0700
+ 06:29:47 -0700
 Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 4 Jun 2024 06:29:47 -0700
+ 15.2.1544.4; Tue, 4 Jun 2024 06:29:44 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
 CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Subject: [PATCH v11 09/13] virtio-net: Add flow filter capability
-Date: Tue, 4 Jun 2024 16:28:59 +0300
-Message-ID: <20240604132903.2093195-10-parav@nvidia.com>
+Subject: [PATCH v11 08/13] virtio-net: Add theory of operation for flow filter
+Date: Tue, 4 Jun 2024 16:28:58 +0300
+Message-ID: <20240604132903.2093195-9-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240604132903.2093195-1-parav@nvidia.com>
 References: <20240604132903.2093195-1-parav@nvidia.com>
@@ -84,363 +84,202 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D7:EE_|PH7PR12MB5653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 159d75a1-4e2d-4a93-1c73-08dc849a7078
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|IA1PR12MB6410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c05e017-4087-414d-c4ed-08dc849a702b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|376005|1800799015|82310400017;
+	BCL:0;ARA:13230031|82310400017|1800799015|376005|36860700004;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?PQE0IHmTd/gThoTBY9pzMnAj0IMrgLnxp7c+OHs3uz4WB2jEy46gRUVQRUpv?=
- =?us-ascii?Q?4hu9TRAhSPw4gEKHEMrPGUJmz/aoC+OR8yxuCRovyeqyTl6wy5VhYExC1S2p?=
- =?us-ascii?Q?TtAjGWla8A6k01LYatnWY5Org5WIh9NS2sT4CTak4+K31qxjDJ/5NB0LZSep?=
- =?us-ascii?Q?zYzlaI8i58IMsNOzjsNQ+Ad6yIUJQCODW4zvzENBP0QyWyW2+gA8H2KDzTnD?=
- =?us-ascii?Q?fP426iy7QSWL74g8NlzDnsmbY3WE331cz9XbQb+CcYmSIma8uOzaDoEreqpg?=
- =?us-ascii?Q?BYeLfRMiH/ND9Z/cKoGt5SCeN7FKM+CiwtpMEAvcxosbfYTa4IOgvnvVx4dS?=
- =?us-ascii?Q?2kv62pVLA2a1MfdicKkJYU/Lw3Pzyh7jnKgHZzpTsWPugZoRRyBas8coTTUW?=
- =?us-ascii?Q?/JZsmg19FgW1mULq/dGM4BqvsZIOOgrXvJcn2B7FDQZag8Cn6/1S/0F8qXwf?=
- =?us-ascii?Q?TF/UMnvJVZ4CnJf73le4bYvQLVqMTAlXmHTq5qSvSewZn/gTjWtcAyLUHzY/?=
- =?us-ascii?Q?P5gWE60UulUtylaTT37LOOinv2H/RdBHEHW1nE2TTfvneUBEulcU0LM5fy8y?=
- =?us-ascii?Q?wovFip7Wr3utpgg8P3bDll91qyTM0enYmHGb+x/17+6RVGzo8wkaiAFqg1eG?=
- =?us-ascii?Q?ZwsRV4r8x6VW2Hao4N/nyLzL9aOZGmmqAad3OCbu0HzqyFmAmg1G9kGF57Ep?=
- =?us-ascii?Q?AS4b48uNZrpb9xfCoABKpAvypY+eqvjkVtmVTdxH7Lf4E+XO4qZ0tledyOmx?=
- =?us-ascii?Q?DYbEv8pI2LY/Y7kK5HdmkYOtOVP1Uv5NY3gJKBZWXBiOd8Ach63Afnat8qAT?=
- =?us-ascii?Q?54P/Ce2dSqci/ZP9qFlIuOaQcLjVMMvCFedqoDN/FMsNXmyp3Pnsi1iwFT2d?=
- =?us-ascii?Q?xaD0yenJw3dRvIB+zBpBNaA8jjcNjNN8PYwHAvz5l7PVkihmAcNVsNWe5Z97?=
- =?us-ascii?Q?ibaPkNqEVide/dVJjFeVkb+Plw/TbtMVF78Z37L8u29K9dEx8Ztm8dgtQWb/?=
- =?us-ascii?Q?/hz71/iy5qRISrHPHbxlJnfGpMHvzqUnLqxJcjLTjO75sqYoQ2B7msdjEt1J?=
- =?us-ascii?Q?2uCajZQouZS0GADujk9uhZkWJ975pvcE3C5F7vtW9XwAn2szifU85j8f6sZc?=
- =?us-ascii?Q?A/FEmYvCo7JcNh9x/4+ZOZuyWkhsFcLfSbHdzyCmuqJaDjSOOsTf2TY/+Pzk?=
- =?us-ascii?Q?Pw/Z/Wsr40PTyWB3eqyqRXgT1vM7zK+/teD3QVP6ndW6dSYRkpkUxVmgqJ6h?=
- =?us-ascii?Q?fM2/uywKlXqIu6L/T5tOunbfDmb7Bg5dP1Mc7GaHBCm3Eb2IkKPtnvlh5jLi?=
- =?us-ascii?Q?xrq79htNyxwS+sR4Sv6Iz3pRJRvH4SmUsIE/JEebVLJsvyvd0y3lBJtjgdxd?=
- =?us-ascii?Q?QlvbrNrJCnLFL5gViKG1y/5znQdn?=
+	=?us-ascii?Q?u9nN0VUUOF9cXGwONocVqn8gAUbthB1La/fHadP4Qz6BURBPkYAJenV2DY1l?=
+ =?us-ascii?Q?Fho69HFcofTqHrNEja8FQKhlgQ2vSY21ShQ9YSbJQRMn/co+5H+w+F5GMqct?=
+ =?us-ascii?Q?Ls2HOQzlK2xPHA9PgcL03aOIppeDelg3OMIaJDu2HK5xPBOMytB5xs09BnBp?=
+ =?us-ascii?Q?OlXBKNTlIqN9T1jnojePgefJ5GkMOF6m5UEB/0ZScl/a1aSOkVHPVZnfWTCc?=
+ =?us-ascii?Q?djUWcegluzdsFZhm3rTYU1lwvD9OR6q6dgm1X8iw/n70mauIxX97K/yVutgr?=
+ =?us-ascii?Q?ZpHLxF/GcFzHokKsWdSWHPvxEaJKFqL13emqvjFCsl3S0E1dovgkRw9zonmk?=
+ =?us-ascii?Q?BREjf4WbOHT1iKRQwMGgHajksv3vDbMJd5lBKCsFSqFRpvT1rOGjrQbIi2Ka?=
+ =?us-ascii?Q?uClRdXUKT44VBh0HBZB30YZbxvYn8YzArGFWTBdlqgjgnabxg8ru0TzJPuHs?=
+ =?us-ascii?Q?sOUuPeFvKjxezzYG4wHDNmbbjEj4e34ALmH41JTTFTR1Bnst/9KumBv3BnCW?=
+ =?us-ascii?Q?Kb6Zrz4apTUIRbR0FM/qQKb4LqX+oPJpw8zakGyXFM5uihKulP1nBiqAm07A?=
+ =?us-ascii?Q?cBrFAEMwtd7dcIPRa1w05WKP3o5QRtGIQp5JloNIeUcOHVYB16DM+lJi/AjG?=
+ =?us-ascii?Q?lEQG335Ws1t5F49HX0MPcFyXHlLRKFguYj/L2LSX4gG9FwvLj/DB7eWEG5V2?=
+ =?us-ascii?Q?NECdm/SIBnnSKQwBHpjPVMZ8zeV0YSf2Uja43Jpc/cpjWcRUn/QRoaqVDcwU?=
+ =?us-ascii?Q?mwtjh//cevhdzN3Con5OPOw+5O1Fase+CmXSZxo+lmtkGWGTg/MaLTu2i7a2?=
+ =?us-ascii?Q?Qo7nNUEXkmPQ2D/o0Dfh92jTuC+AWwutDXLsUQTb2GmwpsSd23JHOVdBsiOS?=
+ =?us-ascii?Q?LuaoJjIwBPL2v50N93tX6PEWIa8bn0gL5GIiuuNcSAw/6S6gOv5Ns3mnYn+M?=
+ =?us-ascii?Q?4zeBNFcnztKh1N/H4v0E7fTn5CKQKc8qSu19zEI0pTfc0NrBNXx4msajs2K2?=
+ =?us-ascii?Q?vJ4pvp6PUA92dch4i+aP86R8Vx9WNNvgfn0LCFtSBlw+FPiTxuXKmwz4hKBx?=
+ =?us-ascii?Q?xii+azJvjNt1Hm4qEHQVCj8YjQy/XZaLDNZ3s0jOdho9P64EfoQM9Pbqzpqg?=
+ =?us-ascii?Q?v0V8IZLwomLcvFVX4HiAka3Lvdf9jhLh3w4DI4OCej3ADrmaWAkLd67opP/Z?=
+ =?us-ascii?Q?x7D23cPd/2M4UOnqXj5UiJxD+/eMTONyau4EeclDcKLrO9dRiICHZ6onMeDJ?=
+ =?us-ascii?Q?GiOnOpHTTUPHzu8MpZQwMewZcmUUOcCXrnJo+c48LkUloFYqGoq7DWZ14Fym?=
+ =?us-ascii?Q?0s55n+cVNFBkoIAC/32m55AiVEkZKFMA2+FtDDx03KcvdrpVpvwyaPgbNOu7?=
+ =?us-ascii?Q?h5kedbyyDuqTzMNqfCKFQv/gmtfe?=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:30:02.6205
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:30:02.1045
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 159d75a1-4e2d-4a93-1c73-08dc849a7078
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c05e017-4087-414d-c4ed-08dc849a702b
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D7.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6410
 
-Add first flow filter capability that indicates device resource
-limits such as number of flow filter rules, groups and selectors.
+Currently packet allow/drop interface has following limitations.
 
-add second capability that indicates supported selectors defining
-which packet headers and their fields supported.
+1. Driver can either select which MAC and VLANs to consider
+for allowing/dropping packets, here, the driver has a
+limitation that driver needs to supply full mac
+table or full vlan table for each type. Driver cannot add or
+delete an individual entry.
+
+2. Driver cannot select mac+vlan combination for which
+to allow/drop packet.
+
+3. Driver cannot not set other commonly used packet match fields
+such as IP header fields, TCP, UDP, SCP header fields.
+
+4. Driver cannot steer specific packets based on the match
+fields to specific receiveq.
+
+5. Driver do not have multiple or dedicated virtqueues to
+   perform flow filter requests in accelerated manner in
+   the device.
+
+Flow filter as a generic framework overcome above limitations.
+
+As starting point it is useful to support at least two use cases.
+a. ARFS
+b. ethtool ntuple steering
+
+In future it can be further extended for usecases such as
+switching device, connection tracking or may be more.
+
+The flow filter has following properties.
+
+1. It is an extendible object that driver can create, destroy.
+2. It belongs to a flow filter group.
+3. Each flow filter rule is identified using a unique id,
+   has priority, match key, destination(rq) and action(allow/drop).
+4. Flow filter key also refers to the mask to learn which fields
+   of the packets to match.
+
+This patch adds theory of operation for flow filter functionality.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
 ---
 changelog:
-v10->v11:
-- fixed comment from Satananda
-- fixed the field name to not have 'per_group' in it as it
-  applies to all flow rules
 v9->v10:
-- removed num_types field
-- used singular capability
-- consolidated capability to one
-- removed the bmap due to generic mask and key
-- added key_mask length to indicate what is the maximum size
-  of key and mask fields supported by device
-- added partial mask supported capability to indicate if the
-  device can support it or not
-- added reference to individual protocol headers
-- added actions capability
+- updated to refer to device resource object
 v6->v7:
+- addressed comments from Cornelia
 - plenty of grammar corrections suggested by Cornelia
-- using generic device capabilities framework
-- renamed max_flow_priorities_per_group to
-  max_ff_rules_priorities_per_group to make it more clear
+- removed stale reference to flow filter virtqueue
+- removed incorrect stale hunk of a label
+- removed dependency on feature bit and control vq
+- rebased to use device capabilities and device resources
+v4->v5:
+- to avoid feature bit overlap with rss context patch, pick next
+  unique bit 65
+v3->v4:
+- removed flow filter virtqueue section as dynamic queues are
+  not supported currently
 v2->v3:
-- rebased on virtio-1.4 branch
-- removed reference for flow filter virtqueue
+- removed dependency on the dynamic queue creation as the
+  infrastructure is not yet ready
 v1->v2:
-- addressed comments from Satananda
-- added vlan type match field
-- kept space for types between l2, l3, l4 header match types
-- renamed mask to mask_supported with shorter width
-- made more fields reserved for future
-- addressed comments from Heng
-- grammar correction
-- added field to indicate supported number of actions per flow
-  filter match entry
-- added missing documentation for max_flow_priorities_per_group
-v0->v1:
-- added mask field in the type to indicate supported mask by device
-  and also in later patch to use it to indicate mask on adding
-  flow filter. As a result removed the mask_supported capability
-  field
+- fixed comments from Heng
+- grammar corrections
+- spelling corrections
 ---
- device-types/net/description.tex | 194 +++++++++++++++++++++++++++++++
- introduction.tex                 |  13 +++
- 2 files changed, 207 insertions(+)
+ device-types/net/description.tex | 68 ++++++++++++++++++++++++++++++++
+ 1 file changed, 68 insertions(+)
 
 diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 58d0692..a299c32 100644
+index e65cdd5..58d0692 100644
 --- a/device-types/net/description.tex
 +++ b/device-types/net/description.tex
-@@ -401,6 +401,22 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
- A truly minimal driver would only accept VIRTIO_NET_F_MAC and ignore
- everything else.
+@@ -2411,6 +2411,74 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ of the driver's records. In such cases, the driver should allocate additional
+ space for the \field{command-specific-result} buffer.
  
-+\subsection{Device and driver capabilities}\label{sec:Device Types / Network Device / Device and driver capabilities}
++\subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Operation / Flow filter}
 +
-+The network device has the following capabilities.
++A network device can support one or more flow filter rules. Each flow filter rule
++is applied by matching a packet and then taking an action, such as directing the packet
++to a specific receiveq or dropping the packet. An example of a match is
++matching on specific source and destination IP addresses.
 +
-+\begin{tabularx}{\textwidth}{ |l||l|X| }
-+\hline
-+Identifier & Name & Description \\
-+\hline \hline
-+0x0800 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_RESOURCE_CAP]{VIRTIO_NET_FF_RESOURCE_CAP} & Flow filter resource capability \\
-+\hline
-+0x0801 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP]{VIRTIO_NET_FF_SELECTOR_CAP} & Flow filter classifier capability \\
-+\hline
-+0x0802 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP]{VIRTIO_NET_FF_ACTION_CAP} & Flow filter action capability \\
-+\hline
-+\end{tabularx}
++A flow filter rule is a device resource object that consists of a key,
++a processing priority, and an action to either direct a packet to a
++receive queue or drop the packet.
 +
- \subsection{Device Operation}\label{sec:Device Types / Network Device / Device Operation}
- 
- Packets are transmitted by placing them in the
-@@ -2442,6 +2458,14 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
- matches the packet and an action is taken. If all the rules within a group
- are ignored, the group with the next highest priority is selected, and so on.
- 
-+The device and the driver indicates flow filter resource limits using the capability
-+\ref{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_RESOURCE_CAP} specifying the limits on the number of flow filter rule,
-+group and classifier resource objects. The capability \ref{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP} specifies which selectors the device supports.
-+The driver indicates the selectors it is using by setting the flow
-+filter selector capability, prior to adding any resource objects.
++Each rule uses a classifier. The key is matched against the packet using
++a classifier, defining which fields in the packet are matched.
++A classifier resource object consists of one or more field selectors, each with
++a type that specifies the header fields to be matched against, and a mask.
++The mask can match whole fields or parts of a field in a header. Each
++rule resource object depends on the classifier resource object.
 +
-+The capability \ref{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP} specifies which actions the device supports.
++When a packet is received, relevant fields are extracted
++(in the same way) from both the packet and the key according to the
++classifier. The resulting field contents are then compared -
++if they are identical the rule action is taken, if they are not, the rule is ignored.
 +
- The driver controls the flow filter rule, classifier and group resource objects using
- administration commands described in
- \ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
-@@ -2479,6 +2503,176 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
-       the flow filter rules in group_B, the flow filter rules of next level group_A are applied.
- \end{itemize}
- 
-+\paragraph{Device and driver capabilities}
-+\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities}
++Multiple flow filter rules are part of a group. The rule resource object
++depends on the group. Each rule within a
++group has a rule priority, and each group also has a group priority. For a
++packet, a group with the highest priority is selected first. Within a group,
++rules are applied from highest to lowest priority, until one of the rules
++matches the packet and an action is taken. If all the rules within a group
++are ignored, the group with the next highest priority is selected, and so on.
 +
-+\subparagraph{VIRTIO_NET_FF_RESOURCE_CAP}
-+\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_RESOURCE_CAP}
++The driver controls the flow filter rule, classifier and group resource objects using
++administration commands described in
++\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
 +
-+The capability VIRTIO_NET_FF_RESOURCE_CAP indicates the flow filter resource limits.
-+\field{cap_specific_data} is in the format
-+\field{struct virtio_net_ff_cap_data}.
++\paragraph{Packet processing order}\label{sec:sec:Device Types / Network Device / Device Operation / Flow filter / Packet processing order}
 +
-+\begin{lstlisting}
-+struct virtio_net_ff_cap_data {
-+        le32 groups_limit;
-+        le32 selectors_limit;
-+        le32 rules_limit;
-+        le32 rules_per_group_limit;
-+        u8 last_rule_priority;
-+        u8 selectors_per_classifier_limit;
-+};
-+\end{lstlisting}
++Note that flow filter rules are applied after MAC/VLAN filtering. Flow filter
++rules take precedence over steering: if a flow filter rule results in an action,
++the steering configuration does not apply. The steering configuration only applies
++to packets for which no flow filter rule action was performed. For example,
++incoming packets can be processed in the following order:
 +
-+\field{groups_limit}, and \field{selectors_limit} represent the maximum
-+number of flow filter groups and selectors, respectively, that the driver can create.
-+ \field{rules_limit} is the maximum number of
-+flow fiilter rules that the driver can create across all the groups.
-+\field{rules_per_group_limit} is the maximum number of flow filter rules that the driver
-+can create for each flow filter group.
++\begin{itemize}
++\item apply steering configuration received using control virtqueue commands
++      VIRTIO_NET_CTRL_RX, VIRTIO_NET_CTRL_MAC and VIRTIO_NET_CTRL_VLAN.
++\item apply flow filter rules if any.
++\item if no filter rule applied, apply steering configuration received using command
++      VIRTIO_NET_CTRL_MQ_RSS_CONFIG or as per automatic receive steering.
++\end{itemize}
 +
-+\field{last_rule_priority} is the highest priority that can be assigned to a
-+flow filter rule.
-+
-+\field{selectors_per_classifier_limit} is the maximum number of selectors
-+that a classifier can have.
-+
-+\subparagraph{VIRTIO_NET_FF_SELECTOR_CAP}
-+\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP}
-+
-+The capability VIRTIO_NET_FF_SELECTOR_CAP lists the supported selectors and the
-+supported packet header fields for each selector.
-+\field{cap_specific_data} is in the format \field{struct virtio_net_ff_cap_mask_data}.
-+
-+\begin{lstlisting}[label={lst:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / virtio_net_ff_selector}]
-+struct virtio_net_ff_selector {
-+        u8 type;
-+        u8 flags;
-+        u8 reserved[2];
-+        u8 length;
-+        u8 reserved1[3];
-+        u8 mask[];
-+};
-+
-+struct virtio_net_ff_cap_mask_data {
-+        u8 count;
-+        u8 reserved[7];
-+        struct virtio_net_ff_selector selectors[];
-+};
-+
-+#define VIRTIO_NET_FF_MASK_F_PARTIAL_MASK (1 << 0)
-+\end{lstlisting}
-+
-+\field{count} indicates number of valid entries in the \field{selectors} array.
-+\field{selectors[]} is an array of supported selectors. Within each array entry:
-+\field{type} specifies the type of the packet header, as defined in table
-+\ref{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / flow filter selector types}. \field{mask} specifies which fields of the
-+packet header can be matched in a flow filter rule.
-+
-+Each \field{type} is also listed in table
-+\ref{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / flow filter selector types}. \field{mask} is a byte array
-+in network byte order. For example, when \field{type} is VIRTIO_NET_FF_MASK_TYPE_IPV6,
-+the \field{mask} is in the format \hyperref[intro:IPv6-Header-Format]{IPv6 Header Format}.
-+
-+If partial masking is not set, then all bits in each field have to be either all 0s
-+to ignore this field or all 1s to match on this field. If partial masking is set,
-+then any combination of bits can bit set to match on these bits.
-+For example, when a selector \field{type} is VIRTIO_NET_FF_MASK_TYPE_ETH, if
-+\field{mask[0-12]} are zero and \field{mask[13-14]} are 0xff (all 1s), it
-+indicates that matching is only supported for \field{EtherType} of
-+\field{Ethernet MAC frame}, matching is not supported for
-+\field{Destination Address} and \field{Source Address}.
-+
-+The entries in the array \field{selectors} are ordered by
-+\field{type}, with each \field{type} value only appearing once.
-+
-+\field{length} is the length of a dynamic array \field{mask} in bytes.
-+\field{reserved} and \field{reserved1} are reserved and set to zero.
-+
-+\begin{table}[H]
-+\caption{Flow filter selector types}
-+\label{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / flow filter selector types}
-+\begin{tabularx}{\textwidth}{ |l|X|X| }
-+\hline
-+Type & Name & Description \\
-+\hline \hline
-+0x0 & - & Reserved \\
-+\hline
-+0x1 & VIRTIO_NET_FF_MASK_TYPE_ETH & 14 bytes of frame header starting from destination address described in \hyperref[intro:IEEE 802.3-2022]{IEEE 802.3-2022} \\
-+\hline
-+0x2 & VIRTIO_NET_FF_MASK_TYPE_IPV4 & 20 bytes of \hyperref[intro:Internet-Header-Format]{IPv4: Internet Header Format} \\
-+\hline
-+0x3 & VIRTIO_NET_FF_MASK_TYPE_IPV6 & 40 bytes of \hyperref[intro:IPv6-Header-Format]{IPv6 Header Format} \\
-+\hline
-+0x4 & VIRTIO_NET_FF_MASK_TYPE_TCP & 20 bytes of \hyperref[intro:TCP-Header-Format]{TCP Header Format} \\
-+\hline
-+0x5 & VIRTIO_NET_FF_MASK_TYPE_UDP & 8 bytes of UDP header described in \hyperref[intro:UDP]{UDP} \\
-+\hline
-+0x6 - 0xFF & & Reserved for future \\
-+\hline
-+\end{tabularx}
-+\end{table}
-+
-+When VIRTIO_NET_FF_MASK_F_PARTIAL_MASK (bit 0) is set, it indicates that
-+partial masking is supported for all the fields of the selector identified by \field{type}.
-+
-+For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_IPV4, if a partial mask is unsupported,
-+then matching on an individual bit of \field{Flags} in the
-+\field{IPv4: Internet Header Format} is unsupported. \field{Flags} has to match as a whole
-+if it is supported.
-+
-+For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_IPV4, \field{mask} includes fields
-+up to the \field{Destination Address}; that is, \field{Options} and
-+\field{Padding} are excluded.
-+
-+For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_IPV6, the \field{Next Header} field
-+of the \field{mask} corresponds to the \field{Next Header} in the packet
-+when \field{IPv6 Extension Headers} are not present. When the packet includes
-+one or more \field{IPv6 Extension Headers}, the \field{Next Header} field of
-+the \field{mask} corresponds to the \field{Next Header} of the last
-+\field{IPv6 Extension Header} in the packet.
-+
-+For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_TCP, \field{Control bits}
-+are treated as individual fields for matching; that is, matching individual
-+\field{Control bits} does not depend on the partial mask support.
-+
-+\subparagraph{VIRTIO_NET_FF_ACTION_CAP}
-+\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP}
-+
-+The capability VIRTIO_NET_FF_ACTION_CAP lists the supported actions in a rule.
-+\field{cap_specific_data} is in the format \field{struct virtio_net_ff_cap_actions}.
-+
-+\begin{lstlisting}
-+struct virtio_net_ff_actions {
-+        u8 count;
-+        u8 reserved[7];
-+        u8 actions[];
-+};
-+\end{lstlisting}
-+
-+\field{actions} is an array listing all possible actions.
-+The entries in the array are ordered from the smallest to the largest,
-+with each supported value appearing exactly once. Each entry can have the
-+following values:
-+
-+\begin{table}[H]
-+\caption{Flow filter rule actions}
-+\label{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP / flow filter rule actions}
-+\begin{tabularx}{\textwidth}{ |l|X|X| }
-+\hline
-+Action & Name & Description \\
-+\hline \hline
-+0x0 & - & reserved \\
-+\hline
-+0x1 & VIRTIO_NET_FF_ACTION_DROP & Matching packet will be dropped by the device \\
-+\hline
-+0x2 & VIRTIO_NET_FF_ACTION_DIRECT_RX_VQ & Matching packet will be directed to a receive queue \\
-+\hline
-+0x3 - 0xFF & & Reserved for future \\
-+\hline
-+\end{tabularx}
-+\end{table}
++Some incoming packet processing examples:
++\begin{itemize}
++\item If the packet is dropped by the flow filter rule, RSS
++      steering is ignored for the packet.
++\item If the packet is directed to a specific receiveq using flow filter rule,
++      the RSS steering is ignored for the packet.
++\item If a packet is dropped due to the VIRTIO_NET_CTRL_MAC configuration,
++      both flow filter rules and the RSS steering are ignored for the packet.
++\item If a packet does not match any flow filter rules,
++      the RSS steering is used to select the receiveq for the packet (if enabled).
++\item If there are two flow filter groups configured as group_A and group_B
++      with respective group priorities as 4, and 5; flow filter rules of
++      group_B are applied first having highest group priority, if there is a match,
++      the flow filter rules of group_A are ignored; if there is no match for
++      the flow filter rules in group_B, the flow filter rules of next level group_A are applied.
++\end{itemize}
 +
  \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
  Types / Network Device / Legacy Interface: Framing Requirements}
  
-diff --git a/introduction.tex b/introduction.tex
-index 8bcef03..0d84927 100644
---- a/introduction.tex
-+++ b/introduction.tex
-@@ -59,6 +59,10 @@ \section{Normative References}\label{sec:Normative References}
- 	IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture,
- 	\newline\url{http://www.ieee802.org/},
- 	IEEE\\
-+	\phantomsection\label{intro:IEEE 802.3-2022}\textbf{[IEEE 802.3-2022]} &
-+	IEEE Standard for Ethernet,
-+	\newline\url{https://doi.org/10.1109/IEEESTD.2022.9844436},
-+	IEEE 802.3-2022\\
- 	\phantomsection\label{intro:SAM}\textbf{[SAM]} &
-         SCSI Architectural Model,
-         \newline\url{http://www.t10.org/cgi-bin/ac.pl?t=f&f=sam4r05.pdf}\\
-@@ -135,12 +139,21 @@ \section{Normative References}\label{sec:Normative References}
- 	\phantomsection\label{intro:IP}\textbf{[IP]} &
-     INTERNET PROTOCOL
- 	\newline\url{https://www.rfc-editor.org/rfc/rfc791}\\
-+	\phantomsection\label{intro:Internet-Header-Format}\textbf{[Internet Header Format]} &
-+    Internet Header Format
-+	\newline\url{https://datatracker.ietf.org/doc/html/rfc791#section-3.1}\\
-+	\phantomsection\label{intro:IPv6-Header-Format}\textbf{[IPv6 Header Format]} &
-+    IPv6 Header Format
-+	\newline\url{https://www.rfc-editor.org/rfc/rfc8200#section-3}\\
- 	\phantomsection\label{intro:UDP}\textbf{[UDP]} &
-     User Datagram Protocol
- 	\newline\url{https://www.rfc-editor.org/rfc/rfc768}\\
- 	\phantomsection\label{intro:TCP}\textbf{[TCP]} &
-     TRANSMISSION CONTROL PROTOCOL
- 	\newline\url{https://www.rfc-editor.org/rfc/rfc793}\\
-+	\phantomsection\label{intro:TCP-Header-Format}\textbf{[TCP Header Format]} &
-+    TCP Header Format
-+	\newline\url{https://www.rfc-editor.org/rfc/rfc9293#name-header-format}\\
- 	\phantomsection\label{intro:CAN}\textbf{[CAN]} &
-     ISO 11898-1:2015 Road vehicles -- Controller area network (CAN) -- Part 1: Data link layer and physical signalling\\
- \end{longtable}
 -- 
 2.34.1
 
