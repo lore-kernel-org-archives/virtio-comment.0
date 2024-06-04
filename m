@@ -1,74 +1,74 @@
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (mail-sn1nam02on2058.outbound.protection.outlook.com [40.107.96.58])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCE5146A7A
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.96.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF52F146D54
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.61
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717507808; cv=fail; b=tG4+8fBcukfSmyTUvyitsYm5+KOEs6dwe3MOKPiNvmdtGoDubrCxCEIUIlomnQiiOuD3VOv8GTyWlZn2ny0a2jeytmlDZ7WAzAlJHu83hx6IiD+pS/fyNqEUjqdDo3TWIIF8Q2xGhOp0wn9IQDNjFchzm7CO/6KavF9/KcE5thw=
+	t=1717507811; cv=fail; b=gL1iO5PUL34k27cbtXP5wiVv2OLWLxd/NLQS+yFZVqP6rtz8VYAeAgbmiuN8ej58Lhy5Pdy7FVbVaF6Vx2IZ4pHbGYkuw9GvGEt9zQjJJO+oUQevyzxn+cKzhjAdsJONtotBCMVc+37vUqTHV0qabzpPZs2rVcAlR0LZudPZiWI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717507808; c=relaxed/simple;
-	bh=0/s77G2CGiWjLmGORwURwdbm9KqU+RU3J+EZJBzFqC8=;
+	s=arc-20240116; t=1717507811; c=relaxed/simple;
+	bh=fbghw+0XjuDjtY06IIQsYm9LiNBwmUzobkLNj37mUAA=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B50JDKMcqz7eQdgUZlkMGpLX5wRcq5hMJJPVjzZowz2iwJnHuestw7a8neq5yD3ybKrgZheNjTEedzPn4xTL2Z6hfqnrYIPSZpcVDKVbVybcbkhLkbUpJoUj1cO6RV9NGz/KZF0DprCBn0uhQEFrlcdw8Fel0BD5t/oGOFwO6Cw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=W7QwJXEk; arc=fail smtp.client-ip=40.107.96.58
+	 MIME-Version:Content-Type; b=qFgP1qIKG+z3FE7rRorRZlIbdt1Y23Mp8Vjp1FtbA4Y15bsbrAe4Pti5NH7VrIv9y/ytq1hWBjlWATHfFtSnBdlhIWnMY/Uz1aUaVQWjFZ6Vfp/7wvRfwRU3Dg35HYLnVcRJ0pVLxoWkkgjGW53M7Uj9zKfxusGsD1obFOBdfUg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MzKjkaEW; arc=fail smtp.client-ip=40.107.223.61
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="W7QwJXEk"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MzKjkaEW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EGibFh0PEbC3DMjmDjIHNEphmX8rCSNASgjsREtUd3IZqMR49JX7gERju83bBXQHY6L3Sqc4o0RnihSR7Ln2fCaU3E5hiEofkc7ZQVd4Y8kb5W708Gx+NcepDoxq1pWlAMN2VO0ZlI21/KG4HqU5lKtaTtHnkZRVs5AaOhDFwpWk4zY6DwYFk2VrGykoA7MbCyWFyNxDtADSl0ZzcYwRmkyff2xbefA3OEJvoACmcpUjXxZW6+Av2mlegC0OX0ymIPhI+Iby8Oo6BaUW7bss87nGMM0Oih2unTtYK1LrYz5LLBgqGPus9pJXwqCcI8HKyWoQKEmNI7mHW/GMcF24jg==
+ b=azZ6fV3gy85jUF9XT9ADQWM0SmtqgiXyYwsfgs5a2Tqr2TIoTJX1oGTzAcl+pBVOJDWISh+He1E4aJUUd0Z2KKkmsv+PTX348570UmOC9RnRaM0yRxh6av5R8TIbHdzz8HI2vbuCfbzFzEhwMRANrL/rUJB5GVoL403HLL/raYXMhjKF1PwY1AqGQw6VMFHWngAjUUjk5qBL2mG3CCZjWG5qvrJpLwbCdYlP7nadQnUlC2Zx/az08LNSniOHNvAzf5ckHCea7JWotJHdmEKHnO4S48A+JcoxjPEmfNP5QDC9eJDQq6IxOUNuw/HcCyM6HQPMx5lFL3fZTdiez6TP7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yS9iFcqc7cH0TJe2roMveVlG7C6ufcvqHR+k9pVZpHs=;
- b=n/VLMLsds28FGdaTfoREVJTk1omjj08DoL1xoP+3qam1SRNq+wIxnOUDJGS2nJtiAVGSlXfv0hwbb7suaML7MpAWt+VbHHmtUiHtLsjd/TaiD5UH35lUtOJMdqHlBFQWCENKawKOXx5No2KmsZpUfMHccW7J+sYguc20Y9Nc74+n7SRPP9Viredw+uAGF9PAFuitxJ0oAAXpil31oXe9FwT0UHZKkPnP8regMXM10yprUqcAEHmPX3OVGIWw6nRwoUwaGpn2k5dyVgorsyKY9jRQU8+6MxdYydBSPyrJKwJwyg4427mjUOh+vN3ztemsUa9nZq3sO58GYZQTZo3ZJA==
+ bh=KBIA5hFdAPt0HHmJtf140l8n00G4w08w51C4YMYqXFw=;
+ b=MrhyvxVzlpN0oybRwo1R1RQCo1StuWHSBaYSxK21KcbVwibXWjyeJrOlf3xgJCrNkTGS4+z88CIo9coSWN5TBFpb5WBd8exao5xv2GO1Mr5P64b9BXlC9lWcDzXbDmZXC3axQb9ZWxp9zgA90Bl38J3WmOLsKm1ULZQwNX55jgAHNWwX/2pjCePHsOP+9qv441JbcSYN/f95gonkqkBwf7Pc2snuaB0iVzIS0WhWq/nUAABxjZT//pPaaKAhePxR7MkFFVs5guyJt00foo1alcrFUv8ySCGvtMjl0+we8N2nOszQ8eaKmCgk81XTbUAkktFaVWQ92iSM0CdN0f4BPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yS9iFcqc7cH0TJe2roMveVlG7C6ufcvqHR+k9pVZpHs=;
- b=W7QwJXEke9vHmt316OIGyo8vIh3nhzW+YsdaFcn8REcidPGFIK71OhM/arEsQ+An220CH5iyzR3qG5bKxhmm/8v736rRyvQJ7t2xCxnXgdALAu0S4KDkYuAuTJ9I9F1JHPwVvIAy00swmxYX5ppeqk6W3Ot/ADEGqmC3w0DGLIifLjUl08Q98ZV5dONu2aP4/V9Xu1QdVxFnjropdcQi6PKkBbZtfHddiT0YP2OIUlEs4jdjoyK4ko0FFeQ+VC/Ws0xpvknyfdzaYoVwB1iUJm7uIpLvQcIdVY7ZWD+9soaGWBlH6s/10WMp3uUJDj0ujey4PwW80wmDiYHNBPWLQg==
-Received: from BY5PR17CA0018.namprd17.prod.outlook.com (2603:10b6:a03:1b8::31)
- by DS0PR12MB8317.namprd12.prod.outlook.com (2603:10b6:8:f4::10) with
+ bh=KBIA5hFdAPt0HHmJtf140l8n00G4w08w51C4YMYqXFw=;
+ b=MzKjkaEWxcNpOiYYZYhcgF1Yi0jAvzhyAMYxqH3Y+A2zXkrCOS8XTlQB+tKaEnWNmRxPqlLNxygNljXS6KtMITjA5ZGNkXobjwY2OfaZAgKmBTf53ygeNYvpTlz0Fn8RxYl9D4KpQXlENl9Si28twTbR/F+nP6ZaRYBfY1BxwOB0rMuN9SnKXYBtPyb13p+ufhV0P7/0Sl7zmdQSBigauieW1KXTxXM/b6/LbQeH0JJZ4wPpNBycNgqBLQTXhfHgLFlxRt2ojupBN0SBzBXyBEHvmKXxG6zlBnH/V/pI2VMJJjwrwtxx+/OBJpNc7VEPu9bLk0ghiJQpARjtOkKqPA==
+Received: from SJ0PR13CA0193.namprd13.prod.outlook.com (2603:10b6:a03:2c3::18)
+ by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.31; Tue, 4 Jun
- 2024 13:30:01 +0000
-Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
- (2603:10b6:a03:1b8:cafe::25) by BY5PR17CA0018.outlook.office365.com
- (2603:10b6:a03:1b8::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.29 via Frontend
- Transport; Tue, 4 Jun 2024 13:30:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Tue, 4 Jun
+ 2024 13:30:02 +0000
+Received: from SJ5PEPF000001D7.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::94) by SJ0PR13CA0193.outlook.office365.com
+ (2603:10b6:a03:2c3::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.14 via Frontend
+ Transport; Tue, 4 Jun 2024 13:30:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SJ5PEPF000001D7.mail.protection.outlook.com (10.167.242.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:30:00 +0000
+ 15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:30:02 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 4 Jun 2024
- 06:29:44 -0700
+ 06:29:50 -0700
 Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 4 Jun 2024 06:29:41 -0700
+ 15.2.1544.4; Tue, 4 Jun 2024 06:29:47 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
 CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Subject: [PATCH v11 07/13] admin: Add device resource objects admin commands
-Date: Tue, 4 Jun 2024 16:28:57 +0300
-Message-ID: <20240604132903.2093195-8-parav@nvidia.com>
+Subject: [PATCH v11 09/13] virtio-net: Add flow filter capability
+Date: Tue, 4 Jun 2024 16:28:59 +0300
+Message-ID: <20240604132903.2093195-10-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240604132903.2093195-1-parav@nvidia.com>
 References: <20240604132903.2093195-1-parav@nvidia.com>
@@ -84,374 +84,363 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|DS0PR12MB8317:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23f26389-4d34-48fc-6aec-08dc849a6f6f
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D7:EE_|PH7PR12MB5653:EE_
+X-MS-Office365-Filtering-Correlation-Id: 159d75a1-4e2d-4a93-1c73-08dc849a7078
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|376005|82310400017|1800799015;
+	BCL:0;ARA:13230031|36860700004|376005|1800799015|82310400017;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?fV02KbQ8OMOBX5BMlOL71pgYOgHpDn7XGcgwRhCHfmmerRi6otAmFWvkHSF6?=
- =?us-ascii?Q?sCQGirloeW4E17W7LA/e8uMkvlXnaEPoQaQXyQGAwwcvcTI9LZ9538aS8Sh4?=
- =?us-ascii?Q?qANwt2pEJjkHwklHgY2EYnEEwMUaRrMstt2B9XwZtnWccwg+eqNSjea4uwDX?=
- =?us-ascii?Q?USXudea6Pxk0W0ocpj6lkvhsJnWsarKQ3re6D103Xor4BxH1Pdxt2g+jF9bb?=
- =?us-ascii?Q?av/xTGE2UoVCtSM5Np/Uxr98FgIervkHcEmsVluvLJH25g2+1iit8JOj7zmL?=
- =?us-ascii?Q?gCI5EhKIs1IcA5VDMUDJXQOlNdB5JtUC8RK//m6JG3InXbueTOxJdX10cT4g?=
- =?us-ascii?Q?FQ6ito82zC10I82GdPnZbQtu1yCAQe8dhy1O1oYeiaSohTZSomyXYDew4sjl?=
- =?us-ascii?Q?c6e55M51mD7/vceaXgU73CyuEZg8JfOhk82Ja9ysvDpx6wG3gkhVe4ijQZYq?=
- =?us-ascii?Q?2dyQqo2hXfTE1hkvIqdXYnNx/XmjnBNiQ4tkAXlRyyMifS2eVFOu74rOLcOH?=
- =?us-ascii?Q?kfMGq8sS4YqUP+CZj+JIGT+NuaOOx0oD5rPkUqjTKvB/Vf0sWMzXuslTHYSH?=
- =?us-ascii?Q?H2YwBJwYQamS3GesDmD3H5GU71UaywNmWufFeRg7GmL0TJRud86nKyGB3B1m?=
- =?us-ascii?Q?8u/9xWdjVpW4VXEH3wU8mBddJcoplyOyy8/8D8EdrbSUOcgkMURTmC9zwlCG?=
- =?us-ascii?Q?6LrIY3vDNk98NVmCjCz/XI3IILFG90f7VrmEP0fCu/6erAS59keT9l7Opp8U?=
- =?us-ascii?Q?5kBr/8GppoiKAbCAkcsqwO2DhRACZltDiGyRFG0RLCNVvpKD9ZcXJH+Jkbzk?=
- =?us-ascii?Q?gKbVtRbog5eH39l7ZWAFc8O9AYgiKzQ8AtXSmvB9tj3vnFPCuVCGVqLZprh8?=
- =?us-ascii?Q?y5MFoNYeMb5o750qRV9wX6rmU8Rge8tDICAV4BZElh/Y7bRFMka3TzXse1ba?=
- =?us-ascii?Q?2OheMVaNFwNOOYMFLYZNhABAehWDlLWKtA3RXi9O62plF4Jzq5gRS61hh6iC?=
- =?us-ascii?Q?ZH9w5MuJfPO5PGPIzovesdJtdg2ar0Ie09SJQIEkxGOYFUAb8TvY8SI5UZqC?=
- =?us-ascii?Q?4rwgzRxIPMPghgkxx/giPStAzp0WC5B+veXEidV4yseWc8NQ3zfqfQnijixf?=
- =?us-ascii?Q?T8e7K7S3BLUXIC61/woOqEjOEdEbt04+Eg2dx9ffolrj+wqd1XZiO3HAuMO2?=
- =?us-ascii?Q?C+zwPOPt4WiQZw8J228LZO6ZaVaAY46NU4UtPndNqQXscwEx7vGM6QcDGlQh?=
- =?us-ascii?Q?MkD/X9SPFzOt8AA+lu9J4jJdDbEyDzfveAHzZrdsshRA5aJ2r4TeNY+prkE5?=
- =?us-ascii?Q?cbDhi6QKLdhprQXRTngwRxnf6sScaDBmAW/qkiWp0uwAdXa27KD26MW+OBhJ?=
- =?us-ascii?Q?Cmkl+o70THM4kGPNS/QLliiVsvCd?=
+	=?us-ascii?Q?PQE0IHmTd/gThoTBY9pzMnAj0IMrgLnxp7c+OHs3uz4WB2jEy46gRUVQRUpv?=
+ =?us-ascii?Q?4hu9TRAhSPw4gEKHEMrPGUJmz/aoC+OR8yxuCRovyeqyTl6wy5VhYExC1S2p?=
+ =?us-ascii?Q?TtAjGWla8A6k01LYatnWY5Org5WIh9NS2sT4CTak4+K31qxjDJ/5NB0LZSep?=
+ =?us-ascii?Q?zYzlaI8i58IMsNOzjsNQ+Ad6yIUJQCODW4zvzENBP0QyWyW2+gA8H2KDzTnD?=
+ =?us-ascii?Q?fP426iy7QSWL74g8NlzDnsmbY3WE331cz9XbQb+CcYmSIma8uOzaDoEreqpg?=
+ =?us-ascii?Q?BYeLfRMiH/ND9Z/cKoGt5SCeN7FKM+CiwtpMEAvcxosbfYTa4IOgvnvVx4dS?=
+ =?us-ascii?Q?2kv62pVLA2a1MfdicKkJYU/Lw3Pzyh7jnKgHZzpTsWPugZoRRyBas8coTTUW?=
+ =?us-ascii?Q?/JZsmg19FgW1mULq/dGM4BqvsZIOOgrXvJcn2B7FDQZag8Cn6/1S/0F8qXwf?=
+ =?us-ascii?Q?TF/UMnvJVZ4CnJf73le4bYvQLVqMTAlXmHTq5qSvSewZn/gTjWtcAyLUHzY/?=
+ =?us-ascii?Q?P5gWE60UulUtylaTT37LOOinv2H/RdBHEHW1nE2TTfvneUBEulcU0LM5fy8y?=
+ =?us-ascii?Q?wovFip7Wr3utpgg8P3bDll91qyTM0enYmHGb+x/17+6RVGzo8wkaiAFqg1eG?=
+ =?us-ascii?Q?ZwsRV4r8x6VW2Hao4N/nyLzL9aOZGmmqAad3OCbu0HzqyFmAmg1G9kGF57Ep?=
+ =?us-ascii?Q?AS4b48uNZrpb9xfCoABKpAvypY+eqvjkVtmVTdxH7Lf4E+XO4qZ0tledyOmx?=
+ =?us-ascii?Q?DYbEv8pI2LY/Y7kK5HdmkYOtOVP1Uv5NY3gJKBZWXBiOd8Ach63Afnat8qAT?=
+ =?us-ascii?Q?54P/Ce2dSqci/ZP9qFlIuOaQcLjVMMvCFedqoDN/FMsNXmyp3Pnsi1iwFT2d?=
+ =?us-ascii?Q?xaD0yenJw3dRvIB+zBpBNaA8jjcNjNN8PYwHAvz5l7PVkihmAcNVsNWe5Z97?=
+ =?us-ascii?Q?ibaPkNqEVide/dVJjFeVkb+Plw/TbtMVF78Z37L8u29K9dEx8Ztm8dgtQWb/?=
+ =?us-ascii?Q?/hz71/iy5qRISrHPHbxlJnfGpMHvzqUnLqxJcjLTjO75sqYoQ2B7msdjEt1J?=
+ =?us-ascii?Q?2uCajZQouZS0GADujk9uhZkWJ975pvcE3C5F7vtW9XwAn2szifU85j8f6sZc?=
+ =?us-ascii?Q?A/FEmYvCo7JcNh9x/4+ZOZuyWkhsFcLfSbHdzyCmuqJaDjSOOsTf2TY/+Pzk?=
+ =?us-ascii?Q?Pw/Z/Wsr40PTyWB3eqyqRXgT1vM7zK+/teD3QVP6ndW6dSYRkpkUxVmgqJ6h?=
+ =?us-ascii?Q?fM2/uywKlXqIu6L/T5tOunbfDmb7Bg5dP1Mc7GaHBCm3Eb2IkKPtnvlh5jLi?=
+ =?us-ascii?Q?xrq79htNyxwS+sR4Sv6Iz3pRJRvH4SmUsIE/JEebVLJsvyvd0y3lBJtjgdxd?=
+ =?us-ascii?Q?QlvbrNrJCnLFL5gViKG1y/5znQdn?=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400017)(1800799015);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:30:00.7764
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:30:02.6205
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23f26389-4d34-48fc-6aec-08dc849a6f6f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 159d75a1-4e2d-4a93-1c73-08dc849a7078
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D7.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8317
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
 
-Add generic administration commands create, modify, query and destroy
-device resource object.
+Add first flow filter capability that indicates device resource
+limits such as number of flow filter rules, groups and selectors.
 
-Each resource object defines resource specific attributes for the commands.
-Once the resource object is created by the driver, it can be query/modify or
-destroyed by the driver.
-
-Each resource object is identified using a unique resource id per
-resource type.
+add second capability that indicates supported selectors defining
+which packet headers and their fields supported.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 Signed-off-by: Parav Pandit <parav@nvidia.com>
+Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+
 ---
 changelog:
 v10->v11:
-- addressed comments from Satananda
-- improved driver normative for two resource objects with same ID
+- fixed comment from Satananda
+- fixed the field name to not have 'per_group' in it as it
+  applies to all flow rules
 v9->v10:
-- added hyperreference to quickly jump to command definition
-- renamed rid to just id as it is part of the resource related structs
-- removed length field from the commands as it can be derived
-- rephrase for group_member_id
-- squashed the patch that added the error code
-- renamed and rephrase 'device resource' to 'device resource object'
-- removed performance part of commit log for future and implementation
-  creativity
-
-v8->v9:
-- changed command name from read_data/read_result to query_data/query_result
-  to match the opcode name and description
-- added fields_bmap bitmap to support future support of optional fields
-  in the resources without inventing new set of commands, for example
-  multiple pages in the VQ, PASID in VQ, flow counter id in flow filter rule
-  etc.
-- fixed spelling from 'destroyd' to 'destroyed'
-- fixed 'upto' to 'up to'
+- removed num_types field
+- used singular capability
+- consolidated capability to one
+- removed the bmap due to generic mask and key
+- added key_mask length to indicate what is the maximum size
+  of key and mask fields supported by device
+- added partial mask supported capability to indicate if the
+  device can support it or not
+- added reference to individual protocol headers
+- added actions capability
+v6->v7:
+- plenty of grammar corrections suggested by Cornelia
+- using generic device capabilities framework
+- renamed max_flow_priorities_per_group to
+  max_ff_rules_priorities_per_group to make it more clear
+v2->v3:
+- rebased on virtio-1.4 branch
+- removed reference for flow filter virtqueue
+v1->v2:
+- addressed comments from Satananda
+- added vlan type match field
+- kept space for types between l2, l3, l4 header match types
+- renamed mask to mask_supported with shorter width
+- made more fields reserved for future
+- addressed comments from Heng
+- grammar correction
+- added field to indicate supported number of actions per flow
+  filter match entry
+- added missing documentation for max_flow_priorities_per_group
+v0->v1:
+- added mask field in the type to indicate supported mask by device
+  and also in later patch to use it to indicate mask on adding
+  flow filter. As a result removed the mask_supported capability
+  field
 ---
- admin-cmds-capabilities.tex     |   3 +
- admin-cmds-resource-objects.tex | 199 ++++++++++++++++++++++++++++++++
- admin.tex                       |  14 ++-
- conformance.tex                 |   2 +
- 4 files changed, 216 insertions(+), 2 deletions(-)
+ device-types/net/description.tex | 194 +++++++++++++++++++++++++++++++
+ introduction.tex                 |  13 +++
+ 2 files changed, 207 insertions(+)
 
-diff --git a/admin-cmds-capabilities.tex b/admin-cmds-capabilities.tex
-index 07b8ddb..8119a56 100644
---- a/admin-cmds-capabilities.tex
-+++ b/admin-cmds-capabilities.tex
-@@ -210,6 +210,9 @@ \subsubsection{Device and driver capabilities}\label{sec:Basic Facilities of a V
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 58d0692..a299c32 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -401,6 +401,22 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
+ A truly minimal driver would only accept VIRTIO_NET_F_MAC and ignore
+ everything else.
  
- Upon a device reset, the device MUST reset all driver capabilities.
++\subsection{Device and driver capabilities}\label{sec:Device Types / Network Device / Device and driver capabilities}
++
++The network device has the following capabilities.
++
++\begin{tabularx}{\textwidth}{ |l||l|X| }
++\hline
++Identifier & Name & Description \\
++\hline \hline
++0x0800 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_RESOURCE_CAP]{VIRTIO_NET_FF_RESOURCE_CAP} & Flow filter resource capability \\
++\hline
++0x0801 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP]{VIRTIO_NET_FF_SELECTOR_CAP} & Flow filter classifier capability \\
++\hline
++0x0802 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP]{VIRTIO_NET_FF_ACTION_CAP} & Flow filter action capability \\
++\hline
++\end{tabularx}
++
+ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device Operation}
  
-+The device SHOULD treat the driver resource limits as zero if the
-+driver has not set such capability, unless otherwise explicitly stated.
-+
- \drivernormative{\paragraph}{Device and driver capabilities}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
+ Packets are transmitted by placing them in the
+@@ -2442,6 +2458,14 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
+ matches the packet and an action is taken. If all the rules within a group
+ are ignored, the group with the next highest priority is selected, and so on.
  
- The driver MUST send the command VIRTIO_ADMIN_CMD_DRIVER_CAP_SET before
-diff --git a/admin-cmds-resource-objects.tex b/admin-cmds-resource-objects.tex
-index a74cb3b..291f7e6 100644
---- a/admin-cmds-resource-objects.tex
-+++ b/admin-cmds-resource-objects.tex
-@@ -67,3 +67,202 @@ \subsubsection{Device resource objects}\label{sec:Basic Facilities of a Virtio D
- can create resources up to the published \field{limit}. The driver can
- destroy and recreate the resource one or multiple times. Upon device reset,
- all resource objects created by the driver are destroyed within the device.
++The device and the driver indicates flow filter resource limits using the capability
++\ref{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_RESOURCE_CAP} specifying the limits on the number of flow filter rule,
++group and classifier resource objects. The capability \ref{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP} specifies which selectors the device supports.
++The driver indicates the selectors it is using by setting the flow
++filter selector capability, prior to adding any resource objects.
 +
-+Following administration commands control device resource objects,
-+they are only supported for the self group type:
++The capability \ref{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP} specifies which actions the device supports.
 +
-+\begin{enumerate}
-+\item VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
-+\item VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY
-+\item VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY
-+\item VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY
-+\end{enumerate}
+ The driver controls the flow filter rule, classifier and group resource objects using
+ administration commands described in
+ \ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
+@@ -2479,6 +2503,176 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
+       the flow filter rules in group_B, the flow filter rules of next level group_A are applied.
+ \end{itemize}
+ 
++\paragraph{Device and driver capabilities}
++\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities}
 +
-+Each resource object administration command uses a common header
-+\field{struct virtio_admin_cmd_resource_obj_cmd_hdr}.
++\subparagraph{VIRTIO_NET_FF_RESOURCE_CAP}
++\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_RESOURCE_CAP}
++
++The capability VIRTIO_NET_FF_RESOURCE_CAP indicates the flow filter resource limits.
++\field{cap_specific_data} is in the format
++\field{struct virtio_net_ff_cap_data}.
 +
 +\begin{lstlisting}
-+struct virtio_admin_cmd_resource_obj_cmd_hdr {
-+        le16 type;
++struct virtio_net_ff_cap_data {
++        le32 groups_limit;
++        le32 selectors_limit;
++        le32 rules_limit;
++        le32 rules_per_group_limit;
++        u8 last_rule_priority;
++        u8 selectors_per_classifier_limit;
++};
++\end{lstlisting}
++
++\field{groups_limit}, and \field{selectors_limit} represent the maximum
++number of flow filter groups and selectors, respectively, that the driver can create.
++ \field{rules_limit} is the maximum number of
++flow fiilter rules that the driver can create across all the groups.
++\field{rules_per_group_limit} is the maximum number of flow filter rules that the driver
++can create for each flow filter group.
++
++\field{last_rule_priority} is the highest priority that can be assigned to a
++flow filter rule.
++
++\field{selectors_per_classifier_limit} is the maximum number of selectors
++that a classifier can have.
++
++\subparagraph{VIRTIO_NET_FF_SELECTOR_CAP}
++\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP}
++
++The capability VIRTIO_NET_FF_SELECTOR_CAP lists the supported selectors and the
++supported packet header fields for each selector.
++\field{cap_specific_data} is in the format \field{struct virtio_net_ff_cap_mask_data}.
++
++\begin{lstlisting}[label={lst:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / virtio_net_ff_selector}]
++struct virtio_net_ff_selector {
++        u8 type;
++        u8 flags;
 +        u8 reserved[2];
-+        le32 id; /* Indicates unique resource object id per resource object type */
++        u8 length;
++        u8 reserved1[3];
++        u8 mask[];
 +};
 +
++struct virtio_net_ff_cap_mask_data {
++        u8 count;
++        u8 reserved[7];
++        struct virtio_net_ff_selector selectors[];
++};
++
++#define VIRTIO_NET_FF_MASK_F_PARTIAL_MASK (1 << 0)
 +\end{lstlisting}
 +
-+\field{type} refers to the device resource object type.
-+\field{id} uniquely identifies the resource object of a specified \field{type}.
++\field{count} indicates number of valid entries in the \field{selectors} array.
++\field{selectors[]} is an array of supported selectors. Within each array entry:
++\field{type} specifies the type of the packet header, as defined in table
++\ref{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / flow filter selector types}. \field{mask} specifies which fields of the
++packet header can be matched in a flow filter rule.
 +
-+\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}
++Each \field{type} is also listed in table
++\ref{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / flow filter selector types}. \field{mask} is a byte array
++in network byte order. For example, when \field{type} is VIRTIO_NET_FF_MASK_TYPE_IPV6,
++the \field{mask} is in the format \hyperref[intro:IPv6-Header-Format]{IPv6 Header Format}.
 +
-+This command creates the specified resource object of \field{type} identified by the
-+resource id \field{id}. The valid range of \field{id} is defined by the
-+device in the related device capability. The driver assigns the unique \field{id}
-+for the resource for the specified \field{type}.
++If partial masking is not set, then all bits in each field have to be either all 0s
++to ignore this field or all 1s to match on this field. If partial masking is set,
++then any combination of bits can bit set to match on these bits.
++For example, when a selector \field{type} is VIRTIO_NET_FF_MASK_TYPE_ETH, if
++\field{mask[0-12]} are zero and \field{mask[13-14]} are 0xff (all 1s), it
++indicates that matching is only supported for \field{EtherType} of
++\field{Ethernet MAC frame}, matching is not supported for
++\field{Destination Address} and \field{Source Address}.
 +
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, \field{opcode} is set to 0xa.
-+\field{group_member_id} is set to zero.
-+The \field{command_specific_data} is in the format
-+\field{struct virtio_admin_cmd_resource_obj_create_data}.
-+\field{resource_obj_specific_data} refers to the resource object specific data.
-+Each resource uses a different \field{resource_obj_specific_data} and is described
-+separately.
++The entries in the array \field{selectors} are ordered by
++\field{type}, with each \field{type} value only appearing once.
 +
-+\field{flags} is reserved for future extension for optional resource object attributes and
-+is set to 0. Each resource object uses a different value for
-+\field{flags} and it is described separately.
++\field{length} is the length of a dynamic array \field{mask} in bytes.
++\field{reserved} and \field{reserved1} are reserved and set to zero.
++
++\begin{table}[H]
++\caption{Flow filter selector types}
++\label{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / flow filter selector types}
++\begin{tabularx}{\textwidth}{ |l|X|X| }
++\hline
++Type & Name & Description \\
++\hline \hline
++0x0 & - & Reserved \\
++\hline
++0x1 & VIRTIO_NET_FF_MASK_TYPE_ETH & 14 bytes of frame header starting from destination address described in \hyperref[intro:IEEE 802.3-2022]{IEEE 802.3-2022} \\
++\hline
++0x2 & VIRTIO_NET_FF_MASK_TYPE_IPV4 & 20 bytes of \hyperref[intro:Internet-Header-Format]{IPv4: Internet Header Format} \\
++\hline
++0x3 & VIRTIO_NET_FF_MASK_TYPE_IPV6 & 40 bytes of \hyperref[intro:IPv6-Header-Format]{IPv6 Header Format} \\
++\hline
++0x4 & VIRTIO_NET_FF_MASK_TYPE_TCP & 20 bytes of \hyperref[intro:TCP-Header-Format]{TCP Header Format} \\
++\hline
++0x5 & VIRTIO_NET_FF_MASK_TYPE_UDP & 8 bytes of UDP header described in \hyperref[intro:UDP]{UDP} \\
++\hline
++0x6 - 0xFF & & Reserved for future \\
++\hline
++\end{tabularx}
++\end{table}
++
++When VIRTIO_NET_FF_MASK_F_PARTIAL_MASK (bit 0) is set, it indicates that
++partial masking is supported for all the fields of the selector identified by \field{type}.
++
++For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_IPV4, if a partial mask is unsupported,
++then matching on an individual bit of \field{Flags} in the
++\field{IPv4: Internet Header Format} is unsupported. \field{Flags} has to match as a whole
++if it is supported.
++
++For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_IPV4, \field{mask} includes fields
++up to the \field{Destination Address}; that is, \field{Options} and
++\field{Padding} are excluded.
++
++For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_IPV6, the \field{Next Header} field
++of the \field{mask} corresponds to the \field{Next Header} in the packet
++when \field{IPv6 Extension Headers} are not present. When the packet includes
++one or more \field{IPv6 Extension Headers}, the \field{Next Header} field of
++the \field{mask} corresponds to the \field{Next Header} of the last
++\field{IPv6 Extension Header} in the packet.
++
++For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_TCP, \field{Control bits}
++are treated as individual fields for matching; that is, matching individual
++\field{Control bits} does not depend on the partial mask support.
++
++\subparagraph{VIRTIO_NET_FF_ACTION_CAP}
++\label{par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP}
++
++The capability VIRTIO_NET_FF_ACTION_CAP lists the supported actions in a rule.
++\field{cap_specific_data} is in the format \field{struct virtio_net_ff_cap_actions}.
 +
 +\begin{lstlisting}
-+struct virtio_admin_cmd_resource_obj_create_data {
-+        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
-+        le64 flags;
-+        u8 resource_obj_specific_data[];
++struct virtio_net_ff_actions {
++        u8 count;
++        u8 reserved[7];
++        u8 actions[];
 +};
 +\end{lstlisting}
 +
-+When the command completes successfully, the resource object is created by the
-+device and the device can immediately begin using it.
-+This command has no command specific result.
++\field{actions} is an array listing all possible actions.
++The entries in the array are ordered from the smallest to the largest,
++with each supported value appearing exactly once. Each entry can have the
++following values:
 +
-+\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY}
-+
-+This command modifies the attributes of an existing device resource object.
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, \field{opcode} is set to 0xb.
-+The \field{command_specific_data} is in the format
-+\field{struct virtio_admin_cmd_resource_modify_data}.
-+\field{group_member_id} is set to zero.
-+\field{id} identifies the resource object of type \field{type} whose attributes
-+to modify.
-+This command modifies the attributes supplied in \field{resource_obj_specific_data}.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_modify_data {
-+        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
-+        le64 flags;
-+        u8 resource_obj_specific_data[];
-+};
-+\end{lstlisting}
-+
-+This command has no command specific result.
-+When the command completes successfully, attributes of the resource object is
-+set to the values supplied in \field{resource_obj_specific_data}.
-+
-+\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY}
-+
-+This command queries attributes of the existing resource object.
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY, \field{opcode} is set to 0xc.
-+\field{group_member_id} is set to zero.
-+The \field{command_specific_data} is in the format
-+\field{struct virtio_admin_cmd_resource_obj_query_data}.
-+\field{id} identifies the existing resource object of type \field{type} whose
-+attributes to query.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_obj_query_data {
-+        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
-+        le64 flags;
-+};
-+\end{lstlisting}
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_resource_obj_query_result {
-+        u8 resource_obj_specific_result[];
-+};
-+\end{lstlisting}
-+
-+\field{command_specific_result} is in the format
-+\field{virtio_admin_cmd_resource_obj_query_result}.
-+
-+When the command completes successfully, the attributes of the specified
-+resource object are are set in \field{resource_obj_specific_data}.
-+
-+\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY}
-+\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY}
-+
-+This command destroys the previously created device resource object.
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY, \field{opcode} is set to 0xd.
-+The \field{command_specific_data} is in the format
-+\field{struct virtio_admin_cmd_resource_obj_cmd_hdr}.
-+\field{group_member_id} is set to zero.
-+\field{id} identifies the existing resource object of type \field{type}.
-+
-+This command destroys the specified resource object of \field{type} identified
-+by \field{id}, which is previously created using
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE command.
-+
-+This command has no command specific result.
-+When the command completes successfully, the resource object is destroyed from the device.
-+
-+\devicenormative{\paragraph}{Device resource objects}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
-+
-+The device SHOULD complete the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
-+with \field{status} set to VIRTIO_ADMIN_STATUS_EEXIST if a resource object already exists
-+with supplied resource \field{id} for the specified \field{type}.
-+
-+The device SHOULD complete the commands VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY,
-+VIRTIO_ADMIN_CMD_RESOURCE_QUERY and
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY with \field{status} set to
-+VIRTIO_ADMIN_STATUS_ENXIO if the specified resource object does not exist.
-+
-+The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_ENOSPC for the
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE if the device fail to create the
-+resource object.
-+
-+The device SHOULD complete the commands VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY or
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY commands with \field{status} set to
-+VIRTIO_ADMIN_STATUS_EBUSY if other resource objects depend on the resource object
-+being modified or destroyed.
-+
-+The device MUST allow recreating the resource object using the command
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was previously
-+destroyed using the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY respectively
-+without undergoing a device reset.
-+
-+The device SHOULD allow creating the resource object using
-+the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with any resource
-+id as long as the resource object is not created.
-+
-+The device MAY fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE even if the
-+resources within the device have not reached up to the \field{max_limit}
-+but the device MAY have reached an internal limit.
-+
-+When a capability represents a number of resource objects, the device SHOULD
-+allow creating as many resource objects as represented by the driver capability.
-+
-+The device MUST NOT have any side effects on the resource object when the command
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY fails.
-+
-+The device MUST complete the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY
-+with \field{resource_obj_specific_data} which is matching the
-+\field{resource_obj_specific_data} of last VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
-+or VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY command.
-+
-+On device reset, the device MUST destroy all the resource objects which
-+have been created.
-+
-+\drivernormative{\paragraph}{Device resource objects}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
-+
-+The driver MUST not create a second resource object of the same type with same
-+ID using command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE before destroying the
-+previously created resource object.
-+
-+The driver MUST NOT create more resource objects of a specified \field{type} using
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE than the maximum limit set by the
-+driver capability.
-+
-+The driver SHOULD NOT modify, query and destroy the resource object which is
-+already destroyed previously by the driver.
-+
-+The driver SHOULD NOT destroy the resource object on which other resource objects
-+are depending; the driver SHOULD destroy all the resource objects which do not depend
-+on other resource objects.
-+
-+The driver MUST NOT set the capability related to the resource objects if the
-+resource objects have been created using the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
-+and not yet destroyed.
-+
-+The driver MUST send the command VIRTIO_ADMIN_CMD_DRIVER_CAP_SET before using
-+any resources related to such capability.
-diff --git a/admin.tex b/admin.tex
-index d8a19c4..5b908ae 100644
---- a/admin.tex
-+++ b/admin.tex
-@@ -142,7 +142,15 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline
- 0x0009 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / VIRTIO_ADMIN_CMD_DRIVER_CAP_SET]{VIRTIO_ADMIN_CMD_DRIVER_CAP_SET} & Set the driver capabilities \\
- \hline
--0x000a - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
-+0x000a & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE]{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE} & Create a device resource object \\
++\begin{table}[H]
++\caption{Flow filter rule actions}
++\label{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP / flow filter rule actions}
++\begin{tabularx}{\textwidth}{ |l|X|X| }
 +\hline
-+0x000c & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY]{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY} & Modify a device resource object \\
++Action & Name & Description \\
++\hline \hline
++0x0 & - & reserved \\
 +\hline
-+0x000b & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY]{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY} & Query a device resource object \\
++0x1 & VIRTIO_NET_FF_ACTION_DROP & Matching packet will be dropped by the device \\
 +\hline
-+0x000d & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY]{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY} & Destroy a device resource object \\
++0x2 & VIRTIO_NET_FF_ACTION_DIRECT_RX_VQ & Matching packet will be directed to a receive queue \\
 +\hline
-+0x000e - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
- \hline
- 0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
- \hline
-@@ -168,7 +176,7 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline \hline
- 00   & VIRTIO_ADMIN_STATUS_OK    & successful completion  \\
- \hline
--06   & VIRTIO_ADMIN_STATUS_ENXIO & no such capability \\
-+06   & VIRTIO_ADMIN_STATUS_ENXIO & no such capability or resource\\
- \hline
- 11   & VIRTIO_ADMIN_STATUS_EAGAIN    & try again \\
- \hline
-@@ -178,6 +186,8 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline
- 22   & VIRTIO_ADMIN_STATUS_EINVAL    & invalid command \\
- \hline
-+28   & VIRTIO_ADMIN_STATUS_ENOSPC    & resources exhausted on device \\
++0x3 - 0xFF & & Reserved for future \\
 +\hline
- other   & -    & group administration command error  \\
- \hline
- \end{tabular}
-diff --git a/conformance.tex b/conformance.tex
-index 8b77eba..297b78a 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -100,6 +100,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{drivernormative:General Initialization And Device Operation / Device Cleanup}
- \item \ref{drivernormative:Reserved Feature Bits}
- \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
-+\item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
- \end{itemize}
++\end{tabularx}
++\end{table}
++
+ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ Types / Network Device / Legacy Interface: Framing Requirements}
  
- \conformance{\subsection}{PCI Driver Conformance}\label{sec:Conformance / Driver Conformance / PCI Driver Conformance}
-@@ -183,6 +184,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
- \item \ref{devicenormative:Reserved Feature Bits}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
-+\item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
- \end{itemize}
- 
- \conformance{\subsection}{PCI Device Conformance}\label{sec:Conformance / Device Conformance / PCI Device Conformance}
+diff --git a/introduction.tex b/introduction.tex
+index 8bcef03..0d84927 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -59,6 +59,10 @@ \section{Normative References}\label{sec:Normative References}
+ 	IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture,
+ 	\newline\url{http://www.ieee802.org/},
+ 	IEEE\\
++	\phantomsection\label{intro:IEEE 802.3-2022}\textbf{[IEEE 802.3-2022]} &
++	IEEE Standard for Ethernet,
++	\newline\url{https://doi.org/10.1109/IEEESTD.2022.9844436},
++	IEEE 802.3-2022\\
+ 	\phantomsection\label{intro:SAM}\textbf{[SAM]} &
+         SCSI Architectural Model,
+         \newline\url{http://www.t10.org/cgi-bin/ac.pl?t=f&f=sam4r05.pdf}\\
+@@ -135,12 +139,21 @@ \section{Normative References}\label{sec:Normative References}
+ 	\phantomsection\label{intro:IP}\textbf{[IP]} &
+     INTERNET PROTOCOL
+ 	\newline\url{https://www.rfc-editor.org/rfc/rfc791}\\
++	\phantomsection\label{intro:Internet-Header-Format}\textbf{[Internet Header Format]} &
++    Internet Header Format
++	\newline\url{https://datatracker.ietf.org/doc/html/rfc791#section-3.1}\\
++	\phantomsection\label{intro:IPv6-Header-Format}\textbf{[IPv6 Header Format]} &
++    IPv6 Header Format
++	\newline\url{https://www.rfc-editor.org/rfc/rfc8200#section-3}\\
+ 	\phantomsection\label{intro:UDP}\textbf{[UDP]} &
+     User Datagram Protocol
+ 	\newline\url{https://www.rfc-editor.org/rfc/rfc768}\\
+ 	\phantomsection\label{intro:TCP}\textbf{[TCP]} &
+     TRANSMISSION CONTROL PROTOCOL
+ 	\newline\url{https://www.rfc-editor.org/rfc/rfc793}\\
++	\phantomsection\label{intro:TCP-Header-Format}\textbf{[TCP Header Format]} &
++    TCP Header Format
++	\newline\url{https://www.rfc-editor.org/rfc/rfc9293#name-header-format}\\
+ 	\phantomsection\label{intro:CAN}\textbf{[CAN]} &
+     ISO 11898-1:2015 Road vehicles -- Controller area network (CAN) -- Part 1: Data link layer and physical signalling\\
+ \end{longtable}
 -- 
 2.34.1
 
