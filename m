@@ -1,28 +1,28 @@
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (mail-dm6nam04on2057.outbound.protection.outlook.com [40.107.102.57])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B285146A7A
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.102.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71341146A8C
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.237.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717507801; cv=fail; b=hgMvoegRthHaci6qWu09KQyJrKrxeUqadSs7pzyX19GjpPi/wSl6u88eu6ehF96qoXcRB4nApXQaXmtLGV6+LoZgjetFTeP+zUU6Thd8S1YNeQdQY/1aWwXIneoc1Hjr5ajCnOSXVvy3rlZJpu1IyPMa8ehv2Wxm3SudNLI3bqY=
+	t=1717507804; cv=fail; b=dZ5thz6nrq8HrK8+r7IZQKbkOmdZgvKKqn58e0DOgcPIoyPN/yGSbZidHYKA1aZNJJqJAxdqJVpErbeDZrb5rvgG7MEtVZqfaGqq9D0z2rNxRqaZ0ER99G+ceDrtKiTkdZp0Bh7LoTBqrff/eQt659nbQsQkgzs8HH9ZnMcrS0s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717507801; c=relaxed/simple;
-	bh=iu9GzXqZebCX5VPaOD7sPtAv4NiElZFfmrIT3Jg6qM8=;
+	s=arc-20240116; t=1717507804; c=relaxed/simple;
+	bh=5OgYvK7lBx5GVwGx3q+1/I/9E8sOZ1aQqR25c/TYYOo=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IxqKxk3hpuNi5xA47sy94Q715veEoHpSIuoVJdTiWfzFMSo1oHPXVN9rn+pRpyBP0vPMFWF8T6ZXEKPLwCnLJN2jyXo+xZqff30MDvVrJ/E2AGce143lDuDWjqy51Z2VhJ8TGuhqDz5+HmUj+/u3AqEFjIDdxqubCloUdRHn5nw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PeUMzwWz; arc=fail smtp.client-ip=40.107.102.57
+	 MIME-Version:Content-Type; b=HnElep1R8lukcdZyIpV6M9dUM83jegn2AxY7z+zjFAm1X3fDfRmUg65oghR0tMrK+zb4XZzNz/ajbG7TJawQNeDDHbws5YT2B32av1OpA03QNQf7IE/dwkdHD1hmwDNpHAIlE/9edjf7wUl5qcoyFLSvvA3RKep6/QihAD4id2o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OemG/5zk; arc=fail smtp.client-ip=40.107.237.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PeUMzwWz"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OemG/5zk"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UEwbL/M7BP1QmPVbAuxDKPnHFBPOBINaPVP3B+CTzxkXyx59pvD7iZa+TEOfiyOM37kisiqWwzWDIzqCEZH4ikXREHKmX3f/YVy5K2EI4J2Md4PnqQS6BTHUSixOCwkI3t3hacwANT9kSVsw0nlt6d1ChhYuHsidpE8t1RX8T+Xrjceg6owSbDBA0EJSTcATKN2WWgMWI9tiJutIOyqtXyodhE7bcakPMcW+dQYOEYic0mw8gGg83rTnYLM4YFtGdIsn10RHAvts7K9+3bpwjjUZLjWIreS4FL3Iskcaogz42x9xDlMnhX9VMemmU0LmeUEPy/EREIl2XA3iOqejiA==
+ b=Krjps//RdNoyk74hIxocBcHm/JQgefVgP3PvUZK+wSx2C4sD+CBtGvycepez/0yx/exVkRCyoLIC79PqyQ2kq8PZZSmq355P1ON3nZtGEt/VYrVzHLOduQFzeLiuDB97XGclGEXFYn075Ox2x4QRL7nFKRY01VSop6w+RUnNfaffPU1WFeFoFfWqykxp41ba6QEe2vYqkmhTeGfOkKF2qPNpz2+KB+gA3Rdbcy4ANuhTsz5WaEkZnZG/H9UE2sLy0iat+NTdyMjsHm6tjPDkRJM9JFbaZXFBaKoARmWUrqPqbN5jyIVDnCdqfHWj4xiZkI2HBSpXsM/z2yRTgUeL1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+n6BoHhsB7MlTjAecX1t6YdZ8GV1LmD7LHgAnJk4TiA=;
- b=XOE1SZ7tdY6tuNPjh3obtNdDl0QeZMFYknhaJYbiebCr8oi6/lTb3pPmAo25szyLuLziIvzhVoQB6N2vfQyQnL3e4jDUHC2NNNa53GmvebFM6Pm4iBGwKgNYnStvSW0+pdUMnnM1n+mDd/9aWapFrjlsPOgf0/XJeapNx832PNsly3WGIvCd1Ka7Q7RwXLGqBORJIxK+sCoTibRljgQX681Xt8HMq8YMcEvlfUFE3sY89Hfm1MhfqPxNE9gCxnV5riAhRlcK1KJ/4HfA63C4zK9XrTkrnNTGsXciapGe7gv5gWezUyt3Y/xwxjFzfbLrFSUehgDJNdvprGeMz6d23Q==
+ bh=3u7CLqJDslMdco+ZBawLSDN60ILbSoAwXlEvtC/duwY=;
+ b=Q6k4XTeAEwMQNsMwblVWWuTPedH3oyIYiKh+KxT6yZcRh9ZV6kL92nzVU+aa1yA7Ml6U3zr+7v4Qgv04TV9n+l09g1D95grQcWkj4d70eMNjdqJEOhc32EhRVYb+MLCK8b/94Pk3psIeC7StXqscaoWIjyZmXWpuhrf0Ax53jKZZRU6/vci1P/Fzz2N78f/gWyb4V1sls2Txc98LU+WZQbyJbtAQyDAy+zDNFKQUDIzgvhJhKUpE8tWRAO/P0nFdOO2EI1jcFwteS3NmaxBdsGxeFR1hqj64XQtTvQdRFnFGmL85ZyO6DyK9OIJxwwXwW5YtEBGxp788GEn1Y0eBZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+n6BoHhsB7MlTjAecX1t6YdZ8GV1LmD7LHgAnJk4TiA=;
- b=PeUMzwWzFBNMAQlM1oYEKCECO625Viende5oFjUxFewDasnakFatNOFlCpjumIzV97n8dld4YlBkqklRz3WDPonqeKekBR302odtBvWn4U75A/sc1sfx+fydb+m3N9cueDhHgrB+WC6tHTnHOwu7DI4mw1ESfjZb5CozX9dogElS0dVtZo3u+8jqBhA+dxHbVNOWzltsKQ5w1LS9hIaLqRjfZJISZKcs3xLVPA9kUQfYgXAhM4l/7n8i9pbgvDwFkG82TfXt7kAV6chxfcSEy2AbtTII7qqdrNQpFbtMqEaZJM+UxbRbI/l8RgSmEAsGsREusN3/nbu+AimZTrorPQ==
-Received: from MW4PR04CA0087.namprd04.prod.outlook.com (2603:10b6:303:6b::32)
- by SJ0PR12MB5664.namprd12.prod.outlook.com (2603:10b6:a03:42b::18) with
+ bh=3u7CLqJDslMdco+ZBawLSDN60ILbSoAwXlEvtC/duwY=;
+ b=OemG/5zkLdp1ojO02Kp5j3/URxtSw8hsjbB5IYZMyR00Web8lrO6hq17V+8SmbqOg1ZJxnrX5ScxjzSHjkGY9+Rv1v0sznar5iL02rNr18KPPJeYWXyjioxriSGkOeriJP/OlPur3vVxGKHNhOtp0Vs1UmBMihlHVDdiwnxXq7zUgrttNFHMBELQXQ3jAJwcdXTifYCod3wjZ3sX9loVAdcA1/emBf86RPqBj2EdiEbGI+Q31YGfS+HBqtvSsCNqLIG5TQd2e2L/9GZTf7muUlSoap6nlPvy5aWCEIfPEPdnlFQJs7JoI7U5n+h4j070X+WUClK0XVyZINBf2to5oA==
+Received: from MW4PR04CA0072.namprd04.prod.outlook.com (2603:10b6:303:6b::17)
+ by SJ2PR12MB7920.namprd12.prod.outlook.com (2603:10b6:a03:4c6::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Tue, 4 Jun
- 2024 13:29:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.24; Tue, 4 Jun
+ 2024 13:29:58 +0000
 Received: from SJ5PEPF000001D4.namprd05.prod.outlook.com
- (2603:10b6:303:6b:cafe::5) by MW4PR04CA0087.outlook.office365.com
- (2603:10b6:303:6b::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.29 via Frontend
- Transport; Tue, 4 Jun 2024 13:29:54 +0000
+ (2603:10b6:303:6b:cafe::2) by MW4PR04CA0072.outlook.office365.com
+ (2603:10b6:303:6b::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27 via Frontend
+ Transport; Tue, 4 Jun 2024 13:29:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -51,24 +51,24 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
 Received: from mail.nvidia.com (216.228.117.161) by
  SJ5PEPF000001D4.mail.protection.outlook.com (10.167.242.56) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:29:54 +0000
+ 15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:29:57 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 4 Jun 2024
- 06:29:37 -0700
+ 06:29:40 -0700
 Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 4 Jun 2024 06:29:34 -0700
+ 15.2.1544.4; Tue, 4 Jun 2024 06:29:37 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
 CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Subject: [PATCH v11 05/13] admin: Add capability admin commands
-Date: Tue, 4 Jun 2024 16:28:55 +0300
-Message-ID: <20240604132903.2093195-6-parav@nvidia.com>
+Subject: [PATCH v11 06/13] admin: Add theory of operation for device resource objects
+Date: Tue, 4 Jun 2024 16:28:56 +0300
+Message-ID: <20240604132903.2093195-7-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240604132903.2093195-1-parav@nvidia.com>
 References: <20240604132903.2093195-1-parav@nvidia.com>
@@ -84,64 +84,53 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|SJ0PR12MB5664:EE_
-X-MS-Office365-Filtering-Correlation-Id: fac3b2d0-c80a-4c92-e907-08dc849a6b95
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|SJ2PR12MB7920:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e58cb2d-665f-4a3d-0f49-08dc849a6d81
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|1800799015|376005|82310400017;
+	BCL:0;ARA:13230031|376005|82310400017|1800799015|36860700004;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?9/M8vHQDTukv0uqRjY9hga0iuZsnRNV1ceUmlazClkjyTJk/NF5NQ7hPdPCk?=
- =?us-ascii?Q?NzSrk2IibiWMkpdOcFuZmaO5jx+W0iRT8Ffn8aWEkl/IiIgQ35tp+mgf5yRG?=
- =?us-ascii?Q?3oLOWd6qjX7dfsFQBwgep1UNjXXr9VdHGSwmbR/6C9i5LU0XR8yvXfT05yQN?=
- =?us-ascii?Q?NcsdNw+Bc0pCa/bWXEpuPtmJsolFeQaU3DuawK7UvaKS2OF21fl2eNdgOPo0?=
- =?us-ascii?Q?XLSvYEXTF/X6d8OK2dfz9OOMP8RMNCLa8ZTVJ8wPIcUTAlI51w3PAtA6H0Ah?=
- =?us-ascii?Q?DwHvR7ym4ig6b/JbL6Ba+nlnElzWdjwqtCBYoUFnfxkDt/YZXBof7dXeOPyz?=
- =?us-ascii?Q?pKCdlL7pNhowdGN8ToKZ7FzHkcj4UMSuzH1xq65qLvKD0jj7ymQGF9yRcpGB?=
- =?us-ascii?Q?aKzz9T/wan3xe5CT6TNNt+CNmMpOkrTJB4TcT548kIirrL5uYq3UzyCmTHal?=
- =?us-ascii?Q?vGHpe4eIumyTytO2T8KJFoapAL9+sj5NGLjQo08svz14i6J9c9/j6V0d2eXZ?=
- =?us-ascii?Q?IAq6Dm/VYxSRe8OA+8/6NAP2GbopSQD49vaarQwsB7b6uaaOJluIKGp2U8+D?=
- =?us-ascii?Q?12EGiJSC49HW3/BKnD6nqA1i4ysw6+e2LI9qB8AKxyWRIrWCGEDQcHXsvAAB?=
- =?us-ascii?Q?5Jr74foTY4M1RaPWIpLWnqxaoKW/6qE0I8ofpGBlEpKuD7HfaKzPDHPj/CaC?=
- =?us-ascii?Q?0BOPFKiwFJxDdiNHfZ5UrL8eK8wS2tgVdKKrNS1Z03YeU+0gRahdNJm2of5k?=
- =?us-ascii?Q?7Zd+MnxiRWlmQHvPaS7iN7Kh7glXHUo1jhpnsv0QUEKJ83m2riCK3JlRsASw?=
- =?us-ascii?Q?wyIzAf9tY2Em6nY62AkiUqiJG4uRpbSNmR3JK+d5Jl9uZDk312V0+X6F1Fco?=
- =?us-ascii?Q?P/rgcPTBhl5waO4ancVSG2nMRw5araqHWcCawPS3oRzthSgnobmvuEQXmgRJ?=
- =?us-ascii?Q?nbL9NL5Iohbo+yIK/DH6RieGzRvGmq7oHoxbD4WWl/zLmwtWecxgpMpVl8Pv?=
- =?us-ascii?Q?vShdMdCRqTf32uvvVmsIAK2CAx2WVj4MCfm6GLF5yopDBdgKmNib5SQbeKHB?=
- =?us-ascii?Q?t31ygSTENeUi5RY1dlKh9ZXr06WghO7A6DJXioHpelkPf1pMfMYTPyhejYOA?=
- =?us-ascii?Q?vrBVgrxSwUrMC73UV62m1sebUFgVplh6kgz3ZU+T49AP5iB7DzB6lLzv/bhr?=
- =?us-ascii?Q?UHngFcWHOYzn2Znebv17kYPEzibX7KdK56kfuB5w8e4eWQGi6BYxC2P6JUA2?=
- =?us-ascii?Q?S95dT2WSvYpwjn6cHWHY59keTF7LB2RR+zLs6vJ9EQqFnhaKY7f5B/IzGM+p?=
- =?us-ascii?Q?JjmcwXKwoCRAmGbrhBs2wFCKW5fnROxS1OKBT+MS8740+tu2oT6iC8lUCGxT?=
- =?us-ascii?Q?02MIx98aQdiJRboJ4o/+pt6IkI4z?=
+	=?us-ascii?Q?/uhO5KubHGSpfSftoAIKWJ45Zj2L/eV1KGy3UXMbQgJJ2jpJzPcUvPV6/lpQ?=
+ =?us-ascii?Q?9WPx8FLAFTT4H5ox6B8Elnl5l2g9m0e2fBDE6ut/LjgYgHbL+EeLpkPCXs+b?=
+ =?us-ascii?Q?7XQkMQqKfvWnubIDuKSz1a4btCTCOxRHMNSVJWqR4vR3OgqTyMGNusiUGdtG?=
+ =?us-ascii?Q?wO0WKqIGAEjHqTKFKjBTXVUhpUfWHjp/Q3HMw6a8SioVL8usj6u5rTiHDGkF?=
+ =?us-ascii?Q?I9Ewc0m5MWK+EAbAVPfYDsRKU0O3KYZ6pgZGctMvIlDcCGyIzrRM9RfGAjua?=
+ =?us-ascii?Q?8kWy6MiOYj1737b/56gHJhzKkYQxhOawSuAjxKY3XJU6CU4vZSt0y3Y7ciYr?=
+ =?us-ascii?Q?Y+HphSCXvhlnYJv15QkipA/8BZ25TXYfszfW3A+TSJGmk9UpsjazQVU9DT5V?=
+ =?us-ascii?Q?FCGiGyuzSANSO7sfCAs3aPOv6xok2KfKjTmMMjug3XuzLBNBorQlvSR1uEWU?=
+ =?us-ascii?Q?l2VpSMX72xQYlVpuVTeE/bhuirY6/7XvOMB5HRFz20a/8vdj9bx8IpXK/9yX?=
+ =?us-ascii?Q?pnGVnViR/GaUxAr+ri6DlhTcZ/2hXpW7PDk91+RliUfJjrbD+DTvNgN6A+QG?=
+ =?us-ascii?Q?l71jpsdI96po7Ws1boe8Bm9LHcj0V1pCvqY07rxMnnOQjG90qqNQDbwZW4Lz?=
+ =?us-ascii?Q?JS2CuLMSv0qG+HIeYsjJtFpd1ZOdHjJLI5F3XbqJBsUet54GekNhdRkdMPwR?=
+ =?us-ascii?Q?/OZiSB72Biubcq9JN59bxP7LuElv94MU+3ai3f0O0y5w047lGnBCPRDJFnz6?=
+ =?us-ascii?Q?TZGlFKdkPJEeLoi0E7kMID0UhRnkqE3JWtm7QQYEfdCAuJNJFn6hhWMeZ2JO?=
+ =?us-ascii?Q?cCniigM9NsiEmoP6DUP7N3ztAXJtggVfpgHIGO3/7QNHmlMq9IgWLJURQILv?=
+ =?us-ascii?Q?o/yrThBffxWJWlh2VQsh+u3kLzJbDxf9J0nb7SR63YmMqGKJWPTJEDnYkkji?=
+ =?us-ascii?Q?dLsxeEm3rc5jlTjLaePPzHb3W0KN3+Myd1fNCLCE3LyYieJ6XfASkGFPRqHA?=
+ =?us-ascii?Q?FYJ9MM/wWkAMHAoa3kWSIsU6jJFxbnwvMEWHkuk8PqTW+xqnGVqdC4JwvuY7?=
+ =?us-ascii?Q?wPwq9EEF3wVxHH2gfL/mVxxbX1jnuWNiU0+usl2vXFqeCerrPeEXqGukaVNW?=
+ =?us-ascii?Q?LE4vnZA3v8/3soGadElasyJzI6QYwHu/ZjwYsuEiEMlQhy/ZzDI2eU9iQzGd?=
+ =?us-ascii?Q?HCVEqRxebih6wmohxoOwUMMWfjJ991Bi9MmPbsFGpfaK08LME5w4Ls4f4Q7n?=
+ =?us-ascii?Q?Wts5rbdb5CzUQpXv7uev0NOjaNe0yRjA4waMcEJy/asSIkvt6QOpQvs6kWvO?=
+ =?us-ascii?Q?GIIrZoU4wrYECEgfXlYDZWi08WwuPcEJJ1iG0odSXcv+b3pZCJ+bcH2nKkCM?=
+ =?us-ascii?Q?f+XhQdk=3D?=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(376005)(82310400017)(1800799015)(36860700004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:29:54.3334
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:29:57.5522
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fac3b2d0-c80a-4c92-e907-08dc849a6b95
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e58cb2d-665f-4a3d-0f49-08dc849a6d81
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D4.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5664
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7920
 
-Add three capabilities related administration commands.
-First to get the device capability.
-Second to set the driver capability.
-Third for the driver to discover which capabilities can be accessed.
-
-Even though the current series restricts device capability reading
-to the self group type, same structure and command format etc will
-be reusable in future to read the capability from the owner device
-and also to set the device capability via owner device using
-new DEV_CAP_SET command.
-
-Resource objects are introduced in subsequent patch which utilizes
-the capability, however some description around resource object
-limit is covered in this patch to keep things simple.
+The driver controls the device by means of device resource objects.
+These operations include create, query, modify, and destroy the device
+resource objects.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 Signed-off-by: Parav Pandit <parav@nvidia.com>
@@ -149,290 +138,108 @@ Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
 changelog:
 v9->v10:
-- removed white space at end of line
-- squashed the dedicated patch of status code with the usage patch (this one)
-- renamed read/write caps to device_get_cap/driver_set_cap
-- restrict get and set command to only self group
-- supported_caps renamed to cap_id query
-- removed length from the get/set/query commands as it can be derived
-- renamed cid to id as its part of the cap command structure
+- grammar corrections with article and others
+- rephrase 'device resource' to 'device resource object'
+- shifted description of max limit before describing the id
+- renamed 'identifier' to 'id'
+- rephrase around id
+- rephrase from link to depend
+- rephrase 'linked resource' to dependent resource
+v7->v8:
+- added text about administration commands execution rate behavior
 ---
- admin-cmds-capabilities.tex | 196 ++++++++++++++++++++++++++++++++++++
- admin.tex                   |  12 ++-
- conformance.tex             |   2 +
- virtio.tex                  |   1 +
- 4 files changed, 210 insertions(+), 1 deletion(-)
+ admin-cmds-resource-objects.tex | 69 +++++++++++++++++++++++++++++++++
+ admin.tex                       |  1 +
+ 2 files changed, 70 insertions(+)
+ create mode 100644 admin-cmds-resource-objects.tex
 
-diff --git a/admin-cmds-capabilities.tex b/admin-cmds-capabilities.tex
-index ef9481c..07b8ddb 100644
---- a/admin-cmds-capabilities.tex
-+++ b/admin-cmds-capabilities.tex
-@@ -32,3 +32,199 @@ \subsubsection{Device and driver capabilities}\label{sec:Basic Facilities of a V
- indefinite growth of a single capability, it is expected that new
- functionality will lead to the creation of new capability rather
- than expanding existing ones.
+diff --git a/admin-cmds-resource-objects.tex b/admin-cmds-resource-objects.tex
+new file mode 100644
+index 0000000..a74cb3b
+--- /dev/null
++++ b/admin-cmds-resource-objects.tex
+@@ -0,0 +1,69 @@
++\subsubsection{Device resource objects}\label{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
 +
-+Capabilities are categorized into two ranges by their IDs, as listed:
++Providing certain functionality consumes limited device resources such as
++memory, processing units, buffer memory, or end-to-end credits. A device may
++support multiple types of resource objects, each controlling different device
++functionality. To manage this, virtio provides
++\field{Device resource objects} that the driver can create, modify, and
++destroy using administration commands with the self group type. Creating and
++destroying a resource object consume and release device resources, respectively.
++The device resource object query command returns the resource object as
++maintained by the device.
 +
-+\begin{table}[H]
-+\caption{Capability ids}
-+\label{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / capability ids}
-+\begin{tabularx}{\textwidth}{ |l|X| }
++For each resource type, the number of resource objects that can be created
++is reported by the device as part of a device capability
++\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}.
++The driver reports the desired (same or lower) number of resource objects
++as part of a driver capability \ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}.
++For each device object type, resource object limit is defined by field
++\field{limit} using \field{Device and driver capabilities}.
++
++\begin{lstlisting}
++le32 limit; /* maximum resource id = limit - 1 */
++\end{lstlisting}
++
++Each resource object has a unique resource object ID - a driver-assigned number
++in the range of 0 to \field{limit - 1}, where the \field{limit} is the maximum
++number set by the driver for this resource object type. These resource IDs are unique within
++each resource object type. The driver assigns the resource ID when creating a
++device resource object. Once the resource object is successfully created,
++subsequent resource modification, query, and destroy commands use this
++resource object ID. No two resource objects share the same ID. Destroying a
++resource object allows for the reuse of its ID for another resource object
++of the same type.
++
++A valid resource object id is \field{limit - 1}. For example, when a device
++reports a \field{limit = 10} capability for a resource object, and drivers sets
++\field{limit = 8}, the valid resource object id range for the device and the
++driver is 0 to 7 for all the resource object commands. In this example,
++the driver can only create 8 resource objects of a specified type.
++
++A resource object of one type may depend on the resource object of another type.
++Such dependency between resource objects is established by referring to the unique
++resource ID in the administration commands. For example, a driver creates a
++resource object identified by ID A of one type, then creates another resource
++object identified by ID B of a different type, which depends on resource object
++A. This dependency establishes the lifecycle of these resource objects. The driver
++that creates the dependent resource object must destroy the resource objects in the
++exact reverse order of their creation. In this example, the driver would
++destroy resource object B before destroying resource object A.
++
++Some resource object types are generic, common across multiple devices.
++Others are specific for one device type.
++
++\begin{tabular}{|l|l|}
 +\hline
-+Id & Description  \\
++Resource object type & Description \\
 +\hline \hline
-+0x0000-0x07ff & Generic capability for all device types \\
++0x000-0x1ff & Generic resource object type common across all devices \\
 +\hline
-+0x0800-0x0fff & Device type specific capability \\
++0x200-0x4ff & Device type specific resource object \\
 +\hline
-+0x1000 - 0xFFFF & Reserved for future \\
++0x500-0xffff & Reserved for future use  \\
 +\hline
-+\end{tabularx}
-+\end{table}
++\end{tabular}
 +
-+Device type specific capabilities are described separately for each device
-+type under \field{Device and driver capabilities}.
-+
-+The device and driver capabilities commands are currently defined for self group
-+type.
-+
-+\begin{enumerate}
-+\item VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY
-+\item VIRTIO_ADMIN_CMD_DEVICE_CAP_GET
-+\item VIRTIO_ADMIN_CMD_DRIVER_CAP_SET
-+\end{enumerate}
-+
-+\paragraph{VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY}
-+
-+This command queries the bitmap of capability ids
-+listed in \ref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / capability ids}.
-+
-+For the command VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY, \field{opcode} is set to 0x7.
-+\field{group_member_id} is set to zero.
-+
-+This command has no command specific data.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_query_cap_id_result {
-+        le64 supported_caps[];
-+};
-+\end{lstlisting}
-+
-+When the command completes successfully, \field{command_specific_result}
-+is in the format \field{struct virtio_admin_cmd_query_cap_id_result}.
-+
-+\field{supported_caps} is an array of 64 bit values in little-endian byte
-+order, in which a bit is set if the specific capability is supported.
-+Thus, \field{supported_caps[0]} refers to the first 64-bit value in this
-+array corresponding to capability ids 0 to
-+63, \field{supported_caps[1]} is the second 64-bit value corresponding to
-+capability ids 64 to 127, etc. For example, the array of size 2 including
-+the values 0x3 in \field{supported_caps[0]} and 0x1 in
-+\field{supported_caps[1]} indicates that only capability id 0, 1
-+and 64 are supported.
-+The length of the array depends on the supported capabilities - it is
-+large enough to include bits set for all supported capability ids,
-+that is the length can be calculated by starting with the largest
-+supported capability id adding one, dividing by 64 and rounding up.
-+In other words, for VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY the length of
-+\field{command_specific_result} will be
-+$DIV_ROUND_UP(max_cap_id, 64) * 8$ where DIV_ROUND_UP is integer division
-+with round up and \field{max_cap_id} is the largest available capability id.
-+
-+The array is also allowed to be larger and to additionally include an arbitrary
-+number of all-zero entries.
-+
-+\paragraph{VIRTIO_ADMIN_CMD_DEVICE_CAP_GET}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / VIRTIO_ADMIN_CMD_DEVICE_CAP_GET}
-+
-+This command gets the device capability for the specified capability
-+id \field{id}.
-+
-+For the command VIRTIO_ADMIN_CMD_DEVICE_CAP_GET, \field{opcode} is set to 0x8.
-+\field{group_member_id} is set to zero.
-+
-+\field{command_specific_data} is in format
-+\field{struct virtio_admin_cmd_cap_get_data}.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_cap_get_data {
-+        le16 id;
-+        u8 reserved[6];
-+};
-+\end{lstlisting}
-+
-+\field{id} refers to the capability id listed in \ref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / capability ids}.
-+\field{reserved} is reserved for future use and set to zero.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_cap_get_result {
-+        u8 cap_specific_data[];
-+};
-+\end{lstlisting}
-+
-+When the command completes successfully, \field{command_specific_result}
-+is in the format \field{struct virtio_admin_cmd_cap_get_result} responded
-+by the device. Each capability uses different capability specific
-+\field{cap_specific_data} and is described separately.
-+
-+\paragraph{VIRTIO_ADMIN_CMD_DRIVER_CAP_SET}\label{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / VIRTIO_ADMIN_CMD_DRIVER_CAP_SET}
-+
-+This command sets the driver capability, indicating to the device which capability
-+the driver uses. The driver can set a resource object limit capability that is smaller
-+than or equal to the value published by the device capability.
-+If the capability is a set of flags, the driver sets the flag bits that are set
-+in the device capability; the driver does not set any flag bits that are not
-+set by the device.
-+
-+For the command VIRTIO_ADMIN_CMD_DRIVER_CAP_SET, \field{opcode} is set to 0x9.
-+\field{group_member_id} is set to zero.
-+The \field{command_specific_data} is in the format
-+\field{struct virtio_admin_cmd_cap_set_data}.
-+
-+\begin{lstlisting}
-+struct virtio_admin_cmd_cap_set_data {
-+        le16 id;
-+        u8 reserved[6];
-+        u8 cap_specific_data[];
-+};
-+\end{lstlisting}
-+
-+\field{id} refers to the capability id listed in \ref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / capability ids}.
-+\field{reserved} is reserved for future use and set to zero.
-+
-+There is no command specific result.
-+When the command completes successfully, the driver capability is updated to
-+the values supplied in \field{cap_specific_data}.
-+
-+\devicenormative{\paragraph}{Device and driver capabilities}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
-+
-+If the device supports capabilities, it MUST support the commands
-+VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY,
-+VIRTIO_ADMIN_CMD_DRIVER_CAP_SET, and
-+VIRTIO_ADMIN_CMD_DEVICE_CAP_GET.
-+
-+For the VIRTIO_ADMIN_CMD_DRIVER_CAP_SET command,
-+\begin{itemize}
-+\item the device MUST support the setting of resource object limit driver capability to a
-+value that is same as or smaller than the one reported in the device
-+capability,
-+\item the device MUST support the setting of capability flags bits to
-+all or fewer bits than the one reported in the device capability;
-+\end{itemize}
-+this is applicable unless specific capability fields are explicitly
-+stated as non-writable in the VIRTIO_ADMIN_CMD_DEVICE_CAP_GET command.
-+
-+The device MAY complete the command VIRTIO_ADMIN_CMD_DRIVER_CAP_SET with
-+\field{status} set to VIRTIO_ADMIN_STATUS_EINVAL,
-+if the capability resource object limit is larger than the value reported by the
-+device's capability, or the capability flag bit is set, which is not set in
-+the device's capability.
-+
-+The device MUST complete the commands VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY,
-+VIRTIO_ADMIN_CMD_DRIVER_CAP_GET, and VIRTIO_ADMIN_CMD_DRIVER_CAP_SET
-+with \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL if the commands are not
-+for the self group type.
-+
-+The device SHOULD complete the commands VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY,
-+VIRTIO_ADMIN_CMD_DRIVER_CAP_GET, VIRTIO_ADMIN_CMD_DRIVER_CAP_SET with
-+\field{status} set to VIRTIO_ADMIN_STATUS_EINVAL if the commands are not for the
-+self group type.
-+
-+The device SHOULD complete the command VIRTIO_ADMIN_CMD_DRIVER_CAP_SET with
-+\field{status} set to VIRTIO_ADMIN_STATUS_EBUSY if the command requests to disable
-+a capability while the device still has valid resource objects related to the
-+capability being disabled.
-+
-+The device SHOULD complete the comands VIRTIO_ADMIN_CMD_DEVICE_CAP_GET and
-+VIRTIO_ADMIN_CMD_DRIVER_CAP_SET with \field{status} set to
-+VIRTIO_ADMIN_STATUS_ENXIO if the capability id is not reported
-+in command VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY.
-+
-+Upon a device reset, the device MUST reset all driver capabilities.
-+
-+\drivernormative{\paragraph}{Device and driver capabilities}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
-+
-+The driver MUST send the command VIRTIO_ADMIN_CMD_DRIVER_CAP_SET before
-+using any resource objects that depend on such a capability.
-+
-+In VIRTIO_ADMIN_CMD_DRIVER_CAP_SET command, the driver MUST NOT set
-+\begin{itemize}
-+\item the resource object limit value larger than the value reported
-+by the device in the command VIRTIO_ADMIN_CMD_DEVICE_CAP_GET,
-+\item flags bits which was not reported by the device in the command
-+VIRTIO_ADMIN_CMD_DEVICE_CAP_GET,
-+\item array entries not reported by the device in the command
-+VIRTIO_ADMIN_CMD_DEVICE_CAP_GET.
-+\end{itemize}
-+
-+The driver MUST NOT disable any of the driver capability using the command
-+VIRTIO_ADMIN_CMD_DRIVER_CAP_SET when related resource objects
-+are created but not destroyed.
++When the device resets, it starts with zero resources of each type; the driver
++can create resources up to the published \field{limit}. The driver can
++destroy and recreate the resource one or multiple times. Upon device reset,
++all resource objects created by the driver are destroyed within the device.
 diff --git a/admin.tex b/admin.tex
-index c93c74c..c8b3de4 100644
+index c8b3de4..d8a19c4 100644
 --- a/admin.tex
 +++ b/admin.tex
-@@ -136,7 +136,13 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline
- 0x0006 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Legacy Interface / VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO]{VIRTIO_ADMIN_CMD_LEGACY_NOTIFY_INFO} & Query the notification region information \\
- \hline
--0x0007 - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
-+0x0007 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY]{VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY} & Query the supported device capabilities bitmap \\
-+\hline
-+0x0008 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / VIRTIO_ADMIN_CMD_DEVICE_CAP_GET]{VIRTIO_ADMIN_CMD_DEVICE_CAP_GET} & Get the device capabilities \\
-+\hline
-+0x0009 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities / VIRTIO_ADMIN_CMD_DRIVER_CAP_SET]{VIRTIO_ADMIN_CMD_DRIVER_CAP_SET} & Set the driver capabilities \\
-+\hline
-+0x000a - 0x7FFF & - & Commands using \field{struct virtio_admin_cmd}    \\
- \hline
- 0x8000 - 0xFFFF & - & Reserved for future commands (possibly using a different structure)    \\
- \hline
-@@ -162,10 +168,14 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
- \hline \hline
- 00   & VIRTIO_ADMIN_STATUS_OK    & successful completion  \\
- \hline
-+06   & VIRTIO_ADMIN_STATUS_ENXIO & no such capability \\
-+\hline
- 11   & VIRTIO_ADMIN_STATUS_EAGAIN    & try again \\
- \hline
- 12   & VIRTIO_ADMIN_STATUS_ENOMEM    & insufficient resources \\
- \hline
-+16   & VIRTIO_ADMIN_STATUS_EBUSY     & device busy \\
-+\hline
- 22   & VIRTIO_ADMIN_STATUS_EINVAL    & invalid command \\
- \hline
- other   & -    & group administration command error  \\
-diff --git a/conformance.tex b/conformance.tex
-index 183c059..8b77eba 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -99,6 +99,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{drivernormative:General Initialization And Device Operation / Device Initialization}
- \item \ref{drivernormative:General Initialization And Device Operation / Device Cleanup}
- \item \ref{drivernormative:Reserved Feature Bits}
-+\item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
- \end{itemize}
+@@ -317,6 +317,7 @@ \subsection{Group administration commands}\label{sec:Basic Facilities of a Virti
  
- \conformance{\subsection}{PCI Driver Conformance}\label{sec:Conformance / Driver Conformance / PCI Driver Conformance}
-@@ -181,6 +182,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
- \item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
- \item \ref{devicenormative:Reserved Feature Bits}
-+\item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
- \end{itemize}
+ \input{admin-cmds-legacy-interface.tex}
+ \input{admin-cmds-capabilities.tex}
++\input{admin-cmds-resource-objects.tex}
  
- \conformance{\subsection}{PCI Device Conformance}\label{sec:Conformance / Device Conformance / PCI Device Conformance}
-diff --git a/virtio.tex b/virtio.tex
-index 7c52a40..3bb5c14 100644
---- a/virtio.tex
-+++ b/virtio.tex
-@@ -39,6 +39,7 @@
- \usepackage{underscore}
- \usepackage{xstring}
- \usepackage{enumitem}
-+\usepackage{float}
- \IfFileExists{ellipsis.sty}{\usepackage{ellipsis}}{
- \message{!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
- \message{LaTeX Warning: Missing ellipsis.sty: dots (...) will look ugly}
+ \devicenormative{\subsubsection}{Group administration commands}{Basic Facilities of a Virtio Device / Device groups / Group administration commands}
+ 
 -- 
 2.34.1
 
