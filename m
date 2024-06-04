@@ -1,28 +1,28 @@
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com (mail-mw2nam04on2047.outbound.protection.outlook.com [40.107.101.47])
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FBF145A1D
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.101.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D515145A1D
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.86
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717507820; cv=fail; b=sQHO6as2a0i7vBYcFy0zVpm0FpkYhoBgbw/MyLyLY/SMRsp6r020RqfXk8ThD+ouczstL0VYZd8M133hPr2FvrejihK7IBK9xuvZKQSHc7IBYGqYQSucADrZOZRsbdWsQAG+2WpUyKcV/xtbO2M68f0mPsHFMLYqJ8pAjaRmQMs=
+	t=1717507822; cv=fail; b=g97yXc3XfrdS6wREF2Xzx1Q0a93oMCvXESJrClk4QI1G0o9Dh6dM+v53oEsD3Wq79MacTGCJ0MfjiKJ87OluXYxg+DzyLfAeoLIQ5Kao+kIiqnMZye6A45NoEYf09DWQPJC3mFGQeSNGKg6Kwoi4dj0atJAp3OQiiJOf8HzssJA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717507820; c=relaxed/simple;
-	bh=TsnBG8dsSYPafngndWLMoFXFTSTv2ccklzLVMRlt17I=;
+	s=arc-20240116; t=1717507822; c=relaxed/simple;
+	bh=bJ21CFqxNzHdSd8ZGZac3cL08oLHLBX5/ZZU4KUqUo4=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g2Txw+UrUnzQG/M5K6W4vesBqkFT5EwPqHrRG5f+i+Nr/SQZ9IEJp8ZyCY/5S+zWxKBq33IO8rU4TLvEYc9oXuzIPLtnW0vMVmPCiZP5/+sJrtWSQAQSE5VFOhaYfXuctfQkdm/31/DtZZKtqwjknhDBLweh5Nkfk8OSjrtkwcg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o2JPGG4s; arc=fail smtp.client-ip=40.107.101.47
+	 MIME-Version:Content-Type; b=cvbw6x/sgc224rO9hedIw137A8DkPBQ7zBX5Uq12dlBnnYXuU+XKrJLUfMx9UUenFPxZEd61CJg/kl4Tfb7zQv5lKfTRi9YQzxYPBpo35bvc5G9GoaqOAEnIj6D5WnwRHLR5viKTv3gB/rM9UJtzI+HZCMcLxhEulifyG8tF5GQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JFx63hDH; arc=fail smtp.client-ip=40.107.244.86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o2JPGG4s"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JFx63hDH"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dTc1rgo9nux8F06QRCqlclXnJ8ZnPytFdMQeAaW2p0FO+X3NVfTnUaBWWNyjLUs2rgd8zs7LbH/7eR8PvirOQTdtE+aEukuveFBu7LooxieWH9ENEDEmBhLlN8U3bf2cNPO8giIO7/+o/shuI6IocS7Ct4/bPdRB9ljs6VQz6wtcdVuCyADE8OPhFgbP12LCH1lGzZ1ZHC32dkgv8Ic5USpiW8/AVC8+AYFPzxTZ0GFt8NGEFJIVwnw4zc8QmIimtWQq+9ZA0I/m1MHi6Q8xpRpKKHwlyMEE7++wP4zOwvMxaODX56yfJEtpiI+itavONY0Z4gFWVimeBoMCtBVfYQ==
+ b=UyvSzvo+Lcc8g4A7W1tHOYDZtei5+UBTJAtoNnhdgHbJZWjoSEKOJaX8jnNcS8oC4ybSQeVSFUC8Zs+P9HHCIWmP2nqFDO6fdnlIxDSZ2f2/vz+qt95f3V7B07WDACZKV7d+2sJtMBZ5WkrR9eheIE1yqVo+Zx/NZ0lQ+EtLKhAptZ6g2Xn6Xj1Nk4jOo83USSW6/IDzmO7Q8Sa5jiAehllooSE8UyAJ6QmFlba0e9sGphZB9alISG1Fi4i7rHIoJIYdIIgspUUUM3DnTGDKzxwYwsKpLcIfNT0j89Baanh15Uj916ksM1l4o3f9wvxBV80MRr7Byx1iJ7cJQn0MbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wYokwVPwfHyrdiNTc/8lKNzfC2QrqxSUHheVYYVaTgU=;
- b=iqzE1mfLHmJ1rkB4qoWHiexehbHNauhQseuuSlmL1JLig0C9eq8SzBL/XiVkYtlpJiMKD8PD00hKe5GJP9p4Mr5/0tMoCpIV4iCA64R3WXqXNRTfpVlQ0D/SsvR5VKT7mzJtESOXCxArzdKcGo+YiqH8zix3HkXZM5h8FKigBxl8bzaFY350MdQ5OaQ/m4nTvH1p1STn4+HCsbfJnZbdbs3MBSoO6DJOhbvq+cooiSNl/xHu9DWRlvNIKaSs+m8gPLlnwHBrLPnXf0iGZ/y92yfti4hqhPGNCl1fdiIPN09gNHnDhVfegQTpg5CRV2z3E8i1UeRG10KOJafksI+fQQ==
+ bh=/Ke1XEMrRDJQ3tzRCObJf6SUQxWqVw8LFZthh278fNE=;
+ b=fXyqWsKry/jhfTcPwRVxUgLZ6iIJMgI2kYszxRtjWHQF1SYCQjdWZWWLGTWrfuSVivMtIPEtv7ypg48whhir5TKXbynguPdn4h/PIToWS0a0fxGyFsRTy/ezZD1vMIYLsHkpT1pcJ+tMqrc5DIyyclTZAUhUn6BruLpMtVkp3gRzUgXR+bOFDRv5HcKuHobbKFZIB7H2O+ctguOa1QzsYiNHVbiBMAsTEEaQzpeEEbgc+3+yNanMbeyC4cDjhCbLhcGftQkSrbqLZOV1wVYshJC2UGPauDT4fs+AgAw+DDQY7nK90uoksQa10Iuy8MxZz/5+LniUmnX4UdKEXrEznw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wYokwVPwfHyrdiNTc/8lKNzfC2QrqxSUHheVYYVaTgU=;
- b=o2JPGG4sMkV/d2EhIfRwMNWIQxU0izR8cYmMEHqa1Aferv18O1Zc5gfODoUw5AAdsOj7RpMDlmNhDTI+WEhWOhJ3DH2RwMEaMuIJrgfUA4vZCt3Y9jsEnHpljiBaxX+k3f7jkqUCrihjThSPiMdF6yt7007/uuw0QN5ExkUAQrkYZjjZ7p802QWo2cMTHjLhetqLHHO4y/c0WeCdLDb50tXGP1WONPLkAjlY5097CHFgx6Mq3thWYyoMSjB140iUNNucUK4WJFXcRbckjVVSH+h/6TwoP9Zyp4lndUZ37MQQs/mGeYCntPhMY8/nrT3ZNZmUESBEmYyCw8RqQjFZ1A==
-Received: from BYAPR04CA0032.namprd04.prod.outlook.com (2603:10b6:a03:40::45)
- by BL1PR12MB5996.namprd12.prod.outlook.com (2603:10b6:208:39c::14) with
+ bh=/Ke1XEMrRDJQ3tzRCObJf6SUQxWqVw8LFZthh278fNE=;
+ b=JFx63hDHjCELDKrB6jOvriOIep/N1x1tk7hLMUhQqo3piK4NTjO4hNUXd4bXPBsCldzHSZDxmO0WiehDO419v/m5GEQxacA3zpvtXo4Y6s6pPmnof1dXgn1K8/JWPW2OwNfR/6HD6S56u6GdgWmkOSjcwG6iGqzImGy5tjuEsPshy9ML4FHXH0u1JfLpbupNeObq96q7LHfk2FjLpLxqOTQlsDLnNM0Vo/bF3mz7dvLWFgXfWLe6qJRbCmvI9bRy7drCaeHcJEePEzIqLxvDTcWbnoHwwqKu7Ef40SAO558F1OJv2eswyNQU8FpfO99R2lbfiTL/ho7Fi5W57ufN6w==
+Received: from BYAPR04CA0015.namprd04.prod.outlook.com (2603:10b6:a03:40::28)
+ by PH7PR12MB7871.namprd12.prod.outlook.com (2603:10b6:510:27d::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.25; Tue, 4 Jun
- 2024 13:30:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27; Tue, 4 Jun
+ 2024 13:30:16 +0000
 Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:40:cafe::23) by BYAPR04CA0032.outlook.office365.com
- (2603:10b6:a03:40::45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.31 via Frontend
- Transport; Tue, 4 Jun 2024 13:30:11 +0000
+ (2603:10b6:a03:40:cafe::a3) by BYAPR04CA0015.outlook.office365.com
+ (2603:10b6:a03:40::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.30 via Frontend
+ Transport; Tue, 4 Jun 2024 13:30:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -51,24 +51,24 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
 Received: from mail.nvidia.com (216.228.117.161) by
  SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:30:11 +0000
+ 15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:30:16 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 4 Jun 2024
- 06:30:00 -0700
+ 06:30:04 -0700
 Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 4 Jun 2024 06:29:57 -0700
+ 15.2.1544.4; Tue, 4 Jun 2024 06:30:00 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
 CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
 	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
 	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
 	<parav@nvidia.com>
-Subject: [PATCH v11 12/13] newdevice: Improve the appendix chapter heading to reflect the content
-Date: Tue, 4 Jun 2024 16:29:02 +0300
-Message-ID: <20240604132903.2093195-13-parav@nvidia.com>
+Subject: [PATCH v11 13/13] newdevice: Extend informative guidance on capability, resource objects
+Date: Tue, 4 Jun 2024 16:29:03 +0300
+Message-ID: <20240604132903.2093195-14-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240604132903.2093195-1-parav@nvidia.com>
 References: <20240604132903.2093195-1-parav@nvidia.com>
@@ -84,126 +84,106 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|BL1PR12MB5996:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69809cb3-aa18-4e38-cf25-08dc849a75de
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|PH7PR12MB7871:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba19de21-dc0c-4e37-0f49-08dc849a78aa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|36860700004|376005|1800799015;
+	BCL:0;ARA:13230031|82310400017|1800799015|36860700004|376005;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?bW1o01cVwkKhUXDTmAkVVnBK6R68Htb+CYIF2p3ywU5Xth5KHkg/wnv0X72r?=
- =?us-ascii?Q?jQ3tuvgiMBlt4Ql5zVhGIxFgFuHw32M7/byuKSxXMJSlXs+Ted0aFbr1oqf4?=
- =?us-ascii?Q?Y3CGXdY+q1KdCbdww6w71siz9ZL8oPe1v1z41wXCIub6xcnQ3qkLkz8vWPoj?=
- =?us-ascii?Q?ursIv2Sr99Wy8mIbdg+bOrfS5nVhnwqSwYyvp6ccGy8X2RQP/xyWjmwK3jp5?=
- =?us-ascii?Q?i/Q3Hd4F0LZnQoULGIQXVNrYmdH6xK/664MfjYsdRcAitq+OOpY70mHWPIaS?=
- =?us-ascii?Q?B5H0doIB7axk5lAXLe8X2p9/j3YBrIhu8/wf34kp4Y8ZJ7F0N2tF88wqbsOK?=
- =?us-ascii?Q?TxSBd2dL1HmiNHbS7FRpURy5HJ4iKKd+1hlCe9vRExi0xFPRWEUdSTgsdhyX?=
- =?us-ascii?Q?bxBgf2ndZH1UDjPBC2YArEZl/bSAO3DYHdRJovn8WpP4S48BDDZWtWK0VHjl?=
- =?us-ascii?Q?K3lh1ObLyolIyMCNR/zFm3ryGExOCp9TpyQHYKj+wNN3WC2/l6JoIlTap//V?=
- =?us-ascii?Q?K59qS6keiaSnywiZ3aHXKRburna8wM3/zioj7JXzaGYFbpXB2RGBFjDvLSyc?=
- =?us-ascii?Q?gYglAaY1ZSuuL72u4VuiQsMSnCeZ1eRvevGN8JiLH4eCR8t1UFMx6FEIvPdy?=
- =?us-ascii?Q?YtVLDgoqFr6BE5lVcPVXLRW8/YcRGhPhhPJ/SV3U+5x5SYH0z/GMlJfMHRCG?=
- =?us-ascii?Q?v/XaXC8NppsaSheSj6qzTjtqbASvYS1Kf5J4Orzenxxx8mFecxBfDT3ZZN1X?=
- =?us-ascii?Q?htiAx/UnjuFk7ycFkTYcJ1IuB6jU8TWPrUXt+vShbIL6ElTTTap6i82ueDMC?=
- =?us-ascii?Q?dAtaimuS6ekf2coPHEUYQ0NJHgHWYatNx7M68aT/+eIX3yprRu8TPUy4SpBe?=
- =?us-ascii?Q?TThvu8rC0hk9WjePLV40NxjU4V44GjDAuNg3ywT49hbNXqrZ0tvGcU3qGfIY?=
- =?us-ascii?Q?euoydNAq9FXj6NnfsE8KlDpjWFnQ2TP5s3Gk/3HA/nBzsfHrgJv8OPhyhJRI?=
- =?us-ascii?Q?MANYz4kvpbXz4YkE1HHAH0gnVvYfNvqsjDcbAIPUG9yt4Laguyb1bZU5VqYB?=
- =?us-ascii?Q?WmOWzSklY0/X/FiTrvyKiN3nqfRtR2ShXPj0OyL0u9OmkoETHiJ0o5UyLG1o?=
- =?us-ascii?Q?fR3HIgpOqSOO+61bUvIcItDMeIMwx20X6jWqEMP+CHEOvdDsyOc2bB1+ATfo?=
- =?us-ascii?Q?JlkpHHZ6OXBXa7dV+WOErjM/fBWILkEo0K/6mXZ/9c1WYzaMNk5Qq6Z2n/Y5?=
- =?us-ascii?Q?5JKSn9+IWNlVnlQF55r42tlFBFxclT9QOb1T/oj0X3H2T0DUoJY4akYRf+j7?=
- =?us-ascii?Q?Qi37lVoG+4Mde1mQh7UI+Hr0Z5cF2owAugYdrE9IqSWncIdBfsNWzZFNfxgg?=
- =?us-ascii?Q?8zhYlQreNJXFoZcY96u8o6Pzxyxr?=
+	=?us-ascii?Q?NihUKYSwufzaYKnETVOR3JY2ZIINZ0TsUTfdwXj/gDhVOGSmVu1ZDjRhOXZa?=
+ =?us-ascii?Q?qttWR1bI8Eew4bTGWviLAOEFMAmo6iOkg1dA8E0sZaK+ehEOWFIutuBo6xR4?=
+ =?us-ascii?Q?VmBNy6B80mxUk75fdBDttMuuZUDSr9UlVT95adAP38OJyOixSFmc2Btvrr47?=
+ =?us-ascii?Q?Z58ia5WKBi7yEGn17XsJ/pgbBwwV89YReyNloeeCEGoxEZXdflPJVvp2ZKsS?=
+ =?us-ascii?Q?qmQz5S6ita9Hxr1KRyoq8hV44wS8Hji0wegtVliZuq/6U/4sUinbIE6mMote?=
+ =?us-ascii?Q?8VF5QbQjRqfPMEDwBRvrnmSS9/nZ+j+NX190AoYbJiiiuJBzh3cj2PGxMdFg?=
+ =?us-ascii?Q?HiIsvufkZZHsqj2bMalCPnqs3bGngDzW6cjEaSbjaJTo7O02eSYEbGQadB99?=
+ =?us-ascii?Q?E2n8r614EeIk9vK1iJKnrSOyzQMDtnmckKGcqK88KoDt9LzNSnCuPNZL4+FM?=
+ =?us-ascii?Q?dSIY4+pykreBiYuUwwlFBAVHDkh+g2c0NksW08d8jDzp75xw1WWSnPtph+hw?=
+ =?us-ascii?Q?X4Yy9XXr4B3WIRCyqu/YnhmbpRPcuSXXCX1TOeFVTgqTgEJvlNDCax7lRZ+4?=
+ =?us-ascii?Q?wRNi+Rge+hu+AnBAEh/ahrZr0HOjkdcsu7DvFtigoEYfP7cPxdGp7AXE85zW?=
+ =?us-ascii?Q?j1QaqyU9X40P3z24DwNy8BptDW2D/fS2VbDlMYlec64FzyXv86+MxUQmG210?=
+ =?us-ascii?Q?CdGaTw+mn2qIKMeuPV3ZwSCa7kRmQWWE7AItZ1TyqrQSK3/kehS6doNPnDKN?=
+ =?us-ascii?Q?K6E5mB+7RMs1dWgDIPin9mUr88yJ8T/oHAx9xd2rrbqdKFHawd0zasRZE6ok?=
+ =?us-ascii?Q?VITWxdZwRKErc4ZgI2U+4TBzFSGKWTszVkLPKyBMfyFR6IuZQ5YlwenVaE2D?=
+ =?us-ascii?Q?Wnt5q14gsDXpb5WvXHdBjhNIR1gJy+/7gyYau7bPlYLy5ftE3ccmFIlMi053?=
+ =?us-ascii?Q?wPnq3KhacK211ZlW9OjO1EiHUoGJREHBXzfA+JGMKoV4sBoKYMkKz9YYkB12?=
+ =?us-ascii?Q?LOXV20HurWYqxJWB79i5laPpBvt2Fk8mZxJn6rJGsawrdkpIMD3nfify0FaI?=
+ =?us-ascii?Q?9bSphmtGJj9nNY0QNWwX/4HO+EPeRgRNsp0qn4aEV3u5Gm5fFbHs6zr3faKH?=
+ =?us-ascii?Q?AiSjscP//zBRq9LAwUesKnCHXkDRg1X/V21D43seWpFTjZZ55KHo5esIQtzQ?=
+ =?us-ascii?Q?4WzhuOH3S9mgPMM+nbboTqUcNwBHW4ZMsBAj1IXKEJCkMmk1UiicZSmfoGyd?=
+ =?us-ascii?Q?EGntqJfLPH2ZC1cWH3sFphq9ufSXTgFxi2bSHuztU0NbNVCbt395WgTLzaOy?=
+ =?us-ascii?Q?KwKJ6mYlilGfCVt0plwQrGCr4Br9R+5Dp6n0HMZnRfmlzDxOGQKKsL1BruuK?=
+ =?us-ascii?Q?P71/sIwYFByXU/sRy6yUilXTxMDu?=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(82310400017)(36860700004)(376005)(1800799015);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(36860700004)(376005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:30:11.2915
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:30:16.2758
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69809cb3-aa18-4e38-cf25-08dc849a75de
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba19de21-dc0c-4e37-0f49-08dc849a78aa
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5996
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7871
 
-Current appendix chapter already covers useful notes for creating
-new device types and also for extending the device in
-'device improvements' section.
-
-The chapter heading was not reflecting the notation for extending the
-existing device. This sometimes creates confusion/misinterpretation to readers.
-
-Hence fix the heading to reflect the written sections.
-
-While at it, remove the empty lines at the end of the file.
+Add few informative guidance/notes about which use cases to use
+device and driver capabilities and device resource objects.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
- newdevice.tex | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+internal changelog:
+- only sending last patch-12 to avoid the flood
+- added back resource limit sentence along with resource object
+- replaced administrative -> administration
+- replaced admin virtqueue -> administration virtqueue
+- replaced admin -> administration
+- replaced utilize -> use
+changelog:
+v9->v10:
+- updated examples
+v7->v8:
+- improved the examples and text for usage of device capabilities
+  and device resources
+- added more Q&A to clarify the resources and capabilities
+---
+ newdevice.tex | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
 diff --git a/newdevice.tex b/newdevice.tex
-index ed0124b..4f43554 100644
+index 4f43554..c18689f 100644
 --- a/newdevice.tex
 +++ b/newdevice.tex
-@@ -1,9 +1,9 @@
--\chapter{Creating New Device Types}\label{sec:Creating New Device Types}
-+\chapter{Creating New Device Types or Extending the Device}\label{sec:Creating New Device Types or Extending the Device}
- 
- Various considerations are necessary when creating a new device
--type.
-+type or when extending the device functionality.
- 
--\section{How Many Virtqueues?}\label{sec:Creating New Device Types / How Many Virtqueues?}
-+\section{How Many Virtqueues?}\label{sec:Creating New Device Types or Extending the Device / How Many Virtqueues?}
- 
- It is possible that a very simple device will operate entirely
- through its device configuration space, but most will need at least one
-@@ -13,7 +13,7 @@ \section{How Many Virtqueues?}\label{sec:Creating New Device Types / How Many Vi
- receive input, and one which the driver places buffers to
- transmit output.
- 
--\section{What Device Configuration Space Layout?}\label{sec:Creating New Device Types / What Device Configuration Space Layout?}
-+\section{What Device Configuration Space Layout?}\label{sec:Creating New Device Types or Extending the Device / What Device Configuration Space Layout?}
- 
- Device configuration space should only be used for initialization-time
- parameters.  It is a limited resource with no synchronization between
-@@ -26,7 +26,7 @@ \section{What Device Configuration Space Layout?}\label{sec:Creating New Device
+@@ -26,6 +26,27 @@ \section{What Device Configuration Space Layout?}\label{sec:Creating New Device
  writable by the driver.  Therefore, no writeable field which triggers an
  action ought to be wider than 32 bits.
  
--\section{What Device Number?}\label{sec:Creating New Device Types / What Device Number?}
-+\section{What Device Number?}\label{sec:Creating New Device Types or Extending the Device / What Device Number?}
++\section{When to use device resource object?}\label{sec:Creating New Device Types or Extending the Device / When to use device resource object?}
++Device resource objects are best suited to represent device resources used
++dynamically by the driver. Limits on resource usage appear as limit
++fields in a device capability.
++
++\section{When to use the capabilities?}\label{sec:Creating New Device Types or Extending the Device / When to use the capabilities?}
++Capabilities allow the device and the driver to negotiate support and resources
++used for specific functionality. For example, for a networking device, a
++capability can represent the limit on the number of flow filter groups. In
++another example, a capability can represent the allowed flow filter classifiers.
++
++\section{When to use administration virtqueue vs control virtqueue?}\label{sec:Creating New Device Types or Extending the Device / When to use administration virtqueue vs control virtqueue?}
++Any new device configuration, through device capabilities and resources as
++either implicit or driver-created resource objects, should preferably use
++administration commands via the administration virtqueue. Furthermore, even for devices with a
++control virtqueue for configuration, implementing new functionality using
++administration commands that leverage generic infrastructure is desirable.
++
++Future enhancements may involve provisioning member devices using
++standardized administration commands that reuse existing capability structures.
++
+ \section{What Device Number?}\label{sec:Creating New Device Types or Extending the Device / What Device Number?}
  
  Device numbers can be reserved by the OASIS committee: email
- virtio-comment@lists.linux.dev (after subscribing through
-@@ -34,7 +34,7 @@ \section{What Device Number?}\label{sec:Creating New Device Types / What Device
- 
- Meanwhile for experimental drivers, use 65535 and work backwards.
- 
--\section{How many MSI-X vectors?  (for PCI)}\label{sec:Creating New Device Types / How many MSI-X vectors?  (for PCI)}
-+\section{How many MSI-X vectors?  (for PCI)}\label{sec:Creating New Device Types or Extending the Device / How many MSI-X vectors?  (for PCI)}
- 
- Using the optional MSI-X capability devices can speed up
- interrupt processing by removing the need to read ISR Status
-@@ -52,7 +52,7 @@ \section{How many MSI-X vectors?  (for PCI)}\label{sec:Creating New Device Types
- number of vectors as possible, or disabling MSI-X capability
- altogether.
- 
--\section{Device Improvements}\label{sec:Creating New Device Types / Device Improvements}
-+\section{Device Improvements}\label{sec:Creating New Device Types or Extending the Device / Device Improvements}
- 
- Any change to device configuration space, or new virtqueues, or
- behavioural changes, should be indicated by negotiation of a new
-@@ -64,5 +64,3 @@ \section{Device Improvements}\label{sec:Creating New Device Types / Device Impro
- can use a single bit, but if one feature makes sense without the
- others they should not be gratuitously grouped together to
- conserve feature bits.
--
--
 -- 
 2.34.1
 
