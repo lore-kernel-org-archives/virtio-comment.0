@@ -1,406 +1,599 @@
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C94144D0F
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 13:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.237.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EE913CFA3
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 17:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.148.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717507826; cv=fail; b=u6DfzvQAR64Rc2wt0B6qA8LXM2TSgOJY/6wl/n2YYTDJe1gZwXBCju+WBBXp6lv6itAMf9tB0n3hDxWbZmuAB4f175uHhus40N65cYmsVDVdZPZnUy5zIwwAYQbkVBH2OmWzcoaFwXB/0wYB8VioJ0AuXX056lfgEPFuqQMnoec=
+	t=1717521377; cv=fail; b=esHqPCflzjlxpRC1ivVMCiG2Ivd0X4lxhMslxg9MhYyjrkW5fORAwrcrpZw1Kzv8GkNgnV+liLeaBuCTHHLHDaH1BQbepXD25/IkBnaPl/hB+4RtcK/5TaEbKGL6D4Kn9ChZpUA63SRzwuVgPZCJGIapHIzGNmBYtw9vtlPsNZ4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717507826; c=relaxed/simple;
-	bh=aqwJwEbZdpZbRcfZAJEFA79UxX8kEntF+zRLctfoAPY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bOCYN1WM3XUxMyHq7o8sP4iTDuJT6bhGKsu0HK7PrNYt9HdQS6lfHola+W2i/TYPhOywpZOosLxKAz5GHqydR03tSZh/qaYThQ9e8cuHDZtDh10FC9QDZPCqswa/HlZS/v0NJhG94l+UFj8Af6p0yKSp6jBRPMhPwh5qcpdRRAY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=p92SmvBy; arc=fail smtp.client-ip=40.107.237.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1717521377; c=relaxed/simple;
+	bh=4uC7dQpKoslA43N9kO/FvF4ggM90KHHWuObIDF+/1D0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hYvOsUi9U+tumid+YlqUssx0M/Ffm6M/Tq9Lfsf2AFy03avoKHehOQF7jKjwVk/xEH/N+fpgiIBV/B3lJXVZNil45tcdytV28GEQwQQomvg4vU8PUWj5PAv8fFHw/E8mW/EuAvUMkBIW+YcPOVzd1eIg6H9bdSaT72T+bBPI2ng=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=dGaYXRz+; arc=fail smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="p92SmvBy"
+	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="dGaYXRz+"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4549AmRx030329;
+	Tue, 4 Jun 2024 10:16:09 -0700
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3yj02n24rk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Jun 2024 10:16:09 -0700 (PDT)
+Received: from m0045849.ppops.net (m0045849.ppops.net [127.0.0.1])
+	by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 454HEBs3029293;
+	Tue, 4 Jun 2024 10:16:08 -0700
+Received: from nam12-mw2-obe.outbound.protection.outlook.com (mail-mw2nam12lp2041.outbound.protection.outlook.com [104.47.66.41])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3yj02n24r2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Jun 2024 10:16:08 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aNNEpvd0T+Bayz7hqY8qZVf7j821bDjYmy3Hm1dit1SPYwJ6LQcnE2Hou2gDoa8tnVGEnK7+EE42F2CAXoChOSjAvVXcn+eM/O0aDirV0s1jdaHfd77vQl9aD2Q7oK8mJpRtY3f4uB2rcUlDDP6pqWQZ/3kVKM6c5YTlzbzDtr/Ul/27vo8DxrsM3Aw+utAyoW8gkE0BAh21nU62WRiOYBufMcfkb2sD62maLM925LNM/MpD9iCN//rrMEOp3J2UgpumWnYmLDMkedgissg1CfPgDiou/KzqUffW6MDat1EsAvP9N3H3NmrSflxxAKfz4/wNpSNEqmHYQkiKQscgoA==
+ b=cDU9R4g4JxW7o/MgmTHb/uYCc1wUmkxF4+gMdYWu0nRozcnuamYCqWxfNZEFllhZleWfBZe94rf2DpcNHi82GBoFfw3YB51KM7LJQnEQc1c22eN5aSs1t8Uc3UAzLMvp1338w2smeEip6LrL54CeMpMmrDBYAvl6dC70/oDpGZsIjFIZSl8DvBUKQbztvzFobm8OEhmGdmKu46GaYvKgCsTZOOSj+BfvQUFWNsINJZesoO+AigHPpSQ+28DPHcSZgCyknN0qQrQGz0YdkVWe0H3r+ouL8ZxFk1vtUBOKguukM8EsY3bYGQer90IN+Nn1nkOFWpvHbLDS/8fjQSzg9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OUILtvXswazc2pf4xQ9wRZhr/bn+wKBdQERs4JUGKWE=;
- b=muiSC/0F3MoAJfgLAQBr0f+kKjqGwxpn8QiRgecclh4pHHXvEViXx6zn/G3ltlZBuw6N2D/WPPHbYJVQ0Vd/xxRvzXoPeIXLxxkPjJ0sMbUChSgUz9i2q33F+r9vCgIEErErBexK0pkgYiyWjAWO5afAaxnXk9Kgqlo/3zlcKCMJJauxQKB1Svb+1sjR/2XGZf1g0qSlB10KeTQaU+2DCeUPHq0SWM4g5YkyCk31bDPBRtq39hCR7dEBoICF1Mjd6vMrAZgM5BFPR0yEZecntiRR6Z7AL6gR/NfEPKv/6eL6kMl8T2LYhCR37Fuq0G+CyLCDuqiLEqyB+kduwXyyjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=GCOdmPU/rtX12l2PyHncPWZhLC6++zwsb7wzfaoREHE=;
+ b=MX+IfV79mgntHs6xnplpPR4ryaN3diC0MrZ+G3bxvUqDL3IjnE7fp0+moF7tWUX9h3UxkTQ1aoXPoj3q5IUqMjuE6GSZW7ZZOt4HvYm5ZAAtyB1XqBOxDhNt5qRvL8dcyDa8lR++siJL68xjqKuEaOcRCMaUvlLuCzuT6rMLW7VjULo0r7aF/YuU62lhTun3sAn+zMhXVK1sBLVbjKM0hf9WXJuq8+UBlwnFc0x7bYMM6dandv73JW6h3NkKGeAPGiUw4tPzqODzsokvFahF9xbfWqIXt1z0NfwY7vykznzSSx+gKJvYLm9aNssfD/XY6Uuczbhe+WVqTuKXHh18Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
+ dkim=pass header.d=marvell.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OUILtvXswazc2pf4xQ9wRZhr/bn+wKBdQERs4JUGKWE=;
- b=p92SmvByFyj8FE8JPq6GD0JIoFaxaknVYxy5JZiQpemlq6PLvpGli2Qye6nSxI6/DBGDGJxIKxYdqCP+D5wWr8qejuMpu6iV2s7uyGE0caD4K7Iz/gNTTQO95PSHBPah+S7UiESKBlnpYTfHyPiUbi8edeDjIFEABuEmSgXjFiYsSCVotI3gqzppVcsywx1sEv7yQuQ/+QFodS/eCHZwMppqjAI/K+T2L1JipVGvXFsvWzFrgxn84Y8Ojeiu8gRipkZH/3MOc/vQIGNUJvEo+gE6r7+CMpgoPtRGb4GBLQSIbRcvxr4ayPtFHilVUQFH306oaqw27Enb6U9P6SNsiw==
-Received: from BY3PR05CA0034.namprd05.prod.outlook.com (2603:10b6:a03:39b::9)
- by IA1PR12MB6307.namprd12.prod.outlook.com (2603:10b6:208:3e5::22) with
+ bh=GCOdmPU/rtX12l2PyHncPWZhLC6++zwsb7wzfaoREHE=;
+ b=dGaYXRz+5QxV+mJ3075mEp1MGkdlUZs6BmXs2qe7WPTeh9fQIKAc7e90v7oNR9DzuZwf9LA0dp/kGJV7zbF+lyFDEb9QwD4GGnTHXB/raFX7tWo2b+o/3dTjYAQ4iScvMly6jyyFEmfFoYkFZDpmDc8oHR660/+S0gnVnDLPBgc=
+Received: from SJ0PR18MB4477.namprd18.prod.outlook.com (2603:10b6:a03:304::23)
+ by BN9PR18MB4233.namprd18.prod.outlook.com (2603:10b6:408:137::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Tue, 4 Jun
- 2024 13:30:08 +0000
-Received: from SJ5PEPF000001D3.namprd05.prod.outlook.com
- (2603:10b6:a03:39b:cafe::4a) by BY3PR05CA0034.outlook.office365.com
- (2603:10b6:a03:39b::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.16 via Frontend
- Transport; Tue, 4 Jun 2024 13:30:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ5PEPF000001D3.mail.protection.outlook.com (10.167.242.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7633.15 via Frontend Transport; Tue, 4 Jun 2024 13:30:07 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 4 Jun 2024
- 06:29:54 -0700
-Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 4 Jun 2024 06:29:50 -0700
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
-CC: <hengqi@linux.alibaba.com>, <sburla@marvell.com>, <shahafs@nvidia.com>,
-	<si-wei.liu@oracle.com>, <peter.hilber@opensynergy.com>,
-	<jasowang@redhat.com>, <xuanzhuo@linux.alibaba.com>, Parav Pandit
-	<parav@nvidia.com>
-Subject: [PATCH v11 10/13] virtio-net: Add flow filter group, classifier and rule resource objects
-Date: Tue, 4 Jun 2024 16:29:00 +0300
-Message-ID: <20240604132903.2093195-11-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240604132903.2093195-1-parav@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27; Tue, 4 Jun
+ 2024 17:16:00 +0000
+Received: from SJ0PR18MB4477.namprd18.prod.outlook.com
+ ([fe80::7c90:e416:9ec6:583b]) by SJ0PR18MB4477.namprd18.prod.outlook.com
+ ([fe80::7c90:e416:9ec6:583b%4]) with mapi id 15.20.7633.021; Tue, 4 Jun 2024
+ 17:16:00 +0000
+From: Satananda Burla <sburla@marvell.com>
+To: Parav Pandit <parav@nvidia.com>,
+        "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>,
+        "mst@redhat.com" <mst@redhat.com>,
+        "cohuck@redhat.com" <cohuck@redhat.com>
+CC: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>,
+        "shahafs@nvidia.com" <shahafs@nvidia.com>,
+        "si-wei.liu@oracle.com"
+	<si-wei.liu@oracle.com>,
+        "peter.hilber@opensynergy.com"
+	<peter.hilber@opensynergy.com>,
+        "jasowang@redhat.com" <jasowang@redhat.com>,
+        "xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>
+Subject: RE: [EXTERNAL] [PATCH v11 00/13] flow filter using basic facilities
+ of capability and resource objects
+Thread-Topic: [EXTERNAL] [PATCH v11 00/13] flow filter using basic facilities
+ of capability and resource objects
+Thread-Index: AQHatoNF0eEodHa06k6O3TU3ZGx/abG31k/w
+Date: Tue, 4 Jun 2024 17:16:00 +0000
+Message-ID: 
+ <SJ0PR18MB4477D611893522822E58602EC3F82@SJ0PR18MB4477.namprd18.prod.outlook.com>
 References: <20240604132903.2093195-1-parav@nvidia.com>
+In-Reply-To: <20240604132903.2093195-1-parav@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR18MB4477:EE_|BN9PR18MB4233:EE_
+x-ms-office365-filtering-correlation-id: 1f007227-2493-45db-10c2-08dc84ba015c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: 
+ BCL:0;ARA:13230031|1800799015|376005|7416005|366007|38070700009;
+x-microsoft-antispam-message-info: 
+ =?us-ascii?Q?qRKWsSoXIjZXYznZO1/7HZpbakRMEkof1NqKgtEHbhN20ZQCsQYuP3R3Bv+l?=
+ =?us-ascii?Q?me+eOMSSVDVFVK6IRKB7qogOtSRihQSmkbjjtFhOl0hnyhJkRkeeoli2wH5d?=
+ =?us-ascii?Q?IwVo6bEoBNaSJv158NL10HFOpDPvu6y+HMVLlS/F6DO9jyzHLCQoJXLHd1Bc?=
+ =?us-ascii?Q?KtUGRvPI3+JTN9H/kIJWn6eBYh7C275L1qkcbcIkfZp+eH6mCeIAtNAfb8lp?=
+ =?us-ascii?Q?OdofYMQR1ypx1lOHw4acZ8jFvcHmPtM5HjdvGRsMd3Y1m/a6v3gxy8vaa61/?=
+ =?us-ascii?Q?bfLl2nxP4BZGhM5Fo+lLZ1D9rzCL16JiWuzeh8m3VI9nyrvF1aSEeII63viy?=
+ =?us-ascii?Q?JuVP6iY7Ia2MWOURNrcMBG1yDCspS1bd2yPqi/3+CvajThaoy/uEz2u273qS?=
+ =?us-ascii?Q?cZx30J12DXQKV6+4Qh3PhlWGrBrtkhH1a95DN65jiMx5XnEKrtY/cKKP07FN?=
+ =?us-ascii?Q?NndsEaVsBO0qR6psXHgABnVkDD4ZMyJF/b91Hs+J6btlFKwz1ZlJouIsL7FG?=
+ =?us-ascii?Q?pqp9kvXV1g1mrzVxPVKhFJ/km+uICOqC1hWgY/oP7479E9u9UsDrntkbLzL+?=
+ =?us-ascii?Q?DksdigaKwNSsCmc2aLsXJkGYF7x1fVXz60U1gp5hJCyJpU3pDk6j2YyWFjlJ?=
+ =?us-ascii?Q?VrNQFXe1XfN93kfImHraOnb6MRuhfSiI7j3iBeN110nFHISOBf+yFnyAuYa1?=
+ =?us-ascii?Q?Aw2yEvBkWM03Pn/qnvK/ihwYr6ThP+IoVJoICT/kVoCWIsn0uOInlEojbI5j?=
+ =?us-ascii?Q?Ycr6qOz0HniUZOgrOSDcePwifNDVtjdQbq4RTMgFWwLjJ8avsYKwaTj1PyIQ?=
+ =?us-ascii?Q?Xrj0b1rdBYgUo6ne268sEFqXIOaFb31ApWyOUWAHrt8oLLZF7nj1tSl4Y3jt?=
+ =?us-ascii?Q?OrwZqeT2iXn8zCIJNaiSC71Tn0Tq+pPGfZrSZYYrImRh0IaPS4/VBCoaUYqk?=
+ =?us-ascii?Q?DXibb1J8ZW2pcwo94zI4eyrKexhYqdOF9fAp3tJv3+1bvcLRj7BgTM7CC9WR?=
+ =?us-ascii?Q?YaQ1dZ5/1UJHJfVQQLEJgE5K0+RtvlPp1KpVjeE3DOkwgA11ieTSIeXqNsno?=
+ =?us-ascii?Q?qbFX3WxljY2s1t1FReQmISMd3sz/LFv5YP9kHj4a5VPGqOzvjWfOjlbPaCAe?=
+ =?us-ascii?Q?uX/4Yjp4JtQRO3b9s/9sLqriaPcv50hEaJgIeYQ7tC4dqSP2YrWNx/r0/PF1?=
+ =?us-ascii?Q?0N82GHLgkbNzm2KJFfpI1tO2VgC0BmfRi2EiO6L8arkx5LXI2RF5fVPbTRCA?=
+ =?us-ascii?Q?1H6Tl+blKY4GyZnHwGLgi6Bh6UEenvlLgWBy+NlRayRrLY/Y58gzzZfWYmVF?=
+ =?us-ascii?Q?h0w=3D?=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR18MB4477.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(376005)(7416005)(366007)(38070700009);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?ZAZ1xXVDDrLlLUjeYOYCSB9yo5D7lHLfUL9Bi1PnA4/b92oJWNWl1RaBwhv6?=
+ =?us-ascii?Q?udZuMgrJe2ynM1jpgDxbToV+fNQPpTbfehMDRxMXWtT3NxKpDj0oTRuSeZrX?=
+ =?us-ascii?Q?BEGMm5aiXzreLtM1AbbV5uQP8SCxpKIMCsmZ8jikFnIToQWZlBG/l1cY++PV?=
+ =?us-ascii?Q?dGpQvg8SZVTRNXygX+iDK07yoTyKa+ydpFfQ6zMY9Om96q1jz5rwQrcBtJvk?=
+ =?us-ascii?Q?SQD8CS3U1jS1cbxKmY+NukvF+G6cv05YaioWZNXcaC1xXXmC3Lf0mwngvDU8?=
+ =?us-ascii?Q?Yq79bgYu46FmRjFeBhKEjKJVB3DySTQJrF+QyzCTpxNuQoL+fUt1fwp0hHJX?=
+ =?us-ascii?Q?ZS9BC3xKVM1mQBp17k2OmdyzgfQ1coVw0gJfJqn/fXRWGeNbNFPUyYHsgFE/?=
+ =?us-ascii?Q?mVUtO2VH5RRRAhdIurKU/sUa7dmvxT9douPXV6uDClUW4t69ByDn4b0i7oqV?=
+ =?us-ascii?Q?G/k5oh0tdOHt3kBv0baZu1SsKf9tythVZuv8HhMW4+LbfEAH4TRW0hyijcWo?=
+ =?us-ascii?Q?Gb6sPKfVsjg4NNuy8Ich9Sv2zhxji5clcVO5NurYidKKXy0vdT6MUMKCIN78?=
+ =?us-ascii?Q?b0XHVD3YI0W2D0Alz82eBDuBySOgepI53mAHwQUggOz5R0IszDg/K+mDTIti?=
+ =?us-ascii?Q?6UeqrBFkJOPNsmoudrY5SoSAAyjc1y4IpTkEZkORI+np+9JJd6Cm8oiF4YH+?=
+ =?us-ascii?Q?S6ueRyvIaHIuaJ9B98n+w65XOa3Ce13A/JdTHB8th7PlgrYsbk4WVlzCM4yH?=
+ =?us-ascii?Q?vdG3KVs7fV/KQc+5WzTKLTVNF18SikOGALGY3F5X4N8aV9xNZVsUENQ1vIQY?=
+ =?us-ascii?Q?uThBY4LPQdiuUFvttI5Qiq+neVMTDJK2YPIa7MBO88vG/fhNpb4HDQHdpcdc?=
+ =?us-ascii?Q?Z5islQDlJ7wwE3687v33+qrtB59lvy2yW+m8S7SjToEY5ESAqPfiUNCSZCmg?=
+ =?us-ascii?Q?+Ppkkn74LJbSiCsa611kXZCZSEVkt3lunuNCcOI+pHJfuc2/3ZPaO/SUwZ5r?=
+ =?us-ascii?Q?OGq7DLD633iOm7fYE3P9p+Oboy97DbVDaud9SUQBFnBVEQ4F1FT6SLocSaW1?=
+ =?us-ascii?Q?t6sbwOAY7WrLSAS6TanQ/mVTX+Tgmquq1Ly23d8IbxUYE9O2pQ6qIVWc+Eft?=
+ =?us-ascii?Q?zIPOxOAO0qj2yu81d/ys0Qg3QCmMxr3pFrTy0QsKQ6FfSc8Ec/cDg+osZ+Xq?=
+ =?us-ascii?Q?OzjBvi2U5PNx/ZbaUmCkaiMJxfWTy9hTutA1UiUNMidj/6ijl7kSr6cqeqBw?=
+ =?us-ascii?Q?Gw3ZkcYTVA4T06uztL49KVYO7/380xQH/Y+qGrmN8r9HNMjklxu3Ru+rc85H?=
+ =?us-ascii?Q?UilHF46Bwg4K/Do9yJt/jGwSEv1iEEQS+bAfp6+AkH4lmx65TDtvuQZx+dXg?=
+ =?us-ascii?Q?eRVfEly5qem/7kR/3HoKb002fO9rkmVAoewh5+SRNPVJZsnM6PN3it32cMv8?=
+ =?us-ascii?Q?PwmnRxvHEFi1Sty3QOE7qSwmrfTMQQ0AYKDX5oP2cXU49fMfgiR1jd1f7CXJ?=
+ =?us-ascii?Q?AQG/UldnZJ2eojT2+DL24Xy3oV3XcVhbY2ISoLA1oGa+MTPC83EwqkQdLBu/?=
+ =?us-ascii?Q?yAI7PZNWYjqsVfgvY+LR6tSBEXif6K9sD8A0j+Tp?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D3:EE_|IA1PR12MB6307:EE_
-X-MS-Office365-Filtering-Correlation-Id: df6dc69c-8bd9-496b-10c9-08dc849a73b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|36860700004|376005|1800799015;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?AU/HLqSKMgVQtstLGcbZUpevEWPGOrHB+3AvypRfD055CDgLboKd+1qFpBVF?=
- =?us-ascii?Q?2OY6fXDzCfUp4ountYO8+xpvzG3u+Sb3uA7kH1ix8FwLum7uorutMIcSwKcY?=
- =?us-ascii?Q?mg0kpDRTh2yVw7dypBDuveNEDfnn1/wLl8+uXFcngESaxPbUSFCa/cNmZ95A?=
- =?us-ascii?Q?IiDzfND1BfTgIOZ8MBoKMIhavFXjMD05pHAtlfGBulskAJPooXftJqZXh93S?=
- =?us-ascii?Q?Zw2Zj8U4rL1gHfQt3R/rPVrFWWvjC8SRG8k3Nt+ExiYiQrhGCh4YbKqrdJUd?=
- =?us-ascii?Q?Ckq2BfTfmKrrJtB6nxiOEoBk5z1fWEcXiuwzo+5KB9uEgMO1UkDcw8IwmpwJ?=
- =?us-ascii?Q?tyUUljot8RuNOD6z/pphv+IaxWjIxCfRW04tTA4dbgStZ/IMVzJS8KsMajOP?=
- =?us-ascii?Q?qL20AB+JdjrLKVcR3EKOefmEBxU3Ac3d1jGrvnmtCEpomtnnsppicwYY6FlU?=
- =?us-ascii?Q?aOZTpZLhxx7iCRre0Uc7h17VnsI80tIo0EJH3ady1ygkJowQRHtKQ8TPVfQS?=
- =?us-ascii?Q?bTNlbwGRBhairilSAzqJ5vWBgE0jnAk1mQcvhmaBKuTKn0KPyOaJNok3pL0T?=
- =?us-ascii?Q?A1+7yBdKc2N62JH1schlcBNJnDJgKcT9Mv2qtkDhisDLJ6Cr50K+fsXujz4h?=
- =?us-ascii?Q?0LRBHmyDABMwcekRSlWF2vhOUSoOFIr5rBTfpfafBm4TD8hKsWP0JCvOSPpT?=
- =?us-ascii?Q?VO0i07ay2/dtfZdqnY398BKGSJMqZRkD09NumMFnyxpK9rJIdx1Vx/6LTh2/?=
- =?us-ascii?Q?CFmWjzNl9egOFWBxDTd8IQj7NHdzD2Y76OAeUvlDFK1vaIUt5/MmBZSUgKKU?=
- =?us-ascii?Q?HnH8sXlUHA0cUjM7+sYU5dfIwh+beeeOsekO3cViI7kdrpePkBs3viiUivUN?=
- =?us-ascii?Q?tZEbILNbxhYVKwgTBG9kRsdq6vGvxHhJ6IczU0EgxYNbHRkQ4c5rNozdjsm0?=
- =?us-ascii?Q?r0TNtVjM352rCSeZ44uPrQBQXeOGLCuKcXFoD5moQOn7fjNh6TXMNv3t9SCQ?=
- =?us-ascii?Q?5j9NGMddseTNiYZeBXZYRB0EHD6ig7JaPAE9gYvyxIB68Uej8+cKEwzMaPPR?=
- =?us-ascii?Q?u4LUxtNF2TFC3J5+4Rz0ZKJ1TaLHV3F1nQnwUCdzhiypR4DIDY5brNeyvnLh?=
- =?us-ascii?Q?Cljjc3LRyMyhLhKqGaqKf9xWc+K02y2SMsYvourRIoiR86oXhRDjZWSg2eDV?=
- =?us-ascii?Q?zPOqxs+ErD0p36n0aIuI61qgd7JBm75dwfeI56WTQvQ3ykgK3fP1l0KeO2my?=
- =?us-ascii?Q?CQWqQYopOyB7sJSSMKZuVi80lc8cJSBVhw/6OOmGL1N3AmNyy2w1gZILUBdP?=
- =?us-ascii?Q?7VdHpfFPYO/YTpUhd3dVdw+ZbRKpdx4vRzukT54I1eQ7RV80b0EcSrUGl5UO?=
- =?us-ascii?Q?zFh5ObQG8tlOvKmHbrSazHyxFLtg25Lu9a1gpFldBemp1AaAaA=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230031)(82310400017)(36860700004)(376005)(1800799015);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 13:30:07.7653
+X-OriginatorOrg: marvell.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR18MB4477.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f007227-2493-45db-10c2-08dc84ba015c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2024 17:16:00.1147
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df6dc69c-8bd9-496b-10c9-08dc849a73b4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6307
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vT9DqjNvmkhr9iWWPOG8ko9IMU0/ZwbaDh2pCtXSYbBuLrynMb0fUrJzUDURHtJQZtICBhhC5/sWkTU/neISog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR18MB4233
+X-Proofpoint-GUID: hbhRWo_XLaOTz2MztxO9VbkWQcVl4vkM
+X-Proofpoint-ORIG-GUID: Tv-qHu4fpfLge9WkqLOFujefPPMEnVOR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-04_09,2024-06-04_01,2024-05-17_01
 
-Flow filter rules depend on the flow filter group resource object.
-The device can have one or more flow filter groups. Each flow filter
-group has its own order. The group order defines the packet
-processing order in the flow filter domain.
+> -----Original Message-----
+> From: Parav Pandit <parav@nvidia.com>
+> Sent: Tuesday, June 4, 2024 6:29 AM
+> To: virtio-comment@lists.linux.dev; mst@redhat.com; cohuck@redhat.com
+> Cc: hengqi@linux.alibaba.com; Satananda Burla <sburla@marvell.com>;
+> shahafs@nvidia.com; si-wei.liu@oracle.com; peter.hilber@opensynergy.com;
+> jasowang@redhat.com; xuanzhuo@linux.alibaba.com; Parav Pandit
+> <parav@nvidia.com>
+> Subject: [EXTERNAL] [PATCH v11 00/13] flow filter using basic facilities
+> of capability and resource objects
+>=20
+> Prioritize security for external emails: Confirm sender and content
+> safety before clicking links or opening attachments
+>=20
+> ----------------------------------------------------------------------
+> Summary:
+> =3D=3D=3D=3D=3D=3D=3D=3D
+> This series improves virtio net receive packet steering to
+> direct packets to a specific RQ.
+>=20
+> This basic functionality will enable Linux ethtool steering,
+> and accelerated receive flow steering (ARFS) as a starting point,
+> and more use cases in future.
+>=20
+> It is using new virtio basic facilities of capability and
+> resource objects described later in this cover letter.
+>=20
+> Those interested only in the capability and resource object facilities
+> can jump in the cover leter to "Overview of capability and resource
+> objects".
+>=20
+> Net device problem statement:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+> Currently packet allow/drop interface has few limitations.
+>=20
+> 1. Driver cannot add or delete an individual entry for mac and vlan.
+> 2. Driver cannot select mac+vlan combination for which
+>    to allow/drop packet.
+> 3. Driver cannot not use other commonly used packet match fields
+>    such as IP header fields, TCP, UDP, SCP header fields to direct a
+> packet.
+> 4. Driver cannot direct specific packets based on the match
+>    fields to specific receiveq.
+> 5. Driver do not have multiple or dedicated virtqueues to
+>    perform flow filter requests in accelerated manner in
+>    the device.
+>=20
+> Solution:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+> Flow filter as a generic framework to overcome above limitations.
+>=20
+> Overview:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+> A flow filter defines the flow based on one or more match fields of the
+> packet, defines an action like drop/direct to RQ.
+>=20
+> The flow filters are organized in flow filter groups so that their
+> processing can be prioritized when multiple applications wants to use
+> it.
+> For example, user supplied flow filter rules to take precedence over
+> kernel stack created rules.
+>=20
+> Many a time large number of flow filter rules have selection mask.
+> This is facilitated by a flow filter classifier which defines the packet
+> selector fields using a mask; a flow rule depends on the flow filter.
+>=20
+> Flow filters are handled as resource objects using administration
+> commands.
+> Flow filters current usage is in-between of control path and data path.
+> i.e.
+> a. ethtool will operate at few hundred cmds/sec.
+> b. ARFS at few thousands cmds/sec.
+> c. In future ARFS and connection tracking(CT) may do few millions/sec.
+>=20
+> For b and c in future, few options are present.
+> 1. Dedicated flow filter rules management to a specific AQ so that it
+> can
+>    be accelerated by fast path. This can be possibly done using group
+> level
+>    or AQ level service class or both
+> 2. Define different admin command format for fast path
+> 3. Special type of new virtqueue for CT driven requests
+>=20
+> While a general BPF offload might be a superset of this functionality
+> and
+> might be desirable, it does not look feasible, in particular, from
+> discussions
+> with multiple hardware vendors it is clear that hardware will not have
+> such
+> capability in short to medium term.
+>=20
+> Fixes: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-
+> 3A__github.com_oasis-2Dtcs_virtio-
+> 2Dspec_issues_179&d=3DDwIDAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DNHDPsfcAYlN2z=
+-
+> NXHHG4WB09qqS0voo_nf6_kGS625A&m=3DGj1in7ZCbX1gs76rVBdr3f0K9GwIPTDRuLgZxgC=
+f
+> irV2iCVbv92rM0J-
+> G8qxrI3j&s=3Dv66iK_00WpoV9ezR_V4SYUmL4lWsukiLoaj0Jghe3cs&e=3D
+>=20
+> Overview of capability and resource objects:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> Config space has few advantages as below.
+> 1. extendible
+> 2. common way for each device to keep expanding it
+> 3. provisioning to supply offset, value to set fields
+>=20
+> However, the combination of feature bits + common config space +
+> device config space + cvq creates four different communication
+> channel between driver and device, each with a varied degree of
+> limitations and complexities listed below.
+>=20
+> 1. Feature bits cannot be modified at later stage in the driver.
+> 2. Feature bits are boolean; it cannot communicate amount of resources
+> and
+>    configuration details. For this yet another config space or cvq is
+> needed.
+> 3. Making configuration space writable and also synchronizing it with
+> device
+>    operation is very hard.
+> 4. Modifying and controlling the device operation using cvq largely
+> works but
+>    limited to specific device type and requires per device type cvq.
+> 5. To provision features, resources from the owner device, one
+>    still needs new admin commands.
+> 6. It is hard to maintain and access variable length array in config
+> space.
+>    We have to add the fields at the tail, this means if we start with
+>    foo1
+>    bar1
+>    later, to add foo2 it becomes
+>    foo1
+>    bar1
+>    foo2
+>    We end up with structure with mix of unrelated fields spoiling the
+>    readability/aestethics/maintainability.
+> 7. Any writeable config space is a problem; for example very
+>    inefficient on pci as you have to read after write. It also
+>    lacks atomicity across multiple fields. So to avoid writable
+>    config space, and to use VQ, things spread around read_only
+>    config space and VQ for read-write fields, creating more mess.
+> 8. It is not uncommon to have some driver resource and number
+>    of resources would normally be in config space. But to write them
+>    to use VQ, and without proper resource definition it leads to
+> overflow
+>    for example, the overflow we experience with mac table.
+> 9. Extending config space and having it accessible even before
+> negotiating
+>    features when the device does not know if it will be used or not
+> makes it
+>    hard to build the devices.
+>=20
+> Above limitations are overcome using new basic facilities as:
+> a. capability
+> b. resource objects
+>=20
+> Capability and resource objects are an evolution of the (a) feature
+> bits,
+> (b, c) common and device configuration space and (d) controlvq
+> mechanism; this new
+> basic facilities are intended for managing a large number of diverse
+> functionality in a uniform and extensible manner.
+>=20
+> a. Capability:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> (1) It consists of device and driver resource limits.
+> (2) It can be modified anytime using admin command.
+> (3) Owner and member follows same format to get/set using a selector;
+>     simplifying the provisioning and migration.
+> (4) Accessing capability via the command interface makes it friendly to
+>     both software and hardware based devices; possibly to operate even
+>     without admin vq.
+>=20
+> b. Resource objects:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> (1) Define device controls in a unified way instead of ad-hoc cvq
+> commands.
+> (2) Can create diverse type of resources dynamically.
+> (3) Ability to define common and device specific resources.
+>=20
+> This series defines flow filter related capability.
+> This series defines three resource objects as flow filter group,
+> classifier and rule
+> to implement receive packet directing facility.
+>=20
+> Limitations/Disadvantages:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+> 1. Device side configuration change notifications are not covered in
+> capability and resource objects yet as both controls are driven by the
+> driver;
+> however in future we should be able to add it to query the changes.
+> In an alternative when notifications are frequent or multiple
+> outstanding,
+> it is better to come up with generic eventq or notificationq like how
+> it is needed for alarm feature of RTC in [1], though RTC may proceed
+> in short term with its own queue for other reasons.
+>=20
+> 2. It can be used only after DRIVER_OK phase at present, but when needed
+> it can be extended to have admin command interface to be accessible
+> after FEATURE_OK and before DRIVER_OK.
+> So presently capability cannot affect features, but any attempt will
+> probably run in some corner case.
+>=20
+> 3. It is more plumbing than config space and cvq; however it is one time
+> generic work that paves the road for mulitiple device types to use in
+> common manner, reuse for provisioning and migration. This series itself
+> uses common framework for 3 control operations of group, classifier
+> and rule.
+>=20
+> 4. Current series is unable to provision the device, but a new
+> command such as VIRTIO_ADMIN_CMD_DEV_CAP_SET utilizing all the
+> structures,
+> infrastructure can be done in future.
+>=20
+> Future uses of resource objects:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> 1. Dynamically create VQs much after DRIVER_OK phase with multiple
+> attributes such as multiple page addresses, header data split queues
+> for net, with PASID, inline header size.
+>=20
+> 2. Create dynamic counter resources for specific usage
+>=20
+> 3. RSS context creation
+>=20
+> 4. net device with timestamping capability
+>=20
+> 5. RDMA device resources
+>=20
+> 6. May be more.
+>=20
+> Patch summary:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> Patches 1 to 7 cover capabilities and resources.
+>=20
+> patch-1 adds self group for admin commands
+> patch-2 make legacy spec section name better to follow this series
+> patch-3 adds theory of operation for capabilities
+> patch-4 make table readable across multiple pages
+> patch-5 adds capabilities admin commands
+> patch-6 adds theory of operation for resource objects
+> patch-7 adds resources admin commands
+>=20
+> Patches 8 to 11 uses capabilities and resources to introduce flow
+> filters.
+>=20
+> patch-8 adds theory of operation for flow filter
+> patch-9 adds device capability
+> patch-10 adds flow filter group, classifier and rule resource objects
+> patch-11 adds flow filter device and driver requirements
+>=20
+> patch-12 clarifies the newdevice section
+> patch-13 describes the use of capability and resource extension
+>=20
+> Please review.
+>=20
+> This series is on top of branch 1.4 with patch [2] cherrypicked from
+> master branch.
+>=20
+> [1] https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lists.oasis-
+> 2Dopen.org_archives_virtio-
+> 2Dcomment_202312_msg00110.html&d=3DDwIDAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3D=
+NHDPs
+> fcAYlN2z-
+> NXHHG4WB09qqS0voo_nf6_kGS625A&m=3DGj1in7ZCbX1gs76rVBdr3f0K9GwIPTDRuLgZxgC=
+f
+> irV2iCVbv92rM0J-G8qxrI3j&s=3DltV_2-
+> SVkcPmABK4gaIO6q7X1ohLEFbDmzH7r0a3gGE&e=3D
+> [2] https://urldefense.proofpoint.com/v2/url?u=3Dhttps-
+> 3A__lore.kernel.org_virtio-
+> 2Dcomment_te6tzbegqky7uz4skrag3yowet3phtq6nn7tegyrillgb4juwn-
+> 40m4gi5ohfuk7m_T_-
+> 23m25e8e7bfd2e4d9e2fc42ab36750715a272b419bb&d=3DDwIDAg&c=3DnKjWec2b6R0mOy=
+Paz
+> 7xtfQ&r=3DNHDPsfcAYlN2z-
+> NXHHG4WB09qqS0voo_nf6_kGS625A&m=3DGj1in7ZCbX1gs76rVBdr3f0K9GwIPTDRuLgZxgC=
+f
+> irV2iCVbv92rM0J-
+> G8qxrI3j&s=3DYWVkb830i_2sqHWh2asiBtdpUbQkTT1aiJly4Yvg4C8&e=3D
+>=20
+> Changelog:
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> v10->v11:
+> - fixes comments from Satananda
+> - improved driver normative for two resource objects with same ID
+> - fixed the field name to not have 'per_group' in it as it
+>   applies to all flow rules
+> v9->v10:
+> - rephrase the self group description
+> - removed duplicate description sentence in self group
+> - replaced 'functionalities' to 'functionality'
+> - added missing article 'the'
+> - inserted patch for legacy commands to follow new commands format style
+> - replaced capabilities to capability
+> - rephrase for listing for device type specific capabilities
+> - rephrase the first para description of capabilities
+> - removed white space at end of line
+> - squashed the dedicated patch of status codes with the usage patch
+> - renamed read/write caps to device_get_cap/driver_set_cap
+> - restrict get and set command to only self group
+> - supported_caps renamed to cap_id query
+> - removed length from the get/set/query commands as it can be derived
+> from buffer
+> - renamed cid to id as its part of the cap command structure
+> - grammar corrections with article and others
+> - renamed rid to just id as it is part of the resource related structs
+> - removed length field from the commands as it can be derived
+> - rephrase for group_member_id
+> - squashed the patch that added the error codes
+> - removed num_types field
+> - used singular capability
+> - updated example to have rtc for net device
+> - introduced mask object that improves the flow rule efficiency and
+>   removed fields_bmap per field type bitmap
+>=20
+> v8->v9:
+> - changed command name from read_data/read_result to
+> query_data/query_result
+>   to match the opcode name and description
+> - added fields_bmap bitmap to support future support of optional fields
+>   in the resources without inventing new set of commands, for example
+>   multiple pages in the VQ, PASID in VQ, flow counter id in flow filter
+> rule
+>   etc.
+> - fixed spelling from 'destroyd' to 'destroyed'
+> - fixed 'upto' to 'up to'
+> v7->v8:
+> - updated commit messages
+> - updated newdevice.tex for more Q&A around capabilities, resources,
+>   administration queues
+> - updated resource text as non data path operations
+> v6->v7:
+> - fixed plenty of grammar suggestions from Cornelia
+> - introduced device/driver capabilities and device resources generic
+> framework
+> - rebased flow filter to use capabilities and resources
+> v5->v6:
+> - pick next unique bit 65 as to avoid conflict with rss context feature
+> - fixed missing conformance links
+> - removed white spaces at end of line
+> v3->v5:
+> - removed left over dependencies of flow filter virtqueues
+> - removed partial sentence
+> v2->v3:
+> - removed dependency on dynamic queue infrastucture which is
+>   not yet ready
+> v1->v2:
+> - addressed comments from Satananda
+> - squashed with match fields definition patch of v1
+> - added length to the flexible array definition struct to benefit
+>   from future runtime length bound checkers listed in
+>   https://urldefense.proofpoint.com/v2/url?u=3Dhttps-
+> 3A__people.kernel.org_kees_bounded-2Dflexible-2Darrays-2Din-
+> 2Dc&d=3DDwIDAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DNHDPsfcAYlN2z-
+> NXHHG4WB09qqS0voo_nf6_kGS625A&m=3DGj1in7ZCbX1gs76rVBdr3f0K9GwIPTDRuLgZxgC=
+f
+> irV2iCVbv92rM0J-
+> G8qxrI3j&s=3DKeh0MQpI4WCrc9erzTza0ajxx5lENMEfITacf3dc66Y&e=3D
+> - renamed value to key
+> - addressed comments from Satananda
+> - merged destination and action to one struct
+> - added vlan type match field
+> - kept space for types between l2, l3, l4 header match types
+> - renamed mask to mask_supported with shorter width
+> - made more fields reserved for future
+> - addressed comments from Heng
+> - grammar correction
+> - added field to indicate supported number of actions per flow
+>   filter match entry
+> - added missing documentation for max_flow_priorities_per_group
+> - fixed comments from Heng
+> - grammar corrections
+> - spelling corrections
+> - fixed spelling from initializaton to initialization
+> - added more requirements for multiple actions
+>=20
+> v0->v1:
+> - addressed comments from Satananda
+> - added device requirement to return non zero value in fields_bmap
+> - added device requirement to not repeat filter type in response
+> - added driver requirement to order filter match field as it
+>   appears in the packet
+> - added device requirement to fail group delete command on existing
+>   flow entries
+> - added mask field in the type to indicate supported mask by device
+>   and also in later patch to use it to indicate mask on adding
+>   flow filter. As a result removed the mask_supported capability
+>   field
+>=20
+> Parav Pandit (13):
+>   admin: Introduce self group
+>   admin: Use already defined names for the legacy commands
+>   admin: Add theory of operation for capability admin commands
+>   admin: Prepare table for multipage listing
+>   admin: Add capability admin commands
+>   admin: Add theory of operation for device resource objects
+>   admin: Add device resource objects admin commands
+>   virtio-net: Add theory of operation for flow filter
+>   virtio-net: Add flow filter capability
+>   virtio-net: Add flow filter group, classifier and rule resource
+>     objects
+>   virtio-net: Add flow filter device and driver requirements
+>   newdevice: Improve the appendix chapter heading to reflect the content
+>   newdevice: Extend informative guidance on capability, resource objects
+>=20
+>  admin-cmds-capabilities.tex             | 233 +++++++++
+>  admin-cmds-legacy-interface.tex         |  24 +-
+>  admin-cmds-resource-objects.tex         | 268 +++++++++++
+>  admin.tex                               |  51 +-
+>  conformance.tex                         |   4 +
+>  device-types/net/description.tex        | 609 ++++++++++++++++++++++++
+>  device-types/net/device-conformance.tex |   1 +
+>  device-types/net/driver-conformance.tex |   1 +
+>  introduction.tex                        |  21 +
+>  newdevice.tex                           |  37 +-
+>  virtio.tex                              |   2 +
+>  11 files changed, 1222 insertions(+), 29 deletions(-)
+>  create mode 100644 admin-cmds-capabilities.tex
+>  create mode 100644 admin-cmds-resource-objects.tex
+For the series:
+Acked-by: Satananda Burla <sburla@marvell.com>
 
-Define flow filter classifier object which consists of one
-or multiple types of packet header fields to consider
-for matching. A mask can match on partial field or whole
-field if the device supports partial masking for a given
-mask type.
-
-Define flow filter rule resource which consists of
-match key, reference to group and mask objects and
-an action.
-
-Currently it covers the most common filter types and value
-of Ethernet header, IPV4 and IPV6 headers and TCP and UDP headers.
-
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/179
-Signed-off-by: Parav Pandit <parav@nvidia.com>
-Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
----
-changelog:
-v9->v10:
-- rephrase from 'resource' to 'resource object'
-- renamed and rephrase 'forward' to 'direct'
-- skipped dest_ prefix from the action
-- removed union and kept the reserved1 for future extension
-- added text for reserved and reserved1 future extension for example for switch port
-  or next rule object id or some other object
-- simplified structures for single key and single action
-- flow rule to refer to the flow filter mask resource object
-- removed specific type and key specific fields
-v6->v7:
-- plenty of grammar corrections suggested by Cornelia
-- adapt to generic device resource framework
-- addressed comments from Cornelia
-- reworded the description for group delete command
-- rebased the series on top of generic resource framework
-v2->v3:
-- removed references to flow filter virtqueues
-- removed one partial sentence
-- added text for delete request
-- aligned request and opcode values to just say request in the defines
-v1->v2:
-- squashed with match fields definition patch of v1
-- added length to the flexible array definition struct to benefit
-  from future runtime length bound checkers listed in
-  https://people.kernel.org/kees/bounded-flexible-arrays-in-c
-- renamed value to key
-- addressed comments from Satananda
-- merged destination and action to one struct
-v0->v1:
-- reworded add flow request text to consider optional mask
-- replaced respond with set
-- added mask flag to the type
----
- device-types/net/description.tex | 173 +++++++++++++++++++++++++++++++
- introduction.tex                 |   8 ++
- 2 files changed, 181 insertions(+)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index a299c32..4084bfb 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -417,6 +417,22 @@ \subsection{Device and driver capabilities}\label{sec:Device Types / Network Dev
- \hline
- \end{tabularx}
- 
-+\subsection{Device resource objects}\label{sec:Device Types / Network Device / Device resource objects}
-+
-+The network device has the following resource objects.
-+
-+\begin{tabularx}{\textwidth}{ |l||l|X| }
-+\hline
-+type & Name & Description \\
-+\hline \hline
-+0x0200 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_GROUP]{VIRTIO_NET_RESOURCE_OBJ_FF_GROUP} & Flow filter group resource object \\
-+\hline
-+0x0201 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER]{VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER} & Flow filter mask object \\
-+\hline
-+0x0202 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_RULE]{VIRTIO_NET_RESOURCE_OBJ_FF_RULE} & Flow filter rule object \\
-+\hline
-+\end{tabularx}
-+
- \subsection{Device Operation}\label{sec:Device Types / Network Device / Device Operation}
- 
- Packets are transmitted by placing them in the
-@@ -2673,6 +2689,163 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
- \end{tabularx}
- \end{table}
- 
-+\paragraph{Resource objects}
-+\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects}
-+
-+\subparagraph{VIRTIO_NET_RESOURCE_OBJ_FF_GROUP}\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_GROUP}
-+
-+A flow filter group contains between 0 and \field{rules_limit} rules, as specified by the
-+capability VIRTIO_NET_FF_RESOURCE_CAP. For the flow filter group object both
-+\field{resource_obj_specific_data} and
-+\field{resource_obj_specific_result} are in the format
-+\field{struct virtio_net_resource_obj_ff_group}.
-+
-+\begin{lstlisting}
-+struct virtio_net_resource_obj_ff_group {
-+        le16 group_priority;
-+};
-+\end{lstlisting}
-+
-+\field{group_priority} specifies the priority for the group. Each group has a
-+distinct priority. For each incoming packet, the device tries to apply rules
-+from groups from higher \field{group_priority} value to lower, until either a
-+rule matches the packet or all groups have been tried.
-+
-+\subparagraph{VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER}\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER}
-+
-+A classifier is used to match a flow filter key against a packet. The
-+classifier defines the desired packet fields to match, and is represented by
-+the VIRTIO_NET_RESOURCE_OBJ_FF_CLASSIFIER device resource object.
-+
-+For the flow filter classifier object both \field{resource_obj_specific_data} and
-+\field{resource_obj_specific_result} are in the format
-+\field{struct virtio_net_resource_obj_ff_classifier}.
-+
-+\begin{lstlisting}
-+struct virtio_net_resource_obj_ff_classifier {
-+        u8 count;
-+        u8 reserved[7];
-+        struct virtio_net_ff_selector selectors[];
-+};
-+\end{lstlisting}
-+
-+A classifier is an array of \field{selectors}. The number of selectors in the
-+array is indicated by \field{count}. The selector has a type that specifies
-+the header fields to be matched against, and a mask.
-+See \ref{lst:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP / virtio_net_ff_selector}
-+for details about selectors.
-+
-+The first selector is always VIRTIO_NET_FF_MASK_TYPE_ETH. When there are multiple
-+selectors, a second selector can be either VIRTIO_NET_FF_MASK_TYPE_IPV4
-+or VIRTIO_NET_FF_MASK_TYPE_IPV6. If the third selector exists, the third
-+selector can be either VIRTIO_NET_FF_MASK_TYPE_UDP or VIRTIO_NET_FF_MASK_TYPE_TCP.
-+For example, to match a Ethernet IPv6 UDP packet,
-+\field{selectors[0].type} is set to VIRTIO_NET_FF_MASK_TYPE_ETH, \field{selectors[1].type}
-+is set to VIRTIO_NET_FF_MASK_TYPE_IPV6 and \field{selectors[2].type} is
-+set to VIRTIO_NET_FF_MASK_TYPE_UDP; accordingly, \field{selectors[0].mask[0-13]} is
-+for Ethernet header fields, \field{selectors[1].mask[0-39]} is set for IPV6 header
-+and \field{selectors[2].mask[0-7]} is set for UDP header.
-+
-+When there are multiple selectors, the type of the (N+1)\textsuperscript{th} selector
-+affects the mask of the (N)\textsuperscript{th} selector. If
-+\field{count} is 2 or more, all the mask bits within \field{selectors[0]}
-+corresponding to \field{EtherType} of an Ethernet header are set.
-+
-+If \field{count} is more than 2:
-+\begin{itemize}
-+\item if \field{selector[1].type} is, VIRTIO_NET_FF_MASK_TYPE_IPV4, then, all the mask bits within
-+\field{selector[1]} for \field{Protocol} is set.
-+\item if \field{selector[1].type} is, VIRTIO_NET_FF_MASK_TYPE_IPV6, then, all the mask bits within
-+\field{selector[1]} for \field{Next Header} is set.
-+\end{itemize}
-+
-+If for a given packet header field, a subset of bits of a field is to be matched,
-+and if the partial mask is supported, the flow filter
-+mask object can specify a mask which has fewer bits set than the packet header
-+field size. For example, a partial mask for the Ethernet header source mac
-+address can be of 1-bit for multicast detection instead of 48-bits.
-+
-+\subparagraph{VIRTIO_NET_RESOURCE_OBJ_FF_RULE}\label{par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO_NET_RESOURCE_OBJ_FF_RULE}
-+
-+Each flow filter rule resource object comprises a key, a priority, and an action.
-+For the flow filter rule object,
-+\field{resource_obj_specific_data} and
-+\field{resource_obj_specific_result} are in the format
-+\field{struct virtio_net_resource_obj_ff_rule}.
-+
-+\begin{lstlisting}
-+struct virtio_net_resource_obj_ff_rule {
-+        le32 group_id;
-+        le32 classifier_id;
-+        u8 rule_priority;
-+        u8 key_length; /* length of key in bytes */
-+        u8 action;
-+        u8 reserved;
-+        le16 vq_index;
-+        u8 reserved1[2];
-+        u8 keys[][];
-+};
-+\end{lstlisting}
-+
-+\field{group_id} is the resource object ID of the flow filter group to which
-+this rule belongs. \field{classifier_id} is the resource object ID of the
-+classifier used to match a packet against the \field{key}.
-+
-+\field{rule_priority} denotes the priority of the rule within the group
-+specified by the \field{group_id}.
-+Rules within the group are applied from the highest to the lowest priority
-+until a rule matches the packet and an
-+action is taken. Rules with the same priority can be applied in any order.
-+
-+\field{reserved} and \field{reserved1} are reserved and set to 0.
-+
-+\field{keys[][]} is an array of keys to match against packets, using
-+the classifier specified by \field{classifier_id}. Each entry (key) comprises
-+a byte array, and they are located one immediately after another.
-+The size (number of entries) of the array is exactly the same as that of
-+\field{selectors} in the classifier, or in other words, \field{count}
-+in the classifier.
-+
-+\field{key_length} specifies the total length of \field{keys} in bytes.
-+In other words, it equals the sum total of \field{length} of all
-+selectors in \field{selectors} in the classifier specified by
-+\field{classifier_id}.
-+
-+For example, if a classifier object's \field{selectors[0].type} is
-+VIRTIO_NET_FF_MASK_TYPE_ETH and \field{selectors[1].type} is
-+VIRTIO_NET_FF_MASK_TYPE_IPV6,
-+then selectors[0].length is 14 and selectors[1].length is 40.
-+Accordingly, the \field{key_length} is set to 54.
-+This setting indicates that the \field{key} array's length is 54 bytes
-+comprising a first byte array of 14 bytes for the
-+Ethernet MAC header in bytes 0-13, immediately followed by 40 bytes for the
-+IPv6 header in bytes 14-53.
-+
-+When there are multiple selectors in the classifier object, the key bytes
-+for (N)\textsuperscript{th} selector are set so that
-+(N+1)\textsuperscript{th} selector can be matched.
-+
-+If \field{count} is 2 or more, key bytes of \field{EtherType}
-+are set according to \hyperref[intro:IEEE 802 Ethertypes]{IEEE 802 Ethertypes}
-+for VIRTIO_NET_FF_MASK_TYPE_IPV4 or VIRTIO_NET_FF_MASK_TYPE_IPV6 respectively.
-+
-+If \field{count} is more than 2, when \field{selector[1].type} is
-+VIRTIO_NET_FF_MASK_TYPE_IPV4 or VIRTIO_NET_FF_MASK_TYPE_IPV6, key
-+bytes of \field{Protocol} or \field{Next Header} is set as per
-+\field{Protocol Numbers} defined \hyperref[intro:IANA Protocol Numbers]{IANA Protocol Numbers}
-+respectively.
-+
-+\field{action} is the action to take when a packet matches the
-+\field{key} using the \field{classifier_id}. Supported actions are described in
-+\ref{table:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO_NET_FF_ACTION_CAP / flow filter rule actions}.
-+
-+\field{vq_index} specifies a receive virtqueue. When the \field{action} is set
-+to VIRTIO_NET_FF_ACTION_DIRECT_RX_VQ, and the packet matches the \field{key},
-+the matching packet is directed to this virtqueue.
-+
-+Note that at most one action is ever taken for a given packet. If a rule is
-+applied and an action is taken, the action of other rules is not taken.
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
- 
-diff --git a/introduction.tex b/introduction.tex
-index 0d84927..9c57af8 100644
---- a/introduction.tex
-+++ b/introduction.tex
-@@ -63,6 +63,14 @@ \section{Normative References}\label{sec:Normative References}
- 	IEEE Standard for Ethernet,
- 	\newline\url{https://doi.org/10.1109/IEEESTD.2022.9844436},
- 	IEEE 802.3-2022\\
-+	\phantomsection\label{intro:IEEE 802 Ethertypes}\textbf{[IEEE 802 Ethertypes]} &
-+	IEEE 802 Ethertypes,
-+	\newline\url{https://www.iana.org/assignments/ieee-802-numbers/ieee-802-numbers.xhtml},
-+	IANA\\
-+	\phantomsection\label{intro:IANA Protocol Numbers}\textbf{[IANA Protocol Numbers]} &
-+	IANA Protocol Numbers,
-+	\newline\url{https://www.iana.org/assignments/protocol-numbers},
-+	IANA\\
- 	\phantomsection\label{intro:SAM}\textbf{[SAM]} &
-         SCSI Architectural Model,
-         \newline\url{http://www.t10.org/cgi-bin/ac.pl?t=f&f=sam4r05.pdf}\\
--- 
-2.34.1
+Regards
+Satananda
 
