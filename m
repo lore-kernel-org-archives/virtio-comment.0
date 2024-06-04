@@ -1,45 +1,45 @@
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871548C1D
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 04:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.237.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA84B6FC3
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 04:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717474734; cv=fail; b=nqdZ9X1IC4dzHtEL0hub1loHmE7bLDOjF3Hf2pZnwf8hnMWyByJNCAEA9uQNamKszqqUOnNMZGNUtNcbmzdkCCeQ7K5JfqdRcwNdqd/cXwAWeBSoZ3jniGR4RQ+2bnznipHdVTXrmkmIEW9ibgDvD636mZ1/eARyi35Hu64FYDA=
+	t=1717475368; cv=fail; b=OB8vYw4LCOVp5hGMFNRYepN0CEn/BOQzzPECuSBNh95L/9mO98YpyOLCOBuKwvvD36E4Pw4uHLkiQWouKJ9kQJvPOa/Jo3jJLUNaStYrjBa3vlu9YtawpwE2DopxUNf6JONuu1OqIyXZj4+VMQqheDFQ6Gk5ynNJR5xHb71eI+k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717474734; c=relaxed/simple;
-	bh=IiYqsvXkP0+KxBsgsYXQKZUQop/r4AgY0FCH/dzQnI4=;
+	s=arc-20240116; t=1717475368; c=relaxed/simple;
+	bh=lBCH3m9vCZgHd0jSWwAPcHgrYb4GaXSljHBfH4b4QZA=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pE0lhSs1FuUUVQBadtdwwb+l2KaXrtDd9GZNeRIYPm6mtp6/HpiNvPFAtEfkLA9E6ZtTo1XGR7GpA+HRAcfruVkw9CBDcXLE1KThyinXLvjNr0+uP9XxYb8KvlC2zOSd6Mg2/iAAI4G/Wy9FZHrxTyqBACgiWyfQpWJGwOPD48k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Tb77pkoi; arc=fail smtp.client-ip=40.107.237.55
+	 Content-Type:MIME-Version; b=jatgLrbYdiZlj2WuIGg6OX7g8Mfx0OfJxd5E4ULeD+6UDeiFq95WcHmP8h3eR1EyNVaLoL0QrTDZ3r/JXeb+LUrlwny5LGRh1Gu7cUwYxeZAMpZ0QqXIKyEfLl9Su4lqmYtZldn3f3Ia3biS2rieDxyLsGSageNSk5dsAk4EpGo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cmbzOhoz; arc=fail smtp.client-ip=40.107.223.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Tb77pkoi"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cmbzOhoz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bn2x+VKzDuVF1H8e5BxuOCXcSA09RoJcS9VmCxPEmG/+gyzy+4W8/55mDjNf0qy7JO/CsnOB9/cDAqUjXTD7OgQ+BUn1+ZBdgFFjr8phNvP3ghHfYTTg8tO2aM9H6rkFLx8XuDWZMWYfO8/SQEwO5vi0QW+HyG+aetzNtnN7HhegcGHcO9n4uzs/1upnzj7pCMinHmI3UAEdhAytvdEwCQS3+gex/hyIVSSEbRp2qEHfbJ1MU/H0rWAtbJZ2E5iIdeFQjRBRQjkj3wgdZYmF1qJrbVcnD6KyKdzdxrdcVgAtcnU3oxzKrWmh6YZcdnYeA6/wmrI3GngdPR5sAJt+yQ==
+ b=eVR+0Tqf4EpwV8Jeu3Zjhnn43npa0/ffTIVm7tpIX8KBzOMWo4NwOkkHhiHaDYYffrSmVteR00Iz8KI59JyqMgk75gk8cuH0Fg1MEuK3CXbCo03b+9jo6DCI+8yJ8yNkHg3P4lob78/pCKJbgaZ4TOqLUG5q0KBDIzg1djXDWzvWdoAHDO4nJ4FQxP/FGqLPejtk6FF0o32iB27ZZh5jW3paM4AS0QwyqSVZP5f9r4J8JN+wFAUpzer2ol2bFAd68/v6ei/7RHcXdAKtlt6eOhdRDhebZh/3HxPKBkP+ppNto0TSVFC2emZCOnT0CdVHLZoR+kOnxEvDRvH7xeKIog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IiYqsvXkP0+KxBsgsYXQKZUQop/r4AgY0FCH/dzQnI4=;
- b=TyWMDtKEs+ilrHeT4ey97GNJUkpXr3KMzqsalUDO+jpFfmK0iKqn4sbl4CTxtZOMmnWDySu5zHvST7BV8eeMFlbfm4JW1geEn3wcrb0blFaHkrYNEe6tupUzE4KAUBHVqqudYdvXERevbjs3/g9FiblrxDIlqaXg5InpeeKtByDi65nBgPscTf3aAOtoibAsY81Pi6Y8u7CkHnNlM2zeWDVf7uQ7G/xTWFJ/rWY5auJHmdyRDpyMy/ETwmkD1/z7MbAvdLqQJ7w7DAh0XFkUX+pLVXbHoOIMu1tUkMuqc2dUyX5D9JE+dNpYmwmWzEtidsMJwkRzY/Vlvd5r22jqSA==
+ bh=Yvq01vcRavAr9k3hmIThoZTtntxYyfBZDIEZLVK1Pm0=;
+ b=IVxQPO3qsI+m9Dg/0IRJB813ahh047PFl4J3c3WYXxAzj9h59Vp4gEy7A3jE7kCpyHsnpgT3Vx+Qk1+YhLkMN2kIdLsawrEHlpMO3lbbA+wMxatanUAE2AHwcmOxq/h7nwOqHX0jfXzVkg7MPw+o9gxoj0CYiy/vjzGV4Kd8N1CDB4N9YkhKauDx1isCOyk3bSpyYxh45qbQ2DX4VXvvnz7CBzclzrY4RU3TrofrESHiL4E6FGJOMmiSBPN3MnHdMoymZHJH0Qa9NNYdP0iA6PZsgRyu7xdFNG8QmCIefxJOz+ddlaOK9Gn4QW7lVWuVufnyGWu8YwAaXECKg6jrGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IiYqsvXkP0+KxBsgsYXQKZUQop/r4AgY0FCH/dzQnI4=;
- b=Tb77pkoi/x5Dfpgw8MQldR15xMI0Pn2QAn+iSd1Eme8bKPC3+PiGFC2Sj/uaOP/d3Ojt4L2Ze7SbsRzFrWP8Z0qpwV0MlPyxc5AxBHB2oVHKsAb1xtPMjq3YTD1kBAmajFqhEHLQ9NTSfbpY2/11KV21aG4dUqFsvPIpM2hlEVaR5W+pG0zOWQouuKlZnaBso5poGgPSRMPFKIwWDCbs17IQlYqMhyd/7KO/PFO95AzJJ6BWA3azEFOz1+A97bzlef5BlzjAHjpXC8c5Tnz+QwxUsLYoKFg3ESS23ZRqSqfAGIInAwgPaSHCMS+/coPBgDhnv09tBExITVYhK/jOPA==
+ bh=Yvq01vcRavAr9k3hmIThoZTtntxYyfBZDIEZLVK1Pm0=;
+ b=cmbzOhozr4o4EexMkJ0PLgqjXpysHVKNAdar32EaEGagNrCS9Li049KwjscbHK/6SO2Lia7V5fZ2gFnV3jktPAZfLctKuTnfBorXWQZU6JeeTJcOxtImf3ux9flNwHTv64n7tAuQYME3+dWcskUkPL2qJjbtkXxIUCJEDiBtfEy5vh70AF7Vl/aQ9QIFZCRTzeQfFvqyY7zDVyZRagmcrYlk1SIOFElOFsUz18LpXGNdX7CL1+Lb36Oir2zBpC1SkPZyapbFw3pTXwji7yzHaK6QL+nl0sMTQGVzVLAjS24AEup444R81HCbWYfdy9Ep11ToUpz8V3eFvvlaRLQH7Q==
 Received: from PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15)
- by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17) with
+ by CH2PR12MB4248.namprd12.prod.outlook.com (2603:10b6:610:7a::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.30; Tue, 4 Jun
- 2024 04:18:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.26; Tue, 4 Jun
+ 2024 04:29:22 +0000
 Received: from PH0PR12MB5481.namprd12.prod.outlook.com
  ([fe80::361d:c9dd:4cf:7ffd]) by PH0PR12MB5481.namprd12.prod.outlook.com
  ([fe80::361d:c9dd:4cf:7ffd%3]) with mapi id 15.20.7633.021; Tue, 4 Jun 2024
- 04:18:42 +0000
+ 04:29:22 +0000
 From: Parav Pandit <parav@nvidia.com>
 To: Satananda Burla <sburla@marvell.com>, "virtio-comment@lists.linux.dev"
 	<virtio-comment@lists.linux.dev>, "mst@redhat.com" <mst@redhat.com>,
@@ -49,19 +49,19 @@ CC: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>, Shahaf Shuler
 	"peter.hilber@opensynergy.com" <peter.hilber@opensynergy.com>,
 	"jasowang@redhat.com" <jasowang@redhat.com>, "xuanzhuo@linux.alibaba.com"
 	<xuanzhuo@linux.alibaba.com>
-Subject: RE: [EXTERNAL] [PATCH v10 10/13] virtio-net: Add flow filter group,
- classifier and rule resource objects
-Thread-Topic: [EXTERNAL] [PATCH v10 10/13] virtio-net: Add flow filter group,
- classifier and rule resource objects
-Thread-Index: AQHaq3q+LlUgyicIo0qc/hxXVgDbmLG20IMAgABEu2A=
-Date: Tue, 4 Jun 2024 04:18:42 +0000
+Subject: RE: [EXTERNAL] [PATCH v10 07/13] admin: Add device resource objects
+ admin commands
+Thread-Topic: [EXTERNAL] [PATCH v10 07/13] admin: Add device resource objects
+ admin commands
+Thread-Index: AQHaq3q0Gsnp+nPJnUOhT0EMa0vfXrG20ImAgABF6bA=
+Date: Tue, 4 Jun 2024 04:29:22 +0000
 Message-ID:
- <PH0PR12MB5481F82A4C9F306F45B3E3E8DCF82@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <PH0PR12MB5481063D81836C1B063AB41ADCF82@PH0PR12MB5481.namprd12.prod.outlook.com>
 References: <20240521122937.2004180-1-parav@nvidia.com>
- <20240521122937.2004180-11-parav@nvidia.com>
- <SJ0PR18MB44772B48F7132C629586B6FEC3F82@SJ0PR18MB4477.namprd18.prod.outlook.com>
+ <20240521122937.2004180-8-parav@nvidia.com>
+ <SJ0PR18MB44771AD893EA425C0A486692C3F82@SJ0PR18MB4477.namprd18.prod.outlook.com>
 In-Reply-To:
- <SJ0PR18MB44772B48F7132C629586B6FEC3F82@SJ0PR18MB4477.namprd18.prod.outlook.com>
+ <SJ0PR18MB44771AD893EA425C0A486692C3F82@SJ0PR18MB4477.namprd18.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -69,66 +69,66 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|SA0PR12MB4399:EE_
-x-ms-office365-filtering-correlation-id: 3269617b-6e6d-4d5b-9c37-08dc844d6b47
+x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|CH2PR12MB4248:EE_
+x-ms-office365-filtering-correlation-id: d058628c-06b4-45d5-813d-08dc844ee8b1
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230031|376005|366007|1800799015|38070700009;
+x-microsoft-antispam: BCL:0;ARA:13230031|366007|376005|1800799015|38070700009;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?l1wfJ2+2LUNGjZwp2fDd7PtJzRmE46gjJTir9WuZ5hxYbzpR75Z3nFtE8Igw?=
- =?us-ascii?Q?UxhvUUIb8Rqu1OP8EP3J+V7Yu99K1ehXhBxHxlvUoorNvrx5r1U8Z56jYo49?=
- =?us-ascii?Q?gQVSpuZwe89ktv1mdG0nOtdE57lnomGTOjohLTmyA10EdGybrn6eCA/FOcOB?=
- =?us-ascii?Q?FgJ+cJkQG+hajDj7S1CaHzvjixo6tbD2r9rYSZHa+uGGt5X+zxSGz2wI994h?=
- =?us-ascii?Q?c5BYB/q64NQhq3QiRuOrJU+5RvQjPnqzqW0Z+7D15H6K41uKNeMMIJgiqqN1?=
- =?us-ascii?Q?aLpfyrhP1hJNIxW5E1eXmG+Eabv5bzwdcVyVmTLTq7l8TZ8BQCpoMYCk4oKN?=
- =?us-ascii?Q?Guti6IJ1CCzOXl/pwq5YdMSg/CgiYnzvztma56JNuFU92xAsbNyFuGl3SGst?=
- =?us-ascii?Q?8HB3eeatKQzNeD6dieQAoJGreMvzZuJWITiive+KywOewn8goKSIanXfAb1S?=
- =?us-ascii?Q?f5M/APui8eytGIKrMxiQcgW0uKyCAxlK3bqUchWEmFnOYC3lrx1jRrSUxG29?=
- =?us-ascii?Q?5uZ+Dfmj50IaPrfjrZhbQgMn4I4u035Nz02JnLp/Jx2Ldpu4KxIiHhswblhw?=
- =?us-ascii?Q?HrKK+3wTI1V8/gYAk7ymqPDyiFJmV8CjVayDdK60IjHdUyLNSj5D0f/UnckO?=
- =?us-ascii?Q?+8fLbj2RheEzMqX7V9kNi3lRI7icN/WFHJUaBOR9iJ7n3Bu7zOlb11vS8k6e?=
- =?us-ascii?Q?GCZCTP4iNFWioEOIEp7nm2HY7cjTvYCvtBcu1l0jT2InQsJ/EODhYM8Av8Mu?=
- =?us-ascii?Q?5lMMntCEfEV+7x7AiTixHMQlo1zG/HpkB+pMPxPUKSl+7BdgJjf/gPUQRKDO?=
- =?us-ascii?Q?c+fqPMZ68dTD4fNJdrGNaEPtp8KHGulBu4vFt2MtTpuSQKq6fJXLF8hGq6NB?=
- =?us-ascii?Q?F0Nmh5cBHU49SPRsp13F7X/OXjIBxDEwDrU8Yv7TTaP8w5OrtsVXHzTotnZ5?=
- =?us-ascii?Q?R/CD3JA8hNoDM8Y8AXeScd/wE44Ih1OKF91kTdxuhV0sSvMRyShgis9xY4Sf?=
- =?us-ascii?Q?glrt26lbDXA/LnUcnf56A1BNu8KvJLEi6aBbAUmodfuxuaX+ef9iAcBG+viO?=
- =?us-ascii?Q?zCRp4Dm8/CW/mQjVEmSc5AxmavGPutRDYUqxxIpUb3sQIX+XL8DgvjQteYmY?=
- =?us-ascii?Q?mlUbZ6F2VAVV8y83aWNMniNYIeoK5bGYkw8unVxEVEtT65jBUoljdCuXlLZp?=
- =?us-ascii?Q?fpYPnNTWdPWLk+zgR7r0oGcI/pQKdpdReOSGgc6AiWLdakR+icGVWhTbCGqP?=
- =?us-ascii?Q?fSgMQ1afGJVjnB2ReqILPjwVdIwiQR7ltnpus1TJqyQxlC6B+EiOl1hUgg8r?=
- =?us-ascii?Q?dEmRyqYFIqsotAz2mr1EYarH83A5dhQi9YTZRfWIHQamBQ=3D=3D?=
+ =?us-ascii?Q?4gTVRo900GZkc5+NhulajSZZfrlgHh3WUAOtcNBjP9OSw/sKD55TJg80wmBb?=
+ =?us-ascii?Q?UgFp4RWszQVdEVW0qKsfEJgLhyaKkOD/aUcvYMUrqNlmnFuo/buyKn2CwzWL?=
+ =?us-ascii?Q?4agY5ZXe+owZ223L14MX5p+gl+Uy7fmUM6C8yZVhLkb8cQQko2wTeFmiUy2h?=
+ =?us-ascii?Q?L8tYFis1McylvSnosUzNlBOj/DEeO1vlFGZ0Zvh71qeE0PggbSiufkrEzUcL?=
+ =?us-ascii?Q?8Kpse0ZBS8XI2BynEhGp5gu6iR+5DnyoXt+XAXH8BLqDYQLBR0DvfRTPOvhw?=
+ =?us-ascii?Q?wbKZNs8A4yTV24s9AkPgnAajWqqoiWmU3VlnPQnOAvRqVUxQBAXE0MwrTyM3?=
+ =?us-ascii?Q?NcKfZWLdOzJKPhcylsNSAoS209DZf19by3rD+3j1hEw2+xvt6c4j0G15KJE0?=
+ =?us-ascii?Q?MqLtcsf3Br0dedOnb1Jfv71Hxs+w29wIhHgWCE6Y4B6zP9kOEN0obE/l9JrN?=
+ =?us-ascii?Q?Cm43kUkaWPI34B5rI2/Kk5siNaQMKp4+VwppSHnFkeDDMPSVgRNpti24TGhj?=
+ =?us-ascii?Q?ku3fPCcqpIK3PL0q4qMk1T3D3wbvrU8U4X914r45bB6mBOmvfzdghAL2NHUs?=
+ =?us-ascii?Q?6BUFty1nSYprbsvaeP2jOxC9cTL5bK2HXcZG7Ymf8deyXdpzrX0t2S2L6GMz?=
+ =?us-ascii?Q?ZLWYaCkFHNviX7NK3gsBcfzyV96nESM8XiShnqQCt+2ivADyfCIqN84wafvK?=
+ =?us-ascii?Q?Uxx1xigilyRbD0ZU3m34rzZx2Wi38FH4Ewrva8HdDrxml7ZhgBhjA5PXWugA?=
+ =?us-ascii?Q?Mc+VNzaTvEzkmkM2FM78cdM0E8PvIey5wu0Zd0GWDTi3An+z3r8aYm/Jlqlz?=
+ =?us-ascii?Q?x6CvcJNb2Tk+gE3/U5CV1V9HIU+YWfIg383B1OghU1noDzSpGblwxp1TDyx+?=
+ =?us-ascii?Q?cpwt9rzV+0mjGKP24OH+M0AtKiwAK1/OCnJqxMX5YwKoQcZ+Cv24dIylBUoo?=
+ =?us-ascii?Q?xMAr54LngeqquEQ4Fk2UfeiTAzFVoJpcKV+oG01170n8CJfUSyQac8dS87kc?=
+ =?us-ascii?Q?Eie8PPMkZ/z+/qy6YX0GydILRmhQngsxq10cJIPgYexCB2EUh8WACHqqOfB4?=
+ =?us-ascii?Q?zUkNjei+sWm/CEVJmuP/S4Vr0mLyjoePKyYcNJZX3p+oSP3vxhSd9CHk1NEC?=
+ =?us-ascii?Q?VvuxCBT5bB+nhywOhce9awajff3UDHHeRYeq1B4pvD9VR8bs+/tvOHCzp/G4?=
+ =?us-ascii?Q?r/RhOmTx/kJnntBf7kopEzP8YS2eX3xSWpcPM3xB7EM/ISIpjyAvJWVZXRsL?=
+ =?us-ascii?Q?sZguFZ4KjZrBLdzoy4d0STNhSplcds3ciEEm/9MP2p1hLp2cwKo8gGGpjXJE?=
+ =?us-ascii?Q?ho3aUXB7qSpKeFROAyuYpU0V7zInDGOVCU0PKSsDGF+OGQ=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(366007)(1800799015)(38070700009);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(376005)(1800799015)(38070700009);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?fBad7/24N5szeW/znOdMeQ3t7ztGDw78darhRatsfx88dXNbCxF7IawioLlb?=
- =?us-ascii?Q?ZzXmQRoK/m1PJnwDqPfPaxiCOPz2Mw6VtaXHZdlYEYe1EQzclzcVDn0FybMp?=
- =?us-ascii?Q?Pctbi+2vEjANDR59U+FDGpvSr+XBHp15yDnhWKUCsokvQ/hgre5rk+weBaUy?=
- =?us-ascii?Q?OgDdEtbrFXxQ2qCNZinMO2Q907FauEnntjYOCJewfc65/U3LY+pdAWZv4iLL?=
- =?us-ascii?Q?anGvdBQFCI7qSf/FXPM82F8x675ZmBKgHndclP/2KAdyNZXAFKNCg6wfy9GN?=
- =?us-ascii?Q?Ecm+aH0t5J/nMi9MMJ71Qbm+wmwuf4VK5cFDsH1q9NeYPb2mKalr3BWtouZD?=
- =?us-ascii?Q?h1qV/jHeHNFtfo6SJhgKU+rj+maimwxK+lnrFK+Htiabn+oMgJfGh5vLeycQ?=
- =?us-ascii?Q?yI6Xh0LYXCJlrT/bfbzH2U6pBxjyv+QbmRgGr/ueK96K1mPijwTVXkstx6Bo?=
- =?us-ascii?Q?NPS8w+g7sgZAcGj5qAWP4ETyZmJurfksMoF1WBOQoRqHRpIPW+bkRZ9IubCA?=
- =?us-ascii?Q?Di+59kmAGAxVD97iuPzewPn42TUK3XOvot8cEeTiIE+i0V5shZ7d0XTEAKI1?=
- =?us-ascii?Q?3JIkljuJ/LmH70/MQr94AD1mQu9O8p0eto3ck1agAXLJh/PAZu5aKDTaysJ0?=
- =?us-ascii?Q?ecO2RF+CAX1eHPWiNk+LocBluclRyyLQ7OkHnst/WiPhj7AS1UBYR03uOmMY?=
- =?us-ascii?Q?B7JoABXiwqNBYgAS9a6g/+Ix272syr3g98ean1kiBE2iwlQJ/HD990ORZ0PD?=
- =?us-ascii?Q?q2uQwBqt3dpy+ANkAP47d500qfn+urNkY/JwLHPeENGiptE1DRHW0IolPdi8?=
- =?us-ascii?Q?pKJWAa97I1bxkDxoZUWjYheKRYOfmEX1Bmbt83cjnXacDTFvtkHCXX3F436O?=
- =?us-ascii?Q?/byD1+TkN223e+iTwxNC+QmwImG11l34dMmTOhEB44buLUeBzCTOc36zM2Lu?=
- =?us-ascii?Q?CuxohX0FJsr+1t8kuDltIWHRsyk5Pdy7+MzJz1yroOLyXALqmGfGjxrKevgY?=
- =?us-ascii?Q?nCzim3mSAut3gFgfAEgLHRbx36UKQDsduj65xcCjPb1UBcxElOEGq6eDEhD3?=
- =?us-ascii?Q?WS131EQAUXAASDFLN91phMaLvzt+y94C9Qo2aZMzBh38oC9zq22ckd1Amwm2?=
- =?us-ascii?Q?Cq2Jrz+FUxhWtMSC1LOc28O9oBipY3NLtTBbp1mLG2UpkOIhS9fHNO8MK9qg?=
- =?us-ascii?Q?efCj8axghGU7Bg+OhdED+7cTw3hdlp/f+d/YUfTr4TkIWrD0CuT743X0weL8?=
- =?us-ascii?Q?W4ZlgglqHO0Ii9CYyU76qoMkKhhzeELfSYUThIC+07UELTlwoIbIAuU8txml?=
- =?us-ascii?Q?ubOZBLZ3koa3hVSFR+JFYcSSajH/7BDmPzB6S5MpVOhn7zzuurox9yaKnsCa?=
- =?us-ascii?Q?rOVLG30tkK96CMIUM3WEpYlVOEnFyJrPjB9PJ7tLS9R6ZDevOPrCa2sMFg0w?=
- =?us-ascii?Q?rnJpWmeqRzEMupASTRJAT5lYNG5Wa/wfl3b8zf/Nu5NCbaUrffHAATtg0RxM?=
- =?us-ascii?Q?ticB+yY8zUne3KER+BRdorIhQCDf0UTIbtXStmZpCL/WhsgPETjfWDxTO1G4?=
- =?us-ascii?Q?1CNoWGE9wCrgN1Qc704=3D?=
+ =?us-ascii?Q?kblShzO/4Y8CtFU2w+su8a0fuJgTSMzhRmkaCSZTRZ4wPBq0ncfwx2ryOulI?=
+ =?us-ascii?Q?SIrO/Y1zp6iHJ6TY626BSqr6RBXjDOq7dVk9iSBJd1+us7d5xW9+YL5bFdZw?=
+ =?us-ascii?Q?eLbeU8D8LOQ4WaOCjHM5wtMmVHsoXfIADXkHIaU3cTOSNUrWyaLF3ttEtCrR?=
+ =?us-ascii?Q?O3OGj+jdg+wRA3+Aut9WExTRZ+BEq374KlXA1srA7wPZJUsATe0AqVq7khqx?=
+ =?us-ascii?Q?U+Vsxj2/YakXcnUAyDPNYMe3oRThwart+liWpeRYnS444Kh9z5FW0IivD1KU?=
+ =?us-ascii?Q?eumQMJ5icFp3IDbrMcZ+HvGT1HkKSh0kJQK9ykZ7+uDlotkmLr0TUtEEY0jJ?=
+ =?us-ascii?Q?zZqjzAZAr7sD9LGV9o06DMCwQUIgyz7zkzaL6lMfsaT7NTbKOgq77BnrgP2W?=
+ =?us-ascii?Q?10C7o4BmZ+z1PpvjGyMxjDE2K2WqSEyhi4q+ZVRvCAlX7Y+s/0ojdYpOFwgs?=
+ =?us-ascii?Q?HhWWJPS7B2GvgG31M3Kh5eq2jXU2AshVb09ZxVE9U2bNNGXP33oTCQ5JQs1/?=
+ =?us-ascii?Q?vxNDXGBWBs4KzScOH2d4Hp/sfTxpocMZXO9jIi9NHo9yRg/aeHi/FIVF+bjF?=
+ =?us-ascii?Q?WS5dhA7E6gMVVpWpPesyK20xZk/8p6ILopX3pmYPLR1kNjGDDrvMscCVO7dm?=
+ =?us-ascii?Q?8t57NVMZPWd81n2RuviV44QcMhzXchE7bbWL+CStFlRd67lDM0TjLyp2Oc+T?=
+ =?us-ascii?Q?GNAizL4v85c9TWrQ2zzjxfp9+NFTIvR873AK5iVD9LDoF8Aox5CVfcq0UI+I?=
+ =?us-ascii?Q?cokf/uTrPVx6teWWkg+syeRHBerJxumVNpOISG8+Xxy27U8dwj+H46zRdGoz?=
+ =?us-ascii?Q?nLe7GQm9ITkeMtDwida16FS6IUI74Qe0/llr/nPxSGroLuc8cSrGg95PmINP?=
+ =?us-ascii?Q?CfPtucjKvLogR3/IPk8yr6kSUrRuuAggtbhOuBsdPWdvdecDkeho9nmPJB5P?=
+ =?us-ascii?Q?F3q33yU2dnTg8tC218Yrk+OJVh7Tr0aPIJHN5FhIgw/F1NQX5bk3LE0WSDJY?=
+ =?us-ascii?Q?BL1lU7IDNf/62iM2TwYh9ZttmqTrsSW6xWw62fxzvgcQBF2Zlq3KJ+gn3/Bj?=
+ =?us-ascii?Q?xzypJGTs7yorU+B/p3S8/pe/y3PvSyajbpRV1jQtI6atOkaK0qRbUOqBL+3V?=
+ =?us-ascii?Q?7CnrcHsUwJR+1ecRjnr+DZCftUt/2Wel4JY02ociQ9Eu4hBQQn3rUwV/VRuS?=
+ =?us-ascii?Q?sIksTLFSGqAnRc+/K/7tVKLukTWnxYRZyaLXE1Cwd+yIraAlIUx92WhC5bgD?=
+ =?us-ascii?Q?BqFlNvnJGWnGVzLy4IjQ0CNXMAaA18D/lS2FpIIIW+bpNX2RnTfgqCr/D/64?=
+ =?us-ascii?Q?PfDoPFKItRN3hx1iEy32+TFitO8iXn9sR3RBXZKujE0WpGBwqv7s9oEYOZZl?=
+ =?us-ascii?Q?PgJeoPGQ9Nbbl0ZE6bmFjcm72gYIzipwxJ119n9ZHKUjQTq/5svQskQDuoV9?=
+ =?us-ascii?Q?6FdSMTPlfdyahRq2hfg6oe2dYYxKrzfhKKf+lcLT59ohdu3YnO6L0uuULxLc?=
+ =?us-ascii?Q?4ep5haUM1uQJKK5bFIJXWXmI/GEcWbrY9BQ+5az0OsEs0dlcIZ+MUvC/1QCm?=
+ =?us-ascii?Q?KYVkRRFvU+yQ5mTqrr4=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -140,14 +140,14 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3269617b-6e6d-4d5b-9c37-08dc844d6b47
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2024 04:18:42.6794
+X-MS-Exchange-CrossTenant-Network-Message-Id: d058628c-06b4-45d5-813d-08dc844ee8b1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2024 04:29:22.5926
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ox47VocKnsT3U29jSWgX6oTBl7QIEk3jOFTuEWlFSFhMQGu1RzYk2DpiRYOKh2mJE/wF3S20hwJspH9YrSwImA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
+X-MS-Exchange-CrossTenant-userprincipalname: pQbqmK6ZZ3R7RUuKLaNmpJBeSaBbcPaI3aLYwqInO4fR/oJqz30Cu70/hxtiwxriByB0Nbwz0BEsWEK4dPdZAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4248
 
 
 
@@ -164,18 +164,271 @@ X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
 > > shahafs@nvidia.com; si-wei.liu@oracle.com;
 > > peter.hilber@opensynergy.com; jasowang@redhat.com;
 > > xuanzhuo@linux.alibaba.com; Parav Pandit <parav@nvidia.com>
-> > Subject: [EXTERNAL] [PATCH v10 10/13] virtio-net: Add flow filter
-> > group, classifier and rule resource objects
+> > Subject: [EXTERNAL] [PATCH v10 07/13] admin: Add device resource
+> > objects admin commands
 > >
 > .
 > .
-> > +Note that at most one action is ever taken for a given packet. If a
-> > rule is
-> > +applied and an action is taken, the action of other rules is not taken=
-.
+> > +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}
+> > +\label{par:Basic Facilities of a Virtio Device / Device groups /
+> > +Group
+> > administration commands / Device resource objects /
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}
 > > +
-> we might have multiple actions per rule in future. For ex RX VQ and TC ma=
-rk
-> etc.
-Yes. a multi_action_rule as new object or extension to struct virtio_net_re=
-source_obj_ff_rule as follow on this.
+> > +This command creates the specified resource object of \field{type}
+> > identified by the
+> > +resource id \field{id}. The valid range of \field{id} is defined by
+> > +the device in the related device capability. The driver assigns the
+> > +unique
+> > \field{id}
+> > +for the resource for the specified \field{type}.
+> > +
+> Is the valid range defined by device capability or driver capability?
+The device indicates the limit in the capability.
+The driver uses the capability to set same limit or smaller limit.
+
+> What if the driver has set the resource object limit capability that is s=
+maller
+> than the value published by device capability?
+>=20
+This is fine. It is allowed.
+It is captured in the theory of operation section of "device resource objec=
+ts".
+Snippet here:
+
+"For each device object type, resource object limit is defined by field lim=
+it using Device and driver capabilities.
+Each resource object has a unique resource object ID - a driver-assigned nu=
+mber in the range of 0 to limit
+- 1, where the limit is the maximum number set by the driver for this resou=
+rce object type."
+
+Combined this with below description from the theory of operation of the "d=
+evice and driver capabilities",
+Snippet:
+"The driver sets each limit number field to a desired value that is smaller=
+ than or equal to the
+value the device presented".
+
+The device exposes maximum limit in device capability that driver cannot cr=
+oss.
+
+> > +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
+> \field{opcode}
+> > +is
+> > set to 0xa.
+> > +\field{group_member_id} is set to zero.
+> > +The \field{command_specific_data} is in the format \field{struct
+> > +virtio_admin_cmd_resource_obj_create_data}.
+> > +\field{resource_obj_specific_data} refers to the resource object
+> > specific data.
+> > +Each resource uses a different \field{resource_obj_specific_data} and
+> > is described
+> > +separately.
+> > +
+> > +\field{flags} is reserved for future extension for optional resource
+> > object attributes and
+> > +is set to 0. Each resource object uses a different value for
+> > +\field{flags} and it is described separately.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_admin_cmd_resource_obj_create_data {
+> > +        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
+> > +        le64 flags;
+> > +        u8 resource_obj_specific_data[]; }; \end{lstlisting}
+> > +
+> > +When the command completes successfully, the resource object is
+> > +created
+> > by the
+> > +device and the device can immediately begin using it.
+> > +This command has no command specific result.
+> > +
+> > +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY}
+> > +\label{par:Basic Facilities of a Virtio Device / Device groups /
+> > +Group
+> > administration commands / Device resource objects /
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY}
+> > +
+> > +This command modifies the attributes of an existing device resource
+> > object.
+> > +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY,
+> \field{opcode}
+> > +is
+> > set to 0xb.
+> > +The \field{command_specific_data} is in the format \field{struct
+> > +virtio_admin_cmd_resource_modify_data}.
+> > +\field{group_member_id} is set to zero.
+> > +\field{id} identifies the resource object of type \field{type} whose
+> > attributes
+> > +to modify.
+> > +This command modifies the attributes supplied in
+> > \field{resource_obj_specific_data}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_admin_cmd_resource_modify_data {
+> > +        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
+> > +        le64 flags;
+> > +        u8 resource_obj_specific_data[]; }; \end{lstlisting}
+> > +
+> > +This command has no command specific result.
+> > +When the command completes successfully, attributes of the resource
+> > object is
+> > +set to the values supplied in \field{resource_obj_specific_data}.
+> > +
+> > +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY}
+> > +\label{par:Basic Facilities of a Virtio Device / Device groups /
+> > +Group
+> > administration commands / Device resource objects /
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY}
+> > +
+> > +This command queries attributes of the existing resource object.
+> > +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
+> \field{opcode}
+> > +is
+> > set to 0xc.
+> > +\field{group_member_id} is set to zero.
+> > +The \field{command_specific_data} is in the format \field{struct
+> > +virtio_admin_cmd_resource_obj_query_data}.
+> > +\field{id} identifies the existing resource object of type
+> > +\field{type}
+> > whose
+> > +attributes to query.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_admin_cmd_resource_obj_query_data {
+> > +        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
+> > +        le64 flags;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_admin_cmd_resource_obj_query_result {
+> > +        u8 resource_obj_specific_result[]; }; \end{lstlisting}
+> > +
+> > +\field{command_specific_result} is in the format
+> > +\field{virtio_admin_cmd_resource_obj_query_result}.
+> > +
+> > +When the command completes successfully, the attributes of the
+> > specified
+> > +resource object are are set in \field{resource_obj_specific_data}.
+> > +
+> > +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY}
+> > +\label{par:Basic Facilities of a Virtio Device / Device groups /
+> > +Group
+> > administration commands / Device resource objects /
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY}
+> > +
+> > +This command destroys the previously created device resource object.
+> > +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY,
+> \field{opcode}
+> > is set to 0xd.
+> > +The \field{command_specific_data} is in the format \field{struct
+> > +virtio_admin_cmd_resource_obj_cmd_hdr}.
+> > +\field{group_member_id} is set to zero.
+> > +\field{id} identifies the existing resource object of type
+> > \field{type}.
+> > +
+> > +This command destroys the specified resource object of \field{type}
+> > identified
+> > +by \field{id}, which is previously created using
+> > +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE command.
+> > +
+> > +This command has no command specific result.
+> > +When the command completes successfully, the resource object is
+> > destroyed from the device.
+> > +
+> > +\devicenormative{\paragraph}{Device resource objects}{Basic
+> > +Facilities
+> > of a Virtio Device / Device groups / Group administration commands /
+> > Device resource objects}
+> > +
+> > +The device SHOULD complete the command
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
+> > +with \field{status} set to VIRTIO_ADMIN_STATUS_EEXIST if a resource
+> > object already exists
+> > +with supplied resource \field{id} for the specified \field{type}.
+> > +
+> > +The device SHOULD complete the commands
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY,
+> > +VIRTIO_ADMIN_CMD_RESOURCE_QUERY and
+> > +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY with \field{status} set to
+> > +VIRTIO_ADMIN_STATUS_ENXIO if the specified resource object does not
+> > exist.
+> > +
+> > +The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_ENOSPC
+> > +for
+> > the
+> > +command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE if the device fail
+> to
+> > create the
+> > +resource object.
+> > +
+> > +The device SHOULD complete the commands
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY or
+> > +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY commands with
+> \field{status}
+> > +set
+> > to
+> > +VIRTIO_ADMIN_STATUS_EBUSY if other resource objects depend on the
+> > resource object
+> > +being modified or destroyed.
+> > +
+> > +The device MUST allow recreating the resource object using the
+> > +command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was
+> previously
+> > +destroyed using the command
+> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY
+> > respectively
+> > +without undergoing a device reset.
+> > +
+> > +The device SHOULD allow creating the resource object using the
+> > +command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with any
+> resource id as
+> > +long as the resource object is not created.
+> > +
+> > +The device MAY fail the command
+> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
+> > even if the
+> > +resources within the device have not reached up to the
+> > \field{max_limit}
+> > +but the device MAY have reached an internal limit.
+> > +
+> > +When a capability represents a number of resource objects, the device
+> > SHOULD
+> > +allow creating as many resource objects as represented by the driver
+> > capability.
+> > +
+> > +The device MUST NOT have any side effects on the resource object when
+> > the command
+> > +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY fails.
+> > +
+> > +The device MUST complete the command
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY
+> > +with \field{resource_obj_specific_data} which is matching the
+> > +\field{resource_obj_specific_data} of last
+> > VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
+> > +or VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY command.
+> > +
+> > +On device reset, the device MUST destroy all the resource objects
+> > +which have been created.
+> > +
+> > +\drivernormative{\paragraph}{Device resource objects}{Basic
+> > +Facilities
+> > of a Virtio Device / Device groups / Group administration commands /
+> > Device resource objects}
+> > +
+> > +The driver MUST not create 2 resource objects using the command
+> > +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE of the same \field{type}
+> with
+> > +same \field{id} before destroying them.
+> Can this be simplified to
+> "The driver MUST not create a second resource object of the same type wit=
+h
+> same id using command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
+> before destroying the previously created object" ?
+> The phrase "before destroying them" seems confusing. It suggests that 2
+> such objects could be destroyed though they are not allowed to be created=
+.
+
+Yes, looks better.
+Will fix in v11.
