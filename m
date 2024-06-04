@@ -1,59 +1,59 @@
 Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8352C80
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 00:11:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831662C80
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Jun 2024 00:11:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.148.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717459900; cv=fail; b=RKZGOIV2TmD0NGjZAbb15lZ4KgBVJZl2ElmOYmbk1+dcS4hNug9X+yG5nVubx5I1Ga7OnU6vLDT+0gtQKpQ5w1S5rp2dqwm8fSzQqVXz66VxHYayz5yhbDNbXzlrGaG/f9R4MkUoYUOs4aPIuJUsDKuaHm0TOBRm9Vm+KHp3boo=
+	t=1717459904; cv=fail; b=sU1siYsJ7JlMsoKojQym2n70M8I1h592asfOGxpp4LnXTLiCgk8I1Qdm2tuu/Ixltr6lw1zfPEI5GHm5kutb5V3kt8XBmNmXYehDtxP7Oax4PR+fUHCKY6UQDaTAol725zCV4blW5mrGPvyx2jc8pCYitDo+49TOyXCawIDKG6A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717459900; c=relaxed/simple;
-	bh=91frARUy70rgLo9K3fMEk4ozqiM+VfKRxXFMEKg6JjU=;
+	s=arc-20240116; t=1717459904; c=relaxed/simple;
+	bh=dzGoxQowfY41wNoDrUawr2fBsgV2sEYYC5BFM7qpF0M=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SVT8tRDdPAp3mCq+dtgYMs6e1ZnBQsRmA+Kmtz9/FGqIo+Ndvx/12ofcdyyOFJuxQn9s6NzXTM7y0XSknwT5fKoqyTAucGz4SSXROUrVFjvzriJaTbgw1ASsLdTX1IHiCzR0efaFvcsrfwyk97zOPxeV+rx6el3D0uLyurs7H7w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=HsBGsUtx; arc=fail smtp.client-ip=67.231.148.174
+	 Content-Type:MIME-Version; b=Sqpn3R8QHjV1UUZvz0cZH/2yF55SbS4K55oavSiItox/PnV68oCzUnmY91Dv3vKr7uvyp6jC7i6HXmJP9g9XDKOVDrV4FpGo3/efE+fynOERE2ELneCOkhTJwUkWS5nAZbul4HWvK4s0jSEWLH7GLkhYdwPAV4j3DozsItTnA8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=rdIqGJWy; arc=fail smtp.client-ip=67.231.148.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="HsBGsUtx"
+	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="rdIqGJWy"
 Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 453IpHGM006650;
-	Mon, 3 Jun 2024 17:11:35 -0700
+	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 453J3BGU006605;
+	Mon, 3 Jun 2024 17:11:39 -0700
 Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3yhb3wav52-1
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3yhb3wav56-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 03 Jun 2024 17:11:34 -0700 (PDT)
+	Mon, 03 Jun 2024 17:11:38 -0700 (PDT)
 Received: from m0045849.ppops.net (m0045849.ppops.net [127.0.0.1])
-	by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 45409OlN009929;
-	Mon, 3 Jun 2024 17:11:34 -0700
-Received: from nam12-mw2-obe.outbound.protection.outlook.com (mail-mw2nam12lp2047.outbound.protection.outlook.com [104.47.66.47])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3yhb3wav4y-1
+	by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 4540BcMP014139;
+	Mon, 3 Jun 2024 17:11:38 -0700
+Received: from nam12-mw2-obe.outbound.protection.outlook.com (mail-mw2nam12lp2049.outbound.protection.outlook.com [104.47.66.49])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3yhb3wav54-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 03 Jun 2024 17:11:34 -0700 (PDT)
+	Mon, 03 Jun 2024 17:11:38 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bMUZqDhQ9W7sPerPOvYi9iOPt++XmrjAERF/mT8tf4D1FF4/ao4pk/JCSKWE36dSYXQjv2mMfex4Ym9NJLWszD+sQnDRtocfmxtHqa15VskkFGfX/Sw1Kah2WjwBH7nfXplsqgUnYmYj00C82kKnhCp7d+vdSZ+Ewl+0z3+sAa9VKeg8ScZIDgi/v9XYF9U6OIP0575EC22cP4XhkMYPf2d1YxIDWtvk9JDJD6woyk3ehvTKuR6SiYv3nIaAPxzjEmvYf4JiE+3BMW2BvwPx3mPQp1Qh/Rol+tC7FYm9rhIldKFFgMyX9pb40ULsnFXmATdXYSxIOEQPH4Vjzn9hUw==
+ b=lli6/vwPJHYoWXrFJxBGl6+a2dNfiA+VKaRIfdTrj6HFVHPxWnd2i9YPy5f9c8kjtqLXjWNuh2S4xQiGgH4sStJSGPUiKBkTKlGVgg9W4H6/qBr1Ufui3ogSoMs/OavH3M/g8t7hOUKYKf2kM2PHLa9DAokQ3qpcoc7hRAFWIoW0/JMMjGytwEdE+FtS/Z8NY4uhvw44JvHoIK7EDrDF6h0FGxJuoNLxDdoonwq+qlNnSnulltXUDb6hVgs1sU3jKuFSySXCUNxAY97E1BNRPTdoRveLj/EnP74s7q2cX32AidEJOnXNW1VvlWVtPK+4poVjFif/XZS4z4yDYbPJhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yY2L1BgYAkH/5AM2+gulWAjPjihWbduimxOluHhgWj0=;
- b=UCjJxUIZ0pDAfGy6HKnwD/4cPRi2KSRNt7X91Po/zc1/St3V2VYik69O3IwvkzoI3GROHDwabP1gLaQF399cuKQOnxS19DC0F/DHGg5eN4bM16d7yK9ricfRH3Z2Tn5gbMf7WT2mSeoJv3ixpozMredyMbEiV2v1fHyUc/YvP/HBu3SuezESYd62wmGvhXrBn50ZED73NXeHpXVT5zQ9JG93WsjSEzaBHhd/K7Wz/NE3ShCR7mOFcDLqOU09/lWkh9/AFr/7xgaaILHH4V8Ad7FPhsWGp2W1VxWprRCFm9eft7vZJeATarg0eKUTn55UFvWugGxmT25Meptze+bYbQ==
+ bh=1FioCHspEzmemqUzdhhqBGRynRDIyQWDOErI9/kbuvM=;
+ b=Glpcw69avfjxtwpU0bpm1dy53dzoNEzseUGHEIRmknLabnyQZ0h3weWP0N6DdYfNBq0QDOxAGBtvP2vQWpDM7dpb1VG0/iCvvjtbMHc8XCTe5cxKdDhVQeR7BKcLawGkfwaN98HWhcmwbHcWlJ6LWPmR43aG8lOJrmhdUc+aVN305FBWBpnQRbQukRyZ6f/paFSTC+5B5NDzcSPNJf5/RALbfkJplMXFfOXNzCpGUMhQzSUIUb590wge1Z9MAXbF+Hnl/2Sd5+1HsJCJNPCzySChAjy16KPCSScj64VFdqBywtXstMygu28NYKmjobmbeHP7G6mzWEK/8UYE+Ag90w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
  dkim=pass header.d=marvell.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yY2L1BgYAkH/5AM2+gulWAjPjihWbduimxOluHhgWj0=;
- b=HsBGsUtxYrQFAsXsBXmsXV5xPgYDGgokOEinTyEVzUWHJ4xgPhKq4OA1ZKD3Gh9Em7flBCfohoAd+AzX8dftEZxPr9PXAiuoHYikc20H7iYVjYBi70hsBaImZWpR+Iua+l+YeOdUQBC0x2LKElOhj7vadqxLla6+HM5owJ69pCM=
+ bh=1FioCHspEzmemqUzdhhqBGRynRDIyQWDOErI9/kbuvM=;
+ b=rdIqGJWyfNy0GTURrq7GDMHFAlMSAsM+6HCk4G4aPRhouxGbp4XCc4ws+cv5qMoMdkCZ80Y1zyltVzW0trvFT7DlIahzIFY70U0ClPvMEoGR5YUSlEWBSCiE3VcKHxauJK2cAMyq7FoWUg4TaQbYcwG0V6/jDuFSb3LlwwiWc9c=
 Received: from SJ0PR18MB4477.namprd18.prod.outlook.com (2603:10b6:a03:304::23)
  by PH8PR18MB5309.namprd18.prod.outlook.com (2603:10b6:510:238::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.22; Tue, 4 Jun
- 2024 00:11:31 +0000
+ 2024 00:11:32 +0000
 Received: from SJ0PR18MB4477.namprd18.prod.outlook.com
  ([fe80::7c90:e416:9ec6:583b]) by SJ0PR18MB4477.namprd18.prod.outlook.com
  ([fe80::7c90:e416:9ec6:583b%4]) with mapi id 15.20.7633.021; Tue, 4 Jun 2024
- 00:11:29 +0000
+ 00:11:32 +0000
 From: Satananda Burla <sburla@marvell.com>
 To: Parav Pandit <parav@nvidia.com>,
         "virtio-comment@lists.linux.dev"
@@ -68,83 +68,83 @@ CC: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>,
 	<peter.hilber@opensynergy.com>,
         "jasowang@redhat.com" <jasowang@redhat.com>,
         "xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>
-Subject: RE: [EXTERNAL] [PATCH v10 07/13] admin: Add device resource objects
- admin commands
-Thread-Topic: [EXTERNAL] [PATCH v10 07/13] admin: Add device resource objects
- admin commands
-Thread-Index: AQHaq3q2FshspUNOLkCO6ZOTmkCqHbG2wvvg
-Date: Tue, 4 Jun 2024 00:11:29 +0000
+Subject: RE: [EXTERNAL] [PATCH v10 09/13] virtio-net: Add flow filter
+ capability
+Thread-Topic: [EXTERNAL] [PATCH v10 09/13] virtio-net: Add flow filter
+ capability
+Thread-Index: AQHaq3q/O78988ibHUewVO9eFj4oWbG2x0BA
+Date: Tue, 4 Jun 2024 00:11:32 +0000
 Message-ID: 
- <SJ0PR18MB44771AD893EA425C0A486692C3F82@SJ0PR18MB4477.namprd18.prod.outlook.com>
+ <SJ0PR18MB44775B0E116795E382A074F8C3F82@SJ0PR18MB4477.namprd18.prod.outlook.com>
 References: <20240521122937.2004180-1-parav@nvidia.com>
- <20240521122937.2004180-8-parav@nvidia.com>
-In-Reply-To: <20240521122937.2004180-8-parav@nvidia.com>
+ <20240521122937.2004180-10-parav@nvidia.com>
+In-Reply-To: <20240521122937.2004180-10-parav@nvidia.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: SJ0PR18MB4477:EE_|PH8PR18MB5309:EE_
-x-ms-office365-filtering-correlation-id: 22cc7418-eee5-498c-5103-08dc842ae215
+x-ms-office365-filtering-correlation-id: 7f949c99-61b2-4017-ae46-08dc842ae3fb
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: 
  BCL:0;ARA:13230031|376005|366007|7416005|1800799015|38070700009;
 x-microsoft-antispam-message-info: 
- =?us-ascii?Q?uj5AKctvoKlT4JHkgq8Gyzr1Wrj5okNQ84MJFgm8/Up7iQQlJ7J6sgwyFT1D?=
- =?us-ascii?Q?1ESJ0DSfZyIOSfYzS2p85S3HUYaeAq3bUeEiff2s3JGhgrNv/OBnSBp9H/ih?=
- =?us-ascii?Q?CQ4eorIwGBKK7Vo9XtYYRQy2uq4QRSYE0xRhu2EgfgAo18jTDr2QmozUIGmb?=
- =?us-ascii?Q?kfCAY+biADNn1bhnmUzqMuWRBguqJN/DPTFDbUGWoDmbF7viX67XVD3eLhZu?=
- =?us-ascii?Q?iXO/qo/kEOx2N47TMJzP0rI7tDKkFrxstBOROtnqlZLnWXkMinw8R+p03bql?=
- =?us-ascii?Q?kfb1+9PDNWYb0QQj6RPGz5/RnheYK5HVk/6QLk+ahTAtYol7P3Yw9qX7vLfT?=
- =?us-ascii?Q?utz5Jsvg7m02fhl5QbU7bK4lXIvJAgAQyWw6tGCn0Izy7aYtONxbPo0DXAwL?=
- =?us-ascii?Q?VglNt0uyTnduF74aFw3dpG4MUskdoiUWsSevdtZJG45hjvJ4uZqp+ey5tpNb?=
- =?us-ascii?Q?3HVIQHXa2g5+QNnlHEuzRbygGKLPPJEEzQEGcGK1JisX6735C3Z15YIZswbM?=
- =?us-ascii?Q?7qzLKJ8A1supc1uBQX05S7qKoAXib66mlzOZEOGLf0jMmfyBXIobRJ+9zIUL?=
- =?us-ascii?Q?xMEQJJLG9yKnkq2LlK7kzL95yCTzmhN/ZapkXVdncjH8EYu1/CTZzRHuYwWV?=
- =?us-ascii?Q?BXiylFWVPV4ElNYNeKpnLebCamU1TceMGubpBcaqS+nGNb21pt+x7+aNzXAm?=
- =?us-ascii?Q?gST2aeSyvrU/1J4p81B56VTP/UODj2oVprSGwI/dEIBG0va05biMC/MxZZAc?=
- =?us-ascii?Q?qrFVcRExDmlv+3EjfWSkosM/XAkjCSTGE+p/kuk8kt5s52jcOt0dzOZ2wPyp?=
- =?us-ascii?Q?YF61qL/oh2mgFdb3cS81zl/RmvfTdbpeuP+nltGVFE0rNgZ2pJT+rWQKtJHK?=
- =?us-ascii?Q?GR12/jFe3ld79RvH25kjq6N3uVRNlj2pxuXBrIRw8JSOaQ1nPBqNpqWn8Ea3?=
- =?us-ascii?Q?OCTit1wSodkNn6JUBXj9b/YrKpeCQVazYryRAe2sZGiTIwAvD2GERA17joPh?=
- =?us-ascii?Q?qPLxugzKEcHJ/XE8J5wUagfVBQ/E4HIiUR32L80HaDEBEhW+A5NGC66/Ir8T?=
- =?us-ascii?Q?OolW+6ZTnXmF1zP/gqcFVJhXH2+hchUYrtDBllgUIAoc4hjnxvpYMtmhAnGJ?=
- =?us-ascii?Q?eXSc7ff8n4t7OtPrGKOiDfCNAJ1Rolya3geR/8T9nantg9m+bkCSUtrCbqHQ?=
- =?us-ascii?Q?0ZV3W18FSOZI4pvrcQwoOQEgwT6NtN0wVDdD2xlW+8MdnzoZ4JLL6Pee55ZK?=
- =?us-ascii?Q?VRo3XILWLj9DvLThuapqN7s2NQfiU+rHW2C59CvcMwZ33237rIzatwZl9udN?=
- =?us-ascii?Q?vOELjcerQtoRRWydbUORzc/N1r6ZmeIHXppXD8rZ1GJSmw=3D=3D?=
+ =?us-ascii?Q?kI9YbN/kX//0K5vH8+9jvFu7tQlXXAaInV49HMrUqnkDkOZC7pdFW27tm7Pd?=
+ =?us-ascii?Q?aPPiQNL/fhVlJVzrHUW9dYBXoc+fudUw5k79ODtKg8OWFetXeLEyDRWW6TYW?=
+ =?us-ascii?Q?Jqr9pCFzjR9HrUh0HTYCjfhukHMLd0Hsy9lFAR0Io6x9zx7k0OSAGRg8xhLf?=
+ =?us-ascii?Q?oObrFr61FRUfXW2XlL8Cu9KI9KdRjWO8eoiLGAFArwLc/sY34W4bXg//cEuE?=
+ =?us-ascii?Q?Pw+j54fG6Hkk1XFaFikAeGecwvT45iRR2xeiQJLTHyj8iGsSp/mAdpAFKDu7?=
+ =?us-ascii?Q?PIWoRmkIQqfmouYe8vDKLVkMRjky1iPgaGkUWy90lDazd18/fw6wBOIknPW9?=
+ =?us-ascii?Q?eDyDXC1LL1FlYgz8jNd4i3iyoEqVtUfRa3I9ljeIt5NwusgGsfgit3Chkpre?=
+ =?us-ascii?Q?mRc0UCGRsJdk42Mbf3mhPMmmYLzsyU9ujW9WyGqzTml7gLXeoDfQ8w0FKXBi?=
+ =?us-ascii?Q?u8NZ7Io4QzV3INLII7wEH97DMMoNlCrIISnEDOieljAr1cpXfggXxDOIcCaf?=
+ =?us-ascii?Q?Gvw/ylYQqbRbcTPunsNTXsr2y0VK1Ibp6r+73WiX34NNsu0RGBkPG1U04sgY?=
+ =?us-ascii?Q?gt27dzzv9dv9fB3fzHchWYOFG2jGB6vqwOc7kcOPWhXVR1X4Tr73sSrwt2Ip?=
+ =?us-ascii?Q?VeQheUAflgycGLOCOQ/f0c6xTzqhNcqnZ+sfgYPk4jcFQsAeqSiJDPybNedA?=
+ =?us-ascii?Q?IVlJ+bKKX4j9MAkOypvkiX8uaAZy3YV2y5hpgCx9N8uP3rM+dt6GT/lDbf14?=
+ =?us-ascii?Q?5gvqm/ue9D6vdeUu6LO2D+5A9Eb3AU3j00T0lBiqUt0oHVP2FpKiaGhnYvE9?=
+ =?us-ascii?Q?bvDAfDC8LA+uB55S+Z9vE3/qBKZCKQ8hrfu7xdSIE7dTxSPBw8gXOuHBzUkD?=
+ =?us-ascii?Q?77U3BCXwWl3tMY9sEvY4QmAhri3SiWb0keXzPyPUIXzpwDZbFwZ1RxGqdeVu?=
+ =?us-ascii?Q?v2xVlH3S07nddSq58cV04R/ofgRJ9m7zylOxN34bX2LxbOArBUSJXg512F66?=
+ =?us-ascii?Q?6Aha/VCdmm/28AHnwGNo/J9sR9Lk4ijZ0YyPTMHe/lamveMlEfobDaNnVbWC?=
+ =?us-ascii?Q?a/k8ELiIYxk3BpDFTXvJizYuhfU9y+3ocm6t1CsFv7iJiAxv8lhnkAAXdFBh?=
+ =?us-ascii?Q?ekMmY/Z9V1HMr3LgwN8K0lDjPL4saPZLnRSrAUs4Al+arlAiSkMhAb5xY++j?=
+ =?us-ascii?Q?im5vyn1Zk2p9RwdhFy2i1db9NEfZLt8HhaRc+JVzS/X1ydVVD/sNmF2Y3Nyl?=
+ =?us-ascii?Q?tdM3dcflJJCDVEHhvvdExo0fbtzJpNK4QZSux03xuc7Dn5+AYzSjRXJANEfT?=
+ =?us-ascii?Q?LRdpCJcPPu0LmoIQphw5KqZaj3VPhirYZpc03P1cJm5t+Q=3D=3D?=
 x-forefront-antispam-report: 
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR18MB4477.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(366007)(7416005)(1800799015)(38070700009);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?qwibiTpIVAIIRlPxir6Hwk8ICqhrG5+WMRYiwkmnUA7kTv+HLTf/14oeqLw7?=
- =?us-ascii?Q?GZwpNMNj8HnrEuIg89zpWPMr3fNbYe3mn3UfYvnYT3MdspGBB94MwAwuCW1N?=
- =?us-ascii?Q?w7K5nLcKmhZnAQBtFx3BI7yHiWTrL3FAV/QlVXlzXOEWqWCw1AKJREVk/Sw2?=
- =?us-ascii?Q?RHRqvN6KM6zTat5civ01shnGmv5zLl8vMNessIQRz7HmnF1XJM9qMJsR15hT?=
- =?us-ascii?Q?m2tRY9f+bFaP5sPR0TFmrS53cziFj93d5DbmEzv1tTfhMh1ZmCwRHL2DOquU?=
- =?us-ascii?Q?EdCFd+PfjivSZuSiLmkZCY7w1A3jUpQgSsoFnHICgxijb9pzY+/IArkhdH36?=
- =?us-ascii?Q?B3gIHZDYeVSNIABFGie5/fAldeRbtUUy70Y4basx9aZ3yJZlrKHwwb9LfmGm?=
- =?us-ascii?Q?3MJUMqRJxSzX/qpL0XJnZWOi5bN9cf75s4riDDIyJfG2fJDr7fRMz5hU/U7G?=
- =?us-ascii?Q?Iny7UG8CqH/+zzsp8ubnjOkbqyAZOgW0AqoHBrN37aBvRSN0HKmMJ9gCyC5f?=
- =?us-ascii?Q?KKIPWNXu32QLVWgwrTFjOR1D7iJQcFZYtC1rBTGxLzeJbfd++VSiDCDbrofA?=
- =?us-ascii?Q?sPqt71JQigHZK/tGNh594ODeVkAmTYRC8DRIXWBUZgsc11YfFH/+1mp6XMLM?=
- =?us-ascii?Q?DMzKtM/mfa0L/D9hvYdrVwxC5eQ1wMzwA9aw6XNmwMhgsMo0TCHUz2tLJwoC?=
- =?us-ascii?Q?r45gKM8VnhCP0FMyn25HwsmQyNMPJiwfyQdfZaGuI5w4zNniWR3b3LsrBwbS?=
- =?us-ascii?Q?EpwzljcQuPu/Gx/kjcH8B9AwMdG5TuCARH8R3599VVe+UeOdd4OoqRuAodRO?=
- =?us-ascii?Q?Yi7mhT6bdnoFSffaAQ9/ixMraQWJO/e5AUoQZWbdRLzvxzDxK/1CeKey996R?=
- =?us-ascii?Q?xT4iLPchrIctq62STRijt+vsjfpJ+BQs6uIqPf9627nqTNd8yICsgR4ZDvBS?=
- =?us-ascii?Q?QxCWv1pXajayxfU98OKuR3Wl81NASrT6Huq9am25Vp1v1ftV4oUNP/FDMuyT?=
- =?us-ascii?Q?O2RAtbEQ77P5ozLl6sOrY5NpWy33j+qK5zt2KhzAeaRNOvdNffrpXy9QTWlh?=
- =?us-ascii?Q?+m9otJRj+vcG6dJk3jcoHgY9HGGhkmNHosR7+DYS8OiWYEyCPyR4XhKdbH4/?=
- =?us-ascii?Q?9FgP1VLl92iyEMGx+fcCrcc0HrV7IcPVmddVm+pt8UypnEN8ILsRg4fJmmGf?=
- =?us-ascii?Q?0wmJe6AWH0swO2EsgLSAaFMIC4ptwEnGimZaa8NvJ+eju8x8R1OxvOqgmgce?=
- =?us-ascii?Q?eqNEU14J0HOcRlMs1UxZUbHIt2dtaUJdBONtyG4enaSr/MN6cQvaCCqP0x8k?=
- =?us-ascii?Q?wHOM/4orj7T1hrX0EanjYmV9b9tQvpojtSIO+1l/DLEePmD/QW0pWElQK9b7?=
- =?us-ascii?Q?c1ttT4l+Jm3kasTlsIoUMiCRXlGTTwGXHuGWNu3vQsWKlE8IV/RAHnIOm+1k?=
- =?us-ascii?Q?Z7fbZ5zCaQwiEO9HnvCGnMgGQV0a+KIUCIbZVtIwBUvyqPPbUI9sbsLn7jDp?=
- =?us-ascii?Q?tCb6gwW31a7MjfSiOlGMcIiik9rokDt8hJwwc0em+iZvMtSjrwGtaM1Xrck0?=
- =?us-ascii?Q?NLt1xQz9OoCwKxego9dqYOL2QmhiTLaT/9zHpere?=
+ =?us-ascii?Q?1xDCRl6nJ+Vqp7K1XqrFQiYeNad7uHOWXocCkCIj49PEShz+/D2cK9ycl86P?=
+ =?us-ascii?Q?40KJlLIQFKs6WEaHvW5gPTitI5UvorYG///cxRvQJWbW2Tsw1gSTeplVfs91?=
+ =?us-ascii?Q?3U3sTVer70MFxJIWeHVRVQe8KzNC5cpHjSoU8k+E1eil1Q6iZN+/4OZCA8ql?=
+ =?us-ascii?Q?4to63SQJiEdxQCsI3seu+r249AlZgrBYx3xqA0z3Wc4fkKI/Ebmz9OZwl5bg?=
+ =?us-ascii?Q?tytRWZc/mJwmEpfnisg52fhHdqCwkiHLSdkVARz/4WSBnPo1UA0HPxg6IDBS?=
+ =?us-ascii?Q?gJiF+q4vAHH6cxhCzjjGCj+dWKit3zfymDawcOHAeoQopsIBwIva2KL9oEdr?=
+ =?us-ascii?Q?aUtLXgzjVuH8AaE0/lBZpNMrOCuv6sormhwq8z36oLBdeNLWy6rZ7wPAuSQh?=
+ =?us-ascii?Q?1huJ3E6pi7Mboh8hYdcM3msGAAmx3WOoGsaqHMZoXlTKXxC3wXbabDKY92fb?=
+ =?us-ascii?Q?z4E5HdMldOPvd7i8mTyu5Py0Meit8df9NmwfXGdqCgvjlV+dQZRd2JX0Lw/g?=
+ =?us-ascii?Q?bdGsmtrguRgeQ4u4UxTuBruv1JCEuoppU/niT0H/VFYt97u259qLp1bWYtGB?=
+ =?us-ascii?Q?s2f20eiDTT+RDjfu0niXaowdVfCWRNQz7P6/eRPumg8ynMuddiQ5Ul9qhXq4?=
+ =?us-ascii?Q?y9MeOqzCjw6A/NeCuZl6JsAbHXBiDMTaoYuZZOQhK+MlKQsETX7Jut34/0D8?=
+ =?us-ascii?Q?OmuYgIJmQLOdnIPAlrejLSauPhCjawMZUAg8xH3Zk2SgmySZBOKqn2MVPEEg?=
+ =?us-ascii?Q?atHmiTUqsekMxUW3coZn7YhI4B249njttqt+6f9V+8gvH7Ew10+7sY3qb5T0?=
+ =?us-ascii?Q?WMnAlz6AYDu837J50AXaW9/AGwBc8Dx45XhqfVGZDOQdU+bmZ+qXQc4fFbUJ?=
+ =?us-ascii?Q?Ys2HOXwMQW7MLsruhVo2kkvhbZ6sjPtqVTxZD7emmar14776QUMYu9eEiQ3Q?=
+ =?us-ascii?Q?/4VUmVXeOnUTPmLkKio0xCZ1Xqytoe8OT119Az3LNWZNH6xGjN/G7Svj2qD4?=
+ =?us-ascii?Q?ffZId+m3kFtZcEvzlSjEY1V999H/KaQqz6wSxE8z77npkBPyJVBGxOO1TgVf?=
+ =?us-ascii?Q?ig0BdNdciMRqAxEiEcS43RndWVXDeoWVjoH9W8lRlxuvHPiWl8yBeZEhKFC7?=
+ =?us-ascii?Q?lyemPSe4srBv6BdB1SfXpm48UaCSfw2VpwzmKivR3ySi09pIfj9hWYD0Le7G?=
+ =?us-ascii?Q?JuXEyv9yC6DwkrWtj9jApK+CHQ6NIMXgQi+2yorC6yc24zGKishSn57uVFGd?=
+ =?us-ascii?Q?6rOwwjRCtgvtpnMc4GeGBUT+rdCgLnWqwLo7J8kF5beWVff+Y2Ggtlb7q+ZL?=
+ =?us-ascii?Q?QmMfshdsPbq1Oxv3MiR9PP9UVvVUpk4IFeKWtGX7mdqZ0ZrYxW2B91THxTbT?=
+ =?us-ascii?Q?R+JRCkpDKY9uAcwHJDwW9Krf4QnFYRyM37QR1GnLZzdBbBFaJE0YU2JebUWS?=
+ =?us-ascii?Q?79j4ONsfpV5CTP2/CNv3nrZW/VX7v3k8UHlyafizgKarLjUutwPWGsVplBSQ?=
+ =?us-ascii?Q?7bvTbo7n2I8JocZKMWF6hBaYMjzuytT5TEqkaSnuRMWNFetCJ62JTFH0KCbV?=
+ =?us-ascii?Q?laY95lcG9HdpdjuPcTKhPY3HjXxgbSrBvLcm/UXh?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -156,16 +156,16 @@ MIME-Version: 1.0
 X-OriginatorOrg: marvell.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR18MB4477.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22cc7418-eee5-498c-5103-08dc842ae215
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2024 00:11:29.5747
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f949c99-61b2-4017-ae46-08dc842ae3fb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2024 00:11:32.7828
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7FcOBrf3f9xQIXLBkjNhetaf79TgG21MUR31M0tXdojZY5BG/oxagFYniF6dpmG19XsLWqAzmeBUPY9rVM3nNg==
+X-MS-Exchange-CrossTenant-userprincipalname: tK0TKAytxVDj6vhbH06zVVJBkXSIOxUhY7sIwm6DI2XdltrI5EFHsHS+cudsueN0LMMm/8iZ63uhChf9dCn2cw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR18MB5309
-X-Proofpoint-ORIG-GUID: iLAaSW-o3GwsuDPeW2vsjCGXRd7OKC3m
-X-Proofpoint-GUID: xe7wjTbwEM0WXOmCGOnAntUDcja9EkK1
+X-Proofpoint-ORIG-GUID: 0YxGTS4DPTXuXiPEJMVYgF0dJUmQWoWO
+X-Proofpoint-GUID: SriMKuh-vv4z8jk_tUYTnT_PYMnEEBsl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
  definitions=2024-06-03_17,2024-05-30_01,2024-05-17_01
@@ -179,227 +179,168 @@ Hi Parav
 > shahafs@nvidia.com; si-wei.liu@oracle.com; peter.hilber@opensynergy.com;
 > jasowang@redhat.com; xuanzhuo@linux.alibaba.com; Parav Pandit
 > <parav@nvidia.com>
-> Subject: [EXTERNAL] [PATCH v10 07/13] admin: Add device resource objects
-> admin commands
+> Subject: [EXTERNAL] [PATCH v10 09/13] virtio-net: Add flow filter
+> capability
 >=20
 .
 .
-> +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}
-> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group
-> administration commands / Device resource objects /
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}
+> +\subparagraph{VIRTIO_NET_FF_RESOURCE_CAP}
+> +\label{par:Device Types / Network Device / Device Operation / Flow
+> filter / Device and driver capabilities / VIRTIO_NET_FF_RESOURCE_CAP}
 > +
-> +This command creates the specified resource object of \field{type}
-> identified by the
-> +resource id \field{id}. The valid range of \field{id} is defined by the
-> +device in the related device capability. The driver assigns the unique
-> \field{id}
-> +for the resource for the specified \field{type}.
-> +
-Is the valid range defined by device capability or driver capability?
-What if the driver has set the resource object limit capability that is
-smaller than the value published by device capability?
-
-> +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, \field{opcode} is
-> set to 0xa.
-> +\field{group_member_id} is set to zero.
-> +The \field{command_specific_data} is in the format
-> +\field{struct virtio_admin_cmd_resource_obj_create_data}.
-> +\field{resource_obj_specific_data} refers to the resource object
-> specific data.
-> +Each resource uses a different \field{resource_obj_specific_data} and
-> is described
-> +separately.
-> +
-> +\field{flags} is reserved for future extension for optional resource
-> object attributes and
-> +is set to 0. Each resource object uses a different value for
-> +\field{flags} and it is described separately.
+> +The capability VIRTIO_NET_FF_RESOURCE_CAP indicates the flow filter
+> resource limits.
+> +\field{cap_specific_data} is in the format
+> +\field{struct virtio_net_ff_cap_data}.
 > +
 > +\begin{lstlisting}
-> +struct virtio_admin_cmd_resource_obj_create_data {
-> +        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
-> +        le64 flags;
-> +        u8 resource_obj_specific_data[];
+> +struct virtio_net_ff_cap_data {
+> +        le32 groups_limit;
+> +        le32 selectors_limit;
+> +        le32 rules_limit;
+> +        le32 rules_per_group_limit;
+> +        u8 last_rule_priority_per_group;
+> +        u8 selectors_per_classifier_limit;
 > +};
 > +\end{lstlisting}
 > +
-> +When the command completes successfully, the resource object is created
-> by the
-> +device and the device can immediately begin using it.
-> +This command has no command specific result.
+> +\field{groups_limit}, and \field{selectors_limit} represent the maximum
+> +number of flow filter groups and selectors, respectively, that the
+> driver can create.
+> + \field{rules_limit} is the maximum number of
+> +flow fiilter rules that the driver can create across all the groups.
+> +\field{rules_per_group_limit} is the maximum number of flow filter
+> rules that the driver
+> +can create for each flow filter group.
 > +
-> +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY}
-> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group
-> administration commands / Device resource objects /
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY}
+> +\field{last_rule_priority_per_group} is the highest priority
+> +that can be assigned to a flow filter rule.
+Why is this called last_rule_priority_per_group if this applies across all =
+groups?
+Or why not just call it last/highest_rule_priority?
 > +
-> +This command modifies the attributes of an existing device resource
-> object.
-> +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, \field{opcode} is
-> set to 0xb.
-> +The \field{command_specific_data} is in the format
-> +\field{struct virtio_admin_cmd_resource_modify_data}.
-> +\field{group_member_id} is set to zero.
-> +\field{id} identifies the resource object of type \field{type} whose
-> attributes
-> +to modify.
-> +This command modifies the attributes supplied in
-> \field{resource_obj_specific_data}.
+> +\field{selectors_per_classifier_limit} is the maximum number of
+> selectors
+> +that a classifier can have.
 > +
-> +\begin{lstlisting}
-> +struct virtio_admin_cmd_resource_modify_data {
-> +        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
-> +        le64 flags;
-> +        u8 resource_obj_specific_data[];
+> +\subparagraph{VIRTIO_NET_FF_SELECTOR_CAP}
+> +\label{par:Device Types / Network Device / Device Operation / Flow
+> filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP}
+> +
+> +The capability VIRTIO_NET_FF_SELECTOR_CAP lists the supported selectors
+> and the
+> +supported packet header fields for each selector.
+> +\field{cap_specific_data} is in the format \field{struct
+> virtio_net_ff_cap_mask_data}.
+> +
+> +\begin{lstlisting}[label=3D{lst:Device Types / Network Device / Device
+> Operation / Flow filter / Device and driver capabilities /
+> VIRTIO_NET_FF_SELECTOR_CAP / virtio_net_ff_selector}]
+> +struct virtio_net_ff_selector {
+> +        u8 type;
+> +        u8 flags;
+> +        u8 reserved[2];
+> +        u8 length;
+> +        u8 reserved1[3];
+> +        u8 mask[];
 > +};
+> +
+> +struct virtio_net_ff_cap_mask_data {
+> +        u8 count;
+> +        u8 reserved[7];
+> +        struct virtio_net_ff_selector selectors[];
+> +};
+> +
+> +#define VIRTIO_NET_FF_MASK_F_PARTIAL_MASK (1 << 0)
 > +\end{lstlisting}
 > +
-> +This command has no command specific result.
-> +When the command completes successfully, attributes of the resource
-> object is
-> +set to the values supplied in \field{resource_obj_specific_data}.
+> +\field{count} indicates number of valid entries in the
+> \field{selectors} array.
+> +\field{selectors[]} is an array of supported selectors. Within each
+> array entry:
+> +\field{type} specifies the type of the packet header, as defined in
+> table
+> +\ref{table:Device Types / Network Device / Device Operation / Flow
+> filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP /
+> flow filter selector types}. \field{mask} specifies which fields of the
+> +packet header can be matched in a flow filter rule.
 > +
-> +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY}
-> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group
-> administration commands / Device resource objects /
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY}
+> +Each \field{type} is also listed in table
+> +\ref{table:Device Types / Network Device / Device Operation / Flow
+> filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP /
+> flow filter selector types}. \field{mask} is a byte array
+> +in network byte order. For example, when \field{type} is
+> VIRTIO_NET_FF_MASK_TYPE_IPV6,
+> +the \field{mask} is in the format \hyperref[intro:IPv6-Header-
+> Format]{IPv6 Header Format}.
 > +
-> +This command queries attributes of the existing resource object.
-> +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY, \field{opcode} is
-> set to 0xc.
-> +\field{group_member_id} is set to zero.
-> +The \field{command_specific_data} is in the format
-> +\field{struct virtio_admin_cmd_resource_obj_query_data}.
-> +\field{id} identifies the existing resource object of type \field{type}
-> whose
-> +attributes to query.
+> +If partial masking is not set, then all bits in each field have to be
+> either all 0s
+> +to ignore this field or all 1s to match on this field. If partial
+> masking is set,
+> +then any combination of bits can bit set to match on these bits.
+> +For example, when a selector \field{type} is
+> VIRTIO_NET_FF_MASK_TYPE_ETH, if
+> +\field{mask[0-12]} are zero and \field{mask[13-14]} are 0xff (all 1s),
+> it
+> +indicates that matching is only supported for \field{EtherType} of
+> +\field{Ethernet MAC frame}, matching is not supported for
+> +\field{Destination Address} and \field{Source Address}.
 > +
-> +\begin{lstlisting}
-> +struct virtio_admin_cmd_resource_obj_query_data {
-> +        struct virtio_admin_cmd_resource_obj_cmd_hdr hdr;
-> +        le64 flags;
-> +};
-> +\end{lstlisting}
+> +The entries in the array \field{selectors} are ordered by
+> +\field{type}, with each \field{type} value only appearing once.
 > +
-> +\begin{lstlisting}
-> +struct virtio_admin_cmd_resource_obj_query_result {
-> +        u8 resource_obj_specific_result[];
-> +};
-> +\end{lstlisting}
+> +\field{length} is the length of a dynamic array \field{mask} in bytes.
+> +\field{reserved} and \field{reserved1} are reserved and set to zero.
 > +
-> +\field{command_specific_result} is in the format
-> +\field{virtio_admin_cmd_resource_obj_query_result}.
+> +\begin{table}[H]
+> +\caption{Flow filter selector types}
+> +\label{table:Device Types / Network Device / Device Operation / Flow
+> filter / Device and driver capabilities / VIRTIO_NET_FF_SELECTOR_CAP /
+> flow filter selector types}
+> +\begin{tabularx}{\textwidth}{ |l|X|X| }
+> +\hline
+> +Type & Name & Description \\
+> +\hline \hline
+> +0x0 & - & Reserved \\
+> +\hline
+> +0x1 & VIRTIO_NET_FF_MASK_TYPE_ETH & 14 bytes of frame header starting
+> from destination address described in \hyperref[intro:IEEE 802.3-
+> 2022]{IEEE 802.3-2022} \\
+> +\hline
+> +0x2 & VIRTIO_NET_FF_MASK_TYPE_IPV4 & 20 bytes of
+> \hyperref[intro:Internet-Header-Format]{IPv4: Internet Header Format} \\
+> +\hline
+> +0x3 & VIRTIO_NET_FF_MASK_TYPE_IPV6 & 40 bytes of \hyperref[intro:IPv6-
+> Header-Format]{IPv6 Header Format} \\
+> +\hline
+> +0x4 & VIRTIO_NET_FF_MASK_TYPE_TCP & 20 bytes of \hyperref[intro:TCP-
+> Header-Format]{TCP Header Format} \\
+> +\hline
+> +0x5 & VIRTIO_NET_FF_MASK_TYPE_UDP & 8 bytes of UDP header described in
+> \hyperref[intro:UDP]{UDP} \\
+> +\hline
+> +0x6 - 0xFF & & Reserved for future \\
+> +\hline
+> +\end{tabularx}
+> +\end{table}
 > +
-> +When the command completes successfully, the attributes of the
-> specified
-> +resource object are are set in \field{resource_obj_specific_data}.
+> +When VIRTIO_NET_FF_MASK_F_PARTIAL_MASK (bit 0) is set, it indicates
+> that
+> +partial masking is supported for all the fields of the selector
+> identified by \field{type}.
 > +
-> +\paragraph{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY}
-> +\label{par:Basic Facilities of a Virtio Device / Device groups / Group
-> administration commands / Device resource objects /
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY}
-> +
-> +This command destroys the previously created device resource object.
-> +For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY, \field{opcode}
-> is set to 0xd.
-> +The \field{command_specific_data} is in the format
-> +\field{struct virtio_admin_cmd_resource_obj_cmd_hdr}.
-> +\field{group_member_id} is set to zero.
-> +\field{id} identifies the existing resource object of type
-> \field{type}.
-> +
-> +This command destroys the specified resource object of \field{type}
-> identified
-> +by \field{id}, which is previously created using
-> +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE command.
-> +
-> +This command has no command specific result.
-> +When the command completes successfully, the resource object is
-> destroyed from the device.
-> +
-> +\devicenormative{\paragraph}{Device resource objects}{Basic Facilities
-> of a Virtio Device / Device groups / Group administration commands /
-> Device resource objects}
-> +
-> +The device SHOULD complete the command
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
-> +with \field{status} set to VIRTIO_ADMIN_STATUS_EEXIST if a resource
-> object already exists
-> +with supplied resource \field{id} for the specified \field{type}.
-> +
-> +The device SHOULD complete the commands
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY,
-> +VIRTIO_ADMIN_CMD_RESOURCE_QUERY and
-> +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY with \field{status} set to
-> +VIRTIO_ADMIN_STATUS_ENXIO if the specified resource object does not
-> exist.
-> +
-> +The device SHOULD set \field{status} to VIRTIO_ADMIN_STATUS_ENOSPC for
-> the
-> +command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE if the device fail to
-> create the
-> +resource object.
-> +
-> +The device SHOULD complete the commands
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY or
-> +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY commands with \field{status} set
-> to
-> +VIRTIO_ADMIN_STATUS_EBUSY if other resource objects depend on the
-> resource object
-> +being modified or destroyed.
-> +
-> +The device MUST allow recreating the resource object using the command
-> +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was previously
-> +destroyed using the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY
-> respectively
-> +without undergoing a device reset.
-> +
-> +The device SHOULD allow creating the resource object using
-> +the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with any resource
-> +id as long as the resource object is not created.
-> +
-> +The device MAY fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
-> even if the
-> +resources within the device have not reached up to the
-> \field{max_limit}
-> +but the device MAY have reached an internal limit.
-> +
-> +When a capability represents a number of resource objects, the device
-> SHOULD
-> +allow creating as many resource objects as represented by the driver
-> capability.
-> +
-> +The device MUST NOT have any side effects on the resource object when
-> the command
-> +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY fails.
-> +
-> +The device MUST complete the command
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY
-> +with \field{resource_obj_specific_data} which is matching the
-> +\field{resource_obj_specific_data} of last
-> VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE
-> +or VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY command.
-> +
-> +On device reset, the device MUST destroy all the resource objects which
-> +have been created.
-> +
-> +\drivernormative{\paragraph}{Device resource objects}{Basic Facilities
-> of a Virtio Device / Device groups / Group administration commands /
-> Device resource objects}
-> +
-> +The driver MUST not create 2 resource objects using the command
-> +VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE of the same \field{type} with same
-> +\field{id} before destroying them.
-Can this be simplified to
-"The driver MUST not create a second resource object of the same type with =
-same
-id using command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE before destroying the=
- previously=20
-created object" ?
-The phrase "before destroying them" seems confusing. It suggests that 2 suc=
-h objects
-could be destroyed though they are not allowed to be created.
+> +For the selector \field{type} VIRTIO_NET_FF_MASK_TYPE_IPV4, if a
+> partial mask is unsupported,
+> +then matching on an individual bit of \field{Flags} in the
+> +\field{IPv4: Internet Header Format} is unsupported. \field{Flags} has
+> to match as a whole
+> +if it is supported.
+Does this mean partial matching on other fields like source/dest ip=20
+(something like 0xFF000000) is supported for IPV4 even if partial
+mask is not set ? In other words, why is flags field of IPV4 header
+special ? Does it not apply to all fields ? (i.e. the entire=20
+field has to be all 0's or all 1s if partial mask is not set)
 
 Regards
 Satananda
