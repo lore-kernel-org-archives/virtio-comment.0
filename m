@@ -1,167 +1,194 @@
-Received: from refb02.tmes.trendmicro.eu (refb02.tmes.trendmicro.eu [18.185.115.60])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20021373
-	for <virtio-comment@lists.linux.dev>; Wed,  5 Jun 2024 11:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717585356; cv=fail; b=WK+dSKSWwgXSJJazXrpM+1He6fXVZclgh27dar+hskIGKpDVhfLnEYYUBjk0cbVM+43Y+T2gJAnOXj/e8/FdOemLlnf3koWB3PsJZH87xW9l6gUaBi+NPIVjqyu+stOMeCTNsbJyEgVSjfn58WfDoA3qc9o4Ak4gtOThc60KGiM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717585356; c=relaxed/simple;
-	bh=yAWtrRyrhgg0amz6U5EaPT09sllHUECs9LeHpQPjPVA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hSXzKUTq5YNTkIG0V7awI7B8MWhBPJyltGv4I4cxwCmMjBfR/NKkvKmvWkh2VPL7YFJt+1ZzL0442/9BkFseXDlDTQnn5AUv356Ovz9pFJ3SzULm1pIxLjMMWR4Ayq9y0mEPD6nXXNiuK9/kdWI39oedGe6YWbaVpmdjFhCdzaQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=EPoxA2Q3; arc=fail smtp.client-ip=18.185.115.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensynergy.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DCC1922E5
+	for <virtio-comment@lists.linux.dev>; Wed,  5 Jun 2024 11:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1717585916; cv=none; b=EYota2W9+5b2RAc+Orb5YBGJyrLv3j69UX737vu3qN2jarnBfZgsEo/F9TukUM3wrl4GZi5UTeNZ/tA+7pvdcza/kuDLXnoZ11ARvdYw5kgg968O5YtAeYCH1/BjcbJTpVfP12j37TOTv2pkC0UiddwCGdaNpicZH07ej+Q5AOM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1717585916; c=relaxed/simple;
+	bh=spfVFaOqN4zG9iA2o8/PBhCWOGWHICn4i8oH62yX9fg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=KwjlLcAD/MWld28FpUPuShd0HvFhDSVENeXq7SnLB152us97rNDnq9ZrhmAlck9NNLK/kcZJDLAy70FoF5BpOLKl3UFiSSKrmOogLtUB8W4hMyabqoZVD7wy8jhuEX2kt96w3PYud0eF5Uz05i6J8iQC2ZkSp7Q8XCjzFzw+IFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=alpRkUQJ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="EPoxA2Q3"
-Received: from 104.47.11.168_.trendmicro.com (unknown [172.21.10.134])
-	by refb02.tmes.trendmicro.eu (Postfix) with ESMTPS id 54C0510000A34
-	for <virtio-comment@lists.linux.dev>; Wed,  5 Jun 2024 11:01:52 +0000 (UTC)
-Received: from 104.47.11.168_.trendmicro.com (unknown [172.21.163.121])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id C1FE11000177D;
-	Wed,  5 Jun 2024 11:01:44 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1717585304.422000
-X-TM-MAIL-UUID: c18cd92f-cb59-4070-867c-e6fd586d7527
-Received: from DEU01-FR2-obe.outbound.protection.outlook.com (unknown [104.47.11.168])
-	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 6735D1000040E;
-	Wed,  5 Jun 2024 11:01:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TZ2/ytaUPO/g7xsBLzM2DkIKBm8ft6od5nVUXBlKqSwWsYmmVlq4E9VMUiLMmFXMYW8A+ft1dSL/gIuQwvUAIwSLFfQeSNT/EuBcCnDnLCXYEH9RdajkX4D2mkjT6Hoocef+YkvxxT29A2iuzz7xQE+OGWY2Il++Hi/vcb7rXyXEBPnn4ECa1IONLGh7Tu5EtbyoSEDKp467alO1TQRblQJiMzysZRROQ90yNKsNgWvVJnJHvrkDD45hiKKn1n5InG3ak6x8G1OAB9iWy7EWCBiWJu+Ch9e2Rz64Q2lNdf4tkH9qbXg3AYEBD9j2QAdhyrMIuuySQzSAtihbVavWcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=twPA+zyukf3dvet8SEACJefSX8Wi8AgiOLmlBBSx8m4=;
- b=mA4TW1FAyeXETVC527t/9GVuf7Q/T/4/Mp613SUuUXG4qaJhvoc8A0ySuhoDXsM8MiWg0XsDSHZx2d0938NbfMikDRfuskgYV01h1Qmld0WSo2CIezmrwyq6AU2wk3LcdwyuS7muIkCvSxJiyfrczQyd0cc/D2ogsgQDKaxSbgbT71hKYsL6FAyoRyneck+l76qsBjXqbDbyvPaAFYcxyjk2+DvDBbvatUR5cNaO+6RE7fqmOHdeYDcN8GrdRE7yzWq2athmeDW9eJo3aBSpPRrPk5kDrwSrywwmuBuw1A+DZlGJy7ufjq15VGnk01u0K3dPSS1h7ZGcgd5XEp6gkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 213.61.166.92) smtp.rcpttodomain=lists.linux.dev
- smtp.mailfrom=opensynergy.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensynergy.com; dkim=none (message not signed);
- arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 213.61.166.92)
- smtp.mailfrom=opensynergy.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensynergy.com;
-Received-SPF: Fail (protection.outlook.com: domain of opensynergy.com does not
- designate 213.61.166.92 as permitted sender) receiver=protection.outlook.com;
- client-ip=213.61.166.92; helo=SR-MAIL-03.open-synergy.com;
-From: Peter Hilber <peter.hilber@opensynergy.com>
-To: virtio-comment@lists.linux.dev
-Cc: Parav Pandit <parav@nvidia.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Peter Hilber <peter.hilber@opensynergy.com>
-Subject: [PATCH v3 0/2] admin: Fix requirements wording inconsistencies
-Date: Wed,  5 Jun 2024 13:01:31 +0200
-Message-ID: <20240605110133.31568-1-peter.hilber@opensynergy.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="alpRkUQJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1717585914;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S8SFdN/7ynIOA0KmOmHMDD7y3SKdMSckYLhZIsq325o=;
+	b=alpRkUQJIp1hSqQTh6ymGIA0bNZnMCD5PKucSI+aKjrmlwPW3jl5EryZwU6U7JiNfYlZj9
+	P1J3T+ptSEwohkrZeVJvtWS64/qm3CLb92e8nrE3KakQpAdOg4QdxpYQrF7IMA3GcKSarW
+	rRHE0KqG/yY6bjfy78n2f59r+0oBMN4=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-52-Ho4qCIHsNdCTff6-QtWCuQ-1; Wed, 05 Jun 2024 07:11:50 -0400
+X-MC-Unique: Ho4qCIHsNdCTff6-QtWCuQ-1
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-57a50752cd2so815322a12.0
+        for <virtio-comment@lists.linux.dev>; Wed, 05 Jun 2024 04:11:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717585909; x=1718190709;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=S8SFdN/7ynIOA0KmOmHMDD7y3SKdMSckYLhZIsq325o=;
+        b=ch4m8DrlMFxiFOUO5CFcPvYciNN57Dym/9BiymNlGiYp0iDmQFnpvgQYZdXI177nI3
+         qBm0D6bCoy3fgyjQLLCnqXpHxnpoqh0azYWXqY8qGB1/U5Z6/JHlvpX0Fq1DBu7km3BY
+         JiUcQMCdvxzlybB4/83gesI2wSZ+FdPCNB/ucn95xuUCFQHVQya5/iRaXBTBunL5+P7k
+         yvHAWBckh73IPaE4lvWqpcvssBtUrlsBt+BJ7OtYFYYfb/oypkgWoy4X4Xfa5dJzYTfP
+         JcLjSx2S9wx9NWNtxh7FkY2Dy72VfU0FWNupFKoKd4jr3eYvQBVsjxS4BgnoBmmaYE96
+         4v2w==
+X-Forwarded-Encrypted: i=1; AJvYcCXB5lD+iRjwpOyUHo2Ge5zoudWK26O8aBcFhm4sFDzLBUcmNRwsQRg80ArShNv4jRcUvr3vjuqFfMSJsWwDsS4v7KvDiBKWvv98d+qax5c=
+X-Gm-Message-State: AOJu0Yyp8l24t9EK7dSdOh7KrMiHStnPWO8xYsJwa+YSD6jadsMrfjJ9
+	N0Or/VteSQz0GQmoJajWuaVtfC58amrZtSDVtbqlGk7yqwVlz+bhc6Mua3I/ndQ0IA1JG09YZly
+	IlJKFXuGN9mzsdxp6htPMt3ylKcMwqdwTa3cCgj7uMA1JepkgfWtJ9KbytdovtlHO
+X-Received: by 2002:a50:8ad9:0:b0:57a:6e41:9d8d with SMTP id 4fb4d7f45d1cf-57a7a717b8emr4214775a12.18.1717585909564;
+        Wed, 05 Jun 2024 04:11:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEgGO50tahG4iIAASV2dZfJ/NypLKJbCUAaMwUqAkQt2MdYpLwuXEBB3pDeuES2nNBR45E9Ow==
+X-Received: by 2002:a50:8ad9:0:b0:57a:6e41:9d8d with SMTP id 4fb4d7f45d1cf-57a7a717b8emr4214744a12.18.1717585908973;
+        Wed, 05 Jun 2024 04:11:48 -0700 (PDT)
+Received: from redhat.com ([2.55.8.167])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-57a31c9bbffsm9117276a12.81.2024.06.05.04.11.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Jun 2024 04:11:48 -0700 (PDT)
+Date: Wed, 5 Jun 2024 07:11:44 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Willem de Bruijn <willemb@google.com>, Jason Wang <jasowang@redhat.com>,
+	virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
+	Eelco Chaudron <echaudro@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>
+Subject: Re: [PATCH v4] virtio-net: define UDP tunnel offload feature
+Message-ID: <20240605071054-mutt-send-email-mst@kernel.org>
+References: <ed730a7e12853339c6f5f298fa6c240a39942a74.camel@redhat.com>
+ <CACGkMEtetmg=YUtPW+yL+s5MzhbKKkJyrx3EDOtf2aF=q5_b8g@mail.gmail.com>
+ <CA+FuTSfCm-GpLHYztQCxti2adCcFPV7GyKBH1zTDB8tM2w1NNg@mail.gmail.com>
+ <794dd45767bf54385613c5d18c32ee11d474db87.camel@redhat.com>
+ <CA+FuTSeDqrQ3FVjpmmQ31UbyGQA-fUsYz3=NmizC1U7Q8w6E3Q@mail.gmail.com>
+ <4745e6a149bb8424ab3931ecf04ee941e6830c47.camel@redhat.com>
+ <CA+FuTSfcte_aXYoog9=bQqH1v21xLk+G2V9zNo9KOwXCt8x2Tw@mail.gmail.com>
+ <9d617e706dd834aedf07a5a61ebf994ab11fd1da.camel@redhat.com>
+ <CA+FuTSf=YwKFVan8wLNuyyJXOX6dncFW2KZZYqdFEL_nadvoxg@mail.gmail.com>
+ <65b844076079002a5dc61edcb15a1e14c73cb516.camel@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+In-Reply-To: <65b844076079002a5dc61edcb15a1e14c73cb516.camel@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF0000B61D:EE_|BEXP281MB0183:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: d67594bd-9f72-486d-d082-08dc854ee226
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|82310400017|1800799015|376005|36860700004;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?XtT3uX+/oN3Knxjps//JvH9ub+Meu6E2MdB/ztV0WAUTnnMeaSyTWckwFbYh?=
- =?us-ascii?Q?hokq53Jrg/nz/XG9ZwLzp1C0P+7MZnZ1+qvJgrAzHeVfRDTPZZhhu8JpBeT7?=
- =?us-ascii?Q?RCX+J0htprPg26GTeyvKtqEpp3Eco2M3ygfSpJmW+xWXBiDrDXa/RVDFyq0T?=
- =?us-ascii?Q?h2BdtYUQWUW7C5AwYSbZM45uJm6cfWTQfm6+Co5LCUl0GhnnTvwxQmBhGB1V?=
- =?us-ascii?Q?ItaV/AvgykMf89f6gXYedGTkp45Bx9gektGFzyeZY8ZTlYL6fM4/ETKIxSU6?=
- =?us-ascii?Q?NbDfdxEvLPxc2v3g6z86nlKrvFDDkSnFs5lO1rBKcHXKzdsdSeW8oFxz69PR?=
- =?us-ascii?Q?xcEufItoFjAjQELLQg5q90ilOCWLUZ6J03lAlFw5E6B1wwCnz4qPEzlKIWFQ?=
- =?us-ascii?Q?Xx75vfAyPUlHFJIc/t2JOi3oRYJX3wiOsb84tYC2z3iv1V6SGCnITUXqAUbA?=
- =?us-ascii?Q?QsYaUthhMjMFz5E5sirdfjGlrAGDqFKGGQG41Npws7+C+Gt3SOgwaT9TFDIC?=
- =?us-ascii?Q?zW3i9j5RmLPGJ0w6mCHAawMQr6+0qJodqbX2lUtGNOHRMLbz5M5pT7UhxjFs?=
- =?us-ascii?Q?BoROCvlKOPotNke9GA6wRshnx2dtbTh63WRi5A3vBbDzP8Vm3DIiahYxmQKj?=
- =?us-ascii?Q?8N8BjRBM51Dw7Wxba1coeak3GIoatRoD32VipqHiTJPx7mMOznfu4ib+ZGkj?=
- =?us-ascii?Q?2kcet8aQFaA/UNWkRWQp4IGTqMi0USt1V040qw18PaDnjQ3SRcLckRsFJ86l?=
- =?us-ascii?Q?NLSdk+SxA1BXB0Ug3ubM+w/JD7HQ+QUHlx0c+OXVBePqE+ys5XWEn8CrtvTR?=
- =?us-ascii?Q?x3Zo9Di/UMgDAJo56OBrtf1x0QoaHI0uxG806xKbehBadydQGQ75rSB/VS6L?=
- =?us-ascii?Q?QOGtvu4+rj1Mg50XA4rG4X7fpS15JfPV85Hin9dZueRzr5fgjK0tjGkzlxpz?=
- =?us-ascii?Q?KcAnoLvG+/bzgDkatnNM7Yl6vecW05NTkrlxbcOiQQpBWfVSbAepUFNn16oq?=
- =?us-ascii?Q?Cj3jEEbTkHC4yZWmIftnoE2XHyvpAlx05Oxt2H9AgdLdN4gfkkinxL9/PQ+6?=
- =?us-ascii?Q?LaR3BSrZJdqnp7k0qBl1xJNcpva2ZKwL/pBnoX8Kd4DYfbYcVW36NjqeyGgw?=
- =?us-ascii?Q?fDgqBwhIL3nTITzqWdWglcFO9LQA7ZlS1k6DrkIiwzLPiacyeeev9gXBfEKA?=
- =?us-ascii?Q?S8s/ypTvd8ZEybS9/G5f+uoKHGT2fxXffUMZCHtuOWeB0lm4MkuBn6la9qXn?=
- =?us-ascii?Q?IdLz6W7zwj+ybM8lMJDKPaTLtjQc0zadtz3pIyY0/Gc8FRfYiaBSvURs85+S?=
- =?us-ascii?Q?mrxZkmJOU8aV6Py/TT4lGZHL790JgWyJpNHlKmVRdXgIeqIPGcQV7tp5KVOk?=
- =?us-ascii?Q?9i8JFkQdtBtZsblCFvnGy8aN6jjFzWKFzzc7TPrm+nMyQQoegg=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:213.61.166.92;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:exchangeconnector.opensynergy.com;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004);DIR:OUT;SFP:1102;
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2024 11:01:42.6811
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d67594bd-9f72-486d-d082-08dc854ee226
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=800fae25-9b1b-4edc-993d-c939c4e84a64;Ip=[213.61.166.92];Helo=[SR-MAIL-03.open-synergy.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF0000B61D.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEXP281MB0183
-X-TM-AS-ERS: 104.47.11.168-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1023-28432.007
-X-TMASE-Result: 10-3.202400-4.000000
-X-TMASE-MatchedRID: rnHtMJHWtX/MuRev46IJiJtnlFv6A7oh7gd5SqHIhjLGhmdxjnivFj4z
-	WkJArHvIKij8XYxyJTd47M8LMng65QJdikbdsraSsZIjJc0QK/a3BJFtyO5uJFIzPHeqXZhDzJ/
-	FCco/WS26miiB19Ur4l3jHUhSUqcUe1cCmbSKrkFbyCHfDNuoE48QyQ3JBScciZHHs5XulrPcIf
-	Zk2P1epUiQSPZ/ZWuhWjsaYI4lh3ULH2qjGZLbHXe3zYmbXQ023ioPTmQl+Dd/MXEW/MXrvd3TL
-	40mQHPK
-X-TMASE-XGENCLOUD: baf3dfff-88e9-44fc-9232-cead3cd7cdcf-0-0-200-0
-X-TM-Deliver-Signature: 60D59225E19D81D17133EF0670CDFECB
-X-TM-Addin-Auth: KCJlTHqz8o2PjgwBuxcrPg5CXfWkWFQeOl1UUFPVSPzp9xwXt+UNYpp4fmw
-	uY2MuKHEHDzvTL7/q/sQzLMmSECx0I0ejFbxpGPl+X6MEYKGU0vP+gJt9J8szQNIV0US5VDN7FZ
-	j2KkCoHZzOzSck2yJEK6Uu4xVKIERcXg9M28/JAMmnM81MByd9y0uNM/UTk+8JLom6aIQ25Rt0B
-	1B7DRfjYDxyCIo1oyPCNWtewsaSUS55S3UqlsgWZfTycKGJ6Y6PAqSH6GooaGwyWOxGXR+qCT20
-	5ok32y+aabCGQ10=.Ib9UREfUfHKz0XFtievvoiuM9uVdzA87HqNX1kSy5UcNIc4p2lO851TRly
-	mU8LDveBBEt9oJoXUK+yrCqlLx6Gh5yRVJOnYxww3y2F+oSlf+0LU+v8r6g0aFNLAZl8AWXjHZz
-	isW+Xy84V5wJ50BfkQDDLBSY6d/8Pu+xcqsTEUgzqs+IWwGTf4fhN5ipA2wHR/G5k5xFOB0a1bX
-	5PVyV6vwJ/DA5i7gv6AUcOrnrAPIeTeoX5gtlr0IDNRy1kelHHRWB/Qn5Ie1A4AGsxe2ekRWC3+
-	U3kBv8maFph3nTjlZB57dMASDI+O+9qyHLCkQCnTEMTRHC/6kdwu8jyCHmQ==
-X-TM-Addin-ProductCode: EMS
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1717585304;
-	bh=yAWtrRyrhgg0amz6U5EaPT09sllHUECs9LeHpQPjPVA=; l=676;
-	h=From:To:Date;
-	b=EPoxA2Q3SZpyZ+oVzmMzqZq54BycoHfI3JV16daYwqLTsjQ0TZu0d6LyyKpPDxL9V
-	 5CztQ5fyQ1VjDBlEYMtOjh/oDFMlhHKVnIsdxD3LFUn7lw2wqos0rs+bNAkbkhUDKe
-	 EhuB5Hkug2aTm97LOJgTCUVVCkQRBpuQwYZHXeobj78oyGoOK+lPQ6SCma61kzLRAu
-	 BiIyXG3xXAp9FmQ5qBpOCwGy0WasYbBedph+AC+H6ngDRqE4L0aKvatMoIcppLbL/4
-	 SUCSCNVDznVLeFkYcI4vnsPtAEcv1rOpzEfwYj+yGdE2x6HV6m2JWpeRtq2rCfGEu9
-	 SvXNOqfk9R/zg==
 
-I stumbled over some inconsistencies in the administration virtqueue
-requirements wording. These patches should fix them.
+On Wed, Jun 05, 2024 at 12:59:58PM +0200, Paolo Abeni wrote:
+> On Mon, 2024-06-03 at 13:41 -0400, Willem de Bruijn wrote:
+> > On Mon, Jun 3, 2024 at 10:17 AM Paolo Abeni <pabeni@redhat.com> wrote:
+> > > On Fri, 2024-05-31 at 11:13 -0400, Willem de Bruijn wrote:
+> > > > On Thu, May 30, 2024 at 1:15 PM Paolo Abeni <pabeni@redhat.com> wrote:
+> > > > > On Thu, 2024-05-30 at 12:23 -0400, Willem de Bruijn wrote:
+> > > > > > > > > > > inner transport header offset from the provided information, as it's
+> > > > > > > > > > > currently the case for plain (not UDP tunneled) GSO packets.
+> > > > > > > > > > > 
+> > > > > > > > > > > The outer UDP header may carry a second checksum, which can be offloaded
+> > > > > > > > > > > independently from the inner one. Since UDP tunnel checksum offload
+> > > > > > > > 
+> > > > > > > > Just require local checksum offload? Computing the outer checksum is
+> > > > > > > > always cheap. Optional double checksum offload might add complexity
+> > > > > > > > that is not needed, as it is so cheap.
+> > > > > > > 
+> > > > > > > The rationale behind the making the outer csum offload manadatory was
+> > > > > > > to keep the specification change simple and prevent the exhaustion of
+> > > > > > > the virtio_net_hdr flags and gso_type exhaustion. With this change,
+> > > > > > > 'flags' has 4 bits used out of 8 and will raise to 5. 'gso_type' has 3
+> > > > > > > 5 bits used and will raise to 6 (even if only 3 of them will be
+> > > > > > > bitfields).
+> > > > > > 
+> > > > > > Perhaps we're talking about something different. I'm suggesting that
+> > > > > > the outer checksum is not offloaded at all, because outer checksum
+> > > > > > generation and validation is always cheap in software. This is the
+> > > > > > premise of LCO.
+> > > > > 
+> > > > > If the guess produces GSO packets with outer checksum, and the virtio
+> > > > > driver does not support the outer csum offload, the guest will have to
+> > > > > do s/w segmentation. Even if computing the outer csum will be cheap,
+> > > > > the segmentation will be bad enough by itself.
+> > > > > 
+> > > > > Am I missing something?
+> > > > 
+> > > > Do you mean virtio driver (in the guest) or device (in the host)?
+> > > > 
+> > > > All segmentation offload packets imply checksum offload. So the
+> > > > virtual device must support checksum offload. In this case, of both
+> > > > checksum fields.
+> > > 
+> > > I feel confused. I think the starting point was your request to avoid
+> > > supporting (in the virtual device) outer checksum offload, and I read
+> > > the above as quite the opposite?!?
+> > 
+> > Sorry for the confusion.
+> > 
+> > I agree that the outer transport offset is needed, after all.
+> > 
+> > Without segmentation offload, the outer checksum can be calculated
+> > cheaply software.
+> > 
+> > But with segmentation offload, this either
+> > - has to happen after segmentation, or
+> > - the outer headers must already be setup for segments (GSO_PARTIAL)
+> > 
+> > The first approach requires the field.
+> > 
+> > The second is probably too much to ask of a virtio interface. Demanding
+> > GSO_PARTIAL.
+> > 
+> > It would require the driver to
+> > - split a tunnel GSO packet into a GSO and
+> >   non-GSO pair if it payload length is not a multiple of mss.
+> > - rewrite the outer headers to adjust the length fields
+> > - compute the outer csum using LCO
+> > 
+> > It's not entirely crazy. The Linux kernel already can already do this for
+> > drivers that advertise tunnel offload only as part of gso_partial_features.
+> 
+> I'm sorry for the latency.
+> 
+> Wrapping-up the above, I (mis?) understand you are ok with the proposed
+> virtio_net_hdr layout changes.
+> 
+> WRT UDP tunnel outer header csum offload, I guess I could add (back,
+> IIRC was there in a previous revision) the feature negotiation for the
+> outer UDP header checksum. 
+> 
+> I think such feature negotiation makes sense only in the guest ->
+> hypervisor direction, that is, device receive path, where we could hit
+> possibly H/W implementation constraints. 
+> 
+> In the opposite direction it's just a matter of s/w support, it would
+> be strange to me introduce UDP tunnel GSO and UDP tunnel outer checksum
+> support separately.
+> 
+> WDYT, does the above makes sense to you? Or do you think we should
+> negotiate the csum feature in both directions, for better symmetry?
+> 
+> Thanks!
+> 
+> Paolo
+> 
 
-I think they could be considered editorial fixes.
+We generally do negotiate csums in both directions, yes.
+I'd rather we kept things consistent and we are not short on
+feature bits.
 
-v3:
-
-- Refer to "virtqueue" as such (Stefano Garzarella).
-
-- Narrow down example to have different virtqueues (Stefano Garzarella).
-
-v2:
-
-- Be specific about case without order constraints (Parav Pandit).
-
-Peter Hilber (2):
-  admin: Refer to "no order constraints" only for different queues
-  admin: Fix driver requirement subject
-
- admin.tex | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-
-base-commit: 71fe8e907c9d20c53e8327bea99360cb3c529ade
 -- 
-2.43.0
+MST
 
