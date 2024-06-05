@@ -1,36 +1,39 @@
-Received: from repost01.tmes.trendmicro.eu (repost01.tmes.trendmicro.eu [18.185.115.113])
+Received: from refb01.tmes.trendmicro.eu (refb01.tmes.trendmicro.eu [18.185.115.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024EA146017
-	for <virtio-comment@lists.linux.dev>; Wed,  5 Jun 2024 11:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CE749639
+	for <virtio-comment@lists.linux.dev>; Wed,  5 Jun 2024 11:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717585311; cv=fail; b=O0LDpNJPM+ggzJJaG3OI8Vex1SuTEwMGycI90OSqDgj4u3UvJaBG3/eDm47BzNXnk9VR59bMUZu8I5UfVPqNgOA5DDjOTRhE0L/7pZip+C8AyO1CI5URMWhA6baW6d/cBjmMMJhWVCRBpADtMsrr2H/mcsKsJTUTrnUNGNRbqAs=
+	t=1717585320; cv=fail; b=cpIV8heuypT/YBVG3I/5MXCSc35Gro5phtlnPMKlEeInzWT2tqixg8cMDAthl9VYke37zLY917nvORbDgU0Bys6mtY+Q+/wvVsulDMZni04IKxDIKrcxF02OH+4VFolg3HvyySco9s4r9Tu6CiEcDtrywJg0jLvmtlsB8knRiVg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717585311; c=relaxed/simple;
-	bh=NAIKf3EKu/KfVlQvkdGF23jw6IKGD8jN6opRo31reP8=;
+	s=arc-20240116; t=1717585320; c=relaxed/simple;
+	bh=GpRuvYeV333oAVykj8+GhvcIiEy0iixs5O4+xzDVSZs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E8ZQeV4zloUOnGcibfmlxQQU7vyhEa41sv3G2tdERzTKt9+y5ps68Gz3w5onqn1ALOqI/8WPcg/Y+w7fs/GBfzmtY540yMEA/Ct3BpZyszd75hiZAcYhlYEPYeqNjrk4kqObAL9ieCYWPqxsx13JGkLwuby29yRhOs4KsT0EdEE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=ZredL5TR; arc=fail smtp.client-ip=18.185.115.113
+	 MIME-Version:Content-Type; b=k4nQgOUwEZjnDeDTSvSu8qD0T1YDgGu7kWSiVWsAPfBOBq+fyQawPj4yJomj1P10A7GrC5E13HcgiGRk1Ms7VjKG7u4n+apccL7caj0L7nLJlPlIfnLHjRiP9Wfz8nzp2I+b8tC8RvpCBMnt2zEOuIls6djATHtbu155knvIRd4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=CVQb/Sqd; arc=fail smtp.client-ip=18.185.115.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="ZredL5TR"
-Received: from 104.47.7.172_.trendmicro.com (unknown [172.21.181.109])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 5F066100017D2;
-	Wed,  5 Jun 2024 11:01:47 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1717585304.057000
-X-TM-MAIL-UUID: 5ba150c8-74d2-426b-995f-ca13f0848c38
-Received: from DEU01-BE0-obe.outbound.protection.outlook.com (unknown [104.47.7.172])
-	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 0E3CC10048580;
+	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="CVQb/Sqd"
+Received: from 104.47.7.175_.trendmicro.com (unknown [172.21.10.233])
+	by refb01.tmes.trendmicro.eu (Postfix) with ESMTPS id 5B999101371D1
+	for <virtio-comment@lists.linux.dev>; Wed,  5 Jun 2024 11:01:51 +0000 (UTC)
+Received: from 104.47.7.175_.trendmicro.com (unknown [172.21.163.121])
+	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 579331000116D;
 	Wed,  5 Jun 2024 11:01:44 +0000 (UTC)
+X-TM-MAIL-RECEIVED-TIME: 1717585303.898000
+X-TM-MAIL-UUID: ad49ae03-7db1-4698-8b08-2bfcbc026bd3
+Received: from DEU01-BE0-obe.outbound.protection.outlook.com (unknown [104.47.7.175])
+	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id DB5A21000040F;
+	Wed,  5 Jun 2024 11:01:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K/LdvW1Ua9b1EXoiSK5lFd5KHau1wkb+DgeZ1AHF8C2Yk4DPv0Onh3QYiULvANlF15LL8wvv2y+O9jPNewzWOLiczcLKJv3AhL9H+g55SGVz+L/oy1gGPWeLgUi7f6gCfg1j5n7JglaF8UNkQ4ErfLdYviLUEiBpmfOFKZ6MiVp1P6LE9xA3PzNxkJDdF96qL5PC0blPhhDsSGCc12hGfTJuPVXEpeJ5sXjuaoSgjl7z+tICGwYhCdEoxyy4BimcUXPG7OcT/5gZ1PuLOq0IqZlfYJOP/wXbRxt9WqojCjuisKvTtXnN7VgDU86QVLxsMbjHg6xvlxSTrryj7RMKDg==
+ b=JiTeqQ09rH3cjti9/iT3ahvvca17ZJN5zQ98sXDbpf7ADWqJBlLU+zRg2pfMZ6VuNpGzPTmImb7SdN3zT0H9glPSY5SS4+HCWMeLUiixP23sjno74UtCL25MUnTiCUzzFAqnpWofd3GA+oJTVZyKeZ5cxkchDH4KnrwqPWLC+37CJeayH0PQ14xga2nZ1WsKH19Bx3vYha9aFoxW0Xy8WUQUsmB1SCwxmWRFb3ieZfdSUhfcVZGePYGUQW8ipf5b+9vB/2FkbgWB2yeCpXfAVg9Efy4zGnyPXQ5CfaxOReMouMkDjRCSz+14NxSpj5iWxvptC4PqdOnM44ClAvYEMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZxLxPERU2W9uybDz3UqTBRruq/qxJFxv9x2uxCPFGEk=;
- b=aei9SgrhbQ8xox/VMMszo9uDTZqZEiiENIUJJu9Vv01hCsLVUdZaCnR1P3GdGab2X/Ofo1cs8owsPTRJfPNxeXPE1YuuP+5WXtsJBotrEdSZE34gmCZgpf8QesdgPKW112febvsHm/U4zO2SqgvZVl6keaiNyZcfhreYgEfnPXsxci524RcoQO3WEC7qfett9E3Hq3zuGnbKnaaEvUXA7Bqv/AV3Y2N2TWXflO6jU/GjFMaQv8Sr8pMKJW/ikZU1sT/6FCGEb5zBDbCdHkvAaYI6SzPcBIex4lNU51vfgKg/gyLQh2xR093H88R3aWyO6jtsdNSy2i3PFApSNRRj0Q==
+ bh=QSBK+YVEfUrCVgC+05JT6B8BtQXgjEMObddHutRBgKU=;
+ b=FcrM7AzGjpWp3/WGUqtzjtViX0a0ZbZdUc8OTHs21ciKwGs33KtDdg1z8X750yOEfAY6CllBVElxtsOHsGhAwcA6NVTZ8tFUtnB3J+cSut6KSybPcDr9sDKdr2T9t7CXLcFYrnTimW/E5Gt3wgr/lOZg4c6HX8jLyN4qOTfeO+oSdCWR92lIp23S806POoncvlRUWSP7gMeOr5zU1Vwi0Bl5uE1uuss4g18t8s0zzL+4sAHAq0yasT8zbqsd+u+UnoPwSj2IyWL1XVuaWaJAR9h10N1qg4vF/eMn03u1w7PY+km6tM3KBML2Zqw+lHpqW8tqTiN09NvHxa3nvRIzVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  213.61.166.92) smtp.rcpttodomain=lists.linux.dev
  smtp.mailfrom=opensynergy.com; dmarc=fail (p=reject sp=reject pct=100)
@@ -47,9 +50,9 @@ To: virtio-comment@lists.linux.dev
 Cc: Parav Pandit <parav@nvidia.com>,
 	Stefano Garzarella <sgarzare@redhat.com>,
 	Peter Hilber <peter.hilber@opensynergy.com>
-Subject: [PATCH v3 1/2] admin: Refer to "no order constraints" only for different queues
-Date: Wed,  5 Jun 2024 13:01:32 +0200
-Message-ID: <20240605110133.31568-2-peter.hilber@opensynergy.com>
+Subject: [PATCH v3 2/2] admin: Fix driver requirement subject
+Date: Wed,  5 Jun 2024 13:01:33 +0200
+Message-ID: <20240605110133.31568-3-peter.hilber@opensynergy.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240605110133.31568-1-peter.hilber@opensynergy.com>
 References: <20240605110133.31568-1-peter.hilber@opensynergy.com>
@@ -62,140 +65,109 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00027A5F:EE_|FR4P281MB4334:EE_
+X-MS-TrafficTypeDiagnostic: AM3PEPF0000A78E:EE_|FR4P281MB4337:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 0b8393eb-56b1-4872-bfc6-08dc854ee211
+X-MS-Office365-Filtering-Correlation-Id: c46130c8-55fa-4e5d-f7b0-08dc854ee215
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|376005|1800799015|82310400017;
+	BCL:0;ARA:13230031|82310400017|1800799015|36860700004|376005;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?AZ6VvK2HKZ/w7IIe/eRTfcEGU2TKOOtTRHvjR89XM63WELW6fOyzj1CBgMGa?=
- =?us-ascii?Q?C19eHJjJ+z2nUZkVetSHbUcdi6fS/CL7hUzaAAISOl9Ob/78qagutFu5vekj?=
- =?us-ascii?Q?7MmIAAug6yTzAtaZF+lGRWp2QPmYy50RGV0RmrMlbf0MAdKSvKHMXNv/AKwO?=
- =?us-ascii?Q?ofz+iCNI3aV1cwrZXniog1GahmPI5JBYXPX5V8ieLspd6RWynMnqLKBrcQEr?=
- =?us-ascii?Q?WddoeHzZoiyive+bWubrwtzONcQF03IHWh1HZ2n5CTSnTpAS1xBgvWj+Ur7m?=
- =?us-ascii?Q?CyDWHHW51GSuBfQ3Pa4lpuGD4huUASRNsRBq2o9VNXlZ8zgRc7gB+JjB/DM/?=
- =?us-ascii?Q?xEAJLGwoVGSPqfEp7zQBxPipIPL4PzUO2qrrEvVqKJlMae6ZesvqZ9mMhUzT?=
- =?us-ascii?Q?tKHRC8kvLHOQiAG+g1Y6xkcCZiKtag9EuOuk0kHvvwHln0LEh0jGIoxQfEpE?=
- =?us-ascii?Q?RkKtKwTzSlgqmxXXRXZft5Jgs1BNEfEdD+u7Nu30r1wJZhrKPq0Khl/nYERu?=
- =?us-ascii?Q?aFfMCEOa71egHZaCPt9aXD4qUa99y55X7I7pbYxGx+7g6jVchIp85zFjskte?=
- =?us-ascii?Q?U/tl8LGAb9L0TrL9H4Te0HoqZoP+T37frnCeXY1qM3g0BCxOhluqixcnw/LR?=
- =?us-ascii?Q?jmoTykpd5kA7lEBdOM/ezI/zHkFWYTeVfbN6z7geAhmsnjtcdEVj9/StGac0?=
- =?us-ascii?Q?LeU5UTHyhs+imJNi5Ldq1z1/Gs9/zCgNfHtsflS870TXDB5B1OQ4sSra9yF/?=
- =?us-ascii?Q?7L/r7wyi1A8E4FTdlTxpVb2G6kB69YaAJmrQWfy2uYa3VdNKLSngm0lhC9L0?=
- =?us-ascii?Q?LbS6a1JG7so+Nm8vZSPIBNeMSSvkkuqU8Et+VlrM2kKeHUMWeiKTmTydHn8S?=
- =?us-ascii?Q?xd2sGgOK33qSdy5DCWqMSdnAM+pmRVibZNoYbwm9L4DyyuxmyqxCToGXXQdK?=
- =?us-ascii?Q?2ebjN9YYAcpR0UiQgiUSr2v3MBieQ486tLg4rGUYYJfe8oUPrybE9tjDKO5a?=
- =?us-ascii?Q?4IsOkSFtjhnE5zPvMRiZQkWVTl8cSDJ7AB+fDEOPHBuNQCtoBKlUolwFlv4z?=
- =?us-ascii?Q?bJyaBFFBAs2ZmldKibxtmAfvyqdTQ2sUxtHwRMmon2ISMHAT98xUEpipJN0E?=
- =?us-ascii?Q?amzq6ydugwf0YZw0K4tPepCw5RjMNQRWOJ5N5vn2ga0bsbU2BLme7elBT+Eg?=
- =?us-ascii?Q?zx5vDqHmsu7vPU4Zd3ziMQYAw/OBbKzrm89jOEUqbPXTgCsafSAuFgC9ills?=
- =?us-ascii?Q?1gjnFE1276XiUfdRjW70hZGKYYiHxPHartZgwsc2wc1ONYbr3FccmnfhgaVA?=
- =?us-ascii?Q?9WR2RJrMdpN5cDOfKpiINe8XK4WLjRpuY/LUenBIY1jOdhPglEw2dvOJj9iG?=
- =?us-ascii?Q?6s6DcHgCbS3YMQGmOfmVXJRoDSXkYGkE6wwnn+Jsyic+ptaJUQ=3D=3D?=
+	=?us-ascii?Q?X015E0ZW6+uKLClwnGClHOra4rZOZYpw8Z0d0XyPFxOSLORCDBkCZQUfM8gp?=
+ =?us-ascii?Q?wCzGiGnB19WqX0PALwzvPSJ6O9HJg0HF57amreWArEZ9DccG4RMG3Dmfa/ih?=
+ =?us-ascii?Q?XyLW/FBwVv5WjLukMi43qDN0u1ET8HtTi/pFzUsdkANp0zu8go93lYDn/yvt?=
+ =?us-ascii?Q?nVCmUTBtY0B1aBFibakVzLsbFI867N/CHl/Y1R35IpgUT11MHruMNeUURaHL?=
+ =?us-ascii?Q?LOOyIQACDEdvkJpDEBJVPEgDMLF57fry7uxiqxezJv3Ox+w3nuQOFRAkw3o3?=
+ =?us-ascii?Q?2P1UnAV4px3Wpn6pWlQ22mitUqNPUWLdjEdcl1HaEtiiUphbCKMJYvNkGWW6?=
+ =?us-ascii?Q?kKQtrB/pmGVDIjvLefAJCjRLDqyyMvbWK+vhSWvLVlrvtIez6dl4ZI2boe3I?=
+ =?us-ascii?Q?Aq/s2ULJ/YpWlXSK2KrK1IdnoP42gbeAJl+kCjpo0mNAjdXeya3uOtlqi1OF?=
+ =?us-ascii?Q?paOQN9kQ7uw7zaHv67YdNfkfPysoJ6MuTaaow9+R0r7k0q70lb6XlYRx8CIL?=
+ =?us-ascii?Q?fRVDz5G7vpRwl7Gisxo7BUd5zppRGUjHMFsxvLYQ8UTT6Xt2DKNpzRibR1Xm?=
+ =?us-ascii?Q?z8oXsfhYtHd7uHjCj2f73pijm9HvL0+UeaPFeSqQi4OPdbJgqSxPFrtHJz6H?=
+ =?us-ascii?Q?6phghX3G64+QXXM28CDqR6Y2xX7IfWtFQp++gLsD5CkLL617EaTCXHG6md9y?=
+ =?us-ascii?Q?x9q3c8AWbpAat2jDWm8t5xBapAcsVU/Ke6fmvX5F23I7fQYywiitNgSzqYNE?=
+ =?us-ascii?Q?hOQY0kr7+eV81D7aSpfxTFsDBlF77DEmaAkQ60L0Q+67VpKHZ1ZcHbg0nGLJ?=
+ =?us-ascii?Q?DfVbxJR2f/dAl5FUdX3KNQYONlkGFRKVcxDrSfG7YxiaHloLZbvLc+5K8QN9?=
+ =?us-ascii?Q?MU6h1pq+Lb5aoc3JqjqK+07jj1rZYZ/P7QZwHfnNWvn1k5bP+RZ7uy3Iu5Jv?=
+ =?us-ascii?Q?xyE0i6X+xa9MJrCXbQiaeNRgGPWP+zdIlMmmYFS7agIt+yqI8eOihd3YCF02?=
+ =?us-ascii?Q?dz5WgacPm+K7wZO8ZVK6X61GZSxaics7FYLGoyhsFVFj5ckaegpC3nONhcWG?=
+ =?us-ascii?Q?di4bqdUrNEcFwyV1sJpZWC3ExEmy2rbrIulRv0b0n+rmrwK8D8ija2TFvtc1?=
+ =?us-ascii?Q?mggY4xdyIxBN1xvvAMthwMP0DZlVs1SNEJBJ4fV/xkm9oyA4X+yby5s8fsBH?=
+ =?us-ascii?Q?LdwKBgeTQEV/1BQO6aiG9NqfJhznxBGnVUGL0so4Q+Xh6TtPFJJw2VeYw5A4?=
+ =?us-ascii?Q?qWgohrVP/nIwVHHXIRcYR8GZAvB8+mH7Tau+pWWsyk5VDNxyp4igAZI2UKCm?=
+ =?us-ascii?Q?1kuVzvaaf7vwLQad9vjbLUSjMpjbhPio/jfHTI9rYAXnIwXBOpgF8D7rLbNs?=
+ =?us-ascii?Q?OrdkAAHknhnSb2uoOKo5/awLCdBBJwCOWBmfNHcItQ4dmt82Qw=3D=3D?=
 X-Forefront-Antispam-Report:
-	CIP:213.61.166.92;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:exchangeconnector.opensynergy.com;CAT:NONE;SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017);DIR:OUT;SFP:1102;
+	CIP:213.61.166.92;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:exchangeconnector.opensynergy.com;CAT:NONE;SFS:(13230031)(82310400017)(1800799015)(36860700004)(376005);DIR:OUT;SFP:1102;
 X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2024 11:01:42.5743
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2024 11:01:42.6020
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b8393eb-56b1-4872-bfc6-08dc854ee211
+X-MS-Exchange-CrossTenant-Network-Message-Id: c46130c8-55fa-4e5d-f7b0-08dc854ee215
 X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=800fae25-9b1b-4edc-993d-c939c4e84a64;Ip=[213.61.166.92];Helo=[SR-MAIL-03.open-synergy.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A5F.eurprd04.prod.outlook.com
+	AM3PEPF0000A78E.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR4P281MB4334
-X-TM-AS-ERS: 104.47.7.172-0.0.0.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR4P281MB4337
+X-TM-AS-ERS: 104.47.7.175-0.0.0.0
 X-TMASE-Version: StarCloud-1.3-9.1.1023-28432.007
-X-TMASE-Result: 10--1.574100-4.000000
-X-TMASE-MatchedRID: VK5cIMsVziZHh0q2DwAXLuz7sT3z+1wghi9GR48RQB7AYsa7JwqXV4ba
-	F6RQTZz9QWrwTQcQ3Z3/aUWAnMYE96o4G0VKdf1fC+mr+2Lx3Hx+rvFZ7FWrXAsPNAkPeS3QMnz
-	YHHThMiBVwq3aldsC4plGnAC3gM+P/Y5aTtdrip0ZD7bjq+6lMGzY00haS8Qo2ubnxCjreJ+y3k
-	dtFI7dBeMZ+gHJICghjJ4g9QEm1pDSXOJlAKRpIlo/1P3BDpl/jh4sOI1Ut5uVYAcCowrUTWp/K
-	U7Gr1ZI5JrN9/h+EXVI7lIrHBEYQVw6eqmDL5urrDYOk/5tXVajg0lrtKMWyk62RU5NNq4manC2
-	9ejYRQelQdSjBe50pC9h6tejU7UDBJetwkYd1rZxg7svMtapLgFjc8ftwTqqq7fOEzqthHBGTmw
-	jP6n+RHX8mzbTzzmwx6GRnb6Kqb8=
-X-TMASE-XGENCLOUD: c27806ec-1f80-4145-8fd1-d231dbbdadd9-0-0-200-0
-X-TM-Deliver-Signature: A266B00F5ADADEE8F125952F9DB6E98F
-X-TM-Addin-Auth: MgM0g7kULZ0kyFPWCGLk0EQVaOe4o68OTanSD6J13HmndJboAAx15IuJmfN
-	xceWRjNXWy1MxWJXOAGTB11jQEWMAo29ryvEXQ+kRlKOP1i0lYB7m2IDVZrWt72g8IxEKrPbrGG
-	B7RG+j/XFepQYNCLTOfD5gMmBdWgO7FsDcYXZqpoVNqOQb1tQAWzvLFxVpZ0hUETI57OyXlDqeL
-	cIxLT9YbNyFtk3eXPQbAachvX4s1aPXJTtEhad9PqjsdCtokiMhtUpZkOerqYJ49X8yPE9xFO1s
-	THLrwkVF2me/j74=.MHsPaY3vpOn27RqOGuIFYpyHya32XN8TIENBV5Q0qqte7bUlEssjVGechi
-	+t0fpDmXptYPL0AjyDFj8wgGnj/IXwH2225uMxLLJOpv5sYR+i+O7X7yKa4ogB2Y2bp4UdKAB1L
-	Wm+a2OvRe5TsgYm8RkYeMLXoSRm4R0IGJ1+037zwH9Ggu8tB2ScMurrCzSIeYSCTSvFq14q6QUN
-	j9U82P6oDok8KKLCVLcDiiplf03tZIta8DmeC9fEfic54sxnNO7QrhHT7tonGwnJZBUZIZXFowg
-	MtdhEQ/z069wORSRl+lO5AuQxMzOA/5znUyE+wJMRWtkzv1nRuEPecaOl0w==
+X-TMASE-Result: 10-2.814700-4.000000
+X-TMASE-MatchedRID: XAa2d/45j8Smk9Ke6CN7uZgVeq7CYXzT59KGlOljPvuOspAJM82OXQk4
+	3PZ4fPrqlplw1dcdxwbvoLs4q3Jyra3XYtsOH2/QRYNhzuZZjRDZ/IoKYBoUVqloHyDFpaEst5O
+	JHXe84WQAer1XvHjjzrRchDoUW0Yq8GjCF7GkJjBCPQBD3xA/3aryV/2jRq/XEgg3cwDHl/384p
+	QlUpw+SAqMtasBG2xzl3eanjCn1nMnef17+TmbziJUNkNrt5r93+6k97GsyDgNjscWWWNaG5l+e
+	3IAzQVFChDrNYHcaZaPlr8d2mwSd8oINVvFLjrg
+X-TMASE-XGENCLOUD: 95f4e084-0e30-4bd1-af1b-0eb2a131f06b-0-0-200-0
+X-TM-Deliver-Signature: 7E722133023D8DBE273E8499D61FD75E
+X-TM-Addin-Auth: Gn9vmCoLKkAz8ibpNhEirCZvu0o37LLVnS4cAJy0umr1CjxjtWKrCOWqJ/D
+	H4DX138U9nmJ5lGQc9ouN1IBxyFG4ARulkjr1mt9fb2C3hN2k4U+XSCX5U2si7MYRYPv1HDht3E
+	r1J6lXlGx5rGpkowiNmcOslf90+fFd0G1K3a76LSBOlEfthqPYEauLA3eaT6ZBiKI96JP6rew7n
+	Iq5Xyt0epjFXMSfIjll2iUX4fkYjgq6B8R+2PQfpApjQT/qVOYNUAtbEKTUSgFkUUIDYFJtucZG
+	LmQkDRgQMNbvvWo=.iNBSkFxYfayXEikKFRy0fhjYmCfDqUb7/z5mZp1kcbFLi5hfbqo0hcn00j
+	yfsjk+bwV2+yrgZxIG/6LQm4xPmhk8Nms0Z1W5J96KA3JErPGbEA8OST5EOdUOYoZQOTMBAIcdW
+	As69WRIevzTnjntaGigKsezSiScMIU99iYCCtvRvfoARZ3G6BHwVuPc71ykz3c7EYiw0gV28zae
+	akg/IWOWx5nucq8uXQ3RI7VtzQsIr2vzsizpgfOcRPTUL23AvvHcFq8MusMBpqdt/1oSTU35Z2q
+	ogv1VORREuZcfqPTFubjyaNBAkSUTJIhHw8TjjSda1VFQqumh7eSNvZ3zJw==
 X-TM-Addin-ProductCode: EMS
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1717585307;
-	bh=NAIKf3EKu/KfVlQvkdGF23jw6IKGD8jN6opRo31reP8=; l=2214;
+	s=TM-DKIM-20210503141657; t=1717585304;
+	bh=GpRuvYeV333oAVykj8+GhvcIiEy0iixs5O4+xzDVSZs=; l=1156;
 	h=From:To:Date;
-	b=ZredL5TRI0QePfuADVU6EH21Xy5huDctQ4Zz3bMO7wex1X8469nqS08T/ejYGiG6w
-	 k6nY4s/UpcXCAjgVqN5AQfQ5JTbH+Jr4q7XucZ25EJRsxGufAgpJZl21qjqhMgEVC5
-	 nrqCL5AWqjesPTmnBS9xbATZ/HoBajbM7O0retn/sjfFdfFR9n7mYw8kMFBxuqnAID
-	 bO+q/XA+G87QWZkTcchMe1clGmXCW74xx1mrJd8PGbb2H/6kniAuYI7YGeYadfjOAz
-	 gm+vxfIYWSpSM6TOZdGhnFlwGqY9Cob3gO6uS0b/3C3Kox/9Hy0DOgP6zVf+VlnYNb
-	 LvDV93q31Uofg==
+	b=CVQb/SqdI9oOnGCPDvFRmMRXxzQXx0jINK3tZuYK4ifWkWQGnABITIJKzWNLdkpjC
+	 J7+B6wYMhX24D2aghVPnvymlSVoxjkhVvt433VNhCh/mWv3LQ3ymDmrhPY820KO1Cf
+	 aFdohM/kAVDjZIsF1AXcu1/9Cm8rPKiB97CtLtH16x9l09z7gQSZwqF26KtOLFs1j5
+	 foyTnHD59hYDcj69V42+CmYCLUOoYXsn0DFSMrKBq3AiNEi7dBzwzdka9gWtuYe23A
+	 CDaAPbPfK1ybMX9rNg7XdrGQUlDI5A0k66qOf/bmvG/73gXk9efTzKuxoyimIr7bN2
+	 sSLF2qC/1Ly/g==
 
-The non-normative section says that administration virtqueue commands
-"will be consumed with no order constraints". But actually, the
-requirements stipulate a total order for all commands in the same
-virtqueue:
+The driver-normative section for Group administration commands contains
+a requirement on the *device*. This requirement only makes sense as a
+requirement on the driver.
 
-	The device MUST process commands on a given administration virtqueue
-	in the order in which they are queued.
-
-	If multiple administration virtqueues have been configured,
-	device MAY process commands on distinct virtqueues with
-	no order constraints.
-
-Fix this by narrowing down the scope of the sentence to "commands placed
-on different virtqueues". Also, narrow down the following example to
-one with different virtqueues, and reword the example to better fit the
-narrowed sense.
+Fix this by making the driver the requirement subject.
 
 Fixes: bf1d6b0d24ae8 ("admin: conformance clauses")
 Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
+Reviewed-by: Parav Pandit <parav@nvidia.com>
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 ---
-
-Notes:
-    v3:
-    
-    - Refer to "virtqueue" as such (Stefano Garzarella).
-    
-    - Narrow down example to have different virtqueues (Stefano Garzarella).
-    
-    v2:
-    
-    Be specific about case without order constraints (Parav Pandit).
-
- admin.tex | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ admin.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/admin.tex b/admin.tex
-index 0803c269e5c4..751918443d0f 100644
+index 751918443d0f..0b0db153f5b8 100644
 --- a/admin.tex
 +++ b/admin.tex
-@@ -457,11 +457,12 @@ \section{Administration Virtqueues}\label{sec:Basic Facilities of a Virtio Devic
- The driver enqueues requests to an arbitrary administration
- virtqueue, and they are used by the device on that same
- virtqueue. It is the responsibility of the driver to ensure
--strict request ordering for commands, because they will be
--consumed with no order constraints.  For example, if consistency
--is required then the driver can wait for the processing of a
-+strict request ordering for commands placed on different
-+virtqueues, because they will be
-+consumed with no order constraints.  For example,
-+the driver must wait for the processing of a
- first command by the device to be completed before submitting
--another command depending on the first one.
-+another command depending on the first one to a different virtqueue.
+@@ -583,7 +583,7 @@ \section{Administration Virtqueues}\label{sec:Basic Facilities of a Virtio Devic
+ of \field{struct virtio_admin_cmd} that are a multiple of 64 bit
+ in length.
  
- Administration virtqueues are used as follows:
- \begin{itemize}
+-The device MUST supply both device-readable or device-writeable parts
++The driver MUST supply both device-readable or device-writeable parts
+ of \field{struct virtio_admin_cmd} that are larger than zero in
+ length. However, \field{command_specific_data} and
+ \field{command_specific_result} MAY be zero in length, unless
 -- 
 2.43.0
 
