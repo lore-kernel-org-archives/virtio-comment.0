@@ -1,176 +1,195 @@
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51779158848
-	for <virtio-comment@lists.linux.dev>; Thu,  6 Jun 2024 10:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.92.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717669258; cv=fail; b=HOvwYLw4X7VBNnda8xtWlJBVg588yLVbBPcr+dSB/nzmY2pNqvlOBNPg2yC2W6ft4zgUqharaRqudAO18UysVB/3EBg6V71ZS0k9BXsMmzdLrE4dJUZ9UWroT1dFOAOEUv/w16b2GGsXTVPW0d+qT1ohwH5t9l9jrRgOYj+2EnU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717669258; c=relaxed/simple;
-	bh=wgX+WE+byYJuc0CQGFXr3WRPc4ZJPc0xm20zvWcc8L8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bu3ITzF60xddIdyXhmcge5m4aZFX7omirWzN4oJWiBJ61vIypWMUZNK9Qex5lRE2HCYXaNkqYj3glKt6igvpDEBDW3h4bXLFY7AXy9mu0RaLf3i+J26TzxSL8rVcnEXRpH76XYWW8GSSui9Uwq5ytvuseOj+rCO9yx1uiZ8ketU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YDPVDPCA; arc=fail smtp.client-ip=40.107.92.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6777515FA75
+	for <virtio-comment@lists.linux.dev>; Thu,  6 Jun 2024 11:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1717672202; cv=none; b=GHPMtdJaa8adWw0E3uVskcgXlYY8O6sDb14cZsAELm0dwXK7AqFuQi2PCOsiFEHHjQmCNhpZOkP6TCigmFeC2w5Dx8jmKpHWujL3PSjM7Ur745zKwn7cqWub5zAYv0atVEYEIrTE+5oJ3ELb134ZeXkNZwlX2BTFeGKe9zlPqLA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1717672202; c=relaxed/simple;
+	bh=sZBAoJqz1YimqavqYPy3NeVbzmM5HEPLWJT8CQbpjgs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=Q2wkaOSCkQTOFyllZRIWGokxMPkdXqJrs2uCrmpuxEa01erYT/xv/2SVd8e96tLlrqRGnTaJzRZXLwBcTcXZDAFXDK7BSHmm5h3FSYoe4Nk9w6RRbpZw2NP0RafF+bTa+PLLubVQ6KbTQ40xeUB5EWdITuWIlpeHe0eCE+ob0SU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GmJ9k70N; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YDPVDPCA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jSbjTFaNkARGoGWnScoHUc3UxrrH39A+Zjs9GeOwBxyMKUvid9nEv2kov9SOH6EDYzIxTwo1byOE1K8KFH8/qThq4f9YyYpeBYS/rmyFW0TWpfV+BeFFloGrffGDT/9au14PFPG01Q1Z1uNXRXTRqzmyy0fwaCTLGEBiYXAa85/h/L3lPrc0ZrYIOwrmtqtQyHfoOxARDQkrjjnMm6rC/5JPfSOfTwShpP+yU66xdUUoMcRTuSnIKEGbz/Df7tNdysUYrulCa5mKj0YBhSD+YJdnb6l+crpACHEXPP6Ace1/cgoGa61nv8FpEBbF4bsQKrvyn1SN8y1NIJJWROz+AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kxJqk/CtFbjw3Q5dGakMQVlIs8cKenwOEHcvqJOSkHY=;
- b=nEssxKvDanGEyEGgQqL7BPh79IZH0SZXsWnWiZPFOWNq1lkVwhbIMkQYPtaWtlZl3New18ltXRszy1AHVA3Qh+aFbBFT9TiqmPTycg/w4DipZ4CIvrUBqMmXpYGc9tyWXjFG0ATIqXImdi920dDxRFc0QjChDvnexTgLnEm6AZa3u8a2nNPHGNN05SuEb2dmatBOh/UuVk8nOQ1V1Zc2IU5JIR2VU/3NYDnZjeX9tNAvr9dwCZo9oOE1FGDFC+yEmMx7Fst9UEDRrxxky7RgB/6/Vh12n3bA5F2noryHsVEaBpIoIyzMfZ+1xInK1BxJ1mzypWMIH3HOuahNPdaIVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kxJqk/CtFbjw3Q5dGakMQVlIs8cKenwOEHcvqJOSkHY=;
- b=YDPVDPCA+jyvEDtc/oA8k5ESQBxFErcUQaE5CkiclYrlsrSNki/4G7yjJR0SBFApOo729VrKQV+alCGL6BT7Q4GzGgz5n+aWHVMhwnoSkwDSafm8AUalAQ6AMp4oY36/mkX5wG0HctKqxhpxoDnIH5wPu6TbTKptu65uksbT55EuPL1pFnRLcaM2dqrRj6evto2Fc9ofOlZhzCmL3qh2MhXUbvbnOOd+mzY0fiXxmghZXUyqJk7zleFbFgKswgaLXsSaH3v9DxtoRRyt0NT3JfQ1YeMKOSHgakSnwxVPcUy+U9/+MfDQMlI1gIdnerDqQAbD6HzrYJplRlgmEImhgg==
-Received: from DS7P222CA0001.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::7) by
- IA0PR12MB8225.namprd12.prod.outlook.com (2603:10b6:208:408::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7633.32; Thu, 6 Jun 2024 10:20:52 +0000
-Received: from DS3PEPF000099DC.namprd04.prod.outlook.com
- (2603:10b6:8:2e:cafe::86) by DS7P222CA0001.outlook.office365.com
- (2603:10b6:8:2e::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.18 via Frontend
- Transport; Thu, 6 Jun 2024 10:20:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- DS3PEPF000099DC.mail.protection.outlook.com (10.167.17.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7633.15 via Frontend Transport; Thu, 6 Jun 2024 10:20:51 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Thu, 6 Jun 2024
- 03:20:37 -0700
-Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Thu, 6 Jun 2024 03:20:35 -0700
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>
-CC: <shahafs@nvidia.com>, <xuanzhuo@linux.alibaba.com>,
-	<yuri.benditovich@daynix.com>, Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v6 3/3] virtio-net: Annotate virtio_net_hdr as field
-Date: Thu, 6 Jun 2024 13:20:14 +0300
-Message-ID: <20240606102014.2103986-4-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240606102014.2103986-1-parav@nvidia.com>
-References: <20240606102014.2103986-1-parav@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GmJ9k70N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1717672199;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MI+XyKi0jhb1jd6SntkFQBHyyBoV9E96U0zZWQJPUiA=;
+	b=GmJ9k70NBKuD7oQ5JoXFuphzZrY2UKw57IvFYYDpenJZglcR4JnuQalhWgroLRapLf41Pj
+	Ex+VwXsxSiDbeIUxC/YceOjXVGAs4+zNn7yKPgbODqhb/+YL+38bnW8H2jt4Occcy3IWOa
+	Me1dPjV4SoV67uMI8IFudyfzHEDi7uk=
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-96-rMYdnAxEPK2qXmFkhFpguA-1; Thu, 06 Jun 2024 07:09:55 -0400
+X-MC-Unique: rMYdnAxEPK2qXmFkhFpguA-1
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-3d2039ebcc3so633168b6e.2
+        for <virtio-comment@lists.linux.dev>; Thu, 06 Jun 2024 04:09:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717672194; x=1718276994;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=MI+XyKi0jhb1jd6SntkFQBHyyBoV9E96U0zZWQJPUiA=;
+        b=IhjyFjbsED1xJaxuDexAQs+cAHquOs0idukYoVDxCDo1Y/VLqSnWOl4Z7YGl7LLNis
+         tfVUkqRytwGg+O12IK6VAQVloNL5VEoUwN+1CViCV+8Qy/vW1DPO+Lkt5UEz9iPF0YPW
+         ne5D1MkYMjjpI/DqFjj4fpAe0Jk6/TABuYKSGCw+tWZrkmPRSqgPCvBgKCNjhoeJA34p
+         ESDnhqFp2GRflpjWj9yGUdsM8yeeEXF7kXSBNcTA89BmkHxstm9rQ3uu0nLu7vAM1SRt
+         ysg9B++utijw2BBaDv4H3W16Sky5jBaZQTX/5fezF+kIivKL9EdqHVYnt4OnhPisVRkQ
+         euDg==
+X-Gm-Message-State: AOJu0Yx0SppBO7tJa/ydRJNtjB200et4coK80KlvVGk5pQ6y+Zxji43c
+	61kXUz3A/5Kf2e0p6pHfIfMfCb2cDtAXEKIYNyJgnVOy7ZcAynYlFvkUoU+ACab9dSDtGNezILr
+	klblKF/nY1g+AQmGkaJqHN+lERD8YysMsFBfbvtA6WUk8jpRBPokZ8bSQ7PEzUG47
+X-Received: by 2002:a05:6808:2811:b0:3d2:154:b3da with SMTP id 5614622812f47-3d20439df9amr5053507b6e.33.1717672194572;
+        Thu, 06 Jun 2024 04:09:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGrsuczDWR0NI2Hf9g2n2PtjesqaRfSMLmcOWXZnTtqTjgGyZM3ZolLT7s6J51QWo/R5U53Bg==
+X-Received: by 2002:a05:6808:2811:b0:3d2:154:b3da with SMTP id 5614622812f47-3d20439df9amr5053487b6e.33.1717672194145;
+        Thu, 06 Jun 2024 04:09:54 -0700 (PDT)
+Received: from fedora (lmontsouris-659-1-55-176.w193-248.abo.wanadoo.fr. [193.248.58.176])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7953281e146sm50191685a.10.2024.06.06.04.09.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Jun 2024 04:09:53 -0700 (PDT)
+Date: Thu, 6 Jun 2024 13:09:50 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: virtio-comment@lists.linux.dev, anton.yakovlev@opensynergy.com
+Subject: Re: [PATCH Resend] virtio-snd: improve PCM command lifecycle
+ description
+Message-ID: <ZmGY/hH52YBugiXJ@fedora>
+References: <Zky6Disx1ofmETmn@fedora>
+ <l2f7vf2nzrejy5rk7moymxgsrts3jh5pqcubctbzzmzzsoz4u4@4x63sz5u4ovg>
+ <ZlSNR+2ysO9vMXhN@fedora>
+ <5gcoinwkhq6n6vd5dtpypykp7gy5wzjyyjy4rfpgdeiwes2b23@i6zlcvat7yw7>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+In-Reply-To: <5gcoinwkhq6n6vd5dtpypykp7gy5wzjyyjy4rfpgdeiwes2b23@i6zlcvat7yw7>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DC:EE_|IA0PR12MB8225:EE_
-X-MS-Office365-Filtering-Correlation-Id: 419c53d5-60e3-428c-b1dd-08dc861257bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230031|36860700004|1800799015|82310400017|376005;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?m45/qSttsjS0PjqJsN7pTBcLPk0+Vp8AlqfjjaQJqTvnB/r+ubSrqGS4nXbI?=
- =?us-ascii?Q?c2fSiSGPFRpqA9Q+7Y0DqvgSzR7H6gDdKQKWyNjt0u9ocmT3GpZsOTalXLOI?=
- =?us-ascii?Q?1BI2iqTi5hZe8ApIo5zqU4gtFRrRFkvvC+Tj93eppjdcKqKvAn4YeFOPgiFb?=
- =?us-ascii?Q?Ogw/2dMv69H82P/yDR208GglN6JwALI8EiVtbnVn8m80UzV5anZCcaNOKP/S?=
- =?us-ascii?Q?S+Vj4t6hq3mybUUgel+djszaouhOl15g5TriXdmp+gBrRcHPJdV5YSUToNrI?=
- =?us-ascii?Q?JdTYqTobju0guQujjoiXh3aWiwrNctGnOzH6+pvdQDIHTVxmbk9mt4O55cMm?=
- =?us-ascii?Q?Ta+QCpt4kP2eArIWaOIJAi6feG69R3llL31IWCS7zU2Ful+5/oiQuxHQwHex?=
- =?us-ascii?Q?sJgVmsoJoRtZDXPYBmgJjO1dFhj3f6h4tueLfahPdz6Gy3PxJ7VWrZDOAFub?=
- =?us-ascii?Q?7klRb++iqU24s7lFCoSd3NFf786YtqYwErGkf2uyXQ2n0Xfk0ZI/w1iio0a8?=
- =?us-ascii?Q?7i5o0qy1HNjI7dcvTGztaPfu6/dxJKHzPAeSX9Tc15FoqGYhaA76suXVezp/?=
- =?us-ascii?Q?9JxbXCGsWn0mDPbDizZNlY6NoXrIDBuQUyV+DpRHcDTtffh3W0VIwC7jf9ot?=
- =?us-ascii?Q?c13p8u5WEFjzgYidryjXFk2h7mhY/JSlrGY+Wv2nqHlRaHAHksweL2yoBi3d?=
- =?us-ascii?Q?eMKfnEQJwcnxoHKsojHZnQ0/wfb5aRDXE1aTbv0ZBfxjDd6unGNk6vQVh5SK?=
- =?us-ascii?Q?TpLHEHl2DBwBRGWh4nqJEs7lTejORoUkoRWZyQkyNRj/TkaSmIzdUSZZofrB?=
- =?us-ascii?Q?BzR9UVtdDNX1Pi1k9HigK9aHjj/F3r+aCXqzZOB989Z2Lx2RP0mFrI/3eqIQ?=
- =?us-ascii?Q?1u0HqGxAQxjO3gzhbUK0HVEW4XVAbMofzzod4k94rQd2UM8eLg3icB9PDfqV?=
- =?us-ascii?Q?rU+5HB1N/NcSKR5CxTpPOctTbx066E6kdDF5p6Va7v47OlZ3tYHODcnWcrAY?=
- =?us-ascii?Q?NwbW+ktbYlAmcU5QMkZBAx0BoLMVu+QSao2dglhC/8gL0NJzlKJhlNcZE9Js?=
- =?us-ascii?Q?gTA+9K67TxnUAd4xbMzGnZlT8MGOE6p7aF7scSpDNWLLFLGQxiX3ETuR+nVM?=
- =?us-ascii?Q?JUjg5ghL3wdnzHu7Kf+GrCofJuORNAquiOnTLGw5KUr4Y/tVfJbf4iohYcuU?=
- =?us-ascii?Q?k/9G37nvROnsu9C03+gT4DL3zQJ2aiwgMLbTKcmzopT8LouLo5juQJ7x5nhY?=
- =?us-ascii?Q?lK6LNCbUGZHUrUnyEqiqmpGSyzO2CtxCcr+RnBCUV/FP73cGN5WI4CAfz0yU?=
- =?us-ascii?Q?NnvCbiG05PP2BlFvev/46UdOIeeHbOsAcc3opTGx2JpZjZmNslZj3z84lYy1?=
- =?us-ascii?Q?aQpDHRP1j5QLsKBSH0zNlaNSSVnOcIoD/SMjopqbHBBf4fi2kA=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(82310400017)(376005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 10:20:51.8075
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 419c53d5-60e3-428c-b1dd-08dc861257bf
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099DC.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8225
 
-At several places struct virtio_net_hdr missed out the field
-annotation. Add it.
+On Tue, May 28, 2024 at 05:12:41PM +0200, Stefano Garzarella wrote:
+> On Mon, May 27, 2024 at 03:40:23PM GMT, Matias Ezequiel Vara Larsen wrote:
+> > On Thu, May 23, 2024 at 01:00:32PM +0200, Stefano Garzarella wrote:
+> > > On Tue, May 21, 2024 at 05:13:18PM GMT, Matias Ezequiel Vara Larsen wrote:
+> > > > The PCM command lifecycle can be described as a state-machine in which
+> > > > the switching between states is triggered by commands. This commit
+> > > > explicitly presents the different states and the commands that are
+> > > > allowed in a given state. This commit leaves to the implementation the
+> > > > decision the state reached depending on the command.
+> > > >
+> > > > Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+> > > > ---
+> > > > device-types/sound/description.tex | 26 +++++++++++++++++++-------
+> > > > 1 file changed, 19 insertions(+), 7 deletions(-)
+> > > >
+> > > > diff --git a/device-types/sound/description.tex b/device-types/sound/description.tex
+> > > > index 54c9c8e..55e93af 100644
+> > > > --- a/device-types/sound/description.tex
+> > > > +++ b/device-types/sound/description.tex
+> > > > @@ -397,9 +397,21 @@ \subsubsection{PCM Control Messages}\label{sec:Device Types / Sound Device / Dev
+> > > > \item[\field{stream_id}] specifies a PCM stream identifier from 0 to \field{streams} - 1.
+> > > > \end{description}
+> > > >
+> > > > -\paragraph{PCM Command Lifecycle}
+> > > > +\paragraph{PCM Command Lifecycle State Machine}
+> > > >
+> > > > -A PCM stream has the following command lifecycle:
+> > > > +A PCM stream can be represented by a state-machine made up of the following
+> > > > +states:
+> > > 
+> > > I'm not clear about the difference between commands and states. Are they the
+> > > same?
+> > > 
+> > 
+> > AFAIU, a command is a request that comes into the control queue, such as
+> > prepare, set_params, stop, start, etc. State refers to a stream's
+> > current state.  A command triggers a transition over the stream's
+> > states. There is a set of valid commands that are allowed in each state.
+> > The specification does not make such a distinction. I wonder if this was
+> > done on purpose by the authors.
+> 
+> Okay, so there is a 1:1 overlap between commands and states. Basically, the
+> “stop” command has the action of moving the state from the current to the
+> “stop” state, right?
+> 
 
-Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
- device-types/net/description.tex | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Right
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index d24ffb7..a66d6b0 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -437,11 +437,11 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
+> > 
+> > > > +\begin{description}
+> > > > +\item SET PARAMETERS
+> > > > +\item PREPARE
+> > > > +\item START
+> > > > +\item STOP
+> > > > +\item RELEASE
+> > > > +\end{description}
+> > > > +
+> > > > +A command triggers the transition between these states. To what state to switch
+> > > > +depends on the implementation. Depending on the state, only certain commands
+> > > > +are valid. An error may occur if an invalid command is triggered.
+> > > >
+> > > 
+> > > Should we explain what the following list is?
+> > > 
+> > 
+> > I think we should. The list is the states and the commands that are
+> > valid in a given state. The specification does not explain the state
+> > that is taken when a command is triggered. I though leaving that for the
+> > implementation.
+> > 
+> > > > \begin{enumerate}
+> > > > \item SET PARAMETERS
+> > > > @@ -407,13 +419,13 @@ \subsubsection{PCM Control Messages}\label{sec:Device Types / Sound Device / Dev
+> > > > The driver negotiates the stream parameters (format, transport, etc) with
+> > > > the device.
+> > > >
+> > > > -Possible valid transitions: set parameters, prepare.
+> > > > +Possible valid commands: set parameters, prepare.
+> > > >
+> > 
+> > For example, in the SET_PARAMETERS state, there are two valid commands:
+> > set parameters and prepare. Any other command in this state would be
+> > invalid. If the frontend triggers the set_parameters command, the
+> > backend may decide to either keep the stream state in SET_PARAMETERS or
+> > switch to PREPARE.
+> > 
+> > In the spec they use the wording `transition` and I think they mean the
+> > valid next stream state. I changed this so now the spec specifies the
+> > valid commands in a given state thus leaving for the implementation the
+> > transition or the next state.
+> 
+> Okay, perhaps we need to clarify that commands and states are in a 1:1
+> relationship and that a command indicates the state to which to move.
+> 
+
+Yes, I think that may help to clarify the spec. 
  
- \subsubsection{Legacy Interface: Device Operation}\label{sec:Device Types / Network Device / Device Operation / Legacy Interface: Device Operation}
- When using the legacy interface, transitional devices and drivers
--MUST format the fields in struct virtio_net_hdr
-+MUST format the fields in \field{struct virtio_net_hdr}
- according to the native endian of the guest rather than
- (necessarily when not using the legacy interface) little-endian.
- 
--The legacy driver only presented \field{num_buffers} in the struct virtio_net_hdr
-+The legacy driver only presented \field{num_buffers} in the \field{struct virtio_net_hdr}
- when VIRTIO_NET_F_MRG_RXBUF was negotiated; without that feature the
- structure was 2 bytes shorter.
- 
-@@ -735,7 +735,7 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   chains them together to form a single packet in a way similar to
-   how it would store it in a single buffer spread over multiple
-   descriptors.
--  The other buffers will not begin with a struct virtio_net_hdr.
-+  The other buffers will not begin with a \field{struct virtio_net_hdr}.
- 
- \item If
-   \field{num_buffers} is one, then the entire packet will be
-@@ -2416,7 +2416,7 @@ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- 
- When using legacy interfaces, transitional drivers which have not
- negotiated VIRTIO_F_ANY_LAYOUT MUST use a single descriptor for the
--struct virtio_net_hdr on both transmit and receive, with the
-+\field{struct virtio_net_hdr} on both transmit and receive, with the
- network data in the following descriptors.
- 
- Additionally, when using the control virtqueue (see \ref{sec:Device
--- 
-2.34.1
+When the spec defines the following statement in PREPARE:
+
+"Possible valid transitions: set parameters, prepare, start, release."
+
+This would mean that, if current state is PREPARE and the "set
+parameters" command is issued, the transition to the SET PARAMETERS
+state would be taken. In my opinion, since the spec talks about a
+"possible valid transition", the implementation may decide to either
+transit to the SET PARAMETERS state or stay in PREPARE since both where
+valid.
+
+Honestly, I do not know if these comments help to clarify the spec.
+
+Matias
 
