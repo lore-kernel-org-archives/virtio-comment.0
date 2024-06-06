@@ -1,111 +1,181 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8784962F
-	for <virtio-comment@lists.linux.dev>; Thu,  6 Jun 2024 06:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A879132494
+	for <virtio-comment@lists.linux.dev>; Thu,  6 Jun 2024 06:37:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1717654426; cv=none; b=o8VU7ACq8ii35JbzCJ5Rm2I2N/Ki46dUnWDQ4DNqsO3qvqbrOUFPJr7WicUf8v9fn4s2DnznZzVxxZAKe5ZTBlfEHOVoZusiMQi7wMcrKm9RsKGyyM4R4hhyvWWbdl93F+WKsbJ6OEI56fFprwfN2TyF7OBa6wT0vVfkPbxe16o=
+	t=1717655863; cv=none; b=bCgZFQNkpyjM3sgA8cLm8c6FRzqYTYQibeHsLXt2fxX+L5c+PuBNhAzZhbIa30dph8SpD/9ieMTiMTRPqD3L9nyXNAaMranMmP95mQ4e6DICMba5k3ioBInvyAQIaNm8Lv9+O/AukvKMDAhdHndxH+vv4i+UD5sPXi4lf1/1hrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1717654426; c=relaxed/simple;
-	bh=Q0aR0wD5FeTZivjqhq16FxXyv9J4xHEfIzChwa4W/fE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=IsGt+Qsgj9iP8kHL6aFcvijeKAXbUJd1PBUM6IG3Oj6RiLcHOGhrSAK/NaxcSmJiV6p8rOO+sd0j7cXxbBXKf6iP28c9FoIUQMHuRoyOTE+lx3oid4uJhFwTXD+dVEXXvojyN5Zpzuelj8UbcdyrkhWwCnYi3ADcbivTf8VtYxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Aew9/dAO; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1717655863; c=relaxed/simple;
+	bh=JLXRVEQ5VXABhNaqCc7VBAMbFs4BfDcgB3L1Qy5pUoU=;
+	h=From:Mime-Version:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AP3E6V5baJsbimpN0fJGX6Uw7pIAky99iylu9IyOpwS90xf173KjkNmSzKd5jITGnD/7QAR5VdS0bML9lV1Ajm5QTjqEW6VvHecHTCOJFGgkPsmvfxPfA6dtzjQWmmc2Y0qLYGoMREQDJCJpUxzHjk2rmjpzpUUyWTsJ5nu3taY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Gi3z8yeN; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Aew9/dAO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1717654423;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Cqi0rvOCJb8qDRKlyzBIaEMbrpUDrbGGo7XZoYbKFB8=;
-	b=Aew9/dAOHgnm9lgDaZ6Mt4+4aucsOQPHP+V+Glncn2vY3DyOsb12asnWwetEpC6xus5jHD
-	KOKxTEYL0+9rHRQ0hATMzb1ayyHHtvJ1CroqayjMfONB76XqB1Gh/slSxGpyL9XACh13mF
-	CmbZB47KfQZyQgSGR8Qzz9gewKJo7tg=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-611-LadAEu0FM8yZ1wnWwIGFgg-1; Thu, 06 Jun 2024 02:13:42 -0400
-X-MC-Unique: LadAEu0FM8yZ1wnWwIGFgg-1
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-57a524f1f7eso65797a12.2
-        for <virtio-comment@lists.linux.dev>; Wed, 05 Jun 2024 23:13:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Gi3z8yeN"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-43fbbd1eb0cso3134451cf.2
+        for <virtio-comment@lists.linux.dev>; Wed, 05 Jun 2024 23:37:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1717655860; x=1718260660; darn=lists.linux.dev;
+        h=cc:to:subject:message-id:date:user-agent:references:in-reply-to
+         :mime-version:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cY28XUK1u/4W52/Cll3cxOgmLLfftBX6uog1ps69pIo=;
+        b=Gi3z8yeNUISkvpe0Nj/3y4RPE9lTldQN+oBGzhusGWVCG0nViytfuTLq6JlrNt8N+Y
+         sE0wacuMAyho03yZP5VN1A15TEt9ItoCXZ7YlXV4NLn+EajrbdNOr5f8EccGBtCxPFYt
+         daq4l4wPtd+e33PXU1dXM34vDTnbSwSmVaos/fAsjNB6rONe4VDOkDRPWAz6SF/BsoPp
+         Y9DP97QfBVy8E/fjy22X3tuBmYVw6o/QqpzYbAio9CxMGvVAt63aCjHjf9biEVK7+3XZ
+         v15KGl3PsMXV21l2/i9vlwX1uyCU3r3dni528xit+c6Cr+AlxtiNplyZIX9CTQRgqelI
+         f+bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717654420; x=1718259220;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1717655860; x=1718260660;
+        h=cc:to:subject:message-id:date:user-agent:references:in-reply-to
+         :mime-version:from:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Cqi0rvOCJb8qDRKlyzBIaEMbrpUDrbGGo7XZoYbKFB8=;
-        b=RJyE8oNhN0sKLtn6G5sxEz6VVolNkBJAJI8OSmu4YoiFg7gENK1U4kb82aDlrkZ/q7
-         OwjK1FLIX1xCCXA4aDcDjlzUB3WZKis7Mubt7q4iYMnR5C+HnL2WS8kpKXT5KFp94UUh
-         E+9AolpXARe+JrUgAcqceAzYmd2tzoiQpJT5RiO6j0jWTEUIXgPbelDw0KoK14PbBvrV
-         NWMPXm6uBHs0fOQKGWw+Fc8RVaLsn2MhMh8Q7sCKUTbYxGD2vvz5BTeHCFCEut+PAbAx
-         O3XvVOyLon1L0wDrr5k+tSiMl5oWoH4YDlhD+593fb1jaQEAX8D4jrihr2U/902zY/Ro
-         SDQA==
-X-Gm-Message-State: AOJu0YxM7kTLxYvX34k8jlWpmUxot7sdWxoiAbscRPw5eY7j2arJ/sVr
-	gN5kKJ+h6RjZpW/Mp0+Ky40ZfBEzH0hmVN1sLHaieQQehF6X94CcoitRWFzMzs9zOklPeFbKDYh
-	6/TQPYRvCbhyn1u+OUKIH5OOz7ZZAGiU8b12zsumU/5R57FNzYN0Dpyf6NNN1u7rlhG5qnxk1
-X-Received: by 2002:a17:906:2a13:b0:a68:c3fe:c8ff with SMTP id a640c23a62f3a-a699fbd456emr249061666b.17.1717654420442;
-        Wed, 05 Jun 2024 23:13:40 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFp9IaI3Z8u5mLlhdyifUlsOPHdnNtgoVgO5eC5cmeVc2ODA8haV+5RmKIc/acXnWWQevjqGg==
-X-Received: by 2002:a17:906:2a13:b0:a68:c3fe:c8ff with SMTP id a640c23a62f3a-a699fbd456emr249059866b.17.1717654419988;
-        Wed, 05 Jun 2024 23:13:39 -0700 (PDT)
-Received: from redhat.com ([2.55.59.85])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a6c80581c1csm46561666b.17.2024.06.05.23.13.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Jun 2024 23:13:39 -0700 (PDT)
-Date: Thu, 6 Jun 2024 02:13:36 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: zhenwei pi <pizhenwei@bytedance.com>
-Cc: virtio-comment@lists.linux.dev, david@redhat.com
-Subject: Re: [PATCH v2 2/2] balloon: link virtual memory management URL
-Message-ID: <20240606021002-mutt-send-email-mst@kernel.org>
-References: <20240606033544.400000-1-pizhenwei@bytedance.com>
- <20240606033544.400000-3-pizhenwei@bytedance.com>
+        bh=cY28XUK1u/4W52/Cll3cxOgmLLfftBX6uog1ps69pIo=;
+        b=oze6Y5LzqXaO66JRF9KwEV5a3TTqEOtm40F4EbRwiVMj+eLUVkqCAl0UxRn6I/Zy52
+         ZeAhG6mZehwO/lfkG86/1LQx8mLK7pUibffGELMQSCtZZqIS+1UzX288BsBhe5xFLHkK
+         nKfARPUHkbVODGoK4Zos1wdsTAP5qHJjqb1uqc0iNVI/RS4VHMM4zB71bX2lu5DEmWFf
+         0aG2jmATJUwf5bBccMA37GAnpZjz1k4yGbLo8aJ53SdEsoh2bPW6ahqj0EowG1huvDSH
+         jTbZ6NjVvIFps2s4sRBkdLH4gHw15eIiqXc4w77cKzfit34lHmxQD32wvSEVfiWDzZ7D
+         wcVw==
+X-Gm-Message-State: AOJu0Yw5oJb6GxOen9eJkGhukCiLLx1CesgbmVlcSHrP4QtjiVuYGeF/
+	IMa50x5ZsVXR97D614rY4tblhjS+BHsAK8hYdRhE8RCysMp1QAncOEqsKjLI0UiFsYC/P+E/Evq
+	76XJ6Yt4kbTcixrcRo9An6EBVukWPQ6vPJ6xLrIGGTd7U3DrY
+X-Google-Smtp-Source: AGHT+IG98aMKGD/JCa36YmLRctJ0EcbDppRV/Pu2kTwsqzFWHiVanH/jICKQ4W8xZ6p7TPVjFk5freMm9vL9B56V+iE=
+X-Received: by 2002:ac8:5f46:0:b0:43a:f1ef:fd8d with SMTP id
+ d75a77b69052e-4402b58b132mr55967921cf.1.1717655860191; Wed, 05 Jun 2024
+ 23:37:40 -0700 (PDT)
+Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 5 Jun 2024 23:37:39 -0700
+From: zhenwei pi <pizhenwei@bytedance.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-In-Reply-To: <20240606033544.400000-3-pizhenwei@bytedance.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+In-Reply-To: <20240606020800-mutt-send-email-mst@kernel.org>
+References: <20240606033544.400000-1-pizhenwei@bytedance.com>
+ <20240606033544.400000-2-pizhenwei@bytedance.com> <20240606020800-mutt-send-email-mst@kernel.org>
+User-Agent: Mozilla Thunderbird
+X-Original-From: zhenwei pi <pizhenwei@bytedance.com>
+Date: Wed, 5 Jun 2024 23:37:39 -0700
+Message-ID: <CABoGonKBkf25RPZyVpFXLN87VHQhVVLyk00w5wqqbzCmsYYJVA@mail.gmail.com>
+Subject: Re: Re: [PATCH v2 1/2] balloon: introduce 6 memory statistics
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.linux.dev, david@redhat.com
+Content-Type: multipart/alternative; boundary="00000000000064bd69061a32eb6a"
 
-On Thu, Jun 06, 2024 at 11:35:44AM +0800, zhenwei pi wrote:
-> More and more memory statistics have been added into stats VQ, add a
-> link for Linux, this would be helpful to understand these counters.
-> 
-> Signed-off-by: zhenwei pi <pizhenwei@bytedance.com>
-> ---
->  device-types/balloon/description.tex | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/device-types/balloon/description.tex b/device-types/balloon/description.tex
-> index 7ef4e3f..cfe5b8c 100644
-> --- a/device-types/balloon/description.tex
-> +++ b/device-types/balloon/description.tex
-> @@ -425,6 +425,9 @@ \subsubsection{Memory Statistics Tags}\label{sec:Device Types / Memory Balloon D
->    directly by the running task (in bytes).
->  \end{description}
->  
-> +Please see \url{https://docs.kernel.org/admin-guide/mm/concepts.html}
-> +for above guidance of virtual memory management on Linux.
-> +
+--00000000000064bd69061a32eb6a
+Content-Type: text/plain; charset="UTF-8"
 
-Unclear. If you want to refer to this - maybe add the link to
-normative references and actually call it out where
-you use a concept from that page.
+On 6/6/24 14:09, Michael S. Tsirkin wrote:
+> On Thu, Jun 06, 2024 at 11:35:43AM +0800, zhenwei pi wrote:
+>> Note that virtio balloon statistics are OS independent, the names are
+[SNIP]
+>> \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb
+page
+>> allocations in the guest.
+>> +
+>> +\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The count of OOM killer
+invocations
+>> + increases when the kernel invokes the OOM killer. The OOM killer
+selects a task
+>> + to terminate in order to free up memory.
+>> +
+>> +\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The count of stalls on memory
+allocation.
+>> +
+>> +\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory scanned
+asynchronously
+>> + by the kernel background task (in bytes).
+>> +
+>> +\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory scanned
+directly by
+>> + the running task (in bytes).
+>> +
+>> +\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory
+reclaimed
+>> + asynchronously by the kernel background task (in bytes).
+>> +
+>> +\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory
+reclaimed
+>> + directly by the running task (in bytes).
+>> \end{description}
+>
+> OOM kill description is unnecessarily verbose, the rest not very clear,
+> and not consistent with existing stats.
+>
+
+Hi Michael,
+
+You asked 'What exactly are "invocations"? The number of times a task
+was killed to free memory?' in the previous version, would you please
+give me an example, and any example of the rest?
 
 
->  \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
->  
->  Free page hinting is designed to be used during migration to determine what
-> -- 
-> 2.43.0
-> 
+>
+>> \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory
+Balloon Device / Device Operation / Free Page Hinting}
+>> --
+>> 2.43.0
+>>
+>
 
+-- 
+zhenwei pi
+
+--00000000000064bd69061a32eb6a
+Content-Type: text/html; charset="UTF-8"
+
+<p>On 6/6/24 14:09, Michael S. Tsirkin wrote:
+<br>&gt; On Thu, Jun 06, 2024 at 11:35:43AM +0800, zhenwei pi wrote:
+<br>&gt;&gt; Note that virtio balloon statistics are OS independent, the names are
+<br>[SNIP]
+<br>&gt;&gt;  \item[VIRTIO_BALLOON_S_HTLB_PGFAIL (9)] The number of failed hugetlb page
+<br>&gt;&gt;    allocations in the guest.
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_OOM_KILL (10)] The count of OOM killer invocations
+<br>&gt;&gt; +  increases when the kernel invokes the OOM killer. The OOM killer selects a task
+<br>&gt;&gt; +  to terminate in order to free up memory.
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_ALLOC_STALL (11)] The count of stalls on memory allocation.
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_ASYNC_SCAN (12)] The amount of memory scanned asynchronously
+<br>&gt;&gt; +  by the kernel background task (in bytes).
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_DIRECT_SCAN (13)] The amount of memory scanned directly by
+<br>&gt;&gt; +  the running task (in bytes).
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_ASYNC_RECLAIM (14)] The amount of memory reclaimed
+<br>&gt;&gt; +  asynchronously by the kernel background task (in bytes).
+<br>&gt;&gt; +
+<br>&gt;&gt; +\item[VIRTIO_BALLOON_S_DIRECT_RECLAIM (15)] The amount of memory reclaimed
+<br>&gt;&gt; +  directly by the running task (in bytes).
+<br>&gt;&gt;  \end{description}
+<br>&gt; 
+<br>&gt; OOM kill description is unnecessarily verbose, the rest not very clear,
+<br>&gt; and not consistent with existing stats.
+<br>&gt; 
+<br>
+<br>Hi Michael,
+<br>
+<br>You asked &#39;What exactly are &quot;invocations&quot;? The number of times a task
+<br>was killed to free memory?&#39; in the previous version, would you please
+<br>give me an example, and any example of the rest?
+<br>
+<br>
+<br>&gt; 
+<br>&gt;&gt;  \subsubsection{Free Page Hinting}\label{sec:Device Types / Memory Balloon Device / Device Operation / Free Page Hinting}
+<br>&gt;&gt; -- 
+<br>&gt;&gt; 2.43.0
+<br>&gt;&gt;
+<br>&gt; 
+<br>
+<br>-- 
+<br>zhenwei pi</p>
+
+--00000000000064bd69061a32eb6a--
