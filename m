@@ -1,182 +1,194 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D3E1DFF7
-	for <virtio-comment@lists.linux.dev>; Mon, 10 Jun 2024 16:04:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAE047F7A
+	for <virtio-comment@lists.linux.dev>; Mon, 10 Jun 2024 20:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718035480; cv=none; b=B7K7NvLzfW3WHqMHT4NzOkCeyuouRpAIzFemaBPO5EcnIO7pitkR71XlqeOIGH1NHT8oA8Mo5tnA4yJy9Rs5oAuvkgAcOOFxPCvV4sNiVMujWE0Da0BSAtF46sJaLgKfSrL2chw/tkukvXne2nwCZDCM0xnjwTCynFO0IqvFB30=
+	t=1718050755; cv=none; b=VkWB35B1X3WZbNql3NQTA7MjSPyu3AG0q3Cqky1MpMLu47bOKIhM/bJh1Zb+UexD4rlUT8Fd99lo01b7hCHVeTT6cezlDIWbBjLwp3A5cqIHWk9KOKGl1Y6iyZuvc4beGAxJk/BS+McZsCG2jpz9jRqWouL4VxEC6CLZ6XdGiSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718035480; c=relaxed/simple;
-	bh=4oZbB7Pe3sibJJ9W5AyxzfyaWmBtZvzl/8nC3qls5sc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gmu72swaFBuvEh4dpMBMvxp8+oZ8v3hN6r7O2jOMueitixzZTQfUXIllm2HOH/OHNsPUmNTEISlclX9FrvEHB/eecf3/yd21cao/VKqkPeaRVtuREN4VOwmJDDATg1/LKAywDqEBr8gCmR35nX1j/kGPf5PoCRBlZKSWrDikJW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VOueSTE5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1718050755; c=relaxed/simple;
+	bh=wYxq780G8OGiSnGyIF9yM4Vm2DaBRCKp0pQwTDwDPiQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qw7+drcrP6Epi00QM/SsPttMRBwkjJtnGXtIq2DGVnIBp64vy5H1nybXFBl26PVl1ANUaSoEZRpCWSGVrYmjsnHXXqh3nRQiJzvTTBlMgbEyUA0GZbBlFU9apRn/ieQ9Svvo8C7xgpqAq5pNG07JgV7iXd0vmrTdsTyMacyJJOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TT3b1/Xw; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VOueSTE5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718035477;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9RBsjp600Jbcf8cAFbjrpT5UMn6FCU3mRdIc4FQAAoo=;
-	b=VOueSTE537U+4ZitqoMTrAd9v7yoZEtIpRfFcY4BH6FRXRCvjw+cWagZQjg0T8Ko+aShL8
-	4u+4WK5yc/xORbze1G+sPlnpDqCVLdcfKiExE3/xB/1lfCKu9WDaw6m/0J1eBzwfpnRQxw
-	me9Eb9xOvNHTK7BwPBytN18uHNImDfo=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-240-yv9Pl_dPONKlEqFm6OHArQ-1; Mon,
- 10 Jun 2024 12:04:34 -0400
-X-MC-Unique: yv9Pl_dPONKlEqFm6OHArQ-1
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A6B3F19560BC;
-	Mon, 10 Jun 2024 16:04:33 +0000 (UTC)
-Received: from localhost (unknown [10.39.193.17])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 71A953000224;
-	Mon, 10 Jun 2024 16:04:32 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-To: Zhu Lingshan <lingshan.zhu@amd.com>, mst@redhat.com, jasowang@redhat.com
-Cc: virtio-comment@lists.linux.dev, Zhu Lingshan <lingshan.zhu@amd.com>,
- Eugenio =?utf-8?Q?P=C3=A9rez?= <eperezma@redhat.com>, David Stevens
- <stevensd@chromium.org>
-Subject: Re: [PATCH v5] virtio: introduce SUSPEND bit in device status
-In-Reply-To: <20240607074246.7647-1-lingshan.zhu@amd.com>
-Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
- Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
- 153243,
- =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
- Michael O'Neill, Amy
- Ross"
-References: <20240607074246.7647-1-lingshan.zhu@amd.com>
-User-Agent: Notmuch/0.38.3 (https://notmuchmail.org)
-Date: Mon, 10 Jun 2024 18:04:29 +0200
-Message-ID: <87zfrskcmq.fsf@redhat.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TT3b1/Xw"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45AJRGEX018423;
+	Mon, 10 Jun 2024 20:19:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=date
+	:from:to:cc:subject:message-id:in-reply-to:references
+	:mime-version:content-type:content-transfer-encoding; s=pp1; bh=
+	sVvsb1MRBpFzWPl3Sz2Fz75WWT9BijtNdxrhUZRaHvw=; b=TT3b1/XwHS4R3IGg
+	lBEWhHpDxDU2y4gIUcCcipaqlxLex6vqQDJ3Wgk6YVhN12e8C5H5WtVZwVFUUM6r
+	46tALV7x4wtf2cJePK/pybBwAHZ1S6b4I6w7WyR21bb3w+dVF8HbpCl+14JXluJD
+	waUoIMXQMNdUJeFiEQ9GVvvJ4AUqCFpYPnqlLLnxH6Gzr1q/Vhwggux/CfVRUTyL
+	x5QOij2zJ97w+BXcUo6cUwtCfYLvVdtX8fMFqQ7hOiXzZKyrh0M0TTpKt+hzqM3C
+	SfvAxzHA3PNhxeCx7QqVj5nA9kRx4Si9gxalOuTa9zRdZ0wAaW0u6RPKb5AOSCv+
+	tA5qhw==
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3yp77x068y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Jun 2024 20:19:12 +0000 (GMT)
+Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
+	by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 45AKJBqJ006099;
+	Mon, 10 Jun 2024 20:19:11 GMT
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3yp77x068u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Jun 2024 20:19:10 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 45AJb6Zf027209;
+	Mon, 10 Jun 2024 20:19:09 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3yn210hx69-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Jun 2024 20:19:09 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 45AKJ5Zg20185544
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 10 Jun 2024 20:19:07 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 876672005A;
+	Mon, 10 Jun 2024 20:19:05 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DFD552004B;
+	Mon, 10 Jun 2024 20:19:04 +0000 (GMT)
+Received: from li-ce58cfcc-320b-11b2-a85c-85e19b5285e0 (unknown [9.179.12.198])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Mon, 10 Jun 2024 20:19:04 +0000 (GMT)
+Date: Mon, 10 Jun 2024 22:19:00 +0200
+From: Halil Pasic <pasic@linux.ibm.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Cornelia Huck
+ <cohuck@redhat.com>,
+        virtio-comment@lists.linux.dev, Jason Wang
+ <jasowang@redhat.com>,
+        Parav Pandit <parav@nvidia.com>,
+        Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>,
+        Halil Pasic <pasic@linux.ibm.com>
+Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
+Message-ID: <20240610221900.1810ea96.pasic@linux.ibm.com>
+In-Reply-To: <1718026545.7557275-2-hengqi@linux.alibaba.com>
+References: <20240528044702.50603-1-hengqi@linux.alibaba.com>
+	<20240607220246.3213607c.pasic@linux.ibm.com>
+	<1717814062.4461155-1-hengqi@linux.alibaba.com>
+	<20240610144602.57a04723.pasic@linux.ibm.com>
+	<1718026545.7557275-2-hengqi@linux.alibaba.com>
+Organization: IBM
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: lBFQT1soeb_9gNZHwlQFg8RevMZ--UZ8
+X-Proofpoint-GUID: xRqQAX6zVnDohHtqIQt87xA0kTeczM4J
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-10_05,2024-06-10_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 mlxlogscore=999 clxscore=1015 adultscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 mlxscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
+ definitions=main-2406100150
 
-On Fri, Jun 07 2024, Zhu Lingshan <lingshan.zhu@amd.com> wrote:
+On Mon, 10 Jun 2024 21:35:45 +0800
+Heng Qi <hengqi@linux.alibaba.com> wrote:
 
-> This commit allows the driver to suspend the device by
-> introducing a new status bit SUSPEND in device_status.
+> On Mon, 10 Jun 2024 14:46:02 +0200, Halil Pasic <pasic@linux.ibm.com> wrote:
+[..]
+
+> > > If the device chooses a stupid
+> > > maximum value, it is his choice (spec should give more devices choices instead of
+> > > forcing them to choose "0" which is not the best practice). We can't talk about
+> > > performance for drivers when the devices tend to choose any "stupid" designs.
+> > > 
+> > > We need relaxe the restrictions and makes the spec more reasonable.
+> > >   
+> > 
+> > Hm, I see Linux virtio-net changes have landed with v6.0 and if I read
+> > those correctly the driver -- contrary to my initial expectation --
+> > negotiates the feature, but does not set the parameters explicitly and  
+> 
+> How does the driver know what parameters to set? 
+
+Disclaimer: I'm not very knowledgeable when it comes to networking and
+NICs. Please be patient with me.
+
+If I understood that properly have previously stated that it is basically
+a trade-off between "latency friendly"  (downside: overhead and not so
+throughput friendly) and "throughput friendly" (downside: not so latency
+friendly). And that makes sense to me.
+
+So I would think, the answer to the question what is the best trade-off
+should also depend on the workload.
+
+Now as far as I understand although we call the parameters max_usecs and 
+max_packets the notification condition is dictated by those two values. I.e.
+there won't be a notification unless the compound condition is met.
+
+When there is no traffic 0 and 0 looks like reasonable values to me: I
+want the first of possibly many packets ASAP. Depending on the actual
+load, maybe one could employ some sort of a heuristics to keep good
+balance -- maybe based on a frequency of interrupts. Maybe DIM is
+actually exactly what I have in mind.
+
+You seem more knowledgeable on the topic. How is this usually done? How
+are the optimal values correlated with device characteristics?
+
+> The parameters should be
+> exposed by each device.
+
+I would like to better understand why. My intention is not to question
+the correctness of this statement, but to gain a better understanding.
+
+> 
+> > thus keeps the defaults (until userspace decides to set the parameters).
+> > So it does matter whether the defaults are guaranteed to be 0 or not,
+> > and if not it does matter what defaults are chosen by the device.  
+> 
+> Didn't follow this. More below.
 >
-> This commit also introduce a new feature bit VIRTIO_F_SUSPEND
-> which indicating whether the device support SUSPEND.
->
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-> Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
-> Signed-off-by: David Stevens <stevensd@chromium.org>
-> ---
->  content.tex | 69 +++++++++++++++++++++++++++++++++++++++++++++--------
->  1 file changed, 59 insertions(+), 10 deletions(-)
 
-Can you please add a changelog? Especially as some of the previous
-discussion has been lost due to the broken old mailing lists...
+Maybe my statement was wrong. So let me make a question out of it. What
+entity or entities do we expect to change the parameter values, and when
+or under which conditions do we expect them to change the parameter
+values?
+ 
+> > 
+> > One could even argue that those patches have been reviewed under the
+> > assumption that the device needs to use 0 as the default parameter value.  
+> 
+> The default value should not be explicitly specified in the spec, because one
+> size does not fit multiple devices.
 
-(...)
+This ties in to my previous question about the relationship between
+device characteristics and the optimal values for max_usecs and
+max_packets.
 
-> +\drivernormative{\subsection}{Device Suspend}{General Initialization And=
- Device Operation / Device Suspend}
-> +
-> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set or VIRTIO_F_SU=
-SPEND is not negotiated.
-> +
-> +Once the driver sets SUSPEND to \field{device status} of the device:
-> +\begin{itemize}
-> +\item The driver MUST re-read \field{device status} to verify whether th=
-e SUSPEND bit is set.
-> +If not, the device does not support the SUSPEND feature.
+> The source of this problem is that we are
+> missing fields like default_{rx, tx}_coalesicng_params that indicate the device
+> capabilities. No?
 
-That sentence is a bit weird: I'd expect the device to not offer
-VIRTIO_F_SUSPEND in the first place in that case... could this rather
-happen if the device is not able to handle the request at a specific
-point in time?
+I don't think so! In my understanding is that with your proposal
+after a reset, the OS/driver has no problem obtaining the defaults that
+indicate the device capabilities. But I would really like to better
+understand that device capabilities part.
 
-> +\item The driver MUST NOT make any more buffers available to the device.
-> +\item The driver MUST NOT access any fields of any virtqueues or notify =
-any virtqueues.
+And yes another way around this would have been say:
+* let us introduce those defaults fields, e.g. to the config space
+* make the driver read those values as a part of the initialization
+* and set those values as the initial parameters.
+But frankly I see no benefit of that over what you propose here.
 
-"send notifications for any virtqueues"?
-
-> +\item The driver MUST NOT access Device Configuration Space.
-
-...except for the status field, if it is part of the config space?
-
-> +\end{itemize}
-> +
-> +\devicenormative{\subsection}{Device Suspend}{General Initialization And=
- Device Operation / Device Suspend}
-> +
-> +The device MUST ignore SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUS=
-PEND is not negotiated.
-> +
-> +The device MUST ignore all access to its Configuration Space while
-> +suspended, except for \field{device status}.
-
-...if it is part of the configuration space.
-
-> +
-> +A device MUST NOT send any notifications, access any virtqueues, or modi=
-fy
-> +any fields in its configuration space while suspended.
-> +
-> +If SUSPEND is set in \field{device status}, when the driver clears SUSPE=
-ND,
-
-"subsequently clears SUSPEND"?
-
-> +the device MUST either resume normal operation or set DEVICE_NEEDS_RESET=
-.
-> +
-> +When the driver sets SUSPEND,
-> +the device SHOULD perform the following actions before presenting SUSPEN=
-D bit in the \field{device status}:
-> +
-> +\begin{itemize}
-> +\item Stop processing more buffers of any virtqueues
-> +\item Wait until all buffers that are being processed have been used.
-> +\item Send used buffer notifications to the driver.
-> +\end{itemize}
-
-So, is there any opportunity for the device to fail setting SUSPEND? I
-mean, if the driver is supposed to look whether it sticks, there should
-be conditions for when the device might clear it again...
-
-> +
->  \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
-> =20
->  Virtio can use various different buses, thus the standard is split
-> @@ -872,6 +917,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved F=
-eature Bits}
->  =09\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bi=
-ts} for
->  =09handling features reserved for future use.
-> =20
-> +  \item[VIRTIO_F_SUSPEND(42)] This feature indicates that the driver can
-> +   set SUSPEND to the device.
-
-"that the driver can trigger suspending the device via the SUSPEND flag"?
-
-> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Fiel=
-d}.
-> +
->  \end{description}
-> =20
->  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
-
+Regards,
+Halil
