@@ -1,170 +1,145 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E285B171095
-	for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 06:58:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623B013D8BA
+	for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 07:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718089102; cv=none; b=sV7LSxCxkhm7q57bIVMP48oyJkaai1sa6v6zy+Tvjis90oPa9jlI8SqzCY/CKajIxXh+FRxt/57sn16yUjk4MMB0MVV6Tz/7vtne0jdXNK2npusGn2g6b9PRs0X8Sq5H2MhdpHY5AgwiNT86aYVqhtbKWH61P/ktCJrM4vknOkc=
+	t=1718090758; cv=none; b=lpBJdnlB9HSo5CprziQzy/X+/VjgGv+GU8zf9cAgaFJUJZBAYDWpgO3U2QwjgYFt0GTroUC5dli4T4qEJHwcaUKX0sOhwdbeF2XNW32gJKW3vHN3zuHYiN8QA49mLitWj2JRyLmD8uPdaNXsCXDZDv1SO4f8oOt8fNLvotyITDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718089102; c=relaxed/simple;
-	bh=Zvu4uujc1syNpI1zbpdKtOk3y/O5yLHJojQWsmBdosg=;
+	s=arc-20240116; t=1718090758; c=relaxed/simple;
+	bh=4YQwNL4i6dUUpEZGaa21CLB7Eq1B1kx+OHOmzVjSTfw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NJVN8lD3qq9eOv7F3ms83nc/gyeRu5dMz3ak8ESuh6vK9EsTNpFATvf970WFMsrbp6jr2M5tHPMmCcKyBTpCJj/5ZgCGr63cD/KX3e0Q9UIcAB6LNrD5ff8PvWtcKkpnsJUR7V8L5WmmtnvbFUvszaL/1E0S4jMygCKVb4U6c/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SQ6T6KqT; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type:Content-Disposition; b=R3WPbb/2JXHVfw3ZaJfK0LQ8pMDKd7wc/ZwStBaudmCC8ouNzBwEQ1x4KcHfdTa/Hal/MyChkaZCFB1KQCfoCDCAYXQzFKZS3N/xh6jOnNbvdNcd2nan2TAQnJ6ua53/ET1ZFg6RQra/+pdrkBEUNtJqgiAKKQYgPX88iCI04UU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GG6WGKTW; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SQ6T6KqT"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-701b0b0be38so4929058b3a.0
-        for <virtio-comment@lists.linux.dev>; Mon, 10 Jun 2024 23:58:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718089100; x=1718693900; darn=lists.linux.dev;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=j9mBup5rYcbGRS5QBvSHX+NXA5xcdzF3TQFrF5r3k+A=;
-        b=SQ6T6KqTFusi+feURl8zw4oRv3V1CXXkPuFVs5kkdI+lBH7fuVEkBvH/RLbM8Gs2DO
-         lPErvLq2RCIjN7cpKi6I7BxABSWXHxa5JRMfq5je0t2awKWCD3A1wmbjTv/bAH/Sq2c9
-         3efB+8U3fT3CASJWMNiVY04wGWo7L3AKTGo94Alqij9FFc3HzhygZAgZTBeDP9+yFtPB
-         A8OOZMUAzbB6yiL6wv6GxjyLYwWQavlkJEWAWLVDSpxxDdg2SeLPQg9l5ESV7ewKCWyH
-         C/alyv46qLSPNBOZmqsXbUSCEe7H4Dh6p+Tz5wIMCkxMyrV/IHo93d2OytLm/TEUw7sh
-         2kRQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GG6WGKTW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1718090755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rr2NN70cGClwNcrWniNFMa2CEbYMk72v0gMeo6l3xD0=;
+	b=GG6WGKTWLMlGNUXOwqY1F+8vUcntSszR+k3/+C5pMskJ9sN4XaJ60Dm4RJKbNivHQmcS5y
+	AD5IwkzqdPBnEFLvCsRBKNIw61EPsTq0Dd8BABZvJfJHk3cm69DKipvWiKMsQ1VQr0ogZ3
+	ZpOHglTSApb5PcUgd2pp6wg1aXbsj3g=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-329-UfM87jLLP9epI6neiBGxUQ-1; Tue, 11 Jun 2024 03:25:51 -0400
+X-MC-Unique: UfM87jLLP9epI6neiBGxUQ-1
+Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-52c0bfd6a89so2667184e87.1
+        for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 00:25:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718089100; x=1718693900;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j9mBup5rYcbGRS5QBvSHX+NXA5xcdzF3TQFrF5r3k+A=;
-        b=PVx/95iwP8boYxEkTZaowwOxGK8PylseiLcVgvCwVCH0QVwHZOiEM6tydHpTVnT9P2
-         M3rrgVUGYWMAIxMi1ThQur8n8WGZUNAEiPYOQ6Q5d9IQC6lf6zdxdXZXXwNjzRtV0o+Y
-         XmoP277i16VUZqXJ0mei91bLuJ/nKQUYmwRkCiLAzvIrUCR0l7HwdpTmfFoSbqxGjeWV
-         p1yNS9rG8v6178z+hMBYCsnRhhCK90xq01IxcOl9TgtCjBQuzrkpMlFSYFgfseEd+SGX
-         jntadgq0UcYraHNx9VxQ6L31Q0PfkYQjiuwac94aZYt+2XwM15/M9I9RIepjnkjnp0LX
-         yHDA==
-X-Gm-Message-State: AOJu0Yx/AI/ByDIvybxqL/diR46H1dOKPaPEQqgnITgoo0z0JIzcfC1t
-	RKATVBTFibPFMwvlACEkuYc9DH2blwi9J9xwsFQKNav33khbzPkaTTQqJ4Lxwu0=
-X-Google-Smtp-Source: AGHT+IFi6Qv3kNKpgenTW7PcK0sSB/cLncEpufcKfMnHgdaVADM7TP/FaNt5kui9B3UxSn2twDQXDg==
-X-Received: by 2002:a05:6a20:96d8:b0:1b2:a346:6c8a with SMTP id adf61e73a8af0-1b2f9dee1c5mr10448145637.54.1718089099625;
-        Mon, 10 Jun 2024 23:58:19 -0700 (PDT)
-Received: from localhost ([122.172.82.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2c28067d066sm12342805a91.33.2024.06.10.23.58.17
+        d=1e100.net; s=20230601; t=1718090750; x=1718695550;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rr2NN70cGClwNcrWniNFMa2CEbYMk72v0gMeo6l3xD0=;
+        b=atu2O3N3ojnK6XKW9H7PNdwwvZxUOaiiqK1HvPio+sLSoY1NvcLzMjcYLDwHu8izVF
+         I7CumR+rm3CwW/wH+80+ZZMiPWsMVF9eESvgG23EwS8oW5DqDkX2CAu1xwDwM7I+pUpt
+         pec3+VDYi0Qj/o1X8VDHqoKT/4B2KmhmNrI388Hm55VWi7Lt42y2FdO3VHZquS1bi1xO
+         zf/n7e5OWoj/DX1Ixz+xdSFQR4AjywZZ66x0YOCi9PV2+qbp7U89CV8Ol1qsm6ZKdrtH
+         un8WFuw0EtwYcAnlePM8pbI4xxcdiF3KmFij68lIY2AomFbJttAGu1F4EqBzIyqmTgSF
+         T7uQ==
+X-Gm-Message-State: AOJu0YxXJHx5VaU5MLy1374IMBbuPm/az3bU+KcL2DNQTrgoTe7drPjf
+	YKhf1tCKeA3QKARTl6MZ+RT/PGB7Jmbzwc4swAWl/vuW/58ZU3933U7ICMMBvt+ZDxv5r7wBx3g
+	mqyiQsrtFKXGaS3VqI3ZU2dcT3+W/vNv1Cek4wR4/PmZ5MY9WItPdCFwopFJL61LY
+X-Received: by 2002:a05:6512:28a:b0:52c:7a2d:5d5d with SMTP id 2adb3069b0e04-52c7a2d5f56mr4998947e87.3.1718090750051;
+        Tue, 11 Jun 2024 00:25:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEzOEUVajFTUZ1cfYC+SkQBPpgK9qrCNPxfkvXLEqJGPV5BuVLsSgbC4O1tPIhvB1XifspNuw==
+X-Received: by 2002:a05:6512:28a:b0:52c:7a2d:5d5d with SMTP id 2adb3069b0e04-52c7a2d5f56mr4998936e87.3.1718090749610;
+        Tue, 11 Jun 2024 00:25:49 -0700 (PDT)
+Received: from sgarzare-redhat ([193.207.202.39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4221defede0sm32139845e9.7.2024.06.11.00.25.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Jun 2024 23:58:18 -0700 (PDT)
-Date: Tue, 11 Jun 2024 12:28:16 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	"stratos-dev@op-lists.linaro.org" <stratos-dev@op-lists.linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Cornelia Huck <cohuck@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH V5] virtio-transport: Clarify requirements
-Message-ID: <20240611065816.lq3ehs7fmpjbihip@vireshk-i7>
-References: <9d543789de03d26a27a43ae8f7621d07d66e8731.1718084050.git.viresh.kumar@linaro.org>
- <PH0PR12MB5481413D59F2DC236F0B59DFDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+        Tue, 11 Jun 2024 00:25:48 -0700 (PDT)
+Date: Tue, 11 Jun 2024 09:25:46 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Peter Hilber <peter.hilber@opensynergy.com>
+Cc: virtio-comment@lists.linux.dev, Parav Pandit <parav@nvidia.com>
+Subject: Re: [PATCH v3 1/2] admin: Refer to "no order constraints" only for
+ different queues
+Message-ID: <cnvz23gk2jk4b6vspqhmbcyaefrujysrnbz5fff6k2suufctkx@gc6vkzkreshc>
+References: <20240605110133.31568-1-peter.hilber@opensynergy.com>
+ <20240605110133.31568-2-peter.hilber@opensynergy.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20240605110133.31568-2-peter.hilber@opensynergy.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <PH0PR12MB5481413D59F2DC236F0B59DFDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
 
-Hi Parav,
+On Wed, Jun 05, 2024 at 01:01:32PM GMT, Peter Hilber wrote:
+>The non-normative section says that administration virtqueue commands
+>"will be consumed with no order constraints". But actually, the
+>requirements stipulate a total order for all commands in the same
+>virtqueue:
+>
+>	The device MUST process commands on a given administration virtqueue
+>	in the order in which they are queued.
+>
+>	If multiple administration virtqueues have been configured,
+>	device MAY process commands on distinct virtqueues with
+>	no order constraints.
+>
+>Fix this by narrowing down the scope of the sentence to "commands placed
+>on different virtqueues". Also, narrow down the following example to
+>one with different virtqueues, and reword the example to better fit the
+>narrowed sense.
+>
+>Fixes: bf1d6b0d24ae8 ("admin: conformance clauses")
+>Signed-off-by: Peter Hilber <peter.hilber@opensynergy.com>
+>---
+>
+>Notes:
+>    v3:
+>
+>    - Refer to "virtqueue" as such (Stefano Garzarella).
+>
+>    - Narrow down example to have different virtqueues (Stefano Garzarella).
+>
+>    v2:
+>
+>    Be specific about case without order constraints (Parav Pandit).
+>
+> admin.tex | 9 +++++----
+> 1 file changed, 5 insertions(+), 4 deletions(-)
 
-On 11-06-24, 06:10, Parav Pandit wrote:
-> > From: Viresh Kumar <viresh.kumar@linaro.org>
-> > +\subsection{Transport Requirements}\label{sec:Virtio Transport Options
-> > +/ Virtio Transport Requirements / Transport Requirements}
-> > +
-> > +A transport provides a mechanism for the driver to discover the device.
-> > +
-> I would like to add a normative.
+LGTM!
 
-Some background on why normative statements are removed for this
-change:
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
-https://lore.kernel.org/all/20240521073925-mutt-send-email-mst@kernel.org/
+>
+>diff --git a/admin.tex b/admin.tex
+>index 0803c269e5c4..751918443d0f 100644
+>--- a/admin.tex
+>+++ b/admin.tex
+>@@ -457,11 +457,12 @@ \section{Administration Virtqueues}\label{sec:Basic Facilities of a Virtio Devic
+> The driver enqueues requests to an arbitrary administration
+> virtqueue, and they are used by the device on that same
+> virtqueue. It is the responsibility of the driver to ensure
+>-strict request ordering for commands, because they will be
+>-consumed with no order constraints.  For example, if consistency
+>-is required then the driver can wait for the processing of a
+>+strict request ordering for commands placed on different
+>+virtqueues, because they will be
+>+consumed with no order constraints.  For example,
+>+the driver must wait for the processing of a
+> first command by the device to be completed before submitting
+>-another command depending on the first one.
+>+another command depending on the first one to a different virtqueue.
+>
+> Administration virtqueues are used as follows:
+> \begin{itemize}
+>-- 
+>2.43.0
+>
 
-> A transport MAY provide a mechanism to create and destroy virtio devices.
-> 
-> (for example PCI transport provides this).
-> 
-> It isn’t blocker for this patch.
-> In case if you spin v6, please add, else will send this change after yours is merged.
-
-> > +The device doesn't access or modify buffers on a virtqueue after it has
-> > +notified the driver about their availability.
-> > +
-> This needs to be corrected to only say "modify".
-> 
-> A device may still access (read) what is already wrote, for example, used index of the split queue.
-> Or packed queue flags.
-
-Hmm, we are talking about "buffers on a virtqueue" here. I am not sure
-if the device should access them anymore. Once the control is passed
-to the driver, the buffers may get modified anytime and device
-shouldn't access them. Used index or flags are configuration things,
-accessing them is fine I guess.
-
-> > +The device resets itself and the virtqueues if requested by the driver,
-> > +in a transport defined way, if the transport provides such a method.
-> > +
-> > +\subsection{Driver Requirements}\label{sec:Virtio Transport Options /
-> > +Virtio Transport Requirements / Driver Requirements}
-> > +
-> > +The driver acknowledges device notifications, as mandated by the
-> > +transport.
-> > +
-> > +The driver doesn't access virtqueue contents before the device notifies
-> > +about the readiness of the same.
-> > +
-> This also needs fix.
-> A driver may access (poll) for the packed queue flags or used index of the split q without device notifying it.
-
-Maybe this (in a similar way to the device specific sentence earlier)
-?
-
-The driver doesn't access buffers on the virtqueue before the device
-notifies about the readiness of the same.
-
-Configuration specific fields can of course be accessed anytime.
-
-> > +The driver accesses queued buffers after the device has processed them
-> > +and notified the driver of their availability. This mechanism is
-> > +transport defined.
-> > +
-> > +The driver asks the device to reset itself and the virtqueues if, for
-> > +example, the driver times out waiting for a notification from the
-> > +device for a previously queued request.
-> > +
-> Please remove "virtqueue" from above. The "device to reset itself" is enough.
-> "and the virtqueues" is confusing, it sort of implies the vqs are something separate from the device reset flow, which is not true.
-> So device reset is good enough.
-
-I wonder if it will cause some confusion, i.e. about the state of the
-virtqueues on device reset. I understand what you are saying, but is
-it a given that virtqueues will be reset once device is ?
-
-I looked at: "Basic Facilities of a Virtio Device" -> "Device Reset",
-and it doesn't talk about vitqueue being reset with the device.
-
-Also there is a separate section about, "Virtqueue Reset" and it talks
-about the possibility of a virtqueue getting reset alone.
-
-Maybe something like ?
-
-The driver asks the device to reset itself (and its virtqueues) if,
-for example, the driver times out waiting for a notification from the
-device for a previously queued request.
-
-Thanks.
-
--- 
-viresh
