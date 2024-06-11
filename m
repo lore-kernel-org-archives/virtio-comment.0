@@ -1,132 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EBC2E622
-	for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 15:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FB82E851
+	for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 15:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718119744; cv=none; b=RHmpG6+xxwZHL+MWbTcrbtaMiFzDSMKE9yUtFod/V5tFEd8KRygqaPbhPZJXwsde1HcB3WEOSiXe4hy0pjsKjCCLTqdgLmM794wTRqjGHE1/5jIVeLd4BlKb22v/29Ab4jSUtv93L5ITGN/PPArGEPek0QzJBKpvIeD2zAnbaBc=
+	t=1718120934; cv=none; b=sqS2p2JEbnaPv24oOtG1+AjtWYu6WfIWRO5tS1MVd9BS0icccUKImO7g5wHcljiB7Tze78vdGrx9l6LgYQ92lpSXwktgk9Kg35zzTr7KzTK6dTv87rXaoq08X5BaZ80kUOYqGQg7gzU3EEcM/33hkyxIeGjwf2Fk9oh2klklZAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718119744; c=relaxed/simple;
-	bh=+C/zvHp06vyJnDnoeFXm0/toleNAcA2KwtyJwV8KeS0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KudzE/CE+mNf+SfRVye9gl7BGsRQIFhrpGtjU0z/qEsdHYN+HLdoeSeEZwuFTz80j923AIQKt7R6B5103KYwWZ1udPSNnwI4Cz6dAEKo3mVhgQMs7kUHqwJ+jV1DGAc1U5WaApo/CYq+CmPD6ovVstFvLOczF5QyXi4sQS3pCzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O92KnH7v; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1718120934; c=relaxed/simple;
+	bh=up28L1LU/ReCswS1TrfFigSZHY49it5hEJTg5kWUVqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=n76p3fqFWqNz97pOM3/nreVYzOMrqKKopp6ys0SCRAhnTrOcaowTyW698oJBvmOYzTwxwFldOzIfBlfZlhq8529nu728/7NHncKrYnoc5y/Rb94T/Lx92nQXVJrFJUB8AOgmNuldzzv/GmCubLDMXLriLnEg9qxNL75MnZVFeUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DpGQpq0Q; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O92KnH7v"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DpGQpq0Q"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718119741;
+	s=mimecast20190719; t=1718120932;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JwuBFYlfqKUpg9tlh3AfTGyDudR6nXAi9qInnnEjX5I=;
-	b=O92KnH7vpSALkCsnoGTB95inG6NOIcb2AWg1CCUEBxyf2xQdmOIgHSLRzTh53dJIHKwG82
-	MdxoyYB693X0H6SRsBYm1ZMNNo2X6Ybkc/mZ+ydCVQdgcdu/z7L5nBCm99uYCEG6TDN4GC
-	nNz2t3XCQqQB9ZWrDAfmczsFwiu3sB8=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-576-mFfzx3ZmMn2q_LF9Gpa-VQ-1; Tue,
- 11 Jun 2024 11:28:57 -0400
-X-MC-Unique: mFfzx3ZmMn2q_LF9Gpa-VQ-1
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C0A6C1955BD9;
-	Tue, 11 Jun 2024 15:28:54 +0000 (UTC)
-Received: from localhost (unknown [10.39.193.118])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 807CA1956055;
-	Tue, 11 Jun 2024 15:28:53 +0000 (UTC)
-From: Cornelia Huck <cohuck@redhat.com>
-To: Parav Pandit <parav@nvidia.com>, Viresh Kumar <viresh.kumar@linaro.org>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, Alex =?utf-8?Q?Benn?=
- =?utf-8?Q?=C3=A9e?=
- <alex.bennee@linaro.org>, "stratos-dev@op-lists.linaro.org"
- <stratos-dev@op-lists.linaro.org>, Manos Pitsidianakis
- <manos.pitsidianakis@linaro.org>, "Michael
- S. Tsirkin" <mst@redhat.com>
-Subject: RE: [PATCH V5] virtio-transport: Clarify requirements
-In-Reply-To: <PH0PR12MB5481413D59F2DC236F0B59DFDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
-Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
- Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
- 153243,
- =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
- Michael O'Neill, Amy
- Ross"
-References: <9d543789de03d26a27a43ae8f7621d07d66e8731.1718084050.git.viresh.kumar@linaro.org>
- <PH0PR12MB5481413D59F2DC236F0B59DFDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
-User-Agent: Notmuch/0.38.3 (https://notmuchmail.org)
-Date: Tue, 11 Jun 2024 17:28:51 +0200
-Message-ID: <87plsnjy6k.fsf@redhat.com>
+	bh=JKfHgGPOhJ/DbhZUo8FDk5MtDdWnhjXnyJBmA1gCbRE=;
+	b=DpGQpq0QETPUF5pJBXquDw1BuvUwyBoV81ME02XSsBUaTYhLQ1AWsYFYc1lbClhT8BjFvG
+	79XQ09CUkMPE4yWnmy5Pz8/1ZqWj5E1+xNsGzEb6RwgVx1F58TKOjX/zpLN52l56PRlM9p
+	gcicUJKQeZjCL/CTo9RojPRzPr0vlWM=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-623-T7q7xjgDOBSvgaZOY62Ifg-1; Tue, 11 Jun 2024 11:48:50 -0400
+X-MC-Unique: T7q7xjgDOBSvgaZOY62Ifg-1
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4216dbadb75so26772995e9.3
+        for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 08:48:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718120929; x=1718725729;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JKfHgGPOhJ/DbhZUo8FDk5MtDdWnhjXnyJBmA1gCbRE=;
+        b=lb45s3yEV49Ql4r5H3zckDpYmayTDZw6gA4tYo6/KKt8KO2PvUaikPMqhJJZCtO28b
+         SgXGua6IqShAj5dmZdWoPfoxNlA28PVKY+NA/du6GDLlEkqqjF/0pO0+r7D+w2y41+IW
+         Ji+8WAsu4120eyLWDKnrkPeuNCiOdGrpiLGGIvAxKCdsvDqiCTpgFDAU/ixRfavfRff5
+         c49SOu+V4iZmFT6kzbxtq+2i+HJc/W/g4pgvgjmbG2cYrC0YnCgh3nSCYjAztv+QOpeu
+         z43bV1Ec5rX7W4LSAPjAUgpbyIrXfUFBXbXCPYowB1peUY26ifqrh0UNnabiX/MUd2Al
+         +uhg==
+X-Forwarded-Encrypted: i=1; AJvYcCVtZ96LA9ADxFIqEYL56cZMcDyKO9T80qFG7V97/34mbxqDGWbUVOrrvQA6gk8ATZgahxA1D6xdaj3JL5ZeX7ZLKnlACk1MmshLr0nQmZE=
+X-Gm-Message-State: AOJu0YwDLbXrjBAhvUhdw/0wB2p1AI+vZLJcoLR6plOLRCTNQZvcNQxc
+	SP8LkNbPYbKk+96CRwohi81RfVHQayt2+PK+3XnbXAWyHnahrmFIj8uokRQ1PJIrnspMWFF9VyN
+	PFfAirou56QosKH528JMGgwOvtMntP/8hX6LeoAAIx/gD7r5lqCGVASo9b3AGFflfGOMCe42W
+X-Received: by 2002:a05:600c:4f0e:b0:421:c932:f5da with SMTP id 5b1f17b1804b1-421c932f93bmr52048765e9.0.1718120929511;
+        Tue, 11 Jun 2024 08:48:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEZtGlKBCtdKRrV4MER9dLcsrVxOzgO1hr+7Qb3C+InQVdnEj2ReFwjWjHMHqz+VD/rUl8hQw==
+X-Received: by 2002:a05:600c:4f0e:b0:421:c932:f5da with SMTP id 5b1f17b1804b1-421c932f93bmr52048605e9.0.1718120929123;
+        Tue, 11 Jun 2024 08:48:49 -0700 (PDT)
+Received: from fedora (lmontsouris-659-1-55-176.w193-248.abo.wanadoo.fr. [193.248.58.176])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42161147811sm167299005e9.18.2024.06.11.08.48.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Jun 2024 08:48:48 -0700 (PDT)
+Date: Tue, 11 Jun 2024 17:48:46 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: Harald Mommer <harald.mommer@opensynergy.com>, 
+	virtio-comment@lists.linux.dev
+Subject: Re: [PATCH] virtio-can: rephrase notification mechanism
+Message-ID: <htuig3q24efrbkirbsfdi46eretgmaupyz7tshksmix5tehsmb@qyg4q46zhmh2>
+References: <Zkyr3eaCOctSn7BD@fedora>
+ <7wfenngxylsnl73xnspd7r7icc5upuopxcr353tddxpiqlcp2o@4juhjr3m4m3v>
+ <2e87edd1-897f-4969-a479-3b1b59529ec1@opensynergy.com>
+ <ZmGD4CufscIixGTo@fedora>
+ <ibghaokieygbzjjhufda7d7dufpoz2vv3weapybu6yavllcinr@6n2s57dmrofy>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+In-Reply-To: <ibghaokieygbzjjhufda7d7dufpoz2vv3weapybu6yavllcinr@6n2s57dmrofy>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Tue, Jun 11 2024, Parav Pandit <parav@nvidia.com> wrote:
+On Tue, Jun 11, 2024 at 10:36:47AM +0200, Stefano Garzarella wrote:
+> On Thu, Jun 06, 2024 at 11:39:44AM GMT, Matias Ezequiel Vara Larsen wrote:
+> > On Wed, Jun 05, 2024 at 07:55:05PM +0200, Harald Mommer wrote:
+> > > Hello,
+> > > 
+> > > exactly this is my problem here also. For me this change looks like saying
+> > > exactly the same thing just in different (not better) words.
+> > > 
+> > > Thinking still about the replacement "from the driver" => "by the driver".
+> > > Was the original "from the driver" correct? My native language is German and
+> > > of course it can be that I made a grammar mistake applying German grammar to
+> > > an English text. Absolutely unclear to me.
+> > > 
+> > > But if it's not that I have as a non-native speaker of English in the moment
+> > > no idea where the improvement is.
+> > > 
+> > > Regards
+> > > Harald
+> > > 
+> > > On 05.06.24 10:46, Stefano Garzarella wrote:
+> > > > On Tue, May 21, 2024 at 04:12:45PM GMT, Matias Ezequiel Vara Larsen
+> > > > wrote:
+> > > > > Rephrase the notification mechanism.
+> > > >
+> > > > I'd suggest to explain here what are we clarifying with the rephrase.
+> > > > Sorry, I'm not a CAN expert, so I don't understand the difference
+> > > > between the two versions.
+> > > >
+> > 
+> > Thanks both for the review. The only sentence that I wanted to change
+> > is:
+> > 
+> > "As the configuration \field{status} change is caused by a request from
+> > the driver the device is allowed to omit the configuration change
+> > notification here."
+> > 
+> > I though it could be rewritten in a more direct way like:
+> > 
+> > "The device may omit the configuration change notification as the
+> > configuration \field{status} change is requested by the driver. "
+> > 
+> > But I don't know if that clarifies anything. If not, we can drop this
+> > patch.
+> 
+> Yeah, I think is more clear but I suggest to explain it in the commit
+> description as well.
+> 
 
-> Hi Viresh,
->
->> From: Viresh Kumar <viresh.kumar@linaro.org>
->> Sent: Tuesday, June 11, 2024 11:06 AM
->
-> [..]
->> diff --git a/content.tex b/content.tex
->> index 0a62dce5f65f..e2a836327818 100644
->> --- a/content.tex
->> +++ b/content.tex
->> @@ -631,8 +631,86 @@ \section{Device Cleanup}\label{sec:General
->> Initialization And Device Operation /
->> 
->>  \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
->> 
->> -Virtio can use various different buses, thus the standard is split -into virtio
->> general and bus-specific sections.
->> +Devices and drivers can use different transport methods to enable
->> +interaction, for example PCI, MMIO, or Channel I/O. The transport
->> +methods define various aspects of the communication between the device
->> +and the driver, like device discovery, exchanging capabilities,
->> +interrupt handling, data transfer, etc. For example, in a host/guest
->> +architecture, the host might expose a device to the guest on a PCI bus,
->> +and the guest will use a PCI-specific driver to interact with it.
->> +
->> +The standard contains sections describing the transport-agnostic parts
->> +of virtio, and sections describing how individual transports implement
->> +virtio.
->> +
->> +\section{Virtio Transport Requirements}\label{sec:Virtio Transport
->> +Options / Virtio Transport Requirements}
->> +
->> +There are some mechanisms that any transport is required to implement,
->> +and some requirements that devices and drivers are required to follow.
->> +
->> +\subsection{Transport Requirements}\label{sec:Virtio Transport Options
->> +/ Virtio Transport Requirements / Transport Requirements}
->> +
->> +A transport provides a mechanism for the driver to discover the device.
->> +
-> I would like to add a normative.
->
-> A transport MAY provide a mechanism to create and destroy virtio devices.
->
-> (for example PCI transport provides this).
->
+Thanks, I will submit a v2 adding that.
 
-I'm not a fan of that statement: the transport already allows for the
-driver to discover a device, whether that happens statically or
-dynamically really is the choice of the transport, and I don't think we
-should go into that much detail.
-
-[I'll go offline now, so please don't expect further responses from me
-right now...]
+Matias
 
