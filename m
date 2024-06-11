@@ -1,62 +1,71 @@
-Received: from repost01.tmes.trendmicro.eu (repost01.tmes.trendmicro.eu [18.185.115.10])
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7CB178CC3
-	for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 10:10:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5079D17839D
+	for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 10:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.243.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718100635; cv=fail; b=YN+l1+65ZyeTAByL9Ul+YHmf37wJDxvfjqUJiESjG7LCtsMgl++P1L96DCf8MKpkXBgJ6brcBcFza/pelsisR6bzoD0alK/weh6pQkSh5aEzvRSrLA2DSQww/LOi55ObgkyQjfxiYSYxCCr8z6SXAPkun2byeE2kcH61ilFyw4E=
+	t=1718100748; cv=fail; b=obuTre8TJr4A2NDETKf2LawbZCB4hL8GYsqBgIdV5cYKjS3G1eMR8Xc6sJ3TBK9xwavLeYBEh3Wk1wHABxkylocZTX8JAksyAXarHK6YgFpiLmJsXCxcCRxMGhV+wZAcap4LeYa9fr+DKWW46itKIo4Ek0z+W7IF+pkTmVkQmlo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718100635; c=relaxed/simple;
-	bh=XM86WlXcmYP5y4cy7LBXTyspOlV7BU5wU0BYHMevu+0=;
-	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=VpWGSVB5l+yN0r6P+F2XOqvxckuxgr8si3BJJDbcvKkkYlFdUB353yqBGP0kNljEsz14VEsq+kxzUow/p+3ai7Nm0zARw8UMfsLFJfeZcYzsCWXWYYr3+sLd3ZLDcgYWAm9F7MbLAARfMjFe/OGB1y5bVfTwKSDGRrPr8yHPMrw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=irpLe7pv; arc=fail smtp.client-ip=18.185.115.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensynergy.com
+	s=arc-20240116; t=1718100748; c=relaxed/simple;
+	bh=AoDSxxXp/2tvSKXyswfgk+Y7vX72+snGe0jo/EdlBuU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=YdA44HNkBvTdjNiykDLC84VmTYwarZpbERYQV9CfWM17Vla0AzdVfE7SSacJjH4hPqc8WO7fjtoAWskYgTwfN4vTWy7rs8n9lO7NveBup5s6rCJ5zq6ck2s3+zL8mkidDtGbOL0WBcruvw99XYtUyQtK7x5gv3SE9WiK6QfWDsU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=D3pVY1Se; arc=fail smtp.client-ip=40.107.243.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="irpLe7pv"
-Received: from 104.47.7.174_.trendmicro.com (unknown [172.21.197.65])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 9018E100017AB;
-	Tue, 11 Jun 2024 10:10:25 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1718100616.506000
-X-TM-MAIL-UUID: ad5d268a-6349-4ab0-9643-158fc84ccd66
-Received: from DEU01-BE0-obe.outbound.protection.outlook.com (unknown [104.47.7.174])
-	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 7BA5310000312;
-	Tue, 11 Jun 2024 10:10:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="D3pVY1Se"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CBWB53A+SQa+xRYQ6RLAmxsyhKpk48fCxgOlwXVE67Di3pkswtoPDfMNKrPnpvGJFnJMOOr6ypaJQ2ltBaDbl+f0pcpyy2s2Cbjsscm0yEv7wGtFYP/plqjwKDamyMEeTxIst1qaTbfwsaots+KSLKNA2dUw/Wp6iVIY8+EuDbpNWX8IJ+kZYwww+UP1cwNsHNI3vSy0QFDxkV/AS1qHH5JWpVTOKZeQUmRTq/hlpSKnxwvxWkxWV53IYPKfblldqkziK0uPgZQd0mrxPpJ/DX28P8hs4Hs6oTLLkheoCNtfr/xj2TWobvlVu9qLGOmRLQwuE5OJ3lfx+xu02vx4lA==
+ b=iSIduJCKpA6cpkvgG3ejrp/rLBVRPlNyUJWzRTlqDjXTBYRBq0j5WWq506KeBpKCxgYB6X0eyUHU3Zd6xvzqG5GGP7KLaBJst33sZH1QL0mCB//5GD1mQCmatGl+rWlzFNUC+siIIR2LNfaiDXKK/sFrZX8JXrIC2cnUeQaAcgb2U6heE7GrNXXqSq1U5cKEin4JUeXxcLzf+/1JxYSPinHuLXyNH6e7xQ5xWyDrObfH3zmZDIxYJBCNtbOzpRn05HN52YI/s6n1XrQNSbufgJFf62qLUIj6camvZgLEytygcKynyw/L92F5fyHsCd23lo/WIh9mQ9t7FS8A/WKZQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xwQDHZA+27c97ofpilknsQG7hNjAeP4GRXGqpXL9fkI=;
- b=KYUz54W1azWAhmbhrDnZU70SfJ7NVYUfwViq93P9xXGmUklGYJqa68HX2i/NsgBii5CW3Xf4F7peNUTHmHeBTY9h3DkEOiEAiLC7ylFSHXBkLw6W4Kzzke1FC5ZjvGXB8SwbexKAFRwAkQxCbVRphntH/FY+OChARHtHCqU6FkCMeSit3TnQa78MwM7lCi0hmNF3vCy9wjEwTuJUBnWC0pPez0EF8aSPQ8dL2x5A7VxZFXQOEJZeR6+qqM2NBiQBJqobOMVyOosBurxp4x8uZ4kpgmYKb/CnOlRlK3anISa7O0BLia5hm9Zt5EzqiljuEDBjQ5nE0eXWKcH0vIeWPw==
+ bh=v4Dbr9zwIaCOPBbcHdetGfu59+32j+ZBRJ7Hjx2NB8M=;
+ b=m8+NF85i9YkHf+C+sYssPtyqeg+sYtas08tCU0ct0bueLCddR75YIKEuuKedB5Um28XNdMzQy3vYmnEUm64uSBe/wsg3vzOT4BQKK1RHlAp3vR0iqJf47DjmeVRNckTK0UpLmkNozoRVcjaHBw3aj6ShWX4CfnMn80GM40MUubSDP4tWTVgIc0uGcPH8/ZKOMTtkFswEkyZ3QEBAHIzLqQ05nV0Qy8GIf4PWNjdkt1e31soEah8Bo8HHMBRp9cdogYo5H8HxJ4LPWkEtQjEEEueB6n0W+nNnxttEkz4ITXCR76sLouub8Ph28IEVyfZRklUTlv25kQJKOAUebiv/oQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v4Dbr9zwIaCOPBbcHdetGfu59+32j+ZBRJ7Hjx2NB8M=;
+ b=D3pVY1SeXsleRxc1H1RQ1Dcsu7pH7rT18jmqlUKYzzt/q4U9zCumW+byY00uTHl8bXHw01IrTFN+2/A7OuAx+PUe7OEfZ9/Ip8ze7VrbPzjqeZNqorOIqPFDX6f5VXQ0G4VsHYstNzU7a0L/lFsFskYpYoqFtRfbSnprUNTrDCw=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <21f91356-0ca2-47c9-a659-d73c768717e4@opensynergy.com>
-Date: Tue, 11 Jun 2024 12:10:09 +0200
-From: Alexander Gordeev <alexander.gordeev@opensynergy.com>
-Subject: Re: [PATCH v2 0/1] virtio-media: Add device specification
-To: Albert Esteve <aesteve@redhat.com>, virtio-comment@lists.linux.dev,
- Alexandre Courbot <acourbot@chromium.org>
-Cc: changyeon@google.com, eballetb@redhat.com, daniel.almeida@collabora.com,
- ribalda@google.com, mst@redhat.com, gurchetansingh@google.com,
- Matti.Moell@opensynergy.com, cohuck@redhat.com,
- nicolas.dufresne@collabora.com, alex.bennee@linaro.org,
- Alexander Gordeev <agordeev@qti.qualcomm.com>
-References: <20240607133508.1400529-1-aesteve@redhat.com>
- <CADSE00K5RjuLY1UKfPiAMXv=HWJC3hdp9yvo_t7yr9HqhAVotw@mail.gmail.com>
- <CADSE00Kcc-uVKYkNT-LHX3kQwmhQNLgKp8FRMrWz0hWg+e_c8g@mail.gmail.com>
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by CH3PR12MB8257.namprd12.prod.outlook.com (2603:10b6:610:121::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.37; Tue, 11 Jun
+ 2024 10:12:23 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8%3]) with mapi id 15.20.7633.037; Tue, 11 Jun 2024
+ 10:12:23 +0000
+Message-ID: <2f9636c7-06ca-49ec-ac86-f8a2f1f97b4f@amd.com>
+Date: Tue, 11 Jun 2024 18:12:14 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] virtio: introduce SUSPEND bit in device status
+To: Parav Pandit <parav@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
+ "mst@redhat.com" <mst@redhat.com>, "jasowang@redhat.com"
+ <jasowang@redhat.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ David Stevens <stevensd@chromium.org>
+References: <20240607074246.7647-1-lingshan.zhu@amd.com>
+ <87zfrskcmq.fsf@redhat.com>
+ <PH0PR12MB548111206A0EEB7EE62421FADCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <3319f7da-5c1f-48ff-916d-03791edf1783@amd.com>
+ <PH0PR12MB548190E2CCAED2E01410F79ADCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <2657c74f-1caa-4e5e-b767-b16e059247ae@amd.com>
+ <PH0PR12MB548198E64803B0A7D9389E9FDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
 Content-Language: en-US
-In-Reply-To: <CADSE00Kcc-uVKYkNT-LHX3kQwmhQNLgKp8FRMrWz0hWg+e_c8g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+In-Reply-To: <PH0PR12MB548198E64803B0A7D9389E9FDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA1P291CA0021.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::21) To BEXP281MB0183.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:7::12)
+X-ClientProxiedBy: SG2PR02CA0013.apcprd02.prod.outlook.com
+ (2603:1096:3:17::25) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -64,379 +73,314 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BEXP281MB0183:EE_|FR2P281MB0170:EE_
-X-MS-Office365-Filtering-Correlation-Id: f371a133-ae37-4fad-0bee-08dc89feaeb8
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|CH3PR12MB8257:EE_
+X-MS-Office365-Filtering-Correlation-Id: 060e5066-2a36-44b3-4883-08dc89fefc7b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|7416005|1800799015|376005;
+X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eU8rNVk0VmEvVVluZ2o5OG5aM2ZWaTRxYUVIQWxwaGwwTmpVUllneXR4Vzg2?=
- =?utf-8?B?S3RKUFhJSVM3WHR3ZWJQWnV5OWd2S20zZXVlWFdZNHVGUlBla3QzdTBQMU91?=
- =?utf-8?B?aEJ3OSs1cDZIL1EyeDRKOFVwSXBqRWhlbktabTRMN0dYUHE5UWk4ZE5BY1c2?=
- =?utf-8?B?QmZHOEUrWHlzV0RzWWgwd2dLbXd4eWhmUndqN0tieWJONlNES1dCY016Y2hU?=
- =?utf-8?B?QzdpZFBXekJ4clI4Mm9Kd3JTVk9SbGxqblE3TFBxYlVEUEJ4d1JvTnlrNGNJ?=
- =?utf-8?B?NmFRTkhld1hzQjBRQlNoZzR5dHlzY1IxZmtkWnU2L1R0aUNUUGt3dk1RN2VQ?=
- =?utf-8?B?aHA4ajdudzhIK09raEJhUjNWZmhVMGhETWZGTDNHMWhZVHhuTFFwMFhZbUly?=
- =?utf-8?B?OGF6YlNxRG5oUnBQL0h6L0FPZ2wySWplR3owZnFzMUxxNGZoWEI4bG5xRE9u?=
- =?utf-8?B?bkxBV1krKzVVbm9QTFIwWmhaaXRIaGhIL052YU1uazVPZm5wZFB4em4wYnl5?=
- =?utf-8?B?WnhHY0htd0R1MUNvTGJWalNZc0VGZ2ZPTFFOMnZuYXdmVFRJZGZPOVdyaUVa?=
- =?utf-8?B?cWdqa1NFK3RXaVJYVEV0dkllTEk3djFBMS9iV2hCWW8xdHFVWkFaWFpET3BR?=
- =?utf-8?B?VUJLRlluSTd0SDZkTVhCaGhVVUdqTE05WmJvSm1QMWZDRkpsQUVFMTBDRndn?=
- =?utf-8?B?QW8wcFVLNEZlMHlCby8vcE0wR1hMc1hENHg2MHJ2UTgvQkFEQ2I0TUM4cmdO?=
- =?utf-8?B?V3pMU25CYkxRcFR3Y3RMazZkREFKS2xwZ3BGN2Z6Y0VsdkRKUWpZY21JQlh3?=
- =?utf-8?B?QWNRMDBqTVorRGNnRkZweWFWSTdwN2kvR3RVWHJUMGxlRE1HbHgzZE9VVkp5?=
- =?utf-8?B?anQ2aWh1UVJ2SnNjdDNoRmpzTy95L25RM0ZmT0NsY2JXVDV6ZWdwSGZ2UE5u?=
- =?utf-8?B?cFRmSDBhMjlIUEtUSDhnMzVGNStHaDFuak5wSnBpMVVlMHR2a3hzY2hBcEVs?=
- =?utf-8?B?RkhqR3I3NjgvMkZ3aExFMFRmU2FiU1RSbHdGVENQVEduclFEQXozOUdXaE9v?=
- =?utf-8?B?cktlSkoycUczbFFQamZSbktyZkFBaDFrM2pMRXBYTGtKNkdqS0hNTVd3ZWho?=
- =?utf-8?B?N1AwTVhZTmNCSUNGRXRiODBZdC9zYWc1cVlvYzFNTlkyKzZzNzRSdWltUjc5?=
- =?utf-8?B?OXpNSUNnaTNOVCs2WWgzWGdsTWJXSklMOEdoUVBXM3p2TGZVSDM0SXkvYmV2?=
- =?utf-8?B?dnZteUt6VmIrdGlWUm56bDZYV3o5WWdyU0pGdWc1UE4xenRPR2hxRkRQMEFS?=
- =?utf-8?B?OGZVZVRkZmxEZjdyY1Jndk1FNHNRQ0E1VlJ3N0J6OHBzY2ZSWjJKaDhUZDRF?=
- =?utf-8?B?OU0raW40UzFaWkUrcHBpRzN3WGI5T0U2bDRsWGMvQjh1Zm5uS2NxeG1Rb2dp?=
- =?utf-8?B?SWVWSjBZQUtyMSt6ckxjVEJnTUwvbG5FL0hxNGRBTFR6ZjdUcng2VFBQWEFT?=
- =?utf-8?B?bkVXNkRVdlR4eTlsZ1kyQjdtSVF6ckZ4TmhhbTNibWMrdjJKcDNjT0s4UWtD?=
- =?utf-8?B?Wlo3UlpwS016Yy9pTHR1czZBaGxhRHlFTFRuSkgwRURZQVp4dTVSWW1OK0p5?=
- =?utf-8?B?eXgwWTFUZlZVZnQxK0RQU0NSbWhTQlUydVc5TXVkdmtWTEVOcEpKQkZnVzdE?=
- =?utf-8?B?SkI4ZG5XREdiT3JXNkNZL0F6eFJsU0F4WkVHYnlpYUJoTEp4UkxONVZ3PT0=?=
+	=?utf-8?B?MkpEQlRUK1J5SXJMeEhTQzcrYzR5a0Q3bjNKUDkrb2JVdHlIUXg4V1JnR081?=
+ =?utf-8?B?SVhSRGd4Y2U3Zk1FV0RNRDVWaFdsQm8wSG42TGI1UUlHTVF1SmtKMkpsaDVY?=
+ =?utf-8?B?V3ZENko5aStvUGsvbjJSeEY3Wm92UHQrdTIyZEZJQldGRkNLdWtDaTdmR29I?=
+ =?utf-8?B?TmcvTjB1M1RLVVkvQUhFT1lXWjloTlU4T0l1RVo4MWNDWnRGNUZyTitkcnBE?=
+ =?utf-8?B?MGZVN1JxZmZ5Y3gxUTZwNnZrc1BCcm5xYlhIUXpLRURoNnU5cDFqM3V1c3d2?=
+ =?utf-8?B?eVNCVlVNNWRkcUc1aUQ4MDF2bGlwb3JwZVp3TGZCclNYNVN6bWM0OUVJNEpk?=
+ =?utf-8?B?SmJ0WVgvQnhUM0RHQkVsMzVoMWlVUlJwYndjb043a2RKazQyZklLT3d6b1pB?=
+ =?utf-8?B?L1FYVWNRbEtiOWhucXdEN2c4Wld1aWR0NE1DR051dW9RRkI3R3daTnVpUEg2?=
+ =?utf-8?B?dGNERC9lTVZHTU44YTJleXdtUGpDZTVxMlJOVnVnS3N2VU55WkRiMFdYdWZB?=
+ =?utf-8?B?OUJ6eUlBYmsvVnJnSnRVVUJmL3RFM1QwQnJ2TkhNOXlSRmMyWjAxcnNlL0x5?=
+ =?utf-8?B?WHhWbTVsb293RHpoUDcxNHo1YUgzMG9XbHlZWmdSR3lPZ09pd2cyZm12R0tP?=
+ =?utf-8?B?dTB3T0lCWU0zdXp4Y3FyZXh2SGgyUkZSQmVnTEpVVnNJaDFNdXJKYjBjMGVF?=
+ =?utf-8?B?bUcwMlBybm9BakJSekpId3NYaFhGR1cvWGthY0xYNno3dXEwVzdpNG5hUXpw?=
+ =?utf-8?B?Z2gwQndCQ3YzbnFMQW5TN29WeEZJZzExUDdad1VkZ3RTMmNGL0NLU1RFZCtr?=
+ =?utf-8?B?ek1Pald0eUdFdTlhSUlxQVRYTkhpWU5kRW9hdm5iSnJhV3M2NUdFUjZvZTlq?=
+ =?utf-8?B?YlZSYy9mTnMzMmtieEpveEQ4M2pGc205b1ZlVlJ1YUtVQVZCaG5LZDhEQmFU?=
+ =?utf-8?B?NzdtZmcrOHBoWm5ORi85MnJ5cmpLS2NaeGtoU1d2WlMrUy8wRi83NTYyeExC?=
+ =?utf-8?B?Rm9aRVBpc0ExSUE1ZXZYdS9wMDE4UlFYdklja3VKY0RKYU5YREY0V0g2TXRU?=
+ =?utf-8?B?S09uZkhwc3hUSVlTU0pzdlZuN21oNGpUN0ZKRDZrNUxQSHhXcUhqMTFPYmIr?=
+ =?utf-8?B?TDBTWkZ4SC9odjlkR24vRWkwaWpQUHlkUURYYzB5V0orRzBVeW5NS3lFMDRE?=
+ =?utf-8?B?ZkFJaWpkY2RYTC9xRDRhWS9sOHMrWjhSN1hReFdPY0tMZ0pSMWxWWVJLc1NQ?=
+ =?utf-8?B?cTJJa2dCbkpaeGlNSStDcmc3d0kxMk9MdENwTTNtYmgzTHlmcmZQdEF6MGJR?=
+ =?utf-8?B?ZW1vMkNqSEREVlJQQ0lKME5FaUNXcmczU253c3czcFFsZmlzUzc1cHhxbjJI?=
+ =?utf-8?B?YStYYkFZUFdPTWxKNEVyWHdVb2lZa3RHQm5ZcnhKNTMzV2pGc3VzR0JvSW9R?=
+ =?utf-8?B?TkU1M2t6R3VwVExYbE5NK05vU3Y4R0o4RGY5VmlvUjhvUXZCOUUzRmpqV1hv?=
+ =?utf-8?B?a0NYaUl4cVZKdSszanRFRWs2N2hLK21hcEhyaC8wUUNqb216bnNYTTZVL1A5?=
+ =?utf-8?B?VkYzbVM2MExXTVlzUllWTWJ0N1BXWTZLT3pZemk2cW9WOUpwcWdYVTNXME1W?=
+ =?utf-8?B?bFNBYWU5WUNiakdjMXBUbG4zY0JLL3VtNy8xMDFtM2wwV2I5NGFCOHE2OEpx?=
+ =?utf-8?B?L3NldU0xdGZ2bXJmYklVOVVGV1BSOXAzcTYzdWtSV1FzeXlzWEhBTGVkRStW?=
+ =?utf-8?Q?GjR8tCpnXwEGijpi0EH9Lu0XpWwa1nDrXMVRTR0?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEXP281MB0183.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(366007)(7416005)(1800799015)(376005);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(376005);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RTN3Nk1ETFlUVEV0UUlxRm5veVo0TE53Rlk1RTNWQ0NaK3EvejM0QVpGQUZF?=
- =?utf-8?B?dGJOYTcyT1NrWTA5bzBkSkw3eGVWTjBrTHExeE5ic2NmL2ZrekwzTEVpaHZr?=
- =?utf-8?B?NEZjMTdtL2c4WHQxcG0yQWE2aFRmZ3J0T2JXcEJuZ0ZmT0NCZU04Y2gxaytW?=
- =?utf-8?B?YkZJRlA1QkNsa29vVUswZVFIcTlMMG5keDh3QnNzaVZFdkhqOUJJTTdJNm9m?=
- =?utf-8?B?ZDQ1QXBHZGczQysraHpzUnhNWVRtcjh1Q1dEbExvbTEwN3h3TERNMUM0b1Fj?=
- =?utf-8?B?Zlljd3RzeUZtcjRXVmlPeTlSenZ2Um80V2N5NWVkSzd5SHhFU3IxenNJUFNX?=
- =?utf-8?B?aFBLVFRaTFpQUGdhLzNseG9ZQjFkb0Y4eEJiZTdLUGJMdkZVYnQwM2xSMmJL?=
- =?utf-8?B?ZWdQSmZ4MnFCUStRbWMzUTZEbG9nbUJGOU1GM2JIZGtVUUpsY3VQQ3F5d1U3?=
- =?utf-8?B?bUE4dDE5dC9mL2c2RkpZTVlwMTEzRUNyUkhQcTlFUHNvMnZReFBHL1pndk9y?=
- =?utf-8?B?aWtQdThYcDVlOVQ1emRtSmRRNmQ5bmpGRTlrSkRMQ1hBWFlHNmFxb1JxT1hG?=
- =?utf-8?B?Z2JGQjh4VDBiU2gyV3lGMmsyQWN1WVl6THZvcFVLMGQ4eU5NMXlDS3NxaU1v?=
- =?utf-8?B?MmNKSm1oT091VlRmSjQ1NHZpOVgvSytFTXpBa0QyRWZFbWl3YzVxQ1BjbXpW?=
- =?utf-8?B?czFSS0hPSDg0MHNINXM2c2x0ZkVuSW5QS1NmYkMvQlhObWRmdkR0VmpveXVO?=
- =?utf-8?B?NjhrUnRycHgxdHN5RnlRb0tWbERNMEhqVllCeU5oc2pKSENqMm04MTVydmJH?=
- =?utf-8?B?WHEycm90eHN3ZWM3bUJteHNGeTI5KzlxZ3dNU3NTRFliN20rT1FTMElOZmpx?=
- =?utf-8?B?b3lidDN1Ny9CMDhoMHh5YXpnNGpuR2dBdysxNDM2Q1lVNmJvYkVIb1VnSmZU?=
- =?utf-8?B?TVgzM0w0K3VqSTRhQytoeGlWNnRRUUpuRHJ1d3U5RXZwNWRXa05MQmpGaE9W?=
- =?utf-8?B?cDJ5b1ZSa0xRSkFaS0RqcW1PS04rSTA4UUR5aUs5UUZYaFhBeWl2bk9aamdZ?=
- =?utf-8?B?cXVRbXBneEtLUjlCTE8rK0ZsNmZ1dFl3OWxSSURBMElnNk1obnFYQWI3dUNo?=
- =?utf-8?B?dlIvazBXS050QVoyZWE0ZlB0TDhoaWM5bEJYdGg4QkJmREFEcm5nSjA0Z1RZ?=
- =?utf-8?B?WjNvbDE5aDZVbEVVQ0QvQmllYnNTMVpWQmhwUzAxOG45Rm1XZDlFMmIwUzJB?=
- =?utf-8?B?YXQ0NzBKVnhFSFcvNzFPQ0YwaG5VK0ZYanBZMU8yTnQ3L2Jxekt4c0Z6TWlv?=
- =?utf-8?B?cHgzWFV5Z0ZmQTZLR3JEL0hNeVZSQVpjbVpSaEZXMjlidHRlWFRQT1VCOVpO?=
- =?utf-8?B?c3hYekpTQjd6elY5OXZPWXU1N2I2aDBEVm5IaktlWFQwODl5WEFqUzJhb1hU?=
- =?utf-8?B?SVF4dDUrNGJzZHhSTDBLbFlhOHBJRHNqMlpYZEtBZUlydW1ZS0FiUUMvM1lL?=
- =?utf-8?B?R3B3UHNqZTh6UHpTa3VKRTgxc0hxQThrdzRIVHJBay93cEg3dlRHazZtbzZi?=
- =?utf-8?B?M2J5QnR5UU5IWC8xN1AyTG5kTlNOQ2VyMUtTY05KMnphb2ZUZG1Qc21tNlAv?=
- =?utf-8?B?OHRQNFY1T2FNZVI2QkJQZmhjSWNZK05kdDFiRmIxaWRFclF5aWxWdkR1a0U4?=
- =?utf-8?B?aVF3WDJZVytDeEN6TEtIV0hGR0hlN04vbzdsZXBmME1aZzFuL3dTckhzUURq?=
- =?utf-8?B?cTdjdmxvZndFWGFLTWJXUkJ0dTdzd052SUFZSVBwV2JvNzNqa1Q4WU1JNGpq?=
- =?utf-8?B?NkJrRU9XZGdDcXNQQ0xMVGp5MkdmZ21id3ozLzZHZlpBVDJESm5mSWhERzNl?=
- =?utf-8?B?a3JFSkMyVmhWNlNBSkZBTVBkN0NuSDZVU1FFRXFqVkk5a0JzNTVoZ0s3VlVr?=
- =?utf-8?B?S2dBQUQ0UlJYMEdScFJWSERRV2JLWU1yKzZXZ2h0MWRwdkNrbHdWV21vZU5X?=
- =?utf-8?B?eDQranF2YnJmVzFCZ29RRTVvVi9UVmRpS05ibmpmangwQTJzVGJaNTh1a3RY?=
- =?utf-8?B?eEg4ZEJCbExUN3NVN0JKTG5uOFk2YlNqeHRjWGEra3V0T09FMkFXR2RQcnJt?=
- =?utf-8?Q?1KG2FCv/iigW8DWHlEl/EOkxW?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f371a133-ae37-4fad-0bee-08dc89feaeb8
-X-MS-Exchange-CrossTenant-AuthSource: BEXP281MB0183.DEUP281.PROD.OUTLOOK.COM
+	=?utf-8?B?dDlOd3FZVjlid1JESm5jcCs4elAwM1dZN1hSK2NucWx5cGVoZk9SZ1dMYTcx?=
+ =?utf-8?B?YWc5T2d4aWV5WTRxRXIyUDRoOEhvZDlpMnpqR3lHY1hKZnJ4d0Z1ZENsQkhk?=
+ =?utf-8?B?LzFseTg2eWREekd5LzlIdjk4cWU4a2tTNDkvTzRkYmJPL3dQTjRYWFBEcWpk?=
+ =?utf-8?B?bTRzV2Nrak1zc1M5eFVRY3NQOEZJSmY0NFRWR2JMMlp5NXhYZGlvbTJzMDlk?=
+ =?utf-8?B?cWx3QXQwNnpVN29qVE5WNVJUS2tEdEluYVN6UC9sY0IyZG9jQk8vTkZiOE5q?=
+ =?utf-8?B?Y3JIVmp5UEJpT0RzQkExUTJmOEkvc05RR0g3MVNxVzMwQ3hEVDNLb0EvQ1ZX?=
+ =?utf-8?B?Z3JsODZQbVNHbHAvU2hDZjdydmtrRVFnaWpJMk1IbHJNVGIvQUN4QXBuSFlj?=
+ =?utf-8?B?eDJ5UE9NR0VhL0sweE9vaDJRQklXU0ZXTHQ4SDlNQmFveEpZc1J6RlVKUFJW?=
+ =?utf-8?B?TC85M2pYRkdBR2haVVJmL1NnNjRxeGp0S21YTG13NGNuMmFYOU9NMG45MnhU?=
+ =?utf-8?B?SEIwSTRVMktFR0hyN1ZsTkF5ckNVbnJ1Wlg3UjhhSStDdDBTaDBuMzlZc0VI?=
+ =?utf-8?B?eTNtZFZoNWQwVFJkcElBKytTSVQ0dnlWUEFQY1dGU3dnbEJiMEdqL1Jia0x3?=
+ =?utf-8?B?L25RaFJwNXZmUDFmZURsYlVPc2Y0c053NGlqWnJmbHBBanZwNDkvUUNybU85?=
+ =?utf-8?B?Wnk1bngzbkVvbCtKZFRVM2pMWHp1dC85RkxZSkhSeXU0MTRHY0VBMXo3QXlz?=
+ =?utf-8?B?N1dpbkpMNW11RUZMMUQwdkFBaU5iVWhxdjhoNVRKZFFpYm9oVVBncXBqRnVo?=
+ =?utf-8?B?czlmc01zbFR0ZlRNMGtyYWpuNEIvK1psVThORWZFN3ZTRHpaRkZQQ0pPUFA5?=
+ =?utf-8?B?UkxSbGdab3RRY1dLSXdUM2poVDB6L3Roc3IwOFg5d2NtSnpkWjRISFNDRzg3?=
+ =?utf-8?B?K1dzQmRuTFlmZi9HSUVqeHZLbWpZNTFnaUlRa0RkaGJsNWNPTkhRTmplWVFl?=
+ =?utf-8?B?OU1walcvaWEzUXBXLzFSZkhWVENUVjViNEgzc1c3aTJyMDYwa25OME9XR1BZ?=
+ =?utf-8?B?QkFNN0c1M1o1bUlDVm9RSnk5dThuMHVScjhTQVRxcmxOdjYwRlpKTC9TNjVK?=
+ =?utf-8?B?ZnNCOVRyVFY1R201ZWxYWlpPU0NpUjNyNzFuaVBIUDVndys5MXZFY3VCUmxl?=
+ =?utf-8?B?QTVDYldURUVzeU9TYXEwZjREZHV1S1ZoWW15MGd3MFZyMDA5Ti9PeW5DQ3hM?=
+ =?utf-8?B?SlVibml4VDVJZkRiZnIyY0dlSEF0bVdkRUFLZXFKMFp1UU8zcjRUdzNMZHRP?=
+ =?utf-8?B?MDFIV1JPRm1wVmdmaHdJaUN3VnB0ZVI5U1hkOU5qT1RoTzAwTnB3NEFBeXZY?=
+ =?utf-8?B?Y0hFSXl3R3M2SkF6dDFxeEhNd1A3RFN6Tm1zd0tOZCt2dnFqeGRRdnNscFVX?=
+ =?utf-8?B?NXdPdXdDSmovVTU0S1E0TXJOSll6aEN4OVhvMlZOdVpPaTBzVnZzUG16a1hU?=
+ =?utf-8?B?SEh6akRrWDEzVWp1N1dyVzdma2owQit1TkJCN2xKeXJkb2xqdzNjNTlmSjdW?=
+ =?utf-8?B?K3NhZnRDVHROZ21obnV1MnFSZktEMUhuWkdnM2orY01qa0ZVa200d3gzQ3FH?=
+ =?utf-8?B?YTVJZDQzWVJBbURQcFZXbDg2dUMzOTBKWGhRNkE3VWtvTy9xS1JnbTBtU0FW?=
+ =?utf-8?B?d05LdlpQeVE5K21oeWpyVzNrSHVZc3M4cWpwUWFRTkFHczBNZUdkY0pudjBZ?=
+ =?utf-8?B?R3hKRFBhS3d3dXR6TkRLend4Y240MElCUXpZdW5oY25PVU9mRm1RcGd4eGtX?=
+ =?utf-8?B?NmZqdE9zN0FIaFZqY2ZpSTR2WkR5RWIwOC84b1ZoRnB0V2pqSU1RMnN6dm4w?=
+ =?utf-8?B?amFHd0xjOFY3WFdDbmVJYjJUM1ROR21TMXcwVmVOK2dSb2xYWlFyczFmUlEz?=
+ =?utf-8?B?UkRSL1QwYTB2Y3ZKYUpWeWRFWFZzYW1qVmtkYlZRQ0pKYzAyeURweFdOaE9L?=
+ =?utf-8?B?MnhuVnBUbW1yRkt2aGw2MG5zSGJDTHNtOTJFQ3V3WkJXUU52MVNmSENibS81?=
+ =?utf-8?B?cS9sb0dyNG9qSnFsQTRYNVBRTmZRWXA4UVJsMVlQMGpoWUxHeWd0V2RYOUVx?=
+ =?utf-8?Q?q7GHgOLuhFiqLTG78aWOXfzWL?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 060e5066-2a36-44b3-4883-08dc89fefc7b
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2024 10:10:12.8126
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2024 10:12:23.2970
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MCiLNOHbFndoZS/Sc5Y3hRmvRimaOhC2qdYEAq5yYF1990qyA4ATsaKxOl4CEBzY1xvC8spu/eL+/0O43zdmeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR2P281MB0170
-X-TM-AS-ERS: 104.47.7.174-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1023-28446.007
-X-TMASE-Result: 10--31.968500-4.000000
-X-TMASE-MatchedRID: F3+qgMqW0mjEeENaa6f3ipQ/7SF2k7HSDDgMha/WNJVtT5dsVizXEmQ6
-	8uvIXW1et1APveIASG3vYJak0RJUxw5SUMZwjKbG74+fgHHc1auB7KF1cYE+v2txVUHuXeM7kFW
-	5vh2vIHea1mkZKpmCWc1d2kIvnhPgj1KclCv3JuCiRRlLvgq6cQJCLBvbqknu59KGlOljPvuYdS
-	+Ejz6sYl71pXn4zWPzNMoo72Ta+qEjqYdaW8/3vjAXtaS/K6C0Sr+cp4/vPz2WzpGKWacixM8NE
-	ee6WY0A7odPl3EMwghr4I4pTWvHspPUWs48YIZH0fEwGdG8tx4Wd/c/Vdyl4GOKEs8foflONaaQ
-	sf15i58JZ8bKkznFds5lZ3LpJTH3mYGJ1ru1xbK4fmCMI0rbAfsIJ9FNjq1IxgiPAz8l1ftHR2l
-	d6S/pSaumPuzPINuKMusAEehbNyJdybk6PefGSlei7Fq6pZqWWGSYKNZi9aVS1vM/0iAx5T7Qn1
-	lMCQHYeP67MLlvTVv3hvTkPj6q7kfvSokBgSLMaroq2fxRivVoawTQgfnXC1O5Jpn8oJ4ziWjL3
-	UYH9kQhiIPh6+O2xXorxRU2ZbH1zjkgnWDMIz13Di2jZb1Y9B5DtycMKPBk2Ae4dEJm7k14PMDk
-	yRelrPyphej11L0he5cGRexguoTWOBvjmoiJUlGySNoYMxCekh0LRDkkMBzKICKMKO5WPVR9c2W
-	IQnIjLQx5cStQEwaiWUArLmVkh6c6FwT3Jn1FxZnlpJ7gQ8CdYRN1L2Va2Dok3jqw+x8wtRmafR
-	p5FPMMrMnMiN4vY/6PGJ5l13V8LpPeCOcVNAzCW4/KwZwvWmsCVKm5hjwd2j7jyCKpnCcCFYY1V
-	LKzEL+mYZVOIbiG0PrEu9fgzghrabTbV4Kt2llks+Ha40i4YppqMItbEgPjZrmGw5xz1ag7Zo5U
-	OBRpoli4ZoiOHT/pP8tMOyYmaA==
-X-TMASE-XGENCLOUD: 1370072d-b191-4789-afee-2397edb47aa0-0-0-200-0
-X-TM-Deliver-Signature: ADA55AD312F5DECA293E45C5F544B07F
-X-TM-Addin-Auth: VT1Cml76le2O97VLelt/A/4VlXkhssgGxrlCNmYx65S1shkdUS7MnCdQOay
-	ATehL0PK0B0UY0OIrMOxwWbJmyuLD11TmXlCrbHE3MoLXOt6BXaFHs8Mtby0PlpJPSYefOuZx25
-	DgkKPVp1IG1ZlWyvD0gu0TM45AmnjQauVCQ1FPlYc+Q+KqpNBej7OzW1ICu7MreWjEOLSZI8D19
-	6ycedQ/xp70qOzioikNrcoiFAUki9CgeQ8GOgXiy2tOM7Sb9E6OQIyxgo7mNM81OYM82JhXmxiP
-	N8MeFvce4nKgJLs=.RZcj9uXvuOUY32xj6hpII4oOgr4bablkugHCCi0GvyFnFfPaEITWFLhvMg
-	QagNv7Aw3xMMa/mkNuEwMPWpXXr+H51N7hIxA2z2BoCJFGX2JyevvWF2POe8EbpD8AB1NyeIFT1
-	ph+4rnLqS4jSPvAOy7WPXopIvN4svzjvh4IHvQuaVFA0gLKkg9BSIwM7QIYtx4s2qh0LV0ORx0+
-	U1PvN7Ymq+PtD3vECDajUJtvVJk6pwRPLFqnKVpl9KKmIENQQpLGE6kyRIYVunPZLrs1Whdd1HN
-	xW0LsEtOm8BMLBc/GDow5/5HDpG1s49RfI0I3I9C+CMTW5PpHjdsX8rbdjw==
-X-TM-Addin-ProductCode: EMS
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1718100625;
-	bh=XM86WlXcmYP5y4cy7LBXTyspOlV7BU5wU0BYHMevu+0=; l=11958;
-	h=Date:From:To;
-	b=irpLe7pvN9DGdlwL5QioDSH+UDXW9mDQ+IvxQcCyIeW7x8PcPiqz2fVJRkqiMHNS4
-	 wyJUTEUnFUE6GTe83GeOZqBfWCEqRSaVC37yU8TOtfGa0Vpgkx9DimY+fEtGwewok9
-	 NIyc3u1OTR2jXMJrAOyjjKYPxmKFkSowJmOYFze581aRqhuNawGrbL7kRU9mJM0Be5
-	 Lciu9gu/OkNQRMBSynXBSD/2flh3xdFhOgBYxXC0soT+YA+XdOr5s4yN1mlVIDM/Ib
-	 GhqKAxrHXHSEWdAtfNAy3XYneJfVIi6kjqZ4soR8DkmcRjDpJStFdAGfrJeaHWuaYU
-	 nUwTMH2Gp4uMg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: olxRQ4bFSqYwiG1vAS5dYktb6X8IIyrUOoCeVMFXLf+YrLNFPJSOuZyFceAH5YmvoRtBalSEZF7gEZRhkdK5qg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8257
 
-Hi Albert, Alexandre,
 
-On 10.06.24 11:24, Albert Esteve wrote:
-> Just saw Alex Courbot's point-per-point response in the previous thread.
-> I'll link it here, as I'd prefer to move the discussion:
-> https://lore.kernel.org/all/CAPBb6MW36YaZFaWgksePQ=fMC7QffJD6ZpHN-iSzhLYp9Ho0sg@mail.gmail.com/
-> 
-> Again, sorry for the confusion.
 
-I think I'll quote Alexandre's email and respond to him below to have it 
-in the new place.
-
-Replying to Alexandre:
-
-On 08.06.24 03:50, Alexandre Courbot wrote:
-> On Fri, Jun 7, 2024 at 10:29 PM Alexander Gordeev
-> <alexander.gordeev@opensynergy.com> wrote:
+On 6/11/2024 5:43 PM, Parav Pandit wrote:
+>> From: Zhu Lingshan <lingshan.zhu@amd.com>
+>> Sent: Tuesday, June 11, 2024 3:03 PM
 >>
->> Hi Albert,
->>
->> On 07.06.24 10:00, Albert Esteve wrote:
->>> Hi,
->>>
->>> This a formal attempt of including virtio-media
->>> device specification.
-
-The thing is we already had a long email discussion. Unfortunately it 
-didn't help to reach a consensus. You asked Cornelia to organize a 
-meeting. So she did, there were a bunch of virtio and V4L2 experts 
-invited by her. We both had an opportunity to bring our own experts to 
-the discussion and to present our points of view. I presented the same 
-arguments listed below in this email.
-
-I clearly remember, that all the experts told you, that you're going in 
-a wrong direction, if your goal is standardization. I don't know what 
-can I add on top of this. I think it is time to take the opinions of the 
-experts and these arguments seriously, and stop pushing.
-
-Has anything changed since June 2023? I don't think so. I promised to 
-continue the virtio-video development, I provided two drafts. I think, 
-the last one addresses all previous comments and I'm myself satisfied 
-with it. I'm also working on the driver update, I've published some 
-intermediate results. You promised to make a downstream specification 
-and implement it, you did it. Great, everything went according to the 
-made decisions so far.
-
-You know, virtio-video is not a toy project too. AFAIK you can literally 
-go and buy a mass market car with virtio-video on board since 2021. So 
-our device and the driver are in production for years. Yes, the driver 
-is based on draft v3/v4, there are problems, it needs updating. It is a 
-work in progress right now. I hope to bring updates within a few months.
-
->>> Virtio-media came from a discussion on virtio-dev
->>> mailing list, which lead to presenting virtio-v4l2[1]
->>> specification as an alternative to virtio-video.
->>>
->>> Later, virtio-v4l2 was renamed to virtio-media[2]
->>> and published through:
->>>
->>> https://github.com/chromeos/virtio-media
->>>
->>> The repository above includes a virtio-media driver able
->>> to pass v4l2-compliance when proxying the vivid/vicodec
->>> virtual devices or an actual UVC camera using the
->>> V4L2 vhost device (available in the repository).
->>> Steps to reproduce are also detailed[3].
->>>
->>> There is some overlap with virtio-video in regards
->>> to which devices it can handle. However,
->>> as virtio-media will likely be the virtualization
->>> solution for ChromeOS (already landed into the chromeos
->>> organization) and possibly other Google projects for
->>> media devices, it would be desirable to include the
->>> specification in the next virtio release despite
->>> the aforementioned overlap.
->>>
->>> The device ID in this document differs from
->>> the ID in the virtio-media project repository.
->>> And it will probably need some discussion on which
->>> would be the correct definitive ID.
->>>
->>> Full PDF: https://drive.google.com/file/d/1pNCFP06VoV8Zuyx0aDVQ7HAT4xp-pZ0a/view?usp=sharing
->>> PDF with the media section only: https://drive.google.com/file/d/1sn3NUUeCm46zVyJKHkpytTIgGw1fUt5T/view?usp=sharing
->>>
->>> [1] https://mail.google.com/mail/u/0?ui=2&ik=73ebd65ebd&attid=0.1&permmsgid=msg-f:1767388565327924962&th=1887068940754ee2&view=att&disp=inline&realattid=f_libalimc0
->>> [2] https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg12665.html
->>> [3] https://github.com/chromeos/virtio-media/blob/main/TRY_IT_OUT.md
->>>
->>> Albert Esteve (1):
->>>     virtio-media: Add virtio media device specification
->>>
->>>    conformance.tex                           |  13 +-
->>>    content.tex                               |   1 +
->>>    device-types/media/description.tex        | 578 ++++++++++++++++++++++ >>>    device-types/media/device-conformance.tex |  11 +
->>>    device-types/media/driver-conformance.tex |   9 +
->>>    5 files changed, 608 insertions(+), 4 deletions(-)
->>>    create mode 100644 device-types/media/description.tex
->>>    create mode 100644 device-types/media/device-conformance.tex
->>>    create mode 100644 device-types/media/driver-conformance.tex
->>
->> I'd like to add some general considerations:
->>
->> 1. virtio-media device capability discovery is very chatty
->>
->> V4L2 requires potentially hundreds of system calls to get the full view
->> of the device capabilities. This is inherited by virtio-media.
->> AFAIU V4L2 developers agree there is room for enhancement here, see [1],
->> [2]. Also I've been told VIDIOC_G_EXT_CTRLS/VIDIOC_S_EXT_CTRLS were
->> added for similar reasons.
->>
->>   From the point of view of virtualization developers like my colleagues
->> and me hundreds of hypervisor "exits" are excessive and costly. It can
->> noticeably increase boot times, which is something we fight against in
->> automotive. AFAIU other virtio developers agree with this, see [3].
+>> On 6/11/2024 4:48 PM, Parav Pandit wrote:
+>>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>> Sent: Tuesday, June 11, 2024 1:57 PM
+>>>>
+>>>> On 6/11/2024 1:17 PM, Parav Pandit wrote:
+>>>>> Hi Lingshan, David,
+>>>>>
+>>>>>> From: Cornelia Huck <cohuck@redhat.com>
+>>>>>> Sent: Monday, June 10, 2024 9:34 PM
+>>>>>>
+>>>>>> On Fri, Jun 07 2024, Zhu Lingshan <lingshan.zhu@amd.com> wrote:
+>>>>>>
+>>>>>>> This commit allows the driver to suspend the device by introducing
+>>>>>>> a new status bit SUSPEND in device_status.
+>>>>>>>
+>>>>>>> This commit also introduce a new feature bit VIRTIO_F_SUSPEND
+>>>>>>> which indicating whether the device support SUSPEND.
+>>>>>>>
+>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>>>>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
+>>>>>>> Signed-off-by: David Stevens <stevensd@chromium.org>
+>>>>>>> ---
+>>>>>>>  content.tex | 69
+>>>>>>> +++++++++++++++++++++++++++++++++++++++++++++--------
+>>>>>>>  1 file changed, 59 insertions(+), 10 deletions(-)
+>>>>>> Can you please add a changelog? Especially as some of the previous
+>>>>>> discussion has been lost due to the broken old mailing lists...
+>>>>>>
+>>>>>> (...)
+>>>>>>
+>>>>>>> +\drivernormative{\subsection}{Device Suspend}{General
+>>>>>>> +Initialization And Device Operation / Device Suspend}
+>>>>>>> +
+>>>>>>> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set or
+>>>>>> VIRTIO_F_SUSPEND is not negotiated.
+>>>>>>> +
+>>>>>>> +Once the driver sets SUSPEND to \field{device status} of the device:
+>>>>>>> +\begin{itemize}
+>>>>>>> +\item The driver MUST re-read \field{device status} to verify
+>>>>>>> +whether the
+>>>>>> SUSPEND bit is set.
+>>>>>>> +If not, the device does not support the SUSPEND feature.
+>>>>>> That sentence is a bit weird: I'd expect the device to not offer
+>>>>>> VIRTIO_F_SUSPEND in the first place in that case... could this
+>>>>>> rather happen if the device is not able to handle the request at a
+>>>>>> specific point in
+>>>> time?
+>>>>>>> +\item The driver MUST NOT make any more buffers available to the
+>>>> device.
+>>>>>>> +\item The driver MUST NOT access any fields of any virtqueues or
+>>>>>>> +notify
+>>>>>> any virtqueues.
+>>>>>>
+>>>>>> "send notifications for any virtqueues"?
+>>>>>>
+>>>>>>> +\item The driver MUST NOT access Device Configuration Space.
+>>>>>> ...except for the status field, if it is part of the config space?
+>>>>>>
+>>>>>>> +\end{itemize}
+>>>>>>> +
+>>>>>>> +\devicenormative{\subsection}{Device Suspend}{General
+>>>>>>> +Initialization And Device Operation / Device Suspend}
+>>>>>>> +
+>>>>>>> +The device MUST ignore SUSPEND if FEATURES_OK is not set or
+>>>>>> VIRTIO_F_SUSPEND is not negotiated.
+>>>>>>> +
+>>>>>>> +The device MUST ignore all access to its Configuration Space
+>>>>>>> +while suspended, except for \field{device status}.
+>>>>>> ...if it is part of the configuration space.
+>>>>>>
+>>>>>>> +
+>>>>>>> +A device MUST NOT send any notifications, access any virtqueues,
+>>>>>>> +or modify any fields in its configuration space while suspended.
+>>>>>>> +
+>>>>>>> +If SUSPEND is set in \field{device status}, when the driver
+>>>>>>> +clears SUSPEND,
+>>>>>> "subsequently clears SUSPEND"?
+>>>>>>
+>>>>>>> +the device MUST either resume normal operation or set
+>>>>>> DEVICE_NEEDS_RESET.
+>>>>>>> +
+>>>>>>> +When the driver sets SUSPEND,
+>>>>>>> +the device SHOULD perform the following actions before presenting
+>>>>>> SUSPEND bit in the \field{device status}:
+>>>>>>> +
+>>>>>>> +\begin{itemize}
+>>>>>>> +\item Stop processing more buffers of any virtqueues \item Wait
+>>>>>>> +until all buffers that are being processed have been used.
+>>>>>>> +\item Send used buffer notifications to the driver.
+>>>>>>> +\end{itemize}
+>>>>>> So, is there any opportunity for the device to fail setting SUSPEND?
+>>>>>> I mean, if the driver is supposed to look whether it sticks, there
+>>>>>> should be conditions for when the device might clear it again...
+>>>>>>
+>>>>> Additionally, a suspend operation usually involves saving things to
+>>>>> a slow
+>>>> memory (or media).
+>>>>> This is because the device implementation wouldn’t know when exactly
+>>>>> the
+>>>> device will be resumed.
+>>>>> Few examples, are:
+>>>>> a. A gpu device with 128MB of video RAM when suspended, QEMU needs
+>>>> to store this into a (for example) rotating hard disk as 1msec IO latency.
+>>>>> b. a NIC may need to store its RSS, queues, flow filters
+>>>>> configuration for
+>>>> several tens of KBs to some slow memory.
+>>>>> c. A block device may prefer to complete some IOs to a threshold
+>>>>> level
+>>>> instead of maintaining large list of outstanding IOs in some
+>>>> suspended memory.
+>>>>> d. May be more in future.
+>>>>>
+>>>>> Additionally, suspend operation needs to be synchronized with
+>>>>> certain data
+>>>> path hardware engines to suspend DMA operations (read and write both)
+>>>> which are inflight.
+>>>>> (without causing DMA errors). Same would apply to the sw backend
+>>>> implementations too.
+>>>>> Therefore, the suspend operation that is initiated by the driver,
+>>>>> should get
+>>>> the acknowledgement back from the device that it has been suspend.
+>>>>> Some of the good examples if you prefer to follow, a driver<->device
+>>>> interface needs a suspend register which should behave like below
+>>>> queue reset register.
+>>>>> Spec snippet:
+>>>>> "The device MUST reset the queue when 1 is written to queue_reset.
+>>>>> The device MUST continue to present
+>>>>> 1 in queue_reset as long as the queue reset is ongoing. The device
+>>>>> MUST present 0 in both queue_reset and queue_enable when queue reset
+>>>> has completed."
+>>>>> At minimum, we need, something implementable like,
+>>>>>
+>>>>> The device MUST suspend the device when 1 is written to the
+>>>> device_suspend_ctlr. The device MUST continue to present 1 in
+>>>> device_suspend_ctrl as the suspend operation is ongoing in the device.
+>>>>> The device MUST present 0 in the device_suspend_ctlr register when
+>>>> device has completely suspended the device.
+>>>>> The device MUST resume the device when 2 is written to the
+>>>> device_suspend_ctrl. The device MUST continue to present 2 in the
+>>>> device_suspend_ctrl as the resume operation may not have yet completed.
+>>>>> The device MUST present 0 in the device_suspend_ctrl register when
+>>>>> the
+>>>> device has completely resumed the device.
+>>>>> At this point, the driver may resume notifying the device and
+>>>>> accessing the
+>>>> configuration space.
+>>>>> Can you please enhance this part?
+>>>> Hi Parav
+>>>>
+>>>> Yes they are necessary contents and we will address them in the
+>>>> following patches.
+>>>>
+>>> The register polarity is critical.
+>>> In your reply to Cornelia, you descried that suspend bit cleared in the device
+>> after driver sets it (until the device is suspended).
+>>> This is ambiguous behavior of the register. Queue_reset register was like that
+>> before it was fixed in 1.2.
+>> once suspended, the driver should not access the configuration space except
+>> for the device status, so it should not reset any vqs through configuration
+>> space.
+> I am not talking about VQ reset at all.
+> I gave an example of how the VQ reset register polarity works (with was broken like how the proposed suspend bit is broken).
 >
-> There is a simple way to mitigate this: allow an arbitrary number of
-> commands to be submitted by the driver with each command buffer. The
-> host processes the commands sequentially and stops at the first error,
-> if any.
+> Suspend register needs to work the way the reset register works.
+> Can you please go through my exact text I replied in the previous email?
 >
-> That way, when enumerating formats, the guest can place a bunch of
-> VIDIOC_ENUM_FMT ioctls covering an arbitrary range 0..n in its command
-> buffer, and get all these formats in one vmexit instead of n. In the
-> case of a video decoder supporting 5 input formats, all the formats
-> are enumerated in 5 exits.
-
-I don't understand how could you end up with a fixed amount of vmexits. 
-When I try to count with the batching as you wrote, the results depend 
-very much on the amounts of supported coded and raw formats. I can 
-easily have 50+ vmexits on our hardware.
-And of course it only gets worse with the encoder, because you have a 
-lot of controls to query.
-
-> Having this option could also enable other optimizations, like the
-> guest being able to queue all its CAPTURE buffers in a single vmexit,
-> although I doubt this would result in a noticeable performance boost.
-
-Queuing of many independent buffers is already supported by virtqueues. 
-You can simply queue a bunch of commands, but trigger an interrupt only 
-once.
-The problem with the device capabilities is that in many cases you have 
-to get the results of the previous command (batch) before you can submit 
-a new one.
-
-> But at the very least this should address concerns about noisy
-> enumeration. I haven't noticed any slowness due to format enumeration
-> with the current scheme, but the option is trivial to enable.
-
-Well, I discussed the hack you mentioned and other ways to squeeze V4L2 
-in virtio with some very experienced people in my team. Everybody says 
-this is simply not the way how it is done in virtio. I think we both 
-heard the same thing in the meeting a year ago.
-
->> In contrast virtio-video has been doing this in one command from day
->> one. Yes, the data was incomplete. That's why in draft v9 I added TLV as
->> a way to store all possible capabilities. I hope the linux-media folks
->> could take a look on it. Maybe this is something, that can be adopted in
->> V4L2?
->>
->> 2. virtio-media has a hard dependency on V4L2
->>
->> There are certainly some "patches" on top of V4L2 in virtio-media, like
->> the representation of the extended controls (which actually looks
->> similar to the representation of the controls in virtio-video) or
->> VIRTIO_MEDIA_EVT_DQBUF. But how far can this go? Is it OK to add your
->> own ioctl ids in virtio-media?
+> Basically, the bug is:
+> When driver has initiated the suspend (writing 1), the device continue to respond 0, while suspend is going on.
 >
-> virtio-media doesn't add any ioctl ID and the extended controls use
-> the same structure as their V4L2 counterparts.
+> At this point, just by looking at the device_status register one cannot figure out what is going on in the device.
+> Is driver initiated suspend is ongoing, or it was never started.
+> It is ambiguous.
+From the device perspective, there is only one user: the driver, and the driver sets or clears SUSPEND, it knows the status of the device.
+Differs from vq reset, in this patch there is a section describing how the device should behave suspending. So once the driver sets SUSPEND,
+the device should perform the required actions and suspend itself, during this process, SUSPEND bit is still 0, and the drivers know that, like
+how we handle FEATURES_OK. Once the device suspended itself, it present SUSPEND == 1 in the device status.
 
-Have you considered adding an ioctl ID to get all the device 
-capabilities as a single blob?
-
->> AFAIK the linux-media maintainers have been overloaded for years, see
->> [4]. Would they be happy to deal with the additional requirements? Would
->> virtio community like to have a dependency here?
+1 bit controls whether SUSPEND-ed.
 >
-> The burden of having a couple new events in virtio-media seems lighter
-> to me on the V4L2 maintainers than the one of having a whole new video
-> protocol to maintain.
-
-You've always wrote that virtio-video is the same thing as V4L2, but now 
-it is a whole new video protocol all of a sudden.
-In fact virtio-video allows to use the controls from V4L2, for example. 
-Also the general flow is aligned IMHO.
-
-I meant the potential new requirements for the V4L2 UAPI. I think it is 
-a much more sensitive topic compared to only one of the many drivers. It 
-is true, that the burden is going to increase in any way. But I wouldn't 
-try to speculate on this, I'm not a V4L2 maintainer.
-
->> 2.1. an example: format modifiers
->>
->> There is a patchset aiming at unifying V4L2 pixel formats and extending
->> them with DRM format modifiers. It is now at version 7 submitted in
->> 2023, see [5]. The first version was submitted in 2019, see [6]. Not
->> merged yet AFAIK.
->>
->> In virtio-video I just added them in draft v9.
->>
->> I'm absolutely not trying to criticize here. I just try to highlight
->> that there is a lot of legacy and the process is painful. Right now we
->> have an opportunity to design a new API according to the current state
->> of the art of the stateful codecs.
->>
->> 3. uncertainty with cameras
->>
->> AFAIK there is still no agreement about how cameras should be
->> virtualized, see [3], [7], [8], [9]. virtio-media provides support for
->> cameras in a specific way, which might not be desirable.
+> Hence, it needs to work like how the queue_reset works.
+> i.e. if suspend is ongoing, one should be able to read device_status without involving driver and understand that it is ongoing.
+there are other users than the driver?
 >
-> There is definitely an agreement on how cameras should work on V4L2 ;
-> and thanks to that you can operate a camera using virtio-media,
-> *today*.
+>>>> This patch focus on the basic facility virito suspending, not
+>>>> transport or device types, this is to make this chageset focused and small.
+>>>>
+>>> If suspend bit is part of the device_status, it is already covered by the PCI
+>> transport.
+>>> So it is fine, but its polarity is an issue, that we need to fix.
+>> Oh, I see your confusion.
+>> All transport have their own implementation of configuration space, this is not
+>> PCI specific.
+>> PCI config space != virtio configuration space. And this patch focuses on virtio
+>> layer.
+>>> i.e.
+>>> One driver writes 1, it needs to stay 1, while the suspend is ongoing.
+>>> When suspension is completed in the device, the device to turn it to zero.
+>>>
+>>> If the device_status register does not fullfil this, a new register is worthwhile
+>> to add in this patch.
+>> The driver writes SUSPEND, once the device is suspened, it should present
+>> SUSPEND in its device status.
+> Yes, I understood what you are saying.
+> It is ambiguous like how I explained above.
 >
-> I'm sure the virtio-camera specification, driver, and host devices
-> will be very impressive once they are released ; it's just that I
-> would enjoy a solution, however imperfect, within my life span.
-
-Well, you have the solution now. Nobody stops you from using it.
-
->> 4. (minor) is it possible/hard to implement the device in hardware/on a
->> micro controller?
->>
->> This is something I thought about recently, there might be a use-case
->> for it in the future. One of the concerns is that dynamic memory
->> allocations are IMHO inevitable in virtio-media or virtio-video up to
->> draft v8. I think multiple virtqueues in virtio-video draft v9 would
->> help here. Not sure yet...
+> The suspend bit needs to work like queue_reset register. Please go through the queue reset specification text.
 >
-> V4L2's MMAP buffer type has that covered.
+> I explained this in context of VQ reset, at [1].
+> Suspend bit needs to avoid similar ambiguity.
 >
->>
->> There are also other minor concerns, that are probably tolerable.
->>
->> [1] https://lore.kernel.org/linux-media/20230922100303.GF19112@pendragon.ideasonboard.com/
->> [2] Page 6 in https://hverkuil.home.xs4all.nl/mediasummit2023-pdfs/Hsia-Jun%20Li%20-%20V4L2%20M2M%20EXT%20API%20enhancement.pdf
->> [3] https://old.linaro.org/blog/the-challenges-of-abstracting-virtio/
->> [4] https://lore.kernel.org/linux-media/4b6b1355-9baa-ff1e-e1c0-89dfdc83ad04@xs4all.nl/
->> [5] https://lore.kernel.org/linux-media/20230206043308.28365-2-ayaka@soulik.info/
->> [6] https://lore.kernel.org/linux-media/20190319145243.25047-1-boris.brezillon@collabora.com/
->> [7] https://lore.kernel.org/virtio-dev/87354dtp30.fsf@linaro.org/
->> [8] https://lore.kernel.org/linux-media/00f53c06-e66d-aa46-ca4f-c3baab6cf455@xs4all.nl/
->> [9] https://lore.kernel.org/virtio-dev/CAAFQd5BrhDZtFX3vdhBVSLXthe8CykYsZzVQ9ddZxVNvNS3ArA@mail.gmail.com/
->> 
+> [1] https://github.com/oasis-tcs/virtio-spec/issues/139
+replied above
 
+Thanks
+Zhu Lingshan
 
--- 
-Alexander Gordeev
-Senior Software Engineer
