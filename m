@@ -1,192 +1,158 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F7733FE
-	for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 10:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA95B33FE
+	for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 10:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718187080; cv=none; b=E7NiEMM6j/x/WaWDmJ8TUrDacUwksO5tbEmg9cRB+5IPkhStmtBQPEHjGqHRRPBUd/D1XlKQnurZRrHvKdlX0CaQf2CgZ4h17kB04pH+O0mlGr4v2IRhEdh4Ul8K7/TlETjS++c7I1dWtlbnAbarTT3GPJvHBFtzZjSs91PEQBw=
+	t=1718187848; cv=none; b=YZ3yCo5K00b1jfwkL/cqYgc3IaoALJNMvkM/kd4ExrH5Pm2FJGnVfIbR/G+1V5BB43ZG9ROUKm7S8ckr7rDl1zuFnis7TSIWeNjM1BIwQ9BkYR3v//jdG/3mh2p+kVS2PBm7EUKZAcE7dmFUyhrNo+6gKnMkAgeZAbpjBcgBD6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718187080; c=relaxed/simple;
-	bh=G4zcCAXguYPZNA1ZoaKghk5OjLqq5qOnjnAH4X7w0F8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=U3e+D/UfSm80W/ddUsJwhznEl7almQXDzpFMwq5e+O/rCwhg0OfAVlyptbDKveAIFwfX+b3bkX2VGJvBkBi50kHM+XoUQRT0DzbrG5Hwc7PBdg4jP1Gh1lZWzbYSt2s6/RlEG7Wk6AB9F0746qcS83Ec8EfPndH3Nw9tmUMV8aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GfbunSkv; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1718187848; c=relaxed/simple;
+	bh=7mFODoURLaUAtWcRk40mVy50a14tdwHAjDkSTN6SFeY=;
+	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=DLBSScYq6Inlm27LpHlb3wIhAS7nbm310IzZnYPSiSSV1KVMIW7mh3u9NBBzguXMLnczHrj80IW5HUJbE0UojVetywW5iIH2X3uA2HTCVDMpEUUNJTnpYPchVEQzEafSz7LuIybez35DH5ehPCFxvtO9wfVaBHIzCJ2jLiYbEvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fAkZIlUS; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GfbunSkv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718187077;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aTaF8I9dBBw9pE+VNJ+TPcuasdGOHN6CyvgAW9OW4Ac=;
-	b=GfbunSkvElu2hjYNa85mClp7kWyZrrE/qUcyAf4tEsdmMwpj+8T5LUY2NxZ/wmtROOUGt5
-	5Qfisq6CJclHDK83nIdJXM9zUO+WoLi6DGdQ5J++udK6deevq4iAXafhKp3t7z7pz2qhIy
-	tN1PQXoa2asCgZoZIuhA2yIooIP3Vng=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-389-b9FurYGHOBmXTaMKlzLBiw-1; Wed, 12 Jun 2024 06:11:14 -0400
-X-MC-Unique: b9FurYGHOBmXTaMKlzLBiw-1
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6b06f5e35b0so12643726d6.0
-        for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 03:11:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fAkZIlUS"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-6cdf9a16229so5010540a12.3
+        for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 03:24:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718187846; x=1718792646; darn=lists.linux.dev;
+        h=to:cc:date:message-id:subject:mime-version:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=MkmVvV8Fl0cWRkGmXtThbr8HqwVxokm6Df0d4LjIuOA=;
+        b=fAkZIlUScS7Ok920OXGIIRFYqZ7EsvQDqAYOGPBEItSaF35yBRcrgiq1OdODnRShIo
+         +wJ2vi82AXF/IJfbe7ognCyXHKPdlXk+8RLfYRMAHH34hTOA9PdtvIa2OWig9B/11iWO
+         ZGmvKWRpHCYXHGT1qs5k3qSkevraTLq5juyn2Jfd0sXHjJYrbN6pKKib0y1nRG4SffhP
+         Qfhe875cjYCVed25e1NEWNMEHBwXk3gDiwCXHUmjE82jQNYFjY0krR4sHv3n5E41ufGN
+         R0FNw81o13JlfozTEKzz1XGCapDCemZE0BUBG2ckWGEBlUZ5m57L5i8wfmgwTceox3qi
+         0kPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718187074; x=1718791874;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aTaF8I9dBBw9pE+VNJ+TPcuasdGOHN6CyvgAW9OW4Ac=;
-        b=sDDOarpwmbIMsKAuCNJAr6fHfD6lFJkGbe17AaqDaeVSSPtj0Lixe0g4+lLzDG4ne/
-         LvZVvE+pA0Hh8oCPqUlx3E5zt3uaPM3O8d9ZF14oS6oWJtTjklVkMG+urfelyTiA7+J9
-         mqmfsx3/9faxJzpmLsx1AOAodpr7Fy8t1pMUmWMBJJBmPgIJgNVFATTZ6L8oiuB3U7T9
-         CedSFsxZlsa9Ql0TvtnHkC9IztKhNOgDVUawE7LwYfp/zozu+jZZlSC5UDRP1VkgRqtJ
-         xq77vdmYa9Pu5ixHXEcaUwoBxc8tpl1VFh0XAnT+vxbP0bFBIn2TNIX+jxm+IewCw7nv
-         D3Gw==
-X-Forwarded-Encrypted: i=1; AJvYcCWLH7rUF6IVz8TK9tNW/r7Li8+O9dkLbF8jiC/exrDcDj5cfe0WAp+WxJCbDkyPxbEwToNIKSdP0mMTCF51QJ5C8yLqn5zHfQo3ME4Yw2M=
-X-Gm-Message-State: AOJu0Yzk7dS4uRH8pa0wLb8YpYmCG7KnsFopasaH3d6RkkEasC9DmtPB
-	1rPzih2Zwde/4olD/qCQnqyaregKdLs2I+ZzL7hYjEclR0mVsZBn0VSDu11dNPuZSK/OnSalf20
-	wQlf0CQWEvQWWffDDIyOx9vUWV8hg3FxxusGBjlIPy7J1vExiEENufGxdB55aet/7
-X-Received: by 2002:a05:6214:310a:b0:6b0:7c8d:8057 with SMTP id 6a1803df08f44-6b0c9f25744mr18338616d6.2.1718187073759;
-        Wed, 12 Jun 2024 03:11:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFDOQzb37Deab2Dk3jUwXuqJMhCTqLWCuJosuvJp7Grbhyt9DYMk2Eh48nJzmM3JEDrI/LQsA==
-X-Received: by 2002:a05:6214:310a:b0:6b0:7c8d:8057 with SMTP id 6a1803df08f44-6b0c9f25744mr18338326d6.2.1718187073326;
-        Wed, 12 Jun 2024 03:11:13 -0700 (PDT)
-Received: from sgarzare-redhat ([193.207.151.203])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6b075e37080sm37505946d6.46.2024.06.12.03.11.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Jun 2024 03:11:12 -0700 (PDT)
-Date: Wed, 12 Jun 2024 12:11:04 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Xuewei Niu <niuxuewei97@gmail.com>
-Cc: hi@alyssa.is, mst@redhat.com, niuxuewei.nxw@antgroup.com, 
-	virtio-comment@lists.linux.dev, fupan.lfp@antgroup.com
-Subject: Re: [RFC PATCH 2/2] virtio-vsock: Extend the spec with an `order`
-Message-ID: <oxfm5jjjim3tv6q22o4mr2oidz4yljjs4lmadcccfbkdlrudrp@fo7wkwb2p3up>
-References: <qhikhsdegxqpvluwe2m3cbq7xclyol5qnnag2lqsd3cpwlqkvu@jbu7utft67ih>
- <20240612062442.2429221-1-niuxuewei.nxw@antgroup.com>
+        d=1e100.net; s=20230601; t=1718187846; x=1718792646;
+        h=to:cc:date:message-id:subject:mime-version:from:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MkmVvV8Fl0cWRkGmXtThbr8HqwVxokm6Df0d4LjIuOA=;
+        b=Pq1LGTjHj2BjzWmdf09jUgqw5bPD2jk5CwH/fYGUlbIGEm62dz0kaGu12egGy3B+kZ
+         Vgx9PVEpENJao1hb1lT8/Erbizkqu2V0Hp4XHfglMDzOP1RgFWy6WNZ42R1vg+d7FiP0
+         0bkqb6afY1IIXhIjP+oEigw+NuU7OGHLwStQR0kun8NLuP6HALuiCpOGkEzJ8qUWyy9n
+         5PMPnnQ+CoUuLwxedNCcLZXnFKjym0ofgEXqUaUXy2LD8ds+aqOEWXfDrJ20LURGAoDT
+         lKWjCiDX6lSa3PjXcfjfq/SRDDIIp4XsXM0AmJztF81vMmP5ztWZ/0HWdROWA+vhbwLl
+         uQrA==
+X-Forwarded-Encrypted: i=1; AJvYcCW9F8JPBflXbK7okycM0iQ0VTbMJ893B4qZxb3wGSxCbyzIDK+dMO/w1W5qabIBIfyrznMEmB8asAAvg6YIrhBa3PvD9faS1i9Iic5VOnk=
+X-Gm-Message-State: AOJu0YxOqZLzahmP+aYJ5uHCJwKMd+XEk+OsBn8COeLUbIKwyzkggJ6L
+	QIA7USpCB1ktDEdA1mEvfSJ8FMvCM8nx3zSuajS6OMSkUcCZX+vb
+X-Google-Smtp-Source: AGHT+IHeSYXyHgQWvPwhGjs2PhkiWjmNRAKGzhboBaxBRGffzSIvNYfbVRAsF6RFsDe+BMKQ/UhDZA==
+X-Received: by 2002:a05:6a20:9146:b0:1b4:5605:dde5 with SMTP id adf61e73a8af0-1b8a9c877bemr1593145637.52.1718187845866;
+        Wed, 12 Jun 2024 03:24:05 -0700 (PDT)
+Received: from smtpclient.apple ([45.62.172.118])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2c4a75f0053sm1355544a91.13.2024.06.12.03.24.03
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 12 Jun 2024 03:24:05 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_1FFE21CD-9BF5-423F-AD08-9DF23756D57B"
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-In-Reply-To: <20240612062442.2429221-1-niuxuewei.nxw@antgroup.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [RFC PATCH v2 0/2] virtio-vsock: Add support for multi devices
+ feature
+Message-Id: <EFDCCA2C-57D6-4DAB-AF6E-E4F1E497FC84@gmail.com>
+Date: Wed, 12 Jun 2024 18:23:52 +0800
+Cc: fupan.lfp@antgroup.com,
+ mst@redhat.com,
+ niuxuewei.nxw@antgroup.com,
+ sgarzare@redhat.com,
+ virtio-comment@lists.linux.dev
+To: Xuewei Niu <niuxuewei97@gmail.com>
+X-Mailer: Apple Mail (2.3774.600.62)
 
-On Wed, Jun 12, 2024 at 02:24:42PM GMT, Xuewei Niu wrote:
->> >Add a new field, named `order`, to the `virtio_vsock_config`.
->> >
->> >There are two questions about the field that are valuable to discuss:
->> >
->> >(1) Do we really need the `order` instead of a `default_device`?
->> >
->> >IMHO, the answer is yes.
->> >
->> >The `order` is more generic than the `default_device`. The device with the
->> >lowest order is the default device. Moreover, the `order` field determines
->> >the sequence of devices in the list. The device list is the same every time
->> >the system starts.
->> >
->> >The device with lower order means it is more important. Also, it means it
->> >has more likely to be used. Those devices are placed in the front of the
->> >list for performance purposes.
->>
->> This is an implementation details IMHO.
->>
->> BTW perhaps the biggest point in favor of `order` IMHO is the fact that
->> this works very well with hotplung/hotunplug, since if we add at runtime
->> a device that is to become the default, we don't need to change the
->> configuration of the previous device.
->
->I'll rework on this. BTW, shall I add this to the document? Currently, they
->only exist on the commit message.
 
-Maybe yes, what about adding a new paragraph to describe the 
-multi-device support?
+--Apple-Mail=_1FFE21CD-9BF5-423F-AD08-9DF23756D57B
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
 
+> Hi,
 >
->In addition, I think "index" is a more proper term than "order". So I'd
->like to rename it in the next version.
+> I am writing this email to request adding a new field for virtio-vsock =
+spec
+> for supporting multi devices feature.
+>
+> The multi devices feature allows the guest to have multiple vsock =
+devices. I've pushed
+> the first version of the patches to the lkml[1].
+>
+> v1 -> v2:
+> - Remove implementation details from the document.
+> - Rename the feature to "VIRTIO_VSOCK_F_MULTI_DEVICES" from =
+"VIRTIO_VSOCK_F_MULTI_DEVICE".
+> - Rename the field to "index" from "order".
+>
+> Thanks,
+> Xuewei
+>
+> [1] =
+https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.=
+nxw@antgroup.com
+>
+> Xuewei Niu (2):
+>   virtio-vsock: Introduce "VIRTIO_VSOCK_F_MULTI_DEVICES" feature
+>   virtio-vsock: Add an "index" field to the config
+>
+>  device-types/vsock/description.tex | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+>
+> --
+> 2.34.1
 
-Yep, I agree.
+Please ignore this version. As discussion on [1], an introduction about =
+multi devices will be added in the v3.
 
->
->> >Last but not least, the `order` represents a sort of priority, which might
->> >be used in the future. For example, assuming that if there are two devices
->> >that are eligible to be used, the kernel will return a device with higher
->> >priority.
->> >
->> >(2) Why is the type of the `order` `le16`?
->> >
->> >The maximum number of devices, in the implementation on the kernel, is 16
->> >for performance reasons. The users could compile the kernel to support more
->> >devices. The type of `le16` supports up to 65536 devices, which is enough
->> >to cover most cases.
->> >
->> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
->> >---
->> > device-types/vsock/description.tex | 16 ++++++++++++++++
->> > 1 file changed, 16 insertions(+)
->> >
->> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
->> >index 3fbc02a..dc3bd66 100644
->> >--- a/device-types/vsock/description.tex
->> >+++ b/device-types/vsock/description.tex
->> >@@ -58,6 +58,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
->> > \begin{lstlisting}
->> > struct virtio_vsock_config {
->> > 	le64 guest_cid;
->> >+	le16 order;
->> > };
->> > \end{lstlisting}
->> >
->> >@@ -83,11 +84,26 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
->> > \hline
->> > \end{tabular}"
->> >
->> >+The \field{order} field is required while the multi-device feature is
->>
->> We should use the feature name, so something like: "is required if
->> VIRTIO_VSOCK_F_MULTI_DEVICE feature is negotiated."
->
->It will be updated on the v2.
->
->> >+enabled. A list is used to organize devices.
->>
->> This is an implementation detail.
->>
->> > The field is used to determine
->> >+the order of the device in the list.
->>
->> I think we should not talk about a list, because that seems too close to
->> implementation, but focus on the meaning we want to give to the
->> ordering. For now I think we can only talk about the one with the
->> smallest value being the device used by default.
->
->Ok. These will be removed.
->
->> > The device with the lowest order is
->> >+the default one when no CID is specified.
->>
->> "no CID is specified" in which case?
->
->I'll elaborate a bit more about the case in the v2.
->
->> >+
->> >+The rules are:
->>
->> "The rules" for what?
->
->The rules is for the new field "order". I'll update it on the v2.
-
-Yep, I think we should be more clear on what the rules refer and who 
-should respect them.
+[1] =
+https://lore.kernel.org/virtio-comment/oxfm5jjjim3tv6q22o4mr2oidz4yljjs4lm=
+adcccfbkdlrudrp@fo7wkwb2p3up/#t
 
 Thanks,
-Stefano
+Xuewei=
 
+--Apple-Mail=_1FFE21CD-9BF5-423F-AD08-9DF23756D57B
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"overflow-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;"><div>&gt; =
+Hi,</div><div>&gt;</div><div>&gt; I am writing this email to request =
+adding a new field for virtio-vsock spec</div><div>&gt; for supporting =
+multi devices feature.</div><div>&gt;</div><div>&gt; The multi devices =
+feature allows the guest to have multiple vsock devices. I've =
+pushed</div><div>&gt; the first version of the patches to the =
+lkml[1].</div><div>&gt;</div><div>&gt; v1 -&gt; v2:</div><div>&gt; - =
+Remove implementation details from the document.</div><div>&gt; - Rename =
+the feature to "VIRTIO_VSOCK_F_MULTI_DEVICES" from =
+"VIRTIO_VSOCK_F_MULTI_DEVICE".</div><div>&gt; - Rename the field to =
+"index" from "order".</div><div>&gt;</div><div>&gt; =
+Thanks,</div><div>&gt; Xuewei</div><div>&gt;</div><div>&gt; [1] =
+https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.=
+nxw@antgroup.com</div><div>&gt;</div><div>&gt; Xuewei Niu =
+(2):</div><div>&gt; &nbsp; virtio-vsock: Introduce =
+"VIRTIO_VSOCK_F_MULTI_DEVICES" feature</div><div>&gt; &nbsp; =
+virtio-vsock: Add an "index" field to the =
+config</div><div>&gt;</div><div>&gt; =
+&nbsp;device-types/vsock/description.tex | 28 =
+++++++++++++++++++++++++++++</div><div>&gt; &nbsp;1 file changed, 28 =
+insertions(+)</div><div>&gt;</div><div>&gt; --</div><div>&gt; =
+2.34.1</div><div><br></div><div>Please ignore this version. As =
+discussion on [1], an introduction about multi devices will be added in =
+the v3.</div><div><br></div><div>[1]&nbsp;<a =
+href=3D"https://lore.kernel.org/virtio-comment/oxfm5jjjim3tv6q22o4mr2oidz4=
+yljjs4lmadcccfbkdlrudrp@fo7wkwb2p3up/#t">https://lore.kernel.org/virtio-co=
+mment/oxfm5jjjim3tv6q22o4mr2oidz4yljjs4lmadcccfbkdlrudrp@fo7wkwb2p3up/#t</=
+a></div><div><br></div><div>Thanks,</div><div>Xuewei</div></body></html>=
+
+--Apple-Mail=_1FFE21CD-9BF5-423F-AD08-9DF23756D57B--
