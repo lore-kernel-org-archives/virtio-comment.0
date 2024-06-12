@@ -1,461 +1,206 @@
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D2016C878
-	for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 11:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.243.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718191606; cv=fail; b=cGujo45+3qUjeqV1iFkiCLrLHjSLQSuy2sFKI31qgXCMDPVjxydnnb7931knP6zJGmvMhzRQRDzZtnhGzcnIs0eVbF2vLPdmagHg3J1JhHkU4yKMFMSs4siWmZyi1+AmsaqwBFcyPC15+xbSqQYSRPcxOMYrsETL8G2LRyIju8c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718191606; c=relaxed/simple;
-	bh=g87AiRw96g2l1A/HLvDs8KrcykNghAwqn7gLMTMrvpY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZiAVx0XB5sFEqktcdTtYNQWxs8uyiYsMObXIjY+fvuuDQn3IiALbaU2Z7Fzjm5vKWbAE679HotYgGkC/k/aC/dVB4pLcxJv97sgzSSrCYJJrr9H5rRUz1l6kgScY/MMYGtTAOBRPkUPoYp3jggzOBuXU/Krr6HGuFGymDGGO4VI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Qiqu89+l; arc=fail smtp.client-ip=40.107.243.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B225BAF0
+	for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 11:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1718191883; cv=none; b=US4Ktwe2T20E/mogI4BEYeC5pi+S5B7FfKyzOCrwjy1it5xwi1FaGDHuSSxm+J2Qn3yzmHycVlAzf47n4GOoaIt5bJ3LA+zEJAjPGPeNKXexTLYcrXbR4ILzNnTclXgUdp2hpuxQqLyLP0r/3gpUvvwh0o8mj9FP+GbvaOSxDHM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1718191883; c=relaxed/simple;
+	bh=u+QDbm8taokIzaqAp6ENLzgDMALa0O5/r8mgCdEVAJc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=m5KOgaH1JGi7JO81DKs4FR3sik/lXLBvYuJnvXWWU1eUphjDQzr0/TgCtku2bR/G4wjP79kjcCc95Xm8wBnNzlTavV5rA675nfUjrEgYmGzeWMJ0WbfESyy/ddgC1WWWzOXlw6i2FiZH5ehBz+7lqV8vR1er4ji8kpzWN6DODPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=wW58B3ho; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Qiqu89+l"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GpEzPuK21G8oCY9eIRyx5DBWFI9AvJojAg8YOUDF8ANFT84G1knL8p7oG4wP0AOwIWoYWsmvE70eVoJWGFSrQy42a8S94I8i0VwLRPJ5o7oALOctdohotvOiaG4KTJP6j4kvimQul7zcaDgIKIBGHtF39fQ9gfxn4H/H+0aGLzmaWOvgOhTEqIZ4kNDmI14eWWP8SfmO0HxnPSYM9yeC489eUWfAJTS2b/r5GgQkI0cHL53/y+Wluil9o36/JnVYrAWiTBqTYB6kzinWq4T7hLSdnTFZJkbA+pvVLRDeYcrlfB6Oo2lQMrgMrXP7jKoY6ka0b+s6QcP/5K1y/8cAmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0zCzsMXv0ZxqsJVtNcrH32E7R3iqLEYQXUvg7XWkb2E=;
- b=YV/z62aiOLfQ6flE/HGWQ995rU15I9rRnRp/+0N7v+edtwFAFq//7CdGoHUFLcxNDWQqg0l96io8kLTeBo7UbwLBpRpbsVKSBFgQ8/QmU3Ul93l6Qldc6VWzJ2FssRgcENRb8ETPO5FK0DyS3NN85g47bp2plqYbAjFSCftV7bxfvmTm0xO1FG5y7+B/dMopiIPlo2grT+UC5ASHNVEgnJzOl5aamxqHXF7d+WGGeyrq+QxzL7dUUVLwMgUrnJVEJ9pRIkDXBTBqGQo1ioFnXkc/aU6GI834Z0YTmMWm9+IGVsON6VfjGkiMAfekyPK+qlON2wCbs5GBir7e70+xvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0zCzsMXv0ZxqsJVtNcrH32E7R3iqLEYQXUvg7XWkb2E=;
- b=Qiqu89+lVW5nIGcY3Wjouso7QNYpcZnRa4qyLv63K2h/kHdImPQqdDuS8p1gVuSz5DttUx2621cgnWPldlTGHhgAiehglgWN/uoG+0jS4/M14+CtI94z5NaLrnfJhc6hUGafRaoyQcPwjSwqd+rFU7W/ZmeA2y0peu9AjgS6aMaEbXtk2SFAYb3KLDy/gw/rCCzKHKh/xqlnogQtE9V4kwWocLwgZ/wD2WQzrSr+ns8By1ZhMzK6HByeJMbwHf/OK05zwgrhBsyvkrBbglkggVsYJDWJeysLO9fHoJ+nARQFTJnCoc5e9QrL1VKssz/D/P07hVMiApnmk6pghpMX3Q==
-Received: from DM8PR12MB5480.namprd12.prod.outlook.com (2603:10b6:8:24::17) by
- CH2PR12MB4229.namprd12.prod.outlook.com (2603:10b6:610:a5::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7677.20; Wed, 12 Jun 2024 11:26:40 +0000
-Received: from DM8PR12MB5480.namprd12.prod.outlook.com
- ([fe80::d03:f00e:1bbb:1921]) by DM8PR12MB5480.namprd12.prod.outlook.com
- ([fe80::d03:f00e:1bbb:1921%7]) with mapi id 15.20.7677.019; Wed, 12 Jun 2024
- 11:26:40 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Zhu Lingshan <lingshan.zhu@amd.com>, Cornelia Huck <cohuck@redhat.com>,
-	"mst@redhat.com" <mst@redhat.com>, "jasowang@redhat.com"
-	<jasowang@redhat.com>
-CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	=?iso-8859-1?Q?Eugenio_P=E9rez?= <eperezma@redhat.com>, David Stevens
-	<stevensd@chromium.org>
-Subject: RE: [PATCH v5] virtio: introduce SUSPEND bit in device status
-Thread-Topic: [PATCH v5] virtio: introduce SUSPEND bit in device status
-Thread-Index:
- AQHauK5veGmfTEYzl0u4eTEkaSch67HBLmKAgADZnUCAADjDgIAABE1QgAAOSoCAAAA+cIAACrUAgAAEsSCAAX7ugIAADIHggAAHPACAAA394A==
-Date: Wed, 12 Jun 2024 11:26:39 +0000
-Message-ID:
- <DM8PR12MB54804F81E1673C09213A4302DCC02@DM8PR12MB5480.namprd12.prod.outlook.com>
-References: <20240607074246.7647-1-lingshan.zhu@amd.com>
- <87zfrskcmq.fsf@redhat.com>
- <PH0PR12MB548111206A0EEB7EE62421FADCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <3319f7da-5c1f-48ff-916d-03791edf1783@amd.com>
- <PH0PR12MB548190E2CCAED2E01410F79ADCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2657c74f-1caa-4e5e-b767-b16e059247ae@amd.com>
- <PH0PR12MB548198E64803B0A7D9389E9FDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2f9636c7-06ca-49ec-ac86-f8a2f1f97b4f@amd.com>
- <PH0PR12MB54813032E8F5B0DA32BA1B23DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e25f93cd-baa3-4a54-bf9c-1fc27fa95c41@amd.com>
- <PH0PR12MB54818F69437BBA6D533ABAF6DCC02@PH0PR12MB5481.namprd12.prod.outlook.com>
- <395ddde1-f8e9-4b6e-bf90-2f9c42406366@amd.com>
-In-Reply-To: <395ddde1-f8e9-4b6e-bf90-2f9c42406366@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5480:EE_|CH2PR12MB4229:EE_
-x-ms-office365-filtering-correlation-id: 2fff09fa-38b9-4bce-706d-08dc8ad2876c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230032|376006|1800799016|366008|38070700010;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?jszXtSdelPkbaiMYGc5C2BcJ0IAmxxeKlahyxaxhi/1LLmReKLgztMS+Va?=
- =?iso-8859-1?Q?uNODKeEplEVrTh76910GVlVb8RZtya5JA4aTRsuO9iNya3AX3fxlHxs8L0?=
- =?iso-8859-1?Q?/gYgHV9Ybchr/aeaLtDxYiIo4J+nm49i36Kq/IP0xMB6eY+JePIc42iTEP?=
- =?iso-8859-1?Q?TlWGcIwDDNFYOT5OdFBhAIOeFD/lx4DYtCsPOfx32vqtQojTmp1Mc0Ukfu?=
- =?iso-8859-1?Q?WMEBKyyp/s/mQrSA5tC5ebpFUVAba/e+fX9n+fasDXC9ARCPMg1JHY+5gI?=
- =?iso-8859-1?Q?N6sa7fvqLVhVSi0GcXblsL8H3Wfww/7EgYaRY6PDaRR82m8Vis0epJAELc?=
- =?iso-8859-1?Q?C8lFUcuCBv7+H7H06gln42PuZt0zB9a9ZJjm2x2YbMuAkDotKHMcyB7mp3?=
- =?iso-8859-1?Q?Q09ng8hMPFZ+G7w0jGzDFzMrwG+8Mce4LHRmJednc9R2XcKw2ZJJA8LTwY?=
- =?iso-8859-1?Q?vfcxYQbWWtBN1HtdRJ654COAW3glYef1IqfOuVIqsu5jRIlN5W2zkyqByV?=
- =?iso-8859-1?Q?eqPf+soAX8fQGLOyFbbcN5aNIiEu28innHtaKff5M2cwoO0GVc0TdyTube?=
- =?iso-8859-1?Q?3Piba3WFlURY97TaWym+L6efdUIFDmkOPlVZTtNakChss3qLP3HWUDKg5O?=
- =?iso-8859-1?Q?F5BUww92kSqw1mnwcIvPbG2WPo9tSitINTYAWIFFX5JQw4kS3SgdXKLvha?=
- =?iso-8859-1?Q?YpFerxRfHcTHhQlUgfq3IVviKY37CiiuVtcPELqGVXHZmsQyUxKnaOuyBx?=
- =?iso-8859-1?Q?JnNrKgw8P2T+v1HYd6VApqrcecNZmkImy2nU1x/TySgSEJlvSY22VvxFoj?=
- =?iso-8859-1?Q?psnJlxzhCKE3laAXv7zH2Jozqh5bFh/uc4FTtPv97CNNLnysjWVjfrLdr/?=
- =?iso-8859-1?Q?FDK1+j9uq0rkeh3U4E33W78vYd3JhVsl7q1vv+AqHtL4g0VoSZOBjvr45g?=
- =?iso-8859-1?Q?K2mOjESGdoeFGIupbEoiVyJRuttP/JTiWXYdkkhC6QpdF1vtnlKtXoA4Bg?=
- =?iso-8859-1?Q?RfehBm5OwRp2hYGdoc3V054b3Awp9R0K9pBsXR675KAcX+p6qs2g87VcEs?=
- =?iso-8859-1?Q?CpchOJ5XdHwXvZKsl6gC9Q+sUyCMz4mvY361jGsFwSz8ceEQ8gGldSgWnc?=
- =?iso-8859-1?Q?KG2iJ4SBs12ObxPf/Waa9k36RQyUIj4FPYlgEeTfGkIV/VJFyYi3sxRKjB?=
- =?iso-8859-1?Q?sOWxsN9fWnEY3ft12YqNGSrDZ0Lc4qsVmwNFmBKnpO9qK2v/bhz4HqESMj?=
- =?iso-8859-1?Q?QA5hC+o8mQ/aVc2JHysonD6IvJNrLFPzagWhFpJMaP53evK0SHNtHJ+TxY?=
- =?iso-8859-1?Q?PCx5dstOBz08G5nnwNr8MTbtiF2dIB3L9EhpMZNuZNZIVAsUbKmQ99yMtm?=
- =?iso-8859-1?Q?70C226fA9FoyQZtSmy9xLD16Dqe6Ub87dNAUXkBf8KFm4YzdBy/nc=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR12MB5480.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230032)(376006)(1800799016)(366008)(38070700010);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?kMb8dzkbiTE3YEgKK4GevTVEfWycSqgNBtK/WQxFotqbDogj0VWKcjAJaM?=
- =?iso-8859-1?Q?e4dFaVNJ6dw8K9/ZQb+CsHFTK0BjDM95OX1nnZbV4zJySyOTGXIqr0IcTf?=
- =?iso-8859-1?Q?6eQctn9+hPbRczo847ecyExjoFedu4d03N+2StkDI11ed5svfbfjjihyul?=
- =?iso-8859-1?Q?giX+5CbygQCRzCxuC03iY4rc6edDwu7cF+UwQ6ubK93U8LbB2+M/yZitXI?=
- =?iso-8859-1?Q?kMBHufgvtf6CVop+yGIq+PhP/MAclLgRC62ncnMf65qedclIy0cH8k2EE2?=
- =?iso-8859-1?Q?PwqGqx0j14dP5pZslEWOtM7eSGPxHBs2Jawyvbmc13JUzJ/qprd1mIDod+?=
- =?iso-8859-1?Q?iRq1TBVqnyYSWdIfwzWVeWIxKedtrGvdSQOiKbTu1ntBUwNMVgzYE6lPvM?=
- =?iso-8859-1?Q?v4Vu2MycCw+rI2ANn/uK30mBqvJcVTkZqmH9ofW6mHI4uoBTmyuam0VNcn?=
- =?iso-8859-1?Q?Hb21XWLhOYav854kbdmZnNBXbZ0SjLQL4hi/aTV5OVGLAWkloBX7yP1h8T?=
- =?iso-8859-1?Q?PPqQHK7SxsVh4UmCJeTsqyqMCt89BYmBeqboK9tdHVdUwjn8RVpvR0kWX/?=
- =?iso-8859-1?Q?ZRyQ5Qmf3f/rxdyKpNof7aJxVfWKy0D7lcn3HNHxyUvkaenr02XQjEKrbJ?=
- =?iso-8859-1?Q?XhanY6rpF/dI63CXA/OKLK86q1fSv4YbqjqPASqjIgVf+fyaUT2JnM1U+9?=
- =?iso-8859-1?Q?mL1AtM4Qz+M9IdVGBKjTnMH0Un3K+z9Ap8OmXJuyjJ6LjwEfpWcfQaCY3i?=
- =?iso-8859-1?Q?jRczaN1JYe+HEZp54beciZvd+jwPTuvT7qIU2ADJvPVxKJ/jXv5A1jKEbu?=
- =?iso-8859-1?Q?fE+yB6kuB1MJOH83wWE5ChftoXqCGfAzNCUB+zOxOvICwXy5nzS/35K9Rd?=
- =?iso-8859-1?Q?/IbyHi9MRFWX0gC4LsRlowMePUYM9Txj6XJvsw+afaKTOvH5k9PZCI0p55?=
- =?iso-8859-1?Q?2wp6bxO/19YtsYYdgbbVMmf5TCCYyEBtneeMB3jgPCWlz3vjPqDFpeyIVi?=
- =?iso-8859-1?Q?CgJUaL5An8IHCGh5+SiUSVIkuNMozE/5tswT1iDMO3q0DcKADY8dkH7ob1?=
- =?iso-8859-1?Q?14Sg/f3nwAdsWENtYcpP6zRzZdWkxpbX4e8lSHN3ILCD/fhvX3VehEF9K+?=
- =?iso-8859-1?Q?5yjpqegkOl0p4ixKybZm9vl3q6sVKGILZSMdYgzvrAwhtxN2+LHMN2XGkJ?=
- =?iso-8859-1?Q?xntXeFehAbL04lExQuQLiujRsEO7fNF4xDmnvioV0I07+oBJoq1KKJUYbb?=
- =?iso-8859-1?Q?bKYaJmkQwzkg4Y720M+SI33JDb9KJg8Y7b2D5jL3FbV/FZ/6TXz+6niiQY?=
- =?iso-8859-1?Q?7dX9kDFs3TD4sx0nsGR4Yr9MH8Kh5Clx+qqJ+o/7wCoGetNf5ZJlPJ0Fwu?=
- =?iso-8859-1?Q?aX+26hTLMk6r5Q2a0mhWaAy7LJ3B+fmmcf0N33P2DHgt83c5q8AT3C1b0v?=
- =?iso-8859-1?Q?mryGdwqmPpx/iP8xlZUxLAK841QdT3mKwjxkRekLk74j/QBmYMaRqnPuLn?=
- =?iso-8859-1?Q?yWm7N0P0pqDCfWq6hQmSMetlnnnz7lb2RU0I4qjYB8ugbm8kFJwWQyAXsJ?=
- =?iso-8859-1?Q?ChSR5WRnxZg3Yljw2ZpVcEYGkd87qYLwH+21rk+BHhrI+3vHCPTNzNopIt?=
- =?iso-8859-1?Q?lW+XcmXswJ1KI=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="wW58B3ho"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=u+QDbm8taokIzaqAp6ENLzgDMALa0O5/r8mgCdEVAJc=; b=wW58B3hoBjN+/tTuJ48pxF8Cpn
+	MKC+ZNuhzFkbO/TsnFFEaQKhXWd/wYMspYE6BsjL9Ykxy5vNJOCRITq7mBDMZcdYsSW2RtaBvkCL1
+	C+6pTfdwLFdYUOqMI0DRyLrFQlIyaQvjzMUY10kLCwEu4aFYOQaACEiRQBFCJwYzrownUqykRGt+e
+	qAY+dZmbzPRiJYKi4EwFkrL07kqGIM41wIi8oe/biZLIpE4ZVYCN2MbBjGYstMaG9FLQ9LqYZNBmE
+	+mPEhBLK7qK2vgKIwgKTAydXpQpuVqzeXW70fGOXLhBfMUY0H68zQpqd/c6qc031eG44bgxEJX6pG
+	j3I/rQhg==;
+Received: from [2001:8b0:10b:5:23d2:1ed8:6704:53ff] (helo=u3832b3a9db3152.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1sHMCD-0000000Ee2d-0Brt;
+	Wed, 12 Jun 2024 11:31:17 +0000
+Message-ID: <0944adfdfb5f0231325db79ec41dca0a13639af5.camel@infradead.org>
+Subject: Re: [RFC PATCH v4 0/5] virtio-rtc: Add device specification
+From: David Woodhouse <dwmw2@infradead.org>
+To: Peter Hilber <peter.hilber@opensynergy.com>, 
+	virtio-comment@lists.linux.dev
+Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
+	Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>
+Date: Wed, 12 Jun 2024 12:31:15 +0100
+In-Reply-To: <55b0e4a7-7d79-40ce-a47b-32b457f1ab97@opensynergy.com>
+References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
+	 <b4b198baa16b492a1273131e80d3f80a08835b79.camel@infradead.org>
+	 <46843279-58cb-4ac0-a50b-998ecfcc2c30@opensynergy.com>
+	 <019bc484576f978a0b8a2eb62c56abf27bfe730d.camel@infradead.org>
+	 <55b0e4a7-7d79-40ce-a47b-32b457f1ab97@opensynergy.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-yN4j+Mq8HxNWEd5BcWVH"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5480.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fff09fa-38b9-4bce-706d-08dc8ad2876c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2024 11:26:39.9391
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AmgQ3nRA05no+264klQcgUSj/suDi8ip1O2tM8oDfoJLa8eYWuq5qjJ79QAh9ysMG3W1y5orrMIbzD/E5tCF9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4229
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
-> From: Zhu Lingshan <lingshan.zhu@amd.com>
-> Sent: Wednesday, June 12, 2024 4:00 PM
+--=-yN4j+Mq8HxNWEd5BcWVH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2024-05-29 at 13:12 +0200, Peter Hilber wrote:
+> On 23.05.24 19:49, David Woodhouse wrote:
+> > On Thu, 2024-05-23 at 17:26 +0200, Peter Hilber wrote:
+> > > On 22.05.24 20:37, David Woodhouse wrote:
+> > > > On Wed, 2024-05-22 at 18:59 +0200, Peter Hilber wrote:
+> > > > >=20
+> > > > > - Drop distinction of Arm Generic Timer virtual and physical coun=
+ter.
+> > > >=20
+> > > > Hm, why so? If you're giving out paired readings of the counter and
+> > > > wallclock time, surely it matters *which* counter?=20
+> > > >=20
+> > > > If a guest has access to both, how can it know which is being used?
+> > >=20
+> > > I think it should then use the virtual counter. But maybe there are s=
+ome
+> > > corner cases where this will not happen, so I could revert this.
+> >=20
+> > As long as you explicitly *state* that it shall always use the virtual
+> > counter, that's probably OK. As long as there is no ambiguity.
 >=20
-> On 6/12/2024 6:07 PM, Parav Pandit wrote:
-> >> From: Zhu Lingshan <lingshan.zhu@amd.com>
-> >> Sent: Wednesday, June 12, 2024 2:50 PM
-> >>
-> >> On 6/11/2024 6:37 PM, Parav Pandit wrote:
-> >>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
-> >>>> Sent: Tuesday, June 11, 2024 3:42 PM
-> >>>>
-> >>>> On 6/11/2024 5:43 PM, Parav Pandit wrote:
-> >>>>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
-> >>>>>> Sent: Tuesday, June 11, 2024 3:03 PM
-> >>>>>>
-> >>>>>> On 6/11/2024 4:48 PM, Parav Pandit wrote:
-> >>>>>>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
-> >>>>>>>> Sent: Tuesday, June 11, 2024 1:57 PM
-> >>>>>>>>
-> >>>>>>>> On 6/11/2024 1:17 PM, Parav Pandit wrote:
-> >>>>>>>>> Hi Lingshan, David,
-> >>>>>>>>>
-> >>>>>>>>>> From: Cornelia Huck <cohuck@redhat.com>
-> >>>>>>>>>> Sent: Monday, June 10, 2024 9:34 PM
-> >>>>>>>>>>
-> >>>>>>>>>> On Fri, Jun 07 2024, Zhu Lingshan <lingshan.zhu@amd.com>
-> wrote:
-> >>>>>>>>>>
-> >>>>>>>>>>> This commit allows the driver to suspend the device by
-> >>>>>>>>>>> introducing a new status bit SUSPEND in device_status.
-> >>>>>>>>>>>
-> >>>>>>>>>>> This commit also introduce a new feature bit
-> >>>>>>>>>>> VIRTIO_F_SUSPEND which indicating whether the device support
-> SUSPEND.
-> >>>>>>>>>>>
-> >>>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> >>>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-> >>>>>>>>>>> Signed-off-by: Eugenio P=E9rez <eperezma@redhat.com>
-> >>>>>>>>>>> Signed-off-by: David Stevens <stevensd@chromium.org>
-> >>>>>>>>>>> ---
-> >>>>>>>>>>>  content.tex | 69
-> >>>>>>>>>>> +++++++++++++++++++++++++++++++++++++++++++++------
-> --
-> >>>>>>>>>>>  1 file changed, 59 insertions(+), 10 deletions(-)
-> >>>>>>>>>> Can you please add a changelog? Especially as some of the
-> >>>>>>>>>> previous discussion has been lost due to the broken old
-> >>>>>>>>>> mailing
-> >> lists...
-> >>>>>>>>>> (...)
-> >>>>>>>>>>
-> >>>>>>>>>>> +\drivernormative{\subsection}{Device Suspend}{General
-> >>>>>>>>>>> +Initialization And Device Operation / Device Suspend}
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set
-> >>>>>>>>>>> +or
-> >>>>>>>>>> VIRTIO_F_SUSPEND is not negotiated.
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +Once the driver sets SUSPEND to \field{device status} of
-> >>>>>>>>>>> +the
-> >> device:
-> >>>>>>>>>>> +\begin{itemize}
-> >>>>>>>>>>> +\item The driver MUST re-read \field{device status} to
-> >>>>>>>>>>> +verify whether the
-> >>>>>>>>>> SUSPEND bit is set.
-> >>>>>>>>>>> +If not, the device does not support the SUSPEND feature.
-> >>>>>>>>>> That sentence is a bit weird: I'd expect the device to not
-> >>>>>>>>>> offer VIRTIO_F_SUSPEND in the first place in that case...
-> >>>>>>>>>> could this rather happen if the device is not able to handle
-> >>>>>>>>>> the request at a specific point in
-> >>>>>>>> time?
-> >>>>>>>>>>> +\item The driver MUST NOT make any more buffers available
-> >>>>>>>>>>> +to the
-> >>>>>>>> device.
-> >>>>>>>>>>> +\item The driver MUST NOT access any fields of any
-> >>>>>>>>>>> +virtqueues or notify
-> >>>>>>>>>> any virtqueues.
-> >>>>>>>>>>
-> >>>>>>>>>> "send notifications for any virtqueues"?
-> >>>>>>>>>>
-> >>>>>>>>>>> +\item The driver MUST NOT access Device Configuration Space.
-> >>>>>>>>>> ...except for the status field, if it is part of the config sp=
-ace?
-> >>>>>>>>>>
-> >>>>>>>>>>> +\end{itemize}
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +\devicenormative{\subsection}{Device Suspend}{General
-> >>>>>>>>>>> +Initialization And Device Operation / Device Suspend}
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +The device MUST ignore SUSPEND if FEATURES_OK is not set or
-> >>>>>>>>>> VIRTIO_F_SUSPEND is not negotiated.
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +The device MUST ignore all access to its Configuration
-> >>>>>>>>>>> +Space while suspended, except for \field{device status}.
-> >>>>>>>>>> ...if it is part of the configuration space.
-> >>>>>>>>>>
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +A device MUST NOT send any notifications, access any
-> >>>>>>>>>>> +virtqueues, or modify any fields in its configuration space
-> >>>>>>>>>>> +while
-> >>>> suspended.
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +If SUSPEND is set in \field{device status}, when the driver
-> >>>>>>>>>>> +clears SUSPEND,
-> >>>>>>>>>> "subsequently clears SUSPEND"?
-> >>>>>>>>>>
-> >>>>>>>>>>> +the device MUST either resume normal operation or set
-> >>>>>>>>>> DEVICE_NEEDS_RESET.
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +When the driver sets SUSPEND, the device SHOULD perform the
-> >>>>>>>>>>> +following actions before presenting
-> >>>>>>>>>> SUSPEND bit in the \field{device status}:
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +\begin{itemize}
-> >>>>>>>>>>> +\item Stop processing more buffers of any virtqueues \item
-> >>>>>>>>>>> +Wait until all buffers that are being processed have been us=
-ed.
-> >>>>>>>>>>> +\item Send used buffer notifications to the driver.
-> >>>>>>>>>>> +\end{itemize}
-> >>>>>>>>>> So, is there any opportunity for the device to fail setting
-> SUSPEND?
-> >>>>>>>>>> I mean, if the driver is supposed to look whether it sticks,
-> >>>>>>>>>> there should be conditions for when the device might clear it
-> again...
-> >>>>>>>>>>
-> >>>>>>>>> Additionally, a suspend operation usually involves saving
-> >>>>>>>>> things to a slow
-> >>>>>>>> memory (or media).
-> >>>>>>>>> This is because the device implementation wouldn't know when
-> >>>>>>>>> exactly the
-> >>>>>>>> device will be resumed.
-> >>>>>>>>> Few examples, are:
-> >>>>>>>>> a. A gpu device with 128MB of video RAM when suspended,
-> QEMU
-> >>>> needs
-> >>>>>>>> to store this into a (for example) rotating hard disk as 1msec I=
-O
-> latency.
-> >>>>>>>>> b. a NIC may need to store its RSS, queues, flow filters
-> >>>>>>>>> configuration for
-> >>>>>>>> several tens of KBs to some slow memory.
-> >>>>>>>>> c. A block device may prefer to complete some IOs to a
-> >>>>>>>>> threshold level
-> >>>>>>>> instead of maintaining large list of outstanding IOs in some
-> >>>>>>>> suspended memory.
-> >>>>>>>>> d. May be more in future.
-> >>>>>>>>>
-> >>>>>>>>> Additionally, suspend operation needs to be synchronized with
-> >>>>>>>>> certain data
-> >>>>>>>> path hardware engines to suspend DMA operations (read and write
-> >>>>>>>> both) which are inflight.
-> >>>>>>>>> (without causing DMA errors). Same would apply to the sw
-> >>>>>>>>> backend
-> >>>>>>>> implementations too.
-> >>>>>>>>> Therefore, the suspend operation that is initiated by the
-> >>>>>>>>> driver, should get
-> >>>>>>>> the acknowledgement back from the device that it has been
-> suspend.
-> >>>>>>>>> Some of the good examples if you prefer to follow, a
-> >>>>>>>>> driver<->device
-> >>>>>>>> interface needs a suspend register which should behave like
-> >>>>>>>> below queue reset register.
-> >>>>>>>>> Spec snippet:
-> >>>>>>>>> "The device MUST reset the queue when 1 is written to
-> queue_reset.
-> >>>>>>>>> The device MUST continue to present
-> >>>>>>>>> 1 in queue_reset as long as the queue reset is ongoing. The
-> >>>>>>>>> device MUST present 0 in both queue_reset and queue_enable
-> >>>>>>>>> when queue reset
-> >>>>>>>> has completed."
-> >>>>>>>>> At minimum, we need, something implementable like,
-> >>>>>>>>>
-> >>>>>>>>> The device MUST suspend the device when 1 is written to the
-> >>>>>>>> device_suspend_ctlr. The device MUST continue to present 1 in
-> >>>>>>>> device_suspend_ctrl as the suspend operation is ongoing in the
-> device.
-> >>>>>>>>> The device MUST present 0 in the device_suspend_ctlr register
-> >>>>>>>>> when
-> >>>>>>>> device has completely suspended the device.
-> >>>>>>>>> The device MUST resume the device when 2 is written to the
-> >>>>>>>> device_suspend_ctrl. The device MUST continue to present 2 in
-> >>>>>>>> the device_suspend_ctrl as the resume operation may not have
-> >>>>>>>> yet
-> >>>> completed.
-> >>>>>>>>> The device MUST present 0 in the device_suspend_ctrl register
-> >>>>>>>>> when the
-> >>>>>>>> device has completely resumed the device.
-> >>>>>>>>> At this point, the driver may resume notifying the device and
-> >>>>>>>>> accessing the
-> >>>>>>>> configuration space.
-> >>>>>>>>> Can you please enhance this part?
-> >>>>>>>> Hi Parav
-> >>>>>>>>
-> >>>>>>>> Yes they are necessary contents and we will address them in the
-> >>>>>>>> following patches.
-> >>>>>>>>
-> >>>>>>> The register polarity is critical.
-> >>>>>>> In your reply to Cornelia, you descried that suspend bit cleared
-> >>>>>>> in the device
-> >>>>>> after driver sets it (until the device is suspended).
-> >>>>>>> This is ambiguous behavior of the register. Queue_reset register
-> >>>>>>> was like that
-> >>>>>> before it was fixed in 1.2.
-> >>>>>> once suspended, the driver should not access the configuration
-> >>>>>> space except for the device status, so it should not reset any
-> >>>>>> vqs through configuration space.
-> >>>>> I am not talking about VQ reset at all.
-> >>>>> I gave an example of how the VQ reset register polarity works
-> >>>>> (with was
-> >>>> broken like how the proposed suspend bit is broken).
-> >>>>> Suspend register needs to work the way the reset register works.
-> >>>>> Can you please go through my exact text I replied in the previous e=
-mail?
-> >>>>>
-> >>>>> Basically, the bug is:
-> >>>>> When driver has initiated the suspend (writing 1), the device
-> >>>>> continue to
-> >>>> respond 0, while suspend is going on.
-> >>>>> At this point, just by looking at the device_status register one
-> >>>>> cannot figure
-> >>>> out what is going on in the device.
-> >>>>> Is driver initiated suspend is ongoing, or it was never started.
-> >>>>> It is ambiguous.
-> >>>> From the device perspective, there is only one user: the driver,
-> >>>> and the driver sets or clears SUSPEND, it knows the status of the de=
-vice.
-> >>> It does not work elegantly when the hypervisor or other system is
-> >>> looking
-> >> dealing with this register.
-> >>> In current proposal, anyone else than the driver looking at the
-> >>> device_status,
-> >> it is ambiguous.
-> >>> For example,
-> >>> suspend_bit: 0x1 suspended.
-> >>> 	     0x0 not suspended or suspend is ongoing. (ambiguous for
-> >>> hypervisor debugging this device)
-> >>>
-> >>> For device migration, it requires yet another side bit in the device =
-parts.
-> >>>
-> >>> An elegant and non-ambiguous interface can be,
-> >>>
-> >>> ctrl_register =3D	0x0 (a usual default)
-> >>> 		0x1, suspend the device
-> >>> 		0x2, resume the device.
-> >>> status_register =3D	0x0, (still) running.
-> >>> 			0x1, suspended.
-> >>>
-> >>> With this driver and hypervisor (both) has very clear view of what
-> >>> is going on
-> >> and what is the status.
-> >>> No more ambiguity for anyone.
-> >>>
-> >>> Please consider pros and cons of both approaches.
-> >> The driver "owns" the device, other components access the device
-> >> configurations through the driver, I am not sure there are other
-> >> "owners" than the driver.
-> > Device migration and debug channel [1] plans to access the device from =
-the
-> hypervisor.
-> > I don't see any disadvantage of separate control and status register.
-> > Do you see any?
-> >
-> > [1]
-> >
-> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flore
-> > .kernel.org%2Fvirtio-comment%2F20240601145042.2074739-1-
-> parav%40nvidia
-> >
-> .com%2FT%2F%23m14b80fd996e8d2522723967d8af844b70e131a90&dat
-> a=3D05%7C02%7
-> >
-> Cparav%40nvidia.com%7C06c09157b2d74af8b7f608dc8acaab0a%7C43083
-> d1572734
-> >
-> 0c1b7db39efd9ccc17a%7C0%7C0%7C638537850271999791%7CUnknown
-> %7CTWFpbGZsb
-> >
-> 3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn
-> 0%3D%
-> >
-> 7C0%7C%7C%7C&sdata=3De%2BBDJMpuFzmj47CKqnWU1jXcRZUXATmqhhMZ
-> 7WC8zj8%3D&re
-> > served=3D0
-> is the admin vq governed by the driver? There should be only one owner of
-> the device, or you need locks.
->=20
-No locks are needed. Hypervisor is accessing the admin vq on the PF.
-VF is accessing the suspend ctrl and status register of its own from its ow=
-n MMIO space.
-If for some reason, this registers is trapped and accessed in the hyperviso=
-r too, it is upto the hypervisor on lock/no-lock etc.
+> I failed to come up with an elegant implementation-independent rule of
+> when to use physical counter and when to use virtual counter. So maybe
+> the spec should indeed just keep both counters separated, and it would
+> be up to the driver implementation to select the proper counter.
 
-> I am not sure we want to repeat the discussion on the admin vq for live
-> migration last year, you know it breaks nested.
-I am showing you the use case where ctrl+status is useful without any negat=
-ives.
-You are diverging the discussion to a point of no return.
-I wish you can be more cooperative by seeing larger picture. :)
+Is there ever a reason to use the physical counter? I think we can just
+specify that the readings are given in terms of the *virtual* counter,
+and ignore the physical one.
 
-You didn't answer my question, do you see any disadvantage of ctrl+status r=
-egister?
-If not, lets converge and progress as it enables suspend functionality + de=
-vice migration both using non-ambiguous register pair.
+
+--=-yN4j+Mq8HxNWEd5BcWVH
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNjEyMTEzMTE1WjAvBgkqhkiG9w0BCQQxIgQgFkjeXvFa
+RlMLFXwM546JEl1ItgKy0JXOCg5yUAeaeQkwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCLK6JEExzel5/qTAEzPyv/cvZXnzYpvisF
+C3kDj0ljPBsMxdz7pVsbdOVuTOVX4jmhmRWiE6tEpwi9LEcHXmJEFLiXuskghEL7T55f1v7OJTYF
+MElh/uF1seKagzIkwKo/Vvw/SB7WrYPXwy4olAjQAp+9yZC31+VHPpnWPHe1kYW94xZVTXQcfrZH
+VnC4mOidBoXR1oy+vP4ZOjXGyQpz4cZEpZvLAq37fwxH9Vd5ZIRSrYGYwNgCjEzsg70aO9oDxZi9
+ZpOVcMsfpYXIx0J8yJtw1vFMS0CkRKjLFZWAZkpGr5UAj5Nwa7eN39CfJWtxqU8oRK107Khn9/Ax
+PWLF2HnOz2bAAZCBkD7s4y5G9vcr1L15L2MJ5v+8KbH43s4EFeKJbApQypByHA81cc4CkzIQItzF
+imP1Rl/PTaInDtR92o3JtHwH3Q+zyOWiELV2JdUqGf3slcwNcpunHYynriNDSKWt7tF+PirB3vjY
+ddIqlvolPv7+aHaKvNuG1xXclodRj2/lA5lwpig8L4+Zb0r5dsRP993PznXcbwkj+hjA4OKOE3Ab
+IJmts/NwY0o8McuWT/XMxIb0ssTi4mZ81fecsM0bUa9Vdg/+Qmu3lN1/jXslL3GNHPvzxNMO/OaZ
+DVhHcgzu8Ub4vbAh5cRLz1xBWwniLseORt+VVP37xwAAAAAAAA==
+
+
+--=-yN4j+Mq8HxNWEd5BcWVH--
