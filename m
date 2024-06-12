@@ -1,131 +1,138 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3330B22092
-	for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 05:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A243A1C9
+	for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 05:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718170460; cv=none; b=Wm9ZjKtDFbc3Oczpc4tVLXGSM0nWelcYgu6iBOtA1J20XHQB2EbGzNIi8vDz6JpS0MAaa2oIWktXRGo+AQCHOctiyk/9MQIm4beuIUHskiuEoEZqyCot6z2Ey808RiaPnOcYJmRvQsMv3opm+JqDPZ6i4JrHWuMpohD1T4jXCaA=
+	t=1718170863; cv=none; b=DOkBbEm87J3lfj83tOSnuhEwVgEpO0ByDx48uJvY/+dXcOkeJAyasQKEO8vLBHsCeMKmS1RIUh+ziQPchK0kkYPoGZdnh+Ft0RjnuxldA0LhNxLz9e4+LU//YweBvmQ/pSYXs/nMlmqLzaAYFo+kXfwM9wkSpSRWrjoo/vOn6YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718170460; c=relaxed/simple;
-	bh=J8P3/kEQtV7naeXHp0gZpD3igb2I4tS1u9y5YvTN0q8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=M0xyyc/u2E5HzrsL4uYgMPXjPmOCqA0cfJ3otdI088rBX04zekK6YxIxf5gjh8mQbWiYROQ85reGBCd5Qj/l441xBInMyvbAhaxxQs189Vwj3obzd8KWubLQh5FtYGNK1MknFkEUSKYcKbjET6PiAySgSFAeaxAGkeD61eHabfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LRN9vj+5; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1718170863; c=relaxed/simple;
+	bh=fq2tcqwpZfxWraWbby5gnwgDfA6WFwU5NC1zSmpQS5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=Riq8EPDnDG9y/0lj1T+8j1QGX/eNOTr2rqRXzjiaXBEBtiKAAOOaWZhrG/gaChqNOGSbnHsK3GTEtD1619SuouDoGXMJUoWulZY4snrrfYrkIJJTeIoXkWkXk6G5JOJsp980ru3tNhY7unAIkZ4LTcOI5oBusU07tnB06mCO/qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y9AcPGll; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LRN9vj+5"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-1f6fd08e0f2so27060285ad.3
-        for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 22:34:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718170458; x=1718775258; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Du6UCUH8GRa3AhJJXjort+rdTXbcCKqZQ879GdzqVNc=;
-        b=LRN9vj+5lGlrXtPrdzbk3GsUG02vcui+DmBC1sVnE4XRX/09H0qdY+W4FL0kDWBWTk
-         cVg7rNUmOfaZYAGh8furBn1YmkPnK1Ri5OzW0FEY3Bp7P7J01w+JEzyNDkvAyO/pPRbR
-         dy89gzlt9uLd703viIzaO9cysRIS5zqqaWTs8X5m1o9J6BUVUAGCZdCnp60e89VytiPl
-         VLI4NdBiKh4h3B3IpyOg1jNK+h+EBNgspVo+V6k6Ns9y9dKSLpr+LD8vE1hAo6MuM9bI
-         sGqig5djP6IwZcZHyUUrCjYFlP6X/I3P576DP48w463EJtcwHcUlyjAmDAjYu2bSdx2F
-         gLqQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y9AcPGll"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1718170860;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vmiGUiKWRqkfdHQlFEYjizNG5iqlhe6WFFs3q3awMvw=;
+	b=Y9AcPGlleNbLuLKhpPZFOU5nfRF9+4cBgFf22dwq69cmnElrxBEMfAC0WOvcJ6i1VGBJZ3
+	Z1c+YygCf1Gi96hvgCb72wBnUDfIaOjuP+XIhOpx58hSLh3fyZbpPR6mcovlRo/JVGtu//
+	s/L4E/8Y+nNmdJJlsRhoP3w3bVlEO7g=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-594-JtMmsE9oMgC0ggVo6vD55A-1; Wed, 12 Jun 2024 01:40:58 -0400
+X-MC-Unique: JtMmsE9oMgC0ggVo6vD55A-1
+Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-52c893408b5so2238030e87.2
+        for <virtio-comment@lists.linux.dev>; Tue, 11 Jun 2024 22:40:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718170458; x=1718775258;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Du6UCUH8GRa3AhJJXjort+rdTXbcCKqZQ879GdzqVNc=;
-        b=XiSO+2EOPXIq2W3k37xo6H/zF2MKsYsMIpg38xUlXu6OG/A0U0M8RQdGo55NQRbNHg
-         OoRPFxXSdpQePWCneDTRoqtjO2n3plKRZ59pcc1WtqM+wv7jwCQGoZrwlMie93bEdHP9
-         1C4N0iio4ZvcdctSc1zJ4V/7O0+vaSrG7EcD8PfbHqhS8cm53CztWhFPuh/JTO6d47zM
-         d+3Uc7vnLo9xBKYdYVMp9S2gziP3EoF2pueRH1ejR/PaBdYnZP+Eb6eOAZFAqtOKycMi
-         0uUaXN3+sDYDt+kO1vZBqRgOhpg9k3FeS/rQ0Z08RslxbtPUIwh7/dtnb2XIJ2e6ADyD
-         SS7g==
-X-Forwarded-Encrypted: i=1; AJvYcCU0p+M98nSH0vo6zi5opkTK39xU/YULDWowluTE099xRJbST7odEESJxch6CMtdDaYiQSh4873KJtAKBrn4at1A4XCfvGXLbGVa/1lVSgo=
-X-Gm-Message-State: AOJu0Yx/fQeqdZErVxSRYFSYsUmYJStukGcozpmfwnvtnkmf9G5OEPpR
-	kHnn0M0rVUZfa87sauLHTMbLKouWsXzN3vHTSy2bQcHK4p++uj12EE1baj9OE5IpYg==
-X-Google-Smtp-Source: AGHT+IHMQWrJWj2ClsS4X0VlixRPKC2jpaMYa4M4fzxBXsoDCuh3ztWiRZegyov3vfb7ek9d2vb3HQ==
-X-Received: by 2002:a17:902:b20b:b0:1f7:1688:9e36 with SMTP id d9443c01a7336-1f83b6fc30fmr6992805ad.48.1718170458372;
-        Tue, 11 Jun 2024 22:34:18 -0700 (PDT)
-Received: from devant.hz.ali.com ([47.89.83.81])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1f6ed896cc9sm78311035ad.232.2024.06.11.22.34.15
+        d=1e100.net; s=20230601; t=1718170857; x=1718775657;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vmiGUiKWRqkfdHQlFEYjizNG5iqlhe6WFFs3q3awMvw=;
+        b=T5cjc+5ULXQtqxNT3C++kX0ycfIpLFXwHUE9ZLlmOcPO6mNhTkfZ3QIz5KLp7xKKUy
+         Zi0CKCrBxyFWyOA3FV6FrqWOM/OL+de2fJcp+uWlM3t+b0z9hKheFJNHvxCJg3sQORXP
+         GCHhIUUgUVBnd8Cx00SKjEV4LhocNLh75mF8FX0/4bB4Ra3li9ntMSL/P2GQsZkmUenb
+         gAE6CT8JLLXrMOdZsu/mPA39sN7LGAjQVUuVYM7acz0MiieTeL60AR1xYUYVjxWTVolP
+         TO8YNc3aHUtF4UQEvCSTVRGKeRQA0kPFYpmNXfgEYJ3A+IobJVM/wVn3iE4Q6HjocD7J
+         0odw==
+X-Gm-Message-State: AOJu0Yxh97XB1yuTEYPbyiKoGtRV+9vfCSJ3CoDRTws+M7XR/AVEMCe6
+	/mDFG78OJ6sGvIiSxAs6nVwMNcM4BqTpgwvT/KkY2c8gXxzNTjSfOll/UtrBX5eCJJqpTjQi1ty
+	iT0IRm+CkiabkarzABIoDKXTh66BpxFLQnMp0HLtwsJr7bmcimBp0KFH1MA4c5zzf
+X-Received: by 2002:ac2:4645:0:b0:52c:8fba:e2a1 with SMTP id 2adb3069b0e04-52c9a3c6fdamr376038e87.18.1718170857215;
+        Tue, 11 Jun 2024 22:40:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGqFCWeZS7Rw4U39qRiPux51n+xtF4cRFwjAneLO3qsqGWlgufXmFmsGrRKcM22bMO2Rz3G5Q==
+X-Received: by 2002:ac2:4645:0:b0:52c:8fba:e2a1 with SMTP id 2adb3069b0e04-52c9a3c6fdamr376028e87.18.1718170856667;
+        Tue, 11 Jun 2024 22:40:56 -0700 (PDT)
+Received: from redhat.com ([2.52.131.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42286ff39dasm11171365e9.17.2024.06.11.22.40.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Jun 2024 22:34:17 -0700 (PDT)
-From: Xuewei Niu <niuxuewei97@gmail.com>
-X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
-To: sgarzare@redhat.com
-Cc: hi@alyssa.is,
-	mst@redhat.com,
-	niuxuewei.nxw@antgroup.com,
-	niuxuewei97@gmail.com,
-	virtio-comment@lists.linux.dev,
-	fupan.lfp@antgroup.com
-Subject: Re: Re: [RFC PATCH 1/2] virtio-vsock: Add a `VIRTIO_VSOCK_F_MULTI_DEVICE` feature
-Date: Wed, 12 Jun 2024 13:34:02 +0800
-Message-Id: <20240612053402.2428882-1-niuxuewei.nxw@antgroup.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <oxsnc7lbs7m5oreu37aozu32p4kqts7ba5zciib62arz4jhurw@4we3bibx6quf>
-References: <oxsnc7lbs7m5oreu37aozu32p4kqts7ba5zciib62arz4jhurw@4we3bibx6quf>
+        Tue, 11 Jun 2024 22:40:56 -0700 (PDT)
+Date: Wed, 12 Jun 2024 01:40:52 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"cohuck@redhat.com" <cohuck@redhat.com>
+Subject: Re: [PATCH] content: Add link for the feature bits chapter
+Message-ID: <20240612013634-mutt-send-email-mst@kernel.org>
+References: <20240611175721.2550759-1-parav@nvidia.com>
+ <20240611190949-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813E40929A98725186EFA0DCC02@PH0PR12MB5481.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <PH0PR12MB54813E40929A98725186EFA0DCC02@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> >The feature represents the users want to enable the multi-device feature
-> >once it is provided by device.
-> >
-> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
-> >---
-> > device-types/vsock/description.tex | 6 ++++++
-> > 1 file changed, 6 insertions(+)
-> >
-> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
-> >index 7d91d15..3fbc02a 100644
-> >--- a/device-types/vsock/description.tex
-> >+++ b/device-types/vsock/description.tex
-> >@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
-> > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
-> > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
-> > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
-> >+\item[VIRTIO_VSOCK_F_MULTI_DEVICE (3)] multi-device is supported.
+On Wed, Jun 12, 2024 at 03:51:48AM +0000, Parav Pandit wrote:
 > 
-> What about "Driver supports multiple devices." ?
 > 
-> > \end{description}
-> >
-> > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
-> >@@ -34,6 +35,9 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
-> > VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the driver MAY act as if
-> > VIRTIO_VSOCK_F_STREAM has also been negotiated.
-> >
-> >+The driver SHOULD accept the VIRTIO_VSOCK_F_MULTI_DEVICE feature and allow
-> >+multiple devices to be registered if offered by the device.
-> 
-> I think we can skip this. For the previous features we added it because 
-> they are dependent on each other, so we had to clarify the relationship.
-> 
-> >+
-> > \devicenormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
-> >
-> > The device SHOULD offer the VIRTIO_VSOCK_F_NO_IMPLIED_STREAM feature.
-> >@@ -45,6 +49,8 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
-> > VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the device MAY act as if
-> > VIRTIO_VSOCK_F_STREAM has also been negotiated.
-> >
-> >+The device SHOULD offer the VIRTIO_VSOCK_F_MULTI_DEVICE feature.
-> >+
-> 
-> Ditto.
-> 
-> > \subsection{Device configuration layout}\label{sec:Device Types / Socket Device / Device configuration layout}
-> >
-> > Socket device configuration uses the following layout structure:
-> >-- 
-> >2.34.1
-> >
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Wednesday, June 12, 2024 4:42 AM
+> > 
+> > On Tue, Jun 11, 2024 at 08:57:21PM +0300, Parav Pandit wrote:
+> > > Device common feature bits overview in the basic facilities and their
+> > > actual description are apart by 24 chapters.
+> > >
+> > > Help reader to directly reach out to feature bits definitions from the
+> > > basic chapter.
+> > >
+> > > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > > ---
+> > >  content.tex | 10 ++++------
+> > >  1 file changed, 4 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/content.tex b/content.tex index 8849522..c3531e2 100644
+> > > --- a/content.tex
+> > > +++ b/content.tex
+> > > @@ -97,12 +97,10 @@ \section{Feature Bits}\label{sec:Basic Facilities
+> > > of a Virtio Device / Feature B  Feature bits are allocated as follows:
+> > >
+> > >  \begin{description}
+> > > -\item[0 to 23, and 50 to 127] Feature bits for the specific device
+> > > type
+> > > -
+> > > -\item[24 to 41] Feature bits reserved for extensions to the queue and
+> > > -  feature negotiation mechanisms
+> > > -
+> > > -\item[42 to 49, and 128 and above] Feature bits reserved for future
+> > extensions.
+> > > +\item\textbf{0 to 23, and 50 to 127} Feature bits for the specific
+> > > +device type \item\textbf{\hyperref[sec:Reserved Feature Bits]{24 to
+> > > +41}} Feature bits reserved for extensions to the queue and feature
+> > > +negotiation mechanisms
+> > > +\item\textbf{42 to 49, and 128 and above} Feature bits reserved for future
+> > extensions.
+> > >  \end{description}
+> > 
+> > Not everyone is browsing online, printing and reading should also work.
+> > So no need to be cute, just add (see \ref[sec:Reserved Feature Bits]) or some
+> > such at the end of the sentence.
+> Does hyperref break the printing and reading?
+> This didn't add any extra text for reference and reading in PDF was fine like before.
 
-Agree with you, I'll update them on the v2.
+It does not break it but it is not visible there - you are either
+saying the link is helpful - then it's helpful for everyone,
+or it's not needed then we don't need this change.
+
+Just keep things simple and consistent please, we use \ref everywhere
+and hyperref for external links. The rule is broken in one place
+in scmi we should just fix that.
+
+-- 
+MST
+
