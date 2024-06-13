@@ -1,120 +1,95 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994EE136E12
-	for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 06:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD50381C4
+	for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 09:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718259240; cv=none; b=HnaLYKPgUJxYsPLy9MQYM4HwrW7QkVSkI1mR1U1Hm+4aH9ghxlxFTzMCxsRXVSnn/887lCkzLU8v1qKOVwaBWqa1KpAbWoxjnwOgSbMknXoBFa8OGuo4HRxGNvA6TbIHRA6Y24LoCBQvfHOlX8wyd+/DkO6rQ9Tc0E2ImtBs+VE=
+	t=1718271128; cv=none; b=PuvvgUoaKlXAMiMDZXRGdaMV2FK3uVMLwEP3+weiJt1EBMKMsVotBm+r5NBPyyMewGOdvXC8kIIHyMyH7AFVk5LgMYNDx3VOZq+HDaBLTBEsi+s11uCEXZpytN7OIqBYrpY/87EfVd+2PfRBUOxTfhYXFlCGR+4Rm6Ug6XrQ4V0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718259240; c=relaxed/simple;
-	bh=+AGc9fkYi9InnttVM1B+04zCeqBbhJKHi9hiN684N6s=;
+	s=arc-20240116; t=1718271128; c=relaxed/simple;
+	bh=2S9Q0GgzcwBxHcpJaspMGVCjSXdsS01VeY87lFDs6xc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=niQdTAQxPxsd341vVCWBwNKu6Xzi6C/0SEb/MZPhW/fmni1Zs6V6sfXVAQfWa3bxstEp4r7RAz2GsY0jR3UCy1EhGTSFbHzQn/o2UlZN1ebXOVyUFIGtQW79kqumqDwJJ1ao5wDJujcVGjsMpyYbPg2XNwHGiQDuSrqCkyq29xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OvSH3e/3; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vxiyp79vKb75lSKc69lbQrL7wjgiojD858eXDCabknIVRcKqYgWUvpXl1mkjoOMdmETV+pavg9eB/NKmjUhi4r8nR682W2xxNqFA3GjUdCMVc7sGgM9IPgZoccsBLq57+/4Ai8ya0WmNM7mIGBoy1CWp3rNUBfju16CsKu1k4ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lStETDRW; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OvSH3e/3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718259237;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wkEnBBoLS/IHqE3IVp+fO4nFa5xVumMFGV/mDozMGL4=;
-	b=OvSH3e/3bOj6RCySJqfHCQPxeUOZ/IGP0dozy5TbbKiAwOe2YJpxr55NvDNg2SMBHDl7By
-	Hg+xnWGMc3m0fAZiRUxfGekfSwgWpnNX8+eSYhiJKjLJXeLxDlKk9KODjaDQ3vbvb17KZW
-	E7dun5ibXfvjPRVvPoygop8gZ0AZsYo=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-433-q6dyXncbOEmS1XLkMHGAaw-1; Thu, 13 Jun 2024 02:13:56 -0400
-X-MC-Unique: q6dyXncbOEmS1XLkMHGAaw-1
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-35f2730d114so730577f8f.1
-        for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 23:13:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lStETDRW"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-1f47f07aceaso7844485ad.0
+        for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 02:32:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1718271126; x=1718875926; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=lBVIur4GVh4oeHCaL/DETOFosK2cvE/luI2XW5EC2D0=;
+        b=lStETDRWMy4x1WPqkiE+Vym/aJkJwCRfWqGCN0p09yAzqLCDx9AMPmTBwiYSggD7uW
+         E4R4JaAOjzp1zcXHJVhUNCl3vI3oiuVA6kAR0OnCz1tgW8UkKLV/HLWocYOFyc2O/g4c
+         PIlkscSjSf4QvUFhnd55DyiBC4fi9O17lJrYQavSn3XNdWLdIN7TeNJm3DfjSR76JI3E
+         4LEAyR7VQWCQxCXJE/WL2HSzDfrk9l3cfN19yTA+oMYc2Sf3kuWkdaVk1GyaUg/TBsmt
+         JRiJKEvsjk//7TAhglowTP/9MS8QKFXpy4Jo91+vBrZ6MWnLb8Ir5rwiH8To5SYHJgCQ
+         whSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718259235; x=1718864035;
+        d=1e100.net; s=20230601; t=1718271126; x=1718875926;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wkEnBBoLS/IHqE3IVp+fO4nFa5xVumMFGV/mDozMGL4=;
-        b=d493vUR6sQptA38kkEBCjkjKH6bcwCSleJdEYoqfcLBXFrqsPRkf/g42A31q7kCqXT
-         +9DkVO5/lHGMwEVveMcsp8Jb9aMh5AevZZ5QYhHhwjhmoJGKY6nAHhssO3WZ0C34Yrno
-         KGSBjErjv09GkgBD6M9pOcFEpPo380n5xrTKO6pG42Do+V9qa3aS4hrgeQR2DRpcqdp3
-         ux1LZtsOET/Z2i6AB63ThuNCpXj7YeHr9qnks6mjD+/TSq9LOnhVeh0LCVdxV46OBf64
-         8/mwtmmPsRSqfjLdkErB2qLjBM30zvBtlTTrOdj6fQafpmZt8GdwjhSn4+gIkfaAmndg
-         82Ow==
-X-Forwarded-Encrypted: i=1; AJvYcCUpP7lxHKVoAHQwOJyNRkPx0OC+OpQdm0dfiMJjL5a6hjECClKGUHdeuoVBIgtWu0oZzs1Nm3wHDBYbNuF217HAQo+puK2cCfVFuvOalo4=
-X-Gm-Message-State: AOJu0YyGkiOAI8QZOoyaZFN0ZdHcSEOyItB5zvDOSS/BTL7+0N6a8PC8
-	cb/Byiu8mpyIOyR3vTXc6tijvlYWeCY7uZf005khWlVQ76GD4IB5yASOhmoQiwNbWZPT30knueL
-	dD8Ctwe9jdxQkoxdczR5coLpp9g6Cdj3DAsUwaX8aPlDsRnDVOr4z6gpzu72/iLBR
-X-Received: by 2002:a5d:6545:0:b0:35f:d50:3301 with SMTP id ffacd0b85a97d-360718c9db7mr1553885f8f.3.1718259234922;
-        Wed, 12 Jun 2024 23:13:54 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHYuU/DjgEMboNTpGcpjRIY6BraNmh/2XPNn6UDoC7tUyWhMrEmDJU9XcC3ZTNEppoaGldsbQ==
-X-Received: by 2002:a5d:6545:0:b0:35f:d50:3301 with SMTP id ffacd0b85a97d-360718c9db7mr1553863f8f.3.1718259234451;
-        Wed, 12 Jun 2024 23:13:54 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:341:5539:9b1a:2e49:4aac:204e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-36077536f78sm405171f8f.7.2024.06.12.23.13.52
+        bh=lBVIur4GVh4oeHCaL/DETOFosK2cvE/luI2XW5EC2D0=;
+        b=Yas/M6fMkaEEG2W84iMnLsYRcII3xmMzalaNuCxyaiCPHClvcwRln1bPTDFNwkKYay
+         MLxoNiki89jqe/NRywxXS9agJDboFrSwua0opJIuKeQIjNiO4WHEOxPyJlwbuh9tW/l0
+         BFIhricFYCTDwL8LJO3agk8MaFF1GUZ1IL2LIQ1FRL/ImwgDOReY+1exCl8Rm5aACRaD
+         WVTCmKdc7oqSBb4PHVE2e03eurjbL6Rn9tL3RLoDMTeJXuj4QBF7wRqBlL4SD/XAe2Y1
+         YApvMQKENf+Gz2idv0wPEFWwUYRYKGOTJIuJn6ECudIXJpQAyf9212y0OAE6ihtC4eP2
+         HWwQ==
+X-Gm-Message-State: AOJu0Yz0e8CY6qS7W3SI8ruRfm+kFMXCimep262cX2j1XqKBQhKgzJzW
+	mmhzvjmHxnf0jDSHaJ70nNz2fQqme4Q4UieFcrB+gcmndBsdpFtJt6cd2XFBi9o=
+X-Google-Smtp-Source: AGHT+IG8gXfRBgHDlXBraoEdhBICB5kOakhPGJrB5nmKTyitDy5jJz6iz9/aNUZ/zF5dTxSeVn+NHA==
+X-Received: by 2002:a17:903:2344:b0:1f5:e635:2212 with SMTP id d9443c01a7336-1f83b22d0cemr51825825ad.0.1718271126260;
+        Thu, 13 Jun 2024 02:32:06 -0700 (PDT)
+Received: from localhost ([122.172.82.13])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1f855e56535sm9242795ad.55.2024.06.13.02.32.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Jun 2024 23:13:53 -0700 (PDT)
-Date: Thu, 13 Jun 2024 02:13:50 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Heng Qi <hengqi@linux.alibaba.com>, Halil Pasic <pasic@linux.ibm.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
-Message-ID: <20240613021132-mutt-send-email-mst@kernel.org>
-References: <20240528044702.50603-1-hengqi@linux.alibaba.com>
- <20240607220246.3213607c.pasic@linux.ibm.com>
- <1717814062.4461155-1-hengqi@linux.alibaba.com>
- <20240610144602.57a04723.pasic@linux.ibm.com>
- <1718026545.7557275-2-hengqi@linux.alibaba.com>
- <20240610221900.1810ea96.pasic@linux.ibm.com>
- <1718102433.0456574-3-hengqi@linux.alibaba.com>
- <20240611122756-mutt-send-email-mst@kernel.org>
- <PH0PR12MB54813E2EE4EA2BA729B2F6B7DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+        Thu, 13 Jun 2024 02:32:05 -0700 (PDT)
+Date: Thu, 13 Jun 2024 15:02:03 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Parav Pandit <parav@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	"stratos-dev@op-lists.linaro.org" <stratos-dev@op-lists.linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Subject: Re: [PATCH V5] virtio-transport: Clarify requirements
+Message-ID: <20240613093203.24hcx7euw6txy3zs@vireshk-i7>
+References: <9d543789de03d26a27a43ae8f7621d07d66e8731.1718084050.git.viresh.kumar@linaro.org>
+ <PH0PR12MB5481413D59F2DC236F0B59DFDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240611065816.lq3ehs7fmpjbihip@vireshk-i7>
+ <PH0PR12MB54815595D5B533A6E38636F2DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240611084103.3u7bsoe6nlr6xngf@vireshk-i7>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB54813E2EE4EA2BA729B2F6B7DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20240611084103.3u7bsoe6nlr6xngf@vireshk-i7>
 
-On Tue, Jun 11, 2024 at 05:43:18PM +0000, Parav Pandit wrote:
-> 
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Tuesday, June 11, 2024 10:00 PM
-> 
-> 
-> > How we can we make progress with
-> > the realease but sure we don't make backwards compat a pain?
+On 11-06-24, 14:11, Viresh Kumar wrote:
+> On 11-06-24, 07:41, Parav Pandit wrote:
+> > Got it.
+> > I agree to Michael's suggestion "I feel a non-normative section is enough for this."
+> > So following his guidance, we should remove it from the requirements and have this as,
 > > 
-> > Ideas?
-> >
-> There is no functional break with this relaxation.
-> Device set some non-zero defaults and driver didn't modify them.... 
-> Anything broken? Unlikely.
-> And device/driver has better performance, is that a problem? Unlikely.
+> > "implementation guide" or appendix section and it also looks good without the key wards too.
+> > 
+> > Otherwise, this requirement section becomes the example of how not to write normative in a normative section.
+> > (and we want to avoid future such examples).
 > 
+> I am okay with whatever Cornelia and Michael finalize on this.
 
-Yes, it is possible. Driver can cache values it sets
-and never query device with get.
-Before anything is set, driver will report incorrect values.
-What will break as a result? Hard to predict.
-
-
-Given the patch is big, I am inclined to say it just should use
-a feature bit.
+Michael, Cornelia: Any decision on this ?
 
 -- 
-MST
-
+viresh
