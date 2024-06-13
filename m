@@ -1,244 +1,204 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2AF167261
-	for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 12:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC50391
+	for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 04:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718195013; cv=none; b=rt59M5TrY/Qc27XW4fbr265VK7NOGjq+KvY0TtTr7Vc3STxzxEKIZ04P1F8PRTBif/adnmcmOMYfDaMxcRUF0HqXn6RAnU1b+0SVpq/nHAweSSwk2pE9Z6VdchPcYDqByBvufrSpztF271YqnUOAdUvPpgVpJiTfv+jPSETL1Rc=
+	t=1718251315; cv=none; b=ieTwML7AgHdodDYbJzutrGvY8icYQd5imbxkbEe/zBpPWHvHJNbmFdFb+cMjI2Y8ySp2d8epMrirkzmcOgQWryZNTUYtN7/iRNPFxqYBRGMyjLtTk3HyvFqNSum8cN7EzlDyHUx3FVrEEfqF15Pm1o+pgyq7mtaU5OlSKUY0IMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718195013; c=relaxed/simple;
-	bh=RlfIrb6BQyKdxA/ZypyO7w9b0vcESad5KljSMsA9Bzs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=gJ05t8aVU5CYxscWdVOyXQ4j4SO84P/jE3nZgy5ggFf9ihWoXBayGXpDFVQFa6YwLctM9LrEmUJg4C3DhHjhfnxbE3d/9Piym5SuXTHUn3vo59q5H2DM5lqDdObQ46VbtSVBkkRAvMZIRgno+NszRMCfSYccsvjBlV5g/ZbrMd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KuMJ5Dgy; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1718251315; c=relaxed/simple;
+	bh=sWBY3LrLcq0EbMD4APgstnvO536wRx3JuhcFPrcKbOI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CVznvZ34fJdpKguwGivyEI4yr6eUgfB3Rd2byhwjYxcWeoBt+P960onF6C2ny4G7VLA2bqxTLzrK9vWXQpJLEgKBiIQ0dQxzTh+446WOEmNNCuguIJ/Mti7stnxeUkxmkmYKs4N+EDZuCm90tlFkVMEBX6nGPrhIQCR7wVRbKiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CWvoIfL8; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KuMJ5Dgy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718195010;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PdzBGLvrrxci10HIPotHVoTIBoG+XWs8478Qn9OtSp0=;
-	b=KuMJ5Dgy1MmjuKgbGuU3oYtliR1lFX4+ycUgxkl1YuAwRb/vBVaAdNr26yjb0SYCx3G1aG
-	G287Wz8csIkI3vK40RsNuKVAtNOhlspTQ3leU0ZLk0AEFT3JXOkEeaJJDQwrzZHsSOrk5h
-	TJayvq38Ruyt3uXA9hNvQnD09H7D+Ng=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-620-qioNZxAWOdeidaZ_G1ZdEw-1; Wed, 12 Jun 2024 08:23:29 -0400
-X-MC-Unique: qioNZxAWOdeidaZ_G1ZdEw-1
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-42183fdd668so22316265e9.2
-        for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 05:23:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CWvoIfL8"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-6e4e6230f42so417295a12.0
+        for <virtio-comment@lists.linux.dev>; Wed, 12 Jun 2024 21:01:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718251313; x=1718856113; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mJaDSa797MY17nS4a5if7Rb6JlRlk5uXJ+GCNVQhL1w=;
+        b=CWvoIfL8LbnzXAp8Qbn6jpiF+IF3fU/KvguezV7C7aHNHzNH5RQ2GgVkOvlOLpX/Yg
+         5N9UaQRBMLtV4H7qadPwEWyCoGOVRNH+cHRJGrXr/gsWlTi+/IahqNq9iX5lqLJqt8wJ
+         OYPXA5PGZ1tRQKJGsWRVd6HYLnHDml2EJ7ZJdRgPTFUGffTB8XHz6BnmjJEeI7hHDVTL
+         4tKF1dtQe6oZu+2QukZzrbZ255v3ixWGtyelX2f5ZteVaxXtd9wq+OshYMu2hSpctqcf
+         v7C59/bcND/g/2uio4PL/XyadG97fgnVYI+wtdrd66us3fcpMrD7x17yP4Igy+G44fN+
+         ehPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718195008; x=1718799808;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PdzBGLvrrxci10HIPotHVoTIBoG+XWs8478Qn9OtSp0=;
-        b=Wr57U7RRp7WyLFqElGhcVTeq0O40/8LJKvYTpiGdrQ8qSoGopP4DuAOMuI16VNGH2+
-         /IKVjglJTMkMXQJUnG5N6p/W6Ty/gpeNh8ukYYeE3tpasVePnQAvM0GF0czvUkfZ486F
-         8C7LyBZ0BcTjgJcKDqyAp126DNAZ0+rk8zfS4r1bmBgUKNcEHxAmZoW8qHk+yo7t0xN/
-         O9afgYhY3V0wx1Lyb6tj6aDZnsFmUvijNruPn54y/OScjllyDgEFB9Mo27AO4zKLx718
-         OPi1/cdBaXwObvNWE0X3uveR1zqagSLZS8+ZPnW7CGQPJ39FUrJJOsPbnEk6tyhbBYSv
-         DcMw==
-X-Forwarded-Encrypted: i=1; AJvYcCX04KPZ4Cr+9521FwQqSaD4efbafA3EeyX8IHo9W0VakxQVB+nGFEM1KuJs6jnqw6Yq9sAybnfzGlDnNJsKkICY0gk8gBX6kLSW/8nj3LQ=
-X-Gm-Message-State: AOJu0Yw8uAReOJrhCI8j48vAwXkxZYp+Ta+TnPAbY3YZDvX7nxDBTzuu
-	GSBxuofb3zqpvnUUd8MbhYx2nsAtCOEipNOhMSSdKUgM1QB9SLxR90o+1BnyvANCgulG9Qw8hKw
-	7J3jJGxZ/H4matkMUy9sN904+KM2RQDJyBVUZdWq/bI0fJwrTpRpWhYHfrYSMyf3a
-X-Received: by 2002:a05:600c:154e:b0:41d:d406:9416 with SMTP id 5b1f17b1804b1-422866c53f7mr14368605e9.34.1718195007859;
-        Wed, 12 Jun 2024 05:23:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHckNfhYNn8vfFjzqbQGi63S7X2u3ZY6PuUGzksnVDx+mwzG5tWPWKPbdf8Xy2fcv0Rq00dvQ==
-X-Received: by 2002:a05:600c:154e:b0:41d:d406:9416 with SMTP id 5b1f17b1804b1-422866c53f7mr14368355e9.34.1718195007337;
-        Wed, 12 Jun 2024 05:23:27 -0700 (PDT)
-Received: from redhat.com ([2a02:14f:178:39eb:4161:d39d:43e6:41f8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-422871ebf7bsm25145355e9.36.2024.06.12.05.23.25
+        d=1e100.net; s=20230601; t=1718251313; x=1718856113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mJaDSa797MY17nS4a5if7Rb6JlRlk5uXJ+GCNVQhL1w=;
+        b=nKtU7sFyX5UV07fgiJWUTSN0yosqG5yqVexCBwntk78aPUlqHEvPxMY9VhcufIPRDR
+         VU4nOcaYvchmzXn4GLe7fu5+Q0xwWT8+KgU5cFiABfDXcEaUwlANVxhuZ4uSXVXNJuJO
+         cAYnbdV3eF9OJ2mVoZ7bSVvsB3gJSle20bLLczSePsqAXa2h3H9I7RiNIlE5pJRmJy+s
+         jb6c7xaHrAvBmOkvZkEQDJLU7k5RIkfnBKn48Gcn39V1f1wA2fYwYfz9A4DvAEPFL7U0
+         /sAkp10GKcWtGo+4rjP15Vcy33eavFlzW+j+Aliuukj+UmzA2xEzhu/cwPyoTOyV4jxR
+         OOHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUauRLJHtVVdg4fbmRdAfCDYfDa9jD9JRtGFvO6YAKeo7xDus7BtIiyVLI1UN5fIBwfD3L8dSlS5G+f41mIALTwbfvg3keJu0dho5ZsT84=
+X-Gm-Message-State: AOJu0YyR48yvfw2r4YL0HAs/g3YBMrY/nYw3xaWJ8AJVz21tSbWFZSC3
+	+7k8+hAot+V9icNQnVwM3SOsGVunAuzLOlW3ppG9lcZAfybzIlfxsJoiYp4zLKtoDg==
+X-Google-Smtp-Source: AGHT+IFJBeE36n5k3y3gqiEAOK2Fj9UQA5/4dragsMOeIyx4nO5HPXjyyBJM3YumzuHRvFqHyWBPEQ==
+X-Received: by 2002:a17:90a:928c:b0:2bd:801f:dabd with SMTP id 98e67ed59e1d1-2c4bd79faebmr2291564a91.3.1718251312781;
+        Wed, 12 Jun 2024 21:01:52 -0700 (PDT)
+Received: from devant.hz.ali.com ([47.89.83.81])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2c4c45f8949sm466909a91.34.2024.06.12.21.01.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Jun 2024 05:23:26 -0700 (PDT)
-Date: Wed, 12 Jun 2024 08:23:23 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Zhu Lingshan <lingshan.zhu@amd.com>
-Cc: Cornelia Huck <cohuck@redhat.com>, jasowang@redhat.com,
-	virtio-comment@lists.linux.dev,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	David Stevens <stevensd@chromium.org>
-Subject: Re: [PATCH v5] virtio: introduce SUSPEND bit in device status
-Message-ID: <20240612082055-mutt-send-email-mst@kernel.org>
-References: <20240607074246.7647-1-lingshan.zhu@amd.com>
- <87zfrskcmq.fsf@redhat.com>
- <3e7b83f0-541b-4878-a1c5-4405b2a9e075@amd.com>
- <20240611122132-mutt-send-email-mst@kernel.org>
- <4e53d29a-9a69-41a5-a91e-1b66db6697d9@amd.com>
+        Wed, 12 Jun 2024 21:01:52 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: sgarzare@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	hi@alyssa.is,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [RFC PATCH 2/2] virtio-vsock: Extend the spec with an `order`
+Date: Thu, 13 Jun 2024 12:01:36 +0800
+Message-Id: <20240613040136.2497504-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <oxfm5jjjim3tv6q22o4mr2oidz4yljjs4lmadcccfbkdlrudrp@fo7wkwb2p3up>
+References: <oxfm5jjjim3tv6q22o4mr2oidz4yljjs4lmadcccfbkdlrudrp@fo7wkwb2p3up>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <4e53d29a-9a69-41a5-a91e-1b66db6697d9@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 12, 2024 at 05:53:56PM +0800, Zhu Lingshan wrote:
+> >> >Add a new field, named `order`, to the `virtio_vsock_config`.
+> >> >
+> >> >There are two questions about the field that are valuable to discuss:
+> >> >
+> >> >(1) Do we really need the `order` instead of a `default_device`?
+> >> >
+> >> >IMHO, the answer is yes.
+> >> >
+> >> >The `order` is more generic than the `default_device`. The device with the
+> >> >lowest order is the default device. Moreover, the `order` field determines
+> >> >the sequence of devices in the list. The device list is the same every time
+> >> >the system starts.
+> >> >
+> >> >The device with lower order means it is more important. Also, it means it
+> >> >has more likely to be used. Those devices are placed in the front of the
+> >> >list for performance purposes.
+> >>
+> >> This is an implementation details IMHO.
+> >>
+> >> BTW perhaps the biggest point in favor of `order` IMHO is the fact that
+> >> this works very well with hotplung/hotunplug, since if we add at runtime
+> >> a device that is to become the default, we don't need to change the
+> >> configuration of the previous device.
+> >
+> >I'll rework on this. BTW, shall I add this to the document? Currently, they
+> >only exist on the commit message.
 > 
+> Maybe yes, what about adding a new paragraph to describe the 
+> multi-device support?
+
+I'd like to add some descriptor after "\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.":
+
+\begin{description}
+\item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+\item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+\item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.
+It allows to enable multiple backends, e.g. virtio-vsock, vhost-vsock, etc.
+The isolation of virtqueues benefits from this feature.
+\end{description}
+
+Is this ok?
+
+> >In addition, I think "index" is a more proper term than "order". So I'd
+> >like to rename it in the next version.
 > 
-> On 6/12/2024 12:26 AM, Michael S. Tsirkin wrote:
-> > On Tue, Jun 11, 2024 at 04:20:42PM +0800, Zhu Lingshan wrote:
-> >>
-> >> On 6/11/2024 12:04 AM, Cornelia Huck wrote:
-> >>> On Fri, Jun 07 2024, Zhu Lingshan <lingshan.zhu@amd.com> wrote:
-> >>>
-> >>>> This commit allows the driver to suspend the device by
-> >>>> introducing a new status bit SUSPEND in device_status.
-> >>>>
-> >>>> This commit also introduce a new feature bit VIRTIO_F_SUSPEND
-> >>>> which indicating whether the device support SUSPEND.
-> >>>>
-> >>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> >>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-> >>>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
-> >>>> Signed-off-by: David Stevens <stevensd@chromium.org>
-> >>>> ---
-> >>>>  content.tex | 69 +++++++++++++++++++++++++++++++++++++++++++++--------
-> >>>>  1 file changed, 59 insertions(+), 10 deletions(-)
-> >>> Can you please add a changelog? Especially as some of the previous
-> >>> discussion has been lost due to the broken old mailing lists...
-> >>>
-> >>> (...)
-> >> will add change log in next version.
-> >>>> +\drivernormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
-> >>>> +
-> >>>> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
-> >>>> +
-> >>>> +Once the driver sets SUSPEND to \field{device status} of the device:
-> >>>> +\begin{itemize}
-> >>>> +\item The driver MUST re-read \field{device status} to verify whether the SUSPEND bit is set.
-> >>>> +If not, the device does not support the SUSPEND feature.
-> >>> That sentence is a bit weird: I'd expect the device to not offer
-> >>> VIRTIO_F_SUSPEND in the first place in that case... could this rather
-> >>> happen if the device is not able to handle the request at a specific
-> >>> point in time?
-> >> Yes, this can be improved
-> >>
-> >> How about:
-> >> If not, this indicating the device is not able to handle SUSPEND at the moment.
-> >
-> > I don't get what this means, agrammatical and vague.
-> > Please make it explicit. Do you mean if driver reads
-> > status and SUSPEND is clear then devide failed to
-> > enter suspend state? Might be problematic: time to 
-> > suspend might be quite high.
-> I think this is a common problem how the driver handle changes of the device status.
-> Even without this SUSPEND feature, spec section 3.1.1 Driver Requirements: Device Initialization says:
-> “Re-read device status to ensure the FEATURES_OK bit is still set: otherwise, the device does not support our subset of features and the device is unusable”
-> Other status changing may also be costly, so how long should the driver wait for the device responding to status changes?
-
-The driver does not wait with FEATURES_OK. It does a single write
-followed by a single read. If it sees 0 there, then these features
-do not work.
-
-
-> This currently depends on the driver's tolerance.
-> What should the driver do when overdue? Shall it reset the device or set FAILED?
-
-Actually drivers in the field can and do change features and try again,
-that is also an option.
-
-> I think the device should either SUSPEND successfully or set NEEDS_RESET, but maybe not a good idea to set a time-out in the spec,
-> the driver can set FAILED or just reset the device if the operation exceeds the tolerance in pulling.
+> Yep, I agree.
 > 
-> Any suggestions?
-
-Seems ok to me.
-
-
 > >
+> >> >Last but not least, the `order` represents a sort of priority, which might
+> >> >be used in the future. For example, assuming that if there are two devices
+> >> >that are eligible to be used, the kernel will return a device with higher
+> >> >priority.
+> >> >
+> >> >(2) Why is the type of the `order` `le16`?
+> >> >
+> >> >The maximum number of devices, in the implementation on the kernel, is 16
+> >> >for performance reasons. The users could compile the kernel to support more
+> >> >devices. The type of `le16` supports up to 65536 devices, which is enough
+> >> >to cover most cases.
+> >> >
+> >> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+> >> >---
+> >> > device-types/vsock/description.tex | 16 ++++++++++++++++
+> >> > 1 file changed, 16 insertions(+)
+> >> >
+> >> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+> >> >index 3fbc02a..dc3bd66 100644
+> >> >--- a/device-types/vsock/description.tex
+> >> >+++ b/device-types/vsock/description.tex
+> >> >@@ -58,6 +58,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >> > \begin{lstlisting}
+> >> > struct virtio_vsock_config {
+> >> > 	le64 guest_cid;
+> >> >+	le16 order;
+> >> > };
+> >> > \end{lstlisting}
+> >> >
+> >> >@@ -83,11 +84,26 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >> > \hline
+> >> > \end{tabular}"
+> >> >
+> >> >+The \field{order} field is required while the multi-device feature is
+> >>
+> >> We should use the feature name, so something like: "is required if
+> >> VIRTIO_VSOCK_F_MULTI_DEVICE feature is negotiated."
 > >
-> >>>> +\item The driver MUST NOT make any more buffers available to the device.
-> >>>> +\item The driver MUST NOT access any fields of any virtqueues or notify any virtqueues.
-> >>> "send notifications for any virtqueues"?
-> >> OK
-> >>>> +\item The driver MUST NOT access Device Configuration Space.
-> >>> ...except for the status field, if it is part of the config space?
-> >> Yes, that is the original design, then I am convinced that the status fields is
-> >> not a part of the config space because it has a dedicated section in the spec.
-> >>
-> >> I will add this sentence in the next version.
-> >>>> +\end{itemize}
-> >>>> +
-> >>>> +\devicenormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
-> >>>> +
-> >>>> +The device MUST ignore SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
-> >>>> +
-> >>>> +The device MUST ignore all access to its Configuration Space while
-> >>>> +suspended, except for \field{device status}.
-> >>> ...if it is part of the configuration space.
-> >> Yes
-> >>>> +
-> >>>> +A device MUST NOT send any notifications, access any virtqueues, or modify
-> >>>> +any fields in its configuration space while suspended.
-> >>>> +
-> >>>> +If SUSPEND is set in \field{device status}, when the driver clears SUSPEND,
-> >>> "subsequently clears SUSPEND"?
-> >> I am a native speaker, but "subsequently" sounds like clearing SUSPEND right after "setting SUSPEND", I guess there can be
-> >> some operations during SUSPEND.
-> >>
-> >>>> +the device MUST either resume normal operation or set DEVICE_NEEDS_RESET.
-> >>>> +
-> >>>> +When the driver sets SUSPEND,
-> >>>> +the device SHOULD perform the following actions before presenting SUSPEND bit in the \field{device status}:
-> >>>> +
-> >>>> +\begin{itemize}
-> >>>> +\item Stop processing more buffers of any virtqueues
-> >>>> +\item Wait until all buffers that are being processed have been used.
-> >>>> +\item Send used buffer notifications to the driver.
-> >>>> +\end{itemize}
-> >>> So, is there any opportunity for the device to fail setting SUSPEND? I
-> >>> mean, if the driver is supposed to look whether it sticks, there should
-> >>> be conditions for when the device might clear it again...
-> >> The device should not present SUSPEND bit in the device status until it is suspended,
-> >> so I am afraid there is not a SUSPEND bit to clear if the device fails to suspend itself.
-> >>
-> >> I think there can be two indications of a failed suspend:
-> >> 1) The driver sets SUSPEND, but the device does not present SUSPEND after a while, depends
-> >> on the driver tolerance, the driver may assume it is a failed SUSPEND, like how we handle FEATURES_OK
+> >It will be updated on the v2.
 > >
-> > This is not how we handle FEATURES_OK.
-> setting FEATURES_OK may not always be successful and can take longer time than expect. What should the driver
-> do when the pulling re-reads does not return FEATURES_OK?
-> >
-> >> 2)The device runs into errors, presenting NEEDS_RESET.
+> >> >+enabled. A list is used to organize devices.
 > >>
-> > More reasonable.
-> OK, so the driver should re-read the status, it should see either SUSPEND or NEEDS_RESET, this works for me.
+> >> This is an implementation detail.
+> >>
+> >> > The field is used to determine
+> >> >+the order of the device in the list.
+> >>
+> >> I think we should not talk about a list, because that seems too close to
+> >> implementation, but focus on the meaning we want to give to the
+> >> ordering. For now I think we can only talk about the one with the
+> >> smallest value being the device used by default.
+> >
+> >Ok. These will be removed.
+> >
+> >> > The device with the lowest order is
+> >> >+the default one when no CID is specified.
+> >>
+> >> "no CID is specified" in which case?
+> >
+> >I'll elaborate a bit more about the case in the v2.
+> >
+> >> >+
+> >> >+The rules are:
+> >>
+> >> "The rules" for what?
+> >
+> >The rules is for the new field "order". I'll update it on the v2.
 > 
-> Thanks
+> Yep, I think we should be more clear on what the rules refer and who 
+> should respect them.
+> 
+> Thanks,
+> Stefano
 
-Or neither to mean "suspend in progress"?
+Okay, I'll update them.
 
-
-> >
-> >>>> +
-> >>>>  \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
-> >>>>  
-> >>>>  Virtio can use various different buses, thus the standard is split
-> >>>> @@ -872,6 +917,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-> >>>>  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
-> >>>>  	handling features reserved for future use.
-> >>>>  
-> >>>> +  \item[VIRTIO_F_SUSPEND(42)] This feature indicates that the driver can
-> >>>> +   set SUSPEND to the device.
-> >>> "that the driver can trigger suspending the device via the SUSPEND flag"?
-> >> Yes
-> >>>> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
-> >>>> +
-> >>>>  \end{description}
-> >>>>  
-> >>>>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
-
+Thanks,
+Xuewei
