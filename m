@@ -1,463 +1,234 @@
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (mail-bn8nam04on2064.outbound.protection.outlook.com [40.107.100.64])
+Received: from mail-out-4.itc.rwth-aachen.de (mail-out-4.itc.rwth-aachen.de [134.130.5.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C119113CFB7
-	for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 09:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.100.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718272072; cv=fail; b=BFozAzDu6Ud2STqk0jDLuMxxEAkti0JkG6K7NCVnrvgW+LBUBmsr2vd+OBV8Q9sybnOphQguFxMZTdrC2d8C0DdfZ2hh9kXhJ3CD/mweo4BGBDY1wzYd2SJCAN4VVp19FEMu3y2KF0GxZqXaNDKHph5SOtbftMi/LiUJsO63Rx0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718272072; c=relaxed/simple;
-	bh=uxUhR5uRJQWvPJhq36eWdd7yjO8sS1c4XgN+8rkdwj4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=oxRnCX2j1zxT3pV2MxfnU6PMuUsDAvztg1qq9C+t3JGm4bom+dPKGUj31qkc75YN0MCDzdAf/NMI7u2Swy7Cf21ALURFasSoaJ6BU0zhaOrZzThViml7WNcPG8+6Q8GTT2GU/XO3t5nGqvE9nBrBCCpcP7PW2WOLrYhCM511J88=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WyB673I4; arc=fail smtp.client-ip=40.107.100.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB1D140396
+	for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 09:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.130.5.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1718272483; cv=none; b=NtdknlRxSEqXUGF2LxQdWCYHxoXrlQR8LWEXg77dzqvTXHWtRBP1ds94+LPEwoce9msLNBSKY2PNC0yHWrGVCCOuvWZ6UOLFuw35ZMBHU9R5PUIGVk0I3oU6VS0SVXGegp+qOyuAAsTtjiBJUivFRXF7uAAer/vo0UuWAUHeePQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1718272483; c=relaxed/simple;
+	bh=lyR2ti8eC3vKxihBEdYWIeDzQNta2eHD5grhgrE/FD8=;
+	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=sPxilES/logi0HZeQmfbh6FnKy+pyKKl38e4eX94Q0SqwucrJ8EGd+ouDGgH31+LMex/43WDXU00M5yNAA8PNPixpZvUobIt/XAim46wppW7vgy02YfzzSocmdPScUkdePqxubKKJSOmMOuKPlOFzTcwm014oaoQ/gjQ9Jw9XRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eonerc.rwth-aachen.de; spf=pass smtp.mailfrom=eonerc.rwth-aachen.de; dkim=pass (2048-bit key) header.d=rwth-aachen.de header.i=@rwth-aachen.de header.b=FBAv70td; arc=none smtp.client-ip=134.130.5.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eonerc.rwth-aachen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eonerc.rwth-aachen.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WyB673I4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=juBz+F3wu6ToDaka7NYUQrwWwHcFwyMccA3i/oPtPSwHrUSwhExtjnv23D5O1nLoQZsmKJnrxjQkjJXp93Hx9oDRfJ8bZ5wliwbyiik8F9UhjpPD+sVGGO4T0K0zam1aJefMSAEd4TcmO6snBOIpwvnTLqqGv66itsoQ0NDCBer3nZbTDB8NUomBvfxYxnPDoktruZyQi3Tpghw14A8azlU28OeMbGkgr249eu1WhR5ZxpbJRsHhW7pf+ZMgoMBeT2xKi0JZ20DsNfWSoNIrph+FdQW70eSMMJVdaubU0Tuj5/fMFg1xl+xegM1TvYw9Fl4/gasnZPqbhEOTV4EQhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lbG0OvYLahk35gaCvYsBiRz7WSMbprmGf4f6zgncoPg=;
- b=Lqy3O60wuK1SW2PF498O015RldH9nATUUM4Vv4cdyPsx9yF3xCfYyH4XixjXgVHFLd3KK/TR8Ab0+krj5aZg+LkamnHCsIt11f6DEUC8a2NCvglSBLYxyBI/5F5BJXt07DPREnYNbSK25xLwSp0Ex06yiz7aysGWJ9qHj1qZQ3k3cz7/ULvjk9VurgVTg8NrEFcRH7oRfs9ULI2OP0oR6UsV7dY1DXthAjarIKDh46qdAPXrNPxW3P/BuHxWRQ8Q46aYm/VXVhqyw2s6C96IXfLuuqBDOzjtzoZk2nncqS5mI5+rAxbzxZWpg5UMyNiVAftEZsNgsBIJdol9cx3BDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lbG0OvYLahk35gaCvYsBiRz7WSMbprmGf4f6zgncoPg=;
- b=WyB673I4DTHby06xgpDxUiWby0CvzRNlK/mk7IkFewXw9XFGmpI/rXimp5yFo17RBovqOJ7Uo3LQoMhI9aqglyTzX4goYXHv5nwoEZiE5LHaYjH7etydXU327whjQoFnrDekMX9ZVih2nBI/uFMQ18VgOf+85LH6hA/E8Y/1WoU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by DM4PR12MB6662.namprd12.prod.outlook.com (2603:10b6:8:b5::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.37; Thu, 13 Jun
- 2024 09:47:45 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%3]) with mapi id 15.20.7633.037; Thu, 13 Jun 2024
- 09:47:45 +0000
-Message-ID: <47c25aa4-8f79-4aee-a4cb-460c3a5d687a@amd.com>
-Date: Thu, 13 Jun 2024 17:47:36 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] virtio: introduce SUSPEND bit in device status
-To: Parav Pandit <parav@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
- "mst@redhat.com" <mst@redhat.com>, "jasowang@redhat.com"
- <jasowang@redhat.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- David Stevens <stevensd@chromium.org>
-References: <20240607074246.7647-1-lingshan.zhu@amd.com>
- <87zfrskcmq.fsf@redhat.com>
- <PH0PR12MB548111206A0EEB7EE62421FADCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <3319f7da-5c1f-48ff-916d-03791edf1783@amd.com>
- <PH0PR12MB548190E2CCAED2E01410F79ADCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2657c74f-1caa-4e5e-b767-b16e059247ae@amd.com>
- <PH0PR12MB548198E64803B0A7D9389E9FDCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <2f9636c7-06ca-49ec-ac86-f8a2f1f97b4f@amd.com>
- <PH0PR12MB54813032E8F5B0DA32BA1B23DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
- <e25f93cd-baa3-4a54-bf9c-1fc27fa95c41@amd.com>
- <PH0PR12MB54818F69437BBA6D533ABAF6DCC02@PH0PR12MB5481.namprd12.prod.outlook.com>
- <395ddde1-f8e9-4b6e-bf90-2f9c42406366@amd.com>
- <DM8PR12MB54804F81E1673C09213A4302DCC02@DM8PR12MB5480.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=rwth-aachen.de header.i=@rwth-aachen.de header.b="FBAv70td"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=rwth-aachen.de; i=@rwth-aachen.de; q=dns/txt;
+  s=20240516-RWTH; t=1718272477; x=1749808477;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   mime-version;
+  bh=lyR2ti8eC3vKxihBEdYWIeDzQNta2eHD5grhgrE/FD8=;
+  b=FBAv70tdRtz8EZkzikPIp8stt7CD2hpxwEacCjhRX34y7xCRrtlHrfXl
+   7hFcbu88Nj2s+PUCJVYgOlSN2SYV3Pqjnk80b4bvJL05cZ74xq3rvahe/
+   41IXvIQl2YDk0yNOD+Ubt2Y3jGT6c1YLWKDBoejyk6zfluk0euuSRtKfe
+   84IZUENJOew8VfJ9kYgAUcif6FEaQj4U1K0f847ASuz1ajcgyXW4hfuNr
+   JyGwaogm7a3W+XFb8uu69+8n4aQrm4SZT12i7FoYkEtzQVLdcE/nURlAg
+   jAwLVIOxnorrnu311JpmuJ/z7iTkI5/e1DcgJsfQzGIPTt/NVoluGeN9U
+   w==;
+X-CSE-ConnectionGUID: q1mELc2nRb6TLMc+OBzJOw==
+X-CSE-MsgGUID: blkWe7onT9qbx+1Irusczg==
+X-IPAS-Result: =?us-ascii?q?A2AiAwC6wGpm/58agoZaHAEBAQEBAQcBARIBAQQEAQGCD?=
+ =?us-ascii?q?4M+Ai6BNh2EOJwPjg+HWQ8BAQEBAQEBAQEEBAE5CwQBAYUGAohtKDgTAQIEA?=
+ =?us-ascii?q?QEBAQMCAwEBAQEBAQEBBgEBBgEBAQEBAQYFgR2FL0UBDIZaBiNmAgEIQgICA?=
+ =?us-ascii?q?i8lAgQTDoJyAYJTERSqAIEygQGEetl5gRoKBoFIgVeGWgGBUwaCfIEkhEOCD?=
+ =?us-ascii?q?EOBPA4Ngmg+gmEChTs6gi8EmViYKlSBdSETAVUTFws+CRYCFgMbFAQwDwkLJ?=
+ =?us-ascii?q?ioGOQISDAYGBlk0CQQjAwgEAxAyAyBxEQMEGgQLB3eBcYE0BBNHgTeJbwyBe?=
+ =?us-ascii?q?4E0gXInhBlLbIQEgWsMYYgLY4EQgT6BZgFOgR6BaEyDNR1AAwttPTUUG6cJL?=
+ =?us-ascii?q?4EUgS2FJSACgXLGJQeCNl2BA4ZWgy6CC5U8BC+DcgESjQCGQ5JxLodYkF8gj?=
+ =?us-ascii?q?VaaagIEAgQFAheBfIF+cXkBgjxSFwIPkhvHe3gCOQIHAQoBAQMJgjmHEwGBG?=
+ =?us-ascii?q?wEB?=
+IronPort-Data: A9a23:YPsyc68ZHZtzlIkLo2LpDrUD0H+TJUtcMsCJ2f8bNWPcYEJGY0x3n
+ WcYDD+GPPiNYTT8eoglbdvi9E8B6p6BndJjTVc4pC9EQiMRo6IpJzg4wmTYYnnOdJ2TFCqLy
+ +1EN7Es+ehtFie0Si+Fa+Wn9T8lk/nTHtIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwa++3k
+ YqaT/b3Zhn9i1aYDkpOs/jf8E025qyp0N8llgVWic5j7Qe2e0Y9Ucp3yZGZdxPQXoRSF+imc
+ OfPpJnRErTxpkpF5nuNy94XQ2VSKlLgFVHmZkl+B8BOtiN/Shkaic7XAtJBMxsN22XR9zxG4
+ I4lWZSYEW/FN0BX8QgXe0Ew/ypWZcWq9FJbSJSymZT78qHIT5fj6+w3CWwSNtcewOwpPUVr/
+ r8/AiIvSQ/W0opawJrjIgVtrt48MMnmLMYA4DRqiyvGEfZjSJyFT6iiCd1whWxswJkVRbCEO
+ YxANGsHgBfoOnWjPn8SAYgineHuhWP4fjtZrl29qK0x7nLYihZuzLioOdPeetGMA8lY9qqdj
+ jicozulWU9HabRzzxKP9nGTi7DImx+qQYgCV+SZ7ONxi0+ckzl75Bo+EAHTTeOColC/Qc5eL
+ Akf/S8roK4u3EiqVcXmGRm5pmOU+BIRRbJt//YS8h6RyqfEphnDQ2JCVCFdaJkvuIk6SFTGy
+ 2O0oj8gPhQ32JX9dJ5X3u78Qe+aUcTNEVI/WA==
+IronPort-HdrOrdr: A9a23:h6iMUq7ZMOpnwEd6rAPXwObXdLJyesId70hD6qkoc20wTiXqrb
+ HIoB17726PtN9/YhEdcLy7VZVoBEmskKKdgrNhQItKPjOW21dARbsKheCJ/9SjIVydygc378
+ hdmt1FaeEYemIVsS+V2mWF+p0bsb+6GeiT9J7jJz0Gd3ATV0hP1XYDNjqm
+X-Talos-CUID: =?us-ascii?q?9a23=3AdgSUuGpr9J1X7O3kGOTG4v3mUdl8d1D5xy3WGUX?=
+ =?us-ascii?q?mNUJMQ/6yY02y37wxxg=3D=3D?=
+X-Talos-MUID: 9a23:FQNc8wrmmS0z8rhkircezztmN/hlvKOoNBEUm4VF4uieKDd7KTjI2Q==
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.08,234,1712613600"; 
+   d="p7s'346?scan'346,208,346";a="224743655"
+Received: from rwthex-w2-b.rwth-ad.de ([134.130.26.159])
+  by mail-in-4.itc.rwth-aachen.de with ESMTP; 13 Jun 2024 11:53:25 +0200
+Received: from rwthex-s2-a.rwth-ad.de (134.130.26.154) by
+ rwthex-w2-b.rwth-ad.de (134.130.26.159) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 13 Jun 2024 11:53:24 +0200
+Received: from rwthex-s2-a.rwth-ad.de ([fe80::9e0:8e94:8a31:2f0b]) by
+ rwthex-s2-a.rwth-ad.de ([fe80::9e0:8e94:8a31:2f0b%4]) with mapi id
+ 15.02.1544.011; Thu, 13 Jun 2024 11:53:24 +0200
+From: =?utf-8?B?S3LDtm5pbmcsIE1hcnRpbg==?=
+	<martin.kroening@eonerc.rwth-aachen.de>
+To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+Subject: RE: [PATCH] virtio_pci_cap64: specify offset_hi, length_hi endianness
+Thread-Topic: [PATCH] virtio_pci_cap64: specify offset_hi, length_hi
+ endianness
+Thread-Index: AQHauBJ8+HRQ74qmmEeQIJSslq1JZbHFfumA
+Date: Thu, 13 Jun 2024 09:53:24 +0000
+Message-ID: <8AFB12E4-1E49-4F5B-899F-E5F10BF78AC3@eonerc.rwth-aachen.de>
+References: <DF89BB0F-6BA4-4DAB-AEC3-03AAF858EC8E@eonerc.rwth-aachen.de>
+In-Reply-To: <DF89BB0F-6BA4-4DAB-AEC3-03AAF858EC8E@eonerc.rwth-aachen.de>
+Accept-Language: en-US, de-DE
 Content-Language: en-US
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-In-Reply-To: <DM8PR12MB54804F81E1673C09213A4302DCC02@DM8PR12MB5480.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2PR02CA0114.apcprd02.prod.outlook.com
- (2603:1096:4:92::30) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+user-agent: Microsoft-MacOutlook/16.86.24060916
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+	micalg=sha256; boundary="B_3801124404_1859993451"
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|DM4PR12MB6662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bccc44f-943b-48db-cbcb-08dc8b8de03a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230034|376008|1800799018|366010;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?R2wzeUtyQWovVEt2TmVOMm10UGZoK0VHOVE5Y3JEa3hQRVJaaGJCQnlEMXgx?=
- =?utf-8?B?K0VDN3dKV0hxd0dIeUlMVyt6NUY0NndGbWxqR0psV3FuMm9ONVI5eTR6MXV6?=
- =?utf-8?B?dDhUN0dmZkVSZ3FKaXpCbXloYktva3BqTVM3eXFUdi9xOTNwaExCbkpRVWVr?=
- =?utf-8?B?WG5Sczc0MlFyby9vcjg5cUpXWUtlaVVrSWVhWnVxVnNXeFFXM2hPR3hDdUZi?=
- =?utf-8?B?VGRheGpTenV6STFEdlpTZG1YMXJ6SnFERWNra3hQNS9tWDhuSVFNdUwrdWFO?=
- =?utf-8?B?RGpmaWV2V2JMYVlhWjZ4ZG94TGFmd2lOLzlnN3VOL0JEWk5nWWJqMjY0K3Np?=
- =?utf-8?B?bklzajcwOUc2UXVwNnlOdS93aUxZTFRFR0JueERMTmwyQ05PRjNXMmJPa3R4?=
- =?utf-8?B?dENWbTFBTE8zK1NLQjlrNVFBd2k1YmJWZmp1RDBIaWhRdGloQzBpeXRzT1lB?=
- =?utf-8?B?K0NsVk8yejdPbFdjdzNvWjVQMmxVajJPejNjanpsWjZPN3lsT1JiWGk5VHRS?=
- =?utf-8?B?QXR2MnV6SVN2NTJPM25UTFliWldDUjllTzRvWlR1T3lCa2tvRDk2NkxaSDV3?=
- =?utf-8?B?SmtKTkYxMWJ1Y3VmMUlDbmpZT2xBSm54V28vM1I3b1hORWRBRkZINUhFbEwy?=
- =?utf-8?B?YStNd2k5VXlaWTlRMnZrSjNBanRhU0tPeDRMSzc2ajVHTWRrbnZtN09ZNTBC?=
- =?utf-8?B?Uk9kbFFWMXcwODkrb1JJV2hjQm9hKy85dVByQWg3SXAxampqNFozajFYVmx4?=
- =?utf-8?B?a0NLVnprSTBHbWFraHpuQWxWM0tWQ0JjdExzVSt0Rkx2aFFYaVR1OXhFSVFQ?=
- =?utf-8?B?azBSUEt0QVdKcjZ0clVkTGRsbkZoSklvK1lsNWJxTU1rZHZCK3dKcEZjNlFw?=
- =?utf-8?B?NlJpcUZ5YnZGT1hwc2Uzdi8xRFJITiswcWREYzY1MEpoWmJPeWhLWllCTDhk?=
- =?utf-8?B?MTRNTmJzenhsVEJJVUQwZGdMc211Wk9pdzBOQm9vY2UwZDFYR0wyRXh3M3lZ?=
- =?utf-8?B?dGtqamNCUmVNT0ZNVmIwSlBUREVUSWFralN5UHB3N3hydlhSR2NaZk12UWZt?=
- =?utf-8?B?V3dQdG9KbUNwVWlIVnFnRDdiQ0swbHhjZkk3c1dZa3F1SDN0TmcyRW5acDdN?=
- =?utf-8?B?amlvb2RpbWl2Sm5tOVgxVjZjcmhmTm9LVEVBS1dJY3N4Q3gxenFibDBVVGl6?=
- =?utf-8?B?TXBhVmdnY2U0QTF5NG9mbDRhWDdMSHBnUjFDTXp1Tmw2NHlkbU04ZERpL3FD?=
- =?utf-8?B?cW9OZi9xUFM3WXBkYlpNdjFVMXlxcHZTTlJSMWMzRmR6Y0o1TGxTTnVmZ0x4?=
- =?utf-8?B?QmliN2NxRUlIelRhc3hpVTVYUjNQMVBkZHhHdDIzUzl6Zk1TdVQ0M0V3TmZi?=
- =?utf-8?B?R0JHS2JGZnp4Q3NvVkV5b0hPWjQ4Y1RPMCtiQlg2WmRGQzIwc0Z4eUZHbTJP?=
- =?utf-8?B?RFArMWh6dFZqZVo1Nk1saTBxRUNmMVlYTFJGZTRBWFF2T1E1eHRuUXdwM2p5?=
- =?utf-8?B?dStJOHdwbzljVitIZ3duU2labmswemdNS2VoTVQvUk9mUTAzTjRzSVhNZ2VI?=
- =?utf-8?B?bldJSFR5cm1DdDhtT2Z6azFOTVlKU3J4R1lHb3FJR2Y2UkZrc0xObXVoVjVm?=
- =?utf-8?B?cExDVTZ3ZWV0aWw0emY1WkZ3aE9WMk9pbXlBZHFNeVdnTmlNbHFNYnNOb2dU?=
- =?utf-8?B?R0F2eHZjdXBKdWs3MzRpSFBNNzErMGlnTFJNNE1LS3JUYnNZYVdVellVSk9V?=
- =?utf-8?Q?1Nlm7lbeLYp9wZU9cs9ajrp25nEdNd4kTWn6Kt9?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230034)(376008)(1800799018)(366010);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZU5xellIMGZQeE8zY1FYcFExdXBJQndCTjBTN1U0eU15RHRQMU1tcisyMzQ5?=
- =?utf-8?B?TEsxeWpVcmdiYVlTdktPQ29TMnB5K2tNYTR4cUlOeDU3dkkzWHp2TjVxQ3Rx?=
- =?utf-8?B?d0xOazhOUHVzMFlaYU4yelhoNDRqMEFlYm51V2dSbGxSK1hwaWR5alg2Z2ln?=
- =?utf-8?B?NmtNYmR5ZlFueEkzdS9DcG93UCtKaDN5b3hYNnJlSTJUQkgyVzVoOHZTVmpL?=
- =?utf-8?B?Q3BkdithTjFQem1NOUxHYVNWUnBvNk8zNFpRUzRRR2RZdzk4WGlQMUgvNTVF?=
- =?utf-8?B?SzRXeVRFR3JiekVyaS9ZRXNXSXNXUmhUUnFsUHk2SXJqcjBuYjR3Q05rRlBs?=
- =?utf-8?B?THd2K3M1cVNqZWtvVm4vZnBHdFEyTXhzM0lyRE5XdlpZOUJ6NlcrZHMvelF3?=
- =?utf-8?B?NWoyQ0hQazFHRkU1TXVnbXlPSE0rQmhGeXJxQWtjTmt1UzdOSGlHaU1ISzQz?=
- =?utf-8?B?a1RoSXpJWUIwU1RERzIxUjFOR0RSOEJZYjVoeDNkMkZFMTdiWXVNYmdqSEVI?=
- =?utf-8?B?eTVnMU9CdndZUEY1d3Q3VDNaZWlwSVlZcnVOVlNlV3pSdUhiOWdlM0srVTBH?=
- =?utf-8?B?UTd1TkpmTjBUa0dxZ0pyOGpWQ1JiNDY3dFpKN1BSMUxQeVBlaE1OOUt0NERY?=
- =?utf-8?B?T0cwYlRMQm1TVElOTWYxUEZydmUyVVFJeGNhRm8rQ0NxM3NGY2tqK0lETnhu?=
- =?utf-8?B?MjNDZ0tuYmRMQmhVZHYwcjl1N3dBZUJEcitiVUZUWExIN3ZMenBlbTE2YUc4?=
- =?utf-8?B?d1U5UHMwYUNBVFE4clpMZndmMFdodkhJOTJmODZvTFNDcEJxM004MlJmaG5E?=
- =?utf-8?B?dzcyblVRRHFJRWFZYitpVDlkY2xCVWY0Qm8veWJIbm5VbkpYek9wbnd6T1R1?=
- =?utf-8?B?UWhKSld4a0R5TUpvYUo2cXpUM0M2MllJSEpROHZxL0hTbGl2N1RVZ3U3aDB0?=
- =?utf-8?B?cW95NUNsa1pxVlJ2SXlLM1hIbzFwUEMvS2VpT2hWTlJpZVNFZUZmelpQVzZk?=
- =?utf-8?B?TWczNnRUdjAzQlJ2K24vMitWR0lVV1htU0paL0lFaXZ0U251dEdjRkpERVBp?=
- =?utf-8?B?WjNtTHFjU2ErL3RxV2doNTBXeXJ1bEVndnIrMnlkMkE1V09UOFJQYzJ0TmVs?=
- =?utf-8?B?WGNaaFlhNzl3cFhQang5dGhpY1pIL0w1MlEwSFdWdC9JZU5yTkpSL29BekMy?=
- =?utf-8?B?UmpPQU1hcHQzZ3Y5RHBUbWlFN0IzT1MxZXdDZmdha2J3clR6Y3p3d2JMTWY2?=
- =?utf-8?B?MVQ1WklRM2hpNzgwQWlMMFRjVitHSGo0UjZzWDhHSEIwUU1SYTdyNGtGcEF5?=
- =?utf-8?B?TWVGd0szRzRqTHc0K1ovaE9pZUsrUTFNKzN4dXhOUGJUbCs0TFdvY1RUYlU3?=
- =?utf-8?B?VVAxNHVDbkNUcldoOUREdUtsSkppcWFqRHY5cVJyM1ppb3B2WmdrcXhmdm43?=
- =?utf-8?B?YkxWcUpYZjVpRjRDT2UxcVR5dVZxWGNPeWFJM3RPK2xQc2Q2c3k4UVFURlBT?=
- =?utf-8?B?SlhaSlJWa2k5d1RJODg0RTFLY20ydlBwS1c0NkprT2hna1BwdjFrL1NjTndi?=
- =?utf-8?B?VVBRai8zcFJJMHBxK0pUNUdzTmk2NFNGamhHOVd6TjMrUWNUZm9BcVBSRDFz?=
- =?utf-8?B?Z1EzV1dlRDNXQVdKcWZwcEFwL1hISTFDRVNBZHY3eXpIQmJkN0RoQXEydnZj?=
- =?utf-8?B?UG5CWDNobVdjblZSS1FKakdzM1lrVm5EVkdXRi9kRDhaMTBSME5BdlhnNWd0?=
- =?utf-8?B?OW9KUnBWWndKNFRYeDFVa3c5ak9GRStUaVVaeldORjE1WVBwdzFhVWh3T0Ey?=
- =?utf-8?B?QkxudlNCVGlnVHp2c09ueHArL3VQOGhxYnV5OGZ0YnRHdy8vWWl5YXlpdkps?=
- =?utf-8?B?Snd3SXlZdFJudnpnNzcyT1JKNmFaM3hXdkxhc2I0N0NLQ2VVL1Vkczc4bFhp?=
- =?utf-8?B?d0paaVhLd0QxYVNoTjNMRVVKTkxpcFJacUJYWFFmMWFxNGVYSHJqK1MvMHht?=
- =?utf-8?B?ZWRMRmRuSTViNnVweitLMVdkSHNJV3BZWFl4RDNINXdaR1A2a0oxUGFwOTdo?=
- =?utf-8?B?MDZIbnh6ckNjTmVIUjVmTjl0anRsSzdEcDVyejA2U0FhWDJyaVcwZkhtZ2JF?=
- =?utf-8?Q?YR0K9T3Kh/WwbiJCtnwMIP0ZN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bccc44f-943b-48db-cbcb-08dc8b8de03a
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2024 09:47:45.0950
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G9rdfFK1a9OHZb9w6umtFkJYi8KMCWHGAZo2T3vxjuyg4Zm2Mk6ZyvHamHR45XbpCKunw8cT5lFKpoaMozAOBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6662
 
+--B_3801124404_1859993451
+Content-type: text/plain;
+	charset="UTF-8"
+Content-transfer-encoding: quoted-printable
 
+Hi everyone,
 
-On 6/12/2024 7:26 PM, Parav Pandit wrote:
->> From: Zhu Lingshan <lingshan.zhu@amd.com>
->> Sent: Wednesday, June 12, 2024 4:00 PM
->>
->> On 6/12/2024 6:07 PM, Parav Pandit wrote:
->>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
->>>> Sent: Wednesday, June 12, 2024 2:50 PM
->>>>
->>>> On 6/11/2024 6:37 PM, Parav Pandit wrote:
->>>>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
->>>>>> Sent: Tuesday, June 11, 2024 3:42 PM
->>>>>>
->>>>>> On 6/11/2024 5:43 PM, Parav Pandit wrote:
->>>>>>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
->>>>>>>> Sent: Tuesday, June 11, 2024 3:03 PM
->>>>>>>>
->>>>>>>> On 6/11/2024 4:48 PM, Parav Pandit wrote:
->>>>>>>>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
->>>>>>>>>> Sent: Tuesday, June 11, 2024 1:57 PM
->>>>>>>>>>
->>>>>>>>>> On 6/11/2024 1:17 PM, Parav Pandit wrote:
->>>>>>>>>>> Hi Lingshan, David,
->>>>>>>>>>>
->>>>>>>>>>>> From: Cornelia Huck <cohuck@redhat.com>
->>>>>>>>>>>> Sent: Monday, June 10, 2024 9:34 PM
->>>>>>>>>>>>
->>>>>>>>>>>> On Fri, Jun 07 2024, Zhu Lingshan <lingshan.zhu@amd.com>
->> wrote:
->>>>>>>>>>>>> This commit allows the driver to suspend the device by
->>>>>>>>>>>>> introducing a new status bit SUSPEND in device_status.
->>>>>>>>>>>>>
->>>>>>>>>>>>> This commit also introduce a new feature bit
->>>>>>>>>>>>> VIRTIO_F_SUSPEND which indicating whether the device support
->> SUSPEND.
->>>>>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
->>>>>>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->>>>>>>>>>>>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
->>>>>>>>>>>>> Signed-off-by: David Stevens <stevensd@chromium.org>
->>>>>>>>>>>>> ---
->>>>>>>>>>>>>  content.tex | 69
->>>>>>>>>>>>> +++++++++++++++++++++++++++++++++++++++++++++------
->> --
->>>>>>>>>>>>>  1 file changed, 59 insertions(+), 10 deletions(-)
->>>>>>>>>>>> Can you please add a changelog? Especially as some of the
->>>>>>>>>>>> previous discussion has been lost due to the broken old
->>>>>>>>>>>> mailing
->>>> lists...
->>>>>>>>>>>> (...)
->>>>>>>>>>>>
->>>>>>>>>>>>> +\drivernormative{\subsection}{Device Suspend}{General
->>>>>>>>>>>>> +Initialization And Device Operation / Device Suspend}
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set
->>>>>>>>>>>>> +or
->>>>>>>>>>>> VIRTIO_F_SUSPEND is not negotiated.
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +Once the driver sets SUSPEND to \field{device status} of
->>>>>>>>>>>>> +the
->>>> device:
->>>>>>>>>>>>> +\begin{itemize}
->>>>>>>>>>>>> +\item The driver MUST re-read \field{device status} to
->>>>>>>>>>>>> +verify whether the
->>>>>>>>>>>> SUSPEND bit is set.
->>>>>>>>>>>>> +If not, the device does not support the SUSPEND feature.
->>>>>>>>>>>> That sentence is a bit weird: I'd expect the device to not
->>>>>>>>>>>> offer VIRTIO_F_SUSPEND in the first place in that case...
->>>>>>>>>>>> could this rather happen if the device is not able to handle
->>>>>>>>>>>> the request at a specific point in
->>>>>>>>>> time?
->>>>>>>>>>>>> +\item The driver MUST NOT make any more buffers available
->>>>>>>>>>>>> +to the
->>>>>>>>>> device.
->>>>>>>>>>>>> +\item The driver MUST NOT access any fields of any
->>>>>>>>>>>>> +virtqueues or notify
->>>>>>>>>>>> any virtqueues.
->>>>>>>>>>>>
->>>>>>>>>>>> "send notifications for any virtqueues"?
->>>>>>>>>>>>
->>>>>>>>>>>>> +\item The driver MUST NOT access Device Configuration Space.
->>>>>>>>>>>> ...except for the status field, if it is part of the config space?
->>>>>>>>>>>>
->>>>>>>>>>>>> +\end{itemize}
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +\devicenormative{\subsection}{Device Suspend}{General
->>>>>>>>>>>>> +Initialization And Device Operation / Device Suspend}
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +The device MUST ignore SUSPEND if FEATURES_OK is not set or
->>>>>>>>>>>> VIRTIO_F_SUSPEND is not negotiated.
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +The device MUST ignore all access to its Configuration
->>>>>>>>>>>>> +Space while suspended, except for \field{device status}.
->>>>>>>>>>>> ...if it is part of the configuration space.
->>>>>>>>>>>>
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +A device MUST NOT send any notifications, access any
->>>>>>>>>>>>> +virtqueues, or modify any fields in its configuration space
->>>>>>>>>>>>> +while
->>>>>> suspended.
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +If SUSPEND is set in \field{device status}, when the driver
->>>>>>>>>>>>> +clears SUSPEND,
->>>>>>>>>>>> "subsequently clears SUSPEND"?
->>>>>>>>>>>>
->>>>>>>>>>>>> +the device MUST either resume normal operation or set
->>>>>>>>>>>> DEVICE_NEEDS_RESET.
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +When the driver sets SUSPEND, the device SHOULD perform the
->>>>>>>>>>>>> +following actions before presenting
->>>>>>>>>>>> SUSPEND bit in the \field{device status}:
->>>>>>>>>>>>> +
->>>>>>>>>>>>> +\begin{itemize}
->>>>>>>>>>>>> +\item Stop processing more buffers of any virtqueues \item
->>>>>>>>>>>>> +Wait until all buffers that are being processed have been used.
->>>>>>>>>>>>> +\item Send used buffer notifications to the driver.
->>>>>>>>>>>>> +\end{itemize}
->>>>>>>>>>>> So, is there any opportunity for the device to fail setting
->> SUSPEND?
->>>>>>>>>>>> I mean, if the driver is supposed to look whether it sticks,
->>>>>>>>>>>> there should be conditions for when the device might clear it
->> again...
->>>>>>>>>>> Additionally, a suspend operation usually involves saving
->>>>>>>>>>> things to a slow
->>>>>>>>>> memory (or media).
->>>>>>>>>>> This is because the device implementation wouldn't know when
->>>>>>>>>>> exactly the
->>>>>>>>>> device will be resumed.
->>>>>>>>>>> Few examples, are:
->>>>>>>>>>> a. A gpu device with 128MB of video RAM when suspended,
->> QEMU
->>>>>> needs
->>>>>>>>>> to store this into a (for example) rotating hard disk as 1msec IO
->> latency.
->>>>>>>>>>> b. a NIC may need to store its RSS, queues, flow filters
->>>>>>>>>>> configuration for
->>>>>>>>>> several tens of KBs to some slow memory.
->>>>>>>>>>> c. A block device may prefer to complete some IOs to a
->>>>>>>>>>> threshold level
->>>>>>>>>> instead of maintaining large list of outstanding IOs in some
->>>>>>>>>> suspended memory.
->>>>>>>>>>> d. May be more in future.
->>>>>>>>>>>
->>>>>>>>>>> Additionally, suspend operation needs to be synchronized with
->>>>>>>>>>> certain data
->>>>>>>>>> path hardware engines to suspend DMA operations (read and write
->>>>>>>>>> both) which are inflight.
->>>>>>>>>>> (without causing DMA errors). Same would apply to the sw
->>>>>>>>>>> backend
->>>>>>>>>> implementations too.
->>>>>>>>>>> Therefore, the suspend operation that is initiated by the
->>>>>>>>>>> driver, should get
->>>>>>>>>> the acknowledgement back from the device that it has been
->> suspend.
->>>>>>>>>>> Some of the good examples if you prefer to follow, a
->>>>>>>>>>> driver<->device
->>>>>>>>>> interface needs a suspend register which should behave like
->>>>>>>>>> below queue reset register.
->>>>>>>>>>> Spec snippet:
->>>>>>>>>>> "The device MUST reset the queue when 1 is written to
->> queue_reset.
->>>>>>>>>>> The device MUST continue to present
->>>>>>>>>>> 1 in queue_reset as long as the queue reset is ongoing. The
->>>>>>>>>>> device MUST present 0 in both queue_reset and queue_enable
->>>>>>>>>>> when queue reset
->>>>>>>>>> has completed."
->>>>>>>>>>> At minimum, we need, something implementable like,
->>>>>>>>>>>
->>>>>>>>>>> The device MUST suspend the device when 1 is written to the
->>>>>>>>>> device_suspend_ctlr. The device MUST continue to present 1 in
->>>>>>>>>> device_suspend_ctrl as the suspend operation is ongoing in the
->> device.
->>>>>>>>>>> The device MUST present 0 in the device_suspend_ctlr register
->>>>>>>>>>> when
->>>>>>>>>> device has completely suspended the device.
->>>>>>>>>>> The device MUST resume the device when 2 is written to the
->>>>>>>>>> device_suspend_ctrl. The device MUST continue to present 2 in
->>>>>>>>>> the device_suspend_ctrl as the resume operation may not have
->>>>>>>>>> yet
->>>>>> completed.
->>>>>>>>>>> The device MUST present 0 in the device_suspend_ctrl register
->>>>>>>>>>> when the
->>>>>>>>>> device has completely resumed the device.
->>>>>>>>>>> At this point, the driver may resume notifying the device and
->>>>>>>>>>> accessing the
->>>>>>>>>> configuration space.
->>>>>>>>>>> Can you please enhance this part?
->>>>>>>>>> Hi Parav
->>>>>>>>>>
->>>>>>>>>> Yes they are necessary contents and we will address them in the
->>>>>>>>>> following patches.
->>>>>>>>>>
->>>>>>>>> The register polarity is critical.
->>>>>>>>> In your reply to Cornelia, you descried that suspend bit cleared
->>>>>>>>> in the device
->>>>>>>> after driver sets it (until the device is suspended).
->>>>>>>>> This is ambiguous behavior of the register. Queue_reset register
->>>>>>>>> was like that
->>>>>>>> before it was fixed in 1.2.
->>>>>>>> once suspended, the driver should not access the configuration
->>>>>>>> space except for the device status, so it should not reset any
->>>>>>>> vqs through configuration space.
->>>>>>> I am not talking about VQ reset at all.
->>>>>>> I gave an example of how the VQ reset register polarity works
->>>>>>> (with was
->>>>>> broken like how the proposed suspend bit is broken).
->>>>>>> Suspend register needs to work the way the reset register works.
->>>>>>> Can you please go through my exact text I replied in the previous email?
->>>>>>>
->>>>>>> Basically, the bug is:
->>>>>>> When driver has initiated the suspend (writing 1), the device
->>>>>>> continue to
->>>>>> respond 0, while suspend is going on.
->>>>>>> At this point, just by looking at the device_status register one
->>>>>>> cannot figure
->>>>>> out what is going on in the device.
->>>>>>> Is driver initiated suspend is ongoing, or it was never started.
->>>>>>> It is ambiguous.
->>>>>> From the device perspective, there is only one user: the driver,
->>>>>> and the driver sets or clears SUSPEND, it knows the status of the device.
->>>>> It does not work elegantly when the hypervisor or other system is
->>>>> looking
->>>> dealing with this register.
->>>>> In current proposal, anyone else than the driver looking at the
->>>>> device_status,
->>>> it is ambiguous.
->>>>> For example,
->>>>> suspend_bit: 0x1 suspended.
->>>>> 	     0x0 not suspended or suspend is ongoing. (ambiguous for
->>>>> hypervisor debugging this device)
->>>>>
->>>>> For device migration, it requires yet another side bit in the device parts.
->>>>>
->>>>> An elegant and non-ambiguous interface can be,
->>>>>
->>>>> ctrl_register =	0x0 (a usual default)
->>>>> 		0x1, suspend the device
->>>>> 		0x2, resume the device.
->>>>> status_register =	0x0, (still) running.
->>>>> 			0x1, suspended.
->>>>>
->>>>> With this driver and hypervisor (both) has very clear view of what
->>>>> is going on
->>>> and what is the status.
->>>>> No more ambiguity for anyone.
->>>>>
->>>>> Please consider pros and cons of both approaches.
->>>> The driver "owns" the device, other components access the device
->>>> configurations through the driver, I am not sure there are other
->>>> "owners" than the driver.
->>> Device migration and debug channel [1] plans to access the device from the
->> hypervisor.
->>> I don't see any disadvantage of separate control and status register.
->>> Do you see any?
->>>
->>> [1]
->>>
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore
->>> .kernel.org%2Fvirtio-comment%2F20240601145042.2074739-1-
->> parav%40nvidia
->> .com%2FT%2F%23m14b80fd996e8d2522723967d8af844b70e131a90&dat
->> a=05%7C02%7
->> Cparav%40nvidia.com%7C06c09157b2d74af8b7f608dc8acaab0a%7C43083
->> d1572734
->> 0c1b7db39efd9ccc17a%7C0%7C0%7C638537850271999791%7CUnknown
->> %7CTWFpbGZsb
->> 3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn
->> 0%3D%
->> 7C0%7C%7C%7C&sdata=e%2BBDJMpuFzmj47CKqnWU1jXcRZUXATmqhhMZ
->> 7WC8zj8%3D&re
->>> served=0
->> is the admin vq governed by the driver? There should be only one owner of
->> the device, or you need locks.
->>
-> No locks are needed. Hypervisor is accessing the admin vq on the PF.
-> VF is accessing the suspend ctrl and status register of its own from its own MMIO space.
-> If for some reason, this registers is trapped and accessed in the hypervisor too, it is upto the hypervisor on lock/no-lock etc.
-Even access device status from PF through admin vq, it is still trying to RW the unique vf->dev_status,
-so there are too individuals accessing the same copy of resource, there need a lock.
->
->> I am not sure we want to repeat the discussion on the admin vq for live
->> migration last year, you know it breaks nested.
-> I am showing you the use case where ctrl+status is useful without any negatives.
-> You are diverging the discussion to a point of no return.
-> I wish you can be more cooperative by seeing larger picture. :)
->
-> You didn't answer my question, do you see any disadvantage of ctrl+status register?
-> If not, lets converge and progress as it enables suspend functionality + device migration both using non-ambiguous register pair.
-This is not about SUSPEND or ctrl + status. If we take the transition period into consideration, we need a total solution for all status transitions.
-For example DRIVER_OK and FEATURES_OK, or the device setting NEEDS_RESET,
-they can also take longer time than expect to take effects, depends on the device implementation.
+Could you please vote on resolving this issue?
+The fix was posted a week ago, Thursday, 2024-06-06.
 
-Maybe we need a new bit in the device stauts: TRANSITION.
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/196
 
+Reviewed-by: Parav Pandit <parav@nvidia.com>
+Signed-off-by: Martin Kr=C3=B6ning <martin.kroening@eonerc.rwth-aachen.de>
+
+Cheers,
+Martin
+
+--B_3801124404_1859993451
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+
+MIIXdQYJKoZIhvcNAQcCoIIXZjCCF2ICAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0B
+BwGgghRIMIIHeDCCBWCgAwIBAgIRAIF5Ijq8WuKG47yCsN2S2CkwDQYJKoZIhvcNAQEMBQAw
+RjELMAkGA1UEBhMCTkwxGTAXBgNVBAoTEEdFQU5UIFZlcmVuaWdpbmcxHDAaBgNVBAMTE0dF
+QU5UIFBlcnNvbmFsIENBIDQwHhcNMjMxMTE1MDAwMDAwWhcNMjUxMTE0MjM1OTU5WjCB4TEL
+MAkGA1UEBhMCREUxHDAaBgNVBAgTE05vcmRyaGVpbi1XZXN0ZmFsZW4xHzAdBgNVBAoTFlJX
+VEggQWFjaGVuIFVuaXZlcnNpdHkxETAPBgNVBGETCEdPVkRFK05XMTQwMgYJKoZIhvcNAQkB
+FiVtYXJ0aW4ua3JvZW5pbmdAZW9uZXJjLnJ3dGgtYWFjaGVuLmRlMREwDwYDVQQEDAhLcsO2
+bmluZzEWMBQGA1UEKhMNTWFydGluIFdlcm5lcjEfMB0GA1UEAwwWTWFydGluIFdlcm5lciBL
+csO2bmluZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANZET80kiiEa9VAQuDRn
+mXGvDvTyjf57f+GuAXYL3KYE7gNKZobO8WYDOwK4yc5biBhiH0i6EwfXuiOAnU/Gtl5kxn8O
+IDTaHpwN10m+WebFdFbgzDGpwG9nFteq8AED+6R9O3TXF0PWHa9XzgtD5IUTE3XhSNUPQFj3
++dT/O7p4lBksKVUNMDwD8xI/S4tYnJobUNoOkIUhtDiY6hFECNR7cOAD0vxy6yPOP/XVR67u
+PZL/ar44fwBwiXoAxkpJS2RKPE7FB5FYnVppBWmzYNnpsBnBSBmPzffOQwUwLbjLrViTxr5i
+vhIv5kJ2Qcaxy5Prt97Li8w52Zb7VIPGFl5/FNFjqjDYsAnHMCkk2ukluQz7TE52xRoRn95D
+1YfzHlnHEhT7qbQLC5SXOLp5LspUh0kIELF+QHZEujgwwJPPAXSLBJTJipgBCLZbQ81IoVvn
+Tb0JCAq26ol0tstwqLx1TYeVRvmRf7XEPfJUJ4dTXnbYKpe6efGyWfSV3PLscSS28bwKUyGk
+cA+8LNAO5paMNoXRO4ALyUI2IjgOD5L09o+BXJtDH6DR+nHZpIVwzdXctRZyV6XgQjppxrA7
+TPbKjLY5G+myqeCmcEFWZwl9OrzKKR5B3odeykPDQYPWpJP/gJHz9uAz4Ayw4Ehygx8dws38
+/UNtIoIgrmhz7sgBAgMBAAGjggHDMIIBvzAfBgNVHSMEGDAWgBRpAKHHIVj44MUbILAK3adR
+vxPZ5DAdBgNVHQ4EFgQUpTjdAZQwdPva9wwVyQKkMgE0htowDgYDVR0PAQH/BAQDAgWgMAwG
+A1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMCMFAGA1UdIARJMEcw
+OgYMKwYBBAGyMQECAQoEMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vc2VjdGlnby5jb20vU01J
+TUVDUFMwCQYHZ4EMAQUDAjBCBgNVHR8EOzA5MDegNaAzhjFodHRwOi8vR0VBTlQuY3JsLnNl
+Y3RpZ28uY29tL0dFQU5UUGVyc29uYWxDQTQuY3JsMHgGCCsGAQUFBwEBBGwwajA9BggrBgEF
+BQcwAoYxaHR0cDovL0dFQU5ULmNydC5zZWN0aWdvLmNvbS9HRUFOVFBlcnNvbmFsQ0E0LmNy
+dDApBggrBgEFBQcwAYYdaHR0cDovL0dFQU5ULm9jc3Auc2VjdGlnby5jb20wMAYDVR0RBCkw
+J4ElbWFydGluLmtyb2VuaW5nQGVvbmVyYy5yd3RoLWFhY2hlbi5kZTANBgkqhkiG9w0BAQwF
+AAOCAgEAGGZSOjAsZR27uupzz4Lb/9DDX4PkF7wIWvwPNSAJTIuEOcapIP5pYV9r0kOCq87D
+e++N9X3FeoPzy9chRO09c6Nafw8X3lLV8nRVJPAJZxP9Om4+iPHk+QgwWAMgkt+JZJqlQYn6
++mJU8apsjNC1MJSiGR/L/jsliNkRFwvP7Npt+HmJwtj8WQExUpH485xmcjlTsk5HQkMQZr1Z
+Ay4dAEw0iJCO0vccCYLtzxNsfl0EIeaz2RzgZH8zmSVp3MzSEFMPm6H39OUciXgr9YcqXv4e
+W+LPsf9zILOYV4cvZdfvRnOcTjV7mj2SNygoqvDxCUe0cwozM1pw9uyaInFLrn6g+O/sTlZX
+EnaYl+N5b0YKSTqGmWPt0eY+l0w2z5y3rRaADg7XzQcJCDbFCiWHgeBAXk5BsYvhoLayuOyF
+l7pXAUSYCJv3/M3wARGcM0lyO13wGcykSS4ZZk/8fVnVU6aTMamMM9BLSmTAFnwbCEMQdiyM
+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
+tvLdp7MCL2OsQhQEdEbUvDM9slzZXdI7NjJokVBq3O4pls3VD2z3L/bHVBe0rBERjyM2C/HS
+Ih84rfmAqBgklzIOqXhd+4RzadUwggXeMIIDxqADAgECAhAB/W0w/KPKUagbvGQONQMtMA0G
+CSqGSIb3DQEBDAUAMIGIMQswCQYDVQQGEwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIG
+A1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoTFVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwG
+A1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0xMDAyMDEw
+MDAwMDBaFw0zODAxMTgyMzU5NTlaMIGIMQswCQYDVQQGEwJVUzETMBEGA1UECBMKTmV3IEpl
+cnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoTFVRoZSBVU0VSVFJVU1QgTmV0
+d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTCC
+AiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAIASZRc2DsPbCLPQrFcNdu3NJ9NMrVCD
+YeKqIE0JLWQJ3M6Jn8w9qez2z8Hc8dOx1ns3KBErR9o5xrw6GbRfpr19naNjQrZ28qk7K5H4
+4m/Q7BYgkAk+4uh0yRi0kdRiZNt/owbxiBhqkCI8vP4T8IcUe/bkH47U5FHGEWdGCFHLhhRU
+P7wz/n5snP8WnRi9UY41pqdmyHJn2yFmsdSbeAPAUDrozPDcvJ5M/q8FljUfV1q3/875Pbcs
+tvZU3cjnEjpNrkyKt1yatLcgPcp/IjSufjtoZgFE5wFORlObM2D3lL5TN5BzQ/Myw1Pv26r+
+dE5px2uMYJPexMcM3+EyrsyTO1F4lWeL7j1W/gzQaQ8bD/MlJmszbfduR/pzQ+V+DqVmsSl8
+MoRjVYnEDcGTVDAZE6zTfTen6106bDVc20HXEtqpSQvf2ICKCZNijrVmzyWIzYS4sT+kOQ/Z
+Ap7rEkyVfPNrBaleFoPMuGfi6BOdzFuC00yz7Vv/3uVzrCM7LQC/NVV0CUnYSVgaf5I25lGS
+DvMmfRxNF7zJ7EMm0L9BX0CpRET0medXh55QH1dUqD79dGMvsVBlCeZYQi5DGky08CVHWfoE
+HpPUJkZKUIGy3r54t/xnFeHJV4QeD2PW6WK61l9VLupcxigIBCU5uA4rqfJMlxwHPw1S9e3v
+L4IPAgMBAAGjQjBAMB0GA1UdDgQWBBRTeb9aqitKz1SA4dibwJ3ysgNmyzAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQwFAAOCAgEAXNR8Dc/3AX1BmWUM
+c8VSn8v4z5kGfxvaQxWfngJVV5YU8VI8J4eUKO0fOgE3onb8U1DAhJvGa066jCFPoo5VYpHz
+aRXYvIjjxKoL/e+o6UtVKgYgbVV4KRnuXzBcSyQRVf8kmm5eKivuC02ff/cBOJQUlUMHCftg
+qe4cqxKMoJpep5hqWW2LPwj7yNFFrxgVZJASD3MoLsXiJE78WOzw9EX+IrPrL47S2UVhBcGX
+b6h2co+LjDavvw0FznGN5qZvH2ymcWLF2NCDcgzxZxGJDJwTTHI037zVcd+qcd3huWyMPBJd
+Zdq9VxK2Q2v/5d5NZhFRz5mu7Be26HGRjN5J/t01caIVJ5Qcz2HjJrtvo2clIV3m3R0LLmgb
+O4Kv7INnhdSYUXSxuZmAif9/eBlceUpgLpJArkw3KizJx2LIDl33NlvK4CUlAbTdGgecdwA/
+0NzV7D3U+rs/zIXWb3+pLd+5Avf1l5q1NdrDZ7CHSqkoniOO/1wna+GwT/MH7gAu1FmHy1JB
+ler0R9fuZEFVfI1ZApXdYp3Cue5aKHSEpZu3kMcMB9/1iTZ0MtYowbCwC+CcTMMc1vzjabVH
+RoEvooKr02NEcMSN/y0zuq2Pe7VwiK4+Gc9AKNj8yJC7XZki9VLmWMUfiDFD7ogd18aOPENq
+HacY3n09FvFi+cqQqP0xggLxMIIC7QIBATBbMEYxCzAJBgNVBAYTAk5MMRkwFwYDVQQKExBH
+RUFOVCBWZXJlbmlnaW5nMRwwGgYDVQQDExNHRUFOVCBQZXJzb25hbCBDQSA0AhEAgXkiOrxa
+4objvIKw3ZLYKTANBglghkgBZQMEAgEFAKBpMC8GCSqGSIb3DQEJBDEiBCCpmAYs0eQVGDmR
+BZwI7jcMcoPqUs3R6ujpwkD07F2e4DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
+SIb3DQEJBTEPFw0yNDA2MTMwOTUzMjNaMA0GCSqGSIb3DQEBAQUABIICAKqnukI6LDM294GA
+Rljq1mvFJDq4vrucpASnQZbnL40Eog5TALKe0/6psqP/ybWnGiB9Yci/rJmp0yS7yFOL3CbQ
+sN1Y24L9ToV2/PMrVSTePp/ruXCs/yp3l+dG1O+UjNpsvhkfS0Qjpd/WtVx8UuxLc8H1uA78
+4lC7QzMlMYkiQ4VXLHzwOws8iWYb+lJze+Tt0wJ0fhWcee+ddJFemDEBbP5bkqrrCkMifUqT
+CXK6VDK2ly7KhTm2J3RmdBwn9mL0P5g/9cATPV1jBAqQKGOKyWvt1n07V0lWrfxncYkTpOzm
+2jjTbnohSwh5G7qSoDgIEFP8MYNA10CTgL+jJ9rTiHjFwNSnLSyqpGGjXE6i7bAVDe40SsUO
+s6GVophlBW7xDsxMWJDl7UNlVTTfqlKWu/TrGai+iikY0Dm/4MI0aS5cUGjls7m2goGmj7jm
+q1FHzLFSy95m5Ne6E5CdcnH58dGuyhhtGVUTLgIGZOFkJqvXnazjVVYYuA95xKgW+xeAGxtg
+8UnkGuAXabPrf+T+YRnY4Cn3F9JmFhLdCbGP7a6nxhZ0Qz4vMh67OnFAbYjV5suka8xcTDpY
+RdqmB35iXzJadM7TPWYd/fwjAx8gppiU3XcH8I5QIR74+HAhIBIQKo1Z/aJRnJRaHCyUWNUk
+O1B/0D95nirt+g+MACXk
+
+--B_3801124404_1859993451--
