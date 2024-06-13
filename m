@@ -1,106 +1,147 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A74A69959
-	for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 11:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7376C144317
+	for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 14:15:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718277986; cv=none; b=SgdxaNwjzkaQ25gHgcNbIrnw6IiwZRNMhFLDRtXxSnHniv0pKBVCO+OJ5OSXMlDLZMb055lVpoT6yk48vnbVsdb6X828ldTQKYNsWtgYqlKPWIYG0xnA9j4yUX7uKc7j+Nkbz21qFDg4YiZ9uyHoaF/dsFB7Z+1mzXUVwKoAbNU=
+	t=1718288144; cv=none; b=jJHjWsxFaVqmu3uqQ7n9XQtFJhyud63u+nretQxSjuPhwp/w1jWyO2gwpDFSKIsodPkcvBZpwTi3N3RRI2H5hyGHCxHVkirY31Y57yx31P9mxmYCST2u1WIMUsAPPnDwtVx6OcAmyXwgqjkbqnb1FDNxBYDdbtEfrU09Iix6La8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718277986; c=relaxed/simple;
-	bh=HglLj7VG+CJN3Zu2VRG4L8jj8H2P2Slq/rgTyD6TyUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Sn/TWZzADl21RmUNuj2pANd4kHaUhhcQcpLfYDRv8pGefUWTGsBPrsNfk5EFGUPMraxK4CnFgGyX0UQKcEwm1H0RO46ajRF5ge+xoBdTBXN7ffGJVp77RL9yDj6toyOsMFWs5l3qT2hVhdF/8plBpSa8UNOxqBTzmqvM1P1CA+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bdDFi9JA; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1718288144; c=relaxed/simple;
+	bh=OS2CN0Al6IIqvdG1duwgIsim2yifiAdY2UJBF9FQbto=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=VojDeTPQOk7G6tTEnreJyBIdSUpeXP1Q3o/UJcIWO81VnZcGq01PhwQHLGOowUpRyWHxQEMSB0ryl12r+e70ZeJnnD0mOlAQDYbir3j/z1M//3IB9ok4NQAG0Y3a+U9/jRO46IuU9mcTzeK2zAZr96QQk0wZg0jnkIMC2BCjw1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZOeS+F9N; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bdDFi9JA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718277983;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=eGLgEaAPdvQTVgTWMGd3qxRu4ypFHObXzU/YkDmDLuA=;
-	b=bdDFi9JAPSaC0fMbOOaGHVEF9elocLTnRGmuIkKIhqAWMM6ELVGvZmuYYAmWn+JnfApgIL
-	4fv9YtRssrIZ7bluTAXLgjpHupFik848G4xPGSGYE+xy6xu+tRn0YYZnB0og9Pxgb5s9Te
-	7iVffjSC2BVAozN7PZszkRNOEveoN8Y=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-185-uq9-_8NzOvSKpbN6dJhi7Q-1; Thu, 13 Jun 2024 07:26:21 -0400
-X-MC-Unique: uq9-_8NzOvSKpbN6dJhi7Q-1
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-421179fd82bso6248595e9.1
-        for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 04:26:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZOeS+F9N"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-2c4af25f7d7so926582a91.1
+        for <virtio-comment@lists.linux.dev>; Thu, 13 Jun 2024 07:15:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718288143; x=1718892943; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=//TxveCEJIrkR7ClecQRERNaUSNQzW/5Y98Qj49KHNM=;
+        b=ZOeS+F9NVJD/jCZDf1mc2ewrRUhsNDwvqsqoHBqF1dmpDzNFDZcB1jiVOMZY2JRbD5
+         8+jUIFhr4hgoDJx/5JqBLK4EcpDLLzihlBDv8ewDapjjEwI1FjQ/RFBwgxiCXxQXAQMu
+         OhZBGPDjxzoawg//qM0/E1bqsLf6Ei9zaQ/w1SCk2AVaVDMZ84CDlwVOE+eZvKjKz3pq
+         uaiv5qfZZeCuqkDDxaz57XMVTWE8lvHlbzPhv9se9cLnIharT6rIBq/076/J3eIomuer
+         Mx7Q3lomPNa/6ZR5pEsaVJxhiajD60PCRdjzcwq70F2xlkUGpOnciLPK/s6i+421kL9N
+         jOQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718277980; x=1718882780;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eGLgEaAPdvQTVgTWMGd3qxRu4ypFHObXzU/YkDmDLuA=;
-        b=AGW6fUd/9mu0Qa/q7YB4JtHQ8peQecK5tzoIpNJfXqal00f3ownG9mDK8toQ8FmagP
-         2i8pKJ6CMk5JNxttNhP/+Hj6CAMmNhNb1Arj0Z1/zLIReyvH8rDKrwaEQf92wWJ2t/3r
-         9/qEqGYbkpq3NbFsf9BJohfeejMd3cKJXILYlexOmCHx/uvWhOrgnVdSV8UzGJi5FsZ/
-         OqtQ3goE2YGyG3k3LkSIq8T0jIGHoucaWeEe3bBbajy8u2poI/11oQ3z/U/pXaqYmubd
-         9MJu18UOrYS6NzyCSCwqFCx7GMw1zvzljsj+rbdFAOA/fsnq5Wp/IKOa+xv+iXPWcz/C
-         uFKA==
-X-Gm-Message-State: AOJu0YxbTyOL7ti1t0599ppn+OYxFvwhtU5cjBHRuhUOIYtjMcc0AwMy
-	OOh0VpFjqRBJ8fLyY0RaakZusfGHpotQos7kEqOY/EIPL629GCgyZaN9r5OMLqRoeHLeVj//X+V
-	D/kPyU4JIttavRXpL1QnC58506U+oBRkx+i2xq6McJ57Bh+GW109qi5u3MOy/wu9qCmY0qj1ai8
-	CFoUdI6vYnlr+LjD/Zc4Ep8NIVaE+YnoFlaaG+t+vhBA==
-X-Received: by 2002:a5d:634b:0:b0:360:712e:3602 with SMTP id ffacd0b85a97d-360712e3a34mr2201884f8f.41.1718277980139;
-        Thu, 13 Jun 2024 04:26:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELmaE6NlU4UUdPqOVNImzIygSOcnXSudYs6ZkkgFFc3nMdEvKv1tH/FG+ZznBEesr+gPtmUQ==
-X-Received: by 2002:a5d:634b:0:b0:360:712e:3602 with SMTP id ffacd0b85a97d-360712e3a34mr2201849f8f.41.1718277979338;
-        Thu, 13 Jun 2024 04:26:19 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:341:5539:9b1a:2e49:4aac:204e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-360750f22a0sm1428900f8f.84.2024.06.13.04.26.17
+        d=1e100.net; s=20230601; t=1718288143; x=1718892943;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=//TxveCEJIrkR7ClecQRERNaUSNQzW/5Y98Qj49KHNM=;
+        b=SaDFSKhEFbRMW8eLjrIN4fvsjF2aVzZNFTMSP2yJ3CstgRf0DpoF8p0VUHtS5jl6H+
+         Mbxv3o2JyFXd79KWCsFqZX1bGAvl/mMZQLQ2jPJqjkSQ6ncfWNXncsc2Pu3nvMR+qCV5
+         tjX611MwQE1zYYVnehRSRE2k3wIEdGjG0sj+O2c1zlnEgO2/ACrcnhI6sio3ijIchoa2
+         KRbwYnHrNOG9Bn8OWT7EgqiOEMItVHh2mmX4iWdvFvfOnpuYr/g1ZXKEikl7XEHJ5iWw
+         /I8TcjkUub4q2skRjhuTVNXBhKMt5ErK6Sg/xbtAwBMNSw/sMUJmY5hXMeO9WKX8H4Vt
+         3nCw==
+X-Forwarded-Encrypted: i=1; AJvYcCXBrKqXcPLTerefuWF3eVNmHr/H4H1YS7XbvI9EgVSpp5uQG04s8fq+Ul0b2xi9Ie0JRZ/D1emECE85wx/huLy6Ma3/eRpgow8OoxSQJfo=
+X-Gm-Message-State: AOJu0YzN5rYw47rDuFnl269Ep+zrtasab9F6rGwAyj3Fo8znbGa07KJh
+	DyI0sefSv3HI9HHpEyQwcOAWsesnNFG8e8aeoFL1gs8aFIjFfk+2
+X-Google-Smtp-Source: AGHT+IHGpJUWoS2h9EUcT7X2TAOKjCht9meSN+sqc/OvyG6RGyhCxLNJq6eE1XsOS6wBkKki3RPefA==
+X-Received: by 2002:a17:90b:1d0d:b0:2c0:76b:f466 with SMTP id 98e67ed59e1d1-2c4a761b25dmr5350819a91.5.1718288142631;
+        Thu, 13 Jun 2024 07:15:42 -0700 (PDT)
+Received: from devant.hz.ali.com ([47.89.83.81])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2c4c45cc04fsm1730544a91.21.2024.06.13.07.15.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Jun 2024 04:26:18 -0700 (PDT)
-Date: Thu, 13 Jun 2024 07:26:15 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: virtio-comment@lists.linux.dev
-Cc: Heng Qi <hengqi@linux.alibaba.com>
-Subject: re Issue #194: virtio-net: clarify coalescing parameters settings
-Message-ID: <20240613050316-mutt-send-email-mst@kernel.org>
+        Thu, 13 Jun 2024 07:15:41 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: sgarzare@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	hi@alyssa.is,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [RFC PATCH 2/2] virtio-vsock: Extend the spec with an `order`
+Date: Thu, 13 Jun 2024 22:15:28 +0800
+Message-Id: <20240613141528.2585617-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <4vi4tpunqv4lx3odqgjxcb3lgu2nobqarmsugt3i2s7nhonjrf@2kjhzmlcyibj>
+References: <4vi4tpunqv4lx3odqgjxcb3lgu2nobqarmsugt3i2s7nhonjrf@2kjhzmlcyibj>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hello!
-The ballot on issue #194 is set to conclude however some comments by TC
-members made me think some members were confused about the voting
-process. In particular two members abstained leaving
-a comment which makes me think they were actually against merging
-the proposal.
+> >> >> >Add a new field, named `order`, to the `virtio_vsock_config`.
+> >> >> >
+> >> >> >There are two questions about the field that are valuable to discuss:
+> >> >> >
+> >> >> >(1) Do we really need the `order` instead of a `default_device`?
+> >> >> >
+> >> >> >IMHO, the answer is yes.
+> >> >> >
+> >> >> >The `order` is more generic than the `default_device`. The device with the
+> >> >> >lowest order is the default device. Moreover, the `order` field determines
+> >> >> >the sequence of devices in the list. The device list is the same every time
+> >> >> >the system starts.
+> >> >> >
+> >> >> >The device with lower order means it is more important. Also, it means it
+> >> >> >has more likely to be used. Those devices are placed in the front of the
+> >> >> >list for performance purposes.
+> >> >>
+> >> >> This is an implementation details IMHO.
+> >> >>
+> >> >> BTW perhaps the biggest point in favor of `order` IMHO is the fact that
+> >> >> this works very well with hotplung/hotunplug, since if we add at 
+> >> >> runtime
+> >> >> a device that is to become the default, we don't need to change the
+> >> >> configuration of the previous device.
+> >> >
+> >> >I'll rework on this. BTW, shall I add this to the document? Currently, they
+> >> >only exist on the commit message.
+> >>
+> >> Maybe yes, what about adding a new paragraph to describe the
+> >> multi-device support?
+> >
+> >I'd like to add some descriptor after 
+> >"\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple 
+> >devices.":
+> >
+> >\begin{description}
+> >\item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> >\item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> >\item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not 
+> >implied.
+> >\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple 
+> >devices.
+> >It allows to enable multiple backends, e.g. virtio-vsock, vhost-vsock, 
+> >etc.
+> 
+> I don't think we should talk about backends here. We never defined them 
+> in the spec, and I think is out of the scope. They are just virtio-vsock 
+> device implementation, so we should just refer them as "devices".
+> 
+> >The isolation of virtqueues benefits from this feature.
+> 
+> Let's describe just the feature and how it works.
+> If we don't want to add a new section, maybe we can describe it a bit in 
+> the Device Initialization or Device Operation.
 
-I would like to clarify two things:
+Okay. I'll add some descriptions in the Device Initialization.
 
-- 1.4 release (for which this is targeted) is not imminent.
-  there's no reason to merge a controversial patch, we can
-  work until there is a rough consensus.
+> Also, maybe we should merge the 2 patches in a single patch, since 
+> VIRTIO_VSOCK_F_MULTI_DEVICES is useless without the new field in the 
+> config space.
+> 
+> WDYT?
+> 
+> Thanks,
+> Stefano
 
-- even with a non released spec we do try to maintain compatibility
-  so it's a level of commitment to accept a patch.
+Sounds good to me. I'll do it.
 
-
-Further the ballot was part of a big batch of 5 ballots
-at the same time, and the description in the commit log
-and the text itself do not 100% align.
-
-
-Given all this, I am inclined to let the discussion go on
-a bit longer, and re-do the vote with a new version
-of the proposal.
-
-
-Objections?
-
--- 
-MST
-
+Thanks,
+Xuewei
