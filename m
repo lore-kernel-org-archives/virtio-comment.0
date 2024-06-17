@@ -1,536 +1,303 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6221BDCD
-	for <virtio-comment@lists.linux.dev>; Mon, 17 Jun 2024 10:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718621567; cv=none; b=nTtw/NJTk1oKOHl5gXtRjvfTjHo1J+shFW2lZwQUeP1MuV7ixY+0zDEhbjEmDUE4Sg1CBJBrQUImdPiboa7Y8BeNQ+zsYRG/gye+u00/CflDvWrXZDFJDH63JiDskEVnVe4Qj8RcSqGeIC+QM3KP2hEfHwEFMGy4Wcu4sOUEBaE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718621567; c=relaxed/simple;
-	bh=7VgoPPkugZEsRvkDWaxuBSJqDilo+zY0b5BnJ9pHnaI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Kd0mC1/6c83fvViDABNJ3CP4nSl4g6XNFqC3kL3v6YIl+PwR3FSMCqf5/lPsRiu8LHCfGwD2TrbbB7s1o8MGESx84spl1DE7g/E1Ur0Cz4f//5i76rrgDlEUy0qC0UT6w9pDYYbK39crI9Iu7sdITGVDrCskf4GUr00q1AroeZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bgMITwFv; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FF1DDA6
+	for <virtio-comment@lists.linux.dev>; Mon, 17 Jun 2024 23:31:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1718667103; cv=fail; b=RRkgKT52MmiRleCkqZDFjqa2meIR6qGYqfCyLI1pKRt2c+deMxH+DqrT1eo/R6250aT+NLRuslZCVIcuM59KH6Y85cOne0wGCyymMsz4SYeMFxjlIne7veQ/u/OBuCGvtJU9GlVOK2dvQXUvSqjQFpgBwq+ShDKHr43GG6UYPNM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1718667103; c=relaxed/simple;
+	bh=Ko4hQM9BQRHcDabfJ7seRS84CHSJNeS2aWt3PfW5a/k=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=D58Wof9Dw4/RbiN6bDkEDrtyzD/ERi7fZdklFvRdU9g0nm1/Z06fLTF3GkxzZwo7XO03nSFvFIBA19i1QGjiOHJnTQkiv0hSi/DXNySlg1fV5mqNnFtvIeFE3ayZk+/3kiib2Nna+P4e+fueGf4TeZiRGnx5q0mxTV44CgJhbUM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=Z5lHB9qL; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=sEy+CRWO; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bgMITwFv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718621563;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=IdbkrID2NqDMGGG+C8ff13/ZOHF8s46RnpC2Ep1CVM0=;
-	b=bgMITwFvBHPCS2QrumPh9IJVEIkLd74OMs0iT6Jmz1JKkSNGpLTQY5V6xamtYcUzhW3x+0
-	reh0sD1AaEKLt5VfwwB9+6OgvbWGWchSRd0BRgZ/jsMkT7ABiHEiXGSh+7n6KrLRL1Zmiw
-	BWkiCPGy5ro/Kjzw5KFpkMYsTpK2asc=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-66-ASQ08E4yMt6Crmc6k1sdgA-1; Mon,
- 17 Jun 2024 06:52:40 -0400
-X-MC-Unique: ASQ08E4yMt6Crmc6k1sdgA-1
-Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9FBAD195606A;
-	Mon, 17 Jun 2024 10:52:39 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.45.224.221])
-	by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2B3CB1956087;
-	Mon, 17 Jun 2024 10:52:36 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: virtio-comment@lists.linux.dev
-Cc: maxime.coquelin@redhat.com,
-	Eelco Chaudron <echaudro@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Willem de Bruijn <willemb@google.com>
-Subject: [PATCH v5] virtio-net: define UDP tunnel offload feature
-Date: Mon, 17 Jun 2024 12:52:11 +0200
-Message-ID: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="Z5lHB9qL";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="sEy+CRWO"
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45HMXUXA029793;
+	Mon, 17 Jun 2024 23:31:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=
+	message-id:date:subject:to:cc:references:from:in-reply-to
+	:content-type:content-transfer-encoding:mime-version; s=
+	corp-2023-11-20; bh=1pRXudNCjGrZZEzxt/Lc8B22tiTTa3XaahTf6WiIlFw=; b=
+	Z5lHB9qLvN3fTs0rtmgv1aMaGIOjeer6V77+Nq/e2S+wOZbE7W1OY/PutoUWm42i
+	mw3wYKDGCeknEh32jJKuZSHWaFMYaFnuap/aEzgtYf9qkqrJuxJ0zxAwRPtRvYUH
+	BWPsjBWfrKakHFomseka+Rmo2xVEBGqligykyL3tkzWKwhxkZlbf7QlKSJG+hyMC
+	NhU8uPBR71pNL4PsdMiRmPVQTLP0VZjjgtEurycEveC3vPYQ8082PabJ1iCZ+xZL
+	FomxjGCPCL1zAOM2vJGpVAn7/q/TjcIoloYoqSpuwo6f3Bm+7xUFj0J1Ig1a9168
+	44dAhTBvtwY3g2WYLoJZ0g==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ys1vebu25-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 17 Jun 2024 23:31:34 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19) with ESMTP id 45HNNbhG034477;
+	Mon, 17 Jun 2024 23:31:33 GMT
+Received: from nam04-bn8-obe.outbound.protection.outlook.com (mail-bn8nam04lp2047.outbound.protection.outlook.com [104.47.74.47])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 3ys1ddme60-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 17 Jun 2024 23:31:33 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AwzMpbO0zYnkQhjJSOxD7ea0BQw5EiF1tvwEIvc8XQMt4Bum3a6AN7bkSD3m+RSU+cid4YCGvyZWZYXQmaXvKBS1P24q4W5X4naxm9+ij2Okdr5DDUCyVWFwu7+r2N2jy9ziot3cqBCFXaG/XM0i5B0Es9CTabHXex9tasxlWSTcfEPi2GPu6VJjgu6gTBr4zU8DT7DOaQslQveNocSIK8Cj75HMOz9ZBwQroMt05NuhXts+2FjKTFDbmOkeDLJL2TcHcntRtwugfB2DEVRFQ3ljxz2RubtLOotRDE1w24eyoKhCIzfGKzqyaRn8WrAZbVJE+2h/swQ0Cmu6WGoV7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1pRXudNCjGrZZEzxt/Lc8B22tiTTa3XaahTf6WiIlFw=;
+ b=Dzfww/0sRcSsfViZ+NNsnTk+DYVadB/Tgb+WIsBtvlhISpH/gTNu6EUSE5EANM/Ii+yFWkUhN1XpU6COphrVhAxNQ3tKVqCbiIuPd/AnY9iDIqPmxeqM1rYD23sjnpySqfc9b2uVOFVSEN1Y6YQRiKEO9J//yac0E2ckNlbZlaneKGkKVvgvZi5oXetK3Bqml4uNQczo/wEUOkIFv9yk9BZmTz4RGixs0fWww6pQ665QipENVP4V9hD+hO0Ik7a6hrj7QM5UWpDsVeQIeamANMhq3S4sNQUGZDmJ1kwXUi2MPZxgKvXrfgauA19K5FQxcMhFCgLL6xOUkZuPvi10Rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1pRXudNCjGrZZEzxt/Lc8B22tiTTa3XaahTf6WiIlFw=;
+ b=sEy+CRWO5EWRDWA8OEk3Gk63ERf6yHe/s+mKhtcLVVh0HCI4NV/Wzpbm01K2lPJvHwHc3Jus4kC0orRMUbHgOI3B5t9wH18NDnPEirW3uKnSroJDiU79zt7NvBKifY7xBpO1pIx6TeJDtryQVG8frWgBmFuj2fEVkcU0sKuWbKA=
+Received: from MW4PR10MB6535.namprd10.prod.outlook.com (2603:10b6:303:225::12)
+ by SA1PR10MB7684.namprd10.prod.outlook.com (2603:10b6:806:38e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.36; Mon, 17 Jun
+ 2024 23:31:31 +0000
+Received: from MW4PR10MB6535.namprd10.prod.outlook.com
+ ([fe80::424f:6ee5:6be8:fe86]) by MW4PR10MB6535.namprd10.prod.outlook.com
+ ([fe80::424f:6ee5:6be8:fe86%6]) with mapi id 15.20.7677.030; Mon, 17 Jun 2024
+ 23:31:30 +0000
+Message-ID: <77ec85ae-0f50-4093-b499-3b6defec4ade@oracle.com>
+Date: Mon, 17 Jun 2024 16:31:25 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
+To: Heng Qi <hengqi@linux.alibaba.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Halil Pasic <pasic@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>,
+        "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+        Jason Wang <jasowang@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Parav Pandit <parav@nvidia.com>
+References: <20240528044702.50603-1-hengqi@linux.alibaba.com>
+ <20240607220246.3213607c.pasic@linux.ibm.com>
+ <1717814062.4461155-1-hengqi@linux.alibaba.com>
+ <20240610144602.57a04723.pasic@linux.ibm.com>
+ <1718026545.7557275-2-hengqi@linux.alibaba.com>
+ <20240610221900.1810ea96.pasic@linux.ibm.com>
+ <1718102433.0456574-3-hengqi@linux.alibaba.com>
+ <20240611122756-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813E2EE4EA2BA729B2F6B7DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240613021132-mutt-send-email-mst@kernel.org>
+ <1718591277.4770932-5-hengqi@linux.alibaba.com>
+Content-Language: en-US
+From: Si-Wei Liu <si-wei.liu@oracle.com>
+Organization: Oracle Corporation
+In-Reply-To: <1718591277.4770932-5-hengqi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL0PR0102CA0035.prod.exchangelabs.com
+ (2603:10b6:207:18::48) To MW4PR10MB6535.namprd10.prod.outlook.com
+ (2603:10b6:303:225::12)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR10MB6535:EE_|SA1PR10MB7684:EE_
+X-MS-Office365-Filtering-Correlation-Id: 385ebc3c-43f3-4769-7d46-08dc8f259ded
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230037|376011|366013|1800799021;
+X-Microsoft-Antispam-Message-Info: 
+	=?utf-8?B?N0tJdXlXS1Y4cjBXeGtuNWxad3pzelpHUVVmV1ZiQVIrWkpNdEZZNHBaYk9x?=
+ =?utf-8?B?cWc0MXJWejk0N2JxcnkyVGtINXBvNTliN2M4VEFEL0h0T3JyNXJ5Y2JEK2xr?=
+ =?utf-8?B?TXpoZ2tUb3d4SW0ySUxsc0haUVdVTUovQVIrTUFtMmtCNFVHUUFqTm1VajZm?=
+ =?utf-8?B?N0RIYW5KcXVwajNuNXdrT2FtVjBoSnVydlJLWjhaSi9seTN3ZHBnZFFqMWMw?=
+ =?utf-8?B?UGdIQ1hSNkNQSFRFTWFBTnhjRHJZOHpxbWpWU29tZFNPaWNkNTFIaFJRWGtU?=
+ =?utf-8?B?S1hvbGI3ODRwcCtYR0RhOXRvTmFOY3JEKzFwKzI2ekNia0orMUpMa1kxVEYx?=
+ =?utf-8?B?T2tleklmRVZmR0o5d3ZTdkRDSG16cHU5d2NFUUQvSlRRSmYxV2Zlc1oyODl5?=
+ =?utf-8?B?TytNUDNWZnRxMms3MEhHMWltcnJQYXl0NXk3RXFtelJ4WlZxcjB3UHBMdlFq?=
+ =?utf-8?B?ZjByS1RRVUZCTlNXdEQzVlVmMk9UUjlHdUhMeTVrZUpCL1F5bDV3bUJpaWIr?=
+ =?utf-8?B?R3pWTHgwcEVORzEyaTlZL2U1K256czM5dUd1M2UrS0s4L3RYS1cxTWtRbW1Z?=
+ =?utf-8?B?eFI0NUtKRDRwQ0JuK2xVTHg3c0FIeCtFdEZHTE5KVEdiU1Y3TkRQUTB1Q0hv?=
+ =?utf-8?B?WW5HazU1Q05Pb21zMWVET3pZUXNzNkkybGlRUUszKzVVMU50aktWUlFuQ0E1?=
+ =?utf-8?B?VWZyR3M1SDJIVmIzdmJGR1I1RXlQVm01QXBndktLSVR6QS9WMGxuTTJtaUQx?=
+ =?utf-8?B?ZGhMb0krRE5jRkMwY1RSNFJLS2xQemIrYzlmQVdCSHNIaXdqTmcxY0FsbjdO?=
+ =?utf-8?B?NVV0M2E5bmN6Q0lvSzIvRzN5c0RhSmlIWnl2ZUVnQ2FwQlN4RFhxSUlDMFIr?=
+ =?utf-8?B?cm5pZHJsVDFkSWV3Um9hSVRDcXlFNFlhbEsxOC85anpPM2g0QTNwcXFBbldN?=
+ =?utf-8?B?VEkyLzFyN1JLVUQxL2lCc0xyckJMMjVvejcwTGpUVW1DTlB5eldBNE03U0Yv?=
+ =?utf-8?B?UWtVRExNT2dreEFQcThteHoxL1RoUUxSNFlPSmxnSEQ0b0JsYU1rMm11VHl6?=
+ =?utf-8?B?MkdHMmR5YzBqbXBQdFdoSlJWWE5CQnpNU2lnR0JuT3Q3ZnY5UWJHNWRsUUVh?=
+ =?utf-8?B?R0FGd0xFelNuN2RuaEV4cGVJZTJ1TGIzU0hzR2gvbjFVZk01OTBsejc4dmlD?=
+ =?utf-8?B?bUM0cU91YW02cklUYnFob1p5VjhJNituckNuMjBXNWQwQnpRSm9DaXpIdnBV?=
+ =?utf-8?B?aFVEN01QQTJXa2dsR0F6L1JMU2pHNVZXSVFCS2hBUS9ZbVJuOW5qNld0Z00w?=
+ =?utf-8?B?OUNFWVVDY0Q5RUFFeVpqRXlkd3BXekY4MUFyOVZhV0RVQjRxa3A1b2xvK0x5?=
+ =?utf-8?B?SjZGUndOdG5KNkwzdVJSVW8yNTJiYTZVdzMyTjNuUjNQMFFBOXRYMkxyNFVz?=
+ =?utf-8?B?dHBMc0hGVi9Ka3ZNQ01halk2Z1k1aURpWlF3cW1QbmxERGdOejRMUDVscWdB?=
+ =?utf-8?B?c1gzYS81aGhFbE8rQWlwT0tUUzdVQmE3WUJCWUZHOENGOENyYzBETVBtbmdj?=
+ =?utf-8?B?MStZcTNWcGJTd203SFZLQncydXBQdzNMamxSSm9LSnJHVCtpdURiWmdDMERG?=
+ =?utf-8?B?YkZrZnc3RWtIOXZ5MTZ0L041T1ZIUjI3dEd6VEJYRU1JU1BBRXFtS0QvNDhM?=
+ =?utf-8?B?aXRMcU96NFJYOXc2YWxDRU1YMGY3YnNrL3hHNmRHeEFkaGNObGZOR1A1ZVNm?=
+ =?utf-8?Q?sosqCg83/4o/AKBVaKwHUd5DDKhMy8B8aZ0HmsM?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR10MB6535.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230037)(376011)(366013)(1800799021);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?a2ZjNzNxcjJaWlo1eEFYMjRacFR0UWdOQXV2dHY0Vk50QktEcS9QemdMdHJM?=
+ =?utf-8?B?VVBJcUkvZ25PL1JBMHo4UEhrYWcxZmVRQVdUZHpwaDlYK0VyZk00V2Z0ZCta?=
+ =?utf-8?B?QWlXRkwxRlVoS3Y3T0dERm84emFndmtHTUFIcktJNjQ0ei9hcVkrUWppMlpV?=
+ =?utf-8?B?OGltalVFNERtQTlOZmxXbW1Mb082MFoycGgzcHk5ekYzWG1uV0FtL09hNHZE?=
+ =?utf-8?B?a0EwdGtzMlI3Qjl4VUFrRFp4Nk5PS3Y4cGZ2Y3JQMTdYVERwbk9WbSt2Q2V0?=
+ =?utf-8?B?Ni9RMzhZUGt4ZmRGU2YrYkNBcTlWMGJZek5TM2ZpSGQ0bUlkWHBmWUJIMzVI?=
+ =?utf-8?B?VXdCMzBybTkzSnBBemlTQk9mWU9CN05vWVZYRlN5S3lBRUtEWWZNRmpkWHI0?=
+ =?utf-8?B?QlFydHRQNmxadlREYS9qWUF1WGlJSGFLRkFzamgrWDFSYTg2dlBYR0xjZ3h2?=
+ =?utf-8?B?QjgzeUt1QmtNNEZleVNRKzRRV1IxVS90M3lZUlY2RWxGMitTQzY4d3FCMHd5?=
+ =?utf-8?B?WmtGUStBYUtGVzNBc3VudmlJL1NHVEp2SkxkWXhEQlFkM285Nyt0QXBxbnFV?=
+ =?utf-8?B?RXJkWFVLWDZONm5LTlh0ZGkzWWEvaHZYSTZIVVU0S21tSEVsOUJ3MDBvdCtK?=
+ =?utf-8?B?ZEw3VkNvTlRKTmQyTklFenJwSy9yVWFzY25mUHhqTStGenNYRFRtaUJWOWZI?=
+ =?utf-8?B?VzVneVU3cWJtZng4azZRbGVaMFRHdmFjem5TOTJGdkZFL3ZIcjhuV0pGNk5L?=
+ =?utf-8?B?dktlTHgvRG1Mc2lJbnhubnBXS1RxSnViS3djZ0wwdWJ5ekdvanNpNXRkQjV3?=
+ =?utf-8?B?ZmpySVk0Nk9tSStPQkgrUWNZN2xVa0kxWDNOQjZaYkxhckY1ZVNwUVdyTXFX?=
+ =?utf-8?B?UG1jbGpVTkNCTllacld4QUJpcEMydWlLQXJVUkQ2dXppYWlsMHBUaHBvVnIr?=
+ =?utf-8?B?Z0pwc20rY1ZpV2FDcVJ5dEtuMldjVjNKZGlyN0F4bUZZcUhFQnQ0c2t4Mkwv?=
+ =?utf-8?B?SlJaVVk1TENHM2I0VDJESzZidTkzYVFRdG9hdVA1RHJyZVAvSFdvaFdzdEZO?=
+ =?utf-8?B?YU1Yc3Q1SlF5WWY2dmtnK1E0ZWdON0lRY0gzbVpHS1Zoc0RhaXIraHhmVFdn?=
+ =?utf-8?B?VEg1bUpxQlltL1JEay9KTzFDOW4wVXhCNjhaUHM1b3NEMGw3SmtqSFd5SEZU?=
+ =?utf-8?B?ZkRYOTFzd2tLOFhSei9WcnpRWVVJcks3VlNscTZmWEJHNFB1OTJDOVJCRGZa?=
+ =?utf-8?B?dGt3QnhoRHBiZktNMkloYnpBNms0R1BoYlViaVMzWkprWk5HNE4rWkRKYWpa?=
+ =?utf-8?B?VDNJRlJSY1VPZk1XMHMwSytkdnJCenRFTkdNZGROMDZJdW9UZktGYjMzN3M0?=
+ =?utf-8?B?QTM3SmhpYTQyRTg5V0ZRTTFoWUU0emgycE5HM0gxbXJ5S3lkczI0K2ZnOWF1?=
+ =?utf-8?B?MWpXdVBQbExSeERjVG1nSW13ekdTMjhVWCtNSkdFTkxlb0kvYWdxLytWU2ZI?=
+ =?utf-8?B?Nml2c3ROYVNEZkJaWVYxdXdWRU44VWFDZzZwaWwxaXBjWWhjNERMQ1lSd3lH?=
+ =?utf-8?B?OG1YcEFSS3NOWDJLRHBDUFBORHVtaGlEOXRRMHowVkdCRUg4M3EyYzIzNXFU?=
+ =?utf-8?B?dGxhdDBTV1NRNXRsaEdLMGoyS2FjaHRBcStVRzVhL2g4aUgycXcrNUVmSWhM?=
+ =?utf-8?B?UC9yQjRoOTYrKzhjM3Rta3ROWkIxWDRmTy9FQ015UDdUb21tVmluZ1ZqRWVY?=
+ =?utf-8?B?Q2M0a2pJV1FKS0ZpRUk4NHpnZ21VVFdsRlZ3RHlsbVdob2w3aVVHdWZheWlT?=
+ =?utf-8?B?dkEvVkxtMGUwWXluOUtUalpFME1YTkhTSU5lNE9aajVhWms4b1NkVWlzcWQ5?=
+ =?utf-8?B?c1FYTGFVTFpnV1UyOU1EMGNoaHRGUmNwWWRJc1l1eGlQaFc1M09sOHlWYjFw?=
+ =?utf-8?B?d0dReGZ5TjZxLytVSVltOUYyK1BuWXZiTXNVb25kVGxqYlNGUVEwYURTWkFa?=
+ =?utf-8?B?ZUsvd3lvelR3Q2UxbnJJbjZFc0d1dHVIZWJ4T0k2OWhCK29oeHhrODV6aFpq?=
+ =?utf-8?B?QkEyb0h1SGhvc2Z6YVUvRStPdmpQS0VmR3B3K29kUGJINkFWSS9iZWROWm5B?=
+ =?utf-8?Q?a9k3AZtmY6AFfOGqCgHEgJrAN?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
+	eAcXvsHZ63tfpbQsG+w8OR2o/Nn94GbPumoL8BONGJI+AAJ0EcSpjHdESqI0/NPd+QaeMtkco2EMcE2NCmAynnSeAdG7Ce75wcE667z9Fj7Iy0ltjxB8Ne2IRyDS7vtJubpiyQIQ/IuF38DEIITCSy1E88tieb7SVtGcXvgsHtdgrrE94cKPVrTOOxDyCYRM1YQyMouyjMk5ZKDBmLsclpvWguNxH9l18yc8ggZdNqR5mpQk1hXri78x9i0V9TPpzCufy5AC+XVj4QSAfMd95BSy1nb2TNn4VobKwGNM4WXhR341xotlEX/NmJraZUkgQaxAhEzQ0NAzSQIlfYxGG0U78NPyPeoXrPzGwGE0TQsuuLGf3XVD7KycgCrXkhzdf2R1fmKaY/vlesqQ2G9OVO0xmXTZ8PhuygntCmOvCu/KNVuElt9OgZ+5XtsKKNZ6E25fy4Svw6Jo+pQV8gaLKZtmOWcVh9vKSicMQvAb953vSEpleEzPcJv66qZyRx7Thvsyan3NnaSYsZFaY7N+4I1n5D+AclUUn2KvWpCUabtjB5MH4BxFVmYyaDqJR9qG4KaCxhV5+lsQKpZpA83OCEx4cdLhwRlL6XLfeuu/MKw=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 385ebc3c-43f3-4769-7d46-08dc8f259ded
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR10MB6535.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2024 23:31:30.7990
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: //8PGQQYB2kcbcJl02qqG78TVYXmeQvmXARRgkQyCHieVjG7oLnlFtc6j1NFe0rLCC5Hj6iblQtaby4Ue6GGBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB7684
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-17_14,2024-06-17_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 spamscore=0
+ mlxlogscore=999 adultscore=0 bulkscore=0 malwarescore=0 mlxscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2405010000 definitions=main-2406170182
+X-Proofpoint-ORIG-GUID: cwOQjNVhCZKWgmLWQAlGTopVmNrUNpuL
+X-Proofpoint-GUID: cwOQjNVhCZKWgmLWQAlGTopVmNrUNpuL
 
-The VIRTIO_NET_HDR_GSO_UDP_TUNNEL is a gso_type flag allowing GSO over
-UDP tunnel. It can be negotiated on both the host and guest sides.
 
-UDP tunnel usage is ubiquitous in container deployment, and the ability
-to offload UDP encapsulated GSO traffic impacts greatly the performances
-and the CPU utilization of such use cases.
 
-One constraint addressed here is that the virtio side (either device or
-driver) receiving a UDP tunneled GSO packet must be able to reconstruct
-completely the inner and outer headers offset - to allow for later GSO.
+On 6/16/2024 7:27 PM, Heng Qi wrote:
+> On Thu, 13 Jun 2024 02:13:50 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+>> On Tue, Jun 11, 2024 at 05:43:18PM +0000, Parav Pandit wrote:
+>>>
+>>>> From: Michael S. Tsirkin <mst@redhat.com>
+>>>> Sent: Tuesday, June 11, 2024 10:00 PM
+>>>
+>>>> How we can we make progress with
+>>>> the realease but sure we don't make backwards compat a pain?
+>>>>
+>>>> Ideas?
+>>>>
+>>> There is no functional break with this relaxation.
+>>> Device set some non-zero defaults and driver didn't modify them....
+>>> Anything broken? Unlikely.
+Generally it's inappropriate to leave this decision making to the device 
+for what would be the best / most performant default config, as the 
+device is generally considered agnostic to the guest load... Unless the 
+device is specially hard wired to some fixed guest setup that users 
+couldn't change, it doesn't seem logical that the device could derive 
+the best or most performant config on driver's behalf. What if the guest 
+wants best latency for its load but the device just blindlessly guess 
+the guest might prefer throughput friendly that it miserably uses 
+latency impacting non-zero default? Could this device side change for 
+the default config regress boot time performance (which may need best 
+latency over throughput)?
 
-To accommodate such need, new optional fields are introduced in the
-virtio_net header: outer_th_offset, inner_protocol, inner_mac_offset,
-inner_nh_offset. They map directly to the corresponding header
-information. The inner transport header is implied by the (inner)
-checksum offload.
+>>> And device/driver has better performance, is that a problem? Unlikely.
+>>>
+Even for rare case with a hard wired setup, the way to tackle the very 
+problem using device's default is still quite questionable. Usually the 
+mgmt software or network config utility should be equipped with some 
+default value if need be. And we know the guest has the best position to 
+impose the best / most performant config for its own load. What is the 
+issue or use case that this initial config couldn't be applied by the 
+guest mgmt software ahead but has to resort to the device to load some 
+default (which is odd and irrelevant to any guest load), before the 
+interface is brought up for operation i.e. performing I/O?
 
-The checksum offload for the outer header is negotiated with a separate
-feature and only for GSO over UDP tunnel packets. Computing the outer
-header checksum is cheap: due to the inner checksum only data in between
-the outer and the inner transport header must be accounted[1].
+> Sorry, my vacation just ended.
+>
+>> Yes, it is possible. Driver can cache values it sets
+>> and never query device with get.
+> Don't we already have a lot of behaviors to drive queries from devices?
+> RSS context, device stats.
+>
+>> Before anything is set, driver will report incorrect values.
+> Devices that are widely supported and supported by good practices should have
+> any initialization value. Just reporting 0 is incorrect value. Although the
+> spec now says so.
+I don't have an aligned view here, sorry. As I recall having 0 as the 
+default is just to keep device started in a state where coalescing is 
+disabled, so it's backward compatible and consistent with a 
+non-coalescing supporting driver - such that it won't yield surprising 
+effect (for e.g. regressed latency) inadvertently after user's getting 
+driver software upgraded. Unlike the other virtio-net features that 
+could 100% improve performance in all aspect, this coalescing feature is 
+more of a performance tuning knob that may improve performance metrics 
+(such as cpu usage or throughput) of one dimension while demoting the 
+others (such as latency, jitter or connection rate) from the equation. 
+That said, there's not a single and fixed set of default config that 
+device could supply which is able to satisfy all kind of guest load. 
+Rather than rely on the device to offer a matching default for driver 
+(which I think it's technically wrong), I'd lean to having guest 
+software or network utility to apply the initial config for the guest, 
+where they should have best knowledge for the specific guest workload 
+than what device could do.
 
-The GSO over UDP tunnels packets are allowed even when the outer header
-csum offload is not supported, if the outer UDP header has zero csum
-or the GSO packet size is an integer multiple of the gso_size. In such
-later case the outer UDP header checksum can be computed independently
-prior to the segmentation step, do to [1].
+>
+>> What will break as a result? Hard to predict.
+>>
+>>
+>> Given the patch is big, I am inclined to say it just should use
+>> a feature bit.
+>>
+> This doesn't seem to break anything in my opinion, we just told the device that
+> now you can set more values.
+Another thing this could break is live migration between devices with 
+varied default. How do you make sure the guest doesn't rely on some 
+default from the source device, while on the destination it just doesn't 
+get the same default coalescing value? To get rid of this side effect 
+the guest would still need to apply the initial config for its own, 
+anyway... Which eventually would render this proposal with arbitrary 
+default rather pointless.
 
-Migration for GSO_UDP_TUNNEL-enabled-VMs should be managed alike other
-types of GSO offload: VMs that has negotiated UDP tunnel GSO and
-checksum offload could be migrated only on hosts supporting such
-features.
 
-Note that there is no concept of UDP tunnel type negotiation (e.g.
-vxlan, geneve, vxlan-gpe, etc.). That is intentional because:
-- given the information carried by the guest or host kernel, it's
-  impossible to probe reliably the UDP tunnel type. Specifically, the
-  outer UDP port numbers give a hint, but peers could use nonstandard
-  ones.
-- all the existing UDP tunnel protocols behave the same way WRT GSO
-  offload, carrying an immutable header on top of the outer transport
-  one.
-- if a new UDP tunnel protocol, carring packet dependant information
-  alike the inner packet length or csum should surface in the future,
-  the host and guest kernels will need explicit support for it,
-  including new, different GSO features. Additional virtio support
-  should be designed separately.
-
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
----
-v4 -> v5:
- - add separate negotiation for UDP_TUNNEL_CSUM
- - much more verbose specification of outer csum handling
- - UDP_TUNNEL_CSUM requires GSO_UDP_TUNNEL
- https://lore.kernel.org/virtio-comment/cb89d3d6b6a7e4a7f13e60dd3fded5e950727890.1716448766.git.pabeni@redhat.com/
-
-v3 -> v4:
- - new virtio_net_hdr fields depends on F_HOST_UDP_TUNNEL_GSO or
-   F_GUEST_UDP_TUNNEL_GSO (Stefano)
- - Extended the changelog to answer Jason's questions.
- - Clarified outer csum handling (Jason)
- https://lore.kernel.org/virtio-dev/f0bf2db203f8061a3ecb50b7a48cf26d8f3c7f68.1716193086.git.pabeni@redhat.com
-
-v2 -> v3:
- - UDP_TUNNEL -> UDP_TUNNEL_GSO
- - add explicit fields for the inner meta-data
- - more verbose changelog
- https://lists.oasis-open.org/archives/virtio-dev/202206/msg00026.html
-
-v1 -> v2:
- - explicitly state that the outer header probing is mandatory
- - explicitly state that GSO_UDP is not allowed with GSO_UDP_TUNNEL
- - clarify hdr_len usage
- - clarify UDP_TUNNEL_CSUM bit usage
- - fix a few typos
- https://lists.oasis-open.org/archives/virtio-dev/202205/msg00037.html
----
- device-types/net/description.tex | 248 ++++++++++++++++++++++++++++++-
- 1 file changed, 240 insertions(+), 8 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 76585b0..d6f9f79 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -88,6 +88,18 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-     channel.
- 
-+\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (47)] Driver can receive GSO packets
-+  carried by an UDP tunnel.
-+
-+\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM (48)] Driver handles packets
-+  carried by an UDP tunnel with partial csum for the outer header.
-+
-+\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (49)] Device can receive GSO packets
-+  carried by an UDP tunnel.
-+
-+\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM (50)] Device handles packets
-+  carried by an UDP tunnel with partial csum for the outer header.
-+
- \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
- 
- \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
-@@ -133,12 +145,18 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
-+\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO] Requires VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
-+   VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6.
-+\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM] Requires VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO
- 
- \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_ECN] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NET_F_HOST_TSO6.
- \item[VIRTIO_NET_F_HOST_UFO] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_USO] Requires VIRTIO_NET_F_CSUM.
-+\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO] Requires VIRTIO_NET_F_HOST_TSO4, VIRTIO_NET_F_HOST_TSO6,
-+   VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6.
-+\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM] Requires VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO
- 
- \item[VIRTIO_NET_F_CTRL_RX] Requires VIRTIO_NET_F_CTRL_VQ.
- \item[VIRTIO_NET_F_CTRL_VLAN] Requires VIRTIO_NET_F_CTRL_VQ.
-@@ -375,6 +393,16 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
-   TCP), VIRTIO_NET_F_HOST_TSO6 (IPv6 TCP), VIRTIO_NET_F_HOST_UFO
-   (UDP fragmentation) and VIRTIO_NET_F_HOST_USO (UDP segmentation) features.
- 
-+\item If any TCP or UDP segmentation feature is negotiated, a driver can
-+  use TCP segmentation or UDP segmentation on top of UDP encapsulation
-+  offload, when the outer header does not require checksumming,
-+  by negotiating the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO feature.
-+
-+\item If VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is negotiated, a driver can
-+  additionally use TCP segmentation or UDP segmentation on top of UDP
-+  encapsulation with the outer header requiring checksum offload,
-+  negotiating the VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM feature.
-+
- \item The converse features are also available: a driver can save
-   the virtual device some work by negotiating these features.\note{For example, a network packet transported between two guests on
- the same system might not need checksumming at all, nor segmentation,
-@@ -382,8 +410,10 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
-    The VIRTIO_NET_F_GUEST_CSUM feature indicates that partially
-   checksummed packets can be received, and if it can do that then
-   the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
--  VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_GUEST_USO4
--  and VIRTIO_NET_F_GUEST_USO6 are the input equivalents of the features described above.
-+  VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_GUEST_USO4,
-+  VIRTIO_NET_F_GUEST_USO6, VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO and
-+  VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM are the input equivalents of
-+  the features described above.
-   See \ref{sec:Device Types / Network Device / Device Operation /
- Setting Up Receive Buffers}~\nameref{sec:Device Types / Network
- Device / Device Operation / Setting Up Receive Buffers} and
-@@ -407,12 +437,14 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
- #define VIRTIO_NET_HDR_F_NEEDS_CSUM    1
- #define VIRTIO_NET_HDR_F_DATA_VALID    2
- #define VIRTIO_NET_HDR_F_RSC_INFO      4
-+#define VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM 8
-         u8 flags;
- #define VIRTIO_NET_HDR_GSO_NONE        0
- #define VIRTIO_NET_HDR_GSO_TCPV4       1
- #define VIRTIO_NET_HDR_GSO_UDP         3
- #define VIRTIO_NET_HDR_GSO_TCPV6       4
- #define VIRTIO_NET_HDR_GSO_UDP_L4      5
-+#define VIRTIO_NET_HDR_GSO_UDP_TUNNEL 0x40
- #define VIRTIO_NET_HDR_GSO_ECN      0x80
-         u8 gso_type;
-         le16 hdr_len;
-@@ -423,6 +455,10 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
-         le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-         le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-         le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-+        le16 outer_th_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
-+        le16 inner_protocol;    (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
-+        le16 inner_mac_offset;  (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
-+        le16 inner_nh_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
- };
- \end{lstlisting}
- 
-@@ -480,6 +516,8 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- followed by the TCP header (with the TCP checksum field 16 bytes
- into that header). \field{csum_start} will be 14+20 = 34 (the TCP
- checksum includes the header), and \field{csum_offset} will be 16.
-+If the given packets has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit set,
-+the above checksum fields refer to the inner header checksum.
- \end{note}
- 
- \item If the driver negotiated
-@@ -516,6 +554,59 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- specifically in the protocol.}.
-    \end{itemize}
- 
-+\item If the driver negotiated the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO feature,
-+  the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit in \field{gso_type} indicates that
-+  the GSO protocol is encapsulated in an UDP tunnel. If the outer UDP header
-+  requires checksumming, the driver must have additionally negotiated the
-+  VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM feature and offloaded the outer checksum
-+  accordingly.
-+  The other tunnel-related fields indicate how to replicate the inner packet
-+  header to cut it into smaller packets:
-+
-+  \begin{itemize}
-+  \item \field{outer_th_offset} field indicates the outer transport header within
-+      the packet. Note that differs from \field{csum_start} as the latter
-+      points to the inner transport header within the packet.
-+
-+  \item \field{inner_protocol} field indicates the ethernet type of the inner
-+      protocol.
-+
-+  \item \field{inner_mac_offset} field indicates the inner mac header within the packet
-+
-+  \item \field{inner_nh_offset} field indicates the inner network header within
-+      the packet
-+  \end{itemize}
-+
-+\item If the driver negotiated the VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM feature,
-+  the transimitted packet is a GSO one encapsulated in an UDP tunnel, and
-+  the outer UDP header requires checksumming, the driver can skip it:
-+
-+  \begin{itemize}
-+  \item \field{flags} has the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM set,
-+
-+  \item \field{outer_th_offset} correspond to the outer checksum start and
-+      implies the outer checksum offset: the outer transport header is UDP,
-+      so the outer checksum offset is 6.
-+
-+  \item The outer UDP checksum field in the packet is set to the sum
-+    of the UDP pseudo header, so that replacing it by the ones'
-+    complement checksum of the outer UDP header and payload will give the
-+    correct result.
-+  \end{itemize}
-+
-+\begin{note}
-+  Transmitting GSO packets carried by UDP tunnel is still possible even without
-+  the outer UDP header checksum offload:
-+  \begin{itemize}
-+    \item when the outer UDP checksum is not required, that is, when the outer UDP
-+      checksum is zero.
-+    \item when the GSO packet size is equal to a multiple of \field{gso_size}. In such
-+      case the outer UDP checksum is indepenent from the actual packet contents and
-+      the driver computes the individual segment full outer UDP checksum prior
-+      to the segmentation itself.
-+  \end{itemize}
-+\end{note}
-+
- \item \field{num_buffers} is set to zero.  This field is unused on transmitted packets.
- 
- \item The header and packet are added as one output descriptor to the
-@@ -557,6 +648,34 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- driver MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
- \field{gso_type}.
- 
-+The driver MUST NOT send to the device TCP or UDP GSO packets over UDP tunnel
-+requiring segmentation offload, unless the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is
-+negotiated, in which case the driver MUST set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL
-+bit in the \field{gso_type}.
-+
-+The driver MUST NOT send to the device TCP or UDP GSO packets over UDP tunnel
-+requiring segmentation and outer UDP checksum offload, unless both the
-+VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO and VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM features
-+are negotiated, in which case the driver MUST set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL
-+bit in the \field{gso_type} and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags}.
-+
-+If VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM is not negotiated, the driver MUST not set
-+the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags} and, in case of GSO
-+packets carried over an UDP tunnel, MUST either supply the full checksum for the
-+outer UDP header to the device or such checksum MUST be zero.
-+
-+\begin{note}
-+Is possible to supply the full checksum for the outer UDP header for
-+GSO packets over UDP tunnel, only when the GSO packet size is an integer
-+multiple of \field{gso_size}.
-+\end{note}
-+
-+The driver MUST NOT set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL together with
-+VIRTIO_NET_HDR_GSO_UDP.
-+
-+The driver MUST NOT set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit \field{flags}
-+without setting the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO bit in \field{gso_type}.
-+
- If the VIRTIO_NET_F_CSUM feature has been negotiated, the
- driver MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
- \field{flags}, if so:
-@@ -598,6 +717,45 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- 	header.
- \end{itemize}
- 
-+If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO option has been negotiated, the
-+driver MAY set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit in \field{gso_type}, if so:
-+\begin{itemize}
-+\item the driver MUST set the \field{outer_th_offset} to the outer UDP header
-+  offset, the \field{inner_protocol} to the ethernet type of the inner
-+  protocol, the \field{inner_mac_offset} to the inner mac header offset and
-+  the \field{inner_nh_offset} to the inner network header offset.
-+\end{itemize}
-+
-+If the VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM feature has been negotiated, and the
-+bit VIRTIO_NET_HDR_GSO_UDP_TUNNEL in \field{gso_type} is set, the
-+driver MAY set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
-+\field{flags}, if so:
-+\begin{enumerate}
-+\item the driver MUST validate the packet checksum at
-+	offset 6 from \field{outer_th_offset} as well as all
-+	preceding offsets;
-+\item the driver MUST set the packet checksum stored in the
-+	buffer to the outer UDP pseudo header;
-+\item the driver MUST set \field{outer_th_offset} and such that calculating a ones'
-+	complement checksum from \field{outer_th_offset} up until the end of
-+	the packet and storing the result at offset 6 from  \field{outer_th_offset}
-+	will result in a fully checksummed outer UDP packet;
-+\end{enumerate}
-+Otherwise, if the bit VIRTIO_NET_HDR_GSO_UDP_TUNNEL in \field{gso_type} is set and
-+the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in \field{gso_type} is cleared, the driver
-+MUST either set the outer UDP checksum to 0 or set it to the full outer UDP header
-+value. To compute the full outer UDP header value the driver MUST:
-+\begin{enumerate}
-+\item set the outer UDP checksum to 0
-+\item calculate the ones'complement checksum from \field{outer_th_offset} to
-+  \field{csum_start}
-+\item add the outer UDP pseudo header checksum
-+\end{enumerate}
-+
-+If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO option has not
-+been negotiated, the driver MUST clear the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit
-+in the \field{gso_type}.
-+
- The driver SHOULD accept the VIRTIO_NET_F_GUEST_HDRLEN feature if it has
- been offered, and if it's able to provide the exact header length.
- 
-@@ -633,6 +791,18 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- 	\end{note}
- \end{itemize}
- 
-+If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO option has been negotiated:
-+\begin{itemize}
-+\item If the \field{gso_type} has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit set
-+	the device MUST use the \field{outer_th_offset}, \field{inner_protocol},
-+  \field{inner_mac_offset} and \field{inner_nh_offset} fields to
-+  locate the corresponding headers inside the packet.
-+\end{itemize}
-+
-+If VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit in \field{gso_type} is not set, the
-+device MUST NOT use the \field{outer_th_offset}, \field{inner_protocol},
-+\field{inner_mac_offset} and \field{inner_nh_offset}.
-+
- If VIRTIO_NET_HDR_F_NEEDS_CSUM is not set, the device MUST NOT
- rely on the packet checksum being correct.
- \paragraph{Packet Transmission Interrupt}\label{sec:Device Types / Network Device / Device Operation / Packet Transmission / Packet Transmission Interrupt}
-@@ -727,8 +897,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   has been validated.
- \end{enumerate}
- 
--Additionally, VIRTIO_NET_F_GUEST_CSUM, TSO4, TSO6, UDP and ECN
--features enable receive checksum, large receive offload and ECN
-+Additionally, VIRTIO_NET_F_GUEST_CSUM, TSO4, TSO6, UDP, UDP_TUNNEL
-+and ECN features enable receive checksum, large receive offload and ECN
- support which are the input equivalents of the transmit checksum,
- transmit segmentation offloading and ECN features, as described
- in \ref{sec:Device Types / Network Device / Device Operation /
-@@ -750,8 +920,20 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   from \field{csum_start} and any preceding checksums
-   have been validated.  The checksum on the packet is incomplete and
-   if bit VIRTIO_NET_HDR_F_RSC_INFO is not set in \field{flags},
--  then \field{csum_start} and \field{csum_offset} indicate how to calculate it
--  (see Packet Transmission point 1).
-+  then \field{csum_start} and \field{csum_offset} indicate how to calculate it.
-+  If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is set, the \field{csum_start} field
-+  refers to the inner transport header offset (see Packet Transmission point 1).
-+\item If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO option was negotiated and
-+  \field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE, the VIRTIO_NET_HDR_GSO_UDP_TUNNEL
-+  bit MAY be set. In such case the \field{outer_th_offset}, \field{inner_protocol},
-+  \field{inner_mac_offset} and \field{inner_nh_offset} fields indicates corresponding
-+  header information.
-+\item If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM feature was negotiated, and the
-+  the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is set in \field{gso_type}, the
-+  VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags} can be set: if so,
-+  the outer UDP header checksum at offset 6 from \field{outer_th_offset} have
-+  been validated. The checksum on the packet is incomplete and the
-+  \field{outer_th_offset} indicates how to calculate it.
- 
- \end{enumerate}
- 
-@@ -796,6 +978,12 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- If none of VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6 have been negotiated,
- the device MUST NOT set \field{gso_type} to VIRTIO_NET_HDR_GSO_UDP_L4.
- 
-+If VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO is not negotiated the device MUST NOT set
-+the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit in \field{gso_type}.
-+
-+If VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM is not negotiaded the device MUST NOT set
-+the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in \field{flags}.
-+
- The device SHOULD NOT send to the driver TCP packets requiring segmentation offload
- which have the Explicit Congestion Notification bit set, unless the
- VIRTIO_NET_F_GUEST_ECN feature is negotiated, in which case the
-@@ -819,6 +1007,13 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- 	fully checksummed packet;
- \end{enumerate}
- 
-+The device MUST NOT send to the driver TCP or UDP GSO packets encapsulated in UDP
-+tunnel and requiring segmentation offload, unless the
-+VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO is negotiated, in which case the device MUST set
-+the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit in \field{gso_type} and MUST set the
-+\field{outer_th_offset}, \field{inner_protocol}, \field{inner_mac_offset} and
-+\field{inner_nh_offset}.
-+
- If none of the VIRTIO_NET_F_GUEST_TSO4, TSO6, UFO, USO4 or USO6 options have
- been negotiated, the device MUST set \field{gso_type} to
- VIRTIO_NET_HDR_GSO_NONE.
-@@ -842,8 +1037,39 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
- device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
- \field{flags}, if so, the device MUST validate the packet
--checksum (in case of multiple encapsulated protocols, one level
--of checksums is validated).
-+checksum.
-+
-+If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO and the VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM
-+feature has been negotiated, the bit VIRTIO_NET_HDR_GSO_UDP_TUNNEL is set in
-+\field{gso_type}
-+device MAY set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
-+\field{flags}, if so:
-+\begin{enumerate}
-+\item the device MUST validate the packet checksum at
-+	offset 6 from \field{outer_th_offset};
-+\item the device MUST set the packet checksum stored in the
-+	receive buffer to the outer UDP pseudo header;
-+\item the device MUST set \field{outer_th_offset} such that
-+	calculating a ones' complement checksum from
-+	\field{outer_th_offset} up until the end of the packet
-+	and storing the result at offset 6 from \field{outer_th_offset}
-+	will result in the outer UDP header fully checksummed;
-+\end{enumerate}
-+Otherwise, if the VIRTIO_NET_HDR_GSO_UDP_TUNNEL is set in
-+\field{gso_type} and the bit VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM is cleared in
-+\field{flags}, the device MUST must either provide a zero outer UDP header
-+checksum or a fully checksummed outer UDP header.
-+
-+\begin{note}
-+The latter case is possible only if the GSO packet size is be a
-+multiple of \field{gso_size}.
-+\end{note}
-+
-+\begin{note}
-+If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO feature is negotiated and the
-+VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is set, the VIRTIO_NET_HDR_F_NEEDS_CSUM
-+bit refers to the inner header checksum.
-+\end{note}
- 
- \drivernormative{\paragraph}{Processing of Incoming
- Packets}{Device Types / Network Device / Device Operation /
-@@ -867,6 +1093,10 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- VIRTIO_NET_HDR_F_DATA_VALID is set, the driver MUST NOT
- rely on the packet checksum being correct.
- 
-+If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_GSO bit in \field{gso_type} is not set,
-+the driver MUST NOT use the \field{outer_th_offset}, \field{inner_protocol},
-+\field{inner_mac_offset} and \field{inner_nh_offset}.
-+
- \paragraph{Hash calculation for incoming packets}
- \label{sec:Device Types / Network Device / Device Operation / Processing of Incoming Packets / Hash calculation for incoming packets}
- 
-@@ -1624,6 +1854,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- #define VIRTIO_NET_F_GUEST_TSO6       8
- #define VIRTIO_NET_F_GUEST_ECN        9
- #define VIRTIO_NET_F_GUEST_UFO        10
-+#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  47
-+#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM 48
- #define VIRTIO_NET_F_GUEST_USO4       54
- #define VIRTIO_NET_F_GUEST_USO6       55
- 
--- 
-2.45.1
+Thanks,
+-Siwei
+>
+> Using new feature bits does not seem necessary.
+>
+> Thanks.
+>
+>> -- 
+>> MST
+>>
 
