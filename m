@@ -1,52 +1,54 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805261A8C0E
-	for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 08:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C8013A272
+	for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 08:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718698746; cv=none; b=uBTUmrVIiBTvWYpwdg5VeQgzghPdiAhY62WZzwkE40/ZX6Kr1eI8oAIcta/TJJ2kVyn3Q5IPvj8B9IiVIh/DTitC9af9SNXR5N0yktIjY+Xe7s25GPWLN3QtflJYsLWgwmpjWHBab92H8c61aqM6gvGTYI4gNZZkS/4lisJcagE=
+	t=1718698750; cv=none; b=BOascvs01ymvlywJWV9v1NXdqA9mtaypAn94rmxBtNxVRg9eXnpCTqhfwSzMtaeWo2llYrTA4AAKsmnLBgQivnTDVwR1lGvk6crpS3HMyPSQI2c3tRMuJQOUCUGDNtXZlj3n/HSRdKDhT7Rezo+1LqSiz3tSNEkThb8aglMQC6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718698746; c=relaxed/simple;
-	bh=dj4ABLlbz2KzWv9sU5OrqIrBfuj7RPc2XVN80Q7LDeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=muoyBOIoKPeabDfWwwpOOtKy7B64PwXunWH2DWqG5UZ/sQLyP7b1xqp7VnMoRTFot1b4HyC3NePJtSAns3J10X1TZzOwfdA+DEunvpPKMH3nltbxmj/DX77+9KayQjNIYxjcWctAq+aFHTQ95Wi0mArpgaO3BJdshC3c+lqIF9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=NEwlthop; arc=none smtp.client-ip=209.85.210.170
+	s=arc-20240116; t=1718698750; c=relaxed/simple;
+	bh=Nsl19jd5IKnHtGpW4kkJW4IbGUNac/S+8xVpeTcVHB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UhWijrCjh6WBaw/3gq4u4bB7q4Mjzim+hfxM2aKB/kMxOR0PNhJFN2JVsPQPMhyZBo8Yaw5aeP24XcCvE+DZJvfH6RL3xMvoLbUYjWqJ6uG93LkQF/R1vWrKmD7qXLPmax0BohnW3XR6Oe2Pm/pj6SEgsQ6z5R5jK4/NnM2sCo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Mao4QpCE; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="NEwlthop"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-70625e8860cso1836b3a.2
-        for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 01:19:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Mao4QpCE"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-1f717b3f2d8so43712695ad.1
+        for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 01:19:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1718698744; x=1719303544; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bDXIs1Q/FMFba+yXjEoecK5xsIVXjHMkBV1FRuo+diE=;
-        b=NEwlthop/sJyJO5s6G0OUtTWQVYwAyp2dopjpn8m6xkrjtC04R1XKO5R0vRfg2sx0b
-         94J4pOf02EuvfWgJGJvL0GhuRqH29kZHBEE4qo0vkypCRp++qjBAEjqi1fh5MGF51xFI
-         UXzUW5Zhbm0xUFzoIJuJnoT/PcvBLKwQ0uqY8=
+        d=chromium.org; s=google; t=1718698748; x=1719303548; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=k12yptNyz7NhmCVXBegSaSHlVhI0jyXYPJJhxc4Y7W8=;
+        b=Mao4QpCEktvs9TvNa+KX1zILgivGnirlar4z/ZS9FNX6Ax4Ay7VrhK99fDOYYk4+Iu
+         1sqgfKal6FO7b7mEvO7RMgC9XEBcROX/Sqat3vEltvf/IBoZAgIXYAczaJDWgeTRO2HS
+         zLowyJe51yMJgNn5zo0zJ4i6doLL2bcZbHpTU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718698744; x=1719303544;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bDXIs1Q/FMFba+yXjEoecK5xsIVXjHMkBV1FRuo+diE=;
-        b=IJCUiq+XWWHVHgLRqv0ywA+uLbxyta9OXaz5/VLHGm0q0KyBmgTTQf20Lsbq2L6uTt
-         K0zW+n8o9O0TCM3n3DmXpUERi1RbhnHN3BQp7NAyYIZnEXdb2u9PORGmbkR3BnvEa64q
-         6l6ZSEGJcBZJMdewJzRkN+jo0Fn+rywwhI1f3EkMBMF7LhPcrEFGrbeCzbwPGpovQUxz
-         kndXYbn0DQOhliZiR4vH3JNXZ6zK3Q5RxjvjH4hnE7SmUB84FaIznVVsRwzWFABsMG5G
-         g/80J6AVcrPsYQuVlA8agcRUcUSQgC9Pk1UqBiKa3gvksu797wKVdnVpM6paH4WJ7ENN
-         bpIg==
-X-Gm-Message-State: AOJu0Yzc6GgwFO1pYhNsoVycyQ2V8rg8lhzwkgPY82pAeQPvI3tIvKKT
-	hjgdKy1ZRWWzDHW41vePM4FOEPvBF8VKaVtJiFkXIh1qYVjFhy24GD3rVZWoXsrkaB8rrzYAN9I
-	SjA==
-X-Google-Smtp-Source: AGHT+IEhOrRwEnG/8pR9VB/zqW2G1+rmpCXOQ7AfKoGSJlU5BlCkj48o46MpT6R29WWyuJpP4uMLmA==
-X-Received: by 2002:a05:6a20:7483:b0:1a7:a6f3:1827 with SMTP id adf61e73a8af0-1bae802b28emr14687039637.46.1718698744315;
-        Tue, 18 Jun 2024 01:19:04 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1718698748; x=1719303548;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=k12yptNyz7NhmCVXBegSaSHlVhI0jyXYPJJhxc4Y7W8=;
+        b=Tsba3vEsmdcIEHy3VZXQxQRWopy/4F3nUG0ZxFqSIqS9L/HS6DZXS1K0XD+M+4wUjC
+         uA550iqSBtDE30/NigbqJsro7K58ejaC1QgEcq7WXkJ6AwF6Wc+alRUi817bUoH2PMhx
+         6BdOzmcJxEXJkwqw5uNXHsBsxvZou5x+sK4I6IJsJ27IaBJIaQsbqT9DJTLn0xkwH0rh
+         CgD/9l+FRdusaC33JNx4/ihM0Sg6XKQoT2Olj6VFSi5PHE2D9zarvvTPrxW3k6Awit1y
+         0yFoxL4nnChj58hlDS8i9l7RwZ9oBvYKsRIzK4GPfIycdol5sGIzpKjygXerErdDZUye
+         puZg==
+X-Gm-Message-State: AOJu0YykTNyoy/f/yxP4rKgpIX5uBgDrOlKimabZylBPd3Q1Zs/84f0K
+	8m0qseXyMc3H2U4xJU2dB2rjKOYPYcoY4+UtzdUFNue4AVLYj7kq8fmo40nFJsZA3N9m6jQPb3G
+	Vng==
+X-Google-Smtp-Source: AGHT+IFwHjllEtz4cIczaefgQxoS8Zm+bVrp21YlcRWw0M1RzUT7FvAyl6zXtjTExy5QPQULyBIQmw==
+X-Received: by 2002:a17:902:d510:b0:1f6:ee7b:6ecf with SMTP id d9443c01a7336-1f98b28f021mr29152865ad.34.1718698747796;
+        Tue, 18 Jun 2024 01:19:07 -0700 (PDT)
 Received: from keiichiw1.c.googlers.com.com (122.235.124.34.bc.googleusercontent.com. [34.124.235.122])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1f855f1dedasm92381725ad.248.2024.06.18.01.19.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1f855f1dedasm92381725ad.248.2024.06.18.01.19.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Jun 2024 01:19:03 -0700 (PDT)
+        Tue, 18 Jun 2024 01:19:07 -0700 (PDT)
 From: Keiichi Watanabe <keiichiw@chromium.org>
 To: virtio-comment@lists.linux.dev
 Cc: keiichiw@chromium.org,
@@ -54,10 +56,12 @@ Cc: keiichiw@chromium.org,
 	takayas@chromium.org,
 	dverkamp@chromium.org,
 	tytso@google.com
-Subject: [PATCH 0/1] A new virtio-blk error code for host-side ENOSPC
-Date: Tue, 18 Jun 2024 17:18:57 +0900
-Message-ID: <20240618081858.2795400-1-keiichiw@chromium.org>
+Subject: [PATCH 1/1] virito-blk: Support NOSPC error
+Date: Tue, 18 Jun 2024 17:18:58 +0900
+Message-ID: <20240618081858.2795400-2-keiichiw@chromium.org>
 X-Mailer: git-send-email 2.45.2.627.g7a2c4fd464-goog
+In-Reply-To: <20240618081858.2795400-1-keiichiw@chromium.org>
+References: <20240618081858.2795400-1-keiichiw@chromium.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -66,28 +70,59 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch proposes a new error code VIRTIO_BLK_S_NOSPC to report
-the device's ENOSPC error to the driver so the driver can treat it
-in a different way from other IO errors.
-More motivation is explained in fs-devel mail [1].
+Add a status code to indicate that the storage is full on the virtio-blk
+device side.
 
-[2] is a prototype implementation in crosvm and [3] is in virtio-blk
-driver. Idealy, the error should be propagated to the guest file system
-and handled smartly, but the part is still under discussion.
+This is useful in scenarios where a virtio-blk disk image is provided on a
+sparse disk and the host storage is full.
+In this scenario, the driver cannot create a new file to the disk image
+because the sparse disk cannot be expanded.
+However, if the host have a service that clean up host stroage regularly
+by wiping cache files, the guest may want to retry the request.
+For this type of special handling, this error should have a separate
+error code in virito-blk.
 
-[1]: https://lore.kernel.org/linux-fsdevel/CAD90VcZybb0ZOVrhE-MqDPwEya8878uzA1RBwd68U7x4CufkTQ@mail.gmail.com/T/#u
-[2]: https://crrev.com/c/5599649
-[3]: https://crrev.com/c/5600325
-
-
-*** BLURB HERE ***
-
-Keiichi Watanabe (1):
-  virito-blk: Support NOSPC error
-
+Signed-off-by: Keiichi Watanabe <keiichiw@chromium.org>
+---
  device-types/blk/description.tex | 13 ++++++++-----
  1 file changed, 8 insertions(+), 5 deletions(-)
 
+diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+index f04c932..5a34bd5 100644
+--- a/device-types/blk/description.tex
++++ b/device-types/blk/description.tex
+@@ -532,12 +532,14 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+ 
+ The final \field{status} byte is written by the device: either
+ VIRTIO_BLK_S_OK for success, VIRTIO_BLK_S_IOERR for device or driver
+-error or VIRTIO_BLK_S_UNSUPP for a request unsupported by device:
++error, VIRTIO_BLK_S_UNSUPP for a request unsupported by device or
++VIRTIO_BLK_S_NOSPC for an error that device doesn't have enough space.
+ 
+ \begin{lstlisting}
+ #define VIRTIO_BLK_S_OK        0
+ #define VIRTIO_BLK_S_IOERR     1
+ #define VIRTIO_BLK_S_UNSUPP    2
++#define VIRTIO_BLK_S_NOSPC     7
+ \end{lstlisting}
+ 
+ The status of individual segments is indeterminate when a discard or write zero
+@@ -567,10 +569,11 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+ Requests of type VIRTIO_BLK_T_OUT, VIRTIO_BLK_T_ZONE_OPEN,
+ VIRTIO_BLK_T_ZONE_CLOSE, VIRTIO_BLK_T_ZONE_FINISH, VIRTIO_BLK_T_ZONE_APPEND,
+ VIRTIO_BLK_T_ZONE_RESET or VIRTIO_BLK_T_ZONE_RESET_ALL may be completed by the
+-device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR or VIRTIO_BLK_S_UNSUPP
+-\field{status}, or, additionally, with  VIRTIO_BLK_S_ZONE_INVALID_CMD,
+-VIRTIO_BLK_S_ZONE_UNALIGNED_WP, VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or
+-VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE ZBD-specific status codes.
++device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR, VIRTIO_BLK_S_UNSUPP or
++VIRTIO_BLK_S_NOSPC \field{status}, or, additionally, with
++VIRTIO_BLK_S_ZONE_INVALID_CMD, VIRTIO_BLK_S_ZONE_UNALIGNED_WP,
++VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE ZBD-specific
++status codes.
+ 
+ Besides the request status, VIRTIO_BLK_T_ZONE_APPEND requests return the
+ starting sector of the appended data back to the driver. For this reason,
 -- 
 2.45.2.627.g7a2c4fd464-goog
 
