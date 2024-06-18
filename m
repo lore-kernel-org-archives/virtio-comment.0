@@ -1,107 +1,152 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F99156F28
-	for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 10:54:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B9E13A248
+	for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 10:58:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718708100; cv=none; b=H29q9mGYiESfq961RYNsAfpaDpGjyRBZ3qRB431U+4DzMKWn63Ych0c427xHC4B0C0Jf58L8UfnsDbB6w46lsVcOpY9QZgkukguS6H6BmyISp8y6+5T0l/PbMoYYgjDr2f30U+3wQsRH1K6KuOfpU6AzAIb9zvxaRWxxC0mxvmg=
+	t=1718708326; cv=none; b=ui/O1VTkPwU9MQoalB/FdISzRORqamssreBFkyYM1HUgAKTrHDmkyripTyxu5CKhoeRqRrckQE+xiBFDgNEucnyX0YXsYLfH6+xPosAWQPwOo0vlZNHJHnRT7XD6O91mmuArdNxnTP1gMUVd6TpsorOoGHFv/2UKaT7dYV5C6pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718708100; c=relaxed/simple;
-	bh=EhoCESFbH4a5+Y51/ikKYu8QJvXzibGn61jpfWyzJjY=;
+	s=arc-20240116; t=1718708326; c=relaxed/simple;
+	bh=kbWUJ1NKJH4WwR6SK4qywWN9jiCRczXp8H/UO5hl+ko=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=bSvJ52Rg3AqAXtHcJMkxO7E/4LxoDP/+TiY90KF86Nnb02OXkL9lEpiZjFN7qf+wZ8l3MOtgRyHTnhco1Z+nkqdf1tRtcPJ/cJ/DvsAZFZ5QNoFX/+OMYrXxQUXORZu0y8WwQOx0P1qrERX6i1zU5QP4OJdmkPQvmBMDGTJ5/kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DiJU2oTL; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=j57aK92E+yTaSfUGDV7ukDRrKCNUGhEpr1mMTAP+Y5U31FhIW9OfQY7qPddoDsqovm6z0EH1UBuu08B+hIFe7edTb9fffUAFkQTDHEeVbeioGI1g6IWlBsLmkQ0lHQIYVQlATJF716x1DLLh0+0UOZiS3X3m4wWXshpqOmzPWxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MD9DAVc+; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DiJU2oTL"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MD9DAVc+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718708097;
+	s=mimecast20190719; t=1718708323;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iMGM5II+H0pL0LUGGmgQZa0DVVBV2RnH1hbySurb0U8=;
-	b=DiJU2oTLv5Mye115LeDqWKTbx7l+OTyZuTw7cTtf/ffAvt6tV2hnM5wmK0lHbnuMUyWQ30
-	zuL1PaoaICFXpYDHPnoTd9V0phNgNy6coKc7LhGi4OUbn6Eq7TvQyut9awa/KEeftabJzg
-	Rnfy1PHRLkQWSLdhJUv1gBkISReKSiU=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Zi3ZBytc1ZBbQu5ZqDShk0RiUBQ+Ivy/b5wScf7Nn2I=;
+	b=MD9DAVc+x7HDJjd/enSCYZeYoaYYW7sPo8S32BXEFAoHlPzbBVk8nYKXwjnN/HNgcJ/tjl
+	ILcFfFbBOmqzVvwWnk6oQ8YnajtkPGqYCTN/ZcSN9BHlmPvOj2Nuk9fX2Zgu5IARBeWnsf
+	eyjfFQfmtVpse2a0sNBV/XHIRZZV638=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-358-rap7IBj9MViCj2h6cYuANw-1; Tue, 18 Jun 2024 06:54:55 -0400
-X-MC-Unique: rap7IBj9MViCj2h6cYuANw-1
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-52c8a4ef5e5so4182556e87.1
-        for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 03:54:55 -0700 (PDT)
+ us-mta-86-xfRWcdJ0MjWvBUalRbFP7A-1; Tue, 18 Jun 2024 06:58:42 -0400
+X-MC-Unique: xfRWcdJ0MjWvBUalRbFP7A-1
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-362c8b9a09cso8782f8f.1
+        for <virtio-comment@lists.linux.dev>; Tue, 18 Jun 2024 03:58:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718708094; x=1719312894;
+        d=1e100.net; s=20230601; t=1718708321; x=1719313121;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iMGM5II+H0pL0LUGGmgQZa0DVVBV2RnH1hbySurb0U8=;
-        b=hk+JiuyVtGsTvSrPmfvHGadEnpzPm3IV814IZ6G1tNeJjGWfo4n74OfgoHt+odq9T6
-         NXEVnoF2u/4H5k0GX100FnIMjSJ6G1lKz1i9bAdHT1tRGSqj2/S9KuKX2jr3+FNU2Fkp
-         VUwBSqzeUnWPL1JVYQKMaYwEdlPeu7G/8Cy3/qKlrCjM2dy/FVTHpK0Y7spX+ihjzSTo
-         5jdsSxU6ygEI8ytVd+RZLV/vwJd1Qw7oD2e9y59ilNHs6e2na/NOTxAnzFsfUrHb1kG4
-         2v0J31uimitsMqc9rmVLTXmmOW9BIYEuVeG0wd5qzY+tJaEz66ngJR5YyZpWE01/Nncg
-         cr5w==
-X-Gm-Message-State: AOJu0YyUpEfASuVWzf5bPQ61ub5jTTiqLx7NhmSdpmls5VHT7y3dFkcB
-	n3YqmPLUALUQSIXgXj3iNAX3VpDAvm0XpZqrUaFLBHxhRcxxYXhftcHBc+XZUg50ZOQeVc+llWm
-	QKCZFlvrgezIrkjWoaDCn4eKNuiDnOpFBMavP9afe1qmZ5bH+D4DFVIBeb/jFZ8r8
-X-Received: by 2002:a05:6512:24c:b0:52c:84a5:6617 with SMTP id 2adb3069b0e04-52ca6e9eb89mr7116564e87.68.1718708093756;
-        Tue, 18 Jun 2024 03:54:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHhc3tUFPulHmjifdgEv1nphBc8y4CgZyMI/EEiu5ClIa1FNlsD9U6exfyRk/w0OR3jct/OAw==
-X-Received: by 2002:a05:6512:24c:b0:52c:84a5:6617 with SMTP id 2adb3069b0e04-52ca6e9eb89mr7116541e87.68.1718708093163;
-        Tue, 18 Jun 2024 03:54:53 -0700 (PDT)
+        bh=Zi3ZBytc1ZBbQu5ZqDShk0RiUBQ+Ivy/b5wScf7Nn2I=;
+        b=hekwbAloecoRGD7EW142Sit6q3dUoL1fBd8ouHw6q67jED8Ep4mWVsF8LGkxQcL3FH
+         cfIdJYAqGRzNZ5xTTA88EsTzLAIZo1CvHd3nswWYMN7g1SUfvgzsyfJdIGTjpPD6sHk3
+         WkanrdMMQBj3lOTXgZ7IAgF0oe/LoBoCYuVtCSPpJ3uOZnodLW8QARNGHx2Za3Kv9mml
+         RM9erDgyYkdLERGXXM5yil1tD+4UhFUMgadogSNvJbrk/fTlvQFU/CNoTvaiKA2xHCBi
+         Vf8b/yTVmsAiJSP6ERdm1YgfB5wsPMaTB3p7cIg0HCDBISgQ5YiYgAFEWKaRxZnAdiAa
+         kh8Q==
+X-Gm-Message-State: AOJu0YzOu5VM/lZGMbaeo0fEzeHnMdK4ZYqcZy863vFhfWJud8Q3BZqc
+	KvG0VvBaY0cIM+f2uv+uccR6Eq2BQDVLLIGaXlICj1o5NtHArxhYG7WY9ltMKACJqHDDlaQzbCw
+	gKWuhap90R6Wreh5kd33amCBtKaIwczKLYrAQFmAfCIAD/aNmvzAPCHDFFYgbElqy
+X-Received: by 2002:a05:6000:47:b0:35f:1bc3:50b0 with SMTP id ffacd0b85a97d-3607a7844e7mr8890868f8f.63.1718708320896;
+        Tue, 18 Jun 2024 03:58:40 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG5e5LfxFkm84Dg4Ev2N/DqImPeZsmbelNcdAxvtw5y2TITqRT/rZfL7mnXU0hTlsS7j9H6sw==
+X-Received: by 2002:a05:6000:47:b0:35f:1bc3:50b0 with SMTP id ffacd0b85a97d-3607a7844e7mr8890845f8f.63.1718708320349;
+        Tue, 18 Jun 2024 03:58:40 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc7:441:67bf:ebbb:9f62:dc29:2bdc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42286fe9263sm221147995e9.15.2024.06.18.03.54.51
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-360750f241fsm13970721f8f.88.2024.06.18.03.58.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Jun 2024 03:54:52 -0700 (PDT)
-Date: Tue, 18 Jun 2024 06:54:49 -0400
+        Tue, 18 Jun 2024 03:58:39 -0700 (PDT)
+Date: Tue, 18 Jun 2024 06:58:36 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Keiichi Watanabe <keiichiw@chromium.org>
 Cc: virtio-comment@lists.linux.dev, uekawa@chromium.org,
 	takayas@chromium.org, dverkamp@chromium.org, tytso@google.com
-Subject: Re: [PATCH 0/1] A new virtio-blk error code for host-side ENOSPC
-Message-ID: <20240618064959-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH 1/1] virito-blk: Support NOSPC error
+Message-ID: <20240618065456-mutt-send-email-mst@kernel.org>
 References: <20240618081858.2795400-1-keiichiw@chromium.org>
+ <20240618081858.2795400-2-keiichiw@chromium.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20240618081858.2795400-1-keiichiw@chromium.org>
+In-Reply-To: <20240618081858.2795400-2-keiichiw@chromium.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Jun 18, 2024 at 05:18:57PM +0900, Keiichi Watanabe wrote:
-> This patch proposes a new error code VIRTIO_BLK_S_NOSPC to report
-> the device's ENOSPC error to the driver so the driver can treat it
-> in a different way from other IO errors.
-> More motivation is explained in fs-devel mail [1].
+On Tue, Jun 18, 2024 at 05:18:58PM +0900, Keiichi Watanabe wrote:
+> Add a status code to indicate that the storage is full on the virtio-blk
+> device side.
 > 
-> [2] is a prototype implementation in crosvm and [3] is in virtio-blk
-> driver. Idealy, the error should be propagated to the guest file system
-> and handled smartly, but the part is still under discussion.
+> This is useful in scenarios where a virtio-blk disk image is provided on a
+> sparse disk and the host storage is full.
+> In this scenario, the driver cannot create a new file to the disk image
+> because the sparse disk cannot be expanded.
+> However, if the host have a service that clean up host stroage regularly
+> by wiping cache files, the guest may want to retry the request.
+> For this type of special handling, this error should have a separate
+> error code in virito-blk.
 > 
-> [1]: https://lore.kernel.org/linux-fsdevel/CAD90VcZybb0ZOVrhE-MqDPwEya8878uzA1RBwd68U7x4CufkTQ@mail.gmail.com/T/#u
-> [2]: https://crrev.com/c/5599649
-> [3]: https://crrev.com/c/5600325
-> 
+> Signed-off-by: Keiichi Watanabe <keiichiw@chromium.org>
 
-> *** BLURB HERE ***
+Unfortunately we did not think about it and did not specify how
+drivers should handle any new error status.
+So I think we need to burn a feature bit on this.
 
 
-it's a single patch, pls just send directly no cover letter needed.
-
-> Keiichi Watanabe (1):
->   virito-blk: Support NOSPC error
-> 
+> ---
 >  device-types/blk/description.tex | 13 ++++++++-----
 >  1 file changed, 8 insertions(+), 5 deletions(-)
 > 
+> diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+> index f04c932..5a34bd5 100644
+> --- a/device-types/blk/description.tex
+> +++ b/device-types/blk/description.tex
+> @@ -532,12 +532,14 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+>  
+>  The final \field{status} byte is written by the device: either
+>  VIRTIO_BLK_S_OK for success, VIRTIO_BLK_S_IOERR for device or driver
+> -error or VIRTIO_BLK_S_UNSUPP for a request unsupported by device:
+> +error, VIRTIO_BLK_S_UNSUPP for a request unsupported by device or
+> +VIRTIO_BLK_S_NOSPC for an error that device doesn't have enough space.
+>  
+>  \begin{lstlisting}
+>  #define VIRTIO_BLK_S_OK        0
+>  #define VIRTIO_BLK_S_IOERR     1
+>  #define VIRTIO_BLK_S_UNSUPP    2
+> +#define VIRTIO_BLK_S_NOSPC     7
+
+
+Hmm. It's the last free bit.
+Seems like a bad idea to burn it on a limited use-case like this -
+I would say we need to make bit 7 mean "any other
+status" and then report the actual status somewhere else.
+No?
+
+
+
+>  \end{lstlisting}
+>  
+>  The status of individual segments is indeterminate when a discard or write zero
+> @@ -567,10 +569,11 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+>  Requests of type VIRTIO_BLK_T_OUT, VIRTIO_BLK_T_ZONE_OPEN,
+>  VIRTIO_BLK_T_ZONE_CLOSE, VIRTIO_BLK_T_ZONE_FINISH, VIRTIO_BLK_T_ZONE_APPEND,
+>  VIRTIO_BLK_T_ZONE_RESET or VIRTIO_BLK_T_ZONE_RESET_ALL may be completed by the
+> -device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR or VIRTIO_BLK_S_UNSUPP
+> -\field{status}, or, additionally, with  VIRTIO_BLK_S_ZONE_INVALID_CMD,
+> -VIRTIO_BLK_S_ZONE_UNALIGNED_WP, VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or
+> -VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE ZBD-specific status codes.
+> +device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR, VIRTIO_BLK_S_UNSUPP or
+> +VIRTIO_BLK_S_NOSPC \field{status}, or, additionally, with
+> +VIRTIO_BLK_S_ZONE_INVALID_CMD, VIRTIO_BLK_S_ZONE_UNALIGNED_WP,
+> +VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE ZBD-specific
+> +status codes.
+>  
+>  Besides the request status, VIRTIO_BLK_T_ZONE_APPEND requests return the
+>  starting sector of the appended data back to the driver. For this reason,
 > -- 
 > 2.45.2.627.g7a2c4fd464-goog
 > 
