@@ -1,231 +1,226 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from refb02.tmes.trendmicro.eu (refb02.tmes.trendmicro.eu [18.185.115.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B503F8175E
-	for <virtio-comment@lists.linux.dev>; Thu, 20 Jun 2024 12:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718885159; cv=none; b=cQOrvGQw41B6MVa5e5qjNoBqyInR/Dc42qS2bSfQltXkiDKeQtXtq94bsFawXArOULy85ZtJaTOtLwqwzO+j2QPBSCvjsYZhNUq9yyAimAvSfEdqXPGY68MDIwrMzDsah1gjEakEyxoEOH/id4qJ5enbf+int3MnPq/0trALmWU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718885159; c=relaxed/simple;
-	bh=DX5xGDMSbJXjGXnw+MrZKbfSeR2U1SNj7/d3Bt8r7ME=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WNA+v6+Mpx+5DsjdNbBh/t2DIcbqUTi0xpC36olOY6VIwFwjrzsNXxYcL/qRy9ZJJtVP3ZMT6NIA1su2TF7BGFbDLDQiPR6YsxUI2KJdK5v/xyEimPYUsihRDApo20uRroE6gz0B4jiunK00KAaniTTH7PkjbrMJUSOocxTmu+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZTFyz3Sl; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA438175E
+	for <virtio-comment@lists.linux.dev>; Thu, 20 Jun 2024 12:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1718885189; cv=fail; b=n8MDz00vie4+PCLYDo9tSBvGfQzCNo1BRLDFHCtIDdUbyiX5OJVqipb0KtVrXsfJz1XjpxJmpSRl6QZVIlchFl5C9yMdw/dbDWYQs2oZVdi7/HEKUOA4Y2N7lrWQFX287ik3d5/ZcHSYyFj5PGjJJRIYUXXrnywQ5Kp3H3U218c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1718885189; c=relaxed/simple;
+	bh=MeFmDMnHGdXmPDyIKfueuW7zzEPgQFZ60uHyr99k2gw=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tK8xnMevuuOD9Ie/NU/r8ONDaFLXjXosO5Pu2cfLhn4e6Z1lQUKqy9uqMISdn+1//M/DTiOLPdBgOFgdQv6bkxrRZ3wVwCpaqt0BPt5/16/+uq2FL3T5bCkfoiUKk61/6XqauvVVspHxjeuvi318Kc1/CgzOVqQqjg+VfThrJHc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=EignmgNe; arc=fail smtp.client-ip=18.185.115.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZTFyz3Sl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=DX5xGDMSbJXjGXnw+MrZKbfSeR2U1SNj7/d3Bt8r7ME=; b=ZTFyz3SlzHVRlq/mqz7EqKhv5j
-	MqzLsxg0ZpxhNu6Rcr2bwRSMPBTSf6rbMYZz+x7kx2ISi+Z4iKrP+FULZcUOHmG7KCh8kWlZ/pdUN
-	PTA0amJba3P4rNkl3wsWv0x94ZbgwEslQ50v7a6MTgkmLRXikM70HpI2ql4BfRMIatnj+/oNj5Qu8
-	4WxMdkiHV7f40aSyP8970xAe1ck3kYvnEE+Jf0pb+vCcD6lx544fLAyZFr/kfjyxqJNc8MOAVsSlm
-	nNQVdbH7ewOVAPJSQGr+Qb7Mh7t8vxtmDOcPaMAM/iOUUzbGpfh/IIaBlM38nntC1fns/KrJLqSXQ
-	KGv9tVbQ==;
-Received: from [2001:8b0:10b:5:e421:dd18:8da5:9cf5] (helo=u3832b3a9db3152.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1sKGY6-0000000628Y-3Cbg;
-	Thu, 20 Jun 2024 12:05:54 +0000
-Message-ID: <dc86721f7db156007e4ea97911ffdd46a64e6d2b.camel@infradead.org>
+	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="EignmgNe"
+Received: from 104.47.11.169_.trendmicro.com (unknown [172.21.9.43])
+	by refb02.tmes.trendmicro.eu (Postfix) with ESMTPS id AD2811006110B
+	for <virtio-comment@lists.linux.dev>; Thu, 20 Jun 2024 11:56:56 +0000 (UTC)
+Received: from 104.47.11.169_.trendmicro.com (unknown [172.21.197.65])
+	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id CFD3A10000E1E;
+	Thu, 20 Jun 2024 11:56:48 +0000 (UTC)
+X-TM-MAIL-RECEIVED-TIME: 1718884608.460000
+X-TM-MAIL-UUID: 18df0684-49fb-4833-862b-b643199c4fa9
+Received: from DEU01-FR2-obe.outbound.protection.outlook.com (unknown [104.47.11.169])
+	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 70787100058D7;
+	Thu, 20 Jun 2024 11:56:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CfkI0znz/Pthdm1EmBi8dSlQFv4+hu0VBZNimhWKp+PUEwWqZK2lNSZOK0Fuo1YbSWfvkFLznA045kyniwVn8p2mCeVFt9Emz1CpZWnyhnrgukZFHFe64DqlA/Ou/biDsXhy5fzySIPeJsrv66zeAnumTCy+YT/WMY7Yy88Tnxe4qYlRuw29CL8KBQwYkGoQagTMY+7XDBfIYYeQxVyFH6iRZd7xXcxKuniAh+GbaYArrKv2cUjhbSiXOGdsjtjMSxXeb/ieDGY8jAubMBhlHnuK84svqXkucEtibe6olu5j44pIqXOLIZvxvugxlr3Vb2WLD2Qj+cGMFZOOoeS11w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6WS68B/799EHOA2Wxr3z7d9Yqf7ua9iYreR9ANo71X0=;
+ b=NUKruHvizK9Tb1mz2gQh4KDabzDzMHhpJqDfYt+guygdR/saWr+1djqxm70UhwEqQoCSfncwgTbwqObYD8sp2BJEN5acshnRTifyAXPMT4IX0pVryQVjgQVJGR/Cbd7EQGXY9NEGxH+rVC11IUsts2mDpNiby42F14DetrIOO/9HzJBgMLpbCXRCgsyGzy3MKV1J2yxPFjxoxDOqRpmujMLnYhKMuUd1duKtqusy9d1y1gdnKNLDXHIL5WjxnCMrb9RSfCn/8l4nJFomgdyGwM8SjOSEs7JqjOgIcj5h7xe84sgs+Vuj2boRQ26Bq2wqIrXNWu5IVofhEfZgliCHeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=opensynergy.com; dmarc=pass action=none
+ header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opensynergy.com;
+Message-ID: <b2ea6f21-8efd-46af-a6fa-2a8ced2a4a43@opensynergy.com>
+Date: Thu, 20 Jun 2024 13:56:45 +0200
+From: Peter Hilber <peter.hilber@opensynergy.com>
 Subject: Re: [RFC PATCH v4 0/5] virtio-rtc: Add device specification
-From: David Woodhouse <dwmw2@infradead.org>
-To: Peter Hilber <peter.hilber@opensynergy.com>, 
-	virtio-comment@lists.linux.dev
-Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
-	Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>
-Date: Thu, 20 Jun 2024 13:05:53 +0100
-In-Reply-To: <b2ea6f21-8efd-46af-a6fa-2a8ced2a4a43@opensynergy.com>
+To: David Woodhouse <dwmw2@infradead.org>, virtio-comment@lists.linux.dev
+Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>
 References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
-	 <b4b198baa16b492a1273131e80d3f80a08835b79.camel@infradead.org>
-	 <46843279-58cb-4ac0-a50b-998ecfcc2c30@opensynergy.com>
-	 <019bc484576f978a0b8a2eb62c56abf27bfe730d.camel@infradead.org>
-	 <55b0e4a7-7d79-40ce-a47b-32b457f1ab97@opensynergy.com>
-	 <0944adfdfb5f0231325db79ec41dca0a13639af5.camel@infradead.org>
-	 <b2ea6f21-8efd-46af-a6fa-2a8ced2a4a43@opensynergy.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-Ed4sCOHvbCY5xzEoIkJ/"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+ <b4b198baa16b492a1273131e80d3f80a08835b79.camel@infradead.org>
+ <46843279-58cb-4ac0-a50b-998ecfcc2c30@opensynergy.com>
+ <019bc484576f978a0b8a2eb62c56abf27bfe730d.camel@infradead.org>
+ <55b0e4a7-7d79-40ce-a47b-32b457f1ab97@opensynergy.com>
+ <0944adfdfb5f0231325db79ec41dca0a13639af5.camel@infradead.org>
+Content-Language: en-US
+In-Reply-To: <0944adfdfb5f0231325db79ec41dca0a13639af5.camel@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BE1P281CA0145.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:7c::15) To BE1P281MB1906.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:3d::8)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BE1P281MB1906:EE_|BE1P281MB3137:EE_
+X-MS-Office365-Filtering-Correlation-Id: 400b52dc-917c-4cc5-3d5f-08dc91200fb0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230037|1800799021|376011|366013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RWN5cmRuRUtMQlVzUWZCTVpYQzEwaDVmU1RGNEZsZXhGQm5mbzNCVFZFTmRC?=
+ =?utf-8?B?bVN6bDFVK1pUTmcxeUw4dm9sS1JkdUQxVk55ckdwdmpsTkRzNE95Y3V1WG5j?=
+ =?utf-8?B?WUpmWlBud3dSQ1V6Z1RycVgwQ1RwOStrZlZnMEVpS0hXT2h0Rkpwc3NkMHkz?=
+ =?utf-8?B?aEJCZFc4aHA3MVRiMVBLajArZDFnRGpWaXpPRmhsbkdHZmx4ZDM5UVM4dloz?=
+ =?utf-8?B?NWhrUlJlVkVOSzZNQTFaYzBTRFJWUU42Tzh0N1BMY29lblpPTFBHbHp0bjRt?=
+ =?utf-8?B?OFdiODZTbGVjRlIzamxlbFJnblIzU1E2YTJLSWg5dEw4TTBlMlcrU0xGbFZr?=
+ =?utf-8?B?WGR2ZTVmeW5vWDZVbnNtdjJxQmo1Z2t4dzZFVEdmNHRDVmpmN0dERk9Pemlh?=
+ =?utf-8?B?UlBoNmJkVFVuL09jQmZhUzZZUzNyeXJCeUcwVVZYdG9yeUcxRFlZRHlUQlVj?=
+ =?utf-8?B?RTRQTzhiNmNiVm4zbjltTkgwaGUxMmgxT245eXFJNzd1cVFOejFncUJCZ1lM?=
+ =?utf-8?B?OUlrVlcxejk0MEorY1NUZEk3QWFqNzAydmxWOGlEMlkvWjFLT09Id21FRkVF?=
+ =?utf-8?B?OW9CYXFlWDd6M08xcEtUS3BtVTZEejJmODNBNmlFcEp6WDIxcFZISm1iM3kz?=
+ =?utf-8?B?WFVXRWJtaFA1UHhvZXhpbFo1bUlkSDY5Q1U0VEpseDZaMWJpdnpUU0RCRHlT?=
+ =?utf-8?B?cXY2Q3JuN1ArVGNibE1jRTdPQ2UzMXdrRHMzRXp1Z0FZN09yMVRuYXpjZUpJ?=
+ =?utf-8?B?dDNZUndrTS9jKzJVUG1tVnR2Sm50NTNJRzVlQUhubVQ0anRDV0FVaWQ3SW9m?=
+ =?utf-8?B?UHR4bkUrWUloNkNXU0ppL3V5bDVlNEVYM1hpOEZNZ0xZQjZ3K2c1emxyOTVJ?=
+ =?utf-8?B?Qk9zNjJaNXNyRTA5aEtlNjJJelExVzNsUGxVY3NFa0JTWnRHWWt4cmhJODlP?=
+ =?utf-8?B?clVNb1hJcmo4RUhWU2YrajZGMDY3Q1ZnUzYyaEIwMXZidVpBSWJRSnRSTVdE?=
+ =?utf-8?B?S2RUTUFxazNtRGFqSGIzRkhsZms0a3ZxNVh2S080S20rQTNyZmh1WEhjOW9D?=
+ =?utf-8?B?eGdaeEErR01Za0tDL1F3QUFZQ2RVa1YyQ1JISDY5dFl3ZFFBU0RDUzNGMk9p?=
+ =?utf-8?B?MGFkOHFmSDF6enBWUDIxRm02T21wQTZaOTZJNGMwUm5JMzY1WTlsQS9aaFZF?=
+ =?utf-8?B?Q3diWTU2USsvbm0yc1NrVkFmRkR6WnpKMUVPRGhCLy9OcEZoczNpaFJrUVc5?=
+ =?utf-8?B?dWdlZDRZUUErKy91cEZ4cm1TcDdmdUVBakVJSlRKc0dBdkl5bTFvbVRxYmRt?=
+ =?utf-8?B?OThtTjdWREMzQjh6Y1ZpOHZYa0paWTZVVlp1SkgxZ1BtaGt4RTlJbkpVbEdq?=
+ =?utf-8?B?dDMwQXo4WXQ2L3hTUVlpQ05zZ1FxUGVHcW82bFU2eFY5ckZFaTh1TXMzb0o1?=
+ =?utf-8?B?Mi8zakxxVjB4dE1uVW5hZDdmSEV3Sm10ZlBnYmRUVVNwUmJZOFNKL1dVQnRB?=
+ =?utf-8?B?ejBqd0x2TkwramF3NVg4TnVrZ1FlMVBMeDNrWTBhNU9jeU1XOWxGUTVaNmpD?=
+ =?utf-8?B?eVBBbzBMU2tPWkNwMit5WlRXMmIwYWluMktxZzdERWhSVU04cGtGOFNJaVpr?=
+ =?utf-8?B?ekdVYWhqV1JDRVNndUp5d3hzTERBQkZRYXJjZmpDRkt4aEhPTlpPYmJleGdl?=
+ =?utf-8?B?QUYvOXE3c0JLelEyZE5rUzByZkhlQjdBb0tUc3VsOWFrTXdJb1RVL2k1dXB5?=
+ =?utf-8?Q?0L1S7+olgf1pwJhBmg0pXBRdlWoQDHa2WqH8SWc?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE1P281MB1906.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230037)(1800799021)(376011)(366013);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dXNhaHVpdTRhcG9DNU5QWk5PWmh0VC91YTJXNVNWcWhtTm8rT2VSMHJRcVZi?=
+ =?utf-8?B?NDlmU2hmQUtMcC85S3VpZ2syQk1pbDdreVlud2o5UTMwaGdZS1B3OWVOVDE1?=
+ =?utf-8?B?ejhLMUZYZ2IzQ0IzK1IxUC9zRS9lYWtvaEtzQkoxdEJiOFRobU9qcFRTNmZB?=
+ =?utf-8?B?R0o0djA2ZWF2djBSNnd6UG4yVkZkQ1RtSmRvWksyRzc2ejN4RzhxOG5pYndi?=
+ =?utf-8?B?K2R2dHFsTXROT000SWR6MVJ1bzlCM1JzVG1rTUNjUzFCQzdWYlBWdDBVcitt?=
+ =?utf-8?B?SlVIVVh0b0tNeHdTUnVrRFpicUkwMWRnRHRNdHBES1U2RE1sbElodS9tekdG?=
+ =?utf-8?B?cDF2cXBUUE8rdUIrcGF5d0tRWEdqYmF6U2pFdC9QN2NvWkJEczg4R0xUUGZw?=
+ =?utf-8?B?V2MyMUNjZkpMU0NMeW1rNzQyVG5WWWRyd2R6WUhCQlY5M1VGYlNqb3ZzaGpu?=
+ =?utf-8?B?eEVmdjhHRUR3d08reHpLbUxGZXlsaVgyZmc0a08zTzlHN3YrSHpYS3lNWm81?=
+ =?utf-8?B?T1cxcDRHOXZUSXhnc3lSTFJSaUtnQXF5cTA0dnVLcmg4ZnlQYkRQTzkxMXha?=
+ =?utf-8?B?eExSRFRmbVhheFJlc3pRcHowakljM2kzZkFmRkp3MXFFMFVha0lxSk1jRmRx?=
+ =?utf-8?B?RDRmVnJWZzhaczVTdmlmMmxKemdjV09uL2swSnZSWHJtVmt2Q1BOYjFQTGNm?=
+ =?utf-8?B?d2JVN1BibVRIdGh0Z2ZRV2VVZHFsaW9HT2dLcFk5YTg1SlpwMUY0emNDQnU2?=
+ =?utf-8?B?ckRpSmRoTHNjVE5qckI5V2wyMDl6WVl6alBDejQxTzlUY3BPRE05K1ZrUlJD?=
+ =?utf-8?B?R1F4WVBnK0I4ZTQ3azdwRXRkREhPOFUxOWdHMVdIa0J4eDNSYnVpOHJDVW9j?=
+ =?utf-8?B?a3VnaitYWFBuU2Q1MUFaQ1lUUGJWM1I4UzI0U3VmcUNSZ1IyQWdmMUZEY2ZN?=
+ =?utf-8?B?SXFqdzNsTzhySm56QVRQY0U3cWJmeTFVVlFaY2lpSHJiRXJaa0VqN2lXKzZx?=
+ =?utf-8?B?enBBRFBzK3RTbUZVdmRhOHJScTJoU1JRd1JoMkllOUk2WGFhMERnY1hydklS?=
+ =?utf-8?B?MlpDVlFJRm9TYUtERXkzdmwvMW5DNkNORFJHV1RsQUQyUTR1YTlCUGdXYmQ0?=
+ =?utf-8?B?VjU1cUhqYjVWbHc4NEJPRXN3RmFZczVsY05rbjVjanNtWGtmSHcxZk5tVzhw?=
+ =?utf-8?B?VE9NTjl2WjVzZ0tYZzI3U2dWR2QzUnlMZTRoQmJqRjRvenA3NGpiTERKWGRy?=
+ =?utf-8?B?czc3N1YyQkcxZ2F0d2xUaUVnVlBKdkVlZkRkdjJEZGp2N1ljUU5id0l2RFhl?=
+ =?utf-8?B?UjlydjI3eXlRNVlSeUlCRmRua3FyR1dqWFY0YytOQldJUFZOWEpQVkppN0Yw?=
+ =?utf-8?B?UXZyQ2t6R05UMHJ1OVhqdy83NUc5NGd2b2tUNDZ1bnBsVWVNQ1ljOHYzUUhJ?=
+ =?utf-8?B?QlNnRFdINWFxMG9CVUI1dTJUdElVY0Nnd1ZQWlprUlo1eDRmcmlZUHdyb054?=
+ =?utf-8?B?T0NIRFo1UjNzdmFzb3FkRnMyN0F0OGRkMm9nNUFBaXFid0szRDl4eU1sVFMx?=
+ =?utf-8?B?VzZmT28waGVMK0d5Mm1uK2xJQndHbDUzUWRJTUZoUk5kM1RzQk5XMUY1Y3Z1?=
+ =?utf-8?B?KzVMK3IvY2RaSGZ3MUxKVktXZk43UDhYLzFxdXRzNEJrc2FQM3Z1SHZFS3pC?=
+ =?utf-8?B?RWZGY0R0MWpiOVU0b0dZQS8yN0U2eTFpS2RyWEppOGFKUDY3a29ySVhYVXZJ?=
+ =?utf-8?B?ZnlDQ2lNVmRwTWl5bmgrUTVOcmFCdEgyY2RRbXpqRzZlSzlacHFldkZ2cnlB?=
+ =?utf-8?B?N2w2TU1EZm85L0o5VTR6TVpJMW1TMEQzdDVhZHl3ZXRhTHVtcXBRMzRkbmJD?=
+ =?utf-8?B?OUFsZlpCRW5lTzR5bTkrK0ErWHhrYWFkbDdCeURONTJNTWtmNElOZGtwdTNq?=
+ =?utf-8?B?VjVSU1lRS3hPYXIxQmdUUG1Tdkx6aHdycXNaZmpLZUg2aXk0VGlDcFp3UmJM?=
+ =?utf-8?B?Q0lyc3BmYXlvWWxPMEY1Z1Eya25TNnB2OGNDNlVDK1BvUGhSRyt2QUZ0ZWtB?=
+ =?utf-8?B?YnJOTDVwelZzdkdYNURTZmZGc1NQSjVWdENSTkpUZkF1K0N6Y2dTb3F0aCt2?=
+ =?utf-8?B?YWVaWmRmZ0NmbEpBa1hML3B2N09Dbm9KWmR6K2phSlBrRXFqZmNXb0c5akdK?=
+ =?utf-8?Q?vuKt7nO43W/9BAl9W5ii4sRf4YpNpwxiotKOqGgmSWn2?=
+X-OriginatorOrg: opensynergy.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 400b52dc-917c-4cc5-3d5f-08dc91200fb0
+X-MS-Exchange-CrossTenant-AuthSource: BE1P281MB1906.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 11:56:46.9876
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MT1WOEKOMQzW0fw2GSQLtHcVQjkloDShkCT0ZC8WD9Pq8LPp/VNHHP98adMss/9MG+Lj6iWLzp5kREx03cEbKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB3137
+X-TM-AS-ERS: 104.47.11.169-0.0.0.0
+X-TMASE-Version: StarCloud-1.3-9.1.1026-28464.007
+X-TMASE-Result: 10--4.685400-4.000000
+X-TMASE-MatchedRID: VfovoVrt/ob5ETspAEX/non73EnA6dC3lR7tN56aWVWOymJujT8rWFPW
+	JnavNRHKwUr7375NmjS0cJDxMXg4qdZSVIh2F3SJO9AbTF0WkMKgn19QHAlOzLG53EQ9QCTJQbC
+	R9RgFTxdkJpSRsbItI5GOudnIATlu/ZkCEDYlTyWheJ4X7s7SmlxF+wAaDLINcS+yLYeLvNB8W2
+	Se/pF0KkAuJExC2DUetFyEOhRbRirwaMIXsaQmMEI9AEPfED/dqvJX/aNGr9cSCDdzAMeX/Wp2V
+	XUuZsR8A/lH/MvdoiYZNmx/p9DKJyd5/Xv5OZvOIlQ2Q2u3mv3f7qT3sazIOHC2QjnugGIuy/Kj
+	7/TdsMOmd84JWqQRZ+QDX6YxwtgAeNP0N1rFeo0=
+X-TMASE-XGENCLOUD: 18ace111-37a2-4560-bfca-4525344d0954-0-0-200-0
+X-TM-Deliver-Signature: 1106728205AA2F9E096E8DF9B65F94D1
+X-TM-Addin-Auth: VDtdiOggnWNsPwPdwXO4JY0QwXbUgDVGGP+/X3yodPx/rTFWRxXtVlrrhWS
+	FJF49DyJhRVWd+ikZ0Z4UP2Ls1FCtuFsiy5DiYOawCD9JwNCz/MdKRcNklUW9dfCuyJPkZvBgOP
+	915ZHZymp1x0UpNRNp0429+uI3gI7HepHhZK+5b4SH6WVc+9nkNezqqiRR7o+Ppz5i5gbmEFn6S
+	VvE/YaQg9foOQ5B7TJJrqm/Jp01kbPD6oh2/Ku8fgN+TTge++mLhDIlTLB0g5SSz6Pc4xBa7HVZ
+	QPIYmS2wyLKGCfc=.O6Pa8jNBeuc+uK+pTVpvqvysEh1PCWl6ktsquRDlkVH4U1kegzWnSQPY1e
+	XYhJelXD6oS+LXwmrKxXuFPESywVqpejWYwG+mbcGPRjegny/iAhOf8bPecvaq69UUXTJD4nA4Z
+	XsODUMmVwT/xT4dyPgyz/UdavrhuZ9k45vS/rOmKWwczAbV4mxYX9j+FeDT97WrNbf03bVIKNsn
+	iPFKYdIdqpZ8jQxM5NstsOMA482P2Kq9mZYZgN9BhppBcf7L8/1lyWzPkNiSY/QXQpN3JXmAUpv
+	4hx3w5sPOb9UThpPukoD5Vkpf2vJolWX4dSkqCcQG7XU6EF2N7fnNfjLOrA==
+X-TM-Addin-ProductCode: EMS
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
+	s=TM-DKIM-20210503141657; t=1718884608;
+	bh=MeFmDMnHGdXmPDyIKfueuW7zzEPgQFZ60uHyr99k2gw=; l=1709;
+	h=Date:From:To;
+	b=EignmgNeq5VjfGQONFzwpvYE1Cyh0APhdad6Lo9kY5iPn0x3qqbiUr9DXIgUsDsvo
+	 xtTS3mTjqY1PqcHV7pUqjEAzqQelNNWcuURc/oKlgK0V/YOlq0KkQmB3J0BU8nE6s2
+	 MOZdDOwJwz77SgngPDL6i5KgqT4OpNN7+6nCoS8PmHg8afjXUiDcMZB3gh+XtKnAHv
+	 G88Mdku+rL69TTB2cKVFJxEJW7o03F3mZNfHKllOJsp8KZsbUFRqcjx7pLBOlfePPd
+	 O8tVGzwahr3L1/NwWQqUqoOToxHcCIM+ar+Vytf7UEXZMNJJL8bY1xnqXJAuhL+Y4B
+	 ZDIZmszd1y4+w==
 
+On 12.06.24 13:31, David Woodhouse wrote:
+> On Wed, 2024-05-29 at 13:12 +0200, Peter Hilber wrote:
+>> On 23.05.24 19:49, David Woodhouse wrote:
+>>> On Thu, 2024-05-23 at 17:26 +0200, Peter Hilber wrote:
+>>>> On 22.05.24 20:37, David Woodhouse wrote:
+>>>>> On Wed, 2024-05-22 at 18:59 +0200, Peter Hilber wrote:
+>>>>>>
+>>>>>> - Drop distinction of Arm Generic Timer virtual and physical counter.
+>>>>>
+>>>>> Hm, why so? If you're giving out paired readings of the counter and
+>>>>> wallclock time, surely it matters *which* counter?
+>>>>>
+>>>>> If a guest has access to both, how can it know which is being used?
+>>>>
+>>>> I think it should then use the virtual counter. But maybe there are some
+>>>> corner cases where this will not happen, so I could revert this.
+>>>
+>>> As long as you explicitly *state* that it shall always use the virtual
+>>> counter, that's probably OK. As long as there is no ambiguity.
+>>
+>> I failed to come up with an elegant implementation-independent rule of
+>> when to use physical counter and when to use virtual counter. So maybe
+>> the spec should indeed just keep both counters separated, and it would
+>> be up to the driver implementation to select the proper counter.
+> 
+> Is there ever a reason to use the physical counter? I think we can just
+> specify that the readings are given in terms of the *virtual* counter,
+> and ignore the physical one.
+> 
 
---=-Ed4sCOHvbCY5xzEoIkJ/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+AFAIU such a case could arise in principle when the driver OS is not
+virtualized by conventional means, and is able to control the virtual
+counter offset by itself. There is no concrete use case. The physical
+counter could indeed be omitted for now.
 
-On Thu, 2024-06-20 at 13:56 +0200, Peter Hilber wrote:
-> On 12.06.24 13:31, David Woodhouse wrote:
-> > On Wed, 2024-05-29 at 13:12 +0200, Peter Hilber wrote:
-> > > On 23.05.24 19:49, David Woodhouse wrote:
-> > > > On Thu, 2024-05-23 at 17:26 +0200, Peter Hilber wrote:
-> > > > > On 22.05.24 20:37, David Woodhouse wrote:
-> > > > > > On Wed, 2024-05-22 at 18:59 +0200, Peter Hilber wrote:
-> > > > > > >=20
-> > > > > > > - Drop distinction of Arm Generic Timer virtual and physical =
-counter.
-> > > > > >=20
-> > > > > > Hm, why so? If you're giving out paired readings of the counter=
- and
-> > > > > > wallclock time, surely it matters *which* counter?
-> > > > > >=20
-> > > > > > If a guest has access to both, how can it know which is being u=
-sed?
-> > > > >=20
-> > > > > I think it should then use the virtual counter. But maybe there a=
-re some
-> > > > > corner cases where this will not happen, so I could revert this.
-> > > >=20
-> > > > As long as you explicitly *state* that it shall always use the virt=
-ual
-> > > > counter, that's probably OK. As long as there is no ambiguity.
-> > >=20
-> > > I failed to come up with an elegant implementation-independent rule o=
-f
-> > > when to use physical counter and when to use virtual counter. So mayb=
-e
-> > > the spec should indeed just keep both counters separated, and it woul=
-d
-> > > be up to the driver implementation to select the proper counter.
-> >=20
-> > Is there ever a reason to use the physical counter? I think we can just
-> > specify that the readings are given in terms of the *virtual* counter,
-> > and ignore the physical one.
-> >=20
->=20
-> AFAIU such a case could arise in principle when the driver OS is not
-> virtualized by conventional means, and is able to control the virtual
-> counter offset by itself. There is no concrete use case. The physical
-> counter could indeed be omitted for now.
+Thanks for the comment,
 
-Agreed. Let's specify that VIRTIO_RTC_COUNTER_ARM means the virtual
-counter (and perhaps add a _VCT to its name). A physical one can always
-be added later, if it becomes necessary.
-
-You could imagine physical implementations of the device spec being
-related to the *physical* counter, much like Intel's Always Running
-Timer which is visible on the PCI bus and has a mathematical
-relationship to the TSC. (We might end up adding VIRTIO_RTC_COUNTER_ART
-for that too, but again I think it can be omitted for now).
-
---=-Ed4sCOHvbCY5xzEoIkJ/
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNjIwMTIwNTUzWjAvBgkqhkiG9w0BCQQxIgQgPSTLkr9o
-HBNusQ7NZ9Zibm56xVQWDvXiYBwcLwhPGAswgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgARrdo1wk9PxLNsk5OzSMVexdznGtVCxEXD
-zQP+IIdxgDoATcSM4Vlp5OGOOzY3h1K5MjPFOR5/Pbqidam4vR/o41WG0JpC0BRsZprtyJ0SMpqy
-hjmU0+ouA6t7ZmVeKY6WBHRe3eN9sAtNzyXABIfGy8LtrNlZiugZYtzRVLOyPEB8uHeB3gQSSxP8
-x5ht/0t6W31h95WJ16p3N3LJE8V1wgZuP/t/atosTa37ei/Tb8GYVyONeLhYTy4cK/pK3/ihwyQh
-4WwmcxQc7XCbeksvIwyDtFsp68Crm2y8JB3/vCuL2dvYzdNV2ulcrXS8XI2OO3mUFowxeVfgBtOf
-VnPZPfFRWVJfAOxrF/7HDkWmrNt43PdlAQfOg5oby4qOQbQAZjDQeddheod6mCZWqAK8mDEfHekL
-/a6dIo0I/XUM2E5T7bUAPtB+i7fxEOQFD25nWilGv+Ia67kHVMbPD1d2RJ3PMwtDLX5hgMegmMjy
-ObgH4EcCHZ+KRufmjXfaX/OpULEJmexNxikNeelSrCErBzDUqEFyMCfKYHoRUVe8sSKZDUEPxD26
-dMpLV8NVAKwA7AeBuMQJWccfRrEz0uozUWV95+wEylOKSbQcJCPi+pAEhAZJxN0RGwtxxwxCSubS
-W+zFLB8islGvuWQdfW0h69F1tyz+MXCEi6aWouWGCwAAAAAAAA==
-
-
---=-Ed4sCOHvbCY5xzEoIkJ/--
+Peter
