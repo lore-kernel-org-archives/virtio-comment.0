@@ -1,128 +1,127 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3C3186A
-	for <virtio-comment@lists.linux.dev>; Fri, 21 Jun 2024 13:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAC51C6BD
+	for <virtio-comment@lists.linux.dev>; Fri, 21 Jun 2024 14:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718978187; cv=none; b=o77tqIRwA1S1dPGITcArLgpA4CQwoR+eAJWQUHoJilf5sknoTxa/hlRS4/LniWblzI2o80AoLgtlxYEAR/Atmy7Acc5CCDbauvWizH+brlpS9yw2luruhsBh4/HU1n65m9RJ4c7mD0bm8Jod2rqbLYIAQ7nIjFc9Zuc732Xa4CI=
+	t=1718980068; cv=none; b=EfUcLSJYDLehwWeVCzjriWTKjoAJb/iRKo4wkYFeaTvc05XweyIdbucMxXZqv50uawLV1gLRuJXYC/Z0mjmUKSUx75pT7Hf37ZWFaToe3xKqMn95KtAWdPf/pqHORNHYro76yuFqINLwxd+Dflr/PqMjwM4OsEiP2sD56DZOZ54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718978187; c=relaxed/simple;
-	bh=acnyg+4GrlNrTfxOdfqr3cwanUGd25fTH3MG8Ifogvo=;
+	s=arc-20240116; t=1718980068; c=relaxed/simple;
+	bh=Cana3uqj5VDUNNoJ/F9+G9QXYQ3lCO3KORli3c3tRN8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=Eh3flO0/frjAtNXKR0qM6HRwg5FIjd4ee92zagokl6VoTXNs8/rERG89C2oMgxoZGhU7ovutMX7THrY12Q7z4rEvtKSWr2tIwrwuTX+8FX0r1Qtt0kdlpWkxnHp4Fh1MkhsUkRbQFQpo8tFSTwkk+tT10HpO632RTVKYE3eI6fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E8aw6T6p; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=YAUSNjCUI8B4cFNXPQTq4tUVfDjV9ful4nNwUXpWTBtNAGNpgL9h3yZ9MManFoFjhgRfAdPI0fjyrVBHxOsonOq3eoEagpsZLNVC4AETXJrveRJMTxq2dVdX1diFxoIqZbq+qrXuFaGmXMPPApkMQ7qTQH5el4/uvFYIJlsk+tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ekyRB+Py; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E8aw6T6p"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ekyRB+Py"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718978184;
+	s=mimecast20190719; t=1718980066;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vfIcr+gArSeDkLS4wwnJDT1ZruQ9ARGa6V/xHrA0t68=;
-	b=E8aw6T6p8RJRZzi4xpfGixuAIJaJY4hGEpYBdSMZ+MgAd5N0KEnrkqb8AWArwN3ABW7S3b
-	f7K0KgfJaVnoPd4TpJXEd4MroZhn2HIRunA8WeylmcxoG9dk+IRZaTNSYWdwMdUV4t+rAB
-	B1F6sYatSK8YNdqfh0SAK8qGTt6HWFc=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=eLCnJISRlWoWL8Flgy3G9uk2CyN3QDsAgz/ckxrf5Ts=;
+	b=ekyRB+Py2A48DmItAuDr6G6ic6L3wU+sGKPnFl+J3LNdL8Gtdx53W2ae9KtnZQO5Eqcgtm
+	WYn2Qo7si8GyhD90yiw9dbks1jqcc9PMsK81JHibj2Z5faIseL8yoBuUK7A6VGjbYnOPy6
+	zyx9p8sckVMKDmSp90v8UaNyA8x/KgM=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-190-apyu96_fNSKSSfh1uThzyA-1; Fri, 21 Jun 2024 09:56:22 -0400
-X-MC-Unique: apyu96_fNSKSSfh1uThzyA-1
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-362c63ffb64so998948f8f.0
-        for <virtio-comment@lists.linux.dev>; Fri, 21 Jun 2024 06:56:22 -0700 (PDT)
+ us-mta-201-V-xZ7Q82PTatBsDeKnfx0w-1; Fri, 21 Jun 2024 10:27:45 -0400
+X-MC-Unique: V-xZ7Q82PTatBsDeKnfx0w-1
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-3644be85453so1097498f8f.0
+        for <virtio-comment@lists.linux.dev>; Fri, 21 Jun 2024 07:27:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718978181; x=1719582981;
+        d=1e100.net; s=20230601; t=1718980064; x=1719584864;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vfIcr+gArSeDkLS4wwnJDT1ZruQ9ARGa6V/xHrA0t68=;
-        b=ut/i7W2w3IyYox5SqPrHnywjRt6MrdCrnt4K2FbCwGQEJQGUnhziZKWhtAe4CC8LNk
-         lH1i8gASlhFOcPp7oOyym07z4kiNQr4zYQtKgBVKdU/YQdQ2q4V/knoY+MIcLtQFgXDo
-         ElBpV4T1PaJTo9mbPGtjDhv+y8PrnFBkKwzkyAloZV/DmkZixit5TUpFMzg82264BqDt
-         Fuq6MdcrPap75tUg1OmgvHkFf/0F3/O+f3LWWmrpP5peEHFfKkK0O0Rjpt0lJiBR/fyX
-         kKC6TKcoIpR0cZ4oNEIFSM7mB46D020htilIRRy0fuRhGNIeQB7nniuGsef+nZvk9Nuk
-         /RAw==
-X-Gm-Message-State: AOJu0YyHsV+ygRSDgXgGr/o9cIaVsnaxJmjzK7izziPhzl/EtMesydRt
-	WJCkl5iAg95Gr9vCKgaCOt3PQRnmVENLZy70j0tw9AQF2R5GhqCvq1frgQhbb62qBVHXSsaG3RK
-	4bCfbauh8VH6Q/pEW4gtZKXI9kKP06IxIgFRpYAWLZ5ztjYt/HoQUwpragyBWGlSc
-X-Received: by 2002:a05:6000:e81:b0:362:ad01:5435 with SMTP id ffacd0b85a97d-3630191cd53mr8143212f8f.29.1718978181464;
-        Fri, 21 Jun 2024 06:56:21 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFS+EmbFN8Pii5M66TjZmXgsOhIcUON0hy+7EHPqUaHn5BD+MUDjMl/JsYzm/2/rFzFnGJbVQ==
-X-Received: by 2002:a05:6000:e81:b0:362:ad01:5435 with SMTP id ffacd0b85a97d-3630191cd53mr8143179f8f.29.1718978180692;
-        Fri, 21 Jun 2024 06:56:20 -0700 (PDT)
-Received: from redhat.com ([2.52.146.100])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3663a8cb6d2sm1812025f8f.111.2024.06.21.06.56.19
+        bh=eLCnJISRlWoWL8Flgy3G9uk2CyN3QDsAgz/ckxrf5Ts=;
+        b=nqWqqdCyEfVEvjPBfwq8Jr/7taIwHGhpbc/qPdnqe+lLAgdAuRDIFUW8tU/CRkCpoN
+         qjGePGHzih3nLE5N8CNt4lVxSY9C23E70UWlF+7jMSmowlgEU45k7Q3TtlqrVEIry5Dn
+         M5c0rpgXsyyAvbKDn8uCR+eHRtVEfoE2xHyg85dJ03jFLaNA6qUE7Gr7NQtRIUeoeiu9
+         ackzk0L1tjXOAf+fiLpMbs+gGiyzuhOoeYlrN3jdcpbMvYc5Rhn1rRIiZIkU5cy+73M7
+         W/vhr5qjr3f9eyQVCm4lcvTaOH1qCNBbxgz7SPZYCgvtCriux8wA7eprSthfoWcYfxjS
+         9p2A==
+X-Gm-Message-State: AOJu0YxvDxMNZM01rXt4KbjDkNv0rivx6IS28FN2UfK0gb9TwzEdglqL
+	cJ6t6dwtoUgX0f32rG5V0WeIlr56XQ3n3yVumdcs8T2X02wkQm7M9rctv8xidblsxjKItzxBN/o
+	HDIcUxZI3bhh2Xiq/hcGZfM1jMJ2iWDiMEoNzRJpY/iJkC3H4a+BJpfgZpqKKqV8Fj5uPU4yt
+X-Received: by 2002:adf:fe0b:0:b0:360:8200:858f with SMTP id ffacd0b85a97d-36313edebd2mr6875718f8f.0.1718980063808;
+        Fri, 21 Jun 2024 07:27:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFDGQnPty5zpsJYAXMqlpoeIdwyv29w8cQuiAZMgS4cUB4C3TscCGhFfMp7slLQPZ6TpHLyzg==
+X-Received: by 2002:adf:fe0b:0:b0:360:8200:858f with SMTP id ffacd0b85a97d-36313edebd2mr6875699f8f.0.1718980063435;
+        Fri, 21 Jun 2024 07:27:43 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-366388c401asm1889528f8f.45.2024.06.21.07.27.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Jun 2024 06:56:19 -0700 (PDT)
-Date: Fri, 21 Jun 2024 09:56:16 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Cc: virtio-comment@lists.linux.dev, anton.yakovlev@opensynergy.com,
-	sgarzare@redhat.com
-Subject: Re: [PATCH v1 Resend] virtio-sound: add latency_bytes definition
-Message-ID: <20240621095414-mutt-send-email-mst@kernel.org>
-References: <Zky3vZU+P37H4VPb@fedora>
- <ZnWCGR9tkSrKPzX2@fedora>
+        Fri, 21 Jun 2024 07:27:43 -0700 (PDT)
+Date: Fri, 21 Jun 2024 16:27:41 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: virtio-comment@lists.linux.dev, harald.mommer@opensynergy.com
+Subject: Re: [PATCH] virtio-can: define out of rage can-id
+Message-ID: <ZnWN3ePT6G6nL3N9@fedora>
+References: <ZkyrnsCXu8mQpDQI@fedora>
+ <pf656j5da3lxgo2nn6nvhyz7tutf2rktbwxzddyhenyyvhzxpx@is6fo76auxms>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <ZnWCGR9tkSrKPzX2@fedora>
+In-Reply-To: <pf656j5da3lxgo2nn6nvhyz7tutf2rktbwxzddyhenyyvhzxpx@is6fo76auxms>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Jun 21, 2024 at 03:37:29PM +0200, Matias Ezequiel Vara Larsen wrote:
-> On Tue, May 21, 2024 at 05:03:25PM +0200, Matias Ezequiel Vara Larsen wrote:
-> > This commit aims at providing a better definition of latency_bytes. To
-> > do so, this commit defines latency_bytes as is defined in Crosvm.
+On Wed, Jun 05, 2024 at 10:42:19AM +0200, Stefano Garzarella wrote:
+> On Tue, May 21, 2024 at 04:11:42PM GMT, Matias Ezequiel Vara Larsen wrote:
+> > Explain when a message is out of range.
 > > 
 > > Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 > > ---
-> > Changelog:
-> > v0 -> v1:
-> >  * specify that the delay is due to the device implementation.
+> > * This patch applies on top of virtio-1.4, which has not been released
+> >  yet.
 > > ---
-> >  device-types/sound/description.tex | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > device-types/can/description.tex | 3 +++
+> > 1 file changed, 3 insertions(+)
 > > 
-> > diff --git a/device-types/sound/description.tex b/device-types/sound/description.tex
-> > index 54c9c8e..a138e5b 100644
-> > --- a/device-types/sound/description.tex
-> > +++ b/device-types/sound/description.tex
-> > @@ -694,7 +694,10 @@ \subsubsection{PCM I/O Messages}\label{sec:Device Types / Sound Device / Device
-> >  \begin{description}
-> >  \item[\field{status}] contains VIRTIO_SND_S_OK if an operation is successful,
-> >  and VIRTIO_SND_S_IO_ERR otherwise.
-> > -\item[\field{latency_bytes}] indicates the current device latency.
-> > +\item[\field{latency_bytes}] indicates the current additional delay caused by
-> > +the device's implementation. For playback, this is the amount of bytes that
-> > +must be consumed before the current request can be played. For capture, this is
-> > +the latency in terms of bytes that the capture buffer was recorded.
-
-
-the last "was recorded" seems agrammatical. Do you mean "has recorded"?
-
-> >  \end{description}
-> >  
-> >  Since all buffers in the queue (with one exception) should be of the size
-> > -- 
-> > 2.41.0
+> > diff --git a/device-types/can/description.tex b/device-types/can/description.tex
+> > index 2511d9c..98b163b 100644
+> > --- a/device-types/can/description.tex
+> > +++ b/device-types/can/description.tex
+> > @@ -191,6 +191,9 @@ \subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Ope
+> > invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
+> > NOT schedule the message for transmission.
 > > 
-> Dear TC,
+> > +Note that a message is out of range when a standard frame uses more than 11
+> > +bits of \field{can_id} or when an extended frame uses more than 29 bits.
+> > +
 > 
-> I'd like to request a vote on solving issue 198.
+> It's not clear to me where we refer to an out-of-range message before. I
+> only found "\field{can_id} or \field{sdu} length are out of range" where
+> IIUC we talk about the length of certain fields is out of range. Are we
+> talking about the same thing?
 > 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/198
-> 
-> Matias
+> If so, I think we should talk explicitly about the "length of the fields".
 
+Yes, I will rephrase it by using the "length of the fields" wording.
 
-OK. Can you pls add a bit more detail about the issue and
-the proposal in github?
+> Also should we cover `sdu` as well?
+> 
+
+I think we should cover it but I am not sure when the `sdu` length is
+out of range. In the reception section (5.20.5.3), the spec states:
+
+`If the feature VIRTIO_CAN_F_CAN_FD has been negotiated the maximal
+possible sdu length is 64, if the feature has not been negotiated the
+maximal possible sdu length is 8.  The actual length of the sdu is
+determined by the length.`
+
+For transmission, I guess `sdu` lenght is out of range if the length
+does not fulfill the requirement above but I am not sure.
+
+Matias
 
