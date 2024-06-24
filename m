@@ -1,222 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F5F1411CA
-	for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 13:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74881E4A9
+	for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 13:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719235845; cv=none; b=DvaaGHv6xONeoXqfCIdnnkrasu0DIZ2ujPKD10kKJVB0fz2sciry3d/38MGXfj4Zm0uWRswIQIZHPxyE7qO+v/733/g5zUKnAFctyZ0cEfWi6qfe35WKbgoMvOioq7Bh0sWDLD5lmA4uWEA0q6bFy1e2MSk01mwK28IoTAQsA4c=
+	t=1719236659; cv=none; b=g7Swd2S9AisTR/z1AEU7UOTQUrfv3Fw2wr7UCD/kBgT/tn0jepH0H0ndYoPhq0geP3EQscKTqQ55RukWCdoXb8WDaq5wFLc/Hy4+hQ+1ykCyABKvfISQWavXWE0o64qrLaHlAkFwKlAoxiBrChZylSw8ymZpx1QJVN/qEEMOF7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719235845; c=relaxed/simple;
-	bh=2r2fOaKAqxDJ3I6Ocnxr4WERGhUCvE5BcRumCiGZ5k0=;
+	s=arc-20240116; t=1719236659; c=relaxed/simple;
+	bh=KcnS72LdflI1Xmk70/NFfN71tY0UNW8mzylUJUoM0ns=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=WRvHC2fNIiKRVlwMtIVXC+Cnuv4SncGyE7rhWMZa5rpdyEfuHCIU/Ma45ZiEdC/BODqwHgcVUkp+BPwxDqguIlNwE61uQ2jCRo7tFVX+qrV3jugObTXl0V0G0C6bx+c3s3QSNsDv/bxY2rgHQLh+N+3rQEZGbGZx6AbBkr5/gSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bwKV9OHG; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=TnKzX8wgzytJAZBymi0wGn1meA60X6vr9BtZGUZim0pnILtELltY8J5GFgDC+Ku2cS5+Z7dJLsSkFYA5q+xdRYixrGj5iT85scu8z/ly17wEjCASJXDELy8Fpzmnm3RbTViSDYK56qZq0oNlDdKiHNNEvB7igI0Izyw4ch0Gxbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ktpf+KoY; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bwKV9OHG"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ktpf+KoY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719235841;
+	s=mimecast20190719; t=1719236656;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nrLnpZt7pnrbrPhrkpCmMqd4/nSV8zQPJULOP/TmprE=;
-	b=bwKV9OHG+hiRRuayLYAyDFL+mabV9Ei2QeL2inCIdULpctYn9LNTtlhDljpSkCAp4F4jbj
-	/8e6NPfK1cc8nSh7UBdKPcqZw5HhkFLzbXp8MZklLJY60/pv3+ElDZZ7ktg1GHJ4Iq7Gvx
-	S0qudlZmmHv1E/hLjElAHA23DFUZKbo=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=uQXHdsXTbIKjtkUBeR23TxQhbY8KV31LTP0PorzVb8A=;
+	b=Ktpf+KoYqbywHaMRErK+RJAXs6fEFA/WfVzeQcGV44lRma/xx/eUfwow8CoHG2C+YvQinL
+	H4/atsMlRWTDdAL66BOfYcLzRZlt0WpwW8hFPjLArHKTrV8c1v2qmdFe5Wm4q1vD5wjLcX
+	p49h/zvs1X5aI+dI76vWTEHW51eJigM=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-nJcKo01-NeGgT6Avcwfopg-1; Mon, 24 Jun 2024 09:30:40 -0400
-X-MC-Unique: nJcKo01-NeGgT6Avcwfopg-1
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-a724d8c38d3so61881366b.2
-        for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 06:30:40 -0700 (PDT)
+ us-mta-352-HYxxGz-7OF27-TbMNq4ZhQ-1; Mon, 24 Jun 2024 09:44:15 -0400
+X-MC-Unique: HYxxGz-7OF27-TbMNq4ZhQ-1
+Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-52cd67973e0so2491883e87.0
+        for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 06:44:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719235838; x=1719840638;
+        d=1e100.net; s=20230601; t=1719236653; x=1719841453;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nrLnpZt7pnrbrPhrkpCmMqd4/nSV8zQPJULOP/TmprE=;
-        b=ZcPBey4r9L8CTbCmxXrK4cGgx2lE4tXplTmgSkwEf7q+62FAZugvS4Xqy+/vhyUtKb
-         hG4g0sRIfja5FynTCBBBnYqWU0F5+dbvjSAEecbwPmMlo6aYuFrXpm/xIjPgqTp7KLhI
-         j2mDvQDb/Of+SgQbKozjyfHLmi/NTX3fMBkJuI8v07XSYWS2K3TVHADLnX/30FAVNVwp
-         GHurt/dIl3pgH7yMqEIVO1xMxWGkjTSnmlEe8sqTaBuKmOrqLabti2Xe+aBcJOzV6w48
-         /IqHO/G3Q6j1i9ulvGArcspmL6ej9jeDTceZgZP5/4Ajz+o6SU2H2faOThFYhfG3EMXf
-         cLNg==
-X-Forwarded-Encrypted: i=1; AJvYcCUuuLH1foAKbEwHm4QGy2HRQcl3YViSV0WKnBiXwOALEZgflNmDnmQVz/GDSkY6hpz5PUgaveWgRjR5rMSJnyeNC5b2sPIDXUUGcZw9Vs0=
-X-Gm-Message-State: AOJu0Yw7OC+B4Fr+iQhZFolZSvpXUrgneK1F0NYyyN2wF+JSUjbYjrbj
-	gPZ//6rboDXXx5PP/YABMkTE5l91brP1zkKm7aQ2+4QJZQUkTCLkqZw0gFEDb5A7mRiGU1y/z9K
-	/bdle5Fe7TzhNSumpOY456FZ4q/KNyyHT/mwxr5G99/ErPDDfuSaEF6Msa4qoJ2mM
-X-Received: by 2002:a17:906:350b:b0:a6f:2a43:e956 with SMTP id a640c23a62f3a-a7245c64ea5mr261017066b.74.1719235838426;
-        Mon, 24 Jun 2024 06:30:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHlTV2TEqLWoAuEd0zZGB8ewPNMCfd/Ht47FEIFp5USewA2BdDXlFa/JUFD0OznVSBpbp/bnw==
-X-Received: by 2002:a17:906:350b:b0:a6f:2a43:e956 with SMTP id a640c23a62f3a-a7245c64ea5mr261014566b.74.1719235837607;
-        Mon, 24 Jun 2024 06:30:37 -0700 (PDT)
+        bh=uQXHdsXTbIKjtkUBeR23TxQhbY8KV31LTP0PorzVb8A=;
+        b=oIYBMfOjWOGYd9YEfwclg8OKtsCXlK4zOATnk2dkpa+tjjmaC5u7ycq04iUScVyAfd
+         G7KDPpnZYJKo3EhvXYfqWWGk+o1idevHCXrZd76QTdke9k8yis2pg3tvOeOND1mRmtZ8
+         DrbIrhmpaUquEVQ3KHWjhYPtp17Ra10A/XR9mYirdGY4dt4D6F0aRtpAT1t/Ftrmh/au
+         anwzjaZ2/2ZqhrpA4MUJHfRSL1hKG1WStzdP4J+dcQlcXoYUAESw8G89AKcH7uNJ5Swa
+         7DpzUU2MOBx7u45pnIhxQthqdVWpuahQAhv+Eq6DH7sKI95HVFZ72g7YoojeO+uEa7I8
+         jfzg==
+X-Gm-Message-State: AOJu0YwNypiHG59sCYw2fh6bMoNbcTnJvKm0scOKMcq+HKjTqG3pybUN
+	plK4/Mq1RYTpzI7JoFhJH3Ov5jM0fLrrsSY9Z/dEyh4I4ysNK7pH7kvbtkIxEqSH1RJv+TJdCWG
+	9pYnUMXCHY/MpvvzsXVFaL4rbmqyTR4cUx8wOvfd0Xof6DrR4dgxBZ9q5bMqVO3Afc7/SKJvy
+X-Received: by 2002:a19:ca05:0:b0:52c:ddef:4eb7 with SMTP id 2adb3069b0e04-52ce1832a08mr2984238e87.20.1719236653030;
+        Mon, 24 Jun 2024 06:44:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGf5eOHDCU7qsIvH4ODwxEc1SzeaZaTlB1NTgLSoe2QchtO0kGk1OkEaEnkuzffPE5kz0zpDQ==
+X-Received: by 2002:a19:ca05:0:b0:52c:ddef:4eb7 with SMTP id 2adb3069b0e04-52ce1832a08mr2984214e87.20.1719236652353;
+        Mon, 24 Jun 2024 06:44:12 -0700 (PDT)
 Received: from sgarzare-redhat ([193.207.216.157])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a7244b709e2sm218646866b.191.2024.06.24.06.30.35
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a6fcf56ea09sm408573366b.201.2024.06.24.06.44.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Jun 2024 06:30:36 -0700 (PDT)
-Date: Mon, 24 Jun 2024 15:30:31 +0200
+        Mon, 24 Jun 2024 06:44:11 -0700 (PDT)
+Date: Mon, 24 Jun 2024 15:44:06 +0200
 From: Stefano Garzarella <sgarzare@redhat.com>
-To: Xuewei Niu <niuxuewei97@gmail.com>
-Cc: mst@redhat.com, fupan.lfp@antgroup.com, virtio-comment@lists.linux.dev, 
-	Xuewei Niu <niuxuewei.nxw@antgroup.com>
-Subject: Re: [RFC PATCH v3] virtio-vsock: Add support for multi devices
-Message-ID: <nlwexda7v2vo7o5c5i3ssrwj4t6vxzny63hgemwotvd7dmf3gm@cmp4jkxf4k6i>
-References: <20240617015446.2723779-1-niuxuewei.nxw@antgroup.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtio-comment@lists.linux.dev, harald.mommer@opensynergy.com
+Subject: Re: [PATCH] virtio-can: define out of rage can-id
+Message-ID: <7qpbbtnwmxgmezkihj3f3e2fgbd5nvmh2cjphokumar7glznqw@7qsmcp4bgiof>
+References: <ZkyrnsCXu8mQpDQI@fedora>
+ <pf656j5da3lxgo2nn6nvhyz7tutf2rktbwxzddyhenyyvhzxpx@is6fo76auxms>
+ <ZnWN3ePT6G6nL3N9@fedora>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20240617015446.2723779-1-niuxuewei.nxw@antgroup.com>
+In-Reply-To: <ZnWN3ePT6G6nL3N9@fedora>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
 
-On Mon, Jun 17, 2024 at 09:54:46AM GMT, Xuewei Niu wrote:
->This patch brings a new feature, called "multi devices", to the virtio
->vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
->"index" field to the config for the virtio vsock.
+On Fri, Jun 21, 2024 at 04:27:41PM GMT, Matias Ezequiel Vara Larsen wrote:
+>On Wed, Jun 05, 2024 at 10:42:19AM +0200, Stefano Garzarella wrote:
+>> On Tue, May 21, 2024 at 04:11:42PM GMT, Matias Ezequiel Vara Larsen wrote:
+>> > Explain when a message is out of range.
+>> >
+>> > Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+>> > ---
+>> > * This patch applies on top of virtio-1.4, which has not been released
+>> >  yet.
+>> > ---
+>> > device-types/can/description.tex | 3 +++
+>> > 1 file changed, 3 insertions(+)
+>> >
+>> > diff --git a/device-types/can/description.tex b/device-types/can/description.tex
+>> > index 2511d9c..98b163b 100644
+>> > --- a/device-types/can/description.tex
+>> > +++ b/device-types/can/description.tex
+>> > @@ -191,6 +191,9 @@ \subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Ope
+>> > invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
+>> > NOT schedule the message for transmission.
+>> >
+>> > +Note that a message is out of range when a standard frame uses more than 11
+>> > +bits of \field{can_id} or when an extended frame uses more than 29 bits.
+>> > +
+>>
+>> It's not clear to me where we refer to an out-of-range message before. I
+>> only found "\field{can_id} or \field{sdu} length are out of range" where
+>> IIUC we talk about the length of certain fields is out of range. Are we
+>> talking about the same thing?
+>>
+>> If so, I think we should talk explicitly about the "length of the fields".
 >
->I've pushed a version of code for the implementation of multi devices to
->lkml [1]. You might also refer to a google doc [2] for multi devices
->details regarding motivation, implementation, use cases, etc.
+>Yes, I will rephrase it by using the "length of the fields" wording.
 >
->[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
->[2] https://docs.google.com/document/d/14RUDEesi86EBZigVxxFsjxAl2OslPFplLyXMHiyDgYs/edit?usp=sharing
+>> Also should we cover `sdu` as well?
+>>
 >
->Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
->---
->v2 -> v3:
->- Merge the two commits into one.
->- Add some descriptions regarding the "index" field: the default device and
->  the type.
->- Add some descriptions about how multi devices are initialized in the
->  Device Initialization.
+>I think we should cover it but I am not sure when the `sdu` length is
+>out of range. In the reception section (5.20.5.3), the spec states:
 >
->v1 -> v2:
->- Rename the feature to "VIRTIO_VSOCK_F_MULTI_DEVICES".
->- Remove description from the relationship clarification.
->- Remove implementation details from commit message and documentation.
->- Rename the field from `order` to `index`.
->- Rewrite the introduction about the `index` field.
->- Add a case for sending message from the guest.
->---
-> device-types/vsock/description.tex | 38 ++++++++++++++++++++++++++++++
-> 1 file changed, 38 insertions(+)
+>`If the feature VIRTIO_CAN_F_CAN_FD has been negotiated the maximal
+>possible sdu length is 64, if the feature has not been negotiated the
+>maximal possible sdu length is 8.  The actual length of the sdu is
+>determined by the length.`
 >
->diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
->index 7d91d15..190f123 100644
->--- a/device-types/vsock/description.tex
->+++ b/device-types/vsock/description.tex
->@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
-> \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
-> \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
-> \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
->+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.
-> \end{description}
->
-> \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
->@@ -52,6 +53,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
-> \begin{lstlisting}
-> struct virtio_vsock_config {
-> 	le64 guest_cid;
->+	le16 index;
-> };
-> \end{lstlisting}
->
->@@ -77,11 +79,42 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
-> \hline
-> \end{tabular}
->
->+The \field{index} field indicates index of a device, and is required for
->+each device while the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
->+negotiated. The size of the \field{index} is 16 bits which supports up to
->+65,536 devices.
->+
->+The device with the lowest index is considered as the default device. Plus,
+>For transmission, I guess `sdu` lenght is out of range if the length
+>does not fulfill the requirement above but I am not sure.
 
-Should we explain what "default device" means here?
-
->+it works fine with hot-plug and hot-unplug. When adding a device at runtime
->+to be the default, assign it the lowest \field{index} without changing the
->+configuration of the previous device.
-
-I'm not sure it's worthwhile here to talk about hot-plug/unplug.
-
->+
->+The device is responsible for populating the \field{index} field. The rules
->+for \field{index} are:
->+
->+\begin{itemize}
->+\item It doesn't have to be continuous. For instance, three devices with
->+the \field{index} 1, 2 and 5 respectively are acceptable.
->+
->+\item It cannot have conflicts. For instance, three devices with the
->+\field{index} 1, 1 and 5 respectively are prohibited.
->+\end{itemize}
-
-Maybe we should put this second point in a normative section.
-
->+
-> \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
->
-> \begin{enumerate}
-> \item The guest's cid is read from \field{guest_cid}.
->
->+\item Check for multi devices support:
->+\begin{itemize}
->+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated,
->+    the device's index will be read from \field{index}, and the driver will
->+    allow multi devices.
->+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature isn't negotiated, the
->+    device's index will be ignored, and the driver will deny the second and
->+    subsequent devices.
->+\end{itemize}
->+
-> \item Buffers are added to the event virtqueue to receive events from the device.
->
-> \item Buffers are added to the rx virtqueue to start receiving packets.
->@@ -167,6 +200,11 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
-> consists of a (cid, port number) tuple. The header fields used for this are
-> \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
->
->+In the case of sending packets from the guest to its peer, if the
->+VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated and the
->+\field{src_cid} isn't specified, the \field{src_cid} should be set to the
-
-It's unclear here, can you elaborate more on what you mean?
-src_cid should always be specified by the guest.
-
-If you want to talk about the bind instead, maybe we should say
-something like:
-   When the driver supports multiple devices (feature
-   VIRTIO_VSOCK_F_MULTI_DEVICES negotiated), if the transmitting
-   socket is not bound to any specific address, then src_cid should be
-   assigned with the CID of the default device.
-
-Or something like that.
-
->+CID of default device.
->+
-> Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
-> for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
-
-On line 234 we have the following normative:
-
-     \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
-
-     The \field{guest_cid} configuration field MUST be used as the source CID when
-     sending outgoing packets.
-
-Should we extend that paragraph to specify what source CID should be
-used when VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated?
-
-Should we also considering changes in `struct virtio_vsock_event`?
+mmm, I'm not sure too, indeed that is only defined for "CAN Message 
+Reception". Maybe we need someone more inside CAN or check the CAN 
+specifications.
 
 Thanks,
 Stefano
