@@ -1,180 +1,223 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFA313B280
-	for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 11:57:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F5F1411CA
+	for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 13:30:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719230247; cv=none; b=f3BHGpr72q69kYleVqCrkoqXIWymWUpqX4FBSD/hTTuOvhbJrfBNlAVwoPuwqbvJCYTEe1Q26BKcMPmW+Mwi5uyT+foLE6Y3kRgl6u4U/99oPR/claR2lUUQdAmLK0Oa+L9RjqUZ2v8vtAvsZmOXRK0wvXUGR5vHiWXS5DbpnrA=
+	t=1719235845; cv=none; b=DvaaGHv6xONeoXqfCIdnnkrasu0DIZ2ujPKD10kKJVB0fz2sciry3d/38MGXfj4Zm0uWRswIQIZHPxyE7qO+v/733/g5zUKnAFctyZ0cEfWi6qfe35WKbgoMvOioq7Bh0sWDLD5lmA4uWEA0q6bFy1e2MSk01mwK28IoTAQsA4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719230247; c=relaxed/simple;
-	bh=9l/BgDO1yO6rapp8uWqKM0kNgEXUtQfcdiUnDNDvTBo=;
+	s=arc-20240116; t=1719235845; c=relaxed/simple;
+	bh=2r2fOaKAqxDJ3I6Ocnxr4WERGhUCvE5BcRumCiGZ5k0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=VdMAJ046rk0eDaDMfFi2dkNZL+WmqPDeQbVvdAnVrs26yP3fbgsFoE02E+ddckBXfE6iZkMJShmlZpKkFpe3Gw+1gBiVN6UQ1vz5W0NHCQZrwxI7FGa5/dROkkb8i9Jpi3nd0vIKdowCs6nCEwKDTiKWKBdYgu69Bh15Ni0Nzq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RO0drSeU; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=WRvHC2fNIiKRVlwMtIVXC+Cnuv4SncGyE7rhWMZa5rpdyEfuHCIU/Ma45ZiEdC/BODqwHgcVUkp+BPwxDqguIlNwE61uQ2jCRo7tFVX+qrV3jugObTXl0V0G0C6bx+c3s3QSNsDv/bxY2rgHQLh+N+3rQEZGbGZx6AbBkr5/gSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bwKV9OHG; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RO0drSeU"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bwKV9OHG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719230245;
+	s=mimecast20190719; t=1719235841;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=c+vJ+MzsX5ymi5KHxRf9n/IczCIArwQ60Q6yP0vHP2g=;
-	b=RO0drSeU3akIqA6LKO3R2T4uoC6v3ap9vVLyTZexoeRbL96jgQFgu5CTpurUnGdonyhLJI
-	nFpZSQzsz72bjaLGpR8Fc5icXFsJFjDp/j0jDJiVrZUG0XsO9x7gEf5JPDifu0SFTmIYk9
-	1iQtlLec4YQkayEvRH+vwBXdgcq7Oi8=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=nrLnpZt7pnrbrPhrkpCmMqd4/nSV8zQPJULOP/TmprE=;
+	b=bwKV9OHG+hiRRuayLYAyDFL+mabV9Ei2QeL2inCIdULpctYn9LNTtlhDljpSkCAp4F4jbj
+	/8e6NPfK1cc8nSh7UBdKPcqZw5HhkFLzbXp8MZklLJY60/pv3+ElDZZ7ktg1GHJ4Iq7Gvx
+	S0qudlZmmHv1E/hLjElAHA23DFUZKbo=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-553-NBgzXhCPO4OvV0KeyGxKXQ-1; Mon, 24 Jun 2024 07:57:23 -0400
-X-MC-Unique: NBgzXhCPO4OvV0KeyGxKXQ-1
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-52cdd795cdaso1534383e87.2
-        for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 04:57:23 -0700 (PDT)
+ us-mta-681-nJcKo01-NeGgT6Avcwfopg-1; Mon, 24 Jun 2024 09:30:40 -0400
+X-MC-Unique: nJcKo01-NeGgT6Avcwfopg-1
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-a724d8c38d3so61881366b.2
+        for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 06:30:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719230242; x=1719835042;
+        d=1e100.net; s=20230601; t=1719235838; x=1719840638;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c+vJ+MzsX5ymi5KHxRf9n/IczCIArwQ60Q6yP0vHP2g=;
-        b=Op0sbWhhrdncqpyR1BxS+5eisFDVyxC6j0UuyfZDE2Kdf5IwX9iO9bm4CdlUQ+BQw0
-         /QHhnZHPDtql8EJK0EJroOMzydXEBO1goTrNGYJZ/jVw2c9IDE/WnCs0FIrk1x/1oNyA
-         RXfWknxioS84AULmf/ihsUAvJf2PhwWhovL07oia9n27JQzVAYlkizdRRHN7tCoLkTe1
-         djWowZMAxP1zcfZGYvRDxRafyGEQ3at64j1/cDM0dwc++RFaO9/uAjFlYdWoLmi6yREq
-         f7TstjCNrjU9PJCiYYM9eo6LBlWAD6CtgxhqqStcGraWvfW+YwTNfXMYHCIulO45xoW+
-         paVA==
-X-Gm-Message-State: AOJu0YwYjjLCf6+keymIp8RL8NJI6pSI6Ikrl1HNxLhVuB0ABCAEimHs
-	iaAZqJ0jVxXAnLd2biHqVlzXSBKlvEa6vmZ5Oq3gMZpeQxvtiBVpcRPAlKNCVLKS2aoHn9xZZ84
-	9xGNXOqejHfOhMhFBZJqjZVxFQWJvZn4S4VPHIUbLN4wfr6z2WgtZnu2pM5RD7FNa
-X-Received: by 2002:a19:5519:0:b0:52c:dbbf:c413 with SMTP id 2adb3069b0e04-52ce183b188mr2914965e87.34.1719230242265;
-        Mon, 24 Jun 2024 04:57:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE0O4jI5rMwhmgRAdr6egZj9VVZppwLSG3thg+pbddXAxduhGr8hfxHe+nZ8EOrk1Vu6Mc6HA==
-X-Received: by 2002:a19:5519:0:b0:52c:dbbf:c413 with SMTP id 2adb3069b0e04-52ce183b188mr2914951e87.34.1719230241471;
-        Mon, 24 Jun 2024 04:57:21 -0700 (PDT)
-Received: from redhat.com ([2.52.146.100])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a724a6e4201sm165692366b.132.2024.06.24.04.57.19
+        bh=nrLnpZt7pnrbrPhrkpCmMqd4/nSV8zQPJULOP/TmprE=;
+        b=ZcPBey4r9L8CTbCmxXrK4cGgx2lE4tXplTmgSkwEf7q+62FAZugvS4Xqy+/vhyUtKb
+         hG4g0sRIfja5FynTCBBBnYqWU0F5+dbvjSAEecbwPmMlo6aYuFrXpm/xIjPgqTp7KLhI
+         j2mDvQDb/Of+SgQbKozjyfHLmi/NTX3fMBkJuI8v07XSYWS2K3TVHADLnX/30FAVNVwp
+         GHurt/dIl3pgH7yMqEIVO1xMxWGkjTSnmlEe8sqTaBuKmOrqLabti2Xe+aBcJOzV6w48
+         /IqHO/G3Q6j1i9ulvGArcspmL6ej9jeDTceZgZP5/4Ajz+o6SU2H2faOThFYhfG3EMXf
+         cLNg==
+X-Forwarded-Encrypted: i=1; AJvYcCUuuLH1foAKbEwHm4QGy2HRQcl3YViSV0WKnBiXwOALEZgflNmDnmQVz/GDSkY6hpz5PUgaveWgRjR5rMSJnyeNC5b2sPIDXUUGcZw9Vs0=
+X-Gm-Message-State: AOJu0Yw7OC+B4Fr+iQhZFolZSvpXUrgneK1F0NYyyN2wF+JSUjbYjrbj
+	gPZ//6rboDXXx5PP/YABMkTE5l91brP1zkKm7aQ2+4QJZQUkTCLkqZw0gFEDb5A7mRiGU1y/z9K
+	/bdle5Fe7TzhNSumpOY456FZ4q/KNyyHT/mwxr5G99/ErPDDfuSaEF6Msa4qoJ2mM
+X-Received: by 2002:a17:906:350b:b0:a6f:2a43:e956 with SMTP id a640c23a62f3a-a7245c64ea5mr261017066b.74.1719235838426;
+        Mon, 24 Jun 2024 06:30:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHlTV2TEqLWoAuEd0zZGB8ewPNMCfd/Ht47FEIFp5USewA2BdDXlFa/JUFD0OznVSBpbp/bnw==
+X-Received: by 2002:a17:906:350b:b0:a6f:2a43:e956 with SMTP id a640c23a62f3a-a7245c64ea5mr261014566b.74.1719235837607;
+        Mon, 24 Jun 2024 06:30:37 -0700 (PDT)
+Received: from sgarzare-redhat ([193.207.216.157])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a7244b709e2sm218646866b.191.2024.06.24.06.30.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Jun 2024 04:57:20 -0700 (PDT)
-Date: Mon, 24 Jun 2024 07:57:17 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: virtio-comment@lists.linux.dev, kernel@pengutronix.de
-Subject: Re: [PATCH RESEND 1/4] virtio-net: support transmit hash report
-Message-ID: <20240624074613-mutt-send-email-mst@kernel.org>
-References: <20240624-v1-4-topic-virtio-net-timestamping-v1-0-fa3c163e4aa9@pengutronix.de>
- <20240624-v1-4-topic-virtio-net-timestamping-v1-1-fa3c163e4aa9@pengutronix.de>
+        Mon, 24 Jun 2024 06:30:36 -0700 (PDT)
+Date: Mon, 24 Jun 2024 15:30:31 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Xuewei Niu <niuxuewei97@gmail.com>
+Cc: mst@redhat.com, fupan.lfp@antgroup.com, virtio-comment@lists.linux.dev, 
+	Xuewei Niu <niuxuewei.nxw@antgroup.com>
+Subject: Re: [RFC PATCH v3] virtio-vsock: Add support for multi devices
+Message-ID: <nlwexda7v2vo7o5c5i3ssrwj4t6vxzny63hgemwotvd7dmf3gm@cmp4jkxf4k6i>
+References: <20240617015446.2723779-1-niuxuewei.nxw@antgroup.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20240624-v1-4-topic-virtio-net-timestamping-v1-1-fa3c163e4aa9@pengutronix.de>
+In-Reply-To: <20240617015446.2723779-1-niuxuewei.nxw@antgroup.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
 
-On Mon, Jun 24, 2024 at 01:09:04PM +0200, Steffen Trumtrar wrote:
-> Virtio-net supports sharing the flow hash from device to driver on rx.
-> Do the same in the other direction for robust routing and telemetry.
-> 
-> Experimental results mirror what the theory suggests: where IPv6
-> FlowLabel is included in path selection (e.g., LAG/ECMP), flowlabel
-> rotation on TCP timeout avoids the vast majority of TCP disconnects
-> that would otherwise have occurred during link failures in long-haul
-> backbones, when an alternative path is available.
-> 
-> Rotation can be applied to various bad connection signals, such as
-> timeouts and spurious retransmissions. In aggregate, such flow level
-> signals can help locate network issues.
-> 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
->  device-types/net/description.tex | 30 ++++++++++++++++++++++++++++++
->  1 file changed, 30 insertions(+)
-> 
-> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> index 61cce1f..eb2c08e 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
->  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
->      channel.
->  
-> +\item[VIRTIO_NET_F_TX_HASH(49)] Driver sends hash report
-> +
->  \item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
->      to the driver through the control virtqueue.
->  
-> @@ -641,6 +643,34 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->  
->  If VIRTIO_NET_HDR_F_NEEDS_CSUM is not set, the device MUST NOT
->  rely on the packet checksum being correct.
-> +
-> +\paragraph{Hash calculation for outgoing packets}
-> +\label{sec:Device Types / Network Device / Device Operation / Packet Transmission / Hash calculation for outgoing packets }
-> +
-> +If the VIRTIO_NET_F_TX_HASH was negotiated and the packet includes a hash, the driver uses
-> +the structure virtio_net_hdr_hash_ts instead of virtio_net_hdr and increases the \field{hdr_len} accordingly.
+On Mon, Jun 17, 2024 at 09:54:46AM GMT, Xuewei Niu wrote:
+>This patch brings a new feature, called "multi devices", to the virtio
+>vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+>"index" field to the config for the virtio vsock.
+>
+>I've pushed a version of code for the implementation of multi devices to
+>lkml [1]. You might also refer to a google doc [2] for multi devices
+>details regarding motivation, implementation, use cases, etc.
+>
+>[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
+>[2] https://docs.google.com/document/d/14RUDEesi86EBZigVxxFsjxAl2OslPFplLyXMHiyDgYs/edit?usp=sharing
+>
+>Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+>---
+>v2 -> v3:
+>- Merge the two commits into one.
+>- Add some descriptions regarding the "index" field: the default device and
+>  the type.
+>- Add some descriptions about how multi devices are initialized in the
+>  Device Initialization.
+>
+>v1 -> v2:
+>- Rename the feature to "VIRTIO_VSOCK_F_MULTI_DEVICES".
+>- Remove description from the relationship clarification.
+>- Remove implementation details from commit message and documentation.
+>- Rename the field from `order` to `index`.
+>- Rewrite the introduction about the `index` field.
+>- Add a case for sending message from the guest.
+>---
+> device-types/vsock/description.tex | 38 ++++++++++++++++++++++++++++++
+> 1 file changed, 38 insertions(+)
+>
+>diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+>index 7d91d15..190f123 100644
+>--- a/device-types/vsock/description.tex
+>+++ b/device-types/vsock/description.tex
+>@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+>+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.
+> \end{description}
+>
+> \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+>@@ -52,6 +53,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \begin{lstlisting}
+> struct virtio_vsock_config {
+> 	le64 guest_cid;
+>+	le16 index;
+> };
+> \end{lstlisting}
+>
+>@@ -77,11 +79,42 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \hline
+> \end{tabular}
+>
+>+The \field{index} field indicates index of a device, and is required for
+>+each device while the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
+>+negotiated. The size of the \field{index} is 16 bits which supports up to
+>+65,536 devices.
+>+
+>+The device with the lowest index is considered as the default device. Plus,
 
-I don't get what does hdr_len have to do with it. It does not normally
-include virtio net header and it does not look like your
-patch changed it, either.
+Should we explain what "default device" means here?
 
+>+it works fine with hot-plug and hot-unplug. When adding a device at runtime
+>+to be the default, assign it the lowest \field{index} without changing the
+>+configuration of the previous device.
 
-> +
-> +\begin{lstlisting}
-> +  struct virtio_net_hdr_hash_ts {
-> +    struct {
-> +      struct virtio_net_hdr hdr;
+I'm not sure it's worthwhile here to talk about hot-plug/unplug.
 
-hdr is not part of hash, is it? why include it here?
+>+
+>+The device is responsible for populating the \field{index} field. The rules
+>+for \field{index} are:
+>+
+>+\begin{itemize}
+>+\item It doesn't have to be continuous. For instance, three devices with
+>+the \field{index} 1, 2 and 5 respectively are acceptable.
+>+
+>+\item It cannot have conflicts. For instance, three devices with the
+>+\field{index} 1, 1 and 5 respectively are prohibited.
+>+\end{itemize}
 
-> +      __le33 value;
+Maybe we should put this second point in a normative section.
 
-le33?
+>+
+> \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
+>
+> \begin{enumerate}
+> \item The guest's cid is read from \field{guest_cid}.
+>
+>+\item Check for multi devices support:
+>+\begin{itemize}
+>+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated,
+>+    the device's index will be read from \field{index}, and the driver will
+>+    allow multi devices.
+>+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature isn't negotiated, the
+>+    device's index will be ignored, and the driver will deny the second and
+>+    subsequent devices.
+>+\end{itemize}
+>+
+> \item Buffers are added to the event virtqueue to receive events from the device.
+>
+> \item Buffers are added to the rx virtqueue to start receiving packets.
+>@@ -167,6 +200,11 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+> consists of a (cid, port number) tuple. The header fields used for this are
+> \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+>
+>+In the case of sending packets from the guest to its peer, if the
+>+VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated and the
+>+\field{src_cid} isn't specified, the \field{src_cid} should be set to the
 
-> +      __le16 report;
-> +      __le16 flow_state;
+It's unclear here, can you elaborate more on what you mean?
+src_cid should always be specified by the guest.
 
-fields are left undocumented.
+If you want to talk about the bind instead, maybe we should say
+something like:
+   When the driver supports multiple devices (feature
+   VIRTIO_VSOCK_F_MULTI_DEVICES negotiated), if the transmitting
+   socket is not bound to any specific address, then src_cid should be
+   assigned with the CID of the default device.
 
-> +    } hash;
-> +    __u32 reserved;
+Or something like that.
 
-why do we need this? at least explain what it is and how is this
-supposed to be handled, please.
+>+CID of default device.
+>+
+> Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
+> for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
 
-> +  };
-> +\end{lstlisting}
-> +
-> +The driver fills \field{hash_value} with the value of the calculated hash and \field{hash_report} with the report type of the calculated hash.
+On line 234 we have the following normative:
 
-what are hash_value and hash_report?
+     \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
 
-> +
-> +Possible values that the driver supports in \field{hash_report} are defined below.
+     The \field{guest_cid} configuration field MUST be used as the source CID when
+     sending outgoing packets.
 
-considering how we have an extensive infrastructure for supported
-hashes for rx, don't we want something like this for tx?
+Should we extend that paragraph to specify what source CID should be
+used when VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated?
 
-e.g. isn't there overhead associated with filling out this hash,
-and doesn't driver benefit from knowing which ones can the
-device use, exactly?
+Should we also considering changes in `struct virtio_vsock_event`?
 
-> +
-> +\begin{lstlisting}
-> +#define VIRTIO_NET_HASH_REPORT_L4             (1 << 10)
-> +#define VIRTIO_NET_HASH_REPORT_OTHER          (1 << 11)
-> +\end{lstlisting}
-> +
->  \paragraph{Packet Transmission Interrupt}\label{sec:Device Types / Network Device / Device Operation / Packet Transmission / Packet Transmission Interrupt}
->  
->  Often a driver will suppress transmission virtqueue interrupts
-> 
-> -- 
-> 2.42.0
-> 
+Thanks,
+Stefano
 
