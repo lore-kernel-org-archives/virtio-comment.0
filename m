@@ -1,218 +1,180 @@
-Received: from mail-out-1a.itc.rwth-aachen.de (mail-out-1a.itc.rwth-aachen.de [134.130.5.44])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4301799F
-	for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 11:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.130.5.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFA313B280
+	for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 11:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719229871; cv=none; b=Z/oIG1/FkSdFLNMf7JaqTCYJ3Mi5zGAQsML34nZiqBPD6RATs50v1btZP5CbTCtIZzGDwKyiKqFp4cAXVVWl8O+lJH5435rTzcj7IhNjjUD+8w1jjytD8G3fdxixDluKeqKuxXoXw9spxvi1Emyfbe/Tbmr7WGTrz5cQt+iexqg=
+	t=1719230247; cv=none; b=f3BHGpr72q69kYleVqCrkoqXIWymWUpqX4FBSD/hTTuOvhbJrfBNlAVwoPuwqbvJCYTEe1Q26BKcMPmW+Mwi5uyT+foLE6Y3kRgl6u4U/99oPR/claR2lUUQdAmLK0Oa+L9RjqUZ2v8vtAvsZmOXRK0wvXUGR5vHiWXS5DbpnrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719229871; c=relaxed/simple;
-	bh=ejObuQ++yUqD2WU3lV7i8E9MZVuVPsn9NDBumtSCxN0=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ih52KoLIvHTEnyHyxMmwqfHUZ6MlkMT4m9KKrvBS+hRlnsZPHn5hQTCEk2RKmFyzCQim7ZqZ3LrfkCzRHlpkDuC2GQColHZj+xxWDZGxXJ87zgXhk9Ao3bDyWwepnJcFRWjUO923t0p7HEPFUq/Nl/Ja6DE83Qia2lNrVtfTrBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eonerc.rwth-aachen.de; spf=pass smtp.mailfrom=eonerc.rwth-aachen.de; arc=none smtp.client-ip=134.130.5.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eonerc.rwth-aachen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eonerc.rwth-aachen.de
-X-CSE-ConnectionGUID: 1YOdaLPhTHicLL8F5ukowQ==
-X-CSE-MsgGUID: FJwFNiOFQRyE5xj0HDOASQ==
-X-IPAS-Result: =?us-ascii?q?A2AkAQAzXHlm/5oagoZaHQEBAQEJARIBBQUBgX4FAQsBg?=
- =?us-ascii?q?z0CLoE2HYQ4nA+OEIdZDwEBAQEBAQEBAQQEATkLBAEBjgkoNwYOAQIEAQEBA?=
- =?us-ascii?q?QMCAwEBAQEBAQEBBgEBBgEBAQEBAQYFgR2FL0UBDIcDaAFKAgQvJwQTDoJyA?=
- =?us-ascii?q?YJTERSuHIEygQGEetl5gRoKBoFIAYFWhloBgVMGgnyBJIZPQ4E8CwMNgyZrG?=
- =?us-ascii?q?gGBWwKFOzqCLwSZVYIVlxiCSSETAVUTFws+CRYCFgMbFAQwDwkLJikGOQISD?=
- =?us-ascii?q?AYGBlk0CQQjAwgEAxAyAyBxEQMEGgQLB3eDJQQTR4E3iW+CB4EyghuEGUuEc?=
- =?us-ascii?q?IFrDGGIBYFygT6BZUyBHIFlSoQ9HUADC209FCEUG6dFL4ETgTWFMiACgXLGJ?=
- =?us-ascii?q?geCNl2BA4ZWgy6CC5U8BC+DcgESjQCGQ5JxLodYkGAgjVaVYoUIAgQCBAUCF?=
- =?us-ascii?q?4F7gX9xeQGCPFIXAg+OOINjzQB4AjkCBwEKAQEDCYI5hxMBgRsBAQ?=
-IronPort-Data: A9a23:z4PGRqs0J7mW7CoGbt3FauBQC+fnVAdfMUV32f8akzHdYApBsoF/q
- tZmKWDTaPiPazPye9F2aoni/E1X7cWGmINqGQs5pX9hE3kQgMeUXt7xwmUcns+xBpCZEBg3v
- 512hv3odp1coqr0/0/1WlTZhSAhk/nOH/ykU7as1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- LsemeWGULOe82AyajJ8B56r8ks14Kys4mhA4jTSWNgS1LPgvyhNZH4gDfzpR5fIatE8NvK3Q
- e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkQqShgJ70oOHKF0hXF/1m/VxYAhk
- L2hgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/wmWeG0YAzcmCA2lvDKoU88JPAV1u9
- Pc8DGAjMw2AgP2PlefTpulE3qzPLeHxI58ft2El1mucBLA8XozDBqzGo9NVtNsyrpkVQbCHP
- JJfM2QpNUmcC/FMEg5/5JYWme6ymnj5NT5Cr1+TpKw4y2XUygFr2/73L8bVP9WDTsVYmACUq
- woq+kyoW0BFZIXAl1Jp9FqCpPDhuyLcdrsoBZDl5vwyoHG071cqXUh+uVyT5KPRZlSFc8xeM
- VAV/W8lqq03+Uq3Zt38RAGj5nqFuAMMHdZdDYUHBBql0LXI4wuJQ3NeCzcHcsM6tIo/SXom2
- zdlgu/UONCmi5XNIVr1y1tehWna1fQ9RYPaWRI5cA==
-IronPort-HdrOrdr: A9a23:0fYTT6FRNxMUkYTkpLqEY8eALOsnbusQ8zAXPhZKOGdom62j5r
- OTdZsguyMc5AxxZJhko6H8BEGvKUmskaKdy7NhWItKJTOWwldAT7sSnbcKoQeQeBEWrdQtrJ
- uIGpIWYLbN5BpB/LrHCW+Dc+rIq+PqzEncv5ah854bd3AUV0gP1WpE4jbwKCdLrSB9dOIEPa
- vZzMxavCCtPVQbB/7LYUUtbqzoocHRjp6jRhYDC3ccmW+zZEuTmdzHOind+hEZXjZChZE48W
- bElATl5qKs98uw0R/EygbonuVrcA2I8LR+OPA=
-X-Talos-CUID: 9a23:JusCSm5M3nr23Pob3NssrX8zFskBSn3h7HbbB2voJzt0S7qKcArF
-X-Talos-MUID: =?us-ascii?q?9a23=3AAN8ukw/Fx6tKyEhRtEoimtKQf+lK/IqICWcjqK8?=
- =?us-ascii?q?XlpSUN3RQFxC0tw3iFw=3D=3D?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.08,261,1712613600"; 
-   d="p7s'346?scan'346,208,346";a="91978176"
-Received: from rwthex-s2-a.rwth-ad.de ([134.130.26.154])
-  by mail-in-1a.itc.rwth-aachen.de with ESMTP; 24 Jun 2024 13:49:51 +0200
-Received: from rwthex-s2-a.rwth-ad.de (2a00:8a60:1:e500::26:154) by
- rwthex-s2-a.rwth-ad.de (2a00:8a60:1:e500::26:154) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 24 Jun 2024 13:49:50 +0200
-Received: from rwthex-s2-a.rwth-ad.de ([fe80::9e0:8e94:8a31:2f0b]) by
- rwthex-s2-a.rwth-ad.de ([fe80::9e0:8e94:8a31:2f0b%4]) with mapi id
- 15.02.1544.011; Mon, 24 Jun 2024 13:49:50 +0200
-From: =?utf-8?B?S3LDtm5pbmcsIE1hcnRpbg==?=
-	<martin.kroening@eonerc.rwth-aachen.de>
-To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Subject: [request for vote] virtio_pci_cap64: specify offset_hi, length_hi
- endianness
-Thread-Topic: [request for vote] virtio_pci_cap64: specify offset_hi,
- length_hi endianness
-Thread-Index: AQHaxiyeEqTvoq0M/UaQ1tgJh31bSg==
-Date: Mon, 24 Jun 2024 11:49:50 +0000
-Message-ID: <32F359A0-6641-4A73-B1FE-C7C63A5F147C@eonerc.rwth-aachen.de>
-Accept-Language: en-US, de-DE
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-user-agent: Microsoft-MacOutlook/16.86.24061443
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
-	micalg=sha256; boundary="B_3802081789_1020511087"
+	s=arc-20240116; t=1719230247; c=relaxed/simple;
+	bh=9l/BgDO1yO6rapp8uWqKM0kNgEXUtQfcdiUnDNDvTBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=VdMAJ046rk0eDaDMfFi2dkNZL+WmqPDeQbVvdAnVrs26yP3fbgsFoE02E+ddckBXfE6iZkMJShmlZpKkFpe3Gw+1gBiVN6UQ1vz5W0NHCQZrwxI7FGa5/dROkkb8i9Jpi3nd0vIKdowCs6nCEwKDTiKWKBdYgu69Bh15Ni0Nzq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RO0drSeU; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RO0drSeU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1719230245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c+vJ+MzsX5ymi5KHxRf9n/IczCIArwQ60Q6yP0vHP2g=;
+	b=RO0drSeU3akIqA6LKO3R2T4uoC6v3ap9vVLyTZexoeRbL96jgQFgu5CTpurUnGdonyhLJI
+	nFpZSQzsz72bjaLGpR8Fc5icXFsJFjDp/j0jDJiVrZUG0XsO9x7gEf5JPDifu0SFTmIYk9
+	1iQtlLec4YQkayEvRH+vwBXdgcq7Oi8=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-553-NBgzXhCPO4OvV0KeyGxKXQ-1; Mon, 24 Jun 2024 07:57:23 -0400
+X-MC-Unique: NBgzXhCPO4OvV0KeyGxKXQ-1
+Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-52cdd795cdaso1534383e87.2
+        for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 04:57:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719230242; x=1719835042;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c+vJ+MzsX5ymi5KHxRf9n/IczCIArwQ60Q6yP0vHP2g=;
+        b=Op0sbWhhrdncqpyR1BxS+5eisFDVyxC6j0UuyfZDE2Kdf5IwX9iO9bm4CdlUQ+BQw0
+         /QHhnZHPDtql8EJK0EJroOMzydXEBO1goTrNGYJZ/jVw2c9IDE/WnCs0FIrk1x/1oNyA
+         RXfWknxioS84AULmf/ihsUAvJf2PhwWhovL07oia9n27JQzVAYlkizdRRHN7tCoLkTe1
+         djWowZMAxP1zcfZGYvRDxRafyGEQ3at64j1/cDM0dwc++RFaO9/uAjFlYdWoLmi6yREq
+         f7TstjCNrjU9PJCiYYM9eo6LBlWAD6CtgxhqqStcGraWvfW+YwTNfXMYHCIulO45xoW+
+         paVA==
+X-Gm-Message-State: AOJu0YwYjjLCf6+keymIp8RL8NJI6pSI6Ikrl1HNxLhVuB0ABCAEimHs
+	iaAZqJ0jVxXAnLd2biHqVlzXSBKlvEa6vmZ5Oq3gMZpeQxvtiBVpcRPAlKNCVLKS2aoHn9xZZ84
+	9xGNXOqejHfOhMhFBZJqjZVxFQWJvZn4S4VPHIUbLN4wfr6z2WgtZnu2pM5RD7FNa
+X-Received: by 2002:a19:5519:0:b0:52c:dbbf:c413 with SMTP id 2adb3069b0e04-52ce183b188mr2914965e87.34.1719230242265;
+        Mon, 24 Jun 2024 04:57:22 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE0O4jI5rMwhmgRAdr6egZj9VVZppwLSG3thg+pbddXAxduhGr8hfxHe+nZ8EOrk1Vu6Mc6HA==
+X-Received: by 2002:a19:5519:0:b0:52c:dbbf:c413 with SMTP id 2adb3069b0e04-52ce183b188mr2914951e87.34.1719230241471;
+        Mon, 24 Jun 2024 04:57:21 -0700 (PDT)
+Received: from redhat.com ([2.52.146.100])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a724a6e4201sm165692366b.132.2024.06.24.04.57.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Jun 2024 04:57:20 -0700 (PDT)
+Date: Mon, 24 Jun 2024 07:57:17 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: virtio-comment@lists.linux.dev, kernel@pengutronix.de
+Subject: Re: [PATCH RESEND 1/4] virtio-net: support transmit hash report
+Message-ID: <20240624074613-mutt-send-email-mst@kernel.org>
+References: <20240624-v1-4-topic-virtio-net-timestamping-v1-0-fa3c163e4aa9@pengutronix.de>
+ <20240624-v1-4-topic-virtio-net-timestamping-v1-1-fa3c163e4aa9@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+In-Reply-To: <20240624-v1-4-topic-virtio-net-timestamping-v1-1-fa3c163e4aa9@pengutronix.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---B_3802081789_1020511087
-Content-type: text/plain;
-	charset="UTF-8"
-Content-transfer-encoding: quoted-printable
+On Mon, Jun 24, 2024 at 01:09:04PM +0200, Steffen Trumtrar wrote:
+> Virtio-net supports sharing the flow hash from device to driver on rx.
+> Do the same in the other direction for robust routing and telemetry.
+> 
+> Experimental results mirror what the theory suggests: where IPv6
+> FlowLabel is included in path selection (e.g., LAG/ECMP), flowlabel
+> rotation on TCP timeout avoids the vast majority of TCP disconnects
+> that would otherwise have occurred during link failures in long-haul
+> backbones, when an alternative path is available.
+> 
+> Rotation can be applied to various bad connection signals, such as
+> timeouts and spurious retransmissions. In aggregate, such flow level
+> signals can help locate network issues.
+> 
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> ---
+>  device-types/net/description.tex | 30 ++++++++++++++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+> 
+> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+> index 61cce1f..eb2c08e 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+>  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+>      channel.
+>  
+> +\item[VIRTIO_NET_F_TX_HASH(49)] Driver sends hash report
+> +
+>  \item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
+>      to the driver through the control virtqueue.
+>  
+> @@ -641,6 +643,34 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
+>  
+>  If VIRTIO_NET_HDR_F_NEEDS_CSUM is not set, the device MUST NOT
+>  rely on the packet checksum being correct.
+> +
+> +\paragraph{Hash calculation for outgoing packets}
+> +\label{sec:Device Types / Network Device / Device Operation / Packet Transmission / Hash calculation for outgoing packets }
+> +
+> +If the VIRTIO_NET_F_TX_HASH was negotiated and the packet includes a hash, the driver uses
+> +the structure virtio_net_hdr_hash_ts instead of virtio_net_hdr and increases the \field{hdr_len} accordingly.
 
-Hi everyone,
+I don't get what does hdr_len have to do with it. It does not normally
+include virtio net header and it does not look like your
+patch changed it, either.
 
-Please start the ballot for resolving this issue.
-The fix was posted three weeks ago, on Thursday, 2024-06-06.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/196
+> +
+> +\begin{lstlisting}
+> +  struct virtio_net_hdr_hash_ts {
+> +    struct {
+> +      struct virtio_net_hdr hdr;
 
-Reviewed-by: Parav Pandit <parav@nvidia.com>
-Signed-off-by: Martin Kr=C3=B6ning <martin.kroening@eonerc.rwth-aachen.de>
+hdr is not part of hash, is it? why include it here?
 
-Cheers,
-Martin Kr=C3=B6ning
+> +      __le33 value;
 
---B_3802081789_1020511087
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
+le33?
 
-MIIXdQYJKoZIhvcNAQcCoIIXZjCCF2ICAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0B
-BwGgghRIMIIHeDCCBWCgAwIBAgIRAIF5Ijq8WuKG47yCsN2S2CkwDQYJKoZIhvcNAQEMBQAw
-RjELMAkGA1UEBhMCTkwxGTAXBgNVBAoTEEdFQU5UIFZlcmVuaWdpbmcxHDAaBgNVBAMTE0dF
-QU5UIFBlcnNvbmFsIENBIDQwHhcNMjMxMTE1MDAwMDAwWhcNMjUxMTE0MjM1OTU5WjCB4TEL
-MAkGA1UEBhMCREUxHDAaBgNVBAgTE05vcmRyaGVpbi1XZXN0ZmFsZW4xHzAdBgNVBAoTFlJX
-VEggQWFjaGVuIFVuaXZlcnNpdHkxETAPBgNVBGETCEdPVkRFK05XMTQwMgYJKoZIhvcNAQkB
-FiVtYXJ0aW4ua3JvZW5pbmdAZW9uZXJjLnJ3dGgtYWFjaGVuLmRlMREwDwYDVQQEDAhLcsO2
-bmluZzEWMBQGA1UEKhMNTWFydGluIFdlcm5lcjEfMB0GA1UEAwwWTWFydGluIFdlcm5lciBL
-csO2bmluZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANZET80kiiEa9VAQuDRn
-mXGvDvTyjf57f+GuAXYL3KYE7gNKZobO8WYDOwK4yc5biBhiH0i6EwfXuiOAnU/Gtl5kxn8O
-IDTaHpwN10m+WebFdFbgzDGpwG9nFteq8AED+6R9O3TXF0PWHa9XzgtD5IUTE3XhSNUPQFj3
-+dT/O7p4lBksKVUNMDwD8xI/S4tYnJobUNoOkIUhtDiY6hFECNR7cOAD0vxy6yPOP/XVR67u
-PZL/ar44fwBwiXoAxkpJS2RKPE7FB5FYnVppBWmzYNnpsBnBSBmPzffOQwUwLbjLrViTxr5i
-vhIv5kJ2Qcaxy5Prt97Li8w52Zb7VIPGFl5/FNFjqjDYsAnHMCkk2ukluQz7TE52xRoRn95D
-1YfzHlnHEhT7qbQLC5SXOLp5LspUh0kIELF+QHZEujgwwJPPAXSLBJTJipgBCLZbQ81IoVvn
-Tb0JCAq26ol0tstwqLx1TYeVRvmRf7XEPfJUJ4dTXnbYKpe6efGyWfSV3PLscSS28bwKUyGk
-cA+8LNAO5paMNoXRO4ALyUI2IjgOD5L09o+BXJtDH6DR+nHZpIVwzdXctRZyV6XgQjppxrA7
-TPbKjLY5G+myqeCmcEFWZwl9OrzKKR5B3odeykPDQYPWpJP/gJHz9uAz4Ayw4Ehygx8dws38
-/UNtIoIgrmhz7sgBAgMBAAGjggHDMIIBvzAfBgNVHSMEGDAWgBRpAKHHIVj44MUbILAK3adR
-vxPZ5DAdBgNVHQ4EFgQUpTjdAZQwdPva9wwVyQKkMgE0htowDgYDVR0PAQH/BAQDAgWgMAwG
-A1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMCMFAGA1UdIARJMEcw
-OgYMKwYBBAGyMQECAQoEMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vc2VjdGlnby5jb20vU01J
-TUVDUFMwCQYHZ4EMAQUDAjBCBgNVHR8EOzA5MDegNaAzhjFodHRwOi8vR0VBTlQuY3JsLnNl
-Y3RpZ28uY29tL0dFQU5UUGVyc29uYWxDQTQuY3JsMHgGCCsGAQUFBwEBBGwwajA9BggrBgEF
-BQcwAoYxaHR0cDovL0dFQU5ULmNydC5zZWN0aWdvLmNvbS9HRUFOVFBlcnNvbmFsQ0E0LmNy
-dDApBggrBgEFBQcwAYYdaHR0cDovL0dFQU5ULm9jc3Auc2VjdGlnby5jb20wMAYDVR0RBCkw
-J4ElbWFydGluLmtyb2VuaW5nQGVvbmVyYy5yd3RoLWFhY2hlbi5kZTANBgkqhkiG9w0BAQwF
-AAOCAgEAGGZSOjAsZR27uupzz4Lb/9DDX4PkF7wIWvwPNSAJTIuEOcapIP5pYV9r0kOCq87D
-e++N9X3FeoPzy9chRO09c6Nafw8X3lLV8nRVJPAJZxP9Om4+iPHk+QgwWAMgkt+JZJqlQYn6
-+mJU8apsjNC1MJSiGR/L/jsliNkRFwvP7Npt+HmJwtj8WQExUpH485xmcjlTsk5HQkMQZr1Z
-Ay4dAEw0iJCO0vccCYLtzxNsfl0EIeaz2RzgZH8zmSVp3MzSEFMPm6H39OUciXgr9YcqXv4e
-W+LPsf9zILOYV4cvZdfvRnOcTjV7mj2SNygoqvDxCUe0cwozM1pw9uyaInFLrn6g+O/sTlZX
-EnaYl+N5b0YKSTqGmWPt0eY+l0w2z5y3rRaADg7XzQcJCDbFCiWHgeBAXk5BsYvhoLayuOyF
-l7pXAUSYCJv3/M3wARGcM0lyO13wGcykSS4ZZk/8fVnVU6aTMamMM9BLSmTAFnwbCEMQdiyM
-DrVkgwK9S8F8QntpPhYoJpo1WLoV+zPiNq0eHAP9C1DeCRH9vjK4tJBQ1uNSGb3FviuPvbTC
-oRc1yyf5Bg/mqRKzVE99n2chfrZHY7Lm82GAE7QEkpHcSa+B0ml3WNLln6tipLpP0SSI3mjT
-GKV5DcxBrEIgRaxWIlCa8sbaiRKLcxkNxYM/BaWLxtgwggbmMIIEzqADAgECAhAxAnDUNb6b
-JJr4VtDh4oVJMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQGEwJVUzETMBEGA1UECBMKTmV3
-IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoTFVRoZSBVU0VSVFJVU1Qg
-TmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
-eTAeFw0yMDAyMTgwMDAwMDBaFw0zMzA1MDEyMzU5NTlaMEYxCzAJBgNVBAYTAk5MMRkwFwYD
-VQQKExBHRUFOVCBWZXJlbmlnaW5nMRwwGgYDVQQDExNHRUFOVCBQZXJzb25hbCBDQSA0MIIC
-IjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAs0riIl4nW+kEWxQENTIgFK600jFAxs1Q
-wB6hRMqvnkphfy2Q3mKbM2otpELKlgE8/3AQPYBo7p7yeORuPMnAuA+oMGRb2wbeSaLcZbpw
-XgfCvnKxmq97/kQkOFX706F9O7/h0yehHhDjUdyMyT0zMs4AMBDRrAFn/b2vR3j0BSYgoQs1
-6oSqadM3p+d0vvH/YrRMtOhkvGpLuzL8m+LTAQWvQJ92NwCyKiHspoP4mLPJvVpEpDMnpDbR
-UQdftSpZzVKTNORvPrGPRLnJ0EEVCHR82LL6oz915WkrgeCY9ImuulBn4uVsd9ZpubCgM/EX
-vVBlViKqusChSsZEn7juIsGIiDyaIhhLsd3amm8BS3bgK6AxdSMROND6hiHT182Lmf8C+gRH
-xQG9McvG35uUvRu8v7bPZiJRaT7ZC2f50P4lTlnbLvWpXv5yv7hheO8bMXltiyLweLB+VNvg
-+GnfL6TW3Aq1yF1yrZAZzR4MbpjTWdEdSLKvz8+0wCwscQ81nbDOwDt9vyZ+0eJXbRkWZiqS
-cnwAg5/B1NUD4TrYlrI4n6zFp2pyYUOiuzP+as/AZnz63GvjFK69WODR2W/TK4D7VikEMhg1
-8vhuRf4hxnWZOy0vhfDR/g3aJbdsGac+diahjEwzyB+UKJOCyzvecG8bZ/u/U8PsEMZg07iI
-Pi8CAwEAAaOCAYswggGHMB8GA1UdIwQYMBaAFFN5v1qqK0rPVIDh2JvAnfKyA2bLMB0GA1Ud
-DgQWBBRpAKHHIVj44MUbILAK3adRvxPZ5DAOBgNVHQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgw
-BgEB/wIBADAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwOAYDVR0gBDEwLzAtBgRV
-HSAAMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFAGA1UdHwRJMEcw
-RaBDoEGGP2h0dHA6Ly9jcmwudXNlcnRydXN0LmNvbS9VU0VSVHJ1c3RSU0FDZXJ0aWZpY2F0
-aW9uQXV0aG9yaXR5LmNybDB2BggrBgEFBQcBAQRqMGgwPwYIKwYBBQUHMAKGM2h0dHA6Ly9j
-cnQudXNlcnRydXN0LmNvbS9VU0VSVHJ1c3RSU0FBZGRUcnVzdENBLmNydDAlBggrBgEFBQcw
-AYYZaHR0cDovL29jc3AudXNlcnRydXN0LmNvbTANBgkqhkiG9w0BAQwFAAOCAgEACgVOew2P
-HxM5AP1v7GLGw+3tF6rjAcx43D9Hl110Q+BABABglkrPkES/VyMZsfuds8fcDGvGE3o5UfjS
-no4sij0xdKut8zMazv8/4VMKPCA3EUS0tDUoL01ugDdqwlyXuYizeXyH2ICAQfXMtS+raz7m
-f741CZvO50OxMUMxqljeRfVPDJQJNHOYi2pxuxgjKDYx4hdZ9G2o+oLlHhu5+anMDkE8g0tf
-fjRKn8I1D1BmrDdWR/IdbBOj6870abYvqys1qYlPotv5N5dm+XxQ8vlrvY7+kfQaAYeO3rP1
-DM8BGdpEqyFVa+I0rpJPhaZkeWW7cImDQFerHW9bKzBrCC815a3WrEhNpxh72ZJZNs1HYJ+2
-9NTB6uu4NJjaMxpk+g2puNSm4b9uVjBbPO9V6sFSG+IBqE9ckX/1XjzJtY8Grqoo4SiRb6zc
-Hhp3mxj3oqWi8SKNohAOKnUc7RIP6ss1hqIFyv0xXZor4N9tnzD0Fo0JDIURjDPEgo5WTdti
-/MdGTmKFQNqxyZuT9uSI2Xvhz8p+4pCYkiZqpahZlHqMFxdw9XRZQgrP+cgtOkWEaiNkRBbv
-tvLdp7MCL2OsQhQEdEbUvDM9slzZXdI7NjJokVBq3O4pls3VD2z3L/bHVBe0rBERjyM2C/HS
-Ih84rfmAqBgklzIOqXhd+4RzadUwggXeMIIDxqADAgECAhAB/W0w/KPKUagbvGQONQMtMA0G
-CSqGSIb3DQEBDAUAMIGIMQswCQYDVQQGEwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIG
-A1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoTFVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwG
-A1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0xMDAyMDEw
-MDAwMDBaFw0zODAxMTgyMzU5NTlaMIGIMQswCQYDVQQGEwJVUzETMBEGA1UECBMKTmV3IEpl
-cnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoTFVRoZSBVU0VSVFJVU1QgTmV0
-d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTCC
-AiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAIASZRc2DsPbCLPQrFcNdu3NJ9NMrVCD
-YeKqIE0JLWQJ3M6Jn8w9qez2z8Hc8dOx1ns3KBErR9o5xrw6GbRfpr19naNjQrZ28qk7K5H4
-4m/Q7BYgkAk+4uh0yRi0kdRiZNt/owbxiBhqkCI8vP4T8IcUe/bkH47U5FHGEWdGCFHLhhRU
-P7wz/n5snP8WnRi9UY41pqdmyHJn2yFmsdSbeAPAUDrozPDcvJ5M/q8FljUfV1q3/875Pbcs
-tvZU3cjnEjpNrkyKt1yatLcgPcp/IjSufjtoZgFE5wFORlObM2D3lL5TN5BzQ/Myw1Pv26r+
-dE5px2uMYJPexMcM3+EyrsyTO1F4lWeL7j1W/gzQaQ8bD/MlJmszbfduR/pzQ+V+DqVmsSl8
-MoRjVYnEDcGTVDAZE6zTfTen6106bDVc20HXEtqpSQvf2ICKCZNijrVmzyWIzYS4sT+kOQ/Z
-Ap7rEkyVfPNrBaleFoPMuGfi6BOdzFuC00yz7Vv/3uVzrCM7LQC/NVV0CUnYSVgaf5I25lGS
-DvMmfRxNF7zJ7EMm0L9BX0CpRET0medXh55QH1dUqD79dGMvsVBlCeZYQi5DGky08CVHWfoE
-HpPUJkZKUIGy3r54t/xnFeHJV4QeD2PW6WK61l9VLupcxigIBCU5uA4rqfJMlxwHPw1S9e3v
-L4IPAgMBAAGjQjBAMB0GA1UdDgQWBBRTeb9aqitKz1SA4dibwJ3ysgNmyzAOBgNVHQ8BAf8E
-BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQwFAAOCAgEAXNR8Dc/3AX1BmWUM
-c8VSn8v4z5kGfxvaQxWfngJVV5YU8VI8J4eUKO0fOgE3onb8U1DAhJvGa066jCFPoo5VYpHz
-aRXYvIjjxKoL/e+o6UtVKgYgbVV4KRnuXzBcSyQRVf8kmm5eKivuC02ff/cBOJQUlUMHCftg
-qe4cqxKMoJpep5hqWW2LPwj7yNFFrxgVZJASD3MoLsXiJE78WOzw9EX+IrPrL47S2UVhBcGX
-b6h2co+LjDavvw0FznGN5qZvH2ymcWLF2NCDcgzxZxGJDJwTTHI037zVcd+qcd3huWyMPBJd
-Zdq9VxK2Q2v/5d5NZhFRz5mu7Be26HGRjN5J/t01caIVJ5Qcz2HjJrtvo2clIV3m3R0LLmgb
-O4Kv7INnhdSYUXSxuZmAif9/eBlceUpgLpJArkw3KizJx2LIDl33NlvK4CUlAbTdGgecdwA/
-0NzV7D3U+rs/zIXWb3+pLd+5Avf1l5q1NdrDZ7CHSqkoniOO/1wna+GwT/MH7gAu1FmHy1JB
-ler0R9fuZEFVfI1ZApXdYp3Cue5aKHSEpZu3kMcMB9/1iTZ0MtYowbCwC+CcTMMc1vzjabVH
-RoEvooKr02NEcMSN/y0zuq2Pe7VwiK4+Gc9AKNj8yJC7XZki9VLmWMUfiDFD7ogd18aOPENq
-HacY3n09FvFi+cqQqP0xggLxMIIC7QIBATBbMEYxCzAJBgNVBAYTAk5MMRkwFwYDVQQKExBH
-RUFOVCBWZXJlbmlnaW5nMRwwGgYDVQQDExNHRUFOVCBQZXJzb25hbCBDQSA0AhEAgXkiOrxa
-4objvIKw3ZLYKTANBglghkgBZQMEAgEFAKBpMC8GCSqGSIb3DQEJBDEiBCC8EdJUg3n9QqWK
-CYePE01cVavOKi9yJLuPtDcv51GYFDAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
-SIb3DQEJBTEPFw0yNDA2MjQxMTQ5NDlaMA0GCSqGSIb3DQEBAQUABIICAKcLiyY9sEHNrSDE
-Qj+AeVkUeMTahQ+nY/4lqkSxJguP0Vks0xc6HmoWp6SvXOAqBpNEv1/x79hKBtMLtGFltwqF
-jzNOEoZyiLMhJigbTQUHkHJxWt+fZjGampEIZaEBtYxcsq8gdeRdyC2qpyrKAqI+T9zH3m5s
-UZaog/cmxcFJtuZE2T6kstMiQJphyI4MIBPzu+mTQDnmNKwJquU611eoOtqLsQWeSxFfKrKq
-d/Q5mmzfegC5dTaJtXfBE6XMf9FBzLePHXWiAOzFSwpHxYeIM3tnMG32qwAhOEva4RFcsEZR
-sC47mY4XuQ64hA+wwsQ2wAhymkGW85VYZiaPLjp5nNCJSG9+rdFxBNfOnv5pEbiPCovBvpzX
-MjFij+iS075qv57Z8bulD+rkMgXSJCVbYvt0iwDRcvgFTmbgjj4Rvi9kUz1DjAvE6YXba6IU
-xXvb/4nUIYHnbZuxk9msUS5OVsILshD4xMAd4mPr4Wn7/THEtm7gUN9nfAT4oUsdhEIdOPff
-odWEJDLIdQ/e0N9D5QvaSWUuHYB8aBOpqOEHGU67GjKgvN3FsrFvka2Nt0VMk9T9SiVq3324
-50qqd7bvPvufS+kwlvCLNCAL+jVTCSUZ/mjZ7/YDa2NeRGSy3m7JGz+7Jj8RuWrWHldcjRJC
-cTPeZn5bcLm/lH9hjfiT
+> +      __le16 report;
+> +      __le16 flow_state;
 
---B_3802081789_1020511087--
+fields are left undocumented.
+
+> +    } hash;
+> +    __u32 reserved;
+
+why do we need this? at least explain what it is and how is this
+supposed to be handled, please.
+
+> +  };
+> +\end{lstlisting}
+> +
+> +The driver fills \field{hash_value} with the value of the calculated hash and \field{hash_report} with the report type of the calculated hash.
+
+what are hash_value and hash_report?
+
+> +
+> +Possible values that the driver supports in \field{hash_report} are defined below.
+
+considering how we have an extensive infrastructure for supported
+hashes for rx, don't we want something like this for tx?
+
+e.g. isn't there overhead associated with filling out this hash,
+and doesn't driver benefit from knowing which ones can the
+device use, exactly?
+
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_NET_HASH_REPORT_L4             (1 << 10)
+> +#define VIRTIO_NET_HASH_REPORT_OTHER          (1 << 11)
+> +\end{lstlisting}
+> +
+>  \paragraph{Packet Transmission Interrupt}\label{sec:Device Types / Network Device / Device Operation / Packet Transmission / Packet Transmission Interrupt}
+>  
+>  Often a driver will suppress transmission virtqueue interrupts
+> 
+> -- 
+> 2.42.0
+> 
+
