@@ -1,168 +1,184 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7C514658B
-	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 07:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A618146A69
+	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 07:53:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719301964; cv=none; b=k8MwsdxmqsAEVqSrMu7UJ6GOtrrHWVQHGb4oTyVTaDzc0n4mha3CX2mpNRWcLR9MoDY/tIb97ICugTy5DvVSFQLNkh0JYZogKnsK+UAmKHPWCqBZV3XrFvfZaEOR1xq0nNXvHZlumzCADdWAJrF/3FakwvqUkeKfDN4ZJpYmzi8=
+	t=1719302032; cv=none; b=Bm1pITiuSDU6t0hykPEymb95lr55Vpvy7DJm355pBLxHDmYaB9TlOESjefMbLq+qwBSJTrB68zUAPQ1V1lDfY9oECebVbVKxD8yLG77/3uUSZBi0RiEebrHScfLCC8fryaf2risGwQnNp1/iwLprNX3Wb8m5kO9kDNOMzVoTSrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719301964; c=relaxed/simple;
-	bh=Zs0ZwCrBNfrh4Btz2uYHwezg5QyklD29J6nkI4k56sE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=Vd8niLApPzTpodgM+ewGU6HgJ/XS4uMignZCYTjldtpao/DRFqVBuaoG4LeZ6dlCOxU6E0uEqFgITAiof8mv6Dh2uA+mAeZ6rx3Is+p/oICk5KGPNQx7VUgcgQKhlQ83XC/2YSiPUoIgNcGeBXcjiBfC4Q44T28NnRNHlqL7tJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gWDNynI+; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1719302032; c=relaxed/simple;
+	bh=aFHJUN65d6CHQNwNJ5lb2lMQ7iNTzl7XKsG2FDleqKM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VSSL3lHSZG+9iwB7212dtBTXNX6rBLXzVb9pGCtFUdtnPCItvgWR3HiOInHxRmBK5aBkfDOyF7IxTX5zDcaE8PFDyZ3Bs4Efm0kNBQ+aFVxMGm4zDIOdbNA5ztIRJezVWipkOKm2PWe1msGzWzBtj+yRrg5/XTV2rGShz2tJhkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PYUx1Qxw; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gWDNynI+"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PYUx1Qxw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719301961;
+	s=mimecast20190719; t=1719302029;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YfNOi3we0XliKc2QjTGHgG7W0hBFh6+LLMcAJb5MTlM=;
-	b=gWDNynI+xLuW2LZtIuXqunaWNK66kM0mRP263lBDpi3amlXlXSEGvbHD1PiFloaxDTcTRG
-	kZy+VGgSRpvbZ5RofBu/SRbXohve4ZOM4/3OW5I/5XHVpu46Wn8nYXoy0yuwss/PX94VQY
-	zzv4UaHLRFyUq24+06ixgkGU5KG2uOg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=aFHJUN65d6CHQNwNJ5lb2lMQ7iNTzl7XKsG2FDleqKM=;
+	b=PYUx1Qxwb0CrEECUG8zAeG1WlDU7hI1Oha94NpV/R/6i+rD7zG2/yJ/ZQ6dHOXYLLU95B1
+	qRubvE1EvkLCtr0XMSqA60Tz8/B96CenP6n2uJBV6VYqmLC2lQCrRENYUoKXmxop3YM3Er
+	Bvp4pGdUlGDo8AuxQ5Iz0+MtjPGCQek=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-664-xixkjpd9NB2s71j5PE3zrw-1; Tue, 25 Jun 2024 03:52:36 -0400
-X-MC-Unique: xixkjpd9NB2s71j5PE3zrw-1
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-42488bec55cso13157335e9.0
-        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 00:52:36 -0700 (PDT)
+ us-mta-386-pVaeD-MNNb-oyKGCxtsAUQ-1; Tue, 25 Jun 2024 03:53:47 -0400
+X-MC-Unique: pVaeD-MNNb-oyKGCxtsAUQ-1
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-2c30144b103so4383982a91.0
+        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 00:53:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719301955; x=1719906755;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YfNOi3we0XliKc2QjTGHgG7W0hBFh6+LLMcAJb5MTlM=;
-        b=rHijh/a+qRScTg3EQnJsmXlq1lEhdNqVvnEAa2uu8q/3Ynqr51zKJR/N8LDKWJaY+b
-         rxZ0d0Dp910UpS5n2kod+OSkuL5g9Oq3unGCIrZ7uBe5l+28C/50AMqpB5yrkqCNu7Yz
-         mM+Wd/5igkpRhlU8Fo0Pjn1YUsW4m1QX+G61JRxph2/EZYJMYlxx2w7oXpnJWWUZEZva
-         DzSfvr5Hu5pr5o/5ercRNtCtzfbsvaEcwc5s7fPiK/xKgSgCBKdl1kLeOORA8REtMWSE
-         /EhIV4Mi/jhE0yag831w04AYZwVbC1/wovZItex5NIqmxs0kxJMDGNPv9MV+Amtpu9i0
-         C1XA==
-X-Gm-Message-State: AOJu0YyCiLVHrCbJ1alxDLmz8V/QMEcLiGDn2uC910tRECMcuLBnYxed
-	59wY1VCcqY1qoX4GthlmVv0AtwtaV1azRr3/RHhd/WclPsh0gocIbocw9iK1K0QRg3AXMdCTeq+
-	mRSi8wcTdWhdsUsJNRbtfuTLMCtbjBOP/BbiwF5KIaTGCMFQ43dhHsz+42tqFyROvQdVQhnrw
-X-Received: by 2002:a05:600c:1604:b0:424:7443:e6d8 with SMTP id 5b1f17b1804b1-424895dad6dmr68876325e9.9.1719301955213;
-        Tue, 25 Jun 2024 00:52:35 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEGUXnPYdIdLcytpyER8BHjyFZ53NiPqp+6jnCq7z+HcAuHGQAQ4g5U6/GzvXn/jH2WmFFtqw==
-X-Received: by 2002:a05:600c:1604:b0:424:7443:e6d8 with SMTP id 5b1f17b1804b1-424895dad6dmr68876065e9.9.1719301954502;
-        Tue, 25 Jun 2024 00:52:34 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:342:f1b5:a48c:a59a:c1d6:8d0a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4247d0b634asm201768775e9.1.2024.06.25.00.52.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Jun 2024 00:52:33 -0700 (PDT)
-Date: Tue, 25 Jun 2024 03:52:30 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Manivannan Sadhasivam <manisadhasivam.linux@gmail.com>
-Cc: virtio-comment@lists.linux.dev, mie@igel.co.jp
-Subject: Re: MSI for Virtio PCI transport
-Message-ID: <20240625034025-mutt-send-email-mst@kernel.org>
-References: <20240624161957.GB3179@thinkpad>
+        d=1e100.net; s=20230601; t=1719302027; x=1719906827;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aFHJUN65d6CHQNwNJ5lb2lMQ7iNTzl7XKsG2FDleqKM=;
+        b=DDo6UidThdXxnpBEGcUOzFZD06vQl/CVRu9cbU4HXBtmxAOHLbvScl3b2KjHfhoUY5
+         QNCNQ7EhXRVe8aEN+8hEJd3+srNTMpdhmC0RhAvIr4GjIUp+Ec6dNUQynlao5fCXNQtS
+         tScHdEOMKkwOpo2DX0h3dL9zoSEB+6StdHKI/4dgdKCmldZrmNubdwMj3D/y1z1rMfNy
+         C/aBX1SpthtHiG7D4M/J3+h/nM9qAkeZ3lzPzqXHnVJ3mZm76WpLt3WunAnKxbOean7I
+         PXk9BrkB1d1ahRc80OkG2vNdCv6tyFlwThVdMweGab6AX6vpNRadMOrjk4GD3MUrzzwE
+         rshg==
+X-Forwarded-Encrypted: i=1; AJvYcCWxoQ41HZGegdV5woHU97pVGPfptskfA7rz36F1mEu2/5QAiC8RrBL6x8erB+A56OUQLvhY/xtSR+wIbGxYJrMlqt03JADfxeQnElanEmo=
+X-Gm-Message-State: AOJu0YzpTJYcgFnu3Q08YmakT2Z3dJyeXlgczDs+zSa37o89WHVWZ2CJ
+	36UaF2m+La5FCwHOO+ZZZ5V8DwfbwlwEJ9y585VfWZfWthznp95UfZCrjWffXYOVVT8pv1nk8/X
+	SQqpDz4qP4nwSc+NKAi55/EfRcydMdJy3RE4K7Wncec2vsLCthn8d0iGkKZ+K50IplWjNINg/Uc
+	6InP69hnVjNE9JbYcCUt7AzFcWXyq23OCfL/sPVzo=
+X-Received: by 2002:a17:90b:3548:b0:2c7:9963:cb1c with SMTP id 98e67ed59e1d1-2c8488b8e9cmr9682304a91.0.1719302026903;
+        Tue, 25 Jun 2024 00:53:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGjcB1npNNeg4Vxfcs3B0nA4lML0Ix4ufVzR0L7yTcwaTogM8sTIAyj7wJZunsbz1drpDo3y50Sp+xsiGuYFSg=
+X-Received: by 2002:a17:90b:3548:b0:2c7:9963:cb1c with SMTP id
+ 98e67ed59e1d1-2c8488b8e9cmr9682268a91.0.1719302026364; Tue, 25 Jun 2024
+ 00:53:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20240624161957.GB3179@thinkpad>
+References: <20240528044702.50603-1-hengqi@linux.alibaba.com>
+ <20240607220246.3213607c.pasic@linux.ibm.com> <1717814062.4461155-1-hengqi@linux.alibaba.com>
+ <20240610144602.57a04723.pasic@linux.ibm.com> <1718026545.7557275-2-hengqi@linux.alibaba.com>
+ <20240610221900.1810ea96.pasic@linux.ibm.com> <1718102433.0456574-3-hengqi@linux.alibaba.com>
+ <20240611122756-mutt-send-email-mst@kernel.org> <PH0PR12MB54813E2EE4EA2BA729B2F6B7DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240613021132-mutt-send-email-mst@kernel.org> <1718591277.4770932-5-hengqi@linux.alibaba.com>
+ <77ec85ae-0f50-4093-b499-3b6defec4ade@oracle.com> <1718869209.8824844-6-hengqi@linux.alibaba.com>
+ <e774e811-27ba-4151-b300-e22161f1b4d5@oracle.com> <1718940245.6932242-13-hengqi@linux.alibaba.com>
+ <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com>
+In-Reply-To: <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Tue, 25 Jun 2024 15:53:33 +0800
+Message-ID: <CACGkMEvFmh-xq5TWqf16YMPSVkmz1BfKcuR7H9vw1zmouD-kZw@mail.gmail.com>
+Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
+To: Si-Wei Liu <si-wei.liu@oracle.com>
+Cc: Heng Qi <hengqi@linux.alibaba.com>, Halil Pasic <pasic@linux.ibm.com>, 
+	Cornelia Huck <cohuck@redhat.com>, 
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 24, 2024 at 09:49:57PM +0530, Manivannan Sadhasivam wrote:
-> Hi,
-> 
-> We are looking into adapting Virtio spec for configurable physical PCIe endpoint
-> devices to expose Virtio devices to the host machine connected over PCIe. This
-> allows us to use the existing frontend drivers on the host machine, thus
-> minimizing the development efforts. This idea is not new as some vendors like
-> NVidia have already released customized PCIe devices exposing Virtio devices to
-> the host machines. But we are working on making the configurable PCIe devices
-> running Linux kernel to expose Virtio devices using the PCI Endpoint (EP)
-> subsystem.
-> 
-> Below is the simplistic represenation of the idea with virt-net as an
-> example. But this could be extended to any supported Virtio devices:
-> 
->            HOST                                    ENDPOINT           
-> 
-> +-----------------------------+         +-----------------------------+
-> |                             |         |                             |
-> |         Linux Kernel        |         |         Linux Kernel        |
-> |                             |         |                             |
-> |                             |         |     +------------------+    |
-> |                             |         |     |                  |    | 
-> |                             |         |     |       Modem      |    |
-> |                             |         |     |                  |    |
-> |                             |         |     +---------|--------+    |
-> |                             |         |               |             |
-> |     +------------------+    |         |     +---------|--------+    |
-> |     |                  |    |         |     |                  |    |
-> |     |     Virt-net     |    |         |     |    Virtio EPF    |    |
-> |     |                  |    |         |     |                  |    |
-> |     +---------|--------+    |         |     +---------|--------+    |
-> |               |             |         |               |             |
-> |     +---------|--------+    |         |     +---------|--------+    |
-> |     |                  |    |         |     |                  |    |
-> |     |    Virtio PCI    |    |         |     | PCI EP Subsystem |    |
-> |     |                  |    |         |     |                  |    |
-> |     +---------|--------+    |         |     +---------|--------+    |
-> | SW            |             |         | SW            |             |
-> ----------------|--------------         ----------------|--------------
-> | HW            |             |         | HW            |             |
-> |     +---------|--------+    |         |     +---------|--------+    |
-> |     |                  |    |         |     |                  |    |
-> |     |      PCIe RC     |    |         |     |     PCIe EP      |    |
-> |     |                  |    |         |     |                  |    |
-> +-----+---------|--------+----+         +-----+---------|--------+----+
->                 |                                       |               
->                 |                                       |               
->                 |                                       |               
->                 |                PCIe                   |               
->                 -----------------------------------------               
-> 
-> While doing so, we faced an issue due to lack of MSI support defined in Virtio
-> spec for PCI transport. Currently, the PCI transport (starting from 0.9.5) has
-> only defined INTx (legacy) and MSI-X interrupts for the device to send
-> notifications to the guest. While it works well for the hypervisor to guest
-> communcation, when a physical PCIe device is used as a Virtio device, lack of
-> MSI support is hurting the performance (when there is no MSI-X).
-> 
-> Most of the physical PCIe endpoint devices support MSI interrupts over MSI-X for
-> simplicity and with Virtio not supporting MSI, falling back to legacy INTx
-> interrupts is affecting the performance.
-> 
-> First of all, INTx requires the PCIe devices to send two MSG TLPs
-> (Assert/Deassert) to emulate level triggered interrupt on the host. And there
-> could be some delay between assert and deassert messages to make sure that the
-> host recognizes it as an interrupt (level trigger). Also, the INTx interrupts
-> are limited to 1 per function, so all the notifications from device has to share
-> this single interrupt (INTA).
-> 
-> On the other hand, MSI requires only one MWr TLP from the device to host and
-> since it is a posted write, there is no delay involved. Also, a single PCIe
-> function can use upto 32 MSIs, thus making it possible to use one MSI vector per
-> virtqueue (32 is more than enough for most of the usecases).
-> 
-> So my question is, why does the Virtio spec not supporting MSI? If there are no
-> major blocker in supporting MSI, could we propose adding MSI to the Virtio spec?
-> 
-> - Mani
-> 
-> -- 
-> மணிவண்ணன் சதாசிவம்
+On Sat, Jun 22, 2024 at 7:46=E2=80=AFAM Si-Wei Liu <si-wei.liu@oracle.com> =
+wrote:
+>
+>
+>
+> On 6/20/2024 8:24 PM, Heng Qi wrote:
+> > On Thu, 20 Jun 2024 18:21:03 -0700, "Si-Wei Liu" <si-wei.liu@oracle.com=
+> wrote:
+> >>
+> >> On 6/20/2024 12:40 AM, Heng Qi wrote:
+> >>> On Mon, 17 Jun 2024 16:31:25 -0700, "Si-Wei Liu" <si-wei.liu@oracle.c=
+om> wrote:
+> >>>> On 6/16/2024 7:27 PM, Heng Qi wrote:
+> >>>>> On Thu, 13 Jun 2024 02:13:50 -0400, "Michael S. Tsirkin" <mst@redha=
+t.com> wrote:
+> >>>>>> On Tue, Jun 11, 2024 at 05:43:18PM +0000, Parav Pandit wrote:
+> >>>>>>>> From: Michael S. Tsirkin <mst@redhat.com>
+> >>>>>>>> Sent: Tuesday, June 11, 2024 10:00 PM
+> >>>>>>>> How we can we make progress with
+> >>>>>>>> the realease but sure we don't make backwards compat a pain?
+> >>>>>>>>
+> >>>>>>>> Ideas?
+> >>>>>>>>
+> >>>>>>> There is no functional break with this relaxation.
+> >>>>>>> Device set some non-zero defaults and driver didn't modify them..=
+..
+> >>>>>>> Anything broken? Unlikely.
+> >>>> Generally it's inappropriate to leave this decision making to the de=
+vice
+> >>>> for what would be the best / most performant default config, as the
+> >>>> device is generally considered agnostic to the guest load...
+> >>> Instead, the performance of the virtual machine and the driver depend=
+s heavily
+> >>> on how the device is implemented, just as we have proposed various wa=
+ys to
+> >>> offload the data queue in the device to the hardware. The reason why =
+most
+> >>> devices use software to simulate ctrlq instead of using hardware offl=
+oad is
+> >>> that the driver has no requirements for the performance of ctrlq befo=
+re, that is,
+> >>> the device implementation is responsible for and meets the driver's p=
+erformance
+> >>> requirements.
+> >> I am not sure I follow the arguments of ctrlq being s/w or h/w, I
+> >> thought that it was for the debate why we need coalescing on hardware
+> >> offload device in the first place, instead of reusing event index or
+> >> similar s/w based notification suppression. I don't doubt the value of
+> >> coalescing, but how's it relevant to the default value disposition?
+> >> Generally the default config disposition is not considered to be part =
+of
+> >> device implementation, especially when it comes to the situation where
+> >> device can't easily figure out the specific workload to occur in the
+> >> guest, and there's no perfect single default value that could meet eve=
+ry
+> >> single performance metric across the board. This is a typical tuning
+> >> knob left up to the user to adjust, why the device or driver needs to
+> >> set or load the initial value? The driver just needs to start with
+> >> certain value, be it 0 or non-zero, which guest user can override at a=
+ny
+> >> point of time, depending on his/her need, and that's it! I guess I sti=
+ll
+> >> don't understand your user case here, why device / driver default is o=
+f
+> >> such importance.
+> > I've explained that, and I understand your argument is why default valu=
+e is needed,
+> > and users should be able to adjust them, right?
+> Sounds about right. You'll soon realize that there's no perfect default
+> that could work with everyone - in that it's just a static value to
+> begin with, no matter whatever initial value the device comes up with,
+> one user or another will come over to you and complain that what is
+> loaded from the device doesn't match the workload they have, so those
+> users are still expected to adjust manually tweaking for their own. As
+> long as it's a tunable that guest user can control and override anytime,
+> I don't feel it too much different what initial config the device would
+> start with.
 
-Yes, it's possible to add - however, you also said EP requires more
-changes from virtio. So maybe we need "virtio over EP" then.
-Let's try to figure out the full list of issues, to see which makes
-more sense.
+Think hard of these, I think there's probably no conflict between the
+points of each.
 
+Generally, it's very hard to have a default value for virtio-net moderation=
+ as
+
+1) various implementations of virtio-net
+2) various setups of virtio-net (from virtual to physical, from 1G to 100G)
+3) various kind of workloads
+
+But it doesn't mean the device can not have something by default which
+the vendor thinks it works well for in most cases. And anyhow the
+value could be overridden by the driver if it wants (e.g several Linux
+networking drivers will try to set a good default moderation value
+during probe).
+
+Thanks
 
