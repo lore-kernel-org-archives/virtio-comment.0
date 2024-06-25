@@ -1,122 +1,218 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3DF1474AF
-	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 08:10:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F30145FE8
+	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 08:14:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719303004; cv=none; b=PTJcA9thAHNleBDa/GsQPknDvbDaHsGxetw8psjIuz9Hbajd9DpZxWSu3CYHcy2k7HNSKsFj6gHh5CYOhBpHxVo12SlbPhzMqf28uDT4CrLSjYX3GldVWSSwbFax4p+tEt68azeie81YMhQQjW+sV0T2NNZnXBfGMAElkV8TbKY=
+	t=1719303241; cv=none; b=nUl8El2bNQDLKJ8687q9rzwafmoeKbuwHKiHvJWEiQzBpsHFPZn68wkiSQWLR973OjLoQUl0bpGNS1Dnun+pP5aNZDSOrkatGFlnGOZ6DY+56tNVVRcW8EMrkRwSmyhJVSefFFX2P06H5e9/CRFhItI0Bp7Vlkjuwm1bAk3R7Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719303004; c=relaxed/simple;
-	bh=hGWAuvbHn30Cl64KHNzXsuDQmRw7y+zGNSRzvnoEukA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=E9/U+Ql5MjEmI5N/H0MmJM9LGDpryGe9Cu+KQe02S09pxe9o5gmu6X8xsAY8N/qVBthySRJKmJq0bUldEgRzpv5ENzVx7CBKmxOfbry7gayaugVpWkxhpMjdiqR6pU5ydJy5Zz8/t66cP430rH2F3pG8rdnsY63xtfkbrRuOd8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CBUIjcZq; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1719303241; c=relaxed/simple;
+	bh=KFWpqEzqlBJ0ku7dylqmJOsh9y55+9IVa5ZX0Qtttu8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RPC81j4b12zteB3+Ex7xc9B7T2Bc8+UsrEDOzfLSlnIT0Km80T3yHpcQKRVpzm2IRNZWaaYiIPa5aPcrPtwHIlVGPrbX979hiwoUKtO5cWPw3MdC58g/ptbRl1ulV3rdSDlFpadKA2tbIa2AHB/AO5cpyo6Gh+aGpuap1+nK9Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iAc840Pk; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CBUIjcZq"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iAc840Pk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719303001;
+	s=mimecast20190719; t=1719303239;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TrYBMAF7ZCXxAvIfEGbeiusLdRMD/IC8M66xBhciszU=;
-	b=CBUIjcZqBPHOyCIb8kD8NsfmIeNMUT74q3HlMjiU/IFtARcqRd1mqOs+ZrZFRE2eidjSBg
-	jve1Wp32EWraVjCt2TaI/GtBD7/pqPAJCSErOZv0GixUSAyGBC+40eRa5d+F0UTmfb2xHQ
-	0ZWC+8O+C7oi7auzS4+c+UjWI1RMJKQ=
-Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
- [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=KFWpqEzqlBJ0ku7dylqmJOsh9y55+9IVa5ZX0Qtttu8=;
+	b=iAc840PkteQDgVX6aL5II99Z9cdTuxTCVkg8e/jQxW+FHtRYhwF7FDzKk3y2/L7kZ7kTTX
+	+eCoeJCz8ZRdmpCa/dukDz3gg4Xyl4Omll7mki1lFeHvB/QAikHuNgNuJcPsoLYB0fJanL
+	RrASN2tQgJOsKbEPlo1FPcSmDqtKRlU=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-484--w3NngGhOcum4Lc5scSPew-1; Tue, 25 Jun 2024 04:10:00 -0400
-X-MC-Unique: -w3NngGhOcum4Lc5scSPew-1
-Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-2ec5bafd65cso17665511fa.1
-        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 01:10:00 -0700 (PDT)
+ us-mta-338-yM80AZEmOd2F0lQf-gr5WA-1; Tue, 25 Jun 2024 04:13:57 -0400
+X-MC-Unique: yM80AZEmOd2F0lQf-gr5WA-1
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-2c7ef1fcf68so5956162a91.1
+        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 01:13:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719302999; x=1719907799;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TrYBMAF7ZCXxAvIfEGbeiusLdRMD/IC8M66xBhciszU=;
-        b=tKf+fKLjdu9tAaR8NYNVbHkHDqyKR7f11uFA40K37YKbAlg4NTgUvBSjAkLkMHQys4
-         MYgi0VJ0TNKBwLoxAPZSdxTbbt3j4gXW2BSM6z4eISLjC8BtQPeeWnXhsbLgNmDoTTF/
-         L92iuBp7kj9DjxGiJQ9MVLtlKfc3dwk37qBUEFiZG4iq+nR4Ehkh/GLco9+fGAhMTh3G
-         CBRSKUdgAZbRXvFz2ZVZWdGIbBqsDev27TiiYIqjjsaJj3C5lHah7KvZB89TN8WPHL0k
-         sbmhKzz54+eXv7MIppR9wMtJBQgEM0QiXXpL5gds0UPp9AFYpDYkA0uy/2p+iAx5n4G9
-         /0vw==
-X-Forwarded-Encrypted: i=1; AJvYcCUq/MgHPJ6HzfNfwYcOJH01Lm9/tw9CitWqynbfeML7PHCQjOFEd4gcpJ+XxNgU5ooheZe8RSEHNYr/TKRtyNb5aiTSO75/UeyRIcRxuiA=
-X-Gm-Message-State: AOJu0YwErkgqE6+rQqdsgZ8IJjHjQ2tzVXETNMvGln7d3ovXDsCrIi0b
-	cTBx9x8XQybJ6r4Xqb+KFRIJ1EnzovKKzTrSgCOxur8GM1ERlvUwC+vNcU4XhTB+pMTcmxbV6s3
-	C3pfsEq2+51rtRbKawOQ9M6dGHyhd/Isj+F2vfviAkIFrtO6GmIaHM3s6lBrQiRMw
-X-Received: by 2002:a2e:80da:0:b0:2ec:52f8:17ad with SMTP id 38308e7fff4ca-2ec57a02ea5mr46632391fa.45.1719302998808;
-        Tue, 25 Jun 2024 01:09:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEw9dwtWAtjS+UMgis+biLD76r3bwg5rBcHAtl2m2aD0mhNLBR35762uuL7TXXrXsfTbAXepQ==
-X-Received: by 2002:a2e:80da:0:b0:2ec:52f8:17ad with SMTP id 38308e7fff4ca-2ec57a02ea5mr46632141fa.45.1719302998081;
-        Tue, 25 Jun 2024 01:09:58 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:342:f1b5:a48c:a59a:c1d6:8d0a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42481910dcesm169931395e9.35.2024.06.25.01.09.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Jun 2024 01:09:57 -0700 (PDT)
-Date: Tue, 25 Jun 2024 04:09:54 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: Manivannan Sadhasivam <manisadhasivam.linux@gmail.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"mie@igel.co.jp" <mie@igel.co.jp>
-Subject: Re: MSI for Virtio PCI transport
-Message-ID: <20240625040729-mutt-send-email-mst@kernel.org>
-References: <20240624161957.GB3179@thinkpad>
- <PH0PR12MB54812829338B9B950001BA9BDCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240625054346.GA2642@thinkpad>
- <PH0PR12MB54817F3736022FFE3B9C570FDCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
- <20240625035343-mutt-send-email-mst@kernel.org>
- <PH0PR12MB5481F6B84ABAF617B0571242DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
+        d=1e100.net; s=20230601; t=1719303237; x=1719908037;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=KFWpqEzqlBJ0ku7dylqmJOsh9y55+9IVa5ZX0Qtttu8=;
+        b=CPoZP2htW3xw3IlEGFteHfKerGUDFn5DSh4EKY2y4gZlMMxK/vowOUqUraI6lF8PnE
+         TRhRIltSOdqqBA/wD1Hw8ZPq85ph9FD3S+ezdhfTJPEYhBsaL7AJvJyYgSBz/r7UhTeo
+         nzfwu5mziwNpadpd9BUNIQCz6lBgLTMbOiWDU1yjHqENv14YZoKCTcK7MuYnixXY67N0
+         NSDL4Tc9+6mkf6613sr9m2BqK2KkB+uhkonQEs7Zn2zAdx1FpxDygyo75iDqQ4T1LzIs
+         LMGaXHWf91AGQynoko7Tj9+toXLUBR4KRxLeZaNdBeOiVNUPovLrIIdXm0QclO954u5G
+         E3uA==
+X-Forwarded-Encrypted: i=1; AJvYcCX8Gg+/hQipkvetp4XLq1AZHFwknn0wqckeUScVH2p7PmEgnyZa0AjQuPq2x70YV1QY0OnooAd3icSOGBf4qXaIn525M7U+l+LvHxT2sSk=
+X-Gm-Message-State: AOJu0YyOlK3G+BODvCveSvJvf6M5bPhf3l6/aS255zusoHv49CSiJmwt
+	C0V0nLXrACB/f8z/+9mUZivNb5vDwrG8Xrjg/CmeCXrPlJeDGFJJJ6+YMFDB57iGtjxcgJ/U8dy
+	LFHmwpZzdtSs8FRI4V6X17lB4n7iHAeieuxKPC8hEDwZ6Atjd59DA53Dir3cNTw0F0LbNIpn6fU
+	qEhZMCNwmps4C+gdbCbcqaV9RBZCyeKRwX0vMLXO8=
+X-Received: by 2002:a17:90b:3ec3:b0:2c2:d163:d761 with SMTP id 98e67ed59e1d1-2c85067faa2mr5088481a91.47.1719303236661;
+        Tue, 25 Jun 2024 01:13:56 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHgGBPEsw949MXtG72d1qiz3s/xpJb51LRgU5yCQRbZLTpz08geM9bdL/cCZdSVTtkV2ch/syuHVBfYbn7VkH4=
+X-Received: by 2002:a17:90b:3ec3:b0:2c2:d163:d761 with SMTP id
+ 98e67ed59e1d1-2c85067faa2mr5088462a91.47.1719303236133; Tue, 25 Jun 2024
+ 01:13:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <PH0PR12MB5481F6B84ABAF617B0571242DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
+References: <20240611122756-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54813E2EE4EA2BA729B2F6B7DCC72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240613021132-mutt-send-email-mst@kernel.org> <1718591277.4770932-5-hengqi@linux.alibaba.com>
+ <77ec85ae-0f50-4093-b499-3b6defec4ade@oracle.com> <1718869209.8824844-6-hengqi@linux.alibaba.com>
+ <e774e811-27ba-4151-b300-e22161f1b4d5@oracle.com> <1718940245.6932242-13-hengqi@linux.alibaba.com>
+ <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com> <CACGkMEvFmh-xq5TWqf16YMPSVkmz1BfKcuR7H9vw1zmouD-kZw@mail.gmail.com>
+ <20240625040500-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20240625040500-mutt-send-email-mst@kernel.org>
+From: Jason Wang <jasowang@redhat.com>
+Date: Tue, 25 Jun 2024 16:13:44 +0800
+Message-ID: <CACGkMEu2ziqC+Byv=XBYmeuxjUSQdyq45SFEuQmSYBTU18+v5w@mail.gmail.com>
+Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Si-Wei Liu <si-wei.liu@oracle.com>, Heng Qi <hengqi@linux.alibaba.com>, 
+	Halil Pasic <pasic@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>, 
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Parav Pandit <parav@nvidia.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 25, 2024 at 08:00:45AM +0000, Parav Pandit wrote:
-> 
-> > From: Michael S. Tsirkin <mst@redhat.com>
-> > Sent: Tuesday, June 25, 2024 1:25 PM
-> > To: Parav Pandit <parav@nvidia.com>
-> > Cc: Manivannan Sadhasivam <manisadhasivam.linux@gmail.com>; virtio-
-> > comment@lists.linux.dev; mie@igel.co.jp
-> > Subject: Re: MSI for Virtio PCI transport
-> > 
-> > On Tue, Jun 25, 2024 at 06:18:46AM +0000, Parav Pandit wrote:
-> > > > So MSI-X is clearly an optional feature which simple devices tend to ignore.
-> > > > But if both are supported, then obviously Virtio will make use of
-> > > > MSI-X, but that's not the case here.
-> > > >
-> > > If both are supported, and required scale by the driver is <=32, driver can
-> > choose MSI due to its lightweight nature.
-> > 
-> > Unlikely, MSI vectors are tricky to mask and this is a problem for interrupt
-> > balancing. So MSIX is better for performance even if the # of vectors is low.
-> Masking to my knowledge is not used by MSIX.
+On Tue, Jun 25, 2024 at 4:06=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
+ wrote:
+>
+> On Tue, Jun 25, 2024 at 03:53:33PM +0800, Jason Wang wrote:
+> > On Sat, Jun 22, 2024 at 7:46=E2=80=AFAM Si-Wei Liu <si-wei.liu@oracle.c=
+om> wrote:
+> > >
+> > >
+> > >
+> > > On 6/20/2024 8:24 PM, Heng Qi wrote:
+> > > > On Thu, 20 Jun 2024 18:21:03 -0700, "Si-Wei Liu" <si-wei.liu@oracle=
+.com> wrote:
+> > > >>
+> > > >> On 6/20/2024 12:40 AM, Heng Qi wrote:
+> > > >>> On Mon, 17 Jun 2024 16:31:25 -0700, "Si-Wei Liu" <si-wei.liu@orac=
+le.com> wrote:
+> > > >>>> On 6/16/2024 7:27 PM, Heng Qi wrote:
+> > > >>>>> On Thu, 13 Jun 2024 02:13:50 -0400, "Michael S. Tsirkin" <mst@r=
+edhat.com> wrote:
+> > > >>>>>> On Tue, Jun 11, 2024 at 05:43:18PM +0000, Parav Pandit wrote:
+> > > >>>>>>>> From: Michael S. Tsirkin <mst@redhat.com>
+> > > >>>>>>>> Sent: Tuesday, June 11, 2024 10:00 PM
+> > > >>>>>>>> How we can we make progress with
+> > > >>>>>>>> the realease but sure we don't make backwards compat a pain?
+> > > >>>>>>>>
+> > > >>>>>>>> Ideas?
+> > > >>>>>>>>
+> > > >>>>>>> There is no functional break with this relaxation.
+> > > >>>>>>> Device set some non-zero defaults and driver didn't modify th=
+em....
+> > > >>>>>>> Anything broken? Unlikely.
+> > > >>>> Generally it's inappropriate to leave this decision making to th=
+e device
+> > > >>>> for what would be the best / most performant default config, as =
+the
+> > > >>>> device is generally considered agnostic to the guest load...
+> > > >>> Instead, the performance of the virtual machine and the driver de=
+pends heavily
+> > > >>> on how the device is implemented, just as we have proposed variou=
+s ways to
+> > > >>> offload the data queue in the device to the hardware. The reason =
+why most
+> > > >>> devices use software to simulate ctrlq instead of using hardware =
+offload is
+> > > >>> that the driver has no requirements for the performance of ctrlq =
+before, that is,
+> > > >>> the device implementation is responsible for and meets the driver=
+'s performance
+> > > >>> requirements.
+> > > >> I am not sure I follow the arguments of ctrlq being s/w or h/w, I
+> > > >> thought that it was for the debate why we need coalescing on hardw=
+are
+> > > >> offload device in the first place, instead of reusing event index =
+or
+> > > >> similar s/w based notification suppression. I don't doubt the valu=
+e of
+> > > >> coalescing, but how's it relevant to the default value disposition=
+?
+> > > >> Generally the default config disposition is not considered to be p=
+art of
+> > > >> device implementation, especially when it comes to the situation w=
+here
+> > > >> device can't easily figure out the specific workload to occur in t=
+he
+> > > >> guest, and there's no perfect single default value that could meet=
+ every
+> > > >> single performance metric across the board. This is a typical tuni=
+ng
+> > > >> knob left up to the user to adjust, why the device or driver needs=
+ to
+> > > >> set or load the initial value? The driver just needs to start with
+> > > >> certain value, be it 0 or non-zero, which guest user can override =
+at any
+> > > >> point of time, depending on his/her need, and that's it! I guess I=
+ still
+> > > >> don't understand your user case here, why device / driver default =
+is of
+> > > >> such importance.
+> > > > I've explained that, and I understand your argument is why default =
+value is needed,
+> > > > and users should be able to adjust them, right?
+> > > Sounds about right. You'll soon realize that there's no perfect defau=
+lt
+> > > that could work with everyone - in that it's just a static value to
+> > > begin with, no matter whatever initial value the device comes up with=
+,
+> > > one user or another will come over to you and complain that what is
+> > > loaded from the device doesn't match the workload they have, so those
+> > > users are still expected to adjust manually tweaking for their own. A=
+s
+> > > long as it's a tunable that guest user can control and override anyti=
+me,
+> > > I don't feel it too much different what initial config the device wou=
+ld
+> > > start with.
+> >
+> > Think hard of these, I think there's probably no conflict between the
+> > points of each.
+> >
+> > Generally, it's very hard to have a default value for virtio-net modera=
+tion as
+> >
+> > 1) various implementations of virtio-net
+> > 2) various setups of virtio-net (from virtual to physical, from 1G to 1=
+00G)
+> > 3) various kind of workloads
+> >
+> > But it doesn't mean the device can not have something by default which
+> > the vendor thinks it works well for in most cases. And anyhow the
+> > value could be overridden by the driver if it wants (e.g several Linux
+> > networking drivers will try to set a good default moderation value
+> > during probe).
+> >
+> > Thanks
+>
+> Do we want to just burn a feature bit on this then?
 
-There's a mask bit per vector, yes.
+It might be more safe to do that.
 
-> Didn't follow how MSIX helps with performance.
+> I also think we need to have a way to reset to that
+> default value. Maybe setting #packets to 0 should do that?
 
-Linux uses mask/change/unmask to balance interrupts between CPUs.
-*That* is important for performance.
+Or a dedicated command.
 
+Thanks
 
-> The benefit of MSI is it does not need to store addr+data pair per vector.
-
-The addr/data thing wasn't invented just to make hardware costs go up.
-
-> > 
-> > --
-> > MST
+>
+>
+> --
+> MST
+>
 
