@@ -1,214 +1,211 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A07773463
-	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 07:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCFC47A62
+	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 07:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719299621; cv=none; b=re1F3r3LLQiBfOKLs0weVFuB6/TbZgGqjcrR0aNOSRX0I1U/jK2Pj5Wkw1j46jIrO9qdZn+FTaFBbl++VbaIqfTgjYRkMxRlUgRfvPC/fLN1AxzYrtLs0krgIleEapYkYMLpWOCuzTNgPJK/obbcqMHpRyHxM1eVATs+pHV2Wqc=
+	t=1719300396; cv=none; b=VdH5JadXn5TQ8EnGPVsrR/Pbc7wA75DPgoR63lBuAGzOnaZywbXJ/lYdwkTGiQTkA0FehPxFUq3hf5Fs2aRXNWY0F5dhktRbITcouMsskn+iM4Z2UYUKAU+hU0tItrTflEOp2vPS7dO2c3CeZjK3uiOq43zKt9R7HqygxCJtXRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719299621; c=relaxed/simple;
-	bh=2cA4R+PLhjffnKhMQOzEsolgKyVFavs+4QTYzeXvmBI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=aTECDNprv6co7u7uhm8P45lwpn+cFMGtlFcHLUEsTq8JmukfYicmeDn7wcEGxy3rzONynnsxX0mfTdMVRBFiPW+sqJlPmXZfnBzO5aeRReNFybBr2sq7OU67Ixfm+fqtv2ZzlYPvXSuCwx/oVNakHoEi+1idaRnlqVj6Si9LFhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=e7jYMGj6; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1719300396; c=relaxed/simple;
+	bh=CS7/VvB7XuapTe9RBOMc76+shSJ03GbhG9U3+NA5xFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=EO5OPfSUptgywfZNSP4rpOA7qYHhVHUccSs4wC6EphE4jGkD9wuwqDNKrLFfgo58irM1bKcgTLps6XlfVJAOOTy5pwPdz7WtHoT+gJ161Eo+RZf5uIq6V7JiZJ5GJM/BEbdMGLp14SMiOFrR3I9HoW9iF9KCF+RSyWClbiElH5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CWcPnVnk; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="e7jYMGj6"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-2c81ce83715so2937954a91.3
-        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 00:13:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1719299619; x=1719904419; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7J+2XLnNRR5grEQjUsNCiZ2Fp7fc8z9aBymIZ9sfvjA=;
-        b=e7jYMGj6fiKjNWfmZTLUqHwX6bN9Nz7GGWPZv+hUCNLYYjtkM3jYm2OnPQwRD6xBdk
-         BhpPRGNs3Xg6hJba5AUZo+XVn06UWQ+1ZgHx1l2sikp1PHrxDvbEWxobZWmjQ1hLpxYU
-         gOFwLh9mTkEeZwUYMqHbSlqeeM8/XwF/2TaBzmc15YHD9+1ityqSZSYA3vOMyAlcZY/n
-         8zhx/vwIeR2ku1eMAn3sWot8T8qzH2SDQ/5441qaBj5DsKG8LbxP4zpDGAQHyasEh1IE
-         8d/fPrXxaNnmV/wkpTnM4AaAZohyJyTJ/DeeqEHGUj95JSQ9CDV0iVkoa+9TOgLshfqY
-         bHNQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CWcPnVnk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1719300394;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ok9A2ftkGS9tEWWiqM67Yq9uVcCvNatT0ZZyTLPjQc4=;
+	b=CWcPnVnkr5yWB/cWAY4ze2zlSM1iKFb3G8VXTUmWErKzZkw/CLJRHglNP2wthT8WhUjFnG
+	PY0JDcI5FWAhDMPRHlqUunAAc3ctWAwtYSEnKQQuWCavsyMcEIIjEBpP4Wr5a2/XecilZp
+	SE0m72bfuEAdowU4NjdEZQNxIYBYmPk=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-691-NvNJ17GiPzK_CIvFaxKfcQ-1; Tue, 25 Jun 2024 03:26:32 -0400
+X-MC-Unique: NvNJ17GiPzK_CIvFaxKfcQ-1
+Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-52cd7e63b2aso2790187e87.3
+        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 00:26:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719299619; x=1719904419;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7J+2XLnNRR5grEQjUsNCiZ2Fp7fc8z9aBymIZ9sfvjA=;
-        b=DTJME7QyLt0MhbBwFlmlpGdVDSBtxrgrJ14oW2dyRBReROUPoUpDMFnDFfwEhXy2P7
-         YkKi/XJSku5/P3MH7f8qrbX5nas2oXz6RKWBsv5CPRqz1/iuzsRZ80MgU9MbcctvFpcP
-         svuHrtivVbSi69C90GSnyiWWd6VY23aqzuDf7WdOWAX9PchxucGYlexx7RMlBpOo8FKd
-         p7n192vFoxMObnQLcHB1Tpp99u/miy0kUckaDZKpJhJYGxsCJOENQokM4VnAVFKs3BTk
-         VuTEUEvPcDK+9Cy1xi0NexNIMncvZVUsD0V1MrxGq6kSYtZc5IddDPgl3Nn9MdTGg011
-         Y2dg==
-X-Gm-Message-State: AOJu0Yx/VNB7Q4Kocqwjc1IS51w9nfvHeGHH1nEXPLSqfw1TBJFqdOgm
-	G9AGCQkXhPmelVoxHIpaBIX2uK+eXSYfVKUzlmZcerBZUzbfId+ijyboEeLJNoUTGDhjNUwPBFR
-	o
-X-Google-Smtp-Source: AGHT+IGDoGdFOTJkAG0J3kmVxHOGRBff1Z1uGYaFMySMxGdYoYCSuZwf49UIrOPXdC5g6H85isui0Q==
-X-Received: by 2002:a17:90a:fc87:b0:2c8:5798:4750 with SMTP id 98e67ed59e1d1-2c858275a8emr5913812a91.33.1719299618481;
-        Tue, 25 Jun 2024 00:13:38 -0700 (PDT)
-Received: from localhost ([122.172.82.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2c819dcf12esm7845179a91.49.2024.06.25.00.13.37
+        d=1e100.net; s=20230601; t=1719300391; x=1719905191;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ok9A2ftkGS9tEWWiqM67Yq9uVcCvNatT0ZZyTLPjQc4=;
+        b=R9Xz3o+AK3twaZ83Nqp+cIY7xIBqzqNGP3Q1nejfMpNGesxu6Z8D9QUn7asYOR1uww
+         wdmYr9+euJqZWHZ6HiUnt1AecoW4PrMy510aerkh79XqVe/+/flDb2zqIIp4xw1PSYGu
+         mgehlwTYZ2IAKNPLmjNrMdpzIheSIsOiYhSSfFvJDt5WCqpdzTzoxdGkWJ3vx5nWEtR+
+         opnjMPuei9MjtuuTuFKY9Z9wxiHpao+LUDBP8eyqAlPQp0J/vRUYpjldLAxksJHKz2C0
+         PukXCE9a0tXD1+EZxZfLY57h8e282hY/NB73NRcswdiKqVmXR6G2sSHP9+SwDF4SNRdF
+         YTjA==
+X-Gm-Message-State: AOJu0YxEHDgHx1UOWEk08L0Dnmn2UYaI+pRH/zmsXWmG5HgtDkgbzuvD
+	VfZqjYbXRO4OkA7wNliIB4v3+DeXUWn9aq09bvSE5WurzqqX1/pxYgl79NkibhiTdRXUBamxgQy
+	YNy8gaKgeWtsGUDJO2kGlu4nT7+AzAYzV89DRqvQqTQJrof4EwV5dAWwTnmFzdgau
+X-Received: by 2002:ac2:44da:0:b0:52c:dc6f:75a3 with SMTP id 2adb3069b0e04-52ce062007bmr5255558e87.40.1719300390900;
+        Tue, 25 Jun 2024 00:26:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGihBHcmncDRiWln8CwXeZy2dJfhB+CgRxf6o9XMTRmU/aZ5O9uqisRe/bVLGn490uVHGEy5w==
+X-Received: by 2002:ac2:44da:0:b0:52c:dc6f:75a3 with SMTP id 2adb3069b0e04-52ce062007bmr5255539e87.40.1719300390096;
+        Tue, 25 Jun 2024 00:26:30 -0700 (PDT)
+Received: from redhat.com ([2a02:14f:1f6:f72:b8c7:9fc2:4c8b:feb3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4247d208b6bsm203800705e9.32.2024.06.25.00.26.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Jun 2024 00:13:37 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: virtio-comment@lists.linux.dev
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Cornelia Huck <cohuck@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Parav Pandit <parav@nvidia.com>
-Subject: [PATCH V6] virtio-transport: Add a new section to clarify transport requirements
-Date: Tue, 25 Jun 2024 12:43:34 +0530
-Message-Id: <51a926b4ea2240753bcda6041a9076d58e980082.1719299462.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
+        Tue, 25 Jun 2024 00:26:29 -0700 (PDT)
+Date: Tue, 25 Jun 2024 03:26:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Heng Qi <hengqi@linux.alibaba.com>
+Cc: virtio-comment@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Parav Pandit <parav@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
+Message-ID: <20240625032237-mutt-send-email-mst@kernel.org>
+References: <20240528044702.50603-1-hengqi@linux.alibaba.com>
+ <20240611184828-mutt-send-email-mst@kernel.org>
+ <1718591738.670476-6-hengqi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <1718591738.670476-6-hengqi@linux.alibaba.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The virtio documentation currently doesn't define any generic
-requirements that are applicable to all transports. They can be useful
-while adding support for a new transport.
+On Mon, Jun 17, 2024 at 10:35:38AM +0800, Heng Qi wrote:
+> On Tue, 11 Jun 2024 19:03:11 -0400, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> > On Tue, May 28, 2024 at 12:47:02PM +0800, Heng Qi wrote:
+> > > The device can set any initial coalescing parameters (0 or non-zero)
+> > > for the receive/send queue before the setting command is executed,
+> > > not just 0, enhancing device performance even without DIM enabled.
+> > > 
+> > > So we need to clarify descriptions that don't fit the behavior.
+> > > 
+> > > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/194
+> > > Suggested-by: Jason Wang <jasowang@redhat.com>
+> > > Signed-off-by: Heng Qi <hengqi@linux.alibaba.com>
+> > > Reviewed-by: Parav Pandit <parav@nvidia.com>
+> > > Reviewed-by: Jason Wang <jasowang@redhat.com>
+> > > ---
+> > > v4->v5:
+> > >   - Add RB tags from Parav and Jason. Thanks!
+> > > 
+> > > v3->v4:
+> > >   - Doesn't force the device to remember more stuff. @Parav
+> > > 
+> > > v2->v3:
+> > >   - Clarify description to be more generic. @Parav
+> > > 
+> > > v1->v2:
+> > >   - Update description. @Jason
+> > > 
+> > >  device-types/net/description.tex | 14 +++++++++++---
+> > >  1 file changed, 11 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+> > > index 61cce1f..00c1b36 100644
+> > > --- a/device-types/net/description.tex
+> > > +++ b/device-types/net/description.tex
+> > > @@ -1803,6 +1803,14 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+> > >                                          for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
+> > >  \end{enumerate}
+> > >  
+> > > +If the VIRTIO_NET_F_NOTF_COAL or VIRTIO_NET_F_VQ_NOTF_COAL feature is negotiated,
+> > > +the device may apply any coalescing parameters to each transmit/receive virtqueue
+> > > +before the driver successfully performs one of the VIRTIO_NET_CTRL_NOTF_COAL set commands.
+> > 
+> > may outside of conformance section, not good.
+> 
+> This is outside of the conformance section. Do you want inside?
 
-This commit tries to define the same under a new appendix section.
+needs to be rephrased to avoid using reserved keywords.
 
-Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
-V5->V6:
-- Move the changes to a new appendix section.
-- Clarify the requirements a bit more based on review comments.
+> > 
+> > > +
+> > > +The driver can query the coalescing parameters of any enabled transmit/receive
+> > > +virtqueue using the VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET command, before or after any
+> > > +VIRTIO_NET_CTRL_NOTF_COAL set command is done.
+> > > +
+> > 
+> > Vague. There are just 3 set commands ust list them.
+> > 
+> > >  The device may generate notifications more or less frequently than specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
+> > >  
+> > >  If coalescing parameters are being set, the device applies the last coalescing parameters set for a
+> > 
+> > This needs more work but I guess we can skip the above part.
+> > 
+> > > @@ -1885,17 +1893,17 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+> > >  VIRTIO_NET_ERR if the designated virtqueue is not an enabled transmit or receive virtqueue.
+> > >  
+> > >  Upon disabling and re-enabling a transmit virtqueue, the device MUST set the coalescing parameters of the virtqueue
+> > > -to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_TX_SET command, or, if the driver did not set any TX coalescing parameters, to 0.
+> > > +to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_TX_SET command, or, if the driver did not set any TX coalescing parameters, the device MAY initialize them to any values.
+> > >  
+> > 
+> > If device does not initialize them then what?
+> 
+> The device's customized behavior, at least, does not conform to the spec.
 
-V4->V5:
-- s/The transport/A transport/
-- s/MUST provide/provides/
-- Added some text for transport requirements.
+Then why do you say "may"?
 
-V3->V4:
-- Remove the normative sections and use direct speech.
-- Change wording at few places.
 
-V2->V3:
-- Minor fixes.
-- Added Reviewed by from Alex.
+> > Actually something like 
+> > 0 -> the default TX coalescing parameters chosen by the device?
+> 
+> Deefault coalescing parameters should also have a concrete "value".
 
-V1->V2:
-- Lot of changes after discussions with Alex and Cornelia.
-- Almost a rewrite of the first commit.
-- Add Transport normative sections.
+and I just proposed how to say this in a clear way.
 
- main.tex         |  2 ++
- newtransport.tex | 82 ++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 84 insertions(+)
- create mode 100644 newtransport.tex
 
-diff --git a/main.tex b/main.tex
-index b1913d65e964..6d337217a3d1 100644
---- a/main.tex
-+++ b/main.tex
-@@ -42,6 +42,8 @@
- 
- \input{newdevice.tex}
- 
-+\input{newtransport.tex}
-+
- % acknowledgements
- \input{acknowledgements.tex} 
- 
-diff --git a/newtransport.tex b/newtransport.tex
-new file mode 100644
-index 000000000000..05996c814f09
---- /dev/null
-+++ b/newtransport.tex
-@@ -0,0 +1,82 @@
-+\chapter{Creating New Transports}\label{sec:Creating New Transports}
-+
-+Devices and drivers can use different transport methods to enable
-+interaction, for example PCI, MMIO, or Channel I/O. The transport
-+methods define various aspects of the communication between the device
-+and the driver, like device discovery, exchanging capabilities,
-+interrupt handling, data transfer, etc. For example, in a host/guest
-+architecture, the host might expose a device to the guest on a PCI bus,
-+and the guest will use a PCI-specific driver to interact with it.
-+
-+There are some mechanisms that any transport is required to implement,
-+and some requirements that devices and drivers are required to follow.
-+
-+\section{Transport Requirements}\label{sec:Creating New Transports / Transport Requirements}
-+
-+A transport provides a mechanism for the driver to discover the device.
-+
-+A transport provides a mechanism for the driver to identify the device
-+type.
-+
-+A transport provides a mechanism for communicating virtqueue
-+configurations between the device and the driver.
-+
-+A transport allows multiple virtqueues per device. The number of
-+virtqueues for a pair of device-driver are governed by the individual
-+device protocol.
-+
-+A transport provides a mechanism that the device and the driver use to
-+access memory for implementing virtqueues.
-+
-+A transport provides a mechanism for the device to notify the driver and
-+a mechanism for the driver to notify the device, for example regarding
-+availability of a buffer on the virtqueue.
-+
-+A transport provides a mechanism for the driver to initiate a reset of
-+the device.
-+
-+A transport provides a mechanism to reset an individual virtqueue.
-+
-+A transport provides a mechanism for the driver to read the device
-+status. A transport provides a mechanism for the driver to change the
-+device status.
-+
-+A transport provides a mechanism to implement configuration space
-+between the device and the driver.
-+
-+\section{Device Requirements}\label{sec:Creating New Transports / Device Requirements}
-+
-+The device keeps any data associated with a device-initiated transaction
-+accessible to the driver until the driver acknowledges the transaction
-+to be complete.
-+
-+The device doesn't access the contents of a virtqueue before the driver
-+notifies, in a transport defined way, the device that the virtqueue is
-+ready to be accessed.
-+
-+The device doesn't access or modify buffers on a virtqueue after it has
-+notified the driver about their availability.
-+
-+The device resets itself if requested by the driver, in a transport
-+defined way, if the transport provides such a method.
-+
-+The device resets an individual virtqueue if requested by the driver,
-+in a transport defined way, if the transport provides such a method.
-+
-+\section{Driver Requirements}\label{sec:Creating New Transports / Driver Requirements}
-+
-+The driver acknowledges device notifications, as mandated by the
-+transport.
-+
-+The driver doesn't access buffers on a virtqueue before the device notifies
-+about the readiness of the same.
-+
-+The driver accesses queued buffers after the device has processed them
-+and notified the driver of their availability. This mechanism is
-+transport defined.
-+
-+The driver asks the device to reset itself if, for example, the driver
-+times out waiting for a notification from the device for a previously
-+queued request.
-+
-+The driver asks the device to reset an individual virtqueue.
--- 
-2.31.1.272.g89b43f80a514
+> > 
+> > 
+> > >  Upon disabling and re-enabling a receive virtqueue, the device MUST set the coalescing parameters of the virtqueue
+> > > -to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_RX_SET command, or, if the driver did not set any RX coalescing parameters, to 0.
+> > > +to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_RX_SET command, or, if the driver did not set any RX coalescing parameters, the device MAY initialize them to any values.
+> > >  
+> > >  The behavior of the device in response to set commands of the VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
+> > >  the device MAY generate notifications more or less frequently than specified.
+> > >  
+> > >  A device SHOULD NOT send used buffer notifications to the driver if the notifications are suppressed, even if the notification conditions are met.
+> > >  
+> > > -Upon reset, a device MUST initialize all coalescing parameters to 0.
+> > > +Upon reset, a device MAY set any coalescing parameters for all transmit and receive virtqueues.
+> > 
+> > Confusing.
+> > This seems to allow any vq to have a different set of parameters.
+> 
+> YES.
+> 
+> > Now if driver calls VIRTIO_NET_CTRL_NOTF_COAL_RX_SET then what?
+> > 
+> 
+> Then the coalescing parameters of all RX queues are updated to the values
+> set by VIRTIO_NET_CTRL_NOTF_COAL_RX_SET, and the coalescing parameters of all
+> TX queues continue to retain the previous values.
+> 
+> Thanks.
+
+It's not at all nice that there's apparently no way for driver to
+get back to the default values.
+
+
+> > 
+> > >  
+> > >  \paragraph{Device Statistics}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
+> > 
+> > 
+> > 
+> > 
+> > >  
+> > > -- 
+> > > 2.32.0.3.g01195cf9f
+> > 
 
