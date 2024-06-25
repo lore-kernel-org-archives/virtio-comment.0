@@ -1,207 +1,222 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B3816D33B
-	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 14:51:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44827145A1A
+	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 17:35:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719327120; cv=none; b=XH8VOtSaioQeQgPYsblTgW9BoZoIUsxnNUA0BZQDX+4yvQ2ytoskZbhEYJVBrUPP1AiNkeYxeErUOXwmBKki83RjFbSDkVmbJ7Np6o6AbzR5LuUE7upaZYwyF1b7HENAG3I2MP9XQdAUOSq0+qRvD0Dm5ALdlMBDMhI3XBDKiQA=
+	t=1719336912; cv=none; b=TXJwKdcdvl1W69+93zfbjVDRlLR5rBIbwVYbuP3wStt0QZTL3iz3pMLo0Gq6cKjMBFsjHYozGglQDFFWTVEgZ5L+xrcBTOMH097WfPDxV0FFKax8vYZtxpIDlxfdj4GzD06Bo+pFumFwylF2s7dhZXCJtGRPr2hsisfJQTZjHvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719327120; c=relaxed/simple;
-	bh=crChbcw3c4i5sZvdKNrVvRrpfjfk3SPCozFv+2ZGsik=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=Vz4bWgMCSnpFa2jz9YP2IoRUh4tiATIUvLw6b19aj9/Nzy250oC9GHYz/zDPtO0dTR/+S6/iI9LkG15mox0HX+ZTIattoV4jSswVRVZHdy6UL2WVfeNaJUQyq73xHjTRtEpGOSHi6cExXOqOr3XYNSWY0QxJ1FrRdgEawkN+B34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f1rKt4V2; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1719336912; c=relaxed/simple;
+	bh=jMun9R2XZ3Ygv+utFIb7BsE1VJPky28+16HRHVaK/IY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PgPMO9FJY7UpyQGdSue1onFUIGpAwHjRQYHugEo/HDHfgxWHDoZXOzgpkAUQrhS2r8gkAtQWk7gcoKpYVVmpmOUofAZZ82xmQpQ2JWWA/0LYNCxIwy5SDup6+VbS2WfF/osflQh8P7pVCG134uQaj8oOvMThrsSj83XyDylHBKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JtEwuQ6s; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f1rKt4V2"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JtEwuQ6s"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719327118;
+	s=mimecast20190719; t=1719336910;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Tabu8PUDZqTmGSfCozgHlo48R7IFn5cQpgAo/bHhisk=;
-	b=f1rKt4V2lmYsJMS2b/Dy8VOJNiVg4UZBWqrOn6MnOAOikf8xZulCJuVN7old/uFAR8JsUj
-	NuOChxTJkdkulKDYjmkZHojtS6NIqLFEFa9iIXbGY19KIT4r0OXgtpOMAIB03Dn32mfUlD
-	V15ZF/7DIZ6Po5SwidXp8JeWLLcL7hk=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qB4E3Gb1MF2Jldew2ERDJ3pNHqh19mkaISEV8mA2xjc=;
+	b=JtEwuQ6s/PN9D9s5BAIDedeEQ4sGY9qPZbsfAvu2vq6Zmpt4XEAmZa2amEQ/LLkheW2WrC
+	ia5xFtdXBSmYfM6Hif+VVQiBZgm+FQ5Q4bmmBmoerAkvhcZ4JdY8xowIUsx/1TiHQB5078
+	QE7Pc/XDZIueuyUyWCIw0Grf8etok6A=
+Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
+ [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-689-IKHM5NWvO1mJ3uTZ7YOvNA-1; Tue, 25 Jun 2024 10:51:56 -0400
-X-MC-Unique: IKHM5NWvO1mJ3uTZ7YOvNA-1
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-6b077178ca4so96354946d6.0
-        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 07:51:56 -0700 (PDT)
+ us-mta-651-WwGRkXgoMa6tVELJo3LcXw-1; Tue, 25 Jun 2024 13:35:08 -0400
+X-MC-Unique: WwGRkXgoMa6tVELJo3LcXw-1
+Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-2ec5566c22bso4098591fa.1
+        for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 10:35:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719327116; x=1719931916;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1719336906; x=1719941706;
+        h=mime-version:user-agent:content-transfer-encoding:autocrypt
+         :references:in-reply-to:date:cc:to:from:subject:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Tabu8PUDZqTmGSfCozgHlo48R7IFn5cQpgAo/bHhisk=;
-        b=T4wafHLM1qliAc1FLCiSS2hcVYZzbQp/Pl1K8vTNjlSSUrrWas62wRxH9xZMbxspMy
-         q686YNASz1sWQkT8NOjKCfK8F6EBMcRBKLKamUZvbgni0Beu/g1Cuyg73YcXpwkdJ01b
-         IRLMogJOulrglEEE+fMrgkSRKeXXbfULmDd/YIOJUCYk60Skf7lSjEKeaMIwstz6Q213
-         Cc/bRClgGtKcEY9aLL1jYWRTTqZ5Whgh8x0nLyQTA5cttelQmTmH8JnmEBTJUl8B4/BX
-         Ppc2Hm9Ox0Y/OOa/ynQrYzn39RF6+8ZY4uK8t44Z7WDl/5wc20ARNia9JW6UiVh4zSXC
-         dMpw==
-X-Gm-Message-State: AOJu0YwNXLOauliiRCdumuCqsFbV5KoH58RAV7r0ItnWmNVtYUNmRq+c
-	i7d7Ze22BDzHSvwJTXrSrs87fAObCTYaizyv6ro8y/V9rrJCwljLUDhxpmrOFL4RRvIBDRkcLP9
-	mAR9e2QOocRfqwLgzbYvrYaw4EygmFYTLB992OlFnfPz/sMf49VAjtRCopvQwhiqt
-X-Received: by 2002:a0c:cc0f:0:b0:6b0:6400:3b6f with SMTP id 6a1803df08f44-6b5409987c8mr84560846d6.8.1719327116114;
-        Tue, 25 Jun 2024 07:51:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFESKwTMyAIiby3n1ugZPmu7bMHfMRmY7bFdlyAKDOcaWgFEFvqSlMiEYEIJ3FetUB4dpCIGw==
-X-Received: by 2002:a0c:cc0f:0:b0:6b0:6400:3b6f with SMTP id 6a1803df08f44-6b5409987c8mr84560546d6.8.1719327115605;
-        Tue, 25 Jun 2024 07:51:55 -0700 (PDT)
-Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6b5223fa509sm42710826d6.51.2024.06.25.07.51.54
+        bh=79vnZNApiWNAF7OlWUuDvSNmanvmUpS5zvvUMTBPqIo=;
+        b=EUF0061O+YWrQ6P33jAm4lbyCVNXdWk3Awjr/bVJSBSwWmLrP2K2kLZWZuNo8RvqQi
+         i3OlbwhATUs6Fc5JUkvs4SPOkSBzFefEFJNfW0I1C2+6hNc3WKcw4o/bgbqadwdYDEEw
+         mWBoX+zmxn8XSJjZ1bLT4KOyd5IcXmmkle+BvgbMegrILKp0TUf8m7Qrv2M33o00wbci
+         CHq1MXIxyzMj1i5I2+zPD7CEkXES8LVfH1ZvX59fgT+wg9z8WqYVUeHLklOCBTtV9CEZ
+         fzsiuuHtzoTEMPMcaETcdt9N9NsVQgh1oahG0xsuXCiRFKUFLblD63DIfvrHmfbsoIqp
+         T2dw==
+X-Gm-Message-State: AOJu0YxFB0j8FudjkliLjAWKcNKoegB8EA6EUXRfigNQmBbydqV2tSEu
+	6ZMG1gksYuDUOBV8F05UqF+ckTSk/DLknURy0V2JjW9UrHjGhy7oNPtO9o8VgdX23F8whFE6xn4
+	jf/PwIr08kaRtnyiGA9pb7I4ZQyAzB+eU7UXXzrZT4MQ2kQILqZR1lf0ICz+0o5fj
+X-Received: by 2002:ac2:4910:0:b0:52c:d7cc:33da with SMTP id 2adb3069b0e04-52cdeaae536mr4586182e87.5.1719336906691;
+        Tue, 25 Jun 2024 10:35:06 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF2K9r1Iyl0me/K/R/BTtmToABZ+j7JC28gmv3D7ccMB5YyJWMctDjzfdiStRK62SCQPLfl5g==
+X-Received: by 2002:ac2:4910:0:b0:52c:d7cc:33da with SMTP id 2adb3069b0e04-52cdeaae536mr4586119e87.5.1719336904259;
+        Tue, 25 Jun 2024 10:35:04 -0700 (PDT)
+Received: from gerbillo.redhat.com ([2a0d:3341:b0ae:da10::f71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4247d0b63a9sm220608105e9.9.2024.06.25.10.35.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Jun 2024 07:51:55 -0700 (PDT)
-Date: Tue, 25 Jun 2024 16:51:51 +0200
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: virtio-comment@lists.linux.dev,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Cornelia Huck <cohuck@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Parav Pandit <parav@nvidia.com>
-Subject: Re: [PATCH V6] virtio-transport: Add a new section to clarify
- transport requirements
-Message-ID: <ZnrZh5lfnFNMn5bM@fedora>
-References: <51a926b4ea2240753bcda6041a9076d58e980082.1719299462.git.viresh.kumar@linaro.org>
+        Tue, 25 Jun 2024 10:35:03 -0700 (PDT)
+Message-ID: <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
+Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
+From: Paolo Abeni <pabeni@redhat.com>
+To: Jason Wang <jasowang@redhat.com>, Willem de Bruijn <willemb@google.com>
+Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com, Eelco
+ Chaudron <echaudro@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>
+Date: Tue, 25 Jun 2024 19:35:02 +0200
+In-Reply-To: <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
+References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
+	 <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
+	 <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
+	 <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
+Autocrypt: addr=pabeni@redhat.com; prefer-encrypt=mutual; keydata=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
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <51a926b4ea2240753bcda6041a9076d58e980082.1719299462.git.viresh.kumar@linaro.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 25, 2024 at 12:43:34PM +0530, Viresh Kumar wrote:
-> The virtio documentation currently doesn't define any generic
-> requirements that are applicable to all transports. They can be useful
-> while adding support for a new transport.
-> 
-> This commit tries to define the same under a new appendix section.
-> 
-> Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
-> V5->V6:
-> - Move the changes to a new appendix section.
-> - Clarify the requirements a bit more based on review comments.
-> 
-> V4->V5:
-> - s/The transport/A transport/
-> - s/MUST provide/provides/
-> - Added some text for transport requirements.
-> 
-> V3->V4:
-> - Remove the normative sections and use direct speech.
-> - Change wording at few places.
-> 
-> V2->V3:
-> - Minor fixes.
-> - Added Reviewed by from Alex.
-> 
-> V1->V2:
-> - Lot of changes after discussions with Alex and Cornelia.
-> - Almost a rewrite of the first commit.
-> - Add Transport normative sections.
-> 
->  main.tex         |  2 ++
->  newtransport.tex | 82 ++++++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 84 insertions(+)
->  create mode 100644 newtransport.tex
-> 
-> diff --git a/main.tex b/main.tex
-> index b1913d65e964..6d337217a3d1 100644
-> --- a/main.tex
-> +++ b/main.tex
-> @@ -42,6 +42,8 @@
->  
->  \input{newdevice.tex}
->  
-> +\input{newtransport.tex}
-> +
->  % acknowledgements
->  \input{acknowledgements.tex} 
->  
-> diff --git a/newtransport.tex b/newtransport.tex
-> new file mode 100644
-> index 000000000000..05996c814f09
-> --- /dev/null
-> +++ b/newtransport.tex
-> @@ -0,0 +1,82 @@
-> +\chapter{Creating New Transports}\label{sec:Creating New Transports}
-> +
-> +Devices and drivers can use different transport methods to enable
-> +interaction, for example PCI, MMIO, or Channel I/O. The transport
-> +methods define various aspects of the communication between the device
-> +and the driver, like device discovery, exchanging capabilities,
-> +interrupt handling, data transfer, etc. For example, in a host/guest
-> +architecture, the host might expose a device to the guest on a PCI bus,
-> +and the guest will use a PCI-specific driver to interact with it.
-> +
-> +There are some mechanisms that any transport is required to implement,
-> +and some requirements that devices and drivers are required to follow.
-> +
-> +\section{Transport Requirements}\label{sec:Creating New Transports / Transport Requirements}
-> +
-> +A transport provides a mechanism for the driver to discover the device.
-> +
-> +A transport provides a mechanism for the driver to identify the device
-> +type.
-> +
-> +A transport provides a mechanism for communicating virtqueue
-> +configurations between the device and the driver.
-> +
-> +A transport allows multiple virtqueues per device. The number of
-> +virtqueues for a pair of device-driver are governed by the individual
-> +device protocol.
-> +
-> +A transport provides a mechanism that the device and the driver use to
-> +access memory for implementing virtqueues.
-> +
-> +A transport provides a mechanism for the device to notify the driver and
-> +a mechanism for the driver to notify the device, for example regarding
-> +availability of a buffer on the virtqueue.
-> +
-> +A transport provides a mechanism for the driver to initiate a reset of
-> +the device.
-> +
-> +A transport provides a mechanism to reset an individual virtqueue.
-> +
-> +A transport provides a mechanism for the driver to read the device
-> +status. A transport provides a mechanism for the driver to change the
-> +device status.
-> +
-> +A transport provides a mechanism to implement configuration space
-> +between the device and the driver.
-> +
-> +\section{Device Requirements}\label{sec:Creating New Transports / Device Requirements}
-> +
-> +The device keeps any data associated with a device-initiated transaction
-> +accessible to the driver until the driver acknowledges the transaction
-> +to be complete.
-> +
-> +The device doesn't access the contents of a virtqueue before the driver
-> +notifies, in a transport defined way, the device that the virtqueue is
-> +ready to be accessed.
-> +
-> +The device doesn't access or modify buffers on a virtqueue after it has
-> +notified the driver about their availability.
-> +
+On Tue, 2024-06-25 at 16:28 +0800, Jason Wang wrote:
+> On Mon, Jun 24, 2024 at 11:47=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> =
+wrote:
+>=20
+> > > > +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (49)] Device can receive GS=
+O packets
+> > > > +  carried by an UDP tunnel.
+> > > > +
+> > > > +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_CSUM (50)] Device handles packe=
+ts
+> > > > +  carried by an UDP tunnel with partial csum for the outer header.
+> > > > +
+> > > >  \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header h=
+ash for encapsulated packets.
+> > > >=20
+> > > >  \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue not=
+ification coalescing.
+> > > > @@ -133,12 +145,18 @@ \subsubsection{Feature bit requirements}\labe=
+l{sec:Device Types / Network Device
+> > > >  \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
+> > > >  \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
+> > > >  \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
+> > > > +\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO] Requires VIRTIO_NET_F_GUE=
+ST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
+> > > > +   VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6.
+> > >=20
+> > > For "or" I think you meant "and" actually?
+> >=20
+> > No, just any (one) of the above options is sufficient for UDP tunnel
+> > GSO sake. Why do you want to mandate all of them?
+>=20
+> For example, does it mean if there's only VIRTIO_NET_F_GUEST_USO4, the
+> driver still supports tunnel offloading over UDPv6? This sounds a
+> little bit strange.
 
-Why are the last two requirements in this section? Are not these
-requirements independent of the transport layer?
+I did not look to the things from such perspective. I agree it would be
+cleaner to require:
+=09both VIRTIO_NET_F_GUEST_TSO4 and VIRTIO_NET_F_GUEST_TSO6 or
+=09both VIRTIO_NET_F_GUEST_USO4 and VIRTIO_NET_F_GUEST_USO6
 
-Thanks, Matias.
+> > >=20
+> > > > @@ -423,6 +455,10 @@ \subsection{Device Operation}\label{sec:Device=
+ Types / Network Device / Device O
+> > > >          le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT =
+negotiated)
+> > > >          le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT =
+negotiated)
+> > > >          le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPORT =
+negotiated)
+> > > > +        le16 outer_th_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUN=
+NEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
+> > > > +        le16 inner_protocol;    (Only if VIRTIO_NET_F_HOST_UDP_TUN=
+NEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
+> > > > +        le16 inner_mac_offset;  (Only if VIRTIO_NET_F_HOST_UDP_TUN=
+NEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
+> > > > +        le16 inner_nh_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUN=
+NEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
+> > > >  };
+> > > >  \end{lstlisting}
+> > > >=20
+> > > > @@ -480,6 +516,8 @@ \subsubsection{Packet Transmission}\label{sec:D=
+evice Types / Network Device / De
+> > > >  followed by the TCP header (with the TCP checksum field 16 bytes
+> > > >  into that header). \field{csum_start} will be 14+20 =3D 34 (the TC=
+P
+> > > >  checksum includes the header), and \field{csum_offset} will be 16.
+> > > > +If the given packets has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit set=
+,
+> > > > +the above checksum fields refer to the inner header checksum.
+> > >=20
+> > > Rethink of the design here, I have one dumb question:
+> > >=20
+> > > A simple csum_start/csum_offset can work for GSO without tunneling.
+> > > Any reason a inner_csum_start/inner_csum_offset (or simply introduce =
+a
+> > > copies of other gso related fields in the existing vnet header for
+> > > outer packet) can't work for tunneling GSO? I feel if we need to do
+> > > thing differently it might a hint of bugs for existing GSO
+> > > definitions.
+> >=20
+> > Yes, the outer csum offload could work even without requiring the UDP
+> > tunnel GSO support but:
+> > - AFAIK H/W support for outer csum offload is not as widespread as
+> > other offload, it will restrict a lot the feasibility of H/W
+> > implementation backing this spec.
+> > - computing the outer csum given the presence of the inner one is very
+> > cheap in S/W - because thanks to LCO the S/W needs to touch only a very
+> > limited number of bytes to compute it.
+> >=20
+> > I can explicitly mention the above in the commit message of the next
+> > revision.
+>=20
+> Just to make sure we are on the same page. I basically meant:
+>=20
+> Without UDP tunneling, GSO works with simple csum_start/csum_offset.
+> It doesn't require things like mac/network offset.
+> With UDP tunneling, can we just invent
+> inner_csum_start/inner_csum_offset to make things just work?
+
+Note for UDP tunneling should be 'outer_csum_start' (as 'csum_start'
+refers to the inner header) and 'outer_csum_offset' will not be needed,
+as we know that the outer header is an UDP one.
+
+I (mis?)understood from the discussion on previous revisions that you
+are against additional parsing.
+
+Using inner_csum_start only, will require such thing and will possibly
+be not enough to support Willen's use-case with no inner mac header.
+
+Note that plain GSO leverages the fact that the mac address is known to
+be an ethernet one, while the UDP tunnel GSO has an additional variable
+in the tunnel header length.
+
+Dropping the support for the use-case with no inner mac header, and=20
+enforcing that the inner mac header must always be an ethernet one, the
+following fields will suffice:
+- outer transport header offset (or, if you prefer 'outer_csum_start')
+- inner mac header offset (because we can't locate it in any robust way
+even with parsing)
+
+Note that with that we will need an additional spec change (adding more
+fields) to support UDP tunnel GSO with no inner mac header.
+
+If there is concern with the increased virtio_net_hdr size, what about
+to add the new fields only if the  VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is
+set? that is, if UDP tunnel GSO support is negotiated _and_ the current
+packet is a UDP tunnel GSO one.
+
+That will make the virtio_net_hdr len packet-dependent, could be a
+problem for H/W implementation?
+
+Cheers,
+
+Paolo
 
