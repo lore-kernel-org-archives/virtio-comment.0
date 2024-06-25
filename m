@@ -1,250 +1,222 @@
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE48142E76
-	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 05:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.93.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719293161; cv=fail; b=h1W6vE2+MlsF2MlTtEm6ZLHEJhIbGisjvU/w59Ll2jc9Nf5lFHa1p09e2Z7wm2k9iM+UXSY3CPLrO5n5aYWVkERWUD0qa83jXs5YiZU71rBkHcVWui/X48lnz+zKcreXPHdqZOLQkupkcIcyPUQa0wVaHsbMpxX7amYy2NPl7/E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719293161; c=relaxed/simple;
-	bh=XPtfcxBh4Q2SULW50FAbS0yC8G4Nd1Qg9SWqy15oiM0=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=f5Pzcs1WU0S/jKjX0qDGpe5mKE59J83tsrk8rmPWbjBO5VAolNY5ncbZ0oOMPMh/yvNlu/n/D2MCpM3aHsb6rbyvJWAjmckqAn76jSLWqUkEi6hBrUEe8qZVgxPdqDlowZjM3P8oZ6UiJaHzRRjvk0O37UwPwy+DoIQa+2HEFUo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gjayFCls; arc=fail smtp.client-ip=40.107.93.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055FC2D600
+	for <virtio-comment@lists.linux.dev>; Tue, 25 Jun 2024 05:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1719294234; cv=none; b=hCcTe4ikSNC6h23jQ5dY3I8DhGr/3S3VJumHqXxAXCVorDVsYC92IHL5m8ZwH1fxYykyVlyoF3LtHC7Bw+IB7TKeOUx4EEMyXWXlSv3onIj01T3f4ZRi7Yj340Guw7um/Wbc/3tvp+yM/gs/wNC2oYG7VABhbytYp+gUsxxhvgk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1719294234; c=relaxed/simple;
+	bh=3w0w4JQ5eLE+UQrtWcNgXykXLAiy09Yg/uIJr0hS5DA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CvvpkWrijRCNO8jw93Za1MnnCDpBkJYRN8VOFNkfvZ6Ui5BA2zqtP4E6Lw2GM+ZODvLKfYO8JuD4hYvIN1uCRGLO/IlgnbCAd6jMFrAKS83spX5mU1k9q2VYU9sVkkO93uJNVs/quaW6xYiCTh29uMPIZV91+sdeq1whOFT1nT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ad/TfiGb; arc=none smtp.client-ip=209.85.167.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gjayFCls"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QpgzFqsmkfGqvicm2nuQgKK0j02Ei80fBBcGcQpe3Rv610i8IUnC0xWUMGfwyPK792TCvHrNxGI3GLYQ8/cQPXqmBYhZ0+s1eNxJdgYnh1QV8wTMr0BH8SMf9rbunSFi5CpeoXt069xgh3Df3QBRioHeJfQ6g7KLC3qK/Dzp2Yd0aajzhWO0uinBB69uLtOww6HLmTivd53yUN7Ux9bwHSTznBt8N1IJkTf8WK6ZOj5qATCK4AUjJrZEMJpkxkkratqPLpmWe98usdU37CXRsGMk/h3bZmol1OpgaSlwPJAiNrWVoREskd4LuiE59U5rJalxz9mYHe02O2EDVqcgJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XPtfcxBh4Q2SULW50FAbS0yC8G4Nd1Qg9SWqy15oiM0=;
- b=C2n/DpbvSdDXfyx8dx/Q8A5a3fY3MQ9MzfOtFnJq3Lb7RgrAc8Hkh48MWhpZdeG2n9DBLRka9tsjfu26i+JuF1Xdl6hlDN4QpWpUtnV0M5xF0RJJKVSNuxRrBFNszqa010NJCm/IZBv8ZANnl4jgH1oZb4FggXSOz0kMSn8ZPdsHtQXNSzXcbMKYQLUwUYeEXYC8cPaY+mEG3W3YW9wV1Uk9ksp+9zCM2igTRYoyj5gmd83qt6yZUqJK5zIspQPYxWp1n/qfGYQ3pZwunZj8/rCPWQUAjOTcg33t5sP5UuTTN0FRjuAIApA/0FtIckq9I8zSTZq3HwL+VChQMvUcMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XPtfcxBh4Q2SULW50FAbS0yC8G4Nd1Qg9SWqy15oiM0=;
- b=gjayFClsytXEZeJOKo/ejvRiKQwKEkZIYQL5LVqMMRi6k3iNPvL2Kx65FViGOPt9v/Fv2Wk1DyvkGH0l++6G1SvvqoYAYMK2vG2BKgf7PdUlJQXq3BqjvRoxklucV7UD6eT0vkH1HrHGRlm0NIFb19dWiVwoy4dM+KMLnCI3tAUWHzUfXLV+D1ywtu+vGvc7O7TxKNeAPdSnivFVITgVjdWIx7ZXziuzBGONILvLAxZ0rmShmtJKRmIjTy2262K10egyDMbaYggVoZzjljs36WgPDHYzsB64B5u3BcI3VbW4YoKt7SHqYwlUU/nggefOhh0pOs1xkAJNLnGcrK/K/Q==
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15)
- by MN6PR12MB8489.namprd12.prod.outlook.com (2603:10b6:208:474::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.31; Tue, 25 Jun
- 2024 05:25:55 +0000
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd]) by PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd%3]) with mapi id 15.20.7698.025; Tue, 25 Jun 2024
- 05:25:55 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>
-Subject: RE: [PATCH RESEND 3/4] virtio-net: support transmit ptp timestamps
-Thread-Topic: [PATCH RESEND 3/4] virtio-net: support transmit ptp timestamps
-Thread-Index: AQHaxicItyk+1Cl9ukCDf/Iqsi24JLHX8IaQ
-Date: Tue, 25 Jun 2024 05:25:55 +0000
-Message-ID:
- <PH0PR12MB5481F37A4C9B035F2E556F20DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
-References:
- <20240624-v1-4-topic-virtio-net-timestamping-v1-0-fa3c163e4aa9@pengutronix.de>
- <20240624-v1-4-topic-virtio-net-timestamping-v1-3-fa3c163e4aa9@pengutronix.de>
-In-Reply-To:
- <20240624-v1-4-topic-virtio-net-timestamping-v1-3-fa3c163e4aa9@pengutronix.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|MN6PR12MB8489:EE_
-x-ms-office365-filtering-correlation-id: 97e9b882-e40a-4cda-6ac9-08dc94d7497b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230037|376011|1800799021|366013|38070700015;
-x-microsoft-antispam-message-info:
- =?utf-8?B?V3A0bUVOcCsvT2JFMFlMSzhuSXk1ZEhnd01LaTNmbDVhWWZJUk1heFR2VFBt?=
- =?utf-8?B?cWllaXNLM0hRSGVITGtWZC83K3R1Y1R6OER0dzkxWGhNcmx5bU1MVGEyLzNp?=
- =?utf-8?B?QUNPRXQ4aEhiTWgrbzB1dUtHZytlWU5UeHRFam10S3JnSEZ3UVIxblJaaW90?=
- =?utf-8?B?K2MyZGZsY1JwMlhVRGEyMTdVNWpNcXZlNWRGaUppS3V3TFlZdDRNclY0Mi9V?=
- =?utf-8?B?R1JiR3F4cUNtdDV1d2pvTnFsaS91dHVwbzdCanpucC95WUhDUGQxa1FsdWpD?=
- =?utf-8?B?a3IvQm5Hb3FWZjd2dDk1OFVVYVk1SGp1b094TXF5SXExQlZEVlBqam40UWFU?=
- =?utf-8?B?MFhIMjFJd0J1STRwMk1SL3ozN2YrSUFRaUp6dHBISHpUc25ISjNyNDFOeVZJ?=
- =?utf-8?B?eGN4WTdiUmdPNG1GRXdnL1Vodk02NFl1ajk4ZzJBcDBzeHFGRnJNazVXRHFh?=
- =?utf-8?B?VWVZWFJmSkU4UUpnYlo1SVkwT0ttcW15aEIwSVg3d3FhV1VtcWliWS9DZnVL?=
- =?utf-8?B?bmltNnRSRUtjSGZFUGNjSG5HemxhR0MyVnVxZnpzUXljNWRJaGhUNzdWQ3ov?=
- =?utf-8?B?OG1iWlMrMnBQVnNUZTNBck9WU2g4Ukw5QTdYVjhDZjltRU0wMHgwZUNLMTl3?=
- =?utf-8?B?VDRMeWZ4UUVJVStjemJiU0cyTWtZTHBhZFRHdVBlQ2cvV293eDNxaVdqd0tu?=
- =?utf-8?B?UVVoK1IrTDQrTFF2QmozdEF5alBTaXl3MDlrdnFEUWFFRGN6OTNQRWVNNFVQ?=
- =?utf-8?B?UWVnbGxoZTV0VkxIOXFJMWc1RmJ2ck9wL0pyaDZzV2tzTGdJUWdiY1V0VFlz?=
- =?utf-8?B?Y0dnOUw1NUdnV3doUU9RaG1IWXhzTVh2OHdxS09FM0NvVlA5eGFvSTNtSG9Y?=
- =?utf-8?B?Rkp2WGZmRkZXNENzQWJQeHFjbmY2QXkrd0dmY1Q4VmJxTllhYmx5cm15Q3Z4?=
- =?utf-8?B?SXZTSjRJdGFxYnIxdTdUZW56cTFETTUyQzRxbFpuRHlrRzVIbHVmUEIxWlJE?=
- =?utf-8?B?Z2h4aGpPV0FibGFCVFJsaXpTaXVqanlHNnJpSmRGdE5LQ2lKZi82Znd2MFhs?=
- =?utf-8?B?YnZBSzNuRitzNTVvSFEvcWxBWVZQeTFXT3l6OTIySkRucGdvQVhockJOU0Vh?=
- =?utf-8?B?L0xQSVhWbXZVSzdQUldFVmduS0VTc081a1NyOTA5ZDgyQm42c01YVlRLNWFo?=
- =?utf-8?B?eC9mVUpwZUcwc05ZbnROTDNtSWpueU5oeUp2S1BFa2ptQXFzK01YcFU2eXNR?=
- =?utf-8?B?bHFVT2pJVUkwUFQwNEF2UCs1ZFM1UFJyZ3VYMUtXTDNCSWRHdXZER1VUU0xi?=
- =?utf-8?B?eU4xbmwrWG02R2JvcitFL0R4YzRNYnljdFZCZGwrTDIzV2x4MXBRSGpGWjVQ?=
- =?utf-8?B?WEcveXlXamZvb2FZcjJ4bFp6R2J6QkFKK25oRWU0aFU2L0drK1VrdG42QXJT?=
- =?utf-8?B?ZGlJQTVEY09GVEdCMkZ5cmppQzkzcEx2NE1wTzNYODZmZ3ZqZmFWVXcyU2ZB?=
- =?utf-8?B?WFArQzlhbE80UCs5dlVPMjN2RUg4SmliVGhpN053dnNNdEoySTRSTkpISTFU?=
- =?utf-8?B?RDRIbENQQkdERzlpNURUVTdtakV3MG9hcTZSYUQ0SXJhRHYzM3VYeHFobE1o?=
- =?utf-8?B?ZTVvNGpUWXJpbkNiRHdYZENOaGp1ZUk3NmxZVFdueUxFa2Y4TzVPZ2dTZW02?=
- =?utf-8?B?QkRyZHJQMzgxZjlTb2V0SjB1Sk4yRVZITWdBQzhqQ2Z6SFR4aW56NnhsTGhC?=
- =?utf-8?Q?aSdLQXpqg4uJ440xAtzttbiS8GN53Gt9/FmbVKF?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230037)(376011)(1800799021)(366013)(38070700015);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?aThnajZDSlRPakp1UjV5dDE4TWpIMmtwN0ZuSTg5bTIxekFEb2d3TmV3bG1i?=
- =?utf-8?B?VHkwK3lUdGFpVnZ2aEFZVTlGZmUzQmNGR0ZwVVAxWmR4NjBucGtGclBMdnkx?=
- =?utf-8?B?ZXcyZEhLbTlFdjZ1UXVjRDRIRy9iKzBDM1dWY3BDd3RRcmhZby94VFIveUlL?=
- =?utf-8?B?dEZYNVVCNjl5dUJKcm1oOFd3NnBsK1FrbW9TY1Bhc3hPd0lVWHdHc0hNZHF4?=
- =?utf-8?B?eUlMcEcwVzdZNUdiUERPSHMwU0FiMmlFQXA1K2QvdnlSVFpXYkJMMUIrN1BI?=
- =?utf-8?B?cms1YWk3OU42VWNzSGhmL1psNFg1aFZBakZEU3pLUGNXeXVKcHVtVVh2cnlK?=
- =?utf-8?B?Q29JU0hCZ1dnWVJVemZseGNXN3JZZU85SmUycUhNOXFLY2xyRnp1MkJLTDgy?=
- =?utf-8?B?VkJaSVZPQkRoSVZiZWdIUUQ5RDVYcHBCc2RHa1F5c2huVTFTVmgrZGM1aVo0?=
- =?utf-8?B?NDF2N09oUzdiTEN2MnIyUVBWcDBqR0hVdXk5OHhoNFVzQWNncnlhNGRXY1Fy?=
- =?utf-8?B?UHRuQWdrZ2gzdk1HR2REVUNDUytCNURjMS9WVTYzeHRhSUhIaVUrWWs5bGlE?=
- =?utf-8?B?NkR4KzZyYy9aNlBmcmxRaWJLWFZma1p0Ky9DR2JhTGFZV25vSFU1NFJQbmlQ?=
- =?utf-8?B?eExQWHJCajRMV2gyNWdxZ29NRncwajFtYlZITGU1eEtPWXJHMDNITWx0STNn?=
- =?utf-8?B?VFoyblZHV0kweWtqT1BjNTNURG9OQU5mZ0xVTUxlcjY0YW8xQXliWG44Tjl3?=
- =?utf-8?B?a3FKNUswdHoxL0o1NWFiZzdyaTl0QVhmQy9icmJnY1VuWFo5OHQrdVd5QkhU?=
- =?utf-8?B?OWVERmo5dFFlcVAveWIrYUl2dXpaaHNIOXRodDlLbitZNStSNm9GWjdKWnJy?=
- =?utf-8?B?RWZsZGV3eS9GRElNWGxhSFU5WTErWi84U3BjV0hrWUtCM3RMUGJ2Tko0RTRi?=
- =?utf-8?B?aGVuazlYbFNGUmM4Zi90RmJxdVZ4c3hVM0ZWdTR4Q1ZBaXhXYlBPcVB5UWNQ?=
- =?utf-8?B?dkZMZzQ0aWJOdklSSlR2Q01hR0lMRkFUc1F1QVBnanQ1ckFicWVjMlZ4SnA1?=
- =?utf-8?B?dldoS2s3TmxlRzgxMkVhWmNlaHZwTE9VMnExWjdBMzY1aktNbEZneVM5Mksx?=
- =?utf-8?B?K2o5WUNoWHZUVWZpVEhONWt2RThPMm04ZHNCdE5rTURkaXZWZDkzYjk5cDIy?=
- =?utf-8?B?Znd3ZXdUUUhxNnJSWmNNMlJLckVOakVDc2FHSFY4Z2d6bHNodGIwZU9sSTNO?=
- =?utf-8?B?cnJIbEJFL1Z2UndVbHk4YVljbmE4MnhPNktKL3p3R1Nqd2ZaVGJZVW9YNDRR?=
- =?utf-8?B?bmVJbDBhZFpzZ2lGOTBBUkJDUVR0dzlpZWxDbTJuZ21GUzV5U0VoMElOUXg0?=
- =?utf-8?B?WTJlRGxTZlNORmF1bVoyL21XTXBqK0xnbWpIc1pRT1M2elhrdWt3Q3JVMFRJ?=
- =?utf-8?B?L3M5bDZXN3YrUEowYkV1T3lxZENLU3lFMzRyVkpTdEI5V3pDUTVOZENSUEgz?=
- =?utf-8?B?MFoxQmJmc29NeGVLNUxzeHJvS0dMUmE2SXZSV3dPQVczeVd0V1hnUDFVaWJT?=
- =?utf-8?B?dk0rcnI4ZXlTVGNPdktmajUrcEpCVGFGNlhEam05dDVXZmdlcWg5ZFJQNzMy?=
- =?utf-8?B?MTNNQ29Vc205VzU3WEh1KzcvSStRakFBc095Ujg3Vm5oblM4dWp0WlFJQTNk?=
- =?utf-8?B?SVdweVpDMGk4YXU5Q29aQ1lpbTRvT3pyUTlZTVdqSG4wdjNaMFRnaU5CWGpB?=
- =?utf-8?B?KzV5RHJwRmhmUmx5Z2FxTmwxNXJpVU5BdFQ1aGgwMkhBUFVKQkpua2JTTXh0?=
- =?utf-8?B?K0VKTXNJbVRBQS9YTkFxSFJ6NzlCWUI0RjVBVk5adzloWnFCZmFMbnc3U0Iy?=
- =?utf-8?B?TnBxVmJUWU01RkVuZndFZWNrSDkxVlVSUU5sb2xGOGFaMVJwQnkzM3VoYURZ?=
- =?utf-8?B?ZjBUTStaaWU4Y2hicS9ObmQyd2pTbGFjSlBwMVhYWFU4cFY0NnN6WmNhZGVr?=
- =?utf-8?B?NnJPZkZnZ1YxMXp1LzNsSi9VUjIwZHRkWmlLblpVVHM2UXhKV2xPaFFkanhJ?=
- =?utf-8?B?NWx0V2NvQm1HMjVSTVNmQ3l1U1E1WTliQ3JZbG1HNi9DSzdOWEVpTzVpT21I?=
- =?utf-8?B?WjhWazZOaWVxWVZBU0RkREY0NGI1MnRRclRIV2F2MkJnSWMrQmNzU1VMT1Jj?=
- =?utf-8?Q?afB+E0Gj5TxTa6gFySpY0m4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ad/TfiGb"
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-3d513eb6e56so2826712b6e.0
+        for <virtio-comment@lists.linux.dev>; Mon, 24 Jun 2024 22:43:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1719294232; x=1719899032; darn=lists.linux.dev;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=42ErFpg6CIU3TMmLIyEOcVvJAFcpKOmVF8on4qZgrNI=;
+        b=ad/TfiGbYELIMKtkXL0Z6nt9SLafnC5P/a9uiBVuv6k/thChvyfLbq/+29dfAH60bL
+         4YdNxAYl4nmeetPAbNsDmHDIHi1YwPdansvompx5JA44FhekoxrsQ8kVwHgQb77bMczw
+         T59Uv36scM6VmfKWlxVaEl7Mgukui/Zg+fy0JB4b1ZsqMQVOIBRuz8X1WVv+szpc8iCg
+         rNCiqcAKlRRB/0XlatEYgAW0HZpDeDlloc60sa0BUsFq43MN7LJnI6JFxBn/ed6xQWE/
+         sWXoqFrWEqvsEMCTRuQpCZYNzffUGCQkHtfHj2hQ1laYchmJIj+azBPDJKvElwhH5g8v
+         +rug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719294232; x=1719899032;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=42ErFpg6CIU3TMmLIyEOcVvJAFcpKOmVF8on4qZgrNI=;
+        b=PLagGgzIbSYqotmGAS3GaT30grLecIRgbNvT8HujIdTFNGjZPzuWD2VySB4kpcTScp
+         8A3lIW+XuuExoE/ITbiW3r7Byw3mPlsgjCBsVL77ippA0jWF//zOxGUpSpm3L7PjTC5C
+         foz5N/sqheRbQIN1l5Cud7wmNp0m/XCbFGAprc601zkCvZrVdrFsy0+Eip1kIFD/5PNp
+         0+4x8j4ltEMXux30Bc+XiKlozUgKEjndHP/UDoG7FmRvb3apXdM9pjYZK6Wolj6e1VeS
+         E7674LGnJkQb+ErbiNEIeSZLzTawj90+vWKW7pIg0weiPc3gRmowUPOkZoU0PTelAoOC
+         +ljw==
+X-Gm-Message-State: AOJu0Yw/KNGKnnsQTHEROGyHJWn1Y+SgHFALoM6g+VcMqIv8zw/72v/f
+	3sHNQrkF6KviFjYTHCibXrrPlhx2+zP/uxG0MLERXY/+WV8f7QZN
+X-Google-Smtp-Source: AGHT+IH1H6Kvdggrb+e8RrmHwTs+Ylh0CW3ALZL0/pI/J2g/kfv3fJIDVDwpXgo56sGbFCUOe+MRAA==
+X-Received: by 2002:a05:6808:1312:b0:3d2:255f:8352 with SMTP id 5614622812f47-3d543a7bc9bmr8385407b6e.4.1719294231396;
+        Mon, 24 Jun 2024 22:43:51 -0700 (PDT)
+Received: from thinkpad ([117.193.213.113])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-7067a098233sm3660122b3a.78.2024.06.24.22.43.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Jun 2024 22:43:51 -0700 (PDT)
+Date: Tue, 25 Jun 2024 11:13:46 +0530
+From: Manivannan Sadhasivam <manisadhasivam.linux@gmail.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"mie@igel.co.jp" <mie@igel.co.jp>
+Subject: Re: MSI for Virtio PCI transport
+Message-ID: <20240625054346.GA2642@thinkpad>
+References: <20240624161957.GB3179@thinkpad>
+ <PH0PR12MB54812829338B9B950001BA9BDCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97e9b882-e40a-4cda-6ac9-08dc94d7497b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2024 05:25:55.1182
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: alXMytig3UMpCa/K+tqguOrIF9dK/NTbYe/zD5iArJHZ+MMWs8tkB6SgtI323oFXqu0qqyoEBwBVo/yavjvxVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8489
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <PH0PR12MB54812829338B9B950001BA9BDCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
 
-SGkgU3RlZmZlbiwNCg0KPiBGcm9tOiBTdGVmZmVuIFRydW10cmFyIDxzLnRydW10cmFyQHBlbmd1
-dHJvbml4LmRlPg0KPiBTZW50OiBNb25kYXksIEp1bmUgMjQsIDIwMjQgNDozOSBQTQ0KPiBUbzog
-dmlydGlvLWNvbW1lbnRAbGlzdHMubGludXguZGV2OyBrZXJuZWxAcGVuZ3V0cm9uaXguZGUNCj4g
-Q2M6IFN0ZWZmZW4gVHJ1bXRyYXIgPHMudHJ1bXRyYXJAcGVuZ3V0cm9uaXguZGU+DQo+IFN1Ympl
-Y3Q6IFtQQVRDSCBSRVNFTkQgMy80XSB2aXJ0aW8tbmV0OiBzdXBwb3J0IHRyYW5zbWl0IHB0cCB0
-aW1lc3RhbXBzDQo+IA0KPiBBZGQgb3B0aW9uYWwgUFRQIGhhcmR3YXJlIHR4IHRpbWVzdGFtcCBv
-ZmZsb2FkIGZvciB2aXJ0aW8tbmV0Lg0KPiANClZlcnkgZ29vZCBpbml0aWF0ZS4gVGhhbmtzIGZv
-ciBicmluZ2luZyB0aW1lc3RhbXBpbmcgdG8gdmlydGlvLg0KDQo+IEFjY3VyYXRlIFJUVCBtZWFz
-dXJlbWVudCByZXF1aXJlcyB0aW1lc3RhbXBzIGNsb3NlIHRvIHRoZSB3aXJlLg0KPiBJbnRyb2R1
-Y2UgdmlydGlvIGZlYXR1cmUgVklSVElPX05FVF9GX1RYX1RTVEFNUCwgdGhlIHRyYW5zbWl0IGVx
-dWl2YWxlbnQNCj4gdG8gVklSVElPX05FVF9GX1JYX1RTVEFNUC4NCj4gDQo+IFRoZSBkcml2ZXIg
-c2V0cyBWSVJUSU9fTkVUX0hEUl9GX1RTVEFNUCB0byByZXF1ZXN0IGEgdGltZXN0YW1wDQo+IHJl
-dHVybmVkIG9uIGNvbXBsZXRpb24uIElmIHRoZSBmZWF0dXJlIGlzIG5lZ290aWF0ZWQsIHRoZSBk
-ZXZpY2UgZWl0aGVyIHBsYWNlcw0KPiB0aGUgdGltZXN0YW1wIG9yIGNsZWFycyB0aGUgZmVhdHVy
-ZSBiaXQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBTdGVmZmVuIFRydW10cmFyIDxzLnRydW10cmFy
-QHBlbmd1dHJvbml4LmRlPg0KPiAtLS0NCj4gIGRldmljZS10eXBlcy9uZXQvZGVzY3JpcHRpb24u
-dGV4IHwgMTkgKysrKysrKysrKysrKysrKysrKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDE5IGluc2Vy
-dGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kZXZpY2UtdHlwZXMvbmV0L2Rlc2NyaXB0aW9u
-LnRleCBiL2RldmljZS0NCj4gdHlwZXMvbmV0L2Rlc2NyaXB0aW9uLnRleA0KPiBpbmRleCAwOWQ5
-YzI4Li5jNDM4YjBiIDEwMDY0NA0KPiAtLS0gYS9kZXZpY2UtdHlwZXMvbmV0L2Rlc2NyaXB0aW9u
-LnRleA0KPiArKysgYi9kZXZpY2UtdHlwZXMvbmV0L2Rlc2NyaXB0aW9uLnRleA0KPiBAQCAtODgs
-NiArODgsOCBAQCBcc3Vic2VjdGlvbntGZWF0dXJlIGJpdHN9XGxhYmVse3NlYzpEZXZpY2UgVHlw
-ZXMgLw0KPiBOZXR3b3JrIERldmljZSAvIEZlYXR1cmUgYml0cyAgXGl0ZW1bVklSVElPX05FVF9G
-X0NUUkxfTUFDX0FERFIoMjMpXQ0KPiBTZXQgTUFDIGFkZHJlc3MgdGhyb3VnaCBjb250cm9sDQo+
-ICAgICAgY2hhbm5lbC4NCj4gDQo+ICtcaXRlbVtWSVJUSU9fTkVUX0ZfVFhfVFNUQU1QKDQ3KV0g
-RGV2aWNlIHNlbmRzIFRBSSB0cmFuc21pdCB0aW1lDQo+ICsNClRoZSBmZWF0dXJlIGJpdCBpcyBu
-b3QgaGVscGZ1bC4NClRoZSByZWFzb24gaXMsIHRoZSB1c2VyIG5lZWRzIHRvIGVuYWJsZSB0aW1l
-c3RhbXAgbXVjaCBsYXRlciB1c2luZyBldGh0b29sIChMaW51eCkgU0lPQ1NIV1RTVEFNUC4NCkFu
-ZCBpdCBpcyBkZXNpcmVkIHRvIG5vdCByZXNldCB0aGUgZnVsbCBkZXZpY2Ugd2hlbiBjaGFuZ2lu
-ZyB0aGlzIGZlYXR1cmUuDQoNCkFuZCB3aGVuIHRoZSBmZWF0dXJlIGlzIG9mZmVyZWQsIGl0IGlz
-IGFsc28gbm90IGRlc2lyZSB0byBhbHdheXMgcGVyZm9ybWluZyB0aW1lc3RhbXBpbmcgYXMgaXQg
-aGFzIHRyYWRlLW9mZnMuDQoNClRoZXJlZm9yZSwgZW5hYmxlbWVudCBvZiB0aGlzIGZ1bmN0aW9u
-YWxpdHkgc2hvdWxkIGJlIGRvbmUgdXNpbmcgY2FwYWJpbGl0aWVzIG9yIG90aGVyIG1lYW5zIGR5
-bmFtaWNhbGx5Lg0KRHluYW1pYyBtZWFucyA9IHdpdGhvdXQgcmUtaW5pdGlhbGl6aW5nIHRoZSBk
-ZXZpY2UgYW5kIGZlYXR1cmVzLg0KDQo+ICBcaXRlbVtWSVJUSU9fTkVUX0ZfUlhfVFNUQU1QKDQ4
-KV0gRGV2aWNlIHNlbmRzIFRBSSByZWNlaXZlIHRpbWUNCj4gDQo+ICBcaXRlbVtWSVJUSU9fTkVU
-X0ZfVFhfSEFTSCg0OSldIERyaXZlciBzZW5kcyBoYXNoIHJlcG9ydCBAQCAtNTMyLDYNCj4gKzUz
-NCwxMiBAQCBcc3Vic3Vic2VjdGlvbntQYWNrZXQgVHJhbnNtaXNzaW9ufVxsYWJlbHtzZWM6RGV2
-aWNlIFR5cGVzIC8NCj4gTmV0d29yayBEZXZpY2UgLyBEZSAgXGl0ZW0gVGhlIGhlYWRlciBhbmQg
-cGFja2V0IGFyZSBhZGRlZCBhcyBvbmUgb3V0cHV0DQo+IGRlc2NyaXB0b3IgdG8gdGhlDQo+ICAg
-IHRyYW5zbWl0cSwgYW5kIHRoZSBkZXZpY2UgaXMgbm90aWZpZWQgb2YgdGhlIG5ldyBlbnRyeQ0K
-PiAgICAoc2VlIFxyZWZ7c2VjOkRldmljZSBUeXBlcyAvIE5ldHdvcmsgRGV2aWNlIC8gRGV2aWNl
-DQo+IEluaXRpYWxpemF0aW9ufX5cbmFtZXJlZntzZWM6RGV2aWNlIFR5cGVzIC8gTmV0d29yayBE
-ZXZpY2UgLyBEZXZpY2UNCj4gSW5pdGlhbGl6YXRpb259KS4NCj4gKw0KPiArXGl0ZW0gSWYgdGhl
-IGRyaXZlciBuZWdvdGlhdGVkIHRoZSBWSVJUSU9fTkVUX0ZfVFhfVFNUQU1QIGFuZCBoYXJkd2Fy
-ZQ0KPiArICB0aW1lc3RhbXBpbmcgaXMgc3VwcG9ydGVkIG9uIHRoZSBkZXZpY2UsIHRoZQ0KPiBW
-SVJUSU9fTkVUX0hEUl9GX1RTVEFNUA0KPiArICBmbGFnIGlzIHNldC4gT25lIHdyaXRhYmxlIGlu
-cHV0IGRlc2NyaXB0b3Igd2l0aCB0aGUgc2l6ZSBvZiBhDQo+ICt0aW1lc3RhbXAsDQo+ICsgIGku
-ZS4gXGZpZWxke3RzdGFtcH0gaW4gdmlydGlvX25ldF9oZHJfaGFzaF90cywNCj4gKyAgaXMgYXBw
-ZW5kZWQgdG8gdGhlIG91dHB1dCBkZXNjcmlwdG9yLg0KPiAgXGVuZHtlbnVtZXJhdGV9DQo+IA0K
-VGhpcyBkb2VzIG5vdCB3b3JrIGFueSBlZmZlY3RpdmVseSBmb3IgZm9sbG93aW5nIHJlYXNvbnMu
-DQoxLiBhIFRTIGlzIDhCLCBpdCBpcyBwb2ludGxlc3MgdG8gcGFzcyBhbm90aGVyIDE2QiBkZXNj
-cmlwdG9yIGZvciA4QiBvZiBkYXRhLiBUaGlzIGlzIDIwMCUgb3ZlcmhlYWQuDQoyLiBhIFRTIHdy
-aXRlIG9mIDhCIGFsc28gY3JlYXRlcyBhIGNhY2hlIGxpbmUgYm91bmRpbmcgZHVlIHRvIHBhcnRp
-YWwgd3JpdGVzIGV2ZW4gaW4gbW9kZXJuIGNwdXMNCjMuIEFwYXJ0IGZyb20gdGhlIHNob3J0IHdy
-aXRlLCBiZWNhdXNlIGl0IGlzIGEgZGVkaWNhdGVkIGFkZHJlc3MsIHRoZSBETUEgY2Fubm90IGJl
-IG1lcmdlZCBieSB0aGUgZGV2aWNlIGZvciBpdCB3aXRoIHNvbWV0aGluZyBlbHNlLg0KDQpJbiBz
-aG9ydCwgYSBkZWRpY2F0ZWQgZGVzY3JpcHRvciBmb3IgVFMgdGltZXN0YW1wIG9yIGluY2x1ZGlu
-ZyB0aGlzIFRTIGluIHZuZXRfaGRyIGlzIG5vdCBnb29kIGlkZWEuDQoNCk1hbnkgb2YgdXMgYWxy
-ZWFkeSBkaXNjdXNzIHRoZSBuZXcgZGVzY3JpcHRvciBmb3JtYXQgdGhhdCBzb2x2ZXMgbWFueSBv
-ZiB0aGVzZSBpc3N1ZXMuDQppLmUuIHRvIGhhdmUgYSB0cmFuc21pdCBjb21wbGV0aW9uIHdoaWNo
-IGNvbnRhaW5zIGFsbCBuZWVkZWQgZmllbGRzIGluY2x1ZGluZyBUUyB0aGF0IGFsc28gb3ZlcmNv
-bWVzIGFib3ZlIDMgaXNzdWVzLg0KDQpXZSBjYXB0dXJlZCB0aGVzZSByZXF1aXJlbWVudHMgYXQg
-WzFdLiBQbGVhc2UgcmVmZXIgdG8gMy41LjEgcG9pbnQgMy4NCkl0IHdvdWxkIGJlIGdvb2QgaWYg
-eW91IGNhbiBleHRlbmQgdGhlIGRlc2NyaXB0b3JzIHRoaXMgd2F5IHRoYXQgY2FuIHdvcmsgZm9y
-IGh3Lg0KDQpbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvdmlydGlvLWNvbW1lbnQvMjAyMzA4
-MTgwNDM1NTcuNDk2OTY0LTctcGFyYXZAbnZpZGlhLmNvbS8NCg0KPiAgXGRyaXZlcm5vcm1hdGl2
-ZXtccGFyYWdyYXBofXtQYWNrZXQgVHJhbnNtaXNzaW9ufXtEZXZpY2UgVHlwZXMgLyBOZXR3b3Jr
-DQo+IERldmljZSAvIERldmljZSBPcGVyYXRpb24gLyBQYWNrZXQgVHJhbnNtaXNzaW9ufSBAQCAt
-Njc1LDYgKzY4MywxNyBAQA0KPiBcc3Vic3Vic2VjdGlvbntQYWNrZXQgVHJhbnNtaXNzaW9ufVxs
-YWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gTmV0d29yaw0KPiBEZXZpY2UgLyBEZQ0KPiAgI2RlZmlu
-ZSBWSVJUSU9fTkVUX0hBU0hfUkVQT1JUX09USEVSICAgICAgICAgICgxIDw8IDExKQ0KPiAgXGVu
-ZHtsc3RsaXN0aW5nfQ0KPiANCj4gK1xwYXJhZ3JhcGh7VGltZXN0YW1waW5nIGZvciBvdXRnb2lu
-ZyBwYWNrZXRzfSBcbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvDQo+ICtOZXR3b3JrIERldmljZSAv
-IERldmljZSBPcGVyYXRpb24gLyBQYWNrZXQgVHJhbnNtaXNzaW9uIC8gVGltZXN0YW1waW5nDQo+
-ICtmb3Igb3V0Z29pbmcgcGFja2V0c30NCj4gKw0KPiArSWYgdGhlIGZlYXR1cmUgVklSVElPX05F
-VF9GX1RYX1RTVEFNUCBpcyBuZWdvdGlhdGVkLCB0aGUgZHJpdmVyIHNldHMNCj4gXGZpZWxke2hk
-cl9sZW59IHRvIHRoZSB2aXJ0aW9fbmV0X2hkcl9oYXNoX3RzLg0KPiArDQo+ICtUaGUgZHJpdmVy
-IHNldHMgVklSVElPX05FVF9IRFJfRl9TVEFNUCB0byByZXF1ZXN0IGEgdGltZXN0YW1wDQo+IHJl
-dHVybmVkIG9uIGNvbXBsZXRpb24gaW4gXGZpZWxke3RzdGFtcH0uDQo+ICsNCj4gK1RoZSBkZXZp
-Y2UgZ2V0cyB0aGUgc2Vjb25kLCB3cml0YWJsZSBkZXNjcmlwdG9yLCBnZW5lcmF0ZXMgYSB0aW1l
-c3RhbXAgYW5kDQo+IHdyaXRlcyBpdCB0byB0aGUgXGZpZWxke3RzdGFtcH0uDQo+ICsNCj4gK0Zp
-bmFsbHksIGFmdGVyIHRyYW5zbWl0dGluZyB0aGUgcGFja2V0LCB0aGUgZHJpdmVyIGdldHMgdGhl
-IFxmaWVsZHt0c3RhbXB9IGZyb20NCj4gdGhlIHBhY2tldC4NCj4gKw0KPiAgXHBhcmFncmFwaHtQ
-YWNrZXQgVHJhbnNtaXNzaW9uIEludGVycnVwdH1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvIE5l
-dHdvcmsNCj4gRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlvbiAvIFBhY2tldCBUcmFuc21pc3Npb24g
-LyBQYWNrZXQgVHJhbnNtaXNzaW9uDQo+IEludGVycnVwdH0NCj4gDQo+ICBPZnRlbiBhIGRyaXZl
-ciB3aWxsIHN1cHByZXNzIHRyYW5zbWlzc2lvbiB2aXJ0cXVldWUgaW50ZXJydXB0cw0KPiANCj4g
-LS0NCj4gMi40Mi4wDQo+IA0KDQo=
+On Tue, Jun 25, 2024 at 04:09:07AM +0000, Parav Pandit wrote:
+> Hi,
+> 
+> > From: Manivannan Sadhasivam <manisadhasivam.linux@gmail.com>
+> > Sent: Monday, June 24, 2024 9:50 PM
+> > 
+> > Hi,
+> > 
+> > We are looking into adapting Virtio spec for configurable physical PCIe
+> > endpoint devices to expose Virtio devices to the host machine connected
+> > over PCIe. This allows us to use the existing frontend drivers on the host
+> > machine, thus minimizing the development efforts. This idea is not new as
+> > some vendors like NVidia have already released customized PCIe devices
+> > exposing Virtio devices to the host machines. But we are working on making
+> > the configurable PCIe devices running Linux kernel to expose Virtio devices
+> > using the PCI Endpoint (EP) subsystem.
+> > 
+> > Below is the simplistic represenation of the idea with virt-net as an example.
+> > But this could be extended to any supported Virtio devices:
+> > 
+> >            HOST                                    ENDPOINT
+> > 
+> > +-----------------------------+         +-----------------------------+
+> > |                             |         |                             |
+> > |         Linux Kernel        |         |         Linux Kernel        |
+> > |                             |         |                             |
+> > |                             |         |     +------------------+    |
+> > |                             |         |     |                  |    |
+> > |                             |         |     |       Modem      |    |
+> > |                             |         |     |                  |    |
+> > |                             |         |     +---------|--------+    |
+> > |                             |         |               |             |
+> > |     +------------------+    |         |     +---------|--------+    |
+> > |     |                  |    |         |     |                  |    |
+> > |     |     Virt-net     |    |         |     |    Virtio EPF    |    |
+> > |     |                  |    |         |     |                  |    |
+> > |     +---------|--------+    |         |     +---------|--------+    |
+> > |               |             |         |               |             |
+> > |     +---------|--------+    |         |     +---------|--------+    |
+> > |     |                  |    |         |     |                  |    |
+> > |     |    Virtio PCI    |    |         |     | PCI EP Subsystem |    |
+> > |     |                  |    |         |     |                  |    |
+> > |     +---------|--------+    |         |     +---------|--------+    |
+> > | SW            |             |         | SW            |             |
+> > ----------------|--------------         ----------------|--------------
+> > | HW            |             |         | HW            |             |
+> > |     +---------|--------+    |         |     +---------|--------+    |
+> > |     |                  |    |         |     |                  |    |
+> > |     |      PCIe RC     |    |         |     |     PCIe EP      |    |
+> > |     |                  |    |         |     |                  |    |
+> > +-----+---------|--------+----+         +-----+---------|--------+----+
+> >                 |                                       |
+> >                 |                                       |
+> >                 |                                       |
+> >                 |                PCIe                   |
+> >                 -----------------------------------------
+> > 
+> Can you please explain what is PCIe EP subsystem is?
+> I assume, it is a subsystem to somehow configure the PCIe EP HW instances?
+> If yes, it is not connected to any PCIe RC in your diagram.
+> 
+
+PCIe EP subsystem is a Linux kernel framework to configure the PCIe EP IP inside
+an SoC/device. Here 'Endpoint' is a separate SoC/device that is running Linux
+kernel and uses PCIe EP subsystem in kernel [1] to configure the PCIe EP IP
+based on product usecase like GPU card, NVMe, Modem, WLAN etc...
+
+[1] https://docs.kernel.org/PCI/endpoint/pci-endpoint.html
+
+> So how does the MSI help in this case?
+> 
+
+I think you are missing the point that 'Endpoint' is a separate SoC/device that
+is connected to a host machine over PCIe. Just like how you would connect a PCIe
+based GPU card to a Desktop PC. Only difference is, most of the PCIe cards will
+run on a proprietary firmware supplied by the vendor, but here the firmware
+itself can be built by the user and configurable. And this is where Virtio is
+going to be exposed.
+
+> 
+> > While doing so, we faced an issue due to lack of MSI support defined in Virtio
+> > spec for PCI transport. Currently, the PCI transport (starting from 0.9.5) has
+> > only defined INTx (legacy) and MSI-X interrupts for the device to send
+> > notifications to the guest. While it works well for the hypervisor to guest
+> > communcation, when a physical PCIe device is used as a Virtio device, lack of
+> > MSI support is hurting the performance (when there is no MSI-X).
+> > 
+> I am familiar with the scale issue of MSI-X, which is better for MSI (relative to MSI-X).
+> What prevents implementing the MSI-X?
+> 
+
+As I said, most of the devices I'm aware doesn't support MSI-X in hardware
+itself (I mean in the PCIe EP IP inside the SoC/device). For simple usecases
+like WLAN, modem, MSI-X is not really required.
+
+> > Most of the physical PCIe endpoint devices support MSI interrupts over MSI-
+> I am not sure if this is true. :)
+> But not a concern either.
+> 
+
+It really depends on the usecase I would say.
+
+> > X for simplicity and with Virtio not supporting MSI, falling back to legacy INTx
+> > interrupts is affecting the performance.
+> > 
+> > First of all, INTx requires the PCIe devices to send two MSG TLPs
+> > (Assert/Deassert) to emulate level triggered interrupt on the host. And there
+> > could be some delay between assert and deassert messages to make sure
+> > that the host recognizes it as an interrupt (level trigger). Also, the INTx
+> > interrupts are limited to 1 per function, so all the notifications from device
+> > has to share this single interrupt (INTA).
+> > 
+> Yes, INTx deprecation is in my list but didn’t get their yet.
+> 
+> > On the other hand, MSI requires only one MWr TLP from the device to host
+> > and since it is a posted write, there is no delay involved. Also, a single PCIe
+> > function can use upto 32 MSIs, thus making it possible to use one MSI vector
+> > per virtqueue (32 is more than enough for most of the usecases).
+> > 
+> > So my question is, why does the Virtio spec not supporting MSI? If there are
+> > no major blocker in supporting MSI, could we propose adding MSI to the
+> > Virtio spec?
+> > 
+> MSI addition is good for virtio for small scale devices of 1 to 32.
+> PCIe EP may support MSI-X and MSI both the capabilities and sw can give preference to MSI when the need is <= 32 vectors.
+> 
+
+PCIe specification only mandates the devices to support either MSI or MSI-X.
+
+Reference: PCIe spec r5.0, sec 6.1.4:
+
+"All PCI Express device Functions that are capable of generating interrupts must
+support MSI or MSI-X or both."
+
+So MSI-X is clearly an optional feature which simple devices tend to ignore. But
+if both are supported, then obviously Virtio will make use of MSI-X, but that's
+not the case here.
+
+> Though I don’t see it anyway related to PCIe EP configuration in your diagram.
+> In other words, PCI EP subsystem can still work with MSI-X.
+> Can you please elaborate it?
+> 
+
+I hope the above info clarifies. If not, please let me know.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
