@@ -1,162 +1,259 @@
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7999A187322
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Jun 2024 14:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719412831; cv=fail; b=bd0Cg1zs9ZrgSHDaEe9n5CR2LLza5LPyZzz2+6vhC5bDNbqXo7ZDxDa58gdNuSXsZ+3x3KAtK6q+VDztZFBqkRcDzyyd2xQCm7X9BCzWXWslTOHFUXUFaBreIotgi4Lx/CKffoCNzUlFapG0+8W6JpppcbM0a6qq/naIhvmIR74=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719412831; c=relaxed/simple;
-	bh=8WFCD9/iyo3l5E1fQoEpB4C5YRH+06RZW0Gn/Ld1Fqk=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=mZGQO0UqXFBwtV6WyY8jMSJNzYTo/+vJwr2j8oeCQG1oAdb+IN/rDzE0Tzl24WcJunwbwabN5NkVTh4ZON5nNqvgTgw1uj4Yux/OrqSbxhIUtKfbjntqudTR1Rnh6Yc3g2eWvtd82eLDCYepLxIoKwshpxgCc/VkBpG9ivoXvSc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pF3fAQGw; arc=fail smtp.client-ip=40.107.220.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8449B1F94C
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Jun 2024 16:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1719420866; cv=none; b=MnSoytTVay6ce+LtQImNdkwFeOBPJoxuerJ138baGtJLUS90XDE+dHoHxF0x5sg0TtpGRPG27aeLu2q5Srt4sL+SByItW0u1smWkQ4+7s24PXQU4HX73tjbJGJDzxR3mx1W7U/iu4Nu5Gnt5bV46ToH1EQQZtbLROYF+n6oxYqk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1719420866; c=relaxed/simple;
+	bh=7wdPYWkLPAd64P2bnJ5sSu88tOGXvn2mUC4bOy32XFQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IsjFkx7DH8shvr5oxasG2QgbWY4wd66JInDoKj9xDA4JBoTgjnlE6R3n8BJGKCJ/miQ7jvp4jDxhSS4yCqQ/hzN8OAPg4Zsq+dNnpOd25WIUvQVWRF73KI7zGyfwQkpHpbIPzqK8B15ZtJfxUyyxi9J+cQLPY3C5tomzNcy6Hmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W72Gde2Q; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pF3fAQGw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AzF+m7zmJ2HwHF0NaxW2tUQdkll2IyDi3ymw7Goh52cp7aWUoG1owoL+2XJY+cWutJ0OM5+Wp6wsjc3/v3siQOEBlrNncb2mWfa+acXrFgkeFw1F+W8wIYeI/EIY+cW2D4b9+0pTFLMEcF+TM1w0dZxqDCyjMkwI713CYjelcJUOTbW+OeS5hVeHV0z5O6zsFr7gCB7UwLSg9HTrvk8e44hwdIDCZcsXF+QwsanUYzUS5PZqe9h+OCffc2XnI5gSE04sKwUZMDKxLAi5cqsFAkwzn4SV13vQlbgYl4g5YVrZj0V/KVMWZQdED+lFzs/ywhPJ9jPuuj+YJgvrRJIuGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8WFCD9/iyo3l5E1fQoEpB4C5YRH+06RZW0Gn/Ld1Fqk=;
- b=m/EvOXKWELYGO1jfysRLdHSI8mESE/wkm0OvQf1FNj8dKMhF1BXieyegIaDI/7QNv1IAEIevBktpLTVDbJrz0AxxtV6M1QqrAJ6XtK6mi929r9GO7IIaNvRzi0CQdoUn8h9WOfwSGbhKiC6Ad0hf4NLmvAcOdWqR4R+ho3PM5Sot71LgnEEQL18Pmq/C4+r3EXom3zpDQVGrK/370JK2E6EAaUTGMrJ0WOjCYrnA1Sp3EWFR9v8CvUzJTAZq9/J6eUBJOA8QtT/t1hzxEao7m75N8sL4AXjGakaCE4O6cQjpHC3NuVmJt780HuHJ7/VfAoMS8dDlFMdruMkb5H7U6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8WFCD9/iyo3l5E1fQoEpB4C5YRH+06RZW0Gn/Ld1Fqk=;
- b=pF3fAQGwcEF3JG5bLrfMLV9U3Q/ebpVHTaPSZw+9Rne7hkTc58k/7VDmc9v05NVgUvO1kwTKgfI1VIC4MP/eTZn/ZAKhrN8KMBt4oM+MAfrcmDXKAuGgPHx40r97tTPizn6Gq08QqEl9Djmil1skzGh2jRmGprWb6xZT2GiiW/4n6DRBkE0KgKdRTz754bYeqOHnNwKKOf0nYkEmYJM7pSG9EqwNgRaJHJ3EYGjo9YjcqXdgS851P5ChUAUE+ViI4vxt/68Fe2TPLuullRPdOp8ZMnBMwmTZFzir1C3a/PzSvAGWOEFJKU8mfm/s0qEBwv9uVRzTLTcPrztH2oPvrw==
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15)
- by DS7PR12MB6192.namprd12.prod.outlook.com (2603:10b6:8:97::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7698.30; Wed, 26 Jun 2024 14:40:25 +0000
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd]) by PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd%3]) with mapi id 15.20.7698.025; Wed, 26 Jun 2024
- 14:40:25 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
-Subject: [request for vote] device parts handling
-Thread-Topic: [request for vote] device parts handling
-Thread-Index: AdrHyVZkEjB1ZfRxS/2TvCnwroHnPg==
-Date: Wed, 26 Jun 2024 14:40:25 +0000
-Message-ID:
- <PH0PR12MB54817857762DE886D9684E46DCD62@PH0PR12MB5481.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS7PR12MB6192:EE_
-x-ms-office365-filtering-correlation-id: 04bbd5d0-ffe9-4fc8-150c-08dc95edea82
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230038|366014|376012|1800799022|38070700016;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?7xrmSJH6Y71qKIQ62pJgsYY/6yQi+vGTjZjUJCRxLNeFfF0vT5jfs50+fCju?=
- =?us-ascii?Q?5J5ESnbkxyWYGHNcEaOuWg7JDnYeSBPDpnKLspnD/rzjU+/a3IWSBC1Il2S4?=
- =?us-ascii?Q?V1WQg1FWsaND7vPuDVy9aUzzSesgshCXItJSiEUDOdXfd5pIOeTtqTVH6CmG?=
- =?us-ascii?Q?D/OQl0at+fCzSxPGsoPHvr9RdsznKayaacmKjOpb384x/ALmKiiJlT2HnxM9?=
- =?us-ascii?Q?OBgml1WndJiWVWzwV2bX+rn1FjbxL4npB4HgL6mH9wCiaV8GBhuNPg63Ijru?=
- =?us-ascii?Q?vLGCqAkKnQW5meKQm/HWZF0FOksLbS7HyvfMTfdqp6rAPvA81oYTrhr+3sqp?=
- =?us-ascii?Q?pYfwKc+GyQb3zHwtwOAEmjsXfSUYzMsBRGLS7Bqua4x6B49X0R95Gb/YDsJD?=
- =?us-ascii?Q?o2riGw+sPfg/kInEOc4ZSA1F+05pJLGj7vMsUpzKCE8zhuQNEy/E3EjM50xC?=
- =?us-ascii?Q?D9y0UHB1sM53z6HGpi2GCSpF6y3uz1YnaTzq4HCFXYGjxWvLlClXg45s3y6I?=
- =?us-ascii?Q?WpulpsEPD5CWP66oj324X2vMrxg+dX5MeYci0AiZ+l1MwESuGA9aDIgkwk5F?=
- =?us-ascii?Q?PEJsgofCV2vxQZ1yfRcUrDK1L6QtX0uWvq1ky3sCKghFjA9sXltzIJ7oYEiE?=
- =?us-ascii?Q?B4/Vs+XeINaB7Lhy4q5P/92Uyhq5Eo/ATE9XG6llmtmDa8pA4C5S5l2MXHHh?=
- =?us-ascii?Q?nE2fPFavCcplUwI1cKPnrMBWGUzfMM0J8YO6kFWPRaUzhCxqdAcKlC1hbptv?=
- =?us-ascii?Q?piZKNZmBL9eBoXV5WA68MPOeObMvbn5sI+fP0AnO9lc9y6iHh1+t7xgLicfl?=
- =?us-ascii?Q?Ab3bbh9yGvsyDgJ8+jjHJ6wWg4kc4m+CqozOWesLpI2002OaXs3PZ/qDbuJW?=
- =?us-ascii?Q?TtC+aIatW1fJDCoTSlai7tDfzc/i9iD+pLsIbJXsfGfWAJoxNcWsKV/CjNCH?=
- =?us-ascii?Q?dR/3ROvnCdmeyF6BWv9HZDQhh65yl313hTcHyeBJHf2PEtsXyV48F37rWkgt?=
- =?us-ascii?Q?VA1vbbkUhYr7YfYeWJBbcxb9flWIvbmGBz0c9N0YkSS/ouPusofQtjWkiXZ1?=
- =?us-ascii?Q?Fr/eJuZxSq0ZF0UvNpBTBaS8Bt22h/bM4g/a9FhN2oDUrUa/RfmMi9A8wR6w?=
- =?us-ascii?Q?P6APHeOC8w1c1n/woV/sEXDU5zt+kOlFJffToYgtkSHOtEVLVKymUCh3bgeo?=
- =?us-ascii?Q?ZRr4BFupRWlriI6MOqhDZGbNdJalfSRNRDWwmOoCev3fvSLmfsujgWGYHi17?=
- =?us-ascii?Q?c9vNZ8hk3MR5YqIPcm7eNS/JcXUTrBj/iI+AnnvNNA22AmoJ/3rVx5cK2LLY?=
- =?us-ascii?Q?qzuWyOlhviRwh2tZcZRMpS8O?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230038)(366014)(376012)(1800799022)(38070700016);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?LGJPMp6XcEO2lJGJSug/LLpDWKRJuLFiD5CGaM866GAsEsPy9WxML7uVAWz6?=
- =?us-ascii?Q?xX+jgxmRBtPjHKl6f6n1iFPRjYKYcTgwmyEfVK7CSvIr4cTDZhXZBy+mMfO9?=
- =?us-ascii?Q?RxFNa+2mWD9vOKg8OkbgEbBK/h+e3VtSCb10V6FYcgW0NMlJTAvU2er/r/Rb?=
- =?us-ascii?Q?HQNmARqIP6baABOYkmw011j2Z3o/wMtN5UW7XGcD12b912S7wMu1xlnNVtTG?=
- =?us-ascii?Q?OOh7w7lcgstAsTsAK+VMB4hLp36+F5GVYgd3axsap+7KCvu2hUC/5OezqIO7?=
- =?us-ascii?Q?Kn2vvcjDI24zrwccSxJgOMtyLK+veler6X/XBONVs3ohbg2I3Bw/mub1EmjC?=
- =?us-ascii?Q?oThOdDWs/oAsWnadgESWdUh2dL8L+oXHADVJBMTKfB2E/NusaD1yJfoGa7sG?=
- =?us-ascii?Q?iI/JKZZT0QpQDHZJmMWoNC2OuQGC7yIDBG96N9BjAJSTY+X5++e1HEmrNHEi?=
- =?us-ascii?Q?syuCB1Dc4yF/ClhSFRAnTX1NQ/OHhdt7eioYl+wrxg3+tTfsPrtNqgu3If2f?=
- =?us-ascii?Q?G4avgnF+vFCHPyHTVVQeuu7jXYwvQxwZ7DBUjd5bZLONz8e0C2UlMHv224Fo?=
- =?us-ascii?Q?yT7eXx/ek84zaVd1oxTb5neyzbuo6O4fHbhXJfajrqbL9yqYqPNzZDcwrmcb?=
- =?us-ascii?Q?HD4huShUuFf12yUAni1Bhk2vMhLBLKGJ27GmZrMXc/Be9Fz2jTx83qTUgwQC?=
- =?us-ascii?Q?IsFIB3Q43i2yLZpeScwWVRTUx7w5hHkzhLY4pz82sHNq8x37aEAbdf7Z8HYF?=
- =?us-ascii?Q?FoB97+ZbOBengreQu48z4SZsJc2xgyXO9NOr6VWy7r7t5jbw09gVjLMy5f1H?=
- =?us-ascii?Q?y544SGP/rUcdtrBoa1cjakdQNERc2teooJghAsom++PSJWq7st7Uod1Poltq?=
- =?us-ascii?Q?fqHi6WW0MsJjq86WrzqxdxUgFdYNodP1do1Lq7yqRKaNnVQXi8IcCx6mUkiC?=
- =?us-ascii?Q?tMjZ+BIITfMkECKvqZ/17lmx2pBs84QKwhJmDiQ5LFBVJk4VklCcdgNpOa7U?=
- =?us-ascii?Q?MiIddh5QmLsIG76y7i73IP1lRys2HyLoO6EqK9O9mYb2+T8Ljh5YiRhLCpfS?=
- =?us-ascii?Q?nleLO96fL50b0mcG2EJJeHxV5MNXDeQx4t7G17/REru4mDAQRD9BpyGj+/rm?=
- =?us-ascii?Q?Chy/Fj7S2h8IkYAj6UO3rteArJKhM12B7pBxVksHqJZAW8M/mihZn63Sx4Av?=
- =?us-ascii?Q?jMu5UOs566pvYJ9rqRtJBS4yHjxu9V9OMbW+I0e09FV2R7vCteXOSPzfbDSQ?=
- =?us-ascii?Q?l5VQvDZ0UyYin2kOiuapcrosZfLc1s2GKGNeLRmXSwSlRnoWiPlRDxY6b6mB?=
- =?us-ascii?Q?XlHa4BQCThPa0i7yFBXFn/QXfQ6QI+hTnqkaA4veEMdnVhwuHJcmrjtdThZm?=
- =?us-ascii?Q?wuq1dRT9EzZsNPG5RIDS6C5GXPSFuPFqoH1G/xwJ0O2vBG0Xxze8J2yojWxw?=
- =?us-ascii?Q?HM9SEV5ZLtdV061Z+sdW9VPvatN6cWlvCIypRL+4tlq8XJmmNKFsFKd84uXB?=
- =?us-ascii?Q?IXal1T0B5mEpIJQkksZuhif+6dXWEOJhIuw5lQwPfljqQM0HAaEqBptBwKw9?=
- =?us-ascii?Q?DRnraJCLs/CGImH1HxE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W72Gde2Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1719420863;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BNvdPT/G0bxEe8Nw+Zv8Z0DcziCyoIIg2AZDUm3IYns=;
+	b=W72Gde2QaOyVgEuqM2FSWGaaXNTs9hbVNa7UGSpfZ0UGD5zHEdBa+3d6x4Zswx1tqYhMKd
+	GKaIdZw17QRyF0XMMwYI8rDUoE4i3McsG3L9In+zU5ifImosNBNqyPB1ki6/yPLq1GguD/
+	fzRhg1wkxhoVrtw+54uRaZLaRohAKz8=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-12-Sg4M4UM_MJSpcznWOoavzg-1; Wed, 26 Jun 2024 12:54:20 -0400
+X-MC-Unique: Sg4M4UM_MJSpcznWOoavzg-1
+Received: by mail-yb1-f200.google.com with SMTP id 3f1490d57ef6-e02f2c852f3so10406387276.0
+        for <virtio-comment@lists.linux.dev>; Wed, 26 Jun 2024 09:54:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719420859; x=1720025659;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BNvdPT/G0bxEe8Nw+Zv8Z0DcziCyoIIg2AZDUm3IYns=;
+        b=fLkhTYhT92e2t6j38PCXgwniFPb0gX8zMzOxxrAH1Q5zCkp13GmGLyHuRR24pKOGok
+         XAdsEWSIKVyQDSM4KUuoQ1TYPE+iLK0Towg7Mp939bzL6d78n4BGfHzwHP0wWNDa8FCU
+         PCXGasL1PhIxvLJUhXldBg+jgph33g91mcPUG4kl9Ehhzeh/V0t7yLIZfflktFgJLQ0q
+         FLzJSTJuBafli+8Bbr6/VWLfJ6VrNW42FYEhvwgu//1J0ggmGvbEQogqNWcvKeYDA3GP
+         cnbA91ITHwCPu4gfl3zCdK87rL5uDd5ID6HeS6XBqSqrk/Ts2Lq6u7rk6HQSg9uaxxWu
+         g3lA==
+X-Forwarded-Encrypted: i=1; AJvYcCXllm8ej2YnbQLH9DnVry2SmQXuW51bqgST1prNMZe2FeJ1O82u+uLBWCr4X9YXoMCBw/indKyyMRfy1F+CsGuQbk2OxMmtiI4CB9D0rBM=
+X-Gm-Message-State: AOJu0YzoptUppMTx4MyFoA+KH4j0omHfzamWE4WKgBzLjtJt8YTTUwox
+	JFBVbisPVcZL7iD1SOoSQdthcchbkHb/xoDnDe0TcoydVovjb2xFwU9+Ypd9mL1/Bvw2FM2nxiE
+	oDpiFhg9SJCzegTNzDv8/mmT2Z8qY0LhiqtbEkaTQWMbKPUrceeXS01fwU7JZGW8/JWih6M2G2S
+	VmDwtINW3zFiSJdCdfh86Pvdo+A9XSIbmfwks46YE=
+X-Received: by 2002:a25:7412:0:b0:dfd:bd4d:c0d6 with SMTP id 3f1490d57ef6-e0303eb2dfbmr10884866276.7.1719420858741;
+        Wed, 26 Jun 2024 09:54:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH+r5r7yPYdyyZR1qdtPXIXyQWMs/ua7AP56SFvQBNvxApJvFKYly4Ro0YbYXNV6+XdfCBiGNDMLp6dLQNrjZI=
+X-Received: by 2002:a25:7412:0:b0:dfd:bd4d:c0d6 with SMTP id
+ 3f1490d57ef6-e0303eb2dfbmr10884848276.7.1719420858324; Wed, 26 Jun 2024
+ 09:54:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04bbd5d0-ffe9-4fc8-150c-08dc95edea82
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2024 14:40:25.3818
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F8TvOEKv8c1+M70bwYar1zbOhJ3v5R8gRvuDBwBx2kyxDYJ4A/ae2dFv5cW2qQq5WH0VoTXC0fpDXz4k3bD/Rg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6192
+References: <20240617015446.2723779-1-niuxuewei.nxw@antgroup.com> <nlwexda7v2vo7o5c5i3ssrwj4t6vxzny63hgemwotvd7dmf3gm@cmp4jkxf4k6i>
+In-Reply-To: <nlwexda7v2vo7o5c5i3ssrwj4t6vxzny63hgemwotvd7dmf3gm@cmp4jkxf4k6i>
+From: Stefano Garzarella <sgarzare@redhat.com>
+Date: Wed, 26 Jun 2024 18:54:05 +0200
+Message-ID: <CAGxU2F4g7OxQK4hO9UBLSJVvmAE38gVUzcmzAzYR7gbeChnSzQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v3] virtio-vsock: Add support for multi devices
+To: Xuewei Niu <niuxuewei97@gmail.com>
+Cc: mst@redhat.com, fupan.lfp@antgroup.com, virtio-comment@lists.linux.dev, 
+	Xuewei Niu <niuxuewei.nxw@antgroup.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Michael, Cornelia,
+On Mon, Jun 24, 2024 at 3:30=E2=80=AFPM Stefano Garzarella <sgarzare@redhat=
+.com> wrote:
+>
+> On Mon, Jun 17, 2024 at 09:54:46AM GMT, Xuewei Niu wrote:
+> >This patch brings a new feature, called "multi devices", to the virtio
+> >vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+> >"index" field to the config for the virtio vsock.
+> >
+> >I've pushed a version of code for the implementation of multi devices to
+> >lkml [1]. You might also refer to a google doc [2] for multi devices
+> >details regarding motivation, implementation, use cases, etc.
+> >
+> >[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niux=
+uewei.nxw@antgroup.com
+> >[2] https://docs.google.com/document/d/14RUDEesi86EBZigVxxFsjxAl2OslPFpl=
+LyXMHiyDgYs/edit?usp=3Dsharing
+> >
+> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+> >---
+> >v2 -> v3:
+> >- Merge the two commits into one.
+> >- Add some descriptions regarding the "index" field: the default device =
+and
+> >  the type.
+> >- Add some descriptions about how multi devices are initialized in the
+> >  Device Initialization.
+> >
+> >v1 -> v2:
+> >- Rename the feature to "VIRTIO_VSOCK_F_MULTI_DEVICES".
+> >- Remove description from the relationship clarification.
+> >- Remove implementation details from commit message and documentation.
+> >- Rename the field from `order` to `index`.
+> >- Rewrite the introduction about the `index` field.
+> >- Add a case for sending message from the guest.
+> >---
+> > device-types/vsock/description.tex | 38 ++++++++++++++++++++++++++++++
+> > 1 file changed, 38 insertions(+)
+> >
+> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/des=
+cription.tex
+> >index 7d91d15..190f123 100644
+> >--- a/device-types/vsock/description.tex
+> >+++ b/device-types/vsock/description.tex
+> >@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Soc=
+ket Device / Feature bits}
+> > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not i=
+mplied.
+> >+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple device=
+s.
+> > \end{description}
+> >
+> > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket De=
+vice / Feature bits}
+> >@@ -52,6 +53,7 @@ \subsection{Device configuration layout}\label{sec:Dev=
+ice Types / Socket Device
+> > \begin{lstlisting}
+> > struct virtio_vsock_config {
+> >       le64 guest_cid;
+> >+      le16 index;
+> > };
+> > \end{lstlisting}
+> >
+> >@@ -77,11 +79,42 @@ \subsection{Device configuration layout}\label{sec:D=
+evice Types / Socket Device
+> > \hline
+> > \end{tabular}
+> >
+> >+The \field{index} field indicates index of a device, and is required fo=
+r
+> >+each device while the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
+> >+negotiated. The size of the \field{index} is 16 bits which supports up =
+to
+> >+65,536 devices.
+> >+
+> >+The device with the lowest index is considered as the default device. P=
+lus,
+>
+> Should we explain what "default device" means here?
+>
+> >+it works fine with hot-plug and hot-unplug. When adding a device at run=
+time
+> >+to be the default, assign it the lowest \field{index} without changing =
+the
+> >+configuration of the previous device.
+>
+> I'm not sure it's worthwhile here to talk about hot-plug/unplug.
+>
+> >+
+> >+The device is responsible for populating the \field{index} field. The r=
+ules
+> >+for \field{index} are:
+> >+
+> >+\begin{itemize}
+> >+\item It doesn't have to be continuous. For instance, three devices wit=
+h
+> >+the \field{index} 1, 2 and 5 respectively are acceptable.
+> >+
+> >+\item It cannot have conflicts. For instance, three devices with the
+> >+\field{index} 1, 1 and 5 respectively are prohibited.
+> >+\end{itemize}
+>
+> Maybe we should put this second point in a normative section.
+>
+> >+
+> > \subsection{Device Initialization}\label{sec:Device Types / Socket Devi=
+ce / Device Initialization}
+> >
+> > \begin{enumerate}
+> > \item The guest's cid is read from \field{guest_cid}.
+> >
+> >+\item Check for multi devices support:
+> >+\begin{itemize}
+> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiat=
+ed,
+> >+    the device's index will be read from \field{index}, and the driver =
+will
+> >+    allow multi devices.
+> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature isn't negotiated,=
+ the
+> >+    device's index will be ignored, and the driver will deny the second=
+ and
+> >+    subsequent devices.
+> >+\end{itemize}
+> >+
+> > \item Buffers are added to the event virtqueue to receive events from t=
+he device.
+> >
+> > \item Buffers are added to the rx virtqueue to start receiving packets.
+> >@@ -167,6 +200,11 @@ \subsubsection{Addressing}\label{sec:Device Types /=
+ Socket Device / Device Opera
+> > consists of a (cid, port number) tuple. The header fields used for this=
+ are
+> > \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port=
+}.
+> >
+> >+In the case of sending packets from the guest to its peer, if the
+> >+VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated and the
+> >+\field{src_cid} isn't specified, the \field{src_cid} should be set to t=
+he
+>
+> It's unclear here, can you elaborate more on what you mean?
+> src_cid should always be specified by the guest.
+>
+> If you want to talk about the bind instead, maybe we should say
+> something like:
+>    When the driver supports multiple devices (feature
+>    VIRTIO_VSOCK_F_MULTI_DEVICES negotiated), if the transmitting
+>    socket is not bound to any specific address, then src_cid should be
+>    assigned with the CID of the default device.
+>
+> Or something like that.
+>
+> >+CID of default device.
+> >+
+> > Currently stream and seqpacket sockets are supported. \field{type} is 1=
+ (VIRTIO_VSOCK_TYPE_STREAM)
+> > for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpac=
+ket socket types.
+>
+> On line 234 we have the following normative:
+>
+>      \drivernormative{\paragraph}{Device Operation: Receive and Transmit}=
+{Device Types / Socket Device / Device Operation / Receive and Transmit}
+>
+>      The \field{guest_cid} configuration field MUST be used as the source=
+ CID when
+>      sending outgoing packets.
+>
+> Should we extend that paragraph to specify what source CID should be
+> used when VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated?
+>
+> Should we also considering changes in `struct virtio_vsock_event`?
 
-Can you please start the ballot for the device parts series [1]?
-It is for the github issue: 176.
+Forget about this last question, `struct virtio_vsock_event` contains
+just the id of the event, then the driver needs to access the config
+space.
 
-This series has been for review for 25+ days.
+Stefano
 
-Series [1] is jointly authored, by:
-
-(a) Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
-(b) Signed-off-by: Parav Pandit <parav@nvidia.com>
-
-It has been also further reviewed by external SMEs from various areas:
-
-(c) Jason Gunthorpe <jgg@nvidia.com>
-(d) Yishai Hadas <yishaih@nvidia.com>
-(e) Kailiang Zhou <kailiangz@nvidia.com>
-(f) Yajun Wu <yajunw@nvidia.com>
-(g) Gal Shalom <galshalom@nvidia.com>
-
-[1] https://lore.kernel.org/virtio-comment/20240601145042.2074739-2-parav@n=
-vidia.com/T/#u
-
-Regards,
-Parav Pandit
