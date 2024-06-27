@@ -1,211 +1,283 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EEB196438
-	for <virtio-comment@lists.linux.dev>; Thu, 27 Jun 2024 14:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928C019883C
+	for <virtio-comment@lists.linux.dev>; Thu, 27 Jun 2024 14:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719497572; cv=none; b=G0TTCSOPvVzqe5x306zqVGSo4t9MvIbZOK7g8X1QYmeNh+atQdKpe447O8e5ff5pjC7/fEMXW7fqzTNI0TVAoS0FeJHXjPcc0cTZrET/yHwK8K4PxMtKfgfzmu04CPRHG9jLpyc/7Tx63ItZmjyg1IgXAg+q//Tfe4MLjWt1Wyg=
+	t=1719500352; cv=none; b=MAI0mTsqkSB4UNKBr11QM78HwHATpHTLt5TDYjZtn5mVelkm8tVoxbi0/4Dw/HlyaQIe6ZhC84wEeV78y+2nnNDYwgu50v08QZVksXuDPWCs9pFb7g/AjbH0KMMzhzwWKmwb8zD3ggd5Cbhu50OHX7GXFjGxbbR871bvGjBGn5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719497572; c=relaxed/simple;
-	bh=075DCVe1fv8UHAbcHXd9WyE6YGpiCfnoRSEtiGXaGlE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mfC9CS9t/V48/02u/TvHFwlOJ5OE+YQ610MYAIT+QKyNlUJJ4nEPZ9JwD2bMYN4nZqiS/4CwR6yTehyM7ANyqd6CL/cSp2iv0VMR6jz8KlPbEBOw0o75gbjgDFV3xcDVQuJzLXjcXI4xEMOnvg6L8yaBzwj3kBC6X6pKZOus8yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BOZA00ff; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1719500352; c=relaxed/simple;
+	bh=8xiwEu4I63kUGN0pBO4cL69Z8R435ZFEHilouv8eB3w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=oV8uWY5UquVy2MgQVoOC+Z98VPJCpF0AnS+f/6ka9ONiDp0Rr2KOs/PNurQXsW96UurRcWWhlcHDjr33YfyB8+uXBkWpkF/KN4WuICjDyRtOagolDTSIolC+apayLmcEO71iX3n+B8vFUDwemVhjJvf9nZLjl6JVIc+YrcmhnRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AiNagbFQ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BOZA00ff"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=075DCVe1fv8UHAbcHXd9WyE6YGpiCfnoRSEtiGXaGlE=; b=BOZA00ff83kAAvy9HLrmxSPS6j
-	qC/DmrDikSukJnHvMCeCIGfXOiqsZMD1OV0Vax41ACG9YP0eyUcXjlYeWbAGJCEM/Ra6Dsrdy9Gyb
-	cz0GDGW5+13+Qnz8AKviE4sCeEsAM5rvvaHnDanGAdKYBTcPXjQm7UNh6Fh+U+n0Bja0iMn8P1pT6
-	CBglSxIjyh1GZltXC7xPsjiegf5mZgPJU5oYPtSMF1sv0GbMg3R5Vj3u4+WU7j2koEmxMZTCQ70b8
-	qUyTL89hlfUwvL98h3PFWMon8SPVO83pLgn8FLnvLqgKU2o1W/OWMm8nkJLLAu5Y9nuFgKFZeAEnn
-	G+SDeoGg==;
-Received: from [2001:8b0:10b:5:3c45:b7d:c34d:ab5f] (helo=u3832b3a9db3152.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1sMpri-0000000DcdI-1KLI;
-	Thu, 27 Jun 2024 14:12:46 +0000
-Message-ID: <b46bc9dad7dc83fb8d824fa4903c791b2e91178a.camel@infradead.org>
-Subject: Re: [RFC PATCH v4 5/5] virtio-rtc: Indicate leap seconds and clock
- performance
-From: David Woodhouse <dwmw2@infradead.org>
-To: Peter Hilber <peter.hilber@opensynergy.com>, 
-	virtio-comment@lists.linux.dev
-Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
- Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>,
- rluu@amazon.com
-Date: Thu, 27 Jun 2024 15:12:44 +0100
-In-Reply-To: <8595d22e-aa0e-488a-81bd-9191a678e4cd@opensynergy.com>
-References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
-	 <20240522170003.52565-6-peter.hilber@opensynergy.com>
-	 <d9d0ea80934b024c7c3d8a1204eabcf40279a620.camel@infradead.org>
-	 <8595d22e-aa0e-488a-81bd-9191a678e4cd@opensynergy.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-Q54EYlEPqx4IiwZfsBoL"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AiNagbFQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1719500349;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IRB6PRwnuWiiCXMPU7XZj9uIksPiMGRvrHisPg/KM74=;
+	b=AiNagbFQTgiYyRxW9ONAx1xdLjRFTSX1plO/sq75RSuwhtrgNwNG+NCMoMA4e1WVZeUuoC
+	bvHHPbZxckxh0RiuxmcxpjBKsnY1UsFboheNI2Z17lFpybmGF4MyTo4v/7GDKsXvO1OQeX
+	mNc627JEwEGDD9UcUmjIfaAmsj6QH10=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-596-kJkKZN3QMKWTnilDMgucrw-1; Thu, 27 Jun 2024 10:59:08 -0400
+X-MC-Unique: kJkKZN3QMKWTnilDMgucrw-1
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-3669ccc3451so1493779f8f.2
+        for <virtio-comment@lists.linux.dev>; Thu, 27 Jun 2024 07:59:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719500347; x=1720105147;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IRB6PRwnuWiiCXMPU7XZj9uIksPiMGRvrHisPg/KM74=;
+        b=sU6qZ+/a1kTo0TotWHUlcJDe02OJ/h6uhpNFeXVHQU1b1CU/yZ/vYPpMEXa9rIN4+T
+         oPrG0GflkjS0Wsg9pVxjI24X61itEAHMUx8xzLNGt9g9kuE+yF+nAcUcKcWTix9nTj1D
+         nfgsp+cHjRa/Sl4M4MrNGmx/VesEe34Bdrns6dkQcZnoX2faDxo+KLC95lWt7ikEXlYG
+         hPyIIyXL+57EQU2AF1sQOLvSbYWzbJRn/nHyxG+Metj4PuyZJVYokoDwC86OXOS95Ea+
+         7fJBt/l/9mdHzW36W+Blp59Ofjxgr7l5bgEWls/fI3r6fCW+xhMEU2h84rF66DjjlqTe
+         TPBw==
+X-Forwarded-Encrypted: i=1; AJvYcCUkH9dBi0UyFTmmgMTV4rTpVD4i6OfLEA8Gk+eAzblBCSY+7XofMv8PQ38V3F1AiB4fJhMT8/nNwhll/VXJdEH/cNr45Fm5TaM9319kdE0=
+X-Gm-Message-State: AOJu0YxN3Lz857JA9Fx2SqggYX7ChnfFzReUWmdhZ5AeuDr7jJwo/9D4
+	AavaKNPHtPiOkMy2ePL7kHhaXh5iSUfvejtidx7dqiCnkIzBrhOrMXmJ68YmnoB6OkLwMZf3dAQ
+	1WxLbSQ5/kQFDjHoS9l4Vq7pbVgR20tWWGTPqNzkMTDju2vnob8uuQ5+gubqXHf2d
+X-Received: by 2002:a05:6000:10d:b0:35f:2f3b:ba90 with SMTP id ffacd0b85a97d-366e7a1955amr9860586f8f.18.1719500346915;
+        Thu, 27 Jun 2024 07:59:06 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFgCxKfJHk6UE25KVSZjD0Kd8ERjQERemcgtGDP/Y5yocRAXW/e4asQq48m75sP07fZ2lM6CA==
+X-Received: by 2002:a05:6000:10d:b0:35f:2f3b:ba90 with SMTP id ffacd0b85a97d-366e7a1955amr9860539f8f.18.1719500346157;
+        Thu, 27 Jun 2024 07:59:06 -0700 (PDT)
+Received: from redhat.com ([2a02:14f:177:a007:5be4:b928:19f7:7c2e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-36743585633sm2170454f8f.59.2024.06.27.07.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Jun 2024 07:59:05 -0700 (PDT)
+Date: Thu, 27 Jun 2024 10:59:01 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Halil Pasic <pasic@linux.ibm.com>, Si-Wei Liu <si-wei.liu@oracle.com>,
+	Heng Qi <hengqi@linux.alibaba.com>,
+	Cornelia Huck <cohuck@redhat.com>,
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
+Message-ID: <20240627105707-mutt-send-email-mst@kernel.org>
+References: <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com>
+ <1719020069.8729858-17-hengqi@linux.alibaba.com>
+ <f03e76fe-9ee8-4000-b41c-0b284f2f237d@oracle.com>
+ <PH0PR12MB54818CFB447152A25130F9B8DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <bca1e5e8-65af-4825-b6fe-2ca3b6c41feb@oracle.com>
+ <20240627123732.0cf541b3.pasic@linux.ibm.com>
+ <20240627080346-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB54810E5C9E7B309C5A296F7CDCD72@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240627084719-mutt-send-email-mst@kernel.org>
+ <PH0PR12MB5481AC5003763A6C07947DA5DCD72@PH0PR12MB5481.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <PH0PR12MB5481AC5003763A6C07947DA5DCD72@PH0PR12MB5481.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Jun 27, 2024 at 01:03:51PM +0000, Parav Pandit wrote:
+> 
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Thursday, June 27, 2024 6:23 PM
+> > 
+> > On Thu, Jun 27, 2024 at 12:45:49PM +0000, Parav Pandit wrote:
+> > > Hi Michael,
+> > >
+> > > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > > Sent: Thursday, June 27, 2024 6:05 PM
+> > > >
+> > > > On Thu, Jun 27, 2024 at 12:37:32PM +0200, Halil Pasic wrote:
+> > > > > On Tue, 25 Jun 2024 18:14:15 -0700 Si-Wei Liu
+> > > > > <si-wei.liu@oracle.com> wrote:
+> > > > >
+> > > > > > On 6/24/2024 10:56 PM, Parav Pandit wrote:
+> > > > > [..]
+> > > > > > > I saw the need of this proposal slightly differently in the
+> > > > > > > discussion with
+> > > > Heng in v4.
+> > > > > > > The way I understood is, proposed relaxation enables below
+> > > > > > > Linux driver
+> > > > flow to work as equally as without device offering
+> > > > VIRTIO_NET_F_VQ_NOTF_COAL.
+> > > > > > >
+> > > > > > > Flow is:
+> > > > > > > 1. The device offered feature VIRTIO_NET_F_VQ_NOTF_COAL 2. The
+> > > > > > > virtio-net driver negotiated VIRTNET_FEATURES that has
+> > > > > > > VIRTIO_NET_F_VQ_NOTF_COAL
+> > > > > > >
+> > > > > > > 3. Because VIRTIO_NET_F_VQ_NOTF_COAL is negotiated, device is
+> > > > > > > not
+> > > > applying any coalescing on the VQ, in a good hope that driver will
+> > > > perform VQ notification coalescing.
+> > > > >
+> > > > > I have certainly understood this differently. When
+> > > > > VIRTIO_NET_F_VQ_NOTF_COAL is not negotiated then the device is not
+> > > > supposed/allowed to do any interrupt coalescing (notification
+> > > > suppression may still apply).
+> > > > >
+> > > > > If VIRTIO_NET_F_VQ_NOTF_COAL is negotiated the device is supposed
+> > > > > to/MUST do the coalescing according to the parameters as described
+> > > > > by the virtio spec.
+> > > > >
+> > > > > Michael, Jason: Can you guys weigh in on this?
+> > > >
+> > > > I still don't understand why this change is needed.
+> > > > We have this text:
+> > > >
+> > > > 	The device may generate notifications more or less frequently than
+> > > > 	specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL
+> > class.
+> > > >
+> > > > and
+> > > >
+> > > > 	The behavior of the device in response to set commands of the
+> > > > VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
+> > > > 	the device MAY generate notifications more or less frequently than
+> > > > specified.
+> > > >
+> > > > So with no spec changes, devices already can do what this patch says
+> > > > they can do - send notifications less frequently.
+> > > >
+> > > > Re-reading this spec text, maybe the confusion is that it mentions
+> > > > set commands specifically? And it's also stuck in the middle where
+> > > > it's easy to miss.
+> > > >
+> > > > So it would seem that the following should be sufficient, and it
+> > > > looks like a small clarification we could just apply and include in
+> > > > the vote for the csd. What do you guys think?
+> > > >
+> > > >
+> > > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > >
+> > > > ----
+> > > >
+> > > >
+> > > > diff --git a/device-types/net/description.tex b/device-
+> > > > types/net/description.tex index 76585b0..d6788df 100644
+> > > > --- a/device-types/net/description.tex
+> > > > +++ b/device-types/net/description.tex
+> > > > @@ -1711,8 +1711,6 @@ \subsubsection{Control
+> > > > Virtqueue}\label{sec:Device Types / Network Device / Devi
+> > > >                                          for an enabled
+> > > > transmit/receive virtqueue whose index is \field{vq_index}.
+> > > >  \end{enumerate}
+> > > >
+> > > > -The device may generate notifications more or less frequently than
+> > > > specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
+> > > > -
+> > > >  If coalescing parameters are being set, the device applies the last
+> > > > coalescing parameters set for a  virtqueue, regardless of the
+> > > > command used to set the parameters. Use the following command
+> > > > sequence  with two pairs of virtqueues as an example:
+> > > > @@ -1726,6 +1724,9 @@ \subsubsection{Control
+> > > > Virtqueue}\label{sec:Device Types / Network Device / Devi  \item
+> > Command6:
+> > > > VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq_index} = 1, the
+> > > > device responds with coalescing parameters of index 1 set by command5.
+> > > >  \end{itemize}
+> > > >
+> > > > +The device can generate notifications more or less frequently than
+> > > > +specified by the coalescing parameters.
+> > > > +
+> > > >  \subparagraph{Operation}\label{sec:Device Types / Network Device /
+> > > > Device Operation / Control Virtqueue / Notifications Coalescing /
+> > > > Operation}
+> > > >
+> > > >  The device sends a used buffer notification once the notification
+> > > > conditions are met and if the notifications are not suppressed as
+> > > > explained in \ref{sec:Basic Facilities of a Virtio Device /
+> > > > Virtqueues / Used Buffer Notification Suppression}.
+> > > > @@ -1798,7 +1799,7 @@ \subsubsection{Control
+> > > > Virtqueue}\label{sec:Device Types / Network Device / Devi  Upon
+> > > > disabling and re-enabling a receive virtqueue, the device MUST set
+> > > > the coalescing parameters of the virtqueue  to those configured
+> > > > through the VIRTIO_NET_CTRL_NOTF_COAL_RX_SET command, or, if the
+> > > > driver did not set any RX coalescing parameters, to 0.
+> > > >
+> > > > -The behavior of the device in response to set commands of the
+> > > > VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
+> > > > +The behavior of the device in response to specific coalescing
+> > > > +parameters is
+> > > > best-effort:
+> > > >  the device MAY generate notifications more or less frequently than
+> > specified.
+> > > >
+> > > >  A device SHOULD NOT send used buffer notifications to the driver if
+> > > > the notifications are suppressed, even if the notification conditions are
+> > met.
+> > > >
+> > >
+> > > Your changes above are good and they are applicable when the specific
+> > coalescing parameters are set by the driver.
+> > 
+> > What makes you say this?
+> Because I was reading this in the CVQ section of the spec where CVQ commands are setting it.
 
 
---=-Q54EYlEPqx4IiwZfsBoL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+So? Reset also sets it.
 
-On Thu, 2024-06-27 at 15:49 +0200, Peter Hilber wrote:
-> The idea with subtypes is to be forward-compatible with other, yet unname=
-d,
-> leap second smearing variants, so that the driver can still recognize the=
-m as
-> UTC-like, even if it doesn't know the particular subtype.
->=20
-> But if only linear smearing (and perhaps cosine smearing) would be suppor=
-ted
-> (apart from "unspecified" leap second handling), and the start and end ti=
-mes of
-> smearing would be indicated explicitly, then there would be no need to
-> distinguish subtypes any further.
->=20
-> Then, the smearing subtypes could become designated types.
+> > No they apply universally whenever parameters are specified by the spec:
+> > whether parameters are set by driver or by device.
+> I see. Upon reset they are set to 0 in the below text, means no coalescing, means quick interrupts, right?
 
-I don't think we should encourage this concept of "UTC-like". If the
-clock is subject to smearing, then that is *not* UTC, at least as far
-as a precision clock is concerned.
-
-And if it's subject to smearing that isn't *explicitly* defined, that's
-even worse. It's up to a second away from UTC, with a deliberately
-introduced 'error' which is unpredictable by the guest.
-
-Perhaps the guest could treat such an undefined smearing as a monotonic
-clock, but nobody who cares about precision should treat it as UTC,
-surely? Or even "UTC-like".
-
-We should expose only fully-defined smearing algorithms, and if they
-are fully defined then they can happily be a top-level *type* rather
-than a subtype, yes? Let's not have anyone accidentally consuming them
-and thinking they're UTC.=20
+But device can make them as slow as it likes, spec says so.
 
 
+> > Is that unclear somehow?
+> > I suspect you are just reading the wrong part of the patch ...
+> > 
+> > 
+> > > The issue that is being resolved is, when these parameters are NOT set by the
+> > driver, when feature is negotiated.
+> > > What should device do?
+> > > The parameters are not specified...
+> > 
+> > They are specified - set to 0.
+> > 
+> > > The spec says " Upon reset, a device MUST initialize all coalescing parameters
+> > to 0.".
+> > 
+> > yes. and device can then coalesce if it wants to.
+> > 
+> You mean 0 means coalescing is disabled (and not quick notifications) ?
+> And hence, it is device chosen value?
+> If so, that interpretation would work too.
 
---=-Q54EYlEPqx4IiwZfsBoL
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNjI3MTQxMjQ0WjAvBgkqhkiG9w0BCQQxIgQgQtkFKYG+
-pC5yFNQo7Jm2cMn3sz2pjNT7sDexxx9+eQUwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgB2pIr6MY9yKGEjTtz8NC1IE0IKsRBssrs/
-nTtjD0EPNAgYTS4CtGFOarvhIfWdQWZzexSCEe3RhaFqTyFzupTt6/DZl1Btdn6p6lG0BezHGW2J
-n19grTgvkJ5EEJSy5GHF/ZAC6UZCoSu8UX7gzOxIxP7aczSW57zQrTiCjfJy2SXk2vgnY4/Z0q63
-cKvK7bfAhONbRVDg+PXf/V7Q2B7OtGwG9PtlaAxPKD2Ysbxu2cFKSGTStKQ3PRVvmqCvU6s9GnBO
-CkaTk+/y+D49DcDa2D1e7XWb4arng53SZ9mLAGI7TK5TrXL8Nesny92T0Ik4y4H49bLTxjEcnBYa
-8E2FnSnrhoJGRlhuTMBeiVZ9iWXsob62mWydse08wSp4zA/d700DUQ1psU2FABrl1wstoF1hpYCs
-b6gwuvbUQDC2HLGjYy0zbbYo5apNLGIBjs8HFUQq54znYah9B0R3/JBOWD4lfMUh8gat/28WhE8U
-1pA2yCyktq6gsmUjj+A7DgTcN7TOGv81kH1n7m262DN74CQmqK0ZxVVPT28+T8pduC4tozArObu8
-SLUU2RnPQC8AuQTyA8xtv05IMdW6TTegUNq25+SjQV0GOMbfxy5d5fS6YRFHcoFAhxSBPzOdkIPm
-CZCYdW296gnhT5eP9bxOnjINSUWj0OP2vpy/vQH+6QAAAAAAAA==
+No 0 means send notification after any # of packets.
 
 
---=-Q54EYlEPqx4IiwZfsBoL--
+> > > And Heng attempt is to clarify that by adding a changing above line
+> > > something like,
+> > >
+> > > "when driver does not set coalescing params, but have negotiated the
+> > feature, device may generate notifications more or less frequently than
+> > specified".
+> > 
+> > 
+> > Maybe that is the intention, but the proposed text is instead saying the
+> > parameters themselves are !0. 
+> A clarification like above would be better or 0 means device chosen parameters would also work fine.
+
+
+> > Which is what triggered the whole mess with a
+> > misvote: commit log says it's a clarification when it is actually a behaviour
+> > change.
+> > 
+> It is a behavior change to fix/restore.
+> But if you suggest: 0 means device chosen value, that will work too to restore current regression.
+
