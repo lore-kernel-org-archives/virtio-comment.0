@@ -1,59 +1,62 @@
-Received: from refb01.tmes.trendmicro.eu (refb01.tmes.trendmicro.eu [18.185.115.53])
+Received: from refb02.tmes.trendmicro.eu (refb02.tmes.trendmicro.eu [18.185.115.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412891E49D
-	for <virtio-comment@lists.linux.dev>; Thu, 27 Jun 2024 13:17:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455E3187325
+	for <virtio-comment@lists.linux.dev>; Thu, 27 Jun 2024 13:51:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719494224; cv=fail; b=LPhKpRq3IuCamadWJPQHk5hRaS1d1J+dIXIScw+1trLX41+Pox8EJ2GDutKe/anmoDz6+c5cjbGqXanj2IBtL/M+LDpVe7fzR1D8KmPe6DvN6GNaeTj8AkE9z+tRRKnhTcwpGaigUE4txK10PX+2GeMY+DyF6pA/XTo4jlU/Dc4=
+	t=1719496312; cv=fail; b=evfAyRMxMaRRad/HfiXTeh7wqtuvsPF1GzV3rHsZPiMTJFgpnWsg2w4bn3BRwAxQHXBTVzI4ZsdGyrmxVyOKOfdnDAPCcPjGP2qs/41APn2weigLIr/NApDQuzWKQnqUIR8HzscEDCarZBC6CY78mCa+JW31JNpXQ17Tvdg1yDY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719494224; c=relaxed/simple;
-	bh=kQt9UNhB9sy5+e1gncCkwFY3Lol2IjoHI9oSQJgVoAw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ee9hwId2ByoZ4iTFe82gzbIHzPmci9dWwrssCWaFgU8Ww4bEsRAhEIcT3OBxZq8Z1G2dvsMfEOKXqcRQuprLTexvhYMs0fVWVjivxW+KlOIl1XJFR+c0F6oU5FXEKlV+neZeObKV5JgiWDbcK6Eg+i7BGmmeH2O4oCz/aclE1Po=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=Kt+5yhui; arc=fail smtp.client-ip=18.185.115.53
+	s=arc-20240116; t=1719496312; c=relaxed/simple;
+	bh=TwEetEGl9DBDr0rKPH9loY6LVipr7rQ6+QZUXq/83PU=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=RDD/gPf2n1ztCf41iqPva3L9Ve5GFYmzd9ewsQ7i233C7URuwWOGCWGTFUua4T8JoZL7FctNiCTn1Mb8bYiZiOLs8HKyYejo8eIZRrpJk9Byt6jazybiOpznR1A0TPPjxGZJRnCk0NWDd6Zl2JMlT+4wvPvFI4gdfz8mdVjrqRQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=XH2b/rTe; arc=fail smtp.client-ip=18.185.115.58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="Kt+5yhui"
-Received: from 40.93.78.52_.trendmicro.com (unknown [172.21.9.37])
-	by refb01.tmes.trendmicro.eu (Postfix) with ESMTPS id E363D10063E34
-	for <virtio-comment@lists.linux.dev>; Thu, 27 Jun 2024 13:16:52 +0000 (UTC)
-Received: from 40.93.78.52_.trendmicro.com (unknown [172.21.177.236])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 5739610000E2D;
-	Thu, 27 Jun 2024 13:16:44 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1719494198.632000
-X-TM-MAIL-UUID: f0a69f4e-68a1-4a9e-a3f7-dfb4c9952ee5
-Received: from FR5P281CU006.outbound.protection.outlook.com (unknown [40.93.78.52])
-	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 9A5C6100058F0;
-	Thu, 27 Jun 2024 13:16:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="XH2b/rTe"
+Received: from 40.93.78.7_.trendmicro.com (unknown [172.21.10.81])
+	by refb02.tmes.trendmicro.eu (Postfix) with ESMTPS id 3BC0610147250
+	for <virtio-comment@lists.linux.dev>; Thu, 27 Jun 2024 13:49:58 +0000 (UTC)
+Received: from 40.93.78.7_.trendmicro.com (unknown [172.21.173.61])
+	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id D88E71000114D;
+	Thu, 27 Jun 2024 13:49:50 +0000 (UTC)
+X-TM-MAIL-RECEIVED-TIME: 1719496190.516000
+X-TM-MAIL-UUID: 9f46b5bd-79ce-4237-9098-bc2fb738b8c7
+Received: from FR6P281CU001.outbound.protection.outlook.com (unknown [40.93.78.7])
+	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 7E3A5100058F0;
+	Thu, 27 Jun 2024 13:49:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GPOvH0YIlDIPWxSx5iWhdNX/pirxmqjIZDLnhn1H0whiDbu90x5FdHUdWKu3ynD15txddg0fV8mW4F1/vfLJqGv5VjEwbxEjjYpN+/v6eC6aVKjkasTIZ81vr/3ZYhmkohAd68UZnk3pHe8XlryvYm6yrLZuHLhlaX1rcV9v81TREPOHQyiG8cEfFbMyc99DDDlU1XDFbDa4KZ36FbyE15edvn4VHJk+JzkP8aigFZ+NdAHmAXNHt4MviKsC0b9CpRVMdiwVR91WCquFKRGVccbTzZghOkgNZjhDBsBizIvm9EsLN5ZVhHFagrUgw1OA607fJ5hUVEYdsbAzy0QnJg==
+ b=G8hvY3IiX6hNTPjQhpqM8wjsTGmkM1oFAxF32K+rBL5wgvBSKhIrIkrpDcVLIwKQziFeHHwxTrVVYEppSFhP8IQh9DA5vITLZbRK8wXVa/9jw2Al2IbcaYARGg7rX/Uapv9tqscVmD0RHNbDGb5jzEYhJJcxLldgkozD/yIU14pSnE6+Qr5gO1sxpdqt/RZcjbTQRVwNkOhfg7G1E2PjJojcgHn2INLPA1mV1OOJNhjpHzsGweBcZFZHYAczvl8ZcMwjcD/6W1Hpe7n7m6i/jqFqUiyEEKpjJP9gbeewXTwF1wCdqyRL3I/+/d1RK5U2IbkkUO8eWjDUoiGIP55hWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oKYWTgUajuoIlvQwy4jBaM+ZJbkcNidFrov64poHTlY=;
- b=fCvBQvzj/SReuLkIgSCrqkAH8Qyt9V/ciK9fjo2agwHVfBGit+prt5uk/5mNVkcAIgOzWlgn2g0GIkjiNTbLgFn4ksVF9P+3gayYEfyFPgoCLIKI/M0x0Zic6IkHLgPVkZGxYlQBSUz032E06y1eXPhVbPwxXKpSbQw8V+oUhIBxnwAMcJbIZsIEIw3/5Xr2zpHS3BvEj3fFtYa6dNdZW1zVDR/H2iJaRxRRoOJqZqlNhJ0JqpZ8HhlKEuEdvGi18SNTexcqm6SHJTp/gmSP2O/QQhFnM60zcnWSP1vvKOr489pW6zwTmG13K63cddDGodN78Gi48UUT4Zna0Sm6WA==
+ bh=9CoP5H0to8LG6M2/CMP6IyOOYeaWfHwQZWwoFD8lixQ=;
+ b=AvXkLxQtMuVCdP4DnIcoxCzoU85DG7KDiUhbfRdMxU282i6eg82ezP6B9csZeGnOMBMy76o2nCipKnKVz2tVcpZn0SHEKyQDkvan7CCbZKsE3+jmWdB/nqsx0oMlOju62TxbjIZxs1tl1M9uEFx37U+dUW4in0YjV7n9AaN/7MEoUxTQZ0HVe9tDzEhK6IBZNVN2AfBO8+vgrnal1Ig2ONuDCNHCsbcrA7pnGwQPT5TmX0RQSl/gjWaZ52f1ACkkvzen7NpQ6oLaSWPOXL42nfO6j6t75nNIRMQouFIoGs+utTek802734ZBogDZE/AkD2NLzOkEX1gJQM38nHNNmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=opensynergy.com; dmarc=pass action=none
  header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <9d76d8ae-6cfd-4693-ae41-03415923f764@opensynergy.com>
-Date: Thu, 27 Jun 2024 15:16:35 +0200
-Subject: Re: [PATCH v1] virtio-can: define out of rage can-id and sdu
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
- virtio-comment@lists.linux.dev
-Cc: sgarzare@redhat.com, Matti Moell <Matti.Moell@opensynergy.com>
-References: <Zn1IJT/awG4NZijw@fedora>
+Message-ID: <8595d22e-aa0e-488a-81bd-9191a678e4cd@opensynergy.com>
+Date: Thu, 27 Jun 2024 15:49:47 +0200
+From: Peter Hilber <peter.hilber@opensynergy.com>
+Subject: Re: [RFC PATCH v4 5/5] virtio-rtc: Indicate leap seconds and clock
+ performance
+To: David Woodhouse <dwmw2@infradead.org>, virtio-comment@lists.linux.dev
+Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>
+References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
+ <20240522170003.52565-6-peter.hilber@opensynergy.com>
+ <d9d0ea80934b024c7c3d8a1204eabcf40279a620.camel@infradead.org>
 Content-Language: en-US
-From: Harald Mommer <harald.mommer@opensynergy.com>
-In-Reply-To: <Zn1IJT/awG4NZijw@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0056.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::7) To BEZP281MB2376.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:44::7)
+In-Reply-To: <d9d0ea80934b024c7c3d8a1204eabcf40279a620.camel@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BE1P281CA0072.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:26::13) To BE1P281MB1906.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:3d::8)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -61,178 +64,181 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BEZP281MB2376:EE_|FR3P281MB2015:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcd30206-f5c5-432d-3ee6-08dc96ab5fe4
+X-MS-TrafficTypeDiagnostic: BE1P281MB1906:EE_|BE1P281MB2258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 560bd731-c5d7-4832-60c6-08dc96b002c3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TU1GWUdGVWxGMEN0WHFWTDF2a01BK1ZrWFpQZlVKeFFpMEJFR2tsUGJ6S29q?=
- =?utf-8?B?NTVNd0EyeHNPTEhOL3Zrb0xrMDQrQlZUNHlGUHh2ZjdvTmxVOWZSVmMzM1Y5?=
- =?utf-8?B?cmJ1MlU4TFBSbjhwTWh4VHI2VDlENW1NUTFScFpscDlLbHg2VVEvWkc1N3Y4?=
- =?utf-8?B?OXRiazRwMTh3S3VtOGMzdGVJMkRaVitYaldJdkZPd3FmTDZQT1NWdlZZU2Fs?=
- =?utf-8?B?NUdHeWRSaS92bkJja3I4eVpkQVJTQ3ZSSjN5aGl6dWsxVUVKYXVCcnU0Sm5T?=
- =?utf-8?B?d2xnRkxLYWhxaytkbGpUVHdhejREZm9QLy90a2x6MVpCejNTLzh4UU54dEVh?=
- =?utf-8?B?NTVxRmRKa0x4Q1BSbHZOMVc4SXdCelorMG03WjhnaGRFdjlhVElJMWFTUG52?=
- =?utf-8?B?MkR0bTd0cVZnaEcrUm9ycGwxRFRYR0lZMkliaDgxRTVsTUR5NTZBQldyUkhk?=
- =?utf-8?B?OFcxN0x5VzV5dWlwVGRYSU0vVFdvRlVWdXdoSllzUjhxOG9IUDNSU1lON2Ji?=
- =?utf-8?B?dTVuUnc0ZnRnRTg1amhRTUtoY0dIYkJuSVBua2Rxa0I4TFl1NWFtUnFrZGpt?=
- =?utf-8?B?aHduZ0N2cnVwMDkyaWtFRXRGd1gvTGQ2cnBlTUhCQmZyenNSbmRxQ3RjaURr?=
- =?utf-8?B?VFpUeHVkNjB3R1AvVVVwSjNiZ2RVb0dxeDB6ZXp3cDVJRVIybWNjaUwxTkJs?=
- =?utf-8?B?Q1ZsdGZzUDNpTEE4R1poTmFGRDRIdy9rNXhTMUxYMDdTU1A1Q3YzdTIyWmZa?=
- =?utf-8?B?eDkrNWcwV3pPdm0zODB3aHhQbTIxeTVkdzEyaGVvc1UxOHhhYzlsd3NTYk9m?=
- =?utf-8?B?MFI0N0RkeUN5ZUJxckhwMnAvTWlDOG5id3JkeXVyYkt5M0NNck54eFRBaWRj?=
- =?utf-8?B?T0cxbkNRVFF4SkRZWE5aOVpQS3Vvc0FCaExaU2tybnFyQUNKcHBLdTRpZWRW?=
- =?utf-8?B?WUt5emNrT3RLT3V5N0grK1o5RjZZK0hKaktVY09vTTFyZjdLd2NWbHl3aVpj?=
- =?utf-8?B?NUtEQUxRTjRKSEQycVkxNGk2VXFwRmF5b3VQZmNiNnFxQXJETDhJUzlIVVNB?=
- =?utf-8?B?a0xRcjBNUlFyTGdHRmtERnUwN1FRSDFyUVhMQktIUmoyL3dRUnRsYmdUM2Mz?=
- =?utf-8?B?enFVT0FkaW5FUnYyVUdVWHRhT0k4OVFBQmhJN1RrOWhTQ0pDeGp1U2ZyeWNa?=
- =?utf-8?B?enBFQUhmemFwNXF1amcyMFBCSXFEc0lJeStkcVpmNFVpclI0WGhZUmQxYU9q?=
- =?utf-8?B?UUsyT0ppTm50UVhZTUlXb0dhWHAwTUNNdWhIakt3M25RM0lWUXFqQVc1ZTlP?=
- =?utf-8?B?WjdKOUpkZWNkbXBIZ0Facyt0S2orZzlZVkh2ckx4UnR3dDRnM3JPYjNQNllZ?=
- =?utf-8?B?RlMyRkw0QTJub0sxWkJwM25KQXFhMnhoSVZyTDZHRzZaUUdTT2QwdkhIT0hX?=
- =?utf-8?B?WXRhZ2g1T3RZb1RubWZIckdYb0lvTktrZlEzeWtxdUkxYXl4Skk4WVljSTB5?=
- =?utf-8?B?T2IrVTM5Tk5pdUhEeWVmRkYvNWxXV04wOFlNODBmS2wzRlJMR0VQNHR0Tlgy?=
- =?utf-8?B?K2NHRmZkM3ZmVnN3eHBSV0poZTIyR3NiOWRla1JuZGxvVlhrdjZXUmVaTDVH?=
- =?utf-8?B?OSswekhkSE1kcWpWSXJleHhoYjhZMHZuM3Y4U1ZmSm12M3czUWlaZDVNTnVr?=
- =?utf-8?B?RzdaOUwzZUcvY21RMXdRNHF3c3NnMVRPRjgzRGlIQXlDVndWMmgxWnFzd3h4?=
- =?utf-8?B?TGFUTExLK2hETnJ6OTlYczVibTBDblNSOU5TR2hjUGZNUDdrV1J0djlPdllD?=
- =?utf-8?B?c2dyNGg4aVRQWVNBa1VSQT09?=
+	=?utf-8?B?QjNJWmR6NTVrUUpvTXFPNU9QZmNLMUUxelVmaVd4TkZxbXFVRWtYR0hHUXkx?=
+ =?utf-8?B?R3F5MnRmMTIzYVl0VFRhSkFEaGV1SDV6aUJKZUJqUHNLRTQ0RE5FS0Z4bmo5?=
+ =?utf-8?B?NnhJKzh3K3djNU5XbjFvS1ZBeU1uRTlIdk1jN1JzOUZIaFZrbkJsM3VHWUhz?=
+ =?utf-8?B?T3p3UFlWK0RsekF6dVVCMXVkY0YvVmNjVWdpanhsRWtOZmNDRVIxTks2dENT?=
+ =?utf-8?B?SDY5ZmxVM283ZkZJTnNyc09GWENpT2VmR3lZMFlEZ2VXcTdKeUx1ZXFNNjdw?=
+ =?utf-8?B?bDVTSndoVnEzZGN2L3EwL0NhS3BxQVNzK2FhdFhWVFF3RFhWQ0trcDg2ZGJ6?=
+ =?utf-8?B?TGg5MU1DZm05YlNGVnJPSXYwN3BwOFBBUFhCdlRpVUpkR21GUHo5R0ZTVFhH?=
+ =?utf-8?B?a1dzb2dTNmljTjhLN3d4ZlNvenUvYXEzdjNVNkRXRjhicWhFOXNqYVc1c2RU?=
+ =?utf-8?B?d0wzZi9RTDQ2OTlQa0F3TnQ3WjZmUnREWkhpUnlxbnZBNXNRbCtFTUt5bVpM?=
+ =?utf-8?B?YUhXU1VvT3pEQ1VBa29waVN5emZ2RW1kUzhMelUzY0VKMmE2UzA2dHFURFdU?=
+ =?utf-8?B?T0FoNlBMNUkwRVVkekNNZzFCOVE2TklvQTh5bVhOZ2hTVVBHZE9sUFZqTERY?=
+ =?utf-8?B?RUswMTJaWTFtYjVOZGYzeExDNWt3dGZXc09qYm5rRkFzWE1pbGxGT28vYWZj?=
+ =?utf-8?B?WFBBcG9Xd1EwYnoyTndYRlpoZ29jdDk4QUNZS2E0RW1BRUczZmJROXJrZHh1?=
+ =?utf-8?B?azg0M0pKNGxHNysvSGswRitBS0ZtT0IrS1hVL3VySG1KOUV6dzY2SUJScFVD?=
+ =?utf-8?B?RkI4VzFZRnoyT01WRjE3SnRPd3g1ZkpVekdtWlFhUGhYNlRXMVpxOFFyRWlM?=
+ =?utf-8?B?WVptU2FVdmRNOEZ0d0pTU3QxWDczaXEvbkxNdFU5YWswMk5wSGF1MGVUVVdW?=
+ =?utf-8?B?d1FyRHl6dUVMV090OEluYkNuOHRSNkR2L2h4YnN3ejNoYjV2VXJCMmZReWRY?=
+ =?utf-8?B?bGN3SjhwVm9yaVFsV2NVODhQVkJQV2QrelVnZThyN2xnSmNJUzRuQjJNNUZs?=
+ =?utf-8?B?NVRtMnFSOTNoQ1c0R09Db3BXUzZsSDhWNkdsTnZLN0p4anVOR2p3TVFFaGUy?=
+ =?utf-8?B?RS9oaVdpLytpZGVyTFJPUnd1Nk81WVRmNFowMHFSbEQxdGpYelZLYzFQamY5?=
+ =?utf-8?B?WmhaWDdNREl5aWpueWV6WWtUazdPQVowY1FESzAvTDdBZHgrd3laQlB2NGY5?=
+ =?utf-8?B?eFNIbEJRVTFBYURDT3FlcFJLamN2TzZ5Snhxb1RpK1hIL0VZL2Z1MHZZOVdV?=
+ =?utf-8?B?dEltcjhtSDFQdnJOejZHd0YyMFFjdTZhZTU3VysxaGJMMUhjN3ZqRldJK1pt?=
+ =?utf-8?B?RkovZEZqOGJQNW9iQkVvaldvOXNYNzJtOWM1cVpudlJ5YTlBSnN0U0dESVVR?=
+ =?utf-8?B?TzNtekNvenBKSGJxRHkzaUNYOTU5T1Z3UkVtdEdPWTNCOUNOK1kzK0xoQXVp?=
+ =?utf-8?B?SkJsTnNnWE41UG03UkFPWXZ6UVBPQnlON0NXU3IyVXNWcFNWNGErUCt1clEr?=
+ =?utf-8?B?dHNlcWJkS29hWUtPT2tjckQyekNSdEtiNmVKT3ViVC9pTng0enhMUUsxY1Zy?=
+ =?utf-8?B?ZzdGbGVvOWJlTGhPSnRBWnRIUHkxak54ditRV0VGeEVPNk1VclQ1VXpRMWY1?=
+ =?utf-8?B?Q1c3MjVyMnJTdEl0Um93RVMrM0JwUXZreG55RjFuSTJFdGE1UWoyaDJvREFE?=
+ =?utf-8?B?OFg2eWZFdHJ0ZkJSOUNVS1Z2aW1XQWRlb2hWZGxiOFJPKytVTHA4d0c0L0lZ?=
+ =?utf-8?B?a1NGMk9iWjNkQ0cxM2lLZz09?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEZP281MB2376.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE1P281MB1906.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OVJaNWc5REl4SzdabE5qUC84U2I0OTFoemptN0xkVGsvSGhCeGpseXVHTTN1?=
- =?utf-8?B?em9iTlhXWnVsTjBrREJSeFdrVHd6STNoSnF3bldndE5VYk9QVENWMDhhWXJh?=
- =?utf-8?B?NnY3bEFXeUtBNlh5bk5FcVIvOFZGc1A1eWZsbTcyNWw2QThwc1JYUC9EZVRt?=
- =?utf-8?B?UjIyUFd4VzFjZ2M4T2R3N1hiUTNUS3V4TS8wVTE4d0ZSb0pmT1NqL2Y1VlpW?=
- =?utf-8?B?aHA5aWRFOXpuMXhvRzIxQUlPUnRZQWVFZi9zLzh2aEQ2RktRQ3VuM1V6YUJm?=
- =?utf-8?B?U0dVTlNUWFh5eXE1SXpkelVITjE1OUozNXhrN2tRYWQ4YVliVlNhd2krZVYz?=
- =?utf-8?B?ZGx6WUUvVE9zVlBOK09yUUYrZ3pudGxYNE1KYUZ6T0ljYjVhOUxqcnMwVGti?=
- =?utf-8?B?cnByZURjZVJmS0prcWNSVm91aWV3cWh5ajVYRWlKVS9hK29oVVVqcVhtRm11?=
- =?utf-8?B?OTN0SGZySDFGNnR3dk1KdzdVMVRscXQxWFJsUFphbGhaNTN0Snc4aUorUHpo?=
- =?utf-8?B?MTlwblBrVUdaQmpEU3BDY3VkVS9PMEo1RVlmWVVDNTgwNFoxSWYwVkkxakpp?=
- =?utf-8?B?NktIWjdkZDY0N01tV0srckZjWUpRTE02MTZjM3Eray9hWGxmMHdNMTFpdVBI?=
- =?utf-8?B?VExJcDNuS3pBdHo3bjBuRzZkRWJKOVN2bGdhLzZXRmhhS01DaVNITk1SYmxY?=
- =?utf-8?B?VDhCZUUwOGJWNEdHRzhPV2NhcGo2SFh1enROU3U1ZUlwc3RTTGNKbVZQTFVN?=
- =?utf-8?B?V2dBRm04VUhXQnBMYUxBbTU3cVJ2bHhBaytRQk5kQTZ4TzR3MHN4Ui9yRC95?=
- =?utf-8?B?OW1YWE96TFVBS0F3UFZFU3A5bEFVZHJiUGZldUdYTHJHOEFrYzEwZkovL0VR?=
- =?utf-8?B?YisydkllUDRiNVZEQ2RIb2xEQlVLQy8rb0p6b3BzUmo4amE0OWZ2eCtUbmtI?=
- =?utf-8?B?M3RvUU1oRWlyRE5sT2x5MlBKZFU3WjEwQnBnUSs2N0Z1WWtibTI2ZXJwV0xq?=
- =?utf-8?B?dFhBMWU2V0p5c0Q4UkZxNENUb3NwaFNtRnlUT0Q5QnMwcXVSUlNGamZPM0tl?=
- =?utf-8?B?dk1qZUxpMUdBdk5jNDl0Z1RaNjVBb21OOTM4aU45MVBkeFI3RVJIcGlta2pn?=
- =?utf-8?B?SW1sYjl1Q3BOSmExMXZLZ0I0cUhsdS9CY1g5dFhSaUkyTFdLMGpaYVNNaXVa?=
- =?utf-8?B?ZTQxa1Y5UXJHQlRLWjJBUUJGOHFoTUJFSDNFcWdvaEVSdklLM0pVMXdpN0JC?=
- =?utf-8?B?OUhOeTg0ZXFRdjJNakRyRG1SWVIydE5zRDBpdkFhL3RHd2d2a1BiRjNwZjAr?=
- =?utf-8?B?OUptS1hNRHJkTkFKMS9oUzVMMWIxR2N3ZG5qZGhYTkx5UWwvMEtGNlVpNm8y?=
- =?utf-8?B?NE9qcmZiK0NLU1NpMmRxdDNHQzNmS2JTTUhXN0R3VHhRQmgzcDR1cEtqd2p2?=
- =?utf-8?B?ZWU5Q1prdEF6Umt6L3NPN1VTQ0FOeXErOFMycmc3Y3NJYkRsSi9rcUxuMWtW?=
- =?utf-8?B?a2ZwZzdWYm9ESUc5MXd5anVxWkc4VGs0cDF2QUZOWGRIeUpmVEtxOU5ENENC?=
- =?utf-8?B?WG1xVVQ2NUQxTDhsUHFPdk5uTFQ1L3RPcVhVYTZQb1VKZWdLQVAxdFg4cXNY?=
- =?utf-8?B?bHhIaDdqQzZEeU5RNTZ6Mm9vclBzVjhYWlZ2ZW82Qm9BWndEK0cwUjdIQVJh?=
- =?utf-8?B?RTA3WUlvQkJRYi9qbnYzeTNBYzAxQkFLakduMEQzWVcwVWZVZU5BMmdIS0oz?=
- =?utf-8?B?anNpVkxtMFRtNU5QWjVXYUgxR0JTTlQ5ZFNYcGhWUEE0YStDK1VnZzlBejZL?=
- =?utf-8?B?d01aZnFpdDFOOGowd05sZjV6TkczbjhiTUVoZGJyTjAySm1zTUQwWmRwSk9C?=
- =?utf-8?B?cjBkcEdERmtNZlNHSEZIdHRDc1FOeWNMT2xpRG5CNWU2azRrdytrS3Zoa2ZV?=
- =?utf-8?B?VGhXWC85RHR3WkVCVjhzVzBnOEJBQ2RiMGZyRS9iNXIyWmppaTlFckljcWs5?=
- =?utf-8?B?OGhQZmtHK2Q0WFdLMCsyMWtrNFlzSzNveTFwd1I5dndQSFlJYUo1QzN2Qk1V?=
- =?utf-8?B?VmtzSFBmWEw3Y2ZSclErYW9UYU5DYjl6dVZxS3ZZcTE2TmJURXdIeVVvUDRw?=
- =?utf-8?Q?Vj9OSZMh+rPfmyTMrHs6yzOba?=
+	=?utf-8?B?L29sSmQ1dzBvWkl2TEhLdS9KT0VNNktQOXpVK013Rk5tdkpxRWpzM2llSHI4?=
+ =?utf-8?B?OW55eDhBNVIzSnZyNFdBL1ArQSt1QVFrdHVhOEZ6Y3JXa0k3cHJvazlWdUR0?=
+ =?utf-8?B?T3R3dkw0bG04M0dtbzNUMnhtcWhmRVVLdEEyK08yNG1OT25hMjExK2kwMzhN?=
+ =?utf-8?B?TGRSN0NqZUNEMGtIUVlzRU1CSndzU1ZaUzNvckhNc3FXNWszRjN3dUxDZUdC?=
+ =?utf-8?B?T3NEZlJvMTk3NFVFVVgxdmVNNkRNcFlXaUNGYkwyUlIwNFRYbDVSSi9MbHc5?=
+ =?utf-8?B?SHFicXJEVjB5d3EwNXloa3VaYjJWdFhRVjk2aHVvbzlrNEl3YkJERlNUcFNP?=
+ =?utf-8?B?YVVVZXUrSEZCLy9pMlhoNi82VnIrRUxadFcwamJ3UVAyS3V3cjN3VHlaUDd1?=
+ =?utf-8?B?V2MyRGJTQlBjUElGa0RCSnNvc0F6K2RqeitaQW1ub05uellIb29oRU03SEcw?=
+ =?utf-8?B?SW1XV2ROZHhOTjAvTEgrWmxNd2pXR09TZU10S0ozZjlka2U3RVNPRk5XTWxi?=
+ =?utf-8?B?QXV6TzNtZXdwak45OGIxL3JrUU8rejRyNW9pVDVMZGtwT1lBbEVxbXVtaERU?=
+ =?utf-8?B?c2FKMHNyRy9tS3J6Y3RubE85UXVzVVR5RTVmRXlDeTVLKys5RkhvN0lDRVhv?=
+ =?utf-8?B?dW9ZUWhFT0J0RkVXaXh3ais1RG9heUw1ZXhzV2o5YVFVZzRCN2dmS1dULzFq?=
+ =?utf-8?B?SHE3elJTeGJlZ1liMHlQYnY2MkIweXhGMWI4N282MHhubDBRb0dPOVJSaFBQ?=
+ =?utf-8?B?RU1yMDNEc2lldmlkbVdwZ2lxU0FrRnlJdnVMZU5OWUVTUkNxazhWd2JxR0ll?=
+ =?utf-8?B?RWEvYW9lUWlOaUNrdFh5STYrZWMwS2tlZ2VMWGtHeFNNTitGa3ZPUms2SDNL?=
+ =?utf-8?B?TW9UZC9YQ1VibGQzNU1JM1U0RjBoVy9UM3hTa0JDM1FyYzg4TXNYWjdZNzl0?=
+ =?utf-8?B?ZDBEbHJHdnBRU3Iya3FIYXI0eStwdlVUczh3dVpSL2V3TXg4emZiNWZMN0RS?=
+ =?utf-8?B?L2xJZlg3eHpvZytsYm80eEVKSk1mTERIQURoeUtvYTE3RjF1WFp6dWhhRzFv?=
+ =?utf-8?B?dG5CcDhqakw3VkdGSC9HOHFRN05HclplU2NrUFA4QjBuY05YNFB1ZDlNNXFr?=
+ =?utf-8?B?NlRtWCtWM1I3QnExdlhVd2JRWTBhZmY2TUt0YnRtWHlmbVFqOGdIVXJ5OVdn?=
+ =?utf-8?B?OUo5enQ2UCtYVEpGQTJldmYxcjRSQ0RrNzhTZk1OYW15MFkzendSaVRtNC9J?=
+ =?utf-8?B?TDlvc0kvNngzaGtmaEFRYXk0K1Jzd2p6TDNSZGVBRWROdHZwSjVrWkNFeitP?=
+ =?utf-8?B?ZHBIVkNqbEUxdEZZRFFDUDZYRyt6Ni9DbkhrTUFzVTJWeWUvb0Y0TkVCZ3JN?=
+ =?utf-8?B?SmV4UTk5elV0MzZkSGNiRzZ5NDIyT3M5RktETGpYbEdUeDQ2RmxlR00rT2dC?=
+ =?utf-8?B?Y2JYbDMzUHcvbVF2T3JQR3VkZWNxbnlWMW1DdGYzRkxsTDNFM0dtK29yOVRa?=
+ =?utf-8?B?L1I2bC9TazdvN3JHYk16M1JXSVRjTVEzME5wbE9xTEViem1VR3J4dldyTHA4?=
+ =?utf-8?B?dU10MTc2Vks0TTJoYzUxVlNNdUlaNDlxS1ByaVhSMGxCRnN5UTB2eEJmQVhO?=
+ =?utf-8?B?dVQ3bXg1R0RYSFZ2bGJLTGZxUm9KK0lSRk84MGQ5bUVZMU1XelBOVThrZmNk?=
+ =?utf-8?B?emVkZTNaL2E1M243YW9adHhyd3dGTkJGd0t1RzJ4WTlhZS9oQi9RTFF1RGlL?=
+ =?utf-8?B?WjJTRkRvcFVuWkhKU2pkZXM3K3ZSUWUxbEhFaGU4QmkzRWtzRTE3VFNEamhy?=
+ =?utf-8?B?UHJMRktEUTlhUWpHQTdKTWIyVW1nWDVRUlRUUGRxQTNjcHpXVnk1U2NlTlNz?=
+ =?utf-8?B?WUdLTmE2MkF1MXQ2dDVsU05GTXNTL20zOE8yMWlKTGpqdnBjc0EyU3RVL1d0?=
+ =?utf-8?B?SWo5Q1IwWVI5WEo4WFVkSmlKcDIzaENNNkRpaTVHS3YxYmJvQXgvcHdLNklr?=
+ =?utf-8?B?RUVyRlQ0TWRoYWtIUVI3a2NUWGYxYUpvOFRZTnF2VThLVTAvVnp0WW54WDBr?=
+ =?utf-8?B?MTh6UjRtSWU2TFp2SndGV3VCN3JzOEJuRzMyZ25rNmxXL2ZSSzIyM3g2WDBK?=
+ =?utf-8?B?TWJldTFRR2pvakJsVW5xV1JTL05BSVllV29PSDBzQjJNdDhLMzBRaEdUck5X?=
+ =?utf-8?Q?4YOiymWsyO5d0VNns8XiMytK3bYuLxJma8MfDGcLgNvN?=
 X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcd30206-f5c5-432d-3ee6-08dc96ab5fe4
-X-MS-Exchange-CrossTenant-AuthSource: BEZP281MB2376.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 560bd731-c5d7-4832-60c6-08dc96b002c3
+X-MS-Exchange-CrossTenant-AuthSource: BE1P281MB1906.DEUP281.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2024 13:16:37.3204
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2024 13:49:48.5527
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rg4PRp59MIvnVg9Hd5oIErFQ0KHvPOfK2wO05yy/5OSgAkdj7S4cgWjB+JXYt/xZVYRnBDx2d1hpw7xoV6nhBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR3P281MB2015
-X-TM-AS-ERS: 40.93.78.52-0.0.0.0
+X-MS-Exchange-CrossTenant-UserPrincipalName: i6/7dxgLENo6YSQl+ht2/cmoiLLlrkYO3Pk0YxLmi57ikEt1IJ4cy+jPdMnEjfHQHs0uMB/mzwkU/O6qMFHTAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB2258
+X-TM-AS-ERS: 40.93.78.7-0.0.0.0
 X-TMASE-Version: StarCloud-1.3-9.1.1026-28484.007
-X-TMASE-Result: 10--18.208700-4.000000
-X-TMASE-MatchedRID: 6otD/cJAac1TzAVQ78TKJRhvdi92BBAuzmG9pmg8ncKt4Zcwyi58uUm6
-	zKX/LJcmnQvVnz410DxFY3YhH+K/z63XYtsOH2/QRYNhzuZZjRDKICKMKO5WPVkDEupan34PE2n
-	AUajxhxee3AwfBS1Y1unitB4ILU7bJQ2Ybiz75wwhPK2mn+OsTLz9nrO3Uquu5LGd87xcOHc3tS
-	NNRltS4UKVzzaKe4kbsq0Ed6rmnKeRlACbk4MJ7KSYFFz3IpxkyfjF8MS6pxVBRmUI+A4g/IXrN
-	S+xKlbqsQO6Vch/CfaNfczRoWaFQ7DP95vZKN8oWWSz4drjSLhimmowi1sSA4j+QP7WhY0Zv9rS
-	d36EgULA931+mNd9sNLdHHLXgng3t8dSMEPgsWu0w2Ge1N5gx83QWfbL6wKxM+wArn+oEOQ2RRI
-	MOrvjaQ==
-X-TMASE-XGENCLOUD: 2139481b-bf2e-4d5c-826d-1c2e3734009f-0-0-200-0
-X-TM-Deliver-Signature: 7283B91D5BD7548CDEA3A044EEEAB4A0
-X-TM-Addin-Auth: pnNHzfyXMdmQOEwCbOgkXHB5Cb9SPfsD1FNXhxpL3SLQdTK9YMUQDoLHOt0
-	RxsMfA+P8rPGMQEs/5USSEtWv5KLkvTu3bb7qQNMGhtqLT2HsKB7Gmfv3HI3VOeMBUaxZRGgyhs
-	fu29Ymw7wxrOe6+EhwZXTS4SPlxx1spXMaOMS4rcvk8lz9thByS6eiQmG/stsLa38QwmR5VAWCI
-	UwPtiw1xmzSvU71GnBEQnpOM/s/rEfYKSlC/TiPKmE2xzavlhyF7cT6E5PBUAYh7gC6n8+tiGMg
-	PGgI4TYsqZYLns0=.3pRScvfdg+RapPYC6PnHPovvCEV4UoeVfTrLf4I80N3sH0IDqQALiUDlIp
-	V8dIYb1L3rzSdIsbVMGt2FQ/H62d4jW1vjifk0t6wx3/3Z3KZjhpA9WuHE+Ry11Jmd3HgtW1cf/
-	eJIT2Fvw1PqjkEE33fSn4MkDSdJeC9tMGJXVv6DeE8aT5RHzDK23mvcCUS4CDYvPeoziY/nKMFd
-	GeoetVxchyUSLw3nsmlF9dZhhZh9wEZPVlGppcObyBFG0IjjU/KBUo1EhBmlV2ArF4KYM01BmX4
-	4tIhTSQyhAKM7M51FR/7gQ6VWwTtaMpKynjVFIwqF5/iq+Hsxyx+n1ybmDw==
+X-TMASE-Result: 10--11.745100-4.000000
+X-TMASE-MatchedRID: u7Yf2n7Ca/1TzAVQ78TKJRhvdi92BBAu/Y5e9Qia1Sm3UJJ8+n/4Rf5Y
+	pWeu+BBe5fM9sYH+1A96F32OFjccDfhmJ4lOca9uAZiMK6zpatURPnpJog/Uz9D2Tk/Rj3ovaQP
+	tVHF6B2dqePnj20rfTIKWg3O4a0kRi6niFdI/HYX6a0NEvI0IWpqk29Yc2cK/oS8p4LVgO5BmyY
+	2rAmnM4lspjExxhc2iUYX7pb8z0y9rJeX6tElh3DvQG0xdFpDCuUeJCuB9aL1SMzx3ql2YQ8yfx
+	QnKP1ktupoogdfVK+Jd4x1IUlKnFI1g3zDt1sv5WWSz4drjSLhimmowi1sSA4j+QP7WhY0Zv9rS
+	d36EgUIj80Za3RRg8Jx6jcceOUj/NXBiai2URYrN56OeEaiuXp/VVoufL2mUqrfV4SAcA/4=
+X-TMASE-XGENCLOUD: deca8451-f731-4f54-a23f-e5aea90b5fde-0-0-200-0
+X-TM-Deliver-Signature: 5566908A622D9D934C0DE5074B21BFE1
+X-TM-Addin-Auth: 1wXcss+PWkYzIz4w/XSg8U10efbb/f0Biei47+RgX1nrrareiYwjJ1eR8kN
+	FFI7CDLYm9R5wvUufQJEpwS01Z/d5U5TYKcQMDBrKiqrwQzgOelFfZcHWfqPFAcwegLZ2S05Q+i
+	csUrN7o81Jovc3//Qk1Fz9IH93QYyGurm0z8Tqg6UcyWM7tPS3Z771eOH5lPVMJqUupUBoIaoaU
+	stbS9mWfFqXcz4xYXhEwPz2GGZ04NEmv3OOqM3Ggo69Tstd177CtNtasYD6vK2fnNhC/PdsiYkN
+	MWNTWE/aYhFAUcc=.YP8fkAMpswl0VLmoBYiEKvAJ853CJorbc/ETkHQpsTxkGrt7kfJadEnnAJ
+	sNddJ2AWJFXzjpB5QtA+/T88iNfJfyW60AE7aSrqbdwXurfpsu2dZPqL2uiWC+KVjWs5hXo7EKq
+	7j01jvdYs2CvTP0vS5tQSR3spu+z/ed0FI4VQF1DlSTpg1oaQFMc8pB4AcOZ5UxsP8LHY/7k3yK
+	/PSBYZwPP7Kc+GqTTSBg/xQpw4y1uETF4ZR2UkqnJi5UXEDisFUpCmCHyvKWEx6J3P/ck/nYE9a
+	7TKZw9q1VqRHj+crSpypO4c+M7A1TIliJK1ey0aVM2MFFHbmNzXCsEx0opQ==
 X-TM-Addin-ProductCode: EMS
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1719494204;
-	bh=kQt9UNhB9sy5+e1gncCkwFY3Lol2IjoHI9oSQJgVoAw=; l=2225;
-	h=Date:To:From;
-	b=Kt+5yhui+AYk/vEDb75DNxLZ1sfK63Wqr1miT2Q1CXksRFthFOwVRqDtUCZ3QEfpt
-	 N3GA2qa5ORDSgMJl8VvRH/kakJmkgq5s8nXjDSNhh00zay/iSlbl87Tfwu/bYfSU8B
-	 X7DyQlneIc0bktED0RPfV9Cgx4FliTnG/kmiCG6wgxEf5BsYl2Nf0zS2TeLqZlYX0K
-	 q43CkyKfC4hrp1StQC9TH3aSC+RFIXqT0J1uU+jsOSjHV8tnVeTBvBdS8JfLQYnDgZ
-	 quzh/ZP0wLDNFKA73bwosTFzvduH2RnrtM+Qln0TgqWN9cty/Kkd1FUk0c0vbnvVA4
-	 UJVMKX2eHIzXQ==
+	s=TM-DKIM-20210503141657; t=1719496190;
+	bh=TwEetEGl9DBDr0rKPH9loY6LVipr7rQ6+QZUXq/83PU=; l=2755;
+	h=Date:From:To;
+	b=XH2b/rTeS166XzEOjiF2gQtngtgrT7ut5V/Qy6Yoqr/OX7/8BCtf8AaqCIKZDCQBo
+	 ZDHa/m6KWG/sMZSeYYG2L4jfqPMQZvHuJL/ThV/Zj5tdm0jwAhsQRdMmDtoO1jQmVx
+	 2m0CNi/JVVM8zq2gpj++voBHahXdqUX9QWq7barMHYURg3C6uRwHDgVjFpLhhOBSOa
+	 ctzo3DMG9xvTuBJQZzH9ySg/rNjKU5vWu5DKTIs3Wo8Nv9ALZKazWm88x4KUyGKasr
+	 XkerVdPm21bVqF2Jpg+AYUz9GhVlBlv5WDN+kc9WGqs38N2s/vKN8qJ5tdaWGwBljO
+	 CoYWq2WILrgaA==
 
+On 20.06.24 16:58, David Woodhouse wrote:
+> On Wed, 2024-05-22 at 19:00 +0200, Peter Hilber wrote:
+>>
+>>  VIRTIO_RTC_CLOCK_UTC uses the UTC (Coordinated Universal Time) time
+>> -standard. The device uses the time epoch of January 1, 1970, 00:00
+>> -UTC. This is the same epoch as \emph{Unix time}.
+>> +standard. The device uses the time epoch of January 1, 1970, 00:00 UTC.
+>> +This is the same epoch as \emph{Unix time}. For VIRTIO_RTC_CLOCK_UTC,
+>> +the clock \emph{subtype} specifies whether the clock fully adheres to
+>> +the UTC standard w.r.t.\ leap seconds.
+>>  
+>>  VIRTIO_RTC_CLOCK_TAI uses the TAI (International Atomic Time) time
+>>  standard. The device uses the time epoch of January 1, 1970, 00:00
+>> @@ -290,9 +293,62 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
+>>  subdivisions) since some unspecified epoch. The VIRTIO_RTC_CLOCK_MONO
+>>  epoch is before or during device reset.
+>>  
+>> -Additional clock types may be standardized in the future.
+>> -Implementation-specific clock type definitions are not recommended and
+>> -use a clock type id greater than or equal to 0xF000.
+>> +The \field{subtype} field identifies the clock subtype. The clock
+>> +subtype provides additional information about the clock behavior. The
+>> +following clock subtypes are defined:
+>> +
+>> +\begin{lstlisting}
+>> +#define VIRTIO_RTC_SUBTYPE_STRICT 0
+>> +#define VIRTIO_RTC_SUBTYPE_SMEAR 1
+>> +#define VIRTIO_RTC_SUBTYPE_SMEAR_NOON_LINEAR 2
+>> +#define VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED 3
+>> +\end{lstlisting}
+>> +
+>> +VIRTIO_RTC_SUBTYPE_STRICT means that the clock fully adheres to the
+>> +clock type's time standard (or to the clock type's time scale, if the
+>> +clock type does not refer to a time standard). This is the only subtype
+>> +for clocks which are not of type VIRTIO_RTC_CLOCK_UTC.
+>> +
+> 
+> I don't think this should be done as 'subtypes'. Just make them types,
+> as *alternatives* to VIRTIO_RTC_CLOCK_UTC and VIRTIO_RTC_CLOCK_TAI.
+> 
+> Anything but VIRTIO_RTC_SUBTYPE_STRICT is *not* actually UTC. You
+> basically say that in what I've cited above.
+> 
+> It shouldn't be misrepresented as such.
+> 
+> 
 
-On 27.06.24 13:08, Matias Ezequiel Vara Larsen wrote:
-> Explain when a message is out of range.
->
-> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> ---
-> v0 -> v1
->      * Use length of the field wording to indicate out of range
->      * Add when sdu length is out of range
-> ---
->   device-types/can/description.tex | 8 ++++++++
->   1 file changed, 8 insertions(+)
->
-> diff --git a/device-types/can/description.tex b/device-types/can/description.tex
-> index 2511d9c..fa56abd 100644
-> --- a/device-types/can/description.tex
-> +++ b/device-types/can/description.tex
-> @@ -191,6 +191,14 @@ \subsubsection{Controller Mode}\label{sec:Device Types / CAN Device / Device Ope
->   invalid state with VIRTIO_CAN_RESULT_NOT_OK in \field{result} and MUST
->   NOT schedule the message for transmission.
->   
-> +Note that the \field{can_id} field of a CAN frame is out of range when its
-> +length is more than 11 bits for standard frames or more than 29 bits for
-> +extended frames. The length of the \field{sdu} field is out of range when it
-> +uses more than 8 bytes for standard frames. If the VIRTIO_CAN_F_CAN_FD feature
-> +has been negotiated, the lenght of the \field{sdu} field is out of range when
-> +it uses more than 8 bytes and is not in the set [ 12, 16, 20, 24, 32, 48, 64 ]
-> +bytes.
-> +
->   If the parameters are valid the message is scheduled for transmission.
->   
->   If feature VIRTIO_CAN_F_CAN_LATE_TX_ACK has been negotiated the
->
-> base-commit: 37c6a406678a5ee891fdf5671298cb4fcfa517f2
+The idea with subtypes is to be forward-compatible with other, yet unnamed,
+leap second smearing variants, so that the driver can still recognize them as
+UTC-like, even if it doesn't know the particular subtype.
 
-"If the VIRTIO_CAN_F_CAN_FD feature has been negotiated, ..."
+But if only linear smearing (and perhaps cosine smearing) would be supported
+(apart from "unspecified" leap second handling), and the start and end times of
+smearing would be indicated explicitly, then there would be no need to
+distinguish subtypes any further.
 
-Would mean that sending a CAN classic frame having an sdu length > 8 
-over a virtio CAN device capable to send also CAN FD frames would be 
-allowed. This is not the case. The condition is the type of the actual 
-CAN frame to be sent.
-
-Decisive for CAN classic / CAN FD is the presence or absence of 
-VIRTIO_CAN_FLAGS_FD in the flags.
-
-Having an automatism to change a CAN classic frame to a CAN FD frame or 
-the other way around under some conditions is not in the spec.
-
-For example: "If the VIRTIO_CAN_FLAGS_FD bit is set in the 
-\field{flags}, ..."
-
-Or "If the frame is a CAN FD frame, ..."
-
-
+Then, the smearing subtypes could become designated types.
