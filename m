@@ -1,260 +1,280 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F18A145354
-	for <virtio-comment@lists.linux.dev>; Fri, 28 Jun 2024 08:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719563017; cv=none; b=hFgKGcCHc/ODW/TQ/2H4qKpndpBbH2X0ezhvpkrHDnHCDlV6fucN+pQW9V9URWqgBauDwNHGIts6vKwodAs/goOBgkVmkrX0LhD9b2T/2ryROVzZKMshl36va6AtSkT9eciNmMubbCLJlJgblwJuYFbbNveLsJ/OxwzIYiePQQI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719563017; c=relaxed/simple;
-	bh=AmBdCmasJ0cTGF5AaZVt7pgvfdiIlS5w0XTc5B4lBDo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e7A7e2nu+bSB6ADiHNf5D1zivVnz02/GWqRM6KOFTgO6ZiwzzhZqABTjlzDodyqHxPM1apbFfPlilyq0tWk5feQeryXuM0VfPKjRWbC6sDIazzEz35TWvqm3JBS4jUWBJuzr4IoamwXpxrD0EJVOGv+vDap0PmMMWz2F16jWiy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AurHAJOC; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D9A1527BA
+	for <virtio-comment@lists.linux.dev>; Fri, 28 Jun 2024 09:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.79
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1719566790; cv=fail; b=Lm4ejhPxtOrz1GzjeKviD9nSoSXSy3UB1kb3sf9Xjs2RBOHXc6xinzxQiHwfZyeyCPbqgwvJrFY6jt+GU3NAI64wDdwEu5TyRpOYcVtgAJBWiEct8JjkJzzkGxMuY5gXmJoVKRaR2CJ4UkvrhTFM3r72XNhz+RhNk2hzefmVkeI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1719566790; c=relaxed/simple;
+	bh=QA1h45SnlWcpMkvcrfgwxV/SqT0aH7YgJ/wqkWbla6g=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kl3303ENBVNB/nhuJaS699gXKRWkVx1l79q5cVu2aw9+3r2TCMuzWxk3KF1od/yKuGqLzZWJZefRO4ekzsakpdalGxRuGeicplnOZNszIprP2L9/x9nJogt6DWzMxW/BYIG2KDYQGI8KVH3KOLvKX4WERlbXKXXaaJG6ay4A8jg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YVe/YvAs; arc=fail smtp.client-ip=40.107.220.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AurHAJOC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719563014;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c99oAiLwG7uzOeH4zAuKFB/j0VVxdyp4AoJgVv23y3c=;
-	b=AurHAJOC6e8jcbzIPI6sZu4+vAY/TXB5FBM1VDkPJiWJFOBAgI8zsSmHGTBReq3CAh69kA
-	6Gg0Pr9wfV6KnzqvvlVTkqlleYqH0tzAsWRD9sXBDKIKJ93X7oCBIXpdvVW85ltFlG1fwt
-	M39tze5WsQ28v4ktGC56ve3UHFcZxbM=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-520-op1WAqgbPoOya6LP3UuVLA-1; Fri, 28 Jun 2024 04:23:30 -0400
-X-MC-Unique: op1WAqgbPoOya6LP3UuVLA-1
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-2c78c2b7f4bso431475a91.0
-        for <virtio-comment@lists.linux.dev>; Fri, 28 Jun 2024 01:23:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719563010; x=1720167810;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=c99oAiLwG7uzOeH4zAuKFB/j0VVxdyp4AoJgVv23y3c=;
-        b=ljFSURK3jm1CE0r8E5DcAIlLfrQ1d3k8hO8rTODxWjdF/7y9XCMIFRkUeWX0WOs4PZ
-         lMQLD9cqGLO8GGyog9od5vrZaNf6FQiN7ccnzyNschX2M1LCK/mAZRsCCO/bDJSdM6J6
-         xuLH0hr5q+QiGCLMmlVnx7VCXrlCpMs0xTaIlkAoCtn/WljO2yHOLEKTv6VH7Nl29JND
-         x75VLTfyJJ6MnTJR4idf6uiDjOkSfdgI5EQCVG7buBDjMXG6Jej31ez03FMT/po1sMZB
-         aDCUGMnI4XVp5MwQ05OX/ZbZWTDRxJzOPvDXAdHT0VFoBaOQ4cB0ow5rauYOjzOjMQ2E
-         ILtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVtcLRY5IZ6nYV6h3O3eHmUkqfD6jQzOtzuo0R4LRvV4yRFDCWlXz1RqYNUk4LR/FGHdY9f13NvzSfM0yXUGNCycag4W8r4WMuFUv81LlY=
-X-Gm-Message-State: AOJu0YxxIfmejg9vG1Y0ZoOGgWsT1JCWPpuNy4FlAPpe9PWQS2dsw+aG
-	CsqcK9LuLB5ziybSMtSAMHK9UTPkIQ000vLZ4HGWr5ZI3EvqY0AufYff5wXhGH4fyDimDml5UFs
-	yNHQy2KkDifzrlchOCQvBRQo2eJ4oeSZykXxCowMc0aMOzfJgdoKROAlJ5Bj6GFJVuRkXtCyGTX
-	QiEsgb89b3Hcok55l8FNDBL7aexvp8bvVw8rCMoAc=
-X-Received: by 2002:a17:90b:4f8c:b0:2c7:aafb:8e3c with SMTP id 98e67ed59e1d1-2c861246c21mr14728279a91.18.1719563009727;
-        Fri, 28 Jun 2024 01:23:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHimDRwfR/n6UsiKPfyG8tcg7PI+UeGmjqA2IqZP8JRrqzdS3v6ATURUg9ZIZYO94MTwQorV06ZrvMUkbOMDGw=
-X-Received: by 2002:a17:90b:4f8c:b0:2c7:aafb:8e3c with SMTP id
- 98e67ed59e1d1-2c861246c21mr14728260a91.18.1719563009134; Fri, 28 Jun 2024
- 01:23:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YVe/YvAs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CA2m1FmFa82xqIL9XKxPCkMoTkaBcFgA06ROByxyQeI0XA9zJO/wE5Wnu39KptpIpmzTu4TKkYDX5A2fUv/FxbxNKFCoc4AS6np/+0VlBorgcA8wodyvGNCJpToRGiQ1ee1KAwObyBaHzIvd+3rwSZ5HNgD4C7uKnbTS5tUu2YDbADk4pHUiNFrtpZ6Ugq6uHpsyVtFO1zROXlVNlUkI+JNEjlVf80qzoJxm56NEw8Dzb6TQKcLTenYaW4H/C561q8IpCJXwbpCjTr8FTrMfEj44m/vkyuAN6sHCFjxHSS/hRvN4cxt/BCRKw3NqU1iFU0VuN8IIEuI8n/egkIhixA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nwHqzmK9Q+iwjH4hIPdNOoSQQYfEC178wFQG/NGQdUc=;
+ b=j52HT6orycACIrnzWKxPLutHss7fuzu+s9tLOoHZTvinJyGysMpVGCHX21Jb0x/qznT5f4rlaRj+QG+tF91EwiCzBWUzs10fZAiWDtSVXL+Cn01xTeCgCYo2HpUBducq61WJBQ3KwPOeXNstCpsMTcRBorF8Sd0Hh+4oDDMRGPriivEd5mp8ipJHuX5K+du0l4RlTInEZXJWbtrhhIzaqI+/BuXraZeZPuVYsNHMwrorfBEi6vqsxlNOrjqjbZqtV6ygZwJTMk2swgIJXy5aP8Gub5Spd787m/Edbvw2NZ51hQLfL3JMmQmEfZcbUToUq6n98nxpJ/gtA07TZY4Y/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nwHqzmK9Q+iwjH4hIPdNOoSQQYfEC178wFQG/NGQdUc=;
+ b=YVe/YvAsSkIGNIPwZz07HWhtKyU1GkVJDCKPP7ASHmN67oxOEjsKV9H8Os6Nf4hZv5ds1oZ6/pGM3J7OGOHY5E1o6iORJXidNvrlP9/FQCMYDAb0TGX+WB+x8izpM9Ri2JJ6rbL0GkoFQdj2fzX1xLjMOVnlLwVu//sN4mZrfgs=
+Received: from SA0PR11CA0017.namprd11.prod.outlook.com (2603:10b6:806:d3::22)
+ by SA1PR12MB8946.namprd12.prod.outlook.com (2603:10b6:806:375::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.32; Fri, 28 Jun
+ 2024 09:26:23 +0000
+Received: from SA2PEPF00003AE7.namprd02.prod.outlook.com
+ (2603:10b6:806:d3:cafe::cd) by SA0PR11CA0017.outlook.office365.com
+ (2603:10b6:806:d3::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.26 via Frontend
+ Transport; Fri, 28 Jun 2024 09:26:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003AE7.mail.protection.outlook.com (10.167.248.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Fri, 28 Jun 2024 09:26:23 +0000
+Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 28 Jun
+ 2024 04:26:19 -0500
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <mst@redhat.com>, <cohuck@redhat.com>, <jasowang@redhat.com>
+CC: <virtio-comment@lists.linux.dev>, Zhu Lingshan <lingshan.zhu@amd.com>,
+	"Zhu Lingshan" <lingshan.zhu@intel.com>, =?UTF-8?q?Eugenio=20P=C3=A9rez?=
+	<eperezma@redhat.com>
+Subject: [PATCH v6] virtio: introduce SUSPEND bit in device status
+Date: Fri, 28 Jun 2024 17:26:00 +0800
+Message-ID: <20240628092600.30365-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <e774e811-27ba-4151-b300-e22161f1b4d5@oracle.com>
- <1718940245.6932242-13-hengqi@linux.alibaba.com> <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com>
- <1719020069.8729858-17-hengqi@linux.alibaba.com> <f03e76fe-9ee8-4000-b41c-0b284f2f237d@oracle.com>
- <PH0PR12MB54818CFB447152A25130F9B8DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
- <bca1e5e8-65af-4825-b6fe-2ca3b6c41feb@oracle.com> <20240627123732.0cf541b3.pasic@linux.ibm.com>
- <20240627080346-mutt-send-email-mst@kernel.org> <b57acf4d-84e1-4360-a229-eeb7b3d752fc@oracle.com>
- <20240627181635-mutt-send-email-mst@kernel.org> <3297e270-e9a5-404e-92eb-55fbe6c3f78c@oracle.com>
-In-Reply-To: <3297e270-e9a5-404e-92eb-55fbe6c3f78c@oracle.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Fri, 28 Jun 2024 16:23:17 +0800
-Message-ID: <CACGkMEsxP0eKK2DbKVTig8MPW0J7z4o5xSSRtk4JAcOMoXmsPw@mail.gmail.com>
-Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
-To: Si-Wei Liu <si-wei.liu@oracle.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Parav Pandit <parav@nvidia.com>, 
-	Heng Qi <hengqi@linux.alibaba.com>, Cornelia Huck <cohuck@redhat.com>, 
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE7:EE_|SA1PR12MB8946:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9886fc8-6bce-4782-c99e-08dc97546093
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NFlUN1ZWdGhRK0ZkNnkxa1ZaVklza2FTVlhDdEJGOFJEaFowdW9LQ3kycXVh?=
+ =?utf-8?B?NW5lZHIvcGNXTklKblRkdEQ1Snk0TVBjdzFLN3dTUmdRTkNCRDltdnZWNytn?=
+ =?utf-8?B?Y0RwY2d2VDhrNi9UdENVekUvc1hVZGRHaHFUaURBM0Q1SXZaT2pYVjVzdmE3?=
+ =?utf-8?B?b3RwcXpHeWp1WWJmVUVGSVBDNEVSdEdpc21BemFicklDMjBaTVR6dzFOd0Jh?=
+ =?utf-8?B?dlJxVmM3UTJYUFRndFlYeDN3dTMvZWg4aFhWVlFwdUdGZ3g4V3d6QTBUNmFG?=
+ =?utf-8?B?UC91ZXo3L21XTkVPNEg3WkkwZC9KeWVJMW01MXM5Rkd2cWNuNEtnV29YM1Bl?=
+ =?utf-8?B?SnZaazRqSjgvNnN3TjNGTWp2UU9PV3VpSWhYYkJhZk5iQnZNcUF1eklOaXFw?=
+ =?utf-8?B?UmlmbDV5dG5KSjBtcFB4bnFiYkphcVVIUWtDanh4UG15Y1lUM3JCSGtMS1Fh?=
+ =?utf-8?B?Yzd2NDA5a0QyaldGSmNXMFgwQjZtRU5PanhJME5lempnSUVMUS9HMzd1QWh2?=
+ =?utf-8?B?dDRZbDlaWVhKalBsSUFRZFh1V1VxM3dUbTFheG5IRWsvQi9NcVQwTVZYaG9Y?=
+ =?utf-8?B?aitZWDBra01oTGlLVXhBbGVaL3hpQXNZL1BQVmZheUpoVWlDN0lvV1pRWCt0?=
+ =?utf-8?B?V1BTOTBSL0NqRFpHTDZlM2lmYVJ0TXljVUJ0TEFLbjVxbjJVS0lhaHBmS0Q0?=
+ =?utf-8?B?VmJBOEVQdll6RkExMVBPeldiaDN4Z1JFVFYrQUV3U1lFOEkwKzhJd2x2R1M0?=
+ =?utf-8?B?aUdQQ3R1U3JsM21keEhJWG9qWWx6Wjk0ZlJwV1BUUTZxUkxJRklQdXU2SUN0?=
+ =?utf-8?B?dnZQM3QrakRpWVF1dU45NFNpWHcrOVoxQURpY05NeVJpaUJ0ZE5aN2NMaUdq?=
+ =?utf-8?B?TitpeEhGbFVTTGlrc21ESDhNOG1MdVMwQVFST3RKaytKdjNwZTU2UFYxNUhM?=
+ =?utf-8?B?ZFVmS1lqUVk0L0xJSDZFSDVUdFFzMUtRb20zWjNXdWtBTWtWSSswblVhamdx?=
+ =?utf-8?B?TENHRUp5OUQ1aEFHVXlnUm5CNEs3RGRRSUQ4MWlQWGlvUU83RlhNVitwY1Jl?=
+ =?utf-8?B?ZDVPZEgrOVVYSUpoTU5YYnZ6dUc5cG9pOVpRQW91bXQ3S2g1dzJDZFQ0MTFM?=
+ =?utf-8?B?RlpDSGZtaEZTd3gzc1U4eFlLeno3dnR1Y1ZVb0t1YTFZYkluTjRGQWFMOC9o?=
+ =?utf-8?B?Z3ZLeHI1Nko0Y0JBZGNydWhlOWNvcGZNaVpLeWl6SmhQekZSVWFYanNMSjFZ?=
+ =?utf-8?B?Um5CelJ0NUl5WGFVQlVTTWRZMHcyU0FOR094V2Zxa29kZXAzS3doaXFuLyt2?=
+ =?utf-8?B?a1R1KzdhRTgwRWtrWXFJc3EyNGkyVU1LYzBKVW5ydkNxUkZnR3NIV2R0d3Rr?=
+ =?utf-8?B?Z1ZzWDRIVTJ1Rkc4VHlUazM2WC9zQmNVQjl1ZGRyOTBMcCtMTHNxcWEwSUtU?=
+ =?utf-8?B?TXhlc0JIbStNcW5uMkJ6dXM1L0hQZlVmSHlWalU5eG9NZ1BQb1lKMklZV3pm?=
+ =?utf-8?B?R1l1QU5DV1UwQ1MveXdCazBXUGRtZnNsQWxMZ2gxM0J5eE8xMUhOVUZBWTd3?=
+ =?utf-8?B?ZVdOSGpDaGRrZGxBa1NsL2ZmMUlnSmNMNTVTelpqSWEzQUdOT2lidmFBU3No?=
+ =?utf-8?B?SGtBcWZ2cUZhQnJoei9VVkhpMjdwNDl5UUVzL014Rnh0WWtGSjFNQk1hYnNa?=
+ =?utf-8?B?SnRqdkNtUFRpUlJwSkR0NFI4aFpvVzJMZTQ1VkpIWXk2ZkVNdXpjWkUwK2la?=
+ =?utf-8?B?TU0rUjFnQmhxZ3dZV2dNem1ZcElvd294QVY0VUJ6T0htdUxQeGJ2R2VJUGY5?=
+ =?utf-8?B?Z3YybGd0b21sY3Uvb1hPcjZoa3F6Rm9rZFgrRlRnY2haVmQ3M2htYi9nSmYw?=
+ =?utf-8?B?aWw1SmpmQTRUZG1icUdmYUR6TGpaUEpwODQvUCs5YmRLL25ZU21TNGx4dlVI?=
+ =?utf-8?Q?s6Fksw9ZQtTzYKuHSzex8C1XbA6YZq+z?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2024 09:26:23.2331
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9886fc8-6bce-4782-c99e-08dc97546093
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003AE7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8946
 
-On Fri, Jun 28, 2024 at 2:57=E2=80=AFPM Si-Wei Liu <si-wei.liu@oracle.com> =
-wrote:
->
->
->
-> On 6/27/2024 3:18 PM, Michael S. Tsirkin wrote:
-> > On Thu, Jun 27, 2024 at 10:14:49AM -0700, Si-Wei Liu wrote:
-> >>
-> >> On 6/27/2024 5:35 AM, Michael S. Tsirkin wrote:
-> >>> On Thu, Jun 27, 2024 at 12:37:32PM +0200, Halil Pasic wrote:
-> >>>> On Tue, 25 Jun 2024 18:14:15 -0700
-> >>>> Si-Wei Liu <si-wei.liu@oracle.com> wrote:
-> >>>>
-> >>>>> On 6/24/2024 10:56 PM, Parav Pandit wrote:
-> >>>> [..]
-> >>>>>> I saw the need of this proposal slightly differently in the discus=
-sion with Heng in v4.
-> >>>>>> The way I understood is, proposed relaxation enables below Linux d=
-river flow to work as equally as without device offering VIRTIO_NET_F_VQ_NO=
-TF_COAL.
-> >>>>>>
-> >>>>>> Flow is:
-> >>>>>> 1. The device offered feature VIRTIO_NET_F_VQ_NOTF_COAL
-> >>>>>> 2. The virtio-net driver negotiated VIRTNET_FEATURES that has VIRT=
-IO_NET_F_VQ_NOTF_COAL
-> >>>>>>
-> >>>>>> 3. Because VIRTIO_NET_F_VQ_NOTF_COAL is negotiated, device is not =
-applying any coalescing on the VQ, in a good hope that driver will perform =
-VQ notification coalescing.
-> >>>> I have certainly understood this differently. When
-> >>>> VIRTIO_NET_F_VQ_NOTF_COAL is not negotiated then the device is not s=
-upposed/allowed to do any interrupt coalescing (notification suppression ma=
-y still apply).
-> >>>>
-> >>>> If VIRTIO_NET_F_VQ_NOTF_COAL is negotiated the device is supposed
-> >>>> to/MUST do the coalescing according to the parameters as described b=
-y
-> >>>> the virtio spec.
-> >>>>
-> >>>> Michael, Jason: Can you guys weigh in on this?
-> >>> I still don't understand why this change is needed.
-> >>> We have this text:
-> >>>
-> >>>     The device may generate notifications more or less frequently tha=
-n
-> >>>     specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-> >>>
-> >>> and
-> >>>
-> >>>     The behavior of the device in response to set commands of the VIR=
-TIO_NET_CTRL_NOTF_COAL class is best-effort:
-> >>>     the device MAY generate notifications more or less frequently tha=
-n specified.
-> >>>
-> >>> So with no spec changes, devices already can do what this patch says =
-they can do -
-> >>> send notifications less frequently.
-> >> Right. If I still recall it correctly, the above text was to accommoda=
-te the
-> >> interaction with existing used buffer notification mechanism, F_EVENT_=
-IDX or
-> >> whatnot.
-> >> When coalescing is in place and effective, interrupt delivery is a
-> >> collaborative consideration based on the coalescing parameters specifi=
-ed
-> >> *AND * event index / NO_INTERRUPT flag as well.
-> > No, not really.
-> >
-> > For that we have the next sentence:
-> >
-> > A device SHOULD NOT send used buffer notifications to the driver if the=
- notifications are suppressed, even if the notification conditions are met.
-> >
-> >
-> > And of course event index never makes you send interrupts
-> > more frequently.
-> Hmmm, this next sentence you reference above was indeed for the
-> interaction between coalescing and used buffer suppression. Then what's
-> the best-effort part was about, really? Round-up or round down the set
-> value to the power of 2 to save space? How is it relevant to our
-> discussion? I think even with rounding it shouldn't be too off? (as
-> said, by best-effort v.s. give up)
+This commit allows the driver to suspend the device by
+introducing a new status bit SUSPEND in device_status.
 
-Would it help if we add something like below in the guidance?
+This commit also introduce a new feature bit VIRTIO_F_SUSPEND
+which indicating whether the device support SUSPEND.
 
-When the device wants to send a notification it needs:
+Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+---
+ content.tex | 71 +++++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 61 insertions(+), 10 deletions(-)
 
-1) check notification suppression, don't send interrupt if it is
-suppressed otherwise goto 2)
-2) check event index, don't send interrupt if event index is not
-crossed otherwise goto 3)
-3) check coalescing, don't send interrupt if the coalescing limit is
-not exceed, otherwise send the interrupt
+Changes from V5:
+- the device should present NEEDS_RESET if failed to suspend
+- allow the driver access device status in the config space when
+  suspended if it is implemented in config space.
+- language improvements
 
-(Just to demonstrate the idea, needs tweaking for sure)
+Changes from V4:
+- re-order the device status bits section
+- kick vqs --> notify vqs
 
-THanks
+Changes from V3:
+- allow the driver clearing the SUSPEND bit to resume the device.
+- disallow access to config space while suspended.
 
-
->
-> -Siwei
->
-> >
-> >>> Re-reading this spec text, maybe the confusion is that it mentions se=
-t
-> >>> commands specifically? And it's also stuck in the middle where it's e=
-asy
-> >>> to miss.
-> >>>
-> >>> So it would seem that the following should be sufficient, and it look=
-s
-> >>> like a small clarification we could just apply and include in the
-> >>> vote for the csd. What do you guys think?
-> >> The revised text below looks good to me.
-> >>
-> >> Thanks,
-> >> -Siwei
-> >>>
-> >>> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> >>>
-> >>> ----
-> >>>
-> >>>
-> >>> diff --git a/device-types/net/description.tex b/device-types/net/desc=
-ription.tex
-> >>> index 76585b0..d6788df 100644
-> >>> --- a/device-types/net/description.tex
-> >>> +++ b/device-types/net/description.tex
-> >>> @@ -1711,8 +1711,6 @@ \subsubsection{Control Virtqueue}\label{sec:Dev=
-ice Types / Network Device / Devi
-> >>>                                            for an enabled transmit/re=
-ceive virtqueue whose index is \field{vq_index}.
-> >>>    \end{enumerate}
-> >>> -The device may generate notifications more or less frequently than s=
-pecified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-> >>> -
-> >>>    If coalescing parameters are being set, the device applies the las=
-t coalescing parameters set for a
-> >>>    virtqueue, regardless of the command used to set the parameters. U=
-se the following command sequence
-> >>>    with two pairs of virtqueues as an example:
-> >>> @@ -1726,6 +1724,9 @@ \subsubsection{Control Virtqueue}\label{sec:Dev=
-ice Types / Network Device / Devi
-> >>>    \item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq_in=
-dex} =3D 1, the device responds with coalescing parameters of index 1 set b=
-y command5.
-> >>>    \end{itemize}
-> >>> +The device can generate notifications more or less frequently
-> >>> +than specified by the coalescing parameters.
-> >>> +
-> >>>    \subparagraph{Operation}\label{sec:Device Types / Network Device /=
- Device Operation / Control Virtqueue / Notifications Coalescing / Operatio=
-n}
-> >>>    The device sends a used buffer notification once the notification =
-conditions are met and if the notifications are not suppressed as explained=
- in \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer=
- Notification Suppression}.
-> >>> @@ -1798,7 +1799,7 @@ \subsubsection{Control Virtqueue}\label{sec:Dev=
-ice Types / Network Device / Devi
-> >>>    Upon disabling and re-enabling a receive virtqueue, the device MUS=
-T set the coalescing parameters of the virtqueue
-> >>>    to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_RX_SET c=
-ommand, or, if the driver did not set any RX coalescing parameters, to 0.
-> >>> -The behavior of the device in response to set commands of the VIRTIO=
-_NET_CTRL_NOTF_COAL class is best-effort:
-> >>> +The behavior of the device in response to specific coalescing parame=
-ters is best-effort:
-> >>>    the device MAY generate notifications more or less frequently than=
- specified.
-> >>>    A device SHOULD NOT send used buffer notifications to the driver i=
-f the notifications are suppressed, even if the notification conditions are=
- met.
-> >>>
->
+diff --git a/content.tex b/content.tex
+index 0a62dce..8c974d3 100644
+--- a/content.tex
++++ b/content.tex
+@@ -36,19 +36,22 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+     this bit.  For example, under Linux, drivers can be loadable modules.
+   \end{note}
+ 
+-\item[FAILED (128)] Indicates that something went wrong in the guest,
+-  and it has given up on the device. This could be an internal
+-  error, or the driver didn't like the device for some reason, or
+-  even a fatal error during device operation.
++\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
++  drive the device.
+ 
+ \item[FEATURES_OK (8)] Indicates that the driver has acknowledged all the
+   features it understands, and feature negotiation is complete.
+ 
+-\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
+-  drive the device.
++\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that the
++  device has been suspended by the driver.
+ 
+ \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
+   an error from which it can't recover.
++
++\item[FAILED (128)] Indicates that something went wrong in the guest,
++  and it has given up on the device. This could be an internal
++  error, or the driver didn't like the device for some reason, or
++  even a fatal error during device operation.
+ \end{description}
+ 
+ The \field{device status} field starts out as 0, and is reinitialized to 0 by
+@@ -60,8 +63,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+ initialization sequence specified in
+ \ref{sec:General Initialization And Device Operation / Device
+ Initialization}.
+-The driver MUST NOT clear a
+-\field{device status} bit.  If the driver sets the FAILED bit,
++The driver MUST NOT clear a \field{device status} bit other than SUSPEND
++except when setting \field{device status} to 0 as a transport-specific way to
++initiate a reset. If the driver sets the FAILED bit,
+ the driver MUST later reset the device before attempting to re-initialize.
+ 
+ The driver SHOULD NOT rely on completion of operations of a
+@@ -99,10 +103,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+ \begin{description}
+ \item[0 to 23, and 50 to 127] Feature bits for the specific device type
+ 
+-\item[24 to 41] Feature bits reserved for extensions to the queue and
++\item[24 to 42] Feature bits reserved for extensions to the queue and
+   feature negotiation mechanisms
+ 
+-\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
++\item[43 to 49, and 128 and above] Feature bits reserved for future extensions.
+ \end{description}
+ 
+ \begin{note}
+@@ -629,6 +633,49 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
+ 
+ Thus a driver MUST ensure a virtqueue isn't live (by device reset) before removing exposed buffers.
+ 
++\section{Device Suspend}\label{sec:General Initialization And Device Operation / Device Suspend}
++
++When VIRTIO_F_SUSPEND is negotiated, the driver can set the
++SUSPEND bit in \field{device status} to suspend a device, and can
++clear the SUSPEND bit to resume a suspended device.
++
++\drivernormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
++
++The driver MUST NOT set SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
++
++Once the driver sets SUSPEND to \field{device status} of the device:
++\begin{itemize}
++\item The driver MUST re-read \field{device status} to verify whether the SUSPEND bit is set.
++\item The driver MUST NOT make any more buffers available to the device.
++\item The driver MUST NOT access any fields of any virtqueues or send notifications for any virtqueues.
++\item The driver MUST NOT access Device Configuration Space except for the field \field {device status},
++if it is implemented in the Config Space.
++\end{itemize}
++
++\devicenormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
++
++The device MUST ignore SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
++
++The device MUST ignore all access to its Configuration Space while
++suspended, except for \field{device status} if it is part of the Configuration Space.
++
++A device MUST NOT send any notifications, access any virtqueues, or modify
++any fields in its Configuration Space while suspended.
++
++When the driver sets SUSPEND, the device MUST either suspend itself or set DEVICE_NEEDS_RESET if failed to suspend.
++
++If SUSPEND is set in \field{device status}, when the driver clears SUSPEND,
++the device MUST either resume normal operation or set DEVICE_NEEDS_RESET.
++
++When the driver sets SUSPEND,
++the device SHOULD perform the following actions before presenting SUSPEND bit in the \field{device status}:
++
++\begin{itemize}
++\item Stop processing more buffers of any virtqueues
++\item Wait until all buffers that are being processed have been used.
++\item Send used buffer notifications to the driver.
++\end{itemize}
++
+ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+ 
+ Virtio can use various different buses, thus the standard is split
+@@ -872,6 +919,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ 	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
+ 	handling features reserved for future use.
+ 
++  \item[VIRTIO_F_SUSPEND(42)] This feature indicates that the driver can
++   trigger suspending the device via the SUSPEND flag
++   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
++
+ \end{description}
+ 
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+-- 
+2.45.2
 
