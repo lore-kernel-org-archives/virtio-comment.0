@@ -1,169 +1,194 @@
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A76405E6
-	for <virtio-comment@lists.linux.dev>; Fri, 28 Jun 2024 09:28:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719566914; cv=fail; b=OmJeTaT3FRMqA7EkVXT4qASFyqTnl6BsOKZdSScRdkp4a6YW39/vTDcfyJzY/KLV73W5cIDQg72l+M6sWmsYaR5O84uhhi5SGKEQgshsMUHTwVlc/f8JJaxyeH2DUNd0gvwCN2vMmtq1rFXArh3O78VYWU2Jk5rl33csTSn7TQU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719566914; c=relaxed/simple;
-	bh=sletq1DHyQzUa5l0FHVwU1WQKs69f5RHAytaVr2PE4Y=;
-	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=J90DI+ksISu7JRBL/LqIhDKyQzuG1hZLq23N6I+OWUfzUQLg7snkVljnsW28Ni3S0aN824EDdYIQppJL3/K/nQVTZW5euQCYv94pk39JNOe49AU7uhWucwbJ00meofcXGvsczXWvO4Eq4Ym37dji+yiA4d9+E5nViBdlHpaq+xs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DBLX65mD; arc=fail smtp.client-ip=40.107.220.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537442139A8
+	for <virtio-comment@lists.linux.dev>; Fri, 28 Jun 2024 09:51:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1719568310; cv=none; b=D4yqJstbVuwTfn/1zJlYgqxe3hp8Ydqn9hjy9sT51xpgWVyilWwCxN7esQvOsOIsxLNW+S7o9BcCaHFEaZqf6EOmqYMhQ4idSQLFl5oyeiepHKc2hBn5iVJ9/PjHS3YkQzrb6zpwrZG2RoPxUeadvkkV00Gh6yNy5JKo7ZSMXOQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1719568310; c=relaxed/simple;
+	bh=k+3PEPqm6VBgZM91fCVKDPCtu2mteTIDMd38xQE7f3c=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sduEmzhoNwSq0xXZC1lzC4/lk09pLscvAEgnNphFaOnvAtXITvvKmCctHrZ2DUJR39cskTe3HJ80rGDzHF1KvrPd13K0v/lFpZGJJMz0fhSYifYMiInIY/FC3MzPZhKrxu618ty/UwI5n5nAYCRFmuafF8qwJFnfhmUvc5LoiWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VkOim2JW; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DBLX65mD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mvpIMlK3Unf6WkhHGZmvBP03OmyS8i4yvsUW4gZbFroijcvAxUZvTiIEoiLPKfuyL7UtTX1bk/9CUZAMToeyCk/TavWXvg17eT8PdHHARTZCNVtJQOeN/duWcSb1yit7HnHA/1ajUeRwJ+uC232O+zHTOJBQAzeVML9gQsYS8C1xn8j767DOGtSxVr6FRQgChNIjiL/EP3U9TKTsrTP6/xVhT+GNrJmd1rftolgzXhXa1vbmOI+tzrqdxB4AxS69MZ0XbQZzEGgmsm+AqRMMtSOPZTSWnh74y7l2qETlHAGZ8zkFCj0OqsuG0zR3BewnFNUaOPEpRAruRbV+ex/+9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sletq1DHyQzUa5l0FHVwU1WQKs69f5RHAytaVr2PE4Y=;
- b=fK4PT95z+0IeSSvY8eX2AghPdU9MPZX0bFgYo4yErNtq7kLSgN2Hp6XAFxZf28H7uXYkeNN3UBz8ZrgiEL3AZkMZ62FXp49PEp2EJvvMVlsSwMBsHN0b11/VpPepuDx7lkHKcZQcrwABV38GjzJzQ//t2yGR4Ad5zlGSPceLNxXlPyHnDH7Gir7DeKHv6UI3qlVreNucX5/oKzBz1FkAfD6Wp0WfXX8lh6qGnckcRxg7VAphTdlv0znWKlQ75kH+yJgvU8scF9AhM7LkTEOwsjIPGYNqIVFrdaNYnhfRSTIKyoX/LoYY4XtrC/qAGkDZG/WDHOI4YHjMS+GSBHhUwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sletq1DHyQzUa5l0FHVwU1WQKs69f5RHAytaVr2PE4Y=;
- b=DBLX65mDTWm2Wdfw6jdNuKeZQKxU3E9g6sDlkg7KJRa1GJkjKDB/Y/IkB6G6ddby2KzZzrFTWMhj9wkipRSEzBEHtSlSFKolPHZv+j06PHfiS0cgrEPCSX2jbX6ntb6RQis8eXQKIW0GwdjyBMpJiGzREp4vK5EeQvmdQZWdT00=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by SA1PR12MB8946.namprd12.prod.outlook.com (2603:10b6:806:375::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.32; Fri, 28 Jun
- 2024 09:28:30 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%3]) with mapi id 15.20.7698.025; Fri, 28 Jun 2024
- 09:28:30 +0000
-Message-ID: <aa5e581b-a8a5-4196-b274-79887242734b@amd.com>
-Date: Fri, 28 Jun 2024 17:28:22 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: Request voting rights
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, cohuck@redhat.com
-Cc: virtio-comment@lists.linux.dev
-References: <1f4e0199-ba54-44b1-a060-91acb002bb62@amd.com>
-Content-Language: en-US
-In-Reply-To: <1f4e0199-ba54-44b1-a060-91acb002bb62@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI1PR02CA0013.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::7) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VkOim2JW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1719568306;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=k+3PEPqm6VBgZM91fCVKDPCtu2mteTIDMd38xQE7f3c=;
+	b=VkOim2JWB1Gc2qrQKA8ab406/GIjpcqgclaNSRs48+Qm4WTGYSuV3NcrTooj1qNsBlnSWR
+	UcGTyy6LbdkBlGYa8TQhIBJpAJ+RxFYza6IiRK0oUj9qr9qZr5jiGlAObYQ9UAQmJH7kqX
+	APri4409TAbyghw93g3/bq40mqyjPCw=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-64-Bx4qyYq_MR6KcZrMDG9A2Q-1; Fri, 28 Jun 2024 05:51:44 -0400
+X-MC-Unique: Bx4qyYq_MR6KcZrMDG9A2Q-1
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-362a1e80424so70217f8f.2
+        for <virtio-comment@lists.linux.dev>; Fri, 28 Jun 2024 02:51:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719568303; x=1720173103;
+        h=mime-version:user-agent:content-transfer-encoding:autocrypt
+         :references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=k+3PEPqm6VBgZM91fCVKDPCtu2mteTIDMd38xQE7f3c=;
+        b=ZI5yDNR4IUCsthX1iFHMilwOoCjRWj1gFTeBR6DHF1l/HxXKfNgdYthUwDWhBXPdLj
+         0wMBRbyF8DWTse1Gz6PtsVb/iQ4vH+4ZtTOvvTD08x27NlhT4jkGBM3GOC3CYUbNPs9c
+         2BiqV5AZyoSQ/gVm4NCscWt8LBEdKfmWmnfg0JWeuoFQkaS2k0Y7PiqYXIiXgrkNorL/
+         x2ICrWwrPRlmra2a2AczXlETite71ogV7lbfaXP83bQkRRxZqS6IAvOWu32O/Wvi4z+b
+         gLk5hT0E6s1ViLbLL2LJLH1eIgDnxcfNMNzYdoUH/XKt/of6mdKXDSSBPNhRB68Ys6eS
+         rKBQ==
+X-Gm-Message-State: AOJu0Yy1dH88G3JCM/htyBEhRSvNLrJ0kSHnskKNhnrL7mbcHf5v1POR
+	x90Zv5IPMYrxvmu+m0/kPcKn8F+cHRfozaMEUXgmzGR+J+YHFngjWkgxejOABJJBHSuOCc+KDNW
+	SoVGSrIHfPyi/tWoxyiwbPF50FK9nVRMylt82hg887brCMYgYPZy9M7XgkC/WEgKW
+X-Received: by 2002:a05:600c:4fd4:b0:425:6c50:865e with SMTP id 5b1f17b1804b1-4256c508c9emr10127045e9.2.1719568303331;
+        Fri, 28 Jun 2024 02:51:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFx7GApa4V6Ys86UMDDjFoQSycCgQ3N+cU8S1eq7Qgg9c7L+uZA7KYwEYWyNiB4o7xA211CuQ==
+X-Received: by 2002:a05:600c:4fd4:b0:425:6c50:865e with SMTP id 5b1f17b1804b1-4256c508c9emr10126935e9.2.1719568302889;
+        Fri, 28 Jun 2024 02:51:42 -0700 (PDT)
+Received: from gerbillo.redhat.com ([2a0d:3344:2716:2d10::f71])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3675a0d9385sm1727348f8f.39.2024.06.28.02.51.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Jun 2024 02:51:42 -0700 (PDT)
+Message-ID: <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
+Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
+From: Paolo Abeni <pabeni@redhat.com>
+To: Jason Wang <jasowang@redhat.com>, Willem de Bruijn <willemb@google.com>
+Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com, Eelco
+ Chaudron <echaudro@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>
+Date: Fri, 28 Jun 2024 11:51:37 +0200
+In-Reply-To: <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com>
+References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
+	 <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
+	 <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
+	 <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
+	 <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
+	 <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com>
+Autocrypt: addr=pabeni@redhat.com; prefer-encrypt=mutual; keydata=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
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|SA1PR12MB8946:EE_
-X-MS-Office365-Filtering-Correlation-Id: c61b1b83-8418-47c9-43ec-08dc9754abe2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UkJaVC8wVkpHVk03RW9UdTJVZDZPUXEyZFlySjB5ajlvN0R0WGorVTVrVEJ4?=
- =?utf-8?B?RE11NDNhMytCS095UUJYdFhOUTRFSWc1U25TWkZYWDV3UmF1ZDdoS2t4Rkc4?=
- =?utf-8?B?OGJYcFl1RzRNRHhBTkdTUWNxR3h0YXlkZXhSYVlOOTN2UVg5QlptWU5yTUp5?=
- =?utf-8?B?MzhXTVlzazdpR3VJcXNOZmVBTzliYk5KM01kY0crcTFXWWtKNUZrbUEwQUFX?=
- =?utf-8?B?eTlwMnEwT3NkLy8zMDVRaHdSRUVNMHlNUXQrMFh3SXA0clA3NDEwZDVRdUpw?=
- =?utf-8?B?U2pZcVhDYVgzYUR0L29MdXlTV1pIbW1uZTUvVDBhdEM2N2k2N3dtTFNXaWRK?=
- =?utf-8?B?UTFXK2xzUWE2Y2kwTGticXprYWxLT09QcCtEdjBNSCs0UnNHZmhpMVpKdG4z?=
- =?utf-8?B?YnUwT0pQdlBpUmd4NktqdElnY3cyNXVTUnJRVkNSM3lOd1M2WU0wMnc5amRN?=
- =?utf-8?B?ZU96OWs0VG9yVFc1UVZXSDFoUnYvQm1Cb05NWDdHRUZPbHN0dVI3T0ZyRllq?=
- =?utf-8?B?Ym5CdmR2TzVJRjFkeXZscXF3Z2ZhbXc5elVPNUtUa3F5MG42RnU2dHZHSUg0?=
- =?utf-8?B?TWcrdE9UUVhZV05NdzNpNUNQY09iS3NOTzhuZ2ZKaDloK0pSZlhreEdJNCtN?=
- =?utf-8?B?SVFIWDFnSmtvN1lHT1RXeXYyWGFRYkNGYVVVS3NlRU16LzRyaHhGdUZ1aHZS?=
- =?utf-8?B?OUxjK1RqS1ptZnBPZ2g2R3MxSDNqOVhKdkRUUHg0VHlZTTVWYUV5Y0NCMWJi?=
- =?utf-8?B?ZnlRenJZengyZjU4Mmh5T29ZL3VGK0J2a0xPTDYxMVRmQ25KNUgvd3R4aS9w?=
- =?utf-8?B?d2UyNkF3WllBNUU4MllrSUtndlU1SnNRaFBNT3ZlV1lTWXJQdmtmN2pORnJB?=
- =?utf-8?B?VnBRaDVOY1pmaUM4YkZQb1VuQkFIY2dhcDlZUnpNbXk4cWthazJFS1ZmMWhq?=
- =?utf-8?B?eE0yT3NHaW50TEVqQnc5N0JmaVpoVE5Hd0RRT2NvNW54dyswYmRoSkFXa3py?=
- =?utf-8?B?eWVNVVVqQ2c1aEhUYTZ0L3ordk5nSmtJR3gwREZNNnQ5NTIwTGVJZVRybS9M?=
- =?utf-8?B?T2U4aGUyVUZyeWcyMG9GZGMyUndtdUtZT0NxVGtxaU00ZnlJT1dMektoVWFk?=
- =?utf-8?B?TmlZdERoNkw5bWFmcG5MS2kzWjFveXNEWWZiZ29YZVBya3V3WnA1MThOdGhs?=
- =?utf-8?B?YzVnOFc2N1JvZ2NFSzc2blpjdWdqOUY4ZG1qMHBwQVJzYnJrRUhyVGN4a2kr?=
- =?utf-8?B?WUxmREpQY0U2RTFzRXdaSWNDQ0VicGIyMURKMlNUQU5Wb1RyNmFQSEVXaWJo?=
- =?utf-8?B?TUcveFVlcVVKV29QQWlxV0dERzlxNFdMaVpqNEQwby9FbmZkWms4ektaTllY?=
- =?utf-8?B?NnRTSDBja3ZkRFpXUUd3TE5oaUwvTVlNUk5vMUhFd2twVWhiMUhuaUYrUy9n?=
- =?utf-8?B?Q09ZNnFvdFV5T2UwYjAwa0hTam8rZ2dzVWhNdkhDL0RHVUJYcEVmT1llM21m?=
- =?utf-8?B?NHJ0TmJHZnRzdGgyNm5CYzhtcDdwUFBMSWt0blk1MmRPVUNWMDltZUxSQWJR?=
- =?utf-8?B?SFlWQ3dubWhYQkZQSXVIUUpkeW1zNUZCSjRXNS8rVXdpV3JxWTNtYjQxM2Zx?=
- =?utf-8?B?bElOODFkYkVIWE9JcnhzK0NnV1liOWlOZHZHL0ZJV0lGczdpUXV2K0QwSUhw?=
- =?utf-8?B?djlMTitwa1M5R3VOOHl6Mm1yVGZaOEVVNWJyK2J1d1JKL1RSTmZWbmxONGVh?=
- =?utf-8?B?bjNpOGJLM1FKTkFaRm1laU5QYStWNzMxc2NIYTU0UFd4U0pGYzFVYUtuZHFp?=
- =?utf-8?B?VjExQnBYMEZmaTk4Y0ZDdz09?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N3NVUS9rbitRdTU2SS95R3dQWnlOYWNMVXJOeEUwRlIvYjNBanpObWk0T1hB?=
- =?utf-8?B?S01pbllrbmpzd1Bjck1uUXQvMUJWc3hTRmdaTU1OdVJqWitQNWlRVG9mT29w?=
- =?utf-8?B?NnlkWU5helJNWXJ0T3M1bDdrQzc0STZIcGVoLzcyYVFLUU9jZjRjTU0wZDdV?=
- =?utf-8?B?U0NDV015S2NXZmFRL01rdEpsQWJMZThCejVXNEJ3enExOC9Kd0Vyc2xla0NX?=
- =?utf-8?B?UjFDeTVjN3lwbjJtaC9sWWNFVk9WMC80RmpJRXNLRzBUZDgxek9MM25qbEJL?=
- =?utf-8?B?ZjVEbGxqQ2V0R1dvQUJFdmRiMFUxTzl2clpnK2tBd2QzVTJtU1o0SjZ2amFl?=
- =?utf-8?B?alcyZzdJT1pwUUxwblhUQlJhbEcyZjV1RWV3aER2bXdBRExham9DYnVqa0dT?=
- =?utf-8?B?ZXQyOE1LTTcrbFVSRFRmQzJxZUNDNXB1MSthNTRkdDlENUNsRFlmcGZtakJT?=
- =?utf-8?B?eXlCWVJDTmhId2ZxWENiUG1OTElobTBkV3BGT0tEa2l0OVBkWXA4L0FWUG9o?=
- =?utf-8?B?QnNoR1IzVFhJUFc1eHljU3IwUjdPT05ieXdDdHRqZm1sU3RPa0Y1a0J0TGN4?=
- =?utf-8?B?TitaQnYzamlDK2dRMkVrenR3dXY5dUdoOVhQUHhpOCszRjFCbm1wNFJDY0pn?=
- =?utf-8?B?WlRqWmJGRFFXM1BDYnlEendsb2lhUTdmVkthbjlrZENGWS9iL04vMlp2SWZj?=
- =?utf-8?B?ZzdWOStJRXNUbTBjY3RUOFFRVTJKM09OL1BERTgyWVcrSHNmOGtFUndmOHhO?=
- =?utf-8?B?ck9kTVhIU0ZibjJzenN5cEpXWXkyc0ZJMmgwK21ScTFPVGd0MUl6dSszWDFq?=
- =?utf-8?B?RFV1OVNqSlhJY3h3dEpvVWVTQkFUR3NJcFdiOUhoRW9OVUZtMTA0ZVNmTGN1?=
- =?utf-8?B?VW40YkoxNlN2RzFFVFovV2N3UWJmTEUzaGE4bHFWN3VxdGFCY3YyQkl4c0gz?=
- =?utf-8?B?NG9ReU5YVWl5L2dOS0U4bHVobUFlMXFrL0RZOEV3QVZUc1Q4SEVJKy9abGc2?=
- =?utf-8?B?WVpCbjNpZnZoZVp5VzdLcmlVRmRlbDdOZ2tROUxQN3Z5SW9FK2dBVHNOVktR?=
- =?utf-8?B?SmQ2bjJ5Znovbjc0RU8xcUxCNi8wMjhXYmxUY29nTVNKSkZxeEhKWlpkS3g1?=
- =?utf-8?B?MHRacFZZcjZJUEthUWxWaVgyMEh2V2RJQU0wczkwa3I0aW5zMVpWVmUvMi9R?=
- =?utf-8?B?MExCVllYT2VSUUVSTFZxSkZCSk44T3VmWE9kMzAvRW1tWldJcjdkZ3g3UUNF?=
- =?utf-8?B?emI0VDBEb0ZUZW1nblVjbDFqa09xQk1tU3QxaUtjZ0diUExabXplcHR5Z0lE?=
- =?utf-8?B?amUxRDlrYkpxTUN5eTZMSWQzcnJWUUFDWGU0c1laR09Hc1dVdGJVckRUQktM?=
- =?utf-8?B?Vm5aZHJvaWxDZEJ4THZZMmRZNHJwajZMbTJUcnRXc3M0K1N0MmszRUtVaTRy?=
- =?utf-8?B?TDlKNUlBZ2NYd1JkdlpLNWNUYlVYSXNhMDlLU3pHR3dnaGdkS2ZZWGVZQ3lS?=
- =?utf-8?B?ckNCalAwbDlKQXhPK3hIUWEyMERQaFh1a0ljV2hvc2x1VytqbU1WL0tmSk13?=
- =?utf-8?B?TU5sQ2FUa2JKRzlBRGdhLzB1NnMvdzZNTDJvNFJwa1NOS0llUWZmYXljRVEz?=
- =?utf-8?B?cXpGQjRJYVovN3prdGRuSU5wOVBZay9yNjZDNEl1OGhQNmhUNnhmVjFaNEJn?=
- =?utf-8?B?SXBLQ3ZiRGIydXdtRkhmYkZGa3dzTG1MNXM0aldaS2VMVEZFUTM0MG9EOVNh?=
- =?utf-8?B?RHUxY2doZzlSckdGeXdSMUd3ZFdRcVloRHVqTjFoNGxSMHF0cUVIN2MzaDg1?=
- =?utf-8?B?UHc4TE5sWnFJVzhONE5Qc041Y2MwcFBROTN2ZDJzVjRwQmY5T1ppTGd0N21v?=
- =?utf-8?B?U1d5Rko4TmlWc1hlV3I1dlJleS85RnJUWXUrbTNQNHZ2a0lFcDgrTjZwVW1U?=
- =?utf-8?B?RkRaOHAvRTZBcjV1TE9MVDV6SHNHWFUralIxYng1QWkwamMwampZblFxY2JM?=
- =?utf-8?B?S3AzQ3NkbE1JTGk1VzZqRWpmT2RISVplcWR4SnZLUHVveHBFK2dmd3Z4U3Q3?=
- =?utf-8?B?QWtLaFpORzF2RXgycDdzc3R3Ky9rYWxEOUhweGt5K3FuanB6cExBQXZYamVD?=
- =?utf-8?Q?ftD/5f0bK4mkkk1DCUJrNCgJR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c61b1b83-8418-47c9-43ec-08dc9754abe2
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2024 09:28:29.9944
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Psq62Wdn9HmoGxB9sRBnvFHraLjc8CvTfbP/1D8tLNy2n0KJqk0ryKThY191N9lNvl8re8IRPIOyL9kusNqPiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8946
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Chairs
+On Fri, 2024-06-28 at 10:41 +0800, Jason Wang wrote:
+> On Wed, Jun 26, 2024 at 1:35=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> w=
+rote:
+> > On Tue, 2024-06-25 at 16:28 +0800, Jason Wang wrote:
+> >=20
+> > > Without UDP tunneling, GSO works with simple csum_start/csum_offset.
+> > > It doesn't require things like mac/network offset.
+> > > With UDP tunneling, can we just invent
+> > > inner_csum_start/inner_csum_offset to make things just work?
+> >=20
+> > Note for UDP tunneling should be 'outer_csum_start' (as 'csum_start'
+> > refers to the inner header) and 'outer_csum_offset' will not be needed,
+> > as we know that the outer header is an UDP one.
+>=20
+> You meant it is implied by VIRTIO_NET_HDR_GSO_UDP_TUNNEL? Probably but
+> we also had the case for VIRTIO_NET_HDR_GSO_UDP.
 
-Gentle Ping
+Possibly did you mean VIRTIO_NET_HDR_GSO_UDP_L4? I think that is quite
+a different thing: such offload was added when the
+csum_start/csum_offset field already existed, I guess it was far easier
+to reuse the virtio net header as is, instead of _deleting_ an unused
+field for that specific gso type?!?
 
-On 6/7/2024 9:48 AM, Zhu Lingshan wrote:
-> Hello Chairs
->
-> This is Lingshan who re-joined virtio TC last month.
-> Prior to AMD, I was a voting member on behalf of Intel (lingshan.zhu@intel.com) for two years.
-> I humbly request to be a voting member, please kindly help grant voting rights for me.
->
-> Thanks
-> Zhu Lingshan
->
+To do UDP tunnel GSO we need new fields. Do I understand correctly that
+there is concern about adding "too much" new fields? if so we should
+avoid introducing 'outer_csum_offset' as it carries no useful
+information. FTR: I think we *should* be concerned about the
+virtio_net_header size increase, as it will be bad for performances.
+
+>=20
+> > Dropping the support for the use-case with no inner mac header, and
+> > enforcing that the inner mac header must always be an ethernet one, the
+> > following fields will suffice:
+> > - outer transport header offset (or, if you prefer 'outer_csum_start')
+>=20
+> csum start seems to be more consistent with existing fields.
+> Personally I prefer to stick to the existing fields for outer.=C2=A0
+
+I'm unsure if I read the above correctly. AFAICS you are suggesting to
+re-use the existing fields for the outer header and add new ones for
+the inner header, am I correct?
+
+Note that the outer checksum is optional - the outer UDP csum can be 0.
+
+AFAICT using csum_start for the outer csum will be a bad choice as we
+will need to change the handling of such field depending on the
+gso_type and the s/w implementation will be more complex and likely
+more bug prone.
+
+> But if
+> others are all fine with introducing new fields for outer, I'm fine.
+>=20
+> > - inner mac header offset (because we can't locate it in any robust way
+> > even with parsing)
+>=20
+> I see, so the point is to make it protocol independent. Then we end up
+> with an interesting situation:
+>=20
+> 1) we try to make tunnel GSO to be protocol independent
+> 2) but it depends on the outer GSO when is not very clear that it is
+> protocol independent or not
+
+Note that the inner mac header offset can change on a per packet basis
+even if the UDP tunnel protocol stay constant/is fixed. e.g. if the
+tunnel protocol is geneve, different packets can have different geneve
+options and thus different inner mac header offset.
+
+I don't understand the point 2) above. We need some new fields to carry
+the information need for UDP tunnel GSO. How that relates to the
+protocol independence? We need such fields regardless of the protocol,
+unless we want to resort to parsing all the way from the outer mac to
+the inner transport.
+
+> I wonder if we should introduce the PISO for GSO first (new fields)
+> and build the tunnel GSO on top? (Or it might be an overkill?)
+
+I'm not sure if PISO is suitable for the virtio net use case.
+
+e.g. the virtio driver rx side must be able to fully reconstruct the
+GSO information for later S/W segmentation, if needed.
+
+With PISO the outer headers and the encap info are lost, the received
+PSIO GSO packet will be corrupted at any later S/W segmentation.
+
+The above problem does not affect H/W nics implementing PISO sending
+the segmented packets on the wire, as the other end is going to fully
+parse the incoming packets.
+
+@Willem, feel free to correct the above statements as needed.
+
+Let me voice my biggest concern. I feel like we are not making any
+progress in the forward direction. The initial design was sound enough
+to build a working PoC. The current design is completely fuzzy to me. I
+would be great if we could start setting some details.
+e.g. do we want to avoid parsing if possible? do we want to minimize
+new fields introduction? can the virtio net header layout be 'gso_type'
+dependent?
+
+Do you think a video call would help ruling out some details? if so
+please let me know if/when you are available, I'll try to set it up.
+
+Thanks,
+
+Paolo
 
