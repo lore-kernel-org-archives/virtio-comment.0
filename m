@@ -1,390 +1,268 @@
-Received: from APC01-SG2-obe.outbound.protection.outlook.com (mail-sgaapc01on2116.outbound.protection.outlook.com [40.107.215.116])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DA3823DE
-	for <virtio-comment@lists.linux.dev>; Mon,  1 Jul 2024 08:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.215.116
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719822292; cv=fail; b=B8/yWXC8ShnSjUJ8x85F2X2EUXDyZFzsLddXBr8F2r5FcbEM919j5aNOXoX82nDkN1EQ0EcLisdl9qBR/icPPmPq0+W7nrnr/wt1VY0fEe7WnshqgJRsJKOgghl5yINTfhvWiBxSithdba6IO7Fp3vXCeZq8OaXCuLNKltQhkWc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719822292; c=relaxed/simple;
-	bh=jefBwY9IfqAnnuCZTndH4DizJkBObJT82WHt7E5mDwQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=kWa6JH0HMif3rfQ9GX8iMdb/XHFGlF7VzhVSd85HOWa2+EpQoXYcFEJu5TmxxEAEoJunItkE3/u5g2n6No/7/ni6Pi1QJ5fWGXodD/1rnBSUdrIONq2gr+GZBq6YPioTe+JrpXkMXq7+U812cPjU2kGYZDDkHUftMU0JSgUWF4o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com; spf=pass smtp.mailfrom=jaguarmicro.com; dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b=nCOr/rrd; arc=fail smtp.client-ip=40.107.215.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaguarmicro.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718035C614
+	for <virtio-comment@lists.linux.dev>; Mon,  1 Jul 2024 09:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1719825797; cv=none; b=hhZA3yUQBe/L8UQxfgm+E7/enirKEBG9cfopB46oXoVP2NhPjfw+sNNqORngIK4GDjGz8z6dSZNjdvkNaMaNIKejFKkKWwfNj09OkLixt0KCgn00n09TpX5Gafxmi6AfXixnPi4UVt09pTijWpc7AJ0ZrlAb0TWq11H9/0RGbl0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1719825797; c=relaxed/simple;
+	bh=1dtJMKHegoNyJSR7DqI+VLJYSCYxDHZZnaiyvpryeq8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=r/BprgoBMyd1qxeCK9MFrQNdxhzg0iSnF7lxCAdQ/lyfgKiaNKiKXdOxIIZBm+hG0/tGxKYjRAvz6C829GFkKSwEoeoc9t4nIEF5uTX8ebPOpYJowo79DpLZSxlodUTsprtD9O7ofyp6RlVQb5UCPG+/riCdqtGL3ZmWK0QUK3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WXvDSTxF; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b="nCOr/rrd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YFZAZHBMvwGqg0rQpXCZJ938TocWvUORkDtWAcffzA/JEL71VMZ6OjDKDVajwWLh/NfZk/zZ2MEh18dSB8zmkljmVzDDiS1sDFVxSY3EjoHmBjEdgDOLNtzG96IEw234ndYIVC+55XegxoB5WJ4D+OEUWq3wqS0Vtu5HPbI7zf4zqtplKm0U/lvgNgxGBbcngz8uFj4RxXcdIwLnWa7MywODKogpkkaV+yDgAWI3IbKZyGzpbwGVfcKzWAwzP8M/juOUPKzCpk1SQkR1LZdcYtNERqbWOo3p5e74INHPsiDD0ZU+LcPSgsbqR6rGzV5DHk0hWAm0ajlp43wSKV95ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2m9yaAV1wqPrgz7Rq3UAavGiEUexZNnYIGscPGZRD0Q=;
- b=EbkNxkzL7UlFFormCv524xNgqnxzGW6X6sn6cbP7vNL0TtPDFN3Ku3SaQbSgUU+q/90cx12mr7n9ceJplH1eOuiep78Jc1xBexmuZe0L6Jsk1EyRqXKdPYiwBPMg/Mrw1nu8I8iYuTMSutj6JpAkhrptEXClkulNpBbwxMuOEO4L9or9VcYdxUUUUIapaj1/Jigp1Vj7BsP4+/Zi4sIugFfAn/uxRa2EoILMdPd1oMMKa1UPEZxiTKaWJY/W1pkkcXuCgxvUyqUyy0L4Ok+Z4jIaBEOrssYipJA71Gpu5IyYiIEI7nJaYdhUa2h3sk4FlQ+MsZTwypUUYVcgGdsTXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=jaguarmicro.com; dmarc=pass action=none
- header.from=jaguarmicro.com; dkim=pass header.d=jaguarmicro.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaguarmicro.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2m9yaAV1wqPrgz7Rq3UAavGiEUexZNnYIGscPGZRD0Q=;
- b=nCOr/rrdYRVrlpxFs3yQcQAMaJjJUa5uP3e7DIavYBj3FP+HmzmBNfAG5gi59U/TTyz+c/FqKpvLqdEAGC3UhQYbOvI4vVrt5tQ+eI5IzH8Rv9Who1UnVM2ssahDpi0MzuX2fXfueHec+sZcQkxnQVzfbtodIVR7v4WbUMxeRjHXJFezWumB3MUJVqWgmD9m9uCbfcvAx4YzdykTfwyICQVa+mP5o0YPXdwV5mmozV1BB9UjROce4DpsEG1sPcmy6nwug/1US2xpI7zib2btwdEDrCN6HGWur3bbKpB+Id907K2TZUt/RaAxknIQW/pMkCAlTzWCay9vfd4HcSW5Eg==
-Received: from SI2PR06MB5385.apcprd06.prod.outlook.com (2603:1096:4:1ec::12)
- by SEYPR06MB5860.apcprd06.prod.outlook.com (2603:1096:101:bf::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.28; Mon, 1 Jul
- 2024 08:24:39 +0000
-Received: from SI2PR06MB5385.apcprd06.prod.outlook.com
- ([fe80::967d:afda:6f4:33dd]) by SI2PR06MB5385.apcprd06.prod.outlook.com
- ([fe80::967d:afda:6f4:33dd%6]) with mapi id 15.20.7719.029; Mon, 1 Jul 2024
- 08:24:37 +0000
-From: Lege Wang <lege.wang@jaguarmicro.com>
-To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-CC: "vattunuru@marvell.com" <vattunuru@marvell.com>, "ndabilpuram@marvell.com"
-	<ndabilpuram@marvell.com>, "parav@nvidia.com" <parav@nvidia.com>,
-	"mst@redhat.com" <mst@redhat.com>
-Subject: RE: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
- notification suppression mechanism
-Thread-Topic: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
- notification suppression mechanism
-Thread-Index: AQHay2kF67vqaBJYMUW1XCStKdNnOLHhiDdQ
-Date: Mon, 1 Jul 2024 08:24:37 +0000
-Message-ID:
- <SI2PR06MB538526AECEABABFE4E6208D8FFD32@SI2PR06MB5385.apcprd06.prod.outlook.com>
-References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
-In-Reply-To: <20240701034435.675-1-lege.wang@jaguarmicro.com>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=jaguarmicro.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR06MB5385:EE_|SEYPR06MB5860:EE_
-x-ms-office365-filtering-correlation-id: 668463a0-5aa3-4cdd-3b44-08dc99a73ef9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?Windows-1252?Q?dXq9Anj4y5Pc/77d7zXVptQvdEPr5OzRsFH4HwcprM7gDZzRZOGS2bzz?=
- =?Windows-1252?Q?ROYMSPuuc+qUg4qpEFO2NbUqV7jR9n/708UcLOYJF0m0q4Sj6KFSFMut?=
- =?Windows-1252?Q?yN5dN3jqLQYv5Cepi0TksU2+oseoZqm027PwCg6jwgTq66Fe0T+Di3cl?=
- =?Windows-1252?Q?nS9dChKdk6tokZ5/IJfnxQzu5eedwBbJrcHamJbNoEoreOmAvDeZkkuN?=
- =?Windows-1252?Q?8198q0/NUGPeYyZnhJj23dJQUZWdy5JetnJS2U/3thQyjmgXzqRxp171?=
- =?Windows-1252?Q?rurmf8kFBwmQcw/KXxzsTiaXR07CgKXSSlqSw50lAOq84lT7Gd50Exc9?=
- =?Windows-1252?Q?1bGelErB4kxmEd9F/NMRBCvtf/L1ksC0hci9pPvSMdDXPG+bw5MniwSn?=
- =?Windows-1252?Q?HzXDij8t5vTNnQYt4pAgukHiV6za7aT3Hbs2e8KwdW+6oIPTExMTn4sD?=
- =?Windows-1252?Q?wbXIRmMJeeZBHPrtjeFbEObPqARxgT1ysufVd34OgNrlB5Q0+jU527lc?=
- =?Windows-1252?Q?64K+lbNh6ttMzrofIVyylPfD7OssROiVTf8Nb0heMBIOPG5PmfVFI91y?=
- =?Windows-1252?Q?b1cUV4ShmVn8tlt/n9NI5KEJIIm6I+MdTb5xHevpwhIOFnxlCzP1lPdh?=
- =?Windows-1252?Q?Xaox7xQb/QACCX27RQNinrIGwEYpxKxEGmGoe0dkEEyv0iRCZ9hLyf6M?=
- =?Windows-1252?Q?TeBp/i6MZ2UJHBFlr+SMLHo4IzD2A4BGQicfjDKV8yxyeDsFsFSsZ3d8?=
- =?Windows-1252?Q?2q20pOU4+IpT5Hosp7J9KlqjFeibFLnPHk3Y4USQlzXa8TR1BEOnzeMP?=
- =?Windows-1252?Q?86Yvwo0GAoETd04onTf708hmhkVbiUrgkq3nZMoB66g4lS1yxjPLpm0L?=
- =?Windows-1252?Q?O5cE/C7BXt5wFfe+XTRFLvkuw4N5f56ASCgtrLTgQysk1/OlVNltU8bh?=
- =?Windows-1252?Q?8B2KZ/ihO48So5+IpSjmhXI2q6MkF7MqRVrfJZo6HpJ21OH882CrkiSh?=
- =?Windows-1252?Q?9njWkOE0dwoKOnfhmdmcadbFLLO/zHb7cvFFFKn4cXStfe6ROIWuKzeF?=
- =?Windows-1252?Q?JmDGzaqKfJsKY/S36vaxq82482W30ny9G70AD6neqYFwGpn3dAY895fn?=
- =?Windows-1252?Q?Q24sXoP3SIYWZAYctQn8YD9txgSAAWdkbRtaDZ45a2TOtePrEBCnJceC?=
- =?Windows-1252?Q?AQtL8X+jj2db6YlROdhZW8E5sgLKKpOFNg4UjHtlxmcKgv0caGidpDwr?=
- =?Windows-1252?Q?cNr5wjOEOCJyjsTiHfA0sJM6b/YNycv+MVfQYP1lwHhBSKWf45T5UPbg?=
- =?Windows-1252?Q?DOtAOfbD3Y94TwdxndgyWgiqCCcSEoSZQRMVHOLKNDK5kQvFQff045VF?=
- =?Windows-1252?Q?4SxxxwOdRs7o5oDu8kDcI6P9jZa+jY6z3H9XucyhZTaHhOhQKKU5iqiC?=
- =?Windows-1252?Q?xfYpUL5fKlyyhzFNuJAjTgz1pfai35UqSnQmjee6ru6nj2e+PvdjkRWg?=
- =?Windows-1252?Q?fPWdJskQ0CTJUaCMnuv6WsvqTzLf1w=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5385.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?LuAXch50p/c022OzvEVqFP77NXkcdQ6IsrA4ojHDlZbm9tNS9HxJZ6Aa?=
- =?Windows-1252?Q?3P72Cu05gPDu0epa+OHaM96JjvVmqdPPJkrZiYSjjE5DrGKOrpCuwEMW?=
- =?Windows-1252?Q?iNR5mCHnZXv0ZBiFmw1ITgA9+oS7/Z5SL9tMxAh44/ZH/kwU7w/lgDMn?=
- =?Windows-1252?Q?CxgFtWSiVnRzq6IrgpqNaZujZyi+a5qRkDLyxzcW26JWNSFY7kc4hfr6?=
- =?Windows-1252?Q?JF6uiRsJbFGlIDFysQle0iwE3vy9OJAJz0emqS3f3wRgodClsDpvDiA1?=
- =?Windows-1252?Q?8vXNK82TSa49YgaWUhS3ciKvnmv08TF6cSbvC9cLS3StBRUf8qEvOapf?=
- =?Windows-1252?Q?ugceirQ1BVs7BBE8DQ8a7B8oedChQbGuSQFg+Ka9bdFHwlUqODxacGM9?=
- =?Windows-1252?Q?CZdLoUWKKI4YOLtV2bfYZLiC/wfsWTBvLiCbLNxMzUqF+dU73B40psXH?=
- =?Windows-1252?Q?8LbliZtSdirB9wHvLq8MpACo/vPrqNI1f3/cNnuVl3F3O74QUkZSkrB9?=
- =?Windows-1252?Q?iGIYg7SZUhLXQ1Z117R4VP8T7NrqFvtZgWX36cCaBytan4IX5OR1ZHiK?=
- =?Windows-1252?Q?GdTmwBXZOWKuh6+e98wRssmRBqPSwHtx/ex39QkbCAh939mMdcsv9bxk?=
- =?Windows-1252?Q?L46NYUVaete0g4Sa/xMmh65OUYBCl4Vwe3FoaWVlDGU8YKUROoShyqlQ?=
- =?Windows-1252?Q?jVoHlPayozNz/6AqZ2j8u8TUAwpf3eQi04UpVAmeZCsNkJvMwmUOGZ1k?=
- =?Windows-1252?Q?+ZlkSjW5cUnV68FSeWFDuTEdxkI6QK2z2xFIlgQj9gjXXUUWYYGHKZ5g?=
- =?Windows-1252?Q?94OQzDckFAnl7mo6C3BAeF0cHHbjCb4JHoDnFvw6hQ+sTjuXUiorb/J7?=
- =?Windows-1252?Q?0eeI18ce8yTATOPNEMeVF7ZGiCFRTfK/FUn98szv0xJpQMoaJWV4ZoC5?=
- =?Windows-1252?Q?lLACuP19TJDIy/vQBQ/U8l09dLGt+9CEljWItqvrlPAvFjmwZZonUk2Y?=
- =?Windows-1252?Q?PdHpzZe68cGuggJd6Vcho2pZuD9WqxlOeVNB24OG1L8qaVp6BRUvRBvT?=
- =?Windows-1252?Q?C3DSUzMM00ndZkByX8LUBlRchqK2eFbyzBZ74IerNqeTqYxEHmQctIJ5?=
- =?Windows-1252?Q?glPVpXh3gPOQ8xGBAoVAqjslyiKID2SaVc3JNN8ViNjnU9W67wcvv4lJ?=
- =?Windows-1252?Q?BMq02M2i6NG/6ZhrLhdDr5PzB6sXnbeVkhz7M9sVz7GDcgfVfEVnOZ8s?=
- =?Windows-1252?Q?dQDpL0hnsGyTjFJYAtZe4m5vI3k980tIXbB+gVcbtnlnlU2TqUqUASp0?=
- =?Windows-1252?Q?OBYMNGNDzrLoHs+vuuYFJx3zSo3h1G2vLTFNUG55nCmQ5Fmlsbnt2WWH?=
- =?Windows-1252?Q?1pru6NNeRXDZj/Yn97XeHwvlp1vl1Q5orNcMRin6cYIMjWgXqMS43L0H?=
- =?Windows-1252?Q?1/NM9TGz5meWcv2u+jJhT4u7H7phbOEIeyJVnljLU8aa+r6OIolELIFW?=
- =?Windows-1252?Q?6mP7op/e7ZPUclDo07fgKqMHUGxCb3lG03hsDVn9Db3rXR/b3V8EY+hS?=
- =?Windows-1252?Q?aPVisYlNDyoLnrJk2KOnXwSH1/WxTxwxcLpERcPlGrA5Zn8fy9GdGKeK?=
- =?Windows-1252?Q?DNhhVWsL/Pv5RzEZX6APY2rH6l78Q3SmxUfFQT+2sH6hyWzOjawx+kp6?=
- =?Windows-1252?Q?PnOHc5bF1ivkt7/MgbAgHEuThmEm4Z4j?=
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WXvDSTxF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1719825794;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1dtJMKHegoNyJSR7DqI+VLJYSCYxDHZZnaiyvpryeq8=;
+	b=WXvDSTxFK8cYvsC+odv8yfgOJCDPGL59cqs+HcdrNXZqJJdppGmksvk6TbuP0Q+T13pcyr
+	IJ95Ak3vchuwkNezMgEYB3II7yWQqrrD8d3fi7jc2yCRkarxZr7XUE4LaMAb632bZAR8Go
+	j7dzmUgb2H7CUPOnmg8NLh6mf1khWg8=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-274-hoKX1nR7ODW5vCvP07DSWw-1; Mon, 01 Jul 2024 05:23:10 -0400
+X-MC-Unique: hoKX1nR7ODW5vCvP07DSWw-1
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-363e506bf56so629855f8f.2
+        for <virtio-comment@lists.linux.dev>; Mon, 01 Jul 2024 02:23:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719825789; x=1720430589;
+        h=mime-version:user-agent:content-transfer-encoding:autocrypt
+         :references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1dtJMKHegoNyJSR7DqI+VLJYSCYxDHZZnaiyvpryeq8=;
+        b=wFzfq3ivEO3NWSvspZQ795mjWgDo4lzNudS6G8PvMoTGj7nYc7KQyjBYU0H2u3GzQj
+         VRFym66IW0BtOjuT9fKzuRPdLXcyiK6araHAntH+y6yEY5EleykzGtUo1urX23Eht4Qy
+         QssQNr2tuj3vqSZ3HNaXuyGnEnG7Kzq6snMWiSm7vIGY0j2LeK4Q0a9Hi9ZCv5jtCKxr
+         vHNbr/ixC6jvXVgnKgmV24nbWsEc/nu/OYAue1Cxa33GyWFREjwJvXk/3/C9U4ZGbW1e
+         FBpF1j7eToq2lTuTKSMBGR+9Y0z3ucU6Nt8o8tw/LwR2Y19+AYqVwAIN7zIjUgf9lSPU
+         SWtQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXyEc1M3d/Q/WTpPfzwdJXrTv/EbPCfChBTWS2fGYuerabno0EmOE9nIS9uHvYRb+nz10nMwiLIxt70rm36y2Vgar4jicP3JVQmC/MG1gI=
+X-Gm-Message-State: AOJu0YwLxEaj3g3VUR7iqySMqUWCKU/9aVs2q5QDnO45Dy0CKPM0trHP
+	H2puMD+j9cHzxSYuuXLZMMTb69wf2LjrHiaP/uOvi6TIDvwhY117mK+oz5cFkaiNbl4b9Nkx/vi
+	Mr6t91TuiusyoAv/j/WGABM5fa6zXqrOwIG84PI8rxo7lRV4aN7iEx6TGfGD+kBAR
+X-Received: by 2002:a05:600c:4848:b0:425:7ac6:96f7 with SMTP id 5b1f17b1804b1-4257ac69876mr33175115e9.0.1719825789109;
+        Mon, 01 Jul 2024 02:23:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHudvE2LNDiN2pA93Y80odTzxN2K0bPcDmgnejqVcoUpOJ0qm2iEQp2Lkbjx15HMrKqOt9d/w==
+X-Received: by 2002:a05:600c:4848:b0:425:7ac6:96f7 with SMTP id 5b1f17b1804b1-4257ac69876mr33174955e9.0.1719825788680;
+        Mon, 01 Jul 2024 02:23:08 -0700 (PDT)
+Received: from gerbillo.redhat.com ([2a0d:3344:2451:6610:7695:150b:6fd2:fdc1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3675a0fc412sm9546881f8f.70.2024.07.01.02.23.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jul 2024 02:23:08 -0700 (PDT)
+Message-ID: <4497c727ea6cc696ba7d60bcb95ba9bce33f1136.camel@redhat.com>
+Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
+From: Paolo Abeni <pabeni@redhat.com>
+To: Jason Wang <jasowang@redhat.com>
+Cc: Willem de Bruijn <willemb@google.com>, virtio-comment@lists.linux.dev, 
+	maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, Stefano
+	Garzarella <sgarzare@redhat.com>, Michael Tsirkin <mst@redhat.com>
+Date: Mon, 01 Jul 2024 11:23:06 +0200
+In-Reply-To: <CACGkMEv9gGrLO0OkHYKmjqrLw50kfm2yaifMk1wnb6noa5L99w@mail.gmail.com>
+References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
+	 <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
+	 <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
+	 <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
+	 <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
+	 <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com>
+	 <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
+	 <CACGkMEv9gGrLO0OkHYKmjqrLw50kfm2yaifMk1wnb6noa5L99w@mail.gmail.com>
+Autocrypt: addr=pabeni@redhat.com; prefer-encrypt=mutual; keydata=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
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: jaguarmicro.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5385.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 668463a0-5aa3-4cdd-3b44-08dc99a73ef9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2024 08:24:37.4527
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 1e45a5c2-d3e1-46b3-a0e6-c5ebf6d8ba7b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DW4yYf4fx9Tut/uIX5jlZsxfP8nryKs9TzCQYe7grMApGOu9/zvn57d4ZpKhy9d/UyjRTMp/2GpwjVJ2rL3PGono7Er7mbcRgxFG3rw6v10=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5860
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vamsi,
+On Mon, 2024-07-01 at 11:02 +0800, Jason Wang wrote:
+> On Fri, Jun 28, 2024 at 5:51=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> w=
+rote:
+>=20
+> > I think that is quite
+> > a different thing: such offload was added when the
+> > csum_start/csum_offset field already existed, I guess it was far easier
+> > to reuse the virtio net header as is, instead of _deleting_ an unused
+> > field for that specific gso type?!?
+>=20
+> We probably don't need to delete it. We can just leave it unused if
+> it's the case.
 
-I had planed to submit this v1 last week, but was really busy with other wo=
-rk, sorry for delay.
-And please help to review this patch, which I still think it's not mature e=
-nough.
+I think the starting question on your side was about cum_start and
+csum_offset for the (outer) header checksum instead of using a new for
+that goal as initially proposed here.
 
-Regards,
-Xiaoguang Wang
+I read your previous message as you considered VIRTIO_NET_HDR_GSO_UDP
+and VIRTIO_NET_HDR_GSO_UDP_L4 a prior art about handling a similar
+case.
 
-> -----Original Message-----
-> From: Lege Wang <lege.wang@jaguarmicro.com>
-> Sent: Monday, July 1, 2024 11:45 AM
-> To: virtio-comment@lists.linux.dev
-> Cc: vattunuru@marvell.com; ndabilpuram@marvell.com; parav@nvidia.com;
-> mst@redhat.com; Leo Liu <leo.liu@jaguarmicro.com>; Angus Chen
-> <angus.chen@jaguarmicro.com>; Lege Wang <lege.wang@jaguarmicro.com>
-> Subject: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
-> notification suppression mechanism
+My point is that VIRTIO_NET_HDR_GSO_UDP and VIRTIO_NET_HDR_GSO_UDP_L4
+were not a similar case, as when such offload where added,
+virtio_net_header already included all the fields necessary to support
+checksum offload for such GSO, while with UDP tunnel GSO we need to
+support the inner header checksum as for plain GSO and an _additional_
+csum for the outer transport header.
+
+> > To do UDP tunnel GSO we need new fields. Do I understand correctly that
+> > there is concern about adding "too much" new fields?
 >=20
-> Currently for the PCI transport, used buffer notification suppression
-> informations are located in guest memory, for example, pvirtq_event_suppr=
-ess
-> for packed ring and virtq_avail for split ring, then PCI devices simulate=
-d
-> by hypervisors, such as QEMU, can vist these suppression informations
-> directly before issuing used event, the only overheads may be just proper
-> memory barriers, but for some hardware PCI devices offered by
-> DPU(Data Processing Unit), DPU would need to submit DMAs to copy guest
-> suppression informations to DPU internal memory, then check whether
-> used event should be notified by examing this internal memory, which
-> is obvious expensive, and this DMA operation is needed every time
-> DPU attempts to issue used event, DPU may also choose to add a hardware
-> component to polling suppression informations by submit DMAs continuously
-> to get newest used event suppression infos, but it's also expensive.
+> Nope, I just want to know the reason why those fields were not
+> required for non-tunnel GSO.
+
+With plain (non-tunnel) GSO we need to offload a single checksum.
+
+With UDP tunnel GSO there are 2 separate checksums the device or the
+driver possibly need to offload: the inner transport header checksum
+and the outer transport header checksum.=C2=A0
+
+The latter header is always an UDP one, and the checksum there is
+optional - UDP GSO packets can have 0 csum there. Side note: that is
+different from UDP_L4, which always requires non zero csum for the such
+UDP csum.
+
+Using the existing csum_fields for the inner transport header works
+nicely, as it does not change such fields semantic nor handling, and
+does not waste the (variable) offset information.
+
+Still we need some more info to correctly locate the outer transport
+header and the checksum, without resorting to header parsing. Thus the
+additional field.
+
+> For tunnel GSO, this proposal introduces:
 >=20
-> To help improve this sitiuations, add a new feature:
-> VIRTIO_F_USED_EVENT_AUTO_DISABLE. When this feature bit is negotiated,
-> devices will place new notification area for used buffer suppression
-> notification in PCI bar specfied by virtio_pci_notify_cap, also for bette=
-r
-> used buffer notification coalescing, the device will disable later used
-> buffer notifications automatically after sending one used buffer notifica=
-tion
-> to driver, and after the driver finishes handling current used buffer eve=
-nt,
-> it needs to notify the device to enable used buffer notification again by
-> writing above new notification area in PCI bar. Device will receive
-> this notification reliably, and device knows that it can issue used event
-> now, but it may choose appropriate timing to send used events according t=
-o
-> its notification coalescing policy , now it also does not need to DMA gue=
-st
-> memory to obtain notification suppression.
+> inner_protocol: inner ethernet type
+> inner_mac_offset: inner mac header
+> inner_nh_offset: inner network header
 >=20
-> Signed-off-by: Xiaoguang Wang <lege.wang@jaguarmicro.com>
-> ---
->  content.tex       | 38 ++++++++++++++++++++++++++++++++++++++
->  transport-pci.tex | 26 +++++++++++++++++++++++++-
->  2 files changed, 63 insertions(+), 1 deletion(-)
+> This gives me the impression that the tunnel GSO (at least the inner
+> part) wants to be protocol independent. This is fine but I don't fully
+> understand why the above is needed. For example, why do we need to
+> know about the inner_protocol?
+
+in some tunnel protocols e.g. geneve, the inner mac header is not
+included. In such case, inner_mac_offset =3D=3D inner_nh_offset.
+Specifically in the geneve case the inner protocol can be obtained
+parsing the geneve header itself.
+
+Other UDP tunnel protocols (e.g. FOU), does not carry the inner header
+and additionally the inner protocol type is not specified on the wire,
+(is configured on the control plane) so there is no way to extract it
+with parsing.
+
+Using all the above 3 fields allow covering all the above use-cases.
+
 >=20
-> diff --git a/content.tex b/content.tex
-> index 0a62dce..84505da 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -448,6 +448,7 @@ \section{Driver Notifications} \label{sec:Basic Facil=
-ities
-> of a Virtio Device /
->  The driver is sometimes required to send an available buffer
->  notification to the device.
+> > AFAICT using csum_start for the outer csum will be a bad choice as we
+> > will need to change the handling of such field depending on the
+> > gso_type and the s/w implementation will be more complex and likely
+> > more bug prone.
 >=20
-> +\subsection{Available Buffer Notifications} \label{sec:Basic Facilities =
-of a
-> Virtio Device / Driver notifications / Available Buffer Notifications}
->  When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,
->  this notification contains either a virtqueue index if
->  VIRTIO_F_NOTIF_CONFIG_DATA is not negotiated or device supplied
-> virtqueue
-> @@ -488,6 +489,35 @@ \section{Driver Notifications} \label{sec:Basic
-> Facilities of a Virtio Device /
->  has been negotiated, these notifications would then have
->  identical \field{next_off} and \field{next_wrap} values.
+> Not sure I understand here, but I'm not sure if it's too late to
+> change that. As stated, we may introduce a new robust GSO to replace
+> it anyhow.
+
+Please see the comments above WRT the outer csum handling. At this
+point I suspect we are not on the same page. We need a new field to
+support the _additional_, outer csum offload carried by UDP GSO
+packets.=C2=A0
+
+That csum field will need different handling WRT the inner one - as the
+outer csum is optional.
+
+If we use csum_start/csum_offset for the _outer_ csum, we will need to:
+- introduce additional inner_csum_start/inner_csum_offset to cope with
+the inner transport header csum.
+- change the semantic of existing csum_start/csum_offset to cope with
+optional csum. csum_offset will carry no useful information, as it will
+be always be constant '6'.
+- give to the newly introduced fields couple the exact old semantic of
+csum_start/csum_offset.
+
+I actually went through the exercise of implementing a working PoC on
+top of a previous revision of this proposal. AFAICT using
+csum_start/csum_offset for the outer csum will require a more complex
+and bug prone implementation then the alternative initially proposed
+here.
+
+> >=20
+> Exactly. My point is (I may miss something obvious) why should we care
+> about mac header offset when we are doing segmentation? For the
+> content from outer payload start to inner transport start
+> (inner_csum_start), the device can just replicate without worrying
+> about what it has.
+
+The inner mac header offset is not needed for segmentation, it's needed
+to rebuild correct GSO packets on the 'other end'.
+
+E.g. when the device will transmits a UDP tunnel GSO packet, the driver
+will need to be able to build a "correct" UDP tunnel GSO skbuff from
+the virtio net header.=C2=A0
+
+Such skbuff must includes both inner and outer header offsets, and in
+the general case (as described above e.g. for the FOU tunnels) we can't
+reconstruct the full inner headers info, even with parsing, without
+inner mac network header offset, inner network offset and inner
+protocol type.
+
+Lacking the inner offset, the skb will be corrupted by a later
+segmentation in the guest - if/when such thing will happen.
+
+> > I don't understand the point 2) above. We need some new fields to carry
+> > the information need for UDP tunnel GSO. How that relates to the
+> > protocol independence? We need such fields regardless of the protocol,
+> > unless we want to resort to parsing all the way from the outer mac to
+> > the inner transport.
 >=20
-> +\subsection{Used Buffer Event Enable Notifications} \label{sec:Basic Fac=
-ilities
-> of a Virtio Device / Driver notifications / Used Buffer Event Enable
-> Notifications}
-> +This kind of notification is only necessary when
-> VIRTIO_F_USED_EVENT_AUTO_DISABLE has been negotiated.
-> +When this feature bit is negotiated, the device will disable used buffer
-> notification
-> +automatically after sending one used buffer notification to the driver, =
-and
-> after the driver
-> +finishes handling current used buffer event, it needs to notify the devi=
-ce to
-> enable used
-> +buffer notification again.
-> +
-> +\begin{description}
-> +\item [vq_index or vq_notif_config_data] Either virtqueue index or devic=
-e
-> +      supplied queue notification config data corresponding to a virtque=
-ue.
-> +\item [used_off] Offset
-> +      within the ring where the latest used ring entry the driver has
-> processed.
-> +      Without VIRTIO_F_RING_PACKED this refers to the 14 least significa=
-nt
-> bits of the
-> +      offset (in units of descriptor entries) within the descriptor ring=
- where
-> the latest used
-> +      ring entry the driver has processed. With VIRTIO_F_RING_PACKED thi=
-s
-> refers to the offset
-> +      (in units of descriptor entries) within the descriptor ring where =
-the
-> latest used ring
-> +      entry the driver has processed.
-> +\item [used_wrap] Wrap Counter.
-> +      With VIRTIO_F_RING_PACKED this is the wrap counter
-> +      referring to the latest used descriptor where the driver has proce=
-ssed.
-> +      Without VIRTIO_F_RING_PACKED this refers to the most significant
-> bit(bit 14) of the
-> +      offset (in units of descriptor entries) within the descriptor ring=
- where
-> the latest used ring
-> +      entry the driver has processed..
-> +\item [enable_notify] Whether to enable used buffer notification.
-> +      The driver may benefit from just informing device the latest used =
-ring
-> entry
-> +      it has processed, but not enabling used buffer notification. This =
-field
-> only
-> +      occupies one bit, if set to 1, it will enable used buffer notifica=
-tion,
-> otherwise not.
-> +\end{description}
-> +
->  \input{shared-mem.tex}
+> I think we're talking about the same thing, try to avoid unnecessary
+> parsing. So I mean, we don't need to parse from outer transport
+> payload start to inner csum_start. That's why I don't get why we need
+> inner_mac/nh/ether_type.
+
+At this point I'm unsure if I made it clear why we actually need the
+mentioned fields.
+
+> >=20
 >=20
->  \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Devic=
-e /
-> Exporting Objects}
-> @@ -872,6 +902,14 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved
-> Feature Bits}
->  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits=
-} for
->  	handling features reserved for future use.
 >=20
-> +  \item[VIRTIO_F_USED_EVENT_AUTO_DISABLE(42)] This feature indicates
-> that the device
-> +  will disable used buffer notification automatically after sending one =
-used
-> buffer notification.
-> +  Note: when VIRTIO_F_RING_PACKED has not been negotiated, the
-> maximum queue
-> +  size MUST NOT be greater than 16384, when VIRTIO_F_RING_PACKED has
-> been negotiated,
-> +  the maximum queue size MUST NOT be greater than 16383.
-> +
-> +  See \ref{sec:Basic Facilities of a Virtio Device / Driver notification=
-s / Used
-> Buffer Event Enable Notifications}
-> +
->  \end{description}
 >=20
->  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
-> diff --git a/transport-pci.tex b/transport-pci.tex
-> index a5c6719..62ba9dc 100644
-> --- a/transport-pci.tex
-> +++ b/transport-pci.tex
-> @@ -551,6 +551,13 @@ \subsubsection{Notification structure
-> layout}\label{sec:Virtio Transport Options
->          cap.offset + queue_notify_off * notify_off_multiplier
->  \end{lstlisting}
+> > can the virtio net header layout be 'gso_type'
+> > dependent?
 >=20
-> +If the VIRTIO_F_USED_EVENT_AUTO_DISABLE feature has been negotiated,
-> \field{notify_off_multiplier} is also
-> +combined with the \field{queue_notify_off} to derive the Queue Notify
-> address for enabling
-> +used buffer notifications within a BAR for a virtqueue, but add a 4 byte=
-s
-> offset:
-> +\begin{lstlisting}
-> +        cap.offset + queue_notify_off * notify_off_multiplier + 4
-> +\end{lstlisting}
-> +
->  The \field{cap.offset} and \field{notify_off_multiplier} are taken from =
-the
->  notification capability structure above, and the \field{queue_notify_off=
-} is
->  taken from the common configuration structure.
-> @@ -563,7 +570,7 @@ \subsubsection{Notification structure
-> layout}\label{sec:Virtio Transport Options
->  \devicenormative{\paragraph}{Notification capability}{Virtio Transport
-> Options / Virtio Over PCI Bus / PCI Device Layout / Notification capabili=
-ty}
->  The device MUST present at least one notification capability.
+> I don't get this question. Did you mean a completely new header format
+> other than the current one? I think the answer is yes if it has
+> sufficient justification but it requires a new feature.
+
+This question on my side sparked from the goal of reducing the
+virtio_net_header overhead. The idea is that a plain GSO packet will
+have the current layout (no extra fields) even when UDP tunnel GSO is
+negotiated.
+
+The new virtio_net_header layout (with outer transport, inner mac,
+inner net and inner proto type) could be used only when UDP tunnel GSO
+is negotiated _and_ 'gso_type' has the=20
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit set.
+
+This way supporting UDP tunnel GSO will not pay any overhead for plain
+GSO.
+
 >=20
-> -For devices not offering VIRTIO_F_NOTIFICATION_DATA:
-> +For devices not offering VIRTIO_F_NOTIFICATION_DATA or
-> VIRTIO_F_USED_EVENT_AUTO_DISABLE:
->=20
->  The \field{cap.offset} MUST be 2-byte aligned.
->=20
-> @@ -596,6 +603,23 @@ \subsubsection{Notification structure
-> layout}\label{sec:Virtio Transport Options
->  cap.length >=3D queue_notify_off * notify_off_multiplier + 4
->  \end{lstlisting}
->=20
-> +For devices offering VIRTIO_F_USED_EVENT_AUTO_DISABLE:
-> +
-> +The device MUST either present \field{notify_off_multiplier} as a
-> +number that is a power of 2 that is also a multiple 4,
-> +or present \field{notify_off_multiplier} as 0.
-> +
-> +The \field{cap.offset} MUST be 4-byte aligned.
-> +
-> +The value \field{cap.length} presented by the device MUST be at least 8
-> +and MUST be large enough to support queue notification offsets
-> +for all supported queues in all possible configurations.
-> +
-> +For all queues, the value \field{cap.length} presented by the device MUS=
-T
-> satisfy:
-> +\begin{lstlisting}
-> +cap.length >=3D queue_notify_off * notify_off_multiplier + 8
-> +\end{lstlisting}
-> +
->  \subsubsection{ISR status capability}\label{sec:Virtio Transport Options=
- /
-> Virtio Over PCI Bus / PCI Device Layout / ISR status capability}
->=20
->  The VIRTIO_PCI_CAP_ISR_CFG capability
-> --
-> 2.34.1
+Cheers,
+
+Paolo
 
