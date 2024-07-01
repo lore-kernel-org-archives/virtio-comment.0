@@ -1,262 +1,306 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22EC282ED
-	for <virtio-comment@lists.linux.dev>; Sun, 30 Jun 2024 17:05:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E456171CC
+	for <virtio-comment@lists.linux.dev>; Mon,  1 Jul 2024 03:02:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719767104; cv=none; b=tPVMjFujqFuuHIlTyLKxQb/tjOGmvzRLy9mOeufgyigzIEKgJNLhmdsFNcwJ69MDqfvm5zvT6G+0CdrzkUyq5RXGjVPVkld4RuEaRu+8d3ZF8EpNNYB/G4q5VDr1e12sMuU9wdJrG35BPHZP1C1VUKw5kYBCMVRmtU+lY8QtSxw=
+	t=1719802960; cv=none; b=IhRlEuu+ft2pEQDGaopgkSV8sySqfH9vbztnLTv+x26ELTDI/4CNO13cpv5+isVAz7G/h/+hMy/ddVuMfWpaHUtksXvw5nvDVOiWRblrtlizx2xoVG5Dwvzxb2Yth5h/Gig+k4lVJQKMx3XILmJVr54XoNqYGeruhr3WMXTA5kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719767104; c=relaxed/simple;
-	bh=EiwskjNk9gHHP46FHBLkAs6qCuEY0YlZsiO/GPN/L9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=qAYUZin7GgWEJCbmjtPXt0wWQkTOMbkzzamebi/Xeb8g0iA8R3HGjeUQIyOTPXS30woGMPj/TIkJCsUFfxci/Svs8yJm7ua4a1AXQcxPT9HFMLyGnVEtnYUsuOk5ZtNMLwpgJUvc3d6piGJd4ENS/lFK6/aBeQhzqs28OPEr2Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eqTaHecm; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1719802960; c=relaxed/simple;
+	bh=UjM+hstgq5nqqt68ovOVekZmey38+9tupI/zxJrbwP8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cAoFATsKoNCFq59FKG0vt01x6hKK0upASipwKw8BsPOvVlX+YMbSztob+J5B1sgcJwQa7XkAVDMM8g9axSPyrnRf7OyD4RuSzYL9BtIyojVqQh2Y35Kg6lXRh/4JhFsSoleM2KpL3XdgJ+VQ/bvkvH/sVnZWOe6loeGhGEAhGpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=D+T/ceJE; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eqTaHecm"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D+T/ceJE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719767100;
+	s=mimecast20190719; t=1719802957;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bT8lu8A3nTJ5Bk/CNf0xoo38Ji+m+WHfH4ygB/5s5KA=;
-	b=eqTaHecm1EaQMywvTPRqcYotGyRAW77fzUCjSUW8rm8oRm9BNmlURTivbbi8ifAiS4w5xg
-	awXrMp2Lkag/0Hne4nB4BuRdMj3w7tIishSY2VNRZaLiffjAepf7kBU+hfvBSYxXA8qlvA
-	N3SDTf5iI6KqYCaStnKdKcmNlt4/yrg=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=pGjgz5FkGRv8vVR5aqcy6Iy3ShNhDf2fA7xC2njEiSo=;
+	b=D+T/ceJEYIROjFNn09xCnDsbtnkHgGadLbMTvQcndl9U+ENFvqSJrf0/FdjniBCGwFM4Sp
+	XoLPaxpVSvO9qBlBz1t+hjmQLBtLwjblNWDo5XbSOxiJN/tbz7YTCMpjmX3QmH0LiqQdgp
+	IK+V61LGcEtQ/QLf6Pg/3245S0WzHH8=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-281-J2gTBejPPTKS6Xg8spPhhQ-1; Sun, 30 Jun 2024 13:04:56 -0400
-X-MC-Unique: J2gTBejPPTKS6Xg8spPhhQ-1
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-363e84940b2so1272841f8f.3
-        for <virtio-comment@lists.linux.dev>; Sun, 30 Jun 2024 10:04:56 -0700 (PDT)
+ us-mta-199-rbqMjZgCPQ6XrE5gu3YW9w-1; Sun, 30 Jun 2024 23:02:36 -0400
+X-MC-Unique: rbqMjZgCPQ6XrE5gu3YW9w-1
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-2c9343025cbso1275995a91.0
+        for <virtio-comment@lists.linux.dev>; Sun, 30 Jun 2024 20:02:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719767095; x=1720371895;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bT8lu8A3nTJ5Bk/CNf0xoo38Ji+m+WHfH4ygB/5s5KA=;
-        b=GjspBkoIY1xQ6YHVg2wFFtaXWmNpZug78cia0E7ib+somijiLzyPCUUIERGZsl75A5
-         kYlhEVFY5SS9pWF/hfhhzGK+FXjkXq+3rvn9gGrer7o0cNS9bcNlCtuQtWvAfLRmUDrR
-         WYhzyKre3MTut28shtG8Ydm21ZYDSjGashgX06URhPSyxDVx7qpERRhif9aIWltSs5ek
-         198F88vmVqA7mfPC95QMR5/JifqWeAnEBWYCZz8GDK7NCJwESLZDC8HVWsBTWan93cD6
-         0Lssfsj2TNfS7HBbiYk+Efj2xfLm1tIG7Q5+0eKrXgTtjQV0FYb8vYMM7QjuNP5VMSEv
-         u8hg==
-X-Forwarded-Encrypted: i=1; AJvYcCXBS3r5ntdUzRJmyCfvvykCorBczEi/pks5emLPE/2eobO1EhC50gaKLMqVLTh3So1sd1I9poAW8NZw2bz5TOFNyCyWIBb9SCnIie4DOG0=
-X-Gm-Message-State: AOJu0YxQ1UaMJdUbfumniv4+1fKh2WS4boF8g5CMJl/N44IjAk2H31Kw
-	Q3YvSdBTaD6pKzj9F32/4WyiQuRQAtTqOnUtQc9KCdbiAmL5TPw51EYwQ2MkS0R87CWSTLcfcx3
-	5ZFN+GEKIpWy0pLI/lO1Q3Cx2NGbatEZoJjEak7UjL91n8i6s5DLxL3g/JM9p6dQ+
-X-Received: by 2002:a5d:61cc:0:b0:367:4d9d:568b with SMTP id ffacd0b85a97d-367757283cemr2140955f8f.68.1719767095321;
-        Sun, 30 Jun 2024 10:04:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHeiPt5Yne6wTPN79PmOCsTwkpYkp+m/wyzPZkYXCvcQONujC6SoONT2joJuGLjTZPGgaCASw==
-X-Received: by 2002:a5d:61cc:0:b0:367:4d9d:568b with SMTP id ffacd0b85a97d-367757283cemr2140935f8f.68.1719767094551;
-        Sun, 30 Jun 2024 10:04:54 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:346:7728:cff8:104f:5265:699])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3675a103d18sm7840221f8f.106.2024.06.30.10.04.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Jun 2024 10:04:53 -0700 (PDT)
-Date: Sun, 30 Jun 2024 13:04:50 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Si-Wei Liu <si-wei.liu@oracle.com>
-Cc: Jason Wang <jasowang@redhat.com>, Halil Pasic <pasic@linux.ibm.com>,
-	Parav Pandit <parav@nvidia.com>, Heng Qi <hengqi@linux.alibaba.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
-Message-ID: <20240630125644-mutt-send-email-mst@kernel.org>
-References: <f03e76fe-9ee8-4000-b41c-0b284f2f237d@oracle.com>
- <PH0PR12MB54818CFB447152A25130F9B8DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
- <bca1e5e8-65af-4825-b6fe-2ca3b6c41feb@oracle.com>
- <20240627123732.0cf541b3.pasic@linux.ibm.com>
- <20240627080346-mutt-send-email-mst@kernel.org>
- <b57acf4d-84e1-4360-a229-eeb7b3d752fc@oracle.com>
- <20240627181635-mutt-send-email-mst@kernel.org>
- <3297e270-e9a5-404e-92eb-55fbe6c3f78c@oracle.com>
- <CACGkMEsxP0eKK2DbKVTig8MPW0J7z4o5xSSRtk4JAcOMoXmsPw@mail.gmail.com>
- <67d0af06-8132-4f0c-afb2-3dbff77ccf10@oracle.com>
+        d=1e100.net; s=20230601; t=1719802954; x=1720407754;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=pGjgz5FkGRv8vVR5aqcy6Iy3ShNhDf2fA7xC2njEiSo=;
+        b=jH1u/GiT8doIObbJfHmdjb1Bg6fTrp/2eLvuCuUTiBz8+ObRYtFW7EVvb/wUmbYrmq
+         /cSjI9Xr1N/9np+yYAUYXi7wqiAcG7wtFJPEEmJl/i5zwxmbGIf+iko/wNlInWb1iKUN
+         pqRqUPgZrkWB/A0kXJgLPzg1wlJkBsNiOp5WbekoWjfRHckZp8l0Lh8JrDFY/Z9KB6I2
+         bxU7UYROMQMJte0xPL2asp5DdqGDbb5ZvOwhNwWETOe3VywVo+PMEQmWCFRTLJgmRVpo
+         QrVekP+4YuMpRNjxPqpulq2aprxDtQwEm/UYCTK0JX5ySGVYCWacytgvbXqGoQHDWtB/
+         CUXA==
+X-Forwarded-Encrypted: i=1; AJvYcCWy1r3fuOX4FCaokWXkwCHgzFLEz1FmLEFn0OAZ4WSbJy9OaGw3zYJI00Iad8M6HcgXd8BpE90ikApwt+GvXJ4/yvoY4U0tYMcna6sao7U=
+X-Gm-Message-State: AOJu0YzVo5D6v6aB1dOreoIL6GmJIq580UKPuvk5EtLk3P2Kd4UiHTpN
+	4ROYlvC+xb0PwziBUEPV2na0Wk8VnwwJIM19smqjuENVaZkGaepglUPU9YsIdKEJIYK7Ikt5i8t
+	OCXMY+CjY9T1GPFbwe5iHvUr/vWzougVXMoDWzsxOfO+I0jnCSTKz3ObCtawcFBPo1QkddveuSg
+	uzHH0UMJgty3hEWJpbpdvZxPqCdD1U4aBk/d2saGkmdzeJyUs=
+X-Received: by 2002:a17:90a:d60b:b0:2c4:f5ad:c34b with SMTP id 98e67ed59e1d1-2c93d70b906mr1908184a91.28.1719802954261;
+        Sun, 30 Jun 2024 20:02:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGJ1uiT/gX90HRr6Em1bHsbBAKaVZuIbTBAist3APSo6PN+fGjMT8oEQSdr5ZgibQyzBGSGhLcnLrk1SoY4zyg=
+X-Received: by 2002:a17:90a:d60b:b0:2c4:f5ad:c34b with SMTP id
+ 98e67ed59e1d1-2c93d70b906mr1908164a91.28.1719802953729; Sun, 30 Jun 2024
+ 20:02:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <67d0af06-8132-4f0c-afb2-3dbff77ccf10@oracle.com>
+References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
+ <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
+ <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
+ <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
+ <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
+ <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com> <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
+In-Reply-To: <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Mon, 1 Jul 2024 11:02:22 +0800
+Message-ID: <CACGkMEv9gGrLO0OkHYKmjqrLw50kfm2yaifMk1wnb6noa5L99w@mail.gmail.com>
+Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Willem de Bruijn <willemb@google.com>, virtio-comment@lists.linux.dev, 
+	maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, 
+	Stefano Garzarella <sgarzare@redhat.com>, Michael Tsirkin <mst@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 28, 2024 at 12:31:45PM -0700, Si-Wei Liu wrote:
-> 
-> 
-> On 6/28/2024 1:23 AM, Jason Wang wrote:
-> > On Fri, Jun 28, 2024 at 2:57 PM Si-Wei Liu <si-wei.liu@oracle.com> wrote:
-> > > 
-> > > 
-> > > On 6/27/2024 3:18 PM, Michael S. Tsirkin wrote:
-> > > > On Thu, Jun 27, 2024 at 10:14:49AM -0700, Si-Wei Liu wrote:
-> > > > > On 6/27/2024 5:35 AM, Michael S. Tsirkin wrote:
-> > > > > > On Thu, Jun 27, 2024 at 12:37:32PM +0200, Halil Pasic wrote:
-> > > > > > > On Tue, 25 Jun 2024 18:14:15 -0700
-> > > > > > > Si-Wei Liu <si-wei.liu@oracle.com> wrote:
-> > > > > > > 
-> > > > > > > > On 6/24/2024 10:56 PM, Parav Pandit wrote:
-> > > > > > > [..]
-> > > > > > > > > I saw the need of this proposal slightly differently in the discussion with Heng in v4.
-> > > > > > > > > The way I understood is, proposed relaxation enables below Linux driver flow to work as equally as without device offering VIRTIO_NET_F_VQ_NOTF_COAL.
-> > > > > > > > > 
-> > > > > > > > > Flow is:
-> > > > > > > > > 1. The device offered feature VIRTIO_NET_F_VQ_NOTF_COAL
-> > > > > > > > > 2. The virtio-net driver negotiated VIRTNET_FEATURES that has VIRTIO_NET_F_VQ_NOTF_COAL
-> > > > > > > > > 
-> > > > > > > > > 3. Because VIRTIO_NET_F_VQ_NOTF_COAL is negotiated, device is not applying any coalescing on the VQ, in a good hope that driver will perform VQ notification coalescing.
-> > > > > > > I have certainly understood this differently. When
-> > > > > > > VIRTIO_NET_F_VQ_NOTF_COAL is not negotiated then the device is not supposed/allowed to do any interrupt coalescing (notification suppression may still apply).
-> > > > > > > 
-> > > > > > > If VIRTIO_NET_F_VQ_NOTF_COAL is negotiated the device is supposed
-> > > > > > > to/MUST do the coalescing according to the parameters as described by
-> > > > > > > the virtio spec.
-> > > > > > > 
-> > > > > > > Michael, Jason: Can you guys weigh in on this?
-> > > > > > I still don't understand why this change is needed.
-> > > > > > We have this text:
-> > > > > > 
-> > > > > >      The device may generate notifications more or less frequently than
-> > > > > >      specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-> > > > > > 
-> > > > > > and
-> > > > > > 
-> > > > > >      The behavior of the device in response to set commands of the VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
-> > > > > >      the device MAY generate notifications more or less frequently than specified.
-> > > > > > 
-> > > > > > So with no spec changes, devices already can do what this patch says they can do -
-> > > > > > send notifications less frequently.
-> > > > > Right. If I still recall it correctly, the above text was to accommodate the
-> > > > > interaction with existing used buffer notification mechanism, F_EVENT_IDX or
-> > > > > whatnot.
-> > > > > When coalescing is in place and effective, interrupt delivery is a
-> > > > > collaborative consideration based on the coalescing parameters specified
-> > > > > *AND * event index / NO_INTERRUPT flag as well.
-> > > > No, not really.
-> > > > 
-> > > > For that we have the next sentence:
-> > > > 
-> > > > A device SHOULD NOT send used buffer notifications to the driver if the notifications are suppressed, even if the notification conditions are met.
-> > > > 
-> > > > 
-> > > > And of course event index never makes you send interrupts
-> > > > more frequently.
-> > > Hmmm, this next sentence you reference above was indeed for the
-> > > interaction between coalescing and used buffer suppression. Then what's
-> > > the best-effort part was about, really? Round-up or round down the set
-> > > value to the power of 2 to save space? How is it relevant to our
-> > > discussion? I think even with rounding it shouldn't be too off? (as
-> > > said, by best-effort v.s. give up)
-> > Would it help if we add something like below in the guidance?
-> > 
-> > When the device wants to send a notification it needs:
-> > 
-> > 1) check notification suppression, don't send interrupt if it is
-> > suppressed otherwise goto 2)
-> > 2) check event index, don't send interrupt if event index is not
-> > crossed otherwise goto 3)
-> > 3) check coalescing, don't send interrupt if the coalescing limit is
-> > not exceed, otherwise send the interrupt
-> > 
-> > (Just to demonstrate the idea, needs tweaking for sure)
-> Yeah, this looks good to me, in principle. I recall there was detailed
-> description like this in the early revisions from the first set of
-> coalescing proposal, but those useful descriptions were gone for some
-> reason. We should really come up with clear clarifications to help readers
-> set expectation rather than being vague or worrying too much about
-> verbosity. I was having a hard time in understanding what the best-effort
-> part is about...
-> 
-> -Siwei
+On Fri, Jun 28, 2024 at 5:51=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wro=
+te:
+>
+> On Fri, 2024-06-28 at 10:41 +0800, Jason Wang wrote:
+> > On Wed, Jun 26, 2024 at 1:35=E2=80=AFAM Paolo Abeni <pabeni@redhat.com>=
+ wrote:
+> > > On Tue, 2024-06-25 at 16:28 +0800, Jason Wang wrote:
+> > >
+> > > > Without UDP tunneling, GSO works with simple csum_start/csum_offset=
+.
+> > > > It doesn't require things like mac/network offset.
+> > > > With UDP tunneling, can we just invent
+> > > > inner_csum_start/inner_csum_offset to make things just work?
+> > >
+> > > Note for UDP tunneling should be 'outer_csum_start' (as 'csum_start'
+> > > refers to the inner header) and 'outer_csum_offset' will not be neede=
+d,
+> > > as we know that the outer header is an UDP one.
+> >
+> > You meant it is implied by VIRTIO_NET_HDR_GSO_UDP_TUNNEL? Probably but
+> > we also had the case for VIRTIO_NET_HDR_GSO_UDP.
+>
+> Possibly did you mean VIRTIO_NET_HDR_GSO_UDP_L4?
 
-It means it's a hint from the driver.
-As another example, devices might have a coarse
-grained clock, or a limited packet counter.
-Or whatever. No need to guess.
+Both I think.
 
-There's a balance with verbosity - more text needs to
-add value not just repeat same thing many times.
-It also needs to be written in an exceptionally clear way
-otherwise we are confusing the reader instead of
-helping.
+> I think that is quite
+> a different thing: such offload was added when the
+> csum_start/csum_offset field already existed, I guess it was far easier
+> to reuse the virtio net header as is, instead of _deleting_ an unused
+> field for that specific gso type?!?
 
+We probably don't need to delete it. We can just leave it unused if
+it's the case.
 
-And in this case, I think I agree - instead of saying it
-is best effort and then clarifying, we should straight away
-say this is a hint.
+>
+> To do UDP tunnel GSO we need new fields. Do I understand correctly that
+> there is concern about adding "too much" new fields?
 
-The text in the conformance section should be thus changed:
+Nope, I just want to know the reason why those fields were not
+required for non-tunnel GSO.
 
--The behavior of the device in response to set commands of the VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
-+The device MAY treat the coalescing parameters as a hint:
- the device MAY generate notifications more or less frequently than specified.
+For example, for non tunnel GSO, we have:
 
+gso_type: indicates the protocol of the transport
+csum_start/csum_offset: transport offset and the offset of transport checks=
+um
 
-The text in non conformance section is fine, but let's make it
-consistent:
--The device may generate notifications more or less frequently than specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-+	The device can treat coalescing parameters as a hint,
-+	generating notifications more or less frequently
-+	than specified by the coalescing parameters.
+It seems the device can't do segmentation solely with the above three
+without parsing as TCP has variable options. The device needs to
+understand the TCP options and replicate it in each segment. So:
 
-> > 
-> > THanks
-> > 
-> > 
-> > > -Siwei
-> > > 
-> > > > > > Re-reading this spec text, maybe the confusion is that it mentions set
-> > > > > > commands specifically? And it's also stuck in the middle where it's easy
-> > > > > > to miss.
-> > > > > > 
-> > > > > > So it would seem that the following should be sufficient, and it looks
-> > > > > > like a small clarification we could just apply and include in the
-> > > > > > vote for the csd. What do you guys think?
-> > > > > The revised text below looks good to me.
-> > > > > 
-> > > > > Thanks,
-> > > > > -Siwei
-> > > > > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> > > > > > 
-> > > > > > ----
-> > > > > > 
-> > > > > > 
-> > > > > > diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> > > > > > index 76585b0..d6788df 100644
-> > > > > > --- a/device-types/net/description.tex
-> > > > > > +++ b/device-types/net/description.tex
-> > > > > > @@ -1711,8 +1711,6 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> > > > > >                                             for an enabled transmit/receive virtqueue whose index is \field{vq_index}.
-> > > > > >     \end{enumerate}
-> > > > > > -The device may generate notifications more or less frequently than specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-> > > > > > -
-> > > > > >     If coalescing parameters are being set, the device applies the last coalescing parameters set for a
-> > > > > >     virtqueue, regardless of the command used to set the parameters. Use the following command sequence
-> > > > > >     with two pairs of virtqueues as an example:
-> > > > > > @@ -1726,6 +1724,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> > > > > >     \item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq_index} = 1, the device responds with coalescing parameters of index 1 set by command5.
-> > > > > >     \end{itemize}
-> > > > > > +The device can generate notifications more or less frequently
-> > > > > > +than specified by the coalescing parameters.
-> > > > > > +
-> > > > > >     \subparagraph{Operation}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue / Notifications Coalescing / Operation}
-> > > > > >     The device sends a used buffer notification once the notification conditions are met and if the notifications are not suppressed as explained in \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer Notification Suppression}.
-> > > > > > @@ -1798,7 +1799,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
-> > > > > >     Upon disabling and re-enabling a receive virtqueue, the device MUST set the coalescing parameters of the virtqueue
-> > > > > >     to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_RX_SET command, or, if the driver did not set any RX coalescing parameters, to 0.
-> > > > > > -The behavior of the device in response to set commands of the VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
-> > > > > > +The behavior of the device in response to specific coalescing parameters is best-effort:
-> > > > > >     the device MAY generate notifications more or less frequently than specified.
-> > > > > >     A device SHOULD NOT send used buffer notifications to the driver if the notifications are suppressed, even if the notification conditions are met.
-> > > > > > 
+- L2/L3 seems to be protocol independent. E.g it works for 802.1Q. (Or
+if I was wrong then it should have some assumptions on the L2/L3
+protocol)
+- L4 is not protocol independent, e.g we had gso_type and TCP options
+(Or without a payload_start?)
+
+So the current (non tunneling) GSO is not protocol independent.
+
+For tunnel GSO, this proposal introduces:
+
+inner_protocol: inner ethernet type
+inner_mac_offset: inner mac header
+inner_nh_offset: inner network header
+
+This gives me the impression that the tunnel GSO (at least the inner
+part) wants to be protocol independent. This is fine but I don't fully
+understand why the above is needed. For example, why do we need to
+know about the inner_protocol?
+
+> if so we should
+> avoid introducing 'outer_csum_offset' as it carries no useful
+> information. FTR: I think we *should* be concerned about the
+> virtio_net_header size increase, as it will be bad for performances.
+
+I agree we should be careful but it should be fine as long as we don't
+exceed the cache line size.
+
+>
+> >
+> > > Dropping the support for the use-case with no inner mac header, and
+> > > enforcing that the inner mac header must always be an ethernet one, t=
+he
+> > > following fields will suffice:
+> > > - outer transport header offset (or, if you prefer 'outer_csum_start'=
+)
+> >
+> > csum start seems to be more consistent with existing fields.
+> > Personally I prefer to stick to the existing fields for outer.
+>
+> I'm unsure if I read the above correctly. AFAICS you are suggesting to
+> re-use the existing fields for the outer header and add new ones for
+> the inner header, am I correct?
+
+Yes.
+
+>
+> Note that the outer checksum is optional - the outer UDP csum can be 0.
+>
+> AFAICT using csum_start for the outer csum will be a bad choice as we
+> will need to change the handling of such field depending on the
+> gso_type and the s/w implementation will be more complex and likely
+> more bug prone.
+
+Not sure I understand here, but I'm not sure if it's too late to
+change that. As stated, we may introduce a new robust GSO to replace
+it anyhow.
+
+>
+> > But if
+> > others are all fine with introducing new fields for outer, I'm fine.
+> >
+> > > - inner mac header offset (because we can't locate it in any robust w=
+ay
+> > > even with parsing)
+> >
+> > I see, so the point is to make it protocol independent. Then we end up
+> > with an interesting situation:
+> >
+> > 1) we try to make tunnel GSO to be protocol independent
+> > 2) but it depends on the outer GSO when is not very clear that it is
+> > protocol independent or not
+>
+> Note that the inner mac header offset can change on a per packet basis
+> even if the UDP tunnel protocol stay constant/is fixed. e.g. if the
+> tunnel protocol is geneve, different packets can have different geneve
+> options and thus different inner mac header offset.
+
+Exactly. My point is (I may miss something obvious) why should we care
+about mac header offset when we are doing segmentation? For the
+content from outer payload start to inner transport start
+(inner_csum_start), the device can just replicate without worrying
+about what it has.
+
+>
+> I don't understand the point 2) above. We need some new fields to carry
+> the information need for UDP tunnel GSO. How that relates to the
+> protocol independence? We need such fields regardless of the protocol,
+> unless we want to resort to parsing all the way from the outer mac to
+> the inner transport.
+
+I think we're talking about the same thing, try to avoid unnecessary
+parsing. So I mean, we don't need to parse from outer transport
+payload start to inner csum_start. That's why I don't get why we need
+inner_mac/nh/ether_type.
+
+>
+> > I wonder if we should introduce the PISO for GSO first (new fields)
+> > and build the tunnel GSO on top? (Or it might be an overkill?)
+>
+> I'm not sure if PISO is suitable for the virtio net use case.
+>
+> e.g. the virtio driver rx side must be able to fully reconstruct the
+> GSO information for later S/W segmentation, if needed.
+>
+> With PISO the outer headers and the encap info are lost, the received
+> PSIO GSO packet will be corrupted at any later S/W segmentation.
+>
+> The above problem does not affect H/W nics implementing PISO sending
+> the segmented packets on the wire, as the other end is going to fully
+> parse the incoming packets.
+>
+> @Willem, feel free to correct the above statements as needed.
+
+Yes, I think we need clarification from Willem.
+
+>
+> Let me voice my biggest concern. I feel like we are not making any
+> progress in the forward direction. The initial design was sound enough
+> to build a working PoC.
+
+Yes.
+
+> The current design is completely fuzzy to me.
+
+This is not what I want.
+
+> I
+> would be great if we could start setting some details.
+
+Spec change might be more careful as the vendor may just start the
+implementation so I want to make sure there's no unnecessary fields.
+
+> e.g. do we want to avoid parsing if possible?
+
+This is a good question. See my reply before. At least current GSO
+designs try to avoid parsing at some layers.
+
+I understand the motivation of introducing inner_nh/mac is to avoid
+parsing but I want to know if those are needed for doing segmentation.
+
+>  do we want to minimize
+> new fields introduction?
+
+I think we need a balance between the minimization and how easily it
+could be implemented by device.
+
+> can the virtio net header layout be 'gso_type'
+> dependent?
+
+I don't get this question. Did you mean a completely new header format
+other than the current one? I think the answer is yes if it has
+sufficient justification but it requires a new feature.
+
+>
+> Do you think a video call would help ruling out some details? if so
+> please let me know if/when you are available, I'll try to set it up.
+
+It might be, but let's hear from more people then we can decide if it
+is needed or not.
+
+Adding Michael here.
+
+Thanks
+
+>
+> Thanks,
+>
+> Paolo
+>
 
