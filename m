@@ -1,90 +1,91 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD74E13D8BA
-	for <virtio-comment@lists.linux.dev>; Tue,  2 Jul 2024 07:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5122C15ECE1
+	for <virtio-comment@lists.linux.dev>; Tue,  2 Jul 2024 12:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719906052; cv=none; b=KEVriW230GzLr8bA1uXGRWJnWQtjlA0O26JsPtIMRoX0B9eYCM/FWy3pFEmeiNcGkfcAeXbMbcvaCBEcDV1azxDf4UMmErBWjJGK14GbjyHhbhVb1OA34KpOI0bnr5WgcsXyZK1erlaWeMKdsW8yX0gowworkahEY9EF2+8+4hE=
+	t=1719921650; cv=none; b=Y8VHYfmQauaQxxr3WchThWJ39scDISFO+fuddG8UWkmlnvx96Dxvrpl3qnfXXdFSOAtZ7dHfKrW6zUejKvI0yTaYQCfcOiHKZmboxJLB62Ra3IK9OqOI3bJKM3xrcImEh4ukkCehzfoEpy/OPRUnfxFR6jr+caGcLLoCVBVra74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719906052; c=relaxed/simple;
-	bh=8KymttaLMRyJcg5CLkVF78ISQIsNQvVpdEQBph28s+k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G7AFhH50y1+OzpROvvKwyJp0GgF+35uElYmpzNrFRD4CfekBFnqVwuuR5qwkhff6dzuK0h99j84MMXK0eKzUqpzNjstAv48U9SyIUtwPhnaTh6FytouTMUbBqZTdBVQX/51CRvbv0pCNmWIlnXG1Ujj23jyNFZi7T4mhBzpzGo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UHsBlEgQ; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1719921650; c=relaxed/simple;
+	bh=cD/G/tudkWzxDLz4iIamjeMPrRn6BYTV7druuuEuMuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=dSpNNOJGMHxBm5rUv+Sud2sYbHAQUjEvR7hg4FJI80FgTOXZ8KExr1KhYts/FaEvuHpwvPdyJkgEe9PzNYB0QbcUyDDY+S/XJX4YXZ2u9h9RJdH5wwmlu1coudoFopWCOxTqLV10drLuMULVF+uIBsmOHN8Bxqic3Ok0lBLBuRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=D49zUOWk; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UHsBlEgQ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D49zUOWk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719906049;
+	s=mimecast20190719; t=1719921647;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=XqqST0r2oxvnQs1L2Y7PoijfrH2HjrScRmcu3ejOTeM=;
-	b=UHsBlEgQgXkAUImMAoF282Ik+SqWycYBvvY0tgvIyfP6an9pDxsfR6lEE48kcefok8Xcfs
-	trreBBL8Ueb+L8oCpooNmbhiRToPk/l2JSIbA4ypwUX6HsG24sRj8tHNPHTEXztKhqe364
-	O5ry/C8DODS8X/bN4VwZZ5gKqCWq/js=
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
- [209.85.161.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=yFQksdypu+n9GoMNwH6p2SVlklxaIGyrk/XbOvDSRU0=;
+	b=D49zUOWkGShTXeA63OxOUV+AaxyQoVqEsoEU/zXCnrY2zg/uiAaw/iqR0RuU0ZuRDL1H5j
+	O+I5d9Ph6f3QHAdtXi9q5tc1Cr97Rtu608g/5GJVPlG0JV94Qs9Z4pBy0xsUYL+9uSnxBK
+	OkX9KutOV6EQc40u1Mbtf4y8gOGkf7g=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-480-Y3nUqcwJPLiS8JrmeqVOSg-1; Tue, 02 Jul 2024 03:40:47 -0400
-X-MC-Unique: Y3nUqcwJPLiS8JrmeqVOSg-1
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-5c21a8eeb97so4595688eaf.2
-        for <virtio-comment@lists.linux.dev>; Tue, 02 Jul 2024 00:40:47 -0700 (PDT)
+ us-mta-589-Q3JQKLYcMeu7npmB2vObKA-1; Tue, 02 Jul 2024 08:00:45 -0400
+X-MC-Unique: Q3JQKLYcMeu7npmB2vObKA-1
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-3678e549a1eso115632f8f.0
+        for <virtio-comment@lists.linux.dev>; Tue, 02 Jul 2024 05:00:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719906046; x=1720510846;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=XqqST0r2oxvnQs1L2Y7PoijfrH2HjrScRmcu3ejOTeM=;
-        b=sIXHOTeW6ffiSEA+RtmXHvdeSSbnHWcnRcSx76by05ioFJ1MZeZ+2qw8LtSqfC5q0s
-         ACe8q5+umSvbCZvRVVgDFf9+1ElUx/NWoL8+JKFgjw8PhttWEmKDxOYUEuRt5f76KKF9
-         vrFAu+XB1WCg+xCLODNMBuSCkgpH5yfPubA4H5dnzsXIBAjvGAT6RowWKo7+9c2/iXzE
-         tRsK2puxIBWGosYQblhJiN+H80x13U1x4x/wM5kMDfgIfLUGCfnniPkuR2WflYlwkof3
-         knVuXV4FPXpGj07b5ZVaDr7xgB9fivmaHOsUhNJHUvtCsHRnN9ahCprTV9atdk1Ee6dZ
-         7n8w==
-X-Gm-Message-State: AOJu0Yz7QpVEYJ5PddTmnuF1/J7woHLgeNljRpvYRSlpg8JPAuKQGUMG
-	lsUfaTHdUhybfOb9oqkPK7wGSyQk9aWXuvP2ul8NgazvA32AmGMYYo0bdi37Eqtar2Cd97Fjtmf
-	LIWX6AESw6bkwU6LNsS3jWQGGg9g3s+PKlzvlo0RfncDDL5mdwHkOsaCqq+D0MSIQBPqfxDSnN6
-	Goj4UQH2RWOYilJkHaxA1JIyZ+pnlhH9NWThPzMQ4=
-X-Received: by 2002:a05:6870:a511:b0:254:6e4e:23d7 with SMTP id 586e51a60fabf-25db362e2a7mr7787002fac.50.1719906046264;
-        Tue, 02 Jul 2024 00:40:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF38hlFfKpQ/48uGcTAQzq+J7WPXFsEOHpcoLs41EazpObzNaKTK93OZEPz2jjD1cekRyrLbMo+4nrhxkPKOhw=
-X-Received: by 2002:a05:6870:a511:b0:254:6e4e:23d7 with SMTP id
- 586e51a60fabf-25db362e2a7mr7786990fac.50.1719906045886; Tue, 02 Jul 2024
- 00:40:45 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1719921644; x=1720526444;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yFQksdypu+n9GoMNwH6p2SVlklxaIGyrk/XbOvDSRU0=;
+        b=ZJrHFmZ2R/Js+YQ1/aH2KuJrqAkkNIRypo3pIpkr/8nJJCW1Qv8lSY3pm8NOZbo5/X
+         PCJ0xhqvnZGO4GM+F5ox55e83TAi5i29l5p2PTmlA5VDdwU0s8d+peCCOVaB0EACIEok
+         fx+VY7Qy4DFJ4c28bTnj0BLYx9MIFXLTcaIB3UIkP2jgPhdiOynBr3ZxmV811/IS8Mc8
+         Mh6ZI01ZqNvsLUGUzzecVoD75Gv7VHyxY9EF+Ps/sHI4WcGVWibe8MV9+BZEjDe6+lc0
+         SH4nwzCgsQmyrRQoJHE5n1J5LQVIvs1wptP4uPqdXxIpN6YdmGZzogJuVyLChTFJTwQ/
+         10pw==
+X-Gm-Message-State: AOJu0Yz0k0FPWt8iwgX/r8ceafvXSLBMPJ9nCDcFVELb65C92IUD+PAl
+	yFNOLcaRgyze+1cC2IZpt1wOd4j9BgNR8fs8XRw2h+kFOLzoMYkBAo5iRgcJ5QIJVDFuTMl7vvF
+	1yH0fYdZ8IdZQslFEq4kGw7509xgHTmHOCwzafEroSs2tSi+WO7wpvcSqsYeWQlIM
+X-Received: by 2002:a05:6000:1fa5:b0:363:b3ea:7290 with SMTP id ffacd0b85a97d-36760a7c1d3mr10505852f8f.20.1719921644509;
+        Tue, 02 Jul 2024 05:00:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHSffJZa5mXi1dIopOMDm+mIIpybqqi0/VDgLbibqNUqcYB66dwhTlaK6Jvv7BPg/wZ87yA6g==
+X-Received: by 2002:a05:6000:1fa5:b0:363:b3ea:7290 with SMTP id ffacd0b85a97d-36760a7c1d3mr10505805f8f.20.1719921643751;
+        Tue, 02 Jul 2024 05:00:43 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc7:55d:614d:9fb:6fdd:72a4:f3d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4256af3c272sm199510915e9.8.2024.07.02.05.00.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jul 2024 05:00:43 -0700 (PDT)
+Date: Tue, 2 Jul 2024 08:00:39 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Xiaoguang Wang <lege.wang@jaguarmicro.com>
+Cc: virtio-comment@lists.linux.dev, vattunuru@marvell.com,
+	ndabilpuram@marvell.com, parav@nvidia.com, leo.liu@jaguarmicro.com,
+	angus.chen@jaguarmicro.com
+Subject: Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
+ notification suppression mechanism
+Message-ID: <20240702073359-mutt-send-email-mst@kernel.org>
+References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
 In-Reply-To: <20240701034435.675-1-lege.wang@jaguarmicro.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 2 Jul 2024 15:40:34 +0800
-Message-ID: <CACGkMEvrHNnjdgC6Ls=YWRPFxpirCFkbf8_VnNsh-VU4NoK3tw@mail.gmail.com>
-Subject: Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
- notification suppression mechanism
-To: Xiaoguang Wang <lege.wang@jaguarmicro.com>
-Cc: virtio-comment@lists.linux.dev, vattunuru@marvell.com, 
-	ndabilpuram@marvell.com, parav@nvidia.com, mst@redhat.com, 
-	leo.liu@jaguarmicro.com, angus.chen@jaguarmicro.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, Jul 1, 2024 at 11:51=E2=80=AFAM Xiaoguang Wang
-<lege.wang@jaguarmicro.com> wrote:
->
+Thanks for the patch!
+Yet something to improve:
+
+
+On Mon, Jul 01, 2024 at 11:44:35AM +0800, Xiaoguang Wang wrote:
 > Currently for the PCI transport, used buffer notification suppression
-> informations are located in guest memory, for example, pvirtq_event_suppr=
-ess
-> for packed ring and virtq_avail for split ring, then PCI devices simulate=
-d
+> informations are located in guest memory, for example, pvirtq_event_suppress
+> for packed ring and virtq_avail for split ring, then PCI devices simulated
 > by hypervisors, such as QEMU, can vist these suppression informations
 > directly before issuing used event, the only overheads may be just proper
 > memory barriers, but for some hardware PCI devices offered by
@@ -92,124 +93,197 @@ d
 > suppression informations to DPU internal memory, then check whether
 > used event should be notified by examing this internal memory, which
 > is obvious expensive, and this DMA operation is needed every time
-> DPU attempts to issue used event,
-
-Several things could be used to help here:
-
-1) With the event index, as long as the used index doesn't pass used
-events you don't need to fetch even index every time
-2) Interrupt coalescing may help to throttle the interrupt rate
-3) Spec doesn't forbid implementation specific heuristics for
-interrupt moderation
-
-> DPU may also choose to add a hardware
+> DPU attempts to issue used event, DPU may also choose to add a hardware
 > component to polling suppression informations by submit DMAs continuously
 > to get newest used event suppression infos, but it's also expensive.
->
+> 
 > To help improve this sitiuations, add a new feature:
 > VIRTIO_F_USED_EVENT_AUTO_DISABLE. When this feature bit is negotiated,
 > devices will place new notification area for used buffer suppression
-> notification in PCI bar specfied by virtio_pci_notify_cap, also for bette=
-r
+> notification in PCI bar specfied by virtio_pci_notify_cap, also for better
 > used buffer notification coalescing, the device will disable later used
-> buffer notifications automatically after sending one used buffer notifica=
-tion
-> to driver, and after the driver finishes handling current used buffer eve=
-nt,
+> buffer notifications automatically after sending one used buffer notification
+> to driver, and after the driver finishes handling current used buffer event,
 > it needs to notify the device to enable used buffer notification again by
 > writing above new notification area in PCI bar. Device will receive
 > this notification reliably, and device knows that it can issue used event
-> now, but it may choose appropriate timing to send used events according t=
-o
-> its notification coalescing policy , now it also does not need to DMA gue=
-st
+> now, but it may choose appropriate timing to send used events according to
+> its notification coalescing policy , now it also does not need to DMA guest
 > memory to obtain notification suppression.
-
-Performance numbers are welcomed:
-
-1) compare disabling via register against memory
-2) compare auto disable against no auto
-
->
+> 
 > Signed-off-by: Xiaoguang Wang <lege.wang@jaguarmicro.com>
+
+
+This proposal raises a lot of questions.
+See some of them below.
+
+
+
 > ---
 >  content.tex       | 38 ++++++++++++++++++++++++++++++++++++++
 >  transport-pci.tex | 26 +++++++++++++++++++++++++-
 >  2 files changed, 63 insertions(+), 1 deletion(-)
->
+> 
 > diff --git a/content.tex b/content.tex
 > index 0a62dce..84505da 100644
 > --- a/content.tex
 > +++ b/content.tex
-> @@ -448,6 +448,7 @@ \section{Driver Notifications} \label{sec:Basic Facil=
-ities of a Virtio Device /
+> @@ -448,6 +448,7 @@ \section{Driver Notifications} \label{sec:Basic Facilities of a Virtio Device /
 >  The driver is sometimes required to send an available buffer
 >  notification to the device.
->
-> +\subsection{Available Buffer Notifications} \label{sec:Basic Facilities =
-of a Virtio Device / Driver notifications / Available Buffer Notifications}
+>  
+> +\subsection{Available Buffer Notifications} \label{sec:Basic Facilities of a Virtio Device / Driver notifications / Available Buffer Notifications}
 >  When VIRTIO_F_NOTIFICATION_DATA has not been negotiated,
 >  this notification contains either a virtqueue index if
->  VIRTIO_F_NOTIF_CONFIG_DATA is not negotiated or device supplied virtqueu=
-e
-> @@ -488,6 +489,35 @@ \section{Driver Notifications} \label{sec:Basic Faci=
-lities of a Virtio Device /
+>  VIRTIO_F_NOTIF_CONFIG_DATA is not negotiated or device supplied virtqueue
+> @@ -488,6 +489,35 @@ \section{Driver Notifications} \label{sec:Basic Facilities of a Virtio Device /
 >  has been negotiated, these notifications would then have
 >  identical \field{next_off} and \field{next_wrap} values.
->
-> +\subsection{Used Buffer Event Enable Notifications} \label{sec:Basic Fac=
-ilities of a Virtio Device / Driver notifications / Used Buffer Event Enabl=
-e Notifications}
-> +This kind of notification is only necessary when VIRTIO_F_USED_EVENT_AUT=
-O_DISABLE has been negotiated.
-> +When this feature bit is negotiated, the device will disable used buffer=
- notification
-> +automatically after sending one used buffer notification to the driver, =
-and after the driver
-> +finishes handling current used buffer event, it needs to notify the devi=
-ce to enable used
+>  
+> +\subsection{Used Buffer Event Enable Notifications} \label{sec:Basic Facilities of a Virtio Device / Driver notifications / Used Buffer Event Enable Notifications}
+> +This kind of notification is only necessary when VIRTIO_F_USED_EVENT_AUTO_DISABLE has been negotiated.
+
+This is not how you start a section. Some text from commit log
+might be helpful here.
+
+
+> +When this feature bit is negotiated, the device will disable used buffer notification
+> +automatically after sending one used buffer notification to the driver, and after the driver
+> +finishes handling current used buffer event, it needs to notify the device to enable used
 > +buffer notification again.
 > +
 > +\begin{description}
-> +\item [vq_index or vq_notif_config_data] Either virtqueue index or devic=
-e
-> +      supplied queue notification config data corresponding to a virtque=
-ue.
+> +\item [vq_index or vq_notif_config_data] Either virtqueue index or device
+> +      supplied queue notification config data corresponding to a virtqueue.
 > +\item [used_off] Offset
-> +      within the ring where the latest used ring entry the driver has pr=
-ocessed.
-> +      Without VIRTIO_F_RING_PACKED this refers to the 14 least significa=
-nt bits of the
-> +      offset (in units of descriptor entries) within the descriptor ring=
- where the latest used
-> +      ring entry the driver has processed. With VIRTIO_F_RING_PACKED thi=
-s refers to the offset
-> +      (in units of descriptor entries) within the descriptor ring where =
-the latest used ring
+> +      within the ring where the latest used ring entry the driver has processed.
+> +      Without VIRTIO_F_RING_PACKED this refers to the 14 least significant bits of the
+> +      offset (in units of descriptor entries) within the descriptor ring where the latest used
+> +      ring entry the driver has processed. With VIRTIO_F_RING_PACKED this refers to the offset
+> +      (in units of descriptor entries) within the descriptor ring where the latest used ring
 > +      entry the driver has processed.
 > +\item [used_wrap] Wrap Counter.
 > +      With VIRTIO_F_RING_PACKED this is the wrap counter
-> +      referring to the latest used descriptor where the driver has proce=
-ssed.
-> +      Without VIRTIO_F_RING_PACKED this refers to the most significant b=
-it(bit 14) of the
-> +      offset (in units of descriptor entries) within the descriptor ring=
- where the latest used ring
+> +      referring to the latest used descriptor where the driver has processed.
+> +      Without VIRTIO_F_RING_PACKED this refers to the most significant bit(bit 14) of the
+> +      offset (in units of descriptor entries) within the descriptor ring where the latest used ring
 > +      entry the driver has processed..
 > +\item [enable_notify] Whether to enable used buffer notification.
-> +      The driver may benefit from just informing device the latest used =
-ring entry
-> +      it has processed, but not enabling used buffer notification. This =
-field only
-> +      occupies one bit, if set to 1, it will enable used buffer notifica=
-tion, otherwise not.
+> +      The driver may benefit from just informing device the latest used ring entry
+> +      it has processed, but not enabling used buffer notification. This field only
+> +      occupies one bit, if set to 1, it will enable used buffer notification, otherwise not.
+
+not what?
+
 > +\end{description}
+> +
 
-Any reason we can't reuse the existing meachsim like used index /
-event suppression here?
 
-Basically it just sounds like we need a transport specific method for
-them besides being part of the virtqueue.
+I don't really understand what is this list supposed to mean.
+You seem to be defining a bunch of fields which are never used?
 
-Thanks
+
+Wouldn't a better way to put all this be to say that
+the driver sends a copy of notification suppression
+info to device?
+In case of split - flags  + used_event
+In case of packed - struct pvirtq_event_suppress
+
+
+
+>  \input{shared-mem.tex}
+>  
+>  \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio Device / Exporting Objects}
+> @@ -872,6 +902,14 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
+>  	handling features reserved for future use.
+>  
+> +  \item[VIRTIO_F_USED_EVENT_AUTO_DISABLE(42)] This feature indicates that the device
+> +  will disable used buffer notification automatically after sending one used buffer notification.
+> +  Note: when VIRTIO_F_RING_PACKED has not been negotiated, the maximum queue
+> +  size MUST NOT be greater than 16384, when VIRTIO_F_RING_PACKED has been negotiated,
+> +  the maximum queue size MUST NOT be greater than 16383.
+
+This is not the place for this kind of note.
+
+
+> +
+> +  See \ref{sec:Basic Facilities of a Virtio Device / Driver notifications / Used Buffer Event Enable Notifications}
+> +
+>  \end{description}
+>  
+>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index a5c6719..62ba9dc 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -551,6 +551,13 @@ \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options
+>          cap.offset + queue_notify_off * notify_off_multiplier
+>  \end{lstlisting}
+>  
+> +If the VIRTIO_F_USED_EVENT_AUTO_DISABLE feature has been negotiated, \field{notify_off_multiplier} is also
+> +combined with the \field{queue_notify_off} to derive the Queue Notify address for enabling
+> +used buffer notifications within a BAR for a virtqueue,
+
+each term has to be first explained, then used.
+you never bother saying what is "Queue Notify address for enabling
+used buffer notifications"
+
+> but add a 4 bytes offset:
+> +\begin{lstlisting}
+> +        cap.offset + queue_notify_off * notify_off_multiplier + 4
+
+quite a hack. why not just a new capability?
+
+> +\end{lstlisting}
+> +
+>  The \field{cap.offset} and \field{notify_off_multiplier} are taken from the
+>  notification capability structure above, and the \field{queue_notify_off} is
+>  taken from the common configuration structure.
+
+
+All this is quite vague and informal.
+
+
+> @@ -563,7 +570,7 @@ \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options
+>  \devicenormative{\paragraph}{Notification capability}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
+>  The device MUST present at least one notification capability.
+>  
+> -For devices not offering VIRTIO_F_NOTIFICATION_DATA:
+> +For devices not offering VIRTIO_F_NOTIFICATION_DATA or VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+>  
+>  The \field{cap.offset} MUST be 2-byte aligned.
+>  
+> @@ -596,6 +603,23 @@ \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options
+>  cap.length >= queue_notify_off * notify_off_multiplier + 4
+>  \end{lstlisting}
+>  
+> +For devices offering VIRTIO_F_USED_EVENT_AUTO_DISABLE:
+> +
+> +The device MUST either present \field{notify_off_multiplier} as a
+> +number that is a power of 2 that is also a multiple 4,
+> +or present \field{notify_off_multiplier} as 0.
+> +
+> +The \field{cap.offset} MUST be 4-byte aligned.
+> +
+> +The value \field{cap.length} presented by the device MUST be at least 8
+> +and MUST be large enough to support queue notification offsets
+> +for all supported queues in all possible configurations.
+> +
+> +For all queues, the value \field{cap.length} presented by the device MUST satisfy:
+> +\begin{lstlisting}
+> +cap.length >= queue_notify_off * notify_off_multiplier + 8
+> +\end{lstlisting}
+> +
+>  \subsubsection{ISR status capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / ISR status capability}
+>  
+>  The VIRTIO_PCI_CAP_ISR_CFG capability
+
+
+After reading this and the text, I can't figure out how is this feature
+supposed to work without races.  What if the device uses a buffer while
+the driver notification is in flight to the device?
+
+> -- 
+> 2.34.1
 
