@@ -1,172 +1,150 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3851CD5DA
-	for <virtio-comment@lists.linux.dev>; Tue,  2 Jul 2024 21:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DDB2158853
+	for <virtio-comment@lists.linux.dev>; Tue,  2 Jul 2024 23:44:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719956618; cv=none; b=lF/ICFmZhuTp9gY58Cg4QlQQNGiWQnlWRU+rR0567hDxTh0qPq3KoRMbvgS6hbtg2S+17tPwRCv4P7f1N8cAQjuMEACiMIXzgDooBx58n/kdkPd7hXCEPPWZKU9CuhTFyUPCpV1Bz5mipd/6YloGzv6rvG/y7HACwVLh7vWLrf0=
+	t=1719963843; cv=none; b=k2dJVGS8sPYmu0raO8hUc4uy9XwzJQbQnJnNSogZmwhxPpQ7ODX0RFXho28d0PKKhWA03OMMiM6Tl/N9DlL3RqSRkbJ1LxHNRexW+o0sro34xTGS5TzvGX8E09tEImhHk6MzEgitRgGvlRVHboWgyQQpqHL7uYKFWZQ734txSqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719956618; c=relaxed/simple;
-	bh=m/duJ/vzNXt4WhpO4CFQgsnk8BKLGt+fx09INsPjxzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Wf1O/NksEmhASy8V+Ja/20ZVOOzf8gFgcETybMSLLMluWdJW3hJZTkLhWp7D5uTjwnIdSdTOUVSPmFpTVT1ispl4nuHvlwrEAqPavM1FoNsHgv8qxsSKieSACd0BRvD7m8SavHPq4zlwKrsSgTQtVAZtJ4prRVKyB0AaLClR/+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=X8y1FMrj; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1719963843; c=relaxed/simple;
+	bh=tjgRnPyI4bbunYcx1kcRrkKylFuUnt6PAuU0MDfmifE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RpUdJBz21LPlgjtAMQD2H+kLOSmRnjPADyPm9Twgu2576SNCT9YTlJWDKSH9CnUmR1MSE0M2jjMqhRaWiPvc8Zlwbsj9fDXgrVwnGHGrrU0wi7KrTTrQ2svDHCjRuqGYhjkt67kcVZgA1fhh/GZOYIzNqsodIp9RlYjHf3Cc9rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=3LnFkuk4; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="X8y1FMrj"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462LT1Kh016816;
-	Tue, 2 Jul 2024 21:43:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=date
-	:from:to:cc:subject:message-id:in-reply-to:references
-	:mime-version:content-type:content-transfer-encoding; s=pp1; bh=
-	OtzyCTySjCd0G4+HRrsM2HNfEP003RF7Jy6gJ7xfIlo=; b=X8y1FMrj+iBnJvjg
-	5bVbUaV4+XCU4vR8q3aQjbxm07SC0Ti/14V5Bn7cidX1zlMXvsw0QTL/r1Nt1nyq
-	13GFVHGz7gRO/bPmAZn9R0da+HLGNnO7zXnwHWZTjo8PaNVCRytN9IJpTXlLBZWK
-	DPj61TQ2NT8/oTmhpBs20sGf/RNjnKLGANgFUT9oFtBm3QXnBuSp8Abq9H6ZP+L0
-	1jrdBCyLgU2lwKh16R5G7i+VrECGXVhawxRuO/1RP95Nrr4o1pm/UFOYFwOkjZ5o
-	zfxd8Wjr5KYqnCQgyuv5xmUQ/XhFeeCd+38CBVY6G2ccUXff5lyVWKUYFCsMXEU3
-	crpIDA==
-Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 404sga00nm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Jul 2024 21:43:33 +0000 (GMT)
-Received: from m0353725.ppops.net (m0353725.ppops.net [127.0.0.1])
-	by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 462LhXxn005602;
-	Tue, 2 Jul 2024 21:43:33 GMT
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 404sga00nj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Jul 2024 21:43:33 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 462IrU19009473;
-	Tue, 2 Jul 2024 21:43:32 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 402xtmpvu4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Jul 2024 21:43:32 +0000
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 462LhTw345351252
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 2 Jul 2024 21:43:31 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E547320040;
-	Tue,  2 Jul 2024 21:43:28 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4F3D220043;
-	Tue,  2 Jul 2024 21:43:28 +0000 (GMT)
-Received: from li-ce58cfcc-320b-11b2-a85c-85e19b5285e0 (unknown [9.171.49.148])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Tue,  2 Jul 2024 21:43:28 +0000 (GMT)
-Date: Tue, 2 Jul 2024 23:43:26 +0200
-From: Halil Pasic <pasic@linux.ibm.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Si-Wei Liu <si-wei.liu@oracle.com>, Parav Pandit <parav@nvidia.com>,
-        Heng Qi <hengqi@linux.alibaba.com>, Cornelia Huck <cohuck@redhat.com>,
-        "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-        Jason
- Wang <jasowang@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Halil
- Pasic <pasic@linux.ibm.com>
-Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
-Message-ID: <20240702234326.79fa6d6e.pasic@linux.ibm.com>
-In-Reply-To: <20240630125153-mutt-send-email-mst@kernel.org>
-References: <e774e811-27ba-4151-b300-e22161f1b4d5@oracle.com>
- <1718940245.6932242-13-hengqi@linux.alibaba.com>
- <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com>
- <1719020069.8729858-17-hengqi@linux.alibaba.com>
- <f03e76fe-9ee8-4000-b41c-0b284f2f237d@oracle.com>
- <PH0PR12MB54818CFB447152A25130F9B8DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
- <bca1e5e8-65af-4825-b6fe-2ca3b6c41feb@oracle.com>
- <20240627123732.0cf541b3.pasic@linux.ibm.com>
- <20240627080346-mutt-send-email-mst@kernel.org>
- <20240629084747.1d173908.pasic@linux.ibm.com>
- <20240630125153-mutt-send-email-mst@kernel.org>
-Organization: IBM
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="3LnFkuk4"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-447bee1aef5so26671cf.1
+        for <virtio-comment@lists.linux.dev>; Tue, 02 Jul 2024 16:44:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1719963841; x=1720568641; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SudeXdTuTkeBoJsghBIjV74AqY2tXADZVntWIeS/3Sg=;
+        b=3LnFkuk4HkHuopeEH02nWrWQE/Bcb8EpyHP+NExicBRomdhvuI3Gb1VVfOKVgOtFBE
+         eIWqNYQ2O0kFVp9KdYAWAjXMIJLWjnh4fhVYSrAdyKVTeRWxiX6wRamsGvFbCpxTyq8j
+         wE8Ws9UazzActrTQN2VPvO29DkOTL6ZGXIVnM9KNi993eeomabsYUeltaK/w3OxplVbI
+         VoUmiFWb0rgrqt58gV9OjOcfklt8HGzb+P+LtWJqdppCYD8fcLwjgymVfGB31irYatHO
+         jgJLM7iBmx8bPCiL3b8tjmBambZLQPGdWcOXQOnciFJqw28+MCql5zM0gVtrV5u1AI5F
+         QIjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719963841; x=1720568641;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SudeXdTuTkeBoJsghBIjV74AqY2tXADZVntWIeS/3Sg=;
+        b=Jg2+O0SWe9JUYHbHX/AijbLeCd0HRKNVAT3LAfYUNv+z/RfECvfGVrl3qsVALIdsqe
+         /GyWSg2XUOxoSuNZm4i5IBLQ1jEFE++cru/8AfnEpU7FMaNX0WLPl9eeWWYdftTvBUEK
+         ejZxW4XVzNOe9oaumA0EmF+vJ8QITOC3vXURbsKZu9giCc9YyF8X5PPX/A2+zauZ3HY/
+         HolDbWg7LZS9QI6JCLwcXKYvXNG7cdA6J05gmpaGhj7r6V60Q3JmZ1wO+no4HjMIBTgr
+         vO9HVweoOsEX0upyWgSMFijbnMDL5pNXHrghhFdgqe6LhDo1h6hA/qP46Y99bic0+9cJ
+         e/5A==
+X-Forwarded-Encrypted: i=1; AJvYcCUcEon/zAY7imvavmmOHKXx/PF29zmx6GFHY9ljP5lmLESJcPEDA9hzcnZ21H4r8pD0FJN/ghjqLcefp3KMMhAK+wcj1FBvwnPdTKzbolk=
+X-Gm-Message-State: AOJu0YzbN6+Z5TMIzMgkJDO8AtH/0La92vkZI/T8PqFElOxO1qv0n7E1
+	Oc2Pisl9bWspaWTCO0OAz4LI3OFN3BpbshynHi2uwodiwK4h45aoEJmmc0cvEadourS1n0x3pkW
+	+Pwf/IEVJT9gFvvuCXpKzpbZ1I28zFxH8uq35
+X-Google-Smtp-Source: AGHT+IHFj2so9/3KL2Mn0Rq5ySYdSwS/mHs4E7oTgmpWbBilo+aBXBR+sB+vmu2CUHgkVsvRxn/pqc1DI52fRubOLVE=
+X-Received: by 2002:ac8:6c1:0:b0:441:54bb:50eb with SMTP id
+ d75a77b69052e-447bc38f19fmr1156461cf.28.1719963840906; Tue, 02 Jul 2024
+ 16:44:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: UuTMk5We17euDtRxoJP2rw9yVaUbefLv
-X-Proofpoint-ORIG-GUID: 5E3Rqkm1D2ma4UfGrrHDfQCqNLFCgyc5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-02_16,2024-07-02_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 suspectscore=0
- adultscore=0 clxscore=1015 spamscore=0 mlxscore=0 impostorscore=0
- priorityscore=1501 phishscore=0 mlxlogscore=999 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407020158
+References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
+ <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
+ <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
+ <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
+ <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
+ <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com>
+ <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
+ <CACGkMEv9gGrLO0OkHYKmjqrLw50kfm2yaifMk1wnb6noa5L99w@mail.gmail.com>
+ <4497c727ea6cc696ba7d60bcb95ba9bce33f1136.camel@redhat.com>
+ <CACGkMEu_ODQV6O5-w6Hzg5gk-8x_iRsuWSk4fN2vzznPEYKphg@mail.gmail.com>
+ <CA+FuTSdAB3m2gD8gA9VyRY5+C4UJqE38cTbkTbYhZbh=yNofyA@mail.gmail.com> <383c106f9f9abd34ee5fbb050c68feb9f0b6cf60.camel@redhat.com>
+In-Reply-To: <383c106f9f9abd34ee5fbb050c68feb9f0b6cf60.camel@redhat.com>
+From: Willem de Bruijn <willemb@google.com>
+Date: Tue, 2 Jul 2024 19:43:21 -0400
+Message-ID: <CA+FuTSfsAuj0PLSoezWAP=ZREhNp4KR7VcBFbc+7hL7wBeZ5Sw@mail.gmail.com>
+Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.linux.dev, 
+	maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, 
+	Stefano Garzarella <sgarzare@redhat.com>, Michael Tsirkin <mst@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 30 Jun 2024 12:55:35 -0400
-"Michael S. Tsirkin" <mst@redhat.com> wrote:
+On Tue, Jul 2, 2024 at 12:38=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wro=
+te:
+>
+> On Tue, 2024-07-02 at 08:46 -0400, Willem de Bruijn wrote:
+> >
+> > > VIRTIO_NET_F_DATA_VALID/CHECKSUM_UNNECESSARY), so the driver needs to
+> > > probe them. For example, Linux driver has this in
+> > > virtio_net_hdr_to_skb():
+> > >
+> > >                 /* gso packets without NEEDS_CSUM do not set transpor=
+t_offset.
+> > >                  * probe and drop if does not match one of the above =
+types.
+> > >                  */
+> > >                 if (gso_type && skb->network_header) {
+> > >                         struct flow_keys_basic keys;
+> > >                         ...
+> >
+> > One of my main interests here is to ensure that we avoid
+> > introducing more such permissive combinations of flags
+> > that no real application uses, but syzbot exploits.
+>
+> As mentioned in my previous email, the current proposal does not
+> specify it, but UDP tunnel GSO could mandate (inner) csum offload as a
+> pre-req, avoiding a few edge cases.
 
-> On Sat, Jun 29, 2024 at 08:47:47AM +0200, Halil Pasic wrote:
-[..] 
-> > > > I have certainly understood this differently. When
-> > > > VIRTIO_NET_F_VQ_NOTF_COAL is not negotiated then the device is not supposed/allowed to do any interrupt coalescing (notification suppression may still apply).
-> > > > 
-> > > > If VIRTIO_NET_F_VQ_NOTF_COAL is negotiated the device is supposed
-> > > > to/MUST do the coalescing according to the parameters as described by
-> > > > the virtio spec.
-> > > > 
-> > > > Michael, Jason: Can you guys weigh in on this?    
-> > > 
-> > > I still don't understand why this change is needed.
-> > > We have this text:
-> > > 
-> > > 	The device may generate notifications more or less frequently than
-> > > 	specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.  
-> > 
-> > The less frequently could be understood like due to notification
-> > suppression.  
-> 
-> I think you are missing that there is a separate text about notification suppression
-> immediately after it:
-> 	A device SHOULD NOT send used buffer notifications to the driver
-> 	if the notifications are suppressed, even if the notification conditions
-> 	are met.
-> I think that makes it clear this text is separate from suppression.
-> 
+GSO always requires checksum offload. It would be good to state this
+explicitly too.
 
-No I did not miss it, and I don't think that the two sentences being in
-adjacent paragraphs makes it clear that this is separate from
-suppression.
+> > > > That csum field will need different handling WRT the inner one - as=
+ the
+> > > > outer csum is optional.
+> >
+> > So that I understand, is the plan to allow only these two
+> >
+> > 1. a zero outer checksum + inner checksum offload
+> > 2. outer checksum offload + inner checksum offload
+> >
+> > And skip trying to support PISO?
+>
+> That is my intention, yes. Additionally, I raise a doubt about PISO
+> feasibility in the virtio net case.
+>
+> Let suppose virtio support PISO, the device transmits an UDP tunnel GSO
+> packet, the driver receives it and fill the skbuff. The inner protocol
+> and mac are unknown. Even skb->encapsulation is left zeroed. When/if
+> such packet is later S/W segmented bad thing will happen.
 
-For me the "notification conditions" part and the "even" is making it
-sound like normally meeting these conditions would mean that a
-notification should be sent but then notification suppression overrules
-that, so there will be no notification even though if it wasn't for
-the suppression there would be one.
- 
-[..]
-> 
-> OK, I guess we can clarify:
-> 	in particular, the device MAY coalesce notifications when
-> 	coalescing parameters are set to 0.
-> 
-> will that make it better?
-> 
+I think these could be addressed with the right virtio_net_hdr fields.
 
-I don't think so. Sorry, there are things I would like to understand
-before committing. Back then when I voted on the coalescing I convinced
-myself that the interaction between used buffer notification suppression
-and used buffer notification coalescing on the TX and RX queues of
-virtio-net is specified with enough clarity. Now I'm asking myself
-if I came to that conclusion along the lines "nothing else would make
-any sense, not spelling it out properly is not tragic". Please
-see my comment on Jason's proposal.
+But it's fine to skip too.
 
-Regards,
-Halil
+> > I don't think many hardware devices will support 2, but the focus here
+> > appears to be VM to VM.
+>
+> Note that even without PISO support it should be easy to expose GSO
+> PARTIAL support on top of virtio_net, even for packets requiring outer
+> checksum offload.
 
+I guess by virtue of
 
+The packet will get SKB_GSO_UDP_TUNNEL_CSUM | SKB_GSO_TCPV4.
+
+The physical device advertises
+    features =3D NETIF_F_TSO
+    gso_partial_features =3D NETIF_F_GSO_UDP_TUNNEL_CSUM
+
+And so the virtio device will send it to software segmentation to
+create the partial gso pair of packets?
